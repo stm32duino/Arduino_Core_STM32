@@ -108,7 +108,13 @@
   */
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+/** @addtogroup FLASH_Private_Variables
+  * @{
+  */
 FLASH_ProcessTypeDef pFlash;
+/**
+  * @}
+  */
 /* Private function prototypes -----------------------------------------------*/
 /* Exported functions ---------------------------------------------------------*/
 

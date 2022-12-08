@@ -54,7 +54,7 @@
   */
 /* Private variables ---------------------------------------------------------*/
 /* Private constants ---------------------------------------------------------*/
-/** @defgroup RNG_Ex_Private_Constants RNGEx Private Constants
+/** @addtogroup RNG_Ex_Private_Constants
   * @{
   */
 #define RNG_TIMEOUT_VALUE     2U

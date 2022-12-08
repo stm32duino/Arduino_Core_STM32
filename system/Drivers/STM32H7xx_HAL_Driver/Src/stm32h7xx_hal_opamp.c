@@ -964,49 +964,6 @@ HAL_OPAMP_TrimmingValueTypeDef HAL_OPAMP_GetTrimOffset (OPAMP_HandleTypeDef *hop
   return trimmingvalue;
 }
 
-/**
-  * @}
-  */
-
-
-/** @defgroup OPAMP_Exported_Functions_Group4 Peripheral State functions
- *  @brief   Peripheral State functions
- *
-@verbatim
- ===============================================================================
-                      ##### Peripheral State functions #####
- ===============================================================================
-    [..]
-    This subsection permits to get in run-time the status of the peripheral.
-
-@endverbatim
-  * @{
-  */
-
-/**
-  * @brief  Return the OPAMP handle state.
-  * @param  hopamp  OPAMP handle
-  * @retval HAL state
-  */
-HAL_OPAMP_StateTypeDef HAL_OPAMP_GetState(OPAMP_HandleTypeDef *hopamp)
-{
-  /* Check the OPAMP handle allocation */
-  if(hopamp == NULL)
-  {
-    return HAL_OPAMP_STATE_RESET;
-  }
-
-  /* Check the parameter */
-  assert_param(IS_OPAMP_ALL_INSTANCE(hopamp->Instance));
-
- /* Return OPAMP handle state */
-  return hopamp->State;
-}
-
-/**
-  * @}
-  */
-
 #if (USE_HAL_OPAMP_REGISTER_CALLBACKS == 1)
 /**
   * @brief  Register a User OPAMP Callback
@@ -1140,7 +1097,47 @@ HAL_StatusTypeDef HAL_OPAMP_UnRegisterCallback (OPAMP_HandleTypeDef *hopamp, HAL
 }
 
 #endif /* USE_HAL_OPAMP_REGISTER_CALLBACKS */
-  /**
+
+/**
+  * @}
+  */
+
+
+/** @defgroup OPAMP_Exported_Functions_Group4 Peripheral State functions
+  *  @brief   Peripheral State functions
+  *
+@verbatim
+ ===============================================================================
+                      ##### Peripheral State functions #####
+ ===============================================================================
+    [..]
+    This subsection permits to get in run-time the status of the peripheral.
+
+@endverbatim
+  * @{
+  */
+
+/**
+  * @brief  Return the OPAMP handle state.
+  * @param  hopamp  OPAMP handle
+  * @retval HAL state
+  */
+HAL_OPAMP_StateTypeDef HAL_OPAMP_GetState(OPAMP_HandleTypeDef *hopamp)
+{
+  /* Check the OPAMP handle allocation */
+  if(hopamp == NULL)
+  {
+    return HAL_OPAMP_STATE_RESET;
+  }
+
+  /* Check the parameter */
+  assert_param(IS_OPAMP_ALL_INSTANCE(hopamp->Instance));
+
+  /* Return OPAMP handle state */
+  return hopamp->State;
+}
+
+/**
   * @}
   */
 

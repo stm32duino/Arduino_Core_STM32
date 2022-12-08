@@ -2412,7 +2412,27 @@ __STATIC_INLINE uint32_t LL_SPI_IsEnabledDMAReq_TX(SPI_TypeDef *SPIx)
 {
   return ((READ_BIT(SPIx->CFG1, SPI_CFG1_TXDMAEN) == (SPI_CFG1_TXDMAEN)) ? 1UL : 0UL);
 }
+/**
+  * @brief  Get the data register address used for DMA transfer
+  * @rmtoll TXDR           TXDR            LL_SPI_DMA_GetTxRegAddr
+  * @param  SPIx SPI Instance
+  * @retval Address of data register
+  */
+__STATIC_INLINE uint32_t LL_SPI_DMA_GetTxRegAddr(SPI_TypeDef *SPIx)
+{
+  return (uint32_t) &(SPIx->TXDR);
+}
 
+/**
+  * @brief  Get the data register address used for DMA transfer
+  * @rmtoll RXDR           RXDR            LL_SPI_DMA_GetRxRegAddr
+  * @param  SPIx SPI Instance
+  * @retval Address of data register
+  */
+__STATIC_INLINE uint32_t LL_SPI_DMA_GetRxRegAddr(SPI_TypeDef *SPIx)
+{
+  return (uint32_t) &(SPIx->RXDR);
+}
 /**
   * @}
   */
@@ -2440,7 +2460,12 @@ __STATIC_INLINE uint8_t LL_SPI_ReceiveData8(SPI_TypeDef *SPIx)
   */
 __STATIC_INLINE uint16_t LL_SPI_ReceiveData16(SPI_TypeDef *SPIx)
 {
+#if defined (__GNUC__)
+  __IO uint16_t *spirxdr = (__IO uint16_t *)(&(SPIx->RXDR));
+  return (*spirxdr);
+#else
   return (*((__IO uint16_t *)&SPIx->RXDR));
+#endif /* __GNUC__ */
 }
 
 /**
@@ -2479,7 +2504,7 @@ __STATIC_INLINE void LL_SPI_TransmitData16(SPI_TypeDef *SPIx, uint16_t TxData)
   __IO uint16_t *spitxdr = ((__IO uint16_t *)&SPIx->TXDR);
   *spitxdr = TxData;
 #else
-  SPIx->TXDR = TxData;
+  *((__IO uint16_t *)&SPIx->TXDR) = TxData;
 #endif /* __GNUC__ */
 }
 
@@ -2580,6 +2605,9 @@ void        LL_SPI_StructInit(LL_SPI_InitTypeDef *SPI_InitStruct);
   * @}
   */
 #endif /* USE_FULL_LL_DRIVER */
+/**
+  * @}
+  */
 /**
   * @}
   */
@@ -3711,13 +3739,14 @@ __STATIC_INLINE void LL_I2S_TransmitData32(SPI_TypeDef *SPIx, uint32_t TxData)
   LL_SPI_TransmitData32(SPIx, TxData);
 }
 
+
 /**
   * @}
   */
 
 
 #if defined(USE_FULL_LL_DRIVER)
-/** @defgroup SPI_LL_EF_Init Initialization and de-initialization functions
+/** @defgroup I2S_LL_EF_Init Initialization and de-initialization functions
   * @{
   */
 
@@ -3745,9 +3774,6 @@ void        LL_I2S_ConfigPrescaler(SPI_TypeDef *SPIx, uint32_t PrescalerLinear, 
   * @}
   */
 
-/**
-  * @}
-  */
 #ifdef __cplusplus
 }
 #endif

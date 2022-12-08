@@ -131,9 +131,15 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
+/** @addtogroup SDRAM_Private_Functions SDRAM Private Functions
+  * @{
+  */
 static void SDRAM_DMACplt(MDMA_HandleTypeDef *hmdma);
 static void SDRAM_DMACpltProt(MDMA_HandleTypeDef *hmdma);
 static void SDRAM_DMAError(MDMA_HandleTypeDef *hmdma);
+/**
+  * @}
+  */
 
 /* Exported functions --------------------------------------------------------*/
 /** @defgroup SDRAM_Exported_Functions SDRAM Exported Functions
@@ -1231,6 +1237,9 @@ HAL_SDRAM_StateTypeDef HAL_SDRAM_GetState(SDRAM_HandleTypeDef *hsdram)
   * @}
   */
 
+/** @addtogroup SDRAM_Private_Functions SDRAM Private Functions
+  * @{
+  */
 /**
   * @brief  MDMA SDRAM process complete callback.
   * @param  hmdma : MDMA handle
@@ -1297,6 +1306,9 @@ static void SDRAM_DMAError(MDMA_HandleTypeDef *hmdma)
 #endif /* USE_HAL_SDRAM_REGISTER_CALLBACKS */
 }
 
+/**
+  * @}
+  */
 /**
   * @}
   */

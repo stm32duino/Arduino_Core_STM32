@@ -20,7 +20,7 @@
 #define STM32H7xx_HAL_RCC_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -76,7 +76,7 @@ typedef struct
   uint32_t PLLFRACN;   /*!<PLLFRACN: Specifies Fractional Part Of The Multiplication Factor for
                         PLL1 VCO It should be a value between 0 and 8191                              */
 
-}RCC_PLLInitTypeDef;
+} RCC_PLLInitTypeDef;
 
 /**
   * @brief  RCC Internal/External Oscillator (HSE, HSI, CSI, LSE and LSI) configuration structure definition
@@ -102,7 +102,7 @@ typedef struct
   uint32_t LSIState;             /*!< The new state of the LSI.
                                       This parameter can be a value of @ref RCC_LSI_Config                        */
 
- uint32_t HSI48State;            /*!< The new state of the HSI48.
+  uint32_t HSI48State;            /*!< The new state of the HSI48.
                                       This parameter can be a value of @ref RCC_HSI48_Config                      */
 
   uint32_t CSIState;             /*!< The new state of the CSI.
@@ -114,7 +114,7 @@ typedef struct
 
   RCC_PLLInitTypeDef PLL;        /*!< PLL structure parameters                                                    */
 
-}RCC_OscInitTypeDef;
+} RCC_OscInitTypeDef;
 
 /**
   * @brief  RCC System, AHB and APB busses clock configuration structure definition
@@ -142,7 +142,7 @@ typedef struct
                                        This parameter can be a value of @ref RCC_APB2_Clock_Source                        */
   uint32_t APB4CLKDivider;      /*!< The APB4 clock (D3PCLK1) divider. This clock is derived from the AHB clock (HCLK).
                                        This parameter can be a value of @ref RCC_APB4_Clock_Source                        */
-}RCC_ClkInitTypeDef;
+} RCC_ClkInitTypeDef;
 
 /**
   * @}
@@ -7623,7 +7623,7 @@ typedef struct
   *
   * @retval None
   */
- #define  __HAL_RCC_PLLFRACN_CONFIG(__RCC_PLL1FRACN__) MODIFY_REG(RCC->PLL1FRACR, RCC_PLL1FRACR_FRACN1, (uint32_t)(__RCC_PLL1FRACN__) << RCC_PLL1FRACR_FRACN1_Pos)
+#define  __HAL_RCC_PLLFRACN_CONFIG(__RCC_PLL1FRACN__) MODIFY_REG(RCC->PLL1FRACR, RCC_PLL1FRACR_FRACN1, (uint32_t)(__RCC_PLL1FRACN__) << RCC_PLL1FRACR_FRACN1_Pos)
 
 
 /** @brief  Macro to select  the PLL1  reference frequency range.
@@ -7958,9 +7958,9 @@ typedef struct
 #include "stm32h7xx_hal_rcc_ex.h"
 
 /* Exported functions --------------------------------------------------------*/
- /** @addtogroup RCC_Exported_Functions
-  * @{
-  */
+/** @addtogroup RCC_Exported_Functions
+ * @{
+ */
 
 /** @addtogroup RCC_Exported_Functions_Group1
   * @{
@@ -7990,7 +7990,7 @@ void     HAL_RCC_GetClockConfig(RCC_ClkInitTypeDef *RCC_ClkInitStruct, uint32_t 
 /* CSS NMI IRQ handler */
 void     HAL_RCC_NMI_IRQHandler(void);
 /* User Callbacks in non blocking mode (IT mode) */
-void     HAL_RCC_CCSCallback(void);
+void     HAL_RCC_CSSCallback(void);
 
 /**
   * @}
@@ -8013,6 +8013,7 @@ void     HAL_RCC_CCSCallback(void);
 #define CSI_TIMEOUT_VALUE          (2U)    /* 2 ms */
 #define LSI_TIMEOUT_VALUE          (2U)    /* 2 ms */
 #define PLL_TIMEOUT_VALUE          (2U)    /* 2 ms */
+#define PLL_FRAC_TIMEOUT_VALUE     (1U)    /* PLL Fractional part waiting time before new latch enable : 1 ms */
 #define CLOCKSWITCH_TIMEOUT_VALUE  (5000U) /* 5 s  */
 #define RCC_DBP_TIMEOUT_VALUE      (100U)
 #define RCC_LSE_TIMEOUT_VALUE      LSE_STARTUP_TIMEOUT

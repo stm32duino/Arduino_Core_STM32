@@ -47,11 +47,11 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /**
- * @brief STM32H7xx HAL Driver version number V1.11.0
+ * @brief STM32H7xx HAL Driver version number V1.11.1
    */
 #define __STM32H7xx_HAL_VERSION_MAIN   (0x01UL) /*!< [31:24] main version */
 #define __STM32H7xx_HAL_VERSION_SUB1   (0x0BUL) /*!< [23:16] sub1 version */
-#define __STM32H7xx_HAL_VERSION_SUB2   (0x00UL) /*!< [15:8]  sub2 version */
+#define __STM32H7xx_HAL_VERSION_SUB2   (0x01UL) /*!< [15:8]  sub2 version */
 #define __STM32H7xx_HAL_VERSION_RC     (0x00UL) /*!< [7:0]  release candidate */
 #define __STM32H7xx_HAL_VERSION         ((__STM32H7xx_HAL_VERSION_MAIN << 24)\
                                         |(__STM32H7xx_HAL_VERSION_SUB1 << 16)\
@@ -78,11 +78,11 @@ HAL_TickFreqTypeDef uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
-/** @defgroup HAL_Private_Functions  HAL Private Functions
+/** @addtogroup HAL_Exported_Functions
   * @{
   */
 
-/** @defgroup HAL_Group1 Initialization and de-initialization Functions
+/** @addtogroup HAL_Group1
  *  @brief    Initialization and de-initialization functions
  *
 @verbatim
@@ -252,7 +252,7 @@ __weak void HAL_MspDeInit(void)
   * @note In the default implementation, SysTick timer is the source of time base.
   *       It is used to generate interrupts at regular time intervals.
   *       Care must be taken if HAL_Delay() is called from a peripheral ISR process,
-  *       The the SysTick interrupt must have higher priority (numerically lower)
+  *       the SysTick interrupt must have higher priority (numerically lower)
   *       than the peripheral interrupt. Otherwise the caller ISR process will be blocked.
   *       The function is declared as __weak  to be overwritten  in case of other
   *       implementation  in user file.
@@ -292,7 +292,7 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   * @}
   */
 
-/** @defgroup HAL_Group2 HAL Control functions
+/** @addtogroup HAL_Group2
  *  @brief    HAL Control functions
  *
 @verbatim
@@ -421,7 +421,7 @@ __weak void HAL_Delay(uint32_t Delay)
   * @brief Suspend Tick increment.
   * @note In the default implementation , SysTick timer is the source of time base. It is
   *       used to generate interrupts at regular time intervals. Once HAL_SuspendTick()
-  *       is called, the the SysTick interrupt will be disabled and so Tick increment
+  *       is called, the SysTick interrupt will be disabled and so Tick increment
   *       is suspended.
   * @note This function is declared as __weak to be overwritten in case of other
   *       implementations in user file.
@@ -437,7 +437,7 @@ __weak void HAL_SuspendTick(void)
   * @brief Resume Tick increment.
   * @note In the default implementation , SysTick timer is the source of time base. It is
   *       used to generate interrupts at regular time intervals. Once HAL_ResumeTick()
-  *       is called, the the SysTick interrupt will be enabled and so Tick increment
+  *       is called, the SysTick interrupt will be enabled and so Tick increment
   *       is resumed.
   * @note This function is declared as __weak to be overwritten in case of other
   *       implementations in user file.
@@ -887,9 +887,6 @@ void HAL_SYSCFG_ADC2ALT_Rout0Config(uint32_t Adc2AltRout0)
 
   MODIFY_REG(SYSCFG->ADC2ALT, SYSCFG_ADC2ALT_ADC2_ROUT0, Adc2AltRout0);
 }
-/**
-  * @}
-  */
 #endif /*SYSCFG_ADC2ALT_ADC2_ROUT0*/
 
 #if defined(SYSCFG_ADC2ALT_ADC2_ROUT1)
@@ -905,9 +902,6 @@ void HAL_SYSCFG_ADC2ALT_Rout1Config(uint32_t Adc2AltRout1)
 
   MODIFY_REG(SYSCFG->ADC2ALT, SYSCFG_ADC2ALT_ADC2_ROUT1, Adc2AltRout1);
 }
-/**
-  * @}
-  */
 #endif /*SYSCFG_ADC2ALT_ADC2_ROUT1*/
 
 /**

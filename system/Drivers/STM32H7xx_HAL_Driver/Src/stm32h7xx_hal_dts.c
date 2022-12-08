@@ -76,6 +76,12 @@
  */
 #define TS_TIMEOUT_MS     (5UL)
 
+/* @brief DTS factory temperatures
+ * @note  Unit: degree Celsius
+ */
+#define DTS_FACTORY_TEMPERATURE1 (30UL)
+#define DTS_FACTORY_TEMPERATURE2 (130UL)
+
 /**
   * @}
   */
@@ -83,9 +89,6 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
-#if (USE_HAL_DTS_REGISTER_CALLBACKS == 1)
-static void DTS_ResetCallback(DTS_HandleTypeDef *hdts);
-#endif /* USE_HAL_DTS_REGISTER_CALLBACKS */
 /* Exported functions --------------------------------------------------------*/
 
 /** @defgroup DTS_Exported_Functions DTS Exported Functions
@@ -131,8 +134,13 @@ HAL_StatusTypeDef HAL_DTS_Init(DTS_HandleTypeDef *hdts)
   if (hdts->State == HAL_DTS_STATE_RESET)
   {
 #if (USE_HAL_DTS_REGISTER_CALLBACKS == 1)
-    /* Reset interrupt callbacks to legacy weak callbacks */
-    DTS_ResetCallback(hdts);
+    /* Reset the DTS callback to the legacy weak callbacks */
+    hdts->EndCallback       = HAL_DTS_EndCallback;        /* End measure Callback                 */
+    hdts->LowCallback       = HAL_DTS_LowCallback;        /* low threshold Callback               */
+    hdts->HighCallback      = HAL_DTS_HighCallback;       /* high threshold Callback              */
+    hdts->AsyncEndCallback  = HAL_DTS_AsyncEndCallback;   /* Asynchronous end of measure Callback */
+    hdts->AsyncLowCallback  = HAL_DTS_AsyncLowCallback;   /* Asynchronous low threshold Callback  */
+    hdts->AsyncHighCallback = HAL_DTS_AsyncHighCallback;  /* Asynchronous high threshold Callback */
 
     if (hdts->MspInitCallback == NULL)
     {
@@ -276,6 +284,180 @@ __weak void HAL_DTS_MspDeInit(DTS_HandleTypeDef *hdts)
   the HAL_DTS_MspDeInit could be implemented in the user file
   */
 }
+
+#if (USE_HAL_DTS_REGISTER_CALLBACKS == 1)
+/**
+  * @brief  Register a user DTS callback to be used instead of the weak predefined callback.
+  * @param  hdts DTS handle.
+  * @param  CallbackID ID of the callback to be registered.
+  *         This parameter can be one of the following values:
+  *           @arg @ref HAL_DTS_MEAS_COMPLETE_CB_ID measure complete callback ID.
+  *           @arg @ref HAL_DTS_ASYNC_MEAS_COMPLETE_CB_ID asynchronous measure complete callback ID.
+  *           @arg @ref HAL_DTS_LOW_THRESHOLD_CB_ID low threshold detection callback ID.
+  *           @arg @ref HAL_DTS_ASYNC_LOW_THRESHOLD_CB_ID asynchronous low threshold detection callback ID.
+  *           @arg @ref HAL_DTS_HIGH_THRESHOLD_CB_ID high threshold detection callback ID.
+  *           @arg @ref HAL_DTS_ASYNC_HIGH_THRESHOLD_CB_ID asynchronous high threshold detection callback ID.
+  *           @arg @ref HAL_DTS_MSPINIT_CB_ID MSP init callback ID.
+  *           @arg @ref HAL_DTS_MSPDEINIT_CB_ID MSP de-init callback ID.
+  * @param  pCallback pointer to the callback function.
+  * @retval HAL status.
+  */
+HAL_StatusTypeDef HAL_DTS_RegisterCallback(DTS_HandleTypeDef        *hdts,
+                                           HAL_DTS_CallbackIDTypeDef CallbackID,
+                                           pDTS_CallbackTypeDef      pCallback)
+{
+  HAL_StatusTypeDef status = HAL_OK;
+
+  /* Check parameters */
+  if (pCallback == NULL)
+  {
+    /* Update status */
+    status = HAL_ERROR;
+  }
+  else
+  {
+    if (hdts->State == HAL_DTS_STATE_READY)
+    {
+      switch (CallbackID)
+      {
+        case HAL_DTS_MEAS_COMPLETE_CB_ID :
+          hdts->EndCallback = pCallback;
+          break;
+        case HAL_DTS_ASYNC_MEAS_COMPLETE_CB_ID :
+          hdts->AsyncEndCallback = pCallback;
+          break;
+        case HAL_DTS_LOW_THRESHOLD_CB_ID :
+          hdts->LowCallback = pCallback;
+          break;
+        case HAL_DTS_ASYNC_LOW_THRESHOLD_CB_ID :
+          hdts->AsyncLowCallback = pCallback;
+          break;
+        case HAL_DTS_HIGH_THRESHOLD_CB_ID :
+          hdts->HighCallback = pCallback;
+          break;
+        case HAL_DTS_ASYNC_HIGH_THRESHOLD_CB_ID :
+          hdts->AsyncHighCallback = pCallback;
+          break;
+        case HAL_DTS_MSPINIT_CB_ID :
+          hdts->MspInitCallback = pCallback;
+          break;
+        case HAL_DTS_MSPDEINIT_CB_ID :
+          hdts->MspDeInitCallback = pCallback;
+          break;
+        default :
+          /* Update status */
+          status = HAL_ERROR;
+          break;
+      }
+    }
+    else if (hdts->State == HAL_DTS_STATE_RESET)
+    {
+      switch (CallbackID)
+      {
+        case HAL_DTS_MSPINIT_CB_ID :
+          hdts->MspInitCallback = pCallback;
+          break;
+        case HAL_DTS_MSPDEINIT_CB_ID :
+          hdts->MspDeInitCallback = pCallback;
+          break;
+        default :
+          /* Update status */
+          status = HAL_ERROR;
+          break;
+      }
+    }
+    else
+    {
+      /* Update status */
+      status = HAL_ERROR;
+    }
+  }
+
+  /* Return function status */
+  return status;
+}
+
+/**
+  * @brief  Unregister a user DTS callback.
+  *         DTS callback is redirected to the weak predefined callback.
+  * @param  hdts DTS handle.
+  * @param  CallbackID ID of the callback to be unregistered.
+  *         This parameter can be one of the following values:
+  *           @arg @ref HAL_DTS_MEAS_COMPLETE_CB_ID measure complete callback ID.
+  *           @arg @ref HAL_DTS_ASYNC_MEAS_COMPLETE_CB_ID asynchronous measure complete callback ID.
+  *           @arg @ref HAL_DTS_LOW_THRESHOLD_CB_ID low threshold detection callback ID.
+  *           @arg @ref HAL_DTS_ASYNC_LOW_THRESHOLD_CB_ID asynchronous low threshold detection callback ID.
+  *           @arg @ref HAL_DTS_HIGH_THRESHOLD_CB_ID high threshold detection callback ID.
+  *           @arg @ref HAL_DTS_ASYNC_HIGH_THRESHOLD_CB_ID asynchronous high threshold detection callback ID.
+  *           @arg @ref HAL_DTS_MSPINIT_CB_ID MSP init callback ID.
+  *           @arg @ref HAL_DTS_MSPDEINIT_CB_ID MSP de-init callback ID.
+  * @retval HAL status.
+  */
+HAL_StatusTypeDef HAL_DTS_UnRegisterCallback(DTS_HandleTypeDef        *hdts,
+                                             HAL_DTS_CallbackIDTypeDef CallbackID)
+{
+  HAL_StatusTypeDef status = HAL_OK;
+
+  if (hdts->State == HAL_DTS_STATE_READY)
+  {
+    switch (CallbackID)
+    {
+      case HAL_DTS_MEAS_COMPLETE_CB_ID :
+        hdts->EndCallback = HAL_DTS_EndCallback;
+        break;
+      case HAL_DTS_ASYNC_MEAS_COMPLETE_CB_ID :
+        hdts->AsyncEndCallback = HAL_DTS_AsyncEndCallback;
+        break;
+      case HAL_DTS_LOW_THRESHOLD_CB_ID :
+        hdts->LowCallback = HAL_DTS_LowCallback;
+        break;
+      case HAL_DTS_ASYNC_LOW_THRESHOLD_CB_ID :
+        hdts->AsyncLowCallback = HAL_DTS_AsyncLowCallback;
+        break;
+      case HAL_DTS_HIGH_THRESHOLD_CB_ID :
+        hdts->HighCallback = HAL_DTS_HighCallback;
+        break;
+      case HAL_DTS_ASYNC_HIGH_THRESHOLD_CB_ID :
+        hdts->AsyncHighCallback = HAL_DTS_AsyncHighCallback;
+        break;
+      case HAL_DTS_MSPINIT_CB_ID :
+        hdts->MspInitCallback = HAL_DTS_MspInit;
+        break;
+      case HAL_DTS_MSPDEINIT_CB_ID :
+        hdts->MspDeInitCallback = HAL_DTS_MspDeInit;
+        break;
+      default :
+        /* Update status */
+        status = HAL_ERROR;
+        break;
+    }
+  }
+  else if (hdts->State == HAL_DTS_STATE_RESET)
+  {
+    switch (CallbackID)
+    {
+      case HAL_DTS_MSPINIT_CB_ID :
+        hdts->MspInitCallback = HAL_DTS_MspInit;
+        break;
+      case HAL_DTS_MSPDEINIT_CB_ID :
+        hdts->MspDeInitCallback = HAL_DTS_MspDeInit;
+        break;
+      default :
+        /* Update status */
+        status = HAL_ERROR;
+        break;
+    }
+  }
+  else
+  {
+    /* Update status */
+    status = HAL_ERROR;
+  }
+
+  /* Return function status */
+  return status;
+}
+#endif /* USE_HAL_DTS_REGISTER_CALLBACKS */
 
 /**
   * @}
@@ -538,11 +720,11 @@ HAL_StatusTypeDef HAL_DTS_GetTemperature(DTS_HandleTypeDef *hdts, int32_t *Tempe
 
     if (t0_temp == 0UL)
     {
-      t0_temp = 30UL; /* 30 deg C */
+      t0_temp = DTS_FACTORY_TEMPERATURE1; /* 30 deg C */
     }
     else if (t0_temp == 1UL)
     {
-      t0_temp = 110UL; /* 110 deg C */
+      t0_temp = DTS_FACTORY_TEMPERATURE2; /* 130 deg C */
     }
     else
     {
@@ -781,33 +963,6 @@ HAL_DTS_StateTypeDef HAL_DTS_GetState(DTS_HandleTypeDef *hdts)
   * @}
   */
 
-/**
-  * @}
-  */
-
-/* Private functions ---------------------------------------------------------*/
-
-/** @defgroup DTS_Private_Functions DTS Private Functions
-  * @{
-  */
-#if (USE_HAL_DTS_REGISTER_CALLBACKS == 1)
-/**
-  * @brief  Reset interrupt callbacks to the legacy weak callbacks.
-  * @param  hdts pointer to a DTS_HandleTypeDef structure that contains
-  *                the configuration information for DTS module.
-  * @retval None
-  */
-static void DTS_ResetCallback(DTS_HandleTypeDef *hdts)
-{
-  /* Reset the DTS callback to the legacy weak callbacks */
-  hdts->DTS_EndCallback       = HAL_DTS_EndCallback;        /* End measure Callback                 */
-  hdts->DTS_LowCallback       = HAL_DTS_LowCallback;        /* low threshold Callback               */
-  hdts->DTS_HighCallback      = HAL_DTS_HighCallback;       /* high threshold Callback              */
-  hdts->DTS_AsyncEndCallback  = HAL_DTS_AsyncEndCallback;   /* Asynchronous end of measure Callback */
-  hdts->DTS_AsyncLowCallback  = HAL_DTS_AsyncLowCallback;   /* Asynchronous low threshold Callback  */
-  hdts->DTS_AsyncHighCallback = HAL_DTS_AsyncHighCallback;  /* Asynchronous high threshold Callback */
-}
-#endif /* USE_HAL_DTS_REGISTER_CALLBACKS */
 /**
   * @}
   */

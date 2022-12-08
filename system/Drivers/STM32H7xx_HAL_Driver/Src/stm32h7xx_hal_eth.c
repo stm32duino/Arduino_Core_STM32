@@ -194,34 +194,34 @@
 /** @addtogroup ETH_Private_Constants ETH Private Constants
   * @{
   */
-#define ETH_MACCR_MASK       ((uint32_t)0xFFFB7F7CU)
-#define ETH_MACECR_MASK      ((uint32_t)0x3F077FFFU)
-#define ETH_MACPFR_MASK      ((uint32_t)0x800007FFU)
-#define ETH_MACWTR_MASK      ((uint32_t)0x0000010FU)
-#define ETH_MACTFCR_MASK     ((uint32_t)0xFFFF00F2U)
-#define ETH_MACRFCR_MASK     ((uint32_t)0x00000003U)
-#define ETH_MTLTQOMR_MASK    ((uint32_t)0x00000072U)
-#define ETH_MTLRQOMR_MASK    ((uint32_t)0x0000007BU)
+#define ETH_MACCR_MASK                0xFFFB7F7CU
+#define ETH_MACECR_MASK               0x3F077FFFU
+#define ETH_MACPFR_MASK               0x800007FFU
+#define ETH_MACWTR_MASK               0x0000010FU
+#define ETH_MACTFCR_MASK              0xFFFF00F2U
+#define ETH_MACRFCR_MASK              0x00000003U
+#define ETH_MTLTQOMR_MASK             0x00000072U
+#define ETH_MTLRQOMR_MASK             0x0000007BU
 
-#define ETH_DMAMR_MASK       ((uint32_t)0x00007802U)
-#define ETH_DMASBMR_MASK     ((uint32_t)0x0000D001U)
-#define ETH_DMACCR_MASK      ((uint32_t)0x00013FFFU)
-#define ETH_DMACTCR_MASK     ((uint32_t)0x003F1010U)
-#define ETH_DMACRCR_MASK     ((uint32_t)0x803F0000U)
-#define ETH_MACPCSR_MASK     (ETH_MACPCSR_PWRDWN | ETH_MACPCSR_RWKPKTEN | \
-                              ETH_MACPCSR_MGKPKTEN | ETH_MACPCSR_GLBLUCAST | \
-                              ETH_MACPCSR_RWKPFE)
+#define ETH_DMAMR_MASK                0x00007802U
+#define ETH_DMASBMR_MASK              0x0000D001U
+#define ETH_DMACCR_MASK               0x00013FFFU
+#define ETH_DMACTCR_MASK              0x003F1010U
+#define ETH_DMACRCR_MASK              0x803F0000U
+#define ETH_MACPCSR_MASK              (ETH_MACPCSR_PWRDWN | ETH_MACPCSR_RWKPKTEN | \
+                                       ETH_MACPCSR_MGKPKTEN | ETH_MACPCSR_GLBLUCAST | \
+                                       ETH_MACPCSR_RWKPFE)
 
 /* Timeout values */
 #define ETH_DMARXNDESCWBF_ERRORS_MASK ((uint32_t)(ETH_DMARXNDESCWBF_DE | ETH_DMARXNDESCWBF_RE | \
                                                   ETH_DMARXNDESCWBF_OE | ETH_DMARXNDESCWBF_RWT |\
                                                   ETH_DMARXNDESCWBF_GP | ETH_DMARXNDESCWBF_CE))
 
-#define ETH_MACTSCR_MASK              ((uint32_t)0x0087FF2FU)
+#define ETH_MACTSCR_MASK              0x0087FF2FU
 
-#define ETH_MACSTSUR_VALUE            ((uint32_t)0xFFFFFFFFU)
-#define ETH_MACSTNUR_VALUE            ((uint32_t)0xBB9ACA00U)
-#define ETH_SEGMENT_SIZE_DEFAULT      ((uint32_t)0x218U)
+#define ETH_MACSTSUR_VALUE            0xFFFFFFFFU
+#define ETH_MACSTNUR_VALUE            0xBB9ACA00U
+#define ETH_SEGMENT_SIZE_DEFAULT      0x218U
 /**
   * @}
   */
@@ -1421,7 +1421,7 @@ HAL_StatusTypeDef HAL_ETH_ReleaseTxPacket(ETH_HandleTypeDef *heth)
       {
 #ifdef HAL_ETH_USE_PTP
         /* Disable Ptp transmission */
-        CLEAR_BIT(heth->Init.TxDesc[idx].DESC3, ((uint32_t)0x40000000U));
+        CLEAR_BIT(heth->Init.TxDesc[idx].DESC3, (0x40000000U));
 
         /* Get timestamp low */
         timestamp->TimeStampLow = heth->Init.TxDesc[idx].DESC0;
@@ -3334,6 +3334,12 @@ static void ETH_InitCallbacksToDefault(ETH_HandleTypeDef *heth)
   heth->PMTCallback      = HAL_ETH_PMTCallback;       /* Legacy weak PMTCallback      */
   heth->EEECallback      = HAL_ETH_EEECallback;       /* Legacy weak EEECallback      */
   heth->WakeUpCallback   = HAL_ETH_WakeUpCallback;    /* Legacy weak WakeUpCallback   */
+  heth->rxLinkCallback   = HAL_ETH_RxLinkCallback;    /* Legacy weak RxLinkCallback   */
+  heth->txFreeCallback   = HAL_ETH_TxFreeCallback;    /* Legacy weak TxFreeCallback   */
+#ifdef HAL_ETH_USE_PTP
+  heth->txPtpCallback    = HAL_ETH_TxPtpCallback;     /* Legacy weak TxPtpCallback   */
+#endif /* HAL_ETH_USE_PTP */
+  heth->rxAllocateCallback = HAL_ETH_RxAllocateCallback; /* Legacy weak RxAllocateCallback */
 }
 #endif /* USE_HAL_ETH_REGISTER_CALLBACKS */
 

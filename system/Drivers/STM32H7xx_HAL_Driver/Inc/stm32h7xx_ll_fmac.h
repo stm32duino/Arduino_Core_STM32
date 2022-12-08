@@ -48,11 +48,12 @@ extern "C" {
   * @brief    Flag defines which can be used with LL_FMAC_ReadReg function
   * @{
   */
-#define LL_FMAC_SR_SAT                     FMAC_SR_SAT    /*!< Saturation Error Flag (this helps in debugging a filter) */
-#define LL_FMAC_SR_UNFL                    FMAC_SR_UNFL   /*!< Underflow Error Flag */
-#define LL_FMAC_SR_OVFL                    FMAC_SR_OVFL   /*!< Overflow Error Flag */
-#define LL_FMAC_SR_X1FULL                  FMAC_SR_X1FULL /*!< X1 Buffer Full Flag */
-#define LL_FMAC_SR_YEMPTY                  FMAC_SR_YEMPTY /*!< Y Buffer Empty Flag */
+#define LL_FMAC_SR_SAT                     FMAC_SR_SAT    /*!< Saturation Error Flag
+                                                               (this helps in debugging a filter)                     */
+#define LL_FMAC_SR_UNFL                    FMAC_SR_UNFL   /*!< Underflow Error Flag                                   */
+#define LL_FMAC_SR_OVFL                    FMAC_SR_OVFL   /*!< Overflow Error Flag                                    */
+#define LL_FMAC_SR_X1FULL                  FMAC_SR_X1FULL /*!< X1 Buffer Full Flag                                    */
+#define LL_FMAC_SR_YEMPTY                  FMAC_SR_YEMPTY /*!< Y Buffer Empty Flag                                    */
 /**
   * @}
   */
@@ -61,11 +62,12 @@ extern "C" {
   * @brief    IT defines which can be used with LL_FMAC_ReadReg and LL_FMAC_WriteReg functions
   * @{
   */
-#define LL_FMAC_CR_SATIEN                  FMAC_CR_SATIEN  /*!< Saturation Error Interrupt Enable (this helps in debugging a filter) */
-#define LL_FMAC_CR_UNFLIEN                 FMAC_CR_UNFLIEN /*!< Underflow Error Interrupt Enable */
-#define LL_FMAC_CR_OVFLIEN                 FMAC_CR_OVFLIEN /*!< Overflow Error Interrupt Enable */
-#define LL_FMAC_CR_WIEN                    FMAC_CR_WIEN    /*!< Write Interrupt Enable */
-#define LL_FMAC_CR_RIEN                    FMAC_CR_RIEN    /*!< Read Interrupt Enable */
+#define LL_FMAC_CR_SATIEN                  FMAC_CR_SATIEN  /*!< Saturation Error Interrupt Enable
+                                                                (this helps in debugging a filter)                    */
+#define LL_FMAC_CR_UNFLIEN                 FMAC_CR_UNFLIEN /*!< Underflow Error Interrupt Enable                      */
+#define LL_FMAC_CR_OVFLIEN                 FMAC_CR_OVFLIEN /*!< Overflow Error Interrupt Enable                       */
+#define LL_FMAC_CR_WIEN                    FMAC_CR_WIEN    /*!< Write Interrupt Enable                                */
+#define LL_FMAC_CR_RIEN                    FMAC_CR_RIEN    /*!< Read Interrupt Enable                                 */
 /**
   * @}
   */
@@ -74,10 +76,14 @@ extern "C" {
   * @brief    Watermark defines that can be used for buffer full (input) or buffer empty (output)
   * @{
   */
-#define LL_FMAC_WM_0_THRESHOLD_1           0x00000000U /*!< Buffer full/empty flag set if there is less than 1 free/unread space. */
-#define LL_FMAC_WM_1_THRESHOLD_2           0x01000000U /*!< Buffer full/empty flag set if there are less than 2 free/unread spaces. */
-#define LL_FMAC_WM_2_THRESHOLD_4           0x02000000U /*!< Buffer full/empty flag set if there are less than 4 free/unread spaces. */
-#define LL_FMAC_WM_3_THRESHOLD_8           0x03000000U /*!< Buffer full/empty flag set if there are less than 8 free/empty spaces. */
+#define LL_FMAC_WM_0_THRESHOLD_1           0x00000000U /*!< Buffer full/empty flag set if there
+                                                            is less than 1 free/unread space.                         */
+#define LL_FMAC_WM_1_THRESHOLD_2           0x01000000U /*!< Buffer full/empty flag set if there
+                                                            are less than 2 free/unread spaces.                       */
+#define LL_FMAC_WM_2_THRESHOLD_4           0x02000000U /*!< Buffer full/empty flag set if there
+                                                            are less than 4 free/unread spaces.                       */
+#define LL_FMAC_WM_3_THRESHOLD_8           0x03000000U /*!< Buffer full/empty flag set if there
+                                                            are less than 8 free/empty spaces.                        */
 /**
   * @}
   */
@@ -85,11 +91,11 @@ extern "C" {
 /** @defgroup FMAC_LL_EC_FUNC FMAC functions
   * @{
   */
-#define LL_FMAC_FUNC_LOAD_X1               (FMAC_PARAM_FUNC_0)                                         /*!< Load X1 buffer */
-#define LL_FMAC_FUNC_LOAD_X2               (FMAC_PARAM_FUNC_1)                                         /*!< Load X2 buffer */
-#define LL_FMAC_FUNC_LOAD_Y                (FMAC_PARAM_FUNC_1 | FMAC_PARAM_FUNC_0)                     /*!< Load Y buffer */
-#define LL_FMAC_FUNC_CONVO_FIR             (FMAC_PARAM_FUNC_3)                                         /*!< Convolution (FIR filter) */
-#define LL_FMAC_FUNC_IIR_DIRECT_FORM_1     (FMAC_PARAM_FUNC_3 | FMAC_PARAM_FUNC_0)                     /*!< IIR filter (direct form 1) */
+#define LL_FMAC_FUNC_LOAD_X1               (FMAC_PARAM_FUNC_0)                        /*!< Load X1 buffer             */
+#define LL_FMAC_FUNC_LOAD_X2               (FMAC_PARAM_FUNC_1)                        /*!< Load X2 buffer             */
+#define LL_FMAC_FUNC_LOAD_Y                (FMAC_PARAM_FUNC_1 | FMAC_PARAM_FUNC_0)    /*!< Load Y buffer              */
+#define LL_FMAC_FUNC_CONVO_FIR             (FMAC_PARAM_FUNC_3)                        /*!< Convolution (FIR filter)   */
+#define LL_FMAC_FUNC_IIR_DIRECT_FORM_1     (FMAC_PARAM_FUNC_3 | FMAC_PARAM_FUNC_0)    /*!< IIR filter (direct form 1) */
 /**
   * @}
   */
@@ -97,8 +103,8 @@ extern "C" {
 /** @defgroup FMAC_LL_EC_PROCESSING FMAC processing
   * @{
   */
-#define LL_FMAC_PROCESSING_STOP            0x00U /*!< Stop FMAC Processing */
-#define LL_FMAC_PROCESSING_START           0x01U /*!< Start FMAC Processing */
+#define LL_FMAC_PROCESSING_STOP            0x00U /*!< Stop FMAC Processing                                            */
+#define LL_FMAC_PROCESSING_START           0x01U /*!< Start FMAC Processing                                           */
 /**
   * @}
   */

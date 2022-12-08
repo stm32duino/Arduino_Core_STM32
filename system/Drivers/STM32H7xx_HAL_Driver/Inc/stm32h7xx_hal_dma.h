@@ -1228,6 +1228,14 @@ uint32_t             HAL_DMA_GetError(DMA_HandleTypeDef *hdma);
   * @}
   */
 
+/* Private types -------------------------------------------------------------*/
+/** @defgroup DMA_Private_Types DMA Private Types
+  * @{
+  */
+/**
+  * @}
+  */
+
 /* Private macros ------------------------------------------------------------*/
 /** @defgroup DMA_Private_Macros DMA Private Macros
   * @brief    DMA private macros

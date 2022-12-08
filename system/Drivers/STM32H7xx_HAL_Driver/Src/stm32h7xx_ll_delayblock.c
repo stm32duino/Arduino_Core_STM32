@@ -63,7 +63,13 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+/** @defgroup DelayBlock_LL_Private_Defines Delay Block Low Layer Private Defines
+  * @{
+  */
 #define DLYB_TIMEOUT 0xFFU
+/**
+  * @}
+  */
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/

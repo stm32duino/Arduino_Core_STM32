@@ -115,7 +115,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
   uint64_t inputlength = (uint64_t)hcryp->SizesSum * 8U; /* Input length in bits */
   uint32_t tagaddr = (uint32_t)AuthTag;
 
-   /* Correct header length if Init.HeaderSize is actually in bytes */
+  /* Correct header length if Init.HeaderSize is actually in bytes */
   if (hcryp->Init.HeaderWidthUnit == CRYP_HEADERWIDTHUNIT_BYTE)
   {
     headerlength /= 4U;
@@ -178,28 +178,28 @@ HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
 #if !defined (CRYP_VER_2_2)
     else/* data has to be swapped according to the DATATYPE */
     {
-      if (hcryp->Init.DataType == CRYP_DATATYPE_1B)
+      if (hcryp->Init.DataType == CRYP_BIT_SWAP)
       {
         hcryp->Instance->DIN = 0U;
         hcryp->Instance->DIN = __RBIT((uint32_t)(headerlength));
         hcryp->Instance->DIN = 0U;
         hcryp->Instance->DIN = __RBIT((uint32_t)(inputlength));
       }
-      else if (hcryp->Init.DataType == CRYP_DATATYPE_8B)
+      else if (hcryp->Init.DataType == CRYP_BYTE_SWAP)
       {
         hcryp->Instance->DIN = 0U;
         hcryp->Instance->DIN = __REV((uint32_t)(headerlength));
         hcryp->Instance->DIN = 0U;
         hcryp->Instance->DIN = __REV((uint32_t)(inputlength));
       }
-      else if (hcryp->Init.DataType == CRYP_DATATYPE_16B)
+      else if (hcryp->Init.DataType == CRYP_HALFWORD_SWAP)
       {
         hcryp->Instance->DIN = 0U;
         hcryp->Instance->DIN = __ROR((uint32_t)headerlength, 16U);
         hcryp->Instance->DIN = 0U;
         hcryp->Instance->DIN = __ROR((uint32_t)inputlength, 16U);
       }
-      else if (hcryp->Init.DataType == CRYP_DATATYPE_32B)
+      else if (hcryp->Init.DataType == CRYP_NO_SWAP)
       {
         hcryp->Instance->DIN = 0U;
         hcryp->Instance->DIN = (uint32_t)(headerlength);
@@ -343,7 +343,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
 #if !defined (CRYP_VER_2_2)
     else /* data has to be swapped according to the DATATYPE */
     {
-      if (hcryp->Init.DataType == CRYP_DATATYPE_8B)
+      if (hcryp->Init.DataType == CRYP_BYTE_SWAP)
       {
         hcryp->Instance->DIN = __REV(*(uint32_t *)(ctr0addr));
         ctr0addr += 4U;
@@ -353,7 +353,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
         ctr0addr += 4U;
         hcryp->Instance->DIN = __REV(*(uint32_t *)(ctr0addr));
       }
-      else if (hcryp->Init.DataType == CRYP_DATATYPE_16B)
+      else if (hcryp->Init.DataType == CRYP_HALFWORD_SWAP)
       {
         hcryp->Instance->DIN = __ROR(*(uint32_t *)(ctr0addr), 16U);
         ctr0addr += 4U;
@@ -363,7 +363,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
         ctr0addr += 4U;
         hcryp->Instance->DIN = __ROR(*(uint32_t *)(ctr0addr), 16U);
       }
-      else if (hcryp->Init.DataType == CRYP_DATATYPE_1B)
+      else if (hcryp->Init.DataType == CRYP_BIT_SWAP)
       {
         hcryp->Instance->DIN = __RBIT(*(uint32_t *)(ctr0addr));
         ctr0addr += 4U;

@@ -619,9 +619,9 @@ HAL_StatusTypeDef HAL_LPTIM_Counter_Stop_IT(LPTIM_HandleTypeDef *hlptim);
   * @{
   */
 /* Reading operation functions ************************************************/
-uint32_t HAL_LPTIM_ReadCounter(LPTIM_HandleTypeDef *hlptim);
-uint32_t HAL_LPTIM_ReadAutoReload(LPTIM_HandleTypeDef *hlptim);
-uint32_t HAL_LPTIM_ReadCompare(LPTIM_HandleTypeDef *hlptim);
+uint32_t HAL_LPTIM_ReadCounter(const LPTIM_HandleTypeDef *hlptim);
+uint32_t HAL_LPTIM_ReadAutoReload(const LPTIM_HandleTypeDef *hlptim);
+uint32_t HAL_LPTIM_ReadCompare(const LPTIM_HandleTypeDef *hlptim);
 /**
   * @}
   */

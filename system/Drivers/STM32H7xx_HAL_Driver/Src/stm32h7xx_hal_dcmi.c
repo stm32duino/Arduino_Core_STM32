@@ -134,8 +134,13 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+/** @addtogroup DCMI_Private_Defines
+  * @{
+  */
 #define HAL_TIMEOUT_DCMI_STOP    ((uint32_t)1000) /* Set timeout to 1s  */
-
+/**
+  * @}
+  */
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
@@ -1022,7 +1027,7 @@ HAL_StatusTypeDef HAL_DCMI_RegisterCallback(DCMI_HandleTypeDef *hdcmi, HAL_DCMI_
 
 /**
   * @brief  Unregister a DCMI Callback
-  *         DCMI callabck is redirected to the weak predefined callback
+  *         DCMI callback is redirected to the weak predefined callback
   * @param  hdcmi DCMI handle
   * @param  CallbackID ID of the callback to be registered
   *         This parameter can be one of the following values:
@@ -1105,6 +1110,10 @@ HAL_StatusTypeDef HAL_DCMI_UnRegisterCallback(DCMI_HandleTypeDef *hdcmi, HAL_DCM
   return status;
 }
 #endif /* USE_HAL_DCMI_REGISTER_CALLBACKS */
+
+/**
+  * @}
+  */
 
 /**
   * @}
@@ -1210,9 +1219,6 @@ static void DCMI_DMAError(DMA_HandleTypeDef *hdma)
   * @}
   */
 
-/**
-  * @}
-  */
 #endif /* DCMI */
 #endif /* HAL_DCMI_MODULE_ENABLED */
 /**

@@ -174,6 +174,8 @@ extern "C" {
 #define LL_MPU_TEX_LEVEL0                  (0x00UL << MPU_RASR_TEX_Pos) /*!< b000 for TEX bits */
 #define LL_MPU_TEX_LEVEL1                  (0x01UL << MPU_RASR_TEX_Pos) /*!< b001 for TEX bits */
 #define LL_MPU_TEX_LEVEL2                  (0x02UL << MPU_RASR_TEX_Pos) /*!< b010 for TEX bits */
+
+/* Legacy Define */
 #define LL_MPU_TEX_LEVEL4                  (0x04UL << MPU_RASR_TEX_Pos) /*!< b100 for TEX bits */
 /**
   * @}
@@ -592,7 +594,7 @@ __STATIC_INLINE void LL_MPU_EnableRegion(uint32_t Region)
   *           or @ref LL_MPU_REGION_SIZE_1GB or @ref LL_MPU_REGION_SIZE_2GB or @ref LL_MPU_REGION_SIZE_4GB
   *         @arg @ref LL_MPU_REGION_NO_ACCESS or @ref LL_MPU_REGION_PRIV_RW or @ref LL_MPU_REGION_PRIV_RW_URO or @ref LL_MPU_REGION_FULL_ACCESS
   *           or @ref LL_MPU_REGION_PRIV_RO or @ref LL_MPU_REGION_PRIV_RO_URO
-  *         @arg @ref LL_MPU_TEX_LEVEL0 or @ref LL_MPU_TEX_LEVEL1 or @ref LL_MPU_TEX_LEVEL2 or @ref LL_MPU_TEX_LEVEL4
+  *         @arg @ref LL_MPU_TEX_LEVEL0 or @ref LL_MPU_TEX_LEVEL1 or @ref LL_MPU_TEX_LEVEL2
   *         @arg @ref LL_MPU_INSTRUCTION_ACCESS_ENABLE or  @ref LL_MPU_INSTRUCTION_ACCESS_DISABLE
   *         @arg @ref LL_MPU_ACCESS_SHAREABLE or @ref LL_MPU_ACCESS_NOT_SHAREABLE
   *         @arg @ref LL_MPU_ACCESS_CACHEABLE or @ref LL_MPU_ACCESS_NOT_CACHEABLE

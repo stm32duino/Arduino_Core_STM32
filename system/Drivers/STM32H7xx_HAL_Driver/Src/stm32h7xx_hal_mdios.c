@@ -142,18 +142,29 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+/** @defgroup MDIOS_Private_Define MDIOS Private Define
+  * @{
+  */
 #define MDIOS_PORT_ADDRESS_SHIFT        ((uint32_t)8)
 #define  MDIOS_ALL_REG_FLAG             ((uint32_t)0xFFFFFFFFU)
 #define  MDIOS_ALL_ERRORS_FLAG          ((uint32_t)(MDIOS_SR_PERF | MDIOS_SR_SERF | MDIOS_SR_TERF))
 
 #define MDIOS_DIN_BASE_ADDR             (MDIOS_BASE + 0x100U)
 #define MDIOS_DOUT_BASE_ADDR            (MDIOS_BASE + 0x180U)
-
+/**
+  * @}
+  */
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
 #if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
+/** @defgroup MDIOS_Private_Functions MDIOS Private Functions
+  * @{
+  */
 static void MDIOS_InitCallbacksToDefault(MDIOS_HandleTypeDef *hmdios);
+/**
+  * @}
+  */
 #endif /* USE_HAL_MDIOS_REGISTER_CALLBACKS */
 /* Private functions ---------------------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
@@ -434,7 +445,7 @@ HAL_StatusTypeDef HAL_MDIOS_RegisterCallback(MDIOS_HandleTypeDef *hmdios, HAL_MD
 
 /**
   * @brief  Unregister an MDIOS Callback
-  *         MDIOS callabck is redirected to the weak predefined callback
+  *         MDIOS callback is redirected to the weak predefined callback
   * @param hmdios mdios handle
   * @param CallbackID ID of the callback to be unregistered
   *        This parameter can be one of the following values:
@@ -931,6 +942,9 @@ HAL_MDIOS_StateTypeDef HAL_MDIOS_GetState(MDIOS_HandleTypeDef *hmdios)
   */
 
 #if (USE_HAL_MDIOS_REGISTER_CALLBACKS == 1)
+/** @addtogroup MDIOS_Private_Functions
+  * @{
+  */
 static void MDIOS_InitCallbacksToDefault(MDIOS_HandleTypeDef *hmdios)
 {
   /* Init the MDIOS Callback settings */
@@ -939,11 +953,10 @@ static void MDIOS_InitCallbacksToDefault(MDIOS_HandleTypeDef *hmdios)
   hmdios->ErrorCallback      = HAL_MDIOS_ErrorCallback;       /* Legacy weak ErrorCallback */
   hmdios->WakeUpCallback     = HAL_MDIOS_WakeUpCallback;        /* Legacy weak WakeUpCallback   */
 }
-#endif /* USE_HAL_MDIOS_REGISTER_CALLBACKS */
-
 /**
   * @}
   */
+#endif /* USE_HAL_MDIOS_REGISTER_CALLBACKS */
 #endif /* HAL_MDIOS_MODULE_ENABLED */
 /**
   * @}

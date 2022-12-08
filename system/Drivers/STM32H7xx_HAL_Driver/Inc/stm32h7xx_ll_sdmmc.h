@@ -279,6 +279,7 @@ typedef struct
 #define SDMMC_SDR104_SWITCH_PATTERN        ((uint32_t)0x80FF1F03U)
 #define SDMMC_SDR50_SWITCH_PATTERN         ((uint32_t)0x80FF1F02U)
 #define SDMMC_SDR25_SWITCH_PATTERN         ((uint32_t)0x80FFFF01U)
+#define SDMMC_SDR12_SWITCH_PATTERN         ((uint32_t)0x80FFFF00U)
 
 #define SDMMC_MAX_VOLT_TRIAL               ((uint32_t)0x0000FFFFU)
 
@@ -356,12 +357,15 @@ typedef struct
 #define SDMMC_SPEED_MODE_DEFAULT               ((uint32_t)0x00000001U)
 #define SDMMC_SPEED_MODE_HIGH                  ((uint32_t)0x00000002U)
 #define SDMMC_SPEED_MODE_ULTRA                 ((uint32_t)0x00000003U)
+#define SDMMC_SPEED_MODE_ULTRA_SDR104          SDMMC_SPEED_MODE_ULTRA
 #define SDMMC_SPEED_MODE_DDR                   ((uint32_t)0x00000004U)
+#define SDMMC_SPEED_MODE_ULTRA_SDR50           ((uint32_t)0x00000005U)
 
-#define IS_SDMMC_SPEED_MODE(MODE) (((MODE) == SDMMC_SPEED_MODE_AUTO)    || \
-                                   ((MODE) == SDMMC_SPEED_MODE_DEFAULT) || \
-                                   ((MODE) == SDMMC_SPEED_MODE_HIGH)    || \
-                                   ((MODE) == SDMMC_SPEED_MODE_ULTRA)   || \
+#define IS_SDMMC_SPEED_MODE(MODE) (((MODE) == SDMMC_SPEED_MODE_AUTO)         || \
+                                   ((MODE) == SDMMC_SPEED_MODE_DEFAULT)      || \
+                                   ((MODE) == SDMMC_SPEED_MODE_HIGH)         || \
+                                   ((MODE) == SDMMC_SPEED_MODE_ULTRA)        || \
+                                   ((MODE) == SDMMC_SPEED_MODE_ULTRA_SDR50)  || \
                                    ((MODE) == SDMMC_SPEED_MODE_DDR))
 
 /**
