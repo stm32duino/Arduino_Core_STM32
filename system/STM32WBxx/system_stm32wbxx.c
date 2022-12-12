@@ -152,18 +152,18 @@
 */
 uint32_t SystemCoreClock = 4000000UL ; /*CPU1: M4 on MSI clock after startup (4MHz)*/
 
-  const uint32_t AHBPrescTable[16UL] = {1UL, 3UL, 5UL, 1UL, 1UL, 6UL, 10UL, 32UL, 2UL, 4UL, 8UL, 16UL, 64UL, 128UL, 256UL, 512UL};
+const uint32_t AHBPrescTable[16UL] = {1UL, 3UL, 5UL, 1UL, 1UL, 6UL, 10UL, 32UL, 2UL, 4UL, 8UL, 16UL, 64UL, 128UL, 256UL, 512UL};
 
-  const uint32_t APBPrescTable[8UL]  = {0UL, 0UL, 0UL, 0UL, 1UL, 2UL, 3UL, 4UL};
+const uint32_t APBPrescTable[8UL]  = {0UL, 0UL, 0UL, 0UL, 1UL, 2UL, 3UL, 4UL};
 
-  const uint32_t MSIRangeTable[16UL] = {100000UL, 200000UL, 400000UL, 800000UL, 1000000UL, 2000000UL, \
+const uint32_t MSIRangeTable[16UL] = {100000UL, 200000UL, 400000UL, 800000UL, 1000000UL, 2000000UL, \
                                       4000000UL, 8000000UL, 16000000UL, 24000000UL, 32000000UL, 48000000UL, 0UL, 0UL, 0UL, 0UL}; /* 0UL values are incorrect cases */
 
 #if defined(STM32WB55xx) || defined(STM32WB5Mxx) || defined(STM32WB35xx) || defined (STM32WB15xx) || defined (STM32WB1Mxx)
-  const uint32_t SmpsPrescalerTable[4UL][6UL]={{1UL,3UL,2UL,2UL,1UL,2UL}, \
-                                        {2UL,6UL,4UL,3UL,2UL,4UL}, \
-                                        {4UL,12UL,8UL,6UL,4UL,8UL}, \
-                                        {4UL,12UL,8UL,6UL,4UL,8UL}};
+  const uint32_t SmpsPrescalerTable[4UL][6UL] = {{1UL, 3UL, 2UL, 2UL, 1UL, 2UL}, \
+                                        {2UL, 6UL, 4UL, 3UL, 2UL, 4UL}, \
+                                        {4UL, 12UL, 8UL, 6UL, 4UL, 8UL}, \
+                                        {4UL, 12UL, 8UL, 6UL, 4UL, 8UL}};
 #endif /* STM32WB55xx || STM32WB5Mxx || STM32WB35xx || STM32WB15xx || STM32WB1Mxx */
 
 /**
@@ -223,7 +223,7 @@ void SystemInit(void)
   /* Reset HSEBYP bit */
   RCC->CR &= 0xFFFBFFFFU;
 
-  /* Disable all interrupts and clar flags */
+  /* Disable all interrupts and clear flags */
   RCC->CIER = 0x00000000U;
 #if defined(RCC_CICR_HSI48RDYC)
 #if defined(RCC_CICR_PLLSAI1RDYC)
