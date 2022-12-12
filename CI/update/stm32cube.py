@@ -711,7 +711,7 @@ def applyBlePatch():
 def updateBleReadme(filepath, version):
     print(" Updating README.md in ble library")
     for line in fileinput.input(filepath, inplace=True):
-        print(re.sub(r"v\d+.\d+.\d+", version, line), end="")
+        print(re.sub(r"v\d+.\d+.\d+", f"v{version}", line), end="")
 
 
 def updateBleLibrary():
