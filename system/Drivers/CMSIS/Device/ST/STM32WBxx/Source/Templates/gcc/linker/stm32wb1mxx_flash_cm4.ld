@@ -1,11 +1,11 @@
-/*
+/**
 ******************************************************************************
 **
-**  File        : LinkerScript.ld
+**  File        : stm32wb1mxx_flash_cm4.ld
 **
 **  Author      : STM32CubeIDE
 **
-**  Abstract    : Linker script for STM32WB15xC Device
+**  Abstract    : Linker script for STM32WB1Mxx Device
 **                      320Kbytes FLASH
 **                       48Kbytes RAM
 **
@@ -38,7 +38,7 @@ ENTRY(Reset_Handler)
 /* Highest address of the user mode stack */
 _estack = 0x20003000;    /* end of RAM */
 /* Generate a link error if heap and stack don't fit into RAM */
-_Min_Heap_Size = 0x400 ;      /* required amount of heap  */
+_Min_Heap_Size  = 0x400 ;    /* required amount of heap  */
 _Min_Stack_Size = 0x1000 ;   /* required amount of stack */
 
 /* Specify the memory areas */
@@ -131,7 +131,6 @@ SECTIONS
     _edata = .;        /* define a global symbol at data end */
   } >RAM1 AT> FLASH
 
-
   /* Uninitialized data section */
   . = ALIGN(4);
   .bss :
@@ -159,8 +158,6 @@ SECTIONS
     . = ALIGN(8);
   } >RAM1
 
-
-
   /* Remove information from the standard libraries */
   /DISCARD/ :
   {
@@ -170,7 +167,15 @@ SECTIONS
   }
 
   .ARM.attributes 0       : { *(.ARM.attributes) }
-   MAPPING_TABLE (NOLOAD) : { *(MAPPING_TABLE) } >RAM_SHARED
-   MB_MEM1 (NOLOAD)       : { *(MB_MEM1) } >RAM_SHARED
-   MB_MEM2 (NOLOAD)       : { _sMB_MEM2 = . ; *(MB_MEM2) ; _eMB_MEM2 = . ; } >RAM_SHARED
+  MAPPING_TABLE (NOLOAD) : { *(MAPPING_TABLE) } >RAM_SHARED
+  MB_MEM1 (NOLOAD)       : { *(MB_MEM1) } >RAM_SHARED
+
+  /* used by the startup to initialize .MB_MEM2 data */
+  _siMB_MEM2 = LOADADDR(.MB_MEM2);
+  .MB_MEM2 :
+  {
+    _sMB_MEM2 = . ;
+    *(MB_MEM2) ;
+    _eMB_MEM2 = . ;
+  } >RAM_SHARED AT> FLASH
 }

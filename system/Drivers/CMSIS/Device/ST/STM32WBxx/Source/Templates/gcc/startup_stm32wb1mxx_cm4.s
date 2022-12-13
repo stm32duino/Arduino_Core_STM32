@@ -25,24 +25,27 @@
   */
 
   .syntax unified
-	.cpu cortex-m4
-	.fpu softvfp
-	.thumb
+  .cpu cortex-m4
+ .fpu softvfp
+  .thumb
 
-.global	g_pfnVectors
-.global	Default_Handler
+.global g_pfnVectors
+.global Default_Handler
 
 /* start address for the initialization values of the .data section.
 defined in linker script */
-.word	_sidata
+.word _sidata
 /* start address for the .data section. defined in linker script */
-.word	_sdata
+.word _sdata
 /* end address for the .data section. defined in linker script */
-.word	_edata
+.word _edata
 /* start address for the .bss section. defined in linker script */
-.word	_sbss
+.word _sbss
 /* end address for the .bss section. defined in linker script */
-.word	_ebss
+.word _ebss
+/* start address for the initialization values of the .MB_MEM2 section.
+defined in linker script */
+.word _siMB_MEM2
 /* start address for the .MB_MEM2 section. defined in linker script */
 .word _sMB_MEM2
 /* end address for the .MB_MEM2 section. defined in linker script */
@@ -97,20 +100,20 @@ Reset_Handler:
 
 /* Copy the data segment initializers from flash to SRAM */
   INIT_DATA _sdata, _edata, _sidata
+  INIT_DATA _sMB_MEM2, _eMB_MEM2, _siMB_MEM2
 
 /* Zero fill the bss segments. */
   INIT_BSS _sbss, _ebss
-  INIT_BSS _sMB_MEM2, _eMB_MEM2
 
 /* Call static constructors */
   bl __libc_init_array
 /* Call the application s entry point.*/
-	bl	main
+  bl main
 
 LoopForever:
   b LoopForever
 
-.size	Reset_Handler, .-Reset_Handler
+.size Reset_Handler, .-Reset_Handler
 
 /**
  * @brief  This is the code that gets called when the processor receives an
@@ -123,8 +126,8 @@ LoopForever:
   .section .text.Default_Handler,"ax",%progbits
 Default_Handler:
 Infinite_Loop:
-	b	Infinite_Loop
-	.size	Default_Handler, .-Default_Handler
+  b Infinite_Loop
+  .size Default_Handler, .-Default_Handler
 /******************************************************************************
 *
 * The minimal vector table for a Cortex-M4.  Note that the proper constructs
@@ -132,15 +135,15 @@ Infinite_Loop:
 * 0x0000.0000.
 *
 ******************************************************************************/
-	.section	.isr_vector,"a",%progbits
-	.type	g_pfnVectors, %object
-	.size	g_pfnVectors, .-g_pfnVectors
+  .section .isr_vector,"a",%progbits
+  .type g_pfnVectors, %object
+  .size g_pfnVectors, .-g_pfnVectors
 
 
 g_pfnVectors:
   .word _estack
   .word Reset_Handler
-	.word	NMI_Handler
+  .word	NMI_Handler
   .word HardFault_Handler
   .word MemManage_Handler
   .word BusFault_Handler
@@ -225,7 +228,7 @@ g_pfnVectors:
 * this definition.
 *
 *******************************************************************************/
-  .weak	NMI_Handler
+  .weak  NMI_Handler
   .thumb_set NMI_Handler,Default_Handler
 
   .weak  HardFault_Handler
