@@ -85,59 +85,59 @@ typedef struct
 /** @defgroup TIMEx_Remap TIM Extended Remapping
   * @{
   */
-#define TIM_TIM1_ETR_GPIO           0x00000000U                                           /* !< TIM1_ETR is not connected to I/O      */
-#define TIM_TIM1_ETR_ADC1_AWD1      TIM1_OR_ETR_ADC1_RMP_0                                /* !< TIM1_ETR is connected to ADC1 AWD1    */
+#define TIM_TIM1_ETR_GPIO           0x00000000U                                           /*!< TIM1_ETR is not connected to I/O      */
+#define TIM_TIM1_ETR_ADC1_AWD1      TIM1_OR_ETR_ADC1_RMP_0                                /*!< TIM1_ETR is connected to ADC1 AWD1    */
 #if defined(ADC_SUPPORT_5_MSPS)
-#define TIM_TIM1_ETR_ADC1_AWD2      TIM1_OR_ETR_ADC1_RMP_1                                /* !< TIM1_ETR is connected to ADC1 AWD2    */
-#define TIM_TIM1_ETR_ADC1_AWD3      (TIM1_OR_ETR_ADC1_RMP_0 | TIM1_OR_ETR_ADC1_RMP_1)     /* !< TIM1_ETR is connected to ADC1 AWD3    */
+#define TIM_TIM1_ETR_ADC1_AWD2      TIM1_OR_ETR_ADC1_RMP_1                                /*!< TIM1_ETR is connected to ADC1 AWD2    */
+#define TIM_TIM1_ETR_ADC1_AWD3      (TIM1_OR_ETR_ADC1_RMP_0 | TIM1_OR_ETR_ADC1_RMP_1)     /*!< TIM1_ETR is connected to ADC1 AWD3    */
 #endif
 #if defined(COMP1)
-#define TIM_TIM1_ETR_COMP1          TIM1_AF1_ETRSEL_0                                     /* !< TIM1_ETR is connected to COMP1 output */
+#define TIM_TIM1_ETR_COMP1          TIM1_AF1_ETRSEL_0                                     /*!< TIM1_ETR is connected to COMP1 output */
 #endif /* COMP1 */
 #if defined(COMP2)
-#define TIM_TIM1_ETR_COMP2          TIM1_AF1_ETRSEL_1                                     /* !< TIM1_ETR is connected to COMP2 output */
+#define TIM_TIM1_ETR_COMP2          TIM1_AF1_ETRSEL_1                                     /*!< TIM1_ETR is connected to COMP2 output */
 #endif /* COMP2 */
 
-#define TIM_TIM1_TI1_GPIO           0x00000000U                                           /* !< TIM1 Input capture 1 is connected to I/0      */
-#define TIM_TIM1_TI1_COMP1         TIM1_OR_TI1_RMP                                        /* !< TIM1 Input capture 1is connected to COMP1 OUT */
+#define TIM_TIM1_TI1_GPIO           0x00000000U                                           /*!< TIM1 Input capture 1 is connected to I/0      */
+#define TIM_TIM1_TI1_COMP1         TIM1_OR_TI1_RMP                                        /*!< TIM1 Input capture 1is connected to COMP1 OUT */
 
-#define TIM_TIM2_ITR_NC             0x00000000U                                           /* !< TIM2 Internal trigger ITR is not connected          */
+#define TIM_TIM2_ITR_NC             0x00000000U                                           /*!< TIM2 Internal trigger ITR is not connected          */
 #if defined(USB)
-#define TIM_TIM2_ITR_USB            TIM2_OR_ITR1_RMP                                      /* !< TIM2 Internal trigger ITR is connected to USBFS SOF */
+#define TIM_TIM2_ITR_USB            TIM2_OR_ITR1_RMP                                      /*!< TIM2 Internal trigger ITR is connected to USBFS SOF */
 #endif /* USB */
 
-#define TIM_TIM2_ETR_GPIO           0x00000000U                                           /* !< TIM2 External trigger ETR is connected to I/O */
-#define TIM_TIM2_ETR_LSE            TIM2_OR_ETR_RMP                                       /* !< TIM2 External trigger ETR is connected to LSE */
+#define TIM_TIM2_ETR_GPIO           0x00000000U                                           /*!< TIM2 External trigger ETR is connected to I/O */
+#define TIM_TIM2_ETR_LSE            TIM2_OR_ETR_RMP                                       /*!< TIM2 External trigger ETR is connected to LSE */
 #if defined(COMP1)
-#define TIM_TIM2_ETR_COMP1          TIM2_AF1_ETRSEL_0                                     /* !< TIM2_ETR is connected to COMP1 output         */
+#define TIM_TIM2_ETR_COMP1          TIM2_AF1_ETRSEL_0                                     /*!< TIM2_ETR is connected to COMP1 output         */
 #endif /* COMP1 */
 #if defined(COMP2)
-#define TIM_TIM2_ETR_COMP2          TIM2_AF1_ETRSEL_1                                     /* !< TIM2_ETR is connected to COMP2 output         */
+#define TIM_TIM2_ETR_COMP2          TIM2_AF1_ETRSEL_1                                     /*!< TIM2_ETR is connected to COMP2 output         */
 #endif /* COMP2 */
 
-#define TIM_TIM2_TI4_GPIO           0x00000000U                                           /* !< TIM2_TI4 is connected to I/O                 */
+#define TIM_TIM2_TI4_GPIO           0x00000000U                                           /*!< TIM2_TI4 is connected to I/O                 */
 #if defined(COMP1)
-#define TIM_TIM2_TI4_COMP1          TIM2_OR_TI4_RMP_0                                     /* !< TIM2_TI4 is connected to COMP1 OUT           */
+#define TIM_TIM2_TI4_COMP1          TIM2_OR_TI4_RMP_0                                     /*!< TIM2_TI4 is connected to COMP1 OUT           */
 #endif /* COMP1 */
 #if defined(COMP2)
-#define TIM_TIM2_TI4_COMP2          TIM2_OR_TI4_RMP_1                                     /* !< TIM2_TI4 is connected to COMP1 OUT           */
+#define TIM_TIM2_TI4_COMP2          TIM2_OR_TI4_RMP_1                                     /*!< TIM2_TI4 is connected to COMP1 OUT           */
 #endif /* COMP2 */
 #if defined(COMP1) && defined(COMP2)
-#define TIM_TIM2_TI4_COMP1_COMP2    (TIM2_OR_TI4_RMP_0 | TIM2_OR_TI4_RMP_1)               /* !< TIM2_TI4 is connected to COMP1 and COMP2 OUT */
+#define TIM_TIM2_TI4_COMP1_COMP2    (TIM2_OR_TI4_RMP_0 | TIM2_OR_TI4_RMP_1)               /*!< TIM2_TI4 is connected to COMP1 and COMP2 OUT */
 #endif /* COMP1 && COMP2 */
 
 #if defined(TIM16)
-#define TIM_TIM16_TI1_GPIO          0x00000000U                                           /* !< TIM16_TI1 is connected to I/O       */
-#define TIM_TIM16_TI1_LSI           TIM16_OR_TI1_RMP_0                                    /* !< TIM16_TI1 is connected to LSI Clock */
-#define TIM_TIM16_TI1_LSE           TIM16_OR_TI1_RMP_1                                    /* !< TIM16_TI1 is connected to LSE Clock */
-#define TIM_TIM16_TI1_RTC           (TIM16_OR_TI1_RMP_0 | TIM16_OR_TI1_RMP_1)             /* !< TIM16_TI1 is connected to RTC       */
+#define TIM_TIM16_TI1_GPIO          0x00000000U                                           /*!< TIM16_TI1 is connected to I/O       */
+#define TIM_TIM16_TI1_LSI           TIM16_OR_TI1_RMP_0                                    /*!< TIM16_TI1 is connected to LSI Clock */
+#define TIM_TIM16_TI1_LSE           TIM16_OR_TI1_RMP_1                                    /*!< TIM16_TI1 is connected to LSE Clock */
+#define TIM_TIM16_TI1_RTC           (TIM16_OR_TI1_RMP_0 | TIM16_OR_TI1_RMP_1)             /*!< TIM16_TI1 is connected to RTC       */
 #endif /* TIM16 */
 
 #if defined(TIM17)
-#define TIM_TIM17_TI1_GPIO          0x00000000U                                           /* !< TIM17_TI1 is connected to I/O       */
-#define TIM_TIM17_TI1_MSI           TIM17_OR_TI1_RMP_0                                    /* !< TIM17_TI1 is connected to MSI       */
-#define TIM_TIM17_TI1_HSE           TIM17_OR_TI1_RMP_1                                    /* !< TIM17_TI1 is connected to HSE/32    */
-#define TIM_TIM17_TI1_MCO           (TIM17_OR_TI1_RMP_0 | TIM17_OR_TI1_RMP_1)             /* !< TIM17_TI1 is connected to MCO       */
+#define TIM_TIM17_TI1_GPIO          0x00000000U                                           /*!< TIM17_TI1 is connected to I/O       */
+#define TIM_TIM17_TI1_MSI           TIM17_OR_TI1_RMP_0                                    /*!< TIM17_TI1 is connected to MSI       */
+#define TIM_TIM17_TI1_HSE           TIM17_OR_TI1_RMP_1                                    /*!< TIM17_TI1 is connected to HSE/32    */
+#define TIM_TIM17_TI1_MCO           (TIM17_OR_TI1_RMP_0 | TIM17_OR_TI1_RMP_1)             /*!< TIM17_TI1 is connected to MCO       */
 #endif /* TIM17 */
 /**
   * @}
@@ -155,12 +155,12 @@ typedef struct
 /** @defgroup TIMEx_Break_Input_Source TIM Extended Break input source
   * @{
   */
-#define TIM_BREAKINPUTSOURCE_BKIN     0x00000001U                               /* !< An external source (GPIO) is connected to the BKIN pin  */
+#define TIM_BREAKINPUTSOURCE_BKIN     0x00000001U                               /*!< An external source (GPIO) is connected to the BKIN pin  */
 #if defined(COMP1)
-#define TIM_BREAKINPUTSOURCE_COMP1    0x00000002U                               /* !< The COMP1 output is connected to the break input */
+#define TIM_BREAKINPUTSOURCE_COMP1    0x00000002U                               /*!< The COMP1 output is connected to the break input */
 #endif /* COMP1 */
 #if defined(COMP2)
-#define TIM_BREAKINPUTSOURCE_COMP2    0x00000004U                               /* !< The COMP2 output is connected to the break input */
+#define TIM_BREAKINPUTSOURCE_COMP2    0x00000004U                               /*!< The COMP2 output is connected to the break input */
 #endif /* COMP2 */
 /**
   * @}

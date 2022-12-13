@@ -40,7 +40,7 @@ extern "C" {
   * @{
   */
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 /**
@@ -184,7 +184,7 @@ typedef struct
   * @{
   */
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 /** @defgroup ADCEx_injected_external_trigger_source ADC group injected trigger source
@@ -218,9 +218,9 @@ typedef struct
   * @{
   */
 #define ADC_SINGLE_ENDED                (LL_ADC_SINGLE_ENDED)         /*!< ADC channel ending set to single ended (literal also used to set calibration mode) */
-#if !defined (ADC_SUPPORT_2_5_MSPS)
+#if !defined(ADC_SUPPORT_2_5_MSPS)
 #define ADC_DIFFERENTIAL_ENDED          (LL_ADC_DIFFERENTIAL_ENDED)   /*!< ADC channel ending set to differential (literal also used to set calibration mode) */
-#endif
+#endif /* !ADC_SUPPORT_2_5_MSPS */
 /**
   * @}
   */
@@ -237,7 +237,7 @@ typedef struct
   * @}
   */
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 /** @defgroup ADCEx_INJ_SEQ_RANKS  ADC group injected - Sequencer ranks
@@ -256,7 +256,7 @@ typedef struct
   * @{
   */
 #define ADC_REGULAR_GROUP                  (LL_ADC_GROUP_REGULAR)           /*!< ADC group regular (available on all STM32 devices) */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 #define ADC_INJECTED_GROUP                 (LL_ADC_GROUP_INJECTED)          /*!< ADC group injected (not available on all STM32 devices)*/
@@ -332,7 +332,7 @@ typedef struct
   */
 #define ADC_IS_INDEPENDENT(__HANDLE__)   (SET)
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 /**
@@ -386,7 +386,7 @@ typedef struct
   */
 #define ADC_CFGR_CONTINUOUS(__CONTINUOUS_MODE__) ((__CONTINUOUS_MODE__) << ADC_CFGR_CONT_Pos)
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief Enable ADC overrun mode.
   * @param _OVERRUN_MODE_ Overrun mode.
@@ -426,7 +426,7 @@ typedef struct
      (ADC_CFGR1_CHSELRMOD)                                                     \
   )
 
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @brief Configure the ADC DMA continuous request.
   * @param __DMACONTREQ_MODE__ DMA continuous request mode.
@@ -462,13 +462,13 @@ typedef struct
   * @param __THRESHOLD__ Value to be shifted
   * @retval None
   */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 #define ADC_AWD1THRESHOLD_SHIFT_RESOLUTION(__HANDLE__, __THRESHOLD__) \
   ((__THRESHOLD__) << ((((__HANDLE__)->Instance->CFGR1 & ADC_CFGR1_RES) >> 3UL) * 2UL))
 #else
 #define ADC_AWD1THRESHOLD_SHIFT_RESOLUTION(__HANDLE__, __THRESHOLD__) \
   ((__THRESHOLD__) << ((((__HANDLE__)->Instance->CFGR & ADC_CFGR_RES) >> 3UL) * 2UL))
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
 /**
   * @brief Shift the AWD2 and AWD3 threshold with respect to the selected ADC resolution.
@@ -481,7 +481,7 @@ typedef struct
   * @param __THRESHOLD__ Value to be shifted
   * @retval None
   */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 #define ADC_AWD23THRESHOLD_SHIFT_RESOLUTION(__HANDLE__, __THRESHOLD__)                                       \
   ((((__HANDLE__)->Instance->CFGR1 & ADC_CFGR1_RES) != (ADC_CFGR1_RES_1 | ADC_CFGR1_RES_0))                    ? \
    ((__THRESHOLD__) >> ((4UL - ((((__HANDLE__)->Instance->CFGR1 & ADC_CFGR1_RES) >> 3UL) * 2UL)) & 0x1FUL)) : \
@@ -493,14 +493,14 @@ typedef struct
    ((__THRESHOLD__) >> ((4UL - ((((__HANDLE__)->Instance->CFGR & ADC_CFGR_RES) >> 3UL) * 2UL)) & 0x1FUL)) : \
    ((__THRESHOLD__) << 2UL)                                                                                 \
   )
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
 /**
   * @brief Clear Common Control Register.
   * @param __HANDLE__ ADC handle.
   * @retval None
   */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 #define ADC_CLEAR_COMMON_CONTROL_REGISTER(__HANDLE__) CLEAR_BIT(__LL_ADC_COMMON_INSTANCE((__HANDLE__)->Instance)->CCR, \
                                                                                                       ADC_CCR_PRESC  | \
                                                                                                       ADC_CCR_VBATEN | \
@@ -512,7 +512,7 @@ typedef struct
                                                                                                       ADC_CCR_VBATEN | \
                                                                                                       ADC_CCR_TSEN   | \
                                                                                                       ADC_CCR_VREFEN )
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
 
 /**
@@ -536,7 +536,7 @@ typedef struct
   */
 #define ADC_VREFINT_INSTANCE(__HANDLE__)  (((__HANDLE__)->Instance) == ADC1)
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 /**
@@ -612,12 +612,12 @@ typedef struct
   * @param __SING_DIFF__ programmed channel setting.
   * @retval SET (__SING_DIFF__ is valid) or RESET (__SING_DIFF__ is invalid)
   */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 #define IS_ADC_SINGLE_DIFFERENTIAL(__SING_DIFF__) ((__SING_DIFF__) == ADC_SINGLE_ENDED)
 #else
 #define IS_ADC_SINGLE_DIFFERENTIAL(__SING_DIFF__) (((__SING_DIFF__) == ADC_SINGLE_ENDED)      || \
                                                    ((__SING_DIFF__) == ADC_DIFFERENTIAL_ENDED)  )
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
 /**
   * @brief Verify the ADC offset management setting.
@@ -630,7 +630,7 @@ typedef struct
                                                  ((__OFFSET_NUMBER__) == ADC_OFFSET_3)    || \
                                                  ((__OFFSET_NUMBER__) == ADC_OFFSET_4)      )
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 /**
@@ -673,20 +673,20 @@ typedef struct
   * @param __WATCHDOG__ programmed ADC analog watchdog setting.
   * @retval SET (__WATCHDOG__ is valid) or RESET (__WATCHDOG__ is invalid)
   */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 #define IS_ADC_ANALOG_WATCHDOG_NUMBER(__WATCHDOG__) ((__WATCHDOG__) == ADC_ANALOGWATCHDOG_1)
 #else
 #define IS_ADC_ANALOG_WATCHDOG_NUMBER(__WATCHDOG__) (((__WATCHDOG__) == ADC_ANALOGWATCHDOG_1) || \
                                                      ((__WATCHDOG__) == ADC_ANALOGWATCHDOG_2) || \
                                                      ((__WATCHDOG__) == ADC_ANALOGWATCHDOG_3)   )
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
 /**
   * @brief Verify the ADC analog watchdog mode setting.
   * @param __WATCHDOG_MODE__ programmed ADC analog watchdog mode setting.
   * @retval SET (__WATCHDOG_MODE__ is valid) or RESET (__WATCHDOG_MODE__ is invalid)
   */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 #define IS_ADC_ANALOG_WATCHDOG_MODE(__WATCHDOG_MODE__) (((__WATCHDOG_MODE__) == ADC_ANALOGWATCHDOG_NONE)             || \
                                                         ((__WATCHDOG_MODE__) == ADC_ANALOGWATCHDOG_SINGLE_REG)       || \
                                                         ((__WATCHDOG_MODE__) == ADC_ANALOGWATCHDOG_ALL_REG)            )
@@ -700,10 +700,10 @@ typedef struct
                                                         ((__WATCHDOG_MODE__) == ADC_ANALOGWATCHDOG_ALL_REGINJEC)       )
 #endif /* ADC_SUPPORT_2_5_MSPS */
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 #define IS_ADC_TRIGGER_FREQ(TRIGGER_FREQ) (((TRIGGER_FREQ) == LL_ADC_TRIGGER_FREQ_HIGH) || \
                                            ((TRIGGER_FREQ) == LL_ADC_TRIGGER_FREQ_LOW)    )
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
 /**
   * @brief Verify the ADC conversion (regular or injected or both).
@@ -719,7 +719,7 @@ typedef struct
   * @param __EVENT__ ADC event.
   * @retval SET (__EVENT__ is valid) or RESET (__EVENT__ is invalid)
   */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 #define IS_ADC_EVENT_TYPE(__EVENT__) (((__EVENT__) == ADC_EOSMP_EVENT) || \
                                       ((__EVENT__) == ADC_AWD1_EVENT)  || \
                                       ((__EVENT__) == ADC_AWD2_EVENT)  || \
@@ -734,7 +734,7 @@ typedef struct
                                       ((__EVENT__) == ADC_JQOVF_EVENT)  )
 #endif /* ADC_SUPPORT_2_5_MSPS */
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC oversampling" not available on ADC peripheral of this STM32WB device */
 #else
 /**
@@ -750,7 +750,7 @@ typedef struct
                                                    ((__RATIO__) == ADC_OVERSAMPLING_RATIO_64  ) || \
                                                    ((__RATIO__) == ADC_OVERSAMPLING_RATIO_128 ) || \
                                                    ((__RATIO__) == ADC_OVERSAMPLING_RATIO_256 ))
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
 /**
   * @brief Verify the ADC oversampling shift.
@@ -775,7 +775,7 @@ typedef struct
 #define IS_ADC_TRIGGERED_OVERSAMPLING_MODE(__MODE__) (((__MODE__) == ADC_TRIGGEREDMODE_SINGLE_TRIGGER) || \
                                                       ((__MODE__) == ADC_TRIGGEREDMODE_MULTI_TRIGGER) )
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 #else
 /**
   * @brief Verify the ADC oversampling regular conversion resumed or continued mode.
@@ -784,7 +784,7 @@ typedef struct
   */
 #define IS_ADC_REGOVERSAMPLING_MODE(__MODE__) (((__MODE__) == ADC_REGOVERSAMPLING_CONTINUED_MODE) || \
                                                ((__MODE__) == ADC_REGOVERSAMPLING_RESUMED_MODE) )
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
 /**
   * @brief Verify the DFSDM mode configuration.
@@ -823,11 +823,11 @@ typedef struct
 
 /* ADC calibration */
 HAL_StatusTypeDef       HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc, uint32_t SingleDiff);
-uint32_t                HAL_ADCEx_Calibration_GetValue(ADC_HandleTypeDef *hadc, uint32_t SingleDiff);
+uint32_t                HAL_ADCEx_Calibration_GetValue(const ADC_HandleTypeDef *hadc, uint32_t SingleDiff);
 HAL_StatusTypeDef       HAL_ADCEx_Calibration_SetValue(ADC_HandleTypeDef *hadc, uint32_t SingleDiff,
                                                        uint32_t CalibrationFactor);
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 /* Blocking mode: Polling */
@@ -840,15 +840,15 @@ HAL_StatusTypeDef       HAL_ADCEx_InjectedStart_IT(ADC_HandleTypeDef *hadc);
 HAL_StatusTypeDef       HAL_ADCEx_InjectedStop_IT(ADC_HandleTypeDef *hadc);
 #endif /* ADC_SUPPORT_2_5_MSPS */
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 /* ADC retrieve conversion value intended to be used with polling or interruption */
-uint32_t                HAL_ADCEx_InjectedGetValue(ADC_HandleTypeDef *hadc, uint32_t InjectedRank);
+uint32_t                HAL_ADCEx_InjectedGetValue(const ADC_HandleTypeDef *hadc, uint32_t InjectedRank);
 #endif /* ADC_SUPPORT_2_5_MSPS */
 
 /* ADC IRQHandler and Callbacks used in non-blocking modes (Interruption) */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 void                    HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef *hadc);
@@ -858,7 +858,7 @@ void                    HAL_ADCEx_LevelOutOfWindow2Callback(ADC_HandleTypeDef *h
 void                    HAL_ADCEx_LevelOutOfWindow3Callback(ADC_HandleTypeDef *hadc);
 void                    HAL_ADCEx_EndOfSamplingCallback(ADC_HandleTypeDef *hadc);
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 /* ADC group regular conversions stop */
@@ -874,23 +874,23 @@ HAL_StatusTypeDef HAL_ADCEx_RegularStop_DMA(ADC_HandleTypeDef *hadc);
   * @{
   */
 /* Peripheral Control functions ***********************************************/
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
-HAL_StatusTypeDef       HAL_ADCEx_InjectedConfigChannel(ADC_HandleTypeDef *hadc,ADC_InjectionConfTypeDef* sConfigInjected);
+HAL_StatusTypeDef       HAL_ADCEx_InjectedConfigChannel(ADC_HandleTypeDef *hadc, const ADC_InjectionConfTypeDef* sConfigInjected);
 #endif /* ADC_SUPPORT_2_5_MSPS */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 HAL_StatusTypeDef       HAL_ADCEx_EnableInjectedQueue(ADC_HandleTypeDef *hadc);
 HAL_StatusTypeDef       HAL_ADCEx_DisableInjectedQueue(ADC_HandleTypeDef *hadc);
 #endif /* ADC_SUPPORT_2_5_MSPS */
 HAL_StatusTypeDef       HAL_ADCEx_DisableVoltageRegulator(ADC_HandleTypeDef *hadc);
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature " ADC deep power-down" not available on ADC peripheral of this STM32WB device */
 #else
 HAL_StatusTypeDef       HAL_ADCEx_EnterADCDeepPowerDownMode(ADC_HandleTypeDef *hadc);
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
 /**
   * @}

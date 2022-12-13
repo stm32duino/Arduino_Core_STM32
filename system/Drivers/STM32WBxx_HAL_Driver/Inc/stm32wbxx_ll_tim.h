@@ -1219,9 +1219,9 @@ typedef struct
 /** @defgroup TIM_LL_EC_TIM2_ITR1_RMP  TIM2 Internal Trigger1 Remap
   * @{
   */
-#define LL_TIM_TIM2_ITR1_RMP_NONE          TIM2_OR_RMP_MASK                                           /* !< No internal trigger on TIM2_ITR1 */
+#define LL_TIM_TIM2_ITR1_RMP_NONE          TIM2_OR_RMP_MASK                                           /*!< No internal trigger on TIM2_ITR1 */
 #if defined(USB)
-#define LL_TIM_TIM2_ITR1_RMP_USB_SOF       (TIM2_OR_ITR1_RMP)                                         /* !< TIM2_ITR1 is connected to USB SOF */
+#define LL_TIM_TIM2_ITR1_RMP_USB_SOF       (TIM2_OR_ITR1_RMP)                                         /*!< TIM2_ITR1 is connected to USB SOF */
 #endif /* USB */
 /**
   * @}
@@ -1325,10 +1325,6 @@ typedef struct
 #define LL_TIM_ReadReg(__INSTANCE__, __REG__) READ_REG((__INSTANCE__)->__REG__)
 /**
   * @}
-  */
-
-/** @defgroup TIM_LL_EM_Exported_Macros Exported_Macros
-  * @{
   */
 
 /**
