@@ -108,7 +108,7 @@ ErrorStatus LL_EXTI_DeInit(void)
   LL_EXTI_WriteReg(FPR3, EXTI_PR3_Msk);
 
   /* Interrupt mask register set to default reset values */
-  LL_EXTI_WriteReg(C2IMR1, 0xFFFE0000);
+  LL_EXTI_WriteReg(C2IMR1, 0xFFFE0000U);
 
   /* Event mask register set to default reset values */
   LL_EXTI_WriteReg(C2EMR1, 0x00000000U);

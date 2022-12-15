@@ -40,13 +40,84 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section0" checked aria-hidden="true"> <label for="collapse-section0" checked aria-hidden="true"><strong>V1.5.0 / 04-November-2021</strong></label>
+<input type="checkbox" id="collapse-section0" checked aria-hidden="true"> <label for="collapse-section0" checked aria-hidden="true"><strong>V1.6.0 / 02-June-2022</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</li>
 </ul>
 <h2 id="contents">Contents</h2>
+<ul>
+<li>General updates to fix known defects and enhancements implementation</li>
+<li><strong>Major update</strong> of drivers for STM32MP15xx devices:
+<ul>
+<li>HAL:
+<ul>
+<li>Implement HAL_GetUIDw{0,1,2} (New API)</li>
+<li>Add ALIGN_32BYTES definitions</li>
+</ul></li>
+<li>ADC (No API change)
+<ul>
+<li>Fix loop index computation at low frequency</li>
+<li>Fix HAL_GetTick() timeout vulnerability</li>
+<li>Fix HAL_ADC_MspDeInit: disable clock should not reset all ADCs</li>
+<li>Update function parameters pointers with prefix “p”</li>
+</ul></li>
+<li>SPI
+<ul>
+<li>Alignment with other STM32 families (No API Change)</li>
+</ul></li>
+<li>TIM
+<ul>
+<li>LL : ONEPULSEMODE defines description are inverted</li>
+<li>LL : COUNTERMODE defines are inverted for TIM_CR1_CMS</li>
+</ul></li>
+<li>CRC, DMA and USART
+<ul>
+<li>Alignment with other STM32 families (No API Change)</li>
+</ul></li>
+<li>EXTI (No API change)
+<ul>
+<li>Fix some MISRA warnings</li>
+<li>Optimize Get Config API</li>
+</ul></li>
+<li>SMBUS : Alignment with other STM32 families
+<ul>
+<li>SMBUS Extended files support (API Change)</li>
+</ul></li>
+<li>QSPI (No API change)
+<ul>
+<li>Fix typo comments</li>
+<li>Fix error for HAL_QSPI_Abort function in memory-mapped mode.</li>
+</ul></li>
+<li>RCC (No API change)
+<ul>
+<li>(HAL) : Fix pllxvco calculation</li>
+<li>(LL) : Fix compilation issue ( some missing register alignement with CMSIS Device)</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>N/A</li>
+</ul>
+<h2 id="supported-devices">Supported Devices</h2>
+<ul>
+<li>The drivers provided support the following devices :
+<ul>
+<li>STM32MP157Cxx, STM32MP157Axx, STM32MP157Dxx, STM32MP157Fxx</li>
+<li>STM32MP153Cxx, STM32MP153Axx, STM32MP153Dxx, STM32MP153Fxx</li>
+<li>STM32MP151Cxx, STM32MP151Axx, STM32MP151Dxx, STM32MP151Fxx</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true"><strong>V1.5.0 / 04-November-2021</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<p><strong>Maintenance release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</p>
+<h2 id="contents-1">Contents</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li><strong>Major update</strong> of drivers for STM32MP15xx devices:
@@ -80,11 +151,11 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations">Known Limitations</h2>
+<h2 id="known-limitations-1">Known Limitations</h2>
 <ul>
-<li>N/A</li>
+<li>None</li>
 </ul>
-<h2 id="supported-devices">Supported Devices</h2>
+<h2 id="supported-devices-1">Supported Devices</h2>
 <ul>
 <li>The drivers provided support the following devices :
 <ul>
@@ -98,9 +169,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true"><strong>V1.4.0 / 26-February-2021</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <p><strong>Maintenance release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</p>
-<h2 id="contents-1">Contents</h2>
+<h2 id="contents-2">Contents</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li><strong>Major update</strong> of drivers for STM32MP15xx devices:
@@ -133,7 +204,7 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-1">Known Limitations</h2>
+<h2 id="known-limitations-2">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
@@ -141,7 +212,7 @@
 <ul>
 <li>None</li>
 </ul>
-<h2 id="supported-devices-1">Supported Devices</h2>
+<h2 id="supported-devices-2">Supported Devices</h2>
 <ul>
 <li>The drivers provided support the following devices :
 <ul>
@@ -155,9 +226,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.3.0 / 20-October-2020</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <p><strong>Maintenance release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</p>
-<h2 id="contents-2">Contents</h2>
+<h2 id="contents-3">Contents</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li><strong>Major update</strong> of drivers for STM32MP15xx devices:
@@ -204,7 +275,7 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-2">Known Limitations</h2>
+<h2 id="known-limitations-3">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
@@ -212,7 +283,7 @@
 <ul>
 <li>None</li>
 </ul>
-<h2 id="supported-devices-2">Supported Devices</h2>
+<h2 id="supported-devices-3">Supported Devices</h2>
 <ul>
 <li>The drivers provided support the following devices :
 <ul>
@@ -226,9 +297,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true"><strong>V1.2.0 / 03-February-2020</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <p><strong>Maintenance release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</p>
-<h2 id="contents-3">Contents</h2>
+<h2 id="contents-4">Contents</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li><strong>Major update</strong> of drivers for STM32MP15xx devices:
@@ -279,7 +350,7 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-3">Known Limitations</h2>
+<h2 id="known-limitations-4">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
@@ -287,7 +358,7 @@
 <ul>
 <li>None</li>
 </ul>
-<h2 id="supported-devices-3">Supported Devices</h2>
+<h2 id="supported-devices-4">Supported Devices</h2>
 <ul>
 <li>The drivers provided support the following devices :
 <ul>
@@ -301,9 +372,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true"><strong>V1.1.0 / 10-September-2019</strong></label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <p><strong>First Maintenance release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</p>
-<h2 id="contents-4">Contents</h2>
+<h2 id="contents-5">Contents</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li><strong>Implementation of LL APIs:</strong>
@@ -362,7 +433,7 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-4">Known Limitations</h2>
+<h2 id="known-limitations-5">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
@@ -375,9 +446,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true"><strong>V1.0.0 / 22-January-2019</strong></label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <p><strong>First official release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</p>
-<h2 id="known-limitations-5">Known Limitations</h2>
+<h2 id="known-limitations-6">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>

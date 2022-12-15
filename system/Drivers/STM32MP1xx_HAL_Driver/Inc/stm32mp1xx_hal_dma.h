@@ -214,7 +214,7 @@ typedef struct __DMA_HandleTypeDef
   * @brief    DMA Request selection
   * @{
   */
-/* D2 Domain : DMAMUX1 requests */
+/* DMAMUX1 requests */
 #define DMA_REQUEST_MEM2MEM          0U  /*!< memory to memory transfer   */
 
 #define DMA_REQUEST_GENERATOR0       1U  /*!< DMAMUX1 request generator 0 */
@@ -265,6 +265,7 @@ typedef struct __DMA_HandleTypeDef
 #define DMA_REQUEST_SPI2_RX          39U  /*!< DMAMUX1 SPI2 RX request   */
 #define DMA_REQUEST_SPI2_TX          40U  /*!< DMAMUX1 SPI2 TX request   */
 
+
 #define DMA_REQUEST_USART2_RX        43U  /*!< DMAMUX1 USART2 RX request */
 #define DMA_REQUEST_USART2_TX        44U  /*!< DMAMUX1 USART2 TX request */
 #define DMA_REQUEST_USART3_RX        45U  /*!< DMAMUX1 USART3 RX request */
@@ -293,8 +294,10 @@ typedef struct __DMA_HandleTypeDef
 #define DMA_REQUEST_UART5_RX         65U  /*!< DMAMUX1 UART5 RX request */
 #define DMA_REQUEST_UART5_TX         66U  /*!< DMAMUX1 UART5 TX request */
 
+#if defined (DAC1)
 #define DMA_REQUEST_DAC1             67U  /*!< DMAMUX1 DAC1 request      */
 #define DMA_REQUEST_DAC2             68U  /*!< DMAMUX1 DAC2 request      */
+#endif
 
 #define DMA_REQUEST_TIM6_UP          69U  /*!< DMAMUX1 TIM6 UP request   */
 #define DMA_REQUEST_TIM7_UP          70U  /*!< DMAMUX1 TIM7 UP request   */
@@ -305,14 +308,19 @@ typedef struct __DMA_HandleTypeDef
 #define DMA_REQUEST_I2C3_RX          73U  /*!< DMAMUX1 I2C3 RX request   */
 #define DMA_REQUEST_I2C3_TX          74U  /*!< DMAMUX1 I2C3 TX request   */
 
+#if defined (DCMI)
 #define DMA_REQUEST_DCMI             75U  /*!< DMAMUX1 DCMI request      */
+#endif
 
 #if defined(CRYP2)
 #define DMA_REQUEST_CRYP2_IN         76U  /*!< DMAMUX1 CRYP2 IN request  */
 #define DMA_REQUEST_CRYP2_OUT        77U  /*!< DMAMUX1 CRYP2 OUT request */
 #endif
 
+
+#if defined (HASH2)
 #define DMA_REQUEST_HASH2_IN         78U  /*!< DMAMUX1 HASH2 IN request  */
+#endif
 
 #define DMA_REQUEST_UART7_RX         79U  /*!< DMAMUX1 UART7 RX request  */
 #define DMA_REQUEST_UART7_TX         80U  /*!< DMAMUX1 UART7 TX request  */
@@ -335,8 +343,10 @@ typedef struct __DMA_HandleTypeDef
 #define DMA_REQUEST_SPDIF_RX_DT      93U  /*!< DMAMUX1 SPDIF RXDT request*/
 #define DMA_REQUEST_SPDIF_RX_CS      94U  /*!< DMAMUX1 SPDIF RXCS request*/
 
+#if defined (SAI4)
 #define DMA_REQUEST_SAI4_A           99U  /*!< DMAMUX1 SAI4 A request    */
 #define DMA_REQUEST_SAI4_B          100U   /*!< DMAMUX1 SAI4 B request    */
+#endif
 
 #define DMA_REQUEST_DFSDM1_FLT0     101U  /*!< DMAMUX1 DFSDM Filter0 request */
 #define DMA_REQUEST_DFSDM1_FLT1     102U  /*!< DMAMUX1 DFSDM Filter1 request */
@@ -354,11 +364,15 @@ typedef struct __DMA_HandleTypeDef
 #define DMA_REQUEST_TIM17_CH1       111U  /*!< DMAMUX1 TIM17 CH1 request  */
 #define DMA_REQUEST_TIM17_UP        112U  /*!< DMAMUX1 TIM17 UP request   */
 
+#if defined (SAI3)
 #define DMA_REQUEST_SAI3_A          113U  /*!< DMAMUX1 SAI3 A request  */
 #define DMA_REQUEST_SAI3_B          114U  /*!< DMAMUX1 SAI3 B request  */
+#endif
 
 #define DMA_REQUEST_I2C5_RX         115U  /*!< DMAMUX1 I2C5 RX request     */
 #define DMA_REQUEST_I2C5_TX         116U  /*!< DMAMUX1 I2C5 TX request     */
+
+
 
 /**
   * @}
@@ -596,7 +610,6 @@ typedef struct __DMA_HandleTypeDef
  ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Stream7))? DMA_FLAG_TCIF3_7 :\
  ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA2_Stream7))? DMA_FLAG_TCIF3_7 :\
  (uint32_t)0x00000000)
-
 /**
   * @brief  Return the current DMA Stream half transfer complete flag.
   * @param  __HANDLE__: DMA handle
@@ -620,7 +633,6 @@ typedef struct __DMA_HandleTypeDef
  ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Stream7))? DMA_FLAG_HTIF3_7 :\
  ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA2_Stream7))? DMA_FLAG_HTIF3_7 :\
  (uint32_t)0x00000000)
-
 /**
   * @brief  Return the current DMA Stream transfer error flag.
   * @param  __HANDLE__: DMA handle
@@ -644,7 +656,6 @@ typedef struct __DMA_HandleTypeDef
  ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Stream7))? DMA_FLAG_TEIF3_7 :\
  ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA2_Stream7))? DMA_FLAG_TEIF3_7 :\
  (uint32_t)0x00000000)
-
 /**
   * @brief  Return the current DMA Stream FIFO error flag.
   * @param  __HANDLE__: DMA handle
@@ -692,7 +703,6 @@ typedef struct __DMA_HandleTypeDef
  ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Stream7))? DMA_FLAG_DMEIF3_7 :\
  ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA2_Stream7))? DMA_FLAG_DMEIF3_7 :\
   (uint32_t)0x00000000)
-
 
 /**
   * @brief  Get the DMA Stream pending flags.
@@ -873,7 +883,10 @@ uint32_t             HAL_DMA_GetError(DMA_HandleTypeDef *hdma);
 #define IS_DMA_REQUEST(REQUEST) ((REQUEST) <= DMA_REQUEST_I2C5_TX)
 
 
-#define IS_DMA_INSTANCE(__HANDLE__) (((uint32_t)((__HANDLE__)->Instance) >= ((uint32_t)DMA1_Stream0)) && ((uint32_t)((__HANDLE__)->Instance) <= ((uint32_t)DMA2_Stream7)))
+#define IS_DMA_INSTANCE(__HANDLE__) ( \
+                                      (((uint32_t)((__HANDLE__)->Instance) >= ((uint32_t)DMA1_Stream0)) &&  \
+                                       ((uint32_t)((__HANDLE__)->Instance) <= ((uint32_t)DMA2_Stream7)))    \
+                                    )
 
 #define IS_DMA_DIRECTION(DIRECTION) (((DIRECTION) == DMA_PERIPH_TO_MEMORY ) || \
                                      ((DIRECTION) == DMA_MEMORY_TO_PERIPH)  || \

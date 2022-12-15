@@ -139,6 +139,17 @@ typedef enum
   #endif /* __ALIGN_BEGIN */
 #endif /* __GNUC__ */
 
+/* Macro to get variable aligned on 32-bytes,needed for cache maintenance purpose */
+#if defined   (__GNUC__)        /* GNU Compiler */
+#define ALIGN_32BYTES(buf)  buf __attribute__ ((aligned (32)))
+#elif defined (__ICCARM__)    /* IAR Compiler */
+#define ALIGN_32BYTES(buf) _Pragma("data_alignment=32") buf
+#elif defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+#define ALIGN_32BYTES(buf) __ALIGNED(32) buf
+#elif defined   (__CC_ARM)      /* ARM Compiler */
+#define ALIGN_32BYTES(buf) __align(32) buf
+#endif /* __GNUC__ */
+
 /** 
   * @brief  __RAM_FUNC definition
   */

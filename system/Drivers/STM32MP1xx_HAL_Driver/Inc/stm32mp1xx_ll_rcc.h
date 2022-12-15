@@ -340,22 +340,22 @@ typedef struct
 /** @defgroup RCC_LL_EC_MCO2_DIV  MCO2 prescaler
   * @{
   */
-#define LL_RCC_MCO2_DIV_1                  RCC_MCO2CFGR_MCO2DIV_0   /*!< MCO not divided */
-#define LL_RCC_MCO2_DIV_2                  RCC_MCO2CFGR_MCO2DIV_1   /*!< MCO divided by 2 */
-#define LL_RCC_MCO2_DIV_3                  RCC_MCO2CFGR_MCO2DIV_2   /*!< MCO divided by 3 */
-#define LL_RCC_MCO2_DIV_4                  RCC_MCO2CFGR_MCO2DIV_3   /*!< MCO divided by 4 */
-#define LL_RCC_MCO2_DIV_5                  RCC_MCO2CFGR_MCO2DIV_4   /*!< MCO divided by 5 */
-#define LL_RCC_MCO2_DIV_6                  RCC_MCO2CFGR_MCO2DIV_5   /*!< MCO divided by 6 */
-#define LL_RCC_MCO2_DIV_7                  RCC_MCO2CFGR_MCO2DIV_6   /*!< MCO divided by 7 */
-#define LL_RCC_MCO2_DIV_8                  RCC_MCO2CFGR_MCO2DIV_7   /*!< MCO divided by 8 */
-#define LL_RCC_MCO2_DIV_9                  RCC_MCO2CFGR_MCO2DIV_8   /*!< MCO divided by 9 */
-#define LL_RCC_MCO2_DIV_10                 RCC_MCO2CFGR_MCO2DIV_9   /*!< MCO divided by 10 */
-#define LL_RCC_MCO2_DIV_11                 RCC_MCO2CFGR_MCO2DIV_10  /*!< MCO divided by 11 */
-#define LL_RCC_MCO2_DIV_12                 RCC_MCO2CFGR_MCO2DIV_11  /*!< MCO divided by 12 */
-#define LL_RCC_MCO2_DIV_13                 RCC_MCO2CFGR_MCO2DIV_12  /*!< MCO divided by 13 */
-#define LL_RCC_MCO2_DIV_14                 RCC_MCO2CFGR_MCO2DIV_13  /*!< MCO divided by 14 */
-#define LL_RCC_MCO2_DIV_15                 RCC_MCO2CFGR_MCO2DIV_14  /*!< MCO divided by 15 */
-#define LL_RCC_MCO2_DIV_16                 RCC_MCO2CFGR_MCO2DIV_15  /*!< MCO divided by 16 */
+#define LL_RCC_MCO2_DIV_1                  0U                       /*!< MCO not divided */
+#define LL_RCC_MCO2_DIV_2                  RCC_MCO2CFGR_MCO2DIV_0   /*!< MCO divided by 2 */
+#define LL_RCC_MCO2_DIV_3                  RCC_MCO2CFGR_MCO2DIV_1   /*!< MCO divided by 3 */
+#define LL_RCC_MCO2_DIV_4                  (RCC_MCO2CFGR_MCO2DIV_1 | RCC_MCO2CFGR_MCO2DIV_0)   /*!< MCO divided by 4 */
+#define LL_RCC_MCO2_DIV_5                  RCC_MCO2CFGR_MCO2DIV_2   /*!< MCO divided by 5 */
+#define LL_RCC_MCO2_DIV_6                  (RCC_MCO2CFGR_MCO2DIV_2 | RCC_MCO2CFGR_MCO2DIV_0)   /*!< MCO divided by 6 */
+#define LL_RCC_MCO2_DIV_7                  (RCC_MCO2CFGR_MCO2DIV_2 | RCC_MCO2CFGR_MCO2DIV_1)   /*!< MCO divided by 7 */
+#define LL_RCC_MCO2_DIV_8                  (RCC_MCO2CFGR_MCO2DIV_2 | RCC_MCO2CFGR_MCO2DIV_1 | RCC_MCO2CFGR_MCO2DIV_0)   /*!< MCO divided by 8 */
+#define LL_RCC_MCO2_DIV_9                  RCC_MCO2CFGR_MCO2DIV_3   /*!< MCO divided by 9 */
+#define LL_RCC_MCO2_DIV_10                 (RCC_MCO2CFGR_MCO2DIV_3 | RCC_MCO2CFGR_MCO2DIV_0)   /*!< MCO divided by 10 */
+#define LL_RCC_MCO2_DIV_11                 (RCC_MCO2CFGR_MCO2DIV_3 | RCC_MCO2CFGR_MCO2DIV_1)   /*!< MCO divided by 11 */
+#define LL_RCC_MCO2_DIV_12                 (RCC_MCO2CFGR_MCO2DIV_3 | RCC_MCO2CFGR_MCO2DIV_1 | RCC_MCO2CFGR_MCO2DIV_0)   /*!< MCO divided by 12 */
+#define LL_RCC_MCO2_DIV_13                 (RCC_MCO2CFGR_MCO2DIV_3 | RCC_MCO2CFGR_MCO2DIV_2)   /*!< MCO divided by 13 */
+#define LL_RCC_MCO2_DIV_14                 (RCC_MCO2CFGR_MCO2DIV_3 | RCC_MCO2CFGR_MCO2DIV_2 | RCC_MCO2CFGR_MCO2DIV_0)  /*!< MCO divided by 14 */
+#define LL_RCC_MCO2_DIV_15                 (RCC_MCO2CFGR_MCO2DIV_3 | RCC_MCO2CFGR_MCO2DIV_2 | RCC_MCO2CFGR_MCO2DIV_1)  /*!< MCO divided by 15 */
+#define LL_RCC_MCO2_DIV_16                 (RCC_MCO2CFGR_MCO2DIV_3 | RCC_MCO2CFGR_MCO2DIV_2 | RCC_MCO2CFGR_MCO2DIV_1 | RCC_MCO2CFGR_MCO2DIV_0)  /*!< MCO divided by 16 */
 /**
   * @}
   */
@@ -363,70 +363,70 @@ typedef struct
 /** @defgroup RCC_LL_EC_RTC_HSEDIV  HSE prescaler for RTC clock
   * @{
   */
-#define LL_RCC_RTC_HSE_DIV_1                RCC_RTCDIVR_RTCDIV_1
-#define LL_RCC_RTC_HSE_DIV_2                RCC_RTCDIVR_RTCDIV_2
-#define LL_RCC_RTC_HSE_DIV_3                RCC_RTCDIVR_RTCDIV_3
-#define LL_RCC_RTC_HSE_DIV_4                RCC_RTCDIVR_RTCDIV_4
-#define LL_RCC_RTC_HSE_DIV_5                RCC_RTCDIVR_RTCDIV_5
-#define LL_RCC_RTC_HSE_DIV_6                RCC_RTCDIVR_RTCDIV_6
-#define LL_RCC_RTC_HSE_DIV_7                RCC_RTCDIVR_RTCDIV_7
-#define LL_RCC_RTC_HSE_DIV_8                RCC_RTCDIVR_RTCDIV_8
-#define LL_RCC_RTC_HSE_DIV_9                RCC_RTCDIVR_RTCDIV_9
-#define LL_RCC_RTC_HSE_DIV_10               RCC_RTCDIVR_RTCDIV_10
-#define LL_RCC_RTC_HSE_DIV_11               RCC_RTCDIVR_RTCDIV_11
-#define LL_RCC_RTC_HSE_DIV_12               RCC_RTCDIVR_RTCDIV_12
-#define LL_RCC_RTC_HSE_DIV_13               RCC_RTCDIVR_RTCDIV_13
-#define LL_RCC_RTC_HSE_DIV_14               RCC_RTCDIVR_RTCDIV_14
-#define LL_RCC_RTC_HSE_DIV_15               RCC_RTCDIVR_RTCDIV_15
-#define LL_RCC_RTC_HSE_DIV_16               RCC_RTCDIVR_RTCDIV_16
-#define LL_RCC_RTC_HSE_DIV_17               RCC_RTCDIVR_RTCDIV_17
-#define LL_RCC_RTC_HSE_DIV_18               RCC_RTCDIVR_RTCDIV_18
-#define LL_RCC_RTC_HSE_DIV_19               RCC_RTCDIVR_RTCDIV_19
-#define LL_RCC_RTC_HSE_DIV_20               RCC_RTCDIVR_RTCDIV_20
-#define LL_RCC_RTC_HSE_DIV_21               RCC_RTCDIVR_RTCDIV_21
-#define LL_RCC_RTC_HSE_DIV_22               RCC_RTCDIVR_RTCDIV_22
-#define LL_RCC_RTC_HSE_DIV_23               RCC_RTCDIVR_RTCDIV_23
-#define LL_RCC_RTC_HSE_DIV_24               RCC_RTCDIVR_RTCDIV_24
-#define LL_RCC_RTC_HSE_DIV_25               RCC_RTCDIVR_RTCDIV_25
-#define LL_RCC_RTC_HSE_DIV_26               RCC_RTCDIVR_RTCDIV_26
-#define LL_RCC_RTC_HSE_DIV_27               RCC_RTCDIVR_RTCDIV_27
-#define LL_RCC_RTC_HSE_DIV_28               RCC_RTCDIVR_RTCDIV_28
-#define LL_RCC_RTC_HSE_DIV_29               RCC_RTCDIVR_RTCDIV_29
-#define LL_RCC_RTC_HSE_DIV_30               RCC_RTCDIVR_RTCDIV_30
-#define LL_RCC_RTC_HSE_DIV_31               RCC_RTCDIVR_RTCDIV_31
-#define LL_RCC_RTC_HSE_DIV_32               RCC_RTCDIVR_RTCDIV_32
-#define LL_RCC_RTC_HSE_DIV_33               RCC_RTCDIVR_RTCDIV_33
-#define LL_RCC_RTC_HSE_DIV_34               RCC_RTCDIVR_RTCDIV_34
-#define LL_RCC_RTC_HSE_DIV_35               RCC_RTCDIVR_RTCDIV_35
-#define LL_RCC_RTC_HSE_DIV_36               RCC_RTCDIVR_RTCDIV_36
-#define LL_RCC_RTC_HSE_DIV_37               RCC_RTCDIVR_RTCDIV_37
-#define LL_RCC_RTC_HSE_DIV_38               RCC_RTCDIVR_RTCDIV_38
-#define LL_RCC_RTC_HSE_DIV_39               RCC_RTCDIVR_RTCDIV_39
-#define LL_RCC_RTC_HSE_DIV_40               RCC_RTCDIVR_RTCDIV_40
-#define LL_RCC_RTC_HSE_DIV_41               RCC_RTCDIVR_RTCDIV_41
-#define LL_RCC_RTC_HSE_DIV_42               RCC_RTCDIVR_RTCDIV_42
-#define LL_RCC_RTC_HSE_DIV_43               RCC_RTCDIVR_RTCDIV_43
-#define LL_RCC_RTC_HSE_DIV_44               RCC_RTCDIVR_RTCDIV_44
-#define LL_RCC_RTC_HSE_DIV_45               RCC_RTCDIVR_RTCDIV_45
-#define LL_RCC_RTC_HSE_DIV_46               RCC_RTCDIVR_RTCDIV_46
-#define LL_RCC_RTC_HSE_DIV_47               RCC_RTCDIVR_RTCDIV_47
-#define LL_RCC_RTC_HSE_DIV_48               RCC_RTCDIVR_RTCDIV_48
-#define LL_RCC_RTC_HSE_DIV_49               RCC_RTCDIVR_RTCDIV_49
-#define LL_RCC_RTC_HSE_DIV_50               RCC_RTCDIVR_RTCDIV_50
-#define LL_RCC_RTC_HSE_DIV_51               RCC_RTCDIVR_RTCDIV_51
-#define LL_RCC_RTC_HSE_DIV_52               RCC_RTCDIVR_RTCDIV_52
-#define LL_RCC_RTC_HSE_DIV_53               RCC_RTCDIVR_RTCDIV_53
-#define LL_RCC_RTC_HSE_DIV_54               RCC_RTCDIVR_RTCDIV_54
-#define LL_RCC_RTC_HSE_DIV_55               RCC_RTCDIVR_RTCDIV_55
-#define LL_RCC_RTC_HSE_DIV_56               RCC_RTCDIVR_RTCDIV_56
-#define LL_RCC_RTC_HSE_DIV_57               RCC_RTCDIVR_RTCDIV_57
-#define LL_RCC_RTC_HSE_DIV_58               RCC_RTCDIVR_RTCDIV_58
-#define LL_RCC_RTC_HSE_DIV_59               RCC_RTCDIVR_RTCDIV_59
-#define LL_RCC_RTC_HSE_DIV_60               RCC_RTCDIVR_RTCDIV_60
-#define LL_RCC_RTC_HSE_DIV_61               RCC_RTCDIVR_RTCDIV_61
-#define LL_RCC_RTC_HSE_DIV_62               RCC_RTCDIVR_RTCDIV_62
-#define LL_RCC_RTC_HSE_DIV_63               RCC_RTCDIVR_RTCDIV_63
-#define LL_RCC_RTC_HSE_DIV_64               RCC_RTCDIVR_RTCDIV_64
+#define LL_RCC_RTC_HSE_DIV_1                0U
+#define LL_RCC_RTC_HSE_DIV_2                RCC_RTCDIVR_RTCDIV_0
+#define LL_RCC_RTC_HSE_DIV_3                RCC_RTCDIVR_RTCDIV_1
+#define LL_RCC_RTC_HSE_DIV_4                (RCC_RTCDIVR_RTCDIV_1 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_5                RCC_RTCDIVR_RTCDIV_2
+#define LL_RCC_RTC_HSE_DIV_6                (RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_7                (RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_1)
+#define LL_RCC_RTC_HSE_DIV_8                (RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_1 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_9                RCC_RTCDIVR_RTCDIV_3
+#define LL_RCC_RTC_HSE_DIV_10               (RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_11               (RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_1)
+#define LL_RCC_RTC_HSE_DIV_12               (RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_1 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_13               (RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_2)
+#define LL_RCC_RTC_HSE_DIV_14               (RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_15               (RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_1)
+#define LL_RCC_RTC_HSE_DIV_16               (RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_1 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_17               RCC_RTCDIVR_RTCDIV_4
+#define LL_RCC_RTC_HSE_DIV_18               (RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_19               (RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_1)
+#define LL_RCC_RTC_HSE_DIV_20               (RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_1 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_21               (RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_2)
+#define LL_RCC_RTC_HSE_DIV_22               (RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_23               (RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_1)
+#define LL_RCC_RTC_HSE_DIV_24               (RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_1 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_25               (RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_3)
+#define LL_RCC_RTC_HSE_DIV_26               (RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_27               (RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_1)
+#define LL_RCC_RTC_HSE_DIV_28               (RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_1 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_29               (RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_2)
+#define LL_RCC_RTC_HSE_DIV_30               (RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_31               (RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_1)
+#define LL_RCC_RTC_HSE_DIV_32               (RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_1 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_33               RCC_RTCDIVR_RTCDIV_5
+#define LL_RCC_RTC_HSE_DIV_34               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_35               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_1)
+#define LL_RCC_RTC_HSE_DIV_36               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_1 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_37               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_2)
+#define LL_RCC_RTC_HSE_DIV_38               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_39               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_1)
+#define LL_RCC_RTC_HSE_DIV_40               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_1 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_41               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_3)
+#define LL_RCC_RTC_HSE_DIV_42               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_43               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_1)
+#define LL_RCC_RTC_HSE_DIV_44               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_1 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_45               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_2)
+#define LL_RCC_RTC_HSE_DIV_46               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_47               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_1)
+#define LL_RCC_RTC_HSE_DIV_48               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_1 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_49               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_4)
+#define LL_RCC_RTC_HSE_DIV_50               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_51               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_1)
+#define LL_RCC_RTC_HSE_DIV_52               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_1 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_53               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_2)
+#define LL_RCC_RTC_HSE_DIV_54               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_55               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_1)
+#define LL_RCC_RTC_HSE_DIV_56               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_1 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_57               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_3)
+#define LL_RCC_RTC_HSE_DIV_58               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_59               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_1)
+#define LL_RCC_RTC_HSE_DIV_60               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_1 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_61               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_2)
+#define LL_RCC_RTC_HSE_DIV_62               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_0)
+#define LL_RCC_RTC_HSE_DIV_63               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_1)
+#define LL_RCC_RTC_HSE_DIV_64               (RCC_RTCDIVR_RTCDIV_5 | RCC_RTCDIVR_RTCDIV_4 | RCC_RTCDIVR_RTCDIV_3 | RCC_RTCDIVR_RTCDIV_2 | RCC_RTCDIVR_RTCDIV_1 | RCC_RTCDIVR_RTCDIV_0)
 /**
   * @}
   */
@@ -445,10 +445,10 @@ typedef struct
 /** @defgroup RCC_LL_EC_MPU_CLKSOURCE_STATUS  MPU clock switch status
   * @{
   */
-#define LL_RCC_MPU_CLKSOURCE_STATUS_HSI         RCC_MPCKSELR_MPUSRC_0 /*!< HSI used as MPU clock */
-#define LL_RCC_MPU_CLKSOURCE_STATUS_HSE         RCC_MPCKSELR_MPUSRC_1 /*!< HSE used as MPU clock */
-#define LL_RCC_MPU_CLKSOURCE_STATUS_PLL1        RCC_MPCKSELR_MPUSRC_2 /*!< PLL1 used as MPU clock */
-#define LL_RCC_MPU_CLKSOURCE_STATUS_MPUDIV      RCC_MPCKSELR_MPUSRC_3 /*!< MPUDIV used as MPU clock */
+#define LL_RCC_MPU_CLKSOURCE_STATUS_HSI         0U                    /*!< HSI used as MPU clock */
+#define LL_RCC_MPU_CLKSOURCE_STATUS_HSE         RCC_MPCKSELR_MPUSRC_0 /*!< HSE used as MPU clock */
+#define LL_RCC_MPU_CLKSOURCE_STATUS_PLL1        RCC_MPCKSELR_MPUSRC_1 /*!< PLL1 used as MPU clock */
+#define LL_RCC_MPU_CLKSOURCE_STATUS_MPUDIV      (RCC_MPCKSELR_MPUSRC_1 | RCC_MPCKSELR_MPUSRC_0) /*!< MPUDIV used as MPU clock */
 /**
   * @}
   */
@@ -456,11 +456,11 @@ typedef struct
 /** @defgroup RCC_LL_EC_MPU_DIV  MPUDIV prescaler
   * @{
   */
-#define LL_RCC_MPU_DIV_OFF                      RCC_MPCKDIVR_MPUDIV_0  /*!< MPU div is disabled, no clock generated */
-#define LL_RCC_MPU_DIV_2                        RCC_MPCKDIVR_MPUDIV_1  /*!< MPUSS is equal to pll1_p_ck divided by 2 */
-#define LL_RCC_MPU_DIV_4                        RCC_MPCKDIVR_MPUDIV_2  /*!< MPUSS is equal to pll1_p_ck divided by 4 */
-#define LL_RCC_MPU_DIV_8                        RCC_MPCKDIVR_MPUDIV_3  /*!< MPUSS is equal to pll1_p_ck divided by 8 */
-#define LL_RCC_MPU_DIV_16                       RCC_MPCKDIVR_MPUDIV_4  /*!< MPUSS is equal to pll1_p_ck divided by 16 */
+#define LL_RCC_MPU_DIV_OFF                      0U                     /*!< MPU div is disabled, no clock generated */
+#define LL_RCC_MPU_DIV_2                        RCC_MPCKDIVR_MPUDIV_0  /*!< MPUSS is equal to pll1_p_ck divided by 2 */
+#define LL_RCC_MPU_DIV_4                        RCC_MPCKDIVR_MPUDIV_1  /*!< MPUSS is equal to pll1_p_ck divided by 4 */
+#define LL_RCC_MPU_DIV_8                        (RCC_MPCKDIVR_MPUDIV_1 | RCC_MPCKDIVR_MPUDIV_0) /*!< MPUSS is equal to pll1_p_ck divided by 8 */
+#define LL_RCC_MPU_DIV_16                       RCC_MPCKDIVR_MPUDIV_2  /*!< MPUSS is equal to pll1_p_ck divided by 16 */
 /**
   * @}
   */
@@ -490,10 +490,10 @@ typedef struct
 /** @defgroup RCC_LL_EC_AXI_DIV  AXI, AHB5 and AHB6 prescaler
   * @{
   */
-#define LL_RCC_AXI_DIV_1                        RCC_AXIDIVR_AXIDIV_0  /*!< AXISS not divided */
-#define LL_RCC_AXI_DIV_2                        RCC_AXIDIVR_AXIDIV_1  /*!< AXISS divided by 2 */
-#define LL_RCC_AXI_DIV_3                        RCC_AXIDIVR_AXIDIV_2  /*!< AXISS divided by 3 */
-#define LL_RCC_AXI_DIV_4                        RCC_AXIDIVR_AXIDIV_3  /*!< AXISS divided by 4 */
+#define LL_RCC_AXI_DIV_1                        0U  /*!< AXISS not divided */
+#define LL_RCC_AXI_DIV_2                        RCC_AXIDIVR_AXIDIV_0  /*!< AXISS divided by 2 */
+#define LL_RCC_AXI_DIV_3                        RCC_AXIDIVR_AXIDIV_1  /*!< AXISS divided by 3 */
+#define LL_RCC_AXI_DIV_4                        RCC_AXIDIVR_AXIDIV_2  /*!< AXISS divided by 4 */
 /**
   * @}
   */
@@ -512,10 +512,10 @@ typedef struct
 /** @defgroup RCC_LL_EC_MCUSS_CLKSOURCE_STATUS  MCUSS clock switch status
   * @{
   */
-#define LL_RCC_MCUSS_CLKSOURCE_STATUS_HSI       RCC_MSSCKSELR_MCUSSRC_0 /*!< HSI used as MCUSS clock */
-#define LL_RCC_MCUSS_CLKSOURCE_STATUS_HSE       RCC_MSSCKSELR_MCUSSRC_1 /*!< HSE used as MCUSS clock */
-#define LL_RCC_MCUSS_CLKSOURCE_STATUS_CSI       RCC_MSSCKSELR_MCUSSRC_2 /*!< CSI used as MCUSS clock */
-#define LL_RCC_MCUSS_CLKSOURCE_STATUS_PLL3      RCC_MSSCKSELR_MCUSSRC_3 /*!< PLL3 used as MCUSS clock */
+#define LL_RCC_MCUSS_CLKSOURCE_STATUS_HSI       0U                      /*!< HSI used as MCUSS clock */
+#define LL_RCC_MCUSS_CLKSOURCE_STATUS_HSE       RCC_MSSCKSELR_MCUSSRC_0 /*!< HSE used as MCUSS clock */
+#define LL_RCC_MCUSS_CLKSOURCE_STATUS_CSI       RCC_MSSCKSELR_MCUSSRC_1 /*!< CSI used as MCUSS clock */
+#define LL_RCC_MCUSS_CLKSOURCE_STATUS_PLL3      (RCC_MSSCKSELR_MCUSSRC_1 | RCC_MSSCKSELR_MCUSSRC_0) /*!< PLL3 used as MCUSS clock */
 /**
   * @}
   */
@@ -523,16 +523,16 @@ typedef struct
 /** @defgroup RCC_LL_EC_MCU_DIV  MCUDIV prescaler
   * @{
   */
-#define LL_RCC_MCU_DIV_1                        RCC_MCUDIVR_MCUDIV_0 /*!< MCUSS not divided */
-#define LL_RCC_MCU_DIV_2                        RCC_MCUDIVR_MCUDIV_1 /*!< MCUSS divided by 2 */
-#define LL_RCC_MCU_DIV_4                        RCC_MCUDIVR_MCUDIV_2 /*!< MCUSS divided by 4 */
-#define LL_RCC_MCU_DIV_8                        RCC_MCUDIVR_MCUDIV_3 /*!< MCUSS divided by 8 */
-#define LL_RCC_MCU_DIV_16                       RCC_MCUDIVR_MCUDIV_4 /*!< MCUSS divided by 16 */
-#define LL_RCC_MCU_DIV_32                       RCC_MCUDIVR_MCUDIV_5 /*!< MCUSS divided by 32 */
-#define LL_RCC_MCU_DIV_64                       RCC_MCUDIVR_MCUDIV_6 /*!< MCUSS divided by 64 */
-#define LL_RCC_MCU_DIV_128                      RCC_MCUDIVR_MCUDIV_7 /*!< MCUSS divided by 128 */
-#define LL_RCC_MCU_DIV_256                      RCC_MCUDIVR_MCUDIV_8 /*!< MCUSS divided by 256 */
-#define LL_RCC_MCU_DIV_512                      RCC_MCUDIVR_MCUDIV_9 /*!< MCUSS divided by 512 */
+#define LL_RCC_MCU_DIV_1                        0U                                            /*!< MCUSS not divided */
+#define LL_RCC_MCU_DIV_2                        RCC_MCUDIVR_MCUDIV_0                          /*!< MCUSS divided by 2 */
+#define LL_RCC_MCU_DIV_4                        RCC_MCUDIVR_MCUDIV_1                          /*!< MCUSS divided by 4 */
+#define LL_RCC_MCU_DIV_8                        (RCC_MCUDIVR_MCUDIV_1 | RCC_MCUDIVR_MCUDIV_0) /*!< MCUSS divided by 8 */
+#define LL_RCC_MCU_DIV_16                       RCC_MCUDIVR_MCUDIV_2                          /*!< MCUSS divided by 16 */
+#define LL_RCC_MCU_DIV_32                       (RCC_MCUDIVR_MCUDIV_2 | RCC_MCUDIVR_MCUDIV_0) /*!< MCUSS divided by 32 */
+#define LL_RCC_MCU_DIV_64                       (RCC_MCUDIVR_MCUDIV_2 | RCC_MCUDIVR_MCUDIV_1) /*!< MCUSS divided by 64 */
+#define LL_RCC_MCU_DIV_128                      (RCC_MCUDIVR_MCUDIV_2 | RCC_MCUDIVR_MCUDIV_1 | RCC_MCUDIVR_MCUDIV_0) /*!< MCUSS divided by 128 */
+#define LL_RCC_MCU_DIV_256                      RCC_MCUDIVR_MCUDIV_3                          /*!< MCUSS divided by 256 */
+#define LL_RCC_MCU_DIV_512                      (RCC_MCUDIVR_MCUDIV_3 | RCC_MCUDIVR_MCUDIV_0) /*!< MCUSS divided by 512 */
 /**
   * @}
   */
@@ -600,10 +600,10 @@ typedef struct
 /** @defgroup RCC_LL_EC_LSEDRIVE  LSE oscillator drive capability
   * @{
   */
-#define LL_RCC_LSEDRIVE_LOW                     RCC_BDCR_LSEDRV_0 /*!< Xtal mode lower driving capability */
-#define LL_RCC_LSEDRIVE_MEDIUMLOW               RCC_BDCR_LSEDRV_1 /*!< Xtal mode medium low driving capability */
-#define LL_RCC_LSEDRIVE_MEDIUMHIGH              RCC_BDCR_LSEDRV_2 /*!< Xtal mode medium high driving capability */
-#define LL_RCC_LSEDRIVE_HIGH                    RCC_BDCR_LSEDRV_3 /*!< Xtal mode higher driving capability */
+#define LL_RCC_LSEDRIVE_LOW                     0U                                        /*!< Xtal mode lower driving capability */
+#define LL_RCC_LSEDRIVE_MEDIUMLOW               RCC_BDCR_LSEDRV_0                         /*!< Xtal mode medium low driving capability */
+#define LL_RCC_LSEDRIVE_MEDIUMHIGH              RCC_BDCR_LSEDRV_1                         /*!< Xtal mode medium high driving capability */
+#define LL_RCC_LSEDRIVE_HIGH                    (RCC_BDCR_LSEDRV_1 | RCC_BDCR_LSEDRV_0)   /*!< Xtal mode higher driving capability */
 /**
   * @}
   */
