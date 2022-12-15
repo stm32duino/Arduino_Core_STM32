@@ -43,11 +43,32 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history"><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section0" checked aria-hidden="true"> <label for="collapse-section0" checked aria-hidden="true"><strong>V1.5.0 / 04-November-2021</strong></label>
+<input type="checkbox" id="collapse-section0" checked aria-hidden="true"> <label for="collapse-section0" checked aria-hidden="true"><strong>V1.6.0 / 02-June-2022</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <p>This is a <strong>Maintenance release</strong> for STM32MP15xx CMSIS</p>
 <h2 id="contents">Contents</h2>
+<ul>
+<li>Update bit definition in header files:
+<ul>
+<li>BSEC : Add missing registers</li>
+<li>ETH : Update bitfield names</li>
+</ul></li>
+<li>Update License declaration for startup and linker files</li>
+<li>Change include in system file ( alignment with other STM32 families)</li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<p>None</p>
+<h2 id="dependencies">Dependencies</h2>
+<p>None</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true"><strong>V1.5.0 / 04-November-2021</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<p>This is a <strong>Maintenance release</strong> for STM32MP15xx CMSIS</p>
+<h2 id="contents-1">Contents</h2>
 <ul>
 <li>Update bit definition in header files:
 <ul>
@@ -67,25 +88,6 @@
 <li>Update the licenses declaration</li>
 </ul></li>
 </ul>
-<h2 id="known-limitations">Known Limitations</h2>
-<p>None</p>
-<h2 id="dependencies">Dependencies</h2>
-<p>None</p>
-</div>
-</div>
-<div class="collapse">
-<input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true"><strong>V1.4.0 / 26-February-2021</strong></label>
-<div>
-<h2 id="main-changes-1">Main Changes</h2>
-<p>This is a <strong>Maintenance release</strong> for STM32MP15xx CMSIS</p>
-<h2 id="contents-1">Contents</h2>
-<ul>
-<li>Header files:
-<ul>
-<li>Remove C1EMRx registers which does not exist on the silicon</li>
-<li>Update RNG register structure</li>
-</ul></li>
-</ul>
 <h2 id="known-limitations-1">Known Limitations</h2>
 <p>None</p>
 <h2 id="dependencies-1">Dependencies</h2>
@@ -93,7 +95,7 @@
 </div>
 </div>
 <div class="collapse">
-<input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.3.0 / 20-October-2020</strong></label>
+<input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true"><strong>V1.4.0 / 26-February-2021</strong></label>
 <div>
 <h2 id="main-changes-2">Main Changes</h2>
 <p>This is a <strong>Maintenance release</strong> for STM32MP15xx CMSIS</p>
@@ -101,9 +103,8 @@
 <ul>
 <li>Header files:
 <ul>
-<li>Rename RCC bit definition to be more compliant with the name from RCC spec</li>
-<li>Update license with BSD 3-Clause template</li>
-<li>Fix typo in MDMA register definition</li>
+<li>Remove C1EMRx registers which does not exist on the silicon</li>
+<li>Update RNG register structure</li>
 </ul></li>
 </ul>
 <h2 id="known-limitations-2">Known Limitations</h2>
@@ -113,11 +114,31 @@
 </div>
 </div>
 <div class="collapse">
-<input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true"><strong>V1.2.0 / 03-February-2020</strong></label>
+<input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.3.0 / 20-October-2020</strong></label>
 <div>
 <h2 id="main-changes-3">Main Changes</h2>
 <p>This is a <strong>Maintenance release</strong> for STM32MP15xx CMSIS</p>
 <h2 id="contents-3">Contents</h2>
+<ul>
+<li>Header files:
+<ul>
+<li>Rename RCC bit definition to be more compliant with the name from RCC spec</li>
+<li>Update license with BSD 3-Clause template</li>
+<li>Fix typo in MDMA register definition</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-3">Known Limitations</h2>
+<p>None</p>
+<h2 id="dependencies-3">Dependencies</h2>
+<p>None</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true"><strong>V1.2.0 / 03-February-2020</strong></label>
+<div>
+<h2 id="main-changes-4">Main Changes</h2>
+<p>This is a <strong>Maintenance release</strong> for STM32MP15xx CMSIS</p>
+<h2 id="contents-4">Contents</h2>
 <ul>
 <li>Header files:
 <ul>
@@ -131,18 +152,18 @@
 <li>Add OpenAMP region ( region present by default, to comment if needed )</li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-3">Known Limitations</h2>
+<h2 id="known-limitations-4">Known Limitations</h2>
 <p>None</p>
-<h2 id="dependencies-3">Dependencies</h2>
+<h2 id="dependencies-4">Dependencies</h2>
 <p>None</p>
 </div>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true"><strong>V1.1.0 / 10-September-2019</strong></label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <p>This is the <strong>First Maintenance release</strong> for STM32MP15xx CMSIS</p>
-<h2 id="contents-4">Contents</h2>
+<h2 id="contents-5">Contents</h2>
 <ul>
 <li>Header files:
 <ul>
@@ -163,24 +184,24 @@
 </ul></li>
 <li>Update startup file for KEIL and IAR</li>
 </ul>
-<h2 id="known-limitations-4">Known Limitations</h2>
+<h2 id="known-limitations-5">Known Limitations</h2>
 <p>None</p>
-<h2 id="dependencies-4">Dependencies</h2>
+<h2 id="dependencies-5">Dependencies</h2>
 <p>None</p>
 </div>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true"><strong>V1.0.0 / 22-January-2019</strong></label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <p>This is the <strong>First Official release</strong> for STM32MP15xx CMSIS</p>
-<h2 id="contents-5">Contents</h2>
+<h2 id="contents-6">Contents</h2>
 <ul>
 <li>First official release version of bits and registers definition aligned with STM32MP1 reference manual.</li>
 </ul>
-<h2 id="known-limitations-5">Known Limitations</h2>
+<h2 id="known-limitations-6">Known Limitations</h2>
 <p>None</p>
-<h2 id="dependencies-5">Dependencies</h2>
+<h2 id="dependencies-6">Dependencies</h2>
 <p>None</p>
 </div>
 </div>
