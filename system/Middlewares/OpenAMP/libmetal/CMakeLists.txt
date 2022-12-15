@@ -7,6 +7,8 @@ if (POLICY CMP0077)
   cmake_policy(SET CMP0077 NEW)
 endif()
 
+set (LIBMETAL_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+
 list (APPEND CMAKE_MODULE_PATH
       "${CMAKE_CURRENT_SOURCE_DIR}/cmake"
       "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules"

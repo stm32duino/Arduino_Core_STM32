@@ -46,7 +46,7 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* this string will be sent to remote processor */
-#define RPMSG_SERVICE_NAME              "rpmsg-tty-channel"
+#define RPMSG_SERVICE_NAME              "rpmsg-tty"
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/

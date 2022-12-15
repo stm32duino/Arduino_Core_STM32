@@ -33,7 +33,17 @@ typedef struct {
  * METAL_MUTEX_INIT - used for initializing an mutex element in a static struct
  * or global
  */
+#if defined(__GNUC__)
+#define METAL_MUTEX_INIT(m) { NULL }; \
+_Pragma("GCC warning\"static initialisation of the mutex is deprecated\"")
+#elif defined(__ICCARM__)
+#define DO_PRAGMA(x) _Pragma(#x)
+#define METAL_MUTEX_INIT(m) { NULL }; \
+DO_PRAGMA(message("Warning: static initialisation of the mutex is deprecated"))
+#else
 #define METAL_MUTEX_INIT(m) { NULL }
+#endif
+
 /*
  * METAL_MUTEX_DEFINE - used for defining and initializing a global or
  * static singleton mutex

@@ -20,12 +20,13 @@
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __openamp_H
 #define __openamp_H
-#ifdef __cplusplus
- extern "C" {
-#endif
 
 #include "openamp/open_amp.h"
 #include "openamp_conf.h"
+
+#ifdef __cplusplus
+ extern "C" {
+#endif
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */

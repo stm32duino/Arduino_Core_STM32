@@ -12,6 +12,9 @@
 #ifndef __METAL_TIME__H__
 #define __METAL_TIME__H__
 
+#include <stdint.h>
+#include <metal/sys.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -19,9 +22,6 @@ extern "C" {
 /** \defgroup time TIME Interfaces
  *  @{
  */
-
-#include <stdint.h>
-#include <metal/sys.h>
 
 /**
  * @brief      get timestamp

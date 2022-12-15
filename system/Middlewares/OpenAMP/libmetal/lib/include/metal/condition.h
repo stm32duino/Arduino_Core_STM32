@@ -63,16 +63,16 @@ static inline int metal_condition_broadcast(struct metal_condition *cv);
  */
 int metal_condition_wait(struct metal_condition *cv, metal_mutex_t *m);
 
-#ifdef METAL_FREERTOS
-#include <metal/system/freertos/condition.h>
-#else
-#include <metal/system/generic/condition.h>
-#endif
-
 /** @} */
 
 #ifdef __cplusplus
 }
+#endif
+
+#ifdef METAL_FREERTOS
+#include <metal/system/freertos/condition.h>
+#else
+#include <metal/system/generic/condition.h>
 #endif
 
 #endif /* __METAL_CONDITION__H__ */

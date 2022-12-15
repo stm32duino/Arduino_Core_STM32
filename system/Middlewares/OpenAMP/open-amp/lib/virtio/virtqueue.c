@@ -11,6 +11,7 @@
 #include <metal/atomic.h>
 #include <metal/log.h>
 #include <metal/alloc.h>
+#include <metal/cache.h>
 
 /* Prototype for internal functions. */
 static void vq_ring_init(struct virtqueue *, void *, int);
@@ -27,6 +28,14 @@ static int virtqueue_nused(struct virtqueue *vq);
 #ifndef VIRTIO_MASTER_ONLY
 static int virtqueue_navail(struct virtqueue *vq);
 #endif
+
+#ifdef VIRTIO_CACHED_VRINGS
+#define VRING_FLUSH(x)		metal_cache_flush(&x, sizeof(x))
+#define VRING_INVALIDATE(x)	metal_cache_invalidate(&x, sizeof(x))
+#else
+#define VRING_FLUSH(x)		do { } while (0)
+#define VRING_INVALIDATE(x)	do { } while (0)
+#endif /* VIRTIO_CACHED_VRINGS */
 
 /* Default implementation of P2V based on libmetal */
 static inline void *virtqueue_phys_to_virt(struct virtqueue *vq,
@@ -87,6 +96,11 @@ int virtqueue_create(struct virtio_device *virt_dev, unsigned short id,
 		/* Initialize vring control block in virtqueue. */
 		vq_ring_init(vq, ring->vaddr, ring->align);
 	}
+
+	/*
+	 * CACHE: nothing to be done here. Only desc.next is setup at this
+	 * stage but that is only written by master, so no need to flush it.
+	 */
 
 	return status;
 }
@@ -174,6 +188,9 @@ void *virtqueue_get_buffer(struct virtqueue *vq, uint32_t *len, uint16_t *idx)
 	void *cookie;
 	uint16_t used_idx, desc_idx;
 
+	/* Used.idx is updated by slave, so we need to invalidate */
+	VRING_INVALIDATE(vq->vq_ring.used->idx);
+
 	if (!vq || vq->vq_used_cons_idx == vq->vq_ring.used->idx)
 		return NULL;
 
@@ -183,6 +200,9 @@ void *virtqueue_get_buffer(struct virtqueue *vq, uint32_t *len, uint16_t *idx)
 	uep = &vq->vq_ring.used->ring[used_idx];
 
 	atomic_thread_fence(memory_order_seq_cst);
+
+	/* Used.ring is written by slave, invalidate it */
+	VRING_INVALIDATE(vq->vq_ring.used->ring[used_idx]);
 
 	desc_idx = (uint16_t)uep->id;
 	if (len)
@@ -202,6 +222,7 @@ void *virtqueue_get_buffer(struct virtqueue *vq, uint32_t *len, uint16_t *idx)
 
 uint32_t virtqueue_get_buffer_length(struct virtqueue *vq, uint16_t idx)
 {
+	VRING_INVALIDATE(vq->vq_ring.desc[idx].len);
 	return vq->vq_ring.desc[idx].len;
 }
 
@@ -241,15 +262,23 @@ void *virtqueue_get_available_buffer(struct virtqueue *vq, uint16_t *avail_idx,
 	void *buffer;
 
 	atomic_thread_fence(memory_order_seq_cst);
+
+	/* Avail.idx is updated by master, invalidate it */
+	VRING_INVALIDATE(vq->vq_ring.avail->idx);
 	if (vq->vq_available_idx == vq->vq_ring.avail->idx) {
 		return NULL;
 	}
 
 	VQUEUE_BUSY(vq);
 
+	/* Avail.ring is updated by master, invalidate it */
+	VRING_INVALIDATE(vq->vq_ring.avail->ring[head_idx]);
+
 	head_idx = vq->vq_available_idx++ & (vq->vq_nentries - 1);
 	*avail_idx = vq->vq_ring.avail->ring[head_idx];
 
+	/* Invalidate the desc entry written by master before accessing it */
+	VRING_INVALIDATE(vq->vq_ring.desc[*avail_idx]);
 	buffer = virtqueue_phys_to_virt(vq, vq->vq_ring.desc[*avail_idx].addr);
 	*len = vq->vq_ring.desc[*avail_idx].len;
 
@@ -279,14 +308,21 @@ int virtqueue_add_consumed_buffer(struct virtqueue *vq, uint16_t head_idx,
 
 	VQUEUE_BUSY(vq);
 
+	/* CACHE: used is never written by master, so it's safe to directly access it */
 	used_idx = vq->vq_ring.used->idx & (vq->vq_nentries - 1);
 	used_desc = &vq->vq_ring.used->ring[used_idx];
 	used_desc->id = head_idx;
 	used_desc->len = len;
 
+	/* We still need to flush it because this is read by master */
+	VRING_FLUSH(vq->vq_ring.used->ring[used_idx]);
+
 	atomic_thread_fence(memory_order_seq_cst);
 
 	vq->vq_ring.used->idx++;
+
+	/* Used.idx is read by master, so we need to flush it */
+	VRING_FLUSH(vq->vq_ring.used->idx);
 
 	/* Keep pending count until virtqueue_notify(). */
 	vq->vq_queued_cnt++;
@@ -323,22 +359,28 @@ void virtqueue_disable_cb(struct virtqueue *vq)
 		if (vq->vq_dev->role == VIRTIO_DEV_MASTER) {
 			vring_used_event(&vq->vq_ring) =
 			    vq->vq_used_cons_idx - vq->vq_nentries - 1;
+			VRING_FLUSH(vring_used_event(&vq->vq_ring));
 		}
 #endif /*VIRTIO_SLAVE_ONLY*/
 #ifndef VIRTIO_MASTER_ONLY
 		if (vq->vq_dev->role == VIRTIO_DEV_SLAVE) {
 			vring_avail_event(&vq->vq_ring) =
 			    vq->vq_available_idx - vq->vq_nentries - 1;
+			VRING_FLUSH(vring_avail_event(&vq->vq_ring));
 		}
 #endif /*VIRTIO_MASTER_ONLY*/
 	} else {
 #ifndef VIRTIO_SLAVE_ONLY
-		if (vq->vq_dev->role == VIRTIO_DEV_MASTER)
+		if (vq->vq_dev->role == VIRTIO_DEV_MASTER) {
 			vq->vq_ring.avail->flags |= VRING_AVAIL_F_NO_INTERRUPT;
+			VRING_FLUSH(vq->vq_ring.avail->flags);
+		}
 #endif /*VIRTIO_SLAVE_ONLY*/
 #ifndef VIRTIO_MASTER_ONLY
-		if (vq->vq_dev->role == VIRTIO_DEV_SLAVE)
+		if (vq->vq_dev->role == VIRTIO_DEV_SLAVE) {
 			vq->vq_ring.used->flags |= VRING_USED_F_NO_NOTIFY;
+			VRING_FLUSH(vq->vq_ring.used->flags);
+		}
 #endif /*VIRTIO_MASTER_ONLY*/
 	}
 
@@ -375,6 +417,9 @@ void virtqueue_dump(struct virtqueue *vq)
 	if (!vq)
 		return;
 
+	VRING_INVALIDATE(vq->vq_ring.avail);
+	VRING_INVALIDATE(vq->vq_ring.used);
+
 	metal_log(METAL_LOG_DEBUG,
 		  "VQ: %s - size=%d; free=%d; queued=%d; "
 		  "desc_head_idx=%d; avail.idx=%d; used_cons_idx=%d; "
@@ -399,14 +444,24 @@ uint32_t virtqueue_get_desc_size(struct virtqueue *vq)
 	uint16_t avail_idx = 0;
 	uint32_t len = 0;
 
+	/* Avail.idx is updated by master, invalidate it */
+	VRING_INVALIDATE(vq->vq_ring.avail->idx);
+
 	if (vq->vq_available_idx == vq->vq_ring.avail->idx) {
 		return 0;
 	}
 
 	VQUEUE_BUSY(vq);
 
+	/* Avail.ring is updated by master, invalidate it */
+	VRING_INVALIDATE(vq->vq_ring.avail->ring[head_idx]);
+
 	head_idx = vq->vq_available_idx & (vq->vq_nentries - 1);
 	avail_idx = vq->vq_ring.avail->ring[head_idx];
+
+	/* Invalidate the desc entry written by master before accessing it */
+	VRING_INVALIDATE(vq->vq_ring.desc[avail_idx].len);
+
 	len = vq->vq_ring.desc[avail_idx].len;
 
 	VQUEUE_IDLE(vq);
@@ -440,6 +495,7 @@ static uint16_t vq_ring_add_buffer(struct virtqueue *vq,
 		VQASSERT(vq, idx != VQ_RING_DESC_CHAIN_END,
 			 "premature end of free desc chain");
 
+		/* CACHE: No need to invalidate desc because it is only written by master */
 		dp = &desc[idx];
 		dp->addr = virtqueue_virt_to_phys(vq, buf_list[i].buf);
 		dp->len = buf_list[i].len;
@@ -454,6 +510,13 @@ static uint16_t vq_ring_add_buffer(struct virtqueue *vq,
 		 */
 		if (i >= readable)
 			dp->flags |= VRING_DESC_F_WRITE;
+
+		/*
+		 * Instead of flushing the whole desc region, we flush only the
+		 * single entry hopefully saving some cycles
+		 */
+		VRING_FLUSH(desc[idx]);
+
 	}
 
 	return idx;
@@ -469,6 +532,7 @@ static void vq_ring_free_chain(struct virtqueue *vq, uint16_t desc_idx)
 	struct vring_desc *dp;
 	struct vq_desc_extra *dxp;
 
+	/* CACHE: desc is never written by slave, no need to invalidate */
 	VQ_RING_ASSERT_VALID_IDX(vq, desc_idx);
 	dp = &vq->vq_ring.desc[desc_idx];
 	dxp = &vq->vq_descx[desc_idx];
@@ -495,6 +559,8 @@ static void vq_ring_free_chain(struct virtqueue *vq, uint16_t desc_idx)
 	 * We must append the existing free chain, if any, to the end of
 	 * newly freed chain. If the virtqueue was completely used, then
 	 * head would be VQ_RING_DESC_CHAIN_END (ASSERTed above).
+	 *
+	 * CACHE: desc.next is never read by slave, no need to flush it.
 	 */
 	dp->next = vq->vq_desc_head_idx;
 	vq->vq_desc_head_idx = desc_idx;
@@ -541,13 +607,21 @@ static void vq_ring_update_avail(struct virtqueue *vq, uint16_t desc_idx)
 	 * deferring to virtqueue_notify() in the hopes that if the host is
 	 * currently running on another CPU, we can keep it processing the new
 	 * descriptor.
+	 *
+	 * CACHE: avail is never written by slave, so it is safe to not invalidate here
 	 */
 	avail_idx = vq->vq_ring.avail->idx & (vq->vq_nentries - 1);
 	vq->vq_ring.avail->ring[avail_idx] = desc_idx;
 
+	/* We still need to flush the ring */
+	VRING_FLUSH(vq->vq_ring.avail->ring[avail_idx]);
+
 	atomic_thread_fence(memory_order_seq_cst);
 
 	vq->vq_ring.avail->idx++;
+
+	/* And the index */
+	VRING_FLUSH(vq->vq_ring.avail->idx);
 
 	/* Keep pending count until virtqueue_notify(). */
 	vq->vq_queued_cnt++;
@@ -566,23 +640,31 @@ static int vq_ring_enable_interrupt(struct virtqueue *vq, uint16_t ndesc)
 	 */
 	if (vq->vq_dev->features & VIRTIO_RING_F_EVENT_IDX) {
 #ifndef VIRTIO_SLAVE_ONLY
-		if (vq->vq_dev->role == VIRTIO_DEV_MASTER)
+		if (vq->vq_dev->role == VIRTIO_DEV_MASTER) {
 			vring_used_event(&vq->vq_ring) =
 				vq->vq_used_cons_idx + ndesc;
+			VRING_FLUSH(vring_used_event(&vq->vq_ring));
+		}
 #endif /*VIRTIO_SLAVE_ONLY*/
 #ifndef VIRTIO_MASTER_ONLY
-		if (vq->vq_dev->role == VIRTIO_DEV_SLAVE)
+		if (vq->vq_dev->role == VIRTIO_DEV_SLAVE) {
 			vring_avail_event(&vq->vq_ring) =
 				vq->vq_available_idx + ndesc;
+			VRING_FLUSH(vring_avail_event(&vq->vq_ring));
+		}
 #endif /*VIRTIO_MASTER_ONLY*/
 	} else {
 #ifndef VIRTIO_SLAVE_ONLY
-		if (vq->vq_dev->role == VIRTIO_DEV_MASTER)
+		if (vq->vq_dev->role == VIRTIO_DEV_MASTER) {
 			vq->vq_ring.avail->flags &= ~VRING_AVAIL_F_NO_INTERRUPT;
+			VRING_FLUSH(vq->vq_ring.avail->flags);
+		}
 #endif /*VIRTIO_SLAVE_ONLY*/
 #ifndef VIRTIO_MASTER_ONLY
-		if (vq->vq_dev->role == VIRTIO_DEV_SLAVE)
+		if (vq->vq_dev->role == VIRTIO_DEV_SLAVE) {
 			vq->vq_ring.used->flags &= ~VRING_USED_F_NO_NOTIFY;
+			VRING_FLUSH(vq->vq_ring.used->flags);
+		}
 #endif /*VIRTIO_MASTER_ONLY*/
 	}
 
@@ -635,8 +717,10 @@ static int vq_ring_must_notify(struct virtqueue *vq)
 	if (vq->vq_dev->features & VIRTIO_RING_F_EVENT_IDX) {
 #ifndef VIRTIO_SLAVE_ONLY
 		if (vq->vq_dev->role == VIRTIO_DEV_MASTER) {
+			/* CACHE: no need to invalidate avail */
 			new_idx = vq->vq_ring.avail->idx;
 			prev_idx = new_idx - vq->vq_queued_cnt;
+			VRING_INVALIDATE(vring_avail_event(&vq->vq_ring));
 			event_idx = vring_avail_event(&vq->vq_ring);
 			return vring_need_event(event_idx, new_idx,
 						prev_idx) != 0;
@@ -644,8 +728,10 @@ static int vq_ring_must_notify(struct virtqueue *vq)
 #endif /*VIRTIO_SLAVE_ONLY*/
 #ifndef VIRTIO_MASTER_ONLY
 		if (vq->vq_dev->role == VIRTIO_DEV_SLAVE) {
+			/* CACHE: no need to invalidate used */
 			new_idx = vq->vq_ring.used->idx;
 			prev_idx = new_idx - vq->vq_queued_cnt;
+			VRING_INVALIDATE(vring_used_event(&vq->vq_ring));
 			event_idx = vring_used_event(&vq->vq_ring);
 			return vring_need_event(event_idx, new_idx,
 						prev_idx) != 0;
@@ -653,14 +739,18 @@ static int vq_ring_must_notify(struct virtqueue *vq)
 #endif /*VIRTIO_MASTER_ONLY*/
 	} else {
 #ifndef VIRTIO_SLAVE_ONLY
-		if (vq->vq_dev->role == VIRTIO_DEV_MASTER)
+		if (vq->vq_dev->role == VIRTIO_DEV_MASTER) {
+			VRING_INVALIDATE(vq->vq_ring.used->flags);
 			return (vq->vq_ring.used->flags &
 				VRING_USED_F_NO_NOTIFY) == 0;
+		}
 #endif /*VIRTIO_SLAVE_ONLY*/
 #ifndef VIRTIO_MASTER_ONLY
-		if (vq->vq_dev->role == VIRTIO_DEV_SLAVE)
+		if (vq->vq_dev->role == VIRTIO_DEV_SLAVE) {
+			VRING_INVALIDATE(vq->vq_ring.avail->flags);
 			return (vq->vq_ring.avail->flags &
 				VRING_AVAIL_F_NO_INTERRUPT) == 0;
+		}
 #endif /*VIRTIO_MASTER_ONLY*/
 	}
 
@@ -688,6 +778,8 @@ static int virtqueue_nused(struct virtqueue *vq)
 {
 	uint16_t used_idx, nused;
 
+	/* Used is written by slave */
+	VRING_INVALIDATE(vq->vq_ring.used->idx);
 	used_idx = vq->vq_ring.used->idx;
 
 	nused = (uint16_t)(used_idx - vq->vq_used_cons_idx);
@@ -706,6 +798,9 @@ static int virtqueue_nused(struct virtqueue *vq)
 static int virtqueue_navail(struct virtqueue *vq)
 {
 	uint16_t avail_idx, navail;
+
+	/* Avail is written by master */
+	VRING_INVALIDATE(vq->vq_ring.avail->idx);
 
 	avail_idx = vq->vq_ring.avail->idx;
 
