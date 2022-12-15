@@ -47,19 +47,19 @@ extern "C" {
 typedef struct
 {
   uint32_t Tamper;                      /*!< Specifies the Tamper Pin.
-                                             This parameter can be a value of @ref  RTCEx_Tamper_Pins_Definitions */
+                                             This parameter can be a value of @ref RTCEx_Tamper_Pins_Definitions */
 
   uint32_t Interrupt;                   /*!< Specifies the Tamper Interrupt.
-                                             This parameter can be a value of @ref  RTCEx_Tamper_Interrupt_Definitions */
+                                             This parameter can be a value of @ref RTCEx_Tamper_Interrupt_Definitions */
 
   uint32_t Trigger;                     /*!< Specifies the Tamper Trigger.
-                                             This parameter can be a value of @ref  RTCEx_Tamper_Trigger_Definitions */
+                                             This parameter can be a value of @ref RTCEx_Tamper_Trigger_Definitions */
 
   uint32_t NoErase;                     /*!< Specifies the Tamper no erase mode.
-                                             This parameter can be a value of @ref  RTCEx_Tamper_EraseBackUp_Definitions */
+                                             This parameter can be a value of @ref RTCEx_Tamper_EraseBackUp_Definitions */
 
   uint32_t MaskFlag;                     /*!< Specifies the Tamper Flag masking.
-                                             This parameter can be a value of @ref RTCEx_Tamper_MaskFlag_Definitions   */
+                                             This parameter can be a value of @ref RTCEx_Tamper_MaskFlag_Definitions */
 
   uint32_t Filter;                      /*!< Specifies the RTC Filter Tamper.
                                              This parameter can be a value of @ref RTCEx_Tamper_Filter_Definitions */
@@ -222,7 +222,7 @@ typedef struct
 #define RTC_TAMPERFILTER_4SAMPLE   RTC_TAMPCR_TAMPFLT_1    /*!< Tamper is activated after 4
                                                                 consecutive samples at the active level */
 #define RTC_TAMPERFILTER_8SAMPLE   RTC_TAMPCR_TAMPFLT      /*!< Tamper is activated after 8
-                                                                consecutive samples at the active leve. */
+                                                                consecutive samples at the active level */
 
 /**
   * @}
@@ -231,7 +231,7 @@ typedef struct
 /** @defgroup RTCEx_Tamper_Sampling_Frequencies_Definitions RTCEx Tamper Sampling Frequencies Definitions
   * @{
   */
-#define RTC_TAMPERSAMPLINGFREQ_RTCCLK_DIV32768  ((uint32_t)0x00000000U)                                         /*!< Each of the tamper inputs are sampled
+#define RTC_TAMPERSAMPLINGFREQ_RTCCLK_DIV32768  ((uint32_t)0x00000000U)                                        /*!< Each of the tamper inputs are sampled
                                                                                                                     with a frequency =  RTCCLK / 32768 */
 #define RTC_TAMPERSAMPLINGFREQ_RTCCLK_DIV16384  RTC_TAMPCR_TAMPFREQ_0                                          /*!< Each of the tamper inputs are sampled
                                                                                                                     with a frequency =  RTCCLK / 16384 */
@@ -246,8 +246,8 @@ typedef struct
 #define RTC_TAMPERSAMPLINGFREQ_RTCCLK_DIV512    ((uint32_t) (RTC_TAMPCR_TAMPFREQ_1 | RTC_TAMPCR_TAMPFREQ_2))   /*!< Each of the tamper inputs are sampled
                                                                                                                     with a frequency =  RTCCLK / 512   */
 #define RTC_TAMPERSAMPLINGFREQ_RTCCLK_DIV256    ((uint32_t) (RTC_TAMPCR_TAMPFREQ_0 | RTC_TAMPCR_TAMPFREQ_1 | \
-                                                             RTC_TAMPCR_TAMPFREQ_2))                                       /*!< Each of the tamper inputs are sampled
-with a frequency =  RTCCLK / 256   */
+                                                             RTC_TAMPCR_TAMPFREQ_2))                           /*!< Each of the tamper inputs are sampled
+                                                                                                                    with a frequency =  RTCCLK / 256   */
 
 /**
   * @}
@@ -256,7 +256,7 @@ with a frequency =  RTCCLK / 256   */
 /** @defgroup RTCEx_Tamper_Pin_Precharge_Duration_Definitions RTCEx Tamper Pin Precharge Duration Definitions
   * @{
   */
-#define RTC_TAMPERPRECHARGEDURATION_1RTCCLK  ((uint32_t)0x00000000U)                                     /*!< Tamper pins are pre-charged before
+#define RTC_TAMPERPRECHARGEDURATION_1RTCCLK  ((uint32_t)0x00000000U)                                    /*!< Tamper pins are pre-charged before
                                                                                                             sampling during 1 RTCCLK cycle  */
 #define RTC_TAMPERPRECHARGEDURATION_2RTCCLK  RTC_TAMPCR_TAMPPRCH_0                                      /*!< Tamper pins are pre-charged before
                                                                                                              sampling during 2 RTCCLK cycles */
@@ -273,7 +273,7 @@ with a frequency =  RTCCLK / 256   */
   * @{
   */
 #define RTC_TIMESTAMPONTAMPERDETECTION_ENABLE  RTC_TAMPCR_TAMPTS       /*!< TimeStamp on Tamper Detection event saved        */
-#define RTC_TIMESTAMPONTAMPERDETECTION_DISABLE ((uint32_t)0x00000000U)  /*!< TimeStamp on Tamper Detection event is not saved */
+#define RTC_TIMESTAMPONTAMPERDETECTION_DISABLE ((uint32_t)0x00000000U) /*!< TimeStamp on Tamper Detection event is not saved */
 
 /**
   * @}
@@ -282,7 +282,7 @@ with a frequency =  RTCCLK / 256   */
 /** @defgroup RTCEx_Tamper_Pull_UP_Definitions RTCEx Tamper Pull UP Definitions
   * @{
   */
-#define RTC_TAMPER_PULLUP_ENABLE  ((uint32_t)0x00000000U)  /*!< Tamper pins are pre-charged before sampling */
+#define RTC_TAMPER_PULLUP_ENABLE  ((uint32_t)0x00000000U) /*!< Tamper pins are pre-charged before sampling */
 #define RTC_TAMPER_PULLUP_DISABLE  RTC_TAMPCR_TAMPPUDIS   /*!< Tamper pins pre-charge is disabled          */
 
 /**
@@ -305,7 +305,7 @@ with a frequency =  RTCCLK / 256   */
 /** @defgroup RTCEx_Smooth_calib_period_Definitions RTCEx Smooth calib period Definitions
   * @{
   */
-#define RTC_SMOOTHCALIB_PERIOD_32SEC   ((uint32_t)0x00000000U)   /*!< If RTCCLK = 32768 Hz, Smooth calibation
+#define RTC_SMOOTHCALIB_PERIOD_32SEC   ((uint32_t)0x00000000U)  /*!< If RTCCLK = 32768 Hz, Smooth calibation
                                                                      period is 32s,  else 2exp20 RTCCLK pulses */
 #define RTC_SMOOTHCALIB_PERIOD_16SEC   RTC_CALR_CALW16          /*!< If RTCCLK = 32768 Hz, Smooth calibation
                                                                      period is 16s, else 2exp19 RTCCLK pulses */
@@ -322,7 +322,7 @@ with a frequency =  RTCCLK / 256   */
 #define RTC_SMOOTHCALIB_PLUSPULSES_SET    RTC_CALR_CALP            /*!< The number of RTCCLK pulses added
                                                                         during a X -second window = Y - CALM[8:0]
                                                                         with Y = 512, 256, 128 when X = 32, 16, 8 */
-#define RTC_SMOOTHCALIB_PLUSPULSES_RESET  ((uint32_t)0x00000000U)   /*!< The number of RTCCLK pulses subbstited
+#define RTC_SMOOTHCALIB_PLUSPULSES_RESET  ((uint32_t)0x00000000U)  /*!< The number of RTCCLK pulses subbstited
                                                                         during a 32-second window = CALM[8:0] */
 
 /**
@@ -349,10 +349,10 @@ with a frequency =  RTCCLK / 256   */
   */
 /** @defgroup RTCEx_Interrupts_Definitions RTCEx Interrupts Definitions
   * @{
-*/
+  */
 #if defined(RTC_TAMPER3_SUPPORT)
-#define RTC_IT_TAMP3                      ((uint32_t)RTC_TAMPCR_TAMP3IE)  /*!< Enable Tamper 3 Interrupt     */
-#endif
+#define RTC_IT_TAMP3                      ((uint32_t)RTC_TAMPCR_TAMP3IE)  /*!< Enable Tamper 3 Interrupt */
+#endif /* RTC_TAMPER3_SUPPORT */
 /**
   * @}
   */
@@ -362,7 +362,7 @@ with a frequency =  RTCCLK / 256   */
   */
 #if defined(RTC_TAMPER3_SUPPORT)
 #define RTC_FLAG_TAMP3F                   ((uint32_t)RTC_ISR_TAMP3F)
-#endif
+#endif /* RTC_TAMPER3_SUPPORT */
 /**
   * @}
   */
@@ -376,7 +376,7 @@ with a frequency =  RTCCLK / 256   */
   * @{
   */
 
-/* ---------------------------------WAKEUPTIMER---------------------------------*/
+/* ---------------------------------WAKEUPTIMER-------------------------------*/
 /** @defgroup RTCEx_WakeUp_Timer RTC WakeUp Timer
   * @{
   */
@@ -541,20 +541,22 @@ with a frequency =  RTCCLK / 256   */
   * @brief  Enable rising & falling edge trigger on the RTC WakeUp Timer associated Exti line.
   * @retval None
   */
-#define __HAL_RTC_WAKEUPTIMER_EXTI_ENABLE_RISING_FALLING_EDGE()  do { \
-                                                                      __HAL_RTC_WAKEUPTIMER_EXTI_ENABLE_RISING_EDGE();  \
-                                                                      __HAL_RTC_WAKEUPTIMER_EXTI_ENABLE_FALLING_EDGE(); \
-                                                                    } while(0U)
+#define __HAL_RTC_WAKEUPTIMER_EXTI_ENABLE_RISING_FALLING_EDGE()  \
+  do {                                                           \
+    __HAL_RTC_WAKEUPTIMER_EXTI_ENABLE_RISING_EDGE();             \
+    __HAL_RTC_WAKEUPTIMER_EXTI_ENABLE_FALLING_EDGE();            \
+  } while(0U)
 
 /**
   * @brief  Disable rising & falling edge trigger on the RTC WakeUp Timer associated Exti line.
   * This parameter can be:
   * @retval None
   */
-#define __HAL_RTC_WAKEUPTIMER_EXTI_DISABLE_RISING_FALLING_EDGE()  do { \
-                                                                       __HAL_RTC_WAKEUPTIMER_EXTI_DISABLE_RISING_EDGE();  \
-                                                                       __HAL_RTC_WAKEUPTIMER_EXTI_DISABLE_FALLING_EDGE(); \
-                                                                     } while(0U)
+#define __HAL_RTC_WAKEUPTIMER_EXTI_DISABLE_RISING_FALLING_EDGE()  \
+  do {                                                            \
+    __HAL_RTC_WAKEUPTIMER_EXTI_DISABLE_RISING_EDGE();             \
+    __HAL_RTC_WAKEUPTIMER_EXTI_DISABLE_FALLING_EDGE();            \
+  } while(0U)
 
 /**
   * @brief Check whether the RTC WakeUp Timer associated Exti line interrupt flag is set or not of core 1.
@@ -799,7 +801,7 @@ with a frequency =  RTCCLK / 256   */
 #else
 #define __HAL_RTC_TAMPER_GET_IT(__HANDLE__, __INTERRUPT__)    (((__INTERRUPT__)\
                                                                 == RTC_IT_TAMP1) ? (((((__HANDLE__)->Instance->ISR) & ((__INTERRUPT__)>> 3U)) != 0U) ? 1U : 0U))
-#endif
+#endif /* RTC_TAMPER1_SUPPORT || RTC_TAMPER3_SUPPORT */
 
 /**************************************************************************************************/
 
@@ -893,7 +895,7 @@ with a frequency =  RTCCLK / 256   */
   */
 #define __HAL_RTC_INTERNAL_TIMESTAMP_CLEAR_FLAG(__HANDLE__, __FLAG__)  ((__HANDLE__)->Instance->ISR) = (~((__FLAG__)\
     | RTC_ISR_INIT)|((__HANDLE__)->Instance->ISR & RTC_ISR_INIT))
-#endif
+#endif /*  RTC_INTERNALTS_SUPPORT */
 /**************************************************************************************************/
 
 /**
@@ -986,20 +988,22 @@ with a frequency =  RTCCLK / 256   */
   * @brief  Enable rising & falling edge trigger on the RTC Tamper and Timestamp associated Exti line.
   * @retval None.
   */
-#define __HAL_RTC_TAMPER_TIMESTAMP_EXTI_ENABLE_RISING_FALLING_EDGE()  do { \
-                                                                           __HAL_RTC_TAMPER_TIMESTAMP_EXTI_ENABLE_RISING_EDGE();  \
-                                                                           __HAL_RTC_TAMPER_TIMESTAMP_EXTI_ENABLE_FALLING_EDGE(); \
-                                                                         } while(0U)
+#define __HAL_RTC_TAMPER_TIMESTAMP_EXTI_ENABLE_RISING_FALLING_EDGE()  \
+  do {                                                                \
+    __HAL_RTC_TAMPER_TIMESTAMP_EXTI_ENABLE_RISING_EDGE();             \
+    __HAL_RTC_TAMPER_TIMESTAMP_EXTI_ENABLE_FALLING_EDGE();            \
+  } while(0U)
 
 /**
   * @brief  Disable rising & falling edge trigger on the RTC Tamper and Timestamp associated Exti line.
   * This parameter can be:
   * @retval None.
   */
-#define __HAL_RTC_TAMPER_TIMESTAMP_EXTI_DISABLE_RISING_FALLING_EDGE()  do { \
-                                                                            __HAL_RTC_TAMPER_TIMESTAMP_EXTI_DISABLE_RISING_EDGE();  \
-                                                                            __HAL_RTC_TAMPER_TIMESTAMP_EXTI_DISABLE_FALLING_EDGE(); \
-                                                                          } while(0U)
+#define __HAL_RTC_TAMPER_TIMESTAMP_EXTI_DISABLE_RISING_FALLING_EDGE()  \
+  do {                                                                 \
+    __HAL_RTC_TAMPER_TIMESTAMP_EXTI_DISABLE_RISING_EDGE();             \
+    __HAL_RTC_TAMPER_TIMESTAMP_EXTI_DISABLE_FALLING_EDGE();            \
+  } while(0U)
 
 /**
   * @brief Check whether the RTC Tamper and Timestamp associated Exti line interrupt flag is set or not of core 1.
@@ -1106,7 +1110,7 @@ HAL_StatusTypeDef HAL_RTCEx_DeactivateTimeStamp(RTC_HandleTypeDef *hrtc);
 #if defined(RTC_INTERNALTS_SUPPORT)
 HAL_StatusTypeDef HAL_RTCEx_SetInternalTimeStamp(RTC_HandleTypeDef *hrtc);
 HAL_StatusTypeDef HAL_RTCEx_DeactivateInternalTimeStamp(RTC_HandleTypeDef *hrtc);
-#endif
+#endif /* RTC_INTERNALTS_SUPPORT */
 HAL_StatusTypeDef HAL_RTCEx_GetTimeStamp(RTC_HandleTypeDef *hrtc, RTC_TimeTypeDef *sTimeStamp,
                                          RTC_DateTypeDef *sTimeStampDate, uint32_t Format);
 
@@ -1220,7 +1224,7 @@ HAL_StatusTypeDef HAL_RTCEx_PollForAlarmBEvent(RTC_HandleTypeDef *hrtc, uint32_t
 #define RTC_TAMPCR_TAMPXE     ((uint32_t) (RTC_TAMPCR_TAMP2E))
 #define RTC_TAMPCR_TAMPXIE    ((uint32_t) (RTC_TAMPER2_INTERRUPT | RTC_ALL_TAMPER_INTERRUPT))
 
-#endif
+#endif /* RTC_TAMPER1_SUPPORT && RTC_TAMPER3_SUPPORT */
 
 #define RTC_EXTI_LINE_TAMPER_TIMESTAMP_EVENT  (EXTI_IMR1_IM18)    /*!< External interrupt line 18 Connected to the RTC Tamper and Time Stamp events */
 #define RTC_EXTI_LINE_WAKEUPTIMER_EVENT       (EXTI_IMR1_IM19)    /*!< External interrupt line 19 Connected to the RTC Wakeup event */
@@ -1256,9 +1260,9 @@ HAL_StatusTypeDef HAL_RTCEx_PollForAlarmBEvent(RTC_HandleTypeDef *hrtc, uint32_t
 
 #define IS_RTC_TIMESTAMP_PIN(PIN)  (((PIN) == RTC_TIMESTAMPPIN_DEFAULT))
 
-#define IS_RTC_TAMPER_TRIGGER(TRIGGER) (((TRIGGER) == RTC_TAMPERTRIGGER_RISINGEDGE) || \
+#define IS_RTC_TAMPER_TRIGGER(TRIGGER) (((TRIGGER) == RTC_TAMPERTRIGGER_RISINGEDGE)  || \
                                         ((TRIGGER) == RTC_TAMPERTRIGGER_FALLINGEDGE) || \
-                                        ((TRIGGER) == RTC_TAMPERTRIGGER_LOWLEVEL) || \
+                                        ((TRIGGER) == RTC_TAMPERTRIGGER_LOWLEVEL)    || \
                                         ((TRIGGER) == RTC_TAMPERTRIGGER_HIGHLEVEL))
 
 #define IS_RTC_TAMPER_ERASE_MODE(MODE)             (((MODE) == RTC_TAMPER_ERASE_BACKUP_ENABLE) || \

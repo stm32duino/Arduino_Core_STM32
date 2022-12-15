@@ -214,6 +214,11 @@ extern "C" {
 #endif
 
 #endif
+
+#if defined(STM32U5)
+#define __HAL_COMP_COMP1_EXTI_CLEAR_RASING_FLAG __HAL_COMP_COMP1_EXTI_CLEAR_RISING_FLAG
+#endif
+
 /**
   * @}
   */
@@ -268,7 +273,7 @@ extern "C" {
 #define DAC_WAVEGENERATION_NOISE                        DAC_WAVE_NOISE
 #define DAC_WAVEGENERATION_TRIANGLE                     DAC_WAVE_TRIANGLE
 
-#if defined(STM32G4) || defined(STM32H7) || defined (STM32U5)
+#if defined(STM32G4) || defined(STM32L5) || defined(STM32H7) || defined (STM32U5)
 #define DAC_CHIPCONNECT_DISABLE       DAC_CHIPCONNECT_EXTERNAL
 #define DAC_CHIPCONNECT_ENABLE        DAC_CHIPCONNECT_INTERNAL
 #endif
@@ -530,6 +535,9 @@ extern "C" {
 #define OB_USER_nBOOT0                OB_USER_NBOOT0
 #define OB_nBOOT0_RESET               OB_NBOOT0_RESET
 #define OB_nBOOT0_SET                 OB_NBOOT0_SET
+#define OB_USER_SRAM134_RST           OB_USER_SRAM_RST
+#define OB_SRAM134_RST_ERASE          OB_SRAM_RST_ERASE
+#define OB_SRAM134_RST_NOT_ERASE      OB_SRAM_RST_NOT_ERASE
 #endif /* STM32U5 */
 
 /**
@@ -672,8 +680,6 @@ extern "C" {
 
 #if defined(STM32U5)
 #define GPIO_AF0_RTC_50Hz                         GPIO_AF0_RTC_50HZ
-#endif /* STM32U5 */
-#if defined(STM32U5)
 #define GPIO_AF0_S2DSTOP                          GPIO_AF0_SRDSTOP
 #define GPIO_AF11_LPGPIO                          GPIO_AF11_LPGPIO1
 #endif /* STM32U5 */
@@ -686,7 +692,9 @@ extern "C" {
   */
 #if defined(STM32U5)
 #define GTZC_PERIPH_DCMI                      GTZC_PERIPH_DCMI_PSSI
+#define GTZC_PERIPH_LTDC                      GTZC_PERIPH_LTDCUSB
 #endif /* STM32U5 */
+
 /**
   * @}
   */
@@ -1005,7 +1013,7 @@ extern "C" {
 #define OPAMP_PGACONNECT_VM0                  OPAMP_PGA_CONNECT_INVERTINGINPUT_IO0
 #define OPAMP_PGACONNECT_VM1                  OPAMP_PGA_CONNECT_INVERTINGINPUT_IO1
 
-#if defined(STM32L1) || defined(STM32L4) || defined(STM32L5) || defined(STM32H7) || defined(STM32G4)
+#if defined(STM32L1) || defined(STM32L4) || defined(STM32L5) || defined(STM32H7) || defined(STM32G4) || defined(STM32U5)
 #define HAL_OPAMP_MSP_INIT_CB_ID       HAL_OPAMP_MSPINIT_CB_ID
 #define HAL_OPAMP_MSP_DEINIT_CB_ID     HAL_OPAMP_MSPDEINIT_CB_ID
 #endif
@@ -2959,6 +2967,11 @@ extern "C" {
 
 #define  __HAL_RCC_WWDG_IS_CLK_ENABLED    __HAL_RCC_WWDG1_IS_CLK_ENABLED
 #define  __HAL_RCC_WWDG_IS_CLK_DISABLED  __HAL_RCC_WWDG1_IS_CLK_DISABLED
+#define  RCC_SPI4CLKSOURCE_D2PCLK1       RCC_SPI4CLKSOURCE_D2PCLK2
+#define  RCC_SPI5CLKSOURCE_D2PCLK1       RCC_SPI5CLKSOURCE_D2PCLK2
+#define  RCC_SPI45CLKSOURCE_D2PCLK1      RCC_SPI45CLKSOURCE_D2PCLK2
+#define  RCC_SPI45CLKSOURCE_CDPCLK1      RCC_SPI45CLKSOURCE_CDPCLK2
+#define  RCC_SPI45CLKSOURCE_PCLK1        RCC_SPI45CLKSOURCE_PCLK2
 #endif
 
 #define __WWDG_CLK_DISABLE __HAL_RCC_WWDG_CLK_DISABLE
@@ -3586,7 +3599,7 @@ extern "C" {
   */
 #if defined (STM32G0) || defined (STM32L5) || defined (STM32L412xx) || defined (STM32L422xx) || defined (STM32L4P5xx)|| \
     defined (STM32L4Q5xx) || defined (STM32G4) || defined (STM32WL) || defined (STM32U5) || \
-    defined (STM32WB_GEN2) || defined (STM32WBA) || defined (STM32C0)
+    defined (STM32C0)
 #else
 #define __HAL_RTC_CLEAR_FLAG                      __HAL_RTC_EXTI_CLEAR_FLAG
 #endif

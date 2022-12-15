@@ -47,8 +47,7 @@ MEMORY
 {
 FLASH (rx)                 : ORIGIN = 0x08000000 + LD_FLASH_OFFSET, LENGTH = LD_MAX_SIZE - LD_FLASH_OFFSET
 RAM1 (xrw)                 : ORIGIN = 0x20000004, LENGTH = LD_MAX_DATA_SIZE - 4
-RAM_SHARED_SRAM2a (xrw)    : ORIGIN = 0x20030000, LENGTH = 2K  /* Limited by OptionByte SBRSA when loading firmware Full stack extended */
-RAM_SHARED_SRAM2b (xrw)    : ORIGIN = 0x20038000, LENGTH = 10K  /* Limited by OptionByte SNBRSA when loading firmware Full stack extended */
+RAM_SHARED (xrw)           : ORIGIN = 0x20030000, LENGTH = 10K
 }
 
 /* Define output sections */
@@ -169,7 +168,15 @@ SECTIONS
   }
 
   .ARM.attributes 0       : { *(.ARM.attributes) }
-   MAPPING_TABLE (NOLOAD) : { *(MAPPING_TABLE) } >RAM_SHARED_SRAM2a
-   MB_MEM1 (NOLOAD)       : { *(MB_MEM1) } >RAM_SHARED_SRAM2a
-   MB_MEM2 (NOLOAD)       : { _sMB_MEM2 = . ; *(MB_MEM2) ; _eMB_MEM2 = . ; } >RAM_SHARED_SRAM2b
+  MAPPING_TABLE (NOLOAD) : { *(MAPPING_TABLE) } >RAM_SHARED
+  MB_MEM1 (NOLOAD)       : { *(MB_MEM1) } >RAM_SHARED
+
+  /* used by the startup to initialize .MB_MEM2 data */
+  _siMB_MEM2 = LOADADDR(.MB_MEM2);
+  .MB_MEM2 (NOLOAD) :
+  {
+    _sMB_MEM2 = . ;
+    *(MB_MEM2) ;
+    _eMB_MEM2 = . ;
+  } >RAM_SHARED
 }

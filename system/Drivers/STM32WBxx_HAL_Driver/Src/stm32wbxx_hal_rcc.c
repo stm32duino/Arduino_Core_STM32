@@ -1298,7 +1298,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
   *            @arg @ref RCC_MCO1SOURCE_SYSCLK  system clock selected as MCO source
   *            @arg @ref RCC_MCO1SOURCE_MSI    MSI clock selected as MCO source
   *            @arg @ref RCC_MCO1SOURCE_HSI    HSI clock selected as MCO source
-  *            @arg @ref RCC_MCO1SOURCE_HSE    HSE clock selected as MCO sourcee
+  *            @arg @ref RCC_MCO1SOURCE_HSE    HSE clock selected as MCO source
   *            @arg @ref RCC_MCO1SOURCE_PLLCLK  main PLL clock selected as MCO source
   *            @arg @ref RCC_MCO1SOURCE_LSI1   LSI1 clock selected as MCO source
   *            @arg @ref RCC_MCO1SOURCE_LSI2   LSI2 clock selected as MCO source
@@ -1526,6 +1526,10 @@ uint32_t HAL_RCC_GetPCLK2Freq(void)
   */
 void HAL_RCC_GetOscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
 {
+  uint32_t regvalue;
+  uint32_t regICSRvalue;
+  uint32_t regPLLCFGRvalue;
+
   /* Check the parameters */
   assert_param(RCC_OscInitStruct != (void *)NULL);
 
@@ -1537,93 +1541,52 @@ void HAL_RCC_GetOscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
   RCC_OscInitStruct->OscillatorType |= RCC_OSCILLATORTYPE_HSI48;
 #endif /* RCC_HSI48_SUPPORT */
 
+  /* Get register values */
+  regvalue = RCC->CR; /* Control register */
+  regICSRvalue = RCC->ICSCR; /* Get Internal Clock Sources Calibration register */
+  regPLLCFGRvalue = RCC->PLLCFGR; /* Get PLL Configuration register */
+
   /* Get the HSE configuration -----------------------------------------------*/
-  if ((RCC->CR & RCC_CR_HSEON) == RCC_CR_HSEON)
-  {
-    RCC_OscInitStruct->HSEState = RCC_HSE_ON;
-  }
-  else
-  {
-    RCC_OscInitStruct->HSEState = RCC_HSE_OFF;
-  }
+  RCC_OscInitStruct->HSEState = (regvalue & RCC_CR_HSEON);
 
   /* Get the MSI configuration -----------------------------------------------*/
-  if ((RCC->CR & RCC_CR_MSION) == RCC_CR_MSION)
-  {
-    RCC_OscInitStruct->MSIState = RCC_MSI_ON;
-  }
-  else
-  {
-    RCC_OscInitStruct->MSIState = RCC_MSI_OFF;
-  }
-  RCC_OscInitStruct->MSICalibrationValue  = LL_RCC_MSI_GetCalibTrimming();
-  RCC_OscInitStruct->MSIClockRange        = LL_RCC_MSI_GetRange();
+  RCC_OscInitStruct->MSIState            = (regvalue & RCC_CR_MSION);
+  RCC_OscInitStruct->MSICalibrationValue = (regICSRvalue & RCC_ICSCR_MSITRIM) >> RCC_ICSCR_MSITRIM_Pos;
+  RCC_OscInitStruct->MSIClockRange       = (regvalue & RCC_CR_MSIRANGE);
 
   /* Get the HSI configuration -----------------------------------------------*/
-  if ((RCC->CR & RCC_CR_HSION) == RCC_CR_HSION)
-  {
-    RCC_OscInitStruct->HSIState = RCC_HSI_ON;
-  }
-  else
-  {
-    RCC_OscInitStruct->HSIState = RCC_HSI_OFF;
-  }
-
-  RCC_OscInitStruct->HSICalibrationValue = LL_RCC_HSI_GetCalibTrimming();
-
-  /* Get the LSE configuration -----------------------------------------------*/
-  if ((RCC->BDCR & RCC_BDCR_LSEBYP) == RCC_BDCR_LSEBYP)
-  {
-    RCC_OscInitStruct->LSEState = RCC_LSE_BYPASS;
-  }
-  else if ((RCC->BDCR & RCC_BDCR_LSEON) == RCC_BDCR_LSEON)
-  {
-    RCC_OscInitStruct->LSEState = RCC_LSE_ON;
-  }
-  else
-  {
-    RCC_OscInitStruct->LSEState = RCC_LSE_OFF;
-  }
-
-  /* Get the LSI configuration -----------------------------------------------*/
-  const uint32_t temp_lsi1on = (RCC->CSR & RCC_CSR_LSI1ON);
-  const uint32_t temp_lsi2on = (RCC->CSR & RCC_CSR_LSI2ON);
-  if ((temp_lsi1on == RCC_CSR_LSI1ON) || (temp_lsi2on == RCC_CSR_LSI2ON))
-  {
-    RCC_OscInitStruct->LSIState = RCC_LSI_ON;
-  }
-  else
-  {
-    RCC_OscInitStruct->LSIState = RCC_LSI_OFF;
-  }
-
-#if defined(RCC_HSI48_SUPPORT)
-  /* Get the HSI48 configuration ---------------------------------------------*/
-  if ((RCC->CRRCR & RCC_CRRCR_HSI48ON) == RCC_CRRCR_HSI48ON)
-  {
-    RCC_OscInitStruct->HSI48State = RCC_HSI48_ON;
-  }
-  else
-  {
-    RCC_OscInitStruct->HSI48State = RCC_HSI48_OFF;
-  }
-#endif /* RCC_HSI48_SUPPORT */
+  RCC_OscInitStruct->HSIState            = (regvalue & RCC_CR_HSION);
+  RCC_OscInitStruct->HSICalibrationValue = ((regICSRvalue & RCC_ICSCR_HSITRIM) >> RCC_ICSCR_HSITRIM_Pos);
 
   /* Get the PLL configuration -----------------------------------------------*/
-  if ((RCC->CR & RCC_CR_PLLON) == RCC_CR_PLLON)
-  {
-    RCC_OscInitStruct->PLL.PLLState = RCC_PLL_ON;
-  }
-  else
-  {
-    RCC_OscInitStruct->PLL.PLLState = RCC_PLL_OFF;
-  }
-  RCC_OscInitStruct->PLL.PLLSource = LL_RCC_PLL_GetMainSource();
-  RCC_OscInitStruct->PLL.PLLM      = LL_RCC_PLL_GetDivider();
-  RCC_OscInitStruct->PLL.PLLN      = LL_RCC_PLL_GetN();
-  RCC_OscInitStruct->PLL.PLLP      = LL_RCC_PLL_GetP();
-  RCC_OscInitStruct->PLL.PLLQ      = LL_RCC_PLL_GetQ();
-  RCC_OscInitStruct->PLL.PLLR      = LL_RCC_PLL_GetR();
+  RCC_OscInitStruct->PLL.PLLState  = ((regvalue & RCC_CR_PLLON) >> RCC_CR_PLLON_Pos) + 1U;
+  RCC_OscInitStruct->PLL.PLLSource = (regPLLCFGRvalue & RCC_PLLCFGR_PLLSRC);
+  RCC_OscInitStruct->PLL.PLLM      = (regPLLCFGRvalue & RCC_PLLCFGR_PLLM);
+  RCC_OscInitStruct->PLL.PLLN      = ((regPLLCFGRvalue & RCC_PLLCFGR_PLLN) >> RCC_PLLCFGR_PLLN_Pos);
+  RCC_OscInitStruct->PLL.PLLP      = (regPLLCFGRvalue & RCC_PLLCFGR_PLLP);
+  RCC_OscInitStruct->PLL.PLLQ      = (regPLLCFGRvalue & RCC_PLLCFGR_PLLQ);
+  RCC_OscInitStruct->PLL.PLLR      = (regPLLCFGRvalue & RCC_PLLCFGR_PLLR);
+
+  /* Get Backup Domain register */
+  regvalue = RCC->BDCR;
+
+  /* Get the LSE configuration -----------------------------------------------*/
+  RCC_OscInitStruct->LSEState = (regvalue & RCC_LSE_BYPASS);
+
+  /* Get Control/Status register */
+  regvalue = RCC->CSR;
+
+  /* Get the LSI configuration -----------------------------------------------*/
+  RCC_OscInitStruct->LSIState = ((regvalue & RCC_LSI_ON) > 0U)?RCC_LSI_ON:0U;
+
+#if defined(RCC_HSI48_SUPPORT)
+  /* Get Control/Status register */
+  regvalue = RCC->CRRCR;
+
+  /* Get the HSI48 configuration ---------------------------------------------*/
+  RCC_OscInitStruct->HSI48State = (regvalue & RCC_CRRCR_HSI48ON);
+#endif /* RCC_HSI48_SUPPORT */
+
 }
 
 /**

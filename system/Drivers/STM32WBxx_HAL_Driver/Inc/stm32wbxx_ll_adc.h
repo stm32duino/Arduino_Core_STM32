@@ -52,7 +52,7 @@ extern "C" {
 
 /* Internal register offset for ADC group regular sequencer configuration */
 /* (offset placed into a spare area of literal definition) */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 /* No register ADC_SQRx on this ADC peripheral version */
 #else
 #define ADC_SQR1_REGOFFSET                 (0x00000000UL)
@@ -67,7 +67,7 @@ extern "C" {
 
 /* Definition of ADC group regular sequencer bits information to be inserted  */
 /* into ADC group regular sequencer ranks literals definition.                */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 #define ADC_REG_RANK_1_SQRX_BITOFFSET_POS  ( 0UL) /* Value equivalent to bitfield "ADC_CHSELR_SQ1" position in register */
 #define ADC_REG_RANK_2_SQRX_BITOFFSET_POS  ( 4UL) /* Value equivalent to bitfield "ADC_CHSELR_SQ2" position in register */
 #define ADC_REG_RANK_3_SQRX_BITOFFSET_POS  ( 8UL) /* Value equivalent to bitfield "ADC_CHSELR_SQ3" position in register */
@@ -190,13 +190,13 @@ extern "C" {
 /* - channel sampling time defined by SMPRx register offset                   */
 /*   and SMPx bits positions into SMPRx register                              */
 #define ADC_CHANNEL_ID_NUMBER_MASK         (ADC_CFGR_AWD1CH)
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 #define ADC_CHANNEL_ID_BITFIELD_MASK       (ADC_CHSELR_CHSEL)
 #else
 #define ADC_CHANNEL_ID_BITFIELD_MASK       (ADC_AWD2CR_AWD2CH)
 #endif
 #define ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS (26UL)/* Value equivalent to bitfield "ADC_CHANNEL_ID_NUMBER_MASK" position in register */
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 #define ADC_CHANNEL_ID_NUMBER_MASK_SEQ     (ADC_CHSELR_SQ1 << ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS) /* Value equivalent to ADC_CHANNEL_ID_NUMBER_MASK with reduced range: on this STM32 series, ADC group regular sequencer, if set to mode "fully configurable", can contain channels with a restricted channel number. Refer to function @ref LL_ADC_REG_SetSequencerConfigurable(). */
 #endif
 #define ADC_CHANNEL_ID_MASK                (ADC_CHANNEL_ID_NUMBER_MASK | ADC_CHANNEL_ID_BITFIELD_MASK | ADC_CHANNEL_ID_INTERNAL_CH_MASK)
@@ -242,7 +242,7 @@ extern "C" {
 
 /* Definition of channels ID bitfield information to be inserted into         */
 /* channels literals definition.                                              */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 #define ADC_CHANNEL_0_BITFIELD             (ADC_CHSELR_CHSEL0)
 #define ADC_CHANNEL_1_BITFIELD             (ADC_CHSELR_CHSEL1)
 #define ADC_CHANNEL_2_BITFIELD             (ADC_CHSELR_CHSEL2)
@@ -307,7 +307,7 @@ extern "C" {
 #define ADC_CHANNEL_18_SMP                 (ADC_SMPR2_REGOFFSET | ((24UL) << ADC_CHANNEL_SMPx_BITOFFSET_POS)) /* Value shifted is equivalent to bitfield "ADC_SMPR2_SMP18" position in register */
 
 
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if   defined(ADC_SUPPORT_2_5_MSPS)
 /* Internal mask for ADC channel sampling time:                               */
 /* To select into literals LL_ADC_SAMPLINGTIME_x                              */
 /* the relevant bits for:                                                     */
@@ -358,7 +358,7 @@ extern "C" {
 #define ADC_AWD_CRX_REGOFFSET_MASK         (ADC_AWD_CR1_REGOFFSET | ADC_AWD_CR2_REGOFFSET | ADC_AWD_CR3_REGOFFSET)
 #define ADC_AWD_CRX_REGOFFSET_BITOFFSET_POS (20UL)
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 #define ADC_AWD_CR1_CHANNEL_MASK           (ADC_CFGR1_AWD1CH | ADC_CFGR1_AWD1EN | ADC_CFGR1_AWD1SGL)
 #define ADC_AWD_CR_ALL_CHANNEL_MASK        (ADC_AWD_CR1_CHANNEL_MASK)
 #else
@@ -388,7 +388,7 @@ extern "C" {
 #define ADC_OFRx_REGOFFSET_MASK            (ADC_OFR1_REGOFFSET | ADC_OFR2_REGOFFSET | ADC_OFR3_REGOFFSET | ADC_OFR4_REGOFFSET)
 
 /* ADC registers bits positions */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 #define ADC_CFGR1_RES_BITOFFSET_POS        ( 3UL) /* Value equivalent to bitfield "ADC_CFGR1_RES" position in register */
 #define ADC_CFGR1_AWDSGL_BITOFFSET_POS     (22UL) /* Value equivalent to bitfield "ADC_CFGR1_AWDSGL" position in register */
 #define ADC_TR_HT_BITOFFSET_POS            (16UL) /* Value equivalent to bitfield "ADC_TR_HT" position in register */
@@ -426,7 +426,7 @@ extern "C" {
 
 
 /* ADC registers bits groups */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 #define ADC_CR_BITS_PROPERTY_RS            (ADC_CR_ADCAL | ADC_CR_ADSTP | ADC_CR_ADSTART | ADC_CR_ADDIS | ADC_CR_ADEN) /* ADC register CR bits with HW property "rs": Software can read as well as set this bit. Writing '0' has no effect on the bit value. */
 #else
 #define ADC_CR_BITS_PROPERTY_RS            (ADC_CR_ADCAL | ADC_CR_JADSTP | ADC_CR_ADSTP | ADC_CR_JADSTART | ADC_CR_ADSTART | ADC_CR_ADDIS | ADC_CR_ADEN) /* ADC register CR bits with HW property "rs": Software can read as well as set this bit. Writing '0' has no effect on the bit value. */
@@ -521,7 +521,7 @@ typedef struct
   */
 typedef struct
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   uint32_t Clock;                       /*!< Set ADC instance clock source and prescaler.
                                              This parameter can be a value of @ref ADC_LL_EC_CLOCK_SOURCE
                                              @note On this STM32 series, this parameter has some clock ratio constraints:
@@ -609,7 +609,7 @@ typedef struct
 
 } LL_ADC_REG_InitTypeDef;
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 /**
@@ -677,7 +677,7 @@ typedef struct
   * @{
   */
 #define LL_ADC_FLAG_ADRDY                  ADC_ISR_ADRDY      /*!< ADC flag ADC instance ready */
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_FLAG_CCRDY                  ADC_ISR_CCRDY      /*!< ADC flag ADC channel configuration ready */
 #else
 #endif /* ADC_SUPPORT_2_5_MSPS */
@@ -691,7 +691,7 @@ typedef struct
 #define LL_ADC_FLAG_AWD1                   ADC_ISR_AWD1       /*!< ADC flag ADC analog watchdog 1 */
 #define LL_ADC_FLAG_AWD2                   ADC_ISR_AWD2       /*!< ADC flag ADC analog watchdog 2 */
 #define LL_ADC_FLAG_AWD3                   ADC_ISR_AWD3       /*!< ADC flag ADC analog watchdog 3 */
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if   defined(ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_FLAG_EOCAL                  ADC_ISR_EOCAL      /*!< ADC flag end of calibration */
 #endif /* ADC_SUPPORT_2_5_MSPS */
 /**
@@ -703,7 +703,7 @@ typedef struct
   * @{
   */
 #define LL_ADC_IT_ADRDY                    ADC_IER_ADRDYIE    /*!< ADC interruption ADC instance ready */
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_IT_CCRDY                    ADC_IER_CCRDYIE    /*!< ADC interruption channel configuration ready */
 #else
 #endif /* ADC_SUPPORT_2_5_MSPS */
@@ -717,7 +717,7 @@ typedef struct
 #define LL_ADC_IT_AWD1                     ADC_IER_AWD1IE     /*!< ADC interruption ADC analog watchdog 1 */
 #define LL_ADC_IT_AWD2                     ADC_IER_AWD2IE     /*!< ADC interruption ADC analog watchdog 2 */
 #define LL_ADC_IT_AWD3                     ADC_IER_AWD3IE     /*!< ADC interruption ADC analog watchdog 3 */
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_IT_EOCAL                    ADC_IER_EOCALIE    /*!< ADC interruption ADC end of calibration */
 #endif /* ADC_SUPPORT_2_5_MSPS */
 /**
@@ -738,7 +738,7 @@ typedef struct
 /** @defgroup ADC_LL_EC_COMMON_CLOCK_SOURCE  ADC common - Clock source
   * @{
   */
-#if !defined (ADC_SUPPORT_2_5_MSPS)
+#if !defined(ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_CLOCK_SYNC_PCLK_DIV1        (ADC_CCR_CKMODE_0)                                    /*!< ADC synchronous clock derived from AHB clock without prescaler */
 #define LL_ADC_CLOCK_SYNC_PCLK_DIV2        (ADC_CCR_CKMODE_1                   )                 /*!< ADC synchronous clock derived from AHB clock with prescaler division by 2 */
 #define LL_ADC_CLOCK_SYNC_PCLK_DIV4        (ADC_CCR_CKMODE_1 | ADC_CCR_CKMODE_0)                 /*!< ADC synchronous clock derived from AHB clock with prescaler division by 4 */
@@ -775,7 +775,7 @@ typedef struct
   * @}
   */
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 /** @defgroup ADC_LL_EC_CLOCK_SOURCE  ADC instance - Clock source
   * @{
   */
@@ -812,7 +812,7 @@ typedef struct
   * @{
   */
 #define LL_ADC_LP_MODE_NONE                (0x00000000UL)                      /*!< No ADC low power mode activated */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_LP_AUTOWAIT                 (ADC_CFGR1_WAIT)                    /*!< ADC low power mode auto delay: Dynamic low power mode, ADC conversions are performed only when necessary (when previous ADC conversion data is read). See description with function @ref LL_ADC_SetLowPowerMode(). */
 #define LL_ADC_LP_AUTOPOWEROFF             (ADC_CFGR1_AUTOFF)                  /*!< ADC low power mode auto power-off: the ADC automatically powers-off after a ADC conversion and automatically wakes up when a new ADC conversion is triggered (with startup time between trigger and start of sampling). See description with function @ref LL_ADC_SetLowPowerMode(). */
 #define LL_ADC_LP_AUTOWAIT_AUTOPOWEROFF    (ADC_CFGR1_WAIT | ADC_CFGR1_AUTOFF) /*!< ADC low power modes auto wait and auto power-off combined. See description with function @ref LL_ADC_SetLowPowerMode(). */
@@ -832,7 +832,7 @@ typedef struct
   * @}
   */
 
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if   defined(ADC_SUPPORT_2_5_MSPS)
 /** @defgroup ADC_LL_EC_SAMPLINGTIME_COMMON  ADC instance - Sampling time common to a group of channels
 * @{
 */
@@ -867,7 +867,7 @@ typedef struct
   * @{
   */
 #define LL_ADC_GROUP_REGULAR               (0x00000001UL) /*!< ADC group regular (available on all STM32 devices) */
-#if !defined (ADC_SUPPORT_2_5_MSPS)
+#if !defined(ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_GROUP_INJECTED              (0x00000002UL) /*!< ADC group injected (not available on all STM32 devices)*/
 #define LL_ADC_GROUP_REGULAR_INJECTED      (0x00000003UL) /*!< ADC both groups regular and injected */
 #endif /* !ADC_SUPPORT_2_5_MSPS */
@@ -878,7 +878,7 @@ typedef struct
 /** @defgroup ADC_LL_EC_CHANNEL  ADC instance - Channel number
   * @{
   */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_CHANNEL_0                   (ADC_CHANNEL_0_NUMBER  | ADC_CHANNEL_0_BITFIELD ) /*!< ADC external channel (channel connected to GPIO pin) ADCx_IN0  */
 #define LL_ADC_CHANNEL_1                   (ADC_CHANNEL_1_NUMBER  | ADC_CHANNEL_1_BITFIELD ) /*!< ADC external channel (channel connected to GPIO pin) ADCx_IN1  */
 #define LL_ADC_CHANNEL_2                   (ADC_CHANNEL_2_NUMBER  | ADC_CHANNEL_2_BITFIELD ) /*!< ADC external channel (channel connected to GPIO pin) ADCx_IN2  */
@@ -996,7 +996,7 @@ typedef struct
   * @}
   */
 
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /** @defgroup ADC_LL_EC_REG_SEQ_MODE  ADC group regular - Sequencer configuration flexibility
 * @{
 */
@@ -1041,7 +1041,7 @@ typedef struct
   * @}
   */
 
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if   defined(ADC_SUPPORT_2_5_MSPS)
 /** @defgroup ADC_LL_EC_REG_SEQ_SCAN_DIRECTION  ADC group regular - Sequencer scan direction
   * @{
   */
@@ -1056,7 +1056,7 @@ typedef struct
   * @{
   */
 #define LL_ADC_REG_SEQ_DISCONT_DISABLE     (0x00000000UL)                                                               /*!< ADC group regular sequencer discontinuous mode disable */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_REG_SEQ_DISCONT_1RANK       (ADC_CFGR1_DISCEN)                                                               /*!< ADC group regular sequencer discontinuous mode enable with sequence interruption every rank */
 #else
 #define LL_ADC_REG_SEQ_DISCONT_1RANK       (                                                               ADC_CFGR_DISCEN) /*!< ADC group regular sequencer discontinuous mode enable with sequence interruption every rank */
@@ -1075,7 +1075,7 @@ typedef struct
 /** @defgroup ADC_LL_EC_REG_SEQ_RANKS  ADC group regular - Sequencer ranks
   * @{
   */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_REG_RANK_1                  (ADC_REG_RANK_1_SQRX_BITOFFSET_POS)  /*!< ADC group regular sequencer rank 1 */
 #define LL_ADC_REG_RANK_2                  (ADC_REG_RANK_2_SQRX_BITOFFSET_POS)  /*!< ADC group regular sequencer rank 2 */
 #define LL_ADC_REG_RANK_3                  (ADC_REG_RANK_3_SQRX_BITOFFSET_POS)  /*!< ADC group regular sequencer rank 3 */
@@ -1106,7 +1106,7 @@ typedef struct
   * @}
   */
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 /** @defgroup ADC_LL_EC_INJ_TRIGGER_SOURCE  ADC group injected - Trigger source
@@ -1187,7 +1187,7 @@ typedef struct
 /** @defgroup ADC_LL_EC_CHANNEL_SAMPLINGTIME  Channel - Sampling time
   * @{
   */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_SAMPLINGTIME_1CYCLE_5       (0x00000000UL)                                        /*!< Sampling time 1.5 ADC clock cycle */
 #define LL_ADC_SAMPLINGTIME_3CYCLES_5      (ADC_SMPR_SMP1_0)                                     /*!< Sampling time 3.5 ADC clock cycles */
 #define LL_ADC_SAMPLINGTIME_7CYCLES_5      (ADC_SMPR_SMP1_1)                                     /*!< Sampling time 7.5 ADC clock cycles */
@@ -1213,7 +1213,7 @@ typedef struct
 /** @defgroup ADC_LL_EC_CHANNEL_SINGLE_DIFF_ENDING  Channel - Single or differential ending
   * @{
   */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_SINGLE_ENDED                (0x00000000UL)                                    /*!< ADC channel ending set to single ended (literal also used to set calibration mode) */
 #else
 #define LL_ADC_SINGLE_ENDED                (                  ADC_CALFACT_CALFACT_S)         /*!< ADC channel ending set to single ended (literal also used to set calibration mode) */
@@ -1228,7 +1228,7 @@ typedef struct
   * @{
   */
 #define LL_ADC_AWD1                        (ADC_AWD_CR1_CHANNEL_MASK  | ADC_AWD_CR1_REGOFFSET) /*!< ADC analog watchdog number 1 */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC analog watchdog 2 and 3" not available on ADC peripheral of this STM32WB device */
 #else
 #define LL_ADC_AWD2                        (ADC_AWD_CR23_CHANNEL_MASK | ADC_AWD_CR2_REGOFFSET) /*!< ADC analog watchdog number 2 */
@@ -1241,7 +1241,7 @@ typedef struct
 /** @defgroup ADC_LL_EC_AWD_CHANNELS  Analog watchdog - Monitored channels
   * @{
   */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_AWD_DISABLE                 (0x00000000UL)                                                                             /*!< ADC analog watchdog monitoring disabled */
 #define LL_ADC_AWD_ALL_CHANNELS_REG        (                                                    ADC_CFGR1_AWD1EN                    ) /*!< ADC analog watchdog monitoring of all channels, converted by group regular only */
 #define LL_ADC_AWD_CHANNEL_0_REG           ((LL_ADC_CHANNEL_0  & ADC_CHANNEL_ID_MASK)         | ADC_CFGR1_AWD1EN | ADC_CFGR1_AWD1SGL) /*!< ADC analog watchdog monitoring of ADC external channel (channel connected to GPIO pin) ADCx_IN0, converted by group regular only */
@@ -1361,7 +1361,7 @@ typedef struct
 /** @defgroup ADC_LL_EC_OVS_SCOPE  Oversampling - Oversampling scope
   * @{
   */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_OVS_DISABLE                 (0x00000000UL)                                        /*!< ADC oversampling disabled. */
 #define LL_ADC_OVS_GRP_REGULAR_CONTINUED   (                                    ADC_CFGR2_OVSE)  /*!< ADC oversampling on conversions of ADC group regular. Literal suffix "continued" is kept for compatibility with other STM32 devices featuring ADC group injected, in this case other oversampling scope parameters are available. */
 #else
@@ -1379,7 +1379,7 @@ typedef struct
   * @{
   */
 #define LL_ADC_OVS_REG_CONT                (0x00000000UL)         /*!< ADC oversampling discontinuous mode: continuous mode (all conversions of oversampling ratio are done from 1 trigger) */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_OVS_REG_DISCONT             (ADC_CFGR2_TOVS)       /*!< ADC oversampling discontinuous mode: discontinuous mode (each conversion of oversampling ratio needs a trigger) */
 #else
 #define LL_ADC_OVS_REG_DISCONT             (ADC_CFGR2_TROVS)      /*!< ADC oversampling discontinuous mode: discontinuous mode (each conversion of oversampling ratio needs a trigger) */
@@ -1601,7 +1601,7 @@ typedef struct
   *             comparison with internal channel parameter to be done
   *             using helper macro @ref __LL_ADC_CHANNEL_INTERNAL_TO_EXTERNAL().
   */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 #define __LL_ADC_DECIMAL_NB_TO_CHANNEL(__DECIMAL_NB__)                         \
   (                                                                            \
    ((__DECIMAL_NB__) << ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS) |                 \
@@ -1764,7 +1764,7 @@ typedef struct
     ((__CHANNEL__) == LL_ADC_CHANNEL_VBAT)                                     \
   )
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Helper macro to define ADC analog watchdog parameter:
   *         define a single channel to monitor with analog watchdog
@@ -2356,7 +2356,7 @@ typedef struct
   *         @arg @ref LL_ADC_DMA_REG_REGULAR_DATA
   * @retval ADC register address
   */
-__STATIC_INLINE uint32_t LL_ADC_DMA_GetRegAddr(ADC_TypeDef *ADCx, uint32_t Register)
+__STATIC_INLINE uint32_t LL_ADC_DMA_GetRegAddr(const ADC_TypeDef *ADCx, uint32_t Register)
 {
   /* Prevent unused argument(s) compilation warning */
   (void)(Register);
@@ -2415,7 +2415,7 @@ __STATIC_INLINE uint32_t LL_ADC_DMA_GetRegAddr(ADC_TypeDef *ADCx, uint32_t Regis
   */
 __STATIC_INLINE void LL_ADC_SetCommonClock(ADC_Common_TypeDef *ADCxy_COMMON, uint32_t CommonClock)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   MODIFY_REG(ADCxy_COMMON->CCR, ADC_CCR_PRESC, CommonClock);
 #else
   MODIFY_REG(ADCxy_COMMON->CCR, ADC_CCR_CKMODE | ADC_CCR_PRESC, CommonClock);
@@ -2447,9 +2447,9 @@ __STATIC_INLINE void LL_ADC_SetCommonClock(ADC_Common_TypeDef *ADCxy_COMMON, uin
   *
   *         (*) Value available on all STM32 devices except: STM32W10xxx, STM32W15xxx.
   */
-__STATIC_INLINE uint32_t LL_ADC_GetCommonClock(ADC_Common_TypeDef *ADCxy_COMMON)
+__STATIC_INLINE uint32_t LL_ADC_GetCommonClock(const ADC_Common_TypeDef *ADCxy_COMMON)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   return (uint32_t)(READ_BIT(ADCxy_COMMON->CCR, ADC_CCR_PRESC));
 #else
   return (uint32_t)(READ_BIT(ADCxy_COMMON->CCR, ADC_CCR_CKMODE | ADC_CCR_PRESC));
@@ -2586,7 +2586,7 @@ __STATIC_INLINE void LL_ADC_SetCommonPathInternalChRem(ADC_Common_TypeDef *ADCxy
   *         @arg @ref LL_ADC_PATH_INTERNAL_TEMPSENSOR
   *         @arg @ref LL_ADC_PATH_INTERNAL_VBAT
   */
-__STATIC_INLINE uint32_t LL_ADC_GetCommonPathInternalCh(ADC_Common_TypeDef *ADCxy_COMMON)
+__STATIC_INLINE uint32_t LL_ADC_GetCommonPathInternalCh(const ADC_Common_TypeDef *ADCxy_COMMON)
 {
   return (uint32_t)(READ_BIT(ADCxy_COMMON->CCR, ADC_CCR_VREFEN | ADC_CCR_TSEN | ADC_CCR_VBATEN));
 }
@@ -2599,7 +2599,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetCommonPathInternalCh(ADC_Common_TypeDef *ADCx
   * @{
   */
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Set ADC instance clock source and prescaler.
   * @note   On this STM32 series, setting of this feature is conditioned to
@@ -2653,7 +2653,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetClock(ADC_TypeDef *ADCx)
 }
 #endif /* ADC_SUPPORT_2_5_MSPS */
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Set ADC calibration factor in the mode single-ended
   *         or differential (for devices with differential mode available).
@@ -2729,7 +2729,7 @@ __STATIC_INLINE void LL_ADC_SetCalibrationFactor(ADC_TypeDef *ADCx, uint32_t Sin
 }
 #endif /* ADC_SUPPORT_2_5_MSPS */
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Get ADC calibration factor in the mode single-ended
   *         or differential (for devices with differential mode available).
@@ -2743,7 +2743,7 @@ __STATIC_INLINE void LL_ADC_SetCalibrationFactor(ADC_TypeDef *ADCx, uint32_t Sin
   * @param  ADCx ADC instance
   * @retval Value between Min_Data=0x00 and Max_Data=0x7F
   */
-__STATIC_INLINE uint32_t LL_ADC_GetCalibrationFactor(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_GetCalibrationFactor(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CALFACT, ADC_CALFACT_CALFACT));
 }
@@ -2764,7 +2764,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetCalibrationFactor(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_DIFFERENTIAL_ENDED
   * @retval Value between Min_Data=0x00 and Max_Data=0x7F
   */
-__STATIC_INLINE uint32_t LL_ADC_GetCalibrationFactor(ADC_TypeDef *ADCx, uint32_t SingleDiff)
+__STATIC_INLINE uint32_t LL_ADC_GetCalibrationFactor(const ADC_TypeDef *ADCx, uint32_t SingleDiff)
 {
   /* Retrieve bits with position in register depending on parameter           */
   /* "SingleDiff".                                                            */
@@ -2792,7 +2792,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetCalibrationFactor(ADC_TypeDef *ADCx, uint32_t
   */
 __STATIC_INLINE void LL_ADC_SetResolution(ADC_TypeDef *ADCx, uint32_t Resolution)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   MODIFY_REG(ADCx->CFGR1, ADC_CFGR1_RES, Resolution);
 #else
   MODIFY_REG(ADCx->CFGR, ADC_CFGR_RES, Resolution);
@@ -2811,9 +2811,9 @@ __STATIC_INLINE void LL_ADC_SetResolution(ADC_TypeDef *ADCx, uint32_t Resolution
   *         @arg @ref LL_ADC_RESOLUTION_8B
   *         @arg @ref LL_ADC_RESOLUTION_6B
   */
-__STATIC_INLINE uint32_t LL_ADC_GetResolution(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_GetResolution(const ADC_TypeDef *ADCx)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_RES));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR, ADC_CFGR_RES));
@@ -2837,7 +2837,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetResolution(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_SetDataAlignment(ADC_TypeDef *ADCx, uint32_t DataAlignment)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   MODIFY_REG(ADCx->CFGR1, ADC_CFGR1_ALIGN, DataAlignment);
 #else
   MODIFY_REG(ADCx->CFGR, ADC_CFGR_ALIGN, DataAlignment);
@@ -2854,9 +2854,9 @@ __STATIC_INLINE void LL_ADC_SetDataAlignment(ADC_TypeDef *ADCx, uint32_t DataAli
   *         @arg @ref LL_ADC_DATA_ALIGN_RIGHT
   *         @arg @ref LL_ADC_DATA_ALIGN_LEFT
   */
-__STATIC_INLINE uint32_t LL_ADC_GetDataAlignment(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_GetDataAlignment(const ADC_TypeDef *ADCx)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_ALIGN));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR, ADC_CFGR_ALIGN));
@@ -2920,7 +2920,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetDataAlignment(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_SetLowPowerMode(ADC_TypeDef *ADCx, uint32_t LowPowerMode)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   MODIFY_REG(ADCx->CFGR1, (ADC_CFGR1_WAIT | ADC_CFGR1_AUTOFF), LowPowerMode);
 #else
   MODIFY_REG(ADCx->CFGR, ADC_CFGR_AUTDLY, LowPowerMode);
@@ -2977,16 +2977,16 @@ __STATIC_INLINE void LL_ADC_SetLowPowerMode(ADC_TypeDef *ADCx, uint32_t LowPower
   *
   *         (1) On STM32WB series, parameter available only on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx.
   */
-__STATIC_INLINE uint32_t LL_ADC_GetLowPowerMode(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_GetLowPowerMode(const ADC_TypeDef *ADCx)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   return (uint32_t)(READ_BIT(ADCx->CFGR1, (ADC_CFGR1_WAIT | ADC_CFGR1_AUTOFF)));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR, ADC_CFGR_AUTDLY));
 #endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if   defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Set ADC trigger frequency mode.
   * @note   ADC trigger frequency mode must be set to low frequency when
@@ -3030,7 +3030,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetTriggerFrequencyMode(ADC_TypeDef *ADCx)
 }
 
 #endif /* ADC_SUPPORT_2_5_MSPS */
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if   defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Set sampling time common to a group of channels.
   * @note   Unit: ADC clock cycles.
@@ -3120,7 +3120,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetSamplingTimeCommonChannels(ADC_TypeDef *ADCx,
 
 #endif /* ADC_SUPPORT_2_5_MSPS */
 
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC offset" not available on ADC peripheral of this STM32WB device */
 #else
 /**
@@ -3258,7 +3258,7 @@ __STATIC_INLINE void LL_ADC_SetOffset(ADC_TypeDef *ADCx, uint32_t Offsety, uint3
   *             comparison with internal channel parameter to be done
   *             using helper macro @ref __LL_ADC_CHANNEL_INTERNAL_TO_EXTERNAL().
   */
-__STATIC_INLINE uint32_t LL_ADC_GetOffsetChannel(ADC_TypeDef *ADCx, uint32_t Offsety)
+__STATIC_INLINE uint32_t LL_ADC_GetOffsetChannel(const ADC_TypeDef *ADCx, uint32_t Offsety)
 {
   const __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->OFR1, Offsety);
 
@@ -3284,7 +3284,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetOffsetChannel(ADC_TypeDef *ADCx, uint32_t Off
   *         @arg @ref LL_ADC_OFFSET_4
   * @retval Value between Min_Data=0x000 and Max_Data=0xFFF
   */
-__STATIC_INLINE uint32_t LL_ADC_GetOffsetLevel(ADC_TypeDef *ADCx, uint32_t Offsety)
+__STATIC_INLINE uint32_t LL_ADC_GetOffsetLevel(const ADC_TypeDef *ADCx, uint32_t Offsety)
 {
   const __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->OFR1, Offsety);
 
@@ -3343,7 +3343,7 @@ __STATIC_INLINE void LL_ADC_SetOffsetState(ADC_TypeDef *ADCx, uint32_t Offsety, 
   *         @arg @ref LL_ADC_OFFSET_DISABLE
   *         @arg @ref LL_ADC_OFFSET_ENABLE
   */
-__STATIC_INLINE uint32_t LL_ADC_GetOffsetState(ADC_TypeDef *ADCx, uint32_t Offsety)
+__STATIC_INLINE uint32_t LL_ADC_GetOffsetState(const ADC_TypeDef *ADCx, uint32_t Offsety)
 {
   const __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->OFR1, Offsety);
 
@@ -3403,7 +3403,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetOffsetState(ADC_TypeDef *ADCx, uint32_t Offse
   */
 __STATIC_INLINE void LL_ADC_REG_SetTriggerSource(ADC_TypeDef *ADCx, uint32_t TriggerSource)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   MODIFY_REG(ADCx->CFGR1, ADC_CFGR1_EXTEN | ADC_CFGR1_EXTSEL, TriggerSource);
 #else
   MODIFY_REG(ADCx->CFGR, ADC_CFGR_EXTEN | ADC_CFGR_EXTSEL, TriggerSource);
@@ -3442,9 +3442,9 @@ __STATIC_INLINE void LL_ADC_REG_SetTriggerSource(ADC_TypeDef *ADCx, uint32_t Tri
   *         (1) On STM32WB series, parameter not available on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx.
   *         (2) On STM32WB series, parameter available only devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx.
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetTriggerSource(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetTriggerSource(const ADC_TypeDef *ADCx)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   __IO uint32_t TriggerSource = READ_BIT(ADCx->CFGR1, ADC_CFGR1_EXTSEL | ADC_CFGR1_EXTEN);
 
   /* Value for shift of {0; 4; 8; 12} depending on value of bitfield          */
@@ -3484,9 +3484,9 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetTriggerSource(ADC_TypeDef *ADCx)
   * @retval Value "0" if trigger source external trigger
   *         Value "1" if trigger source SW start.
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_IsTriggerSourceSWStart(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_IsTriggerSourceSWStart(const ADC_TypeDef *ADCx)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   return ((READ_BIT(ADCx->CFGR1, ADC_CFGR1_EXTEN) == (LL_ADC_REG_TRIG_SOFTWARE & ADC_CFGR1_EXTEN)) ? 1UL : 0UL);
 #else
   return ((READ_BIT(ADCx->CFGR, ADC_CFGR_EXTEN) == (LL_ADC_REG_TRIG_SOFTWARE & ADC_CFGR_EXTEN)) ? 1UL : 0UL);
@@ -3510,7 +3510,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_IsTriggerSourceSWStart(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_REG_SetTriggerEdge(ADC_TypeDef *ADCx, uint32_t ExternalTriggerEdge)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   MODIFY_REG(ADCx->CFGR1, ADC_CFGR1_EXTEN, ExternalTriggerEdge);
 #else
   MODIFY_REG(ADCx->CFGR, ADC_CFGR_EXTEN, ExternalTriggerEdge);
@@ -3527,16 +3527,16 @@ __STATIC_INLINE void LL_ADC_REG_SetTriggerEdge(ADC_TypeDef *ADCx, uint32_t Exter
   *         @arg @ref LL_ADC_REG_TRIG_EXT_FALLING
   *         @arg @ref LL_ADC_REG_TRIG_EXT_RISINGFALLING
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetTriggerEdge(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetTriggerEdge(const ADC_TypeDef *ADCx)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_EXTEN));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR, ADC_CFGR_EXTEN));
 #endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if   defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Set ADC group regular sequencer configuration flexibility.
   * @note   On this STM32 series, ADC group regular sequencer both modes
@@ -3670,7 +3670,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerConfigurable(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_REG_SetSequencerLength(ADC_TypeDef *ADCx, uint32_t SequencerNbRanks)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   SET_BIT(ADCx->CHSELR, SequencerNbRanks);
 #else
   MODIFY_REG(ADCx->SQR1, ADC_SQR1_L, SequencerNbRanks);
@@ -3737,9 +3737,9 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerLength(ADC_TypeDef *ADCx, uint32_t S
   *
   *         (1) On STM32WB series, parameter not available on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx.
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerLength(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerLength(const ADC_TypeDef *ADCx)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   __IO uint32_t ChannelsRanks = READ_BIT(ADCx->CHSELR, ADC_CHSELR_SQ_ALL);
   uint32_t SequencerLength = LL_ADC_REG_SEQ_SCAN_ENABLE_8RANKS;
   uint32_t RankIndex;
@@ -3831,7 +3831,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerScanDirection(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_REG_SetSequencerDiscont(ADC_TypeDef *ADCx, uint32_t SeqDiscont)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   MODIFY_REG(ADCx->CFGR1, ADC_CFGR1_DISCEN, SeqDiscont);
 #else
   MODIFY_REG(ADCx->CFGR, ADC_CFGR_DISCEN | ADC_CFGR_DISCNUM, SeqDiscont);
@@ -3858,9 +3858,9 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerDiscont(ADC_TypeDef *ADCx, uint32_t 
   *
   *         (1) On STM32WB series, parameter not available on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx.
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerDiscont(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerDiscont(const ADC_TypeDef *ADCx)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_DISCEN));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR, ADC_CFGR_DISCEN | ADC_CFGR_DISCNUM));
@@ -3961,7 +3961,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerDiscont(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_REG_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Rank, uint32_t Channel)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   /* Set bits with content of parameter "Channel" with bits position          */
   /* in register depending on parameter "Rank".                               */
   /* Parameters "Rank" and "Channel" are used with masks because containing   */
@@ -4068,9 +4068,9 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
   *             comparison with internal channel parameter to be done
   *             using helper macro @ref __LL_ADC_CHANNEL_INTERNAL_TO_EXTERNAL().
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Rank)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerRanks(const ADC_TypeDef *ADCx, uint32_t Rank)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   return (uint32_t) ((READ_BIT(ADCx->CHSELR,
                                ADC_CHSELR_SQ1 << (Rank & ADC_REG_RANK_ID_SQRX_MASK))
                       >> (Rank & ADC_REG_RANK_ID_SQRX_MASK)
@@ -4086,7 +4086,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerRanks(ADC_TypeDef *ADCx, uint32_
 #endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Set ADC group regular sequence: channel on rank corresponding to
   *         channel number.
@@ -4464,7 +4464,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerChannels(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_REG_SetContinuousMode(ADC_TypeDef *ADCx, uint32_t Continuous)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   MODIFY_REG(ADCx->CFGR1, ADC_CFGR1_CONT, Continuous);
 #else
   MODIFY_REG(ADCx->CFGR, ADC_CFGR_CONT, Continuous);
@@ -4483,9 +4483,9 @@ __STATIC_INLINE void LL_ADC_REG_SetContinuousMode(ADC_TypeDef *ADCx, uint32_t Co
   *         @arg @ref LL_ADC_REG_CONV_SINGLE
   *         @arg @ref LL_ADC_REG_CONV_CONTINUOUS
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetContinuousMode(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetContinuousMode(const ADC_TypeDef *ADCx)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_CONT));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR, ADC_CFGR_CONT));
@@ -4527,7 +4527,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetContinuousMode(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_REG_SetDMATransfer(ADC_TypeDef *ADCx, uint32_t DMATransfer)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   MODIFY_REG(ADCx->CFGR1, ADC_CFGR1_DMAEN | ADC_CFGR1_DMACFG, DMATransfer);
 #else
   MODIFY_REG(ADCx->CFGR, ADC_CFGR_DMAEN | ADC_CFGR_DMACFG, DMATransfer);
@@ -4562,9 +4562,9 @@ __STATIC_INLINE void LL_ADC_REG_SetDMATransfer(ADC_TypeDef *ADCx, uint32_t DMATr
   *         @arg @ref LL_ADC_REG_DMA_TRANSFER_LIMITED
   *         @arg @ref LL_ADC_REG_DMA_TRANSFER_UNLIMITED
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetDMATransfer(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetDMATransfer(const ADC_TypeDef *ADCx)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_DMAEN | ADC_CFGR1_DMACFG));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR, ADC_CFGR_DMAEN | ADC_CFGR_DMACFG));
@@ -4594,7 +4594,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetDMATransfer(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_REG_SetOverrun(ADC_TypeDef *ADCx, uint32_t Overrun)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   MODIFY_REG(ADCx->CFGR1, ADC_CFGR1_OVRMOD, Overrun);
 #else
   MODIFY_REG(ADCx->CFGR, ADC_CFGR_OVRMOD, Overrun);
@@ -4610,9 +4610,9 @@ __STATIC_INLINE void LL_ADC_REG_SetOverrun(ADC_TypeDef *ADCx, uint32_t Overrun)
   *         @arg @ref LL_ADC_REG_OVR_DATA_PRESERVED
   *         @arg @ref LL_ADC_REG_OVR_DATA_OVERWRITTEN
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetOverrun(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetOverrun(const ADC_TypeDef *ADCx)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_OVRMOD));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR, ADC_CFGR_OVRMOD));
@@ -4623,7 +4623,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetOverrun(ADC_TypeDef *ADCx)
   * @}
   */
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 /** @defgroup ADC_LL_EF_Configuration_ADC_Group_Injected Configuration of ADC hierarchical scope: group injected
@@ -4688,7 +4688,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetTriggerSource(ADC_TypeDef *ADCx, uint32_t Tri
   *         @arg @ref LL_ADC_INJ_TRIG_EXT_TIM2_CH1
   *         @arg @ref LL_ADC_INJ_TRIG_EXT_EXTI_LINE15
   */
-__STATIC_INLINE uint32_t LL_ADC_INJ_GetTriggerSource(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_INJ_GetTriggerSource(const ADC_TypeDef *ADCx)
 {
   __IO uint32_t TriggerSource = READ_BIT(ADCx->JSQR, ADC_JSQR_JEXTSEL | ADC_JSQR_JEXTEN);
 
@@ -4715,7 +4715,7 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_GetTriggerSource(ADC_TypeDef *ADCx)
   * @retval Value "0" if trigger source external trigger
   *         Value "1" if trigger source SW start.
   */
-__STATIC_INLINE uint32_t LL_ADC_INJ_IsTriggerSourceSWStart(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_INJ_IsTriggerSourceSWStart(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->JSQR, ADC_JSQR_JEXTEN) == (LL_ADC_INJ_TRIG_SOFTWARE & ADC_JSQR_JEXTEN)) ? 1UL : 0UL);
 }
@@ -4750,7 +4750,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetTriggerEdge(ADC_TypeDef *ADCx, uint32_t Exter
   *         @arg @ref LL_ADC_INJ_TRIG_EXT_FALLING
   *         @arg @ref LL_ADC_INJ_TRIG_EXT_RISINGFALLING
   */
-__STATIC_INLINE uint32_t LL_ADC_INJ_GetTriggerEdge(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_INJ_GetTriggerEdge(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->JSQR, ADC_JSQR_JEXTEN));
 }
@@ -4797,7 +4797,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetSequencerLength(ADC_TypeDef *ADCx, uint32_t S
   *         @arg @ref LL_ADC_INJ_SEQ_SCAN_ENABLE_3RANKS
   *         @arg @ref LL_ADC_INJ_SEQ_SCAN_ENABLE_4RANKS
   */
-__STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerLength(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerLength(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->JSQR, ADC_JSQR_JL));
 }
@@ -4830,7 +4830,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetSequencerDiscont(ADC_TypeDef *ADCx, uint32_t 
   *         @arg @ref LL_ADC_INJ_SEQ_DISCONT_DISABLE
   *         @arg @ref LL_ADC_INJ_SEQ_DISCONT_1RANK
   */
-__STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerDiscont(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerDiscont(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CFGR, ADC_CFGR_JDISCEN));
 }
@@ -4955,7 +4955,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
   *             comparison with internal channel parameter to be done
   *             using helper macro @ref __LL_ADC_CHANNEL_INTERNAL_TO_EXTERNAL().
   */
-__STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Rank)
+__STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerRanks(const ADC_TypeDef *ADCx, uint32_t Rank)
 {
   return (uint32_t)((READ_BIT(ADCx->JSQR,
                               (ADC_CHANNEL_ID_NUMBER_MASK >> ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS) << (Rank & ADC_INJ_RANK_ID_JSQR_MASK))
@@ -5007,7 +5007,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetTrigAuto(ADC_TypeDef *ADCx, uint32_t TrigAuto
   *         @arg @ref LL_ADC_INJ_TRIG_INDEPENDENT
   *         @arg @ref LL_ADC_INJ_TRIG_FROM_GRP_REGULAR
   */
-__STATIC_INLINE uint32_t LL_ADC_INJ_GetTrigAuto(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_INJ_GetTrigAuto(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CFGR, ADC_CFGR_JAUTO));
 }
@@ -5068,7 +5068,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetQueueMode(ADC_TypeDef *ADCx, uint32_t QueueMo
   *         @arg @ref LL_ADC_INJ_QUEUE_2CONTEXTS_LAST_ACTIVE
   *         @arg @ref LL_ADC_INJ_QUEUE_2CONTEXTS_END_EMPTY
   */
-__STATIC_INLINE uint32_t LL_ADC_INJ_GetQueueMode(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_INJ_GetQueueMode(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CFGR, ADC_CFGR_JQM | ADC_CFGR_JQDIS));
 }
@@ -5277,7 +5277,7 @@ __STATIC_INLINE void LL_ADC_INJ_ConfigQueueContext(ADC_TypeDef *ADCx,
   * @{
   */
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Set sampling time of the selected ADC channel
   *         Unit: ADC clock cycles.
@@ -5450,7 +5450,7 @@ __STATIC_INLINE void LL_ADC_SetChannelSamplingTime(ADC_TypeDef *ADCx, uint32_t C
   */
 __STATIC_INLINE void LL_ADC_SetChannelSamplingTime(ADC_TypeDef *ADCx, uint32_t Channel, uint32_t SamplingTime)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   /* Parameter "Channel" is used with masks because containing                */
   /* other bits reserved for other purpose.                                   */
   MODIFY_REG(ADCx->SMPR,
@@ -5471,7 +5471,7 @@ __STATIC_INLINE void LL_ADC_SetChannelSamplingTime(ADC_TypeDef *ADCx, uint32_t C
 }
 #endif /* ADC_SUPPORT_2_5_MSPS */
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Get sampling time of the selected ADC channel
   *         Unit: ADC clock cycles.
@@ -5533,7 +5533,7 @@ __STATIC_INLINE void LL_ADC_SetChannelSamplingTime(ADC_TypeDef *ADCx, uint32_t C
   *         @arg @ref LL_ADC_SAMPLINGTIME_COMMON_1
   *         @arg @ref LL_ADC_SAMPLINGTIME_COMMON_2
   */
-__STATIC_INLINE uint32_t LL_ADC_GetChannelSamplingTime(ADC_TypeDef *ADCx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_ADC_GetChannelSamplingTime(const ADC_TypeDef *ADCx, uint32_t Channel)
 {
   __IO uint32_t smpr = READ_REG(ADCx->SMPR);
 
@@ -5614,9 +5614,9 @@ __STATIC_INLINE uint32_t LL_ADC_GetChannelSamplingTime(ADC_TypeDef *ADCx, uint32
   *         @arg @ref LL_ADC_SAMPLINGTIME_247CYCLES_5
   *         @arg @ref LL_ADC_SAMPLINGTIME_640CYCLES_5
   */
-__STATIC_INLINE uint32_t LL_ADC_GetChannelSamplingTime(ADC_TypeDef *ADCx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_ADC_GetChannelSamplingTime(const ADC_TypeDef *ADCx, uint32_t Channel)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   __IO uint32_t smpr = READ_REG(ADCx->SMPR);
 
   /* Retrieve sampling time bit corresponding to the selected channel            */
@@ -5638,7 +5638,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetChannelSamplingTime(ADC_TypeDef *ADCx, uint32
 }
 #endif /* ADC_SUPPORT_2_5_MSPS */
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC channel differential mode" not available on ADC peripheral of this STM32WB device */
 #else
 /**
@@ -5739,7 +5739,7 @@ __STATIC_INLINE void LL_ADC_SetChannelSingleDiff(ADC_TypeDef *ADCx, uint32_t Cha
   *         @arg @ref LL_ADC_CHANNEL_15
   * @retval 0: channel in single-ended mode, else: channel in differential mode
   */
-__STATIC_INLINE uint32_t LL_ADC_GetChannelSingleDiff(ADC_TypeDef *ADCx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_ADC_GetChannelSingleDiff(const ADC_TypeDef *ADCx, uint32_t Channel)
 {
   return (uint32_t)(READ_BIT(ADCx->DIFSEL, (Channel & ADC_SINGLEDIFF_CHANNEL_MASK)));
 }
@@ -5876,7 +5876,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetChannelSingleDiff(ADC_TypeDef *ADCx, uint32_t
   */
 __STATIC_INLINE void LL_ADC_SetAnalogWDMonitChannels(ADC_TypeDef *ADCx, uint32_t AWDy, uint32_t AWDChannelGroup)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   /* Prevent unused argument(s) compilation warning */
   (void)(AWDy);
 
@@ -6021,9 +6021,9 @@ __STATIC_INLINE void LL_ADC_SetAnalogWDMonitChannels(ADC_TypeDef *ADCx, uint32_t
   *         (0) On STM32WB, parameter available only on analog watchdog number: AWD1.
   *         (1) On STM32WB series, parameter not available on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx.
   */
-__STATIC_INLINE uint32_t LL_ADC_GetAnalogWDMonitChannels(ADC_TypeDef *ADCx, uint32_t AWDy)
+__STATIC_INLINE uint32_t LL_ADC_GetAnalogWDMonitChannels(const ADC_TypeDef *ADCx, uint32_t AWDy)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   /* Prevent unused argument(s) compilation warning */
   (void)(AWDy);
 
@@ -6171,7 +6171,7 @@ __STATIC_INLINE void LL_ADC_ConfigAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t
   /* "AWDy".                                                                  */
   /* Parameters "AWDy" and "AWDThresholdxxxValue" are used with masks because */
   /* containing other bits reserved for other purpose.                        */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
   /* Prevent unused argument(s) compilation warning */
   (void)(AWDy);
 
@@ -6252,7 +6252,7 @@ __STATIC_INLINE void LL_ADC_SetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t AW
   /* "AWDThresholdsHighLow" and "AWDy".                                       */
   /* Parameters "AWDy" and "AWDThresholdValue" are used with masks because    */
   /* containing other bits reserved for other purpose.                        */
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
   /* Prevent unused argument(s) compilation warning */
   (void)(AWDy);
 
@@ -6299,9 +6299,9 @@ __STATIC_INLINE void LL_ADC_SetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t AW
   *         @arg @ref LL_ADC_AWD_THRESHOLDS_HIGH_LOW
   * @retval Value between Min_Data=0x000 and Max_Data=0xFFF
   */
-__STATIC_INLINE uint32_t LL_ADC_GetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t AWDy, uint32_t AWDThresholdsHighLow)
+__STATIC_INLINE uint32_t LL_ADC_GetAnalogWDThresholds(const ADC_TypeDef *ADCx, uint32_t AWDy, uint32_t AWDThresholdsHighLow)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
   /* Prevent unused argument(s) compilation warning */
   (void)(AWDy);
 
@@ -6323,7 +6323,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_
   * @}
   */
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC oversampling" not available on ADC peripheral of this STM32WB device */
 #else
 /** @defgroup ADC_LL_EF_Configuration_ADC_oversampling Configuration of ADC transversal scope: oversampling
@@ -6359,7 +6359,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_
   */
 __STATIC_INLINE void LL_ADC_SetOverSamplingScope(ADC_TypeDef *ADCx, uint32_t OvsScope)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   MODIFY_REG(ADCx->CFGR2, ADC_CFGR2_OVSE, OvsScope);
 #else
   MODIFY_REG(ADCx->CFGR2, ADC_CFGR2_ROVSE | ADC_CFGR2_JOVSE | ADC_CFGR2_ROVSM, OvsScope);
@@ -6388,9 +6388,9 @@ __STATIC_INLINE void LL_ADC_SetOverSamplingScope(ADC_TypeDef *ADCx, uint32_t Ovs
   *
   *         (1) On STM32WB series, parameter not available on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx.
   */
-__STATIC_INLINE uint32_t LL_ADC_GetOverSamplingScope(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_GetOverSamplingScope(const ADC_TypeDef *ADCx)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   return (uint32_t)(READ_BIT(ADCx->CFGR2, ADC_CFGR2_OVSE));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR2, ADC_CFGR2_ROVSE | ADC_CFGR2_JOVSE | ADC_CFGR2_ROVSM));
@@ -6421,7 +6421,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetOverSamplingScope(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_SetOverSamplingDiscont(ADC_TypeDef *ADCx, uint32_t OverSamplingDiscont)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   MODIFY_REG(ADCx->CFGR2, ADC_CFGR2_TOVS, OverSamplingDiscont);
 #else
   MODIFY_REG(ADCx->CFGR2, ADC_CFGR2_TROVS, OverSamplingDiscont);
@@ -6442,9 +6442,9 @@ __STATIC_INLINE void LL_ADC_SetOverSamplingDiscont(ADC_TypeDef *ADCx, uint32_t O
   *         @arg @ref LL_ADC_OVS_REG_CONT
   *         @arg @ref LL_ADC_OVS_REG_DISCONT
   */
-__STATIC_INLINE uint32_t LL_ADC_GetOverSamplingDiscont(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_GetOverSamplingDiscont(const ADC_TypeDef *ADCx)
 {
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
   return (uint32_t)(READ_BIT(ADCx->CFGR2, ADC_CFGR2_TOVS));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR2, ADC_CFGR2_TROVS));
@@ -6505,7 +6505,7 @@ __STATIC_INLINE void LL_ADC_ConfigOverSamplingRatioShift(ADC_TypeDef *ADCx, uint
   *         @arg @ref LL_ADC_OVS_RATIO_128
   *         @arg @ref LL_ADC_OVS_RATIO_256
   */
-__STATIC_INLINE uint32_t LL_ADC_GetOverSamplingRatio(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_GetOverSamplingRatio(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CFGR2, ADC_CFGR2_OVSR));
 }
@@ -6526,7 +6526,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetOverSamplingRatio(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_OVS_SHIFT_RIGHT_7
   *         @arg @ref LL_ADC_OVS_SHIFT_RIGHT_8
   */
-__STATIC_INLINE uint32_t LL_ADC_GetOverSamplingShift(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_GetOverSamplingShift(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CFGR2, ADC_CFGR2_OVSS));
 }
@@ -6593,7 +6593,7 @@ __STATIC_INLINE void LL_ADC_DisableDeepPowerDown(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval 0: deep power down is disabled, 1: deep power down is enabled.
   */
-__STATIC_INLINE uint32_t LL_ADC_IsDeepPowerDownEnabled(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsDeepPowerDownEnabled(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->CR, ADC_CR_DEEPPWD) == (ADC_CR_DEEPPWD)) ? 1UL : 0UL);
 }
@@ -6643,7 +6643,7 @@ __STATIC_INLINE void LL_ADC_DisableInternalRegulator(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval 0: internal regulator is disabled, 1: internal regulator is enabled.
   */
-__STATIC_INLINE uint32_t LL_ADC_IsInternalRegulatorEnabled(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsInternalRegulatorEnabled(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->CR, ADC_CR_ADVREGEN) == (ADC_CR_ADVREGEN)) ? 1UL : 0UL);
 }
@@ -6703,7 +6703,7 @@ __STATIC_INLINE void LL_ADC_Disable(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval 0: ADC is disabled, 1: ADC is enabled.
   */
-__STATIC_INLINE uint32_t LL_ADC_IsEnabled(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsEnabled(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->CR, ADC_CR_ADEN) == (ADC_CR_ADEN)) ? 1UL : 0UL);
 }
@@ -6714,12 +6714,12 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabled(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval 0: no ADC disable command on going.
   */
-__STATIC_INLINE uint32_t LL_ADC_IsDisableOngoing(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsDisableOngoing(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->CR, ADC_CR_ADDIS) == (ADC_CR_ADDIS)) ? 1UL : 0UL);
 }
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Start ADC calibration in the mode single-ended
   *         or differential (for devices with differential mode available).
@@ -6735,6 +6735,9 @@ __STATIC_INLINE uint32_t LL_ADC_IsDisableOngoing(ADC_TypeDef *ADCx)
   * @note   On this STM32 series, setting of this feature is conditioned to
   *         ADC state:
   *         ADC must be ADC disabled.
+  * @note   In case of usage of feature auto power-off:
+  *         This mode must be disabled during calibration
+  *         Refer to function @ref LL_ADC_SetLowPowerMode().
   * @rmtoll CR       ADCAL          LL_ADC_StartCalibration\n
   *         CR       ADCALDIF       LL_ADC_StartCalibration
   * @param  ADCx ADC instance
@@ -6790,7 +6793,7 @@ __STATIC_INLINE void LL_ADC_StartCalibration(ADC_TypeDef *ADCx, uint32_t SingleD
   * @param  ADCx ADC instance
   * @retval 0: calibration complete, 1: calibration in progress.
   */
-__STATIC_INLINE uint32_t LL_ADC_IsCalibrationOnGoing(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsCalibrationOnGoing(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->CR, ADC_CR_ADCAL) == (ADC_CR_ADCAL)) ? 1UL : 0UL);
 }
@@ -6857,7 +6860,7 @@ __STATIC_INLINE void LL_ADC_REG_StopConversion(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval 0: no conversion is on going on ADC group regular.
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_IsConversionOngoing(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_IsConversionOngoing(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->CR, ADC_CR_ADSTART) == (ADC_CR_ADSTART)) ? 1UL : 0UL);
 }
@@ -6868,7 +6871,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_IsConversionOngoing(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval 0: no command of conversion stop is on going on ADC group regular.
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_IsStopConversionOngoing(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_IsStopConversionOngoing(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->CR, ADC_CR_ADSTP) == (ADC_CR_ADSTP)) ? 1UL : 0UL);
 }
@@ -6882,7 +6885,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_IsStopConversionOngoing(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval Value between Min_Data=0x00000000 and Max_Data=0xFFFFFFFF
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_ReadConversionData32(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_ReadConversionData32(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->DR, ADC_DR_RDATA));
 }
@@ -6897,7 +6900,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_ReadConversionData32(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval Value between Min_Data=0x000 and Max_Data=0xFFF
   */
-__STATIC_INLINE uint16_t LL_ADC_REG_ReadConversionData12(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint16_t LL_ADC_REG_ReadConversionData12(const ADC_TypeDef *ADCx)
 {
   return (uint16_t)(READ_BIT(ADCx->DR, ADC_DR_RDATA));
 }
@@ -6912,7 +6915,7 @@ __STATIC_INLINE uint16_t LL_ADC_REG_ReadConversionData12(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval Value between Min_Data=0x000 and Max_Data=0x3FF
   */
-__STATIC_INLINE uint16_t LL_ADC_REG_ReadConversionData10(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint16_t LL_ADC_REG_ReadConversionData10(const ADC_TypeDef *ADCx)
 {
   return (uint16_t)(READ_BIT(ADCx->DR, ADC_DR_RDATA));
 }
@@ -6927,7 +6930,7 @@ __STATIC_INLINE uint16_t LL_ADC_REG_ReadConversionData10(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval Value between Min_Data=0x00 and Max_Data=0xFF
   */
-__STATIC_INLINE uint8_t LL_ADC_REG_ReadConversionData8(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint8_t LL_ADC_REG_ReadConversionData8(const ADC_TypeDef *ADCx)
 {
   return (uint8_t)(READ_BIT(ADCx->DR, ADC_DR_RDATA));
 }
@@ -6942,7 +6945,7 @@ __STATIC_INLINE uint8_t LL_ADC_REG_ReadConversionData8(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval Value between Min_Data=0x00 and Max_Data=0x3F
   */
-__STATIC_INLINE uint8_t LL_ADC_REG_ReadConversionData6(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint8_t LL_ADC_REG_ReadConversionData6(const ADC_TypeDef *ADCx)
 {
   return (uint8_t)(READ_BIT(ADCx->DR, ADC_DR_RDATA));
 }
@@ -6951,7 +6954,7 @@ __STATIC_INLINE uint8_t LL_ADC_REG_ReadConversionData6(ADC_TypeDef *ADCx)
   * @}
   */
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 /** @defgroup ADC_LL_EF_Operation_ADC_Group_Injected Operation on ADC hierarchical scope: group injected
@@ -7012,7 +7015,7 @@ __STATIC_INLINE void LL_ADC_INJ_StopConversion(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval 0: no conversion is on going on ADC group injected.
   */
-__STATIC_INLINE uint32_t LL_ADC_INJ_IsConversionOngoing(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_INJ_IsConversionOngoing(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->CR, ADC_CR_JADSTART) == (ADC_CR_JADSTART)) ? 1UL : 0UL);
 }
@@ -7023,7 +7026,7 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_IsConversionOngoing(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval 0: no command of conversion stop is on going on ADC group injected.
   */
-__STATIC_INLINE uint32_t LL_ADC_INJ_IsStopConversionOngoing(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_INJ_IsStopConversionOngoing(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->CR, ADC_CR_JADSTP) == (ADC_CR_JADSTP)) ? 1UL : 0UL);
 }
@@ -7045,7 +7048,7 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_IsStopConversionOngoing(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_INJ_RANK_4
   * @retval Value between Min_Data=0x00000000 and Max_Data=0xFFFFFFFF
   */
-__STATIC_INLINE uint32_t LL_ADC_INJ_ReadConversionData32(ADC_TypeDef *ADCx, uint32_t Rank)
+__STATIC_INLINE uint32_t LL_ADC_INJ_ReadConversionData32(const ADC_TypeDef *ADCx, uint32_t Rank)
 {
   const __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JDR1, ((Rank & ADC_INJ_JDRX_REGOFFSET_MASK) >> ADC_JDRX_REGOFFSET_POS));
 
@@ -7072,7 +7075,7 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_ReadConversionData32(ADC_TypeDef *ADCx, uint
   *         @arg @ref LL_ADC_INJ_RANK_4
   * @retval Value between Min_Data=0x000 and Max_Data=0xFFF
   */
-__STATIC_INLINE uint16_t LL_ADC_INJ_ReadConversionData12(ADC_TypeDef *ADCx, uint32_t Rank)
+__STATIC_INLINE uint16_t LL_ADC_INJ_ReadConversionData12(const ADC_TypeDef *ADCx, uint32_t Rank)
 {
   const __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JDR1, ((Rank & ADC_INJ_JDRX_REGOFFSET_MASK) >> ADC_JDRX_REGOFFSET_POS));
 
@@ -7099,7 +7102,7 @@ __STATIC_INLINE uint16_t LL_ADC_INJ_ReadConversionData12(ADC_TypeDef *ADCx, uint
   *         @arg @ref LL_ADC_INJ_RANK_4
   * @retval Value between Min_Data=0x000 and Max_Data=0x3FF
   */
-__STATIC_INLINE uint16_t LL_ADC_INJ_ReadConversionData10(ADC_TypeDef *ADCx, uint32_t Rank)
+__STATIC_INLINE uint16_t LL_ADC_INJ_ReadConversionData10(const ADC_TypeDef *ADCx, uint32_t Rank)
 {
   const __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JDR1, ((Rank & ADC_INJ_JDRX_REGOFFSET_MASK) >> ADC_JDRX_REGOFFSET_POS));
 
@@ -7126,7 +7129,7 @@ __STATIC_INLINE uint16_t LL_ADC_INJ_ReadConversionData10(ADC_TypeDef *ADCx, uint
   *         @arg @ref LL_ADC_INJ_RANK_4
   * @retval Value between Min_Data=0x00 and Max_Data=0xFF
   */
-__STATIC_INLINE uint8_t LL_ADC_INJ_ReadConversionData8(ADC_TypeDef *ADCx, uint32_t Rank)
+__STATIC_INLINE uint8_t LL_ADC_INJ_ReadConversionData8(const ADC_TypeDef *ADCx, uint32_t Rank)
 {
   const __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JDR1, ((Rank & ADC_INJ_JDRX_REGOFFSET_MASK) >> ADC_JDRX_REGOFFSET_POS));
 
@@ -7153,7 +7156,7 @@ __STATIC_INLINE uint8_t LL_ADC_INJ_ReadConversionData8(ADC_TypeDef *ADCx, uint32
   *         @arg @ref LL_ADC_INJ_RANK_4
   * @retval Value between Min_Data=0x00 and Max_Data=0x3F
   */
-__STATIC_INLINE uint8_t LL_ADC_INJ_ReadConversionData6(ADC_TypeDef *ADCx, uint32_t Rank)
+__STATIC_INLINE uint8_t LL_ADC_INJ_ReadConversionData6(const ADC_TypeDef *ADCx, uint32_t Rank)
 {
   const __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JDR1, ((Rank & ADC_INJ_JDRX_REGOFFSET_MASK) >> ADC_JDRX_REGOFFSET_POS));
 
@@ -7180,12 +7183,12 @@ __STATIC_INLINE uint8_t LL_ADC_INJ_ReadConversionData6(ADC_TypeDef *ADCx, uint32
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_ADRDY(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_ADRDY(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->ISR, LL_ADC_FLAG_ADRDY) == (LL_ADC_FLAG_ADRDY)) ? 1UL : 0UL);
 }
 
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if   defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Get flag ADC channel configuration ready.
   * @note   Duration of ADC channel configuration ready: CCRDY handshake
@@ -7195,7 +7198,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_ADRDY(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_CCRDY(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_CCRDY(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->ISR, LL_ADC_FLAG_CCRDY) == (LL_ADC_FLAG_CCRDY)) ? 1UL : 0UL);
 }
@@ -7208,7 +7211,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_CCRDY(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_EOC(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_EOC(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->ISR, ADC_ISR_EOC) == (ADC_ISR_EOC)) ? 1UL : 0UL);
 }
@@ -7219,7 +7222,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_EOC(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_EOS(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_EOS(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->ISR, LL_ADC_FLAG_EOS) == (LL_ADC_FLAG_EOS)) ? 1UL : 0UL);
 }
@@ -7230,7 +7233,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_EOS(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_OVR(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_OVR(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->ISR, LL_ADC_FLAG_OVR) == (LL_ADC_FLAG_OVR)) ? 1UL : 0UL);
 }
@@ -7241,12 +7244,12 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_OVR(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_EOSMP(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_EOSMP(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->ISR, LL_ADC_FLAG_EOSMP) == (LL_ADC_FLAG_EOSMP)) ? 1UL : 0UL);
 }
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 /**
@@ -7255,7 +7258,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_EOSMP(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_JEOC(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_JEOC(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->ISR, LL_ADC_FLAG_JEOC) == (LL_ADC_FLAG_JEOC)) ? 1UL : 0UL);
 }
@@ -7266,7 +7269,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_JEOC(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_JEOS(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_JEOS(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->ISR, LL_ADC_FLAG_JEOS) == (LL_ADC_FLAG_JEOS)) ? 1UL : 0UL);
 }
@@ -7277,7 +7280,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_JEOS(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_JQOVF(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_JQOVF(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->ISR, LL_ADC_FLAG_JQOVF) == (LL_ADC_FLAG_JQOVF)) ? 1UL : 0UL);
 }
@@ -7289,7 +7292,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_JQOVF(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_AWD1(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_AWD1(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->ISR, LL_ADC_FLAG_AWD1) == (LL_ADC_FLAG_AWD1)) ? 1UL : 0UL);
 }
@@ -7300,7 +7303,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_AWD1(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_AWD2(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_AWD2(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->ISR, LL_ADC_FLAG_AWD2) == (LL_ADC_FLAG_AWD2)) ? 1UL : 0UL);
 }
@@ -7311,24 +7314,24 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_AWD2(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_AWD3(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_AWD3(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->ISR, LL_ADC_FLAG_AWD3) == (LL_ADC_FLAG_AWD3)) ? 1UL : 0UL);
 }
 
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if   defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Get flag ADC end of calibration.
   * @rmtoll ISR      EOCAL          LL_ADC_IsActiveFlag_EOCAL
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_EOCAL(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_EOCAL(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->ISR, LL_ADC_FLAG_EOCAL) == (LL_ADC_FLAG_EOCAL)) ? 1UL : 0UL);
 }
 
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @brief  Clear flag ADC ready.
   * @note   On this STM32 series, flag LL_ADC_FLAG_ADRDY is raised when the ADC
@@ -7343,7 +7346,7 @@ __STATIC_INLINE void LL_ADC_ClearFlag_ADRDY(ADC_TypeDef *ADCx)
   WRITE_REG(ADCx->ISR, LL_ADC_FLAG_ADRDY);
 }
 
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if   defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Clear flag ADC channel configuration ready.
   * @rmtoll ISR      CCRDY          LL_ADC_ClearFlag_CCRDY
@@ -7401,7 +7404,7 @@ __STATIC_INLINE void LL_ADC_ClearFlag_EOSMP(ADC_TypeDef *ADCx)
   WRITE_REG(ADCx->ISR, LL_ADC_FLAG_EOSMP);
 }
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 /**
@@ -7471,7 +7474,7 @@ __STATIC_INLINE void LL_ADC_ClearFlag_AWD3(ADC_TypeDef *ADCx)
   WRITE_REG(ADCx->ISR, LL_ADC_FLAG_AWD3);
 }
 
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if   defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Clear flag ADC end of calibration.
   * @rmtoll ISR      EOCAL          LL_ADC_ClearFlag_EOCAL
@@ -7503,7 +7506,7 @@ __STATIC_INLINE void LL_ADC_EnableIT_ADRDY(ADC_TypeDef *ADCx)
   SET_BIT(ADCx->IER, LL_ADC_IT_ADRDY);
 }
 
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if   defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Enable interruption ADC channel configuration ready.
   * @rmtoll IER      ADRDYIE        LL_ADC_EnableIT_CCRDY
@@ -7561,7 +7564,7 @@ __STATIC_INLINE void LL_ADC_EnableIT_EOSMP(ADC_TypeDef *ADCx)
   SET_BIT(ADCx->IER, LL_ADC_IT_EOSMP);
 }
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 /**
@@ -7631,7 +7634,7 @@ __STATIC_INLINE void LL_ADC_EnableIT_AWD3(ADC_TypeDef *ADCx)
   SET_BIT(ADCx->IER, LL_ADC_IT_AWD3);
 }
 
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if   defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Enable interruption ADC end of calibration.
   * @rmtoll IER      EOCALIE        LL_ADC_EnableIT_EOCAL
@@ -7655,7 +7658,7 @@ __STATIC_INLINE void LL_ADC_DisableIT_ADRDY(ADC_TypeDef *ADCx)
   CLEAR_BIT(ADCx->IER, LL_ADC_IT_ADRDY);
 }
 
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if   defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Disable interruption ADC channel configuration ready.
   * @rmtoll IER      ADRDYIE        LL_ADC_DisableIT_CCRDY
@@ -7713,7 +7716,7 @@ __STATIC_INLINE void LL_ADC_DisableIT_EOSMP(ADC_TypeDef *ADCx)
   CLEAR_BIT(ADCx->IER, LL_ADC_IT_EOSMP);
 }
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 /**
@@ -7783,7 +7786,7 @@ __STATIC_INLINE void LL_ADC_DisableIT_AWD3(ADC_TypeDef *ADCx)
   CLEAR_BIT(ADCx->IER, LL_ADC_IT_AWD3);
 }
 
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if   defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Disable interruption ADC end of calibration.
   * @rmtoll IER      EOCALIE        LL_ADC_DisableIT_EOCAL
@@ -7803,19 +7806,19 @@ __STATIC_INLINE void LL_ADC_DisableIT_EOCAL(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_ADRDY(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_ADRDY(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->IER, LL_ADC_IT_ADRDY) == (LL_ADC_IT_ADRDY)) ? 1UL : 0UL);
 }
 
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if   defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Get state of interruption ADC channel configuration ready.
   * @rmtoll IER      ADRDYIE        LL_ADC_IsEnabledIT_CCRDY
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_CCRDY(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_CCRDY(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->IER, LL_ADC_FLAG_CCRDY) == (LL_ADC_FLAG_CCRDY)) ? 1UL : 0UL);
 }
@@ -7829,7 +7832,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_CCRDY(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_EOC(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_EOC(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->IER, LL_ADC_IT_EOC) == (LL_ADC_IT_EOC)) ? 1UL : 0UL);
 }
@@ -7841,7 +7844,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_EOC(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_EOS(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_EOS(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->IER, LL_ADC_IT_EOS) == (LL_ADC_IT_EOS)) ? 1UL : 0UL);
 }
@@ -7853,7 +7856,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_EOS(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_OVR(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_OVR(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->IER, LL_ADC_IT_OVR) == (LL_ADC_IT_OVR)) ? 1UL : 0UL);
 }
@@ -7865,12 +7868,12 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_OVR(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_EOSMP(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_EOSMP(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->IER, LL_ADC_IT_EOSMP) == (LL_ADC_IT_EOSMP)) ? 1UL : 0UL);
 }
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 /**
@@ -7880,7 +7883,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_EOSMP(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_JEOC(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_JEOC(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->IER, LL_ADC_IT_JEOC) == (LL_ADC_IT_JEOC)) ? 1UL : 0UL);
 }
@@ -7892,7 +7895,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_JEOC(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_JEOS(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_JEOS(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->IER, LL_ADC_IT_JEOS) == (LL_ADC_IT_JEOS)) ? 1UL : 0UL);
 }
@@ -7904,7 +7907,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_JEOS(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_JQOVF(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_JQOVF(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->IER, LL_ADC_IT_JQOVF) == (LL_ADC_IT_JQOVF)) ? 1UL : 0UL);
 }
@@ -7917,7 +7920,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_JQOVF(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_AWD1(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_AWD1(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->IER, LL_ADC_IT_AWD1) == (LL_ADC_IT_AWD1)) ? 1UL : 0UL);
 }
@@ -7929,7 +7932,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_AWD1(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_AWD2(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_AWD2(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->IER, LL_ADC_IT_AWD2) == (LL_ADC_IT_AWD2)) ? 1UL : 0UL);
 }
@@ -7941,12 +7944,12 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_AWD2(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_AWD3(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_AWD3(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->IER, LL_ADC_IT_AWD3) == (LL_ADC_IT_AWD3)) ? 1UL : 0UL);
 }
 
-#if defined(ADC_SUPPORT_2_5_MSPS)
+#if   defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Get state of interruption ADC end of calibration
   *         (0: interrupt disabled, 1: interrupt enabled).
@@ -7954,7 +7957,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_AWD3(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_EOCAL(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_EOCAL(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->IER, LL_ADC_IT_EOCAL) == (LL_ADC_IT_EOCAL)) ? 1UL : 0UL);
 }
@@ -7971,7 +7974,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_EOCAL(ADC_TypeDef *ADCx)
 
 /* Initialization of some features of ADC common parameters and multimode */
 ErrorStatus LL_ADC_CommonDeInit(ADC_Common_TypeDef *ADCxy_COMMON);
-ErrorStatus LL_ADC_CommonInit(ADC_Common_TypeDef *ADCxy_COMMON, LL_ADC_CommonInitTypeDef *ADC_CommonInitStruct);
+ErrorStatus LL_ADC_CommonInit(ADC_Common_TypeDef *ADCxy_COMMON, const LL_ADC_CommonInitTypeDef *ADC_CommonInitStruct);
 void        LL_ADC_CommonStructInit(LL_ADC_CommonInitTypeDef *ADC_CommonInitStruct);
 
 /* De-initialization of ADC instance, ADC group regular and ADC group injected */
@@ -7979,18 +7982,18 @@ void        LL_ADC_CommonStructInit(LL_ADC_CommonInitTypeDef *ADC_CommonInitStru
 ErrorStatus LL_ADC_DeInit(ADC_TypeDef *ADCx);
 
 /* Initialization of some features of ADC instance */
-ErrorStatus LL_ADC_Init(ADC_TypeDef *ADCx, LL_ADC_InitTypeDef *ADC_InitStruct);
+ErrorStatus LL_ADC_Init(ADC_TypeDef *ADCx, const LL_ADC_InitTypeDef *ADC_InitStruct);
 void        LL_ADC_StructInit(LL_ADC_InitTypeDef *ADC_InitStruct);
 
 /* Initialization of some features of ADC instance and ADC group regular */
-ErrorStatus LL_ADC_REG_Init(ADC_TypeDef *ADCx, LL_ADC_REG_InitTypeDef *ADC_REG_InitStruct);
+ErrorStatus LL_ADC_REG_Init(ADC_TypeDef *ADCx, const LL_ADC_REG_InitTypeDef *ADC_REG_InitStruct);
 void        LL_ADC_REG_StructInit(LL_ADC_REG_InitTypeDef *ADC_REG_InitStruct);
 
-#if defined (ADC_SUPPORT_2_5_MSPS)
+#if  defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
 /* Initialization of some features of ADC instance and ADC group injected */
-ErrorStatus LL_ADC_INJ_Init(ADC_TypeDef *ADCx, LL_ADC_INJ_InitTypeDef *ADC_INJ_InitStruct);
+ErrorStatus LL_ADC_INJ_Init(ADC_TypeDef *ADCx, const LL_ADC_INJ_InitTypeDef *ADC_INJ_InitStruct);
 void        LL_ADC_INJ_StructInit(LL_ADC_INJ_InitTypeDef *ADC_INJ_InitStruct);
 
 #endif /* ADC_SUPPORT_2_5_MSPS */

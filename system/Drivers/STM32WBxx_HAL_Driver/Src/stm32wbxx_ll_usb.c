@@ -27,7 +27,7 @@
                     ##### How to use this driver #####
   ==============================================================================
     [..]
-      (#) Fill parameters of Init structure in USB_OTG_CfgTypeDef structure.
+      (#) Fill parameters of Init structure in USB_CfgTypeDef structure.
 
       (#) Call USB_CoreInit() API to initialize the USB Core peripheral.
 
@@ -749,9 +749,9 @@ HAL_StatusTypeDef  USB_DevDisconnect(USB_TypeDef *USBx)
 /**
   * @brief  USB_ReadInterrupts return the global USB interrupt status
   * @param  USBx Selected device
-  * @retval HAL status
+  * @retval USB Global Interrupt status
   */
-uint32_t  USB_ReadInterrupts(USB_TypeDef *USBx)
+uint32_t USB_ReadInterrupts(USB_TypeDef *USBx)
 {
   uint32_t tmpreg;
 

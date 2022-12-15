@@ -108,26 +108,26 @@ typedef struct
 #define LL_EXTI_LINE_19                EXTI_IMR1_IM19          /*!< Extended line 19 */
 #if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx) || defined (STM32WB15xx) || defined(STM32WB1Mxx)
 #define LL_EXTI_LINE_20                EXTI_IMR1_IM20          /*!< Extended line 20 */
-#endif
+#endif /* STM32WB55xx || STM32WB5Mxx || ... */
 #if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx)
 #define LL_EXTI_LINE_21                EXTI_IMR1_IM21          /*!< Extended line 21 */
-#endif
+#endif /* STM32WB55xx || STM32WB5Mxx || STM32WB35xx */
 #define LL_EXTI_LINE_22                EXTI_IMR1_IM22          /*!< Extended line 22 */
 #if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx)
 #define LL_EXTI_LINE_23                EXTI_IMR1_IM23          /*!< Extended line 23 */
-#endif
+#endif /* STM32WB55xx || STM32WB5Mxx || STM32WB35xx */
 #define LL_EXTI_LINE_24                EXTI_IMR1_IM24          /*!< Extended line 24 */
 #if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx) || defined (STM32WB15xx) || defined(STM32WB1Mxx)
 #define LL_EXTI_LINE_25                EXTI_IMR1_IM25          /*!< Extended line 25 */
-#endif
+#endif /* STM32WB55xx || STM32WB5Mxx || ... */
 #if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx)
 #define LL_EXTI_LINE_28                EXTI_IMR1_IM28          /*!< Extended line 28 */
-#endif
+#endif /* STM32WB55xx || STM32WB5Mxx || STM32WB35xx */
 #define LL_EXTI_LINE_29                EXTI_IMR1_IM29          /*!< Extended line 29 */
 #define LL_EXTI_LINE_30                EXTI_IMR1_IM30          /*!< Extended line 30 */
 #if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx) || defined (STM32WB15xx) || defined(STM32WB1Mxx)
 #define LL_EXTI_LINE_31                EXTI_IMR1_IM31          /*!< Extended line 31 */
-#endif
+#endif /* STM32WB55xx || STM32WB5Mxx || ... */
 
 #if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx)
 #define LL_EXTI_LINE_ALL_0_31          (LL_EXTI_LINE_0 | LL_EXTI_LINE_1 | LL_EXTI_LINE_2 | \
@@ -159,7 +159,7 @@ typedef struct
                                         LL_EXTI_LINE_15 | LL_EXTI_LINE_16 | LL_EXTI_LINE_17 | \
                                         LL_EXTI_LINE_18 | LL_EXTI_LINE_19 | LL_EXTI_LINE_22 | \
                                         LL_EXTI_LINE_24 | LL_EXTI_LINE_29 | LL_EXTI_LINE_30) /*!< All Extended line not reserved*/
-#endif
+#endif /* STM32WB55xx || STM32WB5Mxx || STM32WB35xx */
 
 #define LL_EXTI_LINE_33                EXTI_IMR2_IM33          /*!< Extended line 33 */
 #define LL_EXTI_LINE_36                EXTI_IMR2_IM36          /*!< Extended line 36 */
@@ -171,12 +171,12 @@ typedef struct
 #define LL_EXTI_LINE_42                EXTI_IMR2_IM42          /*!< Extended line 42 */
 #if defined (STM32WB55xx) || defined (STM32WB5Mxx)
 #define LL_EXTI_LINE_43                EXTI_IMR2_IM43          /*!< Extended line 43 */
-#endif
+#endif /* STM32WB55xx || STM32WB5Mxx */
 #define LL_EXTI_LINE_44                EXTI_IMR2_IM44          /*!< Extended line 44 */
 #define LL_EXTI_LINE_45                EXTI_IMR2_IM45          /*!< Extended line 45 */
 #if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB50xx) || defined (STM32WB35xx) || defined (STM32WB30xx)
 #define LL_EXTI_LINE_46                EXTI_IMR2_IM46          /*!< Extended line 46 */
-#endif
+#endif /* STM32WB55xx || STM32WB5Mxx || ... */
 #define LL_EXTI_LINE_48                EXTI_IMR2_IM48          /*!< Extended line 48 */
 
 #if defined (STM32WB55xx) || defined (STM32WB5Mxx)
@@ -195,7 +195,7 @@ typedef struct
                                         LL_EXTI_LINE_38 | LL_EXTI_LINE_39 | LL_EXTI_LINE_40 | \
                                         LL_EXTI_LINE_41 | LL_EXTI_LINE_42 | LL_EXTI_LINE_44 | \
                                         LL_EXTI_LINE_45 | LL_EXTI_LINE_48)  /*!< All Extended line not reserved*/
-#endif
+#endif /* STM32WB55xx || STM32WB5Mxx */
 
 
 #define LL_EXTI_LINE_ALL               (0xFFFFFFFFU)  /*!< All Extended line */
@@ -275,8 +275,8 @@ typedef struct
 
 /* Exported functions --------------------------------------------------------*/
 /** @defgroup EXTI_LL_Exported_Functions EXTI Exported Functions
- * @{
- */
+  * @{
+  */
 /** @defgroup EXTI_LL_EF_IT_Management IT_Management
   * @{
   */

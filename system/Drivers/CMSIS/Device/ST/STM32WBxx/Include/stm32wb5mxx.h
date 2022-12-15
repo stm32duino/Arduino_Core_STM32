@@ -13067,10 +13067,8 @@ typedef struct
 /*                         USB Device General registers                       */
 /*                                                                            */
 /******************************************************************************/
-#define USB_BASE                              (0x40005C00UL)                   /*!< USB_IP Peripheral Registers base address */
-#define USB_PMAADDR_Pos           (13U)
-#define USB_PMAADDR_Msk           (0x20003UL << USB_PMAADDR_Pos)               /*!< 0x40006000 */
-#define USB_PMAADDR               USB_PMAADDR_Msk                              /*!< USB_IP Packet Memory Area base address */
+#define USB_BASE                             (USB1_BASE)               /*!< USB_IP Peripheral Registers base address */
+#define USB_PMAADDR                          (USB1_PMAADDR)            /*!< USB_IP Packet Memory Area base address */
 
 #define USB_CNTR                             (USB_BASE + 0x40)           /*!< Control register */
 #define USB_ISTR                             (USB_BASE + 0x44)           /*!< Interrupt status register */

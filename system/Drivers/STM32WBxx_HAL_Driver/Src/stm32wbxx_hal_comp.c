@@ -908,7 +908,7 @@ HAL_StatusTypeDef HAL_COMP_Lock(COMP_HandleTypeDef *hcomp)
   *         @arg COMP_OUTPUT_LEVEL_HIGH
   *
   */
-uint32_t HAL_COMP_GetOutputLevel(COMP_HandleTypeDef *hcomp)
+uint32_t HAL_COMP_GetOutputLevel(const COMP_HandleTypeDef *hcomp)
 {
   /* Check the parameter */
   assert_param(IS_COMP_ALL_INSTANCE(hcomp->Instance));
@@ -956,7 +956,7 @@ __weak void HAL_COMP_TriggerCallback(COMP_HandleTypeDef *hcomp)
   * @param  hcomp  COMP handle
   * @retval HAL state
   */
-HAL_COMP_StateTypeDef HAL_COMP_GetState(COMP_HandleTypeDef *hcomp)
+HAL_COMP_StateTypeDef HAL_COMP_GetState(const COMP_HandleTypeDef *hcomp)
 {
   /* Check the COMP handle allocation */
   if(hcomp == NULL)
@@ -976,7 +976,7 @@ HAL_COMP_StateTypeDef HAL_COMP_GetState(COMP_HandleTypeDef *hcomp)
   * @param hcomp COMP handle
   * @retval COMP error code
   */
-uint32_t HAL_COMP_GetError(COMP_HandleTypeDef *hcomp)
+uint32_t HAL_COMP_GetError(const COMP_HandleTypeDef *hcomp)
 {
   /* Check the parameters */
   assert_param(IS_COMP_ALL_INSTANCE(hcomp->Instance));

@@ -22,7 +22,7 @@
 #define STM32WBxx_HAL_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -36,7 +36,7 @@
 /** @defgroup HAL HAL
   * @{
   */
-  
+
 /** @defgroup HAL_TICK_FREQ Tick Frequency
   * @{
   */
@@ -51,7 +51,7 @@ typedef enum
 /**
   * @}
   */
-  
+
 /* Exported constants --------------------------------------------------------*/
 /** @defgroup HAL_Exported_Constants HAL Exported Constants
   * @{
@@ -69,11 +69,11 @@ typedef enum
 #define SYSCFG_BOOT_SRAM                LL_SYSCFG_REMAP_SRAM            /*!< SRAM1 mapped at 0x00000000               */
 #if defined(LL_SYSCFG_REMAP_QUADSPI)
 #define SYSCFG_BOOT_QUADSPI             LL_SYSCFG_REMAP_QUADSPI         /*!< QUADSPI memory mapped at 0x00000000      */
-#endif
+#endif /* LL_SYSCFG_REMAP_QUADSPI */
 /**
   * @}
   */
-    
+
 /** @defgroup SYSCFG_FPU_Interrupts FPU Interrupts
   * @{
   */
@@ -208,22 +208,22 @@ typedef enum
   */
 
 /** @brief  Fast-mode Plus driving capability on a specific GPIO
-  */  
+  */
 #define SYSCFG_FASTMODEPLUS_PB6         SYSCFG_CFGR1_I2C_PB6_FMP        /*!< Enable Fast-mode Plus on PB6 */
 #define SYSCFG_FASTMODEPLUS_PB7         SYSCFG_CFGR1_I2C_PB7_FMP        /*!< Enable Fast-mode Plus on PB7 */
 #define SYSCFG_FASTMODEPLUS_PB8         SYSCFG_CFGR1_I2C_PB8_FMP        /*!< Enable Fast-mode Plus on PB8 */
 #define SYSCFG_FASTMODEPLUS_PB9         SYSCFG_CFGR1_I2C_PB9_FMP        /*!< Enable Fast-mode Plus on PB9 */
-   
+
 /**
- * @}
- */
-    
+  * @}
+  */
+
 /** @defgroup Secure_IP_Write_Access Secure IP Write Access
   * @{
   */
 #if defined(LL_SYSCFG_SECURE_ACCESS_AES1)
 #define HAL_SYSCFG_SECURE_ACCESS_AES1   LL_SYSCFG_SECURE_ACCESS_AES1    /*!< Enabling the security access of Advanced Encryption Standard 1 KEY[7:0] */
-#endif
+#endif /* LL_SYSCFG_SECURE_ACCESS_AES1 */
 #define HAL_SYSCFG_SECURE_ACCESS_AES2   LL_SYSCFG_SECURE_ACCESS_AES2    /*!< Enabling the security access of Advanced Encryption Standard 2          */
 #define HAL_SYSCFG_SECURE_ACCESS_PKA    LL_SYSCFG_SECURE_ACCESS_PKA     /*!< Enabling the security access of Public Key Accelerator                  */
 #define HAL_SYSCFG_SECURE_ACCESS_RNG    LL_SYSCFG_SECURE_ACCESS_RNG     /*!< Enabling the security access of Random Number Generator                 */
@@ -257,57 +257,57 @@ typedef enum
 #if defined(LL_DBGMCU_APB1_GRP1_TIM2_STOP)
 #define __HAL_DBGMCU_FREEZE_TIM2()              LL_DBGMCU_APB1_GRP1_FreezePeriph(LL_DBGMCU_APB1_GRP1_TIM2_STOP)
 #define __HAL_DBGMCU_UNFREEZE_TIM2()            LL_DBGMCU_APB1_GRP1_UnFreezePeriph(LL_DBGMCU_APB1_GRP1_TIM2_STOP)
-#endif
+#endif /* LL_DBGMCU_APB1_GRP1_TIM2_STOP */
 
 #if defined(LL_DBGMCU_APB1_GRP1_RTC_STOP)
 #define __HAL_DBGMCU_FREEZE_RTC()               LL_DBGMCU_APB1_GRP1_FreezePeriph(LL_DBGMCU_APB1_GRP1_RTC_STOP)
 #define __HAL_DBGMCU_UNFREEZE_RTC()             LL_DBGMCU_APB1_GRP1_UnFreezePeriph(LL_DBGMCU_APB1_GRP1_RTC_STOP)
-#endif
+#endif /* LL_DBGMCU_APB1_GRP1_RTC_STOP */
 
 #if defined(LL_DBGMCU_APB1_GRP1_WWDG_STOP)
 #define __HAL_DBGMCU_FREEZE_WWDG()              LL_DBGMCU_APB1_GRP1_FreezePeriph(LL_DBGMCU_APB1_GRP1_WWDG_STOP)
 #define __HAL_DBGMCU_UNFREEZE_WWDG()            LL_DBGMCU_APB1_GRP1_UnFreezePeriph(LL_DBGMCU_APB1_GRP1_WWDG_STOP)
-#endif
+#endif /* LL_DBGMCU_APB1_GRP1_WWDG_STOP */
 
 #if defined(LL_DBGMCU_APB1_GRP1_IWDG_STOP)
 #define __HAL_DBGMCU_FREEZE_IWDG()              LL_DBGMCU_APB1_GRP1_FreezePeriph(LL_DBGMCU_APB1_GRP1_IWDG_STOP)
 #define __HAL_DBGMCU_UNFREEZE_IWDG()            LL_DBGMCU_APB1_GRP1_UnFreezePeriph(LL_DBGMCU_APB1_GRP1_IWDG_STOP)
-#endif
+#endif /* LL_DBGMCU_APB1_GRP1_IWDG_STOP */
 
 #if defined(LL_DBGMCU_APB1_GRP1_I2C1_STOP)
 #define __HAL_DBGMCU_FREEZE_I2C1_TIMEOUT()      LL_DBGMCU_APB1_GRP1_FreezePeriph(LL_DBGMCU_APB1_GRP1_I2C1_STOP)
 #define __HAL_DBGMCU_UNFREEZE_I2C1_TIMEOUT()    LL_DBGMCU_APB1_GRP1_UnFreezePeriph(LL_DBGMCU_APB1_GRP1_I2C1_STOP)
-#endif
+#endif /* LL_DBGMCU_APB1_GRP1_I2C1_STOP */
 
 #if defined(LL_DBGMCU_APB1_GRP1_I2C3_STOP)
 #define __HAL_DBGMCU_FREEZE_I2C3_TIMEOUT()      LL_DBGMCU_APB1_GRP1_FreezePeriph(LL_DBGMCU_APB1_GRP1_I2C3_STOP)
 #define __HAL_DBGMCU_UNFREEZE_I2C3_TIMEOUT()    LL_DBGMCU_APB1_GRP1_UnFreezePeriph(LL_DBGMCU_APB1_GRP1_I2C3_STOP)
-#endif
+#endif /* LL_DBGMCU_APB1_GRP1_I2C3_STOP */
 
 #if defined(LL_DBGMCU_APB1_GRP1_LPTIM1_STOP)
 #define __HAL_DBGMCU_FREEZE_LPTIM1()            LL_DBGMCU_APB1_GRP1_FreezePeriph(LL_DBGMCU_APB1_GRP1_LPTIM1_STOP)
 #define __HAL_DBGMCU_UNFREEZE_LPTIM1()          LL_DBGMCU_APB1_GRP1_UnFreezePeriph(LL_DBGMCU_APB1_GRP1_LPTIM1_STOP)
-#endif
+#endif /* LL_DBGMCU_APB1_GRP1_LPTIM1_STOP */
 
 #if defined(LL_DBGMCU_APB1_GRP2_LPTIM2_STOP)
 #define __HAL_DBGMCU_FREEZE_LPTIM2()            LL_DBGMCU_APB1_GRP2_FreezePeriph(LL_DBGMCU_APB1_GRP2_LPTIM2_STOP)
 #define __HAL_DBGMCU_UNFREEZE_LPTIM2()          LL_DBGMCU_APB1_GRP2_UnFreezePeriph(LL_DBGMCU_APB1_GRP2_LPTIM2_STOP)
-#endif
+#endif /* LL_DBGMCU_APB1_GRP2_LPTIM2_STOP */
 
 #if defined(LL_DBGMCU_APB2_GRP1_TIM1_STOP)
 #define __HAL_DBGMCU_FREEZE_TIM1()              LL_DBGMCU_APB2_GRP1_FreezePeriph(LL_DBGMCU_APB2_GRP1_TIM1_STOP)
 #define __HAL_DBGMCU_UNFREEZE_TIM1()            LL_DBGMCU_APB2_GRP1_UnFreezePeriph(LL_DBGMCU_APB2_GRP1_TIM1_STOP)
-#endif
+#endif /* LL_DBGMCU_APB2_GRP1_TIM1_STOP */
 
 #if defined(LL_DBGMCU_APB2_GRP1_TIM16_STOP)
 #define __HAL_DBGMCU_FREEZE_TIM16()             LL_DBGMCU_APB2_GRP1_FreezePeriph(LL_DBGMCU_APB2_GRP1_TIM16_STOP)
 #define __HAL_DBGMCU_UNFREEZE_TIM16()           LL_DBGMCU_APB2_GRP1_UnFreezePeriph(LL_DBGMCU_APB2_GRP1_TIM16_STOP)
-#endif
+#endif /* LL_DBGMCU_APB2_GRP1_TIM16_STOP */
 
 #if defined(LL_DBGMCU_APB2_GRP1_TIM17_STOP)
 #define __HAL_DBGMCU_FREEZE_TIM17()             LL_DBGMCU_APB2_GRP1_FreezePeriph(LL_DBGMCU_APB2_GRP1_TIM17_STOP)
 #define __HAL_DBGMCU_UNFREEZE_TIM17()           LL_DBGMCU_APB2_GRP1_UnFreezePeriph(LL_DBGMCU_APB2_GRP1_TIM17_STOP)
-#endif
+#endif /* LL_DBGMCU_APB2_GRP1_TIM17_STOP */
 
 /**
   * @}
@@ -319,52 +319,52 @@ typedef enum
 #if defined(LL_C2_DBGMCU_APB1_GRP1_TIM2_STOP)
 #define __HAL_C2_DBGMCU_FREEZE_TIM2()           LL_C2_DBGMCU_APB1_GRP1_FreezePeriph(LL_C2_DBGMCU_APB1_GRP1_TIM2_STOP)
 #define __HAL_C2_DBGMCU_UNFREEZE_TIM2()         LL_C2_DBGMCU_APB1_GRP1_UnFreezePeriph(LL_C2_DBGMCU_APB1_GRP1_TIM2_STOP)
-#endif
+#endif /* LL_C2_DBGMCU_APB1_GRP1_TIM2_STOP */
 
 #if defined(LL_C2_DBGMCU_APB1_GRP1_RTC_STOP)
 #define __HAL_C2_DBGMCU_FREEZE_RTC()            LL_C2_DBGMCU_APB1_GRP1_FreezePeriph(LL_C2_DBGMCU_APB1_GRP1_RTC_STOP)
 #define __HAL_C2_DBGMCU_UNFREEZE_RTC()          LL_C2_DBGMCU_APB1_GRP1_UnFreezePeriph(LL_C2_DBGMCU_APB1_GRP1_RTC_STOP)
-#endif
+#endif /* LL_C2_DBGMCU_APB1_GRP1_RTC_STOP */
 
 #if defined(LL_C2_DBGMCU_APB1_GRP1_IWDG_STOP)
 #define __HAL_C2_DBGMCU_FREEZE_IWDG()           LL_C2_DBGMCU_APB1_GRP1_FreezePeriph(LL_C2_DBGMCU_APB1_GRP1_IWDG_STOP)
 #define __HAL_C2_DBGMCU_UNFREEZE_IWDG()         LL_C2_DBGMCU_APB1_GRP1_UnFreezePeriph(LL_C2_DBGMCU_APB1_GRP1_IWDG_STOP)
-#endif
+#endif /* LL_C2_DBGMCU_APB1_GRP1_IWDG_STOP */
 
 #if defined(LL_C2_DBGMCU_APB1_GRP1_I2C1_STOP)
 #define __HAL_C2_DBGMCU_FREEZE_I2C1_TIMEOUT()   LL_C2_DBGMCU_APB1_GRP1_FreezePeriph(LL_C2_DBGMCU_APB1_GRP1_I2C1_STOP)
 #define __HAL_C2_DBGMCU_UNFREEZE_I2C1_TIMEOUT() LL_C2_DBGMCU_APB1_GRP1_UnFreezePeriph(LL_C2_DBGMCU_APB1_GRP1_I2C1_STOP)
-#endif
+#endif /* LL_C2_DBGMCU_APB1_GRP1_I2C1_STOP */
 
 #if defined(LL_C2_DBGMCU_APB1_GRP1_I2C3_STOP)
 #define __HAL_C2_DBGMCU_FREEZE_I2C3_TIMEOUT()   LL_C2_DBGMCU_APB1_GRP1_FreezePeriph(LL_C2_DBGMCU_APB1_GRP1_I2C3_STOP)
 #define __HAL_C2_DBGMCU_UNFREEZE_I2C3_TIMEOUT() LL_C2_DBGMCU_APB1_GRP1_UnFreezePeriph(LL_C2_DBGMCU_APB1_GRP1_I2C3_STOP)
-#endif
+#endif /* LL_C2_DBGMCU_APB1_GRP1_I2C3_STOP */
 
 #if defined(LL_C2_DBGMCU_APB1_GRP1_LPTIM1_STOP)
 #define __HAL_C2_DBGMCU_FREEZE_LPTIM1()         LL_C2_DBGMCU_APB1_GRP1_FreezePeriph(LL_C2_DBGMCU_APB1_GRP1_LPTIM1_STOP)
 #define __HAL_C2_DBGMCU_UNFREEZE_LPTIM1()       LL_C2_DBGMCU_APB1_GRP1_UnFreezePeriph(LL_C2_DBGMCU_APB1_GRP1_LPTIM1_STOP)
-#endif
+#endif /* LL_C2_DBGMCU_APB1_GRP1_LPTIM1_STOP */
 
 #if defined(LL_C2_DBGMCU_APB1_GRP2_LPTIM2_STOP)
 #define __HAL_C2_DBGMCU_FREEZE_LPTIM2()         LL_C2_DBGMCU_APB1_GRP2_FreezePeriph(LL_C2_DBGMCU_APB1_GRP2_LPTIM2_STOP)
 #define __HAL_C2_DBGMCU_UNFREEZE_LPTIM2()       LL_C2_DBGMCU_APB1_GRP2_UnFreezePeriph(LL_C2_DBGMCU_APB1_GRP2_LPTIM2_STOP)
-#endif
+#endif /* LL_C2_DBGMCU_APB1_GRP2_LPTIM2_STOP */
 
 #if defined(LL_C2_DBGMCU_APB2_GRP1_TIM1_STOP)
 #define __HAL_C2_DBGMCU_FREEZE_TIM1()           LL_C2_DBGMCU_APB2_GRP1_FreezePeriph(LL_C2_DBGMCU_APB2_GRP1_TIM1_STOP)
 #define __HAL_C2_DBGMCU_UNFREEZE_TIM1()         LL_C2_DBGMCU_APB2_GRP1_UnFreezePeriph(LL_C2_DBGMCU_APB2_GRP1_TIM1_STOP)
-#endif
+#endif /* LL_C2_DBGMCU_APB2_GRP1_TIM1_STOP */
 
 #if defined(LL_C2_DBGMCU_APB2_GRP1_TIM16_STOP)
 #define __HAL_C2_DBGMCU_FREEZE_TIM16()          LL_C2_DBGMCU_APB2_GRP1_FreezePeriph(LL_C2_DBGMCU_APB2_GRP1_TIM16_STOP)
 #define __HAL_C2_DBGMCU_UNFREEZE_TIM16()        LL_C2_DBGMCU_APB2_GRP1_UnFreezePeriph(LL_C2_DBGMCU_APB2_GRP1_TIM16_STOP)
-#endif
+#endif /* LL_C2_DBGMCU_APB2_GRP1_TIM16_STOP */
 
 #if defined(LL_C2_DBGMCU_APB2_GRP1_TIM17_STOP)
 #define __HAL_C2_DBGMCU_FREEZE_TIM17()          LL_C2_DBGMCU_APB2_GRP1_FreezePeriph(LL_C2_DBGMCU_APB2_GRP1_TIM17_STOP)
 #define __HAL_C2_DBGMCU_UNFREEZE_TIM17()        LL_C2_DBGMCU_APB2_GRP1_UnFreezePeriph(LL_C2_DBGMCU_APB2_GRP1_TIM17_STOP)
-#endif
+#endif /* LL_C2_DBGMCU_APB2_GRP1_TIM17_STOP */
 
 /**
   * @}
@@ -394,7 +394,7 @@ typedef enum
 /** @brief  QUADSPI mapped at 0x00000000.
   */
 #define __HAL_SYSCFG_REMAPMEMORY_QUADSPI()      LL_SYSCFG_SetRemapMemory(LL_SYSCFG_REMAP_QUADSPI)
-#endif
+#endif /* LL_SYSCFG_REMAP_QUADSPI */
 
 /**
   * @brief  Return the boot mode as configured by user.
@@ -415,17 +415,21 @@ typedef enum
   */
 /* Legacy define */
 #define __HAL_SYSCFG_SRAM2_WRP_1_31_ENABLE      __HAL_SYSCFG_SRAM2_WRP_0_31_ENABLE
-#define __HAL_SYSCFG_SRAM2_WRP_0_31_ENABLE(__SRAM2WRP__)    do {assert_param(IS_SYSCFG_SRAM2WRP_PAGE((__SRAM2WRP__)));\
-                                                                LL_SYSCFG_EnableSRAM2PageWRP_0_31(__SRAM2WRP__);\
-                                                            }while(0)
+#define __HAL_SYSCFG_SRAM2_WRP_0_31_ENABLE(__SRAM2WRP__)   \
+  do {                                                     \
+    assert_param(IS_SYSCFG_SRAM2WRP_PAGE((__SRAM2WRP__))); \
+    LL_SYSCFG_EnableSRAM2PageWRP_0_31(__SRAM2WRP__);       \
+  } while(0)
 
 /** @brief  SRAM2 page 32 to 63 write protection enable macro
   * @param  __SRAM2WRP__  This parameter can be a combination of values of @ref SYSCFG_SRAM2WRP_32_63
   * @note   Write protection can only be disabled by a system reset
   */
-#define __HAL_SYSCFG_SRAM2_WRP_32_63_ENABLE(__SRAM2WRP__)   do {assert_param(IS_SYSCFG_SRAM2WRP2_PAGE((__SRAM2WRP__)));\
-                                                                LL_SYSCFG_EnableSRAM2PageWRP_32_63(__SRAM2WRP__);\
-                                                            }while(0)
+#define __HAL_SYSCFG_SRAM2_WRP_32_63_ENABLE(__SRAM2WRP__)   \
+  do {                                                      \
+    assert_param(IS_SYSCFG_SRAM2WRP2_PAGE((__SRAM2WRP__))); \
+    LL_SYSCFG_EnableSRAM2PageWRP_32_63(__SRAM2WRP__);       \
+  } while(0)
 
 /** @brief  SRAM2 page write protection unlock prior to erase
   * @note   Writing a wrong key reactivates the write protection
@@ -440,13 +444,17 @@ typedef enum
 /** @brief  Floating Point Unit interrupt enable/disable macros
   * @param __INTERRUPT__  This parameter can be a value of @ref SYSCFG_FPU_Interrupts
   */
-#define __HAL_SYSCFG_FPU_INTERRUPT_ENABLE(__INTERRUPT__)    do {assert_param(IS_SYSCFG_FPU_INTERRUPT((__INTERRUPT__)));\
-                                                                SET_BIT(SYSCFG->CFGR1, (__INTERRUPT__));\
-                                                            }while(0)
+#define __HAL_SYSCFG_FPU_INTERRUPT_ENABLE(__INTERRUPT__)    \
+  do {                                                      \
+    assert_param(IS_SYSCFG_FPU_INTERRUPT((__INTERRUPT__))); \
+    SET_BIT(SYSCFG->CFGR1, (__INTERRUPT__));                \
+  } while(0)
 
-#define __HAL_SYSCFG_FPU_INTERRUPT_DISABLE(__INTERRUPT__)   do {assert_param(IS_SYSCFG_FPU_INTERRUPT((__INTERRUPT__)));\
-                                                                CLEAR_BIT(SYSCFG->CFGR1, (__INTERRUPT__));\
-                                                            }while(0)
+#define __HAL_SYSCFG_FPU_INTERRUPT_DISABLE(__INTERRUPT__)   \
+  do {                                                      \
+    assert_param(IS_SYSCFG_FPU_INTERRUPT((__INTERRUPT__))); \
+    CLEAR_BIT(SYSCFG->CFGR1, (__INTERRUPT__));              \
+  } while(0)
 
 /** @brief  SYSCFG Break ECC lock.
   *         Enable and lock the connection of Flash ECC error connection to TIM1/16/17 Break input.
@@ -461,7 +469,8 @@ typedef enum
 #define __HAL_SYSCFG_BREAK_LOCKUP_LOCK()        LL_SYSCFG_SetTIMBreakInputs(LL_SYSCFG_TIMBREAK_LOCKUP)
 
 /** @brief  SYSCFG Break PVD lock.
-  *         Enable and lock the PVD connection to Timer1/16/17 Break input, as well as the PVDE and PLS[2:0] in the PWR_CR2 register.
+  *         Enable and lock the PVD connection to Timer1/16/17 Break input, as well as the PVDE and PLS[2:0]
+  *         in the PWR_CR2 register.
   * @note   The selected configuration is locked and can be unlocked only by system reset.
   */
 #define __HAL_SYSCFG_BREAK_PVD_LOCK()           LL_SYSCFG_SetTIMBreakInputs(LL_SYSCFG_TIMBREAK_PVD)
@@ -479,7 +488,8 @@ typedef enum
   *            @arg @ref SYSCFG_FLAG_SRAM2_BUSY SRAM2 Erase Ongoing
   * @retval The new state of __FLAG__ (TRUE or FALSE).
   */
-#define __HAL_SYSCFG_GET_FLAG(__FLAG__)         ((((((__FLAG__) == SYSCFG_SCSR_SRAM2BSY)? SYSCFG->SCSR : SYSCFG->CFGR2) & (__FLAG__))!= 0U) ? 1U : 0U)
+#define __HAL_SYSCFG_GET_FLAG(__FLAG__)      ((((((__FLAG__) == SYSCFG_SCSR_SRAM2BSY)? SYSCFG->SCSR : SYSCFG->CFGR2) & \
+                                                (__FLAG__))!= 0U) ? 1U : 0U)
 
 /** @brief  Set the SPF bit to clear the SRAM Parity Error Flag.
   */
@@ -488,13 +498,17 @@ typedef enum
 /** @brief  Fast mode Plus driving capability enable/disable macros
   * @param __FASTMODEPLUS__ This parameter can be a value of @ref SYSCFG_FastModePlus_GPIO
   */
-#define __HAL_SYSCFG_FASTMODEPLUS_ENABLE(__FASTMODEPLUS__)  do {assert_param(IS_SYSCFG_FASTMODEPLUS((__FASTMODEPLUS__))); \
-                                                                LL_SYSCFG_EnableFastModePlus(__FASTMODEPLUS__);           \
-                                                               }while(0)
+#define __HAL_SYSCFG_FASTMODEPLUS_ENABLE(__FASTMODEPLUS__)    \
+  do {                                                        \
+    assert_param(IS_SYSCFG_FASTMODEPLUS((__FASTMODEPLUS__))); \
+    LL_SYSCFG_EnableFastModePlus(__FASTMODEPLUS__);           \
+  } while(0)
 
-#define __HAL_SYSCFG_FASTMODEPLUS_DISABLE(__FASTMODEPLUS__) do {assert_param(IS_SYSCFG_FASTMODEPLUS((__FASTMODEPLUS__))); \
-                                                                LL_SYSCFG_DisableFastModePlus(__FASTMODEPLUS__);          \
-                                                               }while(0)
+#define __HAL_SYSCFG_FASTMODEPLUS_DISABLE(__FASTMODEPLUS__)   \
+  do {                                                        \
+    assert_param(IS_SYSCFG_FASTMODEPLUS((__FASTMODEPLUS__))); \
+    LL_SYSCFG_DisableFastModePlus(__FASTMODEPLUS__);          \
+  } while(0)
 
 /**
   * @}
@@ -503,7 +517,7 @@ typedef enum
 /**
   * @}
   */
-  
+
 /* Private macros ------------------------------------------------------------*/
 /** @defgroup HAL_Private_Macros HAL Private Macros
   * @{
@@ -513,12 +527,12 @@ typedef enum
   * @{
   */
 
-#define IS_SYSCFG_FPU_INTERRUPT(__INTERRUPT__)          ((((__INTERRUPT__) & SYSCFG_IT_FPU_IOC) == SYSCFG_IT_FPU_IOC) || \
-                                                         (((__INTERRUPT__) & SYSCFG_IT_FPU_DZC) == SYSCFG_IT_FPU_DZC) || \
-                                                         (((__INTERRUPT__) & SYSCFG_IT_FPU_UFC) == SYSCFG_IT_FPU_UFC) || \
-                                                         (((__INTERRUPT__) & SYSCFG_IT_FPU_OFC) == SYSCFG_IT_FPU_OFC) || \
-                                                         (((__INTERRUPT__) & SYSCFG_IT_FPU_IDC) == SYSCFG_IT_FPU_IDC) || \
-                                                         (((__INTERRUPT__) & SYSCFG_IT_FPU_IXC) == SYSCFG_IT_FPU_IXC))
+#define IS_SYSCFG_FPU_INTERRUPT(__INTERRUPT__)        ((((__INTERRUPT__) & SYSCFG_IT_FPU_IOC) == SYSCFG_IT_FPU_IOC) || \
+                                                       (((__INTERRUPT__) & SYSCFG_IT_FPU_DZC) == SYSCFG_IT_FPU_DZC) || \
+                                                       (((__INTERRUPT__) & SYSCFG_IT_FPU_UFC) == SYSCFG_IT_FPU_UFC) || \
+                                                       (((__INTERRUPT__) & SYSCFG_IT_FPU_OFC) == SYSCFG_IT_FPU_OFC) || \
+                                                       (((__INTERRUPT__) & SYSCFG_IT_FPU_IDC) == SYSCFG_IT_FPU_IDC) || \
+                                                       (((__INTERRUPT__) & SYSCFG_IT_FPU_IXC) == SYSCFG_IT_FPU_IXC))
 
 #if defined(STM32WB15xx)
 #define IS_SYSCFG_SRAM2WRP_PAGE(__PAGE__)               (((__PAGE__) > 0U) && ((__PAGE__) <= 0xFFFFFFFFU))
@@ -526,7 +540,7 @@ typedef enum
 #else
 #define IS_SYSCFG_SRAM2WRP_PAGE(__PAGE__)               (((__PAGE__) > 0U) && ((__PAGE__) <= 0xFFFFFFFFU))
 #define IS_SYSCFG_SRAM2WRP2_PAGE(__PAGE__)              IS_SYSCFG_SRAM2WRP_PAGE(__PAGE__)
-#endif
+#endif /* STM32WB15xx */
 
 #if defined(VREFBUF)
 #define IS_SYSCFG_VREFBUF_VOLTAGE_SCALE(__SCALE__)      (((__SCALE__) == SYSCFG_VREFBUF_VOLTAGE_SCALE0) || \
@@ -536,23 +550,23 @@ typedef enum
                                                          ((__VALUE__) == SYSCFG_VREFBUF_HIGH_IMPEDANCE_ENABLE))
 
 #define IS_SYSCFG_VREFBUF_TRIMMING(__VALUE__)           (((__VALUE__) > 0U) && ((__VALUE__) <= VREFBUF_CCR_TRIM))
-#endif
+#endif /* VREFBUF */
 
-#define IS_SYSCFG_FASTMODEPLUS(__PIN__)                 ((((__PIN__) & SYSCFG_FASTMODEPLUS_PB6)  == SYSCFG_FASTMODEPLUS_PB6)  || \
-                                                         (((__PIN__) & SYSCFG_FASTMODEPLUS_PB7)  == SYSCFG_FASTMODEPLUS_PB7)  || \
-                                                         (((__PIN__) & SYSCFG_FASTMODEPLUS_PB8)  == SYSCFG_FASTMODEPLUS_PB8)  || \
-                                                         (((__PIN__) & SYSCFG_FASTMODEPLUS_PB9)  == SYSCFG_FASTMODEPLUS_PB9))
+#define IS_SYSCFG_FASTMODEPLUS(__PIN__)                 ((((__PIN__) & SYSCFG_FASTMODEPLUS_PB6) == SYSCFG_FASTMODEPLUS_PB6)  || \
+                                                         (((__PIN__) & SYSCFG_FASTMODEPLUS_PB7) == SYSCFG_FASTMODEPLUS_PB7)  || \
+                                                         (((__PIN__) & SYSCFG_FASTMODEPLUS_PB8) == SYSCFG_FASTMODEPLUS_PB8)  || \
+                                                         (((__PIN__) & SYSCFG_FASTMODEPLUS_PB9) == SYSCFG_FASTMODEPLUS_PB9))
 
 #if defined(LL_SYSCFG_SECURE_ACCESS_AES1)
-#define IS_SYSCFG_SECURITY_ACCESS(__VALUE__)            ((((__VALUE__) & HAL_SYSCFG_SECURE_ACCESS_AES1)  == HAL_SYSCFG_SECURE_ACCESS_AES1)  || \
-                                                         (((__VALUE__) & HAL_SYSCFG_SECURE_ACCESS_AES2)  == HAL_SYSCFG_SECURE_ACCESS_AES2)  || \
-                                                         (((__VALUE__) & HAL_SYSCFG_SECURE_ACCESS_PKA)   == HAL_SYSCFG_SECURE_ACCESS_PKA)   || \
-                                                         (((__VALUE__) & HAL_SYSCFG_SECURE_ACCESS_RNG)   == HAL_SYSCFG_SECURE_ACCESS_RNG))
+#define IS_SYSCFG_SECURITY_ACCESS(__VALUE__)            ((((__VALUE__) & HAL_SYSCFG_SECURE_ACCESS_AES1) == HAL_SYSCFG_SECURE_ACCESS_AES1) || \
+                                                         (((__VALUE__) & HAL_SYSCFG_SECURE_ACCESS_AES2) == HAL_SYSCFG_SECURE_ACCESS_AES2) || \
+                                                         (((__VALUE__) & HAL_SYSCFG_SECURE_ACCESS_PKA)  == HAL_SYSCFG_SECURE_ACCESS_PKA)  || \
+                                                         (((__VALUE__) & HAL_SYSCFG_SECURE_ACCESS_RNG)  == HAL_SYSCFG_SECURE_ACCESS_RNG))
 #else
-#define IS_SYSCFG_SECURITY_ACCESS(__VALUE__)            ((((__VALUE__) & HAL_SYSCFG_SECURE_ACCESS_AES2)  == HAL_SYSCFG_SECURE_ACCESS_AES2)  || \
-                                                         (((__VALUE__) & HAL_SYSCFG_SECURE_ACCESS_PKA)   == HAL_SYSCFG_SECURE_ACCESS_PKA)   || \
-                                                         (((__VALUE__) & HAL_SYSCFG_SECURE_ACCESS_RNG)   == HAL_SYSCFG_SECURE_ACCESS_RNG))
-#endif
+#define IS_SYSCFG_SECURITY_ACCESS(__VALUE__)            ((((__VALUE__) & HAL_SYSCFG_SECURE_ACCESS_AES2) == HAL_SYSCFG_SECURE_ACCESS_AES2) || \
+                                                         (((__VALUE__) & HAL_SYSCFG_SECURE_ACCESS_PKA)  == HAL_SYSCFG_SECURE_ACCESS_PKA)  || \
+                                                         (((__VALUE__) & HAL_SYSCFG_SECURE_ACCESS_RNG)  == HAL_SYSCFG_SECURE_ACCESS_RNG))
+#endif /* LL_SYSCFG_SECURE_ACCESS_AES1 */
 
 /**
   * @}
@@ -589,7 +603,7 @@ HAL_StatusTypeDef HAL_DeInit(void);
 void HAL_MspInit(void);
 void HAL_MspDeInit(void);
 
-HAL_StatusTypeDef HAL_InitTick (uint32_t TickPriority);
+HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority);
 
 /**
   * @}
@@ -633,7 +647,7 @@ void HAL_DBGMCU_DisableDBGStandbyMode(void);
 /**
   * @}
   */
-  
+
 /* Exported variables ---------------------------------------------------------*/
 /** @addtogroup HAL_Exported_Variables
   * @{
@@ -660,14 +674,14 @@ void HAL_SYSCFG_VREFBUF_HighImpedanceConfig(uint32_t Mode);
 void HAL_SYSCFG_VREFBUF_TrimmingConfig(uint32_t TrimmingValue);
 HAL_StatusTypeDef HAL_SYSCFG_EnableVREFBUF(void);
 void HAL_SYSCFG_DisableVREFBUF(void);
-#endif
+#endif /* VREFBUF */
 
 void HAL_SYSCFG_EnableIOBooster(void);
 void HAL_SYSCFG_DisableIOBooster(void);
 #if defined(SYSCFG_CFGR1_ANASWVDD)
 void HAL_SYSCFG_EnableIOVdd(void);
 void HAL_SYSCFG_DisableIOVdd(void);
-#endif
+#endif /* SYSCFG_CFGR1_ANASWVDD */
 
 void HAL_SYSCFG_EnableSecurityAccess(uint32_t SecurityAccess);
 void HAL_SYSCFG_DisableSecurityAccess(uint32_t SecurityAccess);

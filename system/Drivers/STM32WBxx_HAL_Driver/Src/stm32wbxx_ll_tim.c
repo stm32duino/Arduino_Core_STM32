@@ -711,13 +711,10 @@ ErrorStatus LL_TIM_BDTR_Init(TIM_TypeDef *TIMx, const LL_TIM_BDTR_InitTypeDef *T
   MODIFY_REG(tmpbdtr, TIM_BDTR_BKP, TIM_BDTRInitStruct->BreakPolarity);
   MODIFY_REG(tmpbdtr, TIM_BDTR_AOE, TIM_BDTRInitStruct->AutomaticOutput);
   MODIFY_REG(tmpbdtr, TIM_BDTR_MOE, TIM_BDTRInitStruct->AutomaticOutput);
-  if (IS_TIM_ADVANCED_INSTANCE(TIMx))
-  {
-    assert_param(IS_LL_TIM_BREAK_FILTER(TIM_BDTRInitStruct->BreakFilter));
-    assert_param(IS_LL_TIM_BREAK_AFMODE(TIM_BDTRInitStruct->BreakAFMode));
-    MODIFY_REG(tmpbdtr, TIM_BDTR_BKF, TIM_BDTRInitStruct->BreakFilter);
-    MODIFY_REG(tmpbdtr, TIM_BDTR_BKBID, TIM_BDTRInitStruct->BreakAFMode);
-  }
+  assert_param(IS_LL_TIM_BREAK_FILTER(TIM_BDTRInitStruct->BreakFilter));
+  assert_param(IS_LL_TIM_BREAK_AFMODE(TIM_BDTRInitStruct->BreakAFMode));
+  MODIFY_REG(tmpbdtr, TIM_BDTR_BKF, TIM_BDTRInitStruct->BreakFilter);
+  MODIFY_REG(tmpbdtr, TIM_BDTR_BKBID, TIM_BDTRInitStruct->BreakAFMode);
 
   if (IS_TIM_BKIN2_INSTANCE(TIMx))
   {

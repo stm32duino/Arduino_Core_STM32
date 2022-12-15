@@ -344,6 +344,19 @@ typedef struct
   * @{
   */
 
+/** Legacy definitions for compatibility purpose
+@cond 0
+  */
+#define LL_LPTIM_ClearFLAG_CMPM  LL_LPTIM_ClearFlag_CMPM
+#define LL_LPTIM_ClearFLAG_CC1   LL_LPTIM_ClearFlag_CC1
+#define LL_LPTIM_ClearFLAG_CC2   LL_LPTIM_ClearFlag_CC2
+#define LL_LPTIM_ClearFLAG_CC1O  LL_LPTIM_ClearFlag_CC1O
+#define LL_LPTIM_ClearFLAG_CC2O  LL_LPTIM_ClearFlag_CC2O
+#define LL_LPTIM_ClearFLAG_ARRM  LL_LPTIM_ClearFlag_ARRM
+/**
+@endcond
+  */
+
 #if defined(USE_FULL_LL_DRIVER)
 /** @defgroup LPTIM_LL_EF_Init Initialisation and deinitialisation functions
   * @{
@@ -1064,13 +1077,14 @@ __STATIC_INLINE uint32_t LL_LPTIM_IsEnabledEncoderMode(const LPTIM_TypeDef *LPTI
   * @{
   */
 
+
 /**
   * @brief  Clear the compare match flag (CMPMCF)
-  * @rmtoll ICR          CMPMCF        LL_LPTIM_ClearFLAG_CMPM
+  * @rmtoll ICR          CMPMCF        LL_LPTIM_ClearFlag_CMPM
   * @param  LPTIMx Low-Power Timer instance
   * @retval None
   */
-__STATIC_INLINE void LL_LPTIM_ClearFLAG_CMPM(LPTIM_TypeDef *LPTIMx)
+__STATIC_INLINE void LL_LPTIM_ClearFlag_CMPM(LPTIM_TypeDef *LPTIMx)
 {
   SET_BIT(LPTIMx->ICR, LPTIM_ICR_CMPMCF);
 }
@@ -1088,11 +1102,11 @@ __STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_CMPM(const LPTIM_TypeDef *LPTIMx)
 
 /**
   * @brief  Clear the autoreload match flag (ARRMCF)
-  * @rmtoll ICR          ARRMCF        LL_LPTIM_ClearFLAG_ARRM
+  * @rmtoll ICR          ARRMCF        LL_LPTIM_ClearFlag_ARRM
   * @param  LPTIMx Low-Power Timer instance
   * @retval None
   */
-__STATIC_INLINE void LL_LPTIM_ClearFLAG_ARRM(LPTIM_TypeDef *LPTIMx)
+__STATIC_INLINE void LL_LPTIM_ClearFlag_ARRM(LPTIM_TypeDef *LPTIMx)
 {
   SET_BIT(LPTIMx->ICR, LPTIM_ICR_ARRMCF);
 }

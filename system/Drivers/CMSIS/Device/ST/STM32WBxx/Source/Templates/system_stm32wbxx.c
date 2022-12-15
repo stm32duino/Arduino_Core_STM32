@@ -101,7 +101,11 @@
 #endif /* LSI_VALUE */
 
 #if !defined  (LSE_VALUE)
-#define LSE_VALUE    (32768UL)    /*!< Value of LSE in Hz*/
+#if defined(STM32WB5Mxx)
+  #define LSE_VALUE    32774U     /*!< Value of the LSE oscillator in Hz */
+#else
+  #define LSE_VALUE    32768U     /*!< Value of the LSE oscillator in Hz */
+#endif /* STM32WB5Mxx */
 #endif /* LSE_VALUE */
 
 /**
