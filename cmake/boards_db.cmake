@@ -47765,6 +47765,176 @@ target_compile_options(GENERIC_F722RETX_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
+# GENERIC_F722ZCTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F722ZCTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F722Z(C-E)T_F732ZET")
+set(GENERIC_F722ZCTX_MAXSIZE 262144)
+set(GENERIC_F722ZCTX_MAXDATASIZE 196608)
+set(GENERIC_F722ZCTX_MCU cortex-m7)
+set(GENERIC_F722ZCTX_FPCONF "-")
+add_library(GENERIC_F722ZCTX INTERFACE)
+target_compile_options(GENERIC_F722ZCTX INTERFACE
+  "SHELL:-DSTM32F722xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F722ZCTX_MCU}
+)
+target_compile_definitions(GENERIC_F722ZCTX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F722ZCTX"
+	"BOARD_NAME=\"GENERIC_F722ZCTX\""
+	"BOARD_ID=GENERIC_F722ZCTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F722ZCTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F722ZCTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F722ZCTX INTERFACE
+  "LINKER:--default-script=${GENERIC_F722ZCTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F722ZCTX_MCU}
+)
+target_link_libraries(GENERIC_F722ZCTX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
+add_library(GENERIC_F722ZCTX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_F722ZCTX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F722ZCTX_serial_generic INTERFACE)
+target_compile_options(GENERIC_F722ZCTX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_F722ZCTX_serial_none INTERFACE)
+target_compile_options(GENERIC_F722ZCTX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_F722ZCTX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_F722ZCTX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_F722ZCTX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_F722ZCTX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_F722ZCTX_usb_HID INTERFACE)
+target_compile_options(GENERIC_F722ZCTX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_F722ZCTX_usb_none INTERFACE)
+target_compile_options(GENERIC_F722ZCTX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F722ZCTX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_F722ZCTX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F722ZCTX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_F722ZCTX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_F722ZCTX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_F722ZCTX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_F722ZETX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F722ZETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F722Z(C-E)T_F732ZET")
+set(GENERIC_F722ZETX_MAXSIZE 524288)
+set(GENERIC_F722ZETX_MAXDATASIZE 196608)
+set(GENERIC_F722ZETX_MCU cortex-m7)
+set(GENERIC_F722ZETX_FPCONF "-")
+add_library(GENERIC_F722ZETX INTERFACE)
+target_compile_options(GENERIC_F722ZETX INTERFACE
+  "SHELL:-DSTM32F722xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F722ZETX_MCU}
+)
+target_compile_definitions(GENERIC_F722ZETX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F722ZETX"
+	"BOARD_NAME=\"GENERIC_F722ZETX\""
+	"BOARD_ID=GENERIC_F722ZETX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F722ZETX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F722ZETX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F722ZETX INTERFACE
+  "LINKER:--default-script=${GENERIC_F722ZETX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F722ZETX_MCU}
+)
+target_link_libraries(GENERIC_F722ZETX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
+add_library(GENERIC_F722ZETX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_F722ZETX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F722ZETX_serial_generic INTERFACE)
+target_compile_options(GENERIC_F722ZETX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_F722ZETX_serial_none INTERFACE)
+target_compile_options(GENERIC_F722ZETX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_F722ZETX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_F722ZETX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_F722ZETX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_F722ZETX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_F722ZETX_usb_HID INTERFACE)
+target_compile_options(GENERIC_F722ZETX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_F722ZETX_usb_none INTERFACE)
+target_compile_options(GENERIC_F722ZETX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F722ZETX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_F722ZETX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F722ZETX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_F722ZETX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_F722ZETX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_F722ZETX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
 # GENERIC_F730R8TX
 # -----------------------------------------------------------------------------
 
@@ -47932,6 +48102,91 @@ target_compile_options(GENERIC_F732RETX_xusb_HS INTERFACE
 )
 add_library(GENERIC_F732RETX_xusb_HSFS INTERFACE)
 target_compile_options(GENERIC_F732RETX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_F732ZETX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F732ZETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F722Z(C-E)T_F732ZET")
+set(GENERIC_F732ZETX_MAXSIZE 524288)
+set(GENERIC_F732ZETX_MAXDATASIZE 196608)
+set(GENERIC_F732ZETX_MCU cortex-m7)
+set(GENERIC_F732ZETX_FPCONF "-")
+add_library(GENERIC_F732ZETX INTERFACE)
+target_compile_options(GENERIC_F732ZETX INTERFACE
+  "SHELL:-DSTM32F732xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F732ZETX_MCU}
+)
+target_compile_definitions(GENERIC_F732ZETX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F732ZETX"
+	"BOARD_NAME=\"GENERIC_F732ZETX\""
+	"BOARD_ID=GENERIC_F732ZETX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F732ZETX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F732ZETX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F732ZETX INTERFACE
+  "LINKER:--default-script=${GENERIC_F732ZETX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F732ZETX_MCU}
+)
+target_link_libraries(GENERIC_F732ZETX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
+add_library(GENERIC_F732ZETX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_F732ZETX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F732ZETX_serial_generic INTERFACE)
+target_compile_options(GENERIC_F732ZETX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_F732ZETX_serial_none INTERFACE)
+target_compile_options(GENERIC_F732ZETX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_F732ZETX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_F732ZETX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_F732ZETX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_F732ZETX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_F732ZETX_usb_HID INTERFACE)
+target_compile_options(GENERIC_F732ZETX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_F732ZETX_usb_none INTERFACE)
+target_compile_options(GENERIC_F732ZETX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F732ZETX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_F732ZETX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F732ZETX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_F732ZETX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_F732ZETX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_F732ZETX_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
@@ -73068,6 +73323,346 @@ target_compile_options(GENERIC_G4A1VETX_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
+# GENERIC_H723ZETX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_H723ZETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32H7xx/H723Z(E-G)T_H730ZBT_H733ZGT")
+set(GENERIC_H723ZETX_MAXSIZE 524288)
+set(GENERIC_H723ZETX_MAXDATASIZE 327680)
+set(GENERIC_H723ZETX_MCU cortex-m7)
+set(GENERIC_H723ZETX_FPCONF "-")
+add_library(GENERIC_H723ZETX INTERFACE)
+target_compile_options(GENERIC_H723ZETX INTERFACE
+  "SHELL:-DCORE_CM7 -DSTM32H723xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H723ZETX_MCU}
+)
+target_compile_definitions(GENERIC_H723ZETX INTERFACE
+  "STM32H7xx"
+	"ARDUINO_GENERIC_H723ZETX"
+	"BOARD_NAME=\"GENERIC_H723ZETX\""
+	"BOARD_ID=GENERIC_H723ZETX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_H723ZETX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32H7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H7xx/Source/Templates/gcc/
+  ${GENERIC_H723ZETX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_H723ZETX INTERFACE
+  "LINKER:--default-script=${GENERIC_H723ZETX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H723ZETX_MCU}
+)
+target_link_libraries(GENERIC_H723ZETX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
+add_library(GENERIC_H723ZETX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_H723ZETX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_H723ZETX_serial_generic INTERFACE)
+target_compile_options(GENERIC_H723ZETX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_H723ZETX_serial_none INTERFACE)
+target_compile_options(GENERIC_H723ZETX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_H723ZETX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_H723ZETX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_H723ZETX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_H723ZETX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_H723ZETX_usb_HID INTERFACE)
+target_compile_options(GENERIC_H723ZETX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_H723ZETX_usb_none INTERFACE)
+target_compile_options(GENERIC_H723ZETX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_H723ZETX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_H723ZETX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_H723ZETX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_H723ZETX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_H723ZETX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_H723ZETX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_H723ZGTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_H723ZGTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32H7xx/H723Z(E-G)T_H730ZBT_H733ZGT")
+set(GENERIC_H723ZGTX_MAXSIZE 1048576)
+set(GENERIC_H723ZGTX_MAXDATASIZE 327680)
+set(GENERIC_H723ZGTX_MCU cortex-m7)
+set(GENERIC_H723ZGTX_FPCONF "-")
+add_library(GENERIC_H723ZGTX INTERFACE)
+target_compile_options(GENERIC_H723ZGTX INTERFACE
+  "SHELL:-DCORE_CM7 -DSTM32H723xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H723ZGTX_MCU}
+)
+target_compile_definitions(GENERIC_H723ZGTX INTERFACE
+  "STM32H7xx"
+	"ARDUINO_GENERIC_H723ZGTX"
+	"BOARD_NAME=\"GENERIC_H723ZGTX\""
+	"BOARD_ID=GENERIC_H723ZGTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_H723ZGTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32H7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H7xx/Source/Templates/gcc/
+  ${GENERIC_H723ZGTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_H723ZGTX INTERFACE
+  "LINKER:--default-script=${GENERIC_H723ZGTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=1048576"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H723ZGTX_MCU}
+)
+target_link_libraries(GENERIC_H723ZGTX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
+add_library(GENERIC_H723ZGTX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_H723ZGTX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_H723ZGTX_serial_generic INTERFACE)
+target_compile_options(GENERIC_H723ZGTX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_H723ZGTX_serial_none INTERFACE)
+target_compile_options(GENERIC_H723ZGTX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_H723ZGTX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_H723ZGTX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_H723ZGTX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_H723ZGTX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_H723ZGTX_usb_HID INTERFACE)
+target_compile_options(GENERIC_H723ZGTX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_H723ZGTX_usb_none INTERFACE)
+target_compile_options(GENERIC_H723ZGTX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_H723ZGTX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_H723ZGTX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_H723ZGTX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_H723ZGTX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_H723ZGTX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_H723ZGTX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_H730ZBTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_H730ZBTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32H7xx/H723Z(E-G)T_H730ZBT_H733ZGT")
+set(GENERIC_H730ZBTX_MAXSIZE 131072)
+set(GENERIC_H730ZBTX_MAXDATASIZE 327680)
+set(GENERIC_H730ZBTX_MCU cortex-m7)
+set(GENERIC_H730ZBTX_FPCONF "-")
+add_library(GENERIC_H730ZBTX INTERFACE)
+target_compile_options(GENERIC_H730ZBTX INTERFACE
+  "SHELL:-DCORE_CM7 -DSTM32H730xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H730ZBTX_MCU}
+)
+target_compile_definitions(GENERIC_H730ZBTX INTERFACE
+  "STM32H7xx"
+	"ARDUINO_GENERIC_H730ZBTX"
+	"BOARD_NAME=\"GENERIC_H730ZBTX\""
+	"BOARD_ID=GENERIC_H730ZBTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_H730ZBTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32H7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H7xx/Source/Templates/gcc/
+  ${GENERIC_H730ZBTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_H730ZBTX INTERFACE
+  "LINKER:--default-script=${GENERIC_H730ZBTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H730ZBTX_MCU}
+)
+target_link_libraries(GENERIC_H730ZBTX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
+add_library(GENERIC_H730ZBTX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_H730ZBTX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_H730ZBTX_serial_generic INTERFACE)
+target_compile_options(GENERIC_H730ZBTX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_H730ZBTX_serial_none INTERFACE)
+target_compile_options(GENERIC_H730ZBTX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_H730ZBTX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_H730ZBTX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_H730ZBTX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_H730ZBTX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_H730ZBTX_usb_HID INTERFACE)
+target_compile_options(GENERIC_H730ZBTX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_H730ZBTX_usb_none INTERFACE)
+target_compile_options(GENERIC_H730ZBTX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_H730ZBTX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_H730ZBTX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_H730ZBTX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_H730ZBTX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_H730ZBTX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_H730ZBTX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_H733ZGTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_H733ZGTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32H7xx/H723Z(E-G)T_H730ZBT_H733ZGT")
+set(GENERIC_H733ZGTX_MAXSIZE 1048576)
+set(GENERIC_H733ZGTX_MAXDATASIZE 327680)
+set(GENERIC_H733ZGTX_MCU cortex-m7)
+set(GENERIC_H733ZGTX_FPCONF "-")
+add_library(GENERIC_H733ZGTX INTERFACE)
+target_compile_options(GENERIC_H733ZGTX INTERFACE
+  "SHELL:-DCORE_CM7 -DSTM32H733xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H733ZGTX_MCU}
+)
+target_compile_definitions(GENERIC_H733ZGTX INTERFACE
+  "STM32H7xx"
+	"ARDUINO_GENERIC_H733ZGTX"
+	"BOARD_NAME=\"GENERIC_H733ZGTX\""
+	"BOARD_ID=GENERIC_H733ZGTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_H733ZGTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32H7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H7xx/Source/Templates/gcc/
+  ${GENERIC_H733ZGTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_H733ZGTX INTERFACE
+  "LINKER:--default-script=${GENERIC_H733ZGTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=1048576"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H733ZGTX_MCU}
+)
+target_link_libraries(GENERIC_H733ZGTX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
+add_library(GENERIC_H733ZGTX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_H733ZGTX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_H733ZGTX_serial_generic INTERFACE)
+target_compile_options(GENERIC_H733ZGTX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_H733ZGTX_serial_none INTERFACE)
+target_compile_options(GENERIC_H733ZGTX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_H733ZGTX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_H733ZGTX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_H733ZGTX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_H733ZGTX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_H733ZGTX_usb_HID INTERFACE)
+target_compile_options(GENERIC_H733ZGTX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_H733ZGTX_usb_none INTERFACE)
+target_compile_options(GENERIC_H733ZGTX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_H733ZGTX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_H733ZGTX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_H733ZGTX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_H733ZGTX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_H733ZGTX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_H733ZGTX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
 # GENERIC_H742IGKX
 # -----------------------------------------------------------------------------
 
@@ -94318,7 +94913,7 @@ target_compile_options(GENERIC_U575AIIXQ_xusb_HSFS INTERFACE
 
 set(GENERIC_U575ZGTXQ_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32U5xx/U575Z(G-I)TxQ_U585ZITxQ")
 set(GENERIC_U575ZGTXQ_MAXSIZE 1048576)
-set(GENERIC_U575ZGTXQ_MAXDATASIZE 262144)
+set(GENERIC_U575ZGTXQ_MAXDATASIZE 786432)
 set(GENERIC_U575ZGTXQ_MCU cortex-m33)
 set(GENERIC_U575ZGTXQ_FPCONF "-")
 add_library(GENERIC_U575ZGTXQ INTERFACE)
@@ -94349,7 +94944,7 @@ target_link_options(GENERIC_U575ZGTXQ INTERFACE
   "LINKER:--default-script=${GENERIC_U575ZGTXQ_VARIANT_PATH}/ldscript.ld"
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=1048576"
-	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=786432"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_U575ZGTXQ_MCU}
 )
@@ -94403,7 +94998,7 @@ target_compile_options(GENERIC_U575ZGTXQ_xusb_HSFS INTERFACE
 
 set(GENERIC_U575ZITXQ_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32U5xx/U575Z(G-I)TxQ_U585ZITxQ")
 set(GENERIC_U575ZITXQ_MAXSIZE 2097152)
-set(GENERIC_U575ZITXQ_MAXDATASIZE 262144)
+set(GENERIC_U575ZITXQ_MAXDATASIZE 786432)
 set(GENERIC_U575ZITXQ_MCU cortex-m33)
 set(GENERIC_U575ZITXQ_FPCONF "-")
 add_library(GENERIC_U575ZITXQ INTERFACE)
@@ -94434,7 +95029,7 @@ target_link_options(GENERIC_U575ZITXQ INTERFACE
   "LINKER:--default-script=${GENERIC_U575ZITXQ_VARIANT_PATH}/ldscript.ld"
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=2097152"
-	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=786432"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_U575ZITXQ_MCU}
 )
@@ -94573,7 +95168,7 @@ target_compile_options(GENERIC_U585AIIXQ_xusb_HSFS INTERFACE
 
 set(GENERIC_U585ZITXQ_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32U5xx/U575Z(G-I)TxQ_U585ZITxQ")
 set(GENERIC_U585ZITXQ_MAXSIZE 2097152)
-set(GENERIC_U585ZITXQ_MAXDATASIZE 262144)
+set(GENERIC_U585ZITXQ_MAXDATASIZE 786432)
 set(GENERIC_U585ZITXQ_MCU cortex-m33)
 set(GENERIC_U585ZITXQ_FPCONF "-")
 add_library(GENERIC_U585ZITXQ INTERFACE)
@@ -94604,7 +95199,7 @@ target_link_options(GENERIC_U585ZITXQ INTERFACE
   "LINKER:--default-script=${GENERIC_U585ZITXQ_VARIANT_PATH}/ldscript.ld"
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=2097152"
-	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=786432"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_U585ZITXQ_MCU}
 )
@@ -96380,6 +96975,91 @@ target_link_libraries(HY_TINYSTM103TB_hid INTERFACE
 )
 
 
+# LEAFONY_AP03
+# -----------------------------------------------------------------------------
+
+set(LEAFONY_AP03_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)")
+set(LEAFONY_AP03_MAXSIZE 524288)
+set(LEAFONY_AP03_MAXDATASIZE 163840)
+set(LEAFONY_AP03_MCU cortex-m4)
+set(LEAFONY_AP03_FPCONF "-")
+add_library(LEAFONY_AP03 INTERFACE)
+target_compile_options(LEAFONY_AP03 INTERFACE
+  "SHELL:-DSTM32L452xx  "
+  "SHELL:-DCUSTOM_PERIPHERAL_PINS"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${LEAFONY_AP03_MCU}
+)
+target_compile_definitions(LEAFONY_AP03 INTERFACE
+  "STM32L4xx"
+	"ARDUINO_LEAFONY_AP03"
+	"BOARD_NAME=\"LEAFONY_AP03\""
+	"BOARD_ID=LEAFONY_AP03"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(LEAFONY_AP03 INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc/
+  ${LEAFONY_AP03_VARIANT_PATH}
+)
+
+target_link_options(LEAFONY_AP03 INTERFACE
+  "LINKER:--default-script=${LEAFONY_AP03_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=163840"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${LEAFONY_AP03_MCU}
+)
+target_link_libraries(LEAFONY_AP03 INTERFACE
+  arm_cortexM4lf_math
+)
+
+add_library(LEAFONY_AP03_serial_disabled INTERFACE)
+target_compile_options(LEAFONY_AP03_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(LEAFONY_AP03_serial_generic INTERFACE)
+target_compile_options(LEAFONY_AP03_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(LEAFONY_AP03_serial_none INTERFACE)
+target_compile_options(LEAFONY_AP03_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(LEAFONY_AP03_usb_CDC INTERFACE)
+target_compile_options(LEAFONY_AP03_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(LEAFONY_AP03_usb_CDCgen INTERFACE)
+target_compile_options(LEAFONY_AP03_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(LEAFONY_AP03_usb_HID INTERFACE)
+target_compile_options(LEAFONY_AP03_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(LEAFONY_AP03_usb_none INTERFACE)
+target_compile_options(LEAFONY_AP03_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(LEAFONY_AP03_xusb_FS INTERFACE)
+target_compile_options(LEAFONY_AP03_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(LEAFONY_AP03_xusb_HS INTERFACE)
+target_compile_options(LEAFONY_AP03_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(LEAFONY_AP03_xusb_HSFS INTERFACE)
+target_compile_options(LEAFONY_AP03_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
 # MALYANM200_F070CB
 # -----------------------------------------------------------------------------
 
@@ -98033,6 +98713,91 @@ target_compile_options(NUCLEO_F411RE_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
+# NUCLEO_F413ZH
+# -----------------------------------------------------------------------------
+
+set(NUCLEO_F413ZH_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F4xx/F413Z(G-H)(J-T)_F423ZH(J-T)")
+set(NUCLEO_F413ZH_MAXSIZE 1572864)
+set(NUCLEO_F413ZH_MAXDATASIZE 327680)
+set(NUCLEO_F413ZH_MCU cortex-m4)
+set(NUCLEO_F413ZH_FPCONF "fpv4-sp-d16-hard")
+add_library(NUCLEO_F413ZH INTERFACE)
+target_compile_options(NUCLEO_F413ZH INTERFACE
+  "SHELL:-DSTM32F413xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${NUCLEO_F413ZH_MCU}
+)
+target_compile_definitions(NUCLEO_F413ZH INTERFACE
+  "STM32F4xx"
+	"ARDUINO_NUCLEO_F413ZH"
+	"BOARD_NAME=\"NUCLEO_F413ZH\""
+	"BOARD_ID=NUCLEO_F413ZH"
+	"VARIANT_H=\"variant_NUCLEO_F413ZH.h\""
+)
+target_include_directories(NUCLEO_F413ZH INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/
+  ${NUCLEO_F413ZH_VARIANT_PATH}
+)
+
+target_link_options(NUCLEO_F413ZH INTERFACE
+  "LINKER:--default-script=${NUCLEO_F413ZH_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=1572864"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${NUCLEO_F413ZH_MCU}
+)
+target_link_libraries(NUCLEO_F413ZH INTERFACE
+  arm_cortexM4lf_math
+)
+
+add_library(NUCLEO_F413ZH_serial_disabled INTERFACE)
+target_compile_options(NUCLEO_F413ZH_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_F413ZH_serial_generic INTERFACE)
+target_compile_options(NUCLEO_F413ZH_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(NUCLEO_F413ZH_serial_none INTERFACE)
+target_compile_options(NUCLEO_F413ZH_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(NUCLEO_F413ZH_usb_CDC INTERFACE)
+target_compile_options(NUCLEO_F413ZH_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(NUCLEO_F413ZH_usb_CDCgen INTERFACE)
+target_compile_options(NUCLEO_F413ZH_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(NUCLEO_F413ZH_usb_HID INTERFACE)
+target_compile_options(NUCLEO_F413ZH_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(NUCLEO_F413ZH_usb_none INTERFACE)
+target_compile_options(NUCLEO_F413ZH_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_F413ZH_xusb_FS INTERFACE)
+target_compile_options(NUCLEO_F413ZH_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_F413ZH_xusb_HS INTERFACE)
+target_compile_options(NUCLEO_F413ZH_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(NUCLEO_F413ZH_xusb_HSFS INTERFACE)
+target_compile_options(NUCLEO_F413ZH_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
 # NUCLEO_F429ZI
 # -----------------------------------------------------------------------------
 
@@ -98200,6 +98965,91 @@ target_compile_options(NUCLEO_F446RE_xusb_HS INTERFACE
 )
 add_library(NUCLEO_F446RE_xusb_HSFS INTERFACE)
 target_compile_options(NUCLEO_F446RE_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# NUCLEO_F722ZE
+# -----------------------------------------------------------------------------
+
+set(NUCLEO_F722ZE_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F722Z(C-E)T_F732ZET")
+set(NUCLEO_F722ZE_MAXSIZE 524288)
+set(NUCLEO_F722ZE_MAXDATASIZE 196608)
+set(NUCLEO_F722ZE_MCU cortex-m7)
+set(NUCLEO_F722ZE_FPCONF "-")
+add_library(NUCLEO_F722ZE INTERFACE)
+target_compile_options(NUCLEO_F722ZE INTERFACE
+  "SHELL:-DSTM32F722xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${NUCLEO_F722ZE_MCU}
+)
+target_compile_definitions(NUCLEO_F722ZE INTERFACE
+  "STM32F7xx"
+	"ARDUINO_NUCLEO_F722ZE"
+	"BOARD_NAME=\"NUCLEO_F722ZE\""
+	"BOARD_ID=NUCLEO_F722ZE"
+	"VARIANT_H=\"variant_NUCLEO_F722ZE.h\""
+)
+target_include_directories(NUCLEO_F722ZE INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${NUCLEO_F722ZE_VARIANT_PATH}
+)
+
+target_link_options(NUCLEO_F722ZE INTERFACE
+  "LINKER:--default-script=${NUCLEO_F722ZE_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+  "SHELL: "
+  -mcpu=${NUCLEO_F722ZE_MCU}
+)
+target_link_libraries(NUCLEO_F722ZE INTERFACE
+  arm_cortexM7lfsp_math
+)
+
+add_library(NUCLEO_F722ZE_serial_disabled INTERFACE)
+target_compile_options(NUCLEO_F722ZE_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_F722ZE_serial_generic INTERFACE)
+target_compile_options(NUCLEO_F722ZE_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(NUCLEO_F722ZE_serial_none INTERFACE)
+target_compile_options(NUCLEO_F722ZE_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(NUCLEO_F722ZE_usb_CDC INTERFACE)
+target_compile_options(NUCLEO_F722ZE_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(NUCLEO_F722ZE_usb_CDCgen INTERFACE)
+target_compile_options(NUCLEO_F722ZE_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(NUCLEO_F722ZE_usb_HID INTERFACE)
+target_compile_options(NUCLEO_F722ZE_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(NUCLEO_F722ZE_usb_none INTERFACE)
+target_compile_options(NUCLEO_F722ZE_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_F722ZE_xusb_FS INTERFACE)
+target_compile_options(NUCLEO_F722ZE_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_F722ZE_xusb_HS INTERFACE)
+target_compile_options(NUCLEO_F722ZE_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(NUCLEO_F722ZE_xusb_HSFS INTERFACE)
+target_compile_options(NUCLEO_F722ZE_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
@@ -99050,6 +99900,91 @@ target_compile_options(NUCLEO_G474RE_xusb_HS INTERFACE
 )
 add_library(NUCLEO_G474RE_xusb_HSFS INTERFACE)
 target_compile_options(NUCLEO_G474RE_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# NUCLEO_H723ZG
+# -----------------------------------------------------------------------------
+
+set(NUCLEO_H723ZG_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32H7xx/H723Z(E-G)T_H730ZBT_H733ZGT")
+set(NUCLEO_H723ZG_MAXSIZE 1048576)
+set(NUCLEO_H723ZG_MAXDATASIZE 327680)
+set(NUCLEO_H723ZG_MCU cortex-m7)
+set(NUCLEO_H723ZG_FPCONF "fpv4-sp-d16-hard")
+add_library(NUCLEO_H723ZG INTERFACE)
+target_compile_options(NUCLEO_H723ZG INTERFACE
+  "SHELL:-DSTM32H723xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${NUCLEO_H723ZG_MCU}
+)
+target_compile_definitions(NUCLEO_H723ZG INTERFACE
+  "STM32H7xx"
+	"ARDUINO_NUCLEO_H723ZG"
+	"BOARD_NAME=\"NUCLEO_H723ZG\""
+	"BOARD_ID=NUCLEO_H723ZG"
+	"VARIANT_H=\"variant_NUCLEO_H723ZG.h\""
+)
+target_include_directories(NUCLEO_H723ZG INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32H7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H7xx/Source/Templates/gcc/
+  ${NUCLEO_H723ZG_VARIANT_PATH}
+)
+
+target_link_options(NUCLEO_H723ZG INTERFACE
+  "LINKER:--default-script=${NUCLEO_H723ZG_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=1048576"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${NUCLEO_H723ZG_MCU}
+)
+target_link_libraries(NUCLEO_H723ZG INTERFACE
+  arm_cortexM7lfsp_math
+)
+
+add_library(NUCLEO_H723ZG_serial_disabled INTERFACE)
+target_compile_options(NUCLEO_H723ZG_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_H723ZG_serial_generic INTERFACE)
+target_compile_options(NUCLEO_H723ZG_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(NUCLEO_H723ZG_serial_none INTERFACE)
+target_compile_options(NUCLEO_H723ZG_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(NUCLEO_H723ZG_usb_CDC INTERFACE)
+target_compile_options(NUCLEO_H723ZG_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(NUCLEO_H723ZG_usb_CDCgen INTERFACE)
+target_compile_options(NUCLEO_H723ZG_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(NUCLEO_H723ZG_usb_HID INTERFACE)
+target_compile_options(NUCLEO_H723ZG_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(NUCLEO_H723ZG_usb_none INTERFACE)
+target_compile_options(NUCLEO_H723ZG_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_H723ZG_xusb_FS INTERFACE)
+target_compile_options(NUCLEO_H723ZG_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_H723ZG_xusb_HS INTERFACE)
+target_compile_options(NUCLEO_H723ZG_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(NUCLEO_H723ZG_xusb_HSFS INTERFACE)
+target_compile_options(NUCLEO_H723ZG_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
@@ -100588,7 +101523,7 @@ target_compile_options(NUCLEO_L552ZE_Q_xusb_HSFS INTERFACE
 
 set(NUCLEO_U575ZI_Q_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32U5xx/U575Z(G-I)TxQ_U585ZITxQ")
 set(NUCLEO_U575ZI_Q_MAXSIZE 2097152)
-set(NUCLEO_U575ZI_Q_MAXDATASIZE 262144)
+set(NUCLEO_U575ZI_Q_MAXDATASIZE 786432)
 set(NUCLEO_U575ZI_Q_MCU cortex-m33)
 set(NUCLEO_U575ZI_Q_FPCONF "fpv4-sp-d16-hard")
 add_library(NUCLEO_U575ZI_Q INTERFACE)
@@ -100619,7 +101554,7 @@ target_link_options(NUCLEO_U575ZI_Q INTERFACE
   "LINKER:--default-script=${NUCLEO_U575ZI_Q_VARIANT_PATH}/ldscript.ld"
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=2097152"
-	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=786432"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_U575ZI_Q_MCU}
 )

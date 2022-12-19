@@ -24,6 +24,7 @@ add_library(variant_bin STATIC EXCLUDE_FROM_ALL
   PeripheralPins_DISCO_F413ZH.c
   variant_DISCO_F413ZH.cpp
   variant_generic.cpp
+  variant_NUCLEO_F413ZH.cpp
 )
 target_link_libraries(variant_bin PUBLIC variant_usage)
 
