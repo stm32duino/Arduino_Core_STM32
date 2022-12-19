@@ -1,12 +1,20 @@
 
+
 add_library(variant EXCLUDE_FROM_ALL
-  variant_generic.cpp
-  variant_NUCLEO_F070RB.cpp
-  generic_clock.c
   PeripheralPins.c
+  generic_clock.c
+  variant_NUCLEO_F070RB.cpp
+  variant_generic.cpp
 )
 
+target_include_directories(variant PUBLIC
+  .
+)
 
 target_link_libraries(variant PUBLIC
   core_config
 )
+
+
+
+ 

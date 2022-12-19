@@ -1,16 +1,17 @@
+#!/usr/bin/env python3
 
 import sys
 from pathlib import Path
-
 from jinja2 import Environment, FileSystemLoader
+
+script_path = Path(__file__).parent.resolve()
+sys.path.append(str(script_path.parent))
+from utils.cmake_gen import *
 
 if len(sys.argv) != 2 :
     print("Usage: cmake_variant.py <.../variants>")
     print("Generates a CMakeLists.txt describing a variant folder")
     print("The resulting static library will be named \"variant\".")
-
-
-SOURCEFILE_EXTS = (".c", ".cpp", ".S")
 
 rootdir = Path(sys.argv[1]).resolve()
 script_path = Path(__file__).parent.resolve()
@@ -20,9 +21,9 @@ j2_env = Environment(
 )
 cmake_template = j2_env.get_template("CMakeLists.txt")
 
-if not (rootdir.exists() and rootdir.name == "variants") :
-    print(f"Invalid variant folder : {rootdir}")
-    exit()
+if not (rootdir.exists() and rootdir.is_dir()) :
+    print(f"Can't find {rootdir}/")
+    exit(1)
 
 for family in rootdir.iterdir() :
     if not family.is_dir() :
@@ -32,18 +33,7 @@ for family in rootdir.iterdir() :
         if not variant.is_dir() :
             continue
 
-        sources = [
-            file.relative_to(variant)
-            for file in variant.iterdir()
-            if file.is_file() and file.suffix in SOURCEFILE_EXTS
-        ]
-
-        with open(variant / "CMakeLists.txt", "w") as outfile :
-            # I'd gladly name the target something less generic;
-            # if only the variant folder were a valid identifier...
-            outfile.write(cmake_template.render(
-                target="variant",
-                objlib=False,
-                sources=sources,
-                includedir=None,
-            ))
+        config = config_for_bareflat(variant, force_recurse=True)
+        config["target"] = "variant"
+        config["objlib"] = False
+        render(variant, cmake_template, config)

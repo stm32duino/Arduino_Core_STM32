@@ -1,12 +1,20 @@
 
+
 add_library(variant EXCLUDE_FROM_ALL
-  variant_generic.cpp
-  variant_OLIMEXINO_STM32F3.cpp
-  generic_clock.c
   PeripheralPins.c
+  generic_clock.c
+  variant_OLIMEXINO_STM32F3.cpp
+  variant_generic.cpp
 )
 
+target_include_directories(variant PUBLIC
+  .
+)
 
 target_link_libraries(variant PUBLIC
   core_config
 )
+
+
+
+ 

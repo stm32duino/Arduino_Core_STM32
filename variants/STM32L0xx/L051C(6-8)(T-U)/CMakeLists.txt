@@ -1,13 +1,21 @@
 
+
 add_library(variant EXCLUDE_FROM_ALL
-  variant_generic.cpp
-  generic_clock.c
-  PeripheralPins_RHF76_052.c
   PeripheralPins.c
+  PeripheralPins_RHF76_052.c
+  generic_clock.c
   variant_RHF76_052.cpp
+  variant_generic.cpp
 )
 
+target_include_directories(variant PUBLIC
+  .
+)
 
 target_link_libraries(variant PUBLIC
   core_config
 )
+
+
+
+ 

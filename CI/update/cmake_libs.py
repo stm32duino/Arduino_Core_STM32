@@ -1,16 +1,20 @@
+#!/usr/bin/env python3
 
 import sys
 from pathlib import Path
-
 from jinja2 import Environment, FileSystemLoader
+
+script_path = Path(__file__).parent.resolve()
+sys.path.append(str(script_path.parent))
+from utils.cmake_gen import *
 
 if len(sys.argv) != 2 :
     print("Usage: cmake_libs.py <.../libraries>")
-    print("Generates a CMakeLists.txt describing a library")
-    print("The resulting object library will be named like the folder.")
+    print("Generates a CMakeLists.txt for each library in the folder")
+    print("Usage: cmake_libs.py <.../AwesomeArduinoLibrary>")
+    print("Generates a CMakeLists.txt for the specified library")
+    print("The resulting library targets will be named like their folders.")
 
-
-SOURCEFILE_EXTS = (".c", ".cpp", ".S", )
 
 rootdir = Path(sys.argv[1]).resolve()
 script_path = Path(__file__).parent.resolve()
@@ -20,25 +24,17 @@ j2_env = Environment(
 )
 cmake_template = j2_env.get_template("CMakeLists.txt")
 
-if not (rootdir.exists() and rootdir.name == "libraries") :
-    print(f"Invalid variant folder : {rootdir}")
-    exit()
+if not rootdir.exists() :
+    print(f"Can't find {rootdir}/")
+    exit(1)
 
-for lib in rootdir.iterdir() :
-    # technically several variants may be gathered in the same folder
-    if not lib.is_dir() :
-        continue
+if rootdir.name == "libraries" :
+    for lib in rootdir.iterdir() :
+        if not lib.is_dir() :
+            continue
 
-    sources = [
-        file.relative_to(lib)
-        for file in (lib / "src").rglob("*")
-        if file.is_file() and file.suffix in SOURCEFILE_EXTS
-    ]
-
-    with open(lib / "CMakeLists.txt", "w") as outfile :
-        outfile.write(cmake_template.render(
-            target=lib.name,
-            objlib=True,
-            sources=sources,
-            includedir=(lib / "src").relative_to(lib),
-        ))
+        config = autoconfig(lib)
+        render(lib, cmake_template, config)
+else :
+    config = autoconfig(rootdir)
+    render(rootdir, cmake_template, config)

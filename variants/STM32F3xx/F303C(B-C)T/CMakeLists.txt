@@ -1,14 +1,22 @@
 
+
 add_library(variant EXCLUDE_FROM_ALL
-  variant_generic.cpp
-  PeripheralPins_SPARKY_F303CC.c
-  variant_SPARKY_F303CC.cpp
-  generic_clock.c
   PeripheralPins.c
+  PeripheralPins_SPARKY_F303CC.c
+  generic_clock.c
   variant_BLACKPILL_F303CC.cpp
+  variant_SPARKY_F303CC.cpp
+  variant_generic.cpp
 )
 
+target_include_directories(variant PUBLIC
+  .
+)
 
 target_link_libraries(variant PUBLIC
   core_config
 )
+
+
+
+ 
