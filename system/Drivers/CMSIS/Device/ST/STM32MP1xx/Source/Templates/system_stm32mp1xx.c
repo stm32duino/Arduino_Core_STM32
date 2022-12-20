@@ -45,7 +45,7 @@
   * @{
   */
 
-#include "stm32mp1xx_hal.h"
+#include "stm32mp1xx.h"
 
 /**
   * @}

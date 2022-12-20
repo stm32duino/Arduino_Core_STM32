@@ -165,16 +165,6 @@ void OPENAMP_DeInit()
 }
 
 /**
- * @brief Initialize the endpoint struct
- *
- * @param ept: virtio rpmsg endpoint
- */
-void OPENAMP_init_ept(struct rpmsg_endpoint *ept)
-{
-  rpmsg_init_ept(ept, "", RPMSG_ADDR_ANY, RPMSG_ADDR_ANY, NULL, NULL);
-}
-
-/**
  * @brief Create and register the name service endpoint
  *
  * @param ept: virtio rpmsg endpoint

@@ -75,13 +75,13 @@ static void metal_io_close_(struct metal_io_region *io)
 static metal_phys_addr_t metal_io_offset_to_phys_(struct metal_io_region *io,
 						  unsigned long offset)
 {
-	return up_addrenv_va_to_pa((char *)io->virt + offset);
+	return up_addrenv_va_to_pa((void *)((uintptr_t)io->virt + offset));
 }
 
 static unsigned long metal_io_phys_to_offset_(struct metal_io_region *io,
 					      metal_phys_addr_t phys)
 {
-	return (char *)up_addrenv_pa_to_va(phys) - (char *)io->virt;
+	return (uintptr_t)up_addrenv_pa_to_va(phys) - (uintptr_t)io->virt;
 }
 
 static metal_phys_addr_t metal_io_phys_start_;

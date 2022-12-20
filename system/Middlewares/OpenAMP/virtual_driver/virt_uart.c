@@ -46,7 +46,13 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* this string will be sent to remote processor */
-#define RPMSG_SERVICE_NAME              "rpmsg-tty-channel"
+/* Since openSTLinux distribution 4.0 with Linux 5.15,
+   RPMSG_SERVICE_NAME has been renamed from 'rpmsg-tty-channel' to 'rpmsg-tty'
+   if older distribution is used, it is required to redefine it to 'rpmsg-tty-channel'
+*/
+#ifndef RPMSG_SERVICE_NAME
+  #define RPMSG_SERVICE_NAME              "rpmsg-tty"
+#endif
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/

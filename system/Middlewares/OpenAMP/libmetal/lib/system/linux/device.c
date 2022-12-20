@@ -266,7 +266,12 @@ static void metal_uio_dev_close(struct linux_bus *lbus,
 				struct linux_device *ldev)
 {
 	(void)lbus;
+	unsigned int i;
 
+	for (i = 0; i < ldev->device.num_regions; i++) {
+		metal_unmap(ldev->device.regions[i].virt,
+			    ldev->device.regions[i].size);
+	}
 	if (ldev->override) {
 		sysfs_write_attribute(ldev->override, "", 1);
 		ldev->override = NULL;

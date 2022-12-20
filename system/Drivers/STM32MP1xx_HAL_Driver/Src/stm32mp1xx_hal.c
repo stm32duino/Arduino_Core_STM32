@@ -54,7 +54,7 @@
  * @brief STM32MP1xx HAL Driver version number
    */
 #define __STM32MP1xx_HAL_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32MP1xx_HAL_VERSION_SUB1   (0x05U) /*!< [23:16] sub1 version */
+#define __STM32MP1xx_HAL_VERSION_SUB1   (0x06U) /*!< [23:16] sub1 version */
 #define __STM32MP1xx_HAL_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
 #define __STM32MP1xx_HAL_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32MP1xx_HAL_VERSION         ((__STM32MP1xx_HAL_VERSION_MAIN << 24)\
@@ -521,6 +521,33 @@ uint32_t HAL_GetREVID(void)
 uint32_t HAL_GetDEVID(void)
 {
    return((DBGMCU->IDCODE) & IDCODE_DEVID_MASK);
+}
+
+/**
+  * @brief  Return the first word of the unique device identifier (UID based on 96 bits)
+  * @retval Device identifier
+  */
+uint32_t HAL_GetUIDw0(void)
+{
+  return(READ_REG(*((uint32_t *)UID_BASE)));
+}
+
+/**
+  * @brief  Return the second word of the unique device identifier (UID based on 96 bits)
+  * @retval Device identifier
+  */
+uint32_t HAL_GetUIDw1(void)
+{
+  return(READ_REG(*((uint32_t *)(UID_BASE + 4U))));
+}
+
+/**
+  * @brief  Return the third word of the unique device identifier (UID based on 96 bits)
+  * @retval Device identifier
+  */
+uint32_t HAL_GetUIDw2(void)
+{
+  return(READ_REG(*((uint32_t *)(UID_BASE + 8U))));
 }
 
 /**

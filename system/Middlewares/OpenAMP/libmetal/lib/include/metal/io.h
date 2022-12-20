@@ -132,7 +132,7 @@ static inline void *
 metal_io_virt(struct metal_io_region *io, unsigned long offset)
 {
 	return (io->virt != METAL_BAD_VA && offset < io->size
-		? (uint8_t *)io->virt + offset
+		? (void *)((uintptr_t)io->virt + offset)
 		: NULL);
 }
 
@@ -145,7 +145,7 @@ metal_io_virt(struct metal_io_region *io, unsigned long offset)
 static inline unsigned long
 metal_io_virt_to_offset(struct metal_io_region *io, void *virt)
 {
-	size_t offset = (uint8_t *)virt - (uint8_t *)io->virt;
+	size_t offset = (uintptr_t)virt - (uintptr_t)io->virt;
 
 	return (offset < io->size ? offset : METAL_BAD_OFFSET);
 }
@@ -363,16 +363,16 @@ int metal_io_block_write(struct metal_io_region *io, unsigned long offset,
 int metal_io_block_set(struct metal_io_region *io, unsigned long offset,
 		       unsigned char value, int len);
 
-#ifdef METAL_FREERTOS
-#include <metal/system/freertos/io.h>
-#else
-#include <metal/system/generic/io.h>
-#endif
-
 /** @} */
 
 #ifdef __cplusplus
 }
+#endif
+
+#ifdef METAL_FREERTOS
+#include <metal/system/freertos/io.h>
+#else
+#include <metal/system/generic/io.h>
 #endif
 
 #endif /* __METAL_IO__H__ */

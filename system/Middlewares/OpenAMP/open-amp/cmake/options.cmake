@@ -74,6 +74,18 @@ if (NOT WITH_VIRTIO_SLAVE)
   add_definitions(-DVIRTIO_MASTER_ONLY)
 endif (NOT WITH_VIRTIO_SLAVE)
 
+option (WITH_DCACHE_VRINGS "Build with vrings cache operations enabled" OFF)
+
+if (WITH_DCACHE_VRINGS)
+  add_definitions(-DVIRTIO_CACHED_VRINGS)
+endif (WITH_DCACHE_VRINGS)
+
+option (WITH_DCACHE_BUFFERS "Build with vrings cache operations enabled" OFF)
+
+if (WITH_DCACHE_BUFFERS)
+  add_definitions(-DVIRTIO_CACHED_BUFFERS)
+endif (WITH_DCACHE_BUFFERS)
+
 # Set the complication flags
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
 

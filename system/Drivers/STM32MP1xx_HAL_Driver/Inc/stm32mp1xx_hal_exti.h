@@ -172,6 +172,7 @@ typedef struct
 /** @defgroup EXTI_Mode  EXTI Mode
   * @{
   */
+
 #define EXTI_MODE_C1_NONE                   0x00000010u
 #define EXTI_MODE_C1_INTERRUPT              0x00000011u
 #define EXTI_MODE_C2_NONE                   0x00000020u
@@ -307,7 +308,6 @@ typedef struct
                                          ((__PORT__) == EXTI_GPIOI) || \
                                          ((__PORT__) == EXTI_GPIOK) || \
                                          ((__PORT__) == EXTI_GPIOZ))
-
 #define IS_EXTI_GPIO_PIN(__PIN__)       ((__PIN__) < 16u)
 
 /**

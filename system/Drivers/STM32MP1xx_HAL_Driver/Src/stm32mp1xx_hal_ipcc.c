@@ -776,4 +776,3 @@ void IPCC_Reset_Register(IPCC_CommonTypeDef *Instance)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

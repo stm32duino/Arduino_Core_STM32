@@ -12,6 +12,9 @@
 #ifndef __METAL_DMA__H__
 #define __METAL_DMA__H__
 
+#include <stdint.h>
+#include <metal/sys.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -19,9 +22,6 @@ extern "C" {
 /** \defgroup dma DMA Interfaces
  *  @{
  */
-
-#include <stdint.h>
-#include <metal/sys.h>
 
 #define METAL_DMA_DEV_R  1 /**< DMA direction, device read */
 #define METAL_DMA_DEV_W  2 /**< DMA direction, device write */

@@ -12,6 +12,9 @@
 #ifndef __METAL_IRQ__H__
 #define __METAL_IRQ__H__
 
+#include <metal/list.h>
+#include <stdlib.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -19,9 +22,6 @@ extern "C" {
 /** \defgroup irq Interrupt Handling Interfaces
  *  @{
  */
-
-#include <metal/list.h>
-#include <stdlib.h>
 
 /** IRQ handled status */
 #define METAL_IRQ_NOT_HANDLED 0

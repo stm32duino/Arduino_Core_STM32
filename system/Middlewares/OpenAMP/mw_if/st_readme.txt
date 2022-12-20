@@ -8,7 +8,7 @@
   ********************************************************************************
   * @attention
   *
-  * Copyright (c) 2021 STMicroelectronics. All rights reserved.
+  * Copyright (c) 2022 STMicroelectronics. All rights reserved.
   *
   * This software component is licensed by ST under BSD 3-Clause license,
   * the "License"; You may not use this file except in compliance with the
@@ -17,6 +17,11 @@
   *
   ******************************************************************************
   @endverbatim
+
+### V1.0.6/18-January-2022 ###
+================================
+   + openamp_template.h
+     - fix include declaration with gcc++
 
 ### V1.0.5/15-September-2021 ###
 ================================

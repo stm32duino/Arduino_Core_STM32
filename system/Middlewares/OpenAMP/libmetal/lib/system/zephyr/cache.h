@@ -25,13 +25,12 @@ extern "C" {
 
 static inline void __metal_cache_flush(void *addr, unsigned int len)
 {
-	sys_cache_flush((vaddr_t) addr, len);
+	sys_cache_data_range(addr, len, K_CACHE_WB);
 }
 
 static inline void __metal_cache_invalidate(void *addr, unsigned int len)
 {
-	metal_unused(addr);
-	metal_unused(len);
+	sys_cache_data_range(addr, len, K_CACHE_INVD);
 }
 
 #ifdef __cplusplus

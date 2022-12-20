@@ -36,16 +36,16 @@ static inline void *metal_allocate_memory(unsigned int size);
  */
 static inline void metal_free_memory(void *ptr);
 
-#ifdef METAL_FREERTOS
-#include <metal/system/freertos/alloc.h>
-#else
-#include <metal/system/generic/alloc.h>
-#endif
-
 /** @} */
 
 #ifdef __cplusplus
 }
+#endif
+
+#ifdef METAL_FREERTOS
+#include <metal/system/freertos/alloc.h>
+#else
+#include <metal/system/generic/alloc.h>
 #endif
 
 #endif /* __METAL_ALLOC__H__ */

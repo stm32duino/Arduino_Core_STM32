@@ -22,7 +22,7 @@
             ##### How to use this driver #####
 ================================================================================
     [..]
-         (+) Set user-defined generating polynomial thru HAL_CRCEx_Polynomial_Set()
+         (+) Set user-defined generating polynomial through HAL_CRCEx_Polynomial_Set()
          (+) Configure Input or Output data inversion
 
   @endverbatim
