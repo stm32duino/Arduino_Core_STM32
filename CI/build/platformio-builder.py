@@ -6,7 +6,8 @@ import sys
 # Libraries that are not meant to be checked in CI by default
 DEFAULT_IGNORED_LIBRARIES = (
     "keyboard",
-    "mouse"
+    "mouse",
+    "SubGhz"
 )
 
 
