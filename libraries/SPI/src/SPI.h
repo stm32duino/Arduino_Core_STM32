@@ -74,29 +74,26 @@ enum SPITransferMode {
 
 class SPISettings {
   public:
-    SPISettings(uint32_t clock, BitOrder bitOrder, uint8_t dataMode, bool noRecv = SPI_TRANSMITRECEIVE)
-    {
-      clk = clock;
-      bOrder = bitOrder;
-      noReceive = noRecv;
-
-      if (SPI_MODE0 == dataMode) {
-        dMode = SPI_MODE_0;
-      } else if (SPI_MODE1 == dataMode) {
-        dMode = SPI_MODE_1;
-      } else if (SPI_MODE2 == dataMode) {
-        dMode = SPI_MODE_2;
-      } else if (SPI_MODE3 == dataMode) {
-        dMode = SPI_MODE_3;
-      }
-    }
-    SPISettings()
-    {
-      pinCS = -1;
-      clk = SPI_SPEED_CLOCK_DEFAULT;
-      bOrder = MSBFIRST;
-      dMode = SPI_MODE_0;
-    }
+    constexpr SPISettings(uint32_t clock, BitOrder bitOrder, uint8_t dataMode, bool noRecv = SPI_TRANSMITRECEIVE)
+      : pinCS(-1),
+        clk(clock),
+        bOrder(bitOrder),
+        dMode((spi_mode_e)(
+                (SPI_MODE0 == dataMode) ? SPI_MODE_0 :
+                (SPI_MODE1 == dataMode) ? SPI_MODE_1 :
+                (SPI_MODE2 == dataMode) ? SPI_MODE_2 :
+                (SPI_MODE3 == dataMode) ? SPI_MODE_3 :
+                SPI_MODE0
+              )),
+        noReceive(noRecv)
+    { }
+    constexpr SPISettings()
+      : pinCS(-1),
+        clk(SPI_SPEED_CLOCK_DEFAULT),
+        bOrder(MSBFIRST),
+        dMode(SPI_MODE_0),
+        noReceive(SPI_TRANSMITRECEIVE)
+    { }
   private:
     int16_t pinCS;      //CS pin associated to the configuration
     uint32_t clk;       //specifies the spi bus maximum clock speed
