@@ -109,6 +109,10 @@ To increase the performance of SerialVirtIO you can resize the related buffer co
 
 The recommended option is to resize `VRING_NUM_BUFFS`. Be very cautious when resizing `RPMSG_BUFFER_SIZE`, which must be matched with the Linux kernel definition. Also `VIRTIO_BUFFER_SIZE` has the minimum required size depending on the other two. See their links above for further descriptions.
 
+#### Note
+
+* Since openSTLinux distribution 4.0 with Linux 5.15, `RPMSG_SERVICE_NAME` has been renamed from `rpmsg-tty-channel` to `rpmsg-tty`, if older distribution is used, it is required to redefine it to  `rpmsg-tty-channel`
+
 To redefine these definitions, see how to create `build_opt.h` described in Debugging section below.
 
 ### Virtual Serial Example
