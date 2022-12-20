@@ -501,7 +501,7 @@ def commitFiles(repo_path, commit_msg):
         ["git", "-C", repo_path, "status", "--untracked-files", "--short"], None
     )
     if not status:
-        return
+        return False
     # Staged all files: new, modified and deleted
     execute_cmd(["git", "-C", repo_path, "add", "--all"], subprocess.DEVNULL)
     # Commit all stage files with signoff and message
@@ -522,10 +522,11 @@ def commitFiles(repo_path, commit_msg):
         ["git", "-C", repo_path, "rebase", "--whitespace=fix", "HEAD~1"],
         subprocess.DEVNULL,
     )
+    return True
 
 
 # Apply all patches found for the dedicated serie
-def applyPatch(serie, HAL_updated, CMSIS_updated, repo_path):
+def applyPatch(serie, HAL_updated, CMSIS_updated, openamp_updated, repo_path):
     # First check if some patch need to be applied
     patch_path = script_path / "patch"
     patch_list = []
@@ -541,6 +542,12 @@ def applyPatch(serie, HAL_updated, CMSIS_updated, repo_path):
             for file in CMSIS_patch_path.iterdir():
                 if file.name.endswith(".patch"):
                     patch_list.append(CMSIS_patch_path / file)
+    if CMSIS_updated:
+        openamp_patch_path = patch_path / "openamp"
+        if openamp_patch_path.is_dir():
+            for file in openamp_patch_path.iterdir():
+                if file.name.endswith(".patch"):
+                    patch_list.append(openamp_patch_path / file)
 
     if len(patch_list):
         patch_failed = []
@@ -790,6 +797,7 @@ def updateCore():
         cube_version = cube_versions[serie]
         HAL_updated = False
         CMSIS_updated = False
+        openamp_updated = False
         hal_commit_msg = """system({0}) {3} STM32{0}xx HAL Drivers to v{1}
 
 Included in STM32Cube{0} FW {2}""".format(
@@ -823,8 +831,7 @@ Included in STM32Cube{0} FW {2}""".format(
             # Update MD file
             updateMDFile(md_HAL_path, serie, cube_HAL_ver)
             # Commit all HAL files
-            commitFiles(core_path, hal_commit_msg)
-            HAL_updated = True
+            HAL_updated = commitFiles(core_path, hal_commit_msg)
 
         if version.parse(core_CMSIS_ver) < version.parse(cube_CMSIS_ver):
             if upargs.add:
@@ -842,8 +849,7 @@ Included in STM32Cube{0} FW {2}""".format(
             # Update MD file
             updateMDFile(md_CMSIS_path, serie, cube_CMSIS_ver)
             # Commit all CMSIS files
-            commitFiles(core_path, cmsis_commit_msg)
-            CMSIS_updated = True
+            CMSIS_updated = commitFiles(core_path, cmsis_commit_msg)
 
         if upargs.add:
             system_commit_msg = (
@@ -867,23 +873,13 @@ Included in STM32Cube{0} FW {2}""".format(
             updateStm32Def(serie)
             commitFiles(core_path, update_stm32_def_commit_msg)
 
-        if HAL_updated or CMSIS_updated:
-            # Generate all wrapper files
-            # Assuming the ArduinoModule-CMSIS repo available
-            # at the same root level than the core
-            print(f"{'Adding' if upargs.add else 'Updating'} {serie} wrapped files...")
-            if stm32wrapper.wrap(core_path, None, False) == 0:
-                commitFiles(core_path, wrapper_commit_msg)
-            # Apply all related patch if any
-            applyPatch(serie, HAL_updated, CMSIS_updated, core_path)
-
         if serie == "MP1":
             print(f"Updating {serie} OpenAmp Middleware to Cube {cube_version} ...")
             updateOpenAmp()
             openAmp_commit_msg = (
-                f"Update OpenAmp Middleware to MP1 Cube version {cube_version}"
+                f"system(openamp): update middleware to MP1 Cube version {cube_version}"
             )
-            commitFiles(core_path, openAmp_commit_msg)
+            openamp_updated = commitFiles(core_path, openAmp_commit_msg)
             print(
                 "WARNING: OpenAmp MW has been updated, please check whether Arduino implementation:"
             )
@@ -901,6 +897,16 @@ Included in STM32Cube{0} FW {2}""".format(
 
         if serie == "WB":
             updateBle()
+
+        if HAL_updated or CMSIS_updated or openamp_updated:
+            # Generate all wrapper files
+            # Assuming the ArduinoModule-CMSIS repo available
+            # at the same root level than the core
+            print(f"{'Adding' if upargs.add else 'Updating'} {serie} wrapped files...")
+            if stm32wrapper.wrap(core_path, None, False) == 0:
+                commitFiles(core_path, wrapper_commit_msg)
+            # Apply all related patch if any
+            applyPatch(serie, HAL_updated, CMSIS_updated, openamp_updated, core_path)
 
 
 # Parser
