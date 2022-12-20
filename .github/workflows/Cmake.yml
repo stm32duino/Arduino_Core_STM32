@@ -1,0 +1,29 @@
+name: CMake config and build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  cmake:
+    name: Check CMake usage
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Get latest CMake and Ninja
+        uses: lukka/get-cmake@latest
+
+      - name: Configure
+        run: |
+          mkdir build
+          cmake -S CI/build/examples/BareMinimum -B ./build -G Ninja
+
+      - name: Build example
+        working-directory: '${{ github.workspace }}/build'
+        run: ninja
