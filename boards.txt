@@ -9532,6 +9532,14 @@ GenWB.build.cmsis_lib_gcc=arm_cortexM4lf_math
 GenWB.upload.maximum_size=0
 GenWB.upload.maximum_data_size=0
 
+# Generic WB15CCUx
+GenWB.menu.pnum.GENERIC_WB15CCUX=Generic WB15CCUx
+GenWB.menu.pnum.GENERIC_WB15CCUX.upload.maximum_size=131072
+GenWB.menu.pnum.GENERIC_WB15CCUX.upload.maximum_data_size=12288
+GenWB.menu.pnum.GENERIC_WB15CCUX.build.board=GENERIC_WB15CCUX
+GenWB.menu.pnum.GENERIC_WB15CCUX.build.product_line=STM32WB15xx
+GenWB.menu.pnum.GENERIC_WB15CCUX.build.variant=STM32WBxx/WB15CCU
+
 # Generic WB55CCUx
 GenWB.menu.pnum.GENERIC_WB55CCUX=Generic WB55CCUx
 GenWB.menu.pnum.GENERIC_WB55CCUX.upload.maximum_size=131072
