@@ -74,29 +74,26 @@ enum SPITransferMode {
 
 class SPISettings {
   public:
-    SPISettings(uint32_t clock, BitOrder bitOrder, uint8_t dataMode, bool noRecv = SPI_TRANSMITRECEIVE)
-    {
-      clk = clock;
-      bOrder = bitOrder;
-      noReceive = noRecv;
-
-      if (SPI_MODE0 == dataMode) {
-        dMode = SPI_MODE_0;
-      } else if (SPI_MODE1 == dataMode) {
-        dMode = SPI_MODE_1;
-      } else if (SPI_MODE2 == dataMode) {
-        dMode = SPI_MODE_2;
-      } else if (SPI_MODE3 == dataMode) {
-        dMode = SPI_MODE_3;
-      }
-    }
-    SPISettings()
-    {
-      pinCS = -1;
-      clk = SPI_SPEED_CLOCK_DEFAULT;
-      bOrder = MSBFIRST;
-      dMode = SPI_MODE_0;
-    }
+    constexpr SPISettings(uint32_t clock, BitOrder bitOrder, uint8_t dataMode, bool noRecv = SPI_TRANSMITRECEIVE)
+      : pinCS(-1),
+        clk(clock),
+        bOrder(bitOrder),
+        dMode((spi_mode_e)(
+                (SPI_MODE0 == dataMode) ? SPI_MODE_0 :
+                (SPI_MODE1 == dataMode) ? SPI_MODE_1 :
+                (SPI_MODE2 == dataMode) ? SPI_MODE_2 :
+                (SPI_MODE3 == dataMode) ? SPI_MODE_3 :
+                SPI_MODE0
+              )),
+        noReceive(noRecv)
+    { }
+    constexpr SPISettings()
+      : pinCS(-1),
+        clk(SPI_SPEED_CLOCK_DEFAULT),
+        bOrder(MSBFIRST),
+        dMode(SPI_MODE_0),
+        noReceive(SPI_TRANSMITRECEIVE)
+    { }
   private:
     int16_t pinCS;      //CS pin associated to the configuration
     uint32_t clk;       //specifies the spi bus maximum clock speed
@@ -151,7 +148,7 @@ class SPIClass {
       _spi.pin_ssel = (ssel);
     };
 
-    void begin(uint8_t _pin = CS_PIN_CONTROLLED_BY_USER);
+    virtual void begin(uint8_t _pin = CS_PIN_CONTROLLED_BY_USER);
     void end(void);
 
     /* This function should be used to configure the SPI instance in case you
@@ -159,7 +156,7 @@ class SPIClass {
      * You can attach another CS pin to the SPI instance and each CS pin can be
      * attach with specific SPI settings.
      */
-    void beginTransaction(uint8_t pin, SPISettings settings);
+    virtual void beginTransaction(uint8_t pin, SPISettings settings);
     void beginTransaction(SPISettings settings)
     {
       beginTransaction(CS_PIN_CONTROLLED_BY_USER, settings);
@@ -175,10 +172,10 @@ class SPIClass {
      * instance with begin() or beginTransaction().
      * You can specify the CS pin to use.
      */
-    byte transfer(uint8_t pin, uint8_t _data, SPITransferMode _mode = SPI_LAST);
-    uint16_t transfer16(uint8_t pin, uint16_t _data, SPITransferMode _mode = SPI_LAST);
-    void transfer(uint8_t pin, void *_buf, size_t _count, SPITransferMode _mode = SPI_LAST);
-    void transfer(byte _pin, void *_bufout, void *_bufin, size_t _count, SPITransferMode _mode = SPI_LAST);
+    virtual byte transfer(uint8_t pin, uint8_t _data, SPITransferMode _mode = SPI_LAST);
+    virtual uint16_t transfer16(uint8_t pin, uint16_t _data, SPITransferMode _mode = SPI_LAST);
+    virtual void transfer(uint8_t pin, void *_buf, size_t _count, SPITransferMode _mode = SPI_LAST);
+    virtual void transfer(byte _pin, void *_bufout, void *_bufin, size_t _count, SPITransferMode _mode = SPI_LAST);
 
     // Transfer functions when user controls himself the CS pin.
     byte transfer(uint8_t _data, SPITransferMode _mode = SPI_LAST)
@@ -233,6 +230,10 @@ class SPIClass {
       return &(_spi.handle);
     }
 
+  protected:
+    // spi instance
+    spi_t         _spi;
+
   private:
     /* Contains various spiSettings for the same spi instance. Each spi spiSettings
     is associated to a CS pin. */
@@ -240,10 +241,6 @@ class SPIClass {
 
     // Use to know which configuration is selected.
     int16_t       _CSPinConfig;
-
-    // spi instance
-    spi_t         _spi;
-
 
     typedef enum {
       GET_IDX = 0,
@@ -304,4 +301,27 @@ class SPIClass {
 
 extern SPIClass SPI;
 
+#if defined(SUBGHZSPI_BASE)
+class SUBGHZSPIClass : public SPIClass {
+  public:
+    SUBGHZSPIClass(): SPIClass{NC, NC, NC, NC}
+    {
+      _spi.spi = SUBGHZSPI;
+    }
+
+    void begin(uint8_t _pin = CS_PIN_CONTROLLED_BY_USER);
+    void beginTransaction(uint8_t pin, SPISettings settings);
+    byte transfer(uint8_t pin, uint8_t _data, SPITransferMode _mode = SPI_LAST);
+    uint16_t transfer16(uint8_t pin, uint16_t _data, SPITransferMode _mode = SPI_LAST);
+    void transfer(uint8_t pin, void *_buf, size_t _count, SPITransferMode _mode = SPI_LAST);
+    void transfer(byte _pin, void *_bufout, void *_bufin, size_t _count, SPITransferMode _mode = SPI_LAST);
+    void enableDebugPins(uint32_t mosi = DEBUG_SUBGHZSPI_MOSI, uint32_t miso = DEBUG_SUBGHZSPI_MISO, uint32_t sclk = DEBUG_SUBGHZSPI_SCLK, uint32_t ssel = DEBUG_SUBGHZSPI_SS);
+
+    using SPIClass::beginTransaction;
+    using SPIClass::transfer;
+    using SPIClass::transfer16;
+};
+
 #endif
+
+#endif /* _SPI_H_INCLUDED */

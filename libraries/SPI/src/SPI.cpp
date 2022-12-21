@@ -421,3 +421,78 @@ void SPIClass::detachInterrupt(void)
 {
   // Should be disableInterrupt()
 }
+
+#if defined(SUBGHZSPI_BASE)
+void SUBGHZSPIClass::begin(uint8_t _pin)
+{
+  if (_pin != CS_PIN_CONTROLLED_BY_USER) {
+    LL_PWR_UnselectSUBGHZSPI_NSS();
+  }
+  SPIClass::begin(CS_PIN_CONTROLLED_BY_USER);
+}
+
+void SUBGHZSPIClass::beginTransaction(uint8_t _pin, SPISettings settings)
+{
+  if (_pin != CS_PIN_CONTROLLED_BY_USER) {
+    LL_PWR_UnselectSUBGHZSPI_NSS();
+  }
+  SPIClass::beginTransaction(CS_PIN_CONTROLLED_BY_USER, settings);
+}
+
+byte SUBGHZSPIClass::transfer(uint8_t _pin, uint8_t _data, SPITransferMode _mode)
+{
+  byte res;
+  if (_pin != CS_PIN_CONTROLLED_BY_USER) {
+    LL_PWR_SelectSUBGHZSPI_NSS();
+  }
+  res = SPIClass::transfer(CS_PIN_CONTROLLED_BY_USER, _data, _mode);
+  if (_pin != CS_PIN_CONTROLLED_BY_USER) {
+    LL_PWR_UnselectSUBGHZSPI_NSS();
+  }
+  return res;
+}
+
+uint16_t SUBGHZSPIClass::transfer16(uint8_t _pin, uint16_t _data, SPITransferMode _mode)
+{
+  uint16_t rx_buffer = 0;
+  if (_pin != CS_PIN_CONTROLLED_BY_USER) {
+    LL_PWR_SelectSUBGHZSPI_NSS();
+  }
+  SPIClass::transfer16(CS_PIN_CONTROLLED_BY_USER, _data, _mode);
+  if (_pin != CS_PIN_CONTROLLED_BY_USER) {
+    LL_PWR_UnselectSUBGHZSPI_NSS();
+  }
+  return rx_buffer;
+}
+
+void SUBGHZSPIClass::transfer(uint8_t _pin, void *_buf, size_t _count, SPITransferMode _mode)
+{
+  if (_pin != CS_PIN_CONTROLLED_BY_USER) {
+    LL_PWR_SelectSUBGHZSPI_NSS();
+  }
+  SPIClass::transfer(CS_PIN_CONTROLLED_BY_USER, _buf, _count, _mode);
+  if (_pin != CS_PIN_CONTROLLED_BY_USER) {
+    LL_PWR_UnselectSUBGHZSPI_NSS();
+  }
+}
+
+void SUBGHZSPIClass::transfer(byte _pin, void *_bufout, void *_bufin, size_t _count, SPITransferMode _mode)
+{
+  if (_pin != CS_PIN_CONTROLLED_BY_USER) {
+    LL_PWR_SelectSUBGHZSPI_NSS();
+  }
+  SPIClass::transfer(CS_PIN_CONTROLLED_BY_USER, _bufout, _bufin, _count, _mode);
+  if (_pin != CS_PIN_CONTROLLED_BY_USER) {
+    LL_PWR_UnselectSUBGHZSPI_NSS();
+  }
+}
+
+void SUBGHZSPIClass::enableDebugPins(uint32_t mosi, uint32_t miso, uint32_t sclk, uint32_t ssel)
+{
+  /* Configure SPI GPIO pins */
+  pinmap_pinout(digitalPinToPinName(mosi), PinMap_SPI_MOSI);
+  pinmap_pinout(digitalPinToPinName(miso), PinMap_SPI_MISO);
+  pinmap_pinout(digitalPinToPinName(sclk), PinMap_SPI_SCLK);
+  pinmap_pinout(digitalPinToPinName(ssel), PinMap_SPI_SSEL);
+}
+#endif

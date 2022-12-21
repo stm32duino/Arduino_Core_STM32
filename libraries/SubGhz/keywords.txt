@@ -1,0 +1,26 @@
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+callback_function_t	KEYWORD1
+SubGhzClass	KEYWORD1
+SubGhz	KEYWORD1
+
+#######################################
+# Functions (KEYWORD2)
+#######################################
+attachInterrupt	KEYWORD2
+clearPendingInterrupt	KEYWORD2
+detachInterrupt	KEYWORD2
+disableInterrupt	KEYWORD2
+enableInterrupt	KEYWORD2
+hasInterrupt	KEYWORD2
+isBusy	KEYWORD2
+isInterruptPending	KEYWORD2
+isNssActive	KEYWORD2
+isResetActive	KEYWORD2
+setNssActive	KEYWORD2
+setResetActive	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
