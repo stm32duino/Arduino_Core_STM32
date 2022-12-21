@@ -4,6 +4,7 @@
 [![STM32 Core Continuous Integration](https://github.com/stm32duino/Arduino_Core_STM32/actions/workflows/Continuous-Integration.yml/badge.svg?branch=main)](https://github.com/stm32duino/Arduino_Core_STM32/actions/workflows/Continuous-Integration.yml)
 [![Arduino lint status](https://github.com/stm32duino/Arduino_Core_STM32/actions/workflows/arduino-lint.yml/badge.svg)](https://github.com/stm32duino/Arduino_Core_STM32/actions/workflows/arduino-lint.yml)
 [![codespell](https://github.com/stm32duino/Arduino_Core_STM32/actions/workflows/CodeSpell.yml/badge.svg)](https://github.com/stm32duino/Arduino_Core_STM32/actions/workflows/CodeSpell.yml)
+[![CMake](https://github.com/stm32duino/Arduino_Core_STM32/actions/workflows/Cmake.yml/badge.svg)](https://github.com/stm32duino/Arduino_Core_STM32/actions/workflows/Cmake.yml)
 
 
 [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
