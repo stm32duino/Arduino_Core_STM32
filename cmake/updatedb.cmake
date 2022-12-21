@@ -1,0 +1,24 @@
+cmake_minimum_required(VERSION 3.21)
+
+function(updatedb)
+  set_property(DIRECTORY APPEND
+    PROPERTY CMAKE_CONFIGURE_DEPENDS
+    "${BOARDSTXT_PATH}" "${PLATFORMTXT_PATH}" "${CMAKE_BOARDS_DB_TEMPLATE_PATH}"
+  )
+
+  if(
+    ${BOARDSTXT_PATH} IS_NEWER_THAN ${CMAKE_BOARDS_DB_PATH}
+    OR ${PLATFORMTXT_PATH} IS_NEWER_THAN ${CMAKE_BOARDS_DB_PATH}
+    OR ${CMAKE_BOARDS_DB_TEMPLATE_PATH} IS_NEWER_THAN ${CMAKE_BOARDS_DB_PATH}
+  )
+    execute_process(
+      COMMAND ${Python3_EXECUTABLE} ${SCRIPTS_FOLDER}/update_boarddb.py
+      -b ${BOARDSTXT_PATH}
+      -p ${PLATFORMTXT_PATH}
+      -t ${CMAKE_BOARDS_DB_TEMPLATE_PATH}
+      -o ${CMAKE_BOARDS_DB_PATH}
+
+      COMMAND_ERROR_IS_FATAL ANY
+    )
+  endif()
+endfunction()
