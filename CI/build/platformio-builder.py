@@ -7,7 +7,7 @@ import sys
 DEFAULT_IGNORED_LIBRARIES = (
     "keyboard",
     "mouse",
-    "SubGhz"
+    "subghz"
 )
 
 

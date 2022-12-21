@@ -6,7 +6,7 @@ This action build thanks PIO.
 
 ### `cmsis-version`
 
-The CMSIS version to use. Default `"5.5.1"`.
+The CMSIS version to use. Default `"5.7.0"`.
 
 ## Example usage
 
