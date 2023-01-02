@@ -1428,6 +1428,14 @@ GenF0.menu.pnum.GENERIC_F051R4TX.build.board=GENERIC_F051R4TX
 GenF0.menu.pnum.GENERIC_F051R4TX.build.product_line=STM32F051x8
 GenF0.menu.pnum.GENERIC_F051R4TX.build.variant=STM32F0xx/F051R4T
 
+# Generic F051R8Tx
+GenF0.menu.pnum.GENERIC_F051R8TX=Generic F051R8Tx
+GenF0.menu.pnum.GENERIC_F051R8TX.upload.maximum_size=65536
+GenF0.menu.pnum.GENERIC_F051R8TX.upload.maximum_data_size=8192
+GenF0.menu.pnum.GENERIC_F051R8TX.build.board=GENERIC_F051R8TX
+GenF0.menu.pnum.GENERIC_F051R8TX.build.product_line=STM32F051x8
+GenF0.menu.pnum.GENERIC_F051R8TX.build.variant=STM32F0xx/F051R8(H-T)
+
 # Generic F051T8Yx
 GenF0.menu.pnum.GENERIC_F051T8YX=Generic F051T8Yx
 GenF0.menu.pnum.GENERIC_F051T8YX.upload.maximum_size=65536
@@ -1883,6 +1891,10 @@ GenF0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF0.menu.upload_method.dfuMethod.upload.protocol=2
 GenF0.menu.upload_method.dfuMethod.upload.options=-g
 GenF0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+GenF0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenF0.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenF0.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 ################################################################################
 # Generic F1
