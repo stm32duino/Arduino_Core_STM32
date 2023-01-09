@@ -47,7 +47,8 @@ extern "C" {
 #elif defined (TIM10_BASE)
 #define TIM1_IRQHandler TIM1_UP_TIM10_IRQHandler
 #endif
-#elif defined(STM32F3xx) || defined(STM32L4xx) || defined(STM32WBxx)
+#elif (defined(STM32F3xx) || defined(STM32L4xx) || defined(STM32WBxx)) &&\
+      defined(TIM16_BASE)
 #define TIM1_IRQn TIM1_UP_TIM16_IRQn
 #define TIM1_IRQHandler TIM1_UP_TIM16_IRQHandler
 #elif defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx)
@@ -59,7 +60,7 @@ extern "C" {
 #define TIM1_IRQHandler TIM1_UP_TIM10_IRQHandler
 #endif
 #elif defined(STM32H7xx) || defined(STM32L5xx) || defined(STM32MP1xx) ||\
-      defined(STM32U5xx) || defined(STM32WLxx)
+      defined(STM32U5xx) || defined(STM32WBxx) || defined(STM32WLxx)
 #define TIM1_IRQn TIM1_UP_IRQn
 #define TIM1_IRQHandler TIM1_UP_IRQHandler
 #endif

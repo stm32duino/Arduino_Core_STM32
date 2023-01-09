@@ -586,6 +586,20 @@ Nucleo_64.menu.pnum.NUCLEO_L476RG.build.product_line=STM32L476xx
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.variant=STM32L4xx/L475R(C-E-G)T_L476R(C-E-G)T_L486RGT
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
+# NUCLEO_WB15CC
+Nucleo_64.menu.pnum.NUCLEO_WB15CC=Nucleo WB15CC
+Nucleo_64.menu.pnum.NUCLEO_WB15CC.node="NOD_WB15CC"
+Nucleo_64.menu.pnum.NUCLEO_WB15CC.upload.maximum_size=131072
+Nucleo_64.menu.pnum.NUCLEO_WB15CC.upload.maximum_data_size=12288
+Nucleo_64.menu.pnum.NUCLEO_WB15CC.build.mcu=cortex-m4
+Nucleo_64.menu.pnum.NUCLEO_WB15CC.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_WB15CC.build.float-abi=-mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_WB15CC.build.board=NUCLEO_WB15CC
+Nucleo_64.menu.pnum.NUCLEO_WB15CC.build.series=STM32WBxx
+Nucleo_64.menu.pnum.NUCLEO_WB15CC.build.product_line=STM32WB15xx
+Nucleo_64.menu.pnum.NUCLEO_WB15CC.build.variant=STM32WBxx/WB15CCU
+Nucleo_64.menu.pnum.NUCLEO_WB15CC.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
 # P_NUCLEO_WB55RG board
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG=P-Nucleo WB55RG
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.node="NODE_WB55RG,NOD_WB55RG"
@@ -9531,6 +9545,14 @@ GenWB.build.series=STM32WBxx
 GenWB.build.cmsis_lib_gcc=arm_cortexM4lf_math
 GenWB.upload.maximum_size=0
 GenWB.upload.maximum_data_size=0
+
+# Generic WB15CCUx
+GenWB.menu.pnum.GENERIC_WB15CCUX=Generic WB15CCUx
+GenWB.menu.pnum.GENERIC_WB15CCUX.upload.maximum_size=131072
+GenWB.menu.pnum.GENERIC_WB15CCUX.upload.maximum_data_size=12288
+GenWB.menu.pnum.GENERIC_WB15CCUX.build.board=GENERIC_WB15CCUX
+GenWB.menu.pnum.GENERIC_WB15CCUX.build.product_line=STM32WB15xx
+GenWB.menu.pnum.GENERIC_WB15CCUX.build.variant=STM32WBxx/WB15CCU
 
 # Generic WB55CCUx
 GenWB.menu.pnum.GENERIC_WB55CCUX=Generic WB55CCUx

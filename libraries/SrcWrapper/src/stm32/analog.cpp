@@ -860,7 +860,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #if !defined(STM32F1xx) && !defined(STM32F2xx) && !defined(STM32F3xx) && \
     !defined(STM32F4xx) && !defined(STM32F7xx) && !defined(STM32G4xx) && \
     !defined(STM32H7xx) && !defined(STM32L4xx) && !defined(STM32L5xx) && \
-    !defined(STM32MP1xx) && !defined(STM32WBxx)
+    !defined(STM32MP1xx) && !defined(STM32WBxx) ||  defined(ADC_SUPPORT_2_5_MSPS)
   AdcHandle.Init.LowPowerAutoPowerOff  = DISABLE;                       /* ADC automatically powers-off after a conversion and automatically wakes-up when a new conversion is triggered */
 #endif
 #ifdef ADC_CHANNELS_BANK_B
@@ -874,7 +874,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #endif
   AdcHandle.Init.DiscontinuousConvMode = DISABLE;                       /* Parameter discarded because sequencer is disabled */
 #if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx) && \
-    !defined(STM32WLxx)
+    !defined(STM32WLxx) && !defined(ADC_SUPPORT_2_5_MSPS)
   AdcHandle.Init.NbrOfDiscConversion   = 0;                             /* Parameter discarded because sequencer is disabled */
 #endif
   AdcHandle.Init.ExternalTrigConv      = ADC_SOFTWARE_START;            /* Software start to trig the 1st conversion manually, without external event */
@@ -898,7 +898,8 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #if defined(STM32F0xx)
   AdcHandle.Init.SamplingTimeCommon    = samplingTime;
 #endif
-#if defined(STM32G0xx) || defined(STM32U5xx) || defined(STM32WLxx)
+#if defined(STM32G0xx) || defined(STM32U5xx) || defined(STM32WLxx) || \
+    defined(ADC_SUPPORT_2_5_MSPS)
   AdcHandle.Init.SamplingTimeCommon1   = samplingTime;              /* Set sampling time common to a group of channels. */
   AdcHandle.Init.SamplingTimeCommon2   = samplingTime;              /* Set sampling time common to a group of channels, second common setting possible.*/
 #endif
@@ -908,7 +909,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #endif
 #if !defined(STM32F0xx) && !defined(STM32F1xx) && !defined(STM32F2xx) && \
     !defined(STM32F3xx) && !defined(STM32F4xx) && !defined(STM32F7xx) && \
-    !defined(STM32L1xx)
+    !defined(STM32L1xx) && !defined(ADC_SUPPORT_2_5_MSPS)
   AdcHandle.Init.OversamplingMode      = DISABLE;
   /* AdcHandle.Init.Oversample ignore for STM32L0xx as oversampling disabled */
   /* AdcHandle.Init.Oversampling ignored for other as oversampling disabled */
