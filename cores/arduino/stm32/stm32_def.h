@@ -22,7 +22,9 @@
 
 #define USE_HAL_DRIVER
 
-#if defined(STM32F0xx)
+#if defined(STM32C0xx)
+  #include "stm32c0xx.h"
+#elif defined(STM32F0xx)
   #include "stm32f0xx.h"
 #elif defined(STM32F1xx)
   #include "stm32f1xx.h"
