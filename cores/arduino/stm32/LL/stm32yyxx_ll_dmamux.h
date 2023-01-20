@@ -5,7 +5,9 @@
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 
-#ifdef STM32G0xx
+#ifdef STM32C0xx
+  #include "stm32c0xx_ll_dmamux.h"
+#elif STM32G0xx
   #include "stm32g0xx_ll_dmamux.h"
 #elif STM32G4xx
   #include "stm32g4xx_ll_dmamux.h"
