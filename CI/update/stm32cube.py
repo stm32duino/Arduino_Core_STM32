@@ -542,7 +542,7 @@ def applyPatch(serie, HAL_updated, CMSIS_updated, openamp_updated, repo_path):
             for file in CMSIS_patch_path.iterdir():
                 if file.name.endswith(".patch"):
                     patch_list.append(CMSIS_patch_path / file)
-    if CMSIS_updated:
+    if openamp_updated:
         openamp_patch_path = patch_path / "openamp"
         if openamp_patch_path.is_dir():
             for file in openamp_patch_path.iterdir():
