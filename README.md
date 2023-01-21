@@ -29,7 +29,6 @@ This porting is based on:
     * CMSIS device definition for STM32
 * [CMSIS](https://developer.arm.com/embedded/cmsis): Cortex Microcontroller Software Interface Standard (CMSIS) is a vendor-independent hardware abstraction layer for the Cortex®-M processor series and defines generic tool interfaces. It has been packaged as a module for Arduino IDE: https://github.com/stm32duino/ArduinoModule-CMSIS
 * [GNU Arm Embedded Toolchain](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm): Arm Embedded GCC compiler, libraries and other GNU tools necessary for bare-metal software development on devices based on the Arm Cortex-M. Packages are provided thanks [The xPack GNU Arm Embedded GCC](https://xpack.github.io/arm-none-eabi-gcc/): https://github.com/xpack-dev-tools/arm-none-eabi-gcc-xpack
-
 ## Getting Started
 
 This repo is available as a package usable with [Arduino Boards Manager](https://www.arduino.cc/en/guide/cores).
@@ -311,9 +310,9 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32F405RG | [Adafruit Feather STM32F405 Express](https://www.adafruit.com/product/4382) | *1.8.0* |  |
-| :green_heart:  | STM32F401CC | [WeAct Black Pill](https://stm32-base.org/boards/STM32F401CCU6-WeAct-Black-Pill-V1.2) | *1.7.0* | [More info](https://github.com/WeActTC/MiniF4-STM32F4x1) |
+| :green_heart:  | STM32F401CC | [WeAct Black Pill](https://stm32-base.org/boards/STM32F401CCU6-WeAct-Black-Pill-V1.2) | *1.7.0* | [More info](https://github.com/WeActStudio/WeActStudio.MiniSTM32F4x1) |
 | :green_heart:  | STM32F401CE | [WeAct Black Pill](https://stm32-base.org/boards/STM32F401CEU6-WeAct-Black-Pill-V3.0) | *2.4.0* | [More info](https://github.com/WeActStudio/WeActStudio.MiniSTM32F4x1) |
-| :green_heart:  | STM32F411CE | [WeAct Black Pill](https://stm32-base.org/boards/STM32F411CEU6-WeAct-Black-Pill-V2.0) | *1.9.0* | [More info](https://github.com/WeActTC/MiniF4-STM32F4x1) |
+| :green_heart:  | STM32F411CE | [WeAct Black Pill](https://stm32-base.org/boards/STM32F411CEU6-WeAct-Black-Pill-V2.0) | *1.9.0* | [More info](https://github.com/WeActStudio/WeActStudio.MiniSTM32F4x1) |
 | :green_heart:  | STM32F407VE<br>STM32F407VG | [STM32 F4VE / Black F407VET6](https://stm32-base.org/boards/STM32F407VET6-STM32-F4VE-V2.0) | *1.4.0* | STM32F407VG support since *1.5.0* |
 | :green_heart:  | STM32F407ZE<br>STM32F407ZG | Black F407ZE / Black F407ZG | *1.5.0* |  |
 | :green_heart: | STM32F407ZG | vcc-gnd.com Mini | **2.0.0** | [More info](http://www.vcc-gnd.com/rtd/html/STM32/quickref.html#stm32f4) |
