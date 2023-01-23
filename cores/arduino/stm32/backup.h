@@ -51,10 +51,15 @@ extern "C" {
 #endif /* HID_MAGIC_NUMBER_BKP_VALUE */
 #endif /* BL_HID */
 
+#if defined(HAL_PWR_MODULE_ENABLED) && \
+    (defined(PWR_CR_DBP) || defined(PWR_CR1_DBP) || defined(PWR_DBPR_DBP))
+#define PWR_ENABLE_BACKUP_ACCESS_EXIST
+#endif
+
 /* Exported functions ------------------------------------------------------- */
 static inline void resetBackupDomain(void)
 {
-#ifdef HAL_PWR_MODULE_ENABLED
+#if defined(PWR_ENABLE_BACKUP_ACCESS_EXIST)
   /*  Enable access to the RTC registers */
   HAL_PWR_EnableBkUpAccess();
   /**
@@ -69,7 +74,7 @@ static inline void resetBackupDomain(void)
 
 static inline void enableBackupDomain(void)
 {
-#ifdef HAL_PWR_MODULE_ENABLED
+#if defined(PWR_ENABLE_BACKUP_ACCESS_EXIST)
   /* Allow access to Backup domain */
   HAL_PWR_EnableBkUpAccess();
 #endif
@@ -85,7 +90,7 @@ static inline void enableBackupDomain(void)
 
 static inline void disableBackupDomain(void)
 {
-#ifdef HAL_PWR_MODULE_ENABLED
+#if defined(PWR_ENABLE_BACKUP_ACCESS_EXIST)
   /* Forbid access to Backup domain */
   HAL_PWR_DisableBkUpAccess();
 #endif
@@ -114,6 +119,8 @@ static inline void setBackupRegister(uint32_t index, uint32_t value)
 #else
   LL_RTC_BKP_SetRegister(TAMP, index, value);
 #endif
+#elif defined(BKPREG1)
+  LL_PWR_BKP_SetRegister(index, value);
 #else
   UNUSED(index);
   UNUSED(value);
@@ -135,6 +142,8 @@ static inline uint32_t getBackupRegister(uint32_t index)
 #else
   return LL_RTC_BKP_GetRegister(TAMP, index);
 #endif
+#elif defined(BKPREG1)
+  return LL_PWR_BKP_GetRegister(index);
 #else
   UNUSED(index);
   return 0;

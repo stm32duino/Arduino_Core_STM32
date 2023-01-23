@@ -67,8 +67,8 @@ extern "C" {
 #error I2C buffer size cannot exceed 255
 #endif
 
-/* Redefinition of IRQ for F0/G0/L0 families */
-#if defined(STM32F0xx) || defined(STM32G0xx) || defined(STM32L0xx)
+/* Redefinition of IRQ for C0/F0/G0/L0 families */
+#if defined(STM32C0xx) || defined(STM32F0xx) || defined(STM32G0xx) || defined(STM32L0xx)
 #if defined(I2C1_BASE)
 #define I2C1_EV_IRQn        I2C1_IRQn
 #define I2C1_EV_IRQHandler  I2C1_IRQHandler
@@ -95,7 +95,7 @@ extern "C" {
 #define I2C4_EV_IRQn        I2C4_IRQn
 #define I2C4_EV_IRQHandler  I2C4_IRQHandler
 #endif // defined(I2C4_BASE)
-#endif /* STM32F0xx || STM32G0xx || STM32L0xx */
+#endif /* STM32C0xx || STM32F0xx || STM32G0xx || STM32L0xx */
 
 typedef struct i2c_s i2c_t;
 
@@ -111,9 +111,9 @@ struct i2c_s {
   PinName sda;
   PinName scl;
   IRQn_Type irq;
-#if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
+#if !defined(STM32C0xx) && !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
   IRQn_Type irqER;
-#endif /* !STM32F0xx && !STM32G0xx && !STM32L0xx */
+#endif /* !STM32C0xx && !STM32F0xx && !STM32G0xx && !STM32L0xx */
   volatile int slaveRxNbData; // Number of accumulated bytes received in Slave mode
   void (*i2c_onSlaveReceive)(i2c_t *);
   void (*i2c_onSlaveTransmit)(i2c_t *);

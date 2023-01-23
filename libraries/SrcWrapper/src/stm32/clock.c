@@ -77,7 +77,9 @@ void SysTick_Handler(void)
 void enableClock(sourceClock_t source)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+#if defined(RCC_PLL_NONE)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+#endif
 
 #if defined(STM32MP1xx)
   /** Clock source selection is done by First Stage Boot Loader on Cortex A

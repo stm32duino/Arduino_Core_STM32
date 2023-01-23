@@ -2,7 +2,9 @@
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 
-#ifdef STM32F2xx
+#ifdef STM32C0xx
+  #include "stm32c0xx_hal_dma_ex.c"
+#elif STM32F2xx
   #include "stm32f2xx_hal_dma_ex.c"
 #elif STM32F4xx
   #include "stm32f4xx_hal_dma_ex.c"
