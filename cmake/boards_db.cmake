@@ -6538,6 +6538,234 @@ target_compile_options(FYSETC_S6_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
+# GENERIC_C031C4TX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_C031C4TX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C0xx/C031C(4-6)(T-U)")
+set(GENERIC_C031C4TX_MAXSIZE 16384)
+set(GENERIC_C031C4TX_MAXDATASIZE 12288)
+set(GENERIC_C031C4TX_MCU cortex-m0plus)
+set(GENERIC_C031C4TX_FPCONF "-")
+add_library(GENERIC_C031C4TX INTERFACE)
+target_compile_options(GENERIC_C031C4TX INTERFACE
+  "SHELL:"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_C031C4TX_MCU}
+)
+target_compile_definitions(GENERIC_C031C4TX INTERFACE
+  "STM32C0xx"
+	"ARDUINO_GENERIC_C031C4TX"
+	"BOARD_NAME=\"GENERIC_C031C4TX\""
+	"BOARD_ID=GENERIC_C031C4TX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_C031C4TX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Source/Templates/gcc/
+  ${GENERIC_C031C4TX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_C031C4TX INTERFACE
+  "LINKER:--default-script=${GENERIC_C031C4TX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=16384"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
+  "SHELL: "
+  -mcpu=${GENERIC_C031C4TX_MCU}
+)
+target_link_libraries(GENERIC_C031C4TX INTERFACE
+  arm_cortexM0l_math
+)
+
+add_library(GENERIC_C031C4TX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_C031C4TX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_C031C4TX_serial_generic INTERFACE)
+target_compile_options(GENERIC_C031C4TX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_C031C4TX_serial_none INTERFACE)
+target_compile_options(GENERIC_C031C4TX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+
+# GENERIC_C031C4UX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_C031C4UX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C0xx/C031C(4-6)(T-U)")
+set(GENERIC_C031C4UX_MAXSIZE 16384)
+set(GENERIC_C031C4UX_MAXDATASIZE 12288)
+set(GENERIC_C031C4UX_MCU cortex-m0plus)
+set(GENERIC_C031C4UX_FPCONF "-")
+add_library(GENERIC_C031C4UX INTERFACE)
+target_compile_options(GENERIC_C031C4UX INTERFACE
+  "SHELL:"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_C031C4UX_MCU}
+)
+target_compile_definitions(GENERIC_C031C4UX INTERFACE
+  "STM32C0xx"
+	"ARDUINO_GENERIC_C031C4UX"
+	"BOARD_NAME=\"GENERIC_C031C4UX\""
+	"BOARD_ID=GENERIC_C031C4UX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_C031C4UX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Source/Templates/gcc/
+  ${GENERIC_C031C4UX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_C031C4UX INTERFACE
+  "LINKER:--default-script=${GENERIC_C031C4UX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=16384"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
+  "SHELL: "
+  -mcpu=${GENERIC_C031C4UX_MCU}
+)
+target_link_libraries(GENERIC_C031C4UX INTERFACE
+  arm_cortexM0l_math
+)
+
+add_library(GENERIC_C031C4UX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_C031C4UX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_C031C4UX_serial_generic INTERFACE)
+target_compile_options(GENERIC_C031C4UX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_C031C4UX_serial_none INTERFACE)
+target_compile_options(GENERIC_C031C4UX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+
+# GENERIC_C031C6TX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_C031C6TX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C0xx/C031C(4-6)(T-U)")
+set(GENERIC_C031C6TX_MAXSIZE 32768)
+set(GENERIC_C031C6TX_MAXDATASIZE 12288)
+set(GENERIC_C031C6TX_MCU cortex-m0plus)
+set(GENERIC_C031C6TX_FPCONF "-")
+add_library(GENERIC_C031C6TX INTERFACE)
+target_compile_options(GENERIC_C031C6TX INTERFACE
+  "SHELL:"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_C031C6TX_MCU}
+)
+target_compile_definitions(GENERIC_C031C6TX INTERFACE
+  "STM32C0xx"
+	"ARDUINO_GENERIC_C031C6TX"
+	"BOARD_NAME=\"GENERIC_C031C6TX\""
+	"BOARD_ID=GENERIC_C031C6TX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_C031C6TX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Source/Templates/gcc/
+  ${GENERIC_C031C6TX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_C031C6TX INTERFACE
+  "LINKER:--default-script=${GENERIC_C031C6TX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=32768"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
+  "SHELL: "
+  -mcpu=${GENERIC_C031C6TX_MCU}
+)
+target_link_libraries(GENERIC_C031C6TX INTERFACE
+  arm_cortexM0l_math
+)
+
+add_library(GENERIC_C031C6TX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_C031C6TX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_C031C6TX_serial_generic INTERFACE)
+target_compile_options(GENERIC_C031C6TX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_C031C6TX_serial_none INTERFACE)
+target_compile_options(GENERIC_C031C6TX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+
+# GENERIC_C031C6UX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_C031C6UX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C0xx/C031C(4-6)(T-U)")
+set(GENERIC_C031C6UX_MAXSIZE 32768)
+set(GENERIC_C031C6UX_MAXDATASIZE 12288)
+set(GENERIC_C031C6UX_MCU cortex-m0plus)
+set(GENERIC_C031C6UX_FPCONF "-")
+add_library(GENERIC_C031C6UX INTERFACE)
+target_compile_options(GENERIC_C031C6UX INTERFACE
+  "SHELL:"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_C031C6UX_MCU}
+)
+target_compile_definitions(GENERIC_C031C6UX INTERFACE
+  "STM32C0xx"
+	"ARDUINO_GENERIC_C031C6UX"
+	"BOARD_NAME=\"GENERIC_C031C6UX\""
+	"BOARD_ID=GENERIC_C031C6UX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_C031C6UX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Source/Templates/gcc/
+  ${GENERIC_C031C6UX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_C031C6UX INTERFACE
+  "LINKER:--default-script=${GENERIC_C031C6UX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=32768"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
+  "SHELL: "
+  -mcpu=${GENERIC_C031C6UX_MCU}
+)
+target_link_libraries(GENERIC_C031C6UX INTERFACE
+  arm_cortexM0l_math
+)
+
+add_library(GENERIC_C031C6UX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_C031C6UX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_C031C6UX_serial_generic INTERFACE)
+target_compile_options(GENERIC_C031C6UX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_C031C6UX_serial_none INTERFACE)
+target_compile_options(GENERIC_C031C6UX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+
 # GENERIC_F030C6TX
 # -----------------------------------------------------------------------------
 
@@ -95248,6 +95476,91 @@ target_compile_options(GENERIC_U585ZITXQ_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
+# GENERIC_WB15CCUX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_WB15CCUX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32WBxx/WB15CCU")
+set(GENERIC_WB15CCUX_MAXSIZE 131072)
+set(GENERIC_WB15CCUX_MAXDATASIZE 12288)
+set(GENERIC_WB15CCUX_MCU cortex-m4)
+set(GENERIC_WB15CCUX_FPCONF "-")
+add_library(GENERIC_WB15CCUX INTERFACE)
+target_compile_options(GENERIC_WB15CCUX INTERFACE
+  "SHELL:-DSTM32WB15xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_WB15CCUX_MCU}
+)
+target_compile_definitions(GENERIC_WB15CCUX INTERFACE
+  "STM32WBxx"
+	"ARDUINO_GENERIC_WB15CCUX"
+	"BOARD_NAME=\"GENERIC_WB15CCUX\""
+	"BOARD_ID=GENERIC_WB15CCUX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_WB15CCUX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32WBxx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32WBxx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32WBxx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32WBxx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32WBxx/Source/Templates/gcc/
+  ${GENERIC_WB15CCUX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_WB15CCUX INTERFACE
+  "LINKER:--default-script=${GENERIC_WB15CCUX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_WB15CCUX_MCU}
+)
+target_link_libraries(GENERIC_WB15CCUX INTERFACE
+  arm_cortexM4lf_math
+)
+
+add_library(GENERIC_WB15CCUX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_WB15CCUX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_WB15CCUX_serial_generic INTERFACE)
+target_compile_options(GENERIC_WB15CCUX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_WB15CCUX_serial_none INTERFACE)
+target_compile_options(GENERIC_WB15CCUX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_WB15CCUX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_WB15CCUX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_WB15CCUX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_WB15CCUX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_WB15CCUX_usb_HID INTERFACE)
+target_compile_options(GENERIC_WB15CCUX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_WB15CCUX_usb_none INTERFACE)
+target_compile_options(GENERIC_WB15CCUX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_WB15CCUX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_WB15CCUX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_WB15CCUX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_WB15CCUX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_WB15CCUX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_WB15CCUX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
 # GENERIC_WB55CCUX
 # -----------------------------------------------------------------------------
 
@@ -97605,6 +97918,91 @@ target_compile_options(MKR_SHARKY_xusb_HS INTERFACE
 )
 add_library(MKR_SHARKY_xusb_HSFS INTERFACE)
 target_compile_options(MKR_SHARKY_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# NUCLEO_C031C6
+# -----------------------------------------------------------------------------
+
+set(NUCLEO_C031C6_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C0xx/C031C(4-6)(T-U)")
+set(NUCLEO_C031C6_MAXSIZE 32768)
+set(NUCLEO_C031C6_MAXDATASIZE 12288)
+set(NUCLEO_C031C6_MCU cortex-m0plus)
+set(NUCLEO_C031C6_FPCONF "-")
+add_library(NUCLEO_C031C6 INTERFACE)
+target_compile_options(NUCLEO_C031C6 INTERFACE
+  "SHELL:-DSTM32C031xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${NUCLEO_C031C6_MCU}
+)
+target_compile_definitions(NUCLEO_C031C6 INTERFACE
+  "STM32C0xx"
+	"ARDUINO_NUCLEO_C031C6"
+	"BOARD_NAME=\"NUCLEO_C031C6\""
+	"BOARD_ID=NUCLEO_C031C6"
+	"VARIANT_H=\"variant_NUCLEO_C031C6.h\""
+)
+target_include_directories(NUCLEO_C031C6 INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Source/Templates/gcc/
+  ${NUCLEO_C031C6_VARIANT_PATH}
+)
+
+target_link_options(NUCLEO_C031C6 INTERFACE
+  "LINKER:--default-script=${NUCLEO_C031C6_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=32768"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
+  "SHELL: "
+  -mcpu=${NUCLEO_C031C6_MCU}
+)
+target_link_libraries(NUCLEO_C031C6 INTERFACE
+  arm_cortexM0l_math
+)
+
+add_library(NUCLEO_C031C6_serial_disabled INTERFACE)
+target_compile_options(NUCLEO_C031C6_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_C031C6_serial_generic INTERFACE)
+target_compile_options(NUCLEO_C031C6_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(NUCLEO_C031C6_serial_none INTERFACE)
+target_compile_options(NUCLEO_C031C6_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(NUCLEO_C031C6_usb_CDC INTERFACE)
+target_compile_options(NUCLEO_C031C6_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(NUCLEO_C031C6_usb_CDCgen INTERFACE)
+target_compile_options(NUCLEO_C031C6_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(NUCLEO_C031C6_usb_HID INTERFACE)
+target_compile_options(NUCLEO_C031C6_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(NUCLEO_C031C6_usb_none INTERFACE)
+target_compile_options(NUCLEO_C031C6_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_C031C6_xusb_FS INTERFACE)
+target_compile_options(NUCLEO_C031C6_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_C031C6_xusb_HS INTERFACE)
+target_compile_options(NUCLEO_C031C6_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(NUCLEO_C031C6_xusb_HSFS INTERFACE)
+target_compile_options(NUCLEO_C031C6_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
@@ -101603,6 +102001,91 @@ target_compile_options(NUCLEO_U575ZI_Q_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
+# NUCLEO_WB15CC
+# -----------------------------------------------------------------------------
+
+set(NUCLEO_WB15CC_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32WBxx/WB15CCU")
+set(NUCLEO_WB15CC_MAXSIZE 131072)
+set(NUCLEO_WB15CC_MAXDATASIZE 12288)
+set(NUCLEO_WB15CC_MCU cortex-m4)
+set(NUCLEO_WB15CC_FPCONF "fpv4-sp-d16-hard")
+add_library(NUCLEO_WB15CC INTERFACE)
+target_compile_options(NUCLEO_WB15CC INTERFACE
+  "SHELL:-DSTM32WB15xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${NUCLEO_WB15CC_MCU}
+)
+target_compile_definitions(NUCLEO_WB15CC INTERFACE
+  "STM32WBxx"
+	"ARDUINO_NUCLEO_WB15CC"
+	"BOARD_NAME=\"NUCLEO_WB15CC\""
+	"BOARD_ID=NUCLEO_WB15CC"
+	"VARIANT_H=\"variant_NUCLEO_WB15CC.h\""
+)
+target_include_directories(NUCLEO_WB15CC INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32WBxx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32WBxx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32WBxx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32WBxx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32WBxx/Source/Templates/gcc/
+  ${NUCLEO_WB15CC_VARIANT_PATH}
+)
+
+target_link_options(NUCLEO_WB15CC INTERFACE
+  "LINKER:--default-script=${NUCLEO_WB15CC_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${NUCLEO_WB15CC_MCU}
+)
+target_link_libraries(NUCLEO_WB15CC INTERFACE
+  arm_cortexM4lf_math
+)
+
+add_library(NUCLEO_WB15CC_serial_disabled INTERFACE)
+target_compile_options(NUCLEO_WB15CC_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_WB15CC_serial_generic INTERFACE)
+target_compile_options(NUCLEO_WB15CC_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(NUCLEO_WB15CC_serial_none INTERFACE)
+target_compile_options(NUCLEO_WB15CC_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(NUCLEO_WB15CC_usb_CDC INTERFACE)
+target_compile_options(NUCLEO_WB15CC_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(NUCLEO_WB15CC_usb_CDCgen INTERFACE)
+target_compile_options(NUCLEO_WB15CC_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(NUCLEO_WB15CC_usb_HID INTERFACE)
+target_compile_options(NUCLEO_WB15CC_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(NUCLEO_WB15CC_usb_none INTERFACE)
+target_compile_options(NUCLEO_WB15CC_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_WB15CC_xusb_FS INTERFACE)
+target_compile_options(NUCLEO_WB15CC_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_WB15CC_xusb_HS INTERFACE)
+target_compile_options(NUCLEO_WB15CC_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(NUCLEO_WB15CC_xusb_HSFS INTERFACE)
+target_compile_options(NUCLEO_WB15CC_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
 # NUCLEO_WL55JC1
 # -----------------------------------------------------------------------------
 
@@ -103101,6 +103584,91 @@ target_compile_options(STEVAL_MKSBOX1V1_xusb_HS INTERFACE
 )
 add_library(STEVAL_MKSBOX1V1_xusb_HSFS INTERFACE)
 target_compile_options(STEVAL_MKSBOX1V1_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# STM32C0316_DK
+# -----------------------------------------------------------------------------
+
+set(STM32C0316_DK_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C0xx/C031C(4-6)(T-U)")
+set(STM32C0316_DK_MAXSIZE 32768)
+set(STM32C0316_DK_MAXDATASIZE 12288)
+set(STM32C0316_DK_MCU cortex-m0plus)
+set(STM32C0316_DK_FPCONF "-")
+add_library(STM32C0316_DK INTERFACE)
+target_compile_options(STM32C0316_DK INTERFACE
+  "SHELL:-DSTM32C031xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${STM32C0316_DK_MCU}
+)
+target_compile_definitions(STM32C0316_DK INTERFACE
+  "STM32C0xx"
+	"ARDUINO_STM32C0316_DK"
+	"BOARD_NAME=\"STM32C0316_DK\""
+	"BOARD_ID=STM32C0316_DK"
+	"VARIANT_H=\"variant_STM32C0316_DK.h\""
+)
+target_include_directories(STM32C0316_DK INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Source/Templates/gcc/
+  ${STM32C0316_DK_VARIANT_PATH}
+)
+
+target_link_options(STM32C0316_DK INTERFACE
+  "LINKER:--default-script=${STM32C0316_DK_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=32768"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
+  "SHELL: "
+  -mcpu=${STM32C0316_DK_MCU}
+)
+target_link_libraries(STM32C0316_DK INTERFACE
+  arm_cortexM0l_math
+)
+
+add_library(STM32C0316_DK_serial_disabled INTERFACE)
+target_compile_options(STM32C0316_DK_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(STM32C0316_DK_serial_generic INTERFACE)
+target_compile_options(STM32C0316_DK_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(STM32C0316_DK_serial_none INTERFACE)
+target_compile_options(STM32C0316_DK_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(STM32C0316_DK_usb_CDC INTERFACE)
+target_compile_options(STM32C0316_DK_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(STM32C0316_DK_usb_CDCgen INTERFACE)
+target_compile_options(STM32C0316_DK_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(STM32C0316_DK_usb_HID INTERFACE)
+target_compile_options(STM32C0316_DK_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(STM32C0316_DK_usb_none INTERFACE)
+target_compile_options(STM32C0316_DK_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(STM32C0316_DK_xusb_FS INTERFACE)
+target_compile_options(STM32C0316_DK_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(STM32C0316_DK_xusb_HS INTERFACE)
+target_compile_options(STM32C0316_DK_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(STM32C0316_DK_xusb_HSFS INTERFACE)
+target_compile_options(STM32C0316_DK_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
