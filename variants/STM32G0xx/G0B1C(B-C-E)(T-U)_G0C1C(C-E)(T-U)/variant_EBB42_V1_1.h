@@ -102,7 +102,7 @@
 
 // On-board LED pin number
 #ifndef LED_BUILTIN
-  #define LED_BUILTIN           PNUM_NOT_DEFINED
+  #define LED_BUILTIN           PA13
 #endif
 
 // On-board user button
