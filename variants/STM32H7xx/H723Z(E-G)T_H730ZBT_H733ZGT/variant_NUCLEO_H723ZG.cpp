@@ -183,6 +183,8 @@ WEAK void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {};
+  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {};
+  RCC_CRSInitTypeDef RCC_CRSInitStruct = {};
 
   /** Supply configuration update enable
   */
@@ -230,6 +232,45 @@ WEAK void SystemClock_Config(void)
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK) {
     Error_Handler();
   }
+
+  /** Initializes the peripherals clock
+  */
+  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SDMMC | RCC_PERIPHCLK_USB;
+  PeriphClkInitStruct.PLL2.PLL2M = 1;
+  PeriphClkInitStruct.PLL2.PLL2N = 24;
+  PeriphClkInitStruct.PLL2.PLL2P = 2;
+  PeriphClkInitStruct.PLL2.PLL2Q = 2;
+  PeriphClkInitStruct.PLL2.PLL2R = 4;
+  PeriphClkInitStruct.PLL2.PLL2RGE = RCC_PLL2VCIRANGE_3;
+  PeriphClkInitStruct.PLL2.PLL2VCOSEL = RCC_PLL2VCOWIDE;
+  PeriphClkInitStruct.PLL2.PLL2FRACN = 0;
+  PeriphClkInitStruct.SdmmcClockSelection = RCC_SDMMCCLKSOURCE_PLL2;
+  PeriphClkInitStruct.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK) {
+    Error_Handler();
+  }
+
+  /*Configure the clock recovery system (CRS)**********************************/
+
+  /*Enable CRS Clock*/
+  __HAL_RCC_CRS_CLK_ENABLE();
+
+  /* Default Synchro Signal division factor (not divided) */
+  RCC_CRSInitStruct.Prescaler = RCC_CRS_SYNC_DIV1;
+
+  /* Set the SYNCSRC[1:0] bits according to CRS_Source value */
+  RCC_CRSInitStruct.Source = RCC_CRS_SYNC_SOURCE_USB1;
+
+  /* HSI48 is synchronized with USB SOF at 1KHz rate */
+  RCC_CRSInitStruct.ReloadValue =  RCC_CRS_RELOADVALUE_DEFAULT;
+  RCC_CRSInitStruct.ErrorLimitValue = RCC_CRS_ERRORLIMIT_DEFAULT;
+  RCC_CRSInitStruct.Polarity = RCC_CRS_SYNC_POLARITY_RISING;
+
+  /* Set the TRIM[5:0] to the default value */
+  RCC_CRSInitStruct.HSI48CalibrationValue = RCC_CRS_HSI48CALIBRATION_DEFAULT;
+
+  /* Start automatic synchronization */
+  HAL_RCCEx_CRSConfig(&RCC_CRSInitStruct);
 }
 
 #ifdef __cplusplus
