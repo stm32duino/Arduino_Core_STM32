@@ -385,7 +385,7 @@ Nucleo_64.menu.pnum.NUCLEO_F303RE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_F401RE board
 Nucleo_64.menu.pnum.NUCLEO_F401RE=Nucleo F401RE
-Nucleo_64.menu.pnum.NUCLEO_F401RE.node=NODE_F401RE
+Nucleo_64.menu.pnum.NUCLEO_F401RE.node="NODE_F401RE,NUCLEO"
 Nucleo_64.menu.pnum.NUCLEO_F401RE.upload.maximum_size=524288
 Nucleo_64.menu.pnum.NUCLEO_F401RE.upload.maximum_data_size=98304
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.mcu=cortex-m4
