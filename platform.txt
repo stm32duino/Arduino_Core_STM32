@@ -17,7 +17,7 @@ compiler.warning_flags.default=
 compiler.warning_flags.more=-Wall
 compiler.warning_flags.all=-Wall -Wextra
 
-compiler.path={runtime.tools.xpack-arm-none-eabi-gcc-10.3.1-2.3.path}/bin/
+compiler.path={runtime.tools.xpack-arm-none-eabi-gcc-12.2.1-1.2.path}/bin/
 
 compiler.S.cmd=arm-none-eabi-gcc
 compiler.c.cmd=arm-none-eabi-gcc
