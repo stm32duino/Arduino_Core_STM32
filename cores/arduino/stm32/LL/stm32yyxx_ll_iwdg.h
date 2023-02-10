@@ -4,6 +4,9 @@
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #pragma GCC diagnostic ignored "-Wstrict-aliasing"
+#ifdef __cplusplus
+  #pragma GCC diagnostic ignored "-Wregister"
+#endif
 
 #ifdef STM32C0xx
   #include "stm32c0xx_ll_iwdg.h"
