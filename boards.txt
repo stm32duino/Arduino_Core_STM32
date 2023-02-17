@@ -1988,6 +1988,7 @@ GenF1.build.mcu=cortex-m3
 GenF1.build.series=STM32F1xx
 GenF1.build.cmsis_lib_gcc=arm_cortexM3l_math
 GenF1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+GenF1.build.openocdscript=openocd_scripts/stm32f103.cfg
 GenF1.upload.maximum_size=0
 GenF1.upload.maximum_data_size=0
 
@@ -3150,6 +3151,7 @@ GenF3.build.fpu=-mfpu=fpv4-sp-d16
 GenF3.build.float-abi=-mfloat-abi=hard
 GenF3.build.series=STM32F3xx
 GenF3.build.cmsis_lib_gcc=arm_cortexM4lf_math
+GenF3.build.openocdscript=openocd_scripts/stm32f303.cfg
 GenF3.upload.maximum_size=0
 GenF3.upload.maximum_data_size=0
 
