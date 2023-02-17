@@ -1,0 +1,77 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L072RBHx
+GenL0.menu.pnum.GENERIC_L072RBHX=Generic L072RBHx
+GenL0.menu.pnum.GENERIC_L072RBHX.upload.maximum_size=131072
+GenL0.menu.pnum.GENERIC_L072RBHX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L072RBHX.build.board=GENERIC_L072RBHX
+GenL0.menu.pnum.GENERIC_L072RBHX.build.product_line=STM32L072xx
+GenL0.menu.pnum.GENERIC_L072RBHX.build.variant=STM32L0xx/L072R(B-Z)(H-I)_L073RBH_L073RZ(H-I)_L083R(B-Z)H
+
+# Generic L072RZHx
+GenL0.menu.pnum.GENERIC_L072RZHX=Generic L072RZHx
+GenL0.menu.pnum.GENERIC_L072RZHX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L072RZHX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L072RZHX.build.board=GENERIC_L072RZHX
+GenL0.menu.pnum.GENERIC_L072RZHX.build.product_line=STM32L072xx
+GenL0.menu.pnum.GENERIC_L072RZHX.build.variant=STM32L0xx/L072R(B-Z)(H-I)_L073RBH_L073RZ(H-I)_L083R(B-Z)H
+
+# Generic L072RBIx
+GenL0.menu.pnum.GENERIC_L072RBIX=Generic L072RBIx
+GenL0.menu.pnum.GENERIC_L072RBIX.upload.maximum_size=131072
+GenL0.menu.pnum.GENERIC_L072RBIX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L072RBIX.build.board=GENERIC_L072RBIX
+GenL0.menu.pnum.GENERIC_L072RBIX.build.product_line=STM32L072xx
+GenL0.menu.pnum.GENERIC_L072RBIX.build.variant=STM32L0xx/L072R(B-Z)(H-I)_L073RBH_L073RZ(H-I)_L083R(B-Z)H
+
+# Generic L072RZIx
+GenL0.menu.pnum.GENERIC_L072RZIX=Generic L072RZIx
+GenL0.menu.pnum.GENERIC_L072RZIX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L072RZIX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L072RZIX.build.board=GENERIC_L072RZIX
+GenL0.menu.pnum.GENERIC_L072RZIX.build.product_line=STM32L072xx
+GenL0.menu.pnum.GENERIC_L072RZIX.build.variant=STM32L0xx/L072R(B-Z)(H-I)_L073RBH_L073RZ(H-I)_L083R(B-Z)H
+
+# Generic L073RBHx
+GenL0.menu.pnum.GENERIC_L073RBHX=Generic L073RBHx
+GenL0.menu.pnum.GENERIC_L073RBHX.upload.maximum_size=131072
+GenL0.menu.pnum.GENERIC_L073RBHX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L073RBHX.build.board=GENERIC_L073RBHX
+GenL0.menu.pnum.GENERIC_L073RBHX.build.product_line=STM32L073xx
+GenL0.menu.pnum.GENERIC_L073RBHX.build.variant=STM32L0xx/L072R(B-Z)(H-I)_L073RBH_L073RZ(H-I)_L083R(B-Z)H
+
+# Generic L073RZHx
+GenL0.menu.pnum.GENERIC_L073RZHX=Generic L073RZHx
+GenL0.menu.pnum.GENERIC_L073RZHX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L073RZHX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L073RZHX.build.board=GENERIC_L073RZHX
+GenL0.menu.pnum.GENERIC_L073RZHX.build.product_line=STM32L073xx
+GenL0.menu.pnum.GENERIC_L073RZHX.build.variant=STM32L0xx/L072R(B-Z)(H-I)_L073RBH_L073RZ(H-I)_L083R(B-Z)H
+
+# Generic L073RZIx
+GenL0.menu.pnum.GENERIC_L073RZIX=Generic L073RZIx
+GenL0.menu.pnum.GENERIC_L073RZIX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L073RZIX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L073RZIX.build.board=GENERIC_L073RZIX
+GenL0.menu.pnum.GENERIC_L073RZIX.build.product_line=STM32L073xx
+GenL0.menu.pnum.GENERIC_L073RZIX.build.variant=STM32L0xx/L072R(B-Z)(H-I)_L073RBH_L073RZ(H-I)_L083R(B-Z)H
+
+# Generic L083RBHx
+GenL0.menu.pnum.GENERIC_L083RBHX=Generic L083RBHx
+GenL0.menu.pnum.GENERIC_L083RBHX.upload.maximum_size=131072
+GenL0.menu.pnum.GENERIC_L083RBHX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L083RBHX.build.board=GENERIC_L083RBHX
+GenL0.menu.pnum.GENERIC_L083RBHX.build.product_line=STM32L083xx
+GenL0.menu.pnum.GENERIC_L083RBHX.build.variant=STM32L0xx/L072R(B-Z)(H-I)_L073RBH_L073RZ(H-I)_L083R(B-Z)H
+
+# Generic L083RZHx
+GenL0.menu.pnum.GENERIC_L083RZHX=Generic L083RZHx
+GenL0.menu.pnum.GENERIC_L083RZHX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L083RZHX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L083RZHX.build.board=GENERIC_L083RZHX
+GenL0.menu.pnum.GENERIC_L083RZHX.build.product_line=STM32L083xx
+GenL0.menu.pnum.GENERIC_L083RZHX.build.variant=STM32L0xx/L072R(B-Z)(H-I)_L073RBH_L073RZ(H-I)_L083R(B-Z)H
+

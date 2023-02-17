@@ -6,7 +6,17 @@
   *          This file provides firmware functions to manage the following
   *          functionalities of the FLASH extended peripheral:
   *           + Extended programming operations functions
+  ******************************************************************************
+  * @attention
   *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
  @verbatim
  ==============================================================================
                    ##### Flash Extended features #####
@@ -63,17 +73,6 @@
 
  @endverbatim
   ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -98,7 +97,6 @@
 /** @defgroup FLASHEx_Private_Functions FLASHEx Private Functions
  * @{
  */
-static void              FLASH_MassErase(void);
 static void              FLASH_AcknowledgePageErase(void);
 static void              FLASH_FlushCaches(void);
 static void              FLASH_OB_WRPConfig(uint32_t WRPArea, uint32_t WRPStartOffset, uint32_t WRDPEndOffset);
@@ -139,7 +137,7 @@ static HAL_StatusTypeDef FLASH_OB_ProceedWriteOperation(void);
   * @{
   */
 /**
-  * @brief  Perform a mass erase or erase the specified FLASH memory pages.
+  * @brief  Perform an erase of the specified FLASH memory pages.
   * @note   Before any operation, it is possible to check there is no operation suspended
   *         by call HAL_FLASHEx_IsOperationSuspended()
   * @param[in]  pEraseInit Pointer to an @ref FLASH_EraseInitTypeDef structure that
@@ -168,17 +166,7 @@ HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t
 
   if (status == HAL_OK)
   {
-    if (pEraseInit->TypeErase == FLASH_TYPEERASE_MASSERASE)
-    {
-      /* Mass erase to be done */
-      FLASH_MassErase();
-
-      /* Wait for last operation to be completed */
-      status = FLASH_WaitForLastOperation(FLASH_TIMEOUT_VALUE);
-
-      /* If operation is completed or interrupted, no need to clear the Mass Erase Bit */
-    }
-    else
+    if (pEraseInit->TypeErase == FLASH_TYPEERASE_PAGES)
     {
       /*Initialization of PageError variable*/
       *PageError = 0xFFFFFFFFU;
@@ -214,7 +202,7 @@ HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t
 }
 
 /**
-  * @brief  Perform a mass erase or erase the specified FLASH memory pages with interrupt enabled.
+  * @brief  Perform an erase of the specified FLASH memory pages with interrupt enabled.
   * @note   Before any operation, it is possible to check there is no operation suspended
   *         by call HAL_FLASHEx_IsOperationSuspended()
   * @param  pEraseInit Pointer to an @ref FLASH_EraseInitTypeDef structure that
@@ -250,15 +238,7 @@ HAL_StatusTypeDef HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit)
     /* Enable End of Operation and Error interrupts */
     __HAL_FLASH_ENABLE_IT(FLASH_IT_EOP | FLASH_IT_OPERR);
 
-    if (pEraseInit->TypeErase == FLASH_TYPEERASE_MASSERASE)
-    {
-      /* Set Page to 0 for Interrupt callback managment */
-      pFlash.Page = 0;
-
-      /* Proceed to Mass Erase */
-      FLASH_MassErase();
-    }
-    else
+    if (pEraseInit->TypeErase == FLASH_TYPEERASE_PAGES)
     {
       /* Erase by page to be done */
       pFlash.NbPagesToErase = pEraseInit->NbPages;
@@ -308,7 +288,7 @@ HAL_StatusTypeDef HAL_FLASHEx_OBProgram(FLASH_OBProgramInitTypeDef *pOBInit)
   /* Option register */
   if ((pOBInit->OptionType & (OPTIONBYTE_RDP | OPTIONBYTE_USER)) == (OPTIONBYTE_RDP | OPTIONBYTE_USER))
   {
-    /* Fully modify OPTR register with RDP & user datas */
+    /* Fully modify OPTR register with RDP & user data */
     FLASH_OB_OptrConfig(pOBInit->UserType, pOBInit->UserConfig, pOBInit->RDPLevel);
   }
   else if ((pOBInit->OptionType & OPTIONBYTE_RDP) != 0U)
@@ -514,16 +494,6 @@ uint32_t HAL_FLASHEx_IsOperationSuspended(void)
   */
 
 /**
-  * @brief  Mass erase of FLASH memory.
-  * @retval None
-  */
-static void FLASH_MassErase(void)
-{
-  /* Set the Mass Erase Bit and start bit */
-  SET_BIT(FLASH->CR, (FLASH_CR_MER | FLASH_CR_STRT));
-}
-
-/**
   * @brief  Erase the specified FLASH memory page.
   * @param  Page FLASH page to erase
   *         This parameter must be a value between 0 and (max number of pages in Flash - 1)
@@ -636,6 +606,7 @@ static void FLASH_OB_WRPConfig(uint32_t WRPArea, uint32_t WRPStartOffset, uint32
   *         @arg @ref OB_STOP_RST or @ref OB_STOP_NORST
   *         @arg @ref OB_STANDBY_RST or @ref OB_STANDBY_NORST
   *         @arg @ref OB_SHUTDOWN_RST or @ref OB_SHUTDOWN_NORST
+  *         @arg @ref OB_IRH_ENABLE or @ref OB_IRH_DISABLE (*)
   *         @arg @ref OB_IWDG_SW or @ref OB_IWDG_HW
   *         @arg @ref OB_IWDG_STOP_FREEZE or @ref OB_IWDG_STOP_RUN
   *         @arg @ref OB_IWDG_STDBY_FREEZE or @ref OB_IWDG_STDBY_RUN
@@ -645,6 +616,7 @@ static void FLASH_OB_WRPConfig(uint32_t WRPArea, uint32_t WRPStartOffset, uint32
   *         @arg @ref OB_SRAM2_RST_ERASE or @ref OB_SRAM2_RST_NOT_ERASE
   *         @arg @ref OB_BOOT0_FROM_OB or @ref OB_BOOT0_FROM_PIN
   *         @arg @ref OB_BOOT0_RESET or @ref OB_BOOT0_SET
+  *         @arg @ref OB_RESET_MODE_INPUT_ONLY or @ref OB_RESET_MODE_GPIO or @ref OB_RESET_MODE_INPUT_OUTPUT (*)
   *         @arg @ref OB_AGC_TRIM_0 or @ref OB_AGC_TRIM_1 or ... or @ref OB_AGC_TRIM_7
   * @param  RDPLevel: specifies the read protection level.
   *         This parameter can be one of the following values:
@@ -797,21 +769,35 @@ static void FLASH_OB_SecureConfig(FLASH_OBProgramInitTypeDef *pOBParam)
     MODIFY_REG(sfr_reg_val, FLASH_SFR_SFSA, (((pOBParam->SecureFlashStartAddr - FLASH_BASE) / FLASH_PAGE_SIZE) << FLASH_SFR_SFSA_Pos));
 
     /* Configure SRRVR register */
+#if defined(FLASH_SRRVR_SBRSA_A)
+    MODIFY_REG(srrvr_reg_val, (FLASH_SRRVR_SBRSA_A | FLASH_SRRVR_SBRSA_B), \
+               (((((pOBParam->SecureRAM2aStartAddr - SRAM2A_BASE) >> SRAM_SECURE_PAGE_GRANULARITY_OFFSET) << FLASH_SRRVR_SBRSA_A_Pos)) | \
+                ((((pOBParam->SecureRAM2bStartAddr - SRAM2B_BASE) >> SRAM_SECURE_PAGE_GRANULARITY_OFFSET) << FLASH_SRRVR_SBRSA_B_Pos))));
+#else
     MODIFY_REG(srrvr_reg_val, (FLASH_SRRVR_SBRSA | FLASH_SRRVR_SNBRSA), \
                (((((pOBParam->SecureRAM2aStartAddr - SRAM2A_BASE) >> SRAM_SECURE_PAGE_GRANULARITY_OFFSET) << FLASH_SRRVR_SBRSA_Pos)) | \
                 ((((pOBParam->SecureRAM2bStartAddr - SRAM2B_BASE) >> SRAM_SECURE_PAGE_GRANULARITY_OFFSET) << FLASH_SRRVR_SNBRSA_Pos))));
+#endif
 
     /* If Full System Secure mode is requested, clear all the corresponding bit */
     /* Else set the corresponding bit */
     if (pOBParam->SecureMode == SYSTEM_IN_SECURE_MODE)
     {
       CLEAR_BIT(sfr_reg_val, FLASH_SFR_FSD);
+#if defined(FLASH_SRRVR_BRSD_A)
+      CLEAR_BIT(srrvr_reg_val, (FLASH_SRRVR_BRSD_A | FLASH_SRRVR_BRSD_B));
+#else
       CLEAR_BIT(srrvr_reg_val, (FLASH_SRRVR_BRSD | FLASH_SRRVR_NBRSD));
+#endif
     }
     else
     {
       SET_BIT(sfr_reg_val, FLASH_SFR_FSD);
+#if defined(FLASH_SRRVR_BRSD_A)
+      SET_BIT(srrvr_reg_val, (FLASH_SRRVR_BRSD_A | FLASH_SRRVR_BRSD_B));
+#else
       SET_BIT(srrvr_reg_val, (FLASH_SRRVR_BRSD | FLASH_SRRVR_NBRSD));
+#endif
     }
 
     /* Update Flash registers */
@@ -899,6 +885,7 @@ static uint32_t FLASH_OB_GetRDP(void)
   *         @arg @ref OB_STOP_RST or @ref OB_STOP_RST
   *         @arg @ref OB_STANDBY_RST or @ref OB_STANDBY_NORST
   *         @arg @ref OB_SHUTDOWN_RST or @ref OB_SHUTDOWN_NORST
+  *         @arg @ref OB_IRH_ENABLE or @ref OB_IRH_DISABLE (*)
   *         @arg @ref OB_IWDG_SW or @ref OB_IWDG_HW
   *         @arg @ref OB_IWDG_STOP_FREEZE or @ref OB_IWDG_STOP_RUN
   *         @arg @ref OB_IWDG_STDBY_FREEZE or @ref OB_IWDG_STDBY_RUN
@@ -908,6 +895,7 @@ static uint32_t FLASH_OB_GetRDP(void)
   *         @arg @ref OB_SRAM2_RST_ERASE or @ref OB_SRAM2_RST_NOT_ERASE
   *         @arg @ref OB_BOOT0_FROM_OB or @ref OB_BOOT0_FROM_PIN
   *         @arg @ref OB_BOOT0_RESET or @ref OB_BOOT0_SET
+  *         @arg @ref OB_RESET_MODE_INPUT_ONLY or @ref OB_RESET_MODE_GPIO or @ref OB_RESET_MODE_INPUT_OUTPUT (*)
   *         @arg @ref OB_AGC_TRIM_0 or @ref OB_AGC_TRIM_1 or ... or @ref OB_AGC_TRIM_7
   */
 static uint32_t FLASH_OB_GetUser(void)
@@ -981,12 +969,20 @@ static void FLASH_OB_GetSecureMemoryConfig(uint32_t *SecureFlashStartAddr, uint3
   *SecureFlashStartAddr = ((user_config * FLASH_PAGE_SIZE) + FLASH_BASE);
 
   /* Get Secure SRAM2a start address */
+#if defined(FLASH_SRRVR_SBRSA_A)
+  user_config = (READ_BIT(srrvr_reg_val, FLASH_SRRVR_SBRSA_A) >> FLASH_SRRVR_SBRSA_A_Pos);
+#else
   user_config = (READ_BIT(srrvr_reg_val, FLASH_SRRVR_SBRSA) >> FLASH_SRRVR_SBRSA_Pos);
+#endif
 
   *SecureRAM2aStartAddr = ((user_config << SRAM_SECURE_PAGE_GRANULARITY_OFFSET) + SRAM2A_BASE);
 
   /* Get Secure SRAM2b start address */
+#if defined(FLASH_SRRVR_SBRSA_B)
+  user_config = (READ_BIT(srrvr_reg_val, FLASH_SRRVR_SBRSA_B) >> FLASH_SRRVR_SBRSA_B_Pos);
+#else
   user_config = (READ_BIT(srrvr_reg_val, FLASH_SRRVR_SNBRSA) >> FLASH_SRRVR_SNBRSA_Pos);
+#endif
 
   *SecureRAM2bStartAddr = ((user_config << SRAM_SECURE_PAGE_GRANULARITY_OFFSET) + SRAM2B_BASE);
 
@@ -1054,5 +1050,3 @@ static HAL_StatusTypeDef FLASH_OB_ProceedWriteOperation(void)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

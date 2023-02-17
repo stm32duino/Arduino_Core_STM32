@@ -6,20 +6,19 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32L4xx_LL_PWR_H
-#define __STM32L4xx_LL_PWR_H
+#ifndef STM32L4xx_LL_PWR_H
+#define STM32L4xx_LL_PWR_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -172,6 +171,20 @@ extern "C" {
   */
 #define LL_PWR_BATT_CHARG_RESISTOR_5K      (0x00000000U)
 #define LL_PWR_BATT_CHARGRESISTOR_1_5K     (PWR_CR4_VBRS)
+/**
+  * @}
+  */
+
+/** @defgroup PWR_LL_EC_SRAM2_CONTENT_RETENTION SRAM2 CONTENT RETENTION
+  * @{
+  */
+#define LL_PWR_NO_SRAM2_RETENTION        (0x00000000U)
+#if defined(PWR_CR3_RRS_1)
+#define LL_PWR_FULL_SRAM2_RETENTION      PWR_CR3_RRS_0
+#define LL_PWR_4KBYTES_SRAM2_RETENTION   PWR_CR3_RRS_1
+#else
+#define LL_PWR_FULL_SRAM2_RETENTION      PWR_CR3_RRS
+#endif /* PWR_CR3_RRS_1 */
 /**
   * @}
   */
@@ -817,13 +830,13 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledBORPVD_ULP(void)
 #endif /* PWR_CR3_ENULP */
 
 /**
-  * @brief  Enable SRAM2 content retention in Standby mode
+  * @brief  Enable SRAM2 full content retention in Standby mode
   * @rmtoll CR3          RRS           LL_PWR_EnableSRAM2Retention
   * @retval None
   */
 __STATIC_INLINE void LL_PWR_EnableSRAM2Retention(void)
 {
-  SET_BIT(PWR->CR3, PWR_CR3_RRS);
+  MODIFY_REG(PWR->CR3, PWR_CR3_RRS, LL_PWR_FULL_SRAM2_RETENTION);
 }
 
 /**
@@ -837,13 +850,44 @@ __STATIC_INLINE void LL_PWR_DisableSRAM2Retention(void)
 }
 
 /**
-  * @brief  Check if SRAM2 content retention in Standby mode is enabled
+  * @brief  Check if SRAM2 full content retention in Standby mode is enabled
   * @rmtoll CR3          RRS           LL_PWR_IsEnabledSRAM2Retention
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_PWR_IsEnabledSRAM2Retention(void)
 {
-  return ((READ_BIT(PWR->CR3, PWR_CR3_RRS) == (PWR_CR3_RRS)) ? 1UL : 0UL);
+  return ((READ_BIT(PWR->CR3, PWR_CR3_RRS) == (LL_PWR_FULL_SRAM2_RETENTION)) ? 1UL : 0UL);
+}
+
+/**
+  * @brief  Set SRAM2 content retention in Standby mode
+  * @rmtoll CR3          RRS          LL_PWR_SetSRAM2ContentRetention
+  * @param  SRAM2Size This parameter can be one of the following values:
+  *         @arg @ref LL_PWR_NO_SRAM2_RETENTION
+  *         @arg @ref LL_PWR_FULL_SRAM2_RETENTION
+  *         @arg @ref LL_PWR_4KBYTES_SRAM2_RETENTION
+  * @note  LL_PWR_4KBYTES_SRAM2_RETENTION parameter is not available on all devices
+  * @note  Setting LL_PWR_NO_SRAM2_RETENTION is same as calling LL_PWR_DisableSRAM2Retention()
+  * @note  Setting LL_PWR_FULL_SRAM2_RETENTION is same as calling LL_PWR_EnableSRAM2Retention()
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_SetSRAM2ContentRetention(uint32_t SRAM2Size)
+{
+  MODIFY_REG(PWR->CR3, PWR_CR3_RRS, SRAM2Size);
+}
+
+/**
+  * @brief  Get SRAM2 content retention in Standby mode
+  * @rmtoll CR3          RRS          LL_PWR_GetSRAM2ContentRetention
+  * @retval Returned value can be one of the following values:
+  *         @arg @ref LL_PWR_NO_SRAM2_RETENTION
+  *         @arg @ref LL_PWR_FULL_SRAM2_RETENTION
+  *         @arg @ref LL_PWR_4KBYTES_SRAM2_RETENTION
+  * @note  LL_PWR_4KBYTES_SRAM2_RETENTION parameter is not available on all devices
+  */
+__STATIC_INLINE uint32_t LL_PWR_GetSRAM2ContentRetention(void)
+{
+  return (uint32_t)(READ_BIT(PWR->CR3, PWR_CR3_RRS));
 }
 
 /**
@@ -1628,6 +1672,4 @@ ErrorStatus LL_PWR_DeInit(void);
 }
 #endif
 
-#endif /* __STM32L4xx_LL_PWR_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+#endif /* STM32L4xx_LL_PWR_H */

@@ -1,17 +1,17 @@
 /**
   ******************************************************************************
-  * @file    stm32wbxx_hal_conf_default.h
-  * @brief   HAL default configuration file.
+  * @file    stm32wbxx_hal_conf.h
+  * @author  MCD Application Team
+  * @brief   HAL configuration file.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -93,6 +93,10 @@ extern "C" {
 #define USE_HAL_USART_REGISTER_CALLBACKS     0u
 #define USE_HAL_WWDG_REGISTER_CALLBACKS      0u
 
+#ifndef USE_HAL_CRYP_SUSPEND_RESUME
+#define USE_HAL_CRYP_SUSPEND_RESUME 0u
+#endif
+
 /* ########################## Oscillator Values adaptation ####################*/
 /**
   * @brief Adjust the value of External High Speed oscillator (HSE) used in your application.
@@ -131,23 +135,27 @@ extern "C" {
 #if !defined  (LSI1_VALUE)
 #define LSI1_VALUE  (32000UL)       /*!< LSI1 Typical Value in Hz*/
 #endif /* LSI1_VALUE */                      /*!< Value of the Internal Low Speed oscillator in Hz
-The real value may vary depending on the variations
-in voltage and temperature.*/
+                                             The real value may vary depending on the variations
+                                             in voltage and temperature.*/
 /**
   * @brief Internal Low Speed oscillator (LSI2) value.
   */
 #if !defined  (LSI2_VALUE)
 #define LSI2_VALUE  (32000UL)       /*!< LSI2 Typical Value in Hz*/
 #endif /* LSI2_VALUE */                      /*!< Value of the Internal Low Speed oscillator in Hz
-The real value may vary depending on the variations
-in voltage and temperature.*/
+                                             The real value may vary depending on the variations
+                                             in voltage and temperature.*/
 
 /**
   * @brief External Low Speed oscillator (LSE) value.
   *        This value is used by the UART, RTC HAL module to compute the system frequency
   */
 #if !defined  (LSE_VALUE)
-#define LSE_VALUE    (32768UL) /*!< Value of the External oscillator in Hz*/
+#if defined(STM32WB5Mxx)
+#define LSE_VALUE    (32774UL)     /*!< Value of the LSE oscillator in Hz */
+#else
+#define LSE_VALUE    (32768UL)     /*!< Value of the LSE oscillator in Hz */
+#endif /* STM32WB5Mxx */
 #endif /* LSE_VALUE */
 
 /**
@@ -185,16 +193,16 @@ in voltage and temperature.*/
 #define  TICK_INT_PRIORITY            0x00U /*!< tick interrupt priority */
 #endif
 #if !defined (USE_RTOS)
-#define  USE_RTOS                     0
+#define  USE_RTOS                     0U
 #endif
 #if !defined (PREFETCH_ENABLE)
-#define  PREFETCH_ENABLE              0
+#define  PREFETCH_ENABLE              0U
 #endif
 #if !defined (INSTRUCTION_CACHE_ENABLE)
-#define  INSTRUCTION_CACHE_ENABLE     1
+#define  INSTRUCTION_CACHE_ENABLE     1U
 #endif
 #if !defined (DATA_CACHE_ENABLE)
-#define  DATA_CACHE_ENABLE            1
+#define  DATA_CACHE_ENABLE            1U
 #endif
 
 /* ########################## Assert Selection ############################## */
@@ -368,5 +376,3 @@ void assert_failed(uint8_t *file, uint32_t line);
 #endif
 
 #endif /* __STM32WBxx_HAL_CONF_DEFAULT_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

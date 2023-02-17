@@ -6,14 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 
@@ -48,6 +46,16 @@
 /** @defgroup DCMI_Exported_Types DCMI Exported Types
   * @{
   */
+/**
+  * @brief   DCMI Embedded Synchronisation CODE Init structure definition
+  */
+typedef struct
+{
+  uint8_t FrameStartUnmask; /*!< Specifies the frame start delimiter unmask. */
+  uint8_t LineStartUnmask;  /*!< Specifies the line start delimiter unmask.  */
+  uint8_t LineEndUnmask;    /*!< Specifies the line end delimiter unmask.    */
+  uint8_t FrameEndUnmask;   /*!< Specifies the frame end delimiter unmask.   */
+}DCMI_SyncUnmaskTypeDef;
 /**
   * @brief  HAL DCMI State structures definition
   */
@@ -458,6 +466,7 @@ void              HAL_DCMI_IRQHandler(DCMI_HandleTypeDef *hdcmi);
 HAL_StatusTypeDef HAL_DCMI_ConfigCrop(DCMI_HandleTypeDef *hdcmi, uint32_t X0, uint32_t Y0, uint32_t XSize, uint32_t YSize);
 HAL_StatusTypeDef HAL_DCMI_EnableCrop(DCMI_HandleTypeDef *hdcmi);
 HAL_StatusTypeDef HAL_DCMI_DisableCrop(DCMI_HandleTypeDef *hdcmi);
+HAL_StatusTypeDef HAL_DCMI_ConfigSyncUnmask(DCMI_HandleTypeDef *hdcmi, DCMI_SyncUnmaskTypeDef *SyncUnmask);
 /**
   * @}
   */
@@ -552,5 +561,3 @@ uint32_t              HAL_DCMI_GetError(DCMI_HandleTypeDef *hdcmi);
 #endif
 
 #endif /* __STM32F4xx_HAL_DCMI_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

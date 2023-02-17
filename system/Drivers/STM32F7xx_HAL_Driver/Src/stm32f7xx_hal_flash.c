@@ -70,14 +70,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 
@@ -660,8 +658,13 @@ static void FLASH_Program_DoubleWord(uint32_t Address, uint64_t Data)
   FLASH->CR |= FLASH_PSIZE_DOUBLE_WORD;
   FLASH->CR |= FLASH_CR_PG;
 
-  /* Program the double-word */
+  /* Program first word */
   *(__IO uint32_t*)Address = (uint32_t)Data;
+  /* Barrier to ensure programming is performed in 2 steps, in right order
+    (independently of compiler optimization behavior) */
+  __ISB();
+
+  /* Program second word */
   *(__IO uint32_t*)(Address+4) = (uint32_t)(Data >> 32);
 
   /* Data synchronous Barrier (DSB) Just after the write operation
@@ -673,7 +676,7 @@ static void FLASH_Program_DoubleWord(uint32_t Address, uint64_t Data)
 /**
   * @brief  Program word (32-bit) at a specified address.
   * @note   This function must be used when the device voltage range is from
-  *         2.7V to 3.6V.
+  *         2.7V to 3.3V.
   *
   * @note   If an erase and a program operations are requested simultaneously,
   *         the erase operation is performed before the program one.
@@ -702,7 +705,7 @@ static void FLASH_Program_Word(uint32_t Address, uint32_t Data)
 /**
   * @brief  Program a half-word (16-bit) at a specified address.
   * @note   This function must be used when the device voltage range is from
-  *         2.7V to 3.6V.
+  *         2.1V to 3.6V.
   *
   * @note   If an erase and a program operations are requested simultaneously,
   *         the erase operation is performed before the program one.
@@ -732,7 +735,7 @@ static void FLASH_Program_HalfWord(uint32_t Address, uint16_t Data)
 /**
   * @brief  Program byte (8-bit) at a specified address.
   * @note   This function must be used when the device voltage range is from
-  *         2.7V to 3.6V.
+  *         1.7V to 3.6V.
   *
   * @note   If an erase and a program operations are requested simultaneously,
   *         the erase operation is performed before the program one.
@@ -814,4 +817,3 @@ static void FLASH_SetErrorCode(void)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

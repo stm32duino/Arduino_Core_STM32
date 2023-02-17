@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                       opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -51,11 +50,11 @@ typedef struct
   uint32_t ClockEdge;            /*!< Specifies the clock transition on which the bit capture is made.
                                       This parameter can be a value of @ref SDMMC_LL_Clock_Edge                 */
 
-#if !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
+#if !defined(STM32L4P5xx) && !defined(STM32L4Q5xx) && !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
   uint32_t ClockBypass;          /*!< Specifies whether the SDMMC Clock divider bypass is
                                       enabled or disabled.
                                       This parameter can be a value of @ref SDMMC_LL_Clock_Bypass               */
-#endif /* !STM32L4R5xx && !STM32L4R7xx && !STM32L4R9xx && !STM32L4S5xx && !STM32L4S7xx && !STM32L4S9xx */
+#endif /* !STM32L4P5xx && !STM32L4Q5xx && !STM32L4R5xx && !STM32L4R7xx && !STM32L4R9xx && !STM32L4S5xx && !STM32L4S7xx && !STM32L4S9xx */
 
   uint32_t ClockPowerSave;       /*!< Specifies whether SDMMC Clock output is enabled or
                                       disabled when the bus is idle.
@@ -70,10 +69,10 @@ typedef struct
   uint32_t ClockDiv;             /*!< Specifies the clock frequency of the SDMMC controller.
                                       This parameter can be a value between Min_Data = 0 and Max_Data = 1023   */
 
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
   uint32_t Transceiver;          /*!< Specifies whether external Transceiver is enabled or disabled.
                                       This parameter can be a value of @ref SDMMC_LL_Transceiver */
-#endif /* STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
+#endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 
 }SDMMC_InitTypeDef;
 
@@ -189,7 +188,7 @@ typedef struct
                                                                            and asks the card whether card supports voltage.                                             */
 #define SDMMC_CMD_SEND_CSD                            ((uint8_t)9U)   /*!< Addressed card sends its card specific data (CSD) on the CMD line.                       */
 #define SDMMC_CMD_SEND_CID                            ((uint8_t)10U)  /*!< Addressed card sends its card identification (CID) on the CMD line.                      */
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 #define SDMMC_CMD_VOLTAGE_SWITCH                      ((uint8_t)11U)  /*!< SD card Voltage switch to 1.8V mode.                                                     */
 #else
 #define SDMMC_CMD_READ_DAT_UNTIL_STOP                 ((uint8_t)11U)  /*!< SD card doesn't support it.                                                              */
@@ -250,6 +249,11 @@ typedef struct
 #define SDMMC_CMD_SDMMC_RW_EXTENDED                   ((uint8_t)53U)  /*!< For SD I/O card only, reserved for security specification.                               */
 
 /**
+  * @brief Following commands are MMC Specific commands.
+  */
+#define SDMMC_CMD_MMC_SLEEP_AWAKE                     ((uint8_t)5U)   /*!< Toggle the device between Sleep state and Standby state.                                 */
+
+/**
   * @brief Following commands are SD Card Specific security commands.
   *        SDMMC_CMD_APP_CMD should be sent before sending these commands.
   */
@@ -301,12 +305,12 @@ typedef struct
 #define SDMMC_STD_CAPACITY                 ((uint32_t)0x00000000U)
 #define SDMMC_CHECK_PATTERN                ((uint32_t)0x000001AAU)
 #define SD_SWITCH_1_8V_CAPACITY            ((uint32_t)0x01000000U)
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 #define SDMMC_DDR50_SWITCH_PATTERN         ((uint32_t)0x80FFFF04U)
 #define SDMMC_SDR104_SWITCH_PATTERN        ((uint32_t)0x80FF1F03U)
 #define SDMMC_SDR50_SWITCH_PATTERN         ((uint32_t)0x80FF1F02U)
 #define SDMMC_SDR25_SWITCH_PATTERN         ((uint32_t)0x80FFFF01U)
-#endif /* STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
+#endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 
 #define SDMMC_MAX_VOLT_TRIAL               ((uint32_t)0x0000FFFFU)
 
@@ -350,7 +354,7 @@ typedef struct
   * @}
   */
 
-#if !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
+#if !defined(STM32L4P5xx) && !defined(STM32L4Q5xx) && !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
 /** @defgroup SDMMC_LL_Clock_Bypass Clock Bypass
   * @{
   */
@@ -362,7 +366,7 @@ typedef struct
 /**
   * @}
   */
-#endif /* STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
+#endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 
 /** @defgroup SDMMC_LL_Clock_Power_Save Clock Power Saving
   * @{
@@ -390,7 +394,7 @@ typedef struct
   * @}
   */
 
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 /** @defgroup SDMMC_LL_Speed_Mode
   * @{
   */
@@ -401,15 +405,15 @@ typedef struct
 #define SDMMC_SPEED_MODE_DDR                   ((uint32_t)0x00000004U)
 
 #define IS_SDMMC_SPEED_MODE(MODE) (((MODE) == SDMMC_SPEED_MODE_AUTO) || \
-                                ((MODE) == SDMMC_SPEED_MODE_DEFAULT) || \
-                                ((MODE) == SDMMC_SPEED_MODE_HIGH) || \
-                                ((MODE) == SDMMC_SPEED_MODE_ULTRA) || \
-                                ((MODE) == SDMMC_SPEED_MODE_DDR))
+                                   ((MODE) == SDMMC_SPEED_MODE_DEFAULT) || \
+                                   ((MODE) == SDMMC_SPEED_MODE_HIGH) || \
+                                   ((MODE) == SDMMC_SPEED_MODE_ULTRA) || \
+                                   ((MODE) == SDMMC_SPEED_MODE_DDR))
 
 /**
   * @}
   */
-#endif /* STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
+#endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 
 /** @defgroup SDMMC_LL_Hardware_Flow_Control Hardware Flow Control
   * @{
@@ -426,17 +430,17 @@ typedef struct
 /** @defgroup SDMMC_LL_Clock_Division Clock Division
   * @{
   */
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 /* SDMMC_CK frequency = SDMMCCLK / [2 * CLKDIV] */
 #define IS_SDMMC_CLKDIV(DIV)   ((DIV) < 0x400U)
 #else
 #define IS_SDMMC_CLKDIV(DIV)   ((DIV) <= 0xFFU)
-#endif /* STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
+#endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 /**
   * @}
   */
 
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 /** @defgroup SDMMC_LL_Transceiver Transceiver
   * @{
   */
@@ -448,7 +452,7 @@ typedef struct
 /**
   * @}
   */
-#endif /* STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
+#endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 
 /** @defgroup SDMMC_LL_Command_Index Command Index
   * @{
@@ -511,7 +515,7 @@ typedef struct
                              ((RESP) == SDMMC_RESP3) || \
                              ((RESP) == SDMMC_RESP4))
 
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 /** @defgroup SDMMC_Internal_DMA_Mode  SDMMC Internal DMA Mode
   * @{
   */
@@ -523,9 +527,9 @@ typedef struct
 /**
   * @}
   */
-#endif /* STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
+#endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 
-/** @defgroup SDMMC_LL_Data_Length Data Lenght
+/** @defgroup SDMMC_LL_Data_Length Data Length
   * @{
   */
 #define IS_SDMMC_DATA_LENGTH(LENGTH) ((LENGTH) <= 0x01FFFFFFU)
@@ -587,11 +591,11 @@ typedef struct
   * @{
   */
 #define SDMMC_TRANSFER_MODE_BLOCK             ((uint32_t)0x00000000U)
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 #define SDMMC_TRANSFER_MODE_STREAM            SDMMC_DCTRL_DTMODE_1
 #else
 #define SDMMC_TRANSFER_MODE_STREAM            SDMMC_DCTRL_DTMODE
-#endif /* STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
+#endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 
 #define IS_SDMMC_TRANSFER_MODE(MODE) (((MODE) == SDMMC_TRANSFER_MODE_BLOCK) || \
                                       ((MODE) == SDMMC_TRANSFER_MODE_STREAM))
@@ -635,11 +639,11 @@ typedef struct
 #define SDMMC_IT_CMDREND                   SDMMC_MASK_CMDRENDIE
 #define SDMMC_IT_CMDSENT                   SDMMC_MASK_CMDSENTIE
 #define SDMMC_IT_DATAEND                   SDMMC_MASK_DATAENDIE
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 #define SDMMC_IT_DHOLD                     SDMMC_MASK_DHOLDIE
 #endif
 #define SDMMC_IT_DBCKEND                   SDMMC_MASK_DBCKENDIE
-#if !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
+#if !defined(STM32L4P5xx) && !defined(STM32L4Q5xx) && !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
 #define SDMMC_IT_CMDACT                    SDMMC_MASK_CMDACTIE
 #define SDMMC_IT_TXACT                     SDMMC_MASK_TXACTIE
 #define SDMMC_IT_RXACT                     SDMMC_MASK_RXACTIE
@@ -648,12 +652,12 @@ typedef struct
 #endif
 #define SDMMC_IT_TXFIFOHE                  SDMMC_MASK_TXFIFOHEIE
 #define SDMMC_IT_RXFIFOHF                  SDMMC_MASK_RXFIFOHFIE
-#if !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
+#if !defined(STM32L4P5xx) && !defined(STM32L4Q5xx) && !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
 #define SDMMC_IT_TXFIFOF                   SDMMC_MASK_TXFIFOFIE
 #endif
 #define SDMMC_IT_RXFIFOF                   SDMMC_MASK_RXFIFOFIE
 #define SDMMC_IT_TXFIFOE                   SDMMC_MASK_TXFIFOEIE
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 #define SDMMC_IT_BUSYD0END                 SDMMC_MASK_BUSYD0ENDIE
 #else
 #define SDMMC_IT_RXFIFOE                     SDMMC_MASK_RXFIFOEIE
@@ -661,13 +665,13 @@ typedef struct
 #define SDMMC_IT_RXDAVL                      SDMMC_MASK_RXDAVLIE
 #endif
 #define SDMMC_IT_SDIOIT                    SDMMC_MASK_SDIOITIE
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 #define SDMMC_IT_ACKFAIL                   SDMMC_MASK_ACKFAILIE
 #define SDMMC_IT_ACKTIMEOUT                SDMMC_MASK_ACKTIMEOUTIE
 #define SDMMC_IT_VSWEND                    SDMMC_MASK_VSWENDIE
 #define SDMMC_IT_CKSTOP                    SDMMC_MASK_CKSTOPIE
 #define SDMMC_IT_IDMABTC                   SDMMC_MASK_IDMABTCIE
-#endif /* STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
+#endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 /**
   * @}
   */
@@ -684,11 +688,11 @@ typedef struct
 #define SDMMC_FLAG_CMDREND                   SDMMC_STA_CMDREND
 #define SDMMC_FLAG_CMDSENT                   SDMMC_STA_CMDSENT
 #define SDMMC_FLAG_DATAEND                   SDMMC_STA_DATAEND
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 #define SDMMC_FLAG_DHOLD                     SDMMC_STA_DHOLD
 #endif
 #define SDMMC_FLAG_DBCKEND                   SDMMC_STA_DBCKEND
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 #define SDMMC_FLAG_DABORT                    SDMMC_STA_DABORT
 #define SDMMC_FLAG_DPSMACT                   SDMMC_STA_DPSMACT
 #define SDMMC_FLAG_CMDACT                    SDMMC_STA_CPSMACT
@@ -703,7 +707,7 @@ typedef struct
 #define SDMMC_FLAG_RXFIFOF                   SDMMC_STA_RXFIFOF
 #define SDMMC_FLAG_TXFIFOE                   SDMMC_STA_TXFIFOE
 #define SDMMC_FLAG_RXFIFOE                   SDMMC_STA_RXFIFOE
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 #define SDMMC_FLAG_BUSYD0                    SDMMC_STA_BUSYD0
 #define SDMMC_FLAG_BUSYD0END                 SDMMC_STA_BUSYD0END
 #else
@@ -711,16 +715,16 @@ typedef struct
 #define SDMMC_FLAG_RXDAVL                    SDMMC_STA_RXDAVL
 #endif
 #define SDMMC_FLAG_SDIOIT                    SDMMC_STA_SDIOIT
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 #define SDMMC_FLAG_ACKFAIL                   SDMMC_STA_ACKFAIL
 #define SDMMC_FLAG_ACKTIMEOUT                SDMMC_STA_ACKTIMEOUT
 #define SDMMC_FLAG_VSWEND                    SDMMC_STA_VSWEND
 #define SDMMC_FLAG_CKSTOP                    SDMMC_STA_CKSTOP
 #define SDMMC_FLAG_IDMATE                    SDMMC_STA_IDMATE
 #define SDMMC_FLAG_IDMABTC                   SDMMC_STA_IDMABTC
-#endif /* STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
+#endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 #define SDMMC_STATIC_FLAGS                   ((uint32_t)(SDMMC_FLAG_CCRCFAIL   | SDMMC_FLAG_DCRCFAIL | SDMMC_FLAG_CTIMEOUT |\
                                                          SDMMC_FLAG_DTIMEOUT   | SDMMC_FLAG_TXUNDERR | SDMMC_FLAG_RXOVERR  |\
                                                          SDMMC_FLAG_CMDREND    | SDMMC_FLAG_CMDSENT  | SDMMC_FLAG_DATAEND  |\
@@ -748,7 +752,7 @@ typedef struct
 
 #define SDMMC_STATIC_DATA_FLAGS              ((uint32_t)(SDMMC_FLAG_DCRCFAIL | SDMMC_FLAG_DTIMEOUT | SDMMC_FLAG_TXUNDERR |\
                                                          SDMMC_FLAG_RXOVERR  | SDMMC_FLAG_DATAEND  | SDMMC_FLAG_DBCKEND))
-#endif /* STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
+#endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 
 /**
   * @}
@@ -770,7 +774,7 @@ typedef struct
 /* ---------------------- SDMMC registers bit mask --------------------------- */
 /* --- CLKCR Register ---*/
 /* CLKCR register clear mask */
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 #define CLKCR_CLEAR_MASK         ((uint32_t)(SDMMC_CLKCR_CLKDIV  | SDMMC_CLKCR_PWRSAV |\
                                              SDMMC_CLKCR_WIDBUS |\
                                              SDMMC_CLKCR_NEGEDGE | SDMMC_CLKCR_HWFC_EN |\
@@ -780,7 +784,7 @@ typedef struct
 #define CLKCR_CLEAR_MASK         ((uint32_t)(SDMMC_CLKCR_CLKDIV  | SDMMC_CLKCR_PWRSAV |\
                                              SDMMC_CLKCR_BYPASS  | SDMMC_CLKCR_WIDBUS |\
                                              SDMMC_CLKCR_NEGEDGE | SDMMC_CLKCR_HWFC_EN))
-#endif /* STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
+#endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 
 /* --- DCTRL Register ---*/
 /* SDMMC DCTRL Clear Mask */
@@ -789,7 +793,7 @@ typedef struct
 
 /* --- CMD Register ---*/
 /* CMD Register clear mask */
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 #define CMD_CLEAR_MASK           ((uint32_t)(SDMMC_CMD_CMDINDEX | SDMMC_CMD_WAITRESP |\
                                              SDMMC_CMD_WAITINT  | SDMMC_CMD_WAITPEND |\
                                              SDMMC_CMD_CPSMEN   | SDMMC_CMD_CMDSUSPEND))
@@ -797,27 +801,27 @@ typedef struct
 #define CMD_CLEAR_MASK           ((uint32_t)(SDMMC_CMD_CMDINDEX | SDMMC_CMD_WAITRESP |\
                                              SDMMC_CMD_WAITINT  | SDMMC_CMD_WAITPEND |\
                                              SDMMC_CMD_CPSMEN   | SDMMC_CMD_SDIOSUSPEND))
-#endif /* STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
+#endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 /* SDMMC Initialization Frequency (400KHz max) for Peripheral CLK 110MHz*/
 #define SDMMC_INIT_CLK_DIV ((uint8_t)0x8A)
 
 /* SDMMC Default Speed Frequency (25Mhz max) for Peripheral CLK 110MHz*/
-#define SDMMC_NSpeed_CLK_DIV ((uint8_t)0x3)
+#define SDMMC_NSPEED_CLK_DIV ((uint8_t)0x3)
 
 /* SDMMC High Speed Frequency (50Mhz max) for Peripheral CLK 110MHz*/
-#define SDMMC_HSpeed_CLK_DIV ((uint8_t)0x2)
+#define SDMMC_HSPEED_CLK_DIV ((uint8_t)0x2)
 
 /* SDMMC Data Transfer Frequency (25MHz max) */
-#define SDMMC_TRANSFER_CLK_DIV SDMMC_NSpeed_CLK_DIV
+#define SDMMC_TRANSFER_CLK_DIV SDMMC_NSPEED_CLK_DIV
 #else
 /* SDMMC Initialization Frequency (400KHz max) */
 #define SDMMC_INIT_CLK_DIV     ((uint8_t)0x76)    /* 48MHz / (SDMMC_INIT_CLK_DIV + 2) < 400KHz */
 
 /* SDMMC Data Transfer Frequency (25MHz max) */
 #define SDMMC_TRANSFER_CLK_DIV ((uint8_t)0x0)     /* 48MHz / (SDMMC_TRANSFER_CLK_DIV + 2) < 25MHz */
-#endif /* STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
+#endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 
 /**
   * @}
@@ -828,40 +832,40 @@ typedef struct
  * @{
  */
 
-#if !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
+#if !defined(STM32L4P5xx) && !defined(STM32L4Q5xx) && !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
 /**
   * @brief  Enable the SDMMC device.
-  * @param  __INSTANCE__: SDMMC Instance
+  * @param  __INSTANCE__ SDMMC Instance
   * @retval None
   */
 #define __SDMMC_ENABLE(__INSTANCE__)  ((__INSTANCE__)->CLKCR |= SDMMC_CLKCR_CLKEN)
 
 /**
   * @brief  Disable the SDMMC device.
-  * @param  __INSTANCE__: SDMMC Instance
+  * @param  __INSTANCE__ SDMMC Instance
   * @retval None
   */
 #define __SDMMC_DISABLE(__INSTANCE__)  ((__INSTANCE__)->CLKCR &= ~SDMMC_CLKCR_CLKEN)
 
 /**
   * @brief  Enable the SDMMC DMA transfer.
-  * @param  __INSTANCE__: SDMMC Instance
+  * @param  __INSTANCE__ SDMMC Instance
   * @retval None
   */
 #define __SDMMC_DMA_ENABLE(__INSTANCE__)  ((__INSTANCE__)->DCTRL |= SDMMC_DCTRL_DMAEN)
 
 /**
   * @brief  Disable the SDMMC DMA transfer.
-  * @param  __INSTANCE__: SDMMC Instance
+  * @param  __INSTANCE__ SDMMC Instance
   * @retval None
   */
 #define __SDMMC_DMA_DISABLE(__INSTANCE__)  ((__INSTANCE__)->DCTRL &= ~SDMMC_DCTRL_DMAEN)
-#endif /* !STM32L4R5xx && !STM32L4R7xx && !STM32L4R9xx && !STM32L4S5xx && !STM32L4S7xx && !STM32L4S9xx */
+#endif /* !STM32L4P5xx && !STM32L4Q5xx && !STM32L4R5xx && !STM32L4R7xx && !STM32L4R9xx && !STM32L4S5xx && !STM32L4S7xx && !STM32L4S9xx */
 
 /**
   * @brief  Enable the SDMMC device interrupt.
-  * @param  __INSTANCE__ : Pointer to SDMMC register base
-  * @param  __INTERRUPT__ : specifies the SDMMC interrupt sources to be enabled.
+  * @param  __INSTANCE__ Pointer to SDMMC register base
+  * @param  __INTERRUPT__ specifies the SDMMC interrupt sources to be enabled.
   *         This parameter can be one or a combination of the following values:
   *            @arg SDMMC_IT_CCRCFAIL:   Command response received (CRC check failed) interrupt
   *            @arg SDMMC_IT_DCRCFAIL:   Data block sent/received (CRC check failed) interrupt
@@ -899,8 +903,8 @@ typedef struct
 
 /**
   * @brief  Disable the SDMMC device interrupt.
-  * @param  __INSTANCE__ : Pointer to SDMMC register base
-  * @param  __INTERRUPT__ : specifies the SDMMC interrupt sources to be disabled.
+  * @param  __INSTANCE__ Pointer to SDMMC register base
+  * @param  __INTERRUPT__ specifies the SDMMC interrupt sources to be disabled.
   *          This parameter can be one or a combination of the following values:
   *            @arg SDMMC_IT_CCRCFAIL:   Command response received (CRC check failed) interrupt
   *            @arg SDMMC_IT_DCRCFAIL:   Data block sent/received (CRC check failed) interrupt
@@ -938,8 +942,8 @@ typedef struct
 
 /**
   * @brief  Checks whether the specified SDMMC flag is set or not.
-  * @param  __INSTANCE__ : Pointer to SDMMC register base
-  * @param  __FLAG__: specifies the flag to check.
+  * @param  __INSTANCE__ Pointer to SDMMC register base
+  * @param  __FLAG__ specifies the flag to check.
   *          This parameter can be one of the following values:
   *            @arg SDMMC_FLAG_CCRCFAIL:   Command response received (CRC check failed)
   *            @arg SDMMC_FLAG_DCRCFAIL:   Data block sent/received (CRC check failed)
@@ -982,8 +986,8 @@ typedef struct
 
 /**
   * @brief  Clears the SDMMC pending flags.
-  * @param  __INSTANCE__ : Pointer to SDMMC register base
-  * @param  __FLAG__: specifies the flag to clear.
+  * @param  __INSTANCE__ Pointer to SDMMC register base
+  * @param  __FLAG__ specifies the flag to clear.
   *          This parameter can be one or a combination of the following values:
   *            @arg SDMMC_FLAG_CCRCFAIL:   Command response received (CRC check failed)
   *            @arg SDMMC_FLAG_DCRCFAIL:   Data block sent/received (CRC check failed)
@@ -1011,8 +1015,8 @@ typedef struct
 
 /**
   * @brief  Checks whether the specified SDMMC interrupt has occurred or not.
-  * @param  __INSTANCE__ : Pointer to SDMMC register base
-  * @param  __INTERRUPT__: specifies the SDMMC interrupt source to check.
+  * @param  __INSTANCE__ Pointer to SDMMC register base
+  * @param  __INTERRUPT__ specifies the SDMMC interrupt source to check.
   *          This parameter can be one of the following values:
   *            @arg SDMMC_IT_CCRCFAIL:   Command response received (CRC check failed) interrupt
   *            @arg SDMMC_IT_DCRCFAIL:   Data block sent/received (CRC check failed) interrupt
@@ -1050,8 +1054,8 @@ typedef struct
 
 /**
   * @brief  Clears the SDMMC's interrupt pending bits.
-  * @param  __INSTANCE__ : Pointer to SDMMC register base
-  * @param  __INTERRUPT__: specifies the interrupt pending bit to clear.
+  * @param  __INSTANCE__ Pointer to SDMMC register base
+  * @param  __INTERRUPT__ specifies the interrupt pending bit to clear.
   *          This parameter can be one or a combination of the following values:
   *            @arg SDMMC_IT_CCRCFAIL:   Command response received (CRC check failed) interrupt
   *            @arg SDMMC_IT_DCRCFAIL:   Data block sent/received (CRC check failed) interrupt
@@ -1078,97 +1082,97 @@ typedef struct
 
 /**
   * @brief  Enable Start the SD I/O Read Wait operation.
-  * @param  __INSTANCE__ : Pointer to SDMMC register base
+  * @param  __INSTANCE__ Pointer to SDMMC register base
   * @retval None
   */
 #define __SDMMC_START_READWAIT_ENABLE(__INSTANCE__)  ((__INSTANCE__)->DCTRL |= SDMMC_DCTRL_RWSTART)
 
 /**
   * @brief  Disable Start the SD I/O Read Wait operations.
-  * @param  __INSTANCE__ : Pointer to SDMMC register base
+  * @param  __INSTANCE__ Pointer to SDMMC register base
   * @retval None
   */
 #define __SDMMC_START_READWAIT_DISABLE(__INSTANCE__)  ((__INSTANCE__)->DCTRL &= ~SDMMC_DCTRL_RWSTART)
 
 /**
   * @brief  Enable Start the SD I/O Read Wait operation.
-  * @param  __INSTANCE__ : Pointer to SDMMC register base
+  * @param  __INSTANCE__ Pointer to SDMMC register base
   * @retval None
   */
 #define __SDMMC_STOP_READWAIT_ENABLE(__INSTANCE__)  ((__INSTANCE__)->DCTRL |= SDMMC_DCTRL_RWSTOP)
 
 /**
   * @brief  Disable Stop the SD I/O Read Wait operations.
-  * @param  __INSTANCE__ : Pointer to SDMMC register base
+  * @param  __INSTANCE__ Pointer to SDMMC register base
   * @retval None
   */
 #define __SDMMC_STOP_READWAIT_DISABLE(__INSTANCE__)  ((__INSTANCE__)->DCTRL &= ~SDMMC_DCTRL_RWSTOP)
 
 /**
   * @brief  Enable the SD I/O Mode Operation.
-  * @param  __INSTANCE__ : Pointer to SDMMC register base
+  * @param  __INSTANCE__ Pointer to SDMMC register base
   * @retval None
   */
 #define __SDMMC_OPERATION_ENABLE(__INSTANCE__)  ((__INSTANCE__)->DCTRL |= SDMMC_DCTRL_SDIOEN)
 
 /**
   * @brief  Disable the SD I/O Mode Operation.
-  * @param  __INSTANCE__ : Pointer to SDMMC register base
+  * @param  __INSTANCE__ Pointer to SDMMC register base
   * @retval None
   */
 #define __SDMMC_OPERATION_DISABLE(__INSTANCE__)  ((__INSTANCE__)->DCTRL &= ~SDMMC_DCTRL_SDIOEN)
 
 /**
   * @brief  Enable the SD I/O Suspend command sending.
-  * @param  __INSTANCE__ : Pointer to SDMMC register base
+  * @param  __INSTANCE__ Pointer to SDMMC register base
   * @retval None
   */
-#if !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
+#if !defined(STM32L4P5xx) && !defined(STM32L4Q5xx) && !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
 #define __SDMMC_SUSPEND_CMD_ENABLE(__INSTANCE__)  ((__INSTANCE__)->CMD |= SDMMC_CMD_SDIOSUSPEND)
 #else
 #define __SDMMC_SUSPEND_CMD_ENABLE(__INSTANCE__)  ((__INSTANCE__)->CMD |= SDMMC_CMD_CMDSUSPEND)
-#endif /* !STM32L4R5xx && !STM32L4R7xx && !STM32L4R9xx && !STM32L4S5xx && !STM32L4S7xx && !STM32L4S9xx */
+#endif /* !STM32L4P5xx && !STM32L4Q5xx && !STM32L4R5xx && !STM32L4R7xx && !STM32L4R9xx && !STM32L4S5xx && !STM32L4S7xx && !STM32L4S9xx */
 
 /**
   * @brief  Disable the SD I/O Suspend command sending.
-  * @param  __INSTANCE__ : Pointer to SDMMC register base
+  * @param  __INSTANCE__ Pointer to SDMMC register base
   * @retval None
   */
-#if !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
+#if !defined(STM32L4P5xx) && !defined(STM32L4Q5xx) && !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
 #define __SDMMC_SUSPEND_CMD_DISABLE(__INSTANCE__)  ((__INSTANCE__)->CMD &= ~SDMMC_CMD_SDIOSUSPEND)
 #else
 #define __SDMMC_SUSPEND_CMD_DISABLE(__INSTANCE__)  ((__INSTANCE__)->CMD &= ~SDMMC_CMD_CMDSUSPEND)
-#endif /* !STM32L4R5xx && !STM32L4R7xx && !STM32L4R9xx && !STM32L4S5xx && !STM32L4S7xx && !STM32L4S9xx */
+#endif /* !STM32L4P5xx && !STM32L4Q5xx && !STM32L4R5xx && !STM32L4R7xx && !STM32L4R9xx && !STM32L4S5xx && !STM32L4S7xx && !STM32L4S9xx */
 
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 /**
   * @brief  Enable the CMDTRANS mode.
-  * @param  __INSTANCE__ : Pointer to SDMMC register base
+  * @param  __INSTANCE__ Pointer to SDMMC register base
   * @retval None
   */
 #define __SDMMC_CMDTRANS_ENABLE(__INSTANCE__)  ((__INSTANCE__)->CMD |= SDMMC_CMD_CMDTRANS)
 
 /**
   * @brief  Disable the CMDTRANS mode.
-  * @param  __INSTANCE__ : Pointer to SDMMC register base
+  * @param  __INSTANCE__ Pointer to SDMMC register base
   * @retval None
   */
 #define __SDMMC_CMDTRANS_DISABLE(__INSTANCE__)  ((__INSTANCE__)->CMD &= ~SDMMC_CMD_CMDTRANS)
 
 /**
   * @brief  Enable the CMDSTOP mode.
-  * @param  __INSTANCE__ : Pointer to SDMMC register base
+  * @param  __INSTANCE__ Pointer to SDMMC register base
   * @retval None
   */
 #define __SDMMC_CMDSTOP_ENABLE(__INSTANCE__)  ((__INSTANCE__)->CMD |= SDMMC_CMD_CMDSTOP)
 
 /**
   * @brief  Disable the CMDSTOP mode.
-  * @param  __INSTANCE__ : Pointer to SDMMC register base
+  * @param  __INSTANCE__ Pointer to SDMMC register base
   * @retval None
   */
 #define __SDMMC_CMDSTOP_DISABLE(__INSTANCE__)  ((__INSTANCE__)->CMD &= ~SDMMC_CMD_CMDSTOP)
-#endif /* STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
+#endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 
 /**
   * @}
@@ -1207,9 +1211,9 @@ HAL_StatusTypeDef SDMMC_WriteFIFO(SDMMC_TypeDef *SDMMCx, uint32_t *pWriteData);
   * @{
   */
 HAL_StatusTypeDef SDMMC_PowerState_ON(SDMMC_TypeDef *SDMMCx);
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 HAL_StatusTypeDef SDMMC_PowerState_Cycle(SDMMC_TypeDef *SDMMCx);
-#endif /* !STM32L4R5xx && !STM32L4R7xx && !STM32L4R9xx && !STM32L4S5xx && !STM32L4S7xx && !STM32L4S9xx */
+#endif /* !STM32L4P5xx && !STM32L4Q5xx && !STM32L4R5xx && !STM32L4R7xx && !STM32L4R9xx && !STM32L4S5xx && !STM32L4S7xx && !STM32L4S9xx */
 HAL_StatusTypeDef SDMMC_PowerState_OFF(SDMMC_TypeDef *SDMMCx);
 uint32_t          SDMMC_GetPowerState(SDMMC_TypeDef *SDMMCx);
 
@@ -1236,7 +1240,7 @@ uint32_t SDMMC_CmdEraseStartAdd(SDMMC_TypeDef *SDMMCx, uint32_t StartAdd);
 uint32_t SDMMC_CmdSDEraseStartAdd(SDMMC_TypeDef *SDMMCx, uint32_t StartAdd);
 uint32_t SDMMC_CmdEraseEndAdd(SDMMC_TypeDef *SDMMCx, uint32_t EndAdd);
 uint32_t SDMMC_CmdSDEraseEndAdd(SDMMC_TypeDef *SDMMCx, uint32_t EndAdd);
-uint32_t SDMMC_CmdErase(SDMMC_TypeDef *SDMMCx);
+uint32_t SDMMC_CmdErase(SDMMC_TypeDef *SDMMCx, uint32_t EraseType);
 uint32_t SDMMC_CmdStopTransfer(SDMMC_TypeDef *SDMMCx);
 uint32_t SDMMC_CmdSelDesel(SDMMC_TypeDef *SDMMCx, uint64_t Addr);
 uint32_t SDMMC_CmdGoIdleState(SDMMC_TypeDef *SDMMCx);
@@ -1248,16 +1252,23 @@ uint32_t SDMMC_CmdSendSCR(SDMMC_TypeDef *SDMMCx);
 uint32_t SDMMC_CmdSendCID(SDMMC_TypeDef *SDMMCx);
 uint32_t SDMMC_CmdSendCSD(SDMMC_TypeDef *SDMMCx, uint32_t Argument);
 uint32_t SDMMC_CmdSetRelAdd(SDMMC_TypeDef *SDMMCx, uint16_t *pRCA);
+uint32_t SDMMC_CmdSetRelAddMmc(SDMMC_TypeDef *SDMMCx, uint16_t RCA);
+uint32_t SDMMC_CmdSleepMmc(SDMMC_TypeDef *SDMMCx, uint32_t Argument);
 uint32_t SDMMC_CmdSendStatus(SDMMC_TypeDef *SDMMCx, uint32_t Argument);
 uint32_t SDMMC_CmdStatusRegister(SDMMC_TypeDef *SDMMCx);
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 uint32_t SDMMC_CmdVoltageSwitch(SDMMC_TypeDef *SDMMCx);
-#endif /* STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
+#endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 uint32_t SDMMC_CmdOpCondition(SDMMC_TypeDef *SDMMCx, uint32_t Argument);
 uint32_t SDMMC_CmdSwitch(SDMMC_TypeDef *SDMMCx, uint32_t Argument);
-#if defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
 uint32_t SDMMC_CmdSendEXTCSD(SDMMC_TypeDef *SDMMCx, uint32_t Argument);
-#endif /* STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
+
+/* SDMMC Responses management functions */
+uint32_t SDMMC_GetCmdResp1(SDMMC_TypeDef *SDMMCx, uint8_t SD_CMD, uint32_t Timeout);
+uint32_t SDMMC_GetCmdResp2(SDMMC_TypeDef *SDMMCx);
+uint32_t SDMMC_GetCmdResp3(SDMMC_TypeDef *SDMMCx);
+uint32_t SDMMC_GetCmdResp7(SDMMC_TypeDef *SDMMCx);
+uint32_t SDMMC_GetCmdResp6(SDMMC_TypeDef *SDMMCx, uint8_t SD_CMD, uint16_t *pRCA);
 
 /**
   * @}
@@ -1289,5 +1300,3 @@ uint32_t SDMMC_CmdSendEXTCSD(SDMMC_TypeDef *SDMMCx, uint32_t Argument);
 #endif
 
 #endif /* STM32L4xx_LL_SDMMC_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -14,51 +14,61 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics. 
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019-2022 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
 
   .syntax unified
-	.cpu cortex-m4
-	.fpu softvfp
-	.thumb
+  .cpu cortex-m4
+  .fpu softvfp
+  .thumb
 
-.global	g_pfnVectors
-.global	Default_Handler
+.global g_pfnVectors
+.global Default_Handler
 
 /* start address for the initialization values of the .data section.
 defined in linker script */
-.word	_sidata
+.word _sidata
 /* start address for the .data section. defined in linker script */
-.word	_sdata
+.word _sdata
 /* end address for the .data section. defined in linker script */
-.word	_edata
+.word _edata
 /* start address for the .bss section. defined in linker script */
-.word	_sbss
+.word _sbss
 /* end address for the .bss section. defined in linker script */
-.word	_ebss
+.word _ebss
+/* start address for the initialization values of the .MB_MEM2 section.
+defined in linker script */
+.word _siMB_MEM2
+/* start address for the .MB_MEM2 section. defined in linker script */
+.word _sMB_MEM2
+/* end address for the .MB_MEM2 section. defined in linker script */
+.word _eMB_MEM2
 
-  .section .text.Reset_Handler
-  .weak Reset_Handler
-  .type Reset_Handler, %function
-Reset_Handler:
-  ldr   r0, =_estack
-  mov   sp, r0          /* set stack pointer */
-
-/* Copy the data segment initializers from flash to SRAM */
-  ldr r0, =_sdata
-  ldr r1, =_edata
-  ldr r2, =_sidata
+/* INIT_BSS macro is used to fill the specified region [start : end] with zeros */
+.macro INIT_BSS start, end
+  ldr r0, =\start
+  ldr r1, =\end
   movs r3, #0
-  b	LoopCopyDataInit
+  bl LoopFillZerobss
+.endm
 
+/* INIT_DATA macro is used to copy data in the region [start : end] starting from 'src' */
+.macro INIT_DATA start, end, src
+  ldr r0, =\start
+  ldr r1, =\end
+  ldr r2, =\src
+  movs r3, #0
+  bl LoopCopyDataInit
+.endm
+
+.section  .text.data_initializers
 CopyDataInit:
   ldr r4, [r2, r3]
   str r4, [r0, r3]
@@ -67,33 +77,43 @@ CopyDataInit:
 LoopCopyDataInit:
   adds r4, r0, r3
   cmp r4, r1
-  bcc CopyDataInit
-  
-/* Zero fill the bss segment. */
-  ldr r2, =_sbss
-  ldr r4, =_ebss
-  movs r3, #0
-  b LoopFillZerobss
+  bcc  CopyDataInit
+  bx lr
 
 FillZerobss:
-  str  r3, [r2]
-  adds r2, r2, #4
+  str  r3, [r0]
+  adds r0, r0, #4
 
 LoopFillZerobss:
-  cmp r2, r4
+  cmp r0, r1
   bcc FillZerobss
+  bx lr
 
-/* Call the clock system intitialization function.*/
+  .section .text.Reset_Handler
+  .weak Reset_Handler
+  .type Reset_Handler, %function
+Reset_Handler:
+  ldr   r0, =_estack
+  mov   sp, r0          /* set stack pointer */
+/* Call the clock system initialization function.*/
   bl  SystemInit
+
+/* Copy the data segment initializers from flash to SRAM */
+  INIT_DATA _sdata, _edata, _sidata
+  INIT_DATA _sMB_MEM2, _eMB_MEM2, _siMB_MEM2
+
+/* Zero fill the bss segments. */
+  INIT_BSS _sbss, _ebss
+
 /* Call static constructors */
   bl __libc_init_array
 /* Call the application s entry point.*/
-	bl	main
+  bl main
 
 LoopForever:
   b LoopForever
     
-.size	Reset_Handler, .-Reset_Handler
+.size Reset_Handler, .-Reset_Handler
 
 /**
  * @brief  This is the code that gets called when the processor receives an
@@ -106,8 +126,8 @@ LoopForever:
   .section .text.Default_Handler,"ax",%progbits
 Default_Handler:
 Infinite_Loop:
-	b	Infinite_Loop
-	.size	Default_Handler, .-Default_Handler
+  b Infinite_Loop
+  .size Default_Handler, .-Default_Handler
 /******************************************************************************
 *
 * The minimal vector table for a Cortex-M4.  Note that the proper constructs
@@ -115,15 +135,15 @@ Infinite_Loop:
 * 0x0000.0000.
 *
 ******************************************************************************/
- 	.section	.isr_vector,"a",%progbits
-	.type	g_pfnVectors, %object
-	.size	g_pfnVectors, .-g_pfnVectors
+  .section  .isr_vector,"a",%progbits
+  .type  g_pfnVectors, %object
+  .size  g_pfnVectors, .-g_pfnVectors
 
 
 g_pfnVectors:
   .word _estack
   .word Reset_Handler
-	.word	NMI_Handler
+  .word NMI_Handler
   .word HardFault_Handler
   .word MemManage_Handler
   .word BusFault_Handler
@@ -208,9 +228,9 @@ g_pfnVectors:
 * this definition.
 *
 *******************************************************************************/
-  .weak	NMI_Handler
+  .weak  NMI_Handler
   .thumb_set NMI_Handler,Default_Handler
-  
+
   .weak  HardFault_Handler
   .thumb_set HardFault_Handler,Default_Handler
 
@@ -424,4 +444,3 @@ g_pfnVectors:
   .weak  DMAMUX1_OVR_IRQHandler
   .thumb_set DMAMUX1_OVR_IRQHandler,Default_Handler
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

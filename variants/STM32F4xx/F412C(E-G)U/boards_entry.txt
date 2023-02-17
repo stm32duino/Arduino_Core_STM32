@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F412CEUx
+GenF4.menu.pnum.GENERIC_F412CEUX=Generic F412CEUx
+GenF4.menu.pnum.GENERIC_F412CEUX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F412CEUX.upload.maximum_data_size=262144
+GenF4.menu.pnum.GENERIC_F412CEUX.build.board=GENERIC_F412CEUX
+GenF4.menu.pnum.GENERIC_F412CEUX.build.product_line=STM32F412Cx
+GenF4.menu.pnum.GENERIC_F412CEUX.build.variant=STM32F4xx/F412C(E-G)U
+
+# Generic F412CGUx
+GenF4.menu.pnum.GENERIC_F412CGUX=Generic F412CGUx
+GenF4.menu.pnum.GENERIC_F412CGUX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F412CGUX.upload.maximum_data_size=262144
+GenF4.menu.pnum.GENERIC_F412CGUX.build.board=GENERIC_F412CGUX
+GenF4.menu.pnum.GENERIC_F412CGUX.build.product_line=STM32F412Cx
+GenF4.menu.pnum.GENERIC_F412CGUX.build.variant=STM32F4xx/F412C(E-G)U
+

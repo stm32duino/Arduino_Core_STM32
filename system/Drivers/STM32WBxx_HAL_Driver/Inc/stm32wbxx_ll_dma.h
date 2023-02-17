@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics. 
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -53,19 +52,29 @@ extern "C" {
   * @param  __CHANNEL_INDEX__ 0 to 6 to map DMAx_Channel1 to DMAx_Channel7
   * @retval Pointer to the DMA channel
   */
+#if defined (DMA2)
 #define __LL_DMA_INSTANCE_TO_CHANNEL(__DMA_INSTANCE__, __CHANNEL_INDEX__)   \
 (((__DMA_INSTANCE__) == DMA1) ? (DMA1_Channel1 + (__CHANNEL_INDEX__)) : (DMA2_Channel1 + (__CHANNEL_INDEX__)))
+#else
+#define __LL_DMA_INSTANCE_TO_CHANNEL(__DMA_INSTANCE__, __CHANNEL_INDEX__)   \
+(DMA1_Channel1 + (__CHANNEL_INDEX__))
+#endif
 
 /**
   * @brief  Helper macro to convert DMA Instance and index into DMAMUX channel
   * @note   DMAMUX channel 0 to 6 are mapped to DMA1 channel 1 to 7.
-  *         DMAMUX channel 7 to 13 are mapped to DMA2 channel 1 to 7.
+  *         DMAMUX channel 7 to 13 are mapped to DMA2 channel 1 to 7 (**** only available on chip which support DMA2 ****).
   * @param  __DMA_INSTANCE__ DMAx
   * @param  __CHANNEL_INDEX__ 0 to 6 to map DMAx_Channel1 to DMAx_Channel7
   * @retval Pointer to the DMA channel
   */
+#if defined (DMA2)
 #define __LL_DMA_INSTANCE_TO_DMAMUX_CCR(__DMA_INSTANCE__, __CHANNEL_INDEX__)\
 (((__DMA_INSTANCE__) == DMA1) ? (DMAMUX1_Channel0 + (__CHANNEL_INDEX__)) : (DMAMUX1_Channel7 + (__CHANNEL_INDEX__)))
+#else
+#define __LL_DMA_INSTANCE_TO_DMAMUX_CCR(__DMA_INSTANCE__, __CHANNEL_INDEX__)\
+(DMAMUX1_Channel0 + (__CHANNEL_INDEX__))
+#endif
 /**
   * @}
   */
@@ -949,7 +958,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetDataLength(DMA_TypeDef *DMAx, uint32_t Channe
 /**
   * @brief  Configure the Source and Destination addresses.
   * @note   This API must not be called when the DMA channel is enabled.
-  * @note   Each IP using DMA provides an API to get directly the register adress (LL_PPP_DMA_GetRegAddr).
+  * @note   Each peripheral using DMA provides an API to get directly the register address (LL_PPP_DMA_GetRegAddr).
   * @rmtoll CPAR         PA            LL_DMA_ConfigAddresses\n
   *         CMAR         MA            LL_DMA_ConfigAddresses
   * @param  DMAx DMAx Instance
@@ -1157,7 +1166,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetM2MDstAddress(DMA_TypeDef *DMAx, uint32_t Cha
 /**
   * @brief  Set DMA request for DMA Channels on DMAMUX Channel x.
   * @note   DMAMUX channel 0 to 6 are mapped to DMA1 channel 1 to 7.
-  *         DMAMUX channel 7 to 13 are mapped to DMA2 channel 1 to 7.
+  *         DMAMUX channel 7 to 13 are mapped to DMA2 channel 1 to 7 (**** only available on chip which support DMA2 ****).
   * @rmtoll CxCR         DMAREQ_ID     LL_DMA_SetPeriphRequest
   * @param  DMAx DMAx Instance
   * @param  Channel This parameter can be one of the following values:
@@ -1220,7 +1229,7 @@ __STATIC_INLINE void LL_DMA_SetPeriphRequest(DMA_TypeDef *DMAx, uint32_t Channel
 /**
   * @brief  Get DMA request for DMA Channels on DMAMUX Channel x.
   * @note   DMAMUX channel 0 to 6 are mapped to DMA1 channel 1 to 7.
-  *         DMAMUX channel 7 to 13 are mapped to DMA2 channel 1 to 7.
+  *         DMAMUX channel 7 to 13 are mapped to DMA2 channel 1 to 7 (**** only available on chip which support DMA2 ****).
   * @rmtoll CxCR         DMAREQ_ID     LL_DMA_GetPeriphRequest
   * @param  DMAx DMAx Instance
   * @param  Channel This parameter can be one of the following values:
@@ -1597,6 +1606,10 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TE7(DMA_TypeDef *DMAx)
 
 /**
   * @brief  Clear Channel 1 global interrupt flag.
+  * @note Do not Clear Channel 1 global interrupt flag when the channel in ON.
+    Instead clear specific flags transfer complete, half transfer & transfer
+    error flag with LL_DMA_ClearFlag_TC1, LL_DMA_ClearFlag_HT1,
+    LL_DMA_ClearFlag_TE1. bug id 2.4.1 in Product Errata Sheet.
   * @rmtoll IFCR         CGIF1         LL_DMA_ClearFlag_GI1
   * @param  DMAx DMAx Instance
   * @retval None
@@ -1608,6 +1621,10 @@ __STATIC_INLINE void LL_DMA_ClearFlag_GI1(DMA_TypeDef *DMAx)
 
 /**
   * @brief  Clear Channel 2 global interrupt flag.
+  * @note Do not Clear Channel 2 global interrupt flag when the channel in ON.
+    Instead clear specific flags transfer complete, half transfer & transfer
+    error flag with LL_DMA_ClearFlag_TC2, LL_DMA_ClearFlag_HT2,
+    LL_DMA_ClearFlag_TE2. bug id 2.4.1 in Product Errata Sheet.
   * @rmtoll IFCR         CGIF2         LL_DMA_ClearFlag_GI2
   * @param  DMAx DMAx Instance
   * @retval None
@@ -1619,6 +1636,10 @@ __STATIC_INLINE void LL_DMA_ClearFlag_GI2(DMA_TypeDef *DMAx)
 
 /**
   * @brief  Clear Channel 3 global interrupt flag.
+  * @note Do not Clear Channel 3 global interrupt flag when the channel in ON.
+    Instead clear specific flags transfer complete, half transfer & transfer
+    error flag with LL_DMA_ClearFlag_TC3, LL_DMA_ClearFlag_HT3,
+    LL_DMA_ClearFlag_TE3. bug id 2.4.1 in Product Errata Sheet.
   * @rmtoll IFCR         CGIF3         LL_DMA_ClearFlag_GI3
   * @param  DMAx DMAx Instance
   * @retval None
@@ -1630,6 +1651,10 @@ __STATIC_INLINE void LL_DMA_ClearFlag_GI3(DMA_TypeDef *DMAx)
 
 /**
   * @brief  Clear Channel 4 global interrupt flag.
+  * @note Do not Clear Channel 4 global interrupt flag when the channel in ON.
+    Instead clear specific flags transfer complete, half transfer & transfer
+    error flag with LL_DMA_ClearFlag_TC4, LL_DMA_ClearFlag_HT4,
+    LL_DMA_ClearFlag_TE4. bug id 2.4.1 in Product Errata Sheet.
   * @rmtoll IFCR         CGIF4         LL_DMA_ClearFlag_GI4
   * @param  DMAx DMAx Instance
   * @retval None
@@ -1641,6 +1666,10 @@ __STATIC_INLINE void LL_DMA_ClearFlag_GI4(DMA_TypeDef *DMAx)
 
 /**
   * @brief  Clear Channel 5 global interrupt flag.
+  * @note Do not Clear Channel 5 global interrupt flag when the channel in ON.
+    Instead clear specific flags transfer complete, half transfer & transfer
+    error flag with LL_DMA_ClearFlag_TC5, LL_DMA_ClearFlag_HT5,
+    LL_DMA_ClearFlag_TE5. bug id 2.4.1 in Product Errata Sheet.
   * @rmtoll IFCR         CGIF5         LL_DMA_ClearFlag_GI5
   * @param  DMAx DMAx Instance
   * @retval None
@@ -1652,6 +1681,10 @@ __STATIC_INLINE void LL_DMA_ClearFlag_GI5(DMA_TypeDef *DMAx)
 
 /**
   * @brief  Clear Channel 6 global interrupt flag.
+  * @note Do not Clear Channel 6 global interrupt flag when the channel in ON.
+    Instead clear specific flags transfer complete, half transfer & transfer
+    error flag with LL_DMA_ClearFlag_TC6, LL_DMA_ClearFlag_HT6,
+    LL_DMA_ClearFlag_TE6. bug id 2.4.1 in Product Errata Sheet.
   * @rmtoll IFCR         CGIF6         LL_DMA_ClearFlag_GI6
   * @param  DMAx DMAx Instance
   * @retval None
@@ -1663,6 +1696,10 @@ __STATIC_INLINE void LL_DMA_ClearFlag_GI6(DMA_TypeDef *DMAx)
 
 /**
   * @brief  Clear Channel 7 global interrupt flag.
+  * @note Do not Clear Channel 7 global interrupt flag when the channel in ON.
+    Instead clear specific flags transfer complete, half transfer & transfer
+    error flag with LL_DMA_ClearFlag_TC7, LL_DMA_ClearFlag_HT7,
+    LL_DMA_ClearFlag_TE7. bug id 2.4.1 in Product Errata Sheet.
   * @rmtoll IFCR         CGIF7         LL_DMA_ClearFlag_GI7
   * @param  DMAx DMAx Instance
   * @retval None
@@ -2092,7 +2129,6 @@ __STATIC_INLINE uint32_t LL_DMA_IsEnabledIT_TE(DMA_TypeDef *DMAx, uint32_t Chann
 /** @defgroup DMA_LL_EF_Init Initialization and de-initialization functions
   * @{
   */
-
 ErrorStatus LL_DMA_Init(DMA_TypeDef *DMAx, uint32_t Channel, LL_DMA_InitTypeDef *DMA_InitStruct);
 ErrorStatus LL_DMA_DeInit(DMA_TypeDef *DMAx, uint32_t Channel);
 void LL_DMA_StructInit(LL_DMA_InitTypeDef *DMA_InitStruct);
@@ -2121,5 +2157,3 @@ void LL_DMA_StructInit(LL_DMA_InitTypeDef *DMA_InitStruct);
 #endif
 
 #endif /* STM32WBxx_LL_DMA_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

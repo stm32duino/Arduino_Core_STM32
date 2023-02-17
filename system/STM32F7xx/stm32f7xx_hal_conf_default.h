@@ -5,13 +5,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -158,8 +157,8 @@ in voltage and temperature.  */
 #if !defined (PREFETCH_ENABLE)
 #define  PREFETCH_ENABLE              1U /* To enable prefetch */
 #endif
-#if !defined (ART_ACCLERATOR_ENABLE)
-#define  ART_ACCLERATOR_ENABLE        1U /* To enable ART Accelerator */
+#if !defined (ART_ACCELERATOR_ENABLE)
+#define  ART_ACCELERATOR_ENABLE        1U /* To enable ART Accelerator */
 #endif
 
 #define  USE_HAL_ADC_REGISTER_CALLBACKS         0U /* ADC register callback disabled       */
@@ -340,6 +339,10 @@ in voltage and temperature.  */
 #include "stm32f7xx_hal_eth.h"
 #endif /* HAL_ETH_MODULE_ENABLED */
 
+#ifdef HAL_ETH_LEGACY_MODULE_ENABLED
+#include "Legacy/stm32f7xx_hal_eth_legacy.h"
+#endif /* HAL_ETH_LEGACY_MODULE_ENABLED */
+
 #ifdef HAL_EXTI_MODULE_ENABLED
 #include "stm32f7xx_hal_exti.h"
 #endif /* HAL_EXTI_MODULE_ENABLED */
@@ -499,6 +502,3 @@ void assert_failed(uint8_t *file, uint32_t line);
 #endif
 
 #endif /* __STM32F7xx_HAL_CONF_DEFAULT_H */
-
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

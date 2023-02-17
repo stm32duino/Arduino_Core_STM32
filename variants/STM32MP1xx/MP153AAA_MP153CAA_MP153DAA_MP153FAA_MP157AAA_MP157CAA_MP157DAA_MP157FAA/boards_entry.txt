@@ -1,0 +1,69 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic MP153AAAx
+GenMP1.menu.pnum.GENERIC_MP153AAAX=Generic MP153AAAx
+GenMP1.menu.pnum.GENERIC_MP153AAAX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP153AAAX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP153AAAX.build.board=GENERIC_MP153AAAX
+GenMP1.menu.pnum.GENERIC_MP153AAAX.build.product_line=STM32MP153Axx
+GenMP1.menu.pnum.GENERIC_MP153AAAX.build.variant=STM32MP1xx/MP153AAA_MP153CAA_MP153DAA_MP153FAA_MP157AAA_MP157CAA_MP157DAA_MP157FAA
+
+# Generic MP153CAAx
+GenMP1.menu.pnum.GENERIC_MP153CAAX=Generic MP153CAAx
+GenMP1.menu.pnum.GENERIC_MP153CAAX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP153CAAX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP153CAAX.build.board=GENERIC_MP153CAAX
+GenMP1.menu.pnum.GENERIC_MP153CAAX.build.product_line=STM32MP153Cxx
+GenMP1.menu.pnum.GENERIC_MP153CAAX.build.variant=STM32MP1xx/MP153AAA_MP153CAA_MP153DAA_MP153FAA_MP157AAA_MP157CAA_MP157DAA_MP157FAA
+
+# Generic MP153DAAx
+GenMP1.menu.pnum.GENERIC_MP153DAAX=Generic MP153DAAx
+GenMP1.menu.pnum.GENERIC_MP153DAAX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP153DAAX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP153DAAX.build.board=GENERIC_MP153DAAX
+GenMP1.menu.pnum.GENERIC_MP153DAAX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP153DAAX.build.variant=STM32MP1xx/MP153AAA_MP153CAA_MP153DAA_MP153FAA_MP157AAA_MP157CAA_MP157DAA_MP157FAA
+
+# Generic MP153FAAx
+GenMP1.menu.pnum.GENERIC_MP153FAAX=Generic MP153FAAx
+GenMP1.menu.pnum.GENERIC_MP153FAAX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP153FAAX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP153FAAX.build.board=GENERIC_MP153FAAX
+GenMP1.menu.pnum.GENERIC_MP153FAAX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP153FAAX.build.variant=STM32MP1xx/MP153AAA_MP153CAA_MP153DAA_MP153FAA_MP157AAA_MP157CAA_MP157DAA_MP157FAA
+
+# Generic MP157AAAx
+GenMP1.menu.pnum.GENERIC_MP157AAAX=Generic MP157AAAx
+GenMP1.menu.pnum.GENERIC_MP157AAAX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP157AAAX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP157AAAX.build.board=GENERIC_MP157AAAX
+GenMP1.menu.pnum.GENERIC_MP157AAAX.build.product_line=STM32MP157Axx
+GenMP1.menu.pnum.GENERIC_MP157AAAX.build.variant=STM32MP1xx/MP153AAA_MP153CAA_MP153DAA_MP153FAA_MP157AAA_MP157CAA_MP157DAA_MP157FAA
+
+# Generic MP157CAAx
+GenMP1.menu.pnum.GENERIC_MP157CAAX=Generic MP157CAAx
+GenMP1.menu.pnum.GENERIC_MP157CAAX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP157CAAX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP157CAAX.build.board=GENERIC_MP157CAAX
+GenMP1.menu.pnum.GENERIC_MP157CAAX.build.product_line=STM32MP157Cxx
+GenMP1.menu.pnum.GENERIC_MP157CAAX.build.variant=STM32MP1xx/MP153AAA_MP153CAA_MP153DAA_MP153FAA_MP157AAA_MP157CAA_MP157DAA_MP157FAA
+
+# Generic MP157DAAx
+GenMP1.menu.pnum.GENERIC_MP157DAAX=Generic MP157DAAx
+GenMP1.menu.pnum.GENERIC_MP157DAAX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP157DAAX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP157DAAX.build.board=GENERIC_MP157DAAX
+GenMP1.menu.pnum.GENERIC_MP157DAAX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP157DAAX.build.variant=STM32MP1xx/MP153AAA_MP153CAA_MP153DAA_MP153FAA_MP157AAA_MP157CAA_MP157DAA_MP157FAA
+
+# Generic MP157FAAx
+GenMP1.menu.pnum.GENERIC_MP157FAAX=Generic MP157FAAx
+GenMP1.menu.pnum.GENERIC_MP157FAAX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP157FAAX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP157FAAX.build.board=GENERIC_MP157FAAX
+GenMP1.menu.pnum.GENERIC_MP157FAAX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP157FAAX.build.variant=STM32MP1xx/MP153AAA_MP153CAA_MP153DAA_MP153FAA_MP157AAA_MP157CAA_MP157DAA_MP157FAA
+

@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic MP151AAAx
+GenMP1.menu.pnum.GENERIC_MP151AAAX=Generic MP151AAAx
+GenMP1.menu.pnum.GENERIC_MP151AAAX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP151AAAX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP151AAAX.build.board=GENERIC_MP151AAAX
+GenMP1.menu.pnum.GENERIC_MP151AAAX.build.product_line=STM32MP151Axx
+GenMP1.menu.pnum.GENERIC_MP151AAAX.build.variant=STM32MP1xx/MP151AAA_MP151CAA_MP151DAA_MP151FAA
+
+# Generic MP151CAAx
+GenMP1.menu.pnum.GENERIC_MP151CAAX=Generic MP151CAAx
+GenMP1.menu.pnum.GENERIC_MP151CAAX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP151CAAX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP151CAAX.build.board=GENERIC_MP151CAAX
+GenMP1.menu.pnum.GENERIC_MP151CAAX.build.product_line=STM32MP151Cxx
+GenMP1.menu.pnum.GENERIC_MP151CAAX.build.variant=STM32MP1xx/MP151AAA_MP151CAA_MP151DAA_MP151FAA
+
+# Generic MP151DAAx
+GenMP1.menu.pnum.GENERIC_MP151DAAX=Generic MP151DAAx
+GenMP1.menu.pnum.GENERIC_MP151DAAX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP151DAAX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP151DAAX.build.board=GENERIC_MP151DAAX
+GenMP1.menu.pnum.GENERIC_MP151DAAX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP151DAAX.build.variant=STM32MP1xx/MP151AAA_MP151CAA_MP151DAA_MP151FAA
+
+# Generic MP151FAAx
+GenMP1.menu.pnum.GENERIC_MP151FAAX=Generic MP151FAAx
+GenMP1.menu.pnum.GENERIC_MP151FAAX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP151FAAX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP151FAAX.build.board=GENERIC_MP151FAAX
+GenMP1.menu.pnum.GENERIC_MP151FAAX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP151FAAX.build.variant=STM32MP1xx/MP151AAA_MP151CAA_MP151DAA_MP151FAA
+

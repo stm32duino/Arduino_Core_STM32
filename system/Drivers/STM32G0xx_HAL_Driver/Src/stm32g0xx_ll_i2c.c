@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2018 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -25,13 +24,13 @@
 #include "stm32_assert.h"
 #else
 #define assert_param(expr) ((void)0U)
-#endif
+#endif /* USE_FULL_ASSERT */
 
 /** @addtogroup STM32G0xx_LL_Driver
   * @{
   */
 
-#if defined (I2C1) || defined (I2C2)
+#if defined (I2C1) || defined (I2C2) || defined (I2C3)
 
 /** @defgroup I2C_LL I2C
   * @{
@@ -108,6 +107,16 @@ ErrorStatus LL_I2C_DeInit(I2C_TypeDef *I2Cx)
     LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_I2C2);
 
   }
+#if defined(I2C3)
+  else if (I2Cx == I2C3)
+  {
+    /* Force reset of I2C clock */
+    LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_I2C3);
+
+    /* Release reset of I2C clock */
+    LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_I2C3);
+  }
+#endif /* I2C3 */
   else
   {
     status = ERROR;
@@ -216,12 +225,10 @@ void LL_I2C_StructInit(LL_I2C_InitTypeDef *I2C_InitStruct)
   * @}
   */
 
-#endif /* I2C1 || I2C2 */
+#endif /* I2C1 || I2C2 || I2C3 */
 
 /**
   * @}
   */
 
 #endif /* USE_FULL_LL_DRIVER */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

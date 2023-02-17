@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic H745BGTx
+GenH7.menu.pnum.GENERIC_H745BGTX=Generic H745BGTx
+GenH7.menu.pnum.GENERIC_H745BGTX.upload.maximum_size=1048576
+GenH7.menu.pnum.GENERIC_H745BGTX.upload.maximum_data_size=884736
+GenH7.menu.pnum.GENERIC_H745BGTX.build.board=GENERIC_H745BGTX
+GenH7.menu.pnum.GENERIC_H745BGTX.build.product_line=STM32H745xG
+GenH7.menu.pnum.GENERIC_H745BGTX.build.variant=STM32H7xx/H745B(G-I)T_H755BIT
+
+# Generic H745BITx
+GenH7.menu.pnum.GENERIC_H745BITX=Generic H745BITx
+GenH7.menu.pnum.GENERIC_H745BITX.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H745BITX.upload.maximum_data_size=884736
+GenH7.menu.pnum.GENERIC_H745BITX.build.board=GENERIC_H745BITX
+GenH7.menu.pnum.GENERIC_H745BITX.build.product_line=STM32H745xx
+GenH7.menu.pnum.GENERIC_H745BITX.build.variant=STM32H7xx/H745B(G-I)T_H755BIT
+
+# Generic H755BITx
+GenH7.menu.pnum.GENERIC_H755BITX=Generic H755BITx
+GenH7.menu.pnum.GENERIC_H755BITX.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H755BITX.upload.maximum_data_size=884736
+GenH7.menu.pnum.GENERIC_H755BITX.build.board=GENERIC_H755BITX
+GenH7.menu.pnum.GENERIC_H755BITX.build.product_line=STM32H755xx
+GenH7.menu.pnum.GENERIC_H755BITX.build.variant=STM32H7xx/H745B(G-I)T_H755BIT
+

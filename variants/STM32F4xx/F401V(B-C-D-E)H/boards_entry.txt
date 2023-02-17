@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F401VBHx
+GenF4.menu.pnum.GENERIC_F401VBHX=Generic F401VBHx
+GenF4.menu.pnum.GENERIC_F401VBHX.upload.maximum_size=131072
+GenF4.menu.pnum.GENERIC_F401VBHX.upload.maximum_data_size=65536
+GenF4.menu.pnum.GENERIC_F401VBHX.build.board=GENERIC_F401VBHX
+GenF4.menu.pnum.GENERIC_F401VBHX.build.product_line=STM32F401xC
+GenF4.menu.pnum.GENERIC_F401VBHX.build.variant=STM32F4xx/F401V(B-C-D-E)H
+
+# Generic F401VCHx
+GenF4.menu.pnum.GENERIC_F401VCHX=Generic F401VCHx
+GenF4.menu.pnum.GENERIC_F401VCHX.upload.maximum_size=262144
+GenF4.menu.pnum.GENERIC_F401VCHX.upload.maximum_data_size=65536
+GenF4.menu.pnum.GENERIC_F401VCHX.build.board=GENERIC_F401VCHX
+GenF4.menu.pnum.GENERIC_F401VCHX.build.product_line=STM32F401xC
+GenF4.menu.pnum.GENERIC_F401VCHX.build.variant=STM32F4xx/F401V(B-C-D-E)H
+
+# Generic F401VDHx
+GenF4.menu.pnum.GENERIC_F401VDHX=Generic F401VDHx
+GenF4.menu.pnum.GENERIC_F401VDHX.upload.maximum_size=393216
+GenF4.menu.pnum.GENERIC_F401VDHX.upload.maximum_data_size=98304
+GenF4.menu.pnum.GENERIC_F401VDHX.build.board=GENERIC_F401VDHX
+GenF4.menu.pnum.GENERIC_F401VDHX.build.product_line=STM32F401xE
+GenF4.menu.pnum.GENERIC_F401VDHX.build.variant=STM32F4xx/F401V(B-C-D-E)H
+
+# Generic F401VEHx
+GenF4.menu.pnum.GENERIC_F401VEHX=Generic F401VEHx
+GenF4.menu.pnum.GENERIC_F401VEHX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F401VEHX.upload.maximum_data_size=98304
+GenF4.menu.pnum.GENERIC_F401VEHX.build.board=GENERIC_F401VEHX
+GenF4.menu.pnum.GENERIC_F401VEHX.build.product_line=STM32F401xE
+GenF4.menu.pnum.GENERIC_F401VEHX.build.variant=STM32F4xx/F401V(B-C-D-E)H
+

@@ -6,20 +6,19 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32L4xx_HAL_DCMI_H
-#define __STM32L4xx_HAL_DCMI_H
+#ifndef STM32L4xx_HAL_DCMI_H
+#define STM32L4xx_HAL_DCMI_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -142,6 +141,12 @@ typedef struct __DCMI_HandleTypeDef
   __IO uint32_t                 XferSize;            /*!< DMA transfer size            */
 
   uint32_t                      pBuffPtr;            /*!< Pointer to DMA output buffer */
+
+  uint32_t                      XferCount_0;         /*!< Initial DMA transfers counter */
+
+  uint32_t                      XferSize_0;          /*!< Initial DMA transfers size   */
+
+  uint32_t                      pBuffPtr_0;          /*!< Saveguard of pointer to DMA output buffer */
 
   DMA_HandleTypeDef             *DMA_Handle;         /*!< Pointer to DMA handler       */
 
@@ -672,6 +677,4 @@ uint32_t              HAL_DCMI_GetError(DCMI_HandleTypeDef *hdcmi);
 }
 #endif
 
-#endif /* __STM32L4xx_HAL_DCMI_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+#endif /* STM32L4xx_HAL_DCMI_H */

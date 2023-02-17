@@ -11,13 +11,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics. 
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -79,6 +78,7 @@
   */
   
 
+#if defined(PWR_CR1_VOS)
 /**
   * @brief Return Voltage Scaling Range.
   * @retval VOS bit field (PWR_REGULATOR_VOLTAGE_RANGE1 or PWR_REGULATOR_VOLTAGE_RANGE2)
@@ -145,7 +145,8 @@ HAL_StatusTypeDef HAL_PWREx_ControlVoltageScaling(uint32_t VoltageScaling)
   }
   
   return HAL_OK;
-}  
+}
+#endif
 
 /****************************************************************************/
 
@@ -179,7 +180,7 @@ void HAL_PWREx_DisableBatteryCharging(void)
 }  
 
 /****************************************************************************/
-
+#if defined(PWR_CR2_PVME1)
 /**
   * @brief Enable VDDUSB supply.
   * @note  Remove VDDUSB electrical and logical isolation, once VDDUSB supply is present.
@@ -198,6 +199,7 @@ void HAL_PWREx_DisableVddUSB(void)
 {
   CLEAR_BIT(PWR->CR2, PWR_CR2_USV);
 }
+#endif
 
 /****************************************************************************/
 
@@ -219,7 +221,7 @@ void HAL_PWREx_DisableInternalWakeUpLine(void)
   CLEAR_BIT(PWR->CR3, PWR_CR3_EIWUL);
 }
 
-
+#if defined(PWR_CR5_SMPSEN)
 /**
   * @brief Enable BORH and SMPS step down converter forced in bypass mode
   *        interrupt for CPU1
@@ -239,7 +241,7 @@ void HAL_PWREx_DisableBORH_SMPSBypassIT(void)
 {
   CLEAR_BIT(PWR->CR3, PWR_CR3_EBORHSMPSFB);
 }
-
+#endif
 
 /**
   * @brief Enable RF Phase interrupt.
@@ -278,7 +280,7 @@ void HAL_PWREx_DisableBLEActivityIT(void)
   CLEAR_BIT(PWR->CR3, PWR_CR3_EBLEA);
 }
 
-
+#if defined(PWR_CR3_E802A)
 /**
   * @brief Enable 802.15.4 Activity interrupt.
   * @retval None
@@ -296,6 +298,7 @@ void HAL_PWREx_Disable802ActivityIT(void)
 {
   CLEAR_BIT(PWR->CR3, PWR_CR3_E802A);
 }
+#endif
 
 /**
   * @brief Enable CPU2 on-Hold interrupt.
@@ -358,11 +361,13 @@ HAL_StatusTypeDef HAL_PWREx_EnableGPIOPullUp(uint32_t GPIO, uint32_t GPIONumber)
     case PWR_GPIO_C:
        SET_BIT(PWR->PUCRC, GPIONumber);
        CLEAR_BIT(PWR->PDCRC, GPIONumber);
-       break; 
+       break;
+#if defined(GPIOD)
     case PWR_GPIO_D:
        SET_BIT(PWR->PUCRD, GPIONumber);
        CLEAR_BIT(PWR->PDCRD, GPIONumber);
        break;
+#endif
     case PWR_GPIO_E:
        SET_BIT(PWR->PUCRE, (GPIONumber & PWR_PORTE_AVAILABLE_PINS));
        CLEAR_BIT(PWR->PDCRE, (GPIONumber & PWR_PORTE_AVAILABLE_PINS));
@@ -411,10 +416,12 @@ HAL_StatusTypeDef HAL_PWREx_DisableGPIOPullUp(uint32_t GPIO, uint32_t GPIONumber
        break; 
     case PWR_GPIO_C:
        CLEAR_BIT(PWR->PUCRC, GPIONumber);
-       break; 
+       break;
+#if defined(GPIOD)
     case PWR_GPIO_D:
        CLEAR_BIT(PWR->PUCRD, GPIONumber);
        break;
+#endif
     case PWR_GPIO_E:
        CLEAR_BIT(PWR->PUCRE, (GPIONumber & PWR_PORTE_AVAILABLE_PINS));
        break;
@@ -472,11 +479,13 @@ HAL_StatusTypeDef HAL_PWREx_EnableGPIOPullDown(uint32_t GPIO, uint32_t GPIONumbe
     case PWR_GPIO_C:
        SET_BIT(PWR->PDCRC, GPIONumber);
        CLEAR_BIT(PWR->PUCRC, GPIONumber);
-       break; 
+       break;
+#if defined(GPIOD)
   case PWR_GPIO_D:
        SET_BIT(PWR->PDCRD, GPIONumber);
        CLEAR_BIT(PWR->PUCRD, GPIONumber);
        break;
+#endif
     case PWR_GPIO_E:
        SET_BIT(PWR->PDCRE, (GPIONumber & PWR_PORTE_AVAILABLE_PINS));
        CLEAR_BIT(PWR->PUCRE, (GPIONumber & PWR_PORTE_AVAILABLE_PINS));
@@ -526,9 +535,11 @@ HAL_StatusTypeDef HAL_PWREx_DisableGPIOPullDown(uint32_t GPIO, uint32_t GPIONumb
     case PWR_GPIO_C:
        CLEAR_BIT(PWR->PDCRC, GPIONumber);
        break; 
+#if defined(GPIOD)
     case PWR_GPIO_D:
        CLEAR_BIT(PWR->PDCRD, GPIONumber);
        break;
+#endif
     case PWR_GPIO_E:
        CLEAR_BIT(PWR->PDCRE, (GPIONumber & PWR_PORTE_AVAILABLE_PINS));
        break;
@@ -571,6 +582,7 @@ void HAL_PWREx_DisablePullUpPullDownConfig(void)
 
 /****************************************************************************/
 
+#if defined(PWR_CR5_SMPSEN)
 /**
   * @brief  Set BOR configuration
   * @param  BORConfiguration This parameter can be one of the following values:
@@ -592,6 +604,7 @@ uint32_t HAL_PWREx_GetBORConfig(void)
 {
   return LL_PWR_GetBORConfig();
 }
+#endif
 
 /****************************************************************************/
 /**
@@ -627,9 +640,11 @@ void HAL_PWREx_ReleaseCore(uint32_t CPU)
 
 /****************************************************************************/
 /**
-  * @brief Enable BKRAM content retention in Standby mode.
-  * @note  When RRS bit is set, SRAM is powered by the low-power regulator in
+  * @brief Enable SRAM2a content retention in Standby mode.
+  * @note  When RRS bit is set, SRAM2a is powered by the low-power regulator in
   *         Standby mode and its content is kept.
+  * @note   On devices STM32WB15xx, STM32WB10xx, STM32WB1Mxx retention is extended
+  *         to SRAM1, SRAM2a and SRAM2b.
   * @retval None
   */
 void HAL_PWREx_EnableSRAMRetention(void)
@@ -638,9 +653,11 @@ void HAL_PWREx_EnableSRAMRetention(void)
 }
 
 /**
-  * @brief Disable BKRAM content retention in Standby mode.
-  * @note  When RRS bit is reset, SRAM is powered off in Standby mode
+  * @brief Disable SRAM2a content retention in Standby mode.
+  * @note  When RRS bit is reset, SRAM2a is powered off in Standby mode
   *        and its content is lost.
+  * @note   On devices STM32WB15xx, STM32WB10xx, STM32WB1Mxx retention is extended
+  *         to SRAM1, SRAM2a and SRAM2b.
   * @retval None
   */
 void HAL_PWREx_DisableSRAMRetention(void)
@@ -665,7 +682,7 @@ void HAL_PWREx_EnableFlashPowerDown(uint32_t PowerMode)
   if((PowerMode & PWR_FLASHPD_LPRUN) != 0U)
   {
     /* Unlock bit FPDR */
-    WRITE_REG(PWR->CR1, 0x0000C1B0U);
+    WRITE_REG(PWR->CR1, 0x0000C1B0UL);
   }
 
   /* Set flash power down mode */
@@ -690,6 +707,7 @@ void HAL_PWREx_DisableFlashPowerDown(uint32_t PowerMode)
 }
 
 /****************************************************************************/
+#if defined(PWR_CR2_PVME1)
 /**
   * @brief Enable the Power Voltage Monitoring 1: VDDUSB versus 1.2V.
   * @retval None
@@ -707,6 +725,8 @@ void HAL_PWREx_DisablePVM1(void)
 {
   CLEAR_BIT(PWR->CR2, PWR_PVM_1);
 }
+#endif
+
 /**
   * @brief Enable the Power Voltage Monitoring 3: VDDA versus 1.62V.
   * @retval None
@@ -753,6 +773,7 @@ HAL_StatusTypeDef HAL_PWREx_ConfigPVM(PWR_PVMTypeDef *sConfigPVM)
      configure the corresponding EXTI line accordingly. */
   switch (sConfigPVM->PVMType)
   {
+#if defined(PWR_CR2_PVME1)
    case PWR_PVM_1:
       /* Clear any previous config. Keep it clear if no event or IT mode is selected */
       __HAL_PWR_PVM1_EXTI_DISABLE_EVENT();
@@ -782,7 +803,8 @@ HAL_StatusTypeDef HAL_PWREx_ConfigPVM(PWR_PVMTypeDef *sConfigPVM)
       {
         __HAL_PWR_PVM1_EXTI_ENABLE_FALLING_EDGE();
       }
-      break; 
+      break;
+#endif
       
     case PWR_PVM_3:
       /* Clear any previous config. Keep it clear if no event or IT mode is selected */
@@ -824,6 +846,7 @@ HAL_StatusTypeDef HAL_PWREx_ConfigPVM(PWR_PVMTypeDef *sConfigPVM)
   return status;
 }
 
+#if defined(PWR_CR5_SMPSEN)
 /**
   * @brief Configure the SMPS step down converter.
   * @note   SMPS output voltage is calibrated in production,
@@ -844,7 +867,7 @@ HAL_StatusTypeDef HAL_PWREx_ConfigSMPS(PWR_SMPSTypeDef *sConfigSMPS)
   assert_param(IS_PWR_SMPS_OUTPUT_VOLTAGE(sConfigSMPS->OutputVoltage));
   
   __IO const uint32_t OutputVoltageLevel_calibration = (((*SMPS_VOLTAGE_CAL_ADDR) & SMPS_VOLTAGE_CAL) >> SMPS_VOLTAGE_CAL_POS);  /* SMPS output voltage level calibrated in production */
-  int32_t TrimmingSteps;                         /* Trimming steps between theorical output voltage and calibrated output voltage */
+  int32_t TrimmingSteps;                         /* Trimming steps between theoretical output voltage and calibrated output voltage */
   int32_t OutputVoltageLevelTrimmed;             /* SMPS output voltage level after calibration: trimming value added to required level */
 
   if(OutputVoltageLevel_calibration == 0UL)
@@ -867,13 +890,13 @@ HAL_StatusTypeDef HAL_PWREx_ConfigSMPS(PWR_SMPSTypeDef *sConfigSMPS)
       OutputVoltageLevelTrimmed = 0;
       status = HAL_ERROR;
     }
-    else if(OutputVoltageLevelTrimmed > (int32_t)PWR_CR5_SMPSVOS)
-    {
-      OutputVoltageLevelTrimmed = (int32_t)PWR_CR5_SMPSVOS;
-      status = HAL_ERROR;
-    }
     else
     {
+      if(OutputVoltageLevelTrimmed > (int32_t)PWR_CR5_SMPSVOS)
+      {
+        OutputVoltageLevelTrimmed = (int32_t)PWR_CR5_SMPSVOS;
+        status = HAL_ERROR;
+      }
     }
     
     /* Update register */
@@ -891,7 +914,7 @@ HAL_StatusTypeDef HAL_PWREx_ConfigSMPS(PWR_SMPSTypeDef *sConfigSMPS)
   *
   *         (1) SMPS operating mode step down or open depends on system low-power mode:
   *              - step down mode if system low power mode is run, LP run or stop,
-  *              - open mode if system low power mode is stop1, stop2, standby or shutdown
+  *              - open mode if system low power mode is Stop1, Stop2, Standby or Shutdown
   * @retval None
   */
 void HAL_PWREx_SMPS_SetMode(uint32_t OperatingMode)
@@ -905,7 +928,7 @@ void HAL_PWREx_SMPS_SetMode(uint32_t OperatingMode)
   *         requested operating mode can differ from effective low power mode.
   *         - dependency on system low-power mode:
   *           - step down mode if system low power mode is run, LP run or stop,
-  *           - open mode if system low power mode is stop1, stop2, standby or shutdown
+  *           - open mode if system low power mode is Stop1, Stop2, Standby or Shutdown
   *         - dependency on BOR level:
   *           - bypass mode if supply voltage drops below BOR level
   * @note   This functions check flags of SMPS operating modes step down
@@ -917,12 +940,13 @@ void HAL_PWREx_SMPS_SetMode(uint32_t OperatingMode)
   *
   *         (1) SMPS operating mode step down or open depends on system low-power mode:
   *              - step down mode if system low power mode is run, LP run or stop,
-  *              - open mode if system low power mode is stop1, stop2, standby or shutdown
+  *              - open mode if system low power mode is Stop1, Stop2, Standby or Shutdown
   */
 uint32_t HAL_PWREx_SMPS_GetEffectiveMode(void)
 {
   return (uint32_t)(READ_BIT(PWR->SR2, (PWR_SR2_SMPSF | PWR_SR2_SMPSBF)));
 }
+#endif
 
 /****************************************************************************/
 
@@ -1069,6 +1093,8 @@ HAL_StatusTypeDef HAL_PWREx_DisableLowPowerRunMode(void)
   *         is set; the MSI oscillator is selected if STOPWUCK is cleared.  
   * @note  By keeping the internal regulator ON during Stop 0 mode, the consumption
   *         is higher although the startup time is reduced.
+  * @note  Case of Stop0 mode with SMPS: Before entering Stop 0 mode with SMPS Step Down converter enabled,
+  *        the HSI16 must be kept on by enabling HSI kernel clock (set HSIKERON register bit).
   * @note  According to system power policy, system entering in Stop mode
   *        is depending on other CPU power mode.
   * @param STOPEntry  specifies if Stop mode in entered with WFI or WFE instruction.
@@ -1106,7 +1132,6 @@ void HAL_PWREx_EnterSTOP0Mode(uint8_t STOPEntry)
   /* Reset SLEEPDEEP bit of Cortex System Control Register */
   CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
 }
-
 
 /**
   * @brief Enter Stop 1 mode.
@@ -1160,7 +1185,7 @@ void HAL_PWREx_EnterSTOP1Mode(uint8_t STOPEntry)
   CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
 }
 
-
+#if defined(PWR_SUPPORT_STOP2)
 /**
   * @brief Enter Stop 2 mode.
   * @note  In Stop 2 mode, only low power voltage regulator is ON.
@@ -1177,6 +1202,15 @@ void HAL_PWREx_EnterSTOP1Mode(uint8_t STOPEntry)
   * @note  When exiting Stop 2 mode by issuing an interrupt or a wakeup event,
   *         the HSI RC oscillator is selected as system clock if STOPWUCK bit in RCC_CFGR register
   *         is set; the MSI oscillator is selected if STOPWUCK is cleared.
+  * @note  Case of Stop2 mode and debugger probe attached: a workaround should be applied.
+  *        Issue specified in "ES0394 - STM32WB55Cx/Rx/Vx device errata":
+  *        2.2.9 Incomplete Stop 2 mode entry after a wakeup from debug upon EXTI line 48 event
+  *        "With the JTAG debugger enabled on GPIO pins and after a wakeup from debug triggered by an event on EXTI
+  *        line 48 (CDBGPWRUPREQ), the device may enter in a state in which attempts to enter Stop 2 mode are not fully
+  *        effective ..."
+  *        Workaround implementation example using LL driver:
+  *        LL_EXTI_DisableIT_32_63(LL_EXTI_LINE_48);
+  *        LL_C2_EXTI_DisableIT_32_63(LL_EXTI_LINE_48);
   * @note  According to system power policy, system entering in Stop mode
   *        is depending on other CPU power mode.
   * @param STOPEntry  specifies if Stop mode in entered with WFI or WFE instruction.
@@ -1213,10 +1247,7 @@ void HAL_PWREx_EnterSTOP2Mode(uint8_t STOPEntry)
   /* Reset SLEEPDEEP bit of Cortex System Control Register */
   CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
 }
-
-
-
-
+#endif
 
 /**
   * @brief Enter Shutdown mode. 
@@ -1270,7 +1301,7 @@ void HAL_PWREx_PVD_PVM_IRQHandler(void)
     __HAL_PWR_PVD_EXTI_CLEAR_FLAG();
   }
 
-
+#if defined(PWR_CR2_PVME1)
   /* Next, successively check PVMx exti flags */
   if(__HAL_PWR_PVM1_EXTI_GET_FLAG() != 0U) 
   {
@@ -1280,6 +1311,7 @@ void HAL_PWREx_PVD_PVM_IRQHandler(void)
     /* Clear PVM1 exti pending bit */
     __HAL_PWR_PVM1_EXTI_CLEAR_FLAG();
   }
+#endif
 
   if(__HAL_PWR_PVM3_EXTI_GET_FLAG() != 0U) 
   {
@@ -1291,7 +1323,7 @@ void HAL_PWREx_PVD_PVM_IRQHandler(void)
   }
 }
 
-
+#if defined(PWR_CR2_PVME1)
 /**
   * @brief PWR PVM1 interrupt callback
   * @retval None
@@ -1302,6 +1334,7 @@ __weak void HAL_PWREx_PVM1Callback(void)
             HAL_PWREx_PVM1Callback() API can be implemented in the user file
    */
 }
+#endif
 
 /**
   * @brief PWR PVM3 interrupt callback
@@ -1332,4 +1365,3 @@ __weak void HAL_PWREx_PVM3Callback(void)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

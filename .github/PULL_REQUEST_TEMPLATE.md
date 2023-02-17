@@ -3,7 +3,7 @@
 Please, Make sure that your PR is not a duplicate.
 Search among the [Pull request](https://github.com/stm32duino/Arduino_Core_STM32/pulls) before creating one.
 
-IMPORTANT: Please review the [CONTRIBUTING.md](CONTRIBUTING.md) file for detailed contributing guidelines.
+IMPORTANT: Please review the [CONTRIBUTING.md](../CONTRIBUTING.md) file for detailed contributing guidelines.
 
 Thanks for submitting a pull request.
 Please provide enough information so that others can review your pull request:
@@ -28,14 +28,14 @@ Explain the **motivation** for making this change. What existing problem does th
 
 **Validation**
 
-* Ensure Travis CI build is passed.
+* Ensure CI build is passed.
 * Demonstrate the code is solid. [e.g. Provide a sketch]
 
-<!-- Make sure tests pass on both Travis CI. -->
+<!-- Make sure tests pass on both CI. -->
 
 **Code formatting**
 
-* Ensure AStyle check is passed thanks Travis CI (soon)
+* Ensure AStyle check is passed thanks CI
 
 <!-- See the simple style guide. -->
 

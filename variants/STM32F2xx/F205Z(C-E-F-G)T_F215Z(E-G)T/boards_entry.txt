@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F205ZCTx
+GenF2.menu.pnum.GENERIC_F205ZCTX=Generic F205ZCTx
+GenF2.menu.pnum.GENERIC_F205ZCTX.upload.maximum_size=262144
+GenF2.menu.pnum.GENERIC_F205ZCTX.upload.maximum_data_size=98304
+GenF2.menu.pnum.GENERIC_F205ZCTX.build.board=GENERIC_F205ZCTX
+GenF2.menu.pnum.GENERIC_F205ZCTX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205ZCTX.build.variant=STM32F2xx/F205Z(C-E-F-G)T_F215Z(E-G)T
+
+# Generic F205ZETx
+GenF2.menu.pnum.GENERIC_F205ZETX=Generic F205ZETx
+GenF2.menu.pnum.GENERIC_F205ZETX.upload.maximum_size=524288
+GenF2.menu.pnum.GENERIC_F205ZETX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F205ZETX.build.board=GENERIC_F205ZETX
+GenF2.menu.pnum.GENERIC_F205ZETX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205ZETX.build.variant=STM32F2xx/F205Z(C-E-F-G)T_F215Z(E-G)T
+
+# Generic F205ZFTx
+GenF2.menu.pnum.GENERIC_F205ZFTX=Generic F205ZFTx
+GenF2.menu.pnum.GENERIC_F205ZFTX.upload.maximum_size=786432
+GenF2.menu.pnum.GENERIC_F205ZFTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F205ZFTX.build.board=GENERIC_F205ZFTX
+GenF2.menu.pnum.GENERIC_F205ZFTX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205ZFTX.build.variant=STM32F2xx/F205Z(C-E-F-G)T_F215Z(E-G)T
+
+# Generic F205ZGTx
+GenF2.menu.pnum.GENERIC_F205ZGTX=Generic F205ZGTx
+GenF2.menu.pnum.GENERIC_F205ZGTX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F205ZGTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F205ZGTX.build.board=GENERIC_F205ZGTX
+GenF2.menu.pnum.GENERIC_F205ZGTX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205ZGTX.build.variant=STM32F2xx/F205Z(C-E-F-G)T_F215Z(E-G)T
+
+# Generic F215ZETx
+GenF2.menu.pnum.GENERIC_F215ZETX=Generic F215ZETx
+GenF2.menu.pnum.GENERIC_F215ZETX.upload.maximum_size=524288
+GenF2.menu.pnum.GENERIC_F215ZETX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F215ZETX.build.board=GENERIC_F215ZETX
+GenF2.menu.pnum.GENERIC_F215ZETX.build.product_line=STM32F215xx
+GenF2.menu.pnum.GENERIC_F215ZETX.build.variant=STM32F2xx/F205Z(C-E-F-G)T_F215Z(E-G)T
+
+# Generic F215ZGTx
+GenF2.menu.pnum.GENERIC_F215ZGTX=Generic F215ZGTx
+GenF2.menu.pnum.GENERIC_F215ZGTX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F215ZGTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F215ZGTX.build.board=GENERIC_F215ZGTX
+GenF2.menu.pnum.GENERIC_F215ZGTX.build.product_line=STM32F215xx
+GenF2.menu.pnum.GENERIC_F215ZGTX.build.variant=STM32F2xx/F205Z(C-E-F-G)T_F215Z(E-G)T
+

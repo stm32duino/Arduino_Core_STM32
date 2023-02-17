@@ -1,0 +1,13 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F070CBTx
+GenF0.menu.pnum.GENERIC_F070CBTX=Generic F070CBTx
+GenF0.menu.pnum.GENERIC_F070CBTX.upload.maximum_size=131072
+GenF0.menu.pnum.GENERIC_F070CBTX.upload.maximum_data_size=16384
+GenF0.menu.pnum.GENERIC_F070CBTX.build.board=GENERIC_F070CBTX
+GenF0.menu.pnum.GENERIC_F070CBTX.build.product_line=STM32F070xB
+GenF0.menu.pnum.GENERIC_F070CBTX.build.variant=STM32F0xx/F070CBT
+

@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -81,7 +80,6 @@ typedef struct
                                              UserTrimming is either factory or user trimming.*/
 
   uint32_t TrimmingValueP;              /*!< Specifies the offset trimming value (PMOS) in Normal Mode
-
                                              i.e. when UserTrimming is OPAMP_TRIMMING_USER.
                                              This parameter must be a number between Min_Data = 0 and Max_Data = 31.
                                              16 is typical default value */
@@ -129,7 +127,7 @@ typedef struct __OPAMP_HandleTypeDef
 typedef struct
 #endif /* USE_HAL_OPAMP_REGISTER_CALLBACKS */
 {
-  OPAMP_TypeDef                 *Instance;                    /*!< OPAMP instance's registers base address   */
+  OPAMP_TypeDef                 *Instance;                    /*!< OPAMP instance's registers base address */
   OPAMP_InitTypeDef              Init;                         /*!< OPAMP required parameters */
   HAL_StatusTypeDef              Status;                       /*!< OPAMP peripheral status   */
   HAL_LockTypeDef                Lock;                         /*!< Locking object          */
@@ -147,19 +145,15 @@ void (* MspDeInitCallback)              (struct __OPAMP_HandleTypeDef *hopamp);
 
 typedef  uint32_t HAL_OPAMP_TrimmingValueTypeDef;
 
-/**
-  * @}
-  */
-
 #if (USE_HAL_OPAMP_REGISTER_CALLBACKS == 1)
 /**
   * @brief  HAL OPAMP Callback ID enumeration definition
   */
 typedef enum
 {
-  HAL_OPAMP_MSP_INIT_CB_ID                     = 0x01U,  /*!< OPAMP MspInit Callback ID           */
-  HAL_OPAMP_MSP_DEINIT_CB_ID                   = 0x02U,  /*!< OPAMP MspDeInit Callback ID         */
-  HAL_OPAMP_ALL_CB_ID                          = 0x03U   /*!< OPAMP All ID                        */
+  HAL_OPAMP_MSPINIT_CB_ID                     = 0x01U,  /*!< OPAMP MspInit Callback ID           */
+  HAL_OPAMP_MSPDEINIT_CB_ID                   = 0x02U,  /*!< OPAMP MspDeInit Callback ID         */
+  HAL_OPAMP_ALL_CB_ID                         = 0x03U   /*!< OPAMP All ID                        */
 }HAL_OPAMP_CallbackIDTypeDef;
 
 /**
@@ -167,7 +161,9 @@ typedef enum
   */
 typedef void (*pOPAMP_CallbackTypeDef)(OPAMP_HandleTypeDef *hopamp);
 #endif /* USE_HAL_OPAMP_REGISTER_CALLBACKS */
-
+/**
+  * @}
+  */
 
 /* Exported constants --------------------------------------------------------*/
 /** @defgroup OPAMP_Exported_Constants OPAMP Exported Constants
@@ -191,6 +187,9 @@ typedef void (*pOPAMP_CallbackTypeDef)(OPAMP_HandleTypeDef *hopamp);
 
 #define OPAMP_NONINVERTINGINPUT_IO0         0x00000000U                /*!< OPAMP non-inverting input connected to dedicated IO pin */
 #define OPAMP_NONINVERTINGINPUT_DAC_CH      OPAMP_CSR_VPSEL_0          /*!< OPAMP non-inverting input connected internally to DAC channel */
+#if defined(DAC2)
+#define OPAMP_NONINVERTINGINPUT_DAC2_CH     OPAMP_CSR_VPSEL_1         /*!< Only OPAMP2 non-inverting input connected internally to DAC2 channel */
+#endif /* DAC2 */
 
 /**
   * @}
@@ -332,9 +331,14 @@ typedef void (*pOPAMP_CallbackTypeDef)(OPAMP_HandleTypeDef *hopamp);
 #define IS_OPAMP_INVERTING_INPUT_STANDALONE(INPUT) (((INPUT) == OPAMP_INVERTINGINPUT_IO0) || \
                                                     ((INPUT) == OPAMP_INVERTINGINPUT_IO1))
 
-
+#if defined(DAC2)
+#define IS_OPAMP_NONINVERTING_INPUT(INPUT) (((INPUT) == OPAMP_NONINVERTINGINPUT_IO0) || \
+                                            ((INPUT) == OPAMP_NONINVERTINGINPUT_DAC_CH) || \
+                                            ((INPUT) == OPAMP_NONINVERTINGINPUT_DAC2_CH))
+#else
 #define IS_OPAMP_NONINVERTING_INPUT(INPUT) (((INPUT) == OPAMP_NONINVERTINGINPUT_IO0) || \
                                             ((INPUT) == OPAMP_NONINVERTINGINPUT_DAC_CH))
+#endif /* DAC2 */
 
 #define IS_OPAMP_PGACONNECT(CONNECT) (((CONNECT) == OPAMP_PGA_CONNECT_INVERTINGINPUT_NO)  || \
                                       ((CONNECT) == OPAMP_PGA_CONNECT_INVERTINGINPUT_IO0) || \
@@ -448,4 +452,3 @@ HAL_OPAMP_StateTypeDef HAL_OPAMP_GetState(OPAMP_HandleTypeDef *hopamp);
 
 #endif /* STM32H7xx_HAL_OPAMP_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

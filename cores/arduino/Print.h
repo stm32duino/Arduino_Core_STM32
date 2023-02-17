@@ -1,6 +1,5 @@
 /*
-  Print.h - Base class that provides print() and println()
-  Copyright (c) 2008 David A. Mellis.  All right reserved.
+  Copyright (c) 2016 Arduino LLC.  All right reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -9,8 +8,8 @@
 
   This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  See the GNU Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
   License along with this library; if not, write to the Free Software
@@ -22,6 +21,7 @@
 
 #include <inttypes.h>
 #include <stdio.h> // for size_t
+#include <stdarg.h> // for printf
 
 #include "WString.h"
 #include "Printable.h"
@@ -31,16 +31,11 @@
 #define OCT 8
 #define BIN 2
 
-// uncomment next line to support printing of 64 bit ints.
-#define SUPPORT_LONGLONG
-
 class Print {
   private:
     int write_error;
     size_t printNumber(unsigned long, uint8_t);
-#ifdef SUPPORT_LONGLONG
-    void printLLNumber(uint64_t, uint8_t);
-#endif
+    size_t printULLNumber(unsigned long long, uint8_t);
     size_t printFloat(double, uint8_t);
   protected:
     void setWriteError(int err = 1)
@@ -73,6 +68,13 @@ class Print {
       return write((const uint8_t *)buffer, size);
     }
 
+    // default to zero, meaning "a single write may block"
+    // should be overridden by subclasses with buffering
+    virtual int availableForWrite()
+    {
+      return 0;
+    }
+
     size_t print(const __FlashStringHelper *);
     size_t print(const String &);
     size_t print(const char[]);
@@ -82,6 +84,8 @@ class Print {
     size_t print(unsigned int, int = DEC);
     size_t print(long, int = DEC);
     size_t print(unsigned long, int = DEC);
+    size_t print(long long, int = DEC);
+    size_t print(unsigned long long, int = DEC);
     size_t print(double, int = 2);
     size_t print(const Printable &);
 
@@ -94,15 +98,18 @@ class Print {
     size_t println(unsigned int, int = DEC);
     size_t println(long, int = DEC);
     size_t println(unsigned long, int = DEC);
+    size_t println(long long, int = DEC);
+    size_t println(unsigned long long, int = DEC);
     size_t println(double, int = 2);
     size_t println(const Printable &);
     size_t println(void);
-#ifdef SUPPORT_LONGLONG
-    void println(int64_t, uint8_t = DEC);
-    void print(int64_t, uint8_t = DEC);
-    void println(uint64_t, uint8_t = DEC);
-    void print(uint64_t, uint8_t = DEC);
-#endif
+
+    int printf(const char *format, ...);
+    int printf(const __FlashStringHelper *format, ...);
+    int vprintf(const __FlashStringHelper *format, va_list ap);
+    int vprintf(const char *format, va_list ap);
+
+    virtual void flush() { /* Empty implementation for backward compatibility */ }
 };
 
 #endif

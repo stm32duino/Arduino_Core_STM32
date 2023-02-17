@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L052K6Ux
+GenL0.menu.pnum.GENERIC_L052K6UX=Generic L052K6Ux
+GenL0.menu.pnum.GENERIC_L052K6UX.upload.maximum_size=32768
+GenL0.menu.pnum.GENERIC_L052K6UX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L052K6UX.build.board=GENERIC_L052K6UX
+GenL0.menu.pnum.GENERIC_L052K6UX.build.product_line=STM32L052xx
+GenL0.menu.pnum.GENERIC_L052K6UX.build.variant=STM32L0xx/L052K(6-8)U_L062K8U
+
+# Generic L052K8Ux
+GenL0.menu.pnum.GENERIC_L052K8UX=Generic L052K8Ux
+GenL0.menu.pnum.GENERIC_L052K8UX.upload.maximum_size=65536
+GenL0.menu.pnum.GENERIC_L052K8UX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L052K8UX.build.board=GENERIC_L052K8UX
+GenL0.menu.pnum.GENERIC_L052K8UX.build.product_line=STM32L052xx
+GenL0.menu.pnum.GENERIC_L052K8UX.build.variant=STM32L0xx/L052K(6-8)U_L062K8U
+
+# Generic L062K8Ux
+GenL0.menu.pnum.GENERIC_L062K8UX=Generic L062K8Ux
+GenL0.menu.pnum.GENERIC_L062K8UX.upload.maximum_size=65536
+GenL0.menu.pnum.GENERIC_L062K8UX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L062K8UX.build.board=GENERIC_L062K8UX
+GenL0.menu.pnum.GENERIC_L062K8UX.build.product_line=STM32L062xx
+GenL0.menu.pnum.GENERIC_L062K8UX.build.variant=STM32L0xx/L052K(6-8)U_L062K8U
+

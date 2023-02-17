@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics. 
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -107,24 +106,62 @@ typedef struct
 #define LL_EXTI_LINE_17                EXTI_IMR1_IM17          /*!< Extended line 17 */
 #define LL_EXTI_LINE_18                EXTI_IMR1_IM18          /*!< Extended line 18 */
 #define LL_EXTI_LINE_19                EXTI_IMR1_IM19          /*!< Extended line 19 */
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx) || defined (STM32WB15xx) || defined(STM32WB1Mxx)
 #define LL_EXTI_LINE_20                EXTI_IMR1_IM20          /*!< Extended line 20 */
+#endif /* STM32WB55xx || STM32WB5Mxx || ... */
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx)
 #define LL_EXTI_LINE_21                EXTI_IMR1_IM21          /*!< Extended line 21 */
+#endif /* STM32WB55xx || STM32WB5Mxx || STM32WB35xx */
 #define LL_EXTI_LINE_22                EXTI_IMR1_IM22          /*!< Extended line 22 */
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx)
 #define LL_EXTI_LINE_23                EXTI_IMR1_IM23          /*!< Extended line 23 */
+#endif /* STM32WB55xx || STM32WB5Mxx || STM32WB35xx */
 #define LL_EXTI_LINE_24                EXTI_IMR1_IM24          /*!< Extended line 24 */
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx) || defined (STM32WB15xx) || defined(STM32WB1Mxx)
 #define LL_EXTI_LINE_25                EXTI_IMR1_IM25          /*!< Extended line 25 */
-#define LL_EXTI_LINE_26                EXTI_IMR1_IM26          /*!< Extended line 26 */
-#define LL_EXTI_LINE_27                EXTI_IMR1_IM27          /*!< Extended line 27 */
+#endif /* STM32WB55xx || STM32WB5Mxx || ... */
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx)
 #define LL_EXTI_LINE_28                EXTI_IMR1_IM28          /*!< Extended line 28 */
+#endif /* STM32WB55xx || STM32WB5Mxx || STM32WB35xx */
 #define LL_EXTI_LINE_29                EXTI_IMR1_IM29          /*!< Extended line 29 */
 #define LL_EXTI_LINE_30                EXTI_IMR1_IM30          /*!< Extended line 30 */
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx) || defined (STM32WB15xx) || defined(STM32WB1Mxx)
 #define LL_EXTI_LINE_31                EXTI_IMR1_IM31          /*!< Extended line 31 */
-#define LL_EXTI_LINE_ALL_0_31          EXTI_IMR1_IM            /*!< All Extended line not reserved*/
-                                       
-#define LL_EXTI_LINE_32                EXTI_IMR2_IM32          /*!< Extended line 32 */
+#endif /* STM32WB55xx || STM32WB5Mxx || ... */
+
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx)
+#define LL_EXTI_LINE_ALL_0_31          (LL_EXTI_LINE_0 | LL_EXTI_LINE_1 | LL_EXTI_LINE_2 | \
+                                        LL_EXTI_LINE_3 | LL_EXTI_LINE_4 | LL_EXTI_LINE_5 | \
+                                        LL_EXTI_LINE_6 | LL_EXTI_LINE_7 | LL_EXTI_LINE_8 | \
+                                        LL_EXTI_LINE_9 | LL_EXTI_LINE_10 | LL_EXTI_LINE_11 | \
+                                        LL_EXTI_LINE_12 | LL_EXTI_LINE_13 | LL_EXTI_LINE_14 | \
+                                        LL_EXTI_LINE_15 | LL_EXTI_LINE_16 | LL_EXTI_LINE_17 | \
+                                        LL_EXTI_LINE_18 | LL_EXTI_LINE_19 | LL_EXTI_LINE_20 | \
+                                        LL_EXTI_LINE_21 | LL_EXTI_LINE_22 | LL_EXTI_LINE_23 | \
+                                        LL_EXTI_LINE_24 | LL_EXTI_LINE_25 | LL_EXTI_LINE_28 | \
+                                        LL_EXTI_LINE_29 | LL_EXTI_LINE_30 | LL_EXTI_LINE_31) /*!< All Extended line not reserved*/
+#elif defined (STM32WB15xx) || defined(STM32WB1Mxx)
+#define LL_EXTI_LINE_ALL_0_31          (LL_EXTI_LINE_0 | LL_EXTI_LINE_1 | LL_EXTI_LINE_2 | \
+                                        LL_EXTI_LINE_3 | LL_EXTI_LINE_4 | LL_EXTI_LINE_5 | \
+                                        LL_EXTI_LINE_6 | LL_EXTI_LINE_7 | LL_EXTI_LINE_8 | \
+                                        LL_EXTI_LINE_9 | LL_EXTI_LINE_10 | LL_EXTI_LINE_11 | \
+                                        LL_EXTI_LINE_12 | LL_EXTI_LINE_13 | LL_EXTI_LINE_14 | \
+                                        LL_EXTI_LINE_15 | LL_EXTI_LINE_16 | LL_EXTI_LINE_17 | \
+                                        LL_EXTI_LINE_18 | LL_EXTI_LINE_19 | LL_EXTI_LINE_20 | \
+                                        LL_EXTI_LINE_22 | LL_EXTI_LINE_24 | LL_EXTI_LINE_25 | \
+                                        LL_EXTI_LINE_29 | LL_EXTI_LINE_30 | LL_EXTI_LINE_31) /*!< All Extended line not reserved*/
+#else
+#define LL_EXTI_LINE_ALL_0_31          (LL_EXTI_LINE_0 | LL_EXTI_LINE_1 | LL_EXTI_LINE_2 | \
+                                        LL_EXTI_LINE_3 | LL_EXTI_LINE_4 | LL_EXTI_LINE_5 | \
+                                        LL_EXTI_LINE_6 | LL_EXTI_LINE_7 | LL_EXTI_LINE_8 | \
+                                        LL_EXTI_LINE_9 | LL_EXTI_LINE_10 | LL_EXTI_LINE_11 | \
+                                        LL_EXTI_LINE_12 | LL_EXTI_LINE_13 | LL_EXTI_LINE_14 | \
+                                        LL_EXTI_LINE_15 | LL_EXTI_LINE_16 | LL_EXTI_LINE_17 | \
+                                        LL_EXTI_LINE_18 | LL_EXTI_LINE_19 | LL_EXTI_LINE_22 | \
+                                        LL_EXTI_LINE_24 | LL_EXTI_LINE_29 | LL_EXTI_LINE_30) /*!< All Extended line not reserved*/
+#endif /* STM32WB55xx || STM32WB5Mxx || STM32WB35xx */
+
 #define LL_EXTI_LINE_33                EXTI_IMR2_IM33          /*!< Extended line 33 */
-#define LL_EXTI_LINE_34                EXTI_IMR2_IM34          /*!< Extended line 34 */
-#define LL_EXTI_LINE_35                EXTI_IMR2_IM35          /*!< Extended line 35 */
 #define LL_EXTI_LINE_36                EXTI_IMR2_IM36          /*!< Extended line 36 */
 #define LL_EXTI_LINE_37                EXTI_IMR2_IM37          /*!< Extended line 37 */
 #define LL_EXTI_LINE_38                EXTI_IMR2_IM38          /*!< Extended line 38 */
@@ -132,13 +169,33 @@ typedef struct
 #define LL_EXTI_LINE_40                EXTI_IMR2_IM40          /*!< Extended line 40 */
 #define LL_EXTI_LINE_41                EXTI_IMR2_IM41          /*!< Extended line 41 */
 #define LL_EXTI_LINE_42                EXTI_IMR2_IM42          /*!< Extended line 42 */
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx)
 #define LL_EXTI_LINE_43                EXTI_IMR2_IM43          /*!< Extended line 43 */
+#endif /* STM32WB55xx || STM32WB5Mxx */
 #define LL_EXTI_LINE_44                EXTI_IMR2_IM44          /*!< Extended line 44 */
 #define LL_EXTI_LINE_45                EXTI_IMR2_IM45          /*!< Extended line 45 */
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB50xx) || defined (STM32WB35xx) || defined (STM32WB30xx)
 #define LL_EXTI_LINE_46                EXTI_IMR2_IM46          /*!< Extended line 46 */
-#define LL_EXTI_LINE_47                EXTI_IMR2_IM47          /*!< Extended line 47 */
+#endif /* STM32WB55xx || STM32WB5Mxx || ... */
 #define LL_EXTI_LINE_48                EXTI_IMR2_IM48          /*!< Extended line 48 */
-#define LL_EXTI_LINE_ALL_32_63         EXTI_IMR2_IM            /*!< All Extended line not reserved*/
+
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx)
+#define LL_EXTI_LINE_ALL_32_63         (LL_EXTI_LINE_33 | LL_EXTI_LINE_36 | LL_EXTI_LINE_37 | \
+                                        LL_EXTI_LINE_38 | LL_EXTI_LINE_39 | LL_EXTI_LINE_40 | \
+                                        LL_EXTI_LINE_41 | LL_EXTI_LINE_42 | LL_EXTI_LINE_43 | \
+                                        LL_EXTI_LINE_44 | LL_EXTI_LINE_45 | LL_EXTI_LINE_46 | \
+                                        LL_EXTI_LINE_48)                    /*!< All Extended line not reserved*/
+#elif defined (STM32WB50xx) || defined (STM32WB35xx) || defined (STM32WB30xx)
+#define LL_EXTI_LINE_ALL_32_63         (LL_EXTI_LINE_33 | LL_EXTI_LINE_36 | LL_EXTI_LINE_37 | \
+                                        LL_EXTI_LINE_38 | LL_EXTI_LINE_39 | LL_EXTI_LINE_40 | \
+                                        LL_EXTI_LINE_41 | LL_EXTI_LINE_42 | LL_EXTI_LINE_44 | \
+                                        LL_EXTI_LINE_45 | LL_EXTI_LINE_46 | LL_EXTI_LINE_48)  /*!< All Extended line not reserved*/
+#else
+#define LL_EXTI_LINE_ALL_32_63         (LL_EXTI_LINE_33 | LL_EXTI_LINE_36 | LL_EXTI_LINE_37 | \
+                                        LL_EXTI_LINE_38 | LL_EXTI_LINE_39 | LL_EXTI_LINE_40 | \
+                                        LL_EXTI_LINE_41 | LL_EXTI_LINE_42 | LL_EXTI_LINE_44 | \
+                                        LL_EXTI_LINE_45 | LL_EXTI_LINE_48)  /*!< All Extended line not reserved*/
+#endif /* STM32WB55xx || STM32WB5Mxx */
 
 
 #define LL_EXTI_LINE_ALL               (0xFFFFFFFFU)  /*!< All Extended line */
@@ -218,8 +275,8 @@ typedef struct
 
 /* Exported functions --------------------------------------------------------*/
 /** @defgroup EXTI_LL_Exported_Functions EXTI Exported Functions
- * @{
- */
+  * @{
+  */
 /** @defgroup EXTI_LL_EF_IT_Management IT_Management
   * @{
   */
@@ -227,7 +284,7 @@ typedef struct
 /**
   * @brief  Enable ExtiLine Interrupt request for Lines in range 0 to 31
   * @rmtoll IMR1         IMx           LL_EXTI_EnableIT_0_31
-  * @param  ExtiLine This parameter can be one of the following values:
+  * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_0
   *         @arg @ref LL_EXTI_LINE_1
   *         @arg @ref LL_EXTI_LINE_2
@@ -248,19 +305,18 @@ typedef struct
   *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
   *         @arg @ref LL_EXTI_LINE_22
-  *         @arg @ref LL_EXTI_LINE_23
+  *         @arg @ref LL_EXTI_LINE_23 (*)
   *         @arg @ref LL_EXTI_LINE_24
-  *         @arg @ref LL_EXTI_LINE_25
-  *         @arg @ref LL_EXTI_LINE_26
-  *         @arg @ref LL_EXTI_LINE_27
-  *         @arg @ref LL_EXTI_LINE_28
+  *         @arg @ref LL_EXTI_LINE_25 (*)
+  *         @arg @ref LL_EXTI_LINE_28 (*)
   *         @arg @ref LL_EXTI_LINE_29
   *         @arg @ref LL_EXTI_LINE_30
-  *         @arg @ref LL_EXTI_LINE_31
+  *         @arg @ref LL_EXTI_LINE_31 (*)
   *         @arg @ref LL_EXTI_LINE_ALL_0_31
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_EnableIT_0_31(uint32_t ExtiLine)
@@ -271,7 +327,7 @@ __STATIC_INLINE void LL_EXTI_EnableIT_0_31(uint32_t ExtiLine)
 /**
   * @brief  Enable ExtiLine Interrupt request for Lines in range 0 to 31 for cpu2
   * @rmtoll C2IMR1         IMx           LL_C2_EXTI_EnableIT_0_31
-  * @param  ExtiLine This parameter can be one of the following values:
+  * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_0
   *         @arg @ref LL_EXTI_LINE_1
   *         @arg @ref LL_EXTI_LINE_2
@@ -292,19 +348,18 @@ __STATIC_INLINE void LL_EXTI_EnableIT_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
   *         @arg @ref LL_EXTI_LINE_22
-  *         @arg @ref LL_EXTI_LINE_23
+  *         @arg @ref LL_EXTI_LINE_23 (*)
   *         @arg @ref LL_EXTI_LINE_24
-  *         @arg @ref LL_EXTI_LINE_25
-  *         @arg @ref LL_EXTI_LINE_26
-  *         @arg @ref LL_EXTI_LINE_27
-  *         @arg @ref LL_EXTI_LINE_28
+  *         @arg @ref LL_EXTI_LINE_25 (*)
+  *         @arg @ref LL_EXTI_LINE_28 (*)
   *         @arg @ref LL_EXTI_LINE_29
   *         @arg @ref LL_EXTI_LINE_30
-  *         @arg @ref LL_EXTI_LINE_31
+  *         @arg @ref LL_EXTI_LINE_31 (*)
   *         @arg @ref LL_EXTI_LINE_ALL_0_31
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_C2_EXTI_EnableIT_0_31(uint32_t ExtiLine)
@@ -315,11 +370,8 @@ __STATIC_INLINE void LL_C2_EXTI_EnableIT_0_31(uint32_t ExtiLine)
 /**
   * @brief  Enable ExtiLine Interrupt request for Lines in range 32 to 63
   * @rmtoll IMR2         IMx           LL_EXTI_EnableIT_32_63
-  * @param  ExtiLine This parameter can be one of the following values:
-  *         @arg @ref LL_EXTI_LINE_32
+  * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_33
-  *         @arg @ref LL_EXTI_LINE_34
-  *         @arg @ref LL_EXTI_LINE_35
   *         @arg @ref LL_EXTI_LINE_36
   *         @arg @ref LL_EXTI_LINE_37
   *         @arg @ref LL_EXTI_LINE_38
@@ -327,13 +379,13 @@ __STATIC_INLINE void LL_C2_EXTI_EnableIT_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_40
   *         @arg @ref LL_EXTI_LINE_41
   *         @arg @ref LL_EXTI_LINE_42
-  *         @arg @ref LL_EXTI_LINE_43
+  *         @arg @ref LL_EXTI_LINE_43 (*)
   *         @arg @ref LL_EXTI_LINE_44
   *         @arg @ref LL_EXTI_LINE_45
-  *         @arg @ref LL_EXTI_LINE_46
-  *         @arg @ref LL_EXTI_LINE_47
+  *         @arg @ref LL_EXTI_LINE_46 (*)
   *         @arg @ref LL_EXTI_LINE_48
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_EnableIT_32_63(uint32_t ExtiLine)
@@ -344,11 +396,8 @@ __STATIC_INLINE void LL_EXTI_EnableIT_32_63(uint32_t ExtiLine)
 /**
   * @brief  Enable ExtiLine Interrupt request for Lines in range 32 to 63 for cpu2
   * @rmtoll C2IMR2         IMx           LL_C2_EXTI_EnableIT_32_63
-  * @param  ExtiLine This parameter can be one of the following values:
-  *         @arg @ref LL_EXTI_LINE_32
+  * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_33
-  *         @arg @ref LL_EXTI_LINE_34
-  *         @arg @ref LL_EXTI_LINE_35
   *         @arg @ref LL_EXTI_LINE_36
   *         @arg @ref LL_EXTI_LINE_37
   *         @arg @ref LL_EXTI_LINE_38
@@ -356,13 +405,13 @@ __STATIC_INLINE void LL_EXTI_EnableIT_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_40
   *         @arg @ref LL_EXTI_LINE_41
   *         @arg @ref LL_EXTI_LINE_42
-  *         @arg @ref LL_EXTI_LINE_43
+  *         @arg @ref LL_EXTI_LINE_43 (*)
   *         @arg @ref LL_EXTI_LINE_44
   *         @arg @ref LL_EXTI_LINE_45
-  *         @arg @ref LL_EXTI_LINE_46
-  *         @arg @ref LL_EXTI_LINE_47
+  *         @arg @ref LL_EXTI_LINE_46 (*)
   *         @arg @ref LL_EXTI_LINE_48
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_C2_EXTI_EnableIT_32_63(uint32_t ExtiLine)
@@ -373,7 +422,7 @@ __STATIC_INLINE void LL_C2_EXTI_EnableIT_32_63(uint32_t ExtiLine)
 /**
   * @brief  Disable ExtiLine Interrupt request for Lines in range 0 to 31
   * @rmtoll IMR1         IMx           LL_EXTI_DisableIT_0_31
-  * @param  ExtiLine This parameter can be one of the following values:
+  * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_0
   *         @arg @ref LL_EXTI_LINE_1
   *         @arg @ref LL_EXTI_LINE_2
@@ -394,19 +443,18 @@ __STATIC_INLINE void LL_C2_EXTI_EnableIT_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
   *         @arg @ref LL_EXTI_LINE_22
-  *         @arg @ref LL_EXTI_LINE_23
+  *         @arg @ref LL_EXTI_LINE_23 (*)
   *         @arg @ref LL_EXTI_LINE_24
-  *         @arg @ref LL_EXTI_LINE_25
-  *         @arg @ref LL_EXTI_LINE_26
-  *         @arg @ref LL_EXTI_LINE_27
-  *         @arg @ref LL_EXTI_LINE_28
+  *         @arg @ref LL_EXTI_LINE_25 (*)
+  *         @arg @ref LL_EXTI_LINE_28 (*)
   *         @arg @ref LL_EXTI_LINE_29
   *         @arg @ref LL_EXTI_LINE_30
-  *         @arg @ref LL_EXTI_LINE_31
+  *         @arg @ref LL_EXTI_LINE_31 (*)
   *         @arg @ref LL_EXTI_LINE_ALL_0_31
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_DisableIT_0_31(uint32_t ExtiLine)
@@ -417,7 +465,7 @@ __STATIC_INLINE void LL_EXTI_DisableIT_0_31(uint32_t ExtiLine)
 /**
   * @brief  Disable ExtiLine Interrupt request for Lines in range 0 to 31 for cpu2
   * @rmtoll C2IMR1         IMx           LL_C2_EXTI_DisableIT_0_31
-  * @param  ExtiLine This parameter can be one of the following values:
+  * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_0
   *         @arg @ref LL_EXTI_LINE_1
   *         @arg @ref LL_EXTI_LINE_2
@@ -438,19 +486,18 @@ __STATIC_INLINE void LL_EXTI_DisableIT_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
   *         @arg @ref LL_EXTI_LINE_22
-  *         @arg @ref LL_EXTI_LINE_23
+  *         @arg @ref LL_EXTI_LINE_23 (*)
   *         @arg @ref LL_EXTI_LINE_24
-  *         @arg @ref LL_EXTI_LINE_25
-  *         @arg @ref LL_EXTI_LINE_26
-  *         @arg @ref LL_EXTI_LINE_27
-  *         @arg @ref LL_EXTI_LINE_28
+  *         @arg @ref LL_EXTI_LINE_25 (*)
+  *         @arg @ref LL_EXTI_LINE_28 (*)
   *         @arg @ref LL_EXTI_LINE_29
   *         @arg @ref LL_EXTI_LINE_30
-  *         @arg @ref LL_EXTI_LINE_31
+  *         @arg @ref LL_EXTI_LINE_31 (*)
   *         @arg @ref LL_EXTI_LINE_ALL_0_31
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_C2_EXTI_DisableIT_0_31(uint32_t ExtiLine)
@@ -461,11 +508,8 @@ __STATIC_INLINE void LL_C2_EXTI_DisableIT_0_31(uint32_t ExtiLine)
 /**
   * @brief  Disable ExtiLine Interrupt request for Lines in range 32 to 63
   * @rmtoll IMR2         IMx           LL_EXTI_DisableIT_32_63
-  * @param  ExtiLine This parameter can be one of the following values:
-  *         @arg @ref LL_EXTI_LINE_32
+  * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_33
-  *         @arg @ref LL_EXTI_LINE_34
-  *         @arg @ref LL_EXTI_LINE_35
   *         @arg @ref LL_EXTI_LINE_36
   *         @arg @ref LL_EXTI_LINE_37
   *         @arg @ref LL_EXTI_LINE_38
@@ -473,13 +517,13 @@ __STATIC_INLINE void LL_C2_EXTI_DisableIT_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_40
   *         @arg @ref LL_EXTI_LINE_41
   *         @arg @ref LL_EXTI_LINE_42
-  *         @arg @ref LL_EXTI_LINE_43
+  *         @arg @ref LL_EXTI_LINE_43 (*)
   *         @arg @ref LL_EXTI_LINE_44
   *         @arg @ref LL_EXTI_LINE_45
-  *         @arg @ref LL_EXTI_LINE_46
-  *         @arg @ref LL_EXTI_LINE_47
+  *         @arg @ref LL_EXTI_LINE_46 (*)
   *         @arg @ref LL_EXTI_LINE_48
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_DisableIT_32_63(uint32_t ExtiLine)
@@ -490,11 +534,8 @@ __STATIC_INLINE void LL_EXTI_DisableIT_32_63(uint32_t ExtiLine)
 /**
   * @brief  Disable ExtiLine Interrupt request for Lines in range 32 to 63 for cpu2
   * @rmtoll C2IMR2         IMx           LL_C2_EXTI_DisableIT_32_63
-  * @param  ExtiLine This parameter can be one of the following values:
-  *         @arg @ref LL_EXTI_LINE_32
+  * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_33
-  *         @arg @ref LL_EXTI_LINE_34
-  *         @arg @ref LL_EXTI_LINE_35
   *         @arg @ref LL_EXTI_LINE_36
   *         @arg @ref LL_EXTI_LINE_37
   *         @arg @ref LL_EXTI_LINE_38
@@ -502,13 +543,13 @@ __STATIC_INLINE void LL_EXTI_DisableIT_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_40
   *         @arg @ref LL_EXTI_LINE_41
   *         @arg @ref LL_EXTI_LINE_42
-  *         @arg @ref LL_EXTI_LINE_43
+  *         @arg @ref LL_EXTI_LINE_43 (*)
   *         @arg @ref LL_EXTI_LINE_44
   *         @arg @ref LL_EXTI_LINE_45
-  *         @arg @ref LL_EXTI_LINE_46
-  *         @arg @ref LL_EXTI_LINE_47
+  *         @arg @ref LL_EXTI_LINE_46 (*)
   *         @arg @ref LL_EXTI_LINE_48
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_C2_EXTI_DisableIT_32_63(uint32_t ExtiLine)
@@ -519,7 +560,7 @@ __STATIC_INLINE void LL_C2_EXTI_DisableIT_32_63(uint32_t ExtiLine)
 /**
   * @brief  Indicate if ExtiLine Interrupt request is enabled for Lines in range 0 to 31
   * @rmtoll IMR1         IMx           LL_EXTI_IsEnabledIT_0_31
-  * @param  ExtiLine This parameter can be one of the following values:
+  * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_0
   *         @arg @ref LL_EXTI_LINE_1
   *         @arg @ref LL_EXTI_LINE_2
@@ -540,19 +581,18 @@ __STATIC_INLINE void LL_C2_EXTI_DisableIT_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
   *         @arg @ref LL_EXTI_LINE_22
-  *         @arg @ref LL_EXTI_LINE_23
+  *         @arg @ref LL_EXTI_LINE_23 (*)
   *         @arg @ref LL_EXTI_LINE_24
-  *         @arg @ref LL_EXTI_LINE_25
-  *         @arg @ref LL_EXTI_LINE_26
-  *         @arg @ref LL_EXTI_LINE_27
-  *         @arg @ref LL_EXTI_LINE_28
+  *         @arg @ref LL_EXTI_LINE_25 (*)
+  *         @arg @ref LL_EXTI_LINE_28 (*)
   *         @arg @ref LL_EXTI_LINE_29
   *         @arg @ref LL_EXTI_LINE_30
-  *         @arg @ref LL_EXTI_LINE_31
+  *         @arg @ref LL_EXTI_LINE_31 (*)
   *         @arg @ref LL_EXTI_LINE_ALL_0_31
+  *         (*) value not defined in all devices
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_EXTI_IsEnabledIT_0_31(uint32_t ExtiLine)
@@ -563,7 +603,7 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledIT_0_31(uint32_t ExtiLine)
 /**
   * @brief  Indicate if ExtiLine Interrupt request is enabled for Lines in range 0 to 31 for cpu2
   * @rmtoll C2IMR1         IMx           LL_C2_EXTI_IsEnabledIT_0_31
-  * @param  ExtiLine This parameter can be one of the following values:
+  * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_0
   *         @arg @ref LL_EXTI_LINE_1
   *         @arg @ref LL_EXTI_LINE_2
@@ -584,19 +624,18 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledIT_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
   *         @arg @ref LL_EXTI_LINE_22
-  *         @arg @ref LL_EXTI_LINE_23
+  *         @arg @ref LL_EXTI_LINE_23 (*)
   *         @arg @ref LL_EXTI_LINE_24
-  *         @arg @ref LL_EXTI_LINE_25
-  *         @arg @ref LL_EXTI_LINE_26
-  *         @arg @ref LL_EXTI_LINE_27
-  *         @arg @ref LL_EXTI_LINE_28
+  *         @arg @ref LL_EXTI_LINE_25 (*)
+  *         @arg @ref LL_EXTI_LINE_28 (*)
   *         @arg @ref LL_EXTI_LINE_29
   *         @arg @ref LL_EXTI_LINE_30
-  *         @arg @ref LL_EXTI_LINE_31
+  *         @arg @ref LL_EXTI_LINE_31 (*)
   *         @arg @ref LL_EXTI_LINE_ALL_0_31
+  *         (*) value not defined in all devices
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_C2_EXTI_IsEnabledIT_0_31(uint32_t ExtiLine)
@@ -607,11 +646,8 @@ __STATIC_INLINE uint32_t LL_C2_EXTI_IsEnabledIT_0_31(uint32_t ExtiLine)
 /**
   * @brief  Indicate if ExtiLine Interrupt request is enabled for Lines in range 32 to 63
   * @rmtoll IMR2         IMx           LL_EXTI_IsEnabledIT_32_63
-  * @param  ExtiLine This parameter can be one of the following values:
-  *         @arg @ref LL_EXTI_LINE_32
+  * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_33
-  *         @arg @ref LL_EXTI_LINE_34
-  *         @arg @ref LL_EXTI_LINE_35
   *         @arg @ref LL_EXTI_LINE_36
   *         @arg @ref LL_EXTI_LINE_37
   *         @arg @ref LL_EXTI_LINE_38
@@ -619,13 +655,13 @@ __STATIC_INLINE uint32_t LL_C2_EXTI_IsEnabledIT_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_40
   *         @arg @ref LL_EXTI_LINE_41
   *         @arg @ref LL_EXTI_LINE_42
-  *         @arg @ref LL_EXTI_LINE_43
+  *         @arg @ref LL_EXTI_LINE_43 (*)
   *         @arg @ref LL_EXTI_LINE_44
   *         @arg @ref LL_EXTI_LINE_45
-  *         @arg @ref LL_EXTI_LINE_46
-  *         @arg @ref LL_EXTI_LINE_47
+  *         @arg @ref LL_EXTI_LINE_46 (*)
   *         @arg @ref LL_EXTI_LINE_48
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
+  *         (*) value not defined in all devices
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_EXTI_IsEnabledIT_32_63(uint32_t ExtiLine)
@@ -636,11 +672,8 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledIT_32_63(uint32_t ExtiLine)
 /**
   * @brief  Indicate if ExtiLine Interrupt request is enabled for Lines in range 32 to 63 for cpu2
   * @rmtoll C2IMR2         IMx           LL_C2_EXTI_IsEnabledIT_32_63
-  * @param  ExtiLine This parameter can be one of the following values:
-  *         @arg @ref LL_EXTI_LINE_32
+  * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_33
-  *         @arg @ref LL_EXTI_LINE_34
-  *         @arg @ref LL_EXTI_LINE_35
   *         @arg @ref LL_EXTI_LINE_36
   *         @arg @ref LL_EXTI_LINE_37
   *         @arg @ref LL_EXTI_LINE_38
@@ -648,13 +681,13 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledIT_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_40
   *         @arg @ref LL_EXTI_LINE_41
   *         @arg @ref LL_EXTI_LINE_42
-  *         @arg @ref LL_EXTI_LINE_43
+  *         @arg @ref LL_EXTI_LINE_43 (*)
   *         @arg @ref LL_EXTI_LINE_44
   *         @arg @ref LL_EXTI_LINE_45
-  *         @arg @ref LL_EXTI_LINE_46
-  *         @arg @ref LL_EXTI_LINE_47
+  *         @arg @ref LL_EXTI_LINE_46 (*)
   *         @arg @ref LL_EXTI_LINE_48
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
+  *         (*) value not defined in all devices
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_C2_EXTI_IsEnabledIT_32_63(uint32_t ExtiLine)
@@ -673,7 +706,7 @@ __STATIC_INLINE uint32_t LL_C2_EXTI_IsEnabledIT_32_63(uint32_t ExtiLine)
 /**
   * @brief  Enable ExtiLine Event request for Lines in range 0 to 31
   * @rmtoll EMR1         EMx           LL_EXTI_EnableEvent_0_31
-  * @param  ExtiLine This parameter can be one of the following values:
+  * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_0
   *         @arg @ref LL_EXTI_LINE_1
   *         @arg @ref LL_EXTI_LINE_2
@@ -693,9 +726,9 @@ __STATIC_INLINE uint32_t LL_C2_EXTI_IsEnabledIT_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
-  *         @arg @ref LL_EXTI_LINE_ALL_0_31
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_EnableEvent_0_31(uint32_t ExtiLine)
@@ -706,7 +739,7 @@ __STATIC_INLINE void LL_EXTI_EnableEvent_0_31(uint32_t ExtiLine)
 /**
   * @brief  Enable ExtiLine Event request for Lines in range 0 to 31 for cpu2
   * @rmtoll C2EMR1         EMx           LL_C2_EXTI_EnableEvent_0_31
-  * @param  ExtiLine This parameter can be one of the following values:
+  * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_0
   *         @arg @ref LL_EXTI_LINE_1
   *         @arg @ref LL_EXTI_LINE_2
@@ -726,9 +759,9 @@ __STATIC_INLINE void LL_EXTI_EnableEvent_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
-  *         @arg @ref LL_EXTI_LINE_ALL_0_31
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_C2_EXTI_EnableEvent_0_31(uint32_t ExtiLine)
@@ -742,7 +775,6 @@ __STATIC_INLINE void LL_C2_EXTI_EnableEvent_0_31(uint32_t ExtiLine)
   * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_40
   *         @arg @ref LL_EXTI_LINE_41
-  *         @arg @ref LL_EXTI_LINE_ALL_32_63
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_EnableEvent_32_63(uint32_t ExtiLine)
@@ -756,7 +788,6 @@ __STATIC_INLINE void LL_EXTI_EnableEvent_32_63(uint32_t ExtiLine)
   * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_40
   *         @arg @ref LL_EXTI_LINE_41
-  *         @arg @ref LL_EXTI_LINE_ALL_32_63
   * @retval None
   */
 __STATIC_INLINE void LL_C2_EXTI_EnableEvent_32_63(uint32_t ExtiLine)
@@ -767,7 +798,7 @@ __STATIC_INLINE void LL_C2_EXTI_EnableEvent_32_63(uint32_t ExtiLine)
 /**
   * @brief  Disable ExtiLine Event request for Lines in range 0 to 31
   * @rmtoll EMR1         EMx           LL_EXTI_DisableEvent_0_31
-  * @param  ExtiLine This parameter can be one of the following values:
+  * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_0
   *         @arg @ref LL_EXTI_LINE_1
   *         @arg @ref LL_EXTI_LINE_2
@@ -787,9 +818,8 @@ __STATIC_INLINE void LL_C2_EXTI_EnableEvent_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
-  *         @arg @ref LL_EXTI_LINE_ALL_0_31
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_DisableEvent_0_31(uint32_t ExtiLine)
@@ -800,7 +830,7 @@ __STATIC_INLINE void LL_EXTI_DisableEvent_0_31(uint32_t ExtiLine)
 /**
   * @brief  Disable ExtiLine Event request for Lines in range 0 to 31 for cpu2
   * @rmtoll C2EMR1         EMx           LL_C2_EXTI_DisableEvent_0_31
-  * @param  ExtiLine This parameter can be one of the following values:
+  * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_0
   *         @arg @ref LL_EXTI_LINE_1
   *         @arg @ref LL_EXTI_LINE_2
@@ -820,9 +850,9 @@ __STATIC_INLINE void LL_EXTI_DisableEvent_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
-  *         @arg @ref LL_EXTI_LINE_ALL_0_31
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_C2_EXTI_DisableEvent_0_31(uint32_t ExtiLine)
@@ -836,7 +866,7 @@ __STATIC_INLINE void LL_C2_EXTI_DisableEvent_0_31(uint32_t ExtiLine)
   * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_40
   *         @arg @ref LL_EXTI_LINE_41
-  *         @arg @ref LL_EXTI_LINE_ALL_32_63
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_DisableEvent_32_63(uint32_t ExtiLine)
@@ -850,7 +880,6 @@ __STATIC_INLINE void LL_EXTI_DisableEvent_32_63(uint32_t ExtiLine)
   * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_40
   *         @arg @ref LL_EXTI_LINE_41
-  *         @arg @ref LL_EXTI_LINE_ALL_32_63
   * @retval None
   */
 __STATIC_INLINE void LL_C2_EXTI_DisableEvent_32_63(uint32_t ExtiLine)
@@ -861,7 +890,7 @@ __STATIC_INLINE void LL_C2_EXTI_DisableEvent_32_63(uint32_t ExtiLine)
 /**
   * @brief  Indicate if ExtiLine Event request is enabled for Lines in range 0 to 31
   * @rmtoll EMR1         EMx           LL_EXTI_IsEnabledEvent_0_31
-  * @param  ExtiLine This parameter can be one of the following values:
+  * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_0
   *         @arg @ref LL_EXTI_LINE_1
   *         @arg @ref LL_EXTI_LINE_2
@@ -881,9 +910,9 @@ __STATIC_INLINE void LL_C2_EXTI_DisableEvent_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
-  *         @arg @ref LL_EXTI_LINE_ALL_0_31
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
+  *         (*) value not defined in all devices
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
@@ -895,7 +924,7 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledEvent_0_31(uint32_t ExtiLine)
 /**
   * @brief  Indicate if ExtiLine Event request is enabled for Lines in range 0 to 31 for cpu2
   * @rmtoll C2EMR1         EMx           LL_C2_EXTI_IsEnabledEvent_0_31
-  * @param  ExtiLine This parameter can be one of the following values:
+  * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_0
   *         @arg @ref LL_EXTI_LINE_1
   *         @arg @ref LL_EXTI_LINE_2
@@ -915,9 +944,9 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledEvent_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
-  *         @arg @ref LL_EXTI_LINE_ALL_0_31
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
+  *         (*) value not defined in all devices
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
@@ -932,7 +961,6 @@ __STATIC_INLINE uint32_t LL_C2_EXTI_IsEnabledEvent_0_31(uint32_t ExtiLine)
   * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_40
   *         @arg @ref LL_EXTI_LINE_41
-  *         @arg @ref LL_EXTI_LINE_ALL_32_63
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_EXTI_IsEnabledEvent_32_63(uint32_t ExtiLine)
@@ -946,7 +974,6 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledEvent_32_63(uint32_t ExtiLine)
   * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_40
   *         @arg @ref LL_EXTI_LINE_41
-  *         @arg @ref LL_EXTI_LINE_ALL_32_63
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_C2_EXTI_IsEnabledEvent_32_63(uint32_t ExtiLine)
@@ -993,9 +1020,10 @@ __STATIC_INLINE uint32_t LL_C2_EXTI_IsEnabledEvent_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
-  *         @arg @ref LL_EXTI_LINE_31
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
+  *         @arg @ref LL_EXTI_LINE_31 (*)
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_EnableRisingTrig_0_31(uint32_t ExtiLine)
@@ -1014,9 +1042,10 @@ __STATIC_INLINE void LL_EXTI_EnableRisingTrig_0_31(uint32_t ExtiLine)
   *       condition.
   * @rmtoll RTSR2        RTx           LL_EXTI_EnableRisingTrig_32_63
   * @param  ExtiLine This parameter can be a combination of the following values:
-  *         @arg @ref LL_EXTI_LINE_33
+  *         @arg @ref LL_EXTI_LINE_33 (*)
   *         @arg @ref LL_EXTI_LINE_40
   *         @arg @ref LL_EXTI_LINE_41
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_EnableRisingTrig_32_63(uint32_t ExtiLine)
@@ -1055,9 +1084,10 @@ __STATIC_INLINE void LL_EXTI_EnableRisingTrig_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
-  *         @arg @ref LL_EXTI_LINE_31
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
+  *         @arg @ref LL_EXTI_LINE_31 (*)
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_DisableRisingTrig_0_31(uint32_t ExtiLine)
@@ -1077,9 +1107,10 @@ __STATIC_INLINE void LL_EXTI_DisableRisingTrig_0_31(uint32_t ExtiLine)
   *       condition.
   * @rmtoll RTSR2        RTx           LL_EXTI_DisableRisingTrig_32_63
   * @param  ExtiLine This parameter can be a combination of the following values:
-  *         @arg @ref LL_EXTI_LINE_33
+  *         @arg @ref LL_EXTI_LINE_33 (*)
   *         @arg @ref LL_EXTI_LINE_40
   *         @arg @ref LL_EXTI_LINE_41
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_DisableRisingTrig_32_63(uint32_t ExtiLine)
@@ -1111,9 +1142,10 @@ __STATIC_INLINE void LL_EXTI_DisableRisingTrig_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
-  *         @arg @ref LL_EXTI_LINE_31
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
+  *         @arg @ref LL_EXTI_LINE_31 (*)
+  *         (*) value not defined in all devices
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_EXTI_IsEnabledRisingTrig_0_31(uint32_t ExtiLine)
@@ -1125,9 +1157,10 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledRisingTrig_0_31(uint32_t ExtiLine)
   * @brief  Check if rising edge trigger is enabled for Lines in range 32 to 63
   * @rmtoll RTSR2        RTx           LL_EXTI_IsEnabledRisingTrig_32_63
   * @param  ExtiLine This parameter can be a combination of the following values:
-  *         @arg @ref LL_EXTI_LINE_33
+  *         @arg @ref LL_EXTI_LINE_33 (*)
   *         @arg @ref LL_EXTI_LINE_40
   *         @arg @ref LL_EXTI_LINE_41
+  *         (*) value not defined in all devices
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_EXTI_IsEnabledRisingTrig_32_63(uint32_t ExtiLine)
@@ -1171,14 +1204,13 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledRisingTrig_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
   *         @arg @ref LL_EXTI_LINE_16
+  *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
-  *         @arg @ref LL_EXTI_LINE_22
-  *         @arg @ref LL_EXTI_LINE_29
-  *         @arg @ref LL_EXTI_LINE_30
-  *         @arg @ref LL_EXTI_LINE_31
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
+  *         @arg @ref LL_EXTI_LINE_31 (*)
+  *         (*) value not defined in all devices
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
@@ -1198,10 +1230,10 @@ __STATIC_INLINE void LL_EXTI_EnableFallingTrig_0_31(uint32_t ExtiLine)
   *       condition.
   * @rmtoll FTSR2        FTx           LL_EXTI_EnableFallingTrig_32_63
   * @param  ExtiLine This parameter can be a combination of the following values:
-  *         @arg @ref LL_EXTI_LINE_35
-  *         @arg @ref LL_EXTI_LINE_36
-  *         @arg @ref LL_EXTI_LINE_37
-  *         @arg @ref LL_EXTI_LINE_38
+  *         @arg @ref LL_EXTI_LINE_33 (*)
+  *         @arg @ref LL_EXTI_LINE_40
+  *         @arg @ref LL_EXTI_LINE_41
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_EnableFallingTrig_32_63(uint32_t ExtiLine)
@@ -1236,14 +1268,13 @@ __STATIC_INLINE void LL_EXTI_EnableFallingTrig_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
   *         @arg @ref LL_EXTI_LINE_16
+  *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
-  *         @arg @ref LL_EXTI_LINE_22
-  *         @arg @ref LL_EXTI_LINE_29
-  *         @arg @ref LL_EXTI_LINE_30
-  *         @arg @ref LL_EXTI_LINE_31
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
+  *         @arg @ref LL_EXTI_LINE_31 (*)
+  *         (*) value not defined in all devices
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
@@ -1262,10 +1293,10 @@ __STATIC_INLINE void LL_EXTI_DisableFallingTrig_0_31(uint32_t ExtiLine)
   *       In this case, both generate a trigger condition.
   * @rmtoll FTSR2        FTx           LL_EXTI_DisableFallingTrig_32_63
   * @param  ExtiLine This parameter can be a combination of the following values:
-  *         @arg @ref LL_EXTI_LINE_35
-  *         @arg @ref LL_EXTI_LINE_36
-  *         @arg @ref LL_EXTI_LINE_37
-  *         @arg @ref LL_EXTI_LINE_38
+  *         @arg @ref LL_EXTI_LINE_33 (*)
+  *         @arg @ref LL_EXTI_LINE_40
+  *         @arg @ref LL_EXTI_LINE_41
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_DisableFallingTrig_32_63(uint32_t ExtiLine)
@@ -1294,14 +1325,13 @@ __STATIC_INLINE void LL_EXTI_DisableFallingTrig_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
   *         @arg @ref LL_EXTI_LINE_16
+  *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
-  *         @arg @ref LL_EXTI_LINE_22
-  *         @arg @ref LL_EXTI_LINE_29
-  *         @arg @ref LL_EXTI_LINE_30
-  *         @arg @ref LL_EXTI_LINE_31
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
+  *         @arg @ref LL_EXTI_LINE_31 (*)
+  *         (*) value not defined in all devices
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
@@ -1314,10 +1344,9 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledFallingTrig_0_31(uint32_t ExtiLine)
   * @brief  Check if falling edge trigger is enabled for Lines in range 32 to 63
   * @rmtoll FTSR2        FTx           LL_EXTI_IsEnabledFallingTrig_32_63
   * @param  ExtiLine This parameter can be a combination of the following values:
-  *         @arg @ref LL_EXTI_LINE_35
-  *         @arg @ref LL_EXTI_LINE_36
-  *         @arg @ref LL_EXTI_LINE_37
-  *         @arg @ref LL_EXTI_LINE_38
+  *         @arg @ref LL_EXTI_LINE_33 (*)
+  *         @arg @ref LL_EXTI_LINE_40
+  *         @arg @ref LL_EXTI_LINE_41
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_EXTI_IsEnabledFallingTrig_32_63(uint32_t ExtiLine)
@@ -1359,14 +1388,13 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledFallingTrig_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
   *         @arg @ref LL_EXTI_LINE_16
+  *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
-  *         @arg @ref LL_EXTI_LINE_22
-  *         @arg @ref LL_EXTI_LINE_29
-  *         @arg @ref LL_EXTI_LINE_30
-  *         @arg @ref LL_EXTI_LINE_31
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
+  *         @arg @ref LL_EXTI_LINE_31 (*)
+  *         (*) value not defined in all devices
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
@@ -1377,17 +1405,17 @@ __STATIC_INLINE void LL_EXTI_GenerateSWI_0_31(uint32_t ExtiLine)
 
 /**
   * @brief  Generate a software Interrupt Event for Lines in range 32 to 63
-  * @note If the interrupt is enabled on this line inthe EXTI_IMR2, writing a 1 to
+  * @note If the interrupt is enabled on this line in the EXTI_IMR2, writing a 1 to
   *       this bit when it is at '0' sets the corresponding pending bit in EXTI_PR2
   *       resulting in an interrupt request generation.
   *       This bit is cleared by clearing the corresponding bit in the EXTI_PR2
   *       register (by writing a 1 into the bit)
   * @rmtoll SWIER2       SWIx          LL_EXTI_GenerateSWI_32_63
   * @param  ExtiLine This parameter can be a combination of the following values:
-  *         @arg @ref LL_EXTI_LINE_35
-  *         @arg @ref LL_EXTI_LINE_36
-  *         @arg @ref LL_EXTI_LINE_37
-  *         @arg @ref LL_EXTI_LINE_38
+  *         @arg @ref LL_EXTI_LINE_33 (*)
+  *         @arg @ref LL_EXTI_LINE_40
+  *         @arg @ref LL_EXTI_LINE_41
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_GenerateSWI_32_63(uint32_t ExtiLine)
@@ -1426,11 +1454,13 @@ __STATIC_INLINE void LL_EXTI_GenerateSWI_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
   *         @arg @ref LL_EXTI_LINE_16
+  *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
-  *         @arg @ref LL_EXTI_LINE_31
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
+  *         @arg @ref LL_EXTI_LINE_31 (*)
+  *         (*) value not defined in all devices
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_EXTI_IsActiveFlag_0_31(uint32_t ExtiLine)
@@ -1444,9 +1474,10 @@ __STATIC_INLINE uint32_t LL_EXTI_IsActiveFlag_0_31(uint32_t ExtiLine)
   *       line. This bit is cleared by writing a 1 to the bit.
   * @rmtoll PR2          PIFx           LL_EXTI_IsActiveFlag_32_63
   * @param  ExtiLine This parameter can be a combination of the following values:
-  *         @arg @ref LL_EXTI_LINE_33
+  *         @arg @ref LL_EXTI_LINE_33 (*)
   *         @arg @ref LL_EXTI_LINE_40
   *         @arg @ref LL_EXTI_LINE_41
+  *         (*) value not defined in all devices
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_EXTI_IsActiveFlag_32_63(uint32_t ExtiLine)
@@ -1477,11 +1508,13 @@ __STATIC_INLINE uint32_t LL_EXTI_IsActiveFlag_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
   *         @arg @ref LL_EXTI_LINE_16
+  *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
-  *         @arg @ref LL_EXTI_LINE_31
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
+  *         @arg @ref LL_EXTI_LINE_31 (*)
+  *         (*) value not defined in all devices
   * @retval @note This bit is set when the selected edge event arrives on the interrupt
   */
 __STATIC_INLINE uint32_t LL_EXTI_ReadFlag_0_31(uint32_t ExtiLine)
@@ -1495,9 +1528,10 @@ __STATIC_INLINE uint32_t LL_EXTI_ReadFlag_0_31(uint32_t ExtiLine)
   *       line. This bit is cleared by writing a 1 to the bit.
   * @rmtoll PR2          PIFx           LL_EXTI_ReadFlag_32_63
   * @param  ExtiLine This parameter can be a combination of the following values:
-  *         @arg @ref LL_EXTI_LINE_33
+  *         @arg @ref LL_EXTI_LINE_33 (*)
   *         @arg @ref LL_EXTI_LINE_40
   *         @arg @ref LL_EXTI_LINE_41
+  *         (*) value not defined in all devices
   * @retval @note This bit is set when the selected edge event arrives on the interrupt
   */
 __STATIC_INLINE uint32_t LL_EXTI_ReadFlag_32_63(uint32_t ExtiLine)
@@ -1528,11 +1562,13 @@ __STATIC_INLINE uint32_t LL_EXTI_ReadFlag_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
   *         @arg @ref LL_EXTI_LINE_16
+  *         @arg @ref LL_EXTI_LINE_17
   *         @arg @ref LL_EXTI_LINE_18
   *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_20
-  *         @arg @ref LL_EXTI_LINE_21
-  *         @arg @ref LL_EXTI_LINE_31
+  *         @arg @ref LL_EXTI_LINE_20 (*)
+  *         @arg @ref LL_EXTI_LINE_21 (*)
+  *         @arg @ref LL_EXTI_LINE_31 (*)
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_ClearFlag_0_31(uint32_t ExtiLine)
@@ -1546,9 +1582,10 @@ __STATIC_INLINE void LL_EXTI_ClearFlag_0_31(uint32_t ExtiLine)
   *       line. This bit is cleared by writing a 1 to the bit.
   * @rmtoll PR2          PIFx           LL_EXTI_ClearFlag_32_63
   * @param  ExtiLine This parameter can be a combination of the following values:
-  *         @arg @ref LL_EXTI_LINE_33
+  *         @arg @ref LL_EXTI_LINE_33 (*)
   *         @arg @ref LL_EXTI_LINE_40
   *         @arg @ref LL_EXTI_LINE_41
+  *         (*) value not defined in all devices
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_ClearFlag_32_63(uint32_t ExtiLine)
@@ -1594,5 +1631,3 @@ void LL_EXTI_StructInit(LL_EXTI_InitTypeDef *EXTI_InitStruct);
 #endif
 
 #endif /* STM32WBxx_LL_EXTI_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

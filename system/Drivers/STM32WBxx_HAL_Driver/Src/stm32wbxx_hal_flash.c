@@ -8,7 +8,17 @@
   *           + Program operations functions
   *           + Memory Control functions
   *           + Peripheral Errors functions
+  ******************************************************************************
+  * @attention
   *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
  @verbatim
   ==============================================================================
                         ##### FLASH peripheral features #####
@@ -75,17 +85,6 @@
        (+) Monitor the Flash flags status
 
  @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -269,7 +268,7 @@ HAL_StatusTypeDef HAL_FLASH_Program_IT(uint32_t TypeProgram, uint32_t Address, u
     pFlash.Address = Address;
 
     /* Enable End of Operation and Error interrupts */
-    __HAL_FLASH_ENABLE_IT(FLASH_IT_EOP | FLASH_IT_OPERR | FLASH_IT_ECCC);
+    __HAL_FLASH_ENABLE_IT(FLASH_IT_EOP | FLASH_IT_OPERR);
 
     if (TypeProgram == FLASH_TYPEPROGRAM_DOUBLEWORD)
     {
@@ -302,24 +301,22 @@ void HAL_FLASH_IRQHandler(void)
   uint32_t param = 0xFFFFFFFFU;
   uint32_t error;
 
-  /* Save flash errors. Only ECC detection can be checked here as ECCC
-     generates NMI */
-  error = (FLASH->SR & FLASH_FLAG_SR_ERROR);
+  /* Check FLASH operation error flags */
+  error = (FLASH->SR & FLASH_FLAG_SR_ERRORS);
 
   /* Clear Current operation */
   CLEAR_BIT(FLASH->CR, pFlash.ProcedureOnGoing);
-  error |= (FLASH->ECCR & FLASH_FLAG_ECCC);
 
   /* A] Set parameter for user or error callbacks */
   /* check operation was a program or erase */
   if ((pFlash.ProcedureOnGoing & (FLASH_TYPEPROGRAM_DOUBLEWORD | FLASH_TYPEPROGRAM_FAST)) != 0U)
   {
-    /* return adress being programmed */
+    /* return address being programmed */
     param = pFlash.Address;
   }
-  else if ((pFlash.ProcedureOnGoing & (FLASH_TYPEERASE_MASSERASE | FLASH_TYPEERASE_PAGES)) != 0U)
+  else if ((pFlash.ProcedureOnGoing & (FLASH_TYPEERASE_PAGES)) != 0U)
   {
-    /* return page number being erased (0 for mass erase) */
+    /* return page number being erased */
     param = pFlash.Page;
   }
   else
@@ -381,7 +378,7 @@ void HAL_FLASH_IRQHandler(void)
   if (pFlash.ProcedureOnGoing == FLASH_TYPENONE)
   {
     /* Disable End of Operation and Error interrupts */
-    __HAL_FLASH_DISABLE_IT(FLASH_IT_EOP | FLASH_IT_OPERR | FLASH_IT_ECCC);
+    __HAL_FLASH_DISABLE_IT(FLASH_IT_EOP | FLASH_IT_OPERR);
 
     /* Process Unlocked */
     __HAL_UNLOCK(&pFlash);
@@ -391,7 +388,6 @@ void HAL_FLASH_IRQHandler(void)
 /**
   * @brief  FLASH end of operation interrupt callback.
   * @param  ReturnValue The value saved in this parameter depends on the ongoing procedure
-  *                  Mass Erase: 0
   *                  Page Erase: Page which has been erased
   *                  Program: Address which was selected for data program
   * @retval None
@@ -409,7 +405,6 @@ __weak void HAL_FLASH_EndOfOperationCallback(uint32_t ReturnValue)
 /**
   * @brief  FLASH operation error interrupt callback.
   * @param  ReturnValue The value saved in this parameter depends on the ongoing procedure
-  *                 Mass Erase: 0
   *                 Page Erase: Page number which returned an error
   *                 Program: Address which was selected for data program
   * @retval None
@@ -581,7 +576,6 @@ HAL_StatusTypeDef HAL_FLASH_OB_Launch(void)
   *            @arg @ref HAL_FLASH_ERROR_FAST FLASH Fast programming error
   *            @arg @ref HAL_FLASH_ERROR_RD FLASH Read Protection error (PCROP)
   *            @arg @ref HAL_FLASH_ERROR_OPTV FLASH Option validity error
-  *            @arg @ref HAL_FLASH_ERROR_ECCD FLASH two ECC errors have been detected
   */
 uint32_t HAL_FLASH_GetError(void)
 {
@@ -623,8 +617,7 @@ HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)
     }
   }
 
-  /* check flash errors. Only ECC correction can be checked here as ECCD
-      generates NMI */
+  /* Check FLASH operation error flags */
   error = FLASH->SR;
 
   /* Check FLASH End of Operation flag */
@@ -634,11 +627,21 @@ HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP);
   }
 
-  /* Now update error variable to only error value */
-  error &= FLASH_FLAG_SR_ERROR;
+  /* Workaround for BZ 70309 :
+     - OPTVERR is always set at power-up due to failure of engi bytes checking
+     - FLASH_WaitForLastOperation() is called at the beginning of erase or program
+       operations, so the bit will be clear when performing first operation */
+  if ((error & FLASH_FLAG_OPTVERR) != 0U)
+  {
+    /* Clear FLASH OPTVERR bit */
+    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_OPTVERR);
 
-  /* Update error with ECC error value */
-  error |= (FLASH->ECCR & FLASH_FLAG_ECCC);
+    /* Clear OPTVERR bit in "error" variable to not treat it as error */
+    error &= ~FLASH_FLAG_OPTVERR;
+  }
+
+  /* Now update error variable to only error value */
+  error &= FLASH_FLAG_SR_ERRORS;
 
   /* clear error flags */
   __HAL_FLASH_CLEAR_FLAG(error);
@@ -739,5 +742,3 @@ static __RAM_FUNC void FLASH_Program_Fast(uint32_t Address, uint32_t DataAddress
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

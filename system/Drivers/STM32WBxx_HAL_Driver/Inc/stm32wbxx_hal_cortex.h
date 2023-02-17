@@ -6,28 +6,26 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics. 
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef STM32WBxx_HAL_CORTEX_H
 #define STM32WBxx_HAL_CORTEX_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32wbxx_hal_def.h"
-#include "stm32wb55xx.h"
 
 /** @addtogroup STM32WBxx_HAL_Driver
   * @{
@@ -45,7 +43,7 @@
 
 #if (__MPU_PRESENT == 1)
 /** @defgroup CORTEX_MPU_Region_Initialization_Structure_definition MPU Region Initialization Structure Definition
-  * @brief  MPU Region initialization structure 
+  * @brief  MPU Region initialization structure
   * @{
   */
 typedef struct
@@ -72,7 +70,7 @@ typedef struct
                                       This parameter can be a value of @ref CORTEX_MPU_Access_Cacheable             */
   uint8_t IsBufferable;          /*!< Specifies the bufferable status of the protected region. 
                                       This parameter can be a value of @ref CORTEX_MPU_Access_Bufferable            */
-}MPU_Region_InitTypeDef;
+} MPU_Region_InitTypeDef;
 /**
   * @}
   */
@@ -102,7 +100,7 @@ typedef struct
                                                         0 bit  for subpriority */
 /**
   * @}
-  */  
+  */
 
 /** @defgroup CORTEX_SysTick_clock_source CORTEX SysTick clock source
   * @{
@@ -161,7 +159,7 @@ typedef struct
 /**
   * @}
   */
-  
+
 /** @defgroup CORTEX_MPU_Access_Bufferable CORTEX MPU Instruction Access Bufferable
   * @{
   */
@@ -263,13 +261,13 @@ typedef struct
   * @{
   */
 
-/** @defgroup CORTEX_Exported_Functions_Group1 Initialization and Configuration functions 
- *  @brief    Initialization and Configuration functions
- * @{
- */
+/** @defgroup CORTEX_Exported_Functions_Group1 Initialization and Configuration functions
+  * @brief    Initialization and Configuration functions
+  * @{
+  */
 /* Initialization and Configuration functions *****************************/
 void HAL_NVIC_SetPriorityGrouping(uint32_t PriorityGroup);
-void HAL_NVIC_SetPriority(IRQn_Type IRQn,uint32_t PreemptPriority, uint32_t SubPriority);
+void HAL_NVIC_SetPriority(IRQn_Type IRQn, uint32_t PreemptPriority, uint32_t SubPriority);
 void HAL_NVIC_EnableIRQ(IRQn_Type IRQn);
 void HAL_NVIC_DisableIRQ(IRQn_Type IRQn);
 void HAL_NVIC_SystemReset(void);
@@ -278,12 +276,12 @@ uint32_t HAL_SYSTICK_Config(uint32_t TicksNumb);
   * @}
   */
 
-/** @defgroup CORTEX_Exported_Functions_Group2 Peripheral Control functions 
- *  @brief   Cortex control functions
- * @{
- */
+/** @defgroup CORTEX_Exported_Functions_Group2 Peripheral Control functions
+  * @brief   Cortex control functions
+  * @{
+  */
 /* Peripheral Control functions *************************************************/
-void HAL_NVIC_GetPriority(IRQn_Type IRQn, uint32_t PriorityGroup, uint32_t* pPreemptPriority, uint32_t* pSubPriority);
+void HAL_NVIC_GetPriority(IRQn_Type IRQn, uint32_t PriorityGroup, uint32_t *pPreemptPriority, uint32_t *pSubPriority);
 uint32_t HAL_NVIC_GetPriorityGrouping(void);
 uint32_t HAL_NVIC_GetPendingIRQ(IRQn_Type IRQn);
 void HAL_NVIC_SetPendingIRQ(IRQn_Type IRQn);
@@ -316,7 +314,7 @@ void HAL_MPU_ConfigRegion(MPU_Region_InitTypeDef *MPU_Init);
                                        ((GROUP) == NVIC_PRIORITYGROUP_1) || \
                                        ((GROUP) == NVIC_PRIORITYGROUP_2) || \
                                        ((GROUP) == NVIC_PRIORITYGROUP_3) || \
-                                       ((GROUP) == NVIC_PRIORITYGROUP_4))  
+                                       ((GROUP) == NVIC_PRIORITYGROUP_4))
 
 #define IS_NVIC_PREEMPTION_PRIORITY(PRIORITY)  ((PRIORITY) < 0x10U)
 
@@ -363,34 +361,34 @@ void HAL_MPU_ConfigRegion(MPU_Region_InitTypeDef *MPU_Init);
                                                    ((NUMBER) == MPU_REGION_NUMBER6) || \
                                                    ((NUMBER) == MPU_REGION_NUMBER7))
 
-#define IS_MPU_REGION_SIZE(SIZE)                  (((SIZE) == MPU_REGION_SIZE_32B)   || \
-                                                   ((SIZE) == MPU_REGION_SIZE_64B)   || \
-                                                   ((SIZE) == MPU_REGION_SIZE_128B)  || \
-                                                   ((SIZE) == MPU_REGION_SIZE_256B)  || \
-                                                   ((SIZE) == MPU_REGION_SIZE_512B)  || \
-                                                   ((SIZE) == MPU_REGION_SIZE_1KB)   || \
-                                                   ((SIZE) == MPU_REGION_SIZE_2KB)   || \
-                                                   ((SIZE) == MPU_REGION_SIZE_4KB)   || \
-                                                   ((SIZE) == MPU_REGION_SIZE_8KB)   || \
-                                                   ((SIZE) == MPU_REGION_SIZE_16KB)  || \
-                                                   ((SIZE) == MPU_REGION_SIZE_32KB)  || \
-                                                   ((SIZE) == MPU_REGION_SIZE_64KB)  || \
-                                                   ((SIZE) == MPU_REGION_SIZE_128KB) || \
-                                                   ((SIZE) == MPU_REGION_SIZE_256KB) || \
-                                                   ((SIZE) == MPU_REGION_SIZE_512KB) || \
-                                                   ((SIZE) == MPU_REGION_SIZE_1MB)   || \
-                                                   ((SIZE) == MPU_REGION_SIZE_2MB)   || \
-                                                   ((SIZE) == MPU_REGION_SIZE_4MB)   || \
-                                                   ((SIZE) == MPU_REGION_SIZE_8MB)   || \
-                                                   ((SIZE) == MPU_REGION_SIZE_16MB)  || \
-                                                   ((SIZE) == MPU_REGION_SIZE_32MB)  || \
-                                                   ((SIZE) == MPU_REGION_SIZE_64MB)  || \
-                                                   ((SIZE) == MPU_REGION_SIZE_128MB) || \
-                                                   ((SIZE) == MPU_REGION_SIZE_256MB) || \
-                                                   ((SIZE) == MPU_REGION_SIZE_512MB) || \
-                                                   ((SIZE) == MPU_REGION_SIZE_1GB)   || \
-                                                   ((SIZE) == MPU_REGION_SIZE_2GB)   || \
-                                                   ((SIZE) == MPU_REGION_SIZE_4GB))
+#define IS_MPU_REGION_SIZE(SIZE)    (((SIZE) == MPU_REGION_SIZE_32B)   || \
+                                     ((SIZE) == MPU_REGION_SIZE_64B)   || \
+                                     ((SIZE) == MPU_REGION_SIZE_128B)  || \
+                                     ((SIZE) == MPU_REGION_SIZE_256B)  || \
+                                     ((SIZE) == MPU_REGION_SIZE_512B)  || \
+                                     ((SIZE) == MPU_REGION_SIZE_1KB)   || \
+                                     ((SIZE) == MPU_REGION_SIZE_2KB)   || \
+                                     ((SIZE) == MPU_REGION_SIZE_4KB)   || \
+                                     ((SIZE) == MPU_REGION_SIZE_8KB)   || \
+                                     ((SIZE) == MPU_REGION_SIZE_16KB)  || \
+                                     ((SIZE) == MPU_REGION_SIZE_32KB)  || \
+                                     ((SIZE) == MPU_REGION_SIZE_64KB)  || \
+                                     ((SIZE) == MPU_REGION_SIZE_128KB) || \
+                                     ((SIZE) == MPU_REGION_SIZE_256KB) || \
+                                     ((SIZE) == MPU_REGION_SIZE_512KB) || \
+                                     ((SIZE) == MPU_REGION_SIZE_1MB)   || \
+                                     ((SIZE) == MPU_REGION_SIZE_2MB)   || \
+                                     ((SIZE) == MPU_REGION_SIZE_4MB)   || \
+                                     ((SIZE) == MPU_REGION_SIZE_8MB)   || \
+                                     ((SIZE) == MPU_REGION_SIZE_16MB)  || \
+                                     ((SIZE) == MPU_REGION_SIZE_32MB)  || \
+                                     ((SIZE) == MPU_REGION_SIZE_64MB)  || \
+                                     ((SIZE) == MPU_REGION_SIZE_128MB) || \
+                                     ((SIZE) == MPU_REGION_SIZE_256MB) || \
+                                     ((SIZE) == MPU_REGION_SIZE_512MB) || \
+                                     ((SIZE) == MPU_REGION_SIZE_1GB)   || \
+                                     ((SIZE) == MPU_REGION_SIZE_2GB)   || \
+                                     ((SIZE) == MPU_REGION_SIZE_4GB))
 
 #define IS_MPU_SUB_REGION_DISABLE(SUBREGION)      ((SUBREGION) < (uint16_t)0x00FFU)
 #endif /* __MPU_PRESENT */
@@ -408,13 +406,9 @@ void HAL_MPU_ConfigRegion(MPU_Region_InitTypeDef *MPU_Init);
 /**
   * @}
   */
-  
+
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* STM32WBxx_HAL_CORTEX_H */
-
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-

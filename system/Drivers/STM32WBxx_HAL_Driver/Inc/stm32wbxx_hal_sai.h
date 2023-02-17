@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics. 
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -31,6 +30,8 @@ extern "C" {
 /** @addtogroup STM32WBxx_HAL_Driver
   * @{
   */
+
+#if defined (SAI1)
 
 /** @addtogroup SAI
   * @{
@@ -153,6 +154,7 @@ typedef struct
 
 /** @defgroup SAI_Frame_Structure_definition SAI Frame Structure definition
   * @brief  SAI Frame Init structure definition
+  * @note   For SPDIF and AC97 protocol, these parameters are not used (set by hardware).
   * @{
   */
 typedef struct
@@ -185,6 +187,8 @@ typedef struct
 
 /** @defgroup SAI_Slot_Structure_definition SAI Slot Structure definition
   * @brief   SAI Block Slot Init Structure definition
+  * @note    For SPDIF protocol, these parameters are not used (set by hardware).
+  * @note    For AC97 protocol, only SlotActive parameter is used (the others are set by hardware).
   * @{
   */
 typedef struct
@@ -804,8 +808,8 @@ void HAL_SAI_ErrorCallback(SAI_HandleTypeDef *hsai);
   * @{
   */
 /* Peripheral State functions  ************************************************/
-HAL_SAI_StateTypeDef HAL_SAI_GetState(SAI_HandleTypeDef *hsai);
-uint32_t HAL_SAI_GetError(SAI_HandleTypeDef *hsai);
+HAL_SAI_StateTypeDef HAL_SAI_GetState(const SAI_HandleTypeDef *hsai);
+uint32_t HAL_SAI_GetError(const SAI_HandleTypeDef *hsai);
 /**
   * @}
   */
@@ -948,6 +952,8 @@ uint32_t HAL_SAI_GetError(SAI_HandleTypeDef *hsai);
   * @}
   */
 
+#endif /* SAI1 */
+
 /**
   * @}
   */
@@ -957,5 +963,3 @@ uint32_t HAL_SAI_GetError(SAI_HandleTypeDef *hsai);
 #endif
 
 #endif /* STM32WBxx_HAL_SAI_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

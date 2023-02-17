@@ -1,0 +1,133 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic MP153AABx
+GenMP1.menu.pnum.GENERIC_MP153AABX=Generic MP153AABx
+GenMP1.menu.pnum.GENERIC_MP153AABX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP153AABX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP153AABX.build.board=GENERIC_MP153AABX
+GenMP1.menu.pnum.GENERIC_MP153AABX.build.product_line=STM32MP153Axx
+GenMP1.menu.pnum.GENERIC_MP153AABX.build.variant=STM32MP1xx/MP153AA(B-D)_MP153CA(B-D)_MP153DA(B-D)_MP153FA(B-D)_MP157AA(B-D)_MP157CA(B-D)_MP157DA(B-D)_MP157FA(B-D)
+
+# Generic MP153AADx
+GenMP1.menu.pnum.GENERIC_MP153AADX=Generic MP153AADx
+GenMP1.menu.pnum.GENERIC_MP153AADX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP153AADX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP153AADX.build.board=GENERIC_MP153AADX
+GenMP1.menu.pnum.GENERIC_MP153AADX.build.product_line=STM32MP153Axx
+GenMP1.menu.pnum.GENERIC_MP153AADX.build.variant=STM32MP1xx/MP153AA(B-D)_MP153CA(B-D)_MP153DA(B-D)_MP153FA(B-D)_MP157AA(B-D)_MP157CA(B-D)_MP157DA(B-D)_MP157FA(B-D)
+
+# Generic MP153CABx
+GenMP1.menu.pnum.GENERIC_MP153CABX=Generic MP153CABx
+GenMP1.menu.pnum.GENERIC_MP153CABX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP153CABX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP153CABX.build.board=GENERIC_MP153CABX
+GenMP1.menu.pnum.GENERIC_MP153CABX.build.product_line=STM32MP153Cxx
+GenMP1.menu.pnum.GENERIC_MP153CABX.build.variant=STM32MP1xx/MP153AA(B-D)_MP153CA(B-D)_MP153DA(B-D)_MP153FA(B-D)_MP157AA(B-D)_MP157CA(B-D)_MP157DA(B-D)_MP157FA(B-D)
+
+# Generic MP153CADx
+GenMP1.menu.pnum.GENERIC_MP153CADX=Generic MP153CADx
+GenMP1.menu.pnum.GENERIC_MP153CADX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP153CADX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP153CADX.build.board=GENERIC_MP153CADX
+GenMP1.menu.pnum.GENERIC_MP153CADX.build.product_line=STM32MP153Cxx
+GenMP1.menu.pnum.GENERIC_MP153CADX.build.variant=STM32MP1xx/MP153AA(B-D)_MP153CA(B-D)_MP153DA(B-D)_MP153FA(B-D)_MP157AA(B-D)_MP157CA(B-D)_MP157DA(B-D)_MP157FA(B-D)
+
+# Generic MP153DABx
+GenMP1.menu.pnum.GENERIC_MP153DABX=Generic MP153DABx
+GenMP1.menu.pnum.GENERIC_MP153DABX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP153DABX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP153DABX.build.board=GENERIC_MP153DABX
+GenMP1.menu.pnum.GENERIC_MP153DABX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP153DABX.build.variant=STM32MP1xx/MP153AA(B-D)_MP153CA(B-D)_MP153DA(B-D)_MP153FA(B-D)_MP157AA(B-D)_MP157CA(B-D)_MP157DA(B-D)_MP157FA(B-D)
+
+# Generic MP153DADx
+GenMP1.menu.pnum.GENERIC_MP153DADX=Generic MP153DADx
+GenMP1.menu.pnum.GENERIC_MP153DADX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP153DADX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP153DADX.build.board=GENERIC_MP153DADX
+GenMP1.menu.pnum.GENERIC_MP153DADX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP153DADX.build.variant=STM32MP1xx/MP153AA(B-D)_MP153CA(B-D)_MP153DA(B-D)_MP153FA(B-D)_MP157AA(B-D)_MP157CA(B-D)_MP157DA(B-D)_MP157FA(B-D)
+
+# Generic MP153FABx
+GenMP1.menu.pnum.GENERIC_MP153FABX=Generic MP153FABx
+GenMP1.menu.pnum.GENERIC_MP153FABX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP153FABX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP153FABX.build.board=GENERIC_MP153FABX
+GenMP1.menu.pnum.GENERIC_MP153FABX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP153FABX.build.variant=STM32MP1xx/MP153AA(B-D)_MP153CA(B-D)_MP153DA(B-D)_MP153FA(B-D)_MP157AA(B-D)_MP157CA(B-D)_MP157DA(B-D)_MP157FA(B-D)
+
+# Generic MP153FADx
+GenMP1.menu.pnum.GENERIC_MP153FADX=Generic MP153FADx
+GenMP1.menu.pnum.GENERIC_MP153FADX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP153FADX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP153FADX.build.board=GENERIC_MP153FADX
+GenMP1.menu.pnum.GENERIC_MP153FADX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP153FADX.build.variant=STM32MP1xx/MP153AA(B-D)_MP153CA(B-D)_MP153DA(B-D)_MP153FA(B-D)_MP157AA(B-D)_MP157CA(B-D)_MP157DA(B-D)_MP157FA(B-D)
+
+# Generic MP157AABx
+GenMP1.menu.pnum.GENERIC_MP157AABX=Generic MP157AABx
+GenMP1.menu.pnum.GENERIC_MP157AABX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP157AABX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP157AABX.build.board=GENERIC_MP157AABX
+GenMP1.menu.pnum.GENERIC_MP157AABX.build.product_line=STM32MP157Axx
+GenMP1.menu.pnum.GENERIC_MP157AABX.build.variant=STM32MP1xx/MP153AA(B-D)_MP153CA(B-D)_MP153DA(B-D)_MP153FA(B-D)_MP157AA(B-D)_MP157CA(B-D)_MP157DA(B-D)_MP157FA(B-D)
+
+# Generic MP157AADx
+GenMP1.menu.pnum.GENERIC_MP157AADX=Generic MP157AADx
+GenMP1.menu.pnum.GENERIC_MP157AADX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP157AADX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP157AADX.build.board=GENERIC_MP157AADX
+GenMP1.menu.pnum.GENERIC_MP157AADX.build.product_line=STM32MP157Axx
+GenMP1.menu.pnum.GENERIC_MP157AADX.build.variant=STM32MP1xx/MP153AA(B-D)_MP153CA(B-D)_MP153DA(B-D)_MP153FA(B-D)_MP157AA(B-D)_MP157CA(B-D)_MP157DA(B-D)_MP157FA(B-D)
+
+# Generic MP157CABx
+GenMP1.menu.pnum.GENERIC_MP157CABX=Generic MP157CABx
+GenMP1.menu.pnum.GENERIC_MP157CABX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP157CABX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP157CABX.build.board=GENERIC_MP157CABX
+GenMP1.menu.pnum.GENERIC_MP157CABX.build.product_line=STM32MP157Cxx
+GenMP1.menu.pnum.GENERIC_MP157CABX.build.variant=STM32MP1xx/MP153AA(B-D)_MP153CA(B-D)_MP153DA(B-D)_MP153FA(B-D)_MP157AA(B-D)_MP157CA(B-D)_MP157DA(B-D)_MP157FA(B-D)
+
+# Generic MP157CADx
+GenMP1.menu.pnum.GENERIC_MP157CADX=Generic MP157CADx
+GenMP1.menu.pnum.GENERIC_MP157CADX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP157CADX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP157CADX.build.board=GENERIC_MP157CADX
+GenMP1.menu.pnum.GENERIC_MP157CADX.build.product_line=STM32MP157Cxx
+GenMP1.menu.pnum.GENERIC_MP157CADX.build.variant=STM32MP1xx/MP153AA(B-D)_MP153CA(B-D)_MP153DA(B-D)_MP153FA(B-D)_MP157AA(B-D)_MP157CA(B-D)_MP157DA(B-D)_MP157FA(B-D)
+
+# Generic MP157DABx
+GenMP1.menu.pnum.GENERIC_MP157DABX=Generic MP157DABx
+GenMP1.menu.pnum.GENERIC_MP157DABX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP157DABX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP157DABX.build.board=GENERIC_MP157DABX
+GenMP1.menu.pnum.GENERIC_MP157DABX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP157DABX.build.variant=STM32MP1xx/MP153AA(B-D)_MP153CA(B-D)_MP153DA(B-D)_MP153FA(B-D)_MP157AA(B-D)_MP157CA(B-D)_MP157DA(B-D)_MP157FA(B-D)
+
+# Generic MP157DADx
+GenMP1.menu.pnum.GENERIC_MP157DADX=Generic MP157DADx
+GenMP1.menu.pnum.GENERIC_MP157DADX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP157DADX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP157DADX.build.board=GENERIC_MP157DADX
+GenMP1.menu.pnum.GENERIC_MP157DADX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP157DADX.build.variant=STM32MP1xx/MP153AA(B-D)_MP153CA(B-D)_MP153DA(B-D)_MP153FA(B-D)_MP157AA(B-D)_MP157CA(B-D)_MP157DA(B-D)_MP157FA(B-D)
+
+# Generic MP157FABx
+GenMP1.menu.pnum.GENERIC_MP157FABX=Generic MP157FABx
+GenMP1.menu.pnum.GENERIC_MP157FABX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP157FABX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP157FABX.build.board=GENERIC_MP157FABX
+GenMP1.menu.pnum.GENERIC_MP157FABX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP157FABX.build.variant=STM32MP1xx/MP153AA(B-D)_MP153CA(B-D)_MP153DA(B-D)_MP153FA(B-D)_MP157AA(B-D)_MP157CA(B-D)_MP157DA(B-D)_MP157FA(B-D)
+
+# Generic MP157FADx
+GenMP1.menu.pnum.GENERIC_MP157FADX=Generic MP157FADx
+GenMP1.menu.pnum.GENERIC_MP157FADX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP157FADX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP157FADX.build.board=GENERIC_MP157FADX
+GenMP1.menu.pnum.GENERIC_MP157FADX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP157FADX.build.variant=STM32MP1xx/MP153AA(B-D)_MP153CA(B-D)_MP153DA(B-D)_MP153FA(B-D)_MP157AA(B-D)_MP157CA(B-D)_MP157DA(B-D)_MP157FA(B-D)
+

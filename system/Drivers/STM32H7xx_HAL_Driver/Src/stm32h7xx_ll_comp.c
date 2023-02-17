@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -55,19 +54,26 @@
    || ((__POWER_MODE__) == LL_COMP_POWERMODE_ULTRALOWPOWER)                    \
   )
 
-/* Note: On this STM32 serie, comparator input plus parameters are            */
+/* Note: On this STM32 series, comparator input plus parameters are            */
 /*       the same on all COMP instances.                                      */
 /*       However, comparator instance kept as macro parameter for             */
 /*       compatibility with other STM32 families.                             */
+#if defined (COMP_CFGRx_INP2SEL)
 #define IS_LL_COMP_INPUT_PLUS(__COMP_INSTANCE__, __INPUT_PLUS__)               \
   (   ((__INPUT_PLUS__) == LL_COMP_INPUT_PLUS_IO1)                             \
    || ((__INPUT_PLUS__) == LL_COMP_INPUT_PLUS_IO2)                             \
-  )
+   || ((__INPUT_PLUS__) == LL_COMP_INPUT_PLUS_DAC2_CH1))
+#else
+#define IS_LL_COMP_INPUT_PLUS(__COMP_INSTANCE__, __INPUT_PLUS__)               \
+  (   ((__INPUT_PLUS__) == LL_COMP_INPUT_PLUS_IO1)                             \
+   || ((__INPUT_PLUS__) == LL_COMP_INPUT_PLUS_IO2))
+#endif
 
-/* Note: On this STM32 serie, comparator input minus parameters are           */
+/* Note: On this STM32 series, comparator input minus parameters are           */
 /*       the same on all COMP instances.                                      */
 /*       However, comparator instance kept as macro parameter for             */
 /*       compatibility with other STM32 families.                             */
+#if defined (COMP_CFGRx_INMSEL_3)
 #define IS_LL_COMP_INPUT_MINUS(__COMP_INSTANCE__, __INPUT_MINUS__)             \
   (   ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_1_4VREFINT)                    \
    || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_1_2VREFINT)                    \
@@ -77,7 +83,19 @@
    || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_DAC1_CH2)                      \
    || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_IO1)                           \
    || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_IO2)                           \
-  )
+   || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_TPSENS_DAC2CH1)                \
+   || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_VBAT_VDDAP))
+#else
+#define IS_LL_COMP_INPUT_MINUS(__COMP_INSTANCE__, __INPUT_MINUS__)             \
+  (   ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_1_4VREFINT)                    \
+   || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_1_2VREFINT)                    \
+   || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_3_4VREFINT)                    \
+   || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_VREFINT)                       \
+   || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_DAC1_CH1)                      \
+   || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_DAC1_CH2)                      \
+   || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_IO1)                           \
+   || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_IO2))
+#endif
 
 #define IS_LL_COMP_INPUT_HYSTERESIS(__INPUT_HYSTERESIS__)                      \
   (   ((__INPUT_HYSTERESIS__) == LL_COMP_HYSTERESIS_NONE)                      \
@@ -189,6 +207,26 @@ ErrorStatus LL_COMP_Init(COMP_TypeDef *COMPx, LL_COMP_InitTypeDef *COMP_InitStru
     /*  - InputHysteresis                                                     */
     /*  - OutputPolarity                                                      */
     /*  - OutputBlankingSource                                                */
+#if defined (COMP_CFGRx_INP2SEL)
+    MODIFY_REG(COMPx->CFGR,
+                 COMP_CFGRx_PWRMODE
+               | COMP_CFGRx_INPSEL
+               | COMP_CFGRx_INP2SEL
+               | COMP_CFGRx_SCALEN
+               | COMP_CFGRx_BRGEN
+               | COMP_CFGRx_INMSEL
+               | COMP_CFGRx_HYST
+               | COMP_CFGRx_POLARITY
+               | COMP_CFGRx_BLANKING
+              ,
+                 COMP_InitStruct->PowerMode
+               | COMP_InitStruct->InputPlus
+               | COMP_InitStruct->InputMinus
+               | COMP_InitStruct->InputHysteresis
+               | COMP_InitStruct->OutputPolarity
+               | COMP_InitStruct->OutputBlankingSource
+              );
+#else
     MODIFY_REG(COMPx->CFGR,
                  COMP_CFGRx_PWRMODE
                | COMP_CFGRx_INPSEL
@@ -206,7 +244,7 @@ ErrorStatus LL_COMP_Init(COMP_TypeDef *COMPx, LL_COMP_InitTypeDef *COMP_InitStru
                | COMP_InitStruct->OutputPolarity
                | COMP_InitStruct->OutputBlankingSource
               );
-
+#endif
   }
   else
   {
@@ -254,4 +292,3 @@ void LL_COMP_StructInit(LL_COMP_InitTypeDef *COMP_InitStruct)
 
 #endif /* USE_FULL_LL_DRIVER */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

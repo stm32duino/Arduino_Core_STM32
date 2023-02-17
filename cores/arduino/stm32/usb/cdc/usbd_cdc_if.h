@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -50,7 +50,8 @@ void CDC_continue_transmit(void);
 bool CDC_resume_receive(void);
 void CDC_init(void);
 void CDC_deInit(void);
-bool CDC_connected();
+bool CDC_connected(void);
+void CDC_enableDTR(bool enable);
 
 #ifdef __cplusplus
 }

@@ -1,0 +1,69 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic MP151AABx
+GenMP1.menu.pnum.GENERIC_MP151AABX=Generic MP151AABx
+GenMP1.menu.pnum.GENERIC_MP151AABX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP151AABX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP151AABX.build.board=GENERIC_MP151AABX
+GenMP1.menu.pnum.GENERIC_MP151AABX.build.product_line=STM32MP151Axx
+GenMP1.menu.pnum.GENERIC_MP151AABX.build.variant=STM32MP1xx/MP151AA(B-D)_MP151CA(B-D)_MP151DA(B-D)_MP151FA(B-D)
+
+# Generic MP151AADx
+GenMP1.menu.pnum.GENERIC_MP151AADX=Generic MP151AADx
+GenMP1.menu.pnum.GENERIC_MP151AADX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP151AADX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP151AADX.build.board=GENERIC_MP151AADX
+GenMP1.menu.pnum.GENERIC_MP151AADX.build.product_line=STM32MP151Axx
+GenMP1.menu.pnum.GENERIC_MP151AADX.build.variant=STM32MP1xx/MP151AA(B-D)_MP151CA(B-D)_MP151DA(B-D)_MP151FA(B-D)
+
+# Generic MP151CABx
+GenMP1.menu.pnum.GENERIC_MP151CABX=Generic MP151CABx
+GenMP1.menu.pnum.GENERIC_MP151CABX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP151CABX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP151CABX.build.board=GENERIC_MP151CABX
+GenMP1.menu.pnum.GENERIC_MP151CABX.build.product_line=STM32MP151Cxx
+GenMP1.menu.pnum.GENERIC_MP151CABX.build.variant=STM32MP1xx/MP151AA(B-D)_MP151CA(B-D)_MP151DA(B-D)_MP151FA(B-D)
+
+# Generic MP151CADx
+GenMP1.menu.pnum.GENERIC_MP151CADX=Generic MP151CADx
+GenMP1.menu.pnum.GENERIC_MP151CADX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP151CADX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP151CADX.build.board=GENERIC_MP151CADX
+GenMP1.menu.pnum.GENERIC_MP151CADX.build.product_line=STM32MP151Cxx
+GenMP1.menu.pnum.GENERIC_MP151CADX.build.variant=STM32MP1xx/MP151AA(B-D)_MP151CA(B-D)_MP151DA(B-D)_MP151FA(B-D)
+
+# Generic MP151DABx
+GenMP1.menu.pnum.GENERIC_MP151DABX=Generic MP151DABx
+GenMP1.menu.pnum.GENERIC_MP151DABX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP151DABX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP151DABX.build.board=GENERIC_MP151DABX
+GenMP1.menu.pnum.GENERIC_MP151DABX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP151DABX.build.variant=STM32MP1xx/MP151AA(B-D)_MP151CA(B-D)_MP151DA(B-D)_MP151FA(B-D)
+
+# Generic MP151DADx
+GenMP1.menu.pnum.GENERIC_MP151DADX=Generic MP151DADx
+GenMP1.menu.pnum.GENERIC_MP151DADX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP151DADX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP151DADX.build.board=GENERIC_MP151DADX
+GenMP1.menu.pnum.GENERIC_MP151DADX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP151DADX.build.variant=STM32MP1xx/MP151AA(B-D)_MP151CA(B-D)_MP151DA(B-D)_MP151FA(B-D)
+
+# Generic MP151FABx
+GenMP1.menu.pnum.GENERIC_MP151FABX=Generic MP151FABx
+GenMP1.menu.pnum.GENERIC_MP151FABX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP151FABX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP151FABX.build.board=GENERIC_MP151FABX
+GenMP1.menu.pnum.GENERIC_MP151FABX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP151FABX.build.variant=STM32MP1xx/MP151AA(B-D)_MP151CA(B-D)_MP151DA(B-D)_MP151FA(B-D)
+
+# Generic MP151FADx
+GenMP1.menu.pnum.GENERIC_MP151FADX=Generic MP151FADx
+GenMP1.menu.pnum.GENERIC_MP151FADX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP151FADX.upload.maximum_data_size=724992
+GenMP1.menu.pnum.GENERIC_MP151FADX.build.board=GENERIC_MP151FADX
+GenMP1.menu.pnum.GENERIC_MP151FADX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP151FADX.build.variant=STM32MP1xx/MP151AA(B-D)_MP151CA(B-D)_MP151DA(B-D)_MP151FA(B-D)
+

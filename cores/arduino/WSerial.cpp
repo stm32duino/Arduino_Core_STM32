@@ -1,6 +1,6 @@
 #include "WSerial.h"
 
-void serialEventRun(void)
+WEAK void serialEventRun(void)
 {
 #if defined(HAVE_HWSERIAL1)
   if (serialEvent1 && Serial1.available()) {
@@ -48,7 +48,7 @@ void serialEventRun(void)
   }
 #endif
 #if defined(HAVE_HWSERIAL10)
-  if (serialEventl10 && Serial10.available()) {
+  if (serialEvent10 && Serial10.available()) {
     serialEvent10();
   }
 #endif
@@ -57,9 +57,19 @@ void serialEventRun(void)
     serialEventLP1();
   }
 #endif
+#if defined(HAVE_HWSERIALLP2)
+  if (serialEventLP2 && SerialLP2.available()) {
+    serialEventLP2();
+  }
+#endif
 #if defined(HAVE_SERIALUSB)
   if (serialEventUSB && SerialUSB.available()) {
     serialEventUSB();
+  }
+#endif
+#if defined(HAVE_SERIALVIRTIO)
+  if (serialEventVirtIO && SerialVirtIO.available()) {
+    serialEventVirtIO();
   }
 #endif
 }

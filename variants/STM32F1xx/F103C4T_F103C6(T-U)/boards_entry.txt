@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F103C4Tx
+GenF1.menu.pnum.GENERIC_F103C4TX=Generic F103C4Tx
+GenF1.menu.pnum.GENERIC_F103C4TX.upload.maximum_size=16384
+GenF1.menu.pnum.GENERIC_F103C4TX.upload.maximum_data_size=6144
+GenF1.menu.pnum.GENERIC_F103C4TX.build.board=GENERIC_F103C4TX
+GenF1.menu.pnum.GENERIC_F103C4TX.build.product_line=STM32F103x6
+GenF1.menu.pnum.GENERIC_F103C4TX.build.variant=STM32F1xx/F103C4T_F103C6(T-U)
+
+# Generic F103C6Tx
+GenF1.menu.pnum.GENERIC_F103C6TX=Generic F103C6Tx
+GenF1.menu.pnum.GENERIC_F103C6TX.upload.maximum_size=32768
+GenF1.menu.pnum.GENERIC_F103C6TX.upload.maximum_data_size=10240
+GenF1.menu.pnum.GENERIC_F103C6TX.build.board=GENERIC_F103C6TX
+GenF1.menu.pnum.GENERIC_F103C6TX.build.product_line=STM32F103x6
+GenF1.menu.pnum.GENERIC_F103C6TX.build.variant=STM32F1xx/F103C4T_F103C6(T-U)
+
+# Generic F103C6Ux
+GenF1.menu.pnum.GENERIC_F103C6UX=Generic F103C6Ux
+GenF1.menu.pnum.GENERIC_F103C6UX.upload.maximum_size=32768
+GenF1.menu.pnum.GENERIC_F103C6UX.upload.maximum_data_size=10240
+GenF1.menu.pnum.GENERIC_F103C6UX.build.board=GENERIC_F103C6UX
+GenF1.menu.pnum.GENERIC_F103C6UX.build.product_line=STM32F103x6
+GenF1.menu.pnum.GENERIC_F103C6UX.build.variant=STM32F1xx/F103C4T_F103C6(T-U)
+

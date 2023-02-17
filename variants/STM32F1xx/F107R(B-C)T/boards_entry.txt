@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F107RBTx
+GenF1.menu.pnum.GENERIC_F107RBTX=Generic F107RBTx
+GenF1.menu.pnum.GENERIC_F107RBTX.upload.maximum_size=131072
+GenF1.menu.pnum.GENERIC_F107RBTX.upload.maximum_data_size=65536
+GenF1.menu.pnum.GENERIC_F107RBTX.build.board=GENERIC_F107RBTX
+GenF1.menu.pnum.GENERIC_F107RBTX.build.product_line=STM32F107xC
+GenF1.menu.pnum.GENERIC_F107RBTX.build.variant=STM32F1xx/F107R(B-C)T
+
+# Generic F107RCTx
+GenF1.menu.pnum.GENERIC_F107RCTX=Generic F107RCTx
+GenF1.menu.pnum.GENERIC_F107RCTX.upload.maximum_size=262144
+GenF1.menu.pnum.GENERIC_F107RCTX.upload.maximum_data_size=65536
+GenF1.menu.pnum.GENERIC_F107RCTX.build.board=GENERIC_F107RCTX
+GenF1.menu.pnum.GENERIC_F107RCTX.build.product_line=STM32F107xC
+GenF1.menu.pnum.GENERIC_F107RCTX.build.variant=STM32F1xx/F107R(B-C)T
+

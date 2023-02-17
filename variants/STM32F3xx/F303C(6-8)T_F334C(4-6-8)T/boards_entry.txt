@@ -1,0 +1,45 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F303C6Tx
+GenF3.menu.pnum.GENERIC_F303C6TX=Generic F303C6Tx
+GenF3.menu.pnum.GENERIC_F303C6TX.upload.maximum_size=32768
+GenF3.menu.pnum.GENERIC_F303C6TX.upload.maximum_data_size=12288
+GenF3.menu.pnum.GENERIC_F303C6TX.build.board=GENERIC_F303C6TX
+GenF3.menu.pnum.GENERIC_F303C6TX.build.product_line=STM32F303x8
+GenF3.menu.pnum.GENERIC_F303C6TX.build.variant=STM32F3xx/F303C(6-8)T_F334C(4-6-8)T
+
+# Generic F303C8Tx
+GenF3.menu.pnum.GENERIC_F303C8TX=Generic F303C8Tx
+GenF3.menu.pnum.GENERIC_F303C8TX.upload.maximum_size=65536
+GenF3.menu.pnum.GENERIC_F303C8TX.upload.maximum_data_size=12288
+GenF3.menu.pnum.GENERIC_F303C8TX.build.board=GENERIC_F303C8TX
+GenF3.menu.pnum.GENERIC_F303C8TX.build.product_line=STM32F303x8
+GenF3.menu.pnum.GENERIC_F303C8TX.build.variant=STM32F3xx/F303C(6-8)T_F334C(4-6-8)T
+
+# Generic F334C4Tx
+GenF3.menu.pnum.GENERIC_F334C4TX=Generic F334C4Tx
+GenF3.menu.pnum.GENERIC_F334C4TX.upload.maximum_size=16384
+GenF3.menu.pnum.GENERIC_F334C4TX.upload.maximum_data_size=12288
+GenF3.menu.pnum.GENERIC_F334C4TX.build.board=GENERIC_F334C4TX
+GenF3.menu.pnum.GENERIC_F334C4TX.build.product_line=STM32F334x8
+GenF3.menu.pnum.GENERIC_F334C4TX.build.variant=STM32F3xx/F303C(6-8)T_F334C(4-6-8)T
+
+# Generic F334C6Tx
+GenF3.menu.pnum.GENERIC_F334C6TX=Generic F334C6Tx
+GenF3.menu.pnum.GENERIC_F334C6TX.upload.maximum_size=32768
+GenF3.menu.pnum.GENERIC_F334C6TX.upload.maximum_data_size=12288
+GenF3.menu.pnum.GENERIC_F334C6TX.build.board=GENERIC_F334C6TX
+GenF3.menu.pnum.GENERIC_F334C6TX.build.product_line=STM32F334x8
+GenF3.menu.pnum.GENERIC_F334C6TX.build.variant=STM32F3xx/F303C(6-8)T_F334C(4-6-8)T
+
+# Generic F334C8Tx
+GenF3.menu.pnum.GENERIC_F334C8TX=Generic F334C8Tx
+GenF3.menu.pnum.GENERIC_F334C8TX.upload.maximum_size=65536
+GenF3.menu.pnum.GENERIC_F334C8TX.upload.maximum_data_size=12288
+GenF3.menu.pnum.GENERIC_F334C8TX.build.board=GENERIC_F334C8TX
+GenF3.menu.pnum.GENERIC_F334C8TX.build.product_line=STM32F334x8
+GenF3.menu.pnum.GENERIC_F334C8TX.build.variant=STM32F3xx/F303C(6-8)T_F334C(4-6-8)T
+

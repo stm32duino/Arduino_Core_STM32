@@ -9,40 +9,72 @@
   *           + IO operation functions
   *           + Peripheral Control functions
   *           + Peripheral State and Errors functions
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                         ##### How to use this driver #####
   ==============================================================================
+  [..]
+    The DSI HAL driver can be used as follows:
+
+    (#) Declare a DSI_HandleTypeDef handle structure, for example: DSI_HandleTypeDef  hdsi;
+
+    (#) Initialize the DSI low level resources by implementing the HAL_DSI_MspInit() API:
+        (##) Enable the DSI interface clock
+        (##) NVIC configuration if you need to use interrupt process
+            (+++) Configure the DSI interrupt priority
+            (+++) Enable the NVIC DSI IRQ Channel
+
+    (#) Initialize the DSI Host peripheral, the required PLL parameters, number of lances and
+        TX Escape clock divider by calling the HAL_DSI_Init() API which calls HAL_DSI_MspInit().
+
+    *** Configuration ***
+    =========================
     [..]
-    (#) Use @ref HAL_DSI_Init() function to initialize the DSI Host IP and program the required
-        PLL parameters, number of lanes and TX Escape clock divider.
-    (#) Use @ref HAL_DSI_ConfigAdaptedCommandMode() function to configure the DSI host in adapted
+    (#) Use HAL_DSI_ConfigAdaptedCommandMode() function to configure the DSI host in adapted
         command mode.
-    (#) When operating in video mode , use @ref HAL_DSI_ConfigVideoMode() to configure the DSI host.
-    (#) Function @ref HAL_DSI_ConfigCommand() is used to configure the DSI commands behavior in low power mode.
-    (#) To configure the DSI PHY timings parameters, use function @ref HAL_DSI_ConfigPhyTimer().
-    (#) The DSI Host can be started/stopped using respectively functions @ref HAL_DSI_Start() and @ref HAL_DSI_Stop().
-        Functions @ref HAL_DSI_ShortWrite(), @ref HAL_DSI_LongWrite() and @ref HAL_DSI_Read() allows respectively
+
+    (#) When operating in video mode , use HAL_DSI_ConfigVideoMode() to configure the DSI host.
+
+    (#) Function HAL_DSI_ConfigCommand() is used to configure the DSI commands behavior in low power mode.
+
+    (#) To configure the DSI PHY timings parameters, use function HAL_DSI_ConfigPhyTimer().
+
+    (#) The DSI Host can be started/stopped using respectively functions HAL_DSI_Start() and HAL_DSI_Stop().
+        Functions HAL_DSI_ShortWrite(), HAL_DSI_LongWrite() and HAL_DSI_Read() allows respectively
         to write DSI short packets, long packets and to read DSI packets.
 
     (#) The DSI Host Offers two Low power modes :
-        (+) Low Power Mode on data lanes only: Only DSI data lanes are shut down.
-            It is possible to enter/exit from this mode using respectively functions @ref HAL_DSI_EnterULPMData()
-            and @ref HAL_DSI_ExitULPMData()
+        (++) Low Power Mode on data lanes only: Only DSI data lanes are shut down.
+            It is possible to enter/exit from this mode using respectively functions HAL_DSI_EnterULPMData()
+            and HAL_DSI_ExitULPMData()
 
-        (+) Low Power Mode on data and clock lanes : All DSI lanes are shut down including data and clock lanes.
-            It is possible to enter/exit from this mode using respectively functions @ref HAL_DSI_EnterULPM()
-            and @ref HAL_DSI_ExitULPM()
-
-    (#) User can select the DSI errors to be reported/monitored using function @ref HAL_DSI_ConfigErrorMonitor()
-        When an error occurs, the callback @ref HAL_DSI_ErrorCallback() is asserted and then user can retrieve
-        the error code by calling function @ref HAL_DSI_GetError()
+        (++) Low Power Mode on data and clock lanes : All DSI lanes are shut down including data and clock lanes.
+            It is possible to enter/exit from this mode using respectively functions HAL_DSI_EnterULPM()
+            and HAL_DSI_ExitULPM()
 
     (#) To control DSI state you can use the following function: HAL_DSI_GetState()
 
-     *** DSI HAL driver macros list ***
-     =============================================
-     [..]
+    *** Error management ***
+    ========================
+    [..]
+    (#) User can select the DSI errors to be reported/monitored using function HAL_DSI_ConfigErrorMonitor()
+        When an error occurs, the callback HAL_DSI_ErrorCallback() is asserted and then user can retrieve
+        the error code by calling function HAL_DSI_GetError()
+
+    *** DSI HAL driver macros list ***
+    =============================================
+    [..]
        Below the list of most used macros in DSI HAL driver.
 
       (+) __HAL_DSI_ENABLE: Enable the DSI Host.
@@ -59,71 +91,65 @@
       (+) __HAL_DSI_DISABLE_IT: Disables the specified DSI interrupts.
       (+) __HAL_DSI_GET_IT_SOURCE: Checks whether the specified DSI interrupt source is enabled or not.
 
+    [..]
+      (@) You can refer to the DSI HAL driver header file for more useful macros
 
+    *** Callback registration ***
+    =============================================
+    [..]
+    The compilation define  USE_HAL_DSI_REGISTER_CALLBACKS when set to 1
+    allows the user to configure dynamically the driver callbacks.
+    Use Function HAL_DSI_RegisterCallback() to register a callback.
 
-  *** Callback registration ***
-  =============================================
+    [..]
+    Function HAL_DSI_RegisterCallback() allows to register following callbacks:
+      (+) TearingEffectCallback : DSI Tearing Effect Callback.
+      (+) EndOfRefreshCallback  : DSI End Of Refresh Callback.
+      (+) ErrorCallback         : DSI Error Callback
+      (+) MspInitCallback       : DSI MspInit.
+      (+) MspDeInitCallback     : DSI MspDeInit.
+    [..]
+    This function takes as parameters the HAL peripheral handle, the callback ID
+    and a pointer to the user callback function.
 
-  The compilation define  USE_HAL_DSI_REGISTER_CALLBACKS when set to 1
-  allows the user to configure dynamically the driver callbacks.
-  Use Function @ref HAL_DSI_RegisterCallback() to register a callback.
+    [..]
+    Use function HAL_DSI_UnRegisterCallback() to reset a callback to the default
+    weak function.
+    HAL_DSI_UnRegisterCallback takes as parameters the HAL peripheral handle,
+    and the callback ID.
+    [..]
+    This function allows to reset following callbacks:
+      (+) TearingEffectCallback : DSI Tearing Effect Callback.
+      (+) EndOfRefreshCallback  : DSI End Of Refresh Callback.
+      (+) ErrorCallback         : DSI Error Callback
+      (+) MspInitCallback       : DSI MspInit.
+      (+) MspDeInitCallback     : DSI MspDeInit.
 
-  Function @ref HAL_DSI_RegisterCallback() allows to register following callbacks:
-    (+) TearingEffectCallback : DSI Tearing Effect Callback.
-    (+) EndOfRefreshCallback  : DSI End Of Refresh Callback.
-    (+) ErrorCallback         : DSI Error Callback
-    (+) MspInitCallback       : DSI MspInit.
-    (+) MspDeInitCallback     : DSI MspDeInit.
-  This function takes as parameters the HAL peripheral handle, the Callback ID
-  and a pointer to the user callback function.
+    [..]
+    By default, after the HAL_DSI_Init and when the state is HAL_DSI_STATE_RESET
+    all callbacks are set to the corresponding weak functions:
+    examples HAL_DSI_TearingEffectCallback(), HAL_DSI_EndOfRefreshCallback().
+    Exception done for MspInit and MspDeInit functions that are respectively
+    reset to the legacy weak (surcharged) functions in the HAL_DSI_Init()
+    and HAL_DSI_DeInit() only when these callbacks are null (not registered beforehand).
+    If not, MspInit or MspDeInit are not null, the HAL_DSI_Init() and HAL_DSI_DeInit()
+    keep and use the user MspInit/MspDeInit callbacks (registered beforehand).
 
-  Use function @ref HAL_DSI_UnRegisterCallback() to reset a callback to the default
-  weak function.
-  @ref HAL_DSI_UnRegisterCallback takes as parameters the HAL peripheral handle,
-  and the Callback ID.
-  This function allows to reset following callbacks:
-    (+) TearingEffectCallback : DSI Tearing Effect Callback.
-    (+) EndOfRefreshCallback  : DSI End Of Refresh Callback.
-    (+) ErrorCallback         : DSI Error Callback
-    (+) MspInitCallback       : DSI MspInit.
-    (+) MspDeInitCallback     : DSI MspDeInit.
+    [..]
+    Callbacks can be registered/unregistered in HAL_DSI_STATE_READY state only.
+    Exception done MspInit/MspDeInit that can be registered/unregistered
+    in HAL_DSI_STATE_READY or HAL_DSI_STATE_RESET state,
+    thus registered (user) MspInit/DeInit callbacks can be used during the Init/DeInit.
+    In that case first register the MspInit/MspDeInit user callbacks
+    using HAL_DSI_RegisterCallback() before calling HAL_DSI_DeInit()
+    or HAL_DSI_Init() function.
 
-  By default, after the HAL_DSI_Init and when the state is HAL_DSI_STATE_RESET
-  all callbacks are set to the corresponding weak functions:
-  examples @ref HAL_DSI_TearingEffectCallback(), @ref HAL_DSI_EndOfRefreshCallback().
-  Exception done for MspInit and MspDeInit functions that are
-  reset to the legacy weak function in the HAL_DSI_Init/ @ref HAL_DSI_DeInit only when
-  these callbacks are null (not registered beforehand).
-  if not, MspInit or MspDeInit are not null, the @ref HAL_DSI_Init/ @ref HAL_DSI_DeInit
-  keep and use the user MspInit/MspDeInit callbacks (registered beforehand)
-
-  Callbacks can be registered/unregistered in HAL_DSI_STATE_READY state only.
-  Exception done MspInit/MspDeInit that can be registered/unregistered
-  in HAL_DSI_STATE_READY or HAL_DSI_STATE_RESET state,
-  thus registered (user) MspInit/DeInit callbacks can be used during the Init/DeInit.
-  In that case first register the MspInit/MspDeInit user callbacks
-  using @ref HAL_DSI_RegisterCallback() before calling @ref HAL_DSI_DeInit
-  or HAL_DSI_Init function.
-
-  When The compilation define USE_HAL_DSI_REGISTER_CALLBACKS is set to 0 or
-  not defined, the callback registration feature is not available and all callbacks
-  are set to the corresponding weak functions.
-
-     [..]
-       (@) You can refer to the DSI HAL driver header file for more useful macros
+    [..]
+    When The compilation define USE_HAL_DSI_REGISTER_CALLBACKS is set to 0 or
+    not defined, the callback registration feature is not available and all callbacks
+    are set to the corresponding weak functions.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -174,22 +200,24 @@ static void DSI_ConfigPacketHeader(DSI_TypeDef *DSIx, uint32_t ChannelID, uint32
                                    uint32_t Data1);
 
 static HAL_StatusTypeDef DSI_ShortWrite(DSI_HandleTypeDef *hdsi,
-                                     uint32_t ChannelID,
-                                     uint32_t Mode,
-                                     uint32_t Param1,
-                                     uint32_t Param2);
-
+                                        uint32_t ChannelID,
+                                        uint32_t Mode,
+                                        uint32_t Param1,
+                                        uint32_t Param2);
 /* Private functions ---------------------------------------------------------*/
+/** @defgroup DSI_Private_Functions DSI Private Functions
+  * @{
+  */
 /**
   * @brief  Generic DSI packet header configuration
   * @param  DSIx  Pointer to DSI register base
   * @param  ChannelID Virtual channel ID of the header packet
   * @param  DataType  Packet data type of the header packet
   *                   This parameter can be any value of :
-  *                      @ref DSI_SHORT_WRITE_PKT_Data_Type
-  *                   or @ref DSI_LONG_WRITE_PKT_Data_Type
-  *                   or @ref DSI_SHORT_READ_PKT_Data_Type
-  *                   or DSI_MAX_RETURN_PKT_SIZE
+  *                      @arg DSI_SHORT_WRITE_PKT_Data_Type
+  *                      @arg DSI_LONG_WRITE_PKT_Data_Type
+  *                      @arg DSI_SHORT_READ_PKT_Data_Type
+  *                      @arg DSI_MAX_RETURN_PKT_SIZE
   * @param  Data0  Word count LSB
   * @param  Data1  Word count MSB
   * @retval None
@@ -210,9 +238,9 @@ static void DSI_ConfigPacketHeader(DSI_TypeDef *DSIx,
   *               the configuration information for the DSI.
   * @param  ChannelID  Virtual channel ID.
   * @param  Mode  DSI short packet data type.
-  *               This parameter can be any value of @ref DSI_SHORT_WRITE_PKT_Data_Type.
+  *               This parameter can be any value of @arg DSI_SHORT_WRITE_PKT_Data_Type.
   * @param  Param1  DSC command or first generic parameter.
-  *                 This parameter can be any value of @ref DSI_DCS_Command or a
+  *                 This parameter can be any value of @arg DSI_DCS_Command or a
   *                 generic command code.
   * @param  Param2  DSC parameter or second generic parameter.
   * @retval HAL status
@@ -229,10 +257,10 @@ static HAL_StatusTypeDef DSI_ShortWrite(DSI_HandleTypeDef *hdsi,
   tickstart = HAL_GetTick();
 
   /* Wait for Command FIFO Empty */
-  while((hdsi->Instance->GPSR & DSI_GPSR_CMDFE) == 0U)
+  while ((hdsi->Instance->GPSR & DSI_GPSR_CMDFE) == 0U)
   {
     /* Check for the Timeout */
-    if((HAL_GetTick() - tickstart ) > DSI_TIMEOUT_VALUE)
+    if ((HAL_GetTick() - tickstart) > DSI_TIMEOUT_VALUE)
     {
       return HAL_TIMEOUT;
     }
@@ -244,6 +272,10 @@ static HAL_StatusTypeDef DSI_ShortWrite(DSI_HandleTypeDef *hdsi,
 
   return HAL_OK;
 }
+
+/**
+  * @}
+  */
 
 /* Exported functions --------------------------------------------------------*/
 /** @addtogroup DSI_Exported_Functions
@@ -339,10 +371,16 @@ HAL_StatusTypeDef HAL_DSI_Init(DSI_HandleTypeDef *hdsi, DSI_PLLInitTypeDef *PLLI
 
   /* Set the PLL division factors */
   hdsi->Instance->WRPCR &= ~(DSI_WRPCR_PLL_NDIV | DSI_WRPCR_PLL_IDF | DSI_WRPCR_PLL_ODF);
-  hdsi->Instance->WRPCR |= (((PLLInit->PLLNDIV) << 2U) | ((PLLInit->PLLIDF) << 11U) | ((PLLInit->PLLODF) << 16U));
+  hdsi->Instance->WRPCR |= (((PLLInit->PLLNDIV) << DSI_WRPCR_PLL_NDIV_Pos) | \
+                            ((PLLInit->PLLIDF) << DSI_WRPCR_PLL_IDF_Pos) | \
+                            ((PLLInit->PLLODF) << DSI_WRPCR_PLL_ODF_Pos));
 
   /* Enable the DSI PLL */
   __HAL_DSI_PLL_ENABLE(hdsi);
+
+  /* Requires min of 400us delay before reading the PLLLS flag */
+  /* 1ms delay is inserted that is the minimum HAL delay granularity */
+  HAL_Delay(1);
 
   /* Get tick */
   tickstart = HAL_GetTick();
@@ -393,7 +431,7 @@ HAL_StatusTypeDef HAL_DSI_Init(DSI_HandleTypeDef *hdsi, DSI_PLLInitTypeDef *PLLI
   hdsi->Instance->IER[1U] = 0U;
   hdsi->ErrorMsk = 0U;
 
-  /* Initialise the error code */
+  /* Initialize the error code */
   hdsi->ErrorCode = HAL_DSI_ERROR_NONE;
 
   /* Initialize the DSI state*/
@@ -447,7 +485,7 @@ HAL_StatusTypeDef HAL_DSI_DeInit(DSI_HandleTypeDef *hdsi)
   HAL_DSI_MspDeInit(hdsi);
 #endif /* USE_HAL_DSI_REGISTER_CALLBACKS */
 
-  /* Initialise the error code */
+  /* Initialize the error code */
   hdsi->ErrorCode = HAL_DSI_ERROR_NONE;
 
   /* Initialize the DSI state*/
@@ -464,7 +502,7 @@ HAL_StatusTypeDef HAL_DSI_DeInit(DSI_HandleTypeDef *hdsi)
   * @param  hdsi  pointer to a DSI_HandleTypeDef structure that contains
   *               the configuration information for the DSI.
   * @param  ActiveErrors  indicates which error interrupts will be enabled.
-  *                      This parameter can be any combination of @ref DSI_Error_Data_Type.
+  *                      This parameter can be any combination of @arg DSI_Error_Data_Type.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_DSI_ConfigErrorMonitor(DSI_HandleTypeDef *hdsi, uint32_t ActiveErrors)
@@ -581,11 +619,11 @@ __weak void HAL_DSI_MspDeInit(DSI_HandleTypeDef *hdsi)
   * @param hdsi dsi handle
   * @param CallbackID ID of the callback to be registered
   *        This parameter can be one of the following values:
-  *          @arg @ref HAL_DSI_TEARING_EFFECT_CB_ID Tearing Effect Callback ID
-  *          @arg @ref HAL_DSI_ENDOF_REFRESH_CB_ID End Of Refresh Callback ID
-  *          @arg @ref HAL_DSI_ERROR_CB_ID Error Callback ID
-  *          @arg @ref HAL_DSI_MSPINIT_CB_ID MspInit callback ID
-  *          @arg @ref HAL_DSI_MSPDEINIT_CB_ID MspDeInit callback ID
+  *          @arg HAL_DSI_TEARING_EFFECT_CB_ID Tearing Effect Callback ID
+  *          @arg HAL_DSI_ENDOF_REFRESH_CB_ID End Of Refresh Callback ID
+  *          @arg HAL_DSI_ERROR_CB_ID Error Callback ID
+  *          @arg HAL_DSI_MSPINIT_CB_ID MspInit callback ID
+  *          @arg HAL_DSI_MSPDEINIT_CB_ID MspDeInit callback ID
   * @param pCallback pointer to the Callback function
   * @retval status
   */
@@ -672,15 +710,15 @@ HAL_StatusTypeDef HAL_DSI_RegisterCallback(DSI_HandleTypeDef *hdsi, HAL_DSI_Call
 
 /**
   * @brief  Unregister a DSI Callback
-  *         DSI callabck is redirected to the weak predefined callback
+  *         DSI callback is redirected to the weak predefined callback
   * @param hdsi dsi handle
   * @param CallbackID ID of the callback to be unregistered
   *        This parameter can be one of the following values:
-  *          @arg @ref HAL_DSI_TEARING_EFFECT_CB_ID Tearing Effect Callback ID
-  *          @arg @ref HAL_DSI_ENDOF_REFRESH_CB_ID End Of Refresh Callback ID
-  *          @arg @ref HAL_DSI_ERROR_CB_ID Error Callback ID
-  *          @arg @ref HAL_DSI_MSPINIT_CB_ID MspInit callback ID
-  *          @arg @ref HAL_DSI_MSPDEINIT_CB_ID MspDeInit callback ID
+  *          @arg HAL_DSI_TEARING_EFFECT_CB_ID Tearing Effect Callback ID
+  *          @arg HAL_DSI_ENDOF_REFRESH_CB_ID End Of Refresh Callback ID
+  *          @arg HAL_DSI_ERROR_CB_ID Error Callback ID
+  *          @arg HAL_DSI_MSPINIT_CB_ID MspInit callback ID
+  *          @arg HAL_DSI_MSPDEINIT_CB_ID MspDeInit callback ID
   * @retval status
   */
 HAL_StatusTypeDef HAL_DSI_UnRegisterCallback(DSI_HandleTypeDef *hdsi, HAL_DSI_CallbackIDTypeDef CallbackID)
@@ -707,11 +745,11 @@ HAL_StatusTypeDef HAL_DSI_UnRegisterCallback(DSI_HandleTypeDef *hdsi, HAL_DSI_Ca
         break;
 
       case HAL_DSI_MSPINIT_CB_ID :
-        hdsi->MspInitCallback = HAL_DSI_MspInit;                     /* Legcay weak MspInit Callback     */
+        hdsi->MspInitCallback = HAL_DSI_MspInit;                     /* Legacy weak MspInit Callback     */
         break;
 
       case HAL_DSI_MSPDEINIT_CB_ID :
-        hdsi->MspDeInitCallback = HAL_DSI_MspDeInit;                 /* Legcay weak MspDeInit Callback   */
+        hdsi->MspDeInitCallback = HAL_DSI_MspDeInit;                 /* Legacy weak MspDeInit Callback   */
         break;
 
       default :
@@ -727,11 +765,11 @@ HAL_StatusTypeDef HAL_DSI_UnRegisterCallback(DSI_HandleTypeDef *hdsi, HAL_DSI_Ca
     switch (CallbackID)
     {
       case HAL_DSI_MSPINIT_CB_ID :
-        hdsi->MspInitCallback = HAL_DSI_MspInit;                  /* Legcay weak MspInit Callback   */
+        hdsi->MspInitCallback = HAL_DSI_MspInit;                  /* Legacy weak MspInit Callback   */
         break;
 
       case HAL_DSI_MSPDEINIT_CB_ID :
-        hdsi->MspDeInitCallback = HAL_DSI_MspDeInit;              /* Legcay weak MspDeInit Callback */
+        hdsi->MspDeInitCallback = HAL_DSI_MspDeInit;              /* Legacy weak MspDeInit Callback */
         break;
 
       default :
@@ -782,7 +820,8 @@ HAL_StatusTypeDef HAL_DSI_UnRegisterCallback(DSI_HandleTypeDef *hdsi, HAL_DSI_Ca
   */
 void HAL_DSI_IRQHandler(DSI_HandleTypeDef *hdsi)
 {
-  uint32_t ErrorStatus0, ErrorStatus1;
+  uint32_t ErrorStatus0;
+  uint32_t ErrorStatus1;
 
   /* Tearing Effect Interrupt management ***************************************/
   if (__HAL_DSI_GET_FLAG(hdsi, DSI_FLAG_TE) != 0U)
@@ -1295,7 +1334,7 @@ HAL_StatusTypeDef HAL_DSI_ConfigCommand(DSI_HandleTypeDef *hdsi, DSI_LPCmdTypeDe
   * @param  hdsi  pointer to a DSI_HandleTypeDef structure that contains
   *               the configuration information for the DSI.
   * @param  FlowControl  flow control feature(s) to be enabled.
-  *                      This parameter can be any combination of @ref DSI_FlowControl.
+  *                      This parameter can be any combination of @arg DSI_FlowControl.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_DSI_ConfigFlowControl(DSI_HandleTypeDef *hdsi, uint32_t FlowControl)
@@ -1339,7 +1378,8 @@ HAL_StatusTypeDef HAL_DSI_ConfigPhyTimer(DSI_HandleTypeDef *hdsi, DSI_PHY_TimerT
      High-Speed transmission.
      To do so, the DSI Host calculates the time required for the clock lane to change from HighSpeed
      to Low-Power and from Low-Power to High-Speed.
-     This timings are configured by the HS2LP_TIME and LP2HS_TIME in the DSI Host Clock Lane Timer Configuration Register (DSI_CLTCR).
+     This timings are configured by the HS2LP_TIME and LP2HS_TIME in the DSI Host Clock Lane Timer Configuration
+     Register (DSI_CLTCR).
      But the DSI Host is not calculating LP2HS_TIME + HS2LP_TIME but 2 x HS2LP_TIME.
 
      Workaround : Configure HS2LP_TIME and LP2HS_TIME with the same value being the max of HS2LP_TIME or LP2HS_TIME.
@@ -1488,7 +1528,7 @@ HAL_StatusTypeDef HAL_DSI_Refresh(DSI_HandleTypeDef *hdsi)
   * @param  hdsi  pointer to a DSI_HandleTypeDef structure that contains
   *               the configuration information for the DSI.
   * @param  ColorMode  Color mode (full or 8-colors).
-  *                    This parameter can be any value of @ref DSI_Color_Mode
+  *                    This parameter can be any value of @arg DSI_Color_Mode
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_DSI_ColorMode(DSI_HandleTypeDef *hdsi, uint32_t ColorMode)
@@ -1514,7 +1554,7 @@ HAL_StatusTypeDef HAL_DSI_ColorMode(DSI_HandleTypeDef *hdsi, uint32_t ColorMode)
   * @param  hdsi  pointer to a DSI_HandleTypeDef structure that contains
   *               the configuration information for the DSI.
   * @param  Shutdown  Shut-down (Display-ON or Display-OFF).
-  *                   This parameter can be any value of @ref DSI_ShutDown
+  *                   This parameter can be any value of @arg DSI_ShutDown
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_DSI_Shutdown(DSI_HandleTypeDef *hdsi, uint32_t Shutdown)
@@ -1541,9 +1581,9 @@ HAL_StatusTypeDef HAL_DSI_Shutdown(DSI_HandleTypeDef *hdsi, uint32_t Shutdown)
   *               the configuration information for the DSI.
   * @param  ChannelID  Virtual channel ID.
   * @param  Mode  DSI short packet data type.
-  *               This parameter can be any value of @ref DSI_SHORT_WRITE_PKT_Data_Type.
+  *               This parameter can be any value of @arg DSI_SHORT_WRITE_PKT_Data_Type.
   * @param  Param1  DSC command or first generic parameter.
-  *                 This parameter can be any value of @ref DSI_DCS_Command or a
+  *                 This parameter can be any value of @arg DSI_DCS_Command or a
   *                 generic command code.
   * @param  Param2  DSC parameter or second generic parameter.
   * @retval HAL status
@@ -1561,7 +1601,7 @@ HAL_StatusTypeDef HAL_DSI_ShortWrite(DSI_HandleTypeDef *hdsi,
   /* Process locked */
   __HAL_LOCK(hdsi);
 
-   status = DSI_ShortWrite(hdsi, ChannelID, Mode, Param1, Param2);
+  status = DSI_ShortWrite(hdsi, ChannelID, Mode, Param1, Param2);
 
   /* Process unlocked */
   __HAL_UNLOCK(hdsi);
@@ -1575,10 +1615,10 @@ HAL_StatusTypeDef HAL_DSI_ShortWrite(DSI_HandleTypeDef *hdsi,
   *               the configuration information for the DSI.
   * @param  ChannelID  Virtual channel ID.
   * @param  Mode  DSI long packet data type.
-  *               This parameter can be any value of @ref DSI_LONG_WRITE_PKT_Data_Type.
+  *               This parameter can be any value of @arg DSI_LONG_WRITE_PKT_Data_Type.
   * @param  NbParams  Number of parameters.
   * @param  Param1  DSC command or first generic parameter.
-  *                 This parameter can be any value of @ref DSI_DCS_Command or a
+  *                 This parameter can be any value of @arg DSI_DCS_Command or a
   *                 generic command code
   * @param  ParametersTable  Pointer to parameter values table.
   * @retval HAL status
@@ -1590,7 +1630,9 @@ HAL_StatusTypeDef HAL_DSI_LongWrite(DSI_HandleTypeDef *hdsi,
                                     uint32_t Param1,
                                     uint8_t *ParametersTable)
 {
-  uint32_t uicounter, nbBytes, count;
+  uint32_t uicounter;
+  uint32_t nbBytes;
+  uint32_t count;
   uint32_t tickstart;
   uint32_t fifoword;
   uint8_t *pparams = ParametersTable;
@@ -1665,7 +1707,7 @@ HAL_StatusTypeDef HAL_DSI_LongWrite(DSI_HandleTypeDef *hdsi,
   * @param  Array pointer to a buffer to store the payload of a read back operation.
   * @param  Size  Data size to be read (in byte).
   * @param  Mode  DSI read packet data type.
-  *               This parameter can be any value of @ref DSI_SHORT_READ_PKT_Data_Type.
+  *               This parameter can be any value of @arg DSI_SHORT_READ_PKT_Data_Type.
   * @param  DCSCmd  DCS get/read command.
   * @param  ParametersTable  Pointer to parameter values table.
   * @retval HAL status
@@ -1695,7 +1737,7 @@ HAL_StatusTypeDef HAL_DSI_Read(DSI_HandleTypeDef *hdsi,
   {
     /* set max return packet size */
     if (DSI_ShortWrite(hdsi, ChannelNbr, DSI_MAX_RETURN_PKT_SIZE, ((datasize) & 0xFFU),
-                           (((datasize) >> 8U) & 0xFFU)) != HAL_OK)
+                       (((datasize) >> 8U) & 0xFFU)) != HAL_OK)
     {
       /* Process Unlocked */
       __HAL_UNLOCK(hdsi);
@@ -1755,6 +1797,21 @@ HAL_StatusTypeDef HAL_DSI_Read(DSI_HandleTypeDef *hdsi,
       __HAL_UNLOCK(hdsi);
 
       return HAL_TIMEOUT;
+    }
+
+    /* Software workaround to avoid HAL_TIMEOUT when a DSI read command is   */
+    /* issued to the panel and the read data is not captured by the DSI Host */
+    /* which returns Packet Size Error.                                      */
+    /* Need to ensure that the Read command has finished before checking PSE */
+    if ((hdsi->Instance->GPSR & DSI_GPSR_RCB) == 0U)
+    {
+      if ((hdsi->Instance->ISR[1U] & DSI_ISR1_PSE) == DSI_ISR1_PSE)
+      {
+        /* Process Unlocked */
+        __HAL_UNLOCK(hdsi);
+
+        return HAL_ERROR;
+      }
     }
   }
 
@@ -2051,7 +2108,7 @@ HAL_StatusTypeDef HAL_DSI_ExitULPM(DSI_HandleTypeDef *hdsi)
   /* De-assert the ULPM requests and the ULPM exit bits */
   hdsi->Instance->PUCR = 0U;
 
-  /* Switch the lanbyteclock source in the RCC from system PLL to D-PHY */
+  /* Switch the lane byte clock source in the RCC from system PLL to D-PHY */
   __HAL_RCC_DSI_CONFIG(RCC_DSICLKSOURCE_DSIPHY);
 
   /* Restore clock lane configuration to HS */
@@ -2120,9 +2177,9 @@ HAL_StatusTypeDef HAL_DSI_PatternGeneratorStop(DSI_HandleTypeDef *hdsi)
   * @param  hdsi  pointer to a DSI_HandleTypeDef structure that contains
   *               the configuration information for the DSI.
   * @param  CommDelay  Communication delay to be adjusted.
-  *                    This parameter can be any value of @ref DSI_Communication_Delay
+  *                    This parameter can be any value of @arg DSI_Communication_Delay
   * @param  Lane  select between clock or data lanes.
-  *               This parameter can be any value of @ref DSI_Lane_Group
+  *               This parameter can be any value of @arg DSI_Lane_Group
   * @param  Value  Custom value of the slew-rate or delay
   * @retval HAL status
   */
@@ -2263,10 +2320,10 @@ HAL_StatusTypeDef HAL_DSI_SetSDD(DSI_HandleTypeDef *hdsi, FunctionalState State)
   * @brief  Custom lane pins configuration
   * @param  hdsi  pointer to a DSI_HandleTypeDef structure that contains
   *               the configuration information for the DSI.
-  * @param  CustomLane  Function to be applyed on selected lane.
-  *                     This parameter can be any value of @ref DSI_CustomLane
+  * @param  CustomLane  Function to be applied on selected lane.
+  *                     This parameter can be any value of @arg DSI_CustomLane
   * @param  Lane  select between clock or data lane 0 or data lane 1.
-  *               This parameter can be any value of @ref DSI_Lane_Select
+  *               This parameter can be any value of @arg DSI_Lane_Select
   * @param  State  ENABLE or DISABLE
   * @retval HAL status
   */
@@ -2352,7 +2409,7 @@ HAL_StatusTypeDef HAL_DSI_SetLanePinsConfiguration(DSI_HandleTypeDef *hdsi, uint
   * @param  hdsi  pointer to a DSI_HandleTypeDef structure that contains
   *               the configuration information for the DSI.
   * @param  Timing  PHY timing to be adjusted.
-  *                 This parameter can be any value of @ref DSI_PHY_Timing
+  *                 This parameter can be any value of @arg DSI_PHY_Timing
   * @param  State  ENABLE or DISABLE
   * @param  Value  Custom value of the timing
   * @retval HAL status
@@ -2500,7 +2557,7 @@ HAL_StatusTypeDef HAL_DSI_SetPHYTimings(DSI_HandleTypeDef *hdsi, uint32_t Timing
   * @param  hdsi  pointer to a DSI_HandleTypeDef structure that contains
   *               the configuration information for the DSI.
   * @param  Lane  select between clock or data lanes.
-  *               This parameter can be any value of @ref DSI_Lane_Group
+  *               This parameter can be any value of @arg DSI_Lane_Group
   * @param  State  ENABLE or DISABLE
   * @retval HAL status
   */
@@ -2701,5 +2758,3 @@ uint32_t HAL_DSI_GetError(DSI_HandleTypeDef *hdsi)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

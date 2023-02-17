@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Release Notes for STM32CubeMP1xx HAL and LL drivers</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="_htmresc/mini-st_2020.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="icon" type="image/x-icon" href="_htmresc/favicon.png" />
+</head>
+<body>
+<div class="row">
+<div class="col-sm-12 col-lg-4">
+<center>
+<h1 id="release-notes-for-stm32cubemp1xx-hal-and-ll-drivers">Release Notes for <mark>STM32CubeMP1xx HAL and LL drivers</mark></h1>
+<p>Copyright ©  2021 STMicroelectronics<br />
+</p>
+<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
+</center>
+<h1 id="purpose">Purpose</h1>
+<p>The STM32Cube HAL and LL, an STM32 abstraction layer embedded software, ensure maximized portability across STM32 portfolio.</p>
+<p>The portable APIs layer provides a generic, multi instanced and simple set of APIs to interact with the upper layer (application, libraries and stacks). It is composed of native and extended APIs set. It is directly built around a generic architecture and allows the build-upon layers, like the middleware layer, to implement its functions without knowing in-depth the used STM32 device. This improves the library code reusability and guarantees an easy portability on other devices and STM32 families.</p>
+<p>The Low Layer (LL) drivers are part of the STM32Cube firmware HAL that provides a basic set of optimized and one-shot services. The Low layer drivers, contrary to the HAL ones are not fully portable across the STM32 families; the availability of some functions depends on the physical availability of the relative features on the product. The Low Layer (LL) drivers are designed to offer the following features:</p>
+<ul>
+<li>New set of inline functions for direct and atomic register access</li>
+<li>One-shot operations that can be used by the HAL drivers or from application level</li>
+<li>Full independence from HAL and standalone usage (without HAL drivers)</li>
+<li>Full features coverage of all the supported peripherals</li>
+</ul>
+</div>
+<div class="col-sm-12 col-lg-8">
+<h1 id="update-history">Update History</h1>
+<div class="collapse">
+<input type="checkbox" id="collapse-section0" checked aria-hidden="true"> <label for="collapse-section0" checked aria-hidden="true"><strong>V1.6.0 / 02-June-2022</strong></label>
+<div>
+<h2 id="main-changes">Main Changes</h2>
+<ul>
+<li><strong>Maintenance release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</li>
+</ul>
+<h2 id="contents">Contents</h2>
+<ul>
+<li>General updates to fix known defects and enhancements implementation</li>
+<li><strong>Major update</strong> of drivers for STM32MP15xx devices:
+<ul>
+<li>HAL:
+<ul>
+<li>Implement HAL_GetUIDw{0,1,2} (New API)</li>
+<li>Add ALIGN_32BYTES definitions</li>
+</ul></li>
+<li>ADC (No API change)
+<ul>
+<li>Fix loop index computation at low frequency</li>
+<li>Fix HAL_GetTick() timeout vulnerability</li>
+<li>Fix HAL_ADC_MspDeInit: disable clock should not reset all ADCs</li>
+<li>Update function parameters pointers with prefix “p”</li>
+</ul></li>
+<li>SPI
+<ul>
+<li>Alignment with other STM32 families (No API Change)</li>
+</ul></li>
+<li>TIM
+<ul>
+<li>LL : ONEPULSEMODE defines description are inverted</li>
+<li>LL : COUNTERMODE defines are inverted for TIM_CR1_CMS</li>
+</ul></li>
+<li>CRC, DMA and USART
+<ul>
+<li>Alignment with other STM32 families (No API Change)</li>
+</ul></li>
+<li>EXTI (No API change)
+<ul>
+<li>Fix some MISRA warnings</li>
+<li>Optimize Get Config API</li>
+</ul></li>
+<li>SMBUS : Alignment with other STM32 families
+<ul>
+<li>SMBUS Extended files support (API Change)</li>
+</ul></li>
+<li>QSPI (No API change)
+<ul>
+<li>Fix typo comments</li>
+<li>Fix error for HAL_QSPI_Abort function in memory-mapped mode.</li>
+</ul></li>
+<li>RCC (No API change)
+<ul>
+<li>(HAL) : Fix pllxvco calculation</li>
+<li>(LL) : Fix compilation issue ( some missing register alignement with CMSIS Device)</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>N/A</li>
+</ul>
+<h2 id="supported-devices">Supported Devices</h2>
+<ul>
+<li>The drivers provided support the following devices :
+<ul>
+<li>STM32MP157Cxx, STM32MP157Axx, STM32MP157Dxx, STM32MP157Fxx</li>
+<li>STM32MP153Cxx, STM32MP153Axx, STM32MP153Dxx, STM32MP153Fxx</li>
+<li>STM32MP151Cxx, STM32MP151Axx, STM32MP151Dxx, STM32MP151Fxx</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true"><strong>V1.5.0 / 04-November-2021</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<p><strong>Maintenance release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</p>
+<h2 id="contents-1">Contents</h2>
+<ul>
+<li>General updates to fix known defects and enhancements implementation</li>
+<li><strong>Major update</strong> of drivers for STM32MP15xx devices:
+<ul>
+<li>All HAL and LL Drivers
+<ul>
+<li>Update the way to declare licenses in Cube</li>
+</ul></li>
+<li>ADC
+<ul>
+<li>fix TEMPSENSOR_CAL_VREFANALOG value ( 3000 =&gt; 3300)</li>
+<li>fix VREFINT_CAL_ADDR in stm32mp1xx_ll_adc.h</li>
+<li>fix ADC_CALIBRATION_TIMEOUT value for CPU Max at 800MHz</li>
+</ul></li>
+<li>I2C, LPTIM, RNG, SPI
+<ul>
+<li>Alignment with other STM32 families (No API Change)</li>
+</ul></li>
+<li>RCC
+<ul>
+<li>fix MISRA warnings [MISRAC2012-Rule-20.7]</li>
+<li>fix some MISRA warnings</li>
+</ul></li>
+<li>RTC
+<ul>
+<li>fix MISRA warnings [MISRAC2012-Rule-20.7]</li>
+</ul></li>
+<li>QSPI:
+<ul>
+<li>Force the MDMA Source Increment to disable</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-1">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="supported-devices-1">Supported Devices</h2>
+<ul>
+<li>The drivers provided support the following devices :
+<ul>
+<li>STM32MP157Cxx, STM32MP157Axx, STM32MP157Dxx, STM32MP157Fxx</li>
+<li>STM32MP153Cxx, STM32MP153Axx, STM32MP153Dxx, STM32MP153Fxx</li>
+<li>STM32MP151Cxx, STM32MP151Axx, STM32MP151Dxx, STM32MP151Fxx</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true"><strong>V1.4.0 / 26-February-2021</strong></label>
+<div>
+<h2 id="main-changes-2">Main Changes</h2>
+<p><strong>Maintenance release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</p>
+<h2 id="contents-2">Contents</h2>
+<ul>
+<li>General updates to fix known defects and enhancements implementation</li>
+<li><strong>Major update</strong> of drivers for STM32MP15xx devices:
+<ul>
+<li>DTS (TMPSENS)
+<ul>
+<li>Add Register Callback feature</li>
+</ul></li>
+<li>EXTI
+<ul>
+<li>Remove management of C1EMRx registers which does not exist on the silicon</li>
+<li>Fix typo issue with EXTI_LINE_20</li>
+</ul></li>
+<li>GENERIC
+<ul>
+<li>Fix issue on the HAL_SYSCFG_DisableIOCompensation function</li>
+<li>Replace SET_BIT usage in some condition (set/clear register pairs)</li>
+</ul></li>
+<li>RCC
+<ul>
+<li>LL - Fix compilation issue ( Align CMSIS Device and LL definitions removing LL_APB3_GRP1_PERIPH_PMBCTRL and LL_AHB5_GRP1_PERIPH_AXIMC)</li>
+</ul></li>
+<li>SMARTCARD:
+<ul>
+<li>Alignment with other STM32 families (some API Change)</li>
+</ul></li>
+<li>USART
+<ul>
+<li>Alignment with other STM32 families (No API Change)</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-2">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="supported-devices-2">Supported Devices</h2>
+<ul>
+<li>The drivers provided support the following devices :
+<ul>
+<li>STM32MP157Cxx, STM32MP157Axx, STM32MP157Dxx, STM32MP157Fxx</li>
+<li>STM32MP153Cxx, STM32MP153Axx, STM32MP153Dxx, STM32MP153Fxx</li>
+<li>STM32MP151Cxx, STM32MP151Axx, STM32MP151Dxx, STM32MP151Fxx</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.3.0 / 20-October-2020</strong></label>
+<div>
+<h2 id="main-changes-3">Main Changes</h2>
+<p><strong>Maintenance release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</p>
+<h2 id="contents-3">Contents</h2>
+<ul>
+<li>General updates to fix known defects and enhancements implementation</li>
+<li><strong>Major update</strong> of drivers for STM32MP15xx devices:
+<ul>
+<li>ADC: No API change
+<ul>
+<li>Typo corrections in HAL &amp; LL drivers</li>
+<li>LL - assert_param should check constraint between modes continuous and discontinuous</li>
+<li>HAL - Fix IRQ handler in case of injected conversion + IT mode + trigger timer</li>
+</ul></li>
+<li>DFSDM: No API change
+<ul>
+<li>MISRA update</li>
+<li>rework “Callback registration” section</li>
+</ul></li>
+<li>EXTI: No API change
+<ul>
+<li>Define missing EXTI_REG3</li>
+</ul></li>
+<li>GENERIC: No API change
+<ul>
+<li>HAL configuration file : add SMARTCARD and SRAM in template file</li>
+</ul></li>
+<li>RCC: No API change
+<ul>
+<li>Important define update to be compliant with Header file update ( CMSIS device)</li>
+<li>Fix compilation issue ( to be compliant with Header file update on CMSIS device)</li>
+</ul></li>
+<li>SAI
+<ul>
+<li>HAL: Alignment for inter STM32 families portability:
+<ul>
+<li><strong>some API’s change</strong> to take in consideration</li>
+</ul></li>
+</ul></li>
+<li>SDMMC: No API change
+<ul>
+<li>HAL - Fix loop increment in SD_HighSpeed and SD_UltraHighSpeed function</li>
+</ul></li>
+<li>SMARTCARD
+<ul>
+<li>HAL: Implement SMARTCARD Driver: <strong>New API</strong></li>
+<li>HAL - rename UART_FIFOMODE_ENABLE into SMARTCARD_FIFOMODE_ENABLE</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-3">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies-1">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="supported-devices-3">Supported Devices</h2>
+<ul>
+<li>The drivers provided support the following devices :
+<ul>
+<li>STM32MP157Cxx, STM32MP157Axx, STM32MP157Dxx, STM32MP157Fxx</li>
+<li>STM32MP153Cxx, STM32MP153Axx, STM32MP153Dxx, STM32MP153Fxx</li>
+<li>STM32MP151Cxx, STM32MP151Axx, STM32MP151Dxx, STM32MP151Fxx</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true"><strong>V1.2.0 / 03-February-2020</strong></label>
+<div>
+<h2 id="main-changes-4">Main Changes</h2>
+<p><strong>Maintenance release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</p>
+<h2 id="contents-4">Contents</h2>
+<ul>
+<li>General updates to fix known defects and enhancements implementation</li>
+<li><strong>Major update</strong> of drivers for STM32MP15xx devices:
+<ul>
+<li>ADC
+<ul>
+<li>Update HAL_ADC_Start_DMA() API to enable DMA mode</li>
+<li>LL : new function to add or remove paths.
+<ul>
+<li>LL_ADC_SetCommonPathInternalChAdd and LL_ADC_SetCommonPathInternalChAdd : <strong>New API</strong></li>
+</ul></li>
+</ul></li>
+<li>CORTEX
+<ul>
+<li>Implement LL Driver</li>
+</ul></li>
+<li>FMC
+<ul>
+<li>Implement PSRAM Driver: <strong>New API</strong></li>
+</ul></li>
+<li>GENERIC
+<ul>
+<li>Add EXTERNAL_CLOCK_VALUE in conf_template file.</li>
+</ul></li>
+<li>RTC
+<ul>
+<li>HAL&amp;LL : Implement RTC Driver (including TAMP) : <strong>New API</strong></li>
+</ul></li>
+<li>TIM
+<ul>
+<li>HAL&amp;LL: Remove reference to COMP1 and COMP2</li>
+<li>LL:
+<ul>
+<li>Fix TIM Break source definition</li>
+<li>RepetitionCounter value depends on GP or Advanced tmers</li>
+</ul></li>
+</ul></li>
+<li>UART
+<ul>
+<li>HAL: Alignment with STM32F0/F3/H7 (for inter STM32 families portability)
+<ul>
+<li><strong>some API’s</strong> change to take in consideration</li>
+</ul></li>
+</ul></li>
+<li>UTILS
+<ul>
+<li>LL: Add new Part Number defines related to LL_GetDevicePartNumber()consideration</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-4">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies-2">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="supported-devices-4">Supported Devices</h2>
+<ul>
+<li>The drivers provided support the following devices :
+<ul>
+<li>STM32MP157Cxx, STM32MP157Axx, STM32MP157Dxx, STM32MP157Fxx</li>
+<li>STM32MP153Cxx, STM32MP153Axx, STM32MP153Dxx, STM32MP153Fxx</li>
+<li>STM32MP151Cxx, STM32MP151Axx, STM32MP151Dxx, STM32MP151Fxx</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true"><strong>V1.1.0 / 10-September-2019</strong></label>
+<div>
+<h2 id="main-changes-5">Main Changes</h2>
+<p><strong>First Maintenance release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</p>
+<h2 id="contents-5">Contents</h2>
+<ul>
+<li>General updates to fix known defects and enhancements implementation</li>
+<li><strong>Implementation of LL APIs:</strong>
+<ul>
+<li>DMA / EXTI / HSEM / LPTIM / PWR / SPI / TIM / WWDG / I2C</li>
+</ul></li>
+<li><strong>Major update</strong> of drivers for STM32MP15xx devices:
+<ul>
+<li>Rename RCC_IPNAME_BCLK with <strong>RCC_IPNAME_BUSNAME</strong>
+<ul>
+<li>Impact HAL_RCC / HAL_LPTIM / HAL_UART / HAL_USART</li>
+</ul></li>
+<li>ADC
+<ul>
+<li>HAL: Remove ADC_TWOSAMPLINGDELAY_9CYCLES definition</li>
+<li>HAL: Remove ADC_OVERSAMPLING_RATIO_xxx defnitions</li>
+<li>LL : Add ADC Internal Channel VDDCORE management ( LL_ADC_PATH_INTERNAL_VDDCORE)</li>
+<li>HAL &amp; LL: Update for linear calibration and Use ‘ADC_LINEAR_CALIB_REG_COUNT’</li>
+</ul></li>
+<li>DMA
+<ul>
+<li>HAL: Use DMA_Stream_TypeDef structure for instance (<strong>structure change</strong>)</li>
+</ul></li>
+<li>Generic
+<ul>
+<li>HAL: Update the SystemCoreClock global variable ( needed in case of Coprocesseur use case)</li>
+<li>HAL: Add enable/disable functions for IO Compensation mechanism (<strong>new API</strong>)</li>
+<li>HAL: Align HAL_CONF template with HAL package</li>
+</ul></li>
+<li>GPIO
+<ul>
+<li>Improve HAL_GPIO_TogglePin reentrancy robustness</li>
+<li>Improve robustness of HAL_GPIO_DeInit() on EXTI management</li>
+<li>Update IS_GPIO_PIN assert macro</li>
+</ul></li>
+<li>IPCC
+<ul>
+<li>LL: Add service to get the number of supported channels (<strong>new API</strong>)</li>
+</ul></li>
+<li>LPTIM
+<ul>
+<li>HAL: Alignment with STM32H7/WB (for inter STM32 families portability): <strong>some API’s change</strong> to take in consideration</li>
+</ul></li>
+<li>RCC
+<ul>
+<li>HAL: Rename __HAL_RCC_TMPSENS_CLK_xxx to __HAL_RCC_DTS_CLK_xxx</li>
+<li>HAL: Update to not overwrite Tick priority</li>
+</ul></li>
+<li>SPI
+<ul>
+<li>HAL: Add new feature Reload Feature + Duplex Packet DXP (<strong>new API</strong>)</li>
+</ul></li>
+<li>TIM
+<ul>
+<li>HAL: Alignment with STM32F0/F3/H7/WB (for inter STM32 families portability): <strong>some API’s change</strong> to take in consideration</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-5">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies-3">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true"><strong>V1.0.0 / 22-January-2019</strong></label>
+<div>
+<h2 id="main-changes-6">Main Changes</h2>
+<p><strong>First official release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</p>
+<h2 id="known-limitations-6">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies-4">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<footer class="sticky">
+<p>For complete documentation on STM32 Microcontrollers </mark> , visit: <span style="font-color: blue;"><a href="http://www.st.com/stm32">www.st.com/stm32</a></span></p>
+This release note uses up to date web standards and, for this reason, should not be opened with Internet Explorer but preferably with popular browsers such as Google Chrome, Mozilla Firefox, Opera or Microsoft Edge.
+</footer>
+</body>
+</html>

@@ -5,6 +5,17 @@
   * @brief   HAL module driver.
   *          This is the common part of the HAL initialization
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                      ##### How to use this driver #####
@@ -18,17 +29,6 @@
          (+) Services HAL APIs
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -47,11 +47,11 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /**
- * @brief STM32H7xx HAL Driver version number V1.5.0
+ * @brief STM32H7xx HAL Driver version number V1.11.1
    */
 #define __STM32H7xx_HAL_VERSION_MAIN   (0x01UL) /*!< [31:24] main version */
-#define __STM32H7xx_HAL_VERSION_SUB1   (0x05UL) /*!< [23:16] sub1 version */
-#define __STM32H7xx_HAL_VERSION_SUB2   (0x00UL) /*!< [15:8]  sub2 version */
+#define __STM32H7xx_HAL_VERSION_SUB1   (0x0BUL) /*!< [23:16] sub1 version */
+#define __STM32H7xx_HAL_VERSION_SUB2   (0x01UL) /*!< [15:8]  sub2 version */
 #define __STM32H7xx_HAL_VERSION_RC     (0x00UL) /*!< [7:0]  release candidate */
 #define __STM32H7xx_HAL_VERSION         ((__STM32H7xx_HAL_VERSION_MAIN << 24)\
                                         |(__STM32H7xx_HAL_VERSION_SUB1 << 16)\
@@ -63,18 +63,26 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-static __IO uint32_t uwTick;
-static uint32_t uwTickPrio   = (1UL << __NVIC_PRIO_BITS); /* Invalid PRIO */
-static HAL_TickFreqTypeDef uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
+/* Exported variables --------------------------------------------------------*/
+
+/** @defgroup HAL_Exported_Variables HAL Exported Variables
+  * @{
+  */
+__IO uint32_t uwTick;
+uint32_t uwTickPrio   = (1UL << __NVIC_PRIO_BITS); /* Invalid PRIO */
+HAL_TickFreqTypeDef uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
+/**
+  * @}
+  */
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
-/** @defgroup HAL_Private_Functions  HAL Private Functions
+/** @addtogroup HAL_Exported_Functions
   * @{
   */
 
-/** @defgroup HAL_Group1 Initialization and de-initialization Functions
+/** @addtogroup HAL_Group1
  *  @brief    Initialization and de-initialization functions
  *
 @verbatim
@@ -125,14 +133,38 @@ static HAL_TickFreqTypeDef uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
   */
 HAL_StatusTypeDef HAL_Init(void)
 {
+
+uint32_t common_system_clock;
+
+#if defined(DUAL_CORE) && defined(CORE_CM4)
+   /* Configure Cortex-M4 Instruction cache through ART accelerator */
+   __HAL_RCC_ART_CLK_ENABLE();                   /* Enable the Cortex-M4 ART Clock */
+   __HAL_ART_CONFIG_BASE_ADDRESS(0x08100000UL);  /* Configure the Cortex-M4 ART Base address to the Flash Bank 2 : */
+   __HAL_ART_ENABLE();                           /* Enable the Cortex-M4 ART */
+#endif /* DUAL_CORE &&  CORE_CM4 */
+
   /* Set Interrupt Group Priority */
   HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
 
   /* Update the SystemCoreClock global variable */
-  SystemCoreClock = HAL_RCC_GetSysClockFreq() >> ((D1CorePrescTable[(RCC->D1CFGR & RCC_D1CFGR_D1CPRE)>> RCC_D1CFGR_D1CPRE_Pos]) & 0x1FU);
+#if defined(RCC_D1CFGR_D1CPRE)
+  common_system_clock = HAL_RCC_GetSysClockFreq() >> ((D1CorePrescTable[(RCC->D1CFGR & RCC_D1CFGR_D1CPRE)>> RCC_D1CFGR_D1CPRE_Pos]) & 0x1FU);
+#else
+  common_system_clock = HAL_RCC_GetSysClockFreq() >> ((D1CorePrescTable[(RCC->CDCFGR1 & RCC_CDCFGR1_CDCPRE)>> RCC_CDCFGR1_CDCPRE_Pos]) & 0x1FU);
+#endif
 
   /* Update the SystemD2Clock global variable */
-  SystemD2Clock = (SystemCoreClock >> ((D1CorePrescTable[(RCC->D1CFGR & RCC_D1CFGR_HPRE)>> RCC_D1CFGR_HPRE_Pos]) & 0x1FU));
+#if defined(RCC_D1CFGR_HPRE)
+  SystemD2Clock = (common_system_clock >> ((D1CorePrescTable[(RCC->D1CFGR & RCC_D1CFGR_HPRE)>> RCC_D1CFGR_HPRE_Pos]) & 0x1FU));
+#else
+  SystemD2Clock = (common_system_clock >> ((D1CorePrescTable[(RCC->CDCFGR1 & RCC_CDCFGR1_HPRE)>> RCC_CDCFGR1_HPRE_Pos]) & 0x1FU));
+#endif
+
+#if defined(DUAL_CORE) && defined(CORE_CM4)
+  SystemCoreClock = SystemD2Clock;
+#else
+  SystemCoreClock = common_system_clock;
+#endif /* DUAL_CORE && CORE_CM4 */
 
   /* Use systick as time base source and configure 1ms tick (default clock after Reset is HSI) */
   if(HAL_InitTick(TICK_INT_PRIORITY) != HAL_OK)
@@ -220,7 +252,7 @@ __weak void HAL_MspDeInit(void)
   * @note In the default implementation, SysTick timer is the source of time base.
   *       It is used to generate interrupts at regular time intervals.
   *       Care must be taken if HAL_Delay() is called from a peripheral ISR process,
-  *       The the SysTick interrupt must have higher priority (numerically lower)
+  *       the SysTick interrupt must have higher priority (numerically lower)
   *       than the peripheral interrupt. Otherwise the caller ISR process will be blocked.
   *       The function is declared as __weak  to be overwritten  in case of other
   *       implementation  in user file.
@@ -235,32 +267,11 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
     return HAL_ERROR;
   }
 
-#if defined(DUAL_CORE)
-  if (HAL_GetCurrentCPUID() == CM7_CPUID)
-  {
-    /* Cortex-M7 detected */
     /* Configure the SysTick to have interrupt in 1ms time basis*/
     if (HAL_SYSTICK_Config(SystemCoreClock / (1000UL / (uint32_t)uwTickFreq)) > 0U)
     {
       return HAL_ERROR;
     }
-  }
-  else
-  {
-    /* Cortex-M4 detected */
-    /* Configure the SysTick to have interrupt in 1ms time basis*/
-    if (HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq() / (1000UL / (uint32_t)uwTickFreq)) > 0U)
-    {
-      return HAL_ERROR;
-    }
-  }
-#else
-  /* Configure the SysTick to have interrupt in 1ms time basis*/
-  if (HAL_SYSTICK_Config(SystemCoreClock / (1000UL / (uint32_t)uwTickFreq)) > 0U)
-  {
-    return HAL_ERROR;
-  }
-#endif
 
   /* Configure the SysTick IRQ priority */
   if (TickPriority < (1UL << __NVIC_PRIO_BITS))
@@ -281,7 +292,7 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   * @}
   */
 
-/** @defgroup HAL_Group2 HAL Control functions
+/** @addtogroup HAL_Group2
  *  @brief    HAL Control functions
  *
 @verbatim
@@ -345,14 +356,26 @@ uint32_t HAL_GetTickPrio(void)
 HAL_StatusTypeDef HAL_SetTickFreq(HAL_TickFreqTypeDef Freq)
 {
   HAL_StatusTypeDef status  = HAL_OK;
+  HAL_TickFreqTypeDef prevTickFreq;
+
   assert_param(IS_TICKFREQ(Freq));
 
   if (uwTickFreq != Freq)
   {
+
+    /* Back up uwTickFreq frequency */
+    prevTickFreq = uwTickFreq;
+
+    /* Update uwTickFreq global variable used by HAL_InitTick() */
     uwTickFreq = Freq;
 
     /* Apply the new tick Freq  */
     status = HAL_InitTick(uwTickPrio);
+    if (status != HAL_OK)
+    {
+      /* Restore previous tick frequency */
+      uwTickFreq = prevTickFreq;
+    }
   }
 
   return status;
@@ -398,7 +421,7 @@ __weak void HAL_Delay(uint32_t Delay)
   * @brief Suspend Tick increment.
   * @note In the default implementation , SysTick timer is the source of time base. It is
   *       used to generate interrupts at regular time intervals. Once HAL_SuspendTick()
-  *       is called, the the SysTick interrupt will be disabled and so Tick increment
+  *       is called, the SysTick interrupt will be disabled and so Tick increment
   *       is suspended.
   * @note This function is declared as __weak to be overwritten in case of other
   *       implementations in user file.
@@ -414,7 +437,7 @@ __weak void HAL_SuspendTick(void)
   * @brief Resume Tick increment.
   * @note In the default implementation , SysTick timer is the source of time base. It is
   *       used to generate interrupts at regular time intervals. Once HAL_ResumeTick()
-  *       is called, the the SysTick interrupt will be enabled and so Tick increment
+  *       is called, the SysTick interrupt will be enabled and so Tick increment
   *       is resumed.
   * @note This function is declared as __weak to be overwritten in case of other
   *       implementations in user file.
@@ -454,17 +477,44 @@ uint32_t HAL_GetDEVID(void)
 }
 
 /**
+  * @brief  Return the first word of the unique device identifier (UID based on 96 bits)
+  * @retval Device identifier
+  */
+uint32_t HAL_GetUIDw0(void)
+{
+  return(READ_REG(*((uint32_t *)UID_BASE)));
+}
+
+/**
+  * @brief  Return the second word of the unique device identifier (UID based on 96 bits)
+  * @retval Device identifier
+  */
+uint32_t HAL_GetUIDw1(void)
+{
+  return(READ_REG(*((uint32_t *)(UID_BASE + 4U))));
+}
+
+/**
+  * @brief  Return the third word of the unique device identifier (UID based on 96 bits)
+  * @retval Device identifier
+  */
+uint32_t HAL_GetUIDw2(void)
+{
+  return(READ_REG(*((uint32_t *)(UID_BASE + 8U))));
+}
+
+/**
   * @brief Configure the internal voltage reference buffer voltage scale.
   * @param VoltageScaling  specifies the output voltage to achieve
   *          This parameter can be one of the following values:
-  *            @arg SYSCFG_VREFBUF_VOLTAGE_SCALE0: VREF_OUT1 around 2.048 V.
-  *                                                This requires VDDA equal to or higher than 2.4 V.
-  *            @arg SYSCFG_VREFBUF_VOLTAGE_SCALE1: VREF_OUT2 around 2.5 V.
+  *            @arg SYSCFG_VREFBUF_VOLTAGE_SCALE0: VREF_OUT1 around 2.5 V.
   *                                                This requires VDDA equal to or higher than 2.8 V.
-  *            @arg SYSCFG_VREFBUF_VOLTAGE_SCALE2: VREF_OUT3 around 1.5 V.
-  *                                                This requires VDDA equal to or higher than 1.8 V.
-  *            @arg SYSCFG_VREFBUF_VOLTAGE_SCALE3: VREF_OUT4 around 1.8 V.
+  *            @arg SYSCFG_VREFBUF_VOLTAGE_SCALE1: VREF_OUT2 around 2.048 V.
+  *                                                This requires VDDA equal to or higher than 2.4 V.
+  *            @arg SYSCFG_VREFBUF_VOLTAGE_SCALE2: VREF_OUT3 around 1.8 V.
   *                                                This requires VDDA equal to or higher than 2.1 V.
+  *            @arg SYSCFG_VREFBUF_VOLTAGE_SCALE3: VREF_OUT4 around 1.5 V.
+  *                                                This requires VDDA equal to or higher than 1.8 V.
   * @retval None
   */
 void HAL_SYSCFG_VREFBUF_VoltageScalingConfig(uint32_t VoltageScaling)
@@ -538,6 +588,7 @@ void HAL_SYSCFG_DisableVREFBUF(void)
   CLEAR_BIT(VREFBUF->CSR, VREFBUF_CSR_ENVR);
 }
 
+#if defined(SYSCFG_PMCR_EPIS_SEL)
 /**
   * @brief  Ethernet PHY Interface Selection either MII or RMII
   * @param  SYSCFG_ETHInterface: Selects the Ethernet PHY interface
@@ -553,7 +604,7 @@ void HAL_SYSCFG_ETHInterfaceSelect(uint32_t SYSCFG_ETHInterface)
 
   MODIFY_REG(SYSCFG->PMCR, SYSCFG_PMCR_EPIS_SEL, (uint32_t)(SYSCFG_ETHInterface));
 }
-
+#endif /* SYSCFG_PMCR_EPIS_SEL */
 
 /**
   * @brief  Analog Switch control for dual analog pads.
@@ -585,7 +636,7 @@ void HAL_SYSCFG_AnalogSwitchConfig(uint32_t SYSCFG_AnalogSwitch , uint32_t SYSCF
   MODIFY_REG(SYSCFG->PMCR, (uint32_t) SYSCFG_AnalogSwitch, (uint32_t)(SYSCFG_SwitchState));
 }
 
-
+#if defined(SYSCFG_PMCR_BOOSTEN)
 /**
   * @brief  Enables the booster to reduce the total harmonic distortion of the analog
   *         switch when the supply voltage is lower than 2.7 V.
@@ -610,8 +661,9 @@ void HAL_SYSCFG_DisableBOOST(void)
 {
  CLEAR_BIT(SYSCFG->PMCR, SYSCFG_PMCR_BOOSTEN) ;
 }
+#endif /* SYSCFG_PMCR_BOOSTEN */
 
-
+#if defined (SYSCFG_UR2_BOOT_ADD0) ||  defined (SYSCFG_UR2_BCM7_ADD0)
 /**
   * @brief  BootCM7 address 0 configuration
   * @param  BootRegister :Specifies the Boot Address register (Address0 or Address1)
@@ -644,8 +696,8 @@ void HAL_SYSCFG_CM7BootAddConfig(uint32_t BootRegister, uint32_t BootAddress)
     MODIFY_REG(SYSCFG->UR3, SYSCFG_UR3_BOOT_ADD1, (BootAddress >> 16));
 #endif /*DUAL_CORE*/
   }
-
 }
+#endif /* SYSCFG_UR2_BOOT_ADD0 || SYSCFG_UR2_BCM7_ADD0 */
 
 #if defined(DUAL_CORE)
 /**
@@ -714,11 +766,10 @@ void HAL_SYSCFG_DisableCM4BOOT(void)
   CLEAR_BIT(SYSCFG->UR1, SYSCFG_UR1_BCM4);
 }
 #endif /*DUAL_CORE*/
-
 /**
   * @brief  Enables the I/O Compensation Cell.
   * @note   The I/O compensation cell can be used only when the device supply
-  *         voltage ranges from 2.4 to 3.6 V.
+  *         voltage ranges from 1.62 to 2.0 V and from 2.7 to 3.6 V.
   * @retval None
   */
 void HAL_EnableCompensationCell(void)
@@ -729,7 +780,7 @@ void HAL_EnableCompensationCell(void)
 /**
   * @brief  Power-down the I/O Compensation Cell.
   * @note   The I/O compensation cell can be used only when the device supply
-  *         voltage ranges from 2.4 to 3.6 V.
+  *         voltage ranges from 1.62 to 2.0 V and from 2.7 to 3.6 V.
   * @retval None
   */
 void HAL_DisableCompensationCell(void)
@@ -747,7 +798,11 @@ void HAL_DisableCompensationCell(void)
   */
 void HAL_SYSCFG_EnableIOSpeedOptimize(void)
 {
+#if defined(SYSCFG_CCCSR_HSLV)
   SET_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_HSLV);
+#else
+  SET_BIT(SYSCFG->CCCSR, (SYSCFG_CCCSR_HSLV0| SYSCFG_CCCSR_HSLV1 | SYSCFG_CCCSR_HSLV2  | SYSCFG_CCCSR_HSLV3));
+#endif   /* SYSCFG_CCCSR_HSLV */
 }
 
 /**
@@ -759,7 +814,11 @@ void HAL_SYSCFG_EnableIOSpeedOptimize(void)
   */
 void HAL_SYSCFG_DisableIOSpeedOptimize(void)
 {
+#if defined(SYSCFG_CCCSR_HSLV)
   CLEAR_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_HSLV);
+#else
+  CLEAR_BIT(SYSCFG->CCCSR, (SYSCFG_CCCSR_HSLV0| SYSCFG_CCCSR_HSLV1 | SYSCFG_CCCSR_HSLV2  | SYSCFG_CCCSR_HSLV3));
+#endif   /* SYSCFG_CCCSR_HSLV */
 }
 
 /**
@@ -795,57 +854,107 @@ void HAL_SYSCFG_CompensationCodeConfig(uint32_t SYSCFG_PMOSCode, uint32_t SYSCFG
   MODIFY_REG(SYSCFG->CCCR, SYSCFG_CCCR_NCC|SYSCFG_CCCR_PCC, (((uint32_t)(SYSCFG_PMOSCode)<< 4)|(uint32_t)(SYSCFG_NMOSCode)) );
 }
 
-
+#if defined(SYSCFG_CCCR_NCC_MMC)
 /**
-  * @brief  Enable the Debug Module during Domain1 SLEEP mode
+  * @brief  Code selection for the I/O Compensation cell
+  * @param  SYSCFG_PMOSCode: VDDMMC PMOS compensation code
+  *         This code is applied to the I/O compensation cell when the CS bit of the
+  *          SYSCFG_CMPCR is set
+  * @param  SYSCFG_NMOSCode: VDDMMC NMOS compensation code
+  *         This code is applied to the I/O compensation cell when the CS bit of the
+  *          SYSCFG_CMPCR is set
   * @retval None
   */
-void HAL_EnableDBGSleepMode(void)
+void HAL_SYSCFG_VDDMMC_CompensationCodeConfig(uint32_t SYSCFG_PMOSCode, uint32_t SYSCFG_NMOSCode )
+{
+  /* Check the parameter */
+  assert_param(IS_SYSCFG_CODE_CONFIG(SYSCFG_PMOSCode));
+  assert_param(IS_SYSCFG_CODE_CONFIG(SYSCFG_NMOSCode));
+  MODIFY_REG(SYSCFG->CCCR, (SYSCFG_CCCR_NCC_MMC | SYSCFG_CCCR_PCC_MMC), (((uint32_t)(SYSCFG_PMOSCode)<< 4)|(uint32_t)(SYSCFG_NMOSCode)) );
+}
+#endif /* SYSCFG_CCCR_NCC_MMC */
+
+#if defined(SYSCFG_ADC2ALT_ADC2_ROUT0)
+/** @brief  SYSCFG ADC2 internal input alternate connection macros
+  * @param Adc2AltRout0 This parameter can be a value of :
+  *     @arg @ref SYSCFG_ADC2_ROUT0_DAC1_1   DAC1_out1 connected to ADC2 VINP[16]
+  *     @arg @ref SYSCFG_ADC2_ROUT0_VBAT4    VBAT/4 connected to ADC2 VINP[16]
+  */
+void HAL_SYSCFG_ADC2ALT_Rout0Config(uint32_t Adc2AltRout0)
+{
+  /* Check the parameters */
+  assert_param(IS_SYSCFG_ADC2ALT_ROUT0(Adc2AltRout0));
+
+  MODIFY_REG(SYSCFG->ADC2ALT, SYSCFG_ADC2ALT_ADC2_ROUT0, Adc2AltRout0);
+}
+#endif /*SYSCFG_ADC2ALT_ADC2_ROUT0*/
+
+#if defined(SYSCFG_ADC2ALT_ADC2_ROUT1)
+/** @brief  SYSCFG ADC2 internal input alternate connection macros
+  * @param Adc2AltRout1  This parameter can be a value of :
+  *     @arg @ref SYSCFG_ADC2_ROUT1_DAC1_2   DAC1_out2 connected to ADC2 VINP[17]
+  *     @arg @ref SYSCFG_ADC2_ROUT1_VREFINT  VREFINT connected to ADC2 VINP[17]
+  */
+void HAL_SYSCFG_ADC2ALT_Rout1Config(uint32_t Adc2AltRout1)
+{
+  /* Check the parameters */
+  assert_param(IS_SYSCFG_ADC2ALT_ROUT1(Adc2AltRout1));
+
+  MODIFY_REG(SYSCFG->ADC2ALT, SYSCFG_ADC2ALT_ADC2_ROUT1, Adc2AltRout1);
+}
+#endif /*SYSCFG_ADC2ALT_ADC2_ROUT1*/
+
+/**
+  * @brief  Enable the Debug Module during Domain1/CDomain SLEEP mode
+  * @retval None
+  */
+void HAL_DBGMCU_EnableDBGSleepMode(void)
 {
   SET_BIT(DBGMCU->CR, DBGMCU_CR_DBG_SLEEPD1);
 }
 
 /**
-  * @brief  Disable the Debug Module during Domain1 SLEEP mode
+  * @brief  Disable the Debug Module during Domain1/CDomain SLEEP mode
   * @retval None
   */
-void HAL_DisableDBGSleepMode(void)
+void HAL_DBGMCU_DisableDBGSleepMode(void)
 {
   CLEAR_BIT(DBGMCU->CR, DBGMCU_CR_DBG_SLEEPD1);
 }
 
+
 /**
-  * @brief  Enable the Debug Module during Domain1 STOP mode
+  * @brief  Enable the Debug Module during Domain1/CDomain STOP mode
   * @retval None
   */
-void HAL_EnableDBGStopMode(void)
+void HAL_DBGMCU_EnableDBGStopMode(void)
 {
   SET_BIT(DBGMCU->CR, DBGMCU_CR_DBG_STOPD1);
 }
 
 /**
-  * @brief  Disable the Debug Module during Domain1 STOP mode
+  * @brief  Disable the Debug Module during Domain1/CDomain STOP mode
   * @retval None
   */
-void HAL_DisableDBGStopMode(void)
+void HAL_DBGMCU_DisableDBGStopMode(void)
 {
   CLEAR_BIT(DBGMCU->CR, DBGMCU_CR_DBG_STOPD1);
 }
 
 /**
-  * @brief  Enable the Debug Module during Domain1 STANDBY mode
+  * @brief  Enable the Debug Module during Domain1/CDomain STANDBY mode
   * @retval None
   */
-void HAL_EnableDBGStandbyMode(void)
+void HAL_DBGMCU_EnableDBGStandbyMode(void)
 {
   SET_BIT(DBGMCU->CR, DBGMCU_CR_DBG_STANDBYD1);
 }
 
 /**
-  * @brief  Disable the Debug Module during Domain1 STANDBY mode
+  * @brief  Disable the Debug Module during Domain1/CDomain STANDBY mode
   * @retval None
   */
-void HAL_DisableDBGStandbyMode(void)
+void HAL_DBGMCU_DisableDBGStandbyMode(void)
 {
   CLEAR_BIT(DBGMCU->CR, DBGMCU_CR_DBG_STANDBYD1);
 }
@@ -906,9 +1015,9 @@ void HAL_DisableDomain2DBGStandbyMode(void)
 }
 #endif /*DUAL_CORE*/
 
-
+#if defined(DBGMCU_CR_DBG_STOPD3)
 /**
-  * @brief  Enable the Debug Module during Domain3 STOP mode
+  * @brief  Enable the Debug Module during Domain3/SRDomain STOP mode
   * @retval None
   */
 void HAL_EnableDomain3DBGStopMode(void)
@@ -917,16 +1026,18 @@ void HAL_EnableDomain3DBGStopMode(void)
 }
 
 /**
-  * @brief  Disable the Debug Module during Domain3 STOP mode
+  * @brief  Disable the Debug Module during Domain3/SRDomain STOP mode
   * @retval None
   */
 void HAL_DisableDomain3DBGStopMode(void)
 {
   CLEAR_BIT(DBGMCU->CR, DBGMCU_CR_DBG_STOPD3);
 }
+#endif /*DBGMCU_CR_DBG_STOPD3*/
 
+#if defined(DBGMCU_CR_DBG_STANDBYD3)
 /**
-  * @brief  Enable the Debug Module during Domain3 STANDBY mode
+  * @brief  Enable the Debug Module during Domain3/SRDomain STANDBY mode
   * @retval None
   */
 void HAL_EnableDomain3DBGStandbyMode(void)
@@ -935,13 +1046,14 @@ void HAL_EnableDomain3DBGStandbyMode(void)
 }
 
 /**
-  * @brief  Disable the Debug Module during Domain3 STANDBY mode
+  * @brief  Disable the Debug Module during Domain3/SRDomain STANDBY mode
   * @retval None
   */
 void HAL_DisableDomain3DBGStandbyMode(void)
 {
   CLEAR_BIT(DBGMCU->CR, DBGMCU_CR_DBG_STANDBYD3);
 }
+#endif /*DBGMCU_CR_DBG_STANDBYD3*/
 
 /**
   * @brief  Set the FMC Memory Mapping Swapping config.
@@ -1023,7 +1135,7 @@ void HAL_EXTI_D1_ClearFlag(uint32_t EXTI_Line)
 {
   /* Check the parameters */
  assert_param(IS_EXTI_D1_LINE(EXTI_Line));
- SET_BIT(*(__IO uint32_t *) (((uint32_t) &(EXTI_D1->PR1)) + ((EXTI_Line >> 5 ) * 0x10UL)), (uint32_t)(1UL << (EXTI_Line & 0x1FUL)));
+ WRITE_REG(*(__IO uint32_t *) (((uint32_t) &(EXTI_D1->PR1)) + ((EXTI_Line >> 5 ) * 0x10UL)), (uint32_t)(1UL << (EXTI_Line & 0x1FUL)));
 
 }
 
@@ -1038,7 +1150,7 @@ void HAL_EXTI_D2_ClearFlag(uint32_t EXTI_Line)
 {
   /* Check the parameters */
  assert_param(IS_EXTI_D2_LINE(EXTI_Line));
- SET_BIT(*(__IO uint32_t *) (((uint32_t) &(EXTI_D2->PR1)) + ((EXTI_Line >> 5 ) * 0x10UL)), (uint32_t)(1UL << (EXTI_Line & 0x1FUL)));
+ WRITE_REG(*(__IO uint32_t *) (((uint32_t) &(EXTI_D2->PR1)) + ((EXTI_Line >> 5 ) * 0x10UL)), (uint32_t)(1UL << (EXTI_Line & 0x1FUL)));
 }
 
 #endif /*DUAL_CORE*/
@@ -1196,4 +1308,3 @@ void HAL_EXTI_D3_EventInputConfig(uint32_t EXTI_Line, uint32_t EXTI_LineCmd , ui
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -32,29 +32,13 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -96,7 +80,7 @@ void RTC_Alarm_IRQHandler(void);
   *         Tick interrupt priority.
   * @note   This function is called  automatically at the beginning of program after
   *         reset by HAL_Init() or at any time when clock is configured, by HAL_RCC_ClockConfig().
-  * @param  TickPriority: Tick interrupt priority.
+  * @param  TickPriority Tick interrupt priority.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
@@ -105,6 +89,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 
   RCC_OscInitTypeDef        RCC_OscInitStruct;
   RCC_PeriphCLKInitTypeDef  PeriphClkInitStruct;
+  HAL_StatusTypeDef         status;
 
 #ifdef RTC_CLOCK_SOURCE_LSE
   /* Configue LSE as RTC clock soucre */
@@ -127,76 +112,94 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 #else
 #error Please select the RTC Clock source
 #endif /* RTC_CLOCK_SOURCE_LSE */
-
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) == HAL_OK)
+  status = HAL_RCC_OscConfig(&RCC_OscInitStruct);
+  if (status == HAL_OK)
   {
     PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RTC;
-    if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) == HAL_OK)
+    status = HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);
+    if (status == HAL_OK)
     {
       /* Enable RTC Clock */
       __HAL_RCC_RTC_ENABLE();
 
-      hRTC_Handle.Instance = RTC;
       /* Configure RTC time base to 10Khz */
+      hRTC_Handle.Instance = RTC;
       hRTC_Handle.Init.AsynchPrediv = (HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_RTC) / 10000) - 1;
       hRTC_Handle.Init.OutPut = RTC_OUTPUTSOURCE_NONE;
-      HAL_RTC_Init(&hRTC_Handle);
-
-      /* Disable the write protection for RTC registers */
-      __HAL_RTC_WRITEPROTECTION_DISABLE(&hRTC_Handle);
-
-      /* Clear flag alarm A */
-      __HAL_RTC_ALARM_CLEAR_FLAG(&hRTC_Handle, RTC_FLAG_ALRAF);
-
-      counter = 0U;
-      /* Wait till RTC ALRAF flag is set and if Time out is reached exit */
-      while (__HAL_RTC_ALARM_GET_FLAG(&hRTC_Handle, RTC_FLAG_ALRAF) != RESET)
-      {
-        if (counter++ == SystemCoreClock / 48U) /* Timeout = ~ 1s */
-        {
-          return HAL_ERROR;
-        }
-      }
-
-      /* Set RTC COUNTER MSB word */
-      hRTC_Handle.Instance->ALRH = 0x00U;
-      /* Set RTC COUNTER LSB word */
-      hRTC_Handle.Instance->ALRL = 0x09U;
-
-      /* RTC Alarm Interrupt Configuration: EXTI configuration */
-      __HAL_RTC_ALARM_EXTI_ENABLE_IT();
-      __HAL_RTC_ALARM_EXTI_ENABLE_RISING_EDGE();
-
-      /* Clear Second and overflow flags */
-      CLEAR_BIT(hRTC_Handle.Instance->CRL, (RTC_FLAG_SEC | RTC_FLAG_OW));
-
-      /* Set RTC COUNTER MSB word */
-      hRTC_Handle.Instance->CNTH = 0x00U;
-      /* Set RTC COUNTER LSB word */
-      hRTC_Handle.Instance->CNTL = 0x00U;
-
-      /* Configure the Alarm interrupt */
-      __HAL_RTC_ALARM_ENABLE_IT(&hRTC_Handle, RTC_IT_ALRA);
-
-      /* Enable the write protection for RTC registers */
-      __HAL_RTC_WRITEPROTECTION_ENABLE(&hRTC_Handle);
-
-      /* Wait till RTC is in INIT state and if Time out is reached exit */
-      counter = 0U;
-      while ((hRTC_Handle.Instance->CRL & RTC_CRL_RTOFF) == (uint32_t)RESET)
-      {
-        if (counter++ == SystemCoreClock / 48U) /* Timeout = ~ 1s */
-        {
-          return HAL_ERROR;
-        }
-      }
-
-      HAL_NVIC_SetPriority(RTC_Alarm_IRQn, TickPriority, 0U);
-      HAL_NVIC_EnableIRQ(RTC_Alarm_IRQn);
-      return HAL_OK;
+      status = HAL_RTC_Init(&hRTC_Handle);
     }
   }
-  return HAL_ERROR;
+  if (status == HAL_OK)
+  {
+    /* Disable the write protection for RTC registers */
+    __HAL_RTC_WRITEPROTECTION_DISABLE(&hRTC_Handle);
+
+    /* Clear flag alarm A */
+    __HAL_RTC_ALARM_CLEAR_FLAG(&hRTC_Handle, RTC_FLAG_ALRAF);
+
+    counter = 0U;
+    /* Wait till RTC ALRAF flag is set and if Time out is reached exit */
+    while (__HAL_RTC_ALARM_GET_FLAG(&hRTC_Handle, RTC_FLAG_ALRAF) != RESET)
+    {
+      if (counter++ == SystemCoreClock / 48U) /* Timeout = ~ 1s */
+      {
+        status = HAL_ERROR;
+      }
+    }
+  }
+  if (status == HAL_OK)
+  {
+    /* Set RTC COUNTER MSB word */
+    hRTC_Handle.Instance->ALRH = 0x00U;
+    /* Set RTC COUNTER LSB word */
+    hRTC_Handle.Instance->ALRL = 0x09U;
+
+    /* RTC Alarm Interrupt Configuration: EXTI configuration */
+    __HAL_RTC_ALARM_EXTI_ENABLE_IT();
+    __HAL_RTC_ALARM_EXTI_ENABLE_RISING_EDGE();
+
+    /* Clear Second and overflow flags */
+    CLEAR_BIT(hRTC_Handle.Instance->CRL, (RTC_FLAG_SEC | RTC_FLAG_OW));
+
+    /* Set RTC COUNTER MSB word */
+    hRTC_Handle.Instance->CNTH = 0x00U;
+    /* Set RTC COUNTER LSB word */
+    hRTC_Handle.Instance->CNTL = 0x00U;
+
+    /* Configure the Alarm interrupt */
+    __HAL_RTC_ALARM_ENABLE_IT(&hRTC_Handle, RTC_IT_ALRA);
+
+    /* Enable the write protection for RTC registers */
+    __HAL_RTC_WRITEPROTECTION_ENABLE(&hRTC_Handle);
+
+    /* Wait till RTC is in INIT state and if Time out is reached exit */
+    counter = 0U;
+    while ((hRTC_Handle.Instance->CRL & RTC_CRL_RTOFF) == (uint32_t)RESET)
+    {
+      if (counter++ == SystemCoreClock / 48U) /* Timeout = ~ 1s */
+      {
+        status = HAL_ERROR;
+      }
+    }
+  }
+  if (status == HAL_OK)
+  {
+    /* Enable the RTC global Interrupt */
+    HAL_NVIC_EnableIRQ(RTC_Alarm_IRQn);
+
+    /* Configure the SysTick IRQ priority */
+    if (TickPriority < (1UL << __NVIC_PRIO_BITS))
+    {
+      HAL_NVIC_SetPriority(RTC_Alarm_IRQn, TickPriority ,0U);
+      uwTickPrio = TickPriority;
+    }
+    else
+    {
+      status = HAL_ERROR;
+    }
+  }
+
+  return status;
 }
 
 /**
@@ -253,7 +256,7 @@ void HAL_ResumeTick(void)
   * @note   This function is called  when RTC_ALARM interrupt took place, inside
   * RTC_ALARM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
   * a global variable "uwTick" used as application time base.
-  * @param  hrtc : RTC handle
+  * @param  hrtc RTC handle
   * @retval None
   */
 void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)

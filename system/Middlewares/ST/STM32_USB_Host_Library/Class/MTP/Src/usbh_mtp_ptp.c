@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -29,6 +29,7 @@ EndBSPDependencies */
 /* Includes ------------------------------------------------------------------*/
 #include "usbh_mtp_ptp.h"
 #include "usbh_mtp.h"
+
 /** @addtogroup USBH_LIB
 * @{
 */
@@ -87,16 +88,13 @@ static void PTP_GetStorageInfo(USBH_HandleTypeDef *phost, uint32_t storage_id, P
 static void PTP_GetObjectInfo(USBH_HandleTypeDef *phost, PTP_ObjectInfoTypedef *object_info);
 static void PTP_GetObjectPropDesc(USBH_HandleTypeDef *phost, PTP_ObjectPropDescTypeDef *opd, uint32_t opdlen);
 static void PTP_DecodeDeviceInfo(USBH_HandleTypeDef *phost, PTP_DeviceInfoTypedef *dev_info);
-static void PTP_GetDevicePropValue(USBH_HandleTypeDef *phost,
-                                   uint32_t *offset,
-                                   uint32_t total,
-                                   PTP_PropertyValueTypedef *value,
-                                   uint16_t datatype);
+
+static void PTP_GetDevicePropValue(USBH_HandleTypeDef *phost, uint32_t *offset,
+                                   uint32_t total, PTP_PropertyValueTypedef *value, uint16_t datatype);
 
 static uint32_t PTP_GetObjectPropList(USBH_HandleTypeDef *phost,
                                       MTP_PropertiesTypedef *props,
                                       uint32_t len);
-
 
 static void PTP_BufferFullCallback(USBH_HandleTypeDef *phost);
 static void PTP_GetString(uint8_t *str, uint8_t *data, uint16_t *len);
@@ -150,7 +148,8 @@ USBH_StatusTypeDef USBH_PTP_Process(USBH_HandleTypeDef *phost)
   PTP_ContainerTypedef  ptp_container;
   uint32_t  len;
 
-  switch (MTP_Handle->ptp.state) {
+  switch (MTP_Handle->ptp.state)
+  {
     case PTP_IDLE:
       /*Do Nothing */
       break;
@@ -167,14 +166,22 @@ USBH_StatusTypeDef USBH_PTP_Process(USBH_HandleTypeDef *phost)
     case PTP_OP_REQUEST_WAIT_STATE:
       URB_Status = USBH_LL_GetURBState(phost, MTP_Handle->DataOutPipe);
 
-      if (URB_Status == USBH_URB_DONE) {
-        if (MTP_Handle->ptp.flags == PTP_DP_NODATA) {
+      if (URB_Status == USBH_URB_DONE)
+      {
+        if (MTP_Handle->ptp.flags == PTP_DP_NODATA)
+        {
           MTP_Handle->ptp.state = PTP_RESPONSE_STATE;
-        } else  if (MTP_Handle->ptp.flags == PTP_DP_SENDDATA) {
+        }
+        else  if (MTP_Handle->ptp.flags == PTP_DP_SENDDATA)
+        {
           MTP_Handle->ptp.state = PTP_DATA_OUT_PHASE_STATE;
-        } else  if (MTP_Handle->ptp.flags == PTP_DP_GETDATA) {
+        }
+        else  if (MTP_Handle->ptp.flags == PTP_DP_GETDATA)
+        {
           MTP_Handle->ptp.state = PTP_DATA_IN_PHASE_STATE;
-        } else {
+        }
+        else
+        {
         }
 
 #if (USBH_USE_OS == 1U)
@@ -185,7 +192,9 @@ USBH_StatusTypeDef USBH_PTP_Process(USBH_HandleTypeDef *phost)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      } else if (URB_Status == USBH_URB_NOTREADY) {
+      }
+      else if (URB_Status == USBH_URB_NOTREADY)
+      {
         /* Resend Request */
         MTP_Handle->ptp.state = PTP_OP_REQUEST_STATE;
 
@@ -197,7 +206,9 @@ USBH_StatusTypeDef USBH_PTP_Process(USBH_HandleTypeDef *phost)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      } else if (URB_Status == USBH_URB_STALL) {
+      }
+      else if (URB_Status == USBH_URB_STALL)
+      {
         MTP_Handle->ptp.state  = PTP_ERROR;
 
 #if (USBH_USE_OS == 1U)
@@ -208,7 +219,9 @@ USBH_StatusTypeDef USBH_PTP_Process(USBH_HandleTypeDef *phost)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      } else {
+      }
+      else
+      {
       }
       break;
 
@@ -227,31 +240,38 @@ USBH_StatusTypeDef USBH_PTP_Process(USBH_HandleTypeDef *phost)
     case PTP_DATA_OUT_PHASE_WAIT_STATE:
       URB_Status = USBH_LL_GetURBState(phost, MTP_Handle->DataOutPipe);
 
-      if (URB_Status == USBH_URB_DONE) {
+      if (URB_Status == USBH_URB_DONE)
+      {
         /* Adjust Data pointer and data length */
-        if (MTP_Handle->ptp.data_length > MTP_Handle->DataOutEpSize) {
+        if (MTP_Handle->ptp.data_length > MTP_Handle->DataOutEpSize)
+        {
           MTP_Handle->ptp.data_ptr += MTP_Handle->DataOutEpSize;
           MTP_Handle->ptp.data_length -= MTP_Handle->DataOutEpSize;
           MTP_Handle->ptp.data_packet += MTP_Handle->DataOutEpSize;
 
-          if (MTP_Handle->ptp.data_packet >= PTP_USB_BULK_PAYLOAD_LEN_READ) {
+          if (MTP_Handle->ptp.data_packet >= PTP_USB_BULK_PAYLOAD_LEN_READ)
+          {
             PTP_BufferFullCallback(phost);
             MTP_Handle->ptp.data_packet = 0U;
             MTP_Handle->ptp.iteration++;
           }
-
-        } else {
+        }
+        else
+        {
           MTP_Handle->ptp.data_length = 0U;
         }
 
         /* More Data To be Sent */
-        if (MTP_Handle->ptp.data_length > 0U) {
+        if (MTP_Handle->ptp.data_length > 0U)
+        {
           USBH_BulkSendData(phost,
                             MTP_Handle->ptp.data_ptr,
                             MTP_Handle->DataOutEpSize,
                             MTP_Handle->DataOutPipe,
                             1U);
-        } else {
+        }
+        else
+        {
           /* If value was 0, and successful transfer, then change the state */
           MTP_Handle->ptp.state  = PTP_RESPONSE_STATE;
         }
@@ -265,8 +285,8 @@ USBH_StatusTypeDef USBH_PTP_Process(USBH_HandleTypeDef *phost)
 #endif
 #endif
       }
-
-      else if (URB_Status == USBH_URB_NOTREADY) {
+      else if (URB_Status == USBH_URB_NOTREADY)
+      {
         /* Resend same data */
         MTP_Handle->ptp.state = PTP_DATA_OUT_PHASE_STATE;
 
@@ -279,8 +299,8 @@ USBH_StatusTypeDef USBH_PTP_Process(USBH_HandleTypeDef *phost)
 #endif
 #endif
       }
-
-      else if (URB_Status == USBH_URB_STALL) {
+      else if (URB_Status == USBH_URB_STALL)
+      {
         MTP_Handle->ptp.state  = PTP_ERROR;
 
 #if (USBH_USE_OS == 1U)
@@ -291,7 +311,10 @@ USBH_StatusTypeDef USBH_PTP_Process(USBH_HandleTypeDef *phost)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      } else {
+      }
+      else
+      {
+        /* .. */
       }
       break;
 
@@ -308,21 +331,25 @@ USBH_StatusTypeDef USBH_PTP_Process(USBH_HandleTypeDef *phost)
     case PTP_DATA_IN_PHASE_WAIT_STATE:
       URB_Status = USBH_LL_GetURBState(phost, MTP_Handle->DataInPipe);
 
-      if (URB_Status == USBH_URB_DONE) {
+      if (URB_Status == USBH_URB_DONE)
+      {
         len = USBH_LL_GetLastXferSize(phost, MTP_Handle->DataInPipe);
 
-        if (MTP_Handle->ptp.data_packet_counter++ == 0U) {
+        if (MTP_Handle->ptp.data_packet_counter++ == 0U)
+        {
           /* This is the first packet; so retrieve exact data length from payload */
           MTP_Handle->ptp.data_length = *(uint32_t *)(void *)(MTP_Handle->ptp.data_ptr);
           MTP_Handle->ptp.iteration = 0U;
         }
 
-        if ((len >=  MTP_Handle->DataInEpSize) && (MTP_Handle->ptp.data_length > 0U)) {
+        if ((len >=  MTP_Handle->DataInEpSize) && (MTP_Handle->ptp.data_length > 0U))
+        {
           MTP_Handle->ptp.data_ptr += len;
           MTP_Handle->ptp.data_length -= len;
           MTP_Handle->ptp.data_packet += len;
 
-          if (MTP_Handle->ptp.data_packet >= PTP_USB_BULK_PAYLOAD_LEN_READ) {
+          if (MTP_Handle->ptp.data_packet >= PTP_USB_BULK_PAYLOAD_LEN_READ)
+          {
             PTP_BufferFullCallback(phost);
             MTP_Handle->ptp.data_packet = 0U;
             MTP_Handle->ptp.iteration++;
@@ -333,7 +360,9 @@ USBH_StatusTypeDef USBH_PTP_Process(USBH_HandleTypeDef *phost)
                                MTP_Handle->ptp.data_ptr,
                                MTP_Handle->DataInEpSize,
                                MTP_Handle->DataInPipe);
-        } else {
+        }
+        else
+        {
           MTP_Handle->ptp.data_length -= len;
           MTP_Handle->ptp.state = PTP_RESPONSE_STATE;
 
@@ -346,7 +375,9 @@ USBH_StatusTypeDef USBH_PTP_Process(USBH_HandleTypeDef *phost)
 #endif
 #endif
         }
-      } else if (URB_Status == USBH_URB_STALL) {
+      }
+      else if (URB_Status == USBH_URB_STALL)
+      {
         MTP_Handle->ptp.state  = PTP_ERROR;
 
 #if (USBH_USE_OS == 1U)
@@ -357,12 +388,14 @@ USBH_StatusTypeDef USBH_PTP_Process(USBH_HandleTypeDef *phost)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      } else {
+      }
+      else
+      {
+        /* .. */
       }
       break;
 
     case PTP_RESPONSE_STATE:
-
       USBH_BulkReceiveData(phost,
                            (uint8_t *)(void *) & (MTP_Handle->ptp.resp_container),
                            PTP_USB_BULK_REQ_RESP_MAX_LEN,
@@ -374,16 +407,22 @@ USBH_StatusTypeDef USBH_PTP_Process(USBH_HandleTypeDef *phost)
     case PTP_RESPONSE_WAIT_STATE:
       URB_Status = USBH_LL_GetURBState(phost, MTP_Handle->DataInPipe);
 
-      if (URB_Status == USBH_URB_DONE) {
+      if (URB_Status == USBH_URB_DONE)
+      {
         USBH_PTP_GetResponse(phost, &ptp_container);
 
-        if (ptp_container.Code == PTP_RC_OK) {
+        if (ptp_container.Code == PTP_RC_OK)
+        {
           status = USBH_OK;
-        } else {
+        }
+        else
+        {
           status = USBH_FAIL;
         }
         MTP_Handle->ptp.req_state = PTP_REQ_SEND;
-      } else if (URB_Status == USBH_URB_STALL) {
+      }
+      else if (URB_Status == USBH_URB_STALL)
+      {
         MTP_Handle->ptp.state  = PTP_ERROR;
 
 #if (USBH_USE_OS == 1U)
@@ -394,7 +433,10 @@ USBH_StatusTypeDef USBH_PTP_Process(USBH_HandleTypeDef *phost)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      } else {
+      }
+      else
+      {
+        /* .. */
       }
       break;
 
@@ -416,8 +458,8 @@ USBH_StatusTypeDef USBH_PTP_Process(USBH_HandleTypeDef *phost)
   */
 USBH_StatusTypeDef USBH_PTP_SendRequest(USBH_HandleTypeDef *phost, PTP_ContainerTypedef  *req)
 {
-  USBH_StatusTypeDef            status = USBH_OK;
-  MTP_HandleTypeDef             *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
+  USBH_StatusTypeDef status = USBH_OK;
+  MTP_HandleTypeDef *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
 
   /* Clear PTP Data container*/
   USBH_memset(&(MTP_Handle->ptp.op_container), 0, sizeof(PTP_OpContainerTypedef));
@@ -444,8 +486,8 @@ USBH_StatusTypeDef USBH_PTP_SendRequest(USBH_HandleTypeDef *phost, PTP_Container
   */
 USBH_StatusTypeDef USBH_PTP_GetResponse(USBH_HandleTypeDef *phost, PTP_ContainerTypedef  *resp)
 {
-  USBH_StatusTypeDef            status = USBH_OK;
-  MTP_HandleTypeDef             *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
+  USBH_StatusTypeDef status = USBH_OK;
+  MTP_HandleTypeDef  *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
 
   /* build an appropriate PTPContainer */
   resp->Code = MTP_Handle->ptp.resp_container.code;
@@ -467,9 +509,10 @@ USBH_StatusTypeDef USBH_PTP_GetResponse(USBH_HandleTypeDef *phost, PTP_Container
   */
 static void PTP_BufferFullCallback(USBH_HandleTypeDef *phost)
 {
-  MTP_HandleTypeDef    *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
+  MTP_HandleTypeDef *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
 
-  switch (MTP_Handle->ptp.data_container.code) {
+  switch (MTP_Handle->ptp.data_container.code)
+  {
     case PTP_OC_GetDeviceInfo:
       PTP_DecodeDeviceInfo(phost, &(MTP_Handle->info.devinfo));
       break;
@@ -478,7 +521,8 @@ static void PTP_BufferFullCallback(USBH_HandleTypeDef *phost)
     case PTP_OC_GetObject:
 
       /* first packet is in the PTP data payload buffer */
-      if (MTP_Handle->ptp.iteration == 0U) {
+      if (MTP_Handle->ptp.iteration == 0U)
+      {
         /* copy it to object */
         USBH_memcpy(MTP_Handle->ptp.object_ptr, MTP_Handle->ptp.data_container.payload.data, PTP_USB_BULK_PAYLOAD_LEN_READ);
 
@@ -489,7 +533,8 @@ static void PTP_BufferFullCallback(USBH_HandleTypeDef *phost)
 
     case PTP_OC_SendObject:
       /* first packet is in the PTP data payload buffer */
-      if (MTP_Handle->ptp.iteration == 0U) {
+      if (MTP_Handle->ptp.iteration == 0U)
+      {
         /* next packet should be directly copied to object */
         MTP_Handle->ptp.data_ptr = (MTP_Handle->ptp.object_ptr + PTP_USB_BULK_PAYLOAD_LEN_READ);
       }
@@ -520,7 +565,8 @@ static void PTP_DecodeDeviceInfo(USBH_HandleTypeDef *phost, PTP_DeviceInfoTypede
   USBH_DbgLog(" MTP device info size exceeds internal buffer size.\
                only available data are decoded.");
 
-  if (MTP_Handle->ptp.iteration == 0U) {
+  if (MTP_Handle->ptp.iteration == 0U)
+  {
     dev_info->StandardVersion = LE16(&data[PTP_di_StandardVersion]);
     dev_info->VendorExtensionID = LE32(&data[PTP_di_VendorExtensionID]);
     dev_info->VendorExtensionVersion = LE16(&data[PTP_di_VendorExtensionVersion]);
@@ -529,29 +575,24 @@ static void PTP_DecodeDeviceInfo(USBH_HandleTypeDef *phost, PTP_DeviceInfoTypede
     totallen = len * 2U + 1U;
     dev_info->FunctionalMode = LE16(&data[PTP_di_FunctionalMode + totallen]);
     dev_info->OperationsSupported_len = PTP_GetArray16((uint16_t *)(void *)&dev_info->OperationsSupported,
-                                                       data,
-                                                       PTP_di_OperationsSupported + totallen);
+                                                       data, PTP_di_OperationsSupported + totallen);
 
     totallen = totallen + dev_info->OperationsSupported_len * sizeof(uint16_t) + sizeof(uint32_t);
     dev_info->EventsSupported_len = PTP_GetArray16((uint16_t *)(void *)&dev_info->EventsSupported,
-                                                   data,
-                                                   PTP_di_OperationsSupported + totallen);
+                                                   data, PTP_di_OperationsSupported + totallen);
 
     totallen = totallen + dev_info->EventsSupported_len * sizeof(uint16_t) + sizeof(uint32_t);
     dev_info->DevicePropertiesSupported_len = PTP_GetArray16((uint16_t *)(void *)&dev_info->DevicePropertiesSupported,
-                                                             data,
-                                                             PTP_di_OperationsSupported + totallen);
+                                                             data, PTP_di_OperationsSupported + totallen);
 
     totallen = totallen + dev_info->DevicePropertiesSupported_len * sizeof(uint16_t) + sizeof(uint32_t);
 
     dev_info->CaptureFormats_len = PTP_GetArray16((uint16_t *)(void *)&dev_info->CaptureFormats,
-                                                  data,
-                                                  PTP_di_OperationsSupported + totallen);
+                                                  data, PTP_di_OperationsSupported + totallen);
 
     totallen = totallen + dev_info->CaptureFormats_len * sizeof(uint16_t) + sizeof(uint32_t);
     dev_info->ImageFormats_len =  PTP_GetArray16((uint16_t *)(void *)&dev_info->ImageFormats,
-                                                 data,
-                                                 PTP_di_OperationsSupported + totallen);
+                                                 data, PTP_di_OperationsSupported + totallen);
 
     totallen = totallen + dev_info->ImageFormats_len * sizeof(uint16_t) + sizeof(uint32_t);
     PTP_GetString(dev_info->Manufacturer, &data[PTP_di_OperationsSupported + totallen], &len);
@@ -592,9 +633,11 @@ static void PTP_GetStorageIDs(USBH_HandleTypeDef *phost, PTP_StorageIDsTypedef *
   */
 static void PTP_GetStorageInfo(USBH_HandleTypeDef *phost, uint32_t storage_id, PTP_StorageInfoTypedef *stor_info)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(storage_id);
+
   MTP_HandleTypeDef    *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
   uint8_t *data = MTP_Handle->ptp.data_container.payload.data;
-
   uint16_t len;
 
   stor_info->StorageType = LE16(&data[PTP_si_StorageType]);
@@ -627,7 +670,8 @@ static void PTP_GetObjectInfo(USBH_HandleTypeDef *phost, PTP_ObjectInfoTypedef *
   object_info->ObjectCompressedSize = LE64(&data[PTP_oi_ObjectCompressedSize]);
 
   /* For Samsung Galaxy */
-  if ((data[PTP_oi_filenamelen] == 0U) && (data[PTP_oi_filenamelen + 4U] != 0U)) {
+  if ((data[PTP_oi_filenamelen] == 0U) && (data[PTP_oi_filenamelen + 4U] != 0U))
+  {
     data += 4;
   }
   object_info->ThumbFormat = LE16(&data[PTP_oi_ThumbFormat]);
@@ -671,7 +715,8 @@ static void PTP_GetObjectPropDesc(USBH_HandleTypeDef *phost, PTP_ObjectPropDescT
   opd->FormFlag = *(uint8_t *)(&data[offset]);
   offset += sizeof(uint8_t);
 
-  switch (opd->FormFlag) {
+  switch (opd->FormFlag)
+  {
     case PTP_OPFF_Range:
       PTP_GetDevicePropValue(phost, &offset, opdlen, &opd->FORM.Range.MinimumValue, opd->DataType);
       PTP_GetDevicePropValue(phost, &offset, opdlen, &opd->FORM.Range.MaximumValue, opd->DataType);
@@ -683,7 +728,8 @@ static void PTP_GetObjectPropDesc(USBH_HandleTypeDef *phost, PTP_ObjectPropDescT
       opd->FORM.Enum.NumberOfValues = LE16(&data[offset]);
       offset += sizeof(uint16_t);
 
-      for (i = 0U; i < opd->FORM.Enum.NumberOfValues ; i++) {
+      for (i = 0U; i < opd->FORM.Enum.NumberOfValues ; i++)
+      {
         PTP_GetDevicePropValue(phost, &offset, opdlen, &opd->FORM.Enum.SupportedValue[i], opd->DataType);
       }
       break;
@@ -705,20 +751,24 @@ static void PTP_GetDevicePropValue(USBH_HandleTypeDef *phost,
                                    PTP_PropertyValueTypedef *value,
                                    uint16_t datatype)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(total);
+
   MTP_HandleTypeDef    *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
   uint8_t *data = MTP_Handle->ptp.data_container.payload.data;
   uint16_t len;
-  switch (datatype) {
+  switch (datatype)
+  {
     case PTP_DTC_INT8:
-      value->i8 = *(int8_t *)(void *) & (data[*offset]);
+      value->i8 = *(int8_t *)(void *) &(data[*offset]);
       *offset += 1U;
       break;
     case PTP_DTC_UINT8:
-      value->u8 = *(uint8_t *) & (data[*offset]);
+      value->u8 = *(uint8_t *) &(data[*offset]);
       *offset += 1U;
       break;
     case PTP_DTC_INT16:
-      value->i16 = *(int16_t *)(void *) & (data[*offset]);
+      value->i16 = *(int16_t *)(void *) &(data[*offset]);
       *offset += 2U;
       break;
     case PTP_DTC_UINT16:
@@ -778,16 +828,18 @@ static uint32_t PTP_GetObjectPropList(USBH_HandleTypeDef *phost,
 
   prop_count = LE32(data);
 
-
-  if (prop_count == 0U) {
+  if (prop_count == 0U)
+  {
     return 0U;
   }
 
   data += sizeof(uint32_t);
   len -= sizeof(uint32_t);
 
-  for (i = 0U; i < prop_count; i++) {
-    if (len <= 0U) {
+  for (i = 0U; i < prop_count; i++)
+  {
+    if (len <= 0U)
+    {
       return 0U;
     }
 
@@ -830,7 +882,8 @@ static void PTP_GetString(uint8_t *str, uint8_t *data, uint16_t *len)
   strlength = (uint16_t)(2U * (uint32_t)data[0]);
   data ++; /* Adjust the offset ignoring the String Len */
 
-  for (idx = 0U; idx < strlength; idx += 2U) {
+  for (idx = 0U; idx < strlength; idx += 2U)
+  {
     /* Copy Only the string and ignore the UNICODE ID, hence add the src */
     *str = data[idx];
     str++;
@@ -851,7 +904,8 @@ static uint32_t PTP_GetArray16(uint16_t *array, uint8_t *data, uint32_t offset)
   uint32_t size, idx = 0U;
 
   size = LE32(&data[offset]);
-  while (size > idx) {
+  while (size > idx)
+  {
     array[idx] = (uint16_t)data[offset + (sizeof(uint16_t) * (idx + 2U))];
     idx++;
   }
@@ -871,7 +925,8 @@ static uint32_t PTP_GetArray32(uint32_t *array, uint8_t *data, uint32_t offset)
   uint32_t size, idx = 0U;
 
   size = LE32(&data[offset]);
-  while (size > idx) {
+  while (size > idx)
+  {
     array[idx] = LE32(&data[offset + (sizeof(uint32_t) * (idx + 1U))]);
     idx++;
   }
@@ -896,9 +951,9 @@ USBH_StatusTypeDef USBH_PTP_OpenSession(USBH_HandleTypeDef *phost, uint32_t sess
   MTP_HandleTypeDef    *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
   PTP_ContainerTypedef  ptp_container;
 
-  switch (MTP_Handle->ptp.req_state) {
+  switch (MTP_Handle->ptp.req_state)
+  {
     case PTP_REQ_SEND:
-
       /* Init session params */
       MTP_Handle->ptp.transaction_id = 0x00000000U;
       MTP_Handle->ptp.session_id = session;
@@ -950,13 +1005,14 @@ USBH_StatusTypeDef USBH_PTP_GetDevicePropDesc(USBH_HandleTypeDef *phost,
                                               uint16_t propcode,
                                               PTP_DevicePropDescTypdef *devicepropertydesc)
 {
-  USBH_StatusTypeDef   status = USBH_BUSY;
-  MTP_HandleTypeDef    *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
-  PTP_ContainerTypedef  ptp_container;
-  uint8_t               *data = MTP_Handle->ptp.data_container.payload.data;
-  switch (MTP_Handle->ptp.req_state) {
-    case PTP_REQ_SEND:
+  USBH_StatusTypeDef status = USBH_BUSY;
+  MTP_HandleTypeDef *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
+  PTP_ContainerTypedef ptp_container;
+  uint8_t *data = MTP_Handle->ptp.data_container.payload.data;
 
+  switch (MTP_Handle->ptp.req_state)
+  {
+    case PTP_REQ_SEND:
       /* Set operation request type */
       MTP_Handle->ptp.flags = PTP_DP_GETDATA;
       MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) & (MTP_Handle->ptp.data_container);
@@ -992,11 +1048,12 @@ USBH_StatusTypeDef USBH_PTP_GetDevicePropDesc(USBH_HandleTypeDef *phost,
     case PTP_REQ_WAIT:
       status = USBH_PTP_Process(phost);
 
-      if (status == USBH_OK) {
+      if (status == USBH_OK)
+      {
         devicepropertydesc->DevicePropertyCode = LE16(&data[PTP_dpd_DevicePropertyCode]);
         devicepropertydesc->DataType = LE16(&data[PTP_dpd_DataType]);
         devicepropertydesc->GetSet = *(uint8_t *)(&data[PTP_dpd_GetSet]);
-        devicepropertydesc->FormFlag =  PTP_DPFF_None;
+        devicepropertydesc->FormFlag = PTP_DPFF_None;
       }
       break;
 
@@ -1014,16 +1071,16 @@ USBH_StatusTypeDef USBH_PTP_GetDevicePropDesc(USBH_HandleTypeDef *phost,
   */
 USBH_StatusTypeDef USBH_PTP_GetDeviceInfo(USBH_HandleTypeDef *phost, PTP_DeviceInfoTypedef *dev_info)
 {
-  USBH_StatusTypeDef   status = USBH_BUSY;
-  MTP_HandleTypeDef    *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
-  PTP_ContainerTypedef  ptp_container;
+  USBH_StatusTypeDef status = USBH_BUSY;
+  MTP_HandleTypeDef *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
+  PTP_ContainerTypedef ptp_container;
 
-  switch (MTP_Handle->ptp.req_state) {
+  switch (MTP_Handle->ptp.req_state)
+  {
     case PTP_REQ_SEND:
-
       /* Set operation request type */
       MTP_Handle->ptp.flags = PTP_DP_GETDATA;
-      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) & (MTP_Handle->ptp.data_container);
+      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) &(MTP_Handle->ptp.data_container);
       MTP_Handle->ptp.data_length = 0U;
       MTP_Handle->ptp.data_packet_counter = 0U;
       MTP_Handle->ptp.data_packet = 0U;
@@ -1031,7 +1088,7 @@ USBH_StatusTypeDef USBH_PTP_GetDeviceInfo(USBH_HandleTypeDef *phost, PTP_DeviceI
       /* Fill operation request params */
       ptp_container.Code = PTP_OC_GetDeviceInfo;
       ptp_container.SessionID = MTP_Handle->ptp.session_id;
-      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id ++;
+      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id++;
       ptp_container.Nparam = 0U;
 
       /* convert request packet inti USB raw packet*/
@@ -1055,7 +1112,8 @@ USBH_StatusTypeDef USBH_PTP_GetDeviceInfo(USBH_HandleTypeDef *phost, PTP_DeviceI
     case PTP_REQ_WAIT:
       status = USBH_PTP_Process(phost);
 
-      if (status == USBH_OK) {
+      if (status == USBH_OK)
+      {
         PTP_DecodeDeviceInfo(phost, dev_info);
       }
       break;
@@ -1075,16 +1133,16 @@ USBH_StatusTypeDef USBH_PTP_GetDeviceInfo(USBH_HandleTypeDef *phost, PTP_DeviceI
   */
 USBH_StatusTypeDef USBH_PTP_GetStorageIds(USBH_HandleTypeDef *phost, PTP_StorageIDsTypedef *storage_ids)
 {
-  USBH_StatusTypeDef   status = USBH_BUSY;
-  MTP_HandleTypeDef    *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
-  PTP_ContainerTypedef  ptp_container;
+  USBH_StatusTypeDef status = USBH_BUSY;
+  MTP_HandleTypeDef *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
+  PTP_ContainerTypedef ptp_container;
 
-  switch (MTP_Handle->ptp.req_state) {
+  switch (MTP_Handle->ptp.req_state)
+  {
     case PTP_REQ_SEND:
-
       /* Set operation request type */
       MTP_Handle->ptp.flags = PTP_DP_GETDATA;
-      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) & (MTP_Handle->ptp.data_container);
+      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) &(MTP_Handle->ptp.data_container);
       MTP_Handle->ptp.data_length = 0U;
       MTP_Handle->ptp.data_packet_counter = 0U;
       MTP_Handle->ptp.data_packet = 0U;
@@ -1092,7 +1150,7 @@ USBH_StatusTypeDef USBH_PTP_GetStorageIds(USBH_HandleTypeDef *phost, PTP_Storage
       /* Fill operation request params */
       ptp_container.Code = PTP_OC_GetStorageIDs;
       ptp_container.SessionID = MTP_Handle->ptp.session_id;
-      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id ++;
+      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id++;
       ptp_container.Nparam = 0U;
 
       /* convert request packet inti USB raw packet*/
@@ -1116,7 +1174,8 @@ USBH_StatusTypeDef USBH_PTP_GetStorageIds(USBH_HandleTypeDef *phost, PTP_Storage
     case PTP_REQ_WAIT:
       status = USBH_PTP_Process(phost);
 
-      if (status == USBH_OK) {
+      if (status == USBH_OK)
+      {
         PTP_GetStorageIDs(phost, storage_ids);
       }
       break;
@@ -1134,18 +1193,20 @@ USBH_StatusTypeDef USBH_PTP_GetStorageIds(USBH_HandleTypeDef *phost, PTP_Storage
   * @param  dev_info: Device info structure
   * @retval USBH Status
   */
-USBH_StatusTypeDef USBH_PTP_GetStorageInfo(USBH_HandleTypeDef *phost, uint32_t storage_id, PTP_StorageInfoTypedef *storage_info)
+USBH_StatusTypeDef USBH_PTP_GetStorageInfo(USBH_HandleTypeDef *phost,
+                                           uint32_t storage_id,
+                                           PTP_StorageInfoTypedef *storage_info)
 {
   USBH_StatusTypeDef   status = USBH_BUSY;
   MTP_HandleTypeDef    *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
   PTP_ContainerTypedef  ptp_container;
 
-  switch (MTP_Handle->ptp.req_state) {
+  switch (MTP_Handle->ptp.req_state)
+  {
     case PTP_REQ_SEND:
-
       /* Set operation request type */
       MTP_Handle->ptp.flags = PTP_DP_GETDATA;
-      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) & (MTP_Handle->ptp.data_container);
+      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) &(MTP_Handle->ptp.data_container);
       MTP_Handle->ptp.data_length = 0U;
       MTP_Handle->ptp.data_packet_counter = 0U;
       MTP_Handle->ptp.data_packet = 0U;
@@ -1153,7 +1214,7 @@ USBH_StatusTypeDef USBH_PTP_GetStorageInfo(USBH_HandleTypeDef *phost, uint32_t s
       /* Fill operation request params */
       ptp_container.Code = PTP_OC_GetStorageInfo;
       ptp_container.SessionID = MTP_Handle->ptp.session_id;
-      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id ++;
+      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id++;
       ptp_container.Param1 = storage_id;
       ptp_container.Nparam = 1U;
 
@@ -1178,7 +1239,8 @@ USBH_StatusTypeDef USBH_PTP_GetStorageInfo(USBH_HandleTypeDef *phost, uint32_t s
     case PTP_REQ_WAIT:
       status = USBH_PTP_Process(phost);
 
-      if (status == USBH_OK) {
+      if (status == USBH_OK)
+      {
         PTP_GetStorageInfo(phost, storage_id, storage_info);
       }
       break;
@@ -1206,16 +1268,16 @@ USBH_StatusTypeDef USBH_PTP_GetNumObjects(USBH_HandleTypeDef *phost,
   MTP_HandleTypeDef    *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
   PTP_ContainerTypedef  ptp_container;
 
-  switch (MTP_Handle->ptp.req_state) {
+  switch (MTP_Handle->ptp.req_state)
+  {
     case PTP_REQ_SEND:
-
       /* Set operation request type */
       MTP_Handle->ptp.flags = PTP_DP_NODATA;
 
       /* Fill operation request params */
       ptp_container.Code = PTP_OC_GetNumObjects;
       ptp_container.SessionID = MTP_Handle->ptp.session_id;
-      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id ++;
+      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id++;
       ptp_container.Param1 = storage_id;
       ptp_container.Param2 = objectformatcode;
       ptp_container.Param3 = associationOH;
@@ -1242,7 +1304,8 @@ USBH_StatusTypeDef USBH_PTP_GetNumObjects(USBH_HandleTypeDef *phost,
     case PTP_REQ_WAIT:
       status = USBH_PTP_Process(phost);
 
-      if (status == USBH_OK) {
+      if (status == USBH_OK)
+      {
         *numobs = MTP_Handle->ptp.resp_container.param1;
       }
       break;
@@ -1270,12 +1333,12 @@ USBH_StatusTypeDef USBH_PTP_GetObjectHandles(USBH_HandleTypeDef *phost,
   MTP_HandleTypeDef    *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
   PTP_ContainerTypedef  ptp_container;
 
-  switch (MTP_Handle->ptp.req_state) {
+  switch (MTP_Handle->ptp.req_state)
+  {
     case PTP_REQ_SEND:
-
       /* Set operation request type */
       MTP_Handle->ptp.flags = PTP_DP_GETDATA;
-      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) & (MTP_Handle->ptp.data_container);
+      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) &(MTP_Handle->ptp.data_container);
       MTP_Handle->ptp.data_length = 0U;
       MTP_Handle->ptp.data_packet_counter = 0U;
       MTP_Handle->ptp.data_packet = 0U;
@@ -1310,7 +1373,8 @@ USBH_StatusTypeDef USBH_PTP_GetObjectHandles(USBH_HandleTypeDef *phost,
     case PTP_REQ_WAIT:
       status = USBH_PTP_Process(phost);
 
-      if (status == USBH_OK) {
+      if (status == USBH_OK)
+      {
         objecthandles->n = PTP_GetArray32(objecthandles->Handler,
                                           MTP_Handle->ptp.data_container.payload.data,
                                           0U);
@@ -1338,12 +1402,12 @@ USBH_StatusTypeDef USBH_PTP_GetObjectInfo(USBH_HandleTypeDef *phost,
   MTP_HandleTypeDef    *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
   PTP_ContainerTypedef  ptp_container;
 
-  switch (MTP_Handle->ptp.req_state) {
+  switch (MTP_Handle->ptp.req_state)
+  {
     case PTP_REQ_SEND:
-
       /* Set operation request type */
       MTP_Handle->ptp.flags = PTP_DP_GETDATA;
-      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) & (MTP_Handle->ptp.data_container);
+      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) &(MTP_Handle->ptp.data_container);
       MTP_Handle->ptp.data_length = 0U;
       MTP_Handle->ptp.data_packet_counter = 0U;
       MTP_Handle->ptp.data_packet = 0U;
@@ -1351,7 +1415,7 @@ USBH_StatusTypeDef USBH_PTP_GetObjectInfo(USBH_HandleTypeDef *phost,
       /* Fill operation request params */
       ptp_container.Code = PTP_OC_GetObjectInfo;
       ptp_container.SessionID = MTP_Handle->ptp.session_id;
-      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id ++;
+      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id++;
       ptp_container.Param1 = handle;
       ptp_container.Nparam = 1U;
 
@@ -1376,7 +1440,8 @@ USBH_StatusTypeDef USBH_PTP_GetObjectInfo(USBH_HandleTypeDef *phost,
     case PTP_REQ_WAIT:
       status = USBH_PTP_Process(phost);
 
-      if (status == USBH_OK) {
+      if (status == USBH_OK)
+      {
         PTP_GetObjectInfo(phost, object_info);
       }
       break;
@@ -1402,16 +1467,16 @@ USBH_StatusTypeDef USBH_PTP_DeleteObject(USBH_HandleTypeDef *phost,
   MTP_HandleTypeDef    *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
   PTP_ContainerTypedef  ptp_container;
 
-  switch (MTP_Handle->ptp.req_state) {
+  switch (MTP_Handle->ptp.req_state)
+  {
     case PTP_REQ_SEND:
-
       /* Set operation request type */
       MTP_Handle->ptp.flags = PTP_DP_NODATA;
 
       /* Fill operation request params */
       ptp_container.Code = PTP_OC_DeleteObject;
       ptp_container.SessionID = MTP_Handle->ptp.session_id;
-      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id ++;
+      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id++;
       ptp_container.Param1 = handle;
       ptp_container.Param2 = objectformatcode;
       ptp_container.Nparam = 2U;
@@ -1455,16 +1520,17 @@ USBH_StatusTypeDef USBH_PTP_GetObject(USBH_HandleTypeDef *phost,
                                       uint32_t handle,
                                       uint8_t *object)
 {
-  USBH_StatusTypeDef   status = USBH_BUSY;
-  MTP_HandleTypeDef    *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
-  PTP_ContainerTypedef  ptp_container;
+  USBH_StatusTypeDef status = USBH_BUSY;
+  MTP_HandleTypeDef *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
+  PTP_ContainerTypedef ptp_container;
 
-  switch (MTP_Handle->ptp.req_state) {
+  switch (MTP_Handle->ptp.req_state)
+  {
     case PTP_REQ_SEND:
 
       /* Set operation request type */
       MTP_Handle->ptp.flags = PTP_DP_GETDATA;
-      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) & (MTP_Handle->ptp.data_container);
+      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) &(MTP_Handle->ptp.data_container);
       MTP_Handle->ptp.data_length = 0U;
       MTP_Handle->ptp.data_packet_counter = 0U;
       MTP_Handle->ptp.data_packet = 0U;
@@ -1475,7 +1541,7 @@ USBH_StatusTypeDef USBH_PTP_GetObject(USBH_HandleTypeDef *phost,
       /* Fill operation request params */
       ptp_container.Code = PTP_OC_GetObject;
       ptp_container.SessionID = MTP_Handle->ptp.session_id;
-      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id ++;
+      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id++;
       ptp_container.Param1 = handle;
       ptp_container.Nparam = 1U;
 
@@ -1501,11 +1567,15 @@ USBH_StatusTypeDef USBH_PTP_GetObject(USBH_HandleTypeDef *phost,
     case PTP_REQ_WAIT:
       status = USBH_PTP_Process(phost);
 
-      if (status == USBH_OK) {
+      if (status == USBH_OK)
+      {
         /* first packet is in the PTP data payload buffer */
-        if (MTP_Handle->ptp.iteration == 0U) {
+        if (MTP_Handle->ptp.iteration == 0U)
+        {
           /* copy it to object */
-          USBH_memcpy(MTP_Handle->ptp.object_ptr, MTP_Handle->ptp.data_container.payload.data, PTP_USB_BULK_PAYLOAD_LEN_READ);
+          USBH_memcpy(MTP_Handle->ptp.object_ptr,
+                      MTP_Handle->ptp.data_container.payload.data,
+                      PTP_USB_BULK_PAYLOAD_LEN_READ);
         }
       }
       break;
@@ -1530,16 +1600,16 @@ USBH_StatusTypeDef USBH_PTP_GetPartialObject(USBH_HandleTypeDef *phost,
                                              uint8_t *object,
                                              uint32_t *len)
 {
-  USBH_StatusTypeDef   status = USBH_BUSY;
-  MTP_HandleTypeDef    *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
-  PTP_ContainerTypedef  ptp_container;
+  USBH_StatusTypeDef status = USBH_BUSY;
+  MTP_HandleTypeDef *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
+  PTP_ContainerTypedef ptp_container;
 
-  switch (MTP_Handle->ptp.req_state) {
+  switch (MTP_Handle->ptp.req_state)
+  {
     case PTP_REQ_SEND:
-
       /* Set operation request type */
       MTP_Handle->ptp.flags = PTP_DP_GETDATA;
-      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) & (MTP_Handle->ptp.data_container);
+      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) &(MTP_Handle->ptp.data_container);
       MTP_Handle->ptp.data_length = 0U;
       MTP_Handle->ptp.data_packet_counter = 0U;
       MTP_Handle->ptp.data_packet = 0U;
@@ -1550,7 +1620,7 @@ USBH_StatusTypeDef USBH_PTP_GetPartialObject(USBH_HandleTypeDef *phost,
       /* Fill operation request params */
       ptp_container.Code = PTP_OC_GetPartialObject;
       ptp_container.SessionID = MTP_Handle->ptp.session_id;
-      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id ++;
+      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id++;
       ptp_container.Param1 = handle;
       ptp_container.Param2 = offset;
       ptp_container.Param3 = maxbytes;
@@ -1577,12 +1647,15 @@ USBH_StatusTypeDef USBH_PTP_GetPartialObject(USBH_HandleTypeDef *phost,
     case PTP_REQ_WAIT:
       status = USBH_PTP_Process(phost);
 
-      if (status == USBH_OK) {
+      if (status == USBH_OK)
+      {
         *len = MTP_Handle->ptp.resp_container.param1;
         /* first packet is in the PTP data payload buffer */
-        if (MTP_Handle->ptp.iteration == 0U) {
+        if (MTP_Handle->ptp.iteration == 0U)
+        {
           /* copy it to object */
-          USBH_memcpy(MTP_Handle->ptp.object_ptr, MTP_Handle->ptp.data_container.payload.data, *len);
+          USBH_memcpy(MTP_Handle->ptp.object_ptr,
+                      MTP_Handle->ptp.data_container.payload.data, *len);
         }
       }
       break;
@@ -1605,16 +1678,16 @@ USBH_StatusTypeDef USBH_PTP_GetObjectPropsSupported(USBH_HandleTypeDef *phost,
                                                     uint32_t *propnum,
                                                     uint16_t *props)
 {
-  USBH_StatusTypeDef   status = USBH_BUSY;
-  MTP_HandleTypeDef    *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
-  PTP_ContainerTypedef  ptp_container;
+  USBH_StatusTypeDef status = USBH_BUSY;
+  MTP_HandleTypeDef *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
+  PTP_ContainerTypedef ptp_container;
 
-  switch (MTP_Handle->ptp.req_state) {
+  switch (MTP_Handle->ptp.req_state)
+  {
     case PTP_REQ_SEND:
-
       /* Set operation request type */
       MTP_Handle->ptp.flags = PTP_DP_GETDATA;
-      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) & (MTP_Handle->ptp.data_container);
+      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) &(MTP_Handle->ptp.data_container);
       MTP_Handle->ptp.data_length = 0U;
       MTP_Handle->ptp.data_packet_counter = 0U;
       MTP_Handle->ptp.data_packet = 0U;
@@ -1622,7 +1695,7 @@ USBH_StatusTypeDef USBH_PTP_GetObjectPropsSupported(USBH_HandleTypeDef *phost,
       /* Fill operation request params */
       ptp_container.Code = PTP_OC_GetObjectPropsSupported;
       ptp_container.SessionID = MTP_Handle->ptp.session_id;
-      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id ++;
+      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id++;
       ptp_container.Param1 = ofc;
       ptp_container.Nparam = 1U;
 
@@ -1647,7 +1720,8 @@ USBH_StatusTypeDef USBH_PTP_GetObjectPropsSupported(USBH_HandleTypeDef *phost,
     case PTP_REQ_WAIT:
       status = USBH_PTP_Process(phost);
 
-      if (status == USBH_OK) {
+      if (status == USBH_OK)
+      {
         *propnum = PTP_GetArray16(props, MTP_Handle->ptp.data_container.payload.data, 0U);
       }
       break;
@@ -1670,16 +1744,17 @@ USBH_StatusTypeDef USBH_PTP_GetObjectPropDesc(USBH_HandleTypeDef *phost,
                                               uint16_t ofc,
                                               PTP_ObjectPropDescTypeDef *opd)
 {
-  USBH_StatusTypeDef   status = USBH_BUSY;
-  MTP_HandleTypeDef    *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
-  PTP_ContainerTypedef  ptp_container;
+  USBH_StatusTypeDef status = USBH_BUSY;
+  MTP_HandleTypeDef *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
+  PTP_ContainerTypedef ptp_container;
 
-  switch (MTP_Handle->ptp.req_state) {
+  switch (MTP_Handle->ptp.req_state)
+  {
     case PTP_REQ_SEND:
 
       /* Set operation request type */
       MTP_Handle->ptp.flags = PTP_DP_GETDATA;
-      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) & (MTP_Handle->ptp.data_container);
+      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) &(MTP_Handle->ptp.data_container);
       MTP_Handle->ptp.data_length = 0U;
       MTP_Handle->ptp.data_packet_counter = 0U;
       MTP_Handle->ptp.data_packet = 0U;
@@ -1687,7 +1762,7 @@ USBH_StatusTypeDef USBH_PTP_GetObjectPropDesc(USBH_HandleTypeDef *phost,
       /* Fill operation request params */
       ptp_container.Code = PTP_OC_GetObjectPropDesc;
       ptp_container.SessionID = MTP_Handle->ptp.session_id;
-      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id ++;
+      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id++;
       ptp_container.Param1 = opc;
       ptp_container.Param2 = ofc;
       ptp_container.Nparam = 2U;
@@ -1713,7 +1788,8 @@ USBH_StatusTypeDef USBH_PTP_GetObjectPropDesc(USBH_HandleTypeDef *phost,
     case PTP_REQ_WAIT:
       status = USBH_PTP_Process(phost);
 
-      if (status == USBH_OK) {
+      if (status == USBH_OK)
+      {
         PTP_GetObjectPropDesc(phost, opd, MTP_Handle->ptp.data_length);
       }
       break;
@@ -1736,27 +1812,32 @@ USBH_StatusTypeDef USBH_PTP_GetObjectPropList(USBH_HandleTypeDef *phost,
                                               MTP_PropertiesTypedef *pprops,
                                               uint32_t *nrofprops)
 {
-  USBH_StatusTypeDef   status = USBH_BUSY;
-  MTP_HandleTypeDef    *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
-  PTP_ContainerTypedef  ptp_container;
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(nrofprops);
 
-  switch (MTP_Handle->ptp.req_state) {
+  USBH_StatusTypeDef status = USBH_BUSY;
+  MTP_HandleTypeDef *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
+  PTP_ContainerTypedef ptp_container;
+
+  switch (MTP_Handle->ptp.req_state)
+  {
     case PTP_REQ_SEND:
 
       /* Set operation request type */
       MTP_Handle->ptp.flags = PTP_DP_GETDATA;
-      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) & (MTP_Handle->ptp.data_container);
+      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) &(MTP_Handle->ptp.data_container);
       MTP_Handle->ptp.data_length = 0U;
       MTP_Handle->ptp.data_packet_counter = 0U;
       MTP_Handle->ptp.data_packet = 0U;
 
       /* copy first packet of the object into data container */
-      USBH_memcpy(MTP_Handle->ptp.data_container.payload.data, MTP_Handle->ptp.object_ptr, PTP_USB_BULK_PAYLOAD_LEN_READ);
+      USBH_memcpy(MTP_Handle->ptp.data_container.payload.data,
+                  MTP_Handle->ptp.object_ptr, PTP_USB_BULK_PAYLOAD_LEN_READ);
 
       /* Fill operation request params */
       ptp_container.Code = PTP_OC_GetObjPropList;
       ptp_container.SessionID = MTP_Handle->ptp.session_id;
-      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id ++;
+      ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id++;
       ptp_container.Param1 = handle;
       ptp_container.Param2 = 0x00000000U;  /* 0x00000000U should be "all formats" */
       ptp_container.Param3 = 0xFFFFFFFFU;  /* 0xFFFFFFFFU should be "all properties" */
@@ -1785,7 +1866,8 @@ USBH_StatusTypeDef USBH_PTP_GetObjectPropList(USBH_HandleTypeDef *phost,
     case PTP_REQ_WAIT:
       status = USBH_PTP_Process(phost);
 
-      if (status == USBH_OK) {
+      if (status == USBH_OK)
+      {
         PTP_GetObjectPropList(phost, pprops,  MTP_Handle->ptp.data_length);
       }
       break;
@@ -1808,16 +1890,19 @@ USBH_StatusTypeDef USBH_PTP_SendObject(USBH_HandleTypeDef *phost,
                                        uint8_t *object,
                                        uint32_t size)
 {
-  USBH_StatusTypeDef   status = USBH_BUSY;
-  MTP_HandleTypeDef    *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
-  PTP_ContainerTypedef  ptp_container;
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(handle);
 
-  switch (MTP_Handle->ptp.req_state) {
+  USBH_StatusTypeDef status = USBH_BUSY;
+  MTP_HandleTypeDef *MTP_Handle = (MTP_HandleTypeDef *)phost->pActiveClass->pData;
+  PTP_ContainerTypedef ptp_container;
+
+  switch (MTP_Handle->ptp.req_state)
+  {
     case PTP_REQ_SEND:
-
       /* Set operation request type */
       MTP_Handle->ptp.flags = PTP_DP_SENDDATA;
-      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) & (MTP_Handle->ptp.data_container);
+      MTP_Handle->ptp.data_ptr = (uint8_t *)(void *) &(MTP_Handle->ptp.data_container);
       MTP_Handle->ptp.data_packet_counter = 0U;
       MTP_Handle->ptp.data_packet = 0U;
       MTP_Handle->ptp.iteration = 0U;
@@ -1831,7 +1916,6 @@ USBH_StatusTypeDef USBH_PTP_SendObject(USBH_HandleTypeDef *phost,
       ptp_container.SessionID = MTP_Handle->ptp.session_id;
       ptp_container.Transaction_ID = MTP_Handle->ptp.transaction_id ++;
       ptp_container.Nparam = 0U;
-
 
       /* convert request packet into USB raw packet*/
       USBH_PTP_SendRequest(phost, &ptp_container);

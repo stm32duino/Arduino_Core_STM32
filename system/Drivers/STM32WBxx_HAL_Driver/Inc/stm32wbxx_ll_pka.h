@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -94,7 +93,7 @@ typedef struct
   */
 
 /** @defgroup PKA_LL_EC_MODE Operation Mode
-  * @brief    List of opearation mode.
+  * @brief    List of operation mode.
   * @{
   */
 #define LL_PKA_MODE_MONTGOMERY_PARAM_MOD_EXP ((uint32_t)0x00000000U) /*!< Compute Montgomery parameter and modular exponentiation */
@@ -115,6 +114,7 @@ typedef struct
 #define LL_PKA_MODE_MODULAR_ADD              ((uint32_t)0x0000000EU) /*!< Modular addition */
 #define LL_PKA_MODE_MODULAR_SUB              ((uint32_t)0x0000000FU) /*!< Modular subtraction */
 #define LL_PKA_MODE_MONTGOMERY_MUL           ((uint32_t)0x00000010U) /*!< Montgomery multiplication */
+
 /**
   * @}
   */
@@ -172,9 +172,9 @@ typedef struct
   * @param  PKAx PKA Instance.
   * @param  Mode This parameter can be one of the following values:
   *         @arg @ref LL_PKA_MODE_MONTGOMERY_PARAM_MOD_EXP
+  *         @arg @ref LL_PKA_MODE_MONTGOMERY_PARAM_ECC
   *         @arg @ref LL_PKA_MODE_MONTGOMERY_PARAM
   *         @arg @ref LL_PKA_MODE_MODULAR_EXP
-  *         @arg @ref LL_PKA_MODE_MONTGOMERY_PARAM_ECC
   *         @arg @ref LL_PKA_MODE_ECC_KP_PRIMITIVE
   *         @arg @ref LL_PKA_MODE_ECDSA_SIGNATURE
   *         @arg @ref LL_PKA_MODE_ECDSA_VERIFICATION
@@ -234,9 +234,9 @@ __STATIC_INLINE uint32_t LL_PKA_IsEnabled(PKA_TypeDef *PKAx)
   * @param  PKAx PKA Instance.
   * @param  Mode This parameter can be one of the following values:
   *         @arg @ref LL_PKA_MODE_MONTGOMERY_PARAM_MOD_EXP
+  *         @arg @ref LL_PKA_MODE_MONTGOMERY_PARAM_ECC
   *         @arg @ref LL_PKA_MODE_MONTGOMERY_PARAM
   *         @arg @ref LL_PKA_MODE_MODULAR_EXP
-  *         @arg @ref LL_PKA_MODE_MONTGOMERY_PARAM_ECC
   *         @arg @ref LL_PKA_MODE_ECC_KP_PRIMITIVE
   *         @arg @ref LL_PKA_MODE_ECDSA_SIGNATURE
   *         @arg @ref LL_PKA_MODE_ECDSA_VERIFICATION
@@ -264,9 +264,9 @@ __STATIC_INLINE void LL_PKA_SetMode(PKA_TypeDef *PKAx, uint32_t Mode)
   * @param  PKAx PKA Instance.
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_PKA_MODE_MONTGOMERY_PARAM_MOD_EXP
+  *         @arg @ref LL_PKA_MODE_MONTGOMERY_PARAM_ECC
   *         @arg @ref LL_PKA_MODE_MONTGOMERY_PARAM
   *         @arg @ref LL_PKA_MODE_MODULAR_EXP
-  *         @arg @ref LL_PKA_MODE_MONTGOMERY_PARAM_ECC
   *         @arg @ref LL_PKA_MODE_ECC_KP_PRIMITIVE
   *         @arg @ref LL_PKA_MODE_ECDSA_SIGNATURE
   *         @arg @ref LL_PKA_MODE_ECDSA_VERIFICATION
@@ -327,6 +327,7 @@ __STATIC_INLINE void LL_PKA_EnableIT_RAMERR(PKA_TypeDef *PKAx)
 {
   SET_BIT(PKAx->CR, PKA_CR_RAMERRIE);
 }
+
 
 /**
   * @brief  Enable end of operation interrupt.
@@ -394,6 +395,7 @@ __STATIC_INLINE uint32_t LL_PKA_IsEnabledIT_RAMERR(PKA_TypeDef *PKAx)
   return ((READ_BIT(PKAx->CR, PKA_CR_RAMERRIE) == (PKA_CR_RAMERRIE)) ? 1UL : 0UL);
 }
 
+
 /**
   * @brief  Check if end of operation interrupt is enabled.
   * @rmtoll CR           PROCENDIE     LL_PKA_IsEnabledIT_PROCEND
@@ -434,6 +436,7 @@ __STATIC_INLINE uint32_t LL_PKA_IsActiveFlag_RAMERR(PKA_TypeDef *PKAx)
 {
   return ((READ_BIT(PKAx->SR, PKA_SR_RAMERRF) == (PKA_SR_RAMERRF)) ? 1UL : 0UL);
 }
+
 
 /**
   * @brief  Get PKA end of operation flag.
@@ -478,6 +481,7 @@ __STATIC_INLINE void LL_PKA_ClearFlag_RAMERR(PKA_TypeDef *PKAx)
 {
   SET_BIT(PKAx->CLRFR, PKA_CLRFR_RAMERRFC);
 }
+
 
 /**
   * @brief  Clear PKA end of operation flag.
@@ -528,5 +532,3 @@ void LL_PKA_StructInit(LL_PKA_InitTypeDef *PKA_InitStruct);
 #endif
 
 #endif /* STM32WBxx_LL_PKA_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

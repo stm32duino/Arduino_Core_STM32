@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L011E3Yx
+GenL0.menu.pnum.GENERIC_L011E3YX=Generic L011E3Yx
+GenL0.menu.pnum.GENERIC_L011E3YX.upload.maximum_size=8192
+GenL0.menu.pnum.GENERIC_L011E3YX.upload.maximum_data_size=2048
+GenL0.menu.pnum.GENERIC_L011E3YX.build.board=GENERIC_L011E3YX
+GenL0.menu.pnum.GENERIC_L011E3YX.build.product_line=STM32L011xx
+GenL0.menu.pnum.GENERIC_L011E3YX.build.variant=STM32L0xx/L011E(3-4)Y
+
+# Generic L011E4Yx
+GenL0.menu.pnum.GENERIC_L011E4YX=Generic L011E4Yx
+GenL0.menu.pnum.GENERIC_L011E4YX.upload.maximum_size=16384
+GenL0.menu.pnum.GENERIC_L011E4YX.upload.maximum_data_size=2048
+GenL0.menu.pnum.GENERIC_L011E4YX.build.board=GENERIC_L011E4YX
+GenL0.menu.pnum.GENERIC_L011E4YX.build.product_line=STM32L011xx
+GenL0.menu.pnum.GENERIC_L011E4YX.build.variant=STM32L0xx/L011E(3-4)Y
+

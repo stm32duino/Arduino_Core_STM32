@@ -1,0 +1,69 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic WL54CCUx
+GenWL.menu.pnum.GENERIC_WL54CCUX=Generic WL54CCUx
+GenWL.menu.pnum.GENERIC_WL54CCUX.upload.maximum_size=262144
+GenWL.menu.pnum.GENERIC_WL54CCUX.upload.maximum_data_size=65536
+GenWL.menu.pnum.GENERIC_WL54CCUX.build.board=GENERIC_WL54CCUX
+GenWL.menu.pnum.GENERIC_WL54CCUX.build.product_line=STM32WL54xx
+GenWL.menu.pnum.GENERIC_WL54CCUX.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
+
+# Generic WL55CCUx
+GenWL.menu.pnum.GENERIC_WL55CCUX=Generic WL55CCUx
+GenWL.menu.pnum.GENERIC_WL55CCUX.upload.maximum_size=262144
+GenWL.menu.pnum.GENERIC_WL55CCUX.upload.maximum_data_size=65536
+GenWL.menu.pnum.GENERIC_WL55CCUX.build.board=GENERIC_WL55CCUX
+GenWL.menu.pnum.GENERIC_WL55CCUX.build.product_line=STM32WL55xx
+GenWL.menu.pnum.GENERIC_WL55CCUX.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
+
+# Generic WLE4C8Ux
+GenWL.menu.pnum.GENERIC_WLE4C8UX=Generic WLE4C8Ux
+GenWL.menu.pnum.GENERIC_WLE4C8UX.upload.maximum_size=65536
+GenWL.menu.pnum.GENERIC_WLE4C8UX.upload.maximum_data_size=20480
+GenWL.menu.pnum.GENERIC_WLE4C8UX.build.board=GENERIC_WLE4C8UX
+GenWL.menu.pnum.GENERIC_WLE4C8UX.build.product_line=STM32WLE4xx
+GenWL.menu.pnum.GENERIC_WLE4C8UX.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
+
+# Generic WLE4CBUx
+GenWL.menu.pnum.GENERIC_WLE4CBUX=Generic WLE4CBUx
+GenWL.menu.pnum.GENERIC_WLE4CBUX.upload.maximum_size=131072
+GenWL.menu.pnum.GENERIC_WLE4CBUX.upload.maximum_data_size=49152
+GenWL.menu.pnum.GENERIC_WLE4CBUX.build.board=GENERIC_WLE4CBUX
+GenWL.menu.pnum.GENERIC_WLE4CBUX.build.product_line=STM32WLE4xx
+GenWL.menu.pnum.GENERIC_WLE4CBUX.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
+
+# Generic WLE4CCUx
+GenWL.menu.pnum.GENERIC_WLE4CCUX=Generic WLE4CCUx
+GenWL.menu.pnum.GENERIC_WLE4CCUX.upload.maximum_size=262144
+GenWL.menu.pnum.GENERIC_WLE4CCUX.upload.maximum_data_size=65536
+GenWL.menu.pnum.GENERIC_WLE4CCUX.build.board=GENERIC_WLE4CCUX
+GenWL.menu.pnum.GENERIC_WLE4CCUX.build.product_line=STM32WLE4xx
+GenWL.menu.pnum.GENERIC_WLE4CCUX.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
+
+# Generic WLE5C8Ux
+GenWL.menu.pnum.GENERIC_WLE5C8UX=Generic WLE5C8Ux
+GenWL.menu.pnum.GENERIC_WLE5C8UX.upload.maximum_size=65536
+GenWL.menu.pnum.GENERIC_WLE5C8UX.upload.maximum_data_size=20480
+GenWL.menu.pnum.GENERIC_WLE5C8UX.build.board=GENERIC_WLE5C8UX
+GenWL.menu.pnum.GENERIC_WLE5C8UX.build.product_line=STM32WLE5xx
+GenWL.menu.pnum.GENERIC_WLE5C8UX.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
+
+# Generic WLE5CBUx
+GenWL.menu.pnum.GENERIC_WLE5CBUX=Generic WLE5CBUx
+GenWL.menu.pnum.GENERIC_WLE5CBUX.upload.maximum_size=131072
+GenWL.menu.pnum.GENERIC_WLE5CBUX.upload.maximum_data_size=49152
+GenWL.menu.pnum.GENERIC_WLE5CBUX.build.board=GENERIC_WLE5CBUX
+GenWL.menu.pnum.GENERIC_WLE5CBUX.build.product_line=STM32WLE5xx
+GenWL.menu.pnum.GENERIC_WLE5CBUX.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
+
+# Generic WLE5CCUx
+GenWL.menu.pnum.GENERIC_WLE5CCUX=Generic WLE5CCUx
+GenWL.menu.pnum.GENERIC_WLE5CCUX.upload.maximum_size=262144
+GenWL.menu.pnum.GENERIC_WLE5CCUX.upload.maximum_data_size=65536
+GenWL.menu.pnum.GENERIC_WLE5CCUX.build.board=GENERIC_WLE5CCUX
+GenWL.menu.pnum.GENERIC_WLE5CCUX.build.product_line=STM32WLE5xx
+GenWL.menu.pnum.GENERIC_WLE5CCUX.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
+

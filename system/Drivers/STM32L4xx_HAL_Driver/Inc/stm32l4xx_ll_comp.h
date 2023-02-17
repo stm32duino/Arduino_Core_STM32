@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -53,6 +52,14 @@ extern "C" {
   */
 
 /* Private macros ------------------------------------------------------------*/
+/** @defgroup COMP_LL_Private_Macros COMP Private Macros
+  * @{
+  */
+
+/**
+  * @}
+  */
+
 /* Exported types ------------------------------------------------------------*/
 #if defined(USE_FULL_LL_DRIVER)
 /** @defgroup COMP_LL_ES_INIT COMP Exported Init structure
@@ -134,7 +141,7 @@ typedef struct
 #define LL_COMP_INPUT_PLUS_IO2          (COMP_CSR_INPSEL_0)                     /*!< Comparator input plus connected to IO2 (pin PB2 for COMP1, pin PB6 for COMP2) */
 #if defined(COMP_CSR_INPSEL_1)
 #define LL_COMP_INPUT_PLUS_IO3          (COMP_CSR_INPSEL_1)                     /*!< Comparator input plus connected to IO3 (pin PA1 for COMP1, pin PA3 for COMP2) */
-#endif
+#endif /* COMP_CSR_INPSEL_1 */
 /**
   * @}
   */
@@ -176,13 +183,13 @@ typedef struct
 #define LL_COMP_INVERTINGINPUT_IO3        LL_COMP_INPUT_MINUS_IO3
 #define LL_COMP_INVERTINGINPUT_IO4        LL_COMP_INPUT_MINUS_IO4
 #define LL_COMP_INVERTINGINPUT_IO5        LL_COMP_INPUT_MINUS_IO5
-#endif
+#endif /* COMP_CSR_INMESEL_1 */
 
 #define LL_COMP_NONINVERTINGINPUT_IO1     LL_COMP_INPUT_PLUS_IO1
 #define LL_COMP_NONINVERTINGINPUT_IO2     LL_COMP_INPUT_PLUS_IO2
 #if defined(COMP_CSR_INPSEL_1)
 #define LL_COMP_NONINVERTINGINPUT_IO3     LL_COMP_INPUT_PLUS_IO3
-#endif
+#endif /* COMP_CSR_INPSEL_1 */
 /**
   * @}
   */
@@ -339,7 +346,7 @@ typedef struct
 
 /**
   * @brief  Set window mode of a pair of comparators instances
-  *         (2 consecutive COMP instances odd and even COMP<x> and COMP<x+1>).
+  *         (2 consecutive COMP instances COMP<x> and COMP<x+1>).
   * @rmtoll CSR      WINMODE        LL_COMP_SetCommonWindowMode
   * @param  COMPxy_COMMON Comparator common instance
   *         (can be set directly from CMSIS definition or by using helper macro @ref __LL_COMP_COMMON_INSTANCE() )
@@ -350,14 +357,14 @@ typedef struct
   */
 __STATIC_INLINE void LL_COMP_SetCommonWindowMode(COMP_Common_TypeDef *COMPxy_COMMON, uint32_t WindowMode)
 {
-  /* Note: On this STM32 serie, window mode can be set only                   */
+  /* Note: On this STM32 series, window mode can be set only                  */
   /*       from COMP instance: COMP2.                                         */
   MODIFY_REG(COMPxy_COMMON->CSR, COMP_CSR_WINMODE, WindowMode);
 }
 
 /**
   * @brief  Get window mode of a pair of comparators instances
-  *         (2 consecutive COMP instances odd and even COMP<x> and COMP<x+1>).
+  *         (2 consecutive COMP instances COMP<x> and COMP<x+1>).
   * @rmtoll CSR      WINMODE        LL_COMP_GetCommonWindowMode
   * @param  COMPxy_COMMON Comparator common instance
   *         (can be set directly from CMSIS definition or by using helper macro @ref __LL_COMP_COMMON_INSTANCE() )
@@ -421,7 +428,7 @@ __STATIC_INLINE uint32_t LL_COMP_GetPowerMode(COMP_TypeDef *COMPx)
   * @note   In case of comparator input selected to be connected to IO:
   *         GPIO pins are specific to each comparator instance.
   *         Refer to description of parameters or to reference manual.
-  * @note   On this STM32 serie, scaler bridge is configurable:
+  * @note   On this STM32 series, scaler bridge is configurable:
   *         to optimize power consumption, this function enables the
   *         voltage scaler bridge only when required
   *         (when selecting comparator input based on VrefInt: VrefInt or
@@ -517,7 +524,7 @@ __STATIC_INLINE uint32_t LL_COMP_GetInputPlus(COMP_TypeDef *COMPx)
   * @note   In case of comparator input selected to be connected to IO:
   *         GPIO pins are specific to each comparator instance.
   *         Refer to description of parameters or to reference manual.
-  * @note   On this STM32 serie, scaler bridge is configurable:
+  * @note   On this STM32 series, scaler bridge is configurable:
   *         to optimize power consumption, this function enables the
   *         voltage scaler bridge only when required
   *         (when selecting comparator input based on VrefInt: VrefInt or
@@ -555,7 +562,7 @@ __STATIC_INLINE void LL_COMP_SetInputMinus(COMP_TypeDef *COMPx, uint32_t InputMi
   MODIFY_REG(COMPx->CSR, COMP_CSR_INMESEL | COMP_CSR_INMSEL | COMP_CSR_SCALEN | COMP_CSR_BRGEN, InputMinus);
 #else
   MODIFY_REG(COMPx->CSR, COMP_CSR_INMSEL | COMP_CSR_SCALEN | COMP_CSR_BRGEN, InputMinus);
-#endif
+#endif /* COMP_CSR_INMESEL_1 */
 }
 
 /**
@@ -588,7 +595,7 @@ __STATIC_INLINE uint32_t LL_COMP_GetInputMinus(COMP_TypeDef *COMPx)
   return (uint32_t)(READ_BIT(COMPx->CSR, COMP_CSR_INMESEL | COMP_CSR_INMSEL | COMP_CSR_SCALEN | COMP_CSR_BRGEN));
 #else
   return (uint32_t)(READ_BIT(COMPx->CSR, COMP_CSR_INMSEL | COMP_CSR_SCALEN | COMP_CSR_BRGEN));
-#endif
+#endif /* COMP_CSR_INMESEL_1 */
 }
 
 /**
@@ -878,5 +885,3 @@ void        LL_COMP_StructInit(LL_COMP_InitTypeDef *COMP_InitStruct);
 #endif
 
 #endif /* STM32L4xx_LL_COMP_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

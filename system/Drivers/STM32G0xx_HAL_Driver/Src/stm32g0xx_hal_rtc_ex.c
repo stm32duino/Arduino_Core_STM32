@@ -11,6 +11,17 @@
   *           + Extended Control functions
   *           + Extended RTC features functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2018 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                   ##### How to use this driver #####
@@ -90,21 +101,10 @@
          function.
      (+) To read the RTC Backup Data registers, use the HAL_RTCEx_BKUPRead()
          function.
-     (+) Befoer callingthose fucntion you have to call HAL_RTC_Init() in order to
+     (+) Before calling those functions you have to call HAL_RTC_Init() in order to
          perform TAMP base address offset calculation.
 
    @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -174,6 +174,9 @@ HAL_StatusTypeDef HAL_RTCEx_SetTimeStamp(RTC_HandleTypeDef *hrtc, uint32_t TimeS
   assert_param(IS_TIMESTAMP_EDGE(TimeStampEdge));
   assert_param(IS_RTC_TIMESTAMP_PIN(RTC_TimeStampPin));
 
+  /* Prevent unused argument(s) compilation warning if no assert_param check */
+  UNUSED(RTC_TimeStampPin);
+
   /* Process Locked */
   __HAL_LOCK(hrtc);
 
@@ -230,6 +233,9 @@ HAL_StatusTypeDef HAL_RTCEx_SetTimeStamp_IT(RTC_HandleTypeDef *hrtc, uint32_t Ti
   assert_param(IS_TIMESTAMP_EDGE(TimeStampEdge));
   assert_param(IS_RTC_TIMESTAMP_PIN(RTC_TimeStampPin));
 
+  /* Prevent unused argument(s) compilation warning if no assert_param check */
+  UNUSED(RTC_TimeStampPin);
+
   /* Process Locked */
   __HAL_LOCK(hrtc);
 
@@ -251,11 +257,11 @@ HAL_StatusTypeDef HAL_RTCEx_SetTimeStamp_IT(RTC_HandleTypeDef *hrtc, uint32_t Ti
   /* Enable IT timestamp */
   __HAL_RTC_TIMESTAMP_ENABLE_IT(hrtc,RTC_IT_TS);
 
-  /* RTC timestamp Interrupt Configuration: EXTI configuration */
-  __HAL_RTC_TIMESTAMP_EXTI_ENABLE_IT();
-
   /* Enable the write protection for RTC registers */
   __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
+
+  /* RTC timestamp Interrupt Configuration: EXTI configuration */
+  __HAL_RTC_TIMESTAMP_EXTI_ENABLE_IT();
 
   hrtc->State = HAL_RTC_STATE_READY;
 
@@ -442,22 +448,18 @@ __weak void HAL_RTCEx_TimeStampEventCallback(RTC_HandleTypeDef *hrtc)
 void HAL_RTCEx_TimeStampIRQHandler(RTC_HandleTypeDef *hrtc)
 {
   /* Get the TimeStamp interrupt source enable status */
-  if(__HAL_RTC_TIMESTAMP_GET_IT_SOURCE(hrtc, RTC_IT_TS) != 0U)
+  if (READ_BIT(RTC->MISR, RTC_MISR_TSMF) != 0U)
   {
-    /* Get the pending status of the TIMESTAMP Interrupt */
-    if(__HAL_RTC_TIMESTAMP_GET_FLAG(hrtc, RTC_FLAG_TSF) != 0U)
-    {
 #if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
-      /* Call TimeStampEvent registered Callback */
-      hrtc->TimeStampEventCallback(hrtc);
+    /* Call TimeStampEvent registered Callback */
+    hrtc->TimeStampEventCallback(hrtc);
 #else
-      /* TIMESTAMP callback */
-      HAL_RTCEx_TimeStampEventCallback(hrtc);
+    /* TIMESTAMP callback */
+    HAL_RTCEx_TimeStampEventCallback(hrtc);
 #endif /* USE_HAL_RTC_REGISTER_CALLBACKS */
 
-      /* Clear the TIMESTAMP interrupt pending bit */
-      __HAL_RTC_TIMESTAMP_CLEAR_FLAG(hrtc, RTC_FLAG_TSF);
-    }
+    /* Clearing flags after the Callback because the content of RTC_TSTR and RTC_TSDR are cleared when TSF bit is reset.*/
+    WRITE_REG(RTC->SCR, RTC_SCR_CITSF | RTC_SCR_CTSF);
   }
 
   /* Change RTC state */
@@ -1500,6 +1502,7 @@ HAL_StatusTypeDef HAL_RTCEx_DeactivateTamper(RTC_HandleTypeDef *hrtc, uint32_t T
   *         This parameter can be a combination of the following values:
   *         @arg RTC_TAMPER_1
   *         @arg RTC_TAMPER_2
+  *         @arg RTC_TAMPER_3 (*)
   * @param  Timeout Timeout duration
   * @retval HAL status
   */
@@ -1676,7 +1679,7 @@ void HAL_RTCEx_TamperIRQHandler(RTC_HandleTypeDef *hrtc)
   /* Get interrupt status */
   tmp = tamp->MISR;
 
-  /* Immediatly clear flags */
+  /* Immediately clear flags */
   tamp->SCR = tmp;
 
   /* Check Tamper1 status */
@@ -1703,6 +1706,19 @@ void HAL_RTCEx_TamperIRQHandler(RTC_HandleTypeDef *hrtc)
 #endif /* USE_HAL_RTC_REGISTER_CALLBACKS */
   }
 
+#if defined(TAMP_CR1_TAMP3E)
+  /* Check Tamper3 status */
+  if((tmp & RTC_TAMPER_3) == RTC_TAMPER_3)
+  {
+#if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
+      /* Call Tamper 3 Event registered Callback */
+      hrtc->Tamper3EventCallback(hrtc);
+#else
+    /* Tamper3 callback */
+    HAL_RTCEx_Tamper3EventCallback(hrtc);
+#endif /* USE_HAL_RTC_REGISTER_CALLBACKS */
+  }
+#endif /* TAMP_CR1_TAMP3E */
 
   /* Check Internal Tamper3 status */
   if((tmp & RTC_INT_TAMPER_3) == RTC_INT_TAMPER_3)
@@ -1786,8 +1802,22 @@ __weak void HAL_RTCEx_Tamper2EventCallback(RTC_HandleTypeDef *hrtc)
    */
 }
 
+#if defined(TAMP_CR1_TAMP3E)
+/**
+  * @brief  Tamper 3 callback.
+  * @param  hrtc RTC handle
+  * @retval None
+  */
+__weak void HAL_RTCEx_Tamper3EventCallback(RTC_HandleTypeDef *hrtc)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hrtc);
 
-
+  /* NOTE : This function should not be modified, when the callback is needed,
+            the HAL_RTCEx_Tamper2EventCallback could be implemented in the user file
+   */
+}
+#endif /* TAMP_CR1_TAMP3E */
 
 /**
   * @brief  Internal Tamper 3 callback.
@@ -1948,5 +1978,4 @@ uint32_t HAL_RTCEx_BKUPRead(RTC_HandleTypeDef *hrtc, uint32_t BackupRegister)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

@@ -6,14 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2018 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 
@@ -70,8 +68,8 @@ void              HAL_FLASHEx_DisableDebugger(void);
 uint32_t          HAL_FLASHEx_FlashEmptyCheck(void);
 void              HAL_FLASHEx_ForceFlashEmpty(uint32_t FlashEmpty);
 #if defined(FLASH_SECURABLE_MEMORY_SUPPORT)
-void              HAL_FLASHEx_EnableSecMemProtection(uint32_t Bank);
-#endif
+void              HAL_FLASHEx_EnableSecMemProtection(uint32_t Banks);
+#endif /* FLASH_SECURABLE_MEMORY_SUPPORT */
 HAL_StatusTypeDef HAL_FLASHEx_OBProgram(FLASH_OBProgramInitTypeDef *pOBInit);
 void              HAL_FLASHEx_OBGetConfig(FLASH_OBProgramInitTypeDef *pOBInit);
 /**
@@ -97,7 +95,7 @@ void              HAL_FLASHEx_OBGetConfig(FLASH_OBProgramInitTypeDef *pOBInit);
   *  @{
   */
 #define IS_FLASH_EMPTY_CHECK(__VALUE__)     (((__VALUE__) == FLASH_PROG_EMPTY) || ((__VALUE__) == FLASH_PROG_NOT_EMPTY))
-void              FLASH_PageErase(uint32_t Page);
+void              FLASH_PageErase(uint32_t Banks, uint32_t Page);
 /**
   * @}
   */
@@ -116,4 +114,3 @@ void              FLASH_PageErase(uint32_t Page);
 
 #endif /* STM32G0xx_HAL_FLASH_EX_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

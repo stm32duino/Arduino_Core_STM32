@@ -20,12 +20,6 @@
 #define ARDUINO_MAIN
 #include "Arduino.h"
 
-
-// Weak empty variant initialization function.
-// May be redefined by variant files.
-void initVariant() __attribute__((weak));
-void initVariant() { }
-
 // Force init to be called *first*, i.e. before static object allocation.
 // Otherwise, statically allocated objects that need HAL may fail.
 __attribute__((constructor(101))) void premain()
@@ -62,9 +56,7 @@ int main(void)
     CoreCallback();
 #endif
     loop();
-    if (serialEventRun) {
-      serialEventRun();
-    }
+    serialEventRun();
   }
 
   return 0;

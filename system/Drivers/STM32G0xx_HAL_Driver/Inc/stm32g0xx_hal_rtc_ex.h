@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2018 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -182,7 +181,12 @@ typedef struct
   */
 #define RTC_TAMPER_1                        TAMP_CR1_TAMP1E
 #define RTC_TAMPER_2                        TAMP_CR1_TAMP2E
+#if defined(TAMP_CR1_TAMP3E)
+#define RTC_TAMPER_3                        TAMP_CR1_TAMP3E
+#define RTC_TAMPER_ALL                      (TAMP_CR1_TAMP1E | TAMP_CR1_TAMP2E | TAMP_CR1_TAMP3E)
+#else
 #define RTC_TAMPER_ALL                      (TAMP_CR1_TAMP1E | TAMP_CR1_TAMP2E)
+#endif /* TAMP_CR1_TAMP3E */
 /**
   * @}
   */
@@ -306,7 +310,12 @@ typedef struct
   */
 #define RTC_IT_TAMP1                       TAMP_IER_TAMP1IE     /*!< Tamper 1 Interrupt */
 #define RTC_IT_TAMP2                       TAMP_IER_TAMP2IE     /*!< Tamper 2 Interrupt */
+#if defined(TAMP_CR1_TAMP3E)
+#define RTC_IT_TAMP3                       TAMP_IER_TAMP3IE     /*!< Tamper 3 Interrupt */
+#define RTC_IT_TAMPALL                     (TAMP_IER_TAMP1IE | TAMP_IER_TAMP2IE | TAMP_IER_TAMP3IE)
+#else
 #define RTC_IT_TAMPALL                     (TAMP_IER_TAMP1IE | TAMP_IER_TAMP2IE)
+#endif /* TAMP_CR1_TAMP3E */
 
 #define RTC_IT_INT_TAMP3                   TAMP_IER_ITAMP3IE
 #define RTC_IT_INT_TAMP4                   TAMP_IER_ITAMP4IE
@@ -323,7 +332,12 @@ typedef struct
   */
 #define RTC_FLAG_TAMP1                     TAMP_SR_TAMP1F
 #define RTC_FLAG_TAMP2                     TAMP_SR_TAMP2F
+#if defined(TAMP_CR1_TAMP3E)
+#define RTC_FLAG_TAMP3                     TAMP_SR_TAMP3F
+#define RTC_FLAG_TAMPALL                  (RTC_FLAG_TAMP1 | RTC_FLAG_TAMP2 | RTC_FLAG_TAMP3)
+#else
 #define RTC_FLAG_TAMPALL                  (RTC_FLAG_TAMP1 | RTC_FLAG_TAMP2)
+#endif /* TAMP_CR1_TAMP3E */
 #define RTC_FLAG_INT_TAMP3                 TAMP_SR_ITAMP3F
 #define RTC_FLAG_INT_TAMP4                 TAMP_SR_ITAMP4F
 #define RTC_FLAG_INT_TAMP5                 TAMP_SR_ITAMP5F
@@ -736,6 +750,7 @@ typedef struct
   *            @arg  RTC_ALL_TAMPER: All tampers
   *            @arg  RTC_TAMPER_1: Tamper1
   *            @arg  RTC_TAMPER_2: Tamper2
+  *            @arg  RTC_TAMPER_3: Tamper3 (*)
   * @retval None
   */
 #define __HAL_RTC_TAMPER_ENABLE(__HANDLE__, __TAMPER__)           (((TAMP_TypeDef *)((uint32_t)((__HANDLE__)->Instance) + (__HANDLE__)->TampOffset))->CR1 |= (__TAMPER__))
@@ -748,6 +763,7 @@ typedef struct
   *            @arg  RTC_ALL_TAMPER: All tampers
   *            @arg  RTC_TAMPER_1: Tamper1
   *            @arg  RTC_TAMPER_2: Tamper2
+  *            @arg  RTC_TAMPER_3: Tamper3 (*)
   */
 #define __HAL_RTC_TAMPER_DISABLE(__HANDLE__, __TAMPER__)           (((TAMP_TypeDef *)((uint32_t)((__HANDLE__)->Instance) + (__HANDLE__)->TampOffset))->CR1 &= ~(__TAMPER__))
 
@@ -761,6 +777,7 @@ typedef struct
   *             @arg  RTC_IT_TAMPALL: All tampers interrupts
   *             @arg  RTC_IT_TAMP1: Tamper1 interrupt
   *             @arg  RTC_IT_TAMP2: Tamper2 interrupt
+  *             @arg  RTC_IT_TAMP3: Tamper3 interrupt (*)
   * @retval None
   */
 #define __HAL_RTC_TAMPER_ENABLE_IT(__HANDLE__, __INTERRUPT__)        (((TAMP_TypeDef *)((uint32_t)((__HANDLE__)->Instance) + (__HANDLE__)->TampOffset))->IER |= (__INTERRUPT__))
@@ -773,6 +790,7 @@ typedef struct
   *            @arg  RTC_IT_TAMPALL: All tampers interrupts
   *            @arg  RTC_IT_TAMP1: Tamper1 interrupt
   *            @arg  RTC_IT_TAMP2: Tamper2 interrupt
+  *            @arg  RTC_IT_TAMP3: Tamper3 interrupt (*)
   * @retval None
   */
 #define __HAL_RTC_TAMPER_DISABLE_IT(__HANDLE__, __INTERRUPT__)       (((TAMP_TypeDef *)((uint32_t)((__HANDLE__)->Instance) + (__HANDLE__)->TampOffset))->IER &= ~(__INTERRUPT__))
@@ -787,6 +805,7 @@ typedef struct
   *            @arg  RTC_IT_TAMPALL: All tampers interrupts
   *            @arg  RTC_IT_TAMP1: Tamper1 interrupt
   *            @arg  RTC_IT_TAMP2: Tamper2 interrupt
+  *            @arg  RTC_IT_TAMP3: Tamper3 interrupt (*)
   *            @arg  RTC_IT_INT_TAMP3: Internal Tamper3 interrupt
   *            @arg  RTC_IT_INT_TAMP4: Internal Tamper4 interrupt
   *            @arg  RTC_IT_INT_TAMP5: Internal Tamper5 interrupt
@@ -804,6 +823,7 @@ typedef struct
   *            @arg  RTC_IT_TAMPALL: All tampers interrupts
   *            @arg  RTC_IT_TAMP1: Tamper1 interrupt
   *            @arg  RTC_IT_TAMP2: Tamper2 interrupt
+  *            @arg  RTC_IT_TAMP3: Tamper3 interrupt (*)
   *            @arg  RTC_IT_INT_TAMPALL: All internal tampers interrupts
   *            @arg  RTC_IT_INT_TAMP3: Internal Tamper3 interrupt
   *            @arg  RTC_IT_INT_TAMP4: Internal Tamper4 interrupt
@@ -821,6 +841,7 @@ typedef struct
   *          This parameter can be:
   *             @arg RTC_FLAG_TAMP1: Tamper1 flag
   *             @arg RTC_FLAG_TAMP2: Tamper2 flag
+  *             @arg RTC_FLAG_TAMP3: Tamper3 flag (*)
   *             @arg RTC_FLAG_INT_TAMP3: Internal Tamper3 flag
   *             @arg RTC_FLAG_INT_TAMP4: Internal Tamper4 flag
   *             @arg RTC_FLAG_INT_TAMP5: Internal Tamper5 flag
@@ -837,6 +858,7 @@ typedef struct
   *             @arg RTC_FLAG_TAMPALL: All Tamper flags
   *             @arg RTC_FLAG_TAMP1: Tamper1 flag
   *             @arg RTC_FLAG_TAMP2: Tamper2 flag
+  *             @arg RTC_FLAG_TAMP3: Tamper3 flag (*)
   *             @arg RTC_FLAG_INT_TAMP3: Internal Tamper3 flag
   *             @arg RTC_FLAG_INT_TAMP4: Internal Tamper4 flag
   *             @arg RTC_FLAG_INT_TAMP5: Internal Tamper5 flag
@@ -960,6 +982,9 @@ HAL_StatusTypeDef HAL_RTCEx_PollForInternalTamperEvent(RTC_HandleTypeDef *hrtc, 
 void              HAL_RTCEx_TamperIRQHandler(RTC_HandleTypeDef *hrtc);
 void              HAL_RTCEx_Tamper1EventCallback(RTC_HandleTypeDef *hrtc);
 void              HAL_RTCEx_Tamper2EventCallback(RTC_HandleTypeDef *hrtc);
+#if defined(TAMP_CR1_TAMP3E)
+void              HAL_RTCEx_Tamper3EventCallback(RTC_HandleTypeDef *hrtc);
+#endif /* TAMP_CR1_TAMP3E */
 void              HAL_RTCEx_InternalTamper3EventCallback(RTC_HandleTypeDef *hrtc);
 void              HAL_RTCEx_InternalTamper4EventCallback(RTC_HandleTypeDef *hrtc);
 void              HAL_RTCEx_InternalTamper5EventCallback(RTC_HandleTypeDef *hrtc);
@@ -1094,7 +1119,7 @@ uint32_t          HAL_RTCEx_BKUPRead(RTC_HandleTypeDef *hrtc, uint32_t BackupReg
 
 
 
-/** @defgroup RTCEx_Substract_Fraction_Of_Second_Value RTCEx Substract Fraction Of Second Value
+/** @defgroup RTCEx_Subtract_Fraction_Of_Second_Value RTCEx Subtract Fraction Of Second Value
   * @{
   */
 #define IS_RTC_SHIFT_SUBFS(FS) ((FS) <= RTC_SHIFTR_SUBFS)
@@ -1128,4 +1153,3 @@ uint32_t          HAL_RTCEx_BKUPRead(RTC_HandleTypeDef *hrtc, uint32_t BackupReg
 
 #endif /* STM32G0xx_HAL_RTC_EX_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

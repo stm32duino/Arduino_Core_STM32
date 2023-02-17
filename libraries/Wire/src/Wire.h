@@ -22,49 +22,62 @@
 #ifndef TwoWire_h
 #define TwoWire_h
 
-#include <inttypes.h>
+#include <functional>
+
 #include "Stream.h"
 #include "Arduino.h"
+extern "C" {
+#include "utility/twi.h"
+}
 
+// Minimal buffer length. Buffers length will be increased when needed,
+// but TX buffer is limited to a maximum to avoid too much stack consumption
+// Note: Buffer length and max buffer length are limited by uin16_t type
 #define BUFFER_LENGTH 32
-
-#define MASTER_ADDRESS 0x33
+#if !defined(WIRE_MAX_TX_BUFF_LENGTH)
+  #define WIRE_MAX_TX_BUFF_LENGTH       1024U
+#endif
 
 // WIRE_HAS_END means Wire has end()
 #define WIRE_HAS_END 1
 
 class TwoWire : public Stream {
+  public:
+    typedef std::function<void(int)> cb_function_receive_t;
+    typedef std::function<void(void)> cb_function_request_t;
+
   private:
-    static uint8_t *rxBuffer;
-    static uint8_t rxBufferAllocated;
-    static uint8_t rxBufferIndex;
-    static uint8_t rxBufferLength;
+    uint8_t *rxBuffer;
+    uint16_t rxBufferAllocated;
+    uint16_t rxBufferIndex;
+    uint16_t rxBufferLength;
 
-    static uint8_t txAddress;
-    static uint8_t *txBuffer;
-    static uint8_t txBufferAllocated;
-    static uint8_t txBufferIndex;
-    static uint8_t txBufferLength;
+    uint8_t txAddress;
+    uint8_t *txBuffer;
+    uint16_t txBufferAllocated;
+    uint16_t txDataSize;
 
-    static uint8_t transmitting;
+    uint8_t transmitting;
 
     uint8_t ownAddress;
     i2c_t _i2c;
 
-    static void (*user_onRequest)(void);
-    static void (*user_onReceive)(int);
-    static void onRequestService(void);
-    static void onReceiveService(uint8_t *, int);
+    std::function<void(int)> user_onReceive;
+    std::function<void(void)> user_onRequest;
 
-    static void allocateRxBuffer(size_t length);
-    void allocateTxBuffer(size_t length);
+    static void onRequestService(i2c_t *);
+    static void onReceiveService(i2c_t *);
+
+    void allocateRxBuffer(size_t length);
+    size_t allocateTxBuffer(size_t length);
 
     void resetRxBuffer(void);
     void resetTxBuffer(void);
+    void recoverBus(void);
 
   public:
     TwoWire();
-    TwoWire(uint8_t sda, uint8_t scl);
+    TwoWire(uint32_t sda, uint32_t scl);
     // setSCL/SDA have to be called before begin()
     void setSCL(uint32_t scl)
     {
@@ -83,8 +96,9 @@ class TwoWire : public Stream {
       _i2c.sda = sda;
     };
     void begin(bool generalCall = false);
-    void begin(uint8_t, bool generalCall = false);
-    void begin(int, bool generalCall = false);
+    void begin(uint32_t, uint32_t);
+    void begin(uint8_t, bool generalCall = false, bool NoStretchMode = false);
+    void begin(int, bool generalCall = false, bool NoStretchMode = false);
     void end();
     void setClock(uint32_t);
     void beginTransmission(uint8_t);
@@ -93,6 +107,7 @@ class TwoWire : public Stream {
     uint8_t endTransmission(uint8_t);
     uint8_t requestFrom(uint8_t, uint8_t);
     uint8_t requestFrom(uint8_t, uint8_t, uint8_t);
+    uint8_t requestFrom(uint8_t, size_t, bool);
     uint8_t requestFrom(uint8_t, uint8_t, uint32_t, uint8_t, uint8_t);
     uint8_t requestFrom(int, int);
     uint8_t requestFrom(int, int, int);
@@ -102,8 +117,9 @@ class TwoWire : public Stream {
     virtual int read(void);
     virtual int peek(void);
     virtual void flush(void);
-    void onReceive(void (*)(int));
-    void onRequest(void (*)(void));
+
+    void onReceive(cb_function_receive_t callback);
+    void onRequest(cb_function_request_t callback);
 
     inline size_t write(unsigned long n)
     {
@@ -122,6 +138,12 @@ class TwoWire : public Stream {
       return write((uint8_t)n);
     }
     using Print::write;
+
+    // Could be used to mix Arduino API and STM32Cube HAL API (ex: DMA). Use at your own risk.
+    I2C_HandleTypeDef *getHandle(void)
+    {
+      return &(_i2c.handle);
+    }
 };
 
 

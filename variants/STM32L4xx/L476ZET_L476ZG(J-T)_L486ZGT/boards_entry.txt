@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L476ZETx
+GenL4.menu.pnum.GENERIC_L476ZETX=Generic L476ZETx
+GenL4.menu.pnum.GENERIC_L476ZETX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L476ZETX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L476ZETX.build.board=GENERIC_L476ZETX
+GenL4.menu.pnum.GENERIC_L476ZETX.build.product_line=STM32L476xx
+GenL4.menu.pnum.GENERIC_L476ZETX.build.variant=STM32L4xx/L476ZET_L476ZG(J-T)_L486ZGT
+
+# Generic L476ZGTx
+GenL4.menu.pnum.GENERIC_L476ZGTX=Generic L476ZGTx
+GenL4.menu.pnum.GENERIC_L476ZGTX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L476ZGTX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L476ZGTX.build.board=GENERIC_L476ZGTX
+GenL4.menu.pnum.GENERIC_L476ZGTX.build.product_line=STM32L476xx
+GenL4.menu.pnum.GENERIC_L476ZGTX.build.variant=STM32L4xx/L476ZET_L476ZG(J-T)_L486ZGT
+
+# Generic L476ZGJx
+GenL4.menu.pnum.GENERIC_L476ZGJX=Generic L476ZGJx
+GenL4.menu.pnum.GENERIC_L476ZGJX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L476ZGJX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L476ZGJX.build.board=GENERIC_L476ZGJX
+GenL4.menu.pnum.GENERIC_L476ZGJX.build.product_line=STM32L476xx
+GenL4.menu.pnum.GENERIC_L476ZGJX.build.variant=STM32L4xx/L476ZET_L476ZG(J-T)_L486ZGT
+
+# Generic L486ZGTx
+GenL4.menu.pnum.GENERIC_L486ZGTX=Generic L486ZGTx
+GenL4.menu.pnum.GENERIC_L486ZGTX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L486ZGTX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L486ZGTX.build.board=GENERIC_L486ZGTX
+GenL4.menu.pnum.GENERIC_L486ZGTX.build.product_line=STM32L486xx
+GenL4.menu.pnum.GENERIC_L486ZGTX.build.variant=STM32L4xx/L476ZET_L476ZG(J-T)_L486ZGT
+

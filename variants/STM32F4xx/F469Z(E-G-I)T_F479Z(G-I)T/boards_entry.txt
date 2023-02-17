@@ -1,0 +1,45 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F469ZETx
+GenF4.menu.pnum.GENERIC_F469ZETX=Generic F469ZETx
+GenF4.menu.pnum.GENERIC_F469ZETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F469ZETX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F469ZETX.build.board=GENERIC_F469ZETX
+GenF4.menu.pnum.GENERIC_F469ZETX.build.product_line=STM32F469xx
+GenF4.menu.pnum.GENERIC_F469ZETX.build.variant=STM32F4xx/F469Z(E-G-I)T_F479Z(G-I)T
+
+# Generic F469ZGTx
+GenF4.menu.pnum.GENERIC_F469ZGTX=Generic F469ZGTx
+GenF4.menu.pnum.GENERIC_F469ZGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F469ZGTX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F469ZGTX.build.board=GENERIC_F469ZGTX
+GenF4.menu.pnum.GENERIC_F469ZGTX.build.product_line=STM32F469xx
+GenF4.menu.pnum.GENERIC_F469ZGTX.build.variant=STM32F4xx/F469Z(E-G-I)T_F479Z(G-I)T
+
+# Generic F469ZITx
+GenF4.menu.pnum.GENERIC_F469ZITX=Generic F469ZITx
+GenF4.menu.pnum.GENERIC_F469ZITX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F469ZITX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F469ZITX.build.board=GENERIC_F469ZITX
+GenF4.menu.pnum.GENERIC_F469ZITX.build.product_line=STM32F469xx
+GenF4.menu.pnum.GENERIC_F469ZITX.build.variant=STM32F4xx/F469Z(E-G-I)T_F479Z(G-I)T
+
+# Generic F479ZGTx
+GenF4.menu.pnum.GENERIC_F479ZGTX=Generic F479ZGTx
+GenF4.menu.pnum.GENERIC_F479ZGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F479ZGTX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F479ZGTX.build.board=GENERIC_F479ZGTX
+GenF4.menu.pnum.GENERIC_F479ZGTX.build.product_line=STM32F479xx
+GenF4.menu.pnum.GENERIC_F479ZGTX.build.variant=STM32F4xx/F469Z(E-G-I)T_F479Z(G-I)T
+
+# Generic F479ZITx
+GenF4.menu.pnum.GENERIC_F479ZITX=Generic F479ZITx
+GenF4.menu.pnum.GENERIC_F479ZITX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F479ZITX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F479ZITX.build.board=GENERIC_F479ZITX
+GenF4.menu.pnum.GENERIC_F479ZITX.build.product_line=STM32F479xx
+GenF4.menu.pnum.GENERIC_F479ZITX.build.variant=STM32F4xx/F469Z(E-G-I)T_F479Z(G-I)T
+

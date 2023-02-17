@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -232,7 +231,6 @@
   */
 static uint32_t    UTILS_GetPLLOutputFrequency(uint32_t PLL_InputFrequency,
                                                LL_UTILS_PLLInitTypeDef *UTILS_PLLInitStruct);
-static ErrorStatus UTILS_SetFlashLatency(uint32_t HCLK_Frequency);
 static ErrorStatus UTILS_EnablePLLAndSwitchSystem(uint32_t SYSCLK_Frequency, LL_UTILS_ClkInitTypeDef *UTILS_ClkInitStruct);
 static ErrorStatus UTILS_PLL_IsBusy(void);
 /**
@@ -326,6 +324,144 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
 {
   /* HCLK clock frequency */
   SystemCoreClock = HCLKFrequency;
+}
+
+/**
+  * @brief  Update number of Flash wait states in line with new frequency and current
+            voltage range.
+  * @note   This Function support ONLY devices with supply voltage (voltage range) between 2.7V and 3.6V
+  * @param  HCLK_Frequency  HCLK frequency
+  * @retval An ErrorStatus enumeration value:
+  *          - SUCCESS: Latency has been modified
+  *          - ERROR: Latency cannot be modified
+  */
+ErrorStatus LL_SetFlashLatency(uint32_t HCLK_Frequency)
+{
+  uint32_t timeout;
+  uint32_t getlatency;
+  uint32_t latency = LL_FLASH_LATENCY_0;  /* default value 0WS */
+  ErrorStatus status = SUCCESS;
+
+
+  /* Frequency cannot be equal to 0 */
+  if(HCLK_Frequency == 0U)
+  {
+    status = ERROR;
+  }
+  else
+  {
+    if(LL_PWR_GetRegulVoltageScaling() == LL_PWR_REGU_VOLTAGE_SCALE1)
+    {
+#if defined (UTILS_SCALE1_LATENCY5_FREQ)
+      if((HCLK_Frequency > UTILS_SCALE1_LATENCY5_FREQ)&&(latency == LL_FLASH_LATENCY_0))
+      {
+        latency = LL_FLASH_LATENCY_5;
+      }
+#endif /*UTILS_SCALE1_LATENCY5_FREQ */
+#if defined (UTILS_SCALE1_LATENCY4_FREQ)
+      if((HCLK_Frequency > UTILS_SCALE1_LATENCY4_FREQ)&&(latency == LL_FLASH_LATENCY_0))
+      {
+        latency = LL_FLASH_LATENCY_4;
+      }
+#endif /* UTILS_SCALE1_LATENCY4_FREQ */
+#if defined (UTILS_SCALE1_LATENCY3_FREQ)
+      if((HCLK_Frequency > UTILS_SCALE1_LATENCY3_FREQ)&&(latency == LL_FLASH_LATENCY_0))
+      {
+        latency = LL_FLASH_LATENCY_3;
+      }
+#endif /* UTILS_SCALE1_LATENCY3_FREQ */
+#if defined (UTILS_SCALE1_LATENCY2_FREQ)
+      if((HCLK_Frequency > UTILS_SCALE1_LATENCY2_FREQ)&&(latency == LL_FLASH_LATENCY_0))
+      {
+        latency = LL_FLASH_LATENCY_2;
+      }
+      else
+      {
+        if((HCLK_Frequency > UTILS_SCALE1_LATENCY1_FREQ)&&(latency == LL_FLASH_LATENCY_0))
+        {
+          latency = LL_FLASH_LATENCY_1;
+        }
+      }
+#endif /* UTILS_SCALE1_LATENCY2_FREQ */
+    }
+    if(LL_PWR_GetRegulVoltageScaling() == LL_PWR_REGU_VOLTAGE_SCALE2)
+    {
+#if defined (UTILS_SCALE2_LATENCY5_FREQ)
+      if((HCLK_Frequency > UTILS_SCALE2_LATENCY5_FREQ)&&(latency == LL_FLASH_LATENCY_0))
+      {
+        latency = LL_FLASH_LATENCY_5;
+      }
+#endif /*UTILS_SCALE1_LATENCY5_FREQ */
+#if defined (UTILS_SCALE2_LATENCY4_FREQ)
+      if((HCLK_Frequency > UTILS_SCALE2_LATENCY4_FREQ)&&(latency == LL_FLASH_LATENCY_0))
+      {
+        latency = LL_FLASH_LATENCY_4;
+      }
+#endif /*UTILS_SCALE1_LATENCY4_FREQ */
+#if defined (UTILS_SCALE2_LATENCY3_FREQ)
+      if((HCLK_Frequency > UTILS_SCALE2_LATENCY3_FREQ)&&(latency == LL_FLASH_LATENCY_0))
+      {
+        latency = LL_FLASH_LATENCY_3;
+      }
+#endif /*UTILS_SCALE1_LATENCY3_FREQ */
+      if((HCLK_Frequency > UTILS_SCALE2_LATENCY2_FREQ)&&(latency == LL_FLASH_LATENCY_0))
+      {
+        latency = LL_FLASH_LATENCY_2;
+      }
+      else
+      {
+        if((HCLK_Frequency > UTILS_SCALE2_LATENCY1_FREQ)&&(latency == LL_FLASH_LATENCY_0))
+        {
+          latency = LL_FLASH_LATENCY_1;
+        }
+      }
+    }
+#if defined (LL_PWR_REGU_VOLTAGE_SCALE3)
+    if(LL_PWR_GetRegulVoltageScaling() == LL_PWR_REGU_VOLTAGE_SCALE3)
+    {
+#if defined (UTILS_SCALE3_LATENCY3_FREQ)
+      if((HCLK_Frequency > UTILS_SCALE3_LATENCY3_FREQ)&&(latency == LL_FLASH_LATENCY_0))
+      {
+        latency = LL_FLASH_LATENCY_3;
+      }
+#endif /*UTILS_SCALE1_LATENCY3_FREQ */
+#if defined (UTILS_SCALE3_LATENCY2_FREQ)
+      if((HCLK_Frequency > UTILS_SCALE3_LATENCY2_FREQ)&&(latency == LL_FLASH_LATENCY_0))
+      {
+        latency = LL_FLASH_LATENCY_2;
+      }
+      else
+      {
+        if((HCLK_Frequency > UTILS_SCALE3_LATENCY1_FREQ)&&(latency == LL_FLASH_LATENCY_0))
+        {
+          latency = LL_FLASH_LATENCY_1;
+        }
+      }
+    }
+#endif /*UTILS_SCALE1_LATENCY2_FREQ */
+#endif /* LL_PWR_REGU_VOLTAGE_SCALE3 */
+
+    LL_FLASH_SetLatency(latency);
+    /* Check that the new number of wait states is taken into account to access the Flash
+       memory by reading the FLASH_ACR register */
+    timeout = 2;
+    do
+    {
+    /* Wait for Flash latency to be updated */
+    getlatency = LL_FLASH_GetLatency();
+    timeout--;
+    } while ((getlatency != latency) && (timeout > 0));
+
+    if(getlatency != latency)
+    {
+      status = ERROR;
+    }
+    else
+    {
+      status = SUCCESS;
+    }
+  }
+  return status;
 }
 
 /**
@@ -466,131 +602,6 @@ ErrorStatus LL_PLL_ConfigSystemClock_HSE(uint32_t HSEFrequency, uint32_t HSEBypa
   * @{
   */
 /**
-  * @brief  Update number of Flash wait states in line with new frequency and current
-            voltage range.
-  * @note   This Function support ONLY devices with supply voltage (voltage range) between 2.7V and 3.6V
-  * @param  HCLK_Frequency  HCLK frequency
-  * @retval An ErrorStatus enumeration value:
-  *          - SUCCESS: Latency has been modified
-  *          - ERROR: Latency cannot be modified
-  */
-static ErrorStatus UTILS_SetFlashLatency(uint32_t HCLK_Frequency)
-{
-  ErrorStatus status = SUCCESS;
-
-  uint32_t latency = LL_FLASH_LATENCY_0;  /* default value 0WS */
-
-  /* Frequency cannot be equal to 0 */
-  if(HCLK_Frequency == 0U)
-  {
-    status = ERROR;
-  }
-  else
-  {
-    if(LL_PWR_GetRegulVoltageScaling() == LL_PWR_REGU_VOLTAGE_SCALE1)
-    {
-#if defined (UTILS_SCALE1_LATENCY5_FREQ)
-      if((HCLK_Frequency > UTILS_SCALE1_LATENCY5_FREQ)&&(latency == LL_FLASH_LATENCY_0))
-      {
-        latency = LL_FLASH_LATENCY_5;
-      }
-#endif /*UTILS_SCALE1_LATENCY5_FREQ */
-#if defined (UTILS_SCALE1_LATENCY4_FREQ)
-      if((HCLK_Frequency > UTILS_SCALE1_LATENCY4_FREQ)&&(latency == LL_FLASH_LATENCY_0))
-      {
-        latency = LL_FLASH_LATENCY_4;
-      }
-#endif /* UTILS_SCALE1_LATENCY4_FREQ */
-#if defined (UTILS_SCALE1_LATENCY3_FREQ)
-      if((HCLK_Frequency > UTILS_SCALE1_LATENCY3_FREQ)&&(latency == LL_FLASH_LATENCY_0))
-      {
-        latency = LL_FLASH_LATENCY_3;
-      }
-#endif /* UTILS_SCALE1_LATENCY3_FREQ */
-#if defined (UTILS_SCALE1_LATENCY2_FREQ)
-      if((HCLK_Frequency > UTILS_SCALE1_LATENCY2_FREQ)&&(latency == LL_FLASH_LATENCY_0))
-      {
-        latency = LL_FLASH_LATENCY_2;
-      }
-      else
-      {
-        if((HCLK_Frequency > UTILS_SCALE1_LATENCY1_FREQ)&&(latency == LL_FLASH_LATENCY_0))
-        {
-          latency = LL_FLASH_LATENCY_1;
-        }
-      }
-#endif /* UTILS_SCALE1_LATENCY2_FREQ */
-    }
-    if(LL_PWR_GetRegulVoltageScaling() == LL_PWR_REGU_VOLTAGE_SCALE2)
-    {
-#if defined (UTILS_SCALE2_LATENCY5_FREQ)
-      if((HCLK_Frequency > UTILS_SCALE2_LATENCY5_FREQ)&&(latency == LL_FLASH_LATENCY_0))
-      {
-        latency = LL_FLASH_LATENCY_5;
-      }
-#endif /*UTILS_SCALE1_LATENCY5_FREQ */
-#if defined (UTILS_SCALE2_LATENCY4_FREQ)
-      if((HCLK_Frequency > UTILS_SCALE2_LATENCY4_FREQ)&&(latency == LL_FLASH_LATENCY_0))
-      {
-        latency = LL_FLASH_LATENCY_4;
-      }
-#endif /*UTILS_SCALE1_LATENCY4_FREQ */
-#if defined (UTILS_SCALE2_LATENCY3_FREQ)
-      if((HCLK_Frequency > UTILS_SCALE2_LATENCY3_FREQ)&&(latency == LL_FLASH_LATENCY_0))
-      {
-        latency = LL_FLASH_LATENCY_3;
-      }
-#endif /*UTILS_SCALE1_LATENCY3_FREQ */
-      if((HCLK_Frequency > UTILS_SCALE2_LATENCY2_FREQ)&&(latency == LL_FLASH_LATENCY_0))
-      {
-        latency = LL_FLASH_LATENCY_2;
-      }
-      else
-      {
-        if((HCLK_Frequency > UTILS_SCALE2_LATENCY1_FREQ)&&(latency == LL_FLASH_LATENCY_0))
-        {
-          latency = LL_FLASH_LATENCY_1;
-        }
-      }
-    }
-#if defined (LL_PWR_REGU_VOLTAGE_SCALE3)
-    if(LL_PWR_GetRegulVoltageScaling() == LL_PWR_REGU_VOLTAGE_SCALE3)
-    {
-#if defined (UTILS_SCALE3_LATENCY3_FREQ)
-      if((HCLK_Frequency > UTILS_SCALE3_LATENCY3_FREQ)&&(latency == LL_FLASH_LATENCY_0))
-      {
-        latency = LL_FLASH_LATENCY_3;
-      }
-#endif /*UTILS_SCALE1_LATENCY3_FREQ */
-#if defined (UTILS_SCALE3_LATENCY2_FREQ)
-      if((HCLK_Frequency > UTILS_SCALE3_LATENCY2_FREQ)&&(latency == LL_FLASH_LATENCY_0))
-      {
-        latency = LL_FLASH_LATENCY_2;
-      }
-      else
-      {
-        if((HCLK_Frequency > UTILS_SCALE3_LATENCY1_FREQ)&&(latency == LL_FLASH_LATENCY_0))
-        {
-          latency = LL_FLASH_LATENCY_1;
-        }
-      }
-    }
-#endif /*UTILS_SCALE1_LATENCY2_FREQ */
-#endif /* LL_PWR_REGU_VOLTAGE_SCALE3 */
-
-    LL_FLASH_SetLatency(latency);
-
-    /* Check that the new number of wait states is taken into account to access the Flash
-       memory by reading the FLASH_ACR register */
-    if(LL_FLASH_GetLatency() != latency)
-    {
-      status = ERROR;
-    }
-  }
-  return status;
-}
-
-/**
   * @brief  Function to check that PLL can be modified
   * @param  PLL_InputFrequency  PLL input frequency (in Hz)
   * @param  UTILS_PLLInitStruct pointer to a @ref LL_UTILS_PLLInitTypeDef structure that contains
@@ -683,7 +694,7 @@ static ErrorStatus UTILS_EnablePLLAndSwitchSystem(uint32_t SYSCLK_Frequency, LL_
   if(SystemCoreClock < hclk_frequency)
   {
     /* Set FLASH latency to highest latency */
-    status = UTILS_SetFlashLatency(hclk_frequency);
+    status = LL_SetFlashLatency(hclk_frequency);
   }
 
   /* Update system clock configuration */
@@ -713,7 +724,7 @@ static ErrorStatus UTILS_EnablePLLAndSwitchSystem(uint32_t SYSCLK_Frequency, LL_
   if(SystemCoreClock > hclk_frequency)
   {
     /* Set FLASH latency to lowest latency */
-    status = UTILS_SetFlashLatency(hclk_frequency);
+    status = LL_SetFlashLatency(hclk_frequency);
   }
 
   /* Update SystemCoreClock variable */
@@ -736,5 +747,3 @@ static ErrorStatus UTILS_EnablePLLAndSwitchSystem(uint32_t SYSCLK_Frequency, LL_
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

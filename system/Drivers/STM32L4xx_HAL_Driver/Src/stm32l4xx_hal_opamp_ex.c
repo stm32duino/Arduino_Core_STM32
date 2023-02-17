@@ -4,8 +4,7 @@
   * @author  MCD Application Team
   * @brief   Extended OPAMP HAL module driver.
   *          This file provides firmware functions to manage the following
-  *          functionalities of the operational amplifier(s)(OPAMP1, OPAMP2 etc)
-  *          peripheral:
+  *          functionalities of the operational amplifier(s) peripheral:
   *           + Extended Initialization and de-initialization functions
   *           + Extended Peripheral Control functions
   *
@@ -13,13 +12,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -51,6 +49,7 @@
 
 #if defined (STM32L471xx) || defined (STM32L475xx) || defined (STM32L476xx) || defined (STM32L485xx) || defined (STM32L486xx) || \
     defined (STM32L496xx) || defined (STM32L4A6xx) || \
+    defined (STM32L4P5xx) || defined (STM32L4Q5xx) || \
     defined (STM32L4R5xx) || defined (STM32L4R7xx) || defined (STM32L4R9xx) || defined (STM32L4S5xx) || defined (STM32L4S7xx) || defined (STM32L4S9xx)
 
 /** @addtogroup OPAMPEx_Exported_Functions_Group1
@@ -140,7 +139,7 @@ HAL_StatusTypeDef HAL_OPAMPEx_SelfCalibrateAll(OPAMP_HandleTypeDef *hopamp1, OPA
     SET_BIT(hopamp2->Instance->CSR, OPAMP_CSR_USERTRIM);
 
     /* Select trimming settings depending on power mode */
-    if (hopamp1->Init.PowerMode == OPAMP_POWERMODE_NORMAL)
+    if (hopamp1->Init.PowerMode == OPAMP_POWERMODE_NORMALPOWER)
     {
       tmp_opamp1_reg_trimming = &OPAMP1->OTR;
     }
@@ -149,7 +148,7 @@ HAL_StatusTypeDef HAL_OPAMPEx_SelfCalibrateAll(OPAMP_HandleTypeDef *hopamp1, OPA
       tmp_opamp1_reg_trimming = &OPAMP1->LPOTR;
     }
 
-    if (hopamp2->Init.PowerMode == OPAMP_POWERMODE_NORMAL)
+    if (hopamp2->Init.PowerMode == OPAMP_POWERMODE_NORMALPOWER)
     {
       tmp_opamp2_reg_trimming = &OPAMP2->OTR;
     }
@@ -179,7 +178,7 @@ HAL_StatusTypeDef HAL_OPAMPEx_SelfCalibrateAll(OPAMP_HandleTypeDef *hopamp1, OPA
     while (delta != 0U)
     {
       /* Set candidate trimming */
-      /* OPAMP_POWERMODE_NORMAL */
+      /* OPAMP_POWERMODE_NORMALPOWER */
       MODIFY_REG(*tmp_opamp1_reg_trimming, OPAMP_OTR_TRIMOFFSETN, trimmingvaluen1);
       MODIFY_REG(*tmp_opamp2_reg_trimming, OPAMP_OTR_TRIMOFFSETN, trimmingvaluen2);
 
@@ -251,7 +250,7 @@ HAL_StatusTypeDef HAL_OPAMPEx_SelfCalibrateAll(OPAMP_HandleTypeDef *hopamp1, OPA
     while (delta != 0U)
     {
       /* Set candidate trimming */
-      /* OPAMP_POWERMODE_NORMAL */
+      /* OPAMP_POWERMODE_NORMALPOWER */
       MODIFY_REG(*tmp_opamp1_reg_trimming, OPAMP_OTR_TRIMOFFSETP, (trimmingvaluep1<<OPAMP_INPUT_NONINVERTING));
       MODIFY_REG(*tmp_opamp2_reg_trimming, OPAMP_OTR_TRIMOFFSETP, (trimmingvaluep2<<OPAMP_INPUT_NONINVERTING));
 
@@ -390,7 +389,7 @@ HAL_StatusTypeDef HAL_OPAMPEx_SelfCalibrateAll(OPAMP_HandleTypeDef *hopamp1, OPA
 /**
   * @brief  Unlock the selected OPAMP configuration.
   * @note   This function must be called only when OPAMP is in state "locked".
-  * @param  hopamp: OPAMP handle
+  * @param  hopamp OPAMP handle
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_OPAMPEx_Unlock(OPAMP_HandleTypeDef* hopamp)
@@ -437,5 +436,3 @@ HAL_StatusTypeDef HAL_OPAMPEx_Unlock(OPAMP_HandleTypeDef* hopamp)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

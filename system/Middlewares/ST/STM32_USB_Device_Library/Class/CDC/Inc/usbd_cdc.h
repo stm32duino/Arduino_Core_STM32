@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -46,11 +46,11 @@ extern "C" {
 #define CDC_CMD_EP                                  0x82U  /* EP2 for CDC commands */
 
 #ifndef CDC_HS_BINTERVAL
-#define CDC_HS_BINTERVAL                          0x10U
+#define CDC_HS_BINTERVAL                            0x10U
 #endif /* CDC_HS_BINTERVAL */
 
 #ifndef CDC_FS_BINTERVAL
-#define CDC_FS_BINTERVAL                          0x10U
+#define CDC_FS_BINTERVAL                            0x10U
 #endif /* CDC_FS_BINTERVAL */
 
 /* CDC Endpoints parameters: you can fine tune these values depending on the needed baudrates and performance. */
@@ -65,6 +65,7 @@ extern "C" {
 #define CDC_DATA_FS_IN_PACKET_SIZE                  CDC_DATA_FS_MAX_PACKET_SIZE
 #define CDC_DATA_FS_OUT_PACKET_SIZE                 CDC_DATA_FS_MAX_PACKET_SIZE
 
+#define CDC_REQ_MAX_DATA_SIZE                       0x7U
 /*---------------------------------------------------------------------*/
 /*  CDC definitions                                                    */
 /*---------------------------------------------------------------------*/
@@ -90,24 +91,27 @@ extern "C" {
 /**
   * @}
   */
-typedef struct {
+typedef struct
+{
   uint32_t bitrate;
   uint8_t  format;
   uint8_t  paritytype;
   uint8_t  datatype;
 } USBD_CDC_LineCodingTypeDef;
 
-typedef struct _USBD_CDC_Itf {
+typedef struct _USBD_CDC_Itf
+{
   int8_t (* Init)(void);
   int8_t (* DeInit)(void);
   int8_t (* Control)(uint8_t cmd, uint8_t *pbuf, uint16_t length);
   int8_t (* Receive)(uint8_t *Buf, uint32_t *Len);
-
+  int8_t (* TransmitCplt)(uint8_t *Buf, uint32_t *Len, uint8_t epnum);
 } USBD_CDC_ItfTypeDef;
 
 
-typedef struct {
-  uint32_t data[CDC_DATA_HS_MAX_PACKET_SIZE / 4U];      /* Force 32bits alignment */
+typedef struct
+{
+  uint32_t data[CDC_DATA_HS_MAX_PACKET_SIZE / 4U];      /* Force 32-bit alignment */
   uint8_t  CmdOpCode;
   uint8_t  CmdLength;
   uint8_t  *RxBuffer;
@@ -117,8 +121,7 @@ typedef struct {
 
   __IO uint32_t TxState;
   __IO uint32_t RxState;
-}
-USBD_CDC_HandleTypeDef;
+} USBD_CDC_HandleTypeDef;
 
 
 
@@ -134,8 +137,8 @@ USBD_CDC_HandleTypeDef;
   * @{
   */
 
-extern USBD_ClassTypeDef  USBD_CDC;
-#define USBD_CDC_CLASS    &USBD_CDC
+extern USBD_ClassTypeDef USBD_CDC;
+#define USBD_CDC_CLASS &USBD_CDC
 /**
   * @}
   */
@@ -143,20 +146,15 @@ extern USBD_ClassTypeDef  USBD_CDC;
 /** @defgroup USB_CORE_Exported_Functions
   * @{
   */
-uint8_t  USBD_CDC_RegisterInterface(USBD_HandleTypeDef   *pdev,
-                                    USBD_CDC_ItfTypeDef *fops);
+uint8_t USBD_CDC_RegisterInterface(USBD_HandleTypeDef *pdev,
+                                   USBD_CDC_ItfTypeDef *fops);
 
-uint8_t  USBD_CDC_SetTxBuffer(USBD_HandleTypeDef   *pdev,
-                              uint8_t  *pbuff,
-                              uint16_t length);
+uint8_t USBD_CDC_SetTxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff,
+                             uint32_t length);
 
-uint8_t  USBD_CDC_SetRxBuffer(USBD_HandleTypeDef   *pdev,
-                              uint8_t  *pbuff);
-
-uint8_t  USBD_CDC_ReceivePacket(USBD_HandleTypeDef *pdev);
-uint8_t  USBD_CDC_ClearBuffer(USBD_HandleTypeDef *pdev);
-
-uint8_t  USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev);
+uint8_t USBD_CDC_SetRxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff);
+uint8_t USBD_CDC_ReceivePacket(USBD_HandleTypeDef *pdev);
+uint8_t USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev);
 /**
   * @}
   */

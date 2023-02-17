@@ -1,0 +1,13 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F058T8Yx
+GenF0.menu.pnum.GENERIC_F058T8YX=Generic F058T8Yx
+GenF0.menu.pnum.GENERIC_F058T8YX.upload.maximum_size=65536
+GenF0.menu.pnum.GENERIC_F058T8YX.upload.maximum_data_size=8192
+GenF0.menu.pnum.GENERIC_F058T8YX.build.board=GENERIC_F058T8YX
+GenF0.menu.pnum.GENERIC_F058T8YX.build.product_line=STM32F058xx
+GenF0.menu.pnum.GENERIC_F058T8YX.build.variant=STM32F0xx/F058T8Y
+

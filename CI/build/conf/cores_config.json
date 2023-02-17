@@ -1,67 +1,306 @@
 {
   "cores": [
     {
-      "maintainer": "STM32",
+      "maintainer": "STMicroelectronics",
       "architecture": "stm32",
       "boards": [
         {
           "name": "NUCLEO_L031K6",
           "options": "opt=oslto"
+        },
+        {
+          "name": "STEVAL_MKSBOX1V1",
+          "options": "usb=CDCgen"
+        },
+        {
+          "name": "STM32MP157A_DK1",
+          "options": "virtio=enabled"
+        },
+        {
+          "name": "STM32MP157C_DK2",
+          "options": "virtio=generic"
         }
       ],
       "sketches": [
         {
-          "pattern": "^((?!BareMinimum.ino).)*$",
+          "comment": "By default, ignore all those boards",
+          "pattern": "^.*$",
           "applicable": false,
-          "boards": [ "DEMO_F030F4" ]
+          "boards": [
+            "AFROFLIGHT_F103CB_12M",
+            "BLACKPILL_F103CB",
+            "BLACK_F407VG",
+            "BLACK_F407ZE", "BLACK_F407ZG",
+            "BLACKPILL_F401CC",
+            "BLUEBUTTON_F103R8T", "BLUEBUTTON_F103RCT",
+            "BLUEPILL_F103C6", "BLUEPILL_F103CB",
+            "DEMO_F030F4_16M", "DEMO_F030F4_HSI",
+            "GENERIC_C031C4TX", "GENERIC_C031C4UX", "GENERIC_C031C6TX", "GENERIC_F031C4TX",
+            "GENERIC_F031E6YX", "GENERIC_F031F4PX", "GENERIC_F031G4UX", "GENERIC_F031K4UX",
+            "GENERIC_F042C4TX", "GENERIC_F042C4UX", "GENERIC_F042C6TX", "GENERIC_F042F4PX",
+            "GENERIC_F042G4UX", "GENERIC_F042K4TX", "GENERIC_F051C4TX", "GENERIC_F051K6UX",
+            "GENERIC_F058R8HX", "GENERIC_F071C8TX", "GENERIC_F071C8UX", "GENERIC_F071CBTX",
+            "GENERIC_F071CBUX", "GENERIC_F071V8HX", "GENERIC_F071V8TX", "GENERIC_F071VBHX",
+            "GENERIC_F072C8TX", "GENERIC_F072C8UX", "GENERIC_F072CBTX", "GENERIC_F072CBUX",
+            "GENERIC_F072R8TX", "GENERIC_F072RBHX", "GENERIC_F072RBTX", "GENERIC_F072V8HX",
+            "GENERIC_F072V8TX", "GENERIC_F072VBHX", "GENERIC_F078CBTX", "GENERIC_F078CBUX",
+            "GENERIC_F078RBHX", "GENERIC_F078VBHX", "GENERIC_F091CBTX", "GENERIC_F091CBUX",
+            "GENERIC_F091CCTX", "GENERIC_F091RBTX", "GENERIC_F091RCHX", "GENERIC_F091RCTX",
+            "GENERIC_F091VBTX", "GENERIC_F091VCTX", "GENERIC_F098CCTX", "GENERIC_F098RCHX",
+            "GENERIC_F098RCTX", "GENERIC_F098VCHX", "GENERIC_F100C4TX", "GENERIC_F100C8TX",
+            "GENERIC_F100R4HX", "GENERIC_F100R8TX", "GENERIC_F100V8TX", "GENERIC_F100ZCTX",
+            "GENERIC_F100ZDTX", "GENERIC_F101C4TX", "GENERIC_F101R4TX", "GENERIC_F101T4UX",
+            "GENERIC_F101V8TX", "GENERIC_F101ZCTX", "GENERIC_F101ZDTX", "GENERIC_F103C4TX",
+            "GENERIC_F103C6TX", "GENERIC_F103C8TX", "GENERIC_F103CBTX", "GENERIC_F103R4HX",
+            "GENERIC_F103R4TX", "GENERIC_F103R8HX", "GENERIC_F103R8TX", "GENERIC_F103RCTX",
+            "GENERIC_F103RCYX", "GENERIC_F103RDTX", "GENERIC_F103RDYX", "GENERIC_F103RFTX",
+            "GENERIC_F103T4UX", "GENERIC_F103T8UX", "GENERIC_F103V8HX", "GENERIC_F103V8TX",
+            "GENERIC_F103VBHX", "GENERIC_F103VBTX", "GENERIC_F103VCHX", "GENERIC_F103VCTX",
+            "GENERIC_F103VDHX", "GENERIC_F103VDTX", "GENERIC_F103VEHX", "GENERIC_F103VFTX",
+            "GENERIC_F103ZCHX", "GENERIC_F103ZCTX", "GENERIC_F103ZDHX", "GENERIC_F103ZDTX",
+            "GENERIC_F103ZEHX", "GENERIC_F103ZFHX", "GENERIC_F103ZFTX", "GENERIC_F103ZGHX",
+            "GENERIC_F205RBTX", "GENERIC_F205RCTX", "GENERIC_F205RETX", "GENERIC_F205REYX",
+            "GENERIC_F205RFTX", "GENERIC_F205RGEX", "GENERIC_F205RGTX", "GENERIC_F205RGYX",
+            "GENERIC_F205VBTX", "GENERIC_F205VCTX", "GENERIC_F205VETX", "GENERIC_F205VFTX",
+            "GENERIC_F205VGTX", "GENERIC_F205ZCTX", "GENERIC_F205ZETX", "GENERIC_F205ZFTX",
+            "GENERIC_F205ZGTX", "GENERIC_F207ICHX", "GENERIC_F207ICTX", "GENERIC_F207IEHX",
+            "GENERIC_F207IETX", "GENERIC_F207IFHX", "GENERIC_F207IFTX", "GENERIC_F207IGHX",
+            "GENERIC_F207IGTX", "GENERIC_F207VCTX", "GENERIC_F207VETX", "GENERIC_F207VFTX",
+            "GENERIC_F207VGTX", "GENERIC_F207ZCTX", "GENERIC_F207ZETX", "GENERIC_F207ZFTX",
+            "GENERIC_F207ZGTX", "GENERIC_F215RETX", "GENERIC_F215VETX", "GENERIC_F215ZETX",
+            "GENERIC_F217IEHX", "GENERIC_F217IETX", "GENERIC_F217IGHX", "GENERIC_F217VETX",
+            "GENERIC_F217ZETX", "GENERIC_F301C6TX", "GENERIC_F301C8TX", "GENERIC_F301K6TX",
+            "GENERIC_F301R6TX", "GENERIC_F302R6TX", "GENERIC_F303C6TX", "GENERIC_F303C8TX",
+            "GENERIC_F303CBTX", "GENERIC_F303K6TX", "GENERIC_F303K8TX", "GENERIC_F303R6TX",
+            "GENERIC_F303R8TX", "GENERIC_F303RBTX", "GENERIC_F303RDTX", "GENERIC_F303VBTX",
+            "GENERIC_F318C8TX", "GENERIC_F334C4TX", "GENERIC_F334C6TX", "GENERIC_F334K4TX",
+            "GENERIC_F334K6TX", "GENERIC_F334R6TX", "GENERIC_F378RCTX", "GENERIC_F378VCHX",
+            "GENERIC_F401CBUX", "GENERIC_F401CBYX", "GENERIC_F401CCUX", "GENERIC_F401CCYX",
+            "GENERIC_F401CDUX", "GENERIC_F401CDYX", "GENERIC_F401CEUX", "GENERIC_F401CEYX",
+            "GENERIC_F401RBTX", "GENERIC_F401RCTX", "GENERIC_F401RDTX", "GENERIC_F401VBTX",
+            "GENERIC_F401VCTX", "GENERIC_F401VDTX", "GENERIC_F405RGTX", "GENERIC_F407VETX",
+            "GENERIC_F407VGTX", "GENERIC_F407ZETX", "GENERIC_F407ZGTX", "GENERIC_F410C8TX",
+            "GENERIC_F410C8UX", "GENERIC_F410R8IX", "GENERIC_F410R8TX", "GENERIC_F410RBIX",
+            "GENERIC_F410T8YX", "GENERIC_F411CCUX", "GENERIC_F411CCYX", "GENERIC_F411CEUX",
+            "GENERIC_F411RCTX", "GENERIC_F412CEUX", "GENERIC_F412RETX", "GENERIC_F412REYX",
+            "GENERIC_F412REYXP", "GENERIC_F412RGTX", "GENERIC_F412RGYX", "GENERIC_F413CGUX",
+            "GENERIC_F413CHUX", "GENERIC_F413RGTX", "GENERIC_F413RHTX", "GENERIC_F413ZGJX",
+            "GENERIC_F413ZGTX", "GENERIC_F413ZHJX", "GENERIC_F413ZHTX", "GENERIC_F417VETX",
+            "GENERIC_F417ZETX", "GENERIC_F423ZHJX", "GENERIC_F427ZGTX", "GENERIC_F427ZITX",
+            "GENERIC_F429ZETX", "GENERIC_F429ZGTX", "GENERIC_F429ZGYX", "GENERIC_F429ZITX",
+            "GENERIC_F429ZIYX", "GENERIC_F437ZGTX", "GENERIC_F437ZITX", "GENERIC_F439ZGTX",
+            "GENERIC_F439ZGYX", "GENERIC_F439ZITX", "GENERIC_F446RCTX", "GENERIC_F446VCTX",
+            "GENERIC_F722RCTX", "GENERIC_F722RETX", "GENERIC_F722ZCTX", "GENERIC_F722ZETX",
+            "GENERIC_F730R8TX", "GENERIC_F745ZETX", "GENERIC_F745ZGTX", "GENERIC_F746BETX",
+            "GENERIC_F746BGTX", "GENERIC_F746NEHX", "GENERIC_F746NGHX", "GENERIC_F746ZETX",
+            "GENERIC_F746ZEYX", "GENERIC_F746ZGTX", "GENERIC_F746ZGYX", "GENERIC_F750N8HX",
+            "GENERIC_F750Z8TX", "GENERIC_F756BGTX", "GENERIC_F756ZGTX", "GENERIC_F765IGKX",
+            "GENERIC_F765IGTX", "GENERIC_F765IIKX", "GENERIC_F765IITX", "GENERIC_F765VGHX",
+            "GENERIC_F765VGTX", "GENERIC_F765VIHX", "GENERIC_F765VITX", "GENERIC_F765ZGTX",
+            "GENERIC_F765ZITX", "GENERIC_F767IGKX", "GENERIC_F767IGTX", "GENERIC_F767IIKX",
+            "GENERIC_F767IITX", "GENERIC_F767VGHX", "GENERIC_F767VGTX", "GENERIC_F767VIHX",
+            "GENERIC_F767VITX", "GENERIC_F767ZGTX", "GENERIC_F767ZITX", "GENERIC_F777IIKX",
+            "GENERIC_F777VIHX", "GENERIC_G030C6TX", "GENERIC_G030K6TX", "GENERIC_G031C4TX",
+            "GENERIC_G031C4UX", "GENERIC_G031C6TX", "GENERIC_G031C6UX", "GENERIC_G031C8TX",
+            "GENERIC_G031C8UX", "GENERIC_G031F4PX", "GENERIC_G031F6PX", "GENERIC_G031F8PX",
+            "GENERIC_G031G4UX", "GENERIC_G031G6UX", "GENERIC_G031G8UX", "GENERIC_G031J4MX",
+            "GENERIC_G031J6MX", "GENERIC_G031K4TX", "GENERIC_G031K4UX", "GENERIC_G031K6TX",
+            "GENERIC_G031K6UX", "GENERIC_G031K8TX", "GENERIC_G031K8UX", "GENERIC_G031Y8YX",
+            "GENERIC_G041C6TX", "GENERIC_G041C6UX", "GENERIC_G041C8TX", "GENERIC_G041F6PX",
+            "GENERIC_G041F8PX", "GENERIC_G041G6UX", "GENERIC_G041K6TX", "GENERIC_G041K6UX",
+            "GENERIC_G041K8TX", "GENERIC_G050C6TX", "GENERIC_G050K6TX", "GENERIC_G051C6TX",
+            "GENERIC_G051C6UX", "GENERIC_G051C8TX", "GENERIC_G051C8UX", "GENERIC_G051F6PX",
+            "GENERIC_G051F8PX", "GENERIC_G051F8YX", "GENERIC_G051G6UX", "GENERIC_G051G8UX",
+            "GENERIC_G051K6TX", "GENERIC_G051K6UX", "GENERIC_G051K8TX", "GENERIC_G051K8UX",
+            "GENERIC_G061C6TX", "GENERIC_G061C6UX", "GENERIC_G061C8TX", "GENERIC_G061F6PX",
+            "GENERIC_G061F8PX", "GENERIC_G061G6UX", "GENERIC_G061K6TX", "GENERIC_G061K6UX",
+            "GENERIC_G061K8TX", "GENERIC_G071C6TX", "GENERIC_G071C6UX", "GENERIC_G071C8TX",
+            "GENERIC_G071C8UX", "GENERIC_G071CBTX", "GENERIC_G071CBUX", "GENERIC_G071EBYX",
+            "GENERIC_G071G6UX", "GENERIC_G071G8UX", "GENERIC_G071G8UXN", "GENERIC_G071GBUX",
+            "GENERIC_G071GBUXN", "GENERIC_G071K6TX", "GENERIC_G071K6UX", "GENERIC_G071K8TX",
+            "GENERIC_G071K8UX", "GENERIC_G071KBTX", "GENERIC_G071KBUX", "GENERIC_G071R6TX",
+            "GENERIC_G071R8TX", "GENERIC_G071RBIX", "GENERIC_G071RBTX", "GENERIC_G081CBTX",
+            "GENERIC_G081KBTX", "GENERIC_G081RBIX", "GENERIC_G0B1CBTX", "GENERIC_G0B1CBUX",
+            "GENERIC_G0B1CCTX", "GENERIC_G0B1CCUX", "GENERIC_G0B1CETX", "GENERIC_G0B1CEUX",
+            "GENERIC_G0B1KBTX", "GENERIC_G0B1KBUX", "GENERIC_G0B1KCTX", "GENERIC_G0B1KCUX",
+            "GENERIC_G0B1KETX", "GENERIC_G0B1KEUX", "GENERIC_G0B1MBTX", "GENERIC_G0B1MCTX",
+            "GENERIC_G0B1METX", "GENERIC_G0B1NEYX", "GENERIC_G0B1RBTX", "GENERIC_G0B1RCTX",
+            "GENERIC_G0B1RETX", "GENERIC_G0B1VBIX", "GENERIC_G0B1VBTX", "GENERIC_G0B1VCIX",
+            "GENERIC_G0B1VCTX", "GENERIC_G0B1VEIX", "GENERIC_G0B1VETX", "GENERIC_G0C1CCTX",
+            "GENERIC_G0C1CCUX", "GENERIC_G0C1CETX", "GENERIC_G0C1KCTX", "GENERIC_G0C1KCUX",
+            "GENERIC_G0C1KETX", "GENERIC_G0C1MCTX", "GENERIC_G0C1RCTX", "GENERIC_G0C1VCIX",
+            "GENERIC_G0C1VCTX", "GENERIC_G0C1VEIX", "GENERIC_G431C6TX", "GENERIC_G431C6UX",
+            "GENERIC_G431C8TX", "GENERIC_G431C8UX", "GENERIC_G431CBTX", "GENERIC_G431CBUX",
+            "GENERIC_G431K6TX", "GENERIC_G431K6UX", "GENERIC_G431K8TX", "GENERIC_G431K8UX",
+            "GENERIC_G431KBTX", "GENERIC_G431KBUX", "GENERIC_G431M6TX", "GENERIC_G431M8TX",
+            "GENERIC_G431MBTX", "GENERIC_G431R6IX", "GENERIC_G431R6TX", "GENERIC_G431R8IX",
+            "GENERIC_G431R8TX", "GENERIC_G431RBIX", "GENERIC_G431RBTX", "GENERIC_G431V6TX",
+            "GENERIC_G431V8TX", "GENERIC_G431VBTX", "GENERIC_G441KBTX", "GENERIC_G441RBIX",
+            "GENERIC_G471CCTX", "GENERIC_G471MCTX", "GENERIC_G471QCTX", "GENERIC_G471RCTX",
+            "GENERIC_G471VCHX", "GENERIC_G471VCIX", "GENERIC_G471VCTX", "GENERIC_G471VEHX",
+            "GENERIC_G471VEIX", "GENERIC_G473CBTX", "GENERIC_G473CCTX", "GENERIC_G473CETX",
+            "GENERIC_G473MBTX", "GENERIC_G473MCTX", "GENERIC_G473METX", "GENERIC_G473PBIX",
+            "GENERIC_G473PCIX", "GENERIC_G473PEIX", "GENERIC_G473QBTX", "GENERIC_G473QCTX",
+            "GENERIC_G473QETX", "GENERIC_G473RBTX", "GENERIC_G473RCTX", "GENERIC_G473RETX",
+            "GENERIC_G473VBHX", "GENERIC_G473VBTX", "GENERIC_G473VCHX", "GENERIC_G473VCTX",
+            "GENERIC_G473VEHX", "GENERIC_G473VETX", "GENERIC_G474CBTX", "GENERIC_G474CCTX",
+            "GENERIC_G474CETX", "GENERIC_G474MBTX", "GENERIC_G474MCTX", "GENERIC_G474METX",
+            "GENERIC_G474PBIX", "GENERIC_G474PCIX", "GENERIC_G474PEIX", "GENERIC_G474QBTX",
+            "GENERIC_G474QCTX", "GENERIC_G474QETX", "GENERIC_G474RBTX", "GENERIC_G474RCTX",
+            "GENERIC_G474RETX", "GENERIC_G474VBHX", "GENERIC_G474VBTX", "GENERIC_G474VCHX",
+            "GENERIC_G474VCTX", "GENERIC_G474VEHX", "GENERIC_G474VETX", "GENERIC_G483CETX",
+            "GENERIC_G483METX", "GENERIC_G483PEIX", "GENERIC_G483QETX", "GENERIC_G483RETX",
+            "GENERIC_G483VEHX", "GENERIC_G483VETX", "GENERIC_G484VEHX", "GENERIC_G491CCTX",
+            "GENERIC_G491CETX", "GENERIC_G491KCUX", "GENERIC_G491KEUX", "GENERIC_G491MCSX",
+            "GENERIC_G491MCTX", "GENERIC_G491MESX", "GENERIC_G491METX", "GENERIC_G491RCIX",
+            "GENERIC_G491RCTX", "GENERIC_G491REIX", "GENERIC_G491RETX", "GENERIC_G491REYX",
+            "GENERIC_G491VCTX", "GENERIC_G491VETX", "GENERIC_G4A1MESX", "GENERIC_G4A1REIX",
+            "GENERIC_G4A1RETX", "GENERIC_H723ZETX", "GENERIC_H723ZGTX", "GENERIC_H730ZBTX",
+            "GENERIC_H742IGKX", "GENERIC_H742IGTX", "GENERIC_H742IIKX", "GENERIC_H742IITX",
+            "GENERIC_H742VGHX", "GENERIC_H742VGTX", "GENERIC_H742VIHX", "GENERIC_H742VITX",
+            "GENERIC_H742ZGTX", "GENERIC_H742ZITX", "GENERIC_H743IGKX", "GENERIC_H743IGTX",
+            "GENERIC_H743IIKX", "GENERIC_H743IITX", "GENERIC_H743VGHX", "GENERIC_H743VGTX",
+            "GENERIC_H743VIHX", "GENERIC_H743VITX", "GENERIC_H743ZGTX", "GENERIC_H743ZITX",
+            "GENERIC_H747AGIX", "GENERIC_H747AIIX", "GENERIC_H747IGTX", "GENERIC_H747IITX",
+            "GENERIC_H750IBKX", "GENERIC_H750IBTX", "GENERIC_H750VBTX", "GENERIC_H750ZBTX",
+            "GENERIC_H753IIKX", "GENERIC_H753VIHX", "GENERIC_H753ZITX", "GENERIC_H757AIIX",
+            "GENERIC_L010F4PX", "GENERIC_L010K4TX", "GENERIC_L011D3PX", "GENERIC_L011D4PX",
+            "GENERIC_L011E3YX", "GENERIC_L011F3PX", "GENERIC_L011F3UX", "GENERIC_L011F4PX",
+            "GENERIC_L011F4UX", "GENERIC_L011G3UX", "GENERIC_L011G4UX", "GENERIC_L011K3TX",
+            "GENERIC_L011K3UX", "GENERIC_L011K4TX", "GENERIC_L011K4UX", "GENERIC_L031C4TX",
+            "GENERIC_L031C4UX", "GENERIC_L031C6TX", "GENERIC_L031C6UX", "GENERIC_L031E4YX",
+            "GENERIC_L031E6YX", "GENERIC_L031F4PX", "GENERIC_L031F6PX", "GENERIC_L031G4UX",
+            "GENERIC_L031G6UX", "GENERIC_L031K4TX", "GENERIC_L031K6TX", "GENERIC_L041C4TX",
+            "GENERIC_L041C6TX", "GENERIC_L051C6TX", "GENERIC_L051C6UX", "GENERIC_L051C8TX",
+            "GENERIC_L052C6TX", "GENERIC_L052C6UX", "GENERIC_L052C8TX", "GENERIC_L052C8UX",
+            "GENERIC_L052K6TX", "GENERIC_L052K8TX", "GENERIC_L052R6HX", "GENERIC_L052R6TX",
+            "GENERIC_L052R8HX", "GENERIC_L052R8TX", "GENERIC_L052T6YX", "GENERIC_L052T8YX",
+            "GENERIC_L053C6TX", "GENERIC_L053C6UX", "GENERIC_L053C8TX", "GENERIC_L053C8UX",
+            "GENERIC_L053R6HX", "GENERIC_L053R6TX", "GENERIC_L053R8TX", "GENERIC_L062C8UX",
+            "GENERIC_L063C8TX", "GENERIC_L072CBTX", "GENERIC_L072CBUX", "GENERIC_L072CBYX",
+            "GENERIC_L072CZEX", "GENERIC_L072CZTX", "GENERIC_L072CZUX", "GENERIC_L072CZYX",
+            "GENERIC_L072KBTX", "GENERIC_L072KBUX", "GENERIC_L072KZTX", "GENERIC_L072KZUX",
+            "GENERIC_L072RBHX", "GENERIC_L072RBIX", "GENERIC_L072RBTX", "GENERIC_L072RZHX",
+            "GENERIC_L072RZIX", "GENERIC_L072RZTX", "GENERIC_L072V8IX", "GENERIC_L072V8TX",
+            "GENERIC_L072VBIX", "GENERIC_L072VBTX", "GENERIC_L072VZIX", "GENERIC_L072VZTX",
+            "GENERIC_L073CBTX", "GENERIC_L073CBUX", "GENERIC_L073CZTX", "GENERIC_L073CZUX",
+            "GENERIC_L073CZYX", "GENERIC_L073RBHX", "GENERIC_L073RBTX", "GENERIC_L073RZHX",
+            "GENERIC_L073RZIX", "GENERIC_L073RZTX", "GENERIC_L073V8IX", "GENERIC_L073V8TX",
+            "GENERIC_L073VBIX", "GENERIC_L073VBTX", "GENERIC_L073VZIX", "GENERIC_L073VZTX",
+            "GENERIC_L082CZUX", "GENERIC_L082KBTX", "GENERIC_L082KBUX", "GENERIC_L083CBTX",
+            "GENERIC_L083CZTX", "GENERIC_L083RBHX", "GENERIC_L083RBTX", "GENERIC_L083V8IX",
+            "GENERIC_L083VBIX", "GENERIC_L083VBTX", "GENERIC_L083VZIX", "GENERIC_L083VZTX",
+            "GENERIC_L100C6UX", "GENERIC_L100C6UXA", "GENERIC_L151C6TX", "GENERIC_L151C6TXA",
+            "GENERIC_L151C6UX", "GENERIC_L151C6UXA", "GENERIC_L151C8TX", "GENERIC_L151C8TXA",
+            "GENERIC_L151C8UX", "GENERIC_L151C8UXA", "GENERIC_L151CBTX", "GENERIC_L151CBTXA",
+            "GENERIC_L151CBUX", "GENERIC_L151CBUXA", "GENERIC_L151RETX", "GENERIC_L152C6TX",
+            "GENERIC_L152C6TXA", "GENERIC_L152C6UX", "GENERIC_L152C6UXA", "GENERIC_L152C8TX",
+            "GENERIC_L152C8TXA", "GENERIC_L152C8UX", "GENERIC_L152C8UXA", "GENERIC_L152CBTX",
+            "GENERIC_L152CBTXA", "GENERIC_L152CBUX", "GENERIC_L152RETX", "GENERIC_L412K8TX",
+            "GENERIC_L412K8UX", "GENERIC_L412KBTX", "GENERIC_L412KBUX", "GENERIC_L422KBTX",
+            "GENERIC_L431RBIX", "GENERIC_L431RBTX", "GENERIC_L431RBYX", "GENERIC_L431RCIX",
+            "GENERIC_L431RCTX", "GENERIC_L432KBUX", "GENERIC_L432KCUX", "GENERIC_L433CBTX",
+            "GENERIC_L433CBUX", "GENERIC_L433CCTX", "GENERIC_L433CCUX", "GENERIC_L443CCTX",
+            "GENERIC_L452RCIX", "GENERIC_L452RCTX", "GENERIC_L452RCYX", "GENERIC_L452REIX",
+            "GENERIC_L452RETX", "GENERIC_L452REYX", "GENERIC_L452REYXP", "GENERIC_L462REIX",
+            "GENERIC_L462RETX", "GENERIC_L475RCTX", "GENERIC_L475RETX", "GENERIC_L475RGTX",
+            "GENERIC_L475VCTX", "GENERIC_L475VETX", "GENERIC_L475VGTX", "GENERIC_L476RCTX",
+            "GENERIC_L476RETX", "GENERIC_L476RGTX", "GENERIC_L476VCTX", "GENERIC_L476VETX",
+            "GENERIC_L476VGTX", "GENERIC_L496ZETX", "GENERIC_L496ZGTX", "GENERIC_L496ZGTXP",
+            "GENERIC_L4R5VGTX", "GENERIC_L4R5VITX", "GENERIC_L4R5ZGTX", "GENERIC_L4R5ZGYX",
+            "GENERIC_L4R5ZITX", "GENERIC_L4R5ZIYX", "GENERIC_L4R7VITX", "GENERIC_L4R7ZITX",
+            "GENERIC_L4R9ZGJX", "GENERIC_L4R9ZGYX", "GENERIC_L4R9ZIJX", "GENERIC_L4R9ZIYX",
+            "GENERIC_L4S5VITX", "GENERIC_L4S5ZITX", "GENERIC_L4S5ZIYX", "GENERIC_L552ZCTXQ",
+            "GENERIC_L552ZETXQ", "GENERIC_MP153AACX", "GENERIC_MP153CACX", "GENERIC_MP153DACX",
+            "GENERIC_MP153FACX", "GENERIC_MP157AACX", "GENERIC_MP157CACX", "GENERIC_MP157DACX",
+            "GENERIC_U575AGIXQ", "GENERIC_U575AIIXQ", "GENERIC_U575ZGTXQ", "GENERIC_U575ZITXQ",
+            "GENERIC_WB35CCUXA", "GENERIC_WB35CEUXA", "GENERIC_WB55CCUX", "GENERIC_WB55CEUX",
+            "GENERIC_WB55RCVX", "GENERIC_WB55REVX", "GENERIC_WL54CCUX", "GENERIC_WL54JCIX",
+            "GENERIC_WL55CCUX", "GENERIC_WL55JCIX", "GENERIC_WLE4C8UX", "GENERIC_WLE4CBUX",
+            "GENERIC_WLE4CCUX", "GENERIC_WLE4J8IX", "GENERIC_WLE4JBIX", "GENERIC_WLE4JCIX",
+            "GENERIC_WLE5C8UX", "GENERIC_WLE5CBUX", "GENERIC_WLE5J8IX", "GENERIC_WLE5JBIX",
+            "NUCLEO_H743ZI",
+            "NUCLEO_L496ZG",
+            "NUCLEO_L4R5ZI",
+            "PYBSTICK26_DUINO", "PYBSTICK26_LITE", "PYBSTICK26_STD",
+            "RAK811_TRACKERA"
+          ]
+        },
+        {
+          "comment": "Ignore also those boards except for BareMinimum",
+          "pattern": "^((?!BareMinimum).)*$",
+          "applicable": false,
+          "boards": [ "DEMO_F030F4", "RHF76_052" ]
         },
         {
           "pattern": "DISCO_IOT_|M24SR64-Y|MX25R6435F",
           "applicable": true,
-          "boards": [ "DISCO_L475VG_IOT" ]
+          "boards": [ "B_L475E_IOT01A" ]
         },
         {
-          "pattern": "SPBTLE_BeaconDemo.ino|SPBTLE_SensorDemo.ino|BTLE_sensors_TimeOfFlight_demo.ino",
+          "pattern": "SPBTLE_BeaconDemo|SPBTLE_SensorDemo|BTLE_sensors_TimeOfFlight_demo",
           "applicable": true,
-          "boards": [ "DISCO_L475VG_IOT" ]
+          "boards": [ "B_L475E_IOT01A" ]
         },
         {
-          "pattern": "STM32Ethernet|Ethernet_MQTT_Adafruit.io.ino|Hello_stm32",
+          "pattern": "STM32duinoBLE",
+          "applicable": true,
+          "boards": [ "B_L475E_IOT01A", "STEVAL_MKSBOX1V1", "NUCLEO_L476RG" ]
+        },
+        {
+          "pattern": "STM32Ethernet|Ethernet_MQTT_Adafruit.io|Hello_stm32",
           "applicable": true,
           "boards": [ "NUCLEO_F429ZI", "DISCO_F746NG" ]
         },
         {
-          "pattern": "ISM43362-M3G-L44|WiFi_MQTT_Adafruit.io.ino|mqtt_B-L475E-IOT01A.ino",
+          "pattern": "ISM43362-M3G-L44|WiFi_MQTT_Adafruit.io|mqtt_B-L475E-IOT01A",
           "applicable": true,
-          "boards": [ "DISCO_L475VG_IOT" ]
+          "boards": [ "B_L475E_IOT01A" ]
         },
         {
-          "pattern": "ExternalWakeup.ino|BleSensors_SensiBLE|NucleoCar",
+          "pattern": "ExternalWakeup|NucleoCar",
           "applicable": false,
           "boards": [
+            "AFROFLIGHT_F103CB",
             "ARMED_V1",
+            "B_L072Z_LRWAN1",
             "BLUE_F407VE_Mini",
             "BLACKPILL_F103C8",
-            "BLACKPILL_F103C8B",
-            "BLUEPILL_F103C6",
             "BLUEPILL_F103C8",
-            "BLUEPILL_F103C8B",
-            "DIYMROE_F407VGT",
+            "BLACKPILL_F303CC",
+            "BLACKPILL_F401CC",
+            "CoreBoard_F401RC",
+            "DAISY_SEED",
+            "DIYMORE_F407VGT",
             "EEXTR_F030_V1",
+            "ELEKTOR_F072C8",
+            "ELEKTOR_F072CB",
+            "FEATHER_F405",
+            "FYSETC_S6",
+            "Generic_F103CB",
+            "Generic_F103RE",
+            "Generic_F103TB",
+            "Generic_F103VF",
+            "Generic_F103ZG",
             "HY_TinySTM103TB",
             "MALYANM200_F070CB",
             "MALYANM200_F103CB",
+            "MALYANM300_F070CB",
             "MAPLEMINI_F103CB",
+            "NUCLEO_F031K6",
             "NUCLEO_L031K6",
             "NUCLEO_L412KB",
             "NUCLEO_L432KC",
             "NUCLEO_F303K8",
-            "PRNTR_F407_V1",
+            "NUCLEO_G431KB",
+            "PRNTR_V1",
+            "PRNTR_V2",
             "RUMBA32",
             "RAK811_TRACKER",
-            "RAK811_TRACKERA",
             "REMRAM_V1",
-            "Sparky_V1"
+            "Sparky_V1",
+            "STM32MP157C_DK2",
+            "WRAITH32_V1"
           ]
         },
         {
@@ -75,14 +314,18 @@
           "boards": [ "" ]
         },
         {
-          "pattern": "Firmata/",
+          "pattern": "Firmata[\\\\/]",
           "applicable": false,
-          "boards": [ "BLUEPILL_F103C6", "EEXTR_F030_V1", "MALYANM200_F103CB", "VAKE_F446VE" ]
+          "boards": [
+            "EEXTR_F030_V1", "ELEKTOR_F072C8", "ELEKTOR_F072CB", "FYSETC_S6", "Generic_F103ZG",
+            "MALYANM200_F103CB", "PRNTR_V2", "PX_HER0", "ST3DP001_EVAL", "STEVAL_MKSBOX1V1", "VAKE_V1",
+            "VCCGND_F103ZET6", "VCCGND_F103ZET6Mini", "WRAITH32_V1"
+          ]
         },
         {
-          "pattern": "Blink(WithoutDelay)?.ino",
+          "pattern": "Blink(WithoutDelay)?",
           "applicable": false,
-          "boards": [ "EEXTR_F030_V1", "MALYANM200_F103CB" ]
+          "boards": [ "EEXTR_F030_V1", "FYSETC_S6", "MALYANM200_F103CB", "PRNTR_V2" ]
         },
         {
           "pattern": "STM32SD",
@@ -90,15 +333,33 @@
           "boards": [ "DISCO_F746NG", "BLACK_F407VE", "BLUE_F407VE_Mini" ]
         },
         {
-          "pattern": "Ethernet/|STM32FreeRTOS",
+          "comment": "Require LED_BUILTIN",
+          "pattern": "NonBlockingWrite",
           "applicable": false,
-          "boards": [ "BLUEPILL_F103C6", "EEXTR_F030_V1", "MALYANM200_F103CB", "NUCLEO_L031K6" ]
+          "boards": [ "EEXTR_F030_V1", "FYSETC_S6", "MALYANM200_F103CB", "PRNTR_V2" ]
+        },
+        {
+          "pattern": "Ethernet/|FreeRTOS",
+          "applicable": false,
+          "boards": [
+            "EEXTR_F030_V1", "FYSETC_S6", "MALYANM200_F070CB", "MALYANM200_F103CB", "NUCLEO_F030R8",
+            "NUCLEO_L031K6", "PRNTR_V2" ]
+        },
+        {
+          "comment": "CM33 not supported yet",
+          "pattern": "FreeRTOS",
+          "applicable": false,
+          "boards": [
+            "B_U585I_IOT02A", "GENERIC_L552ZETXQ", "GENERIC_U575ZITXQ", "GENERIC_U585AIIXQ",
+            "NUCLEO_L552ZE_Q", "NUCLEO_U575ZI_Q"
+          ]
         },
         {
           "pattern": "09.USB",
           "applicable": true,
           "boards": [
             "BLUEPILL_F103C8",
+            "BLACKPILL_F303CC",
             "BLACK_F407VE",
             "MAPLEMINI_F103CB",
             "NUCLEO_F207ZG",
@@ -109,109 +370,158 @@
             "DISCO_F072RB",
             "DISCO_F407VG",
             "DISCO_F746NG",
-            "DISCO_L072CZ_LRWAN1",
-            "DISCO_L475VG_IOT"
+            "B_L072Z_LRWAN1",
+            "B_L475E_IOT01A"
           ],
           "options": "usb=HID"
         },
         {
-          "pattern": "X_NUCLEO_IDB05A1_HelloWorld.ino",
-          "applicable": false,
-          "boards": [
-            "ARMED_V1",
-            "BLACKPILL_F103C8",
-            "BLACKPILL_F103C8B",
-            "BLUEPILL_F103C6",
-            "BLUEPILL_F103C8",
-            "BLUEPILL_F103C8B",
-            "BLUE_F407VE_Mini",
-            "DIYMROE_F407VGT",
-            "EEXTR_F030_V1",
-            "HY_TinySTM103TB",
-            "MALYANM200_F070CB",
-            "MALYANM200_F103CB",
-            "MAPLEMINI_F103CB",
-            "NUCLEO_F303K8",
-            "NUCLEO_L412KB",
-            "NUCLEO_L432KC",
-            "PRNTR_F407_V1",
-            "RUMBA32",
-            "Sparky_V1"
-          ]
-        },
-        {
-          "pattern": "X_NUCLEO_NFC03A1_HelloWorld.ino",
-          "applicable": false,
-          "boards": [
-            "DISCO_F030R8",
-            "DISCO_F100RB",
-            "NUCLEO_F030R8",
-            "NUCLEO_L053R8"
-          ]
-        },
-        {
+          "comment": "Only for boards with Arduino R3 connector",
           "pattern": "X_NUCLEO_|FP_Examples",
+          "applicable": true,
+          "boards": [
+            "DISCO_F746NG",
+            "B_L475E_IOT01A",
+            "NUCLEO_F091RC",
+            "NUCLEO_F103RB",
+            "NUCLEO_F207ZG",
+            "NUCLEO_F401RE",
+            "NUCLEO_F411RE",
+            "NUCLEO_F429ZI",
+            "NUCLEO_F446RE",
+            "NUCLEO_F746ZG",
+            "NUCLEO_F756ZG",
+            "NUCLEO_F767ZI",
+            "NUCLEO_G071RB",
+            "NUCLEO_G431RB",
+            "NUCLEO_G474RE",
+            "NUCLEO_H743ZI",
+            "NUCLEO_H743ZI2",
+            "NUCLEO_L053R8",
+            "NUCLEO_L073RZ",
+            "NUCLEO_L152RE",
+            "NUCLEO_L433RC_P",
+            "NUCLEO_L452RE",
+            "NUCLEO_L452REP",
+            "NUCLEO_L476RG",
+            "NUCLEO_L496ZG",
+            "NUCLEO_L496ZG-P",
+            "NUCLEO_L4R5ZI",
+            "NUCLEO_L4R5ZI-P",
+            "P_NUCLEO_WB55RG",
+            "STM32MP157C_DK2"
+          ]
+        },
+        {
+          "comment": "A5 pin definition required",
+          "pattern": "StringComparisonOperators|ASM330LHH|LSM6DSR",
           "applicable": false,
           "boards": [
-            "ARMED_V1",
-            "BLUEPILL_F103C6", 
-            "EEXTR_F030_V1",
-            "MALYANM200_F103CB",
-            "NUCLEO_L031K6",
-            "RAK811_TRACKER",
-            "RAK811_TRACKERA",
-            "REMRAM_V1" ]
+            "ARMED_V1", "B_L072Z_LRWAN1", "EEXTR_F030_V1", "FYSETC_S6",
+            "GENERIC_NODE_SE_TTI", "MALYANM200_F103CB", "PRNTR_V2", "PX_HER0",
+            "RAK811_TRACKER", "REMRAM_V1", "STEVAL_MKSBOX1V1",
+            "THUNDERPACK_F411", "THUNDERPACK_L072"
+          ]
         },
         {
-          "pattern": "StringComparisonOperators.ino",
+          "pattern": "ADXL3xx",
           "applicable": false,
-          "boards": [ "ARMED_V1", "EEXTR_F030_V1", "RAK811_TRACKER", "RAK811_TRACKERA", "REMRAM_V1" ]
+          "boards": [
+            "ARMED_V1", "EEXTR_F030_V1", "RAK811_TRACKER", "STEVAL_MKSBOX1V1"
+          ]
         },
         {
-          "pattern": "ADXL3xx.ino",
+          "pattern": "X_NUCLEO_GNSS1A1",
           "applicable": false,
-          "boards": [ "ARMED_V1", "EEXTR_F030_V1", "RAK811_TRACKER", "RAK811_TRACKERA" ]
+          "boards": [
+            "DISCO_F746NG", "B_L475E_IOT01A", "NUCLEO_F207ZG", "NUCLEO_F429ZI", "NUCLEO_F767ZI",
+            "NUCLEO_H743ZI2", "P_NUCLEO_WB55RG", "STM32MP157C_DK2"
+          ]
         },
         {
-          "pattern": "SerialLoop.ino|Tests_basic_functions.ino",
+          "pattern": "IKS01A3_S2LP_P2P_Demo|X_NUCLEO_(S2868A1|S2868A2|S2915A1)_HelloWorld",
           "applicable": false,
-          "boards": [ "NUCLEO_L031K6" ]
+          "boards": [ "B_L072Z_LRWAN1", "STM32MP157C_DK2" ]
+        },
+        {
+          "pattern": "IHM02A1|IKS01A3",
+          "applicable": false,
+          "boards": [ "B_L072Z_LRWAN1" ]
+        },
+        {
+          "pattern": "MicroNMEA[\\\\/]",
+          "applicable": true,
+          "boards": [ "" ]
+        },
+        {
+          "comment": "Only USART1",
+          "pattern": "SerialLoop|Tests_basic_functions",
+          "applicable": false,
+          "boards": [
+            "GENERIC_F030F4PX", "GENERIC_F031K6TX", "GENERIC_L031K6TX",
+            "NUCLEO_F031K6", "NUCLEO_L031K6", "WRAITH32_V1"
+          ]
         },
         {
           "pattern": "(Alarm)?TimedWak(e)?up|SerialDeepSleep",
           "applicable": false,
-          "boards": [ "EEXTR_F030_V1", "MALYANM200_F103CB" ]
-        }
-      ]
-    },
-    {
-      "maintainer": "Arduino_STM32",
-      "architecture": "STM32F1",
-      "boards": [
+          "boards": [ "EEXTR_F030_V1", "FYSETC_S6", "MALYANM200_F103CB", "PRNTR_V2", "STEVAL_MKSBOX1V1" ]
+        },
         {
-          "name": "mapleMini",
-          "options": "bootloader_version=original,cpu_speed=speed_72mhz"
-        }
-      ],
-      "sketches": [
-        {
-          "pattern": "sketchbook",
+          "pattern": "ArduinoISP",
           "applicable": true,
           "boards": [ "" ]
-        }
-      ]
-    },
-    {
-      "maintainer": "Arduino_STM32",
-      "architecture": "STM32F4",
-      "boards": [
-      ],
-      "sketches": [
+        },
         {
-          "pattern": "",
+          "pattern": "Servo|p07_Keyboard|p12_KnockLock",
           "applicable": false,
-          "boards": [ "netduino2plus" ]
+          "boards": [
+            "ST3DP001_EVAL", "STEVAL_MKSBOX1V1", "VAKE_V1", "WRAITH32_V1"
+          ]
+        },
+        {
+          "pattern": "IWatchdog|RTC|Low_?Power",
+          "applicable": false,
+          "boards": [ "STM32MP157A_DK1", "STM32MP157C_DK2" ]
+        },
+        {
+          "pattern": "PWM_FullConfiguration",
+          "applicable": false,
+          "boards": [
+            "GENERIC_F401RE", "HY_TinySTM103TB", "THUNDERPACK_F411", "THUNDERPACK_L072"
+          ]
+        },
+        {
+          "pattern": "HardwareTimer_OutputInput_test",
+          "applicable": true,
+          "boards": [ "NUCLEO_L476RG" ]
+        },
+        {
+          "pattern": "ST25DV_",
+          "applicable": true,
+          "boards": [ "ARDUINO_B_L4S5I_IOT01A"]
+        },
+        {
+          "pattern": "X_NUCLEO_IHM05A1",
+          "applicable": true,
+          "boards": [ "NUCLEO_F401RE", "NUCLEO_L053R8", "NUCLEO_L152RE", "NUCLEO_L476RG" ]
+        },
+        {
+          "pattern": "IKS02A1_Audio_Button|Python_Wave_Serial_Encoder",
+          "applicable": true,
+          "boards": [ "NUCLEO_F401RE", "NUCLEO_L476RG" ]
+        },
+        {
+          "pattern": "RTC_Seconds",
+          "applicable": false,
+          "boards": [ "NUCLEO_F030R8", "NUCLEO_F031K6", "NUCLEO_F042K6"]
+        },
+        {
+          "pattern": "F1RTCDateRetention",
+          "applicable": true,
+          "boards": [ "NUCLEO_F103RB"]
         }
+
       ]
     }
   ]

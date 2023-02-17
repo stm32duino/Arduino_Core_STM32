@@ -90,13 +90,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -418,22 +417,6 @@ __weak void HAL_SYSTICK_Callback(void)
 
 #if (__MPU_PRESENT == 1)
 /**
-  * @brief  Disable the MPU.
-  * @retval None
-  */
-void HAL_MPU_Disable(void)
-{
-  /* Make sure outstanding transfers are done */
-  __DMB();
-
-  /* Disable fault exceptions */
-  SCB->SHCSR &= ~SCB_SHCSR_MEMFAULTENA_Msk;
-
-  /* Disable the MPU and clear the control register*/
-  MPU->CTRL = 0U;
-}
-
-/**
   * @brief  Enable the MPU.
   * @param  MPU_Control: Specifies the control mode of the MPU during hard fault,
   *          NMI, FAULTMASK and privileged accessto the default memory
@@ -447,15 +430,27 @@ void HAL_MPU_Disable(void)
 void HAL_MPU_Enable(uint32_t MPU_Control)
 {
   /* Enable the MPU */
-  MPU->CTRL = MPU_Control | MPU_CTRL_ENABLE_Msk;
+  MPU->CTRL = (MPU_Control | MPU_CTRL_ENABLE_Msk);
 
-  /* Enable fault exceptions */
-  SCB->SHCSR |= SCB_SHCSR_MEMFAULTENA_Msk;
-
-  /* Ensure MPU settings take effects */
+  /* Ensure MPU setting take effects */
   __DSB();
   __ISB();
 }
+
+
+/**
+  * @brief  Disable the MPU.
+  * @retval None
+  */
+void HAL_MPU_Disable(void)
+{
+  /* Make sure outstanding transfers are done */
+  __DMB();
+
+  /* Disable the MPU and clear the control register*/
+  MPU->CTRL  = 0;
+}
+
 
 /**
   * @brief  Initialize and configure the Region and the memory to be protected.
@@ -520,4 +515,3 @@ void HAL_MPU_ConfigRegion(MPU_Region_InitTypeDef *MPU_Init)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

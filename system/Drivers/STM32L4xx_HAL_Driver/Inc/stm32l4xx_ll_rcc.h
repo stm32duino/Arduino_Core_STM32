@@ -6,14 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 
@@ -476,11 +474,11 @@ typedef struct
   * @{
   */
 #if defined(RCC_CCIPR2_SAI1SEL)
-#define LL_RCC_SAI1_CLKSOURCE_PLL          (RCC_CCIPR2_SAI1SEL << 16U)                          /*!< PLL clock used as SAI1 clock source */
-#define LL_RCC_SAI1_CLKSOURCE_PLLSAI1      ((RCC_CCIPR2_SAI1SEL << 16U) | RCC_CCIPR2_SAI1SEL_0) /*!< PLLSAI1 clock used as SAI1 clock source */
-#define LL_RCC_SAI1_CLKSOURCE_PLLSAI2      ((RCC_CCIPR2_SAI1SEL << 16U) | RCC_CCIPR2_SAI1SEL_1) /*!< PLLSAI2 clock used as SAI1 clock source */
-#define LL_RCC_SAI1_CLKSOURCE_HSI          ((RCC_CCIPR2_SAI1SEL << 16U) | RCC_CCIPR2_SAI1SEL_2) /*!< HSI clock used as SAI1 clock source */
+#define LL_RCC_SAI1_CLKSOURCE_PLLSAI1      (RCC_CCIPR2_SAI1SEL << 16U)                          /*!< PLLSAI1 (PLLSAI1CLK) clock used as SAI1 clock source */
+#define LL_RCC_SAI1_CLKSOURCE_PLLSAI2      ((RCC_CCIPR2_SAI1SEL << 16U) | RCC_CCIPR2_SAI1SEL_0) /*!< PLLSAI2 (PLLSAI2CLK) clock used as SAI1 clock source */
+#define LL_RCC_SAI1_CLKSOURCE_PLL          ((RCC_CCIPR2_SAI1SEL << 16U) | RCC_CCIPR2_SAI1SEL_1) /*!< PLL (PLLSAI3CLK) clock used as SAI1 clock source */
 #define LL_RCC_SAI1_CLKSOURCE_PIN          ((RCC_CCIPR2_SAI1SEL << 16U) | (RCC_CCIPR2_SAI1SEL_1 | RCC_CCIPR2_SAI1SEL_0))  /*!< External input clock used as SAI1 clock source */
+#define LL_RCC_SAI1_CLKSOURCE_HSI          ((RCC_CCIPR2_SAI1SEL << 16U) | RCC_CCIPR2_SAI1SEL_2) /*!< HSI clock used as SAI1 clock source */
 #elif defined(RCC_CCIPR_SAI1SEL)
 #define LL_RCC_SAI1_CLKSOURCE_PLLSAI1      RCC_CCIPR_SAI1SEL                                    /*!< PLLSAI1 clock used as SAI1 clock source */
 #if defined(RCC_PLLSAI2_SUPPORT)
@@ -491,11 +489,11 @@ typedef struct
 #endif /* RCC_CCIPR2_SAI1SEL */
 
 #if defined(RCC_CCIPR2_SAI2SEL)
-#define LL_RCC_SAI2_CLKSOURCE_PLL          (RCC_CCIPR2_SAI2SEL << 16U)                          /*!< PLL clock used as SAI2 clock source */
-#define LL_RCC_SAI2_CLKSOURCE_PLLSAI1      ((RCC_CCIPR2_SAI2SEL << 16U) | RCC_CCIPR2_SAI2SEL_0) /*!< PLLSAI1 clock used as SAI2 clock source */
-#define LL_RCC_SAI2_CLKSOURCE_PLLSAI2      ((RCC_CCIPR2_SAI2SEL << 16U) | RCC_CCIPR2_SAI2SEL_1) /*!< PLLSAI2 clock used as SAI2 clock source */
-#define LL_RCC_SAI2_CLKSOURCE_HSI          ((RCC_CCIPR2_SAI2SEL << 16U) | RCC_CCIPR2_SAI2SEL_2) /*!< HSI clock used as SAI2 clock source */
+#define LL_RCC_SAI2_CLKSOURCE_PLLSAI1      (RCC_CCIPR2_SAI2SEL << 16U)                          /*!< PLLSAI1 (PLLSAI1CLK) clock used as SAI2 clock source */
+#define LL_RCC_SAI2_CLKSOURCE_PLLSAI2      ((RCC_CCIPR2_SAI2SEL << 16U) | RCC_CCIPR2_SAI2SEL_0) /*!< PLLSAI2 (PLLSAI2CLK) clock used as SAI2 clock source */
+#define LL_RCC_SAI2_CLKSOURCE_PLL          ((RCC_CCIPR2_SAI2SEL << 16U) | RCC_CCIPR2_SAI2SEL_1) /*!< PLL (PLLSAI3CLK) clock used as SAI2 clock source */
 #define LL_RCC_SAI2_CLKSOURCE_PIN          ((RCC_CCIPR2_SAI2SEL << 16U) | (RCC_CCIPR2_SAI2SEL_1 | RCC_CCIPR2_SAI2SEL_0))  /*!< External input clock used as SAI2 clock source */
+#define LL_RCC_SAI2_CLKSOURCE_HSI          ((RCC_CCIPR2_SAI2SEL << 16U) | RCC_CCIPR2_SAI2SEL_2) /*!< HSI clock used as SAI2 clock source */
 #elif defined(RCC_CCIPR_SAI2SEL)
 #define LL_RCC_SAI2_CLKSOURCE_PLLSAI1      RCC_CCIPR_SAI2SEL                                    /*!< PLLSAI1 clock used as SAI2 clock source */
 #if defined(RCC_PLLSAI2_SUPPORT)
@@ -1268,7 +1266,7 @@ typedef struct
   *         @arg @ref LL_RCC_PLLM_DIV_16 (*)
   *
   *         (*) value not defined in all devices.
-  * @param  __PLLN__ Between 8 and 86
+  * @param  __PLLN__ Between 8 and 86 or 127 depending on devices
   * @param  __PLLR__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLR_DIV_2
   *         @arg @ref LL_RCC_PLLR_DIV_4
@@ -1305,7 +1303,7 @@ typedef struct
   *         @arg @ref LL_RCC_PLLM_DIV_16 (*)
   *
   *         (*) value not defined in all devices.
-  * @param  __PLLN__ Between 8 and 86
+  * @param  __PLLN__ Between 8 and 86 or 127 depending on devices
   * @param  __PLLP__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLP_DIV_2
   *         @arg @ref LL_RCC_PLLP_DIV_3
@@ -1393,7 +1391,7 @@ typedef struct
   *         @arg @ref LL_RCC_PLLM_DIV_16 (*)
   *
   *         (*) value not defined in all devices.
-  * @param  __PLLN__ Between 8 and 86
+  * @param  __PLLN__ Between 8 and 86 or 127 depending on devices
   * @param  __PLLQ__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLQ_DIV_2
   *         @arg @ref LL_RCC_PLLQ_DIV_4
@@ -1428,7 +1426,7 @@ typedef struct
   *         @arg @ref LL_RCC_PLLSAI1M_DIV_14
   *         @arg @ref LL_RCC_PLLSAI1M_DIV_15
   *         @arg @ref LL_RCC_PLLSAI1M_DIV_16
-  * @param  __PLLSAI1N__ Between 8 and 86
+  * @param  __PLLSAI1N__ Between 8 and 86 or 127 depending on devices
   * @param  __PLLSAI1P__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI1P_DIV_2
   *         @arg @ref LL_RCC_PLLSAI1P_DIV_3
@@ -1481,7 +1479,7 @@ typedef struct
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  __PLLSAI1N__ Between 8 and 86
+  * @param  __PLLSAI1N__ Between 8 and 86 or 127 depending on devices
   * @param  __PLLSAI1P__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI1P_DIV_2
   *         @arg @ref LL_RCC_PLLSAI1P_DIV_3
@@ -1569,7 +1567,7 @@ typedef struct
   *         @arg @ref LL_RCC_PLLSAI1M_DIV_14
   *         @arg @ref LL_RCC_PLLSAI1M_DIV_15
   *         @arg @ref LL_RCC_PLLSAI1M_DIV_16
-  * @param  __PLLSAI1N__ Between 8 and 86
+  * @param  __PLLSAI1N__ Between 8 and 86 or 127 depending on devices
   * @param  __PLLSAI1Q__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI1Q_DIV_2
   *         @arg @ref LL_RCC_PLLSAI1Q_DIV_4
@@ -1633,7 +1631,7 @@ typedef struct
   *         @arg @ref LL_RCC_PLLSAI1M_DIV_14
   *         @arg @ref LL_RCC_PLLSAI1M_DIV_15
   *         @arg @ref LL_RCC_PLLSAI1M_DIV_16
-  * @param  __PLLSAI1N__ Between 8 and 86
+  * @param  __PLLSAI1N__ Between 8 and 86 or 127 depending on devices
   * @param  __PLLSAI1R__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI1R_DIV_2
   *         @arg @ref LL_RCC_PLLSAI1R_DIV_4
@@ -1698,7 +1696,7 @@ typedef struct
   *         @arg @ref LL_RCC_PLLSAI2M_DIV_14
   *         @arg @ref LL_RCC_PLLSAI2M_DIV_15
   *         @arg @ref LL_RCC_PLLSAI2M_DIV_16
-  * @param  __PLLSAI2N__ Between 8 and 86
+  * @param  __PLLSAI2N__ Between 8 and 86 or 127 depending on devices
   * @param  __PLLSAI2P__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI2P_DIV_2
   *         @arg @ref LL_RCC_PLLSAI2P_DIV_3
@@ -1751,7 +1749,7 @@ typedef struct
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  __PLLSAI2N__ Between 8 and 86
+  * @param  __PLLSAI2N__ Between 8 and 86 or 127 depending on devices
   * @param  __PLLSAI2P__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI2P_DIV_2
   *         @arg @ref LL_RCC_PLLSAI2P_DIV_3
@@ -1839,7 +1837,7 @@ typedef struct
   *         @arg @ref LL_RCC_PLLSAI2M_DIV_14
   *         @arg @ref LL_RCC_PLLSAI2M_DIV_15
   *         @arg @ref LL_RCC_PLLSAI2M_DIV_16
-  * @param  __PLLSAI2N__ Between 8 and 86
+  * @param  __PLLSAI2N__ Between 8 and 127
   * @param  __PLLSAI2R__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI2R_DIV_2
   *         @arg @ref LL_RCC_PLLSAI2R_DIV_4
@@ -1907,7 +1905,7 @@ typedef struct
   *         @arg @ref LL_RCC_PLLSAI2M_DIV_14
   *         @arg @ref LL_RCC_PLLSAI2M_DIV_15
   *         @arg @ref LL_RCC_PLLSAI2M_DIV_16
-  * @param  __PLLSAI2N__ Between 8 and 86
+  * @param  __PLLSAI2N__ Between 8 and 127
   * @param  __PLLSAI2Q__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI2Q_DIV_2
   *         @arg @ref LL_RCC_PLLSAI2Q_DIV_4
@@ -2181,10 +2179,11 @@ __STATIC_INLINE uint32_t LL_RCC_HSI_GetCalibration(void)
 /**
   * @brief  Set HSI Calibration trimming
   * @note user-programmable trimming value that is added to the HSICAL
-  * @note Default value is 16, which, when added to the HSICAL value,
-  *       should trim the HSI to 16 MHz +/- 1 %
+  * @note Default value is 16 on STM32L43x/STM32L44x/STM32L47x/STM32L48x or 64 on other devices,
+  *       which, when added to the HSICAL value, should trim the HSI to 16 MHz +/- 1 %
   * @rmtoll ICSCR        HSITRIM       LL_RCC_HSI_SetCalibTrimming
-  * @param  Value Between Min_Data = 0 and Max_Data = 31
+  * @param  Value Between Min_Data = 0 and Max_Data = 31 on STM32L43x/STM32L44x/STM32L47x/STM32L48x or
+  *               between Min_Data = 0 and Max_Data = 127 on other devices
   * @retval None
   */
 __STATIC_INLINE void LL_RCC_HSI_SetCalibTrimming(uint32_t Value)
@@ -2195,7 +2194,8 @@ __STATIC_INLINE void LL_RCC_HSI_SetCalibTrimming(uint32_t Value)
 /**
   * @brief  Get HSI Calibration trimming
   * @rmtoll ICSCR        HSITRIM       LL_RCC_HSI_GetCalibTrimming
-  * @retval Between Min_Data = 0 and Max_Data = 31
+  * @retval Between Min_Data = 0 and Max_Data = 31 on STM32L43x/STM32L44x/STM32L47x/STM32L48x or
+  *         between Min_Data = 0 and Max_Data = 127 on other devices
   */
 __STATIC_INLINE uint32_t LL_RCC_HSI_GetCalibTrimming(void)
 {
@@ -3787,7 +3787,7 @@ __STATIC_INLINE uint32_t LL_RCC_PLL_IsReady(void)
   *         @arg @ref LL_RCC_PLLM_DIV_16 (*)
   *
   *         (*) value not defined in all devices.
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 8 and 86 or 127 depending on devices
   * @param  PLLR This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLR_DIV_2
   *         @arg @ref LL_RCC_PLLR_DIV_4
@@ -3837,7 +3837,7 @@ __STATIC_INLINE void LL_RCC_PLL_ConfigDomain_SYS(uint32_t Source, uint32_t PLLM,
   *         @arg @ref LL_RCC_PLLM_DIV_16 (*)
   *
   *         (*) value not defined in all devices.
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 8 and 86 or 127 depending on devices
   * @param  PLLP This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLP_DIV_2
   *         @arg @ref LL_RCC_PLLP_DIV_3
@@ -3949,7 +3949,7 @@ __STATIC_INLINE void LL_RCC_PLL_ConfigDomain_SAI(uint32_t Source, uint32_t PLLM,
   *         @arg @ref LL_RCC_PLLM_DIV_16 (*)
   *
   *         (*) value not defined in all devices.
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 8 and 86 or 127 depending on devices
   * @param  PLLQ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLQ_DIV_2
   *         @arg @ref LL_RCC_PLLQ_DIV_4
@@ -3995,7 +3995,7 @@ __STATIC_INLINE uint32_t LL_RCC_PLL_GetMainSource(void)
 /**
   * @brief  Get Main PLL multiplication factor for VCO
   * @rmtoll PLLCFGR      PLLN          LL_RCC_PLL_GetN
-  * @retval Between 8 and 86
+  * @retval Between 8 and 86 or 127 depending on devices
   */
 __STATIC_INLINE uint32_t LL_RCC_PLL_GetN(void)
 {
@@ -4142,6 +4142,17 @@ __STATIC_INLINE void LL_RCC_PLL_DisableDomain_SAI(void)
 {
   CLEAR_BIT(RCC->PLLCFGR, RCC_PLLCFGR_PLLPEN);
 }
+
+/**
+  * @brief  Check if PLL output mapped on SAI domain clock is enabled
+  * @rmtoll PLLCFGR      PLLPEN        LL_RCC_PLL_IsEnabledDomain_SAI
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_RCC_PLL_IsEnabledDomain_SAI(void)
+{
+  return ((READ_BIT(RCC->PLLCFGR, RCC_PLLCFGR_PLLPEN) == (RCC_PLLCFGR_PLLPEN)) ? 1UL : 0UL);
+}
+
 #endif /* RCC_PLLP_SUPPORT */
 
 /**
@@ -4169,6 +4180,16 @@ __STATIC_INLINE void LL_RCC_PLL_DisableDomain_48M(void)
 }
 
 /**
+  * @brief  Check if PLL output mapped on 48MHz domain clock is enabled
+  * @rmtoll PLLCFGR      PLLQEN        LL_RCC_PLL_IsEnabledDomain_48M
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_RCC_PLL_IsEnabledDomain_48M(void)
+{
+  return ((READ_BIT(RCC->PLLCFGR, RCC_PLLCFGR_PLLQEN) == (RCC_PLLCFGR_PLLQEN)) ? 1UL : 0UL);
+}
+
+/**
   * @brief  Enable PLL output mapped on SYSCLK domain
   * @rmtoll PLLCFGR      PLLREN        LL_RCC_PLL_EnableDomain_SYS
   * @retval None
@@ -4190,6 +4211,16 @@ __STATIC_INLINE void LL_RCC_PLL_EnableDomain_SYS(void)
 __STATIC_INLINE void LL_RCC_PLL_DisableDomain_SYS(void)
 {
   CLEAR_BIT(RCC->PLLCFGR, RCC_PLLCFGR_PLLREN);
+}
+
+/**
+  * @brief  Check if PLL output mapped on SYSCLK domain clock is enabled
+  * @rmtoll PLLCFGR      PLLREN        LL_RCC_PLL_IsEnabledDomain_SYS
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_RCC_PLL_IsEnabledDomain_SYS(void)
+{
+  return ((READ_BIT(RCC->PLLCFGR, RCC_PLLCFGR_PLLREN) == (RCC_PLLCFGR_PLLREN)) ? 1UL : 0UL);
 }
 
 /**
@@ -4263,7 +4294,7 @@ __STATIC_INLINE uint32_t LL_RCC_PLLSAI1_IsReady(void)
   *         @arg @ref LL_RCC_PLLSAI1M_DIV_14
   *         @arg @ref LL_RCC_PLLSAI1M_DIV_15
   *         @arg @ref LL_RCC_PLLSAI1M_DIV_16
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 8 and 86 or 127 depending on devices
   * @param  PLLQ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI1Q_DIV_2
   *         @arg @ref LL_RCC_PLLSAI1Q_DIV_4
@@ -4302,7 +4333,7 @@ __STATIC_INLINE void LL_RCC_PLLSAI1_ConfigDomain_48M(uint32_t Source, uint32_t P
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 8 and 86 or 127 depending on devices
   * @param  PLLQ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI1Q_DIV_2
   *         @arg @ref LL_RCC_PLLSAI1Q_DIV_4
@@ -4349,7 +4380,7 @@ __STATIC_INLINE void LL_RCC_PLLSAI1_ConfigDomain_48M(uint32_t Source, uint32_t P
   *         @arg @ref LL_RCC_PLLSAI1M_DIV_14
   *         @arg @ref LL_RCC_PLLSAI1M_DIV_15
   *         @arg @ref LL_RCC_PLLSAI1M_DIV_16
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 8 and 86 or 127 depending on devices
   * @param  PLLP This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI1P_DIV_2
   *         @arg @ref LL_RCC_PLLSAI1P_DIV_3
@@ -4414,7 +4445,7 @@ __STATIC_INLINE void LL_RCC_PLLSAI1_ConfigDomain_SAI(uint32_t Source, uint32_t P
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 8 and 86 or 127 depending on devices
   * @param  PLLP This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI1P_DIV_2
   *         @arg @ref LL_RCC_PLLSAI1P_DIV_3
@@ -4524,7 +4555,7 @@ __STATIC_INLINE void LL_RCC_PLLSAI1_ConfigDomain_SAI(uint32_t Source, uint32_t P
   *         @arg @ref LL_RCC_PLLSAI1M_DIV_14
   *         @arg @ref LL_RCC_PLLSAI1M_DIV_15
   *         @arg @ref LL_RCC_PLLSAI1M_DIV_16
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 8 and 86 or 127 depending on devices
   * @param  PLLR This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI1R_DIV_2
   *         @arg @ref LL_RCC_PLLSAI1R_DIV_4
@@ -4563,7 +4594,7 @@ __STATIC_INLINE void LL_RCC_PLLSAI1_ConfigDomain_ADC(uint32_t Source, uint32_t P
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 8 and 86 or 127 depending on devices
   * @param  PLLR This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI1R_DIV_2
   *         @arg @ref LL_RCC_PLLSAI1R_DIV_4
@@ -4581,7 +4612,7 @@ __STATIC_INLINE void LL_RCC_PLLSAI1_ConfigDomain_ADC(uint32_t Source, uint32_t P
 /**
   * @brief  Get SAI1PLL multiplication factor for VCO
   * @rmtoll PLLSAI1CFGR  PLLSAI1N      LL_RCC_PLLSAI1_GetN
-  * @retval Between 8 and 86
+  * @retval Between 8 and 86 or 127 depending on devices
   */
 __STATIC_INLINE uint32_t LL_RCC_PLLSAI1_GetN(void)
 {
@@ -4725,6 +4756,16 @@ __STATIC_INLINE void LL_RCC_PLLSAI1_DisableDomain_SAI(void)
 }
 
 /**
+  * @brief  Check if PLLSAI1 output mapped on SAI domain clock is enabled
+  * @rmtoll PLLSAI1CFGR      PLLSAI1PEN        LL_RCC_PLLSAI1_IsEnabledDomain_SAI
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_RCC_PLLSAI1_IsEnabledDomain_SAI(void)
+{
+  return ((READ_BIT(RCC->PLLSAI1CFGR, RCC_PLLSAI1CFGR_PLLSAI1PEN) == (RCC_PLLSAI1CFGR_PLLSAI1PEN)) ? 1UL : 0UL);
+}
+
+/**
   * @brief  Enable PLLSAI1 output mapped on 48MHz domain clock
   * @rmtoll PLLSAI1CFGR  PLLSAI1QEN    LL_RCC_PLLSAI1_EnableDomain_48M
   * @retval None
@@ -4747,6 +4788,16 @@ __STATIC_INLINE void LL_RCC_PLLSAI1_DisableDomain_48M(void)
 }
 
 /**
+  * @brief  Check if PLLSAI1 output mapped on SAI domain clock is enabled
+  * @rmtoll PLLSAI1CFGR      PLLSAI1QEN        LL_RCC_PLLSAI1_IsEnabledDomain_48M
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_RCC_PLLSAI1_IsEnabledDomain_48M(void)
+{
+  return ((READ_BIT(RCC->PLLSAI1CFGR, RCC_PLLSAI1CFGR_PLLSAI1QEN) == (RCC_PLLSAI1CFGR_PLLSAI1QEN)) ? 1UL : 0UL);
+}
+
+/**
   * @brief  Enable PLLSAI1 output mapped on ADC domain clock
   * @rmtoll PLLSAI1CFGR  PLLSAI1REN    LL_RCC_PLLSAI1_EnableDomain_ADC
   * @retval None
@@ -4766,6 +4817,16 @@ __STATIC_INLINE void LL_RCC_PLLSAI1_EnableDomain_ADC(void)
 __STATIC_INLINE void LL_RCC_PLLSAI1_DisableDomain_ADC(void)
 {
   CLEAR_BIT(RCC->PLLSAI1CFGR, RCC_PLLSAI1CFGR_PLLSAI1REN);
+}
+
+/**
+  * @brief  Check if PLLSAI1 output mapped on ADC domain clock is enabled
+  * @rmtoll PLLSAI1CFGR      PLLSAI1REN        LL_RCC_PLLSAI1_IsEnabledDomain_ADC
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_RCC_PLLSAI1_IsEnabledDomain_ADC(void)
+{
+  return ((READ_BIT(RCC->PLLSAI1CFGR, RCC_PLLSAI1CFGR_PLLSAI1REN) == (RCC_PLLSAI1CFGR_PLLSAI1REN)) ? 1UL : 0UL);
 }
 
 /**
@@ -4840,7 +4901,7 @@ __STATIC_INLINE uint32_t LL_RCC_PLLSAI2_IsReady(void)
   *         @arg @ref LL_RCC_PLLSAI2M_DIV_14
   *         @arg @ref LL_RCC_PLLSAI2M_DIV_15
   *         @arg @ref LL_RCC_PLLSAI2M_DIV_16
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 8 and 86 or 127 depending on devices
   * @param  PLLP This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI2P_DIV_2
   *         @arg @ref LL_RCC_PLLSAI2P_DIV_3
@@ -4905,7 +4966,7 @@ __STATIC_INLINE void LL_RCC_PLLSAI2_ConfigDomain_SAI(uint32_t Source, uint32_t P
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 8 and 86 or 127 depending on devices
   * @param  PLLP This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI2P_DIV_2
   *         @arg @ref LL_RCC_PLLSAI2P_DIV_3
@@ -5014,7 +5075,7 @@ __STATIC_INLINE void LL_RCC_PLLSAI2_ConfigDomain_SAI(uint32_t Source, uint32_t P
   *         @arg @ref LL_RCC_PLLSAI2M_DIV_14
   *         @arg @ref LL_RCC_PLLSAI2M_DIV_15
   *         @arg @ref LL_RCC_PLLSAI2M_DIV_16
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 8 and 127
   * @param  PLLQ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI2Q_DIV_2
   *         @arg @ref LL_RCC_PLLSAI2Q_DIV_4
@@ -5063,7 +5124,7 @@ __STATIC_INLINE void LL_RCC_PLLSAI2_ConfigDomain_DSI(uint32_t Source, uint32_t P
   *         @arg @ref LL_RCC_PLLSAI2M_DIV_14
   *         @arg @ref LL_RCC_PLLSAI2M_DIV_15
   *         @arg @ref LL_RCC_PLLSAI2M_DIV_16
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 8 and 127
   * @param  PLLR This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI2R_DIV_2
   *         @arg @ref LL_RCC_PLLSAI2R_DIV_4
@@ -5126,7 +5187,7 @@ __STATIC_INLINE void LL_RCC_PLLSAI2_ConfigDomain_ADC(uint32_t Source, uint32_t P
 /**
   * @brief  Get SAI2PLL multiplication factor for VCO
   * @rmtoll PLLSAI2CFGR  PLLSAI2N      LL_RCC_PLLSAI2_GetN
-  * @retval Between 8 and 86
+  * @retval Between 8 and 86 or 127 depending on devices
   */
 __STATIC_INLINE uint32_t LL_RCC_PLLSAI2_GetN(void)
 {
@@ -5288,6 +5349,16 @@ __STATIC_INLINE void LL_RCC_PLLSAI2_DisableDomain_SAI(void)
   CLEAR_BIT(RCC->PLLSAI2CFGR, RCC_PLLSAI2CFGR_PLLSAI2PEN);
 }
 
+/**
+  * @brief  Check if PLLSAI2 output mapped on SAI domain clock is enabled
+  * @rmtoll PLLSAI2CFGR      PLLSAI2PEN        LL_RCC_PLLSAI2_IsEnabledDomain_SAI
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_RCC_PLLSAI2_IsEnabledDomain_SAI(void)
+{
+  return ((READ_BIT(RCC->PLLSAI2CFGR, RCC_PLLSAI2CFGR_PLLSAI2PEN) == (RCC_PLLSAI2CFGR_PLLSAI2PEN)) ? 1UL : 0UL);
+}
+
 #if defined(DSI)
 /**
   * @brief  Enable PLLSAI2 output mapped on DSI domain clock
@@ -5309,6 +5380,16 @@ __STATIC_INLINE void LL_RCC_PLLSAI2_EnableDomain_DSI(void)
 __STATIC_INLINE void LL_RCC_PLLSAI2_DisableDomain_DSI(void)
 {
   CLEAR_BIT(RCC->PLLSAI2CFGR, RCC_PLLSAI2CFGR_PLLSAI2QEN);
+}
+
+/**
+  * @brief  Check if PLLSAI2 output mapped on DSI domain clock is enabled
+  * @rmtoll PLLSAI2CFGR      PLLSAI2QEN        LL_RCC_PLLSAI2_IsEnabledDomain_DSI
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_RCC_PLLSAI2_IsEnabledDomain_DSI(void)
+{
+  return ((READ_BIT(RCC->PLLSAI2CFGR, RCC_PLLSAI2CFGR_PLLSAI2QEN) == (RCC_PLLSAI2CFGR_PLLSAI2QEN)) ? 1UL : 0UL);
 }
 #endif /* DSI */
 
@@ -5334,6 +5415,16 @@ __STATIC_INLINE void LL_RCC_PLLSAI2_DisableDomain_LTDC(void)
 {
   CLEAR_BIT(RCC->PLLSAI2CFGR, RCC_PLLSAI2CFGR_PLLSAI2REN);
 }
+
+/**
+  * @brief  Check if PLLSAI2 output mapped on LTDC domain clock is enabled
+  * @rmtoll PLLSAI2CFGR      PLLSAI2REN        LL_RCC_PLLSAI2_IsEnabledDomain_LTDC
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_RCC_PLLSAI2_IsEnabledDomain_LTDC(void)
+{
+  return ((READ_BIT(RCC->PLLSAI2CFGR, RCC_PLLSAI2CFGR_PLLSAI2REN) == (RCC_PLLSAI2CFGR_PLLSAI2REN)) ? 1UL : 0UL);
+}
 #else
 /**
   * @brief  Enable PLLSAI2 output mapped on ADC domain clock
@@ -5356,6 +5447,16 @@ __STATIC_INLINE void LL_RCC_PLLSAI2_DisableDomain_ADC(void)
 {
   CLEAR_BIT(RCC->PLLSAI2CFGR, RCC_PLLSAI2CFGR_PLLSAI2REN);
 }
+
+/**
+  * @brief  Check if PLLSAI2 output mapped on ADC domain clock is enabled
+  * @rmtoll PLLSAI2CFGR      PLLSAI2REN        LL_RCC_PLLSAI2_IsEnabledDomain_ADC
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_RCC_PLLSAI2_IsEnabledDomain_ADC(void)
+{
+  return ((READ_BIT(RCC->PLLSAI2CFGR, RCC_PLLSAI2CFGR_PLLSAI2REN) == (RCC_PLLSAI2CFGR_PLLSAI2REN)) ? 1UL : 0UL);
+}
 #endif /* LTDC */
 
 /**
@@ -5363,7 +5464,39 @@ __STATIC_INLINE void LL_RCC_PLLSAI2_DisableDomain_ADC(void)
   */
 #endif /* RCC_PLLSAI2_SUPPORT */
 
+#if defined(OCTOSPI1)
+/** @defgroup RCC_LL_EF_OCTOSPI OCTOSPI
+  * @{
+  */
 
+/**
+  * @brief  Configure OCTOSPI1 DQS delay
+  * @rmtoll DLYCFGR           OCTOSPI1_DLY     LL_RCC_OCTOSPI1_DelayConfig
+  * @param  Delay OCTOSPI1 DQS delay between 0 and 15
+  * @retval None
+  */
+__STATIC_INLINE void LL_RCC_OCTOSPI1_DelayConfig(uint32_t Delay)
+{
+  MODIFY_REG(RCC->DLYCFGR, RCC_DLYCFGR_OCTOSPI1_DLY, Delay);
+}
+
+#if defined(OCTOSPI2)
+/**
+  * @brief  Configure OCTOSPI2 DQS delay
+  * @rmtoll DLYCFGR           OCTOSPI2_DLY     LL_RCC_OCTOSPI2_DelayConfig
+  * @param  Delay OCTOSPI2 DQS delay between 0 and 15
+  * @retval None
+  */
+__STATIC_INLINE void LL_RCC_OCTOSPI2_DelayConfig(uint32_t Delay)
+{
+  MODIFY_REG(RCC->DLYCFGR, RCC_DLYCFGR_OCTOSPI2_DLY, (Delay << RCC_DLYCFGR_OCTOSPI2_DLY_Pos));
+}
+#endif /* OCTOSPI2 */
+
+/**
+  * @}
+  */
+#endif /* OCTOSPI1 */
 
 /** @defgroup RCC_LL_EF_FLAG_Management FLAG Management
   * @{
@@ -6098,4 +6231,3 @@ uint32_t    LL_RCC_GetOCTOSPIClockFreq(uint32_t OCTOSPIxSource);
 
 #endif /* STM32L4xx_LL_RCC_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

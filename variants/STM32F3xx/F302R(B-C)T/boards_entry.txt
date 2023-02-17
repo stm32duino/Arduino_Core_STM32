@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F302RBTx
+GenF3.menu.pnum.GENERIC_F302RBTX=Generic F302RBTx
+GenF3.menu.pnum.GENERIC_F302RBTX.upload.maximum_size=131072
+GenF3.menu.pnum.GENERIC_F302RBTX.upload.maximum_data_size=32768
+GenF3.menu.pnum.GENERIC_F302RBTX.build.board=GENERIC_F302RBTX
+GenF3.menu.pnum.GENERIC_F302RBTX.build.product_line=STM32F302xC
+GenF3.menu.pnum.GENERIC_F302RBTX.build.variant=STM32F3xx/F302R(B-C)T
+
+# Generic F302RCTx
+GenF3.menu.pnum.GENERIC_F302RCTX=Generic F302RCTx
+GenF3.menu.pnum.GENERIC_F302RCTX.upload.maximum_size=262144
+GenF3.menu.pnum.GENERIC_F302RCTX.upload.maximum_data_size=40960
+GenF3.menu.pnum.GENERIC_F302RCTX.build.board=GENERIC_F302RCTX
+GenF3.menu.pnum.GENERIC_F302RCTX.build.product_line=STM32F302xC
+GenF3.menu.pnum.GENERIC_F302RCTX.build.variant=STM32F3xx/F302R(B-C)T
+

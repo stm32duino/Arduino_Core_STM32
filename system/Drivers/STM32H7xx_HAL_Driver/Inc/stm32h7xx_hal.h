@@ -7,13 +7,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -53,7 +52,9 @@ typedef enum
   */
 
 /* Exported constants --------------------------------------------------------*/
-
+/** @defgroup HAL_Exported_Constants HAL Exported Constants
+  * @{
+  */
 /** @defgroup REV_ID device revision ID
   * @{
   */
@@ -66,13 +67,17 @@ typedef enum
   * @}
   */
 
+/** @defgroup SYSCFG_Exported_Constants SYSCFG Exported Constants
+  * @{
+  */
+
 /** @defgroup SYSCFG_VREFBUF_VoltageScale VREFBUF Voltage Scale
   * @{
   */
-#define SYSCFG_VREFBUF_VOLTAGE_SCALE0   VREFBUF_CSR_VRS_OUT2   /*!< Voltage reference scale 0 (VREF_OUT2) */
-#define SYSCFG_VREFBUF_VOLTAGE_SCALE1   VREFBUF_CSR_VRS_OUT1   /*!< Voltage reference scale 1 (VREF_OUT1) */
-#define SYSCFG_VREFBUF_VOLTAGE_SCALE2   VREFBUF_CSR_VRS_OUT4   /*!< Voltage reference scale 2 (VREF_OUT4) */
-#define SYSCFG_VREFBUF_VOLTAGE_SCALE3   VREFBUF_CSR_VRS_OUT3   /*!< Voltage reference scale 3 (VREF_OUT3) */
+#define SYSCFG_VREFBUF_VOLTAGE_SCALE0   VREFBUF_CSR_VRS_OUT1   /*!< Voltage reference scale 0 (VREF_OUT1) */
+#define SYSCFG_VREFBUF_VOLTAGE_SCALE1   VREFBUF_CSR_VRS_OUT2   /*!< Voltage reference scale 1 (VREF_OUT2) */
+#define SYSCFG_VREFBUF_VOLTAGE_SCALE2   VREFBUF_CSR_VRS_OUT3   /*!< Voltage reference scale 2 (VREF_OUT3) */
+#define SYSCFG_VREFBUF_VOLTAGE_SCALE3   VREFBUF_CSR_VRS_OUT4   /*!< Voltage reference scale 3 (VREF_OUT4) */
 
 
 #define IS_SYSCFG_VREFBUF_VOLTAGE_SCALE(__SCALE__)  (((__SCALE__) == SYSCFG_VREFBUF_VOLTAGE_SCALE0) || \
@@ -100,6 +105,52 @@ typedef enum
   * @}
   */
 
+#if !defined(SYSCFG_PMCR_BOOSTEN)
+/** @defgroup SYSCFG_FastModePlus_GPIO Fast-mode Plus on GPIO
+  * @{
+  */
+
+/** @brief  Fast-mode Plus driving capability on a specific GPIO
+  */
+#define SYSCFG_FASTMODEPLUS_PB6        SYSCFG_PMCR_I2C_PB6_FMP  /*!< Enable Fast-mode Plus on PB6 */
+#define SYSCFG_FASTMODEPLUS_PB7        SYSCFG_PMCR_I2C_PB7_FMP  /*!< Enable Fast-mode Plus on PB7 */
+#define SYSCFG_FASTMODEPLUS_PB8        SYSCFG_PMCR_I2C_PB8_FMP  /*!< Enable Fast-mode Plus on PB8 */
+#define SYSCFG_FASTMODEPLUS_PB9        SYSCFG_PMCR_I2C_PB9_FMP  /*!< Enable Fast-mode Plus on PB9 */
+
+#define IS_SYSCFG_FASTMODEPLUS(__PIN__) ((((__PIN__) & SYSCFG_FASTMODEPLUS_PB6) == SYSCFG_FASTMODEPLUS_PB6) || \
+                                         (((__PIN__) & SYSCFG_FASTMODEPLUS_PB7) == SYSCFG_FASTMODEPLUS_PB7) || \
+                                         (((__PIN__) & SYSCFG_FASTMODEPLUS_PB8) == SYSCFG_FASTMODEPLUS_PB8) || \
+                                         (((__PIN__) & SYSCFG_FASTMODEPLUS_PB9) == SYSCFG_FASTMODEPLUS_PB9))
+
+/**
+  * @}
+  */
+#endif /* ! SYSCFG_PMCR_BOOSTEN */
+
+
+#if defined(SYSCFG_ADC2ALT_ADC2_ROUT0) || defined(SYSCFG_ADC2ALT_ADC2_ROUT1)
+/** @defgroup SYSCFG_Adc2_Alternate_Connection SYSCFG ADC2 Alternate Connection
+  * @{
+  */
+
+/** @brief  Adc2 Alternate Connection on Vinp[16] and Vinp[17]
+  */
+#define SYSCFG_ADC2_ROUT0_DAC1_1       ((uint32_t)0x00000000)      /*!< DAC1_out1 connected to ADC2 VINP[16] */
+#define SYSCFG_ADC2_ROUT0_VBAT4         SYSCFG_ADC2ALT_ADC2_ROUT0  /*!< VBAT/4 connected to ADC2 VINP[16] */
+#define SYSCFG_ADC2_ROUT1_DAC1_2        ((uint32_t)0x00000000)     /*!< DAC1_out2 connected to ADC2 VINP[17] */
+#define SYSCFG_ADC2_ROUT1_VREFINT       SYSCFG_ADC2ALT_ADC2_ROUT1  /*!< VREFINT connected to ADC2 VINP[17] */
+
+#define IS_SYSCFG_ADC2ALT_ROUT0(__VALUE__)  (((__VALUE__) == SYSCFG_ADC2_ROUT0_DAC1_1) || \
+                                             ((__VALUE__) == SYSCFG_ADC2_ROUT0_VBAT4))
+#define IS_SYSCFG_ADC2ALT_ROUT1(__VALUE__)  (((__VALUE__) == SYSCFG_ADC2_ROUT1_DAC1_2) || \
+                                             ((__VALUE__) == SYSCFG_ADC2_ROUT1_VREFINT))
+
+/**
+  * @}
+  */
+#endif /*SYSCFG_ADC2ALT_ADC2_ROUT0 || SYSCFG_ADC2ALT_ADC2_ROUT1*/
+
+
 /** @defgroup SYSCFG_Ethernet_Config  Ethernet Config
   * @{
   */
@@ -123,10 +174,6 @@ typedef enum
 #define SYSCFG_SWITCH_PC3                       SYSCFG_PMCR_PC3SO  /*!< Select PC3 analog switch */
 
 
-#define IS_SYSCFG_ANALOG_SWITCH(SWITCH)    ((((SWITCH) & SYSCFG_SWITCH_PA0) == SYSCFG_SWITCH_PA0)|| \
-                                           (((SWITCH) & SYSCFG_SWITCH_PA1) == SYSCFG_SWITCH_PA1) || \
-                                           (((SWITCH) & SYSCFG_SWITCH_PC2) == SYSCFG_SWITCH_PC2) || \
-                                           (((SWITCH) & SYSCFG_SWITCH_PC3) == SYSCFG_SWITCH_PC3))
 
 
 #define SYSCFG_SWITCH_PA0_OPEN                       SYSCFG_PMCR_PA0SO       /*!< PA0 analog switch opened */
@@ -138,6 +185,16 @@ typedef enum
 #define SYSCFG_SWITCH_PC3_OPEN                       SYSCFG_PMCR_PC3SO       /*!< PC3 analog switch opened */
 #define SYSCFG_SWITCH_PC3_CLOSE                      ((uint32_t)0x00000000)  /*!< PC3 analog switch closed */
 
+/**
+  * @}
+  */
+
+#define IS_SYSCFG_ANALOG_SWITCH(SWITCH)    ((((SWITCH) & SYSCFG_SWITCH_PA0) == SYSCFG_SWITCH_PA0)|| \
+                                           (((SWITCH) & SYSCFG_SWITCH_PA1) == SYSCFG_SWITCH_PA1) || \
+                                           (((SWITCH) & SYSCFG_SWITCH_PC2) == SYSCFG_SWITCH_PC2) || \
+                                           (((SWITCH) & SYSCFG_SWITCH_PC3) == SYSCFG_SWITCH_PC3))
+
+
 #define IS_SYSCFG_SWITCH_STATE(STATE)      ((((STATE) & SYSCFG_SWITCH_PA0_OPEN) == SYSCFG_SWITCH_PA0_OPEN)    || \
                                            (((STATE) & SYSCFG_SWITCH_PA0_CLOSE) == SYSCFG_SWITCH_PA0_CLOSE)   || \
                                            (((STATE) & SYSCFG_SWITCH_PA1_OPEN) == SYSCFG_SWITCH_PA1_OPEN)     || \
@@ -146,9 +203,7 @@ typedef enum
                                            (((STATE) & SYSCFG_SWITCH_PC2_CLOSE) == SYSCFG_SWITCH_PC2_CLOSE)   || \
                                            (((STATE) & SYSCFG_SWITCH_PC3_OPEN) == SYSCFG_SWITCH_PC3_OPEN)     || \
                                            (((STATE) & SYSCFG_SWITCH_PC3_CLOSE) == SYSCFG_SWITCH_PC3_CLOSE))
-/**
-  * @}
-  */
+
 
 /** @defgroup SYSCFG_Boot_Config  Boot Config
   * @{
@@ -181,7 +236,9 @@ typedef enum
   * @}
   */
 
-
+/**
+  * @}
+  */
 
 
 /** @defgroup EXTI_Event_Input_Config  Event Input Config
@@ -241,17 +298,16 @@ typedef enum
 #define EXTI_LINE41      ((uint32_t)0x29)
 #define EXTI_LINE42      ((uint32_t)0x2A)
 #define EXTI_LINE43      ((uint32_t)0x2B)
-#define EXTI_LINE44      ((uint32_t)0x2C)
+#define EXTI_LINE44      ((uint32_t)0x2C)  /* Not available in all family lines */
 /* EXTI_LINE45 Reserved */
 #if defined(DUAL_CORE)
 #define EXTI_LINE46      ((uint32_t)0x2E)
 #else
 /* EXTI_LINE46 Reserved */
-#endif
+#endif /* DUAL_CORE */
 #define EXTI_LINE47      ((uint32_t)0x2F)
 #define EXTI_LINE48      ((uint32_t)0x30)
 #define EXTI_LINE49      ((uint32_t)0x31)
-
 #define EXTI_LINE50      ((uint32_t)0x32)
 #define EXTI_LINE51      ((uint32_t)0x33)
 #define EXTI_LINE52      ((uint32_t)0x34)
@@ -262,7 +318,6 @@ typedef enum
 #define EXTI_LINE57      ((uint32_t)0x39)
 #define EXTI_LINE58      ((uint32_t)0x3A)
 #define EXTI_LINE59      ((uint32_t)0x3B)
-
 #define EXTI_LINE60      ((uint32_t)0x3C)
 #define EXTI_LINE61      ((uint32_t)0x3D)
 #define EXTI_LINE62      ((uint32_t)0x3E)
@@ -273,45 +328,43 @@ typedef enum
 #define EXTI_LINE67      ((uint32_t)0x43)
 #define EXTI_LINE68      ((uint32_t)0x44)
 #define EXTI_LINE69      ((uint32_t)0x45)
-
 #define EXTI_LINE70      ((uint32_t)0x46)
 #define EXTI_LINE71      ((uint32_t)0x47)
 #define EXTI_LINE72      ((uint32_t)0x48)
 #define EXTI_LINE73      ((uint32_t)0x49)
 #define EXTI_LINE74      ((uint32_t)0x4A)
-#define EXTI_LINE75      ((uint32_t)0x4B)
-#define EXTI_LINE76      ((uint32_t)0x4C)
-
+#define EXTI_LINE75      ((uint32_t)0x4B)  /* Not available in all family lines */
+#define EXTI_LINE76      ((uint32_t)0x4C)  /* Not available in all family lines */
 #if defined(DUAL_CORE)
 #define EXTI_LINE77      ((uint32_t)0x4D)
 #define EXTI_LINE78      ((uint32_t)0x4E)
 #define EXTI_LINE79      ((uint32_t)0x4F)
-
 #define EXTI_LINE80      ((uint32_t)0x50)
-/* EXTI_LINE81   Reserved */
-#define EXTI_LINE82      ((uint32_t)0x52)
-/* EXTI_LINE83   Reserved */
-#define EXTI_LINE84      ((uint32_t)0x54)
-#define EXTI_LINE85      ((uint32_t)0x55)
-#define EXTI_LINE86      ((uint32_t)0x56)
-#define EXTI_LINE87      ((uint32_t)0x57)
-/* EXTI_LINE88   Reserved */
 #else
-/* EXTI_LINE77   Reserved */
-/* EXTI_LINE78   Reserved */
-/* EXTI_LINE79   Reserved */
-/* EXTI_LINE80   Reserved */
+/* EXTI_LINE77 Reserved */
+/* EXTI_LINE78 Reserved */
+/* EXTI_LINE79 Reserved */
+/* EXTI_LINE80 Reserved */
+#endif /* DUAL_CORE */
 /* EXTI_LINE81   Reserved */
-/* EXTI_LINE82   Reserved */
+#if defined(DUAL_CORE)
+#define EXTI_LINE82      ((uint32_t)0x52)
+#else
+/* EXTI_LINE82 Reserved */
+#endif /* DUAL_CORE */
 /* EXTI_LINE83   Reserved */
-/* EXTI_LINE84   Reserved */
-
+#if defined(DUAL_CORE)
+#define EXTI_LINE84      ((uint32_t)0x54)
+#else
+/* EXTI_LINE84 Reserved */
+#endif /* DUAL_CORE */
 #define EXTI_LINE85      ((uint32_t)0x55)
-#define EXTI_LINE86      ((uint32_t)0x56)
+#define EXTI_LINE86      ((uint32_t)0x56)  /* Not available in all family lines */
 #define EXTI_LINE87      ((uint32_t)0x57)
-
-/* EXTI_LINE88   Reserved */
-#endif
+#define EXTI_LINE88      ((uint32_t)0x58)  /* Not available in all family lines */
+#define EXTI_LINE89      ((uint32_t)0x59)  /* Not available in all family lines */
+#define EXTI_LINE90      ((uint32_t)0x5A)  /* Not available in all family lines */
+#define EXTI_LINE91      ((uint32_t)0x5B)  /* Not available in all family lines */
 
 #if defined(DUAL_CORE)
 #define IS_HAL_EXTI_CONFIG_LINE(LINE) (((LINE) == EXTI_LINE0) || ((LINE) == EXTI_LINE1) || \
@@ -334,15 +387,15 @@ typedef enum
                                 ((LINE) == EXTI_LINE4)  || ((LINE) == EXTI_LINE5)   || \
                                 ((LINE) == EXTI_LINE6)  || ((LINE) == EXTI_LINE7)   || \
                                 ((LINE) == EXTI_LINE8)  || ((LINE) == EXTI_LINE9)   || \
-                                ((LINE) == EXTI_LINE10) || ((LINE) == EXTI_LINE11) || \
-                                ((LINE) == EXTI_LINE12) || ((LINE) == EXTI_LINE13) || \
-                                ((LINE) == EXTI_LINE14) || ((LINE) == EXTI_LINE15) || \
-                                ((LINE) == EXTI_LINE16) || ((LINE) == EXTI_LINE17) || \
-                                ((LINE) == EXTI_LINE18) || ((LINE) == EXTI_LINE19) || \
-                                ((LINE) == EXTI_LINE20) || ((LINE) == EXTI_LINE21) || \
-                                ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE51) || \
+                                ((LINE) == EXTI_LINE10) || ((LINE) == EXTI_LINE11)  || \
+                                ((LINE) == EXTI_LINE12) || ((LINE) == EXTI_LINE13)  || \
+                                ((LINE) == EXTI_LINE14) || ((LINE) == EXTI_LINE15)  || \
+                                ((LINE) == EXTI_LINE16) || ((LINE) == EXTI_LINE17)  || \
+                                ((LINE) == EXTI_LINE18) || ((LINE) == EXTI_LINE19)  || \
+                                ((LINE) == EXTI_LINE20) || ((LINE) == EXTI_LINE21)  || \
+                                ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE51)  || \
                                 ((LINE) == EXTI_LINE85) || ((LINE) == EXTI_LINE86))
-#endif
+#endif /* DUAL_CORE */
 
 #if defined(DUAL_CORE)
 #define IS_EXTI_ALL_LINE(LINE) (((LINE) == EXTI_LINE0)  || ((LINE) == EXTI_LINE1)  || \
@@ -428,7 +481,9 @@ typedef enum
                                 ((LINE) == EXTI_LINE73) || ((LINE) == EXTI_LINE74) || \
                                 ((LINE) == EXTI_LINE75) || ((LINE) == EXTI_LINE76) || \
                                 ((LINE) == EXTI_LINE85) || \
-                                ((LINE) == EXTI_LINE86) || ((LINE) == EXTI_LINE87))
+                                ((LINE) == EXTI_LINE86) || ((LINE) == EXTI_LINE87) || \
+                                ((LINE) == EXTI_LINE88) || ((LINE) == EXTI_LINE89) || \
+                                ((LINE) == EXTI_LINE90) || ((LINE) == EXTI_LINE91))
 #endif /*DUAL_CORE*/
 
 #if defined(DUAL_CORE)
@@ -513,7 +568,9 @@ typedef enum
                                 ((LINE) == EXTI_LINE73) || ((LINE) == EXTI_LINE74) || \
                                 ((LINE) == EXTI_LINE75) || ((LINE) == EXTI_LINE76) || \
                                 ((LINE) == EXTI_LINE85) || \
-                                ((LINE) == EXTI_LINE86) || ((LINE) == EXTI_LINE87))
+                                ((LINE) == EXTI_LINE86) || ((LINE) == EXTI_LINE87) || \
+                                ((LINE) == EXTI_LINE88) || ((LINE) == EXTI_LINE89) || \
+                                ((LINE) == EXTI_LINE90) || ((LINE) == EXTI_LINE91))
 #endif /*DUAL_CORE*/
 
 #if defined(DUAL_CORE)
@@ -576,7 +633,7 @@ typedef enum
                                 ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE50) || \
                                 ((LINE) == EXTI_LINE51) || ((LINE) == EXTI_LINE52) || \
                                 ((LINE) == EXTI_LINE53))
-#else
+#elif (POWER_DOMAINS_NUMBER == 3U)
 #define IS_EXTI_D3_LINE(LINE) (((LINE) == EXTI_LINE0) || ((LINE) == EXTI_LINE1)    || \
                                 ((LINE) == EXTI_LINE2) || ((LINE) == EXTI_LINE3)   || \
                                 ((LINE) == EXTI_LINE4) || ((LINE) == EXTI_LINE5)   || \
@@ -591,18 +648,44 @@ typedef enum
                                 ((LINE) == EXTI_LINE41) || ((LINE) == EXTI_LINE48) || \
                                 ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE50) || \
                                 ((LINE) == EXTI_LINE51) || ((LINE) == EXTI_LINE52) || \
-                                ((LINE) == EXTI_LINE53))
-#endif
+                                ((LINE) == EXTI_LINE53) || ((LINE) == EXTI_LINE88))
+#else
+#define IS_EXTI_D3_LINE(LINE) (((LINE) == EXTI_LINE0) || ((LINE) == EXTI_LINE1)    || \
+                                ((LINE) == EXTI_LINE2) || ((LINE) == EXTI_LINE3)   || \
+                                ((LINE) == EXTI_LINE4) || ((LINE) == EXTI_LINE5)   || \
+                                ((LINE) == EXTI_LINE6) || ((LINE) == EXTI_LINE7)   || \
+                                ((LINE) == EXTI_LINE8) || ((LINE) == EXTI_LINE9)   || \
+                                ((LINE) == EXTI_LINE10) || ((LINE) == EXTI_LINE11) || \
+                                ((LINE) == EXTI_LINE12) || ((LINE) == EXTI_LINE13) || \
+                                ((LINE) == EXTI_LINE14) || ((LINE) == EXTI_LINE15) || \
+                                ((LINE) == EXTI_LINE19) || ((LINE) == EXTI_LINE20) || \
+                                ((LINE) == EXTI_LINE21) || ((LINE) == EXTI_LINE25) || \
+                                ((LINE) == EXTI_LINE34) || ((LINE) == EXTI_LINE35) || \
+                                ((LINE) == EXTI_LINE41) || ((LINE) == EXTI_LINE48) || \
+                                ((LINE) == EXTI_LINE49) || ((LINE) == EXTI_LINE50) || \
+                                ((LINE) == EXTI_LINE51) || ((LINE) == EXTI_LINE88))
+#endif /*DUAL_CORE*/
 
 
 #define  BDMA_CH6_CLEAR           ((uint32_t)0x00000000)   /*!< BDMA ch6 event selected as D3 domain pendclear source*/
 #define  BDMA_CH7_CLEAR           ((uint32_t)0x00000001)   /*!< BDMA ch7 event selected as D3 domain pendclear source*/
+#if defined (LPTIM4)
 #define  LPTIM4_OUT_CLEAR         ((uint32_t)0x00000002)   /*!< LPTIM4 out selected as D3 domain pendclear source*/
+#else
+#define  LPTIM2_OUT_CLEAR         ((uint32_t)0x00000002)   /*!< LPTIM2 out selected as D3 domain pendclear source*/
+#endif /* LPTIM4 */
+#if defined (LPTIM5)
 #define  LPTIM5_OUT_CLEAR         ((uint32_t)0x00000003)   /*!< LPTIM5 out selected as D3 domain pendclear source*/
-
+#else
+#define  LPTIM3_OUT_CLEAR         ((uint32_t)0x00000003)   /*!< LPTIM3 out selected as D3 domain pendclear source*/
+#endif /* LPTIM5 */
+#if defined (LPTIM4) && defined (LPTIM5)
 #define IS_EXTI_D3_CLEAR(SOURCE) (((SOURCE) == BDMA_CH6_CLEAR) || ((SOURCE) == BDMA_CH7_CLEAR)    || \
                                  ((SOURCE) == LPTIM4_OUT_CLEAR) || ((SOURCE) == LPTIM5_OUT_CLEAR))
-
+#else
+#define IS_EXTI_D3_CLEAR(SOURCE) (((SOURCE) == BDMA_CH6_CLEAR) || ((SOURCE) == BDMA_CH7_CLEAR)    || \
+                                 ((SOURCE) == LPTIM2_OUT_CLEAR) || ((SOURCE) == LPTIM3_OUT_CLEAR))
+#endif /* LPTIM4 LPTIM5 */
 /**
   * @}
   */
@@ -621,9 +704,39 @@ typedef enum
 /**
   * @}
   */
-
+/**
+  * @}
+  */
 
 /* Exported macro ------------------------------------------------------------*/
+/** @defgroup HAL_Exported_Macros HAL Exported Macros
+  * @{
+  */
+#if defined(DUAL_CORE)
+/** @defgroup ART_Exported_Macros ART Exported Macros
+  * @{
+  */
+
+/** @brief  ART Enable Macro.
+  *         Enable the Cortex-M4 ART cache.
+  */
+#define __HAL_ART_ENABLE()   SET_BIT(ART->CTR, ART_CTR_EN)
+
+/** @brief  ART Disable Macro.
+  *         Disable the Cortex-M4 ART cache.
+  */
+#define __HAL_ART_DISABLE()   CLEAR_BIT(ART->CTR, ART_CTR_EN)
+
+/** @brief  ART Cache BaseAddress Config.
+  *         Configure the Cortex-M4 ART cache Base Address.
+  */
+#define __HAL_ART_CONFIG_BASE_ADDRESS(__BASE_ADDRESS__)   MODIFY_REG(ART->CTR, ART_CTR_PCACHEADDR, (((__BASE_ADDRESS__) >> 12U) & 0x000FFF00UL))
+
+/**
+  * @}
+  */
+#endif /* DUAL_CORE */
+
 /** @defgroup SYSCFG_Exported_Macros SYSCFG Exported Macros
   * @{
   */
@@ -714,8 +827,29 @@ typedef enum
 #define __HAL_SYSCFG_BREAK_CM4_LOCKUP_LOCK()          SET_BIT(SYSCFG->CFGR, SYSCFG_CFGR_CM4L)
 #endif /* DUAL_CORE */
 
+#if !defined(SYSCFG_PMCR_BOOSTEN)
+/** @brief  Fast-mode Plus driving capability enable/disable macros
+  * @param __FASTMODEPLUS__  This parameter can be a value of :
+  *     @arg @ref SYSCFG_FASTMODEPLUS_PB6 Fast-mode Plus driving capability activation on PB6
+  *     @arg @ref SYSCFG_FASTMODEPLUS_PB7 Fast-mode Plus driving capability activation on PB7
+  *     @arg @ref SYSCFG_FASTMODEPLUS_PB8 Fast-mode Plus driving capability activation on PB8
+  *     @arg @ref SYSCFG_FASTMODEPLUS_PB9 Fast-mode Plus driving capability activation on PB9
+  */
+#define __HAL_SYSCFG_FASTMODEPLUS_ENABLE(__FASTMODEPLUS__)  do {assert_param(IS_SYSCFG_FASTMODEPLUS((__FASTMODEPLUS__)));\
+                                                                SET_BIT(SYSCFG->PMCR, (__FASTMODEPLUS__));\
+                                                               }while(0)
+
+#define __HAL_SYSCFG_FASTMODEPLUS_DISABLE(__FASTMODEPLUS__) do {assert_param(IS_SYSCFG_FASTMODEPLUS((__FASTMODEPLUS__)));\
+                                                                CLEAR_BIT(SYSCFG->PMCR, (__FASTMODEPLUS__));\
+                                                               }while(0)
+
+#endif /* !SYSCFG_PMCR_BOOSTEN */
 /**
   * @}
+  */
+
+/** @defgroup DBG_Exported_Macros DBG Exported Macros
+  * @{
   */
 
 /** @brief  Freeze/Unfreeze Peripherals in Debug mode
@@ -735,8 +869,19 @@ typedef enum
 #define __HAL_DBGMCU_FREEZE_I2C1()           (DBGMCU->APB1LFZ1 |= (DBGMCU_APB1LFZ1_DBG_I2C1))
 #define __HAL_DBGMCU_FREEZE_I2C2()           (DBGMCU->APB1LFZ1 |= (DBGMCU_APB1LFZ1_DBG_I2C2))
 #define __HAL_DBGMCU_FREEZE_I2C3()           (DBGMCU->APB1LFZ1 |= (DBGMCU_APB1LFZ1_DBG_I2C3))
+#if defined(I2C5)
+#define __HAL_DBGMCU_FREEZE_I2C5()           (DBGMCU->APB1LFZ1 |= (DBGMCU_APB1LFZ1_DBG_I2C5))
+#endif /*I2C5*/
+#if defined(DBGMCU_APB1HFZ1_DBG_FDCAN)
 #define __HAL_DBGMCU_FREEZE_FDCAN()          (DBGMCU->APB1HFZ1 |= (DBGMCU_APB1HFZ1_DBG_FDCAN))
+#endif /*DBGMCU_APB1HFZ1_DBG_FDCAN*/
 
+#if defined(TIM23)
+#define __HAL_DBGMCU_FREEZE_TIM23()           (DBGMCU->APB1HFZ1 |= (DBGMCU_APB1HFZ1_DBG_TIM23))
+#endif /*TIM23*/
+#if defined(TIM24)
+#define __HAL_DBGMCU_FREEZE_TIM24()           (DBGMCU->APB1HFZ1 |= (DBGMCU_APB1HFZ1_DBG_TIM24))
+#endif /*TIM24*/
 
 #define __HAL_DBGMCU_FREEZE_TIM1()           (DBGMCU->APB2FZ1 |= (DBGMCU_APB2FZ1_DBG_TIM1))
 #define __HAL_DBGMCU_FREEZE_TIM8()           (DBGMCU->APB2FZ1 |= (DBGMCU_APB2FZ1_DBG_TIM8))
@@ -769,8 +914,19 @@ typedef enum
 #define __HAL_DBGMCU_UnFreeze_I2C1()           (DBGMCU->APB1LFZ1  &= ~ (DBGMCU_APB1LFZ1_DBG_I2C1))
 #define __HAL_DBGMCU_UnFreeze_I2C2()           (DBGMCU->APB1LFZ1  &= ~ (DBGMCU_APB1LFZ1_DBG_I2C2))
 #define __HAL_DBGMCU_UnFreeze_I2C3()           (DBGMCU->APB1LFZ1  &= ~ (DBGMCU_APB1LFZ1_DBG_I2C3))
+#if defined(I2C5)
+#define __HAL_DBGMCU_UnFreeze_I2C5()           (DBGMCU->APB1LFZ1  &= ~ (DBGMCU_APB1LFZ1_DBG_I2C5))
+#endif /*I2C5*/
+#if defined(DBGMCU_APB1HFZ1_DBG_FDCAN)
 #define __HAL_DBGMCU_UnFreeze_FDCAN()          (DBGMCU->APB1HFZ1  &= ~ (DBGMCU_APB1HFZ1_DBG_FDCAN))
+#endif /*DBGMCU_APB1HFZ1_DBG_FDCAN*/
 
+#if defined(TIM23)
+#define __HAL_DBGMCU_UnFreeze_TIM23()          (DBGMCU->APB1HFZ1 &= ~ (DBGMCU_APB1HFZ1_DBG_TIM23))
+#endif /*TIM23*/
+#if defined(TIM24)
+#define __HAL_DBGMCU_UnFreeze_TIM24()          (DBGMCU->APB1HFZ1 &= ~ (DBGMCU_APB1HFZ1_DBG_TIM24))
+#endif /*TIM24*/
 
 #define __HAL_DBGMCU_UnFreeze_TIM1()           (DBGMCU->APB2FZ1  &= ~ (DBGMCU_APB2FZ1_DBG_TIM1))
 #define __HAL_DBGMCU_UnFreeze_TIM8()           (DBGMCU->APB2FZ1  &= ~ (DBGMCU_APB2FZ1_DBG_TIM8))
@@ -863,6 +1019,12 @@ typedef enum
 #define __HAL_DBGMCU_UnFreeze2_IWDG1()          (DBGMCU->APB4FZ2  &= ~ (DBGMCU_APB4FZ2_DBG_IWDG1))
 
 #endif /*DUAL_CORE*/
+/**
+  * @}
+  */
+/**
+  * @}
+  */
 
 /** @defgroup HAL_Private_Macros HAL Private Macros
   * @{
@@ -874,16 +1036,40 @@ typedef enum
   * @}
   */
 
-/* Exported functions --------------------------------------------------------*/
+/* Exported variables --------------------------------------------------------*/
 
+/** @addtogroup HAL_Exported_Variables
+  * @{
+  */
+extern __IO uint32_t uwTick;
+extern uint32_t uwTickPrio;
+extern HAL_TickFreqTypeDef uwTickFreq;
+/**
+  * @}
+  */
+
+/* Exported functions --------------------------------------------------------*/
+/** @defgroup HAL_Exported_Functions HAL Exported Functions
+  * @{
+  */
 /* Initialization and de-initialization functions  ******************************/
+/** @defgroup HAL_Group1 Initialization and de-initialization Functions
+  * @{
+  */
 HAL_StatusTypeDef HAL_Init(void);
 HAL_StatusTypeDef HAL_DeInit(void);
 void HAL_MspInit(void);
 void HAL_MspDeInit(void);
 HAL_StatusTypeDef HAL_InitTick (uint32_t TickPriority);
 
+/**
+  * @}
+  */
+
 /* Peripheral Control functions  ************************************************/
+/** @defgroup HAL_Group2 HAL Control functions
+ *
+ */
 void HAL_IncTick(void);
 void HAL_Delay(uint32_t Delay);
 uint32_t HAL_GetTick(void);
@@ -895,11 +1081,22 @@ void HAL_ResumeTick(void);
 uint32_t HAL_GetHalVersion(void);
 uint32_t HAL_GetREVID(void);
 uint32_t HAL_GetDEVID(void);
+uint32_t HAL_GetUIDw0(void);
+uint32_t HAL_GetUIDw1(void);
+uint32_t HAL_GetUIDw2(void);
+#if defined(SYSCFG_PMCR_EPIS_SEL)
 void HAL_SYSCFG_ETHInterfaceSelect(uint32_t SYSCFG_ETHInterface);
+#endif /* SYSCFG_PMCR_EPIS_SEL */
 void HAL_SYSCFG_AnalogSwitchConfig(uint32_t SYSCFG_AnalogSwitch , uint32_t SYSCFG_SwitchState );
+#if defined(SYSCFG_PMCR_BOOSTEN)
 void HAL_SYSCFG_EnableBOOST(void);
 void HAL_SYSCFG_DisableBOOST(void);
+#endif /* SYSCFG_PMCR_BOOSTEN */
+
+#if defined (SYSCFG_UR2_BOOT_ADD0) ||  defined (SYSCFG_UR2_BCM7_ADD0)
 void HAL_SYSCFG_CM7BootAddConfig(uint32_t BootRegister, uint32_t BootAddress);
+#endif /* SYSCFG_UR2_BOOT_ADD0 || SYSCFG_UR2_BCM7_ADD0*/
+
 #if defined(DUAL_CORE)
 void HAL_SYSCFG_CM4BootAddConfig(uint32_t BootRegister, uint32_t BootAddress);
 void HAL_SYSCFG_EnableCM7BOOT(void);
@@ -913,12 +1110,15 @@ void HAL_SYSCFG_EnableIOSpeedOptimize(void);
 void HAL_SYSCFG_DisableIOSpeedOptimize(void);
 void HAL_SYSCFG_CompensationCodeSelect(uint32_t SYSCFG_CompCode);
 void HAL_SYSCFG_CompensationCodeConfig(uint32_t SYSCFG_PMOSCode, uint32_t SYSCFG_NMOSCode);
-void HAL_EnableDBGSleepMode(void);
-void HAL_DisableDBGSleepMode(void);
-void HAL_EnableDBGStopMode(void);
-void HAL_DisableDBGStopMode(void);
-void HAL_EnableDBGStandbyMode(void);
-void HAL_DisableDBGStandbyMode(void);
+#if defined(SYSCFG_CCCR_NCC_MMC)
+void HAL_SYSCFG_VDDMMC_CompensationCodeConfig(uint32_t SYSCFG_PMOSCode, uint32_t SYSCFG_NMOSCode);
+#endif /* SYSCFG_CCCR_NCC_MMC */
+void HAL_DBGMCU_EnableDBGSleepMode(void);
+void HAL_DBGMCU_DisableDBGSleepMode(void);
+void HAL_DBGMCU_EnableDBGStopMode(void);
+void HAL_DBGMCU_DisableDBGStopMode(void);
+void HAL_DBGMCU_EnableDBGStandbyMode(void);
+void HAL_DBGMCU_DisableDBGStandbyMode(void);
 #if defined(DUAL_CORE)
 void HAL_EnableDomain2DBGSleepMode(void);
 void HAL_DisableDomain2DBGSleepMode(void);
@@ -927,10 +1127,14 @@ void HAL_DisableDomain2DBGStopMode(void);
 void HAL_EnableDomain2DBGStandbyMode(void);
 void HAL_DisableDomain2DBGStandbyMode(void);
 #endif /*DUAL_CORE*/
+#if defined(DBGMCU_CR_DBG_STOPD3)
 void HAL_EnableDomain3DBGStopMode(void);
 void HAL_DisableDomain3DBGStopMode(void);
+#endif /*DBGMCU_CR_DBG_STOPD3*/
+#if defined(DBGMCU_CR_DBG_STANDBYD3)
 void HAL_EnableDomain3DBGStandbyMode(void);
 void HAL_DisableDomain3DBGStandbyMode(void);
+#endif /*DBGMCU_CR_DBG_STANDBYD3*/
 void HAL_EXTI_EdgeConfig(uint32_t EXTI_Line , uint32_t EXTI_Edge );
 void HAL_EXTI_GenerateSWInterrupt(uint32_t EXTI_Line);
 #if defined(DUAL_CORE)
@@ -949,6 +1153,20 @@ void HAL_SYSCFG_VREFBUF_HighImpedanceConfig(uint32_t Mode);
 void HAL_SYSCFG_VREFBUF_TrimmingConfig(uint32_t TrimmingValue);
 HAL_StatusTypeDef HAL_SYSCFG_EnableVREFBUF(void);
 void HAL_SYSCFG_DisableVREFBUF(void);
+#if defined(SYSCFG_ADC2ALT_ADC2_ROUT0)
+void HAL_SYSCFG_ADC2ALT_Rout0Config(uint32_t Adc2AltRout0);
+#endif /*SYSCFG_ADC2ALT_ADC2_ROUT0*/
+#if defined(SYSCFG_ADC2ALT_ADC2_ROUT1)
+void HAL_SYSCFG_ADC2ALT_Rout1Config(uint32_t Adc2AltRout1);
+#endif /*SYSCFG_ADC2ALT_ADC2_ROUT1*/
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
 
 /**
   * @}
@@ -964,4 +1182,3 @@ void HAL_SYSCFG_DisableVREFBUF(void);
 
 #endif /* STM32H7xx_HAL_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

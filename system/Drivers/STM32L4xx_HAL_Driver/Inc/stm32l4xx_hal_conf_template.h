@@ -8,13 +8,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -67,6 +66,8 @@
 #define HAL_OPAMP_MODULE_ENABLED
 #define HAL_OSPI_MODULE_ENABLED
 #define HAL_PCD_MODULE_ENABLED
+#define HAL_PKA_MODULE_ENABLED
+#define HAL_PSSI_MODULE_ENABLED
 #define HAL_PWR_MODULE_ENABLED
 #define HAL_QSPI_MODULE_ENABLED
 #define HAL_RCC_MODULE_ENABLED
@@ -379,6 +380,14 @@
   #include "stm32l4xx_hal_pcd.h"
 #endif /* HAL_PCD_MODULE_ENABLED */
 
+#ifdef HAL_PKA_MODULE_ENABLED
+  #include "stm32l4xx_hal_pka.h"
+#endif /* HAL_PKA_MODULE_ENABLED */
+
+#ifdef HAL_PSSI_MODULE_ENABLED
+  #include "stm32l4xx_hal_pssi.h"
+#endif /* HAL_PSSI_MODULE_ENABLED */
+
 #ifdef HAL_PWR_MODULE_ENABLED
   #include "stm32l4xx_hal_pwr.h"
 #endif /* HAL_PWR_MODULE_ENABLED */
@@ -447,7 +456,7 @@
 #ifdef  USE_FULL_ASSERT
 /**
   * @brief  The assert_param macro is used for function's parameters check.
-  * @param  expr: If expr is false, it calls assert_failed function
+  * @param  expr If expr is false, it calls assert_failed function
   *         which reports the name of the source file and the source
   *         line number of the call that failed.
   *         If expr is true, it returns no value.
@@ -465,6 +474,3 @@
 #endif
 
 #endif /* STM32L4xx_HAL_CONF_H */
-
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

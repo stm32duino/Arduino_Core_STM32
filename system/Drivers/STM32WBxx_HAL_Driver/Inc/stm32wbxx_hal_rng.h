@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -22,7 +21,7 @@
 #define STM32WBxx_HAL_RNG_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -176,7 +175,9 @@ typedef  void (*pRNG_ReadyDataCallbackTypeDef)(RNG_HandleTypeDef *hrng, uint32_t
 #define  HAL_RNG_ERROR_INVALID_CALLBACK 0x00000001U    /*!< Invalid Callback error  */
 #endif /* USE_HAL_RNG_REGISTER_CALLBACKS */
 #define  HAL_RNG_ERROR_TIMEOUT          0x00000002U    /*!< Timeout error        */
-
+#define  HAL_RNG_ERROR_BUSY             0x00000004U    /*!< Busy error        */
+#define  HAL_RNG_ERROR_SEED             0x00000008U    /*!< Seed error        */
+#define  HAL_RNG_ERROR_CLOCK            0x00000010U   /*!< Clock error        */
 /**
   * @}
   */
@@ -374,5 +375,3 @@ uint32_t             HAL_RNG_GetError(RNG_HandleTypeDef *hrng);
 
 
 #endif /* STM32WBxx_HAL_RNG_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -33,7 +33,7 @@
 // using a ring buffer (I think), in which head is the index of the location
 // to which to write the next incoming character and tail is the index of the
 // location from which to read.
-// NOTE: a "power of 2" buffer size is reccomended to dramatically
+// NOTE: a "power of 2" buffer size is recommended to dramatically
 //       optimize all the modulo operations for ring buffers.
 // WARNING: When buffer sizes are increased to > 256, the buffer index
 // variables are automatically increased in size, but the extra
@@ -41,21 +41,30 @@
 // often work, but occasionally a race condition can occur that makes
 // Serial behave erratically. See https://github.com/arduino/Arduino/issues/2405
 #if !defined(SERIAL_TX_BUFFER_SIZE)
-#define SERIAL_TX_BUFFER_SIZE 64
+  #define SERIAL_TX_BUFFER_SIZE 64
 #endif
 #if !defined(SERIAL_RX_BUFFER_SIZE)
-#define SERIAL_RX_BUFFER_SIZE 64
+  #define SERIAL_RX_BUFFER_SIZE 64
 #endif
 #if (SERIAL_TX_BUFFER_SIZE>256)
-typedef uint16_t tx_buffer_index_t;
+  typedef uint16_t tx_buffer_index_t;
 #else
-typedef uint8_t tx_buffer_index_t;
+  typedef uint8_t tx_buffer_index_t;
 #endif
 #if  (SERIAL_RX_BUFFER_SIZE>256)
-typedef uint16_t rx_buffer_index_t;
+  typedef uint16_t rx_buffer_index_t;
 #else
-typedef uint8_t rx_buffer_index_t;
+  typedef uint8_t rx_buffer_index_t;
 #endif
+
+// A bool should be enough for this
+// But it brings an build error due to ambiguous
+// call of overloaded HardwareSerial(int, int)
+// So defining a dedicated type
+typedef enum {
+  HALF_DUPLEX_DISABLED,
+  HALF_DUPLEX_ENABLED
+} HalfDuplexMode_t;
 
 // Define config for Serial.begin(baud, config);
 // below configs are not supported by STM32
@@ -69,12 +78,12 @@ typedef uint8_t rx_buffer_index_t;
 //#define SERIAL_6N2 0x0A
 
 #ifdef UART_WORDLENGTH_7B
-#define SERIAL_7N1 0x04
-#define SERIAL_7N2 0x0C
-#define SERIAL_6E1 0x22
-#define SERIAL_6E2 0x2A
-#define SERIAL_6O1 0x32
-#define SERIAL_6O2 0x3A
+  #define SERIAL_7N1 0x04
+  #define SERIAL_7N2 0x0C
+  #define SERIAL_6E1 0x22
+  #define SERIAL_6E2 0x2A
+  #define SERIAL_6O1 0x32
+  #define SERIAL_6O2 0x3A
 #endif
 #define SERIAL_8N1 0x06
 #define SERIAL_8N2 0x0E
@@ -101,9 +110,11 @@ class HardwareSerial : public Stream {
     serial_t _serial;
 
   public:
-    HardwareSerial(uint32_t _rx, uint32_t _tx);
-    HardwareSerial(PinName _rx, PinName _tx);
-    HardwareSerial(void *peripheral);
+    HardwareSerial(uint32_t _rx, uint32_t _tx, uint32_t _rts = NUM_DIGITAL_PINS, uint32_t _cts = NUM_DIGITAL_PINS);
+    HardwareSerial(PinName _rx, PinName _tx, PinName _rts = NC, PinName _cts = NC);
+    HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex = HALF_DUPLEX_DISABLED);
+    HardwareSerial(uint32_t _rxtx);
+    HardwareSerial(PinName _rxtx);
     void begin(unsigned long baud)
     {
       begin(baud, SERIAL_8N1);
@@ -132,7 +143,8 @@ class HardwareSerial : public Stream {
     {
       return write((uint8_t)n);
     }
-    using Print::write; // pull in write(str) and write(buf, size) from Print
+    size_t write(const uint8_t *buffer, size_t size);
+    using Print::write; // pull in write(str) from Print
     operator bool()
     {
       return true;
@@ -143,28 +155,76 @@ class HardwareSerial : public Stream {
     void setRx(PinName _rx);
     void setTx(PinName _tx);
 
+    // Enable HW flow control on RTS, CTS or both
+    void setRts(uint32_t _rts);
+    void setCts(uint32_t _cts);
+    void setRtsCts(uint32_t _rts, uint32_t _cts);
+    void setRts(PinName _rts);
+    void setCts(PinName _cts);
+    void setRtsCts(PinName _rts, PinName _cts);
+
+    // Enable half-duplex mode by setting the Rx pin to NC
+    // This needs to be done before the call to begin()
+    void setHalfDuplex(void);
+    bool isHalfDuplex(void) const;
+    void enableHalfDuplexRx(void);
+
     friend class STM32LowPower;
 
     // Interrupt handlers
     static void _rx_complete_irq(serial_t *obj);
     static int _tx_complete_irq(serial_t *obj);
+
+#if defined(HAL_UART_MODULE_ENABLED) && !defined(HAL_UART_MODULE_ONLY)
+    // Could be used to mix Arduino API and STM32Cube HAL API (ex: DMA). Use at your own risk.
+    UART_HandleTypeDef *getHandle(void)
+    {
+      return &(_serial.handle);
+    }
+#endif // HAL_UART_MODULE_ENABLED && !HAL_UART_MODULE_ONLY
+
   private:
+    bool _rx_enabled;
     uint8_t _config;
     unsigned long _baud;
-    void init(void);
+    void init(PinName _rx, PinName _tx, PinName _rts = NC, PinName _cts = NC);
     void configForLowPower(void);
 };
 
-extern HardwareSerial Serial1;
-extern HardwareSerial Serial2;
-extern HardwareSerial Serial3;
-extern HardwareSerial Serial4;
-extern HardwareSerial Serial5;
-extern HardwareSerial Serial6;
-extern HardwareSerial Serial7;
-extern HardwareSerial Serial8;
-extern HardwareSerial Serial9;
-extern HardwareSerial Serial10;
-extern HardwareSerial SerialLP1;
-
+#if defined(USART1)
+  extern HardwareSerial Serial1;
+#endif
+#if defined(USART2)
+  extern HardwareSerial Serial2;
+#endif
+#if defined(USART3)
+  extern HardwareSerial Serial3;
+#endif
+#if defined(UART4) || defined(USART4)
+  extern HardwareSerial Serial4;
+#endif
+#if defined(UART5) || defined(USART5)
+  extern HardwareSerial Serial5;
+#endif
+#if defined(USART6)
+  extern HardwareSerial Serial6;
+#endif
+#if defined(UART7) || defined(USART7)
+  extern HardwareSerial Serial7;
+#endif
+#if defined(UART8) || defined(USART8)
+  extern HardwareSerial Serial8;
+#endif
+#if defined(UART9)
+  extern HardwareSerial Serial9;
+#endif
+#if defined(UART10) || defined(USART10)
+  extern HardwareSerial Serial10;
+#endif
+#if defined(LPUART1)
+  extern HardwareSerial SerialLP1;
+#endif
+#if defined(LPUART2)
+  extern HardwareSerial SerialLP2;
+#endif
 #endif

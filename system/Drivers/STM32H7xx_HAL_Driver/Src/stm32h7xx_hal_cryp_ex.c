@@ -7,6 +7,17 @@
   *          functionalities of CRYP extension peripheral:
   *           + Extended AES processing functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                      ##### How to use this driver #####
@@ -16,18 +27,6 @@
     Encryption/Decryption to get the authentication messages.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -103,6 +102,9 @@
   * @param  hcryp: pointer to a CRYP_HandleTypeDef structure that contains
   *         the configuration information for CRYP module
   * @param  AuthTag: Pointer to the authentication buffer
+  *         the AuthTag generated here is 128bits length, if the TAG length is
+  *         less than 128bits, user should consider only the valid part of AuthTag
+  *         buffer which correspond exactly to TAG length.
   * @param  Timeout: Timeout duration
   * @retval HAL status
   */
@@ -110,8 +112,14 @@ HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
 {
   uint32_t tickstart;
   uint64_t headerlength = (uint64_t)(hcryp->Init.HeaderSize) * 32U; /* Header length in bits */
-  uint64_t inputlength = (uint64_t)(hcryp->Size) * 8U; /* input length in bits */
+  uint64_t inputlength = (uint64_t)hcryp->SizesSum * 8U; /* Input length in bits */
   uint32_t tagaddr = (uint32_t)AuthTag;
+
+  /* Correct header length if Init.HeaderSize is actually in bytes */
+  if (hcryp->Init.HeaderWidthUnit == CRYP_HEADERWIDTHUNIT_BYTE)
+  {
+    headerlength /= 4U;
+  }
 
   if (hcryp->State == HAL_CRYP_STATE_READY)
   {
@@ -149,7 +157,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
     /* Select final phase */
     MODIFY_REG(hcryp->Instance->CR, CRYP_CR_GCM_CCMPH, CRYP_PHASE_FINAL);
 
-    /*ALGODIR bit must be set to ‘0’.*/
+    /*ALGODIR bit must be set to '0'.*/
     hcryp->Instance->CR &=  ~CRYP_CR_ALGODIR;
 
     /* Enable the CRYP peripheral */
@@ -157,38 +165,41 @@ HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
 
     /* Write the number of bits in header (64 bits) followed by the number of bits
     in the payload */
+#if !defined (CRYP_VER_2_2)
     /* STM32H7 rev.B and above : data has to be inserted normally (no swapping)*/
     if (hcryp->Version >= REV_ID_B)
+#endif /*End of not defined CRYP_VER_2_2*/
     {
       hcryp->Instance->DIN = 0U;
       hcryp->Instance->DIN = (uint32_t)(headerlength);
       hcryp->Instance->DIN = 0U;
       hcryp->Instance->DIN = (uint32_t)(inputlength);
     }
+#if !defined (CRYP_VER_2_2)
     else/* data has to be swapped according to the DATATYPE */
     {
-      if (hcryp->Init.DataType == CRYP_DATATYPE_1B)
+      if (hcryp->Init.DataType == CRYP_BIT_SWAP)
       {
         hcryp->Instance->DIN = 0U;
         hcryp->Instance->DIN = __RBIT((uint32_t)(headerlength));
         hcryp->Instance->DIN = 0U;
         hcryp->Instance->DIN = __RBIT((uint32_t)(inputlength));
       }
-      else if (hcryp->Init.DataType == CRYP_DATATYPE_8B)
+      else if (hcryp->Init.DataType == CRYP_BYTE_SWAP)
       {
         hcryp->Instance->DIN = 0U;
         hcryp->Instance->DIN = __REV((uint32_t)(headerlength));
         hcryp->Instance->DIN = 0U;
         hcryp->Instance->DIN = __REV((uint32_t)(inputlength));
       }
-      else if (hcryp->Init.DataType == CRYP_DATATYPE_16B)
+      else if (hcryp->Init.DataType == CRYP_HALFWORD_SWAP)
       {
         hcryp->Instance->DIN = 0U;
         hcryp->Instance->DIN = __ROR((uint32_t)headerlength, 16U);
         hcryp->Instance->DIN = 0U;
         hcryp->Instance->DIN = __ROR((uint32_t)inputlength, 16U);
       }
-      else if (hcryp->Init.DataType == CRYP_DATATYPE_32B)
+      else if (hcryp->Init.DataType == CRYP_NO_SWAP)
       {
         hcryp->Instance->DIN = 0U;
         hcryp->Instance->DIN = (uint32_t)(headerlength);
@@ -200,6 +211,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
         /* Nothing to do */
       }
     }
+#endif /*End of not defined CRYP_VER_2_2*/
     /* Wait for OFNE flag to be raised */
     tickstart = HAL_GetTick();
     while (HAL_IS_BIT_CLR(hcryp->Instance->SR, CRYP_FLAG_OFNE))
@@ -256,6 +268,9 @@ HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
   * @param  hcryp: pointer to a CRYP_HandleTypeDef structure that contains
   *         the configuration information for CRYP module
   * @param  AuthTag: Pointer to the authentication buffer
+  *         the AuthTag generated here is 128bits length, if the TAG length is
+  *         less than 128bits, user should consider only the valid part of AuthTag
+  *         buffer which correspond exactly to TAG length.
   * @param  Timeout: Timeout duration
   * @retval HAL status
   */
@@ -299,7 +314,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
     /* Disable CRYP to start the final phase */
     __HAL_CRYP_DISABLE(hcryp);
 
-    /* Select final phase & ALGODIR bit must be set to ‘0’. */
+    /* Select final phase & ALGODIR bit must be set to '0'. */
     MODIFY_REG(hcryp->Instance->CR, CRYP_CR_GCM_CCMPH | CRYP_CR_ALGODIR, CRYP_PHASE_FINAL | CRYP_OPERATINGMODE_ENCRYPT);
 
     /* Enable the CRYP peripheral */
@@ -312,8 +327,10 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
     ctr0[2] = hcryp->Init.B0[2];
     ctr0[3] = hcryp->Init.B0[3] &  CRYP_CCM_CTR0_3;
 
+#if !defined (CRYP_VER_2_2)
     /*STM32H7 rev.B and above : data has to be inserted normally (no swapping)*/
     if (hcryp->Version >= REV_ID_B)
+#endif /*End of not defined CRYP_VER_2_2*/
     {
       hcryp->Instance->DIN = *(uint32_t *)(ctr0addr);
       ctr0addr += 4U;
@@ -323,9 +340,10 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
       ctr0addr += 4U;
       hcryp->Instance->DIN = *(uint32_t *)(ctr0addr);
     }
+#if !defined (CRYP_VER_2_2)
     else /* data has to be swapped according to the DATATYPE */
     {
-      if (hcryp->Init.DataType == CRYP_DATATYPE_8B)
+      if (hcryp->Init.DataType == CRYP_BYTE_SWAP)
       {
         hcryp->Instance->DIN = __REV(*(uint32_t *)(ctr0addr));
         ctr0addr += 4U;
@@ -335,7 +353,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
         ctr0addr += 4U;
         hcryp->Instance->DIN = __REV(*(uint32_t *)(ctr0addr));
       }
-      else if (hcryp->Init.DataType == CRYP_DATATYPE_16B)
+      else if (hcryp->Init.DataType == CRYP_HALFWORD_SWAP)
       {
         hcryp->Instance->DIN = __ROR(*(uint32_t *)(ctr0addr), 16U);
         ctr0addr += 4U;
@@ -345,7 +363,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
         ctr0addr += 4U;
         hcryp->Instance->DIN = __ROR(*(uint32_t *)(ctr0addr), 16U);
       }
-      else if (hcryp->Init.DataType == CRYP_DATATYPE_1B)
+      else if (hcryp->Init.DataType == CRYP_BIT_SWAP)
       {
         hcryp->Instance->DIN = __RBIT(*(uint32_t *)(ctr0addr));
         ctr0addr += 4U;
@@ -366,6 +384,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
         hcryp->Instance->DIN = *(uint32_t *)(ctr0addr);
       }
     }
+#endif /*End of not defined CRYP_VER_2_2*/
     /* Wait for OFNE flag to be raised */
     tickstart = HAL_GetTick();
     while (HAL_IS_BIT_CLR(hcryp->Instance->SR, CRYP_FLAG_OFNE))
@@ -435,4 +454,3 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
 /**
   * @}
   */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

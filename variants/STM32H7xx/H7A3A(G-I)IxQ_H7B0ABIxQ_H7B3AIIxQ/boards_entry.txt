@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic H7A3AGIxQ
+GenH7.menu.pnum.GENERIC_H7A3AGIXQ=Generic H7A3AGIxQ
+GenH7.menu.pnum.GENERIC_H7A3AGIXQ.upload.maximum_size=1048576
+GenH7.menu.pnum.GENERIC_H7A3AGIXQ.upload.maximum_data_size=1458176
+GenH7.menu.pnum.GENERIC_H7A3AGIXQ.build.board=GENERIC_H7A3AGIXQ
+GenH7.menu.pnum.GENERIC_H7A3AGIXQ.build.product_line=STM32H7A3xx
+GenH7.menu.pnum.GENERIC_H7A3AGIXQ.build.variant=STM32H7xx/H7A3A(G-I)IxQ_H7B0ABIxQ_H7B3AIIxQ
+
+# Generic H7A3AIIxQ
+GenH7.menu.pnum.GENERIC_H7A3AIIXQ=Generic H7A3AIIxQ
+GenH7.menu.pnum.GENERIC_H7A3AIIXQ.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H7A3AIIXQ.upload.maximum_data_size=1458176
+GenH7.menu.pnum.GENERIC_H7A3AIIXQ.build.board=GENERIC_H7A3AIIXQ
+GenH7.menu.pnum.GENERIC_H7A3AIIXQ.build.product_line=STM32H7A3xx
+GenH7.menu.pnum.GENERIC_H7A3AIIXQ.build.variant=STM32H7xx/H7A3A(G-I)IxQ_H7B0ABIxQ_H7B3AIIxQ
+
+# Generic H7B0ABIxQ
+GenH7.menu.pnum.GENERIC_H7B0ABIXQ=Generic H7B0ABIxQ
+GenH7.menu.pnum.GENERIC_H7B0ABIXQ.upload.maximum_size=131072
+GenH7.menu.pnum.GENERIC_H7B0ABIXQ.upload.maximum_data_size=1458176
+GenH7.menu.pnum.GENERIC_H7B0ABIXQ.build.board=GENERIC_H7B0ABIXQ
+GenH7.menu.pnum.GENERIC_H7B0ABIXQ.build.product_line=STM32H7B0xx
+GenH7.menu.pnum.GENERIC_H7B0ABIXQ.build.variant=STM32H7xx/H7A3A(G-I)IxQ_H7B0ABIxQ_H7B3AIIxQ
+
+# Generic H7B3AIIxQ
+GenH7.menu.pnum.GENERIC_H7B3AIIXQ=Generic H7B3AIIxQ
+GenH7.menu.pnum.GENERIC_H7B3AIIXQ.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H7B3AIIXQ.upload.maximum_data_size=1458176
+GenH7.menu.pnum.GENERIC_H7B3AIIXQ.build.board=GENERIC_H7B3AIIXQ
+GenH7.menu.pnum.GENERIC_H7B3AIIXQ.build.product_line=STM32H7B3xx
+GenH7.menu.pnum.GENERIC_H7B3AIIXQ.build.variant=STM32H7xx/H7A3A(G-I)IxQ_H7B0ABIxQ_H7B3AIIxQ
+

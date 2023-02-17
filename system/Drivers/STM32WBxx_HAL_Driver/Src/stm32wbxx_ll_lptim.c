@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -28,7 +27,7 @@
 #include "stm32_assert.h"
 #else
 #define assert_param(expr) ((void)0U)
-#endif
+#endif /* USE_FULL_ASSERT */
 
 /** @addtogroup STM32WBxx_LL_Driver
   * @{
@@ -48,22 +47,22 @@
   * @{
   */
 #define IS_LL_LPTIM_CLOCK_SOURCE(__VALUE__) (((__VALUE__) == LL_LPTIM_CLK_SOURCE_INTERNAL) \
-                                          || ((__VALUE__) == LL_LPTIM_CLK_SOURCE_EXTERNAL))
+                                             || ((__VALUE__) == LL_LPTIM_CLK_SOURCE_EXTERNAL))
 
 #define IS_LL_LPTIM_CLOCK_PRESCALER(__VALUE__) (((__VALUE__) == LL_LPTIM_PRESCALER_DIV1)   \
-                                             || ((__VALUE__) == LL_LPTIM_PRESCALER_DIV2)   \
-                                             || ((__VALUE__) == LL_LPTIM_PRESCALER_DIV4)   \
-                                             || ((__VALUE__) == LL_LPTIM_PRESCALER_DIV8)   \
-                                             || ((__VALUE__) == LL_LPTIM_PRESCALER_DIV16)  \
-                                             || ((__VALUE__) == LL_LPTIM_PRESCALER_DIV32)  \
-                                             || ((__VALUE__) == LL_LPTIM_PRESCALER_DIV64)  \
-                                             || ((__VALUE__) == LL_LPTIM_PRESCALER_DIV128))
+                                                || ((__VALUE__) == LL_LPTIM_PRESCALER_DIV2)   \
+                                                || ((__VALUE__) == LL_LPTIM_PRESCALER_DIV4)   \
+                                                || ((__VALUE__) == LL_LPTIM_PRESCALER_DIV8)   \
+                                                || ((__VALUE__) == LL_LPTIM_PRESCALER_DIV16)  \
+                                                || ((__VALUE__) == LL_LPTIM_PRESCALER_DIV32)  \
+                                                || ((__VALUE__) == LL_LPTIM_PRESCALER_DIV64)  \
+                                                || ((__VALUE__) == LL_LPTIM_PRESCALER_DIV128))
 
 #define IS_LL_LPTIM_WAVEFORM(__VALUE__) (((__VALUE__) == LL_LPTIM_OUTPUT_WAVEFORM_PWM) \
-                                      || ((__VALUE__) == LL_LPTIM_OUTPUT_WAVEFORM_SETONCE))
+                                         || ((__VALUE__) == LL_LPTIM_OUTPUT_WAVEFORM_SETONCE))
 
 #define IS_LL_LPTIM_OUTPUT_POLARITY(__VALUE__) (((__VALUE__) == LL_LPTIM_OUTPUT_POLARITY_REGULAR) \
-                                             || ((__VALUE__) == LL_LPTIM_OUTPUT_POLARITY_INVERSE))
+                                                || ((__VALUE__) == LL_LPTIM_OUTPUT_POLARITY_INVERSE))
 /**
   * @}
   */
@@ -145,7 +144,7 @@ void LL_LPTIM_StructInit(LL_LPTIM_InitTypeDef *LPTIM_InitStruct)
   *          - SUCCESS: LPTIMx instance has been initialized
   *          - ERROR: LPTIMx instance hasn't been initialized
   */
-ErrorStatus LL_LPTIM_Init(LPTIM_TypeDef *LPTIMx, LL_LPTIM_InitTypeDef *LPTIM_InitStruct)
+ErrorStatus LL_LPTIM_Init(LPTIM_TypeDef *LPTIMx, const LL_LPTIM_InitTypeDef *LPTIM_InitStruct)
 {
   ErrorStatus result = SUCCESS;
   /* Check the parameters */
@@ -180,14 +179,6 @@ ErrorStatus LL_LPTIM_Init(LPTIM_TypeDef *LPTIMx, LL_LPTIM_InitTypeDef *LPTIM_Ini
 }
 
 /**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
   * @brief  Disable the LPTIM instance
   * @rmtoll CR           ENABLE        LL_LPTIM_Disable
   * @param  LPTIMx Low-Power Timer instance
@@ -204,27 +195,32 @@ void LL_LPTIM_Disable(LPTIM_TypeDef *LPTIMx)
   uint32_t tmpCFGR;
   uint32_t tmpCMP;
   uint32_t tmpARR;
+  uint32_t primask_bit;
+#if defined(LPTIM_OR_OR)
   uint32_t tmpOR;
+#endif
 
   /* Check the parameters */
   assert_param(IS_LPTIM_INSTANCE(LPTIMx));
 
-  __disable_irq();
+  /* Enter critical section */
+  primask_bit = __get_PRIMASK();
+  __set_PRIMASK(1) ;
 
   /********** Save LPTIM Config *********/
   /* Save LPTIM source clock */
   switch ((uint32_t)LPTIMx)
   {
-     case LPTIM1_BASE:
-       tmpclksource = LL_RCC_GetLPTIMClockSource(LL_RCC_LPTIM1_CLKSOURCE);
-       break;
+    case LPTIM1_BASE:
+      tmpclksource = LL_RCC_GetLPTIMClockSource(LL_RCC_LPTIM1_CLKSOURCE);
+      break;
 #if defined(LPTIM2)
-     case LPTIM2_BASE:
-       tmpclksource = LL_RCC_GetLPTIMClockSource(LL_RCC_LPTIM2_CLKSOURCE);
-       break;
+    case LPTIM2_BASE:
+      tmpclksource = LL_RCC_GetLPTIMClockSource(LL_RCC_LPTIM2_CLKSOURCE);
+      break;
 #endif /* LPTIM2 */
-     default:
-       break;
+    default:
+      break;
   }
 
   /* Save LPTIM configuration registers */
@@ -232,7 +228,9 @@ void LL_LPTIM_Disable(LPTIM_TypeDef *LPTIMx)
   tmpCFGR = LPTIMx->CFGR;
   tmpCMP = LPTIMx->CMP;
   tmpARR = LPTIMx->ARR;
+#if defined(LPTIM_OR_OR)
   tmpOR = LPTIMx->OR;
+#endif
 
   /************* Reset LPTIM ************/
   (void)LL_LPTIM_DeInit(LPTIMx);
@@ -245,16 +243,16 @@ void LL_LPTIM_Disable(LPTIM_TypeDef *LPTIMx)
     /* Force LPTIM source kernel clock from APB */
     switch ((uint32_t)LPTIMx)
     {
-       case LPTIM1_BASE:
-         LL_RCC_SetLPTIMClockSource(LL_RCC_LPTIM1_CLKSOURCE_PCLK1);
-         break;
+      case LPTIM1_BASE:
+        LL_RCC_SetLPTIMClockSource(LL_RCC_LPTIM1_CLKSOURCE_PCLK1);
+        break;
 #if defined(LPTIM2)
-       case LPTIM2_BASE:
-         LL_RCC_SetLPTIMClockSource(LL_RCC_LPTIM2_CLKSOURCE_PCLK1);
-         break;
+      case LPTIM2_BASE:
+        LL_RCC_SetLPTIMClockSource(LL_RCC_LPTIM2_CLKSOURCE_PCLK1);
+        break;
 #endif /* LPTIM2 */
-       default:
-         break;
+      default:
+        break;
     }
 
     if (tmpCMP != 0UL)
@@ -287,6 +285,7 @@ void LL_LPTIM_Disable(LPTIM_TypeDef *LPTIMx)
       LL_LPTIM_ClearFlag_ARROK(LPTIMx);
     }
 
+
     /* Restore LPTIM source kernel clock */
     LL_RCC_SetLPTIMClockSource(tmpclksource);
   }
@@ -295,10 +294,21 @@ void LL_LPTIM_Disable(LPTIM_TypeDef *LPTIMx)
   LPTIMx->CR &= ~(LPTIM_CR_ENABLE);
   LPTIMx->IER = tmpIER;
   LPTIMx->CFGR = tmpCFGR;
+#if defined(LPTIM_OR_OR)
   LPTIMx->OR = tmpOR;
+#endif
 
-  __enable_irq();
+  /* Exit critical section: restore previous priority mask */
+  __set_PRIMASK(primask_bit);
 }
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
 
 /**
   * @}
@@ -311,5 +321,3 @@ void LL_LPTIM_Disable(LPTIM_TypeDef *LPTIMx)
   */
 
 #endif /* USE_FULL_LL_DRIVER */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

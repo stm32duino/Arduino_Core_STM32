@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -52,7 +52,8 @@ extern "C" {
   * @{
   */
 
-typedef enum {
+typedef enum
+{
   MSC_INIT = 0,
   MSC_IDLE,
   MSC_TEST_UNIT_READY,
@@ -66,7 +67,8 @@ typedef enum {
 }
 MSC_StateTypeDef;
 
-typedef enum {
+typedef enum
+{
   MSC_OK,
   MSC_NOT_READY,
   MSC_ERROR,
@@ -74,7 +76,8 @@ typedef enum {
 }
 MSC_ErrorTypeDef;
 
-typedef enum {
+typedef enum
+{
   MSC_REQ_IDLE = 0,
   MSC_REQ_RESET,
   MSC_REQ_GET_MAX_LUN,
@@ -88,7 +91,8 @@ MSC_ReqStateTypeDef;
 
 
 /* Structure for LUN */
-typedef struct {
+typedef struct
+{
   MSC_StateTypeDef            state;
   MSC_ErrorTypeDef            error;
   USBH_StatusTypeDef          prev_ready_state;
@@ -101,8 +105,10 @@ typedef struct {
 MSC_LUNTypeDef;
 
 /* Structure for MSC process */
-typedef struct _MSC_Process {
-  uint32_t             max_lun;
+typedef struct _MSC_Process
+{
+  uint8_t              max_lun;
+  uint8_t              Reserved[3];
   uint8_t              InPipe;
   uint8_t              OutPipe;
   uint8_t              OutEp;
@@ -166,28 +172,18 @@ extern USBH_ClassTypeDef  USBH_msc;
 /** @defgroup USBH_MSC_CORE_Exported_FunctionsPrototype
   * @{
   */
+uint8_t USBH_MSC_IsReady(USBH_HandleTypeDef *phost);
+uint8_t USBH_MSC_GetMaxLUN(USBH_HandleTypeDef *phost);
+uint8_t USBH_MSC_UnitIsReady(USBH_HandleTypeDef *phost, uint8_t lun);
 
-/* Common APIs */
-uint8_t            USBH_MSC_IsReady(USBH_HandleTypeDef *phost);
+USBH_StatusTypeDef USBH_MSC_GetLUNInfo(USBH_HandleTypeDef *phost, uint8_t lun,
+                                       MSC_LUNTypeDef *info);
 
-/* APIs for LUN */
-uint8_t            USBH_MSC_GetMaxLUN(USBH_HandleTypeDef *phost);
+USBH_StatusTypeDef USBH_MSC_Read(USBH_HandleTypeDef *phost, uint8_t lun,
+                                 uint32_t address, uint8_t *pbuf, uint32_t length);
 
-uint8_t            USBH_MSC_UnitIsReady(USBH_HandleTypeDef *phost, uint8_t lun);
-
-USBH_StatusTypeDef USBH_MSC_GetLUNInfo(USBH_HandleTypeDef *phost, uint8_t lun, MSC_LUNTypeDef *info);
-
-USBH_StatusTypeDef USBH_MSC_Read(USBH_HandleTypeDef *phost,
-                                 uint8_t lun,
-                                 uint32_t address,
-                                 uint8_t *pbuf,
-                                 uint32_t length);
-
-USBH_StatusTypeDef USBH_MSC_Write(USBH_HandleTypeDef *phost,
-                                  uint8_t lun,
-                                  uint32_t address,
-                                  uint8_t *pbuf,
-                                  uint32_t length);
+USBH_StatusTypeDef USBH_MSC_Write(USBH_HandleTypeDef *phost, uint8_t lun,
+                                  uint32_t address, uint8_t *pbuf, uint32_t length);
 /**
   * @}
   */

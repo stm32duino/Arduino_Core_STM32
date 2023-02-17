@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -29,19 +28,19 @@ extern "C" {
 #include "stm32wbxx_hal_def.h"
 
 /** @addtogroup STM32WBxx_HAL_Driver
- * @{
- */
+  * @{
+  */
 
 #if defined(PKA) && defined(HAL_PKA_MODULE_ENABLED)
 
 /** @addtogroup PKA
- * @{
- */
+  * @{
+  */
 
 /* Exported types ------------------------------------------------------------*/
 /** @defgroup PKA_Exported_Types PKA Exported Types
- * @{
- */
+  * @{
+  */
 
 /** @defgroup HAL_state_structure_definition HAL state structure definition
   * @brief  HAL State structures definition
@@ -99,7 +98,11 @@ typedef enum
   * @brief  PKA handle Structure definition
   * @{
   */
+#if (USE_HAL_PKA_REGISTER_CALLBACKS == 1)
 typedef struct __PKA_HandleTypeDef
+#else
+typedef struct
+#endif  /* USE_HAL_PKA_REGISTER_CALLBACKS */
 {
   PKA_TypeDef                   *Instance;              /*!< Register base address */
   __IO HAL_PKA_StateTypeDef     State;                  /*!< PKA state */
@@ -220,6 +223,7 @@ typedef struct
   uint8_t *ptY;                        /*!< Pointer to point P coordinate yP     (Array of modulusSize elements) */
 } PKA_ECDSASignOutExtParamTypeDef, PKA_ECCMulOutTypeDef;
 
+
 typedef struct
 {
   uint32_t expSize;                    /*!< Number of element in pExp array */
@@ -228,6 +232,7 @@ typedef struct
   const uint8_t *pOp1;                 /*!< Pointer to Operand              (Array of OpSize elements) */
   const uint8_t *pMod;                 /*!< Pointer to modulus              (Array of OpSize elements) */
 } PKA_ModExpInTypeDef;
+
 
 typedef struct
 {
@@ -320,6 +325,7 @@ typedef struct
 #define PKA_IT_PROCEND                            PKA_CR_PROCENDIE
 #define PKA_IT_ADDRERR                            PKA_CR_ADDRERRIE
 #define PKA_IT_RAMERR                             PKA_CR_RAMERRIE
+
 /**
   * @}
   */
@@ -330,6 +336,7 @@ typedef struct
 #define PKA_FLAG_PROCEND                          PKA_SR_PROCENDF
 #define PKA_FLAG_ADDRERR                          PKA_SR_ADDRERRF
 #define PKA_FLAG_RAMERR                           PKA_SR_RAMERRF
+
 /**
   * @}
   */
@@ -356,7 +363,7 @@ typedef struct
                                                                   } while(0)
 #else
 #define __HAL_PKA_RESET_HANDLE_STATE(__HANDLE__)                ((__HANDLE__)->State = HAL_PKA_STATE_RESET)
-#endif
+#endif /* USE_HAL_PKA_REGISTER_CALLBACKS */
 
 /** @brief  Enable the specified PKA interrupt.
   * @param  __HANDLE__ specifies the PKA Handle
@@ -389,7 +396,8 @@ typedef struct
   *            @arg @ref PKA_IT_RAMERR RAM error interrupt enable
   * @retval The new state of __INTERRUPT__ (SET or RESET)
   */
-#define __HAL_PKA_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)      ((((__HANDLE__)->Instance->CR & (__INTERRUPT__)) == (__INTERRUPT__)) ? SET : RESET)
+#define __HAL_PKA_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)      ((((__HANDLE__)->Instance->CR\
+                                                                   & (__INTERRUPT__)) == (__INTERRUPT__)) ? SET : RESET)
 
 /** @brief  Check whether the specified PKA flag is set or not.
   * @param  __HANDLE__ specifies the PKA Handle
@@ -400,7 +408,8 @@ typedef struct
   *            @arg @ref PKA_FLAG_RAMERR RAM error
   * @retval The new state of __FLAG__ (SET or RESET)
   */
-#define __HAL_PKA_GET_FLAG(__HANDLE__, __FLAG__)                (((((__HANDLE__)->Instance->SR) & (__FLAG__)) == (__FLAG__)) ? SET : RESET)
+#define __HAL_PKA_GET_FLAG(__HANDLE__, __FLAG__)                (((((__HANDLE__)->Instance->SR)\
+                                                                   & (__FLAG__)) == (__FLAG__)) ? SET : RESET)
 
 /** @brief  Clear the PKA pending flags which are cleared by writing 1 in a specific bit.
   * @param  __HANDLE__ specifies the PKA Handle
@@ -451,7 +460,8 @@ void              HAL_PKA_MspDeInit(PKA_HandleTypeDef *hpka);
 
 #if (USE_HAL_PKA_REGISTER_CALLBACKS == 1)
 /* Callbacks Register/UnRegister functions  ***********************************/
-HAL_StatusTypeDef HAL_PKA_RegisterCallback(PKA_HandleTypeDef *hpka, HAL_PKA_CallbackIDTypeDef CallbackID, pPKA_CallbackTypeDef pCallback);
+HAL_StatusTypeDef HAL_PKA_RegisterCallback(PKA_HandleTypeDef *hpka, HAL_PKA_CallbackIDTypeDef CallbackID,
+                                           pPKA_CallbackTypeDef pCallback);
 HAL_StatusTypeDef HAL_PKA_UnRegisterCallback(PKA_HandleTypeDef *hpka, HAL_PKA_CallbackIDTypeDef CallbackID);
 #endif /* USE_HAL_PKA_REGISTER_CALLBACKS */
 
@@ -472,7 +482,8 @@ void HAL_PKA_ModExp_GetResult(PKA_HandleTypeDef *hpka, uint8_t *pRes);
 
 HAL_StatusTypeDef HAL_PKA_ECDSASign(PKA_HandleTypeDef *hpka, PKA_ECDSASignInTypeDef *in, uint32_t Timeout);
 HAL_StatusTypeDef HAL_PKA_ECDSASign_IT(PKA_HandleTypeDef *hpka, PKA_ECDSASignInTypeDef *in);
-void HAL_PKA_ECDSASign_GetResult(PKA_HandleTypeDef *hpka, PKA_ECDSASignOutTypeDef *out, PKA_ECDSASignOutExtParamTypeDef *outExt);
+void HAL_PKA_ECDSASign_GetResult(PKA_HandleTypeDef *hpka, PKA_ECDSASignOutTypeDef *out,
+                                 PKA_ECDSASignOutExtParamTypeDef *outExt);
 
 HAL_StatusTypeDef HAL_PKA_ECDSAVerif(PKA_HandleTypeDef *hpka, PKA_ECDSAVerifInTypeDef *in, uint32_t Timeout);
 HAL_StatusTypeDef HAL_PKA_ECDSAVerif_IT(PKA_HandleTypeDef *hpka, PKA_ECDSAVerifInTypeDef *in);
@@ -516,6 +527,7 @@ HAL_StatusTypeDef HAL_PKA_MontgomeryParam(PKA_HandleTypeDef *hpka, PKA_Montgomer
 HAL_StatusTypeDef HAL_PKA_MontgomeryParam_IT(PKA_HandleTypeDef *hpka, PKA_MontgomeryParamInTypeDef *in);
 void HAL_PKA_MontgomeryParam_GetResult(PKA_HandleTypeDef *hpka, uint32_t *pRes);
 
+
 HAL_StatusTypeDef HAL_PKA_Abort(PKA_HandleTypeDef *hpka);
 void HAL_PKA_RAMReset(PKA_HandleTypeDef *hpka);
 void HAL_PKA_OperationCpltCallback(PKA_HandleTypeDef *hpka);
@@ -554,5 +566,3 @@ uint32_t             HAL_PKA_GetError(PKA_HandleTypeDef *hpka);
 #endif
 
 #endif /* STM32WBxx_HAL_PKA_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

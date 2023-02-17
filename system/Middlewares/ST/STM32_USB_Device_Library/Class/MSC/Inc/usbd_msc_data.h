@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -40,10 +40,11 @@ extern "C" {
 /** @defgroup USB_INFO_Exported_Defines
   * @{
   */
-#define MODE_SENSE6_LEN                    8U
-#define MODE_SENSE10_LEN                   8U
-#define LENGTH_INQUIRY_PAGE00              7U
-#define LENGTH_FORMAT_CAPACITIES           20U
+#define MODE_SENSE6_LEN                    0x17U
+#define MODE_SENSE10_LEN                   0x1BU
+#define LENGTH_INQUIRY_PAGE00              0x06U
+#define LENGTH_INQUIRY_PAGE80              0x08U
+#define LENGTH_FORMAT_CAPACITIES           0x14U
 
 /**
   * @}
@@ -70,9 +71,10 @@ extern "C" {
 /** @defgroup USBD_INFO_Exported_Variables
   * @{
   */
-extern const uint8_t MSC_Page00_Inquiry_Data[];
-extern const uint8_t MSC_Mode_Sense6_data[];
-extern const uint8_t MSC_Mode_Sense10_data[] ;
+extern uint8_t MSC_Page00_Inquiry_Data[LENGTH_INQUIRY_PAGE00];
+extern uint8_t MSC_Page80_Inquiry_Data[LENGTH_INQUIRY_PAGE80];
+extern uint8_t MSC_Mode_Sense6_data[MODE_SENSE6_LEN];
+extern uint8_t MSC_Mode_Sense10_data[MODE_SENSE10_LEN];
 
 /**
   * @}
@@ -97,7 +99,7 @@ extern const uint8_t MSC_Mode_Sense10_data[] ;
   */
 
 /**
-* @}
-*/
+  * @}
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -11,14 +11,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 
@@ -100,11 +98,19 @@ void HAL_PWR_DeInit(void)
   *         backup data registers and backup SRAM).
   * @note If the HSE divided by 2, 3, ..31 is used as the RTC clock, the
   *         Backup Domain Access should be kept enabled.
+  * @note The following sequence is required to bypass the delay between
+  *         DBP bit programming and the effective enabling  of the backup domain.
+  *         Please check the Errata Sheet for more details under "Possible delay
+  *         in backup domain protection disabling/enabling after programming the
+  *         DBP bit" section.
   * @retval None
   */
 void HAL_PWR_EnableBkUpAccess(void)
 {
+  __IO uint32_t dummyread;
   *(__IO uint32_t *) CR_DBP_BB = (uint32_t)ENABLE;
+  dummyread = PWR->CR;
+  UNUSED(dummyread);
 }
 
 /**
@@ -112,11 +118,19 @@ void HAL_PWR_EnableBkUpAccess(void)
   *         backup data registers and backup SRAM).
   * @note If the HSE divided by 2, 3, ..31 is used as the RTC clock, the
   *         Backup Domain Access should be kept enabled.
+  * @note The following sequence is required to bypass the delay between
+  *         DBP bit programming and the effective disabling  of the backup domain.
+  *         Please check the Errata Sheet for more details under "Possible delay
+  *         in backup domain protection disabling/enabling after programming the
+  *         DBP bit" section.
   * @retval None
   */
 void HAL_PWR_DisableBkUpAccess(void)
 {
+  __IO uint32_t dummyread;
   *(__IO uint32_t *) CR_DBP_BB = (uint32_t)DISABLE;
+  dummyread = PWR->CR;
+  UNUSED(dummyread);
 }
 
 /**
@@ -555,5 +569,3 @@ void HAL_PWR_DisableSEVOnPend(void)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

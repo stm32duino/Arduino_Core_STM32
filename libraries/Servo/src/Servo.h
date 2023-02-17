@@ -27,7 +27,7 @@
   disabled when the first servo is attached.
   Timers are seized as needed in groups of 12 servos - 24 servos use two
   timers, 48 servos will use four.
-  The sequence used to sieze timers is defined in timers.h
+  The sequence used to seize timers is defined in timers.h
 
   The methods are:
 
@@ -60,19 +60,19 @@
 
 // Architecture specific include
 #if defined(ARDUINO_ARCH_AVR)
-#include "avr/ServoTimers.h"
+  #include "avr/ServoTimers.h"
 #elif defined(ARDUINO_ARCH_SAM)
-#include "sam/ServoTimers.h"
+  #include "sam/ServoTimers.h"
 #elif defined(ARDUINO_ARCH_SAMD)
-#include "samd/ServoTimers.h"
+  #include "samd/ServoTimers.h"
 #elif defined(ARDUINO_ARCH_STM32F4)
-#include "stm32f4/ServoTimers.h"
+  #include "stm32f4/ServoTimers.h"
 #elif defined(ARDUINO_ARCH_NRF52)
-#include "nrf52/ServoTimers.h"
+  #include "nrf52/ServoTimers.h"
 #elif defined(ARDUINO_ARCH_STM32)
-#include "stm32/ServoTimers.h"
+  #include "stm32/ServoTimers.h"
 #else
-#error "This library only supports boards with an AVR, SAM, SAMD, NRF52, STM32F4 or STM32 processor."
+  #error "This library only supports boards with an AVR, SAM, SAMD, NRF52, STM32F4 or STM32 processor."
 #endif
 
 #define Servo_VERSION           2     // software version of this library
@@ -90,8 +90,8 @@
 #if !defined(ARDUINO_ARCH_STM32F4)
 
 typedef struct  {
-  uint8_t nbr        : 6 ;            // a pin number from 0 to 63
-  uint8_t isActive   : 1 ;            // true if this channel is enabled, pin not pulsed if false
+  uint8_t nbr;            // a pin number from 0 to 255
+  uint8_t isActive;       // true if this channel is enabled, pin not pulsed if false
 } ServoPin_t   ;
 
 typedef struct {
@@ -102,8 +102,8 @@ typedef struct {
 class Servo {
   public:
     Servo();
-    uint8_t attach(int pin);           // attach the given pin to the next free channel, sets pinMode, returns channel number or 0 if failure
-    uint8_t attach(int pin, int min, int max); // as above but also sets min and max values for writes.
+    uint8_t attach(int pin, int value = DEFAULT_PULSE_WIDTH);           // attach the given pin to the next free channel, sets pinMode, set angle value, returns channel number or 0 if failure
+    uint8_t attach(int pin, int min, int max, int value = DEFAULT_PULSE_WIDTH); // as above but also sets min and max values for writes.
     void detach();
     void write(int value);             // if value is < 200 its treated as an angle, otherwise as pulse width in microseconds
     void writeMicroseconds(int value); // Write pulse width in microseconds

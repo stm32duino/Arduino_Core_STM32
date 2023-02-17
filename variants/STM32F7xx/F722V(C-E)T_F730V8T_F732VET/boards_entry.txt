@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F722VCTx
+GenF7.menu.pnum.GENERIC_F722VCTX=Generic F722VCTx
+GenF7.menu.pnum.GENERIC_F722VCTX.upload.maximum_size=262144
+GenF7.menu.pnum.GENERIC_F722VCTX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F722VCTX.build.board=GENERIC_F722VCTX
+GenF7.menu.pnum.GENERIC_F722VCTX.build.product_line=STM32F722xx
+GenF7.menu.pnum.GENERIC_F722VCTX.build.variant=STM32F7xx/F722V(C-E)T_F730V8T_F732VET
+
+# Generic F722VETx
+GenF7.menu.pnum.GENERIC_F722VETX=Generic F722VETx
+GenF7.menu.pnum.GENERIC_F722VETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F722VETX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F722VETX.build.board=GENERIC_F722VETX
+GenF7.menu.pnum.GENERIC_F722VETX.build.product_line=STM32F722xx
+GenF7.menu.pnum.GENERIC_F722VETX.build.variant=STM32F7xx/F722V(C-E)T_F730V8T_F732VET
+
+# Generic F730V8Tx
+GenF7.menu.pnum.GENERIC_F730V8TX=Generic F730V8Tx
+GenF7.menu.pnum.GENERIC_F730V8TX.upload.maximum_size=65536
+GenF7.menu.pnum.GENERIC_F730V8TX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F730V8TX.build.board=GENERIC_F730V8TX
+GenF7.menu.pnum.GENERIC_F730V8TX.build.product_line=STM32F730xx
+GenF7.menu.pnum.GENERIC_F730V8TX.build.variant=STM32F7xx/F722V(C-E)T_F730V8T_F732VET
+
+# Generic F732VETx
+GenF7.menu.pnum.GENERIC_F732VETX=Generic F732VETx
+GenF7.menu.pnum.GENERIC_F732VETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F732VETX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F732VETX.build.board=GENERIC_F732VETX
+GenF7.menu.pnum.GENERIC_F732VETX.build.product_line=STM32F732xx
+GenF7.menu.pnum.GENERIC_F732VETX.build.variant=STM32F7xx/F722V(C-E)T_F730V8T_F732VET
+

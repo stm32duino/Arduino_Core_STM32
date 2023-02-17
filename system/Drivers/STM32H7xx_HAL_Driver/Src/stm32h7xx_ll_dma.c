@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -68,7 +67,13 @@
 
 #define IS_LL_DMA_NBDATA(__VALUE__)             ((__VALUE__)  <= 0x0000FFFFU)
 
+#if defined(TIM24)
+#define IS_LL_DMA_REQUEST(REQUEST)              (((REQUEST)   <= LL_DMAMUX1_REQ_TIM24_TRIG))
+#elif defined(ADC3)
 #define IS_LL_DMA_REQUEST(REQUEST)              (((REQUEST)   <= LL_DMAMUX1_REQ_ADC3))
+#else
+#define IS_LL_DMA_REQUEST(REQUEST)              (((REQUEST)   <= LL_DMAMUX1_REQ_USART10_TX))
+#endif /* TIM24 */
 
 #define IS_LL_DMA_PRIORITY(__VALUE__)           (((__VALUE__) == LL_DMA_PRIORITY_LOW)    || \
                                                  ((__VALUE__) == LL_DMA_PRIORITY_MEDIUM) || \
@@ -76,43 +81,43 @@
                                                  ((__VALUE__) == LL_DMA_PRIORITY_VERYHIGH))
 
 #define IS_LL_DMA_ALL_STREAM_INSTANCE(INSTANCE, STREAM)   ((((INSTANCE) == DMA1) && \
-                                                           (((STREAM) == LL_DMA_STREAM_0) || \
-                                                            ((STREAM) == LL_DMA_STREAM_1) || \
-                                                            ((STREAM) == LL_DMA_STREAM_2) || \
-                                                            ((STREAM) == LL_DMA_STREAM_3) || \
-                                                            ((STREAM) == LL_DMA_STREAM_4) || \
-                                                            ((STREAM) == LL_DMA_STREAM_5) || \
-                                                            ((STREAM) == LL_DMA_STREAM_6) || \
-                                                            ((STREAM) == LL_DMA_STREAM_7) || \
-                                                            ((STREAM) == LL_DMA_STREAM_ALL))) ||\
-                                                            (((INSTANCE) == DMA2) && \
-                                                          (((STREAM) == LL_DMA_STREAM_0) || \
-                                                           ((STREAM) == LL_DMA_STREAM_1) || \
-                                                           ((STREAM) == LL_DMA_STREAM_2) || \
-                                                           ((STREAM) == LL_DMA_STREAM_3) || \
-                                                           ((STREAM) == LL_DMA_STREAM_4) || \
-                                                           ((STREAM) == LL_DMA_STREAM_5) || \
-                                                           ((STREAM) == LL_DMA_STREAM_6) || \
-                                                           ((STREAM) == LL_DMA_STREAM_7) || \
-                                                           ((STREAM) == LL_DMA_STREAM_ALL))))
+                                                           (((STREAM) == LL_DMA_STREAM_0)     || \
+                                                            ((STREAM) == LL_DMA_STREAM_1)     || \
+                                                            ((STREAM) == LL_DMA_STREAM_2)     || \
+                                                            ((STREAM) == LL_DMA_STREAM_3)     || \
+                                                            ((STREAM) == LL_DMA_STREAM_4)     || \
+                                                            ((STREAM) == LL_DMA_STREAM_5)     || \
+                                                            ((STREAM) == LL_DMA_STREAM_6)     || \
+                                                            ((STREAM) == LL_DMA_STREAM_7)     || \
+                                                            ((STREAM) == LL_DMA_STREAM_ALL))) || \
+                                                           (((INSTANCE) == DMA2) && \
+                                                           (((STREAM) == LL_DMA_STREAM_0)     || \
+                                                            ((STREAM) == LL_DMA_STREAM_1)     || \
+                                                            ((STREAM) == LL_DMA_STREAM_2)     || \
+                                                            ((STREAM) == LL_DMA_STREAM_3)     || \
+                                                            ((STREAM) == LL_DMA_STREAM_4)     || \
+                                                            ((STREAM) == LL_DMA_STREAM_5)     || \
+                                                            ((STREAM) == LL_DMA_STREAM_6)     || \
+                                                            ((STREAM) == LL_DMA_STREAM_7)     || \
+                                                            ((STREAM) == LL_DMA_STREAM_ALL))))
 
-#define IS_LL_DMA_FIFO_MODE_STATE(STATE) (((STATE) == LL_DMA_FIFOMODE_DISABLE ) || \
-                                          ((STATE) == LL_DMA_FIFOMODE_ENABLE))
+#define IS_LL_DMA_FIFO_MODE_STATE(STATE)    (((STATE) == LL_DMA_FIFOMODE_DISABLE ) || \
+                                             ((STATE) == LL_DMA_FIFOMODE_ENABLE))
 
-#define IS_LL_DMA_FIFO_THRESHOLD(THRESHOLD) (((THRESHOLD) == LL_DMA_FIFOTHRESHOLD_1_4) || \
+#define IS_LL_DMA_FIFO_THRESHOLD(THRESHOLD) (((THRESHOLD) == LL_DMA_FIFOTHRESHOLD_1_4)  || \
                                              ((THRESHOLD) == LL_DMA_FIFOTHRESHOLD_1_2)  || \
                                              ((THRESHOLD) == LL_DMA_FIFOTHRESHOLD_3_4)  || \
                                              ((THRESHOLD) == LL_DMA_FIFOTHRESHOLD_FULL))
 
-#define IS_LL_DMA_MEMORY_BURST(BURST) (((BURST) == LL_DMA_MBURST_SINGLE) || \
-                                       ((BURST) == LL_DMA_MBURST_INC4)   || \
-                                       ((BURST) == LL_DMA_MBURST_INC8)   || \
-                                       ((BURST) == LL_DMA_MBURST_INC16))
+#define IS_LL_DMA_MEMORY_BURST(BURST)       (((BURST) == LL_DMA_MBURST_SINGLE) || \
+                                             ((BURST) == LL_DMA_MBURST_INC4)   || \
+                                             ((BURST) == LL_DMA_MBURST_INC8)   || \
+                                             ((BURST) == LL_DMA_MBURST_INC16))
 
-#define IS_LL_DMA_PERIPHERAL_BURST(BURST) (((BURST) == LL_DMA_PBURST_SINGLE) || \
-                                           ((BURST) == LL_DMA_PBURST_INC4)   || \
-                                           ((BURST) == LL_DMA_PBURST_INC8)   || \
-                                           ((BURST) == LL_DMA_PBURST_INC16))
+#define IS_LL_DMA_PERIPHERAL_BURST(BURST)  (((BURST) == LL_DMA_PBURST_SINGLE) || \
+                                            ((BURST) == LL_DMA_PBURST_INC4)   || \
+                                            ((BURST) == LL_DMA_PBURST_INC8)   || \
+                                            ((BURST) == LL_DMA_PBURST_INC16))
 
 /**
   * @}
@@ -151,7 +156,7 @@ uint32_t LL_DMA_DeInit(DMA_TypeDef *DMAx, uint32_t Stream)
   DMA_Stream_TypeDef *tmp;
   ErrorStatus status = SUCCESS;
 
-  /* Check the DMA Instance DMAx and Stream parameters*/
+  /* Check the DMA Instance DMAx and Stream parameters */
   assert_param(IS_LL_DMA_ALL_STREAM_INSTANCE(DMAx, Stream));
 
   if (Stream == LL_DMA_STREAM_ALL)
@@ -203,7 +208,7 @@ uint32_t LL_DMA_DeInit(DMA_TypeDef *DMAx, uint32_t Stream)
     /* Reset DMAx_Streamy FIFO control register */
     LL_DMA_WriteReg(tmp, FCR, 0x00000021U);
 
-    /* Reset Channel register field for DMAx Stream*/
+    /* Reset Channel register field for DMAx Stream */
     LL_DMA_SetPeriphRequest(DMAx, Stream, LL_DMAMUX1_REQ_MEM2MEM);
 
     if (Stream == LL_DMA_STREAM_0)
@@ -277,7 +282,7 @@ uint32_t LL_DMA_DeInit(DMA_TypeDef *DMAx, uint32_t Stream)
   */
 uint32_t LL_DMA_Init(DMA_TypeDef *DMAx, uint32_t Stream, LL_DMA_InitTypeDef *DMA_InitStruct)
 {
-  /* Check the DMA Instance DMAx and Stream parameters*/
+  /* Check the DMA Instance DMAx and Stream parameters */
   assert_param(IS_LL_DMA_ALL_STREAM_INSTANCE(DMAx, Stream));
 
   /* Check the DMA parameters from DMA_InitStruct */
@@ -291,6 +296,7 @@ uint32_t LL_DMA_Init(DMA_TypeDef *DMAx, uint32_t Stream, LL_DMA_InitTypeDef *DMA
   assert_param(IS_LL_DMA_REQUEST(DMA_InitStruct->PeriphRequest));
   assert_param(IS_LL_DMA_PRIORITY(DMA_InitStruct->Priority));
   assert_param(IS_LL_DMA_FIFO_MODE_STATE(DMA_InitStruct->FIFOMode));
+
   /* Check the memory burst, peripheral burst and FIFO threshold parameters only
      when FIFO mode is enabled */
   if (DMA_InitStruct->FIFOMode != LL_DMA_FIFOMODE_DISABLE)
@@ -415,4 +421,3 @@ void LL_DMA_StructInit(LL_DMA_InitTypeDef *DMA_InitStruct)
 
 #endif /* USE_FULL_LL_DRIVER */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L4R9AGIx
+GenL4.menu.pnum.GENERIC_L4R9AGIX=Generic L4R9AGIx
+GenL4.menu.pnum.GENERIC_L4R9AGIX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L4R9AGIX.upload.maximum_data_size=655360
+GenL4.menu.pnum.GENERIC_L4R9AGIX.build.board=GENERIC_L4R9AGIX
+GenL4.menu.pnum.GENERIC_L4R9AGIX.build.product_line=STM32L4R9xx
+GenL4.menu.pnum.GENERIC_L4R9AGIX.build.variant=STM32L4xx/L4R9A(G-I)I_L4S9AII
+
+# Generic L4R9AIIx
+GenL4.menu.pnum.GENERIC_L4R9AIIX=Generic L4R9AIIx
+GenL4.menu.pnum.GENERIC_L4R9AIIX.upload.maximum_size=2097152
+GenL4.menu.pnum.GENERIC_L4R9AIIX.upload.maximum_data_size=655360
+GenL4.menu.pnum.GENERIC_L4R9AIIX.build.board=GENERIC_L4R9AIIX
+GenL4.menu.pnum.GENERIC_L4R9AIIX.build.product_line=STM32L4R9xx
+GenL4.menu.pnum.GENERIC_L4R9AIIX.build.variant=STM32L4xx/L4R9A(G-I)I_L4S9AII
+
+# Generic L4S9AIIx
+GenL4.menu.pnum.GENERIC_L4S9AIIX=Generic L4S9AIIx
+GenL4.menu.pnum.GENERIC_L4S9AIIX.upload.maximum_size=2097152
+GenL4.menu.pnum.GENERIC_L4S9AIIX.upload.maximum_data_size=655360
+GenL4.menu.pnum.GENERIC_L4S9AIIX.build.board=GENERIC_L4S9AIIX
+GenL4.menu.pnum.GENERIC_L4S9AIIX.build.product_line=STM32L4S9xx
+GenL4.menu.pnum.GENERIC_L4S9AIIX.build.variant=STM32L4xx/L4R9A(G-I)I_L4S9AII
+

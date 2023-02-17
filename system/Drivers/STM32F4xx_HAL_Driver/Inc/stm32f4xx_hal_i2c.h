@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -85,7 +84,7 @@ typedef struct
   *             01 : Abort (Abort user request on going)
   *             10 : Timeout
   *             11 : Error
-  *          b5     Peripheral initilisation status
+  *          b5     Peripheral initialization status
   *             0  : Reset (Peripheral not initialized)
   *             1  : Init done (Peripheral initialized and ready to use. HAL I2C Init function called)
   *          b4     (not used)
@@ -170,6 +169,7 @@ typedef enum
 #define HAL_I2C_ERROR_TIMEOUT           0x00000020U    /*!< Timeout Error         */
 #define HAL_I2C_ERROR_SIZE              0x00000040U    /*!< Size Management error */
 #define HAL_I2C_ERROR_DMA_PARAM         0x00000080U    /*!< DMA Parameter Error   */
+#define HAL_I2C_WRONG_START             0x00000200U    /*!< Wrong start Error     */
 #if (USE_HAL_I2C_REGISTER_CALLBACKS == 1)
 #define HAL_I2C_ERROR_INVALID_CALLBACK  0x00000100U    /*!< Invalid Callback error */
 #endif /* USE_HAL_I2C_REGISTER_CALLBACKS */
@@ -181,7 +181,11 @@ typedef enum
   * @brief  I2C handle Structure definition
   * @{
   */
+#if (USE_HAL_I2C_REGISTER_CALLBACKS == 1)
 typedef struct __I2C_HandleTypeDef
+#else
+typedef struct
+#endif  /* USE_HAL_I2C_REGISTER_CALLBACKS */
 {
   I2C_TypeDef                *Instance;      /*!< I2C registers base address               */
 
@@ -735,4 +739,3 @@ uint32_t HAL_I2C_GetError(I2C_HandleTypeDef *hi2c);
 
 #endif /* __STM32F4xx_HAL_I2C_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

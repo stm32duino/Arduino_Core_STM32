@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F303C8Yx
+GenF3.menu.pnum.GENERIC_F303C8YX=Generic F303C8Yx
+GenF3.menu.pnum.GENERIC_F303C8YX.upload.maximum_size=65536
+GenF3.menu.pnum.GENERIC_F303C8YX.upload.maximum_data_size=12288
+GenF3.menu.pnum.GENERIC_F303C8YX.build.board=GENERIC_F303C8YX
+GenF3.menu.pnum.GENERIC_F303C8YX.build.product_line=STM32F303x8
+GenF3.menu.pnum.GENERIC_F303C8YX.build.variant=STM32F3xx/F303C8Y_F334C8Y
+
+# Generic F334C8Yx
+GenF3.menu.pnum.GENERIC_F334C8YX=Generic F334C8Yx
+GenF3.menu.pnum.GENERIC_F334C8YX.upload.maximum_size=65536
+GenF3.menu.pnum.GENERIC_F334C8YX.upload.maximum_data_size=12288
+GenF3.menu.pnum.GENERIC_F334C8YX.build.board=GENERIC_F334C8YX
+GenF3.menu.pnum.GENERIC_F334C8YX.build.product_line=STM32F334x8
+GenF3.menu.pnum.GENERIC_F334C8YX.build.variant=STM32F3xx/F303C8Y_F334C8Y
+

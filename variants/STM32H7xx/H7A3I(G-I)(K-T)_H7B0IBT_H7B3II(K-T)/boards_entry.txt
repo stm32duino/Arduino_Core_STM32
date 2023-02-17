@@ -1,0 +1,61 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic H7A3IGKx
+GenH7.menu.pnum.GENERIC_H7A3IGKX=Generic H7A3IGKx
+GenH7.menu.pnum.GENERIC_H7A3IGKX.upload.maximum_size=1048576
+GenH7.menu.pnum.GENERIC_H7A3IGKX.upload.maximum_data_size=1458176
+GenH7.menu.pnum.GENERIC_H7A3IGKX.build.board=GENERIC_H7A3IGKX
+GenH7.menu.pnum.GENERIC_H7A3IGKX.build.product_line=STM32H7A3xx
+GenH7.menu.pnum.GENERIC_H7A3IGKX.build.variant=STM32H7xx/H7A3I(G-I)(K-T)_H7B0IBT_H7B3II(K-T)
+
+# Generic H7A3IIKx
+GenH7.menu.pnum.GENERIC_H7A3IIKX=Generic H7A3IIKx
+GenH7.menu.pnum.GENERIC_H7A3IIKX.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H7A3IIKX.upload.maximum_data_size=1458176
+GenH7.menu.pnum.GENERIC_H7A3IIKX.build.board=GENERIC_H7A3IIKX
+GenH7.menu.pnum.GENERIC_H7A3IIKX.build.product_line=STM32H7A3xx
+GenH7.menu.pnum.GENERIC_H7A3IIKX.build.variant=STM32H7xx/H7A3I(G-I)(K-T)_H7B0IBT_H7B3II(K-T)
+
+# Generic H7A3IGTx
+GenH7.menu.pnum.GENERIC_H7A3IGTX=Generic H7A3IGTx
+GenH7.menu.pnum.GENERIC_H7A3IGTX.upload.maximum_size=1048576
+GenH7.menu.pnum.GENERIC_H7A3IGTX.upload.maximum_data_size=1458176
+GenH7.menu.pnum.GENERIC_H7A3IGTX.build.board=GENERIC_H7A3IGTX
+GenH7.menu.pnum.GENERIC_H7A3IGTX.build.product_line=STM32H7A3xx
+GenH7.menu.pnum.GENERIC_H7A3IGTX.build.variant=STM32H7xx/H7A3I(G-I)(K-T)_H7B0IBT_H7B3II(K-T)
+
+# Generic H7A3IITx
+GenH7.menu.pnum.GENERIC_H7A3IITX=Generic H7A3IITx
+GenH7.menu.pnum.GENERIC_H7A3IITX.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H7A3IITX.upload.maximum_data_size=1458176
+GenH7.menu.pnum.GENERIC_H7A3IITX.build.board=GENERIC_H7A3IITX
+GenH7.menu.pnum.GENERIC_H7A3IITX.build.product_line=STM32H7A3xx
+GenH7.menu.pnum.GENERIC_H7A3IITX.build.variant=STM32H7xx/H7A3I(G-I)(K-T)_H7B0IBT_H7B3II(K-T)
+
+# Generic H7B0IBTx
+GenH7.menu.pnum.GENERIC_H7B0IBTX=Generic H7B0IBTx
+GenH7.menu.pnum.GENERIC_H7B0IBTX.upload.maximum_size=131072
+GenH7.menu.pnum.GENERIC_H7B0IBTX.upload.maximum_data_size=1458176
+GenH7.menu.pnum.GENERIC_H7B0IBTX.build.board=GENERIC_H7B0IBTX
+GenH7.menu.pnum.GENERIC_H7B0IBTX.build.product_line=STM32H7B0xx
+GenH7.menu.pnum.GENERIC_H7B0IBTX.build.variant=STM32H7xx/H7A3I(G-I)(K-T)_H7B0IBT_H7B3II(K-T)
+
+# Generic H7B3IIKx
+GenH7.menu.pnum.GENERIC_H7B3IIKX=Generic H7B3IIKx
+GenH7.menu.pnum.GENERIC_H7B3IIKX.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H7B3IIKX.upload.maximum_data_size=1458176
+GenH7.menu.pnum.GENERIC_H7B3IIKX.build.board=GENERIC_H7B3IIKX
+GenH7.menu.pnum.GENERIC_H7B3IIKX.build.product_line=STM32H7B3xx
+GenH7.menu.pnum.GENERIC_H7B3IIKX.build.variant=STM32H7xx/H7A3I(G-I)(K-T)_H7B0IBT_H7B3II(K-T)
+
+# Generic H7B3IITx
+GenH7.menu.pnum.GENERIC_H7B3IITX=Generic H7B3IITx
+GenH7.menu.pnum.GENERIC_H7B3IITX.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H7B3IITX.upload.maximum_data_size=1458176
+GenH7.menu.pnum.GENERIC_H7B3IITX.build.board=GENERIC_H7B3IITX
+GenH7.menu.pnum.GENERIC_H7B3IITX.build.product_line=STM32H7B3xx
+GenH7.menu.pnum.GENERIC_H7B3IITX.build.variant=STM32H7xx/H7A3I(G-I)(K-T)_H7B0IBT_H7B3II(K-T)
+

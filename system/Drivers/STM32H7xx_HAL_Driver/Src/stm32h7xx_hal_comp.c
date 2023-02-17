@@ -6,10 +6,19 @@
   *          This file provides firmware functions to manage the following
   *          functionalities of the COMP peripheral:
   *           + Initialization and de-initialization functions
-  *           + Start/Stop operation functions in polling mode
-  *           + Start/Stop operation functions in interrupt mode
   *           + Peripheral control functions
   *           + Peripheral state functions
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ================================================================================
                    ##### COMP Peripheral features #####
@@ -98,11 +107,11 @@
 
      The compilation flag USE_HAL_COMP_REGISTER_CALLBACKS, when set to 1,
      allows the user to configure dynamically the driver callbacks.
-     Use Functions @ref HAL_COMP_RegisterCallback()
+     Use Functions HAL_COMP_RegisterCallback()
      to register an interrupt callback.
     [..]
 
-     Function @ref HAL_COMP_RegisterCallback() allows to register following callbacks:
+     Function HAL_COMP_RegisterCallback() allows to register following callbacks:
        (+) TriggerCallback       : callback for COMP trigger.
        (+) MspInitCallback       : callback for Msp Init.
        (+) MspDeInitCallback     : callback for Msp DeInit.
@@ -110,11 +119,11 @@
      and a pointer to the user callback function.
     [..]
 
-     Use function @ref HAL_COMP_UnRegisterCallback to reset a callback to the default
+     Use function HAL_COMP_UnRegisterCallback to reset a callback to the default
      weak function.
     [..]
 
-     @ref HAL_COMP_UnRegisterCallback takes as parameters the HAL peripheral handle,
+     HAL_COMP_UnRegisterCallback takes as parameters the HAL peripheral handle,
      and the Callback ID.
      This function allows to reset following callbacks:
        (+) TriggerCallback       : callback for COMP trigger.
@@ -122,27 +131,27 @@
        (+) MspDeInitCallback     : callback for Msp DeInit.
      [..]
 
-     By default, after the @ref HAL_COMP_Init() and when the state is @ref HAL_COMP_STATE_RESET
+     By default, after the HAL_COMP_Init() and when the state is HAL_COMP_STATE_RESET
      all callbacks are set to the corresponding weak functions:
-     example @ref HAL_COMP_TriggerCallback().
+     example HAL_COMP_TriggerCallback().
      Exception done for MspInit and MspDeInit functions that are
-     reset to the legacy weak functions in the @ref HAL_COMP_Init()/ @ref HAL_COMP_DeInit() only when
+     reset to the legacy weak functions in the HAL_COMP_Init()/ HAL_COMP_DeInit() only when
      these callbacks are null (not registered beforehand).
     [..]
 
-     If MspInit or MspDeInit are not null, the @ref HAL_COMP_Init()/ @ref HAL_COMP_DeInit()
+     If MspInit or MspDeInit are not null, the HAL_COMP_Init()/ HAL_COMP_DeInit()
      keep and use the user MspInit/MspDeInit callbacks (registered beforehand) whatever the state.
      [..]
 
-     Callbacks can be registered/unregistered in @ref HAL_COMP_STATE_READY state only.
+     Callbacks can be registered/unregistered in HAL_COMP_STATE_READY state only.
      Exception done MspInit/MspDeInit functions that can be registered/unregistered
-     in @ref HAL_COMP_STATE_READY or @ref HAL_COMP_STATE_RESET state,
+     in HAL_COMP_STATE_READY or HAL_COMP_STATE_RESET state,
      thus registered (user) MspInit/DeInit callbacks can be used during the Init/DeInit.
     [..]
 
      Then, the user first registers the MspInit/MspDeInit user callbacks
-     using @ref HAL_COMP_RegisterCallback() before calling @ref HAL_COMP_DeInit()
-     or @ref HAL_COMP_Init() function.
+     using HAL_COMP_RegisterCallback() before calling HAL_COMP_DeInit()
+     or HAL_COMP_Init() function.
      [..]
 
      When the compilation flag USE_HAL_COMP_REGISTER_CALLBACKS is set to 0 or
@@ -179,17 +188,6 @@
   (1) GPIO must be set to alternate function for comparator
   (2) Comparators output to timers is set in timers instances.
 
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -336,13 +334,21 @@ HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp)
 
     /* Set parameters in COMP register */
     /* Note: Update all bits except read-only, lock and enable bits */
+#if defined (COMP_CFGRx_INP2SEL)
+    MODIFY_REG(hcomp->Instance->CFGR,
+               COMP_CFGRx_PWRMODE  | COMP_CFGRx_INMSEL   | COMP_CFGRx_INPSEL  |
+               COMP_CFGRx_INP2SEL  | COMP_CFGRx_WINMODE  | COMP_CFGRx_POLARITY | COMP_CFGRx_HYST    |
+               COMP_CFGRx_BLANKING | COMP_CFGRx_BRGEN    | COMP_CFGRx_SCALEN,
+               tmp_csr
+              );
+#else
     MODIFY_REG(hcomp->Instance->CFGR,
                COMP_CFGRx_PWRMODE  | COMP_CFGRx_INMSEL   | COMP_CFGRx_INPSEL  |
                COMP_CFGRx_WINMODE  | COMP_CFGRx_POLARITY | COMP_CFGRx_HYST    |
                COMP_CFGRx_BLANKING | COMP_CFGRx_BRGEN    | COMP_CFGRx_SCALEN,
                tmp_csr
               );
-
+#endif
     /* Set window mode */
     /* Note: Window mode bit is located into 1 out of the 2 pairs of COMP     */
     /*       instances. Therefore, this function can update another COMP      */
@@ -364,7 +370,7 @@ HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp)
       /* Note: Variable divided by 2 to compensate partially                  */
       /*       CPU processing cycles.*/
 
-     wait_loop_index = (COMP_DELAY_VOLTAGE_SCALER_STAB_US * (SystemCoreClock / (1000000UL * 2UL)));
+     wait_loop_index = ((COMP_DELAY_VOLTAGE_SCALER_STAB_US / 10UL) * ((SystemCoreClock / (100000UL * 2UL)) + 1UL));
 
      while(wait_loop_index != 0UL)
      {
@@ -398,40 +404,71 @@ HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp)
         CLEAR_BIT(EXTI->FTSR1, exti_line);
       }
 
-#if !defined (DUAL_CORE)
+#if !defined (CORE_CM4)
       /* Clear COMP EXTI pending bit (if any) */
-      WRITE_REG(EXTI_D1->PR1, exti_line);
-
+      WRITE_REG(EXTI->PR1, exti_line);
 
       /* Configure EXTI event mode */
       if((hcomp->Init.TriggerMode & COMP_EXTI_EVENT) != 0UL)
       {
-        SET_BIT(EXTI_D1->EMR1, exti_line);
+        SET_BIT(EXTI->EMR1, exti_line);
       }
       else
       {
-        CLEAR_BIT(EXTI_D1->EMR1, exti_line);
+        CLEAR_BIT(EXTI->EMR1, exti_line);
       }
 
        /* Configure EXTI interrupt mode */
       if((hcomp->Init.TriggerMode & COMP_EXTI_IT) != 0UL)
       {
-        SET_BIT(EXTI_D1->IMR1, exti_line);
+        SET_BIT(EXTI->IMR1, exti_line);
       }
       else
       {
-        CLEAR_BIT(EXTI_D1->IMR1, exti_line);
+        CLEAR_BIT(EXTI->IMR1, exti_line);
       }
     }
     else
     {
       /* Disable EXTI event mode */
-      CLEAR_BIT(EXTI_D1->EMR1, exti_line);
+      CLEAR_BIT(EXTI->EMR1, exti_line);
 
       /* Disable EXTI interrupt mode */
-      CLEAR_BIT(EXTI_D1->IMR1, exti_line);
-#endif
+      CLEAR_BIT(EXTI->IMR1, exti_line);
     }
+#else
+      /* Clear COMP EXTI pending bit (if any) */
+      WRITE_REG(EXTI->C2PR1, exti_line);
+
+      /* Configure EXTI event mode */
+      if((hcomp->Init.TriggerMode & COMP_EXTI_EVENT) != 0UL)
+      {
+        SET_BIT(EXTI->C2EMR1, exti_line);
+      }
+      else
+      {
+        CLEAR_BIT(EXTI->C2EMR1, exti_line);
+      }
+
+       /* Configure EXTI interrupt mode */
+      if((hcomp->Init.TriggerMode & COMP_EXTI_IT) != 0UL)
+      {
+        SET_BIT(EXTI->C2IMR1, exti_line);
+      }
+      else
+      {
+        CLEAR_BIT(EXTI->C2IMR1, exti_line);
+      }
+    }
+    else
+    {
+      /* Disable EXTI event mode */
+      CLEAR_BIT(EXTI->C2EMR1, exti_line);
+
+      /* Disable EXTI interrupt mode */
+      CLEAR_BIT(EXTI->C2IMR1, exti_line);
+    }
+#endif
     /* Set HAL COMP handle state */
     /* Note: Transition from state reset to state ready,                      */
     /*       otherwise (coming from state ready or busy) no state update.     */
@@ -743,7 +780,7 @@ HAL_StatusTypeDef HAL_COMP_Start(COMP_HandleTypeDef *hcomp)
      /* Note: Variable divided by 2 to compensate partially    */
      /*       CPU processing cycles.                           */
 
-     wait_loop_index = (COMP_DELAY_STARTUP_US * (SystemCoreClock / (1000000UL * 2UL)));
+     wait_loop_index = ((COMP_DELAY_STARTUP_US / 10UL) * ((SystemCoreClock / (100000UL * 2UL)) + 1UL));
      while(wait_loop_index != 0UL)
      {
        wait_loop_index--;
@@ -840,7 +877,7 @@ HAL_StatusTypeDef HAL_COMP_Start_IT(COMP_HandleTypeDef *hcomp)
       /* Note: Variable divided by 2 to compensate partially                  */
       /*       CPU processing cycles.                                         */
 
-     wait_loop_index = (COMP_DELAY_STARTUP_US * (SystemCoreClock / (1000000UL * 2UL)));
+     wait_loop_index = ((COMP_DELAY_STARTUP_US / 10UL) * ((SystemCoreClock / (100000UL * 2UL)) + 1UL));
      while(wait_loop_index != 0UL)
      {
        wait_loop_index--;
@@ -864,9 +901,11 @@ HAL_StatusTypeDef HAL_COMP_Start_IT(COMP_HandleTypeDef *hcomp)
 HAL_StatusTypeDef HAL_COMP_Stop_IT(COMP_HandleTypeDef *hcomp)
 {
   HAL_StatusTypeDef status;
-#if !defined (DUAL_CORE)
   /* Disable the EXTI Line interrupt mode */
-   CLEAR_BIT(EXTI_D1->IMR1, COMP_GET_EXTI_LINE(hcomp->Instance));
+#if !defined (CORE_CM4)
+   CLEAR_BIT(EXTI->IMR1, COMP_GET_EXTI_LINE(hcomp->Instance));
+#else
+   CLEAR_BIT(EXTI->C2IMR1, COMP_GET_EXTI_LINE(hcomp->Instance));
 #endif
   /* Disable the Interrupt comparator */
    CLEAR_BIT(hcomp->Instance->CFGR, COMP_CFGRx_ITEN);
@@ -893,7 +932,7 @@ void HAL_COMP_IRQHandler(COMP_HandleTypeDef *hcomp)
  if (HAL_GetCurrentCPUID() == CM7_CPUID)
  {
     /* Check COMP EXTI flag */
-    if(READ_BIT(EXTI_D1->PR1, exti_line) != 0UL)
+    if(READ_BIT(EXTI->PR1, exti_line) != 0UL)
     {
        /* Check whether comparator is in independent or window mode */
         if(READ_BIT(COMP12_COMMON->CFGR, COMP_CFGRx_WINMODE) != 0UL)
@@ -905,12 +944,12 @@ void HAL_COMP_IRQHandler(COMP_HandleTypeDef *hcomp)
           /*       (low or high ) to the other "out of window" area (high or low).*/
           /*       Both flags must be cleared to call comparator trigger          */
           /*       callback is called once.                                       */
-          WRITE_REG(EXTI_D1->PR1, (COMP_EXTI_LINE_COMP1 | COMP_EXTI_LINE_COMP2));
+          WRITE_REG(EXTI->PR1, (COMP_EXTI_LINE_COMP1 | COMP_EXTI_LINE_COMP2));
         }
         else
         {
           /* Clear COMP EXTI line pending bit */
-          WRITE_REG(EXTI_D1->PR1, exti_line);
+          WRITE_REG(EXTI->PR1, exti_line);
         }
 
     /* COMP trigger user callback */
@@ -926,7 +965,7 @@ void HAL_COMP_IRQHandler(COMP_HandleTypeDef *hcomp)
  else
  {
     /* Check COMP EXTI flag */
-    if(READ_BIT(EXTI_D2->PR1, exti_line) != 0UL)
+    if(READ_BIT(EXTI->C2PR1, exti_line) != 0UL)
     {
        /* Check whether comparator is in independent or window mode */
         if(READ_BIT(COMP12_COMMON->CFGR, COMP_CFGRx_WINMODE) != 0UL)
@@ -938,12 +977,12 @@ void HAL_COMP_IRQHandler(COMP_HandleTypeDef *hcomp)
           /*       (low or high ) to the other "out of window" area (high or low).*/
           /*       Both flags must be cleared to call comparator trigger          */
           /*       callback is called once.                                       */
-          WRITE_REG(EXTI_D2->PR1, (COMP_EXTI_LINE_COMP1 | COMP_EXTI_LINE_COMP2));
+          WRITE_REG(EXTI->C2PR1, (COMP_EXTI_LINE_COMP1 | COMP_EXTI_LINE_COMP2));
         }
         else
         {
           /* Clear COMP EXTI line pending bit */
-          WRITE_REG(EXTI_D2->PR1, exti_line);
+          WRITE_REG(EXTI->C2PR1, exti_line);
         }
 
     /* COMP trigger user callback */
@@ -958,7 +997,7 @@ void HAL_COMP_IRQHandler(COMP_HandleTypeDef *hcomp)
  }
 #else
     /* Check COMP EXTI flag */
-    if(READ_BIT(EXTI_D1->PR1, exti_line) != 0UL)
+    if(READ_BIT(EXTI->PR1, exti_line) != 0UL)
     {
        /* Check whether comparator is in independent or window mode */
         if(READ_BIT(COMP12_COMMON->CFGR, COMP_CFGRx_WINMODE) != 0UL)
@@ -970,12 +1009,12 @@ void HAL_COMP_IRQHandler(COMP_HandleTypeDef *hcomp)
           /*       (low or high ) to the other "out of window" area (high or low).*/
           /*       Both flags must be cleared to call comparator trigger          */
           /*       callback is called once.                                       */
-          WRITE_REG(EXTI_D1->PR1, (COMP_EXTI_LINE_COMP1 | COMP_EXTI_LINE_COMP2));
+          WRITE_REG(EXTI->PR1, (COMP_EXTI_LINE_COMP1 | COMP_EXTI_LINE_COMP2));
         }
         else
         {
           /* Clear COMP EXTI line pending bit */
-          WRITE_REG(EXTI_D1->PR1, exti_line);
+          WRITE_REG(EXTI->PR1, exti_line);
         }
 
     /* COMP trigger user callback */
@@ -1206,4 +1245,3 @@ uint32_t HAL_COMP_GetError(COMP_HandleTypeDef *hcomp)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

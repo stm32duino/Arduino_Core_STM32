@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics. 
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -32,6 +31,8 @@ extern "C" {
 /** @addtogroup STM32WBxx_HAL_Driver
   * @{
   */
+
+#if defined (LCD)
 
 /** @addtogroup LCD
   * @{
@@ -543,9 +544,6 @@ typedef struct
   * @param __FLAG__ specifies the flag to check.
   *        This parameter can be one of the following values:
   *        @arg LCD_FLAG_ENS: LCD Enabled flag. It indicates the LCD controller status.
-  * @note  The ENS bit is set immediately when the LCDEN bit in the LCD_CR
-  *             goes from 0 to 1. On deactivation it reflects the real status of
-  *             LCD so it becomes 0 at the end of the last displayed frame.
   *        @arg LCD_FLAG_SOF: Start of Frame flag. This flag is set by hardware at
   *             the beginning of a new frame, at the same time as the display data is
   *             updated.
@@ -556,6 +554,9 @@ typedef struct
   *        @arg LCD_FLAG_FCRSF: LCD Frame Control Register Synchronization Flag.
   *             This flag is set by hardware each time the LCD_FCR register is updated
   *             in the LCDCLK domain.
+  * @note  The ENS bit is set immediately when the LCDEN bit in the LCD_CR
+  *             goes from 0 to 1. On deactivation it reflects the real status of
+  *             LCD so it becomes 0 at the end of the last displayed frame.
   * @retval The new state of __FLAG__ (TRUE or FALSE).
   */
 #define __HAL_LCD_GET_FLAG(__HANDLE__, __FLAG__)    (((__HANDLE__)->Instance->SR & (__FLAG__)) == (__FLAG__))
@@ -755,6 +756,8 @@ HAL_StatusTypeDef     LCD_WaitForSynchro(LCD_HandleTypeDef *hlcd);
   * @}
   */
 
+#endif /* LCD */
+
 /**
   * @}
   */
@@ -764,5 +767,3 @@ HAL_StatusTypeDef     LCD_WaitForSynchro(LCD_HandleTypeDef *hlcd);
 #endif
 
 #endif /* STM32WBxx_HAL_LCD_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

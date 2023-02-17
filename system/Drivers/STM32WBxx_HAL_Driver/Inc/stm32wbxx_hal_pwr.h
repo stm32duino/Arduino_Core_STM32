@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics. 
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -86,7 +85,7 @@ typedef struct
 /** @defgroup PWR_PVD_Mode  PWR PVD interrupt and event mode
   * @{
   */
-/* Note: On STM32WB serie, power PVD event is not available on AIEC lines     */
+/* Note: On STM32WB series, power PVD event is not available on AIEC lines     */
 /*       (only interruption is available through AIEC line 16).               */
 #define PWR_PVD_MODE_NORMAL                 (0x00000000U)                           /*!< Basic mode is used */
 
@@ -97,7 +96,7 @@ typedef struct
   * @}
   */
 
-/* Note: On STM32WB serie, power PVD event is not available on AIEC lines     */
+/* Note: On STM32WB series, power PVD event is not available on AIEC lines     */
 /*       (only interruption is available through AIEC line 16).               */
 
 /** @defgroup PWR_Low_Power_Mode_Selection  PWR Low Power Mode Selection
@@ -105,7 +104,9 @@ typedef struct
   */
 #define PWR_LOWPOWERMODE_STOP0              (0x00000000u)                         /*!< Stop 0: stop mode with main regulator */
 #define PWR_LOWPOWERMODE_STOP1              (PWR_CR1_LPMS_0)                      /*!< Stop 1: stop mode with low power regulator */
+#if defined(PWR_SUPPORT_STOP2)
 #define PWR_LOWPOWERMODE_STOP2              (PWR_CR1_LPMS_1)                      /*!< Stop 2: stop mode with low power regulator and VDD12I interruptible digital core domain supply OFF (less peripherals activated than low power mode stop 1 to reduce power consumption)*/
+#endif
 #define PWR_LOWPOWERMODE_STANDBY            (PWR_CR1_LPMS_0 | PWR_CR1_LPMS_1)     /*!< Standby mode */
 #define PWR_LOWPOWERMODE_SHUTDOWN           (PWR_CR1_LPMS_2)                      /*!< Shutdown mode */
 /**
@@ -159,7 +160,7 @@ typedef struct
 /** @defgroup PWR_PVD_Mode_Mask PWR PVD Mode Mask
   * @{
   */
-/* Note: On STM32WB serie, power PVD event is not available on AIEC lines     */
+/* Note: On STM32WB series, power PVD event is not available on AIEC lines     */
 /*       (only interruption is available through AIEC line 16).               */
 #define PVD_MODE_IT               (0x00010000U)  /*!< Mask for interruption yielded by PVD threshold crossing */
 #define PVD_RISING_EDGE           (0x00000001U)  /*!< Mask for rising edge set as PVD trigger                 */
@@ -235,12 +236,22 @@ typedef struct
   *
   * @retval The new state of __FLAG__ (TRUE or FALSE).
   */  
-#define __HAL_PWR_GET_FLAG(__FLAG__)  ( ((((uint8_t)(__FLAG__)) >> 5U) == 1U)  ?\
-                                      (PWR->SR1 & (1U << ((__FLAG__) & 31U))) :\
-                                      ((((((uint8_t)(__FLAG__)) >> 5U) == 2U)) ?\
-                                      (PWR->SR2 & (1U << ((__FLAG__) & 31U))) :\
-                                      (PWR->EXTSCR & (1U << ((__FLAG__) & 31U))) ) )
-
+#define __HAL_PWR_GET_FLAG(__FLAG__)  ((((__FLAG__) & PWR_FLAG_REG_MASK) == PWR_FLAG_REG_SR1) ?   \
+                                       (                                                          \
+                                        PWR->SR1 & (1UL << ((__FLAG__) & 31UL))                   \
+                                       )                                                          \
+                                       :                                                          \
+                                       (                                                          \
+                                        (((__FLAG__) & PWR_FLAG_REG_MASK) == PWR_FLAG_REG_SR2) ? \
+                                        (                                                        \
+                                         PWR->SR2 & (1UL << ((__FLAG__) & 31UL))                 \
+                                        )                                                        \
+                                        :                                                        \
+                                        (                                                        \
+                                         PWR->EXTSCR & (1UL << ((__FLAG__) & 31UL))              \
+                                        )                                                        \
+                                       )                                                          \
+                                      )
 
 /** @brief  Clear a specific PWR flag.
   * @note   Clearing of flags {PWR_FLAG_STOP, PWR_FLAG_SB}
@@ -280,13 +291,18 @@ typedef struct
   *
   * @retval None   
   */
-#define __HAL_PWR_CLEAR_FLAG(__FLAG__)   ( ((((uint8_t)(__FLAG__)) >> 5U) == 1U) ?\
-                                         ( (((uint8_t)(__FLAG__)) == PWR_FLAG_WU) ?\
-                                         (PWR->SCR  = (__FLAG__)) : (PWR->SCR = (1U << ((__FLAG__) & 31U))) ) :\
-                                         ( (((uint8_t)(__FLAG__)) == PWR_FLAG_CRITICAL_RF_PHASE) ?\
-                                         SET_BIT (PWR->EXTSCR, PWR_EXTSCR_CCRPF) : ( ((((uint8_t)((__FLAG__)) & 31U) <= PWR_EXTSCR_C1STOPF_Pos) ?\
-                                         SET_BIT (PWR->EXTSCR, PWR_EXTSCR_C1CSSF): SET_BIT (PWR->EXTSCR, PWR_EXTSCR_C2CSSF)) ) ))
-                                       
+#define __HAL_PWR_CLEAR_FLAG(__FLAG__)   ((((__FLAG__) & PWR_FLAG_REG_MASK) == PWR_FLAG_REG_EXTSCR) ?                                  \
+                                          (                                                                                            \
+                                           PWR->EXTSCR = (1UL << (((__FLAG__) & PWR_FLAG_EXTSCR_CLR_MASK) >> PWR_FLAG_EXTSCR_CLR_POS)) \
+                                          )                                                                                            \
+                                          :                                                                                            \
+                                          (                                                                                            \
+                                           (((__FLAG__)) == PWR_FLAG_WU) ?                                                             \
+                                           (PWR->SCR = PWR_SCR_CWUF) :                                                                 \
+                                           (PWR->SCR = (1UL << ((__FLAG__) & 31UL)))                                                   \
+                                          )                                                                                            \
+                                         )
+
 /**
   * @brief Enable the PVD Extended Interrupt C1 Line.
   * @retval None
@@ -312,7 +328,7 @@ typedef struct
   */
 #define __HAL_PWR_PVD_EXTIC2_DISABLE_IT()  LL_C2_EXTI_DisableIT_0_31(PWR_EXTI_LINE_PVD)
 
-/* Note: On STM32WB serie, power PVD event is not available on AIEC lines     */
+/* Note: On STM32WB series, power PVD event is not available on AIEC lines     */
 /*       (only interruption is available through AIEC line 16).               */
 
 /**
@@ -495,4 +511,3 @@ void              HAL_PWR_DisableSEVOnPend(void);
 
 #endif /* STM32WBxx_HAL_PWR_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

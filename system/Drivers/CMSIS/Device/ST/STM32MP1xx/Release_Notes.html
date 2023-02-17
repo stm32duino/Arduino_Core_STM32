@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Release Notes for STM32MP15xx CMSIS</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="_htmresc/mini-st_2020.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="icon" type="image/x-icon" href="_htmresc/favicon.png" />
+</head>
+<body>
+<div class="row">
+<div class="col-sm-12 col-lg-4">
+<center>
+<h1 id="release-notes-for-stm32mp15xx-cmsis">Release Notes for <mark> STM32MP15xx CMSIS </mark></h1>
+<p>Copyright © 2021 STMicroelectronics<br />
+</p>
+<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
+</center>
+<h1 id="purpose">Purpose</h1>
+<p>This driver provides the CMSIS device for the STM32MP15xx products. This covers</p>
+<ul>
+<li>STM32MP151Cxx ,STM32MP151Axx, STM32MP151Dxx ,STM32MP151Fxx devices</li>
+<li>STM32MP153Cxx ,STM32MP153Axx, STM32MP153Dxx ,STM32MP153Fxx devices</li>
+<li>STM32MP157Cxx ,STM32MP157Axx, STM32MP157Dxx ,STM32MP157Fxx devices</li>
+</ul>
+<p>This driver is composed of the descriptions of the registers under “Include” directory.</p>
+<p>Various template file are provided to easily build an application. They can be adapted to fit applications requirements.</p>
+<ul>
+<li>Templates/system_stm32mp1xx.c contains the initialization code referred as SystemInit.</li>
+<li>Startup and linker files are provided as example for STM32CubeIDE©.</li>
+</ul>
+</div>
+<div class="col-sm-12 col-lg-8">
+<h1 id="update-history"><strong>Update History</strong></h1>
+<div class="collapse">
+<input type="checkbox" id="collapse-section0" checked aria-hidden="true"> <label for="collapse-section0" checked aria-hidden="true"><strong>V1.6.0 / 02-June-2022</strong></label>
+<div>
+<h2 id="main-changes">Main Changes</h2>
+<p>This is a <strong>Maintenance release</strong> for STM32MP15xx CMSIS</p>
+<h2 id="contents">Contents</h2>
+<ul>
+<li>Update bit definition in header files:
+<ul>
+<li>BSEC : Add missing registers</li>
+<li>ETH : Update bitfield names</li>
+</ul></li>
+<li>Update License declaration for startup and linker files</li>
+<li>Change include in system file ( alignment with other STM32 families)</li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<p>None</p>
+<h2 id="dependencies">Dependencies</h2>
+<p>None</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true"><strong>V1.5.0 / 04-November-2021</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<p>This is a <strong>Maintenance release</strong> for STM32MP15xx CMSIS</p>
+<h2 id="contents-1">Contents</h2>
+<ul>
+<li>Update bit definition in header files:
+<ul>
+<li>DDR : Update DDR bit registers</li>
+<li>USBPHYC: Update structure and add bitfields</li>
+<li>Fix MISRA warnings:
+<ul>
+<li>Remove duplicate definitions</li>
+<li>Use ‘UL’ postfix for _Msk definitions and memory/peripheral base addresses</li>
+<li>Unexpected space in “startup_stm32mp151axx_cm4 .s”</li>
+</ul></li>
+<li>Linker script :
+<ul>
+<li>Prevent text section to overide data ( resource table )</li>
+<li>Suppress the check and add AT (ADDR (.bss)) to set the LMA to the VMA.</li>
+</ul></li>
+<li>Update the licenses declaration</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-1">Known Limitations</h2>
+<p>None</p>
+<h2 id="dependencies-1">Dependencies</h2>
+<p>None</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true"><strong>V1.4.0 / 26-February-2021</strong></label>
+<div>
+<h2 id="main-changes-2">Main Changes</h2>
+<p>This is a <strong>Maintenance release</strong> for STM32MP15xx CMSIS</p>
+<h2 id="contents-2">Contents</h2>
+<ul>
+<li>Header files:
+<ul>
+<li>Remove C1EMRx registers which does not exist on the silicon</li>
+<li>Update RNG register structure</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-2">Known Limitations</h2>
+<p>None</p>
+<h2 id="dependencies-2">Dependencies</h2>
+<p>None</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.3.0 / 20-October-2020</strong></label>
+<div>
+<h2 id="main-changes-3">Main Changes</h2>
+<p>This is a <strong>Maintenance release</strong> for STM32MP15xx CMSIS</p>
+<h2 id="contents-3">Contents</h2>
+<ul>
+<li>Header files:
+<ul>
+<li>Rename RCC bit definition to be more compliant with the name from RCC spec</li>
+<li>Update license with BSD 3-Clause template</li>
+<li>Fix typo in MDMA register definition</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-3">Known Limitations</h2>
+<p>None</p>
+<h2 id="dependencies-3">Dependencies</h2>
+<p>None</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true"><strong>V1.2.0 / 03-February-2020</strong></label>
+<div>
+<h2 id="main-changes-4">Main Changes</h2>
+<p>This is a <strong>Maintenance release</strong> for STM32MP15xx CMSIS</p>
+<h2 id="contents-4">Contents</h2>
+<ul>
+<li>Header files:
+<ul>
+<li>Add new Part Number for 800MHz</li>
+<li>Update license with BSD 3-Clause template</li>
+<li>Rework CMSIS for RTC/TAMP, GPIO and TIM</li>
+<li>Rename TIM Break source bit definition</li>
+</ul></li>
+<li>Update Linker Template file for KEIL and IAR:
+<ul>
+<li>Add OpenAMP region ( region present by default, to comment if needed )</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-4">Known Limitations</h2>
+<p>None</p>
+<h2 id="dependencies-4">Dependencies</h2>
+<p>None</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true"><strong>V1.1.0 / 10-September-2019</strong></label>
+<div>
+<h2 id="main-changes-5">Main Changes</h2>
+<p>This is the <strong>First Maintenance release</strong> for STM32MP15xx CMSIS</p>
+<h2 id="contents-5">Contents</h2>
+<ul>
+<li>Header files:
+<ul>
+<li>Update FMC bit definition</li>
+<li>Update ETH bit definition</li>
+<li>update EXTI_EXTICR bit definition</li>
+<li>Update I2C bit definition</li>
+<li>Update SPI bit definition (SPI_CR1_CRC33_17, SPI_RXCRC, SPI_IER, SPI_I2SCFGR)</li>
+<li>TMPSENS IP renamed DTS</li>
+<li>Update FDCAN TXBC bit definition</li>
+<li>Update DAC_DHR8RD bit definition</li>
+<li>Add CRYP in STM32MP151Cx and STM32MP153Cx</li>
+<li>Update TIM / LPTIM bit definition + add missing macros</li>
+</ul></li>
+<li>Update system_stm32mp1xx.c:
+<ul>
+<li>Update SystemCoreClock</li>
+</ul></li>
+<li>Update startup file for KEIL and IAR</li>
+</ul>
+<h2 id="known-limitations-5">Known Limitations</h2>
+<p>None</p>
+<h2 id="dependencies-5">Dependencies</h2>
+<p>None</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true"><strong>V1.0.0 / 22-January-2019</strong></label>
+<div>
+<h2 id="main-changes-6">Main Changes</h2>
+<p>This is the <strong>First Official release</strong> for STM32MP15xx CMSIS</p>
+<h2 id="contents-6">Contents</h2>
+<ul>
+<li>First official release version of bits and registers definition aligned with STM32MP1 reference manual.</li>
+</ul>
+<h2 id="known-limitations-6">Known Limitations</h2>
+<p>None</p>
+<h2 id="dependencies-6">Dependencies</h2>
+<p>None</p>
+</div>
+</div>
+</div>
+</div>
+<footer class="sticky">
+For complete documentation on STM32 Microcontrollers </mark> , visit: <span style="font-color: blue;"><a href="http://www.st.com/stm32">www.st.com/stm32</a></span>
+</footer>
+</body>
+</html>

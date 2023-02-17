@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -49,11 +48,37 @@ extern "C" {
 /**
   * @}
   */
+
+
+/** @defgroup FLASHEx_ECC_CPUID FLASHEx ECC CPU Identification
+  * @{
+  */
+#define FLASH_ECC_CPUID_1    0x00000000U            /*!< Bus-ID of the CPU1 access causing the ECC failure. */
+#define FLASH_ECC_CPUID_2    FLASH_ECCR_CPUID_0     /*!< Bus-ID of the CPU2 access causing the ECC failure. */
+
+/**
+  * @}
+  */
 /**
   * @}
   */
 
 /* Exported macro ------------------------------------------------------------*/
+/** @defgroup FLASHEx_ECC FLASH ECC Macros
+  *  @brief macros to get Error Code Correction information
+  * @{
+  */
+
+/**
+  * @brief Get the Bus-ID of the CPU access causing the ECC failure
+  * @retval CPUID
+  */
+#define __HAL_FLASH_ECC_CPUID()   READ_BIT(FLASH->ECCR, FLASH_ECCR_CPUID)
+
+/**
+  * @}
+  */
+
 /* Exported functions --------------------------------------------------------*/
 /** @addtogroup FLASHEx_Exported_Functions
   * @{
@@ -111,5 +136,3 @@ void              FLASH_PageErase(uint32_t Page);
 #endif
 
 #endif /* STM32WBxx_HAL_FLASH_EX_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

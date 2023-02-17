@@ -5,7 +5,9 @@
   * @brief   I2C Extended HAL module driver.
   *          This file provides firmware functions to manage the following
   *          functionalities of I2C Extended peripheral:
-  *           + Extended features functions
+  *           + Filter Mode Functions
+  *           + WakeUp Mode Functions
+  *           + FastModePlus Functions
   *
   @verbatim
   ==============================================================================
@@ -35,29 +37,13 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -87,17 +73,15 @@
   * @{
   */
 
-/** @defgroup I2CEx_Exported_Functions_Group1 Extended features functions
-  * @brief    Extended features functions
- *
+/** @defgroup I2CEx_Exported_Functions_Group1 Filter Mode Functions
+  * @brief    Filter Mode Functions
+  *
 @verbatim
  ===============================================================================
-                      ##### Extended features functions #####
+                      ##### Filter Mode Functions #####
  ===============================================================================
     [..] This section provides functions allowing to:
       (+) Configure Noise Filters
-      (+) Configure Wake Up Feature
-      (+) Configure Fast Mode Plus
 
 @endverbatim
   * @{
@@ -156,7 +140,7 @@ HAL_StatusTypeDef HAL_I2CEx_ConfigAnalogFilter(I2C_HandleTypeDef *hi2c, uint32_t
   */
 HAL_StatusTypeDef HAL_I2CEx_ConfigDigitalFilter(I2C_HandleTypeDef *hi2c, uint32_t DigitalFilter)
 {
-  uint32_t tmpreg = 0U;
+  uint32_t tmpreg;
 
   /* Check the parameters */
   assert_param(IS_I2C_ALL_INSTANCE(hi2c->Instance));
@@ -198,6 +182,23 @@ HAL_StatusTypeDef HAL_I2CEx_ConfigDigitalFilter(I2C_HandleTypeDef *hi2c, uint32_
     return HAL_BUSY;
   }
 }
+/**
+  * @}
+  */
+
+/** @defgroup I2CEx_Exported_Functions_Group2 WakeUp Mode Functions
+  * @brief    WakeUp Mode Functions
+  *
+@verbatim
+ ===============================================================================
+                      ##### WakeUp Mode Functions #####
+ ===============================================================================
+    [..] This section provides functions allowing to:
+      (+) Configure Wake Up Feature
+
+@endverbatim
+  * @{
+  */
 
 /**
   * @brief  Enable I2C wakeup from Stop mode(s).
@@ -276,6 +277,23 @@ HAL_StatusTypeDef HAL_I2CEx_DisableWakeUp(I2C_HandleTypeDef *hi2c)
     return HAL_BUSY;
   }
 }
+/**
+  * @}
+  */
+
+/** @defgroup I2CEx_Exported_Functions_Group3 Fast Mode Plus Functions
+  * @brief    Fast Mode Plus Functions
+  *
+@verbatim
+ ===============================================================================
+                      ##### Fast Mode Plus Functions #####
+ ===============================================================================
+    [..] This section provides functions allowing to:
+      (+) Configure Fast Mode Plus
+
+@endverbatim
+  * @{
+  */
 
 /**
   * @brief Enable the I2C fast mode plus driving capability.
@@ -330,11 +348,9 @@ void HAL_I2CEx_DisableFastModePlus(uint32_t ConfigFastModePlus)
   /* Disable fast mode plus driving capability for selected pin */
   CLEAR_BIT(SYSCFG->CFGR1, (uint32_t)ConfigFastModePlus);
 }
-
 /**
   * @}
   */
-
 /**
   * @}
   */

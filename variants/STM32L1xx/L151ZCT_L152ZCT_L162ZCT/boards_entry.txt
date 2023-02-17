@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L151ZCTx
+GenL1.menu.pnum.GENERIC_L151ZCTX=Generic L151ZCTx
+GenL1.menu.pnum.GENERIC_L151ZCTX.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L151ZCTX.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L151ZCTX.build.board=GENERIC_L151ZCTX
+GenL1.menu.pnum.GENERIC_L151ZCTX.build.product_line=STM32L151xC
+GenL1.menu.pnum.GENERIC_L151ZCTX.build.variant=STM32L1xx/L151ZCT_L152ZCT_L162ZCT
+
+# Generic L152ZCTx
+GenL1.menu.pnum.GENERIC_L152ZCTX=Generic L152ZCTx
+GenL1.menu.pnum.GENERIC_L152ZCTX.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L152ZCTX.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L152ZCTX.build.board=GENERIC_L152ZCTX
+GenL1.menu.pnum.GENERIC_L152ZCTX.build.product_line=STM32L152xC
+GenL1.menu.pnum.GENERIC_L152ZCTX.build.variant=STM32L1xx/L151ZCT_L152ZCT_L162ZCT
+
+# Generic L162ZCTx
+GenL1.menu.pnum.GENERIC_L162ZCTX=Generic L162ZCTx
+GenL1.menu.pnum.GENERIC_L162ZCTX.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L162ZCTX.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L162ZCTX.build.board=GENERIC_L162ZCTX
+GenL1.menu.pnum.GENERIC_L162ZCTX.build.product_line=STM32L162xC
+GenL1.menu.pnum.GENERIC_L162ZCTX.build.variant=STM32L1xx/L151ZCT_L152ZCT_L162ZCT
+

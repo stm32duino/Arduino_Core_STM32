@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L496VETx
+GenL4.menu.pnum.GENERIC_L496VETX=Generic L496VETx
+GenL4.menu.pnum.GENERIC_L496VETX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L496VETX.upload.maximum_data_size=327680
+GenL4.menu.pnum.GENERIC_L496VETX.build.board=GENERIC_L496VETX
+GenL4.menu.pnum.GENERIC_L496VETX.build.product_line=STM32L496xx
+GenL4.menu.pnum.GENERIC_L496VETX.build.variant=STM32L4xx/L496V(E-G)T_L4A6VGT
+
+# Generic L496VGTx
+GenL4.menu.pnum.GENERIC_L496VGTX=Generic L496VGTx
+GenL4.menu.pnum.GENERIC_L496VGTX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L496VGTX.upload.maximum_data_size=327680
+GenL4.menu.pnum.GENERIC_L496VGTX.build.board=GENERIC_L496VGTX
+GenL4.menu.pnum.GENERIC_L496VGTX.build.product_line=STM32L496xx
+GenL4.menu.pnum.GENERIC_L496VGTX.build.variant=STM32L4xx/L496V(E-G)T_L4A6VGT
+
+# Generic L4A6VGTx
+GenL4.menu.pnum.GENERIC_L4A6VGTX=Generic L4A6VGTx
+GenL4.menu.pnum.GENERIC_L4A6VGTX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L4A6VGTX.upload.maximum_data_size=327680
+GenL4.menu.pnum.GENERIC_L4A6VGTX.build.board=GENERIC_L4A6VGTX
+GenL4.menu.pnum.GENERIC_L4A6VGTX.build.product_line=STM32L4A6xx
+GenL4.menu.pnum.GENERIC_L4A6VGTX.build.variant=STM32L4xx/L496V(E-G)T_L4A6VGT
+

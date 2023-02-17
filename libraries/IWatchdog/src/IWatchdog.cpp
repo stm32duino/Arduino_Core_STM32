@@ -1,3 +1,22 @@
+/*
+  Copyright (c) 2018 Frederic Pillon <frederic.pillon@st.com> for
+  STMicroelectronics. All right reserved.
+  Copyright (c) 2018 Venelin Efremov <ghent360@iqury.us>
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation; either
+  version 2.1 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  See the GNU Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, write to the Free Software
+  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
 #include "IWatchdog.h"
 #include "stm32yyxx_ll_iwdg.h"
 #include "stm32yyxx_ll_rcc.h"
@@ -19,7 +38,7 @@ void IWatchdogClass::begin(uint32_t timeout, uint32_t window)
   }
 
   // Enable the peripheral clock IWDG
-#ifdef STM32WBxx
+#ifdef RCC_CSR_LSI1ON
   LL_RCC_LSI1_Enable();
   while (LL_RCC_LSI1_IsReady() != 1) {
   }

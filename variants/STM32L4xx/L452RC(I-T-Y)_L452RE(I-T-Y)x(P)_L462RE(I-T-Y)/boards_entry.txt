@@ -1,0 +1,85 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L452RCIx
+GenL4.menu.pnum.GENERIC_L452RCIX=Generic L452RCIx
+GenL4.menu.pnum.GENERIC_L452RCIX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L452RCIX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L452RCIX.build.board=GENERIC_L452RCIX
+GenL4.menu.pnum.GENERIC_L452RCIX.build.product_line=STM32L452xx
+GenL4.menu.pnum.GENERIC_L452RCIX.build.variant=STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)
+
+# Generic L452REIx
+GenL4.menu.pnum.GENERIC_L452REIX=Generic L452REIx
+GenL4.menu.pnum.GENERIC_L452REIX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L452REIX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L452REIX.build.board=GENERIC_L452REIX
+GenL4.menu.pnum.GENERIC_L452REIX.build.product_line=STM32L452xx
+GenL4.menu.pnum.GENERIC_L452REIX.build.variant=STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)
+
+# Generic L452RCTx
+GenL4.menu.pnum.GENERIC_L452RCTX=Generic L452RCTx
+GenL4.menu.pnum.GENERIC_L452RCTX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L452RCTX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L452RCTX.build.board=GENERIC_L452RCTX
+GenL4.menu.pnum.GENERIC_L452RCTX.build.product_line=STM32L452xx
+GenL4.menu.pnum.GENERIC_L452RCTX.build.variant=STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)
+
+# Generic L452RETx
+GenL4.menu.pnum.GENERIC_L452RETX=Generic L452RETx
+GenL4.menu.pnum.GENERIC_L452RETX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L452RETX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L452RETX.build.board=GENERIC_L452RETX
+GenL4.menu.pnum.GENERIC_L452RETX.build.product_line=STM32L452xx
+GenL4.menu.pnum.GENERIC_L452RETX.build.variant=STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)
+
+# Generic L452RCYx
+GenL4.menu.pnum.GENERIC_L452RCYX=Generic L452RCYx
+GenL4.menu.pnum.GENERIC_L452RCYX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L452RCYX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L452RCYX.build.board=GENERIC_L452RCYX
+GenL4.menu.pnum.GENERIC_L452RCYX.build.product_line=STM32L452xx
+GenL4.menu.pnum.GENERIC_L452RCYX.build.variant=STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)
+
+# Generic L452REYx
+GenL4.menu.pnum.GENERIC_L452REYX=Generic L452REYx
+GenL4.menu.pnum.GENERIC_L452REYX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L452REYX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L452REYX.build.board=GENERIC_L452REYX
+GenL4.menu.pnum.GENERIC_L452REYX.build.product_line=STM32L452xx
+GenL4.menu.pnum.GENERIC_L452REYX.build.variant=STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)
+
+# Generic L452REYxP
+GenL4.menu.pnum.GENERIC_L452REYXP=Generic L452REYxP
+GenL4.menu.pnum.GENERIC_L452REYXP.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L452REYXP.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L452REYXP.build.board=GENERIC_L452REYXP
+GenL4.menu.pnum.GENERIC_L452REYXP.build.product_line=STM32L452xx
+GenL4.menu.pnum.GENERIC_L452REYXP.build.variant=STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)
+
+# Generic L462REIx
+GenL4.menu.pnum.GENERIC_L462REIX=Generic L462REIx
+GenL4.menu.pnum.GENERIC_L462REIX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L462REIX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L462REIX.build.board=GENERIC_L462REIX
+GenL4.menu.pnum.GENERIC_L462REIX.build.product_line=STM32L462xx
+GenL4.menu.pnum.GENERIC_L462REIX.build.variant=STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)
+
+# Generic L462RETx
+GenL4.menu.pnum.GENERIC_L462RETX=Generic L462RETx
+GenL4.menu.pnum.GENERIC_L462RETX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L462RETX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L462RETX.build.board=GENERIC_L462RETX
+GenL4.menu.pnum.GENERIC_L462RETX.build.product_line=STM32L462xx
+GenL4.menu.pnum.GENERIC_L462RETX.build.variant=STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)
+
+# Generic L462REYx
+GenL4.menu.pnum.GENERIC_L462REYX=Generic L462REYx
+GenL4.menu.pnum.GENERIC_L462REYX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L462REYX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L462REYX.build.board=GENERIC_L462REYX
+GenL4.menu.pnum.GENERIC_L462REYX.build.product_line=STM32L462xx
+GenL4.menu.pnum.GENERIC_L462REYX.build.variant=STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)
+

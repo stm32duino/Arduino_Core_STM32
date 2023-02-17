@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -266,8 +265,8 @@ typedef struct
 /** @defgroup SPI_LL_EC_RX_FIFO_TH RX FIFO Threshold
   * @{
   */
-#define LL_SPI_RX_FIFO_TH_HALF             0x00000000U               /*!< RXNE event is generated if FIFO level is greater than or equel to 1/2 (16-bit) */
-#define LL_SPI_RX_FIFO_TH_QUARTER          (SPI_CR2_FRXTH)           /*!< RXNE event is generated if FIFO level is greater than or equel to 1/4 (8-bit)  */
+#define LL_SPI_RX_FIFO_TH_HALF             0x00000000U               /*!< RXNE event is generated if FIFO level is greater than or equal to 1/2 (16-bit) */
+#define LL_SPI_RX_FIFO_TH_QUARTER          (SPI_CR2_FRXTH)           /*!< RXNE event is generated if FIFO level is greater than or equal to 1/4 (8-bit)  */
 /**
   * @}
   */
@@ -848,8 +847,8 @@ __STATIC_INLINE void LL_SPI_SetNSSMode(SPI_TypeDef *SPIx, uint32_t NSS)
   */
 __STATIC_INLINE uint32_t LL_SPI_GetNSSMode(SPI_TypeDef *SPIx)
 {
-  register uint32_t Ssm  = (READ_BIT(SPIx->CR1, SPI_CR1_SSM));
-  register uint32_t Ssoe = (READ_BIT(SPIx->CR2,  SPI_CR2_SSOE) << 16U);
+  uint32_t Ssm  = (READ_BIT(SPIx->CR1, SPI_CR1_SSM));
+  uint32_t Ssoe = (READ_BIT(SPIx->CR2,  SPI_CR2_SSOE) << 16U);
   return (Ssm | Ssoe);
 }
 
@@ -1314,7 +1313,7 @@ __STATIC_INLINE uint32_t LL_SPI_GetDMAParity_TX(SPI_TypeDef *SPIx)
   */
 __STATIC_INLINE uint32_t LL_SPI_DMA_GetRegAddr(SPI_TypeDef *SPIx)
 {
-  return (uint32_t) & (SPIx->DR);
+  return (uint32_t) &(SPIx->DR);
 }
 
 /**
@@ -1333,7 +1332,7 @@ __STATIC_INLINE uint32_t LL_SPI_DMA_GetRegAddr(SPI_TypeDef *SPIx)
   */
 __STATIC_INLINE uint8_t LL_SPI_ReceiveData8(SPI_TypeDef *SPIx)
 {
-  return (uint8_t)(READ_REG(SPIx->DR));
+  return (*((__IO uint8_t *)&SPIx->DR));
 }
 
 /**
@@ -1361,7 +1360,7 @@ __STATIC_INLINE void LL_SPI_TransmitData8(SPI_TypeDef *SPIx, uint8_t TxData)
   *spidr = TxData;
 #else
   *((__IO uint8_t *)&SPIx->DR) = TxData;
-#endif
+#endif /* __GNUC__ */
 }
 
 /**
@@ -1378,7 +1377,7 @@ __STATIC_INLINE void LL_SPI_TransmitData16(SPI_TypeDef *SPIx, uint16_t TxData)
   *spidr = TxData;
 #else
   SPIx->DR = TxData;
-#endif
+#endif /* __GNUC__ */
 }
 
 /**
@@ -1500,10 +1499,10 @@ typedef struct
 /** @defgroup I2S_LL_EC_DATA_FORMAT Data format
   * @{
   */
-#define LL_I2S_DATAFORMAT_16B              0x00000000U                                   /*!< Data length 16 bits, Channel lenght 16bit */
-#define LL_I2S_DATAFORMAT_16B_EXTENDED     (SPI_I2SCFGR_CHLEN)                           /*!< Data length 16 bits, Channel lenght 32bit */
-#define LL_I2S_DATAFORMAT_24B              (SPI_I2SCFGR_CHLEN | SPI_I2SCFGR_DATLEN_0)    /*!< Data length 24 bits, Channel lenght 32bit */
-#define LL_I2S_DATAFORMAT_32B              (SPI_I2SCFGR_CHLEN | SPI_I2SCFGR_DATLEN_1)    /*!< Data length 16 bits, Channel lenght 32bit */
+#define LL_I2S_DATAFORMAT_16B              0x00000000U                                   /*!< Data length 16 bits, Channel length 16bit */
+#define LL_I2S_DATAFORMAT_16B_EXTENDED     (SPI_I2SCFGR_CHLEN)                           /*!< Data length 16 bits, Channel length 32bit */
+#define LL_I2S_DATAFORMAT_24B              (SPI_I2SCFGR_CHLEN | SPI_I2SCFGR_DATLEN_0)    /*!< Data length 24 bits, Channel length 32bit */
+#define LL_I2S_DATAFORMAT_32B              (SPI_I2SCFGR_CHLEN | SPI_I2SCFGR_DATLEN_1)    /*!< Data length 16 bits, Channel length 32bit */
 /**
   * @}
   */
@@ -1838,7 +1837,7 @@ __STATIC_INLINE uint32_t LL_I2S_GetPrescalerParity(SPI_TypeDef *SPIx)
 }
 
 /**
-  * @brief  Enable the master clock ouput (Pin MCK)
+  * @brief  Enable the master clock output (Pin MCK)
   * @rmtoll I2SPR        MCKOE         LL_I2S_EnableMasterClock
   * @param  SPIx SPI Instance
   * @retval None
@@ -1849,7 +1848,7 @@ __STATIC_INLINE void LL_I2S_EnableMasterClock(SPI_TypeDef *SPIx)
 }
 
 /**
-  * @brief  Disable the master clock ouput (Pin MCK)
+  * @brief  Disable the master clock output (Pin MCK)
   * @rmtoll I2SPR        MCKOE         LL_I2S_DisableMasterClock
   * @param  SPIx SPI Instance
   * @retval None
@@ -1860,7 +1859,7 @@ __STATIC_INLINE void LL_I2S_DisableMasterClock(SPI_TypeDef *SPIx)
 }
 
 /**
-  * @brief  Check if the master clock ouput (Pin MCK) is enabled
+  * @brief  Check if the master clock output (Pin MCK) is enabled
   * @rmtoll I2SPR        MCKOE         LL_I2S_IsEnabledMasterClock
   * @param  SPIx SPI Instance
   * @retval State of bit (1 or 0).
@@ -2281,4 +2280,3 @@ void        LL_I2S_ConfigPrescaler(SPI_TypeDef *SPIx, uint32_t PrescalerLinear, 
 
 #endif /* STM32F7xx_LL_SPI_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

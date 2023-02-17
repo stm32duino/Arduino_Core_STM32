@@ -9,6 +9,17 @@
   *           + Peripheral Control functions
   *           + Peripheral State functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2018 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                      ##### How to use this driver #####
@@ -31,8 +42,8 @@
     allows the user to configure dynamically the driver callbacks.
 
     [..]
-    Use Function @ref HAL_RNG_RegisterCallback() to register a user callback.
-    Function @ref HAL_RNG_RegisterCallback() allows to register following callbacks:
+    Use Function HAL_RNG_RegisterCallback() to register a user callback.
+    Function HAL_RNG_RegisterCallback() allows to register following callbacks:
     (+) ErrorCallback             : RNG Error Callback.
     (+) MspInitCallback           : RNG MspInit.
     (+) MspDeInitCallback         : RNG MspDeInit.
@@ -40,9 +51,9 @@
     and a pointer to the user callback function.
 
     [..]
-    Use function @ref HAL_RNG_UnRegisterCallback() to reset a callback to the default
+    Use function HAL_RNG_UnRegisterCallback() to reset a callback to the default
     weak (surcharged) function.
-    @ref HAL_RNG_UnRegisterCallback() takes as parameters the HAL peripheral handle,
+    HAL_RNG_UnRegisterCallback() takes as parameters the HAL peripheral handle,
     and the Callback ID.
     This function allows to reset following callbacks:
     (+) ErrorCallback             : RNG Error Callback.
@@ -51,16 +62,16 @@
 
     [..]
     For specific callback ReadyDataCallback, use dedicated register callbacks:
-    respectively @ref HAL_RNG_RegisterReadyDataCallback() , @ref HAL_RNG_UnRegisterReadyDataCallback().
+    respectively HAL_RNG_RegisterReadyDataCallback() , HAL_RNG_UnRegisterReadyDataCallback().
 
     [..]
-    By default, after the @ref HAL_RNG_Init() and when the state is HAL_RNG_STATE_RESET
+    By default, after the HAL_RNG_Init() and when the state is HAL_RNG_STATE_RESET
     all callbacks are set to the corresponding weak (surcharged) functions:
-    example @ref HAL_RNG_ErrorCallback().
+    example HAL_RNG_ErrorCallback().
     Exception done for MspInit and MspDeInit functions that are respectively
-    reset to the legacy weak (surcharged) functions in the @ref HAL_RNG_Init()
-    and @ref HAL_RNG_DeInit() only when these callbacks are null (not registered beforehand).
-    If not, MspInit or MspDeInit are not null, the @ref HAL_RNG_Init() and @ref HAL_RNG_DeInit()
+    reset to the legacy weak (surcharged) functions in the HAL_RNG_Init()
+    and HAL_RNG_DeInit() only when these callbacks are null (not registered beforehand).
+    If not, MspInit or MspDeInit are not null, the HAL_RNG_Init() and HAL_RNG_DeInit()
     keep and use the user MspInit/MspDeInit callbacks (registered beforehand).
 
     [..]
@@ -69,8 +80,8 @@
     in HAL_RNG_STATE_READY or HAL_RNG_STATE_RESET state, thus registered (user)
     MspInit/DeInit callbacks can be used during the Init/DeInit.
     In that case first register the MspInit/MspDeInit user callbacks
-    using @ref HAL_RNG_RegisterCallback() before calling @ref HAL_RNG_DeInit()
-    or @ref HAL_RNG_Init() function.
+    using HAL_RNG_RegisterCallback() before calling HAL_RNG_DeInit()
+    or HAL_RNG_Init() function.
 
     [..]
     When The compilation define USE_HAL_RNG_REGISTER_CALLBACKS is set to 0 or
@@ -78,17 +89,6 @@
     and weak (surcharged) callbacks are used.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -99,6 +99,8 @@
   * @{
   */
 
+#if defined (RNG)
+
 /** @addtogroup RNG
   * @brief RNG HAL module driver.
   * @{
@@ -106,7 +108,6 @@
 
 #ifdef HAL_RNG_MODULE_ENABLED
 
-#if defined(STM32G081xx) || defined(STM32G041xx)
 /* Private types -------------------------------------------------------------*/
 /* Private defines -----------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -128,8 +129,8 @@
   */
 
 /** @addtogroup RNG_Exported_Functions_Group1
- *  @brief   Initialization and configuration functions
- *
+  *  @brief   Initialization and configuration functions
+  *
 @verbatim
  ===============================================================================
           ##### Initialization and configuration functions #####
@@ -225,7 +226,6 @@ HAL_StatusTypeDef HAL_RNG_DeInit(RNG_HandleTypeDef *hrng)
 
   /* Clear Clock Error Detection bit */
   CLEAR_BIT(hrng->Instance->CR, RNG_CR_CED);
-
   /* Disable the RNG Peripheral */
   CLEAR_BIT(hrng->Instance->CR, RNG_CR_IE | RNG_CR_RNGEN);
 
@@ -301,14 +301,15 @@ __weak void HAL_RNG_MspDeInit(RNG_HandleTypeDef *hrng)
   * @param  pCallback pointer to the Callback function
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_RNG_RegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_CallbackIDTypeDef CallbackID, pRNG_CallbackTypeDef pCallback)
+HAL_StatusTypeDef HAL_RNG_RegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_CallbackIDTypeDef CallbackID,
+                                           pRNG_CallbackTypeDef pCallback)
 {
   HAL_StatusTypeDef status = HAL_OK;
 
   if (pCallback == NULL)
   {
     /* Update the error code */
-    hrng->ErrorCode |= HAL_RNG_ERROR_INVALID_CALLBACK;
+    hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
     return HAL_ERROR;
   }
   /* Process locked */
@@ -332,7 +333,7 @@ HAL_StatusTypeDef HAL_RNG_RegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Call
 
       default :
         /* Update the error code */
-        hrng->ErrorCode |= HAL_RNG_ERROR_INVALID_CALLBACK;
+        hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
         /* Return error status */
         status =  HAL_ERROR;
         break;
@@ -352,7 +353,7 @@ HAL_StatusTypeDef HAL_RNG_RegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Call
 
       default :
         /* Update the error code */
-        hrng->ErrorCode |= HAL_RNG_ERROR_INVALID_CALLBACK;
+        hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
         /* Return error status */
         status =  HAL_ERROR;
         break;
@@ -361,7 +362,7 @@ HAL_StatusTypeDef HAL_RNG_RegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Call
   else
   {
     /* Update the error code */
-    hrng->ErrorCode |= HAL_RNG_ERROR_INVALID_CALLBACK;
+    hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
     /* Return error status */
     status =  HAL_ERROR;
   }
@@ -373,7 +374,7 @@ HAL_StatusTypeDef HAL_RNG_RegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Call
 
 /**
   * @brief  Unregister an RNG Callback
-  *         RNG callabck is redirected to the weak predefined callback
+  *         RNG callback is redirected to the weak predefined callback
   * @param  hrng RNG handle
   * @param  CallbackID ID of the callback to be unregistered
   *         This parameter can be one of the following values:
@@ -407,7 +408,7 @@ HAL_StatusTypeDef HAL_RNG_UnRegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Ca
 
       default :
         /* Update the error code */
-        hrng->ErrorCode |= HAL_RNG_ERROR_INVALID_CALLBACK;
+        hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
         /* Return error status */
         status =  HAL_ERROR;
         break;
@@ -427,7 +428,7 @@ HAL_StatusTypeDef HAL_RNG_UnRegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Ca
 
       default :
         /* Update the error code */
-        hrng->ErrorCode |= HAL_RNG_ERROR_INVALID_CALLBACK;
+        hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
         /* Return error status */
         status =  HAL_ERROR;
         break;
@@ -436,7 +437,7 @@ HAL_StatusTypeDef HAL_RNG_UnRegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Ca
   else
   {
     /* Update the error code */
-    hrng->ErrorCode |= HAL_RNG_ERROR_INVALID_CALLBACK;
+    hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
     /* Return error status */
     status =  HAL_ERROR;
   }
@@ -460,7 +461,7 @@ HAL_StatusTypeDef HAL_RNG_RegisterReadyDataCallback(RNG_HandleTypeDef *hrng, pRN
   if (pCallback == NULL)
   {
     /* Update the error code */
-    hrng->ErrorCode |= HAL_RNG_ERROR_INVALID_CALLBACK;
+    hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
     return HAL_ERROR;
   }
   /* Process locked */
@@ -473,7 +474,7 @@ HAL_StatusTypeDef HAL_RNG_RegisterReadyDataCallback(RNG_HandleTypeDef *hrng, pRN
   else
   {
     /* Update the error code */
-    hrng->ErrorCode |= HAL_RNG_ERROR_INVALID_CALLBACK;
+    hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
     /* Return error status */
     status =  HAL_ERROR;
   }
@@ -503,7 +504,7 @@ HAL_StatusTypeDef HAL_RNG_UnRegisterReadyDataCallback(RNG_HandleTypeDef *hrng)
   else
   {
     /* Update the error code */
-    hrng->ErrorCode |= HAL_RNG_ERROR_INVALID_CALLBACK;
+    hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
     /* Return error status */
     status =  HAL_ERROR;
   }
@@ -520,8 +521,8 @@ HAL_StatusTypeDef HAL_RNG_UnRegisterReadyDataCallback(RNG_HandleTypeDef *hrng)
   */
 
 /** @addtogroup RNG_Exported_Functions_Group2
- *  @brief   Peripheral Control functions
- *
+  *  @brief   Peripheral Control functions
+  *
 @verbatim
  ===============================================================================
                       ##### Peripheral Control functions #####
@@ -537,8 +538,16 @@ HAL_StatusTypeDef HAL_RNG_UnRegisterReadyDataCallback(RNG_HandleTypeDef *hrng)
 
 /**
   * @brief  Generates a 32-bit random number.
-  * @note   Each time the random number data is read the RNG_FLAG_DRDY flag
-  *         is automatically cleared.
+  * @note   This function checks value of RNG_FLAG_DRDY flag to know if valid
+  *         random number is available in the DR register (RNG_FLAG_DRDY flag set
+  *         whenever a random number is available through the RNG_DR register).
+  *         After transitioning from 0 to 1 (random number available),
+  *         RNG_FLAG_DRDY flag remains high until output buffer becomes empty after reading
+  *         four words from the RNG_DR register, i.e. further function calls
+  *         will immediately return a new u32 random number (additional words are
+  *         available and can be read by the application, till RNG_FLAG_DRDY flag remains high).
+  * @note   When no more random number data is available in DR register, RNG_FLAG_DRDY
+  *         flag is automatically cleared.
   * @param  hrng pointer to a RNG_HandleTypeDef structure that contains
   *                the configuration information for RNG.
   * @param  random32bit pointer to generated random number variable if successful.
@@ -567,11 +576,15 @@ HAL_StatusTypeDef HAL_RNG_GenerateRandomNumber(RNG_HandleTypeDef *hrng, uint32_t
     {
       if ((HAL_GetTick() - tickstart) > RNG_TIMEOUT_VALUE)
       {
-        hrng->State = HAL_RNG_STATE_READY;
-        hrng->ErrorCode |= HAL_RNG_ERROR_TIMEOUT;
-        /* Process Unlocked */
-        __HAL_UNLOCK(hrng);
-        return HAL_ERROR;
+        /* New check to avoid false timeout detection in case of preemption */
+        if (__HAL_RNG_GET_FLAG(hrng, RNG_FLAG_DRDY) == RESET)
+        {
+          hrng->State = HAL_RNG_STATE_READY;
+          hrng->ErrorCode = HAL_RNG_ERROR_TIMEOUT;
+          /* Process Unlocked */
+          __HAL_UNLOCK(hrng);
+          return HAL_ERROR;
+        }
       }
     }
 
@@ -583,6 +596,7 @@ HAL_StatusTypeDef HAL_RNG_GenerateRandomNumber(RNG_HandleTypeDef *hrng, uint32_t
   }
   else
   {
+    hrng->ErrorCode = HAL_RNG_ERROR_BUSY;
     status = HAL_ERROR;
   }
 
@@ -619,6 +633,7 @@ HAL_StatusTypeDef HAL_RNG_GenerateRandomNumber_IT(RNG_HandleTypeDef *hrng)
     /* Process Unlocked */
     __HAL_UNLOCK(hrng);
 
+    hrng->ErrorCode = HAL_RNG_ERROR_BUSY;
     status = HAL_ERROR;
   }
 
@@ -653,10 +668,14 @@ void HAL_RNG_IRQHandler(RNG_HandleTypeDef *hrng)
   /* RNG clock error interrupt occurred */
   if (__HAL_RNG_GET_IT(hrng, RNG_IT_CEI) != RESET)
   {
+    /* Update the error code */
+    hrng->ErrorCode = HAL_RNG_ERROR_CLOCK;
     rngclockerror = 1U;
   }
   else if (__HAL_RNG_GET_IT(hrng, RNG_IT_SEI) != RESET)
   {
+    /* Update the error code */
+    hrng->ErrorCode = HAL_RNG_ERROR_SEED;
     rngclockerror = 1U;
   }
   else
@@ -679,6 +698,8 @@ void HAL_RNG_IRQHandler(RNG_HandleTypeDef *hrng)
 
     /* Clear the clock error flag */
     __HAL_RNG_CLEAR_IT(hrng, RNG_IT_CEI | RNG_IT_SEI);
+
+    return;
   }
 
   /* Check RNG data ready interrupt occurred */
@@ -721,6 +742,11 @@ uint32_t HAL_RNG_ReadLastRandomNumber(RNG_HandleTypeDef *hrng)
 
 /**
   * @brief  Data Ready callback in non-blocking mode.
+  * @note   When RNG_FLAG_DRDY flag value is set, first random number has been read
+  *         from DR register in IRQ Handler and is provided as callback parameter.
+  *         Depending on valid data available in the conditioning output buffer,
+  *         additional words can be read by the application from DR register till
+  *         DRDY bit remains high.
   * @param  hrng pointer to a RNG_HandleTypeDef structure that contains
   *                the configuration information for RNG.
   * @param  random32bit generated random number.
@@ -756,8 +782,8 @@ __weak void HAL_RNG_ErrorCallback(RNG_HandleTypeDef *hrng)
 
 
 /** @addtogroup RNG_Exported_Functions_Group3
- *  @brief   Peripheral State functions
- *
+  *  @brief   Peripheral State functions
+  *
 @verbatim
  ===============================================================================
                       ##### Peripheral State functions #####
@@ -785,7 +811,7 @@ HAL_RNG_StateTypeDef HAL_RNG_GetState(RNG_HandleTypeDef *hrng)
   * @brief  Return the RNG handle error code.
   * @param  hrng: pointer to a RNG_HandleTypeDef structure.
   * @retval RNG Error Code
-*/
+  */
 uint32_t HAL_RNG_GetError(RNG_HandleTypeDef *hrng)
 {
   /* Return RNG Error Code */
@@ -799,15 +825,15 @@ uint32_t HAL_RNG_GetError(RNG_HandleTypeDef *hrng)
   * @}
   */
 
-#endif
 
 #endif /* HAL_RNG_MODULE_ENABLED */
 /**
   * @}
   */
 
+#endif /* RNG */
+
 /**
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

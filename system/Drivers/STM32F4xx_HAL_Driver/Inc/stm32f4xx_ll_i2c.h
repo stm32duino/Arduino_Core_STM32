@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -837,8 +836,8 @@ __STATIC_INLINE uint32_t LL_I2C_GetClockPeriod(I2C_TypeDef *I2Cx)
 __STATIC_INLINE void LL_I2C_ConfigSpeed(I2C_TypeDef *I2Cx, uint32_t PeriphClock, uint32_t ClockSpeed,
                                         uint32_t DutyCycle)
 {
-  register uint32_t freqrange = 0x0U;
-  register uint32_t clockconfig = 0x0U;
+  uint32_t freqrange = 0x0U;
+  uint32_t clockconfig = 0x0U;
 
   /* Compute frequency range */
   freqrange = __LL_I2C_FREQ_HZ_TO_MHZ(PeriphClock);
@@ -1468,7 +1467,7 @@ __STATIC_INLINE uint32_t LL_I2C_IsActiveSMBusFlag_SMBDEFAULT(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Indicate the status of General call address reception (Slave mode).
-  * @note   RESET: No Generall call address
+  * @note   RESET: No General call address
   *         SET: General call address received.
   * @note   This status is cleared by hardware after a STOP condition or repeated START condition.
   * @rmtoll SR2          GENCALL       LL_I2C_IsActiveFlag_GENCALL
@@ -1889,4 +1888,3 @@ void LL_I2C_StructInit(LL_I2C_InitTypeDef *I2C_InitStruct);
 
 #endif /* __STM32F4xx_LL_I2C_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

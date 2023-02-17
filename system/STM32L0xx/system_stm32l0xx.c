@@ -47,19 +47,6 @@
 
 #include "stm32l0xx.h"
 
-#if !defined  (HSE_VALUE) 
-  #define HSE_VALUE    ((uint32_t)8000000U) /*!< Value of the External oscillator in Hz */
-#endif /* HSE_VALUE */
-
-#if !defined  (MSI_VALUE)
-  #define MSI_VALUE    ((uint32_t)2097152U) /*!< Value of the Internal oscillator in Hz*/
-#endif /* MSI_VALUE */
-   
-#if !defined  (HSI_VALUE)
-  #define HSI_VALUE    ((uint32_t)16000000U) /*!< Value of the Internal oscillator in Hz*/
-#endif /* HSI_VALUE */
-
-
 /**
   * @}
   */
@@ -76,14 +63,33 @@
   * @{
   */
 /************************* Miscellaneous Configuration ************************/
+/* Note: Following vector table addresses must be defined in line with linker
+         configuration. */
 
-/*!< Uncomment the following line if you need to relocate your vector Table in
-     Internal SRAM. */
+/*!< Uncomment the following line and change the address
+     if you need to relocate your vector Table at a custom base address (+ VECT_TAB_OFFSET) */
+/* #define VECT_TAB_BASE_ADDRESS 0x08000000 */
+
+/*!< Uncomment the following line if you need to relocate your vector Table
+     in Sram else user remap will be done by default in Flash. */
 /* #define VECT_TAB_SRAM */
+
 #ifndef VECT_TAB_OFFSET
-#define VECT_TAB_OFFSET  0x00U /*!< Vector Table base offset field. 
-                                   This value must be a multiple of 0x100. */
+#define VECT_TAB_OFFSET         0x00000000U     /*!< Vector Table base offset field.
+                                                     This value must be a multiple of 0x100. */
 #endif
+
+#ifndef VECT_TAB_BASE_ADDRESS
+#if defined(VECT_TAB_SRAM)
+#define VECT_TAB_BASE_ADDRESS   SRAM_BASE       /*!< Vector Table base address field.
+                                                     This value must be a multiple of 0x100. */
+#else
+#define VECT_TAB_BASE_ADDRESS   FLASH_BASE      /*!< Vector Table base address field.
+                                                     This value must be a multiple of 0x100. */
+#endif /* VECT_TAB_SRAM */
+#endif /* VECT_TAB_BASE_ADDRESS */
+
+
 /******************************************************************************/
 /**
   * @}
@@ -137,36 +143,39 @@
 void SystemInit (void)
 {    
 /*!< Set MSION bit */
-  RCC->CR |= (uint32_t)0x00000100U;
+  RCC->CR |= 0x00000100U;
 
   /*!< Reset SW[1:0], HPRE[3:0], PPRE1[2:0], PPRE2[2:0], MCOSEL[2:0] and MCOPRE[2:0] bits */
-  RCC->CFGR &= (uint32_t) 0x88FF400CU;
+  RCC->CFGR =  0x00000000U;
  
   /*!< Reset HSION, HSIDIVEN, HSEON, CSSON and PLLON bits */
-  RCC->CR &= (uint32_t)0xFEF6FFF6U;
+  RCC->CR = 0x00000100U;
   
   /*!< Reset HSI48ON  bit */
-  RCC->CRRCR &= (uint32_t)0xFFFFFFFEU;
+  RCC->CRRCR &= 0xFFFFFFFEU;
   
   /*!< Reset HSEBYP bit */
-  RCC->CR &= (uint32_t)0xFFFBFFFFU;
+  RCC->CR &= 0xFFFBFFFFU;
 
   /*!< Reset PLLSRC, PLLMUL[3:0] and PLLDIV[1:0] bits */
-  RCC->CFGR &= (uint32_t)0xFF02FFFFU;
+  RCC->CFGR &= 0xFF02FFFFU;
 
-  /*!< Disable all interrupts */
+  /* Disable all interrupts and clar flags */
   RCC->CIER = 0x00000000U;
+#if defined(RCC_CICR_HSI48RDYC)
+  RCC->CICR = 0x000001FF;
+#elif (RCC_CICR_CSSHSEC)
+  RCC->CICR = 0x000001BFU;
+#else
+  RCC->CICR = 0x000000BFU;
+#endif
   
   /* Configure the Vector Table location add offset address ------------------*/
-#ifdef VECT_TAB_SRAM
-  SCB->VTOR = SRAM_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal SRAM */
-#else
-  SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal FLASH */
-#endif
+  SCB->VTOR = VECT_TAB_BASE_ADDRESS | VECT_TAB_OFFSET;
 }
 
 /**
-  * @brief  Update SystemCoreClock according to Clock Register Values
+  * @brief  Update SystemCoreClock variable according to Clock Register Values.
   *         The SystemCoreClock variable contains the core clock (HCLK), it can
   *         be used by the user application to setup the SysTick timer or configure
   *         other parameters.

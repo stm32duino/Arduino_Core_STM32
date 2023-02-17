@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -53,7 +52,7 @@ typedef enum
   HAL_DCMI_STATE_TIMEOUT           = 0x03U,  /*!< DCMI timeout state                    */
   HAL_DCMI_STATE_ERROR             = 0x04U,  /*!< DCMI error state                      */
   HAL_DCMI_STATE_SUSPENDED         = 0x05U   /*!< DCMI suspend state                    */
-}HAL_DCMI_StateTypeDef;
+} HAL_DCMI_StateTypeDef;
 
 /**
   * @brief   DCMI Embedded Synchronisation CODE Init structure definition
@@ -64,8 +63,18 @@ typedef struct
   uint8_t LineStartCode;  /*!< Specifies the code of the line start delimiter.  */
   uint8_t LineEndCode;    /*!< Specifies the code of the line end delimiter.    */
   uint8_t FrameEndCode;   /*!< Specifies the code of the frame end delimiter.   */
-}DCMI_CodesInitTypeDef;
+} DCMI_CodesInitTypeDef;
 
+/**
+  * @brief   DCMI Embedded Synchronisation UNMASK Init structure definition
+  */
+typedef struct
+{
+  uint8_t FrameStartUnmask; /*!< Specifies the frame start delimiter unmask. */
+  uint8_t LineStartUnmask;  /*!< Specifies the line start delimiter unmask.  */
+  uint8_t LineEndUnmask;    /*!< Specifies the line end delimiter unmask.    */
+  uint8_t FrameEndUnmask;   /*!< Specifies the frame end delimiter unmask.   */
+} DCMI_SyncUnmaskTypeDef;
 /**
   * @brief   DCMI Init structure definition
   */
@@ -106,7 +115,7 @@ typedef struct
 
   uint32_t LineSelectStart;             /*!< Specifies if the line of data to be captured by the interface is even or odd
                                             This parameter can be a value of @ref DCMI_Line_Select_Start     */
-}DCMI_InitTypeDef;
+} DCMI_InitTypeDef;
 
 /**
   * @brief  DCMI handle Structure definition
@@ -138,17 +147,14 @@ typedef struct
   __IO uint32_t                 ErrorCode;           /*!< DCMI Error code              */
 
 #if (USE_HAL_DCMI_REGISTER_CALLBACKS == 1)
-  void    (* LineEventCallback)  ( struct __DCMI_HandleTypeDef * hdcmi);    /*!< DCMI Line Event callback  */
-  void    (* FrameEventCallback) ( struct __DCMI_HandleTypeDef * hdcmi);    /*!< DCMI Frame Event callback */
-  void    (* VsyncEventCallback) ( struct __DCMI_HandleTypeDef * hdcmi);    /*!< DCMI Vsync Event callback */
-  void    (* ErrorCallback)      ( struct __DCMI_HandleTypeDef * hdcmi);    /*!< DCMI Error callback       */
-
-  void    (* MspInitCallback)    ( struct __DCMI_HandleTypeDef * hdcmi);    /*!< DCMI Msp Init callback    */
-  void    (* MspDeInitCallback)  ( struct __DCMI_HandleTypeDef * hdcmi);    /*!< DCMI Msp DeInit callback  */
-
-#endif /* USE_HAL_DCMI_REGISTER_CALLBACKS */
-
-}DCMI_HandleTypeDef;
+  void (* FrameEventCallback)(struct __DCMI_HandleTypeDef *hdcmi);       /*!< DCMI Frame Event Callback */
+  void (* VsyncEventCallback)(struct __DCMI_HandleTypeDef *hdcmi);       /*!< DCMI Vsync Event Callback */
+  void (* LineEventCallback)(struct __DCMI_HandleTypeDef *hdcmi);        /*!< DCMI Line Event Callback  */
+  void (* ErrorCallback)(struct __DCMI_HandleTypeDef *hdcmi);            /*!< DCMI Error Callback       */
+  void (* MspInitCallback)(struct __DCMI_HandleTypeDef *hdcmi);          /*!< DCMI Msp Init callback    */
+  void (* MspDeInitCallback)(struct __DCMI_HandleTypeDef *hdcmi);        /*!< DCMI Msp DeInit callback  */
+#endif  /* USE_HAL_DCMI_REGISTER_CALLBACKS */
+} DCMI_HandleTypeDef;
 
 #if (USE_HAL_DCMI_REGISTER_CALLBACKS == 1)
 /**
@@ -156,14 +162,14 @@ typedef struct
   */
 typedef enum
 {
-  HAL_DCMI_FRAME_EVENT_CB_ID = 0x00U,    /*!< DCMI Frame event Callback ID   */
-  HAL_DCMI_VSYNC_EVENT_CB_ID = 0x01U,    /*!< DCMI Vsync event Callback ID   */
-  HAL_DCMI_LINE_EVENT_CB_ID  = 0x02U,    /*!< DCMI Line event Callback ID    */
-  HAL_DCMI_ERROR_CB_ID       = 0x03U,    /*!< DCMI Error Callback ID         */
-  HAL_DCMI_MSPINIT_CB_ID     = 0x04U,    /*!< DCMI MspInit callback ID       */
-  HAL_DCMI_MSPDEINIT_CB_ID   = 0x05U     /*!< DCMI MspDeInit callback ID     */
+  HAL_DCMI_FRAME_EVENT_CB_ID    = 0x00U,    /*!< DCMI Frame Event Callback ID */
+  HAL_DCMI_VSYNC_EVENT_CB_ID    = 0x01U,    /*!< DCMI Vsync Event Callback ID */
+  HAL_DCMI_LINE_EVENT_CB_ID     = 0x02U,    /*!< DCMI Line Event Callback ID  */
+  HAL_DCMI_ERROR_CB_ID          = 0x03U,    /*!< DCMI Error Callback ID       */
+  HAL_DCMI_MSPINIT_CB_ID        = 0x04U,    /*!< DCMI MspInit callback ID     */
+  HAL_DCMI_MSPDEINIT_CB_ID      = 0x05U     /*!< DCMI MspDeInit callback ID   */
 
-}HAL_DCMI_CallbackIDTypeDef;
+} HAL_DCMI_CallbackIDTypeDef;
 
 /**
   * @brief  HAL DCMI Callback pointer definition
@@ -183,13 +189,13 @@ typedef  void (*pDCMI_CallbackTypeDef)(DCMI_HandleTypeDef * hdcmi); /*!< pointer
 /** @defgroup DCMI_Error_Code DCMI Error Code
   * @{
   */
-#define HAL_DCMI_ERROR_NONE      (0x00000000U)    /*!< No error              */
-#define HAL_DCMI_ERROR_OVR       (0x00000001U)    /*!< Overrun error         */
-#define HAL_DCMI_ERROR_SYNC      (0x00000002U)    /*!< Synchronization error */
-#define HAL_DCMI_ERROR_TIMEOUT   (0x00000020U)    /*!< Timeout error         */
-#define HAL_DCMI_ERROR_DMA       (0x00000040U)    /*!< DMA error             */
+#define HAL_DCMI_ERROR_NONE             (0x00000000U)  /*!< No error              */
+#define HAL_DCMI_ERROR_OVR              (0x00000001U)  /*!< Overrun error         */
+#define HAL_DCMI_ERROR_SYNC             (0x00000002U)  /*!< Synchronization error */
+#define HAL_DCMI_ERROR_TIMEOUT          (0x00000020U)  /*!< Timeout error         */
+#define HAL_DCMI_ERROR_DMA              (0x00000040U)  /*!< DMA error             */
 #if (USE_HAL_DCMI_REGISTER_CALLBACKS == 1)
-#define  HAL_DCMI_ERROR_INVALID_CALLBACK ((uint32_t)0x00000080U)    /*!< Invalid Callback error  */
+#define  HAL_DCMI_ERROR_INVALID_CALLBACK (0x00000080U)    /*!< Invalid Callback error  */
 #endif /* USE_HAL_DCMI_REGISTER_CALLBACKS */
 /**
   * @}
@@ -553,6 +559,7 @@ void       HAL_DCMI_IRQHandler(DCMI_HandleTypeDef *hdcmi);
 HAL_StatusTypeDef     HAL_DCMI_ConfigCrop(DCMI_HandleTypeDef *hdcmi, uint32_t X0, uint32_t Y0, uint32_t XSize, uint32_t YSize);
 HAL_StatusTypeDef     HAL_DCMI_EnableCrop(DCMI_HandleTypeDef *hdcmi);
 HAL_StatusTypeDef     HAL_DCMI_DisableCrop(DCMI_HandleTypeDef *hdcmi);
+HAL_StatusTypeDef     HAL_DCMI_ConfigSyncUnmask(DCMI_HandleTypeDef *hdcmi, DCMI_SyncUnmaskTypeDef *SyncUnmask);
 
 /**
   * @}
@@ -573,13 +580,20 @@ uint32_t              HAL_DCMI_GetError(DCMI_HandleTypeDef *hdcmi);
   */
 
 /* Private types -------------------------------------------------------------*/
+/* Private defines -----------------------------------------------------------*/
+/** @defgroup DCMI_Private_Defines DCMI Private Defines
+  * @{
+  */
+/**
+  * @}
+  */
 /* Private variables ---------------------------------------------------------*/
 /* Private constants ---------------------------------------------------------*/
 /** @defgroup DCMI_Private_Constants DCMI Private Constants
   * @{
   */
-#define DCMI_MIS_INDEX        (0x1000) /*!< DCMI MIS register index */
-#define DCMI_SR_INDEX         (0x2000) /*!< DCMI SR register index  */
+#define DCMI_MIS_INDEX        ((uint32_t)0x1000) /*!< DCMI MIS register index */
+#define DCMI_SR_INDEX         ((uint32_t)0x2000) /*!< DCMI SR register index  */
 /**
   * @}
   */
@@ -660,4 +674,3 @@ uint32_t              HAL_DCMI_GetError(DCMI_HandleTypeDef *hdcmi);
 
 #endif /* STM32H7xx_HAL_DCMI_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

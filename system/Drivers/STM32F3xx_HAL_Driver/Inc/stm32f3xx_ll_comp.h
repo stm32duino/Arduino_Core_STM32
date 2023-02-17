@@ -6,29 +6,13 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -299,7 +283,7 @@ typedef struct
 #define LL_COMP_OUTPUT_TIM2_IC4_COMP2    (COMP_CSR_COMPxOUTSEL_3)                                                   /*!< COMP output connected to TIM1 input capture 4 (specific to COMP instance: COMP2) */
 #define LL_COMP_OUTPUT_TIM1_OCCLR_COMP2  (COMP_CSR_COMPxOUTSEL_2 | COMP_CSR_COMPxOUTSEL_1)                          /*!< COMP output connected to TIM1 OCREF clear (specific to COMP instance: COMP2) */
 #define LL_COMP_OUTPUT_TIM2_OCCLR_COMP2  (COMP_CSR_COMPxOUTSEL_3 | COMP_CSR_COMPxOUTSEL_0)                          /*!< COMP output connected to TIM2 OCREF clear (specific to COMP instance: COMP2) */
-#define LL_COMP_OUTPUT_TIM3_IC1_COMP2    (COMP_CSR_COMPxOUTSEL_3 | COMP_CSR_COMPxOUTSEL_1 | COMP_CSR_COMPxOUTSEL_0) /*!< COMP output connected to TIM3 input capture 1 (specific to COMP instance: COMP2) */
+#define LL_COMP_OUTPUT_TIM3_IC1_COMP2    (COMP_CSR_COMPxOUTSEL_3 | COMP_CSR_COMPxOUTSEL_1)                          /*!< COMP output connected to TIM3 input capture 1 (specific to COMP instance: COMP2) */
 /* Note: Output redirection specific to COMP instance: COMP4 */
 #define LL_COMP_OUTPUT_TIM3_IC3_COMP4    (COMP_CSR_COMPxOUTSEL_2 | COMP_CSR_COMPxOUTSEL_1)                          /*!< COMP output connected to TIM3 input capture 3 (specific to COMP instance: COMP4) */
 #define LL_COMP_OUTPUT_TIM15_IC2_COMP4   (COMP_CSR_COMPxOUTSEL_3)                                                   /*!< COMP output connected to TIM15 input capture 1 (specific to COMP instance: COMP4) */
@@ -341,7 +325,7 @@ typedef struct
 #define LL_COMP_OUTPUT_TIM2_IC4_COMP1_2    (COMP_CSR_COMPxOUTSEL_3)                                                   /*!< COMP output connected to TIM2 input capture 4 (specific to COMP instance: COMP2) */
 #define LL_COMP_OUTPUT_TIM1_OCCLR_COMP1_2  (COMP_CSR_COMPxOUTSEL_2 | COMP_CSR_COMPxOUTSEL_1)                          /*!< COMP output connected to TIM1 OCREF clear (specific to COMP instance: COMP2) */
 #define LL_COMP_OUTPUT_TIM2_OCCLR_COMP1_2  (COMP_CSR_COMPxOUTSEL_3 | COMP_CSR_COMPxOUTSEL_0)                          /*!< COMP output connected to TIM2 OCREF clear (specific to COMP instance: COMP2) */
-#define LL_COMP_OUTPUT_TIM3_IC1_COMP1_2    (COMP_CSR_COMPxOUTSEL_3 | COMP_CSR_COMPxOUTSEL_1 | COMP_CSR_COMPxOUTSEL_0) /*!< COMP output connected to TIM3 input capture 1 (specific to COMP instance: COMP2) */
+#define LL_COMP_OUTPUT_TIM3_IC1_COMP1_2    (COMP_CSR_COMPxOUTSEL_3 | COMP_CSR_COMPxOUTSEL_1)                          /*!< COMP output connected to TIM3 input capture 1 (specific to COMP instance: COMP2) */
 /* Note: Output redirection specific to COMP instance: COMP4 */
 #define LL_COMP_OUTPUT_TIM3_IC3_COMP4      (COMP_CSR_COMPxOUTSEL_2 | COMP_CSR_COMPxOUTSEL_1)                          /*!< COMP output connected to TIM3 input capture 3 (specific to COMP instance: COMP4) */
 #define LL_COMP_OUTPUT_TIM4_IC2_COMP4      (COMP_CSR_COMPxOUTSEL_3 | COMP_CSR_COMPxOUTSEL_0)                          /*!< COMP output connected to TIM4 input capture 2 (specific to COMP instance: COMP4) */
@@ -400,7 +384,7 @@ typedef struct
 /* Note: Output redirection specific to COMP instance: COMP1, COMP2 */
 #define LL_COMP_OUTPUT_TIM1_IC1_COMP1_2  (COMP_CSR_COMPxOUTSEL_2 | COMP_CSR_COMPxOUTSEL_1 | COMP_CSR_COMPxOUTSEL_0) /*!< COMP output connected to TIM1 input capture 1 (specific to COMP instance: COMP2) */
 #define LL_COMP_OUTPUT_TIM2_IC4_COMP1_2  (COMP_CSR_COMPxOUTSEL_3)                                                   /*!< COMP output connected to TIM2 input capture 4 (specific to COMP instance: COMP2) */
-#define LL_COMP_OUTPUT_TIM3_IC1_COMP1_2  (COMP_CSR_COMPxOUTSEL_3 | COMP_CSR_COMPxOUTSEL_1 | COMP_CSR_COMPxOUTSEL_0) /*!< COMP output connected to TIM3 input capture 1 (specific to COMP instance: COMP2) */
+#define LL_COMP_OUTPUT_TIM3_IC1_COMP1_2  (COMP_CSR_COMPxOUTSEL_3 | COMP_CSR_COMPxOUTSEL_1)                          /*!< COMP output connected to TIM3 input capture 1 (specific to COMP instance: COMP2) */
 #if defined(STM32F303xE) || defined(STM32F398xx)
 #define LL_COMP_OUTPUT_TIM20_OCCLR_COMP2 (COMP_CSR_COMPxOUTSEL_3 | COMP_CSR_COMPxOUTSEL_2 | COMP_CSR_COMPxOUTSEL_1 | COMP_CSR_COMPxOUTSEL_0) /*!< COMP output connected to TIM20 OCREF clear (specific to COMP instance: COMP2) */
 #endif

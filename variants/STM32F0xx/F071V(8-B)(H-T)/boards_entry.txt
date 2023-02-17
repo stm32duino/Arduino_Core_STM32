@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F071V8Hx
+GenF0.menu.pnum.GENERIC_F071V8HX=Generic F071V8Hx
+GenF0.menu.pnum.GENERIC_F071V8HX.upload.maximum_size=65536
+GenF0.menu.pnum.GENERIC_F071V8HX.upload.maximum_data_size=16384
+GenF0.menu.pnum.GENERIC_F071V8HX.build.board=GENERIC_F071V8HX
+GenF0.menu.pnum.GENERIC_F071V8HX.build.product_line=STM32F071xB
+GenF0.menu.pnum.GENERIC_F071V8HX.build.variant=STM32F0xx/F071V(8-B)(H-T)
+
+# Generic F071VBHx
+GenF0.menu.pnum.GENERIC_F071VBHX=Generic F071VBHx
+GenF0.menu.pnum.GENERIC_F071VBHX.upload.maximum_size=131072
+GenF0.menu.pnum.GENERIC_F071VBHX.upload.maximum_data_size=16384
+GenF0.menu.pnum.GENERIC_F071VBHX.build.board=GENERIC_F071VBHX
+GenF0.menu.pnum.GENERIC_F071VBHX.build.product_line=STM32F071xB
+GenF0.menu.pnum.GENERIC_F071VBHX.build.variant=STM32F0xx/F071V(8-B)(H-T)
+
+# Generic F071V8Tx
+GenF0.menu.pnum.GENERIC_F071V8TX=Generic F071V8Tx
+GenF0.menu.pnum.GENERIC_F071V8TX.upload.maximum_size=65536
+GenF0.menu.pnum.GENERIC_F071V8TX.upload.maximum_data_size=16384
+GenF0.menu.pnum.GENERIC_F071V8TX.build.board=GENERIC_F071V8TX
+GenF0.menu.pnum.GENERIC_F071V8TX.build.product_line=STM32F071xB
+GenF0.menu.pnum.GENERIC_F071V8TX.build.variant=STM32F0xx/F071V(8-B)(H-T)
+
+# Generic F071VBTx
+GenF0.menu.pnum.GENERIC_F071VBTX=Generic F071VBTx
+GenF0.menu.pnum.GENERIC_F071VBTX.upload.maximum_size=131072
+GenF0.menu.pnum.GENERIC_F071VBTX.upload.maximum_data_size=16384
+GenF0.menu.pnum.GENERIC_F071VBTX.build.board=GENERIC_F071VBTX
+GenF0.menu.pnum.GENERIC_F071VBTX.build.product_line=STM32F071xB
+GenF0.menu.pnum.GENERIC_F071VBTX.build.variant=STM32F0xx/F071V(8-B)(H-T)
+

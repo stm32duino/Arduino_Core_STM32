@@ -7,18 +7,17 @@
   *          This file contains:
   *           - Data structures and the address mapping for all peripherals
   *           - Peripheral's registers declarations and bits definition
-  *           - Macros to access peripheral’s registers hardware
+  *           - Macros to access peripheral's registers hardware
   *
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -45,11 +44,11 @@
 /**
   * @brief Configuration of the Cortex-M4 Processor and Core Peripherals
    */
-#define __CM4_REV                 0x0001  /*!< Cortex-M4 revision r0p1                       */
-#define __MPU_PRESENT             1       /*!< STM32L4XX provides an MPU                     */
-#define __NVIC_PRIO_BITS          4       /*!< STM32L4XX uses 4 Bits for the Priority Levels */
-#define __Vendor_SysTickConfig    0       /*!< Set to 1 if different SysTick Config is used  */
-#define __FPU_PRESENT             1       /*!< FPU present                                   */
+#define __CM4_REV                 0x0001U  /*!< Cortex-M4 revision r0p1                       */
+#define __MPU_PRESENT             1U       /*!< STM32L4XX provides an MPU                     */
+#define __NVIC_PRIO_BITS          4U       /*!< STM32L4XX uses 4 Bits for the Priority Levels */
+#define __Vendor_SysTickConfig    0U       /*!< Set to 1 if different SysTick Config is used  */
+#define __FPU_PRESENT             1U       /*!< FPU present                                   */
 
 /**
   * @}
@@ -156,8 +155,8 @@ typedef enum
   RNG_IRQn                    = 80,     /*!< RNG global interrupt                                              */
   FPU_IRQn                    = 81,     /*!< FPU global interrupt                                              */
   CRS_IRQn                    = 82,     /*!< CRS global interrupt                                              */
-  I2C4_EV_IRQn                = 83,     /*!< I2C4 Event interrupt                                              */
-  I2C4_ER_IRQn                = 84,     /*!< I2C4 Error interrupt                                              */
+  I2C4_ER_IRQn                = 83,     /*!< I2C4 Error interrupt                                              */
+  I2C4_EV_IRQn                = 84,     /*!< I2C4 Event interrupt                                              */
   DCMI_IRQn                   = 85,     /*!< DCMI global interrupt                                             */
   DMA2D_IRQn                  = 90,     /*!< DMA2D global interrupt                                            */
   LTDC_IRQn                   = 91,     /*!< LTDC global Interrupt                                             */
@@ -905,6 +904,8 @@ typedef struct
   __IO uint32_t CSR;         /*!< RCC clock control & status register,                                     Address offset: 0x94 */
   __IO uint32_t CRRCR;       /*!< RCC clock recovery RC register,                                          Address offset: 0x98 */
   __IO uint32_t CCIPR2;      /*!< RCC peripherals independent clock configuration register 2,              Address offset: 0x9C */
+  uint32_t      RESERVED8;   /*!< Reserved,                                                                Address offset: 0xA0 */
+  __IO uint32_t DLYCFGR;     /*!< RCC peripheral OCTOSPI delay configuration register,                     Address offset: 0xA4 */
 } RCC_TypeDef;
 
 /**
@@ -1294,7 +1295,10 @@ typedef struct
 /** @addtogroup Peripheral_memory_map
   * @{
   */
-#define FLASH_BASE            (0x08000000UL) /*!< FLASH(up to 2 MB) base address */
+#define FLASH_BASE            (0x08000000UL) /*!< FLASH(up to 2 MB) base address   */
+#define FLASH_END             (0x081FFFFFUL) /*!< FLASH END address                */
+#define FLASH_BANK1_END       (0x080FFFFFUL) /*!< FLASH END address of bank1       */
+#define FLASH_BANK2_END       (0x081FFFFFUL) /*!< FLASH END address of bank2       */
 #define SRAM1_BASE            (0x20000000UL) /*!< SRAM1(up to 192 KB) base address */
 #define SRAM2_BASE            (0x10000000UL) /*!< SRAM2(64 KB) base address */
 #define SRAM3_BASE            (0x20040000UL) /*!< SRAM3(384 KB) base address */
@@ -1321,6 +1325,11 @@ typedef struct
 #define SRAM1_SIZE_MAX        (0x00030000UL) /*!< maximum SRAM1 size (up to 192 KBytes) */
 #define SRAM2_SIZE            (0x00010000UL) /*!< SRAM2 size (64 KBytes) */
 #define SRAM3_SIZE            (0x00060000UL) /*!< SRAM3 size (384 KBytes) */
+
+#define FLASH_SIZE_DATA_REGISTER ((uint32_t)0x1FFF75E0)
+
+#define FLASH_SIZE               (((((*((uint32_t *)FLASH_SIZE_DATA_REGISTER)) & (0x0000FFFFU)) == 0x0000FFFFU)) ? (0x800U << 10U) : \
+                                  (((*((uint32_t *)FLASH_SIZE_DATA_REGISTER)) & (0x0000FFFFU)) << 10U))
 
 /*!< Peripheral memory map */
 #define APB1PERIPH_BASE        PERIPH_BASE
@@ -1683,6 +1692,15 @@ typedef struct
   * @{
   */
 
+/** @addtogroup Hardware_Constant_Definition
+  * @{
+  */
+#define LSI_STARTUP_TIME 130U /*!< LSI Maximum startup time in us */
+
+/**
+  * @}
+  */
+
 /** @addtogroup Peripheral_Registers_Bits_Definition
   * @{
   */
@@ -1836,7 +1854,7 @@ typedef struct
 
 #define ADC_CFGR_ALIGN_Pos             (5U)
 #define ADC_CFGR_ALIGN_Msk             (0x1UL << ADC_CFGR_ALIGN_Pos)           /*!< 0x00000020 */
-#define ADC_CFGR_ALIGN                 ADC_CFGR_ALIGN_Msk                      /*!< ADC data alignement */
+#define ADC_CFGR_ALIGN                 ADC_CFGR_ALIGN_Msk                      /*!< ADC data alignment */
 
 #define ADC_CFGR_EXTSEL_Pos            (6U)
 #define ADC_CFGR_EXTSEL_Msk            (0xFUL << ADC_CFGR_EXTSEL_Pos)          /*!< 0x000003C0 */
@@ -6267,7 +6285,13 @@ typedef struct
 #define CRS_CR_SWSYNC             CRS_CR_SWSYNC_Msk                            /*!< Generate software SYNC event */
 #define CRS_CR_TRIM_Pos           (8U)
 #define CRS_CR_TRIM_Msk           (0x3FUL << CRS_CR_TRIM_Pos)                  /*!< 0x00003F00 */
-#define CRS_CR_TRIM               CRS_CR_TRIM_Msk                              /*!< HSI48 oscillator smooth trimming */
+#define CRS_CR_TRIM               CRS_CR_TRIM_Msk                              /*!< TRIM[5:0] HSI48 oscillator smooth trimming */
+#define CRS_CR_TRIM_0             (0x01UL << CRS_CR_TRIM_Pos)                  /*!< 0x00000100 */
+#define CRS_CR_TRIM_1             (0x02UL << CRS_CR_TRIM_Pos)                  /*!< 0x00000200 */
+#define CRS_CR_TRIM_2             (0x04UL << CRS_CR_TRIM_Pos)                  /*!< 0x00000400 */
+#define CRS_CR_TRIM_3             (0x08UL << CRS_CR_TRIM_Pos)                  /*!< 0x00000800 */
+#define CRS_CR_TRIM_4             (0x10UL << CRS_CR_TRIM_Pos)                  /*!< 0x00001000 */
+#define CRS_CR_TRIM_5             (0x20UL << CRS_CR_TRIM_Pos)                  /*!< 0x00002000 */
 
 /*******************  Bit definition for CRS_CFGR register  *********************/
 #define CRS_CFGR_RELOAD_Pos       (0U)
@@ -8854,7 +8878,7 @@ typedef struct
 /******************  Bit definition for FMC_BCR1 register  *******************/
 #define FMC_BCR1_CCLKEN_Pos        (20U)
 #define FMC_BCR1_CCLKEN_Msk        (0x1UL << FMC_BCR1_CCLKEN_Pos)              /*!< 0x00100000 */
-#define FMC_BCR1_CCLKEN            FMC_BCR1_CCLKEN_Msk                         /*!<Continous clock enable     */
+#define FMC_BCR1_CCLKEN            FMC_BCR1_CCLKEN_Msk                         /*!<Continuous clock enable     */
 #define FMC_BCR1_WFDIS_Pos         (21U)
 #define FMC_BCR1_WFDIS_Msk         (0x1UL << FMC_BCR1_WFDIS_Pos)               /*!< 0x00200000 */
 #define FMC_BCR1_WFDIS             FMC_BCR1_WFDIS_Msk                          /*!<Write FIFO Disable         */
@@ -10733,7 +10757,7 @@ typedef struct
 
 #define LTDC_AWCR_AAH_Pos            (0U)
 #define LTDC_AWCR_AAH_Msk            (0x7FFUL << LTDC_AWCR_AAH_Pos)            /*!< 0x000007FF */
-#define LTDC_AWCR_AAH                LTDC_AWCR_AAH_Msk                         /*!< Accumulated Active heigh */
+#define LTDC_AWCR_AAH                LTDC_AWCR_AAH_Msk                         /*!< Accumulated Active Height */
 #define LTDC_AWCR_AAW_Pos            (16U)
 #define LTDC_AWCR_AAW_Msk            (0xFFFUL << LTDC_AWCR_AAW_Pos)            /*!< 0x0FFF0000 */
 #define LTDC_AWCR_AAW                LTDC_AWCR_AAW_Msk                         /*!< Accumulated Active Width */
@@ -10742,7 +10766,7 @@ typedef struct
 
 #define LTDC_TWCR_TOTALH_Pos         (0U)
 #define LTDC_TWCR_TOTALH_Msk         (0x7FFUL << LTDC_TWCR_TOTALH_Pos)         /*!< 0x000007FF */
-#define LTDC_TWCR_TOTALH             LTDC_TWCR_TOTALH_Msk                      /*!< Total Heigh */
+#define LTDC_TWCR_TOTALH             LTDC_TWCR_TOTALH_Msk                      /*!< Total Height */
 #define LTDC_TWCR_TOTALW_Pos         (16U)
 #define LTDC_TWCR_TOTALW_Msk         (0xFFFUL << LTDC_TWCR_TOTALW_Pos)         /*!< 0x0FFF0000 */
 #define LTDC_TWCR_TOTALW             LTDC_TWCR_TOTALW_Msk                      /*!< Total Width */
@@ -12100,9 +12124,11 @@ typedef struct
 #define RCC_HSI48_SUPPORT
 #define RCC_PLLM_DIV_1_16_SUPPORT
 #define RCC_PLLP_DIV_2_31_SUPPORT
+#define RCC_PLLSAI1N_MUL_8_127_SUPPORT
 #define RCC_PLLSAI1M_DIV_1_16_SUPPORT
 #define RCC_PLLSAI1P_DIV_2_31_SUPPORT
 #define RCC_PLLSAI2_SUPPORT
+#define RCC_PLLSAI2N_MUL_8_127_SUPPORT
 #define RCC_PLLSAI2M_DIV_1_16_SUPPORT
 #define RCC_PLLSAI2P_DIV_2_31_SUPPORT
 #define RCC_PLLSAI2Q_DIV_SUPPORT
@@ -13472,6 +13498,23 @@ typedef struct
 #define RCC_CCIPR2_OSPISEL_0                 (0x1UL << RCC_CCIPR2_OSPISEL_Pos) /*!< 0x00100000 */
 #define RCC_CCIPR2_OSPISEL_1                 (0x2UL << RCC_CCIPR2_OSPISEL_Pos) /*!< 0x00200000 */
 
+/********************  Bit definition for RCC_DLYCFGR register  ******************/
+#define RCC_DLYCFGR_OCTOSPI1_DLY_Pos         (0U)
+#define RCC_DLYCFGR_OCTOSPI1_DLY_Msk         (0xFUL << RCC_DLYCFGR_OCTOSPI1_DLY_Pos) /*!< 0x0000000F */
+#define RCC_DLYCFGR_OCTOSPI1_DLY             RCC_DLYCFGR_OCTOSPI1_DLY_Msk
+#define RCC_DLYCFGR_OCTOSPI1_DLY_0           (0x1UL << RCC_DLYCFGR_OCTOSPI1_DLY_Pos) /*!< 0x00000001 */
+#define RCC_DLYCFGR_OCTOSPI1_DLY_1           (0x2UL << RCC_DLYCFGR_OCTOSPI1_DLY_Pos) /*!< 0x00000002 */
+#define RCC_DLYCFGR_OCTOSPI1_DLY_2           (0x4UL << RCC_DLYCFGR_OCTOSPI1_DLY_Pos) /*!< 0x00000004 */
+#define RCC_DLYCFGR_OCTOSPI1_DLY_3           (0x8UL << RCC_DLYCFGR_OCTOSPI1_DLY_Pos) /*!< 0x00000008 */
+
+#define RCC_DLYCFGR_OCTOSPI2_DLY_Pos         (4U)
+#define RCC_DLYCFGR_OCTOSPI2_DLY_Msk         (0xFUL << RCC_DLYCFGR_OCTOSPI2_DLY_Pos) /*!< 0x000000F0 */
+#define RCC_DLYCFGR_OCTOSPI2_DLY             RCC_DLYCFGR_OCTOSPI2_DLY_Msk
+#define RCC_DLYCFGR_OCTOSPI2_DLY_0           (0x1UL << RCC_DLYCFGR_OCTOSPI2_DLY_Pos) /*!< 0x00000010 */
+#define RCC_DLYCFGR_OCTOSPI2_DLY_1           (0x2UL << RCC_DLYCFGR_OCTOSPI2_DLY_Pos) /*!< 0x00000020 */
+#define RCC_DLYCFGR_OCTOSPI2_DLY_2           (0x4UL << RCC_DLYCFGR_OCTOSPI2_DLY_Pos) /*!< 0x00000040 */
+#define RCC_DLYCFGR_OCTOSPI2_DLY_3           (0x8UL << RCC_DLYCFGR_OCTOSPI2_DLY_Pos) /*!< 0x00000080 */
+
 /******************************************************************************/
 /*                                                                            */
 /*                                    RNG                                     */
@@ -13516,8 +13559,12 @@ typedef struct
 #define RTC_TAMPER1_SUPPORT
 #define RTC_TAMPER2_SUPPORT
 #define RTC_TAMPER3_SUPPORT
+
 #define RTC_WAKEUP_SUPPORT
 #define RTC_BACKUP_SUPPORT
+/******************** Number of backup registers ******************************/
+#define RTC_BKP_NUMBER                32U
+
 
 /********************  Bits definition for RTC_TR register  *******************/
 #define RTC_TR_PM_Pos                  (22U)
@@ -14273,9 +14320,6 @@ typedef struct
 #define RTC_BKP31R_Pos                 (0U)
 #define RTC_BKP31R_Msk                 (0xFFFFFFFFUL << RTC_BKP31R_Pos)        /*!< 0xFFFFFFFF */
 #define RTC_BKP31R                     RTC_BKP31R_Msk
-
-/******************** Number of backup registers ******************************/
-#define RTC_BKP_NUMBER                       32U
 
 /******************************************************************************/
 /*                                                                            */
@@ -15262,6 +15306,9 @@ typedef struct
 #define OCTOSPI_DCR1_FRCK_Pos          (1U)
 #define OCTOSPI_DCR1_FRCK_Msk          (0x1UL << OCTOSPI_DCR1_FRCK_Pos)        /*!< 0x00000002 */
 #define OCTOSPI_DCR1_FRCK              OCTOSPI_DCR1_FRCK_Msk                   /*!< Free Running Clock */
+#define OCTOSPI_DCR1_DLYBYP_Pos        (3U)
+#define OCTOSPI_DCR1_DLYBYP_Msk        (0x1UL << OCTOSPI_DCR1_DLYBYP_Pos)      /*!< 0x00000004 */
+#define OCTOSPI_DCR1_DLYBYP            OCTOSPI_DCR1_DLYBYP_Msk                 /*!< Delay Block Bypass */
 #define OCTOSPI_DCR1_CSHT_Pos          (8U)
 #define OCTOSPI_DCR1_CSHT_Msk          (0x7UL << OCTOSPI_DCR1_CSHT_Pos)        /*!< 0x00000700 */
 #define OCTOSPI_DCR1_CSHT              OCTOSPI_DCR1_CSHT_Msk                   /*!< Chip Select High Time */
@@ -15279,12 +15326,6 @@ typedef struct
 #define OCTOSPI_DCR2_PRESCALER_Pos     (0U)
 #define OCTOSPI_DCR2_PRESCALER_Msk     (0xFFUL << OCTOSPI_DCR2_PRESCALER_Pos)  /*!< 0x000000FF */
 #define OCTOSPI_DCR2_PRESCALER         OCTOSPI_DCR2_PRESCALER_Msk              /*!< Clock prescaler */
-#define OCTOSPI_DCR2_WRAPSIZE_Pos      (16U)
-#define OCTOSPI_DCR2_WRAPSIZE_Msk      (0x7UL << OCTOSPI_DCR2_WRAPSIZE_Pos)    /*!< 0x00070000 */
-#define OCTOSPI_DCR2_WRAPSIZE          OCTOSPI_DCR2_WRAPSIZE_Msk               /*!< Wrap Size */
-#define OCTOSPI_DCR2_WRAPSIZE_0        (0x1UL << OCTOSPI_DCR2_WRAPSIZE_Pos)    /*!< 0x00010000 */
-#define OCTOSPI_DCR2_WRAPSIZE_1        (0x2UL << OCTOSPI_DCR2_WRAPSIZE_Pos)    /*!< 0x00020000 */
-#define OCTOSPI_DCR2_WRAPSIZE_2        (0x4UL << OCTOSPI_DCR2_WRAPSIZE_Pos)    /*!< 0x00040000 */
 
 /****************  Bit definition for OCTOSPI_DCR3 register  ******************/
 #define OCTOSPI_DCR3_CSBOUND_Pos       (16U)
@@ -15324,8 +15365,8 @@ typedef struct
 #define OCTOSPI_FCR_CSMF_Pos           (3U)
 #define OCTOSPI_FCR_CSMF_Msk           (0x1UL << OCTOSPI_FCR_CSMF_Pos)         /*!< 0x00000008 */
 #define OCTOSPI_FCR_CSMF               OCTOSPI_FCR_CSMF_Msk                    /*!< Clear Status Match Flag */
-#define OCTOSPI_FCR_TOF_Pos            (8U)
-#define OCTOSPI_FCR_TOF_Msk            (0x1UL << OCTOSPI_FCR_TOF_Pos)          /*!< 0x00000100 */
+#define OCTOSPI_FCR_TOF_Pos            (4U)
+#define OCTOSPI_FCR_TOF_Msk            (0x1UL << OCTOSPI_FCR_TOF_Pos)          /*!< 0x00000010 */
 #define OCTOSPI_FCR_TOF                OCTOSPI_FCR_TOF_Msk                     /*!< Clear Timeout Flag */
 
 /****************  Bit definition for OCTOSPI_DLR register  *******************/
@@ -15498,9 +15539,6 @@ typedef struct
 #define OCTOSPI_WCCR_DQSE_Pos          (29U)
 #define OCTOSPI_WCCR_DQSE_Msk          (0x1UL << OCTOSPI_WCCR_DQSE_Pos)        /*!< 0x20000000 */
 #define OCTOSPI_WCCR_DQSE              OCTOSPI_WCCR_DQSE_Msk                   /*!< DQS Enable */
-#define OCTOSPI_WCCR_SIOO_Pos          (31U)
-#define OCTOSPI_WCCR_SIOO_Msk          (0x1UL << OCTOSPI_WCCR_SIOO_Pos)        /*!< 0x80000000 */
-#define OCTOSPI_WCCR_SIOO              OCTOSPI_WCCR_SIOO_Msk                   /*!< Send Instruction Only Once Mode */
 
 /****************  Bit definition for OCTOSPI_WTCR register  ******************/
 #define OCTOSPI_WTCR_DCYC_Pos          (0U)
@@ -20422,9 +20460,6 @@ typedef struct
                                                        ((INSTANCE) == TIM16) || \
                                                        ((INSTANCE) == TIM17))
 
-/****************** TIM Instances : supporting synchronization ****************/
-#define IS_TIM_SYNCHRO_INSTANCE(INSTANCE)  IS_TIM_MASTER_INSTANCE(INSTANCE)
-
 /****************** TIM Instances : supporting ADC triggering through TRGO2 ***/
 #define IS_TIM_TRGO2_INSTANCE(INSTANCE)    (((INSTANCE) == TIM1)    || \
                                             ((INSTANCE) == TIM8))
@@ -20556,6 +20591,7 @@ typedef struct
 #define TIM1_TRG_COM_IRQn              TIM1_TRG_COM_TIM17_IRQn
 #define TIM8_IRQn                      TIM8_UP_IRQn
 #define HASH_RNG_IRQn                  RNG_IRQn
+#define DCMI_PSSI_IRQn                 DCMI_IRQn
 #define HASH_CRS_IRQn                  CRS_IRQn
 #define DFSDM0_IRQn                    DFSDM1_FLT0_IRQn
 #define DFSDM1_IRQn                    DFSDM1_FLT1_IRQn
@@ -20568,6 +20604,7 @@ typedef struct
 #define TIM1_TRG_COM_IRQHandler        TIM1_TRG_COM_TIM17_IRQHandler
 #define TIM8_IRQHandler                TIM8_UP_IRQHandler
 #define HASH_RNG_IRQHandler            RNG_IRQHandler
+#define DCMI_PSSI_IRQHandler           DCMI_IRQHandler
 #define HASH_CRS_IRQHandler            CRS_IRQHandler
 #define DFSDM0_IRQHandler              DFSDM1_FLT0_IRQHandler
 #define DFSDM1_IRQHandler              DFSDM1_FLT1_IRQHandler
@@ -20588,4 +20625,3 @@ typedef struct
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

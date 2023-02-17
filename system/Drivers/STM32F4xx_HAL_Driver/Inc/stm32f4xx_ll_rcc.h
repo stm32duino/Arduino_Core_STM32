@@ -6,14 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 
@@ -5338,7 +5336,7 @@ __STATIC_INLINE uint32_t LL_RCC_PLLI2S_IsReady(void)
   */
 __STATIC_INLINE void LL_RCC_PLLI2S_ConfigDomain_SAI(uint32_t Source, uint32_t PLLM, uint32_t PLLN, uint32_t PLLQ_R, uint32_t PLLDIVQ_R)
 {
-  register __IO uint32_t *pReg = (__IO uint32_t *)((uint32_t)((uint32_t)(&RCC->PLLCFGR) + (Source & 0x80U)));
+  __IO uint32_t *pReg = (__IO uint32_t *)((uint32_t)((uint32_t)(&RCC->PLLCFGR) + (Source & 0x80U)));
   MODIFY_REG(*pReg, RCC_PLLCFGR_PLLSRC, (Source & (~0x80U)));
 #if defined(RCC_PLLI2SCFGR_PLLI2SM)
   MODIFY_REG(RCC->PLLI2SCFGR, RCC_PLLI2SCFGR_PLLI2SM, PLLM);
@@ -5458,7 +5456,7 @@ __STATIC_INLINE void LL_RCC_PLLI2S_ConfigDomain_SAI(uint32_t Source, uint32_t PL
   */
 __STATIC_INLINE void LL_RCC_PLLI2S_ConfigDomain_48M(uint32_t Source, uint32_t PLLM, uint32_t PLLN, uint32_t PLLQ)
 {
-  register __IO uint32_t *pReg = (__IO uint32_t *)((uint32_t)((uint32_t)(&RCC->PLLCFGR) + (Source & 0x80U)));
+  __IO uint32_t *pReg = (__IO uint32_t *)((uint32_t)((uint32_t)(&RCC->PLLCFGR) + (Source & 0x80U)));
   MODIFY_REG(*pReg, RCC_PLLCFGR_PLLSRC, (Source & (~0x80U)));
 #if defined(RCC_PLLI2SCFGR_PLLI2SM)
   MODIFY_REG(RCC->PLLI2SCFGR, RCC_PLLI2SCFGR_PLLI2SM, PLLM);
@@ -5662,7 +5660,7 @@ __STATIC_INLINE void LL_RCC_PLLI2S_ConfigDomain_SPDIFRX(uint32_t Source, uint32_
   */
 __STATIC_INLINE void LL_RCC_PLLI2S_ConfigDomain_I2S(uint32_t Source, uint32_t PLLM, uint32_t PLLN, uint32_t PLLR)
 {
-  register __IO uint32_t *pReg = (__IO uint32_t *)((uint32_t)((uint32_t)(&RCC->PLLCFGR) + (Source & 0x80U)));
+  __IO uint32_t *pReg = (__IO uint32_t *)((uint32_t)((uint32_t)(&RCC->PLLCFGR) + (Source & 0x80U)));
   MODIFY_REG(*pReg, RCC_PLLCFGR_PLLSRC, (Source & (~0x80U)));
 #if defined(RCC_PLLI2SCFGR_PLLI2SM)
   MODIFY_REG(RCC->PLLI2SCFGR, RCC_PLLI2SCFGR_PLLI2SM, PLLM);
@@ -5924,9 +5922,9 @@ __STATIC_INLINE uint32_t LL_RCC_PLLI2S_GetDivider(void)
 __STATIC_INLINE uint32_t LL_RCC_PLLI2S_GetMainSource(void)
 {
 #if defined(RCC_PLLI2SCFGR_PLLI2SSRC)
-  register uint32_t pllsrc = READ_BIT(RCC->PLLCFGR, RCC_PLLCFGR_PLLSRC);
-  register uint32_t plli2sssrc0 = READ_BIT(RCC->PLLI2SCFGR, RCC_PLLI2SCFGR_PLLI2SSRC);
-  register uint32_t plli2sssrc1 = READ_BIT(RCC->PLLI2SCFGR, RCC_PLLI2SCFGR_PLLI2SSRC) >> 15U;
+  uint32_t pllsrc = READ_BIT(RCC->PLLCFGR, RCC_PLLCFGR_PLLSRC);
+  uint32_t plli2sssrc0 = READ_BIT(RCC->PLLI2SCFGR, RCC_PLLI2SCFGR_PLLI2SSRC);
+  uint32_t plli2sssrc1 = READ_BIT(RCC->PLLI2SCFGR, RCC_PLLI2SCFGR_PLLI2SSRC) >> 15U;
   return (uint32_t)(pllsrc | plli2sssrc0 | plli2sssrc1);
 #else
   return (uint32_t)(READ_BIT(RCC->PLLCFGR, RCC_PLLCFGR_PLLSRC));
@@ -7096,4 +7094,3 @@ uint32_t    LL_RCC_GetDSIClockFreq(uint32_t DSIxSource);
 
 #endif /* __STM32F4xx_LL_RCC_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

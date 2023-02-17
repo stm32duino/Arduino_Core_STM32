@@ -27,7 +27,8 @@ WEAK uint32_t pinNametoDigitalPin(PinName p)
   uint32_t i = NUM_DIGITAL_PINS;
   if (STM_VALID_PINNAME(p)) {
     for (i = 0; i < NUM_DIGITAL_PINS; i++) {
-      if (digitalPin[i] == p) {
+      if (digitalPin[i] == (p & PNAME_MASK)) {
+        i |= ((uint32_t)(p) & ALTX_MASK);
         break;
       }
     }
@@ -40,9 +41,14 @@ PinName analogInputToPinName(uint32_t pin)
   PinName pn = digitalPinToPinName(analogInputToDigitalPin(pin));
   if (pn == NC) {
     switch (pin) {
-#ifdef ATEMP
+#if defined(ADC_CHANNEL_TEMPSENSOR) || defined(ADC_CHANNEL_TEMPSENSOR_ADC1)
       case ATEMP:
         pn = PADC_TEMP;
+        break;
+#endif
+#if defined(ADC5) && defined(ADC_CHANNEL_TEMPSENSOR_ADC5)
+      case ATEMP_ADC5:
+        pn = PADC_TEMP_ADC5;
         break;
 #endif
 #ifdef AVREF
@@ -60,6 +66,53 @@ PinName analogInputToPinName(uint32_t pin)
     }
   }
   return pn;
+}
+
+/**
+  * @brief  Return true if a digital pin is an analog input
+  * @param  pin Dx, x or PYn
+  * @retval boolean true if analog or false
+  */
+bool digitalpinIsAnalogInput(uint32_t pin)
+{
+  bool ret = false;
+#if NUM_ANALOG_INPUTS > 0
+  if ((pin & PNUM_ANALOG_BASE) == PNUM_ANALOG_BASE) {
+    ret = true;
+  } else {
+    for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
+      if (analogInputPin[i] == (pin & PNUM_MASK)) {
+        ret = true;
+        break;
+      }
+    }
+  }
+#endif /* NUM_ANALOG_INPUTS > 0 */
+  return ret;
+}
+
+/**
+  * @brief  Return the analog input linked to a digital pin
+  * @param  pin Dx, x or PYn
+  * @retval analogInput valid analog input or NUM_ANALOG_INPUTS
+  */
+uint32_t digitalPinToAnalogInput(uint32_t pin)
+{
+  uint32_t ret = NUM_ANALOG_INPUTS;
+#if NUM_ANALOG_INPUTS > 0
+  if ((pin & PNUM_ANALOG_BASE) == PNUM_ANALOG_BASE) {
+    /* PYn = Ax */
+    ret = (pin & PNUM_ANALOG_INDEX) | (pin & ALTX_MASK);
+  } else {
+    for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
+      if (analogInputPin[i] == (pin & PNUM_MASK)) {
+        ret = i | (pin & ALTX_MASK);
+        break;
+      }
+    }
+  }
+#endif /* NUM_ANALOG_INPUTS > 0 */
+  return ret;
 }
 
 #ifdef __cplusplus

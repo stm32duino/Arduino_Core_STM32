@@ -5,6 +5,17 @@
   * @brief   HAL module driver.
   *          This is the common part of the HAL initialization
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                      ##### How to use this driver #####
@@ -18,17 +29,6 @@
          (+) Services HAL APIs
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -50,11 +50,11 @@
   * @{
   */
 /**
-  * @brief STM32F4xx HAL Driver version number V1.7.6
+  * @brief STM32F4xx HAL Driver version number V1.8.1
   */
 #define __STM32F4xx_HAL_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32F4xx_HAL_VERSION_SUB1   (0x07U) /*!< [23:16] sub1 version */
-#define __STM32F4xx_HAL_VERSION_SUB2   (0x06U) /*!< [15:8]  sub2 version */
+#define __STM32F4xx_HAL_VERSION_SUB1   (0x08U) /*!< [23:16] sub1 version */
+#define __STM32F4xx_HAL_VERSION_SUB2   (0x01U) /*!< [15:8]  sub2 version */
 #define __STM32F4xx_HAL_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32F4xx_HAL_VERSION         ((__STM32F4xx_HAL_VERSION_MAIN << 24U)\
                                         |(__STM32F4xx_HAL_VERSION_SUB1 << 16U)\
@@ -341,14 +341,26 @@ uint32_t HAL_GetTickPrio(void)
 HAL_StatusTypeDef HAL_SetTickFreq(HAL_TickFreqTypeDef Freq)
 {
   HAL_StatusTypeDef status  = HAL_OK;
+  HAL_TickFreqTypeDef prevTickFreq;
+
   assert_param(IS_TICKFREQ(Freq));
 
   if (uwTickFreq != Freq)
   {
+    /* Back up uwTickFreq frequency */
+    prevTickFreq = uwTickFreq;
+
+    /* Update uwTickFreq global variable used by HAL_InitTick() */
     uwTickFreq = Freq;
 
     /* Apply the new tick Freq  */
     status = HAL_InitTick(uwTickPrio);
+
+    if (status != HAL_OK)
+    {
+      /* Restore previous tick frequency */
+      uwTickFreq = prevTickFreq;
+    }
   }
 
   return status;
@@ -557,7 +569,7 @@ uint32_t HAL_GetUIDw2(void)
 /**
   * @brief  Enables the Internal FLASH Bank Swapping.
   *
-  * @note   This function can be used only for STM32F42xxx/43xxx devices.
+  * @note   This function can be used only for STM32F42xxx/43xxx/469xx/479xx devices.
   *
   * @note   Flash Bank2 mapped at 0x08000000 (and aliased @0x00000000)
   *         and Flash Bank1 mapped at 0x08100000 (and aliased at 0x00100000)
@@ -572,7 +584,7 @@ void HAL_EnableMemorySwappingBank(void)
 /**
   * @brief  Disables the Internal FLASH Bank Swapping.
   *
-  * @note   This function can be used only for STM32F42xxx/43xxx devices.
+  * @note   This function can be used only for STM32F42xxx/43xxx/469xx/479xx devices.
   *
   * @note   The default state : Flash Bank1 mapped at 0x08000000 (and aliased @0x00000000)
   *         and Flash Bank2 mapped at 0x08100000 (and aliased at 0x00100000)
@@ -600,4 +612,3 @@ void HAL_DisableMemorySwappingBank(void)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

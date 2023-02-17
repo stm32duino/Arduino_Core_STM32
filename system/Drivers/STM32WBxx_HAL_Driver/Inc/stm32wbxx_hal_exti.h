@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics. 
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -105,18 +104,42 @@ typedef struct
 #define EXTI_LINE_17                        (EXTI_CONFIG   | EXTI_EVENT | EXTI_REG1 | 0x11u)
 #define EXTI_LINE_18                        (EXTI_CONFIG   | EXTI_EVENT | EXTI_REG1 | 0x12u)
 #define EXTI_LINE_19                        (EXTI_CONFIG   | EXTI_EVENT | EXTI_REG1 | 0x13u)
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx) || defined (STM32WB15xx) || defined(STM32WB1Mxx)
 #define EXTI_LINE_20                        (EXTI_CONFIG   | EXTI_EVENT | EXTI_REG1 | 0x14u)
+#else
+#define EXTI_LINE_20                        (EXTI_RESERVED |              EXTI_REG1 | 0x14u)
+#endif /* STM32WB55xx || STM32WB5Mxx || ... */
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx)
 #define EXTI_LINE_21                        (EXTI_CONFIG   | EXTI_EVENT | EXTI_REG1 | 0x15u)
+#else
+#define EXTI_LINE_21                        (EXTI_RESERVED |              EXTI_REG1 | 0x15u)
+#endif /* STM32WB55xx || STM32WB5Mxx || STM32WB35xx */
 #define EXTI_LINE_22                        (EXTI_DIRECT   |              EXTI_REG1 | 0x16u)
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx)
 #define EXTI_LINE_23                        (EXTI_DIRECT   |              EXTI_REG1 | 0x17u)
+#else
+#define EXTI_LINE_23                        (EXTI_RESERVED |              EXTI_REG1 | 0x17u)
+#endif /* STM32WB55xx || STM32WB5Mxx || STM32WB35xx */
 #define EXTI_LINE_24                        (EXTI_DIRECT   |              EXTI_REG1 | 0x18u)
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx) || defined (STM32WB15xx) || defined(STM32WB1Mxx)
 #define EXTI_LINE_25                        (EXTI_DIRECT   |              EXTI_REG1 | 0x19u)
+#else
+#define EXTI_LINE_25                        (EXTI_RESERVED |              EXTI_REG1 | 0x19u)
+#endif /* STM32WB55xx || STM32WB5Mxx || ... */
 #define EXTI_LINE_26                        (EXTI_RESERVED |              EXTI_REG1 | 0x1Au)
 #define EXTI_LINE_27                        (EXTI_RESERVED |              EXTI_REG1 | 0x1Bu)
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx)
 #define EXTI_LINE_28                        (EXTI_DIRECT   |              EXTI_REG1 | 0x1Cu)
+#else
+#define EXTI_LINE_28                        (EXTI_RESERVED |              EXTI_REG1 | 0x1Cu)
+#endif /* STM32WB55xx || STM32WB5Mxx || STM32WB35xx */
 #define EXTI_LINE_29                        (EXTI_DIRECT   |              EXTI_REG1 | 0x1Du)
 #define EXTI_LINE_30                        (EXTI_DIRECT   |              EXTI_REG1 | 0x1Eu)
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx) || defined (STM32WB15xx) || defined(STM32WB1Mxx)
 #define EXTI_LINE_31                        (EXTI_CONFIG   |              EXTI_REG1 | 0x1Fu)
+#else
+#define EXTI_LINE_31                        (EXTI_RESERVED |              EXTI_REG1 | 0x1Fu)
+#endif /* STM32WB55xx || STM32WB5Mxx || ... */
 #define EXTI_LINE_32                        (EXTI_RESERVED |              EXTI_REG2 | 0x00u)
 #define EXTI_LINE_33                        (EXTI_CONFIG   |              EXTI_REG2 | 0x01u)
 #define EXTI_LINE_34                        (EXTI_RESERVED |              EXTI_REG2 | 0x02u)
@@ -128,10 +151,18 @@ typedef struct
 #define EXTI_LINE_40                        (EXTI_CONFIG   | EXTI_EVENT | EXTI_REG2 | 0x08u)
 #define EXTI_LINE_41                        (EXTI_CONFIG   | EXTI_EVENT | EXTI_REG2 | 0x09u)
 #define EXTI_LINE_42                        (EXTI_DIRECT   |              EXTI_REG2 | 0x0Au)
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx)
 #define EXTI_LINE_43                        (EXTI_DIRECT   |              EXTI_REG2 | 0x0Bu)
+#else
+#define EXTI_LINE_43                        (EXTI_RESERVED |              EXTI_REG2 | 0x0Bu)
+#endif /* STM32WB55xx || STM32WB5Mxx */
 #define EXTI_LINE_44                        (EXTI_DIRECT   |              EXTI_REG2 | 0x0Cu)
 #define EXTI_LINE_45                        (EXTI_DIRECT   |              EXTI_REG2 | 0x0Du)
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB50xx) || defined (STM32WB35xx) || defined (STM32WB30xx)
 #define EXTI_LINE_46                        (EXTI_DIRECT   |              EXTI_REG2 | 0x0Eu)
+#else
+#define EXTI_LINE_46                        (EXTI_RESERVED |              EXTI_REG2 | 0x0Eu)
+#endif /* STM32WB55xx || STM32WB5Mxx || ... */
 #define EXTI_LINE_47                        (EXTI_RESERVED |              EXTI_REG2 | 0x0Fu)
 #define EXTI_LINE_48                        (EXTI_DIRECT   |              EXTI_REG2 | 0x10u)
 /**
@@ -166,7 +197,9 @@ typedef struct
 #define EXTI_GPIOA                          0x00000000u
 #define EXTI_GPIOB                          0x00000001u
 #define EXTI_GPIOC                          0x00000002u
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx)
 #define EXTI_GPIOD                          0x00000003u
+#endif /* STM32WB55xx || STM32WB5Mxx */
 #define EXTI_GPIOE                          0x00000004u
 #define EXTI_GPIOH                          0x00000007u
 /**
@@ -239,28 +272,36 @@ typedef struct
 /** @defgroup EXTI_Private_Macros EXTI Private Macros
   * @{
   */
-#define IS_EXTI_LINE(__LINE__)          ((((__LINE__) & ~(EXTI_PROPERTY_MASK | EXTI_EVENT_PRESENCE_MASK | EXTI_REG_MASK | EXTI_PIN_MASK)) == 0x00u) && \
-                                        ((((__LINE__) & EXTI_PROPERTY_MASK) == EXTI_DIRECT)   || \
-                                         (((__LINE__) & EXTI_PROPERTY_MASK) == EXTI_CONFIG)   || \
-                                         (((__LINE__) & EXTI_PROPERTY_MASK) == EXTI_GPIO))    && \
-                                         (((__LINE__) & (EXTI_REG_MASK | EXTI_PIN_MASK))      < \
-                                         (((EXTI_LINE_NB / 32u) << EXTI_REG_SHIFT) | (EXTI_LINE_NB % 32u))))
+#define IS_EXTI_LINE(__EXTI_LINE__)          ((((__EXTI_LINE__) & ~(EXTI_PROPERTY_MASK | EXTI_EVENT_PRESENCE_MASK | EXTI_REG_MASK | EXTI_PIN_MASK)) == 0x00u) && \
+                                              ((((__EXTI_LINE__) & EXTI_PROPERTY_MASK) == EXTI_DIRECT)   || \
+                                               (((__EXTI_LINE__) & EXTI_PROPERTY_MASK) == EXTI_CONFIG)   || \
+                                               (((__EXTI_LINE__) & EXTI_PROPERTY_MASK) == EXTI_GPIO))    && \
+                                              (((__EXTI_LINE__) & (EXTI_REG_MASK | EXTI_PIN_MASK))      < \
+                                               (((EXTI_LINE_NB / 32u) << EXTI_REG_SHIFT) | (EXTI_LINE_NB % 32u))))
 
-#define IS_EXTI_MODE(__LINE__)          ((((__LINE__) & EXTI_MODE_MASK) != 0x00u) && \
-                                         (((__LINE__) & ~EXTI_MODE_MASK) == 0x00u))
+#define IS_EXTI_MODE(__EXTI_LINE__)          ((((__EXTI_LINE__) & EXTI_MODE_MASK) != 0x00u) && \
+                                              (((__EXTI_LINE__) & ~EXTI_MODE_MASK) == 0x00u))
 
-#define IS_EXTI_TRIGGER(__LINE__)       (((__LINE__) & ~EXTI_TRIGGER_MASK) == 0x00u)
+#define IS_EXTI_TRIGGER(__EXTI_LINE__)       (((__EXTI_LINE__) & ~EXTI_TRIGGER_MASK) == 0x00u)
 
-#define IS_EXTI_PENDING_EDGE(__LINE__)  ((__LINE__) == EXTI_TRIGGER_RISING_FALLING)
+#define IS_EXTI_PENDING_EDGE(__EXTI_LINE__)  ((__EXTI_LINE__) == EXTI_TRIGGER_RISING_FALLING)
 
-#define IS_EXTI_CONFIG_LINE(__LINE__)   (((__LINE__) & EXTI_CONFIG) != 0x00u)
+#define IS_EXTI_CONFIG_LINE(__EXTI_LINE__)   (((__EXTI_LINE__) & EXTI_CONFIG) != 0x00u)
 
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx)
 #define IS_EXTI_GPIO_PORT(__PORT__)     (((__PORT__) == EXTI_GPIOA) || \
                                          ((__PORT__) == EXTI_GPIOB) || \
                                          ((__PORT__) == EXTI_GPIOC) || \
                                          ((__PORT__) == EXTI_GPIOD) || \
                                          ((__PORT__) == EXTI_GPIOE) || \
                                          ((__PORT__) == EXTI_GPIOH))
+#else
+#define IS_EXTI_GPIO_PORT(__PORT__)     (((__PORT__) == EXTI_GPIOA) || \
+                                         ((__PORT__) == EXTI_GPIOB) || \
+                                         ((__PORT__) == EXTI_GPIOC) || \
+                                         ((__PORT__) == EXTI_GPIOE) || \
+                                         ((__PORT__) == EXTI_GPIOH))
+#endif /* STM32WB55xx || STM32WB5Mxx */
 
 #define IS_EXTI_GPIO_PIN(__PIN__)       ((__PIN__) < 16u)
 
@@ -320,5 +361,3 @@ void              HAL_EXTI_GenerateSWI(EXTI_HandleTypeDef *hexti);
 #endif
 
 #endif /* STM32WBxx_HAL_EXTI_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

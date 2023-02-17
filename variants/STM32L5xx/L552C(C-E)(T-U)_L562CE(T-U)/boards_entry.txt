@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L552CCTx
+GenL5.menu.pnum.GENERIC_L552CCTX=Generic L552CCTx
+GenL5.menu.pnum.GENERIC_L552CCTX.upload.maximum_size=262144
+GenL5.menu.pnum.GENERIC_L552CCTX.upload.maximum_data_size=262144
+GenL5.menu.pnum.GENERIC_L552CCTX.build.board=GENERIC_L552CCTX
+GenL5.menu.pnum.GENERIC_L552CCTX.build.product_line=STM32L552xx
+GenL5.menu.pnum.GENERIC_L552CCTX.build.variant=STM32L5xx/L552C(C-E)(T-U)_L562CE(T-U)
+
+# Generic L552CETx
+GenL5.menu.pnum.GENERIC_L552CETX=Generic L552CETx
+GenL5.menu.pnum.GENERIC_L552CETX.upload.maximum_size=524288
+GenL5.menu.pnum.GENERIC_L552CETX.upload.maximum_data_size=262144
+GenL5.menu.pnum.GENERIC_L552CETX.build.board=GENERIC_L552CETX
+GenL5.menu.pnum.GENERIC_L552CETX.build.product_line=STM32L552xx
+GenL5.menu.pnum.GENERIC_L552CETX.build.variant=STM32L5xx/L552C(C-E)(T-U)_L562CE(T-U)
+
+# Generic L552CCUx
+GenL5.menu.pnum.GENERIC_L552CCUX=Generic L552CCUx
+GenL5.menu.pnum.GENERIC_L552CCUX.upload.maximum_size=262144
+GenL5.menu.pnum.GENERIC_L552CCUX.upload.maximum_data_size=262144
+GenL5.menu.pnum.GENERIC_L552CCUX.build.board=GENERIC_L552CCUX
+GenL5.menu.pnum.GENERIC_L552CCUX.build.product_line=STM32L552xx
+GenL5.menu.pnum.GENERIC_L552CCUX.build.variant=STM32L5xx/L552C(C-E)(T-U)_L562CE(T-U)
+
+# Generic L552CEUx
+GenL5.menu.pnum.GENERIC_L552CEUX=Generic L552CEUx
+GenL5.menu.pnum.GENERIC_L552CEUX.upload.maximum_size=524288
+GenL5.menu.pnum.GENERIC_L552CEUX.upload.maximum_data_size=262144
+GenL5.menu.pnum.GENERIC_L552CEUX.build.board=GENERIC_L552CEUX
+GenL5.menu.pnum.GENERIC_L552CEUX.build.product_line=STM32L552xx
+GenL5.menu.pnum.GENERIC_L552CEUX.build.variant=STM32L5xx/L552C(C-E)(T-U)_L562CE(T-U)
+
+# Generic L562CETx
+GenL5.menu.pnum.GENERIC_L562CETX=Generic L562CETx
+GenL5.menu.pnum.GENERIC_L562CETX.upload.maximum_size=524288
+GenL5.menu.pnum.GENERIC_L562CETX.upload.maximum_data_size=262144
+GenL5.menu.pnum.GENERIC_L562CETX.build.board=GENERIC_L562CETX
+GenL5.menu.pnum.GENERIC_L562CETX.build.product_line=STM32L562xx
+GenL5.menu.pnum.GENERIC_L562CETX.build.variant=STM32L5xx/L552C(C-E)(T-U)_L562CE(T-U)
+
+# Generic L562CEUx
+GenL5.menu.pnum.GENERIC_L562CEUX=Generic L562CEUx
+GenL5.menu.pnum.GENERIC_L562CEUX.upload.maximum_size=524288
+GenL5.menu.pnum.GENERIC_L562CEUX.upload.maximum_data_size=262144
+GenL5.menu.pnum.GENERIC_L562CEUX.build.board=GENERIC_L562CEUX
+GenL5.menu.pnum.GENERIC_L562CEUX.build.product_line=STM32L562xx
+GenL5.menu.pnum.GENERIC_L562CEUX.build.variant=STM32L5xx/L552C(C-E)(T-U)_L562CE(T-U)
+

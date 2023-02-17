@@ -6,14 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 #if defined(USE_FULL_LL_DRIVER)
@@ -185,7 +183,7 @@ uint32_t RCC_PLLI2S_GetFreqDomain_SPDIFRX(void);
   */
 ErrorStatus LL_RCC_DeInit(void)
 {
-  uint32_t vl_mask = 0U;
+  __IO uint32_t vl_mask;
 
   /* Set HSION bit */
   LL_RCC_HSI_Enable();
@@ -197,10 +195,12 @@ ErrorStatus LL_RCC_DeInit(void)
   /* Reset CFGR register */
   LL_RCC_WriteReg(CFGR, 0x00000000U);
 
-  vl_mask = 0xFFFFFFFFU;
+  /* Read CR register */
+  vl_mask = LL_RCC_ReadReg(CR);
 
-  /* Reset HSEON, PLLSYSON bits */
-  CLEAR_BIT(vl_mask, (RCC_CR_HSEON | RCC_CR_HSEBYP | RCC_CR_PLLON | RCC_CR_CSSON));
+  /* Reset HSEON, HSEBYP, PLLON, CSSON bits */
+  CLEAR_BIT(vl_mask,
+            (RCC_CR_HSEON | RCC_CR_HSEBYP | RCC_CR_PLLON | RCC_CR_CSSON));
 
 #if defined(RCC_PLLSAI_SUPPORT)
   /* Reset PLLSAION bit */
@@ -212,7 +212,7 @@ ErrorStatus LL_RCC_DeInit(void)
   CLEAR_BIT(vl_mask, RCC_CR_PLLI2SON);
 #endif /* RCC_PLLI2S_SUPPORT */
 
-  /* Write new mask in CR register */
+  /* Write new value in CR register */
   LL_RCC_WriteReg(CR, vl_mask);
 
   /* Set HSITRIM bits to the reset value*/
@@ -1658,4 +1658,3 @@ uint32_t RCC_PLLI2S_GetFreqDomain_48M(void)
 
 #endif /* USE_FULL_LL_DRIVER */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

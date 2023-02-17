@@ -9,10 +9,10 @@ To report a bug/request please file an issue in the right repository
 (example for [Arduino_Core_STM32](https://github.com/stm32duino/Arduino_Core_STM32/issues/new/choose)).
 But check the following boxes before posting an issue:
 
-- [ ] `Make sure you are using the latest STM32 core and libraries versions.` See [lastest core here](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest).
+- [ ] `Make sure you are using the latest STM32 core and libraries versions.` See [latest core here](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest).
 - [ ] `Your issue is NOT a question/feedback/suggestions.` This should be discussed on the [stm32duino forum](http://stm32duino.com):
-  * questions on the [STM32 Core](http://stm32duino.com/viewforum.php?f=48).
-  * bugs/enhancements on the [STM core: Bugs and enhancements](http://stm32duino.com/viewforum.php?f=49).
+  * questions on the [STM32 Core](http://stm32duino.com/viewforum.php?f=35).
+  * bugs/enhancements on the [STM core: Bugs and enhancements](http://stm32duino.com/viewforum.php?f=38).
 - [ ] `Make sure your issue is not already reported/fixed on GitHub or discussed on the forum` See [stm32duino forum](http://stm32duino.com).
 - [ ] `Make sure you are working on the right repository.` See the table below.
 
@@ -94,7 +94,7 @@ When different people are working on the Arduino project simultaneously, pull re
 
 Most often pull requests become stale when merge conflicts occur. This happens when two pull requests both modify similar lines in the same file and one gets merged, the unmerged request will now have a merge conflict and needs updating.
 
-When your pull request is stale, you will need to rebase your branch on the current master branch before you can merge it without conflicts.
+When your pull request is stale, you will need to rebase your branch on the current main branch before you can merge it without conflicts.
 
 More information about rebasing can be found at the repository of [edX](https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request).
 

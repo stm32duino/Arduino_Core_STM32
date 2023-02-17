@@ -7,7 +7,17 @@
   *          functionalities of the General Purpose Input/Output (EXTI) peripheral:
   *           + Initialization and de-initialization functions
   *           + IO operation functions
+  ******************************************************************************
+  * @attention
   *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                     ##### EXTI Peripheral features #####
@@ -30,7 +40,7 @@
         (++) Trigger request occurred
 
     (+) Exti lines 0 to 15 are linked to gpio pin number 0 to 15. Gpio port can
-        be selected throught multiplexer.
+        be selected through multiplexer.
 
                      ##### How to use this driver #####
   ==============================================================================
@@ -68,17 +78,6 @@
 
   @endverbatim
   ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics. 
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -106,8 +105,8 @@
 /** @defgroup EXTI_Private_Constants EXTI Private Constants
   * @{
   */
-#define EXTI_MODE_OFFSET                    0x04u   /* 0x10: offset between CPU IMR/EMR registers */
-#define EXTI_CONFIG_OFFSET                  0x08u   /* 0x20: offset between CPU Rising/Falling configuration registers */
+#define EXTI_MODE_OFFSET                    0x04u  /* 0x10: offset between CPU IMR/EMR registers */
+#define EXTI_CONFIG_OFFSET                  0x08u  /* 0x20: offset between CPU Rising/Falling configuration registers */
 /**
   * @}
   */
@@ -122,8 +121,8 @@
   */
 
 /** @addtogroup EXTI_Exported_Functions_Group1
- *  @brief    Configuration functions
- *
+  *  @brief    Configuration functions
+  *
 @verbatim
  ===============================================================================
               ##### Configuration functions #####
@@ -236,7 +235,7 @@ HAL_StatusTypeDef HAL_EXTI_SetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigT
 
   /* The event mode cannot be configured if the line does not support it */
   assert_param(((pExtiConfig->Line & EXTI_EVENT) == EXTI_EVENT) || ((pExtiConfig->Mode & EXTI_MODE_EVENT) != EXTI_MODE_EVENT));
-  
+
   /* Configure event mode : read current mode */
   regaddr = (&EXTI->EMR1 + (EXTI_MODE_OFFSET * offset));
   regval = *regaddr;
@@ -281,7 +280,7 @@ HAL_StatusTypeDef HAL_EXTI_GetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigT
   /* Check the parameter */
   assert_param(IS_EXTI_LINE(hexti->Line));
 
-  /* Store handle line number to configiguration structure */
+  /* Store handle line number to configuration structure */
   pExtiConfig->Line = hexti->Line;
 
   /* compute line register offset and line mask */
@@ -313,6 +312,10 @@ HAL_StatusTypeDef HAL_EXTI_GetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigT
     pExtiConfig->Mode |= EXTI_MODE_EVENT;
   }
 
+  /* Get default Trigger and GPIOSel configuration */
+  pExtiConfig->Trigger = EXTI_TRIGGER_NONE;
+  pExtiConfig->GPIOSel = 0x00u;
+
   /* 2] Get trigger for configurable lines : rising */
   if ((pExtiConfig->Line & EXTI_CONFIG) != 0x00u)
   {
@@ -323,10 +326,6 @@ HAL_StatusTypeDef HAL_EXTI_GetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigT
     if ((regval & maskline) != 0x00u)
     {
       pExtiConfig->Trigger = EXTI_TRIGGER_RISING;
-    }
-    else
-    {
-      pExtiConfig->Trigger = EXTI_TRIGGER_NONE;
     }
 
     /* Get falling configuration */
@@ -345,17 +344,8 @@ HAL_StatusTypeDef HAL_EXTI_GetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigT
       assert_param(IS_EXTI_GPIO_PIN(linepos));
 
       regval = SYSCFG->EXTICR[linepos >> 2u];
-      pExtiConfig->GPIOSel = ((regval << (SYSCFG_EXTICR1_EXTI1_Pos * (3uL - (linepos & 0x03u)))) >> 24);
+      pExtiConfig->GPIOSel = (regval >> (SYSCFG_EXTICR1_EXTI1_Pos * (linepos & 0x03u))) & SYSCFG_EXTICR1_EXTI0;
     }
-    else
-    {
-      pExtiConfig->GPIOSel = 0x00u;
-    }
-  }
-  else
-  {
-    pExtiConfig->Trigger = EXTI_TRIGGER_NONE;
-    pExtiConfig->GPIOSel = 0x00u;
   }
 
   return HAL_OK;
@@ -433,7 +423,8 @@ HAL_StatusTypeDef HAL_EXTI_ClearConfigLine(EXTI_HandleTypeDef *hexti)
   * @param  pPendingCbfn function pointer to be stored as callback.
   * @retval HAL Status.
   */
-HAL_StatusTypeDef HAL_EXTI_RegisterCallback(EXTI_HandleTypeDef *hexti, EXTI_CallbackIDTypeDef CallbackID, void (*pPendingCbfn)(void))
+HAL_StatusTypeDef HAL_EXTI_RegisterCallback(EXTI_HandleTypeDef *hexti, EXTI_CallbackIDTypeDef CallbackID,
+                                            void (*pPendingCbfn)(void))
 {
   HAL_StatusTypeDef status = HAL_OK;
 
@@ -484,8 +475,8 @@ HAL_StatusTypeDef HAL_EXTI_GetHandle(EXTI_HandleTypeDef *hexti, uint32_t ExtiLin
   */
 
 /** @addtogroup EXTI_Exported_Functions_Group2
- *  @brief EXTI IO functions.
- *
+  *  @brief EXTI IO functions.
+  *
 @verbatim
  ===============================================================================
                        ##### IO operation functions #####
@@ -540,6 +531,9 @@ void HAL_EXTI_IRQHandler(EXTI_HandleTypeDef *hexti)
   */
 uint32_t HAL_EXTI_GetPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(Edge);
+
   __IO uint32_t *regaddr;
   uint32_t regval;
   uint32_t linepos;
@@ -549,7 +543,6 @@ uint32_t HAL_EXTI_GetPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
   /* Check parameters */
   assert_param(IS_EXTI_LINE(hexti->Line));
   assert_param(IS_EXTI_CONFIG_LINE(hexti->Line));
-  assert_param(IS_EXTI_PENDING_EDGE(Edge));
 
   /* compute line register offset and line mask */
   offset = ((hexti->Line & EXTI_REG_MASK) >> EXTI_REG_SHIFT);
@@ -576,6 +569,9 @@ uint32_t HAL_EXTI_GetPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
   */
 void HAL_EXTI_ClearPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(Edge);
+
   __IO uint32_t *regaddr;
   uint32_t maskline;
   uint32_t offset;
@@ -583,7 +579,6 @@ void HAL_EXTI_ClearPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
   /* Check parameters */
   assert_param(IS_EXTI_LINE(hexti->Line));
   assert_param(IS_EXTI_CONFIG_LINE(hexti->Line));
-  assert_param(IS_EXTI_PENDING_EDGE(Edge));
 
   /* compute line register offset and line mask */
   offset = ((hexti->Line & EXTI_REG_MASK) >> EXTI_REG_SHIFT);
@@ -637,5 +632,3 @@ void HAL_EXTI_GenerateSWI(EXTI_HandleTypeDef *hexti)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

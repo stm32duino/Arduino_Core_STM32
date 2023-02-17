@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic WB55RCVx
+GenWB.menu.pnum.GENERIC_WB55RCVX=Generic WB55RCVx
+GenWB.menu.pnum.GENERIC_WB55RCVX.upload.maximum_size=262144
+GenWB.menu.pnum.GENERIC_WB55RCVX.upload.maximum_data_size=131072
+GenWB.menu.pnum.GENERIC_WB55RCVX.build.board=GENERIC_WB55RCVX
+GenWB.menu.pnum.GENERIC_WB55RCVX.build.product_line=STM32WB55xx
+GenWB.menu.pnum.GENERIC_WB55RCVX.build.variant=STM32WBxx/WB55R(C-E-G)V
+
+# Generic WB55REVx
+GenWB.menu.pnum.GENERIC_WB55REVX=Generic WB55REVx
+GenWB.menu.pnum.GENERIC_WB55REVX.upload.maximum_size=524288
+GenWB.menu.pnum.GENERIC_WB55REVX.upload.maximum_data_size=262144
+GenWB.menu.pnum.GENERIC_WB55REVX.build.board=GENERIC_WB55REVX
+GenWB.menu.pnum.GENERIC_WB55REVX.build.product_line=STM32WB55xx
+GenWB.menu.pnum.GENERIC_WB55REVX.build.variant=STM32WBxx/WB55R(C-E-G)V
+
+# Generic WB55RGVx
+GenWB.menu.pnum.GENERIC_WB55RGVX=Generic WB55RGVx
+GenWB.menu.pnum.GENERIC_WB55RGVX.upload.maximum_size=1048576
+GenWB.menu.pnum.GENERIC_WB55RGVX.upload.maximum_data_size=262144
+GenWB.menu.pnum.GENERIC_WB55RGVX.build.board=GENERIC_WB55RGVX
+GenWB.menu.pnum.GENERIC_WB55RGVX.build.product_line=STM32WB55xx
+GenWB.menu.pnum.GENERIC_WB55RGVX.build.variant=STM32WBxx/WB55R(C-E-G)V
+

@@ -1,0 +1,13 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L476VGYxP
+GenL4.menu.pnum.GENERIC_L476VGYXP=Generic L476VGYxP
+GenL4.menu.pnum.GENERIC_L476VGYXP.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L476VGYXP.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L476VGYXP.build.board=GENERIC_L476VGYXP
+GenL4.menu.pnum.GENERIC_L476VGYXP.build.product_line=STM32L476xx
+GenL4.menu.pnum.GENERIC_L476VGYXP.build.variant=STM32L4xx/L476VGYxP
+

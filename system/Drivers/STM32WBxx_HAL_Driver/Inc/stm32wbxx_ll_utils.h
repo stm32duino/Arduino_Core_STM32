@@ -3,6 +3,17 @@
   * @file    stm32wbxx_ll_utils.h
   * @author  MCD Application Team
   * @brief   Header file of UTILS LL module.
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                      ##### How to use this driver #####
@@ -15,17 +26,6 @@
       (+) PLL configuration functions
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics. 
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -95,19 +95,19 @@ extern "C" {
 typedef struct
 {
   uint32_t PLLM;   /*!< Division factor for PLL VCO input clock.
-                        This parameter can be a value of @ref RCC_LL_EC_PLLM_DIV
+                        This parameter can be a value of @ref RCC_LL_EC_PLLM_DIV.
 
                         This feature can be modified afterwards using unitary function
                         @ref LL_RCC_PLL_ConfigDomain_SYS(). */
 
   uint32_t PLLN;   /*!< Multiplication factor for PLL VCO output clock.
-                        This parameter must be a number between Min_Data = 8 and Max_Data = 86
+                        This parameter must be a number between Min_Data = 6 and Max_Data = 127.
 
                         This feature can be modified afterwards using unitary function
                         @ref LL_RCC_PLL_ConfigDomain_SYS(). */
 
   uint32_t PLLR;   /*!< Division for the main system clock.
-                        This parameter can be a value of @ref RCC_LL_EC_PLLR_DIV
+                        This parameter can be a value of @ref RCC_LL_EC_PLLR_DIV.
 
                         This feature can be modified afterwards using unitary function
                         @ref LL_RCC_PLL_ConfigDomain_SYS(). */
@@ -119,31 +119,31 @@ typedef struct
 typedef struct
 {
   uint32_t CPU1CLKDivider;         /*!< The CPU1 clock (HCLK1) divider. This clock is derived from the system clock (SYSCLK).
-                                        This parameter can be a value of @ref RCC_LL_EC_SYSCLK_DIV
+                                        This parameter can be a value of @ref RCC_LL_EC_SYSCLK_DIV.
 
                                         This feature can be modified afterwards using unitary function
                                         @ref LL_RCC_SetAHBPrescaler(). */
 
   uint32_t CPU2CLKDivider;         /*!< The CPU2 clock (HCLK2) divider. This clock is derived from the system clock (SYSCLK).
-                                        This parameter can be a value of @ref RCC_LL_EC_SYSCLK_DIV
+                                        This parameter can be a value of @ref RCC_LL_EC_SYSCLK_DIV.
 
                                         This feature can be modified afterwards using unitary function
                                         @ref LL_C2_RCC_SetAHBPrescaler(). */
 
   uint32_t AHB4CLKDivider;         /*!< The AHBS clock (HCLK4) divider. This clock is derived from the system clock (SYSCLK).
-                                        This parameter can be a value of @ref RCC_LL_EC_SYSCLK_DIV
+                                        This parameter can be a value of @ref RCC_LL_EC_SYSCLK_DIV.
 
                                         This feature can be modified afterwards using unitary function
                                         @ref LL_RCC_SetAHB4Prescaler(). */
 
   uint32_t APB1CLKDivider;        /*!< The APB1 clock (PCLK1) divider. This clock is derived from the AHB clock (HCLK1).
-                                       This parameter can be a value of @ref RCC_LL_EC_APB1_DIV
+                                       This parameter can be a value of @ref RCC_LL_EC_APB1_DIV.
 
                                        This feature can be modified afterwards using unitary function
                                        @ref LL_RCC_SetAPB1Prescaler(). */
 
   uint32_t APB2CLKDivider;        /*!< The APB2 clock (PCLK2) divider. This clock is derived from the AHB clock (HCLK1).
-                                       This parameter can be a value of @ref RCC_LL_EC_APB2_DIV
+                                       This parameter can be a value of @ref RCC_LL_EC_APB2_DIV.
 
                                        This feature can be modified afterwards using unitary function
                                        @ref LL_RCC_SetAPB2Prescaler(). */
@@ -171,12 +171,10 @@ typedef struct
 /** @defgroup UTILS_EC_PACKAGETYPE PACKAGE TYPE
   * @{
   */
-#define LL_UTILS_PACKAGETYPE_CSP100         0x00000011U /*!< CSP100 package type                      */
-#define LL_UTILS_PACKAGETYPE_CSP100_C       0x00000012U /*!< CSP100 package type w/ capfree LDO       */
+#define LL_UTILS_PACKAGETYPE_CSP100         0x00000011U /*!< CSP100/BGA129 package type               */
 #define LL_UTILS_PACKAGETYPE_QFN68          0x00000013U /*!< QFN68 package type                       */
-#define LL_UTILS_PACKAGETYPE_QFN68_C        0x00000014U /*!< QFN68 package type w/ capfree LDO        */
 #define LL_UTILS_PACKAGETYPE_QFN48          0x0000000AU /*!< QFN48 package type                       */
-#define LL_UTILS_PACKAGETYPE_QFN48_C        0x00000015U /*!< QFN48 package type w/ capfree LDO        */
+
 /**
   * @}
   */
@@ -195,59 +193,56 @@ typedef struct
 /** @defgroup UTILS_EF_DEVICE_ELECTRONIC_SIGNATURE DEVICE ELECTRONIC SIGNATURE
   * @{
   */
-  /**
-    * @brief  Get Word0 of the unique device identifier (UID based on 96 bits)
-    * @retval UID[31:0]: X and Y coordinates on the wafer expressed in BCD format
-    */
-  __STATIC_INLINE uint32_t LL_GetUID_Word0(void)
-  {
-    return (uint32_t)(READ_REG(*((uint32_t *)UID_BASE_ADDRESS)));
-  }
+/**
+  * @brief  Get Word0 of the unique device identifier (UID based on 96 bits)
+  * @retval UID[31:0]: X and Y coordinates on the wafer expressed in BCD format
+  */
+__STATIC_INLINE uint32_t LL_GetUID_Word0(void)
+{
+  return (uint32_t)(READ_REG(*((uint32_t *)UID_BASE_ADDRESS)));
+}
 
-  /**
-    * @brief  Get Word1 of the unique device identifier (UID based on 96 bits)
-    * @retval UID[63:32]: Wafer number (UID[39:32]) & LOT_NUM[23:0] (UID[63:40])
-    */
-  __STATIC_INLINE uint32_t LL_GetUID_Word1(void)
-  {
-    return (uint32_t)(READ_REG(*((uint32_t *)(UID_BASE_ADDRESS + 4U))));
-  }
+/**
+  * @brief  Get Word1 of the unique device identifier (UID based on 96 bits)
+  * @retval UID[63:32]: Wafer number (UID[39:32]) & LOT_NUM[23:0] (UID[63:40])
+  */
+__STATIC_INLINE uint32_t LL_GetUID_Word1(void)
+{
+  return (uint32_t)(READ_REG(*((uint32_t *)(UID_BASE_ADDRESS + 4U))));
+}
 
-  /**
-    * @brief  Get Word2 of the unique device identifier (UID based on 96 bits)
-    * @retval UID[95:64]: Lot number (ASCII encoded) - LOT_NUM[55:24]
-    */
-  __STATIC_INLINE uint32_t LL_GetUID_Word2(void)
-  {
-    return (uint32_t)(READ_REG(*((uint32_t *)(UID_BASE_ADDRESS + 8U))));
-  }
+/**
+  * @brief  Get Word2 of the unique device identifier (UID based on 96 bits)
+  * @retval UID[95:64]: Lot number (ASCII encoded) - LOT_NUM[55:24]
+  */
+__STATIC_INLINE uint32_t LL_GetUID_Word2(void)
+{
+  return (uint32_t)(READ_REG(*((uint32_t *)(UID_BASE_ADDRESS + 8U))));
+}
 
-  /**
-    * @brief  Get Flash memory size
-    * @note   This bitfield indicates the size of the device Flash memory expressed in
-    *         Kbytes. As an example, 0x040 corresponds to 64 Kbytes.
-    * @retval FLASH_SIZE[15:0]: Flash memory size
-    */
-  __STATIC_INLINE uint32_t LL_GetFlashSize(void)
-  {
-    return (uint32_t)(READ_REG(*((uint32_t *)FLASHSIZE_BASE_ADDRESS)) & 0x0000FFFFUL);
-  }
+/**
+  * @brief  Get Flash memory size
+  * @note   This bitfield indicates the size of the device Flash memory expressed in
+  *         Kbytes. As an example, 0x040 corresponds to 64 Kbytes.
+  * @retval FLASH_SIZE[15:0]: Flash memory size
+  */
+__STATIC_INLINE uint32_t LL_GetFlashSize(void)
+{
+  return (uint32_t)(READ_REG(*((uint32_t *)FLASHSIZE_BASE_ADDRESS)) & 0x0000FFFFUL);
+}
 
-  /**
-    * @brief  Get Package type
-    * @retval Returned value can be one of the following values:
-    *         @arg @ref LL_UTILS_PACKAGETYPE_CSP100
-    *         @arg @ref LL_UTILS_PACKAGETYPE_CSP100_C
-    *         @arg @ref LL_UTILS_PACKAGETYPE_QFN68
-    *         @arg @ref LL_UTILS_PACKAGETYPE_QFN68_C
-    *         @arg @ref LL_UTILS_PACKAGETYPE_QFN48
-    *         @arg @ref LL_UTILS_PACKAGETYPE_QFN48_C
-    *
-    */
-  __STATIC_INLINE uint32_t LL_GetPackageType(void)
-  {
-    return (uint32_t)(READ_REG(*((uint32_t *)PACKAGE_BASE_ADDRESS)) & 0x1FU);
-  }
+/**
+  * @brief  Get Package type
+  * @retval Returned value can be one of the following values:
+  *         @arg @ref LL_UTILS_PACKAGETYPE_CSP100
+  *         @arg @ref LL_UTILS_PACKAGETYPE_QFN68
+  *         @arg @ref LL_UTILS_PACKAGETYPE_QFN48
+  *
+  */
+__STATIC_INLINE uint32_t LL_GetPackageType(void)
+{
+  return (uint32_t)(READ_REG(*((uint32_t *)PACKAGE_BASE_ADDRESS)) & 0x1FU);
+}
 
 /**
   * @}
@@ -286,6 +281,7 @@ void        LL_mDelay(uint32_t Delay);
   */
 
 void        LL_SetSystemCoreClock(uint32_t HCLKFrequency);
+ErrorStatus LL_SetFlashLatency(uint32_t HCLK4Frequency);
 ErrorStatus LL_PLL_ConfigSystemClock_MSI(LL_UTILS_PLLInitTypeDef *UTILS_PLLInitStruct,
                                          LL_UTILS_ClkInitTypeDef *UTILS_ClkInitStruct);
 ErrorStatus LL_PLL_ConfigSystemClock_HSI(LL_UTILS_PLLInitTypeDef *UTILS_PLLInitStruct,
@@ -314,5 +310,3 @@ ErrorStatus LL_PLL_ConfigSystemClock_HSE(uint32_t HSEBypass,
 #endif
 
 #endif /* STM32WBxx_LL_UTILS_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

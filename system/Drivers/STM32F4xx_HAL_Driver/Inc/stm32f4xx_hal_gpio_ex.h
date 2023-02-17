@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -1448,15 +1447,15 @@
                           ((AF) == GPIO_AF0_SWJ)        || ((AF) == GPIO_AF0_TRACE)      || \
                           ((AF) == GPIO_AF1_TIM1)       || ((AF) == GPIO_AF1_TIM2)       || \
                           ((AF) == GPIO_AF2_TIM3)       || ((AF) == GPIO_AF2_TIM4)       || \
-                          ((AF) == GPIO_AF2_TIM5)       || ((AF) == GPIO_AF4_I2C1)       || \
-                          ((AF) == GPIO_AF4_I2C2)       || ((AF) == GPIO_AF4_I2C3)       || \
-                          ((AF) == GPIO_AF5_SPI1)       || ((AF) == GPIO_AF5_SPI2)       || \
-                          ((AF) == GPIO_AF6_SPI3)       || ((AF) == GPIO_AF5_SPI4)       || \
-                          ((AF) == GPIO_AF7_USART1)     || ((AF) == GPIO_AF7_USART2)     || \
-                          ((AF) == GPIO_AF8_USART6)     || ((AF) == GPIO_AF10_OTG_FS)    || \
+                          ((AF) == GPIO_AF2_TIM5)       || ((AF) == GPIO_AF3_TIM9)       || \
+                          ((AF) == GPIO_AF3_TIM10)      || ((AF) == GPIO_AF3_TIM11)      || \
+                          ((AF) == GPIO_AF4_I2C1)       || ((AF) == GPIO_AF4_I2C2)       || \
+                          ((AF) == GPIO_AF4_I2C3)       || ((AF) == GPIO_AF5_SPI1)       || \
+                          ((AF) == GPIO_AF5_SPI2)       || ((AF) == GPIO_AF5_SPI4)       || \
+                          ((AF) == GPIO_AF6_SPI3)       || ((AF) == GPIO_AF7_USART1)     || \
+                          ((AF) == GPIO_AF7_USART2)     || ((AF) == GPIO_AF8_USART6)     || \
                           ((AF) == GPIO_AF9_I2C2)       || ((AF) == GPIO_AF9_I2C3)       || \
-                          ((AF) == GPIO_AF15_EVENTOUT))
-
+                          ((AF) == GPIO_AF10_OTG_FS)    || ((AF) == GPIO_AF15_EVENTOUT))
 #endif /* STM32F401xC || STM32F401xE */
 /*----------------------------------------------------------------------------*/
 /*---------------------------------------- STM32F410xx------------------------*/
@@ -1589,4 +1588,3 @@
 
 #endif /* __STM32F4xx_HAL_GPIO_EX_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

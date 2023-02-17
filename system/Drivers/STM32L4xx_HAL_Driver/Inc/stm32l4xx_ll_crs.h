@@ -6,20 +6,19 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32L4xx_LL_CRS_H
-#define __STM32L4xx_LL_CRS_H
+#ifndef STM32L4xx_LL_CRS_H
+#define STM32L4xx_LL_CRS_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -94,7 +93,7 @@ extern "C" {
 /** @defgroup CRS_LL_EC_SYNC_SOURCE Synchronization Signal Source
   * @{
   */
-#define LL_CRS_SYNC_SOURCE_GPIO            ((uint32_t)0x00U)       /*!< Synchro Signal soucre GPIO */
+#define LL_CRS_SYNC_SOURCE_GPIO            ((uint32_t)0x00U)       /*!< Synchro Signal source GPIO */
 #define LL_CRS_SYNC_SOURCE_LSE             CRS_CFGR_SYNCSRC_0      /*!< Synchro Signal source LSE */
 #define LL_CRS_SYNC_SOURCE_USB             CRS_CFGR_SYNCSRC_1      /*!< Synchro Signal source USB SOF (default)*/
 /**
@@ -443,7 +442,7 @@ __STATIC_INLINE uint32_t LL_CRS_GetSyncPolarity(void)
   *         CFGR         SYNCDIV       LL_CRS_ConfigSynchronization\n
   *         CFGR         SYNCSRC       LL_CRS_ConfigSynchronization\n
   *         CFGR         SYNCPOL       LL_CRS_ConfigSynchronization
-  * @param  HSI48CalibrationValue a number between Min_Data = 0 and Max_Data = 63
+  * @param  HSI48CalibrationValue a number between Min_Data = 0 and Max_Data = 127 for STM32L412xx/L422xx or 63 otherwise
   * @param  ErrorLimitValue a number between Min_Data = 0 and Max_Data = 0xFFFF
   * @param  ReloadValue a number between Min_Data = 0 and Max_Data = 255
   * @param  Settings This parameter can be a combination of the following values:
@@ -783,6 +782,4 @@ ErrorStatus LL_CRS_DeInit(void);
 }
 #endif
 
-#endif /* __STM32L4xx_LL_CRS_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+#endif /* STM32L4xx_LL_CRS_H */

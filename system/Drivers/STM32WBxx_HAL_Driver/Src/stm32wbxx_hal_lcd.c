@@ -9,6 +9,17 @@
   *           + I/O operation methods
   *           + Peripheral State methods
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                         ##### How to use this driver #####
@@ -66,17 +77,6 @@
 
   @endverbatim
   ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics. 
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -88,6 +88,8 @@
   */
 
 #ifdef HAL_LCD_MODULE_ENABLED
+
+#if defined (LCD)
 
 /** @defgroup LCD LCD
   * @brief LCD HAL module driver
@@ -327,19 +329,24 @@ __weak void HAL_LCD_MspInit(LCD_HandleTypeDef *hlcd)
  [..] Using its double buffer memory the LCD controller ensures the coherency of the
  displayed information without having to use interrupts to control LCD_RAM
  modification.
- The application software can access the first buffer level (LCD_RAM) through
+
+ [..] The application software can access the first buffer level (LCD_RAM) through
  the APB interface. Once it has modified the LCD_RAM using the HAL_LCD_Write() API,
  it sets the UDR flag in the LCD_SR register using the HAL_LCD_UpdateDisplayRequest() API.
- This UDR flag (update display request) requests the updated information to be
+
+ [..] This UDR flag (update display request) requests the updated information to be
  moved into the second buffer level (LCD_DISPLAY).
- This operation is done synchronously with the frame (at the beginning of the
+
+ [..] This operation is done synchronously with the frame (at the beginning of the
  next frame), until the update is completed, the LCD_RAM is write protected and
  the UDR flag stays high.
- Once the update is completed another flag (UDD - Update Display Done) is set and
+
+ [..] Once the update is completed another flag (UDD - Update Display Done) is set and
  generates an interrupt if the UDDIE bit in the LCD_FCR register is set.
  The time it takes to update LCD_DISPLAY is, in the worst case, one odd and one
  even frame.
- The update will not occur (UDR = 1 and UDD = 0) until the display is
+
+ [..] The update will not occur (UDR = 1 and UDD = 0) until the display is
  enabled (LCDEN = 1).
 
 @endverbatim
@@ -597,11 +604,10 @@ HAL_StatusTypeDef LCD_WaitForSynchro(LCD_HandleTypeDef *hlcd)
   * @}
   */
 
+#endif /* LCD */
+
 #endif /* HAL_LCD_MODULE_ENABLED */
 
 /**
   * @}
   */
-
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

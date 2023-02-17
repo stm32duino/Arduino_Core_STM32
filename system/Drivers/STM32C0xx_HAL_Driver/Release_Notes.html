@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Release Notes for STM32CubeC0 HAL and LL drivers</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="_htmresc/mini-st_2020.css" />
+  <link rel="icon" type="image/x-icon" href="_htmresc/favicon.png" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<div class="row">
+<div class="col-sm-12 col-lg-4">
+<center>
+<h1 id="release-notes-for-stm32cubec0-hal-and-ll-drivers">Release Notes
+for <mark>STM32CubeC0 HAL and LL drivers</mark></h1>
+<p>Copyright ©  2022 STMicroelectronics<br />
+</p>
+<a href="https://www.st.com" class="logo"><img
+src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
+</center>
+<h1 id="purpose">Purpose</h1>
+<p>The STM32Cube HAL and LL, an STM32 abstraction layer embedded
+software, ensure maximized portability across STM32 portfolio.</p>
+<p>The portable APIs layer provides a generic, multi instanced and
+simple set of APIs to interact with the upper layer (application,
+libraries and stacks). It is composed of native and extended APIs set.
+It is directly built around a generic architecture and allows the
+build-upon layers, like the middleware layer, to implement its functions
+without knowing in-depth the used STM32 device. This improves the
+library code reusability and guarantees an easy portability on other
+devices and STM32 families.</p>
+<p>The Low Layer (LL) drivers are part of the STM32Cube firmware HAL
+that provides a basic set of optimized and one-shot services. The Low
+layer drivers, contrary to the HAL ones are not fully portable across
+the STM32 families; the availability of some functions depends on the
+physical availability of the relative features on the product. The Low
+Layer (LL) drivers are designed to offer the following features:</p>
+<ul>
+<li>New set of inline functions for direct and atomic register
+access</li>
+<li>One-shot operations that can be used by the HAL drivers or from
+application level</li>
+<li>Full independence from HAL and standalone usage (without HAL
+drivers)</li>
+<li>Full features coverage of all the supported peripherals</li>
+</ul>
+</div>
+<section id="update-history" class="col-sm-12 col-lg-8">
+<h1>Update History</h1>
+<div class="collapse">
+<input type="checkbox" id="collapse-section2" checked aria-hidden="true">
+<label for="collapse-section2" checked aria-hidden="true">V1.0.1 /
+12-January-2023</label>
+<div>
+<h2 id="main-changes">Main Changes</h2>
+<ul>
+<li><p>Patch Release of STM32CubeC0 Firmware Package</p></li>
+<li><p>Update ADC HAL driver with proper internal sensor calibration implementation:</p>
+<ul>
+<li>Helper macro “__LL_ADC_CALC_TEMPERATURE()” is not available and
+macro “__LL_ADC_CALC_TEMPERATURE_TYP_PARAMS()” must be used.</li>
+</ul></li>
+<li><p>Update RCC LL driver by adding missing AHB Prescaler.</p></li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<p>N/A</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1" aria-hidden="true">
+<label for="collapse-section1" checked aria-hidden="true">V1.0.0 /
+09-February-2022</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<p>First official release of HAL and LL drivers for STM32C031xx /
+STM32C011xx devices</p>
+<h2 id="known-limitations-1">Known Limitations</h2>
+<p>N/A</p>
+</div>
+</div>
+</section>
+</div>
+<footer class="sticky">
+<p>For complete documentation on STM32 Microcontrollers </mark> , visit:
+<span style="font-color: blue;"><a
+href="http://www.st.com/stm32">www.st.com/stm32</a></span></p>
+This release note uses up to date web standards and, for this reason,
+should not be opened with Internet Explorer but preferably with popular
+browsers such as Google Chrome, Mozilla Firefox, Opera or Microsoft
+Edge.
+</footer>
+</body>
+</html>

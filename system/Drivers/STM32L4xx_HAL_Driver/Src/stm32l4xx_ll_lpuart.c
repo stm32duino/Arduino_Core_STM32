@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -129,7 +128,7 @@
   *          - SUCCESS: LPUART registers are de-initialized
   *          - ERROR: not applicable
   */
-ErrorStatus LL_LPUART_DeInit(USART_TypeDef *LPUARTx)
+ErrorStatus LL_LPUART_DeInit(const USART_TypeDef *LPUARTx)
 {
   ErrorStatus status = SUCCESS;
 
@@ -155,8 +154,10 @@ ErrorStatus LL_LPUART_DeInit(USART_TypeDef *LPUARTx)
 /**
   * @brief  Initialize LPUART registers according to the specified
   *         parameters in LPUART_InitStruct.
-  * @note   As some bits in LPUART configuration registers can only be written when the LPUART is disabled (USART_CR1_UE bit =0),
-  *         LPUART Peripheral should be in disabled state prior calling this function. Otherwise, ERROR result will be returned.
+  * @note   As some bits in LPUART configuration registers can only be written when
+  *         the LPUART is disabled (USART_CR1_UE bit =0),
+  *         LPUART Peripheral should be in disabled state prior calling this function.
+  *         Otherwise, ERROR result will be returned.
   * @note   Baud rate value stored in LPUART_InitStruct BaudRate field, should be valid (different from 0).
   * @param  LPUARTx LPUART Instance
   * @param  LPUART_InitStruct pointer to a @ref LL_LPUART_InitTypeDef structure
@@ -165,7 +166,7 @@ ErrorStatus LL_LPUART_DeInit(USART_TypeDef *LPUARTx)
   *          - SUCCESS: LPUART registers are initialized according to LPUART_InitStruct content
   *          - ERROR: Problem occurred during LPUART Registers initialization
   */
-ErrorStatus LL_LPUART_Init(USART_TypeDef *LPUARTx, LL_LPUART_InitTypeDef *LPUART_InitStruct)
+ErrorStatus LL_LPUART_Init(USART_TypeDef *LPUARTx, const LL_LPUART_InitTypeDef *LPUART_InitStruct)
 {
   ErrorStatus status = ERROR;
   uint32_t periphclk;
@@ -204,7 +205,8 @@ ErrorStatus LL_LPUART_Init(USART_TypeDef *LPUARTx, LL_LPUART_InitTypeDef *LPUART
 
     /*---------------------------- LPUART CR3 Configuration -----------------------
      * Configure LPUARTx CR3 (Hardware Flow Control) with parameters:
-     * - HardwareFlowControl: USART_CR3_RTSE, USART_CR3_CTSE bits according to LPUART_InitStruct->HardwareFlowControl value.
+     * - HardwareFlowControl: USART_CR3_RTSE, USART_CR3_CTSE bits according
+     *   to LPUART_InitStruct->HardwareFlowControl value.
      */
     LL_LPUART_SetHWFlowCtrl(LPUARTx, LPUART_InitStruct->HardwareFlowControl);
 
@@ -214,9 +216,9 @@ ErrorStatus LL_LPUART_Init(USART_TypeDef *LPUARTx, LL_LPUART_InitTypeDef *LPUART
     periphclk = LL_RCC_GetLPUARTClockFreq(LL_RCC_LPUART1_CLKSOURCE);
 
     /* Configure the LPUART Baud Rate :
-    #if defined(USART_PRESC_PRESCALER)
+#if defined(USART_PRESC_PRESCALER)
        - prescaler value is required
-    #endif
+#endif
        - valid baud rate value (different from 0) is required
        - Peripheral clock as returned by RCC service, should be valid (different from 0).
     */
@@ -283,13 +285,10 @@ void LL_LPUART_StructInit(LL_LPUART_InitTypeDef *LPUART_InitStruct)
   * @}
   */
 
-#endif /* defined (LPUART1) */
+#endif /* LPUART1 */
 
 /**
   * @}
   */
 
 #endif /* USE_FULL_LL_DRIVER */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-

@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -103,20 +103,13 @@ extern "C" {
 
 #define READ_FORMAT_CAPACITY_DATA_LEN               0x0CU
 #define READ_CAPACITY10_DATA_LEN                    0x08U
-#define MODE_SENSE10_DATA_LEN                       0x08U
-#define MODE_SENSE6_DATA_LEN                        0x04U
 #define REQUEST_SENSE_DATA_LEN                      0x12U
 #define STANDARD_INQUIRY_DATA_LEN                   0x24U
 #define BLKVFY                                      0x04U
 
-extern  uint8_t Page00_Inquiry_Data[];
-extern  uint8_t Standard_Inquiry_Data[];
-extern  uint8_t Standard_Inquiry_Data2[];
-extern  uint8_t Mode_Sense6_data[];
-extern  uint8_t Mode_Sense10_data[];
-extern  uint8_t Scsi_Sense_Data[];
-extern  uint8_t ReadCapacity10_Data[];
-extern  uint8_t ReadFormatCapacity_Data [];
+#define SCSI_MEDIUM_UNLOCKED                        0x00U
+#define SCSI_MEDIUM_LOCKED                          0x01U
+#define SCSI_MEDIUM_EJECTED                         0x02U
 /**
   * @}
   */
@@ -126,15 +119,18 @@ extern  uint8_t ReadFormatCapacity_Data [];
   * @{
   */
 
-typedef struct _SENSE_ITEM {
-  char Skey;
-  union {
-    struct _ASCs {
-      char ASC;
-      char ASCQ;
+typedef struct _SENSE_ITEM
+{
+  uint8_t Skey;
+  union
+  {
+    struct _ASCs
+    {
+      uint8_t ASC;
+      uint8_t ASCQ;
     } b;
     uint8_t ASC;
-    char *pData;
+    uint8_t *pData;
   } w;
 } USBD_SCSI_SenseTypeDef;
 /**
@@ -182,8 +178,8 @@ void SCSI_SenseCode(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t sKey,
   */
 
 /**
-* @}
-*/
+  * @}
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

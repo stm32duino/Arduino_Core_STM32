@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Ask a question
+    about: For general-purpose questions and answers, see the Discussions section.
+    url: https://github.com/stm32duino/Arduino_Core_STM32/discussions
+  - name: Request support
+    about: Please check out the Arduino for STM32 forum.
+    url: https://www.stm32duino.com/

@@ -1,0 +1,60 @@
+name: STM32 Core Continuous Integration
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '*.json'
+      - '**.md'
+      - keywords.txt
+      - CI/**
+      - '!CI/build/arduino-cli.py'
+      - '!CI/build/platformio-builder.py'
+      - '!CI/build/examples/**'
+      - tools/**
+      - '!tools/platformio-build.py'
+  pull_request:
+    paths-ignore:
+      - '*.json'
+      - '**.md'
+      - keywords.txt
+      - CI/**
+      - '!CI/build/arduino-cli.py'
+      - '!CI/build/platformio-builder.py'
+      - '!CI/build/examples/**'
+      - tools/**
+      - '!tools/platformio-build.py'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  core_build:
+    runs-on: ubuntu-latest
+    name: Core compilation
+    steps:
+    # First of all, clone the repo using the checkout action.
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - name: Compilation
+      id: Compile
+      uses: stm32duino/actions/compile-examples@main
+      with:
+        additional-url: 'https://github.com/stm32duino/BoardManagerFiles/raw/dev/package_stmicroelectronics_index.json'
+
+    # Use the output from the `Compile` step
+    - name: Compilation Errors
+      if: failure()
+      run: |
+        cat ${{ steps.Compile.outputs.compile-result }}
+        exit 1
+  pio_build:
+    runs-on: ubuntu-latest
+    name: PlatformIO test
+    steps:
+      # First of all, clone the repo using the checkout action.
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - name: PlatformIO
+      id: Compile
+      uses: ./.github/actions/pio-build

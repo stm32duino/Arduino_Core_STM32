@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -128,7 +127,7 @@
 
 /**
   * @brief  De-Initializes the RTC registers to their default reset values.
-  * @note   This function doesn't reset the RTC Clock source and RTC Backup Data
+  * @note   This function does not reset the RTC Clock source and RTC Backup Data
   *         registers.
   * @param  RTCx RTC Instance
   * @retval An ErrorStatus enumeration value:
@@ -137,7 +136,7 @@
   */
 ErrorStatus LL_RTC_DeInit(RTC_TypeDef *RTCx)
 {
-  ErrorStatus status = ERROR;
+  ErrorStatus status;
 
   /* Check the parameter */
   assert_param(IS_RTC_ALL_INSTANCE(RTCx));
@@ -146,7 +145,8 @@ ErrorStatus LL_RTC_DeInit(RTC_TypeDef *RTCx)
   LL_RTC_DisableWriteProtection(RTCx);
 
   /* Set Initialization mode */
-  if (LL_RTC_EnterInitMode(RTCx) != ERROR)
+  status = LL_RTC_EnterInitMode(RTCx);
+  if (status != ERROR)
   {
     /* Reset TR, DR and CR registers */
     LL_RTC_WriteReg(RTCx, TR, 0x00000000U);
@@ -164,20 +164,17 @@ ErrorStatus LL_RTC_DeInit(RTC_TypeDef *RTCx)
     LL_RTC_WriteReg(RTCx, ALRMASSR, 0x00000000U);
     LL_RTC_WriteReg(RTCx, ALRMBSSR, 0x00000000U);
 
-#if defined(STM32L412xx) || defined(STM32L422xx)
-#else /* #if defined(STM32L412xx) || defined(STM32L422xx) */
-    /* Reset ISR register and exit initialization mode */
-    LL_RTC_WriteReg(RTCx, ISR,      0x00000000U);
-
+#if defined(STM32L412xx) || defined(STM32L422xx) || defined (STM32L4P5xx) || defined (STM32L4Q5xx)
+#else /* #if defined(STM32L412xx) || defined(STM32L422xx) || defined (STM32L4P5xx) || defined (STM32L4Q5xx) */
     /* Reset Tamper and alternate functions configuration register */
     LL_RTC_WriteReg(RTCx, TAMPCR, 0x00000000U);
 
     /* Reset Option register */
     LL_RTC_WriteReg(RTCx, OR, 0x00000000U);
-#endif /* #if defined(STM32L412xx) || defined(STM32L422xx) */
+#endif /* #if defined(STM32L412xx) || defined(STM32L422xx) || defined (STM32L4P5xx) || defined (STM32L4Q5xx) */
 
-    /* Wait till the RTC RSF flag is set */
-    status = LL_RTC_WaitForSynchro(RTCx);
+    /* Exit Initialization mode */
+    LL_RTC_DisableInitMode(RTCx);
   }
 
   /* Enable the write protection for RTC registers */
@@ -316,7 +313,7 @@ ErrorStatus LL_RTC_TIME_Init(RTC_TypeDef *RTCx, uint32_t RTC_Format, LL_RTC_Time
     }
 
     /* Exit Initialization mode */
-    LL_RTC_DisableInitMode(RTC);
+    LL_RTC_DisableInitMode(RTCx);
 
     /* If  RTC_CR_BYPSHAD bit = 0, wait for synchro else this check is not needed */
     if (LL_RTC_IsShadowRegBypassEnabled(RTCx) == 0U)
@@ -354,7 +351,7 @@ void LL_RTC_TIME_StructInit(LL_RTC_TimeTypeDef *RTC_TimeStruct)
   * @param  RTC_Format This parameter can be one of the following values:
   *         @arg @ref LL_RTC_FORMAT_BIN
   *         @arg @ref LL_RTC_FORMAT_BCD
-  * @param  RTC_DateStruct: pointer to a RTC_DateTypeDef structure that contains
+  * @param  RTC_DateStruct pointer to a RTC_DateTypeDef structure that contains
   *                         the date configuration information for the RTC.
   * @retval An ErrorStatus enumeration value:
   *          - SUCCESS: RTC Day register is configured
@@ -370,7 +367,7 @@ ErrorStatus LL_RTC_DATE_Init(RTC_TypeDef *RTCx, uint32_t RTC_Format, LL_RTC_Date
 
   if ((RTC_Format == LL_RTC_FORMAT_BIN) && ((RTC_DateStruct->Month & 0x10U) == 0x10U))
   {
-    RTC_DateStruct->Month = (uint8_t)((RTC_DateStruct->Month & (uint8_t)~(0x10U)) + 0x0AU);
+    RTC_DateStruct->Month = (uint8_t)(((uint32_t) RTC_DateStruct->Month & (uint32_t)~(0x10U)) + 0x0AU);
   }
 
   if (RTC_Format == LL_RTC_FORMAT_BIN)
@@ -405,7 +402,7 @@ ErrorStatus LL_RTC_DATE_Init(RTC_TypeDef *RTCx, uint32_t RTC_Format, LL_RTC_Date
     }
 
     /* Exit Initialization mode */
-    LL_RTC_DisableInitMode(RTC);
+    LL_RTC_DisableInitMode(RTCx);
 
     /* If  RTC_CR_BYPSHAD bit = 0, wait for synchro else this check is not needed */
     if (LL_RTC_IsShadowRegBypassEnabled(RTCx) == 0U)
@@ -864,5 +861,3 @@ ErrorStatus LL_RTC_WaitForSynchro(RTC_TypeDef *RTCx)
   */
 
 #endif /* USE_FULL_LL_DRIVER */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

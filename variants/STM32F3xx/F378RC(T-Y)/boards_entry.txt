@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F378RCTx
+GenF3.menu.pnum.GENERIC_F378RCTX=Generic F378RCTx
+GenF3.menu.pnum.GENERIC_F378RCTX.upload.maximum_size=262144
+GenF3.menu.pnum.GENERIC_F378RCTX.upload.maximum_data_size=32768
+GenF3.menu.pnum.GENERIC_F378RCTX.build.board=GENERIC_F378RCTX
+GenF3.menu.pnum.GENERIC_F378RCTX.build.product_line=STM32F378xx
+GenF3.menu.pnum.GENERIC_F378RCTX.build.variant=STM32F3xx/F378RC(T-Y)
+
+# Generic F378RCYx
+GenF3.menu.pnum.GENERIC_F378RCYX=Generic F378RCYx
+GenF3.menu.pnum.GENERIC_F378RCYX.upload.maximum_size=262144
+GenF3.menu.pnum.GENERIC_F378RCYX.upload.maximum_data_size=32768
+GenF3.menu.pnum.GENERIC_F378RCYX.build.board=GENERIC_F378RCYX
+GenF3.menu.pnum.GENERIC_F378RCYX.build.product_line=STM32F378xx
+GenF3.menu.pnum.GENERIC_F378RCYX.build.variant=STM32F3xx/F378RC(T-Y)
+

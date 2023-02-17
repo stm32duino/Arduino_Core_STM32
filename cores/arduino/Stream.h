@@ -25,7 +25,7 @@
 #include <inttypes.h>
 #include "Print.h"
 
-// compatability macros for testing
+// compatibility macros for testing
 /*
 #define   getInt()            parseInt()
 #define   getInt(ignore)    parseInt(ignore)
@@ -58,7 +58,6 @@ class Stream : public Print {
     virtual int available() = 0;
     virtual int read() = 0;
     virtual int peek() = 0;
-    virtual void flush() = 0;
 
     Stream()
     {

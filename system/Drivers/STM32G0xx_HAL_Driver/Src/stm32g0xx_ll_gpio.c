@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2018 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -25,13 +24,13 @@
 #include "stm32_assert.h"
 #else
 #define assert_param(expr) ((void)0U)
-#endif
+#endif /* USE_FULL_ASSERT */
 
 /** @addtogroup STM32G0xx_LL_Driver
   * @{
   */
 
-#if defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOD) || defined (GPIOF)
+#if defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOD) || defined (GPIOE) || defined (GPIOF)
 
 /** @addtogroup GPIO_LL
   * @{
@@ -68,6 +67,19 @@
                                             ((__VALUE__) == LL_GPIO_PULL_UP)   ||\
                                             ((__VALUE__) == LL_GPIO_PULL_DOWN))
 
+#if defined(GPIOE)
+#define IS_LL_GPIO_ALTERNATE(__VALUE__)    (((__VALUE__) == LL_GPIO_AF_0  )   ||\
+                                            ((__VALUE__) == LL_GPIO_AF_1  )   ||\
+                                            ((__VALUE__) == LL_GPIO_AF_2  )   ||\
+                                            ((__VALUE__) == LL_GPIO_AF_3  )   ||\
+                                            ((__VALUE__) == LL_GPIO_AF_4  )   ||\
+                                            ((__VALUE__) == LL_GPIO_AF_5  )   ||\
+                                            ((__VALUE__) == LL_GPIO_AF_6  )   ||\
+                                            ((__VALUE__) == LL_GPIO_AF_7  )   ||\
+                                            ((__VALUE__) == LL_GPIO_AF_8  )   ||\
+                                            ((__VALUE__) == LL_GPIO_AF_9  )   ||\
+                                            ((__VALUE__) == LL_GPIO_AF_10 ))
+#else
 #define IS_LL_GPIO_ALTERNATE(__VALUE__)    (((__VALUE__) == LL_GPIO_AF_0  )   ||\
                                             ((__VALUE__) == LL_GPIO_AF_1  )   ||\
                                             ((__VALUE__) == LL_GPIO_AF_2  )   ||\
@@ -76,6 +88,7 @@
                                             ((__VALUE__) == LL_GPIO_AF_5  )   ||\
                                             ((__VALUE__) == LL_GPIO_AF_6  )   ||\
                                             ((__VALUE__) == LL_GPIO_AF_7 ))
+#endif /* GPIOE */
 /**
   * @}
   */
@@ -128,6 +141,13 @@ ErrorStatus LL_GPIO_DeInit(GPIO_TypeDef *GPIOx)
     LL_IOP_GRP1_ReleaseReset(LL_IOP_GRP1_PERIPH_GPIOD);
   }
 #endif /* GPIOD */
+#if defined(GPIOE)
+  else if (GPIOx == GPIOE)
+  {
+    LL_IOP_GRP1_ForceReset(LL_IOP_GRP1_PERIPH_GPIOE);
+    LL_IOP_GRP1_ReleaseReset(LL_IOP_GRP1_PERIPH_GPIOE);
+  }
+#endif /* GPIOE */
 #if defined(GPIOF)
   else if (GPIOx == GPIOF)
   {
@@ -175,9 +195,6 @@ ErrorStatus LL_GPIO_Init(GPIO_TypeDef *GPIOx, LL_GPIO_InitTypeDef *GPIO_InitStru
 
     if (currentpin != 0x00u)
     {
-      /* Pin Mode configuration */
-      LL_GPIO_SetPinMode(GPIOx, currentpin, GPIO_InitStruct->Mode);
-
       if ((GPIO_InitStruct->Mode == LL_GPIO_MODE_OUTPUT) || (GPIO_InitStruct->Mode == LL_GPIO_MODE_ALTERNATE))
       {
         /* Check Speed mode parameters */
@@ -185,6 +202,12 @@ ErrorStatus LL_GPIO_Init(GPIO_TypeDef *GPIOx, LL_GPIO_InitTypeDef *GPIO_InitStru
 
         /* Speed mode configuration */
         LL_GPIO_SetPinSpeed(GPIOx, currentpin, GPIO_InitStruct->Speed);
+
+        /* Check Output mode parameters */
+        assert_param(IS_LL_GPIO_OUTPUT_TYPE(GPIO_InitStruct->OutputType));
+
+        /* Output mode configuration*/
+        LL_GPIO_SetPinOutputType(GPIOx, currentpin, GPIO_InitStruct->OutputType);
       }
 
       /* Pull-up Pull down resistor configuration*/
@@ -205,19 +228,13 @@ ErrorStatus LL_GPIO_Init(GPIO_TypeDef *GPIOx, LL_GPIO_InitTypeDef *GPIO_InitStru
           LL_GPIO_SetAFPin_8_15(GPIOx, currentpin, GPIO_InitStruct->Alternate);
         }
       }
+
+      /* Pin Mode configuration */
+      LL_GPIO_SetPinMode(GPIOx, currentpin, GPIO_InitStruct->Mode);
     }
     pinpos++;
   }
 
-  if ((GPIO_InitStruct->Mode == LL_GPIO_MODE_OUTPUT) || (GPIO_InitStruct->Mode == LL_GPIO_MODE_ALTERNATE))
-  {
-    /* Check Output mode parameters */
-    assert_param(IS_LL_GPIO_OUTPUT_TYPE(GPIO_InitStruct->OutputType));
-
-    /* Output mode configuration*/
-    LL_GPIO_SetPinOutputType(GPIOx, GPIO_InitStruct->Pin, GPIO_InitStruct->OutputType);
-
-  }
   return (SUCCESS);
 }
 
@@ -251,13 +268,11 @@ void LL_GPIO_StructInit(LL_GPIO_InitTypeDef *GPIO_InitStruct)
   * @}
   */
 
-#endif /* defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOD) || defined (GPIOF) */
+#endif /* defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOD) || defined (GPIOE) || defined (GPIOF) */
 
 /**
   * @}
   */
 
 #endif /* USE_FULL_LL_DRIVER */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

@@ -1,0 +1,13 @@
+# action.yml
+name: 'Target Build'
+description: 'Compile for a specified target'
+
+inputs:
+  target:
+    description: 'build target'
+    default: 'linux'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.target }}

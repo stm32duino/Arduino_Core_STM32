@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic G491VCTx
+GenG4.menu.pnum.GENERIC_G491VCTX=Generic G491VCTx
+GenG4.menu.pnum.GENERIC_G491VCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G491VCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491VCTX.build.board=GENERIC_G491VCTX
+GenG4.menu.pnum.GENERIC_G491VCTX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491VCTX.build.variant=STM32G4xx/G491V(C-E)T_G4A1VET
+
+# Generic G491VETx
+GenG4.menu.pnum.GENERIC_G491VETX=Generic G491VETx
+GenG4.menu.pnum.GENERIC_G491VETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G491VETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491VETX.build.board=GENERIC_G491VETX
+GenG4.menu.pnum.GENERIC_G491VETX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491VETX.build.variant=STM32G4xx/G491V(C-E)T_G4A1VET
+
+# Generic G4A1VETx
+GenG4.menu.pnum.GENERIC_G4A1VETX=Generic G4A1VETx
+GenG4.menu.pnum.GENERIC_G4A1VETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G4A1VETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1VETX.build.board=GENERIC_G4A1VETX
+GenG4.menu.pnum.GENERIC_G4A1VETX.build.product_line=STM32G4A1xx
+GenG4.menu.pnum.GENERIC_G4A1VETX.build.variant=STM32G4xx/G491V(C-E)T_G4A1VET
+

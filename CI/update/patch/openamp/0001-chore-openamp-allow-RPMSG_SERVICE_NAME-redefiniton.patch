@@ -1,0 +1,36 @@
+From 662b735916d90db341464143c16b6bf54178366d Mon Sep 17 00:00:00 2001
+From: Frederic Pillon <frederic.pillon@st.com>
+Date: Tue, 20 Dec 2022 11:06:26 +0100
+Subject: [PATCH 1/1] chore(openamp): allow RPMSG_SERVICE_NAME redefiniton
+
+Since openSTLinux distribution 4.0 with Linux 5.15,
+RPMSG_SERVICE_NAME has been renamed from 'rpmsg-tty-channel' to 'rpmsg-tty'
+if older distribution is used, it is required to redefine it to 'rpmsg-tty-channel'
+
+Signed-off-by: Frederic Pillon <frederic.pillon@st.com>
+---
+ system/Middlewares/OpenAMP/virtual_driver/virt_uart.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/system/Middlewares/OpenAMP/virtual_driver/virt_uart.c b/system/Middlewares/OpenAMP/virtual_driver/virt_uart.c
+index 8d01ecef6..7d60f2911 100644
+--- a/system/Middlewares/OpenAMP/virtual_driver/virt_uart.c
++++ b/system/Middlewares/OpenAMP/virtual_driver/virt_uart.c
+@@ -46,7 +46,13 @@
+ /* Private typedef -----------------------------------------------------------*/
+ /* Private define ------------------------------------------------------------*/
+ /* this string will be sent to remote processor */
+-#define RPMSG_SERVICE_NAME              "rpmsg-tty"
++/* Since openSTLinux distribution 4.0 with Linux 5.15,
++   RPMSG_SERVICE_NAME has been renamed from 'rpmsg-tty-channel' to 'rpmsg-tty'
++   if older distribution is used, it is required to redefine it to 'rpmsg-tty-channel'
++*/
++#ifndef RPMSG_SERVICE_NAME
++  #define RPMSG_SERVICE_NAME              "rpmsg-tty"
++#endif
+ 
+ /* Private macro -------------------------------------------------------------*/
+ /* Private variables ---------------------------------------------------------*/
+-- 
+2.38.0.windows.1
+

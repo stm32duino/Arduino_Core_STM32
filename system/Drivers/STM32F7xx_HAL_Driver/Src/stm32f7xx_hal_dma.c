@@ -84,13 +84,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -201,11 +200,12 @@ HAL_StatusTypeDef HAL_DMA_Init(DMA_HandleTypeDef *hdma)
     assert_param(IS_DMA_PERIPHERAL_BURST(hdma->Init.PeriphBurst));
   }
 
+  /* Change DMA peripheral state */
+  hdma->State = HAL_DMA_STATE_BUSY;
+
   /* Allocate lock resource */
   __HAL_UNLOCK(hdma);
 
-  /* Change DMA peripheral state */
-  hdma->State = HAL_DMA_STATE_BUSY;
 
   /* Disable the peripheral */
   __HAL_DMA_DISABLE(hdma);
@@ -552,11 +552,11 @@ HAL_StatusTypeDef HAL_DMA_Abort(DMA_HandleTypeDef *hdma)
         /* Update error code */
         hdma->ErrorCode = HAL_DMA_ERROR_TIMEOUT;
 
-        /* Process Unlocked */
-        __HAL_UNLOCK(hdma);
-
         /* Change the DMA state */
         hdma->State = HAL_DMA_STATE_TIMEOUT;
+
+        /* Process Unlocked */
+        __HAL_UNLOCK(hdma);
 
         return HAL_TIMEOUT;
       }
@@ -565,11 +565,12 @@ HAL_StatusTypeDef HAL_DMA_Abort(DMA_HandleTypeDef *hdma)
     /* Clear all interrupt flags at correct offset within the register */
     regs->IFCR = 0x3FU << hdma->StreamIndex;
 
+    /* Change the DMA state*/
+    hdma->State = HAL_DMA_STATE_READY;
+
     /* Process Unlocked */
     __HAL_UNLOCK(hdma);
 
-    /* Change the DMA state*/
-    hdma->State = HAL_DMA_STATE_READY;
   }
   return HAL_OK;
 }
@@ -604,7 +605,7 @@ HAL_StatusTypeDef HAL_DMA_Abort_IT(DMA_HandleTypeDef *hdma)
   * @param  hdma          pointer to a DMA_HandleTypeDef structure that contains
   *                        the configuration information for the specified DMA Stream.
   * @param  CompleteLevel Specifies the DMA level complete.
-  * @note   The polling mode is kept in this version for legacy. it is recommanded to use the IT model instead.
+  * @note   The polling mode is kept in this version for legacy. it is recommended to use the IT model instead.
   *         This model could be used for debug purpose.
   * @note   The HAL_DMA_PollForTransfer API cannot be used in circular and double buffering mode (automatic circular mode).
   * @param  Timeout       Timeout duration.
@@ -660,11 +661,11 @@ HAL_StatusTypeDef HAL_DMA_PollForTransfer(DMA_HandleTypeDef *hdma, HAL_DMA_Level
         /* Update error code */
         hdma->ErrorCode = HAL_DMA_ERROR_TIMEOUT;
 
-        /* Process Unlocked */
-        __HAL_UNLOCK(hdma);
-
         /* Change the DMA state */
         hdma->State = HAL_DMA_STATE_READY;
+
+        /* Process Unlocked */
+        __HAL_UNLOCK(hdma);
 
         return HAL_TIMEOUT;
       }
@@ -710,11 +711,11 @@ HAL_StatusTypeDef HAL_DMA_PollForTransfer(DMA_HandleTypeDef *hdma, HAL_DMA_Level
       /* Clear the half transfer and transfer complete flags */
       regs->IFCR = (DMA_FLAG_HTIF0_4 | DMA_FLAG_TCIF0_4) << hdma->StreamIndex;
 
-      /* Process Unlocked */
-      __HAL_UNLOCK(hdma);
-
       /* Change the DMA state */
       hdma->State= HAL_DMA_STATE_READY;
+
+      /* Process Unlocked */
+      __HAL_UNLOCK(hdma);
 
       return HAL_ERROR;
    }
@@ -726,10 +727,11 @@ HAL_StatusTypeDef HAL_DMA_PollForTransfer(DMA_HandleTypeDef *hdma, HAL_DMA_Level
     /* Clear the half transfer and transfer complete flags */
     regs->IFCR = (DMA_FLAG_HTIF0_4 | DMA_FLAG_TCIF0_4) << hdma->StreamIndex;
 
+    hdma->State = HAL_DMA_STATE_READY;
+
     /* Process Unlocked */
     __HAL_UNLOCK(hdma);
 
-    hdma->State = HAL_DMA_STATE_READY;
   }
   else
   {
@@ -865,11 +867,11 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)
         /* Clear all interrupt flags at correct offset within the register */
         regs->IFCR = 0x3FU << hdma->StreamIndex;
 
-        /* Process Unlocked */
-        __HAL_UNLOCK(hdma);
-
         /* Change the DMA state */
         hdma->State = HAL_DMA_STATE_READY;
+
+        /* Process Unlocked */
+        __HAL_UNLOCK(hdma);
 
         if(hdma->XferAbortCallback != NULL)
         {
@@ -907,11 +909,12 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)
           /* Disable the transfer complete interrupt */
           hdma->Instance->CR  &= ~(DMA_IT_TC);
 
+          /* Change the DMA state */
+          hdma->State = HAL_DMA_STATE_READY;
+
           /* Process Unlocked */
           __HAL_UNLOCK(hdma);
 
-          /* Change the DMA state */
-          hdma->State = HAL_DMA_STATE_READY;
         }
 
         if(hdma->XferCpltCallback != NULL)
@@ -942,11 +945,12 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)
       }
       while((hdma->Instance->CR & DMA_SxCR_EN) != RESET);
 
+      /* Change the DMA state */
+      hdma->State = HAL_DMA_STATE_READY;
+
       /* Process Unlocked */
       __HAL_UNLOCK(hdma);
 
-      /* Change the DMA state */
-      hdma->State = HAL_DMA_STATE_READY;
     }
 
     if(hdma->XferErrorCallback != NULL)
@@ -961,7 +965,7 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)
   * @brief  Register callbacks
   * @param  hdma                 pointer to a DMA_HandleTypeDef structure that contains
   *                               the configuration information for the specified DMA Stream.
-  * @param  CallbackID           User Callback identifer
+  * @param  CallbackID           User Callback identifier
   *                               a DMA_HandleTypeDef structure as parameter.
   * @param  pCallback            pointer to private callbacsk function which has pointer to
   *                               a DMA_HandleTypeDef structure as parameter.
@@ -1004,6 +1008,8 @@ HAL_StatusTypeDef HAL_DMA_RegisterCallback(DMA_HandleTypeDef *hdma, HAL_DMA_Call
       break;
 
     default:
+      /* Return error status */
+      status =  HAL_ERROR;
       break;
     }
   }
@@ -1023,7 +1029,7 @@ HAL_StatusTypeDef HAL_DMA_RegisterCallback(DMA_HandleTypeDef *hdma, HAL_DMA_Call
   * @brief  UnRegister callbacks
   * @param  hdma                 pointer to a DMA_HandleTypeDef structure that contains
   *                               the configuration information for the specified DMA Stream.
-  * @param  CallbackID           User Callback identifer
+  * @param  CallbackID           User Callback identifier
   *                               a HAL_DMA_CallbackIDTypeDef ENUM as parameter.
   * @retval HAL status
   */
@@ -1304,4 +1310,3 @@ static HAL_StatusTypeDef DMA_CheckFifoParam(DMA_HandleTypeDef *hdma)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

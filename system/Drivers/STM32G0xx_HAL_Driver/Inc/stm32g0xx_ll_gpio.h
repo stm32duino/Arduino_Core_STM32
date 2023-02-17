@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2018 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -32,7 +31,7 @@ extern "C" {
   * @{
   */
 
-#if defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOD) || defined (GPIOF)
+#if defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOD) || defined (GPIOE) || defined (GPIOF)
 
 /** @defgroup GPIO_LL GPIO
   * @{
@@ -196,6 +195,11 @@ typedef struct
 #define LL_GPIO_AF_5                       (0x0000005U) /*!< Select alternate function 5 */
 #define LL_GPIO_AF_6                       (0x0000006U) /*!< Select alternate function 6 */
 #define LL_GPIO_AF_7                       (0x0000007U) /*!< Select alternate function 7 */
+#if defined(STM32G0B0xx) || defined(STM32G0B1xx) || defined (STM32G0C1xx)
+#define LL_GPIO_AF_8                       (0x0000008U) /*!< Select alternate function 8 */
+#define LL_GPIO_AF_9                       (0x0000009U) /*!< Select alternate function 9 */
+#define LL_GPIO_AF_10                      (0x000000AU) /*!< Select alternate function 10 */
+#endif /* STM32G0B0xx || STM32G0B1xx || STM32G0C1xx */
 /**
   * @}
   */
@@ -910,8 +914,10 @@ __STATIC_INLINE void LL_GPIO_ResetOutputPin(GPIO_TypeDef *GPIOx, uint32_t PinMas
   */
 __STATIC_INLINE void LL_GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint32_t PinMask)
 {
-  WRITE_REG(GPIOx->ODR, READ_REG(GPIOx->ODR) ^ PinMask);
+  uint32_t odr = READ_REG(GPIOx->ODR);
+  WRITE_REG(GPIOx->BSRR, ((odr & PinMask) << 16u) | (~odr & PinMask));
 }
+
 
 /**
   * @}
@@ -939,7 +945,7 @@ void        LL_GPIO_StructInit(LL_GPIO_InitTypeDef *GPIO_InitStruct);
   * @}
   */
 
-#endif /* defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOD) || defined (GPIOF) */
+#endif /* defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOD) || defined (GPIOE) || defined (GPIOF) */
 /**
   * @}
   */
@@ -950,4 +956,3 @@ void        LL_GPIO_StructInit(LL_GPIO_InitTypeDef *GPIO_InitStruct);
 
 #endif /* STM32G0xx_LL_GPIO_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

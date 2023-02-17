@@ -12,29 +12,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -1163,6 +1146,14 @@ typedef struct
 
 /** @addtogroup Exported_constants
   * @{
+  */
+
+/** @addtogroup Hardware_Constant_Definition
+  * @{
+  */
+#define LSI_STARTUP_TIME                40U /*!< LSI Maximum startup time in us */
+/**
+  * @}
   */
 
   /** @addtogroup Peripheral_Registers_Bits_Definition
@@ -6690,7 +6681,7 @@ typedef struct
 /******************************************************************************/
 /*******************  Bits definition for FLASH_ACR register  *****************/
 #define FLASH_ACR_LATENCY_Pos          (0U)
-#define FLASH_ACR_LATENCY_Msk          (0xFUL << FLASH_ACR_LATENCY_Pos)         /*!< 0x0000000F */
+#define FLASH_ACR_LATENCY_Msk          (0x7UL << FLASH_ACR_LATENCY_Pos)         /*!< 0x00000007 */
 #define FLASH_ACR_LATENCY              FLASH_ACR_LATENCY_Msk
 #define FLASH_ACR_LATENCY_0WS          0x00000000U
 #define FLASH_ACR_LATENCY_1WS          0x00000001U
@@ -6700,6 +6691,7 @@ typedef struct
 #define FLASH_ACR_LATENCY_5WS          0x00000005U
 #define FLASH_ACR_LATENCY_6WS          0x00000006U
 #define FLASH_ACR_LATENCY_7WS          0x00000007U
+
 
 #define FLASH_ACR_PRFTEN_Pos           (8U)
 #define FLASH_ACR_PRFTEN_Msk           (0x1UL << FLASH_ACR_PRFTEN_Pos)          /*!< 0x00000100 */
@@ -6775,6 +6767,9 @@ typedef struct
 #define FLASH_CR_EOPIE_Pos             (24U)
 #define FLASH_CR_EOPIE_Msk             (0x1UL << FLASH_CR_EOPIE_Pos)            /*!< 0x01000000 */
 #define FLASH_CR_EOPIE                 FLASH_CR_EOPIE_Msk
+#define FLASH_CR_ERRIE_Pos             (25U)
+#define FLASH_CR_ERRIE_Msk             (0x1UL << FLASH_CR_ERRIE_Pos)
+#define FLASH_CR_ERRIE                 FLASH_CR_ERRIE_Msk
 #define FLASH_CR_LOCK_Pos              (31U)
 #define FLASH_CR_LOCK_Msk              (0x1UL << FLASH_CR_LOCK_Pos)             /*!< 0x80000000 */
 #define FLASH_CR_LOCK                  FLASH_CR_LOCK_Msk
@@ -8138,7 +8133,7 @@ typedef struct
 #define GPIO_MODER_MODE1                 GPIO_MODER_MODER1
 #define GPIO_MODER_MODE1_0               GPIO_MODER_MODER1_0
 #define GPIO_MODER_MODE1_1               GPIO_MODER_MODER1_1
-#define GPIO_MODER_MODE2_Pos             GPIO_MODER_MODER2_PoS
+#define GPIO_MODER_MODE2_Pos             GPIO_MODER_MODER2_Pos
 #define GPIO_MODER_MODE2_Msk             GPIO_MODER_MODER2_Msk
 #define GPIO_MODER_MODE2                 GPIO_MODER_MODER2
 #define GPIO_MODER_MODE2_0               GPIO_MODER_MODER2_0
@@ -8169,7 +8164,7 @@ typedef struct
 #define GPIO_MODER_MODE7_0               GPIO_MODER_MODER7_0
 #define GPIO_MODER_MODE7_1               GPIO_MODER_MODER7_1
 #define GPIO_MODER_MODE8_Pos             GPIO_MODER_MODER8_Pos
-#define GPIO_MODER_MODE8_Msk             GPIO_MODER_MODER2_Msk
+#define GPIO_MODER_MODE8_Msk             GPIO_MODER_MODER8_Msk
 #define GPIO_MODER_MODE8                 GPIO_MODER_MODER8
 #define GPIO_MODER_MODE8_0               GPIO_MODER_MODER8_0
 #define GPIO_MODER_MODE8_1               GPIO_MODER_MODER8_1
@@ -13251,7 +13246,7 @@ typedef struct
 /*                Ethernet MMC Registers bits definition                      */
 /******************************************************************************/
 
-/* Bit definition for Ethernet MMC Contol Register */
+/* Bit definition for Ethernet MMC Control Register */
 #define ETH_MMCCR_MCFHP_Pos                           (5U)
 #define ETH_MMCCR_MCFHP_Msk                           (0x1UL << ETH_MMCCR_MCFHP_Pos) /*!< 0x00000020 */
 #define ETH_MMCCR_MCFHP                               ETH_MMCCR_MCFHP_Msk      /* MMC counter Full-Half preset */
@@ -13335,7 +13330,7 @@ typedef struct
 #define ETH_MMCRFCECR_RFCEC_Msk                       (0xFFFFFFFFUL << ETH_MMCRFCECR_RFCEC_Pos) /*!< 0xFFFFFFFF */
 #define ETH_MMCRFCECR_RFCEC                           ETH_MMCRFCECR_RFCEC_Msk  /* Number of frames received with CRC error. */
 
-/* Bit definition for Ethernet MMC Received Frames with Alignement Error Counter Register */
+/* Bit definition for Ethernet MMC Received Frames with Alignment Error Counter Register */
 #define ETH_MMCRFAECR_RFAEC_Pos                       (0U)
 #define ETH_MMCRFAECR_RFAEC_Msk                       (0xFFFFFFFFUL << ETH_MMCRFAECR_RFAEC_Pos) /*!< 0xFFFFFFFF */
 #define ETH_MMCRFAECR_RFAEC                           ETH_MMCRFAECR_RFAEC_Msk  /* Number of frames received with alignment (dribble) error */
@@ -13349,34 +13344,37 @@ typedef struct
 /*               Ethernet PTP Registers bits definition                       */
 /******************************************************************************/
 
-/* Bit definition for Ethernet PTP Time Stamp Contol Register */
+/* Bit definition for Ethernet PTP Time Stamp Control Register */
+#define ETH_PTPTSCR_TSPFFMAE_Pos                      (18U)
+#define ETH_PTPTSCR_TSPFFMAE_Msk                      (0x1UL << ETH_PTPTSCR_TSPFFMAE_Pos) /*!< 0x00008000 */
+#define ETH_PTPTSCR_TSPFFMAE                          ETH_PTPTSCR_TSPFFMAE_Msk  /* Time stamp PTP frame filtering MAC address enable */
 #define ETH_PTPTSCR_TSCNT_Pos                         (16U)
 #define ETH_PTPTSCR_TSCNT_Msk                         (0x3UL << ETH_PTPTSCR_TSCNT_Pos) /*!< 0x00030000 */
 #define ETH_PTPTSCR_TSCNT                             ETH_PTPTSCR_TSCNT_Msk    /* Time stamp clock node type */
-#define ETH_PTPTSSR_TSSMRME_Pos                       (15U)
-#define ETH_PTPTSSR_TSSMRME_Msk                       (0x1UL << ETH_PTPTSSR_TSSMRME_Pos) /*!< 0x00008000 */
-#define ETH_PTPTSSR_TSSMRME                           ETH_PTPTSSR_TSSMRME_Msk  /* Time stamp snapshot for message relevant to master enable */
-#define ETH_PTPTSSR_TSSEME_Pos                        (14U)
-#define ETH_PTPTSSR_TSSEME_Msk                        (0x1UL << ETH_PTPTSSR_TSSEME_Pos) /*!< 0x00004000 */
-#define ETH_PTPTSSR_TSSEME                            ETH_PTPTSSR_TSSEME_Msk   /* Time stamp snapshot for event message enable */
-#define ETH_PTPTSSR_TSSIPV4FE_Pos                     (13U)
-#define ETH_PTPTSSR_TSSIPV4FE_Msk                     (0x1UL << ETH_PTPTSSR_TSSIPV4FE_Pos) /*!< 0x00002000 */
-#define ETH_PTPTSSR_TSSIPV4FE                         ETH_PTPTSSR_TSSIPV4FE_Msk /* Time stamp snapshot for IPv4 frames enable */
-#define ETH_PTPTSSR_TSSIPV6FE_Pos                     (12U)
-#define ETH_PTPTSSR_TSSIPV6FE_Msk                     (0x1UL << ETH_PTPTSSR_TSSIPV6FE_Pos) /*!< 0x00001000 */
-#define ETH_PTPTSSR_TSSIPV6FE                         ETH_PTPTSSR_TSSIPV6FE_Msk /* Time stamp snapshot for IPv6 frames enable */
-#define ETH_PTPTSSR_TSSPTPOEFE_Pos                    (11U)
-#define ETH_PTPTSSR_TSSPTPOEFE_Msk                    (0x1UL << ETH_PTPTSSR_TSSPTPOEFE_Pos) /*!< 0x00000800 */
-#define ETH_PTPTSSR_TSSPTPOEFE                        ETH_PTPTSSR_TSSPTPOEFE_Msk /* Time stamp snapshot for PTP over ethernet frames enable */
-#define ETH_PTPTSSR_TSPTPPSV2E_Pos                    (10U)
-#define ETH_PTPTSSR_TSPTPPSV2E_Msk                    (0x1UL << ETH_PTPTSSR_TSPTPPSV2E_Pos) /*!< 0x00000400 */
-#define ETH_PTPTSSR_TSPTPPSV2E                        ETH_PTPTSSR_TSPTPPSV2E_Msk /* Time stamp PTP packet snooping for version2 format enable */
-#define ETH_PTPTSSR_TSSSR_Pos                         (9U)
-#define ETH_PTPTSSR_TSSSR_Msk                         (0x1UL << ETH_PTPTSSR_TSSSR_Pos) /*!< 0x00000200 */
-#define ETH_PTPTSSR_TSSSR                             ETH_PTPTSSR_TSSSR_Msk    /* Time stamp Sub-seconds rollover */
-#define ETH_PTPTSSR_TSSARFE_Pos                       (8U)
-#define ETH_PTPTSSR_TSSARFE_Msk                       (0x1UL << ETH_PTPTSSR_TSSARFE_Pos) /*!< 0x00000100 */
-#define ETH_PTPTSSR_TSSARFE                           ETH_PTPTSSR_TSSARFE_Msk  /* Time stamp snapshot for all received frames enable */
+#define ETH_PTPTSCR_TSSMRME_Pos                       (15U)
+#define ETH_PTPTSCR_TSSMRME_Msk                       (0x1UL << ETH_PTPTSCR_TSSMRME_Pos) /*!< 0x00008000 */
+#define ETH_PTPTSCR_TSSMRME                           ETH_PTPTSCR_TSSMRME_Msk  /* Time stamp snapshot for message relevant to master enable */
+#define ETH_PTPTSCR_TSSEME_Pos                        (14U)
+#define ETH_PTPTSCR_TSSEME_Msk                        (0x1UL << ETH_PTPTSCR_TSSEME_Pos) /*!< 0x00004000 */
+#define ETH_PTPTSCR_TSSEME                            ETH_PTPTSCR_TSSEME_Msk   /* Time stamp snapshot for event message enable */
+#define ETH_PTPTSCR_TSSIPV4FE_Pos                     (13U)
+#define ETH_PTPTSCR_TSSIPV4FE_Msk                     (0x1UL << ETH_PTPTSCR_TSSIPV4FE_Pos) /*!< 0x00002000 */
+#define ETH_PTPTSCR_TSSIPV4FE                         ETH_PTPTSCR_TSSIPV4FE_Msk /* Time stamp snapshot for IPv4 frames enable */
+#define ETH_PTPTSCR_TSSIPV6FE_Pos                     (12U)
+#define ETH_PTPTSCR_TSSIPV6FE_Msk                     (0x1UL << ETH_PTPTSCR_TSSIPV6FE_Pos) /*!< 0x00001000 */
+#define ETH_PTPTSCR_TSSIPV6FE                         ETH_PTPTSCR_TSSIPV6FE_Msk /* Time stamp snapshot for IPv6 frames enable */
+#define ETH_PTPTSCR_TSSPTPOEFE_Pos                    (11U)
+#define ETH_PTPTSCR_TSSPTPOEFE_Msk                    (0x1UL << ETH_PTPTSCR_TSSPTPOEFE_Pos) /*!< 0x00000800 */
+#define ETH_PTPTSCR_TSSPTPOEFE                        ETH_PTPTSCR_TSSPTPOEFE_Msk /* Time stamp snapshot for PTP over ethernet frames enable */
+#define ETH_PTPTSCR_TSPTPPSV2E_Pos                    (10U)
+#define ETH_PTPTSCR_TSPTPPSV2E_Msk                    (0x1UL << ETH_PTPTSCR_TSPTPPSV2E_Pos) /*!< 0x00000400 */
+#define ETH_PTPTSCR_TSPTPPSV2E                        ETH_PTPTSCR_TSPTPPSV2E_Msk /* Time stamp PTP packet snooping for version2 format enable */
+#define ETH_PTPTSCR_TSSSR_Pos                         (9U)
+#define ETH_PTPTSCR_TSSSR_Msk                         (0x1UL << ETH_PTPTSCR_TSSSR_Pos) /*!< 0x00000200 */
+#define ETH_PTPTSCR_TSSSR                             ETH_PTPTSCR_TSSSR_Msk    /* Time stamp Sub-seconds rollover */
+#define ETH_PTPTSCR_TSSARFE_Pos                       (8U)
+#define ETH_PTPTSCR_TSSARFE_Msk                       (0x1UL << ETH_PTPTSCR_TSSARFE_Pos) /*!< 0x00000100 */
+#define ETH_PTPTSCR_TSSARFE                           ETH_PTPTSCR_TSSARFE_Msk  /* Time stamp snapshot for all received frames enable */
 
 #define ETH_PTPTSCR_TSARU_Pos                         (5U)
 #define ETH_PTPTSCR_TSARU_Msk                         (0x1UL << ETH_PTPTSCR_TSARU_Pos) /*!< 0x00000020 */
@@ -13456,6 +13454,9 @@ typedef struct
 /******************************************************************************/
 
 /* Bit definition for Ethernet DMA Bus Mode Register */
+#define ETH_DMABMR_MB_Pos                             (26U)
+#define ETH_DMABMR_MB_Msk                             (0x1UL << ETH_DMABMR_MB_Pos) /*!< 0x04000000 */
+#define ETH_DMABMR_MB                                 ETH_DMABMR_MB_Msk       /* Mixed Burst */
 #define ETH_DMABMR_AAB_Pos                            (25U)
 #define ETH_DMABMR_AAB_Msk                            (0x1UL << ETH_DMABMR_AAB_Pos) /*!< 0x02000000 */
 #define ETH_DMABMR_AAB                                ETH_DMABMR_AAB_Msk       /* Address-Aligned beats */
@@ -13576,7 +13577,7 @@ typedef struct
 #define ETH_DMASR_TPS_Reading                         ETH_DMASR_TPS_Reading_Msk /* Running - reading the data from host memory */
 #define ETH_DMASR_TPS_Suspended_Pos                   (21U)
 #define ETH_DMASR_TPS_Suspended_Msk                   (0x3UL << ETH_DMASR_TPS_Suspended_Pos) /*!< 0x00600000 */
-#define ETH_DMASR_TPS_Suspended                       ETH_DMASR_TPS_Suspended_Msk /* Suspended - Tx Descriptor unavailabe */
+#define ETH_DMASR_TPS_Suspended                       ETH_DMASR_TPS_Suspended_Msk /* Suspended - Tx Descriptor unavailable */
 #define ETH_DMASR_TPS_Closing_Pos                     (20U)
 #define ETH_DMASR_TPS_Closing_Msk                     (0x7UL << ETH_DMASR_TPS_Closing_Pos) /*!< 0x00700000 */
 #define ETH_DMASR_TPS_Closing                         ETH_DMASR_TPS_Closing_Msk /* Running - closing Rx descriptor */
@@ -13598,7 +13599,7 @@ typedef struct
 #define ETH_DMASR_RPS_Closing                         ETH_DMASR_RPS_Closing_Msk /* Running - closing descriptor */
 #define ETH_DMASR_RPS_Queuing_Pos                     (17U)
 #define ETH_DMASR_RPS_Queuing_Msk                     (0x7UL << ETH_DMASR_RPS_Queuing_Pos) /*!< 0x000E0000 */
-#define ETH_DMASR_RPS_Queuing                         ETH_DMASR_RPS_Queuing_Msk /* Running - queuing the recieve frame into host memory */
+#define ETH_DMASR_RPS_Queuing                         ETH_DMASR_RPS_Queuing_Msk /* Running - queuing the receive frame into host memory */
 #define ETH_DMASR_NIS_Pos                             (16U)
 #define ETH_DMASR_NIS_Msk                             (0x1UL << ETH_DMASR_NIS_Pos) /*!< 0x00010000 */
 #define ETH_DMASR_NIS                                 ETH_DMASR_NIS_Msk        /* Normal interrupt summary */
@@ -15295,15 +15296,11 @@ typedef struct
                                          ((INSTANCE) == TIM8) || \
                                          ((INSTANCE) == TIM9) || \
                                          ((INSTANCE) == TIM12))
-
-/****************** TIM Instances : supporting synchronization ****************/
-#define IS_TIM_SYNCHRO_INSTANCE(INSTANCE)  IS_TIM_MASTER_INSTANCE(INSTANCE)
-
 /********************** TIM Instances : 32 bit Counter ************************/
 #define IS_TIM_32B_COUNTER_INSTANCE(INSTANCE)(((INSTANCE) == TIM2) || \
                                               ((INSTANCE) == TIM5))
 
-/***************** TIM Instances : external trigger input availabe ************/
+/***************** TIM Instances : external trigger input available ************/
 #define IS_TIM_ETR_INSTANCE(INSTANCE)  (((INSTANCE) == TIM1) || \
                                         ((INSTANCE) == TIM2) || \
                                         ((INSTANCE) == TIM3) || \
@@ -15608,7 +15605,3 @@ typedef struct
 #endif /* __cplusplus */
 
 #endif /* __STM32F407xx_H */
-
-
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

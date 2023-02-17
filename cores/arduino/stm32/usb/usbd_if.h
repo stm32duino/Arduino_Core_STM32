@@ -16,7 +16,7 @@
 
 /* Re-enumeration handling*/
 #ifndef USBD_ENUM_DELAY
-#define USBD_ENUM_DELAY 10
+  #define USBD_ENUM_DELAY 10
 #endif
 
 #ifdef __cplusplus
@@ -27,6 +27,10 @@ void USBD_reenumerate(void);
 #ifdef USBD_USE_CDC
 void USBD_CDC_init(void);
 #endif
+
+/* Weaked function */
+void USBD_SystemClockConfigFromResume(void);
+
 #ifdef __cplusplus
 }
 #endif
