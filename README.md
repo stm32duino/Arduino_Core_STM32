@@ -175,8 +175,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :green_heart:  | STM32MP157A | [STM32MP157A-DK1](https://www.st.com/en/evaluation-tools/stm32mp157a-dk1.html) | *1.8.0* | See [the documentation](https://github.com/stm32duino/Arduino_Core_STM32/tree/main/variants/STM32MP157_DK/README.md) to use this board|
-| :green_heart:  | STM32MP157C | [STM32MP157C-DK2](https://www.st.com/en/evaluation-tools/stm32mp157c-dk2.html) | *1.8.0* | See [the documentation](https://github.com/stm32duino/Arduino_Core_STM32/tree/main/variants/STM32MP157_DK/README.md) to use this board|
+| :green_heart:  | STM32MP157A | [STM32MP157A-DK1](https://www.st.com/en/evaluation-tools/stm32mp157a-dk1.html) | *1.8.0* | See [the documentation](https://github.com/stm32duino/Arduino_Core_STM32/tree/main/variants/STM32MP1xx/MP153AAC_MP153CAC_MP153DAC_MP153FAC_MP157AAC_MP157CAC_MP157DAC_MP157FAC/README.md) to use this board|
+| :green_heart:  | STM32MP157C | [STM32MP157C-DK2](https://www.st.com/en/evaluation-tools/stm32mp157c-dk2.html) | *1.8.0* | See [the documentation](https://github.com/stm32duino/Arduino_Core_STM32/tree/main/variants/STM32MP1xx/MP153AAC_MP153CAC_MP153DAC_MP153FAC_MP157AAC_MP157CAC_MP157DAC_MP157FAC/README.md) to use this board|
 
 ### Generic STM32C0 boards
 
@@ -293,7 +293,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F302R6<br>STM32F302R8 | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F303C6<br>STM32F303C8 | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32F303CB<br>STM32F303CC | Generic Board | *2.0.0* |  |
-| :green_heart:  | STM32F303CC | [RobotDyn Black Pill](https://stm32-base.org/boards/STM32F303CCT6-RobotDyn-Black-Pill) | *1.6.1* | [More info](https://robotdyn.com/catalog/development-boards/stm-boards-and-shields.html) |
+| :green_heart:  | STM32F303CC | [RobotDyn Black Pill](https://stm32-base.org/boards/STM32F303CCT6-RobotDyn-Black-Pill) | *1.6.1* | |
 | :green_heart:  | STM32F303K6<br>STM32F303K8 | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F303R6<br>STM32F303R8 | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32F303RD<br>STM32F303RE | Generic Board | *2.0.0* |  |
@@ -526,7 +526,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32H750IB<br>STM32H750II | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H750IB | [Daisy](https://www.electro-smith.com/daisy/daisy) | *1.9.0* |  |
 | :green_heart: | STM32H750IB | [Daisy Patch SM](https://www.electro-smith.com/daisy/patch-sm) | *2.2.0* |  |
-| :green_heart: | STM32H750IB | [Daisy Petal SM](https://www.electro-smith.com/daisy/petal-125b-sm) | *2.2.0* |  |
+| :green_heart: | STM32H750IB | [Daisy Petal SM](https://www.electro-smith.com) | *2.2.0* |  |
 | :green_heart: | STM32H750VB | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H750VB | [DevEBox H750VBT6](https://github.com/mcauser/MCUDEV_DEVEBOX_H7XX_M) | *2.2.0* | |
 | :green_heart: | STM32H750VB | [WeAct MiniSTM32H750VBT6](https://github.com/WeActStudio/MiniSTM32H7xx) | *2.2.0* | [More info](https://github.com/stm32duino/Arduino_Core_STM32/pull/1552) |
@@ -581,7 +581,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L072KB<br>STM32L072KZ | Generic Board | *2.4.0* |  |
 | :green_heart: | STM32L072KBT<br>STM32L072KZT | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32L072KZT | [ThunderPack v1.0](https://github.com/jgillick/ThunderPack) | *1.8.0* |  |
-| :green_heart: | STM32L072RBT | [PX-HER0](https://piconomix.com/fwlib/_p_i_c_o_n_o_m_i_x__s_t_m32__h_e_r_o__b_o_a_r_d.html) | *1.8.0* |  |
+| :green_heart: | STM32L072RBT | [PX-HER0](https://piconomix.com/) | *1.8.0* |  |
 | :green_heart:  | STM32L072RB<br>STM32L072RZ | Generic Board | *2.4.0* |  |
 | :green_heart: | STM32L072RBT<br>STM32L072RZT | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L072V8<br>STM32L072VB<br>STM32L072VZ | Generic Board | *2.4.0* |
@@ -721,7 +721,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :green_heart:  | STM32F051K6U | [Wraith V1 ESC](https://www.readytoflyquads.com/35a-wraith32-v11-32bit-blheli-esc) | *1.8.0* |  |
+| :green_heart:  | STM32F051K6U | [Wraith V1 ESC](https://www.quadsrtf.com/product/35a-wraith32-32bit-blheli-esc) | *1.8.0* |  |
 | :green_heart:  | STM32F103RCT | [STorM32 V1.31 RC](http://www.olliw.eu/storm32bgc-wiki/STorM32_Boards#STorM32-BGC_v1.3) | *2.1.0* |  |
 
 ### [Garatronic](https://www.garatronic.fr)/[McHobby](https://shop.mchobby.be) boards
@@ -747,7 +747,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L073RZ | [AcSIP S76S](https://www.acsip.com.tw) | *2.3.0* |  |
 | :green_heart:  | STM32F072C8<br>STM32F072CB | [Elektor LoRa Node](https://github.com/ElektorLabs/180516-Elektor_LoRa_Node) | *1.8.0* | [More info](https://www.elektormagazine.com/labs/lorawan-node-experimental-platform) |
 | :green_heart:  | STM32L151CB | [RAK811 LoRa Tracker](https://www.rakwireless.com/en/) | *1.4.0* | [Wiki](https://github.com/stm32duino/wiki/wiki/Connectivities#lora) |
-| :green_heart:  | STM32L051C8 | [RHF76-052](https://www.ai-thinker.com/) | *1.7.0* | Basic support |
+| :green_heart:  | STM32L051C8 | [RHF76-052](https://lora-alliance.org/lora_products/rhf76-052/) | *1.7.0* | Basic support |
 
 ### [Midatronics](https://midatronics.com/) boards
 
