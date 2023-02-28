@@ -4,6 +4,8 @@ on:
     branches:
       - main
     paths-ignore:
+      - .github/**
+      - '!.github/workflows/Continuous-Integration.yml'
       - '*.json'
       - '**.md'
       - keywords.txt
@@ -15,6 +17,8 @@ on:
       - '!tools/platformio-build.py'
   pull_request:
     paths-ignore:
+      - .github/**
+      - '!.github/workflows/Continuous-Integration.yml'
       - '*.json'
       - '**.md'
       - keywords.txt
