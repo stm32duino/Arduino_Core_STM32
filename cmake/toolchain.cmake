@@ -40,7 +40,7 @@ find_program(DOT "dot")
 include("${CMAKE_CURRENT_LIST_DIR}/ensure_core_deps.cmake")
 ensure_core_deps()
 
-# Setting Linux is forcing th extension to be .o instead of .obj when building on WIndows.
+# Setting Linux is forcing the extension to be .o instead of .obj when building on Windows.
 # It is important because armlink is failing when files have .obj extensions (error with
 # scatter file section not found)
 SET(CMAKE_SYSTEM_NAME Linux)
