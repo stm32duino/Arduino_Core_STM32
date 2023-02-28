@@ -15,7 +15,7 @@ on:
   pull_request:
     paths-ignore:
       - .github/**
-      - '!.github/workflows/Arduino-build.yml'
+      - '!.github/workflows/Cmake.yml'
       - '*.json'
       - '**.md'
       - keywords.txt
@@ -28,6 +28,26 @@ jobs:
     name: Check CMake usage
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        boardname:
+          - NUCLEO_F091RC
+          - NUCLEO_F103RB
+          - NUCLEO_F207ZG
+          - NUCLEO_F303RE
+          - NUCLEO_F411RE
+          - NUCLEO_F767ZI
+          - NUCLEO_G0B1RE
+          - NUCLEO_G474RE
+          - NUCLEO_H743ZI2
+          - NUCLEO_L073RZ
+          - NUCLEO_L152RE
+          - NUCLEO_L476RG
+          - NUCLEO_L552ZE_Q
+          - NUCLEO_U575ZI_Q
+          - P_NUCLEO_WB55RG
+          - NUCLEO_WL55JC1
+
     steps:
       - name: Checkout
         uses: actions/checkout@main
@@ -38,7 +58,7 @@ jobs:
       - name: Configure
         run: |
           mkdir build
-          cmake -S CI/build/examples/BareMinimum -B ./build -G Ninja
+          cmake -DBOARDNAME=${{ matrix.boardname }} -S CI/build/examples/BareMinimum -B ./build -G Ninja
 
       - name: Build example
         working-directory: '${{ github.workspace }}/build'
