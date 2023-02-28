@@ -1,0 +1,23 @@
+name: Check Markdown Links
+# runs every monday at 9 am
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.md'
+  pull_request:
+    paths:
+      - '**.md'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  linkinator:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: JustinBeckwith/linkinator-action@v1
+        with:
+          paths: '*.md ./CI/**/*.md, ./variants/**/*.md, ./libraries/**/*.md'
+          verbosity: 'INFO'
+          skip: 'www.st.com'
