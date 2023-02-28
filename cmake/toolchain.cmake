@@ -49,8 +49,8 @@ SET(CMAKE_SYSTEM_PROCESSOR arm)
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY) # don't try to link when testing the compiler, it won't work anyway
 set(BUILD_SHARED_LIBS false CACHE STRING "")
 
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_C_STANDARD 17)
 
 set(CMAKE_EXECUTABLE_SUFFIX .elf)
 # These override CMAKE_EXECUTABLE_SUFFIX -- prevent any CMake built-in from overriding the value we want
