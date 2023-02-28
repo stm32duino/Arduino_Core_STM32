@@ -4,7 +4,23 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - .github/**
+      - '!.github/workflows/Cmake.yml'
+      - '*.json'
+      - '**.md'
+      - keywords.txt
+      - CI/**
+      - tools/**
   pull_request:
+    paths-ignore:
+      - .github/**
+      - '!.github/workflows/Arduino-build.yml'
+      - '*.json'
+      - '**.md'
+      - keywords.txt
+      - CI/**
+      - tools/**
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 jobs:
