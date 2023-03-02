@@ -2,7 +2,7 @@ CMake can now be used to build Arduino sketches with this core.
 Examples of use can be found on this repo: [stm32duino/CMake_workspace](https://github.com/stm32duino/CMake_workspace).
 
 This README only provides a quick walk-through.
-For all the glorious details, please head over to [the wiki](https://github.com/stm32duino/wiki/wiki/CMake_presentation).
+For all the glorious details, please head over to [the wiki](https://github.com/stm32duino/Arduino_Core_STM32/wiki/CMake_presentation).
 
 # Prerequisites
 

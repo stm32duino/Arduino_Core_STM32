@@ -100,4 +100,4 @@ More information about rebasing can be found at the repository of [edX](https://
 
 ### 6. Merged!
 When your pull request is merged please update the documentation if the changes require it
-[Wiki](https://github.com/stm32duino/wiki/wiki)
+[Wiki](https://github.com/stm32duino/Arduino_Core_STM32/wiki)

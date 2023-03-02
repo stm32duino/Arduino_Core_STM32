@@ -1,7 +1,7 @@
 # This file help to add generic board entry.
 # upload.maximum_size and product_line have to be verified
 # and changed if needed.
-# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
 
 # Generic WL54CCUx
 GenWL.menu.pnum.GENERIC_WL54CCUX=Generic WL54CCUx

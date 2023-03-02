@@ -310,8 +310,8 @@ And then the Device Tree should enable TIM1 for the coprocessor, although this d
 [Linux RPMsg]: https://wiki.st.com/stm32mpu/wiki/Linux_RPMsg_framework_overview
 [a hard restriction of the write size]: /cores/arduino/VirtIOSerial.cpp#L148
 
-[build_opt.h]: https://github.com/stm32duino/wiki/wiki/Customize-build-options-using-build_opt.h
-[build_opt.h description in wiki]: https://github.com/stm32duino/wiki/wiki/Customize-build-options-using-build_opt.h
+[build_opt.h]: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Customize-build-options-using-build_opt.h
+[build_opt.h description in wiki]: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Customize-build-options-using-build_opt.h
 [virtio_log.h]: /cores/arduino/stm32/OpenAMP/virtio_log.h
 
 [`variant_STM32MP157_DK.h` of the board]: /variants/STM32MP1xx/MP153AAC_MP153CAC_MP153DAC_MP153FAC_MP157AAC_MP157CAC_MP157DAC_MP157FAC/variant_STM32MP157_DK.h
