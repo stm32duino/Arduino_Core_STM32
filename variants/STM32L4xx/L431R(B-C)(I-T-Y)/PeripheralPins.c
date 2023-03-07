@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32L431R(B-C)Ix.xml, STM32L431R(B-C)Tx.xml
  * STM32L431R(B-C)Yx.xml
- * CubeMX DB release 6.0.70
+ * CubeMX DB release 6.0.80
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

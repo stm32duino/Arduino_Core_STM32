@@ -12,7 +12,7 @@
  */
 /*
  * Automatically generated from STM32F413R(G-H)Tx.xml, STM32F423RHTx.xml
- * CubeMX DB release 6.0.70
+ * CubeMX DB release 6.0.80
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

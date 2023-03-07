@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic U595ZITxQ
+GenU5.menu.pnum.GENERIC_U595ZITXQ=Generic U595ZITxQ
+GenU5.menu.pnum.GENERIC_U595ZITXQ.upload.maximum_size=2097152
+GenU5.menu.pnum.GENERIC_U595ZITXQ.upload.maximum_data_size=2574336
+GenU5.menu.pnum.GENERIC_U595ZITXQ.build.board=GENERIC_U595ZITXQ
+GenU5.menu.pnum.GENERIC_U595ZITXQ.build.product_line=STM32U595xx
+GenU5.menu.pnum.GENERIC_U595ZITXQ.build.variant=STM32U5xx/U595Z(I-J)TxQ_U599Z(I-J)TxQ_U5A5ZJTxQ_U5A9ZJTxQ
+
+# Generic U595ZJTxQ
+GenU5.menu.pnum.GENERIC_U595ZJTXQ=Generic U595ZJTxQ
+GenU5.menu.pnum.GENERIC_U595ZJTXQ.upload.maximum_size=4194304
+GenU5.menu.pnum.GENERIC_U595ZJTXQ.upload.maximum_data_size=2574336
+GenU5.menu.pnum.GENERIC_U595ZJTXQ.build.board=GENERIC_U595ZJTXQ
+GenU5.menu.pnum.GENERIC_U595ZJTXQ.build.product_line=STM32U595xx
+GenU5.menu.pnum.GENERIC_U595ZJTXQ.build.variant=STM32U5xx/U595Z(I-J)TxQ_U599Z(I-J)TxQ_U5A5ZJTxQ_U5A9ZJTxQ
+
+# Generic U599ZITxQ
+GenU5.menu.pnum.GENERIC_U599ZITXQ=Generic U599ZITxQ
+GenU5.menu.pnum.GENERIC_U599ZITXQ.upload.maximum_size=2097152
+GenU5.menu.pnum.GENERIC_U599ZITXQ.upload.maximum_data_size=2574336
+GenU5.menu.pnum.GENERIC_U599ZITXQ.build.board=GENERIC_U599ZITXQ
+GenU5.menu.pnum.GENERIC_U599ZITXQ.build.product_line=STM32U599xx
+GenU5.menu.pnum.GENERIC_U599ZITXQ.build.variant=STM32U5xx/U595Z(I-J)TxQ_U599Z(I-J)TxQ_U5A5ZJTxQ_U5A9ZJTxQ
+
+# Generic U599ZJTxQ
+GenU5.menu.pnum.GENERIC_U599ZJTXQ=Generic U599ZJTxQ
+GenU5.menu.pnum.GENERIC_U599ZJTXQ.upload.maximum_size=4194304
+GenU5.menu.pnum.GENERIC_U599ZJTXQ.upload.maximum_data_size=2574336
+GenU5.menu.pnum.GENERIC_U599ZJTXQ.build.board=GENERIC_U599ZJTXQ
+GenU5.menu.pnum.GENERIC_U599ZJTXQ.build.product_line=STM32U599xx
+GenU5.menu.pnum.GENERIC_U599ZJTXQ.build.variant=STM32U5xx/U595Z(I-J)TxQ_U599Z(I-J)TxQ_U5A5ZJTxQ_U5A9ZJTxQ
+
+# Generic U5A5ZJTxQ
+GenU5.menu.pnum.GENERIC_U5A5ZJTXQ=Generic U5A5ZJTxQ
+GenU5.menu.pnum.GENERIC_U5A5ZJTXQ.upload.maximum_size=4194304
+GenU5.menu.pnum.GENERIC_U5A5ZJTXQ.upload.maximum_data_size=2574336
+GenU5.menu.pnum.GENERIC_U5A5ZJTXQ.build.board=GENERIC_U5A5ZJTXQ
+GenU5.menu.pnum.GENERIC_U5A5ZJTXQ.build.product_line=STM32U5A5xx
+GenU5.menu.pnum.GENERIC_U5A5ZJTXQ.build.variant=STM32U5xx/U595Z(I-J)TxQ_U599Z(I-J)TxQ_U5A5ZJTxQ_U5A9ZJTxQ
+
+# Generic U5A9ZJTxQ
+GenU5.menu.pnum.GENERIC_U5A9ZJTXQ=Generic U5A9ZJTxQ
+GenU5.menu.pnum.GENERIC_U5A9ZJTXQ.upload.maximum_size=4194304
+GenU5.menu.pnum.GENERIC_U5A9ZJTXQ.upload.maximum_data_size=2574336
+GenU5.menu.pnum.GENERIC_U5A9ZJTXQ.build.board=GENERIC_U5A9ZJTXQ
+GenU5.menu.pnum.GENERIC_U5A9ZJTXQ.build.product_line=STM32U5A9xx
+GenU5.menu.pnum.GENERIC_U5A9ZJTXQ.build.variant=STM32U5xx/U595Z(I-J)TxQ_U599Z(I-J)TxQ_U5A5ZJTxQ_U5A9ZJTxQ
+

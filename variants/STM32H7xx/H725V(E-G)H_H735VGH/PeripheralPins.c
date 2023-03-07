@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32H725VEHx.xml, STM32H725VGHx.xml
  * STM32H735VGHx.xml
- * CubeMX DB release 6.0.70
+ * CubeMX DB release 6.0.80
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

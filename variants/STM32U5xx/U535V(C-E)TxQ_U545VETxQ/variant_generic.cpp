@@ -10,7 +10,8 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_U595ZJTXQ) || defined(ARDUINO_GENERIC_U5A5ZJTXQ)
+#if defined(ARDUINO_GENERIC_U535VCTXQ) || defined(ARDUINO_GENERIC_U535VETXQ) ||\
+    defined(ARDUINO_GENERIC_U545VETXQ)
 #include "pins_arduino.h"
 
 // Digital PinName array
@@ -77,55 +78,23 @@ const PinName digitalPin[] = {
   PD_14,  // D59
   PD_15,  // D60
   PE_0,   // D61
-  PE_1,   // D62
-  PE_2,   // D63
-  PE_3,   // D64
-  PE_4,   // D65
-  PE_5,   // D66
-  PE_6,   // D67
-  PE_7,   // D68
-  PE_8,   // D69
-  PE_9,   // D70
-  PE_10,  // D71
-  PE_11,  // D72
-  PE_12,  // D73
-  PE_13,  // D74
-  PE_14,  // D75
-  PE_15,  // D76
-  PF_0,   // D77
-  PF_1,   // D78
-  PF_2,   // D79
-  PF_3,   // D80
-  PF_4,   // D81
-  PF_5,   // D82
-  PF_6,   // D83
-  PF_7,   // D84
-  PF_8,   // D85
-  PF_9,   // D86
-  PF_10,  // D87
-  PF_11,  // D88
-  PF_12,  // D89
-  PF_13,  // D90
-  PF_14,  // D91/A18
-  PF_15,  // D92/A19
-  PG_0,   // D93/A20
-  PG_1,   // D94/A21
-  PG_2,   // D95
-  PG_3,   // D96
-  PG_4,   // D97
-  PG_5,   // D98
-  PG_6,   // D99
-  PG_7,   // D100
-  PG_8,   // D101
-  PG_9,   // D102
-  PG_10,  // D103
-  PG_12,  // D104
-  PG_13,  // D105
-  PG_14,  // D106
-  PG_15,  // D107
-  PH_0,   // D108
-  PH_1,   // D109
-  PH_3    // D110
+  PE_2,   // D62
+  PE_3,   // D63
+  PE_4,   // D64
+  PE_5,   // D65
+  PE_6,   // D66
+  PE_7,   // D67
+  PE_8,   // D68
+  PE_9,   // D69
+  PE_10,  // D70
+  PE_11,  // D71
+  PE_12,  // D72
+  PE_13,  // D73
+  PE_14,  // D74
+  PE_15,  // D75
+  PH_0,   // D76
+  PH_1,   // D77
+  PH_3    // D78
 };
 
 // Analog (Ax) pin number array
@@ -147,11 +116,7 @@ const uint32_t analogInputPin[] = {
   34, // A14, PC3
   56, // A15, PD11
   57, // A16, PD12
-  58, // A17, PD13
-  91, // A18, PF14
-  92, // A19, PF15
-  93, // A20, PG0
-  94  // A21, PG1
+  58  // A17, PD13
 };
 
 #endif /* ARDUINO_GENERIC_* */

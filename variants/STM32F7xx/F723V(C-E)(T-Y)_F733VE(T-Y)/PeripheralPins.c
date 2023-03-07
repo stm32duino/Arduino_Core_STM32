@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32F723V(C-E)Tx.xml, STM32F723V(C-E)Yx.xml
  * STM32F733VETx.xml, STM32F733VEYx.xml
- * CubeMX DB release 6.0.70
+ * CubeMX DB release 6.0.80
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

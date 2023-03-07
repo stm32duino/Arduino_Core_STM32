@@ -16,7 +16,7 @@
  * STM32L151C(6-8-B)Ux.xml, STM32L151C(6-8-B)UxA.xml
  * STM32L152C(6-8-B)Tx.xml, STM32L152C(6-8-B)TxA.xml
  * STM32L152C(6-8-B)Ux.xml, STM32L152C(6-8-B)UxA.xml
- * CubeMX DB release 6.0.70
+ * CubeMX DB release 6.0.80
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

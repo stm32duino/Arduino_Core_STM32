@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic U595QIIxQ
+GenU5.menu.pnum.GENERIC_U595QIIXQ=Generic U595QIIxQ
+GenU5.menu.pnum.GENERIC_U595QIIXQ.upload.maximum_size=2097152
+GenU5.menu.pnum.GENERIC_U595QIIXQ.upload.maximum_data_size=2574336
+GenU5.menu.pnum.GENERIC_U595QIIXQ.build.board=GENERIC_U595QIIXQ
+GenU5.menu.pnum.GENERIC_U595QIIXQ.build.product_line=STM32U595xx
+GenU5.menu.pnum.GENERIC_U595QIIXQ.build.variant=STM32U5xx/U595Q(I-J)IxQ_U5A5QJIxQ
+
+# Generic U595QJIxQ
+GenU5.menu.pnum.GENERIC_U595QJIXQ=Generic U595QJIxQ
+GenU5.menu.pnum.GENERIC_U595QJIXQ.upload.maximum_size=4194304
+GenU5.menu.pnum.GENERIC_U595QJIXQ.upload.maximum_data_size=2574336
+GenU5.menu.pnum.GENERIC_U595QJIXQ.build.board=GENERIC_U595QJIXQ
+GenU5.menu.pnum.GENERIC_U595QJIXQ.build.product_line=STM32U595xx
+GenU5.menu.pnum.GENERIC_U595QJIXQ.build.variant=STM32U5xx/U595Q(I-J)IxQ_U5A5QJIxQ
+
+# Generic U5A5QJIxQ
+GenU5.menu.pnum.GENERIC_U5A5QJIXQ=Generic U5A5QJIxQ
+GenU5.menu.pnum.GENERIC_U5A5QJIXQ.upload.maximum_size=4194304
+GenU5.menu.pnum.GENERIC_U5A5QJIXQ.upload.maximum_data_size=2574336
+GenU5.menu.pnum.GENERIC_U5A5QJIXQ.build.board=GENERIC_U5A5QJIXQ
+GenU5.menu.pnum.GENERIC_U5A5QJIXQ.build.product_line=STM32U5A5xx
+GenU5.menu.pnum.GENERIC_U5A5QJIXQ.build.variant=STM32U5xx/U595Q(I-J)IxQ_U5A5QJIxQ
+

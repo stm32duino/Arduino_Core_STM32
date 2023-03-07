@@ -15,7 +15,7 @@
  * STM32H743V(G-I)Hx.xml, STM32H743VGTx.xml
  * STM32H743VITx.xml, STM32H750VBTx.xml
  * STM32H753VIHx.xml, STM32H753VITx.xml
- * CubeMX DB release 6.0.70
+ * CubeMX DB release 6.0.80
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

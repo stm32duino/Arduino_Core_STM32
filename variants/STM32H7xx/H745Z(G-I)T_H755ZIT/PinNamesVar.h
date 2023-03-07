@@ -63,22 +63,22 @@ PF_9_ALT1  = PF_9  | ALT1,
 
 /* SYS_WKUP */
 #ifdef PWR_WAKEUP_PIN1
-  SYS_WKUP1 = PA_0, /* SYS_WKUP0 */
+  SYS_WKUP1 = PA_0,
 #endif
 #ifdef PWR_WAKEUP_PIN2
-  SYS_WKUP2 = PA_2, /* SYS_WKUP1 */
+  SYS_WKUP2 = PA_2,
 #endif
 #ifdef PWR_WAKEUP_PIN3
-  SYS_WKUP3 = PC_13, /* SYS_WKUP2 */
+  SYS_WKUP3 = NC,
 #endif
 #ifdef PWR_WAKEUP_PIN4
-  SYS_WKUP4 = NC,
+  SYS_WKUP4 = PC_13,
 #endif
 #ifdef PWR_WAKEUP_PIN5
   SYS_WKUP5 = NC,
 #endif
 #ifdef PWR_WAKEUP_PIN6
-  SYS_WKUP6 = PC_1, /* SYS_WKUP5 */
+  SYS_WKUP6 = PC_1,
 #endif
 #ifdef PWR_WAKEUP_PIN7
   SYS_WKUP7 = NC,

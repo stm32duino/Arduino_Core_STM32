@@ -15,7 +15,7 @@
  * STM32F746V(E-G)Hx.xml, STM32F746VETx.xml
  * STM32F746VGTx.xml, STM32F750V8Tx.xml
  * STM32F756VGHx.xml, STM32F756VGTx.xml
- * CubeMX DB release 6.0.70
+ * CubeMX DB release 6.0.80
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

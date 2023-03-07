@@ -10,7 +10,10 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_U595ZJTXQ) || defined(ARDUINO_GENERIC_U5A5ZJTXQ)
+#if defined(ARDUINO_GENERIC_U535CBTX) || defined(ARDUINO_GENERIC_U535CBUX) ||\
+    defined(ARDUINO_GENERIC_U535CCTX) || defined(ARDUINO_GENERIC_U535CCUX) ||\
+    defined(ARDUINO_GENERIC_U535CETX) || defined(ARDUINO_GENERIC_U535CEUX) ||\
+    defined(ARDUINO_GENERIC_U545CETX) || defined(ARDUINO_GENERIC_U545CEUX)
 #include "pins_arduino.h"
 
 /**

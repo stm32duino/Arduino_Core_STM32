@@ -15,7 +15,7 @@
  * STM32F767VGHx.xml, STM32F767VGTx.xml
  * STM32F767VIHx.xml, STM32F767VITx.xml
  * STM32F777VIHx.xml, STM32F777VITx.xml
- * CubeMX DB release 6.0.70
+ * CubeMX DB release 6.0.80
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
