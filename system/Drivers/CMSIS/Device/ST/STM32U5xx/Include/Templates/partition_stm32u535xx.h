@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file    partition_stm32u575xx.h
+  * @file    partition_stm32u535xx.h
   * @author  MCD Application Team
-  * @brief   CMSIS STM32U575xx Device Initial Setup for Secure / Non-Secure Zones
+  * @brief   CMSIS STM32U535xx Device Initial Setup for Secure / Non-Secure Zones
   *          for ARMCM33 based on CMSIS CORE partition_ARMCM33.h Template.
   *
   *          This file contains:
@@ -14,7 +14,7 @@
   ******************************************************************************/
 /**
   * Copyright (c) 2009-2016 ARM Limited. All rights reserved.
-  * Portions Copyright (c) 2021 STMicroelectronics, all rights reserved
+  * Portions Copyright (c) 2023 STMicroelectronics, all rights reserved
   *
   * SPDX-License-Identifier: Apache-2.0
   *
@@ -31,8 +31,8 @@
   * limitations under the License.
   */
 
-#ifndef PARTITION_STM32U575XX_H
-#define PARTITION_STM32U575XX_H
+#ifndef PARTITION_STM32U535XX_H
+#define PARTITION_STM32U535XX_H
 
 /*
 //-------- <<< Use Configuration Wizard in Context Menu >>> -----------------
@@ -80,12 +80,12 @@
 /*
 //     <o>Start Address <0-0xFFFFFFE0>
 */
-#define SAU_INIT_START0     0x0C0FE000      /* start address of SAU region 0 */
+#define SAU_INIT_START0     0x0C03E000      /* start address of SAU region 0 */
 
 /*
 //     <o>End Address <0x1F-0xFFFFFFFF>
 */
-#define SAU_INIT_END0       0x0C0FFFFF      /* end address of SAU region 0 */
+#define SAU_INIT_END0       0x0C03FFFF      /* end address of SAU region 0 */
 
 /*
 //     <o>Region is
@@ -106,12 +106,12 @@
 /*
 //     <o>Start Address <0-0xFFFFFFE0>
 */
-#define SAU_INIT_START1     0x08100000      /* start address of SAU region 1 */
+#define SAU_INIT_START1     0x08040000      /* start address of SAU region 1 */
 
 /*
 //     <o>End Address <0x1F-0xFFFFFFFF>
 */
-#define SAU_INIT_END1       0x081FFFFF      /* end address of SAU region 1 */
+#define SAU_INIT_END1       0x0807FFFF      /* end address of SAU region 1 */
 
 /*
 //     <o>Region is
@@ -132,12 +132,12 @@
 /*
 //     <o>Start Address <0-0xFFFFFFE0>
 */
-#define SAU_INIT_START2     0x20040000      /* start address of SAU region 2 */
+#define SAU_INIT_START2     0x20030000      /* start address of SAU region 2 */
 
 /*
 //     <o>End Address <0x1F-0xFFFFFFFF>
 */
-#define SAU_INIT_END2       0x200BFFFF      /* end address of SAU region 2 */
+#define SAU_INIT_END2       0x2003FFFF      /* end address of SAU region 2 */
 
 /*
 //     <o>Region is
@@ -184,7 +184,7 @@
 /*
 //     <o>Start Address <0-0xFFFFFFE0>
 */
-#define SAU_INIT_START4     0x60000000      /* start address of SAU region 4 */
+#define SAU_INIT_START4     0x90000000      /* start address of SAU region 4 */
 
 /*
 //     <o>End Address <0x1F-0xFFFFFFFF>
@@ -451,7 +451,6 @@
 //   <o.27> SPI1_IRQn             <0=> Secure state <1=> Non-Secure state
 //   <o.28> SPI2_IRQn             <0=> Secure state <1=> Non-Secure state
 //   <o.29> USART1_IRQn           <0=> Secure state <1=> Non-Secure state
-//   <o.30> USART2_IRQn           <0=> Secure state <1=> Non-Secure state
 //   <o.31> USART3_IRQn           <0=> Secure state <1=> Non-Secure state
 */
 #define NVIC_INIT_ITNS1_VAL      0x00000000
@@ -476,13 +475,11 @@
 //   <o.6>  TIM16_IRQn            <0=> Secure state <1=> Non-Secure state
 //   <o.7>  TIM17_IRQn            <0=> Secure state <1=> Non-Secure state
 //   <o.8>  COMP_IRQn             <0=> Secure state <1=> Non-Secure state
-//   <o.9>  OTG_FS_IRQn           <0=> Secure state <1=> Non-Secure state
+//   <o.9>  USB_IRQn           <0=> Secure state <1=> Non-Secure state
 //   <o.10> CRS_IRQn              <0=> Secure state <1=> Non-Secure state
-//   <o.11> FMC_IRQn              <0=> Secure state <1=> Non-Secure state
 //   <o.12> OCTOSPI1_IRQn         <0=> Secure state <1=> Non-Secure state
 //   <o.13> PWR_S3WU_IRQn         <0=> Secure state <1=> Non-Secure state
 //   <o.14> SDMMC1_IRQn           <0=> Secure state <1=> Non-Secure state
-//   <o.15> SDMMC2_IRQn           <0=> Secure state <1=> Non-Secure state
 //   <o.16> GPDMA1_Channel8_IRQn  <0=> Secure state <1=> Non-Secure state
 //   <o.17> GPDMA1_Channel9_IRQn  <0=> Secure state <1=> Non-Secure state
 //   <o.18> GPDMA1_Channel10_IRQn <0=> Secure state <1=> Non-Secure state
@@ -494,7 +491,6 @@
 //   <o.24> I2C3_EV_IRQn          <0=> Secure state <1=> Non-Secure state
 //   <o.25> I2C3_ER_IRQn          <0=> Secure state <1=> Non-Secure state
 //   <o.26> SAI1_IRQn             <0=> Secure state <1=> Non-Secure state
-//   <o.27> SAI2_IRQn             <0=> Secure state <1=> Non-Secure state
 //   <o.28> TSC_IRQn              <0=> Secure state <1=> Non-Secure state
 //   <o.30> RNG_IRQn              <0=> Secure state <1=> Non-Secure state
 //   <o.31> FPU_IRQn              <0=> Secure state <1=> Non-Secure state
@@ -519,9 +515,6 @@
 //   <o.5>  I2C4_EV_IRQn          <0=> Secure state <1=> Non-Secure state
 //   <o.6>  MDF1_FLT0_IRQn        <0=> Secure state <1=> Non-Secure state
 //   <o.7>  MDF1_FLT1_IRQn        <0=> Secure state <1=> Non-Secure state
-//   <o.8>  MDF1_FLT2_IRQn        <0=> Secure state <1=> Non-Secure state
-//   <o.9>  MDF1_FLT3_IRQn        <0=> Secure state <1=> Non-Secure state
-//   <o.10> UCPD1_IRQn            <0=> Secure state <1=> Non-Secure state
 //   <o.11> ICACHE_IRQn           <0=> Secure state <1=> Non-Secure state
 //   <o.14> LPTIM4_IRQn           <0=> Secure state <1=> Non-Secure state
 //   <o.15> DCACHE1_IRQn          <0=> Secure state <1=> Non-Secure state
@@ -531,11 +524,7 @@
 //   <o.19> LPDMA1_Channel1_IRQn  <0=> Secure state <1=> Non-Secure state
 //   <o.20> LPDMA1_Channel2_IRQn  <0=> Secure state <1=> Non-Secure state
 //   <o.21> LPDMA1_Channel3_IRQn  <0=> Secure state <1=> Non-Secure state
-//   <o.22> DMA2D_IRQn            <0=> Secure state <1=> Non-Secure state
 //   <o.23> DCMI_PSSI_IRQn        <0=> Secure state <1=> Non-Secure state
-//   <o.24> OCTOSPI2_IRQn         <0=> Secure state <1=> Non-Secure state
-//   <o.25> MDF1_FLT4_IRQn        <0=> Secure state <1=> Non-Secure state
-//   <o.26> MDF1_FLT5_IRQn        <0=> Secure state <1=> Non-Secure state
 //   <o.27> CORDIC_IRQn           <0=> Secure state <1=> Non-Secure state
 //   <o.28> FMAC_IRQn             <0=> Secure state <1=> Non-Secure state
 //   <o.29> LSECSSD_IRQn          <0=> Secure state <1=> Non-Secure state
@@ -655,4 +644,4 @@ __STATIC_INLINE void TZ_SAU_Setup (void)
 
 }
 
-#endif  /* PARTITION_STM32U575XX_H */
+#endif  /* PARTITION_STM32U535XX_H */

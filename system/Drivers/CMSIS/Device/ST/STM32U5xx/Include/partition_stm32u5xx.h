@@ -54,6 +54,10 @@
   #include "partition_stm32u599xx.h"
 #elif defined(STM32U5A9xx)
   #include "partition_stm32u5a9xx.h"
+#elif defined(STM32U535xx)
+  #include "partition_stm32u535xx.h"
+#elif defined(STM32U545xx)
+  #include "partition_stm32u545xx.h"
 #else
   #error "Please select first the target STM32U5xx device used in your application (in stm32u5xx.h file)"
 #endif
