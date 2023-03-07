@@ -51,7 +51,7 @@
      and the CS boundary using the HAL_OSPI_Init() function.
     [..]
      When using Hyperbus, configure the RW recovery time, the access time,
-     the write latency and the latency mode unsing the HAL_OSPI_HyperbusCfg()
+     the write latency and the latency mode using the HAL_OSPI_HyperbusCfg()
      function.
 
     *** Indirect functional mode ***
@@ -282,7 +282,9 @@ static void              OSPI_DMAAbortCplt(DMA_HandleTypeDef *hdma);
 static HAL_StatusTypeDef OSPI_WaitFlagStateUntilTimeout(OSPI_HandleTypeDef *hospi, uint32_t Flag, FlagStatus State,
                                                         uint32_t Tickstart, uint32_t Timeout);
 static HAL_StatusTypeDef OSPI_ConfigCmd(OSPI_HandleTypeDef *hospi, OSPI_RegularCmdTypeDef *cmd);
+#if     defined (OCTOSPIM)
 static HAL_StatusTypeDef OSPIM_GetConfig(uint8_t instance_nb, OSPIM_CfgTypeDef *cfg);
+#endif
 /**
   @endcond
   */
@@ -2581,6 +2583,7 @@ uint32_t HAL_OSPI_GetState(OSPI_HandleTypeDef *hospi)
   * @}
   */
 
+#if     defined (OCTOSPIM)
 /** @defgroup OSPI_Exported_Functions_Group4 IO Manager configuration function
   *  @brief   OSPI IO Manager configuration function
   *
@@ -2854,6 +2857,7 @@ HAL_StatusTypeDef HAL_OSPIM_Config(OSPI_HandleTypeDef *hospi, OSPIM_CfgTypeDef *
 /**
   * @}
   */
+#endif
 
 /**
   @cond 0
@@ -3206,6 +3210,7 @@ static HAL_StatusTypeDef OSPI_ConfigCmd(OSPI_HandleTypeDef *hospi, OSPI_RegularC
   return status;
 }
 
+#if     defined (OCTOSPIM)
 /**
   * @brief  Get the current IOM configuration for an OctoSPI instance.
   * @param  instance_nb : number of the instance
@@ -3320,6 +3325,7 @@ static HAL_StatusTypeDef OSPIM_GetConfig(uint8_t instance_nb, OSPIM_CfgTypeDef *
   /* Return function status */
   return status;
 }
+#endif
 
 
 /** @defgroup OSPI_Exported_Functions_Group5 Delay Block function
@@ -3363,6 +3369,7 @@ HAL_StatusTypeDef HAL_OSPI_DLYB_SetConfig(OSPI_HandleTypeDef *hospi, HAL_OSPI_DL
     status = HAL_OK;
   }
 
+#if defined (OCTOSPI2)
   else if (hospi->Instance == OCTOSPI2)
   {
     /* Enable the DelayBlock */
@@ -3372,6 +3379,7 @@ HAL_StatusTypeDef HAL_OSPI_DLYB_SetConfig(OSPI_HandleTypeDef *hospi, HAL_OSPI_DL
     LL_DLYB_SetDelay(DLYB_OCTOSPI2, pdlyb_cfg);
     status = HAL_OK;
   }
+#endif
 
   else
   {
@@ -3403,11 +3411,13 @@ HAL_StatusTypeDef HAL_OSPI_DLYB_GetConfig(OSPI_HandleTypeDef *hospi, HAL_OSPI_DL
     LL_DLYB_GetDelay(DLYB_OCTOSPI1, pdlyb_cfg);
     status = HAL_OK;
   }
+#if defined (OCTOSPI2)
   else if (hospi->Instance == OCTOSPI2)
   {
     LL_DLYB_GetDelay(DLYB_OCTOSPI2, pdlyb_cfg);
     status = HAL_OK;
   }
+#endif
 
   else
   {
@@ -3448,6 +3458,7 @@ HAL_StatusTypeDef HAL_OSPI_DLYB_GetClockPeriod(OSPI_HandleTypeDef *hospi, HAL_OS
     LL_DLYB_Disable(DLYB_OCTOSPI1);
   }
 
+#if defined (OCTOSPI2)
   else if (hospi->Instance == OCTOSPI2)
   {
     /* Enable the DelayBlock */
@@ -3462,6 +3473,7 @@ HAL_StatusTypeDef HAL_OSPI_DLYB_GetClockPeriod(OSPI_HandleTypeDef *hospi, HAL_OS
     /* Disable the DelayBlock */
     LL_DLYB_Disable(DLYB_OCTOSPI2);
   }
+#endif
 
   else
   {

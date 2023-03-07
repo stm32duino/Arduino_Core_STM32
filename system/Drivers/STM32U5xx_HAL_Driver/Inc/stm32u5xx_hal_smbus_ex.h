@@ -91,7 +91,7 @@ typedef struct
 /** @defgroup SMBUSEx_AutonomousMode_TriggerSelection SMBUS Extended Autonomous Mode Trigger Selection
   * @{
   */
-#define SMBUS_TRIG_GRP1                   (0x10000000U)                    /*!< Trigger Group for I2C1, I2C2 and I2C4 */
+#define SMBUS_TRIG_GRP1                   (0x10000000U)                    /*!< Trigger Group for I2C1, I2C2, I2C4, I2C5, I2C6 (depends on Product) */
 #define SMBUS_TRIG_GRP2                   (0x20000000U)                    /*!< Trigger Group for I2C3 */
 
 #define SMBUS_GRP1_GPDMA_CH0_TCF_TRG      (uint32_t)(SMBUS_TRIG_GRP1 | (0x00000000U))
@@ -196,8 +196,8 @@ HAL_StatusTypeDef HAL_SMBUSEx_ConfigFastModePlus(SMBUS_HandleTypeDef *hsmbus, ui
   * @{
   */
 HAL_StatusTypeDef HAL_SMBUSEx_SetConfigAutonomousMode(SMBUS_HandleTypeDef *hsmbus,
-                                                      SMBUS_AutonomousModeConfTypeDef *sConfig);
-HAL_StatusTypeDef HAL_SMBUSEx_GetConfigAutonomousMode(SMBUS_HandleTypeDef *hsmbus,
+                                                      const SMBUS_AutonomousModeConfTypeDef *sConfig);
+HAL_StatusTypeDef HAL_SMBUSEx_GetConfigAutonomousMode(const SMBUS_HandleTypeDef *hsmbus,
                                                       SMBUS_AutonomousModeConfTypeDef *sConfig);
 HAL_StatusTypeDef HAL_SMBUSEx_ClearConfigAutonomousMode(SMBUS_HandleTypeDef *hsmbus);
 /**
@@ -256,6 +256,9 @@ HAL_StatusTypeDef HAL_SMBUSEx_ClearConfigAutonomousMode(SMBUS_HandleTypeDef *hsm
                                                 ((__SOURCE__) == SMBUS_GRP2_COMP2_TRG          ) || \
                                                 ((__SOURCE__) == SMBUS_GRP2_RTC_ALRA_TRG       ) || \
                                                 ((__SOURCE__) == SMBUS_GRP2_RTC_WUT_TRG        ))
+
+#define IS_SMBUS_TRIG_INPUT_INSTANCE(__INSTANCE__)    (IS_SMBUS_GRP1_INSTANCE(__INSTANCE__) ||                     \
+                                                       IS_SMBUS_GRP2_INSTANCE(__INSTANCE__))
 
 #define IS_SMBUS_AUTO_MODE_TRG_POL(__POLARITY__)      (((__POLARITY__) == SMBUS_TRIG_POLARITY_RISING) ||               \
                                                        ((__POLARITY__) == SMBUS_TRIG_POLARITY_FALLING))

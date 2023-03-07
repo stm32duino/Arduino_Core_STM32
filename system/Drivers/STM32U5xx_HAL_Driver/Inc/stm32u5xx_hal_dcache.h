@@ -31,6 +31,8 @@ extern "C" {
   * @{
   */
 
+#if defined (DCACHE1) || defined (DCACHE2)
+
 /** @addtogroup DCACHE
   * @{
   */
@@ -45,7 +47,8 @@ extern "C" {
   */
 typedef struct
 {
-  uint32_t                               ReadBurstType;  /*!< Burst type to be applied for Data Cache */
+  uint32_t ReadBurstType; /*!< Burst type to be applied for Data Cache
+                               This parameter can be a value of @ref DCACHE_Read_Burst_Type*/
 } DCACHE_InitTypeDef;
 
 /**
@@ -53,12 +56,11 @@ typedef struct
   */
 typedef enum
 {
-  HAL_DCACHE_STATE_RESET   = 0x00U, /* !< DCACHE not yet initialized or disabled     */
-  HAL_DCACHE_STATE_READY   = 0x01U, /* !< Peripheral initialized and ready for use   */
-  HAL_DCACHE_STATE_BUSY    = 0x02U, /* !< An internal process is ongoing             */
-  HAL_DCACHE_STATE_TIMEOUT = 0x05U, /* !< Timeout state                              */
-  HAL_DCACHE_STATE_ERROR   = 0x06U, /* !< DCACHE state error                         */
-
+  HAL_DCACHE_STATE_RESET   = 0x00U, /*!< DCACHE not yet initialized or disabled     */
+  HAL_DCACHE_STATE_READY   = 0x01U, /*!< Peripheral initialized and ready for use   */
+  HAL_DCACHE_STATE_BUSY    = 0x02U, /*!< An internal process is ongoing             */
+  HAL_DCACHE_STATE_TIMEOUT = 0x05U, /*!< Timeout state                              */
+  HAL_DCACHE_STATE_ERROR   = 0x06U, /*!< DCACHE state error                         */
 } HAL_DCACHE_StateTypeDef;
 
 /** @defgroup DCACHE_Configuration_Structure_definition DCACHE Configuration Structure definition
@@ -81,7 +83,6 @@ typedef struct __DCACHE_HandleTypeDef
 
   __IO HAL_DCACHE_StateTypeDef State;
   __IO uint32_t               ErrorCode;
-
 } DCACHE_HandleTypeDef;
 
 /**
@@ -103,7 +104,6 @@ typedef enum
 
   HAL_DCACHE_MSPINIT_CB_ID                          = 0x05U, /*!< DCACHE Msp Init callback ID                        */
   HAL_DCACHE_MSPDEINIT_CB_ID                        = 0x06U  /*!< DCACHE Msp DeInit callback ID                      */
-
 } HAL_DCACHE_CallbackIDTypeDef;
 
 /**
@@ -249,18 +249,30 @@ typedef enum
 
 /* Exported functions -------------------------------------------------------*/
 /** @defgroup DCACHE_Exported_Functions DCACHE Exported Functions
+  * @brief    DCACHE Exported functions
   * @{
   */
-/* Initialization and de-initialization functions ***/
+
+/** @defgroup DCACHE_Exported_Functions_Group1 Initialization and De-Initialization Functions
+  * @brief    Initialization and De-Initialization Functions
+  * @{
+  */
 HAL_StatusTypeDef HAL_DCACHE_Init(DCACHE_HandleTypeDef *hdcache);
 HAL_StatusTypeDef HAL_DCACHE_DeInit(DCACHE_HandleTypeDef *hdcache);
 void              HAL_DCACHE_MspInit(DCACHE_HandleTypeDef *hdcache);
 void              HAL_DCACHE_MspDeInit(DCACHE_HandleTypeDef *hdcache);
+/**
+  * @}
+  */
 
+/** @defgroup DCACHE_Exported_Functions_Group2 I/O Operation Functions
+  * @brief    I/O Operation Functions
+  * @{
+  */
 /* Peripheral Control functions ***/
 HAL_StatusTypeDef HAL_DCACHE_Enable(DCACHE_HandleTypeDef *hdcache);
 HAL_StatusTypeDef HAL_DCACHE_Disable(DCACHE_HandleTypeDef *hdcache);
-uint32_t          HAL_DCACHE_IsEnabled(DCACHE_HandleTypeDef *hdcache);
+uint32_t          HAL_DCACHE_IsEnabled(const DCACHE_HandleTypeDef *hdcache);
 HAL_StatusTypeDef HAL_DCACHE_SetReadBurstType(DCACHE_HandleTypeDef *hdcache, uint32_t ReadBurstType);
 
 /*** Cache maintenance in blocking mode (Polling) ***/
@@ -294,29 +306,43 @@ HAL_StatusTypeDef HAL_DCACHE_RegisterCallback(DCACHE_HandleTypeDef *hdcache, HAL
 HAL_StatusTypeDef HAL_DCACHE_UnRegisterCallback(DCACHE_HandleTypeDef *hdcache, HAL_DCACHE_CallbackIDTypeDef CallbackID);
 
 /*** Performance instruction cache monitoring functions ***/
-uint32_t HAL_DCACHE_Monitor_GetReadHitValue(DCACHE_HandleTypeDef *hdcache);
-uint32_t HAL_DCACHE_Monitor_GetReadMissValue(DCACHE_HandleTypeDef *hdcache);
-uint32_t HAL_DCACHE_Monitor_GetWriteHitValue(DCACHE_HandleTypeDef *hdcache);
-uint32_t HAL_DCACHE_Monitor_GetWriteMissValue(DCACHE_HandleTypeDef *hdcache);
+uint32_t HAL_DCACHE_Monitor_GetReadHitValue(const DCACHE_HandleTypeDef *hdcache);
+uint32_t HAL_DCACHE_Monitor_GetReadMissValue(const DCACHE_HandleTypeDef *hdcache);
+uint32_t HAL_DCACHE_Monitor_GetWriteHitValue(const DCACHE_HandleTypeDef *hdcache);
+uint32_t HAL_DCACHE_Monitor_GetWriteMissValue(const DCACHE_HandleTypeDef *hdcache);
 HAL_StatusTypeDef HAL_DCACHE_Monitor_Reset(DCACHE_HandleTypeDef *hdcache, uint32_t MonitorType);
 HAL_StatusTypeDef HAL_DCACHE_Monitor_Start(DCACHE_HandleTypeDef *hdcache, uint32_t MonitorType);
 HAL_StatusTypeDef HAL_DCACHE_Monitor_Stop(DCACHE_HandleTypeDef *hdcache, uint32_t MonitorType);
-
-/* Peripheral State functions ***************************************************/
-HAL_DCACHE_StateTypeDef HAL_DCACHE_GetState(DCACHE_HandleTypeDef *hdcache);
-uint32_t HAL_DCACHE_GetError(DCACHE_HandleTypeDef *hdcache);
 /**
   * @}
   */
+
+/** @defgroup DCACHE_Exported_Functions_Group3 State and Error Functions
+  * @brief    State and Error Functions
+  * @{
+  */
+HAL_DCACHE_StateTypeDef HAL_DCACHE_GetState(const DCACHE_HandleTypeDef *hdcache);
+uint32_t HAL_DCACHE_GetError(const DCACHE_HandleTypeDef *hdcache);
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
+
 
 /* Private types -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private constants ---------------------------------------------------------*/
 /* Private macros ------------------------------------------------------------*/
+/* Private functions ---------------------------------------------------------*/
 
 /**
   * @}
   */
+
+#endif /* DCACHE1 || DCACHE2 */
 
 /**
   * @}

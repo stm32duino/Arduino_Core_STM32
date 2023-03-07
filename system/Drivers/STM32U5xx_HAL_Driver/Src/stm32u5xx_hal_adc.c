@@ -491,6 +491,9 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
     hadc->LevelOutOfWindow2Callback     = HAL_ADCEx_LevelOutOfWindow2Callback;      /* Legacy weak callback */
     hadc->LevelOutOfWindow3Callback     = HAL_ADCEx_LevelOutOfWindow3Callback;      /* Legacy weak callback */
     hadc->EndOfSamplingCallback         = HAL_ADCEx_EndOfSamplingCallback;          /* Legacy weak callback */
+    hadc->CalibrationCpltCallback       = HAL_ADC_CalibrationCpltCallback;          /* Legacy weak callback */
+    hadc->VoltageRegulatorCallback      = HAL_ADC_VoltageRegulatorCallback;         /* Legacy weak callback */
+    hadc->ADCReadyCallback              = HAL_ADC_ADCReadyCallback;                 /* Legacy weak callback */
 
     if (hadc->MspInitCallback == NULL)
     {
@@ -608,9 +611,7 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
         /*     (set into HAL_ADC_ConfigChannel() )                              */
 
         /* Configuration of ADC resolution                                      */
-        MODIFY_REG(hadc->Instance->CFGR1,
-                   ADC_CFGR1_RES,
-                   __LL_ADC_RESOLUTION_ADC1_TO_ADC4(hadc->Init.Resolution));   /* Convert resolution for the ADC4 */
+        LL_ADC_SetResolution(hadc->Instance, hadc->Init.Resolution);
 
         /* Configuration of ADC clock mode: clock source AHB or HSI with        */
         /* selectable prescaler.                                                */
@@ -713,25 +714,26 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
       }
       /* Update ADC configuration register with previous settings */
       MODIFY_REG(hadc->Instance->CFGR1,
-                 ADC_CFGR1_DISCEN  |
-                 ADC4_CFGR1_WAIT    |
-                 ADC_CFGR1_CONT    |
-                 ADC_CFGR1_OVRMOD  |
-                 ADC_CFGR1_EXTSEL  |
-                 ADC_CFGR1_EXTEN   |
-                 ADC4_CFGR1_ALIGN   |
-                 ADC4_CFGR1_SCANDIR |
+                 ADC_CFGR1_DISCEN     |
+                 ADC4_CFGR1_CHSELRMOD |
+                 ADC4_CFGR1_WAIT      |
+                 ADC_CFGR1_CONT       |
+                 ADC_CFGR1_OVRMOD     |
+                 ADC_CFGR1_EXTSEL     |
+                 ADC_CFGR1_EXTEN      |
+                 ADC4_CFGR1_ALIGN     |
+                 ADC4_CFGR1_SCANDIR   |
                  ADC4_CFGR1_DMACFG,
                  tmpCFGR1);
 
       if (hadc->Init.LowPowerAutoPowerOff != ADC_LOW_POWER_NONE)
       {
-        SET_BIT(hadc->Instance->PW, hadc->Init.LowPowerAutoPowerOff);
+        SET_BIT(hadc->Instance->PWRR, hadc->Init.LowPowerAutoPowerOff);
       }
 
       if (hadc->Init.VrefProtection != ADC_VREF_PPROT_NONE)
       {
-        SET_BIT(hadc->Instance->PW, hadc->Init.VrefProtection);
+        SET_BIT(hadc->Instance->PWRR, hadc->Init.VrefProtection);
       }
 
     }
@@ -762,7 +764,7 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
         if (hadc->Init.OversamplingMode == ENABLE)
         {
           assert_param(IS_ADC_OVERSAMPLING_RATIO(hadc->Init.Oversampling.Ratio));
-          assert_param(IS_ADC_RIGHT_BIT_SHIFT(hadc->Init.Oversampling.RightBitShift));
+          assert_param(IS_ADC12_RIGHT_BIT_SHIFT(hadc->Init.Oversampling.RightBitShift));
           assert_param(IS_ADC_TRIGGERED_OVERSAMPLING_MODE(hadc->Init.Oversampling.TriggeredMode));
           assert_param(IS_ADC_REGOVERSAMPLING_MODE(hadc->Init.Oversampling.OversamplingStopReset));
 
@@ -822,20 +824,24 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
     }
     else
     {
-      /* Configuration of ADC:                                                  */
-      /*  - oversampling enable                                                 */
-      /*  - oversampling ratio                                                  */
-      /*  - oversampling shift                                                  */
-      /*  - oversampling discontinuous mode (triggered mode)                    */
-      /*  - trigger frequency mode                                              */
-      tmpCFGR2 |= (hadc->Init.Oversampling.Ratio         |
-                   hadc->Init.Oversampling.RightBitShift |
-                   hadc->Init.Oversampling.TriggeredMode |
-                   hadc->Init.TriggerFrequencyMode
-                  );
-
       if (hadc->Init.OversamplingMode == ENABLE)
       {
+        assert_param(IS_ADC4_OVERSAMPLING_RATIO(hadc->Init.Oversampling.Ratio));
+        assert_param(IS_ADC_RIGHT_BIT_SHIFT(hadc->Init.Oversampling.RightBitShift));
+        assert_param(IS_ADC_TRIGGERED_OVERSAMPLING_MODE(hadc->Init.Oversampling.TriggeredMode));
+
+        /* Configuration of ADC:                                                  */
+        /*  - oversampling enable                                                 */
+        /*  - oversampling ratio                                                  */
+        /*  - oversampling shift                                                  */
+        /*  - oversampling discontinuous mode (triggered mode)                    */
+        /*  - trigger frequency mode                                              */
+        tmpCFGR2 |= (hadc->Init.Oversampling.Ratio         |
+                     hadc->Init.Oversampling.RightBitShift |
+                     hadc->Init.Oversampling.TriggeredMode |
+                     hadc->Init.TriggerFrequencyMode
+                    );
+
         SET_BIT(tmpCFGR2, ADC_CFGR2_ROVSE);
       }
       MODIFY_REG(hadc->Instance->CFGR2,
@@ -868,45 +874,24 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
       }
       else if (hadc->Init.ScanConvMode == ADC4_SCAN_ENABLE)
       {
-        /* Count number of ranks available in HAL ADC handle variable */
-        uint32_t ADCGroupRegularSequencerRanksCount;
-
-        /* Parse all ranks from 1 to 8 */
-        for (ADCGroupRegularSequencerRanksCount = 0UL; ADCGroupRegularSequencerRanksCount < (8UL);                    \
-             ADCGroupRegularSequencerRanksCount++)
-        {
-          /* Check each sequencer rank until value of end of sequence */
-          if (((hadc->ADCGroupRegularSequencerRanks >> (ADCGroupRegularSequencerRanksCount * 4UL)) & ADC_CHSELR_SQ1) ==
-              ADC_CHSELR_SQ1)
-          {
-            break;
-          }
-        }
-
-        if (ADCGroupRegularSequencerRanksCount == 1UL)
-        {
-          /* Set ADC group regular sequencer:                                   */
-          /* Set sequencer scan length by clearing ranks above rank 1           */
-          /* and do not modify rank 1 value.                                    */
-          SET_BIT(hadc->Instance->CHSELR, ADC_CHSELR_SQ2_TO_SQ8);
-        }
-        else
-        {
-          /* Set ADC group regular sequencer:                                   */
-          /*  - Set ADC group regular sequencer to value memorized              */
-          /*    in HAL ADC handle                                               */
-          /*    Note: This value maybe be initialized at a unknown value,       */
-          /*          therefore after the first call of "HAL_ADC_Init()",        */
-          /*          each rank corresponding to parameter "NbrOfConversion"    */
-          /*          must be set using "HAL_ADC_ConfigChannel()".              */
-          /*  - Set sequencer scan length by clearing ranks above maximum rank  */
-          /*    and do not modify other ranks value.                            */
-          MODIFY_REG(hadc->Instance->CHSELR,
-                     ADC_CHSELR_SQ_ALL,
-                     (ADC_CHSELR_SQ2_TO_SQ8 << (((hadc->Init.NbrOfConversion - 1UL) * ADC4_REGULAR_RANK_2) & 0x1FUL)) \
-                     | (hadc->ADCGroupRegularSequencerRanks)
-                    );
-        }
+        /* Set ADC group regular sequencer:                                   */
+        /*  - Set ADC group regular sequencer to value memorized              */
+        /*    in HAL ADC handle                                               */
+        /*    Note: This value maybe be initialized at a unknown value,       */
+        /*          therefore after the first call of "HAL_ADC_Init()",        */
+        /*          each rank corresponding to parameter "NbrOfConversion"    */
+        /*          must be set using "HAL_ADC_ConfigChannel()".              */
+        /*  - Set sequencer scan length by clearing ranks above maximum rank  */
+        /*    and do not modify other ranks value.                            */
+        MODIFY_REG(hadc->Instance->CHSELR,
+                   ADC_CHSELR_SQ_ALL,
+                   (ADC_CHSELR_SQ2_TO_SQ8 << (((hadc->Init.NbrOfConversion - 1UL) * ADC4_REGULAR_RANK_2) & 0x1FUL)) \
+                   | (hadc->ADCGroupRegularSequencerRanks)
+                  );
+      }
+      else
+      {
+        /* Nothing to do */
       }
 
       /* Check back that ADC registers have effectively been configured to      */
@@ -1133,7 +1118,7 @@ HAL_StatusTypeDef HAL_ADC_DeInit(ADC_HandleTypeDef *hadc)
 
     /* Reset register CFGR1 */
     hadc->Instance->CFGR1 &= ~(ADC_CFGR1_AWD1CH   | ADC_CFGR1_AWD1EN  | ADC_CFGR1_AWD1SGL | ADC_CFGR1_DISCEN |
-                               ADC4_CFGR1_WAIT    | ADC_CFGR1_CONT    | ADC_CFGR1_OVRMOD  |
+                               ADC4_CFGR1_CHSELRMOD | ADC4_CFGR1_WAIT | ADC_CFGR1_CONT    | ADC_CFGR1_OVRMOD |
                                ADC_CFGR1_EXTEN    | ADC_CFGR1_EXTSEL  | ADC4_CFGR1_ALIGN  | ADC_CFGR1_RES    |
                                ADC4_CFGR1_SCANDIR | ADC4_CFGR1_DMACFG | ADC4_CFGR1_DMAEN);
 
@@ -1268,6 +1253,9 @@ __weak void HAL_ADC_MspDeInit(ADC_HandleTypeDef *hadc)
   *          @arg @ref HAL_ADC_LEVEL_OUT_OF_WINDOW_2_CB_ID    ADC analog watchdog 2 callback ID
   *          @arg @ref HAL_ADC_LEVEL_OUT_OF_WINDOW_3_CB_ID    ADC analog watchdog 3 callback ID
   *          @arg @ref HAL_ADC_END_OF_SAMPLING_CB_ID          ADC end of sampling callback ID
+  *          @arg @ref HAL_ADC_END_OF_CALIBRATION_CB_ID       ADC end of calibration callback ID
+  *          @arg @ref HAL_ADC_VOLTAGE_REGULATOR_CB_ID        ADC voltage regulator (LDO) Ready callback ID
+  *          @arg @ref HAL_ADC_ADC_READY_CB_ID                ADC Ready callback ID
   *          @arg @ref HAL_ADC_MSPINIT_CB_ID                  ADC Msp Init callback ID
   *          @arg @ref HAL_ADC_MSPDEINIT_CB_ID                ADC Msp DeInit callback ID
   *          @arg @ref HAL_ADC_MSPINIT_CB_ID MspInit callback ID
@@ -1331,6 +1319,48 @@ HAL_StatusTypeDef HAL_ADC_RegisterCallback(ADC_HandleTypeDef *hadc, HAL_ADC_Call
         hadc->MspInitCallback = pCallback;
         break;
 
+      case HAL_ADC_END_OF_CALIBRATION_CB_ID :
+      {
+        if (hadc->Instance == ADC4)
+        {
+          hadc->CalibrationCpltCallback = pCallback;
+        }
+        else
+        {
+          hadc->ErrorCode |= HAL_ADC_ERROR_INVALID_CALLBACK;
+          status = HAL_ERROR;
+        }
+        break;
+      }
+
+      case HAL_ADC_VOLTAGE_REGULATOR_CB_ID :
+      {
+        if (hadc->Instance == ADC4)
+        {
+          hadc->VoltageRegulatorCallback = pCallback;
+        }
+        else
+        {
+          hadc->ErrorCode |= HAL_ADC_ERROR_INVALID_CALLBACK;
+          status = HAL_ERROR;
+        }
+        break;
+      }
+
+      case HAL_ADC_ADC_READY_CB_ID :
+      {
+        if (hadc->Instance == ADC4)
+        {
+          hadc->ADCReadyCallback = pCallback;
+        }
+        else
+        {
+          hadc->ErrorCode |= HAL_ADC_ERROR_INVALID_CALLBACK;
+          status = HAL_ERROR;
+        }
+        break;
+      }
+
       case HAL_ADC_MSPDEINIT_CB_ID :
         hadc->MspDeInitCallback = pCallback;
         break;
@@ -1385,6 +1415,9 @@ HAL_StatusTypeDef HAL_ADC_RegisterCallback(ADC_HandleTypeDef *hadc, HAL_ADC_Call
   *          @arg @ref HAL_ADC_LEVEL_OUT_OF_WINDOW_2_CB_ID    ADC analog watchdog 2 callback ID
   *          @arg @ref HAL_ADC_LEVEL_OUT_OF_WINDOW_3_CB_ID    ADC analog watchdog 3 callback ID
   *          @arg @ref HAL_ADC_END_OF_SAMPLING_CB_ID          ADC end of sampling callback ID
+  *          @arg @ref HAL_ADC_END_OF_CALIBRATION_CB_ID       ADC end of calibration callback ID
+  *          @arg @ref HAL_ADC_VOLTAGE_REGULATOR_CB_ID        ADC voltage regulator (LDO) Ready callback ID
+  *          @arg @ref HAL_ADC_ADC_READY_CB_ID                ADC Ready callback ID
   *          @arg @ref HAL_ADC_MSPINIT_CB_ID                  ADC Msp Init callback ID
   *          @arg @ref HAL_ADC_MSPDEINIT_CB_ID                ADC Msp DeInit callback ID
   *          @arg @ref HAL_ADC_MSPINIT_CB_ID MspInit callback ID
@@ -1433,6 +1466,18 @@ HAL_StatusTypeDef HAL_ADC_UnRegisterCallback(ADC_HandleTypeDef *hadc, HAL_ADC_Ca
 
       case HAL_ADC_END_OF_SAMPLING_CB_ID :
         hadc->EndOfSamplingCallback = HAL_ADCEx_EndOfSamplingCallback;
+        break;
+
+      case HAL_ADC_END_OF_CALIBRATION_CB_ID :
+        hadc->CalibrationCpltCallback = HAL_ADC_CalibrationCpltCallback;
+        break;
+
+      case HAL_ADC_VOLTAGE_REGULATOR_CB_ID :
+        hadc->VoltageRegulatorCallback = HAL_ADC_VoltageRegulatorCallback;
+        break;
+
+      case HAL_ADC_ADC_READY_CB_ID :
+        hadc->ADCReadyCallback = HAL_ADC_ADCReadyCallback;
         break;
 
       case HAL_ADC_MSPINIT_CB_ID :
@@ -2563,14 +2608,11 @@ HAL_StatusTypeDef HAL_ADC_Stop_DMA(ADC_HandleTypeDef *hadc)
   /* Disable ADC peripheral if conversions are effectively stopped */
   if (tmp_hal_status == HAL_OK)
   {
-    if (hadc->Instance != ADC4)  /* ADC1 or ADC2 */
+    /* Disable ADC DMA (ADC DMA configuration of continuous requests is kept) */
+    /* Note: For ADC1 and ADC2, DMA configuration kept for potential next ADC start DMA action. */
+    if (hadc->Instance == ADC4)
     {
-      /* Disable ADC DMA (ADC DMA configuration of continuous requests is kept) */
-      MODIFY_REG(hadc->Instance->CFGR1, ADC_CFGR1_DMNGT_0 | ADC_CFGR1_DMNGT_1, 0UL);
-    }
-    else
-    {
-      /* Disable ADC DMA (ADC DMA configuration of continuous requests is kept) */
+
       CLEAR_BIT(hadc->Instance->CFGR1, ADC4_CFGR1_DMAEN);
     }
 
@@ -2643,7 +2685,7 @@ HAL_StatusTypeDef HAL_ADC_Stop_DMA(ADC_HandleTypeDef *hadc)
   * @param hadc ADC handle
   * @retval ADC group regular conversion data
   */
-uint32_t HAL_ADC_GetValue(ADC_HandleTypeDef *hadc)
+uint32_t HAL_ADC_GetValue(const ADC_HandleTypeDef *hadc)
 {
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
@@ -3057,6 +3099,57 @@ void HAL_ADC_IRQHandler(ADC_HandleTypeDef *hadc)
     __HAL_ADC_CLEAR_FLAG(hadc, ADC_FLAG_OVR);
   }
 
+  /* ========== Check ADC Ready flag ========== */
+  if (((tmp_isr & ADC_FLAG_RDY) == ADC_FLAG_RDY) && ((tmp_ier & ADC_IT_RDY) == ADC_IT_RDY))
+  {
+    /* Update state machine on end of sampling status if not in error state */
+    if ((hadc->State & HAL_ADC_STATE_ERROR_INTERNAL) == 0UL)
+    {
+      /* Set ADC state */
+      SET_BIT(hadc->State, HAL_ADC_STATE_READY);
+    }
+
+    /* ADC Ready callback */
+#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+    hadc->ADCReadyCallback(hadc);
+#else
+    HAL_ADC_ADCReadyCallback(hadc);
+#endif /* USE_HAL_ADC_REGISTER_CALLBACKS */
+
+    /* Leave ADRDY flag up (used by HAL), disable interrupt source instead */
+    __HAL_ADC_DISABLE_IT(hadc, ADC_IT_RDY);
+  }
+
+  if (hadc->Instance == ADC4)  /* ADC4 */
+  {
+    /* ========== Check End of Calibration flag ========== */
+    if (((tmp_isr & ADC_FLAG_EOCAL) == ADC_FLAG_EOCAL) && ((tmp_ier & ADC_IT_EOCAL) == ADC_IT_EOCAL))
+    {
+      /* End Of Calibration callback */
+#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+      hadc->CalibrationCpltCallback(hadc);
+#else
+      HAL_ADC_CalibrationCpltCallback(hadc);
+#endif /* USE_HAL_ADC_REGISTER_CALLBACKS */
+
+      /* Clear end of calibration flag */
+      __HAL_ADC_CLEAR_FLAG(hadc, ADC_FLAG_EOCAL);
+    }
+
+    /* ========== Check LDO ready flag ========== */
+    if (((tmp_isr & ADC_FLAG_LDORDY) == ADC_FLAG_LDORDY) && ((tmp_ier & ADC_IT_LDORDY) == ADC_IT_LDORDY))
+    {
+      /* Voltage Regulator (LDO) Ready callback */
+#if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
+      hadc->VoltageRegulatorCallback(hadc);
+#else
+      HAL_ADC_VoltageRegulatorCallback(hadc);
+#endif /* USE_HAL_ADC_REGISTER_CALLBACKS */
+
+      /* Disable Voltage Regulator (LDO) Ready interrupt source */
+      __HAL_ADC_DISABLE_IT(hadc, ADC_IT_LDORDY);
+    }
+  }
 }
 
 /**
@@ -3124,6 +3217,51 @@ __weak void HAL_ADC_ErrorCallback(ADC_HandleTypeDef *hadc)
   /* NOTE : This function should not be modified. When the callback is needed,
             function HAL_ADC_ErrorCallback must be implemented in the user file.
   */
+}
+
+/**
+  * @brief  Calibration complete callback in non-blocking mode.
+  * @param hadc ADC handle
+  * @retval None
+  */
+__weak void HAL_ADC_CalibrationCpltCallback(ADC_HandleTypeDef *hadc)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hadc);
+
+  /* NOTE : This function should not be modified. When the callback is needed,
+            function HAL_ADC_CalibrationCpltCallback must be implemented in the user file.
+   */
+}
+
+/**
+  * @brief  Voltage Regulator (LDO) Ready callback in non-blocking mode.
+  * @param hadc ADC handle
+  * @retval None
+  */
+__weak void HAL_ADC_VoltageRegulatorCallback(ADC_HandleTypeDef *hadc)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hadc);
+
+  /* NOTE : This function should not be modified. When the callback is needed,
+            function HAL_ADC_VoltageRegulatorCallback must be implemented in the user file.
+   */
+}
+
+/**
+  * @brief ADC Ready callback in non-blocking mode.
+  * @param hadc ADC handle
+  * @retval None
+  */
+__weak void HAL_ADC_ADCReadyCallback(ADC_HandleTypeDef *hadc)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hadc);
+
+  /* NOTE : This function should not be modified. When the callback is needed,
+            function HAL_ADC_ADCReadyCallback must be implemented in the user file.
+   */
 }
 
 /**
@@ -3259,35 +3397,57 @@ HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef *hadc, ADC_ChannelConf
           /* Set ADC selected offset number */
           LL_ADC_SetOffset(hadc->Instance, pConfig->OffsetNumber, pConfig->Channel, tmp_offset_shifted);
           assert_param(IS_ADC_OFFSET_SIGN(pConfig->OffsetSign));
+          assert_param(IS_FUNCTIONAL_STATE(pConfig->OffsetSaturation));
           assert_param(IS_FUNCTIONAL_STATE(pConfig->OffsetSignedSaturation));
           /* Set ADC selected offset sign */
           LL_ADC_SetOffsetSign(hadc->Instance, pConfig->OffsetNumber, pConfig->OffsetSign);
-          /* Set ADC selected offset signed saturation */
-          LL_ADC_SetOffsetSignedSaturation(hadc->Instance, pConfig->OffsetNumber,                  \
-                                           (pConfig->OffsetSignedSaturation == ENABLE)             \
-                                           ? LL_ADC_OFFSET_SIGNED_SATURATION_ENABLE                \
-                                           : LL_ADC_OFFSET_SIGNED_SATURATION_DISABLE);
+
+          /* Configure offset saturation */
+          if (pConfig->OffsetSaturation == ENABLE)
+          {
+            /* Set ADC selected offset unsigned/signed saturation */
+            LL_ADC_SetOffsetUnsignedSaturation(hadc->Instance, pConfig->OffsetNumber,
+                                               (pConfig->OffsetSignedSaturation == DISABLE)
+                                               ? LL_ADC_OFFSET_UNSIGNED_SATURATION_ENABLE    \
+                                               : LL_ADC_OFFSET_UNSIGNED_SATURATION_DISABLE);
+
+            LL_ADC_SetOffsetSignedSaturation(hadc->Instance, pConfig->OffsetNumber,
+                                             (pConfig->OffsetSignedSaturation == ENABLE)
+                                             ? LL_ADC_OFFSET_SIGNED_SATURATION_ENABLE        \
+                                             : LL_ADC_OFFSET_SIGNED_SATURATION_DISABLE);
+          }
+          else
+          {
+            /* Disable ADC offset signed saturation */
+            LL_ADC_SetOffsetUnsignedSaturation(hadc->Instance, pConfig->OffsetNumber,
+                                               LL_ADC_OFFSET_UNSIGNED_SATURATION_DISABLE);
+            LL_ADC_SetOffsetSignedSaturation(hadc->Instance, pConfig->OffsetNumber,
+                                             LL_ADC_OFFSET_SIGNED_SATURATION_DISABLE);
+          }
         }
         else
         {
           /* Scan OFR1, OFR2, OFR3, OFR4 to check if the selected channel is enabled.
-            If this is the case, offset OFRx is disabled since
-            pConfig->OffsetNumber = ADC_OFFSET_NONE. */
-          if (((hadc->Instance->OFR1) & ADC_OFR1_OFFSET1_CH) == ADC_OFR_CHANNEL(pConfig->Channel))
+             If this is the case, the corresponding offset is disabled since pConfig->OffsetNumber = ADC_OFFSET_NONE. */
+          if (__LL_ADC_CHANNEL_TO_DECIMAL_NB(LL_ADC_GetOffsetChannel(hadc->Instance, LL_ADC_OFFSET_1))
+              == __LL_ADC_CHANNEL_TO_DECIMAL_NB(pConfig->Channel))
           {
-            CLEAR_BIT(hadc->Instance->OFR1, ADC_OFR1_SSAT);
+            LL_ADC_SetOffset(hadc->Instance, LL_ADC_OFFSET_1, pConfig->Channel, 0x0);
           }
-          if (((hadc->Instance->OFR2) & ADC_OFR2_OFFSET2_CH) == ADC_OFR_CHANNEL(pConfig->Channel))
+          if (__LL_ADC_CHANNEL_TO_DECIMAL_NB(LL_ADC_GetOffsetChannel(hadc->Instance, LL_ADC_OFFSET_2))
+              == __LL_ADC_CHANNEL_TO_DECIMAL_NB(pConfig->Channel))
           {
-            CLEAR_BIT(hadc->Instance->OFR2, ADC_OFR2_SSAT);
+            LL_ADC_SetOffset(hadc->Instance, LL_ADC_OFFSET_2, pConfig->Channel, 0x0);
           }
-          if (((hadc->Instance->OFR3) & ADC_OFR3_OFFSET3_CH) == ADC_OFR_CHANNEL(pConfig->Channel))
+          if (__LL_ADC_CHANNEL_TO_DECIMAL_NB(LL_ADC_GetOffsetChannel(hadc->Instance, LL_ADC_OFFSET_3))
+              == __LL_ADC_CHANNEL_TO_DECIMAL_NB(pConfig->Channel))
           {
-            CLEAR_BIT(hadc->Instance->OFR3, ADC_OFR3_SSAT);
+            LL_ADC_SetOffset(hadc->Instance, LL_ADC_OFFSET_3, pConfig->Channel, 0x0);
           }
-          if (((hadc->Instance->OFR4) & ADC_OFR4_OFFSET4_CH) == ADC_OFR_CHANNEL(pConfig->Channel))
+          if (__LL_ADC_CHANNEL_TO_DECIMAL_NB(LL_ADC_GetOffsetChannel(hadc->Instance, LL_ADC_OFFSET_4))
+              == __LL_ADC_CHANNEL_TO_DECIMAL_NB(pConfig->Channel))
           {
-            CLEAR_BIT(hadc->Instance->OFR4, ADC_OFR4_SSAT);
+            LL_ADC_SetOffset(hadc->Instance, LL_ADC_OFFSET_4, pConfig->Channel, 0x0);
           }
         }
       }
@@ -3387,10 +3547,11 @@ HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef *hadc, ADC_ChannelConf
     }
     else
     {
-      /* Remap Internal Channels for Cut1 vs Cut2 (or 4M) */
       tmp_channel = pConfig->Channel;
-#if !defined (ADC2)
-      if (HAL_GetREVID() == REV_ID_A) /* STM32U5 silicon Rev.A */
+
+      /* Remap internal channels on STM32U5-2M revA */
+#if defined (STM32U575xx) || defined (STM32U585xx)
+      if (HAL_GetREVID() == REV_ID_A)
       {
         if (pConfig->Channel == ADC4_CHANNEL_TEMPSENSOR)
         {
@@ -3417,7 +3578,7 @@ HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef *hadc, ADC_ChannelConf
           tmp_channel = pConfig->Channel;
         }
       }
-#endif /* ADC2 */
+#endif /* STM32U575xx || STM32U585xx */
 
       /* Configure channel: depending on rank setting, add it or remove it from */
       /* ADC sequencer.                                                         */
@@ -3951,7 +4112,7 @@ HAL_StatusTypeDef HAL_ADC_AnalogWDGConfig(ADC_HandleTypeDef *hadc, ADC_AnalogWDG
   * @param hadc ADC handle
   * @retval ADC handle state (bitfield on 32 bits)
   */
-uint32_t HAL_ADC_GetState(ADC_HandleTypeDef *hadc)
+uint32_t HAL_ADC_GetState(const ADC_HandleTypeDef *hadc)
 {
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
@@ -3965,7 +4126,7 @@ uint32_t HAL_ADC_GetState(ADC_HandleTypeDef *hadc)
   * @param hadc ADC handle
   * @retval ADC error code (bitfield on 32 bits)
   */
-uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc)
+uint32_t HAL_ADC_GetError(const ADC_HandleTypeDef *hadc)
 {
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
@@ -4145,6 +4306,8 @@ HAL_StatusTypeDef ADC_Enable(ADC_HandleTypeDef *hadc)
 
       return HAL_ERROR;
     }
+
+    __HAL_ADC_CLEAR_FLAG(hadc, ADC_FLAG_RDY);
 
     LL_ADC_Enable(hadc->Instance);
 

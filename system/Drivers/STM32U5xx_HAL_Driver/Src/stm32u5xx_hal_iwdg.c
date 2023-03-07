@@ -226,20 +226,16 @@ HAL_StatusTypeDef HAL_IWDG_Init(IWDG_HandleTypeDef *hiwdg)
 
   if (hiwdg->Init.EWI == IWDG_EWI_DISABLE)
   {
-    /* EWI comparator value different from 0,
-     * Disable the early wakeup interrupt
+    /* EWI comparator value equal 0, disable the early wakeup interrupt
      * acknowledge the early wakeup interrupt in any cases. it clears the EWIF flag in SR register
-     * Set Watchdog Early Wakeup Comparator to 0x00
-     */
+     * Set Watchdog Early Wakeup Comparator to 0x00 */
     hiwdg->Instance->EWCR = IWDG_EWCR_EWIC;
   }
   else
   {
-    /* EWI comparator value different from 0,
-     * Enable the early wakeup interrupt
+    /* EWI comparator value different from 0, enable the early wakeup interrupt,
      * acknowledge the early wakeup interrupt in any cases. it clears the EWIF flag in SR register
-     * Set Watchdog Early Wakeup Comparator value
-     */
+     * Set Watchdog Early Wakeup Comparator value */
     hiwdg->Instance->EWCR = IWDG_EWCR_EWIE | IWDG_EWCR_EWIC | hiwdg->Init.EWI;
   }
 

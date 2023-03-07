@@ -248,6 +248,7 @@ typedef struct
 /**
   * @}
   */
+
 /** @defgroup LPTIM_LL_EC_LPTIM_IC_PRESCALER Input Capture Prescaler
   * @{
   */
@@ -525,14 +526,27 @@ typedef struct
   * @{
   */
 
+/** Legacy definitions for compatibility purpose
+@cond 0
+  */
+#define LL_LPTIM_ClearFLAG_CMPM  LL_LPTIM_ClearFlag_CMPM
+#define LL_LPTIM_ClearFLAG_CC1   LL_LPTIM_ClearFlag_CC1
+#define LL_LPTIM_ClearFLAG_CC2   LL_LPTIM_ClearFlag_CC2
+#define LL_LPTIM_ClearFLAG_CC1O  LL_LPTIM_ClearFlag_CC1O
+#define LL_LPTIM_ClearFLAG_CC2O  LL_LPTIM_ClearFlag_CC2O
+#define LL_LPTIM_ClearFLAG_ARRM  LL_LPTIM_ClearFlag_ARRM
+/**
+@endcond
+  */
+
 #if defined(USE_FULL_LL_DRIVER)
 /** @defgroup LPTIM_LL_EF_Init Initialisation and deinitialisation functions
   * @{
   */
 
-ErrorStatus LL_LPTIM_DeInit(LPTIM_TypeDef *LPTIMx);
+ErrorStatus LL_LPTIM_DeInit(const LPTIM_TypeDef *LPTIMx);
 void LL_LPTIM_StructInit(LL_LPTIM_InitTypeDef *LPTIM_InitStruct);
-ErrorStatus LL_LPTIM_Init(LPTIM_TypeDef *LPTIMx, LL_LPTIM_InitTypeDef *LPTIM_InitStruct);
+ErrorStatus LL_LPTIM_Init(LPTIM_TypeDef *LPTIMx, const LL_LPTIM_InitTypeDef *LPTIM_InitStruct);
 /**
   * @}
   */
@@ -572,7 +586,7 @@ __STATIC_INLINE void LL_LPTIM_Disable(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabled(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabled(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->CR, LPTIM_CR_ENABLE) == LPTIM_CR_ENABLE) ? 1UL : 0UL));
 }
@@ -625,7 +639,7 @@ __STATIC_INLINE void LL_LPTIM_DisableResetAfterRead(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledResetAfterRead(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledResetAfterRead(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->CR, LPTIM_CR_RSTARE) == LPTIM_CR_RSTARE) ? 1UL : 0UL));
 }
@@ -668,7 +682,7 @@ __STATIC_INLINE void LL_LPTIM_SetUpdateMode(LPTIM_TypeDef *LPTIMx, uint32_t Upda
   *         @arg @ref LL_LPTIM_UPDATE_MODE_IMMEDIATE
   *         @arg @ref LL_LPTIM_UPDATE_MODE_ENDOFPERIOD
   */
-__STATIC_INLINE uint32_t LL_LPTIM_GetUpdateMode(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_GetUpdateMode(const LPTIM_TypeDef *LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->CFGR, LPTIM_CFGR_PRELOAD));
 }
@@ -683,7 +697,7 @@ __STATIC_INLINE uint32_t LL_LPTIM_GetUpdateMode(const LPTIM_TypeDef *const LPTIM
   * @note autoreload value be strictly greater than the compare value.
   * @rmtoll ARR          ARR           LL_LPTIM_SetAutoReload
   * @param  LPTIMx Low-Power Timer instance
-  * @param  AutoReload Value between Min_Data=0x00 and Max_Data=0xFFFF
+  * @param  AutoReload Value between Min_Data=0x0001 and Max_Data=0xFFFF
   * @retval None
   */
 __STATIC_INLINE void LL_LPTIM_SetAutoReload(LPTIM_TypeDef *LPTIMx, uint32_t AutoReload)
@@ -695,9 +709,9 @@ __STATIC_INLINE void LL_LPTIM_SetAutoReload(LPTIM_TypeDef *LPTIMx, uint32_t Auto
   * @brief  Get actual auto reload value
   * @rmtoll ARR          ARR           LL_LPTIM_GetAutoReload
   * @param  LPTIMx Low-Power Timer instance
-  * @retval AutoReload Value between Min_Data=0x00 and Max_Data=0xFFFF
+  * @retval AutoReload Value between Min_Data=0x0001 and Max_Data=0xFFFF
   */
-__STATIC_INLINE uint32_t LL_LPTIM_GetAutoReload(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_GetAutoReload(const LPTIM_TypeDef *LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->ARR, LPTIM_ARR_ARR));
 }
@@ -721,7 +735,7 @@ __STATIC_INLINE void LL_LPTIM_SetRepetition(LPTIM_TypeDef *LPTIMx, uint32_t Repe
   * @param  LPTIMx Low-Power Timer instance
   * @retval Repetition Value between Min_Data=0x00 and Max_Data=0xFF
   */
-__STATIC_INLINE uint32_t LL_LPTIM_GetRepetition(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_GetRepetition(const LPTIM_TypeDef *LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->RCR, LPTIM_RCR_REP));
 }
@@ -766,7 +780,7 @@ __STATIC_INLINE void LL_LPTIM_CC_DisableChannel(LPTIM_TypeDef *LPTIMx, uint32_t 
   *         @arg @ref LL_LPTIM_CHANNEL_CH2
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_CC_IsEnabledChannel(const LPTIM_TypeDef *const LPTIMx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_LPTIM_CC_IsEnabledChannel(const LPTIM_TypeDef *LPTIMx, uint32_t Channel)
 {
   return ((READ_BIT(LPTIMx->CCMR1, 0x1UL << LL_LPTIM_SHIFT_TAB_CCxE[Channel]) ==                                       \
            (0x1UL << LL_LPTIM_SHIFT_TAB_CCxE[Channel])) ? 1UL : 0UL);
@@ -795,7 +809,7 @@ __STATIC_INLINE void LL_LPTIM_OC_SetCompareCH1(LPTIM_TypeDef *LPTIMx, uint32_t C
   * @param  LPTIMx Low-Power Timer instance
   * @retval CompareValue Value between Min_Data=0x00 and Max_Data=0xFFFF
   */
-__STATIC_INLINE uint32_t LL_LPTIM_OC_GetCompareCH1(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_OC_GetCompareCH1(const LPTIM_TypeDef *LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->CCR1, LPTIM_CCR1_CCR1));
 }
@@ -822,7 +836,7 @@ __STATIC_INLINE void LL_LPTIM_OC_SetCompareCH2(LPTIM_TypeDef *LPTIMx, uint32_t C
   * @param  LPTIMx Low-Power Timer instance
   * @retval CompareValue Value between Min_Data=0x00 and Max_Data=0xFFFF
   */
-__STATIC_INLINE uint32_t LL_LPTIM_OC_GetCompareCH2(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_OC_GetCompareCH2(const LPTIM_TypeDef *LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->CCR2, LPTIM_CCR2_CCR2));
 }
@@ -837,7 +851,7 @@ __STATIC_INLINE uint32_t LL_LPTIM_OC_GetCompareCH2(const LPTIM_TypeDef *const LP
   * @param  LPTIMx Low-Power Timer instance
   * @retval Counter value
   */
-__STATIC_INLINE uint32_t LL_LPTIM_GetCounter(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_GetCounter(const LPTIM_TypeDef *LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->CNT, LPTIM_CNT_CNT));
 }
@@ -865,7 +879,7 @@ __STATIC_INLINE void LL_LPTIM_SetCounterMode(LPTIM_TypeDef *LPTIMx, uint32_t Cou
   *         @arg @ref LL_LPTIM_COUNTER_MODE_INTERNAL
   *         @arg @ref LL_LPTIM_COUNTER_MODE_EXTERNAL
   */
-__STATIC_INLINE uint32_t LL_LPTIM_GetCounterMode(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_GetCounterMode(const LPTIM_TypeDef *LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->CFGR, LPTIM_CFGR_COUNTMODE));
 }
@@ -892,7 +906,7 @@ __STATIC_INLINE void LL_LPTIM_SetWaveform(LPTIM_TypeDef *LPTIMx, uint32_t Wavefo
   *         @arg @ref LL_LPTIM_OUTPUT_WAVEFORM_PWM
   *         @arg @ref LL_LPTIM_OUTPUT_WAVEFORM_SETONCE
   */
-__STATIC_INLINE uint32_t LL_LPTIM_GetWaveform(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_GetWaveform(const LPTIM_TypeDef *LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->CFGR, LPTIM_CFGR_WAVE));
 }
@@ -935,7 +949,7 @@ __STATIC_INLINE void LL_LPTIM_OC_SetPolarity(LPTIM_TypeDef *LPTIMx, uint32_t Cha
   *         @arg @ref LL_LPTIM_OUTPUT_POLARITY_REGULAR
   *         @arg @ref LL_LPTIM_OUTPUT_POLARITY_INVERSE
   */
-__STATIC_INLINE uint32_t LL_LPTIM_OC_GetPolarity(const LPTIM_TypeDef *const LPTIMx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_LPTIM_OC_GetPolarity(const LPTIM_TypeDef *LPTIMx, uint32_t Channel)
 {
   if (LPTIMx == LPTIM4)
   {
@@ -987,7 +1001,7 @@ __STATIC_INLINE void LL_LPTIM_SetPrescaler(LPTIM_TypeDef *LPTIMx, uint32_t Presc
   *         @arg @ref LL_LPTIM_PRESCALER_DIV64
   *         @arg @ref LL_LPTIM_PRESCALER_DIV128
   */
-__STATIC_INLINE uint32_t LL_LPTIM_GetPrescaler(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_GetPrescaler(const LPTIM_TypeDef *LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->CFGR, LPTIM_CFGR_PRESC));
 }
@@ -1084,7 +1098,7 @@ __STATIC_INLINE void LL_LPTIM_IC_SetPolarity(LPTIM_TypeDef *LPTIMx, uint32_t Cha
   *         @arg @ref LL_LPTIM_ICPOLARITY_FALLING
   *         @arg @ref LL_LPTIM_ICPOLARITY_RISING_FALLING
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IC_GetPolarity(const LPTIM_TypeDef *const LPTIMx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_LPTIM_IC_GetPolarity(const LPTIM_TypeDef *LPTIMx, uint32_t Channel)
 {
   return (uint32_t)((READ_BIT(LPTIMx->CCMR1, LPTIM_CCMR1_CC1P << LL_LPTIM_SHIFT_TAB_CCxP[Channel])) >>                 \
                     LL_LPTIM_SHIFT_TAB_CCxP[Channel]);
@@ -1126,7 +1140,7 @@ __STATIC_INLINE void LL_LPTIM_IC_SetFilter(LPTIM_TypeDef *LPTIMx, uint32_t Chann
   *         @arg @ref LL_LPTIM_ICFLT_CLOCK_DIV4
   *         @arg @ref LL_LPTIM_ICFLT_CLOCK_DIV8
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IC_GetFilter(const LPTIM_TypeDef *const LPTIMx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_LPTIM_IC_GetFilter(const LPTIM_TypeDef *LPTIMx, uint32_t Channel)
 {
   return (uint32_t)((READ_BIT(LPTIMx->CCMR1, LPTIM_CCMR1_IC1F << LL_LPTIM_SHIFT_TAB_ICxF[Channel])) >>                 \
                     LL_LPTIM_SHIFT_TAB_ICxF[Channel]);
@@ -1167,7 +1181,7 @@ __STATIC_INLINE void LL_LPTIM_IC_SetPrescaler(LPTIM_TypeDef *LPTIMx, uint32_t Ch
   *         @arg @ref LL_LPTIM_ICPSC_DIV4
   *         @arg @ref LL_LPTIM_ICPSC_DIV8
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IC_GetPrescaler(const LPTIM_TypeDef *const LPTIMx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_LPTIM_IC_GetPrescaler(const LPTIM_TypeDef *LPTIMx, uint32_t Channel)
 {
   return (uint32_t)((READ_BIT(LPTIMx->CCMR1, LPTIM_CCMR1_IC1PSC << LL_LPTIM_SHIFT_TAB_ICxPSC[Channel])) >>             \
                     LL_LPTIM_SHIFT_TAB_ICxPSC[Channel]);
@@ -1203,7 +1217,7 @@ __STATIC_INLINE void  LL_LPTIM_CC_SetChannelMode(LPTIM_TypeDef *LPTIMx, uint32_t
   *         @arg @ref LL_LPTIM_CCMODE_OUTPUT_PWM
   *         @arg @ref LL_LPTIM_CCMODE_INPUTCAPTURE
   */
-__STATIC_INLINE uint32_t  LL_LPTIM_CC_GetChannelMode(const LPTIM_TypeDef *const LPTIMx, uint32_t Channel)
+__STATIC_INLINE uint32_t  LL_LPTIM_CC_GetChannelMode(const LPTIM_TypeDef *LPTIMx, uint32_t Channel)
 {
   return (uint32_t)((READ_BIT(LPTIMx->CCMR1, LPTIM_CCMR1_CC1SEL << LL_LPTIM_SHIFT_TAB_CCxSEL[Channel])) >>             \
                     LL_LPTIM_SHIFT_TAB_CCxSEL[Channel]);
@@ -1218,7 +1232,7 @@ __STATIC_INLINE uint32_t  LL_LPTIM_CC_GetChannelMode(const LPTIM_TypeDef *const 
   * @param  LPTIMx Low-Power Timer instance
   * @retval CapturedValue (between Min_Data=0 and Max_Data=65535)
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IC_GetCaptureCH1(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IC_GetCaptureCH1(const LPTIM_TypeDef *LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->CCR1, LPTIM_CCR1_CCR1));
 }
@@ -1232,7 +1246,7 @@ __STATIC_INLINE uint32_t LL_LPTIM_IC_GetCaptureCH1(const LPTIM_TypeDef *const LP
   * @param  LPTIMx Low-Power Timer instance
   * @retval CapturedValue (between Min_Data=0 and Max_Data=65535)
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IC_GetCaptureCH2(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IC_GetCaptureCH2(const LPTIM_TypeDef *LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->CCR2, LPTIM_CCR2_CCR2));
 }
@@ -1282,7 +1296,7 @@ __STATIC_INLINE void LL_LPTIM_DisableTimeout(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledTimeout(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledTimeout(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->CFGR, LPTIM_CFGR_TIMOUT) == LPTIM_CFGR_TIMOUT) ? 1UL : 0UL));
 }
@@ -1357,7 +1371,7 @@ __STATIC_INLINE void LL_LPTIM_ConfigTrigger(LPTIM_TypeDef *LPTIMx, uint32_t Sour
   *         @arg @ref LL_LPTIM_TRIG_SOURCE_GPDMA_CH0_TCF
   *         @arg @ref LL_LPTIM_TRIG_SOURCE_GPDMA_CH4_TCF
   */
-__STATIC_INLINE uint32_t LL_LPTIM_GetTriggerSource(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_GetTriggerSource(const LPTIM_TypeDef *LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->CFGR, LPTIM_CFGR_TRIGSEL));
 }
@@ -1372,7 +1386,7 @@ __STATIC_INLINE uint32_t LL_LPTIM_GetTriggerSource(const LPTIM_TypeDef *const LP
   *         @arg @ref LL_LPTIM_TRIG_FILTER_4
   *         @arg @ref LL_LPTIM_TRIG_FILTER_8
   */
-__STATIC_INLINE uint32_t LL_LPTIM_GetTriggerFilter(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_GetTriggerFilter(const LPTIM_TypeDef *LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->CFGR, LPTIM_CFGR_TRGFLT));
 }
@@ -1386,7 +1400,7 @@ __STATIC_INLINE uint32_t LL_LPTIM_GetTriggerFilter(const LPTIM_TypeDef *const LP
   *         @arg @ref LL_LPTIM_TRIG_POLARITY_FALLING
   *         @arg @ref LL_LPTIM_TRIG_POLARITY_RISING_FALLING
   */
-__STATIC_INLINE uint32_t LL_LPTIM_GetTriggerPolarity(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_GetTriggerPolarity(const LPTIM_TypeDef *LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->CFGR, LPTIM_CFGR_TRIGEN));
 }
@@ -1422,7 +1436,7 @@ __STATIC_INLINE void LL_LPTIM_SetClockSource(LPTIM_TypeDef *LPTIMx, uint32_t Clo
   *         @arg @ref LL_LPTIM_CLK_SOURCE_INTERNAL
   *         @arg @ref LL_LPTIM_CLK_SOURCE_EXTERNAL
   */
-__STATIC_INLINE uint32_t LL_LPTIM_GetClockSource(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_GetClockSource(const LPTIM_TypeDef *LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->CFGR, LPTIM_CFGR_CKSEL));
 }
@@ -1464,7 +1478,7 @@ __STATIC_INLINE void LL_LPTIM_ConfigClock(LPTIM_TypeDef *LPTIMx, uint32_t ClockF
   *         @arg @ref LL_LPTIM_CLK_POLARITY_FALLING
   *         @arg @ref LL_LPTIM_CLK_POLARITY_RISING_FALLING
   */
-__STATIC_INLINE uint32_t LL_LPTIM_GetClockPolarity(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_GetClockPolarity(const LPTIM_TypeDef *LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->CFGR, LPTIM_CFGR_CKPOL));
 }
@@ -1479,7 +1493,7 @@ __STATIC_INLINE uint32_t LL_LPTIM_GetClockPolarity(const LPTIM_TypeDef *const LP
   *         @arg @ref LL_LPTIM_CLK_FILTER_4
   *         @arg @ref LL_LPTIM_CLK_FILTER_8
   */
-__STATIC_INLINE uint32_t LL_LPTIM_GetClockFilter(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_GetClockFilter(const LPTIM_TypeDef *LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->CFGR, LPTIM_CFGR_CKFLT));
 }
@@ -1517,7 +1531,7 @@ __STATIC_INLINE void LL_LPTIM_SetEncoderMode(LPTIM_TypeDef *LPTIMx, uint32_t Enc
   *         @arg @ref LL_LPTIM_ENCODER_MODE_FALLING
   *         @arg @ref LL_LPTIM_ENCODER_MODE_RISING_FALLING
   */
-__STATIC_INLINE uint32_t LL_LPTIM_GetEncoderMode(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_GetEncoderMode(const LPTIM_TypeDef *LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->CFGR, LPTIM_CFGR_CKPOL));
 }
@@ -1556,7 +1570,7 @@ __STATIC_INLINE void LL_LPTIM_DisableEncoderMode(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledEncoderMode(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledEncoderMode(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->CFGR, LPTIM_CFGR_ENC) == LPTIM_CFGR_ENC) ? 1UL : 0UL));
 }
@@ -1571,11 +1585,11 @@ __STATIC_INLINE uint32_t LL_LPTIM_IsEnabledEncoderMode(const LPTIM_TypeDef *cons
 
 /**
   * @brief  Clear the compare match flag for channel 1 (CC1CF)
-  * @rmtoll ICR          CC1CF        LL_LPTIM_ClearFLAG_CC1
+  * @rmtoll ICR          CC1CF        LL_LPTIM_ClearFlag_CC1
   * @param  LPTIMx Low-Power Timer instance
   * @retval None
   */
-__STATIC_INLINE void LL_LPTIM_ClearFLAG_CC1(LPTIM_TypeDef *LPTIMx)
+__STATIC_INLINE void LL_LPTIM_ClearFlag_CC1(LPTIM_TypeDef *LPTIMx)
 {
   SET_BIT(LPTIMx->ICR, LPTIM_ICR_CC1CF);
 }
@@ -1586,18 +1600,18 @@ __STATIC_INLINE void LL_LPTIM_ClearFLAG_CC1(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_CC1(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_CC1(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->ISR, LPTIM_ISR_CC1IF) == LPTIM_ISR_CC1IF) ? 1UL : 0UL));
 }
 
 /**
   * @brief  Clear the compare match flag for channel 2 (CC2CF)
-  * @rmtoll ICR          CC2CF        LL_LPTIM_ClearFLAG_CC2
+  * @rmtoll ICR          CC2CF        LL_LPTIM_ClearFlag_CC2
   * @param  LPTIMx Low-Power Timer instance
   * @retval None
   */
-__STATIC_INLINE void LL_LPTIM_ClearFLAG_CC2(LPTIM_TypeDef *LPTIMx)
+__STATIC_INLINE void LL_LPTIM_ClearFlag_CC2(LPTIM_TypeDef *LPTIMx)
 {
   SET_BIT(LPTIMx->ICR, LPTIM_ICR_CC2CF);
 }
@@ -1608,18 +1622,18 @@ __STATIC_INLINE void LL_LPTIM_ClearFLAG_CC2(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_CC2(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_CC2(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->ISR, LPTIM_ISR_CC2IF) == LPTIM_ISR_CC2IF) ? 1UL : 0UL));
 }
 
 /**
   * @brief  Clear the Capture/Compare 1 over-capture flag for channel 1 (CC1OCF)
-  * @rmtoll ICR          CC1OCF       LL_LPTIM_ClearFLAG_CC1O
+  * @rmtoll ICR          CC1OCF       LL_LPTIM_ClearFlag_CC1O
   * @param  LPTIMx Low-Power Timer instance
   * @retval None
   */
-__STATIC_INLINE void LL_LPTIM_ClearFLAG_CC1O(LPTIM_TypeDef *LPTIMx)
+__STATIC_INLINE void LL_LPTIM_ClearFlag_CC1O(LPTIM_TypeDef *LPTIMx)
 {
   SET_BIT(LPTIMx->ICR, LPTIM_ICR_CC1OCF);
 }
@@ -1630,18 +1644,18 @@ __STATIC_INLINE void LL_LPTIM_ClearFLAG_CC1O(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_CC1O(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_CC1O(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->ISR, LPTIM_ISR_CC1OF) == LPTIM_ISR_CC1OF) ? 1UL : 0UL));
 }
 
 /**
   * @brief  Clear the Capture/Compare 2 over-capture flag for channel 2 (CC2OCF)
-  * @rmtoll ICR          CC2OCF       LL_LPTIM_ClearFLAG_CC2O
+  * @rmtoll ICR          CC2OCF       LL_LPTIM_ClearFlag_CC2O
   * @param  LPTIMx Low-Power Timer instance
   * @retval None
   */
-__STATIC_INLINE void LL_LPTIM_ClearFLAG_CC2O(LPTIM_TypeDef *LPTIMx)
+__STATIC_INLINE void LL_LPTIM_ClearFlag_CC2O(LPTIM_TypeDef *LPTIMx)
 {
   SET_BIT(LPTIMx->ICR, LPTIM_ICR_CC2OCF);
 }
@@ -1652,17 +1666,17 @@ __STATIC_INLINE void LL_LPTIM_ClearFLAG_CC2O(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_CC2O(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_CC2O(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->ISR, LPTIM_ISR_CC2OF) == LPTIM_ISR_CC2OF) ? 1UL : 0UL));
 }
 /**
   * @brief  Clear the autoreload match flag (ARRMCF)
-  * @rmtoll ICR          ARRMCF        LL_LPTIM_ClearFLAG_ARRM
+  * @rmtoll ICR          ARRMCF        LL_LPTIM_ClearFlag_ARRM
   * @param  LPTIMx Low-Power Timer instance
   * @retval None
   */
-__STATIC_INLINE void LL_LPTIM_ClearFLAG_ARRM(LPTIM_TypeDef *LPTIMx)
+__STATIC_INLINE void LL_LPTIM_ClearFlag_ARRM(LPTIM_TypeDef *LPTIMx)
 {
   SET_BIT(LPTIMx->ICR, LPTIM_ICR_ARRMCF);
 }
@@ -1673,7 +1687,7 @@ __STATIC_INLINE void LL_LPTIM_ClearFLAG_ARRM(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_ARRM(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_ARRM(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->ISR, LPTIM_ISR_ARRM) == LPTIM_ISR_ARRM) ? 1UL : 0UL));
 }
@@ -1695,7 +1709,7 @@ __STATIC_INLINE void LL_LPTIM_ClearFlag_EXTTRIG(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_EXTTRIG(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_EXTTRIG(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->ISR, LPTIM_ISR_EXTTRIG) == LPTIM_ISR_EXTTRIG) ? 1UL : 0UL));
 }
@@ -1718,7 +1732,7 @@ __STATIC_INLINE void LL_LPTIM_ClearFlag_CMP1OK(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_CMP1OK(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_CMP1OK(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->ISR, LPTIM_ISR_CMP1OK) == LPTIM_ISR_CMP1OK) ? 1UL : 0UL));
 }
@@ -1741,7 +1755,7 @@ __STATIC_INLINE void LL_LPTIM_ClearFlag_CMP2OK(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_CMP2OK(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_CMP2OK(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->ISR, LPTIM_ISR_CMP2OK) == LPTIM_ISR_CMP2OK) ? 1UL : 0UL));
 }
@@ -1764,7 +1778,7 @@ __STATIC_INLINE void LL_LPTIM_ClearFlag_DIEROK(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_DIEROK(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_DIEROK(const LPTIM_TypeDef *LPTIMx)
 {
   return ((READ_BIT(LPTIMx->ISR, LPTIM_ISR_DIEROK) == (LPTIM_ISR_DIEROK)) ? 1UL : 0UL);
 }
@@ -1787,7 +1801,7 @@ __STATIC_INLINE void LL_LPTIM_ClearFlag_ARROK(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_ARROK(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_ARROK(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->ISR, LPTIM_ISR_ARROK) == LPTIM_ISR_ARROK) ? 1UL : 0UL));
 }
@@ -1810,7 +1824,7 @@ __STATIC_INLINE void LL_LPTIM_ClearFlag_UP(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_UP(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_UP(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->ISR, LPTIM_ISR_UP) == LPTIM_ISR_UP) ? 1UL : 0UL));
 }
@@ -1833,7 +1847,7 @@ __STATIC_INLINE void LL_LPTIM_ClearFlag_DOWN(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_DOWN(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_DOWN(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->ISR, LPTIM_ISR_DOWN) == LPTIM_ISR_DOWN) ? 1UL : 0UL));
 }
@@ -1856,7 +1870,7 @@ __STATIC_INLINE void LL_LPTIM_ClearFlag_REPOK(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_REPOK(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_REPOK(const LPTIM_TypeDef *LPTIMx)
 {
   return ((READ_BIT(LPTIMx->ISR, LPTIM_ISR_REPOK) == (LPTIM_ISR_REPOK)) ? 1UL : 0UL);
 }
@@ -1878,7 +1892,7 @@ __STATIC_INLINE void LL_LPTIM_ClearFlag_UE(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_UE(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_UE(const LPTIM_TypeDef *LPTIMx)
 {
   return ((READ_BIT(LPTIMx->ISR, LPTIM_ISR_UE) == (LPTIM_ISR_UE)) ? 1UL : 0UL);
 }
@@ -1918,7 +1932,7 @@ __STATIC_INLINE void LL_LPTIM_DisableIT_CC1(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_CC1(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_CC1(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->DIER, LPTIM_DIER_CC1IE) == LPTIM_DIER_CC1IE) ? 1UL : 0UL));
 }
@@ -1951,7 +1965,7 @@ __STATIC_INLINE void LL_LPTIM_DisableIT_CC2(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_CC2(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_CC2(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->DIER, LPTIM_DIER_CC2IE) == LPTIM_DIER_CC2IE) ? 1UL : 0UL));
 }
@@ -1984,7 +1998,7 @@ __STATIC_INLINE void LL_LPTIM_DisableIT_CC1O(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_CC1O(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_CC1O(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->DIER, LPTIM_DIER_CC1OIE) == LPTIM_DIER_CC1OIE) ? 1UL : 0UL));
 }
@@ -2017,7 +2031,7 @@ __STATIC_INLINE void LL_LPTIM_DisableIT_CC2O(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_CC2O(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_CC2O(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->DIER, LPTIM_DIER_CC2OIE) == LPTIM_DIER_CC2OIE) ? 1UL : 0UL));
 }
@@ -2050,7 +2064,7 @@ __STATIC_INLINE void LL_LPTIM_DisableIT_ARRM(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_ARRM(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_ARRM(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->DIER, LPTIM_DIER_ARRMIE) == LPTIM_DIER_ARRMIE) ? 1UL : 0UL));
 }
@@ -2083,7 +2097,7 @@ __STATIC_INLINE void LL_LPTIM_DisableIT_EXTTRIG(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_EXTTRIG(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_EXTTRIG(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->DIER, LPTIM_DIER_EXTTRIGIE) == LPTIM_DIER_EXTTRIGIE) ? 1UL : 0UL));
 }
@@ -2116,7 +2130,7 @@ __STATIC_INLINE void LL_LPTIM_DisableIT_CMP1OK(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_CMP1OK(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_CMP1OK(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->DIER, LPTIM_DIER_CMP1OKIE) == LPTIM_DIER_CMP1OKIE) ? 1UL : 0UL));
 }
@@ -2149,7 +2163,7 @@ __STATIC_INLINE void LL_LPTIM_DisableIT_CMP2OK(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_CMP2OK(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_CMP2OK(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->DIER, LPTIM_DIER_CMP2OKIE) == LPTIM_DIER_CMP2OKIE) ? 1UL : 0UL));
 }
@@ -2182,7 +2196,7 @@ __STATIC_INLINE void LL_LPTIM_DisableIT_ARROK(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit(1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_ARROK(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_ARROK(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->DIER, LPTIM_DIER_ARROKIE) == LPTIM_DIER_ARROKIE) ? 1UL : 0UL));
 }
@@ -2215,7 +2229,7 @@ __STATIC_INLINE void LL_LPTIM_DisableIT_UP(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit(1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_UP(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_UP(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->DIER, LPTIM_DIER_UPIE) == LPTIM_DIER_UPIE) ? 1UL : 0UL));
 }
@@ -2248,7 +2262,7 @@ __STATIC_INLINE void LL_LPTIM_DisableIT_DOWN(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit(1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_DOWN(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_DOWN(const LPTIM_TypeDef *LPTIMx)
 {
   return ((READ_BIT(LPTIMx->DIER, LPTIM_DIER_DOWNIE) == LPTIM_DIER_DOWNIE) ? 1UL : 0UL);
 }
@@ -2281,7 +2295,7 @@ __STATIC_INLINE void LL_LPTIM_DisableIT_REPOK(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit(1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_REPOK(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_REPOK(const LPTIM_TypeDef *LPTIMx)
 {
   return ((READ_BIT(LPTIMx->DIER, LPTIM_DIER_REPOKIE) == (LPTIM_DIER_REPOKIE)) ? 1UL : 0UL);
 }
@@ -2314,7 +2328,7 @@ __STATIC_INLINE void LL_LPTIM_DisableIT_UE(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   *@ retval State of bit(1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_UE(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_UE(const LPTIM_TypeDef *LPTIMx)
 {
   return ((READ_BIT(LPTIMx->DIER, LPTIM_DIER_UEIE) == (LPTIM_DIER_UEIE)) ? 1UL : 0UL);
 }
@@ -2354,7 +2368,7 @@ __STATIC_INLINE void LL_LPTIM_DisableDMAReq_UPDATE(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledDMAReq_UPDATE(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledDMAReq_UPDATE(const LPTIM_TypeDef *LPTIMx)
 {
   return ((READ_BIT(LPTIMx->DIER, LPTIM_DIER_UEDE) == (LPTIM_DIER_UEDE)) ? 1UL : 0UL);
 }
@@ -2387,7 +2401,7 @@ __STATIC_INLINE void LL_LPTIM_DisableDMAReq_CC1(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledDMAReq_CC1(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledDMAReq_CC1(const LPTIM_TypeDef *LPTIMx)
 {
   return ((READ_BIT(LPTIMx->DIER, LPTIM_DIER_CC1DE) == (LPTIM_DIER_CC1DE)) ? 1UL : 0UL);
 }
@@ -2420,7 +2434,7 @@ __STATIC_INLINE void LL_LPTIM_DisableDMAReq_CC2(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledDMAReq_CC2(const LPTIM_TypeDef *const LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabledDMAReq_CC2(const LPTIM_TypeDef *LPTIMx)
 {
   return ((READ_BIT(LPTIMx->DIER, LPTIM_DIER_CC2DE) == (LPTIM_DIER_CC2DE)) ? 1UL : 0UL);
 }

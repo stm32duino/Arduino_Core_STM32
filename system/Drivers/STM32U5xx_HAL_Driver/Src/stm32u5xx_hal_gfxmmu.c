@@ -14,7 +14,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2021 STMicroelectronics.
+  * Copyright (c) 2022 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -61,6 +61,12 @@
     [..]
       (#) Use HAL_GFXMMU_ModifyCachePrefetch() to modify cache and pre-fetch
           parameters.
+
+    *** Modify  address cache  parameters ***
+    =========================================
+    [..]
+      NOTE : This feature is only available on STM32U5F9/STM32U5G9 devices.
+      (#) Use HAL_GFXMMU_ModifyAddressCache() to modify address cache parameters.
 
     *** Error management ***
     ========================
@@ -148,9 +154,16 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+/** @defgroup GFXMMU_Private_Constants GFXMMU Private Constants
+  * @{
+  */
 #define GFXMMU_LUTXL_FVB_OFFSET     8U
 #define GFXMMU_LUTXL_LVB_OFFSET     16U
 #define GFXMMU_CR_ITS_MASK          0x1FU
+/**
+  * @}
+  */
+
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
@@ -197,8 +210,13 @@ HAL_StatusTypeDef HAL_GFXMMU_Init(GFXMMU_HandleTypeDef *hgfxmmu)
     assert_param(IS_GFXMMU_BUFFER_ADDRESS(hgfxmmu->Init.Buffers.Buf1Address));
     assert_param(IS_GFXMMU_BUFFER_ADDRESS(hgfxmmu->Init.Buffers.Buf2Address));
     assert_param(IS_GFXMMU_BUFFER_ADDRESS(hgfxmmu->Init.Buffers.Buf3Address));
+#if defined(GFXMMU_CR_CE)
     assert_param(IS_FUNCTIONAL_STATE(hgfxmmu->Init.CachePrefetch.Activation));
+#endif /* GFXMMU_CR_CE */
     assert_param(IS_FUNCTIONAL_STATE(hgfxmmu->Init.Interrupts.Activation));
+#if defined (GFXMMU_CR_ACE)
+    assert_param(IS_FUNCTIONAL_STATE(hgfxmmu->Init.AddressCache.Activation));
+#endif /* GFXMMU_CR_ACE */
 
 #if (USE_HAL_GFXMMU_REGISTER_CALLBACKS == 1)
     /* Reset callback pointers to the weak predefined callbacks */
@@ -217,10 +235,18 @@ HAL_StatusTypeDef HAL_GFXMMU_Init(GFXMMU_HandleTypeDef *hgfxmmu)
 
     /* Configure blocks per line, cache and interrupts parameters on GFXMMU_CR register */
     hgfxmmu->Instance->CR &= ~(GFXMMU_CR_B0OIE | GFXMMU_CR_B1OIE | GFXMMU_CR_B2OIE | GFXMMU_CR_B3OIE |
-                               GFXMMU_CR_AMEIE | GFXMMU_CR_192BM | GFXMMU_CR_CE    | GFXMMU_CR_CL    |
-                               GFXMMU_CR_CLB   | GFXMMU_CR_FC    | GFXMMU_CR_PD    | GFXMMU_CR_OC    |
-                               GFXMMU_CR_OB);
+                               GFXMMU_CR_AMEIE | GFXMMU_CR_192BM);
+#if defined(GFXMMU_CR_CE)
+    hgfxmmu->Instance->CR &= ~(GFXMMU_CR_CE | GFXMMU_CR_CL | GFXMMU_CR_CLB | GFXMMU_CR_FC |
+                               GFXMMU_CR_PD | GFXMMU_CR_OC | GFXMMU_CR_OB);
+#endif /* GFXMMU_CR_CE */
+
+#if defined (GFXMMU_CR_ACE)
+    hgfxmmu->Instance->CR &= ~(GFXMMU_CR_ACE   | GFXMMU_CR_ACLB);
+#endif /* GFXMMU_CR_ACE */
+
     hgfxmmu->Instance->CR |= (hgfxmmu->Init.BlocksPerLine);
+#if defined(GFXMMU_CR_CE)
     if (hgfxmmu->Init.CachePrefetch.Activation == ENABLE)
     {
       assert_param(IS_GFXMMU_CACHE_LOCK(hgfxmmu->Init.CachePrefetch.CacheLock));
@@ -240,6 +266,7 @@ HAL_StatusTypeDef HAL_GFXMMU_Init(GFXMMU_HandleTypeDef *hgfxmmu)
                                   hgfxmmu->Init.CachePrefetch.CacheForce);
       }
     }
+#endif /* GFXMMU_CR_CE */
     if (hgfxmmu->Init.Interrupts.Activation == ENABLE)
     {
       assert_param(IS_GFXMMU_INTERRUPTS(hgfxmmu->Init.Interrupts.UsedInterrupts));
@@ -255,11 +282,21 @@ HAL_StatusTypeDef HAL_GFXMMU_Init(GFXMMU_HandleTypeDef *hgfxmmu)
     hgfxmmu->Instance->B2CR = hgfxmmu->Init.Buffers.Buf2Address;
     hgfxmmu->Instance->B3CR = hgfxmmu->Init.Buffers.Buf3Address;
 
+#if defined(GFXMMU_CR_CE)
     /* Force invalidate cache if cache is enabled */
     if (hgfxmmu->Init.CachePrefetch.Activation == ENABLE)
     {
       hgfxmmu->Instance->CCR |= GFXMMU_CACHE_FORCE_INVALIDATE;
     }
+#endif /* GFXMMU_CR_CE */
+#if defined (GFXMMU_CR_ACE)
+    if (hgfxmmu->Init.AddressCache.Activation == ENABLE)
+    {
+      assert_param(IS_GFXMMU_ADDRESSCACHE_LOCK_BUFFER(hgfxmmu->Init.AddressCache.AddressCacheLockBuffer));
+      hgfxmmu->Instance->CR |= GFXMMU_CR_ACE |
+                               hgfxmmu->Init.AddressCache.AddressCacheLockBuffer;
+    }
+#endif /* GFXMMU_CR_ACE */
 
     /* Reset GFXMMU error code */
     hgfxmmu->ErrorCode = GFXMMU_ERROR_NONE;
@@ -665,12 +702,14 @@ HAL_StatusTypeDef HAL_GFXMMU_ConfigLutLine(GFXMMU_HandleTypeDef *hgfxmmu, GFXMMU
   return status;
 }
 
+#if defined(GFXMMU_CR_CE)
 /**
   * @brief  This function allows to force flush and/or invalidate of cache.
   * @param  hgfxmmu GFXMMU handle.
   * @param  ForceParam Force cache parameter.
   *         This parameter can be a values combination of @ref GFXMMU_CacheForceParam.
   * @retval HAL status.
+  * @note This function is only available on STM32U599/STM32U5A9 devices.
   */
 HAL_StatusTypeDef HAL_GFXMMU_ConfigForceCache(GFXMMU_HandleTypeDef *hgfxmmu, uint32_t ForceParam)
 {
@@ -693,12 +732,14 @@ HAL_StatusTypeDef HAL_GFXMMU_ConfigForceCache(GFXMMU_HandleTypeDef *hgfxmmu, uin
   /* Return function status */
   return status;
 }
+#endif /* GFXMMU_CR_CE */
 
 /**
   * @brief  This function allows to modify physical buffer addresses.
   * @param  hgfxmmu GFXMMU handle.
   * @param  Buffers Buffers parameters.
   * @retval HAL status.
+  * @note This function is only available on STM32U599/STM32U5A9 devices.
   */
 HAL_StatusTypeDef HAL_GFXMMU_ModifyBuffers(GFXMMU_HandleTypeDef *hgfxmmu, GFXMMU_BuffersTypeDef *Buffers)
 {
@@ -728,11 +769,13 @@ HAL_StatusTypeDef HAL_GFXMMU_ModifyBuffers(GFXMMU_HandleTypeDef *hgfxmmu, GFXMMU
   return status;
 }
 
+#if defined(GFXMMU_CR_CE)
 /**
   * @brief  This function allows to modify cache and pre-fetch parameters.
   * @param  hgfxmmu GFXMMU handle.
   * @param  CachePrefetch Cache and pre-fetch parameters.
   * @retval HAL status.
+  * @note This function is only available on STM32U599/STM32U5A9 devices.
   */
 HAL_StatusTypeDef HAL_GFXMMU_ModifyCachePrefetch(GFXMMU_HandleTypeDef *hgfxmmu,
                                                  GFXMMU_CachePrefetchTypeDef *CachePrefetch)
@@ -776,6 +819,43 @@ HAL_StatusTypeDef HAL_GFXMMU_ModifyCachePrefetch(GFXMMU_HandleTypeDef *hgfxmmu,
   /* Return function status */
   return status;
 }
+#endif  /* GFXMMU_CR_CE */
+
+#if defined (GFXMMU_CR_ACE)
+/**
+  * @brief  This function allows to modify address cache parameters.
+  * @param  hgfxmmu GFXMMU handle.
+  * @param  address cache parameters.
+  * @retval HAL status.
+  * @note This function is only available on STM32U5F9/STM32U5G9 devices.
+  */
+HAL_StatusTypeDef HAL_GFXMMU_ModifyAddressCache(GFXMMU_HandleTypeDef *hgfxmmu,
+                                                GFXMMU_AddressCacheTypeDef *AddressCache)
+{
+  HAL_StatusTypeDef status = HAL_OK;
+  assert_param(IS_FUNCTIONAL_STATE(AddressCache->Activation));
+  /* Check parameters */
+  assert_param(IS_GFXMMU_ALL_INSTANCE(hgfxmmu->Instance));
+  /* Check GFXMMU state */
+  if (hgfxmmu->State != HAL_GFXMMU_STATE_READY)
+  {
+    status = HAL_ERROR;
+  }
+  else
+  {
+    /* Modify Address cache parameters on GFXMMU_CR register */
+    hgfxmmu->Instance->CR &= ~(GFXMMU_CR_ACE | GFXMMU_CR_ACLB);
+    if (AddressCache->Activation == ENABLE)
+    {
+      assert_param(IS_GFXMMU_ADDRESSCACHE_LOCK_BUFFER(AddressCache->AddressCacheLockBuffer));
+      hgfxmmu->Instance->CR |= (GFXMMU_CR_ACE |
+                                AddressCache->AddressCacheLockBuffer);
+    }
+  }
+  /* Return function status */
+  return status;
+}
+#endif /* GFXMMU_CR_ACE */
 
 /**
   * @brief  This function handles the GFXMMU interrupts.

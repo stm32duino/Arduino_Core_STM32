@@ -132,9 +132,15 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
+/** @addtogroup SRAM_Private_Functions SRAM Private Functions
+  * @{
+  */
 static void SRAM_DMACplt(DMA_HandleTypeDef *hdma);
 static void SRAM_DMACpltProt(DMA_HandleTypeDef *hdma);
 static void SRAM_DMAError(DMA_HandleTypeDef *hdma);
+/**
+  * @}
+  */
 
 /* Exported functions --------------------------------------------------------*/
 
@@ -1141,7 +1147,7 @@ HAL_StatusTypeDef HAL_SRAM_WriteOperation_Disable(SRAM_HandleTypeDef *hsram)
   *                the configuration information for SRAM module.
   * @retval HAL state
   */
-HAL_SRAM_StateTypeDef HAL_SRAM_GetState(SRAM_HandleTypeDef *hsram)
+HAL_SRAM_StateTypeDef HAL_SRAM_GetState(const SRAM_HandleTypeDef *hsram)
 {
   return hsram->State;
 }
@@ -1152,6 +1158,10 @@ HAL_SRAM_StateTypeDef HAL_SRAM_GetState(SRAM_HandleTypeDef *hsram)
 
 /**
   * @}
+  */
+
+/** @addtogroup SRAM_Private_Functions SRAM Private Functions
+  * @{
   */
 
 /**
@@ -1219,6 +1229,10 @@ static void SRAM_DMAError(DMA_HandleTypeDef *hdma)
   HAL_SRAM_DMA_XferErrorCallback(hdma);
 #endif /* USE_HAL_SRAM_REGISTER_CALLBACKS */
 }
+
+/**
+  * @}
+  */
 
 /**
   * @}

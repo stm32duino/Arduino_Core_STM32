@@ -287,13 +287,16 @@
   */
 
 /* Private variables ---------------------------------------------------------*/
+static uint32_t   primeordersize;
+static uint32_t   opsize;
+static uint32_t   modulussize;
 /* Private function prototypes -----------------------------------------------*/
 /** @defgroup PKA_Private_Functions PKA Private Functions
   * @{
   */
-uint32_t PKA_GetMode(PKA_HandleTypeDef *hpka);
-HAL_StatusTypeDef PKA_PollEndOfOperation(PKA_HandleTypeDef *hpka, uint32_t Timeout, uint32_t Tickstart);
-uint32_t PKA_CheckError(PKA_HandleTypeDef *hpka, uint32_t mode);
+uint32_t PKA_GetMode(const PKA_HandleTypeDef *hpka);
+HAL_StatusTypeDef PKA_PollEndOfOperation(const PKA_HandleTypeDef *hpka, uint32_t Timeout, uint32_t Tickstart);
+uint32_t PKA_CheckError(const PKA_HandleTypeDef *hpka, uint32_t mode);
 uint32_t PKA_GetBitSize_u8(uint32_t byteNumber);
 uint32_t PKA_GetOptBitSize_u8(uint32_t byteNumber, uint8_t msb);
 uint32_t PKA_GetBitSize_u32(uint32_t wordNumber);
@@ -321,7 +324,7 @@ void PKA_ECCProjective2Affine_Set(PKA_HandleTypeDef *hpka, PKA_ECCProjective2Aff
 void PKA_ECCCompleteAddition_Set(PKA_HandleTypeDef *hpka, PKA_ECCCompleteAdditionInTypeDef *in);
 HAL_StatusTypeDef PKA_WaitOnFlagUntilTimeout(PKA_HandleTypeDef *hpka, uint32_t Flag, FlagStatus Status,
                                              uint32_t Tickstart, uint32_t Timeout);
-uint32_t PKA_Result_GetSize(PKA_HandleTypeDef *hpka, uint32_t Startindex, uint32_t Maxsize);
+uint32_t PKA_Result_GetSize(const PKA_HandleTypeDef *hpka, uint32_t Startindex, uint32_t Maxsize);
 /**
   * @}
   */
@@ -806,6 +809,8 @@ HAL_StatusTypeDef HAL_PKA_ModExp(PKA_HandleTypeDef *hpka, PKA_ModExpInTypeDef *i
   /* Set input parameter in PKA RAM */
   PKA_ModExp_Set(hpka, in);
 
+  opsize = in->OpSize;
+
   /* Start the operation */
   return PKA_Process(hpka, PKA_MODE_MODULAR_EXP, Timeout);
 }
@@ -820,6 +825,8 @@ HAL_StatusTypeDef HAL_PKA_ModExp_IT(PKA_HandleTypeDef *hpka, PKA_ModExpInTypeDef
 {
   /* Set input parameter in PKA RAM */
   PKA_ModExp_Set(hpka, in);
+
+  opsize = in->OpSize;
 
   /* Start the operation */
   return PKA_Process_IT(hpka, PKA_MODE_MODULAR_EXP);
@@ -837,6 +844,8 @@ HAL_StatusTypeDef HAL_PKA_ModExpFastMode(PKA_HandleTypeDef *hpka, PKA_ModExpFast
   /* Set input parameter in PKA RAM */
   PKA_ModExpFastMode_Set(hpka, in);
 
+  opsize = in->OpSize;
+
   /* Start the operation */
   return PKA_Process(hpka, PKA_MODE_MODULAR_EXP_FAST_MODE, Timeout);
 }
@@ -851,6 +860,8 @@ HAL_StatusTypeDef HAL_PKA_ModExpFastMode_IT(PKA_HandleTypeDef *hpka, PKA_ModExpF
 {
   /* Set input parameter in PKA RAM */
   PKA_ModExpFastMode_Set(hpka, in);
+
+  opsize = in->OpSize;
 
   /* Start the operation */
   return PKA_Process_IT(hpka, PKA_MODE_MODULAR_EXP_FAST_MODE);
@@ -870,6 +881,8 @@ HAL_StatusTypeDef HAL_PKA_ModExpProtectMode(PKA_HandleTypeDef *hpka, PKA_ModExpP
   /* Set input parameter in PKA RAM */
   PKA_ModExpProtectMode_Set(hpka, in);
 
+  opsize = in->OpSize;
+
   return PKA_Process(hpka, PKA_MODE_MODULAR_EXP_PROTECT, Timeout);
 }
 
@@ -885,6 +898,8 @@ HAL_StatusTypeDef HAL_PKA_ModExpProtectMode_IT(PKA_HandleTypeDef *hpka, PKA_ModE
   /* Set input parameter in PKA RAM */
   PKA_ModExpProtectMode_Set(hpka, in);
 
+  opsize = in->OpSize;
+
   return PKA_Process_IT(hpka, PKA_MODE_MODULAR_EXP_PROTECT);
 }
 
@@ -899,7 +914,7 @@ void HAL_PKA_ModExp_GetResult(PKA_HandleTypeDef *hpka, uint8_t *pRes)
   uint32_t size;
 
   /* Get output result size */
-  size = PKA_Result_GetSize(hpka, PKA_MODULAR_EXP_OUT_RESULT, 130UL);
+  size = opsize;
 
   /* Move the result to appropriate location (indicated in out parameter) */
   PKA_Memcpy_u32_to_u8(pRes, &hpka->Instance->RAM[PKA_MODULAR_EXP_OUT_RESULT], size);
@@ -917,6 +932,8 @@ HAL_StatusTypeDef HAL_PKA_ECDSASign(PKA_HandleTypeDef *hpka, PKA_ECDSASignInType
   /* Set input parameter in PKA RAM */
   PKA_ECDSASign_Set(hpka, in);
 
+  primeordersize = in->primeOrderSize;
+
   /* Start the operation */
   return PKA_Process(hpka, PKA_MODE_ECDSA_SIGNATURE, Timeout);
 }
@@ -931,6 +948,8 @@ HAL_StatusTypeDef HAL_PKA_ECDSASign_IT(PKA_HandleTypeDef *hpka, PKA_ECDSASignInT
 {
   /* Set input parameter in PKA RAM */
   PKA_ECDSASign_Set(hpka, in);
+
+  primeordersize = in->primeOrderSize;
 
   /* Start the operation */
   return PKA_Process_IT(hpka, PKA_MODE_ECDSA_SIGNATURE);
@@ -948,7 +967,8 @@ void HAL_PKA_ECDSASign_GetResult(PKA_HandleTypeDef *hpka, PKA_ECDSASignOutTypeDe
   uint32_t size;
 
   /* Get output result size */
-  size = PKA_Result_GetSize(hpka, PKA_ECDSA_SIGN_OUT_SIGNATURE_R, 20UL);
+  size = primeordersize;
+
 
   if (out != NULL)
   {
@@ -1109,6 +1129,8 @@ HAL_StatusTypeDef HAL_PKA_ECCMul(PKA_HandleTypeDef *hpka, PKA_ECCMulInTypeDef *i
   /* Set input parameter in PKA RAM */
   PKA_ECCMul_Set(hpka, in);
 
+  modulussize = in->modulusSize;
+
   /* Start the operation */
   return PKA_Process(hpka, PKA_MODE_ECC_MUL, Timeout);
 }
@@ -1124,6 +1146,8 @@ HAL_StatusTypeDef HAL_PKA_ECCMul_IT(PKA_HandleTypeDef *hpka, PKA_ECCMulInTypeDef
   /* Set input parameter in PKA RAM */
   PKA_ECCMul_Set(hpka, in);
 
+  modulussize = in->modulusSize;
+
   /* Start the operation */
   return PKA_Process_IT(hpka, PKA_MODE_ECC_MUL);
 }
@@ -1138,7 +1162,7 @@ void HAL_PKA_ECCMul_GetResult(PKA_HandleTypeDef *hpka, PKA_ECCMulOutTypeDef *out
   uint32_t size;
 
   /* Get output result size */
-  size = PKA_Result_GetSize(hpka, PKA_ECC_SCALAR_MUL_OUT_RESULT_X, 20UL);
+  size = modulussize;
 
   /* If a destination buffer is provided */
   if (out != NULL)
@@ -1837,7 +1861,7 @@ __weak void HAL_PKA_ErrorCallback(PKA_HandleTypeDef *hpka)
   * @param  hpka PKA handle
   * @retval HAL status
   */
-HAL_PKA_StateTypeDef HAL_PKA_GetState(PKA_HandleTypeDef *hpka)
+HAL_PKA_StateTypeDef HAL_PKA_GetState(const PKA_HandleTypeDef *hpka)
 {
   /* Return PKA handle state */
   return hpka->State;
@@ -1848,7 +1872,7 @@ HAL_PKA_StateTypeDef HAL_PKA_GetState(PKA_HandleTypeDef *hpka)
   * @param  hpka PKA handle
   * @retval PKA error code
   */
-uint32_t HAL_PKA_GetError(PKA_HandleTypeDef *hpka)
+uint32_t HAL_PKA_GetError(const PKA_HandleTypeDef *hpka)
 {
   /* Return PKA handle error code */
   return hpka->ErrorCode;
@@ -1871,7 +1895,7 @@ uint32_t HAL_PKA_GetError(PKA_HandleTypeDef *hpka)
   * @param  hpka PKA handle
   * @retval Return the current mode
   */
-uint32_t PKA_GetMode(PKA_HandleTypeDef *hpka)
+uint32_t PKA_GetMode(const PKA_HandleTypeDef *hpka)
 {
   /* return the shifted PKA_CR_MODE value */
   return (uint32_t)(READ_BIT(hpka->Instance->CR, PKA_CR_MODE) >> PKA_CR_MODE_Pos);
@@ -1884,7 +1908,7 @@ uint32_t PKA_GetMode(PKA_HandleTypeDef *hpka)
   * @param  Tickstart Tick start value
   * @retval HAL status
   */
-HAL_StatusTypeDef PKA_PollEndOfOperation(PKA_HandleTypeDef *hpka, uint32_t Timeout, uint32_t Tickstart)
+HAL_StatusTypeDef PKA_PollEndOfOperation(const PKA_HandleTypeDef *hpka, uint32_t Timeout, uint32_t Tickstart)
 {
   /* Wait for the end of operation or timeout */
   while ((hpka->Instance->SR & PKA_SR_PROCENDF) == 0UL)
@@ -1907,7 +1931,7 @@ HAL_StatusTypeDef PKA_PollEndOfOperation(PKA_HandleTypeDef *hpka, uint32_t Timeo
   * @param  mode PKA operating mode
   * @retval error code
   */
-uint32_t PKA_CheckError(PKA_HandleTypeDef *hpka, uint32_t mode)
+uint32_t PKA_CheckError(const PKA_HandleTypeDef *hpka, uint32_t mode)
 {
   uint32_t err = HAL_PKA_ERROR_NONE;
 
@@ -2339,6 +2363,8 @@ void PKA_ModExpProtectMode_Set(PKA_HandleTypeDef *hpka, PKA_ModExpProtectModeInT
   * @brief  Set input parameters.
   * @param  hpka PKA handle
   * @param  in Input information
+  * @note   If the modulus size is bigger than the hash size (with a curve SECP521R1 when using a SHA256 hash
+  *         for example)the hash value should be written at the end of the buffer with zeros padding at beginning.
   */
 void PKA_ECDSASign_Set(PKA_HandleTypeDef *hpka, PKA_ECDSASignInTypeDef *in)
 {
@@ -2543,7 +2569,7 @@ void PKA_ECCMul_Set(PKA_HandleTypeDef *hpka, PKA_ECCMulInTypeDef *in)
 
   /* Move the input parameters coefficient b to PKA RAM */
   PKA_Memcpy_u8_to_u32(&hpka->Instance->RAM[PKA_ECC_SCALAR_MUL_IN_B_COEFF], in->coefB, in->modulusSize);
-  __PKA_RAM_PARAM_END(hpka->Instance->RAM, PKA_ECC_SCALAR_MUL_IN_B_COEFF + (in->modulusSize / 4UL));
+  __PKA_RAM_PARAM_END(hpka->Instance->RAM, PKA_ECC_SCALAR_MUL_IN_B_COEFF + ((in->modulusSize + 3UL) / 4UL));
 
   /* Move the input parameters modulus value p to PKA RAM */
   PKA_Memcpy_u8_to_u32(&hpka->Instance->RAM[PKA_ECC_SCALAR_MUL_IN_MOD_GF], in->modulus, in->modulusSize);
@@ -2563,7 +2589,7 @@ void PKA_ECCMul_Set(PKA_HandleTypeDef *hpka, PKA_ECCMulInTypeDef *in)
 
   /* Move the input parameters curve prime order N to PKA RAM */
   PKA_Memcpy_u8_to_u32(&hpka->Instance->RAM[PKA_ECC_SCALAR_MUL_IN_N_PRIME_ORDER], in->primeOrder, in->modulusSize);
-  __PKA_RAM_PARAM_END(hpka->Instance->RAM, PKA_ECC_SCALAR_MUL_IN_N_PRIME_ORDER + (in->modulusSize / 4UL));
+  __PKA_RAM_PARAM_END(hpka->Instance->RAM, PKA_ECC_SCALAR_MUL_IN_N_PRIME_ORDER + ((in->modulusSize + 3UL) / 4UL));
 }
 
 
@@ -2605,7 +2631,7 @@ void PKA_ModRed_Set(PKA_HandleTypeDef *hpka, PKA_ModRedInTypeDef *in)
 
   /* Move the input parameters modulus value n to PKA RAM */
   PKA_Memcpy_u8_to_u32(&hpka->Instance->RAM[PKA_MODULAR_REDUC_IN_MODULUS], in->pMod, in->modSize);
-  __PKA_RAM_PARAM_END(hpka->Instance->RAM, PKA_MODULAR_REDUC_IN_MODULUS + (in->modSize / 4UL));
+  __PKA_RAM_PARAM_END(hpka->Instance->RAM, PKA_MODULAR_REDUC_IN_MODULUS + ((in->modSize + 3UL) / 4UL));
 }
 
 /**
@@ -2906,7 +2932,7 @@ HAL_StatusTypeDef PKA_WaitOnFlagUntilTimeout(PKA_HandleTypeDef *hpka, uint32_t F
   * @param  Maxsize        Specifies the possible max size of the result in words
   * @retval size
   */
-uint32_t PKA_Result_GetSize(PKA_HandleTypeDef *hpka, uint32_t Startindex, uint32_t Maxsize)
+uint32_t PKA_Result_GetSize(const PKA_HandleTypeDef *hpka, uint32_t Startindex, uint32_t Maxsize)
 {
   uint32_t size;
   uint32_t current_index = Maxsize - 1UL;

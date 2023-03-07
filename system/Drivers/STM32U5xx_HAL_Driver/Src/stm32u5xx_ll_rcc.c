@@ -46,9 +46,12 @@
                                                || ((__VALUE__) == LL_RCC_USART2_CLKSOURCE) \
                                                || ((__VALUE__) == LL_RCC_USART3_CLKSOURCE)\
                                                || ((__VALUE__) == LL_RCC_USART6_CLKSOURCE))
-#else
+#elif defined(USART2)
 #define IS_LL_RCC_USART_CLKSOURCE(__VALUE__)  (((__VALUE__) == LL_RCC_USART1_CLKSOURCE) \
                                                || ((__VALUE__) == LL_RCC_USART2_CLKSOURCE) \
+                                               || ((__VALUE__) == LL_RCC_USART3_CLKSOURCE))
+#else
+#define IS_LL_RCC_USART_CLKSOURCE(__VALUE__)  (((__VALUE__) == LL_RCC_USART1_CLKSOURCE) \
                                                || ((__VALUE__) == LL_RCC_USART3_CLKSOURCE))
 #endif /* defined(USART6) */
 
@@ -78,9 +81,12 @@
 #define IS_LL_RCC_LPTIM_CLKSOURCE(__VALUE__)  (((__VALUE__) == LL_RCC_LPTIM1_CLKSOURCE) \
                                                || ((__VALUE__) == LL_RCC_LPTIM2_CLKSOURCE) \
                                                || ((__VALUE__) == LL_RCC_LPTIM34_CLKSOURCE))
-
+#if defined(SAI2)
 #define IS_LL_RCC_SAI_CLKSOURCE(__VALUE__)    (((__VALUE__) == LL_RCC_SAI1_CLKSOURCE) \
                                                || ((__VALUE__) == LL_RCC_SAI2_CLKSOURCE))
+#else
+#define IS_LL_RCC_SAI_CLKSOURCE(__VALUE__)    (((__VALUE__) == LL_RCC_SAI1_CLKSOURCE))
+#endif /* SAI2 */
 
 #define IS_LL_RCC_SDMMC_KERNELCLKSOURCE(__VALUE__)  (((__VALUE__) == LL_RCC_SDMMC_KERNELCLKSOURCE))
 
@@ -346,6 +352,7 @@ uint32_t LL_RCC_GetUSARTClockFreq(uint32_t USARTxSource)
         break;
     }
   }
+#if defined (USART2)
   else if (USARTxSource == LL_RCC_USART2_CLKSOURCE)
   {
     /* USART2CLK clock frequency */
@@ -378,6 +385,7 @@ uint32_t LL_RCC_GetUSARTClockFreq(uint32_t USARTxSource)
         break;
     }
   }
+#endif /* USART2 */
   else if (USARTxSource == LL_RCC_USART3_CLKSOURCE)
   {
     /* USART3CLK clock frequency */
@@ -1138,6 +1146,7 @@ uint32_t LL_RCC_GetSAIClockFreq(uint32_t SAIxSource)
         break;
     }
   }
+#if defined(SAI2)
   else if (SAIxSource == LL_RCC_SAI2_CLKSOURCE)
   {
     /* SAI2CLK clock frequency */
@@ -1182,6 +1191,7 @@ uint32_t LL_RCC_GetSAIClockFreq(uint32_t SAIxSource)
         break;
     }
   }
+#endif /* SAI2 */
   else
   {
     /* nothing to do */

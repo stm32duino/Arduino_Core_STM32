@@ -244,8 +244,11 @@ static HAL_StatusTypeDef IRDA_SetConfig(IRDA_HandleTypeDef *hirda);
 static HAL_StatusTypeDef IRDA_CheckIdleState(IRDA_HandleTypeDef *hirda);
 static HAL_StatusTypeDef IRDA_WaitOnFlagUntilTimeout(IRDA_HandleTypeDef *hirda, uint32_t Flag, FlagStatus Status,
                                                      uint32_t Tickstart, uint32_t Timeout);
+#if defined(HAL_DMA_MODULE_ENABLED)
 static void IRDA_EndTxTransfer(IRDA_HandleTypeDef *hirda);
+#endif /* HAL_DMA_MODULE_ENABLED */
 static void IRDA_EndRxTransfer(IRDA_HandleTypeDef *hirda);
+#if defined(HAL_DMA_MODULE_ENABLED)
 static void IRDA_DMATransmitCplt(DMA_HandleTypeDef *hdma);
 static void IRDA_DMATransmitHalfCplt(DMA_HandleTypeDef *hdma);
 static void IRDA_DMAReceiveCplt(DMA_HandleTypeDef *hdma);
@@ -256,6 +259,7 @@ static void IRDA_DMATxAbortCallback(DMA_HandleTypeDef *hdma);
 static void IRDA_DMARxAbortCallback(DMA_HandleTypeDef *hdma);
 static void IRDA_DMATxOnlyAbortCallback(DMA_HandleTypeDef *hdma);
 static void IRDA_DMARxOnlyAbortCallback(DMA_HandleTypeDef *hdma);
+#endif /* HAL_DMA_MODULE_ENABLED */
 static void IRDA_Transmit_IT(IRDA_HandleTypeDef *hirda);
 static void IRDA_EndTransmit_IT(IRDA_HandleTypeDef *hirda);
 static void IRDA_Receive_IT(IRDA_HandleTypeDef *hirda);
@@ -463,6 +467,8 @@ __weak void HAL_IRDA_MspDeInit(IRDA_HandleTypeDef *hirda)
 /**
   * @brief  Register a User IRDA Callback
   *         To be used instead of the weak predefined callback
+  * @note   The HAL_IRDA_RegisterCallback() may be called before HAL_IRDA_Init() in HAL_IRDA_STATE_RESET
+  *         to register callbacks for HAL_IRDA_MSPINIT_CB_ID and HAL_IRDA_MSPDEINIT_CB_ID
   * @param  hirda irda handle
   * @param  CallbackID ID of the callback to be registered
   *         This parameter can be one of the following values:
@@ -491,8 +497,6 @@ HAL_StatusTypeDef HAL_IRDA_RegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRDA_
 
     return HAL_ERROR;
   }
-  /* Process locked */
-  __HAL_LOCK(hirda);
 
   if (hirda->gState == HAL_IRDA_STATE_READY)
   {
@@ -577,15 +581,14 @@ HAL_StatusTypeDef HAL_IRDA_RegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRDA_
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hirda);
-
   return status;
 }
 
 /**
   * @brief  Unregister an IRDA callback
   *         IRDA callback is redirected to the weak predefined callback
+  * @note   The HAL_IRDA_UnRegisterCallback() may be called before HAL_IRDA_Init() in HAL_IRDA_STATE_RESET
+  *         to un-register callbacks for HAL_IRDA_MSPINIT_CB_ID and HAL_IRDA_MSPDEINIT_CB_ID
   * @param  hirda irda handle
   * @param  CallbackID ID of the callback to be unregistered
   *         This parameter can be one of the following values:
@@ -604,9 +607,6 @@ HAL_StatusTypeDef HAL_IRDA_RegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRDA_
 HAL_StatusTypeDef HAL_IRDA_UnRegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRDA_CallbackIDTypeDef CallbackID)
 {
   HAL_StatusTypeDef status = HAL_OK;
-
-  /* Process locked */
-  __HAL_LOCK(hirda);
 
   if (HAL_IRDA_STATE_READY == hirda->gState)
   {
@@ -692,9 +692,6 @@ HAL_StatusTypeDef HAL_IRDA_UnRegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRD
     /* Return error status */
     status =  HAL_ERROR;
   }
-
-  /* Release Lock */
-  __HAL_UNLOCK(hirda);
 
   return status;
 }
@@ -1074,6 +1071,7 @@ HAL_StatusTypeDef HAL_IRDA_Receive_IT(IRDA_HandleTypeDef *hirda, uint8_t *pData,
   }
 }
 
+#if defined(HAL_DMA_MODULE_ENABLED)
 /**
   * @brief Send an amount of data in DMA mode.
   * @note  When UART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
@@ -1462,6 +1460,7 @@ HAL_StatusTypeDef HAL_IRDA_DMAStop(IRDA_HandleTypeDef *hirda)
 
   return HAL_OK;
 }
+#endif /* HAL_DMA_MODULE_ENABLED */
 
 /**
   * @brief  Abort ongoing transfers (blocking mode).
@@ -1483,6 +1482,7 @@ HAL_StatusTypeDef HAL_IRDA_Abort(IRDA_HandleTypeDef *hirda)
                                    USART_CR1_TXEIE_TXFNFIE | USART_CR1_TCIE));
   CLEAR_BIT(hirda->Instance->CR3, USART_CR3_EIE);
 
+#if defined(HAL_DMA_MODULE_ENABLED)
   /* Disable the IRDA DMA Tx request if enabled */
   if (HAL_IS_BIT_SET(hirda->Instance->CR3, USART_CR3_DMAT))
   {
@@ -1532,6 +1532,7 @@ HAL_StatusTypeDef HAL_IRDA_Abort(IRDA_HandleTypeDef *hirda)
       }
     }
   }
+#endif /* HAL_DMA_MODULE_ENABLED */
 
   /* Reset Tx and Rx transfer counters */
   hirda->TxXferCount = 0U;
@@ -1568,6 +1569,7 @@ HAL_StatusTypeDef HAL_IRDA_AbortTransmit(IRDA_HandleTypeDef *hirda)
   /* Disable TXEIE and TCIE interrupts */
   CLEAR_BIT(hirda->Instance->CR1, (USART_CR1_TXEIE_TXFNFIE | USART_CR1_TCIE));
 
+#if defined(HAL_DMA_MODULE_ENABLED)
   /* Disable the IRDA DMA Tx request if enabled */
   if (HAL_IS_BIT_SET(hirda->Instance->CR3, USART_CR3_DMAT))
   {
@@ -1592,6 +1594,7 @@ HAL_StatusTypeDef HAL_IRDA_AbortTransmit(IRDA_HandleTypeDef *hirda)
       }
     }
   }
+#endif /* HAL_DMA_MODULE_ENABLED */
 
   /* Reset Tx transfer counter */
   hirda->TxXferCount = 0U;
@@ -1621,6 +1624,7 @@ HAL_StatusTypeDef HAL_IRDA_AbortReceive(IRDA_HandleTypeDef *hirda)
   CLEAR_BIT(hirda->Instance->CR1, (USART_CR1_RXNEIE_RXFNEIE | USART_CR1_PEIE));
   CLEAR_BIT(hirda->Instance->CR3, USART_CR3_EIE);
 
+#if defined(HAL_DMA_MODULE_ENABLED)
   /* Disable the IRDA DMA Rx request if enabled */
   if (HAL_IS_BIT_SET(hirda->Instance->CR3, USART_CR3_DMAR))
   {
@@ -1645,6 +1649,7 @@ HAL_StatusTypeDef HAL_IRDA_AbortReceive(IRDA_HandleTypeDef *hirda)
       }
     }
   }
+#endif /* HAL_DMA_MODULE_ENABLED */
 
   /* Reset Rx transfer counter */
   hirda->RxXferCount = 0U;
@@ -1682,6 +1687,7 @@ HAL_StatusTypeDef HAL_IRDA_Abort_IT(IRDA_HandleTypeDef *hirda)
                                    USART_CR1_TXEIE_TXFNFIE | USART_CR1_TCIE));
   CLEAR_BIT(hirda->Instance->CR3, USART_CR3_EIE);
 
+#if defined(HAL_DMA_MODULE_ENABLED)
   /* If DMA Tx and/or DMA Rx Handles are associated to IRDA Handle, DMA Abort complete callbacks should be initialised
      before any call to DMA Abort functions */
   /* DMA Tx Handle is valid */
@@ -1760,6 +1766,7 @@ HAL_StatusTypeDef HAL_IRDA_Abort_IT(IRDA_HandleTypeDef *hirda)
       }
     }
   }
+#endif /* HAL_DMA_MODULE_ENABLED */
 
   /* if no DMA abort complete callback execution is required => call user Abort Complete callback */
   if (abortcplt == 1U)
@@ -1811,6 +1818,7 @@ HAL_StatusTypeDef HAL_IRDA_AbortTransmit_IT(IRDA_HandleTypeDef *hirda)
   /* Disable TXEIE and TCIE interrupts */
   CLEAR_BIT(hirda->Instance->CR1, (USART_CR1_TXEIE_TXFNFIE | USART_CR1_TCIE));
 
+#if defined(HAL_DMA_MODULE_ENABLED)
   /* Disable the IRDA DMA Tx request if enabled */
   if (HAL_IS_BIT_SET(hirda->Instance->CR3, USART_CR3_DMAT))
   {
@@ -1849,6 +1857,7 @@ HAL_StatusTypeDef HAL_IRDA_AbortTransmit_IT(IRDA_HandleTypeDef *hirda)
     }
   }
   else
+#endif /* HAL_DMA_MODULE_ENABLED */
   {
     /* Reset Tx transfer counter */
     hirda->TxXferCount = 0U;
@@ -1890,6 +1899,7 @@ HAL_StatusTypeDef HAL_IRDA_AbortReceive_IT(IRDA_HandleTypeDef *hirda)
   CLEAR_BIT(hirda->Instance->CR1, (USART_CR1_RXNEIE_RXFNEIE | USART_CR1_PEIE));
   CLEAR_BIT(hirda->Instance->CR3, USART_CR3_EIE);
 
+#if defined(HAL_DMA_MODULE_ENABLED)
   /* Disable the IRDA DMA Rx request if enabled */
   if (HAL_IS_BIT_SET(hirda->Instance->CR3, USART_CR3_DMAR))
   {
@@ -1931,6 +1941,7 @@ HAL_StatusTypeDef HAL_IRDA_AbortReceive_IT(IRDA_HandleTypeDef *hirda)
     }
   }
   else
+#endif /* HAL_DMA_MODULE_ENABLED */
   {
     /* Reset Rx transfer counter */
     hirda->RxXferCount = 0U;
@@ -2039,6 +2050,7 @@ void HAL_IRDA_IRQHandler(IRDA_HandleTypeDef *hirda)
            Disable Rx Interrupts, and disable Rx DMA request, if ongoing */
         IRDA_EndRxTransfer(hirda);
 
+#if defined(HAL_DMA_MODULE_ENABLED)
         /* Disable the IRDA DMA Rx request if enabled */
         if (HAL_IS_BIT_SET(hirda->Instance->CR3, USART_CR3_DMAR))
         {
@@ -2070,6 +2082,7 @@ void HAL_IRDA_IRQHandler(IRDA_HandleTypeDef *hirda)
           }
         }
         else
+#endif /* HAL_DMA_MODULE_ENABLED */
         {
 #if (USE_HAL_IRDA_REGISTER_CALLBACKS == 1)
           /* Call registered user error callback */
@@ -2271,7 +2284,7 @@ __weak void HAL_IRDA_AbortReceiveCpltCallback(IRDA_HandleTypeDef *hirda)
   *                the configuration information for the specified IRDA module.
   * @retval HAL state
   */
-HAL_IRDA_StateTypeDef HAL_IRDA_GetState(IRDA_HandleTypeDef *hirda)
+HAL_IRDA_StateTypeDef HAL_IRDA_GetState(const IRDA_HandleTypeDef *hirda)
 {
   /* Return IRDA handle state */
   uint32_t temp1;
@@ -2288,7 +2301,7 @@ HAL_IRDA_StateTypeDef HAL_IRDA_GetState(IRDA_HandleTypeDef *hirda)
   *               the configuration information for the specified IRDA module.
   * @retval IRDA Error Code
   */
-uint32_t HAL_IRDA_GetError(IRDA_HandleTypeDef *hirda)
+uint32_t HAL_IRDA_GetError(const IRDA_HandleTypeDef *hirda)
 {
   return hirda->ErrorCode;
 }
@@ -2497,6 +2510,7 @@ static HAL_StatusTypeDef IRDA_WaitOnFlagUntilTimeout(IRDA_HandleTypeDef *hirda, 
 }
 
 
+#if defined(HAL_DMA_MODULE_ENABLED)
 /**
   * @brief  End ongoing Tx transfer on IRDA peripheral (following error detection or Transmit completion).
   * @param  hirda Pointer to a IRDA_HandleTypeDef structure that contains
@@ -2511,7 +2525,7 @@ static void IRDA_EndTxTransfer(IRDA_HandleTypeDef *hirda)
   /* At end of Tx process, restore hirda->gState to Ready */
   hirda->gState = HAL_IRDA_STATE_READY;
 }
-
+#endif /* HAL_DMA_MODULE_ENABLED */
 
 /**
   * @brief  End ongoing Rx transfer on UART peripheral (following error detection or Reception completion).
@@ -2530,6 +2544,7 @@ static void IRDA_EndRxTransfer(IRDA_HandleTypeDef *hirda)
 }
 
 
+#if defined(HAL_DMA_MODULE_ENABLED)
 /**
   * @brief  DMA IRDA transmit process complete callback.
   * @param  hdma Pointer to a DMA_HandleTypeDef structure that contains
@@ -2853,6 +2868,7 @@ static void IRDA_DMARxOnlyAbortCallback(DMA_HandleTypeDef *hdma)
   HAL_IRDA_AbortReceiveCpltCallback(hirda);
 #endif /* USE_HAL_IRDA_REGISTER_CALLBACK */
 }
+#endif /* HAL_DMA_MODULE_ENABLED */
 
 /**
   * @brief  Send an amount of data in interrupt mode.

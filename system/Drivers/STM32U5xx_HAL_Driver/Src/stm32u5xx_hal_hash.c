@@ -2941,6 +2941,14 @@ HAL_StatusTypeDef HASH_Start_IT(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, u
         return HAL_OK;
       }
     } /*  if (polling_step == 1) */
+    else
+	{
+      /* otherwise, carry on in interrupt-mode */
+      hhash->HashInCount = SizeVar;                   /* Counter used to keep track of number of data
+                                                         to be fed to the Peripheral */
+      hhash->pHashInBuffPtr = (uint8_t *)inputaddr;   /* Points at data which will be fed to the Peripheral at
+                                                         the next interruption */
+	}
 
 
     /* Process Unlock */

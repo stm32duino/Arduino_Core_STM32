@@ -220,6 +220,7 @@ vary depending on the variations in voltage and temperature.*/
 #define  USE_HAL_NAND_REGISTER_CALLBACKS       0U /* NAND register callback disabled      */
 #define  USE_HAL_NOR_REGISTER_CALLBACKS        0U /* NOR register callback disabled       */
 #define  USE_HAL_OPAMP_REGISTER_CALLBACKS      0U /* MDIO register callback disabled      */
+#define  USE_HAL_OSPI_REGISTER_CALLBACKS       0U /* OCTOSPI register callback disabled   */
 #define  USE_HAL_OTFDEC_REGISTER_CALLBACKS     0U /* OTFDEC register callback disabled    */
 #define  USE_HAL_PCD_REGISTER_CALLBACKS        0U /* PCD register callback disabled       */
 #define  USE_HAL_PKA_REGISTER_CALLBACKS        0U /* PKA register callback disabled       */

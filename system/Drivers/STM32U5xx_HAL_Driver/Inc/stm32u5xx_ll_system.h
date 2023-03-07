@@ -199,7 +199,8 @@ extern "C" {
   */
 #define LL_DBGMCU_APB1_GRP2_I2C4_STOP      DBGMCU_APB1FZR2_DBG_I2C4_STOP   /*!< The I2C4 SMBus timeout is frozen*/
 #define LL_DBGMCU_APB1_GRP2_LPTIM2_STOP    DBGMCU_APB1FZR2_DBG_LPTIM2_STOP /*!< The counter clock of LPTIM2 is stopped when the core is halted*/
-#define LL_DBGMCU_APB1_GRP2_FDCAN_STOP     DBGMCU_APB1FZR2_DBG_FDCAN_STOP  /*!< The counter clock of FDCAN is stopped when the core is halted*/
+#define LL_DBGMCU_APB1_GRP2_I2C5_STOP      DBGMCU_APB1FZR2_DBG_I2C5_STOP   /*!< The I2C5 SMBus timeout is frozen*/
+#define LL_DBGMCU_APB1_GRP2_I2C6_STOP      DBGMCU_APB1FZR2_DBG_I2C6_STOP   /*!< The I2C6 SMBus timeout is frozen*/
 /**
   * @}
   */
@@ -840,6 +841,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetNMOSVddCompensationCode(void)
   * @param  NMOSCode NMOS compensation code
   *         This code is applied to the NMOS compensation cell when the CS2 bit of the
   *         SYSCFG_CMPCR is set
+  *         Value between 0 and 15
   * @retval None
   */
 __STATIC_INLINE void LL_SYSCFG_SetNMOSVddIO2CompensationCode(uint32_t NMOSCode)
@@ -865,6 +867,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetNMOSVddIO2CompensationCode(void)
   * @param  NMOSCode NMOS compensation code
   *         This code is applied to the NMOS compensation cell when the CS3 bit of the
   *         SYSCFG_CCCSR is set
+  *         Value between 0 and 15
   * @retval None
   */
 __STATIC_INLINE void LL_SYSCFG_SetNMOSVddHSPICompensationCode(uint32_t NMOSCode)
@@ -1263,7 +1266,10 @@ __STATIC_INLINE void LL_DBGMCU_APB1_GRP1_FreezePeriph(uint32_t Periphs)
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_DBGMCU_APB1_GRP2_I2C4_STOP
   *         @arg @ref LL_DBGMCU_APB1_GRP2_LPTIM2_STOP
+  *         @arg @ref LL_DBGMCU_APB1_GRP2_I2C5_STOP (*)
+  *         @arg @ref LL_DBGMCU_APB1_GRP2_I2C6_STOP (*)
   * @retval None
+  * @note   (*) Availability depends on devices.
   */
 __STATIC_INLINE void LL_DBGMCU_APB1_GRP2_FreezePeriph(uint32_t Periphs)
 {

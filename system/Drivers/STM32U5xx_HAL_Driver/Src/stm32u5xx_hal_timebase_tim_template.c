@@ -107,7 +107,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   + ClockDivision = 0
   + Counter direction = Up
   */
-  TimHandle.Init.Period = (1000000U / 1000U) - 1U;
+  TimHandle.Init.Period = (100000U / 1000U) - 1U;
   TimHandle.Init.Prescaler = uwPrescalerValue;
   TimHandle.Init.ClockDivision = 0;
   TimHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
@@ -120,8 +120,12 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
     {
       if (TickPriority < (1UL << __NVIC_PRIO_BITS))
       {
-        /* Enable the TIM6 global Interrupt */
+        /* Configure the TIM6 global Interrupt priority */
         HAL_NVIC_SetPriority(TIM6_IRQn, TickPriority, 0);
+
+        /* Enable the TIM6 global Interrupt */
+        HAL_NVIC_EnableIRQ(TIM6_IRQn);
+
         uwTickPrio = TickPriority;
       }
       else
@@ -133,8 +137,6 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 #if (USE_HAL_TIM_REGISTER_CALLBACKS == 1U)
   HAL_TIM_RegisterCallback(&TimHandle, HAL_TIM_PERIOD_ELAPSED_CB_ID, TimeBase_TIM_PeriodElapsedCallback);
 #endif /* USE_HAL_TIM_REGISTER_CALLBACKS */
-
-  HAL_NVIC_EnableIRQ(TIM6_IRQn);
 
   /* Return function Status */
   return Status;

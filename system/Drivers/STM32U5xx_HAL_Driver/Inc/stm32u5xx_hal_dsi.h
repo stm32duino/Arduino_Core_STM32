@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2022 STMicroelectronics.
+  * Copyright (c) 2021 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -1061,7 +1061,7 @@ typedef  void (*pDSI_CallbackTypeDef)(DSI_HandleTypeDef *hdsi);  /*!< pointer to
 #define __HAL_DSI_WRAPPER_ENABLE(__HANDLE__) do { \
                                                   __IO uint32_t tmpreg = 0x00U; \
                                                   SET_BIT((__HANDLE__)->Instance->WCR, DSI_WCR_DSIEN);\
-                                                  /* Delay after an DSI warpper enabling */ \
+                                                  /* Delay after an DSI wrapper enabling */ \
                                                   tmpreg = READ_BIT((__HANDLE__)->Instance->WCR, DSI_WCR_DSIEN);\
                                                   UNUSED(tmpreg); \
                                                 } while(0U)
@@ -1074,7 +1074,7 @@ typedef  void (*pDSI_CallbackTypeDef)(DSI_HandleTypeDef *hdsi);  /*!< pointer to
 #define __HAL_DSI_WRAPPER_DISABLE(__HANDLE__) do { \
                                                    __IO uint32_t tmpreg = 0x00U; \
                                                    CLEAR_BIT((__HANDLE__)->Instance->WCR, DSI_WCR_DSIEN);\
-                                                   /* Delay after an DSI warpper disabling*/ \
+                                                   /* Delay after an DSI wrapper disabling*/ \
                                                    tmpreg = READ_BIT((__HANDLE__)->Instance->WCR, DSI_WCR_DSIEN);\
                                                    UNUSED(tmpreg); \
                                                  } while(0U)
@@ -1314,10 +1314,10 @@ HAL_DSI_StateTypeDef HAL_DSI_GetState(DSI_HandleTypeDef *hdsi);
                                                      || ((LooselyPacked) == DSI_LOOSELY_PACKED_DISABLE))
 #define IS_DSI_DE_POLARITY(DataEnable)              (((DataEnable) == DSI_DATA_ENABLE_ACTIVE_HIGH)\
                                                      || ((DataEnable) == DSI_DATA_ENABLE_ACTIVE_LOW))
-#define IS_DSI_VSYNC_POLARITY(VSYNC)                (((VSYNC) == DSI_VSYNC_ACTIVE_HIGH)\
-                                                     || ((VSYNC) == DSI_VSYNC_ACTIVE_LOW))
-#define IS_DSI_HSYNC_POLARITY(HSYNC)                (((HSYNC) == DSI_HSYNC_ACTIVE_HIGH)\
-                                                     || ((HSYNC) == DSI_HSYNC_ACTIVE_LOW))
+#define IS_DSI_VSYNC_POLARITY(Vsync)                (((Vsync) == DSI_VSYNC_ACTIVE_HIGH)\
+                                                     || ((Vsync) == DSI_VSYNC_ACTIVE_LOW))
+#define IS_DSI_HSYNC_POLARITY(Hsync)                (((Hsync) == DSI_HSYNC_ACTIVE_HIGH)\
+                                                     || ((Hsync) == DSI_HSYNC_ACTIVE_LOW))
 #define IS_DSI_VIDEO_MODE_TYPE(VideoModeType)       (((VideoModeType) == DSI_VID_MODE_NB_PULSES) || \
                                                      ((VideoModeType) == DSI_VID_MODE_NB_EVENTS) || \
                                                      ((VideoModeType) == DSI_VID_MODE_BURST))

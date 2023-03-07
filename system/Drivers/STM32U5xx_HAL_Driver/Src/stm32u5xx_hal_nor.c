@@ -126,6 +126,11 @@
   */
 
 /* Constants to define address to set to write a command */
+#define NOR_CMD_ADDRESS_FIRST_BYTE            (uint16_t)0x0AAA
+#define NOR_CMD_ADDRESS_FIRST_CFI_BYTE        (uint16_t)0x00AA
+#define NOR_CMD_ADDRESS_SECOND_BYTE           (uint16_t)0x0555
+#define NOR_CMD_ADDRESS_THIRD_BYTE            (uint16_t)0x0AAA
+
 #define NOR_CMD_ADDRESS_FIRST                 (uint16_t)0x0555
 #define NOR_CMD_ADDRESS_FIRST_CFI             (uint16_t)0x0055
 #define NOR_CMD_ADDRESS_SECOND                (uint16_t)0x02AA
@@ -263,7 +268,8 @@ HAL_StatusTypeDef HAL_NOR_Init(NOR_HandleTypeDef *hnor, FMC_NORSRAM_TimingTypeDe
   (void)FMC_NORSRAM_Timing_Init(hnor->Instance, Timing, hnor->Init.NSBank);
 
   /* Initialize NOR extended mode timing Interface */
-  (void)FMC_NORSRAM_Extended_Timing_Init(hnor->Extended, ExtTiming, hnor->Init.NSBank, hnor->Init.ExtendedMode);
+  (void)FMC_NORSRAM_Extended_Timing_Init(hnor->Extended, ExtTiming,
+                                         hnor->Init.NSBank, hnor->Init.ExtendedMode);
 
   /* Enable the NORSRAM device */
   __FMC_NORSRAM_ENABLE(hnor->Instance, hnor->Init.NSBank);
@@ -312,7 +318,16 @@ HAL_StatusTypeDef HAL_NOR_Init(NOR_HandleTypeDef *hnor, FMC_NORSRAM_TimingTypeDe
   else
   {
     /* Get the value of the command set */
-    NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST_CFI), NOR_CMD_DATA_CFI);
+    if (uwNORMemoryDataWidth == NOR_MEMORY_8B)
+    {
+      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST_CFI_BYTE),
+                NOR_CMD_DATA_CFI);
+    }
+    else
+    {
+      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST_CFI), NOR_CMD_DATA_CFI);
+    }
+
     hnor->CommandSet = *(__IO uint16_t *) NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_ADDRESS_COMMAND_SET);
 
     status = HAL_NOR_ReturnToReadMode(hnor);
@@ -393,7 +408,7 @@ __weak void HAL_NOR_MspDeInit(NOR_HandleTypeDef *hnor)
   * @param  Timeout Maximum timeout value
   * @retval None
   */
-__weak void HAL_NOR_MspWait(NOR_HandleTypeDef *hnor, uint32_t Timeout)
+__weak void HAL_NOR_MspWait(const NOR_HandleTypeDef *hnor, uint32_t Timeout)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hnor);
@@ -474,9 +489,22 @@ HAL_StatusTypeDef HAL_NOR_Read_ID(NOR_HandleTypeDef *hnor, NOR_IDTypeDef *pNOR_I
     /* Send read ID command */
     if (hnor->CommandSet == NOR_AMD_FUJITSU_COMMAND_SET)
     {
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST), NOR_CMD_DATA_FIRST);
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND), NOR_CMD_DATA_SECOND);
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_THIRD), NOR_CMD_DATA_AUTO_SELECT);
+      if (uwNORMemoryDataWidth == NOR_MEMORY_8B)
+      {
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST_BYTE),
+                  NOR_CMD_DATA_FIRST);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND_BYTE),
+                  NOR_CMD_DATA_SECOND);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_THIRD_BYTE),
+                  NOR_CMD_DATA_AUTO_SELECT);
+      }
+      else
+      {
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST), NOR_CMD_DATA_FIRST);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND), NOR_CMD_DATA_SECOND);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_THIRD),
+                  NOR_CMD_DATA_AUTO_SELECT);
+      }
     }
     else if (hnor->CommandSet == NOR_INTEL_SHARP_EXT_COMMAND_SET)
     {
@@ -643,9 +671,22 @@ HAL_StatusTypeDef HAL_NOR_Read(NOR_HandleTypeDef *hnor, uint32_t *pAddress, uint
     /* Send read data command */
     if (hnor->CommandSet == NOR_AMD_FUJITSU_COMMAND_SET)
     {
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST), NOR_CMD_DATA_FIRST);
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND), NOR_CMD_DATA_SECOND);
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_THIRD), NOR_CMD_DATA_READ_RESET);
+      if (uwNORMemoryDataWidth == NOR_MEMORY_8B)
+      {
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST_BYTE),
+                  NOR_CMD_DATA_FIRST);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND_BYTE),
+                  NOR_CMD_DATA_SECOND);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_THIRD_BYTE),
+                  NOR_CMD_DATA_READ_RESET);
+      }
+      else
+      {
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST), NOR_CMD_DATA_FIRST);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND), NOR_CMD_DATA_SECOND);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_THIRD),
+                  NOR_CMD_DATA_READ_RESET);
+      }
     }
     else if (hnor->CommandSet == NOR_INTEL_SHARP_EXT_COMMAND_SET)
     {
@@ -724,9 +765,21 @@ HAL_StatusTypeDef HAL_NOR_Program(NOR_HandleTypeDef *hnor, uint32_t *pAddress, u
     /* Send program data command */
     if (hnor->CommandSet == NOR_AMD_FUJITSU_COMMAND_SET)
     {
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST), NOR_CMD_DATA_FIRST);
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND), NOR_CMD_DATA_SECOND);
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_THIRD), NOR_CMD_DATA_PROGRAM);
+      if (uwNORMemoryDataWidth == NOR_MEMORY_8B)
+      {
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST_BYTE),
+                  NOR_CMD_DATA_FIRST);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND_BYTE),
+                  NOR_CMD_DATA_SECOND);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_THIRD_BYTE),
+                  NOR_CMD_DATA_PROGRAM);
+      }
+      else
+      {
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST), NOR_CMD_DATA_FIRST);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND), NOR_CMD_DATA_SECOND);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_THIRD), NOR_CMD_DATA_PROGRAM);
+      }
     }
     else if (hnor->CommandSet == NOR_INTEL_SHARP_EXT_COMMAND_SET)
     {
@@ -816,9 +869,22 @@ HAL_StatusTypeDef HAL_NOR_ReadBuffer(NOR_HandleTypeDef *hnor, uint32_t uwAddress
     /* Send read data command */
     if (hnor->CommandSet == NOR_AMD_FUJITSU_COMMAND_SET)
     {
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST), NOR_CMD_DATA_FIRST);
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND), NOR_CMD_DATA_SECOND);
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_THIRD), NOR_CMD_DATA_READ_RESET);
+      if (uwNORMemoryDataWidth == NOR_MEMORY_8B)
+      {
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST_BYTE),
+                  NOR_CMD_DATA_FIRST);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND_BYTE),
+                  NOR_CMD_DATA_SECOND);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_THIRD_BYTE),
+                  NOR_CMD_DATA_READ_RESET);
+      }
+      else
+      {
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST), NOR_CMD_DATA_FIRST);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND), NOR_CMD_DATA_SECOND);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_THIRD),
+                  NOR_CMD_DATA_READ_RESET);
+      }
     }
     else if (hnor->CommandSet == NOR_INTEL_SHARP_EXT_COMMAND_SET)
     {
@@ -911,10 +977,20 @@ HAL_StatusTypeDef HAL_NOR_ProgramBuffer(NOR_HandleTypeDef *hnor, uint32_t uwAddr
 
     if (hnor->CommandSet == NOR_AMD_FUJITSU_COMMAND_SET)
     {
-      /* Issue unlock command sequence */
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST), NOR_CMD_DATA_FIRST);
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND), NOR_CMD_DATA_SECOND);
-
+      if (uwNORMemoryDataWidth == NOR_MEMORY_8B)
+      {
+        /* Issue unlock command sequence */
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST_BYTE),
+                  NOR_CMD_DATA_FIRST);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND_BYTE),
+                  NOR_CMD_DATA_SECOND);
+      }
+      else
+      {
+        /* Issue unlock command sequence */
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST), NOR_CMD_DATA_FIRST);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND), NOR_CMD_DATA_SECOND);
+      }
       /* Write Buffer Load Command */
       NOR_WRITE((deviceaddress + uwAddress), NOR_CMD_DATA_BUFFER_AND_PROG);
       NOR_WRITE((deviceaddress + uwAddress), (uint16_t)(uwBufferSize - 1U));
@@ -1014,14 +1090,26 @@ HAL_StatusTypeDef HAL_NOR_Erase_Block(NOR_HandleTypeDef *hnor, uint32_t BlockAdd
     /* Send block erase command sequence */
     if (hnor->CommandSet == NOR_AMD_FUJITSU_COMMAND_SET)
     {
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST), NOR_CMD_DATA_FIRST);
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND), NOR_CMD_DATA_SECOND);
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_THIRD),
-                NOR_CMD_DATA_CHIP_BLOCK_ERASE_THIRD);
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FOURTH),
-                NOR_CMD_DATA_CHIP_BLOCK_ERASE_FOURTH);
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIFTH),
-                NOR_CMD_DATA_CHIP_BLOCK_ERASE_FIFTH);
+      if (uwNORMemoryDataWidth == NOR_MEMORY_8B)
+      {
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST_BYTE),
+                  NOR_CMD_DATA_FIRST);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND_BYTE),
+                  NOR_CMD_DATA_SECOND);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_THIRD_BYTE),
+                  NOR_CMD_DATA_CHIP_BLOCK_ERASE_THIRD);
+      }
+      else
+      {
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST), NOR_CMD_DATA_FIRST);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND), NOR_CMD_DATA_SECOND);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_THIRD),
+                  NOR_CMD_DATA_CHIP_BLOCK_ERASE_THIRD);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FOURTH),
+                  NOR_CMD_DATA_CHIP_BLOCK_ERASE_FOURTH);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIFTH),
+                  NOR_CMD_DATA_CHIP_BLOCK_ERASE_FIFTH);
+      }
       NOR_WRITE((uint32_t)(BlockAddress + Address), NOR_CMD_DATA_BLOCK_ERASE);
     }
     else if (hnor->CommandSet == NOR_INTEL_SHARP_EXT_COMMAND_SET)
@@ -1099,15 +1187,28 @@ HAL_StatusTypeDef HAL_NOR_Erase_Chip(NOR_HandleTypeDef *hnor, uint32_t Address)
     /* Send NOR chip erase command sequence */
     if (hnor->CommandSet == NOR_AMD_FUJITSU_COMMAND_SET)
     {
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST), NOR_CMD_DATA_FIRST);
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND), NOR_CMD_DATA_SECOND);
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_THIRD),
-                NOR_CMD_DATA_CHIP_BLOCK_ERASE_THIRD);
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FOURTH),
-                NOR_CMD_DATA_CHIP_BLOCK_ERASE_FOURTH);
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIFTH),
-                NOR_CMD_DATA_CHIP_BLOCK_ERASE_FIFTH);
-      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SIXTH), NOR_CMD_DATA_CHIP_ERASE);
+      if (uwNORMemoryDataWidth == NOR_MEMORY_8B)
+      {
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST_BYTE),
+                  NOR_CMD_DATA_FIRST);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND_BYTE),
+                  NOR_CMD_DATA_SECOND);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_THIRD_BYTE),
+                  NOR_CMD_DATA_CHIP_BLOCK_ERASE_THIRD);
+      }
+      else
+      {
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST), NOR_CMD_DATA_FIRST);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SECOND), NOR_CMD_DATA_SECOND);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_THIRD),
+                  NOR_CMD_DATA_CHIP_BLOCK_ERASE_THIRD);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FOURTH),
+                  NOR_CMD_DATA_CHIP_BLOCK_ERASE_FOURTH);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIFTH),
+                  NOR_CMD_DATA_CHIP_BLOCK_ERASE_FIFTH);
+        NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_SIXTH),
+                  NOR_CMD_DATA_CHIP_ERASE);
+      }
     }
     else
     {
@@ -1178,8 +1279,15 @@ HAL_StatusTypeDef HAL_NOR_Read_CFI(NOR_HandleTypeDef *hnor, NOR_CFITypeDef *pNOR
     }
 
     /* Send read CFI query command */
-    NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST_CFI), NOR_CMD_DATA_CFI);
-
+    if (uwNORMemoryDataWidth == NOR_MEMORY_8B)
+    {
+      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST_CFI_BYTE),
+                NOR_CMD_DATA_CFI);
+    }
+    else
+    {
+      NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST_CFI), NOR_CMD_DATA_CFI);
+    }
     /* read the NOR CFI information */
     pNOR_CFI->CFI_1 = *(__IO uint16_t *) NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, CFI1_ADDRESS);
     pNOR_CFI->CFI_2 = *(__IO uint16_t *) NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, CFI2_ADDRESS);
@@ -1413,7 +1521,7 @@ HAL_StatusTypeDef HAL_NOR_WriteOperation_Disable(NOR_HandleTypeDef *hnor)
   *                the configuration information for NOR module.
   * @retval NOR controller state
   */
-HAL_NOR_StateTypeDef HAL_NOR_GetState(NOR_HandleTypeDef *hnor)
+HAL_NOR_StateTypeDef HAL_NOR_GetState(const NOR_HandleTypeDef *hnor)
 {
   return hnor->State;
 }
@@ -1427,7 +1535,7 @@ HAL_NOR_StateTypeDef HAL_NOR_GetState(NOR_HandleTypeDef *hnor)
   * @retval NOR_Status The returned value can be: HAL_NOR_STATUS_SUCCESS, HAL_NOR_STATUS_ERROR
   *         or HAL_NOR_STATUS_TIMEOUT
   */
-HAL_NOR_StatusTypeDef HAL_NOR_GetStatus(NOR_HandleTypeDef *hnor, uint32_t Address, uint32_t Timeout)
+HAL_NOR_StatusTypeDef HAL_NOR_GetStatus(const NOR_HandleTypeDef *hnor, uint32_t Address, uint32_t Timeout)
 {
   HAL_NOR_StatusTypeDef status = HAL_NOR_STATUS_ONGOING;
   uint16_t tmpsr1;

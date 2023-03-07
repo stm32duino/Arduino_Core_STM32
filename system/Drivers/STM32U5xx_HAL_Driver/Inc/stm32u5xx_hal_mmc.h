@@ -121,7 +121,7 @@ typedef struct
 
   HAL_LockTypeDef              Lock;             /*!< MMC locking object                   */
 
-  uint8_t                      *pTxBuffPtr;      /*!< Pointer to MMC Tx transfer Buffer    */
+  const uint8_t                      *pTxBuffPtr;      /*!< Pointer to MMC Tx transfer Buffer    */
 
   uint32_t                     TxXferSize;       /*!< MMC Tx Transfer size                 */
 
@@ -643,19 +643,20 @@ void HAL_MMC_MspDeInit(MMC_HandleTypeDef *hmmc);
   */
 /* Blocking mode: Polling */
 HAL_StatusTypeDef HAL_MMC_ReadBlocks(MMC_HandleTypeDef *hmmc, uint8_t *pData, uint32_t BlockAdd,
-                                     uint32_t NumberOfBlocks, uint32_t Timeout);
-HAL_StatusTypeDef HAL_MMC_WriteBlocks(MMC_HandleTypeDef *hmmc, uint8_t *pData, uint32_t BlockAdd,
+                                     uint32_t NumberOfBlocks,
+                                     uint32_t Timeout);
+HAL_StatusTypeDef HAL_MMC_WriteBlocks(MMC_HandleTypeDef *hmmc, const uint8_t *pData, uint32_t BlockAdd,
                                       uint32_t NumberOfBlocks, uint32_t Timeout);
 HAL_StatusTypeDef HAL_MMC_Erase(MMC_HandleTypeDef *hmmc, uint32_t BlockStartAdd, uint32_t BlockEndAdd);
 /* Non-Blocking mode: IT */
 HAL_StatusTypeDef HAL_MMC_ReadBlocks_IT(MMC_HandleTypeDef *hmmc, uint8_t *pData, uint32_t BlockAdd,
                                         uint32_t NumberOfBlocks);
-HAL_StatusTypeDef HAL_MMC_WriteBlocks_IT(MMC_HandleTypeDef *hmmc, uint8_t *pData, uint32_t BlockAdd,
+HAL_StatusTypeDef HAL_MMC_WriteBlocks_IT(MMC_HandleTypeDef *hmmc, const uint8_t *pData, uint32_t BlockAdd,
                                          uint32_t NumberOfBlocks);
 /* Non-Blocking mode: DMA */
 HAL_StatusTypeDef HAL_MMC_ReadBlocks_DMA(MMC_HandleTypeDef *hmmc, uint8_t *pData, uint32_t BlockAdd,
                                          uint32_t NumberOfBlocks);
-HAL_StatusTypeDef HAL_MMC_WriteBlocks_DMA(MMC_HandleTypeDef *hmmc, uint8_t *pData, uint32_t BlockAdd,
+HAL_StatusTypeDef HAL_MMC_WriteBlocks_DMA(MMC_HandleTypeDef *hmmc, const uint8_t *pData, uint32_t BlockAdd,
                                           uint32_t NumberOfBlocks);
 
 void HAL_MMC_IRQHandler(MMC_HandleTypeDef *hmmc);

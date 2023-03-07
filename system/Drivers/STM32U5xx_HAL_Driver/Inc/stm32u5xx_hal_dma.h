@@ -277,8 +277,10 @@ typedef struct __DMA_HandleTypeDef
 #define GPDMA1_REQUEST_I2C4_EVC     (23U)  /*!< GPDMA1 HW request is I2C4_EVC     */
 #define GPDMA1_REQUEST_USART1_RX    (24U)  /*!< GPDMA1 HW request is USART1_RX    */
 #define GPDMA1_REQUEST_USART1_TX    (25U)  /*!< GPDMA1 HW request is USART1_TX    */
+#if defined (USART2)
 #define GPDMA1_REQUEST_USART2_RX    (26U)  /*!< GPDMA1 HW request is USART2_RX    */
 #define GPDMA1_REQUEST_USART2_TX    (27U)  /*!< GPDMA1 HW request is USART2_TX    */
+#endif /* USART2 */
 #define GPDMA1_REQUEST_USART3_RX    (28U)  /*!< GPDMA1 HW request is USART3_RX    */
 #define GPDMA1_REQUEST_USART3_TX    (29U)  /*!< GPDMA1 HW request is USART3_TX    */
 #define GPDMA1_REQUEST_UART4_RX     (30U)  /*!< GPDMA1 HW request is UART4_RX     */
@@ -289,10 +291,14 @@ typedef struct __DMA_HandleTypeDef
 #define GPDMA1_REQUEST_LPUART1_TX   (35U)  /*!< GPDMA1 HW request is LPUART1_TX   */
 #define GPDMA1_REQUEST_SAI1_A       (36U)  /*!< GPDMA1 HW request is SAI1_A       */
 #define GPDMA1_REQUEST_SAI1_B       (37U)  /*!< GPDMA1 HW request is SAI1_B       */
+#if defined (SAI2)
 #define GPDMA1_REQUEST_SAI2_A       (38U)  /*!< GPDMA1 HW request is SAI2_A       */
 #define GPDMA1_REQUEST_SAI2_B       (39U)  /*!< GPDMA1 HW request is SAI2_B       */
+#endif /* SAI2 */
 #define GPDMA1_REQUEST_OCTOSPI1     (40U)  /*!< GPDMA1 HW request is OCTOSPI1     */
+#if defined (OCTOSPI2)
 #define GPDMA1_REQUEST_OCTOSPI2     (41U)  /*!< GPDMA1 HW request is OCTOSPI2     */
+#endif /* OCTOSPI2 */
 #define GPDMA1_REQUEST_TIM1_CH1     (42U)  /*!< GPDMA1 HW request is TIM1_CH1     */
 #define GPDMA1_REQUEST_TIM1_CH2     (43U)  /*!< GPDMA1 HW request is TIM1_CH2     */
 #define GPDMA1_REQUEST_TIM1_CH3     (44U)  /*!< GPDMA1 HW request is TIM1_CH3     */
@@ -341,8 +347,10 @@ typedef struct __DMA_HandleTypeDef
 #define GPDMA1_REQUEST_AES_IN       (87U)  /*!< GPDMA1 HW request is AES_IN       */
 #define GPDMA1_REQUEST_AES_OUT      (88U)  /*!< GPDMA1 HW request is AES_OUT      */
 #define GPDMA1_REQUEST_HASH_IN      (89U)  /*!< GPDMA1 HW request is HASH_IN      */
+#if defined (UCPD1)
 #define GPDMA1_REQUEST_UCPD1_TX     (90U)  /*!< GPDMA1 HW request is UCPD1_TX     */
 #define GPDMA1_REQUEST_UCPD1_RX     (91U)  /*!< GPDMA1 HW request is UCPD1_RX     */
+#endif /* UCPD1 */
 #define GPDMA1_REQUEST_MDF1_FLT0    (92U)  /*!< GPDMA1 HW request is MDF1_FLT0    */
 #define GPDMA1_REQUEST_MDF1_FLT1    (93U)  /*!< GPDMA1 HW request is MDF1_FLT1    */
 #define GPDMA1_REQUEST_MDF1_FLT2    (94U)  /*!< GPDMA1 HW request is MDF1_FLT2    */
@@ -873,12 +881,11 @@ HAL_StatusTypeDef HAL_DMA_GetLockChannelAttributes(DMA_HandleTypeDef const *cons
 #endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
-#define IS_DMA_GLOBAL_ACTIVE_FLAG(INSTANCE, GLOBAL_FLAG) \
+#define IS_DMA_GLOBAL_ACTIVE_FLAG_S(INSTANCE, GLOBAL_FLAG) \
   (((INSTANCE)->SMISR & (GLOBAL_FLAG)))
-#else
-#define IS_DMA_GLOBAL_ACTIVE_FLAG(INSTANCE, GLOBAL_FLAG) \
-  (((INSTANCE)->MISR & (GLOBAL_FLAG)))
 #endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#define IS_DMA_GLOBAL_ACTIVE_FLAG_NS(INSTANCE, GLOBAL_FLAG) \
+  (((INSTANCE)->MISR & (GLOBAL_FLAG)))
 /**
   * @}
   */

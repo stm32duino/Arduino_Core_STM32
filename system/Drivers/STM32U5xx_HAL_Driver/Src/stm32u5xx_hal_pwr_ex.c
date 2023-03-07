@@ -103,8 +103,19 @@
    (#) Call HAL_PWREx_EnableUSBHSTranceiverSupply() and
        HAL_PWREx_DisableUSBHSTranceiverSupply() to enable / disable the internal
        USB HS transceiver supply.
-       (+) This feature is available only for STM32U59xxx and STM32U5Axxx devices.
+       (+) This feature is available only for STM32U59xxx, STM32U5Axxx, STM32U5Fxxx
+           and STM32U5Gxxx devices
 
+   (#) Call HAL_PWREx_EnableOTGHSPHYLowPowerRetention() and
+       HAL_PWREx_DisableOTGHSPHYLowPowerRetention() to enable / disable OTG_HS PHY power during
+       low power modes (Stop2, Stop3 and Standby).
+       (+) This feature is available only for STM32U59xxx, STM32U5Axxx, STM32U5Fxxx
+           and STM32U5Gxxx devices
+
+   (#) Call HAL_PWREx_EnableVDD11USB() and
+       HAL_PWREx_DisableVDD11USB() to enable/ disable the VDD11USB.
+       (+) This feature is available only for STM32U59xxx, STM32U5Axxx, STM32U5Fxxx
+           and STM32U5Gxxx devices
 
    (#) Call HAL_PWREx_EnableMonitoring() and HAL_PWREx_DisableMonitoring() to
        enable / disable the VBAT and temperature monitoring.
@@ -131,19 +142,29 @@
        (+) Retained RAM can be one of the following RAMs :
              (++) SRAM1
              (++) SRAM2
-             (++) SRAM3
+             (++) SRAM3 (available only for STM32U575xx, STM32U585xx, STM32U59xxx,
+                  STM32U5Axxx, STM32U5Fxxx and STM32U5Gxxx devices)
              (++) SRAM4
+             (++) SRAM5 (available only for STM32U59xxx, STM32U5Axxx,
+                  STM32U5Fxxx and STM32U5Gxxx devices)
+             (++) SRAM6 (available only for STM32U5Fxxx and STM32U5Gxxx devices)
              (++) ICACHE
-             (++) DMA2DRAM
+             (++) DMA2DRAM (available only for STM32U575xx, STM32U585xx, STM32U59xxx,
+                  STM32U5Axxx, STM32U5Fxxx and STM32U5Gxxx devices)
              (++) PKA32RAM
              (++) DCACHE1
              (++) FMAC
              (++) FDCAN
              (++) USB
-             (++) DCACHE2 (available only for STM32U599xx and STM32U5A9xx devices)
-             (++) LTDC (available only for STM32U599xx and STM32U5A9xx devices)
-             (++) GFXMMU (available only for STM32U599xx and STM32U5A9xx devices)
-             (++) DSI (available only for STM32U599xx and STM32U5A9xx devices)
+             (++) DCACHE2 (available only for STM32U59xxx, STM32U5Axxx,
+                  STM32U5Fxxx and STM32U5Gxxx devices)
+             (++) LTDC (available only for STM32U59xxx, STM32U5Axxx,
+                  STM32U5Fxxx and STM32U5Gxxx devices)
+             (++) GFXMMU (available only for STM32U59xxx, STM32U5Axxx,
+                  STM32U5Fxxx and STM32U5Gxxx devices)
+             (++) DSI (available only for STM32U59xxx, STM32U5Axxx,
+                  STM32U5Fxxx and STM32U5Gxxx devices)
+             (++) JPEG (available only for STM32U5Fxxx and STM32U5Gxxx devices)
 
    (#) Call HAL_PWREx_EnableRAMsContentRunRetention() and
        HAL_PWREx_DisableRAMsContentRunRetention() to
@@ -151,9 +172,12 @@
        (+) Retained RAM can be one of the following RAMs :
              (++) SRAM1
              (++) SRAM2
-             (++) SRAM3
+             (++) SRAM3 (available only for STM32U575xx, STM32U585xx, STM32U59xxx,
+                  STM32U5Axxx, STM32U5Fxxx and STM32U5Gxxx devices)
              (++) SRAM4
-             (++) SRAM5 (available only for STM32U59xxx and STM32U5Axxx devices)
+             (++) SRAM5 (available only for STM32U59xxx, STM32U5Axxx,
+                  STM32U5Fxxx and STM32U5Gxxx devices)
+             (++) SRAM6 (available only for STM32U5Fxxx and STM32U5Gxxx devices)
 
    (#) Call HAL_PWREx_EnableFlashFastWakeUp() and
        HAL_PWREx_DisableFlashFastWakeUp() to enable / disable the flash memory
@@ -327,6 +351,13 @@ HAL_StatusTypeDef HAL_PWREx_ControlVoltageScaling(uint32_t VoltageScaling)
   /* No change, nothing to do */
   if (vos_old == VoltageScaling)
   {
+    /* Enable USB BOOST after wake up from Stop mode */
+    if (VoltageScaling > PWR_REGULATOR_VOLTAGE_SCALE3)
+    {
+      /* Enable USB BOOST */
+      SET_BIT(PWR->VOSR, PWR_VOSR_BOOSTEN);
+    }
+
     return HAL_OK;
   }
 
@@ -1384,6 +1415,51 @@ void HAL_PWREx_DisableUSBHSTranceiverSupply(void)
 }
 #endif /* defined (PWR_VOSR_USBPWREN) */
 
+#if defined (PWR_CR1_FORCE_USBPWR)
+/**
+  * @brief  Enable OTG_HS PHY power during low power modes (Stop2, Stop3 and Standby).
+  * @retval None.
+  */
+void HAL_PWREx_EnableOTGHSPHYLowPowerRetention(void)
+{
+  /* Set FORCE_USBPWR bit  */
+  SET_BIT(PWR->CR1, PWR_CR1_FORCE_USBPWR);
+}
+
+/**
+  * @brief  Disable OTG_HS PHY power during low power modes (Stop2, Stop3 and Standby).
+  * @retval None.
+  */
+void HAL_PWREx_DisableOTGHSPHYLowPowerRetention(void)
+{
+  /* Clear FORCE_USBPWR bit  */
+  CLEAR_BIT(PWR->CR1, PWR_CR1_FORCE_USBPWR);
+}
+#endif /* defined (PWR_CR1_FORCE_USBPWR) */
+
+#if defined (PWR_VOSR_VDD11USBDIS)
+/**
+  * @brief  Enable the VDD11USB.
+  * @retval None.
+  */
+void HAL_PWREx_EnableVDD11USB(void)
+{
+  /* Clear VDD11USBDIS bit  */
+  CLEAR_BIT(PWR->VOSR, PWR_VOSR_VDD11USBDIS);
+}
+
+/**
+  * @brief  Disable the VDD11USB.
+  * @retval None.
+  */
+void HAL_PWREx_DisableVDD11USB(void)
+{
+  /* Set VDD11USBDIS bit  */
+  SET_BIT(PWR->VOSR, PWR_VOSR_VDD11USBDIS);
+}
+#endif /* defined (PWR_VOSR_VDD11USBDIS) */
+
+#ifdef UCPD1
 /**
   * @brief  Enable UCPD configuration memorization in Standby mode.
   * @retval None.
@@ -1431,6 +1507,7 @@ void HAL_PWREx_DisableUCPDDeadBattery(void)
 {
   SET_BIT(PWR->UCPDR, PWR_UCPDR_UCPD_DBDIS);
 }
+#endif /* UCPD1 */
 
 /**
   * @brief  Enable the Battery charging.
@@ -1593,10 +1670,12 @@ __weak void HAL_PWREx_AVM2Callback(void)
        (+) Retained content RAMs in Stop modes are :
              (++) SRAM1
              (++) SRAM2
-             (++) SRAM3
+             (++) SRAM3 (available only for STM32U575xx, STM32U585xx, STM32U59xxx,
+                  STM32U5Axxx, STM32U5Fxxx and STM32U5Gxxx devices)
              (++) SRAM4
              (++) ICACHE
-             (++) DMA2DRAM
+             (++) DMA2DRAM (available only for STM32U575xx, STM32U585xx, STM32U59xxx,
+                  STM32U5Axxx, STM32U5Fxxx and STM32U5Gxxx devices)
              (++) PKA32RAM
              (++) DCACHE
              (++) FMAC
@@ -1609,7 +1688,8 @@ __weak void HAL_PWREx_AVM2Callback(void)
        (+) Retained content RAMs in Run modes are :
              (++) SRAM1
              (++) SRAM2
-             (++) SRAM3
+             (++) SRAM3 (available only for STM32U575xx, STM32U585xx, STM32U59xxx,
+                  STM32U5Axxx, STM32U5Fxxx and STM32U5Gxxx devices)
              (++) SRAM4
 
     [..]
@@ -1712,6 +1792,7 @@ void HAL_PWREx_EnableRAMsContentStopRetention(uint32_t RAMSelection)
       break;
     }
 
+#if defined (PWR_CR2_SRAM3PDS1)
     /* SRAM 3 Stop retention */
     case SRAM3_ID:
     {
@@ -1732,6 +1813,7 @@ void HAL_PWREx_EnableRAMsContentStopRetention(uint32_t RAMSelection)
 
       break;
     }
+#endif /* PWR_CR2_SRAM3PDS1 */
 
     /* SRAM 4 Stop retention */
     case SRAM4_ID:
@@ -1772,6 +1854,7 @@ void HAL_PWREx_EnableRAMsContentStopRetention(uint32_t RAMSelection)
       break;
     }
 
+#if defined (PWR_CR2_DMA2DRAMPDS)
     /* DMA2D RAM Stop retention */
     case DMA2DRAM_ID:
     {
@@ -1784,6 +1867,7 @@ void HAL_PWREx_EnableRAMsContentStopRetention(uint32_t RAMSelection)
 
       break;
     }
+#endif /* PWR_CR2_DMA2DRAMPDS */
 
     /* FMAC, FDCAN and USB RAM Stop retention */
     case PERIPHRAM_ID:
@@ -1856,6 +1940,21 @@ void HAL_PWREx_EnableRAMsContentStopRetention(uint32_t RAMSelection)
     }
 #endif /* defined (PWR_CR2_DSIRAMPDS) */
 
+#if defined (PWR_CR2_JPEGRAMPDS)
+    /* JPEG RAM Stop retention */
+    case JPEGRAM_ID:
+    {
+      /* Check the parameters */
+      assert_param(IS_PWR_JPEGRAM_STOP_RETENTION(RAMSelection));
+
+      /* Calculate pages mask */
+      dummy = (RAMSelection & PWR_JPEGRAM_FULL_STOP) & ~SRAM_ID_MASK;
+      CLEAR_BIT(PWR->CR2, (dummy << PWR_CR2_JPEGRAMPDS_Pos));
+
+      break;
+    }
+#endif /* defined (PWR_CR2_JPEGRAMPDS) */
+
 #if defined (PWR_CR4_SRAM5PDS1)
     /* SRAM 5 Stop retention */
     case SRAM5_ID:
@@ -1870,6 +1969,21 @@ void HAL_PWREx_EnableRAMsContentStopRetention(uint32_t RAMSelection)
       break;
     }
 #endif /* defined (PWR_CR4_SRAM5PDS1) */
+
+#if defined (PWR_CR5_SRAM6PDS1)
+    /* SRAM 6 Stop retention */
+    case SRAM6_ID:
+    {
+      /* Check the parameters */
+      assert_param(IS_PWR_SRAM6_STOP_RETENTION(RAMSelection));
+
+      /* Calculate pages mask */
+      dummy = ((RAMSelection & PWR_SRAM6_FULL_STOP) & ~SRAM_ID_MASK);
+      CLEAR_BIT(PWR->CR5, (dummy << PWR_CR5_SRAM6PDS1_Pos));
+
+      break;
+    }
+#endif /* defined (PWR_CR5_SRAM6PDS1) */
 
     default:
     {
@@ -1926,6 +2040,7 @@ void HAL_PWREx_DisableRAMsContentStopRetention(uint32_t RAMSelection)
       break;
     }
 
+#if defined (PWR_CR2_SRAM3PDS1)
     /* SRAM 3 Stop retention */
     case SRAM3_ID:
     {
@@ -1946,6 +2061,7 @@ void HAL_PWREx_DisableRAMsContentStopRetention(uint32_t RAMSelection)
 
       break;
     }
+#endif /* PWR_CR2_SRAM3PDS1 */
 
     /* SRAM 4 Stop retention */
     case SRAM4_ID:
@@ -1986,6 +2102,7 @@ void HAL_PWREx_DisableRAMsContentStopRetention(uint32_t RAMSelection)
       break;
     }
 
+#if defined (PWR_CR2_DMA2DRAMPDS)
     /* DMA2D RAM Stop retention */
     case DMA2DRAM_ID:
     {
@@ -1998,6 +2115,7 @@ void HAL_PWREx_DisableRAMsContentStopRetention(uint32_t RAMSelection)
 
       break;
     }
+#endif /* PWR_CR2_DMA2DRAMPDS */
 
     /* FMAC, FDCAN and USB RAM Stop retention */
     case PERIPHRAM_ID:
@@ -2070,6 +2188,21 @@ void HAL_PWREx_DisableRAMsContentStopRetention(uint32_t RAMSelection)
     }
 #endif /* defined (PWR_CR2_DSIRAMPDS) */
 
+#if defined (PWR_CR2_JPEGRAMPDS)
+    /* JPEG RAM Stop retention */
+    case JPEGRAM_ID:
+    {
+      /* Check the parameters */
+      assert_param(IS_PWR_JPEGRAM_STOP_RETENTION(RAMSelection));
+
+      /* Calculate pages mask */
+      dummy = (RAMSelection & PWR_JPEGRAM_FULL_STOP) & ~SRAM_ID_MASK;
+      SET_BIT(PWR->CR2, (dummy << PWR_CR2_JPEGRAMPDS_Pos));
+
+      break;
+    }
+#endif /* defined (PWR_CR2_JPEGRAMPDS) */
+
 #if defined (PWR_CR4_SRAM5PDS1)
     /* SRAM 5 Stop retention */
     case SRAM5_ID:
@@ -2085,6 +2218,21 @@ void HAL_PWREx_DisableRAMsContentStopRetention(uint32_t RAMSelection)
     }
 #endif /* defined (PWR_CR4_SRAM5PDS1) */
 
+#if defined (PWR_CR5_SRAM6PDS1)
+    /* SRAM 6 Stop retention */
+    case SRAM6_ID:
+    {
+      /* Check the parameters */
+      assert_param(IS_PWR_SRAM6_STOP_RETENTION(RAMSelection));
+
+      /* Calculate pages mask */
+      dummy = ((RAMSelection & PWR_SRAM6_FULL_STOP) & ~SRAM_ID_MASK);
+      SET_BIT(PWR->CR5, (dummy << PWR_CR5_SRAM6PDS1_Pos));
+
+      break;
+    }
+#endif /* defined (PWR_CR5_SRAM6PDS1) */
+
     default:
     {
       return;
@@ -2099,10 +2247,15 @@ void HAL_PWREx_DisableRAMsContentStopRetention(uint32_t RAMSelection)
   *                        This parameter can be one or a combination of the following values :
   *                        @arg PWR_SRAM1_FULL_RUN : SRAM1 full content retention.
   *                        @arg PWR_SRAM2_FULL_RUN : SRAM2 full content retention.
-  *                        @arg PWR_SRAM3_FULL_RUN : SRAM3 full content retention.
+  *                        @arg PWR_SRAM3_FULL_RUN : SRAM3 full content retention (available only for STM32U575xx,
+  *                                                             STM32U585xx STM32U59xxx, STM32U5Axxx, STM32U5Fxxx
+                                                                and STM32U5Gxxx devices).
   *                        @arg PWR_SRAM4_FULL_RUN : SRAM4 full content retention.
   *                        @arg PWR_SRAM5_FULL_RUN : SRAM5 full content retention (available only for
-  *                                                            STM32U59xxx and STM32U5Axxx devices).
+  *                                                            STM32U59xxx, STM32U5Axxx, STM32U5Fxxx
+  *                                                            and STM32U5Gxxx devices).
+  *                        @arg PWR_SRAM6_FULL_RUN : SRAM6 full content retention (available only for
+  *                                                            STM32U5Fxxx and STM32U5Gxxx devices).
   * @retval None.
   */
 void HAL_PWREx_EnableRAMsContentRunRetention(uint32_t RAMSelection)
@@ -2120,10 +2273,15 @@ void HAL_PWREx_EnableRAMsContentRunRetention(uint32_t RAMSelection)
   *                        This parameter can be one or a combination of the following values :
   *                        @arg PWR_SRAM1_FULL_RUN : SRAM1 full content lost.
   *                        @arg PWR_SRAM2_FULL_RUN : SRAM2 full content lost.
-  *                        @arg PWR_SRAM3_FULL_RUN : SRAM3 full content lost.
+  *                        @arg PWR_SRAM3_FULL_RUN : SRAM3 full content lost (available only for STM32U575xx,
+  *                                                             STM32U585xx STM32U59xxx, STM32U5Axxx, STM32U5Fxxx
+                                                                and STM32U5Gxxx devices).
   *                        @arg PWR_SRAM4_FULL_RUN : SRAM4 full content lost.
   *                        @arg PWR_SRAM5_FULL_RUN : SRAM5 full content retention (available only for
-  *                                                            STM32U59xxx and STM32U5Axxx devices).
+  *                                                            STM32U59xxx, STM32U5Axxx, STM32U5Fxxx
+  *                                                            and STM32U5Gxxx devices).
+  *                        @arg PWR_SRAM6_FULL_RUN : SRAM6 full content retention (available only for
+  *                                                            STM32U5Fxxx and STM32U5Gxxx devices).
   * @retval None.
   */
 void HAL_PWREx_DisableRAMsContentRunRetention(uint32_t RAMSelection)
@@ -2237,7 +2395,7 @@ void HAL_PWREx_DisableSRAM4FastWakeUp(void)
   *
 @verbatim
  ===============================================================================
-                     ##### Voltage monitoring Functions #####
+            ##### I/O Pull-Up Pull-Down Configuration Functions #####
  ===============================================================================
     [..]
       In Standby and Shutdown mode, pull up and pull down can be configured to
@@ -2246,7 +2404,8 @@ void HAL_PWREx_DisableSRAM4FastWakeUp(void)
       PWR_PUCRx registers (x=A,B,C,D,E,F,G,H,I,J), or with a pull-down through
       PWR_PDCRx registers (x=A,B,C,D,E,F,G,H,I,J)), or can be kept in analog state
       if none of the PWR_PUCRx or PWR_PDCRx register is set.
-      (+) Port J is available only for STM32U59xxx and STM32U5Axxx devices.
+      (+) Port J is available only for STM32U59xxx, STM32U5Axxx, STM32U5Fxxx
+      and STM32U5Gxxx devices.
 
     [..]
       The pull-down configuration has highest priority over pull-up
@@ -2343,10 +2502,12 @@ HAL_StatusTypeDef HAL_PWREx_EnableGPIOPullUp(uint32_t GPIO_Port, uint32_t GPIO_P
       CLEAR_BIT(PWR->PDCRE, GPIO_Pin);
       break;
 
+#ifdef PWR_PUCRF_PU0
     case PWR_GPIO_F: /* Apply Pull Up to GPIO port F */
       SET_BIT(PWR->PUCRF, GPIO_Pin);
       CLEAR_BIT(PWR->PDCRF, GPIO_Pin);
       break;
+#endif /* PWR_PUCRF_PU0 */
 
     case PWR_GPIO_G: /* Apply Pull Up to GPIO port G */
       SET_BIT(PWR->PUCRG, GPIO_Pin);
@@ -2358,10 +2519,12 @@ HAL_StatusTypeDef HAL_PWREx_EnableGPIOPullUp(uint32_t GPIO_Port, uint32_t GPIO_P
       CLEAR_BIT(PWR->PDCRH, GPIO_Pin);
       break;
 
+#ifdef PWR_PUCRI_PU0
     case PWR_GPIO_I: /* Apply Pull Up to GPIO port I */
       SET_BIT(PWR->PUCRI, (GPIO_Pin & PWR_PORTI_AVAILABLE_PINS));
       CLEAR_BIT(PWR->PDCRI, (GPIO_Pin & PWR_PORTI_AVAILABLE_PINS));
       break;
+#endif /* PWR_PUCRI_PU0 */
 
 #if defined (PWR_PUCRJ_PU0)
     case PWR_GPIO_J: /* Apply Pull Up to GPIO port J */
@@ -2421,9 +2584,11 @@ HAL_StatusTypeDef HAL_PWREx_DisableGPIOPullUp(uint32_t GPIO_Port, uint32_t GPIO_
       CLEAR_BIT(PWR->PUCRE, GPIO_Pin);
       break;
 
+#ifdef PWR_PUCRF_PU0
     case PWR_GPIO_F: /* Disable Pull Up for GPIO port F */
       CLEAR_BIT(PWR->PUCRF, GPIO_Pin);
       break;
+#endif /* PWR_PUCRF_PU0 */
 
     case PWR_GPIO_G: /* Disable Pull Up for GPIO port G */
       CLEAR_BIT(PWR->PUCRG, GPIO_Pin);
@@ -2433,9 +2598,11 @@ HAL_StatusTypeDef HAL_PWREx_DisableGPIOPullUp(uint32_t GPIO_Port, uint32_t GPIO_
       CLEAR_BIT(PWR->PUCRH, GPIO_Pin);
       break;
 
+#ifdef PWR_PUCRI_PU0
     case PWR_GPIO_I: /* Disable Pull Up for GPIO port I */
       CLEAR_BIT(PWR->PUCRI, (GPIO_Pin & PWR_PORTI_AVAILABLE_PINS));
       break;
+#endif /* PWR_PUCRI_PU0 */
 
 #if defined (PWR_PUCRJ_PU0)
     case PWR_GPIO_J: /* Disable Pull Up for GPIO port J */
@@ -2506,10 +2673,12 @@ HAL_StatusTypeDef HAL_PWREx_EnableGPIOPullDown(uint32_t GPIO_Port, uint32_t GPIO
       CLEAR_BIT(PWR->PUCRE, GPIO_Pin);
       break;
 
+#ifdef PWR_PUCRF_PU0
     case PWR_GPIO_F: /* Apply Pull Down to GPIO port F */
       SET_BIT(PWR->PDCRF, GPIO_Pin);
       CLEAR_BIT(PWR->PUCRF, GPIO_Pin);
       break;
+#endif /* PWR_PUCRF_PU0 */
 
     case PWR_GPIO_G: /* Apply Pull Down to GPIO port G */
       SET_BIT(PWR->PDCRG, GPIO_Pin);
@@ -2521,10 +2690,12 @@ HAL_StatusTypeDef HAL_PWREx_EnableGPIOPullDown(uint32_t GPIO_Port, uint32_t GPIO
       CLEAR_BIT(PWR->PUCRH, GPIO_Pin);
       break;
 
+#ifdef PWR_PUCRI_PU0
     case PWR_GPIO_I: /* Apply Pull Down to GPIO port I */
       SET_BIT(PWR->PDCRI, (GPIO_Pin & PWR_PORTI_AVAILABLE_PINS));
       CLEAR_BIT(PWR->PUCRI, (GPIO_Pin & PWR_PORTI_AVAILABLE_PINS));
       break;
+#endif /* PWR_PUCRI_PU0 */
 
 #if defined (PWR_PUCRJ_PU0)
     case PWR_GPIO_J: /* Apply Pull Down to GPIO port J */
@@ -2584,9 +2755,11 @@ HAL_StatusTypeDef HAL_PWREx_DisableGPIOPullDown(uint32_t GPIO_Port, uint32_t GPI
       CLEAR_BIT(PWR->PDCRE, GPIO_Pin);
       break;
 
+#ifdef PWR_PUCRF_PU0
     case PWR_GPIO_F: /* Disable Pull Down for GPIO port F */
       CLEAR_BIT(PWR->PDCRF, GPIO_Pin);
       break;
+#endif /* PWR_PUCRF_PU0 */
 
     case PWR_GPIO_G: /* Disable Pull Down for GPIO port G */
       CLEAR_BIT(PWR->PDCRG, GPIO_Pin);
@@ -2596,9 +2769,11 @@ HAL_StatusTypeDef HAL_PWREx_DisableGPIOPullDown(uint32_t GPIO_Port, uint32_t GPI
       CLEAR_BIT(PWR->PDCRH, GPIO_Pin);
       break;
 
+#ifdef PWR_PUCRI_PU0
     case PWR_GPIO_I: /* Disable Pull Down for GPIO port I */
       CLEAR_BIT(PWR->PDCRI, (GPIO_Pin & PWR_PORTI_AVAILABLE_PINS));
       break;
+#endif /* PWR_PUCRI_PU0 */
 
 #if defined (PWR_PUCRJ_PU0)
     case PWR_GPIO_J: /* Disable Pull Down for GPIO port J */

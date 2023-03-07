@@ -256,7 +256,7 @@ HAL_StatusTypeDef HAL_SMBUSEx_ConfigFastModePlus(SMBUS_HandleTypeDef *hsmbus, ui
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_SMBUSEx_SetConfigAutonomousMode(SMBUS_HandleTypeDef *hsmbus,
-                                                      SMBUS_AutonomousModeConfTypeDef *sConfig)
+                                                      const SMBUS_AutonomousModeConfTypeDef *sConfig)
 {
   if (hsmbus->State == HAL_SMBUS_STATE_READY)
   {
@@ -266,8 +266,8 @@ HAL_StatusTypeDef HAL_SMBUSEx_SetConfigAutonomousMode(SMBUS_HandleTypeDef *hsmbu
     hsmbus->State = HAL_SMBUS_STATE_BUSY;
 
     /* Check the parameters */
+    assert_param(IS_SMBUS_TRIG_INPUT_INSTANCE(hsmbus->Instance));
     assert_param(IS_SMBUS_TRIG_SOURCE(hsmbus->Instance, sConfig->TriggerSelection));
-
     assert_param(IS_SMBUS_AUTO_MODE_TRG_POL(sConfig->TriggerPolarity));
 
     /* Disable the selected SMBUS peripheral to be able to configure AUTOCR */
@@ -303,10 +303,13 @@ HAL_StatusTypeDef HAL_SMBUSEx_SetConfigAutonomousMode(SMBUS_HandleTypeDef *hsmbu
   *                the configuration information of the autonomous mode for the specified SMBUSx peripheral.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SMBUSEx_GetConfigAutonomousMode(SMBUS_HandleTypeDef *hsmbus,                                     \
+HAL_StatusTypeDef HAL_SMBUSEx_GetConfigAutonomousMode(const SMBUS_HandleTypeDef *hsmbus,
                                                       SMBUS_AutonomousModeConfTypeDef *sConfig)
 {
   uint32_t autocr_tmp;
+
+  /* Check the parameters */
+  assert_param(IS_SMBUS_TRIG_INPUT_INSTANCE(hsmbus->Instance));
 
   autocr_tmp = hsmbus->Instance->AUTOCR;
 
@@ -338,6 +341,9 @@ HAL_StatusTypeDef HAL_SMBUSEx_ClearConfigAutonomousMode(SMBUS_HandleTypeDef *hsm
     __HAL_LOCK(hsmbus);
 
     hsmbus->State = HAL_SMBUS_STATE_BUSY;
+
+    /* Check the parameters */
+    assert_param(IS_SMBUS_TRIG_INPUT_INSTANCE(hsmbus->Instance));
 
     /* Disable the selected SMBUS peripheral to be able to clear AUTOCR */
     __HAL_SMBUS_DISABLE(hsmbus);
