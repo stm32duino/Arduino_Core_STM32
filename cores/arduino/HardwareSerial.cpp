@@ -132,12 +132,14 @@ HardwareSerial::HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex)
   // If Serial is defined in variant set
   // the Rx/Tx pins for com port if defined
 #if defined(Serial) && defined(PIN_SERIAL_TX)
+#if !defined(USBCON) || defined(USBD_USE_CDC) && defined(DISABLE_GENERIC_SERIALUSB)
   if ((void *)this == (void *)&Serial) {
 #if defined(PIN_SERIAL_RX)
     setRx(PIN_SERIAL_RX);
 #endif
     setTx(PIN_SERIAL_TX);
   } else
+#endif
 #endif
 #if defined(PIN_SERIAL1_TX) && defined(USART1_BASE)
     if (peripheral == USART1) {
