@@ -149,7 +149,7 @@ def parse_mcu_file():
     global mcu_refname
 
     tim_regex = r"^(TIM\d+)$"
-    usb_regex = r"^(USB(?!PD|_HOST|_DEVICE).*)$"
+    usb_regex = r"^(USB(?!PD|_HOST|_DEVICE|X).*)$"
     gpiofile = ""
     del tim_inst_list[:]
     del mcu_ram[:]
