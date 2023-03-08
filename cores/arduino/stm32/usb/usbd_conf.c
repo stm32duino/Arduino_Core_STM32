@@ -105,7 +105,9 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
 #ifdef __HAL_USB_WAKEUP_EXTI_ENABLE_RISING_EDGE
       __HAL_USB_WAKEUP_EXTI_ENABLE_RISING_EDGE();
 #endif
+#ifdef __HAL_USB_WAKEUP_EXTI_ENABLE_IT
       __HAL_USB_WAKEUP_EXTI_ENABLE_IT();
+#endif
 #if defined(USB_WKUP_IRQn)
       /* USB Wakeup Interrupt */
       HAL_NVIC_EnableIRQ(USB_WKUP_IRQn);

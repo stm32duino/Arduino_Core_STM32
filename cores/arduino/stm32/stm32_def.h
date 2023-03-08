@@ -86,10 +86,15 @@
   #endif
 #endif
 
-/* STM32G0xx defined USB_DRD_FS */
+/* STM32G0xx and some STM32U5xx defined USB_DRD_FS */
 #if !defined(USB) && defined(USB_DRD_FS)
   #define USB USB_DRD_FS
   #define PinMap_USB PinMap_USB_DRD_FS
+  #if defined(STM32U5xx)
+    #define USB_BASE USB_DRD_BASE
+    #define __HAL_RCC_USB_CLK_ENABLE __HAL_RCC_USB_FS_CLK_ENABLE
+    #define __HAL_RCC_USB_CLK_DISABLE __HAL_RCC_USB_FS_CLK_DISABLE
+  #endif
 #endif
 
 /**
