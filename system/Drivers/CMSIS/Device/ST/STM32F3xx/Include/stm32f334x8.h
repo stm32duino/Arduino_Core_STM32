@@ -12,13 +12,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -424,7 +423,7 @@ typedef struct
 {
   __IO uint32_t MCR;            /*!< HRTIM Master Timer control register,                     Address offset: 0x00 */
   __IO uint32_t MISR;           /*!< HRTIM Master Timer interrupt status register,            Address offset: 0x04 */
-  __IO uint32_t MICR;           /*!< HRTIM Master Timer interupt clear register,              Address offset: 0x08 */
+  __IO uint32_t MICR;           /*!< HRTIM Master Timer interrupt clear register,              Address offset: 0x08 */
   __IO uint32_t MDIER;          /*!< HRTIM Master Timer DMA/interrupt enable register         Address offset: 0x0C */
   __IO uint32_t MCNTR;          /*!< HRTIM Master Timer counter register,                     Address offset: 0x10 */
   __IO uint32_t MPER;           /*!< HRTIM Master Timer period register,                      Address offset: 0x14 */
@@ -732,6 +731,10 @@ typedef struct
   __IO uint32_t SR;   /*!< WWDG Status register,        Address offset: 0x08 */
 } WWDG_TypeDef;
 
+/**
+  * @}
+  */
+
 /** @addtogroup Peripheral_memory_map
   * @{
   */
@@ -924,7 +927,7 @@ typedef struct
 #define ADC5_V1_1                                      /*!< ADC IP version */
 
 /*
- * @brief Specific device feature definitions (not present on all devices in the STM32F3 serie)
+ * @brief Specific device feature definitions (not present on all devices in the STM32F3 series)
  */
 #define ADC_MULTIMODE_SUPPORT                          /*!< ADC feature available only on specific devices: multimode available on devices with several ADC instances */
 
@@ -1061,7 +1064,7 @@ typedef struct
 
 #define ADC_CFGR_ALIGN_Pos             (5U)                                    
 #define ADC_CFGR_ALIGN_Msk             (0x1UL << ADC_CFGR_ALIGN_Pos)            /*!< 0x00000020 */
-#define ADC_CFGR_ALIGN                 ADC_CFGR_ALIGN_Msk                      /*!< ADC data alignement */
+#define ADC_CFGR_ALIGN                 ADC_CFGR_ALIGN_Msk                      /*!< ADC data alignment */
 
 #define ADC_CFGR_EXTSEL_Pos            (6U)                                    
 #define ADC_CFGR_EXTSEL_Msk            (0xFUL << ADC_CFGR_EXTSEL_Pos)           /*!< 0x000003C0 */
@@ -2480,7 +2483,7 @@ typedef struct
 #define OPAMP2_CSR_TSTREF             OPAMP2_CSR_TSTREF_Msk                    /*!< It enables the switch to put out the internal reference */
 #define OPAMP2_CSR_OUTCAL_Pos         (30U)                                    
 #define OPAMP2_CSR_OUTCAL_Msk         (0x1UL << OPAMP2_CSR_OUTCAL_Pos)          /*!< 0x40000000 */
-#define OPAMP2_CSR_OUTCAL             OPAMP2_CSR_OUTCAL_Msk                    /*!< OPAMP ouput status flag */
+#define OPAMP2_CSR_OUTCAL             OPAMP2_CSR_OUTCAL_Msk                    /*!< OPAMP output status flag */
 #define OPAMP2_CSR_LOCK_Pos           (31U)                                    
 #define OPAMP2_CSR_LOCK_Msk           (0x1UL << OPAMP2_CSR_LOCK_Pos)            /*!< 0x80000000 */
 #define OPAMP2_CSR_LOCK               OPAMP2_CSR_LOCK_Msk                      /*!< OPAMP lock */
@@ -2542,7 +2545,7 @@ typedef struct
 #define OPAMP_CSR_TSTREF             OPAMP_CSR_TSTREF_Msk                      /*!< It enables the switch to put out the internal reference */
 #define OPAMP_CSR_OUTCAL_Pos         (30U)                                     
 #define OPAMP_CSR_OUTCAL_Msk         (0x1UL << OPAMP_CSR_OUTCAL_Pos)            /*!< 0x40000000 */
-#define OPAMP_CSR_OUTCAL             OPAMP_CSR_OUTCAL_Msk                      /*!< OPAMP ouput status flag */
+#define OPAMP_CSR_OUTCAL             OPAMP_CSR_OUTCAL_Msk                      /*!< OPAMP output status flag */
 #define OPAMP_CSR_LOCK_Pos           (31U)                                     
 #define OPAMP_CSR_LOCK_Msk           (0x1UL << OPAMP_CSR_LOCK_Pos)              /*!< 0x80000000 */
 #define OPAMP_CSR_LOCK               OPAMP_CSR_LOCK_Msk                        /*!< OPAMP lock */
@@ -6073,7 +6076,7 @@ typedef struct
 /******************************************************************************/
 
 /*
- * @brief Specific device feature definitions (not present on all devices in the STM32F3 serie)
+ * @brief Specific device feature definitions (not present on all devices in the STM32F3 series)
  */
 #define DAC_CHANNEL2_SUPPORT                           /*!< DAC feature available only on specific devices: DAC channel 2 available (may not be available on all DAC instances DACx) */
 
@@ -8160,7 +8163,7 @@ typedef struct
 
 #define HRTIM_MCR_DACSYNC_Pos         (25U)                                    
 #define HRTIM_MCR_DACSYNC_Msk         (0x3UL << HRTIM_MCR_DACSYNC_Pos)          /*!< 0x06000000 */
-#define HRTIM_MCR_DACSYNC             HRTIM_MCR_DACSYNC_Msk                    /*!< DAC sychronization mask */
+#define HRTIM_MCR_DACSYNC             HRTIM_MCR_DACSYNC_Msk                    /*!< DAC synchronization mask */
 #define HRTIM_MCR_DACSYNC_0           (0x1UL << HRTIM_MCR_DACSYNC_Pos)          /*!< 0x02000000 */
 #define HRTIM_MCR_DACSYNC_1           (0x2UL << HRTIM_MCR_DACSYNC_Pos)          /*!< 0x04000000 */
 
@@ -8374,7 +8377,7 @@ typedef struct
 
 #define HRTIM_TIMCR_DACSYNC_Pos       (25U)                                    
 #define HRTIM_TIMCR_DACSYNC_Msk       (0x3UL << HRTIM_TIMCR_DACSYNC_Pos)        /*!< 0x06000000 */
-#define HRTIM_TIMCR_DACSYNC           HRTIM_TIMCR_DACSYNC_Msk                  /*!< DAC sychronization mask */
+#define HRTIM_TIMCR_DACSYNC           HRTIM_TIMCR_DACSYNC_Msk                  /*!< DAC synchronization mask */
 #define HRTIM_TIMCR_DACSYNC_0         (0x1UL << HRTIM_TIMCR_DACSYNC_Pos)        /*!< 0x02000000 */
 #define HRTIM_TIMCR_DACSYNC_1         (0x2UL << HRTIM_TIMCR_DACSYNC_Pos)        /*!< 0x04000000 */
 #define HRTIM_TIMCR_PREEN_Pos         (27U)                                    
@@ -10038,7 +10041,7 @@ typedef struct
 /**** Bit definition for Common HRTIM Timer Burst mode control register ********/
 #define HRTIM_BMCR_BME_Pos            (0U)                                     
 #define HRTIM_BMCR_BME_Msk            (0x1UL << HRTIM_BMCR_BME_Pos)             /*!< 0x00000001 */
-#define HRTIM_BMCR_BME                HRTIM_BMCR_BME_Msk                       /*!< Burst mode enbale */
+#define HRTIM_BMCR_BME                HRTIM_BMCR_BME_Msk                       /*!< Burst mode enable */
 #define HRTIM_BMCR_BMOM_Pos           (1U)                                     
 #define HRTIM_BMCR_BMOM_Msk           (0x1UL << HRTIM_BMCR_BMOM_Pos)            /*!< 0x00000002 */
 #define HRTIM_BMCR_BMOM               HRTIM_BMCR_BMOM_Msk                      /*!< Burst mode operating mode */
@@ -11396,7 +11399,7 @@ typedef struct
 /*                                                                            */
 /******************************************************************************/
 /*
-* @brief Specific device feature definitions  (not present on all devices in the STM32F3 serie)
+* @brief Specific device feature definitions  (not present on all devices in the STM32F3 series)
 */
 
 /********************  Bit definition for RCC_CR register  ********************/
@@ -12025,7 +12028,7 @@ typedef struct
 /*                                                                            */
 /******************************************************************************/
 /*
-* @brief Specific device feature definitions  (not present on all devices in the STM32F3 serie)
+* @brief Specific device feature definitions  (not present on all devices in the STM32F3 series)
 */
 #define RTC_TAMPER1_SUPPORT  /*!< TAMPER 1 feature support */
 #define RTC_TAMPER2_SUPPORT  /*!< TAMPER 2 feature support */
@@ -12632,7 +12635,7 @@ typedef struct
 /******************************************************************************/
 
 /*
- * @brief Specific device feature definitions (not present on all devices in the STM32F3 serie)
+ * @brief Specific device feature definitions (not present on all devices in the STM32F3 series)
  */
 /* Note: No specific macro feature on this device */
 
@@ -13083,7 +13086,7 @@ typedef struct
 #define SYSCFG_CFGR2_PVD_LOCK                    SYSCFG_CFGR2_PVD_LOCK_Msk     /*!< Enables and locks the PVD connection with TIMx Break Input, as well as the PVDE and PLS[2:0] in the PWR_CR register */
 #define SYSCFG_CFGR2_BYP_ADDR_PAR_Pos            (4U)                          
 #define SYSCFG_CFGR2_BYP_ADDR_PAR_Msk            (0x1UL << SYSCFG_CFGR2_BYP_ADDR_PAR_Pos) /*!< 0x00000010 */
-#define SYSCFG_CFGR2_BYP_ADDR_PAR                SYSCFG_CFGR2_BYP_ADDR_PAR_Msk /*!< Disables the adddress parity check on RAM */
+#define SYSCFG_CFGR2_BYP_ADDR_PAR                SYSCFG_CFGR2_BYP_ADDR_PAR_Msk /*!< Disables the address parity check on RAM */
 #define SYSCFG_CFGR2_SRAM_PE_Pos                 (8U)                          
 #define SYSCFG_CFGR2_SRAM_PE_Msk                 (0x1UL << SYSCFG_CFGR2_SRAM_PE_Pos) /*!< 0x00000100 */
 #define SYSCFG_CFGR2_SRAM_PE                     SYSCFG_CFGR2_SRAM_PE_Msk      /*!< SRAM Parity error flag */
@@ -14357,7 +14360,7 @@ typedef struct
 /******************************************************************************/
 
 /*
-* @brief Specific device feature definitions (not present on all devices in the STM32F3 serie)
+* @brief Specific device feature definitions (not present on all devices in the STM32F3 series)
 */
 
 /* Support of 7 bits data length feature */
@@ -15270,8 +15273,6 @@ typedef struct
   * @}
   */
 
-  /**
+/**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
