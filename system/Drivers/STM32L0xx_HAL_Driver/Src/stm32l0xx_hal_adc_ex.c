@@ -5,30 +5,27 @@
   * @brief   This file provides firmware functions to manage the following
   *          functionalities of the Analog to Digital Convertor (ADC)
   *          peripheral:
-  *           + Operation functions
-  *             ++ Calibration
-  *               +++ ADC automatic self-calibration
-  *               +++ Calibration factors get or set
+  *           + Peripheral Control functions
   *          Other functions (generic functions) are available in file
   *          "stm32l0xx_hal_adc.c".
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   [..]
   (@) Sections "ADC peripheral features" and "How to use this driver" are
       available in file of generic functions "stm32l0xx_hal_adc.c".
   [..]
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright(c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -53,12 +50,12 @@
   * @{
   */
 
-  /* Fixed timeout values for ADC calibration, enable settling time, disable  */
-  /* settling time.                                                           */
-  /* Values defined to be higher than worst cases: low clock frequency,       */
-  /* maximum prescaler.                                                       */
-  /* Unit: ms                                                                 */
-  #define ADC_CALIBRATION_TIMEOUT      10U
+/* Fixed timeout values for ADC calibration, enable settling time, disable  */
+/* settling time.                                                           */
+/* Values defined to be higher than worst cases: low clock frequency,       */
+/* maximum prescaler.                                                       */
+/* Unit: ms                                                                 */
+#define ADC_CALIBRATION_TIMEOUT      10U
 
 /* Delay for VREFINT stabilization time. */
 /* Internal reference startup time max value is 3ms  (refer to device datasheet, parameter TVREFINT). */
@@ -104,7 +101,7 @@
   *            @arg ADC_SINGLE_ENDED: Channel in mode input single ended
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef* hadc, uint32_t SingleDiff)
+HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc, uint32_t SingleDiff)
 {
   HAL_StatusTypeDef tmp_hal_status = HAL_OK;
   uint32_t tickstart = 0U;
@@ -125,8 +122,8 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef* hadc, uint32_t 
                       HAL_ADC_STATE_BUSY_INTERNAL);
 
     /* Disable ADC DMA transfer request during calibration */
-    /* Note: Specificity of this STM32 serie: Calibration factor is           */
-    /*       available in data register and also transfered by DMA.           */
+    /* Note: Specificity of this STM32 series: Calibration factor is           */
+    /*       available in data register and also transferred by DMA.           */
     /*       To not insert ADC calibration factor among ADC conversion data   */
     /*       in array variable, DMA transfer must be disabled during          */
     /*       calibration.                                                     */
@@ -139,12 +136,12 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef* hadc, uint32_t 
     tickstart = HAL_GetTick();
 
     /* Wait for calibration completion */
-    while(HAL_IS_BIT_SET(hadc->Instance->CR, ADC_CR_ADCAL))
+    while (HAL_IS_BIT_SET(hadc->Instance->CR, ADC_CR_ADCAL))
     {
-      if((HAL_GetTick() - tickstart) > ADC_CALIBRATION_TIMEOUT)
+      if ((HAL_GetTick() - tickstart) > ADC_CALIBRATION_TIMEOUT)
       {
         /* New check to avoid false timeout detection in case of preemption */
-        if(HAL_IS_BIT_SET(hadc->Instance->CR, ADC_CR_ADCAL))
+        if (HAL_IS_BIT_SET(hadc->Instance->CR, ADC_CR_ADCAL))
         {
           /* Update ADC state machine to error */
           ADC_STATE_CLR_SET(hadc->State,
@@ -189,7 +186,7 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef* hadc, uint32_t 
   *           @arg ADC_SINGLE_ENDED: Channel in mode input single ended.
   * @retval Calibration value.
   */
-uint32_t HAL_ADCEx_Calibration_GetValue(ADC_HandleTypeDef* hadc, uint32_t SingleDiff)
+uint32_t HAL_ADCEx_Calibration_GetValue(ADC_HandleTypeDef *hadc, uint32_t SingleDiff)
 {
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
@@ -208,7 +205,7 @@ uint32_t HAL_ADCEx_Calibration_GetValue(ADC_HandleTypeDef* hadc, uint32_t Single
   * @param  CalibrationFactor Calibration factor (coded on 7 bits maximum)
   * @retval HAL state
   */
-HAL_StatusTypeDef HAL_ADCEx_Calibration_SetValue(ADC_HandleTypeDef* hadc, uint32_t SingleDiff, uint32_t CalibrationFactor)
+HAL_StatusTypeDef HAL_ADCEx_Calibration_SetValue(ADC_HandleTypeDef *hadc, uint32_t SingleDiff, uint32_t CalibrationFactor)
 {
   HAL_StatusTypeDef tmp_hal_status = HAL_OK;
 
@@ -222,8 +219,8 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_SetValue(ADC_HandleTypeDef* hadc, uint32
 
   /* Verification of hardware constraints before modifying the calibration    */
   /* factors register: ADC must be enabled, no conversion on going.           */
-  if ( (ADC_IS_ENABLE(hadc) != RESET)                            &&
-       (ADC_IS_CONVERSION_ONGOING_REGULAR(hadc) == RESET)  )
+  if ((ADC_IS_ENABLE(hadc) != RESET)                            &&
+      (ADC_IS_CONVERSION_ONGOING_REGULAR(hadc) == RESET))
   {
     /* Set the selected ADC calibration value */
     hadc->Instance->CALFACT &= ~ADC_CALFACT_CALFACT;
@@ -267,12 +264,12 @@ HAL_StatusTypeDef HAL_ADCEx_EnableVREFINT(void)
   /* Get tick count */
   tickstart = HAL_GetTick();
 
-  while(HAL_IS_BIT_CLR(SYSCFG->CFGR3, SYSCFG_CFGR3_VREFINT_RDYF))
+  while (HAL_IS_BIT_CLR(SYSCFG->CFGR3, SYSCFG_CFGR3_VREFINT_RDYF))
   {
-    if((HAL_GetTick() - tickstart) > SYSCFG_BUF_VREFINT_ENABLE_TIMEOUT)
+    if ((HAL_GetTick() - tickstart) > SYSCFG_BUF_VREFINT_ENABLE_TIMEOUT)
     {
       /* New check to avoid false timeout detection in case of preemption */
-      if(HAL_IS_BIT_CLR(SYSCFG->CFGR3, SYSCFG_CFGR3_VREFINT_RDYF))
+      if (HAL_IS_BIT_CLR(SYSCFG->CFGR3, SYSCFG_CFGR3_VREFINT_RDYF))
       {
         return HAL_ERROR;
       }
@@ -314,12 +311,12 @@ HAL_StatusTypeDef HAL_ADCEx_EnableVREFINTTempSensor(void)
   /* Get tick count */
   tickstart = HAL_GetTick();
 
-  while(HAL_IS_BIT_CLR(SYSCFG->CFGR3, SYSCFG_CFGR3_VREFINT_RDYF))
+  while (HAL_IS_BIT_CLR(SYSCFG->CFGR3, SYSCFG_CFGR3_VREFINT_RDYF))
   {
-    if((HAL_GetTick() - tickstart) > SYSCFG_BUF_TEMPSENSOR_ENABLE_TIMEOUT)
+    if ((HAL_GetTick() - tickstart) > SYSCFG_BUF_TEMPSENSOR_ENABLE_TIMEOUT)
     {
       /* New check to avoid false timeout detection in case of preemption */
-      if(HAL_IS_BIT_CLR(SYSCFG->CFGR3, SYSCFG_CFGR3_VREFINT_RDYF))
+      if (HAL_IS_BIT_CLR(SYSCFG->CFGR3, SYSCFG_CFGR3_VREFINT_RDYF))
       {
         return HAL_ERROR;
       }
@@ -361,4 +358,3 @@ void HAL_ADCEx_DisableVREFINTTempSensor(void)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright(c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -349,7 +348,7 @@ __STATIC_INLINE uint32_t LL_COMP_GetPowerMode(COMP_TypeDef *COMPx)
   *         For setting COMP1 input it is recommended to use LL_COMP_SetInputMinus()
   *         Plus (non-inverting) input is not configurable on COMP1.
   *         Using this function for COMP1 will corrupt COMP1WM register
-  * @note   On this STM32 serie, specificity if using COMP instance COMP2
+  * @note   On this STM32 series, specificity if using COMP instance COMP2
   *         with COMP input based on VrefInt (VrefInt or subdivision
   *         of VrefInt): scaler bridge is based on VrefInt and requires
   *         to enable path from VrefInt (refer to literal
@@ -435,7 +434,7 @@ __STATIC_INLINE uint32_t LL_COMP_GetInputPlus(COMP_TypeDef *COMPx)
   * @note   In case of comparator input selected to be connected to IO:
   *         GPIO pins are specific to each comparator instance.
   *         Refer to description of parameters or to reference manual.
-  * @note   On this STM32 serie, specificity if using COMP instance COMP2
+  * @note   On this STM32 series, specificity if using COMP instance COMP2
   *         with COMP input based on VrefInt (VrefInt or subdivision
   *         of VrefInt): scaler bridge is based on VrefInt and requires
   *         to enable path from VrefInt (refer to literal
@@ -702,4 +701,3 @@ void        LL_COMP_StructInit(LL_COMP_InitTypeDef *COMP_InitStruct);
 
 #endif /* __STM32L0xx_LL_COMP_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

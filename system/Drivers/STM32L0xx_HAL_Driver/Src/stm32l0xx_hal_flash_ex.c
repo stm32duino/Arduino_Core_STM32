@@ -36,14 +36,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 
@@ -61,8 +59,6 @@
 /** @addtogroup FLASH_Private_Variables
  * @{
  */
-/* Variables used for Erase pages under interruption*/
-extern FLASH_ProcessTypeDef pFlash;
 /**
   * @}
   */
@@ -98,7 +94,6 @@ extern FLASH_ProcessTypeDef pFlash;
 /** @defgroup FLASHEx_Private_Functions FLASHEx Private Functions
  * @{
  */
-void                      FLASH_PageErase(uint32_t PageAddress);
 #if defined(FLASH_OPTR_BFB2)
 static HAL_StatusTypeDef  FLASH_OB_BootConfig(uint8_t OB_BOOT);
 #endif /* FLASH_OPTR_BFB2 */
@@ -760,7 +755,7 @@ HAL_StatusTypeDef   HAL_FLASHEx_DATAEEPROM_Program(uint32_t TypeProgram, uint32_
       status = HAL_ERROR;
     }
 
-    if (status != HAL_OK)
+    if (status == HAL_OK)
     {
       /* Wait for last operation to be completed */
       status = FLASH_WaitForLastOperation(FLASH_TIMEOUT_VALUE);
@@ -825,36 +820,31 @@ void HAL_FLASHEx_DATAEEPROM_DisableFixedTimeProgram(void)
 static HAL_StatusTypeDef FLASH_OB_RDPConfig(uint8_t OB_RDP)
 {
   HAL_StatusTypeDef status = HAL_OK;
-  uint32_t tmp1 = 0U, tmp2 = 0U, tmp3 = 0U;
+  uint32_t tmp1, tmp2;
 
   /* Check the parameters */
   assert_param(IS_OB_RDP(OB_RDP));
 
-  tmp1 = (uint32_t)(OB->RDP & FLASH_OPTR_RDPROT);
+  tmp1 = (uint32_t)(OB->RDP & ((~FLASH_OPTR_RDPROT) & 0x0000FFFF));
 
-#if defined(FLASH_OPTR_WPRMOD)
-    /* Mask WPRMOD bit */
-    tmp3 = (uint32_t)(OB->RDP & FLASH_OPTR_WPRMOD);
-#endif
+  /* Calculate the option byte to write */
+  tmp1 |= (uint32_t)(OB_RDP);
+  tmp2 = (uint32_t)(((uint32_t)((uint32_t)(~tmp1) << 16U)) | tmp1);
 
-    /* calculate the option byte to write */
-    tmp1 = (~((uint32_t)(OB_RDP | tmp3)));
-    tmp2 = (uint32_t)(((uint32_t)((uint32_t)(tmp1) << 16U)) | ((uint32_t)(OB_RDP | tmp3)));
+  /* Wait for last operation to be completed */
+  status = FLASH_WaitForLastOperation(FLASH_TIMEOUT_VALUE);
+
+  if(status == HAL_OK)
+  {
+    /* Clean the error context */
+    pFlash.ErrorCode = HAL_FLASH_ERROR_NONE;
+
+    /* program read protection level */
+    OB->RDP = tmp2;
 
     /* Wait for last operation to be completed */
     status = FLASH_WaitForLastOperation(FLASH_TIMEOUT_VALUE);
-
-    if(status == HAL_OK)
-    {
-      /* Clean the error context */
-      pFlash.ErrorCode = HAL_FLASH_ERROR_NONE;
-
-      /* program read protection level */
-      OB->RDP = tmp2;
-
-      /* Wait for last operation to be completed */
-      status = FLASH_WaitForLastOperation(FLASH_TIMEOUT_VALUE);
-    }
+  }
 
   /* Return the Read protection operation Status */
   return status;
@@ -1271,4 +1261,3 @@ void FLASH_PageErase(uint32_t PageAddress)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
