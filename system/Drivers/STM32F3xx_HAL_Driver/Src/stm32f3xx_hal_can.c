@@ -12,6 +12,17 @@
   *           + Callbacks functions
   *           + Peripheral State and Error functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                         ##### How to use this driver #####
@@ -196,17 +207,6 @@
 
   @endverbatim
   ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -226,8 +226,8 @@
 #ifdef HAL_CAN_MODULE_ENABLED
 
 #ifdef HAL_CAN_LEGACY_MODULE_ENABLED
-  #error "The CAN driver cannot be used with its legacy, Please enable only one CAN module at once"
-#endif
+#error "The CAN driver cannot be used with its legacy, Please enable only one CAN module at once"
+#endif /* HAL_CAN_LEGACY_MODULE_ENABLED */
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -555,7 +555,8 @@ __weak void HAL_CAN_MspDeInit(CAN_HandleTypeDef *hcan)
   * @param  pCallback pointer to the Callback function
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_CAN_RegisterCallback(CAN_HandleTypeDef *hcan, HAL_CAN_CallbackIDTypeDef CallbackID, void (* pCallback)(CAN_HandleTypeDef *_hcan))
+HAL_StatusTypeDef HAL_CAN_RegisterCallback(CAN_HandleTypeDef *hcan, HAL_CAN_CallbackIDTypeDef CallbackID,
+                                           void (* pCallback)(CAN_HandleTypeDef *_hcan))
 {
   HAL_StatusTypeDef status = HAL_OK;
 
@@ -675,7 +676,7 @@ HAL_StatusTypeDef HAL_CAN_RegisterCallback(CAN_HandleTypeDef *hcan, HAL_CAN_Call
 
 /**
   * @brief  Unregister a CAN CallBack.
-  *         CAN callabck is redirected to the weak predefined callback
+  *         CAN callback is redirected to the weak predefined callback
   * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
   *         the configuration information for CAN module
   * @param  CallbackID ID of the callback to be unregistered
@@ -835,7 +836,7 @@ HAL_StatusTypeDef HAL_CAN_UnRegisterCallback(CAN_HandleTypeDef *hcan, HAL_CAN_Ca
   *         contains the filter configuration information.
   * @retval None
   */
-HAL_StatusTypeDef HAL_CAN_ConfigFilter(CAN_HandleTypeDef *hcan, CAN_FilterTypeDef *sFilterConfig)
+HAL_StatusTypeDef HAL_CAN_ConfigFilter(CAN_HandleTypeDef *hcan, const CAN_FilterTypeDef *sFilterConfig)
 {
   uint32_t filternbrbitpos;
   CAN_TypeDef *can_ip = hcan->Instance;
@@ -1172,7 +1173,7 @@ HAL_StatusTypeDef HAL_CAN_WakeUp(CAN_HandleTypeDef *hcan)
   *          - 0 : Sleep mode is not active.
   *          - 1 : Sleep mode is active.
   */
-uint32_t HAL_CAN_IsSleepActive(CAN_HandleTypeDef *hcan)
+uint32_t HAL_CAN_IsSleepActive(const CAN_HandleTypeDef *hcan)
 {
   uint32_t status = 0U;
   HAL_CAN_StateTypeDef state = hcan->State;
@@ -1203,7 +1204,8 @@ uint32_t HAL_CAN_IsSleepActive(CAN_HandleTypeDef *hcan)
   *         This parameter can be a value of @arg CAN_Tx_Mailboxes.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_CAN_AddTxMessage(CAN_HandleTypeDef *hcan, CAN_TxHeaderTypeDef *pHeader, uint8_t aData[], uint32_t *pTxMailbox)
+HAL_StatusTypeDef HAL_CAN_AddTxMessage(CAN_HandleTypeDef *hcan, const CAN_TxHeaderTypeDef *pHeader,
+                                       const uint8_t aData[], uint32_t *pTxMailbox)
 {
   uint32_t transmitmailbox;
   HAL_CAN_StateTypeDef state = hcan->State;
@@ -1233,15 +1235,6 @@ HAL_StatusTypeDef HAL_CAN_AddTxMessage(CAN_HandleTypeDef *hcan, CAN_TxHeaderType
     {
       /* Select an empty transmit mailbox */
       transmitmailbox = (tsr & CAN_TSR_CODE) >> CAN_TSR_CODE_Pos;
-
-      /* Check transmit mailbox value */
-      if (transmitmailbox > 2U)
-      {
-        /* Update error code */
-        hcan->ErrorCode |= HAL_CAN_ERROR_INTERNAL;
-
-        return HAL_ERROR;
-      }
 
       /* Store the Tx mailbox */
       *pTxMailbox = (uint32_t)1 << transmitmailbox;
@@ -1360,7 +1353,7 @@ HAL_StatusTypeDef HAL_CAN_AbortTxRequest(CAN_HandleTypeDef *hcan, uint32_t TxMai
   *         the configuration information for the specified CAN.
   * @retval Number of free Tx Mailboxes.
   */
-uint32_t HAL_CAN_GetTxMailboxesFreeLevel(CAN_HandleTypeDef *hcan)
+uint32_t HAL_CAN_GetTxMailboxesFreeLevel(const CAN_HandleTypeDef *hcan)
 {
   uint32_t freelevel = 0U;
   HAL_CAN_StateTypeDef state = hcan->State;
@@ -1403,7 +1396,7 @@ uint32_t HAL_CAN_GetTxMailboxesFreeLevel(CAN_HandleTypeDef *hcan)
   *          - 1 : Pending transmission request on at least one of the selected
   *                Tx Mailbox.
   */
-uint32_t HAL_CAN_IsTxMessagePending(CAN_HandleTypeDef *hcan, uint32_t TxMailboxes)
+uint32_t HAL_CAN_IsTxMessagePending(const CAN_HandleTypeDef *hcan, uint32_t TxMailboxes)
 {
   uint32_t status = 0U;
   HAL_CAN_StateTypeDef state = hcan->State;
@@ -1435,7 +1428,7 @@ uint32_t HAL_CAN_IsTxMessagePending(CAN_HandleTypeDef *hcan, uint32_t TxMailboxe
   *         This parameter can be one value of @arg CAN_Tx_Mailboxes.
   * @retval Timestamp of message sent from Tx Mailbox.
   */
-uint32_t HAL_CAN_GetTxTimestamp(CAN_HandleTypeDef *hcan, uint32_t TxMailbox)
+uint32_t HAL_CAN_GetTxTimestamp(const CAN_HandleTypeDef *hcan, uint32_t TxMailbox)
 {
   uint32_t timestamp = 0U;
   uint32_t transmitmailbox;
@@ -1469,7 +1462,8 @@ uint32_t HAL_CAN_GetTxTimestamp(CAN_HandleTypeDef *hcan, uint32_t TxMailbox)
   * @param  aData array where the payload of the Rx frame will be stored.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32_t RxFifo, CAN_RxHeaderTypeDef *pHeader, uint8_t aData[])
+HAL_StatusTypeDef HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32_t RxFifo,
+                                       CAN_RxHeaderTypeDef *pHeader, uint8_t aData[])
 {
   HAL_CAN_StateTypeDef state = hcan->State;
 
@@ -1510,10 +1504,19 @@ HAL_StatusTypeDef HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32_t RxFifo,
     }
     else
     {
-      pHeader->ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & hcan->Instance->sFIFOMailBox[RxFifo].RIR) >> CAN_RI0R_EXID_Pos;
+      pHeader->ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) &
+                        hcan->Instance->sFIFOMailBox[RxFifo].RIR) >> CAN_RI0R_EXID_Pos;
     }
     pHeader->RTR = (CAN_RI0R_RTR & hcan->Instance->sFIFOMailBox[RxFifo].RIR);
-    pHeader->DLC = (CAN_RDT0R_DLC & hcan->Instance->sFIFOMailBox[RxFifo].RDTR) >> CAN_RDT0R_DLC_Pos;
+    if (((CAN_RDT0R_DLC & hcan->Instance->sFIFOMailBox[RxFifo].RDTR) >> CAN_RDT0R_DLC_Pos) >= 8U)
+    {
+      /* Truncate DLC to 8 if received field is over range */
+      pHeader->DLC = 8U;
+    }
+    else
+    {
+      pHeader->DLC = (CAN_RDT0R_DLC & hcan->Instance->sFIFOMailBox[RxFifo].RDTR) >> CAN_RDT0R_DLC_Pos;
+    }
     pHeader->FilterMatchIndex = (CAN_RDT0R_FMI & hcan->Instance->sFIFOMailBox[RxFifo].RDTR) >> CAN_RDT0R_FMI_Pos;
     pHeader->Timestamp = (CAN_RDT0R_TIME & hcan->Instance->sFIFOMailBox[RxFifo].RDTR) >> CAN_RDT0R_TIME_Pos;
 
@@ -1559,7 +1562,7 @@ HAL_StatusTypeDef HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32_t RxFifo,
   *         This parameter can be a value of @arg CAN_receive_FIFO_number.
   * @retval Number of messages available in Rx FIFO.
   */
-uint32_t HAL_CAN_GetRxFifoFillLevel(CAN_HandleTypeDef *hcan, uint32_t RxFifo)
+uint32_t HAL_CAN_GetRxFifoFillLevel(const CAN_HandleTypeDef *hcan, uint32_t RxFifo)
 {
   uint32_t filllevel = 0U;
   HAL_CAN_StateTypeDef state = hcan->State;
@@ -2327,7 +2330,7 @@ __weak void HAL_CAN_ErrorCallback(CAN_HandleTypeDef *hcan)
   *         the configuration information for the specified CAN.
   * @retval HAL state
   */
-HAL_CAN_StateTypeDef HAL_CAN_GetState(CAN_HandleTypeDef *hcan)
+HAL_CAN_StateTypeDef HAL_CAN_GetState(const CAN_HandleTypeDef *hcan)
 {
   HAL_CAN_StateTypeDef state = hcan->State;
 
@@ -2362,7 +2365,7 @@ HAL_CAN_StateTypeDef HAL_CAN_GetState(CAN_HandleTypeDef *hcan)
   *         the configuration information for the specified CAN.
   * @retval CAN Error Code
   */
-uint32_t HAL_CAN_GetError(CAN_HandleTypeDef *hcan)
+uint32_t HAL_CAN_GetError(const CAN_HandleTypeDef *hcan)
 {
   /* Return CAN error code */
   return hcan->ErrorCode;
@@ -2416,5 +2419,3 @@ HAL_StatusTypeDef HAL_CAN_ResetError(CAN_HandleTypeDef *hcan)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

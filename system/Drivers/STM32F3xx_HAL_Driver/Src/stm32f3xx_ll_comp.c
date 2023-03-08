@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -31,7 +30,7 @@
   * @{
   */
 
-/* Note: Devices of STM32F3 serie embed 1 out of 2 different comparator IP.   */
+/* Note: Devices of STM32F3 series embed 1 out of 2 different comparator IP.   */
 /*       - STM32F30x, STM32F31x, STM32F32x, STM32F33x, STM32F35x, STM32F39x:  */
 /*         COMP IP from 3 to 7 instances and other specific features          */
 /*         (comparator output blanking, ...) (refer to reference manual).     */
@@ -72,7 +71,7 @@
   ((__POWER_MODE__) == LL_COMP_POWERMODE_HIGHSPEED)
 #endif
 
-/* Note: On this STM32 serie, comparator input plus parameters are            */
+/* Note: On this STM32 series, comparator input plus parameters are            */
 /*       the same on all COMP instances.                                      */
 /*       However, comparator instance kept as macro parameter for             */
 /*       compatibility with other STM32 families.                             */
@@ -766,7 +765,7 @@ void LL_COMP_StructInit(LL_COMP_InitTypeDef *COMP_InitStruct)
    || ((__POWER_MODE__) == LL_COMP_POWERMODE_ULTRALOWPOWER)                    \
   )
 
-/* Note: On this STM32 serie, comparator input plus parameters are            */
+/* Note: On this STM32 series, comparator input plus parameters are            */
 /*       the different depending on COMP instances.                           */
 #define IS_LL_COMP_INPUT_PLUS(__COMP_INSTANCE__, __INPUT_PLUS__)               \
   (((__COMP_INSTANCE__) == COMP1)                                              \
@@ -780,7 +779,7 @@ void LL_COMP_StructInit(LL_COMP_InitTypeDef *COMP_InitStruct)
       )                                                                        \
   )
 
-/* Note: On this STM32 serie, comparator input minus parameters are           */
+/* Note: On this STM32 series, comparator input minus parameters are           */
 /*       the same on all COMP instances.                                      */
 /*       However, comparator instance kept as macro parameter for             */
 /*       compatibility with other STM32 families.                             */
@@ -1032,4 +1031,3 @@ void LL_COMP_StructInit(LL_COMP_InitTypeDef *COMP_InitStruct)
 
 #endif /* USE_FULL_LL_DRIVER */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -5,7 +5,7 @@
   * @brief   Extended OPAMP HAL module driver.
   *
   *          This file provides firmware functions to manage the following
-  *          functionalities of the Power Controller (OPAMP) peripheral:
+  *          functionalities of the operational amplifier(s) peripheral:
   *           + Extended Initialization and de-initialization  functions
   *           + Extended Peripheral Control  functions
   *
@@ -13,13 +13,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -174,7 +173,7 @@ HAL_StatusTypeDef HAL_OPAMPEx_SelfCalibrateAll(OPAMP_HandleTypeDef *hopamp1, OPA
       delta >>= 1U;
     }
 
-    // Still need to check if righ calibration is current value or un step below
+    // Still need to check if right calibration is current value or un step below
     // Indeed the first value that causes the OUTCAL bit to change from 1 to 0
     MODIFY_REG(hopamp1->Instance->CSR, OPAMP_CSR_TRIMOFFSETN, trimmingvaluen1 << OPAMP_INPUT_INVERTING);
     MODIFY_REG(hopamp2->Instance->CSR, OPAMP_CSR_TRIMOFFSETN, trimmingvaluen2 << OPAMP_INPUT_INVERTING);
@@ -245,7 +244,7 @@ HAL_StatusTypeDef HAL_OPAMPEx_SelfCalibrateAll(OPAMP_HandleTypeDef *hopamp1, OPA
       delta >>= 1U;
     }
 
-    // Still need to check if righ calibration is current value or un step below
+    // Still need to check if right calibration is current value or un step below
     // Indeed the first value that causes the OUTCAL bit to change from 1 to 0
     /* Set candidate trimming */
     MODIFY_REG(hopamp1->Instance->CSR, OPAMP_CSR_TRIMOFFSETP, trimmingvaluep1 << OPAMP_INPUT_NONINVERTING);
@@ -285,8 +284,8 @@ HAL_StatusTypeDef HAL_OPAMPEx_SelfCalibrateAll(OPAMP_HandleTypeDef *hopamp1, OPA
     CLEAR_BIT(hopamp2->Instance->CSR, OPAMP_CSR_FORCEVP);
 
     /* Self calibration is successful  */
-    /* Store calibration(user timming) results in init structure. */
-    /* Select user timming mode */
+    /* Store calibration(user trimming) results in init structure. */
+    /* Select user trimming mode */
 
     /* Write calibration result N */
     hopamp1->Init.TrimmingValueN = trimmingvaluen1;
@@ -300,7 +299,7 @@ HAL_StatusTypeDef HAL_OPAMPEx_SelfCalibrateAll(OPAMP_HandleTypeDef *hopamp1, OPA
     hopamp1->Init.UserTrimming = OPAMP_TRIMMING_USER;
     hopamp2->Init.UserTrimming = OPAMP_TRIMMING_USER;
 
-    /* Select user timming mode */
+    /* Select user trimming mode */
     /* And updated with calibrated settings */
     hopamp1->Init.UserTrimming = OPAMP_TRIMMING_USER;
     hopamp2->Init.UserTrimming = OPAMP_TRIMMING_USER;
@@ -477,7 +476,7 @@ HAL_StatusTypeDef HAL_OPAMPEx_SelfCalibrateAll(OPAMP_HandleTypeDef *hopamp1, OPA
       delta >>= 1U;
     }
 
-    /* Still need to check if righ calibration is current value or un step below */
+    /* Still need to check if right calibration is current value or un step below */
     /* Indeed the first value that causes the OUTCAL bit to change from 1 to 0U */
     MODIFY_REG(hopamp1->Instance->CSR, OPAMP_CSR_TRIMOFFSETN, trimmingvaluen1 << OPAMP_INPUT_INVERTING);
     MODIFY_REG(hopamp2->Instance->CSR, OPAMP_CSR_TRIMOFFSETN, trimmingvaluen2 << OPAMP_INPUT_INVERTING);
@@ -593,7 +592,7 @@ HAL_StatusTypeDef HAL_OPAMPEx_SelfCalibrateAll(OPAMP_HandleTypeDef *hopamp1, OPA
       delta >>= 1U;
     }
 
-    /* Still need to check if righ calibration is current value or un step below */
+    /* Still need to check if right calibration is current value or un step below */
     /* Indeed the first value that causes the OUTCAL bit to change from 1 to 0U */
     /* Set candidate trimming */
     MODIFY_REG(hopamp1->Instance->CSR, OPAMP_CSR_TRIMOFFSETP, trimmingvaluep1 << OPAMP_INPUT_NONINVERTING);
@@ -657,8 +656,8 @@ HAL_StatusTypeDef HAL_OPAMPEx_SelfCalibrateAll(OPAMP_HandleTypeDef *hopamp1, OPA
     CLEAR_BIT(hopamp4->Instance->CSR, OPAMP_CSR_FORCEVP);
 
     /* Self calibration is successful  */
-    /* Store calibration(user timming) results in init structure. */
-    /* Select user timming mode */
+    /* Store calibration(user trimming) results in init structure. */
+    /* Select user trimming mode */
 
     /* Write calibration result N */
     hopamp1->Init.TrimmingValueN = trimmingvaluen1;
@@ -672,7 +671,7 @@ HAL_StatusTypeDef HAL_OPAMPEx_SelfCalibrateAll(OPAMP_HandleTypeDef *hopamp1, OPA
     hopamp3->Init.TrimmingValueP = trimmingvaluep3;
     hopamp4->Init.TrimmingValueP = trimmingvaluep4;
 
-    /* Select user timming mode */
+    /* Select user trimming mode */
     /* And updated with calibrated settings */
     hopamp1->Init.UserTrimming = OPAMP_TRIMMING_USER;
     hopamp2->Init.UserTrimming = OPAMP_TRIMMING_USER;
@@ -714,4 +713,3 @@ HAL_StatusTypeDef HAL_OPAMPEx_SelfCalibrateAll(OPAMP_HandleTypeDef *hopamp1, OPA
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

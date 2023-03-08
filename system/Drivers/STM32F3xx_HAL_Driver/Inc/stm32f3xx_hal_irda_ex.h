@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -50,10 +49,12 @@ extern "C" {
 #define IRDA_WORDLENGTH_7B                  USART_CR1_M1   /*!< 7-bit long frame */
 #define IRDA_WORDLENGTH_8B                  0x00000000U    /*!< 8-bit long frame */
 #define IRDA_WORDLENGTH_9B                  USART_CR1_M0   /*!< 9-bit long frame */
-#elif defined(USART_CR1_M)
+#else
+#if defined(USART_CR1_M)
 #define IRDA_WORDLENGTH_8B                  (0x00000000U)              /*!< 8-bit long frame */
 #define IRDA_WORDLENGTH_9B                  USART_CR1_M    /*!< 9-bit long frame */
-#endif
+#endif  /* USART_CR1_M1 */
+#endif  /* USART_CR1_M1 && USART_CR1_M0 */
 /**
   * @}
   */
@@ -75,13 +76,14 @@ extern "C" {
   * @param  __CLOCKSOURCE__ output variable.
   * @retval IRDA clocking source, written in __CLOCKSOURCE__.
   */
-#if defined(STM32F302xE) || defined(STM32F303xE) || defined(STM32F398xx) || defined(STM32F302xC) || defined(STM32F303xC) || defined(STM32F358xx)
+#if defined(STM32F302xE) || defined(STM32F303xE) || defined(STM32F398xx) || defined(STM32F302xC) \
+ || defined(STM32F303xC) || defined(STM32F358xx)
 #define IRDA_GETCLOCKSOURCE(__HANDLE__,__CLOCKSOURCE__)       \
   do {                                                        \
     if((__HANDLE__)->Instance == USART1)                      \
     {                                                         \
-       switch(__HAL_RCC_GET_USART1_SOURCE())                  \
-       {                                                      \
+      switch(__HAL_RCC_GET_USART1_SOURCE())                   \
+      {                                                       \
         case RCC_USART1CLKSOURCE_PCLK2:                       \
           (__CLOCKSOURCE__) = IRDA_CLOCKSOURCE_PCLK2;         \
           break;                                              \
@@ -97,12 +99,12 @@ extern "C" {
         default:                                              \
           (__CLOCKSOURCE__) = IRDA_CLOCKSOURCE_UNDEFINED;     \
           break;                                              \
-       }                                                      \
+      }                                                       \
     }                                                         \
     else if((__HANDLE__)->Instance == USART2)                 \
     {                                                         \
-       switch(__HAL_RCC_GET_USART2_SOURCE())                  \
-       {                                                      \
+      switch(__HAL_RCC_GET_USART2_SOURCE())                   \
+      {                                                       \
         case RCC_USART2CLKSOURCE_PCLK1:                       \
           (__CLOCKSOURCE__) = IRDA_CLOCKSOURCE_PCLK1;         \
           break;                                              \
@@ -118,12 +120,12 @@ extern "C" {
         default:                                              \
           (__CLOCKSOURCE__) = IRDA_CLOCKSOURCE_UNDEFINED;     \
           break;                                              \
-       }                                                      \
+      }                                                       \
     }                                                         \
     else if((__HANDLE__)->Instance == USART3)                 \
     {                                                         \
-       switch(__HAL_RCC_GET_USART3_SOURCE())                  \
-       {                                                      \
+      switch(__HAL_RCC_GET_USART3_SOURCE())                   \
+      {                                                       \
         case RCC_USART3CLKSOURCE_PCLK1:                       \
           (__CLOCKSOURCE__) = IRDA_CLOCKSOURCE_PCLK1;         \
           break;                                              \
@@ -139,12 +141,12 @@ extern "C" {
         default:                                              \
           (__CLOCKSOURCE__) = IRDA_CLOCKSOURCE_UNDEFINED;     \
           break;                                              \
-       }                                                      \
+      }                                                       \
     }                                                         \
     else if((__HANDLE__)->Instance == UART4)                  \
     {                                                         \
-       switch(__HAL_RCC_GET_UART4_SOURCE())                   \
-       {                                                      \
+      switch(__HAL_RCC_GET_UART4_SOURCE())                    \
+      {                                                       \
         case RCC_UART4CLKSOURCE_PCLK1:                        \
           (__CLOCKSOURCE__) = IRDA_CLOCKSOURCE_PCLK1;         \
           break;                                              \
@@ -160,12 +162,12 @@ extern "C" {
         default:                                              \
           (__CLOCKSOURCE__) = IRDA_CLOCKSOURCE_UNDEFINED;     \
           break;                                              \
-       }                                                      \
+      }                                                       \
     }                                                         \
     else if((__HANDLE__)->Instance == UART5)                  \
     {                                                         \
-       switch(__HAL_RCC_GET_UART5_SOURCE())                   \
-       {                                                      \
+      switch(__HAL_RCC_GET_UART5_SOURCE())                    \
+      {                                                       \
         case RCC_UART5CLKSOURCE_PCLK1:                        \
           (__CLOCKSOURCE__) = IRDA_CLOCKSOURCE_PCLK1;         \
           break;                                              \
@@ -181,20 +183,21 @@ extern "C" {
         default:                                              \
           (__CLOCKSOURCE__) = IRDA_CLOCKSOURCE_UNDEFINED;     \
           break;                                              \
-       }                                                      \
+      }                                                       \
     }                                                         \
     else                                                      \
     {                                                         \
       (__CLOCKSOURCE__) = IRDA_CLOCKSOURCE_UNDEFINED;         \
     }                                                         \
   } while(0U)
-#elif defined(STM32F303x8) || defined(STM32F334x8) || defined(STM32F328xx) || defined(STM32F301x8) || defined(STM32F302x8) || defined(STM32F318xx)
+#elif defined(STM32F303x8) || defined(STM32F334x8) || defined(STM32F328xx) || defined(STM32F301x8) \
+   || defined(STM32F302x8) || defined(STM32F318xx)
 #define IRDA_GETCLOCKSOURCE(__HANDLE__,__CLOCKSOURCE__)       \
   do {                                                        \
     if((__HANDLE__)->Instance == USART1)                      \
     {                                                         \
-       switch(__HAL_RCC_GET_USART1_SOURCE())                  \
-       {                                                      \
+      switch(__HAL_RCC_GET_USART1_SOURCE())                   \
+      {                                                       \
         case RCC_USART1CLKSOURCE_PCLK1:                       \
           (__CLOCKSOURCE__) = IRDA_CLOCKSOURCE_PCLK1;         \
           break;                                              \
@@ -210,7 +213,7 @@ extern "C" {
         default:                                              \
           (__CLOCKSOURCE__) = IRDA_CLOCKSOURCE_UNDEFINED;     \
           break;                                              \
-       }                                                      \
+      }                                                       \
     }                                                         \
     else if((__HANDLE__)->Instance == USART2)                 \
     {                                                         \
@@ -230,8 +233,8 @@ extern "C" {
   do {                                                        \
     if((__HANDLE__)->Instance == USART1)                      \
     {                                                         \
-       switch(__HAL_RCC_GET_USART1_SOURCE())                  \
-       {                                                      \
+      switch(__HAL_RCC_GET_USART1_SOURCE())                   \
+      {                                                       \
         case RCC_USART1CLKSOURCE_PCLK2:                       \
           (__CLOCKSOURCE__) = IRDA_CLOCKSOURCE_PCLK2;         \
           break;                                              \
@@ -247,12 +250,12 @@ extern "C" {
         default:                                              \
           (__CLOCKSOURCE__) = IRDA_CLOCKSOURCE_UNDEFINED;     \
           break;                                              \
-       }                                                      \
+      }                                                       \
     }                                                         \
     else if((__HANDLE__)->Instance == USART2)                 \
     {                                                         \
-       switch(__HAL_RCC_GET_USART2_SOURCE())                  \
-       {                                                      \
+      switch(__HAL_RCC_GET_USART2_SOURCE())                   \
+      {                                                       \
         case RCC_USART2CLKSOURCE_PCLK1:                       \
           (__CLOCKSOURCE__) = IRDA_CLOCKSOURCE_PCLK1;         \
           break;                                              \
@@ -268,12 +271,12 @@ extern "C" {
         default:                                              \
           (__CLOCKSOURCE__) = IRDA_CLOCKSOURCE_UNDEFINED;     \
           break;                                              \
-       }                                                      \
+      }                                                       \
     }                                                         \
     else if((__HANDLE__)->Instance == USART3)                 \
     {                                                         \
-       switch(__HAL_RCC_GET_USART3_SOURCE())                  \
-       {                                                      \
+      switch(__HAL_RCC_GET_USART3_SOURCE())                   \
+      {                                                       \
         case RCC_USART3CLKSOURCE_PCLK1:                       \
           (__CLOCKSOURCE__) = IRDA_CLOCKSOURCE_PCLK1;         \
           break;                                              \
@@ -289,7 +292,7 @@ extern "C" {
         default:                                              \
           (__CLOCKSOURCE__) = IRDA_CLOCKSOURCE_UNDEFINED;     \
           break;                                              \
-       }                                                      \
+      }                                                       \
     }                                                         \
     else                                                      \
     {                                                         \
@@ -344,33 +347,35 @@ extern "C" {
       (__HANDLE__)->Mask = 0x0000U;                                   \
     }                                                                 \
   } while(0U)
-#elif defined(USART_CR1_M)
+#else
+#if defined(USART_CR1_M)
 #define IRDA_MASK_COMPUTATION(__HANDLE__)                             \
   do {                                                                \
-  if ((__HANDLE__)->Init.WordLength == IRDA_WORDLENGTH_9B)            \
-  {                                                                   \
-     if ((__HANDLE__)->Init.Parity == IRDA_PARITY_NONE)               \
-     {                                                                \
+    if ((__HANDLE__)->Init.WordLength == IRDA_WORDLENGTH_9B)          \
+    {                                                                 \
+      if ((__HANDLE__)->Init.Parity == IRDA_PARITY_NONE)              \
+      {                                                               \
         (__HANDLE__)->Mask = 0x01FFU ;                                \
-     }                                                                \
-     else                                                             \
-     {                                                                \
+      }                                                               \
+      else                                                            \
+      {                                                               \
         (__HANDLE__)->Mask = 0x00FFU ;                                \
-     }                                                                \
-  }                                                                   \
-  else if ((__HANDLE__)->Init.WordLength == IRDA_WORDLENGTH_8B)       \
-  {                                                                   \
-     if ((__HANDLE__)->Init.Parity == IRDA_PARITY_NONE)               \
-     {                                                                \
+      }                                                               \
+    }                                                                 \
+    else if ((__HANDLE__)->Init.WordLength == IRDA_WORDLENGTH_8B)     \
+    {                                                                 \
+      if ((__HANDLE__)->Init.Parity == IRDA_PARITY_NONE)              \
+      {                                                               \
         (__HANDLE__)->Mask = 0x00FFU ;                                \
-     }                                                                \
-     else                                                             \
-     {                                                                \
+      }                                                               \
+      else                                                            \
+      {                                                               \
         (__HANDLE__)->Mask = 0x007FU ;                                \
-     }                                                                \
-  }                                                                   \
-} while(0U)
-#endif
+      }                                                               \
+    }                                                                 \
+  } while(0U)
+#endif  /* USART_CR1_M */
+#endif  /* USART_CR1_M && USART_CR1_M0 */
 
 /** @brief Ensure that IRDA frame length is valid.
   * @param __LENGTH__ IRDA frame length.
@@ -380,10 +385,12 @@ extern "C" {
 #define IS_IRDA_WORD_LENGTH(__LENGTH__) (((__LENGTH__) == IRDA_WORDLENGTH_7B) || \
                                          ((__LENGTH__) == IRDA_WORDLENGTH_8B) || \
                                          ((__LENGTH__) == IRDA_WORDLENGTH_9B))
-#elif defined(USART_CR1_M)
+#else
+#if defined(USART_CR1_M)
 #define IS_IRDA_WORD_LENGTH(__LENGTH__) (((__LENGTH__) == IRDA_WORDLENGTH_8B) || \
                                          ((__LENGTH__) == IRDA_WORDLENGTH_9B))
-#endif
+#endif  /* USART_CR1_M */
+#endif  /* USART_CR1_M && USART_CR1_M0 */
 /**
   * @}
   */
@@ -404,4 +411,3 @@ extern "C" {
 
 #endif /* STM32F3xx_HAL_IRDA_EX_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

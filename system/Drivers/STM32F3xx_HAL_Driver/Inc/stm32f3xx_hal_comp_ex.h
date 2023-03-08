@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -139,7 +138,7 @@ extern "C" {
                                                                              PA0 for COMP7) connected to comparator non inverting input */
 #define COMP_NONINVERTINGINPUT_IO2               COMP_CSR_COMPxNONINSEL /*!< IO2 (PA3 for COMP2, PD14 for COMP3, PE7 for COMP4, PB13 for COMP5,
                                                                              PB11 for COMP6, PC1 for COMP7) connected to comparator non inverting input */
-#define COMP_NONINVERTINGINPUT_DAC1SWITCHCLOSED  COMP1_CSR_COMP1SW1     /*!< DAC ouput connected to comparator COMP1 non inverting input */
+#define COMP_NONINVERTINGINPUT_DAC1SWITCHCLOSED  COMP1_CSR_COMP1SW1     /*!< DAC output connected to comparator COMP1 non inverting input */
 /**
   * @}
   */
@@ -149,7 +148,7 @@ extern "C" {
   */
 #define COMP_NONINVERTINGINPUT_IO1               (0x00000000U) /*!< IO1 (PA7 for COMP2, PB0 for COMP4, PB11 for COMP6)
                                                                              connected to comparator non inverting input */
-#define COMP_NONINVERTINGINPUT_DAC1SWITCHCLOSED  COMP2_CSR_COMP2INPDAC  /*!< DAC ouput connected to comparator COMP2 non inverting input */
+#define COMP_NONINVERTINGINPUT_DAC1SWITCHCLOSED  COMP2_CSR_COMP2INPDAC  /*!< DAC output connected to comparator COMP2 non inverting input */
 /**
   * @}
   */
@@ -159,7 +158,7 @@ extern "C" {
   */
 #define COMP_NONINVERTINGINPUT_IO1               (0x00000000U) /*!< IO1 (PA1 for COMP1, PA3 for COMP2) 
                                                                              connected to comparator non inverting input */
-#define COMP_NONINVERTINGINPUT_DAC1SWITCHCLOSED  COMP_CSR_COMP1SW1  /*!< DAC ouput connected to comparator COMP1 non inverting input */
+#define COMP_NONINVERTINGINPUT_DAC1SWITCHCLOSED  COMP_CSR_COMP1SW1  /*!< DAC output connected to comparator COMP1 non inverting input */
 /**
   * @}
   */
@@ -170,7 +169,7 @@ extern "C" {
 #define COMP_NONINVERTINGINPUT_IO1             (0x00000000U)   /*!< IO1 (PA1 for COMP1, PA7 for COMP2, PB14 for COMP3, 
                                                                             PB0 for COMP4, PD12 for COMP5, PD11 for COMP6,
                                                                             PA0 for COMP7) connected to comparator non inverting input */
-#define COMP_NONINVERTINGINPUT_DAC1SWITCHCLOSED COMP1_CSR_COMP1SW1      /*!< DAC ouput connected to comparator COMP1 non inverting input */
+#define COMP_NONINVERTINGINPUT_DAC1SWITCHCLOSED COMP1_CSR_COMP1SW1      /*!< DAC output connected to comparator COMP1 non inverting input */
 /**
   * @}
   */
@@ -2786,4 +2785,3 @@ extern "C" {
 
 #endif /* __STM32F3xx_HAL_COMP_EX_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

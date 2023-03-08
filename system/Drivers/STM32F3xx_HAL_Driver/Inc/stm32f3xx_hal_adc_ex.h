@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -58,7 +57,7 @@ struct __ADC_HandleTypeDef;
   *          - For all parameters except 'LowPowerAutoWait' and 'DMAContinuousRequests': ADC enabled without conversion on going on regular group.
   *          - For parameters 'LowPowerAutoWait' and 'DMAContinuousRequests': ADC enabled without conversion on going on regular and injected groups.
   *         If ADC is not in the appropriate state to modify some parameters, these parameters setting is bypassed
-  *         without error reporting (as it can be the expected behaviour in case of intended action to update another parameter (which fullfills the ADC state condition) on the fly).
+  *         without error reporting (as it can be the expected behaviour in case of intended action to update another parameter (which fulfills the ADC state condition) on the fly).
   */
 typedef struct
 {
@@ -691,7 +690,7 @@ typedef struct
 #if defined(STM32F302xE)
 /* ADC external triggers specific to device STM302xE: mask to differentiate   */
 /* standard triggers from specific timer 20U, needed for reallocation of       */
-/* triggers common to ADC1&2 and to avoind mixing with standard               */
+/* triggers common to ADC1&2 and to avoid mixing with standard               */
 /* triggers without remap.                                                    */
 #define ADC_EXTERNALTRIGCONV_T20_MASK       0x1000
 
@@ -3964,4 +3963,3 @@ HAL_StatusTypeDef       HAL_ADCEx_MultiModeConfigChannel(struct __ADC_HandleType
 #endif /*__STM32F3xx_ADC_H */
 
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

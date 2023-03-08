@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -32,7 +31,7 @@
   * @{
   */
 
-#if defined (USART1) || defined (USART2) || defined (USART3) || defined (UART4) || defined (UART5)
+#if defined(USART1) || defined(USART2) || defined(USART3) || defined(UART4) || defined(UART5)
 
 /** @addtogroup USART_LL
   * @{
@@ -41,6 +40,17 @@
 /* Private types -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private constants ---------------------------------------------------------*/
+/** @addtogroup USART_LL_Private_Constants
+  * @{
+  */
+
+/* Definition of default baudrate value used for USART initialisation */
+#define USART_DEFAULT_BAUDRATE          (9600U)
+
+/**
+  * @}
+  */
+
 /* Private macros ------------------------------------------------------------*/
 /** @addtogroup USART_LL_Private_Macros
   * @{
@@ -118,7 +128,7 @@
   *          - SUCCESS: USART registers are de-initialized
   *          - ERROR: USART registers are not de-initialized
   */
-ErrorStatus LL_USART_DeInit(USART_TypeDef *USARTx)
+ErrorStatus LL_USART_DeInit(const USART_TypeDef *USARTx)
 {
   ErrorStatus status = SUCCESS;
 
@@ -191,13 +201,13 @@ ErrorStatus LL_USART_DeInit(USART_TypeDef *USARTx)
   *          - SUCCESS: USART registers are initialized according to USART_InitStruct content
   *          - ERROR: Problem occurred during USART Registers initialization
   */
-ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, LL_USART_InitTypeDef *USART_InitStruct)
+ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, const LL_USART_InitTypeDef *USART_InitStruct)
 {
   ErrorStatus status = ERROR;
   uint32_t periphclk = LL_RCC_PERIPH_FREQUENCY_NO;
 #if (!defined(RCC_CFGR3_USART2SW)||!defined (RCC_CFGR3_USART3SW))
   LL_RCC_ClocksTypeDef RCC_Clocks;
-#endif
+#endif /* USART clock selection flags */
 
   /* Check the parameters */
   assert_param(IS_UART_INSTANCE(USARTx));
@@ -255,7 +265,7 @@ ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, LL_USART_InitTypeDef *USART_Ini
       /* USART2 clock is PCLK */
       LL_RCC_GetSystemClocksFreq(&RCC_Clocks);
       periphclk = RCC_Clocks.PCLK1_Frequency;
-#endif
+#endif /* USART2 Clock selector flag */
     }
     else if (USARTx == USART3)
     {
@@ -265,7 +275,7 @@ ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, LL_USART_InitTypeDef *USART_Ini
       /* USART3 clock is PCLK */
       LL_RCC_GetSystemClocksFreq(&RCC_Clocks);
       periphclk = RCC_Clocks.PCLK1_Frequency;
-#endif
+#endif /* USART3 Clock selector flag */
     }
 #if defined(UART4)
     else if (USARTx == UART4)
@@ -316,7 +326,7 @@ ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, LL_USART_InitTypeDef *USART_Ini
 void LL_USART_StructInit(LL_USART_InitTypeDef *USART_InitStruct)
 {
   /* Set USART_InitStruct fields to default values */
-  USART_InitStruct->BaudRate            = 9600U;
+  USART_InitStruct->BaudRate            = USART_DEFAULT_BAUDRATE;
   USART_InitStruct->DataWidth           = LL_USART_DATAWIDTH_8B;
   USART_InitStruct->StopBits            = LL_USART_STOPBITS_1;
   USART_InitStruct->Parity              = LL_USART_PARITY_NONE ;
@@ -339,7 +349,7 @@ void LL_USART_StructInit(LL_USART_InitTypeDef *USART_InitStruct)
   *                     to USART_ClockInitStruct content
   *          - ERROR: Problem occurred during USART Registers initialization
   */
-ErrorStatus LL_USART_ClockInit(USART_TypeDef *USARTx, LL_USART_ClockInitTypeDef *USART_ClockInitStruct)
+ErrorStatus LL_USART_ClockInit(USART_TypeDef *USARTx, const LL_USART_ClockInitTypeDef *USART_ClockInitStruct)
 {
   ErrorStatus status = SUCCESS;
 
@@ -429,5 +439,4 @@ void LL_USART_ClockStructInit(LL_USART_ClockInitTypeDef *USART_ClockInitStruct)
 
 #endif /* USE_FULL_LL_DRIVER */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 
