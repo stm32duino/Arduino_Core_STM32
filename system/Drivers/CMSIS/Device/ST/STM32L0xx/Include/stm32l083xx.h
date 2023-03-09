@@ -14,13 +14,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright(c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -72,7 +71,7 @@ typedef enum
 /******  Cortex-M0 Processor Exceptions Numbers ******************************************************/
   NonMaskableInt_IRQn         = -14,    /*!< 2 Non Maskable Interrupt                                */
   HardFault_IRQn              = -13,    /*!< 3 Cortex-M0+ Hard Fault Interrupt                       */
-  SVC_IRQn                    = -5,     /*!< 11 Cortex-M0+ SV Call Interrupt                         */
+  SVCall_IRQn                 = -5,     /*!< 11 Cortex-M0+ SV Call Interrupt                         */
   PendSV_IRQn                 = -2,     /*!< 14 Cortex-M0+ Pend SV Interrupt                         */
   SysTick_IRQn                = -1,     /*!< 15 Cortex-M0+ System Tick Interrupt                     */
 
@@ -1614,7 +1613,7 @@ typedef struct
 #define DBGMCU_IDCODE_DIV_ID                   DBGMCU_IDCODE_DIV_ID_Msk        /*!< Division Identifier */
 #define DBGMCU_IDCODE_MCD_DIV_ID_Pos           (13U)                           
 #define DBGMCU_IDCODE_MCD_DIV_ID_Msk           (0x3UL << DBGMCU_IDCODE_MCD_DIV_ID_Pos) /*!< 0x00006000 */
-#define DBGMCU_IDCODE_MCD_DIV_ID               DBGMCU_IDCODE_MCD_DIV_ID_Msk    /*!< MCD divsion ID is 6 */
+#define DBGMCU_IDCODE_MCD_DIV_ID               DBGMCU_IDCODE_MCD_DIV_ID_Msk    /*!< MCD division ID is 6 */
 #define DBGMCU_IDCODE_REV_ID_Pos               (16U)                           
 #define DBGMCU_IDCODE_REV_ID_Msk               (0xFFFFUL << DBGMCU_IDCODE_REV_ID_Pos) /*!< 0xFFFF0000 */
 #define DBGMCU_IDCODE_REV_ID                   DBGMCU_IDCODE_REV_ID_Msk        /*!< REV_ID[15:0] bits (Revision Identifier) */
@@ -3568,7 +3567,7 @@ typedef struct
 
 #define LCD_FCR_PON_Pos             (4U)      
 #define LCD_FCR_PON_Msk             (0x7UL << LCD_FCR_PON_Pos)                  /*!< 0x00000070 */
-#define LCD_FCR_PON                 LCD_FCR_PON_Msk                            /*!< PON[2:0] bits (Puls ON Duration) */
+#define LCD_FCR_PON                 LCD_FCR_PON_Msk                            /*!< PON[2:0] bits (Pulse ON Duration) */
 #define LCD_FCR_PON_0               (0x1UL << LCD_FCR_PON_Pos)                  /*!< 0x00000010 */
 #define LCD_FCR_PON_1               (0x2UL << LCD_FCR_PON_Pos)                  /*!< 0x00000020 */
 #define LCD_FCR_PON_2               (0x4UL << LCD_FCR_PON_Pos)                  /*!< 0x00000040 */
@@ -4822,7 +4821,7 @@ typedef struct
 #define RCC_CSR_LSECSSD_Msk              (0x1UL << RCC_CSR_LSECSSD_Pos)         /*!< 0x00004000 */
 #define RCC_CSR_LSECSSD                  RCC_CSR_LSECSSD_Msk                   /*!< External Low Speed oscillator CSS Detected */
                                              
-/*!< RTC congiguration */                    
+/*!< RTC configuration */
 #define RCC_CSR_RTCSEL_Pos               (16U)
 #define RCC_CSR_RTCSEL_Msk               (0x3UL << RCC_CSR_RTCSEL_Pos)          /*!< 0x00030000 */
 #define RCC_CSR_RTCSEL                   RCC_CSR_RTCSEL_Msk                    /*!< RTCSEL[1:0] bits (RTC clock source selection) */
@@ -7832,7 +7831,7 @@ typedef struct
                                                      ((INSTANCE) == TIM21)  || \
                                                      ((INSTANCE) == TIM22))
 
-/***************** TIM Instances : external trigger input availabe ************/
+/***************** TIM Instances : external trigger input available ************/
 #define IS_TIM_ETR_INSTANCE(INSTANCE)      (((INSTANCE) == TIM2)  || \
                                             ((INSTANCE) == TIM3)  || \
                                             ((INSTANCE) == TIM21) || \
@@ -7961,6 +7960,7 @@ typedef struct
 #define RCC_IRQn                       RCC_CRS_IRQn
 #define DMA1_Channel4_5_IRQn           DMA1_Channel4_5_6_7_IRQn
 #define ADC1_IRQn                      ADC1_COMP_IRQn
+#define SVC_IRQn                       SVCall_IRQn
 
 /* Aliases for __IRQHandler */
 #define LPUART1_IRQHandler             AES_RNG_LPUART1_IRQHandler
@@ -7987,4 +7987,3 @@ typedef struct
 
 
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

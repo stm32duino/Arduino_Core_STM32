@@ -5,33 +5,27 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Release Notes for STM32L0xx CMSIS</title>
-  <style>
+  <style type="text/css">
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <link rel="stylesheet" href="_htmresc/mini-st.css" />
+  <link rel="stylesheet" href="_htmresc/mini-st_2020.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
+  <link rel="icon" type="image/x-icon" href="_htmresc/favicon.png" />
 </head>
 <body>
 <div class="row">
 <div class="col-sm-12 col-lg-4">
-<div class="card fluid">
-<div class="sectione dark">
 <center>
 <h1 id="release-notes-for-stm32l0xx-cmsis"><small>Release Notes for</small> <mark>STM32L0xx CMSIS</mark></h1>
-<p>Copyright © 2009-2018 ARM Limited - STMicroelectronics<br />
+<p>Copyright © 2016 STMicroelectronics<br />
 </p>
-<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo.png" alt="ST logo" /></a>
+<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
 </center>
-</div>
-</div>
-<h1 id="license">License</h1>
-<p>Licensed by ST under Apache-2.0 license (the "License"). You may not use this package except in compliance with the License. You may obtain a copy of the License at:</p>
-<p><a href="../../../LICENSE.txt">Apache License v2.0</a></p>
 <h1 id="purpose">Purpose</h1>
 <p>This driver provides the CMSIS device for the stm32l1xx products. This covers:</p>
 <ul>
@@ -52,13 +46,26 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section15" aria-hidden="true"> <label for="collapse-section15" aria-hidden="true">V1.9.2 / 16-July-2021</label>
+<input type="checkbox" id="collapse-section16" checked aria-hidden="true"> <label for="collapse-section16" aria-hidden="true">V1.9.3 / 27-January-2023</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <h3 id="maintenance-release">Maintenance release</h3>
 <h2 id="contents">Contents</h2>
 <ul>
-<li>Added new atomic register access macros in stm32l0xx.h file.</li>
+<li>All source files: update disclaimer to add reference to the new license agreement.</li>
+<li>Fix inconsistent IRQn_Type enumeration for supervisor call exception with alias for compatibility.</li>
+<li>Update the GCC startup file to be aligned to IAR/Keil IDE.</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section15" aria-hidden="true"> <label for="collapse-section15" aria-hidden="true">V1.9.2 / 16-July-2021</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<h3 id="maintenance-release-1">Maintenance release</h3>
+<h2 id="contents-1">Contents</h2>
+<ul>
+<li>Add new atomic register access macros in stm32l0xx.h file.</li>
 <li>Add LSI maximum startup time datasheet value: LSI_STARTUP_TIME.</li>
 </ul>
 </div>
@@ -66,9 +73,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section14" aria-hidden="true"> <label for="collapse-section14" aria-hidden="true">V1.9.1 / 28-October-2020</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
-<h3 id="maintenance-release-1">Maintenance release</h3>
-<h2 id="contents-1">Contents</h2>
+<h2 id="main-changes-2">Main Changes</h2>
+<h3 id="maintenance-release-2">Maintenance release</h3>
+<h2 id="contents-2">Contents</h2>
 <ul>
 <li>system_stm32l0xx.c
 <ul>
@@ -87,10 +94,10 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section13" aria-hidden="true"> <label for="collapse-section13" aria-hidden="true">V1.9.0 / 26-October-2018</label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
-<h3 id="maintenance-release-2">Maintenance release</h3>
+<h2 id="main-changes-3">Main Changes</h2>
+<h3 id="maintenance-release-3">Maintenance release</h3>
 <h3 id="first-release-supporting-l0-value-lines">First release supporting L0 Value Lines</h3>
-<h2 id="contents-2">Contents</h2>
+<h2 id="contents-3">Contents</h2>
 <ul>
 <li>Add the support of STM32L010xx devices
 <ul>
@@ -124,7 +131,7 @@
 <li>Add compatibility definition of USART_ICR_NECF / USART_ICR_NCF with others series.</li>
 <li>Update IS_UART_INSTANCE macro definition.</li>
 <li>Add definition of IS_LPTIM_ENCODER_INTERFACE_INSTANCE macro after LPTIM driver update.</li>
-<li>Move definition of FLASH_BANK2_BASE start address to stm32l0xx_hal_flash.h to be dependant on Memory Size register.</li>
+<li>Move definition of FLASH_BANK2_BASE start address to stm32l0xx_hal_flash.h to be dependent on Memory Size register.</li>
 <li>Update interrupt definition to use DMA1_Channel4_5_IRQn for STM32L011xx and STM32L021xx devices.</li>
 <li>Correct PWR_WAKEUP_PIN definitions for L011xx and L021xx devices.</li>
 </ul></li>
@@ -144,16 +151,16 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section12" aria-hidden="true"> <label for="collapse-section12" aria-hidden="true">V1.8.0 / 12-January-2018</label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <h3 id="internal-release">Internal release</h3>
 </div>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section11" aria-hidden="true"> <label for="collapse-section11" aria-hidden="true">V1.7.2 / 25-August-2017</label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
-<h3 id="maintenance-release-3">Maintenance release</h3>
-<h2 id="contents-3">Contents</h2>
+<h2 id="main-changes-5">Main Changes</h2>
+<h3 id="maintenance-release-4">Maintenance release</h3>
+<h2 id="contents-4">Contents</h2>
 <ul>
 <li>Removed DATE and VERSION fields from header files.</li>
 </ul>
@@ -162,9 +169,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section10" aria-hidden="true"> <label for="collapse-section10" aria-hidden="true">V1.7.1 / 25-November-2016</label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
-<h3 id="maintenance-release-4">Maintenance release</h3>
-<h2 id="contents-4">Contents</h2>
+<h2 id="main-changes-6">Main Changes</h2>
+<h3 id="maintenance-release-5">Maintenance release</h3>
+<h2 id="contents-5">Contents</h2>
 <ul>
 <li>Updated IS_COMP_COMMON_INSTANCE() macro.</li>
 <li>Corrected ADC_CFGR2_TOVS bit and mask definitions.</li>
@@ -174,9 +181,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section9" aria-hidden="true"> <label for="collapse-section9" aria-hidden="true">V1.7.0 / 31-May-2016</label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
-<h3 id="maintenance-release-5">Maintenance release</h3>
-<h2 id="contents-5">Contents</h2>
+<h2 id="main-changes-7">Main Changes</h2>
+<h3 id="maintenance-release-6">Maintenance release</h3>
+<h2 id="contents-6">Contents</h2>
 <ul>
 <li>Added Pos and Msk macros missing within the CMSIS stm32l083xx.h file.</li>
 <li>Added LCD_CR_BUFEN bit definition in LCD CR register for stm32l053xx, stm32l063xx, stm32l073xx, stm32l083xx devices.</li>
@@ -186,11 +193,11 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section8" aria-hidden="true"> <label for="collapse-section8" aria-hidden="true">V1.6.0 / 15-April-2016</label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
-<h3 id="maintenance-release-6">Maintenance release</h3>
-<h2 id="contents-6">Contents</h2>
+<h2 id="main-changes-8">Main Changes</h2>
+<h3 id="maintenance-release-7">Maintenance release</h3>
+<h2 id="contents-7">Contents</h2>
 <ul>
-<li><p>Add Pos and Msk macros within the CMSIS files.</p>
+<li>Add Pos and Msk macros within the CMSIS files.
 <ul>
 <li>For example, on the previous CMSIS version (V1.5.0), the constant ADC_IER_EOCALIE was defined as follow :
 <ul>
@@ -204,13 +211,13 @@
 </ul></li>
 <li>The same rule applies on all the other constants present inside the CMSIS files.</li>
 </ul></li>
-<li><p>MISRA C 2004 rule 10.6 compliancy. (A ‘U’ suffix shall be applied to all constants of unisgned type).</p></li>
-<li><p>Several SYSCFG definition changes :</p></li>
-<li><p>SYSCFG_CFGR3_EN_VREFINT enable bit suppressed. (no more needed and must not be used).</p></li>
-<li><p>SYSCFG_CFGR3_EN_BGAP define suppressed.</p></li>
-<li><p>SYSCFG_CFGR3_REF_HSI48_RDYF, SYSCFG_CFGR3_SENSOR_ADC_RDYF, SYSCFG_CFGR3_VREFINT_ADC_RDYF, SYSCFG_CFGR3_VREFINT_COMP_RDYF flags suppressed, SYSCFG_CFGR3_VREFINT_RDYF must be used instead (this flag is a combination of the 4 suppressed flags).</p></li>
+<li><p>MISRA C 2004 rule 10.6 compliance. (A ‘U’ suffix shall be applied to all constants of unisgned type).</p></li>
+<li>Several SYSCFG definition changes :</li>
+<li>SYSCFG_CFGR3_EN_VREFINT enable bit suppressed. (no more needed and must not be used).</li>
+<li>SYSCFG_CFGR3_EN_BGAP define suppressed.</li>
+<li>SYSCFG_CFGR3_REF_HSI48_RDYF, SYSCFG_CFGR3_SENSOR_ADC_RDYF, SYSCFG_CFGR3_VREFINT_ADC_RDYF, SYSCFG_CFGR3_VREFINT_COMP_RDYF flags suppressed, SYSCFG_CFGR3_VREFINT_RDYF must be used instead (this flag is a combination of the 4 suppressed flags).</li>
 <li><p>Added SYSCFG_CFGR3_REF_RC48MHz_RDYF, SYSCFG_CFGR3_REF_HSI48_RDYF, SYSCFG_VREFINT_ADC_RDYF, SYSCFG_CFGR3_SENSOR_ADC_RDYF, SYSCFG_CFGR3_VREFINT_ADC_RDYF and SYSCFG_CFGR3_VREFINT_COMP_RDYF defines.</p></li>
-<li><p>Aligned register namings with the different L0 Reference Manual (For STM32L0x1 : RM0377 Rev5, for STM32L0x2 : RM0367 Rev2, for STM32L0x3 : RM0367 Rev4). The list of the modification is listed hereafter :</p>
+<li>Aligned register namings with the different L0 Reference Manual (For STM32L0x1 : RM0377 Rev5, for STM32L0x2 : RM0367 Rev2, for STM32L0x3 : RM0367 Rev4). The list of the modification is listed hereafter :
 <ul>
 <li>Introduced new masks in EXTI bit definitions in order to simplify LL source code.</li>
 <li>Renamed RCC_CFGR_MCO_x into RCC_CFGR_MCOSEL_x</li>
@@ -226,11 +233,11 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section7" aria-hidden="true"> <label for="collapse-section7" aria-hidden="true">V1.5.0 / 8-January-2016</label>
 <div>
-<h2 id="main-changes-8">Main Changes</h2>
-<h3 id="maintenance-release-7">Maintenance release</h3>
-<h2 id="contents-7">Contents</h2>
+<h2 id="main-changes-9">Main Changes</h2>
+<h3 id="maintenance-release-8">Maintenance release</h3>
+<h2 id="contents-8">Contents</h2>
 <ul>
-<li>MISRA C 2004 rule 5.1 and rule 10.6 compliancy.</li>
+<li>MISRA C 2004 rule 5.1 and rule 10.6 compliance.</li>
 <li>Several renaming in order to be aligned with the Reference Manual.The list of the modification is listed hereafter :
 <ul>
 <li>Adding of a new COMP_Common_TypeDef structure.</li>
@@ -275,12 +282,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true">V1.4.0 / 16-October-2015</label>
 <div>
-<h2 id="main-changes-9">Main Changes</h2>
-<h3 id="maintenance-release-8">Maintenance release</h3>
+<h2 id="main-changes-10">Main Changes</h2>
+<h3 id="maintenance-release-9">Maintenance release</h3>
 <ul>
 <li>Update all the files to support STM32L011xx and STM32L021xx.</li>
 </ul>
-<h2 id="contents-8">Contents</h2>
+<h2 id="contents-9">Contents</h2>
 <ul>
 <li>Remove the Debug Monitor handler from the startup files (not supported on L0).</li>
 <li>Renamings and usage of some aliases in order to be compliant with the RefManuals.</li>
@@ -290,12 +297,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true">V1.3.0 / 9-Sept-2015</label>
 <div>
-<h2 id="main-changes-10">Main Changes</h2>
-<h3 id="maintenance-release-9">Maintenance release</h3>
+<h2 id="main-changes-11">Main Changes</h2>
+<h3 id="maintenance-release-10">Maintenance release</h3>
 <ul>
 <li>Update all the files to support <strong>STM32L031xx</strong> and <strong>STM32L041xx</strong>.</li>
 </ul>
-<h2 id="contents-9">Contents</h2>
+<h2 id="contents-10">Contents</h2>
 <ul>
 <li>Several renamings in order to be compliant with the specifications.</li>
 <li>Adding of new bit definitions (COMP_CSR_COMP2LPTIM1IN1, SYSCFG_CFGR1_UFB, I2C_OAR2_x, LCD_CR_MUX_SEG, RTC_BKP_NUMBER)</li>
@@ -306,12 +313,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true">V1.2.0 / 6-February-2015</label>
 <div>
-<h2 id="main-changes-11">Main Changes</h2>
-<h3 id="maintenance-release-10">Maintenance release</h3>
+<h2 id="main-changes-12">Main Changes</h2>
+<h3 id="maintenance-release-11">Maintenance release</h3>
 <ul>
 <li>Added the set of CMSIS files for the <strong>STM32L07xx</strong> and <strong>STM32L08xx</strong> family</li>
 </ul>
-<h2 id="contents-10">Contents</h2>
+<h2 id="contents-11">Contents</h2>
 <ul>
 <li>Add IAR set of files STM32L073xx - STM32L072xx - STM32L071xx - STM32L083xx - STM32L082xx - STM32L081xx</li>
 <li>Added MDK-ARM startup files for L071xx, L072xx, L073xx, L081xx, L082xx, L083xx</li>
@@ -322,9 +329,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V1.1.0 / 18-June-2014</label>
 <div>
-<h2 id="main-changes-12">Main Changes</h2>
-<h3 id="maintenance-release-11">Maintenance release</h3>
-<h2 id="contents-11">Contents</h2>
+<h2 id="main-changes-13">Main Changes</h2>
+<h3 id="maintenance-release-12">Maintenance release</h3>
+<h2 id="contents-12">Contents</h2>
 <ul>
 <li><strong>Header files</strong>
 <ul>
@@ -357,9 +364,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">V1.0.1 / 24-April-2014</label>
 <div>
-<h2 id="main-changes-13">Main Changes</h2>
+<h2 id="main-changes-14">Main Changes</h2>
 <h3 id="first-official-release">First official release</h3>
-<h2 id="contents-12">Contents</h2>
+<h2 id="contents-13">Contents</h2>
 <ul>
 <li>Update gcc startup files</li>
 </ul>
@@ -368,7 +375,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true">V1.0.0 / 22-April-2014</label>
 <div>
-<h2 id="main-changes-14">Main Changes</h2>
+<h2 id="main-changes-15">Main Changes</h2>
 <h3 id="first-official-release-1">First official release</h3>
 </div>
 </div>

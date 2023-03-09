@@ -6,11 +6,20 @@
   *          This file provides firmware functions to manage the following
   *          functionalities of the COMP peripheral:
   *           + Initialization and de-initialization functions
-  *           + Start/Stop operation functions in polling mode
-  *           + Start/Stop operation functions in interrupt mode (through EXTI interrupt)
   *           + Peripheral control functions
   *           + Peripheral state functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
 ================================================================================
           ##### COMP Peripheral features #####
@@ -174,17 +183,6 @@
   (1) GPIO must be set to alternate function for comparator
   (2) Comparators output to timers is set in timers instances.
 
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright(c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -369,7 +367,7 @@ HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp)
     /* Set comparator output connection to LPTIM */
     if (hcomp->Init.LPTIMConnection != COMP_LPTIMCONNECTION_DISABLED)
     {
-      /* LPTIM connexion requested on COMP1 */
+      /* LPTIM connection requested on COMP1 */
       if ((hcomp->Instance) == COMP1)
       {
         /* Note : COMP1 can be connected to the input 1 of LPTIM if requested */
@@ -1065,4 +1063,3 @@ uint32_t HAL_COMP_GetError(COMP_HandleTypeDef *hcomp)
   */
 
 #endif /* !defined (STM32L010xB) && !defined (STM32L010x8) && !defined (STM32L010x6) && !defined (STM32L010x4) */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

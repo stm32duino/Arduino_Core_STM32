@@ -6,14 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 
@@ -39,7 +37,6 @@
 /** @addtogroup FLASHEx_Private_Constants
   * @{
   */
-#define FLASH_SIZE_DATA_REGISTER   FLASHSIZE_BASE
 
 #define FLASH_NBPAGES_MAX (FLASH_SIZE / FLASH_PAGE_SIZE)
 
@@ -114,11 +111,6 @@
                                          ((__VALUE__) == FLASH_TYPEPROGRAMDATA_HALFWORD) || \
                                          ((__VALUE__) == FLASH_TYPEPROGRAMDATA_WORD))
 
-
-/** @defgroup FLASHEx_Address FLASHEx Address
-  * @{
-  */
-
 #if defined (STM32L071xx) || defined (STM32L072xx) || defined (STM32L073xx) || defined (STM32L081xx) || defined (STM32L082xx) || defined (STM32L083xx)
 
 #define IS_FLASH_DATA_ADDRESS(__ADDRESS__)          (((__ADDRESS__) >= DATA_EEPROM_BASE) && ((__ADDRESS__) <= DATA_EEPROM_BANK2_END))
@@ -138,9 +130,16 @@
   * @}
   */
 
+/** @addtogroup FLASHEx_Private_Functions
+ * @{
+ */
+
+void       FLASH_PageErase(uint32_t PageAddress);
+
 /**
   * @}
   */
+
 /* Exported types ------------------------------------------------------------*/
 
 /** @defgroup FLASHEx_Exported_Types FLASHEx Exported Types
@@ -156,7 +155,7 @@ typedef struct
                              This parameter can be a value of @ref FLASHEx_Type_Erase */
 
   uint32_t PageAddress; /*!< PageAddress: Initial FLASH address to be erased
-                             This parameter must be a value belonging to FLASH Programm address (depending on the devices)  */
+                             This parameter must be a value belonging to FLASH Program address (depending on the devices)  */
 
   uint32_t NbPages;     /*!< NbPages: Number of pages to be erased.
                              This parameter must be a value between 1 and (max number of pages - value of Initial page)*/
@@ -808,4 +807,3 @@ void              HAL_FLASHEx_DATAEEPROM_DisableFixedTimeProgram(void);
 
 #endif /* __STM32L0xx_HAL_FLASH_EX_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

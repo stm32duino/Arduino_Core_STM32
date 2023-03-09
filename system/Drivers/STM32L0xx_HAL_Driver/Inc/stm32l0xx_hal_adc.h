@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright(c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -22,7 +21,7 @@
 #define __STM32L0xx_HAL_ADC_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -54,7 +53,7 @@ typedef struct
 
   uint32_t TriggeredMode;                 /*!< Selects the regular triggered oversampling mode.
                                                This parameter can be a value of @ref ADC_Triggered_Oversampling_Mode */
-}ADC_OversamplingTypeDef;
+} ADC_OversamplingTypeDef;
 
 /**
   * @brief  Structure definition of ADC instance and ADC group regular.
@@ -124,7 +123,7 @@ typedef struct
                                        Discontinuous mode is used only if sequencer is enabled (parameter 'ScanConvMode'). If sequencer is disabled, this parameter is discarded.
                                        Discontinuous mode can be enabled only if continuous mode is disabled. If continuous mode is enabled, this parameter setting is discarded.
                                        This parameter can be set to ENABLE or DISABLE.
-                                       Note: On this STM32 serie, ADC group regular number of discontinuous ranks increment is fixed to one-by-one. */
+                                       Note: On this STM32 series, ADC group regular number of discontinuous ranks increment is fixed to one-by-one. */
 
   uint32_t ExternalTrigConv;      /*!< Select the external event source used to trigger ADC group regular conversion start.
                                        If set to ADC_SOFTWARE_START, external triggers are disabled and software trigger is used instead.
@@ -168,7 +167,7 @@ typedef struct
 
   ADC_OversamplingTypeDef  Oversample;   /*!< Specify the Oversampling parameters
                                               Caution: this setting overwrites the previous oversampling configuration if oversampling is already enabled. */
-}ADC_InitTypeDef;
+} ADC_InitTypeDef;
 
 /**
   * @brief  Structure definition of ADC channel for regular group
@@ -189,7 +188,7 @@ typedef struct
                                         (channel 0 fixed on rank 0, channel 1 fixed on rank1, ...).
                                         Despite the channel rank is fixed, this parameter allow an additional possibility: to remove the selected rank (selected channel) from sequencer.
                                         This parameter can be a value of @ref ADC_rank */
-}ADC_ChannelConfTypeDef;
+} ADC_ChannelConfTypeDef;
 
 /**
   * @brief  Structure definition of ADC analog watchdog
@@ -216,7 +215,7 @@ typedef struct
   uint32_t LowThreshold;      /*!< Configures the ADC analog watchdog High threshold value.
                                    Depending of ADC resolution selected (12, 10, 8 or 6 bits),
                                    this parameter must be a number between Min_Data = 0x000 and Max_Data = 0xFFF, 0x3FF, 0xFF or 0x3F respectively. */
-}ADC_AnalogWDGConfTypeDef;
+} ADC_AnalogWDGConfTypeDef;
 
 /**
   * @brief  HAL ADC state machine: ADC states definition (bitfields)
@@ -242,21 +241,21 @@ typedef struct
                                                               external trigger, low power auto power-on (if feature available), multimode ADC master control (if feature available)) */
 #define HAL_ADC_STATE_REG_EOC           (0x00000200U)    /*!< Conversion data available on group regular */
 #define HAL_ADC_STATE_REG_OVR           (0x00000400U)    /*!< Overrun occurrence */
-#define HAL_ADC_STATE_REG_EOSMP         (0x00000800U)    /*!< Not available on this STM32 serie: End Of Sampling flag raised  */
+#define HAL_ADC_STATE_REG_EOSMP         (0x00000800U)    /*!< Not available on this STM32 series: End Of Sampling flag raised  */
 
 /* States of ADC group injected */
-#define HAL_ADC_STATE_INJ_BUSY          (0x00001000U)    /*!< Not available on this STM32 serie: A conversion on group injected is ongoing or can occur (either by auto-injection mode,
+#define HAL_ADC_STATE_INJ_BUSY          (0x00001000U)    /*!< Not available on this STM32 series: A conversion on group injected is ongoing or can occur (either by auto-injection mode,
                                                               external trigger, low power auto power-on (if feature available), multimode ADC master control (if feature available)) */
-#define HAL_ADC_STATE_INJ_EOC           (0x00002000U)    /*!< Not available on this STM32 serie: Conversion data available on group injected */
-#define HAL_ADC_STATE_INJ_JQOVF         (0x00004000U)    /*!< Not available on this STM32 serie: Injected queue overflow occurrence */
+#define HAL_ADC_STATE_INJ_EOC           (0x00002000U)    /*!< Not available on this STM32 series: Conversion data available on group injected */
+#define HAL_ADC_STATE_INJ_JQOVF         (0x00004000U)    /*!< Not available on this STM32 series: Injected queue overflow occurrence */
 
 /* States of ADC analog watchdogs */
 #define HAL_ADC_STATE_AWD1              (0x00010000U)    /*!< Out-of-window occurrence of ADC analog watchdog 1 */
-#define HAL_ADC_STATE_AWD2              (0x00020000U)    /*!< Not available on this STM32 serie: Out-of-window occurrence of ADC analog watchdog 2 */
-#define HAL_ADC_STATE_AWD3              (0x00040000U)    /*!< Not available on this STM32 serie: Out-of-window occurrence of ADC analog watchdog 3 */
+#define HAL_ADC_STATE_AWD2              (0x00020000U)    /*!< Not available on this STM32 series: Out-of-window occurrence of ADC analog watchdog 2 */
+#define HAL_ADC_STATE_AWD3              (0x00040000U)    /*!< Not available on this STM32 series: Out-of-window occurrence of ADC analog watchdog 3 */
 
 /* States of ADC multi-mode */
-#define HAL_ADC_STATE_MULTIMODE_SLAVE   (0x00100000U)    /*!< Not available on this STM32 serie: ADC in multimode slave state, controlled by another ADC master (when feature available) */
+#define HAL_ADC_STATE_MULTIMODE_SLAVE   (0x00100000U)    /*!< Not available on this STM32 series: ADC in multimode slave state, controlled by another ADC master (when feature available) */
 
 
 
@@ -286,7 +285,7 @@ typedef struct __ADC_HandleTypeDef
   void (* MspInitCallback)(struct __ADC_HandleTypeDef *hadc);               /*!< ADC Msp Init callback */
   void (* MspDeInitCallback)(struct __ADC_HandleTypeDef *hadc);             /*!< ADC Msp DeInit callback */
 #endif /* USE_HAL_ADC_REGISTER_CALLBACKS */
-}ADC_HandleTypeDef;
+} ADC_HandleTypeDef;
 
 #if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
 /**
@@ -341,18 +340,18 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   * @{
   */
 
-  /* Fixed timeout values for ADC calibration, enable settling time, disable  */
-  /* settling time.                                                           */
-  /* Values defined to be higher than worst cases: low clocks freq,           */
-  /* maximum prescalers.                                                      */
-  /* Unit: ms                                                                 */
+/* Fixed timeout values for ADC calibration, enable settling time, disable  */
+/* settling time.                                                           */
+/* Values defined to be higher than worst cases: low clocks freq,           */
+/* maximum prescalers.                                                      */
+/* Unit: ms                                                                 */
 #define ADC_ENABLE_TIMEOUT            10U
 #define ADC_DISABLE_TIMEOUT           10U
 #define ADC_STOP_CONVERSION_TIMEOUT   10U
 
-  /* Delay of 10us fixed to worst case: maximum CPU frequency 180MHz to have  */
-  /* the minimum number of CPU cycles to fulfill this delay                   */
-  #define ADC_DELAY_10US_MIN_CPU_CYCLES         1800U
+/* Delay of 10us fixed to worst case: maximum CPU frequency 180MHz to have  */
+/* the minimum number of CPU cycles to fulfill this delay                   */
+#define ADC_DELAY_10US_MIN_CPU_CYCLES         1800U
 /**
   * @}
   */
@@ -1100,10 +1099,10 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   * @{
   */
 /* Initialization and de-initialization functions  ****************************/
-HAL_StatusTypeDef    HAL_ADC_Init(ADC_HandleTypeDef* hadc);
+HAL_StatusTypeDef    HAL_ADC_Init(ADC_HandleTypeDef *hadc);
 HAL_StatusTypeDef    HAL_ADC_DeInit(ADC_HandleTypeDef *hadc);
-void                 HAL_ADC_MspInit(ADC_HandleTypeDef* hadc);
-void                 HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc);
+void                 HAL_ADC_MspInit(ADC_HandleTypeDef *hadc);
+void                 HAL_ADC_MspDeInit(ADC_HandleTypeDef *hadc);
 
 #if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
 /* Callbacks Register/UnRegister functions  ***********************************/
@@ -1122,27 +1121,27 @@ HAL_StatusTypeDef HAL_ADC_UnRegisterCallback(ADC_HandleTypeDef *hadc, HAL_ADC_Ca
 /* IO operation functions  *****************************************************/
 
 /* Blocking mode: Polling */
-HAL_StatusTypeDef    HAL_ADC_Start(ADC_HandleTypeDef* hadc);
-HAL_StatusTypeDef    HAL_ADC_Stop(ADC_HandleTypeDef* hadc);
-HAL_StatusTypeDef    HAL_ADC_PollForConversion(ADC_HandleTypeDef* hadc, uint32_t Timeout);
-HAL_StatusTypeDef    HAL_ADC_PollForEvent(ADC_HandleTypeDef* hadc, uint32_t EventType, uint32_t Timeout);
+HAL_StatusTypeDef    HAL_ADC_Start(ADC_HandleTypeDef *hadc);
+HAL_StatusTypeDef    HAL_ADC_Stop(ADC_HandleTypeDef *hadc);
+HAL_StatusTypeDef    HAL_ADC_PollForConversion(ADC_HandleTypeDef *hadc, uint32_t Timeout);
+HAL_StatusTypeDef    HAL_ADC_PollForEvent(ADC_HandleTypeDef *hadc, uint32_t EventType, uint32_t Timeout);
 
 /* Non-blocking mode: Interruption */
-HAL_StatusTypeDef    HAL_ADC_Start_IT(ADC_HandleTypeDef* hadc);
-HAL_StatusTypeDef    HAL_ADC_Stop_IT(ADC_HandleTypeDef* hadc);
+HAL_StatusTypeDef    HAL_ADC_Start_IT(ADC_HandleTypeDef *hadc);
+HAL_StatusTypeDef    HAL_ADC_Stop_IT(ADC_HandleTypeDef *hadc);
 
 /* Non-blocking mode: DMA */
-HAL_StatusTypeDef    HAL_ADC_Start_DMA(ADC_HandleTypeDef* hadc, uint32_t* pData, uint32_t Length);
-HAL_StatusTypeDef    HAL_ADC_Stop_DMA(ADC_HandleTypeDef* hadc);
+HAL_StatusTypeDef    HAL_ADC_Start_DMA(ADC_HandleTypeDef *hadc, uint32_t *pData, uint32_t Length);
+HAL_StatusTypeDef    HAL_ADC_Stop_DMA(ADC_HandleTypeDef *hadc);
 
 /* ADC retrieve conversion value intended to be used with polling or interruption */
-uint32_t             HAL_ADC_GetValue(ADC_HandleTypeDef* hadc);
+uint32_t             HAL_ADC_GetValue(ADC_HandleTypeDef *hadc);
 
 /* ADC IRQHandler and Callbacks used in non-blocking modes (Interruption and DMA) */
-void                 HAL_ADC_IRQHandler(ADC_HandleTypeDef* hadc);
-void                 HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc);
-void                 HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef* hadc);
-void                 HAL_ADC_LevelOutOfWindowCallback(ADC_HandleTypeDef* hadc);
+void                 HAL_ADC_IRQHandler(ADC_HandleTypeDef *hadc);
+void                 HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc);
+void                 HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc);
+void                 HAL_ADC_LevelOutOfWindowCallback(ADC_HandleTypeDef *hadc);
 void                 HAL_ADC_ErrorCallback(ADC_HandleTypeDef *hadc);
 /**
   * @}
@@ -1153,8 +1152,8 @@ void                 HAL_ADC_ErrorCallback(ADC_HandleTypeDef *hadc);
  * @{
  */
 /* Peripheral Control functions ***********************************************/
-HAL_StatusTypeDef    HAL_ADC_ConfigChannel(ADC_HandleTypeDef* hadc, ADC_ChannelConfTypeDef* sConfig);
-HAL_StatusTypeDef    HAL_ADC_AnalogWDGConfig(ADC_HandleTypeDef* hadc, ADC_AnalogWDGConfTypeDef* AnalogWDGConfig);
+HAL_StatusTypeDef    HAL_ADC_ConfigChannel(ADC_HandleTypeDef *hadc, ADC_ChannelConfTypeDef *sConfig);
+HAL_StatusTypeDef    HAL_ADC_AnalogWDGConfig(ADC_HandleTypeDef *hadc, ADC_AnalogWDGConfTypeDef *AnalogWDGConfig);
 /**
   * @}
   */
@@ -1163,7 +1162,7 @@ HAL_StatusTypeDef    HAL_ADC_AnalogWDGConfig(ADC_HandleTypeDef* hadc, ADC_Analog
 /** @addtogroup ADC_Exported_Functions_Group4
   * @{
   */
-uint32_t             HAL_ADC_GetState(ADC_HandleTypeDef* hadc);
+uint32_t             HAL_ADC_GetState(ADC_HandleTypeDef *hadc);
 uint32_t             HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
 /**
   * @}
@@ -1189,4 +1188,3 @@ uint32_t             HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
 
 #endif /*__STM32L0xx_HAL_ADC_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

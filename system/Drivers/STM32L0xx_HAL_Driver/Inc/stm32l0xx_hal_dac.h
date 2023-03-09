@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -229,7 +228,7 @@ typedef void (*pDAC_CallbackTypeDef)(DAC_HandleTypeDef *hdac);
   * @}
   */
 
-/** @defgroup DAC_data_alignement DAC data alignement
+/** @defgroup DAC_data_alignement DAC data alignment
   * @{
   */
 #define DAC_ALIGN_12B_R                    (0x00000000U)
@@ -366,19 +365,19 @@ CLEAR_BIT((__HANDLE__)->Instance->CR, (__INTERRUPT__))
   */
 
 /** @brief Set DHR12R1 alignment
-  * @param  __ALIGNMENT__ specifies the DAC alignement
+  * @param  __ALIGNMENT__ specifies the DAC alignment
   * @retval None
   */
 #define DAC_DHR12R1_ALIGNMENT(__ALIGNMENT__) ((0x00000008U) + (__ALIGNMENT__))
 
 /** @brief  Set DHR12R2 alignment
-  * @param  __ALIGNMENT__ specifies the DAC alignement
+  * @param  __ALIGNMENT__ specifies the DAC alignment
   * @retval None
   */
 #define DAC_DHR12R2_ALIGNMENT(__ALIGNMENT__) ((0x00000014U) + (__ALIGNMENT__))
 
 /** @brief  Set DHR12RD alignment
-  * @param  __ALIGNMENT__ specifies the DAC alignement
+  * @param  __ALIGNMENT__ specifies the DAC alignment
   * @retval None
   */
 #define DAC_DHR12RD_ALIGNMENT(__ALIGNMENT__) ((0x00000020U) + (__ALIGNMENT__))
@@ -483,4 +482,3 @@ uint32_t HAL_DAC_GetError(DAC_HandleTypeDef *hdac);
 
 #endif /*__STM32L0xx_HAL_DAC_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

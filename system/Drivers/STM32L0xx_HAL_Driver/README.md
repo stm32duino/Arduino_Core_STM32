@@ -4,7 +4,7 @@
 
 ## Overview
 
-**STM32Cube** is an STMicroelectronics original initiative to ease the developers life by reducing efforts, time and cost.
+**STM32Cube** is an STMicroelectronics original initiative to ease developers' life by reducing efforts, time and cost.
 
 **STM32Cube** covers the overall STM32 products portfolio. It includes a comprehensive embedded software platform delivered for each STM32 series.
    * The CMSIS modules (core and device) corresponding to the ARM(tm) core implemented in this STM32 product.
@@ -21,29 +21,13 @@ Two models of publication are proposed for the STM32Cube embedded software:
 
 This **stm32l0xx_hal_driver** MCU component repo is one element of the STM32CubeL0 MCU embedded software package, providing the **HAL-LL Drivers** part.
 
-## License
-
-Copyright (c) 2016 STMicroelectronics.
-
-This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component.
-If no LICENSE file comes with this software, it is provided AS-IS.
-
 ## Release note
 
 Details about the content of this release are available in the release note [here](https://htmlpreview.github.io/?https://github.com/STMicroelectronics/stm32l0xx_hal_driver/blob/master/Release_Notes.html).
 
 ## Compatibility information
 
-In this table, you can find the successive versions of this HAL-LL Driver component, in line with the corresponding versions of the full MCU package:
-
-It is **crucial** that you use a consistent set of versions for the CMSIS Core - CMSIS Device - HAL, as mentioned in this table.
-
-HAL Driver L0 | CMSIS Device L0 | CMSIS Core | Was delivered in the full MCU package
-------------- | --------------- | ---------- | -------------------------------------
-Tag v1.10.2   | Tag v1.9.0 | Tag v4.5.0_cm0 | Tag v1.11.2 (and following, if any, till next HAL tag)
-Tag v1.10.3   | Tag v1.9.0 | Tag v4.5.0_cm0 | Tag v1.11.3 (and following, if any, till next HAL tag)
-Tag v1.10.4   | Tag v1.9.1 | Tag v5.4.0_cm0 | Tag v1.12.0 (and following, if any, till next HAL tag)
-Tag v1.10.5   | Tag v1.9.2 | Tag v5.4.0_cm0 | Tag v1.12.1 (and following, if any, till next HAL tag)
+It is **crucial** that you use a consistent set of versions for the CMSIS Core - CMSIS Device - HAL, as mentioned in [this](https://htmlpreview.github.io/?https://github.com/STMicroelectronics/STM32CubeL0/blob/master/Release_Notes.html) release note.
 
 The full **STM32CubeL0** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeL0).
 
@@ -51,4 +35,4 @@ The full **STM32CubeL0** MCU package is available [here](https://github.com/STMi
 
 If you have any issue with the **software content** of this repository, you can file an issue [here](https://github.com/STMicroelectronics/stm32l0xx_hal_driver/issues/new/choose).
 
-For any other question related to the product, the tools, the environment, you can submit a topic on the [ST Community/STM32 MCUs forum](https://community.st.com/s/topic/0TO0X000000BSqSWAW/stm32-mcus).
+For any other question related to the product, the tools, the environment, you can submit a topic on the [ST Community/STM32 MCUs forum](https://community.st.com/s/group/0F90X000000AXsASAW/stm32-mcus).
