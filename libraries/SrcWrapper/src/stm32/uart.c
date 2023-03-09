@@ -36,7 +36,7 @@ extern "C" {
 #define DEBUG_UART_BAUDRATE 9600
 #endif
 
-/* @brief uart caracteristics */
+/* @brief uart characteristics */
 typedef enum {
 #if defined(USART1_BASE)
   UART1_INDEX,
