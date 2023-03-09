@@ -12,13 +12,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -675,6 +674,10 @@ typedef struct
   __IO uint32_t SR;   /*!< WWDG Status register,        Address offset: 0x08 */
 } WWDG_TypeDef;
 
+/**
+  * @}
+  */
+
 /** @addtogroup Peripheral_memory_map
   * @{
   */
@@ -877,7 +880,7 @@ typedef struct
 #define ADC1_V2_5                                      /*!< ADC IP version */
 
 /*
- * @brief Specific device feature definitions (not present on all devices in the STM32F3 serie)
+ * @brief Specific device feature definitions (not present on all devices in the STM32F3 series)
  */
 /* Note: No specific macro feature on this device */
 
@@ -4989,7 +4992,7 @@ typedef struct
 /******************************************************************************/
 
 /*
- * @brief Specific device feature definitions (not present on all devices in the STM32F3 serie)
+ * @brief Specific device feature definitions (not present on all devices in the STM32F3 series)
  */
 #define DAC_CHANNEL2_SUPPORT                           /*!< DAC feature available only on specific devices: DAC channel 2 available (may not be available on all DAC instances DACx) */
 
@@ -8196,7 +8199,7 @@ typedef struct
 /*                                                                            */
 /******************************************************************************/
 /*
-* @brief Specific device feature definitions  (not present on all devices in the STM32F3 serie)
+* @brief Specific device feature definitions  (not present on all devices in the STM32F3 series)
 */
 #define RTC_TAMPER1_SUPPORT  /*!< TAMPER 1 feature support */
 #define RTC_TAMPER2_SUPPORT  /*!< TAMPER 2 feature support */
@@ -9250,7 +9253,7 @@ typedef struct
 /******************************************************************************/
 
 /*
- * @brief Specific device feature definitions (not present on all devices in the STM32F3 serie)
+ * @brief Specific device feature definitions (not present on all devices in the STM32F3 series)
  */
 #define SPI_I2S_SUPPORT                       /*!< I2S support */
 
@@ -11799,8 +11802,6 @@ typedef struct
   * @}
   */
 
-  /**
+/**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

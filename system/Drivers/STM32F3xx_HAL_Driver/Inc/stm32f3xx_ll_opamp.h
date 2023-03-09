@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -173,7 +172,7 @@ typedef struct
   */
 #define LL_OPAMP_INPUT_INVERT_IO0        (0x00000000U)           /*!< OPAMP inverting input connected to GPIO pin (pin PC5 for OPAMP1, pin PC5 for OPAMP2, pin PB10  for OPAMP3, pin PB10 for OPAMP4). Note: OPAMP inverting input is used with OPAMP in mode standalone or PGA with external capacitors for filtering circuit. Otherwise (OPAMP in mode follower), OPAMP inverting input is not used (not connected to GPIO pin). */
 #define LL_OPAMP_INPUT_INVERT_IO1        (OPAMP_CSR_VMSEL_0)     /*!< OPAMP inverting input connected to GPIO pin (pin PA3 for OPAMP1, pin PA5 for OPAMP2, pin PB2   for OPAMP3, pin PD8  for OPAMP4). Note: OPAMP inverting input is used with OPAMP in mode standalone or PGA with external capacitors for filtering circuit. Otherwise (OPAMP in mode follower), OPAMP inverting input is not used (not connected to GPIO pin). */
-#define LL_OPAMP_INPUT_INVERT_CONNECT_NO (OPAMP_CSR_VMSEL_1)     /*!< OPAMP inverting input not externally connected (intended for OPAMP in mode follower or PGA without external capacitors for filtering). Note: On this STM32 serie, this literal include cases of value 0x11 for mode follower and value 0x10 for mode PGA. */
+#define LL_OPAMP_INPUT_INVERT_CONNECT_NO (OPAMP_CSR_VMSEL_1)     /*!< OPAMP inverting input not externally connected (intended for OPAMP in mode follower or PGA without external capacitors for filtering). Note: On this STM32 series, this literal include cases of value 0x11 for mode follower and value 0x10 for mode PGA. */
 /**
   * @}
   */
@@ -242,7 +241,7 @@ typedef struct
   */
 
 /** @defgroup OPAMP_LL_EC_HW_DELAYS  Definitions of OPAMP hardware constraints delays
-  * @note   Only OPAMP IP HW delays are defined in OPAMP LL driver driver,
+  * @note   Only OPAMP peripheral HW delays are defined in OPAMP LL driver driver,
   *         not timeout values.
   *         For details on delays values, refer to descriptions in source code
   *         above each literal definition.
@@ -784,7 +783,7 @@ __STATIC_INLINE uint32_t LL_OPAMP_GetTrimmingValue(OPAMP_TypeDef* OPAMPx, uint32
 /**
   * @brief  Enable OPAMP instance.
   * @note   After enable from off state, OPAMP requires a delay
-  *         to fullfill wake up time specification.
+  *         to fulfill wake up time specification.
   *         Refer to device datasheet, parameter "tWAKEUP".
   * @rmtoll CSR      OPAMPXEN       LL_OPAMP_Enable
   * @param  OPAMPx OPAMP instance
@@ -883,4 +882,3 @@ void        LL_OPAMP_StructInit(LL_OPAMP_InitTypeDef *OPAMP_InitStruct);
 
 #endif /* STM32F3xx_LL_OPAMP_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
