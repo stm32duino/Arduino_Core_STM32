@@ -58,6 +58,11 @@ function(get_target_url JSONARR OUT_URL OUT_SHA)
 endfunction()
 
 function(declare_deps CORE_VERSION)
+
+  # Prevent warnings in CMake>=3.24 regarding ExternalProject_Add()
+  # cf. https://cmake.org/cmake/help/latest/policy/CMP0135.html
+  cmake_policy(SET CMP0135 OLD)
+
   file(REAL_PATH "${DL_DIR}/package_stmicroelectronics_index.json" JSONFILE)
   if (NOT EXISTS ${JSONFILE})
     file(DOWNLOAD "${JSONCONFIG_URL}" ${JSONFILE})
