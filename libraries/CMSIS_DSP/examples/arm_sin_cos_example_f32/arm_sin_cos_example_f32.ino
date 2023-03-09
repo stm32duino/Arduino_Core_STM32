@@ -47,12 +47,12 @@
 
    \par Description:
    \par
-   Demonstrates the Pythagorean trignometric identity with the use of Cosine, Sine, Vector
+   Demonstrates the Pythagorean trigonometric identity with the use of Cosine, Sine, Vector
    Multiplication, and Vector Addition functions.
 
    \par Algorithm:
    \par
-   Mathematically, the Pythagorean trignometric identity is defined by the following equation:
+   Mathematically, the Pythagorean trigonometric identity is defined by the following equation:
     <pre>sin(x) * sin(x) + cos(x) * cos(x) = 1</pre>
    where \c x is the angle in radians.
 

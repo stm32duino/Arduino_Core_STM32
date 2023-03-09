@@ -283,7 +283,7 @@ inline void SoftwareSerial::recv()
       if (inbit) {
         rx_buffer |= 0x80;
       }
-      rx_bit_cnt++; // Preprare for next bit
+      rx_bit_cnt++; // Prepare for next bit
       rx_tick_cnt = OVERSAMPLE; // Wait OVERSAMPLE ticks before sampling next bit
     }
   }

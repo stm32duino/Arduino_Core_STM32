@@ -6,7 +6,7 @@
 //    can be found in many places.
 //    For example on the Arduino.cc forum.
 //    The original author is not know.
-// Version 2, Juni 2012, Using Arduino 1.0.1
+// Version 2, Jun 2012, Using Arduino 1.0.1
 //     Adapted to be as simple as possible by Arduino.cc user Krodal
 // Version 3, Feb 26  2013
 //    V3 by louarnold
@@ -47,7 +47,7 @@
  If you want to use the two I2Cs simultaneously, create a new instance for the second I2C
   TwoWire Wire2(PB11,PB10);
   Wire2.begin();
- 
+
 */
 
 
@@ -76,10 +76,10 @@ void loop() {
 
     Wire.beginTransmission(address);
     error = Wire.endTransmission();
-    
+
     if (error == 0) {
       Serial.print("I2C device found at address 0x");
-      if (address < 16) 
+      if (address < 16)
         Serial.print("0");
       Serial.println(address, HEX);
 
@@ -87,10 +87,10 @@ void loop() {
     }
     else if (error == 4) {
       Serial.print("Unknown error at address 0x");
-      if (address < 16) 
+      if (address < 16)
         Serial.print("0");
       Serial.println(address, HEX);
-    }    
+    }
   }
   if (nDevices == 0)
     Serial.println("No I2C devices found");
