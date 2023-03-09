@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic U595RITx
+GenU5.menu.pnum.GENERIC_U595RITX=Generic U595RITx
+GenU5.menu.pnum.GENERIC_U595RITX.upload.maximum_size=2097152
+GenU5.menu.pnum.GENERIC_U595RITX.upload.maximum_data_size=2574336
+GenU5.menu.pnum.GENERIC_U595RITX.build.board=GENERIC_U595RITX
+GenU5.menu.pnum.GENERIC_U595RITX.build.product_line=STM32U595xx
+GenU5.menu.pnum.GENERIC_U595RITX.build.variant=STM32U5xx/U595R(I-J)T_U5A5RJT
+
+# Generic U595RJTx
+GenU5.menu.pnum.GENERIC_U595RJTX=Generic U595RJTx
+GenU5.menu.pnum.GENERIC_U595RJTX.upload.maximum_size=4194304
+GenU5.menu.pnum.GENERIC_U595RJTX.upload.maximum_data_size=2574336
+GenU5.menu.pnum.GENERIC_U595RJTX.build.board=GENERIC_U595RJTX
+GenU5.menu.pnum.GENERIC_U595RJTX.build.product_line=STM32U595xx
+GenU5.menu.pnum.GENERIC_U595RJTX.build.variant=STM32U5xx/U595R(I-J)T_U5A5RJT
+
+# Generic U5A5RJTx
+GenU5.menu.pnum.GENERIC_U5A5RJTX=Generic U5A5RJTx
+GenU5.menu.pnum.GENERIC_U5A5RJTX.upload.maximum_size=4194304
+GenU5.menu.pnum.GENERIC_U5A5RJTX.upload.maximum_data_size=2574336
+GenU5.menu.pnum.GENERIC_U5A5RJTX.build.board=GENERIC_U5A5RJTX
+GenU5.menu.pnum.GENERIC_U5A5RJTX.build.product_line=STM32U5A5xx
+GenU5.menu.pnum.GENERIC_U5A5RJTX.build.variant=STM32U5xx/U595R(I-J)T_U5A5RJT
+

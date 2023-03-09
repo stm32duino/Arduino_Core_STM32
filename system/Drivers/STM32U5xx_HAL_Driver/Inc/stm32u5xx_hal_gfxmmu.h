@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2021 STMicroelectronics.
+  * Copyright (c) 2022 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -62,6 +62,7 @@ typedef struct
   uint32_t Buf3Address; /*!< Physical address of buffer 3. */
 } GFXMMU_BuffersTypeDef;
 
+#if defined (GFXMMU_CR_CE)
 /**
   * @brief  GFXMMU cache and pre-fetch structure definition
   */
@@ -85,6 +86,22 @@ typedef struct
   uint32_t        Prefetch;            /*!< Pre-fetch enable/disable.
                                             This parameter can be a value of @ref GFXMMU_Prefetch. */
 } GFXMMU_CachePrefetchTypeDef;
+#endif /* GFXMMU_CR_CE */
+
+#if defined (GFXMMU_CR_ACE)
+/**
+  * @brief  GFXMMU address cache structure definition
+  */
+typedef struct
+{
+  FunctionalState Activation;               /*!< Address Cache and enable/disable.
+                                            @note: All following parameters are useful only if address
+                                            cache is enabled. */
+  uint32_t        AddressCacheLockBuffer;   /*!< Buffer on which the address cache is locked.
+                                            This parameter can be a value of @ref GFXMMU_AddressCacheLockBuffer.
+                                            @note: Useful only when lock of the address cache is enabled. */
+} GFXMMU_AddressCacheTypeDef;
+#endif /* GFXMMU_CR_ACE */
 
 /**
   * @brief  GFXMMU interrupts structure definition
@@ -106,8 +123,14 @@ typedef struct
                                                   This parameter can be a value of @ref GFXMMU_BlocksPerLine. */
   uint32_t                    DefaultValue;  /*!< Value returned when virtual memory location not physically mapped. */
   GFXMMU_BuffersTypeDef       Buffers;       /*!< Physical buffers addresses. */
+#if defined (GFXMMU_CR_CE)
   GFXMMU_CachePrefetchTypeDef CachePrefetch; /*!< Cache and pre-fetch parameters. */
+#endif /* GFXMMU_CR_CE */
+#if defined (GFXMMU_CR_ACE)
+  GFXMMU_AddressCacheTypeDef  AddressCache;  /*!< Address Cache parameters. */
+#endif /* GFXMMU_CR_ACE */
   GFXMMU_InterruptsTypeDef    Interrupts;    /*!< Interrupts parameters. */
+
 } GFXMMU_InitTypeDef;
 
 /**
@@ -287,6 +310,19 @@ typedef void (*pGFXMMU_CallbackTypeDef)(GFXMMU_HandleTypeDef *hgfxmmu);
   * @}
   */
 
+#if defined (GFXMMU_CR_ACE)
+/** @defgroup GFXMMU_CacheLockBuffer GFXMMU address cache lock buffer
+  *  @{
+ */
+#define GFXMMU_ADDRESSCACHE_LOCK_BUFFER0 0x00000000U      /*!< Address Cache locked to buffer 0 */
+#define GFXMMU_ADDRESSCACHE_LOCK_BUFFER1 GFXMMU_CR_ACLB_0 /*!< Address Cache locked to buffer 1 */
+#define GFXMMU_ADDRESSCACHE_LOCK_BUFFER2 GFXMMU_CR_ACLB_1 /*!< Address Cache locked to buffer 2 */
+#define GFXMMU_ADDRESSCACHE_LOCK_BUFFER3 GFXMMU_CR_ACLB   /*!< Address Cache locked to buffer 3 */
+/**
+  * @}
+  */
+#endif /* GFXMMU_CR_ACE */
+
 /**
   * @}
   */
@@ -356,12 +392,21 @@ HAL_StatusTypeDef HAL_GFXMMU_DisableLutLines(GFXMMU_HandleTypeDef *hgfxmmu,
 
 HAL_StatusTypeDef HAL_GFXMMU_ConfigLutLine(GFXMMU_HandleTypeDef *hgfxmmu, GFXMMU_LutLineTypeDef *lutLine);
 
+#if defined (GFXMMU_CR_CE)
 HAL_StatusTypeDef HAL_GFXMMU_ConfigForceCache(GFXMMU_HandleTypeDef *hgfxmmu, uint32_t ForceParam);
+#endif /* GFXMMU_CR_CE */
 
 HAL_StatusTypeDef HAL_GFXMMU_ModifyBuffers(GFXMMU_HandleTypeDef *hgfxmmu, GFXMMU_BuffersTypeDef *Buffers);
 
+#if defined (GFXMMU_CR_CE)
 HAL_StatusTypeDef HAL_GFXMMU_ModifyCachePrefetch(GFXMMU_HandleTypeDef *hgfxmmu,
                                                  GFXMMU_CachePrefetchTypeDef *CachePrefetch);
+#endif /* GFXMMU_CR_CE */
+
+#if defined (GFXMMU_CR_ACE)
+HAL_StatusTypeDef HAL_GFXMMU_ModifyAddressCache(GFXMMU_HandleTypeDef *hgfxmmu,
+                                                GFXMMU_AddressCacheTypeDef *AddressCache);
+#endif /* GFXMMU_CR_ACE */
 
 void HAL_GFXMMU_IRQHandler(GFXMMU_HandleTypeDef *hgfxmmu);
 
@@ -414,6 +459,13 @@ uint32_t HAL_GFXMMU_GetError(GFXMMU_HandleTypeDef *hgfxmmu);
 
 #define IS_GFXMMU_PREFETCH(VALUE) (((VALUE) == GFXMMU_PREFETCH_DISABLE) || \
                                    ((VALUE) == GFXMMU_PREFETCH_ENABLE))
+
+#if defined (GFXMMU_CR_ACE)
+#define IS_GFXMMU_ADDRESSCACHE_LOCK_BUFFER(VALUE) (((VALUE) == GFXMMU_ADDRESSCACHE_LOCK_BUFFER0) || \
+                                                   ((VALUE) == GFXMMU_ADDRESSCACHE_LOCK_BUFFER1) || \
+                                                   ((VALUE) == GFXMMU_ADDRESSCACHE_LOCK_BUFFER2) || \
+                                                   ((VALUE) == GFXMMU_ADDRESSCACHE_LOCK_BUFFER3))
+#endif /* GFXMMU_CR_ACE */
 
 #define IS_GFXMMU_INTERRUPTS(VALUE) (((VALUE) & 0x1FU) != 0U)
 

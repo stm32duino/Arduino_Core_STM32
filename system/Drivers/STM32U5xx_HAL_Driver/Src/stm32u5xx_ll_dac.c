@@ -182,7 +182,7 @@ ErrorStatus LL_DAC_DeInit(DAC_TypeDef *DACx)
   *          - SUCCESS: DAC registers are initialized
   *          - ERROR: DAC registers are not initialized
   */
-ErrorStatus LL_DAC_Init(DAC_TypeDef *DACx, uint32_t DAC_Channel, LL_DAC_InitTypeDef *DAC_InitStruct)
+ErrorStatus LL_DAC_Init(DAC_TypeDef *DACx, uint32_t DAC_Channel, const LL_DAC_InitTypeDef *DAC_InitStruct)
 {
   ErrorStatus status = SUCCESS;
 

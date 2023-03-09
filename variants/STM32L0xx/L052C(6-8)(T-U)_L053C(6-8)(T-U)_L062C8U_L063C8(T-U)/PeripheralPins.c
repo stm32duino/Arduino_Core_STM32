@@ -15,7 +15,7 @@
  * STM32L053C(6-8)Tx.xml, STM32L053C(6-8)Ux.xml
  * STM32L062C8Ux.xml, STM32L063C8Tx.xml
  * STM32L063C8Ux.xml
- * CubeMX DB release 6.0.70
+ * CubeMX DB release 6.0.80
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

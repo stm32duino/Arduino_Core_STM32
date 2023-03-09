@@ -81,7 +81,7 @@
          the CRYP peripheral is configured and processes the buffer in input.
          At second call, no need to Initialize the CRYP, user have to get current configuration via
          HAL_CRYP_GetConfig() API, then only  HAL_CRYP_SetConfig() is requested to set
-         new parametres, finally user can  start encryption/decryption.
+         new parameters, finally user can  start encryption/decryption.
 
        (#)Call HAL_CRYP_DeInit() to deinitialize the CRYP peripheral.
 
@@ -190,7 +190,7 @@
          (##) To perform message payload encryption or decryption AES is configured in CTR mode.
          (##) For authentication two phases are performed :
           - Header phase: peripheral processes the Additional Authenticated Data (AAD) first, then the cleartext message
-          only cleartext payload (not the ciphertext payload) is used and no outpout.
+          only cleartext payload (not the ciphertext payload) is used and no output.
          (##) Final phase: peripheral generates the authenticated tag (T) using the last block of data.
               HAL_CRYPEx_AESCCM_GenerateAuthTAG API used in this phase to generate 4 words which correspond to the Tag.
               user should consider only part of this 4 words, if Tag length is less than 128 bits
@@ -436,7 +436,6 @@ static void CRYP_PhaseProcessingResume(CRYP_HandleTypeDef *hcryp);
 HAL_StatusTypeDef HAL_CRYP_Init(CRYP_HandleTypeDef *hcryp)
 {
   uint32_t cr_value;
-  uint32_t Timeout = CRYP_GENERAL_TIMEOUT;
   uint32_t tickstart;
 
   /* Check the CRYP handle allocation */
@@ -494,17 +493,15 @@ HAL_StatusTypeDef HAL_CRYP_Init(CRYP_HandleTypeDef *hcryp)
     while (HAL_IS_BIT_SET(hcryp->Instance->SR, CRYP_FLAG_BUSY))
     {
       /* Check for the Timeout */
-      if (Timeout != HAL_MAX_DELAY)
+      if ((HAL_GetTick() - tickstart) > CRYP_GENERAL_TIMEOUT)
       {
-        if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
-        {
-          __HAL_CRYP_DISABLE(hcryp);
-          hcryp->ErrorCode |= HAL_CRYP_ERROR_TIMEOUT;
-          hcryp->State = HAL_CRYP_STATE_READY;
-          __HAL_UNLOCK(hcryp);
-          return HAL_ERROR;
-        }
+        __HAL_CRYP_DISABLE(hcryp);
+        hcryp->ErrorCode |= HAL_CRYP_ERROR_TIMEOUT;
+        hcryp->State = HAL_CRYP_STATE_READY;
+        __HAL_UNLOCK(hcryp);
+        return HAL_ERROR;
       }
+
     }
     cr_value = (uint32_t)(hcryp->Init.KeyMode | hcryp->Init.DataType | hcryp->Init.KeySize | \
                           hcryp->Init.Algorithm | hcryp->Init.KeySelect | hcryp->Init.KeyProtection);
@@ -2334,6 +2331,7 @@ static HAL_StatusTypeDef CRYP_AES_Decrypt(CRYP_HandleTypeDef *hcryp, uint32_t Ti
     else /*SAES*/
     {
       /* key preparation for decryption, operating mode 2*/
+      MODIFY_REG(hcryp->Instance->CR, AES_CR_KMOD, CRYP_KEYMODE_NORMAL);
       MODIFY_REG(hcryp->Instance->CR, AES_CR_MODE, CRYP_OPERATINGMODE_KEYDERIVATION);
 
       /* we should re-write Key, in the case where we change key after first operation*/

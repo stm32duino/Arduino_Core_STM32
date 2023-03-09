@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic U535RBIx
+GenU5.menu.pnum.GENERIC_U535RBIX=Generic U535RBIx
+GenU5.menu.pnum.GENERIC_U535RBIX.upload.maximum_size=131072
+GenU5.menu.pnum.GENERIC_U535RBIX.upload.maximum_data_size=280576
+GenU5.menu.pnum.GENERIC_U535RBIX.build.board=GENERIC_U535RBIX
+GenU5.menu.pnum.GENERIC_U535RBIX.build.product_line=STM32U535xx
+GenU5.menu.pnum.GENERIC_U535RBIX.build.variant=STM32U5xx/U535R(B-C-E)I_U545REI
+
+# Generic U535RCIx
+GenU5.menu.pnum.GENERIC_U535RCIX=Generic U535RCIx
+GenU5.menu.pnum.GENERIC_U535RCIX.upload.maximum_size=262144
+GenU5.menu.pnum.GENERIC_U535RCIX.upload.maximum_data_size=280576
+GenU5.menu.pnum.GENERIC_U535RCIX.build.board=GENERIC_U535RCIX
+GenU5.menu.pnum.GENERIC_U535RCIX.build.product_line=STM32U535xx
+GenU5.menu.pnum.GENERIC_U535RCIX.build.variant=STM32U5xx/U535R(B-C-E)I_U545REI
+
+# Generic U535REIx
+GenU5.menu.pnum.GENERIC_U535REIX=Generic U535REIx
+GenU5.menu.pnum.GENERIC_U535REIX.upload.maximum_size=524288
+GenU5.menu.pnum.GENERIC_U535REIX.upload.maximum_data_size=280576
+GenU5.menu.pnum.GENERIC_U535REIX.build.board=GENERIC_U535REIX
+GenU5.menu.pnum.GENERIC_U535REIX.build.product_line=STM32U535xx
+GenU5.menu.pnum.GENERIC_U535REIX.build.variant=STM32U5xx/U535R(B-C-E)I_U545REI
+
+# Generic U545REIx
+GenU5.menu.pnum.GENERIC_U545REIX=Generic U545REIx
+GenU5.menu.pnum.GENERIC_U545REIX.upload.maximum_size=524288
+GenU5.menu.pnum.GENERIC_U545REIX.upload.maximum_data_size=280576
+GenU5.menu.pnum.GENERIC_U545REIX.build.board=GENERIC_U545REIX
+GenU5.menu.pnum.GENERIC_U545REIX.build.product_line=STM32U545xx
+GenU5.menu.pnum.GENERIC_U545REIX.build.variant=STM32U5xx/U535R(B-C-E)I_U545REI
+

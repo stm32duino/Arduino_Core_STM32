@@ -60,7 +60,11 @@ extern "C" {
 #define ADC_CALIB_MODE_BINARY_MASK           (ADC_CALIB_FACTOR_REGOFFSET_MASK) /* Mask to get binary value of
                                                                                   calibration mode: 0 for offset,
                                                                                                     1 for linearity */
-
+/* Internal algorithm for resolution parameters */
+/* ADC instances ADC1, ADC2 and ADC4 do not have same resolution and same bitfield value for equivalent resolution
+   in ADC bitfield ADC_CFGR1_RES_1 */
+#define ADC_RESOLUTION_ADC4_PROCESSING        (1UL) /* Value to be subtracted to literals LL_ADC_RESOLUTION_xB
+                                                       to have equivalent setting for ADC4 */
 
 /* Internal mask for ADC group regular sequencer:                             */
 /* To select into literal LL_ADC_REG_RANK_x the relevant bits for:            */
@@ -467,6 +471,10 @@ extern "C" {
 #define ADC_CFGR_AWD1EN_BITOFFSET_POS  (ADC_CFGR1_AWD1EN_Pos)
 #define ADC_CFGR_JAWD1EN_BITOFFSET_POS (ADC_CFGR1_JAWD1EN_Pos)
 
+/* ADC instance differentiation between ADC1 and ADC4 oversampling ratio */
+#define ADC4_OVERSAMPLING_RATIO_PARAMETER        (0x80000000UL)
+#define ADC4_OVERSAMPLING_RATIO_PARAMETER_MASK   (ADC4_OVERSAMPLING_RATIO_PARAMETER)
+
 /* ADC registers bits groups */
 #define ADC_CR_BITS_PROPERTY_RS     ( ADC_CR_ADCAL | ADC_CR_JADSTP | ADC_CR_ADSTP | ADC_CR_JADSTART | ADC_CR_ADSTART \
                                       | ADC_CR_ADDIS | ADC_CR_ADEN) /* ADC register CR bits with HW property "rs":
@@ -558,10 +566,31 @@ extern "C" {
   */
 typedef struct
 {
-  uint32_t CommonClock;  /*!< Set parameter common to several ADC: Clock source and prescaler.
-                              This parameter can be a value of @ref ADC_LL_EC_COMMON_CLOCK_SOURCE
-                              This feature can be modified afterwards using unitary function
-                              @ref LL_ADC_SetCommonClock(). */
+  uint32_t CommonClock;                 /*!< Set parameter common to several ADC: Clock source and prescaler.
+                                             This parameter can be a value of @ref ADC_LL_EC_COMMON_CLOCK_SOURCE
+                                             This feature can be modified afterwards using unitary function
+                                             @ref LL_ADC_SetCommonClock(). */
+
+#if defined(ADC_MULTIMODE_SUPPORT)
+  uint32_t Multimode;                   /*!< Set ADC multimode configuration to operate in independent mode
+  or multimode (for devices with several ADC instances).
+                                             This parameter can be a value of @ref ADC_LL_EC_MULTI_MODE
+
+                                             This feature can be modified afterwards using unitary function
+                                             @ref LL_ADC_SetMultimode(). */
+
+  uint32_t MultiDMATransfer;            /*!< Set ADC multimode conversion data transfer: no transfer or transfer by DMA.
+                                             This parameter can be a value of @ref ADC_LL_EC_MULTI_DMA_TRANSFER
+
+                                             This feature can be modified afterwards using unitary function
+                                             @ref LL_ADC_SetMultiDMATransfer(). */
+
+  uint32_t MultiTwoSamplingDelay;       /*!< Set ADC multimode delay between 2 sampling phases.
+                                             This parameter can be a value of @ref ADC_LL_EC_MULTI_TWOSMP_DELAY
+
+                                             This feature can be modified afterwards using unitary function
+                                             @ref LL_ADC_SetMultiTwoSamplingDelay(). */
+#endif /* ADC_MULTIMODE_SUPPORT */
 
 } LL_ADC_CommonInitTypeDef;
 
@@ -969,20 +998,20 @@ single-ended and differential modes. */
 /** @defgroup ADC_LL_EC_RESOLUTION  ADC instance - Resolution
   * @{
   */
-#define LL_ADC_RESOLUTION_14B       (0x00000000UL)                      /*!< ADC resolution 14 bits */
+#define LL_ADC_RESOLUTION_14B       (0x00000000UL)                      /*!< ADC resolution 14 bits (ADC1, ADC2 only) */
 #define LL_ADC_RESOLUTION_12B       (                  ADC_CFGR1_RES_0) /*!< ADC resolution 12 bits */
 #define LL_ADC_RESOLUTION_10B       (ADC_CFGR1_RES_1                  ) /*!< ADC resolution 10 bits */
 #define LL_ADC_RESOLUTION_8B        (ADC_CFGR1_RES_1 | ADC_CFGR1_RES_0) /*!< ADC resolution 8 bits */
-#define LL_ADC_RESOLUTION_6B        (0x0000FFFFUL)                      /*!< ADC resolution 6 bits, Internal value
-                                                                             used to differentiate 8B to 6B resolutions
-                                                                             for ADC1 and ADC4 respectively */
+#define LL_ADC_RESOLUTION_6B        (ADC_CFGR1_RES_1 \
+                                     << ADC_RESOLUTION_ADC4_PROCESSING) /*!< ADC resolution 6 bits (ADC4 only)
+                                                                            (value shift out of ADC_CFGR1_RES range,
+                                                                             post-processing when applied with ADC4) */
 
-/* Internal values only, please do not use */
-#define LL_ADC_RESOLUTION_12B_ADC4  (0x00000000UL)                      /*!< ADC resolution 12 bits */
-#define LL_ADC_RESOLUTION_10B_ADC4  (                  ADC_CFGR1_RES_0) /*!< ADC resolution 10 bits */
-#define LL_ADC_RESOLUTION_8B_ADC4   (ADC_CFGR1_RES_1                  ) /*!< ADC resolution 8 bits */
-#define LL_ADC_RESOLUTION_6B_ADC4   (ADC_CFGR1_RES_1 | ADC_CFGR1_RES_0) /*!< ADC resolution  6 bits */
-
+/* Legacy literals */
+#define LL_ADC_RESOLUTION_12B_ADC4  LL_ADC_RESOLUTION_12B
+#define LL_ADC_RESOLUTION_10B_ADC4  LL_ADC_RESOLUTION_10B
+#define LL_ADC_RESOLUTION_8B_ADC4   LL_ADC_RESOLUTION_8B
+#define LL_ADC_RESOLUTION_6B_ADC4   LL_ADC_RESOLUTION_6B
 /**
   * @}
   */
@@ -1023,7 +1052,7 @@ single-ended and differential modes. */
 /** @defgroup ADC_LL_EC_LP_MODE  ADC instance - Low power mode
   * @{
   */
-#define LL_ADC_LP_MODE_NONE                (0x00000000UL)                      /*!< No ADC low power mode activated */
+#define LL_ADC_LP_MODE_NONE                (0x00000000UL)                       /*!< No ADC low power mode activated */
 #define LL_ADC_LP_AUTOWAIT                 (ADC_CFGR1_AUTDLY)                   /*!< ADC low power mode auto delay: Dynamic low power mode, ADC conversions are performed only when necessary (when previous ADC conversion data is read). See description with function @ref LL_ADC_SetLowPowerMode(). */
 /**
   * @}
@@ -1032,8 +1061,8 @@ single-ended and differential modes. */
 /** @defgroup ADC_LL_EC_AUTOPOWEROFF_MODE  ADC instance - Low power mode auto power-off
   * @{
   */
-#define LL_ADC_LP_AUTOPOWEROFF_DISABLE      (0x00000000UL)                    /*!< ADC low power mode auto power-off disabled */
-#define LL_ADC_LP_AUTOPOWEROFF_ENABLE       (ADC4_PW_AUTOFF)                  /*!< ADC low power mode auto power-off enabled: the ADC automatically powers-off after a ADC conversion and automatically wakes up when a new ADC conversion is triggered (with startup time between trigger and start of sampling). See description with function @ref LL_ADC_SetLPModeAutoPowerOff(). It can be combined with mode low power mode auto wait. */
+#define LL_ADC_LP_AUTOPOWEROFF_DISABLE      (0x00000000UL)                      /*!< ADC low power mode auto power-off disabled */
+#define LL_ADC_LP_AUTOPOWEROFF_ENABLE       (ADC4_PWRR_AUTOFF)                  /*!< ADC low power mode auto power-off enabled: the ADC automatically powers-off after a ADC conversion and automatically wakes up when a new ADC conversion is triggered (with startup time between trigger and start of sampling). See description with function @ref LL_ADC_SetLPModeAutoPowerOff(). It can be combined with mode low power mode auto wait. */
 /**
   * @}
   */
@@ -1041,8 +1070,8 @@ single-ended and differential modes. */
 /** @defgroup ADC_LL_EC_AUTONOMOUS_DEEP_POWER_DOWN_MODE  ADC instance - Autonomous deep power down mode
   * @{
   */
-#define LL_ADC_LP_AUTONOMOUS_DPD_DISABLE      (0x00000000UL)      /*!< ADC deep power down in autonomous mode disabled */
-#define LL_ADC_LP_AUTONOMOUS_DPD_ENABLE       (ADC4_PW_DPD)       /*!< ADC deep power down in autonomous mode enabled */
+#define LL_ADC_LP_AUTONOMOUS_DPD_DISABLE      (0x00000000UL)        /*!< ADC deep power down in autonomous mode disabled */
+#define LL_ADC_LP_AUTONOMOUS_DPD_ENABLE       (ADC4_PWRR_DPD)       /*!< ADC deep power down in autonomous mode enabled */
 /**
   * @}
   */
@@ -1050,9 +1079,9 @@ single-ended and differential modes. */
 /** @defgroup ADC_LL_EC_VREF_PROTECTION_MODE  ADC instance - VREF protection mode
   * @{
   */
-#define LL_ADC_VREF_PROT_DISABLE              (0x00000000UL)                          /*!< ADC Vref+ protection disabled */
-#define LL_ADC_VREF_PROT_FIRST_SAMP_ENABLE    (ADC4_PW_VREFPROT)                      /*!< ADC Vref+ protection enabled: In case of simultaneous sampling phase of ADC4 and ADC1/2, ADC4 is put on hold during one ADC4 clock cycle to avoid noise on Vref+. */
-#define LL_ADC_VREF_PROT_SECOND_SAMP_ENABLE   (ADC4_PW_VREFPROT | ADC4_PW_VREFSECSMP) /*!< ADC Vref+ protection enabled: In case of simultaneous sampling phase of ADC4 and ADC1/2, ADC4 is put on hold during two ADC4 clock cycles to avoid noise on Vref+. */
+#define LL_ADC_VREF_PROT_DISABLE              (0x00000000UL)                              /*!< ADC Vref+ protection disabled */
+#define LL_ADC_VREF_PROT_FIRST_SAMP_ENABLE    (ADC4_PWRR_VREFPROT)                        /*!< ADC Vref+ protection enabled: In case of simultaneous sampling phase of ADC4 and ADC1/2, ADC4 is put on hold during one ADC4 clock cycle to avoid noise on Vref+. */
+#define LL_ADC_VREF_PROT_SECOND_SAMP_ENABLE   (ADC4_PWRR_VREFPROT | ADC4_PWRR_VREFSECSMP) /*!< ADC Vref+ protection enabled: In case of simultaneous sampling phase of ADC4 and ADC1/2, ADC4 is put on hold during two ADC4 clock cycles to avoid noise on Vref+. */
 /**
   * @}
   */
@@ -1783,14 +1812,14 @@ single-ended and differential modes. */
 /** @defgroup ADC_LL_EC_OVS_RATIO  Oversampling - Ratio
   * @{
   */
-#define LL_ADC_OVS_RATIO_2                 (0x00000000UL)                                           /*!< ADC oversampling ratio of 2 (2 ADC conversions are performed, sum of these conversions data is computed to result as the ADC oversampling conversion data (before potential shift) */
-#define LL_ADC_OVS_RATIO_4                 (                                       ADC4_CFGR2_OVSR_0) /*!< ADC oversampling ratio of 4 (4 ADC conversions are performed, sum of these conversions data is computed to result as the ADC oversampling conversion data (before potential shift) */
-#define LL_ADC_OVS_RATIO_8                 (                    ADC4_CFGR2_OVSR_1                    ) /*!< ADC oversampling ratio of 8 (8 ADC conversions are performed, sum of these conversions data is computed to result as the ADC oversampling conversion data (before potential shift) */
-#define LL_ADC_OVS_RATIO_16                (                    ADC4_CFGR2_OVSR_1 | ADC4_CFGR2_OVSR_0) /*!< ADC oversampling ratio of 16 (16 ADC conversions are performed, sum of these conversions data is computed to result as the ADC oversampling conversion data (before potential shift) */
-#define LL_ADC_OVS_RATIO_32                (ADC4_CFGR2_OVSR_2                                      ) /*!< ADC oversampling ratio of 32 (32 ADC conversions are performed, sum of these conversions data is computed to result as the ADC oversampling conversion data (before potential shift) */
-#define LL_ADC_OVS_RATIO_64                (ADC4_CFGR2_OVSR_2                     | ADC4_CFGR2_OVSR_0) /*!< ADC oversampling ratio of 64 (64 ADC conversions are performed, sum of these conversions data is computed to result as the ADC oversampling conversion data (before potential shift) */
-#define LL_ADC_OVS_RATIO_128               (ADC4_CFGR2_OVSR_2 | ADC4_CFGR2_OVSR_1                   ) /*!< ADC oversampling ratio of 128 (128 ADC conversions are performed, sum of these conversions data is computed to result as the ADC oversampling conversion data (before potential shift) */
-#define LL_ADC_OVS_RATIO_256               (ADC4_CFGR2_OVSR_2 | ADC4_CFGR2_OVSR_1 | ADC4_CFGR2_OVSR_0) /*!< ADC oversampling ratio of 256 (256 ADC conversions are performed, sum of these conversions data is computed to result as the ADC oversampling conversion data (before potential shift) */
+#define LL_ADC_OVS_RATIO_2                 (ADC4_OVERSAMPLING_RATIO_PARAMETER | 0x00000000UL)                                           /*!< ADC oversampling ratio of 2 (2 ADC conversions are performed, sum of these conversions data is computed to result as the ADC oversampling conversion data (before potential shift) */
+#define LL_ADC_OVS_RATIO_4                 (ADC4_OVERSAMPLING_RATIO_PARAMETER |                                        ADC4_CFGR2_OVSR_0) /*!< ADC oversampling ratio of 4 (4 ADC conversions are performed, sum of these conversions data is computed to result as the ADC oversampling conversion data (before potential shift) */
+#define LL_ADC_OVS_RATIO_8                 (ADC4_OVERSAMPLING_RATIO_PARAMETER |                     ADC4_CFGR2_OVSR_1                    ) /*!< ADC oversampling ratio of 8 (8 ADC conversions are performed, sum of these conversions data is computed to result as the ADC oversampling conversion data (before potential shift) */
+#define LL_ADC_OVS_RATIO_16                (ADC4_OVERSAMPLING_RATIO_PARAMETER |                     ADC4_CFGR2_OVSR_1 | ADC4_CFGR2_OVSR_0) /*!< ADC oversampling ratio of 16 (16 ADC conversions are performed, sum of these conversions data is computed to result as the ADC oversampling conversion data (before potential shift) */
+#define LL_ADC_OVS_RATIO_32                (ADC4_OVERSAMPLING_RATIO_PARAMETER | ADC4_CFGR2_OVSR_2                                      ) /*!< ADC oversampling ratio of 32 (32 ADC conversions are performed, sum of these conversions data is computed to result as the ADC oversampling conversion data (before potential shift) */
+#define LL_ADC_OVS_RATIO_64                (ADC4_OVERSAMPLING_RATIO_PARAMETER | ADC4_CFGR2_OVSR_2                     | ADC4_CFGR2_OVSR_0) /*!< ADC oversampling ratio of 64 (64 ADC conversions are performed, sum of these conversions data is computed to result as the ADC oversampling conversion data (before potential shift) */
+#define LL_ADC_OVS_RATIO_128               (ADC4_OVERSAMPLING_RATIO_PARAMETER | ADC4_CFGR2_OVSR_2 | ADC4_CFGR2_OVSR_1                   ) /*!< ADC oversampling ratio of 128 (128 ADC conversions are performed, sum of these conversions data is computed to result as the ADC oversampling conversion data (before potential shift) */
+#define LL_ADC_OVS_RATIO_256               (ADC4_OVERSAMPLING_RATIO_PARAMETER | ADC4_CFGR2_OVSR_2 | ADC4_CFGR2_OVSR_1 | ADC4_CFGR2_OVSR_0) /*!< ADC oversampling ratio of 256 (256 ADC conversions are performed, sum of these conversions data is computed to result as the ADC oversampling conversion data (before potential shift) */
 /**
   * @}
   */
@@ -1930,15 +1959,14 @@ single-ended and differential modes. */
 /* Unit: ADC clock cycles.                                                    */
 #define LL_ADC_DELAY_CALIB_ENABLE_ADC_CYCLES (  4UL)  /*!< Delay required between ADC end of calibration and ADC enable */
 
-/* Fixed timeout value for ADC linearity word bit set/clear delay.                         */
-/* Values defined to be higher than worst cases: low clock frequency,                      */
-/* maximum prescalers.                                                                     */
-/* Ex of profile low frequency : f_ADC at 4,577 Khz (minimum value                         */
-/* according to Data sheet), linearity set/clear bit delay MAX = 6 / f_ADC + 3 cycles AHB  */
-/*           6 / 4577 = 1,311ms                                                            */
-/* At maximum CPU speed (400 MHz), this means                                              */
-/*    3.58 * 400 MHz = 524400 CPU cycles                                                   */
-#define ADC_LINEARITY_BIT_TOGGLE_TIMEOUT         (524400UL)      /*!< ADC linearity set/clear bit delay */
+/* Fixed timeout value for ADC linearity word bit set/clear delay.            */
+/* Values defined to be higher than worst cases: maximum ratio between ADC    */
+/* and CPU clock frequencies.                                                 */
+/* Example of profile low frequency : ADC frequency minimum 140kHz (cf        */
+/* datasheet for ADC4), CPU frequency 160MHz.                                 */
+/* Calibration time max = 25502 / fADC (refer to datasheet)                   */
+/*                      = 29M CPU cycles                                      */
+#define ADC_LINEARITY_BIT_TOGGLE_TIMEOUT         (29000000UL)      /*!< ADC linearity calibration set/clear bit delay */
 
 /**
   * @}
@@ -2011,7 +2039,7 @@ single-ended and differential modes. */
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_18
   *         @arg @ref LL_ADC_CHANNEL_19
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT         (1)
+  *         @arg @ref LL_ADC_CHANNEL_VREFINT
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR      (1)
   *         @arg @ref LL_ADC_CHANNEL_VBAT            (1)
   *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4    (2)
@@ -2060,7 +2088,7 @@ single-ended and differential modes. */
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_18
   *         @arg @ref LL_ADC_CHANNEL_19
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT         (1)
+  *         @arg @ref LL_ADC_CHANNEL_VREFINT
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR      (1)
   *         @arg @ref LL_ADC_CHANNEL_VBAT            (1)
   *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4    (2)
@@ -2087,57 +2115,6 @@ single-ended and differential modes. */
       (ADC_SMPR2_REGOFFSET))                                                                            \
   )
 
-/**
-  * @brief  Helper macro to convert ADC1 resolution to ADC4 resolution bit values.
-  * @note   Example 1:
-  *           __LL_ADC_RESOLUTION_ADC1_TO_ADC4(LL_ADC_RESOLUTION_6B)
-  *           will return a data equivalent to "(ADC_CFGR1_RES_1 | ADC_CFGR1_RES_0)".
-  * @note   Example 2:
-  *           __LL_ADC_RESOLUTION_ADC1_TO_ADC4(LL_ADC_RESOLUTION_10B)
-  *           will return a data equivalent to "(ADC_CFGR1_RES_0)".
-  * @param  __RESOLUTION__ This parameter can be one of the following values:
-  *         @arg @ref LL_ADC_RESOLUTION_12B
-  *         @arg @ref LL_ADC_RESOLUTION_10B
-  *         @arg @ref LL_ADC_RESOLUTION_8B
-  *         @arg @ref LL_ADC_RESOLUTION_6B
-  * @retval Returned value can be one of the following values:
-  *         @arg 0x00000000UL                                     (value correspodning to ADC4 12 bits)
-  *         @arg ADC_CFGR1_RES_0 = 0x00000004UL                   (value correspodning to ADC4 10 bits)
-  *         @arg ADC_CFGR1_RES_1 = 0x00000008UL                   (value corresponding to ADC4  8 bits)
-  *         @arg ADC_CFGR1_RES_1 | ADC_CFGR1_RES_0 = 0x0000000CUL (value corresponding to ADC4  6 bits)
-  */
-
-#define __LL_ADC_RESOLUTION_ADC1_TO_ADC4(__RESOLUTION__)                                        \
-  (((__RESOLUTION__)  == LL_ADC_RESOLUTION_6B)                                                  \
-   ? ((LL_ADC_RESOLUTION_8B))                                                                   \
-   : ((((__RESOLUTION__)-1UL) & ADC_CFGR1_RES_Msk))                                             \
-  )
-
-/**
-  * @brief  Helper macro to convert ADC4 resolution bit values to ADC1 resolution.
-  * @note   Example 1:
-  *           __LL_ADC_RESOLUTION_ADC4_TO_ADC1((ADC_CFGR1_RES_1 | ADC_CFGR1_RES_0))
-  *           will return a data equivalent to "LL_ADC_RESOLUTION_6B".
-  * @note   Example 2:
-  *           __LL_ADC_RESOLUTION_ADC1_TO_ADC4((ADC_CFGR1_RES_0))
-  *           will return a data equivalent to "LL_ADC_RESOLUTION_10B".
-  * @param  __RESOLUTION__ This parameter can be one of the following values:
-  *         @arg 0x00000000UL                                     (value correspodning to ADC4 12 bits)
-  *         @arg ADC_CFGR1_RES_0 = 0x00000004UL                   (value correspodning to ADC4 10 bits)
-  *         @arg ADC_CFGR1_RES_1 = 0x00000008UL                   (value corresponding to ADC4  8 bits)
-  *         @arg ADC_CFGR1_RES_1 | ADC_CFGR1_RES_0 = 0x0000000CUL (value corresponding to ADC4  6 bits)
-  * @retval Returned value can be one of the following values:
-  *         @arg @ref LL_ADC_RESOLUTION_12B
-  *         @arg @ref LL_ADC_RESOLUTION_10B
-  *         @arg @ref LL_ADC_RESOLUTION_8B
-  *         @arg @ref LL_ADC_RESOLUTION_6B
-  */
-
-#define __LL_ADC_RESOLUTION_ADC4_TO_ADC1(__RESOLUTION__)                                              \
-  (((__RESOLUTION__)  == LL_ADC_RESOLUTION_8B)                                                        \
-   ? ((LL_ADC_RESOLUTION_6B))                                                                         \
-   : ((((((__RESOLUTION__) >> ADC_CFGR1_RES_Pos) + 1UL)  << ADC_CFGR1_RES_Pos) & ADC_CFGR1_RES_Msk))  \
-  )
 /**
   * @brief  Helper macro to determine whether the selected channel
   *         corresponds to literal definitions of driver.
@@ -2176,7 +2153,7 @@ single-ended and differential modes. */
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_18
   *         @arg @ref LL_ADC_CHANNEL_19
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT         (1)
+  *         @arg @ref LL_ADC_CHANNEL_VREFINT
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR      (1)
   *         @arg @ref LL_ADC_CHANNEL_VBAT            (1)
   *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4    (2)
@@ -2230,7 +2207,7 @@ single-ended and differential modes. */
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_18
   *         @arg @ref LL_ADC_CHANNEL_19
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT         (1)
+  *         @arg @ref LL_ADC_CHANNEL_VREFINT
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR      (1)
   *         @arg @ref LL_ADC_CHANNEL_VBAT            (1)
   *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4    (2)
@@ -2283,7 +2260,7 @@ single-ended and differential modes. */
   *         parameters definitions of driver.
   * @param  __ADC_INSTANCE__ ADC instance
   * @param  __CHANNEL__ This parameter can be one of the following values:
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT         (1)
+  *         @arg @ref LL_ADC_CHANNEL_VREFINT
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR      (1)
   *         @arg @ref LL_ADC_CHANNEL_VBAT            (1)
   *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4    (2)
@@ -2299,10 +2276,12 @@ single-ended and differential modes. */
   */
 #if defined(ADC2)
 #define __LL_ADC_IS_CHANNEL_INTERNAL_AVAILABLE(__ADC_INSTANCE__, __CHANNEL__)  \
-  ((((__ADC_INSTANCE__) == ADC4) &&( ((__CHANNEL__) == LL_ADC_CHANNEL_DAC1CH1_ADC4)    ||                    \
-                                     ((__CHANNEL__) == LL_ADC_CHANNEL_DAC1CH2_ADC4)    ||                    \
-                                     ((__CHANNEL__) == LL_ADC_CHANNEL_TEMPSENSOR_ADC4) ||                    \
-                                     ((__CHANNEL__) == LL_ADC_CHANNEL_VBAT_ADC4) )                           \
+  ((((__ADC_INSTANCE__) == ADC4)                                               \
+    &&(((__CHANNEL__) == LL_ADC_CHANNEL_VREFINT)         ||                    \
+       ((__CHANNEL__) == LL_ADC_CHANNEL_DAC1CH1_ADC4)    ||                    \
+       ((__CHANNEL__) == LL_ADC_CHANNEL_DAC1CH2_ADC4)    ||                    \
+       ((__CHANNEL__) == LL_ADC_CHANNEL_TEMPSENSOR_ADC4) ||                    \
+       ((__CHANNEL__) == LL_ADC_CHANNEL_VBAT_ADC4) )                           \
    )                                                                           \
    ||                                                                          \
    (((__ADC_INSTANCE__) == ADC1) ||  ((__ADC_INSTANCE__) == ADC2)              \
@@ -2314,7 +2293,8 @@ single-ended and differential modes. */
 #else
 #define __LL_ADC_IS_CHANNEL_INTERNAL_AVAILABLE(__ADC_INSTANCE__, __CHANNEL__)  \
   ((((__ADC_INSTANCE__) == ADC4)                                               \
-    &&(((__CHANNEL__) == LL_ADC_CHANNEL_DAC1CH1_ADC4)    ||                    \
+    &&(((__CHANNEL__) == LL_ADC_CHANNEL_VREFINT)         ||                    \
+       ((__CHANNEL__) == LL_ADC_CHANNEL_DAC1CH1_ADC4)    ||                    \
        ((__CHANNEL__) == LL_ADC_CHANNEL_DAC1CH2_ADC4)    ||                    \
        ((__CHANNEL__) == LL_ADC_CHANNEL_TEMPSENSOR_ADC4) ||                    \
        ((__CHANNEL__) == LL_ADC_CHANNEL_VBAT_ADC4) )                           \
@@ -2357,7 +2337,7 @@ single-ended and differential modes. */
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_18
   *         @arg @ref LL_ADC_CHANNEL_19
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT         (1)
+  *         @arg @ref LL_ADC_CHANNEL_VREFINT
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR      (1)
   *         @arg @ref LL_ADC_CHANNEL_VBAT            (1)
   *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4    (2)
@@ -2458,7 +2438,7 @@ single-ended and differential modes. */
   *         @arg @ref LL_ADC_AWD_CH_VCORE_REG            (2)
   *
   *         (0) On STM32U5, parameter available only on analog watchdog number: AWD1.
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/2.
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1, ADC2.
   *         (2) On STM32U5, parameter available only on ADC instance: ADC4.
   */
 #define __LL_ADC_ANALOGWD_CHANNEL_GROUP(__CHANNEL__, __GROUP__)                                           \
@@ -2474,7 +2454,7 @@ single-ended and differential modes. */
 /**
   * @brief  Helper macro to set the value of ADC analog watchdog threshold high
   *         or low in function of ADC resolution, when ADC resolution is
-  *         different of 14 bits in case of ADC1 and 12 bits in case of ADC4.
+  *         different of 14 bits in case of ADC1 or ADC2, 12 bits in case of ADC4.
   * @note   To be used with function @ref LL_ADC_SetAnalogWDThresholds().
   *         Example, with a ADC resolution of 8 bits, to set the value of
   *         analog watchdog threshold high (on 8 bits):
@@ -2484,40 +2464,31 @@ single-ended and differential modes. */
   *            );
   * @param  __ADC_INSTANCE__ ADC instance
   * @param  __ADC_RESOLUTION__ This parameter can be one of the following values:
-  *         @arg @ref LL_ADC_RESOLUTION_14B   (1)
+  *         @arg @ref LL_ADC_RESOLUTION_14B (1)
   *         @arg @ref LL_ADC_RESOLUTION_12B
   *         @arg @ref LL_ADC_RESOLUTION_10B
   *         @arg @ref LL_ADC_RESOLUTION_8B
-  *         @arg @ref LL_ADC_RESOLUTION_6B    (2)
-  * @param  __AWD_THRESHOLD__ Value between Min_Data=0x000000 and Max_Data=0x1FFFFFF, In case of ADC1 insatnce
-  *         __AWD_THRESHOLD__ Value between Min_Data=0x000 and Max_Data=0xFFF, In case of ADC4 insatnce
-  * @retval In case of ADC1 insatnce, Value between Min_Data=0x000000 and Max_Data=0x1FFFFFF
-  *         In case of ADC4 insatnce, Value between Min_Data=0x000 and Max_Data=0xFFF
-  *
-  *         (1): Only for ADC1 instance
-  *         (2): Only for ADC4 insatnce
+  *         @arg @ref LL_ADC_RESOLUTION_6B  (2)
+  *         (1): Specific to ADC instance: ADC1, ADC2
+  *         (2): Specific to ADC instance: ADC4
+  * @param  __AWD_THRESHOLD__ Value between Min_Data=0x000000 and Max_Data=0x1FFFFFF, In case of ADC1 instance
+  *         __AWD_THRESHOLD__ Value between Min_Data=0x000 and Max_Data=0xFFF, In case of ADC4 instance
+  * @retval In case of ADC1 instance, Value between Min_Data=0x000000 and Max_Data=0x1FFFFFF
+  *         In case of ADC4 instance, Value between Min_Data=0x000 and Max_Data=0xFFF
   */
-#if defined (ADC2)
-#define __LL_ADC_ANALOGWD_SET_THRESHOLD_RESOLUTION(__ADC_INSTANCE__, __ADC_RESOLUTION__, __AWD_THRESHOLD__)           \
-  ((((__ADC_INSTANCE__) == ADC1) || ((__ADC_INSTANCE__) == ADC2))                                                     \
-   ? ((__AWD_THRESHOLD__) << ((__ADC_RESOLUTION__) >> (ADC_CFGR_RES_BITOFFSET_POS - 1U )))                            \
-   :                                                                                                                  \
-   ((__AWD_THRESHOLD__) << ((__LL_ADC_RESOLUTION_ADC1_TO_ADC4(__ADC_RESOLUTION__))                                    \
-                            >> (ADC_CFGR_RES_BITOFFSET_POS - 1U )))                                                   \
+#define __LL_ADC_ANALOGWD_SET_THRESHOLD_RESOLUTION(__ADC_INSTANCE__, __ADC_RESOLUTION__, __AWD_THRESHOLD__) \
+  (((__ADC_INSTANCE__) == ADC4)                                                                                        \
+   ?                                                                                                                   \
+   ((__AWD_THRESHOLD__) << (((((__ADC_RESOLUTION__) - ADC_RESOLUTION_ADC4_PROCESSING) & ADC_CFGR1_RES))                \
+                            >> (ADC_CFGR_RES_BITOFFSET_POS - 1U )))                                                    \
+   :                                                                                                                   \
+   ((__AWD_THRESHOLD__) << ((__ADC_RESOLUTION__) >> (ADC_CFGR_RES_BITOFFSET_POS - 1U )))                               \
   )
-#else
-#define __LL_ADC_ANALOGWD_SET_THRESHOLD_RESOLUTION(__ADC_INSTANCE__, __ADC_RESOLUTION__, __AWD_THRESHOLD__)           \
-  (((__ADC_INSTANCE__) == ADC1)                                                                                       \
-   ? ((__AWD_THRESHOLD__) << ((__ADC_RESOLUTION__) >> (ADC_CFGR_RES_BITOFFSET_POS - 1U )))                            \
-   :                                                                                                                  \
-   ((__AWD_THRESHOLD__) << ((__LL_ADC_RESOLUTION_ADC1_TO_ADC4(__ADC_RESOLUTION__))                                    \
-                            >> (ADC_CFGR_RES_BITOFFSET_POS - 1U )))                                                   \
-  )
-#endif /* ADC2 */
+
 /**
   * @brief  Helper macro to get the value of ADC analog watchdog threshold high
   *         or low in function of ADC resolution, when ADC resolution is
-  *         different of 14 bits in case of ADC1 and 12 bits in case of ADC4.
+  *         different of 14 bits in case of ADC1 or ADC2, 12 bits in case of ADC4.
   * @note   To be used with function @ref LL_ADC_GetAnalogWDThresholds().
   *         Example, with a ADC resolution of 8 bits, to get the value of
   *         analog watchdog threshold high (on 8 bits):
@@ -2527,36 +2498,27 @@ single-ended and differential modes. */
   *            );
   * @param  __ADC_INSTANCE__ ADC instance
   * @param  __ADC_RESOLUTION__ This parameter can be one of the following values:
-  *         @arg @ref LL_ADC_RESOLUTION_14B   (1)
+  *         @arg @ref LL_ADC_RESOLUTION_14B (1)
   *         @arg @ref LL_ADC_RESOLUTION_12B
   *         @arg @ref LL_ADC_RESOLUTION_10B
   *         @arg @ref LL_ADC_RESOLUTION_8B
-  *         @arg @ref LL_ADC_RESOLUTION_6B    (2)
-  * @param  __AWD_THRESHOLD__ Value between Min_Data=0x000000 and Max_Data=0x1FFFFFF, In case of ADC1 insatnce
-  *         __AWD_THRESHOLD__ Value between Min_Data=0x000 and Max_Data=0xFFF, In case of ADC4 insatnce
-  * @retval In case of ADC1 insatnce, Value between Min_Data=0x000000 and Max_Data=0x1FFFFFF
-  *         In case of ADC4 insatnce, Value between Min_Data=0x000 and Max_Data=0xFFF
-  *
-  *         (1): Only for ADC1 instance
-  *         (2): Only for ADC4 insatnce
+  *         @arg @ref LL_ADC_RESOLUTION_6B  (2)
+  *         (1): Specific to ADC instance: ADC1, ADC2
+  *         (2): Specific to ADC instance: ADC4
+  * @param  __AWD_THRESHOLD__ Value between Min_Data=0x000000 and Max_Data=0x1FFFFFF, In case of ADC1 instance
+  *         __AWD_THRESHOLD__ Value between Min_Data=0x000 and Max_Data=0xFFF, In case of ADC4 instance
+  * @retval In case of ADC1 instance, Value between Min_Data=0x000000 and Max_Data=0x1FFFFFF
+  *         In case of ADC4 instance, Value between Min_Data=0x000 and Max_Data=0xFFF
   */
-#if defined (ADC2)
-#define __LL_ADC_ANALOGWD_GET_THRESHOLD_RESOLUTION(__ADC_INSTANCE__, __ADC_RESOLUTION__, __AWD_THRESHOLD__)           \
-  ((((__ADC_INSTANCE__) == ADC1) || ((__ADC_INSTANCE__) == ADC2))                                                     \
-   ? ((__AWD_THRESHOLD__) >> ((__ADC_RESOLUTION__) >> (ADC_CFGR_RES_BITOFFSET_POS - 1U )))                            \
-   :                                                                                                                  \
-   ((__AWD_THRESHOLD__) >> ((__LL_ADC_RESOLUTION_ADC1_TO_ADC4(__ADC_RESOLUTION__))                                    \
-                            >> (ADC_CFGR_RES_BITOFFSET_POS - 1U )))                                                   \
+#define __LL_ADC_ANALOGWD_GET_THRESHOLD_RESOLUTION(__ADC_INSTANCE__, __ADC_RESOLUTION__, __AWD_THRESHOLD__) \
+  (((__ADC_INSTANCE__) == ADC4)                                                                                        \
+   ?                                                                                                                   \
+   ((__AWD_THRESHOLD__) >> (((((__ADC_RESOLUTION__) - ADC_RESOLUTION_ADC4_PROCESSING) & ADC_CFGR1_RES))                \
+                            >> (ADC_CFGR_RES_BITOFFSET_POS - 1U )))                                                    \
+   :                                                                                                                   \
+   ((__AWD_THRESHOLD__) >> ((__ADC_RESOLUTION__) >> (ADC_CFGR_RES_BITOFFSET_POS - 1U )))                               \
   )
-#else
-#define __LL_ADC_ANALOGWD_GET_THRESHOLD_RESOLUTION(__ADC_INSTANCE__, __ADC_RESOLUTION__, __AWD_THRESHOLD__)           \
-  (((__ADC_INSTANCE__) == ADC1)                                                                                       \
-   ? ((__AWD_THRESHOLD__) >> ((__ADC_RESOLUTION__) >> (ADC_CFGR_RES_BITOFFSET_POS - 1U )))                            \
-   :                                                                                                                  \
-   ((__AWD_THRESHOLD__) >> ((__LL_ADC_RESOLUTION_ADC1_TO_ADC4(__ADC_RESOLUTION__))                                    \
-                            >> (ADC_CFGR_RES_BITOFFSET_POS - 1U )))                                                   \
-  )
-#endif /* ADC2 */
+
 /**
   * @brief  Helper macro to set the ADC calibration value with both single ended
   *         and differential modes calibration factors concatenated.
@@ -2667,23 +2629,8 @@ single-ended and differential modes. */
   *         @arg @ref LL_ADC_RESOLUTION_6B
   * @retval ADC conversion data full-scale digital value (unit: digital value of ADC conversion data)
   */
-#if defined(ADC2)
 #define __LL_ADC_DIGITAL_SCALE(__ADC_INSTANCE__, __ADC_RESOLUTION__)                                    \
-  ((((__ADC_INSTANCE__) == ADC1) || ((__ADC_INSTANCE__) == ADC2))                                       \
-   ?((0x3FFFUL) >> (((__ADC_RESOLUTION__) >> (ADC_CFGR_RES_BITOFFSET_POS - 1UL)) & 0x6UL))              \
-   :                                                                                                    \
-   ((0xFFFUL) >> ((__LL_ADC_RESOLUTION_ADC1_TO_ADC4(__ADC_RESOLUTION__)                                 \
-                   >> (ADC_CFGR_RES_BITOFFSET_POS - 1UL)) & 0x6UL))                                     \
-  )
-#else
-#define __LL_ADC_DIGITAL_SCALE(__ADC_INSTANCE__, __ADC_RESOLUTION__)                                  \
-  (((__ADC_INSTANCE__) == ADC1)                                                                       \
-   ?((0x3FFFUL) >> (((__ADC_RESOLUTION__) >> (ADC_CFGR_RES_BITOFFSET_POS - 1UL)) & 0x6UL))            \
-   :                                                                                                  \
-   ((0xFFFUL) >> ((__LL_ADC_RESOLUTION_ADC1_TO_ADC4(__ADC_RESOLUTION__)                               \
-                   >> (ADC_CFGR_RES_BITOFFSET_POS - 1UL)) & 0x6UL))                                   \
-  )
-#endif /* ADC2 */
+  (0x3FFFUL >> ((__ADC_RESOLUTION__) >> (ADC_CFGR_RES_BITOFFSET_POS - 1UL)))
 
 /**
   * @brief  Helper macro to convert the ADC conversion data from
@@ -2692,47 +2639,27 @@ single-ended and differential modes. */
   * @param  __DATA__ ADC conversion data to be converted
   * @param  __ADC_RESOLUTION_CURRENT__ Resolution of the data to be converted
   *         This parameter can be one of the following values:
-  *         @arg @ref LL_ADC_RESOLUTION_14B (1)
-  *         @arg @ref LL_ADC_RESOLUTION_12B (2)
-  *         @arg @ref LL_ADC_RESOLUTION_10B (2)
-  *         @arg @ref LL_ADC_RESOLUTION_8B  (2)
+  *         @arg @ref LL_ADC_RESOLUTION_14B
+  *         @arg @ref LL_ADC_RESOLUTION_12B
+  *         @arg @ref LL_ADC_RESOLUTION_10B
+  *         @arg @ref LL_ADC_RESOLUTION_8B
+  *         @arg @ref LL_ADC_RESOLUTION_6B
   * @param  __ADC_RESOLUTION_TARGET__ Resolution of the data after conversion
   *         This parameter can be one of the following values:
-  *         @arg @ref LL_ADC_RESOLUTION_14B (1)
-  *         @arg @ref LL_ADC_RESOLUTION_12B (2)
-  *         @arg @ref LL_ADC_RESOLUTION_10B (2)
-  *         @arg @ref LL_ADC_RESOLUTION_8B  (2)
-  *               (1): Specific to ADC1 instance
-  *               (2): Common to all instances but different bits positions
+  *         @arg @ref LL_ADC_RESOLUTION_14B
+  *         @arg @ref LL_ADC_RESOLUTION_12B
+  *         @arg @ref LL_ADC_RESOLUTION_10B
+  *         @arg @ref LL_ADC_RESOLUTION_8B
+  *         @arg @ref LL_ADC_RESOLUTION_6B
   * @retval ADC conversion data to the requested resolution
   */
-#if defined (ADC2)
 #define __LL_ADC_CONVERT_DATA_RESOLUTION(__ADC_INSTANCE__, __DATA__,\
                                          __ADC_RESOLUTION_CURRENT__,\
-                                         __ADC_RESOLUTION_TARGET__)                                            \
-((((__ADC_INSTANCE__) == ADC1) || ((__ADC_INSTANCE__) == ADC2))                                                \
- ?((__DATA__)                                                                                                  \
-   << ((__ADC_RESOLUTION_CURRENT__) >> (ADC_CFGR_RES_BITOFFSET_POS - 1UL)))                                    \
- >> ((__ADC_RESOLUTION_TARGET__) >> (ADC_CFGR_RES_BITOFFSET_POS - 1UL))                                        \
- :                                                                                                             \
- ((__DATA__)                                                                                                   \
-  << ((__LL_ADC_RESOLUTION_ADC1_TO_ADC4(__ADC_RESOLUTION_CURRENT__)) >> (ADC_CFGR_RES_BITOFFSET_POS - 1UL)))   \
- >> ((__LL_ADC_RESOLUTION_ADC1_TO_ADC4(__ADC_RESOLUTION_TARGET__)) >> (ADC_CFGR_RES_BITOFFSET_POS - 1UL))      \
+                                         __ADC_RESOLUTION_TARGET__)          \
+(((__DATA__)                                                                 \
+  << ((__ADC_RESOLUTION_CURRENT__) >> (ADC_CFGR_RES_BITOFFSET_POS - 1UL)))   \
+ >> ((__ADC_RESOLUTION_TARGET__) >> (ADC_CFGR_RES_BITOFFSET_POS - 1UL))      \
 )
-#else
-#define __LL_ADC_CONVERT_DATA_RESOLUTION(__ADC_INSTANCE__, __DATA__,\
-                                         __ADC_RESOLUTION_CURRENT__,\
-                                         __ADC_RESOLUTION_TARGET__)                                            \
-(((__ADC_INSTANCE__) == ADC1)                                                                                  \
- ?((__DATA__)                                                                                                  \
-   << ((__ADC_RESOLUTION_CURRENT__) >> (ADC_CFGR_RES_BITOFFSET_POS - 1UL)))                                    \
- >> ((__ADC_RESOLUTION_TARGET__) >> (ADC_CFGR_RES_BITOFFSET_POS - 1UL))                                        \
- :                                                                                                             \
- ((__DATA__)                                                                                                   \
-  << ((__LL_ADC_RESOLUTION_ADC1_TO_ADC4(__ADC_RESOLUTION_CURRENT__)) >> (ADC_CFGR_RES_BITOFFSET_POS - 1UL)))   \
- >> ((__LL_ADC_RESOLUTION_ADC1_TO_ADC4(__ADC_RESOLUTION_TARGET__)) >> (ADC_CFGR_RES_BITOFFSET_POS - 1UL))      \
-)
-#endif /* ADC2 */
 
 /**
   * @brief  Helper macro to calculate the voltage (unit: mVolt)
@@ -2746,13 +2673,12 @@ single-ended and differential modes. */
   * @param  __ADC_INSTANCE__ ADC instance
   * @param  __ADC_RESOLUTION__ This parameter can be one of the following values:
   *         @arg @ref LL_ADC_RESOLUTION_14B (1)
-  *         @arg @ref LL_ADC_RESOLUTION_12B (3)
-  *         @arg @ref LL_ADC_RESOLUTION_10B (3)
-  *         @arg @ref LL_ADC_RESOLUTION_8B  (3)
+  *         @arg @ref LL_ADC_RESOLUTION_12B
+  *         @arg @ref LL_ADC_RESOLUTION_10B
+  *         @arg @ref LL_ADC_RESOLUTION_8B
   *         @arg @ref LL_ADC_RESOLUTION_6B  (2)
-  *               (1): Specific to ADC1 instance
-  *               (2): Specific to ADC4 instance
-  *               (3): Common to all instances but different bits positions
+  *         (1): Specific to ADC instance: ADC1, ADC2
+  *         (2): Specific to ADC instance: ADC4
   * @retval ADC conversion data equivalent voltage value (unit: mVolt)
   */
 #define __LL_ADC_CALC_DATA_TO_VOLTAGE(__ADC_INSTANCE__, __VREFANALOG_VOLTAGE__,\
@@ -2783,44 +2709,22 @@ single-ended and differential modes. */
   *         of internal voltage reference VrefInt (unit: digital value).
   * @param  __ADC_RESOLUTION__ This parameter can be one of the following values:
   *         @arg @ref LL_ADC_RESOLUTION_14B (1)
-  *         @arg @ref LL_ADC_RESOLUTION_12B (3)
-  *         @arg @ref LL_ADC_RESOLUTION_10B (3)
-  *         @arg @ref LL_ADC_RESOLUTION_8B  (3)
+  *         @arg @ref LL_ADC_RESOLUTION_12B
+  *         @arg @ref LL_ADC_RESOLUTION_10B
+  *         @arg @ref LL_ADC_RESOLUTION_8B
   *         @arg @ref LL_ADC_RESOLUTION_6B  (2)
-  *               (1): Specific to ADC1 instance
-  *               (2): Specific to ADC4 instance
-  *               (3): Common to all instances but different bits positions
+  *         (1): Specific to ADC instance: ADC1, ADC2
+  *         (2): Specific to ADC instance: ADC4
   * @retval Analog reference voltage (unit: mV)
   */
-#if defined (ADC2)
 #define __LL_ADC_CALC_VREFANALOG_VOLTAGE(__ADC_INSTANCE__, __VREFINT_ADC_DATA__,    \
                                          __ADC_RESOLUTION__)                        \
-((((__ADC_INSTANCE__) == ADC1) || ((__ADC_INSTANCE__) == ADC2))                     \
- ?((uint32_t)(*VREFINT_CAL_ADDR) * VREFINT_CAL_VREF)                              \
- / __LL_ADC_CONVERT_DATA_RESOLUTION((__ADC_INSTANCE__), (__VREFINT_ADC_DATA__),\
-                                    (__ADC_RESOLUTION__),                      \
-                                    LL_ADC_RESOLUTION_14B)                     \
- :                                                                              \
- ((uint32_t)(*VREFINT_CAL_ADDR) * VREFINT_CAL_VREF)                              \
- / __LL_ADC_CONVERT_DATA_RESOLUTION((__ADC_INSTANCE__), (__VREFINT_ADC_DATA__),\
-                                    (__ADC_RESOLUTION__),                      \
-                                    LL_ADC_RESOLUTION_12B)                     \
+(((uint32_t)(*VREFINT_CAL_ADDR) * VREFINT_CAL_VREF)                                 \
+ / __LL_ADC_CONVERT_DATA_RESOLUTION((__ADC_INSTANCE__),                             \
+                                    (__VREFINT_ADC_DATA__),                         \
+                                    (__ADC_RESOLUTION__),                           \
+                                    LL_ADC_RESOLUTION_14B)                          \
 )
-#else
-#define __LL_ADC_CALC_VREFANALOG_VOLTAGE(__ADC_INSTANCE__, __VREFINT_ADC_DATA__,    \
-                                         __ADC_RESOLUTION__)                        \
-(((__ADC_INSTANCE__) == ADC1)                                                     \
- ?((uint32_t)(*VREFINT_CAL_ADDR) * VREFINT_CAL_VREF)                              \
- / __LL_ADC_CONVERT_DATA_RESOLUTION((__ADC_INSTANCE__), (__VREFINT_ADC_DATA__),\
-                                    (__ADC_RESOLUTION__),                      \
-                                    LL_ADC_RESOLUTION_14B)                     \
- :                                                                              \
- ((uint32_t)(*VREFINT_CAL_ADDR) * VREFINT_CAL_VREF)                              \
- / __LL_ADC_CONVERT_DATA_RESOLUTION((__ADC_INSTANCE__), (__VREFINT_ADC_DATA__),\
-                                    (__ADC_RESOLUTION__),                      \
-                                    LL_ADC_RESOLUTION_12B)                     \
-)
-#endif /* ADC2 */
 
 /**
   * @brief  Helper macro to calculate the temperature (unit: degree Celsius)
@@ -2863,70 +2767,28 @@ single-ended and differential modes. */
   *                                 sensor voltage has been measured.
   *         This parameter can be one of the following values:
   *         @arg @ref LL_ADC_RESOLUTION_14B (1)
-  *         @arg @ref LL_ADC_RESOLUTION_12B (3)
-  *         @arg @ref LL_ADC_RESOLUTION_10B (3)
-  *         @arg @ref LL_ADC_RESOLUTION_8B  (3)
+  *         @arg @ref LL_ADC_RESOLUTION_12B
+  *         @arg @ref LL_ADC_RESOLUTION_10B
+  *         @arg @ref LL_ADC_RESOLUTION_8B
   *         @arg @ref LL_ADC_RESOLUTION_6B  (2)
-  *               (1): Specific to ADC1 instance
-  *               (2): Specific to ADC4 instance
-  *               (3): Common to all instances but different bits positions
+  *         (1): Specific to ADC instance: ADC1, ADC2
+  *         (2): Specific to ADC instance: ADC4
   * @retval Temperature (unit: degree Celsius)
   */
-#if defined (ADC2)
-#define __LL_ADC_CALC_TEMPERATURE(__ADC_INSTANCE__, __VREFANALOG_VOLTAGE__,                          \
-                                  __TEMPSENSOR_ADC_DATA__,                                           \
-                                  __ADC_RESOLUTION__)                                                \
-((((__ADC_INSTANCE__) == ADC1) || ((__ADC_INSTANCE__) == ADC2))                                      \
- ?(((( ((int32_t)((__LL_ADC_CONVERT_DATA_RESOLUTION((__ADC_INSTANCE__), (__TEMPSENSOR_ADC_DATA__),   \
-                                                    (__ADC_RESOLUTION__),                            \
-                                                    LL_ADC_RESOLUTION_14B)                           \
-                   * (__VREFANALOG_VOLTAGE__))                                                       \
-                  / TEMPSENSOR_CAL_VREFANALOG)                                                       \
-        - (int32_t) *TEMPSENSOR_CAL1_ADDR)                                                           \
-     ) * (int32_t)(TEMPSENSOR_CAL2_TEMP - TEMPSENSOR_CAL1_TEMP)                                      \
-    ) / (int32_t)((int32_t)*TEMPSENSOR_CAL2_ADDR - (int32_t)*TEMPSENSOR_CAL1_ADDR)                   \
-   ) + TEMPSENSOR_CAL1_TEMP                                                                          \
-  )                                                                                                  \
- :                                                                                                   \
- (((( ((int32_t)((__LL_ADC_CONVERT_DATA_RESOLUTION((__ADC_INSTANCE__), (__TEMPSENSOR_ADC_DATA__),    \
-                                                   (__ADC_RESOLUTION__),                             \
-                                                   LL_ADC_RESOLUTION_12B)                            \
-                  * (__VREFANALOG_VOLTAGE__))                                                        \
-                 / TEMPSENSOR_CAL_VREFANALOG)                                                        \
-       - (int32_t) (*TEMPSENSOR_CAL1_ADDR >> 2 ))                                                    \
-    ) * (int32_t)(TEMPSENSOR_CAL2_TEMP - TEMPSENSOR_CAL1_TEMP)                                       \
-   ) / (int32_t)((int32_t)(*TEMPSENSOR_CAL2_ADDR >> 2 ) - (int32_t)(*TEMPSENSOR_CAL1_ADDR >> 2) )    \
-  ) + TEMPSENSOR_CAL1_TEMP                                                                           \
- )                                                                                                   \
+#define __LL_ADC_CALC_TEMPERATURE(__ADC_INSTANCE__, __VREFANALOG_VOLTAGE__,\
+                                  __TEMPSENSOR_ADC_DATA__,\
+                                  __ADC_RESOLUTION__)                            \
+(((( ((int32_t)((__LL_ADC_CONVERT_DATA_RESOLUTION((__ADC_INSTANCE__),            \
+                                                  (__TEMPSENSOR_ADC_DATA__),     \
+                                                  (__ADC_RESOLUTION__),          \
+                                                  LL_ADC_RESOLUTION_14B)         \
+                 * (__VREFANALOG_VOLTAGE__))                                     \
+                / TEMPSENSOR_CAL_VREFANALOG)                                     \
+      - (int32_t) *TEMPSENSOR_CAL1_ADDR)                                         \
+   ) * (int32_t)(TEMPSENSOR_CAL2_TEMP - TEMPSENSOR_CAL1_TEMP)                    \
+  ) / (int32_t)((int32_t)*TEMPSENSOR_CAL2_ADDR - (int32_t)*TEMPSENSOR_CAL1_ADDR) \
+ ) + TEMPSENSOR_CAL1_TEMP                                                        \
 )
-#else
-#define __LL_ADC_CALC_TEMPERATURE(__ADC_INSTANCE__, __VREFANALOG_VOLTAGE__,                          \
-                                  __TEMPSENSOR_ADC_DATA__,                                           \
-                                  __ADC_RESOLUTION__)                                                \
-(((__ADC_INSTANCE__) == ADC1)                                                                        \
- ?(((( ((int32_t)((__LL_ADC_CONVERT_DATA_RESOLUTION((__ADC_INSTANCE__), (__TEMPSENSOR_ADC_DATA__),   \
-                                                    (__ADC_RESOLUTION__),                            \
-                                                    LL_ADC_RESOLUTION_14B)                           \
-                   * (__VREFANALOG_VOLTAGE__))                                                       \
-                  / TEMPSENSOR_CAL_VREFANALOG)                                                       \
-        - (int32_t) *TEMPSENSOR_CAL1_ADDR)                                                           \
-     ) * (int32_t)(TEMPSENSOR_CAL2_TEMP - TEMPSENSOR_CAL1_TEMP)                                      \
-    ) / (int32_t)((int32_t)*TEMPSENSOR_CAL2_ADDR - (int32_t)*TEMPSENSOR_CAL1_ADDR)                   \
-   ) + TEMPSENSOR_CAL1_TEMP                                                                          \
-  )                                                                                                  \
- :                                                                                                   \
- (((( ((int32_t)((__LL_ADC_CONVERT_DATA_RESOLUTION((__ADC_INSTANCE__), (__TEMPSENSOR_ADC_DATA__),    \
-                                                   (__ADC_RESOLUTION__),                             \
-                                                   LL_ADC_RESOLUTION_12B)                            \
-                  * (__VREFANALOG_VOLTAGE__))                                                        \
-                 / TEMPSENSOR_CAL_VREFANALOG)                                                        \
-       - (int32_t) (*TEMPSENSOR_CAL1_ADDR >> 2 ))                                                    \
-    ) * (int32_t)(TEMPSENSOR_CAL2_TEMP - TEMPSENSOR_CAL1_TEMP)                                       \
-   ) / (int32_t)((int32_t)(*TEMPSENSOR_CAL2_ADDR >> 2 ) - (int32_t)(*TEMPSENSOR_CAL1_ADDR >> 2) )    \
-  ) + TEMPSENSOR_CAL1_TEMP                                                                           \
- )                                                                                                   \
-)
-#endif /* ADC2 */
 
 /**
   * @brief  Helper macro to calculate the temperature (unit: degree Celsius)
@@ -2972,13 +2834,12 @@ single-ended and differential modes. */
   * @param  __ADC_RESOLUTION__           ADC resolution at which internal temperature sensor voltage has been measured.
   *         This parameter can be one of the following values:
   *         @arg @ref LL_ADC_RESOLUTION_14B (1)
-  *         @arg @ref LL_ADC_RESOLUTION_12B (3)
-  *         @arg @ref LL_ADC_RESOLUTION_10B (3)
-  *         @arg @ref LL_ADC_RESOLUTION_8B  (3)
+  *         @arg @ref LL_ADC_RESOLUTION_12B
+  *         @arg @ref LL_ADC_RESOLUTION_10B
+  *         @arg @ref LL_ADC_RESOLUTION_8B
   *         @arg @ref LL_ADC_RESOLUTION_6B  (2)
-  *               (1): Specific to ADC1 instance
-  *               (2): Specific to ADC4 instance
-  *               (3): Common to all instances but different bits positions
+  *         (1): Specific to ADC instance: ADC1, ADC2
+  *         (2): Specific to ADC instance: ADC4
   * @retval Temperature (unit: degree Celsius)
   */
 #define __LL_ADC_CALC_TEMPERATURE_TYP_PARAMS(__ADC_INSTANCE__, __TEMPSENSOR_TYP_AVGSLOPE__,   \
@@ -3344,17 +3205,17 @@ __STATIC_INLINE uint32_t LL_ADC_GetCommonPathInternalCh(const ADC_Common_TypeDef
 __STATIC_INLINE void LL_ADC_SetCalibrationOffsetFactor(ADC_TypeDef *ADCx, uint32_t SingleDiff,
                                                        uint32_t CalibrationFactor)
 {
-  if (ADCx == ADC1)
+  if (ADCx != ADC4) /* ADCx == ADC1 or ADC2 */
   {
-    CLEAR_BIT(ADCx->CALFACT, ADC_CALFACT_LATCH_COEF | ADC_CALFACT_CAPTURE_COEF);
-    MODIFY_REG(ADCx->CR, ADC_CR_ADCALLIN, (0UL << ADC_CR_CALINDEX0_Pos));  /* CalibIndex == 0*/
+    /* Note: Bitfields ADC_CALFACT_LATCH_COEF and ADC_CALFACT_CAPTURE_COEF have property "wr1",
+             therefore they are not cleared in this function. */
+    MODIFY_REG(ADCx->CR, ADC_CR_CALINDEX, (0UL << ADC_CR_CALINDEX_Pos));  /* CalibIndex == 0 */
     MODIFY_REG(ADCx->CALFACT2,
                SingleDiff & ADC_SINGLEDIFF_CALIB_FACTOR_MASK,
                CalibrationFactor << (((SingleDiff & ADC_SINGLEDIFF_CALIB_F_BIT_D_MASK)    \
                                       >> ADC_SINGLEDIFF_CALIB_F_BIT_D_SHIFT4)             \
                                      & ~(SingleDiff & ADC_CALFACT2_CALFACT_S)));
     SET_BIT(ADCx->CALFACT, ADC_CALFACT_LATCH_COEF);
-    CLEAR_BIT(ADCx->CALFACT, ADC_CALFACT_CAPTURE_COEF);
   }
   else
   {
@@ -3384,14 +3245,15 @@ __STATIC_INLINE uint32_t LL_ADC_GetCalibrationOffsetFactor(ADC_TypeDef *ADCx, ui
   /* "SingleDiff".                                                            */
   /* Parameter used with mask "ADC_SINGLEDIFF_CALIB_FACTOR_MASK" because      */
   /* containing other bits reserved for other purpose.                        */
-  if (ADCx == ADC1)
+  if (ADCx != ADC4) /* ADCx == ADC1 or ADC2 */
   {
+    /* Note: Bitfields ADC_CALFACT_LATCH_COEF and ADC_CALFACT_CAPTURE_COEF have property "wr1",
+             therefore they are not cleared in this function. */
     uint32_t temp_CalibOffset;
-    MODIFY_REG(ADCx->CALFACT, ADC_CALFACT_LATCH_COEF, ADC_CALFACT_CAPTURE_COEF);
-    MODIFY_REG(ADCx->CR, ADC_CR_ADCALLIN, (0UL << ADC_CR_CALINDEX0_Pos));  /* CalibIndex == 0*/
+    SET_BIT(ADCx->CALFACT, ADC_CALFACT_CAPTURE_COEF);
+    MODIFY_REG(ADCx->CR, ADC_CR_CALINDEX, (0UL << ADC_CR_CALINDEX_Pos));  /* CalibIndex == 0 */
     temp_CalibOffset = (READ_BIT(ADCx->CALFACT2, (SingleDiff & ADC_SINGLEDIFF_CALIB_FACTOR_MASK)) \
                         >> ((SingleDiff & ADC_SINGLEDIFF_CALIB_F_BIT_D_MASK) >> ADC_SINGLEDIFF_CALIB_F_BIT_D_SHIFT4));
-    CLEAR_BIT(ADCx->CALFACT, ADC_CALFACT_CAPTURE_COEF);
     return temp_CalibOffset;
   }
   else
@@ -3405,13 +3267,14 @@ __STATIC_INLINE uint32_t LL_ADC_GetCalibrationOffsetFactor(ADC_TypeDef *ADCx, ui
   * @note   This function is intended to set linear calibration parameters
   *         without having to perform a new calibration using
   *         @ref LL_ADC_StartCalibration().
+  * @note   On STM32U5, this feature is available on ADC instances: ADC1, ADC2.
   * @note   On this STM32 series, setting of this feature is conditioned to
   *         ADC state:
   *         ADC must be enabled, without calibration on going, without conversion
   *         on going on group regular.
   * @rmtoll CALFACT2  LINCALFACT      LL_ADC_SetCalibrationLinearFactor
   *         CALFACT2  LINCALFACT      LL_ADC_SetCalibrationLinearFactor
-  * @param  ADCx ADC instance
+  * @param  ADCx ADC instance (on STM32U5, feature available on ADC instances: ADC1, ADC2)
   * @param  LinearityWord This parameter can be one of the following values:
   *         @arg @ref LL_ADC_CALIB_LINEARITY_INDEX1
   *         @arg @ref LL_ADC_CALIB_LINEARITY_INDEX2
@@ -3426,25 +3289,22 @@ __STATIC_INLINE uint32_t LL_ADC_GetCalibrationOffsetFactor(ADC_TypeDef *ADCx, ui
 __STATIC_INLINE void LL_ADC_SetCalibrationLinearFactor(ADC_TypeDef *ADCx, uint32_t LinearityWord,
                                                        uint32_t CalibrationFactor)
 {
-  /* Before using this!
-     Make sure ADEN = 1, ADSTART = 0 and JADSTART = 0 (ADC enabled and no conversion is ongoing).
-     --> This should be checked by application.
-  */
-  CLEAR_BIT(ADCx->CALFACT, ADC_CALFACT_LATCH_COEF | ADC_CALFACT_CAPTURE_COEF);
-  MODIFY_REG(ADCx->CR, (ADC_CR_CALINDEX3 | ADC_CR_CALINDEX2 | ADC_CR_CALINDEX1 | ADC_CR_CALINDEX0),
-             LinearityWord);   /* LinearityWord == CalibIndex (1 to 8 for linearity reading)*/
+  /* Note: Bitfields ADC_CALFACT_LATCH_COEF and ADC_CALFACT_CAPTURE_COEF have property "wr1",
+           therefore they are not cleared in this function. */
+  MODIFY_REG(ADCx->CR, (ADC_CR_CALINDEX),
+             LinearityWord);   /* LinearityWord == CalibIndex (1 to 7 for linearity reading) */
   MODIFY_REG(ADCx->CALFACT2, ADC_CALFACT2_CALFACT, CalibrationFactor);
   SET_BIT(ADCx->CALFACT, ADC_CALFACT_LATCH_COEF);
-  CLEAR_BIT(ADCx->CALFACT, ADC_CALFACT_CAPTURE_COEF);
 }
 
 /**
   * @brief  Get ADC Linear calibration factor in the mode single-ended.
   * @note   Calibration factors are set by hardware after performing
   *         a calibration run using function @ref LL_ADC_StartCalibration().
+  * @note   On STM32U5, this feature is available on ADC instances: ADC1, ADC2.
   * @rmtoll CALFACT2  LINCALFACT      LL_ADC_GetCalibrationLinearFactor
   *         CALFACT2  LINCALFACT      LL_ADC_GetCalibrationLinearFactor
-  * @param  ADCx ADC instance
+  * @param  ADCx ADC instance (on STM32U5, feature available on ADC instances: ADC1, ADC2)
   * @param  LinearityWord This parameter can be one of the following values:
   *         @arg @ref LL_ADC_CALIB_LINEARITY_INDEX1
   *         @arg @ref LL_ADC_CALIB_LINEARITY_INDEX2
@@ -3458,12 +3318,13 @@ __STATIC_INLINE void LL_ADC_SetCalibrationLinearFactor(ADC_TypeDef *ADCx, uint32
 __STATIC_INLINE uint32_t LL_ADC_GetCalibrationLinearFactor(ADC_TypeDef *ADCx, uint32_t LinearityWord)
 {
   uint32_t temp_calib_linearity;
+
+  /* Note: Bitfields ADC_CALFACT_LATCH_COEF and ADC_CALFACT_CAPTURE_COEF have property "wr1",
+           therefore they are not cleared in this function. */
   SET_BIT(ADCx->CALFACT, ADC_CALFACT_CAPTURE_COEF);
-  CLEAR_BIT(ADCx->CALFACT, ADC_CALFACT_LATCH_COEF);
-  MODIFY_REG(ADCx->CR, (ADC_CR_CALINDEX3 | ADC_CR_CALINDEX2 | ADC_CR_CALINDEX1 | ADC_CR_CALINDEX0),
-             LinearityWord);   /* LinearityWord == CalibIndex (1 to 8 for linearity reading)*/
+  MODIFY_REG(ADCx->CR, (ADC_CR_CALINDEX),
+             LinearityWord);   /* LinearityWord == CalibIndex (1 to 7 for linearity reading) */
   temp_calib_linearity = (uint32_t)(READ_BIT(ADCx->CALFACT2, ADC_CALFACT2_CALFACT_Msk));
-  CLEAR_BIT(ADCx->CALFACT, ADC_CALFACT_CAPTURE_COEF);
   return temp_calib_linearity;
 }
 /**
@@ -3474,31 +3335,27 @@ __STATIC_INLINE uint32_t LL_ADC_GetCalibrationLinearFactor(ADC_TypeDef *ADCx, ui
   *         ADC state:
   *         ADC must be disabled or enabled without conversion on going
   *         on either groups regular or injected.
-  * @note   if ADC4 instance __LL_ADC_RESOLUTION_ADC1_TO_ADC4() is used to
-  *         convert ADC1 to ADC4 resolution
   * @rmtoll CFGR     RES            LL_ADC_SetResolution
   * @param  ADCx ADC instance
   * @param  Resolution This parameter can be one of the following values:
   *         @arg @ref LL_ADC_RESOLUTION_14B (1)
-  *         @arg @ref LL_ADC_RESOLUTION_12B (3)
-  *         @arg @ref LL_ADC_RESOLUTION_10B (3)
-  *         @arg @ref LL_ADC_RESOLUTION_8B  (3)
+  *         @arg @ref LL_ADC_RESOLUTION_12B
+  *         @arg @ref LL_ADC_RESOLUTION_10B
+  *         @arg @ref LL_ADC_RESOLUTION_8B
   *         @arg @ref LL_ADC_RESOLUTION_6B  (2)
-  *               (1): Specific to ADC1 instance
-  *               (2): Specific to ADC4 instance
-  *               (3): Common to all instances but different bits positions
+  *         (1): Specific to ADC instance: ADC1, ADC2
+  *         (2): Specific to ADC instance: ADC4
   * @retval None
   */
 __STATIC_INLINE void LL_ADC_SetResolution(ADC_TypeDef *ADCx, uint32_t Resolution)
 {
-  if (ADCx != ADC4) /* ADCx == ADC1 or ADC2 */
+  uint32_t tmp_resolution = Resolution;
+  if (ADCx == ADC4)
   {
-    MODIFY_REG(ADCx->CFGR1, ADC_CFGR1_RES, Resolution);
+    tmp_resolution = ((tmp_resolution - ADC_RESOLUTION_ADC4_PROCESSING) & ADC_CFGR1_RES);
   }
-  else /* ADCx == ADC4 */
-  {
-    MODIFY_REG(ADCx->CFGR1, ADC_CFGR1_RES, __LL_ADC_RESOLUTION_ADC1_TO_ADC4(Resolution));
-  }
+
+  MODIFY_REG(ADCx->CFGR1, ADC_CFGR1_RES, tmp_resolution);
 }
 
 /**
@@ -3509,33 +3366,23 @@ __STATIC_INLINE void LL_ADC_SetResolution(ADC_TypeDef *ADCx, uint32_t Resolution
   * @param  ADCx ADC instance
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_ADC_RESOLUTION_14B (1)
-  *         @arg @ref LL_ADC_RESOLUTION_12B (3)
-  *         @arg @ref LL_ADC_RESOLUTION_10B (3)
-  *         @arg @ref LL_ADC_RESOLUTION_8B  (3)
+  *         @arg @ref LL_ADC_RESOLUTION_12B
+  *         @arg @ref LL_ADC_RESOLUTION_10B
+  *         @arg @ref LL_ADC_RESOLUTION_8B
   *         @arg @ref LL_ADC_RESOLUTION_6B  (2)
-  *               (1): Specific to ADC1 instance
-  *               (2): Specific to ADC4 instance
-  *               (3): Common to all instances but different bits positions
+  *         (1): Specific to ADC instance: ADC1, ADC2
+  *         (2): Specific to ADC instance: ADC4
   */
 __STATIC_INLINE uint32_t LL_ADC_GetResolution(const ADC_TypeDef *ADCx)
 {
-  if (ADCx != ADC4) /* ADCx == ADC1 or ADC2 */
+  uint32_t tmp_resolution = (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_RES));
+
+  if (ADCx == ADC4)
   {
-    return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_RES));
+    tmp_resolution = (tmp_resolution + (ADC_RESOLUTION_ADC4_PROCESSING << ADC_CFGR1_RES_Pos));
   }
-  else /* ADCx == ADC4 */
-  {
-    uint32_t temp_Resolution;
-    temp_Resolution = (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_RES));
-    if (temp_Resolution == (ADC_CFGR1_RES_1 | ADC_CFGR1_RES_0))
-    {
-      return LL_ADC_RESOLUTION_6B;
-    }
-    else
-    {
-      return __LL_ADC_RESOLUTION_ADC4_TO_ADC1(temp_Resolution);
-    }
-  }
+
+  return tmp_resolution;
 }
 
 /**
@@ -3633,7 +3480,7 @@ __STATIC_INLINE void LL_ADC_SetLowPowerMode(ADC_TypeDef *ADCx, uint32_t LowPower
   else
   {
     MODIFY_REG(ADCx->CFGR1, ADC4_CFGR1_WAIT, LowPowerMode);
-    MODIFY_REG(ADCx->PW, ADC4_PW_AUTOFF, LowPowerMode);
+    MODIFY_REG(ADCx->PWRR, ADC4_PWRR_AUTOFF, LowPowerMode);
   }
 }
 
@@ -3756,7 +3603,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetLowPowerMode(const ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_18
   *         @arg @ref LL_ADC_CHANNEL_19
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
+  *         @arg @ref LL_ADC_CHANNEL_VREFINT
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
   *         @arg @ref LL_ADC_CHANNEL_VBAT         (1)
   *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4 (2)
@@ -3764,7 +3611,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetLowPowerMode(const ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR_ADC4  (2)
   *         @arg @ref LL_ADC_CHANNEL_VBAT_ADC4        (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/2.
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1, ADC2.
   *         (2) On STM32U5, parameter available only on ADC instance: ADC4.
   *         (3) On STM32U5, fast channel (0.125 us for 14-bit resolution (ADC conversion rate up to 8 Ms/s)).
   *             Other channels are slow channels (conversion rate: refer to reference manual).
@@ -3829,7 +3676,7 @@ __STATIC_INLINE void LL_ADC_SetOffset(ADC_TypeDef *ADCx, uint32_t Offsety, uint3
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_18
   *         @arg @ref LL_ADC_CHANNEL_19
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
+  *         @arg @ref LL_ADC_CHANNEL_VREFINT
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
   *         @arg @ref LL_ADC_CHANNEL_VBAT         (1)
   *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4 (2)
@@ -3837,7 +3684,7 @@ __STATIC_INLINE void LL_ADC_SetOffset(ADC_TypeDef *ADCx, uint32_t Offsety, uint3
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR_ADC4  (2)
   *         @arg @ref LL_ADC_CHANNEL_VBAT_ADC4        (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/2.
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1, ADC2.
   *         (2) On STM32U5, parameter available only on ADC instance: ADC4.
   *         (3) On STM32U5, fast channel (0.125 us for 14-bit resolution (ADC conversion rate up to 8 Ms/s)).
   *             Other channels are slow channels (conversion rate: refer to reference manual).
@@ -4114,7 +3961,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetGainCompensation(const ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC4_SAMPLINGTIME_19CYCLES_5
   *         @arg @ref LL_ADC4_SAMPLINGTIME_39CYCLES_5
   *         @arg @ref LL_ADC4_SAMPLINGTIME_79CYCLES_5
-  *         @arg @ref LL_ADC4_SAMPLINGTIME_160CYCLES_5
+  *         @arg @ref LL_ADC4_SAMPLINGTIME_814CYCLES_5
   * @retval None
   */
 __STATIC_INLINE void LL_ADC_SetSamplingTimeCommonChannels(ADC_TypeDef *ADCx, uint32_t SamplingTimeY,
@@ -4148,7 +3995,7 @@ __STATIC_INLINE void LL_ADC_SetSamplingTimeCommonChannels(ADC_TypeDef *ADCx, uin
   *         @arg @ref LL_ADC4_SAMPLINGTIME_19CYCLES_5
   *         @arg @ref LL_ADC4_SAMPLINGTIME_39CYCLES_5
   *         @arg @ref LL_ADC4_SAMPLINGTIME_79CYCLES_5
-  *         @arg @ref LL_ADC4_SAMPLINGTIME_160CYCLES_5
+  *         @arg @ref LL_ADC4_SAMPLINGTIME_814CYCLES_5
   */
 __STATIC_INLINE uint32_t LL_ADC_GetSamplingTimeCommonChannels(const ADC_TypeDef *ADCx, uint32_t SamplingTimeY)
 {
@@ -4251,7 +4098,7 @@ __STATIC_INLINE void LL_ADC_REG_SetTriggerSource(ADC_TypeDef *ADCx, uint32_t Tri
   *         @arg @ref LL_ADC_REG_TRIG_EXT_LPTIM2_CH1
   *         @arg @ref LL_ADC_REG_TRIG_EXT_LPTIM3_CH1
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetTriggerSource(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetTriggerSource(const ADC_TypeDef *ADCx)
 {
   if (ADCx != ADC4) /* ADCx == ADC1 or ADC2 */
   {
@@ -4296,7 +4143,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetTriggerSource(ADC_TypeDef *ADCx)
   * @retval Value "0" if trigger source external trigger
   *         Value "1" if trigger source SW start.
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_IsTriggerSourceSWStart(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_IsTriggerSourceSWStart(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->CFGR1, ADC_CFGR1_EXTEN) == (LL_ADC_REG_TRIG_SOFTWARE & ADC_CFGR1_EXTEN)) ? 1UL : 0UL);
 }
@@ -4331,7 +4178,7 @@ __STATIC_INLINE void LL_ADC_REG_SetTriggerEdge(ADC_TypeDef *ADCx, uint32_t Exter
   *         @arg @ref LL_ADC_REG_TRIG_EXT_FALLING
   *         @arg @ref LL_ADC_REG_TRIG_EXT_RISINGFALLING
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetTriggerEdge(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetTriggerEdge(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_EXTEN));
 }
@@ -4427,7 +4274,7 @@ __STATIC_INLINE void LL_ADC_REG_SetSamplingMode(ADC_TypeDef *ADCx, uint32_t Samp
   *         @arg @ref LL_ADC_REG_SAMPLING_MODE_BULB
   *         @arg @ref LL_ADC_REG_SAMPLING_MODE_TRIGGER_CONTROLED
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetSamplingMode(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetSamplingMode(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CFGR2, ADC_CFGR2_BULB | ADC_CFGR2_SMPTRIG));
 }
@@ -4528,7 +4375,7 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerConfigurable(ADC_TypeDef *ADCx, uint
   *         @arg @ref LL_ADC_REG_SEQ_CONFIGURABLE
   * @note   On this STM32U5 series, this is applicable on ADC4 only.
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerConfigurable(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerConfigurable(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC4_CFGR1_CHSELRMOD));
 }
@@ -4585,6 +4432,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerConfigurable(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_REG_SEQ_SCAN_ENABLE_14RANKS
   *         @arg @ref LL_ADC_REG_SEQ_SCAN_ENABLE_15RANKS
   *         @arg @ref LL_ADC_REG_SEQ_SCAN_ENABLE_16RANKS
+  *         Note: Specific case for ADC4, use literals LL_ADC4_REG_SEQ_SCAN_x
   * @retval None
   */
 __STATIC_INLINE void LL_ADC_REG_SetSequencerLength(ADC_TypeDef *ADCx, uint32_t SequencerNbRanks)
@@ -4647,8 +4495,9 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerLength(ADC_TypeDef *ADCx, uint32_t S
   *         @arg @ref LL_ADC_REG_SEQ_SCAN_ENABLE_14RANKS
   *         @arg @ref LL_ADC_REG_SEQ_SCAN_ENABLE_15RANKS
   *         @arg @ref LL_ADC_REG_SEQ_SCAN_ENABLE_16RANKS
+  *         Note: Specific case for ADC4, use literals LL_ADC4_REG_SEQ_SCAN_x
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerLength(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerLength(const ADC_TypeDef *ADCx)
 {
   if (ADCx != ADC4) /* ADC1 or ADC2 */
   {
@@ -4729,7 +4578,7 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerDiscont(ADC_TypeDef *ADCx, uint32_t 
   *         @arg @ref LL_ADC_REG_SEQ_DISCONT_7RANKS
   *         @arg @ref LL_ADC_REG_SEQ_DISCONT_8RANKS
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerDiscont(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerDiscont(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_DISCEN | ADC_CFGR1_DISCNUM));
 }
@@ -4788,6 +4637,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerDiscont(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_REG_RANK_14
   *         @arg @ref LL_ADC_REG_RANK_15
   *         @arg @ref LL_ADC_REG_RANK_16
+  *         Note: Specific case for ADC4, use literals LL_ADC_REG_RANK_x_ADC4
   * @param  Channel This parameter can be one of the following values:
   *         @arg @ref LL_ADC_CHANNEL_0           (3)
   *         @arg @ref LL_ADC_CHANNEL_1           (3)
@@ -4809,7 +4659,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerDiscont(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_18
   *         @arg @ref LL_ADC_CHANNEL_19
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
+  *         @arg @ref LL_ADC_CHANNEL_VREFINT
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
   *         @arg @ref LL_ADC_CHANNEL_VBAT         (1)
   *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4 (2)
@@ -4817,7 +4667,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerDiscont(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR_ADC4  (2)
   *         @arg @ref LL_ADC_CHANNEL_VBAT_ADC4        (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/2.
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1, ADC2.
   *         (2) On STM32U5, parameter available only on ADC instance: ADC4.
   *         (3) On STM32U5, fast channel (0.125 us for 14-bit resolution (ADC conversion rate up to 8 Ms/s)).
   *             Other channels are slow channels (conversion rate: refer to reference manual).
@@ -4901,6 +4751,7 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
   *         @arg @ref LL_ADC_REG_RANK_14
   *         @arg @ref LL_ADC_REG_RANK_15
   *         @arg @ref LL_ADC_REG_RANK_16
+  *         Note: Specific case for ADC4, use literals LL_ADC_REG_RANK_x_ADC4
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_ADC_CHANNEL_0           (3)
   *         @arg @ref LL_ADC_CHANNEL_1           (3)
@@ -4922,7 +4773,7 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_18
   *         @arg @ref LL_ADC_CHANNEL_19
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
+  *         @arg @ref LL_ADC_CHANNEL_VREFINT
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
   *         @arg @ref LL_ADC_CHANNEL_VBAT         (1)
   *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4 (2)
@@ -4930,7 +4781,7 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR_ADC4  (2)
   *         @arg @ref LL_ADC_CHANNEL_VBAT_ADC4        (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/2.
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1, ADC2.
   *         (2) On STM32U5, parameter available only on ADC instance: ADC4.
   *         (3) On STM32U5, fast channel (0.125 us for 14-bit resolution (ADC conversion rate up to 8 Ms/s)).
   *             Other channels are slow channels (conversion rate: refer to reference manual).
@@ -4938,7 +4789,7 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
   *                comparison with internal channel parameter to be done
   *                using helper macro @ref __LL_ADC_CHANNEL_INTERNAL_TO_EXTERNAL().
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Rank)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerRanks(const ADC_TypeDef *ADCx, uint32_t Rank)
 {
   if (ADCx != ADC4) /* ADC1 or ADC2 */
   {
@@ -4996,7 +4847,7 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerScanDirection(ADC_TypeDef *ADCx, uin
   *         @arg @ref LL_ADC_REG_SEQ_SCAN_DIR_FORWARD
   *         @arg @ref LL_ADC_REG_SEQ_SCAN_DIR_BACKWARD
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerScanDirection(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerScanDirection(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC4_CFGR1_SCANDIR));
 }
@@ -5327,7 +5178,7 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerChRem(ADC_TypeDef *ADCx, uint32_t Ch
   *             only if sequencer is set in mode "not fully configurable",
   *             refer to function @ref LL_ADC_REG_SetSequencerConfigurable().
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerChannels(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerChannels(const ADC_TypeDef *ADCx)
 {
   uint32_t channels_bitfield = READ_BIT(ADCx->CHSELR, ADC_CHSELR_CHSEL);
 
@@ -5455,7 +5306,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetChannelPreselection(const ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_SetLPModeAutoPowerOff(ADC_TypeDef *ADCx, uint32_t LowPowerMode)
 {
-  MODIFY_REG(ADCx->PW, ADC4_PW_AUTOFF, LowPowerMode);
+  MODIFY_REG(ADCx->PWRR, ADC4_PWRR_AUTOFF, LowPowerMode);
 }
 
 /**
@@ -5474,7 +5325,7 @@ __STATIC_INLINE void LL_ADC_SetLPModeAutoPowerOff(ADC_TypeDef *ADCx, uint32_t Lo
   */
 __STATIC_INLINE uint32_t LL_ADC_GetLPModeAutoPowerOff(const ADC_TypeDef *ADCx)
 {
-  return (uint32_t)(READ_BIT(ADCx->PW, ADC4_PW_AUTOFF));
+  return (uint32_t)(READ_BIT(ADCx->PWRR, ADC4_PWRR_AUTOFF));
 }
 
 /**
@@ -5491,7 +5342,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetLPModeAutoPowerOff(const ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_SetLPModeAutonomousDPD(ADC_TypeDef *ADCx, uint32_t LowPowerMode)
 {
-  MODIFY_REG(ADCx->PW, ADC4_PW_DPD, LowPowerMode);
+  MODIFY_REG(ADCx->PWRR, ADC4_PWRR_DPD, LowPowerMode);
 }
 
 /**
@@ -5504,7 +5355,7 @@ __STATIC_INLINE void LL_ADC_SetLPModeAutonomousDPD(ADC_TypeDef *ADCx, uint32_t L
   */
 __STATIC_INLINE uint32_t LL_ADC_GetLPModeAutonomousDPD(const ADC_TypeDef *ADCx)
 {
-  return (uint32_t)(READ_BIT(ADCx->PW, ADC4_PW_DPD));
+  return (uint32_t)(READ_BIT(ADCx->PWRR, ADC4_PWRR_DPD));
 }
 
 /**
@@ -5524,7 +5375,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetLPModeAutonomousDPD(const ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_SetVrefProtection(ADC_TypeDef *ADCx, uint32_t VrefProtection)
 {
-  MODIFY_REG(ADCx->PW, ADC4_PW_VREFPROT | ADC4_PW_VREFSECSMP, VrefProtection);
+  MODIFY_REG(ADCx->PWRR, ADC4_PWRR_VREFPROT | ADC4_PWRR_VREFSECSMP, VrefProtection);
 }
 
 /**
@@ -5539,7 +5390,7 @@ __STATIC_INLINE void LL_ADC_SetVrefProtection(ADC_TypeDef *ADCx, uint32_t VrefPr
   */
 __STATIC_INLINE uint32_t LL_ADC_GetVrefProtection(const ADC_TypeDef *ADCx)
 {
-  return (uint32_t)(READ_BIT(ADCx->PW, ADC4_PW_VREFPROT | ADC4_PW_VREFSECSMP));
+  return (uint32_t)(READ_BIT(ADCx->PWRR, ADC4_PWRR_VREFPROT | ADC4_PWRR_VREFSECSMP));
 }
 
 /**
@@ -5578,10 +5429,11 @@ __STATIC_INLINE void LL_ADC_REG_SetContinuousMode(ADC_TypeDef *ADCx, uint32_t Co
   *         @arg @ref LL_ADC_REG_CONV_SINGLE
   *         @arg @ref LL_ADC_REG_CONV_CONTINUOUS
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetContinuousMode(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetContinuousMode(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_CONT));
 }
+
 /**
   * @brief  Set ADC data transfer mode
   * @note   Conversion data can be either:
@@ -5591,7 +5443,11 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetContinuousMode(ADC_TypeDef *ADCx)
   *            - Transferred to MDF data register
   * @rmtoll CFGR     DMNGT           LL_ADC_REG_SetDataTransferMode
   * @param  ADCx ADC instance
-  * @param  DataTransferMode Select Data Management configuration
+  * @param  DataTransferMode This parameter can be one of the following values:
+  *         @arg @ref LL_ADC_REG_DR_TRANSFER
+  *         @arg @ref LL_ADC_REG_DMA_TRANSFER_LIMITED
+  *         @arg @ref LL_ADC_REG_DMA_TRANSFER_UNLIMITED
+  *         @arg @ref LL_ADC_REG_MDF_TRANSFER
   * @retval None
   */
 __STATIC_INLINE void LL_ADC_REG_SetDataTransferMode(ADC_TypeDef *ADCx, uint32_t DataTransferMode)
@@ -5614,7 +5470,7 @@ __STATIC_INLINE void LL_ADC_REG_SetDataTransferMode(ADC_TypeDef *ADCx, uint32_t 
   *         @arg @ref LL_ADC_REG_DMA_TRANSFER_UNLIMITED
   *         @arg @ref LL_ADC_REG_MDF_TRANSFER
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetDataTransferMode(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetDataTransferMode(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_DMNGT));
 }
@@ -5685,7 +5541,7 @@ __STATIC_INLINE void LL_ADC_REG_SetDMATransfer(ADC_TypeDef *ADCx, uint32_t DMATr
   *         @arg @ref LL_ADC_REG_DMA_TRANSFER_LIMITED
   *         @arg @ref LL_ADC_REG_DMA_TRANSFER_UNLIMITED
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetDMATransfer(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetDMATransfer(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC4_CFGR1_DMAEN | ADC4_CFGR1_DMACFG));
 }
@@ -5724,7 +5580,7 @@ __STATIC_INLINE void LL_ADC_REG_SetOverrun(ADC_TypeDef *ADCx, uint32_t Overrun)
   *         @arg @ref LL_ADC_REG_OVR_DATA_PRESERVED
   *         @arg @ref LL_ADC_REG_OVR_DATA_OVERWRITTEN
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_GetOverrun(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_REG_GetOverrun(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_OVRMOD));
 }
@@ -5821,7 +5677,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetTriggerSource(ADC_TypeDef *ADCx, uint32_t Tri
   *         @arg @ref LL_ADC_INJ_TRIG_EXT_LPTIM2_CH2
   *         @arg @ref LL_ADC_INJ_TRIG_EXT_LPTIM3_CH1
   */
-__STATIC_INLINE uint32_t LL_ADC_INJ_GetTriggerSource(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_INJ_GetTriggerSource(const ADC_TypeDef *ADCx)
 {
   __IO uint32_t trigger_source = READ_BIT(ADCx->JSQR, ADC_JSQR_JEXTSEL | ADC_JSQR_JEXTEN);
 
@@ -5848,7 +5704,7 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_GetTriggerSource(ADC_TypeDef *ADCx)
   * @retval Value "0" if trigger source external trigger
   *         Value "1" if trigger source SW start.
   */
-__STATIC_INLINE uint32_t LL_ADC_INJ_IsTriggerSourceSWStart(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_INJ_IsTriggerSourceSWStart(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->JSQR, ADC_JSQR_JEXTEN) == (LL_ADC_INJ_TRIG_SOFTWARE & ADC_JSQR_JEXTEN)) ? 1UL : 0UL);
 }
@@ -5883,7 +5739,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetTriggerEdge(ADC_TypeDef *ADCx, uint32_t Exter
   *         @arg @ref LL_ADC_INJ_TRIG_EXT_FALLING
   *         @arg @ref LL_ADC_INJ_TRIG_EXT_RISINGFALLING
   */
-__STATIC_INLINE uint32_t LL_ADC_INJ_GetTriggerEdge(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_INJ_GetTriggerEdge(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->JSQR, ADC_JSQR_JEXTEN));
 }
@@ -5930,7 +5786,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetSequencerLength(ADC_TypeDef *ADCx, uint32_t S
   *         @arg @ref LL_ADC_INJ_SEQ_SCAN_ENABLE_3RANKS
   *         @arg @ref LL_ADC_INJ_SEQ_SCAN_ENABLE_4RANKS
   */
-__STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerLength(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerLength(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->JSQR, ADC_JSQR_JL));
 }
@@ -5963,7 +5819,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetSequencerDiscont(ADC_TypeDef *ADCx, uint32_t 
   *         @arg @ref LL_ADC_INJ_SEQ_DISCONT_DISABLE
   *         @arg @ref LL_ADC_INJ_SEQ_DISCONT_1RANK
   */
-__STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerDiscont(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerDiscont(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_JDISCEN));
 }
@@ -6014,7 +5870,7 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerDiscont(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_18
   *         @arg @ref LL_ADC_CHANNEL_19
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
+  *         @arg @ref LL_ADC_CHANNEL_VREFINT
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
   *         @arg @ref LL_ADC_CHANNEL_VBAT         (1)
   *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4 (2)
@@ -6022,7 +5878,7 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerDiscont(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR_ADC4  (2)
   *         @arg @ref LL_ADC_CHANNEL_VBAT_ADC4        (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/2.
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1, ADC2.
   *         (2) On STM32U5, parameter available only on ADC instance: ADC4.
   *         (3) On STM32U5, fast channel (0.125 us for 14-bit resolution (ADC conversion rate up to 8 Ms/s)).
   *             Other channels are slow channels (conversion rate: refer to reference manual).
@@ -6087,7 +5943,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_18
   *         @arg @ref LL_ADC_CHANNEL_19
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
+  *         @arg @ref LL_ADC_CHANNEL_VREFINT
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
   *         @arg @ref LL_ADC_CHANNEL_VBAT         (1)
   *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4 (2)
@@ -6095,7 +5951,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR_ADC4  (2)
   *         @arg @ref LL_ADC_CHANNEL_VBAT_ADC4        (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/2.
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1, ADC2.
   *         (2) On STM32U5, parameter available only on ADC instance: ADC4.
   *         (3) On STM32U5, fast channel (0.125 us for 14-bit resolution (ADC conversion rate up to 8 Ms/s)).
   *             Other channels are slow channels (conversion rate: refer to reference manual).
@@ -6103,7 +5959,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
   *                comparison with internal channel parameter to be done
   *                using helper macro @ref __LL_ADC_CHANNEL_INTERNAL_TO_EXTERNAL().
   */
-__STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Rank)
+__STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerRanks(const ADC_TypeDef *ADCx, uint32_t Rank)
 {
   return (uint32_t)((READ_BIT(ADCx->JSQR,
                               (ADC_CHANNEL_ID_NUMBER_MASK >> ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS)         \
@@ -6156,7 +6012,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetTrigAuto(ADC_TypeDef *ADCx, uint32_t TrigAuto
   *         @arg @ref LL_ADC_INJ_TRIG_INDEPENDENT
   *         @arg @ref LL_ADC_INJ_TRIG_FROM_GRP_REGULAR
   */
-__STATIC_INLINE uint32_t LL_ADC_INJ_GetTrigAuto(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_INJ_GetTrigAuto(const ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_JAUTO));
 }
@@ -6249,13 +6105,13 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_GetTrigAuto(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_18
   *         @arg @ref LL_ADC_CHANNEL_19
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
+  *         @arg @ref LL_ADC_CHANNEL_VREFINT
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
   *         @arg @ref LL_ADC_CHANNEL_VBAT         (1)
   *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4 (2)
   *         @arg @ref LL_ADC_CHANNEL_DAC1CH2_ADC4 (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/2.
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1, ADC2.
   *         (2) On STM32U5, parameter available only on ADC instance: ADC4.
   *         (3) On STM32U5, fast channel (0.125 us for 14-bit resolution (ADC conversion rate up to 8 Ms/s)).
   *             Other channels are slow channels (conversion rate: refer to reference manual).
@@ -6280,7 +6136,7 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_GetTrigAuto(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_18
   *         @arg @ref LL_ADC_CHANNEL_19
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
+  *         @arg @ref LL_ADC_CHANNEL_VREFINT
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
   *         @arg @ref LL_ADC_CHANNEL_VBAT         (1)
   *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4 (2)
@@ -6288,7 +6144,7 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_GetTrigAuto(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR_ADC4  (2)
   *         @arg @ref LL_ADC_CHANNEL_VBAT_ADC4        (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/2.
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1, ADC2.
   *         (2) On STM32U5, parameter available only on ADC instance: ADC4.
   *         (3) On STM32U5, fast channel (0.125 us for 14-bit resolution (ADC conversion rate up to 8 Ms/s)).
   *             Other channels are slow channels (conversion rate: refer to reference manual).
@@ -6313,7 +6169,7 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_GetTrigAuto(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_18
   *         @arg @ref LL_ADC_CHANNEL_19
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
+  *         @arg @ref LL_ADC_CHANNEL_VREFINT
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
   *         @arg @ref LL_ADC_CHANNEL_VBAT         (1)
   *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4 (2)
@@ -6321,7 +6177,7 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_GetTrigAuto(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR_ADC4  (2)
   *         @arg @ref LL_ADC_CHANNEL_VBAT_ADC4        (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/2.
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1, ADC2.
   *         (2) On STM32U5, parameter available only on ADC instance: ADC4.
   *         (3) On STM32U5, fast channel (0.125 us for 14-bit resolution (ADC conversion rate up to 8 Ms/s)).
   *             Other channels are slow channels (conversion rate: refer to reference manual).
@@ -6346,7 +6202,7 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_GetTrigAuto(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_18
   *         @arg @ref LL_ADC_CHANNEL_19
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
+  *         @arg @ref LL_ADC_CHANNEL_VREFINT
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
   *         @arg @ref LL_ADC_CHANNEL_VBAT         (1)
   *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4 (2)
@@ -6354,7 +6210,7 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_GetTrigAuto(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR_ADC4  (2)
   *         @arg @ref LL_ADC_CHANNEL_VBAT_ADC4        (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/2.
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1, ADC2.
   *         (2) On STM32U5, parameter available only on ADC instance: ADC4.
   *         (3) On STM32U5, fast channel (0.125 us for 14-bit resolution (ADC conversion rate up to 8 Ms/s)).
   *             Other channels are slow channels (conversion rate: refer to reference manual).
@@ -6475,7 +6331,7 @@ __STATIC_INLINE void LL_ADC_INJ_ConfigQueueContext(ADC_TypeDef *ADCx,
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_18
   *         @arg @ref LL_ADC_CHANNEL_19
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
+  *         @arg @ref LL_ADC_CHANNEL_VREFINT
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
   *         @arg @ref LL_ADC_CHANNEL_VBAT         (1)
   *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4 (2)
@@ -6483,22 +6339,24 @@ __STATIC_INLINE void LL_ADC_INJ_ConfigQueueContext(ADC_TypeDef *ADCx,
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR_ADC4  (2)
   *         @arg @ref LL_ADC_CHANNEL_VBAT_ADC4        (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/2.
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1, ADC2.
   *         (2) On STM32U5, parameter available only on ADC instance: ADC4.
   *         (3) On STM32U5, fast channel (0.125 us for 14-bit resolution (ADC conversion rate up to 8 Ms/s)).
   *             Other channels are slow channels (conversion rate: refer to reference manual).
   * @param  SamplingTime This parameter can be one of the following values, In case of ADC1 instance:
-  *         @arg @ref LL_ADC_SAMPLINGTIME_5CYCLES
-  *         @arg @ref LL_ADC_SAMPLINGTIME_6CYCLES
-  *         @arg @ref LL_ADC_SAMPLINGTIME_12CYCLES
-  *         @arg @ref LL_ADC_SAMPLINGTIME_20CYCLES
-  *         @arg @ref LL_ADC_SAMPLINGTIME_36CYCLES
-  *         @arg @ref LL_ADC_SAMPLINGTIME_68CYCLES
-  *         @arg @ref LL_ADC_SAMPLINGTIME_391CYCLES_5
-  *         @arg @ref LL_ADC_SAMPLINGTIME_814CYCLES
-  * @param  SamplingTime This parameter can be one of the following values, In case of ADC4 instance:
-  *         @arg @ref LL_ADC_SAMPLINGTIME_COMMON_1
-  *         @arg @ref LL_ADC_SAMPLINGTIME_COMMON_2
+  *         @arg @ref LL_ADC_SAMPLINGTIME_5CYCLES   (1)
+  *         @arg @ref LL_ADC_SAMPLINGTIME_6CYCLES   (1)
+  *         @arg @ref LL_ADC_SAMPLINGTIME_12CYCLES  (1)
+  *         @arg @ref LL_ADC_SAMPLINGTIME_20CYCLES  (1)
+  *         @arg @ref LL_ADC_SAMPLINGTIME_36CYCLES  (1)
+  *         @arg @ref LL_ADC_SAMPLINGTIME_68CYCLES  (1)
+  *         @arg @ref LL_ADC_SAMPLINGTIME_391CYCLES (1)
+  *         @arg @ref LL_ADC_SAMPLINGTIME_814CYCLES (1)
+  *         @arg @ref LL_ADC_SAMPLINGTIME_COMMON_1  (2)
+  *         @arg @ref LL_ADC_SAMPLINGTIME_COMMON_2  (2)
+  *
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1, ADC2.
+  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.
   * @retval None
   */
 __STATIC_INLINE void LL_ADC_SetChannelSamplingTime(ADC_TypeDef *ADCx, uint32_t Channel, uint32_t SamplingTime)
@@ -6524,8 +6382,8 @@ __STATIC_INLINE void LL_ADC_SetChannelSamplingTime(ADC_TypeDef *ADCx, uint32_t C
     /* other bits reserved for other purpose. It needs to be converted to decimal */
     /* to select the bit position */
     MODIFY_REG(ADCx->SMPR1,
-               ADC4_SAMPLING_TIME_CH_MASK,
-               ((1UL << __LL_ADC_CHANNEL_TO_DECIMAL_NB(Channel)) << ADC4_SMPR_SMPSEL0_BITOFFSET_POS)                  \
+               ((Channel & ADC_CHANNEL_ID_BITFIELD_MASK) << ADC4_SMPR_SMPSEL0_BITOFFSET_POS),
+               ((Channel & ADC_CHANNEL_ID_BITFIELD_MASK) << ADC4_SMPR_SMPSEL0_BITOFFSET_POS)
                & (SamplingTime & ADC4_SAMPLING_TIME_CH_MASK)
               );
   }
@@ -6583,7 +6441,7 @@ __STATIC_INLINE void LL_ADC_SetChannelSamplingTime(ADC_TypeDef *ADCx, uint32_t C
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_18
   *         @arg @ref LL_ADC_CHANNEL_19
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
+  *         @arg @ref LL_ADC_CHANNEL_VREFINT
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
   *         @arg @ref LL_ADC_CHANNEL_VBAT         (1)
   *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4 (2)
@@ -6591,22 +6449,24 @@ __STATIC_INLINE void LL_ADC_SetChannelSamplingTime(ADC_TypeDef *ADCx, uint32_t C
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR_ADC4  (2)
   *         @arg @ref LL_ADC_CHANNEL_VBAT_ADC4        (2)
   *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/2.
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1, ADC2.
   *         (2) On STM32U5, parameter available only on ADC instance: ADC4.
   *         (3) On STM32U5, fast channel (0.125 us for 14-bit resolution (ADC conversion rate up to 8 Ms/s)).
   *             Other channels are slow channels (conversion rate: refer to reference manual).
   * @retval In case of ADC1 insatnace, Returned value can be one of the following values:
-  *         @arg @ref LL_ADC_SAMPLINGTIME_5CYCLES
-  *         @arg @ref LL_ADC_SAMPLINGTIME_6CYCLES
-  *         @arg @ref LL_ADC_SAMPLINGTIME_12CYCLES
-  *         @arg @ref LL_ADC_SAMPLINGTIME_20CYCLES
-  *         @arg @ref LL_ADC_SAMPLINGTIME_36CYCLES
-  *         @arg @ref LL_ADC_SAMPLINGTIME_68CYCLES
-  *         @arg @ref LL_ADC_SAMPLINGTIME_391CYCLES_5
-  *         @arg @ref LL_ADC_SAMPLINGTIME_814CYCLES
-  * @retval In case of ADC4 insatnce, Returned value can be one of the following values:
-  *         @arg @ref LL_ADC_SAMPLINGTIME_COMMON_1
-  *         @arg @ref LL_ADC_SAMPLINGTIME_COMMON_2
+  *         @arg @ref LL_ADC_SAMPLINGTIME_5CYCLES   (1)
+  *         @arg @ref LL_ADC_SAMPLINGTIME_6CYCLES   (1)
+  *         @arg @ref LL_ADC_SAMPLINGTIME_12CYCLES  (1)
+  *         @arg @ref LL_ADC_SAMPLINGTIME_20CYCLES  (1)
+  *         @arg @ref LL_ADC_SAMPLINGTIME_36CYCLES  (1)
+  *         @arg @ref LL_ADC_SAMPLINGTIME_68CYCLES  (1)
+  *         @arg @ref LL_ADC_SAMPLINGTIME_391CYCLES (1)
+  *         @arg @ref LL_ADC_SAMPLINGTIME_814CYCLES (1)
+  *         @arg @ref LL_ADC_SAMPLINGTIME_COMMON_1  (2)
+  *         @arg @ref LL_ADC_SAMPLINGTIME_COMMON_2  (2)
+  *
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1, ADC2.
+  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.
   */
 __STATIC_INLINE uint32_t LL_ADC_GetChannelSamplingTime(const ADC_TypeDef *ADCx, uint32_t Channel)
 {
@@ -6879,7 +6739,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetChannelSingleDiff(const ADC_TypeDef *ADCx, ui
   *         @arg @ref LL_ADC_AWD_CH_DAC1CH2_ADC4_REG     (0)(2)
   *
   *         (0) On STM32U5, parameter available only on analog watchdog number: AWD1.
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1/2.
+  *         (1) On STM32U5, parameter available only on ADC instance: ADC1, ADC2.
   *         (2) On STM32U5, parameter available only on ADC instance: ADC4.
   * @retval None
   */
@@ -7241,7 +7101,8 @@ __STATIC_INLINE void LL_ADC_SetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t AW
   * @retval In case of ADC1 instance, Value between Min_Data=0x000 and Max_Data=0x1FFFFFF
   * @retval In case of ADC1 instance, Value between Min_Data=0x000 and Max_Data=0xFFF
   */
-__STATIC_INLINE uint32_t LL_ADC_GetAnalogWDThresholds(const ADC_TypeDef *ADCx, uint32_t AWDy, uint32_t AWDThresholdsHighLow)
+__STATIC_INLINE uint32_t LL_ADC_GetAnalogWDThresholds(const ADC_TypeDef *ADCx, uint32_t AWDy,
+                                                      uint32_t AWDThresholdsHighLow)
 {
   const __IO uint32_t *preg;
   if (ADCx != ADC4) /* ADCx == ADC1 or ADCx == ADC2 */
@@ -7579,8 +7440,8 @@ __STATIC_INLINE uint32_t LL_ADC_GetOverSamplingDiscont(const ADC_TypeDef *ADCx)
   * @rmtoll CFGR2    OVSS           LL_ADC_ConfigOverSamplingRatioShift
   *         CFGR2    OVSR           LL_ADC_ConfigOverSamplingRatioShift
   * @param  ADCx ADC instance
-  * @param  Ratio This parameter can be in the range from 1 to 1024 in case of ADC1 instance.
-  * @param  Ratio This parameter can be one of the following values, in case of ADC4 :
+  * @param  Ratio For ADC instance ADC1, ADC2: This parameter can be in the range from 1 to 1024.
+  *               For ADC instance ADC4: This parameter can be one of the following values:
   *         @arg @ref LL_ADC_OVS_RATIO_2
   *         @arg @ref LL_ADC_OVS_RATIO_4
   *         @arg @ref LL_ADC_OVS_RATIO_8
@@ -7614,7 +7475,8 @@ __STATIC_INLINE void LL_ADC_ConfigOverSamplingRatioShift(ADC_TypeDef *ADCx, uint
   }
   else /* ADCx == ADC4 */
   {
-    MODIFY_REG(ADCx->CFGR2, (ADC_CFGR2_OVSS | ADC4_CFGR2_OVSR), (Shift | Ratio));
+    MODIFY_REG(ADCx->CFGR2, (ADC_CFGR2_OVSS | ADC4_CFGR2_OVSR),
+               (Shift | (Ratio & ~ADC4_OVERSAMPLING_RATIO_PARAMETER_MASK)));
   }
 }
 
@@ -7642,7 +7504,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetOverSamplingRatio(const ADC_TypeDef *ADCx)
   }
   else /* ADCx == ADC4 */
   {
-    return (uint32_t)(READ_BIT(ADCx->CFGR2, ADC4_CFGR2_OVSR));
+    return (uint32_t)(READ_BIT(ADCx->CFGR2, ADC4_CFGR2_OVSR) | ADC4_OVERSAMPLING_RATIO_PARAMETER);
   }
 }
 
@@ -7954,7 +7816,7 @@ __STATIC_INLINE void LL_ADC_DisableDeepPowerDown(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval 0: deep power down is disabled, 1: deep power down is enabled.
   */
-__STATIC_INLINE uint32_t LL_ADC_IsDeepPowerDownEnabled(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsDeepPowerDownEnabled(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->CR, ADC_CR_DEEPPWD) == (ADC_CR_DEEPPWD)) ? 1UL : 0UL);
 }
@@ -8001,7 +7863,7 @@ __STATIC_INLINE void LL_ADC_DisableInternalRegulator(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval 0: internal regulator is disabled, 1: internal regulator is enabled.
   */
-__STATIC_INLINE uint32_t LL_ADC_IsInternalRegulatorEnabled(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsInternalRegulatorEnabled(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->CR, ADC_CR_ADVREGEN) == (ADC_CR_ADVREGEN)) ? 1UL : 0UL);
 }
@@ -8057,7 +7919,7 @@ __STATIC_INLINE void LL_ADC_Disable(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval 0: ADC is disabled, 1: ADC is enabled.
   */
-__STATIC_INLINE uint32_t LL_ADC_IsEnabled(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsEnabled(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->CR, ADC_CR_ADEN) == (ADC_CR_ADEN)) ? 1UL : 0UL);
 }
@@ -8068,7 +7930,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabled(ADC_TypeDef *ADCx)
   * @param  ADCx ADC instance
   * @retval 0: no ADC disable command on going.
   */
-__STATIC_INLINE uint32_t LL_ADC_IsDisableOngoing(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsDisableOngoing(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->CR, ADC_CR_ADDIS) == (ADC_CR_ADDIS)) ? 1UL : 0UL);
 }
@@ -8126,7 +7988,7 @@ __STATIC_INLINE void LL_ADC_StartCalibration(ADC_TypeDef *ADCx, uint32_t Calibra
   * @param  ADCx ADC instance
   * @retval 0: calibration complete, 1: calibration in progress.
   */
-__STATIC_INLINE uint32_t LL_ADC_IsCalibrationOnGoing(ADC_TypeDef *ADCx)
+__STATIC_INLINE uint32_t LL_ADC_IsCalibrationOnGoing(const ADC_TypeDef *ADCx)
 {
   return ((READ_BIT(ADCx->CR, ADC_CR_ADCAL) == (ADC_CR_ADCAL)) ? 1UL : 0UL);
 }
@@ -8318,7 +8180,8 @@ __STATIC_INLINE uint8_t LL_ADC_REG_ReadConversionData8(const ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_MULTI_MASTER_SLAVE
   * @retval Value between Min_Data=0x00000000 and Max_Data=0xFFFFFFFF
   */
-__STATIC_INLINE uint32_t LL_ADC_REG_ReadMultiConversionData32(const ADC_Common_TypeDef *ADCxy_COMMON, uint32_t ConversionData)
+__STATIC_INLINE uint32_t LL_ADC_REG_ReadMultiConversionData32(const ADC_Common_TypeDef *ADCxy_COMMON,
+                                                              uint32_t ConversionData)
 {
   return (uint32_t)(READ_BIT(ADCxy_COMMON->CDR, ConversionData) >> (POSITION_VAL(ConversionData) & 0x1FUL));
 }
@@ -9179,9 +9042,9 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_EOCAL(const ADC_TypeDef *ADCx)
   */
 
 /* Initialization of some features of ADC common parameters and multimode */
-ErrorStatus LL_ADC_CommonDeInit(ADC_Common_TypeDef *pADCxyCOMMON);
-ErrorStatus LL_ADC_CommonInit(ADC_Common_TypeDef *pADCxyCOMMON, LL_ADC_CommonInitTypeDef *pADC_CommonInit);
-void        LL_ADC_CommonStructInit(LL_ADC_CommonInitTypeDef *pADC_CommonInit);
+ErrorStatus LL_ADC_CommonDeInit(ADC_Common_TypeDef *pADCxy_COMMON);
+ErrorStatus LL_ADC_CommonInit(ADC_Common_TypeDef *pADCxy_COMMON, LL_ADC_CommonInitTypeDef *pADC_CommonInitStruct);
+void        LL_ADC_CommonStructInit(LL_ADC_CommonInitTypeDef *pADC_CommonInitStruct);
 
 /* De-initialization of ADC instance, ADC group regular and ADC group injected */
 /* (availability of ADC group injected depends on STM32 families) */
@@ -9189,11 +9052,11 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *pADCx);
 
 /* Initialization of some features of ADC instance */
 ErrorStatus LL_ADC_Init(ADC_TypeDef *pADCx, LL_ADC_InitTypeDef *pADC_InitStruct);
-void        LL_ADC_StructInit(ADC_TypeDef *pADCx, LL_ADC_InitTypeDef *pADC_InitStruct);
+void        LL_ADC_StructInit(const ADC_TypeDef *pADCx, LL_ADC_InitTypeDef *pADC_InitStruct);
 
 /* Initialization of some features of ADC instance and ADC group regular */
 ErrorStatus LL_ADC_REG_Init(ADC_TypeDef *pADCx, LL_ADC_REG_InitTypeDef *pADC_RegInitStruct);
-void        LL_ADC_REG_StructInit(ADC_TypeDef *pADCx, LL_ADC_REG_InitTypeDef *pADC_RegInitStruct);
+void        LL_ADC_REG_StructInit(const ADC_TypeDef *pADCx, LL_ADC_REG_InitTypeDef *pADC_RegInitStruct);
 
 /* Initialization of some features of ADC instance and ADC group injected */
 ErrorStatus LL_ADC_INJ_Init(ADC_TypeDef *pADCx, LL_ADC_INJ_InitTypeDef *pADC_InjInitStruct);

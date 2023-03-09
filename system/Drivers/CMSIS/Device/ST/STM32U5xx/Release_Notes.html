@@ -30,9 +30,71 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history"><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section3" checked aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true"><strong>V1.1.0 / 16-February-2022</strong></label>
+<input type="checkbox" id="collapse-section4" checked aria-hidden="true"> <label for="collapse-section4" checked aria-hidden="true"><strong>V1.2.0 / 08-February-2023</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<p><strong>CMSIS Device</strong> Official Release version of bits and registers definition aligned with RM0456 (STM32U5 reference manual)</p>
+<ul>
+<li><strong>Support of stm32u535xx and stm32u545xx devices</strong>:
+<ul>
+<li>Add “stm32u535xx.h” and “stm32u545xx.h” files</li>
+<li>Add startup files “startup_stm32u535xx.s” and “startup_stm32u545xx.s” for EWARM and STM32CUBEIDE toolchains</li>
+<li>Add EWARM and STM32CUBEIDE linker files for all devices for legacy and for TrustZone based application</li>
+</ul></li>
+<li><p><strong>Registers and bit field definitions updates</strong>:</p>
+<ul>
+<li>Add USB Dual Role Device FS Endpoint registers:
+<ul>
+<li>Add Bits definition for USB_DRD_CNTR register</li>
+<li>Add Bits definition for USB_DRD_ISTR register</li>
+<li>Add Bits definition for USB_DRD_FNR register</li>
+<li>Add Bits definition for USB_DRD_DADDR register</li>
+<li>Add Bit definition for USB_DRD_BTABLE register</li>
+<li>Add Bit definition for LPMCSR register</li>
+<li>Add Bits definition for USB_DRD_BCDR register</li>
+<li>Add Bits definition for USB_DRD_CHEP register</li>
+</ul></li>
+<li>Add USB_IRQn interrupt</li>
+<li>Add USB_OTG_GCCFG_PULLDOWNEN define</li>
+<li>Add LSECSSD and MSI_PLL_UNLOCK global interrupts</li>
+<li>Add USART_DMAREQUESTS_SW_WA define</li>
+<li>Add DBGMCU_APB1FZR2_DBG_I2C5_STOP and DBGMCU_APB1FZR2_DBG_I2C6_STOP defines</li>
+<li>Remove DBGMCU_APB1FZR2_DBG_FDCAN_STOP define</li>
+<li>Add AES_IER_RNGEIE AES_ICR_RNGEIF and AES_ISR_RNGEIF defines</li>
+<li>Add DMA2D_TRIGGER_SUPPORT define</li>
+<li>Rename Bit definition for EXTI_SECENR1 register to EXTI_SECCFGR1 register</li>
+<li>Rename Bit definition for EXTI_PRIVENR1 register to EXTI_PRIVCFGR1 register</li>
+<li>Add Bit definition for EXTI_LOCKR register</li>
+<li>Add EXTI_RTSR1_RT25, EXTI_FTSR1_FT25, EXTI_SWIER1_SWI25, EXTI_RPR1_RPIF25, EXTI_FPR1_FPIF25, EXTI_IMR1_IM25 and EXTI_EMR1_EM25 defines</li>
+<li>Add COMP_WINDOW_MODE_SUPPORT define</li>
+<li>Add Bit definition for SYSCFG_OTGHSPHYTUNER2 register</li>
+<li>Add SYSCFG_CFGR1_SRAMCACHED define</li>
+<li>Add UCPD configuration register 3</li>
+<li>Add RCC_APB2RSTR_USBRST define</li>
+<li>Add RCC_APB2ENR_USBEN define</li>
+<li>Add RCC_APB2SMENR_USBSMEN define</li>
+<li>Add IS_SPI_GRP1_INSTANCE and IS_SPI_GRP2_INSTANCE macros</li>
+<li>Add IS_COMP_ALL_INSTANCE macro</li>
+<li>Add IS_HCD_ALL_INSTANCE and IS_PCD_ALL_INSTANCE macro</li>
+<li>Add PWR_CR1_FORCE_USBPWR and PWR_VOSR_VDD11USBDIS defines</li>
+<li>Rename OCTOSPI_CR_DQM to XSPI_CR_DMM</li>
+<li>Rename OCTOSPI_CR_FSEL to XSPI_OCTOSPI_CR_MSEL</li>
+<li>Rename ADC4_PW_AUTOFF to ADC4_PWRR_AUTOFF</li>
+<li>Rename ADC4_PW_DPD to ADC4_PWRR_DPD</li>
+<li>Rename ADC4_PW_VREFPROT to ADC4_PWRR_VREFPROT</li>
+<li>Rename ADC4_PW_VREFSECSMP to ADC4_PWRR_VREFSECSMP</li>
+</ul></li>
+</ul>
+<h2 id="backward-compatibility">Backward Compatibility</h2>
+<ul>
+<li>N/A</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true"><strong>V1.1.0 / 16-February-2022</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <ul>
 <li><strong>CMSIS Device</strong> Maintenance Release version of bits and registers definition aligned with RM0456 (STM32U5 reference manual)
 <ul>
@@ -62,7 +124,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true"><strong>V1.0.1 / 01-October-2021</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>Rename OTG_FS_BASE_NS to USB_OTG_FS_BASE_NS define</li>
 <li>Rename OTG_FS_BASE_S to USB_OTG_FS_BASE_S define</li>
@@ -74,7 +136,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" checked aria-hidden="true"><strong>V1.0.0 / 28-June-2021</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li>First official release version of bits and registers definition aligned with RM0456 (STM32U5 reference manual)</li>
 </ul>

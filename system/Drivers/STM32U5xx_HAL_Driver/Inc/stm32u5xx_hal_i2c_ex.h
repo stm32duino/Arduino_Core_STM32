@@ -99,7 +99,7 @@ typedef struct
 /** @defgroup I2CEx_AutonomousMode_TriggerSelection I2C Extended Autonomous Mode Trigger Selection
   * @{
   */
-#define I2C_TRIG_GRP1                   (0x10000000U)                    /*!< Trigger Group for I2C1, I2C2 and I2C4 */
+#define I2C_TRIG_GRP1                   (0x10000000U)                    /*!< Trigger Group for I2C1, I2C2, I2C4, I2C5, I2C6 (depends on Product) */
 #define I2C_TRIG_GRP2                   (0x20000000U)                    /*!< Trigger Group for I2C3 */
 
 #define I2C_GRP1_GPDMA_CH0_TCF_TRG      (uint32_t)(I2C_TRIG_GRP1 | (0x00000000U))
@@ -212,8 +212,10 @@ HAL_StatusTypeDef HAL_I2CEx_ConfigFastModePlus(I2C_HandleTypeDef *hi2c, uint32_t
 /** @addtogroup I2CEx_Exported_Functions_Group4 Autonomous Mode Functions
   * @{
   */
-HAL_StatusTypeDef HAL_I2CEx_SetConfigAutonomousMode(I2C_HandleTypeDef *hi2c, I2C_AutonomousModeConfTypeDef *sConfig);
-HAL_StatusTypeDef HAL_I2CEx_GetConfigAutonomousMode(I2C_HandleTypeDef *hi2c, I2C_AutonomousModeConfTypeDef *sConfig);
+HAL_StatusTypeDef HAL_I2CEx_SetConfigAutonomousMode(I2C_HandleTypeDef *hi2c,
+                                                    const I2C_AutonomousModeConfTypeDef *sConfig);
+HAL_StatusTypeDef HAL_I2CEx_GetConfigAutonomousMode(const I2C_HandleTypeDef *hi2c,
+                                                    I2C_AutonomousModeConfTypeDef *sConfig);
 HAL_StatusTypeDef HAL_I2CEx_ClearConfigAutonomousMode(I2C_HandleTypeDef *hi2c);
 /**
   * @}
@@ -276,6 +278,9 @@ HAL_StatusTypeDef HAL_I2CEx_ClearConfigAutonomousMode(I2C_HandleTypeDef *hi2c);
                                               ((__SOURCE__) == I2C_GRP2_COMP2_TRG          ) || \
                                               ((__SOURCE__) == I2C_GRP2_RTC_ALRA_TRG       ) || \
                                               ((__SOURCE__) == I2C_GRP2_RTC_WUT_TRG        ))
+
+#define IS_I2C_TRIG_INPUT_INSTANCE(__INSTANCE__)    (IS_I2C_GRP1_INSTANCE(__INSTANCE__) || \
+                                                     IS_I2C_GRP2_INSTANCE(__INSTANCE__))
 
 #define IS_I2C_AUTO_MODE_TRG_POL(__POLARITY__)      (((__POLARITY__) == I2C_TRIG_POLARITY_RISING) || \
                                                      ((__POLARITY__) == I2C_TRIG_POLARITY_FALLING))

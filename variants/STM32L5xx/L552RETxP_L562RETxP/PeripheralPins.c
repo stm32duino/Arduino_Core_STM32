@@ -12,7 +12,7 @@
  */
 /*
  * Automatically generated from STM32L552RETxP.xml, STM32L562RETxP.xml
- * CubeMX DB release 6.0.70
+ * CubeMX DB release 6.0.80
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

@@ -125,6 +125,7 @@ typedef struct
 #define PWR_SRAM2_PAGE2_STOP      (SRAM2_ID  | PAGE02_ID)        /*!< SRAM2 page 2 (54 KB) retention in Stop modes (Stop 0, 1, 2)       */
 #define PWR_SRAM2_FULL_STOP       (SRAM2_ID  | 0x03U)            /*!< SRAM2 all pages retention in Stop modes      (Stop 0, 1, 2)       */
 
+#if defined (PWR_CR2_SRAM3PDS1)
 /* SRAM3 pages retention defines */
 #define PWR_SRAM3_PAGE1_STOP      (SRAM3_ID  | PAGE01_ID)        /*!< SRAM3 page 1 (64 KB) retention in Stop modes (Stop 0, 1, 2, 3)    */
 #define PWR_SRAM3_PAGE2_STOP      (SRAM3_ID  | PAGE02_ID)        /*!< SRAM3 page 2 (64 KB) retention in Stop modes (Stop 0, 1, 2, 3)    */
@@ -144,6 +145,7 @@ typedef struct
 #else
 #define PWR_SRAM3_FULL_STOP       (SRAM3_ID  | 0xFFU)            /*!< SRAM3 all pages retention in Stop modes       (Stop 0, 1, 2, 3)   */
 #endif /* defined (PWR_CR4_SRAM3PDS9) */
+#endif /* PWR_CR2_SRAM3PDS1 */
 
 /* SRAM4 page retention defines */
 #define PWR_SRAM4_FULL_STOP       (SRAM4_ID  | PAGE01_ID)        /*!< SRAM4 retention in Stop modes (Stop 0, 1, 2, 3)                   */
@@ -166,6 +168,19 @@ typedef struct
 #define PWR_SRAM5_FULL_STOP       (SRAM5_ID  | 0x1FFFU)          /*!< SRAM5 all pages retention in Stop modes      (Stop 0, 1, 2, 3)    */
 #endif /* defined (PWR_CR4_SRAM5PDS1) */
 
+#if defined (PWR_CR5_SRAM6PDS1)
+/* SRAM5 pages retention defines */
+#define PWR_SRAM6_PAGE1_STOP      (SRAM6_ID  | PAGE01_ID)        /*!< SRAM6 page 1 (64 KB) retention in Stop modes (Stop 0, 1, 2, 3)    */
+#define PWR_SRAM6_PAGE2_STOP      (SRAM6_ID  | PAGE02_ID)        /*!< SRAM6 page 2 (64 KB) retention in Stop modes (Stop 0, 1, 2, 3)    */
+#define PWR_SRAM6_PAGE3_STOP      (SRAM6_ID  | PAGE03_ID)        /*!< SRAM6 page 3 (64 KB) retention in Stop modes (Stop 0, 1, 2, 3)    */
+#define PWR_SRAM6_PAGE4_STOP      (SRAM6_ID  | PAGE04_ID)        /*!< SRAM6 page 4 (64 KB) retention in Stop modes (Stop 0, 1, 2, 3)    */
+#define PWR_SRAM6_PAGE5_STOP      (SRAM6_ID  | PAGE05_ID)        /*!< SRAM6 page 5 (64 KB) retention in Stop modes (Stop 0, 1, 2, 3)    */
+#define PWR_SRAM6_PAGE6_STOP      (SRAM6_ID  | PAGE06_ID)        /*!< SRAM6 page 6 (64 KB) retention in Stop modes (Stop 0, 1, 2, 3)    */
+#define PWR_SRAM6_PAGE7_STOP      (SRAM6_ID  | PAGE07_ID)        /*!< SRAM6 page 7 (64 KB) retention in Stop modes (Stop 0, 1, 2, 3)    */
+#define PWR_SRAM6_PAGE8_STOP      (SRAM6_ID  | PAGE08_ID)        /*!< SRAM6 page 8 (64 KB) retention in Stop modes (Stop 0, 1, 2, 3)    */
+#define PWR_SRAM6_FULL_STOP       (SRAM6_ID  | 0xFFU)            /*!< SRAM6 all pages retention in Stop modes      (Stop 0, 1, 2, 3)    */
+#endif /* defined (PWR_CR5_SRAM6PDS1) */
+
 /* Cache RAMs retention defines */
 #define PWR_ICACHE_FULL_STOP      (ICACHERAM_ID  | PAGE01_ID)        /*!< ICACHE page retention in Stop modes (Stop 0, 1, 2, 3)             */
 #define PWR_DCACHE1_FULL_STOP     (DCACHE1RAM_ID | PAGE01_ID)        /*!< DCACHE1 page retention in Stop modes (Stop 0, 1, 2, 3)            */
@@ -173,8 +188,10 @@ typedef struct
 #define PWR_DCACHE2_FULL_STOP     (DCACHE2RAM_ID | PAGE01_ID)        /*!< DCACHE2 page retention in Stop modes (Stop 0, 1, 2, 3)            */
 #endif /* defined (PWR_CR2_DC2RAMPDS) */
 
+#if defined (PWR_CR2_DMA2DRAMPDS)
 /* DMA2D RAM retention defines */
 #define PWR_DMA2DRAM_FULL_STOP    (DMA2DRAM_ID   | PAGE01_ID)        /*!< DMA2D RAM retention in Stop modes (Stop 0, 1, 2, 3)               */
+#endif /* PWR_CR2_DMA2DRAMPDS */
 
 /* FMAC, FDCAN and USB RAMs retention defines */
 #define PWR_PERIPHRAM_FULL_STOP   (PERIPHRAM_ID  | PAGE01_ID)        /*!< FMAC, FDCAN and USB RAM retention in Stop modes (Stop 0, 1, 2, 3) */
@@ -191,6 +208,11 @@ typedef struct
 /* DSI RAM retention defines */
 #define PWR_DSIRAM_FULL_STOP      (DSIRAM_ID     | PAGE01_ID)        /*!< DSI RAM retention in Stop modes (Stop 0, 1, 2, 3)                 */
 #endif /* defined (PWR_CR2_DSIRAMPDS) */
+
+#if defined (PWR_CR2_JPEGRAMPDS)
+/* JPEG RAM retention defines */
+#define PWR_JPEGRAM_FULL_STOP      (JPEGRAM_ID     | PAGE01_ID)      /*!< JPEG RAM retention in Stop modes (Stop 0, 1, 2, 3)                 */
+#endif /* defined (PWR_CR2_JPEGRAMPDS) */
 /**
   * @}
   */
@@ -212,11 +234,16 @@ typedef struct
   */
 #define PWR_SRAM1_FULL_RUN PWR_CR1_SRAM1PD /*!< SRAM1 full retention in Run mode */
 #define PWR_SRAM2_FULL_RUN PWR_CR1_SRAM2PD /*!< SRAM2 full retention in Run mode */
+#if defined (PWR_CR1_SRAM3PD)
 #define PWR_SRAM3_FULL_RUN PWR_CR1_SRAM3PD /*!< SRAM3 full retention in Run mode */
+#endif /* PWR_CR1_SRAM3PD */
 #define PWR_SRAM4_FULL_RUN PWR_CR1_SRAM4PD /*!< SRAM4 full retention in Run mode */
 #if defined (PWR_CR1_SRAM5PD)
 #define PWR_SRAM5_FULL_RUN PWR_CR1_SRAM5PD /*!< SRAM5 full retention in Run mode */
 #endif /* defined (PWR_CR1_SRAM5PD) */
+#if defined (PWR_CR1_SRAM6PD)
+#define PWR_SRAM6_FULL_RUN PWR_CR1_SRAM6PD /*!< SRAM6 full retention in Run mode */
+#endif /* defined (PWR_CR1_SRAM6PD) */
 /**
   * @}
   */
@@ -250,15 +277,6 @@ typedef struct
   * @}
   */
 
-/** @defgroup PWREx_VBAT_Battery_Charging_State PWR Extended Battery Charging State
-  * @{
-  */
-#define PWR_BATTERY_CHARGING_DISABLE (0U)          /*!< Disable battery charging */
-#define PWR_BATTERY_CHARGING_ENABLE  PWR_BDCR2_VBE /*!< Enable battery charging  */
-/**
-  * @}
-  */
-
 /** @defgroup PWREx_GPIO_Port PWR Extended GPIO Port
   * @{
   */
@@ -267,10 +285,14 @@ typedef struct
 #define PWR_GPIO_C (0x02U) /*!< GPIO port C */
 #define PWR_GPIO_D (0x03U) /*!< GPIO port D */
 #define PWR_GPIO_E (0x04U) /*!< GPIO port E */
+#if defined (PWR_PUCRF_PU0)
 #define PWR_GPIO_F (0x05U) /*!< GPIO port F */
+#endif /* PWR_PUCRF_PU0 */
 #define PWR_GPIO_G (0x06U) /*!< GPIO port G */
 #define PWR_GPIO_H (0x07U) /*!< GPIO port H */
+#if defined (PWR_PUCRI_PU0)
 #define PWR_GPIO_I (0x08U) /*!< GPIO port I */
+#endif /* PWR_PUCRI_PU0 */
 #if defined (PWR_PUCRJ_PU0)
 #define PWR_GPIO_J (0x09U) /*!< GPIO port J */
 #endif /* defined (PWR_PUCRJ_PU0) */
@@ -732,11 +754,15 @@ typedef struct
 #define SRAM_ID_MASK  (0xFFFFUL << 16U)
 #define SRAM1_ID      (0x01UL   << 16U)
 #define SRAM2_ID      (0x01UL   << 17U)
+#if defined (PWR_CR2_SRAM3PDS1)
 #define SRAM3_ID      (0x01UL   << 18U)
+#endif /* PWR_CR2_SRAM3PDS1 */
 #define SRAM4_ID      (0x01UL   << 19U)
 #define ICACHERAM_ID  (0x01UL   << 20U)
 #define DCACHE1RAM_ID (0x01UL   << 21U)
+#if defined (PWR_CR2_DMA2DRAMPDS)
 #define DMA2DRAM_ID   (0x01UL   << 22U)
+#endif /* PWR_CR2_DMA2DRAMPDS */
 #define PERIPHRAM_ID  (0x01UL   << 23U)
 #define PKARAM_ID     (0x01UL   << 24U)
 #if defined (PWR_CR2_DC2RAMPDS)
@@ -751,6 +777,12 @@ typedef struct
 #if defined (PWR_CR4_SRAM5PDS1)
 #define SRAM5_ID      (0x01UL   << 28U)
 #endif /* defined (PWR_CR4_SRAM5PDS1) */
+#if defined (PWR_CR5_SRAM6PDS1)
+#define SRAM6_ID      (0x01UL   << 29U)
+#endif /* defined (PWR_CR5_SRAM6PDS1) */
+#if defined (PWR_CR2_JPEGRAMPDS)
+#define JPEGRAM_ID    (0x01UL   << 30U)
+#endif /* defined (PWR_CR2_JPEGRAMPDS)*/
 
 /* SRAM page retention IDs */
 #define PAGE01_ID (0x01UL << 0U)
@@ -768,13 +800,20 @@ typedef struct
 #define PAGE13_ID (0x01UL << 12U)
 
 /* All available RAM retention in Run mode define */
-#if defined (PWR_CR1_SRAM5PD)
+#if defined (PWR_CR1_SRAM6PD)
 #define PWR_ALL_RAM_RUN_MASK (PWR_SRAM1_FULL_RUN | PWR_SRAM2_FULL_RUN | \
-                                        PWR_SRAM3_FULL_RUN | PWR_SRAM4_FULL_RUN | \
-                                        PWR_SRAM5_FULL_RUN)
+                              PWR_SRAM3_FULL_RUN | PWR_SRAM4_FULL_RUN | \
+                              PWR_SRAM5_FULL_RUN | PWR_SRAM6_FULL_RUN)
+#elif defined (PWR_CR1_SRAM5PD)
+#define PWR_ALL_RAM_RUN_MASK (PWR_SRAM1_FULL_RUN | PWR_SRAM2_FULL_RUN | \
+                              PWR_SRAM3_FULL_RUN | PWR_SRAM4_FULL_RUN | \
+                              PWR_SRAM5_FULL_RUN)
+#elif defined (PWR_CR2_SRAM3PDS1)
+#define PWR_ALL_RAM_RUN_MASK (PWR_SRAM1_FULL_RUN | PWR_SRAM2_FULL_RUN | \
+                              PWR_SRAM3_FULL_RUN | PWR_SRAM4_FULL_RUN)
 #else
 #define PWR_ALL_RAM_RUN_MASK (PWR_SRAM1_FULL_RUN | PWR_SRAM2_FULL_RUN | \
-                                        PWR_SRAM3_FULL_RUN | PWR_SRAM4_FULL_RUN)
+                              PWR_SRAM4_FULL_RUN)
 #endif /* defined (PWR_CR1_SRAM5PD) */
 /**
   * @}
@@ -824,11 +863,6 @@ typedef struct
   (((RESISTOR) == PWR_BATTERY_CHARGING_RESISTOR_5) ||\
    ((RESISTOR) == PWR_BATTERY_CHARGING_RESISTOR_1_5))
 
-/* Battery charging activation check macro */
-#define IS_PWR_BATTERY_CHARGING(CHARGING)         \
-  (((CHARGING) == PWR_BATTERY_CHARGING_DISABLE) ||\
-   ((CHARGING) == PWR_BATTERY_CHARGING_ENABLE))
-
 /* GPIO port check macro */
 #if defined (PWR_PUCRJ_PU0)
 #define IS_PWR_GPIO_PORT(GPIO_PORT) \
@@ -842,7 +876,7 @@ typedef struct
    ((GPIO_PORT) == PWR_GPIO_H)      ||\
    ((GPIO_PORT) == PWR_GPIO_I)      ||\
    ((GPIO_PORT) == PWR_GPIO_J))
-#else
+#elif defined (PWR_PUCRF_PU0) && defined (PWR_PUCRI_PU0)
 #define IS_PWR_GPIO_PORT(GPIO_PORT) \
   (((GPIO_PORT) == PWR_GPIO_A)      ||\
    ((GPIO_PORT) == PWR_GPIO_B)      ||\
@@ -853,6 +887,15 @@ typedef struct
    ((GPIO_PORT) == PWR_GPIO_G)      ||\
    ((GPIO_PORT) == PWR_GPIO_H)      ||\
    ((GPIO_PORT) == PWR_GPIO_I))
+#else
+#define IS_PWR_GPIO_PORT(GPIO_PORT) \
+  (((GPIO_PORT) == PWR_GPIO_A)      ||\
+   ((GPIO_PORT) == PWR_GPIO_B)      ||\
+   ((GPIO_PORT) == PWR_GPIO_C)      ||\
+   ((GPIO_PORT) == PWR_GPIO_D)      ||\
+   ((GPIO_PORT) == PWR_GPIO_E)      ||\
+   ((GPIO_PORT) == PWR_GPIO_G)      ||\
+   ((GPIO_PORT) == PWR_GPIO_H))
 #endif /* defined (PWR_PUCRJ_PU0) */
 
 /* GPIO pin mask check macro */
@@ -872,8 +915,10 @@ typedef struct
 #define IS_PWR_SRAM2_STOP_RETENTION(RAMCONTENT) \
   ((((RAMCONTENT) & (~PWR_SRAM2_FULL_STOP)) == 0U) && ((RAMCONTENT) != 0U))
 
+#if defined (PWR_CR2_SRAM3PDS1)
 #define IS_PWR_SRAM3_STOP_RETENTION(RAMCONTENT) \
   ((((RAMCONTENT) & (~PWR_SRAM3_FULL_STOP)) == 0U) && ((RAMCONTENT) != 0U))
+#endif /* PWR_CR2_SRAM3PDS1 */
 
 #define IS_PWR_SRAM4_STOP_RETENTION(RAMCONTENT) \
   ((((RAMCONTENT) & (~PWR_SRAM4_FULL_STOP)) == 0U) && ((RAMCONTENT) != 0U))
@@ -882,6 +927,11 @@ typedef struct
 #define IS_PWR_SRAM5_STOP_RETENTION(RAMCONTENT) \
   ((((RAMCONTENT) & (~PWR_SRAM5_FULL_STOP)) == 0U) && ((RAMCONTENT) != 0U))
 #endif /* defined (PWR_CR4_SRAM5PDS1) */
+
+#if defined (PWR_CR5_SRAM6PDS1)
+#define IS_PWR_SRAM6_STOP_RETENTION(RAMCONTENT) \
+  ((((RAMCONTENT) & (~PWR_SRAM6_FULL_STOP)) == 0U) && ((RAMCONTENT) != 0U))
+#endif /* defined (PWR_CR5_SRAM6PDS1) */
 
 #define IS_PWR_ICACHE_STOP_RETENTION(RAMCONTENT) \
   ((((RAMCONTENT) & (~PWR_ICACHE_FULL_STOP)) == 0U) && ((RAMCONTENT) != 0U))
@@ -894,8 +944,10 @@ typedef struct
   ((((RAMCONTENT) & (~PWR_DCACHE2_FULL_STOP)) == 0U) && ((RAMCONTENT) != 0U))
 #endif /* defined (PWR_CR2_DC2RAMPDS) */
 
+#if defined (PWR_CR2_DMA2DRAMPDS)
 #define IS_PWR_DMA2DRAM_STOP_RETENTION(RAMCONTENT) \
   ((((RAMCONTENT) & (~PWR_DMA2DRAM_FULL_STOP)) == 0U) && ((RAMCONTENT) != 0U))
+#endif /* PWR_CR2_DMA2DRAMPDS */
 
 #define IS_PWR_PERIPHRAM_STOP_RETENTION(RAMCONTENT) \
   ((((RAMCONTENT) & (~PWR_PERIPHRAM_FULL_STOP)) == 0U) && ((RAMCONTENT) != 0U))
@@ -911,6 +963,11 @@ typedef struct
 #if defined (PWR_CR2_DSIRAMPDS)
 #define IS_PWR_DSIRAM_STOP_RETENTION(RAMCONTENT) \
   ((((RAMCONTENT) & (~PWR_DSIRAM_FULL_STOP)) == 0U) && ((RAMCONTENT) != 0U))
+#endif /* defined (PWR_CR2_DSIRAMPDS) */
+
+#if defined (PWR_CR2_JPEGRAMPDS)
+#define IS_PWR_JPEGRAM_STOP_RETENTION(RAMCONTENT) \
+  ((((RAMCONTENT) & (~PWR_JPEGRAM_FULL_STOP)) == 0U) && ((RAMCONTENT) != 0U))
 #endif /* defined (PWR_CR2_DSIRAMPDS) */
 
 /* RAMs retention in Run mode check macro */
@@ -976,6 +1033,14 @@ void              HAL_PWREx_DisableAVM2(void);
 HAL_StatusTypeDef HAL_PWREx_EnableUSBHSTranceiverSupply(void);
 void              HAL_PWREx_DisableUSBHSTranceiverSupply(void);
 #endif /* defined (PWR_VOSR_USBPWREN) */
+#if defined (PWR_CR1_FORCE_USBPWR)
+void              HAL_PWREx_EnableOTGHSPHYLowPowerRetention(void);
+void              HAL_PWREx_DisableOTGHSPHYLowPowerRetention(void);
+#endif /* defined (PWR_CR1_FORCE_USBPWR) */
+#if defined (PWR_VOSR_VDD11USBDIS)
+void              HAL_PWREx_EnableVDD11USB(void);
+void              HAL_PWREx_DisableVDD11USB(void);
+#endif /* defined (PWR_VOSR_VDD11USBDIS) */
 HAL_StatusTypeDef HAL_PWREx_ConfigPVM(PWR_PVMTypeDef *pConfigPVM);
 void              HAL_PWREx_EnableMonitoring(void);
 void              HAL_PWREx_DisableMonitoring(void);

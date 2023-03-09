@@ -538,6 +538,7 @@
 //   <o.26> MDF1_FLT5_IRQn        <0=> Secure state <1=> Non-Secure state
 //   <o.27> CORDIC_IRQn           <0=> Secure state <1=> Non-Secure state
 //   <o.28> FMAC_IRQn             <0=> Secure state <1=> Non-Secure state
+//   <o.29> LSECSSD_IRQn          <0=> Secure state <1=> Non-Secure state
 //   <o.30> USART6_IRQn           <0=> Secure state <1=> Non-Secure state
 //   <o.31> I2C5_ER_IRQn          <0=> Secure state <1=> Non-Secure state
 */
@@ -548,12 +549,12 @@
 */
 
 /*
-//   <e>Initialize ITNS 4 (Interrupts 109..138)
+//   <e>Initialize ITNS 4 (Interrupts 128..131)
 */
 #define NVIC_INIT_ITNS4    1
 
 /*
-// Interrupts 96..138
+// Interrupts 128..131
 //   <o.0>  I2C5_EV_IRQn          <0=> Secure state <1=> Non-Secure state
 //   <o.1>  I2C6_ER_IRQn          <0=> Secure state <1=> Non-Secure state
 //   <o.2>  I2C6_EV_IRQn          <0=> Secure state <1=> Non-Secure state

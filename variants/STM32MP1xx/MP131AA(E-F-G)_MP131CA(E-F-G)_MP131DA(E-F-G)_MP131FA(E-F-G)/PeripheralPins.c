@@ -17,7 +17,7 @@
  * STM32MP131DAEx.xml, STM32MP131DAFx.xml
  * STM32MP131DAGx.xml, STM32MP131FAEx.xml
  * STM32MP131FAFx.xml, STM32MP131FAGx.xml
- * CubeMX DB release 6.0.70
+ * CubeMX DB release 6.0.80
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

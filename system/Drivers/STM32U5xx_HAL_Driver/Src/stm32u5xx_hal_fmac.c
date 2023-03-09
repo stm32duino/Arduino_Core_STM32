@@ -528,6 +528,8 @@ __weak void HAL_FMAC_MspDeInit(FMAC_HandleTypeDef *hfmac)
 /**
   * @brief  Register a User FMAC Callback.
   * @note   The User FMAC Callback is to be used instead of the weak predefined callback.
+  * @note   The HAL_FMAC_RegisterCallback() may be called before HAL_FMAC_Init() in HAL_FMAC_STATE_RESET to register
+  *         callbacks for HAL_FMAC_MSPINIT_CB_ID and HAL_FMAC_MSPDEINIT_CB_ID.
   * @param  hfmac pointer to a FMAC_HandleTypeDef structure that contains
   *         the configuration information for FMAC module.
   * @param  CallbackID ID of the callback to be registered.
@@ -562,7 +564,6 @@ HAL_StatusTypeDef HAL_FMAC_RegisterCallback(FMAC_HandleTypeDef *hfmac, HAL_FMAC_
 
     return HAL_ERROR;
   }
-  __HAL_LOCK(hfmac);
 
   if (hfmac->State == HAL_FMAC_STATE_READY)
   {
@@ -643,14 +644,14 @@ HAL_StatusTypeDef HAL_FMAC_RegisterCallback(FMAC_HandleTypeDef *hfmac, HAL_FMAC_
     status =  HAL_ERROR;
   }
 
-  __HAL_UNLOCK(hfmac);
-
   return status;
 }
 
 /**
   * @brief  Unregister a FMAC CallBack.
   * @note   The FMAC callback is redirected to the weak predefined callback.
+  * @note   The HAL_FMAC_UnRegisterCallback() may be called before HAL_FMAC_Init() in HAL_FMAC_STATE_RESET to register
+  *         callbacks for HAL_FMAC_MSPINIT_CB_ID and HAL_FMAC_MSPDEINIT_CB_ID.
   * @param  hfmac pointer to a FMAC_HandleTypeDef structure that contains
   *         the configuration information for FMAC module
   * @param  CallbackID ID of the callback to be unregistered.
@@ -675,8 +676,6 @@ HAL_StatusTypeDef HAL_FMAC_UnRegisterCallback(FMAC_HandleTypeDef *hfmac, HAL_FMA
   {
     return HAL_ERROR;
   }
-
-  __HAL_LOCK(hfmac);
 
   if (hfmac->State == HAL_FMAC_STATE_READY)
   {
@@ -759,8 +758,6 @@ HAL_StatusTypeDef HAL_FMAC_UnRegisterCallback(FMAC_HandleTypeDef *hfmac, HAL_FMA
     /* Return error status */
     status = HAL_ERROR;
   }
-
-  __HAL_UNLOCK(hfmac);
 
   return status;
 }
@@ -1530,7 +1527,7 @@ void HAL_FMAC_IRQHandler(FMAC_HandleTypeDef *hfmac)
   *         the configuration information for FMAC module.
   * @retval HAL_FMAC_StateTypeDef FMAC state
   */
-HAL_FMAC_StateTypeDef HAL_FMAC_GetState(FMAC_HandleTypeDef *hfmac)
+HAL_FMAC_StateTypeDef HAL_FMAC_GetState(const FMAC_HandleTypeDef *hfmac)
 {
   /* Return FMAC state */
   return hfmac->State;
@@ -1543,7 +1540,7 @@ HAL_FMAC_StateTypeDef HAL_FMAC_GetState(FMAC_HandleTypeDef *hfmac)
   * @note   The returned error is a bit-map combination of possible errors.
   * @retval uint32_t Error bit-map based on @ref FMAC_Error_Code
   */
-uint32_t HAL_FMAC_GetError(FMAC_HandleTypeDef *hfmac)
+uint32_t HAL_FMAC_GetError(const FMAC_HandleTypeDef *hfmac)
 {
   /* Return FMAC error code */
   return hfmac->ErrorCode;
@@ -1972,7 +1969,7 @@ static HAL_StatusTypeDef FMAC_FilterPreload(FMAC_HandleTypeDef *hfmac, int16_t *
           hfmac->hdmaPreload->LinkedListQueue->Head->LinkRegisters[NODE_CDAR_DEFAULT_OFFSET] =
             (uint32_t)&hfmac->Instance->WDATA;     /* Set DMA destination address */
 
-          status = HAL_DMAEx_List_Start_IT(hfmac->hdmaPreload);
+          return (HAL_DMAEx_List_Start_IT(hfmac->hdmaPreload));
         }
         else
         {
@@ -1982,14 +1979,8 @@ static HAL_StatusTypeDef FMAC_FilterPreload(FMAC_HandleTypeDef *hfmac, int16_t *
       }
       else
       {
-        status = HAL_DMA_Start_IT(hfmac->hdmaPreload, (uint32_t)pInput, \
-                                  (uint32_t)&hfmac->Instance->WDATA, (uint32_t)(2UL * InputSize));
-      }
-
-      if (status != HAL_OK)
-      {
-        /* Return error status */
-        return HAL_ERROR;
+        return (HAL_DMA_Start_IT(hfmac->hdmaPreload, (uint32_t)pInput, \
+                                 (uint32_t)&hfmac->Instance->WDATA, (uint32_t)(2UL * InputSize)));
       }
     }
   }
@@ -2038,7 +2029,7 @@ static HAL_StatusTypeDef FMAC_FilterPreload(FMAC_HandleTypeDef *hfmac, int16_t *
           hfmac->hdmaPreload->LinkedListQueue->Head->LinkRegisters[NODE_CDAR_DEFAULT_OFFSET] =
             (uint32_t)&hfmac->Instance->WDATA; /* Set DMA destination address */
 
-          status = HAL_DMAEx_List_Start_IT(hfmac->hdmaPreload);
+          return (HAL_DMAEx_List_Start_IT(hfmac->hdmaPreload));
         }
         else
         {
@@ -2048,14 +2039,8 @@ static HAL_StatusTypeDef FMAC_FilterPreload(FMAC_HandleTypeDef *hfmac, int16_t *
       }
       else
       {
-        status = HAL_DMA_Start_IT(hfmac->hdmaPreload, (uint32_t)pOutput, \
-                                  (uint32_t)&hfmac->Instance->WDATA, (uint32_t)(2UL * OutputSize));
-      }
-
-      if (status != HAL_OK)
-      {
-        /* Return error status */
-        return HAL_ERROR;
+        return (HAL_DMA_Start_IT(hfmac->hdmaPreload, (uint32_t)pOutput, \
+                                 (uint32_t)&hfmac->Instance->WDATA, (uint32_t)(2UL * OutputSize)));
       }
     }
   }

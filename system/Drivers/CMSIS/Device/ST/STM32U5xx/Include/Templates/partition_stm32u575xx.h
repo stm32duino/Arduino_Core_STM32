@@ -538,6 +538,7 @@
 //   <o.26> MDF1_FLT5_IRQn        <0=> Secure state <1=> Non-Secure state
 //   <o.27> CORDIC_IRQn           <0=> Secure state <1=> Non-Secure state
 //   <o.28> FMAC_IRQn             <0=> Secure state <1=> Non-Secure state
+//   <o.29> LSECSSD_IRQn          <0=> Secure state <1=> Non-Secure state
 */
 #define NVIC_INIT_ITNS3_VAL      0x00000000
 

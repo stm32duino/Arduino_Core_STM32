@@ -162,6 +162,8 @@
               in memory.
               Placing DMA linked-list in SRAM must be done in accordance to product specification to ensure that the
               link access port can access to the specified SRAM.
+              (++) The DMA linked-list node parameter address should be 32bit aligned and should not exceed the 64 KByte
+              addressable space.
 
           (+) Use HAL_DMAEx_List_GetNodeConfig() to get the specified configuration parameter on building node.
               This API can be used when need to change few parameter to build new node.
@@ -376,7 +378,7 @@
       In order to avoid some CPU data processing in several cases, the DMA channel provides some features related to
       FIFO capabilities titled data handling.
                 (++) Padding pattern
-                     Padding selected patter (zero padding or sign extension) when the source data width is smaller than
+                     Padding selected pattern (zero padding or sign extension) when the source data width is smaller than
                      the destination data width at single level.
                      Zero padding       (Source : 0xABAB ------> Destination : 0xABAB0000)
                      Sign bit extension (Source : 0x0ABA ------> Destination : 0x00000ABA)
@@ -1030,6 +1032,8 @@ HAL_StatusTypeDef HAL_DMAEx_List_Start_IT(DMA_HandleTypeDef *const hdma)
   *                       specified DMA linked-list Node.
   * @param  pNode       : Pointer to a DMA_NodeTypeDef structure that contains linked-list node registers
   *                       configurations.
+  * @note   The DMA linked-list node parameter address should be 32bit aligned and should not exceed the 64 KByte
+  *         addressable space.
   * @retval HAL status.
   */
 HAL_StatusTypeDef HAL_DMAEx_List_BuildNode(DMA_NodeConfTypeDef const *const pNodeConfig,

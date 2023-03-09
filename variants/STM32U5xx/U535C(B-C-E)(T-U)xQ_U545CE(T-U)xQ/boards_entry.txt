@@ -1,0 +1,69 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic U535CBTxQ
+GenU5.menu.pnum.GENERIC_U535CBTXQ=Generic U535CBTxQ
+GenU5.menu.pnum.GENERIC_U535CBTXQ.upload.maximum_size=131072
+GenU5.menu.pnum.GENERIC_U535CBTXQ.upload.maximum_data_size=280576
+GenU5.menu.pnum.GENERIC_U535CBTXQ.build.board=GENERIC_U535CBTXQ
+GenU5.menu.pnum.GENERIC_U535CBTXQ.build.product_line=STM32U535xx
+GenU5.menu.pnum.GENERIC_U535CBTXQ.build.variant=STM32U5xx/U535C(B-C-E)(T-U)xQ_U545CE(T-U)xQ
+
+# Generic U535CBUxQ
+GenU5.menu.pnum.GENERIC_U535CBUXQ=Generic U535CBUxQ
+GenU5.menu.pnum.GENERIC_U535CBUXQ.upload.maximum_size=131072
+GenU5.menu.pnum.GENERIC_U535CBUXQ.upload.maximum_data_size=280576
+GenU5.menu.pnum.GENERIC_U535CBUXQ.build.board=GENERIC_U535CBUXQ
+GenU5.menu.pnum.GENERIC_U535CBUXQ.build.product_line=STM32U535xx
+GenU5.menu.pnum.GENERIC_U535CBUXQ.build.variant=STM32U5xx/U535C(B-C-E)(T-U)xQ_U545CE(T-U)xQ
+
+# Generic U535CCTxQ
+GenU5.menu.pnum.GENERIC_U535CCTXQ=Generic U535CCTxQ
+GenU5.menu.pnum.GENERIC_U535CCTXQ.upload.maximum_size=262144
+GenU5.menu.pnum.GENERIC_U535CCTXQ.upload.maximum_data_size=280576
+GenU5.menu.pnum.GENERIC_U535CCTXQ.build.board=GENERIC_U535CCTXQ
+GenU5.menu.pnum.GENERIC_U535CCTXQ.build.product_line=STM32U535xx
+GenU5.menu.pnum.GENERIC_U535CCTXQ.build.variant=STM32U5xx/U535C(B-C-E)(T-U)xQ_U545CE(T-U)xQ
+
+# Generic U535CCUxQ
+GenU5.menu.pnum.GENERIC_U535CCUXQ=Generic U535CCUxQ
+GenU5.menu.pnum.GENERIC_U535CCUXQ.upload.maximum_size=262144
+GenU5.menu.pnum.GENERIC_U535CCUXQ.upload.maximum_data_size=280576
+GenU5.menu.pnum.GENERIC_U535CCUXQ.build.board=GENERIC_U535CCUXQ
+GenU5.menu.pnum.GENERIC_U535CCUXQ.build.product_line=STM32U535xx
+GenU5.menu.pnum.GENERIC_U535CCUXQ.build.variant=STM32U5xx/U535C(B-C-E)(T-U)xQ_U545CE(T-U)xQ
+
+# Generic U535CETxQ
+GenU5.menu.pnum.GENERIC_U535CETXQ=Generic U535CETxQ
+GenU5.menu.pnum.GENERIC_U535CETXQ.upload.maximum_size=524288
+GenU5.menu.pnum.GENERIC_U535CETXQ.upload.maximum_data_size=280576
+GenU5.menu.pnum.GENERIC_U535CETXQ.build.board=GENERIC_U535CETXQ
+GenU5.menu.pnum.GENERIC_U535CETXQ.build.product_line=STM32U535xx
+GenU5.menu.pnum.GENERIC_U535CETXQ.build.variant=STM32U5xx/U535C(B-C-E)(T-U)xQ_U545CE(T-U)xQ
+
+# Generic U535CEUxQ
+GenU5.menu.pnum.GENERIC_U535CEUXQ=Generic U535CEUxQ
+GenU5.menu.pnum.GENERIC_U535CEUXQ.upload.maximum_size=524288
+GenU5.menu.pnum.GENERIC_U535CEUXQ.upload.maximum_data_size=280576
+GenU5.menu.pnum.GENERIC_U535CEUXQ.build.board=GENERIC_U535CEUXQ
+GenU5.menu.pnum.GENERIC_U535CEUXQ.build.product_line=STM32U535xx
+GenU5.menu.pnum.GENERIC_U535CEUXQ.build.variant=STM32U5xx/U535C(B-C-E)(T-U)xQ_U545CE(T-U)xQ
+
+# Generic U545CETxQ
+GenU5.menu.pnum.GENERIC_U545CETXQ=Generic U545CETxQ
+GenU5.menu.pnum.GENERIC_U545CETXQ.upload.maximum_size=524288
+GenU5.menu.pnum.GENERIC_U545CETXQ.upload.maximum_data_size=280576
+GenU5.menu.pnum.GENERIC_U545CETXQ.build.board=GENERIC_U545CETXQ
+GenU5.menu.pnum.GENERIC_U545CETXQ.build.product_line=STM32U545xx
+GenU5.menu.pnum.GENERIC_U545CETXQ.build.variant=STM32U5xx/U535C(B-C-E)(T-U)xQ_U545CE(T-U)xQ
+
+# Generic U545CEUxQ
+GenU5.menu.pnum.GENERIC_U545CEUXQ=Generic U545CEUxQ
+GenU5.menu.pnum.GENERIC_U545CEUXQ.upload.maximum_size=524288
+GenU5.menu.pnum.GENERIC_U545CEUXQ.upload.maximum_data_size=280576
+GenU5.menu.pnum.GENERIC_U545CEUXQ.build.board=GENERIC_U545CEUXQ
+GenU5.menu.pnum.GENERIC_U545CEUXQ.build.product_line=STM32U545xx
+GenU5.menu.pnum.GENERIC_U545CEUXQ.build.variant=STM32U5xx/U535C(B-C-E)(T-U)xQ_U545CE(T-U)xQ
+

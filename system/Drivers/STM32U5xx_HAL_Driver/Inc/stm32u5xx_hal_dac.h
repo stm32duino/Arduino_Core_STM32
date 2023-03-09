@@ -317,18 +317,6 @@ typedef void (*pDAC_CallbackTypeDef)(DAC_HandleTypeDef *hdac);
 /**
   * @}
   */
-/** @defgroup DAC_HighFrequency DAC high frequency interface mode
-  * @{
-  */
-#define DAC_HIGH_FREQUENCY_INTERFACE_MODE_DISABLE        0x00000000UL       /*!< High frequency interface mode disabled */
-#define DAC_HIGH_FREQUENCY_INTERFACE_MODE_ABOVE_80MHZ    (DAC_MCR_HFSEL_0)  /*!< High frequency interface mode compatible to AHB>80MHz enabled */
-#define DAC_HIGH_FREQUENCY_INTERFACE_MODE_ABOVE_160MHZ   (DAC_MCR_HFSEL_1)  /*!< High frequency interface mode compatible to AHB>160MHz enabled */
-#define DAC_HIGH_FREQUENCY_INTERFACE_MODE_AUTOMATIC      0x00000002UL       /*!< High frequency interface mode automatic */
-
-/**
-  * @}
-  */
-
 /** @defgroup DAC_AutonomousMode DAC Autonomous Mode
   * @brief    DAC Autonomous mode
   * @{
@@ -350,9 +338,35 @@ typedef void (*pDAC_CallbackTypeDef)(DAC_HandleTypeDef *hdac);
   * @}
   */
 
+/** @defgroup DAC_HighFrequency DAC high frequency interface mode
+  * @{
+  */
+#define DAC_HIGH_FREQUENCY_INTERFACE_MODE_DISABLE        0x00000000UL       /*!< High frequency interface mode disabled */
+#define DAC_HIGH_FREQUENCY_INTERFACE_MODE_ABOVE_80MHZ    (DAC_MCR_HFSEL_0)  /*!< High frequency interface mode compatible to AHB>80MHz enabled */
+#define DAC_HIGH_FREQUENCY_INTERFACE_MODE_ABOVE_160MHZ   (DAC_MCR_HFSEL_1)  /*!< High frequency interface mode compatible to AHB>160MHz enabled */
+#define DAC_HIGH_FREQUENCY_INTERFACE_MODE_AUTOMATIC      0x00000002UL       /*!< High frequency interface mode automatic */
+
 /**
   * @}
   */
+
+/**
+  * @}
+  */
+
+/* Delay for DAC channel voltage settling time from DAC channel startup       */
+/* (transition from disable to enable).                                       */
+/* Note: DAC channel startup time depends on board application environment:   */
+/*       impedance connected to DAC channel output.                           */
+/*       The delay below is specified under conditions:                       */
+/*        - voltage maximum transition (lowest to highest value)              */
+/*        - until voltage reaches final value +-1LSB                          */
+/*        - DAC channel output buffer enabled                                 */
+/*        - load impedance of 5kOhm (min), 50pF (max)                         */
+/* Literal set to maximum value (refer to device datasheet,                   */
+/* parameter "tWAKEUP").                                                      */
+/* Unit: us                                                                   */
+#define DAC_DELAY_STARTUP_US          (15UL)  /*!< Delay for DAC channel voltage settling time from DAC channel startup (transition from disable to enable) */
 
 /* Exported macro ------------------------------------------------------------*/
 
@@ -518,7 +532,7 @@ void HAL_DAC_MspDeInit(DAC_HandleTypeDef *hdac);
 /* IO operation functions *****************************************************/
 HAL_StatusTypeDef HAL_DAC_Start(DAC_HandleTypeDef *hdac, uint32_t Channel);
 HAL_StatusTypeDef HAL_DAC_Stop(DAC_HandleTypeDef *hdac, uint32_t Channel);
-HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef *hdac, uint32_t Channel, uint32_t *pData, uint32_t Length,
+HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef *hdac, uint32_t Channel, const uint32_t *pData, uint32_t Length,
                                     uint32_t Alignment);
 HAL_StatusTypeDef HAL_DAC_Stop_DMA(DAC_HandleTypeDef *hdac, uint32_t Channel);
 void HAL_DAC_IRQHandler(DAC_HandleTypeDef *hdac);
@@ -544,8 +558,9 @@ HAL_StatusTypeDef     HAL_DAC_UnRegisterCallback(DAC_HandleTypeDef *hdac, HAL_DA
   * @{
   */
 /* Peripheral Control functions ***********************************************/
-uint32_t HAL_DAC_GetValue(DAC_HandleTypeDef *hdac, uint32_t Channel);
-HAL_StatusTypeDef HAL_DAC_ConfigChannel(DAC_HandleTypeDef *hdac, DAC_ChannelConfTypeDef *sConfig, uint32_t Channel);
+uint32_t HAL_DAC_GetValue(const DAC_HandleTypeDef *hdac, uint32_t Channel);
+HAL_StatusTypeDef HAL_DAC_ConfigChannel(DAC_HandleTypeDef *hdac,
+                                        const DAC_ChannelConfTypeDef *sConfig, uint32_t Channel);
 /**
   * @}
   */
@@ -554,8 +569,8 @@ HAL_StatusTypeDef HAL_DAC_ConfigChannel(DAC_HandleTypeDef *hdac, DAC_ChannelConf
   * @{
   */
 /* Peripheral State and Error functions ***************************************/
-HAL_DAC_StateTypeDef HAL_DAC_GetState(DAC_HandleTypeDef *hdac);
-uint32_t HAL_DAC_GetError(DAC_HandleTypeDef *hdac);
+HAL_DAC_StateTypeDef HAL_DAC_GetState(const DAC_HandleTypeDef *hdac);
+uint32_t HAL_DAC_GetError(const DAC_HandleTypeDef *hdac);
 
 /**
   * @}

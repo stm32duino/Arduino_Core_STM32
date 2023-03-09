@@ -20,10 +20,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32u5xx_ll_spi.h"
 #include "stm32u5xx_ll_bus.h"
-#include "stm32u5xx_ll_rcc.h"
-#ifdef GENERATOR_I2S_PRESENT
-#include "stm32u5xx_ll_rcc.h"
-#endif /* GENERATOR_I2S_PRESENT*/
 #ifdef  USE_FULL_ASSERT
 #include "stm32_assert.h"
 #else
@@ -240,7 +236,7 @@
   *          - SUCCESS: SPI registers are de-initialized
   *          - ERROR: SPI registers are not de-initialized
   */
-ErrorStatus LL_SPI_DeInit(SPI_TypeDef *SPIx)
+ErrorStatus LL_SPI_DeInit(const SPI_TypeDef *SPIx)
 {
   ErrorStatus status = ERROR;
 

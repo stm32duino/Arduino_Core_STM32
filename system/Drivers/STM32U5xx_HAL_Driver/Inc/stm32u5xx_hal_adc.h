@@ -49,7 +49,10 @@ extern "C" {
 typedef struct
 {
   uint32_t Ratio;                         /*!< Configures the oversampling ratio.
-                                               This parameter can be a value of @ref ADC_HAL_EC_OVS_RATIO */
+                                               In case of ADC1 or ADC2 (if available), this parameter can be in the
+                                               range from 0 to 1023
+                                               In case of ADC4, this parameter can be a value of
+                                               @ref ADC_HAL_EC_OVS_RATIO */
 
   uint32_t RightBitShift;                 /*!< Configures the division coefficient for the Oversampler.
                                                This parameter can be a value of @ref ADC_HAL_EC_OVS_SHIFT */
@@ -441,12 +444,16 @@ typedef struct
                                               continuous mode or external trigger that could launch a conversion). */
 
   FunctionalState OffsetRightShift;   /*!< Define the Right-shift data after Offset correction.
-                                        This parameter is applied only for 16-bit or 8-bit resolution.
+                                        This parameter is applied only for 14-bit or 8-bit resolution.
                                         This parameter can be set to ENABLE or DISABLE.*/
 
   FunctionalState OffsetSignedSaturation; /*!< Specify whether the Signed saturation feature is used or not.
-                                             This parameter is applied only for 16-bit or 8-bit resolution.
-                                             This parameter can be set to ENABLE or DISABLE. */
+                                             This parameter is only applied when OffsetSaturation is ENABLE.
+                                             This parameter is applied only for 14-bit or 8-bit resolution.
+                                             This parameter can be set to ENABLE or DISABLE.
+                                             Note:
+                                                    - If OffsetSignedSaturation is set to DISABLE the unsigned
+                                                      saturation feature is used */
 
   FunctionalState OffsetSaturation;   /*!< Define if the offset should be saturated upon under or over flow.
                                         This parameter value can be ENABLE or DISABLE.
@@ -639,6 +646,9 @@ typedef struct
   void (* LevelOutOfWindow2Callback)(struct __ADC_HandleTypeDef *hadc);     /*!< ADC analog watchdog 2 callback */
   void (* LevelOutOfWindow3Callback)(struct __ADC_HandleTypeDef *hadc);     /*!< ADC analog watchdog 3 callback */
   void (* EndOfSamplingCallback)(struct __ADC_HandleTypeDef *hadc);         /*!< ADC end of sampling callback */
+  void (* CalibrationCpltCallback)(struct  __ADC_HandleTypeDef *hadc);      /*!< ADC end of calibration callback */
+  void (* VoltageRegulatorCallback)(struct   __ADC_HandleTypeDef *hadc);      /*!< ADC voltage regulator (LDO) Ready callback */
+  void (* ADCReadyCallback)(struct   __ADC_HandleTypeDef *hadc);            /*!< ADC Ready callback */
   void (* MspInitCallback)(struct __ADC_HandleTypeDef *hadc);               /*!< ADC Msp Init callback */
   void (* MspDeInitCallback)(struct __ADC_HandleTypeDef *hadc);             /*!< ADC Msp DeInit callback */
 #endif /* USE_HAL_ADC_REGISTER_CALLBACKS */
@@ -659,8 +669,11 @@ typedef enum
   HAL_ADC_LEVEL_OUT_OF_WINDOW_2_CB_ID   = 0x06U,  /*!< ADC analog watchdog 2 callback ID */
   HAL_ADC_LEVEL_OUT_OF_WINDOW_3_CB_ID   = 0x07U,  /*!< ADC analog watchdog 3 callback ID */
   HAL_ADC_END_OF_SAMPLING_CB_ID         = 0x08U,  /*!< ADC end of sampling callback ID */
-  HAL_ADC_MSPINIT_CB_ID                 = 0x09U,  /*!< ADC Msp Init callback ID          */
-  HAL_ADC_MSPDEINIT_CB_ID               = 0x0AU   /*!< ADC Msp DeInit callback ID        */
+  HAL_ADC_END_OF_CALIBRATION_CB_ID      = 0x09U,  /*!< ADC end of calibration callback ID */
+  HAL_ADC_VOLTAGE_REGULATOR_CB_ID       = 0x0AU,  /*!< ADC voltage regulator (LDO) Ready callback ID */
+  HAL_ADC_ADC_READY_CB_ID               = 0x0BU,  /*!< ADC Ready callback ID */
+  HAL_ADC_MSPINIT_CB_ID                 = 0x0CU,  /*!< ADC Msp Init callback ID          */
+  HAL_ADC_MSPDEINIT_CB_ID               = 0x0DU   /*!< ADC Msp DeInit callback ID        */
 } HAL_ADC_CallbackIDTypeDef;
 
 /**
@@ -718,17 +731,17 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
 /** @defgroup ADC_HAL_EC_RESOLUTION  ADC instance - Resolution
   * @{
   */
-
-#define ADC_RESOLUTION_14B                 (LL_ADC_RESOLUTION_14B)  /*!< ADC resolution 14 bits */
+#define ADC_RESOLUTION_14B                 (LL_ADC_RESOLUTION_14B)  /*!< ADC resolution 14 bits (ADC1, ADC2 only) */
 #define ADC_RESOLUTION_12B                 (LL_ADC_RESOLUTION_12B)  /*!< ADC resolution 12 bits */
 #define ADC_RESOLUTION_10B                 (LL_ADC_RESOLUTION_10B)  /*!< ADC resolution 10 bits */
-#define ADC_RESOLUTION_8B                  (LL_ADC_RESOLUTION_8B)   /*!< ADC resolution  8 bits */
-#define ADC_RESOLUTION_6B                  (0xFFFFFFFFUL)
+#define ADC_RESOLUTION_8B                  (LL_ADC_RESOLUTION_8B)   /*!< ADC resolution 8 bits */
+#define ADC_RESOLUTION_6B                  (LL_ADC_RESOLUTION_6B)   /*!< ADC resolution 6 bits (ADC4 only) */
 
-#define ADC4_RESOLUTION_12B                 (LL_ADC_RESOLUTION_12B_ADC4)  /*!< ADC resolution 12 bits */
-#define ADC4_RESOLUTION_10B                 (LL_ADC_RESOLUTION_10B_ADC4)  /*!< ADC resolution 10 bits */
-#define ADC4_RESOLUTION_8B                  (LL_ADC_RESOLUTION_8B_ADC4)   /*!< ADC resolution  8 bits */
-#define ADC4_RESOLUTION_6B                  (LL_ADC_RESOLUTION_6B_ADC4)   /*!< ADC resolution 6 bits */
+/* Legacy literals */
+#define ADC4_RESOLUTION_12B  ADC_RESOLUTION_12B
+#define ADC4_RESOLUTION_10B  ADC_RESOLUTION_10B
+#define ADC4_RESOLUTION_8B   ADC_RESOLUTION_8B
+#define ADC4_RESOLUTION_6B   ADC_RESOLUTION_6B
 /**
   * @}
   */
@@ -782,10 +795,10 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
 /** @defgroup ADC_HAL_LowPower_DPD ADC low power and deep power down selection
   * @{
   */
-#define ADC_LOW_POWER_NONE              (0x00000000UL)                 /*!< Both Low Power Auto Off and Deep Power Down is Disabled*/
-#define ADC_LOW_POWER_AUTOFF            (ADC4_PW_AUTOFF)               /*!< Low Power Auto Off Enabled and Deep Power Down is Disabled*/
-#define ADC_LOW_POWER_DPD               (ADC4_PW_DPD)                  /*!< Low Power Auto Off Disabled and Deep Power Down is Enabaled*/
-#define ADC_LOW_POWER_AUTOFF_DPD        (ADC4_PW_AUTOFF | ADC4_PW_DPD) /*!< Low Power Auto Off Disabled and Deep Power Down is Enabaled*/
+#define ADC_LOW_POWER_NONE              (0x00000000UL)                     /*!< Both Low Power Auto Off and Deep Power Down is disabled */
+#define ADC_LOW_POWER_AUTOFF            (ADC4_PWRR_AUTOFF)                 /*!< Low Power Auto Off enabled and Deep Power Down is disabled */
+#define ADC_LOW_POWER_DPD               (ADC4_PWRR_DPD)                    /*!< Low Power Auto Off disabled and Deep Power Down is enabled */
+#define ADC_LOW_POWER_AUTOFF_DPD        (ADC4_PWRR_AUTOFF | ADC4_PWRR_DPD) /*!< Low Power Auto Off and Deep Power Down are enabled */
 /**
   * @}
   */
@@ -793,10 +806,10 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
 /** @defgroup ADC_HAL_VrefProt ADC VREF+ protection mode selection
   * @{
   */
-#define ADC_VREF_PPROT_NONE              (0x00000000UL)                          /*!< No VREF protection is applied*/
-#define ADC_VREF_PPROT_VREFPROT          (ADC4_PW_VREFPROT)                      /*!< VREF+ protection when multiple ADCs are working simultaneously and a clock divider is used.*/
-#define ADC_VREF_PPROT_VREFSECSMP        (ADC4_PW_VREFSECSMP)                    /*!< VREF+ protection when multiple ADCs are working simultaneously and a clock divider of 1 is used.*/
-#define ADC_VREF_PPROT_VREF_VREFSECSMP   (ADC4_PW_VREFPROT | ADC4_PW_VREFSECSMP) /*!< Both VREF+ protection when multiple ADCs are working simultaneously and VREF+ second sample protection.*/
+#define ADC_VREF_PPROT_NONE              (0x00000000UL)                              /*!< No VREF protection is applied*/
+#define ADC_VREF_PPROT_VREFPROT          (ADC4_PWRR_VREFPROT)                        /*!< VREF+ protection when multiple ADCs are working simultaneously and a clock divider is used.*/
+#define ADC_VREF_PPROT_VREFSECSMP        (ADC4_PWRR_VREFSECSMP)                      /*!< VREF+ protection when multiple ADCs are working simultaneously and a clock divider of 1 is used.*/
+#define ADC_VREF_PPROT_VREF_VREFSECSMP   (ADC4_PWRR_VREFPROT | ADC4_PWRR_VREFSECSMP) /*!< Both VREF+ protection when multiple ADCs are working simultaneously and VREF+ second sample protection.*/
 /**
   * @}
   */
@@ -1192,6 +1205,8 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
 #define ADC_IT_AWD1          ADC_IER_AWD1IE     /*!< ADC Analog watchdog 1 interrupt source (main analog watchdog) */
 #define ADC_IT_AWD2          ADC_IER_AWD2IE     /*!< ADC Analog watchdog 2 interrupt source (additional analog watchdog) */
 #define ADC_IT_AWD3          ADC_IER_AWD3IE     /*!< ADC Analog watchdog 3 interrupt source (additional analog watchdog) */
+#define ADC_IT_EOCAL         ADC_IER_EOCALIE    /*!< ADC End of Calibration interrupt source */
+#define ADC_IT_LDORDY        ADC_IER_LDORDYIE   /*!< ADC Voltage Regulator (LDO) Ready interrupt source */
 
 #define ADC_IT_AWD           ADC_IT_AWD1        /*!< ADC Analog watchdog 1 interrupt source: naming for compatibility with other STM32 devices having only one analog watchdog */
 
@@ -1212,6 +1227,8 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
 #define ADC_FLAG_AWD1          ADC_ISR_AWD1     /*!< ADC Analog watchdog 1 flag (main analog watchdog) */
 #define ADC_FLAG_AWD2          ADC_ISR_AWD2     /*!< ADC Analog watchdog 2 flag (additional analog watchdog) */
 #define ADC_FLAG_AWD3          ADC_ISR_AWD3     /*!< ADC Analog watchdog 3 flag (additional analog watchdog) */
+#define ADC_FLAG_EOCAL         ADC_ISR_EOCAL    /*!< ADC End of Calibration flag */
+#define ADC_FLAG_LDORDY        ADC_ISR_LDORDY   /*!< ADC Voltage Regulator (LDO) Ready flag */
 
 /**
   * @}
@@ -1628,6 +1645,8 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   *            @arg @ref ADC_IT_AWD1   ADC Analog watchdog 1 interrupt source (main analog watchdog)
   *            @arg @ref ADC_IT_AWD2   ADC Analog watchdog 2 interrupt source (additional analog watchdog)
   *            @arg @ref ADC_IT_AWD3   ADC Analog watchdog 3 interrupt source (additional analog watchdog)
+  *            @arg @ref ADC_IT_EOCAL  ADC End of Calibration interrupt source
+  *            @arg @ref ADC_IT_LDORDY ADC Voltage Regulator (LDO) Ready interrupt source
   * @retval None
   */
 #define __HAL_ADC_ENABLE_IT(__HANDLE__, __INTERRUPT__)                         \
@@ -1648,6 +1667,8 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   *            @arg @ref ADC_IT_AWD1   ADC Analog watchdog 1 interrupt source (main analog watchdog)
   *            @arg @ref ADC_IT_AWD2   ADC Analog watchdog 2 interrupt source (additional analog watchdog)
   *            @arg @ref ADC_IT_AWD3   ADC Analog watchdog 3 interrupt source (additional analog watchdog)
+  *            @arg @ref ADC_IT_EOCAL  ADC End of Calibration interrupt source
+  *            @arg @ref ADC_IT_LDORDY ADC Voltage Regulator (LDO) Ready interrupt source
   * @retval None
   */
 #define __HAL_ADC_DISABLE_IT(__HANDLE__, __INTERRUPT__)                        \
@@ -1667,6 +1688,8 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   *            @arg @ref ADC_IT_AWD1   ADC Analog watchdog 1 interrupt source (main analog watchdog)
   *            @arg @ref ADC_IT_AWD2   ADC Analog watchdog 2 interrupt source (additional analog watchdog)
   *            @arg @ref ADC_IT_AWD3   ADC Analog watchdog 3 interrupt source (additional analog watchdog)
+  *            @arg @ref ADC_IT_EOCAL  ADC End of Calibration interrupt source
+  *            @arg @ref ADC_IT_LDORDY ADC Voltage Regulator (LDO) Ready interrupt source
   * @retval State of interruption (SET or RESET)
   */
 #define __HAL_ADC_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)                     \
@@ -1687,6 +1710,8 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   *            @arg @ref ADC_FLAG_AWD1    ADC Analog watchdog 1 flag (main analog watchdog)
   *            @arg @ref ADC_FLAG_AWD2    ADC Analog watchdog 2 flag (additional analog watchdog)
   *            @arg @ref ADC_FLAG_AWD3    ADC Analog watchdog 3 flag (additional analog watchdog)
+  *            @arg @ref ADC_FLAG_EOCAL   ADC End of Calibration flag
+  *            @arg @ref ADC_FLAG_LDORDY  ADC Voltage Regulator (LDO) Ready flag
   * @retval State of flag (TRUE or FALSE).
   */
 #define __HAL_ADC_GET_FLAG(__HANDLE__, __FLAG__)                               \
@@ -1707,6 +1732,8 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   *            @arg @ref ADC_FLAG_AWD1    ADC Analog watchdog 1 flag (main analog watchdog)
   *            @arg @ref ADC_FLAG_AWD2    ADC Analog watchdog 2 flag (additional analog watchdog)
   *            @arg @ref ADC_FLAG_AWD3    ADC Analog watchdog 3 flag (additional analog watchdog)
+  *            @arg @ref ADC_FLAG_EOCAL   ADC End of Calibration flag
+  *            @arg @ref ADC_FLAG_LDORDY  ADC Voltage Regulator (LDO) Ready flag
   * @retval None
   */
 /* Note: bit cleared bit by writing 1 (writing 0 has no effect on any bit of register ISR) */
@@ -2318,7 +2345,7 @@ HAL_StatusTypeDef       HAL_ADC_Start_DMA(ADC_HandleTypeDef *hadc, const uint32_
 HAL_StatusTypeDef       HAL_ADC_Stop_DMA(ADC_HandleTypeDef *hadc);
 
 /* ADC retrieve conversion value intended to be used with polling or interruption */
-uint32_t                HAL_ADC_GetValue(ADC_HandleTypeDef *hadc);
+uint32_t                HAL_ADC_GetValue(const ADC_HandleTypeDef *hadc);
 
 /* ADC IRQHandler and Callbacks used in non-blocking modes (Interruption and DMA) */
 void                    HAL_ADC_IRQHandler(ADC_HandleTypeDef *hadc);
@@ -2326,6 +2353,9 @@ void                    HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc);
 void                    HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc);
 void                    HAL_ADC_LevelOutOfWindowCallback(ADC_HandleTypeDef *hadc);
 void                    HAL_ADC_ErrorCallback(ADC_HandleTypeDef *hadc);
+void                    HAL_ADC_CalibrationCpltCallback(ADC_HandleTypeDef *hadc);
+void                    HAL_ADC_VoltageRegulatorCallback(ADC_HandleTypeDef *hadc);
+void                    HAL_ADC_ADCReadyCallback(ADC_HandleTypeDef *hadc);
 /**
   * @}
   */
@@ -2346,8 +2376,8 @@ HAL_StatusTypeDef       HAL_ADC_AnalogWDGConfig(ADC_HandleTypeDef *hadc, ADC_Ana
 /** @addtogroup ADC_Exported_Functions_Group4
   * @{
   */
-uint32_t                HAL_ADC_GetState(ADC_HandleTypeDef *hadc);
-uint32_t                HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
+uint32_t                HAL_ADC_GetState(const ADC_HandleTypeDef *hadc);
+uint32_t                HAL_ADC_GetError(const ADC_HandleTypeDef *hadc);
 
 /**
   * @}

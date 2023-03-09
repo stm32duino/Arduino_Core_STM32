@@ -682,8 +682,10 @@ __weak void HAL_GPU2D_ErrorCallback(GPU2D_HandleTypeDef *hgpu2d)
             fatal and non recoverable.
    */
 
-  /* Infinite loop */
-  for (;;);
+  for (;;)
+  {
+    /* infinite loop */
+  }
 }
 
 /**

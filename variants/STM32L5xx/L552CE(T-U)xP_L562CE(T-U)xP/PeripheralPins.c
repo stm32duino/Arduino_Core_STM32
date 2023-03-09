@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32L552CETxP.xml, STM32L552CEUxP.xml
  * STM32L562CETxP.xml, STM32L562CEUxP.xml
- * CubeMX DB release 6.0.70
+ * CubeMX DB release 6.0.80
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

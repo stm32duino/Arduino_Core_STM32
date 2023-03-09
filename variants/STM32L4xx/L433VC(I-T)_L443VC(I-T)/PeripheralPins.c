@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32L433VCIx.xml, STM32L433VCTx.xml
  * STM32L443VCIx.xml, STM32L443VCTx.xml
- * CubeMX DB release 6.0.70
+ * CubeMX DB release 6.0.80
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

@@ -15,7 +15,7 @@
  * STM32H723VGHx.xml, STM32H723VGTx.xml
  * STM32H730VBHx.xml, STM32H730VBTx.xml
  * STM32H733VGHx.xml, STM32H733VGTx.xml
- * CubeMX DB release 6.0.70
+ * CubeMX DB release 6.0.80
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32F469A(E-G-I)Hx.xml, STM32F469A(E-G-I)Yx.xml
  * STM32F479A(G-I)Hx.xml, STM32F479A(G-I)Yx.xml
- * CubeMX DB release 6.0.70
+ * CubeMX DB release 6.0.80
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
