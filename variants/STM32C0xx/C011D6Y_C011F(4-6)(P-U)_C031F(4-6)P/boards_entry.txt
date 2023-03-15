@@ -4,12 +4,18 @@
 # See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
 
 # Generic C011D6Yx
+
 GenC0.menu.pnum.GENERIC_C011D6YX=Generic C011D6Yx
+GenC0.menu.pnum.GENERIC_C011D6YX.node="No_mass_storage_for_this_board_Use_STLink_upload_method"
 GenC0.menu.pnum.GENERIC_C011D6YX.upload.maximum_size=32768
 GenC0.menu.pnum.GENERIC_C011D6YX.upload.maximum_data_size=6144
+GenC0.menu.pnum.GENERIC_C011D6YX.build.mcu=cortex-m0plus
 GenC0.menu.pnum.GENERIC_C011D6YX.build.board=GENERIC_C011D6YX
+GenC0.menu.pnum.GENERIC_C011D6YX.build.series=STM32C0xx
 GenC0.menu.pnum.GENERIC_C011D6YX.build.product_line=STM32C011xx
 GenC0.menu.pnum.GENERIC_C011D6YX.build.variant=STM32C0xx/C011D6Y_C011F(4-6)(P-U)_C031F(4-6)P
+GenC0.menu.pnum.GENERIC_C011D6YX.build.cmsis_lib_gcc=arm_cortexM0l_math
+GenC0.menu.pnum.GENERIC_C011D6YX.build.extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
 
 # Generic C011F4Px
 GenC0.menu.pnum.GENERIC_C011F4PX=Generic C011F4Px

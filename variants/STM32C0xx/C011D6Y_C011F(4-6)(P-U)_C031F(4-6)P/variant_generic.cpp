@@ -15,6 +15,7 @@
     defined(ARDUINO_GENERIC_C011F6UX) || defined(ARDUINO_GENERIC_C031F4PX) ||\
     defined(ARDUINO_GENERIC_C031F6PX)
 #include "pins_arduino.h"
+#include "stm32yyxx_ll_utils.h"
 
 // Digital PinName array
 const PinName digitalPin[] = {
@@ -57,4 +58,48 @@ const uint32_t analogInputPin[] = {
   12  // A12, PA14
 };
 
+// ----------------------------------------------------------------------------
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/**
+  * @brief  System Clock Configuration
+  * @param  None
+  * @retval None
+  */
+// Removed the "WEAK" symbol as some of the following settings were overwritten
+void SystemClock_Config(void)
+{
+  LL_FLASH_SetLatency(LL_FLASH_LATENCY_1);
+
+  /* HSI configuration and activation */
+  LL_RCC_HSI_Enable();
+  while (LL_RCC_HSI_IsReady() != 1) {
+  }
+
+  LL_RCC_HSI_SetCalibTrimming(64);
+  LL_RCC_SetHSIDiv(LL_RCC_HSI_DIV_1);
+  /* Set AHB prescaler*/
+  LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
+
+  /* Sysclk activation on the HSI */
+  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_HSI);
+  while (LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI) {
+  }
+
+  /* Set APB1 prescaler*/
+  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
+  /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
+  LL_SetSystemCoreClock(48000000);
+
+  /* Update the time base */
+  if (HAL_InitTick(TICK_INT_PRIORITY) != HAL_OK) {
+    Error_Handler();
+  }
+}
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* ARDUINO_GENERIC_* */

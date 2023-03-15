@@ -1143,6 +1143,14 @@ GenC0.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=
 GenC0.upload.maximum_size=0
 GenC0.upload.maximum_data_size=0
 
+# Generic C011D6YX
+GenC0.menu.pnum.GENERIC_C011D6YX=Generic C011D6Yx
+GenC0.menu.pnum.GENERIC_C011D6YX.upload.maximum_size=32768
+GenC0.menu.pnum.GENERIC_C011D6YX.upload.maximum_data_size=6144
+GenC0.menu.pnum.GENERIC_C011D6YX.build.board=GENERIC_C011D6YX
+GenC0.menu.pnum.GENERIC_C011D6YX.build.product_line=STM32C011xx
+GenC0.menu.pnum.GENERIC_C011D6YX.build.variant=STM32C0xx/C011D6Y_C011F(4-6)(P-U)_C031F(4-6)P
+
 # Generic C031C4Tx
 GenC0.menu.pnum.GENERIC_C031C4TX=Generic C031C4Tx
 GenC0.menu.pnum.GENERIC_C031C4TX.upload.maximum_size=16384
