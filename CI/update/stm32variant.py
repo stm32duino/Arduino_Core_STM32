@@ -2063,7 +2063,7 @@ def aggregate_dir():
         # Get all mcu_dir
         mcu_dirs = sorted(mcu_family.glob("*/"))
         # Get original directory list of current serie STM32YYxx
-        mcu_out_dirs_ori = sorted(out_family_path.glob("*/"))
+        mcu_out_dirs_ori = sorted(out_family_path.glob("*/**"))
         mcu_out_dirs_up = []
         # Group mcu directories when only expressions and xml file name are different
         while mcu_dirs:
