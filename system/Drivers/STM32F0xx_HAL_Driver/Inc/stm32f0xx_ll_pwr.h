@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -141,19 +140,19 @@ extern "C" {
 #define LL_PWR_WAKEUP_PIN3                 (PWR_CSR_EWUP3)        /*!< WKUP pin 3 : PE6 or PA2 according to device */
 #endif /* PWR_CSR_EWUP3 */
 #if defined(PWR_CSR_EWUP4)
-#define LL_PWR_WAKEUP_PIN4                 (PWR_CSR_EWUP4)        /*!< WKUP pin 4 : LLG TBD */
+#define LL_PWR_WAKEUP_PIN4                 (PWR_CSR_EWUP4)        /*!< WKUP pin 4 : PA2 */
 #endif /* PWR_CSR_EWUP4 */
 #if defined(PWR_CSR_EWUP5)
-#define LL_PWR_WAKEUP_PIN5                 (PWR_CSR_EWUP5)        /*!< WKUP pin 5 : LLG TBD */
+#define LL_PWR_WAKEUP_PIN5                 (PWR_CSR_EWUP5)        /*!< WKUP pin 5 : PC5 */
 #endif /* PWR_CSR_EWUP5 */
 #if defined(PWR_CSR_EWUP6)
-#define LL_PWR_WAKEUP_PIN6                 (PWR_CSR_EWUP6)        /*!< WKUP pin 6 : LLG TBD */
+#define LL_PWR_WAKEUP_PIN6                 (PWR_CSR_EWUP6)        /*!< WKUP pin 6 : PB5 */
 #endif /* PWR_CSR_EWUP6 */
 #if defined(PWR_CSR_EWUP7)
-#define LL_PWR_WAKEUP_PIN7                 (PWR_CSR_EWUP7)        /*!< WKUP pin 7 : LLG TBD */
+#define LL_PWR_WAKEUP_PIN7                 (PWR_CSR_EWUP7)        /*!< WKUP pin 7 : PB15 */
 #endif /* PWR_CSR_EWUP7 */
 #if defined(PWR_CSR_EWUP8)
-#define LL_PWR_WAKEUP_PIN8                 (PWR_CSR_EWUP8)        /*!< WKUP pin 8 : LLG TBD */
+#define LL_PWR_WAKEUP_PIN8                 (PWR_CSR_EWUP8)        /*!< WKUP pin 8 : PF2 */
 #endif /* PWR_CSR_EWUP8 */
 /**
   * @}
@@ -548,5 +547,3 @@ ErrorStatus LL_PWR_DeInit(void);
 #endif
 
 #endif /* __STM32F0xx_LL_PWR_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -11,40 +11,167 @@
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <link rel="stylesheet" href="_htmresc/mini-st.css" />
+  <link rel="stylesheet" href="_htmresc/mini-st_2020.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
+  <link rel="icon" type="image/x-icon" href="_htmresc/favicon.png" />
 </head>
 <body>
 <div class="row">
 <div class="col-sm-12 col-lg-4">
-<div class="card fluid">
-<div class="sectione dark">
 <center>
-<h1 id="release-notes-for-stm32f0xx-hal-drivers"><strong>Release Notes for STM32F0xx HAL Drivers</strong></h1>
-<p>Copyright © 2016 STMicroelectronics<br />
-</p>
-<a href="https://www.st.com" class="logo"><img src="../../_htmresc/st_logo.png" alt="ST logo" /></a>
+<h1 id="release-notes-forstm32f0xx-hal-drivers"><small>Release Notes for</small><mark>STM32F0xx HAL Drivers</mark></h1>
+<p>Copyright © 2016 STMicroelectronics</p>
+<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
 </center>
-</div>
-</div>
-<h1 id="license"><strong>License</strong></h1>
-This software component is licensed by ST under BSD 3-Clause license, the “License”; You may not use this component except in compliance with the License. You may obtain a copy of the License at:
-<center>
-<a href="https://opensource.org/licenses/BSD-3-Clause">https://opensource.org/licenses/BSD-3-Clause</a>
-</center>
+<h1 id="purpose">Purpose</h1>
+<p>The STM32Cube HAL and LL, an STM32 abstraction layer embedded software, ensure maximized portability across STM32 portfolio.</p>
+<p>The Portable APIs layer provides a generic, multi instanced and simple set of APIs to interact with the upper layer (application, libraries and stacks). It is composed of native and extended APIs set. It is directly built around a generic architecture and allows the build-upon layers, like the middleware layer, to implement its functions without knowing in-depth the used STM32 device. This improves the library code re-usability and guarantees an easy portability on other devices and STM32 families.</p>
+<p>The Low Layer (LL) drivers are part of the STM32Cube firmware HAL that provide basic set of optimized and one shot services. The Low layer drivers, contrary to the HAL ones are not Fully Portable across the STM32 families; the availability of some functions depend on the physical availability of the relative features on the product. The Low Layer (LL) drivers are designed to offer the following features:</p>
+<ul>
+<li>New set of inline function for direct and atomic register access</li>
+<li>One-shot operations that can be used by the HAL drivers or from application level.</li>
+<li>Fully Independent from HAL and can be used in standalone usage (without HAL drivers)</li>
+<li>Full features coverage of the all the supported peripherals.</li>
+</ul>
 </div>
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history"><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section1_7_6" aria-hidden="true"> <label for="collapse-section1_7_6" aria-hidden="true"><strong>V1.7.6 / 23-July-2021</strong></label>
+<input type="checkbox" id="collapse-section1_7_7" checked aria-hidden="true"> <label for="collapse-section1_7_7" aria-hidden="true"><strong>V1.7.7 / 27-January-2023</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation.</li>
+<li>HAL code quality enhancement for MISRA-C Rule-8.13 by adding const qualifiers</li>
 </ul>
 <h2 id="contents">Contents</h2>
+<ul>
+<li><strong>HAL GENERIC</strong> update
+<ul>
+<li>Allow redefinition of macro UNUSED(x).</li>
+</ul></li>
+<li><strong>HAL RCC</strong> update
+<ul>
+<li>Add a static storage class specifier in the const tables.</li>
+</ul></li>
+<li><strong>HAL GPIO</strong> update
+<ul>
+<li>Reorder EXTI configuration sequence to avoid unexpected level detection.</li>
+</ul></li>
+<li><strong>HAL EXTI</strong> update
+<ul>
+<li>Fix computation of pExtiConfig-&gt;GPIOSel in the HAL_EXTI_GetConfigLine() API.</li>
+</ul></li>
+<li><strong>HAL CRC</strong> update
+<ul>
+<li>Add filter in HAL_CRCEx_Polynomial_Set() to exclude even polynomials.</li>
+<li>Update HAL_CRC_DeInit implementation to avoid overflow issues in CRC_IDR_IDR.</li>
+</ul></li>
+<li><strong>HAL ADC</strong> update
+<ul>
+<li>Remove multiple volatile reads or writes in interrupt handler for better performance.</li>
+</ul></li>
+<li><strong>LL/HAL TIM</strong> update
+<ul>
+<li>Manage configuration of the Capture/compare DMA request source
+<ul>
+<li>Add related new exported constants (TIM_CCDMAREQUEST_CC, TIM_CCDMAREQUEST_UPDATE).</li>
+<li>Create a new macro __HAL_TIM_SELECT_CCDMAREQUEST() allowing to program the TIMx_CR2.CCDS bitfield.</li>
+</ul></li>
+<li>Update __LL_TIM_CALC_PSC() macro to round up the evaluated value when the fractional part of the division is greater than 0.5.</li>
+</ul></li>
+<li><strong>HAL RTC_BKP</strong> update
+<ul>
+<li>Move constants RTC_IT_TAMP from hal_rtc.h to hal_rtc_ex.h.</li>
+<li>Use bits definitions from CMSIS Device header file instead of hard-coded values.</li>
+<li>Add new macro assert_param(IS_RTC_TAMPER_FILTER_CONFIG_CORRECT(sTamper-&gt;Filter, sTamper-&gt;Trigger)) to check tamper filtering is disabled in case tamper events are triggered on signal edges.</li>
+<li>Rework functions HAL_RTCEx_SetTamper() and HAL_RTCEx_SetTamper_IT() to:
+<ul>
+<li>Write in TAFCR register in one single access instead of two.</li>
+<li>Avoid modifying user structure sTamper.</li>
+</ul></li>
+<li>Add a check on the RTC calendar initialization before entering in initialization mode.</li>
+</ul></li>
+<li><strong>HAL IRDA</strong> update
+<ul>
+<li>Improve header description of IRDA_WaitOnFlagUntilTimeout() function.</li>
+<li>Add a check on the IRDA parity before enabling the parity error interrupt.</li>
+<li>Add const qualifier for read only pointers.</li>
+<li>Fix wrong cast when computing the USARTDIV value in IRDA_SetConfig().</li>
+</ul></li>
+<li><strong>HAL UART</strong> update
+<ul>
+<li>Improve header description of UART_WaitOnFlagUntilTimeout() function.</li>
+<li>Add a check on the UART parity before enabling the parity error interruption.</li>
+<li>Add const qualifier for read only pointers.</li>
+<li>Fix wrong cast when computing the USARTDIV value in UART_SetConfig().</li>
+<li>Correct the way transmit data flush request is managed.</li>
+<li>Removal of HAL_LOCK/HAL_UNLOCK calls in HAL UART Tx and Rx APIs</li>
+<li>Disable the Receiver Timeout Interrupt when data reception is completed.</li>
+<li>Rework of UART_WaitOnFlagUntilTimeout() API to avoid being stuck forever when UART overrun error occurs and to enhance behavior.</li>
+</ul></li>
+<li><strong>LL/HAL USART</strong> update
+<ul>
+<li>Improve header description of USART_WaitOnFlagUntilTimeout() function.</li>
+<li>Add a check on the USART parity before enabling the parity error interrupt.</li>
+<li>Fix compilation warnings generated with ARMV6 compiler.</li>
+</ul></li>
+<li><strong>HAL SMARTCARD</strong> update
+<ul>
+<li>Improve header description of SMARTCARD_WaitOnFlagUntilTimeout() function.</li>
+<li>Add const qualifier for read only pointers.</li>
+<li>Fix wrong cast when computing the USARTDIV value in SMARTCARD_SetConfig().</li>
+</ul></li>
+<li><strong>LL/HAL I2C</strong> update
+<ul>
+<li>Improve header description of I2C_WaitOnFlagUntilTimeout() function.</li>
+<li>Rename I2C_IsAcknowledgeFailed() I2C_IsErrorOccurred() and correct the way errors are checked and reported when they occur in polling mode.
+<ul>
+<li>Update to fix issue detected due to low system frequency execution (HSI).</li>
+<li>Declare an internal macro link to DMA macro to check remaining data: I2C_GET_DMA_REMAIN_DATA</li>
+</ul></li>
+<li>Clear the ADDRF flag only when direction is confirmed as changed, to prevent that the ADDRF flag is cleared too early when the restart is received.</li>
+<li>Fix timeout issue using HAL MEM interface through FreeRTOS.</li>
+<li>I2C_IsErrorOccurred does not return error if timeout is detected.</li>
+<li>Update [HAL_I2C_IsDeviceReady] API to support 10_bit addressing mode.</li>
+</ul></li>
+<li><strong>HAL SMBUS</strong> update
+<ul>
+<li>Add flushing of TX register to fix the issue of mismatching data received by master in case of data size to be transmitted by the slave is greater than the data size to be received by the master.</li>
+</ul></li>
+<li><strong>HAL SPI</strong> update
+<ul>
+<li>Fix driver to don’t update state in case of error. (HAL_SPI_STATE_READY will be set only in case of HAL_TIMEOUT).</li>
+</ul></li>
+<li><strong>HAL CAN</strong> update
+<ul>
+<li>Removal of never reached code.</li>
+<li>Improve protection against bad inputs.</li>
+</ul></li>
+<li><strong>HAL CEC</strong> update
+<ul>
+<li>Remove multiple volatile reads or writes in interrupt handler for better performance.</li>
+</ul></li>
+<li><strong>USB_FS_HAL</strong> update
+<ul>
+<li>PCD: add supporting multi packets transfer on Interrupt endpoint.</li>
+<li>Set DCD timeout to a minimum of 300ms before starting BCD primary detection process.</li>
+<li>HAL: PCD: software correction added to avoid unexpected STALL condition during EP0 multi packet OUT transfer.</li>
+<li>hal_pcd.h: add a mask for USB RX bytes count.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1_7_6" aria-hidden="true"> <label for="collapse-section1_7_6" aria-hidden="true"><strong>V1.7.6 / 23-July-2021</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<ul>
+<li>General updates to fix known defects and enhancements implementation.</li>
+</ul>
+<h2 id="contents-1">Contents</h2>
 <ul>
 <li><strong>HAL GPIO</strong> driver
 <ul>
@@ -137,7 +264,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_7_5" aria-hidden="true"> <label for="collapse-section1_7_5" aria-hidden="true"><strong>V1.7.5 / 06-November-2020</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>Patch release to fix known defects and enhancements implementation.</li>
 <li>Remove “register” keyword to be compliant with new C++ rules:
@@ -257,7 +384,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_7_4" aria-hidden="true"> <label for="collapse-section1_7_4" aria-hidden="true"><strong>V1.7.4 / 24-July-2020</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li>Maintenance release to fix known defects and enhancements implementation</li>
 <li><strong>HAL Drivers changes</strong>
@@ -298,7 +425,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_7_3" aria-hidden="true"> <label for="collapse-section1_7_3" aria-hidden="true"><strong>V1.7.3 / 12-September-2019</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li>Add support of HAL callback registration feature</li>
@@ -347,7 +474,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <ul>
 <li>HAL_CRC_Init() call HAL_CRCEx_Polynomial_Set() to initialize the CRC polynomial</li>
 </ul></li>
-<li>Remove extra call to HAL_LOCK/HAL_UNLOCK from the followings APIs:
+<li>Remove extra call to HAL_LOCK/HAL_UNLOCK from the following APIs:
 <ul>
 <li>HAL_CRC_Accumulate()</li>
 <li>HAL_CRC_Calculate()</li>
@@ -543,7 +670,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update HAL_RCC_DeInit() and LL_RCC_DeInit() APIs to
 <ul>
 <li>Add checks for HSI and PLL ready before modifying RCC CFGR registers</li>
-<li>Clear all interrupt falgs</li>
+<li>Clear all interrupt flags</li>
 </ul></li>
 </ul></li>
 <li><strong>HAL/LL USB</strong> update
@@ -566,7 +693,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_7_2" aria-hidden="true"> <label for="collapse-section1_7_2" aria-hidden="true"><strong>V1.7.2 / 09-May-2019</strong></label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <ul>
 <li>Maintenance release to fix known defects and enhancements implementation</li>
 <li><strong>HAL Drivers changes</strong></li>
@@ -588,7 +715,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_7_1" aria-hidden="true"> <label for="collapse-section1_7_1" aria-hidden="true"><strong>V1.7.1 / 02-April-2019</strong></label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release to fix known defects and enhancements implementation</strong></li>
 <li><strong>The following changes done on the HAL drivers require an update on the application code based on older HAL versions</strong>
@@ -631,7 +758,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_7_0" aria-hidden="true"> <label for="collapse-section1_7_0" aria-hidden="true"><strong>V1.7.0 / 25-August-2017</strong></label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release to fix known defects and enhancements implementation</strong></li>
 <li><strong>Generic drivers changes</strong></li>
@@ -654,7 +781,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li><strong>LL Drivers changes</strong></li>
 <li><strong>LL_TIM</strong>
 <ul>
-<li>Ensure write operation of BKE and BKP bits is effective by adding fake read operation to garantee 1 APB clock cycle before function exit.</li>
+<li>Ensure write operation of BKE and BKP bits is effective by adding fake read operation to guarantee 1 APB clock cycle before function exit.</li>
 <li>Exchange behavior between LL_TIM_EnableUpdateEvent() and LL_TIM_DisableUpdateEvent().</li>
 </ul></li>
 <li><strong>LL_RCC</strong>
@@ -667,7 +794,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_6_0" aria-hidden="true"> <label for="collapse-section1_6_0" aria-hidden="true"><strong>V1.6.0 / 07-April-2017</strong></label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
+<h2 id="main-changes-8">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release to fix known defects and enhancements implementation</strong></li>
 <li><strong>HAL Drivers changes</strong></li>
@@ -789,7 +916,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_5_0" aria-hidden="true"> <label for="collapse-section1_5_0" aria-hidden="true"><strong>V1.5.0 / 04-November-2016</strong></label>
 <div>
-<h2 id="main-changes-8">Main Changes</h2>
+<h2 id="main-changes-9">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release to fix known defects and enhancements implementation</strong></li>
 <li><strong>HAL Drivers changes</strong></li>
@@ -811,7 +938,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <ul>
 <li>Remove HAL CEC polling Process functions: HAL_CEC_Transmit() and HAL_CEC_Receive()</li>
 <li>Remove HAL CEC receive interrupt process function HAL_CEC_Receive_IT() and enable the “receive” mode during the Init phase</li>
-<li>Rename HAL_CEC_GetReceivedFrameSize() funtion to HAL_CEC_GetLastReceivedFrameSize()</li>
+<li>Rename HAL_CEC_GetReceivedFrameSize() function to HAL_CEC_GetLastReceivedFrameSize()</li>
 <li>Add new HAL APIs: HAL_CEC_SetDeviceAddress() and HAL_CEC_ChangeRxBuffer()</li>
 <li>Remove the InitiatorAddress field from the CEC_InitTypeDef structure and manage it as a parameter in the HAL_CEC_Transmit_IT() function</li>
 <li>Add new parameter RxFrameSize in HAL_CEC_RxCpltCallback() function</li>
@@ -820,7 +947,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>HAL TIM driver : add one field (AutoReloadPreload) in TIM_Base_InitTypeDef structure</li>
 <li><strong>HAL Generic</strong>
 <ul>
-<li>Update HAL Driver compliancy with:
+<li>Update HAL Driver compliance with:
 <ul>
 <li>MISRA C 2004 rule 10.6 (U suffix applied to all constants of unsigned type)</li>
 <li>MISRA C 2004 rule 14.8 (the statement forming the body of a switch, while, do … while, or for statement shall be a compound statement)</li>
@@ -882,7 +1009,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <ul>
 <li>Polling mode:
 <ul>
-<li>Replace the use of SPI_WaitOnFlagUnitTimeout() function by “if” statement to check on RXNE/TXE flage while transferring data</li>
+<li>Replace the use of SPI_WaitOnFlagUnitTimeout() function by “if” statement to check on RXNE/TXE flag while transferring data</li>
 </ul></li>
 <li>Interrupt mode:</li>
 <li>Minimize access on SPI registers</li>
@@ -943,11 +1070,11 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li><strong>LL Drivers changes</strong></li>
 <li><strong>LL GPIO</strong>
 <ul>
-<li>Remove LL_GPIO_SPEED_FREQ_VERY_HIGH (GPIO_SPEED_FREQ_VERY_HIGH does not exist for STM32F0xx serie)</li>
+<li>Remove LL_GPIO_SPEED_FREQ_VERY_HIGH (GPIO_SPEED_FREQ_VERY_HIGH does not exist for STM32F0xx series)</li>
 </ul></li>
 <li><strong>LL_TIM</strong>
 <ul>
-<li>Remove TIM_SMCR_OCCS compilation switch (useless for STM32F0xx serie)</li>
+<li>Remove TIM_SMCR_OCCS compilation switch (useless for STM32F0xx series)</li>
 </ul></li>
 <li><strong>LL_CRS</strong>
 <ul>
@@ -959,7 +1086,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_4_0" aria-hidden="true"> <label for="collapse-section1_4_0" aria-hidden="true"><strong>V1.4.0 / 27-May-2016</strong></label>
 <div>
-<h2 id="main-changes-9">Main Changes</h2>
+<h2 id="main-changes-10">Main Changes</h2>
 <ul>
 <li><strong>First official release supporting the Low Level drivers for the STM32F0xx family:</strong>
 <ul>
@@ -973,7 +1100,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li><strong>Maintenance release to fix known defects and enhancements implementation.</strong></li>
 <li><strong>HAL generic</strong>
 <ul>
-<li>Updated HAL Driver compliancy with MISRA C 2004 rules:
+<li>Updated HAL Driver compliance with MISRA C 2004 rules:
 <ul>
 <li>MISRA C 2004 rule 5.2 (tmpreg variable shall not be used inside MACRO)</li>
 <li>MISRA C 2004 rule 10.3 (illegal explicit conversion from type unsigned int to uint16_t).</li>
@@ -1091,12 +1218,12 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_3_1" aria-hidden="true"> <label for="collapse-section1_3_1" aria-hidden="true"><strong>V1.3.1 / 29-January-2016</strong></label>
 <div>
-<h2 id="main-changes-10">Main Changes</h2>
+<h2 id="main-changes-11">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release to fix known defects and enhancements implementation</strong></li>
 <li><strong>HAL Generic</strong>
 <ul>
-<li>Updated HAL Driver compliancy with:
+<li>Updated HAL Driver compliance with:
 <ul>
 <li>MISRA C 2004 rule 10.6 (U suffix applied to all constants of unsigned type).</li>
 <li>MISRA C 2004 rule 10.5 (bitwise operators ~ and &lt;&lt;).</li>
@@ -1209,7 +1336,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_3_0" aria-hidden="true"> <label for="collapse-section1_3_0" aria-hidden="true"><strong>V1.3.0 / 26-June-2015</strong></label>
 <div>
-<h2 id="main-changes-11">Main Changes</h2>
+<h2 id="main-changes-12">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release to fix known defects and enhancements implementation</strong></li>
 <li><strong>Complete HAL API alignment (macro/function renaming)</strong></li>
@@ -1229,10 +1356,10 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>ADC_ConversionStop(): correct wrong timeout value.</li>
 <li>HAL_ADC_AnalogWDGConfig(): Add missing assert param.</li>
 <li>Remove channel for monitoring VBAT power supply pin on F0 Value line devices.</li>
-<li>Move sampling time setting into ADC init stucture (keep setting into ADC channel init stucture with comments of obsolete setting).</li>
+<li>Move sampling time setting into ADC init structure (keep setting into ADC channel init structure with comments of obsolete setting).</li>
 <li>Move __HAL_UNLOCK() before peripheral activation because if an interruption occurs between ADC enable &amp; __HAL_UNLOCK(), IRQ handler will be executed while HAL still locked.</li>
 <li>ADC_DMAConvCplt(): Add call to ADC error callback in case of error.</li>
-<li>Rename local variables for compliancy with coding rules (tmpHALstatus ==&gt; tmp_hal_status).</li>
+<li>Rename local variables for compliance with coding rules (tmpHALstatus ==&gt; tmp_hal_status).</li>
 <li>Simplify __HAL_ADC_GET_IT_SOURCE().</li>
 <li>Add use of POSITION_VAL.</li>
 <li>Add optimization of ADC stabilization delays.</li>
@@ -1356,7 +1483,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_2_1" aria-hidden="true"> <label for="collapse-section1_2_1" aria-hidden="true"><strong>V1.2.1 / 09-January-2015</strong></label>
 <div>
-<h2 id="main-changes-12">Main Changes</h2>
+<h2 id="main-changes-13">Main Changes</h2>
 <ul>
 <li><strong>HAL</strong>
 <ul>
@@ -1385,13 +1512,13 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_2_0" aria-hidden="true"> <label for="collapse-section1_2_0" aria-hidden="true"><strong>V1.2.0 / 05-December-2014</strong></label>
 <div>
-<h2 id="main-changes-13">Main Changes</h2>
+<h2 id="main-changes-14">Main Changes</h2>
 <ul>
 <li><strong>HAL generic</strong>
 <ul>
 <li>Add support of new STM32F0 value line devices <strong>STM32F070xB/x6</strong> and <strong>STM32F030xC</strong>.</li>
 <li>HandleTypeDef.ErrorCode must be typed uint32_t</li>
-<li>Update HAL drivers to ensure compliancy w/ C++</li>
+<li>Update HAL drivers to ensure compliance w/ C++</li>
 <li>Add some generic defines (__NOINLINE) in stm32f0xx_hal_def.h</li>
 <li>Case mismatch between #include typo and effective file name generating compiler errors under Linux</li>
 <li>Correct various issues for documentation generation (group name, doxygen tags, etc..)</li>
@@ -1508,7 +1635,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li><strong>ErrorCode</strong> field is now declared as uint32 instead of <strong>enum HAL_SPI_ErrorTypeDef</strong> to fix C++ compilation issue</li>
 <li>Add use of UNUSED(tmpreg) in __HAL_SPI_CLEAR_MODFFLAG(), __HAL_SPI_CLEAR_OVRFLAG(), __HAL_SPI_CLEAR_FREFLAG() to fix Unused variable warning w/ TrueSTUDIO.</li>
 <li>Add DMA circular mode support on SPI HAL driver.</li>
-<li>Internal fucntion renaming: HAL_SPI_DMATransmitCplt(), HAL_SPI_DMAReceiveCplt(), HAL_SPI_DMATransmitReceiveCplt() &amp; HAL_SPI_DMAError() renamed respectively into SPI_DMATransmitCplt(), SPI_DMAReceiveCplt(), SPI_DMATransmitReceiveCplt() &amp; SPI_DMAError().</li>
+<li>Internal function renaming: HAL_SPI_DMATransmitCplt(), HAL_SPI_DMAReceiveCplt(), HAL_SPI_DMATransmitReceiveCplt() &amp; HAL_SPI_DMAError() renamed respectively into SPI_DMATransmitCplt(), SPI_DMAReceiveCplt(), SPI_DMATransmitReceiveCplt() &amp; SPI_DMAError().</li>
 <li>Remove unused HAL_StatusTypeDef SPI_EndRxTxTransaction() prototype</li>
 <li>uint32_t driver alignment for compatibility with other STM32 devices</li>
 <li>Add new <strong>API HAL_SPI_GetError()</strong>, which was missing on STM32F0xx family</li>
@@ -1545,7 +1672,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_1_0" aria-hidden="true"> <label for="collapse-section1_1_0" aria-hidden="true"><strong>V1.1.0 / 03-October-2014</strong></label>
 <div>
-<h2 id="main-changes-14">Main Changes</h2>
+<h2 id="main-changes-15">Main Changes</h2>
 <ul>
 <li><strong>HAL generic</strong>
 <ul>
@@ -1556,11 +1683,11 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>[F098xx] Remove PVD IT line wrapper</li>
 <li>FLAG&amp;IT assert macros to be removed</li>
 <li>Bad macro name in stm32F0xx_hal.c/.h files</li>
-<li>uint32_t Alignement in HAL driver</li>
+<li>uint32_t Alignment in HAL driver</li>
 </ul></li>
 <li><strong>HAL</strong> update (for STM32F091xC/STM32F098xx)
 <ul>
-<li>Add new define for HAL IRDA Enveloppe source Selection</li>
+<li>Add new define for HAL IRDA Envelope source Selection</li>
 <li>Add new macro IS_HAL_SYSCFG_IRDA_ENV_SEL()</li>
 <li>Add new defines for ISR Wrapper (HAL_SYSCFG_ITLINE0, etc..)</li>
 <li>Add new macro __HAL_GET_PENDING_IT()</li>
@@ -1591,7 +1718,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 </ul></li>
 <li><strong>HAL GPIO</strong>
 <ul>
-<li>BSRR regsiter should not be split in BSRRH/BSRRL</li>
+<li>BSRR register should not be split in BSRRH/BSRRL</li>
 <li>rework GPIO_GET_SOURCE</li>
 <li>Add new defines for AF functions selection</li>
 </ul></li>
@@ -1711,7 +1838,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_0_1" aria-hidden="true"> <label for="collapse-section1_0_1" aria-hidden="true"><strong>V1.0.1 / 18-June-2014</strong></label>
 <div>
-<h2 id="main-changes-15">Main Changes</h2>
+<h2 id="main-changes-16">Main Changes</h2>
 <ul>
 <li><strong>HAL generic</strong> update
 <ul>
@@ -1798,7 +1925,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_0_0" aria-hidden="true"> <label for="collapse-section1_0_0" aria-hidden="true"><strong>V1.0.0 / 12-June-2018</strong></label>
 <div>
-<h2 id="main-changes-16">Main Changes</h2>
+<h2 id="main-changes-17">Main Changes</h2>
 <ul>
 <li>First official release of STM32F0xx HAL drivers for <strong>STM32F030x4/x6, STM32F030x8, STM32F031x4/x6, STM32F051x4/x6/x8, STM32F071x8/xB, STM32F042x4/x6, STM32F072x8/xB, STM32F038xx, STM32F048xx, STM32F058xx and STM32F078xx devices.</strong></li>
 </ul>

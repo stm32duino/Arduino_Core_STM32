@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -396,7 +395,7 @@ typedef struct
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @retval 1...2 (value "2" depending on DAC channel 2 availability)
   */
@@ -416,7 +415,7 @@ typedef struct
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   */
 #if defined(DAC_CHANNEL2_SUPPORT)
@@ -520,7 +519,7 @@ typedef struct
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @param  TriggerSource This parameter can be one of the following values:
   *         @arg @ref LL_DAC_TRIG_SOFTWARE
@@ -553,7 +552,7 @@ __STATIC_INLINE void LL_DAC_SetTriggerSource(DAC_TypeDef *DACx, uint32_t DAC_Cha
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_DAC_TRIG_SOFTWARE
@@ -583,7 +582,7 @@ __STATIC_INLINE uint32_t LL_DAC_GetTriggerSource(DAC_TypeDef *DACx, uint32_t DAC
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @param  WaveAutoGeneration This parameter can be one of the following values:
   *         @arg @ref LL_DAC_WAVE_AUTO_GENERATION_NONE
@@ -608,7 +607,7 @@ __STATIC_INLINE void LL_DAC_SetWaveAutoGeneration(DAC_TypeDef *DACx, uint32_t DA
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_DAC_WAVE_AUTO_GENERATION_NONE
@@ -637,7 +636,7 @@ __STATIC_INLINE uint32_t LL_DAC_GetWaveAutoGeneration(DAC_TypeDef *DACx, uint32_
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @param  NoiseLFSRMask This parameter can be one of the following values:
   *         @arg @ref LL_DAC_NOISE_LFSR_UNMASK_BIT0
@@ -671,7 +670,7 @@ __STATIC_INLINE void LL_DAC_SetWaveNoiseLFSR(DAC_TypeDef *DACx, uint32_t DAC_Cha
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_DAC_NOISE_LFSR_UNMASK_BIT0
@@ -709,7 +708,7 @@ __STATIC_INLINE uint32_t LL_DAC_GetWaveNoiseLFSR(DAC_TypeDef *DACx, uint32_t DAC
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @param  TriangleAmplitude This parameter can be one of the following values:
   *         @arg @ref LL_DAC_TRIANGLE_AMPLITUDE_1
@@ -743,7 +742,7 @@ __STATIC_INLINE void LL_DAC_SetWaveTriangleAmplitude(DAC_TypeDef *DACx, uint32_t
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_DAC_TRIANGLE_AMPLITUDE_1
@@ -776,7 +775,7 @@ __STATIC_INLINE uint32_t LL_DAC_GetWaveTriangleAmplitude(DAC_TypeDef *DACx, uint
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @param  OutputBuffer This parameter can be one of the following values:
   *         @arg @ref LL_DAC_OUTPUT_BUFFER_ENABLE
@@ -799,7 +798,7 @@ __STATIC_INLINE void LL_DAC_SetOutputBuffer(DAC_TypeDef *DACx, uint32_t DAC_Chan
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_DAC_OUTPUT_BUFFER_ENABLE
@@ -831,7 +830,7 @@ __STATIC_INLINE uint32_t LL_DAC_GetOutputBuffer(DAC_TypeDef *DACx, uint32_t DAC_
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @retval None
   */
@@ -852,7 +851,7 @@ __STATIC_INLINE void LL_DAC_EnableDMAReq(DAC_TypeDef *DACx, uint32_t DAC_Channel
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @retval None
   */
@@ -872,7 +871,7 @@ __STATIC_INLINE void LL_DAC_DisableDMAReq(DAC_TypeDef *DACx, uint32_t DAC_Channe
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @retval State of bit (1 or 0).
   */
@@ -909,7 +908,7 @@ __STATIC_INLINE uint32_t LL_DAC_IsDMAReqEnabled(DAC_TypeDef *DACx, uint32_t DAC_
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @param  Register This parameter can be one of the following values:
   *         @arg @ref LL_DAC_DMA_REG_DATA_12BITS_RIGHT_ALIGNED
@@ -943,7 +942,7 @@ __STATIC_INLINE uint32_t LL_DAC_DMA_GetRegAddr(DAC_TypeDef *DACx, uint32_t DAC_C
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @retval None
   */
@@ -962,7 +961,7 @@ __STATIC_INLINE void LL_DAC_Enable(DAC_TypeDef *DACx, uint32_t DAC_Channel)
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @retval None
   */
@@ -982,7 +981,7 @@ __STATIC_INLINE void LL_DAC_Disable(DAC_TypeDef *DACx, uint32_t DAC_Channel)
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @retval State of bit (1 or 0).
   */
@@ -1010,7 +1009,7 @@ __STATIC_INLINE uint32_t LL_DAC_IsEnabled(DAC_TypeDef *DACx, uint32_t DAC_Channe
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @retval None
   */
@@ -1029,7 +1028,7 @@ __STATIC_INLINE void LL_DAC_EnableTrigger(DAC_TypeDef *DACx, uint32_t DAC_Channe
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @retval None
   */
@@ -1049,7 +1048,7 @@ __STATIC_INLINE void LL_DAC_DisableTrigger(DAC_TypeDef *DACx, uint32_t DAC_Chann
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @retval State of bit (1 or 0).
   */
@@ -1078,7 +1077,7 @@ __STATIC_INLINE uint32_t LL_DAC_IsTriggerEnabled(DAC_TypeDef *DACx, uint32_t DAC
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @retval None
   */
@@ -1099,7 +1098,7 @@ __STATIC_INLINE void LL_DAC_TrigSWConversion(DAC_TypeDef *DACx, uint32_t DAC_Cha
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @param  Data Value between Min_Data=0x000 and Max_Data=0xFFF
   * @retval None
@@ -1124,7 +1123,7 @@ __STATIC_INLINE void LL_DAC_ConvertData12RightAligned(DAC_TypeDef *DACx, uint32_
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @param  Data Value between Min_Data=0x000 and Max_Data=0xFFF
   * @retval None
@@ -1149,7 +1148,7 @@ __STATIC_INLINE void LL_DAC_ConvertData12LeftAligned(DAC_TypeDef *DACx, uint32_t
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @param  Data Value between Min_Data=0x00 and Max_Data=0xFF
   * @retval None
@@ -1235,7 +1234,7 @@ __STATIC_INLINE void LL_DAC_ConvertDualData8RightAligned(DAC_TypeDef *DACx, uint
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
   *         
-  *         (1) On this STM32 serie, parameter not available on all devices.
+  *         (1) On this STM32 series, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @retval Value between Min_Data=0x000 and Max_Data=0xFFF
   */
@@ -1419,4 +1418,3 @@ void        LL_DAC_StructInit(LL_DAC_InitTypeDef* DAC_InitStruct);
 
 #endif /* __STM32F0xx_LL_DAC_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
