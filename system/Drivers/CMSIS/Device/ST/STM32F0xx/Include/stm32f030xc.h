@@ -9,22 +9,20 @@
   *          This file contains:
   *           - Data structures and the address mapping for all peripherals
   *           - Peripheral's registers declarations and bits definition
-  *           - Macros to access peripheral’s registers hardware
+  *           - Macros to access peripheral's registers hardware
   *  
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
-
 /** @addtogroup CMSIS
   * @{
   */
@@ -70,7 +68,7 @@ typedef enum
 /******  Cortex-M0 Processor Exceptions Numbers **************************************************************/
   NonMaskableInt_IRQn         = -14,    /*!< 2 Non Maskable Interrupt                                        */
   HardFault_IRQn              = -13,    /*!< 3 Cortex-M0 Hard Fault Interrupt                                */
-  SVC_IRQn                    = -5,     /*!< 11 Cortex-M0 SV Call Interrupt                                  */
+  SVCall_IRQn                 = -5,     /*!< 11 Cortex-M0 SV Call Interrupt                                  */
   PendSV_IRQn                 = -2,     /*!< 14 Cortex-M0 Pend SV Interrupt                                  */
   SysTick_IRQn                = -1,     /*!< 15 Cortex-M0 System Tick Interrupt                              */
 
@@ -581,7 +579,7 @@ typedef struct
 /******************************************************************************/
 
 /*
- * @brief Specific device feature definitions (not present on all devices in the STM32F0 serie)
+ * @brief Specific device feature definitions (not present on all devices in the STM32F0 series)
  */
 /* Note: No specific macro feature on this device */
 
@@ -669,7 +667,7 @@ typedef struct
 
 #define ADC_CFGR1_ALIGN_Pos       (5U)                                         
 #define ADC_CFGR1_ALIGN_Msk       (0x1UL << ADC_CFGR1_ALIGN_Pos)                /*!< 0x00000020 */
-#define ADC_CFGR1_ALIGN           ADC_CFGR1_ALIGN_Msk                          /*!< ADC data alignement */
+#define ADC_CFGR1_ALIGN           ADC_CFGR1_ALIGN_Msk                          /*!< ADC data alignment */
 
 #define ADC_CFGR1_EXTSEL_Pos      (6U)                                         
 #define ADC_CFGR1_EXTSEL_Msk      (0x7UL << ADC_CFGR1_EXTSEL_Pos)               /*!< 0x000001C0 */
@@ -3024,7 +3022,7 @@ typedef struct
 /*                                                                           */
 /*****************************************************************************/
 /*
-* @brief Specific device feature definitions  (not present on all devices in the STM32F0 serie)
+* @brief Specific device feature definitions  (not present on all devices in the STM32F0 series)
 */
 #define RCC_PLLSRC_PREDIV1_SUPPORT  /*!< PREDIV support used as PLL source input  */
 
@@ -3140,8 +3138,8 @@ typedef struct
 #define RCC_CFGR_PPRE_DIV16_Msk                  (0x7UL << RCC_CFGR_PPRE_DIV16_Pos) /*!< 0x00000700 */
 #define RCC_CFGR_PPRE_DIV16                      RCC_CFGR_PPRE_DIV16_Msk       /*!< HCLK divided by 16 */
 
-#define RCC_CFGR_PLLSRC_Pos                      (16U)
-#define RCC_CFGR_PLLSRC_Msk                      (0x1UL << RCC_CFGR_PLLSRC_Pos) /*!< 0x00010000 */
+#define RCC_CFGR_PLLSRC_Pos                      (15U)
+#define RCC_CFGR_PLLSRC_Msk                      (0x3UL << RCC_CFGR_PLLSRC_Pos) /*!< 0x00018000 */
 #define RCC_CFGR_PLLSRC                          RCC_CFGR_PLLSRC_Msk           /*!< PLL entry clock source */
 #define RCC_CFGR_PLLSRC_HSI_DIV2                 (0x00000000U)                 /*!< HSI clock divided by 2 selected as PLL entry clock source */
 #define RCC_CFGR_PLLSRC_HSI_PREDIV               (0x00008000U)                 /*!< HSI/PREDIV clock selected as PLL entry clock source */
@@ -3636,7 +3634,7 @@ typedef struct
 /*                                                                           */
 /*****************************************************************************/
 /*
-* @brief Specific device feature definitions  (not present on all devices in the STM32F0 serie)
+* @brief Specific device feature definitions  (not present on all devices in the STM32F0 series)
 */
 #define RTC_TAMPER1_SUPPORT  /*!< TAMPER 1 feature support */
 #define RTC_TAMPER2_SUPPORT  /*!< TAMPER 2 feature support */
@@ -4120,7 +4118,7 @@ typedef struct
 /*****************************************************************************/
 
 /*
- * @brief Specific device feature definitions (not present on all devices in the STM32F0 serie)
+ * @brief Specific device feature definitions (not present on all devices in the STM32F0 series)
  */
 /* Note: No specific macro feature on this device */
 
@@ -5092,7 +5090,7 @@ typedef struct
 /******************************************************************************/
 
 /*
-* @brief Specific device feature definitions (not present on all devices in the STM32F0 serie)
+* @brief Specific device feature definitions (not present on all devices in the STM32F0 series)
 */
 
 /* Support of 7 bits data length feature */
@@ -5784,6 +5782,7 @@ typedef struct
 #define USART3_8_IRQn              USART3_6_IRQn
 #define USART3_4_IRQn              USART3_6_IRQn
 
+#define SVC_IRQn                   SVCall_IRQn
 
 /* Aliases for __IRQHandler */
 #define ADC1_COMP_IRQHandler             ADC1_IRQHandler
@@ -5811,4 +5810,3 @@ typedef struct
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
