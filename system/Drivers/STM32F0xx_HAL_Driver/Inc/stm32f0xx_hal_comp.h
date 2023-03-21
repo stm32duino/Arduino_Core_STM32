@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -64,7 +63,7 @@ typedef struct
   uint32_t Hysteresis;         /*!< Selects the hysteresis voltage of the comparator.
                                     This parameter can be a value of @ref COMP_Hysteresis */
 
-  uint32_t Mode;               /*!< Selects the operating comsumption mode of the comparator
+  uint32_t Mode;               /*!< Selects the operating consumption mode of the comparator
                                     to adjust the speed/consumption.
                                     This parameter can be a value of @ref COMP_Mode */
 
@@ -199,7 +198,7 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
   */
 #define COMP_NONINVERTINGINPUT_IO1               (0x00000000U) /*!< I/O1 (PA1 for COMP1, PA3 for COMP2) 
                                                                              connected to comparator non inverting input */
-#define COMP_NONINVERTINGINPUT_DAC1SWITCHCLOSED  COMP_CSR_COMP1SW1  /*!< DAC ouput connected to comparator COMP1 non inverting input */
+#define COMP_NONINVERTINGINPUT_DAC1SWITCHCLOSED  COMP_CSR_COMP1SW1  /*!< DAC output connected to comparator COMP1 non inverting input */
 /**
   * @}
   */
@@ -696,5 +695,4 @@ uint32_t              HAL_COMP_GetError(COMP_HandleTypeDef *hcomp);
 
 #endif /* STM32F0xx_HAL_COMP_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

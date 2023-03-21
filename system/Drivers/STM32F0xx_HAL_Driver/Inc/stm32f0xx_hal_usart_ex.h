@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -52,7 +51,7 @@ extern "C" {
 #elif  defined(USART_CR1_M)
 #define USART_WORDLENGTH_8B                  (0x00000000U)              /*!< 8-bit long USART frame */
 #define USART_WORDLENGTH_9B                  (USART_CR1_M)    /*!< 9-bit long USART frame */
-#endif
+#endif /* USART_CR1_M0 && USART_CR1_M */
 /**
   * @}
   */
@@ -81,8 +80,8 @@ extern "C" {
 #if defined(STM32F030x6) || defined(STM32F031x6) || defined(STM32F038xx)
 #define USART_GETCLOCKSOURCE(__HANDLE__,__CLOCKSOURCE__) \
   do {                                                         \
-     switch(__HAL_RCC_GET_USART1_SOURCE())                     \
-     {                                                         \
+    switch(__HAL_RCC_GET_USART1_SOURCE())                      \
+    {                                                          \
       case RCC_USART1CLKSOURCE_PCLK1:                          \
         (__CLOCKSOURCE__) = USART_CLOCKSOURCE_PCLK1;           \
         break;                                                 \
@@ -98,15 +97,16 @@ extern "C" {
       default:                                                 \
         (__CLOCKSOURCE__) = USART_CLOCKSOURCE_UNDEFINED;       \
         break;                                                 \
-     }                                                         \
+    }                                                          \
   } while(0)
-#elif defined (STM32F030x8) || defined (STM32F070x6) ||  defined (STM32F042x6) || defined (STM32F048xx) || defined (STM32F051x8) || defined (STM32F058xx)
+#elif defined (STM32F030x8) || defined (STM32F070x6) ||  defined (STM32F042x6) || defined (STM32F048xx) \
+   || defined (STM32F051x8) || defined (STM32F058xx)
 #define USART_GETCLOCKSOURCE(__HANDLE__,__CLOCKSOURCE__) \
   do {                                                         \
     if((__HANDLE__)->Instance == USART1)                       \
     {                                                          \
-       switch(__HAL_RCC_GET_USART1_SOURCE())                   \
-       {                                                       \
+      switch(__HAL_RCC_GET_USART1_SOURCE())                    \
+      {                                                        \
         case RCC_USART1CLKSOURCE_PCLK1:                        \
           (__CLOCKSOURCE__) = USART_CLOCKSOURCE_PCLK1;         \
           break;                                               \
@@ -122,7 +122,7 @@ extern "C" {
         default:                                               \
           (__CLOCKSOURCE__) = USART_CLOCKSOURCE_UNDEFINED;     \
           break;                                               \
-       }                                                       \
+      }                                                        \
     }                                                          \
     else if((__HANDLE__)->Instance == USART2)                  \
     {                                                          \
@@ -138,8 +138,8 @@ extern "C" {
   do {                                                         \
     if((__HANDLE__)->Instance == USART1)                       \
     {                                                          \
-       switch(__HAL_RCC_GET_USART1_SOURCE())                   \
-       {                                                       \
+      switch(__HAL_RCC_GET_USART1_SOURCE())                    \
+      {                                                        \
         case RCC_USART1CLKSOURCE_PCLK1:                        \
           (__CLOCKSOURCE__) = USART_CLOCKSOURCE_PCLK1;         \
           break;                                               \
@@ -155,7 +155,7 @@ extern "C" {
         default:                                               \
           (__CLOCKSOURCE__) = USART_CLOCKSOURCE_UNDEFINED;     \
           break;                                               \
-       }                                                       \
+      }                                                        \
     }                                                          \
     else if((__HANDLE__)->Instance == USART2)                  \
     {                                                          \
@@ -179,8 +179,8 @@ extern "C" {
   do {                                                         \
     if((__HANDLE__)->Instance == USART1)                       \
     {                                                          \
-       switch(__HAL_RCC_GET_USART1_SOURCE())                   \
-       {                                                       \
+      switch(__HAL_RCC_GET_USART1_SOURCE())                    \
+      {                                                        \
         case RCC_USART1CLKSOURCE_PCLK1:                        \
           (__CLOCKSOURCE__) = USART_CLOCKSOURCE_PCLK1;         \
           break;                                               \
@@ -196,12 +196,12 @@ extern "C" {
         default:                                               \
           (__CLOCKSOURCE__) = USART_CLOCKSOURCE_UNDEFINED;     \
           break;                                               \
-       }                                                       \
+      }                                                        \
     }                                                          \
     else if((__HANDLE__)->Instance == USART2)                  \
     {                                                          \
-       switch(__HAL_RCC_GET_USART2_SOURCE())                   \
-       {                                                       \
+      switch(__HAL_RCC_GET_USART2_SOURCE())                    \
+      {                                                        \
         case RCC_USART2CLKSOURCE_PCLK1:                        \
           (__CLOCKSOURCE__) = USART_CLOCKSOURCE_PCLK1;         \
           break;                                               \
@@ -217,7 +217,7 @@ extern "C" {
         default:                                               \
           (__CLOCKSOURCE__) = USART_CLOCKSOURCE_UNDEFINED;     \
           break;                                               \
-       }                                                       \
+      }                                                        \
     }                                                          \
     else if((__HANDLE__)->Instance == USART3)                  \
     {                                                          \
@@ -237,8 +237,8 @@ extern "C" {
   do {                                                         \
     if((__HANDLE__)->Instance == USART1)                       \
     {                                                          \
-       switch(__HAL_RCC_GET_USART1_SOURCE())                   \
-       {                                                       \
+      switch(__HAL_RCC_GET_USART1_SOURCE())                    \
+      {                                                        \
         case RCC_USART1CLKSOURCE_PCLK1:                        \
           (__CLOCKSOURCE__) = USART_CLOCKSOURCE_PCLK1;         \
           break;                                               \
@@ -254,12 +254,12 @@ extern "C" {
         default:                                               \
           (__CLOCKSOURCE__) = USART_CLOCKSOURCE_UNDEFINED;     \
           break;                                               \
-       }                                                       \
+      }                                                        \
     }                                                          \
     else if((__HANDLE__)->Instance == USART2)                  \
     {                                                          \
-       switch(__HAL_RCC_GET_USART2_SOURCE())                   \
-       {                                                       \
+      switch(__HAL_RCC_GET_USART2_SOURCE())                    \
+      {                                                        \
         case RCC_USART2CLKSOURCE_PCLK1:                        \
           (__CLOCKSOURCE__) = USART_CLOCKSOURCE_PCLK1;         \
           break;                                               \
@@ -275,12 +275,12 @@ extern "C" {
         default:                                               \
           (__CLOCKSOURCE__) = USART_CLOCKSOURCE_UNDEFINED;     \
           break;                                               \
-       }                                                       \
+      }                                                        \
     }                                                          \
     else if((__HANDLE__)->Instance == USART3)                  \
     {                                                          \
-       switch(__HAL_RCC_GET_USART3_SOURCE())                   \
-       {                                                       \
+      switch(__HAL_RCC_GET_USART3_SOURCE())                    \
+      {                                                        \
         case RCC_USART3CLKSOURCE_PCLK1:                        \
           (__CLOCKSOURCE__) = USART_CLOCKSOURCE_PCLK1;         \
           break;                                               \
@@ -296,7 +296,7 @@ extern "C" {
         default:                                               \
           (__CLOCKSOURCE__) = USART_CLOCKSOURCE_UNDEFINED;     \
           break;                                               \
-       }                                                       \
+      }                                                        \
     }                                                          \
     else if((__HANDLE__)->Instance == USART4)                  \
     {                                                          \
@@ -328,8 +328,8 @@ extern "C" {
   do {                                                         \
     if((__HANDLE__)->Instance == USART1)                       \
     {                                                          \
-       switch(__HAL_RCC_GET_USART1_SOURCE())                   \
-       {                                                       \
+      switch(__HAL_RCC_GET_USART1_SOURCE())                    \
+      {                                                        \
         case RCC_USART1CLKSOURCE_PCLK1:                        \
           (__CLOCKSOURCE__) = USART_CLOCKSOURCE_PCLK1;         \
           break;                                               \
@@ -345,7 +345,7 @@ extern "C" {
         default:                                               \
           (__CLOCKSOURCE__) = USART_CLOCKSOURCE_UNDEFINED;     \
           break;                                               \
-       }                                                       \
+      }                                                        \
     }                                                          \
     else if((__HANDLE__)->Instance == USART2)                  \
     {                                                          \
@@ -453,7 +453,7 @@ extern "C" {
       (__HANDLE__)->Mask = 0x0000U;                                   \
     }                                                                 \
   } while(0U)
-#endif
+#endif  /* USART_CR1_M0 && USART_CR1_M */
 
 /**
   * @brief Ensure that USART frame length is valid.
@@ -467,7 +467,7 @@ extern "C" {
 #elif  defined(USART_CR1_M)
 #define IS_USART_WORD_LENGTH(__LENGTH__) (((__LENGTH__) == USART_WORDLENGTH_8B) || \
                                           ((__LENGTH__) == USART_WORDLENGTH_9B))
-#endif
+#endif /* USART_CR1_M0 && USART_CR1_M */
 
 
 /**
@@ -517,4 +517,3 @@ extern "C" {
 
 #endif /* STM32F0xx_HAL_USART_EX_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

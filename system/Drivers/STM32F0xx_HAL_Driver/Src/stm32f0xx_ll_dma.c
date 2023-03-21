@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -193,72 +192,72 @@ uint32_t LL_DMA_DeInit(DMA_TypeDef *DMAx, uint32_t Channel)
   /* Check the DMA Instance DMAx and Channel parameters*/
   assert_param(IS_LL_DMA_ALL_CHANNEL_INSTANCE(DMAx, Channel));
 
-    tmp = (DMA_Channel_TypeDef *)(__LL_DMA_GET_CHANNEL_INSTANCE(DMAx, Channel));
+  tmp = (DMA_Channel_TypeDef *)(__LL_DMA_GET_CHANNEL_INSTANCE(DMAx, Channel));
 
-    /* Disable the selected DMAx_Channely */
-    CLEAR_BIT(tmp->CCR, DMA_CCR_EN);
+  /* Disable the selected DMAx_Channely */
+  CLEAR_BIT(tmp->CCR, DMA_CCR_EN);
 
-    /* Reset DMAx_Channely control register */
-    LL_DMA_WriteReg(tmp, CCR, 0U);
+  /* Reset DMAx_Channely control register */
+  LL_DMA_WriteReg(tmp, CCR, 0U);
 
-    /* Reset DMAx_Channely remaining bytes register */
-    LL_DMA_WriteReg(tmp, CNDTR, 0U);
+  /* Reset DMAx_Channely remaining bytes register */
+  LL_DMA_WriteReg(tmp, CNDTR, 0U);
 
-    /* Reset DMAx_Channely peripheral address register */
-    LL_DMA_WriteReg(tmp, CPAR, 0U);
+  /* Reset DMAx_Channely peripheral address register */
+  LL_DMA_WriteReg(tmp, CPAR, 0U);
 
-    /* Reset DMAx_Channely memory address register */
-    LL_DMA_WriteReg(tmp, CMAR, 0U);
+  /* Reset DMAx_Channely memory address register */
+  LL_DMA_WriteReg(tmp, CMAR, 0U);
 
 #if (defined(DMA1_CSELR_DEFAULT)||defined(DMA2_CSELR_DEFAULT))
-    /* Reset Request register field for DMAx Channel */
-    LL_DMA_SetPeriphRequest(DMAx, Channel, LL_DMA_REQUEST_0);
+  /* Reset Request register field for DMAx Channel */
+  LL_DMA_SetPeriphRequest(DMAx, Channel, LL_DMA_REQUEST_0);
 #endif
 
-    if (Channel == LL_DMA_CHANNEL_1)
-    {
-      /* Reset interrupt pending bits for DMAx Channel1 */
-      LL_DMA_ClearFlag_GI1(DMAx);
-    }
-    else if (Channel == LL_DMA_CHANNEL_2)
-    {
-      /* Reset interrupt pending bits for DMAx Channel2 */
-      LL_DMA_ClearFlag_GI2(DMAx);
-    }
-    else if (Channel == LL_DMA_CHANNEL_3)
-    {
-      /* Reset interrupt pending bits for DMAx Channel3 */
-      LL_DMA_ClearFlag_GI3(DMAx);
-    }
-    else if (Channel == LL_DMA_CHANNEL_4)
-    {
-      /* Reset interrupt pending bits for DMAx Channel4 */
-      LL_DMA_ClearFlag_GI4(DMAx);
-    }
-    else if (Channel == LL_DMA_CHANNEL_5)
-    {
-      /* Reset interrupt pending bits for DMAx Channel5 */
-      LL_DMA_ClearFlag_GI5(DMAx);
-    }
+  if (Channel == LL_DMA_CHANNEL_1)
+  {
+    /* Reset interrupt pending bits for DMAx Channel1 */
+    LL_DMA_ClearFlag_GI1(DMAx);
+  }
+  else if (Channel == LL_DMA_CHANNEL_2)
+  {
+    /* Reset interrupt pending bits for DMAx Channel2 */
+    LL_DMA_ClearFlag_GI2(DMAx);
+  }
+  else if (Channel == LL_DMA_CHANNEL_3)
+  {
+    /* Reset interrupt pending bits for DMAx Channel3 */
+    LL_DMA_ClearFlag_GI3(DMAx);
+  }
+  else if (Channel == LL_DMA_CHANNEL_4)
+  {
+    /* Reset interrupt pending bits for DMAx Channel4 */
+    LL_DMA_ClearFlag_GI4(DMAx);
+  }
+  else if (Channel == LL_DMA_CHANNEL_5)
+  {
+    /* Reset interrupt pending bits for DMAx Channel5 */
+    LL_DMA_ClearFlag_GI5(DMAx);
+  }
 
 #if defined(DMA1_Channel6)
-    else if (Channel == LL_DMA_CHANNEL_6)
-    {
-      /* Reset interrupt pending bits for DMAx Channel6 */
-      LL_DMA_ClearFlag_GI6(DMAx);
-    }
+  else if (Channel == LL_DMA_CHANNEL_6)
+  {
+    /* Reset interrupt pending bits for DMAx Channel6 */
+    LL_DMA_ClearFlag_GI6(DMAx);
+  }
 #endif
 #if defined(DMA1_Channel7)
-    else if (Channel == LL_DMA_CHANNEL_7)
-    {
-      /* Reset interrupt pending bits for DMAx Channel7 */
-      LL_DMA_ClearFlag_GI7(DMAx);
-    }
+  else if (Channel == LL_DMA_CHANNEL_7)
+  {
+    /* Reset interrupt pending bits for DMAx Channel7 */
+    LL_DMA_ClearFlag_GI7(DMAx);
+  }
 #endif
-    else
-    {
-      status = ERROR;
-    }
+  else
+  {
+    status = ERROR;
+  }
 
   return status;
 }
@@ -394,4 +393,3 @@ void LL_DMA_StructInit(LL_DMA_InitTypeDef *DMA_InitStruct)
 
 #endif /* USE_FULL_LL_DRIVER */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

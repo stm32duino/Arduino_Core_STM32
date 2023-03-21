@@ -6,12 +6,22 @@
   *         This file provides firmware functions to manage the following 
   *         functionalities of the Digital to Analog Converter (DAC) peripheral:
   *           + Initialization and de-initialization functions
-  *           + IO operation functions
   *           + Peripheral Control functions
   *           + Peripheral State and Errors functions      
   *     
   *
-  @verbatim      
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  @verbatim
   ==============================================================================
                       ##### DAC Peripheral features #####
   ==============================================================================
@@ -81,7 +91,7 @@
          (#) 12-bit left alignment using DAC_ALIGN_12B_L
          (#) 12-bit right alignment using DAC_ALIGN_12B_R
   
-       *** DAC data value to voltage correspondance ***  
+       *** DAC data value to voltage correspondence ***
        ================================================ 
        [..] 
        The analog output voltage on each DAC channel pin is determined
@@ -218,18 +228,7 @@
      [..]
       (@) You can refer to the DAC HAL driver header file for more useful macros  
    
- @endverbatim    
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+ @endverbatim
   ******************************************************************************
   */
 
@@ -959,7 +958,7 @@ HAL_StatusTypeDef HAL_DAC_RegisterCallback(DAC_HandleTypeDef *hdac, HAL_DAC_Call
   * @param  hdac DAC handle
   * @param  CallbackID ID of the callback to be unregistered
   *         This parameter can be one of the following values:
-  *          @arg @ref HAL_DAC_CH1_COMPLETE_CB_ID          DAC CH1 tranfer Complete Callback ID
+  *          @arg @ref HAL_DAC_CH1_COMPLETE_CB_ID          DAC CH1 transfer Complete Callback ID
   *          @arg @ref HAL_DAC_CH1_HALF_COMPLETE_CB_ID     DAC CH1 Half Complete Callback ID
   *          @arg @ref HAL_DAC_CH1_ERROR_ID                DAC CH1 Error Callback ID
   *          @arg @ref HAL_DAC_CH1_UNDERRUN_CB_ID          DAC CH1 UnderRun Callback ID
@@ -1087,4 +1086,3 @@ HAL_StatusTypeDef HAL_DAC_UnRegisterCallback(DAC_HandleTypeDef *hdac, HAL_DAC_Ca
   */
 
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

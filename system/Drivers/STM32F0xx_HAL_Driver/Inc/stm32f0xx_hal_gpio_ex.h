@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -502,7 +501,7 @@
 #define GPIO_AF0_TSC          ((uint8_t)0x00U)  /*!< AF0: TSC Alternate Function mapping       */
 #define GPIO_AF0_USART1       ((uint8_t)0x00U)  /*!< AF0: USART1 Alternate Function mapping    */
 #define GPIO_AF0_USART2       ((uint8_t)0x00U)  /*!< AF0: USART2 Alternate Function mapping    */
-#define GPIO_AF0_USART3       ((uint8_t)0x00U)  /*!< AF0: USART2 Alternate Function mapping    */
+#define GPIO_AF0_USART3       ((uint8_t)0x00U)  /*!< AF0: USART3 Alternate Function mapping    */
 #define GPIO_AF0_USART4       ((uint8_t)0x00U)  /*!< AF0: USART4 Alternate Function mapping    */
 #define GPIO_AF0_CAN          ((uint8_t)0x00U)  /*!< AF0: CAN Alternate Function mapping       */
 
@@ -516,8 +515,8 @@
 #define GPIO_AF1_CEC          ((uint8_t)0x01U)  /*!< AF1: CEC Alternate Function mapping       */
 #define GPIO_AF1_EVENTOUT     ((uint8_t)0x01U)  /*!< AF1: EVENTOUT Alternate Function mapping  */
 #define GPIO_AF1_I2C1         ((uint8_t)0x01U)  /*!< AF1: I2C1 Alternate Function mapping      */
-#define GPIO_AF1_I2C2         ((uint8_t)0x01U)  /*!< AF1: I2C1 Alternate Function mapping      */
-#define GPIO_AF1_TSC          ((uint8_t)0x01U)  /*!< AF1: I2C1 Alternate Function mapping      */
+#define GPIO_AF1_I2C2         ((uint8_t)0x01U)  /*!< AF1: I2C2 Alternate Function mapping      */
+#define GPIO_AF1_TSC          ((uint8_t)0x01U)  /*!< AF1: TSC Alternate Function mapping      */
 #define GPIO_AF1_SPI1         ((uint8_t)0x01U)  /*!< AF1: SPI1 Alternate Function mapping      */
 #define GPIO_AF1_SPI2         ((uint8_t)0x01U)  /*!< AF1: SPI2 Alternate Function mapping      */
 
@@ -586,7 +585,7 @@
 #define GPIO_AF1_IR           ((uint8_t)0x01U)  /*!< AF1: IR Alternate Function mapping        */
 #define GPIO_AF1_EVENTOUT     ((uint8_t)0x01U)  /*!< AF1: EVENTOUT Alternate Function mapping  */
 #define GPIO_AF1_I2C1         ((uint8_t)0x01U)  /*!< AF1: I2C1 Alternate Function mapping      */
-#define GPIO_AF1_I2C2         ((uint8_t)0x01U)  /*!< AF1: I2C1 Alternate Function mapping      */
+#define GPIO_AF1_I2C2         ((uint8_t)0x01U)  /*!< AF1: I2C2 Alternate Function mapping      */
 #define GPIO_AF1_SPI2         ((uint8_t)0x01U)  /*!< AF1: SPI2 Alternate Function mapping      */
 
 /* AF 2 */
@@ -795,6 +794,4 @@
 #endif
 
 #endif /* __STM32F0xx_HAL_GPIO_EX_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 
