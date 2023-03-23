@@ -145,6 +145,19 @@
   #define HAL_DAC_MODULE_ENABLED
 #endif
 
+// LoRaWAN definitions
+#define LORAWAN_BOARD_HAS_TCXO          1U
+
+// FE_CTRL1 PA0
+// FE_CTRL2 PA1
+// FE_CTRL3 PB8
+#define LORAWAN_RFSWITCH_PINS           PA0,PA1,PB8
+#define LORAWAN_RFSWITCH_PIN_COUNT      3
+#define LORAWAN_RFSWITCH_OFF_VALUES     LOW,LOW,LOW
+#define LORAWAN_RFSWITCH_RX_VALUES      HIGH,LOW,HIGH
+#define LORAWAN_RFSWITCH_RFO_LP_VALUES  HIGH,HIGH,HIGH
+#define LORAWAN_RFSWITCH_RFO_HP_VALUES  LOW,HIGH,HIGH
+
 /*----------------------------------------------------------------------------
  *        Arduino objects - C++ only
  *----------------------------------------------------------------------------*/
