@@ -627,6 +627,20 @@ Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.product_line=STM32WB55xx
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.variant=STM32WBxx/WB55R(C-E-G)V
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
+# P_NUCLEO_WB55 USB Dongle
+Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE=P-Nucleo WB55 USB Dongle
+Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.node="No_mass_storage_for_this_board_Use_STLink_upload_method"
+Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.upload.maximum_size=524288
+Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.upload.maximum_data_size=196608
+Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.mcu=cortex-m4
+Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.float-abi=-mfloat-abi=hard
+Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.board=P_NUCLEO_WB55_USB_DONGLE
+Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.series=STM32WBxx
+Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.product_line=STM32WB55xx
+Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.variant=STM32WBxx/WB35C(C-E)UxA_WB55C(C-E-G)U
+Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
 # NUCLEO_WL55JC1 board
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1=Nucleo WL55JC1
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1.node="NOD_WL55JC"
