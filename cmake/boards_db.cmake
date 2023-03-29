@@ -102256,6 +102256,91 @@ target_compile_options(OLIMEXINO_STM32F3_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
+# P_NUCLEO_WB55_USB_DONGLE
+# -----------------------------------------------------------------------------
+
+set(P_NUCLEO_WB55_USB_DONGLE_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32WBxx/WB35C(C-E)UxA_WB55C(C-E-G)U")
+set(P_NUCLEO_WB55_USB_DONGLE_MAXSIZE 524288)
+set(P_NUCLEO_WB55_USB_DONGLE_MAXDATASIZE 196608)
+set(P_NUCLEO_WB55_USB_DONGLE_MCU cortex-m4)
+set(P_NUCLEO_WB55_USB_DONGLE_FPCONF "fpv4-sp-d16-hard")
+add_library(P_NUCLEO_WB55_USB_DONGLE INTERFACE)
+target_compile_options(P_NUCLEO_WB55_USB_DONGLE INTERFACE
+  "SHELL:-DSTM32WB55xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${P_NUCLEO_WB55_USB_DONGLE_MCU}
+)
+target_compile_definitions(P_NUCLEO_WB55_USB_DONGLE INTERFACE
+  "STM32WBxx"
+	"ARDUINO_P_NUCLEO_WB55_USB_DONGLE"
+	"BOARD_NAME=\"P_NUCLEO_WB55_USB_DONGLE\""
+	"BOARD_ID=P_NUCLEO_WB55_USB_DONGLE"
+	"VARIANT_H=\"variant_P_NUCLEO_WB55_USB_DONGLE.h\""
+)
+target_include_directories(P_NUCLEO_WB55_USB_DONGLE INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32WBxx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32WBxx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32WBxx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32WBxx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32WBxx/Source/Templates/gcc/
+  ${P_NUCLEO_WB55_USB_DONGLE_VARIANT_PATH}
+)
+
+target_link_options(P_NUCLEO_WB55_USB_DONGLE INTERFACE
+  "LINKER:--default-script=${P_NUCLEO_WB55_USB_DONGLE_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${P_NUCLEO_WB55_USB_DONGLE_MCU}
+)
+target_link_libraries(P_NUCLEO_WB55_USB_DONGLE INTERFACE
+  arm_cortexM4lf_math
+)
+
+add_library(P_NUCLEO_WB55_USB_DONGLE_serial_disabled INTERFACE)
+target_compile_options(P_NUCLEO_WB55_USB_DONGLE_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(P_NUCLEO_WB55_USB_DONGLE_serial_generic INTERFACE)
+target_compile_options(P_NUCLEO_WB55_USB_DONGLE_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(P_NUCLEO_WB55_USB_DONGLE_serial_none INTERFACE)
+target_compile_options(P_NUCLEO_WB55_USB_DONGLE_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(P_NUCLEO_WB55_USB_DONGLE_usb_CDC INTERFACE)
+target_compile_options(P_NUCLEO_WB55_USB_DONGLE_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(P_NUCLEO_WB55_USB_DONGLE_usb_CDCgen INTERFACE)
+target_compile_options(P_NUCLEO_WB55_USB_DONGLE_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(P_NUCLEO_WB55_USB_DONGLE_usb_HID INTERFACE)
+target_compile_options(P_NUCLEO_WB55_USB_DONGLE_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(P_NUCLEO_WB55_USB_DONGLE_usb_none INTERFACE)
+target_compile_options(P_NUCLEO_WB55_USB_DONGLE_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(P_NUCLEO_WB55_USB_DONGLE_xusb_FS INTERFACE)
+target_compile_options(P_NUCLEO_WB55_USB_DONGLE_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(P_NUCLEO_WB55_USB_DONGLE_xusb_HS INTERFACE)
+target_compile_options(P_NUCLEO_WB55_USB_DONGLE_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(P_NUCLEO_WB55_USB_DONGLE_xusb_HSFS INTERFACE)
+target_compile_options(P_NUCLEO_WB55_USB_DONGLE_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
 # P_NUCLEO_WB55RG
 # -----------------------------------------------------------------------------
 
