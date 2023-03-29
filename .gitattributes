@@ -5,6 +5,8 @@
 # to native line endings on checkout.
 .astyleignore text eol=lf
 .astylerc text eol=lf
+.codespellignore text eol=lf
+.codespellrc text eol=lf
 .editorconfig text eol=lf
 .flake8 text eol=lf
 .gitattributes text eol=lf
@@ -12,6 +14,7 @@
 
 *.adoc text eol=lf
 *.c text eol=lf
+*.cfg text eol=lf
 *.cmake text eol=lf
 *.cpp text eol=lf
 *.css text eol=lf
