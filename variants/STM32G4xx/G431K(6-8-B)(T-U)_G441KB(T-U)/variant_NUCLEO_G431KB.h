@@ -126,13 +126,17 @@
 
 // UART Definitions
 #ifndef SERIAL_UART_INSTANCE
-  #define SERIAL_UART_INSTANCE  2 //Connected to ST-Link
+  #define SERIAL_UART_INSTANCE  101 //Connected to ST-Link
 #endif
 
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
-#define PIN_SERIAL_RX           PA3
-#define PIN_SERIAL_TX           PA2
+#ifndef PIN_SERIAL_RX
+  #define PIN_SERIAL_RX         PA3
+#endif
+#ifndef PIN_SERIAL_TX
+  #define PIN_SERIAL_TX         PA2
+#endif
 
 /* Extra HAL modules */
 #if !defined(HAL_DAC_MODULE_DISABLED)
