@@ -10548,6 +10548,54 @@ Midatronics.menu.upload_method.dfuMethod.upload.protocol=2
 Midatronics.menu.upload_method.dfuMethod.upload.options=-g
 Midatronics.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+
+################################################################################
+# SparkFun Boards
+
+SparkFun.name=SparkFun Boards
+
+SparkFun.build.core=arduino
+SparkFun.build.board=SparkFun
+SparkFun.build.variant_h=variant_{build.board}.h
+SparkFun.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+SparkFun.upload.maximum_size=0
+SparkFun.upload.maximum_data_size=0
+
+# SparkFun MicroMod STM32F405 board
+SparkFun.menu.pnum.MICROMOD_F405=SparkFun MicroMod STM32F405
+SparkFun.menu.pnum.MICROMOD_F405.upload.maximum_size=1048576
+SparkFun.menu.pnum.MICROMOD_F405.upload.maximum_data_size=131072
+SparkFun.menu.pnum.MICROMOD_F405.build.mcu=cortex-m4
+SparkFun.menu.pnum.MICROMOD_F405.build.fpu=-mfpu=fpv4-sp-d16
+SparkFun.menu.pnum.MICROMOD_F405.build.float-abi=-mfloat-abi=hard
+SparkFun.menu.pnum.MICROMOD_F405.build.board=MICROMOD_F405
+SparkFun.menu.pnum.MICROMOD_F405.build.product_line=STM32F405xx
+SparkFun.menu.pnum.MICROMOD_F405.build.variant_h=variant_{build.board}.h
+SparkFun.menu.pnum.MICROMOD_F405.build.variant=STM32F4xx/F405RGT_F415RGT
+SparkFun.menu.pnum.MICROMOD_F405.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+SparkFun.menu.pnum.MICROMOD_F405.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
+# Upload menu
+SparkFun.menu.upload_method.MassStorage=Mass Storage
+SparkFun.menu.upload_method.MassStorage.upload.protocol=
+SparkFun.menu.upload_method.MassStorage.upload.tool=massStorageCopy
+
+SparkFun.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+SparkFun.menu.upload_method.swdMethod.upload.protocol=0
+SparkFun.menu.upload_method.swdMethod.upload.options=-g
+SparkFun.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+SparkFun.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+SparkFun.menu.upload_method.serialMethod.upload.protocol=1
+SparkFun.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+SparkFun.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+SparkFun.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+SparkFun.menu.upload_method.dfuMethod.upload.protocol=2
+SparkFun.menu.upload_method.dfuMethod.upload.options=-g
+SparkFun.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+
 ################################################################################
 # Serialx activation
 Nucleo_144.menu.xserial.generic=Enabled (generic 'Serial')
