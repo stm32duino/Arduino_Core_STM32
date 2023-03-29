@@ -10549,6 +10549,54 @@ Midatronics.menu.upload_method.dfuMethod.upload.options=-g
 Midatronics.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
+# SparkFun Boards
+
+SparkFun.name=SparkFun Boards
+
+SparkFun.build.core=arduino
+SparkFun.build.board=SparkFun
+SparkFun.build.variant_h=variant_{build.board}.h
+SparkFun.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+SparkFun.upload.maximum_size=0
+SparkFun.upload.maximum_data_size=0
+
+# SFE_MMPB_STM32WB5MMG board
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG=SparkFun MicroMod STM32WB5MMG
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.node=NODE_WB5MMG
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.upload.maximum_size=827392
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.upload.maximum_data_size=196608
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.mcu=cortex-m4
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.fpu=-mfpu=fpv4-sp-d16
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.float-abi=-mfloat-abi=hard
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.board=SFE_MMPB_STM32WB5MMG
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.series=STM32WBxx
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.product_line=STM32WB5Mxx
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.variant=STM32WBxx/WB5MMGH
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
+# Upload menu
+SparkFun.menu.upload_method.MassStorage=Mass Storage
+SparkFun.menu.upload_method.MassStorage.upload.protocol=
+SparkFun.menu.upload_method.MassStorage.upload.tool=massStorageCopy
+
+SparkFun.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+SparkFun.menu.upload_method.swdMethod.upload.protocol=0
+SparkFun.menu.upload_method.swdMethod.upload.options=-g
+SparkFun.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+SparkFun.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+SparkFun.menu.upload_method.serialMethod.upload.protocol=1
+SparkFun.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+SparkFun.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+SparkFun.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+SparkFun.menu.upload_method.dfuMethod.upload.protocol=2
+SparkFun.menu.upload_method.dfuMethod.upload.options=-g
+SparkFun.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+
+################################################################################
 # Serialx activation
 Nucleo_144.menu.xserial.generic=Enabled (generic 'Serial')
 Nucleo_144.menu.xserial.none=Enabled (no generic 'Serial')
@@ -10743,6 +10791,12 @@ Midatronics.menu.xserial.none=Enabled (no generic 'Serial')
 Midatronics.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 Midatronics.menu.xserial.disabled=Disabled (No Serial support)
 Midatronics.menu.xserial.disabled.build.xSerial=
+
+SparkFun.menu.xserial.generic=Enabled (generic 'Serial')
+SparkFun.menu.xserial.none=Enabled (no generic 'Serial')
+SparkFun.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+SparkFun.menu.xserial.disabled=Disabled (no Serial support)
+SparkFun.menu.xserial.disabled.build.xSerial=
 
 # USB connectivity
 Nucleo_144.menu.usb.none=None
@@ -11066,6 +11120,19 @@ Midatronics.menu.xusb.HS=High Speed
 Midatronics.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 Midatronics.menu.xusb.HSFS=High Speed in Full Speed mode
 Midatronics.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+SparkFun.menu.usb.none=None
+SparkFun.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+SparkFun.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+SparkFun.menu.usb.CDC=CDC (no generic 'Serial')
+SparkFun.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+SparkFun.menu.usb.HID=HID (keyboard and mouse)
+SparkFun.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+SparkFun.menu.xusb.FS=Low/Full Speed
+SparkFun.menu.xusb.HS=High Speed
+SparkFun.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+SparkFun.menu.xusb.HSFS=High Speed in Full Speed mode
+SparkFun.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 # Optimizations
 Nucleo_144.menu.opt.osstd=Smallest (-Os default)
@@ -11687,6 +11754,26 @@ Midatronics.menu.opt.ogstd.build.flags.optimize=-Og
 Midatronics.menu.opt.o0std=No Optimization (-O0)
 Midatronics.menu.opt.o0std.build.flags.optimize=-O0
 
+SparkFun.menu.opt.osstd=Smallest (-Os default)
+SparkFun.menu.opt.oslto=Smallest (-Os) with LTO
+SparkFun.menu.opt.oslto.build.flags.optimize=-Os -flto
+SparkFun.menu.opt.o1std=Fast (-O1)
+SparkFun.menu.opt.o1std.build.flags.optimize=-O1
+SparkFun.menu.opt.o1lto=Fast (-O1) with LTO
+SparkFun.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+SparkFun.menu.opt.o2std=Faster (-O2)
+SparkFun.menu.opt.o2std.build.flags.optimize=-O2
+SparkFun.menu.opt.o2lto=Faster (-O2) with LTO
+SparkFun.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+SparkFun.menu.opt.o3std=Fastest (-O3)
+SparkFun.menu.opt.o3std.build.flags.optimize=-O3
+SparkFun.menu.opt.o3lto=Fastest (-O3) with LTO
+SparkFun.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+SparkFun.menu.opt.ogstd=Debug (-Og)
+SparkFun.menu.opt.ogstd.build.flags.optimize=-Og
+SparkFun.menu.opt.o0std=No Optimization (-O0)
+SparkFun.menu.opt.o0std.build.flags.optimize=-O0
+
 # Debug information
 Nucleo_144.menu.dbg.none=None
 Nucleo_144.menu.dbg.enable_sym=Symbols Enabled (-g)
@@ -11923,6 +12010,14 @@ Midatronics.menu.dbg.enable_log=Core logs Enabled
 Midatronics.menu.dbg.enable_log.build.flags.debug=
 Midatronics.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 Midatronics.menu.dbg.enable_all.build.flags.debug=-g
+
+SparkFun.menu.dbg.none=None
+SparkFun.menu.dbg.enable_sym=Symbols Enabled (-g)
+SparkFun.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+SparkFun.menu.dbg.enable_log=Core logs Enabled
+SparkFun.menu.dbg.enable_log.build.flags.debug=
+SparkFun.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+SparkFun.menu.dbg.enable_all.build.flags.debug=-g
 
 # C Runtime Library
 Nucleo_144.menu.rtlib.nano=Newlib Nano (default)
@@ -12234,3 +12329,13 @@ Midatronics.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 Midatronics.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 Midatronics.menu.rtlib.full=Newlib Standard
 Midatronics.menu.rtlib.full.build.flags.ldspecs=
+
+SparkFun.menu.rtlib.nano=Newlib Nano (default)
+SparkFun.menu.rtlib.nanofp=Newlib Nano + Float Printf
+SparkFun.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+SparkFun.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+SparkFun.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+SparkFun.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+SparkFun.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+SparkFun.menu.rtlib.full=Newlib Standard
+SparkFun.menu.rtlib.full.build.flags.ldspecs=
