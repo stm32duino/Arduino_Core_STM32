@@ -10569,6 +10569,7 @@ SparkFun.menu.pnum.MICROMOD_F405.build.mcu=cortex-m4
 SparkFun.menu.pnum.MICROMOD_F405.build.fpu=-mfpu=fpv4-sp-d16
 SparkFun.menu.pnum.MICROMOD_F405.build.float-abi=-mfloat-abi=hard
 SparkFun.menu.pnum.MICROMOD_F405.build.board=MICROMOD_F405
+SparkFun.menu.pnum.MICROMOD_F405.build.series=STM32F4xx
 SparkFun.menu.pnum.MICROMOD_F405.build.product_line=STM32F405xx
 SparkFun.menu.pnum.MICROMOD_F405.build.variant_h=variant_{build.board}.h
 SparkFun.menu.pnum.MICROMOD_F405.build.variant=STM32F4xx/F405RGT_F415RGT
