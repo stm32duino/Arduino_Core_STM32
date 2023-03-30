@@ -3702,9 +3702,6 @@ GenF4.menu.pnum.FEATHER_F405.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 GenF4.menu.pnum.MICROMOD_F405=SparkFun MicroMod STM32F405
 GenF4.menu.pnum.MICROMOD_F405.upload.maximum_size=1048576
 GenF4.menu.pnum.MICROMOD_F405.upload.maximum_data_size=131072
-GenF4.menu.pnum.MICROMOD_F405.build.mcu=cortex-m4
-GenF4.menu.pnum.MICROMOD_F405.build.fpu=-mfpu=fpv4-sp-d16
-GenF4.menu.pnum.MICROMOD_F405.build.float-abi=-mfloat-abi=hard
 GenF4.menu.pnum.MICROMOD_F405.build.board=MICROMOD_F405
 GenF4.menu.pnum.MICROMOD_F405.build.series=STM32F4xx
 GenF4.menu.pnum.MICROMOD_F405.build.product_line=STM32F405xx
