@@ -14,7 +14,7 @@
  * Automatically generated from STM32F405RGTx.xml, STM32F415RGTx.xml
  * CubeMX DB release 6.0.80
  */
-#if !defined(ARDUINO_MICROMOD_F405)
+#if defined(ARDUINO_MICROMOD_F405)
 #include "Arduino.h"
 #include "PeripheralPins.h"
 
