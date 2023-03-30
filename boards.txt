@@ -10558,7 +10558,6 @@ Midatronics.menu.upload_method.dfuMethod.upload.protocol=2
 Midatronics.menu.upload_method.dfuMethod.upload.options=-g
 Midatronics.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
-
 ################################################################################
 # Serialx activation
 Nucleo_144.menu.xserial.generic=Enabled (generic 'Serial')
