@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * Copyright (c) 2019, STMicroelectronics
+ * Copyright (c) 2020, STMicroelectronics
  * All rights reserved.
  *
  * This software component is licensed by ST under BSD 3-Clause license,
@@ -10,13 +10,22 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_MICROMOD_F405)
+/*
+ * Automatically generated from STM32F405RGTx.xml, STM32F415RGTx.xml
+ * CubeMX DB release 6.0.80
+ */
+#if !defined(ARDUINO_MICROMOD_F405)
 #include "Arduino.h"
 #include "PeripheralPins.h"
 
 /* =====
- * Note: Commented lines are alternative possibilities which are not used per default.
- *       If you change them, you will have to know what you do
+ * Notes:
+ * - The pins mentioned Px_y_ALTz are alternative possibilities which use other
+ *   HW peripheral instances. You can use them the same way as any other "normal"
+ *   pin (i.e. analogWrite(PA7_ALT1, 128);).
+ *
+ * - Commented lines are alternative possibilities which are not used per default.
+ *   If you change them, you will have to know what you do
  * =====
  */
 
@@ -100,10 +109,10 @@ WEAK const PinMap PinMap_I2C_SCL[] = {
 };
 #endif
 
-//*** PWM ***
+//*** TIM ***
 
 #ifdef HAL_TIM_MODULE_ENABLED
-WEAK const PinMap PinMap_PWM[] = {
+WEAK const PinMap PinMap_TIM[] = {
   //  {PA_0,  TIM2,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF1_TIM2, 1, 0)}, // TIM2_CH1
   {PA_0,  TIM5,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF2_TIM5, 1, 0)}, // TIM5_CH1
   //  {PA_1,  TIM2,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF1_TIM2, 2, 0)}, // TIM2_CH2
@@ -163,7 +172,7 @@ WEAK const PinMap PinMap_PWM[] = {
 };
 #endif
 
-//*** SERIAL ***
+//*** UART ***
 
 #ifdef HAL_UART_MODULE_ENABLED
 WEAK const PinMap PinMap_UART_TX[] = {
@@ -265,7 +274,7 @@ WEAK const PinMap PinMap_SPI_SSEL[] = {
 
 //*** CAN ***
 
-#ifdef HAL_CAN_MODULE_ENABLED
+#if defined(HAL_CAN_MODULE_ENABLED) || defined(HAL_CAN_LEGACY_MODULE_ENABLED)
 WEAK const PinMap PinMap_CAN_RD[] = {
   //  {PA_11, CAN1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_NOPULL, GPIO_AF9_CAN1)},
   //  {PB_5,  CAN2, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_NOPULL, GPIO_AF9_CAN2)},
@@ -291,7 +300,7 @@ WEAK const PinMap PinMap_CAN_TD[] = {
 
 //*** USB ***
 
-#ifdef HAL_PCD_MODULE_ENABLED
+#if defined(HAL_PCD_MODULE_ENABLED) || defined(HAL_HCD_MODULE_ENABLED)
 WEAK const PinMap PinMap_USB_OTG_FS[] = {
   //  {PA_8,  USB_OTG_FS, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF10_OTG_FS)}, // USB_OTG_FS_SOF
   {PA_9,  USB_OTG_FS, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, GPIO_AF_NONE)}, // USB_OTG_FS_VBUS
