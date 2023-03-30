@@ -79,8 +79,8 @@
 
 #define PA15 32  //STAT LED
 
-#define PC5  33  //A0
-#define PB0  34  //A1
+#define PC5  PIN_A0
+#define PB0  PIN_A1
 #define PA1  35  //BATT_VIN/3
 
 #define PC14 36  //OSC32
