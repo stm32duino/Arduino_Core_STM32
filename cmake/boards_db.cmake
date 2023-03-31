@@ -97836,6 +97836,136 @@ target_link_libraries(MAPLEMINI_F103CB_hid INTERFACE
 )
 
 
+# MICROMOD_F405
+# -----------------------------------------------------------------------------
+
+set(MICROMOD_F405_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F4xx/F405RGT_F415RGT")
+set(MICROMOD_F405_MAXSIZE 1048576)
+set(MICROMOD_F405_MAXDATASIZE 131072)
+set(MICROMOD_F405_MCU cortex-m4)
+set(MICROMOD_F405_FPCONF "-")
+add_library(MICROMOD_F405 INTERFACE)
+target_compile_options(MICROMOD_F405 INTERFACE
+  "SHELL:-DSTM32F405xx   "
+  "SHELL:-DCUSTOM_PERIPHERAL_PINS"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${MICROMOD_F405_MCU}
+)
+target_compile_definitions(MICROMOD_F405 INTERFACE
+  "STM32F4xx"
+	"ARDUINO_MICROMOD_F405"
+	"BOARD_NAME=\"MICROMOD_F405\""
+	"BOARD_ID=MICROMOD_F405"
+	"VARIANT_H=\"variant_MICROMOD_F405.h\""
+)
+target_include_directories(MICROMOD_F405 INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/
+  ${MICROMOD_F405_VARIANT_PATH}
+)
+
+target_link_options(MICROMOD_F405 INTERFACE
+  "LINKER:--default-script=${MICROMOD_F405_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=1048576"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${MICROMOD_F405_MCU}
+)
+target_link_libraries(MICROMOD_F405 INTERFACE
+  arm_cortexM4lf_math
+)
+
+add_library(MICROMOD_F405_serial_disabled INTERFACE)
+target_compile_options(MICROMOD_F405_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(MICROMOD_F405_serial_generic INTERFACE)
+target_compile_options(MICROMOD_F405_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(MICROMOD_F405_serial_none INTERFACE)
+target_compile_options(MICROMOD_F405_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(MICROMOD_F405_usb_CDC INTERFACE)
+target_compile_options(MICROMOD_F405_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0x1B4F -DUSBD_PID=0x0029 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(MICROMOD_F405_usb_CDCgen INTERFACE)
+target_compile_options(MICROMOD_F405_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0x1B4F -DUSBD_PID=0x0029 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(MICROMOD_F405_usb_HID INTERFACE)
+target_compile_options(MICROMOD_F405_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0x1B4F -DUSBD_PID=0x0029 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(MICROMOD_F405_usb_none INTERFACE)
+target_compile_options(MICROMOD_F405_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(MICROMOD_F405_xusb_FS INTERFACE)
+target_compile_options(MICROMOD_F405_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(MICROMOD_F405_xusb_HS INTERFACE)
+target_compile_options(MICROMOD_F405_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(MICROMOD_F405_xusb_HSFS INTERFACE)
+target_compile_options(MICROMOD_F405_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# MICROMOD_F405_hid
+# -----------------------------------------------------------------------------
+
+set(MICROMOD_F405_hid_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F4xx/F405RGT_F415RGT")
+set(MICROMOD_F405_hid_MAXSIZE 1048576)
+set(MICROMOD_F405_hid_MAXDATASIZE 131072)
+set(MICROMOD_F405_hid_MCU cortex-m4)
+set(MICROMOD_F405_hid_FPCONF "-")
+add_library(MICROMOD_F405_hid INTERFACE)
+target_compile_options(MICROMOD_F405_hid INTERFACE
+  "SHELL:-DSTM32F405xx  -DHAL_UART_MODULE_ENABLED -DBL_HID -DVECT_TAB_OFFSET=0x4000"
+  "SHELL:-DCUSTOM_PERIPHERAL_PINS"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${MICROMOD_F405_hid_MCU}
+)
+target_compile_definitions(MICROMOD_F405_hid INTERFACE
+  "STM32F4xx"
+	"ARDUINO_MICROMOD_F405"
+	"BOARD_NAME=\"MICROMOD_F405\""
+	"BOARD_ID=MICROMOD_F405"
+	"VARIANT_H=\"variant_MICROMOD_F405.h\""
+)
+target_include_directories(MICROMOD_F405_hid INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/
+  ${MICROMOD_F405_hid_VARIANT_PATH}
+)
+
+target_link_options(MICROMOD_F405_hid INTERFACE
+  "LINKER:--default-script=${MICROMOD_F405_hid_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x4000"
+	"LINKER:--defsym=LD_MAX_SIZE=1048576"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${MICROMOD_F405_hid_MCU}
+)
+target_link_libraries(MICROMOD_F405_hid INTERFACE
+  arm_cortexM4lf_math
+)
+
+
 # MKR_SHARKY
 # -----------------------------------------------------------------------------
 
