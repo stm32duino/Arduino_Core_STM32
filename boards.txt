@@ -3707,6 +3707,8 @@ GenF4.menu.pnum.MICROMOD_F405.build.product_line=STM32F405xx
 GenF4.menu.pnum.MICROMOD_F405.build.variant_h=variant_{build.board}.h
 GenF4.menu.pnum.MICROMOD_F405.build.variant=STM32F4xx/F405RGT_F415RGT
 GenF4.menu.pnum.MICROMOD_F405.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+GenF4.menu.pnum.MICROMOD_F405.build.vid=0x1B4F
+GenF4.menu.pnum.MICROMOD_F405.build.pid=0x0029
 
 # ThunderPack F411xxE
 # https://github.com/jgillick/ThunderPack/tree/STM32F4
