@@ -20,6 +20,7 @@ Nucleo_144.build.core=arduino
 Nucleo_144.build.board=Nucleo_144
 Nucleo_144.build.variant_h=variant_{build.board}.h
 Nucleo_144.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Nucleo_144.build.flash_offset=0x0
 Nucleo_144.upload.maximum_size=0
 Nucleo_144.upload.maximum_data_size=0
 
@@ -279,6 +280,7 @@ Nucleo_64.build.core=arduino
 Nucleo_64.build.board=Nucleo_64
 Nucleo_64.build.variant_h=variant_{build.board}.h
 Nucleo_64.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Nucleo_64.build.flash_offset=0x0
 Nucleo_64.upload.maximum_size=0
 Nucleo_64.upload.maximum_data_size=0
 
@@ -683,6 +685,7 @@ Nucleo_32.build.core=arduino
 Nucleo_32.build.board=Nucleo_32
 Nucleo_32.build.variant_h=variant_{build.board}.h
 Nucleo_32.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Nucleo_32.build.flash_offset=0x0
 Nucleo_32.upload.maximum_size=0
 Nucleo_32.upload.maximum_data_size=0
 
@@ -820,6 +823,7 @@ Disco.build.core=arduino
 Disco.build.board=Disco
 Disco.build.variant_h=variant_{build.board}.h
 Disco.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Disco.build.flash_offset=0x0
 Disco.upload.maximum_size=0
 Disco.upload.maximum_data_size=0
 
@@ -1061,6 +1065,7 @@ Eval.build.core=arduino
 Eval.build.board=Eval
 Eval.build.variant_h=variant_{build.board}.h
 Eval.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Eval.build.flash_offset=0x0
 Eval.upload.maximum_size=0
 Eval.upload.maximum_data_size=0
 
@@ -1093,6 +1098,7 @@ Eval.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 # STM32MP1 microprocessor series (MPU + MCU)
 
 STM32MP1.name=STM32MP1 series coprocessor
+STM32MP1.build.flash_offset=0x0
 STM32MP1.upload.maximum_size=0
 STM32MP1.upload.maximum_data_size=0
 
@@ -1140,6 +1146,7 @@ GenC0.build.mcu=cortex-m0plus
 GenC0.build.series=STM32C0xx
 GenC0.build.cmsis_lib_gcc=arm_cortexM0l_math
 GenC0.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
+GenC0.build.flash_offset=0x0
 GenC0.upload.maximum_size=0
 GenC0.upload.maximum_data_size=0
 
@@ -1196,6 +1203,7 @@ GenF0.build.mcu=cortex-m0
 GenF0.build.series=STM32F0xx
 GenF0.build.cmsis_lib_gcc=arm_cortexM0l_math
 GenF0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenF0.build.flash_offset=0x0
 GenF0.upload.maximum_size=0
 GenF0.upload.maximum_data_size=0
 
@@ -2004,6 +2012,7 @@ GenF1.build.mcu=cortex-m3
 GenF1.build.series=STM32F1xx
 GenF1.build.cmsis_lib_gcc=arm_cortexM3l_math
 GenF1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+GenF1.build.flash_offset=0x0
 GenF1.upload.maximum_size=0
 GenF1.upload.maximum_data_size=0
 
@@ -2758,6 +2767,7 @@ GenF2.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 GenF2.build.mcu=cortex-m3
 GenF2.build.series=STM32F2xx
 GenF2.build.cmsis_lib_gcc=arm_cortexM3l_math
+GenF2.build.flash_offset=0x0
 GenF2.upload.maximum_size=0
 GenF2.upload.maximum_data_size=0
 
@@ -3166,6 +3176,7 @@ GenF3.build.fpu=-mfpu=fpv4-sp-d16
 GenF3.build.float-abi=-mfloat-abi=hard
 GenF3.build.series=STM32F3xx
 GenF3.build.cmsis_lib_gcc=arm_cortexM4lf_math
+GenF3.build.flash_offset=0x0
 GenF3.upload.maximum_size=0
 GenF3.upload.maximum_data_size=0
 
@@ -3572,6 +3583,7 @@ GenF4.build.fpu=-mfpu=fpv4-sp-d16
 GenF4.build.float-abi=-mfloat-abi=hard
 GenF4.build.series=STM32F4xx
 GenF4.build.cmsis_lib_gcc=arm_cortexM4lf_math
+GenF4.build.flash_offset=0x0
 GenF4.upload.maximum_size=0
 GenF4.upload.maximum_data_size=0
 
@@ -4412,6 +4424,7 @@ GenF7.build.fpu=-mfpu=fpv4-sp-d16
 GenF7.build.float-abi=-mfloat-abi=hard
 GenF7.build.series=STM32F7xx
 GenF7.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
+GenF7.build.flash_offset=0x0
 GenF7.upload.maximum_size=0
 GenF7.upload.maximum_data_size=0
 
@@ -4825,6 +4838,7 @@ GenG0.build.mcu=cortex-m0plus
 GenG0.build.series=STM32G0xx
 GenG0.build.cmsis_lib_gcc=arm_cortexM0l_math
 GenG0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+GenG0.build.flash_offset=0x0
 GenG0.upload.maximum_size=0
 GenG0.upload.maximum_data_size=0
 
@@ -6082,6 +6096,7 @@ GenG4.build.fpu=-mfpu=fpv4-sp-d16
 GenG4.build.float-abi=-mfloat-abi=hard
 GenG4.build.series=STM32G4xx
 GenG4.build.cmsis_lib_gcc=arm_cortexM4lf_math
+GenG4.build.flash_offset=0x0
 GenG4.upload.maximum_size=0
 GenG4.upload.maximum_data_size=0
 
@@ -7123,6 +7138,7 @@ GenH7.build.fpu=-mfpu=fpv4-sp-d16
 GenH7.build.float-abi=-mfloat-abi=hard
 GenH7.build.series=STM32H7xx
 GenH7.build.mcu=cortex-m7
+GenH7.build.flash_offset=0x0
 GenH7.upload.maximum_size=0
 GenH7.upload.maximum_data_size=0
 
@@ -7537,6 +7553,7 @@ GenL0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 GenL0.build.mcu=cortex-m0plus
 GenL0.build.series=STM32L0xx
 GenL0.build.cmsis_lib_gcc=arm_cortexM0l_math
+GenL0.build.flash_offset=0x0
 GenL0.upload.maximum_size=0
 GenL0.upload.maximum_data_size=0
 
@@ -8646,6 +8663,7 @@ GenL1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 GenL1.build.mcu=cortex-m3
 GenL1.build.series=STM32L1xx
 GenL1.build.cmsis_lib_gcc=arm_cortexM3l_math
+GenL1.build.flash_offset=0x0
 GenL1.upload.maximum_size=0
 GenL1.upload.maximum_data_size=0
 
@@ -8909,6 +8927,7 @@ GenL4.build.fpu=-mfpu=fpv4-sp-d16
 GenL4.build.float-abi=-mfloat-abi=hard
 GenL4.build.series=STM32L4xx
 GenL4.build.cmsis_lib_gcc=arm_cortexM4lf_math
+GenL4.build.flash_offset=0x0
 GenL4.upload.maximum_size=0
 GenL4.upload.maximum_data_size=0
 
@@ -9517,6 +9536,7 @@ GenL5.build.fpu=-mfpu=fpv4-sp-d16
 GenL5.build.float-abi=-mfloat-abi=hard
 GenL5.build.series=STM32L5xx
 GenL5.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
+GenL5.build.flash_offset=0x0
 GenL5.upload.maximum_size=0
 GenL5.upload.maximum_data_size=0
 
@@ -9572,6 +9592,7 @@ GenU5.build.fpu=-mfpu=fpv4-sp-d16
 GenU5.build.float-abi=-mfloat-abi=hard
 GenU5.build.series=STM32U5xx
 GenU5.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
+GenU5.build.flash_offset=0x0
 GenU5.upload.maximum_size=0
 GenU5.upload.maximum_data_size=0
 
@@ -9651,6 +9672,7 @@ GenWB.build.fpu=-mfpu=fpv4-sp-d16
 GenWB.build.float-abi=-mfloat-abi=hard
 GenWB.build.series=STM32WBxx
 GenWB.build.cmsis_lib_gcc=arm_cortexM4lf_math
+GenWB.build.flash_offset=0x0
 GenWB.upload.maximum_size=0
 GenWB.upload.maximum_data_size=0
 
@@ -9746,6 +9768,7 @@ GenWL.build.mcu=cortex-m4
 #GenWL.build.float-abi=-mfloat-abi=hard
 GenWL.build.series=STM32WLxx
 GenWL.build.cmsis_lib_gcc=arm_cortexM4l_math
+GenWL.build.flash_offset=0x0
 GenWL.upload.maximum_size=0
 GenWL.upload.maximum_data_size=0
 
@@ -9911,6 +9934,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.build.board=3dprinter
 3dprinter.build.variant_h=variant_{build.board}.h
 3dprinter.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+3dprinter.build.flash_offset=0x0
 3dprinter.upload.maximum_size=0
 3dprinter.upload.maximum_data_size=0
 
@@ -10126,6 +10150,7 @@ BluesW.build.core=arduino
 BluesW.build.board=BluesWireless
 BluesW.build.variant_h=variant_{build.board}.h
 BluesW.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+BluesW.build.flash_offset=0x0
 BluesW.upload.maximum_size=0
 BluesW.upload.maximum_data_size=0
 
@@ -10168,6 +10193,7 @@ Elecgator.build.core=arduino
 Elecgator.build.board=elecgator
 Elecgator.build.variant_h=variant_{build.board}.h
 Elecgator.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Elecgator.build.flash_offset=0x0
 Elecgator.upload.maximum_size=0
 Elecgator.upload.maximum_data_size=0
 
@@ -10205,6 +10231,7 @@ ESC_board.build.core=arduino
 ESC_board.build.board=FCE_board
 ESC_board.build.variant_h=variant_{build.board}.h
 ESC_board.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+ESC_board.build.flash_offset=0x0
 ESC_board.upload.maximum_size=0
 ESC_board.upload.maximum_data_size=0
 
@@ -10257,6 +10284,7 @@ Garatronic.build.core=arduino
 Garatronic.build.board=Garatronic
 Garatronic.build.variant_h=variant_{build.board}.h
 Garatronic.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Garatronic.build.flash_offset=0x0
 Garatronic.upload.maximum_size=0
 Garatronic.upload.maximum_data_size=0
 
@@ -10329,6 +10357,7 @@ GenFlight.build.core=arduino
 GenFlight.build.board=Genericflight
 GenFlight.build.variant_h=variant_{build.board}.h
 GenFlight.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+GenFlight.build.flash_offset=0x0
 GenFlight.upload.maximum_size=0
 GenFlight.upload.maximum_data_size=0
 
@@ -10419,6 +10448,7 @@ LoRa.build.core=arduino
 LoRa.build.board=LoRa
 LoRa.build.variant_h=variant_{build.board}.h
 LoRa.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+LoRa.build.flash_offset=0x0
 LoRa.upload.maximum_size=0
 LoRa.upload.maximum_data_size=0
 
@@ -10525,6 +10555,7 @@ Midatronics.build.core=arduino
 Midatronics.build.board=Midatronics
 Midatronics.build.variant_h=variant_{build.board}.h
 Midatronics.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Midatronics.build.flash_offset=0x0
 Midatronics.upload.maximum_size=0
 Midatronics.upload.maximum_data_size=0
 

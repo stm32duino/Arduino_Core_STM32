@@ -108,7 +108,6 @@ build.float-abi=
 build.flags.optimize=-Os
 build.flags.debug=-DNDEBUG
 build.flags.ldspecs=--specs=nano.specs
-build.flash_offset=0
 
 # Pre and post build hooks
 build.opt.name=build.opt
