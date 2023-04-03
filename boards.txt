@@ -2730,7 +2730,7 @@ GenF1.menu.upload_method.hidMethod=HID Bootloader 2.2
 GenF1.menu.upload_method.hidMethod.upload.protocol=hid22
 GenF1.menu.upload_method.hidMethod.upload.tool=hid_upload
 GenF1.menu.upload_method.hidMethod.build.flash_offset=0x800
-GenF1.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID -DVECT_TAB_OFFSET={build.flash_offset}
+GenF1.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID
 
 GenF1.menu.upload_method.dfu2Method=Maple DFU Bootloader 2.0
 GenF1.menu.upload_method.dfu2Method.upload.protocol=maple
@@ -2738,7 +2738,7 @@ GenF1.menu.upload_method.dfu2Method.upload.tool=maple_upload
 GenF1.menu.upload_method.dfu2Method.upload.usbID=1EAF:0003
 GenF1.menu.upload_method.dfu2Method.upload.altID=2
 GenF1.menu.upload_method.dfu2Method.build.flash_offset=0x2000
-GenF1.menu.upload_method.dfu2Method.build.bootloader_flags=-DBL_LEGACY_LEAF -DVECT_TAB_OFFSET={build.flash_offset}
+GenF1.menu.upload_method.dfu2Method.build.bootloader_flags=-DBL_LEGACY_LEAF
 
 GenF1.menu.upload_method.dfuoMethod=Maple DFU Bootloader original
 GenF1.menu.upload_method.dfuoMethod.upload.protocol=maple
@@ -2746,7 +2746,7 @@ GenF1.menu.upload_method.dfuoMethod.upload.tool=maple_upload
 GenF1.menu.upload_method.dfuoMethod.upload.usbID=1EAF:0003
 GenF1.menu.upload_method.dfuoMethod.upload.altID=1
 GenF1.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
-GenF1.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF -DVECT_TAB_OFFSET={build.flash_offset}
+GenF1.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF
 
 ################################################################################
 # Generic F2
@@ -4397,7 +4397,7 @@ GenF4.menu.upload_method.hidMethod=HID Bootloader 2.2
 GenF4.menu.upload_method.hidMethod.upload.protocol=hid22
 GenF4.menu.upload_method.hidMethod.upload.tool=hid_upload
 GenF4.menu.upload_method.hidMethod.build.flash_offset=0x4000
-GenF4.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID -DVECT_TAB_OFFSET={build.flash_offset}
+GenF4.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID
 
 ################################################################################
 # Generic F7
@@ -10010,7 +10010,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.PRNTR_V2.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 3dprinter.menu.pnum.PRNTR_V2.build.cmsis_lib_gcc=arm_cortexM4lf_math
 3dprinter.menu.pnum.PRNTR_V2.build.flash_offset=0x8000
-3dprinter.menu.pnum.PRNTR_V2.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
+3dprinter.menu.pnum.PRNTR_V2.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # EEXTR_F030_V1 board
 3dprinter.menu.pnum.EEXTR_F030_V1=EExtruder F030 V1
@@ -10037,7 +10037,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM200_F103CB.build.cmsis_lib_gcc=arm_cortexM3l_math
 3dprinter.menu.pnum.MALYANM200_F103CB.build.startup_file=-DCUSTOM_STARTUP_FILE
 3dprinter.menu.pnum.MALYANM200_F103CB.build.flash_offset=0x2000
-3dprinter.menu.pnum.MALYANM200_F103CB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
+3dprinter.menu.pnum.MALYANM200_F103CB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # MALYANM200_F070CB board
 3dprinter.menu.pnum.MALYANM200_F070CB=Malyan M200 V2
@@ -10053,7 +10053,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM200_F070CB.build.startup_file=-DCUSTOM_STARTUP_FILE
 3dprinter.menu.pnum.MALYANM200_F070CB.build.ldscript=MALYANMx00_F070CB.ld
 3dprinter.menu.pnum.MALYANM200_F070CB.build.flash_offset=0x2000
-3dprinter.menu.pnum.MALYANM200_F070CB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
+3dprinter.menu.pnum.MALYANM200_F070CB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # MALYANM300_F070CB board
 3dprinter.menu.pnum.MALYANM300_F070CB=Malyan M300
@@ -10069,7 +10069,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM300_F070CB.build.startup_file=-DCUSTOM_STARTUP_FILE
 3dprinter.menu.pnum.MALYANM200_F070CB.build.ldscript=MALYANMx00_F070CB.ld
 3dprinter.menu.pnum.MALYANM300_F070CB.build.flash_offset=0x2000
-3dprinter.menu.pnum.MALYANM300_F070CB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
+3dprinter.menu.pnum.MALYANM300_F070CB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # VAkE v1.0
 3dprinter.menu.pnum.VAKE_V1=VAkE v1.0
@@ -10099,7 +10099,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.FYSETC_S6.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 3dprinter.menu.pnum.FYSETC_S6.build.cmsis_lib_gcc=arm_cortexM4lf_math
 3dprinter.menu.pnum.FYSETC_S6.build.flash_offset=0x10000
-3dprinter.menu.pnum.FYSETC_S6.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
+3dprinter.menu.pnum.FYSETC_S6.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # Upload menu
 3dprinter.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
@@ -10393,7 +10393,7 @@ GenFlight.menu.upload_method.hidMethod=HID Bootloader 2.2
 GenFlight.menu.upload_method.hidMethod.upload.protocol=hid22
 GenFlight.menu.upload_method.hidMethod.upload.tool=hid_upload
 GenFlight.menu.upload_method.hidMethod.build.flash_offset=0x800
-GenFlight.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID -DVECT_TAB_OFFSET={build.flash_offset}
+GenFlight.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID
 
 GenFlight.menu.upload_method.dfu2Method=Maple DFU Bootloader 2.0
 GenFlight.menu.upload_method.dfu2Method.upload.protocol=maple
@@ -10401,7 +10401,7 @@ GenFlight.menu.upload_method.dfu2Method.upload.tool=maple_upload
 GenFlight.menu.upload_method.dfu2Method.upload.usbID=1EAF:0003
 GenFlight.menu.upload_method.dfu2Method.upload.altID=2
 GenFlight.menu.upload_method.dfu2Method.build.flash_offset=0x2000
-GenFlight.menu.upload_method.dfu2Method.build.bootloader_flags=-DBL_LEGACY_LEAF -DVECT_TAB_OFFSET={build.flash_offset}
+GenFlight.menu.upload_method.dfu2Method.build.bootloader_flags=-DBL_LEGACY_LEAF
 
 GenFlight.menu.upload_method.dfuoMethod=Maple DFU Bootloader original
 GenFlight.menu.upload_method.dfuoMethod.upload.protocol=maple
@@ -10409,7 +10409,7 @@ GenFlight.menu.upload_method.dfuoMethod.upload.tool=maple_upload
 GenFlight.menu.upload_method.dfuoMethod.upload.usbID=1EAF:0003
 GenFlight.menu.upload_method.dfuoMethod.upload.altID=1
 GenFlight.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
-GenFlight.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF -DVECT_TAB_OFFSET={build.flash_offset}
+GenFlight.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF
 
 ################################################################################
 # LoRa boards
