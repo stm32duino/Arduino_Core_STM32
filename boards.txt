@@ -1140,6 +1140,8 @@ GenC0.build.mcu=cortex-m0plus
 GenC0.build.series=STM32C0xx
 GenC0.build.cmsis_lib_gcc=arm_cortexM0l_math
 GenC0.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
+GenC0.upload.maximum_size=0
+GenC0.upload.maximum_data_size=0
 
 # Generic C031C4Tx
 GenC0.menu.pnum.GENERIC_C031C4TX=Generic C031C4Tx
