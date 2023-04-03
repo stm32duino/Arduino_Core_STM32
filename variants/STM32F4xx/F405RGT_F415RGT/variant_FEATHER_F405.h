@@ -208,6 +208,6 @@
     #define SERIAL_PORT_MONITOR   Serial
   #endif
   #ifndef SERIAL_PORT_HARDWARE
-    #define SERIAL_PORT_HARDWARE  Serial1
+    #define SERIAL_PORT_HARDWARE  Serial3
   #endif
 #endif
