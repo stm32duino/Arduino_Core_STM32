@@ -258,17 +258,17 @@ Nucleo_144.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
 Nucleo_144.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Nucleo_144.menu.upload_method.swdMethod.upload.protocol=0
-Nucleo_144.menu.upload_method.swdMethod.upload.options=-g
+Nucleo_144.menu.upload_method.swdMethod.upload.options=
 Nucleo_144.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Nucleo_144.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 Nucleo_144.menu.upload_method.serialMethod.upload.protocol=1
-Nucleo_144.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+Nucleo_144.menu.upload_method.serialMethod.upload.options={serial.port.file}
 Nucleo_144.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 Nucleo_144.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Nucleo_144.menu.upload_method.dfuMethod.upload.protocol=2
-Nucleo_144.menu.upload_method.dfuMethod.upload.options=-g
+Nucleo_144.menu.upload_method.dfuMethod.upload.options=
 Nucleo_144.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -663,17 +663,17 @@ Nucleo_64.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
 Nucleo_64.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Nucleo_64.menu.upload_method.swdMethod.upload.protocol=0
-Nucleo_64.menu.upload_method.swdMethod.upload.options=-g
+Nucleo_64.menu.upload_method.swdMethod.upload.options=
 Nucleo_64.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Nucleo_64.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 Nucleo_64.menu.upload_method.serialMethod.upload.protocol=1
-Nucleo_64.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+Nucleo_64.menu.upload_method.serialMethod.upload.options={serial.port.file}
 Nucleo_64.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 Nucleo_64.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Nucleo_64.menu.upload_method.dfuMethod.upload.protocol=2
-Nucleo_64.menu.upload_method.dfuMethod.upload.options=-g
+Nucleo_64.menu.upload_method.dfuMethod.upload.options=
 Nucleo_64.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -801,17 +801,17 @@ Nucleo_32.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
 Nucleo_32.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Nucleo_32.menu.upload_method.swdMethod.upload.protocol=0
-Nucleo_32.menu.upload_method.swdMethod.upload.options=-g
+Nucleo_32.menu.upload_method.swdMethod.upload.options=
 Nucleo_32.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Nucleo_32.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 Nucleo_32.menu.upload_method.serialMethod.upload.protocol=1
-Nucleo_32.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+Nucleo_32.menu.upload_method.serialMethod.upload.options={serial.port.file}
 Nucleo_32.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 Nucleo_32.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Nucleo_32.menu.upload_method.dfuMethod.upload.protocol=2
-Nucleo_32.menu.upload_method.dfuMethod.upload.options=-g
+Nucleo_32.menu.upload_method.dfuMethod.upload.options=
 Nucleo_32.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -1043,17 +1043,17 @@ Disco.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
 Disco.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Disco.menu.upload_method.swdMethod.upload.protocol=0
-Disco.menu.upload_method.swdMethod.upload.options=-g
+Disco.menu.upload_method.swdMethod.upload.options=
 Disco.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Disco.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 Disco.menu.upload_method.serialMethod.upload.protocol=1
-Disco.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+Disco.menu.upload_method.serialMethod.upload.options={serial.port.file}
 Disco.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 Disco.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Disco.menu.upload_method.dfuMethod.upload.protocol=2
-Disco.menu.upload_method.dfuMethod.upload.options=-g
+Disco.menu.upload_method.dfuMethod.upload.options=
 Disco.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -1086,12 +1086,12 @@ Eval.menu.pnum.STEVAL_MKSBOX1V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
 # Upload menu
 Eval.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Eval.menu.upload_method.swdMethod.upload.protocol=0
-Eval.menu.upload_method.swdMethod.upload.options=-g
+Eval.menu.upload_method.swdMethod.upload.options=
 Eval.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Eval.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Eval.menu.upload_method.dfuMethod.upload.protocol=2
-Eval.menu.upload_method.dfuMethod.upload.options=-g
+Eval.menu.upload_method.dfuMethod.upload.options=
 Eval.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -1185,12 +1185,12 @@ GenC0.menu.pnum.GENERIC_C031C6UX.build.variant=STM32C0xx/C031C(4-6)(T-U)
 # Upload menu
 GenC0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenC0.menu.upload_method.swdMethod.upload.protocol=0
-GenC0.menu.upload_method.swdMethod.upload.options=-g
+GenC0.menu.upload_method.swdMethod.upload.options=
 GenC0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenC0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenC0.menu.upload_method.serialMethod.upload.protocol=1
-GenC0.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenC0.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenC0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 ###############################
@@ -1989,17 +1989,17 @@ GenF0.menu.pnum.GENERIC_F098VCTX.build.variant=STM32F0xx/F098VC(H-T)
 # Upload menu
 GenF0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF0.menu.upload_method.swdMethod.upload.protocol=0
-GenF0.menu.upload_method.swdMethod.upload.options=-g
+GenF0.menu.upload_method.swdMethod.upload.options=
 GenF0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenF0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenF0.menu.upload_method.serialMethod.upload.protocol=1
-GenF0.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenF0.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenF0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenF0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF0.menu.upload_method.dfuMethod.upload.protocol=2
-GenF0.menu.upload_method.dfuMethod.upload.options=-g
+GenF0.menu.upload_method.dfuMethod.upload.options=
 GenF0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -2718,17 +2718,17 @@ GenF1.menu.pnum.GENERIC_F103ZGTX.build.variant=STM32F1xx/F103Z(F-G)(H-T)
 # Upload menu
 GenF1.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF1.menu.upload_method.swdMethod.upload.protocol=0
-GenF1.menu.upload_method.swdMethod.upload.options=-g
+GenF1.menu.upload_method.swdMethod.upload.options=
 GenF1.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenF1.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenF1.menu.upload_method.serialMethod.upload.protocol=1
-GenF1.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenF1.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenF1.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenF1.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF1.menu.upload_method.dfuMethod.upload.protocol=2
-GenF1.menu.upload_method.dfuMethod.upload.options=-g
+GenF1.menu.upload_method.dfuMethod.upload.options=
 GenF1.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenF1.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -3150,17 +3150,17 @@ GenF2.menu.pnum.GENERIC_F217ZGTX.build.variant=STM32F2xx/F207Z(C-E-F-G)T_F217Z(E
 # Upload menu
 GenF2.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF2.menu.upload_method.swdMethod.upload.protocol=0
-GenF2.menu.upload_method.swdMethod.upload.options=-g
+GenF2.menu.upload_method.swdMethod.upload.options=
 GenF2.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenF2.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenF2.menu.upload_method.serialMethod.upload.protocol=1
-GenF2.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenF2.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenF2.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenF2.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF2.menu.upload_method.dfuMethod.upload.protocol=2
-GenF2.menu.upload_method.dfuMethod.upload.options=-g
+GenF2.menu.upload_method.dfuMethod.upload.options=
 GenF2.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -3553,17 +3553,17 @@ GenF3.menu.pnum.GENERIC_F398VETX.build.variant=STM32F3xx/F398VET
 # Upload menu
 GenF3.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF3.menu.upload_method.swdMethod.upload.protocol=0
-GenF3.menu.upload_method.swdMethod.upload.options=-g
+GenF3.menu.upload_method.swdMethod.upload.options=
 GenF3.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenF3.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenF3.menu.upload_method.serialMethod.upload.protocol=1
-GenF3.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenF3.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenF3.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenF3.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF3.menu.upload_method.dfuMethod.upload.protocol=2
-GenF3.menu.upload_method.dfuMethod.upload.options=-g
+GenF3.menu.upload_method.dfuMethod.upload.options=
 GenF3.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenF3.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -4388,17 +4388,17 @@ GenF4.menu.pnum.GENERIC_F446VETX.build.variant=STM32F4xx/F446V(C-E)T
 # Upload menu
 GenF4.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF4.menu.upload_method.swdMethod.upload.protocol=0
-GenF4.menu.upload_method.swdMethod.upload.options=-g
+GenF4.menu.upload_method.swdMethod.upload.options=
 GenF4.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenF4.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenF4.menu.upload_method.serialMethod.upload.protocol=1
-GenF4.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenF4.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenF4.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenF4.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF4.menu.upload_method.dfuMethod.upload.protocol=2
-GenF4.menu.upload_method.dfuMethod.upload.options=-g
+GenF4.menu.upload_method.dfuMethod.upload.options=
 GenF4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenF4.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -4815,17 +4815,17 @@ GenF7.menu.pnum.GENERIC_F777ZITX.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T
 # Upload menu
 GenF7.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF7.menu.upload_method.swdMethod.upload.protocol=0
-GenF7.menu.upload_method.swdMethod.upload.options=-g
+GenF7.menu.upload_method.swdMethod.upload.options=
 GenF7.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenF7.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenF7.menu.upload_method.serialMethod.upload.protocol=1
-GenF7.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenF7.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenF7.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenF7.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF7.menu.upload_method.dfuMethod.upload.protocol=2
-GenF7.menu.upload_method.dfuMethod.upload.options=-g
+GenF7.menu.upload_method.dfuMethod.upload.options=
 GenF7.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ###############################
@@ -6071,17 +6071,17 @@ GenG0.menu.pnum.GENERIC_G0C1RETX.build.variant=STM32G0xx/G0B1R(B-C-E)T_G0C1R(C-E
 # Upload menu
 GenG0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenG0.menu.upload_method.swdMethod.upload.protocol=0
-GenG0.menu.upload_method.swdMethod.upload.options=-g
+GenG0.menu.upload_method.swdMethod.upload.options=
 GenG0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenG0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenG0.menu.upload_method.serialMethod.upload.protocol=1
-GenG0.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenG0.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenG0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenG0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenG0.menu.upload_method.dfuMethod.upload.protocol=2
-GenG0.menu.upload_method.dfuMethod.upload.options=-g
+GenG0.menu.upload_method.dfuMethod.upload.options=
 GenG0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ###############################
@@ -7113,17 +7113,17 @@ GenG4.menu.pnum.GENERIC_G4A1VETX.build.variant=STM32G4xx/G491V(C-E)T_G4A1VET
 # Upload menu
 GenG4.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenG4.menu.upload_method.swdMethod.upload.protocol=0
-GenG4.menu.upload_method.swdMethod.upload.options=-g
+GenG4.menu.upload_method.swdMethod.upload.options=
 GenG4.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenG4.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenG4.menu.upload_method.serialMethod.upload.protocol=1
-GenG4.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenG4.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenG4.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenG4.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenG4.menu.upload_method.dfuMethod.upload.protocol=2
-GenG4.menu.upload_method.dfuMethod.upload.options=-g
+GenG4.menu.upload_method.dfuMethod.upload.options=
 GenG4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -7530,17 +7530,17 @@ GenH7.menu.pnum.GENERIC_H757IITX.build.variant=STM32H7xx/H742Z(G-I)T_H743Z(G-I)T
 # Upload menu
 GenH7.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenH7.menu.upload_method.swdMethod.upload.protocol=0
-GenH7.menu.upload_method.swdMethod.upload.options=-g
+GenH7.menu.upload_method.swdMethod.upload.options=
 GenH7.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenH7.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenH7.menu.upload_method.serialMethod.upload.protocol=1
-GenH7.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenH7.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenH7.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenH7.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenH7.menu.upload_method.dfuMethod.upload.protocol=2
-GenH7.menu.upload_method.dfuMethod.upload.options=-g
+GenH7.menu.upload_method.dfuMethod.upload.options=
 GenH7.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -8636,17 +8636,17 @@ GenL0.menu.pnum.GENERIC_L083V8TX.build.variant=STM32L0xx/L072V(8-B-Z)(I-T)_L073V
 # Upload menu
 GenL0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenL0.menu.upload_method.swdMethod.upload.protocol=0
-GenL0.menu.upload_method.swdMethod.upload.options=-g
+GenL0.menu.upload_method.swdMethod.upload.options=
 GenL0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenL0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenL0.menu.upload_method.serialMethod.upload.protocol=1
-GenL0.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenL0.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenL0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenL0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenL0.menu.upload_method.dfuMethod.upload.protocol=2
-GenL0.menu.upload_method.dfuMethod.upload.options=-g
+GenL0.menu.upload_method.dfuMethod.upload.options=
 GenL0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenL0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -8902,17 +8902,17 @@ GenL1.menu.pnum.GENERIC_L162RETX.build.variant=STM32L1xx/L151RET_L152RET_L162RET
 # Upload menu
 GenL1.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenL1.menu.upload_method.swdMethod.upload.protocol=0
-GenL1.menu.upload_method.swdMethod.upload.options=-g
+GenL1.menu.upload_method.swdMethod.upload.options=
 GenL1.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenL1.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenL1.menu.upload_method.serialMethod.upload.protocol=1
-GenL1.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenL1.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenL1.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenL1.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenL1.menu.upload_method.dfuMethod.upload.protocol=2
-GenL1.menu.upload_method.dfuMethod.upload.options=-g
+GenL1.menu.upload_method.dfuMethod.upload.options=
 GenL1.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -9511,17 +9511,17 @@ GenL4.menu.pnum.GENERIC_L4S9ZIYX.build.variant=STM32L4xx/L4R5Z(G-I)Y_L4R9Z(G-I)Y
 # Upload menu
 GenL4.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenL4.menu.upload_method.swdMethod.upload.protocol=0
-GenL4.menu.upload_method.swdMethod.upload.options=-g
+GenL4.menu.upload_method.swdMethod.upload.options=
 GenL4.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenL4.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenL4.menu.upload_method.serialMethod.upload.protocol=1
-GenL4.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenL4.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenL4.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenL4.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenL4.menu.upload_method.dfuMethod.upload.protocol=2
-GenL4.menu.upload_method.dfuMethod.upload.options=-g
+GenL4.menu.upload_method.dfuMethod.upload.options=
 GenL4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -9567,17 +9567,17 @@ GenL5.menu.pnum.GENERIC_L562ZETXQ.build.variant=STM32L5xx/L552Z(C-E)TxQ_L562ZETx
 # Upload menu
 GenL5.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenL5.menu.upload_method.swdMethod.upload.protocol=0
-GenL5.menu.upload_method.swdMethod.upload.options=-g
+GenL5.menu.upload_method.swdMethod.upload.options=
 GenL5.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenL5.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenL5.menu.upload_method.serialMethod.upload.protocol=1
-GenL5.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenL5.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenL5.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenL5.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenL5.menu.upload_method.dfuMethod.upload.protocol=2
-GenL5.menu.upload_method.dfuMethod.upload.options=-g
+GenL5.menu.upload_method.dfuMethod.upload.options=
 GenL5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -9647,17 +9647,17 @@ GenU5.menu.pnum.GENERIC_U585AIIXQ.build.variant=STM32U5xx/U575A(G-I)IxQ_U585AIIx
 # Upload menu
 GenU5.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenU5.menu.upload_method.swdMethod.upload.protocol=0
-GenU5.menu.upload_method.swdMethod.upload.options=-g
+GenU5.menu.upload_method.swdMethod.upload.options=
 GenU5.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenU5.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenU5.menu.upload_method.serialMethod.upload.protocol=1
-GenU5.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenU5.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenU5.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenU5.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenU5.menu.upload_method.dfuMethod.upload.protocol=2
-GenU5.menu.upload_method.dfuMethod.upload.options=-g
+GenU5.menu.upload_method.dfuMethod.upload.options=
 GenU5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -9743,17 +9743,17 @@ GenWB.menu.pnum.GENERIC_WB55RGVX.build.variant=STM32WBxx/WB55R(C-E-G)V
 # Upload menu
 GenWB.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenWB.menu.upload_method.swdMethod.upload.protocol=0
-GenWB.menu.upload_method.swdMethod.upload.options=-g
+GenWB.menu.upload_method.swdMethod.upload.options=
 GenWB.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenWB.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenWB.menu.upload_method.serialMethod.upload.protocol=1
-GenWB.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenWB.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenWB.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenWB.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenWB.menu.upload_method.dfuMethod.upload.protocol=2
-GenWB.menu.upload_method.dfuMethod.upload.options=-g
+GenWB.menu.upload_method.dfuMethod.upload.options=
 GenWB.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -9912,17 +9912,17 @@ GenWL.menu.pnum.GENERIC_WLE5JCIX.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8
 # Upload menu
 GenWL.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenWL.menu.upload_method.swdMethod.upload.protocol=0
-GenWL.menu.upload_method.swdMethod.upload.options=-g
+GenWL.menu.upload_method.swdMethod.upload.options=
 GenWL.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenWL.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenWL.menu.upload_method.serialMethod.upload.protocol=1
-GenWL.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenWL.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenWL.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenWL.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenWL.menu.upload_method.dfuMethod.upload.protocol=2
-GenWL.menu.upload_method.dfuMethod.upload.options=-g
+GenWL.menu.upload_method.dfuMethod.upload.options=
 GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -10128,17 +10128,17 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 # Upload menu
 3dprinter.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 3dprinter.menu.upload_method.swdMethod.upload.protocol=0
-3dprinter.menu.upload_method.swdMethod.upload.options=-g
+3dprinter.menu.upload_method.swdMethod.upload.options=
 3dprinter.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 3dprinter.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 3dprinter.menu.upload_method.serialMethod.upload.protocol=1
-3dprinter.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+3dprinter.menu.upload_method.serialMethod.upload.options={serial.port.file}
 3dprinter.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 3dprinter.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 3dprinter.menu.upload_method.dfuMethod.upload.protocol=2
-3dprinter.menu.upload_method.dfuMethod.upload.options=-g
+3dprinter.menu.upload_method.dfuMethod.upload.options=
 3dprinter.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -10171,17 +10171,17 @@ BluesW.menu.pnum.SWAN_R5.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 # Upload menu
 BluesW.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 BluesW.menu.upload_method.swdMethod.upload.protocol=0
-BluesW.menu.upload_method.swdMethod.upload.options=-g
+BluesW.menu.upload_method.swdMethod.upload.options=
 BluesW.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 BluesW.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 BluesW.menu.upload_method.serialMethod.upload.protocol=1
-BluesW.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+BluesW.menu.upload_method.serialMethod.upload.options={serial.port.file}
 BluesW.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 BluesW.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 BluesW.menu.upload_method.dfuMethod.upload.protocol=2
-BluesW.menu.upload_method.dfuMethod.upload.options=-g
+BluesW.menu.upload_method.dfuMethod.upload.options=
 BluesW.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -10214,12 +10214,12 @@ Elecgator.menu.pnum.ETHERCAT_DUINO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PIN
 # Upload menu
 Elecgator.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Elecgator.menu.upload_method.swdMethod.upload.protocol=0
-Elecgator.menu.upload_method.swdMethod.upload.options=-g
+Elecgator.menu.upload_method.swdMethod.upload.options=
 Elecgator.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Elecgator.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Elecgator.menu.upload_method.dfuMethod.upload.protocol=2
-Elecgator.menu.upload_method.dfuMethod.upload.options=-g
+Elecgator.menu.upload_method.dfuMethod.upload.options=
 Elecgator.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -10262,17 +10262,17 @@ ESC_board.menu.pnum.STORM32_V1_31_RC.build.variant=STM32F1xx/F103R(C-D-E)T
 # Upload menu
 ESC_board.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 ESC_board.menu.upload_method.swdMethod.upload.protocol=0
-ESC_board.menu.upload_method.swdMethod.upload.options=-g
+ESC_board.menu.upload_method.swdMethod.upload.options=
 ESC_board.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 ESC_board.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 ESC_board.menu.upload_method.serialMethod.upload.protocol=1
-ESC_board.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+ESC_board.menu.upload_method.serialMethod.upload.options={serial.port.file}
 ESC_board.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 ESC_board.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 ESC_board.menu.upload_method.dfuMethod.upload.protocol=2
-ESC_board.menu.upload_method.dfuMethod.upload.options=-g
+ESC_board.menu.upload_method.dfuMethod.upload.options=
 ESC_board.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -10345,7 +10345,7 @@ Garatronic.menu.pnum.PYBSTICK26_PRO.build.float-abi=-mfloat-abi=hard
 # PYBSTICK26 boards upload method
 Garatronic.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Garatronic.menu.upload_method.dfuMethod.upload.protocol=2
-Garatronic.menu.upload_method.dfuMethod.upload.options=-g
+Garatronic.menu.upload_method.dfuMethod.upload.options=
 Garatronic.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -10401,17 +10401,17 @@ GenFlight.menu.pnum.Sparky_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 # Upload menu
 GenFlight.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenFlight.menu.upload_method.swdMethod.upload.protocol=0
-GenFlight.menu.upload_method.swdMethod.upload.options=-g
+GenFlight.menu.upload_method.swdMethod.upload.options=
 GenFlight.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenFlight.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenFlight.menu.upload_method.serialMethod.upload.protocol=1
-GenFlight.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenFlight.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenFlight.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenFlight.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenFlight.menu.upload_method.dfuMethod.upload.protocol=2
-GenFlight.menu.upload_method.dfuMethod.upload.options=-g
+GenFlight.menu.upload_method.dfuMethod.upload.options=
 GenFlight.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenFlight.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -10533,17 +10533,17 @@ LoRa.menu.pnum.ELEKTOR_F072CB.build.st_extra_flags=-D{build.product_line} {build
 # Upload menu
 LoRa.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 LoRa.menu.upload_method.swdMethod.upload.protocol=0
-LoRa.menu.upload_method.swdMethod.upload.options=-g
+LoRa.menu.upload_method.swdMethod.upload.options=
 LoRa.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 LoRa.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 LoRa.menu.upload_method.serialMethod.upload.protocol=1
-LoRa.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+LoRa.menu.upload_method.serialMethod.upload.options={serial.port.file}
 LoRa.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 LoRa.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 LoRa.menu.upload_method.dfuMethod.upload.protocol=2
-LoRa.menu.upload_method.dfuMethod.upload.options=-g
+LoRa.menu.upload_method.dfuMethod.upload.options=
 LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -10580,17 +10580,17 @@ Midatronics.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
 Midatronics.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Midatronics.menu.upload_method.swdMethod.upload.protocol=0
-Midatronics.menu.upload_method.swdMethod.upload.options=-g
+Midatronics.menu.upload_method.swdMethod.upload.options=
 Midatronics.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Midatronics.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 Midatronics.menu.upload_method.serialMethod.upload.protocol=1
-Midatronics.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+Midatronics.menu.upload_method.serialMethod.upload.options={serial.port.file}
 Midatronics.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 Midatronics.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Midatronics.menu.upload_method.dfuMethod.upload.protocol=2
-Midatronics.menu.upload_method.dfuMethod.upload.options=-g
+Midatronics.menu.upload_method.dfuMethod.upload.options=
 Midatronics.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
