@@ -49,7 +49,6 @@ extern "C" {
   * @}
   */
 
-
 /** @defgroup FLASHEx_ECC_CPUID FLASHEx ECC CPU Identification
   * @{
   */

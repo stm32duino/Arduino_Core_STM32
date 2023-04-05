@@ -60,18 +60,18 @@ extern "C" {
 #define LL_MAX_DELAY                  0xFFFFFFFFU
 
 /**
- * @brief Unique device ID register base address
- */
+  * @brief Unique device ID register base address
+  */
 #define UID_BASE_ADDRESS              UID_BASE
 
 /**
- * @brief Flash size data register base address
- */
+  * @brief Flash size data register base address
+  */
 #define FLASHSIZE_BASE_ADDRESS        FLASHSIZE_BASE
 
 /**
- * @brief Package data register base address
- */
+  * @brief Package data register base address
+  */
 #define PACKAGE_BASE_ADDRESS          PACKAGE_BASE
 
 /**

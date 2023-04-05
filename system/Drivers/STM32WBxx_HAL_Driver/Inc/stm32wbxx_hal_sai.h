@@ -356,6 +356,7 @@ typedef void (*pSAI_CallbackTypeDef)(SAI_HandleTypeDef *hsai);
 #define SAI_AUDIO_FREQUENCY_48K           48000U
 #define SAI_AUDIO_FREQUENCY_44K           44100U
 #define SAI_AUDIO_FREQUENCY_32K           32000U
+#define SAI_AUDIO_FREQUENCY_24K           24000U
 #define SAI_AUDIO_FREQUENCY_22K           22050U
 #define SAI_AUDIO_FREQUENCY_16K           16000U
 #define SAI_AUDIO_FREQUENCY_11K           11025U
@@ -839,9 +840,10 @@ uint32_t HAL_SAI_GetError(const SAI_HandleTypeDef *hsai);
 
 #define IS_SAI_AUDIO_FREQUENCY(AUDIO) (((AUDIO) == SAI_AUDIO_FREQUENCY_192K) || ((AUDIO) == SAI_AUDIO_FREQUENCY_96K) || \
                                        ((AUDIO) == SAI_AUDIO_FREQUENCY_48K)  || ((AUDIO) == SAI_AUDIO_FREQUENCY_44K) || \
-                                       ((AUDIO) == SAI_AUDIO_FREQUENCY_32K)  || ((AUDIO) == SAI_AUDIO_FREQUENCY_22K) || \
-                                       ((AUDIO) == SAI_AUDIO_FREQUENCY_16K)  || ((AUDIO) == SAI_AUDIO_FREQUENCY_11K) || \
-                                       ((AUDIO) == SAI_AUDIO_FREQUENCY_8K)   || ((AUDIO) == SAI_AUDIO_FREQUENCY_MCKDIV))
+                                       ((AUDIO) == SAI_AUDIO_FREQUENCY_32K)  || ((AUDIO) == SAI_AUDIO_FREQUENCY_24K) || \
+                                       ((AUDIO) == SAI_AUDIO_FREQUENCY_22K)  || ((AUDIO) == SAI_AUDIO_FREQUENCY_16K) || \
+                                       ((AUDIO) == SAI_AUDIO_FREQUENCY_11K)  || ((AUDIO) == SAI_AUDIO_FREQUENCY_8K)  || \
+                                       ((AUDIO) == SAI_AUDIO_FREQUENCY_MCKDIV))
 
 #define IS_SAI_BLOCK_MCK_OVERSAMPLING(VALUE) (((VALUE) == SAI_MCK_OVERSAMPLING_DISABLE) || \
                                               ((VALUE) == SAI_MCK_OVERSAMPLING_ENABLE))

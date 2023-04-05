@@ -68,8 +68,8 @@
   */
 
 /** @defgroup DMAEx_Exported_Functions_Group1 DMAEx Extended features functions
- *  @brief   Extended features functions
- *
+  *  @brief   Extended features functions
+  *
 @verbatim
  ===============================================================================
                 #####  Extended features functions  #####
@@ -134,12 +134,13 @@ HAL_StatusTypeDef HAL_DMAEx_ConfigMuxSync(DMA_HandleTypeDef *hdma, HAL_DMA_MuxSy
   * @brief  Configure the DMAMUX request generator block used by the given DMA channel (instance).
   * @param  hdma Pointer to a DMA_HandleTypeDef structure that contains
   *                     the configuration information for the specified DMA channel.
-* @param  pRequestGeneratorConfig Pointer to HAL_DMA_MuxRequestGeneratorConfigTypeDef :
+  * @param  pRequestGeneratorConfig Pointer to HAL_DMA_MuxRequestGeneratorConfigTypeDef :
   *         contains the request generator parameters.
   *
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_DMAEx_ConfigMuxRequestGenerator(DMA_HandleTypeDef *hdma, HAL_DMA_MuxRequestGeneratorConfigTypeDef *pRequestGeneratorConfig)
+HAL_StatusTypeDef HAL_DMAEx_ConfigMuxRequestGenerator(DMA_HandleTypeDef *hdma,
+                                                      HAL_DMA_MuxRequestGeneratorConfigTypeDef *pRequestGeneratorConfig)
 {
   /* Check the parameters */
   assert_param(IS_DMA_ALL_INSTANCE(hdma->Instance));

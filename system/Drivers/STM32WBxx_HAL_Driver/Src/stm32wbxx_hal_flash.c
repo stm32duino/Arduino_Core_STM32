@@ -115,8 +115,8 @@
 /* Private macros ------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /** @defgroup FLASH_Private_Variables FLASH Private Variables
- * @{
- */
+  * @{
+  */
 /**
   * @brief  Variable used for Program/Erase sectors under interruption
   */
@@ -133,8 +133,8 @@ FLASH_ProcessTypeDef pFlash = {.Lock = HAL_UNLOCKED, \
 
 /* Private function prototypes -----------------------------------------------*/
 /** @defgroup FLASH_Private_Functions FLASH Private Functions
- * @{
- */
+  * @{
+  */
 static void          FLASH_Program_DoubleWord(uint32_t Address, uint64_t Data);
 static void          FLASH_Program_Fast(uint32_t Address, uint32_t DataAddress);
 /**
@@ -147,8 +147,8 @@ static void          FLASH_Program_Fast(uint32_t Address, uint32_t DataAddress);
   */
 
 /** @defgroup FLASH_Exported_Functions_Group1 Programming operation functions
- *  @brief   Programming operation functions
- *
+  *  @brief   Programming operation functions
+  *
 @verbatim
  ===============================================================================
                   ##### Programming operation functions #####
@@ -424,8 +424,8 @@ __weak void HAL_FLASH_OperationErrorCallback(uint32_t ReturnValue)
   */
 
 /** @defgroup FLASH_Exported_Functions_Group2 Peripheral Control functions
- *  @brief   Management functions
- *
+  *  @brief   Management functions
+  *
 @verbatim
  ===============================================================================
                       ##### Peripheral Control functions #####
@@ -549,8 +549,8 @@ HAL_StatusTypeDef HAL_FLASH_OB_Launch(void)
   */
 
 /** @defgroup FLASH_Exported_Functions_Group3 Peripheral State and Errors functions
- *  @brief   Peripheral Errors functions
- *
+  *  @brief   Peripheral Errors functions
+  *
 @verbatim
  ===============================================================================
                 ##### Peripheral Errors functions #####
@@ -715,8 +715,7 @@ static __RAM_FUNC void FLASH_Program_Fast(uint32_t Address, uint32_t DataAddress
     dest_addr++;
     src_addr++;
     row_index--;
-  }
-  while (row_index != 0U);
+  } while (row_index != 0U);
 
   /* wait for BSY in order to be sure that flash operation is ended before
      allowing prefetch in flash. Timeout does not return status, as it will

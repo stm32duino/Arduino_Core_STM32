@@ -7,7 +7,9 @@
   *          This file overrides the native HAL time base functions (defined as weak)
   *          the TIM time base:
   *           + Initializes the TIM peripheral generate a Period elapsed Event each 1ms
-  *           + HAL_IncTick is called inside HAL_TIM_PeriodElapsedCallback ie each 1ms
+  *             when uwTickFreq is set to default value, else 10 ms or
+  *             100 ms, depending of above global variable value.
+  *           + HAL_IncTick is called inside HAL_TIM_PeriodElapsedCallback
   *
   ******************************************************************************
   * @attention
@@ -20,6 +22,17 @@
   * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
+  @verbatim
+  ==============================================================================
+                        ##### How to use this driver #####
+  ==============================================================================
+    [..]
+    This file must be copied to the application folder and modified as follows:
+    (#) Rename it to 'stm32wlxx_hal_timebase_tim.c'
+    (#) Add this file and the TIM HAL drivers to your project and uncomment
+       HAL_TIM_MODULE_ENABLED define in stm32wlxx_hal_conf.h
+
+  @endverbatim
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -39,6 +52,7 @@
 /* Private variables ---------------------------------------------------------*/
 extern TIM_HandleTypeDef TimHandle;
 TIM_HandleTypeDef        TimHandle;
+
 /* Private function prototypes -----------------------------------------------*/
 void TIM2_IRQHandler(void);
 /* Private functions ---------------------------------------------------------*/
@@ -47,9 +61,9 @@ void TIM2_IRQHandler(void);
   * @brief  This function configures the TIM2 as a time base source.
   *         The time source is configured to have 1ms time base with a dedicated
   *         Tick interrupt priority.
-  * @note   This function is called  automatically at the beginning of program after
+  * @note   This function is called automatically at the beginning of program after
   *         reset by HAL_Init() or at any time when clock is configured, by HAL_RCC_ClockConfig().
-  * @param  TickPriority: Tick interrupt priority.
+  * @param  TickPriority Tick interrupt priority.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
@@ -59,56 +73,84 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   uint32_t              uwAPB1Prescaler;
   uint32_t              uwPrescalerValue;
   uint32_t              pFLatency;
+HAL_StatusTypeDef     status = HAL_OK;
 
-  /* Configure the TIM2 IRQ priority */
-  HAL_NVIC_SetPriority(TIM2_IRQn, TickPriority, 0U);
-
-  /* Enable the TIM2 global Interrupt */
-  HAL_NVIC_EnableIRQ(TIM2_IRQn);
-
-  /* Enable TIM2 clock */
-  __HAL_RCC_TIM2_CLK_ENABLE();
-
-  /* Get clock configuration */
-  HAL_RCC_GetClockConfig(&clkconfig, &pFLatency);
-
-  /* Get APB1 prescaler */
-  uwAPB1Prescaler = clkconfig.APB1CLKDivider;
-
-  /* Compute TIM2 clock */
-  if (uwAPB1Prescaler == RCC_HCLK_DIV1)
+  /* Check uwTickFreq for MisraC 2012 (even if uwTickFreq is a enum type that don't take the value zero)*/
+  if ((uint32_t)uwTickFreq != 0U)
   {
-    uwTimclock = HAL_RCC_GetPCLK1Freq();
+    /* Enable TIM2 clock */
+    __HAL_RCC_TIM2_CLK_ENABLE();
+
+    /* Get clock configuration */
+    HAL_RCC_GetClockConfig(&clkconfig, &pFLatency);
+
+    /* Get APB1 prescaler */
+    uwAPB1Prescaler = clkconfig.APB1CLKDivider;
+
+    /* Compute TIM2 clock */
+    if (uwAPB1Prescaler == RCC_HCLK_DIV1)
+    {
+      uwTimclock = HAL_RCC_GetPCLK1Freq();
+    }
+    else
+    {
+      uwTimclock = 2*HAL_RCC_GetPCLK1Freq();
+    }
+
+    /* Compute the prescaler value to have TIM2 counter clock equal to 1MHz */
+    uwPrescalerValue = (uint32_t) ((uwTimclock / 1000000U) - 1U);
+
+    /* Initialize TIM2 */
+    TimHandle.Instance = TIM2;
+
+    /* Initialize TIMx peripheral as follow:
+    + Period = [(TIM2CLK/uwTickFreq) - 1]. to have a (1/uwTickFreq) s time base.
+    + Prescaler = (uwTimclock/1000000 - 1) to have a 1MHz counter clock.
+    + ClockDivision = 0
+    + Counter direction = Up
+    */
+    TimHandle.Init.Period = (1000000U / (1000U / (uint32_t)uwTickFreq)) - 1U;
+    TimHandle.Init.Prescaler = uwPrescalerValue;
+    TimHandle.Init.ClockDivision = 0U;
+    TimHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
+    TimHandle.Init.RepetitionCounter = 0U;
+    if (HAL_TIM_Base_Init(&TimHandle) == HAL_OK)
+    {
+      /* Start the TIM time Base generation in interrupt mode */
+      if (HAL_TIM_Base_Start_IT(&TimHandle) == HAL_OK)
+      {
+        /* Enable the TIM2 global Interrupt */
+        HAL_NVIC_EnableIRQ(TIM2_IRQn);
+
+        /* Configure the SysTick IRQ priority */
+        if (TickPriority < (1UL << __NVIC_PRIO_BITS))
+        {
+          /*Configure the TIM2 IRQ priority */
+          HAL_NVIC_SetPriority(TIM2_IRQn, TickPriority ,0U);
+          uwTickPrio = TickPriority;
+        }
+        else
+        {
+          status = HAL_ERROR;
+        }
+      }
+      else
+      {
+        status = HAL_ERROR;
+      }
+    }
+    else
+    {
+      status = HAL_ERROR;
+    }
   }
   else
   {
-    uwTimclock = 2U * HAL_RCC_GetPCLK1Freq();
-  }
-
-  /* Compute the prescaler value to have TIM2 counter clock equal to 1MHz */
-  uwPrescalerValue = (uint32_t)((uwTimclock / 1000000U) - 1U);
-
-  /* Initialize TIM2 */
-  TimHandle.Instance = TIM2;
-
-  /* Initialize TIMx peripheral as follow:
-  + Period = [(TIM2CLK/1000) - 1]. to have a (1/1000) s time base.
-  + Prescaler = (uwTimclock/1000000 - 1) to have a 1MHz counter clock.
-  + ClockDivision = 0
-  + Counter direction = Up
-  */
-  TimHandle.Init.Period = (1000000U / 1000U) - 1U;
-  TimHandle.Init.Prescaler = uwPrescalerValue;
-  TimHandle.Init.ClockDivision = 0U;
-  TimHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
-  if (HAL_TIM_Base_Init(&TimHandle) == HAL_OK)
-  {
-    /* Start the TIM time Base generation in interrupt mode */
-    return HAL_TIM_Base_Start_IT(&TimHandle);
+      status = HAL_ERROR;
   }
 
   /* Return function status */
-  return HAL_ERROR;
+  return status;
 }
 
 /**
