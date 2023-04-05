@@ -710,7 +710,6 @@ __STATIC_INLINE uint32_t LL_IPCC_GetChannelNumber(IPCC_TypeDef *IPCCx)
   * @}
   */
 
-
 /**
   * @}
   */
@@ -719,7 +718,7 @@ __STATIC_INLINE uint32_t LL_IPCC_GetChannelNumber(IPCC_TypeDef *IPCCx)
   * @}
   */
 
-#endif /* defined(IPCC) */
+#endif /* IPCC */
 
 /**
   * @}

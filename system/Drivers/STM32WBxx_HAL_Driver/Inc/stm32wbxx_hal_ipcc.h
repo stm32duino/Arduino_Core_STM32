@@ -22,7 +22,7 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif /* __cplusplus */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32wbxx_hal_def.h"
@@ -199,8 +199,8 @@ typedef void ChannelCb(IPCC_HandleTypeDef *hipcc, uint32_t ChannelIndex, IPCC_CH
 
 /* Initialization and de-initialization functions *******************************/
 /** @defgroup IPCC_Exported_Functions_Group1 Initialization and deinitialization functions
- *  @{
- */
+  *  @{
+  */
 HAL_StatusTypeDef HAL_IPCC_Init(IPCC_HandleTypeDef *hipcc);
 HAL_StatusTypeDef HAL_IPCC_DeInit(IPCC_HandleTypeDef *hipcc);
 void HAL_IPCC_MspInit(IPCC_HandleTypeDef *hipcc);
@@ -210,20 +210,24 @@ void HAL_IPCC_MspDeInit(IPCC_HandleTypeDef *hipcc);
   */
 
 /** @defgroup IPCC_Exported_Functions_Group2 Communication functions
- *  @{
- */
+  *  @{
+  */
 /* IO operation functions  *****************************************************/
-HAL_StatusTypeDef HAL_IPCC_ActivateNotification(IPCC_HandleTypeDef *hipcc, uint32_t ChannelIndex, IPCC_CHANNELDirTypeDef ChannelDir, ChannelCb cb);
-HAL_StatusTypeDef HAL_IPCC_DeActivateNotification(IPCC_HandleTypeDef *hipcc, uint32_t ChannelIndex, IPCC_CHANNELDirTypeDef ChannelDir);
-IPCC_CHANNELStatusTypeDef HAL_IPCC_GetChannelStatus(IPCC_HandleTypeDef const *const hipcc, uint32_t ChannelIndex, IPCC_CHANNELDirTypeDef ChannelDir);
-HAL_StatusTypeDef HAL_IPCC_NotifyCPU(IPCC_HandleTypeDef const *const hipcc, uint32_t ChannelIndex, IPCC_CHANNELDirTypeDef ChannelDir);
+HAL_StatusTypeDef HAL_IPCC_ActivateNotification(IPCC_HandleTypeDef *hipcc, uint32_t ChannelIndex,
+                                                IPCC_CHANNELDirTypeDef ChannelDir, ChannelCb cb);
+HAL_StatusTypeDef HAL_IPCC_DeActivateNotification(IPCC_HandleTypeDef *hipcc, uint32_t ChannelIndex,
+                                                  IPCC_CHANNELDirTypeDef ChannelDir);
+IPCC_CHANNELStatusTypeDef HAL_IPCC_GetChannelStatus(IPCC_HandleTypeDef const *const hipcc,
+                                                    uint32_t ChannelIndex, IPCC_CHANNELDirTypeDef ChannelDir);
+HAL_StatusTypeDef HAL_IPCC_NotifyCPU(IPCC_HandleTypeDef const *const hipcc, uint32_t ChannelIndex,
+                                     IPCC_CHANNELDirTypeDef ChannelDir);
 /**
   * @}
   */
 
 /** @defgroup IPCC_Exported_Functions_Group3 Peripheral State and Error functions
- *  @{
- */
+  *  @{
+  */
 /* Peripheral State and Error functions ****************************************/
 HAL_IPCC_StateTypeDef HAL_IPCC_GetState(IPCC_HandleTypeDef const *const hipcc);
 /**
@@ -231,8 +235,8 @@ HAL_IPCC_StateTypeDef HAL_IPCC_GetState(IPCC_HandleTypeDef const *const hipcc);
   */
 
 /** @defgroup IPCC_IRQ_Handler_and_Callbacks Peripheral IRQ Handler and Callbacks
- *  @{
- */
+  *  @{
+  */
 /* IRQHandler and Callbacks used in non blocking modes  ************************/
 void HAL_IPCC_TX_IRQHandler(IPCC_HandleTypeDef   *const hipcc);
 void HAL_IPCC_RX_IRQHandler(IPCC_HandleTypeDef *const hipcc);
@@ -257,7 +261,7 @@ void HAL_IPCC_RxCallback(IPCC_HandleTypeDef *hipcc, uint32_t ChannelIndex, IPCC_
 
 #ifdef __cplusplus
 }
-#endif
+#endif /* __cplusplus */
 
 #endif /* STM32WBxx_HAL_IPCC_H */
 

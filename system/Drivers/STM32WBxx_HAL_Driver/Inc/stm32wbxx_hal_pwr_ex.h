@@ -21,7 +21,7 @@
 #define STM32WBxx_HAL_PWR_EX_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -48,17 +48,17 @@
   */
 typedef struct
 {
-  uint32_t PVMType;   /*!< PVMType: Specifies which voltage is monitored and against which threshold. 
-                           This parameter can be a value of @ref PWREx_PVM_Type. 
-                           @arg @ref PWR_PVM_1 Peripheral Voltage Monitoring 1 enable: VDDUSB versus 1.2 V (applicable when USB feature is supported). 
-                           @arg @ref PWR_PVM_3 Peripheral Voltage Monitoring 3 enable: VDDA versus 1.62 V. 
+  uint32_t PVMType;   /*!< PVMType: Specifies which voltage is monitored and against which threshold.
+                           This parameter can be a value of @ref PWREx_PVM_Type.
+                           @arg @ref PWR_PVM_1 Peripheral Voltage Monitoring 1 enable: VDDUSB versus 1.2 V (applicable when USB feature is supported).
+                           @arg @ref PWR_PVM_3 Peripheral Voltage Monitoring 3 enable: VDDA versus 1.62 V.
                            */
 
   uint32_t Mode;      /*!< Mode: Specifies the operating mode for the selected pins.
                            This parameter can be a value of @ref PWREx_PVM_Mode. */
-  uint32_t WakeupTarget;   /*!< Specifies the Wakeup Target 
+  uint32_t WakeupTarget;   /*!< Specifies the Wakeup Target
                            This parameter can be a value of @ref PWREx_WakeUpTarget_Definition */
-}PWR_PVMTypeDef;
+} PWR_PVMTypeDef;
 
 #if defined(PWR_CR5_SMPSEN)
 /**
@@ -68,11 +68,11 @@ typedef struct
 {
   uint32_t StartupCurrent; /*!< SMPS step down converter supply startup current selection.
                                 This parameter can be a value of @ref PWREx_SMPS_STARTUP_CURRENT. */
-  
+
   uint32_t OutputVoltage;  /*!< SMPS step down converter output voltage scaling voltage level.
                                 This parameter can be a value of @ref PWREx_SMPS_OUTPUT_VOLTAGE_LEVEL */
-}PWR_SMPSTypeDef;
-#endif
+} PWR_SMPSTypeDef;
+#endif /* PWR_CR5_SMPSEN */
 
 /**
   * @}
@@ -99,26 +99,26 @@ typedef struct
 #define PWR_WAKEUP_PIN1_HIGH            PWR_CR3_EWUP1  /*!< Wakeup pin 1 (with high level polarity) */
 #if defined(PWR_CR3_EWUP2)
 #define PWR_WAKEUP_PIN2_HIGH            PWR_CR3_EWUP2  /*!< Wakeup pin 2 (with high level polarity) */
-#endif
+#endif /* PWR_CR3_EWUP2 */
 #if defined(PWR_CR3_EWUP3)
 #define PWR_WAKEUP_PIN3_HIGH            PWR_CR3_EWUP3  /*!< Wakeup pin 3 (with high level polarity) */
-#endif
+#endif /* PWR_CR3_EWUP3 */
 #define PWR_WAKEUP_PIN4_HIGH            PWR_CR3_EWUP4  /*!< Wakeup pin 4 (with high level polarity) */
 #if defined(PWR_CR3_EWUP5)
 #define PWR_WAKEUP_PIN5_HIGH            PWR_CR3_EWUP5  /*!< Wakeup pin 5 (with high level polarity) */
-#endif
+#endif /* PWR_CR3_EWUP5 */
 
 #define PWR_WAKEUP_PIN1_LOW             ((PWR_CR4_WP1<<PWR_WUP_POLARITY_SHIFT) | PWR_CR3_EWUP1) /*!< Wakeup pin 1 (with low level polarity) */
 #if defined(PWR_CR3_EWUP2)
 #define PWR_WAKEUP_PIN2_LOW             ((PWR_CR4_WP2<<PWR_WUP_POLARITY_SHIFT) | PWR_CR3_EWUP2) /*!< Wakeup pin 2 (with low level polarity) */
-#endif
+#endif /* PWR_CR3_EWUP2 */
 #if defined(PWR_CR3_EWUP3)
 #define PWR_WAKEUP_PIN3_LOW             ((PWR_CR4_WP3<<PWR_WUP_POLARITY_SHIFT) | PWR_CR3_EWUP3) /*!< Wakeup pin 3 (with low level polarity) */
-#endif
+#endif /* PWR_CR3_EWUP3 */
 #define PWR_WAKEUP_PIN4_LOW             ((PWR_CR4_WP4<<PWR_WUP_POLARITY_SHIFT) | PWR_CR3_EWUP4) /*!< Wakeup pin 4 (with low level polarity) */
 #if defined(PWR_CR3_EWUP5)
 #define PWR_WAKEUP_PIN5_LOW             ((PWR_CR4_WP5<<PWR_WUP_POLARITY_SHIFT) | PWR_CR3_EWUP5) /*!< Wakeup pin 5 (with low level polarity) */
-#endif
+#endif /* PWR_CR3_EWUP5 */
 /**
   * @}
   */
@@ -127,14 +127,14 @@ typedef struct
 #define PWR_WAKEUP_PIN1                 PWR_CR3_EWUP1  /*!< Wakeup pin 1 (with high level polarity) */
 #if defined(PWR_CR3_EWUP2)
 #define PWR_WAKEUP_PIN2                 PWR_CR3_EWUP2  /*!< Wakeup pin 2 (with high level polarity) */
-#endif
+#endif /* PWR_CR3_EWUP2 */
 #if defined(PWR_CR3_EWUP3)
 #define PWR_WAKEUP_PIN3                 PWR_CR3_EWUP3  /*!< Wakeup pin 3 (with high level polarity) */
-#endif
+#endif /* PWR_CR3_EWUP3 */
 #define PWR_WAKEUP_PIN4                 PWR_CR3_EWUP4  /*!< Wakeup pin 4 (with high level polarity) */
 #if defined(PWR_CR3_EWUP5)
 #define PWR_WAKEUP_PIN5                 PWR_CR3_EWUP5  /*!< Wakeup pin 5 (with high level polarity) */
-#endif
+#endif /* PWR_CR3_EWUP5 */
 
 /** @defgroup PWREx_PIN_Polarity PWREx Pin Polarity configuration
   * @{
@@ -150,12 +150,12 @@ typedef struct
   */
 #if defined(PWR_CR2_PVME1)
 #define PWR_PVM_1                  PWR_CR2_PVME1  /*!< Peripheral Voltage Monitoring 1 enable: VDDUSB versus 1.2 V (applicable when USB feature is supported) */
-#endif
+#endif /* PWR_CR2_PVME1 */
 #define PWR_PVM_3                  PWR_CR2_PVME3  /*!< Peripheral Voltage Monitoring 3 enable: VDDA versus 1.62 V */
 /**
   * @}
-  */  
-  
+  */
+
 /** @defgroup PWREx_PVM_Mode  PWR PVM interrupt and event mode
   * @{
   */
@@ -189,12 +189,12 @@ typedef struct
 #define PWR_REGULATOR_VOLTAGE_SCALE2       PWR_CR1_VOS_1     /*!< Regulator voltage output range 2 mode, typical output voltage at 1.0 V, system frequency up to 16 MHz */
 #else
 #define PWR_REGULATOR_VOLTAGE_SCALE1       (0x00000200UL)    /*!< Regulator voltage output range 1 mode, typical output voltage at 1.2 V, system frequency up to 64 MHz */
-#endif
+#endif /* PWR_CR1_VOS */
 /**
   * @}
   */
 
-  
+
 /** @defgroup PWREx_VBAT_Battery_Charging_Selection PWR battery charging resistor selection
   * @{
   */
@@ -203,7 +203,7 @@ typedef struct
 /**
   * @}
   */
-  
+
 /** @defgroup PWREx_VBAT_Battery_Charging PWR battery charging
   * @{
   */
@@ -211,8 +211,8 @@ typedef struct
 #define PWR_BATTERY_CHARGING_ENABLE         PWR_CR4_VBE
 /**
   * @}
-  */ 
-  
+  */
+
 /** @defgroup PWREx_GPIO_Bit_Number GPIO bit number for I/O setting in standby/shutdown mode
   * @{
   */
@@ -235,7 +235,7 @@ typedef struct
 /**
   * @}
   */
-  
+
 /** @defgroup PWREx_GPIO GPIO port
   * @{
   */
@@ -244,7 +244,7 @@ typedef struct
 #define PWR_GPIO_C   0x00000002U      /*!< GPIO port C */
 #if defined(GPIOD)
 #define PWR_GPIO_D   0x00000003U      /*!< GPIO port D */
-#endif
+#endif /* GPIOD */
 #define PWR_GPIO_E   0x00000004U      /*!< GPIO port E */
 #define PWR_GPIO_H   0x00000007U      /*!< GPIO port H */
 /**
@@ -314,7 +314,7 @@ typedef struct
 /**
   * @}
   */
-#endif
+#endif /* PWR_CR5_SMPSEN */
 
 /** @defgroup PWREx_Flag  PWR Status Flags
   *        Elements values convention: 0000 0000 0XXY YYYYb
@@ -324,26 +324,26 @@ typedef struct
   *                 - 10: SR2 register
   *                 - 11: EXTSCR register
   *        The only exception is PWR_FLAG_WUF, encompassing all
-  *        wake-up flags and set to PWR_SR1_WUF.    
+  *        wake-up flags and set to PWR_SR1_WUF.
   * @{
   */
 /*--------------------------------SR1-------------------------------*/
 #define PWR_FLAG_WUF1                       (PWR_FLAG_REG_SR1 | PWR_SR1_WUF1_Pos)    /*!< Wakeup event on wakeup pin 1 */
 #if defined(PWR_CR3_EWUP2)
 #define PWR_FLAG_WUF2                       (PWR_FLAG_REG_SR1 | PWR_SR1_WUF2_Pos)    /*!< Wakeup event on wakeup pin 2 */
-#endif
+#endif /* PWR_CR3_EWUP2 */
 #if defined(PWR_CR3_EWUP3)
 #define PWR_FLAG_WUF3                       (PWR_FLAG_REG_SR1 | PWR_SR1_WUF3_Pos)    /*!< Wakeup event on wakeup pin 3 */
-#endif
+#endif /* PWR_CR3_EWUP3 */
 #define PWR_FLAG_WUF4                       (PWR_FLAG_REG_SR1 | PWR_SR1_WUF4_Pos)    /*!< Wakeup event on wakeup pin 4 */
 #if defined(PWR_CR3_EWUP5)
 #define PWR_FLAG_WUF5                       (PWR_FLAG_REG_SR1 | PWR_SR1_WUF5_Pos)    /*!< Wakeup event on wakeup pin 5 */
-#endif
+#endif /* PWR_CR3_EWUP5 */
 #define PWR_FLAG_WU                         (PWR_FLAG_REG_SR1 | PWR_SR1_WUF)         /*!< Encompass wakeup event on all wakeup pins */
 
 #if defined(PWR_CR5_SMPSEN)
 #define PWR_FLAG_FRCBYPI                    (PWR_FLAG_REG_SR1 | PWR_SR1_SMPSFBF_Pos) /*!< SMPS Forced in Bypass Interrupt Flag */
-#endif
+#endif /* PWR_CR5_SMPSEN */
 #define PWR_FLAG_BHWF                       (PWR_FLAG_REG_SR1 | PWR_SR1_BLEWUF_Pos)  /*!< BLE_Host WakeUp Flag */
 #define PWR_FLAG_RFPHASEI                   (PWR_FLAG_REG_SR1 | PWR_SR1_CRPEF_Pos)   /*!< Radio Phase Interrupt Flag */
 #define PWR_FLAG_BLEACTI                    (PWR_FLAG_REG_SR1 | PWR_SR1_BLEAF_Pos)   /*!< BLE Activity Interrupt Flag */
@@ -355,19 +355,19 @@ typedef struct
 #if defined(PWR_CR5_SMPSEN)
 #define PWR_FLAG_SMPSRDYF                   (PWR_FLAG_REG_SR2 | PWR_SR2_SMPSBF_Pos)  /*!< SMPS Ready Flag */
 #define PWR_FLAG_SMPSBYPF                   (PWR_FLAG_REG_SR2 | PWR_SR2_SMPSF_Pos)   /*!< SMPS Bypass Flag */
-#endif
+#endif /* PWR_CR5_SMPSEN */
 
 #define PWR_FLAG_REGLPS                     (PWR_FLAG_REG_SR2 | PWR_SR2_REGLPS_Pos)  /*!< Low-power regulator start flag */
 #define PWR_FLAG_REGLPF                     (PWR_FLAG_REG_SR2 | PWR_SR2_REGLPF_Pos)  /*!< Low-power regulator flag */
 
 #if defined(PWR_CR1_VOS)
 #define PWR_FLAG_VOSF                       (PWR_FLAG_REG_SR2 | PWR_SR2_VOSF_Pos)    /*!< Voltage scaling flag */
-#endif
+#endif /* PWR_CR1_VOS */
 #define PWR_FLAG_PVDO                       (PWR_FLAG_REG_SR2 | PWR_SR2_PVDO_Pos)    /*!< Power Voltage Detector output flag */
 
 #if defined(PWR_CR2_PVME1)
 #define PWR_FLAG_PVMO1                      (PWR_FLAG_REG_SR2 | PWR_SR2_PVMO1_Pos)   /*!< Power Voltage Monitoring 1 output flag */
-#endif
+#endif /* PWR_CR2_PVME1 */
 #define PWR_FLAG_PVMO3                      (PWR_FLAG_REG_SR2 | PWR_SR2_PVMO3_Pos)   /*!< Power Voltage Monitoring 3 output flag */
 
 /*------------------------------EXTSCR---------------------------*/
@@ -407,7 +407,7 @@ typedef struct
 /**
   * @}
   */
-/* Private define ------------------------------------------------------------*/ 
+/* Private define ------------------------------------------------------------*/
 /** @defgroup PWR_Private_Defines PWR Private Defines
   * @{
   */
@@ -417,7 +417,7 @@ typedef struct
   */
 #if defined(PWR_CR2_PVME1)
 #define PWR_EXTI_LINE_PVM1  (LL_EXTI_LINE_31)  /*!< External interrupt line 31 Connected to PVM1 */
-#endif
+#endif /* PWR_CR2_PVME1 */
 #define PWR_EXTI_LINE_PVM3  (LL_EXTI_LINE_33)  /*!< External interrupt line 33 Connected to PVM3 */
 /**
   * @}
@@ -456,8 +456,8 @@ typedef struct
 
 /* Exported macros -----------------------------------------------------------*/
 /** @defgroup PWREx_Exported_Macros PWR Extended Exported Macros
- * @{
- */
+  * @{
+  */
 
 #if defined(PWR_CR2_PVME1)
 /**
@@ -579,7 +579,7 @@ typedef struct
   */
 #define __HAL_PWR_PVM1_EXTI_CLEAR_FLAG()  LL_EXTI_ClearFlag_0_31(PWR_EXTI_LINE_PVM1)
 
-#endif
+#endif /* PWR_CR2_PVME1 */
 
 /**
   * @brief Enable the PVM3 Extended Interrupt C1 Line.
@@ -714,7 +714,7 @@ typedef struct
   *                                                system frequency up to 16 MHz.
   * @note  This macro is similar to HAL_PWREx_ControlVoltageScaling() API but doesn't check
   *        whether or not VOSF flag is cleared when moving from range 2 to range 1. User
-  *        may resort to __HAL_PWR_GET_FLAG() macro to check VOSF bit resetting.   
+  *        may resort to __HAL_PWR_GET_FLAG() macro to check VOSF bit resetting.
   * @retval None
   */
 #define __HAL_PWR_VOLTAGESCALING_CONFIG(__REGULATOR__) do {                                                     \
@@ -724,7 +724,7 @@ typedef struct
                                                             tmpreg = READ_BIT(PWR->CR1, PWR_CR1_VOS);           \
                                                             UNUSED(tmpreg);                                     \
                                                           } while(0)
-#endif
+#endif /* PWR_CR1_VOS */
 
 /**
   * @brief  Wakeup BLE controller from its sleep mode
@@ -745,7 +745,7 @@ typedef struct
 /**
   * @}
   */
-  
+
 /* Private macros --------------------------------------------------------*/
 /** @addtogroup  PWREx_Private_Macros   PWR Extended Private Macros
   * @{
@@ -766,7 +766,7 @@ typedef struct
                                 ((PIN) == PWR_WAKEUP_PIN4_HIGH) || \
                                 ((PIN) == PWR_WAKEUP_PIN1_LOW) || \
                                 ((PIN) == PWR_WAKEUP_PIN4_LOW))
-#endif
+#endif /* PWR_CR3_EWUP2 */
 
 #define IS_PWR_WAKEUP_PIN_POLARITY(POLARITY)  (((POLARITY) == PWR_PIN_POLARITY_HIGH) || \
                                                ((POLARITY) == PWR_PIN_POLARITY_LOW))
@@ -776,7 +776,7 @@ typedef struct
                                ((TYPE) == PWR_PVM_3))
 #else
 #define IS_PWR_PVM_TYPE(TYPE) ((TYPE) == PWR_PVM_3)
-#endif
+#endif /* PWR_CR2_PVME1 */
 
 #define IS_PWR_PVM_MODE(MODE)  (((MODE) == PWR_PVM_MODE_NORMAL)              ||\
                                 ((MODE) == PWR_PVM_MODE_IT_RISING)           ||\
@@ -784,21 +784,21 @@ typedef struct
                                 ((MODE) == PWR_PVM_MODE_IT_RISING_FALLING)   ||\
                                 ((MODE) == PWR_PVM_MODE_EVENT_RISING)        ||\
                                 ((MODE) == PWR_PVM_MODE_EVENT_FALLING)       ||\
-                                ((MODE) == PWR_PVM_MODE_EVENT_RISING_FALLING))  
-                                
+                                ((MODE) == PWR_PVM_MODE_EVENT_RISING_FALLING))
+
 #define IS_PWR_FLASH_POWERDOWN(__MODE__)    ((((__MODE__) & (PWR_FLASHPD_LPRUN | PWR_FLASHPD_LPSLEEP)) != 0x00u) && \
                                              (((__MODE__) & ~(PWR_FLASHPD_LPRUN | PWR_FLASHPD_LPSLEEP)) == 0x00u))
 
 #if defined(PWR_CR1_VOS)
 #define IS_PWR_VOLTAGE_SCALING_RANGE(RANGE) (((RANGE) == PWR_REGULATOR_VOLTAGE_SCALE1) || \
                                              ((RANGE) == PWR_REGULATOR_VOLTAGE_SCALE2))
-#endif
+#endif /* PWR_CR1_VOS */
 
 #define IS_PWR_BATTERY_RESISTOR_SELECT(RESISTOR) (((RESISTOR) == PWR_BATTERY_CHARGING_RESISTOR_5) ||\
-                                                  ((RESISTOR) == PWR_BATTERY_CHARGING_RESISTOR_1_5))  
-                                                  
+                                                  ((RESISTOR) == PWR_BATTERY_CHARGING_RESISTOR_1_5))
+
 #define IS_PWR_BATTERY_CHARGING(CHARGING) (((CHARGING) == PWR_BATTERY_CHARGING_DISABLE) ||\
-                                           ((CHARGING) == PWR_BATTERY_CHARGING_ENABLE)) 
+                                           ((CHARGING) == PWR_BATTERY_CHARGING_ENABLE))
 
 
 #define IS_PWR_GPIO_BIT_NUMBER(BIT_NUMBER) (((BIT_NUMBER) & GPIO_PIN_MASK) != (uint32_t)0x00)
@@ -816,7 +816,7 @@ typedef struct
                            ((GPIO) == PWR_GPIO_C) ||\
                            ((GPIO) == PWR_GPIO_E) ||\
                            ((GPIO) == PWR_GPIO_H))
-#endif
+#endif /* GPIOD */
 
 #if defined(PWR_CR5_SMPSEN)
 #define IS_PWR_SMPS_MODE(SMPS_MODE) (((SMPS_MODE) == PWR_SMPS_BYPASS)    ||\
@@ -846,7 +846,7 @@ typedef struct
                                                          ((SMPS_OUTPUT_VOLTAGE) == PWR_SMPS_OUTPUT_VOLTAGE_1V80) ||\
                                                          ((SMPS_OUTPUT_VOLTAGE) == PWR_SMPS_OUTPUT_VOLTAGE_1V85) ||\
                                                          ((SMPS_OUTPUT_VOLTAGE) == PWR_SMPS_OUTPUT_VOLTAGE_1V90))
-#endif
+#endif /* PWR_CR5_SMPSEN */
 
 #define IS_PWR_CORE(CPU)  (((CPU) == PWR_CORE_CPU1) || ((CPU) == PWR_CORE_CPU2))
 
@@ -855,13 +855,13 @@ typedef struct
 /**
   * @}
   */
-  
+
 
 /** @addtogroup PWREx_Exported_Functions PWR Extended Exported Functions
   * @{
   */
-  
-/** @addtogroup PWREx_Exported_Functions_Group1 Extended Peripheral Control functions 
+
+/** @addtogroup PWREx_Exported_Functions_Group1 Extended Peripheral Control functions
   * @{
   */
 
@@ -881,7 +881,7 @@ void              HAL_PWREx_DisableInternalWakeUpLine(void);
 #if defined(PWR_CR5_SMPSEN)
 void              HAL_PWREx_EnableBORH_SMPSBypassIT(void);
 void              HAL_PWREx_DisableBORH_SMPSBypassIT(void);
-#endif
+#endif /* PWR_CR5_SMPSEN */
 void              HAL_PWREx_EnableRFPhaseIT(void);
 void              HAL_PWREx_DisableRFPhaseIT(void);
 void              HAL_PWREx_EnableBLEActivityIT(void);
@@ -904,7 +904,7 @@ void              HAL_PWREx_DisablePullUpPullDownConfig(void);
 #if defined(PWR_CR5_SMPSEN)
 void              HAL_PWREx_SetBORConfig(uint32_t BORConfiguration);
 uint32_t          HAL_PWREx_GetBORConfig(void);
-#endif
+#endif /* PWR_CR5_SMPSEN */
 
 void              HAL_PWREx_EnableSRAMRetention(void);
 void              HAL_PWREx_DisableSRAMRetention(void);
@@ -915,7 +915,7 @@ void              HAL_PWREx_DisableFlashPowerDown(uint32_t PowerMode);
 #if defined(PWR_CR2_PVME1)
 void              HAL_PWREx_EnablePVM1(void);
 void              HAL_PWREx_DisablePVM1(void);
-#endif
+#endif /* PWR_CR2_PVME1 */
 
 void              HAL_PWREx_EnablePVM3(void);
 void              HAL_PWREx_DisablePVM3(void);
@@ -926,7 +926,7 @@ HAL_StatusTypeDef HAL_PWREx_ConfigPVM(PWR_PVMTypeDef *sConfigPVM);
 HAL_StatusTypeDef HAL_PWREx_ConfigSMPS(PWR_SMPSTypeDef *sConfigSMPS);
 void              HAL_PWREx_SMPS_SetMode(uint32_t OperatingMode);
 uint32_t          HAL_PWREx_SMPS_GetEffectiveMode(void);
-#endif
+#endif /* PWR_CR5_SMPSEN */
 
 /* WakeUp pins configuration functions ****************************************/
 void              HAL_PWREx_EnableWakeUpPin(uint32_t WakeUpPinPolarity, uint32_t wakeupTarget);
@@ -941,14 +941,14 @@ void              HAL_PWREx_EnterSTOP0Mode(uint8_t STOPEntry);
 void              HAL_PWREx_EnterSTOP1Mode(uint8_t STOPEntry);
 #if defined(PWR_SUPPORT_STOP2)
 void              HAL_PWREx_EnterSTOP2Mode(uint8_t STOPEntry);
-#endif
+#endif /* PWR_SUPPORT_STOP2 */
 void              HAL_PWREx_EnterSHUTDOWNMode(void);
 
 void              HAL_PWREx_PVD_PVM_IRQHandler(void);
 
 #if defined(PWR_CR2_PVME1)
 void              HAL_PWREx_PVM1Callback(void);
-#endif
+#endif /* PWR_CR2_PVME1 */
 void              HAL_PWREx_PVM3Callback(void);
 
 /**

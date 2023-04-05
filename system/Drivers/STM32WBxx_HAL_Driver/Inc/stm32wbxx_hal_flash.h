@@ -112,8 +112,8 @@ typedef struct
 } FLASH_OBProgramInitTypeDef;
 
 /**
-* @brief  FLASH handle Structure definition
-*/
+  * @brief  FLASH handle Structure definition
+  */
 typedef struct
 {
   HAL_LockTypeDef   Lock;              /* FLASH locking object */
@@ -282,7 +282,7 @@ typedef struct
 #define OB_USER_nRST_SHDW               FLASH_OPTR_nRST_SHDW  /*!< Reset generated when entering the shutdown mode */
 #if defined(FLASH_OPTR_IRHEN)
 #define OB_USER_INPUT_RESET_HOLDER      FLASH_OPTR_IRHEN      /*!< Internal reset holder enable */
-#endif
+#endif /* FLASH_OPTR_IRHEN */
 #define OB_USER_IWDG_SW                 FLASH_OPTR_IWDG_SW    /*!< Independent watchdog selection */
 #define OB_USER_IWDG_STOP               FLASH_OPTR_IWDG_STOP  /*!< Independent watchdog counter freeze in stop mode */
 #define OB_USER_IWDG_STDBY              FLASH_OPTR_IWDG_STDBY /*!< Independent watchdog counter freeze in standby mode */
@@ -294,7 +294,7 @@ typedef struct
 #define OB_USER_nBOOT0                  FLASH_OPTR_nBOOT0     /*!< nBOOT0 option bit */
 #if defined(FLASH_OPTR_nRST_MODE)
 #define OB_USER_NRST_MODE               FLASH_OPTR_nRST_MODE  /*!< Reset pin configuration */
-#endif
+#endif /* FLASH_OPTR_nRST_MODE */
 #define OB_USER_AGC_TRIM                FLASH_OPTR_AGC_TRIM   /*!< Automatic Gain Control Trimming */
 #if defined(FLASH_OPTR_IRHEN) && defined(FLASH_OPTR_nRST_MODE)
 #define OB_USER_ALL                     (OB_USER_BOR_LEV    | OB_USER_nRST_STOP | OB_USER_nRST_STDBY | \
@@ -309,7 +309,7 @@ typedef struct
                                          OB_USER_IWDG_STDBY | OB_USER_WWDG_SW   | OB_USER_nBOOT1     | \
                                          OB_USER_SRAM2PE    | OB_USER_SRAM2RST  | OB_USER_nSWBOOT0   | \
                                          OB_USER_nBOOT0     | OB_USER_AGC_TRIM)   /*!< all option bits */
-#endif
+#endif /* FLASH_OPTR_IRHEN */
 
 /**
   * @}
@@ -460,7 +460,7 @@ typedef struct
 /**
   * @}
   */
-#endif
+#endif /* FLASH_OPTR_nRST_MODE */
 
 #if defined(FLASH_OPTR_IRHEN)
 /** @defgroup FLASH_OB_USER_INPUT_RESET_HOLDER FLASH Option Bytes User input reset holder bit
@@ -471,7 +471,7 @@ typedef struct
 /**
   * @}
   */
-#endif
+#endif /* FLASH_OPTR_IRHEN */
 
 /** @defgroup FLASH_OB_PCROP_ZONE FLASH PCROP ZONE
   * @{
@@ -564,7 +564,7 @@ typedef struct
 #define SRAM2B_START_SECURE_ADDR_1       (SRAM2B_BASE + 0x0400U)  /*  When in secure mode (SRAM2B_BASE + 0x0400) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
 #define SRAM2B_START_SECURE_ADDR_2       (SRAM2B_BASE + 0x0800U)  /*  When in secure mode (SRAM2B_BASE + 0x0800) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
 #define SRAM2B_START_SECURE_ADDR_3       (SRAM2B_BASE + 0x0C00U)  /*  When in secure mode (SRAM2B_BASE + 0x0C00) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
-#if !defined(STM32WB15xx) && !defined(STM32WB1Mxx)
+#if !defined(STM32WB10xx) && !defined(STM32WB15xx) && !defined(STM32WB1Mxx)
 #define SRAM2B_START_SECURE_ADDR_4       (SRAM2B_BASE + 0x1000U)  /*  When in secure mode (SRAM2B_BASE + 0x1000) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
 #define SRAM2B_START_SECURE_ADDR_5       (SRAM2B_BASE + 0x1400U)  /*  When in secure mode (SRAM2B_BASE + 0x1400) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
 #define SRAM2B_START_SECURE_ADDR_6       (SRAM2B_BASE + 0x1800U)  /*  When in secure mode (SRAM2B_BASE + 0x1800) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
@@ -595,8 +595,8 @@ typedef struct
 #define SRAM2B_START_SECURE_ADDR_31      (SRAM2B_BASE + 0x7C00U)  /*  When in secure mode (SRAM2B_BASE + 0x7C00) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
 #define SRAM2B_FULL_UNSECURE             (SRAM2B_BASE + 0x8000U)  /*  The RAM2B is accessible to M0 Plus and M4                                  */
 #else
-#define SRAM2B_FULL_UNSECURE             (SRAM2B_BASE + 0x0C00U)  /*  The RAM2B is accessible to M0 Plus and M4                                  */
-#endif
+#define SRAM2B_FULL_UNSECURE             (SRAM2B_BASE + 0x1000U)  /*  The RAM2B is accessible to M0 Plus and M4                                  */
+#endif /* !(STM32WB10xx) && !(STM32WB15xx) && !(STM32WB1Mxx) */
 
 /**
   * @}
@@ -694,9 +694,9 @@ typedef struct
   */
 
 /** @defgroup FLASH_Interrupt FLASH Interrupts Macros
- *  @brief macros to handle FLASH interrupts
- * @{
- */
+  *  @brief macros to handle FLASH interrupts
+  * @{
+  */
 
 /**
   * @brief  Enable the specified FLASH interrupt.
@@ -752,6 +752,7 @@ typedef struct
 #define __HAL_FLASH_GET_FLAG(__FLAG__)          ((((__FLAG__) & (FLASH_FLAG_ECCR_ERRORS)) != 0U) ? \
                                                  (READ_BIT(FLASH->ECCR, (__FLAG__)) == (__FLAG__))  : \
                                                  (READ_BIT(FLASH->SR,   (__FLAG__)) == (__FLAG__)))
+
 /**
   * @brief  Clear the FLASH's pending flags.
   * @param __FLAG__ specifies the FLASH flags to clear.
@@ -777,6 +778,7 @@ typedef struct
 #define __HAL_FLASH_CLEAR_FLAG(__FLAG__)        do { if(((__FLAG__) & (FLASH_FLAG_ECCR_ERRORS)) != 0U) { SET_BIT(FLASH->ECCR, ((__FLAG__) & (FLASH_FLAG_ECCR_ERRORS))); }\
                                                      if(((__FLAG__) & ~(FLASH_FLAG_ECCR_ERRORS)) != 0U) { WRITE_REG(FLASH->SR, ((__FLAG__) & ~(FLASH_FLAG_ECCR_ERRORS))); }\
                                                    } while(0)
+
 /**
   * @}
   */
@@ -855,23 +857,23 @@ HAL_StatusTypeDef  FLASH_WaitForLastOperation(uint32_t Timeout);
 #define FLASH_END_ADDR                          (FLASH_BASE + FLASH_SIZE - 1U)
 
 #define FLASH_BANK_SIZE                         FLASH_SIZE   /*!< FLASH Bank Size */
-#if defined(STM32WB15xx) || defined(STM32WB1Mxx)
+#if defined(STM32WB10xx) || defined(STM32WB15xx) || defined(STM32WB1Mxx)
 #define FLASH_PAGE_SIZE                         0x00000800U  /*!< FLASH Page Size, 2 KBytes */
 #else
 #define FLASH_PAGE_SIZE                         0x00001000U  /*!< FLASH Page Size, 4 KBytes */
-#endif
+#endif /* STM32WB10xx || STM32WB15xx || STM32WB1Mxx */
 #define FLASH_PAGE_NB                           (FLASH_SIZE / FLASH_PAGE_SIZE)
 #define FLASH_TIMEOUT_VALUE                     1000U        /*!< FLASH Execution Timeout, 1 s */
 
-#if defined(STM32WB15xx) || defined(STM32WB1Mxx)
+#if defined(STM32WB10xx) || defined(STM32WB15xx) || defined(STM32WB1Mxx)
 #define FLASH_PCROP_GRANULARITY_OFFSET          10U                                      /*!< FLASH Code Readout Protection granularity offset */
 #define FLASH_PCROP_GRANULARITY                 (1UL << FLASH_PCROP_GRANULARITY_OFFSET)  /*!< FLASH Code Readout Protection granularity, 1 KBytes */
 #else
 #define FLASH_PCROP_GRANULARITY_OFFSET          11U                                      /*!< FLASH Code Readout Protection granularity offset */
 #define FLASH_PCROP_GRANULARITY                 (1UL << FLASH_PCROP_GRANULARITY_OFFSET)  /*!< FLASH Code Readout Protection granularity, 2 KBytes */
-#endif
+#endif /* STM32WB10xx || STM32WB15xx || STM32WB1Mxx */
 
-#define FLASH_TYPENONE                          0x00000000U                                /*!< No Programmation Procedure On Going */
+#define FLASH_TYPENONE                          0x00000000U                              /*!< No Programmation Procedure On Going */
 /**
   * @}
   */
@@ -879,25 +881,30 @@ HAL_StatusTypeDef  FLASH_WaitForLastOperation(uint32_t Timeout);
 /** @defgroup SRAM_MEMORY_SIZE  SRAM memory size
   * @{
   */
-#define SRAM_SECURE_PAGE_GRANULARITY_OFFSET     10U                                      /*!< Secure SRAM2A and SRAM2B Protection granularity offset */
-#define SRAM_SECURE_PAGE_GRANULARITY            (1UL << FLASH_PCROP_GRANULARITY_OFFSET)  /*!< Secure SRAM2A and SRAM2B Protection granularity, 1KBytes */
+#define SRAM_SECURE_PAGE_GRANULARITY_OFFSET     10U                                           /*!< Secure SRAM2A and SRAM2B Protection granularity offset */
+#define SRAM_SECURE_PAGE_GRANULARITY            (1UL << SRAM_SECURE_PAGE_GRANULARITY_OFFSET)  /*!< Secure SRAM2A and SRAM2B Protection granularity, 1KBytes */
 /**
   * @}
   */
 
 /* Private macros ------------------------------------------------------------*/
 /** @defgroup FLASH_Private_Macros FLASH Private Macros
- *  @{
- */
-#define IS_FLASH_MAIN_MEM_ADDRESS(__VALUE__)        (((__VALUE__) >= FLASH_BASE) && ((__VALUE__) <= (FLASH_BASE + FLASH_SIZE - 1UL)))
+  *  @{
+  */
+#define IS_FLASH_MAIN_MEM_ADDRESS(__VALUE__)        (((__VALUE__) >= FLASH_BASE) &&\
+                                                     ((__VALUE__) <= (FLASH_BASE + FLASH_SIZE - 1UL)))
 
-#define IS_FLASH_FAST_PROGRAM_ADDRESS(__VALUE__)    (((__VALUE__) >= FLASH_BASE) && ((__VALUE__) <= (FLASH_BASE + FLASH_SIZE - 256UL)) && (((__VALUE__) % 256UL) == 0UL))
+#define IS_FLASH_FAST_PROGRAM_ADDRESS(__VALUE__)    (((__VALUE__) >= FLASH_BASE) &&\
+                                                     ((__VALUE__) <= (FLASH_BASE + FLASH_SIZE - 256UL)) && (((__VALUE__) % 256UL) == 0UL))
 
-#define IS_FLASH_PROGRAM_MAIN_MEM_ADDRESS(__VALUE__)   (((__VALUE__) >= FLASH_BASE) && ((__VALUE__) <= (FLASH_BASE + FLASH_SIZE - 8UL)) && (((__VALUE__) % 8UL) == 0UL))
+#define IS_FLASH_PROGRAM_MAIN_MEM_ADDRESS(__VALUE__)   (((__VALUE__) >= FLASH_BASE) &&\
+                                                        ((__VALUE__) <= (FLASH_BASE + FLASH_SIZE - 8UL)) && (((__VALUE__) % 8UL) == 0UL))
 
-#define IS_FLASH_PROGRAM_OTP_ADDRESS(__VALUE__)     (((__VALUE__) >= OTP_AREA_BASE) && ((__VALUE__) <= (OTP_AREA_END_ADDR + 1UL - 8UL)) && (((__VALUE__) % 8UL) == 0UL))
+#define IS_FLASH_PROGRAM_OTP_ADDRESS(__VALUE__)     (((__VALUE__) >= OTP_AREA_BASE) &&\
+                                                     ((__VALUE__) <= (OTP_AREA_END_ADDR + 1UL - 8UL)) && (((__VALUE__) % 8UL) == 0UL))
 
-#define IS_FLASH_PROGRAM_ADDRESS(__VALUE__)         (IS_FLASH_PROGRAM_MAIN_MEM_ADDRESS(__VALUE__) || IS_FLASH_PROGRAM_OTP_ADDRESS(__VALUE__))
+#define IS_FLASH_PROGRAM_ADDRESS(__VALUE__)         (IS_FLASH_PROGRAM_MAIN_MEM_ADDRESS(__VALUE__) ||\
+                                                     IS_FLASH_PROGRAM_OTP_ADDRESS(__VALUE__))
 
 #define IS_FLASH_PAGE(__VALUE__)                    ((__VALUE__) < FLASH_PAGE_NB)
 
@@ -908,15 +915,20 @@ HAL_StatusTypeDef  FLASH_WaitForLastOperation(uint32_t Timeout);
 #define IS_FLASH_TYPEPROGRAM(__VALUE__)             (((__VALUE__) == FLASH_TYPEPROGRAM_DOUBLEWORD) || \
                                                      ((__VALUE__) == FLASH_TYPEPROGRAM_FAST))
 
-#define IS_OB_SFSA_START_ADDR(__VALUE__)            (((__VALUE__) >= FLASH_BASE) && ((__VALUE__) <= FLASH_END_ADDR) && (((__VALUE__) & ~(uint32_t)(FLASH_PAGE_SIZE - 1U)) == (__VALUE__)))
-#define IS_OB_SBRSA_START_ADDR(__VALUE__)           (((__VALUE__) >= SRAM2A_BASE) && ((__VALUE__) <= (SRAM2A_BASE + SRAM2A_SIZE - 1U)) && (((__VALUE__) & ~0x3FFU) == (__VALUE__)))
-#define IS_OB_SNBRSA_START_ADDR(__VALUE__)          (((__VALUE__) >= SRAM2B_BASE) && ((__VALUE__) <= (SRAM2B_BASE + SRAM2B_SIZE - 1U)) && (((__VALUE__) & ~0x3FFU) == (__VALUE__)))
-#define IS_OB_SECURE_MODE(__VALUE__)                (((__VALUE__) == SYSTEM_IN_SECURE_MODE) || ((__VALUE__) == SYSTEM_NOT_IN_SECURE_MODE))
+#define IS_OB_SFSA_START_ADDR(__VALUE__)            (((__VALUE__) >= FLASH_BASE) &&\
+                                                     ((__VALUE__) <= FLASH_END_ADDR) && (((__VALUE__) & ~(uint32_t)(FLASH_PAGE_SIZE - 1U)) == (__VALUE__)))
+#define IS_OB_SBRSA_START_ADDR(__VALUE__)           (((__VALUE__) >= SRAM2A_BASE) &&\
+                                                     ((__VALUE__) <= (SRAM2A_BASE + SRAM2A_SIZE - 1U)) && (((__VALUE__) & ~0x3FFU) == (__VALUE__)))
+#define IS_OB_SNBRSA_START_ADDR(__VALUE__)          (((__VALUE__) >= SRAM2B_BASE) &&\
+                                                     ((__VALUE__) <= (SRAM2B_BASE + SRAM2B_SIZE - 1U)) && (((__VALUE__) & ~0x3FFU) == (__VALUE__)))
+#define IS_OB_SECURE_MODE(__VALUE__)                (((__VALUE__) == SYSTEM_IN_SECURE_MODE) ||\
+                                                     ((__VALUE__) == SYSTEM_NOT_IN_SECURE_MODE))
 
 #define IS_OPTIONBYTE(__VALUE__)                    (((__VALUE__) <= (OPTIONBYTE_WRP | OPTIONBYTE_RDP | OPTIONBYTE_USER | OPTIONBYTE_PCROP | \
-                                                              OPTIONBYTE_IPCC_BUF_ADDR | OPTIONBYTE_C2_BOOT_VECT | OPTIONBYTE_SECURE_MODE)))
+                                                                      OPTIONBYTE_IPCC_BUF_ADDR | OPTIONBYTE_C2_BOOT_VECT | OPTIONBYTE_SECURE_MODE)))
 
-#define IS_OB_WRPAREA(__VALUE__)                    (((__VALUE__) == OB_WRPAREA_BANK1_AREAA) || ((__VALUE__) == OB_WRPAREA_BANK1_AREAB))
+#define IS_OB_WRPAREA(__VALUE__)                    (((__VALUE__) == OB_WRPAREA_BANK1_AREAA) ||\
+                                                     ((__VALUE__) == OB_WRPAREA_BANK1_AREAB))
 
 #define IS_OB_RDP_LEVEL(__VALUE__)                  (((__VALUE__) == OB_RDP_LEVEL_0)   ||\
                                                      ((__VALUE__) == OB_RDP_LEVEL_1)   ||\
@@ -926,21 +938,21 @@ HAL_StatusTypeDef  FLASH_WaitForLastOperation(uint32_t Timeout);
                                                      (((__VALUE__) & ~OB_USER_ALL) == 0U))
 
 #define IS_OB_USER_CONFIG(__TYPE__, __VALUE__)      ((((__TYPE__) & OB_USER_BOR_LEV) == OB_USER_BOR_LEV) \
-                                                      ? ((((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_BOR_LEV)) == OB_BOR_LEVEL_0) || \
-                                                         (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_BOR_LEV)) == OB_BOR_LEVEL_1) || \
-                                                         (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_BOR_LEV)) == OB_BOR_LEVEL_2) || \
-                                                         (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_BOR_LEV)) == OB_BOR_LEVEL_3) || \
-                                                         (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_BOR_LEV)) == OB_BOR_LEVEL_4)) \
-                                                      : ((((__TYPE__) & OB_USER_AGC_TRIM) == OB_USER_AGC_TRIM) \
-                                                       ? ((((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_AGC_TRIM)) == OB_AGC_TRIM_0) || \
-                                                          (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_AGC_TRIM)) == OB_AGC_TRIM_1) || \
-                                                          (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_AGC_TRIM)) == OB_AGC_TRIM_2) || \
-                                                          (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_AGC_TRIM)) == OB_AGC_TRIM_3) || \
-                                                          (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_AGC_TRIM)) == OB_AGC_TRIM_4) || \
-                                                          (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_AGC_TRIM)) == OB_AGC_TRIM_5) || \
-                                                          (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_AGC_TRIM)) == OB_AGC_TRIM_6) || \
-                                                          (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_AGC_TRIM)) == OB_AGC_TRIM_7)) \
-                                                       : ((~(__TYPE__) & (__VALUE__)) == 0U)))
+                                                     ? ((((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_BOR_LEV)) == OB_BOR_LEVEL_0) || \
+                                                        (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_BOR_LEV)) == OB_BOR_LEVEL_1) || \
+                                                        (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_BOR_LEV)) == OB_BOR_LEVEL_2) || \
+                                                        (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_BOR_LEV)) == OB_BOR_LEVEL_3) || \
+                                                        (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_BOR_LEV)) == OB_BOR_LEVEL_4)) \
+                                                     : ((((__TYPE__) & OB_USER_AGC_TRIM) == OB_USER_AGC_TRIM) \
+                                                        ? ((((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_AGC_TRIM)) == OB_AGC_TRIM_0) || \
+                                                           (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_AGC_TRIM)) == OB_AGC_TRIM_1) || \
+                                                           (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_AGC_TRIM)) == OB_AGC_TRIM_2) || \
+                                                           (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_AGC_TRIM)) == OB_AGC_TRIM_3) || \
+                                                           (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_AGC_TRIM)) == OB_AGC_TRIM_4) || \
+                                                           (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_AGC_TRIM)) == OB_AGC_TRIM_5) || \
+                                                           (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_AGC_TRIM)) == OB_AGC_TRIM_6) || \
+                                                           (((__VALUE__) & ~(OB_USER_ALL & ~OB_USER_AGC_TRIM)) == OB_AGC_TRIM_7)) \
+                                                        : ((~(__TYPE__) & (__VALUE__)) == 0U)))
 
 #define IS_OB_USER_AGC_TRIMMING(__VALUE__)          (((__VALUE__) == OB_AGC_TRIM_0) || ((__VALUE__) == OB_AGC_TRIM_1) || \
                                                      ((__VALUE__) == OB_AGC_TRIM_2) || ((__VALUE__) == OB_AGC_TRIM_3) || \
@@ -951,18 +963,22 @@ HAL_StatusTypeDef  FLASH_WaitForLastOperation(uint32_t Timeout);
                                                      ((__VALUE__) == OB_BOR_LEVEL_2) || ((__VALUE__) == OB_BOR_LEVEL_3) || \
                                                      ((__VALUE__) == OB_BOR_LEVEL_4))
 
-#define IS_OB_PCROP_CONFIG(__VALUE__)               (((__VALUE__) & ~(OB_PCROP_ZONE_A | OB_PCROP_ZONE_B | OB_PCROP_RDP_ERASE)) == 0U)
+#define IS_OB_PCROP_CONFIG(__VALUE__)               (((__VALUE__) &\
+                                                      ~(OB_PCROP_ZONE_A | OB_PCROP_ZONE_B | OB_PCROP_RDP_ERASE)) == 0U)
 
-#define IS_OB_IPCC_BUF_ADDR(__VALUE__)              (IS_OB_SBRSA_START_ADDR(__VALUE__) || IS_OB_SNBRSA_START_ADDR(__VALUE__))
+#define IS_OB_IPCC_BUF_ADDR(__VALUE__)              (IS_OB_SBRSA_START_ADDR(__VALUE__) ||\
+                                                     IS_OB_SNBRSA_START_ADDR(__VALUE__))
 
 #define IS_OB_BOOT_VECTOR_ADDR(__VALUE__)           ((((__VALUE__) >= FLASH_BASE) && ((__VALUE__) <= (FLASH_BASE + FLASH_SIZE - 1U)))    || \
                                                      (((__VALUE__) >= SRAM1_BASE) && ((__VALUE__) <= (SRAM1_BASE + SRAM1_SIZE - 1U)))    || \
                                                      (((__VALUE__) >= SRAM2A_BASE) && ((__VALUE__) <= (SRAM2A_BASE + SRAM2A_SIZE - 1U))) || \
                                                      (((__VALUE__) >= SRAM2B_BASE) && ((__VALUE__) <= (SRAM2B_BASE + SRAM2B_SIZE - 1U))))
 
-#define IS_OB_BOOT_REGION(__VALUE__)                (((__VALUE__) == OB_C2_BOOT_FROM_FLASH) || ((__VALUE__) == OB_C2_BOOT_FROM_SRAM))
+#define IS_OB_BOOT_REGION(__VALUE__)                (((__VALUE__) == OB_C2_BOOT_FROM_FLASH) ||\
+                                                     ((__VALUE__) == OB_C2_BOOT_FROM_SRAM))
 
-#define IS_OB_SECURE_CONFIG(__VALUE__)              (((__VALUE__) & ~(OB_SECURE_CONFIG_MEMORY | OB_SECURE_CONFIG_BOOT_RESET)) == 0U)
+#define IS_OB_SECURE_CONFIG(__VALUE__)              (((__VALUE__) &\
+                                                      ~(OB_SECURE_CONFIG_MEMORY | OB_SECURE_CONFIG_BOOT_RESET)) == 0U)
 
 #define IS_FLASH_LATENCY(__VALUE__)                 (((__VALUE__) == FLASH_LATENCY_0) || \
                                                      ((__VALUE__) == FLASH_LATENCY_1) || \

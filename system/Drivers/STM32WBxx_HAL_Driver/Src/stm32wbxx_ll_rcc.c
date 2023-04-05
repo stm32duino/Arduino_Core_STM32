@@ -1352,7 +1352,7 @@ static uint32_t RCC_PLLSAI1_GetFreqDomain_ADC(void)
   * @}
   */
 
-#endif /* defined(RCC) */
+#endif /* RCC */
 
 /**
   * @}
