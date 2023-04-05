@@ -20,6 +20,7 @@ Nucleo_144.build.core=arduino
 Nucleo_144.build.board=Nucleo_144
 Nucleo_144.build.variant_h=variant_{build.board}.h
 Nucleo_144.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Nucleo_144.build.flash_offset=0x0
 Nucleo_144.upload.maximum_size=0
 Nucleo_144.upload.maximum_data_size=0
 
@@ -257,17 +258,17 @@ Nucleo_144.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
 Nucleo_144.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Nucleo_144.menu.upload_method.swdMethod.upload.protocol=0
-Nucleo_144.menu.upload_method.swdMethod.upload.options=-g
+Nucleo_144.menu.upload_method.swdMethod.upload.options=
 Nucleo_144.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Nucleo_144.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 Nucleo_144.menu.upload_method.serialMethod.upload.protocol=1
-Nucleo_144.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+Nucleo_144.menu.upload_method.serialMethod.upload.options={serial.port.file}
 Nucleo_144.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 Nucleo_144.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Nucleo_144.menu.upload_method.dfuMethod.upload.protocol=2
-Nucleo_144.menu.upload_method.dfuMethod.upload.options=-g
+Nucleo_144.menu.upload_method.dfuMethod.upload.options=
 Nucleo_144.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -279,6 +280,7 @@ Nucleo_64.build.core=arduino
 Nucleo_64.build.board=Nucleo_64
 Nucleo_64.build.variant_h=variant_{build.board}.h
 Nucleo_64.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Nucleo_64.build.flash_offset=0x0
 Nucleo_64.upload.maximum_size=0
 Nucleo_64.upload.maximum_data_size=0
 
@@ -661,17 +663,17 @@ Nucleo_64.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
 Nucleo_64.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Nucleo_64.menu.upload_method.swdMethod.upload.protocol=0
-Nucleo_64.menu.upload_method.swdMethod.upload.options=-g
+Nucleo_64.menu.upload_method.swdMethod.upload.options=
 Nucleo_64.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Nucleo_64.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 Nucleo_64.menu.upload_method.serialMethod.upload.protocol=1
-Nucleo_64.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+Nucleo_64.menu.upload_method.serialMethod.upload.options={serial.port.file}
 Nucleo_64.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 Nucleo_64.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Nucleo_64.menu.upload_method.dfuMethod.upload.protocol=2
-Nucleo_64.menu.upload_method.dfuMethod.upload.options=-g
+Nucleo_64.menu.upload_method.dfuMethod.upload.options=
 Nucleo_64.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -683,6 +685,7 @@ Nucleo_32.build.core=arduino
 Nucleo_32.build.board=Nucleo_32
 Nucleo_32.build.variant_h=variant_{build.board}.h
 Nucleo_32.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Nucleo_32.build.flash_offset=0x0
 Nucleo_32.upload.maximum_size=0
 Nucleo_32.upload.maximum_data_size=0
 
@@ -798,17 +801,17 @@ Nucleo_32.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
 Nucleo_32.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Nucleo_32.menu.upload_method.swdMethod.upload.protocol=0
-Nucleo_32.menu.upload_method.swdMethod.upload.options=-g
+Nucleo_32.menu.upload_method.swdMethod.upload.options=
 Nucleo_32.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Nucleo_32.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 Nucleo_32.menu.upload_method.serialMethod.upload.protocol=1
-Nucleo_32.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+Nucleo_32.menu.upload_method.serialMethod.upload.options={serial.port.file}
 Nucleo_32.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 Nucleo_32.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Nucleo_32.menu.upload_method.dfuMethod.upload.protocol=2
-Nucleo_32.menu.upload_method.dfuMethod.upload.options=-g
+Nucleo_32.menu.upload_method.dfuMethod.upload.options=
 Nucleo_32.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -820,6 +823,7 @@ Disco.build.core=arduino
 Disco.build.board=Disco
 Disco.build.variant_h=variant_{build.board}.h
 Disco.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Disco.build.flash_offset=0x0
 Disco.upload.maximum_size=0
 Disco.upload.maximum_data_size=0
 
@@ -1039,17 +1043,17 @@ Disco.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
 Disco.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Disco.menu.upload_method.swdMethod.upload.protocol=0
-Disco.menu.upload_method.swdMethod.upload.options=-g
+Disco.menu.upload_method.swdMethod.upload.options=
 Disco.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Disco.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 Disco.menu.upload_method.serialMethod.upload.protocol=1
-Disco.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+Disco.menu.upload_method.serialMethod.upload.options={serial.port.file}
 Disco.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 Disco.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Disco.menu.upload_method.dfuMethod.upload.protocol=2
-Disco.menu.upload_method.dfuMethod.upload.options=-g
+Disco.menu.upload_method.dfuMethod.upload.options=
 Disco.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -1061,6 +1065,7 @@ Eval.build.core=arduino
 Eval.build.board=Eval
 Eval.build.variant_h=variant_{build.board}.h
 Eval.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Eval.build.flash_offset=0x0
 Eval.upload.maximum_size=0
 Eval.upload.maximum_data_size=0
 
@@ -1081,18 +1086,19 @@ Eval.menu.pnum.STEVAL_MKSBOX1V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
 # Upload menu
 Eval.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Eval.menu.upload_method.swdMethod.upload.protocol=0
-Eval.menu.upload_method.swdMethod.upload.options=-g
+Eval.menu.upload_method.swdMethod.upload.options=
 Eval.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Eval.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Eval.menu.upload_method.dfuMethod.upload.protocol=2
-Eval.menu.upload_method.dfuMethod.upload.options=-g
+Eval.menu.upload_method.dfuMethod.upload.options=
 Eval.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
 # STM32MP1 microprocessor series (MPU + MCU)
 
 STM32MP1.name=STM32MP1 series coprocessor
+STM32MP1.build.flash_offset=0x0
 STM32MP1.upload.maximum_size=0
 STM32MP1.upload.maximum_data_size=0
 
@@ -1140,6 +1146,7 @@ GenC0.build.mcu=cortex-m0plus
 GenC0.build.series=STM32C0xx
 GenC0.build.cmsis_lib_gcc=arm_cortexM0l_math
 GenC0.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
+GenC0.build.flash_offset=0x0
 GenC0.upload.maximum_size=0
 GenC0.upload.maximum_data_size=0
 
@@ -1178,12 +1185,12 @@ GenC0.menu.pnum.GENERIC_C031C6UX.build.variant=STM32C0xx/C031C(4-6)(T-U)
 # Upload menu
 GenC0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenC0.menu.upload_method.swdMethod.upload.protocol=0
-GenC0.menu.upload_method.swdMethod.upload.options=-g
+GenC0.menu.upload_method.swdMethod.upload.options=
 GenC0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenC0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenC0.menu.upload_method.serialMethod.upload.protocol=1
-GenC0.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenC0.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenC0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 ###############################
@@ -1196,6 +1203,7 @@ GenF0.build.mcu=cortex-m0
 GenF0.build.series=STM32F0xx
 GenF0.build.cmsis_lib_gcc=arm_cortexM0l_math
 GenF0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenF0.build.flash_offset=0x0
 GenF0.upload.maximum_size=0
 GenF0.upload.maximum_data_size=0
 
@@ -1981,17 +1989,17 @@ GenF0.menu.pnum.GENERIC_F098VCTX.build.variant=STM32F0xx/F098VC(H-T)
 # Upload menu
 GenF0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF0.menu.upload_method.swdMethod.upload.protocol=0
-GenF0.menu.upload_method.swdMethod.upload.options=-g
+GenF0.menu.upload_method.swdMethod.upload.options=
 GenF0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenF0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenF0.menu.upload_method.serialMethod.upload.protocol=1
-GenF0.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenF0.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenF0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenF0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF0.menu.upload_method.dfuMethod.upload.protocol=2
-GenF0.menu.upload_method.dfuMethod.upload.options=-g
+GenF0.menu.upload_method.dfuMethod.upload.options=
 GenF0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -2004,6 +2012,7 @@ GenF1.build.mcu=cortex-m3
 GenF1.build.series=STM32F1xx
 GenF1.build.cmsis_lib_gcc=arm_cortexM3l_math
 GenF1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+GenF1.build.flash_offset=0x0
 GenF1.upload.maximum_size=0
 GenF1.upload.maximum_data_size=0
 
@@ -2709,17 +2718,17 @@ GenF1.menu.pnum.GENERIC_F103ZGTX.build.variant=STM32F1xx/F103Z(F-G)(H-T)
 # Upload menu
 GenF1.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF1.menu.upload_method.swdMethod.upload.protocol=0
-GenF1.menu.upload_method.swdMethod.upload.options=-g
+GenF1.menu.upload_method.swdMethod.upload.options=
 GenF1.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenF1.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenF1.menu.upload_method.serialMethod.upload.protocol=1
-GenF1.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenF1.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenF1.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenF1.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF1.menu.upload_method.dfuMethod.upload.protocol=2
-GenF1.menu.upload_method.dfuMethod.upload.options=-g
+GenF1.menu.upload_method.dfuMethod.upload.options=
 GenF1.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenF1.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -2730,7 +2739,7 @@ GenF1.menu.upload_method.hidMethod=HID Bootloader 2.2
 GenF1.menu.upload_method.hidMethod.upload.protocol=hid22
 GenF1.menu.upload_method.hidMethod.upload.tool=hid_upload
 GenF1.menu.upload_method.hidMethod.build.flash_offset=0x800
-GenF1.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID -DVECT_TAB_OFFSET={build.flash_offset}
+GenF1.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID
 
 GenF1.menu.upload_method.dfu2Method=Maple DFU Bootloader 2.0
 GenF1.menu.upload_method.dfu2Method.upload.protocol=maple
@@ -2738,7 +2747,7 @@ GenF1.menu.upload_method.dfu2Method.upload.tool=maple_upload
 GenF1.menu.upload_method.dfu2Method.upload.usbID=1EAF:0003
 GenF1.menu.upload_method.dfu2Method.upload.altID=2
 GenF1.menu.upload_method.dfu2Method.build.flash_offset=0x2000
-GenF1.menu.upload_method.dfu2Method.build.bootloader_flags=-DBL_LEGACY_LEAF -DVECT_TAB_OFFSET={build.flash_offset}
+GenF1.menu.upload_method.dfu2Method.build.bootloader_flags=-DBL_LEGACY_LEAF
 
 GenF1.menu.upload_method.dfuoMethod=Maple DFU Bootloader original
 GenF1.menu.upload_method.dfuoMethod.upload.protocol=maple
@@ -2746,7 +2755,7 @@ GenF1.menu.upload_method.dfuoMethod.upload.tool=maple_upload
 GenF1.menu.upload_method.dfuoMethod.upload.usbID=1EAF:0003
 GenF1.menu.upload_method.dfuoMethod.upload.altID=1
 GenF1.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
-GenF1.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF -DVECT_TAB_OFFSET={build.flash_offset}
+GenF1.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF
 
 ################################################################################
 # Generic F2
@@ -2758,6 +2767,7 @@ GenF2.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 GenF2.build.mcu=cortex-m3
 GenF2.build.series=STM32F2xx
 GenF2.build.cmsis_lib_gcc=arm_cortexM3l_math
+GenF2.build.flash_offset=0x0
 GenF2.upload.maximum_size=0
 GenF2.upload.maximum_data_size=0
 
@@ -3140,17 +3150,17 @@ GenF2.menu.pnum.GENERIC_F217ZGTX.build.variant=STM32F2xx/F207Z(C-E-F-G)T_F217Z(E
 # Upload menu
 GenF2.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF2.menu.upload_method.swdMethod.upload.protocol=0
-GenF2.menu.upload_method.swdMethod.upload.options=-g
+GenF2.menu.upload_method.swdMethod.upload.options=
 GenF2.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenF2.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenF2.menu.upload_method.serialMethod.upload.protocol=1
-GenF2.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenF2.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenF2.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenF2.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF2.menu.upload_method.dfuMethod.upload.protocol=2
-GenF2.menu.upload_method.dfuMethod.upload.options=-g
+GenF2.menu.upload_method.dfuMethod.upload.options=
 GenF2.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -3166,6 +3176,7 @@ GenF3.build.fpu=-mfpu=fpv4-sp-d16
 GenF3.build.float-abi=-mfloat-abi=hard
 GenF3.build.series=STM32F3xx
 GenF3.build.cmsis_lib_gcc=arm_cortexM4lf_math
+GenF3.build.flash_offset=0x0
 GenF3.upload.maximum_size=0
 GenF3.upload.maximum_data_size=0
 
@@ -3542,17 +3553,17 @@ GenF3.menu.pnum.GENERIC_F398VETX.build.variant=STM32F3xx/F398VET
 # Upload menu
 GenF3.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF3.menu.upload_method.swdMethod.upload.protocol=0
-GenF3.menu.upload_method.swdMethod.upload.options=-g
+GenF3.menu.upload_method.swdMethod.upload.options=
 GenF3.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenF3.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenF3.menu.upload_method.serialMethod.upload.protocol=1
-GenF3.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenF3.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenF3.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenF3.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF3.menu.upload_method.dfuMethod.upload.protocol=2
-GenF3.menu.upload_method.dfuMethod.upload.options=-g
+GenF3.menu.upload_method.dfuMethod.upload.options=
 GenF3.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenF3.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -3572,6 +3583,7 @@ GenF4.build.fpu=-mfpu=fpv4-sp-d16
 GenF4.build.float-abi=-mfloat-abi=hard
 GenF4.build.series=STM32F4xx
 GenF4.build.cmsis_lib_gcc=arm_cortexM4lf_math
+GenF4.build.flash_offset=0x0
 GenF4.upload.maximum_size=0
 GenF4.upload.maximum_data_size=0
 
@@ -4376,17 +4388,17 @@ GenF4.menu.pnum.GENERIC_F446VETX.build.variant=STM32F4xx/F446V(C-E)T
 # Upload menu
 GenF4.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF4.menu.upload_method.swdMethod.upload.protocol=0
-GenF4.menu.upload_method.swdMethod.upload.options=-g
+GenF4.menu.upload_method.swdMethod.upload.options=
 GenF4.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenF4.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenF4.menu.upload_method.serialMethod.upload.protocol=1
-GenF4.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenF4.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenF4.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenF4.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF4.menu.upload_method.dfuMethod.upload.protocol=2
-GenF4.menu.upload_method.dfuMethod.upload.options=-g
+GenF4.menu.upload_method.dfuMethod.upload.options=
 GenF4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenF4.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -4397,7 +4409,7 @@ GenF4.menu.upload_method.hidMethod=HID Bootloader 2.2
 GenF4.menu.upload_method.hidMethod.upload.protocol=hid22
 GenF4.menu.upload_method.hidMethod.upload.tool=hid_upload
 GenF4.menu.upload_method.hidMethod.build.flash_offset=0x4000
-GenF4.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID -DVECT_TAB_OFFSET={build.flash_offset}
+GenF4.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID
 
 ################################################################################
 # Generic F7
@@ -4412,6 +4424,7 @@ GenF7.build.fpu=-mfpu=fpv4-sp-d16
 GenF7.build.float-abi=-mfloat-abi=hard
 GenF7.build.series=STM32F7xx
 GenF7.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
+GenF7.build.flash_offset=0x0
 GenF7.upload.maximum_size=0
 GenF7.upload.maximum_data_size=0
 
@@ -4802,17 +4815,17 @@ GenF7.menu.pnum.GENERIC_F777ZITX.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T
 # Upload menu
 GenF7.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF7.menu.upload_method.swdMethod.upload.protocol=0
-GenF7.menu.upload_method.swdMethod.upload.options=-g
+GenF7.menu.upload_method.swdMethod.upload.options=
 GenF7.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenF7.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenF7.menu.upload_method.serialMethod.upload.protocol=1
-GenF7.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenF7.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenF7.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenF7.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF7.menu.upload_method.dfuMethod.upload.protocol=2
-GenF7.menu.upload_method.dfuMethod.upload.options=-g
+GenF7.menu.upload_method.dfuMethod.upload.options=
 GenF7.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ###############################
@@ -4825,6 +4838,7 @@ GenG0.build.mcu=cortex-m0plus
 GenG0.build.series=STM32G0xx
 GenG0.build.cmsis_lib_gcc=arm_cortexM0l_math
 GenG0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+GenG0.build.flash_offset=0x0
 GenG0.upload.maximum_size=0
 GenG0.upload.maximum_data_size=0
 
@@ -6057,17 +6071,17 @@ GenG0.menu.pnum.GENERIC_G0C1RETX.build.variant=STM32G0xx/G0B1R(B-C-E)T_G0C1R(C-E
 # Upload menu
 GenG0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenG0.menu.upload_method.swdMethod.upload.protocol=0
-GenG0.menu.upload_method.swdMethod.upload.options=-g
+GenG0.menu.upload_method.swdMethod.upload.options=
 GenG0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenG0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenG0.menu.upload_method.serialMethod.upload.protocol=1
-GenG0.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenG0.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenG0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenG0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenG0.menu.upload_method.dfuMethod.upload.protocol=2
-GenG0.menu.upload_method.dfuMethod.upload.options=-g
+GenG0.menu.upload_method.dfuMethod.upload.options=
 GenG0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ###############################
@@ -6082,6 +6096,7 @@ GenG4.build.fpu=-mfpu=fpv4-sp-d16
 GenG4.build.float-abi=-mfloat-abi=hard
 GenG4.build.series=STM32G4xx
 GenG4.build.cmsis_lib_gcc=arm_cortexM4lf_math
+GenG4.build.flash_offset=0x0
 GenG4.upload.maximum_size=0
 GenG4.upload.maximum_data_size=0
 
@@ -7098,17 +7113,17 @@ GenG4.menu.pnum.GENERIC_G4A1VETX.build.variant=STM32G4xx/G491V(C-E)T_G4A1VET
 # Upload menu
 GenG4.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenG4.menu.upload_method.swdMethod.upload.protocol=0
-GenG4.menu.upload_method.swdMethod.upload.options=-g
+GenG4.menu.upload_method.swdMethod.upload.options=
 GenG4.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenG4.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenG4.menu.upload_method.serialMethod.upload.protocol=1
-GenG4.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenG4.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenG4.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenG4.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenG4.menu.upload_method.dfuMethod.upload.protocol=2
-GenG4.menu.upload_method.dfuMethod.upload.options=-g
+GenG4.menu.upload_method.dfuMethod.upload.options=
 GenG4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -7123,6 +7138,7 @@ GenH7.build.fpu=-mfpu=fpv4-sp-d16
 GenH7.build.float-abi=-mfloat-abi=hard
 GenH7.build.series=STM32H7xx
 GenH7.build.mcu=cortex-m7
+GenH7.build.flash_offset=0x0
 GenH7.upload.maximum_size=0
 GenH7.upload.maximum_data_size=0
 
@@ -7514,17 +7530,17 @@ GenH7.menu.pnum.GENERIC_H757IITX.build.variant=STM32H7xx/H742Z(G-I)T_H743Z(G-I)T
 # Upload menu
 GenH7.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenH7.menu.upload_method.swdMethod.upload.protocol=0
-GenH7.menu.upload_method.swdMethod.upload.options=-g
+GenH7.menu.upload_method.swdMethod.upload.options=
 GenH7.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenH7.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenH7.menu.upload_method.serialMethod.upload.protocol=1
-GenH7.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenH7.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenH7.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenH7.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenH7.menu.upload_method.dfuMethod.upload.protocol=2
-GenH7.menu.upload_method.dfuMethod.upload.options=-g
+GenH7.menu.upload_method.dfuMethod.upload.options=
 GenH7.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -7537,6 +7553,7 @@ GenL0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 GenL0.build.mcu=cortex-m0plus
 GenL0.build.series=STM32L0xx
 GenL0.build.cmsis_lib_gcc=arm_cortexM0l_math
+GenL0.build.flash_offset=0x0
 GenL0.upload.maximum_size=0
 GenL0.upload.maximum_data_size=0
 
@@ -8619,17 +8636,17 @@ GenL0.menu.pnum.GENERIC_L083V8TX.build.variant=STM32L0xx/L072V(8-B-Z)(I-T)_L073V
 # Upload menu
 GenL0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenL0.menu.upload_method.swdMethod.upload.protocol=0
-GenL0.menu.upload_method.swdMethod.upload.options=-g
+GenL0.menu.upload_method.swdMethod.upload.options=
 GenL0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenL0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenL0.menu.upload_method.serialMethod.upload.protocol=1
-GenL0.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenL0.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenL0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenL0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenL0.menu.upload_method.dfuMethod.upload.protocol=2
-GenL0.menu.upload_method.dfuMethod.upload.options=-g
+GenL0.menu.upload_method.dfuMethod.upload.options=
 GenL0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenL0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -8646,6 +8663,7 @@ GenL1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 GenL1.build.mcu=cortex-m3
 GenL1.build.series=STM32L1xx
 GenL1.build.cmsis_lib_gcc=arm_cortexM3l_math
+GenL1.build.flash_offset=0x0
 GenL1.upload.maximum_size=0
 GenL1.upload.maximum_data_size=0
 
@@ -8884,17 +8902,17 @@ GenL1.menu.pnum.GENERIC_L162RETX.build.variant=STM32L1xx/L151RET_L152RET_L162RET
 # Upload menu
 GenL1.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenL1.menu.upload_method.swdMethod.upload.protocol=0
-GenL1.menu.upload_method.swdMethod.upload.options=-g
+GenL1.menu.upload_method.swdMethod.upload.options=
 GenL1.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenL1.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenL1.menu.upload_method.serialMethod.upload.protocol=1
-GenL1.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenL1.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenL1.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenL1.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenL1.menu.upload_method.dfuMethod.upload.protocol=2
-GenL1.menu.upload_method.dfuMethod.upload.options=-g
+GenL1.menu.upload_method.dfuMethod.upload.options=
 GenL1.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -8909,6 +8927,7 @@ GenL4.build.fpu=-mfpu=fpv4-sp-d16
 GenL4.build.float-abi=-mfloat-abi=hard
 GenL4.build.series=STM32L4xx
 GenL4.build.cmsis_lib_gcc=arm_cortexM4lf_math
+GenL4.build.flash_offset=0x0
 GenL4.upload.maximum_size=0
 GenL4.upload.maximum_data_size=0
 
@@ -9492,17 +9511,17 @@ GenL4.menu.pnum.GENERIC_L4S9ZIYX.build.variant=STM32L4xx/L4R5Z(G-I)Y_L4R9Z(G-I)Y
 # Upload menu
 GenL4.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenL4.menu.upload_method.swdMethod.upload.protocol=0
-GenL4.menu.upload_method.swdMethod.upload.options=-g
+GenL4.menu.upload_method.swdMethod.upload.options=
 GenL4.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenL4.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenL4.menu.upload_method.serialMethod.upload.protocol=1
-GenL4.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenL4.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenL4.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenL4.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenL4.menu.upload_method.dfuMethod.upload.protocol=2
-GenL4.menu.upload_method.dfuMethod.upload.options=-g
+GenL4.menu.upload_method.dfuMethod.upload.options=
 GenL4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -9517,6 +9536,7 @@ GenL5.build.fpu=-mfpu=fpv4-sp-d16
 GenL5.build.float-abi=-mfloat-abi=hard
 GenL5.build.series=STM32L5xx
 GenL5.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
+GenL5.build.flash_offset=0x0
 GenL5.upload.maximum_size=0
 GenL5.upload.maximum_data_size=0
 
@@ -9547,17 +9567,17 @@ GenL5.menu.pnum.GENERIC_L562ZETXQ.build.variant=STM32L5xx/L552Z(C-E)TxQ_L562ZETx
 # Upload menu
 GenL5.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenL5.menu.upload_method.swdMethod.upload.protocol=0
-GenL5.menu.upload_method.swdMethod.upload.options=-g
+GenL5.menu.upload_method.swdMethod.upload.options=
 GenL5.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenL5.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenL5.menu.upload_method.serialMethod.upload.protocol=1
-GenL5.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenL5.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenL5.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenL5.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenL5.menu.upload_method.dfuMethod.upload.protocol=2
-GenL5.menu.upload_method.dfuMethod.upload.options=-g
+GenL5.menu.upload_method.dfuMethod.upload.options=
 GenL5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -9572,6 +9592,7 @@ GenU5.build.fpu=-mfpu=fpv4-sp-d16
 GenU5.build.float-abi=-mfloat-abi=hard
 GenU5.build.series=STM32U5xx
 GenU5.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
+GenU5.build.flash_offset=0x0
 GenU5.upload.maximum_size=0
 GenU5.upload.maximum_data_size=0
 
@@ -9626,17 +9647,17 @@ GenU5.menu.pnum.GENERIC_U585AIIXQ.build.variant=STM32U5xx/U575A(G-I)IxQ_U585AIIx
 # Upload menu
 GenU5.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenU5.menu.upload_method.swdMethod.upload.protocol=0
-GenU5.menu.upload_method.swdMethod.upload.options=-g
+GenU5.menu.upload_method.swdMethod.upload.options=
 GenU5.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenU5.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenU5.menu.upload_method.serialMethod.upload.protocol=1
-GenU5.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenU5.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenU5.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenU5.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenU5.menu.upload_method.dfuMethod.upload.protocol=2
-GenU5.menu.upload_method.dfuMethod.upload.options=-g
+GenU5.menu.upload_method.dfuMethod.upload.options=
 GenU5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -9651,6 +9672,7 @@ GenWB.build.fpu=-mfpu=fpv4-sp-d16
 GenWB.build.float-abi=-mfloat-abi=hard
 GenWB.build.series=STM32WBxx
 GenWB.build.cmsis_lib_gcc=arm_cortexM4lf_math
+GenWB.build.flash_offset=0x0
 GenWB.upload.maximum_size=0
 GenWB.upload.maximum_data_size=0
 
@@ -9721,17 +9743,17 @@ GenWB.menu.pnum.GENERIC_WB55RGVX.build.variant=STM32WBxx/WB55R(C-E-G)V
 # Upload menu
 GenWB.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenWB.menu.upload_method.swdMethod.upload.protocol=0
-GenWB.menu.upload_method.swdMethod.upload.options=-g
+GenWB.menu.upload_method.swdMethod.upload.options=
 GenWB.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenWB.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenWB.menu.upload_method.serialMethod.upload.protocol=1
-GenWB.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenWB.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenWB.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenWB.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenWB.menu.upload_method.dfuMethod.upload.protocol=2
-GenWB.menu.upload_method.dfuMethod.upload.options=-g
+GenWB.menu.upload_method.dfuMethod.upload.options=
 GenWB.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -9746,6 +9768,7 @@ GenWL.build.mcu=cortex-m4
 #GenWL.build.float-abi=-mfloat-abi=hard
 GenWL.build.series=STM32WLxx
 GenWL.build.cmsis_lib_gcc=arm_cortexM4l_math
+GenWL.build.flash_offset=0x0
 GenWL.upload.maximum_size=0
 GenWL.upload.maximum_data_size=0
 
@@ -9889,17 +9912,17 @@ GenWL.menu.pnum.GENERIC_WLE5JCIX.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8
 # Upload menu
 GenWL.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenWL.menu.upload_method.swdMethod.upload.protocol=0
-GenWL.menu.upload_method.swdMethod.upload.options=-g
+GenWL.menu.upload_method.swdMethod.upload.options=
 GenWL.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenWL.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenWL.menu.upload_method.serialMethod.upload.protocol=1
-GenWL.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenWL.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenWL.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenWL.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenWL.menu.upload_method.dfuMethod.upload.protocol=2
-GenWL.menu.upload_method.dfuMethod.upload.options=-g
+GenWL.menu.upload_method.dfuMethod.upload.options=
 GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -9911,6 +9934,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.build.board=3dprinter
 3dprinter.build.variant_h=variant_{build.board}.h
 3dprinter.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+3dprinter.build.flash_offset=0x0
 3dprinter.upload.maximum_size=0
 3dprinter.upload.maximum_data_size=0
 
@@ -10010,7 +10034,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.PRNTR_V2.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 3dprinter.menu.pnum.PRNTR_V2.build.cmsis_lib_gcc=arm_cortexM4lf_math
 3dprinter.menu.pnum.PRNTR_V2.build.flash_offset=0x8000
-3dprinter.menu.pnum.PRNTR_V2.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
+3dprinter.menu.pnum.PRNTR_V2.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # EEXTR_F030_V1 board
 3dprinter.menu.pnum.EEXTR_F030_V1=EExtruder F030 V1
@@ -10037,7 +10061,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM200_F103CB.build.cmsis_lib_gcc=arm_cortexM3l_math
 3dprinter.menu.pnum.MALYANM200_F103CB.build.startup_file=-DCUSTOM_STARTUP_FILE
 3dprinter.menu.pnum.MALYANM200_F103CB.build.flash_offset=0x2000
-3dprinter.menu.pnum.MALYANM200_F103CB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
+3dprinter.menu.pnum.MALYANM200_F103CB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # MALYANM200_F070CB board
 3dprinter.menu.pnum.MALYANM200_F070CB=Malyan M200 V2
@@ -10053,7 +10077,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM200_F070CB.build.startup_file=-DCUSTOM_STARTUP_FILE
 3dprinter.menu.pnum.MALYANM200_F070CB.build.ldscript=MALYANMx00_F070CB.ld
 3dprinter.menu.pnum.MALYANM200_F070CB.build.flash_offset=0x2000
-3dprinter.menu.pnum.MALYANM200_F070CB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
+3dprinter.menu.pnum.MALYANM200_F070CB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # MALYANM300_F070CB board
 3dprinter.menu.pnum.MALYANM300_F070CB=Malyan M300
@@ -10069,7 +10093,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM300_F070CB.build.startup_file=-DCUSTOM_STARTUP_FILE
 3dprinter.menu.pnum.MALYANM200_F070CB.build.ldscript=MALYANMx00_F070CB.ld
 3dprinter.menu.pnum.MALYANM300_F070CB.build.flash_offset=0x2000
-3dprinter.menu.pnum.MALYANM300_F070CB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
+3dprinter.menu.pnum.MALYANM300_F070CB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # VAkE v1.0
 3dprinter.menu.pnum.VAKE_V1=VAkE v1.0
@@ -10099,22 +10123,22 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.FYSETC_S6.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 3dprinter.menu.pnum.FYSETC_S6.build.cmsis_lib_gcc=arm_cortexM4lf_math
 3dprinter.menu.pnum.FYSETC_S6.build.flash_offset=0x10000
-3dprinter.menu.pnum.FYSETC_S6.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
+3dprinter.menu.pnum.FYSETC_S6.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # Upload menu
 3dprinter.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 3dprinter.menu.upload_method.swdMethod.upload.protocol=0
-3dprinter.menu.upload_method.swdMethod.upload.options=-g
+3dprinter.menu.upload_method.swdMethod.upload.options=
 3dprinter.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 3dprinter.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 3dprinter.menu.upload_method.serialMethod.upload.protocol=1
-3dprinter.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+3dprinter.menu.upload_method.serialMethod.upload.options={serial.port.file}
 3dprinter.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 3dprinter.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 3dprinter.menu.upload_method.dfuMethod.upload.protocol=2
-3dprinter.menu.upload_method.dfuMethod.upload.options=-g
+3dprinter.menu.upload_method.dfuMethod.upload.options=
 3dprinter.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -10126,6 +10150,7 @@ BluesW.build.core=arduino
 BluesW.build.board=BluesWireless
 BluesW.build.variant_h=variant_{build.board}.h
 BluesW.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+BluesW.build.flash_offset=0x0
 BluesW.upload.maximum_size=0
 BluesW.upload.maximum_data_size=0
 
@@ -10146,17 +10171,17 @@ BluesW.menu.pnum.SWAN_R5.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 # Upload menu
 BluesW.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 BluesW.menu.upload_method.swdMethod.upload.protocol=0
-BluesW.menu.upload_method.swdMethod.upload.options=-g
+BluesW.menu.upload_method.swdMethod.upload.options=
 BluesW.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 BluesW.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 BluesW.menu.upload_method.serialMethod.upload.protocol=1
-BluesW.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+BluesW.menu.upload_method.serialMethod.upload.options={serial.port.file}
 BluesW.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 BluesW.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 BluesW.menu.upload_method.dfuMethod.upload.protocol=2
-BluesW.menu.upload_method.dfuMethod.upload.options=-g
+BluesW.menu.upload_method.dfuMethod.upload.options=
 BluesW.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -10168,6 +10193,7 @@ Elecgator.build.core=arduino
 Elecgator.build.board=elecgator
 Elecgator.build.variant_h=variant_{build.board}.h
 Elecgator.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Elecgator.build.flash_offset=0x0
 Elecgator.upload.maximum_size=0
 Elecgator.upload.maximum_data_size=0
 
@@ -10188,12 +10214,12 @@ Elecgator.menu.pnum.ETHERCAT_DUINO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PIN
 # Upload menu
 Elecgator.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Elecgator.menu.upload_method.swdMethod.upload.protocol=0
-Elecgator.menu.upload_method.swdMethod.upload.options=-g
+Elecgator.menu.upload_method.swdMethod.upload.options=
 Elecgator.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Elecgator.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Elecgator.menu.upload_method.dfuMethod.upload.protocol=2
-Elecgator.menu.upload_method.dfuMethod.upload.options=-g
+Elecgator.menu.upload_method.dfuMethod.upload.options=
 Elecgator.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -10205,6 +10231,7 @@ ESC_board.build.core=arduino
 ESC_board.build.board=FCE_board
 ESC_board.build.variant_h=variant_{build.board}.h
 ESC_board.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+ESC_board.build.flash_offset=0x0
 ESC_board.upload.maximum_size=0
 ESC_board.upload.maximum_data_size=0
 
@@ -10235,17 +10262,17 @@ ESC_board.menu.pnum.STORM32_V1_31_RC.build.variant=STM32F1xx/F103R(C-D-E)T
 # Upload menu
 ESC_board.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 ESC_board.menu.upload_method.swdMethod.upload.protocol=0
-ESC_board.menu.upload_method.swdMethod.upload.options=-g
+ESC_board.menu.upload_method.swdMethod.upload.options=
 ESC_board.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 ESC_board.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 ESC_board.menu.upload_method.serialMethod.upload.protocol=1
-ESC_board.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+ESC_board.menu.upload_method.serialMethod.upload.options={serial.port.file}
 ESC_board.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 ESC_board.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 ESC_board.menu.upload_method.dfuMethod.upload.protocol=2
-ESC_board.menu.upload_method.dfuMethod.upload.options=-g
+ESC_board.menu.upload_method.dfuMethod.upload.options=
 ESC_board.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -10257,6 +10284,7 @@ Garatronic.build.core=arduino
 Garatronic.build.board=Garatronic
 Garatronic.build.variant_h=variant_{build.board}.h
 Garatronic.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Garatronic.build.flash_offset=0x0
 Garatronic.upload.maximum_size=0
 Garatronic.upload.maximum_data_size=0
 
@@ -10317,7 +10345,7 @@ Garatronic.menu.pnum.PYBSTICK26_PRO.build.float-abi=-mfloat-abi=hard
 # PYBSTICK26 boards upload method
 Garatronic.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Garatronic.menu.upload_method.dfuMethod.upload.protocol=2
-Garatronic.menu.upload_method.dfuMethod.upload.options=-g
+Garatronic.menu.upload_method.dfuMethod.upload.options=
 Garatronic.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -10329,6 +10357,7 @@ GenFlight.build.core=arduino
 GenFlight.build.board=Genericflight
 GenFlight.build.variant_h=variant_{build.board}.h
 GenFlight.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+GenFlight.build.flash_offset=0x0
 GenFlight.upload.maximum_size=0
 GenFlight.upload.maximum_data_size=0
 
@@ -10372,17 +10401,17 @@ GenFlight.menu.pnum.Sparky_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 # Upload menu
 GenFlight.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenFlight.menu.upload_method.swdMethod.upload.protocol=0
-GenFlight.menu.upload_method.swdMethod.upload.options=-g
+GenFlight.menu.upload_method.swdMethod.upload.options=
 GenFlight.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenFlight.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenFlight.menu.upload_method.serialMethod.upload.protocol=1
-GenFlight.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenFlight.menu.upload_method.serialMethod.upload.options={serial.port.file}
 GenFlight.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenFlight.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenFlight.menu.upload_method.dfuMethod.upload.protocol=2
-GenFlight.menu.upload_method.dfuMethod.upload.options=-g
+GenFlight.menu.upload_method.dfuMethod.upload.options=
 GenFlight.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenFlight.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -10393,7 +10422,7 @@ GenFlight.menu.upload_method.hidMethod=HID Bootloader 2.2
 GenFlight.menu.upload_method.hidMethod.upload.protocol=hid22
 GenFlight.menu.upload_method.hidMethod.upload.tool=hid_upload
 GenFlight.menu.upload_method.hidMethod.build.flash_offset=0x800
-GenFlight.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID -DVECT_TAB_OFFSET={build.flash_offset}
+GenFlight.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID
 
 GenFlight.menu.upload_method.dfu2Method=Maple DFU Bootloader 2.0
 GenFlight.menu.upload_method.dfu2Method.upload.protocol=maple
@@ -10401,7 +10430,7 @@ GenFlight.menu.upload_method.dfu2Method.upload.tool=maple_upload
 GenFlight.menu.upload_method.dfu2Method.upload.usbID=1EAF:0003
 GenFlight.menu.upload_method.dfu2Method.upload.altID=2
 GenFlight.menu.upload_method.dfu2Method.build.flash_offset=0x2000
-GenFlight.menu.upload_method.dfu2Method.build.bootloader_flags=-DBL_LEGACY_LEAF -DVECT_TAB_OFFSET={build.flash_offset}
+GenFlight.menu.upload_method.dfu2Method.build.bootloader_flags=-DBL_LEGACY_LEAF
 
 GenFlight.menu.upload_method.dfuoMethod=Maple DFU Bootloader original
 GenFlight.menu.upload_method.dfuoMethod.upload.protocol=maple
@@ -10409,7 +10438,7 @@ GenFlight.menu.upload_method.dfuoMethod.upload.tool=maple_upload
 GenFlight.menu.upload_method.dfuoMethod.upload.usbID=1EAF:0003
 GenFlight.menu.upload_method.dfuoMethod.upload.altID=1
 GenFlight.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
-GenFlight.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF -DVECT_TAB_OFFSET={build.flash_offset}
+GenFlight.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF
 
 ################################################################################
 # LoRa boards
@@ -10419,6 +10448,7 @@ LoRa.build.core=arduino
 LoRa.build.board=LoRa
 LoRa.build.variant_h=variant_{build.board}.h
 LoRa.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+LoRa.build.flash_offset=0x0
 LoRa.upload.maximum_size=0
 LoRa.upload.maximum_data_size=0
 
@@ -10503,17 +10533,17 @@ LoRa.menu.pnum.ELEKTOR_F072CB.build.st_extra_flags=-D{build.product_line} {build
 # Upload menu
 LoRa.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 LoRa.menu.upload_method.swdMethod.upload.protocol=0
-LoRa.menu.upload_method.swdMethod.upload.options=-g
+LoRa.menu.upload_method.swdMethod.upload.options=
 LoRa.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 LoRa.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 LoRa.menu.upload_method.serialMethod.upload.protocol=1
-LoRa.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+LoRa.menu.upload_method.serialMethod.upload.options={serial.port.file}
 LoRa.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 LoRa.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 LoRa.menu.upload_method.dfuMethod.upload.protocol=2
-LoRa.menu.upload_method.dfuMethod.upload.options=-g
+LoRa.menu.upload_method.dfuMethod.upload.options=
 LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -10525,6 +10555,7 @@ Midatronics.build.core=arduino
 Midatronics.build.board=Midatronics
 Midatronics.build.variant_h=variant_{build.board}.h
 Midatronics.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Midatronics.build.flash_offset=0x0
 Midatronics.upload.maximum_size=0
 Midatronics.upload.maximum_data_size=0
 
@@ -10549,17 +10580,17 @@ Midatronics.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
 Midatronics.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Midatronics.menu.upload_method.swdMethod.upload.protocol=0
-Midatronics.menu.upload_method.swdMethod.upload.options=-g
+Midatronics.menu.upload_method.swdMethod.upload.options=
 Midatronics.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Midatronics.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 Midatronics.menu.upload_method.serialMethod.upload.protocol=1
-Midatronics.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+Midatronics.menu.upload_method.serialMethod.upload.options={serial.port.file}
 Midatronics.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 Midatronics.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Midatronics.menu.upload_method.dfuMethod.upload.protocol=2
-Midatronics.menu.upload_method.dfuMethod.upload.options=-g
+Midatronics.menu.upload_method.dfuMethod.upload.options=
 Midatronics.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
