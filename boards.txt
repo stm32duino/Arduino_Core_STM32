@@ -10465,6 +10465,20 @@ LoRa.menu.pnum.ACSIP_S76S.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 LoRa.menu.pnum.ACSIP_S76S.build.cmsis_lib_gcc=arm_cortexM0l_math
 LoRa.menu.pnum.ACSIP_S76S.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
+# LORA_E5_MINI board
+LoRa.menu.pnum.LORA_E5_MINI=LoRa-E5 mini
+LoRa.menu.pnum.LORA_E5_MINI.upload.maximum_size=262144
+LoRa.menu.pnum.LORA_E5_MINI.upload.maximum_data_size=65536
+LoRa.menu.pnum.LORA_E5_MINI.build.mcu=cortex-m4
+LoRa.menu.pnum.LORA_E5_MINI.build.board=LORA_E5_MINI
+LoRa.menu.pnum.LORA_E5_MINI.build.series=STM32WLxx
+LoRa.menu.pnum.LORA_E5_MINI.build.product_line=STM32WLE5xx
+LoRa.menu.pnum.LORA_E5_MINI.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I
+LoRa.menu.pnum.LORA_E5_MINI.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+LoRa.menu.pnum.LORA_E5_MINI.build.variant_h=variant_LORA_E5_MINI.h
+LoRa.menu.pnum.LORA_E5_MINI.build.cmsis_lib_gcc=arm_cortexM4l_math
+
+
 # RAK811_TRACKER board
 LoRa.menu.pnum.RAK811_TRACKER=RAK811 LoRa Tracker (16kb RAM)
 LoRa.menu.pnum.RAK811_TRACKER.upload.maximum_size=131072
