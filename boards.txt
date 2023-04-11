@@ -9772,15 +9772,6 @@ GenWL.build.flash_offset=0x0
 GenWL.upload.maximum_size=0
 GenWL.upload.maximum_data_size=0
 
-# Generic node SE by The Things Industries
-GenWL.menu.pnum.GENERIC_NODE_SE_TTI=Generic Node SE (TTI)
-GenWL.menu.pnum.GENERIC_NODE_SE_TTI.upload.maximum_size=262144
-GenWL.menu.pnum.GENERIC_NODE_SE_TTI.upload.maximum_data_size=65536
-GenWL.menu.pnum.GENERIC_NODE_SE_TTI.build.board=GENERIC_NODE_SE_TTI
-GenWL.menu.pnum.GENERIC_NODE_SE_TTI.build.product_line=STM32WL55xx
-GenWL.menu.pnum.GENERIC_NODE_SE_TTI.build.variant_h=variant_GENERIC_NODE_SE_TTI.h
-GenWL.menu.pnum.GENERIC_NODE_SE_TTI.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
-
 # Generic WL54CCUx
 GenWL.menu.pnum.GENERIC_WL54CCUX=Generic WL54CCUx
 GenWL.menu.pnum.GENERIC_WL54CCUX.upload.maximum_size=262144
@@ -10465,6 +10456,19 @@ LoRa.menu.pnum.ACSIP_S76S.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 LoRa.menu.pnum.ACSIP_S76S.build.cmsis_lib_gcc=arm_cortexM0l_math
 LoRa.menu.pnum.ACSIP_S76S.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
+# Generic node SE by The Things Industries
+LoRa.menu.pnum.GENERIC_NODE_SE_TTI=Generic Node SE (TTI)
+LoRa.menu.pnum.GENERIC_NODE_SE_TTI.upload.maximum_size=262144
+LoRa.menu.pnum.GENERIC_NODE_SE_TTI.upload.maximum_data_size=65536
+LoRa.menu.pnum.GENERIC_NODE_SE_TTI.build.mcu=cortex-m4
+LoRa.menu.pnum.GENERIC_NODE_SE_TTI.build.board=GENERIC_NODE_SE_TTI
+LoRa.menu.pnum.GENERIC_NODE_SE_TTI.build.series=STM32WLxx
+LoRa.menu.pnum.GENERIC_NODE_SE_TTI.build.product_line=STM32WL55xx
+LoRa.menu.pnum.GENERIC_NODE_SE_TTI.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
+LoRa.menu.pnum.GENERIC_NODE_SE_TTI.build.variant_h=variant_GENERIC_NODE_SE_TTI.h
+LoRa.menu.pnum.GENERIC_NODE_SE_TTI.build.cmsis_lib_gcc=arm_cortexM4l_math
+LoRa.menu.pnum.GENERIC_NODE_SE_TTI.build.st_extra_flags=-D{build.product_line} -DUSE_CM4_STARTUP_FILE {build.xSerial}
+
 # LORA_E5_MINI board
 LoRa.menu.pnum.LORA_E5_MINI=LoRa-E5 mini
 LoRa.menu.pnum.LORA_E5_MINI.upload.maximum_size=262144
@@ -10477,7 +10481,6 @@ LoRa.menu.pnum.LORA_E5_MINI.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)
 LoRa.menu.pnum.LORA_E5_MINI.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 LoRa.menu.pnum.LORA_E5_MINI.build.variant_h=variant_LORA_E5_MINI.h
 LoRa.menu.pnum.LORA_E5_MINI.build.cmsis_lib_gcc=arm_cortexM4l_math
-
 
 # RAK811_TRACKER board
 LoRa.menu.pnum.RAK811_TRACKER=RAK811 LoRa Tracker (16kb RAM)
