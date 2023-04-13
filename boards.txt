@@ -10482,6 +10482,18 @@ LoRa.menu.pnum.LORA_E5_MINI.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 LoRa.menu.pnum.LORA_E5_MINI.build.variant_h=variant_LORA_E5_MINI.h
 LoRa.menu.pnum.LORA_E5_MINI.build.cmsis_lib_gcc=arm_cortexM4l_math
 
+# RAK3172 module
+LoRa.menu.pnum.RAK3172_MODULE=RAK3172 Module
+LoRa.menu.pnum.RAK3172_MODULE.upload.maximum_size=262144
+LoRa.menu.pnum.RAK3172_MODULE.upload.maximum_data_size=65536
+LoRa.menu.pnum.RAK3172_MODULE.build.mcu=cortex-m4
+LoRa.menu.pnum.RAK3172_MODULE.build.board=RAK3172_MODULE
+LoRa.menu.pnum.RAK3172_MODULE.build.series=STM32WLxx
+LoRa.menu.pnum.RAK3172_MODULE.build.product_line=STM32WLE5xx
+LoRa.menu.pnum.RAK3172_MODULE.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
+LoRa.menu.pnum.RAK3172_MODULE.build.variant_h=variant_RAK3172_MODULE.h
+LoRa.menu.pnum.RAK3172_MODULE.build.cmsis_lib_gcc=arm_cortexM4l_math
+
 # RAK811_TRACKER board
 LoRa.menu.pnum.RAK811_TRACKER=RAK811 LoRa Tracker (16kb RAM)
 LoRa.menu.pnum.RAK811_TRACKER.upload.maximum_size=131072
