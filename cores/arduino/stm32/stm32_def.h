@@ -40,6 +40,8 @@
   #include "stm32g0xx.h"
 #elif defined(STM32G4xx)
   #include "stm32g4xx.h"
+#elif defined(STM32H5xx)
+  #include "stm32h5xx.h"
 #elif defined(STM32H7xx)
   #include "stm32h7xx.h"
 #elif defined(STM32L0xx)
