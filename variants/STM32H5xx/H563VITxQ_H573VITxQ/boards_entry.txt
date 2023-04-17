@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic H563VITxQ
+GenH5.menu.pnum.GENERIC_H563VITXQ=Generic H563VITxQ
+GenH5.menu.pnum.GENERIC_H563VITXQ.upload.maximum_size=2097152
+GenH5.menu.pnum.GENERIC_H563VITXQ.upload.maximum_data_size=655360
+GenH5.menu.pnum.GENERIC_H563VITXQ.build.board=GENERIC_H563VITXQ
+GenH5.menu.pnum.GENERIC_H563VITXQ.build.product_line=STM32H563xx
+GenH5.menu.pnum.GENERIC_H563VITXQ.build.variant=STM32H5xx/H563VITxQ_H573VITxQ
+
+# Generic H573VITxQ
+GenH5.menu.pnum.GENERIC_H573VITXQ=Generic H573VITxQ
+GenH5.menu.pnum.GENERIC_H573VITXQ.upload.maximum_size=2097152
+GenH5.menu.pnum.GENERIC_H573VITXQ.upload.maximum_data_size=655360
+GenH5.menu.pnum.GENERIC_H573VITXQ.build.board=GENERIC_H573VITXQ
+GenH5.menu.pnum.GENERIC_H573VITXQ.build.product_line=STM32H573xx
+GenH5.menu.pnum.GENERIC_H573VITXQ.build.variant=STM32H5xx/H563VITxQ_H573VITxQ
+
