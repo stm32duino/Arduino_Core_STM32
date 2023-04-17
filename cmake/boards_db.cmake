@@ -103140,6 +103140,63 @@ target_compile_options(PYBSTICK26_STD_usb_none INTERFACE
   "SHELL:"
 )
 
+# RAK3172_MODULE
+# -----------------------------------------------------------------------------
+
+set(RAK3172_MODULE_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U")
+set(RAK3172_MODULE_MAXSIZE 262144)
+set(RAK3172_MODULE_MAXDATASIZE 65536)
+set(RAK3172_MODULE_MCU cortex-m4)
+set(RAK3172_MODULE_FPCONF "-")
+add_library(RAK3172_MODULE INTERFACE)
+target_compile_options(RAK3172_MODULE INTERFACE
+  "SHELL:-DSTM32WLE5xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${RAK3172_MODULE_MCU}
+)
+target_compile_definitions(RAK3172_MODULE INTERFACE
+  "STM32WLxx"
+	"ARDUINO_RAK3172_MODULE"
+	"BOARD_NAME=\"RAK3172_MODULE\""
+	"BOARD_ID=RAK3172_MODULE"
+	"VARIANT_H=\"variant_RAK3172_MODULE.h\""
+)
+target_include_directories(RAK3172_MODULE INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32WLxx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32WLxx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32WLxx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32WLxx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32WLxx/Source/Templates/gcc/
+  ${RAK3172_MODULE_VARIANT_PATH}
+)
+
+target_link_options(RAK3172_MODULE INTERFACE
+  "LINKER:--default-script=${RAK3172_MODULE_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
+  "SHELL: "
+  -mcpu=${RAK3172_MODULE_MCU}
+)
+target_link_libraries(RAK3172_MODULE INTERFACE
+  arm_cortexM4l_math
+)
+
+add_library(RAK3172_MODULE_serial_disabled INTERFACE)
+target_compile_options(RAK3172_MODULE_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(RAK3172_MODULE_serial_generic INTERFACE)
+target_compile_options(RAK3172_MODULE_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(RAK3172_MODULE_serial_none INTERFACE)
+target_compile_options(RAK3172_MODULE_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+
 # RAK811_TRACKER
 # -----------------------------------------------------------------------------
 
