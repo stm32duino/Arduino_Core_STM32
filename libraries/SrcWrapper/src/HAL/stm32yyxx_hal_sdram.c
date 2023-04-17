@@ -6,6 +6,8 @@
   #include "stm32f4xx_hal_sdram.c"
 #elif STM32F7xx
   #include "stm32f7xx_hal_sdram.c"
+#elif STM32H5xx
+  #include "stm32h5xx_hal_sdram.c"
 #elif STM32H7xx
   #include "stm32h7xx_hal_sdram.c"
 #endif
