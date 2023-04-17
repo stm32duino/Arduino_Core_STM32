@@ -127,24 +127,14 @@
   * @{
   */
 
-#if !defined  (HSE_VALUE)
-  #define HSE_VALUE    (25000000UL) /*!< Value of the External oscillator in Hz */
-#endif /* HSE_VALUE */
-
-#if !defined  (CSI_VALUE)
-  #define CSI_VALUE    (4000000UL)  /*!< Value of the Internal oscillator in Hz*/
-#endif /* CSI_VALUE */
-
-#if !defined  (HSI_VALUE)
-  #define HSI_VALUE    (64000000UL) /*!< Value of the Internal oscillator in Hz */
-#endif /* HSI_VALUE */
-
 /************************* Miscellaneous Configuration ************************/
 /*!< Uncomment the following line if you need to relocate your vector Table in
      Internal SRAM. */
 /* #define VECT_TAB_SRAM */
+#ifndef VECT_TAB_OFFSET
 #define VECT_TAB_OFFSET  0x00U /*!< Vector Table base offset field.
                                    This value must be a multiple of 0x200. */
+#endif
 /******************************************************************************/
 
 /**
