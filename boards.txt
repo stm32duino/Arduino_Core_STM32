@@ -7173,6 +7173,62 @@ GenG4.menu.upload_method.dfuMethod.upload.options=
 GenG4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
+# Generic H5
+GenH5.name=Generic STM32H5 series
+
+GenH5.build.core=arduino
+GenH5.build.board=GenH5
+GenH5.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenH5.build.mcu=cortex-m33
+GenH5.build.fpu=-mfpu=fpv4-sp-d16
+GenH5.build.float-abi=-mfloat-abi=hard
+GenH5.build.series=STM32H5xx
+GenH5.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
+GenH5.build.flash_offset=0x0
+GenH5.upload.maximum_size=0
+GenH5.upload.maximum_data_size=0
+
+# Generic H563ZGTx
+GenH5.menu.pnum.GENERIC_H563ZGTX=Generic H563ZGTx
+GenH5.menu.pnum.GENERIC_H563ZGTX.upload.maximum_size=1048576
+GenH5.menu.pnum.GENERIC_H563ZGTX.upload.maximum_data_size=655360
+GenH5.menu.pnum.GENERIC_H563ZGTX.build.board=GENERIC_H563ZGTX
+GenH5.menu.pnum.GENERIC_H563ZGTX.build.product_line=STM32H563xx
+GenH5.menu.pnum.GENERIC_H563ZGTX.build.variant=STM32H5xx/H563Z(G-I)T_H573ZIT
+
+# Generic H563ZITx
+GenH5.menu.pnum.GENERIC_H563ZITX=Generic H563ZITx
+GenH5.menu.pnum.GENERIC_H563ZITX.upload.maximum_size=2097152
+GenH5.menu.pnum.GENERIC_H563ZITX.upload.maximum_data_size=655360
+GenH5.menu.pnum.GENERIC_H563ZITX.build.board=GENERIC_H563ZITX
+GenH5.menu.pnum.GENERIC_H563ZITX.build.product_line=STM32H563xx
+GenH5.menu.pnum.GENERIC_H563ZITX.build.variant=STM32H5xx/H563Z(G-I)T_H573ZIT
+
+# Generic H573ZITx
+GenH5.menu.pnum.GENERIC_H573ZITX=Generic H573ZITx
+GenH5.menu.pnum.GENERIC_H573ZITX.upload.maximum_size=2097152
+GenH5.menu.pnum.GENERIC_H573ZITX.upload.maximum_data_size=655360
+GenH5.menu.pnum.GENERIC_H573ZITX.build.board=GENERIC_H573ZITX
+GenH5.menu.pnum.GENERIC_H573ZITX.build.product_line=STM32H573xx
+GenH5.menu.pnum.GENERIC_H573ZITX.build.variant=STM32H5xx/H563Z(G-I)T_H573ZIT
+
+# Upload menu
+GenH5.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenH5.menu.upload_method.swdMethod.upload.protocol=0
+GenH5.menu.upload_method.swdMethod.upload.options=
+GenH5.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenH5.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenH5.menu.upload_method.serialMethod.upload.protocol=1
+GenH5.menu.upload_method.serialMethod.upload.options={serial.port.file}
+GenH5.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenH5.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenH5.menu.upload_method.dfuMethod.upload.protocol=2
+GenH5.menu.upload_method.dfuMethod.upload.options=
+GenH5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+################################################################################
 # Generic H7
 GenH7.name=Generic STM32H7 Series
 
@@ -10768,6 +10824,12 @@ GenG4.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenG4.menu.xserial.disabled=Disabled (no Serial support)
 GenG4.menu.xserial.disabled.build.xSerial=
 
+GenH5.menu.xserial.generic=Enabled (generic 'Serial')
+GenH5.menu.xserial.none=Enabled (no generic 'Serial')
+GenH5.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenH5.menu.xserial.disabled=Disabled (no Serial support)
+GenH5.menu.xserial.disabled.build.xSerial=
+
 GenH7.menu.xserial.generic=Enabled (generic 'Serial')
 GenH7.menu.xserial.none=Enabled (no generic 'Serial')
 GenH7.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -11023,6 +11085,19 @@ GenG0.menu.usb.CDC=CDC (no generic 'Serial')
 GenG0.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
 GenG0.menu.usb.HID=HID (keyboard and mouse)
 GenG0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+
+GenH5.menu.usb.none=None
+GenH5.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenH5.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenH5.menu.usb.CDC=CDC (no generic 'Serial')
+GenH5.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenH5.menu.usb.HID=HID (keyboard and mouse)
+GenH5.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+GenH5.menu.xusb.FS=Low/Full Speed
+GenH5.menu.xusb.HS=High Speed
+GenH5.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+GenH5.menu.xusb.HSFS=High Speed in Full Speed mode
+GenH5.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenH7.menu.usb.none=None
 GenH7.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
@@ -11486,6 +11561,27 @@ GenG4.menu.opt.ogstd.build.flags.optimize=-Og
 GenG4.menu.opt.o0std=No Optimization (-O0)
 GenG4.menu.opt.o0std.build.flags.optimize=-O0
 
+GenH5.menu.opt.osstd=Smallest (-Os default)
+GenH5.menu.opt.osstd.build.flags.optimize=-Os
+GenH5.menu.opt.oslto=Smallest (-Os) with LTO
+GenH5.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenH5.menu.opt.o1std=Fast (-O1)
+GenH5.menu.opt.o1std.build.flags.optimize=-O1
+GenH5.menu.opt.o1lto=Fast (-O1) with LTO
+GenH5.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenH5.menu.opt.o2std=Faster (-O2)
+GenH5.menu.opt.o2std.build.flags.optimize=-O2
+GenH5.menu.opt.o2lto=Faster (-O2) with LTO
+GenH5.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenH5.menu.opt.o3std=Fastest (-O3)
+GenH5.menu.opt.o3std.build.flags.optimize=-O3
+GenH5.menu.opt.o3lto=Fastest (-O3) with LTO
+GenH5.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenH5.menu.opt.ogstd=Debug (-Og)
+GenH5.menu.opt.ogstd.build.flags.optimize=-Og
+GenH5.menu.opt.o0std=No Optimization (-O0)
+GenH5.menu.opt.o0std.build.flags.optimize=-O0
+
 GenH7.menu.opt.osstd=Smallest (-Os default)
 GenH7.menu.opt.oslto=Smallest (-Os) with LTO
 GenH7.menu.opt.oslto.build.flags.optimize=-Os -flto
@@ -11924,6 +12020,14 @@ GenG4.menu.dbg.enable_log.build.flags.debug=
 GenG4.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 GenG4.menu.dbg.enable_all.build.flags.debug=-g
 
+GenH5.menu.dbg.none=None
+GenH5.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenH5.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenH5.menu.dbg.enable_log=Core logs Enabled
+GenH5.menu.dbg.enable_log.build.flags.debug=
+GenH5.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenH5.menu.dbg.enable_all.build.flags.debug=-g
+
 GenH7.menu.dbg.none=None
 GenH7.menu.dbg.enable_sym=Symbols Enabled (-g)
 GenH7.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
@@ -12194,6 +12298,16 @@ GenG4.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenG4.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenG4.menu.rtlib.full=Newlib Standard
 GenG4.menu.rtlib.full.build.flags.ldspecs=
+
+GenH5.menu.rtlib.nano=Newlib Nano (default)
+GenH5.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenH5.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenH5.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenH5.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenH5.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenH5.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenH5.menu.rtlib.full=Newlib Standard
+GenH5.menu.rtlib.full.build.flags.ldspecs=
 
 GenH7.menu.rtlib.nano=Newlib Nano (default)
 GenH7.menu.rtlib.nanofp=Newlib Nano + Float Printf
