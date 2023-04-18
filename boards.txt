@@ -138,6 +138,20 @@ Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.product_line=STM32F767xx
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
+# NUCLEO H563ZI
+Nucleo_144.menu.pnum.NUCLEO_H563ZI=Nucleo H563ZI
+Nucleo_144.menu.pnum.NUCLEO_H563ZI.node=NOD_H563ZI
+Nucleo_144.menu.pnum.NUCLEO_H563ZI.upload.maximum_size=2097152
+Nucleo_144.menu.pnum.NUCLEO_H563ZI.upload.maximum_data_size=655360
+Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.mcu=cortex-m33
+Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.float-abi=-mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.board=NUCLEO_H563ZI
+Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.series=STM32H5xx
+Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.product_line=STM32H563xx
+Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.variant=STM32H5xx/H563Z(G-I)T_H573ZIT
+Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
+
 # NUCLEO H723ZG board
 Nucleo_144.menu.pnum.NUCLEO_H723ZG=Nucleo H723ZG
 Nucleo_144.menu.pnum.NUCLEO_H723ZG.node=NODE_H723ZG
