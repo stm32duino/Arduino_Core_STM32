@@ -11,24 +11,21 @@
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <link rel="stylesheet" href="_htmresc/mini-st.css" />
+  <link rel="stylesheet" href="_htmresc/mini-st_2020.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
+  <link rel="icon" type="image/x-icon" href="_htmresc/favicon.png" />
 </head>
 <body>
 <div class="row">
 <div class="col-sm-12 col-lg-4">
-<div class="card fluid">
-<div class="sectione dark">
 <center>
 <h1 id="release-notes-for-stm32l1xx-cmsis"><small>Release Notes for</small> <mark>STM32L1xx CMSIS</mark></h1>
-<p>Copyright © 2009-2018 ARM Limited - STMicroelectronics<br />
+<p>Copyright © 2016 STMicroelectronics<br />
 </p>
-<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo.png" alt="ST logo" /></a>
+<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
 </center>
-</div>
-</div>
 <h1 id="purpose">Purpose</h1>
 <p>This driver provides the CMSIS device for the stm32l1xx products. This covers:</p>
 <ul>
@@ -48,11 +45,26 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section13" checked aria-hidden="true"> <label for="collapse-section13" aria-hidden="true">V2.3.2 / 21-May-2021</label>
+<input type="checkbox" id="collapse-section14" checked aria-hidden="true"> <label for="collapse-section14" aria-hidden="true">V2.3.3 / 07-April-2023</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
-<h3 id="maintenance-release">Maintenance release</h3>
+<h3 id="patch-release">Patch release</h3>
 <h2 id="contents">Contents</h2>
+<ul>
+<li>All source files: update disclaimer to add reference to the new license agreement.</li>
+<li>Update define value of HSI_VALUE to 16 Mhz to be aligned with reference manual.</li>
+<li>Align USART_BRR_DIV_Fraction and USART_BRR_DIV_Mantissa bits definitions with the reference manual.</li>
+<li>Add definitions for channel 27, 28 and 29 in the ADC sample time register1 in stm32l151xc.h file.</li>
+<li>Update the GCC startup file to be aligned to IAR/Keil IDE.</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section13" aria-hidden="true"> <label for="collapse-section13" aria-hidden="true">V2.3.2 / 21-May-2021</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<h3 id="maintenance-release">Maintenance release</h3>
+<h2 id="contents-1">Contents</h2>
 <ul>
 <li>Improve GCC startup files robustness.</li>
 <li>Add LSI maximum startup time datasheet value: LSI_STARTUP_TIME.</li>
@@ -67,9 +79,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section12" aria-hidden="true"> <label for="collapse-section12" aria-hidden="true">V2.3.1 / 24-June-2020</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <h3 id="maintenance-release-1">Maintenance release</h3>
-<h2 id="contents-1">Contents</h2>
+<h2 id="contents-2">Contents</h2>
 <ul>
 <li>All header files
 <ul>
@@ -94,9 +106,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section11" aria-hidden="true"> <label for="collapse-section11" aria-hidden="true">V2.3.0 / 05-April-2019</label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <h3 id="maintenance-release-2">Maintenance release</h3>
-<h2 id="contents-2">Contents</h2>
+<h2 id="contents-3">Contents</h2>
 <ul>
 <li>stm32l0xx.h
 <ul>
@@ -106,7 +118,7 @@
 <ul>
 <li>Update header of startup files to remove build error with ARM compiler.</li>
 </ul></li>
-<li>Updated Update CMSIS Devices compliancy with MISRA C 2012 rules
+<li>Updated Update CMSIS Devices compliance with MISRA C 2012 rules
 <ul>
 <li>Rule-10.6: Use ‘UL’ postfix for _Msk definitions and memory/peripheral base addresses</li>
 </ul></li>
@@ -123,9 +135,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section10" aria-hidden="true"> <label for="collapse-section10" aria-hidden="true">V2.2.3 / 12-January-2018</label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
-<h3 id="patch-release">Patch release</h3>
-<h2 id="contents-3">Contents</h2>
+<h2 id="main-changes-4">Main Changes</h2>
+<h3 id="patch-release-1">Patch release</h3>
+<h2 id="contents-4">Contents</h2>
 <ul>
 <li>Corrected devices supporting RI_HYSCR3, RI_HYSCR4, RI_ASMRx, RI_CMRx, RI_CICRx registers in CMSIS files.</li>
 </ul>
@@ -134,9 +146,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section9" aria-hidden="true"> <label for="collapse-section9" aria-hidden="true">V2.2.2 / 25-August-2017</label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <h3 id="maintenance-release-3">Maintenance release</h3>
-<h2 id="contents-4">Contents</h2>
+<h2 id="contents-5">Contents</h2>
 <ul>
 <li>Removed DATE and VERSION fields from header files.</li>
 </ul>
@@ -145,11 +157,11 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section8" aria-hidden="true"> <label for="collapse-section8" aria-hidden="true">V2.2.1 / 21-April-2017</label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <h3 id="maintenance-release-4">Maintenance release</h3>
-<h2 id="contents-5">Contents</h2>
+<h2 id="contents-6">Contents</h2>
 <ul>
-<li>Update CMSIS Devices compliancy with MISRA C 2004 rules:
+<li>Update CMSIS Devices compliance with MISRA C 2004 rules:
 <ul>
 <li>MISRA C 2004 rule 10.6 (‘U’ suffix applied to all constants of ‘unsigned’ type)</li>
 <li>Update system_stm32l1xx.h/.c files.</li>
@@ -163,9 +175,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section7" aria-hidden="true"> <label for="collapse-section7" aria-hidden="true">V2.2.0 / 01-July-2016</label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <h3 id="maintenance-release-5">Maintenance release</h3>
-<h2 id="contents-6">Contents</h2>
+<h2 id="contents-7">Contents</h2>
 <ul>
 <li>Add macros _Pos and _Msk for each constants.
 <ul>
@@ -193,9 +205,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true">V2.1.3 / 04-March-2016</label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
+<h2 id="main-changes-8">Main Changes</h2>
 <h3 id="maintenance-release-6">Maintenance release</h3>
-<h2 id="contents-7">Contents</h2>
+<h2 id="contents-8">Contents</h2>
 <ul>
 <li>Add HardFault_IRQn.</li>
 <li>Add BKP5R to BKP19R for RTC_TypeDef for stm32l151xba.</li>
@@ -232,14 +244,14 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true">V2.1.2 / 09-October-2015</label>
 <div>
-<h2 id="main-changes-8">Main Changes</h2>
+<h2 id="main-changes-9">Main Changes</h2>
 <h3 id="maintenance-release-7">Maintenance release</h3>
-<h2 id="contents-8">Contents</h2>
+<h2 id="contents-9">Contents</h2>
 <ul>
 <li>Removing the __IO attribute for PLLMulTable and AHBPrescTable. This was leading to issue during C++ initialisation.</li>
 <li>IDR field of CRC_TypeDef changed from uint32_t to uint8_t to comply with register structure.</li>
 <li>Added TIM10 and TIM11 to IS_TIM_CLOCKSOURCE_ETRMODE2_INSTANCE(INSTANCE).</li>
-<li>Renaming USB_CNTR_LP_MODE to USB_CNTR_LPMODE for naming consistancy with other bits.</li>
+<li>Renaming USB_CNTR_LP_MODE to USB_CNTR_LPMODE for naming consistency with other bits.</li>
 <li>Renaming USB_ISTR_PMAOVRM to USB_ISTR_PMAOVR to use the name of the bit in this register.</li>
 </ul>
 </div>
@@ -247,11 +259,11 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V2.1.1 / 31-March-2015</label>
 <div>
-<h2 id="main-changes-9">Main Changes</h2>
+<h2 id="main-changes-10">Main Changes</h2>
 <h3 id="maintenance-release-8">Maintenance release</h3>
-<h2 id="contents-9">Contents</h2>
+<h2 id="contents-10">Contents</h2>
 <ul>
-<li>Ensure compliancy w/ C++</li>
+<li>Ensure compliance w/ C++</li>
 <li>Minor update on Timer assert.</li>
 <li>Adding IS_AES_ALL_INSTANCE macro for product with AES.</li>
 </ul>
@@ -260,9 +272,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">V2.1.0 / 06-February-2015</label>
 <div>
-<h2 id="main-changes-10">Main Changes</h2>
+<h2 id="main-changes-11">Main Changes</h2>
 <h3 id="maintenance-release-9">Maintenance release</h3>
-<h2 id="contents-10">Contents</h2>
+<h2 id="contents-11">Contents</h2>
 <ul>
 <li>Add CMSIS files for new STM32L1 e<strong>X</strong>tended Devices : <strong>STM32L151xDX, STM32L152xDX and STM32L162xDX</strong></li>
 </ul>
@@ -271,9 +283,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true">V2.0.0 / 05-September-2014</label>
 <div>
-<h2 id="main-changes-11">Main Changes</h2>
+<h2 id="main-changes-12">Main Changes</h2>
 <h3 id="maintenance-release-10">Maintenance release</h3>
-<h2 id="contents-11">Contents</h2>
+<h2 id="contents-12">Contents</h2>
 <ul>
 <li>Update based on STM32Cube specification</li>
 </ul>
