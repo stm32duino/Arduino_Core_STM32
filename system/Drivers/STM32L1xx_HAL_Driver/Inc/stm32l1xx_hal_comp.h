@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -211,7 +210,7 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
 /** @defgroup COMP_WindowMode COMP WindowMode
   * @{
   */
-#define COMP_WINDOWMODE_DISABLE               (0x00000000U)  /*!< Window mode disabled: COMP1 non-inverting input is independant */
+#define COMP_WINDOWMODE_DISABLE               (0x00000000U)  /*!< Window mode disabled: COMP1 non-inverting input is independent */
 #define COMP_WINDOWMODE_ENABLE                COMP_CSR_WNDWE          /*!< Window mode enabled: COMP1 non-inverting input is no more accessible, even from ADC channel VCOMP) (connected to COMP2 non-inverting input) */
 
 #define IS_COMP_WINDOWMODE(WINDOWMODE) (((WINDOWMODE) == COMP_WINDOWMODE_DISABLE) || \
@@ -655,4 +654,3 @@ uint32_t              HAL_COMP_GetError(COMP_HandleTypeDef *hcomp);
 
 #endif /* __STM32L1xx_HAL_COMP_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -5,36 +5,27 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Release Notes for STM32L1xx HAL Drivers</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <link rel="stylesheet" href="_htmresc/mini-st.css" />
+  <link rel="stylesheet" href="_htmresc/mini-st_2020.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
+  <link rel="icon" type="image/x-icon" href="_htmresc/favicon.png" />
 </head>
 <body>
 <div class="row">
 <div class="col-sm-12 col-lg-4">
-<div class="card fluid">
-<div class="sectione dark">
 <center>
-<h1 id="release-notes-for-stm32l1xx-hal-drivers"><small>Release Notes for</small> <mark>STM32L1xx HAL Drivers</mark></h1>
+<h1 id="release-notes-forstm32l1xx-hal-drivers"><small>Release Notes for</small><mark>STM32L1xx HAL Drivers</mark></h1>
 <p>Copyright © 2017 STMicroelectronics<br />
 </p>
-<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo.png" alt="ST logo" /></a>
+<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
 </center>
-</div>
-</div>
-<h1 id="license">License</h1>
-<p>Licensed by ST under BSD 3-Clause license (the "License"). You may not use this package except in compliance with the License. You may obtain a copy of the License at:</p>
-<p><a href="https://opensource.org/licenses/BSD-3-Clause">https://opensource.org/licenses/BSD-3-Clause</a></p>
 <h1 id="purpose">Purpose</h1>
 <p>The STM32Cube HAL and LL, an STM32 abstraction layer embedded software, ensure maximized portability across STM32 portfolio.</p>
 <p>The portable APIs layer provides a generic, multi instanced and simple set of APIs to interact with the upper layer (application, libraries and stacks). It is composed of native and extended APIs set. It is directly built around a generic architecture and allows the build-upon layers, like the middleware layer, to implement its functions without knowing in-depth the used STM32 device. This improves the library code reusability and guarantees an easy portability on other devices and STM32 families.</p>
@@ -46,17 +37,151 @@
 <li>Full features coverage of all the supported peripherals</li>
 </ul>
 </div>
-<section id="update-history" class="col-sm-12 col-lg-8">
-<h1>Update History</h1>
+<div class="col-sm-12 col-lg-8">
+<h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section15" checked aria-hidden="true"> <label for="collapse-section15" aria-hidden="true">V1.4.4 / 21-May-2021</label>
+<input type="checkbox" id="collapse-section16" checked aria-hidden="true"> <label for="collapse-section16" aria-hidden="true">V1.4.5 / 07-April-2023</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <h3 id="maintenance-release">Maintenance release</h3>
 <ul>
 <li>Patch release to to fix known defects and enhancements implementation.</li>
+<li>HAL code quality enhancement for MISRA-C Rule-8.13 by adding const qualifiers.</li>
+<li>All source files: update disclaimer to add reference to the new license agreement.</li>
+<li>Add support of HAL SMBUS module.</li>
 </ul>
 <h2 id="contents">Contents</h2>
+<ul>
+<li><strong>HAL Generic</strong> update
+<ul>
+<li>Allow redefinition of macro UNUSED(x).</li>
+<li>Update stm32l1xx_hal_conf_template.h template file to add support of HAL SMBUS module.</li>
+</ul></li>
+<li><strong>HAL GPIO</strong> update
+<ul>
+<li>Reorder EXTI configuration sequence in order to avoid unexpected level detection.</li>
+</ul></li>
+<li><strong>HAL EXTI</strong> update
+<ul>
+<li>Fix computation of pExtiConfig-&gt;GPIOSel in HAL_EXTI_GetConfigLine().</li>
+</ul></li>
+<li><strong>HAL PWR</strong> update
+<ul>
+<li>Updated HAL_PWR_EnterSLEEPMode() to add NOP() instruction to ensure all pending instructions are flushed before entering sleep mode.</li>
+</ul></li>
+<li><strong>HAL FLASH</strong> update
+<ul>
+<li>Fix wrong defined Flash pages max number value “FLASH_NBPAGES_MAX” for STM32L1 with 256K flash part numbers.</li>
+<li>Update FLASH_SIZE value calculation</li>
+</ul></li>
+<li><strong>HAL ADC</strong> update
+<ul>
+<li>Better performance by removing multiple volatile reads or writes in interrupt handler.</li>
+<li>Add missing LL_ADC_REG_SEQ_SCAN_ENABLE_xxRANKS defines from RANK 17 to RANK 28.</li>
+</ul></li>
+<li><strong>HAL OPAMP</strong> update
+<ul>
+<li>LL_OPAMP_SetTrimmingValue()/LL_OPAMP_GetTrimmingValue(): redefinition of registers address MUST be volatile (_IO).</li>
+</ul></li>
+<li><strong>HAL/LL TIM</strong> update
+<ul>
+<li>Manage configuration of the Capture/compare DMA request source:
+<ul>
+<li>Add related new exported constants (TIM_CCDMAREQUEST_CC, TIM_CCDMAREQUEST_UPDATE).</li>
+<li>Create a new macro __HAL_TIM_SELECT_CCDMAREQUEST() allowing to program the TIMx_CR2.CCDS bitfield.</li>
+</ul></li>
+<li>Update __LL_TIM_CALC_PSC() macro to round up the evaluated value when the fractional part of the division is greater than 0.5.</li>
+<li>Remove tag ‘/** <span class="citation" data-cites="defgroup">@defgroup</span> TIM_LL_EM_Exported_Macros Exported_Macros’ as redundant with tag ‘/** <span class="citation" data-cites="defgroup">@defgroup</span> TIM_LL_Exported_Macros TIM Exported Macros’.</li>
+<li>Fix HAL_TIMEx_RemapConfig() lock issue: __HAL_LOCK is called before calls to assert_param().</li>
+<li>Improved driver robustness against wrong period values.</li>
+<li>Improved driver robustness against wrong DMA related parameters.</li>
+<li>Improved period configuration parameter check.</li>
+<li>Removed lock management from calback management functions.</li>
+</ul></li>
+<li><strong>HAL RTC BKP</strong> update
+<ul>
+<li>Use bits definitions from CMSIS Device header file instead of hard-coded values.</li>
+<li>Wrap comments to be 80-character long and correct typos.</li>
+<li>Move constants RTC_IT_TAMP from hal_rtc.h to hal_rtc_ex.h.</li>
+<li>Gather all instructions related to exiting the “init” mode into new function RTC_ExitInitMode().</li>
+<li>Add new macro assert_param(IS_RTC_TAMPER_FILTER_CONFIG_CORRECT(sTamper-&gt;Filter, sTamper-&gt;Trigger)) to check tamper filtering is disabled in case tamper events are triggered on signal edges.</li>
+<li>Rework functions HAL_RTCEx_SetTamper() and HAL_RTCEx_SetTamper_IT() to:
+<ul>
+<li>Write in TAFCR register in one single access instead of two.</li>
+<li>Avoid modifying user structure sTamper.</li>
+</ul></li>
+<li>Check if the RTC calendar has been previously initialized before entering initialization mode.</li>
+<li>Remove macro __HAL_RTC_TAMPER_GET_IT() as it is redundant with macro __HAL_RTC_TAMPER_GET_FLAG() and create an alias into the hal_legacy.h file</li>
+</ul></li>
+<li><strong>HAL CRYP</strong> update
+<ul>
+<li>Update Crypt/Decrypt IT processes to avoid Computation Completed IRQ fires before the DINR pointer increment.</li>
+</ul></li>
+<li><strong>HAL UART</strong> update
+<ul>
+<li>Handling of UART concurrent register access in case of race condition between Tx and Rx transfers.</li>
+<li>Improve header description of UART_WaitOnFlagUntilTimeout() function.</li>
+<li>Add a check on the UART parity before enabling the parity error interruption.</li>
+<li>Fix typo in UART_IT_TXE bit description.</li>
+<li>Removal of HAL_LOCK/HAL_UNLOCK calls in HAL UART Tx and Rx APIs.</li>
+<li>Add a new API HAL_UARTEx_GetRxEventType that could be used to retrieve the type of event that has led the RxEventCallback execution.</li>
+<li>Remove __HAL_LOCK() from HAL_xxx_RegisterCallback()/HAL_xxx_UnRegisterCallback().</li>
+</ul></li>
+<li><strong>HAL SMARTCARD</strong> update
+<ul>
+<li>Improve header description of SMARTCARD_WaitOnFlagUntilTimeout() function.</li>
+<li>Remove __HAL_LOCK() from HAL_xxx_RegisterCallback()/HAL_xxx_UnRegisterCallback().</li>
+</ul></li>
+<li><strong>HAL NOR</strong> update
+<ul>
+<li>Align HAL_NOR_Init() API with core of the function when write operation is disabled to avoid HardFault.</li>
+<li>FMC_WRITE_OPERATION_DISABLE for NOR cause Hardfault for Read operations.</li>
+</ul></li>
+<li><strong>HAL IRDA</strong> update
+<ul>
+<li>Improve header description of IRDA_WaitOnFlagUntilTimeout() function.</li>
+<li>Add a check on the IRDA parity before enabling the parity error interrupt.</li>
+<li>Remove __HAL_LOCK() from HAL_xxx_RegisterCallback()/HAL_xxx_UnRegisterCallback().</li>
+</ul></li>
+<li><strong>HAL/LL USART</strong> update
+<ul>
+<li>Improve header description of USART_WaitOnFlagUntilTimeout() function.</li>
+<li>Add a check on the USART parity before enabling the parity error interrupt.</li>
+<li>Handle concurrent register access in case of race condition between Tx and Rx transfers.</li>
+<li>Remove __HAL_LOCK() from HAL_xxx_RegisterCallback()/HAL_xxx_UnRegisterCallback().</li>
+</ul></li>
+<li><strong>HAL I2C</strong> update
+<ul>
+<li>Add new HAL driver for SMBUS module.</li>
+<li>Update HAL_I2C_Mem_Write_DMA() and HAL_I2C_Mem_Read_DMA() APIs to add initialization of Devaddress, Memaddress and EventCount parameters.</li>
+<li>Update I2C_MasterReceive_RXNE() process to safe manage data N= 2 and N= 3, disable BUF interrupt if nothing to do.</li>
+<li>Clear ACK bit once 3 bytes to read remain to be able to send the NACK once the transfer ends.</li>
+<li>Duplicate the test condition after timeout detection to avoid false timeout detection.</li>
+<li>Update HAL_I2C_Master_Transmit_IT to return HAL_BUSY instead of HAL_ERROR when timeout occur and I2C_FLAG_BUSY is SET.</li>
+</ul></li>
+<li><strong>HAL SPI</strong> update
+<ul>
+<li>Fix driver to don’t update state in case of error. (HAL_SPI_STATE_READY will be set only in case of HAL_TIMEOUT).</li>
+</ul></li>
+<li><strong>HAL USB</strong> update
+<ul>
+<li>Add function to abort current USB endpoint transfer.</li>
+<li>PCD: add supporting multi packets transfer on Interrupt endpoint.</li>
+<li>PCD: software correction added to avoid unexpected STALL condition during EP0 multi packet OUT transfer.</li>
+<li>Add a mask for USB RX bytes count.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section15" aria-hidden="true"> <label for="collapse-section15" aria-hidden="true">V1.4.4 / 21-May-2021</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<h3 id="maintenance-release-1">Maintenance release</h3>
+<ul>
+<li>Patch release to to fix known defects and enhancements implementation.</li>
+</ul>
+<h2 id="contents-1">Contents</h2>
 <ul>
 <li><strong>HAL Generic</strong> update
 <ul>
@@ -157,12 +282,10 @@
 <li>Update I2C_MemoryTransmit_TXE_BTF() API to increment EventCount.</li>
 </ul></li>
 <li>Update to use the right macro to clear I2C ADDR flag inside I2C_Slave_ADDR() API as it’s indicated in the reference manual.</li>
-<li>Update HAL_I2C_EV_IRQHandler() and I2C_MasterTransmit_BTF() APIs to fix an issue where the transfer of the first few bytes to an I2C memory fails.</li>
 </ul></li>
 <li><strong>HAL/LL ADC</strong> update
 <ul>
 <li>Update HAL_ADC_Stop_DMA() API to check if DMA state is Busy before calling HAL_DMA_Abort() API to avoid DMA internal error.</li>
-<li>Update HAL ADC driver to add include of the LL ADC driver.</li>
 <li>Update timeout mechanism to avoid false timeout detection in case of preemption.</li>
 <li>Update LL_ADC_REG_Init() API to avoid enabling continuous mode and discontinuous mode simultaneously.</li>
 </ul></li>
@@ -186,12 +309,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section14" aria-hidden="true"> <label for="collapse-section14" aria-hidden="true">V1.4.3 / 22-October-2020</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
-<h3 id="maintenance-release-1">Maintenance release</h3>
+<h2 id="main-changes-2">Main Changes</h2>
+<h3 id="maintenance-release-2">Maintenance release</h3>
 <ul>
 <li>General updates to fix known defect.</li>
 </ul>
-<h2 id="contents-1">Contents</h2>
+<h2 id="contents-2">Contents</h2>
 <ul>
 <li><strong>HAL/LL I2C</strong> driver
 <ul>
@@ -206,12 +329,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section13" aria-hidden="true"> <label for="collapse-section13" aria-hidden="true">V1.4.2 / 28-August-2020</label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
-<h3 id="maintenance-release-2">Maintenance release</h3>
+<h2 id="main-changes-3">Main Changes</h2>
+<h3 id="maintenance-release-3">Maintenance release</h3>
 <ul>
 <li>Patch release to fix issue in I2C HAL driver</li>
 </ul>
-<h2 id="contents-2">Contents</h2>
+<h2 id="contents-3">Contents</h2>
 <ul>
 <li><strong>HAL I2C</strong> driver
 <ul>
@@ -226,13 +349,13 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section12" aria-hidden="true"> <label for="collapse-section12" aria-hidden="true">V1.4.1 / 24-June-2020</label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
-<h3 id="maintenance-release-3">Maintenance release</h3>
+<h2 id="main-changes-4">Main Changes</h2>
+<h3 id="maintenance-release-4">Maintenance release</h3>
 <ul>
 <li>Add new HAL EXTI driver</li>
 <li>General updates to fix known defects and enhancements implementation</li>
 </ul>
-<h2 id="contents-3">Contents</h2>
+<h2 id="contents-4">Contents</h2>
 <ul>
 <li><strong>HAL</strong> driver
 <ul>
@@ -424,26 +547,26 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section11" aria-hidden="true"> <label for="collapse-section11" aria-hidden="true">V1.4.0 / 05-April-2019</label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
-<h3 id="maintenance-release-4">Maintenance release</h3>
+<h2 id="main-changes-5">Main Changes</h2>
+<h3 id="maintenance-release-5">Maintenance release</h3>
 <ul>
 <li>Add support of <strong>HAL callback registration</strong> feature</li>
 <li>Add several enhancements implementation</li>
 <li>Fix known defects to be aligned with others STM32 series</li>
 </ul>
-<h2 id="contents-4">Contents</h2>
+<h2 id="contents-5">Contents</h2>
 <ul>
 <li><strong>HAL/LL</strong> generic
 <ul>
-<li><p>Add support of <strong>HAL callback registration</strong> feature</p></li>
-<li><p>The feature <strong>disabled by default</strong> is available for the following HAL drivers:</p>
+<li>Add support of <strong>HAL callback registration</strong> feature</li>
+<li>The feature <strong>disabled by default</strong> is available for the following HAL drivers:
 <ul>
 <li><strong>ADC, COMP, DAC, I2C, I2S, IRDA, LPTIM, PCD, RNG, RTC, SMARTCARD, SMBUS, SPI, TIM, TSC, UART, USART</strong> and <strong>WWDG</strong></li>
 </ul></li>
-<li><p>The feature may be enabled individually per HAL PPP driver by setting the corresponding definition USE_HAL_PPP_REGISTER_CALLBACKS to 1U in stm32l1xx_hal_conf.h project configuration file (template file stm32l1xx_hal_conf_template.h available from Drivers/STM32L1xx_HAL_Driver/Inc)</p></li>
+<li>The feature may be enabled individually per HAL PPP driver by setting the corresponding definition USE_HAL_PPP_REGISTER_CALLBACKS to 1U in stm32l1xx_hal_conf.h project configuration file (template file stm32l1xx_hal_conf_template.h available from Drivers/STM32L1xx_HAL_Driver/Inc)</li>
 <li><p>Once enabled, the user application may resort to HAL_PPP_RegisterCallback() to register specific callback function(s) and unregister it(them) with HAL_PPP_UnRegisterCallback().</p></li>
 <li><p>Update HAL/LL Driver compliancy with MISRA C 2012 rules</p></li>
-<li><p>stm32l1xx_hal_def.h</p>
+<li>stm32l1xx_hal_def.h
 <ul>
 <li>Update file to avoid compiler warnings from __packed definitions</li>
 <li>Update UNUSED() macro to fix compilation warning with g++ compiler</li>
@@ -707,9 +830,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section9" aria-hidden="true"> <label for="collapse-section9" aria-hidden="true">V1.3.1 / 25-August-2017</label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <h3 id="patch-release">Patch release</h3>
-<h2 id="contents-5">Contents</h2>
+<h2 id="contents-6">Contents</h2>
 <ul>
 <li><strong>HAL/LL</strong> generic
 <ul>
@@ -722,9 +845,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section8" aria-hidden="true"> <label for="collapse-section8" aria-hidden="true">V1.3.0 / 21-April-2017</label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
-<h3 id="maintenance-release-5">Maintenance release</h3>
-<h2 id="contents-6">Contents</h2>
+<h2 id="main-changes-7">Main Changes</h2>
+<h3 id="maintenance-release-6">Maintenance release</h3>
+<h2 id="contents-7">Contents</h2>
 <ul>
 <li><strong>HAL/LL</strong> generic
 <ul>
@@ -795,8 +918,8 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section7" aria-hidden="true"> <label for="collapse-section7" aria-hidden="true">V1.2.0 / 01-July-2016</label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
-<h3 id="maintenance-release-6">Maintenance release</h3>
+<h2 id="main-changes-8">Main Changes</h2>
+<h3 id="maintenance-release-7">Maintenance release</h3>
 <ul>
 <li>First official release supporting the <strong>Low Level</strong> drivers for the <strong>STM32L1xx</strong> family:
 <ul>
@@ -805,7 +928,7 @@
 <li>Low Layer drivers APIs are implemented as static inline function in new Inc/stm32l1xx_ll_ppp.h files for PPP peripherals, there is no configuration file and each stm32l1xx_ll_ppp.h file must be included in user code.</li>
 </ul></li>
 </ul>
-<h2 id="contents-7">Contents</h2>
+<h2 id="contents-8">Contents</h2>
 <ul>
 <li><strong>Generic updates</strong>
 <ul>
@@ -900,9 +1023,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true">V1.1.3 / 04-March-2016</label>
 <div>
-<h2 id="main-changes-8">Main Changes</h2>
-<h3 id="maintenance-release-7">Maintenance release</h3>
-<h2 id="contents-8">Contents</h2>
+<h2 id="main-changes-9">Main Changes</h2>
+<h3 id="maintenance-release-8">Maintenance release</h3>
+<h2 id="contents-9">Contents</h2>
 <ul>
 <li><strong>Generic update</strong>
 <ul>
@@ -951,9 +1074,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true">V1.1.2 / 09-October-2015</label>
 <div>
-<h2 id="main-changes-9">Main Changes</h2>
-<h3 id="maintenance-release-8">Maintenance release</h3>
-<h2 id="contents-9">Contents</h2>
+<h2 id="main-changes-10">Main Changes</h2>
+<h3 id="maintenance-release-9">Maintenance release</h3>
+<h2 id="contents-10">Contents</h2>
 <ul>
 <li><strong>ADC</strong>
 <ul>
@@ -1037,13 +1160,13 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V1.1.1 / 31-March-2015</label>
 <div>
-<h2 id="main-changes-10">Main Changes</h2>
-<h3 id="maintenance-release-9">Maintenance release</h3>
+<h2 id="main-changes-11">Main Changes</h2>
+<h3 id="maintenance-release-10">Maintenance release</h3>
 <ul>
 <li>Include path changes for compilation under Unix environment</li>
 <li>Update drivers to be C++ compliant</li>
 </ul>
-<h2 id="contents-10">Contents</h2>
+<h2 id="contents-11">Contents</h2>
 <ul>
 <li><strong>CORTEX</strong>
 <ul>
@@ -1109,12 +1232,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">V1.1.0 / 06-February-2015</label>
 <div>
-<h2 id="main-changes-11">Main Changes</h2>
-<h3 id="maintenance-release-10">Maintenance release</h3>
+<h2 id="main-changes-12">Main Changes</h2>
+<h3 id="maintenance-release-11">Maintenance release</h3>
 <ul>
 <li>Add support of new <strong>STM32L1 eXtended devices</strong> - <strong>STM32l151xDX, STM32l152xDX &amp; STM32l62xDX</strong></li>
 </ul>
-<h2 id="contents-11">Contents</h2>
+<h2 id="contents-12">Contents</h2>
 <ul>
 <li><strong>HAL</strong> generic
 <ul>
@@ -1135,10 +1258,12 @@
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true">V1.0.0 / 05-September-2014</label>
-<h2 id="main-changes-12">Main Changes</h2>
+<div>
+<h2 id="main-changes-13">Main Changes</h2>
 <h3 id="first-official-release">First official release</h3>
 </div>
-</section>
+</div>
+</div>
 </div>
 <footer class="sticky">
 For complete documentation on <mark>STM32 Microcontrollers</mark> , visit: <a href="http://www.st.com/STM32">http://www.st.com/STM32</a>
