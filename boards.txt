@@ -37,6 +37,20 @@ Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.variant=STM32F2xx/F207Z(C-E-F-G)T_F217Z
 Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.cmsis_lib_gcc=arm_cortexM3l_math
 
+# NUCLEO_F412ZG board
+Nucleo_144.menu.pnum.NUCLEO_F412ZG=Nucleo F412ZG
+Nucleo_144.menu.pnum.NUCLEO_F412ZG.node=NODE_F412ZG
+Nucleo_144.menu.pnum.NUCLEO_F412ZG.upload.maximum_size=1048576
+Nucleo_144.menu.pnum.NUCLEO_F412ZG.upload.maximum_data_size=262144
+Nucleo_144.menu.pnum.NUCLEO_F412ZG.build.mcu=cortex-m4
+Nucleo_144.menu.pnum.NUCLEO_F412ZG.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_F412ZG.build.float-abi=-mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_F412ZG.build.board=NUCLEO_F412ZG
+Nucleo_144.menu.pnum.NUCLEO_F412ZG.build.series=STM32F4xx
+Nucleo_144.menu.pnum.NUCLEO_F412ZG.build.product_line=STM32F412Zx
+Nucleo_144.menu.pnum.NUCLEO_F412ZG.build.variant=STM32F4xx/F412Z(E-G)(J-T)
+Nucleo_144.menu.pnum.NUCLEO_F412ZG.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
 # NUCLEO_F413ZH board
 Nucleo_144.menu.pnum.NUCLEO_F413ZH=Nucleo F413ZH
 Nucleo_144.menu.pnum.NUCLEO_F413ZH.node=NODE_F413ZH
