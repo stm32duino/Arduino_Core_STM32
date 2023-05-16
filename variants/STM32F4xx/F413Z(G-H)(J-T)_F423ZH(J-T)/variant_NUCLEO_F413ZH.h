@@ -218,11 +218,6 @@
   #define PIN_SERIAL_TX         PD8
 #endif
 
-// SD detect signal
-#ifndef SD_DETECT_PIN
-  #define SD_DETECT_PIN         PF11
-#endif
-
 /* Extra HAL modules */
 #if !defined(HAL_DAC_MODULE_DISABLED)
   #define HAL_DAC_MODULE_ENABLED
