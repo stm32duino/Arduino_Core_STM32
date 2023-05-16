@@ -192,7 +192,7 @@
 
 // On-board user button
 #ifndef USER_BTN
-  #define USER_BTN              PA0
+  #define USER_BTN              PC13
 #endif
 
 // Timer Definitions (optional)
