@@ -72,7 +72,7 @@
 #define PD5                     53
 #define PD4                     54
 #define PD3                     55
-#define PE2_2                   56 //PE2 present twice (also in D31)
+// 56 is PE2                   (31)
 #define PE4                     57
 #define PE5                     58
 #define PE6                     59
