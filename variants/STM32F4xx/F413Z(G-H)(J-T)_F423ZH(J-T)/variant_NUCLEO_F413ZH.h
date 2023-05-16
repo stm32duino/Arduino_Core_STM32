@@ -229,6 +229,12 @@
   #define HAL_SD_MODULE_ENABLED
 #endif
 
+// HSE default value is 25MHz in HAL
+// HSE_BYPASS is 8MHz
+#ifndef HSE_BYPASS_NOT_USED
+  #define HSE_VALUE             8000000
+#endif
+
 /*----------------------------------------------------------------------------
  *        Arduino objects - C++ only
  *----------------------------------------------------------------------------*/
