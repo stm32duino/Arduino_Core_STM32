@@ -72,7 +72,7 @@
 #define PD5                     53
 #define PD4                     54
 #define PD3                     55
-#define PE2_2                   56 //PE2 present twice (also in D31)
+// 56 is PE2                   (31)
 #define PE4                     57
 #define PE5                     58
 #define PE6                     59
@@ -192,7 +192,7 @@
 
 // On-board user button
 #ifndef USER_BTN
-  #define USER_BTN              PA0
+  #define USER_BTN              PC13
 #endif
 
 // Timer Definitions (optional)
@@ -218,11 +218,6 @@
   #define PIN_SERIAL_TX         PD8
 #endif
 
-// SD detect signal
-#ifndef SD_DETECT_PIN
-  #define SD_DETECT_PIN         PF11
-#endif
-
 /* Extra HAL modules */
 #if !defined(HAL_DAC_MODULE_DISABLED)
   #define HAL_DAC_MODULE_ENABLED
@@ -232,6 +227,12 @@
 #endif
 #if !defined(HAL_SD_MODULE_DISABLED)
   #define HAL_SD_MODULE_ENABLED
+#endif
+
+// HSE default value is 25MHz in HAL
+// HSE_BYPASS is 8MHz
+#ifndef HSE_BYPASS_NOT_USED
+  #define HSE_VALUE             8000000
 #endif
 
 /*----------------------------------------------------------------------------
