@@ -1049,6 +1049,21 @@ Disco.menu.pnum.DISCO_G0316.build.variant=STM32G0xx/G031J(4-6)M_G041J6M
 Disco.menu.pnum.DISCO_G0316.build.cmsis_lib_gcc=arm_cortexM0l_math
 Disco.menu.pnum.DISCO_G0316.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
 
+# STM32H573I-DK
+Disco.menu.pnum.STM32H573I_DK=STM32H573I-DK
+Disco.menu.pnum.STM32H573I_DK.node=DIS_H573II
+Disco.menu.pnum.STM32H573I_DK.upload.maximum_size=2097152
+Disco.menu.pnum.STM32H573I_DK.upload.maximum_data_size=655360
+Disco.menu.pnum.STM32H573I_DK.build.mcu=cortex-m33
+Disco.menu.pnum.STM32H573I_DK.build.fpu=-mfpu=fpv4-sp-d16
+Disco.menu.pnum.STM32H573I_DK.build.float-abi=-mfloat-abi=hard
+Disco.menu.pnum.STM32H573I_DK.build.board=STM32H573I_DK
+Disco.menu.pnum.STM32H573I_DK.build.series=STM32H5xx
+Disco.menu.pnum.STM32H573I_DK.build.product_line=STM32H573xx
+Disco.menu.pnum.STM32H573I_DK.build.variant=STM32H5xx/H563IIKxQ_H573IIKxQ
+Disco.menu.pnum.STM32H573I_DK.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Disco.menu.pnum.STM32H573I_DK.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
+
 # STM32WB5MM-DK board
 Disco.menu.pnum.STM32WB5MM_DK=STM32WB5MM-DK
 Disco.menu.pnum.STM32WB5MM_DK.node="DIS_WB5MMG"
