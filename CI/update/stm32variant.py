@@ -25,6 +25,8 @@ adclist = []  # ['PIN','name','ADCSignal']
 daclist = []  # ['PIN','name','DACSignal']
 i2cscl_list = []  # ['PIN','name','I2CSCLSignal', ['af']]
 i2csda_list = []  # ['PIN','name','I2CSDASignal', ['af']
+i3cscl_list = []  # ['PIN','name','I3CSCLSignal', ['af']]
+i3csda_list = []  # ['PIN','name','I3CSDASignal', ['af']
 tim_list = []  # ['PIN','name','TIMSignal', ['af']]
 uarttx_list = []  # ['PIN','name','UARTtx', ['af']]
 uartrx_list = []  # ['PIN','name','UARTrx', ['af']]
@@ -447,6 +449,15 @@ def store_i2c(pin, name, signal):
         i2csda_list.append([pin, name, signal])
 
 
+# Store I3C list
+def store_i3c(pin, name, signal):
+    # is it SDA or SCL ?
+    if "_SCL" in signal:
+        i3cscl_list.append([pin, name, signal])
+    if "_SDA" in signal:
+        i3csda_list.append([pin, name, signal])
+
+
 # Store timers
 def store_tim(pin, name, signal):
     if "_CH" in signal:
@@ -661,6 +672,41 @@ def i2c_pinmap(lst):
         wpin=max(wpin) + 1,
         winst=max(winst) + 1,
         list=i2c_pins_list,
+    )
+
+
+def i3c_pinmap(lst):
+    i3c_pins_list = []
+    winst = []
+    wpin = []
+    mode = "STM_MODE_AF_OD"
+    if lst == i3csda_list:
+        aname = "I3C_SDA"
+    else:
+        aname = "I3C_SCL"
+    for p in lst:
+        # 2nd element is the I3C XXX signal
+        b = p[2].split("_")[0]
+        inst = b[: len(b) - 1] + b[len(b) - 1]
+        winst.append(len(inst))
+        wpin.append(len(p[0]))
+        i3c_pins_list.append(
+            {
+                "pin": p[0],
+                "inst": inst,
+                "mode": mode,
+                "pull": "GPIO_NOPULL",
+                "af": p[3],
+            }
+        )
+    return dict(
+        name="I3C",
+        hal="I3C",
+        aname=aname,
+        data="",
+        wpin=max(wpin) + 1,
+        winst=max(winst) + 1,
+        list=i3c_pins_list,
     )
 
 
@@ -1056,6 +1102,7 @@ def print_peripheral():
                 [adc_pinmap()],
                 [dac_pinmap()],
                 (i2c_pinmap(i2csda_list), i2c_pinmap(i2cscl_list)),
+                (i3c_pinmap(i3csda_list), i3c_pinmap(i3cscl_list)),
                 [tim_pinmap()],
                 (
                     uart_pinmap(uarttx_list),
@@ -1588,6 +1635,8 @@ def sort_my_lists():
     daclist.sort(key=natural_sortkey)
     i2cscl_list.sort(key=natural_sortkey)
     i2csda_list.sort(key=natural_sortkey)
+    i3cscl_list.sort(key=natural_sortkey)
+    i3csda_list.sort(key=natural_sortkey)
     tim_list.sort(key=natural_sortkey2)
     tim_list.sort(key=natural_sortkey)
     uarttx_list.sort(key=natural_sortkey)
@@ -1631,6 +1680,8 @@ def clean_all_lists():
     del daclist[:]
     del i2cscl_list[:]
     del i2csda_list[:]
+    del i3cscl_list[:]
+    del i3csda_list[:]
     del tim_list[:]
     del uarttx_list[:]
     del uartrx_list[:]
@@ -1663,7 +1714,8 @@ def clean_all_lists():
 def manage_af_and_alternate():
     add_af(i2cscl_list)
     add_af(i2csda_list)
-
+    add_af(i3cscl_list)
+    add_af(i3csda_list)
     add_af(tim_list)
     add_af(uarttx_list)
     add_af(uarttx_list)
@@ -1698,6 +1750,8 @@ def manage_af_and_alternate():
     update_alternate(daclist)
     update_alternate(i2cscl_list)
     update_alternate(i2csda_list)
+    update_alternate(i3cscl_list)
+    update_alternate(i3csda_list)
     update_alternate(tim_list)
     update_alternate(uarttx_list)
     update_alternate(uartrx_list)
@@ -1815,6 +1869,8 @@ def parse_pins():
                     store_dac(pin, name, sig)
                 elif re.match("^I2C", sig) is not None:  # ignore FMPI2C
                     store_i2c(pin, name, sig)
+                elif re.match("^I3C", sig) is not None:
+                    store_i3c(pin, name, sig)
                 elif re.match("^TIM", sig) is not None:  # ignore HRTIM
                     store_tim(pin, name, sig)
                 elif re.match("^(LPU|US|U)ART", sig) is not None:

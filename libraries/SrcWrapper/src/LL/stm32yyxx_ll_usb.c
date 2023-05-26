@@ -18,6 +18,8 @@
   #include "stm32g0xx_ll_usb.c"
 #elif STM32G4xx
   #include "stm32g4xx_ll_usb.c"
+#elif STM32H5xx
+  #include "stm32h5xx_ll_usb.c"
 #elif STM32H7xx
   #include "stm32h7xx_ll_usb.c"
 #elif STM32L0xx

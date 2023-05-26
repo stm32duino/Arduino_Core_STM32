@@ -64,6 +64,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [Generic STM32F7 boards](#generic-stm32f7-boards)
  - [Generic STM32G0 boards](#generic-stm32g0-boards)
  - [Generic STM32G4 boards](#generic-stm32g4-boards)
+ - [Generic STM32H5 boards](#generic-stm32h5-boards)
  - [Generic STM32H7 boards](#generic-stm32h7-boards)
  - [Generic STM32L0 boards](#generic-stm32l0-boards)
  - [Generic STM32L1 boards](#generic-stm32l1-boards)
@@ -94,6 +95,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F767ZI | [Nucleo F767ZI](http://www.st.com/en/evaluation-tools/nucleo-f767zi.html) | *1.4.0* |  |
 | :green_heart:  | STM32F746ZG | [Nucleo F746ZG](https://www.st.com/en/evaluation-tools/nucleo-f746zg.html) | *1.9.0* |  |
 | :green_heart:  | STM32F756ZG | [Nucleo F756ZG](https://www.st.com/en/evaluation-tools/nucleo-f756zg.html) | *1.9.0* |  |
+| :yellow_heart:  | STM32H563ZI | [Nucleo H563ZI](https://www.st.com/en/evaluation-tools/nucleo-h563zi.html) | **2.6.0** |  |
 | :green_heart:  | STM32H723ZG | [Nucleo H723ZG](https://www.st.com/en/evaluation-tools/nucleo-h723zg.html) | *2.4.0* |  |
 | :green_heart:  | STM32H743ZI | [Nucleo H743ZI(2)](https://www.st.com/en/evaluation-tools/nucleo-h743zi.html) | *1.5.0* | Nucleo H743ZI2 since 1.6.0 |
 | :green_heart:  | STM32L496ZG | [Nucleo L496ZG](http://www.st.com/en/evaluation-tools/nucleo-l496zg.html) | *1.3.0* |  |
@@ -164,6 +166,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F746NG | [STM32F746G-DISCOVERY](http://www.st.com/en/evaluation-tools/32f746gdiscovery.html) | *0.1.0* |  |
 | :green_heart:  | STM32G031J6 | [STM32G0316-DISCO](https://www.st.com/en/evaluation-tools/stm32g0316-disco.html) | *1.9.0* |  |
 | :green_heart:  | STM32G431CB | [B-G431B-ESC1](https://www.st.com/en/evaluation-tools/b-g431b-esc1.html) | *2.0.0* |  |
+| :yellow_heart:  | STM32H573IIKxQ  | [STM32H573I-DK](https://www.st.com/en/evaluation-tools/stm32h573i-dk.html) | **2.6.0** |  |
 | :green_heart:  | STM32L4S5VI | [B-L4S5I-IOT01A](https://www.st.com/en/evaluation-tools/b-l4s5i-iot01a.html) | *2.0.0* | |
 | :green_heart: | STM32U585AIIxQ | [B-U585I-IOT02A](https://www.st.com/en/evaluation-tools/b-u585i-iot02a.html) | *2.1.0* |  |
 | :green_heart: | STM32WB5MMG | [STM32WB5MM-DK](https://www.st.com/en/evaluation-tools/stm32wb5mm-dk.html) | *2.1.0* |  |
@@ -509,6 +512,15 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32G4A1ME | Generic Board | *2.4.0* |  |
 | :green_heart: | STM32G4A1RE | Generic Board | *2.3.0* |  |
 | :green_heart:  | STM32G4A1VE | Generic Board | *2.4.0* |  |
+
+### Generic STM32H5 boards
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart:  | STM32H563IIKxQ | Generic Board | **2.6.0** |  |
+| :yellow_heart:  | STM32H563ZG<br>STM32H563ZI | Generic Board | **2.6.0** |  |
+| :yellow_heart:  | STM32H573IIKxQ | Generic Board | **2.6.0** |  |
+| :yellow_heart:  | STM32H573ZI | Generic Board | **2.6.0** |  |
 
 ### Generic STM32H7 boards
 

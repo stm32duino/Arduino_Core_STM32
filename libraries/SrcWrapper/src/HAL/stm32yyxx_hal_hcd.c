@@ -12,6 +12,8 @@
   #include "stm32f7xx_hal_hcd.c"
 #elif STM32G0xx
   #include "stm32g0xx_hal_hcd.c"
+#elif STM32H5xx
+  #include "stm32h5xx_hal_hcd.c"
 #elif STM32H7xx
   #include "stm32h7xx_hal_hcd.c"
 #elif STM32L4xx

@@ -58,7 +58,7 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
   digitalWriteFast(digitalPinToPinName(PIN_UCPD_TCPP), LOW);
 #endif
 
-#if defined(PWR_CR2_USV) || defined(PWR_SVMCR_USV)
+#if defined(PWR_CR2_USV) || defined(PWR_SVMCR_USV) || defined(PWR_USBSCR_USB33SV)
   /* Enable VDDUSB on Pwrctrl CR2 register*/
   HAL_PWREx_EnableVddUSB();
 #endif

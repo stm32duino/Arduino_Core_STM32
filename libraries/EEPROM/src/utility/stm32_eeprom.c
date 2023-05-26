@@ -19,6 +19,7 @@
 #include "stm32_eeprom.h"
 #include "stm32yyxx_ll_utils.h"
 #include <string.h>
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -37,15 +38,19 @@ extern "C" {
 #endif /* !FLASH_BANK_NUMBER */
 
 /* Be able to change FLASH_DATA_SECTOR to use if relevant */
-#if defined(FLASH_SECTOR_TOTAL)
+#if defined(FLASH_SECTOR_TOTAL) || defined(FLASH_SECTOR_NB)
 #if !defined(FLASH_DATA_SECTOR)
+#if defined(FLASH_SECTOR_TOTAL)
 #define FLASH_DATA_SECTOR   ((uint32_t)(FLASH_SECTOR_TOTAL - 1))
+#elif defined(FLASH_SECTOR_NB)
+#define FLASH_DATA_SECTOR   ((uint32_t)(FLASH_SECTOR_NB - 1))
+#endif
 #else
 #ifndef FLASH_BASE_ADDRESS
 #error "FLASH_BASE_ADDRESS have to be defined when FLASH_DATA_SECTOR is defined"
 #endif
 #endif /* !FLASH_DATA_SECTOR */
-#endif /* FLASH_SECTOR_TOTAL */
+#endif /* FLASH_SECTOR_TOTAL || FLASH_SECTOR_NB */
 
 /* Be able to change FLASH_PAGE_NUMBER to use if relevant */
 #if !defined(FLASH_PAGE_NUMBER) && defined(FLASH_PAGE_SIZE)
@@ -62,6 +67,12 @@ extern "C" {
 #define FLASH_END  FLASH_BANK2_END
 #elif defined (FLASH_BANK1_END) && (FLASH_BANK_NUMBER == FLASH_BANK_1)
 #define FLASH_END  FLASH_BANK1_END
+#elif defined(FLASH_DATA_SECTOR)
+#if defined(FLASH_BANK_2) && (FLASH_BANK_NUMBER == FLASH_BANK_2)
+#define FLASH_END  ((uint32_t)(FLASH_BASE + FLASH_BANK_SIZE + (FLASH_DATA_SECTOR * FLASH_SECTOR_SIZE) + FLASH_SECTOR_SIZE - 1))
+#else
+#define FLASH_END  ((uint32_t)(FLASH_BASE + (FLASH_DATA_SECTOR * FLASH_SECTOR_SIZE) + FLASH_SECTOR_SIZE - 1))
+#endif /* FLASH_BANK_2 */
 #elif defined(FLASH_BASE) && defined(FLASH_PAGE_NUMBER) && defined (FLASH_PAGE_SIZE)
 /* If FLASH_PAGE_NUMBER is defined by user, this is not really end of the flash */
 #define FLASH_END  ((uint32_t)(FLASH_BASE + (((FLASH_PAGE_NUMBER +1) * FLASH_PAGE_SIZE))-1))
@@ -164,7 +175,25 @@ void eeprom_buffered_write_byte(uint32_t pos, uint8_t value)
   */
 void eeprom_buffer_fill(void)
 {
+#if defined(ICACHE) && defined (HAL_ICACHE_MODULE_ENABLED) && !defined(HAL_ICACHE_MODULE_DISABLED)
+  bool icache_enabled = false;
+  if (HAL_ICACHE_IsEnabled() == 1) {
+    icache_enabled = true;
+    /* Disable instruction cache prior to internal cacheable memory update */
+    if (HAL_ICACHE_Disable() != HAL_OK) {
+      Error_Handler();
+    }
+  }
+#endif /* ICACHE && HAL_ICACHE_MODULE_ENABLED && !HAL_ICACHE_MODULE_DISABLED */
   memcpy(eeprom_buffer, (uint8_t *)(FLASH_BASE_ADDRESS), E2END + 1);
+#if defined(ICACHE) && defined (HAL_ICACHE_MODULE_ENABLED) && !defined(HAL_ICACHE_MODULE_DISABLED)
+  if (icache_enabled) {
+    /* Re-enable instruction cache */
+    if (HAL_ICACHE_Enable() != HAL_OK) {
+      Error_Handler();
+    }
+  }
+#endif /* ICACHE && HAL_ICACHE_MODULE_ENABLED && !HAL_ICACHE_MODULE_DISABLED */
 }
 
 #if defined(EEPROM_RETRAM_MODE)
@@ -188,6 +217,16 @@ void eeprom_buffer_flush(void)
   */
 void eeprom_buffer_flush(void)
 {
+#if defined(ICACHE) && defined (HAL_ICACHE_MODULE_ENABLED) && !defined(HAL_ICACHE_MODULE_DISABLED)
+  bool icache_enabled = false;
+  if (HAL_ICACHE_IsEnabled() == 1) {
+    icache_enabled = true;
+    /* Disable instruction cache prior to internal cacheable memory update */
+    if (HAL_ICACHE_Disable() != HAL_OK) {
+      Error_Handler();
+    }
+  }
+#endif /* ICACHE && HAL_ICACHE_MODULE_ENABLED && !HAL_ICACHE_MODULE_DISABLED */
   FLASH_EraseInitTypeDef EraseInitStruct;
   uint32_t offset = 0;
   uint32_t address = FLASH_BASE_ADDRESS;
@@ -240,6 +279,8 @@ void eeprom_buffer_flush(void)
   uint32_t SectorError = 0;
 #if defined(FLASH_TYPEPROGRAM_FLASHWORD)
   uint64_t data[4] = {0x0000};
+#elif defined(FLASH_TYPEPROGRAM_QUADWORD)
+  uint32_t data[4] = {0x0000};
 #else
   uint32_t data = 0;
 #endif
@@ -249,7 +290,9 @@ void eeprom_buffer_flush(void)
 #if defined(FLASH_BANK_NUMBER)
   EraseInitStruct.Banks = FLASH_BANK_NUMBER;
 #endif
+#if defined(FLASH_VOLTAGE_RANGE_3)
   EraseInitStruct.VoltageRange = FLASH_VOLTAGE_RANGE_3;
+#endif
   EraseInitStruct.Sector = FLASH_DATA_SECTOR;
   EraseInitStruct.NbSectors = 1;
 
@@ -263,11 +306,20 @@ void eeprom_buffer_flush(void)
       if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_FLASHWORD, address, (uint32_t)data) == HAL_OK) {
         address += 32;
         offset += 32;
-#else
+#elif defined(FLASH_TYPEPROGRAM_QUADWORD)
+      /* 128 bits */
+      memcpy(&data, eeprom_buffer + offset, 4 * sizeof(uint32_t));
+      if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_QUADWORD, address, (uint32_t)data) == HAL_OK) {
+        address += 16;
+        offset += 16;
+#elif defined(FLASH_TYPEPROGRAM_WORD)
       memcpy(&data, eeprom_buffer + offset, sizeof(uint32_t));
       if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, address, data) == HAL_OK) {
         address += 4;
         offset += 4;
+#else
+#error "Unknown FLASH Program Type."
+      if (0) {}
 #endif
       } else {
         address = address_end + 1;
@@ -276,6 +328,15 @@ void eeprom_buffer_flush(void)
   }
   HAL_FLASH_Lock();
 #endif
+#if defined(ICACHE) && defined (HAL_ICACHE_MODULE_ENABLED) && !defined(HAL_ICACHE_MODULE_DISABLED)
+  if (icache_enabled)
+  {
+    /* Re-enable instruction cache */
+    if (HAL_ICACHE_Enable() != HAL_OK) {
+      Error_Handler();
+    }
+  }
+#endif /* ICACHE && HAL_ICACHE_MODULE_ENABLED && !HAL_ICACHE_MODULE_DISABLED */
 }
 
 #endif /* defined(EEPROM_RETRAM_MODE) */

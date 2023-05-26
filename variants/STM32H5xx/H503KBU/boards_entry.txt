@@ -1,0 +1,13 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic H503KBUx
+GenH5.menu.pnum.GENERIC_H503KBUX=Generic H503KBUx
+GenH5.menu.pnum.GENERIC_H503KBUX.upload.maximum_size=131072
+GenH5.menu.pnum.GENERIC_H503KBUX.upload.maximum_data_size=32768
+GenH5.menu.pnum.GENERIC_H503KBUX.build.board=GENERIC_H503KBUX
+GenH5.menu.pnum.GENERIC_H503KBUX.build.product_line=STM32H503xx
+GenH5.menu.pnum.GENERIC_H503KBUX.build.variant=STM32H5xx/H503KBU
+

@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic H562IGKx
+GenH5.menu.pnum.GENERIC_H562IGKX=Generic H562IGKx
+GenH5.menu.pnum.GENERIC_H562IGKX.upload.maximum_size=1048576
+GenH5.menu.pnum.GENERIC_H562IGKX.upload.maximum_data_size=655360
+GenH5.menu.pnum.GENERIC_H562IGKX.build.board=GENERIC_H562IGKX
+GenH5.menu.pnum.GENERIC_H562IGKX.build.product_line=STM32H562xx
+GenH5.menu.pnum.GENERIC_H562IGKX.build.variant=STM32H5xx/H562I(G-I)(K-T)
+
+# Generic H562IGTx
+GenH5.menu.pnum.GENERIC_H562IGTX=Generic H562IGTx
+GenH5.menu.pnum.GENERIC_H562IGTX.upload.maximum_size=1048576
+GenH5.menu.pnum.GENERIC_H562IGTX.upload.maximum_data_size=655360
+GenH5.menu.pnum.GENERIC_H562IGTX.build.board=GENERIC_H562IGTX
+GenH5.menu.pnum.GENERIC_H562IGTX.build.product_line=STM32H562xx
+GenH5.menu.pnum.GENERIC_H562IGTX.build.variant=STM32H5xx/H562I(G-I)(K-T)
+
+# Generic H562IIKx
+GenH5.menu.pnum.GENERIC_H562IIKX=Generic H562IIKx
+GenH5.menu.pnum.GENERIC_H562IIKX.upload.maximum_size=2097152
+GenH5.menu.pnum.GENERIC_H562IIKX.upload.maximum_data_size=655360
+GenH5.menu.pnum.GENERIC_H562IIKX.build.board=GENERIC_H562IIKX
+GenH5.menu.pnum.GENERIC_H562IIKX.build.product_line=STM32H562xx
+GenH5.menu.pnum.GENERIC_H562IIKX.build.variant=STM32H5xx/H562I(G-I)(K-T)
+
+# Generic H562IITx
+GenH5.menu.pnum.GENERIC_H562IITX=Generic H562IITx
+GenH5.menu.pnum.GENERIC_H562IITX.upload.maximum_size=2097152
+GenH5.menu.pnum.GENERIC_H562IITX.upload.maximum_data_size=655360
+GenH5.menu.pnum.GENERIC_H562IITX.build.board=GENERIC_H562IITX
+GenH5.menu.pnum.GENERIC_H562IITX.build.product_line=STM32H562xx
+GenH5.menu.pnum.GENERIC_H562IITX.build.variant=STM32H5xx/H562I(G-I)(K-T)
+

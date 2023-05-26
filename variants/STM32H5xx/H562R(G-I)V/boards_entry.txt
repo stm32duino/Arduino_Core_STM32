@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic H562RGVx
+GenH5.menu.pnum.GENERIC_H562RGVX=Generic H562RGVx
+GenH5.menu.pnum.GENERIC_H562RGVX.upload.maximum_size=1048576
+GenH5.menu.pnum.GENERIC_H562RGVX.upload.maximum_data_size=655360
+GenH5.menu.pnum.GENERIC_H562RGVX.build.board=GENERIC_H562RGVX
+GenH5.menu.pnum.GENERIC_H562RGVX.build.product_line=STM32H562xx
+GenH5.menu.pnum.GENERIC_H562RGVX.build.variant=STM32H5xx/H562R(G-I)V
+
+# Generic H562RIVx
+GenH5.menu.pnum.GENERIC_H562RIVX=Generic H562RIVx
+GenH5.menu.pnum.GENERIC_H562RIVX.upload.maximum_size=2097152
+GenH5.menu.pnum.GENERIC_H562RIVX.upload.maximum_data_size=655360
+GenH5.menu.pnum.GENERIC_H562RIVX.build.board=GENERIC_H562RIVX
+GenH5.menu.pnum.GENERIC_H562RIVX.build.product_line=STM32H562xx
+GenH5.menu.pnum.GENERIC_H562RIVX.build.variant=STM32H5xx/H562R(G-I)V
+
