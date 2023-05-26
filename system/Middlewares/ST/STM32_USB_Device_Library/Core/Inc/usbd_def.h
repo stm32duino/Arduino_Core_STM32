@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -52,6 +51,24 @@ extern "C" {
 #ifndef USBD_MAX_NUM_CONFIGURATION
 #define USBD_MAX_NUM_CONFIGURATION                      1U
 #endif /* USBD_MAX_NUM_CONFIGURATION */
+
+#ifdef USE_USBD_COMPOSITE
+#ifndef USBD_MAX_SUPPORTED_CLASS
+#define USBD_MAX_SUPPORTED_CLASS                       4U
+#endif /* USBD_MAX_SUPPORTED_CLASS */
+#else
+#ifndef USBD_MAX_SUPPORTED_CLASS
+#define USBD_MAX_SUPPORTED_CLASS                       1U
+#endif /* USBD_MAX_SUPPORTED_CLASS */
+#endif /* USE_USBD_COMPOSITE */
+
+#ifndef USBD_MAX_CLASS_ENDPOINTS
+#define USBD_MAX_CLASS_ENDPOINTS                       5U
+#endif /* USBD_MAX_CLASS_ENDPOINTS */
+
+#ifndef USBD_MAX_CLASS_INTERFACES
+#define USBD_MAX_CLASS_INTERFACES                      5U
+#endif /* USBD_MAX_CLASS_INTERFACES */
 
 #ifndef USBD_LPM_ENABLED
 #define USBD_LPM_ENABLED                                0U
@@ -160,6 +177,14 @@ extern "C" {
 #define USBD_EP_TYPE_BULK                               0x02U
 #define USBD_EP_TYPE_INTR                               0x03U
 
+#ifdef USE_USBD_COMPOSITE
+#define USBD_EP_IN                                      0x80U
+#define USBD_EP_OUT                                     0x00U
+#define USBD_FUNC_DESCRIPTOR_TYPE                       0x24U
+#define USBD_DESC_SUBTYPE_ACM                           0x0FU
+#define USBD_DESC_ECM_BCD_LOW                           0x00U
+#define USBD_DESC_ECM_BCD_HIGH                          0x10U
+#endif /* USE_USBD_COMPOSITE */
 /**
   * @}
   */
@@ -188,7 +213,7 @@ typedef struct
   uint8_t   iConfiguration;
   uint8_t   bmAttributes;
   uint8_t   bMaxPower;
-} USBD_ConfigDescTypedef;
+} __PACKED USBD_ConfigDescTypeDef;
 
 typedef struct
 {
@@ -196,7 +221,7 @@ typedef struct
   uint8_t   bDescriptorType;
   uint16_t  wTotalLength;
   uint8_t   bNumDeviceCaps;
-} USBD_BosDescTypedef;
+} USBD_BosDescTypeDef;
 
 typedef struct
 {
@@ -206,7 +231,14 @@ typedef struct
   uint8_t   bmAttributes;
   uint16_t  wMaxPacketSize;
   uint8_t   bInterval;
-} USBD_EpDescTypedef;
+} __PACKED USBD_EpDescTypeDef;
+
+typedef  struct
+{
+  uint8_t  bLength;
+  uint8_t  bDescriptorType;
+  uint8_t  bDescriptorSubType;
+} USBD_DescHeaderTypeDef;
 
 struct _USBD_HandleTypeDef;
 
@@ -231,7 +263,7 @@ typedef struct _Device_cb
   uint8_t  *(*GetDeviceQualifierDescriptor)(uint16_t *length);
 #if (USBD_SUPPORT_USER_STRING_DESC == 1U)
   uint8_t  *(*GetUsrStrDescriptor)(struct _USBD_HandleTypeDef *pdev, uint8_t index,  uint16_t *length);
-#endif
+#endif /* USBD_SUPPORT_USER_STRING_DESC  */
 
 } USBD_ClassTypeDef;
 
@@ -264,10 +296,10 @@ typedef struct
   uint8_t *(*GetInterfaceStrDescriptor)(USBD_SpeedTypeDef speed, uint16_t *length);
 #if (USBD_CLASS_USER_STRING_DESC == 1)
   uint8_t *(*GetUserStrDescriptor)(USBD_SpeedTypeDef speed, uint8_t idx, uint16_t *length);
-#endif
+#endif /* USBD_CLASS_USER_STRING_DESC */
 #if ((USBD_LPM_ENABLED == 1U) || (USBD_CLASS_BOS_ENABLED == 1))
   uint8_t *(*GetBOSDescriptor)(USBD_SpeedTypeDef speed, uint16_t *length);
-#endif
+#endif /* (USBD_LPM_ENABLED == 1U) || (USBD_CLASS_BOS_ENABLED == 1) */
 } USBD_DescriptorsTypeDef;
 
 /* USB Device handle structure */
@@ -280,6 +312,49 @@ typedef struct
   uint16_t is_used;
   uint16_t bInterval;
 } USBD_EndpointTypeDef;
+
+#ifdef USE_USBD_COMPOSITE
+typedef enum
+{
+  CLASS_TYPE_NONE    = 0,
+  CLASS_TYPE_HID     = 1,
+  CLASS_TYPE_CDC     = 2,
+  CLASS_TYPE_MSC     = 3,
+  CLASS_TYPE_DFU     = 4,
+  CLASS_TYPE_CHID    = 5,
+  CLASS_TYPE_AUDIO   = 6,
+  CLASS_TYPE_ECM     = 7,
+  CLASS_TYPE_RNDIS   = 8,
+  CLASS_TYPE_MTP     = 9,
+  CLASS_TYPE_VIDEO   = 10,
+  CLASS_TYPE_PRINTER = 11,
+  CLASS_TYPE_CCID    = 12,
+} USBD_CompositeClassTypeDef;
+
+
+/* USB Device handle structure */
+typedef struct
+{
+  uint8_t                     add;
+  uint8_t                     type;
+  uint8_t                     size;
+  uint8_t                     is_used;
+} USBD_EPTypeDef;
+
+/* USB Device handle structure */
+typedef struct
+{
+  USBD_CompositeClassTypeDef   ClassType;
+  uint32_t                     ClassId;
+  uint32_t                     Active;
+  uint32_t                     NumEps;
+  USBD_EPTypeDef               Eps[USBD_MAX_CLASS_ENDPOINTS];
+  uint8_t                      *EpAdd;
+  uint32_t                     NumIf;
+  uint8_t                      Ifs[USBD_MAX_CLASS_INTERFACES];
+  uint32_t                     CurrPcktSze;
+} USBD_CompositeElementTypeDef;
+#endif /* USE_USBD_COMPOSITE */
 
 /* USB Device handle structure */
 typedef struct _USBD_HandleTypeDef
@@ -303,14 +378,33 @@ typedef struct _USBD_HandleTypeDef
 
   USBD_SetupReqTypedef    request;
   USBD_DescriptorsTypeDef *pDesc;
-  USBD_ClassTypeDef       *pClass;
+  USBD_ClassTypeDef       *pClass[USBD_MAX_SUPPORTED_CLASS];
   void                    *pClassData;
-  void                    *pUserData;
+  void                    *pClassDataCmsit[USBD_MAX_SUPPORTED_CLASS];
+  void                    *pUserData[USBD_MAX_SUPPORTED_CLASS];
   void                    *pData;
   void                    *pBosDesc;
   void                    *pConfDesc;
+  uint32_t                classId;
+  uint32_t                NumClasses;
+#ifdef USE_USBD_COMPOSITE
+  USBD_CompositeElementTypeDef tclasslist[USBD_MAX_SUPPORTED_CLASS];
+#endif /* USE_USBD_COMPOSITE */
 } USBD_HandleTypeDef;
 
+/* USB Device endpoint direction */
+typedef enum
+{
+  OUT   = 0x00,
+  IN    = 0x80,
+} USBD_EPDirectionTypeDef;
+
+typedef enum
+{
+  NETWORK_CONNECTION = 0x00,
+  RESPONSE_AVAILABLE = 0x01,
+  CONNECTION_SPEED_CHANGE = 0x2A
+} USBD_CDC_NotifCodeTypeDef;
 /**
   * @}
   */
@@ -322,7 +416,9 @@ typedef struct _USBD_HandleTypeDef
   */
 __STATIC_INLINE uint16_t SWAPBYTE(uint8_t *addr)
 {
-  uint16_t _SwapVal, _Byte1, _Byte2;
+  uint16_t _SwapVal;
+  uint16_t _Byte1;
+  uint16_t _Byte2;
   uint8_t *_pbuff = addr;
 
   _Byte1 = *(uint8_t *)_pbuff;
@@ -336,19 +432,19 @@ __STATIC_INLINE uint16_t SWAPBYTE(uint8_t *addr)
 
 #ifndef LOBYTE
 #define LOBYTE(x)  ((uint8_t)((x) & 0x00FFU))
-#endif
+#endif /* LOBYTE */
 
 #ifndef HIBYTE
 #define HIBYTE(x)  ((uint8_t)(((x) & 0xFF00U) >> 8U))
-#endif
+#endif /* HIBYTE */
 
 #ifndef MIN
 #define MIN(a, b)  (((a) < (b)) ? (a) : (b))
-#endif
+#endif /* MIN */
 
 #ifndef MAX
 #define MAX(a, b)  (((a) > (b)) ? (a) : (b))
-#endif
+#endif /* MAX */
 
 #if  defined ( __GNUC__ )
 #ifndef __weak
@@ -417,4 +513,4 @@ __STATIC_INLINE uint16_t SWAPBYTE(uint8_t *addr)
 /**
   * @}
   */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+

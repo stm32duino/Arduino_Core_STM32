@@ -4,6 +4,18 @@
   * @author  MCD Application Team
   * @brief   This file provides the Audio core functions.
   *
+  *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   * @verbatim
   *
   *          ===================================================================
@@ -38,18 +50,6 @@
   *
   *
   *  @endverbatim
-  *
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
-  *
   ******************************************************************************
   */
 
@@ -93,11 +93,15 @@ EndBSPDependencies */
 /** @defgroup USBD_AUDIO_Private_Macros
   * @{
   */
-#define AUDIO_SAMPLE_FREQ(frq)         (uint8_t)(frq), (uint8_t)((frq >> 8)), (uint8_t)((frq >> 16))
+#define AUDIO_SAMPLE_FREQ(frq) \
+  (uint8_t)(frq), (uint8_t)((frq >> 8)), (uint8_t)((frq >> 16))
 
-#define AUDIO_PACKET_SZE(frq)          (uint8_t)(((frq * 2U * 2U)/1000U) & 0xFFU), \
-                                       (uint8_t)((((frq * 2U * 2U)/1000U) >> 8) & 0xFFU)
+#define AUDIO_PACKET_SZE(frq) \
+  (uint8_t)(((frq * 2U * 2U) / 1000U) & 0xFFU), (uint8_t)((((frq * 2U * 2U) / 1000U) >> 8) & 0xFFU)
 
+#ifdef USE_USBD_COMPOSITE
+#define AUDIO_PACKET_SZE_WORD(frq)     (uint32_t)((((frq) * 2U * 2U)/1000U))
+#endif /* USE_USBD_COMPOSITE  */
 /**
   * @}
   */
@@ -111,9 +115,10 @@ static uint8_t USBD_AUDIO_DeInit(USBD_HandleTypeDef *pdev, uint8_t cfgidx);
 
 static uint8_t USBD_AUDIO_Setup(USBD_HandleTypeDef *pdev,
                                 USBD_SetupReqTypedef *req);
-
+#ifndef USE_USBD_COMPOSITE
 static uint8_t *USBD_AUDIO_GetCfgDesc(uint16_t *length);
 static uint8_t *USBD_AUDIO_GetDeviceQualifierDesc(uint16_t *length);
+#endif /* USE_USBD_COMPOSITE  */
 static uint8_t USBD_AUDIO_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum);
 static uint8_t USBD_AUDIO_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum);
 static uint8_t USBD_AUDIO_EP0_RxReady(USBD_HandleTypeDef *pdev);
@@ -124,6 +129,7 @@ static uint8_t USBD_AUDIO_IsoINIncomplete(USBD_HandleTypeDef *pdev, uint8_t epnu
 static uint8_t USBD_AUDIO_IsoOutIncomplete(USBD_HandleTypeDef *pdev, uint8_t epnum);
 static void AUDIO_REQ_GetCurrent(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req);
 static void AUDIO_REQ_SetCurrent(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req);
+static void *USBD_AUDIO_GetAudioHeaderDesc(uint8_t *pConfDesc);
 
 /**
   * @}
@@ -145,12 +151,20 @@ USBD_ClassTypeDef USBD_AUDIO =
   USBD_AUDIO_SOF,
   USBD_AUDIO_IsoINIncomplete,
   USBD_AUDIO_IsoOutIncomplete,
+#ifdef USE_USBD_COMPOSITE
+  NULL,
+  NULL,
+  NULL,
+  NULL,
+#else
   USBD_AUDIO_GetCfgDesc,
   USBD_AUDIO_GetCfgDesc,
   USBD_AUDIO_GetCfgDesc,
   USBD_AUDIO_GetDeviceQualifierDesc,
+#endif /* USE_USBD_COMPOSITE  */
 };
 
+#ifndef USE_USBD_COMPOSITE
 /* USB AUDIO device Configuration Descriptor */
 __ALIGN_BEGIN static uint8_t USBD_AUDIO_CfgDesc[USB_AUDIO_CONFIG_DESC_SIZ] __ALIGN_END =
 {
@@ -166,7 +180,7 @@ __ALIGN_BEGIN static uint8_t USBD_AUDIO_CfgDesc[USB_AUDIO_CONFIG_DESC_SIZ] __ALI
   0xC0,                                 /* bmAttributes: Bus Powered according to user configuration */
 #else
   0x80,                                 /* bmAttributes: Bus Powered according to user configuration */
-#endif
+#endif /* USBD_SELF_POWERED */
   USBD_MAX_POWER,                       /* MaxPower (mA) */
   /* 09 byte*/
 
@@ -317,7 +331,9 @@ __ALIGN_BEGIN static uint8_t USBD_AUDIO_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIE
   0x01,
   0x00,
 };
+#endif /* USE_USBD_COMPOSITE  */
 
+static uint8_t AUDIOOutEpAdd = AUDIO_OUT_EP;
 /**
   * @}
   */
@@ -343,24 +359,30 @@ static uint8_t USBD_AUDIO_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 
   if (haudio == NULL)
   {
-    pdev->pClassData = NULL;
+    pdev->pClassDataCmsit[pdev->classId] = NULL;
     return (uint8_t)USBD_EMEM;
   }
 
-  pdev->pClassData = (void *)haudio;
+  pdev->pClassDataCmsit[pdev->classId] = (void *)haudio;
+  pdev->pClassData = pdev->pClassDataCmsit[pdev->classId];
+
+#ifdef USE_USBD_COMPOSITE
+  /* Get the Endpoints addresses allocated for this class instance */
+  AUDIOOutEpAdd = USBD_CoreGetEPAdd(pdev, USBD_EP_OUT, USBD_EP_TYPE_ISOC, (uint8_t)pdev->classId);
+#endif /* USE_USBD_COMPOSITE */
 
   if (pdev->dev_speed == USBD_SPEED_HIGH)
   {
-    pdev->ep_out[AUDIO_OUT_EP & 0xFU].bInterval = AUDIO_HS_BINTERVAL;
+    pdev->ep_out[AUDIOOutEpAdd & 0xFU].bInterval = AUDIO_HS_BINTERVAL;
   }
   else   /* LOW and FULL-speed endpoints */
   {
-    pdev->ep_out[AUDIO_OUT_EP & 0xFU].bInterval = AUDIO_FS_BINTERVAL;
+    pdev->ep_out[AUDIOOutEpAdd & 0xFU].bInterval = AUDIO_FS_BINTERVAL;
   }
 
   /* Open EP OUT */
-  (void)USBD_LL_OpenEP(pdev, AUDIO_OUT_EP, USBD_EP_TYPE_ISOC, AUDIO_OUT_PACKET);
-  pdev->ep_out[AUDIO_OUT_EP & 0xFU].is_used = 1U;
+  (void)USBD_LL_OpenEP(pdev, AUDIOOutEpAdd, USBD_EP_TYPE_ISOC, AUDIO_OUT_PACKET);
+  pdev->ep_out[AUDIOOutEpAdd & 0xFU].is_used = 1U;
 
   haudio->alt_setting = 0U;
   haudio->offset = AUDIO_OFFSET_UNKNOWN;
@@ -369,15 +391,15 @@ static uint8_t USBD_AUDIO_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
   haudio->rd_enable = 0U;
 
   /* Initialize the Audio output Hardware layer */
-  if (((USBD_AUDIO_ItfTypeDef *)pdev->pUserData)->Init(USBD_AUDIO_FREQ,
-                                                       AUDIO_DEFAULT_VOLUME,
-                                                       0U) != 0U)
+  if (((USBD_AUDIO_ItfTypeDef *)pdev->pUserData[pdev->classId])->Init(USBD_AUDIO_FREQ,
+                                                                      AUDIO_DEFAULT_VOLUME,
+                                                                      0U) != 0U)
   {
     return (uint8_t)USBD_FAIL;
   }
 
   /* Prepare Out endpoint to receive 1st packet */
-  (void)USBD_LL_PrepareReceive(pdev, AUDIO_OUT_EP, haudio->buffer,
+  (void)USBD_LL_PrepareReceive(pdev, AUDIOOutEpAdd, haudio->buffer,
                                AUDIO_OUT_PACKET);
 
   return (uint8_t)USBD_OK;
@@ -394,16 +416,22 @@ static uint8_t USBD_AUDIO_DeInit(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 {
   UNUSED(cfgidx);
 
+#ifdef USE_USBD_COMPOSITE
+  /* Get the Endpoints addresses allocated for this class instance */
+  AUDIOOutEpAdd = USBD_CoreGetEPAdd(pdev, USBD_EP_OUT, USBD_EP_TYPE_ISOC, (uint8_t)pdev->classId);
+#endif /* USE_USBD_COMPOSITE */
+
   /* Open EP OUT */
-  (void)USBD_LL_CloseEP(pdev, AUDIO_OUT_EP);
-  pdev->ep_out[AUDIO_OUT_EP & 0xFU].is_used = 0U;
-  pdev->ep_out[AUDIO_OUT_EP & 0xFU].bInterval = 0U;
+  (void)USBD_LL_CloseEP(pdev, AUDIOOutEpAdd);
+  pdev->ep_out[AUDIOOutEpAdd & 0xFU].is_used = 0U;
+  pdev->ep_out[AUDIOOutEpAdd & 0xFU].bInterval = 0U;
 
   /* DeInit  physical Interface components */
-  if (pdev->pClassData != NULL)
+  if (pdev->pClassDataCmsit[pdev->classId] != NULL)
   {
-    ((USBD_AUDIO_ItfTypeDef *)pdev->pUserData)->DeInit(0U);
-    (void)USBD_free(pdev->pClassData);
+    ((USBD_AUDIO_ItfTypeDef *)pdev->pUserData[pdev->classId])->DeInit(0U);
+    (void)USBD_free(pdev->pClassDataCmsit[pdev->classId]);
+    pdev->pClassDataCmsit[pdev->classId] = NULL;
     pdev->pClassData = NULL;
   }
 
@@ -426,7 +454,7 @@ static uint8_t USBD_AUDIO_Setup(USBD_HandleTypeDef *pdev,
   uint16_t status_info = 0U;
   USBD_StatusTypeDef ret = USBD_OK;
 
-  haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassData;
+  haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
 
   if (haudio == NULL)
   {
@@ -471,10 +499,17 @@ static uint8_t USBD_AUDIO_Setup(USBD_HandleTypeDef *pdev,
         case USB_REQ_GET_DESCRIPTOR:
           if ((req->wValue >> 8) == AUDIO_DESCRIPTOR_TYPE)
           {
-            pbuf = USBD_AUDIO_CfgDesc + 18;
-            len = MIN(USB_AUDIO_DESC_SIZ, req->wLength);
-
-            (void)USBD_CtlSendData(pdev, pbuf, len);
+            pbuf = (uint8_t *)USBD_AUDIO_GetAudioHeaderDesc(pdev->pConfDesc);
+            if (pbuf != NULL)
+            {
+              len = MIN(USB_AUDIO_DESC_SIZ, req->wLength);
+              (void)USBD_CtlSendData(pdev, pbuf, len);
+            }
+            else
+            {
+              USBD_CtlError(pdev, req);
+              ret = USBD_FAIL;
+            }
           }
           break;
 
@@ -529,11 +564,10 @@ static uint8_t USBD_AUDIO_Setup(USBD_HandleTypeDef *pdev,
   return (uint8_t)ret;
 }
 
-
+#ifndef USE_USBD_COMPOSITE
 /**
   * @brief  USBD_AUDIO_GetCfgDesc
   *         return configuration descriptor
-  * @param  speed : current device speed
   * @param  length : pointer data length
   * @retval pointer to descriptor buffer
   */
@@ -543,7 +577,7 @@ static uint8_t *USBD_AUDIO_GetCfgDesc(uint16_t *length)
 
   return USBD_AUDIO_CfgDesc;
 }
-
+#endif /* USE_USBD_COMPOSITE  */
 /**
   * @brief  USBD_AUDIO_DataIn
   *         handle data IN Stage
@@ -569,7 +603,7 @@ static uint8_t USBD_AUDIO_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
 static uint8_t USBD_AUDIO_EP0_RxReady(USBD_HandleTypeDef *pdev)
 {
   USBD_AUDIO_HandleTypeDef *haudio;
-  haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassData;
+  haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
 
   if (haudio == NULL)
   {
@@ -582,7 +616,7 @@ static uint8_t USBD_AUDIO_EP0_RxReady(USBD_HandleTypeDef *pdev)
 
     if (haudio->control.unit == AUDIO_OUT_STREAMING_CTRL)
     {
-      ((USBD_AUDIO_ItfTypeDef *)pdev->pUserData)->MuteCtl(haudio->control.data[0]);
+      ((USBD_AUDIO_ItfTypeDef *)pdev->pUserData[pdev->classId])->MuteCtl(haudio->control.data[0]);
       haudio->control.cmd = 0U;
       haudio->control.len = 0U;
     }
@@ -620,6 +654,7 @@ static uint8_t USBD_AUDIO_SOF(USBD_HandleTypeDef *pdev)
   * @brief  USBD_AUDIO_SOF
   *         handle SOF event
   * @param  pdev: device instance
+  * @param  offset: audio offset
   * @retval status
   */
 void USBD_AUDIO_Sync(USBD_HandleTypeDef *pdev, AUDIO_OffsetTypeDef offset)
@@ -627,12 +662,12 @@ void USBD_AUDIO_Sync(USBD_HandleTypeDef *pdev, AUDIO_OffsetTypeDef offset)
   USBD_AUDIO_HandleTypeDef *haudio;
   uint32_t BufferSize = AUDIO_TOTAL_BUF_SIZE / 2U;
 
-  if (pdev->pClassData == NULL)
+  if (pdev->pClassDataCmsit[pdev->classId] == NULL)
   {
     return;
   }
 
-  haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassData;
+  haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
 
   haudio->offset = offset;
 
@@ -678,8 +713,8 @@ void USBD_AUDIO_Sync(USBD_HandleTypeDef *pdev, AUDIO_OffsetTypeDef offset)
 
   if (haudio->offset == AUDIO_OFFSET_FULL)
   {
-    ((USBD_AUDIO_ItfTypeDef *)pdev->pUserData)->AudioCmd(&haudio->buffer[0],
-                                                         BufferSize, AUDIO_CMD_PLAY);
+    ((USBD_AUDIO_ItfTypeDef *)pdev->pUserData[pdev->classId])->AudioCmd(&haudio->buffer[0],
+                                                                        BufferSize, AUDIO_CMD_PLAY);
     haudio->offset = AUDIO_OFFSET_NONE;
   }
 }
@@ -724,35 +759,40 @@ static uint8_t USBD_AUDIO_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
   uint16_t PacketSize;
   USBD_AUDIO_HandleTypeDef *haudio;
 
-  haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassData;
+#ifdef USE_USBD_COMPOSITE
+  /* Get the Endpoints addresses allocated for this class instance */
+  AUDIOOutEpAdd = USBD_CoreGetEPAdd(pdev, USBD_EP_OUT, USBD_EP_TYPE_ISOC, (uint8_t)pdev->classId);
+#endif /* USE_USBD_COMPOSITE */
+
+  haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
 
   if (haudio == NULL)
   {
     return (uint8_t)USBD_FAIL;
   }
 
-  if (epnum == AUDIO_OUT_EP)
+  if (epnum == AUDIOOutEpAdd)
   {
     /* Get received data packet length */
     PacketSize = (uint16_t)USBD_LL_GetRxDataSize(pdev, epnum);
 
     /* Packet received Callback */
-    ((USBD_AUDIO_ItfTypeDef *)pdev->pUserData)->PeriodicTC(&haudio->buffer[haudio->wr_ptr],
-                                                           PacketSize, AUDIO_OUT_TC);
+    ((USBD_AUDIO_ItfTypeDef *)pdev->pUserData[pdev->classId])->PeriodicTC(&haudio->buffer[haudio->wr_ptr],
+                                                                          PacketSize, AUDIO_OUT_TC);
 
     /* Increment the Buffer pointer or roll it back when all buffers are full */
     haudio->wr_ptr += PacketSize;
 
-    if (haudio->wr_ptr == AUDIO_TOTAL_BUF_SIZE)
+    if (haudio->wr_ptr >= AUDIO_TOTAL_BUF_SIZE)
     {
       /* All buffers are full: roll back */
       haudio->wr_ptr = 0U;
 
       if (haudio->offset == AUDIO_OFFSET_UNKNOWN)
       {
-        ((USBD_AUDIO_ItfTypeDef *)pdev->pUserData)->AudioCmd(&haudio->buffer[0],
-                                                             AUDIO_TOTAL_BUF_SIZE / 2U,
-                                                             AUDIO_CMD_START);
+        ((USBD_AUDIO_ItfTypeDef *)pdev->pUserData[pdev->classId])->AudioCmd(&haudio->buffer[0],
+                                                                            AUDIO_TOTAL_BUF_SIZE / 2U,
+                                                                            AUDIO_CMD_START);
         haudio->offset = AUDIO_OFFSET_NONE;
       }
     }
@@ -766,7 +806,7 @@ static uint8_t USBD_AUDIO_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
     }
 
     /* Prepare Out endpoint to receive next audio packet */
-    (void)USBD_LL_PrepareReceive(pdev, AUDIO_OUT_EP,
+    (void)USBD_LL_PrepareReceive(pdev, AUDIOOutEpAdd,
                                  &haudio->buffer[haudio->wr_ptr],
                                  AUDIO_OUT_PACKET);
   }
@@ -777,14 +817,14 @@ static uint8_t USBD_AUDIO_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
 /**
   * @brief  AUDIO_Req_GetCurrent
   *         Handles the GET_CUR Audio control request.
-  * @param  pdev: instance
+  * @param  pdev: device instance
   * @param  req: setup class request
   * @retval status
   */
 static void AUDIO_REQ_GetCurrent(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 {
   USBD_AUDIO_HandleTypeDef *haudio;
-  haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassData;
+  haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
 
   if (haudio == NULL)
   {
@@ -801,14 +841,14 @@ static void AUDIO_REQ_GetCurrent(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef 
 /**
   * @brief  AUDIO_Req_SetCurrent
   *         Handles the SET_CUR Audio control request.
-  * @param  pdev: instance
+  * @param  pdev: device instance
   * @param  req: setup class request
   * @retval status
   */
 static void AUDIO_REQ_SetCurrent(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 {
   USBD_AUDIO_HandleTypeDef *haudio;
-  haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassData;
+  haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
 
   if (haudio == NULL)
   {
@@ -826,7 +866,7 @@ static void AUDIO_REQ_SetCurrent(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef 
   }
 }
 
-
+#ifndef USE_USBD_COMPOSITE
 /**
   * @brief  DeviceQualifierDescriptor
   *         return Device Qualifier descriptor
@@ -839,9 +879,10 @@ static uint8_t *USBD_AUDIO_GetDeviceQualifierDesc(uint16_t *length)
 
   return USBD_AUDIO_DeviceQualifierDesc;
 }
-
+#endif /* USE_USBD_COMPOSITE  */
 /**
   * @brief  USBD_AUDIO_RegisterInterface
+  * @param  pdev: device instance
   * @param  fops: Audio interface callback
   * @retval status
   */
@@ -853,10 +894,66 @@ uint8_t USBD_AUDIO_RegisterInterface(USBD_HandleTypeDef *pdev,
     return (uint8_t)USBD_FAIL;
   }
 
-  pdev->pUserData = fops;
+  pdev->pUserData[pdev->classId] = fops;
 
   return (uint8_t)USBD_OK;
 }
+
+#ifdef USE_USBD_COMPOSITE
+/**
+  * @brief  USBD_AUDIO_GetEpPcktSze
+  * @param  pdev: device instance (reserved for future use)
+  * @param  If: Interface number (reserved for future use)
+  * @param  Ep: Endpoint number (reserved for future use)
+  * @retval status
+  */
+uint32_t USBD_AUDIO_GetEpPcktSze(USBD_HandleTypeDef *pdev, uint8_t If, uint8_t Ep)
+{
+  uint32_t mps;
+
+  UNUSED(pdev);
+  UNUSED(If);
+  UNUSED(Ep);
+
+  mps = AUDIO_PACKET_SZE_WORD(USBD_AUDIO_FREQ);
+
+  /* Return the wMaxPacketSize value in Bytes (Freq(Samples)*2(Stereo)*2(HalfWord)) */
+  return mps;
+}
+#endif /* USE_USBD_COMPOSITE */
+
+/**
+  * @brief  USBD_AUDIO_GetAudioHeaderDesc
+  *         This function return the Audio descriptor
+  * @param  pdev: device instance
+  * @param  pConfDesc:  pointer to Bos descriptor
+  * @retval pointer to the Audio AC Header descriptor
+  */
+static void *USBD_AUDIO_GetAudioHeaderDesc(uint8_t *pConfDesc)
+{
+  USBD_ConfigDescTypeDef *desc = (USBD_ConfigDescTypeDef *)(void *)pConfDesc;
+  USBD_DescHeaderTypeDef *pdesc = (USBD_DescHeaderTypeDef *)(void *)pConfDesc;
+  uint8_t *pAudioDesc =  NULL;
+  uint16_t ptr;
+
+  if (desc->wTotalLength > desc->bLength)
+  {
+    ptr = desc->bLength;
+
+    while (ptr < desc->wTotalLength)
+    {
+      pdesc = USBD_GetNextDesc((uint8_t *)pdesc, &ptr);
+      if ((pdesc->bDescriptorType == AUDIO_INTERFACE_DESCRIPTOR_TYPE) &&
+          (pdesc->bDescriptorSubType == AUDIO_CONTROL_HEADER))
+      {
+        pAudioDesc = (uint8_t *)pdesc;
+        break;
+      }
+    }
+  }
+  return pAudioDesc;
+}
+
 /**
   * @}
   */
@@ -870,5 +967,3 @@ uint8_t USBD_AUDIO_RegisterInterface(USBD_HandleTypeDef *pdev,
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

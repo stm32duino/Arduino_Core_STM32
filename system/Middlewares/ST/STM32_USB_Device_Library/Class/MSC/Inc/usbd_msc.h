@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -55,9 +54,13 @@ extern "C" {
 #define BOT_RESET                    0xFF
 #define USB_MSC_CONFIG_DESC_SIZ      32
 
-
+#ifndef MSC_EPIN_ADDR
 #define MSC_EPIN_ADDR                0x81U
+#endif /* MSC_EPIN_ADDR */
+
+#ifndef MSC_EPOUT_ADDR
 #define MSC_EPOUT_ADDR               0x01U
+#endif /* MSC_EPOUT_ADDR */
 
 /**
   * @}
@@ -101,8 +104,7 @@ typedef struct
 
   uint32_t                 scsi_blk_addr;
   uint32_t                 scsi_blk_len;
-}
-USBD_MSC_BOT_HandleTypeDef;
+} USBD_MSC_BOT_HandleTypeDef;
 
 /* Structure for MSC process */
 extern USBD_ClassTypeDef  USBD_MSC;
@@ -126,5 +128,3 @@ uint8_t  USBD_MSC_RegisterStorage(USBD_HandleTypeDef   *pdev,
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

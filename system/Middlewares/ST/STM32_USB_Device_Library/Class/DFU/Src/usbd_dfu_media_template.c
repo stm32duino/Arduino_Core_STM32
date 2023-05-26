@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -81,6 +80,8 @@ uint16_t MEM_If_DeInit(void)
   */
 uint16_t MEM_If_Erase(uint32_t Add)
 {
+  UNUSED(Add);
+
   return 0;
 }
 
@@ -93,6 +94,10 @@ uint16_t MEM_If_Erase(uint32_t Add)
   */
 uint16_t MEM_If_Write(uint8_t *src, uint8_t *dest, uint32_t Len)
 {
+  UNUSED(src);
+  UNUSED(dest);
+  UNUSED(Len);
+
   return 0;
 }
 
@@ -105,6 +110,10 @@ uint16_t MEM_If_Write(uint8_t *src, uint8_t *dest, uint32_t Len)
   */
 uint8_t *MEM_If_Read(uint8_t *src, uint8_t *dest, uint32_t Len)
 {
+  UNUSED(src);
+  UNUSED(dest);
+  UNUSED(Len);
+
   /* Return a valid address to avoid HardFault */
   return (uint8_t *)(0);
 }
@@ -118,6 +127,9 @@ uint8_t *MEM_If_Read(uint8_t *src, uint8_t *dest, uint32_t Len)
   */
 uint16_t MEM_If_GetStatus(uint32_t Add, uint8_t Cmd, uint8_t *buffer)
 {
+  UNUSED(Add);
+  UNUSED(buffer);
+
   switch (Cmd)
   {
     case DFU_MEDIA_PROGRAM:
@@ -131,5 +143,4 @@ uint16_t MEM_If_GetStatus(uint32_t Add, uint8_t Cmd, uint8_t *buffer)
   }
   return (0);
 }
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

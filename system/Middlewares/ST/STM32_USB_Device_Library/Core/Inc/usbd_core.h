@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -88,6 +87,17 @@ USBD_StatusTypeDef USBD_Start(USBD_HandleTypeDef *pdev);
 USBD_StatusTypeDef USBD_Stop(USBD_HandleTypeDef *pdev);
 USBD_StatusTypeDef USBD_RegisterClass(USBD_HandleTypeDef *pdev, USBD_ClassTypeDef *pclass);
 
+#ifdef USE_USBD_COMPOSITE
+USBD_StatusTypeDef  USBD_RegisterClassComposite(USBD_HandleTypeDef *pdev, USBD_ClassTypeDef *pclass,
+                                                USBD_CompositeClassTypeDef classtype, uint8_t *EpAddr);
+
+USBD_StatusTypeDef  USBD_UnRegisterClassComposite(USBD_HandleTypeDef *pdev);
+uint8_t USBD_CoreGetEPAdd(USBD_HandleTypeDef *pdev, uint8_t ep_dir, uint8_t ep_type, uint8_t ClassId);
+#endif /* USE_USBD_COMPOSITE */
+
+uint8_t USBD_CoreFindIF(USBD_HandleTypeDef *pdev, uint8_t index);
+uint8_t USBD_CoreFindEP(USBD_HandleTypeDef *pdev, uint8_t index);
+
 USBD_StatusTypeDef USBD_RunTestMode(USBD_HandleTypeDef *pdev);
 USBD_StatusTypeDef USBD_SetClassConfig(USBD_HandleTypeDef *pdev, uint8_t cfgidx);
 USBD_StatusTypeDef USBD_ClrClassConfig(USBD_HandleTypeDef *pdev, uint8_t cfgidx);
@@ -129,10 +139,17 @@ USBD_StatusTypeDef USBD_LL_Transmit(USBD_HandleTypeDef *pdev, uint8_t ep_addr,
 USBD_StatusTypeDef USBD_LL_PrepareReceive(USBD_HandleTypeDef *pdev, uint8_t ep_addr,
                                           uint8_t *pbuf, uint32_t size);
 
+#ifdef USBD_HS_TESTMODE_ENABLE
+USBD_StatusTypeDef USBD_LL_SetTestMode(USBD_HandleTypeDef *pdev, uint8_t testmode);
+#endif /* USBD_HS_TESTMODE_ENABLE */
+
 uint8_t USBD_LL_IsStallEP(USBD_HandleTypeDef *pdev, uint8_t ep_addr);
 uint32_t USBD_LL_GetRxDataSize(USBD_HandleTypeDef *pdev, uint8_t  ep_addr);
 
 void  USBD_LL_Delay(uint32_t Delay);
+
+void *USBD_GetEpDesc(uint8_t *pConfDesc, uint8_t EpAddr);
+USBD_DescHeaderTypeDef *USBD_GetNextDesc(uint8_t *pbuf, uint16_t *ptr);
 
 /**
   * @}
@@ -151,8 +168,5 @@ void  USBD_LL_Delay(uint32_t Delay);
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-
 
 

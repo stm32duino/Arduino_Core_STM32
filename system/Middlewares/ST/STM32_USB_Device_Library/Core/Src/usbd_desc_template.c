@@ -8,13 +8,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -28,7 +27,7 @@
 /* Private define ------------------------------------------------------------*/
 #define USBD_VID                      0x0483
 #define USBD_PID                      0xaaaa  /* Replace '0xaaaa' with your device product ID */
-#define USBD_LANGID_STRING            0xbbb  /* Replace '0xbbb' with your device language ID */
+#define USBD_LANGID_STRING            0xbbb   /* Replace '0xbbb' with your device language ID */
 #define USBD_MANUFACTURER_STRING      "xxxxx" /* Add your manufacturer string */
 #define USBD_PRODUCT_HS_STRING        "xxxxx" /* Add your product High Speed string */
 #define USBD_PRODUCT_FS_STRING        "xxxxx" /* Add your product Full Speed string */
@@ -53,7 +52,7 @@ uint8_t *USBD_Class_UserStrDescriptor(USBD_SpeedTypeDef speed, uint8_t idx, uint
 
 #if ((USBD_LPM_ENABLED == 1) || (USBD_CLASS_BOS_ENABLED == 1))
 uint8_t *USBD_USR_BOSDescriptor(USBD_SpeedTypeDef speed, uint16_t *length);
-#endif
+#endif /* (USBD_LPM_ENABLED == 1) || (USBD_CLASS_BOS_ENABLED == 1) */
 
 /* Private variables ---------------------------------------------------------*/
 USBD_DescriptorsTypeDef Class_Desc =
@@ -67,17 +66,17 @@ USBD_DescriptorsTypeDef Class_Desc =
   USBD_Class_InterfaceStrDescriptor,
 #if (USBD_CLASS_USER_STRING_DESC == 1)
   USBD_CLASS_UserStrDescriptor,
-#endif
+#endif /* USB_CLASS_USER_STRING_DESC */
 
 #if ((USBD_LPM_ENABLED == 1) || (USBD_CLASS_BOS_ENABLED == 1))
   USBD_USR_BOSDescriptor,
-#endif
+#endif /* (USBD_LPM_ENABLED == 1) || (USBD_CLASS_BOS_ENABLED == 1) */
 };
 
 /* USB Standard Device Descriptor */
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
 #pragma data_alignment=4
-#endif
+#endif /* __ICCARM__ */
 __ALIGN_BEGIN uint8_t USBD_DeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END =
 {
   0x12,                       /* bLength */
@@ -87,7 +86,7 @@ __ALIGN_BEGIN uint8_t USBD_DeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END =
                                               in order to support BOS Desc */
 #else
   0x00,                       /* bcdUSB */
-#endif
+#endif /* (USBD_LPM_ENABLED == 1) || (USBD_CLASS_BOS_ENABLED == 1) */
   0x02,
   0x00,                       /* bDeviceClass */
   0x00,                       /* bDeviceSubClass */
@@ -110,7 +109,7 @@ __ALIGN_BEGIN uint8_t USBD_DeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END =
 #if (USBD_LPM_ENABLED == 1)
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
 #pragma data_alignment=4
-#endif
+#endif /* __ICCARM__ */
 __ALIGN_BEGIN  uint8_t USBD_BOSDesc[USB_SIZ_BOS_DESC] __ALIGN_END =
 {
   0x5,
@@ -127,13 +126,13 @@ __ALIGN_BEGIN  uint8_t USBD_BOSDesc[USB_SIZ_BOS_DESC] __ALIGN_END =
   0x0,
   0x0
 };
-#endif
+#endif /* USBD_LPM_ENABLED */
 
 /* USB Device Billboard BOS descriptor Template */
 #if (USBD_CLASS_BOS_ENABLED == 1)
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
 #pragma data_alignment=4
-#endif
+#endif /* __ICCARM__ */
 __ALIGN_BEGIN  uint8_t USBD_BOSDesc[USB_SIZ_BOS_DESC] __ALIGN_END =
 {
   0x05,                                /* bLength */
@@ -156,14 +155,16 @@ __ALIGN_BEGIN  uint8_t USBD_BOSDesc[USB_SIZ_BOS_DESC] __ALIGN_END =
   0x34,                                /* bLength */
   0x10,                                /* bDescriptorType: DEVICE CAPABILITY Type */
   0x0D,                                /* bDevCapabilityType: BILLBOARD_CAPABILITY */
-  USBD_BB_URL_STRING_INDEX,            /* iAddtionalInfoURL: Index of string descriptor providing a URL where the user can go to get more
-                                        detailed information about the product and the various Alternate Modes it supports */
+  USBD_BB_URL_STRING_INDEX,            /* iAddtionalInfoURL: Index of string descriptor providing a URL where the user
+                                          can go to get more detailed information about the product and the various
+                                          Alternate Modes it supports */
 
   0x02,                                /* bNumberOfAlternateModes: Number of Alternate modes supported. The
                                         maximum value that this field can be set to is MAX_NUM_ALT_MODE. */
 
   0x00,                                /* bPreferredAlternateMode: Index of the preferred Alternate Mode. System
-                                        software may use this information to provide the user with a better user experience. */
+                                          software may use this information to provide the user with a better
+                                          user experience. */
 
   0x00, 0x00,                          /* VCONN Power needed by the adapter for full functionality 000b = 1W */
 
@@ -184,8 +185,8 @@ __ALIGN_BEGIN  uint8_t USBD_BOSDesc[USB_SIZ_BOS_DESC] __ALIGN_END =
 
   0x00,                                /* bAlternateMode[0] Index of the Alternate Mode within the SVID as
                                         returned in response to a Discover Modes command. Example:
-                                        0 – first Mode entry
-                                        1 – second mode entry */
+                                        0  first Mode entry
+                                        1  second mode entry */
 
   USBD_BB_ALTMODE0_STRING_INDEX,           /* iAlternateModeString[0]: Index of string descriptor describing protocol.
                                         It is optional to support this string. */
@@ -195,10 +196,10 @@ __ALIGN_BEGIN  uint8_t USBD_BOSDesc[USB_SIZ_BOS_DESC] __ALIGN_END =
 
   0x01,                                /* bAlternateMode[1] Index of the Alternate Mode within the SVID as
                                         returned in response to a Discover Modes command. Example:
-                                        0 – first Mode entry
-                                        1 – second Mode entry */
+                                        0  first Mode entry
+                                        1  second Mode entry */
 
-  USBD_BB_ALTMODE1_STRING_INDEX,           /* iAlternateModeString[1]: Index of string descriptor describing protocol.
+  USBD_BB_ALTMODE1_STRING_INDEX,       /* iAlternateModeString[1]: Index of string descriptor describing protocol.
                                         It is optional to support this string. */
   /* Alternate Mode Desc */
   /* ----------- Device Capability Descriptor: BillBoard Alternate Mode Desc ---------- */
@@ -206,21 +207,23 @@ __ALIGN_BEGIN  uint8_t USBD_BOSDesc[USB_SIZ_BOS_DESC] __ALIGN_END =
   0x10,                                /* bDescriptorType: Device Descriptor Type */
   0x0F,                                /* bDevCapabilityType: BILLBOARD ALTERNATE MODE CAPABILITY */
   0x00,                                /* bIndex: Index of Alternate Mode described in the Billboard Capability Desc */
-  0x10, 0x00, 0x00, 0x00,              /* dwAlternateModeVdo: contents of the Mode VDO for the alternate mode identified by bIndex */
+  0x10, 0x00, 0x00, 0x00,              /* dwAlternateModeVdo: contents of the Mode VDO for the alternate mode
+                                          identified by bIndex */
 
   0x08,                                /* bLength */
   0x10,                                /* bDescriptorType: Device Descriptor Type */
   0x0F,                                /* bDevCapabilityType: BILLBOARD ALTERNATE MODE CAPABILITY */
   0x01,                                /* bIndex: Index of Alternate Mode described in the Billboard Capability Desc */
-  0x20, 0x00, 0x00, 0x00,              /* dwAlternateModeVdo: contents of the Mode VDO for the alternate mode identified by bIndex */
+  0x20, 0x00, 0x00, 0x00,              /* dwAlternateModeVdo: contents of the Mode VDO for the alternate mode
+                                          identified by bIndex */
 };
-#endif
+#endif /* USBD_CLASS_BOS_ENABLED */
 
 
 /* USB Standard Device Descriptor */
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
 #pragma data_alignment=4
-#endif
+#endif /* __ICCARM__ */
 __ALIGN_BEGIN uint8_t USBD_LangIDDesc[USB_LEN_LANGID_STR_DESC] __ALIGN_END =
 {
   USB_LEN_LANGID_STR_DESC,
@@ -231,7 +234,7 @@ __ALIGN_BEGIN uint8_t USBD_LangIDDesc[USB_LEN_LANGID_STR_DESC] __ALIGN_END =
 
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
 #pragma data_alignment=4
-#endif
+#endif /* __ICCARM__ */
 __ALIGN_BEGIN uint8_t USBD_StringSerial[USB_SIZ_STRING_SERIAL] =
 {
   USB_SIZ_STRING_SERIAL,
@@ -240,7 +243,7 @@ __ALIGN_BEGIN uint8_t USBD_StringSerial[USB_SIZ_STRING_SERIAL] =
 
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
 #pragma data_alignment=4
-#endif
+#endif /* __ICCARM__ */
 __ALIGN_BEGIN uint8_t USBD_StrDesc[USBD_MAX_STR_DESC_SIZ] __ALIGN_END;
 
 /* Private functions ---------------------------------------------------------*/
@@ -371,7 +374,9 @@ uint8_t *USBD_Class_InterfaceStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *le
   */
 static void Get_SerialNum(void)
 {
-  uint32_t deviceserial0, deviceserial1, deviceserial2;
+  uint32_t deviceserial0;
+  uint32_t deviceserial1;
+  uint32_t deviceserial2;
 
   deviceserial0 = *(uint32_t *)DEVICE_ID1;
   deviceserial1 = *(uint32_t *)DEVICE_ID2;
@@ -400,7 +405,7 @@ uint8_t *USBD_USR_BOSDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
   *length = sizeof(USBD_BOSDesc);
   return (uint8_t *)USBD_BOSDesc;
 }
-#endif
+#endif /* (USBD_LPM_ENABLED == 1) || (USBD_CLASS_BOS_ENABLED == 1) */
 
 
 #if (USBD_CLASS_USER_STRING_DESC == 1)
@@ -417,7 +422,7 @@ uint8_t *USBD_Class_UserStrDescriptor(USBD_SpeedTypeDef speed, uint8_t idx, uint
 
   return USBD_StrDesc;
 }
-#endif
+#endif /* USBD_CLASS_USER_STRING_DESC */
 
 
 /**
@@ -447,5 +452,3 @@ static void IntToUnicode(uint32_t value, uint8_t *pbuf, uint8_t len)
     pbuf[2U * idx + 1] = 0U;
   }
 }
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
