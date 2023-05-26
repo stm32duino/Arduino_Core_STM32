@@ -44,7 +44,7 @@
     #define USBD_BB_URL_STR_DESC          (uint8_t *)"www.st.com"
     #define USBD_BB_ALTMODE0_STR_DESC     (uint8_t *)"STM32 Alternate0 Mode"
     #define USBD_BB_ALTMODE1_STR_DESC     (uint8_t *)"STM32 Alternate1 Mode"
-  #endif
+  #endif /* USBD_CLASS_USER_STRING_DESC  */
 
   #define  USB_SIZ_STRING_SERIAL       0x1AU
 
@@ -52,7 +52,7 @@
     #define  USB_SIZ_BOS_DESC            0x0CU
   #elif (USBD_CLASS_BOS_ENABLED == 1)
     #define  USB_SIZ_BOS_DESC            0x5DU
-  #endif
+  #endif /* USBD_LPM_ENABLED  */
 
   /* Exported macro ------------------------------------------------------------*/
   /* Exported functions ------------------------------------------------------- */

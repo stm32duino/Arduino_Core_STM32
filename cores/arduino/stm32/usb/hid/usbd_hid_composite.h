@@ -92,6 +92,22 @@ typedef struct {
   HID_StateTypeDef     Mousestate;
   HID_StateTypeDef     Keyboardstate;
 } USBD_HID_HandleTypeDef;
+
+/*
+ * HID Class specification version 1.1
+ * 6.2.1 HID Descriptor
+ */
+
+typedef struct {
+  uint8_t           bLength;
+  uint8_t           bDescriptorType;
+  uint16_t          bcdHID;
+  uint8_t           bCountryCode;
+  uint8_t           bNumDescriptors;
+  uint8_t           bHIDDescriptorType;
+  uint16_t          wItemLength;
+} __PACKED USBD_HIDDescTypeDef;
+
 /**
   * @}
   */
@@ -119,12 +135,23 @@ extern USBD_ClassTypeDef  USBD_COMPOSITE_HID;
 /** @defgroup USB_CORE_Exported_Functions
   * @{
   */
+#ifdef USE_USBD_COMPOSITE
+uint8_t USBD_HID_MOUSE_SendReport(USBD_HandleTypeDef *pdev,
+                                  uint8_t *report,
+                                  uint16_t len,
+                                  uint8_t ClassId);
+uint8_t USBD_HID_KEYBOARD_SendReport(USBD_HandleTypeDef *pdev,
+                                     uint8_t *report,
+                                     uint16_t len,
+                                     uint8_t ClassId);
+#else
 uint8_t USBD_HID_MOUSE_SendReport(USBD_HandleTypeDef *pdev,
                                   uint8_t *report,
                                   uint16_t len);
 uint8_t USBD_HID_KEYBOARD_SendReport(USBD_HandleTypeDef *pdev,
                                      uint8_t *report,
                                      uint16_t len);
+#endif /* USE_USBD_COMPOSITE */
 
 uint32_t USBD_HID_GetPollingInterval(USBD_HandleTypeDef *pdev);
 

@@ -23,10 +23,6 @@
 #include "usbd_hid_composite_if.h"
 #include "usbd_hid_composite.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /* USB Device Core HID composite handle declaration */
 USBD_HandleTypeDef hUSBD_Device_HID;
 
@@ -106,9 +102,6 @@ void HID_Composite_keyboard_sendReport(uint8_t *report, uint16_t len)
   USBD_HID_KEYBOARD_SendReport(&hUSBD_Device_HID, report, len);
 }
 
-#ifdef __cplusplus
-}
-#endif
 #endif /* USBD_USE_HID_COMPOSITE */
 #endif /* USBCON */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
