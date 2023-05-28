@@ -52,19 +52,20 @@ const PinName digitalPin[] = {
   PC_2,   // D34/A12
   PC_3,   // D35/A13
   PC_4,   // D36/A14
-  PC_6,   // D37
-  PC_7,   // D38
-  PC_8,   // D39
-  PC_9,   // D40
-  PC_10,  // D41
-  PC_11,  // D42
-  PC_12,  // D43
-  PC_13,  // D44
-  PC_14,  // D45
-  PC_15,  // D46
-  PH_0,   // D47
-  PH_1,   // D48
-  PH_3    // D49
+  PC_5,   // D37
+  PC_6,   // D38
+  PC_7,   // D39
+  PC_8,   // D40
+  PC_9,   // D41
+  PC_10,  // D42
+  PC_11,  // D43
+  PC_12,  // D44
+  PC_13,  // D45
+  PC_14,  // D46
+  PC_15,  // D47
+  PH_0,   // D48
+  PH_1,   // D49
+  PH_3    // D50
 };
 
 // Analog (Ax) pin number array
