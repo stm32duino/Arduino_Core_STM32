@@ -57,15 +57,17 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
   pinMode(PIN_UCPD_TCPP, OUTPUT_OPEN_DRAIN);
   digitalWriteFast(digitalPinToPinName(PIN_UCPD_TCPP), LOW);
 #endif
-
-#if defined(PWR_CR2_USV) || defined(PWR_SVMCR_USV) || defined(PWR_USBSCR_USB33SV)
-  /* Enable VDDUSB on Pwrctrl CR2 register*/
-  HAL_PWREx_EnableVddUSB();
+#if defined(PWR_CR3_USB33DEN) || defined(PWR_USBSCR_USB33DEN)
+  HAL_PWREx_EnableUSBVoltageDetector();
 #endif
-#ifdef STM32H7xx
-  if (!LL_PWR_IsActiveFlag_USB()) {
-    HAL_PWREx_EnableUSBVoltageDetector();
-  }
+#if defined(PWR_CR3_USB33RDY)
+  while (!LL_PWR_IsActiveFlag_USB());
+#elif defined(PWR_VMSR_USB33RDY)
+  while (!LL_PWR_IsActiveFlag_VDDUSB());
+#endif
+#if defined(PWR_CR2_USV) || defined(PWR_SVMCR_USV) || defined(PWR_USBSCR_USB33SV)
+  /* Enable VDDUSB */
+  HAL_PWREx_EnableVddUSB();
 #endif
 #if defined (USB)
   if (hpcd->Instance == USB) {
