@@ -105,6 +105,9 @@ static uint8_t USBD_HID_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum);
   * @{
   */
 
+/* Prevent dynamic allocation */
+USBD_HID_HandleTypeDef _hhid;
+
 USBD_ClassTypeDef  USBD_COMPOSITE_HID = {
   USBD_HID_Init,
   USBD_HID_DeInit,
@@ -523,7 +526,8 @@ static uint8_t USBD_HID_Init(USBD_HandleTypeDef *pdev,
 
   USBD_HID_HandleTypeDef *hhid;
 
-  hhid = (USBD_HID_HandleTypeDef *)USBD_malloc(sizeof(USBD_HID_HandleTypeDef));
+  // hhid = (USBD_HID_HandleTypeDef *)USBD_malloc(sizeof(USBD_HID_HandleTypeDef));
+  hhid = &_hhid;
 
   if (hhid == NULL) {
     pdev->pClassDataCmsit[pdev->classId] = NULL;
@@ -589,7 +593,8 @@ static uint8_t USBD_HID_DeInit(USBD_HandleTypeDef *pdev,
 
   /* Free allocated memory */
   if (pdev->pClassDataCmsit[pdev->classId] != NULL) {
-    (void)USBD_free(pdev->pClassDataCmsit[pdev->classId]);
+    /* No need to free as hhid is no more dynamically allocated */
+    // (void)USBD_free(pdev->pClassDataCmsit[pdev->classId]);
     pdev->pClassDataCmsit[pdev->classId] = NULL;
   }
 
