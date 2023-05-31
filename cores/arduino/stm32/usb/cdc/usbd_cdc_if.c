@@ -48,6 +48,9 @@ USBD_HandleTypeDef hUSBD_Device_CDC;
 
 static bool CDC_initialized = false;
 static bool CDC_DTR_enabled = true;
+#if defined(ICACHE) && defined (HAL_ICACHE_MODULE_ENABLED) && !defined(HAL_ICACHE_MODULE_DISABLED)
+  static bool icache_enabled = false;
+#endif /* ICACHE && HAL_ICACHE_MODULE_ENABLED && !HAL_ICACHE_MODULE_DISABLED */
 
 /* Received Data over USB are stored in this buffer       */
 CDC_TransmitQueue_TypeDef TransmitQueue;
@@ -270,6 +273,15 @@ static int8_t USBD_CDC_TransmitCplt(uint8_t *Buf, uint32_t *Len, uint8_t epnum)
 
 void CDC_init(void)
 {
+#if defined(ICACHE) && defined (HAL_ICACHE_MODULE_ENABLED) && !defined(HAL_ICACHE_MODULE_DISABLED)
+  if (HAL_ICACHE_IsEnabled() == 1) {
+    icache_enabled = true;
+    /* Disable instruction cache prior to internal cacheable memory update */
+    if (HAL_ICACHE_Disable() != HAL_OK) {
+      Error_Handler();
+    }
+  }
+#endif /* ICACHE && HAL_ICACHE_MODULE_ENABLED && !HAL_ICACHE_MODULE_DISABLED */
   if (!CDC_initialized) {
     /* Init Device Library */
     if (USBD_Init(&hUSBD_Device_CDC, &USBD_Desc, 0) == USBD_OK) {
@@ -294,6 +306,14 @@ void CDC_deInit(void)
     USBD_DeInit(&hUSBD_Device_CDC);
     CDC_initialized = false;
   }
+#if defined(ICACHE) && defined (HAL_ICACHE_MODULE_ENABLED) && !defined(HAL_ICACHE_MODULE_DISABLED)
+  if (icache_enabled) {
+    /* Re-enable instruction cache */
+    if (HAL_ICACHE_Enable() != HAL_OK) {
+      Error_Handler();
+    }
+  }
+#endif /* ICACHE && HAL_ICACHE_MODULE_ENABLED && !HAL_ICACHE_MODULE_DISABLED */
 }
 
 bool CDC_connected()
