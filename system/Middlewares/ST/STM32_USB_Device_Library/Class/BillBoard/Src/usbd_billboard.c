@@ -7,6 +7,17 @@
   *           - Initialization and Configuration of high and low layer
   *           - Enumeration as BillBoard Device
   *           - Error management
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   * @verbatim
   *
   *          ===================================================================
@@ -21,17 +32,6 @@
   *             - Enumeration & management of BillBoard device supported alternate modes
   *
   *  @endverbatim
-  *
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                             www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -93,7 +93,7 @@ static uint8_t *USBD_BB_GetOtherSpeedCfgDesc(uint16_t *length);
 
 #if (USBD_CLASS_BOS_ENABLED == 1)
 USBD_BB_DescHeader_t *USBD_BB_GetNextDesc(uint8_t *pbuf, uint16_t *ptr);
-#endif
+#endif /* USBD_CLASS_BOS_ENABLED */
 
 
 
@@ -122,7 +122,7 @@ USBD_ClassTypeDef  USBD_BB =
   USBD_BB_GetDeviceQualifierDesc,
 #if (USBD_SUPPORT_USER_STRING_DESC == 1U)
   NULL,
-#endif
+#endif /* USBD_SUPPORT_USER_STRING_DESC */
 };
 
 /* USB Standard Device Qualifier Descriptor */
@@ -154,7 +154,7 @@ __ALIGN_BEGIN static uint8_t USBD_BB_CfgDesc[USB_BB_CONFIG_DESC_SIZ]  __ALIGN_EN
   0xC0,                        /* bmAttributes: Bus Powered according to user configuration */
 #else
   0x80,                        /* bmAttributes: Bus Powered according to user configuration */
-#endif
+#endif /* USBD_SELF_POWERED */
   USBD_MAX_POWER,              /* MaxPower (mA) */
   /* 09 */
 
@@ -185,7 +185,7 @@ __ALIGN_BEGIN static uint8_t USBD_BB_OtherSpeedCfgDesc[USB_BB_CONFIG_DESC_SIZ]  
   0xC0,                        /* bmAttributes: Bus Powered according to user configuration */
 #else
   0x80,                        /* bmAttributes: Bus Powered according to user configuration */
-#endif
+#endif /* USBD_SELF_POWERED */
   USBD_MAX_POWER,              /* MaxPower (mA) */
 
   /************** Descriptor of BillBoard interface ****************/
@@ -420,7 +420,7 @@ void *USBD_BB_GetCapDesc(USBD_HandleTypeDef *pdev, uint8_t *pBosDesc)
   UNUSED(pdev);
 
   USBD_BB_DescHeader_t *pdesc = (USBD_BB_DescHeader_t *)(void *)pBosDesc;
-  USBD_BosDescTypedef *desc = (USBD_BosDescTypedef *)(void *)pBosDesc;
+  USBD_BosDescTypeDef *desc = (USBD_BosDescTypeDef *)(void *)pBosDesc;
   USBD_BosBBCapDescTypedef *pCapDesc = NULL;
   uint16_t ptr;
 
@@ -456,7 +456,7 @@ void *USBD_BB_GetAltModeDesc(USBD_HandleTypeDef *pdev, uint8_t *pBosDesc, uint8_
   UNUSED(pdev);
 
   USBD_BB_DescHeader_t *pdesc = (USBD_BB_DescHeader_t *)(void *)pBosDesc;
-  USBD_BosDescTypedef *desc = (USBD_BosDescTypedef *)(void *)pBosDesc;
+  USBD_BosDescTypeDef *desc = (USBD_BosDescTypeDef *)(void *)pBosDesc;
   USBD_BB_AltModeCapDescTypeDef *pAltModDesc = NULL;
   uint8_t cnt = 0U;
   uint16_t ptr;
@@ -485,7 +485,7 @@ void *USBD_BB_GetAltModeDesc(USBD_HandleTypeDef *pdev, uint8_t *pBosDesc, uint8_
   }
   return (void *)pAltModDesc;
 }
-#endif
+#endif /* USBD_CLASS_BOS_ENABLED */
 
 /**
   * @}
@@ -500,5 +500,3 @@ void *USBD_BB_GetAltModeDesc(USBD_HandleTypeDef *pdev, uint8_t *pBosDesc, uint8_
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

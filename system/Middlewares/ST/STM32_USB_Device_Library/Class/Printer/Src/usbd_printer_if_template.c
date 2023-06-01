@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2021 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -71,11 +70,11 @@ USBD_PRNT_ItfTypeDef USBD_PRNT_Template_fops =
 {
   TEMPLATE_Init,
   TEMPLATE_DeInit,
-  TEMPLATE_Control_req
+  TEMPLATE_Control_req,
   TEMPLATE_Receive
 };
 
-static uint8_t PRNT_DEVICE_ID[DEVICE_ID_LEN] =
+static uint8_t PRNT_DEVICE_ID[] =
 {
   0x00, 0x6D,
   'M', 'A', 'N', 'U', 'F', 'A', 'C', 'T', 'U', 'R', 'E', 'R', ':',
@@ -128,7 +127,7 @@ static int8_t TEMPLATE_DeInit(void)
   *
   *         @note
   *         This function will issue a NAK packet on any OUT packet received on
-  *         USB endpoint untill exiting this function. If you exit this function
+  *         USB endpoint until exiting this function. If you exit this function
   *         before transfer is complete on PRNT interface (ie. using DMA controller)
   *         it will result in receiving more data while previous ones are still
   *         not sent.
@@ -147,16 +146,16 @@ static int8_t TEMPLATE_Receive(uint8_t *Buf, uint32_t *Len)
 
 
 /**
-  * @brief  TEMPLATE_PRNT_Itf_Control_req
+  * @brief  TEMPLATE_Control_req
   *         Manage the  PRNT class requests
   * @param  req: Command code
   * @param  pbuf: Buffer containing command data (request parameters)
   * @param  length: Number of data to be sent (in bytes)
   * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
   */
-static int8_t TEMPLATE_PRNT_Itf_Control_req(uint8_t req, uint8_t *pbuf, uint16_t *length)
+static int8_t TEMPLATE_Control_req(uint8_t req, uint8_t *pbuf, uint16_t *length)
 {
-  uint32_t i = 0;
+  uint32_t i = 0U;
 
   /* Check on the setup request value */
   switch (req)
@@ -169,7 +168,7 @@ static int8_t TEMPLATE_PRNT_Itf_Control_req(uint8_t req, uint8_t *pbuf, uint16_t
         pbuf[i] = PRNT_DEVICE_ID[i];
         i++;
       }
-      *length = i;
+      *length = (uint16_t)i;
       break;
 
     /* Get Printer current status */
@@ -183,26 +182,17 @@ static int8_t TEMPLATE_PRNT_Itf_Control_req(uint8_t req, uint8_t *pbuf, uint16_t
 
     /* Printer SOFT RESET request: cleanup pending tasks */
     case PRNT_SOFT_RESET:
-      (void)f_close(&hSD.MyFile);
       break;
 
     default:
-      /* Unkown commands are not managed */
+      /* Unknown commands are not managed */
       break;
+  }
+
+  return (0);
 }
 
 /**
-* @brief TEMPLATE_PRNT_PageEndManager, defined by user
-* Call this function frequently to check if data is received.
-* @param Buf: Buffer of data to be received
-* @param Len: Number of data received (in bytes)
-*/
-void TEMPLATE_PRNT_PageEndManager(uint8_t *Buf, uint32_t Len)
-{
-  UNUSED(Buf);
-  UNUSED(Len);
-}
-/**
   * @}
   */
 
@@ -213,6 +203,4 @@ void TEMPLATE_PRNT_PageEndManager(uint8_t *Buf, uint32_t Len)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

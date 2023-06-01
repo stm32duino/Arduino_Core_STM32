@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -67,7 +66,8 @@ EndBSPDependencies */
 /** @defgroup MSC_BOT_Private_Variables
   * @{
   */
-
+extern uint8_t MSCInEpAdd;
+extern uint8_t MSCOutEpAdd;
 /**
   * @}
   */
@@ -97,7 +97,13 @@ static void MSC_BOT_Abort(USBD_HandleTypeDef *pdev);
   */
 void MSC_BOT_Init(USBD_HandleTypeDef *pdev)
 {
-  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
+
+#ifdef USE_USBD_COMPOSITE
+  /* Get the Endpoints addresses allocated for this class instance */
+  MSCInEpAdd  = USBD_CoreGetEPAdd(pdev, USBD_EP_IN, USBD_EP_TYPE_BULK, (uint8_t)pdev->classId);
+  MSCOutEpAdd = USBD_CoreGetEPAdd(pdev, USBD_EP_OUT, USBD_EP_TYPE_BULK, (uint8_t)pdev->classId);
+#endif /* USE_USBD_COMPOSITE */
 
   if (hmsc == NULL)
   {
@@ -111,13 +117,13 @@ void MSC_BOT_Init(USBD_HandleTypeDef *pdev)
   hmsc->scsi_sense_head = 0U;
   hmsc->scsi_medium_state = SCSI_MEDIUM_UNLOCKED;
 
-  ((USBD_StorageTypeDef *)pdev->pUserData)->Init(0U);
+  ((USBD_StorageTypeDef *)pdev->pUserData[pdev->classId])->Init(0U);
 
-  (void)USBD_LL_FlushEP(pdev, MSC_EPOUT_ADDR);
-  (void)USBD_LL_FlushEP(pdev, MSC_EPIN_ADDR);
+  (void)USBD_LL_FlushEP(pdev, MSCOutEpAdd);
+  (void)USBD_LL_FlushEP(pdev, MSCInEpAdd);
 
   /* Prepare EP to Receive First BOT Cmd */
-  (void)USBD_LL_PrepareReceive(pdev, MSC_EPOUT_ADDR, (uint8_t *)&hmsc->cbw,
+  (void)USBD_LL_PrepareReceive(pdev, MSCOutEpAdd, (uint8_t *)&hmsc->cbw,
                                USBD_BOT_CBW_LENGTH);
 }
 
@@ -129,7 +135,13 @@ void MSC_BOT_Init(USBD_HandleTypeDef *pdev)
   */
 void MSC_BOT_Reset(USBD_HandleTypeDef *pdev)
 {
-  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
+
+#ifdef USE_USBD_COMPOSITE
+  /* Get the Endpoints addresses allocated for this class instance */
+  MSCInEpAdd  = USBD_CoreGetEPAdd(pdev, USBD_EP_IN, USBD_EP_TYPE_BULK, (uint8_t)pdev->classId);
+  MSCOutEpAdd = USBD_CoreGetEPAdd(pdev, USBD_EP_OUT, USBD_EP_TYPE_BULK, (uint8_t)pdev->classId);
+#endif /* USE_USBD_COMPOSITE */
 
   if (hmsc == NULL)
   {
@@ -139,11 +151,11 @@ void MSC_BOT_Reset(USBD_HandleTypeDef *pdev)
   hmsc->bot_state  = USBD_BOT_IDLE;
   hmsc->bot_status = USBD_BOT_STATUS_RECOVERY;
 
-  (void)USBD_LL_ClearStallEP(pdev, MSC_EPIN_ADDR);
-  (void)USBD_LL_ClearStallEP(pdev, MSC_EPOUT_ADDR);
+  (void)USBD_LL_ClearStallEP(pdev, MSCInEpAdd);
+  (void)USBD_LL_ClearStallEP(pdev, MSCOutEpAdd);
 
   /* Prepare EP to Receive First BOT Cmd */
-  (void)USBD_LL_PrepareReceive(pdev, MSC_EPOUT_ADDR, (uint8_t *)&hmsc->cbw,
+  (void)USBD_LL_PrepareReceive(pdev, MSCOutEpAdd, (uint8_t *)&hmsc->cbw,
                                USBD_BOT_CBW_LENGTH);
 }
 
@@ -155,7 +167,7 @@ void MSC_BOT_Reset(USBD_HandleTypeDef *pdev)
   */
 void MSC_BOT_DeInit(USBD_HandleTypeDef  *pdev)
 {
-  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
 
   if (hmsc != NULL)
   {
@@ -174,7 +186,7 @@ void MSC_BOT_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
 {
   UNUSED(epnum);
 
-  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
 
   if (hmsc == NULL)
   {
@@ -210,7 +222,7 @@ void MSC_BOT_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
 {
   UNUSED(epnum);
 
-  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
 
   if (hmsc == NULL)
   {
@@ -243,7 +255,13 @@ void MSC_BOT_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
   */
 static void  MSC_BOT_CBW_Decode(USBD_HandleTypeDef *pdev)
 {
-  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
+
+#ifdef USE_USBD_COMPOSITE
+  /* Get the Endpoints addresses allocated for this class instance */
+  MSCInEpAdd  = USBD_CoreGetEPAdd(pdev, USBD_EP_IN, USBD_EP_TYPE_BULK, (uint8_t)pdev->classId);
+  MSCOutEpAdd = USBD_CoreGetEPAdd(pdev, USBD_EP_OUT, USBD_EP_TYPE_BULK, (uint8_t)pdev->classId);
+#endif /* USE_USBD_COMPOSITE */
 
   if (hmsc == NULL)
   {
@@ -253,7 +271,7 @@ static void  MSC_BOT_CBW_Decode(USBD_HandleTypeDef *pdev)
   hmsc->csw.dTag = hmsc->cbw.dTag;
   hmsc->csw.dDataResidue = hmsc->cbw.dDataLength;
 
-  if ((USBD_LL_GetRxDataSize(pdev, MSC_EPOUT_ADDR) != USBD_BOT_CBW_LENGTH) ||
+  if ((USBD_LL_GetRxDataSize(pdev, MSCOutEpAdd) != USBD_BOT_CBW_LENGTH) ||
       (hmsc->cbw.dSignature != USBD_BOT_CBW_SIGNATURE) ||
       (hmsc->cbw.bLUN > 1U) || (hmsc->cbw.bCBLength < 1U) ||
       (hmsc->cbw.bCBLength > 16U))
@@ -311,20 +329,28 @@ static void  MSC_BOT_CBW_Decode(USBD_HandleTypeDef *pdev)
   */
 static void  MSC_BOT_SendData(USBD_HandleTypeDef *pdev, uint8_t *pbuf, uint32_t len)
 {
-  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
 
-  uint32_t length = MIN(hmsc->cbw.dDataLength, len);
+  uint32_t length;
+
+#ifdef USE_USBD_COMPOSITE
+  /* Get the Endpoints addresses allocated for this class instance */
+  MSCInEpAdd  = USBD_CoreGetEPAdd(pdev, USBD_EP_IN, USBD_EP_TYPE_BULK, (uint8_t)pdev->classId);
+  MSCOutEpAdd = USBD_CoreGetEPAdd(pdev, USBD_EP_OUT, USBD_EP_TYPE_BULK, (uint8_t)pdev->classId);
+#endif /* USE_USBD_COMPOSITE */
 
   if (hmsc == NULL)
   {
     return;
   }
 
+  length = MIN(hmsc->cbw.dDataLength, len);
+
   hmsc->csw.dDataResidue -= len;
   hmsc->csw.bStatus = USBD_CSW_CMD_PASSED;
   hmsc->bot_state = USBD_BOT_SEND_DATA;
 
-  (void)USBD_LL_Transmit(pdev, MSC_EPIN_ADDR, pbuf, length);
+  (void)USBD_LL_Transmit(pdev, MSCInEpAdd, pbuf, length);
 }
 
 /**
@@ -336,7 +362,13 @@ static void  MSC_BOT_SendData(USBD_HandleTypeDef *pdev, uint8_t *pbuf, uint32_t 
   */
 void  MSC_BOT_SendCSW(USBD_HandleTypeDef *pdev, uint8_t CSW_Status)
 {
-  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
+
+#ifdef USE_USBD_COMPOSITE
+  /* Get the Endpoints addresses allocated for this class instance */
+  MSCInEpAdd  = USBD_CoreGetEPAdd(pdev, USBD_EP_IN, USBD_EP_TYPE_BULK, (uint8_t)pdev->classId);
+  MSCOutEpAdd = USBD_CoreGetEPAdd(pdev, USBD_EP_OUT, USBD_EP_TYPE_BULK, (uint8_t)pdev->classId);
+#endif /* USE_USBD_COMPOSITE */
 
   if (hmsc == NULL)
   {
@@ -347,11 +379,11 @@ void  MSC_BOT_SendCSW(USBD_HandleTypeDef *pdev, uint8_t CSW_Status)
   hmsc->csw.bStatus = CSW_Status;
   hmsc->bot_state = USBD_BOT_IDLE;
 
-  (void)USBD_LL_Transmit(pdev, MSC_EPIN_ADDR, (uint8_t *)&hmsc->csw,
+  (void)USBD_LL_Transmit(pdev, MSCInEpAdd, (uint8_t *)&hmsc->csw,
                          USBD_BOT_CSW_LENGTH);
 
   /* Prepare EP to Receive next Cmd */
-  (void)USBD_LL_PrepareReceive(pdev, MSC_EPOUT_ADDR, (uint8_t *)&hmsc->cbw,
+  (void)USBD_LL_PrepareReceive(pdev, MSCOutEpAdd, (uint8_t *)&hmsc->cbw,
                                USBD_BOT_CBW_LENGTH);
 }
 
@@ -364,7 +396,13 @@ void  MSC_BOT_SendCSW(USBD_HandleTypeDef *pdev, uint8_t CSW_Status)
 
 static void  MSC_BOT_Abort(USBD_HandleTypeDef *pdev)
 {
-  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
+
+#ifdef USE_USBD_COMPOSITE
+  /* Get the Endpoints addresses allocated for this class instance */
+  MSCInEpAdd  = USBD_CoreGetEPAdd(pdev, USBD_EP_IN, USBD_EP_TYPE_BULK, (uint8_t)pdev->classId);
+  MSCOutEpAdd = USBD_CoreGetEPAdd(pdev, USBD_EP_OUT, USBD_EP_TYPE_BULK, (uint8_t)pdev->classId);
+#endif /* USE_USBD_COMPOSITE */
 
   if (hmsc == NULL)
   {
@@ -375,15 +413,15 @@ static void  MSC_BOT_Abort(USBD_HandleTypeDef *pdev)
       (hmsc->cbw.dDataLength != 0U) &&
       (hmsc->bot_status == USBD_BOT_STATUS_NORMAL))
   {
-    (void)USBD_LL_StallEP(pdev, MSC_EPOUT_ADDR);
+    (void)USBD_LL_StallEP(pdev, MSCOutEpAdd);
   }
 
-  (void)USBD_LL_StallEP(pdev, MSC_EPIN_ADDR);
+  (void)USBD_LL_StallEP(pdev, MSCInEpAdd);
 
   if (hmsc->bot_status == USBD_BOT_STATUS_ERROR)
   {
-    (void)USBD_LL_StallEP(pdev, MSC_EPIN_ADDR);
-    (void)USBD_LL_StallEP(pdev, MSC_EPOUT_ADDR);
+    (void)USBD_LL_StallEP(pdev, MSCInEpAdd);
+    (void)USBD_LL_StallEP(pdev, MSCOutEpAdd);
   }
 }
 
@@ -397,7 +435,13 @@ static void  MSC_BOT_Abort(USBD_HandleTypeDef *pdev)
 
 void  MSC_BOT_CplClrFeature(USBD_HandleTypeDef *pdev, uint8_t epnum)
 {
-  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+  USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
+
+#ifdef USE_USBD_COMPOSITE
+  /* Get the Endpoints addresses allocated for this class instance */
+  MSCInEpAdd  = USBD_CoreGetEPAdd(pdev, USBD_EP_IN, USBD_EP_TYPE_BULK, (uint8_t)pdev->classId);
+  MSCOutEpAdd = USBD_CoreGetEPAdd(pdev, USBD_EP_OUT, USBD_EP_TYPE_BULK, (uint8_t)pdev->classId);
+#endif /* USE_USBD_COMPOSITE */
 
   if (hmsc == NULL)
   {
@@ -406,8 +450,8 @@ void  MSC_BOT_CplClrFeature(USBD_HandleTypeDef *pdev, uint8_t epnum)
 
   if (hmsc->bot_status == USBD_BOT_STATUS_ERROR) /* Bad CBW Signature */
   {
-    (void)USBD_LL_StallEP(pdev, MSC_EPIN_ADDR);
-    (void)USBD_LL_StallEP(pdev, MSC_EPOUT_ADDR);
+    (void)USBD_LL_StallEP(pdev, MSCInEpAdd);
+    (void)USBD_LL_StallEP(pdev, MSCOutEpAdd);
   }
   else if (((epnum & 0x80U) == 0x80U) && (hmsc->bot_status != USBD_BOT_STATUS_RECOVERY))
   {
@@ -432,4 +476,3 @@ void  MSC_BOT_CplClrFeature(USBD_HandleTypeDef *pdev, uint8_t epnum)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
