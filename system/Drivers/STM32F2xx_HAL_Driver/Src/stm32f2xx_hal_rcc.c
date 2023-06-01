@@ -8,6 +8,17 @@
   *           + Initialization and de-initialization functions
   *           + Peripheral Control functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                       ##### RCC specific features #####
@@ -51,17 +62,6 @@
           inserted in each __HAL_RCC_PPP_CLK_ENABLE() macro.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -668,10 +668,10 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
         uint32_t pllcfgr = RCC->PLLCFGR;
       
         if((READ_BIT(pllcfgr, RCC_PLLCFGR_PLLSRC) != RCC_OscInitStruct->PLL.PLLSource) ||
-           (READ_BIT(pllcfgr, RCC_PLLCFGR_PLLM) != RCC_OscInitStruct->PLL.PLLM) ||
-           ((READ_BIT(pllcfgr, RCC_PLLCFGR_PLLN) >> RCC_PLLCFGR_PLLN_Pos) != RCC_OscInitStruct->PLL.PLLN) ||
-           (READ_BIT(pllcfgr, RCC_PLLCFGR_PLLP) != RCC_OscInitStruct->PLL.PLLP) ||
-           (READ_BIT(pllcfgr, RCC_PLLCFGR_PLLQ) != RCC_OscInitStruct->PLL.PLLQ))
+           (READ_BIT(pllcfgr, RCC_PLLCFGR_PLLM) != (RCC_OscInitStruct->PLL.PLLM) << RCC_PLLCFGR_PLLM_Pos) ||
+           (READ_BIT(pllcfgr, RCC_PLLCFGR_PLLN) != (RCC_OscInitStruct->PLL.PLLN) << RCC_PLLCFGR_PLLN_Pos) ||
+           (READ_BIT(pllcfgr, RCC_PLLCFGR_PLLP) != (((RCC_OscInitStruct->PLL.PLLP >> 1U) - 1U)) << RCC_PLLCFGR_PLLP_Pos) ||
+           (READ_BIT(pllcfgr, RCC_PLLCFGR_PLLQ) != (RCC_OscInitStruct->PLL.PLLQ << RCC_PLLCFGR_PLLQ_Pos)))
         {
           return HAL_ERROR;
         }
@@ -1223,4 +1223,3 @@ __weak void HAL_RCC_CSSCallback(void)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
