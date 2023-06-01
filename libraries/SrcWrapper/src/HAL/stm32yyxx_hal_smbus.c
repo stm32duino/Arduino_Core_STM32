@@ -22,6 +22,8 @@
   #include "stm32h7xx_hal_smbus.c"
 #elif STM32L0xx
   #include "stm32l0xx_hal_smbus.c"
+#elif STM32L1xx
+  #include "stm32l1xx_hal_smbus.c"
 #elif STM32L4xx
   #include "stm32l4xx_hal_smbus.c"
 #elif STM32L5xx

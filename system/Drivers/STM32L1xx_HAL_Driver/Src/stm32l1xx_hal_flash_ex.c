@@ -36,14 +36,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 
@@ -152,15 +150,15 @@ static HAL_StatusTypeDef  FLASH_DATAEEPROM_ProgramByte(uint32_t Address, uint8_t
   ==============================================================================
 
     [..] The FLASH Memory Erasing functions, includes the following functions:
-    (+) @ref HAL_FLASHEx_Erase: return only when erase has been done
-    (+) @ref HAL_FLASHEx_Erase_IT: end of erase is done when @ref HAL_FLASH_EndOfOperationCallback
+    (+) HAL_FLASHEx_Erase: return only when erase has been done
+    (+) HAL_FLASHEx_Erase_IT: end of erase is done when HAL_FLASH_EndOfOperationCallback
         is called with parameter 0xFFFFFFFF
 
     [..] Any operation of erase should follow these steps:
-    (#) Call the @ref HAL_FLASH_Unlock() function to enable the flash control register and
+    (#) Call the HAL_FLASH_Unlock() function to enable the flash control register and
         program memory access.
     (#) Call the desired function to erase page.
-    (#) Call the @ref HAL_FLASH_Lock() to disable the flash program memory access
+    (#) Call the HAL_FLASH_Lock() to disable the flash program memory access
        (recommended to protect the FLASH memory against possible unwanted operation).
 
 @endverbatim
@@ -366,17 +364,17 @@ HAL_StatusTypeDef HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit)
   ==============================================================================
 
     [..] Any operation of erase or program should follow these steps:
-    (#) Call the @ref HAL_FLASH_OB_Unlock() function to enable the Flash option control
+    (#) Call the HAL_FLASH_OB_Unlock() function to enable the Flash option control
         register access.
     (#) Call following function to program the desired option bytes.
-        (++) @ref HAL_FLASHEx_OBProgram:
+        (++) HAL_FLASHEx_OBProgram:
          - To Enable/Disable the desired sector write protection.
          - To set the desired read Protection Level.
          - To configure the user option Bytes: IWDG, STOP and the Standby.
          - To Set the BOR level.
     (#) Once all needed option bytes to be programmed are correctly written, call the
-        @ref HAL_FLASH_OB_Launch(void) function to launch the Option Bytes programming process.
-    (#) Call the @ref HAL_FLASH_OB_Lock() to disable the Flash option control register access (recommended
+        HAL_FLASH_OB_Launch(void) function to launch the Option Bytes programming process.
+    (#) Call the HAL_FLASH_OB_Lock() to disable the Flash option control register access (recommended
         to protect the option Bytes against possible unwanted operations).
 
     [..] Proprietary code Read Out Protection (PcROP):
@@ -388,8 +386,8 @@ HAL_StatusTypeDef HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit)
         means: if SPRMOD = 1 and nWRPi = 1 (default value), then the user sector "i"
         is read/write protected.
     (#) To activate PCROP mode for Flash sector(s), you need to call the following function:
-        (++) @ref HAL_FLASHEx_AdvOBProgram in selecting sectors to be read/write protected
-        (++) @ref HAL_FLASHEx_OB_SelectPCROP to enable the read/write protection
+        (++) HAL_FLASHEx_AdvOBProgram in selecting sectors to be read/write protected
+        (++) HAL_FLASHEx_OB_SelectPCROP to enable the read/write protection
     (#) PcROP is available only in STM32L151xBA, STM32L152xBA, STM32L151xC, STM32L152xC & STM32L162xC devices.
 
 @endverbatim
@@ -733,10 +731,10 @@ HAL_StatusTypeDef HAL_FLASHEx_OB_DeSelectPCROP(void)
  ===============================================================================
 
     [..] Any operation of erase or program should follow these steps:
-    (#) Call the @ref HAL_FLASHEx_DATAEEPROM_Unlock() function to enable the data EEPROM access
+    (#) Call the HAL_FLASHEx_DATAEEPROM_Unlock() function to enable the data EEPROM access
         and Flash program erase control register access.
     (#) Call the desired function to erase or program data.
-    (#) Call the @ref HAL_FLASHEx_DATAEEPROM_Lock() to disable the data EEPROM access
+    (#) Call the HAL_FLASHEx_DATAEEPROM_Lock() to disable the data EEPROM access
         and Flash program erase control register access(recommended
         to protect the DATA_EEPROM against possible unwanted operation).
 
@@ -1870,4 +1868,3 @@ void FLASH_PageErase(uint32_t PageAddress)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

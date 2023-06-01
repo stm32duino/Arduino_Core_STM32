@@ -5,21 +5,19 @@
   * @brief   Extended OPAMP HAL module driver.
   *
   *          This file provides firmware functions to manage the following
-  *          functionalities of the operational amplifier(s)(OPAMP1, OPAMP2 etc)
-  *          peripheral:
+  *          functionalities of the operational amplifier(s) peripheral:
   *           + Extended Initialization and de-initialization functions
   *           + Extended Peripheral Control functions
   *
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -73,7 +71,7 @@
 /**
   * @brief  Run the self calibration of the 3 OPAMPs in parallel.
   * @note   Trimming values (PMOS & NMOS) are updated and user trimming is
-  *         enabled is calibration is succesful.
+  *         enabled is calibration is successful.
   * @note   Calibration is performed in the mode specified in OPAMP init
   *         structure (mode normal or low-power). To perform calibration for
   *         both modes, repeat this function twice after OPAMP init structure
@@ -437,7 +435,7 @@ HAL_StatusTypeDef HAL_OPAMPEx_SelfCalibrateAll(OPAMP_HandleTypeDef *hopamp1, OPA
 /**
   * @brief  Run the self calibration of the 2 OPAMPs in parallel.
   * @note   Trimming values (PMOS & NMOS) are updated and user trimming is
-  *         enabled is calibration is succesful.
+  *         enabled is calibration is successful.
   * @note   Calibration is performed in the mode specified in OPAMP init
   *         structure (mode normal or low-power). To perform calibration for
   *         both modes, repeat this function twice after OPAMP init structure
@@ -797,4 +795,3 @@ HAL_StatusTypeDef HAL_OPAMPEx_Unlock(OPAMP_HandleTypeDef* hopamp)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

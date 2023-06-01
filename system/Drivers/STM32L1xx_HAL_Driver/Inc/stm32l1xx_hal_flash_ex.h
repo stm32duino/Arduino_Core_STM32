@@ -6,14 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 
@@ -74,7 +72,7 @@
    || defined(STM32L151xCA) || defined(STM32L152xCA) || defined(STM32L162xCA)
 
 /******* Devices with FLASH 256K *******/
-#define FLASH_NBPAGES_MAX       1025U /* 1025 pages from page 0 to page 1024U */
+#define FLASH_NBPAGES_MAX       1024U /* 1024 pages from page 0 to page 1023U */
 
 #elif defined(STM32L151xD) || defined(STM32L151xDX) || defined(STM32L152xD) || defined(STM32L152xDX) \
    || defined(STM32L162xD) || defined(STM32L162xDX)
@@ -210,7 +208,7 @@ typedef struct
                              This parameter can be a value of @ref FLASHEx_Type_Erase */
 
   uint32_t PageAddress; /*!< PageAddress: Initial FLASH address to be erased
-                             This parameter must be a value belonging to FLASH Programm address (depending on the devices)  */
+                             This parameter must be a value belonging to FLASH Program address (depending on the devices)  */
 
   uint32_t NbPages;     /*!< NbPages: Number of pages to be erased.
                              This parameter must be a value between 1 and (max number of pages - value of Initial page)*/
@@ -965,4 +963,3 @@ void              HAL_FLASHEx_DATAEEPROM_DisableFixedTimeProgram(void);
 
 #endif /* __STM32L1xx_HAL_FLASH_EX_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

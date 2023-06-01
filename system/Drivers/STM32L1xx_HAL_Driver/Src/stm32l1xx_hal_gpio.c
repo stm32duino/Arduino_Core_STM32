@@ -8,6 +8,17 @@
   *           + Initialization and de-initialization functions
   *           + IO operation functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                     ##### GPIO Peripheral features #####
@@ -100,17 +111,6 @@
        The HSE has priority over the GPIO function.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -251,23 +251,6 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
         SET_BIT(temp, (GPIO_GET_INDEX(GPIOx)) << (4 * (position & 0x03)));
         SYSCFG->EXTICR[position >> 2] = temp;
 
-        /* Clear EXTI line configuration */
-        temp = EXTI->IMR;
-        CLEAR_BIT(temp, (uint32_t)iocurrent);
-        if ((GPIO_Init->Mode & EXTI_IT) != 0x00U)
-        {
-          SET_BIT(temp, iocurrent);
-        }
-        EXTI->IMR = temp;
-
-        temp = EXTI->EMR;
-        CLEAR_BIT(temp, (uint32_t)iocurrent);
-        if ((GPIO_Init->Mode & EXTI_EVT) != 0x00U)
-        {
-          SET_BIT(temp, iocurrent);
-        }
-        EXTI->EMR = temp;
-
         /* Clear Rising Falling edge configuration */
         temp = EXTI->RTSR;
         CLEAR_BIT(temp, (uint32_t)iocurrent);
@@ -284,6 +267,23 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
           SET_BIT(temp, iocurrent);
         }
         EXTI->FTSR = temp;
+
+        temp = EXTI->EMR;
+        CLEAR_BIT(temp, (uint32_t)iocurrent);
+        if ((GPIO_Init->Mode & EXTI_EVT) != 0x00U)
+        {
+          SET_BIT(temp, iocurrent);
+        }
+        EXTI->EMR = temp;
+
+        /* Clear EXTI line configuration */
+        temp = EXTI->IMR;
+        CLEAR_BIT(temp, (uint32_t)iocurrent);
+        if ((GPIO_Init->Mode & EXTI_IT) != 0x00U)
+        {
+          SET_BIT(temp, iocurrent);
+        }
+        EXTI->IMR = temp;
       }
     }
 
@@ -328,15 +328,15 @@ void HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
         CLEAR_BIT(EXTI->EMR, (uint32_t)iocurrent);
 
         /* Clear Rising Falling edge configuration */
-        CLEAR_BIT(EXTI->RTSR, (uint32_t)iocurrent);
         CLEAR_BIT(EXTI->FTSR, (uint32_t)iocurrent);
+        CLEAR_BIT(EXTI->RTSR, (uint32_t)iocurrent);
 
         tmp = (0x0FU) << (4 * (position & 0x03));
         CLEAR_BIT(SYSCFG->EXTICR[position >> 2], tmp);
       }
 
       /*------------------------- GPIO Mode Configuration --------------------*/
-      /* Configure IO Direction in Input Floting Mode */
+      /* Configure IO Direction in Input Floating Mode */
       CLEAR_BIT(GPIOx->MODER, GPIO_MODER_MODER0 << (position * 2));
 
       /* Configure the default Alternate Function in current IO */
@@ -439,7 +439,7 @@ void HAL_GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
   /* Check the parameters */
   assert_param(IS_GPIO_PIN(GPIO_Pin));
 
-  /* get current Ouput Data Register value */
+  /* get current Output Data Register value */
   odr = GPIOx->ODR;
 
   /* Set selected pins that were at low level, and reset ones that were high */
@@ -544,4 +544,3 @@ __weak void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
