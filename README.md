@@ -641,7 +641,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L433CBT<br>STM32L433CCT | Generic Board | *2.1.0* |  |
 | :green_heart:  | STM32L433CBU<br>STM32L433CCU | Generic Board | *2.1.0* |  |
 | :green_heart:  | STM32L443CC<br>STM32L443CC | Generic Board | *2.1.0* |  |
-| :green_heart:  | STM32L433RC<br>STM32L443RC<br>STM32L433RB | Generic Board | *2.6.0* |  |
+| :yellow_heart:  | STM32L433RC<br>STM32L443RC<br>STM32L433RB | Generic Board | **2.6.0** |  |
 | :green_heart:  | STM32L433RC-P | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L452RC<br>STM32L452RE<br>STM32L462RE | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L452RE | [Leafony AP03](https://docs.leafony.com/en/docs/leaf/processor/ap03) | *2.4.0* |
