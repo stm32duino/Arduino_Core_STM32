@@ -129,6 +129,11 @@ size_t Print::print(unsigned long long n, int base)
   }
 }
 
+size_t Print::print(float n, int digits)
+{
+  return printFloat(n, digits);
+}
+
 size_t Print::print(double n, int digits)
 {
   return printFloat(n, digits);
@@ -217,6 +222,13 @@ size_t Print::println(long long num, int base)
 size_t Print::println(unsigned long long num, int base)
 {
   size_t n = print(num, base);
+  n += println();
+  return n;
+}
+
+size_t Print::println(float num, int digits)
+{
+  size_t n = print(num, digits);
   n += println();
   return n;
 }
@@ -406,7 +418,8 @@ size_t Print::printULLNumber(unsigned long long n64, uint8_t base)
   return bytes;
 }
 
-size_t Print::printFloat(double number, uint8_t digits)
+template <class T>
+size_t Print::printFloat(T number, uint8_t digits)
 {
   size_t n = 0;
 
@@ -430,7 +443,7 @@ size_t Print::printFloat(double number, uint8_t digits)
   }
 
   // Round correctly so that print(1.999, 2) prints as "2.00"
-  double rounding = 0.5;
+  T rounding = 0.5;
   for (uint8_t i = 0; i < digits; ++i) {
     rounding /= 10.0;
   }
@@ -439,7 +452,7 @@ size_t Print::printFloat(double number, uint8_t digits)
 
   // Extract the integer part of the number and print it
   unsigned long int_part = (unsigned long)number;
-  double remainder = number - (double)int_part;
+  T remainder = number - (T)int_part;
   n += print(int_part);
 
   // Print the decimal point, but only if there are digits beyond
