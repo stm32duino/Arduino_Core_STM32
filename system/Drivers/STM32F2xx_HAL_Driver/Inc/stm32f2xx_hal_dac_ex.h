@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -82,6 +81,7 @@ extern "C" {
   * @}
   */
 
+
 /**
   * @}
   */
@@ -150,7 +150,7 @@ HAL_StatusTypeDef HAL_DACEx_NoiseWaveGenerate(DAC_HandleTypeDef *hdac, uint32_t 
 HAL_StatusTypeDef HAL_DACEx_DualStart(DAC_HandleTypeDef *hdac);
 HAL_StatusTypeDef HAL_DACEx_DualStop(DAC_HandleTypeDef *hdac);
 HAL_StatusTypeDef HAL_DACEx_DualSetValue(DAC_HandleTypeDef *hdac, uint32_t Alignment, uint32_t Data1, uint32_t Data2);
-uint32_t HAL_DACEx_DualGetValue(DAC_HandleTypeDef *hdac);
+uint32_t HAL_DACEx_DualGetValue(const DAC_HandleTypeDef *hdac);
 
 void HAL_DACEx_ConvCpltCallbackCh2(DAC_HandleTypeDef *hdac);
 void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac);
@@ -199,5 +199,3 @@ void DAC_DMAHalfConvCpltCh2(DMA_HandleTypeDef *hdma);
 #endif
 
 #endif /* STM32F2xx_HAL_DAC_EX_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

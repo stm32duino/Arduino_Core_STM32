@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -88,7 +87,7 @@
 
 #if defined (STM32L151xD) || defined (STM32L152xD) || defined (STM32L162xD)
 /**
-  * @brief Enable internal analog switch SW1 to connect OPAMP3 ouput to ADC
+  * @brief Enable internal analog switch SW1 to connect OPAMP3 output to ADC
   * switch matrix (ADC channel VCOMP, channel 26) and COMP1 non-inverting input
   * (OPAMP3 available on STM32L1 devices Cat.4 only).
   * @retval None
@@ -96,7 +95,7 @@
 #define __HAL_OPAMP_OPAMP3OUT_CONNECT_ADC_COMP1()    __HAL_RI_SWITCH_COMP1_SW1_CLOSE()
 
 /**
-  * @brief Disable internal analog switch SW1 to disconnect OPAMP3 ouput from
+  * @brief Disable internal analog switch SW1 to disconnect OPAMP3 output from
   * ADC switch matrix (ADC channel VCOMP, channel 26) and COMP1 non-inverting
   * input.
   * @retval None
@@ -253,4 +252,3 @@ HAL_StatusTypeDef HAL_OPAMPEx_Unlock(OPAMP_HandleTypeDef *hopamp);
 
 #endif /* STM32L1xx_HAL_OPAMP_EX_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

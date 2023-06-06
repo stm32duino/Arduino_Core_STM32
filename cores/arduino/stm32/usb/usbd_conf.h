@@ -74,6 +74,9 @@ extern "C" {
 #elif defined(STM32G0xx)
 #define USB_IRQn USB_UCPD1_2_IRQn
 #define USB_IRQHandler USB_UCPD1_2_IRQHandler
+#elif defined(STM32H5xx)
+#define USB_IRQn USB_DRD_FS_IRQn
+#define USB_IRQHandler USB_DRD_FS_IRQHandler
 #elif defined(STM32U5xx) && !defined(USB_DRD_FS)
 #define USB_IRQn OTG_FS_IRQn
 #define USB_IRQHandler OTG_FS_IRQHandler
@@ -195,7 +198,7 @@ extern "C" {
 #ifndef UVC_MATRIX_COEFFICIENTS
 #define UVC_MATRIX_COEFFICIENTS                     0x04U
 #endif /* UVC_MATRIX_COEFFICIENTS */
-#endif
+#endif /* USBD_UVC_FORMAT_UNCOMPRESSED */
 
 /* Video Stream frame width and height */
 #ifndef UVC_WIDTH
@@ -279,7 +282,7 @@ extern "C" {
                                } while (0)
 #else
 #define USBD_UsrLog(...) do {} while (0)
-#endif
+#endif /* (USBD_DEBUG_LEVEL > 0U) */
 
 #if (USBD_DEBUG_LEVEL > 1U)
 
@@ -290,7 +293,7 @@ extern "C" {
                              } while (0)
 #else
 #define USBD_ErrLog(...) do {} while (0)
-#endif
+#endif /* (USBD_DEBUG_LEVEL > 1U) */
 
 #if (USBD_DEBUG_LEVEL > 2U)
 #define  USBD_DbgLog(...)   do { \
@@ -300,7 +303,7 @@ extern "C" {
                                } while (0)
 #else
 #define USBD_DbgLog(...) do {} while (0)
-#endif
+#endif /* (USBD_DEBUG_LEVEL > 2U) */
 
 /* Exported functions -------------------------------------------------------*/
 void *USBD_static_malloc(uint32_t size);

@@ -12,6 +12,8 @@
   #include "stm32f3xx_ll_opamp.h"
 #elif STM32G4xx
   #include "stm32g4xx_ll_opamp.h"
+#elif STM32H5xx
+  #include "stm32h5xx_ll_opamp.h"
 #elif STM32H7xx
   #include "stm32h7xx_ll_opamp.h"
 #elif STM32L1xx

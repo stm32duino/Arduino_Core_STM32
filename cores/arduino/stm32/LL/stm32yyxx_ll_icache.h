@@ -8,7 +8,9 @@
   #pragma GCC diagnostic ignored "-Wregister"
 #endif
 
-#ifdef STM32L5xx
+#ifdef STM32H5xx
+  #include "stm32h5xx_ll_icache.h"
+#elif STM32L5xx
   #include "stm32l5xx_ll_icache.h"
 #elif STM32U5xx
   #include "stm32u5xx_ll_icache.h"

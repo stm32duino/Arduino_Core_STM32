@@ -7,20 +7,22 @@
   *          functionalities of the DAC peripheral.
   *
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                       ##### How to use this driver #####
   ==============================================================================
     [..]
-
-     *** Dual mode IO operation ***
-     ==============================
-     [..]
-      (+) When Dual mode is enabled (i.e. DAC Channel1 and Channel2 are used simultaneously) :
-          Use HAL_DACEx_DualGetValue() to get digital data to be converted and use
-          HAL_DACEx_DualSetValue() to set digital value to converted simultaneously in
-          Channel 1 and Channel 2.
-
      *** Signal generation operation ***
      ===================================
      [..]
@@ -28,17 +30,6 @@
       (+) Use HAL_DACEx_NoiseWaveGenerate() to generate Noise signal.
 
  @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -61,6 +52,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
@@ -99,6 +91,12 @@
 HAL_StatusTypeDef HAL_DACEx_DualStart(DAC_HandleTypeDef *hdac)
 {
   uint32_t tmp_swtrig = 0UL;
+
+  /* Check the DAC peripheral handle */
+  if (hdac == NULL)
+  {
+    return HAL_ERROR;
+  }
 
 
   /* Process locked */
@@ -141,6 +139,12 @@ HAL_StatusTypeDef HAL_DACEx_DualStart(DAC_HandleTypeDef *hdac)
   */
 HAL_StatusTypeDef HAL_DACEx_DualStop(DAC_HandleTypeDef *hdac)
 {
+  /* Check the DAC peripheral handle */
+  if (hdac == NULL)
+  {
+    return HAL_ERROR;
+  }
+
 
   /* Disable the Peripheral */
   __HAL_DAC_DISABLE(hdac, DAC_CHANNEL_1);
@@ -180,6 +184,12 @@ HAL_StatusTypeDef HAL_DACEx_DualStop(DAC_HandleTypeDef *hdac)
   */
 HAL_StatusTypeDef HAL_DACEx_TriangleWaveGenerate(DAC_HandleTypeDef *hdac, uint32_t Channel, uint32_t Amplitude)
 {
+  /* Check the DAC peripheral handle */
+  if (hdac == NULL)
+  {
+    return HAL_ERROR;
+  }
+
   /* Check the parameters */
   assert_param(IS_DAC_CHANNEL(Channel));
   assert_param(IS_DAC_LFSR_UNMASK_TRIANGLE_AMPLITUDE(Amplitude));
@@ -230,6 +240,12 @@ HAL_StatusTypeDef HAL_DACEx_TriangleWaveGenerate(DAC_HandleTypeDef *hdac, uint32
   */
 HAL_StatusTypeDef HAL_DACEx_NoiseWaveGenerate(DAC_HandleTypeDef *hdac, uint32_t Channel, uint32_t Amplitude)
 {
+  /* Check the DAC peripheral handle */
+  if (hdac == NULL)
+  {
+    return HAL_ERROR;
+  }
+
   /* Check the parameters */
   assert_param(IS_DAC_CHANNEL(Channel));
   assert_param(IS_DAC_LFSR_UNMASK_TRIANGLE_AMPLITUDE(Amplitude));
@@ -274,6 +290,12 @@ HAL_StatusTypeDef HAL_DACEx_DualSetValue(DAC_HandleTypeDef *hdac, uint32_t Align
 {
   uint32_t data;
   uint32_t tmp;
+
+  /* Check the DAC peripheral handle */
+  if (hdac == NULL)
+  {
+    return HAL_ERROR;
+  }
 
   /* Check the parameters */
   assert_param(IS_DAC_ALIGN(Alignment));
@@ -391,7 +413,7 @@ __weak void HAL_DACEx_DMAUnderrunCallbackCh2(DAC_HandleTypeDef *hdac)
   *         the configuration information for the specified DAC.
   * @retval The selected DAC channel data output value.
   */
-uint32_t HAL_DACEx_DualGetValue(DAC_HandleTypeDef *hdac)
+uint32_t HAL_DACEx_DualGetValue(const DAC_HandleTypeDef *hdac)
 {
   uint32_t tmp = 0UL;
 
@@ -492,5 +514,3 @@ void DAC_DMAErrorCh2(DMA_HandleTypeDef *hdma)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

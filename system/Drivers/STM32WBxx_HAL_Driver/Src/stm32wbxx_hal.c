@@ -55,7 +55,7 @@
   * @brief STM32WBxx HAL Driver version number
    */
 #define __STM32WBxx_HAL_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32WBxx_HAL_VERSION_SUB1   (0x0CU) /*!< [23:16] sub1 version */
+#define __STM32WBxx_HAL_VERSION_SUB1   (0x0DU) /*!< [23:16] sub1 version */
 #define __STM32WBxx_HAL_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
 #define __STM32WBxx_HAL_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32WBxx_HAL_VERSION         ((__STM32WBxx_HAL_VERSION_MAIN << 24U)\
@@ -360,7 +360,7 @@ HAL_StatusTypeDef HAL_SetTickFreq(HAL_TickFreqTypeDef Freq)
     /* Update uwTickFreq global variable used by HAL_InitTick() */
     uwTickFreq = Freq;
 
-    /* Apply the new tick Freq  */
+    /* Apply the new tick Freq */
     status = HAL_InitTick(uwTickPrio);
 
     if (status != HAL_OK)

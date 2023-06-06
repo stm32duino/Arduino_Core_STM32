@@ -177,12 +177,11 @@
 /** @defgroup UART_Private_Constants UART Private Constants
   * @{
   */
-#define USART_CR1_FIELDS  ((uint32_t)(USART_CR1_M | USART_CR1_PCE | USART_CR1_PS | \
-                                      USART_CR1_TE | USART_CR1_RE | USART_CR1_OVER8| \
-                                      USART_CR1_FIFOEN ))                      /*!< UART or USART CR1 fields of parameters set by UART_SetConfig API */
+#define USART_CR1_FIELDS  ((uint32_t)(USART_CR1_M | USART_CR1_PCE | USART_CR1_PS | USART_CR1_TE | USART_CR1_RE | \
+                                      USART_CR1_OVER8 | USART_CR1_FIFOEN)) /*!< UART or USART CR1 fields of parameters set by UART_SetConfig API */
 
-#define USART_CR3_FIELDS  ((uint32_t)(USART_CR3_RTSE | USART_CR3_CTSE | USART_CR3_ONEBIT| \
-                                      USART_CR3_TXFTCFG | USART_CR3_RXFTCFG ))  /*!< UART or USART CR3 fields of parameters set by UART_SetConfig API */
+#define USART_CR3_FIELDS  ((uint32_t)(USART_CR3_RTSE | USART_CR3_CTSE | USART_CR3_ONEBIT | USART_CR3_TXFTCFG | \
+                                      USART_CR3_RXFTCFG)) /*!< UART or USART CR3 fields of parameters set by UART_SetConfig API */
 
 #if defined(LPUART1)
 #define LPUART_BRR_MIN  0x00000300U  /* LPUART BRR minimum authorized value */
@@ -191,7 +190,6 @@
 
 #define UART_BRR_MIN    0x10U        /* UART BRR minimum authorized value */
 #define UART_BRR_MAX    0x0000FFFFU  /* UART BRR maximum authorized value */
-
 /**
   * @}
   */
@@ -1168,6 +1166,9 @@ HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pD
     {
       if (UART_WaitOnFlagUntilTimeout(huart, UART_FLAG_TXE, RESET, tickstart, Timeout) != HAL_OK)
       {
+
+        huart->gState = HAL_UART_STATE_READY;
+
         return HAL_TIMEOUT;
       }
       if (pdata8bits == NULL)
@@ -1185,6 +1186,8 @@ HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pD
 
     if (UART_WaitOnFlagUntilTimeout(huart, UART_FLAG_TC, RESET, tickstart, Timeout) != HAL_OK)
     {
+      huart->gState = HAL_UART_STATE_READY;
+
       return HAL_TIMEOUT;
     }
 
@@ -1260,6 +1263,8 @@ HAL_StatusTypeDef HAL_UART_Receive(UART_HandleTypeDef *huart, uint8_t *pData, ui
     {
       if (UART_WaitOnFlagUntilTimeout(huart, UART_FLAG_RXNE, RESET, tickstart, Timeout) != HAL_OK)
       {
+        huart->RxState = HAL_UART_STATE_READY;
+
         return HAL_TIMEOUT;
       }
       if (pdata8bits == NULL)
@@ -1394,7 +1399,7 @@ HAL_StatusTypeDef HAL_UART_Receive_IT(UART_HandleTypeDef *huart, uint8_t *pData,
       /* Enable the UART Receiver Timeout Interrupt */
       ATOMIC_SET_BIT(huart->Instance->CR1, USART_CR1_RTOIE);
     }
-#endif
+#endif /* LPUART1 */
 
     return (UART_Start_Receive_IT(huart, pData, Size));
   }
@@ -1514,7 +1519,7 @@ HAL_StatusTypeDef HAL_UART_Receive_DMA(UART_HandleTypeDef *huart, uint8_t *pData
       /* Enable the UART Receiver Timeout Interrupt */
       ATOMIC_SET_BIT(huart->Instance->CR1, USART_CR1_RTOIE);
     }
-#endif
+#endif /* LPUART1 */
 
     return (UART_Start_Receive_DMA(huart, pData, Size));
   }
@@ -3396,6 +3401,13 @@ HAL_StatusTypeDef UART_CheckIdleState(UART_HandleTypeDef *huart)
     /* Wait until TEACK flag is set */
     if (UART_WaitOnFlagUntilTimeout(huart, USART_ISR_TEACK, RESET, tickstart, HAL_UART_TIMEOUT_VALUE) != HAL_OK)
     {
+      /* Disable TXE interrupt for the interrupt process */
+      ATOMIC_CLEAR_BIT(huart->Instance->CR1, (USART_CR1_TXEIE_TXFNFIE));
+
+      huart->gState = HAL_UART_STATE_READY;
+
+      __HAL_UNLOCK(huart);
+
       /* Timeout occurred */
       return HAL_TIMEOUT;
     }
@@ -3407,6 +3419,15 @@ HAL_StatusTypeDef UART_CheckIdleState(UART_HandleTypeDef *huart)
     /* Wait until REACK flag is set */
     if (UART_WaitOnFlagUntilTimeout(huart, USART_ISR_REACK, RESET, tickstart, HAL_UART_TIMEOUT_VALUE) != HAL_OK)
     {
+      /* Disable RXNE, PE and ERR (Frame error, noise error, overrun error)
+      interrupts for the interrupt process */
+      ATOMIC_CLEAR_BIT(huart->Instance->CR1, (USART_CR1_RXNEIE_RXFNEIE | USART_CR1_PEIE));
+      ATOMIC_CLEAR_BIT(huart->Instance->CR3, USART_CR3_EIE);
+
+      huart->RxState = HAL_UART_STATE_READY;
+
+      __HAL_UNLOCK(huart);
+
       /* Timeout occurred */
       return HAL_TIMEOUT;
     }
@@ -3444,35 +3465,39 @@ HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef *huart, uint32_
     {
       if (((HAL_GetTick() - Tickstart) > Timeout) || (Timeout == 0U))
       {
-        /* Disable TXE, RXNE, PE and ERR (Frame error, noise error, overrun error)
-           interrupts for the interrupt process */
-        ATOMIC_CLEAR_BIT(huart->Instance->CR1, (USART_CR1_RXNEIE_RXFNEIE | USART_CR1_PEIE |
-                                                USART_CR1_TXEIE_TXFNFIE));
-        ATOMIC_CLEAR_BIT(huart->Instance->CR3, USART_CR3_EIE);
-
-        huart->gState = HAL_UART_STATE_READY;
-        huart->RxState = HAL_UART_STATE_READY;
-
-        __HAL_UNLOCK(huart);
 
         return HAL_TIMEOUT;
       }
 
       if (READ_BIT(huart->Instance->CR1, USART_CR1_RE) != 0U)
       {
+        if (__HAL_UART_GET_FLAG(huart, UART_FLAG_ORE) == SET)
+        {
+           /* Clear Overrun Error flag*/
+           __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_OREF);
+
+           /* Blocking error : transfer is aborted
+           Set the UART state ready to be able to start again the process,
+           Disable Rx Interrupts if ongoing */
+           UART_EndRxTransfer(huart);
+
+           huart->ErrorCode = HAL_UART_ERROR_ORE;
+
+           /* Process Unlocked */
+           __HAL_UNLOCK(huart);
+
+           return HAL_ERROR;
+        }
         if (__HAL_UART_GET_FLAG(huart, UART_FLAG_RTOF) == SET)
         {
           /* Clear Receiver Timeout flag*/
           __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_RTOF);
 
-          /* Disable TXE, RXNE, PE and ERR (Frame error, noise error, overrun error)
-             interrupts for the interrupt process */
-          ATOMIC_CLEAR_BIT(huart->Instance->CR1, (USART_CR1_RXNEIE_RXFNEIE | USART_CR1_PEIE |
-                                                  USART_CR1_TXEIE_TXFNFIE));
-          ATOMIC_CLEAR_BIT(huart->Instance->CR3, USART_CR3_EIE);
+          /* Blocking error : transfer is aborted
+          Set the UART state ready to be able to start again the process,
+          Disable Rx Interrupts if ongoing */
+          UART_EndRxTransfer(huart);
 
-          huart->gState = HAL_UART_STATE_READY;
-          huart->RxState = HAL_UART_STATE_READY;
           huart->ErrorCode = HAL_UART_ERROR_RTO;
 
           /* Process Unlocked */

@@ -13,6 +13,17 @@
   *           + CRYP IRQ handler management
   *           + Peripheral State functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                      ##### How to use this driver #####
@@ -59,7 +70,7 @@
          the CRYP peripheral is configured and processes the buffer in input.
          At second call, no need to Initialize the CRYP, user have to get current configuration via
          HAL_CRYP_GetConfig() API, then only  HAL_CRYP_SetConfig() is requested to set
-         new parametres, finally user can  start encryption/decryption.
+         new parameters, finally user can  start encryption/decryption.
 
        (#)Call HAL_CRYP_DeInit() to deinitialize the CRYP peripheral.
 
@@ -131,17 +142,6 @@
   
   @endverbatim
   ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -201,7 +201,7 @@ static void CRYP_DMAOutCplt(DMA_HandleTypeDef *hdma);
 static void CRYP_DMAError(DMA_HandleTypeDef *hdma);
 static void CRYP_SetKey( CRYP_HandleTypeDef *hcryp, uint32_t KeySize);
 static void CRYP_AES_IT(CRYP_HandleTypeDef *hcryp);
-static void CRYP_AES_ProcessData(CRYP_HandleTypeDef *hcrypt, uint32_t Timeout);
+static void CRYP_AES_ProcessData(CRYP_HandleTypeDef *hcryp, uint32_t Timeout);
 static HAL_StatusTypeDef CRYP_AES_Encrypt(CRYP_HandleTypeDef *hcryp, uint32_t Timeout);
 static HAL_StatusTypeDef CRYP_AES_Decrypt(CRYP_HandleTypeDef *hcryp, uint32_t Timeout);
 static HAL_StatusTypeDef CRYP_AES_Decrypt_IT(CRYP_HandleTypeDef *hcryp);
@@ -299,7 +299,7 @@ HAL_StatusTypeDef HAL_CRYP_Init(CRYP_HandleTypeDef *hcryp)
   }
 #endif /* (USE_HAL_CRYP_REGISTER_CALLBACKS) */
 
-  /* Set the key size(This bit field is ‘don’t care’ in the DES or TDES modes) data type and Algorithm */
+  /* Set the key size(This bit field is "don't care" in the DES or TDES modes) data type and Algorithm */
   MODIFY_REG(hcryp->Instance->CR, CRYP_CR_DATATYPE|CRYP_CR_KEYSIZE|CRYP_CR_ALGOMODE, hcryp->Init.DataType | hcryp->Init.KeySize | hcryp->Init.Algorithm);
 
   /* Reset Error Code field */
@@ -398,7 +398,7 @@ HAL_StatusTypeDef HAL_CRYP_SetConfig(CRYP_HandleTypeDef *hcryp, CRYP_ConfigTypeD
     hcryp->Init.KeySize      = pConf->KeySize;
     hcryp->Init.pInitVect    = pConf->pInitVect;
 
-    /* Set the key size(This bit field is ‘don’t care’ in the DES or TDES modes) data type, AlgoMode and operating mode*/
+    /* Set the key size(This bit field is "don't care" in the DES or TDES modes) data type, AlgoMode and operating mode*/
     MODIFY_REG(hcryp->Instance->CR, CRYP_CR_DATATYPE|CRYP_CR_KEYSIZE|CRYP_CR_ALGOMODE, hcryp->Init.DataType | hcryp->Init.KeySize | hcryp->Init.Algorithm);
 
     /* Process Unlocked */
@@ -605,7 +605,7 @@ HAL_StatusTypeDef HAL_CRYP_RegisterCallback(CRYP_HandleTypeDef *hcryp, HAL_CRYP_
 
 /**
   * @brief  Unregister an CRYP Callback
-  *         CRYP callabck is redirected to the weak predefined callback
+  *         CRYP callback is redirected to the weak predefined callback
   * @param hcryp cryp handle
   * @param CallbackID ID of the callback to be unregistered
   *        This parameter can be one of the following values:
@@ -798,7 +798,7 @@ HAL_StatusTypeDef HAL_CRYP_Encrypt(CRYP_HandleTypeDef *hcryp, uint32_t *Input, u
       /* Set the phase */
       hcryp->Phase = CRYP_PHASE_PROCESS;
 
-      /* Statrt DES/TDES encryption process */
+      /* Start DES/TDES encryption process */
       status = CRYP_TDES_Process(hcryp,Timeout);
       break;
 
@@ -2464,5 +2464,3 @@ static HAL_StatusTypeDef CRYP_WaitOnOFNEFlag(const CRYP_HandleTypeDef  *hcryp, u
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

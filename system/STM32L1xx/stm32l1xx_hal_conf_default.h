@@ -61,6 +61,7 @@ extern "C" {
 #define HAL_RTC_MODULE_ENABLED
 #define HAL_SD_MODULE_ENABLED
 #define HAL_SMARTCARD_MODULE_ENABLED
+#define HAL_SMBUS_MODULE_ENABLED
 #define HAL_SPI_MODULE_ENABLED
 #define HAL_SRAM_MODULE_ENABLED
 #define HAL_TIM_MODULE_ENABLED
@@ -281,6 +282,10 @@ in voltage and temperature.*/
 #ifdef HAL_SD_MODULE_ENABLED
 #include "stm32l1xx_hal_sd.h"
 #endif /* HAL_SD_MODULE_ENABLED */
+
+#ifdef HAL_SMBUS_MODULE_ENABLED
+#include "stm32l1xx_hal_smbus.h"
+#endif /* HAL_SMBUS_MODULE_ENABLED */
 
 #ifdef HAL_SPI_MODULE_ENABLED
 #include "stm32l1xx_hal_spi.h"

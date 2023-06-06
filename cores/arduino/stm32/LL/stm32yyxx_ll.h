@@ -33,6 +33,7 @@
 #include "stm32yyxx_ll_hrtim.h"
 #include "stm32yyxx_ll_hsem.h"
 #include "stm32yyxx_ll_i2c.h"
+#include "stm32yyxx_ll_i3c.h"
 #include "stm32yyxx_ll_icache.h"
 #include "stm32yyxx_ll_ipcc.h"
 #include "stm32yyxx_ll_iwdg.h"

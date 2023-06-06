@@ -1,0 +1,13 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic H503EBYx
+GenH5.menu.pnum.GENERIC_H503EBYX=Generic H503EBYx
+GenH5.menu.pnum.GENERIC_H503EBYX.upload.maximum_size=131072
+GenH5.menu.pnum.GENERIC_H503EBYX.upload.maximum_data_size=32768
+GenH5.menu.pnum.GENERIC_H503EBYX.build.board=GENERIC_H503EBYX
+GenH5.menu.pnum.GENERIC_H503EBYX.build.product_line=STM32H503xx
+GenH5.menu.pnum.GENERIC_H503EBYX.build.variant=STM32H5xx/H503EBY
+

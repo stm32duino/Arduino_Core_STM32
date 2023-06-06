@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2020 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -47,12 +46,12 @@ extern "C" {
 #define UVC_VERSION                                   0x0100U      /* UVC 1.0 */
 #else
 #define UVC_VERSION                                   0x0110U      /* UVC 1.1 */
-#endif
+#endif /* UVC_1_0 */
 
 /* bEndpointAddress in Endpoint Descriptor */
 #ifndef UVC_IN_EP
 #define UVC_IN_EP                                     0x81U
-#endif /* VIDEO_IN_EP */
+#endif /* UVC_IN_EP */
 
 /* These defines shall be updated in the usbd_conf.h file */
 #ifndef UVC_WIDTH
@@ -111,15 +110,15 @@ extern "C" {
 
 #ifndef UVC_ISO_FS_MPS
 #define UVC_ISO_FS_MPS                                256U
-#endif
+#endif /* UVC_ISO_FS_MPS */
 
 #ifndef UVC_ISO_HS_MPS
 #define UVC_ISO_HS_MPS                                512U
-#endif
+#endif /* UVC_ISO_HS_MPS */
 
 #ifndef UVC_HEADER_PACKET_CNT
 #define UVC_HEADER_PACKET_CNT                         0x01U
-#endif
+#endif /* UVC_HEADER_PACKET_CNT */
 
 
 #define UVC_REQ_READ_MASK                             0x80U
@@ -131,7 +130,9 @@ extern "C" {
 #define UVC_CONFIG_DESC_SIZ                           (0x88U + 0x16U)
 #else
 #define UVC_CONFIG_DESC_SIZ                           0x88U
-#endif
+#endif /* USBD_UVC_FORMAT_UNCOMPRESSED */
+
+#define USBD_VC_GIUD_FORMAT_SIZE                      16U
 
 #define UVC_TOTAL_BUF_SIZE                            0x04U
 
@@ -148,10 +149,10 @@ extern "C" {
 
 #ifndef WBVAL
 #define WBVAL(x) ((x) & 0xFFU),(((x) >> 8) & 0xFFU)
-#endif
+#endif /* WBVAL */
 #ifndef DBVAL
 #define DBVAL(x) ((x)& 0xFFU),(((x) >> 8) & 0xFFU),(((x)>> 16) & 0xFFU),(((x) >> 24) & 0xFFU)
-#endif
+#endif /* DBVAL */
 
 /* Video Interface Protocol Codes */
 #define PC_PROTOCOL_UNDEFINED                         0x00U
@@ -183,7 +184,7 @@ extern "C" {
 #define VC_HEADER_SIZE (VIDEO_VS_IF_IN_HEADER_DESC_SIZE + \
                         VS_FORMAT_DESC_SIZE + \
                         VS_FRAME_DESC_SIZE)
-#endif
+#endif /* USBD_UVC_FORMAT_UNCOMPRESSED */
 
 /*
  * Video Class specification release 1.1
@@ -364,32 +365,6 @@ typedef enum
   VIDEO_OFFSET_UNKNOWN,
 } VIDEO_OffsetTypeDef;
 
-typedef  struct  _VIDEO_DescHeader
-{
-  uint8_t  bLength;
-  uint8_t  bDescriptorType;
-  uint8_t  bDescriptorSubType;
-} USBD_VIDEO_DescHeader_t;
-
-typedef struct
-{
-  uint8_t  bLength;
-  uint8_t  bDescriptorType;
-  uint8_t  bDescriptorSubType;
-  uint8_t  bFrameIndex;
-  uint8_t  bmCapabilities;
-  uint16_t wWidth;
-  uint16_t wHeight;
-  uint32_t dwMinBitRate;
-  uint32_t dwMaxBitRate;
-  uint32_t dwMaxVideoFrameBufSize;
-  uint32_t dwDefaultFrameInterval;
-  uint8_t  bFrameIntervalType;
-  uint32_t dwMinFrameInterval;
-  uint32_t dwMaxFrameInterval;
-  uint32_t dwFrameIntervalStep;
-} __PACKED USBD_VIDEO_VSFrameDescTypeDef;
-
 typedef struct
 {
   uint8_t cmd;
@@ -413,7 +388,6 @@ typedef struct
   int8_t (* DeInit)(void);
   int8_t (* Control)(uint8_t, uint8_t *, uint16_t);
   int8_t (* Data)(uint8_t **, uint16_t *, uint16_t *);
-  uint8_t  *pStrDesc;
 } USBD_VIDEO_ItfTypeDef;
 
 /* UVC uses only 26 first bytes */
@@ -436,6 +410,130 @@ typedef struct
   uint8_t     bMinVersion;
   uint8_t     bMaxVersion;
 } __PACKED USBD_VideoControlTypeDef;
+
+typedef struct
+{
+  uint8_t           bLength;
+  uint8_t           bDescriptorType;
+  uint8_t           bInterfaceNumber;
+  uint8_t           bAlternateSetting;
+  uint8_t           bNumEndpoints;
+  uint8_t           bInterfaceClass;
+  uint8_t           bInterfaceSubClass;
+  uint8_t           bInterfaceProtocol;
+  uint8_t           iFunction;
+} __PACKED USBD_StandardVCIfDescTypeDef;
+
+typedef struct
+{
+  uint8_t           bLength;
+  uint8_t           bDescriptorType;
+  uint8_t           bDescriptorSubtype;
+  uint16_t          bcdUVC;
+  uint16_t          wTotalLength;
+  uint32_t          dwClockFrequency;
+  uint8_t           baInterfaceNr;
+  uint8_t           iTerminal;
+} __PACKED USBD_specificVCInDescTypeDef;
+
+typedef struct
+{
+  uint8_t           bLength;
+  uint8_t           bDescriptorType;
+  uint8_t           bDescriptorSubtype;
+  uint8_t           bTerminalID;
+  uint16_t          wTerminalType;
+  uint8_t           bAssocTerminal;
+  uint8_t           iTerminal;
+} __PACKED USBD_InputTerminalDescTypeDef;
+
+typedef struct
+{
+  uint8_t           bLength;
+  uint8_t           bDescriptorType;
+  uint8_t           bDescriptorSubtype;
+  uint8_t           bTerminalID;
+  uint16_t          wTerminalType;
+  uint8_t           bAssocTerminal;
+  uint8_t           bSourceID;
+  uint8_t           iTerminal;
+} __PACKED USBD_OutputTerminalDescTypeDef;
+
+typedef struct
+{
+  uint8_t           bLength;
+  uint8_t           bDescriptorType;
+  uint8_t           bDescriptorSubtype;
+  uint16_t          bNumFormats;
+  uint8_t           bVideoControlSize;
+  uint8_t           bEndPointAddress;
+  uint8_t           bmInfo;
+  uint8_t           bTerminalLink;
+  uint8_t           bStillCaptureMethod;
+  uint8_t           bTriggerSupport;
+  uint8_t           bTriggerUsage;
+  uint8_t           bControlSize;
+  uint8_t           bmaControls;
+} __PACKED USBD_ClassSpecificVsHeaderDescTypeDef;
+
+typedef struct
+{
+  uint8_t           bLength;
+  uint8_t           bDescriptorType;
+  uint8_t           bDescriptorSubType;
+  uint8_t           bFormatIndex;
+  uint8_t           bNumFrameDescriptor;
+#ifdef USBD_UVC_FORMAT_UNCOMPRESSED
+  uint8_t           pGiudFormat[USBD_VC_GIUD_FORMAT_SIZE];
+  uint8_t           bBitsPerPixel;
+#else
+  uint8_t           bmFlags;
+#endif /* USBD_UVC_FORMAT_UNCOMPRESSED */
+  uint8_t           bDefaultFrameIndex;
+  uint8_t           bAspectRatioX;
+  uint8_t           bAspectRatioY;
+  uint8_t           bInterlaceFlags;
+  uint8_t           bCopyProtect;
+} __PACKED USBD_PayloadFormatDescTypeDef;
+
+#ifdef USBD_UVC_FORMAT_UNCOMPRESSED
+typedef struct
+{
+  uint8_t           bLength;
+  uint8_t           bDescriptorType;
+  uint8_t           bDescriptorSubType;
+  uint8_t           bColorPrimarie;
+  uint8_t           bTransferCharacteristics;
+  uint8_t           bMatrixCoefficients;
+} __PACKED USBD_ColorMatchingDescTypeDef;
+#endif /* USBD_UVC_FORMAT_UNCOMPRESSED */
+
+typedef struct
+{
+  uint8_t           bLength;
+  uint8_t           bDescriptorType;
+  uint8_t           bEndpointAddress;
+  uint8_t           bmAttributes;
+  uint16_t          wMaxPacketSize;
+  uint8_t           bInterval;
+} __PACKED USBD_StandardVCDataEPDescTypeDef;
+
+typedef struct
+{
+  uint8_t           bLength;
+  uint8_t           bDescriptorType;
+  uint8_t           bDescriptorSubType;
+  uint8_t           bFrameIndex;
+  uint8_t           bmCapabilities;
+  uint16_t          wWidth;
+  uint16_t          wHeight;
+  uint32_t          dwMinBitRate;
+  uint32_t          dwMaxBitRate;
+  uint32_t          dwMaxVideoFrameBufSize;
+  uint32_t          dwDefaultFrameInterval;
+  uint8_t           bFrameIntervalType;
+  uint32_t          dwMinFrameInterval;
+} __PACKED USBD_VIDEO_VSFrameDescTypeDef;
 
 extern USBD_ClassTypeDef    USBD_VIDEO;
 #define USBD_VIDEO_CLASS    &USBD_VIDEO

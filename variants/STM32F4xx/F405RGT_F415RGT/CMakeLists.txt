@@ -22,8 +22,10 @@ add_library(variant_bin STATIC EXCLUDE_FROM_ALL
   generic_clock.c
   PeripheralPins.c
   PeripheralPins_FEATHER_F405.c
+  PeripheralPins_MICROMOD_F405.c
   variant_FEATHER_F405.cpp
   variant_generic.cpp
+  variant_MICROMOD_F405.cpp
 )
 target_link_libraries(variant_bin PUBLIC variant_usage)
 

@@ -9,6 +9,18 @@
   *           + Initialization and de-initialization functions
   *           + IO operation functions
   *           + Peripheral State and errors functions
+  *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim     
   ==============================================================================
                         ##### How to use this driver #####
@@ -80,17 +92,6 @@
       (@) You can refer to the DMA HAL driver header file for more useful macros
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -963,7 +964,7 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)
   *                               the configuration information for the specified DMA Stream.
   * @param  CallbackID           User Callback identifier
   *                               a DMA_HandleTypeDef structure as parameter.
-  * @param  pCallback            pointer to private callbacsk function which has pointer to 
+  * @param  pCallback            pointer to private callback function which has pointer to
   *                               a DMA_HandleTypeDef structure as parameter.
   * @retval HAL status
   */                      
@@ -1004,6 +1005,8 @@ HAL_StatusTypeDef HAL_DMA_RegisterCallback(DMA_HandleTypeDef *hdma, HAL_DMA_Call
       break;
 
     default:
+      /* Return error status */
+      status =  HAL_ERROR;
       break;
     }
   }
@@ -1304,4 +1307,3 @@ static HAL_StatusTypeDef DMA_CheckFifoParam(DMA_HandleTypeDef *hdma)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

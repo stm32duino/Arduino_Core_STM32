@@ -21,6 +21,7 @@
     "rak811_tracker_32": "RAK811_TRACKERA",
     "robotdyn_blackpill_f303cc": "BLACKPILL_F303CC",
     "rumba32_f446ve": "RUMBA32",
+    "sparkfun_micromod_stm32f405": "MICROMOD_F405",
     "sparky_v1": "SPARKY_F303CC",
     "steval_mksboxv1": "STEVAL_MKSBOX1V1",
     "stm32f4stamp": "GENERIC_F405RGTX",

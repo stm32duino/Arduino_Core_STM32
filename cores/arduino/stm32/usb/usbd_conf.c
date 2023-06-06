@@ -57,15 +57,17 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
   pinMode(PIN_UCPD_TCPP, OUTPUT_OPEN_DRAIN);
   digitalWriteFast(digitalPinToPinName(PIN_UCPD_TCPP), LOW);
 #endif
-
-#if defined(PWR_CR2_USV) || defined(PWR_SVMCR_USV)
-  /* Enable VDDUSB on Pwrctrl CR2 register*/
-  HAL_PWREx_EnableVddUSB();
+#if defined(PWR_CR3_USB33DEN) || defined(PWR_USBSCR_USB33DEN)
+  HAL_PWREx_EnableUSBVoltageDetector();
 #endif
-#ifdef STM32H7xx
-  if (!LL_PWR_IsActiveFlag_USB()) {
-    HAL_PWREx_EnableUSBVoltageDetector();
-  }
+#if defined(PWR_CR3_USB33RDY)
+  while (!LL_PWR_IsActiveFlag_USB());
+#elif defined(PWR_VMSR_USB33RDY)
+  while (!LL_PWR_IsActiveFlag_VDDUSB());
+#endif
+#if defined(PWR_CR2_USV) || defined(PWR_SVMCR_USV) || defined(PWR_USBSCR_USB33SV)
+  /* Enable VDDUSB */
+  HAL_PWREx_EnableVddUSB();
 #endif
 #if defined (USB)
   if (hpcd->Instance == USB) {
@@ -647,7 +649,8 @@ uint8_t USBD_LL_IsStallEP(USBD_HandleTypeDef *pdev, uint8_t ep_addr)
   * @param  dev_addr: Endpoint Number
   * @retval USBD Status
   */
-USBD_StatusTypeDef USBD_LL_SetUSBAddress(USBD_HandleTypeDef *pdev, uint8_t dev_addr)
+USBD_StatusTypeDef USBD_LL_SetUSBAddress(USBD_HandleTypeDef *pdev,
+                                         uint8_t dev_addr)
 {
   HAL_PCD_SetAddress(pdev->pData, dev_addr);
   return USBD_OK;
@@ -661,10 +664,8 @@ USBD_StatusTypeDef USBD_LL_SetUSBAddress(USBD_HandleTypeDef *pdev, uint8_t dev_a
   * @param  size: Data size
   * @retval USBD Status
   */
-USBD_StatusTypeDef USBD_LL_Transmit(USBD_HandleTypeDef *pdev,
-                                    uint8_t ep_addr,
-                                    uint8_t *pbuf,
-                                    uint32_t size)
+USBD_StatusTypeDef USBD_LL_Transmit(USBD_HandleTypeDef *pdev, uint8_t ep_addr,
+                                    uint8_t *pbuf, uint32_t size)
 {
   HAL_PCD_EP_Transmit(pdev->pData, ep_addr, pbuf, size);
   return USBD_OK;
@@ -679,8 +680,7 @@ USBD_StatusTypeDef USBD_LL_Transmit(USBD_HandleTypeDef *pdev,
   * @retval USBD Status
   */
 USBD_StatusTypeDef USBD_LL_PrepareReceive(USBD_HandleTypeDef *pdev,
-                                          uint8_t ep_addr,
-                                          uint8_t *pbuf,
+                                          uint8_t ep_addr, uint8_t *pbuf,
                                           uint32_t size)
 {
   HAL_PCD_EP_Receive(pdev->pData, ep_addr, pbuf, size);

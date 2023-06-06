@@ -6,7 +6,7 @@
  * @brief STM32 core version number
  */
 #define STM32_CORE_VERSION_MAJOR    (0x02U) /*!< [31:24] major version */
-#define STM32_CORE_VERSION_MINOR    (0x05U) /*!< [23:16] minor version */
+#define STM32_CORE_VERSION_MINOR    (0x06U) /*!< [23:16] minor version */
 #define STM32_CORE_VERSION_PATCH    (0x00U) /*!< [15:8]  patch version */
 /*
  * Extra label for development:
@@ -14,7 +14,7 @@
  * [1-9]: release candidate
  * F[0-9]: development
  */
-#define STM32_CORE_VERSION_EXTRA    (0x00U) /*!< [7:0]  extra version */
+#define STM32_CORE_VERSION_EXTRA    (0xF0U) /*!< [7:0]  extra version */
 #define STM32_CORE_VERSION          ((STM32_CORE_VERSION_MAJOR << 24U)\
                                         |(STM32_CORE_VERSION_MINOR << 16U)\
                                         |(STM32_CORE_VERSION_PATCH << 8U )\
@@ -40,6 +40,8 @@
   #include "stm32g0xx.h"
 #elif defined(STM32G4xx)
   #include "stm32g4xx.h"
+#elif defined(STM32H5xx)
+  #include "stm32h5xx.h"
 #elif defined(STM32H7xx)
   #include "stm32h7xx.h"
 #elif defined(STM32L0xx)
@@ -90,10 +92,12 @@
 #if !defined(USB) && defined(USB_DRD_FS)
   #define USB USB_DRD_FS
   #define PinMap_USB PinMap_USB_DRD_FS
-  #if defined(STM32U5xx)
+  #if defined(STM32H5xx) || defined(STM32U5xx)
     #define USB_BASE USB_DRD_BASE
-    #define __HAL_RCC_USB_CLK_ENABLE __HAL_RCC_USB_FS_CLK_ENABLE
-    #define __HAL_RCC_USB_CLK_DISABLE __HAL_RCC_USB_FS_CLK_DISABLE
+    #if !defined(__HAL_RCC_USB_CLK_ENABLE)
+      #define __HAL_RCC_USB_CLK_ENABLE __HAL_RCC_USB_FS_CLK_ENABLE
+      #define __HAL_RCC_USB_CLK_DISABLE __HAL_RCC_USB_FS_CLK_DISABLE
+    #endif
   #endif
 #endif
 

@@ -25,14 +25,7 @@ Details about the content of this release are available in the release note [her
 
 ## Compatibility information
 
-In this table, you can find the successive versions of this CMSIS Device component, in-line with the corresponding versions of the full MCU package:
-
-CMSIS Device F2 | CMSIS Core | Was delivered in the full MCU package
---------------- | ---------- | -------------------------------------
-Tag v2.2.2 | Tag v5.4.0_cm3 | Tag v1.8.0 (and later, if any, till next tag)
-Tag v2.2.3 | Tag v5.4.0_cm3 | Tag v1.9.0 (and later, if any, till next tag)
-Tag v2.2.4 | Tag v5.4.0_cm3 | Tag v1.9.1 (and later, if any, till next tag)
-Tag v2.2.5 | Tag v5.4.0_cm3 | Tag v1.9.3 (and later, if any, till next tag)
+It is **crucial** that you use a consistent set of versions for the CMSIS Core - CMSIS Device, as mentioned in [this](https://htmlpreview.github.io/?https://github.com/STMicroelectronics/STM32CubeF2/blob/master/Release_Notes.html) release note.
 
 The full **STM32CubeF2** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeF2).
 

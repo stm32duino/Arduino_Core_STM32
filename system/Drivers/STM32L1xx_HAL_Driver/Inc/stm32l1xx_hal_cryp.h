@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -94,9 +93,9 @@ typedef struct
 
   uint8_t                     *pCrypOutBuffPtr; /*!< Pointer to CRYP processing (encryption, decryption,...) buffer */
 
-  __IO uint16_t               CrypInCount;      /*!< Counter of inputed data */
+  __IO uint16_t               CrypInCount;      /*!< Counter of inputted data */
 
-  __IO uint16_t               CrypOutCount;     /*!< Counter of outputed data */
+  __IO uint16_t               CrypOutCount;     /*!< Counter of outputted data */
 
   HAL_StatusTypeDef           Status;           /*!< CRYP peripheral status */
 
@@ -396,5 +395,3 @@ HAL_CRYP_STATETypeDef HAL_CRYP_GetState(CRYP_HandleTypeDef *hcryp);
 #endif
 
 #endif /* __STM32L1xx_HAL_CRYP_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

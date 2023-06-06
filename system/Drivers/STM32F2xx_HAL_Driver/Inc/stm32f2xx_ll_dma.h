@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -2720,7 +2719,7 @@ __STATIC_INLINE void LL_DMA_DisableIT_FE(DMA_TypeDef *DMAx, uint32_t Stream)
 }
 
 /**
-  * @brief Check if Half transfer interrup is enabled.
+  * @brief Check if Half transfer interrupt is enabled.
   * @rmtoll CR        HTIE         LL_DMA_IsEnabledIT_HT
   * @param  DMAx DMAx Instance
   * @param  Stream This parameter can be one of the following values:
@@ -2760,7 +2759,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsEnabledIT_TE(DMA_TypeDef *DMAx, uint32_t Strea
 }
 
 /**
-  * @brief Check if Transfer complete interrup is enabled.
+  * @brief Check if Transfer complete interrupt is enabled.
   * @rmtoll CR        TCIE         LL_DMA_IsEnabledIT_TC
   * @param  DMAx DMAx Instance
   * @param  Stream This parameter can be one of the following values:
@@ -2800,7 +2799,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsEnabledIT_DME(DMA_TypeDef *DMAx, uint32_t Stre
 }
 
 /**
-  * @brief Check if FIFO error interrup is enabled.
+  * @brief Check if FIFO error interrupt is enabled.
   * @rmtoll FCR        FEIE         LL_DMA_IsEnabledIT_FE
   * @param  DMAx DMAx Instance
   * @param  Stream This parameter can be one of the following values:
@@ -2857,4 +2856,3 @@ void LL_DMA_StructInit(LL_DMA_InitTypeDef *DMA_InitStruct);
 
 #endif /* __STM32F2xx_LL_DMA_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

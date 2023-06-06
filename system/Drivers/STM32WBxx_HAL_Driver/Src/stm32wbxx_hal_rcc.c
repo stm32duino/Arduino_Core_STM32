@@ -1577,7 +1577,7 @@ void HAL_RCC_GetOscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
   regvalue = RCC->CSR;
 
   /* Get the LSI configuration -----------------------------------------------*/
-  RCC_OscInitStruct->LSIState = ((regvalue & RCC_LSI_ON) > 0U)?RCC_LSI_ON:0U;
+  RCC_OscInitStruct->LSIState = ((regvalue & RCC_LSI_ON) > 0U) ? RCC_LSI_ON : 0U;
 
 #if defined(RCC_HSI48_SUPPORT)
   /* Get Control/Status register */

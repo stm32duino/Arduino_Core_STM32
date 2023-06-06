@@ -114,8 +114,8 @@
 #define LED_RED                 PC6
 
 //On-board user button
-#ifndef LED_BUILTIN
-  #define LED_BUILTIN           PA0
+#ifndef USER_BTN
+  #define USER_BTN              PA0
 #endif
 
 // SPI definitions

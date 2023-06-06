@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2020 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -114,6 +113,25 @@ void TransferComplete_CallBack_FS(void);
   */
 void HalfTransfer_CallBack_FS(void);
 
+
+
+#define IMG_NBR                   1U
+#define IMAGE_SIZE              0x1U
+
+const  uint8_t image[] = {0x00};
+const  uint8_t *tImagesList[] = {image};
+uint16_t tImagesSizes[] = {IMAGE_SIZE};
+
+/* Time laps between video frames in ms.
+   Please adjust this value depending on required speed.
+   Please note that this define uses the system HAL_Delay() which uses the systick.
+   In case of changes on HAL_Delay, please ensure the values in ms correspond. */
+#ifdef USE_USB_HS
+#define USBD_VIDEO_IMAGE_LAPS                     160U
+#else
+#define USBD_VIDEO_IMAGE_LAPS                     80U
+#endif /* USE_USB_HS */
+
 /* USER CODE BEGIN EXPORTED_FUNCTIONS */
 
 /* USER CODE END EXPORTED_FUNCTIONS */
@@ -135,8 +153,4 @@ void HalfTransfer_CallBack_FS(void);
 #endif
 
 #endif /* USBD_VIDEO_IF_H_ */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-
-
 

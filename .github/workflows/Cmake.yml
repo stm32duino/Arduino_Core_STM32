@@ -39,6 +39,7 @@ jobs:
           - NUCLEO_F767ZI
           - NUCLEO_G0B1RE
           - NUCLEO_G474RE
+          - NUCLEO_H563ZI
           - NUCLEO_H743ZI2
           - NUCLEO_L073RZ
           - NUCLEO_L152RE

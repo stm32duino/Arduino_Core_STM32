@@ -39,7 +39,7 @@
       (#)  Configure the priority of the selected IRQ Channels using HAL_NVIC_SetPriority()
 
       (#)  Enable the selected IRQ Channels using HAL_NVIC_EnableIRQ()
-      
+
       -@-  Negative value of IRQn_Type are not allowed.
 
     *** How to configure Systick using CORTEX HAL driver ***
@@ -386,7 +386,7 @@ void HAL_MPU_Disable(void)
 
   /* Disable fault exceptions */
   SCB->SHCSR &= ~SCB_SHCSR_MEMFAULTENA_Msk;
-  
+
   /* Disable the MPU and clear the control register*/
   MPU->CTRL = 0U;
 }
@@ -406,10 +406,10 @@ void HAL_MPU_Enable(uint32_t MPU_Control)
 {
   /* Enable the MPU */
   MPU->CTRL = (MPU_Control | MPU_CTRL_ENABLE_Msk);
-  
+
   /* Enable fault exceptions */
   SCB->SHCSR |= SCB_SHCSR_MEMFAULTENA_Msk;
-  
+
   /* Ensure MPU setting take effects */
   __DSB();
   __ISB();

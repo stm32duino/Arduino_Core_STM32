@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -175,8 +174,8 @@ typedef struct
 /** @defgroup OPAMP_LL_EC_POWERSUPPLY_RANGE OPAMP power supply range
   * @{
   */
-#define LL_OPAMP_POWERSUPPLY_RANGE_LOW  (0x00000000U)           /*!< Power supply range low. On STM32L1 serie: Vdda lower than 2.4V. */
-#define LL_OPAMP_POWERSUPPLY_RANGE_HIGH (OPAMP_CSR_AOP_RANGE)   /*!< Power supply range high. On STM32L1 serie: Vdda higher than 2.4V. */
+#define LL_OPAMP_POWERSUPPLY_RANGE_LOW  (0x00000000U)           /*!< Power supply range low. On STM32L1 series: Vdda lower than 2.4V. */
+#define LL_OPAMP_POWERSUPPLY_RANGE_HIGH (OPAMP_CSR_AOP_RANGE)   /*!< Power supply range high. On STM32L1 series: Vdda higher than 2.4V. */
 /**
   * @}
   */
@@ -194,7 +193,7 @@ typedef struct
   * @{
   */
 #define LL_OPAMP_MODE_FUNCTIONAL        (0x00000000U)                                                                                  /*!< OPAMP functional mode */
-#define LL_OPAMP_MODE_CALIBRATION       (OPAMP_CSR_S3SEL1 | OPAMP_CSR_S4SEL1 | OPAMP_CSR_S5SEL1 | OPAMP_CSR_S6SEL1 | OPAMP_CSR_S7SEL2) /*!< OPAMP calibration mode (on STM32L1 serie, it corresponds to all OPAMP input internal switches opened) */
+#define LL_OPAMP_MODE_CALIBRATION       (OPAMP_CSR_S3SEL1 | OPAMP_CSR_S4SEL1 | OPAMP_CSR_S5SEL1 | OPAMP_CSR_S6SEL1 | OPAMP_CSR_S7SEL2) /*!< OPAMP calibration mode (on STM32L1 series, it corresponds to all OPAMP input internal switches opened) */
 /**
   * @}
   */
@@ -202,8 +201,8 @@ typedef struct
 /** @defgroup OPAMP_LL_EC_FUNCTIONAL_MODE OPAMP functional mode
   * @{
   */
-#define LL_OPAMP_MODE_STANDALONE        (0x00000000U)           /*!< OPAMP functional mode, OPAMP operation in standalone (on STM32L1 serie, it corresponds to OPAMP internal switches S3 opened (switch SanB state depends on switch S4 state)) */
-#define LL_OPAMP_MODE_FOLLOWER          (OPAMP_CSR_S3SEL1)      /*!< OPAMP functional mode, OPAMP operation in follower (on STM32L1 serie, it corresponds to OPAMP internal switches S3 and SanB closed) */
+#define LL_OPAMP_MODE_STANDALONE        (0x00000000U)           /*!< OPAMP functional mode, OPAMP operation in standalone (on STM32L1 series, it corresponds to OPAMP internal switches S3 opened (switch SanB state depends on switch S4 state)) */
+#define LL_OPAMP_MODE_FOLLOWER          (OPAMP_CSR_S3SEL1)      /*!< OPAMP functional mode, OPAMP operation in follower (on STM32L1 series, it corresponds to OPAMP internal switches S3 and SanB closed) */
 /**
   * @}
   */
@@ -225,7 +224,7 @@ typedef struct
   * @{
   */
 #define LL_OPAMP_INPUT_INVERT_IO0        (OPAMP_CSR_S4SEL1)      /*!< OPAMP inverting input connected to GPIO pin (low leakage input). Note: OPAMP inverting input is used with OPAMP in mode standalone. Otherwise (OPAMP in mode follower), OPAMP inverting input is not used (not connected to GPIO pin). */
-#define LL_OPAMP_INPUT_INVERT_IO1        (OPAMP_CSR_ANAWSEL1)    /*!< OPAMP inverting input connected to GPIO pin (alternative IO pin, not low leakage, availability depends on STM32L1 serie devices packages). Note: OPAMP inverting input is used with OPAMP in mode standalone. Otherwise (OPAMP in mode follower), OPAMP inverting input is not used (not connected to GPIO pin). */
+#define LL_OPAMP_INPUT_INVERT_IO1        (OPAMP_CSR_ANAWSEL1)    /*!< OPAMP inverting input connected to GPIO pin (alternative IO pin, not low leakage, availability depends on STM32L1 series devices packages). Note: OPAMP inverting input is used with OPAMP in mode standalone. Otherwise (OPAMP in mode follower), OPAMP inverting input is not used (not connected to GPIO pin). */
 #define LL_OPAMP_INPUT_INVERT_CONNECT_NO (0x00000000U)           /*!< OPAMP inverting input not externally connected (intended for OPAMP in mode follower) */
 /**
   * @}
@@ -251,7 +250,7 @@ typedef struct
   */
 
 /** @defgroup OPAMP_LL_EC_HW_DELAYS  Definitions of OPAMP hardware constraints delays
-  * @note   Only OPAMP IP HW delays are defined in OPAMP LL driver driver,
+  * @note   Only OPAMP peripheral HW delays are defined in OPAMP LL driver driver,
   *         not timeout values.
   *         For details on delays values, refer to descriptions in source code
   *         above each literal definition.
@@ -369,7 +368,7 @@ typedef struct
   * @brief  Set OPAMP power range.
   * @note   The OPAMP power range applies to several OPAMP instances
   *         (if several OPAMP instances available on the selected device).
-  * @note   On this STM32 serie, setting of this feature is conditioned to
+  * @note   On this STM32 series, setting of this feature is conditioned to
   *         OPAMP state:
   *         All OPAMP instances of the OPAMP common group must be disabled.
   *         This check can be done with function @ref LL_OPAMP_IsEnabled() for each
@@ -466,8 +465,8 @@ __STATIC_INLINE uint32_t LL_OPAMP_GetPowerMode(OPAMP_TypeDef *OPAMPx)
   *            @ref LL_OPAMP_SetFunctionalMode().
   *          - calibration mode: offset calibration of the selected
   *            transistors differential pair NMOS or PMOS.
-  * @note   On this STM32 serie, entering in calibration mode makes
-  *         loosing OPAMP internal switches configuration.
+  * @note   On this STM32 series, entering in calibration mode makes
+  *         losing OPAMP internal switches configuration.
   *         Therefore, when going back to functional mode,
   *         functional mode must be set again using
   *         @ref LL_OPAMP_SetFunctionalMode().
@@ -619,7 +618,7 @@ __STATIC_INLINE uint32_t LL_OPAMP_GetInputNonInverting(OPAMP_TypeDef *OPAMPx)
   *         @arg @ref LL_OPAMP_INPUT_INVERT_IO1        (1)
   *         @arg @ref LL_OPAMP_INPUT_INVERT_CONNECT_NO
   *
-  *         (1) Alternative IO pin, not low leakage, availability depends on STM32L1 serie devices packages.
+  *         (1) Alternative IO pin, not low leakage, availability depends on STM32L1 series devices packages.
   * @retval None
   */
 __STATIC_INLINE void LL_OPAMP_SetInputInverting(OPAMP_TypeDef *OPAMPx, uint32_t InputInverting)
@@ -640,7 +639,7 @@ __STATIC_INLINE void LL_OPAMP_SetInputInverting(OPAMP_TypeDef *OPAMPx, uint32_t 
   *         @arg @ref LL_OPAMP_INPUT_INVERT_IO1        (1)
   *         @arg @ref LL_OPAMP_INPUT_INVERT_CONNECT_NO
   *
-  *         (1) Alternative IO pin, not low leakage, availability depends on STM32L1 serie devices packages.
+  *         (1) Alternative IO pin, not low leakage, availability depends on STM32L1 series devices packages.
   */
 __STATIC_INLINE uint32_t LL_OPAMP_GetInputInverting(OPAMP_TypeDef *OPAMPx)
 {
@@ -680,7 +679,7 @@ __STATIC_INLINE uint32_t LL_OPAMP_GetInputInverting(OPAMP_TypeDef *OPAMPx)
   */
 __STATIC_INLINE void LL_OPAMP_SetCommonTrimmingMode(OPAMP_Common_TypeDef *OPAMPxy_COMMON, uint32_t TrimmingMode)
 {
-  /* Note: On STM32L1 serie, OPAMP trimming mode bit "OPAMP_OTR_OT_USER" is   */
+  /* Note: On STM32L1 series, OPAMP trimming mode bit "OPAMP_OTR_OT_USER" is   */
   /*       write only, cannot be read.                                        */
   MODIFY_REG(OPAMPxy_COMMON->OTR,
              OPAMP_OTR_OT_USER,
@@ -771,7 +770,7 @@ __STATIC_INLINE uint32_t LL_OPAMP_IsCalibrationOutputSet(OPAMP_TypeDef *OPAMPx)
   * @brief  Set OPAMP trimming factor for the selected transistors
   *         differential pair NMOS or PMOS, corresponding to the selected
   *         power mode.
-  * @note   On STM32L1 serie, OPAMP trimming mode must be re-configured
+  * @note   On STM32L1 series, OPAMP trimming mode must be re-configured
   *         at each update of trimming values in power mode normal.
   *         Refer to function @ref LL_OPAMP_SetCommonTrimmingMode().
   * @rmtoll OTR      AOx_OPT_OFFSET_TRIM_HIGH    LL_OPAMP_SetTrimmingValue\n
@@ -790,7 +789,7 @@ __STATIC_INLINE uint32_t LL_OPAMP_IsCalibrationOutputSet(OPAMP_TypeDef *OPAMPx)
   */
 __STATIC_INLINE void LL_OPAMP_SetTrimmingValue(OPAMP_TypeDef* OPAMPx, uint32_t PowerMode, uint32_t TransistorsDiffPair, uint32_t TrimmingValue)
 {
-  uint32_t *preg = __OPAMP_PTR_REG_OFFSET(OPAMP->OTR, (PowerMode & OPAMP_POWERMODE_OTR_REGOFFSET_MASK));
+  __IO uint32_t *preg = __OPAMP_PTR_REG_OFFSET(OPAMP->OTR, (PowerMode & OPAMP_POWERMODE_OTR_REGOFFSET_MASK));
 
   /* Set bits with position in register depending on parameter                */
   /* "TransistorsDiffPair".                                                   */
@@ -820,7 +819,7 @@ __STATIC_INLINE void LL_OPAMP_SetTrimmingValue(OPAMP_TypeDef* OPAMPx, uint32_t P
   */
 __STATIC_INLINE uint32_t LL_OPAMP_GetTrimmingValue(OPAMP_TypeDef* OPAMPx, uint32_t PowerMode, uint32_t TransistorsDiffPair)
 {
-  uint32_t *preg = __OPAMP_PTR_REG_OFFSET(OPAMP->OTR, (PowerMode & OPAMP_POWERMODE_OTR_REGOFFSET_MASK));
+  const __IO uint32_t *preg = __OPAMP_PTR_REG_OFFSET(OPAMP->OTR, (PowerMode & OPAMP_POWERMODE_OTR_REGOFFSET_MASK));
 
   /* Retrieve bits with position in register depending on parameter           */
   /* "TransistorsDiffPair".                                                   */
@@ -841,7 +840,7 @@ __STATIC_INLINE uint32_t LL_OPAMP_GetTrimmingValue(OPAMP_TypeDef* OPAMPx, uint32
 /**
   * @brief  Enable OPAMP instance.
   * @note   After enable from off state, OPAMP requires a delay
-  *         to fullfill wake up time specification.
+  *         to fulfill wake up time specification.
   *         Refer to device datasheet, parameter "tWAKEUP".
   * @rmtoll CSR      OPAxPD         LL_OPAMP_Enable
   * @param  OPAMPx OPAMP instance
@@ -914,4 +913,3 @@ void        LL_OPAMP_StructInit(LL_OPAMP_InitTypeDef *OPAMP_InitStruct);
 
 #endif /* __STM32L1xx_LL_OPAMP_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
