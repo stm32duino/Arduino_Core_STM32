@@ -110,14 +110,6 @@
   #define PIN_SPI_SCK           PA5
 #endif
 
-// QSPI definitions
-#define QSPI_CLK                PA3
-#define QSPI_CS                 PD3
-#define QSPI_IO0                PD4
-#define QSPI_IO1                PD5
-#define QSPI_IO2                PD6
-#define QSPI_IO3                PD7
-
 // I2C definitions
 #ifndef PIN_WIRE_SDA
   #define PIN_WIRE_SDA          PB7
@@ -159,6 +151,12 @@
 // Extra HAL modules
 #if !defined(HAL_QSPI_MODULE_DISABLED)
   #define HAL_QSPI_MODULE_ENABLED
+  #define QSPI_CLK                PA3
+  #define QSPI_CS                 PD3
+  #define QSPI_IO0                PD4
+  #define QSPI_IO1                PD5
+  #define QSPI_IO2                PD6
+  #define QSPI_IO3                PD7
 #endif
 
 #if !defined(HAL_TIM_MODULE_DISABLED)
