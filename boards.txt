@@ -3755,18 +3755,6 @@ GenF4.menu.pnum.FEATHER_F405.build.variant_h=variant_{build.board}.h
 GenF4.menu.pnum.FEATHER_F405.build.variant=STM32F4xx/F405RGT_F415RGT
 GenF4.menu.pnum.FEATHER_F405.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
-# SparkFun MicroMod STM32F405 board
-GenF4.menu.pnum.MICROMOD_F405=SparkFun MicroMod STM32F405
-GenF4.menu.pnum.MICROMOD_F405.upload.maximum_size=1048576
-GenF4.menu.pnum.MICROMOD_F405.upload.maximum_data_size=131072
-GenF4.menu.pnum.MICROMOD_F405.build.board=MICROMOD_F405
-GenF4.menu.pnum.MICROMOD_F405.build.product_line=STM32F405xx
-GenF4.menu.pnum.MICROMOD_F405.build.variant_h=variant_{build.board}.h
-GenF4.menu.pnum.MICROMOD_F405.build.variant=STM32F4xx/F405RGT_F415RGT
-GenF4.menu.pnum.MICROMOD_F405.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-GenF4.menu.pnum.MICROMOD_F405.build.vid=0x1B4F
-GenF4.menu.pnum.MICROMOD_F405.build.pid=0x0029
-
 # ThunderPack F411xxE
 # https://github.com/jgillick/ThunderPack/tree/STM32F4
 GenF4.menu.pnum.THUNDERPACK_F411=ThunderPack v1.1+
@@ -10867,25 +10855,41 @@ SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.product_line=STM32WB5Mxx
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.variant=STM32WBxx/WB5MMGH
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.cmsis_lib_gcc=arm_cortexM4lf_math
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.vid=0x1B4F
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.pid=0x0034
+
+# SparkFun MicroMod STM32F405 Board
+SparkFun.menu.pnum.MICROMOD_F405=SparkFun MicroMod STM32F405
+SparkFun.menu.pnum.MICROMOD_F405.upload.maximum_size=1048576
+SparkFun.menu.pnum.MICROMOD_F405.upload.maximum_data_size=131072
+SparkFun.menu.pnum.MICROMOD_F405.build.mcu=cortex-m4
+SparkFun.menu.pnum.MICROMOD_F405.build.fpu=-mfpu=fpv4-sp-d16
+SparkFun.menu.pnum.MICROMOD_F405.build.float-abi=-mfloat-abi=hard
+SparkFun.menu.pnum.MICROMOD_F405.build.board=MICROMOD_F405
+SparkFun.menu.pnum.MICROMOD_F405.build.series=STM32F4xx
+SparkFun.menu.pnum.MICROMOD_F405.build.product_line=STM32F405xx
+SparkFun.menu.pnum.MICROMOD_F405.build.variant_h=variant_{build.board}.h
+SparkFun.menu.pnum.MICROMOD_F405.build.variant=STM32F4xx/F405RGT_F415RGT
+SparkFun.menu.pnum.MICROMOD_F405.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+SparkFun.menu.pnum.MICROMOD_F405.build.cmsis_lib_gcc=arm_cortexM4lf_math
+SparkFun.menu.pnum.MICROMOD_F405.build.flash_offset=0x0
+SparkFun.menu.pnum.MICROMOD_F405.build.vid=0x1B4F
+SparkFun.menu.pnum.MICROMOD_F405.build.pid=0x0029
 
 # Upload menu
-SparkFun.menu.upload_method.MassStorage=Mass Storage
-SparkFun.menu.upload_method.MassStorage.upload.protocol=
-SparkFun.menu.upload_method.MassStorage.upload.tool=massStorageCopy
-
 SparkFun.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 SparkFun.menu.upload_method.swdMethod.upload.protocol=0
-SparkFun.menu.upload_method.swdMethod.upload.options=-g
+SparkFun.menu.upload_method.swdMethod.upload.options=
 SparkFun.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 SparkFun.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 SparkFun.menu.upload_method.serialMethod.upload.protocol=1
-SparkFun.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+SparkFun.menu.upload_method.serialMethod.upload.options={serial.port.file}
 SparkFun.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 SparkFun.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 SparkFun.menu.upload_method.dfuMethod.upload.protocol=2
-SparkFun.menu.upload_method.dfuMethod.upload.options=-g
+SparkFun.menu.upload_method.dfuMethod.upload.options=
 SparkFun.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 
