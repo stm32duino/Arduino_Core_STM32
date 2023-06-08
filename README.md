@@ -82,8 +82,6 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 - [LoRa boards](#lora-boards)
 - [Midatronics boards](#midatronics-boards)
 - [SparkFun boards](#sparkfun-boards)
-- [Next release](#next-release)
-- [Troubleshooting](#troubleshooting)
 
 ### [Nucleo 144](https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-eval-tools/stm32-mcu-eval-tools/stm32-nucleo-boards.html) boards
 
