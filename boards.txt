@@ -10872,7 +10872,6 @@ SparkFun.menu.pnum.MICROMOD_F405.build.variant_h=variant_{build.board}.h
 SparkFun.menu.pnum.MICROMOD_F405.build.variant=STM32F4xx/F405RGT_F415RGT
 SparkFun.menu.pnum.MICROMOD_F405.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 SparkFun.menu.pnum.MICROMOD_F405.build.cmsis_lib_gcc=arm_cortexM4lf_math
-SparkFun.menu.pnum.MICROMOD_F405.build.flash_offset=0x0
 SparkFun.menu.pnum.MICROMOD_F405.build.vid=0x1B4F
 SparkFun.menu.pnum.MICROMOD_F405.build.pid=0x0029
 
