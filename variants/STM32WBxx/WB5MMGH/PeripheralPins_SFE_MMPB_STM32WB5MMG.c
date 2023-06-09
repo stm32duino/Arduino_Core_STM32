@@ -288,4 +288,4 @@ WEAK const PinMap PinMap_USB[] = {
 
 //*** No SD ***
 
-#endif /* !CUSTOM_PERIPHERAL_PINS */
+#endif /* ARDUINO_SFE_MMPB_STM32WB5MMG */
