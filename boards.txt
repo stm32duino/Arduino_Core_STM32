@@ -10838,6 +10838,7 @@ SparkFun.build.core=arduino
 SparkFun.build.board=SparkFun
 SparkFun.build.variant_h=variant_{build.board}.h
 SparkFun.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+SparkFun.build.flash_offset=0x0
 SparkFun.upload.maximum_size=0
 SparkFun.upload.maximum_data_size=0
 
