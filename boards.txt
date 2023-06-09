@@ -10843,7 +10843,6 @@ SparkFun.upload.maximum_data_size=0
 
 # SFE_MMPB_STM32WB5MMG board
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG=SparkFun MicroMod STM32WB5MMG
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.node=NODE_WB5MMG
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.upload.maximum_size=827392
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.upload.maximum_data_size=196608
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.mcu=cortex-m4
