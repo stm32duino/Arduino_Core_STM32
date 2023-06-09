@@ -104634,7 +104634,7 @@ target_include_directories(SFE_MMPB_STM32WB5MMG INTERFACE
 
 target_link_options(SFE_MMPB_STM32WB5MMG INTERFACE
   "LINKER:--default-script=${SFE_MMPB_STM32WB5MMG_VARIANT_PATH}/ldscript.ld"
-  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
 	"LINKER:--defsym=LD_MAX_SIZE=827392"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
