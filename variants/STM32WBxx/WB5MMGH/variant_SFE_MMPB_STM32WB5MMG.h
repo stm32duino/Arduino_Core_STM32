@@ -129,7 +129,7 @@
 
 // UART Definitions
 #ifndef SERIAL_UART_INSTANCE
-  #define SERIAL_UART_INSTANCE  101
+  #define SERIAL_UART_INSTANCE  1
 #endif
 
 // Default pin used for generic 'Serial' instance
