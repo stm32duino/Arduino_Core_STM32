@@ -72,16 +72,16 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [Generic STM32L5 boards](#generic-stm32l5-boards)
  - [Generic STM32U5 boards](#generic-stm32u5-boards)
  - [Generic STM32WB boards](#generic-stm32wb-boards)
- - [Generic STM32WL boards](#generic-stm32wb-boards)
+ - [Generic STM32WL boards](#generic-stm32wl-boards)
  - [3D printer boards](#3d-printer-boards)
  - [Blues Wireless boards](#blues-wireless-boards)
  - [Elecgator boards](#elecgator-boards)
  - [Electronic Speed Controller boards](#electronic-speed-controller-boards)
- - [Garatronics boards](#Garatronic/McHobby-boards)
+ - [Garatronic/McHobby boards](#garatronicmchobby-boards)
  - [Generic flight controllers](#generic-flight-controllers)
  - [LoRa boards](#lora-boards)
  - [Midatronics boards](#midatronics-boards)
-
+ - [SparkFun boards](#sparkfun-boards)
 
 ### [Nucleo 144](https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-eval-tools/stm32-mcu-eval-tools/stm32-nucleo-boards.html) boards
 
@@ -325,7 +325,6 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32F405RG | [Adafruit Feather STM32F405 Express](https://www.adafruit.com/product/4382) | *1.8.0* |  |
-| :yellow_heart:  | STM32F405RG | [SparkFun MicroMod STM32](https://www.sparkfun.com/products/21326) | **2.6.0** |  |
 | :green_heart:  | STM32F401CC | [WeAct Black Pill](https://stm32-base.org/boards/STM32F401CCU6-WeAct-Black-Pill-V1.2) | *1.7.0* | [More info](https://github.com/WeActStudio/WeActStudio.MiniSTM32F4x1) |
 | :green_heart:  | STM32F401CE | [WeAct Black Pill](https://stm32-base.org/boards/STM32F401CEU6-WeAct-Black-Pill-V3.0) | *2.4.0* | [More info](https://github.com/WeActStudio/WeActStudio.MiniSTM32F4x1) |
 | :green_heart:  | STM32F411CE | [WeAct Black Pill](https://stm32-base.org/boards/STM32F411CEU6-WeAct-Black-Pill-V2.0) | *1.9.0* | [More info](https://github.com/WeActStudio/WeActStudio.MiniSTM32F4x1) |
@@ -774,6 +773,13 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32WB55CE | [SharkyMKR](https://midatronics.com/shop/development-boards/mkr-sharky-i/) | *1.7.0* |  |
+
+### [SparkFun](https://www.sparkfun.com/) boards
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart: | STM32F405RG | [SparkFun MicroMod Processor Board - STM32F405](https://www.sparkfun.com/products/21326) | **2.6.0** |  |
+| :yellow_heart: | STM32WB5MMG | SparkFun MicroMod Processor Board - STM32WB5MMG | **2.6.0** |  |
 
 ## Next release
 

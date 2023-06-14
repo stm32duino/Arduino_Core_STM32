@@ -22,6 +22,7 @@
     "robotdyn_blackpill_f303cc": "BLACKPILL_F303CC",
     "rumba32_f446ve": "RUMBA32",
     "sparkfun_micromod_stm32f405": "MICROMOD_F405",
+    "sparkfun_micromod_stm32wb5mmg": "SFE_MMPB_STM32WB5MMG",
     "sparky_v1": "SPARKY_F303CC",
     "steval_mksboxv1": "STEVAL_MKSBOX1V1",
     "stm32f4stamp": "GENERIC_F405RGTX",
