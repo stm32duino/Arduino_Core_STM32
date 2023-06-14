@@ -88542,6 +88542,79 @@ target_compile_options(GENERIC_L151RETX_usb_none INTERFACE
   "SHELL:"
 )
 
+# GENERIC_L151ZDTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_L151ZDTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L1xx/L151ZDT_L152ZDT_L162ZDT")
+set(GENERIC_L151ZDTX_MAXSIZE 393216)
+set(GENERIC_L151ZDTX_MAXDATASIZE 49152)
+set(GENERIC_L151ZDTX_MCU cortex-m3)
+set(GENERIC_L151ZDTX_FPCONF "-")
+add_library(GENERIC_L151ZDTX INTERFACE)
+target_compile_options(GENERIC_L151ZDTX INTERFACE
+  "SHELL:-DSTM32L151xD  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_L151ZDTX_MCU}
+)
+target_compile_definitions(GENERIC_L151ZDTX INTERFACE
+  "STM32L1xx"
+	"ARDUINO_GENERIC_L151ZDTX"
+	"BOARD_NAME=\"GENERIC_L151ZDTX\""
+	"BOARD_ID=GENERIC_L151ZDTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_L151ZDTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L1xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L1xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L1xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L1xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L1xx/Source/Templates/gcc/
+  ${GENERIC_L151ZDTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_L151ZDTX INTERFACE
+  "LINKER:--default-script=${GENERIC_L151ZDTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=393216"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
+  "SHELL: "
+  -mcpu=${GENERIC_L151ZDTX_MCU}
+)
+target_link_libraries(GENERIC_L151ZDTX INTERFACE
+  arm_cortexM3l_math
+)
+
+add_library(GENERIC_L151ZDTX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_L151ZDTX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L151ZDTX_serial_generic INTERFACE)
+target_compile_options(GENERIC_L151ZDTX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_L151ZDTX_serial_none INTERFACE)
+target_compile_options(GENERIC_L151ZDTX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_L151ZDTX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_L151ZDTX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_L151ZDTX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_L151ZDTX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_L151ZDTX_usb_HID INTERFACE)
+target_compile_options(GENERIC_L151ZDTX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_L151ZDTX_usb_none INTERFACE)
+target_compile_options(GENERIC_L151ZDTX_usb_none INTERFACE
+  "SHELL:"
+)
+
 # GENERIC_L152C6TX
 # -----------------------------------------------------------------------------
 
@@ -89491,6 +89564,79 @@ target_compile_options(GENERIC_L152RETX_usb_none INTERFACE
   "SHELL:"
 )
 
+# GENERIC_L152ZDTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_L152ZDTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L1xx/L151ZDT_L152ZDT_L162ZDT")
+set(GENERIC_L152ZDTX_MAXSIZE 393216)
+set(GENERIC_L152ZDTX_MAXDATASIZE 49152)
+set(GENERIC_L152ZDTX_MCU cortex-m3)
+set(GENERIC_L152ZDTX_FPCONF "-")
+add_library(GENERIC_L152ZDTX INTERFACE)
+target_compile_options(GENERIC_L152ZDTX INTERFACE
+  "SHELL:-DSTM32L152xD  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_L152ZDTX_MCU}
+)
+target_compile_definitions(GENERIC_L152ZDTX INTERFACE
+  "STM32L1xx"
+	"ARDUINO_GENERIC_L152ZDTX"
+	"BOARD_NAME=\"GENERIC_L152ZDTX\""
+	"BOARD_ID=GENERIC_L152ZDTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_L152ZDTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L1xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L1xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L1xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L1xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L1xx/Source/Templates/gcc/
+  ${GENERIC_L152ZDTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_L152ZDTX INTERFACE
+  "LINKER:--default-script=${GENERIC_L152ZDTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=393216"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
+  "SHELL: "
+  -mcpu=${GENERIC_L152ZDTX_MCU}
+)
+target_link_libraries(GENERIC_L152ZDTX INTERFACE
+  arm_cortexM3l_math
+)
+
+add_library(GENERIC_L152ZDTX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_L152ZDTX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L152ZDTX_serial_generic INTERFACE)
+target_compile_options(GENERIC_L152ZDTX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_L152ZDTX_serial_none INTERFACE)
+target_compile_options(GENERIC_L152ZDTX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_L152ZDTX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_L152ZDTX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_L152ZDTX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_L152ZDTX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_L152ZDTX_usb_HID INTERFACE)
+target_compile_options(GENERIC_L152ZDTX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_L152ZDTX_usb_none INTERFACE)
+target_compile_options(GENERIC_L152ZDTX_usb_none INTERFACE
+  "SHELL:"
+)
+
 # GENERIC_L162RETX
 # -----------------------------------------------------------------------------
 
@@ -89561,6 +89707,79 @@ target_compile_options(GENERIC_L162RETX_usb_HID INTERFACE
 )
 add_library(GENERIC_L162RETX_usb_none INTERFACE)
 target_compile_options(GENERIC_L162RETX_usb_none INTERFACE
+  "SHELL:"
+)
+
+# GENERIC_L162ZDTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_L162ZDTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L1xx/L151ZDT_L152ZDT_L162ZDT")
+set(GENERIC_L162ZDTX_MAXSIZE 393216)
+set(GENERIC_L162ZDTX_MAXDATASIZE 49152)
+set(GENERIC_L162ZDTX_MCU cortex-m3)
+set(GENERIC_L162ZDTX_FPCONF "-")
+add_library(GENERIC_L162ZDTX INTERFACE)
+target_compile_options(GENERIC_L162ZDTX INTERFACE
+  "SHELL:-DSTM32L162xD  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_L162ZDTX_MCU}
+)
+target_compile_definitions(GENERIC_L162ZDTX INTERFACE
+  "STM32L1xx"
+	"ARDUINO_GENERIC_L162ZDTX"
+	"BOARD_NAME=\"GENERIC_L162ZDTX\""
+	"BOARD_ID=GENERIC_L162ZDTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_L162ZDTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L1xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L1xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L1xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L1xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L1xx/Source/Templates/gcc/
+  ${GENERIC_L162ZDTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_L162ZDTX INTERFACE
+  "LINKER:--default-script=${GENERIC_L162ZDTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=393216"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
+  "SHELL: "
+  -mcpu=${GENERIC_L162ZDTX_MCU}
+)
+target_link_libraries(GENERIC_L162ZDTX INTERFACE
+  arm_cortexM3l_math
+)
+
+add_library(GENERIC_L162ZDTX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_L162ZDTX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L162ZDTX_serial_generic INTERFACE)
+target_compile_options(GENERIC_L162ZDTX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_L162ZDTX_serial_none INTERFACE)
+target_compile_options(GENERIC_L162ZDTX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_L162ZDTX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_L162ZDTX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_L162ZDTX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_L162ZDTX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_L162ZDTX_usb_HID INTERFACE)
+target_compile_options(GENERIC_L162ZDTX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_L162ZDTX_usb_none INTERFACE)
+target_compile_options(GENERIC_L162ZDTX_usb_none INTERFACE
   "SHELL:"
 )
 
@@ -91094,6 +91313,431 @@ target_compile_options(GENERIC_L433CCUX_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
+# GENERIC_L433RBIX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_L433RBIX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L433R(B-C)(I-T-Y)_L443RC(I-T-Y)")
+set(GENERIC_L433RBIX_MAXSIZE 131072)
+set(GENERIC_L433RBIX_MAXDATASIZE 65536)
+set(GENERIC_L433RBIX_MCU cortex-m4)
+set(GENERIC_L433RBIX_FPCONF "-")
+add_library(GENERIC_L433RBIX INTERFACE)
+target_compile_options(GENERIC_L433RBIX INTERFACE
+  "SHELL:-DSTM32L433xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L433RBIX_MCU}
+)
+target_compile_definitions(GENERIC_L433RBIX INTERFACE
+  "STM32L4xx"
+	"ARDUINO_GENERIC_L433RBIX"
+	"BOARD_NAME=\"GENERIC_L433RBIX\""
+	"BOARD_ID=GENERIC_L433RBIX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_L433RBIX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc/
+  ${GENERIC_L433RBIX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_L433RBIX INTERFACE
+  "LINKER:--default-script=${GENERIC_L433RBIX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L433RBIX_MCU}
+)
+target_link_libraries(GENERIC_L433RBIX INTERFACE
+  arm_cortexM4lf_math
+)
+
+add_library(GENERIC_L433RBIX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_L433RBIX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L433RBIX_serial_generic INTERFACE)
+target_compile_options(GENERIC_L433RBIX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_L433RBIX_serial_none INTERFACE)
+target_compile_options(GENERIC_L433RBIX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_L433RBIX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_L433RBIX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_L433RBIX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_L433RBIX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_L433RBIX_usb_HID INTERFACE)
+target_compile_options(GENERIC_L433RBIX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_L433RBIX_usb_none INTERFACE)
+target_compile_options(GENERIC_L433RBIX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L433RBIX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_L433RBIX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L433RBIX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_L433RBIX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_L433RBIX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_L433RBIX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_L433RBTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_L433RBTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L433R(B-C)(I-T-Y)_L443RC(I-T-Y)")
+set(GENERIC_L433RBTX_MAXSIZE 131072)
+set(GENERIC_L433RBTX_MAXDATASIZE 65536)
+set(GENERIC_L433RBTX_MCU cortex-m4)
+set(GENERIC_L433RBTX_FPCONF "-")
+add_library(GENERIC_L433RBTX INTERFACE)
+target_compile_options(GENERIC_L433RBTX INTERFACE
+  "SHELL:-DSTM32L433xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L433RBTX_MCU}
+)
+target_compile_definitions(GENERIC_L433RBTX INTERFACE
+  "STM32L4xx"
+	"ARDUINO_GENERIC_L433RBTX"
+	"BOARD_NAME=\"GENERIC_L433RBTX\""
+	"BOARD_ID=GENERIC_L433RBTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_L433RBTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc/
+  ${GENERIC_L433RBTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_L433RBTX INTERFACE
+  "LINKER:--default-script=${GENERIC_L433RBTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L433RBTX_MCU}
+)
+target_link_libraries(GENERIC_L433RBTX INTERFACE
+  arm_cortexM4lf_math
+)
+
+add_library(GENERIC_L433RBTX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_L433RBTX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L433RBTX_serial_generic INTERFACE)
+target_compile_options(GENERIC_L433RBTX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_L433RBTX_serial_none INTERFACE)
+target_compile_options(GENERIC_L433RBTX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_L433RBTX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_L433RBTX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_L433RBTX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_L433RBTX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_L433RBTX_usb_HID INTERFACE)
+target_compile_options(GENERIC_L433RBTX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_L433RBTX_usb_none INTERFACE)
+target_compile_options(GENERIC_L433RBTX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L433RBTX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_L433RBTX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L433RBTX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_L433RBTX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_L433RBTX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_L433RBTX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_L433RBYX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_L433RBYX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L433R(B-C)(I-T-Y)_L443RC(I-T-Y)")
+set(GENERIC_L433RBYX_MAXSIZE 131072)
+set(GENERIC_L433RBYX_MAXDATASIZE 65536)
+set(GENERIC_L433RBYX_MCU cortex-m4)
+set(GENERIC_L433RBYX_FPCONF "-")
+add_library(GENERIC_L433RBYX INTERFACE)
+target_compile_options(GENERIC_L433RBYX INTERFACE
+  "SHELL:-DSTM32L433xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L433RBYX_MCU}
+)
+target_compile_definitions(GENERIC_L433RBYX INTERFACE
+  "STM32L4xx"
+	"ARDUINO_GENERIC_L433RBYX"
+	"BOARD_NAME=\"GENERIC_L433RBYX\""
+	"BOARD_ID=GENERIC_L433RBYX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_L433RBYX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc/
+  ${GENERIC_L433RBYX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_L433RBYX INTERFACE
+  "LINKER:--default-script=${GENERIC_L433RBYX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L433RBYX_MCU}
+)
+target_link_libraries(GENERIC_L433RBYX INTERFACE
+  arm_cortexM4lf_math
+)
+
+add_library(GENERIC_L433RBYX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_L433RBYX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L433RBYX_serial_generic INTERFACE)
+target_compile_options(GENERIC_L433RBYX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_L433RBYX_serial_none INTERFACE)
+target_compile_options(GENERIC_L433RBYX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_L433RBYX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_L433RBYX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_L433RBYX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_L433RBYX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_L433RBYX_usb_HID INTERFACE)
+target_compile_options(GENERIC_L433RBYX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_L433RBYX_usb_none INTERFACE)
+target_compile_options(GENERIC_L433RBYX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L433RBYX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_L433RBYX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L433RBYX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_L433RBYX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_L433RBYX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_L433RBYX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_L433RCIX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_L433RCIX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L433R(B-C)(I-T-Y)_L443RC(I-T-Y)")
+set(GENERIC_L433RCIX_MAXSIZE 262144)
+set(GENERIC_L433RCIX_MAXDATASIZE 65536)
+set(GENERIC_L433RCIX_MCU cortex-m4)
+set(GENERIC_L433RCIX_FPCONF "-")
+add_library(GENERIC_L433RCIX INTERFACE)
+target_compile_options(GENERIC_L433RCIX INTERFACE
+  "SHELL:-DSTM32L433xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L433RCIX_MCU}
+)
+target_compile_definitions(GENERIC_L433RCIX INTERFACE
+  "STM32L4xx"
+	"ARDUINO_GENERIC_L433RCIX"
+	"BOARD_NAME=\"GENERIC_L433RCIX\""
+	"BOARD_ID=GENERIC_L433RCIX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_L433RCIX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc/
+  ${GENERIC_L433RCIX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_L433RCIX INTERFACE
+  "LINKER:--default-script=${GENERIC_L433RCIX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L433RCIX_MCU}
+)
+target_link_libraries(GENERIC_L433RCIX INTERFACE
+  arm_cortexM4lf_math
+)
+
+add_library(GENERIC_L433RCIX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_L433RCIX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L433RCIX_serial_generic INTERFACE)
+target_compile_options(GENERIC_L433RCIX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_L433RCIX_serial_none INTERFACE)
+target_compile_options(GENERIC_L433RCIX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_L433RCIX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_L433RCIX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_L433RCIX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_L433RCIX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_L433RCIX_usb_HID INTERFACE)
+target_compile_options(GENERIC_L433RCIX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_L433RCIX_usb_none INTERFACE)
+target_compile_options(GENERIC_L433RCIX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L433RCIX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_L433RCIX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L433RCIX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_L433RCIX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_L433RCIX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_L433RCIX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_L433RCTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_L433RCTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L433R(B-C)(I-T-Y)_L443RC(I-T-Y)")
+set(GENERIC_L433RCTX_MAXSIZE 262144)
+set(GENERIC_L433RCTX_MAXDATASIZE 65536)
+set(GENERIC_L433RCTX_MCU cortex-m4)
+set(GENERIC_L433RCTX_FPCONF "-")
+add_library(GENERIC_L433RCTX INTERFACE)
+target_compile_options(GENERIC_L433RCTX INTERFACE
+  "SHELL:-DSTM32L433xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L433RCTX_MCU}
+)
+target_compile_definitions(GENERIC_L433RCTX INTERFACE
+  "STM32L4xx"
+	"ARDUINO_GENERIC_L433RCTX"
+	"BOARD_NAME=\"GENERIC_L433RCTX\""
+	"BOARD_ID=GENERIC_L433RCTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_L433RCTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc/
+  ${GENERIC_L433RCTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_L433RCTX INTERFACE
+  "LINKER:--default-script=${GENERIC_L433RCTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L433RCTX_MCU}
+)
+target_link_libraries(GENERIC_L433RCTX INTERFACE
+  arm_cortexM4lf_math
+)
+
+add_library(GENERIC_L433RCTX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_L433RCTX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L433RCTX_serial_generic INTERFACE)
+target_compile_options(GENERIC_L433RCTX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_L433RCTX_serial_none INTERFACE)
+target_compile_options(GENERIC_L433RCTX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_L433RCTX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_L433RCTX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_L433RCTX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_L433RCTX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_L433RCTX_usb_HID INTERFACE)
+target_compile_options(GENERIC_L433RCTX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_L433RCTX_usb_none INTERFACE)
+target_compile_options(GENERIC_L433RCTX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L433RCTX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_L433RCTX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L433RCTX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_L433RCTX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_L433RCTX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_L433RCTX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
 # GENERIC_L433RCTXP
 # -----------------------------------------------------------------------------
 
@@ -91176,6 +91820,91 @@ target_compile_options(GENERIC_L433RCTXP_xusb_HS INTERFACE
 )
 add_library(GENERIC_L433RCTXP_xusb_HSFS INTERFACE)
 target_compile_options(GENERIC_L433RCTXP_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_L433RCYX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_L433RCYX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L433R(B-C)(I-T-Y)_L443RC(I-T-Y)")
+set(GENERIC_L433RCYX_MAXSIZE 262144)
+set(GENERIC_L433RCYX_MAXDATASIZE 65536)
+set(GENERIC_L433RCYX_MCU cortex-m4)
+set(GENERIC_L433RCYX_FPCONF "-")
+add_library(GENERIC_L433RCYX INTERFACE)
+target_compile_options(GENERIC_L433RCYX INTERFACE
+  "SHELL:-DSTM32L433xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L433RCYX_MCU}
+)
+target_compile_definitions(GENERIC_L433RCYX INTERFACE
+  "STM32L4xx"
+	"ARDUINO_GENERIC_L433RCYX"
+	"BOARD_NAME=\"GENERIC_L433RCYX\""
+	"BOARD_ID=GENERIC_L433RCYX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_L433RCYX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc/
+  ${GENERIC_L433RCYX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_L433RCYX INTERFACE
+  "LINKER:--default-script=${GENERIC_L433RCYX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L433RCYX_MCU}
+)
+target_link_libraries(GENERIC_L433RCYX INTERFACE
+  arm_cortexM4lf_math
+)
+
+add_library(GENERIC_L433RCYX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_L433RCYX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L433RCYX_serial_generic INTERFACE)
+target_compile_options(GENERIC_L433RCYX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_L433RCYX_serial_none INTERFACE)
+target_compile_options(GENERIC_L433RCYX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_L433RCYX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_L433RCYX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_L433RCYX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_L433RCYX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_L433RCYX_usb_HID INTERFACE)
+target_compile_options(GENERIC_L433RCYX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_L433RCYX_usb_none INTERFACE)
+target_compile_options(GENERIC_L433RCYX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L433RCYX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_L433RCYX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L433RCYX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_L433RCYX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_L433RCYX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_L433RCYX_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
@@ -91431,6 +92160,261 @@ target_compile_options(GENERIC_L443CCUX_xusb_HS INTERFACE
 )
 add_library(GENERIC_L443CCUX_xusb_HSFS INTERFACE)
 target_compile_options(GENERIC_L443CCUX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_L443RCIX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_L443RCIX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L433R(B-C)(I-T-Y)_L443RC(I-T-Y)")
+set(GENERIC_L443RCIX_MAXSIZE 262144)
+set(GENERIC_L443RCIX_MAXDATASIZE 65536)
+set(GENERIC_L443RCIX_MCU cortex-m4)
+set(GENERIC_L443RCIX_FPCONF "-")
+add_library(GENERIC_L443RCIX INTERFACE)
+target_compile_options(GENERIC_L443RCIX INTERFACE
+  "SHELL:-DSTM32L443xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L443RCIX_MCU}
+)
+target_compile_definitions(GENERIC_L443RCIX INTERFACE
+  "STM32L4xx"
+	"ARDUINO_GENERIC_L443RCIX"
+	"BOARD_NAME=\"GENERIC_L443RCIX\""
+	"BOARD_ID=GENERIC_L443RCIX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_L443RCIX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc/
+  ${GENERIC_L443RCIX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_L443RCIX INTERFACE
+  "LINKER:--default-script=${GENERIC_L443RCIX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L443RCIX_MCU}
+)
+target_link_libraries(GENERIC_L443RCIX INTERFACE
+  arm_cortexM4lf_math
+)
+
+add_library(GENERIC_L443RCIX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_L443RCIX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L443RCIX_serial_generic INTERFACE)
+target_compile_options(GENERIC_L443RCIX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_L443RCIX_serial_none INTERFACE)
+target_compile_options(GENERIC_L443RCIX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_L443RCIX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_L443RCIX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_L443RCIX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_L443RCIX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_L443RCIX_usb_HID INTERFACE)
+target_compile_options(GENERIC_L443RCIX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_L443RCIX_usb_none INTERFACE)
+target_compile_options(GENERIC_L443RCIX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L443RCIX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_L443RCIX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L443RCIX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_L443RCIX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_L443RCIX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_L443RCIX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_L443RCTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_L443RCTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L433R(B-C)(I-T-Y)_L443RC(I-T-Y)")
+set(GENERIC_L443RCTX_MAXSIZE 262144)
+set(GENERIC_L443RCTX_MAXDATASIZE 65536)
+set(GENERIC_L443RCTX_MCU cortex-m4)
+set(GENERIC_L443RCTX_FPCONF "-")
+add_library(GENERIC_L443RCTX INTERFACE)
+target_compile_options(GENERIC_L443RCTX INTERFACE
+  "SHELL:-DSTM32L443xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L443RCTX_MCU}
+)
+target_compile_definitions(GENERIC_L443RCTX INTERFACE
+  "STM32L4xx"
+	"ARDUINO_GENERIC_L443RCTX"
+	"BOARD_NAME=\"GENERIC_L443RCTX\""
+	"BOARD_ID=GENERIC_L443RCTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_L443RCTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc/
+  ${GENERIC_L443RCTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_L443RCTX INTERFACE
+  "LINKER:--default-script=${GENERIC_L443RCTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L443RCTX_MCU}
+)
+target_link_libraries(GENERIC_L443RCTX INTERFACE
+  arm_cortexM4lf_math
+)
+
+add_library(GENERIC_L443RCTX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_L443RCTX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L443RCTX_serial_generic INTERFACE)
+target_compile_options(GENERIC_L443RCTX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_L443RCTX_serial_none INTERFACE)
+target_compile_options(GENERIC_L443RCTX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_L443RCTX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_L443RCTX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_L443RCTX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_L443RCTX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_L443RCTX_usb_HID INTERFACE)
+target_compile_options(GENERIC_L443RCTX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_L443RCTX_usb_none INTERFACE)
+target_compile_options(GENERIC_L443RCTX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L443RCTX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_L443RCTX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L443RCTX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_L443RCTX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_L443RCTX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_L443RCTX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_L443RCYX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_L443RCYX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L433R(B-C)(I-T-Y)_L443RC(I-T-Y)")
+set(GENERIC_L443RCYX_MAXSIZE 262144)
+set(GENERIC_L443RCYX_MAXDATASIZE 65536)
+set(GENERIC_L443RCYX_MCU cortex-m4)
+set(GENERIC_L443RCYX_FPCONF "-")
+add_library(GENERIC_L443RCYX INTERFACE)
+target_compile_options(GENERIC_L443RCYX INTERFACE
+  "SHELL:-DSTM32L443xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L443RCYX_MCU}
+)
+target_compile_definitions(GENERIC_L443RCYX INTERFACE
+  "STM32L4xx"
+	"ARDUINO_GENERIC_L443RCYX"
+	"BOARD_NAME=\"GENERIC_L443RCYX\""
+	"BOARD_ID=GENERIC_L443RCYX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_L443RCYX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc/
+  ${GENERIC_L443RCYX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_L443RCYX INTERFACE
+  "LINKER:--default-script=${GENERIC_L443RCYX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L443RCYX_MCU}
+)
+target_link_libraries(GENERIC_L443RCYX INTERFACE
+  arm_cortexM4lf_math
+)
+
+add_library(GENERIC_L443RCYX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_L443RCYX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L443RCYX_serial_generic INTERFACE)
+target_compile_options(GENERIC_L443RCYX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_L443RCYX_serial_none INTERFACE)
+target_compile_options(GENERIC_L443RCYX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_L443RCYX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_L443RCYX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_L443RCYX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_L443RCYX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_L443RCYX_usb_HID INTERFACE)
+target_compile_options(GENERIC_L443RCYX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_L443RCYX_usb_none INTERFACE)
+target_compile_options(GENERIC_L443RCYX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L443RCYX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_L443RCYX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_L443RCYX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_L443RCYX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_L443RCYX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_L443RCYX_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
