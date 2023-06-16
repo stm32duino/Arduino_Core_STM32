@@ -105970,6 +105970,91 @@ target_compile_options(ST3DP001_EVAL_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
+# STEVAL_MKBOXPRO
+# -----------------------------------------------------------------------------
+
+set(STEVAL_MKBOXPRO_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32U5xx/U575A(G-I)IxQ_U585AIIxQ")
+set(STEVAL_MKBOXPRO_MAXSIZE 2097152)
+set(STEVAL_MKBOXPRO_MAXDATASIZE 262144)
+set(STEVAL_MKBOXPRO_MCU cortex-m33)
+set(STEVAL_MKBOXPRO_FPCONF "fpv4-sp-d16-hard")
+add_library(STEVAL_MKBOXPRO INTERFACE)
+target_compile_options(STEVAL_MKBOXPRO INTERFACE
+  "SHELL:-DSTM32U585xx  "
+  "SHELL:-DCUSTOM_PERIPHERAL_PINS"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${STEVAL_MKBOXPRO_MCU}
+)
+target_compile_definitions(STEVAL_MKBOXPRO INTERFACE
+  "STM32U5xx"
+	"ARDUINO_STEVAL_MKBOXPRO"
+	"BOARD_NAME=\"STEVAL_MKBOXPRO\""
+	"BOARD_ID=STEVAL_MKBOXPRO"
+	"VARIANT_H=\"variant_STEVAL_MKBOXPRO.h\""
+)
+target_include_directories(STEVAL_MKBOXPRO INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32U5xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32U5xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32U5xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32U5xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32U5xx/Source/Templates/gcc/
+  ${STEVAL_MKBOXPRO_VARIANT_PATH}
+)
+
+target_link_options(STEVAL_MKBOXPRO INTERFACE
+  "LINKER:--default-script=${STEVAL_MKBOXPRO_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=2097152"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${STEVAL_MKBOXPRO_MCU}
+)
+target_link_libraries(STEVAL_MKBOXPRO INTERFACE
+  arm_ARMv8MMLlfsp_math
+)
+
+add_library(STEVAL_MKBOXPRO_serial_disabled INTERFACE)
+target_compile_options(STEVAL_MKBOXPRO_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(STEVAL_MKBOXPRO_serial_generic INTERFACE)
+target_compile_options(STEVAL_MKBOXPRO_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(STEVAL_MKBOXPRO_serial_none INTERFACE)
+target_compile_options(STEVAL_MKBOXPRO_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(STEVAL_MKBOXPRO_usb_CDC INTERFACE)
+target_compile_options(STEVAL_MKBOXPRO_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(STEVAL_MKBOXPRO_usb_CDCgen INTERFACE)
+target_compile_options(STEVAL_MKBOXPRO_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(STEVAL_MKBOXPRO_usb_HID INTERFACE)
+target_compile_options(STEVAL_MKBOXPRO_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(STEVAL_MKBOXPRO_usb_none INTERFACE)
+target_compile_options(STEVAL_MKBOXPRO_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(STEVAL_MKBOXPRO_xusb_FS INTERFACE)
+target_compile_options(STEVAL_MKBOXPRO_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(STEVAL_MKBOXPRO_xusb_HS INTERFACE)
+target_compile_options(STEVAL_MKBOXPRO_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(STEVAL_MKBOXPRO_xusb_HSFS INTERFACE)
+target_compile_options(STEVAL_MKBOXPRO_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
 # STEVAL_MKSBOX1V1
 # -----------------------------------------------------------------------------
 
