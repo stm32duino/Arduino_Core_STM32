@@ -22,8 +22,10 @@ add_library(variant_bin STATIC EXCLUDE_FROM_ALL
   generic_clock.c
   PeripheralPins.c
   PeripheralPins_B_U585I_IOT02A.c
+  PeripheralPins_STEVAL_MKBOXPRO.c
   variant_B_U585I_IOT02A.cpp
   variant_generic.cpp
+  variant_STEVAL_MKBOXPRO.cpp
 )
 target_link_libraries(variant_bin PUBLIC variant_usage)
 
