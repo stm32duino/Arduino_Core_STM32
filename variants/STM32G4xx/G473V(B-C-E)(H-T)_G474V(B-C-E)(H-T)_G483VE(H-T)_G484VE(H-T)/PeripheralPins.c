@@ -158,6 +158,8 @@ WEAK const PinMap PinMap_I2C_SCL[] = {
 };
 #endif
 
+//*** No I3C ***
+
 //*** TIM ***
 
 #ifdef HAL_TIM_MODULE_ENABLED
