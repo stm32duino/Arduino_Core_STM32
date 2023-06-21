@@ -84,7 +84,7 @@ Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.cmsis_lib_gcc=arm_cortexM4lf_math
 Nucleo_144.menu.pnum.NUCLEO_F722ZE=Nucleo F722ZE
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.node=NODE_F722ZE
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.upload.maximum_size=524288
-Nucleo_144.menu.pnum.NUCLEO_F722ZE.upload.maximum_data_size=196608
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.upload.maximum_data_size=262144
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.mcu=cortex-m7
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.board=NUCLEO_F722ZE
@@ -4508,7 +4508,7 @@ GenF7.upload.maximum_data_size=0
 # Generic F722RCTx
 GenF7.menu.pnum.GENERIC_F722RCTX=Generic F722RCTx
 GenF7.menu.pnum.GENERIC_F722RCTX.upload.maximum_size=262144
-GenF7.menu.pnum.GENERIC_F722RCTX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F722RCTX.upload.maximum_data_size=262144
 GenF7.menu.pnum.GENERIC_F722RCTX.build.board=GENERIC_F722RCTX
 GenF7.menu.pnum.GENERIC_F722RCTX.build.product_line=STM32F722xx
 GenF7.menu.pnum.GENERIC_F722RCTX.build.variant=STM32F7xx/F722R(C-E)T_F730R8T_F732RET
@@ -4516,7 +4516,7 @@ GenF7.menu.pnum.GENERIC_F722RCTX.build.variant=STM32F7xx/F722R(C-E)T_F730R8T_F73
 # Generic F722RETx
 GenF7.menu.pnum.GENERIC_F722RETX=Generic F722RETx
 GenF7.menu.pnum.GENERIC_F722RETX.upload.maximum_size=524288
-GenF7.menu.pnum.GENERIC_F722RETX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F722RETX.upload.maximum_data_size=262144
 GenF7.menu.pnum.GENERIC_F722RETX.build.board=GENERIC_F722RETX
 GenF7.menu.pnum.GENERIC_F722RETX.build.product_line=STM32F722xx
 GenF7.menu.pnum.GENERIC_F722RETX.build.variant=STM32F7xx/F722R(C-E)T_F730R8T_F732RET
@@ -4524,7 +4524,7 @@ GenF7.menu.pnum.GENERIC_F722RETX.build.variant=STM32F7xx/F722R(C-E)T_F730R8T_F73
 # Generic F722ZCTx
 GenF7.menu.pnum.GENERIC_F722ZCTX=Generic F722ZCTx
 GenF7.menu.pnum.GENERIC_F722ZCTX.upload.maximum_size=262144
-GenF7.menu.pnum.GENERIC_F722ZCTX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F722ZCTX.upload.maximum_data_size=262144
 GenF7.menu.pnum.GENERIC_F722ZCTX.build.board=GENERIC_F722ZCTX
 GenF7.menu.pnum.GENERIC_F722ZCTX.build.product_line=STM32F722xx
 GenF7.menu.pnum.GENERIC_F722ZCTX.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
@@ -4532,7 +4532,7 @@ GenF7.menu.pnum.GENERIC_F722ZCTX.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
 # Generic F722ZETx
 GenF7.menu.pnum.GENERIC_F722ZETX=Generic F722ZETx
 GenF7.menu.pnum.GENERIC_F722ZETX.upload.maximum_size=524288
-GenF7.menu.pnum.GENERIC_F722ZETX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F722ZETX.upload.maximum_data_size=262144
 GenF7.menu.pnum.GENERIC_F722ZETX.build.board=GENERIC_F722ZETX
 GenF7.menu.pnum.GENERIC_F722ZETX.build.product_line=STM32F722xx
 GenF7.menu.pnum.GENERIC_F722ZETX.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
@@ -4540,7 +4540,7 @@ GenF7.menu.pnum.GENERIC_F722ZETX.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
 # Generic F730R8Tx
 GenF7.menu.pnum.GENERIC_F730R8TX=Generic F730R8Tx
 GenF7.menu.pnum.GENERIC_F730R8TX.upload.maximum_size=65536
-GenF7.menu.pnum.GENERIC_F730R8TX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F730R8TX.upload.maximum_data_size=262144
 GenF7.menu.pnum.GENERIC_F730R8TX.build.board=GENERIC_F730R8TX
 GenF7.menu.pnum.GENERIC_F730R8TX.build.product_line=STM32F730xx
 GenF7.menu.pnum.GENERIC_F730R8TX.build.variant=STM32F7xx/F722R(C-E)T_F730R8T_F732RET
@@ -4548,7 +4548,7 @@ GenF7.menu.pnum.GENERIC_F730R8TX.build.variant=STM32F7xx/F722R(C-E)T_F730R8T_F73
 # Generic F732RETx
 GenF7.menu.pnum.GENERIC_F732RETX=Generic F732RETx
 GenF7.menu.pnum.GENERIC_F732RETX.upload.maximum_size=524288
-GenF7.menu.pnum.GENERIC_F732RETX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F732RETX.upload.maximum_data_size=262144
 GenF7.menu.pnum.GENERIC_F732RETX.build.board=GENERIC_F732RETX
 GenF7.menu.pnum.GENERIC_F732RETX.build.product_line=STM32F732xx
 GenF7.menu.pnum.GENERIC_F732RETX.build.variant=STM32F7xx/F722R(C-E)T_F730R8T_F732RET
@@ -4556,7 +4556,7 @@ GenF7.menu.pnum.GENERIC_F732RETX.build.variant=STM32F7xx/F722R(C-E)T_F730R8T_F73
 # Generic F732ZETx
 GenF7.menu.pnum.GENERIC_F732ZETX=Generic F732ZETx
 GenF7.menu.pnum.GENERIC_F732ZETX.upload.maximum_size=524288
-GenF7.menu.pnum.GENERIC_F732ZETX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F732ZETX.upload.maximum_data_size=262144
 GenF7.menu.pnum.GENERIC_F732ZETX.build.board=GENERIC_F732ZETX
 GenF7.menu.pnum.GENERIC_F732ZETX.build.product_line=STM32F732xx
 GenF7.menu.pnum.GENERIC_F732ZETX.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
