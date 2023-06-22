@@ -100,6 +100,20 @@ extern const PinMap PinMap_USB_OTG_FS[];
 extern const PinMap PinMap_USB_OTG_HS[];
 
 //*** SD ***
-extern const PinMap PinMap_SD[];
+extern const PinMap PinMap_SD_CMD[];
+extern const PinMap PinMap_SD_CK[];
+extern const PinMap PinMap_SD_DATA0[];
+extern const PinMap PinMap_SD_DATA1[];
+extern const PinMap PinMap_SD_DATA2[];
+extern const PinMap PinMap_SD_DATA3[];
+extern const PinMap PinMap_SD_DATA4[];
+extern const PinMap PinMap_SD_DATA5[];
+extern const PinMap PinMap_SD_DATA6[];
+extern const PinMap PinMap_SD_DATA7[];
+extern const PinMap PinMap_SD_CKIN[];
+extern const PinMap PinMap_SD_CDIR[];
+extern const PinMap PinMap_SD_D0DIR[];
+extern const PinMap PinMap_SD_D123DIR[];
+
 #endif
 

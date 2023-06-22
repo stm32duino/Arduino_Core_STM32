@@ -39,21 +39,34 @@ spisclk_list = []  # ['PIN','name','SPISCLK', 'sort name', ['af']]
 cantd_list = []  # ['PIN','name','CANTD', ['af']]
 canrd_list = []  # ['PIN','name','CANRD', ['af']]
 eth_list = []  # ['PIN','name','ETH', ['af']]
-quadspidata0_list = []  # ['PIN','name','QUADSPIDATA0', ['af']]
-quadspidata1_list = []  # ['PIN','name','QUADSPIDATA1', ['af']]
-quadspidata2_list = []  # ['PIN','name','QUADSPIDATA2', ['af']]
-quadspidata3_list = []  # ['PIN','name','QUADSPIDATA3', ['af']]
-quadspidata4_list = []  # ['PIN','name','QUADSPIDATA4', ['af']]
-quadspidata5_list = []  # ['PIN','name','QUADSPIDATA5', ['af']]
-quadspidata6_list = []  # ['PIN','name','QUADSPIDATA6', ['af']]
-quadspidata7_list = []  # ['PIN','name','QUADSPIDATA7', ['af']]
-quadspisclk_list = []  # ['PIN','name','QUADSPISCLK', ['af']]
-quadspissel_list = []  # ['PIN','name','QUADSPISSEL', ['af']]
+xspidata0_list = []  # ['PIN','name','XSPIDATA0', ['af']]
+xspidata1_list = []  # ['PIN','name','XSPIDATA1', ['af']]
+xspidata2_list = []  # ['PIN','name','XSPIDATA2', ['af']]
+xspidata3_list = []  # ['PIN','name','XSPIDATA3', ['af']]
+ospidata4_list = []  # ['PIN','name','OSPIDATA4', ['af']]
+ospidata5_list = []  # ['PIN','name','OSPIDATA5', ['af']]
+ospidata6_list = []  # ['PIN','name','OSPIDATA6', ['af']]
+ospidata7_list = []  # ['PIN','name','OSPIDATA7', ['af']]
+xspisclk_list = []  # ['PIN','name','XSPISCLK', ['af']]
+xspissel_list = []  # ['PIN','name','XSPISSEL', ['af']]
 syswkup_list = []  # ['PIN','name','SYSWKUP']
 usb_list = []  # ['PIN','name','USB', ['af']]
 usb_otgfs_list = []  # ['PIN','name','USB', ['af']]
 usb_otghs_list = []  # ['PIN','name','USB', ['af']]
-sd_list = []  # ['PIN','name','SD', ['af']]
+sdxcmd_list = []  # ['PIN','name','SDX_CMD', ['af']]
+sdxck_list = []  # ['PIN','name','SDX_CK', ['af']]
+sdxd0_list = []  # ['PIN','name','SDX_D0', ['af']]
+sdxd1_list = []  # ['PIN','name','SDX_D1', ['af']]
+sdxd2_list = []  # ['PIN','name','SDX_D2', ['af']]
+sdxd3_list = []  # ['PIN','name','SDX_D3', ['af']]
+sdxd4_list = []  # ['PIN','name','SDX_D4', ['af']]
+sdxd5_list = []  # ['PIN','name','SDX_D5', ['af']]
+sdxd6_list = []  # ['PIN','name','SDX_D6', ['af']]
+sdxd7_list = []  # ['PIN','name','SDX_D7', ['af']]
+sdmmcckin_list = []  # ['PIN','name','SDMMC_CKIN', ['af']]
+sdmmccdir_list = []  # ['PIN','name','SDMMC_CDIR', ['af']]
+sdmmcd0dir_list = []  # ['PIN','name','SDMMC_D0DIR', ['af']]
+sdmmcd123dir_list = []  # ['PIN','name','SDMMC_D123DIR', ['af']]
 
 # IP information
 gpiofile = ""
@@ -502,27 +515,27 @@ def store_eth(pin, name, signal):
 
 
 # Store O/QSPI pins
-def store_qspi(pin, name, signal):
+def store_xspi(pin, name, signal):
     if "_IO0" in signal:
-        quadspidata0_list.append([pin, name, signal])
-    if "_IO1" in signal:
-        quadspidata1_list.append([pin, name, signal])
-    if "_IO2" in signal:
-        quadspidata2_list.append([pin, name, signal])
-    if "_IO3" in signal:
-        quadspidata3_list.append([pin, name, signal])
-    if "_IO4" in signal:
-        quadspidata4_list.append([pin, name, signal])
-    if "_IO5" in signal:
-        quadspidata5_list.append([pin, name, signal])
-    if "_IO6" in signal:
-        quadspidata6_list.append([pin, name, signal])
-    if "_IO7" in signal:
-        quadspidata7_list.append([pin, name, signal])
-    if "_CLK" in signal:
-        quadspisclk_list.append([pin, name, signal])
-    if "_NCS" in signal:
-        quadspissel_list.append([pin, name, signal])
+        xspidata0_list.append([pin, name, signal])
+    elif "_IO1" in signal:
+        xspidata1_list.append([pin, name, signal])
+    elif "_IO2" in signal:
+        xspidata2_list.append([pin, name, signal])
+    elif "_IO3" in signal:
+        xspidata3_list.append([pin, name, signal])
+    elif "_IO4" in signal:
+        ospidata4_list.append([pin, name, signal])
+    elif "_IO5" in signal:
+        ospidata5_list.append([pin, name, signal])
+    elif "_IO6" in signal:
+        ospidata6_list.append([pin, name, signal])
+    elif "_IO7" in signal:
+        ospidata7_list.append([pin, name, signal])
+    elif "_CLK" in signal:
+        xspisclk_list.append([pin, name, signal])
+    elif "_NCS" in signal:
+        xspissel_list.append([pin, name, signal])
 
 
 # Store SYS pins
@@ -543,9 +556,36 @@ def store_usb(pin, name, signal):
         usb_otghs_list.append([pin, name, signal])
 
 
-# Store SD pins
-def store_sd(pin, name, signal):
-    sd_list.append([pin, name, signal])
+# Store SD(IO/MMC) pins
+def store_sdx(pin, name, signal):
+    if signal.endswith("_D0"):
+        sdxd0_list.append([pin, name, signal])
+    elif signal.endswith("_D1"):
+        sdxd1_list.append([pin, name, signal])
+    elif signal.endswith("_D2"):
+        sdxd2_list.append([pin, name, signal])
+    elif signal.endswith("_D3"):
+        sdxd3_list.append([pin, name, signal])
+    elif signal.endswith("_D4"):
+        sdxd4_list.append([pin, name, signal])
+    elif signal.endswith("_D5"):
+        sdxd5_list.append([pin, name, signal])
+    elif signal.endswith("_D6"):
+        sdxd6_list.append([pin, name, signal])
+    elif signal.endswith("_D7"):
+        sdxd7_list.append([pin, name, signal])
+    elif signal.endswith("_CMD"):
+        sdxcmd_list.append([pin, name, signal])
+    elif signal.endswith("_CK"):
+        sdxck_list.append([pin, name, signal])
+    elif signal.endswith("_CKIN"):
+        sdmmcckin_list.append([pin, name, signal])
+    elif signal.endswith("_CDIR"):
+        sdmmccdir_list.append([pin, name, signal])
+    elif signal.endswith("_D0DIR"):
+        sdmmcd0dir_list.append([pin, name, signal])
+    elif signal.endswith("_D123DIR"):
+        sdmmcd123dir_list.append([pin, name, signal])
 
 
 # PeripheralPins.cpp generation
@@ -910,34 +950,34 @@ def eth_pinmap():
     )
 
 
-def qspi_pinmap(lst):
-    qspi_pins_list = []
+def xspi_pinmap(lst):
+    xspi_pins_list = []
     winst = [0]
     wpin = [0]
     name = "QUADSPI"
     hal = "QSPI"
     ospi_regex = r"OCTOSPI(?:M_P)?(\d).*"
 
-    if quadspidata0_list and "OCTOSPI" in quadspidata0_list[0][2]:
+    if xspidata0_list and "OCTOSPI" in xspidata0_list[0][2]:
         name = "OCTOSPI"
         hal = "OSPI"
-    if lst == quadspidata0_list:
+    if lst == xspidata0_list:
         aname = f"{name}_DATA0"
-    elif lst == quadspidata1_list:
+    elif lst == xspidata1_list:
         aname = f"{name}_DATA1"
-    elif lst == quadspidata2_list:
+    elif lst == xspidata2_list:
         aname = f"{name}_DATA2"
-    elif lst == quadspidata3_list:
+    elif lst == xspidata3_list:
         aname = f"{name}_DATA3"
-    elif lst == quadspidata4_list:
+    elif lst == ospidata4_list:
         aname = f"{name}_DATA4"
-    elif lst == quadspidata5_list:
+    elif lst == ospidata5_list:
         aname = f"{name}_DATA5"
-    elif lst == quadspidata6_list:
+    elif lst == ospidata6_list:
         aname = f"{name}_DATA6"
-    elif lst == quadspidata7_list:
+    elif lst == ospidata7_list:
         aname = f"{name}_DATA7"
-    elif lst == quadspisclk_list:
+    elif lst == xspisclk_list:
         aname = f"{name}_SCLK"
     else:
         aname = f"{name}_SSEL"
@@ -953,7 +993,7 @@ def qspi_pinmap(lst):
             inst = "QUADSPI"
         winst.append(len(inst))
         wpin.append(len(p[0]))
-        qspi_pins_list.append(
+        xspi_pins_list.append(
             {
                 "pin": p[0],
                 "inst": inst,
@@ -970,7 +1010,7 @@ def qspi_pinmap(lst):
         data="",
         wpin=max(wpin) + 1,
         winst=max(winst) + 1,
-        list=qspi_pins_list,
+        list=xspi_pins_list,
     )
 
 
@@ -1044,13 +1084,40 @@ def usb_pinmap(lst):
     )
 
 
-def sd_pinmap():
-    sd_pins_list = []
+def sdx_pinmap(lst):
+    sdx_pins_list = []
     winst = [0]
     wpin = [0]
     mode = "STM_MODE_AF_PP"
-
-    for p in sd_list:
+    if lst == sdxd0_list:
+        aname = "SD_DATA0"
+    elif lst == sdxd1_list:
+        aname = "SD_DATA1"
+    elif lst == sdxd2_list:
+        aname = "SD_DATA2"
+    elif lst == sdxd3_list:
+        aname = "SD_DATA3"
+    elif lst == sdxd4_list:
+        aname = "SD_DATA4"
+    elif lst == sdxd5_list:
+        aname = "SD_DATA5"
+    elif lst == sdxd6_list:
+        aname = "SD_DATA6"
+    elif lst == sdxd7_list:
+        aname = "SD_DATA7"
+    elif lst == sdxcmd_list:
+        aname = "SD_CMD"
+    elif lst == sdxck_list:
+        aname = "SD_CK"
+    elif lst == sdmmcckin_list:
+        aname = "SD_CKIN"
+    elif lst == sdmmccdir_list:
+        aname = "SD_CDIR"
+    elif lst == sdmmcd0dir_list:
+        aname = "SD_D0DIR"
+    elif lst == sdmmcd123dir_list:
+        aname = "SD_D123DIR"
+    for p in lst:
         # 2nd element is the SD signal
         a = p[2].split("_")
         inst = a[0]
@@ -1060,7 +1127,7 @@ def sd_pinmap():
             pull = "GPIO_PULLUP"
         winst.append(len(inst))
         wpin.append(len(p[0]))
-        sd_pins_list.append(
+        sdx_pins_list.append(
             {
                 "pin": p[0],
                 "inst": inst,
@@ -1073,11 +1140,11 @@ def sd_pinmap():
     return dict(
         name="SD",
         hal="SD",
-        aname="SD",
+        aname=aname,
         data="",
         wpin=max(wpin) + 1,
         winst=max(winst) + 1,
-        list=sd_pins_list,
+        list=sdx_pins_list,
     )
 
 
@@ -1119,19 +1186,34 @@ def print_peripheral():
                 (can_pinmap(canrd_list), can_pinmap(cantd_list)),
                 [eth_pinmap()],
                 (
-                    qspi_pinmap(quadspidata0_list),
-                    qspi_pinmap(quadspidata1_list),
-                    qspi_pinmap(quadspidata2_list),
-                    qspi_pinmap(quadspidata3_list),
-                    qspi_pinmap(quadspidata4_list),
-                    qspi_pinmap(quadspidata5_list),
-                    qspi_pinmap(quadspidata6_list),
-                    qspi_pinmap(quadspidata7_list),
-                    qspi_pinmap(quadspisclk_list),
-                    qspi_pinmap(quadspissel_list),
+                    xspi_pinmap(xspidata0_list),
+                    xspi_pinmap(xspidata1_list),
+                    xspi_pinmap(xspidata2_list),
+                    xspi_pinmap(xspidata3_list),
+                    xspi_pinmap(ospidata4_list),
+                    xspi_pinmap(ospidata5_list),
+                    xspi_pinmap(ospidata6_list),
+                    xspi_pinmap(ospidata7_list),
+                    xspi_pinmap(xspisclk_list),
+                    xspi_pinmap(xspissel_list),
                 ),
                 usb_pinmmap,
-                [sd_pinmap()],
+                (
+                    sdx_pinmap(sdxcmd_list),
+                    sdx_pinmap(sdxck_list),
+                    sdx_pinmap(sdxd0_list),
+                    sdx_pinmap(sdxd1_list),
+                    sdx_pinmap(sdxd2_list),
+                    sdx_pinmap(sdxd3_list),
+                    sdx_pinmap(sdxd4_list),
+                    sdx_pinmap(sdxd5_list),
+                    sdx_pinmap(sdxd6_list),
+                    sdx_pinmap(sdxd7_list),
+                    sdx_pinmap(sdmmcckin_list),
+                    sdx_pinmap(sdmmccdir_list),
+                    sdx_pinmap(sdmmcd0dir_list),
+                    sdx_pinmap(sdmmcd123dir_list),
+                ),
             ),
         )
     )
@@ -1442,12 +1524,12 @@ def print_variant(generic_list, alt_syswkup_list):
         hal_modules_list.append("DAC")
     if eth_list:
         hal_modules_list.append("ETH")
-    if quadspidata0_list:
-        if "OCTOSPI" in quadspidata0_list[0][2]:
+    if xspidata0_list:
+        if "OCTOSPI" in xspidata0_list[0][2]:
             hal_modules_list.append("OSPI")
         else:
             hal_modules_list.append("QSPI")
-    if sd_list:
+    if sdxcmd_list:
         hal_modules_list.append("SD")
 
     variant_h_file.write(
@@ -1654,21 +1736,34 @@ def sort_my_lists():
     cantd_list.sort(key=natural_sortkey)
     canrd_list.sort(key=natural_sortkey)
     eth_list.sort(key=natural_sortkey)
-    quadspidata0_list.sort(key=natural_sortkey)
-    quadspidata1_list.sort(key=natural_sortkey)
-    quadspidata2_list.sort(key=natural_sortkey)
-    quadspidata3_list.sort(key=natural_sortkey)
-    quadspidata4_list.sort(key=natural_sortkey)
-    quadspidata5_list.sort(key=natural_sortkey)
-    quadspidata6_list.sort(key=natural_sortkey)
-    quadspidata7_list.sort(key=natural_sortkey)
-    quadspisclk_list.sort(key=natural_sortkey)
-    quadspissel_list.sort(key=natural_sortkey)
+    xspidata0_list.sort(key=natural_sortkey)
+    xspidata1_list.sort(key=natural_sortkey)
+    xspidata2_list.sort(key=natural_sortkey)
+    xspidata3_list.sort(key=natural_sortkey)
+    ospidata4_list.sort(key=natural_sortkey)
+    ospidata5_list.sort(key=natural_sortkey)
+    ospidata6_list.sort(key=natural_sortkey)
+    ospidata7_list.sort(key=natural_sortkey)
+    xspisclk_list.sort(key=natural_sortkey)
+    xspissel_list.sort(key=natural_sortkey)
     syswkup_list.sort(key=natural_sortkey2)
     usb_list.sort(key=natural_sortkey)
     usb_otgfs_list.sort(key=natural_sortkey)
     usb_otghs_list.sort(key=natural_sortkey)
-    sd_list.sort(key=natural_sortkey)
+    sdxcmd_list.sort(key=natural_sortkey)
+    sdxck_list.sort(key=natural_sortkey)
+    sdxd0_list.sort(key=natural_sortkey)
+    sdxd1_list.sort(key=natural_sortkey)
+    sdxd2_list.sort(key=natural_sortkey)
+    sdxd3_list.sort(key=natural_sortkey)
+    sdxd4_list.sort(key=natural_sortkey)
+    sdxd5_list.sort(key=natural_sortkey)
+    sdxd6_list.sort(key=natural_sortkey)
+    sdxd7_list.sort(key=natural_sortkey)
+    sdmmcckin_list.sort(key=natural_sortkey)
+    sdmmccdir_list.sort(key=natural_sortkey)
+    sdmmcd0dir_list.sort(key=natural_sortkey)
+    sdmmcd123dir_list.sort(key=natural_sortkey)
 
 
 def clean_all_lists():
@@ -1694,21 +1789,34 @@ def clean_all_lists():
     del cantd_list[:]
     del canrd_list[:]
     del eth_list[:]
-    del quadspidata0_list[:]
-    del quadspidata1_list[:]
-    del quadspidata2_list[:]
-    del quadspidata3_list[:]
-    del quadspidata4_list[:]
-    del quadspidata5_list[:]
-    del quadspidata6_list[:]
-    del quadspidata7_list[:]
-    del quadspisclk_list[:]
-    del quadspissel_list[:]
+    del xspidata0_list[:]
+    del xspidata1_list[:]
+    del xspidata2_list[:]
+    del xspidata3_list[:]
+    del ospidata4_list[:]
+    del ospidata5_list[:]
+    del ospidata6_list[:]
+    del ospidata7_list[:]
+    del xspisclk_list[:]
+    del xspissel_list[:]
     del syswkup_list[:]
     del usb_list[:]
     del usb_otgfs_list[:]
     del usb_otghs_list[:]
-    del sd_list[:]
+    del sdxcmd_list[:]
+    del sdxck_list[:]
+    del sdxd0_list[:]
+    del sdxd1_list[:]
+    del sdxd2_list[:]
+    del sdxd3_list[:]
+    del sdxd4_list[:]
+    del sdxd5_list[:]
+    del sdxd6_list[:]
+    del sdxd7_list[:]
+    del sdmmcckin_list[:]
+    del sdmmccdir_list[:]
+    del sdmmcd0dir_list[:]
+    del sdmmcd123dir_list[:]
 
 
 def manage_af_and_alternate():
@@ -1729,20 +1837,33 @@ def manage_af_and_alternate():
     add_af(cantd_list)
     add_af(canrd_list)
     add_af(eth_list)
-    add_af(quadspidata0_list)
-    add_af(quadspidata1_list)
-    add_af(quadspidata2_list)
-    add_af(quadspidata3_list)
-    add_af(quadspidata4_list)
-    add_af(quadspidata5_list)
-    add_af(quadspidata6_list)
-    add_af(quadspidata7_list)
-    add_af(quadspisclk_list)
-    add_af(quadspissel_list)
+    add_af(xspidata0_list)
+    add_af(xspidata1_list)
+    add_af(xspidata2_list)
+    add_af(xspidata3_list)
+    add_af(ospidata4_list)
+    add_af(ospidata5_list)
+    add_af(ospidata6_list)
+    add_af(ospidata7_list)
+    add_af(xspisclk_list)
+    add_af(xspissel_list)
     add_af(usb_list)
     add_af(usb_otgfs_list)
     add_af(usb_otghs_list)
-    add_af(sd_list)
+    add_af(sdxcmd_list)
+    add_af(sdxck_list)
+    add_af(sdxd0_list)
+    add_af(sdxd1_list)
+    add_af(sdxd2_list)
+    add_af(sdxd3_list)
+    add_af(sdxd4_list)
+    add_af(sdxd5_list)
+    add_af(sdxd6_list)
+    add_af(sdxd7_list)
+    add_af(sdmmcckin_list)
+    add_af(sdmmccdir_list)
+    add_af(sdmmcd0dir_list)
+    add_af(sdmmcd123dir_list)
 
     sort_my_lists()
 
@@ -1764,21 +1885,34 @@ def manage_af_and_alternate():
     update_alternate(cantd_list)
     update_alternate(canrd_list)
     update_alternate(eth_list)
-    update_alternate(quadspidata0_list)
-    update_alternate(quadspidata1_list)
-    update_alternate(quadspidata2_list)
-    update_alternate(quadspidata3_list)
-    update_alternate(quadspidata4_list)
-    update_alternate(quadspidata5_list)
-    update_alternate(quadspidata6_list)
-    update_alternate(quadspidata7_list)
-    update_alternate(quadspisclk_list)
-    update_alternate(quadspissel_list)
+    update_alternate(xspidata0_list)
+    update_alternate(xspidata1_list)
+    update_alternate(xspidata2_list)
+    update_alternate(xspidata3_list)
+    update_alternate(ospidata4_list)
+    update_alternate(ospidata5_list)
+    update_alternate(ospidata6_list)
+    update_alternate(ospidata7_list)
+    update_alternate(xspisclk_list)
+    update_alternate(xspissel_list)
     update_alternate(syswkup_list)
     update_alternate(usb_list)
     update_alternate(usb_otgfs_list)
     update_alternate_usb_otg_hs()
-    update_alternate(sd_list)
+    update_alternate(sdxcmd_list)
+    update_alternate(sdxck_list)
+    update_alternate(sdxd0_list)
+    update_alternate(sdxd1_list)
+    update_alternate(sdxd2_list)
+    update_alternate(sdxd3_list)
+    update_alternate(sdxd4_list)
+    update_alternate(sdxd5_list)
+    update_alternate(sdxd6_list)
+    update_alternate(sdxd7_list)
+    update_alternate(sdmmcckin_list)
+    update_alternate(sdmmccdir_list)
+    update_alternate(sdmmcd0dir_list)
+    update_alternate(sdmmcd123dir_list)
 
     alt_list.sort(key=natural_sortkey)
 
@@ -1877,7 +2011,7 @@ def parse_pins():
                     store_uart(pin, name, sig)
                 elif "SPI" in sig:
                     if "QUADSPI" in sig or "OCTOSPI" in sig:
-                        store_qspi(pin, name, sig)
+                        store_xspi(pin, name, sig)
                     else:
                         store_spi(pin, name, sig)
                 elif "CAN" in sig:
@@ -1889,7 +2023,7 @@ def parse_pins():
                 elif "USB" in sig:
                     store_usb(pin, name, sig)
                 elif re.match("^SD(IO|MMC)", sig) is not None:
-                    store_sd(pin, name, sig)
+                    store_sdx(pin, name, sig)
     del itemlist[:]
 
 
