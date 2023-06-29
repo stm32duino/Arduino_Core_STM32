@@ -6538,6 +6538,291 @@ target_compile_options(FYSETC_S6_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
+# GENERIC_C011D6YX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_C011D6YX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C0xx/C011D6Y_C011F(4-6)(P-U)_C031F(4-6)P")
+set(GENERIC_C011D6YX_MAXSIZE 32768)
+set(GENERIC_C011D6YX_MAXDATASIZE 6144)
+set(GENERIC_C011D6YX_MCU cortex-m0plus)
+set(GENERIC_C011D6YX_FPCONF "-")
+add_library(GENERIC_C011D6YX INTERFACE)
+target_compile_options(GENERIC_C011D6YX INTERFACE
+  "SHELL:-DSTM32C011xx  -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_C011D6YX_MCU}
+)
+target_compile_definitions(GENERIC_C011D6YX INTERFACE
+  "STM32C0xx"
+	"ARDUINO_GENERIC_C011D6YX"
+	"BOARD_NAME=\"GENERIC_C011D6YX\""
+	"BOARD_ID=GENERIC_C011D6YX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_C011D6YX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Source/Templates/gcc/
+  ${GENERIC_C011D6YX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_C011D6YX INTERFACE
+  "LINKER:--default-script=${GENERIC_C011D6YX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=32768"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
+  "SHELL: "
+  -mcpu=${GENERIC_C011D6YX_MCU}
+)
+target_link_libraries(GENERIC_C011D6YX INTERFACE
+  arm_cortexM0l_math
+)
+
+add_library(GENERIC_C011D6YX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_C011D6YX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_C011D6YX_serial_generic INTERFACE)
+target_compile_options(GENERIC_C011D6YX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_C011D6YX_serial_none INTERFACE)
+target_compile_options(GENERIC_C011D6YX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+
+# GENERIC_C011F4PX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_C011F4PX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C0xx/C011D6Y_C011F(4-6)(P-U)_C031F(4-6)P")
+set(GENERIC_C011F4PX_MAXSIZE 16384)
+set(GENERIC_C011F4PX_MAXDATASIZE 6144)
+set(GENERIC_C011F4PX_MCU cortex-m0plus)
+set(GENERIC_C011F4PX_FPCONF "-")
+add_library(GENERIC_C011F4PX INTERFACE)
+target_compile_options(GENERIC_C011F4PX INTERFACE
+  "SHELL:-DSTM32C011xx  -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_C011F4PX_MCU}
+)
+target_compile_definitions(GENERIC_C011F4PX INTERFACE
+  "STM32C0xx"
+	"ARDUINO_GENERIC_C011F4PX"
+	"BOARD_NAME=\"GENERIC_C011F4PX\""
+	"BOARD_ID=GENERIC_C011F4PX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_C011F4PX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Source/Templates/gcc/
+  ${GENERIC_C011F4PX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_C011F4PX INTERFACE
+  "LINKER:--default-script=${GENERIC_C011F4PX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=16384"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
+  "SHELL: "
+  -mcpu=${GENERIC_C011F4PX_MCU}
+)
+target_link_libraries(GENERIC_C011F4PX INTERFACE
+  arm_cortexM0l_math
+)
+
+add_library(GENERIC_C011F4PX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_C011F4PX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_C011F4PX_serial_generic INTERFACE)
+target_compile_options(GENERIC_C011F4PX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_C011F4PX_serial_none INTERFACE)
+target_compile_options(GENERIC_C011F4PX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+
+# GENERIC_C011F4UX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_C011F4UX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C0xx/C011D6Y_C011F(4-6)(P-U)_C031F(4-6)P")
+set(GENERIC_C011F4UX_MAXSIZE 16384)
+set(GENERIC_C011F4UX_MAXDATASIZE 6144)
+set(GENERIC_C011F4UX_MCU cortex-m0plus)
+set(GENERIC_C011F4UX_FPCONF "-")
+add_library(GENERIC_C011F4UX INTERFACE)
+target_compile_options(GENERIC_C011F4UX INTERFACE
+  "SHELL:-DSTM32C011xx  -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_C011F4UX_MCU}
+)
+target_compile_definitions(GENERIC_C011F4UX INTERFACE
+  "STM32C0xx"
+	"ARDUINO_GENERIC_C011F4UX"
+	"BOARD_NAME=\"GENERIC_C011F4UX\""
+	"BOARD_ID=GENERIC_C011F4UX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_C011F4UX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Source/Templates/gcc/
+  ${GENERIC_C011F4UX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_C011F4UX INTERFACE
+  "LINKER:--default-script=${GENERIC_C011F4UX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=16384"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
+  "SHELL: "
+  -mcpu=${GENERIC_C011F4UX_MCU}
+)
+target_link_libraries(GENERIC_C011F4UX INTERFACE
+  arm_cortexM0l_math
+)
+
+add_library(GENERIC_C011F4UX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_C011F4UX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_C011F4UX_serial_generic INTERFACE)
+target_compile_options(GENERIC_C011F4UX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_C011F4UX_serial_none INTERFACE)
+target_compile_options(GENERIC_C011F4UX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+
+# GENERIC_C011F6PX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_C011F6PX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C0xx/C011D6Y_C011F(4-6)(P-U)_C031F(4-6)P")
+set(GENERIC_C011F6PX_MAXSIZE 32768)
+set(GENERIC_C011F6PX_MAXDATASIZE 6144)
+set(GENERIC_C011F6PX_MCU cortex-m0plus)
+set(GENERIC_C011F6PX_FPCONF "-")
+add_library(GENERIC_C011F6PX INTERFACE)
+target_compile_options(GENERIC_C011F6PX INTERFACE
+  "SHELL:-DSTM32C011xx  -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_C011F6PX_MCU}
+)
+target_compile_definitions(GENERIC_C011F6PX INTERFACE
+  "STM32C0xx"
+	"ARDUINO_GENERIC_C011F6PX"
+	"BOARD_NAME=\"GENERIC_C011F6PX\""
+	"BOARD_ID=GENERIC_C011F6PX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_C011F6PX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Source/Templates/gcc/
+  ${GENERIC_C011F6PX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_C011F6PX INTERFACE
+  "LINKER:--default-script=${GENERIC_C011F6PX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=32768"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
+  "SHELL: "
+  -mcpu=${GENERIC_C011F6PX_MCU}
+)
+target_link_libraries(GENERIC_C011F6PX INTERFACE
+  arm_cortexM0l_math
+)
+
+add_library(GENERIC_C011F6PX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_C011F6PX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_C011F6PX_serial_generic INTERFACE)
+target_compile_options(GENERIC_C011F6PX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_C011F6PX_serial_none INTERFACE)
+target_compile_options(GENERIC_C011F6PX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+
+# GENERIC_C011F6UX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_C011F6UX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C0xx/C011D6Y_C011F(4-6)(P-U)_C031F(4-6)P")
+set(GENERIC_C011F6UX_MAXSIZE 32768)
+set(GENERIC_C011F6UX_MAXDATASIZE 6144)
+set(GENERIC_C011F6UX_MCU cortex-m0plus)
+set(GENERIC_C011F6UX_FPCONF "-")
+add_library(GENERIC_C011F6UX INTERFACE)
+target_compile_options(GENERIC_C011F6UX INTERFACE
+  "SHELL:-DSTM32C011xx  -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_C011F6UX_MCU}
+)
+target_compile_definitions(GENERIC_C011F6UX INTERFACE
+  "STM32C0xx"
+	"ARDUINO_GENERIC_C011F6UX"
+	"BOARD_NAME=\"GENERIC_C011F6UX\""
+	"BOARD_ID=GENERIC_C011F6UX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_C011F6UX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Source/Templates/gcc/
+  ${GENERIC_C011F6UX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_C011F6UX INTERFACE
+  "LINKER:--default-script=${GENERIC_C011F6UX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=32768"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
+  "SHELL: "
+  -mcpu=${GENERIC_C011F6UX_MCU}
+)
+target_link_libraries(GENERIC_C011F6UX INTERFACE
+  arm_cortexM0l_math
+)
+
+add_library(GENERIC_C011F6UX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_C011F6UX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_C011F6UX_serial_generic INTERFACE)
+target_compile_options(GENERIC_C011F6UX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_C011F6UX_serial_none INTERFACE)
+target_compile_options(GENERIC_C011F6UX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+
 # GENERIC_C031C4TX
 # -----------------------------------------------------------------------------
 
@@ -6763,6 +7048,120 @@ target_compile_options(GENERIC_C031C6UX_serial_generic INTERFACE
 )
 add_library(GENERIC_C031C6UX_serial_none INTERFACE)
 target_compile_options(GENERIC_C031C6UX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+
+# GENERIC_C031F4PX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_C031F4PX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C0xx/C011D6Y_C011F(4-6)(P-U)_C031F(4-6)P")
+set(GENERIC_C031F4PX_MAXSIZE 16384)
+set(GENERIC_C031F4PX_MAXDATASIZE 12288)
+set(GENERIC_C031F4PX_MCU cortex-m0plus)
+set(GENERIC_C031F4PX_FPCONF "-")
+add_library(GENERIC_C031F4PX INTERFACE)
+target_compile_options(GENERIC_C031F4PX INTERFACE
+  "SHELL:-DSTM32C031xx  -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_C031F4PX_MCU}
+)
+target_compile_definitions(GENERIC_C031F4PX INTERFACE
+  "STM32C0xx"
+	"ARDUINO_GENERIC_C031F4PX"
+	"BOARD_NAME=\"GENERIC_C031F4PX\""
+	"BOARD_ID=GENERIC_C031F4PX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_C031F4PX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Source/Templates/gcc/
+  ${GENERIC_C031F4PX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_C031F4PX INTERFACE
+  "LINKER:--default-script=${GENERIC_C031F4PX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=16384"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
+  "SHELL: "
+  -mcpu=${GENERIC_C031F4PX_MCU}
+)
+target_link_libraries(GENERIC_C031F4PX INTERFACE
+  arm_cortexM0l_math
+)
+
+add_library(GENERIC_C031F4PX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_C031F4PX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_C031F4PX_serial_generic INTERFACE)
+target_compile_options(GENERIC_C031F4PX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_C031F4PX_serial_none INTERFACE)
+target_compile_options(GENERIC_C031F4PX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+
+# GENERIC_C031F6PX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_C031F6PX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C0xx/C011D6Y_C011F(4-6)(P-U)_C031F(4-6)P")
+set(GENERIC_C031F6PX_MAXSIZE 32768)
+set(GENERIC_C031F6PX_MAXDATASIZE 12288)
+set(GENERIC_C031F6PX_MCU cortex-m0plus)
+set(GENERIC_C031F6PX_FPCONF "-")
+add_library(GENERIC_C031F6PX INTERFACE)
+target_compile_options(GENERIC_C031F6PX INTERFACE
+  "SHELL:-DSTM32C031xx  -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_C031F6PX_MCU}
+)
+target_compile_definitions(GENERIC_C031F6PX INTERFACE
+  "STM32C0xx"
+	"ARDUINO_GENERIC_C031F6PX"
+	"BOARD_NAME=\"GENERIC_C031F6PX\""
+	"BOARD_ID=GENERIC_C031F6PX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_C031F6PX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Source/Templates/gcc/
+  ${GENERIC_C031F6PX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_C031F6PX INTERFACE
+  "LINKER:--default-script=${GENERIC_C031F6PX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=32768"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
+  "SHELL: "
+  -mcpu=${GENERIC_C031F6PX_MCU}
+)
+target_link_libraries(GENERIC_C031F6PX INTERFACE
+  arm_cortexM0l_math
+)
+
+add_library(GENERIC_C031F6PX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_C031F6PX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_C031F6PX_serial_generic INTERFACE)
+target_compile_options(GENERIC_C031F6PX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_C031F6PX_serial_none INTERFACE)
+target_compile_options(GENERIC_C031F6PX_serial_none INTERFACE
   "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
 )
 
@@ -48348,7 +48747,7 @@ target_link_libraries(GENERIC_F446VETX_hid INTERFACE
 
 set(GENERIC_F722RCTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F722R(C-E)T_F730R8T_F732RET")
 set(GENERIC_F722RCTX_MAXSIZE 262144)
-set(GENERIC_F722RCTX_MAXDATASIZE 196608)
+set(GENERIC_F722RCTX_MAXDATASIZE 262144)
 set(GENERIC_F722RCTX_MCU cortex-m7)
 set(GENERIC_F722RCTX_FPCONF "-")
 add_library(GENERIC_F722RCTX INTERFACE)
@@ -48379,7 +48778,7 @@ target_link_options(GENERIC_F722RCTX INTERFACE
   "LINKER:--default-script=${GENERIC_F722RCTX_VARIANT_PATH}/ldscript.ld"
   "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
-	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F722RCTX_MCU}
 )
@@ -48433,7 +48832,7 @@ target_compile_options(GENERIC_F722RCTX_xusb_HSFS INTERFACE
 
 set(GENERIC_F722RETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F722R(C-E)T_F730R8T_F732RET")
 set(GENERIC_F722RETX_MAXSIZE 524288)
-set(GENERIC_F722RETX_MAXDATASIZE 196608)
+set(GENERIC_F722RETX_MAXDATASIZE 262144)
 set(GENERIC_F722RETX_MCU cortex-m7)
 set(GENERIC_F722RETX_FPCONF "-")
 add_library(GENERIC_F722RETX INTERFACE)
@@ -48464,7 +48863,7 @@ target_link_options(GENERIC_F722RETX INTERFACE
   "LINKER:--default-script=${GENERIC_F722RETX_VARIANT_PATH}/ldscript.ld"
   "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
-	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F722RETX_MCU}
 )
@@ -48518,7 +48917,7 @@ target_compile_options(GENERIC_F722RETX_xusb_HSFS INTERFACE
 
 set(GENERIC_F722ZCTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F722Z(C-E)T_F732ZET")
 set(GENERIC_F722ZCTX_MAXSIZE 262144)
-set(GENERIC_F722ZCTX_MAXDATASIZE 196608)
+set(GENERIC_F722ZCTX_MAXDATASIZE 262144)
 set(GENERIC_F722ZCTX_MCU cortex-m7)
 set(GENERIC_F722ZCTX_FPCONF "-")
 add_library(GENERIC_F722ZCTX INTERFACE)
@@ -48549,7 +48948,7 @@ target_link_options(GENERIC_F722ZCTX INTERFACE
   "LINKER:--default-script=${GENERIC_F722ZCTX_VARIANT_PATH}/ldscript.ld"
   "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
-	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F722ZCTX_MCU}
 )
@@ -48603,7 +49002,7 @@ target_compile_options(GENERIC_F722ZCTX_xusb_HSFS INTERFACE
 
 set(GENERIC_F722ZETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F722Z(C-E)T_F732ZET")
 set(GENERIC_F722ZETX_MAXSIZE 524288)
-set(GENERIC_F722ZETX_MAXDATASIZE 196608)
+set(GENERIC_F722ZETX_MAXDATASIZE 262144)
 set(GENERIC_F722ZETX_MCU cortex-m7)
 set(GENERIC_F722ZETX_FPCONF "-")
 add_library(GENERIC_F722ZETX INTERFACE)
@@ -48634,7 +49033,7 @@ target_link_options(GENERIC_F722ZETX INTERFACE
   "LINKER:--default-script=${GENERIC_F722ZETX_VARIANT_PATH}/ldscript.ld"
   "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
-	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F722ZETX_MCU}
 )
@@ -48688,7 +49087,7 @@ target_compile_options(GENERIC_F722ZETX_xusb_HSFS INTERFACE
 
 set(GENERIC_F730R8TX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F722R(C-E)T_F730R8T_F732RET")
 set(GENERIC_F730R8TX_MAXSIZE 65536)
-set(GENERIC_F730R8TX_MAXDATASIZE 196608)
+set(GENERIC_F730R8TX_MAXDATASIZE 262144)
 set(GENERIC_F730R8TX_MCU cortex-m7)
 set(GENERIC_F730R8TX_FPCONF "-")
 add_library(GENERIC_F730R8TX INTERFACE)
@@ -48719,7 +49118,7 @@ target_link_options(GENERIC_F730R8TX INTERFACE
   "LINKER:--default-script=${GENERIC_F730R8TX_VARIANT_PATH}/ldscript.ld"
   "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
-	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F730R8TX_MCU}
 )
@@ -48773,7 +49172,7 @@ target_compile_options(GENERIC_F730R8TX_xusb_HSFS INTERFACE
 
 set(GENERIC_F732RETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F722R(C-E)T_F730R8T_F732RET")
 set(GENERIC_F732RETX_MAXSIZE 524288)
-set(GENERIC_F732RETX_MAXDATASIZE 196608)
+set(GENERIC_F732RETX_MAXDATASIZE 262144)
 set(GENERIC_F732RETX_MCU cortex-m7)
 set(GENERIC_F732RETX_FPCONF "-")
 add_library(GENERIC_F732RETX INTERFACE)
@@ -48804,7 +49203,7 @@ target_link_options(GENERIC_F732RETX INTERFACE
   "LINKER:--default-script=${GENERIC_F732RETX_VARIANT_PATH}/ldscript.ld"
   "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
-	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F732RETX_MCU}
 )
@@ -48858,7 +49257,7 @@ target_compile_options(GENERIC_F732RETX_xusb_HSFS INTERFACE
 
 set(GENERIC_F732ZETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F722Z(C-E)T_F732ZET")
 set(GENERIC_F732ZETX_MAXSIZE 524288)
-set(GENERIC_F732ZETX_MAXDATASIZE 196608)
+set(GENERIC_F732ZETX_MAXDATASIZE 262144)
 set(GENERIC_F732ZETX_MCU cortex-m7)
 set(GENERIC_F732ZETX_FPCONF "-")
 add_library(GENERIC_F732ZETX INTERFACE)
@@ -48889,7 +49288,7 @@ target_link_options(GENERIC_F732ZETX INTERFACE
   "LINKER:--default-script=${GENERIC_F732ZETX_VARIANT_PATH}/ldscript.ld"
   "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
-	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F732ZETX_MCU}
 )
@@ -101527,7 +101926,7 @@ target_compile_options(NUCLEO_F446RE_xusb_HSFS INTERFACE
 
 set(NUCLEO_F722ZE_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F722Z(C-E)T_F732ZET")
 set(NUCLEO_F722ZE_MAXSIZE 524288)
-set(NUCLEO_F722ZE_MAXDATASIZE 196608)
+set(NUCLEO_F722ZE_MAXDATASIZE 262144)
 set(NUCLEO_F722ZE_MCU cortex-m7)
 set(NUCLEO_F722ZE_FPCONF "-")
 add_library(NUCLEO_F722ZE INTERFACE)
@@ -101558,7 +101957,7 @@ target_link_options(NUCLEO_F722ZE INTERFACE
   "LINKER:--default-script=${NUCLEO_F722ZE_VARIANT_PATH}/ldscript.ld"
   "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
-	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL: "
   -mcpu=${NUCLEO_F722ZE_MCU}
 )
@@ -106137,6 +106536,91 @@ target_compile_options(STEVAL_MKSBOX1V1_xusb_HS INTERFACE
 )
 add_library(STEVAL_MKSBOX1V1_xusb_HSFS INTERFACE)
 target_compile_options(STEVAL_MKSBOX1V1_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# STM32C0116_DK
+# -----------------------------------------------------------------------------
+
+set(STM32C0116_DK_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32C0xx/C011D6Y_C011F(4-6)(P-U)_C031F(4-6)P")
+set(STM32C0116_DK_MAXSIZE 32768)
+set(STM32C0116_DK_MAXDATASIZE 6144)
+set(STM32C0116_DK_MCU cortex-m0plus)
+set(STM32C0116_DK_FPCONF "-")
+add_library(STM32C0116_DK INTERFACE)
+target_compile_options(STM32C0116_DK INTERFACE
+  "SHELL:-DSTM32C011xx  -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${STM32C0116_DK_MCU}
+)
+target_compile_definitions(STM32C0116_DK INTERFACE
+  "STM32C0xx"
+	"ARDUINO_STM32C0116_DK"
+	"BOARD_NAME=\"STM32C0116_DK\""
+	"BOARD_ID=STM32C0116_DK"
+	"VARIANT_H=\"variant_STM32C0116_DK.h\""
+)
+target_include_directories(STM32C0116_DK INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32C0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32C0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32C0xx/Source/Templates/gcc/
+  ${STM32C0116_DK_VARIANT_PATH}
+)
+
+target_link_options(STM32C0116_DK INTERFACE
+  "LINKER:--default-script=${STM32C0116_DK_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=32768"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
+  "SHELL: "
+  -mcpu=${STM32C0116_DK_MCU}
+)
+target_link_libraries(STM32C0116_DK INTERFACE
+  arm_cortexM0l_math
+)
+
+add_library(STM32C0116_DK_serial_disabled INTERFACE)
+target_compile_options(STM32C0116_DK_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(STM32C0116_DK_serial_generic INTERFACE)
+target_compile_options(STM32C0116_DK_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(STM32C0116_DK_serial_none INTERFACE)
+target_compile_options(STM32C0116_DK_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(STM32C0116_DK_usb_CDC INTERFACE)
+target_compile_options(STM32C0116_DK_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(STM32C0116_DK_usb_CDCgen INTERFACE)
+target_compile_options(STM32C0116_DK_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(STM32C0116_DK_usb_HID INTERFACE)
+target_compile_options(STM32C0116_DK_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(STM32C0116_DK_usb_none INTERFACE)
+target_compile_options(STM32C0116_DK_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(STM32C0116_DK_xusb_FS INTERFACE)
+target_compile_options(STM32C0116_DK_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(STM32C0116_DK_xusb_HS INTERFACE)
+target_compile_options(STM32C0116_DK_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(STM32C0116_DK_xusb_HSFS INTERFACE)
+target_compile_options(STM32C0116_DK_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
