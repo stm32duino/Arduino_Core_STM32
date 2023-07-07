@@ -167,9 +167,9 @@
 #define ECAT_CS                 PB6
 
 // Serial pins
-#define TX0                     PC10          // UART4      
-#define RX0                     PC11          // UART4     
-#define TX0_ALT                 PC10_ALT1     // USART3 
+#define TX0                     PC10          // UART4
+#define RX0                     PC11          // UART4
+#define TX0_ALT                 PC10_ALT1     // USART3
 #define RX0_ALT                 PC11_ALT1     // USART3
 
 #define TX1                     PE8           // UART7
@@ -256,6 +256,12 @@
 
 // Value of the External oscillator in Hz
 #define HSE_VALUE               8000000U
+
+// SDMMC signals not available
+#define SDMMC_CKIN_NA
+#define SDMMC_CDIR_NA
+#define SDMMC_D0DIR_NA
+#define SDMMC_D123DIR_NA
 
 // Extra HAL modules
 #if !defined(HAL_DAC_MODULE_DISABLED)

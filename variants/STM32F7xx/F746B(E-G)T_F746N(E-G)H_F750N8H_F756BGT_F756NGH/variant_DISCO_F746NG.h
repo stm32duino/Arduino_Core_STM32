@@ -267,6 +267,12 @@
   #define PIN_SERIAL_TX         PA9
 #endif
 
+// SDMMC signals not available
+#define SDMMC_CKIN_NA
+#define SDMMC_CDIR_NA
+#define SDMMC_D0DIR_NA
+#define SDMMC_D123DIR_NA
+
 // SD detect signal
 #ifndef SD_DETECT_PIN
   #define SD_DETECT_PIN         PC13
