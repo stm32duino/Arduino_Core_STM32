@@ -108,6 +108,13 @@
   {% endfor %}
 
 {% endif %}
+{% if sdmmcNA_list %}
+// SDMMC signals not available
+  {% for sdmmcNA in sdmmcNA_list %}
+#define {{sdmmcNA}}
+  {% endfor %}
+
+{% endif %}
 {% if hal_modules_list %}
 // Extra HAL modules
   {% for hal_module in hal_modules_list %}

@@ -1443,6 +1443,21 @@ def alias_definition():
     return alias_list
 
 
+def sdmmc_signals():
+    sdmmcNA_list = []
+    # Check if SDMMC instance
+    if sdxd0_list and "SDMMC" in sdxd0_list[0][2]:
+        if not sdmmcckin_list:
+            sdmmcNA_list.append("SDMMC_CKIN_NA")
+        if not sdmmccdir_list:
+            sdmmcNA_list.append("SDMMC_CDIR_NA")
+        if not sdmmcd0dir_list:
+            sdmmcNA_list.append("SDMMC_D0DIR_NA")
+        if not sdmmcd123dir_list:
+            sdmmcNA_list.append("SDMMC_D123DIR_NA")
+    return sdmmcNA_list
+
+
 def print_variant(generic_list, alt_syswkup_list):
     variant_h_template = j2_env.get_template(variant_h_filename)
     variant_cpp_template = j2_env.get_template(variant_cpp_filename)
@@ -1466,6 +1481,9 @@ def print_variant(generic_list, alt_syswkup_list):
 
     # Alias to ease some usage
     alias_list = alias_definition()
+
+    # SDMMC signals definition
+    sdmmcNA_list = sdmmc_signals()
 
     # Manage all pins number, PinName and analog pins
     analog_index = 0
@@ -1548,6 +1566,7 @@ def print_variant(generic_list, alt_syswkup_list):
             serial=serial,
             hal_modules_list=hal_modules_list,
             alias_list=alias_list,
+            sdmmcNA_list=sdmmcNA_list,
         )
     )
 
