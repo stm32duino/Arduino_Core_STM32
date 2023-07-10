@@ -201,6 +201,12 @@
 #define PIN_SERIAL_RX           PA10
 #define PIN_SERIAL_TX           PA9
 
+// SDMMC signals not available
+#define SDMMC_CKIN_NA
+#define SDMMC_CDIR_NA
+#define SDMMC_D0DIR_NA
+#define SDMMC_D123DIR_NA
+
 /* HAL configuration */
 #define HSE_VALUE               24000000U
 
