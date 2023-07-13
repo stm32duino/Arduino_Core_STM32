@@ -1780,7 +1780,7 @@ typedef struct
 /******************************************************************************/
 
 /*
- * @brief Specific device feature definitions (not present on all devices in the STM32L4 serie)
+ * @brief Specific device feature definitions (not present on all devices in the STM32L4 series)
  */
 
 /********************  Bit definition for ADC_ISR register  *******************/
@@ -6619,7 +6619,7 @@ typedef struct
 /*                                                                            */
 /******************************************************************************/
 /*
- * @brief Specific device feature definitions (not present on all devices in the STM32L4 serie)
+ * @brief Specific device feature definitions (not present on all devices in the STM32L4 series)
  */
 #define DAC_CHANNEL2_SUPPORT                           /*!< DAC feature available only on specific devices: DAC channel 2 available */
 
@@ -7960,7 +7960,7 @@ typedef struct
 /*                                                                            */
 /******************************************************************************/
 /*
-* @brief Specific device feature definitions  (not present on all devices in the STM32L4 serie)
+* @brief Specific device feature definitions  (not present on all devices in the STM32L4 series)
 */
 #define DMA2D_LINE_OFFSET_MODE_SUPPORT
 #define DMA2D_M2M_BLEND_FIXED_COLOR_FG_BG_SUPPORT
@@ -12446,7 +12446,7 @@ typedef struct
 /*                                                                            */
 /******************************************************************************/
 /*
-* @brief Specific device feature definitions  (not present on all devices in the STM32L4 serie)
+* @brief Specific device feature definitions  (not present on all devices in the STM32L4 series)
 */
 #define RCC_PLLSAI1_SUPPORT
 #define RCC_PLLP_SUPPORT
@@ -18385,7 +18385,7 @@ typedef struct
 /******************************************************************************/
 
 /*
-* @brief Specific device feature definitions (not present on all devices in the STM32L4 serie)
+* @brief Specific device feature definitions (not present on all devices in the STM32L4 series)
 */
 #define USART_TCBGT_SUPPORT
 

@@ -568,7 +568,7 @@ typedef struct
   uint32_t      RESERVED7[7];   /*!< Reserved, 0x11C - 0x137                                                              */
   __IO uint32_t VMCCR;          /*!< DSI Host Video Mode Current Configuration Register,        Address offset: 0x138     */
   __IO uint32_t VPCCR;          /*!< DSI Host Video Packet Current Configuration Register,      Address offset: 0x13C     */
-  __IO uint32_t VCCCR;          /*!< DSI Host Video Chunks Current Configuration Register,     Address offset: 0x140     */
+  __IO uint32_t VCCCR;          /*!< DSI Host Video ChunksCurrent Configuration Register,     Address offset: 0x140     */
   __IO uint32_t VNPCCR;         /*!< DSI Host Video Null Packet Current Configuration Register, Address offset: 0x144     */
   __IO uint32_t VHSACCR;        /*!< DSI Host Video HSA Current Configuration Register,         Address offset: 0x148     */
   __IO uint32_t VHBPCCR;        /*!< DSI Host Video HBP Current Configuration Register,         Address offset: 0x14C     */
@@ -1862,7 +1862,7 @@ typedef struct
 /******************************************************************************/
 
 /*
- * @brief Specific device feature definitions (not present on all devices in the STM32L4 serie)
+ * @brief Specific device feature definitions (not present on all devices in the STM32L4 series)
  */
 
 /********************  Bit definition for ADC_ISR register  *******************/
@@ -6701,7 +6701,7 @@ typedef struct
 /*                                                                            */
 /******************************************************************************/
 /*
- * @brief Specific device feature definitions (not present on all devices in the STM32L4 serie)
+ * @brief Specific device feature definitions (not present on all devices in the STM32L4 series)
  */
 #define DAC_CHANNEL2_SUPPORT                           /*!< DAC feature available only on specific devices: DAC channel 2 available */
 
@@ -8042,7 +8042,7 @@ typedef struct
 /*                                                                            */
 /******************************************************************************/
 /*
-* @brief Specific device feature definitions  (not present on all devices in the STM32L4 serie)
+* @brief Specific device feature definitions  (not present on all devices in the STM32L4 series)
 */
 #define DMA2D_LINE_OFFSET_MODE_SUPPORT
 #define DMA2D_M2M_BLEND_FIXED_COLOR_FG_BG_SUPPORT
@@ -15565,7 +15565,7 @@ typedef struct
 /*                                                                            */
 /******************************************************************************/
 /*
-* @brief Specific device feature definitions  (not present on all devices in the STM32L4 serie)
+* @brief Specific device feature definitions  (not present on all devices in the STM32L4 series)
 */
 #define RCC_PLLSAI1_SUPPORT
 #define RCC_PLLP_SUPPORT
@@ -21517,7 +21517,7 @@ typedef struct
 /******************************************************************************/
 
 /*
-* @brief Specific device feature definitions (not present on all devices in the STM32L4 serie)
+* @brief Specific device feature definitions (not present on all devices in the STM32L4 series)
 */
 #define USART_TCBGT_SUPPORT
 
