@@ -12,7 +12,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2022 STMicroelectronics.
+  * Copyright (c) 2021 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -13555,9 +13555,6 @@ typedef struct
 #define PWR_CR2_PRAMPDS_Pos                 (11U)
 #define PWR_CR2_PRAMPDS_Msk                 (0x1UL << PWR_CR2_PRAMPDS_Pos)          /*!< 0x00000800 */
 #define PWR_CR2_PRAMPDS                     PWR_CR2_PRAMPDS_Msk                     /*!< FDCAN and USB peripherals SRAM power-down in Stop modes (Stop 0, 1, 2, 3) */
-#define PWR_CR2_PKARAMPDS_Pos               (12U)
-#define PWR_CR2_PKARAMPDS_Msk               (0x1UL << PWR_CR2_PKARAMPDS_Pos)        /*!< 0x00001000 */
-#define PWR_CR2_PKARAMPDS                   PWR_CR2_PKARAMPDS_Msk                   /*!< PKA32 SRAM power-down in Stop modes (Stop 0, 1, 2, 3)                     */
 #define PWR_CR2_SRAM4FWU_Pos                (13U)
 #define PWR_CR2_SRAM4FWU_Msk                (0x1UL << PWR_CR2_SRAM4FWU_Pos)         /*!< 0x00002000 */
 #define PWR_CR2_SRAM4FWU                    PWR_CR2_SRAM4FWU_Msk                    /*!< SRAM4 fast wakeup from Stop modes (Stop 0, 1, 2)                          */
@@ -15810,30 +15807,15 @@ typedef struct
 #define RCC_AHB2RSTR1_OTGRST_Pos            (14U)
 #define RCC_AHB2RSTR1_OTGRST_Msk            (0x1UL << RCC_AHB2RSTR1_OTGRST_Pos)    /*!< 0x00004000 */
 #define RCC_AHB2RSTR1_OTGRST                RCC_AHB2RSTR1_OTGRST_Msk               /*!< OTG Reset */
-#define RCC_AHB2RSTR1_AESRST_Pos            (16U)
-#define RCC_AHB2RSTR1_AESRST_Msk            (0x1UL << RCC_AHB2RSTR1_AESRST_Pos)      /*!< 0x00010000 */
-#define RCC_AHB2RSTR1_AESRST                RCC_AHB2RSTR1_AESRST_Msk                 /*!< AES Hardware Accelerator Reset */
 #define RCC_AHB2RSTR1_HASHRST_Pos           (17U)
 #define RCC_AHB2RSTR1_HASHRST_Msk           (0x1UL << RCC_AHB2RSTR1_HASHRST_Pos)     /*!< 0x00020000 */
 #define RCC_AHB2RSTR1_HASHRST               RCC_AHB2RSTR1_HASHRST_Msk                /*!< Hash Reset */
 #define RCC_AHB2RSTR1_RNGRST_Pos            (18U)
 #define RCC_AHB2RSTR1_RNGRST_Msk            (0x1UL << RCC_AHB2RSTR1_RNGRST_Pos)      /*!< 0x00040000 */
 #define RCC_AHB2RSTR1_RNGRST                RCC_AHB2RSTR1_RNGRST_Msk                 /*!< Random Number Generator Reset */
-#define RCC_AHB2RSTR1_PKARST_Pos            (19U)
-#define RCC_AHB2RSTR1_PKARST_Msk            (0x1UL << RCC_AHB2RSTR1_PKARST_Pos)      /*!< 0x00080000 */
-#define RCC_AHB2RSTR1_PKARST                RCC_AHB2RSTR1_PKARST_Msk                 /*!< PKA reset */
-#define RCC_AHB2RSTR1_SAESRST_Pos           (20U)
-#define RCC_AHB2RSTR1_SAESRST_Msk           (0x1UL << RCC_AHB2RSTR1_SAESRST_Pos)     /*!< 0x00080000 */
-#define RCC_AHB2RSTR1_SAESRST               RCC_AHB2RSTR1_SAESRST_Msk                /*!< SAES Hardware Accelerator Reset */
 #define RCC_AHB2RSTR1_OCTOSPIMRST_Pos       (21U)
 #define RCC_AHB2RSTR1_OCTOSPIMRST_Msk       (0x1UL << RCC_AHB2RSTR1_OCTOSPIMRST_Pos) /*!< 0x00200000 */
 #define RCC_AHB2RSTR1_OCTOSPIMRST           RCC_AHB2RSTR1_OCTOSPIMRST_Msk            /*!< OCTOSPIM Reset */
-#define RCC_AHB2RSTR1_OTFDEC1RST_Pos        (23U)
-#define RCC_AHB2RSTR1_OTFDEC1RST_Msk        (0x1UL << RCC_AHB2RSTR1_OTFDEC1RST_Pos)  /*!< 0x00800000 */
-#define RCC_AHB2RSTR1_OTFDEC1RST            RCC_AHB2RSTR1_OTFDEC1RST_Msk             /*!< OTFDEC1 Reset */
-#define RCC_AHB2RSTR1_OTFDEC2RST_Pos        (24U)
-#define RCC_AHB2RSTR1_OTFDEC2RST_Msk        (0x1UL << RCC_AHB2RSTR1_OTFDEC2RST_Pos)  /*!< 0x01000000 */
-#define RCC_AHB2RSTR1_OTFDEC2RST            RCC_AHB2RSTR1_OTFDEC2RST_Msk             /*!< OTFDEC2 Reset */
 #define RCC_AHB2RSTR1_SDMMC1RST_Pos         (27U)
 #define RCC_AHB2RSTR1_SDMMC1RST_Msk         (0x1UL << RCC_AHB2RSTR1_SDMMC1RST_Pos)   /*!< 0x08000000 */
 #define RCC_AHB2RSTR1_SDMMC1RST             RCC_AHB2RSTR1_SDMMC1RST_Msk              /*!< SDMMC1 Reset */
@@ -16066,30 +16048,15 @@ typedef struct
 #define RCC_AHB2ENR1_OTGEN_Pos              (14U)
 #define RCC_AHB2ENR1_OTGEN_Msk              (0x1UL << RCC_AHB2ENR1_OTGEN_Pos)       /*!< 0x00004000 */
 #define RCC_AHB2ENR1_OTGEN                  RCC_AHB2ENR1_OTGEN_Msk                  /*!< OTG Clock Enable */
-#define RCC_AHB2ENR1_AESEN_Pos              (16U)
-#define RCC_AHB2ENR1_AESEN_Msk              (0x1UL << RCC_AHB2ENR1_AESEN_Pos)       /*!< 0x00010000 */
-#define RCC_AHB2ENR1_AESEN                  RCC_AHB2ENR1_AESEN_Msk                  /*!< AES Clock Enable */
 #define RCC_AHB2ENR1_HASHEN_Pos             (17U)
 #define RCC_AHB2ENR1_HASHEN_Msk             (0x1UL << RCC_AHB2ENR1_HASHEN_Pos)      /*!< 0x00020000 */
 #define RCC_AHB2ENR1_HASHEN                 RCC_AHB2ENR1_HASHEN_Msk                 /*!< HASH Clock Enable */
 #define RCC_AHB2ENR1_RNGEN_Pos              (18U)
 #define RCC_AHB2ENR1_RNGEN_Msk              (0x1UL << RCC_AHB2ENR1_RNGEN_Pos)       /*!< 0x00040000 */
 #define RCC_AHB2ENR1_RNGEN                  RCC_AHB2ENR1_RNGEN_Msk                  /*!< RNG Clock Enable */
-#define RCC_AHB2ENR1_PKAEN_Pos              (19U)
-#define RCC_AHB2ENR1_PKAEN_Msk              (0x1UL << RCC_AHB2ENR1_PKAEN_Pos)       /*!< 0x00080000 */
-#define RCC_AHB2ENR1_PKAEN                  RCC_AHB2ENR1_PKAEN_Msk                  /*!< PKA Clock Enable */
-#define RCC_AHB2ENR1_SAESEN_Pos             (20U)
-#define RCC_AHB2ENR1_SAESEN_Msk             (0x1UL << RCC_AHB2ENR1_SAESEN_Pos)      /*!< 0x00100000 */
-#define RCC_AHB2ENR1_SAESEN                 RCC_AHB2ENR1_SAESEN_Msk                 /*!< SAES Clock Enable */
 #define RCC_AHB2ENR1_OCTOSPIMEN_Pos         (21U)
 #define RCC_AHB2ENR1_OCTOSPIMEN_Msk         (0x1UL << RCC_AHB2ENR1_OCTOSPIMEN_Pos)  /*!< 0x00200000 */
 #define RCC_AHB2ENR1_OCTOSPIMEN             RCC_AHB2ENR1_OCTOSPIMEN_Msk             /*!< OCTOSPIM Clock Enable */
-#define RCC_AHB2ENR1_OTFDEC1EN_Pos          (23U)
-#define RCC_AHB2ENR1_OTFDEC1EN_Msk          (0x1UL << RCC_AHB2ENR1_OTFDEC1EN_Pos)   /*!< 0x00800000 */
-#define RCC_AHB2ENR1_OTFDEC1EN              RCC_AHB2ENR1_OTFDEC1EN_Msk              /*!< OTFDEC1 Clock Enable */
-#define RCC_AHB2ENR1_OTFDEC2EN_Pos          (24U)
-#define RCC_AHB2ENR1_OTFDEC2EN_Msk          (0x1UL << RCC_AHB2ENR1_OTFDEC2EN_Pos)   /*!< 0x01000000 */
-#define RCC_AHB2ENR1_OTFDEC2EN              RCC_AHB2ENR1_OTFDEC2EN_Msk              /*!< OTFDEC2 Clock Enable */
 #define RCC_AHB2ENR1_SDMMC1EN_Pos           (27U)
 #define RCC_AHB2ENR1_SDMMC1EN_Msk           (0x1UL << RCC_AHB2ENR1_SDMMC1EN_Pos)    /*!< 0x08000000 */
 #define RCC_AHB2ENR1_SDMMC1EN               RCC_AHB2ENR1_SDMMC1EN_Msk               /*!< SDMMC1 Clock Enable */
@@ -16346,30 +16313,15 @@ typedef struct
 #define RCC_AHB2SMENR1_OTGSMEN_Pos          (14U)
 #define RCC_AHB2SMENR1_OTGSMEN_Msk          (0x1UL << RCC_AHB2SMENR1_OTGSMEN_Pos)       /*!< 0x00004000 */
 #define RCC_AHB2SMENR1_OTGSMEN              RCC_AHB2SMENR1_OTGSMEN_Msk                  /*!< OTG Clocks Enable During Sleep and Stop Modes */
-#define RCC_AHB2SMENR1_AESSMEN_Pos          (16U)
-#define RCC_AHB2SMENR1_AESSMEN_Msk          (0x1UL << RCC_AHB2SMENR1_AESSMEN_Pos)    /*!< 0x00010000 */
-#define RCC_AHB2SMENR1_AESSMEN              RCC_AHB2SMENR1_AESSMEN_Msk               /*!< AES Clocks Enable During Sleep and Stop Modes */
 #define RCC_AHB2SMENR1_HASHSMEN_Pos         (17U)
 #define RCC_AHB2SMENR1_HASHSMEN_Msk         (0x1UL << RCC_AHB2SMENR1_HASHSMEN_Pos)   /*!< 0x00020000 */
 #define RCC_AHB2SMENR1_HASHSMEN             RCC_AHB2SMENR1_HASHSMEN_Msk              /*!< HASH Clocks Enable During Sleep and Stop Modes */
 #define RCC_AHB2SMENR1_RNGSMEN_Pos          (18U)
 #define RCC_AHB2SMENR1_RNGSMEN_Msk          (0x1UL << RCC_AHB2SMENR1_RNGSMEN_Pos)    /*!< 0x00040000 */
 #define RCC_AHB2SMENR1_RNGSMEN              RCC_AHB2SMENR1_RNGSMEN_Msk               /*!< Random Number Generator (RNG) Clocks Enable During Sleep and Stop Modes */
-#define RCC_AHB2SMENR1_PKASMEN_Pos          (19U)
-#define RCC_AHB2SMENR1_PKASMEN_Msk          (0x1UL << RCC_AHB2SMENR1_PKASMEN_Pos)    /*!< 0x00080000 */
-#define RCC_AHB2SMENR1_PKASMEN              RCC_AHB2SMENR1_PKASMEN_Msk               /*!< PKA Clocks Enable During Sleep and Stop Modes */
-#define RCC_AHB2SMENR1_SAESSMEN_Pos         (20U)
-#define RCC_AHB2SMENR1_SAESSMEN_Msk         (0x1UL << RCC_AHB2SMENR1_SAESSMEN_Pos)   /*!< 0x00100000 */
-#define RCC_AHB2SMENR1_SAESSMEN              RCC_AHB2SMENR1_SAESSMEN_Msk              /*!< SAES Clocks Enable During Sleep and Stop Modes */
 #define RCC_AHB2SMENR1_OCTOSPIMSMEN_Pos     (21U)
 #define RCC_AHB2SMENR1_OCTOSPIMSMEN_Msk     (0x1UL << RCC_AHB2SMENR1_OCTOSPIMSMEN_Pos)  /*!< 0x00200000 */
 #define RCC_AHB2SMENR1_OCTOSPIMSMEN         RCC_AHB2SMENR1_OCTOSPIMSMEN_Msk             /*!< OCTOSPIM Clocks Enable During Sleep and Stop Modes */
-#define RCC_AHB2SMENR1_OTFDEC1SMEN_Pos      (23U)
-#define RCC_AHB2SMENR1_OTFDEC1SMEN_Msk      (0x1UL << RCC_AHB2SMENR1_OTFDEC1SMEN_Pos) /*!< 0x00800000 */
-#define RCC_AHB2SMENR1_OTFDEC1SMEN          RCC_AHB2SMENR1_OTFDEC1SMEN_Msk            /*!< OTFDEC1 Clocks Enable During Sleep and Stop Modes */
-#define RCC_AHB2SMENR1_OTFDEC2SMEN_Pos      (24U)
-#define RCC_AHB2SMENR1_OTFDEC2SMEN_Msk      (0x1UL << RCC_AHB2SMENR1_OTFDEC2SMEN_Pos) /*!< 0x01000000 */
-#define RCC_AHB2SMENR1_OTFDEC2SMEN          RCC_AHB2SMENR1_OTFDEC2SMEN_Msk            /*!< OTFDEC2 Clocks Enable During Sleep and Stop Modes */
 #define RCC_AHB2SMENR1_SDMMC1SMEN_Pos       (27U)
 #define RCC_AHB2SMENR1_SDMMC1SMEN_Msk       (0x1UL << RCC_AHB2SMENR1_SDMMC1SMEN_Pos) /*!< 0x08000000 */
 #define RCC_AHB2SMENR1_SDMMC1SMEN           RCC_AHB2SMENR1_SDMMC1SMEN_Msk            /*!< SDMMC1 Clocks Enable During Sleep and Stop Modes */
@@ -16692,9 +16644,6 @@ typedef struct
 #define RCC_CCIPR2_SAI2SEL_0                (0x1UL << RCC_CCIPR2_SAI2SEL_Pos)        /*!< 0x00000100 */
 #define RCC_CCIPR2_SAI2SEL_1                (0x2UL << RCC_CCIPR2_SAI2SEL_Pos)        /*!< 0x00000200 */
 #define RCC_CCIPR2_SAI2SEL_2                (0x4UL << RCC_CCIPR2_SAI2SEL_Pos)        /*!< 0x00000400 */
-#define RCC_CCIPR2_SAESSEL_Pos              (11U)
-#define RCC_CCIPR2_SAESSEL_Msk              (0x1UL << RCC_CCIPR2_SAESSEL_Pos)        /*!< 0x00004000 */
-#define RCC_CCIPR2_SAESSEL                  RCC_CCIPR2_SAESSEL_Msk                   /*!< SAES Kernel Clock Source Selection */
 #define RCC_CCIPR2_RNGSEL_Pos               (12U)
 #define RCC_CCIPR2_RNGSEL_Msk               (0x3UL << RCC_CCIPR2_RNGSEL_Pos)         /*!< 0x00300000 */
 #define RCC_CCIPR2_RNGSEL                   RCC_CCIPR2_RNGSEL_Msk                    /*!< RNGSEL[1:0]: bits (RNGSEL Kernel Clock Source Selection) */
@@ -19541,16 +19490,10 @@ typedef struct
 #define GTZC_CFGR3_DCMI_Msk                 (0x01UL << GTZC_CFGR3_DCMI_Pos)
 #define GTZC_CFGR3_OTG_Pos                  (10U)
 #define GTZC_CFGR3_OTG_Msk                  (0x01UL << GTZC_CFGR3_OTG_Pos)
-#define GTZC_CFGR3_AES_Pos                  (11U)
-#define GTZC_CFGR3_AES_Msk                  (0x01UL << GTZC_CFGR3_AES_Pos)
 #define GTZC_CFGR3_HASH_Pos                 (12U)
 #define GTZC_CFGR3_HASH_Msk                 (0x01UL << GTZC_CFGR3_HASH_Pos)
 #define GTZC_CFGR3_RNG_Pos                  (13U)
 #define GTZC_CFGR3_RNG_Msk                  (0x01UL << GTZC_CFGR3_RNG_Pos)
-#define GTZC_CFGR3_PKA_Pos                  (14U)
-#define GTZC_CFGR3_PKA_Msk                  (0x01UL << GTZC_CFGR3_PKA_Pos)
-#define GTZC_CFGR3_SAES_Pos                 (15U)
-#define GTZC_CFGR3_SAES_Msk                 (0x01UL << GTZC_CFGR3_SAES_Pos)
 #define GTZC_CFGR3_OCTOSPIM_Pos             (16U)
 #define GTZC_CFGR3_OCTOSPIM_Msk             (0x01UL << GTZC_CFGR3_OCTOSPIM_Pos)
 #define GTZC_CFGR3_SDMMC1_Pos               (17U)
@@ -19573,10 +19516,6 @@ typedef struct
 #define GTZC_CFGR4_FLASH_REG_Msk            (0x01UL << GTZC_CFGR4_FLASH_REG_Pos)
 #define GTZC_CFGR4_FLASH_Pos                (2U)
 #define GTZC_CFGR4_FLASH_Msk                (0x01UL << GTZC_CFGR4_FLASH_Pos)
-#define GTZC_CFGR4_OTFDEC1_Pos              (3U)
-#define GTZC_CFGR4_OTFDEC1_Msk              (0x01UL << GTZC_CFGR4_OTFDEC1_Pos)
-#define GTZC_CFGR4_OTFDEC2_Pos              (4U)
-#define GTZC_CFGR4_OTFDEC2_Msk              (0x01UL << GTZC_CFGR4_OTFDEC2_Pos)
 #define GTZC_CFGR4_TZSC1_Pos                (14U)
 #define GTZC_CFGR4_TZSC1_Msk                (0x01UL << GTZC_CFGR4_TZSC1_Pos)
 #define GTZC_CFGR4_TZIC1_Pos                (15U)
@@ -19737,16 +19676,10 @@ typedef struct
 #define GTZC_TZSC1_SECCFGR3_DCMI_Msk            GTZC_CFGR3_DCMI_Msk
 #define GTZC_TZSC1_SECCFGR3_OTG_Pos             GTZC_CFGR3_OTG_Pos
 #define GTZC_TZSC1_SECCFGR3_OTG_Msk             GTZC_CFGR3_OTG_Msk
-#define GTZC_TZSC1_SECCFGR3_AES_Pos             GTZC_CFGR3_AES_Pos
-#define GTZC_TZSC1_SECCFGR3_AES_Msk             GTZC_CFGR3_AES_Msk
 #define GTZC_TZSC1_SECCFGR3_HASH_Pos            GTZC_CFGR3_HASH_Pos
 #define GTZC_TZSC1_SECCFGR3_HASH_Msk            GTZC_CFGR3_HASH_Msk
 #define GTZC_TZSC1_SECCFGR3_RNG_Pos             GTZC_CFGR3_RNG_Pos
 #define GTZC_TZSC1_SECCFGR3_RNG_Msk             GTZC_CFGR3_RNG_Msk
-#define GTZC_TZSC1_SECCFGR3_PKA_Pos             GTZC_CFGR3_PKA_Pos
-#define GTZC_TZSC1_SECCFGR3_PKA_Msk             GTZC_CFGR3_PKA_Msk
-#define GTZC_TZSC1_SECCFGR3_SAES_Pos            GTZC_CFGR3_SAES_Pos
-#define GTZC_TZSC1_SECCFGR3_SAES_Msk            GTZC_CFGR3_SAES_Msk
 #define GTZC_TZSC1_SECCFGR3_OCTOSPIM_Pos        GTZC_CFGR3_OCTOSPIM_Pos
 #define GTZC_TZSC1_SECCFGR3_OCTOSPIM_Msk        GTZC_CFGR3_OCTOSPIM_Msk
 #define GTZC_TZSC1_SECCFGR3_SDMMC1_Pos          GTZC_CFGR3_SDMMC1_Pos
@@ -19873,16 +19806,10 @@ typedef struct
 #define GTZC_TZSC1_PRIVCFGR3_DCMI_Msk           GTZC_CFGR3_DCMI_Msk
 #define GTZC_TZSC1_PRIVCFGR3_OTG_Pos            GTZC_CFGR3_OTG_Pos
 #define GTZC_TZSC1_PRIVCFGR3_OTG_Msk            GTZC_CFGR3_OTG_Msk
-#define GTZC_TZSC1_PRIVCFGR3_AES_Pos            GTZC_CFGR3_AES_Pos
-#define GTZC_TZSC1_PRIVCFGR3_AES_Msk            GTZC_CFGR3_AES_Msk
 #define GTZC_TZSC1_PRIVCFGR3_HASH_Pos           GTZC_CFGR3_HASH_Pos
 #define GTZC_TZSC1_PRIVCFGR3_HASH_Msk           GTZC_CFGR3_HASH_Msk
 #define GTZC_TZSC1_PRIVCFGR3_RNG_Pos            GTZC_CFGR3_RNG_Pos
 #define GTZC_TZSC1_PRIVCFGR3_RNG_Msk            GTZC_CFGR3_RNG_Msk
-#define GTZC_TZSC1_PRIVCFGR3_PKA_Pos            GTZC_CFGR3_PKA_Pos
-#define GTZC_TZSC1_PRIVCFGR3_PKA_Msk            GTZC_CFGR3_PKA_Msk
-#define GTZC_TZSC1_PRIVCFGR3_SAES_Pos           GTZC_CFGR3_SAES_Pos
-#define GTZC_TZSC1_PRIVCFGR3_SAES_Msk           GTZC_CFGR3_SAES_Msk
 #define GTZC_TZSC1_PRIVCFGR3_OCTOSPIM_Pos       GTZC_CFGR3_OCTOSPIM_Pos
 #define GTZC_TZSC1_PRIVCFGR3_OCTOSPIM_Msk       GTZC_CFGR3_OCTOSPIM_Msk
 #define GTZC_TZSC1_PRIVCFGR3_SDMMC1_Pos         GTZC_CFGR3_SDMMC1_Pos
@@ -20009,16 +19936,10 @@ typedef struct
 #define GTZC_TZIC1_IER3_DCMI_Msk            GTZC_CFGR3_DCMI_Msk
 #define GTZC_TZIC1_IER3_OTG_Pos             GTZC_CFGR3_OTG_Pos
 #define GTZC_TZIC1_IER3_OTG_Msk             GTZC_CFGR3_OTG_Msk
-#define GTZC_TZIC1_IER3_AES_Pos             GTZC_CFGR3_AES_Pos
-#define GTZC_TZIC1_IER3_AES_Msk             GTZC_CFGR3_AES_Msk
 #define GTZC_TZIC1_IER3_HASH_Pos            GTZC_CFGR3_HASH_Pos
 #define GTZC_TZIC1_IER3_HASH_Msk            GTZC_CFGR3_HASH_Msk
 #define GTZC_TZIC1_IER3_RNG_Pos             GTZC_CFGR3_RNG_Pos
 #define GTZC_TZIC1_IER3_RNG_Msk             GTZC_CFGR3_RNG_Msk
-#define GTZC_TZIC1_IER3_PKA_Pos             GTZC_CFGR3_PKA_Pos
-#define GTZC_TZIC1_IER3_PKA_Msk             GTZC_CFGR3_PKA_Msk
-#define GTZC_TZIC1_IER3_SAES_Pos            GTZC_CFGR3_SAES_Pos
-#define GTZC_TZIC1_IER3_SAES_Msk            GTZC_CFGR3_SAES_Msk
 #define GTZC_TZIC1_IER3_OCTOSPIM_Pos        GTZC_CFGR3_OCTOSPIM_Pos
 #define GTZC_TZIC1_IER3_OCTOSPIM_Msk        GTZC_CFGR3_OCTOSPIM_Msk
 #define GTZC_TZIC1_IER3_SDMMC1_Pos          GTZC_CFGR3_SDMMC1_Pos
@@ -20041,10 +19962,6 @@ typedef struct
 #define GTZC_TZIC1_IER4_FLASH_REG_Msk       GTZC_CFGR4_FLASH_REG_Msk
 #define GTZC_TZIC1_IER4_FLASH_Pos           GTZC_CFGR4_FLASH_Pos
 #define GTZC_TZIC1_IER4_FLASH_Msk           GTZC_CFGR4_FLASH_Msk
-#define GTZC_TZIC1_IER4_OTFDEC1_Pos         GTZC_CFGR4_OTFDEC1_Pos
-#define GTZC_TZIC1_IER4_OTFDEC1_Msk         GTZC_CFGR4_OTFDEC1_Msk
-#define GTZC_TZIC1_IER4_OTFDEC2_Pos         GTZC_CFGR4_OTFDEC2_Pos
-#define GTZC_TZIC1_IER4_OTFDEC2_Msk         GTZC_CFGR4_OTFDEC2_Msk
 #define GTZC_TZIC1_IER4_TZSC1_Pos           GTZC_CFGR4_TZSC1_Pos
 #define GTZC_TZIC1_IER4_TZSC1_Msk           GTZC_CFGR4_TZSC1_Msk
 #define GTZC_TZIC1_IER4_TZIC1_Pos           GTZC_CFGR4_TZIC1_Pos
@@ -20205,16 +20122,10 @@ typedef struct
 #define GTZC_TZIC1_SR3_DCMI_Msk             GTZC_CFGR3_DCMI_Msk
 #define GTZC_TZIC1_SR3_OTG_Pos              GTZC_CFGR3_OTG_Pos
 #define GTZC_TZIC1_SR3_OTG_Msk              GTZC_CFGR3_OTG_Msk
-#define GTZC_TZIC1_SR3_AES_Pos              GTZC_CFGR3_AES_Pos
-#define GTZC_TZIC1_SR3_AES_Msk              GTZC_CFGR3_AES_Msk
 #define GTZC_TZIC1_SR3_HASH_Pos             GTZC_CFGR3_HASH_Pos
 #define GTZC_TZIC1_SR3_HASH_Msk             GTZC_CFGR3_HASH_Msk
 #define GTZC_TZIC1_SR3_RNG_Pos              GTZC_CFGR3_RNG_Pos
 #define GTZC_TZIC1_SR3_RNG_Msk              GTZC_CFGR3_RNG_Msk
-#define GTZC_TZIC1_SR3_PKA_Pos              GTZC_CFGR3_PKA_Pos
-#define GTZC_TZIC1_SR3_PKA_Msk              GTZC_CFGR3_PKA_Msk
-#define GTZC_TZIC1_SR3_SAES_Pos             GTZC_CFGR3_SAES_Pos
-#define GTZC_TZIC1_SR3_SAES_Msk             GTZC_CFGR3_SAES_Msk
 #define GTZC_TZIC1_SR3_OCTOSPIM_Pos         GTZC_CFGR3_OCTOSPIM_Pos
 #define GTZC_TZIC1_SR3_OCTOSPIM_Msk         GTZC_CFGR3_OCTOSPIM_Msk
 #define GTZC_TZIC1_SR3_SDMMC1_Pos           GTZC_CFGR3_SDMMC1_Pos
@@ -20237,10 +20148,6 @@ typedef struct
 #define GTZC_TZIC1_SR4_FLASH_REG_Msk        GTZC_CFGR4_FLASH_REG_Msk
 #define GTZC_TZIC1_SR4_FLASH_Pos            GTZC_CFGR4_FLASH_Pos
 #define GTZC_TZIC1_SR4_FLASH_Msk            GTZC_CFGR4_FLASH_Msk
-#define GTZC_TZIC1_SR4_OTFDEC1_Pos          GTZC_CFGR4_OTFDEC1_Pos
-#define GTZC_TZIC1_SR4_OTFDEC1_Msk          GTZC_CFGR4_OTFDEC1_Msk
-#define GTZC_TZIC1_SR4_OTFDEC2_Pos          GTZC_CFGR4_OTFDEC2_Pos
-#define GTZC_TZIC1_SR4_OTFDEC2_Msk          GTZC_CFGR4_OTFDEC2_Msk
 #define GTZC_TZIC1_SR4_TZSC1_Pos            GTZC_CFGR4_TZSC1_Pos
 #define GTZC_TZIC1_SR4_TZSC1_Msk            GTZC_CFGR4_TZSC1_Msk
 #define GTZC_TZIC1_SR4_TZIC1_Pos            GTZC_CFGR4_TZIC1_Pos
@@ -20401,16 +20308,10 @@ typedef struct
 #define GTZC_TZIC1_FCR3_DCMI_Msk            GTZC_CFGR3_DCMI_Msk
 #define GTZC_TZIC1_FCR3_OTG_Pos             GTZC_CFGR3_OTG_Pos
 #define GTZC_TZIC1_FCR3_OTG_Msk             GTZC_CFGR3_OTG_Msk
-#define GTZC_TZIC1_FCR3_AES_Pos             GTZC_CFGR3_AES_Pos
-#define GTZC_TZIC1_FCR3_AES_Msk             GTZC_CFGR3_AES_Msk
 #define GTZC_TZIC1_FCR3_HASH_Pos            GTZC_CFGR3_HASH_Pos
 #define GTZC_TZIC1_FCR3_HASH_Msk            GTZC_CFGR3_HASH_Msk
 #define GTZC_TZIC1_FCR3_RNG_Pos             GTZC_CFGR3_RNG_Pos
 #define GTZC_TZIC1_FCR3_RNG_Msk             GTZC_CFGR3_RNG_Msk
-#define GTZC_TZIC1_FCR3_PKA_Pos             GTZC_CFGR3_PKA_Pos
-#define GTZC_TZIC1_FCR3_PKA_Msk             GTZC_CFGR3_PKA_Msk
-#define GTZC_TZIC1_FCR3_SAES_Pos            GTZC_CFGR3_SAES_Pos
-#define GTZC_TZIC1_FCR3_SAES_Msk            GTZC_CFGR3_SAES_Msk
 #define GTZC_TZIC1_FCR3_OCTOSPIM_Pos        GTZC_CFGR3_OCTOSPIM_Pos
 #define GTZC_TZIC1_FCR3_OCTOSPIM_Msk        GTZC_CFGR3_OCTOSPIM_Msk
 #define GTZC_TZIC1_FCR3_SDMMC1_Pos          GTZC_CFGR3_SDMMC1_Pos
@@ -20433,10 +20334,6 @@ typedef struct
 #define GTZC_TZIC1_FCR4_FLASH_REG_Msk       GTZC_CFGR4_FLASH_REG_Msk
 #define GTZC_TZIC1_FCR4_FLASH_Pos           GTZC_CFGR4_FLASH_Pos
 #define GTZC_TZIC1_FCR4_FLASH_Msk           GTZC_CFGR4_FLASH_Msk
-#define GTZC_TZIC1_FCR4_OTFDEC1_Pos         GTZC_CFGR4_OTFDEC1_Pos
-#define GTZC_TZIC1_FCR4_OTFDEC1_Msk         GTZC_CFGR4_OTFDEC1_Msk
-#define GTZC_TZIC1_FCR4_OTFDEC2_Pos         GTZC_CFGR4_OTFDEC2_Pos
-#define GTZC_TZIC1_FCR4_OTFDEC2_Msk         GTZC_CFGR4_OTFDEC2_Msk
 #define GTZC_TZIC1_FCR4_TZSC1_Pos           GTZC_CFGR4_TZSC1_Pos
 #define GTZC_TZIC1_FCR4_TZSC1_Msk           GTZC_CFGR4_TZSC1_Msk
 #define GTZC_TZIC1_FCR4_TZIC1_Pos           GTZC_CFGR4_TZIC1_Pos

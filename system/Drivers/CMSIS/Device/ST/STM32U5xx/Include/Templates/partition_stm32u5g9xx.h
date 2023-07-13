@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file    partition_stm32u599xx.h
+  * @file    partition_stm32u5g9xx.h
   * @author  MCD Application Team
-  * @brief   CMSIS STM32U599xx Device Initial Setup for Secure / Non-Secure Zones
+  * @brief   CMSIS STM32U5G9xx Device Initial Setup for Secure / Non-Secure Zones
   *          for ARMCM33 based on CMSIS CORE partition_ARMCM33.h Template.
   *
   *          This file contains:
@@ -31,8 +31,8 @@
   * limitations under the License.
   */
 
-#ifndef PARTITION_STM32U599XX_H
-#define PARTITION_STM32U599XX_H
+#ifndef PARTITION_STM32U5G9XX_H
+#define PARTITION_STM32U5G9XX_H
 
 /*
 //-------- <<< Use Configuration Wizard in Context Menu >>> -----------------
@@ -137,7 +137,7 @@
 /*
 //     <o>End Address <0x1F-0xFFFFFFFF>
 */
-#define SAU_INIT_END2       0x2026FFFF      /* end address of SAU region 2 */
+#define SAU_INIT_END2       0x202EFFFF      /* end address of SAU region 2 */
 
 /*
 //     <o>Region is
@@ -404,6 +404,7 @@
 //   <o.25> EXTI14_IRQn           <0=> Secure state <1=> Non-Secure state
 //   <o.26> EXTI15_IRQn           <0=> Secure state <1=> Non-Secure state
 //   <o.27> IWDG_IRQn             <0=> Secure state <1=> Non-Secure state
+//   <o.28> SAES_IRQn             <0=> Secure state <1=> Non-Secure state
 //   <o.29> GPDMA1_Channel0_IRQn  <0=> Secure state <1=> Non-Secure state
 //   <o.30> GPDMA1_Channel1_IRQn  <0=> Secure state <1=> Non-Secure state
 //   <o.31> GPDMA1_Channel2_IRQn  <0=> Secure state <1=> Non-Secure state
@@ -496,6 +497,7 @@
 //   <o.26> SAI1_IRQn             <0=> Secure state <1=> Non-Secure state
 //   <o.27> SAI2_IRQn             <0=> Secure state <1=> Non-Secure state
 //   <o.28> TSC_IRQn              <0=> Secure state <1=> Non-Secure state
+//   <o.29> AES_IRQn              <0=> Secure state <1=> Non-Secure state
 //   <o.30> RNG_IRQn              <0=> Secure state <1=> Non-Secure state
 //   <o.31> FPU_IRQn              <0=> Secure state <1=> Non-Secure state
 */
@@ -513,6 +515,7 @@
 /*
 // Interrupts 96..127
 //   <o.0>  HASH_IRQn             <0=> Secure state <1=> Non-Secure state
+//   <o.1>  PKA_IRQn              <0=> Secure state <1=> Non-Secure state
 //   <o.2>  LPTIM3_IRQn           <0=> Secure state <1=> Non-Secure state
 //   <o.3>  SPI3_IRQn             <0=> Secure state <1=> Non-Secure state
 //   <o.4>  I2C4_ER_IRQn          <0=> Secure state <1=> Non-Secure state
@@ -523,6 +526,8 @@
 //   <o.9>  MDF1_FLT3_IRQn        <0=> Secure state <1=> Non-Secure state
 //   <o.10> UCPD1_IRQn            <0=> Secure state <1=> Non-Secure state
 //   <o.11> ICACHE_IRQn           <0=> Secure state <1=> Non-Secure state
+//   <o.12> OTFDEC1_IRQn          <0=> Secure state <1=> Non-Secure state
+//   <o.13> OTFDEC2_IRQn          <0=> Secure state <1=> Non-Secure state
 //   <o.14> LPTIM4_IRQn           <0=> Secure state <1=> Non-Secure state
 //   <o.15> DCACHE1_IRQn          <0=> Secure state <1=> Non-Secure state
 //   <o.16> ADF1_IRQn             <0=> Secure state <1=> Non-Secure state
@@ -554,7 +559,7 @@
 #define NVIC_INIT_ITNS4    1
 
 /*
-// Interrupts 128..138
+// Interrupts 128..140
 //   <o.0>  I2C5_EV_IRQn          <0=> Secure state <1=> Non-Secure state
 //   <o.1>  I2C6_ER_IRQn          <0=> Secure state <1=> Non-Secure state
 //   <o.2>  I2C6_EV_IRQn          <0=> Secure state <1=> Non-Secure state
@@ -566,6 +571,8 @@
 //   <o.8>  LTDC_ER_IRQn          <0=> Secure state <1=> Non-Secure state
 //   <o.9>  DSI_IRQn              <0=> Secure state <1=> Non-Secure state
 //   <o.10> DCACHE2_IRQn          <0=> Secure state <1=> Non-Secure state
+//   <o.11> GFXTIM_IRQn           <0=> Secure state <1=> Non-Secure state
+//   <o.12> JPEG_IRQn             <0=> Secure state <1=> Non-Secure state
 */
 #define NVIC_INIT_ITNS4_VAL      0x00000000
 
@@ -686,4 +693,4 @@ __STATIC_INLINE void TZ_SAU_Setup (void)
 
 }
 
-#endif  /* PARTITION_STM32U599XX_H */
+#endif  /* PARTITION_STM32U5G9XX_H */

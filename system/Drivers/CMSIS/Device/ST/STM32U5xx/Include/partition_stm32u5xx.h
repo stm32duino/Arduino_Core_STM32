@@ -54,6 +54,14 @@
   #include "partition_stm32u599xx.h"
 #elif defined(STM32U5A9xx)
   #include "partition_stm32u5a9xx.h"
+#elif defined(STM32U5F7xx)
+  #include "partition_stm32u5f7xx.h"
+#elif defined(STM32U5G7xx)
+  #include "partition_stm32u5g7xx.h"
+#elif defined(STM32U5F9xx)
+  #include "partition_stm32u5f9xx.h"
+#elif defined(STM32U5G9xx)
+  #include "partition_stm32u5g9xx.h"
 #elif defined(STM32U535xx)
   #include "partition_stm32u535xx.h"
 #elif defined(STM32U545xx)

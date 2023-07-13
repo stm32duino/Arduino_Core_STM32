@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file    partition_stm32u599xx.h
+  * @file    partition_stm32u5f9xx.h
   * @author  MCD Application Team
-  * @brief   CMSIS STM32U599xx Device Initial Setup for Secure / Non-Secure Zones
+  * @brief   CMSIS STM32U5F9xx Device Initial Setup for Secure / Non-Secure Zones
   *          for ARMCM33 based on CMSIS CORE partition_ARMCM33.h Template.
   *
   *          This file contains:
@@ -31,8 +31,8 @@
   * limitations under the License.
   */
 
-#ifndef PARTITION_STM32U599XX_H
-#define PARTITION_STM32U599XX_H
+#ifndef PARTITION_STM32U5F7XX_H
+#define PARTITION_STM32U5F7XX_H
 
 /*
 //-------- <<< Use Configuration Wizard in Context Menu >>> -----------------
@@ -137,7 +137,7 @@
 /*
 //     <o>End Address <0x1F-0xFFFFFFFF>
 */
-#define SAU_INIT_END2       0x2026FFFF      /* end address of SAU region 2 */
+#define SAU_INIT_END2       0x202EFFFF      /* end address of SAU region 2 */
 
 /*
 //     <o>Region is
@@ -554,7 +554,7 @@
 #define NVIC_INIT_ITNS4    1
 
 /*
-// Interrupts 128..138
+// Interrupts 128..139
 //   <o.0>  I2C5_EV_IRQn          <0=> Secure state <1=> Non-Secure state
 //   <o.1>  I2C6_ER_IRQn          <0=> Secure state <1=> Non-Secure state
 //   <o.2>  I2C6_EV_IRQn          <0=> Secure state <1=> Non-Secure state
@@ -564,8 +564,9 @@
 //   <o.6>  GFXMMU_IRQn           <0=> Secure state <1=> Non-Secure state
 //   <o.7>  LTDC_IRQn             <0=> Secure state <1=> Non-Secure state
 //   <o.8>  LTDC_ER_IRQn          <0=> Secure state <1=> Non-Secure state
-//   <o.9>  DSI_IRQn              <0=> Secure state <1=> Non-Secure state
 //   <o.10> DCACHE2_IRQn          <0=> Secure state <1=> Non-Secure state
+//   <o.11> GFXTIM_IRQn           <0=> Secure state <1=> Non-Secure state
+//   <o.12> JPEG_IRQn             <0=> Secure state <1=> Non-Secure state
 */
 #define NVIC_INIT_ITNS4_VAL      0x00000000
 
@@ -686,4 +687,4 @@ __STATIC_INLINE void TZ_SAU_Setup (void)
 
 }
 
-#endif  /* PARTITION_STM32U599XX_H */
+#endif  /* PARTITION_STM32U5F7XX_H */
