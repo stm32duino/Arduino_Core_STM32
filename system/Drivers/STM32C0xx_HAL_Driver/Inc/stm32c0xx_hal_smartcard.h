@@ -225,10 +225,12 @@ typedef struct __SMARTCARD_HandleTypeDef
 
   void (*TxISR)(struct __SMARTCARD_HandleTypeDef *huart);  /*!< Function pointer on Tx IRQ handler                    */
 
+#if defined(HAL_DMA_MODULE_ENABLED)
   DMA_HandleTypeDef                 *hdmatx;               /*!< SmartCard Tx DMA Handle parameters                    */
 
   DMA_HandleTypeDef                 *hdmarx;               /*!< SmartCard Rx DMA Handle parameters                    */
 
+#endif /* HAL_DMA_MODULE_ENABLED */
   HAL_LockTypeDef                   Lock;                  /*!< Locking object                                        */
 
   __IO HAL_SMARTCARD_StateTypeDef   gState;                /*!< SmartCard state information related to global
@@ -349,7 +351,9 @@ typedef enum
 #define HAL_SMARTCARD_ERROR_NE               (0x00000002U)         /*!< Noise error             */
 #define HAL_SMARTCARD_ERROR_FE               (0x00000004U)         /*!< frame error             */
 #define HAL_SMARTCARD_ERROR_ORE              (0x00000008U)         /*!< Overrun error           */
+#if defined(HAL_DMA_MODULE_ENABLED)
 #define HAL_SMARTCARD_ERROR_DMA              (0x00000010U)         /*!< DMA transfer error      */
+#endif /* HAL_DMA_MODULE_ENABLED */
 #define HAL_SMARTCARD_ERROR_RTO              (0x00000020U)         /*!< Receiver TimeOut error  */
 #if (USE_HAL_SMARTCARD_REGISTER_CALLBACKS == 1)
 #define HAL_SMARTCARD_ERROR_INVALID_CALLBACK (0x00000040U)         /*!< Invalid Callback error  */
@@ -1119,8 +1123,10 @@ HAL_StatusTypeDef HAL_SMARTCARD_Receive(SMARTCARD_HandleTypeDef *hsmartcard, uin
                                         uint32_t Timeout);
 HAL_StatusTypeDef HAL_SMARTCARD_Transmit_IT(SMARTCARD_HandleTypeDef *hsmartcard, const uint8_t *pData, uint16_t Size);
 HAL_StatusTypeDef HAL_SMARTCARD_Receive_IT(SMARTCARD_HandleTypeDef *hsmartcard, uint8_t *pData, uint16_t Size);
+#if defined(HAL_DMA_MODULE_ENABLED)
 HAL_StatusTypeDef HAL_SMARTCARD_Transmit_DMA(SMARTCARD_HandleTypeDef *hsmartcard, const uint8_t *pData, uint16_t Size);
 HAL_StatusTypeDef HAL_SMARTCARD_Receive_DMA(SMARTCARD_HandleTypeDef *hsmartcard, uint8_t *pData, uint16_t Size);
+#endif /* HAL_DMA_MODULE_ENABLED */
 /* Transfer Abort functions */
 HAL_StatusTypeDef HAL_SMARTCARD_Abort(SMARTCARD_HandleTypeDef *hsmartcard);
 HAL_StatusTypeDef HAL_SMARTCARD_AbortTransmit(SMARTCARD_HandleTypeDef *hsmartcard);
@@ -1146,8 +1152,8 @@ void HAL_SMARTCARD_AbortReceiveCpltCallback(SMARTCARD_HandleTypeDef *hsmartcard)
   * @{
   */
 
-HAL_SMARTCARD_StateTypeDef HAL_SMARTCARD_GetState(SMARTCARD_HandleTypeDef *hsmartcard);
-uint32_t                   HAL_SMARTCARD_GetError(SMARTCARD_HandleTypeDef *hsmartcard);
+HAL_SMARTCARD_StateTypeDef HAL_SMARTCARD_GetState(const SMARTCARD_HandleTypeDef *hsmartcard);
+uint32_t                   HAL_SMARTCARD_GetError(const SMARTCARD_HandleTypeDef *hsmartcard);
 
 /**
   * @}

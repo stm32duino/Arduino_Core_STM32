@@ -73,6 +73,7 @@ typedef struct
                                    This parameter can be a combination of @ref FLASH_OB_USER_Type */
   uint32_t USERConfig;        /*!< Value of the user option byte (used for OPTIONBYTE_USER).
                                    This parameter can be a combination of
+                                   @ref FLASH_OB_USER_BOR_ENABLE,
                                    @ref FLASH_OB_USER_BOR_LEVEL,
                                    @ref FLASH_OB_USER_nRST_STOP,
                                    @ref FLASH_OB_USER_nRST_STANDBY,
@@ -265,7 +266,7 @@ typedef struct
 /** @defgroup FLASH_OB_USER_Type FLASH Option Bytes User Type
   * @{
   */
-
+#define OB_USER_BOR_EN                  FLASH_OPTR_BOR_EN                           /*!< BOR reset enable */
 #define OB_USER_BOR_LEV                 (FLASH_OPTR_BORF_LEV | FLASH_OPTR_BORR_LEV) /*!< BOR reset Level */
 #define OB_USER_NRST_STOP               FLASH_OPTR_nRST_STOP                        /*!< Reset generated when entering
                                                                                          the stop mode */
@@ -286,7 +287,7 @@ typedef struct
 #define OB_USER_NRST_MODE               FLASH_OPTR_NRST_MODE                        /*!< Reset pin configuration */
 #define OB_USER_INPUT_RESET_HOLDER      FLASH_OPTR_IRHEN                            /*!< Internal reset holder enable */
 
-#define OB_USER_ALL                     (OB_USER_BOR_LEV          | OB_USER_NRST_STOP  | \
+#define OB_USER_ALL                     (OB_USER_BOR_EN           | OB_USER_BOR_LEV    | OB_USER_NRST_STOP | \
                                          OB_USER_NRST_STDBY       | OB_USER_NRST_SHDW  | OB_USER_IWDG_SW   | \
                                          OB_USER_IWDG_STOP        | OB_USER_IWDG_STDBY | OB_USER_WWDG_SW   | \
                                          OB_USER_RAM_PARITY_CHECK | OB_USER_NBOOT_SEL  | OB_USER_NBOOT1    | \

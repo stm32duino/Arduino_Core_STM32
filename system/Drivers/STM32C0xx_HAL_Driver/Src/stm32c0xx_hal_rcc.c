@@ -65,10 +65,10 @@
 /** @defgroup RCC_Private_Constants RCC Private Constants
   * @{
   */
-#define HSE_TIMEOUT_VALUE          HSE_STARTUP_TIMEOUT
-#define HSI_TIMEOUT_VALUE          (2U)    /* 2 ms (minimum Tick + 1) */
-#define LSI_TIMEOUT_VALUE          (2U)    /* 2 ms (minimum Tick + 1) */
-#define CLOCKSWITCH_TIMEOUT_VALUE  (5000U) /* 5 s    */
+#define RCC_HSE_TIMEOUT_VALUE          HSE_STARTUP_TIMEOUT
+#define RCC_HSI_TIMEOUT_VALUE          (2U)    /* 2 ms (minimum Tick + 1) */
+#define RCC_LSI_TIMEOUT_VALUE          (2U)    /* 2 ms (minimum Tick + 1) */
+#define RCC_CLOCKSWITCH_TIMEOUT_VALUE  (5000U) /* 5 s    */
 
 /**
   * @}
@@ -206,7 +206,7 @@ HAL_StatusTypeDef HAL_RCC_DeInit(void)
   /* Wait till HSI is ready */
   while (READ_BIT(RCC->CR, RCC_CR_HSIRDY) == 0U)
   {
-    if ((HAL_GetTick() - tickstart) > HSI_TIMEOUT_VALUE)
+    if ((HAL_GetTick() - tickstart) > RCC_HSI_TIMEOUT_VALUE)
     {
       return HAL_TIMEOUT;
     }
@@ -224,7 +224,7 @@ HAL_StatusTypeDef HAL_RCC_DeInit(void)
   /* Wait till HSI is ready */
   while (READ_BIT(RCC->CFGR, RCC_CFGR_SWS) != 0U)
   {
-    if ((HAL_GetTick() - tickstart) > CLOCKSWITCH_TIMEOUT_VALUE)
+    if ((HAL_GetTick() - tickstart) > RCC_CLOCKSWITCH_TIMEOUT_VALUE)
     {
       return HAL_TIMEOUT;
     }
@@ -239,7 +239,7 @@ HAL_StatusTypeDef HAL_RCC_DeInit(void)
   /* Wait till HSEON is disabled */
   while (READ_BIT(RCC->CR, RCC_CR_HSERDY) != 0U)
   {
-    if ((HAL_GetTick() - tickstart) > HSE_TIMEOUT_VALUE)
+    if ((HAL_GetTick() - tickstart) > RCC_HSE_TIMEOUT_VALUE)
     {
       return HAL_TIMEOUT;
     }
@@ -281,7 +281,7 @@ HAL_StatusTypeDef HAL_RCC_DeInit(void)
   *         first and then to LSE On or LSE Bypass.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
+HAL_StatusTypeDef HAL_RCC_OscConfig(const RCC_OscInitTypeDef  *RCC_OscInitStruct)
 {
   uint32_t tickstart;
   uint32_t temp_sysclksrc;
@@ -306,7 +306,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
     /* When the HSE is used as system clock in these cases it is not allowed to be disabled */
     if (temp_sysclksrc == RCC_CFGR_SWS_HSE)
     {
-      if ((READ_BIT(RCC->CR, RCC_CR_HSERDY) != 0U) && (RCC_OscInitStruct->HSEState == RCC_HSE_OFF))
+      if (RCC_OscInitStruct->HSEState == RCC_HSE_OFF)
       {
         return HAL_ERROR;
       }
@@ -325,7 +325,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
         /* Wait till HSE is ready */
         while (READ_BIT(RCC->CR, RCC_CR_HSERDY) == 0U)
         {
-          if ((HAL_GetTick() - tickstart) > HSE_TIMEOUT_VALUE)
+          if ((HAL_GetTick() - tickstart) > RCC_HSE_TIMEOUT_VALUE)
           {
             return HAL_TIMEOUT;
           }
@@ -339,7 +339,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
         /* Wait till HSE is disabled */
         while (READ_BIT(RCC->CR, RCC_CR_HSERDY) != 0U)
         {
-          if ((HAL_GetTick() - tickstart) > HSE_TIMEOUT_VALUE)
+          if ((HAL_GetTick() - tickstart) > RCC_HSE_TIMEOUT_VALUE)
           {
             return HAL_TIMEOUT;
           }
@@ -361,7 +361,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
     if (temp_sysclksrc == RCC_CFGR_SWS_HSI)
     {
       /* When HSI is used as system clock it can not be disabled */
-      if ((READ_BIT(RCC->CR, RCC_CR_HSIRDY) != 0U) && (RCC_OscInitStruct->HSIState == RCC_HSI_OFF))
+      if (RCC_OscInitStruct->HSIState == RCC_HSI_OFF)
       {
         return HAL_ERROR;
       }
@@ -404,7 +404,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
         /* Wait till HSI is ready */
         while (READ_BIT(RCC->CR, RCC_CR_HSIRDY) == 0U)
         {
-          if ((HAL_GetTick() - tickstart) > HSI_TIMEOUT_VALUE)
+          if ((HAL_GetTick() - tickstart) > RCC_HSI_TIMEOUT_VALUE)
           {
             return HAL_TIMEOUT;
           }
@@ -424,7 +424,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
         /* Wait till HSI is disabled */
         while (READ_BIT(RCC->CR, RCC_CR_HSIRDY) != 0U)
         {
-          if ((HAL_GetTick() - tickstart) > HSI_TIMEOUT_VALUE)
+          if ((HAL_GetTick() - tickstart) > RCC_HSI_TIMEOUT_VALUE)
           {
             return HAL_TIMEOUT;
           }
@@ -442,7 +442,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
     if (__HAL_RCC_GET_SYSCLK_SOURCE() == RCC_CFGR_SWS_LSI)
     {
       /* When LSI is used as system clock it will not be disabled */
-      if ((((RCC->CSR2) & RCC_CSR2_LSIRDY) != 0U) && (RCC_OscInitStruct->LSIState == RCC_LSI_OFF))
+      if (RCC_OscInitStruct->LSIState == RCC_LSI_OFF)
       {
         return HAL_ERROR;
       }
@@ -461,7 +461,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
         /* Wait till LSI is ready */
         while (READ_BIT(RCC->CSR2, RCC_CSR2_LSIRDY) == 0U)
         {
-          if ((HAL_GetTick() - tickstart) > LSI_TIMEOUT_VALUE)
+          if ((HAL_GetTick() - tickstart) > RCC_LSI_TIMEOUT_VALUE)
           {
             return HAL_TIMEOUT;
           }
@@ -478,7 +478,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
         /* Wait till LSI is disabled */
         while (READ_BIT(RCC->CSR2, RCC_CSR2_LSIRDY) != 0U)
         {
-          if ((HAL_GetTick() - tickstart) > LSI_TIMEOUT_VALUE)
+          if ((HAL_GetTick() - tickstart) > RCC_LSI_TIMEOUT_VALUE)
           {
             return HAL_TIMEOUT;
           }
@@ -497,7 +497,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
     /* When the LSE is used as system clock, it is not allowed disable it */
     if (__HAL_RCC_GET_SYSCLK_SOURCE() == RCC_CFGR_SWS_LSE)
     {
-      if ((((RCC->CSR1) & RCC_CSR1_LSERDY) != 0U) && (RCC_OscInitStruct->LSEState == RCC_LSE_OFF))
+      if (RCC_OscInitStruct->LSEState == RCC_LSE_OFF)
       {
         return HAL_ERROR;
       }
@@ -586,7 +586,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
   *         (for more details refer to section above "Initialization/de-initialization functions")
   * @retval None
   */
-HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, uint32_t FLatency)
+HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef  *RCC_ClkInitStruct, uint32_t FLatency)
 {
   uint32_t tickstart;
 
@@ -616,7 +616,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
 
     while ((FLASH->ACR & FLASH_ACR_LATENCY) != FLatency)
     {
-      if ((HAL_GetTick() - tickstart) > CLOCKSWITCH_TIMEOUT_VALUE)
+      if ((HAL_GetTick() - tickstart) > RCC_CLOCKSWITCH_TIMEOUT_VALUE)
       {
         return HAL_TIMEOUT;
       }
@@ -688,7 +688,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
 
     while (__HAL_RCC_GET_SYSCLK_SOURCE() != (RCC_ClkInitStruct->SYSCLKSource << RCC_CFGR_SWS_Pos))
     {
-      if ((HAL_GetTick() - tickstart) > CLOCKSWITCH_TIMEOUT_VALUE)
+      if ((HAL_GetTick() - tickstart) > RCC_CLOCKSWITCH_TIMEOUT_VALUE)
       {
         return HAL_TIMEOUT;
       }
@@ -707,7 +707,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
 
     while ((FLASH->ACR & FLASH_ACR_LATENCY) != FLatency)
     {
-      if ((HAL_GetTick() - tickstart) > CLOCKSWITCH_TIMEOUT_VALUE)
+      if ((HAL_GetTick() - tickstart) > RCC_CLOCKSWITCH_TIMEOUT_VALUE)
       {
         return HAL_TIMEOUT;
       }
@@ -761,13 +761,13 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
   *            @arg @ref RCC_MCO1SOURCE_NOCLOCK  MCO1 output disabled, no clock on MCO1
   *            @arg @ref RCC_MCO1SOURCE_SYSCLK  system  clock selected as MCO1 source
   *            @arg @ref RCC_MCO1SOURCE_HSI  HSI clock selected as MCO1 source
-  *            @arg @ref RCC_MCO1SOURCE_HSE  HSE clock selected as MCO1 sourcee
+  *            @arg @ref RCC_MCO1SOURCE_HSE  HSE clock selected as MCO1 source
   *            @arg @ref RCC_MCO1SOURCE_LSI  LSI clock selected as MCO1 source
   *            @arg @ref RCC_MCO1SOURCE_LSE  LSE clock selected as MCO1 source
   *            @arg @ref RCC_MCO2SOURCE_NOCLOCK  MCO2 output disabled, no clock on MCO2
   *            @arg @ref RCC_MCO2SOURCE_SYSCLK  system  clock selected as MCO2 source
   *            @arg @ref RCC_MCO2SOURCE_HSI  HSI clock selected as MCO2 source
-  *            @arg @ref RCC_MCO2SOURCE_HSE  HSE clock selected as MCO2 sourcee
+  *            @arg @ref RCC_MCO2SOURCE_HSE  HSE clock selected as MCO2 source
   *            @arg @ref RCC_MCO2SOURCE_LSI  LSI clock selected as MCO2 source
   *            @arg @ref RCC_MCO2SOURCE_LSE  LSE clock selected as MCO2 source
   * @param  RCC_MCODiv  specifies the MCO prescaler.
@@ -934,6 +934,8 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
   */
 void HAL_RCC_GetOscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
 {
+  uint32_t regval;
+
   /* Check the parameters */
   assert_param(RCC_OscInitStruct != (void *)NULL);
 
@@ -941,56 +943,28 @@ void HAL_RCC_GetOscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
   RCC_OscInitStruct->OscillatorType = RCC_OSCILLATORTYPE_HSE | RCC_OSCILLATORTYPE_HSI | \
                                       RCC_OSCILLATORTYPE_LSE | RCC_OSCILLATORTYPE_LSI;
 
+  /* Get Control register */
+  regval = RCC->CR;
+
   /* Get the HSE configuration -----------------------------------------------*/
-  if ((RCC->CR & RCC_CR_HSEBYP) == RCC_CR_HSEBYP)
-  {
-    RCC_OscInitStruct->HSEState = RCC_HSE_BYPASS;
-  }
-  else if ((RCC->CR & RCC_CR_HSEON) == RCC_CR_HSEON)
-  {
-    RCC_OscInitStruct->HSEState = RCC_HSE_ON;
-  }
-  else
-  {
-    RCC_OscInitStruct->HSEState = RCC_HSE_OFF;
-  }
+  RCC_OscInitStruct->HSEState = (regval & (RCC_CR_HSEON | RCC_CR_HSEBYP));
 
   /* Get the HSI configuration -----------------------------------------------*/
-  if ((RCC->CR & RCC_CR_HSION) == RCC_CR_HSION)
-  {
-    RCC_OscInitStruct->HSIState = RCC_HSI_ON;
-  }
-  else
-  {
-    RCC_OscInitStruct->HSIState = RCC_HSI_OFF;
-  }
-
+  RCC_OscInitStruct->HSIState = regval & RCC_CR_HSION;
   RCC_OscInitStruct->HSICalibrationValue = ((RCC->ICSCR & RCC_ICSCR_HSITRIM) >> RCC_ICSCR_HSITRIM_Pos);
-  RCC_OscInitStruct->HSIDiv = ((RCC->CR & RCC_CR_HSIDIV) >> RCC_CR_HSIDIV_Pos);
+  RCC_OscInitStruct->HSIDiv = ((regval & RCC_CR_HSIDIV) >> RCC_CR_HSIDIV_Pos);
+
+  /* Get CSR1 register */
+  regval = RCC->CSR1;
 
   /* Get the LSE configuration -----------------------------------------------*/
-  if ((RCC->CSR1 & RCC_CSR1_LSEBYP) == RCC_CSR1_LSEBYP)
-  {
-    RCC_OscInitStruct->LSEState = RCC_LSE_BYPASS;
-  }
-  else if ((RCC->CSR1 & RCC_CSR1_LSEON) == RCC_CSR1_LSEON)
-  {
-    RCC_OscInitStruct->LSEState = RCC_LSE_ON;
-  }
-  else
-  {
-    RCC_OscInitStruct->LSEState = RCC_LSE_OFF;
-  }
+  RCC_OscInitStruct->LSEState = (regval & (RCC_CSR1_LSEON | RCC_CSR1_LSEBYP));
+
+  /* Get CSR2 register */
+  regval = RCC->CSR2;
 
   /* Get the LSI configuration -----------------------------------------------*/
-  if ((RCC->CSR2 & RCC_CSR2_LSION) == RCC_CSR2_LSION)
-  {
-    RCC_OscInitStruct->LSIState = RCC_LSI_ON;
-  }
-  else
-  {
-    RCC_OscInitStruct->LSIState = RCC_LSI_OFF;
-  }
+  RCC_OscInitStruct->LSIState = regval & RCC_CSR2_LSION;
 
 }
 

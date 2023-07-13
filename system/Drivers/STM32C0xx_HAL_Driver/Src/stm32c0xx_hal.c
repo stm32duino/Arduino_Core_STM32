@@ -56,8 +56,8 @@
   * @brief STM32C0xx HAL Driver version number
    */
 #define __STM32C0xx_HAL_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32C0xx_HAL_VERSION_SUB1   (0x00U) /*!< [23:16] sub1 version */
-#define __STM32C0xx_HAL_VERSION_SUB2   (0x01U) /*!< [15:8]  sub2 version */
+#define __STM32C0xx_HAL_VERSION_SUB1   (0x01U) /*!< [23:16] sub1 version */
+#define __STM32C0xx_HAL_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
 #define __STM32C0xx_HAL_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32C0xx_HAL_VERSION         ((__STM32C0xx_HAL_VERSION_MAIN << 24U)\
                                          |(__STM32C0xx_HAL_VERSION_SUB1 << 16U)\
@@ -75,7 +75,7 @@
   */
 __IO uint32_t uwTick;
 uint32_t uwTickPrio = (1UL << __NVIC_PRIO_BITS); /* Invalid PRIO */
-uint32_t uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
+HAL_TickFreqTypeDef uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
 /**
   * @}
   */
@@ -237,10 +237,10 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 {
   HAL_StatusTypeDef  status = HAL_OK;
 
-  if (uwTickFreq != 0U)
+  if ((uint32_t)uwTickFreq != 0UL)
   {
     /*Configure the SysTick to have interrupt in 1ms time basis*/
-    if (HAL_SYSTICK_Config(SystemCoreClock / (1000U / uwTickFreq)) == 0U)
+    if (HAL_SYSTICK_Config(SystemCoreClock / (1000UL / (uint32_t)uwTickFreq)) == 0U)
     {
       /* Configure the SysTick IRQ priority */
       if (TickPriority < (1UL << __NVIC_PRIO_BITS))
@@ -302,7 +302,7 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   */
 __weak void HAL_IncTick(void)
 {
-  uwTick += uwTickFreq;
+  uwTick += (uint32_t)uwTickFreq;
 }
 
 /**
@@ -329,7 +329,7 @@ uint32_t HAL_GetTickPrio(void)
   * @brief Set new tick Freq.
   * @retval status
   */
-HAL_StatusTypeDef HAL_SetTickFreq(uint32_t Freq)
+HAL_StatusTypeDef HAL_SetTickFreq(HAL_TickFreqTypeDef Freq)
 {
   HAL_StatusTypeDef status  = HAL_OK;
 
@@ -351,9 +351,10 @@ HAL_StatusTypeDef HAL_SetTickFreq(uint32_t Freq)
 
 /**
   * @brief return tick frequency.
-  * @retval tick period in Hz
+  * @retval Tick frequency.
+  *         Value of @ref HAL_TickFreqTypeDef.
   */
-uint32_t HAL_GetTickFreq(void)
+HAL_TickFreqTypeDef HAL_GetTickFreq(void)
 {
   return uwTickFreq;
 }
@@ -596,7 +597,7 @@ void HAL_SYSCFG_DisableRemap(uint32_t PinRemap)
   * @brief  Set Pin Binding
   * @param  pin_binding specifies which pin will bind a specific GPIO
   *         for each die package
-  *         This parameter can be any combination of HAL_BIND_xx defines
+  *         This parameter can be a value of @ref HAL_BIND_CFG
   * @retval None
   */
 void HAL_SYSCFG_SetPinBinding(uint32_t pin_binding)
@@ -608,11 +609,13 @@ void HAL_SYSCFG_SetPinBinding(uint32_t pin_binding)
 
 /**
   * @brief return Pin Binding configuration
+  * @param  pin_binding_source
+  *         This parameter can be a value of @ref HAL_BIND_SCOURCE
   * @retval PinMux configuration
   */
-uint32_t HAL_SYSCFG_GetPinBinding(void)
+uint32_t HAL_SYSCFG_GetPinBinding(uint32_t pin_binding_source)
 {
-  return LL_SYSCFG_GetConfigPinMux();
+  return LL_SYSCFG_GetConfigPinMux(pin_binding_source);
 }
 
 /**

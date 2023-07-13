@@ -210,22 +210,26 @@ typedef struct
   * @}
   */
 
+/** @defgroup RCC_LL_EC_SYSCLK_DIV  AHB prescaler
+  * @{
+  */
+#define LL_RCC_SYSCLK_DIV_1                0x00000000U                                                             /*!< SYSCLK not divided */
 /**
   * @}
   */
 
-/** @defgroup LL_RCC_SYSCLK_Clock_Source  RCC HCLK Clock Source
+/** @defgroup RCC_HCLK_Clock_Source  RCC HCLK Clock Source
   * @{
   */
-#define LL_RCC_SYSCLK_DIV_1                0x00000000U                                                              /*!< HCLK not divided */
-#define LL_RCC_SYSCLK_DIV_2                RCC_CFGR_HPRE_3                                                          /*!< HCLK divided by 2 */
-#define LL_RCC_SYSCLK_DIV_4                (RCC_CFGR_HPRE_3 | RCC_CFGR_HPRE_0)                                      /*!< HCLK divided by 4 */
-#define LL_RCC_SYSCLK_DIV_8                (RCC_CFGR_HPRE_3 | RCC_CFGR_HPRE_1)                                      /*!< HCLK divided by 8 */
-#define LL_RCC_SYSCLK_DIV_16               (RCC_CFGR_HPRE_3 | RCC_CFGR_HPRE_1 | RCC_CFGR_HPRE_0)                    /*!< HCLK divided by 16 */
-#define LL_RCC_SYSCLK_DIV_64               (RCC_CFGR_HPRE_3 | RCC_CFGR_HPRE_2)                                      /*!< HCLK divided by 64 */
-#define LL_RCC_SYSCLK_DIV_128              (RCC_CFGR_HPRE_3 | RCC_CFGR_HPRE_2 | RCC_CFGR_HPRE_0)                    /*!< HCLK divided by 128 */
-#define LL_RCC_SYSCLK_DIV_256              (RCC_CFGR_HPRE_3 | RCC_CFGR_HPRE_2 | RCC_CFGR_HPRE_1)                    /*!< HCLK divided by 256 */
-#define LL_RCC_SYSCLK_DIV_512              (RCC_CFGR_HPRE_3 | RCC_CFGR_HPRE_2 | RCC_CFGR_HPRE_1 | RCC_CFGR_HPRE_0)  /*!< HCLK divided by 512 */
+#define LL_RCC_HCLK_DIV_1                  0x00000000U                                                             /*!< HCLK not divided */
+#define LL_RCC_HCLK_DIV_2                  RCC_CFGR_HPRE_3                                                         /*!< HCLK divided by 2 */
+#define LL_RCC_HCLK_DIV_4                  (RCC_CFGR_HPRE_3 | RCC_CFGR_HPRE_0)                                     /*!< HCLK divided by 4 */
+#define LL_RCC_HCLK_DIV_8                  (RCC_CFGR_HPRE_3 | RCC_CFGR_HPRE_1)                                     /*!< HCLK divided by 8 */
+#define LL_RCC_HCLK_DIV_16                 (RCC_CFGR_HPRE_3 | RCC_CFGR_HPRE_1 | RCC_CFGR_HPRE_0)                   /*!< HCLK divided by 16 */
+#define LL_RCC_HCLK_DIV_64                 (RCC_CFGR_HPRE_3 | RCC_CFGR_HPRE_2)                                     /*!< HCLK divided by 64 */
+#define LL_RCC_HCLK_DIV_128                (RCC_CFGR_HPRE_3 | RCC_CFGR_HPRE_2 | RCC_CFGR_HPRE_0)                   /*!< HCLK divided by 128 */
+#define LL_RCC_HCLK_DIV_256                (RCC_CFGR_HPRE_3 | RCC_CFGR_HPRE_2 | RCC_CFGR_HPRE_1)                   /*!< HCLK divided by 256 */
+#define LL_RCC_HCLK_DIV_512                (RCC_CFGR_HPRE_3 | RCC_CFGR_HPRE_2 | RCC_CFGR_HPRE_1 | RCC_CFGR_HPRE_0) /*!< HCLK divided by 512 */
 /**
   * @}
   */
@@ -375,7 +379,7 @@ typedef struct
   * @{
   */
 #define LL_RCC_ADC_CLKSOURCE_SYSCLK        0x00000000U                   /*!< SYSCLK used as ADC clock */
-#define LL_RCC_ADC_CLKSOURCE_HSIKER        RCC_CCIPR_ADCSEL              /*!< HSIKER kernel used as ADC clock */
+#define LL_RCC_ADC_CLKSOURCE_HSIKER        RCC_CCIPR_ADCSEL_1            /*!< HSIKER kernel used as ADC clock */
 /**
   * @}
   */
@@ -458,7 +462,15 @@ typedef struct
   * @brief  Helper macro to calculate the HCLK frequency
   * @param  __SYSCLKFREQ__ SYSCLK frequency (based on HSE/HSI/PLLCLK)
   * @param  __AHBPRESCALER__ This parameter can be one of the following values:
-  *         @arg @ref LL_RCC_SYSCLK_DIV_1
+  *         @arg @ref LL_RCC_HCLK_DIV_1
+  *         @arg @ref LL_RCC_HCLK_DIV_2
+  *         @arg @ref LL_RCC_HCLK_DIV_4
+  *         @arg @ref LL_RCC_HCLK_DIV_8
+  *         @arg @ref LL_RCC_HCLK_DIV_16
+  *         @arg @ref LL_RCC_HCLK_DIV_64
+  *         @arg @ref LL_RCC_HCLK_DIV_128
+  *         @arg @ref LL_RCC_HCLK_DIV_256
+  *         @arg @ref LL_RCC_HCLK_DIV_512
   * @retval HCLK clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_HCLK_FREQ(__SYSCLKFREQ__,__AHBPRESCALER__) ((__SYSCLKFREQ__) >> (AHBPrescTable[((__AHBPRESCALER__)\
@@ -1013,7 +1025,15 @@ __STATIC_INLINE uint32_t LL_RCC_GetSysClkSource(void)
   * @brief  Set AHB prescaler
   * @rmtoll CFGR         HPRE          LL_RCC_SetAHBPrescaler
   * @param  Prescaler This parameter can be one of the following values:
-  *         @arg @ref LL_RCC_SYSCLK_DIV_1
+  *         @arg @ref LL_RCC_HCLK_DIV_1
+  *         @arg @ref LL_RCC_HCLK_DIV_2
+  *         @arg @ref LL_RCC_HCLK_DIV_4
+  *         @arg @ref LL_RCC_HCLK_DIV_8
+  *         @arg @ref LL_RCC_HCLK_DIV_16
+  *         @arg @ref LL_RCC_HCLK_DIV_64
+  *         @arg @ref LL_RCC_HCLK_DIV_128
+  *         @arg @ref LL_RCC_HCLK_DIV_256
+  *         @arg @ref LL_RCC_HCLK_DIV_512
   * @retval None
   */
 __STATIC_INLINE void LL_RCC_SetAHBPrescaler(uint32_t Prescaler)
@@ -1080,7 +1100,15 @@ __STATIC_INLINE void LL_RCC_SetHSIKERDiv(uint32_t HSIKERDiv)
   * @brief  Get AHB prescaler
   * @rmtoll CFGR         HPRE          LL_RCC_GetAHBPrescaler
   * @retval Returned value can be one of the following values:
-  *         @arg @ref LL_RCC_SYSCLK_DIV_1
+  *         @arg @ref LL_RCC_HCLK_DIV_1
+  *         @arg @ref LL_RCC_HCLK_DIV_2
+  *         @arg @ref LL_RCC_HCLK_DIV_4
+  *         @arg @ref LL_RCC_HCLK_DIV_8
+  *         @arg @ref LL_RCC_HCLK_DIV_16
+  *         @arg @ref LL_RCC_HCLK_DIV_64
+  *         @arg @ref LL_RCC_HCLK_DIV_128
+  *         @arg @ref LL_RCC_HCLK_DIV_256
+  *         @arg @ref LL_RCC_HCLK_DIV_512
   */
 __STATIC_INLINE uint32_t LL_RCC_GetAHBPrescaler(void)
 {

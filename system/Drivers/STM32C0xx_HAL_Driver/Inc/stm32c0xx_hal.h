@@ -48,16 +48,19 @@ extern "C" {
   * @{
   */
 
-#define  HAL_TICK_FREQ_10HZ         100U
-#define  HAL_TICK_FREQ_100HZ        10U
-#define  HAL_TICK_FREQ_1KHZ         1U
-#define  HAL_TICK_FREQ_DEFAULT      HAL_TICK_FREQ_1KHZ
+typedef enum
+{
+  HAL_TICK_FREQ_10HZ         = 100U,
+  HAL_TICK_FREQ_100HZ        = 10U,
+  HAL_TICK_FREQ_1KHZ         = 1U,
+  HAL_TICK_FREQ_DEFAULT      = HAL_TICK_FREQ_1KHZ
+} HAL_TickFreqTypeDef;
 
 /**
   * @}
   */
 
-/** @defgroup HAL_BIND  Bind Pin config
+/** @defgroup HAL_BIND_CFG  Bind Pin config
   * @{
   */
 
@@ -92,11 +95,34 @@ extern "C" {
 #define HAL_BIND_WLCSP14_PING1_PA12    LL_PINMUX_WLCSP14_PING1_PA12   /*!< STM32C031 WLCSP14 package, PinG1 assigned to GPIO PA12 */
 #define HAL_BIND_WLCSP14_PINJ3_PA3     LL_PINMUX_WLCSP14_PINJ3_PA3    /*!< STM32C031 WLCSP14 package, PinJ3 assigned to GPIO PA3 */
 #define HAL_BIND_WLCSP14_PINJ3_PA4     LL_PINMUX_WLCSP14_PINJ3_PA4    /*!< STM32C031 WLCSP14 package, PinJ3 assigned to GPIO PA4 */
-#endif
+#endif /* DEV_ID == 0x443UL */
 
 /**
   * @}
   */
+
+/** @defgroup HAL_BIND_SCOURCE  Bind Pin Source
+  * @{
+  */
+#if (DEV_ID == 0x443UL)
+#define HAL_BIND_SO8_PIN1                LL_PINMUX_SO8_PIN1          /*!< STM32C011 SO8 package, GPIO Pin1 multiplexer */
+#define HAL_BIND_SO8_PIN4                LL_PINMUX_SO8_PIN4          /*!< STM32C011 SO8 package, GPIO Pin4 multiplexer */
+#define HAL_BIND_SO8_PIN5                LL_PINMUX_SO8_PIN5          /*!< STM32C011 SO8 package, GPIO Pin5 multiplexer */
+#define HAL_BIND_SO8_PIN8                LL_PINMUX_SO8_PIN8          /*!< STM32C011 SO8 package, GPIO Pin8 multiplexer */
+#define HAL_BIND_WLCSP12_PINE2           LL_PINMUX_WLCSP12_PINE2     /*!< STM32C011 WLCSP12 package, GPIO PinE2 multiplexer */
+#define HAL_BIND_WLCSP12_PINF1           LL_PINMUX_WLCSP12_PINF1     /*!< STM32C011 WLCSP12 package, GPIO PinF1 multiplexer*/
+#elif (DEV_ID == 0x453UL)
+#define HAL_BIND_WLCSP14_PINF2           LL_PINMUX_WLCSP14_PINF2     /*!< STM32C031 WLCSP14 package, GPIO PinF2 multiplexer */
+#define HAL_BIND_WLCSP14_PING3           LL_PINMUX_WLCSP14_PING3     /*!< STM32C031 WLCSP14 package, GPIO PinG3 multiplexer */
+#define HAL_BIND_WLCSP14_PINJ1           LL_PINMUX_WLCSP14_PINJ1     /*!< STM32C031 WLCSP14 package, GPIO PinJ1 multiplexer */
+#define HAL_BIND_WLCSP14_PINH2           LL_PINMUX_WLCSP14_PINH2     /*!< STM32C031 WLCSP14 package, GPIO PinH2 multiplexer */
+#define HAL_BIND_WLCSP14_PING1           LL_PINMUX_WLCSP14_PING1     /*!< STM32C031 WLCSP14 package, GPIO PinG1 multiplexer */
+#define HAL_BIND_WLCSP14_PINJ3           LL_PINMUX_WLCSP14_PINJ3     /*!< STM32C031 WLCSP14 package, GPIO PinJ3 multiplexer */
+#endif /* DEV_ID == 0x443UL */
+ /**
+  * @}
+  */
+
 
 /**
   * @}
@@ -504,8 +530,8 @@ void HAL_IncTick(void);
 void HAL_Delay(uint32_t Delay);
 uint32_t HAL_GetTick(void);
 uint32_t HAL_GetTickPrio(void);
-HAL_StatusTypeDef HAL_SetTickFreq(uint32_t Freq);
-uint32_t HAL_GetTickFreq(void);
+HAL_StatusTypeDef HAL_SetTickFreq(HAL_TickFreqTypeDef Freq);
+HAL_TickFreqTypeDef HAL_GetTickFreq(void);
 void HAL_SuspendTick(void);
 void HAL_ResumeTick(void);
 uint32_t HAL_GetHalVersion(void);
@@ -537,9 +563,9 @@ void HAL_DBGMCU_DisableDBGStandbyMode(void);
 /** @addtogroup HAL_Exported_Variables
   * @{
   */
-extern __IO uint32_t uwTick;
-extern uint32_t uwTickPrio;
-extern uint32_t uwTickFreq;
+extern __IO uint32_t        uwTick;
+extern uint32_t             uwTickPrio;
+extern HAL_TickFreqTypeDef  uwTickFreq;
 /**
   * @}
   */
@@ -555,7 +581,7 @@ void HAL_SYSCFG_DisableIOAnalogSwitchBooster(void);
 void HAL_SYSCFG_EnableRemap(uint32_t PinRemap);
 void HAL_SYSCFG_DisableRemap(uint32_t PinRemap);
 void HAL_SYSCFG_SetPinBinding(uint32_t pin_binding);
-uint32_t HAL_SYSCFG_GetPinBinding(void);
+uint32_t HAL_SYSCFG_GetPinBinding(uint32_t pin_binding_source);
 /**
   * @}
   */

@@ -725,7 +725,7 @@ __STATIC_INLINE void LL_PWR_BKP_SetRegister(uint32_t BackupRegister, uint16_t Da
 {
   __IO uint32_t tmp;
 
-  tmp = (uint32_t)(&(PWR->BKPREG1));
+  tmp = (uint32_t)(&(PWR->BKP0R));
   tmp += (BackupRegister * 4U);
 
   /* Write the specified register */
@@ -746,7 +746,7 @@ __STATIC_INLINE uint32_t LL_PWR_BKP_GetRegister(uint32_t BackupRegister)
 {
   uint32_t tmp;
 
-  tmp = (uint32_t)(&(PWR->BKPREG1));
+  tmp = (uint32_t)(&(PWR->BKP0R));
   tmp += (BackupRegister * 4U);
 
   /* Read the specified register */

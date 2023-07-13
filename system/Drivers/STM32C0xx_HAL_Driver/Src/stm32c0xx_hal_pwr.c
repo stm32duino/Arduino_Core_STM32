@@ -191,12 +191,13 @@ void HAL_PWR_DeInit(void)
   * @param  WakeUpPinPolarity Specifies which Wake-Up pin to enable.
   *         This parameter can be one of the following legacy values which set
   *         the default polarity i.e. detection on high level (rising edge):
-  *           @arg @ref PWR_WAKEUP_PIN1, PWR_WAKEUP_PIN2, PWR_WAKEUP_PIN4,
-  *                PWR_WAKEUP_PIN6
+  *           @arg @ref PWR_WAKEUP_PIN1, PWR_WAKEUP_PIN2, PWR_WAKEUP_PIN3,
+  *                PWR_WAKEUP_PIN4, PWR_WAKEUP_PIN6
   *         or one of the following value where the user can explicitly specify
   *         the enabled pin and the chosen polarity:
   *           @arg @ref PWR_WAKEUP_PIN1_HIGH or PWR_WAKEUP_PIN1_LOW
   *           @arg @ref PWR_WAKEUP_PIN2_HIGH or PWR_WAKEUP_PIN2_LOW
+  *           @arg @ref PWR_WAKEUP_PIN3_HIGH or PWR_WAKEUP_PIN3_LOW
   *           @arg @ref PWR_WAKEUP_PIN4_HIGH or PWR_WAKEUP_PIN4_LOW
   *           @arg @ref PWR_WAKEUP_PIN6_HIGH or PWR_WAKEUP_PIN6_LOW
   * @note  PWR_WAKEUP_PINx and PWR_WAKEUP_PINx_HIGH are equivalent.
@@ -348,11 +349,6 @@ void HAL_PWR_EnterSTANDBYMode(void)
 
   /* Set SLEEPDEEP bit of Cortex System Control Register */
   SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
-
-  /* This option is used to ensure that store operations are completed */
-#if defined ( __CC_ARM)
-  __force_stores();
-#endif /* __CC_ARM */
 
   /* Request Wait For Interrupt */
   __WFI();
