@@ -130,7 +130,7 @@
            and a pointer to the user callback function.
 
       (++) Use function HAL_OPAMP_UnRegisterCallback() to reset a callback to the default
-           weak (surcharged) function. It allows to reset following callbacks:
+           weak (overridden) function. It allows to reset following callbacks:
       (+++) MspInitCallback         : OPAMP MspInit.
       (+++) MspDeInitCallback       : OPAMP MspdeInit.
       (+++) All Callbacks
@@ -1021,7 +1021,7 @@ HAL_OPAMP_StateTypeDef HAL_OPAMP_GetState(OPAMP_HandleTypeDef *hopamp)
 #if (USE_HAL_OPAMP_REGISTER_CALLBACKS == 1)
 /**
   * @brief  Register a User OPAMP Callback
-  *         To be used instead of the weak (surcharged) predefined callback
+  *         To be used instead of the weak (overridden) predefined callback
   * @param hopamp : OPAMP handle
   * @param CallbackID : ID of the callback to be registered
   *        This parameter can be one of the following values:
@@ -1087,7 +1087,7 @@ HAL_StatusTypeDef HAL_OPAMP_RegisterCallback (OPAMP_HandleTypeDef *hopamp, HAL_O
 
 /**
   * @brief  Unregister a User OPAMP Callback
-  *         OPAMP Callback is redirected to the weak (surcharged) predefined callback
+  *         OPAMP Callback is redirected to the weak (overridden) predefined callback
   * @param hopamp : OPAMP handle
   * @param CallbackID : ID of the callback to be unregistered
   *        This parameter can be one of the following values:

@@ -143,8 +143,8 @@ typedef struct
 /** @defgroup OPAMP_LL_EC_POWERSUPPLY_RANGE OPAMP power supply range
   * @{
   */
-#define LL_OPAMP_POWERSUPPLY_RANGE_LOW   0x00000000U            /*!< Power supply range low. On STM32L4 serie: Vdda lower than 2.4V. */
-#define LL_OPAMP_POWERSUPPLY_RANGE_HIGH (OPAMP1_CSR_OPARANGE)   /*!< Power supply range high. On STM32L4 serie: Vdda higher than 2.4V. */
+#define LL_OPAMP_POWERSUPPLY_RANGE_LOW   0x00000000U            /*!< Power supply range low. On STM32L4 series: Vdda lower than 2.4V. */
+#define LL_OPAMP_POWERSUPPLY_RANGE_HIGH (OPAMP1_CSR_OPARANGE)   /*!< Power supply range high. On STM32L4 series: Vdda higher than 2.4V. */
 /**
   * @}
   */
@@ -361,7 +361,7 @@ typedef struct
   * @brief  Set OPAMP power range.
   * @note   The OPAMP power range applies to several OPAMP instances
   *         (if several OPAMP instances available on the selected device).
-  * @note   On this STM32 serie, setting of this feature is conditioned to
+  * @note   On this STM32 series, setting of this feature is conditioned to
   *         OPAMP state:
   *         All OPAMP instances of the OPAMP common group must be disabled.
   *         This check can be done with function @ref LL_OPAMP_IsEnabled() for each
@@ -448,7 +448,7 @@ __STATIC_INLINE uint32_t LL_OPAMP_GetPowerMode(OPAMP_TypeDef *OPAMPx)
   *            @ref LL_OPAMP_SetFunctionalMode().
   *          - calibration mode: offset calibration of the selected
   *            transistors differential pair NMOS or PMOS.
-  * @note   On this STM32 serie, during calibration, OPAMP functional
+  * @note   On this STM32 series, during calibration, OPAMP functional
   *         mode must be set to standalone or follower mode
   *         (in order to open internal connections to resistors
   *         of PGA mode).

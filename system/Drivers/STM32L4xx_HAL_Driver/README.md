@@ -27,19 +27,7 @@ Details about the content of this release are available in the release note [her
 
 ## Compatibility information
 
-In this table, you can find the successive versions of this HAL-LL Driver component, in line with the corresponding versions of the full MCU package:
-
-It is **crucial** that you use a consistent set of versions for the CMSIS Core - CMSIS Device - HAL, as mentioned in this table.
-
-HAL Driver L4 | CMSIS Device L4 | CMSIS Core | Was delivered in the full MCU package
-------------- | --------------- | ---------- | -------------------------------------
-Tag v1.10.0 | Tag v1.5.1 | Tag v5.4.0_cm4 | Tag v1.14.0 (and following, if any, till next HAL tag)
-Tag v1.11.0 | Tag v1.6.0 | Tag v5.4.0_cm4 | Tag v1.15.0 (and following, if any, till next HAL tag)
-Tag v1.11.1 | Tag v1.6.1 | Tag v5.4.0_cm4 | Tag v1.15.1 (and following, if any, till next HAL tag)
-Tag v1.12.0 | Tag v1.7.0 | Tag v5.6.0_cm4 | Tag v1.16.0 (and following, if any, till next HAL tag)
-Tag v1.13.0 | Tag v1.7.1 | Tag v5.6.0_cm4 | Tag v1.17.0 (and following, if any, till next HAL tag)
-Tag v1.13.2 | Tag v1.7.2 | Tag v5.6.0_cm4 | Tag v1.17.1 (and following, if any, till next HAL tag)
-Tag v1.13.3 | Tag v1.7.2 | Tag v5.6.0_cm4 | Tag v1.17.2 (and following, if any, till next HAL tag)
+It is **crucial** that you use a consistent set of versions for the CMSIS Core - CMSIS Device - HAL, as mentioned in [this](https://htmlpreview.github.io/?https://github.com/STMicroelectronics/STM32CubeL4/blob/master/Release_Notes.html) release note.
 
 The full **STM32CubeL4** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeL4).
 

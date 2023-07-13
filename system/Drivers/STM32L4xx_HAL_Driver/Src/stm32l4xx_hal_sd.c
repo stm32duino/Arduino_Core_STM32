@@ -320,7 +320,6 @@ static void     SD_DMAError       (DMA_HandleTypeDef *hdma);
 static void     SD_DMATxAbort     (DMA_HandleTypeDef *hdma);
 static void     SD_DMARxAbort     (DMA_HandleTypeDef *hdma);
 #else
-uint32_t        SD_HighSpeed      (SD_HandleTypeDef *hsd);
 static uint32_t SD_UltraHighSpeed (SD_HandleTypeDef *hsd);
 static uint32_t SD_DDR_Mode       (SD_HandleTypeDef *hsd);
 #endif /* !STM32L4P5xx && !STM32L4Q5xx && !STM32L4R5xx && !STM32L4R7xx && !STM32L4R9xx && !STM32L4S5xx && !STM32L4S7xx && !STM32L4S9xx */

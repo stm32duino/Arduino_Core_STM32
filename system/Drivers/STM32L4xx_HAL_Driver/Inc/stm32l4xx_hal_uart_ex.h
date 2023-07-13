@@ -189,6 +189,8 @@ HAL_StatusTypeDef HAL_UARTEx_ReceiveToIdle(UART_HandleTypeDef *huart, uint8_t *p
 HAL_StatusTypeDef HAL_UARTEx_ReceiveToIdle_IT(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
 HAL_StatusTypeDef HAL_UARTEx_ReceiveToIdle_DMA(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
 
+HAL_UART_RxEventTypeTypeDef HAL_UARTEx_GetRxEventType(const UART_HandleTypeDef *huart);
+
 
 /**
   * @}
@@ -208,10 +210,13 @@ HAL_StatusTypeDef HAL_UARTEx_ReceiveToIdle_DMA(UART_HandleTypeDef *huart, uint8_
   * @param  __CLOCKSOURCE__ output variable.
   * @retval UART clocking source, written in __CLOCKSOURCE__.
   */
-#if defined (STM32L471xx) || defined (STM32L475xx) || defined (STM32L476xx) || defined (STM32L485xx) || defined (STM32L486xx) \
-    || defined (STM32L496xx) || defined (STM32L4A6xx) \
-    || defined (STM32L4P5xx) || defined (STM32L4Q5xx) \
-    || defined (STM32L4R5xx) || defined (STM32L4R7xx) || defined (STM32L4R9xx) || defined (STM32L4S5xx) || defined (STM32L4S7xx) || defined (STM32L4S9xx)
+#if defined (STM32L471xx) || defined (STM32L475xx) || defined (STM32L476xx) \
+ || defined (STM32L485xx) || defined (STM32L486xx) \
+ || defined (STM32L496xx) || defined (STM32L4A6xx) \
+ || defined (STM32L4P5xx) || defined (STM32L4Q5xx) \
+ || defined (STM32L4R5xx) || defined (STM32L4R7xx) \
+ || defined (STM32L4R9xx) || defined (STM32L4S5xx) \
+ || defined (STM32L4S7xx) || defined (STM32L4S9xx)
 #define UART_GETCLOCKSOURCE(__HANDLE__,__CLOCKSOURCE__)       \
   do {                                                        \
     if((__HANDLE__)->Instance == USART1)                      \

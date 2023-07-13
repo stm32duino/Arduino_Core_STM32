@@ -454,7 +454,7 @@ __STATIC_INLINE uint32_t LL_CRS_GetSyncPolarity(void)
   */
 __STATIC_INLINE void LL_CRS_ConfigSynchronization(uint32_t HSI48CalibrationValue, uint32_t ErrorLimitValue, uint32_t ReloadValue, uint32_t Settings)
 {
-  MODIFY_REG(CRS->CR, CRS_CR_TRIM, HSI48CalibrationValue);
+  MODIFY_REG(CRS->CR, CRS_CR_TRIM, HSI48CalibrationValue << CRS_CR_TRIM_Pos);
   MODIFY_REG(CRS->CFGR,
              CRS_CFGR_RELOAD | CRS_CFGR_FELIM | CRS_CFGR_SYNCDIV | CRS_CFGR_SYNCSRC | CRS_CFGR_SYNCPOL,
              ReloadValue | (ErrorLimitValue << CRS_CFGR_FELIM_Pos) | Settings);

@@ -184,7 +184,7 @@ __STATIC_INLINE void LL_CRC_SetPolynomialSize(CRC_TypeDef *CRCx, uint32_t PolySi
   *         @arg @ref LL_CRC_POLYLENGTH_8B
   *         @arg @ref LL_CRC_POLYLENGTH_7B
   */
-__STATIC_INLINE uint32_t LL_CRC_GetPolynomialSize(CRC_TypeDef *CRCx)
+__STATIC_INLINE uint32_t LL_CRC_GetPolynomialSize(const CRC_TypeDef *CRCx)
 {
   return (uint32_t)(READ_BIT(CRCx->CR, CRC_CR_POLYSIZE));
 }
@@ -215,7 +215,7 @@ __STATIC_INLINE void LL_CRC_SetInputDataReverseMode(CRC_TypeDef *CRCx, uint32_t 
   *         @arg @ref LL_CRC_INDATA_REVERSE_HALFWORD
   *         @arg @ref LL_CRC_INDATA_REVERSE_WORD
   */
-__STATIC_INLINE uint32_t LL_CRC_GetInputDataReverseMode(CRC_TypeDef *CRCx)
+__STATIC_INLINE uint32_t LL_CRC_GetInputDataReverseMode(const CRC_TypeDef *CRCx)
 {
   return (uint32_t)(READ_BIT(CRCx->CR, CRC_CR_REV_IN));
 }
@@ -242,7 +242,7 @@ __STATIC_INLINE void LL_CRC_SetOutputDataReverseMode(CRC_TypeDef *CRCx, uint32_t
   *         @arg @ref LL_CRC_OUTDATA_REVERSE_NONE
   *         @arg @ref LL_CRC_OUTDATA_REVERSE_BIT
   */
-__STATIC_INLINE uint32_t LL_CRC_GetOutputDataReverseMode(CRC_TypeDef *CRCx)
+__STATIC_INLINE uint32_t LL_CRC_GetOutputDataReverseMode(const CRC_TypeDef *CRCx)
 {
   return (uint32_t)(READ_BIT(CRCx->CR, CRC_CR_REV_OUT));
 }
@@ -270,7 +270,7 @@ __STATIC_INLINE void LL_CRC_SetInitialData(CRC_TypeDef *CRCx, uint32_t InitCrc)
   * @param  CRCx CRC Instance
   * @retval Value programmed in Programmable initial CRC value register
   */
-__STATIC_INLINE uint32_t LL_CRC_GetInitialData(CRC_TypeDef *CRCx)
+__STATIC_INLINE uint32_t LL_CRC_GetInitialData(const CRC_TypeDef *CRCx)
 {
   return (uint32_t)(READ_REG(CRCx->INIT));
 }
@@ -301,7 +301,7 @@ __STATIC_INLINE void LL_CRC_SetPolynomialCoef(CRC_TypeDef *CRCx, uint32_t Polyno
   * @param  CRCx CRC Instance
   * @retval Value programmed in Programmable Polynomial value register
   */
-__STATIC_INLINE uint32_t LL_CRC_GetPolynomialCoef(CRC_TypeDef *CRCx)
+__STATIC_INLINE uint32_t LL_CRC_GetPolynomialCoef(const CRC_TypeDef *CRCx)
 {
   return (uint32_t)(READ_REG(CRCx->POL));
 }
@@ -359,7 +359,7 @@ __STATIC_INLINE void LL_CRC_FeedData8(CRC_TypeDef *CRCx, uint8_t InData)
   * @param  CRCx CRC Instance
   * @retval Current CRC calculation result as stored in CRC_DR register (32 bits).
   */
-__STATIC_INLINE uint32_t LL_CRC_ReadData32(CRC_TypeDef *CRCx)
+__STATIC_INLINE uint32_t LL_CRC_ReadData32(const CRC_TypeDef *CRCx)
 {
   return (uint32_t)(READ_REG(CRCx->DR));
 }
@@ -371,7 +371,7 @@ __STATIC_INLINE uint32_t LL_CRC_ReadData32(CRC_TypeDef *CRCx)
   * @param  CRCx CRC Instance
   * @retval Current CRC calculation result as stored in CRC_DR register (16 bits).
   */
-__STATIC_INLINE uint16_t LL_CRC_ReadData16(CRC_TypeDef *CRCx)
+__STATIC_INLINE uint16_t LL_CRC_ReadData16(const CRC_TypeDef *CRCx)
 {
   return (uint16_t)READ_REG(CRCx->DR);
 }
@@ -383,7 +383,7 @@ __STATIC_INLINE uint16_t LL_CRC_ReadData16(CRC_TypeDef *CRCx)
   * @param  CRCx CRC Instance
   * @retval Current CRC calculation result as stored in CRC_DR register (8 bits).
   */
-__STATIC_INLINE uint8_t LL_CRC_ReadData8(CRC_TypeDef *CRCx)
+__STATIC_INLINE uint8_t LL_CRC_ReadData8(const CRC_TypeDef *CRCx)
 {
   return (uint8_t)READ_REG(CRCx->DR);
 }
@@ -395,7 +395,7 @@ __STATIC_INLINE uint8_t LL_CRC_ReadData8(CRC_TypeDef *CRCx)
   * @param  CRCx CRC Instance
   * @retval Current CRC calculation result as stored in CRC_DR register (7 bits).
   */
-__STATIC_INLINE uint8_t LL_CRC_ReadData7(CRC_TypeDef *CRCx)
+__STATIC_INLINE uint8_t LL_CRC_ReadData7(const CRC_TypeDef *CRCx)
 {
   return (uint8_t)(READ_REG(CRCx->DR) & 0x7FU);
 }
@@ -408,7 +408,7 @@ __STATIC_INLINE uint8_t LL_CRC_ReadData7(CRC_TypeDef *CRCx)
   * @param  CRCx CRC Instance
   * @retval Value stored in CRC_IDR register
   */
-__STATIC_INLINE uint32_t LL_CRC_Read_IDR(CRC_TypeDef *CRCx)
+__STATIC_INLINE uint32_t LL_CRC_Read_IDR(const CRC_TypeDef *CRCx)
 {
   return (uint32_t)(READ_REG(CRCx->IDR));
 }
@@ -439,7 +439,7 @@ __STATIC_INLINE void LL_CRC_Write_IDR(CRC_TypeDef *CRCx, uint32_t InData)
   * @{
   */
 
-ErrorStatus LL_CRC_DeInit(CRC_TypeDef *CRCx);
+ErrorStatus LL_CRC_DeInit(const CRC_TypeDef *CRCx);
 
 /**
   * @}

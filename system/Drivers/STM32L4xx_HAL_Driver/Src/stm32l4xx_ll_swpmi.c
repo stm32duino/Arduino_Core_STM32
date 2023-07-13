@@ -77,7 +77,7 @@
   *          - SUCCESS: SWPMI registers are de-initialized
   *          - ERROR: Not applicable
   */
-ErrorStatus LL_SWPMI_DeInit(SWPMI_TypeDef *SWPMIx)
+ErrorStatus LL_SWPMI_DeInit(const SWPMI_TypeDef *SWPMIx)
 {
   ErrorStatus status = SUCCESS;
 
@@ -109,7 +109,7 @@ ErrorStatus LL_SWPMI_DeInit(SWPMI_TypeDef *SWPMIx)
   *          - SUCCESS: SWPMI registers are initialized
   *          - ERROR: SWPMI registers are not initialized
   */
-ErrorStatus LL_SWPMI_Init(SWPMI_TypeDef *SWPMIx, LL_SWPMI_InitTypeDef *SWPMI_InitStruct)
+ErrorStatus LL_SWPMI_Init(SWPMI_TypeDef *SWPMIx, const LL_SWPMI_InitTypeDef *SWPMI_InitStruct)
 {
   ErrorStatus status = SUCCESS;
 

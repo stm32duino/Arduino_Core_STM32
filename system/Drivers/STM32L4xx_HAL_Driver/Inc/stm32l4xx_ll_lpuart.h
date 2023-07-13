@@ -502,8 +502,9 @@ typedef struct
   ((((((uint64_t)(__PERIPHCLK__)/(uint64_t)(LPUART_PRESCALER_TAB[(uint16_t)(__PRESCALER__)]))\
       * LPUART_LPUARTDIV_FREQ_MUL) + (uint32_t)((__BAUDRATE__)/2U))/(__BAUDRATE__)) & LPUART_BRR_MASK)
 #else
-#define __LL_LPUART_DIV(__PERIPHCLK__, __BAUDRATE__) (uint32_t)(((((uint64_t)(__PERIPHCLK__)*LPUART_LPUARTDIV_FREQ_MUL) + (uint32_t)((__BAUDRATE__)/2U))/(__BAUDRATE__))\
-                                                                & LPUART_BRR_MASK)
+#define __LL_LPUART_DIV(__PERIPHCLK__, __BAUDRATE__) (uint32_t)\
+  (((((uint64_t)(__PERIPHCLK__)*LPUART_LPUARTDIV_FREQ_MUL) + (uint32_t)((__BAUDRATE__)/2U))/(__BAUDRATE__)) \
+   & LPUART_BRR_MASK)
 #endif /* USART_PRESC_PRESCALER */
 
 /**
@@ -1492,7 +1493,8 @@ __STATIC_INLINE void LL_LPUART_SetBaudRate(USART_TypeDef *LPUARTx, uint32_t Peri
   * @retval Baud Rate
   */
 #if defined(USART_PRESC_PRESCALER)
-__STATIC_INLINE uint32_t LL_LPUART_GetBaudRate(const USART_TypeDef *LPUARTx, uint32_t PeriphClk, uint32_t PrescalerValue)
+__STATIC_INLINE uint32_t LL_LPUART_GetBaudRate(const USART_TypeDef *LPUARTx, uint32_t PeriphClk,
+                                               uint32_t PrescalerValue)
 #else
 __STATIC_INLINE uint32_t LL_LPUART_GetBaudRate(const USART_TypeDef *LPUARTx, uint32_t PeriphClk)
 #endif /* USART_PRESC_PRESCALER */
@@ -1740,8 +1742,7 @@ __STATIC_INLINE uint32_t LL_LPUART_IsActiveFlag_IDLE(const USART_TypeDef *LPUART
 }
 
 #if defined(USART_CR1_FIFOEN)
-/* Legacy define */
-#define LL_LPUART_IsActiveFlag_RXNE  LL_LPUART_IsActiveFlag_RXNE_RXFNE
+#define LL_LPUART_IsActiveFlag_RXNE  LL_LPUART_IsActiveFlag_RXNE_RXFNE /* Redefinition for legacy purpose */
 
 /**
   * @brief  Check if the LPUART Read Data Register or LPUART RX FIFO Not Empty Flag is set or not
@@ -1778,8 +1779,7 @@ __STATIC_INLINE uint32_t LL_LPUART_IsActiveFlag_TC(const USART_TypeDef *LPUARTx)
 }
 
 #if defined(USART_CR1_FIFOEN)
-/* Legacy define */
-#define LL_LPUART_IsActiveFlag_TXE  LL_LPUART_IsActiveFlag_TXE_TXFNF
+#define LL_LPUART_IsActiveFlag_TXE  LL_LPUART_IsActiveFlag_TXE_TXFNF /* Redefinition for legacy purpose */
 
 /**
   * @brief  Check if the LPUART Transmit Data Register Empty or LPUART TX FIFO Not Full Flag is set or not
@@ -2068,8 +2068,7 @@ __STATIC_INLINE void LL_LPUART_EnableIT_IDLE(USART_TypeDef *LPUARTx)
 }
 
 #if defined(USART_CR1_FIFOEN)
-/* Legacy define */
-#define LL_LPUART_EnableIT_RXNE  LL_LPUART_EnableIT_RXNE_RXFNE
+#define LL_LPUART_EnableIT_RXNE  LL_LPUART_EnableIT_RXNE_RXFNE /* Redefinition for legacy purpose */
 
 /**
   * @brief  Enable RX Not Empty and RX FIFO Not Empty Interrupt
@@ -2107,8 +2106,7 @@ __STATIC_INLINE void LL_LPUART_EnableIT_TC(USART_TypeDef *LPUARTx)
 }
 
 #if defined(USART_CR1_FIFOEN)
-/* Legacy define */
-#define LL_LPUART_EnableIT_TXE  LL_LPUART_EnableIT_TXE_TXFNF
+#define LL_LPUART_EnableIT_TXE  LL_LPUART_EnableIT_TXE_TXFNF /* Redefinition for legacy purpose */
 
 /**
   * @brief  Enable TX Empty and TX FIFO Not Full Interrupt
@@ -2253,8 +2251,7 @@ __STATIC_INLINE void LL_LPUART_DisableIT_IDLE(USART_TypeDef *LPUARTx)
 }
 
 #if defined(USART_CR1_FIFOEN)
-/* Legacy define */
-#define LL_LPUART_DisableIT_RXNE  LL_LPUART_DisableIT_RXNE_RXFNE
+#define LL_LPUART_DisableIT_RXNE  LL_LPUART_DisableIT_RXNE_RXFNE /* Redefinition for legacy purpose */
 
 /**
   * @brief  Disable RX Not Empty and RX FIFO Not Empty Interrupt
@@ -2292,8 +2289,7 @@ __STATIC_INLINE void LL_LPUART_DisableIT_TC(USART_TypeDef *LPUARTx)
 }
 
 #if defined(USART_CR1_FIFOEN)
-/* Legacy define */
-#define LL_LPUART_DisableIT_TXE  LL_LPUART_DisableIT_TXE_TXFNF
+#define LL_LPUART_DisableIT_TXE  LL_LPUART_DisableIT_TXE_TXFNF /* Redefinition for legacy purpose */
 
 /**
   * @brief  Disable TX Empty and TX FIFO Not Full Interrupt
@@ -2438,8 +2434,7 @@ __STATIC_INLINE uint32_t LL_LPUART_IsEnabledIT_IDLE(const USART_TypeDef *LPUARTx
 }
 
 #if defined(USART_CR1_FIFOEN)
-/* Legacy define */
-#define LL_LPUART_IsEnabledIT_RXNE  LL_LPUART_IsEnabledIT_RXNE_RXFNE
+#define LL_LPUART_IsEnabledIT_RXNE  LL_LPUART_IsEnabledIT_RXNE_RXFNE /* Redefinition for legacy purpose */
 
 /**
   * @brief  Check if the LPUART RX Not Empty and LPUART RX FIFO Not Empty Interrupt is enabled or disabled.
@@ -2477,8 +2472,7 @@ __STATIC_INLINE uint32_t LL_LPUART_IsEnabledIT_TC(const USART_TypeDef *LPUARTx)
 }
 
 #if defined(USART_CR1_FIFOEN)
-/* Legacy define */
-#define LL_LPUART_IsEnabledIT_TXE  LL_LPUART_IsEnabledIT_TXE_TXFNF
+#define LL_LPUART_IsEnabledIT_TXE  LL_LPUART_IsEnabledIT_TXE_TXFNF /* Redefinition for legacy purpose */
 
 /**
   * @brief  Check if the LPUART TX Empty and LPUART TX FIFO Not Full Interrupt is enabled or disabled

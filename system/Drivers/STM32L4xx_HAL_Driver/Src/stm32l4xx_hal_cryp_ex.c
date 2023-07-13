@@ -2458,7 +2458,7 @@ HAL_StatusTypeDef CRYP_AES_Auth_IT(CRYP_HandleTypeDef *hcryp)
             intermediate_data[((difflength+3U)/4U)+index] = 0;
           }
 
-          /* Insert intermediate data to trigger an additional DOUTR reading round */
+          /* Insert intermediate data to trigger an additional Data Output register reading round */
           /* Clear Computation Complete Flag before entering new block */
           __HAL_CRYP_CLEAR_FLAG(hcryp, CRYP_CCF_CLEAR);
           for(index=0U ; index < 4U; index ++)
@@ -2513,7 +2513,7 @@ HAL_StatusTypeDef CRYP_AES_Auth_IT(CRYP_HandleTypeDef *hcryp)
 #if !defined(AES_CR_NPBLB)
         else
         {
-          /* Software work-around: additional DOUTR reading round to discard the data */
+          /* Software work-around: additional Data Output Register reading round to discard the data */
           for(index=0U ; index < 4U; index ++)
           {
             intermediate_data[index] = hcryp->Instance->DOUTR;
@@ -3206,7 +3206,7 @@ static void CRYP_Padding(CRYP_HandleTypeDef *hcryp, uint32_t difflength, uint32_
         hcryp->Instance->DINR = intermediate_data[index];
       }
 
-      /*  Wait for completion, and read data on DOUT. This data is to discard. */
+      /*  Wait for completion, and read data on Data Output Register. This data is to discard. */
       if(CRYP_WaitOnCCFlag(hcryp, CRYP_CCF_TIMEOUTVALUE) != HAL_OK)
       {
         hcryp->State = HAL_CRYP_STATE_READY;

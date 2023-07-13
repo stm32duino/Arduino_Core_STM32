@@ -1852,6 +1852,16 @@ HAL_StatusTypeDef HAL_DSI_EnterULPMData(DSI_HandleTypeDef *hdsi)
     __HAL_UNLOCK(hdsi);
     return HAL_ERROR;
   }
+  else if ((hdsi->Instance->WRPCR & DSI_WRPCR_REGEN) != DSI_WRPCR_REGEN)
+  {
+    /* Process Unlocked */
+    __HAL_UNLOCK(hdsi);
+    return HAL_ERROR;
+  }
+  else
+  {
+    /* Nothing to do */
+  }
 
   /* Verify that there are no ULPS exit or request on data lanes */
   if ((hdsi->Instance->PUCR & (DSI_PUCR_UEDL | DSI_PUCR_URDL)) != 0U)
@@ -2169,6 +2179,16 @@ HAL_StatusTypeDef HAL_DSI_EnterULPM(DSI_HandleTypeDef *hdsi)
     /* Process Unlocked */
     __HAL_UNLOCK(hdsi);
     return HAL_ERROR;
+  }
+  else if ((hdsi->Instance->WRPCR & DSI_WRPCR_REGEN) != DSI_WRPCR_REGEN)
+  {
+    /* Process Unlocked */
+    __HAL_UNLOCK(hdsi);
+    return HAL_ERROR;
+  }
+  else
+  {
+    /* Nothing to do */
   }
 
   /* Verify that there are no ULPS exit or request on both data and clock lanes */

@@ -727,7 +727,8 @@ when the selected signal is detected on the SYNC input pin) */
                                          ((__VALUE__) == TSC_PG_PRESC_DIV128))
 
 #define IS_TSC_PG_PRESC_VS_CTPL(__PGPSC__, __CTPL__)    ((((__PGPSC__) == TSC_PG_PRESC_DIV1) && \
-                                                          ((__CTPL__) > TSC_CTPL_2CYCLES)) ||   \
+                                                          (((__CTPL__) == TSC_CTPL_1CYCLE) ||   \
+                                                           ((__CTPL__) > TSC_CTPL_2CYCLES))) ||   \
                                                          (((__PGPSC__) == TSC_PG_PRESC_DIV2) && \
                                                           ((__CTPL__) > TSC_CTPL_1CYCLE))  ||   \
                                                          (((__PGPSC__) > TSC_PG_PRESC_DIV2)  && \
@@ -740,7 +741,7 @@ when the selected signal is detected on the SYNC input pin) */
                                          ((__VALUE__) == TSC_MCV_2047) || \
                                          ((__VALUE__) == TSC_MCV_4095) || \
                                          ((__VALUE__) == TSC_MCV_8191) || \
-                                          ((__VALUE__) == TSC_MCV_16383))
+                                         ((__VALUE__) == TSC_MCV_16383))
 
 #define IS_TSC_IODEF(__VALUE__)         (((__VALUE__) == TSC_IODEF_OUT_PP_LOW) || ((__VALUE__) == TSC_IODEF_IN_FLOAT))
 
@@ -828,8 +829,8 @@ HAL_StatusTypeDef HAL_TSC_Start_IT(TSC_HandleTypeDef *htsc);
 HAL_StatusTypeDef HAL_TSC_Stop(TSC_HandleTypeDef *htsc);
 HAL_StatusTypeDef HAL_TSC_Stop_IT(TSC_HandleTypeDef *htsc);
 HAL_StatusTypeDef HAL_TSC_PollForAcquisition(TSC_HandleTypeDef *htsc);
-TSC_GroupStatusTypeDef HAL_TSC_GroupGetStatus(TSC_HandleTypeDef *htsc, uint32_t gx_index);
-uint32_t HAL_TSC_GroupGetValue(TSC_HandleTypeDef *htsc, uint32_t gx_index);
+TSC_GroupStatusTypeDef HAL_TSC_GroupGetStatus(const TSC_HandleTypeDef *htsc, uint32_t gx_index);
+uint32_t HAL_TSC_GroupGetValue(const TSC_HandleTypeDef *htsc, uint32_t gx_index);
 /**
   * @}
   */
@@ -838,7 +839,7 @@ uint32_t HAL_TSC_GroupGetValue(TSC_HandleTypeDef *htsc, uint32_t gx_index);
   * @{
   */
 /* Peripheral Control functions ***********************************************/
-HAL_StatusTypeDef HAL_TSC_IOConfig(TSC_HandleTypeDef *htsc, TSC_IOConfigTypeDef *config);
+HAL_StatusTypeDef HAL_TSC_IOConfig(TSC_HandleTypeDef *htsc, const TSC_IOConfigTypeDef *config);
 HAL_StatusTypeDef HAL_TSC_IODischarge(TSC_HandleTypeDef *htsc, FunctionalState choice);
 /**
   * @}
@@ -854,8 +855,8 @@ HAL_TSC_StateTypeDef HAL_TSC_GetState(TSC_HandleTypeDef *htsc);
   */
 
 /** @addtogroup TSC_IRQ_Handler_and_Callbacks IRQ Handler and Callbacks
- * @{
- */
+  * @{
+  */
 /******* TSC IRQHandler and Callbacks used in Interrupt mode */
 void HAL_TSC_IRQHandler(TSC_HandleTypeDef *htsc);
 void HAL_TSC_ConvCpltCallback(TSC_HandleTypeDef *htsc);

@@ -126,7 +126,11 @@ typedef enum
 /**
   * @brief  DCMI handle Structure definition
   */
+#if (USE_HAL_DCMI_REGISTER_CALLBACKS == 1)
 typedef struct __DCMI_HandleTypeDef
+#else
+typedef struct
+#endif /* USE_HAL_DCMI_REGISTER_CALLBACKS */
 {
   DCMI_TypeDef                  *Instance;           /*!< DCMI Register base address   */
 

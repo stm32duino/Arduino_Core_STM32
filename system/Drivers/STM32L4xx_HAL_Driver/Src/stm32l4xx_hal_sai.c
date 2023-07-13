@@ -244,6 +244,8 @@ typedef enum
   */
 #define SAI_DEFAULT_TIMEOUT      4U
 #define SAI_LONG_TIMEOUT         1000U
+#define SAI_SPDIF_FRAME_LENGTH   64U
+#define SAI_AC97_FRAME_LENGTH    256U
 /**
   * @}
   */
@@ -568,12 +570,12 @@ HAL_StatusTypeDef HAL_SAI_Init(SAI_HandleTypeDef *hsai)
       if (hsai->Init.Protocol == SAI_SPDIF_PROTOCOL)
       {
         /* For SPDIF protocol, frame length is set by hardware to 64 */
-        tmpframelength = 64U;
+        tmpframelength = SAI_SPDIF_FRAME_LENGTH;
       }
       else if (hsai->Init.Protocol == SAI_AC97_PROTOCOL)
       {
         /* For AC97 protocol, frame length is set by hardware to 256 */
-        tmpframelength = 256U;
+        tmpframelength = SAI_AC97_FRAME_LENGTH;
       }
       else
       {

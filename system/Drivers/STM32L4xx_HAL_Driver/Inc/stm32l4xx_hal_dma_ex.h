@@ -69,7 +69,7 @@ typedef struct
                                This parameter must be a number between Min_Data = 1 and Max_Data = 32 */
 
 
-}HAL_DMA_MuxSyncConfigTypeDef;
+} HAL_DMA_MuxSyncConfigTypeDef;
 
 
 /**
@@ -77,7 +77,7 @@ typedef struct
   */
 typedef struct
 {
- uint32_t SignalID;      /*!< Specifies the ID of the signal used for DMAMUX request generator
+  uint32_t SignalID;      /*!< Specifies the ID of the signal used for DMAMUX request generator
                               This parameter can be a value of @ref DMAEx_DMAMUX_SignalGeneratorID_selection */
 
   uint32_t Polarity;       /*!< Specifies the polarity of the signal on which the request is generated.
@@ -86,7 +86,7 @@ typedef struct
   uint32_t RequestNumber;  /*!< Specifies the number of DMA request that will be generated after a signal event
                                 This parameter must be a number between Min_Data = 1 and Max_Data = 32 */
 
-}HAL_DMA_MuxRequestGeneratorConfigTypeDef;
+} HAL_DMA_MuxRequestGeneratorConfigTypeDef;
 
 /**
   * @}
@@ -211,10 +211,10 @@ typedef struct
   */
 
 /* ------------------------- REQUEST -----------------------------------------*/
-HAL_StatusTypeDef HAL_DMAEx_ConfigMuxRequestGenerator (DMA_HandleTypeDef *hdma,
-             HAL_DMA_MuxRequestGeneratorConfigTypeDef *pRequestGeneratorConfig);
-HAL_StatusTypeDef HAL_DMAEx_EnableMuxRequestGenerator (DMA_HandleTypeDef *hdma);
-HAL_StatusTypeDef HAL_DMAEx_DisableMuxRequestGenerator (DMA_HandleTypeDef *hdma);
+HAL_StatusTypeDef HAL_DMAEx_ConfigMuxRequestGenerator(DMA_HandleTypeDef *hdma,
+                                                      HAL_DMA_MuxRequestGeneratorConfigTypeDef *pRequestGeneratorConfig);
+HAL_StatusTypeDef HAL_DMAEx_EnableMuxRequestGenerator(DMA_HandleTypeDef *hdma);
+HAL_StatusTypeDef HAL_DMAEx_DisableMuxRequestGenerator(DMA_HandleTypeDef *hdma);
 /* -------------------------------------------------------------------------- */
 
 /* ------------------------- SYNCHRO -----------------------------------------*/

@@ -83,7 +83,7 @@
   *          - SUCCESS: I2C registers are de-initialized
   *          - ERROR: I2C registers are not de-initialized
   */
-ErrorStatus LL_I2C_DeInit(I2C_TypeDef *I2Cx)
+ErrorStatus LL_I2C_DeInit(const I2C_TypeDef *I2Cx)
 {
   ErrorStatus status = SUCCESS;
 
@@ -143,7 +143,7 @@ ErrorStatus LL_I2C_DeInit(I2C_TypeDef *I2Cx)
   *          - SUCCESS: I2C registers are initialized
   *          - ERROR: Not applicable
   */
-ErrorStatus LL_I2C_Init(I2C_TypeDef *I2Cx, LL_I2C_InitTypeDef *I2C_InitStruct)
+ErrorStatus LL_I2C_Init(I2C_TypeDef *I2Cx, const LL_I2C_InitTypeDef *I2C_InitStruct)
 {
   /* Check the I2C Instance I2Cx */
   assert_param(IS_I2C_ALL_INSTANCE(I2Cx));

@@ -642,12 +642,12 @@ HAL_StatusTypeDef HAL_SWPMI_UnRegisterCallback(SWPMI_HandleTypeDef        *hswpm
   * @param  Timeout Timeout duration
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SWPMI_Transmit(SWPMI_HandleTypeDef *hswpmi, uint32_t *pData, uint16_t Size, uint32_t Timeout)
+HAL_StatusTypeDef HAL_SWPMI_Transmit(SWPMI_HandleTypeDef *hswpmi, const uint32_t *pData, uint16_t Size, uint32_t Timeout)
 {
   uint32_t tickstart = HAL_GetTick();
   HAL_StatusTypeDef status = HAL_OK;
   HAL_SWPMI_StateTypeDef tmp_state;
-  uint32_t *ptmp_data;
+  const uint32_t *ptmp_data;
   uint32_t tmp_size;
 
   if ((pData == NULL) || (Size == 0U))
@@ -859,7 +859,7 @@ HAL_StatusTypeDef HAL_SWPMI_Receive(SWPMI_HandleTypeDef *hswpmi, uint32_t *pData
   * @param  Size Amount of data to be sent
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SWPMI_Transmit_IT(SWPMI_HandleTypeDef *hswpmi, uint32_t *pData, uint16_t Size)
+HAL_StatusTypeDef HAL_SWPMI_Transmit_IT(SWPMI_HandleTypeDef *hswpmi, const uint32_t *pData, uint16_t Size)
 {
   HAL_StatusTypeDef status = HAL_OK;
   HAL_SWPMI_StateTypeDef tmp_state;
@@ -989,7 +989,7 @@ HAL_StatusTypeDef HAL_SWPMI_Receive_IT(SWPMI_HandleTypeDef *hswpmi, uint32_t *pD
   * @param  Size Amount of data to be sent
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SWPMI_Transmit_DMA(SWPMI_HandleTypeDef *hswpmi, uint32_t *pData, uint16_t Size)
+HAL_StatusTypeDef HAL_SWPMI_Transmit_DMA(SWPMI_HandleTypeDef *hswpmi, const uint32_t *pData, uint16_t Size)
 {
   HAL_StatusTypeDef status = HAL_OK;
   HAL_SWPMI_StateTypeDef tmp_state;
@@ -1546,7 +1546,7 @@ __weak void HAL_SWPMI_ErrorCallback(SWPMI_HandleTypeDef *hswpmi)
   * @param hswpmi SWPMI handle
   * @retval HAL state
   */
-HAL_SWPMI_StateTypeDef HAL_SWPMI_GetState(SWPMI_HandleTypeDef *hswpmi)
+HAL_SWPMI_StateTypeDef HAL_SWPMI_GetState(const SWPMI_HandleTypeDef *hswpmi)
 {
   /* Return SWPMI handle state */
   return hswpmi->State;
@@ -1558,7 +1558,7 @@ HAL_SWPMI_StateTypeDef HAL_SWPMI_GetState(SWPMI_HandleTypeDef *hswpmi)
   *              the configuration information for the specified SWPMI.
 * @retval SWPMI Error Code
 */
-uint32_t HAL_SWPMI_GetError(SWPMI_HandleTypeDef *hswpmi)
+uint32_t HAL_SWPMI_GetError(const SWPMI_HandleTypeDef *hswpmi)
 {
   return hswpmi->ErrorCode;
 }

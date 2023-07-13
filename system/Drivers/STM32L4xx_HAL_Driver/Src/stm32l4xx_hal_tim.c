@@ -888,7 +888,7 @@ HAL_StatusTypeDef HAL_TIM_OC_Start_IT(TIM_HandleTypeDef *htim, uint32_t Channel)
   uint32_t tmpsmcr;
 
   /* Check the parameters */
-  assert_param(IS_TIM_CCX_INSTANCE(htim->Instance, Channel));
+  assert_param(IS_TIM_CCX_CHANNEL(htim->Instance, Channel));
 
   /* Check the TIM channel state */
   if (TIM_CHANNEL_STATE_GET(htim, Channel) != HAL_TIM_CHANNEL_STATE_READY)
@@ -980,7 +980,7 @@ HAL_StatusTypeDef HAL_TIM_OC_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Channel)
   HAL_StatusTypeDef status = HAL_OK;
 
   /* Check the parameters */
-  assert_param(IS_TIM_CCX_INSTANCE(htim->Instance, Channel));
+  assert_param(IS_TIM_CCX_CHANNEL(htim->Instance, Channel));
 
   switch (Channel)
   {
@@ -1059,7 +1059,7 @@ HAL_StatusTypeDef HAL_TIM_OC_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channel
   uint32_t tmpsmcr;
 
   /* Check the parameters */
-  assert_param(IS_TIM_CCX_INSTANCE(htim->Instance, Channel));
+  assert_param(IS_TIM_CCX_CHANNEL(htim->Instance, Channel));
 
   /* Set the TIM channel state */
   if (TIM_CHANNEL_STATE_GET(htim, Channel) == HAL_TIM_CHANNEL_STATE_BUSY)
@@ -1221,7 +1221,7 @@ HAL_StatusTypeDef HAL_TIM_OC_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Channel)
   HAL_StatusTypeDef status = HAL_OK;
 
   /* Check the parameters */
-  assert_param(IS_TIM_CCX_INSTANCE(htim->Instance, Channel));
+  assert_param(IS_TIM_CCX_CHANNEL(htim->Instance, Channel));
 
   switch (Channel)
   {
@@ -1557,7 +1557,7 @@ HAL_StatusTypeDef HAL_TIM_PWM_Start_IT(TIM_HandleTypeDef *htim, uint32_t Channel
   uint32_t tmpsmcr;
 
   /* Check the parameters */
-  assert_param(IS_TIM_CCX_INSTANCE(htim->Instance, Channel));
+  assert_param(IS_TIM_CCX_CHANNEL(htim->Instance, Channel));
 
   /* Check the TIM channel state */
   if (TIM_CHANNEL_STATE_GET(htim, Channel) != HAL_TIM_CHANNEL_STATE_READY)
@@ -1649,7 +1649,7 @@ HAL_StatusTypeDef HAL_TIM_PWM_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Channel)
   HAL_StatusTypeDef status = HAL_OK;
 
   /* Check the parameters */
-  assert_param(IS_TIM_CCX_INSTANCE(htim->Instance, Channel));
+  assert_param(IS_TIM_CCX_CHANNEL(htim->Instance, Channel));
 
   switch (Channel)
   {
@@ -1728,7 +1728,7 @@ HAL_StatusTypeDef HAL_TIM_PWM_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channe
   uint32_t tmpsmcr;
 
   /* Check the parameters */
-  assert_param(IS_TIM_CCX_INSTANCE(htim->Instance, Channel));
+  assert_param(IS_TIM_CCX_CHANNEL(htim->Instance, Channel));
 
   /* Set the TIM channel state */
   if (TIM_CHANNEL_STATE_GET(htim, Channel) == HAL_TIM_CHANNEL_STATE_BUSY)
@@ -1889,7 +1889,7 @@ HAL_StatusTypeDef HAL_TIM_PWM_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Channel
   HAL_StatusTypeDef status = HAL_OK;
 
   /* Check the parameters */
-  assert_param(IS_TIM_CCX_INSTANCE(htim->Instance, Channel));
+  assert_param(IS_TIM_CCX_CHANNEL(htim->Instance, Channel));
 
   switch (Channel)
   {
@@ -2133,7 +2133,7 @@ HAL_StatusTypeDef HAL_TIM_IC_Start(TIM_HandleTypeDef *htim, uint32_t Channel)
   HAL_TIM_ChannelStateTypeDef complementary_channel_state = TIM_CHANNEL_N_STATE_GET(htim, Channel);
 
   /* Check the parameters */
-  assert_param(IS_TIM_CCX_INSTANCE(htim->Instance, Channel));
+  assert_param(IS_TIM_CCX_CHANNEL(htim->Instance, Channel));
 
   /* Check the TIM channel state */
   if ((channel_state != HAL_TIM_CHANNEL_STATE_READY)
@@ -2181,7 +2181,7 @@ HAL_StatusTypeDef HAL_TIM_IC_Start(TIM_HandleTypeDef *htim, uint32_t Channel)
 HAL_StatusTypeDef HAL_TIM_IC_Stop(TIM_HandleTypeDef *htim, uint32_t Channel)
 {
   /* Check the parameters */
-  assert_param(IS_TIM_CCX_INSTANCE(htim->Instance, Channel));
+  assert_param(IS_TIM_CCX_CHANNEL(htim->Instance, Channel));
 
   /* Disable the Input Capture channel */
   TIM_CCxChannelCmd(htim->Instance, Channel, TIM_CCx_DISABLE);
@@ -2217,7 +2217,7 @@ HAL_StatusTypeDef HAL_TIM_IC_Start_IT(TIM_HandleTypeDef *htim, uint32_t Channel)
   HAL_TIM_ChannelStateTypeDef complementary_channel_state = TIM_CHANNEL_N_STATE_GET(htim, Channel);
 
   /* Check the parameters */
-  assert_param(IS_TIM_CCX_INSTANCE(htim->Instance, Channel));
+  assert_param(IS_TIM_CCX_CHANNEL(htim->Instance, Channel));
 
   /* Check the TIM channel state */
   if ((channel_state != HAL_TIM_CHANNEL_STATE_READY)
@@ -2305,7 +2305,7 @@ HAL_StatusTypeDef HAL_TIM_IC_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Channel)
   HAL_StatusTypeDef status = HAL_OK;
 
   /* Check the parameters */
-  assert_param(IS_TIM_CCX_INSTANCE(htim->Instance, Channel));
+  assert_param(IS_TIM_CCX_CHANNEL(htim->Instance, Channel));
 
   switch (Channel)
   {
@@ -2381,7 +2381,7 @@ HAL_StatusTypeDef HAL_TIM_IC_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channel
   HAL_TIM_ChannelStateTypeDef complementary_channel_state = TIM_CHANNEL_N_STATE_GET(htim, Channel);
 
   /* Check the parameters */
-  assert_param(IS_TIM_CCX_INSTANCE(htim->Instance, Channel));
+  assert_param(IS_TIM_CCX_CHANNEL(htim->Instance, Channel));
   assert_param(IS_TIM_DMA_CC_INSTANCE(htim->Instance));
 
   /* Set the TIM channel state */
@@ -2536,7 +2536,7 @@ HAL_StatusTypeDef HAL_TIM_IC_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Channel)
   HAL_StatusTypeDef status = HAL_OK;
 
   /* Check the parameters */
-  assert_param(IS_TIM_CCX_INSTANCE(htim->Instance, Channel));
+  assert_param(IS_TIM_CCX_CHANNEL(htim->Instance, Channel));
   assert_param(IS_TIM_DMA_CC_INSTANCE(htim->Instance));
 
   /* Disable the Input Capture channel */
@@ -3027,7 +3027,7 @@ HAL_StatusTypeDef HAL_TIM_OnePulse_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Out
   * @param  sConfig TIM Encoder Interface configuration structure
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_TIM_Encoder_Init(TIM_HandleTypeDef *htim,  TIM_Encoder_InitTypeDef *sConfig)
+HAL_StatusTypeDef HAL_TIM_Encoder_Init(TIM_HandleTypeDef *htim, const TIM_Encoder_InitTypeDef *sConfig)
 {
   uint32_t tmpsmcr;
   uint32_t tmpccmr1;
@@ -3833,10 +3833,13 @@ HAL_StatusTypeDef HAL_TIM_Encoder_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Cha
   */
 void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
 {
+  uint32_t itsource = htim->Instance->DIER;
+  uint32_t itflag   = htim->Instance->SR;
+
   /* Capture compare 1 event */
-  if (__HAL_TIM_GET_FLAG(htim, TIM_FLAG_CC1) != RESET)
+  if ((itflag & (TIM_FLAG_CC1)) == (TIM_FLAG_CC1))
   {
-    if (__HAL_TIM_GET_IT_SOURCE(htim, TIM_IT_CC1) != RESET)
+    if ((itsource & (TIM_IT_CC1)) == (TIM_IT_CC1))
     {
       {
         __HAL_TIM_CLEAR_IT(htim, TIM_IT_CC1);
@@ -3867,9 +3870,9 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
     }
   }
   /* Capture compare 2 event */
-  if (__HAL_TIM_GET_FLAG(htim, TIM_FLAG_CC2) != RESET)
+  if ((itflag & (TIM_FLAG_CC2)) == (TIM_FLAG_CC2))
   {
-    if (__HAL_TIM_GET_IT_SOURCE(htim, TIM_IT_CC2) != RESET)
+    if ((itsource & (TIM_IT_CC2)) == (TIM_IT_CC2))
     {
       __HAL_TIM_CLEAR_IT(htim, TIM_IT_CC2);
       htim->Channel = HAL_TIM_ACTIVE_CHANNEL_2;
@@ -3897,9 +3900,9 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
     }
   }
   /* Capture compare 3 event */
-  if (__HAL_TIM_GET_FLAG(htim, TIM_FLAG_CC3) != RESET)
+  if ((itflag & (TIM_FLAG_CC3)) == (TIM_FLAG_CC3))
   {
-    if (__HAL_TIM_GET_IT_SOURCE(htim, TIM_IT_CC3) != RESET)
+    if ((itsource & (TIM_IT_CC3)) == (TIM_IT_CC3))
     {
       __HAL_TIM_CLEAR_IT(htim, TIM_IT_CC3);
       htim->Channel = HAL_TIM_ACTIVE_CHANNEL_3;
@@ -3927,9 +3930,9 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
     }
   }
   /* Capture compare 4 event */
-  if (__HAL_TIM_GET_FLAG(htim, TIM_FLAG_CC4) != RESET)
+  if ((itflag & (TIM_FLAG_CC4)) == (TIM_FLAG_CC4))
   {
-    if (__HAL_TIM_GET_IT_SOURCE(htim, TIM_IT_CC4) != RESET)
+    if ((itsource & (TIM_IT_CC4)) == (TIM_IT_CC4))
     {
       __HAL_TIM_CLEAR_IT(htim, TIM_IT_CC4);
       htim->Channel = HAL_TIM_ACTIVE_CHANNEL_4;
@@ -3957,9 +3960,9 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
     }
   }
   /* TIM Update event */
-  if (__HAL_TIM_GET_FLAG(htim, TIM_FLAG_UPDATE) != RESET)
+  if ((itflag & (TIM_FLAG_UPDATE)) == (TIM_FLAG_UPDATE))
   {
-    if (__HAL_TIM_GET_IT_SOURCE(htim, TIM_IT_UPDATE) != RESET)
+    if ((itsource & (TIM_IT_UPDATE)) == (TIM_IT_UPDATE))
     {
       __HAL_TIM_CLEAR_IT(htim, TIM_IT_UPDATE);
 #if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
@@ -3970,9 +3973,9 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
     }
   }
   /* TIM Break input event */
-  if (__HAL_TIM_GET_FLAG(htim, TIM_FLAG_BREAK) != RESET)
+  if ((itflag & (TIM_FLAG_BREAK)) == (TIM_FLAG_BREAK))
   {
-    if (__HAL_TIM_GET_IT_SOURCE(htim, TIM_IT_BREAK) != RESET)
+    if ((itsource & (TIM_IT_BREAK)) == (TIM_IT_BREAK))
     {
       __HAL_TIM_CLEAR_IT(htim, TIM_IT_BREAK);
 #if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
@@ -3983,9 +3986,9 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
     }
   }
   /* TIM Break2 input event */
-  if (__HAL_TIM_GET_FLAG(htim, TIM_FLAG_BREAK2) != RESET)
+  if ((itflag & (TIM_FLAG_BREAK2)) == (TIM_FLAG_BREAK2))
   {
-    if (__HAL_TIM_GET_IT_SOURCE(htim, TIM_IT_BREAK) != RESET)
+    if ((itsource & (TIM_IT_BREAK)) == (TIM_IT_BREAK))
     {
       __HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_BREAK2);
 #if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
@@ -3996,9 +3999,9 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
     }
   }
   /* TIM Trigger detection event */
-  if (__HAL_TIM_GET_FLAG(htim, TIM_FLAG_TRIGGER) != RESET)
+  if ((itflag & (TIM_FLAG_TRIGGER)) == (TIM_FLAG_TRIGGER))
   {
-    if (__HAL_TIM_GET_IT_SOURCE(htim, TIM_IT_TRIGGER) != RESET)
+    if ((itsource & (TIM_IT_TRIGGER)) == (TIM_IT_TRIGGER))
     {
       __HAL_TIM_CLEAR_IT(htim, TIM_IT_TRIGGER);
 #if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
@@ -4009,9 +4012,9 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
     }
   }
   /* TIM commutation event */
-  if (__HAL_TIM_GET_FLAG(htim, TIM_FLAG_COM) != RESET)
+  if ((itflag & (TIM_FLAG_COM)) == (TIM_FLAG_COM))
   {
-    if (__HAL_TIM_GET_IT_SOURCE(htim, TIM_IT_COM) != RESET)
+    if ((itsource & (TIM_IT_COM)) == (TIM_IT_COM))
     {
       __HAL_TIM_CLEAR_IT(htim, TIM_FLAG_COM);
 #if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
@@ -5987,8 +5990,6 @@ HAL_StatusTypeDef HAL_TIM_RegisterCallback(TIM_HandleTypeDef *htim, HAL_TIM_Call
   {
     return HAL_ERROR;
   }
-  /* Process locked */
-  __HAL_LOCK(htim);
 
   if (htim->State == HAL_TIM_STATE_READY)
   {
@@ -6184,9 +6185,6 @@ HAL_StatusTypeDef HAL_TIM_RegisterCallback(TIM_HandleTypeDef *htim, HAL_TIM_Call
     status = HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(htim);
-
   return status;
 }
 
@@ -6229,9 +6227,6 @@ HAL_StatusTypeDef HAL_TIM_RegisterCallback(TIM_HandleTypeDef *htim, HAL_TIM_Call
 HAL_StatusTypeDef HAL_TIM_UnRegisterCallback(TIM_HandleTypeDef *htim, HAL_TIM_CallbackIDTypeDef CallbackID)
 {
   HAL_StatusTypeDef status = HAL_OK;
-
-  /* Process locked */
-  __HAL_LOCK(htim);
 
   if (htim->State == HAL_TIM_STATE_READY)
   {
@@ -6468,9 +6463,6 @@ HAL_StatusTypeDef HAL_TIM_UnRegisterCallback(TIM_HandleTypeDef *htim, HAL_TIM_Ca
     /* Return error status */
     status = HAL_ERROR;
   }
-
-  /* Release Lock */
-  __HAL_UNLOCK(htim);
 
   return status;
 }
@@ -6992,11 +6984,12 @@ static void TIM_OC1_SetConfig(TIM_TypeDef *TIMx, const TIM_OC_InitTypeDef *OC_Co
   uint32_t tmpccer;
   uint32_t tmpcr2;
 
+  /* Get the TIMx CCER register value */
+  tmpccer = TIMx->CCER;
+
   /* Disable the Channel 1: Reset the CC1E Bit */
   TIMx->CCER &= ~TIM_CCER_CC1E;
 
-  /* Get the TIMx CCER register value */
-  tmpccer = TIMx->CCER;
   /* Get the TIMx CR2 register value */
   tmpcr2 =  TIMx->CR2;
 
@@ -7067,11 +7060,12 @@ void TIM_OC2_SetConfig(TIM_TypeDef *TIMx, const TIM_OC_InitTypeDef *OC_Config)
   uint32_t tmpccer;
   uint32_t tmpcr2;
 
+  /* Get the TIMx CCER register value */
+  tmpccer = TIMx->CCER;
+
   /* Disable the Channel 2: Reset the CC2E Bit */
   TIMx->CCER &= ~TIM_CCER_CC2E;
 
-  /* Get the TIMx CCER register value */
-  tmpccer = TIMx->CCER;
   /* Get the TIMx CR2 register value */
   tmpcr2 =  TIMx->CR2;
 
@@ -7143,11 +7137,12 @@ static void TIM_OC3_SetConfig(TIM_TypeDef *TIMx, const TIM_OC_InitTypeDef *OC_Co
   uint32_t tmpccer;
   uint32_t tmpcr2;
 
+  /* Get the TIMx CCER register value */
+  tmpccer = TIMx->CCER;
+
   /* Disable the Channel 3: Reset the CC2E Bit */
   TIMx->CCER &= ~TIM_CCER_CC3E;
 
-  /* Get the TIMx CCER register value */
-  tmpccer = TIMx->CCER;
   /* Get the TIMx CR2 register value */
   tmpcr2 =  TIMx->CR2;
 
@@ -7217,11 +7212,12 @@ static void TIM_OC4_SetConfig(TIM_TypeDef *TIMx, const TIM_OC_InitTypeDef *OC_Co
   uint32_t tmpccer;
   uint32_t tmpcr2;
 
+  /* Get the TIMx CCER register value */
+  tmpccer = TIMx->CCER;
+
   /* Disable the Channel 4: Reset the CC4E Bit */
   TIMx->CCER &= ~TIM_CCER_CC4E;
 
-  /* Get the TIMx CCER register value */
-  tmpccer = TIMx->CCER;
   /* Get the TIMx CR2 register value */
   tmpcr2 =  TIMx->CR2;
 
@@ -7278,11 +7274,12 @@ static void TIM_OC5_SetConfig(TIM_TypeDef *TIMx,
   uint32_t tmpccer;
   uint32_t tmpcr2;
 
+  /* Get the TIMx CCER register value */
+  tmpccer = TIMx->CCER;
+
   /* Disable the output: Reset the CCxE Bit */
   TIMx->CCER &= ~TIM_CCER_CC5E;
 
-  /* Get the TIMx CCER register value */
-  tmpccer = TIMx->CCER;
   /* Get the TIMx CR2 register value */
   tmpcr2 =  TIMx->CR2;
   /* Get the TIMx CCMR1 register value */
@@ -7331,11 +7328,12 @@ static void TIM_OC6_SetConfig(TIM_TypeDef *TIMx,
   uint32_t tmpccer;
   uint32_t tmpcr2;
 
+  /* Get the TIMx CCER register value */
+  tmpccer = TIMx->CCER;
+
   /* Disable the output: Reset the CCxE Bit */
   TIMx->CCER &= ~TIM_CCER_CC6E;
 
-  /* Get the TIMx CCER register value */
-  tmpccer = TIMx->CCER;
   /* Get the TIMx CR2 register value */
   tmpcr2 =  TIMx->CR2;
   /* Get the TIMx CCMR1 register value */
@@ -7519,9 +7517,9 @@ void TIM_TI1_SetConfig(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity, uint32_t TIM_
   uint32_t tmpccer;
 
   /* Disable the Channel 1: Reset the CC1E Bit */
+  tmpccer = TIMx->CCER;
   TIMx->CCER &= ~TIM_CCER_CC1E;
   tmpccmr1 = TIMx->CCMR1;
-  tmpccer = TIMx->CCER;
 
   /* Select the Input */
   if (IS_TIM_CC2_INSTANCE(TIMx) != RESET)
@@ -7609,9 +7607,9 @@ static void TIM_TI2_SetConfig(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity, uint32
   uint32_t tmpccer;
 
   /* Disable the Channel 2: Reset the CC2E Bit */
+  tmpccer = TIMx->CCER;
   TIMx->CCER &= ~TIM_CCER_CC2E;
   tmpccmr1 = TIMx->CCMR1;
-  tmpccer = TIMx->CCER;
 
   /* Select the Input */
   tmpccmr1 &= ~TIM_CCMR1_CC2S;
@@ -7648,9 +7646,9 @@ static void TIM_TI2_ConfigInputStage(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity,
   uint32_t tmpccer;
 
   /* Disable the Channel 2: Reset the CC2E Bit */
+  tmpccer = TIMx->CCER;
   TIMx->CCER &= ~TIM_CCER_CC2E;
   tmpccmr1 = TIMx->CCMR1;
-  tmpccer = TIMx->CCER;
 
   /* Set the filter */
   tmpccmr1 &= ~TIM_CCMR1_IC2F;
@@ -7692,9 +7690,9 @@ static void TIM_TI3_SetConfig(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity, uint32
   uint32_t tmpccer;
 
   /* Disable the Channel 3: Reset the CC3E Bit */
+  tmpccer = TIMx->CCER;
   TIMx->CCER &= ~TIM_CCER_CC3E;
   tmpccmr2 = TIMx->CCMR2;
-  tmpccer = TIMx->CCER;
 
   /* Select the Input */
   tmpccmr2 &= ~TIM_CCMR2_CC3S;
@@ -7740,9 +7738,9 @@ static void TIM_TI4_SetConfig(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity, uint32
   uint32_t tmpccer;
 
   /* Disable the Channel 4: Reset the CC4E Bit */
+  tmpccer = TIMx->CCER;
   TIMx->CCER &= ~TIM_CCER_CC4E;
   tmpccmr2 = TIMx->CCMR2;
-  tmpccer = TIMx->CCER;
 
   /* Select the Input */
   tmpccmr2 &= ~TIM_CCMR2_CC4S;

@@ -748,7 +748,6 @@ HAL_StatusTypeDef HAL_SD_ConfigSpeedBusOperation(SD_HandleTypeDef *hsd, uint32_t
 /** @defgroup SD_Exported_Functions_Group4 SD card related functions
   * @{
   */
-HAL_StatusTypeDef       HAL_SD_SendSDStatus (SD_HandleTypeDef *hsd, uint32_t *pSDstatus);
 HAL_SD_CardStateTypeDef HAL_SD_GetCardState (SD_HandleTypeDef *hsd);
 HAL_StatusTypeDef       HAL_SD_GetCardCID   (SD_HandleTypeDef *hsd, HAL_SD_CardCIDTypeDef *pCID);
 HAL_StatusTypeDef       HAL_SD_GetCardCSD   (SD_HandleTypeDef *hsd, HAL_SD_CardCSDTypeDef *pCSD);
@@ -834,7 +833,9 @@ HAL_StatusTypeDef HAL_SD_Abort_IT(SD_HandleTypeDef *hsd);
 /** @defgroup SD_Private_Functions SD Private Functions
   * @{
   */
-
+#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+uint32_t SD_HighSpeed(SD_HandleTypeDef *hsd);
+#endif /* STM32L4P5xx && STM32L4Q5xx && STM32L4R5xx && STM32L4R7xx && STM32L4R9xx && STM32L4S5xx && STM32L4S7xx && STM32L4S9xx */
 /**
   * @}
   */
