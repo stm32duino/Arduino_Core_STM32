@@ -30,7 +30,7 @@ extern "C" {
 /** @addtogroup STM32U5xx_HAL_Driver
   * @{
   */
-
+#if defined (SDMMC1) || defined (SDMMC2)
 /** @addtogroup MMCEx
   * @brief SD HAL extended module driver
   * @{
@@ -109,6 +109,7 @@ void HAL_MMCEx_Write_DMALnkLstBufCpltCallback(MMC_HandleTypeDef *hmmc);
 /**
   * @}
   */
+#endif /* SDMMC1 || SDMMC2 */
 
 /**
   * @}

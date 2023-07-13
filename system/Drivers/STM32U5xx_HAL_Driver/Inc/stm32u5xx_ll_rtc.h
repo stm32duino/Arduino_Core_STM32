@@ -335,8 +335,8 @@ typedef struct
 /** @defgroup RTC_LL_EC_ALARM_OUTPUTTYPE  ALARM OUTPUT TYPE
   * @{
   */
-#define LL_RTC_ALARM_OUTPUTTYPE_OPENDRAIN  0U                     /*!< RTC_ALARM is open-drain output */
-#define LL_RTC_ALARM_OUTPUTTYPE_PUSHPULL   RTC_CR_TAMPALRM_TYPE   /*!< RTC_ALARM is push-pull output */
+#define LL_RTC_ALARM_OUTPUTTYPE_PUSHPULL   0U                     /*!< RTC_ALARM is push-pull output */
+#define LL_RTC_ALARM_OUTPUTTYPE_OPENDRAIN  RTC_CR_TAMPALRM_TYPE   /*!< RTC_ALARM is open-drain output */
 /**
   * @}
   */

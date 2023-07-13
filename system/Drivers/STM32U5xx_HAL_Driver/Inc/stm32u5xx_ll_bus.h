@@ -76,6 +76,9 @@ extern "C" {
 #define LL_AHB1_GRP1_PERIPH_MDF1          RCC_AHB1ENR_MDF1EN
 #define LL_AHB1_GRP1_PERIPH_FLASH         RCC_AHB1ENR_FLASHEN
 #define LL_AHB1_GRP1_PERIPH_CRC           RCC_AHB1ENR_CRCEN
+#if defined(JPEG)
+#define LL_AHB1_GRP1_PERIPH_JPEG          RCC_AHB1ENR_JPEGEN
+#endif /* defined(JPEG) */
 #define LL_AHB1_GRP1_PERIPH_TSC           RCC_AHB1ENR_TSCEN
 #define LL_AHB1_GRP1_PERIPH_RAMCFG        RCC_AHB1ENR_RAMCFGEN
 #if defined(DMA2D)
@@ -272,6 +275,9 @@ extern "C" {
 #if defined(USB_DRD_FS)
 #define LL_APB2_GRP1_PERIPH_USB_FS         RCC_APB2ENR_USBEN
 #endif /* USB_DRD_FS */
+#if defined(GFXTIM)
+#define LL_APB2_GRP1_PERIPH_GFXTIM         RCC_APB2ENR_GFXTIMEN
+#endif /* GFXTIM */
 #if defined(LTDC)
 #define LL_APB2_GRP1_PERIPH_LTDC           RCC_APB2ENR_LTDCEN
 #endif /* defined(LTDC) */
@@ -382,6 +388,7 @@ __STATIC_INLINE void LL_AHB1_GRP1_EnableBusClock(void)
   *         AHB1ENR    MDF1EN       LL_AHB1_GRP1_EnableClock\n
   *         AHB1ENR    FLASHEN      LL_AHB1_GRP1_EnableClock\n
   *         AHB1ENR    CRCEN        LL_AHB1_GRP1_EnableClock\n
+  *         AHB1ENR    JPEGEN       LL_AHB1_GRP1_EnableClock\n
   *         AHB1ENR    TSCEN        LL_AHB1_GRP1_EnableClock\n
   *         AHB1ENR    RAMCFGEN     LL_AHB1_GRP1_EnableClock\n
   *         AHB1ENR    DMA2DEN      LL_AHB1_GRP1_EnableClock\n
@@ -400,6 +407,7 @@ __STATIC_INLINE void LL_AHB1_GRP1_EnableBusClock(void)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_MDF1
   *         @arg @ref LL_AHB1_GRP1_PERIPH_FLASH
   *         @arg @ref LL_AHB1_GRP1_PERIPH_CRC
+  *         @arg @ref LL_AHB1_GRP1_PERIPH_JPEG (*)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_TSC
   *         @arg @ref LL_AHB1_GRP1_PERIPH_RAMCFG
   *         @arg @ref LL_AHB1_GRP1_PERIPH_DMA2D (*)
@@ -431,6 +439,7 @@ __STATIC_INLINE void LL_AHB1_GRP1_EnableClock(uint32_t Periphs)
   *         AHB1ENR    MDF1EN       LL_AHB1_GRP1_IsEnabledClock\n
   *         AHB1ENR    FLASHEN      LL_AHB1_GRP1_IsEnabledClock\n
   *         AHB1ENR    CRCEN        LL_AHB1_GRP1_IsEnabledClock\n
+  *         AHB1ENR    JPEGEN       LL_AHB1_GRP1_IsEnabledClock\n
   *         AHB1ENR    TSCEN        LL_AHB1_GRP1_IsEnabledClock\n
   *         AHB1ENR    RAMCFGEN     LL_AHB1_GRP1_IsEnabledClock\n
   *         AHB1ENR    DMA2DEN      LL_AHB1_GRP1_IsEnabledClock\n
@@ -449,6 +458,7 @@ __STATIC_INLINE void LL_AHB1_GRP1_EnableClock(uint32_t Periphs)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_MDF1
   *         @arg @ref LL_AHB1_GRP1_PERIPH_FLASH
   *         @arg @ref LL_AHB1_GRP1_PERIPH_CRC
+  *         @arg @ref LL_AHB1_GRP1_PERIPH_JPEG (*)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_TSC
   *         @arg @ref LL_AHB1_GRP1_PERIPH_RAMCFG
   *         @arg @ref LL_AHB1_GRP1_PERIPH_DMA2D (*)
@@ -487,6 +497,7 @@ __STATIC_INLINE void LL_AHB1_GRP1_DisableBusClock(void)
   *         AHB1ENR    MDF1EN       LL_AHB1_GRP1_DisableClock\n
   *         AHB1ENR    FLASHEN      LL_AHB1_GRP1_DisableClock\n
   *         AHB1ENR    CRCEN        LL_AHB1_GRP1_DisableClock\n
+  *         AHB1ENR    JPEGEN       LL_AHB1_GRP1_DisableClock\n
   *         AHB1ENR    TSCEN        LL_AHB1_GRP1_DisableClock\n
   *         AHB1ENR    RAMCFGEN     LL_AHB1_GRP1_DisableClock\n
   *         AHB1ENR    DMA2DEN      LL_AHB1_GRP1_DisableClock\n
@@ -505,6 +516,7 @@ __STATIC_INLINE void LL_AHB1_GRP1_DisableBusClock(void)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_MDF1
   *         @arg @ref LL_AHB1_GRP1_PERIPH_FLASH
   *         @arg @ref LL_AHB1_GRP1_PERIPH_CRC
+  *         @arg @ref LL_AHB1_GRP1_PERIPH_JPEG (*)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_TSC
   *         @arg @ref LL_AHB1_GRP1_PERIPH_RAMCFG
   *         @arg @ref LL_AHB1_GRP1_PERIPH_DMA2D (*)
@@ -531,6 +543,7 @@ __STATIC_INLINE void LL_AHB1_GRP1_DisableClock(uint32_t Periphs)
   *         AHB1RSTR    FMACRSTR       LL_AHB1_GRP1_ForceReset\n
   *         AHB1RSTR    MDF1RSTR       LL_AHB1_GRP1_ForceReset\n
   *         AHB1RSTR    CRCRSTR        LL_AHB1_GRP1_ForceReset\n
+  *         AHB1RSTR    JPEGRSTR       LL_AHB1_GRP1_ForceReset\n
   *         AHB1RSTR    TSCRSTR        LL_AHB1_GRP1_ForceReset\n
   *         AHB1RSTR    RAMCFGRSTR     LL_AHB1_GRP1_ForceReset\n
   *         AHB1RSTR    DMA2DRSTR      LL_AHB1_GRP1_ForceReset\n
@@ -544,6 +557,7 @@ __STATIC_INLINE void LL_AHB1_GRP1_DisableClock(uint32_t Periphs)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_FMAC
   *         @arg @ref LL_AHB1_GRP1_PERIPH_MDF1
   *         @arg @ref LL_AHB1_GRP1_PERIPH_CRC
+  *         @arg @ref LL_AHB1_GRP1_PERIPH_JPEG (*)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_TSC
   *         @arg @ref LL_AHB1_GRP1_PERIPH_RAMCFG
   *         @arg @ref LL_AHB1_GRP1_PERIPH_DMA2D (*)
@@ -565,6 +579,7 @@ __STATIC_INLINE void LL_AHB1_GRP1_ForceReset(uint32_t Periphs)
   *         AHB1RSTR    FMACRSTR        LL_AHB1_GRP1_ReleaseReset\n
   *         AHB1RSTR    MDF1RSTR        LL_AHB1_GRP1_ReleaseReset\n
   *         AHB1RSTR    CRCRSTR         LL_AHB1_GRP1_ReleaseReset\n
+  *         AHB1RSTR    JPEGRSTR        LL_AHB1_GRP1_ReleaseReset\n
   *         AHB1RSTR    TSCRSTR         LL_AHB1_GRP1_ReleaseReset\n
   *         AHB1RSTR    RAMCFGRSTR      LL_AHB1_GRP1_ReleaseReset\n
   *         AHB1RSTR    DMA2DRSTR       LL_AHB1_GRP1_ReleaseReset\n
@@ -578,6 +593,7 @@ __STATIC_INLINE void LL_AHB1_GRP1_ForceReset(uint32_t Periphs)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_FMAC
   *         @arg @ref LL_AHB1_GRP1_PERIPH_MDF1
   *         @arg @ref LL_AHB1_GRP1_PERIPH_CRC
+  *         @arg @ref LL_AHB1_GRP1_PERIPH_JPEG (*)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_TSC
   *         @arg @ref LL_AHB1_GRP1_PERIPH_RAMCFG
   *         @arg @ref LL_AHB1_GRP1_PERIPH_DMA2D (*)
@@ -601,6 +617,7 @@ __STATIC_INLINE void LL_AHB1_GRP1_ReleaseReset(uint32_t Periphs)
   *         AHB1SMENR   MDF1SMEN       LL_AHB1_GRP1_EnableClockStopSleep\n
   *         AHB1SMENR   FLASHSMEN      LL_AHB1_GRP1_EnableClockStopSleep\n
   *         AHB1SMENR   CRCSMEN        LL_AHB1_GRP1_EnableClockStopSleep\n
+  *         AHB1SMENR   JPEGSMEN       LL_AHB1_GRP1_EnableClockStopSleep\n
   *         AHB1SMENR   TSCSMEN        LL_AHB1_GRP1_EnableClockStopSleep\n
   *         AHB1SMENR   RAMCFGSMEN     LL_AHB1_GRP1_EnableClockStopSleep\n
   *         AHB1SMENR   DMA2DSMEN      LL_AHB1_GRP1_EnableClockStopSleep\n
@@ -620,6 +637,7 @@ __STATIC_INLINE void LL_AHB1_GRP1_ReleaseReset(uint32_t Periphs)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_MDF1
   *         @arg @ref LL_AHB1_GRP1_PERIPH_FLASH
   *         @arg @ref LL_AHB1_GRP1_PERIPH_CRC
+  *         @arg @ref LL_AHB1_GRP1_PERIPH_JPEG (*)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_TSC
   *         @arg @ref LL_AHB1_GRP1_PERIPH_RAMCFG
   *         @arg @ref LL_AHB1_GRP1_PERIPH_DMA2D (*)
@@ -652,6 +670,7 @@ __STATIC_INLINE void LL_AHB1_GRP1_EnableClockStopSleep(uint32_t Periphs)
   *         AHB1SMENR   MDF1SMEN       LL_AHB1_GRP1_IsEnabledClockStopSleep\n
   *         AHB1SMENR   FLASHSMEN      LL_AHB1_GRP1_IsEnabledClockStopSleep\n
   *         AHB1SMENR   CRCSMEN        LL_AHB1_GRP1_IsEnabledClockStopSleep\n
+  *         AHB1SMENR   JPEGSMEN       LL_AHB1_GRP1_IsEnabledClockStopSleep\n
   *         AHB1SMENR   TSCSMEN        LL_AHB1_GRP1_IsEnabledClockStopSleep\n
   *         AHB1SMENR   RAMCFGSMEN     LL_AHB1_GRP1_IsEnabledClockStopSleep\n
   *         AHB1SMENR   DMA2DSMEN      LL_AHB1_GRP1_IsEnabledClockStopSleep\n
@@ -671,6 +690,7 @@ __STATIC_INLINE void LL_AHB1_GRP1_EnableClockStopSleep(uint32_t Periphs)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_MDF1
   *         @arg @ref LL_AHB1_GRP1_PERIPH_FLASH
   *         @arg @ref LL_AHB1_GRP1_PERIPH_CRC
+  *         @arg @ref LL_AHB1_GRP1_PERIPH_JPEG (*)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_TSC
   *         @arg @ref LL_AHB1_GRP1_PERIPH_RAMCFG
   *         @arg @ref LL_AHB1_GRP1_PERIPH_DMA2D (*)
@@ -699,6 +719,7 @@ __STATIC_INLINE uint32_t LL_AHB1_GRP1_IsEnabledClockStopSleep(uint32_t Periphs)
   *         AHB1SMENR   MDF1SMEN       LL_AHB1_GRP1_DisableClockStopSleep\n
   *         AHB1SMENR   FLASHSMEN      LL_AHB1_GRP1_DisableClockStopSleep\n
   *         AHB1SMENR   CRCSMEN        LL_AHB1_GRP1_DisableClockStopSleep\n
+  *         AHB1SMENR   JPEGSMEN       LL_AHB1_GRP1_DisableClockStopSleep\n
   *         AHB1SMENR   TSCSMEN        LL_AHB1_GRP1_DisableClockStopSleep\n
   *         AHB1SMENR   RAMCFGSMEN     LL_AHB1_GRP1_DisableClockStopSleep\n
   *         AHB1SMENR   DMA2DSMEN      LL_AHB1_GRP1_DisableClockStopSleep\n
@@ -718,6 +739,7 @@ __STATIC_INLINE uint32_t LL_AHB1_GRP1_IsEnabledClockStopSleep(uint32_t Periphs)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_MDF1
   *         @arg @ref LL_AHB1_GRP1_PERIPH_FLASH
   *         @arg @ref LL_AHB1_GRP1_PERIPH_CRC
+  *         @arg @ref LL_AHB1_GRP1_PERIPH_JPEG (*)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_TSC
   *         @arg @ref LL_AHB1_GRP1_PERIPH_RAMCFG
   *         @arg @ref LL_AHB1_GRP1_PERIPH_DMA2D (*)
@@ -2407,6 +2429,7 @@ __STATIC_INLINE void LL_APB2_GRP1_EnableBusClock(void)
   *         APB2ENR      SAI1EN        LL_APB2_GRP1_EnableClock\n
   *         APB2ENR      SAI2EN        LL_APB2_GRP1_EnableClock\n
   *         APB2ENR      USBEN         LL_APB2_GRP1_EnableClock\n
+  *         APB2ENR      GFXTIMEN      LL_APB2_GRP1_EnableClock\n
   *         APB2ENR      LTDCEN        LL_APB2_GRP1_EnableClock\n
   *         APB2ENR      DSIHOSTEN     LL_APB2_GRP1_EnableClock\n
   * @param  Periphs This parameter can be a combination of the following values:
@@ -2421,6 +2444,7 @@ __STATIC_INLINE void LL_APB2_GRP1_EnableBusClock(void)
   *         @arg @ref LL_APB2_GRP1_PERIPH_SAI1
   *         @arg @ref LL_APB2_GRP1_PERIPH_SAI2 (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_USB_FS (*)
+  *         @arg @ref LL_APB2_GRP1_PERIPH_GFXTIM (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_LTDC (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_DSI (*)
   *
@@ -2448,6 +2472,7 @@ __STATIC_INLINE void LL_APB2_GRP1_EnableClock(uint32_t Periphs)
   *         APB2ENR      SAI1EN        LL_APB2_GRP1_IsEnabledClock\n
   *         APB2ENR      SAI2EN        LL_APB2_GRP1_IsEnabledClock\n
   *         APB2ENR      USBEN         LL_APB2_GRP1_IsEnabledClock\n
+  *         APB2ENR      GFXTIMEN      LL_APB2_GRP1_IsEnabledClock\n
   *         APB2ENR      LTDCEN        LL_APB2_GRP1_IsEnabledClock\n
   *         APB2ENR      DSIHOSTEN     LL_APB2_GRP1_IsEnabledClock\n
   * @param  Periphs This parameter can be a combination of the following values:
@@ -2462,6 +2487,7 @@ __STATIC_INLINE void LL_APB2_GRP1_EnableClock(uint32_t Periphs)
   *         @arg @ref LL_APB2_GRP1_PERIPH_SAI1
   *         @arg @ref LL_APB2_GRP1_PERIPH_SAI2 (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_USB_FS (*)
+  *         @arg @ref LL_APB2_GRP1_PERIPH_GFXTIM (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_LTDC (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_DSI (*)
   *
@@ -2495,6 +2521,7 @@ __STATIC_INLINE void LL_APB2_GRP1_DisableBusClock(void)
   *         APB2ENR      SAI1EN        LL_APB2_GRP1_DisableClock\n
   *         APB2ENR      SAI2EN        LL_APB2_GRP1_DisableClock\n
   *         APB2ENR      USBEN         LL_APB2_GRP1_DisableClock\n
+  *         APB2ENR      GFXTIMEN      LL_APB2_GRP1_DisableClock\n
   *         APB2ENR      LTDCEN        LL_APB2_GRP1_DisableClock\n
   *         APB2ENR      DSIHOSTEN     LL_APB2_GRP1_DisableClock\n
   * @param  Periphs This parameter can be a combination of the following values:
@@ -2509,6 +2536,7 @@ __STATIC_INLINE void LL_APB2_GRP1_DisableBusClock(void)
   *         @arg @ref LL_APB2_GRP1_PERIPH_SAI1
   *         @arg @ref LL_APB2_GRP1_PERIPH_SAI2 (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_USB_FS (*)
+  *         @arg @ref LL_APB2_GRP1_PERIPH_GFXTIM (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_LTDC (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_DSI (*)
   *
@@ -2532,6 +2560,7 @@ __STATIC_INLINE void LL_APB2_GRP1_DisableClock(uint32_t Periphs)
   *         APB2RSTR      SAI1RST        LL_APB2_GRP1_ForceReset\n
   *         APB2RSTR      SAI2RST        LL_APB2_GRP1_ForceReset\n
   *         APB2RSTR      USBRST         LL_APB2_GRP1_ForceReset\n
+  *         APB2RSTR      GFXTIMRST      LL_APB2_GRP1_ForceReset\n
   *         APB2RSTR      LTDCRST        LL_APB2_GRP1_ForceReset\n
   *         APB2RSTR      DSIHOSTRST     LL_APB2_GRP1_ForceReset\n
   * @param  Periphs This parameter can be a combination of the following values:
@@ -2546,6 +2575,7 @@ __STATIC_INLINE void LL_APB2_GRP1_DisableClock(uint32_t Periphs)
   *         @arg @ref LL_APB2_GRP1_PERIPH_SAI1
   *         @arg @ref LL_APB2_GRP1_PERIPH_SAI2 (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_USB_FS (*)
+  *         @arg @ref LL_APB2_GRP1_PERIPH_GFXTIM (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_LTDC (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_DSI (*)
   *
@@ -2570,6 +2600,7 @@ __STATIC_INLINE void LL_APB2_GRP1_ForceReset(uint32_t Periphs)
   *         APB2RSTR      SAI1RST        LL_APB2_GRP1_ReleaseReset\n
   *         APB2RSTR      SAI2RST        LL_APB2_GRP1_ReleaseReset\n
   *         APB2RSTR      USBRST         LL_APB2_GRP1_ReleaseReset\n
+  *         APB2RSTR      GFXTIMRST      LL_APB2_GRP1_ReleaseReset\n
   *         APB2RSTR      LTDCRST        LL_APB2_GRP1_ReleaseReset\n
   *         APB2RSTR      DSIHOSTRST     LL_APB2_GRP1_ReleaseReset\n
   * @param  Periphs This parameter can be a combination of the following values:
@@ -2584,6 +2615,7 @@ __STATIC_INLINE void LL_APB2_GRP1_ForceReset(uint32_t Periphs)
   *         @arg @ref LL_APB2_GRP1_PERIPH_SAI1
   *         @arg @ref LL_APB2_GRP1_PERIPH_SAI2 (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_USB_FS (*)
+  *         @arg @ref LL_APB2_GRP1_PERIPH_GFXTIM (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_LTDC (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_DSI (*)
   *
@@ -2610,6 +2642,7 @@ __STATIC_INLINE void LL_APB2_GRP1_ReleaseReset(uint32_t Periphs)
   *         APB2SMENR     SAI1SMEN       LL_APB2_GRP1_EnableClockStopSleep\n
   *         APB2SMENR     USBSMEN        LL_APB2_GRP1_EnableClockStopSleep\n
   *         APB2SMENR     SAI2SMEN       LL_APB2_GRP1_EnableClockStopSleep\n
+  *         APB2SMENR     GFXTIMSMEN     LL_APB2_GRP1_EnableClockStopSleep\n
   *         APB2SMENR     LTDCSMEN       LL_APB2_GRP1_EnableClockStopSleep\n
   *         APB2SMENR     DSIHOSTSMEN    LL_APB2_GRP1_EnableClockStopSleep\n
   * @param  Periphs This parameter can be a combination of the following values:
@@ -2624,6 +2657,7 @@ __STATIC_INLINE void LL_APB2_GRP1_ReleaseReset(uint32_t Periphs)
   *         @arg @ref LL_APB2_GRP1_PERIPH_SAI1
   *         @arg @ref LL_APB2_GRP1_PERIPH_SAI2 (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_USB_FS (*)
+  *         @arg @ref LL_APB2_GRP1_PERIPH_GFXTIM(*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_LTDC (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_DSI (*)
   *
@@ -2652,6 +2686,7 @@ __STATIC_INLINE void LL_APB2_GRP1_EnableClockStopSleep(uint32_t Periphs)
   *         APB2SMENR     SAI1SMEN       LL_APB2_GRP1_IsEnabledClockStopSleep\n
   *         APB2SMENR     SAI2SMEN       LL_APB2_GRP1_IsEnabledClockStopSleep\n
   *         APB2SMENR     USBSMEN        LL_APB2_GRP1_IsEnabledClockStopSleep\n
+  *         APB2SMENR     GFXTIMSMEN     LL_APB2_GRP1_IsEnabledClockStopSleep\n
   *         APB2SMENR     LTDCSMEN       LL_APB2_GRP1_IsEnabledClockStopSleep\n
   *         APB2SMENR     DSIHOSTSMEN    LL_APB2_GRP1_IsEnabledClockStopSleep\n
   * @param  Periphs This parameter can be a combination of the following values:
@@ -2666,6 +2701,7 @@ __STATIC_INLINE void LL_APB2_GRP1_EnableClockStopSleep(uint32_t Periphs)
   *         @arg @ref LL_APB2_GRP1_PERIPH_SAI1
   *         @arg @ref LL_APB2_GRP1_PERIPH_SAI2 (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_USB_FS (*)
+  *         @arg @ref LL_APB2_GRP1_PERIPH_GFXTIM (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_LTDC (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_DSI (*)
   *
@@ -2689,6 +2725,7 @@ __STATIC_INLINE uint32_t LL_APB2_GRP1_IsEnabledClockStopSleep(uint32_t Periphs)
   *         APB2SMENR     SAI1SMEN        LL_APB2_GRP1_DisableClockStopSleep\n
   *         APB2SMENR     SAI2SMEN        LL_APB2_GRP1_DisableClockStopSleep\n
   *         APB2SMENR     USBSMEN         LL_APB2_GRP1_DisableClockStopSleep\n
+  *         APB2SMENR     GFXTIMSMEN      LL_APB2_GRP1_DisableClockStopSleep\n
   *         APB2SMENR     LTDCSMEN        LL_APB2_GRP1_DisableClockStopSleep\n
   *         APB2SMENR     DSIHOSTSMEN     LL_APB2_GRP1_DisableClockStopSleep\n
   * @param  Periphs This parameter can be a combination of the following values:
@@ -2703,6 +2740,7 @@ __STATIC_INLINE uint32_t LL_APB2_GRP1_IsEnabledClockStopSleep(uint32_t Periphs)
   *         @arg @ref LL_APB2_GRP1_PERIPH_SAI1
   *         @arg @ref LL_APB2_GRP1_PERIPH_SAI2 (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_USB_FS (*)
+  *         @arg @ref LL_APB2_GRP1_PERIPH_GFXTIM (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_LTDC (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_DSI (*)
   *

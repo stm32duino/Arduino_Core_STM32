@@ -188,6 +188,9 @@ typedef struct
 #define GPIO_AF8_UART4         ((uint8_t)0x08)  /* UART4 Alternate Function mapping                          */
 #define GPIO_AF8_UART5         ((uint8_t)0x08)  /* UART5 Alternate Function mapping                          */
 #define GPIO_AF8_SDMMC1        ((uint8_t)0x08)  /* SDMMC1 Alternate Function mapping                         */
+#if defined(SDMMC2)
+#define GPIO_AF8_SDMMC2        ((uint8_t)0x08)  /* SDMMC2 Alternate Function mapping                         */
+#endif /* SDMMC2 */
 #if defined(LTDC)
 #define GPIO_AF8_LTDC          ((uint8_t)0x08)  /* LTDC Alternate Function mapping                           */
 #endif /* LTDC */
@@ -215,6 +218,9 @@ typedef struct
 #if defined(USB_OTG_HS)
 #define GPIO_AF10_USB_HS       ((uint8_t)0x0A)  /* USB_HS Alternate Function mapping                         */
 #endif /* USB_OTG_HS */
+#if defined(DSI)
+#define GPIO_AF10_DSI          ((uint8_t)0x0A)  /* DSI Alternate Function mapping                            */
+#endif /*  DSI */
 #if defined(GFXTIM)
 #define GPIO_AF10_GFXTIM       ((uint8_t)0x0A)  /* GFXTIM Alternate Function mapping                         */
 #endif /* GFXTIM */
@@ -280,6 +286,9 @@ typedef struct
 #define GPIO_AF14_TIM16_COMP1  ((uint8_t)0x0E)  /* TIM16/COMP1 Alternate Function mapping                    */
 #define GPIO_AF14_TIM17        ((uint8_t)0x0E)  /* TIM17 Alternate Function mapping                          */
 #define GPIO_AF14_TIM17_COMP1  ((uint8_t)0x0E)  /* TIM17/COMP1 Alternate Function mapping                    */
+#if defined(FMC_BASE)
+#define GPIO_AF14_FMC          ((uint8_t)0x0E)  /* FMC Alternate Function mapping                            */
+#endif /* FMC_BASE */
 
 /**
   * @brief   AF 15 selection

@@ -40,14 +40,117 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section5" checked aria-hidden="true"> <label for="collapse-section5" checked aria-hidden="true"><strong>V1.2.0 / 08-February-2023</strong></label>
+<input type="checkbox" id="collapse-section6" checked aria-hidden="true"> <label for="collapse-section6" checked aria-hidden="true"><strong>V1.3.0 / 09-June-2023</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<ul>
+<li><strong>HAL and LL drivers</strong> official Release for <strong>STM32U5F7xx/STM32U5G7xx</strong>, <strong>STM32U5F9xx/STM32U5G9xx</strong>, <strong>STM32U535xx/STM32U545xx, STM32U575xx/STM32U585xx, STM32U595xx/STM32U5A5xx</strong> and <strong>STM32U599xx/STM32U5A9xx</strong> devices</li>
+<li>Add <strong>2 new HAL drivers</strong> : <strong>GFXTIM</strong> and <strong>JPEG</strong> highlighting the graphics aspect of STM32U5F7/STM32U5G7/STM32U5F9/STM32U5G9 devices</li>
+<li>The HAL and LL drivers provided within this package are <strong>MISRA-C, MCU ASTYLE and CodeSonar compliant</strong>, and have been reviewed with a static analysis tool to eliminate possible run-time errors</li>
+<li>General updates to fix known defects and implementation enhancements</li>
+</ul>
+<h3 id="hal-drivers-updates"><strong>HAL Drivers</strong> updates</h3>
+<ul>
+<li><strong>HAL CRYP</strong> driver
+<ul>
+<li>Add HAL_CRYP_ERROR_RNG and CRYP_IVCONFIG_ONCE defines</li>
+</ul></li>
+<li><strong>HAL DMA</strong> driver
+<ul>
+<li>Add NODE_MAXIMUM_SIZE define</li>
+</ul></li>
+<li><strong>HAL FMAC</strong> driver
+<ul>
+<li>Add FMAC_PARAM_P_MAX_IIR define</li>
+<li>Add FMAC_PARAM_P_MAX_FIR define</li>
+<li>Add FMAC_PARAM_P_MIN define</li>
+<li>Add FMAC_PARAM_Q_MAX define</li>
+<li>Add FMAC_PARAM_Q_MIN define</li>
+<li>Add FMAC_PARAM_R_MAX define</li>
+</ul></li>
+<li><strong>HAL GFXTIM</strong> driver
+<ul>
+<li>Add new GFXTIM HAL driver highlighting the <strong>graphic Timer</strong> features to manage the functionalities of the Multi-function Digital Filter</li>
+</ul></li>
+<li><strong>HAL GPIO_EX</strong> driver
+<ul>
+<li>Add GPIO_AF8_SDMMC2 define</li>
+<li>Add GPIO_AF10_DSI define</li>
+<li>Add GPIO_AF14_FMC define</li>
+</ul></li>
+<li><strong>HAL JPEG</strong> driver
+<ul>
+<li>Add new JPEG HAL driver highlighting the <strong>graphic encoder/decoder</strong> features</li>
+</ul></li>
+<li><strong>HAL TIM</strong> driver
+<ul>
+<li>Add IS_TIM_CCX_CHANNEL define</li>
+</ul></li>
+</ul>
+<h3 id="ll-drivers-updates"><strong>LL Drivers</strong> updates</h3>
+<ul>
+<li><strong>LL PWR</strong> driver
+<ul>
+<li>Replace LL_PWR_EnableVDDUSB by LL_PWR_EnableVddUSB define</li>
+<li>Replace LL_PWR_DisableVDDUSB by LL_PWR_DisableVddUSB define</li>
+<li>Replace LL_PWR_IsEnabledVDDUSB by LL_PWR_IsEnabledVddUSB define</li>
+<li>Replace LL_PWR_EnableVDDIO2 by LL_PWR_EnableVddIO2 define</li>
+<li>Replace LL_PWR_DisableVDDIO2 by LL_PWR_DisableVddIO2 define</li>
+<li>Replace LL_PWR_IsEnabledVDDIO2 by LL_PWR_IsEnabledVddIO2 define</li>
+<li>Replace LL_PWR_EnableVDDA by LL_PWR_EnableVddA define</li>
+<li>Replace LL_PWR_DisableVDDA by LL_PWR_DisableVddA define</li>
+<li>Replace LL_PWR_IsEnabledVDDA by LL_PWR_IsEnabledVddA define</li>
+<li>Replace LL_PWR_EnableVDDUSBMonitor by LL_PWR_EnableVddUSBMonitor define</li>
+<li>Replace LL_PWR_DisableVDDUSBMonitor by LL_PWR_DisableVddUSBMonitor define</li>
+<li>Replace LL_PWR_IsEnabledVDDUSBMonitor by LL_PWR_IsEnabledVddUSBMonitor define</li>
+<li>Replace LL_PWR_EnableVDDIO2Monitor by LL_PWR_EnableVddIO2Monitor define</li>
+<li>Replace LL_PWR_DisableVDDIO2Monitor by LL_PWR_DisableVddIO2Monitor define</li>
+<li>Replace LL_PWR_IsEnabledVDDIO2Monitor by LL_PWR_IsEnabledVddIO2Monitor define</li>
+<li>Replace LL_PWR_EnableVDDAMonitor1 by LL_PWR_EnableVddAMonitor1 define</li>
+<li>Replace LL_PWR_DisableVDDAMonitor1 by LL_PWR_DisableVddAMonitor1 define</li>
+<li>Replace LL_PWR_IsEnabledVDDAMonitor1 by LL_PWR_IsEnabledVddAMonitor1 define</li>
+<li>Replace LL_PWR_EnableVDDAMonitor2 by LL_PWR_EnableVddAMonitor2 define</li>
+<li>Replace LL_PWR_DisableVDDAMonitor2 by LL_PWR_DisableVddAMonitor2 define</li>
+<li>Replace LL_PWR_IsEnabledVDDAMonitor2 by LL_PWR_IsEnabledVddAMonitor2 define</li>
+</ul></li>
+<li><strong>LL RTC</strong> driver
+<ul>
+<li>invert the RTC ALARM OUTPUT TYPE:
+<ul>
+<li>Set LL_RTC_ALARM_OUTPUTTYPE_PUSHPULL to zero in RTC_ALARM is push-pull output</li>
+<li>Replace LL_RTC_ALARM_OUTPUTTYPE_OPENDRAIN by RTC_CR_TAMPALRM_TYPE in RTC_ALARM is open-drain output</li>
+</ul></li>
+</ul></li>
+<li><strong>LL SDMMC</strong> driver
+<ul>
+<li>Add SDMMC_SWDATATIMEOUT define</li>
+<li>Add SDMMC_FIFO_SIZE define</li>
+</ul></li>
+<li><strong>LL TIM</strong> driver
+<ul>
+<li>Add LL_TIM_CC_IsEnabledPreload define</li>
+</ul></li>
+</ul>
+<p>Note: HAL/LL Backward compatibility ensured by legacy defines.</p>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>N/A</li>
+</ul>
+<h2 id="backward-compatibility">Backward compatibility</h2>
+<ul>
+<li>N/A</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" checked aria-hidden="true"><strong>V1.2.0 / 08-February-2023</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <ul>
 <li><strong>HAL and LL drivers</strong> Official Release for STM32U535xx / STM32U545xx, STM32U575xx / STM32U585xx, STM32U595xx, STM32U5A5xx, STM32U599xx and STM32U5A9xx devices.</li>
 <li>Update STM32U545xx_User_Manual, STM32U585xx_User_Manual and STM32U5A9xx_User_Manual CHM User Manuals</li>
 </ul>
-<h3 id="hal-drivers-updates"><strong>HAL Drivers</strong> updates</h3>
+<h3 id="hal-drivers-updates-1"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li><strong>HAL ADC</strong> driver
 <ul>
@@ -200,7 +303,7 @@
 <li>Add HAL_HCD_HC_SetHubInfo and HAL_HCD_HC_ClearHubInfo macros</li>
 </ul></li>
 </ul>
-<h3 id="ll-drivers-updates"><strong>LL Drivers</strong> updates</h3>
+<h3 id="ll-drivers-updates-1"><strong>LL Drivers</strong> updates</h3>
 <ul>
 <li><strong>LL ADC</strong> driver
 <ul>
@@ -242,11 +345,11 @@
 </ul></li>
 </ul>
 <p>Note: HAL/LL Backward compatibility ensured by legacy defines.</p>
-<h2 id="known-limitations">Known Limitations</h2>
+<h2 id="known-limitations-1">Known Limitations</h2>
 <ul>
 <li>N/A</li>
 </ul>
-<h2 id="backward-compatibility">Backward compatibility</h2>
+<h2 id="backward-compatibility-1">Backward compatibility</h2>
 <ul>
 <li>N/A</li>
 </ul>
@@ -255,7 +358,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" checked aria-hidden="true"><strong>V1.1.0 / 16-February-2022</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li><strong>HAL and LL drivers</strong> Maintenance Release for STM32U575xx / STM32U585xx devices and new support of STM32U595xx, STM32U5A5xx, STM32U599xx and STM32U5A9xx devices</li>
 <li>Add <strong>New LTDC, GFXMMU, DSI, GPU2D HAL drivers</strong> highlighting the graphics aspect of STM32U595/STM32U5A5/STM32U599/STM32U5A9 devices</li>
@@ -264,7 +367,7 @@
 <li>General updates to fix known defects and implementation enhancements</li>
 <li>The HAL and LL drivers provided within this package are <strong>MISRA-C, MCU ASTYLE and CodeSonar compliant</strong>, and have been reviewed with a static analysis tool to eliminate possible run-time errors</li>
 </ul>
-<h3 id="hal-drivers-updates-1"><strong>HAL Drivers</strong> updates</h3>
+<h3 id="hal-drivers-updates-2"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li>All the <strong>HAL</strong> drivers are updated to support both STM32U575/STM32U585 and STM32U595/STM32U5A5/STM32U599/STM32U5A9 devices</li>
 <li><strong>HAL ADC</strong> driver
@@ -402,7 +505,7 @@
 <li>Rework HAL_USART_DMAResume() function in order to use DMA instead of USART to resume data transfer</li>
 </ul></li>
 </ul>
-<h3 id="ll-drivers-updates-1"><strong>LL Drivers</strong> updates</h3>
+<h3 id="ll-drivers-updates-2"><strong>LL Drivers</strong> updates</h3>
 <ul>
 <li>All the <strong>LL</strong> drivers are updated to support both STM32U575/STM32U585 and STM32U595/STM32U5A5/STM32U599/STM32U5A9 devices</li>
 <li><strong>LL ADC</strong> driver
@@ -473,35 +576,6 @@
 </ul></li>
 </ul>
 <p>Backward compatibility ensured by legacy defines</p>
-<h2 id="known-limitations-1">Known Limitations</h2>
-<ul>
-<li>N/A</li>
-</ul>
-<h2 id="backward-compatibility-1">Backward compatibility</h2>
-<ul>
-<li>N/A</li>
-</ul>
-</div>
-</div>
-<div class="collapse">
-<input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true"><strong>V1.0.2 / 14-October-2021</strong></label>
-<div>
-<h2 id="main-changes-2">Main Changes</h2>
-<ul>
-<li>Patch release V1.0.2 of <strong>HAL and LL drivers</strong> for <strong>STM32U575xx / STM32U585xx</strong> devices</li>
-</ul>
-<h3 id="ll-drivers-updates-2"><strong>LL Drivers</strong> updates</h3>
-<ul>
-<li><strong>LL DAC</strong> driver
-<ul>
-<li>Rename of the LPTIM1/3 trigger of the LL DAC to be in line with Reference Manual:
-<ul>
-<li>Rename LL_DAC_TRIG_EXT_LPTIM1_OUT to LL_DAC_TRIG_EXT_LPTIM1_CH1</li>
-<li>Rename LL_DAC_TRIG_EXT_LPTIM3_OUT to LL_DAC_TRIG_EXT_LPTIM3_CH1</li>
-</ul></li>
-</ul></li>
-<li>Backward compatibility ensured by legacy defines</li>
-</ul>
 <h2 id="known-limitations-2">Known Limitations</h2>
 <ul>
 <li>N/A</li>
@@ -513,13 +587,42 @@
 </div>
 </div>
 <div class="collapse">
-<input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true"><strong>V1.0.1 / 01-October-2021</strong></label>
+<input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true"><strong>V1.0.2 / 14-October-2021</strong></label>
 <div>
 <h2 id="main-changes-3">Main Changes</h2>
 <ul>
+<li>Patch release V1.0.2 of <strong>HAL and LL drivers</strong> for <strong>STM32U575xx / STM32U585xx</strong> devices</li>
+</ul>
+<h3 id="ll-drivers-updates-3"><strong>LL Drivers</strong> updates</h3>
+<ul>
+<li><strong>LL DAC</strong> driver
+<ul>
+<li>Rename of the LPTIM1/3 trigger of the LL DAC to be in line with Reference Manual:
+<ul>
+<li>Rename LL_DAC_TRIG_EXT_LPTIM1_OUT to LL_DAC_TRIG_EXT_LPTIM1_CH1</li>
+<li>Rename LL_DAC_TRIG_EXT_LPTIM3_OUT to LL_DAC_TRIG_EXT_LPTIM3_CH1</li>
+</ul></li>
+</ul></li>
+<li>Backward compatibility ensured by legacy defines</li>
+</ul>
+<h2 id="known-limitations-3">Known Limitations</h2>
+<ul>
+<li>N/A</li>
+</ul>
+<h2 id="backward-compatibility-3">Backward compatibility</h2>
+<ul>
+<li>N/A</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true"><strong>V1.0.1 / 01-October-2021</strong></label>
+<div>
+<h2 id="main-changes-4">Main Changes</h2>
+<ul>
 <li>Patch release V1.0.1 of <strong>HAL and LL drivers</strong> for <strong>STM32U575xx / STM32U585xx</strong> devices</li>
 </ul>
-<h3 id="hal-drivers-updates-2"><strong>HAL Drivers</strong> updates</h3>
+<h3 id="hal-drivers-updates-3"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li><strong>HAL ADC</strong> driver
 <ul>
@@ -557,18 +660,18 @@
 <li>Fix setting Flash latency from MSIRange in Oscillator Configuration</li>
 </ul></li>
 </ul>
-<h3 id="ll-drivers-updates-3"><strong>LL Drivers</strong> updates</h3>
+<h3 id="ll-drivers-updates-4"><strong>LL Drivers</strong> updates</h3>
 <ul>
 <li><strong>LL I2C</strong> driver
 <ul>
 <li>Add LL_I2C_EnableFastModePlus, LL_I2C_DisableFastModePlus and LL_I2C_IsEnabledFastModePlus APIs</li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-3">Known Limitations</h2>
+<h2 id="known-limitations-4">Known Limitations</h2>
 <ul>
 <li>N/A</li>
 </ul>
-<h2 id="backward-compatibility-3">Backward compatibility</h2>
+<h2 id="backward-compatibility-4">Backward compatibility</h2>
 <ul>
 <li>N/A</li>
 </ul>
@@ -577,11 +680,11 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" checked aria-hidden="true"><strong>V1.0.0 / 28-June-2021</strong></label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <ul>
 <li>First official release of <strong>HAL and LL drivers</strong> for <strong>STM32U575xx / STM32U585xx</strong> devices</li>
 </ul>
-<h2 id="known-limitations-4">Known Limitations</h2>
+<h2 id="known-limitations-5">Known Limitations</h2>
 <ul>
 <li>N/A</li>
 </ul>

@@ -202,7 +202,7 @@
     and a pointer to the user callback function.
 
     Use function HAL_MMC_UnRegisterCallback() to reset a callback to the default
-    weak (surcharged) function. It allows to reset following callbacks:
+    weak (overridden) function. It allows to reset following callbacks:
       (+) TxCpltCallback : callback when a transmission transfer is completed.
       (+) RxCpltCallback : callback when a reception transfer is completed.
       (+) ErrorCallback : callback when error occurs.
@@ -216,9 +216,9 @@
     This function) takes as parameters the HAL peripheral handle and the Callback ID.
 
     By default, after the HAL_MMC_Init and if the state is HAL_MMC_STATE_RESET
-    all callbacks are reset to the corresponding legacy weak (surcharged) functions.
+    all callbacks are reset to the corresponding legacy weak (overridden) functions.
     Exception done for MspInit and MspDeInit callbacks that are respectively
-    reset to the legacy weak (surcharged) functions in the HAL_MMC_Init
+    reset to the legacy weak (overridden) functions in the HAL_MMC_Init
     and HAL_MMC_DeInit only when these callbacks are null (not registered beforehand).
     If not, MspInit or MspDeInit are not null, the HAL_MMC_Init and HAL_MMC_DeInit
     keep and use the user MspInit/MspDeInit callbacks (registered beforehand)
@@ -233,7 +233,7 @@
 
     When The compilation define USE_HAL_MMC_REGISTER_CALLBACKS is set to 0 or
     not defined, the callback registering feature is not available
-    and weak (surcharged) callbacks are used.
+    and weak (overridden) callbacks are used.
 
   @endverbatim
   ******************************************************************************
@@ -251,6 +251,7 @@
   * @{
   */
 
+#if defined (SDMMC1) || defined (SDMMC2)
 #ifdef HAL_MMC_MODULE_ENABLED
 
 /* Private typedef -----------------------------------------------------------*/
@@ -288,6 +289,7 @@
 /* Frequencies used in the driver for clock divider calculation */
 #define MMC_INIT_FREQ                   400000U   /* Initialization phase : 400 kHz max */
 #define MMC_HIGH_SPEED_FREQ             52000000U /* High speed phase : 52 MHz max */
+
 /**
   * @}
   */
@@ -651,7 +653,7 @@ HAL_StatusTypeDef HAL_MMC_ReadBlocks(MMC_HandleTypeDef *hmmc, uint8_t *pData, ui
 
     if ((hmmc->MmcCard.CardType) != MMC_HIGH_CAPACITY_CARD)
     {
-      add *= 512U;
+      add *= MMC_BLOCKSIZE;
     }
 
     /* Configure the MMC DPSM (Data Path State Machine) */
@@ -693,10 +695,10 @@ HAL_StatusTypeDef HAL_MMC_ReadBlocks(MMC_HandleTypeDef *hmmc, uint8_t *pData, ui
     while (!__HAL_MMC_GET_FLAG(hmmc,
                                SDMMC_FLAG_RXOVERR | SDMMC_FLAG_DCRCFAIL | SDMMC_FLAG_DTIMEOUT | SDMMC_FLAG_DATAEND))
     {
-      if (__HAL_MMC_GET_FLAG(hmmc, SDMMC_FLAG_RXFIFOHF) && (dataremaining >= 32U))
+      if (__HAL_MMC_GET_FLAG(hmmc, SDMMC_FLAG_RXFIFOHF) && (dataremaining >= SDMMC_FIFO_SIZE))
       {
         /* Read data from SDMMC Rx FIFO */
-        for (count = 0U; count < 8U; count++)
+        for (count = 0U; count < (SDMMC_FIFO_SIZE / 4U); count++)
         {
           data = SDMMC_ReadFIFO(hmmc->Instance);
           *tempbuff = (uint8_t)(data & 0xFFU);
@@ -708,7 +710,7 @@ HAL_StatusTypeDef HAL_MMC_ReadBlocks(MMC_HandleTypeDef *hmmc, uint8_t *pData, ui
           *tempbuff = (uint8_t)((data >> 24U) & 0xFFU);
           tempbuff++;
         }
-        dataremaining -= 32U;
+        dataremaining -= SDMMC_FIFO_SIZE;
       }
 
       if (((HAL_GetTick() - tickstart) >=  Timeout) || (Timeout == 0U))
@@ -846,7 +848,7 @@ HAL_StatusTypeDef HAL_MMC_WriteBlocks(MMC_HandleTypeDef *hmmc, const uint8_t *pD
 
     if ((hmmc->MmcCard.CardType) != MMC_HIGH_CAPACITY_CARD)
     {
-      add *= 512U;
+      add *= MMC_BLOCKSIZE;
     }
 
     /* Configure the MMC DPSM (Data Path State Machine) */
@@ -888,10 +890,10 @@ HAL_StatusTypeDef HAL_MMC_WriteBlocks(MMC_HandleTypeDef *hmmc, const uint8_t *pD
     while (!__HAL_MMC_GET_FLAG(hmmc,
                                SDMMC_FLAG_TXUNDERR | SDMMC_FLAG_DCRCFAIL | SDMMC_FLAG_DTIMEOUT | SDMMC_FLAG_DATAEND))
     {
-      if (__HAL_MMC_GET_FLAG(hmmc, SDMMC_FLAG_TXFIFOHE) && (dataremaining >= 32U))
+      if (__HAL_MMC_GET_FLAG(hmmc, SDMMC_FLAG_TXFIFOHE) && (dataremaining >= SDMMC_FIFO_SIZE))
       {
         /* Write data to SDMMC Tx FIFO */
-        for (count = 0U; count < 8U; count++)
+        for (count = 0U; count < (SDMMC_FIFO_SIZE / 4U); count++)
         {
           data = (uint32_t)(*tempbuff);
           tempbuff++;
@@ -903,7 +905,7 @@ HAL_StatusTypeDef HAL_MMC_WriteBlocks(MMC_HandleTypeDef *hmmc, const uint8_t *pD
           tempbuff++;
           (void)SDMMC_WriteFIFO(hmmc->Instance, &data);
         }
-        dataremaining -= 32U;
+        dataremaining -= SDMMC_FIFO_SIZE;
       }
 
       if (((HAL_GetTick() - tickstart) >=  Timeout) || (Timeout == 0U))
@@ -1040,7 +1042,7 @@ HAL_StatusTypeDef HAL_MMC_ReadBlocks_IT(MMC_HandleTypeDef *hmmc, uint8_t *pData,
 
     if ((hmmc->MmcCard.CardType) != MMC_HIGH_CAPACITY_CARD)
     {
-      add *= 512U;
+      add *= MMC_BLOCKSIZE;
     }
 
     /* Configure the MMC DPSM (Data Path State Machine) */
@@ -1153,7 +1155,7 @@ HAL_StatusTypeDef HAL_MMC_WriteBlocks_IT(MMC_HandleTypeDef *hmmc, const uint8_t 
 
     if ((hmmc->MmcCard.CardType) != MMC_HIGH_CAPACITY_CARD)
     {
-      add *= 512U;
+      add *= MMC_BLOCKSIZE;
     }
 
     /* Configure the MMC DPSM (Data Path State Machine) */
@@ -1267,7 +1269,7 @@ HAL_StatusTypeDef HAL_MMC_ReadBlocks_DMA(MMC_HandleTypeDef *hmmc, uint8_t *pData
 
     if ((hmmc->MmcCard.CardType) != MMC_HIGH_CAPACITY_CARD)
     {
-      add *= 512U;
+      add *= MMC_BLOCKSIZE;
     }
 
     /* Configure the MMC DPSM (Data Path State Machine) */
@@ -1382,7 +1384,7 @@ HAL_StatusTypeDef HAL_MMC_WriteBlocks_DMA(MMC_HandleTypeDef *hmmc, const uint8_t
 
     if ((hmmc->MmcCard.CardType) != MMC_HIGH_CAPACITY_CARD)
     {
-      add *= 512U;
+      add *= MMC_BLOCKSIZE;
     }
 
     /* Configure the MMC DPSM (Data Path State Machine) */
@@ -1500,8 +1502,8 @@ HAL_StatusTypeDef HAL_MMC_Erase(MMC_HandleTypeDef *hmmc, uint32_t BlockStartAdd,
 
     if ((hmmc->MmcCard.CardType) != MMC_HIGH_CAPACITY_CARD)
     {
-      start_add *= 512U;
-      end_add   *= 512U;
+      start_add *= MMC_BLOCKSIZE;
+      end_add   *= MMC_BLOCKSIZE;
     }
 
     /* Send CMD35 MMC_ERASE_GRP_START with argument as addr  */
@@ -1766,7 +1768,7 @@ void HAL_MMC_IRQHandler(MMC_HandleTypeDef *hmmc)
   * @param hmmc: Pointer to mmc handle
   * @retval HAL state
   */
-HAL_MMC_StateTypeDef HAL_MMC_GetState(MMC_HandleTypeDef *hmmc)
+HAL_MMC_StateTypeDef HAL_MMC_GetState(const MMC_HandleTypeDef *hmmc)
 {
   return hmmc->State;
 }
@@ -1777,7 +1779,7 @@ HAL_MMC_StateTypeDef HAL_MMC_GetState(MMC_HandleTypeDef *hmmc)
   *              the configuration information.
   * @retval MMC Error Code
   */
-uint32_t HAL_MMC_GetError(MMC_HandleTypeDef *hmmc)
+uint32_t HAL_MMC_GetError(const MMC_HandleTypeDef *hmmc)
 {
   return hmmc->ErrorCode;
 }
@@ -1845,7 +1847,7 @@ __weak void HAL_MMC_AbortCallback(MMC_HandleTypeDef *hmmc)
 #if defined (USE_HAL_MMC_REGISTER_CALLBACKS) && (USE_HAL_MMC_REGISTER_CALLBACKS == 1U)
 /**
   * @brief  Register a User MMC Callback
-  *         To be used instead of the weak (surcharged) predefined callback
+  *         To be used instead of the weak (overridden) predefined callback
   * @note   The HAL_MMC_RegisterCallback() may be called before HAL_MMC_Init() in
   *         HAL_MMC_STATE_RESET to register callbacks for HAL_MMC_MSP_INIT_CB_ID
   *         and HAL_MMC_MSP_DEINIT_CB_ID.
@@ -1942,7 +1944,7 @@ HAL_StatusTypeDef HAL_MMC_RegisterCallback(MMC_HandleTypeDef *hmmc, HAL_MMC_Call
 
 /**
   * @brief  Unregister a User MMC Callback
-  *         MMC Callback is redirected to the weak (surcharged) predefined callback
+  *         MMC Callback is redirected to the weak (overridden) predefined callback
   * @note   The HAL_MMC_UnRegisterCallback() may be called before HAL_MMC_Init() in
   *         HAL_MMC_STATE_RESET to register callbacks for HAL_MMC_MSP_INIT_CB_ID
   *         and HAL_MMC_MSP_DEINIT_CB_ID.
@@ -2142,14 +2144,14 @@ HAL_StatusTypeDef HAL_MMC_GetCardCSD(MMC_HandleTypeDef *hmmc, HAL_MMC_CardCSDTyp
     hmmc->MmcCard.BlockNbr *= (1UL << ((pCSD->DeviceSizeMul & 0x07U) + 2U));
     hmmc->MmcCard.BlockSize = (1UL << (pCSD->RdBlockLen & 0x0FU));
 
-    hmmc->MmcCard.LogBlockNbr = (hmmc->MmcCard.BlockNbr) * ((hmmc->MmcCard.BlockSize) / 512U);
-    hmmc->MmcCard.LogBlockSize = 512U;
+    hmmc->MmcCard.LogBlockNbr = (hmmc->MmcCard.BlockNbr) * ((hmmc->MmcCard.BlockSize) / MMC_BLOCKSIZE);
+    hmmc->MmcCard.LogBlockSize = MMC_BLOCKSIZE;
   }
   else if (hmmc->MmcCard.CardType == MMC_HIGH_CAPACITY_CARD)
   {
     hmmc->MmcCard.BlockNbr = block_nbr;
     hmmc->MmcCard.LogBlockNbr = hmmc->MmcCard.BlockNbr;
-    hmmc->MmcCard.BlockSize = 512U;
+    hmmc->MmcCard.BlockSize = MMC_BLOCKSIZE;
     hmmc->MmcCard.LogBlockSize = hmmc->MmcCard.BlockSize;
   }
   else
@@ -2257,7 +2259,7 @@ HAL_StatusTypeDef HAL_MMC_GetCardExtCSD(MMC_HandleTypeDef *hmmc, uint32_t *pExtC
 
     /* Configure the MMC DPSM (Data Path State Machine) */
     config.DataTimeOut   = SDMMC_DATATIMEOUT;
-    config.DataLength    = 512U;
+    config.DataLength    = MMC_BLOCKSIZE;
     config.DataBlockSize = SDMMC_DATABLOCK_SIZE_512B;
     config.TransferDir   = SDMMC_TRANSFER_DIR_TO_SDMMC;
     config.TransferMode  = SDMMC_TRANSFER_MODE_BLOCK;
@@ -2283,7 +2285,7 @@ HAL_StatusTypeDef HAL_MMC_GetCardExtCSD(MMC_HandleTypeDef *hmmc, uint32_t *pExtC
       if (__HAL_MMC_GET_FLAG(hmmc, SDMMC_FLAG_RXFIFOHF))
       {
         /* Read data from SDMMC Rx FIFO */
-        for (count = 0U; count < 8U; count++)
+        for (count = 0U; count < (SDMMC_FIFO_SIZE / 4U); count++)
         {
           *tmp_buf = SDMMC_ReadFIFO(hmmc->Instance);
           tmp_buf++;
@@ -2664,7 +2666,8 @@ HAL_StatusTypeDef HAL_MMC_Abort(MMC_HandleTypeDef *hmmc)
     __SDMMC_CMDTRANS_DISABLE(hmmc->Instance);
 
     /*we will send the CMD12 in all cases in order to stop the data transfers*/
-    /*In case the data transfer just finished , the external memory will not respond and will return HAL_MMC_ERROR_CMD_RSP_TIMEOUT*/
+    /*In case the data transfer just finished, the external memory will not respond
+      and will return HAL_MMC_ERROR_CMD_RSP_TIMEOUT*/
     /*In case the data transfer aborted , the external memory will respond and will return HAL_MMC_ERROR_NONE*/
     /*Other scenario will return HAL_ERROR*/
 
@@ -2680,40 +2683,40 @@ HAL_StatusTypeDef HAL_MMC_Abort(MMC_HandleTypeDef *hmmc)
     {
       if (hmmc->ErrorCode == HAL_MMC_ERROR_NONE)
       {
-         while(!__HAL_MMC_GET_FLAG(hmmc, SDMMC_FLAG_DABORT | SDMMC_FLAG_BUSYD0END))
+        while (!__HAL_MMC_GET_FLAG(hmmc, SDMMC_FLAG_DABORT | SDMMC_FLAG_BUSYD0END))
         {
-           if ((HAL_GetTick() - tickstart) >=  SDMMC_DATATIMEOUT)
-           {
-              hmmc->ErrorCode = HAL_MMC_ERROR_TIMEOUT;
-              hmmc->State = HAL_MMC_STATE_READY;
-              return HAL_TIMEOUT;
-           }
+          if ((HAL_GetTick() - tickstart) >=  SDMMC_DATATIMEOUT)
+          {
+            hmmc->ErrorCode = HAL_MMC_ERROR_TIMEOUT;
+            hmmc->State = HAL_MMC_STATE_READY;
+            return HAL_TIMEOUT;
+          }
         }
       }
 
       if (hmmc->ErrorCode == HAL_MMC_ERROR_CMD_RSP_TIMEOUT)
       {
-        while(!__HAL_MMC_GET_FLAG(hmmc, SDMMC_FLAG_DATAEND))
+        while (!__HAL_MMC_GET_FLAG(hmmc, SDMMC_FLAG_DATAEND))
         {
-           if ((HAL_GetTick() - tickstart) >=  SDMMC_DATATIMEOUT)
-           {
-              hmmc->ErrorCode = HAL_MMC_ERROR_TIMEOUT;
-              hmmc->State = HAL_MMC_STATE_READY;
-              return HAL_TIMEOUT;
-           }
+          if ((HAL_GetTick() - tickstart) >=  SDMMC_DATATIMEOUT)
+          {
+            hmmc->ErrorCode = HAL_MMC_ERROR_TIMEOUT;
+            hmmc->State = HAL_MMC_STATE_READY;
+            return HAL_TIMEOUT;
+          }
         }
       }
     }
     else if ((hmmc->Instance->DCTRL & SDMMC_DCTRL_DTDIR) == SDMMC_TRANSFER_DIR_TO_SDMMC)
     {
-      while(!__HAL_MMC_GET_FLAG(hmmc, SDMMC_FLAG_DABORT | SDMMC_FLAG_DATAEND))
+      while (!__HAL_MMC_GET_FLAG(hmmc, SDMMC_FLAG_DABORT | SDMMC_FLAG_DATAEND))
       {
-           if ((HAL_GetTick() - tickstart) >=  SDMMC_DATATIMEOUT)
-           {
-              hmmc->ErrorCode = HAL_MMC_ERROR_TIMEOUT;
-              hmmc->State = HAL_MMC_STATE_READY;
-              return HAL_TIMEOUT;
-           }
+        if ((HAL_GetTick() - tickstart) >=  SDMMC_DATATIMEOUT)
+        {
+          hmmc->ErrorCode = HAL_MMC_ERROR_TIMEOUT;
+          hmmc->State = HAL_MMC_STATE_READY;
+          return HAL_TIMEOUT;
+        }
       }
     }
     else
@@ -2721,13 +2724,15 @@ HAL_StatusTypeDef HAL_MMC_Abort(MMC_HandleTypeDef *hmmc)
       /* Nothing to do*/
     }
 
-    /*The reason of all these while conditions previously is that we need to wait the SDMMC and clear the appropriate flags that will be set depending of the abort/non abort of the memory */
-    /*Not waiting the SDMMC flags will cause the next SDMMC_DISABLE_IDMA to not get cleared and will result in next SDMMC read/write operation to fail */
+    /*The reason of all these while conditions previously is that we need to wait the SDMMC and clear
+      the appropriate flags that will be set depending of the abort/non abort of the memory */
+    /*Not waiting the SDMMC flags will cause the next SDMMC_DISABLE_IDMA to not get cleared and will result
+      in next SDMMC read/write operation to fail */
 
     /*SDMMC ready for clear data flags*/
     __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_FLAG_BUSYD0END);
     __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_STATIC_DATA_FLAGS);
-      /* If IDMA Context, disable Internal DMA */
+    /* If IDMA Context, disable Internal DMA */
     hmmc->Instance->IDMACTRL = SDMMC_DISABLE_IDMA;
 
     hmmc->State = HAL_MMC_STATE_READY;
@@ -2859,8 +2864,8 @@ HAL_StatusTypeDef HAL_MMC_EraseSequence(MMC_HandleTypeDef *hmmc, uint32_t EraseT
     /* In case of low capacity card, the address is not block number but bytes */
     if ((hmmc->MmcCard.CardType) != MMC_HIGH_CAPACITY_CARD)
     {
-      start_add *= 512U;
-      end_add   *= 512U;
+      start_add *= MMC_BLOCKSIZE;
+      end_add   *= MMC_BLOCKSIZE;
     }
 
     /* Send CMD35 MMC_ERASE_GRP_START with start address as argument */
@@ -3746,7 +3751,7 @@ static HAL_StatusTypeDef MMC_ReadExtCSD(MMC_HandleTypeDef *hmmc, uint32_t *pFiel
 
   /* Configure the MMC DPSM (Data Path State Machine) */
   config.DataTimeOut   = SDMMC_DATATIMEOUT;
-  config.DataLength    = 512U;
+  config.DataLength    = MMC_BLOCKSIZE;
   config.DataBlockSize = SDMMC_DATABLOCK_SIZE_512B;
   config.TransferDir   = SDMMC_TRANSFER_DIR_TO_SDMMC;
   config.TransferMode  = SDMMC_TRANSFER_MODE_BLOCK;
@@ -3771,7 +3776,7 @@ static HAL_StatusTypeDef MMC_ReadExtCSD(MMC_HandleTypeDef *hmmc, uint32_t *pFiel
     if (__HAL_MMC_GET_FLAG(hmmc, SDMMC_FLAG_RXFIFOHF))
     {
       /* Read data from SDMMC Rx FIFO */
-      for (count = 0U; count < 8U; count++)
+      for (count = 0U; count < (SDMMC_FIFO_SIZE / 4U); count++)
       {
         tmp_data = SDMMC_ReadFIFO(hmmc->Instance);
         /* eg : SEC_COUNT   : FieldIndex = 212 => i+count = 53 */
@@ -3853,10 +3858,11 @@ static void MMC_Read_IT(MMC_HandleTypeDef *hmmc)
 
   tmp = hmmc->pRxBuffPtr;
 
-  if (hmmc->RxXferSize >= 32U)
+
+  if (hmmc->RxXferSize >= SDMMC_FIFO_SIZE)
   {
     /* Read data from SDMMC Rx FIFO */
-    for (count = 0U; count < 8U; count++)
+    for (count = 0U; count < (SDMMC_FIFO_SIZE / 4U); count++)
     {
       data = SDMMC_ReadFIFO(hmmc->Instance);
       *tmp = (uint8_t)(data & 0xFFU);
@@ -3870,7 +3876,7 @@ static void MMC_Read_IT(MMC_HandleTypeDef *hmmc)
     }
 
     hmmc->pRxBuffPtr = tmp;
-    hmmc->RxXferSize -= 32U;
+    hmmc->RxXferSize -= SDMMC_FIFO_SIZE;
   }
 }
 
@@ -3888,10 +3894,10 @@ static void MMC_Write_IT(MMC_HandleTypeDef *hmmc)
 
   tmp = hmmc->pTxBuffPtr;
 
-  if (hmmc->TxXferSize >= 32U)
+  if (hmmc->TxXferSize >= SDMMC_FIFO_SIZE)
   {
     /* Write data to SDMMC Tx FIFO */
-    for (count = 0U; count < 8U; count++)
+    for (count = 0U; count < (SDMMC_FIFO_SIZE / 4U); count++)
     {
       data = (uint32_t)(*tmp);
       tmp++;
@@ -3905,7 +3911,7 @@ static void MMC_Write_IT(MMC_HandleTypeDef *hmmc)
     }
 
     hmmc->pTxBuffPtr = tmp;
-    hmmc->TxXferSize -= 32U;
+    hmmc->TxXferSize -= SDMMC_FIFO_SIZE;
   }
 }
 
@@ -4267,6 +4273,7 @@ __weak void HAL_MMCEx_Write_DMALnkLstBufCpltCallback(MMC_HandleTypeDef *hmmc)
   */
 
 #endif /* HAL_MMC_MODULE_ENABLED */
+#endif /* SDMMC1 || SDMMC2 */
 
 /**
   * @}

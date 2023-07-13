@@ -2056,7 +2056,7 @@ HAL_StatusTypeDef HAL_PCD_EP_Receive(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, u
   * @param  ep_addr endpoint address
   * @retval Data Size
   */
-uint32_t HAL_PCD_EP_GetRxCount(PCD_HandleTypeDef *hpcd, uint8_t ep_addr)
+uint32_t HAL_PCD_EP_GetRxCount(PCD_HandleTypeDef const *hpcd, uint8_t ep_addr)
 {
   return hpcd->OUT_ep[ep_addr & EP_ADDR_MSK].xfer_count;
 }
@@ -2214,7 +2214,6 @@ HAL_StatusTypeDef HAL_PCD_EP_Abort(PCD_HandleTypeDef *hpcd, uint8_t ep_addr)
   */
 HAL_StatusTypeDef HAL_PCD_EP_Flush(PCD_HandleTypeDef *hpcd, uint8_t ep_addr)
 {
-#if defined (USB_OTG_FS) || defined (USB_OTG_HS)
   __HAL_LOCK(hpcd);
 
   if ((ep_addr & 0x80U) == 0x80U)
@@ -2227,11 +2226,6 @@ HAL_StatusTypeDef HAL_PCD_EP_Flush(PCD_HandleTypeDef *hpcd, uint8_t ep_addr)
   }
 
   __HAL_UNLOCK(hpcd);
-#else
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(hpcd);
-  UNUSED(ep_addr);
-#endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 
   return HAL_OK;
 }
@@ -2280,7 +2274,7 @@ HAL_StatusTypeDef HAL_PCD_DeActivateRemoteWakeup(PCD_HandleTypeDef *hpcd)
   * @param  hpcd PCD handle
   * @retval HAL state
   */
-PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd)
+PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef const *hpcd)
 {
   return hpcd->State;
 }

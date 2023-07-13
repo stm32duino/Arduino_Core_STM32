@@ -307,9 +307,9 @@ void        LL_mDelay(uint32_t Delay);
 /** @defgroup LL_UTILS_Aliased_Functions  LL UTILS Aliased Functions maintained for legacy purpose
   * @{
   */
-#define LL_PLL1_ConfigSystemClock_MSI  LL_PLL_ConfigSystemClock_MSI
-#define LL_PLL1_ConfigSystemClock_HSI  LL_PLL_ConfigSystemClock_HSI
-#define LL_PLL1_ConfigSystemClock_HSE  LL_PLL_ConfigSystemClock_HSE
+#define LL_PLL1_ConfigSystemClock_MSI  LL_PLL_ConfigSystemClock_MSI  /* for legacy purpose */
+#define LL_PLL1_ConfigSystemClock_HSI  LL_PLL_ConfigSystemClock_HSI  /* for legacy purpose */
+#define LL_PLL1_ConfigSystemClock_HSE  LL_PLL_ConfigSystemClock_HSE  /* for legacy purpose */
 /**
   * @}
   */

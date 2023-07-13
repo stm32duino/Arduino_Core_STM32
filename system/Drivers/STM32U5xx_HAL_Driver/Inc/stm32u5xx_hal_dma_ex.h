@@ -301,7 +301,9 @@ typedef struct __DMA_QListTypeDef
 #define GPDMA1_TRIGGER_LPTIM2_CH2      (14U) /*!< GPDMA1 HW Trigger signal is LPTIM2_CH2      */
 #define GPDMA1_TRIGGER_LPTIM4_OUT      (15U) /*!< GPDMA1 HW Trigger signal is LPTIM4_OUT      */
 #define GPDMA1_TRIGGER_COMP1_OUT       (16U) /*!< GPDMA1 HW Trigger signal is COMP1_OUT       */
+#if defined(COMP2)
 #define GPDMA1_TRIGGER_COMP2_OUT       (17U) /*!< GPDMA1 HW Trigger signal is COMP2_OUT       */
+#endif /* COMP2 */
 #define GPDMA1_TRIGGER_RTC_ALRA_TRG    (18U) /*!< GPDMA1 HW Trigger signal is RTC_ALRA_TRG    */
 #define GPDMA1_TRIGGER_RTC_ALRB_TRG    (19U) /*!< GPDMA1 HW Trigger signal is RTC_ALRB_TRG    */
 #define GPDMA1_TRIGGER_RTC_WUT_TRG     (20U) /*!< GPDMA1 HW Trigger signal is RTC_WUT_TRG     */
@@ -356,6 +358,19 @@ typedef struct __DMA_QListTypeDef
 #endif /* defined (GPU2D) */
 #define GPDMA1_TRIGGER_ADC4_AWD1       (57U) /*!< GPDMA1 HW Trigger signal is ADC4_AWD1       */
 #define GPDMA1_TRIGGER_ADC1_AWD1       (58U) /*!< GPDMA1 HW Trigger signal is ADC1_AWD1       */
+#if defined (GFXTIM)
+#define GPDMA1_TRIGGER_GFXTIM_EVT3     (59U) /*!< GPDMA1 HW Trigger signal is GFXTIM_EVT3     */
+#define GPDMA1_TRIGGER_GFXTIM_EVT2     (60U) /*!< GPDMA1 HW Trigger signal is GFXTIM_EVT2     */
+#define GPDMA1_TRIGGER_GFXTIM_EVT1     (61U) /*!< GPDMA1 HW Trigger signal is GFXTIM_EVT1     */
+#define GPDMA1_TRIGGER_GFXTIM_EVT0     (62U) /*!< GPDMA1 HW Trigger signal is GFXTIM_EVT0     */
+#endif /* defined (GFXTIM) */
+#if defined (JPEG)
+#define GPDMA1_TRIGGER_JPEG_EOC        (63U) /*!< GPDMA1 HW Trigger signal is JPEG_EOC        */
+#define GPDMA1_TRIGGER_JPEG_IFNF       (64U) /*!< GPDMA1 HW Trigger signal is JPEG_IFNF       */
+#define GPDMA1_TRIGGER_JPEG_IFT        (65U) /*!< GPDMA1 HW Trigger signal is JPEG_IFT        */
+#define GPDMA1_TRIGGER_JPEG_OFNE       (66U) /*!< GPDMA1 HW Trigger signal is JPEG_OFNE       */
+#define GPDMA1_TRIGGER_JPEG_OFT        (67U) /*!< GPDMA1 HW Trigger signal is JPEG_OFT        */
+#endif /* defined (JPEG) */
 
 /* LPDMA1 triggers */
 #define LPDMA1_TRIGGER_EXTI_LINE0      (0U)  /*!< LPDMA1 HW Trigger signal is EXTI_LINE0      */
@@ -371,7 +386,9 @@ typedef struct __DMA_QListTypeDef
 #define LPDMA1_TRIGGER_LPTIM3_CH1      (10U) /*!< LPDMA1 HW Trigger signal is LPTIM3_CH1      */
 #define LPDMA1_TRIGGER_LPTIM4_OUT      (11U) /*!< LPDMA1 HW Trigger signal is LPTIM4_OUT      */
 #define LPDMA1_TRIGGER_COMP1_OUT       (12U) /*!< LPDMA1 HW Trigger signal is COMP1_OUT       */
+#if defined(COMP2)
 #define LPDMA1_TRIGGER_COMP2_OUT       (13U) /*!< LPDMA1 HW Trigger signal is COMP2_OUT       */
+#endif /* COMP2 */
 #define LPDMA1_TRIGGER_RTC_ALRA_TRG    (14U) /*!< LPDMA1 HW Trigger signal is RTC_ALRA_TRG    */
 #define LPDMA1_TRIGGER_RTC_ALRB_TRG    (15U) /*!< LPDMA1 HW Trigger signal is RTC_ALRB_TRG    */
 #define LPDMA1_TRIGGER_RTC_WUT_TRG     (16U) /*!< LPDMA1 HW Trigger signal is RTC_WUT_TRG     */
@@ -590,6 +607,8 @@ typedef struct
 #define NODE_CLLR_IDX                   (0x0700U) /* DMA channel node CLLR index mask      */
 #define NODE_CLLR_IDX_POS               (0x0008U) /* DMA channel node CLLR index position  */
 
+#define NODE_MAXIMUM_SIZE               (0x0008U) /* Amount of registers of the node       */
+
 #define NODE_STATIC_FORMAT              (0x0000U) /* DMA channel node static format        */
 #define NODE_DYNAMIC_FORMAT             (0x0001U) /* DMA channel node dynamic format       */
 
@@ -672,7 +691,11 @@ typedef struct
    ((POLARITY) == DMA_TRIG_POLARITY_RISING) || \
    ((POLARITY) == DMA_TRIG_POLARITY_FALLING))
 
+#if defined (GPDMA1_TRIGGER_JPEG_OFT)
+#define IS_DMA_TRIGGER_SELECTION(TRIGGER) ((TRIGGER) <= GPDMA1_TRIGGER_JPEG_OFT)
+#else
 #define IS_DMA_TRIGGER_SELECTION(TRIGGER) ((TRIGGER) <= GPDMA1_TRIGGER_ADC1_AWD1)
+#endif /* GPDMA1_TRIGGER_JPEG_OFT */
 
 #define IS_DMA_NODE_TYPE(TYPE)          \
   (((TYPE) == DMA_LPDMA_LINEAR_NODE) || \

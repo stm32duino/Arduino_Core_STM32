@@ -1787,34 +1787,27 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
     fracn1 = (float_t)(uint32_t)(pllfracen * ((RCC->PLL1FRACR & RCC_PLL1FRACR_PLL1FRACN) >> \
                                               RCC_PLL1FRACR_PLL1FRACN_Pos));
 
-    if (pllm != 0U)
+    switch (pllsource)
     {
-      switch (pllsource)
-      {
-        case RCC_PLLSOURCE_HSI:  /* HSI used as PLL clock source */
-          pllvco = ((float_t)HSI_VALUE / (float_t)pllm) * ((float_t)(uint32_t)(RCC->PLL1DIVR & RCC_PLL1DIVR_PLL1N) + \
-                                                           (fracn1 / (float_t)0x2000) + (float_t)1U);
-          break;
+      case RCC_PLLSOURCE_HSI:  /* HSI used as PLL clock source */
+        pllvco = ((float_t)HSI_VALUE / (float_t)pllm) * ((float_t)(uint32_t)(RCC->PLL1DIVR & RCC_PLL1DIVR_PLL1N) + \
+                                                         (fracn1 / (float_t)0x2000) + (float_t)1U);
+        break;
 
-        case RCC_PLLSOURCE_HSE:  /* HSE used as PLL clock source */
-          pllvco = ((float_t)HSE_VALUE / (float_t)pllm) * ((float_t)(uint32_t)(RCC->PLL1DIVR & RCC_PLL1DIVR_PLL1N) + \
-                                                           (fracn1 / (float_t)0x2000) + (float_t)1U);
-          break;
+      case RCC_PLLSOURCE_HSE:  /* HSE used as PLL clock source */
+        pllvco = ((float_t)HSE_VALUE / (float_t)pllm) * ((float_t)(uint32_t)(RCC->PLL1DIVR & RCC_PLL1DIVR_PLL1N) + \
+                                                         (fracn1 / (float_t)0x2000) + (float_t)1U);
+        break;
 
-        case RCC_PLLSOURCE_MSI:  /* MSI used as PLL clock source */
-        default:
-          pllvco = ((float_t) msirange / (float_t)pllm) * ((float_t)(uint32_t)(RCC->PLL1DIVR & RCC_PLL1DIVR_PLL1N) + \
-                                                           (fracn1 / (float_t)0x2000) + (float_t)1U);
-          break;
-      }
-
-      pllr = (((RCC->PLL1DIVR & RCC_PLL1DIVR_PLL1R) >> RCC_PLL1DIVR_PLL1R_Pos) + 1U);
-      sysclockfreq = (uint32_t)(float_t)((float_t)pllvco / (float_t)pllr);
+      case RCC_PLLSOURCE_MSI:  /* MSI used as PLL clock source */
+      default:
+        pllvco = ((float_t) msirange / (float_t)pllm) * ((float_t)(uint32_t)(RCC->PLL1DIVR & RCC_PLL1DIVR_PLL1N) + \
+                                                         (fracn1 / (float_t)0x2000) + (float_t)1U);
+        break;
     }
-    else
-    {
-      sysclockfreq = 0;
-    }
+
+    pllr = (((RCC->PLL1DIVR & RCC_PLL1DIVR_PLL1R) >> RCC_PLL1DIVR_PLL1R_Pos) + 1U);
+    sysclockfreq = (uint32_t)(float_t)((float_t)pllvco / (float_t)pllr);
   }
 
   return sysclockfreq;

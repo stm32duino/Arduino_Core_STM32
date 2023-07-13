@@ -1265,7 +1265,8 @@ HAL_StatusTypeDef     HAL_XSPI_SetDelayValue(XSPI_HandleTypeDef *hxspi, XSPI_HSC
 
 #if defined(HSPI1)
 #define IS_HSPI_DATA_MODE(TYPE,MODE)              (((TYPE) == (HAL_XSPI_MEMTYPE_HYPERBUS)) ? \
-                                                   (((MODE) == HAL_XSPI_DATA_8_LINES) || \
+                                                   (((MODE) == HAL_XSPI_DATA_NONE)    || \
+                                                    ((MODE) == HAL_XSPI_DATA_8_LINES) || \
                                                     ((MODE) == HAL_XSPI_DATA_16_LINES)): \
                                                    (((MODE) == HAL_XSPI_DATA_NONE)    || \
                                                     ((MODE) == HAL_XSPI_DATA_1_LINE)  || \

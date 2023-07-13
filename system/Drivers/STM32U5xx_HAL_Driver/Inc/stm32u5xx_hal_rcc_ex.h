@@ -230,8 +230,10 @@ typedef struct
   uint32_t RngClockSelection;      /*!< Specifies RNG clock source
                                         This parameter can be a value of @ref RCCEx_RNG_Clock_Source  */
 
+#if defined(SAES)
   uint32_t SaesClockSelection;     /*!< Specifies SAES clock source
                                         This parameter can be a value of @ref RCCEx_SAES_Clock_Source  */
+#endif /* SAES */
 
   uint32_t IclkClockSelection;    /*!< Specifies intermediate clock source used by USB, RNG and SDMMC1
                                         This parameter can be a value of @ref RCCEx_ICLK_Clock_Source */
@@ -382,7 +384,9 @@ typedef struct
 #define RCC_PERIPHCLK_LPTIM1           ((uint64_t)0x00000200U)
 #define RCC_PERIPHCLK_LPTIM2           ((uint64_t)0x00000400U)
 #define RCC_PERIPHCLK_LPTIM34          ((uint64_t)0x00000800U)
+#if defined(SAES)
 #define RCC_PERIPHCLK_SAES             ((uint64_t)0x00001000U)
+#endif /* SAES */
 #define RCC_PERIPHCLK_SAI1             ((uint64_t)0x00002000U)
 #if defined(SAI2)
 #define RCC_PERIPHCLK_SAI2             ((uint64_t)0x00004000U)
@@ -435,6 +439,32 @@ typedef struct
                                         RCC_PERIPHCLK_SPI3 | RCC_PERIPHCLK_OSPI | RCC_PERIPHCLK_FDCAN1 | \
                                         RCC_PERIPHCLK_DAC1 | RCC_PERIPHCLK_HSPI | RCC_PERIPHCLK_LTDC | \
                                         RCC_PERIPHCLK_DSI | RCC_PERIPHCLK_USBPHY)
+#elif defined (STM32U5G7xx)
+#define RCC_PERIPHCLOCK_ALL            (RCC_PERIPHCLK_USART1 | RCC_PERIPHCLK_USART2 | RCC_PERIPHCLK_USART3 | \
+                                        RCC_PERIPHCLK_UART4 | RCC_PERIPHCLK_UART5 | RCC_PERIPHCLK_USART6 | \
+                                        RCC_PERIPHCLK_LPUART1 | RCC_PERIPHCLK_I2C1 | RCC_PERIPHCLK_I2C2 | \
+                                        RCC_PERIPHCLK_I2C3 | RCC_PERIPHCLK_I2C5 | RCC_PERIPHCLK_I2C6 | \
+                                        RCC_PERIPHCLK_LPTIM1 | RCC_PERIPHCLK_LPTIM34 | RCC_PERIPHCLK_LPTIM2 | \
+                                        RCC_PERIPHCLK_SAI1 | RCC_PERIPHCLK_SAI2 | RCC_PERIPHCLK_ADCDAC | \
+                                        RCC_PERIPHCLK_MDF1 | RCC_PERIPHCLK_ADF1 | RCC_PERIPHCLK_RTC | \
+                                        RCC_PERIPHCLK_ICLK | RCC_PERIPHCLK_SDMMC | RCC_PERIPHCLK_RNG | \
+                                        RCC_PERIPHCLK_I2C4 | RCC_PERIPHCLK_SPI1 | RCC_PERIPHCLK_SPI2 | \
+                                        RCC_PERIPHCLK_SPI3 | RCC_PERIPHCLK_OSPI | RCC_PERIPHCLK_FDCAN1 | \
+                                        RCC_PERIPHCLK_DAC1 | RCC_PERIPHCLK_HSPI | RCC_PERIPHCLK_LTDC | \
+                                        RCC_PERIPHCLK_USBPHY | RCC_PERIPHCLK_SAES)
+#elif defined (STM32U5F7xx)
+#define RCC_PERIPHCLOCK_ALL            (RCC_PERIPHCLK_USART1 | RCC_PERIPHCLK_USART2 | RCC_PERIPHCLK_USART3 | \
+                                        RCC_PERIPHCLK_UART4 | RCC_PERIPHCLK_UART5 | RCC_PERIPHCLK_USART6 | \
+                                        RCC_PERIPHCLK_LPUART1 | RCC_PERIPHCLK_I2C1 | RCC_PERIPHCLK_I2C2 | \
+                                        RCC_PERIPHCLK_I2C3 | RCC_PERIPHCLK_I2C5 | RCC_PERIPHCLK_I2C6 | \
+                                        RCC_PERIPHCLK_LPTIM1 | RCC_PERIPHCLK_LPTIM34 | RCC_PERIPHCLK_LPTIM2 | \
+                                        RCC_PERIPHCLK_SAI1 | RCC_PERIPHCLK_SAI2 | RCC_PERIPHCLK_ADCDAC | \
+                                        RCC_PERIPHCLK_MDF1 | RCC_PERIPHCLK_ADF1 | RCC_PERIPHCLK_RTC | \
+                                        RCC_PERIPHCLK_ICLK | RCC_PERIPHCLK_SDMMC | RCC_PERIPHCLK_RNG | \
+                                        RCC_PERIPHCLK_I2C4 | RCC_PERIPHCLK_SPI1 | RCC_PERIPHCLK_SPI2 | \
+                                        RCC_PERIPHCLK_SPI3 | RCC_PERIPHCLK_OSPI | RCC_PERIPHCLK_FDCAN1 | \
+                                        RCC_PERIPHCLK_DAC1 | RCC_PERIPHCLK_HSPI | RCC_PERIPHCLK_LTDC | \
+                                        RCC_PERIPHCLK_USBPHY)
 #elif (defined(STM32U595xx) || defined(STM32U5A5xx))
 #define RCC_PERIPHCLOCK_ALL           (RCC_PERIPHCLK_USART1 | RCC_PERIPHCLK_USART2 | RCC_PERIPHCLK_USART3 | \
                                        RCC_PERIPHCLK_UART4 | RCC_PERIPHCLK_UART5 | RCC_PERIPHCLK_USART6 | \
@@ -447,7 +477,7 @@ typedef struct
                                        RCC_PERIPHCLK_I2C4 | RCC_PERIPHCLK_SPI1 | RCC_PERIPHCLK_SPI2 | \
                                        RCC_PERIPHCLK_SPI3 | RCC_PERIPHCLK_OSPI | RCC_PERIPHCLK_FDCAN1 | \
                                        RCC_PERIPHCLK_DAC1 | RCC_PERIPHCLK_HSPI | RCC_PERIPHCLK_USBPHY)
-#elif (defined(STM32U575xx) || defined(STM32U585xx))
+#elif defined(STM32U585xx)
 #define RCC_PERIPHCLOCK_ALL          (RCC_PERIPHCLK_USART1 | RCC_PERIPHCLK_USART2 |RCC_PERIPHCLK_USART3 | \
                                       RCC_PERIPHCLK_UART4 | RCC_PERIPHCLK_UART5 | RCC_PERIPHCLK_LPUART1 | \
                                       RCC_PERIPHCLK_I2C1 | RCC_PERIPHCLK_I2C2 | RCC_PERIPHCLK_I2C3 | \
@@ -458,6 +488,27 @@ typedef struct
                                       RCC_PERIPHCLK_SDMMC | RCC_PERIPHCLK_I2C4 | RCC_PERIPHCLK_SPI1 | \
                                       RCC_PERIPHCLK_SPI2  | RCC_PERIPHCLK_SPI3 |RCC_PERIPHCLK_OSPI | \
                                       RCC_PERIPHCLK_FDCAN1 | RCC_PERIPHCLK_DAC1)
+#elif defined(STM32U575xx)
+#define RCC_PERIPHCLOCK_ALL          (RCC_PERIPHCLK_USART1 | RCC_PERIPHCLK_USART2 |RCC_PERIPHCLK_USART3 | \
+                                      RCC_PERIPHCLK_UART4 | RCC_PERIPHCLK_UART5 | RCC_PERIPHCLK_LPUART1 | \
+                                      RCC_PERIPHCLK_I2C1 | RCC_PERIPHCLK_I2C2 | RCC_PERIPHCLK_I2C3 | \
+                                      RCC_PERIPHCLK_LPTIM1 | RCC_PERIPHCLK_LPTIM2 | RCC_PERIPHCLK_LPTIM34 | \
+                                      RCC_PERIPHCLK_SAI1 | RCC_PERIPHCLK_SAI2 | \
+                                      RCC_PERIPHCLK_ADCDAC | RCC_PERIPHCLK_MDF1 | RCC_PERIPHCLK_ADF1 | \
+                                      RCC_PERIPHCLK_RTC | RCC_PERIPHCLK_RNG |RCC_PERIPHCLK_ICLK | \
+                                      RCC_PERIPHCLK_SDMMC | RCC_PERIPHCLK_I2C4 | RCC_PERIPHCLK_SPI1 | \
+                                      RCC_PERIPHCLK_SPI2  | RCC_PERIPHCLK_SPI3 |RCC_PERIPHCLK_OSPI | \
+                                      RCC_PERIPHCLK_FDCAN1 | RCC_PERIPHCLK_DAC1)
+#elif defined(STM32U535xx)
+#define RCC_PERIPHCLOCK_ALL          (RCC_PERIPHCLK_USART1 |RCC_PERIPHCLK_USART3 | RCC_PERIPHCLK_UART4 | \
+                                      RCC_PERIPHCLK_UART5 | RCC_PERIPHCLK_LPUART1 |RCC_PERIPHCLK_I2C1 | \
+                                      RCC_PERIPHCLK_I2C2 | RCC_PERIPHCLK_I2C3 | RCC_PERIPHCLK_LPTIM1 | \
+                                      RCC_PERIPHCLK_LPTIM2 | RCC_PERIPHCLK_LPTIM34 | \
+                                      RCC_PERIPHCLK_SAI1 | RCC_PERIPHCLK_ADCDAC | RCC_PERIPHCLK_MDF1 | \
+                                      RCC_PERIPHCLK_ADF1 | RCC_PERIPHCLK_RTC | RCC_PERIPHCLK_RNG | \
+                                      RCC_PERIPHCLK_ICLK | RCC_PERIPHCLK_SDMMC | RCC_PERIPHCLK_I2C4 | \
+                                      RCC_PERIPHCLK_SPI1 | RCC_PERIPHCLK_SPI2  | RCC_PERIPHCLK_SPI3 | \
+                                      RCC_PERIPHCLK_OSPI | RCC_PERIPHCLK_FDCAN1 | RCC_PERIPHCLK_DAC1)
 #else
 #define RCC_PERIPHCLOCK_ALL          (RCC_PERIPHCLK_USART1 |RCC_PERIPHCLK_USART3 | RCC_PERIPHCLK_UART4 | \
                                       RCC_PERIPHCLK_UART5 | RCC_PERIPHCLK_LPUART1 |RCC_PERIPHCLK_I2C1 | \
@@ -656,6 +707,7 @@ typedef struct
   * @}
   */
 
+#if defined(SAES)
 /** @defgroup RCCEx_SAES_Clock_Source  RCCEx SAES Clock Source
   * @{
   */
@@ -664,6 +716,7 @@ typedef struct
 /**
   * @}
   */
+#endif /* SAES */
 
 /** @defgroup RCCEx_SPI1_Clock_Source SPI1 Clock Source
   * @{
@@ -1915,6 +1968,7 @@ typedef struct
   */
 #define __HAL_RCC_GET_RNG_SOURCE() ((uint32_t)(READ_BIT(RCC->CCIPR2, RCC_CCIPR2_RNGSEL)))
 
+#if defined(SAES)
 /** @brief macro to configure the SAES clock (SAESCLK).
   * @param  __SAES_CLKSource__: specifies the SAES clock source.
   *         This parameter can be one of the following values:
@@ -1930,6 +1984,7 @@ typedef struct
   *            @arg RCC_SAESCLKSOURCE_SHSI_DIV2: SHSI/2 selected as SAES clock
   */
 #define __HAL_RCC_GET_SAES_SOURCE() ((uint32_t)(READ_BIT(RCC->CCIPR2, RCC_CCIPR2_SAESSEL)))
+#endif /* SAES */
 
 /**
   * @brief  Macro to configure the SAI1 clock source.

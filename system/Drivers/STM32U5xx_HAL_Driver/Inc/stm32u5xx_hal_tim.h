@@ -1926,6 +1926,10 @@ mode.
                                             ((__PRESCALER__) == TIM_ICPSC_DIV4) || \
                                             ((__PRESCALER__) == TIM_ICPSC_DIV8))
 
+#define IS_TIM_CCX_CHANNEL(__INSTANCE__, __CHANNEL__) (IS_TIM_CCX_INSTANCE(__INSTANCE__, __CHANNEL__) && \
+                                                       ((__CHANNEL__) != (TIM_CHANNEL_5)) && \
+                                                       ((__CHANNEL__) != (TIM_CHANNEL_6)))
+
 #define IS_TIM_OPM_MODE(__MODE__)          (((__MODE__) == TIM_OPMODE_SINGLE) || \
                                             ((__MODE__) == TIM_OPMODE_REPETITIVE))
 
@@ -1952,8 +1956,9 @@ mode.
 #define IS_TIM_OPM_CHANNELS(__CHANNEL__)   (((__CHANNEL__) == TIM_CHANNEL_1) || \
                                             ((__CHANNEL__) == TIM_CHANNEL_2))
 
-#define IS_TIM_PERIOD(__HANDLE__, __PERIOD__) \
-  ((IS_TIM_32B_COUNTER_INSTANCE(((__HANDLE__)->Instance)) == 0U) ? (((__PERIOD__) > 0U) && ((__PERIOD__) <= 0x0000FFFFU)) : ((__PERIOD__) > 0U))
+#define IS_TIM_PERIOD(__HANDLE__, __PERIOD__) ((IS_TIM_32B_COUNTER_INSTANCE(((__HANDLE__)->Instance)) == 0U) ? \
+                                               (((__PERIOD__) > 0U) && ((__PERIOD__) <= 0x0000FFFFU)) :        \
+                                               ((__PERIOD__) > 0U))
 
 #define IS_TIM_COMPLEMENTARY_CHANNELS(__CHANNEL__) (((__CHANNEL__) == TIM_CHANNEL_1) || \
                                                     ((__CHANNEL__) == TIM_CHANNEL_2) || \
@@ -2406,7 +2411,8 @@ HAL_StatusTypeDef HAL_TIM_ConfigTI1Input(TIM_HandleTypeDef *htim, uint32_t TI1_S
 HAL_StatusTypeDef HAL_TIM_SlaveConfigSynchro(TIM_HandleTypeDef *htim, const TIM_SlaveConfigTypeDef *sSlaveConfig);
 HAL_StatusTypeDef HAL_TIM_SlaveConfigSynchro_IT(TIM_HandleTypeDef *htim, const TIM_SlaveConfigTypeDef *sSlaveConfig);
 HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStart(TIM_HandleTypeDef *htim, uint32_t BurstBaseAddress,
-                                              uint32_t BurstRequestSrc, const uint32_t  *BurstBuffer, uint32_t  BurstLength);
+                                              uint32_t BurstRequestSrc, const uint32_t  *BurstBuffer,
+                                              uint32_t  BurstLength);
 HAL_StatusTypeDef HAL_TIM_DMABurst_MultiWriteStart(TIM_HandleTypeDef *htim, uint32_t BurstBaseAddress,
                                                    uint32_t BurstRequestSrc, const uint32_t *BurstBuffer,
                                                    uint32_t BurstLength,  uint32_t DataLength);

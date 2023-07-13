@@ -944,6 +944,22 @@ uint32_t HAL_DCACHE_Monitor_GetWriteMissValue(const DCACHE_HandleTypeDef *hdcach
 }
 
 /**
+  * @}
+  */
+
+/** @addtogroup DCACHE_Exported_Functions_Group3
+  *
+@verbatim
+  ==============================================================================
+            ##### DCACHE IRQ Handler and Callback functions #####
+  ==============================================================================
+  [..]
+  This section provides functions allowing to treat ISR and provide user callback
+@endverbatim
+  * @{
+  */
+
+/**
   * @brief Handle the Data Cache interrupt request.
   * @param  hdcache Pointer to a DCACHE_HandleTypeDef structure that contains
   *                 the configuration information for the specified DCACHEx peripheral.
@@ -1321,7 +1337,7 @@ __weak void HAL_DCACHE_ErrorCallback(DCACHE_HandleTypeDef *hdcache)
   * @}
   */
 
-/** @addtogroup DCACHE_Exported_Functions_Group3
+/** @addtogroup DCACHE_Exported_Functions_Group4
   *
 @verbatim
  ===============================================================================
@@ -1358,6 +1374,10 @@ uint32_t HAL_DCACHE_GetError(const DCACHE_HandleTypeDef *hdcache)
   /* Return DCACHE handle error code */
   return hdcache->ErrorCode;
 }
+
+/**
+  * @}
+  */
 
 /**
   * @}

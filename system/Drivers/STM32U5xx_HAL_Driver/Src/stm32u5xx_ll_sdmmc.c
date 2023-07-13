@@ -162,6 +162,7 @@
   * @{
   */
 
+#if defined (SDMMC1) || defined (SDMMC2)
 #if defined (HAL_SD_MODULE_ENABLED) || defined (HAL_MMC_MODULE_ENABLED)
 
 /* Private typedef -----------------------------------------------------------*/
@@ -248,7 +249,7 @@ HAL_StatusTypeDef SDMMC_Init(SDMMC_TypeDef *SDMMCx, SDMMC_InitTypeDef Init)
   * @param  SDMMCx: Pointer to SDMMC register base
   * @retval HAL status
   */
-uint32_t SDMMC_ReadFIFO(SDMMC_TypeDef *SDMMCx)
+uint32_t SDMMC_ReadFIFO(const SDMMC_TypeDef *SDMMCx)
 {
   /* Read data from Rx FIFO */
   return (SDMMCx->FIFO);
@@ -335,7 +336,7 @@ HAL_StatusTypeDef SDMMC_PowerState_OFF(SDMMC_TypeDef *SDMMCx)
   *            - 0x02: Power UP
   *            - 0x03: Power ON
   */
-uint32_t SDMMC_GetPowerState(SDMMC_TypeDef *SDMMCx)
+uint32_t SDMMC_GetPowerState(const SDMMC_TypeDef *SDMMCx)
 {
   return (SDMMCx->POWER & SDMMC_POWER_PWRCTRL);
 }
@@ -378,7 +379,7 @@ HAL_StatusTypeDef SDMMC_SendCommand(SDMMC_TypeDef *SDMMCx, SDMMC_CmdInitTypeDef 
   * @param  SDMMCx: Pointer to SDMMC register base
   * @retval Command index of the last command response received
   */
-uint8_t SDMMC_GetCommandResponse(SDMMC_TypeDef *SDMMCx)
+uint8_t SDMMC_GetCommandResponse(const SDMMC_TypeDef *SDMMCx)
 {
   return (uint8_t)(SDMMCx->RESPCMD);
 }
@@ -395,7 +396,7 @@ uint8_t SDMMC_GetCommandResponse(SDMMC_TypeDef *SDMMCx)
   *            @arg SDMMC_RESP4: Response Register 4
   * @retval The Corresponding response register value
   */
-uint32_t SDMMC_GetResponse(SDMMC_TypeDef *SDMMCx, uint32_t Response)
+uint32_t SDMMC_GetResponse(const SDMMC_TypeDef *SDMMCx, uint32_t Response)
 {
   uint32_t tmp;
 
@@ -451,7 +452,7 @@ HAL_StatusTypeDef SDMMC_ConfigData(SDMMC_TypeDef *SDMMCx, SDMMC_DataInitTypeDef 
   * @param  SDMMCx: Pointer to SDMMC register base
   * @retval Number of remaining data bytes to be transferred
   */
-uint32_t SDMMC_GetDataCounter(SDMMC_TypeDef *SDMMCx)
+uint32_t SDMMC_GetDataCounter(const SDMMC_TypeDef *SDMMCx)
 {
   return (SDMMCx->DCOUNT);
 }
@@ -461,7 +462,7 @@ uint32_t SDMMC_GetDataCounter(SDMMC_TypeDef *SDMMCx)
   * @param  SDMMCx: Pointer to SDMMC register base
   * @retval Data received
   */
-uint32_t SDMMC_GetFIFOCount(SDMMC_TypeDef *SDMMCx)
+uint32_t SDMMC_GetFIFOCount(const SDMMC_TypeDef *SDMMCx)
 {
   return (SDMMCx->FIFO);
 }
@@ -1872,6 +1873,7 @@ static uint32_t SDMMC_GetCmdError(SDMMC_TypeDef *SDMMCx)
   */
 
 #endif /* HAL_SD_MODULE_ENABLED || HAL_MMC_MODULE_ENABLED */
+#endif /* SDMMC1 || SDMMC2 */
 /**
   * @}
   */

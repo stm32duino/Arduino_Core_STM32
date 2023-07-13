@@ -552,12 +552,10 @@ typedef struct
   *         @arg @ref LL_DAC_RESOLUTION_8B
   * @retval DAC conversion data (unit: digital value)
   */
-#define __LL_DAC_CALC_VOLTAGE_TO_DATA(__VREFANALOG_VOLTAGE__,\
-                                      __DAC_VOLTAGE__,\
-                                      __DAC_RESOLUTION__)                      \
-((__DAC_VOLTAGE__) * __LL_DAC_DIGITAL_SCALE(__DAC_RESOLUTION__)              \
- / (__VREFANALOG_VOLTAGE__)                                                  \
-)
+#define __LL_DAC_CALC_VOLTAGE_TO_DATA(__VREFANALOG_VOLTAGE__, __DAC_VOLTAGE__, __DAC_RESOLUTION__)   \
+  ((__DAC_VOLTAGE__) * __LL_DAC_DIGITAL_SCALE(__DAC_RESOLUTION__)                                      \
+   / (__VREFANALOG_VOLTAGE__)                                                                          \
+  )
 
 /**
   * @}
@@ -2034,7 +2032,7 @@ __STATIC_INLINE uint32_t LL_DAC_IsAutonomousModeEnabled(const DAC_TypeDef *DACx)
   * @{
   */
 
-ErrorStatus LL_DAC_DeInit(DAC_TypeDef *DACx);
+ErrorStatus LL_DAC_DeInit(const DAC_TypeDef *DACx);
 ErrorStatus LL_DAC_Init(DAC_TypeDef *DACx, uint32_t DAC_Channel, const LL_DAC_InitTypeDef *DAC_InitStruct);
 void        LL_DAC_StructInit(LL_DAC_InitTypeDef *DAC_InitStruct);
 

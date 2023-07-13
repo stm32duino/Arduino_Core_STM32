@@ -30,7 +30,7 @@ extern "C" {
 /** @addtogroup STM32U5xx_Driver
   * @{
   */
-
+#if defined (SDMMC1) || defined (SDMMC2)
 /** @addtogroup SDMMC_LL
   * @{
   */
@@ -313,9 +313,14 @@ typedef struct
 #define SDMMC_SINGLE_BUS_SUPPORT           ((uint32_t)0x00010000U)
 #define SDMMC_CARD_LOCKED                  ((uint32_t)0x02000000U)
 
-#ifndef SDMMC_DATATIMEOUT
+#ifndef SDMMC_DATATIMEOUT /*Hardware Data Timeout (ms) */
 #define SDMMC_DATATIMEOUT                  ((uint32_t)0xFFFFFFFFU)
 #endif /* SDMMC_DATATIMEOUT */
+
+#ifndef SDMMC_SWDATATIMEOUT /*Software Data Timeout (ms) */
+#define SDMMC_SWDATATIMEOUT                SDMMC_DATATIMEOUT
+#endif /* SDMMC_SWDATATIMEOUT */
+
 #define SDMMC_0TO7BITS                     ((uint32_t)0x000000FFU)
 #define SDMMC_8TO15BITS                    ((uint32_t)0x0000FF00U)
 #define SDMMC_16TO23BITS                   ((uint32_t)0x00FF0000U)
@@ -325,6 +330,8 @@ typedef struct
 #define SDMMC_HALFFIFO                     ((uint32_t)0x00000008U)
 #define SDMMC_HALFFIFOBYTES                ((uint32_t)0x00000020U)
 
+/* SDMMC FIFO Size */
+#define SDMMC_FIFO_SIZE 32U
 /**
   * @brief  Command Class supported
   */
@@ -1031,7 +1038,7 @@ HAL_StatusTypeDef SDMMC_Init(SDMMC_TypeDef *SDMMCx, SDMMC_InitTypeDef Init);
 /** @addtogroup HAL_SDMMC_LL_Group2
   * @{
   */
-uint32_t          SDMMC_ReadFIFO(SDMMC_TypeDef *SDMMCx);
+uint32_t          SDMMC_ReadFIFO(const SDMMC_TypeDef *SDMMCx);
 HAL_StatusTypeDef SDMMC_WriteFIFO(SDMMC_TypeDef *SDMMCx, uint32_t *pWriteData);
 /**
   * @}
@@ -1044,17 +1051,17 @@ HAL_StatusTypeDef SDMMC_WriteFIFO(SDMMC_TypeDef *SDMMCx, uint32_t *pWriteData);
 HAL_StatusTypeDef SDMMC_PowerState_ON(SDMMC_TypeDef *SDMMCx);
 HAL_StatusTypeDef SDMMC_PowerState_Cycle(SDMMC_TypeDef *SDMMCx);
 HAL_StatusTypeDef SDMMC_PowerState_OFF(SDMMC_TypeDef *SDMMCx);
-uint32_t          SDMMC_GetPowerState(SDMMC_TypeDef *SDMMCx);
+uint32_t          SDMMC_GetPowerState(const SDMMC_TypeDef *SDMMCx);
 
 /* Command path state machine (CPSM) management functions */
 HAL_StatusTypeDef SDMMC_SendCommand(SDMMC_TypeDef *SDMMCx, SDMMC_CmdInitTypeDef *Command);
-uint8_t           SDMMC_GetCommandResponse(SDMMC_TypeDef *SDMMCx);
-uint32_t          SDMMC_GetResponse(SDMMC_TypeDef *SDMMCx, uint32_t Response);
+uint8_t           SDMMC_GetCommandResponse(const SDMMC_TypeDef *SDMMCx);
+uint32_t          SDMMC_GetResponse(const SDMMC_TypeDef *SDMMCx, uint32_t Response);
 
 /* Data path state machine (DPSM) management functions */
 HAL_StatusTypeDef SDMMC_ConfigData(SDMMC_TypeDef *SDMMCx, SDMMC_DataInitTypeDef *Data);
-uint32_t          SDMMC_GetDataCounter(SDMMC_TypeDef *SDMMCx);
-uint32_t          SDMMC_GetFIFOCount(SDMMC_TypeDef *SDMMCx);
+uint32_t          SDMMC_GetDataCounter(const SDMMC_TypeDef *SDMMCx);
+uint32_t          SDMMC_GetFIFOCount(const SDMMC_TypeDef *SDMMCx);
 
 /* SDMMC Cards mode management functions */
 HAL_StatusTypeDef SDMMC_SetSDMMCReadWaitMode(SDMMC_TypeDef *SDMMCx, uint32_t SDMMC_ReadWaitMode);
@@ -1143,7 +1150,7 @@ uint32_t SDMMC_DMALinkedList_DisableCircularMode(SDMMC_DMALinkedListTypeDef *pLi
 /**
   * @}
   */
-
+#endif /* SDMMC1 || SDMMC2 */
 /**
   * @}
   */

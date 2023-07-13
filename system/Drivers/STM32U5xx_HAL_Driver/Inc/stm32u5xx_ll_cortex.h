@@ -491,14 +491,15 @@ __STATIC_INLINE uint32_t LL_CPUID_GetRevision(void)
   */
 __STATIC_INLINE void LL_MPU_Enable(uint32_t MPU_Control)
 {
+  __DMB(); /* Data Memory Barrier operation to force any outstanding writes to memory before enabling the MPU */
+
   /* Enable the MPU*/
   MPU->CTRL = MPU_CTRL_ENABLE_Msk | MPU_Control;
 
-  /* Ensure MPU settings take effects */
-  __DSB();
-
-  /* Sequence instruction fetches using update settings */
-  __ISB();
+  /* Follow ARM recommendation with */
+  /* Data Synchronization and Instruction Synchronization Barriers to ensure MPU configuration */
+  __DSB(); /* Ensure that the subsequent instruction is executed only after the write to memory */
+  __ISB(); /* Flush and refill pipeline with updated MPU configuration settings */
 }
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
@@ -514,14 +515,15 @@ __STATIC_INLINE void LL_MPU_Enable(uint32_t MPU_Control)
   */
 __STATIC_INLINE void LL_MPU_Enable_NS(uint32_t MPU_Control)
 {
+  __DMB(); /* Data Memory Barrier operation to force any outstanding writes to memory before enabling the MPU */
+
   /* Enable the MPU*/
   MPU_NS->CTRL = MPU_CTRL_ENABLE_Msk | MPU_Control;
 
-  /* Ensure MPU settings take effects */
-  __DSB();
-
-  /* Sequence instruction fetches using update settings */
-  __ISB();
+  /* Follow ARM recommendation with */
+  /* Data Synchronization and Instruction Synchronization Barriers to ensure MPU configuration */
+  __DSB(); /* Ensure that the subsequent instruction is executed only after the write to memory */
+  __ISB(); /* Flush and refill pipeline with updated MPU configuration settings */
 }
 #endif /* __ARM_FEATURE_CMSE */
 
@@ -532,10 +534,15 @@ __STATIC_INLINE void LL_MPU_Enable_NS(uint32_t MPU_Control)
   */
 __STATIC_INLINE void LL_MPU_Disable(void)
 {
-  /* Make sure outstanding transfers are done */
-  __DMB();
+  __DMB(); /* Data Memory Barrier operation to force any outstanding writes to memory before disabling the MPU */
+
   /* Disable MPU */
   WRITE_REG(MPU->CTRL, 0U);
+
+  /* Follow ARM recommendation with */
+  /* Data Synchronization and Instruction Synchronization Barriers to ensure MPU configuration */
+  __DSB(); /* Ensure that the subsequent instruction is executed only after the write to memory */
+  __ISB(); /* Flush and refill pipeline with updated MPU configuration settings */
 }
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
@@ -546,10 +553,15 @@ __STATIC_INLINE void LL_MPU_Disable(void)
   */
 __STATIC_INLINE void LL_MPU_Disable_NS(void)
 {
-  /* Make sure outstanding transfers are done */
-  __DMB();
+  __DMB(); /* Data Memory Barrier operation to force any outstanding writes to memory before disabling the MPU */
+
   /* Disable MPU*/
   WRITE_REG(MPU_NS->CTRL, 0U);
+
+  /* Follow ARM recommendation with */
+  /* Data Synchronization and Instruction Synchronization Barriers to ensure MPU configuration */
+  __DSB(); /* Ensure that the subsequent instruction is executed only after the write to memory */
+  __ISB(); /* Flush and refill pipeline with updated MPU configuration settings */
 }
 #endif /* __ARM_FEATURE_CMSE */
 

@@ -1013,11 +1013,11 @@ typedef struct
 #define LL_TIM_ETR_FILTER_FDIV2_N8             (TIM_SMCR_ETF_2 | TIM_SMCR_ETF_0)                    /*!< fSAMPLING=fDTS/2, N=8 */
 #define LL_TIM_ETR_FILTER_FDIV4_N6             (TIM_SMCR_ETF_2 | TIM_SMCR_ETF_1)                    /*!< fSAMPLING=fDTS/4, N=6 */
 #define LL_TIM_ETR_FILTER_FDIV4_N8             (TIM_SMCR_ETF_2 | TIM_SMCR_ETF_1 | TIM_SMCR_ETF_0)   /*!< fSAMPLING=fDTS/4, N=8 */
-#define LL_TIM_ETR_FILTER_FDIV8_N6             TIM_SMCR_ETF_3                                       /*!< fSAMPLING=fDTS/8, N=8 */
-#define LL_TIM_ETR_FILTER_FDIV8_N8             (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_0)                    /*!< fSAMPLING=fDTS/16, N=5 */
-#define LL_TIM_ETR_FILTER_FDIV16_N5            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_1)                    /*!< fSAMPLING=fDTS/16, N=6 */
-#define LL_TIM_ETR_FILTER_FDIV16_N6            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_1 | TIM_SMCR_ETF_0)   /*!< fSAMPLING=fDTS/16, N=8 */
-#define LL_TIM_ETR_FILTER_FDIV16_N8            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_2)                    /*!< fSAMPLING=fDTS/16, N=5 */
+#define LL_TIM_ETR_FILTER_FDIV8_N6             TIM_SMCR_ETF_3                                       /*!< fSAMPLING=fDTS/8, N=6 */
+#define LL_TIM_ETR_FILTER_FDIV8_N8             (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_0)                    /*!< fSAMPLING=fDTS/16, N=8 */
+#define LL_TIM_ETR_FILTER_FDIV16_N5            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_1)                    /*!< fSAMPLING=fDTS/16, N=5 */
+#define LL_TIM_ETR_FILTER_FDIV16_N6            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_1 | TIM_SMCR_ETF_0)   /*!< fSAMPLING=fDTS/16, N=6 */
+#define LL_TIM_ETR_FILTER_FDIV16_N8            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_2)                    /*!< fSAMPLING=fDTS/16, N=8 */
 #define LL_TIM_ETR_FILTER_FDIV32_N5            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_2 | TIM_SMCR_ETF_0)   /*!< fSAMPLING=fDTS/32, N=5 */
 #define LL_TIM_ETR_FILTER_FDIV32_N6            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_2 | TIM_SMCR_ETF_1)   /*!< fSAMPLING=fDTS/32, N=6 */
 #define LL_TIM_ETR_FILTER_FDIV32_N8            TIM_SMCR_ETF                                         /*!< fSAMPLING=fDTS/32, N=8 */
@@ -1318,6 +1318,15 @@ typedef struct
 #define LL_TIM_BREAK2_AFMODE_BIDIRECTIONAL     TIM_BDTR_BK2BID         /*!< Break2 input BRK2 in bidirectional mode */
 /**
   * @}
+  */
+
+/** Legacy definitions for compatibility purpose
+@cond 0
+  */
+#define LL_TIM_ReArmBRK(_PARAM_)
+#define LL_TIM_ReArmBRK2(_PARAM_)
+/**
+@endcond
   */
 
 /** @defgroup TIM_LL_EC_DMABURST_BASEADDR DMA Burst Base Address
@@ -2307,6 +2316,17 @@ __STATIC_INLINE void LL_TIM_CC_EnablePreload(TIM_TypeDef *TIMx)
 __STATIC_INLINE void LL_TIM_CC_DisablePreload(TIM_TypeDef *TIMx)
 {
   CLEAR_BIT(TIMx->CR2, TIM_CR2_CCPC);
+}
+
+/**
+  * @brief  Indicates whether the capture/compare control bits (CCxE, CCxNE and OCxM) preload is enabled.
+  * @rmtoll CR2          CCPC          LL_TIM_CC_IsEnabledPreload
+  * @param  TIMx Timer instance
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_TIM_CC_IsEnabledPreload(TIM_TypeDef *TIMx)
+{
+  return ((READ_BIT(TIMx->CR2, TIM_CR2_CCPC) == (TIM_CR2_CCPC)) ? 1UL : 0UL);
 }
 
 /**
@@ -4255,18 +4275,6 @@ __STATIC_INLINE void LL_TIM_DisarmBRK(TIM_TypeDef *TIMx)
 }
 
 /**
-  * @brief  Re-arm the break input (when it operates in bidirectional mode).
-  * @note  The Break input is automatically armed as soon as MOE bit is set.
-  * @rmtoll BDTR         BKDSRM        LL_TIM_ReArmBRK
-  * @param  TIMx Timer instance
-  * @retval None
-  */
-__STATIC_INLINE void LL_TIM_ReArmBRK(TIM_TypeDef *TIMx)
-{
-  CLEAR_BIT(TIMx->BDTR, TIM_BDTR_BKDSRM);
-}
-
-/**
   * @brief  Enable the break 2 function.
   * @note Macro IS_TIM_BKIN2_INSTANCE(TIMx) can be used to check whether or not
   *       a timer instance provides a second break input.
@@ -4353,18 +4361,6 @@ __STATIC_INLINE void LL_TIM_ConfigBRK2(TIM_TypeDef *TIMx, uint32_t Break2Polarit
 __STATIC_INLINE void LL_TIM_DisarmBRK2(TIM_TypeDef *TIMx)
 {
   SET_BIT(TIMx->BDTR, TIM_BDTR_BK2DSRM);
-}
-
-/**
-  * @brief  Re-arm the break 2 input (when it operates in bidirectional mode).
-  * @note  The Break 2 input is automatically armed as soon as MOE bit is set.
-  * @rmtoll BDTR         BK2DSRM       LL_TIM_ReArmBRK2
-  * @param  TIMx Timer instance
-  * @retval None
-  */
-__STATIC_INLINE void LL_TIM_ReArmBRK2(TIM_TypeDef *TIMx)
-{
-  CLEAR_BIT(TIMx->BDTR, TIM_BDTR_BK2DSRM);
 }
 
 /**

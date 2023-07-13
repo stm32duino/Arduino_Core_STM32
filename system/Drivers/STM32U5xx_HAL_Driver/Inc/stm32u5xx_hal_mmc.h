@@ -30,6 +30,7 @@ extern "C" {
 /** @addtogroup STM32U5xx_HAL_Driver
   * @{
   */
+#if defined (SDMMC1) || defined (SDMMC2)
 
 /** @addtogroup MMC
   * @{
@@ -701,8 +702,8 @@ HAL_StatusTypeDef HAL_MMC_GetCardExtCSD(MMC_HandleTypeDef *hmmc, uint32_t *pExtC
 /** @defgroup MMC_Exported_Functions_Group5 Peripheral State and Errors functions
   * @{
   */
-HAL_MMC_StateTypeDef HAL_MMC_GetState(MMC_HandleTypeDef *hmmc);
-uint32_t HAL_MMC_GetError(MMC_HandleTypeDef *hmmc);
+HAL_MMC_StateTypeDef HAL_MMC_GetState(const MMC_HandleTypeDef *hmmc);
+uint32_t HAL_MMC_GetError(const MMC_HandleTypeDef *hmmc);
 /**
   * @}
   */
@@ -808,6 +809,7 @@ HAL_StatusTypeDef HAL_MMC_AwakeDevice(MMC_HandleTypeDef *hmmc);
 /**
   * @}
   */
+#endif /* SDMMC1 || SDMMC2 */
 
 /**
   * @}
