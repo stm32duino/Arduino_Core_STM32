@@ -751,7 +751,7 @@ __STATIC_INLINE void LL_I3C_DisableArbitrationHeader(I3C_TypeDef *I3Cx)
   */
 __STATIC_INLINE uint32_t LL_I3C_IsEnabledArbitrationHeader(const I3C_TypeDef *I3Cx)
 {
-  return ((READ_BIT(I3Cx->CFGR, I3C_CFGR_NOARBH) == (I3C_CFGR_NOARBH)) ? 1UL : 0UL);
+  return ((READ_BIT(I3Cx->CFGR, I3C_CFGR_NOARBH) == (I3C_CFGR_NOARBH)) ? 0UL : 1UL);
 }
 
 /**
@@ -901,10 +901,10 @@ __STATIC_INLINE uint32_t LL_I3C_IsEnabledHJAck(const I3C_TypeDef *I3Cx)
 /**
   * @brief  Get the data register address used for DMA transfer
   * @rmtoll TDR          TDB0         LL_I3C_DMA_GetRegAddr\n
-  *         TDWR         TDWR          LL_I3C_DMA_GetRegAddr
-  *         RDR          RXRB0         LL_I3C_DMA_GetRegAddr
-  *         RDWR         RDWR          LL_I3C_DMA_GetRegAddr
-  *         SR           SR            LL_I3C_DMA_GetRegAddr
+  *         TDWR         TDWR          LL_I3C_DMA_GetRegAddr\n
+  *         RDR          RXRB0         LL_I3C_DMA_GetRegAddr\n
+  *         RDWR         RDWR          LL_I3C_DMA_GetRegAddr\n
+  *         SR           SR            LL_I3C_DMA_GetRegAddr\n
   *         CR           CR            LL_I3C_DMA_GetRegAddr
   * @param  I3Cx I3C Instance
   * @param  Direction This parameter can be one of the following values:
@@ -2401,15 +2401,14 @@ __STATIC_INLINE void LL_I3C_RequestTransfer(I3C_TypeDef *I3Cx)
 __STATIC_INLINE void LL_I3C_ControllerHandleMessage(I3C_TypeDef *I3Cx, uint32_t TargetAddr, uint32_t TransferSize,
                                                     uint32_t Direction, uint32_t MessageType, uint32_t EndMode)
 {
-  MODIFY_REG(I3Cx->CR, I3C_CR_ADD | I3C_CR_DCNT | I3C_CR_RNW | I3C_CR_MTYPE | I3C_CR_MEND, \
-             (TargetAddr << I3C_CR_ADD_Pos) | TransferSize | Direction | MessageType | EndMode);
+  WRITE_REG(I3Cx->CR, ((TargetAddr << I3C_CR_ADD_Pos) | TransferSize | Direction | MessageType | EndMode) \
+            & (I3C_CR_ADD | I3C_CR_DCNT | I3C_CR_RNW | I3C_CR_MTYPE | I3C_CR_MEND));
 }
 
 /**
   * @brief  Handles I3C Common Command Code content on the I3C Bus as Controller.
-  * @rmtoll CR           ADD           LL_I3C_ControllerHandleCCC\n
+  * @rmtoll CR           CCC           LL_I3C_ControllerHandleCCC\n
   *         CR           DCNT          LL_I3C_ControllerHandleCCC\n
-  *         CR           RNW           LL_I3C_ControllerHandleCCC\n
   *         CR           MTYPE         LL_I3C_ControllerHandleCCC\n
   *         CR           MEND          LL_I3C_ControllerHandleCCC
   * @param  I3Cx I3C Instance.
@@ -2425,9 +2424,8 @@ __STATIC_INLINE void LL_I3C_ControllerHandleMessage(I3C_TypeDef *I3Cx, uint32_t 
 __STATIC_INLINE void LL_I3C_ControllerHandleCCC(I3C_TypeDef *I3Cx, uint32_t CCCValue,
                                                 uint32_t AddByteSize, uint32_t EndMode)
 {
-  MODIFY_REG(I3Cx->CR, I3C_CR_CCC | I3C_CR_DCNT | I3C_CR_MTYPE | I3C_CR_MEND, \
-             (CCCValue << I3C_CR_CCC_Pos) | AddByteSize | EndMode | LL_I3C_CONTROLLER_MTYPE_CCC);
-
+  WRITE_REG(I3Cx->CR, ((CCCValue << I3C_CR_CCC_Pos) | AddByteSize | EndMode | LL_I3C_CONTROLLER_MTYPE_CCC) \
+            & (I3C_CR_CCC | I3C_CR_DCNT | I3C_CR_MTYPE | I3C_CR_MEND));
 }
 
 /**
@@ -2445,7 +2443,7 @@ __STATIC_INLINE void LL_I3C_ControllerHandleCCC(I3C_TypeDef *I3Cx, uint32_t CCCV
   */
 __STATIC_INLINE void LL_I3C_TargetHandleMessage(I3C_TypeDef *I3Cx, uint32_t MessageType, uint32_t IBISize)
 {
-  MODIFY_REG(I3Cx->CR, I3C_CR_MTYPE | I3C_CR_DCNT, MessageType | IBISize);
+  WRITE_REG(I3Cx->CR, (MessageType | IBISize) & (I3C_CR_DCNT | I3C_CR_MTYPE));
 }
 
 /**
@@ -2476,7 +2474,7 @@ __STATIC_INLINE uint8_t LL_I3C_ReceiveData8(const I3C_TypeDef *I3Cx)
   */
 __STATIC_INLINE void LL_I3C_TransmitData8(I3C_TypeDef *I3Cx, uint8_t Data)
 {
-  MODIFY_REG(I3Cx->TDR, I3C_TDR_TDB0, Data);
+  WRITE_REG(I3Cx->TDR, Data);
 }
 
 /**

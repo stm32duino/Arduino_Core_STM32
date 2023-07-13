@@ -306,10 +306,10 @@
   * @{
   */
 #define CRYP_GENERAL_TIMEOUT             82U
-#define CRYP_TIMEOUT_KEYPREPARATION      82U  /* The latency of key preparation operation is 82 clock cycles.*/
-#define CRYP_TIMEOUT_GCMCCMINITPHASE     299U /* The latency of GCM/CCM init phase to prepare hash subkey
+#define CRYP_TIMEOUT_KEYPREPARATION      82U  /*!< The latency of key preparation operation is 82 clock cycles.*/
+#define CRYP_TIMEOUT_GCMCCMINITPHASE     299U /*!< The latency of GCM/CCM init phase to prepare hash subkey
                                                  is 299 clock cycles.*/
-#define CRYP_TIMEOUT_GCMCCMHEADERPHASE   290U /* The latency of GCM/CCM header phase is 290 clock cycles.*/
+#define CRYP_TIMEOUT_GCMCCMHEADERPHASE   290U /*!< The latency of GCM/CCM header phase is 290 clock cycles.*/
 
 #define CRYP_PHASE_READY                 0x00000001U /*!< CRYP peripheral is ready for initialization. */
 #define CRYP_PHASE_PROCESS               0x00000002U /*!< CRYP peripheral is in processing phase */
@@ -421,6 +421,9 @@ static void CRYP_PhaseProcessingResume(CRYP_HandleTypeDef *hcryp);
           (+) Data Type : 32,16, 8 or 1bit
           (+) AlgoMode : ECB,CBC,CTR,GCM/GMAC and CCM in AES Standard.
       (+) Get CRYP configuration (HAL_CRYP_GetConfig) from the specified parameters in the CRYP_HandleTypeDef
+      (+) For interleave mode, API HAL_CRYP_SaveContext and HAL_CRYP_RestoreContext to be used to save then Restore CRYP
+          configuration and parameters. CRYP_IVCONFIG_ONCE should be selected for KeyIVConfigSkip parameter.
+          Only polling mode is supported, interleave mode should be used with HAL_CRYP_Encrypt and HAL_CRYP_Decrypt API.
 
 @endverbatim
   * @{
@@ -436,7 +439,9 @@ static void CRYP_PhaseProcessingResume(CRYP_HandleTypeDef *hcryp);
 HAL_StatusTypeDef HAL_CRYP_Init(CRYP_HandleTypeDef *hcryp)
 {
   uint32_t cr_value;
+#if defined(SAES)
   uint32_t tickstart;
+#endif /* SAES */
 
   /* Check the CRYP handle allocation */
   if (hcryp == NULL)
@@ -869,33 +874,34 @@ HAL_StatusTypeDef HAL_CRYP_UnRegisterCallback(CRYP_HandleTypeDef *hcryp, HAL_CRY
 {
   HAL_StatusTypeDef status = HAL_OK;
 
+
   if (hcryp->State == HAL_CRYP_STATE_READY)
   {
     switch (CallbackID)
     {
       case HAL_CRYP_INPUT_COMPLETE_CB_ID :
-        hcryp->InCpltCallback = HAL_CRYP_InCpltCallback;  /* Legacy weak  InCpltCallback  */
+        hcryp->InCpltCallback = HAL_CRYP_InCpltCallback;    /*!< Legacy weak  InCpltCallback  */
         break;
 
       case HAL_CRYP_OUTPUT_COMPLETE_CB_ID :
-        hcryp->OutCpltCallback = HAL_CRYP_OutCpltCallback;         /* Legacy weak OutCpltCallback       */
+        hcryp->OutCpltCallback = HAL_CRYP_OutCpltCallback;  /*!< Legacy weak OutCpltCallback   */
         break;
 
       case HAL_CRYP_ERROR_CB_ID :
-        hcryp->ErrorCallback = HAL_CRYP_ErrorCallback;           /* Legacy weak ErrorCallback        */
+        hcryp->ErrorCallback = HAL_CRYP_ErrorCallback;      /*!< Legacy weak ErrorCallback     */
         break;
 
       case HAL_CRYP_MSPINIT_CB_ID :
-        hcryp->MspInitCallback = HAL_CRYP_MspInit;
+        hcryp->MspInitCallback = HAL_CRYP_MspInit;          /*!< Legacy weak MspInit           */
         break;
 
       case HAL_CRYP_MSPDEINIT_CB_ID :
-        hcryp->MspDeInitCallback = HAL_CRYP_MspDeInit;
+        hcryp->MspDeInitCallback = HAL_CRYP_MspDeInit;      /*!< Legacy weak MspDeInit         */
         break;
 
       default :
         /* Update the error code */
-        hcryp->ErrorCode |= HAL_CRYP_ERROR_INVALID_CALLBACK;
+        hcryp->ErrorCode |= HAL_CRYP_ERROR_INVALID_CALLBACK;/*!< Legacy weak ERROR INVALID CALLBACK  */
         /* Return error status */
         status =  HAL_ERROR;
         break;
@@ -1111,6 +1117,120 @@ HAL_StatusTypeDef HAL_CRYP_Resume(CRYP_HandleTypeDef *hcryp)
   return HAL_OK;
 }
 #endif /* defined (USE_HAL_CRYP_SUSPEND_RESUME) */
+
+/**
+  * @brief  CRYP peripheral parameters storage when processing Interleaved mode .
+  * @param  hcryp pointer to a CRYP_HandleTypeDef structure that contains
+  *         the configuration information for CRYP module
+  * @param  pcont pointer to a CRYP_ContextTypeDef structure where CRYP parameters will be stored.
+  * @retval HAL status
+  */
+HAL_StatusTypeDef  HAL_CRYP_SaveContext(CRYP_HandleTypeDef *hcryp, CRYP_ContextTypeDef *pcont)
+{
+  /* Check the CRYP handle allocation */
+  if ((hcryp == NULL) || (pcont == NULL))
+  {
+    return HAL_ERROR;
+  }
+
+  if (hcryp->State == HAL_CRYP_STATE_READY)
+  {
+    /* Save CRYP handle parameters */
+    pcont->DataType        = (uint32_t)(hcryp->Init.DataType);
+    pcont->KeySize         = (uint32_t)(hcryp->Init.KeySize);
+    pcont->pKey            = hcryp->Init.pKey;
+    pcont->pInitVect       = hcryp->Init.pInitVect;
+    pcont->Algorithm       = (uint32_t)(hcryp->Init.Algorithm);
+    pcont->DataWidthUnit   = (uint32_t)(hcryp->Init.DataWidthUnit);
+    pcont->KeyIVConfigSkip = (uint32_t)(hcryp->Init.KeyIVConfigSkip);
+    pcont->KeyMode         = (uint32_t)(hcryp->Init.KeyMode);
+    pcont->Phase           = (uint32_t)(hcryp->Phase);
+    pcont->KeyIVConfig     = (uint32_t)(hcryp->KeyIVConfig);
+
+    /* Save CRYP CR register content */
+    pcont->CR_Reg = READ_REG(hcryp->Instance->CR);
+
+    /* Save IER register content */
+    pcont->IER_Reg = READ_BIT(hcryp->Instance->IER, CRYP_IT_CCFIE | CRYP_IT_RWEIE | CRYP_IT_KEIE);
+
+
+    if ((hcryp->Init.Algorithm == CRYP_AES_CBC) || \
+        (hcryp->Init.Algorithm == CRYP_AES_CTR))
+    {
+      /* Save Initialisation Vector registers */
+      pcont->IVR0_Reg = READ_REG(hcryp->Instance->IVR0);
+      pcont->IVR1_Reg = READ_REG(hcryp->Instance->IVR1);
+      pcont->IVR2_Reg = READ_REG(hcryp->Instance->IVR2);
+      pcont->IVR3_Reg = READ_REG(hcryp->Instance->IVR3);
+    }
+
+    /* To load Key for next piece of message */
+    hcryp->KeyIVConfig = 0;
+
+    return HAL_OK;
+  }
+  else
+  {
+    /* Busy error code field */
+    hcryp->ErrorCode |= HAL_CRYP_ERROR_BUSY;
+    return HAL_ERROR;
+  }
+
+}
+
+/**
+  * @brief  Restore CRYP parameters needed for Interleaved mode.
+  * @param  hcryp pointer to a CRYP_HandleTypeDef structure that contains
+  *         the configuration information for CRYP module
+  * @param  pcont pointer to a CRYP_ContextTypeDef structure that contains CRYP parameters stored.
+  * @retval HAL status
+  */
+HAL_StatusTypeDef HAL_CRYP_RestoreContext(CRYP_HandleTypeDef *hcryp, CRYP_ContextTypeDef *pcont)
+{
+  /* Check the CRYP handle allocation */
+  if ((hcryp == NULL) || (pcont == NULL))
+  {
+    return HAL_ERROR;
+  }
+
+  if (hcryp->State == HAL_CRYP_STATE_READY)
+  {
+    /* Restore CRYP handle parameters */
+    hcryp->Init.DataType        = pcont->DataType;
+    hcryp->Init.KeySize         = pcont->KeySize;
+    hcryp->Init.pKey            = pcont->pKey;
+    hcryp->Init.pInitVect       = pcont->pInitVect;
+    hcryp->Init.Algorithm       = pcont->Algorithm;
+    hcryp->Init.DataWidthUnit   = pcont->DataWidthUnit;
+    hcryp->Init.KeyIVConfigSkip = pcont->KeyIVConfigSkip;
+    hcryp->Init.KeyMode         = pcont->KeyMode;
+    hcryp->Phase                = pcont->Phase;
+    hcryp->KeyIVConfig          = pcont->KeyIVConfig;
+
+    /* Restore CRYP CR register content */
+    WRITE_REG(hcryp->Instance->CR, (uint32_t)(pcont->CR_Reg));
+
+    /* Restore CRYP IER register content */
+    WRITE_REG(hcryp->Instance->IER, (uint32_t)(pcont->IER_Reg));
+
+    if ((hcryp->Init.Algorithm == CRYP_AES_CBC) || \
+        (hcryp->Init.Algorithm == CRYP_AES_CTR))
+    {
+      /* Restore Initialisation Vector registers */
+      WRITE_REG(hcryp->Instance->IVR0, (uint32_t)(pcont->IVR0_Reg));
+      WRITE_REG(hcryp->Instance->IVR1, (uint32_t)(pcont->IVR1_Reg));
+      WRITE_REG(hcryp->Instance->IVR2, (uint32_t)(pcont->IVR2_Reg));
+      WRITE_REG(hcryp->Instance->IVR3, (uint32_t)(pcont->IVR3_Reg));
+    }
+    return HAL_OK;
+  }
+  else
+  {
+    /* Busy error code field */
+    hcryp->ErrorCode |= HAL_CRYP_ERROR_BUSY;
+    return HAL_ERROR;
+  }
+}
 
 /**
   * @}
@@ -2035,7 +2155,7 @@ static HAL_StatusTypeDef CRYP_AES_Encrypt(CRYP_HandleTypeDef *hcryp, uint32_t Ti
   uint32_t dokeyivconfig = 1U; /* By default, carry out peripheral Key and IV configuration */
   uint32_t tickstart;
 
-  if (hcryp->Init.KeyIVConfigSkip == CRYP_KEYIVCONFIG_ONCE)
+  if ((hcryp->Init.KeyIVConfigSkip == CRYP_KEYIVCONFIG_ONCE) || (hcryp->Init.KeyIVConfigSkip == CRYP_IVCONFIG_ONCE))
   {
     if (hcryp->KeyIVConfig == 1U)
     {
@@ -2052,57 +2172,80 @@ static HAL_StatusTypeDef CRYP_AES_Encrypt(CRYP_HandleTypeDef *hcryp, uint32_t Ti
     }
   }
 
-  if ((dokeyivconfig == 1U) && (hcryp->Init.KeyIVConfigSkip != CRYP_KEYNOCONFIG))
+  if (dokeyivconfig == 1U)
   {
-    if (hcryp->Instance == AES)
+    if ((hcryp->Init.KeyIVConfigSkip == CRYP_KEYIVCONFIG_ONCE) || \
+        (hcryp->Init.KeyIVConfigSkip == CRYP_KEYIVCONFIG_ALWAYS))
     {
-      /* Set the Key */
-      if (hcryp->Init.KeyMode != CRYP_KEYMODE_SHARED)
-      {
-        CRYP_SetKey(hcryp, hcryp->Init.KeySize);
-      }
-      else /* After sharing the key, AES should set KMOD[1:0] to 00.*/
-      {
-        hcryp->Instance->CR &=  ~CRYP_KEYMODE_SHARED;
-      }
-    }
-    else
-    {
-      /* We should re-write Key, in the case where we change key after first operation */
-      if ((hcryp->Init.KeySelect == CRYP_KEYSEL_NORMAL) && (hcryp->Init.KeyMode == CRYP_KEYMODE_NORMAL))
+      if (hcryp->Instance == AES)
       {
         /* Set the Key */
-        CRYP_SetKey(hcryp, hcryp->Init.KeySize);
-      }
-      /* Get tick */
-      tickstart = HAL_GetTick();
-
-      while (HAL_IS_BIT_CLR(hcryp->Instance->SR, CRYP_FLAG_KEYVALID))
-      {
-        /* Check for the Timeout */
-        if (Timeout != HAL_MAX_DELAY)
+        if (hcryp->Init.KeyMode != CRYP_KEYMODE_SHARED)
         {
-          if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
-          {
-            /* Disable the CRYP peripheral clock */
-            __HAL_CRYP_DISABLE(hcryp);
+          CRYP_SetKey(hcryp, hcryp->Init.KeySize);
+        }
+        else /* After sharing the key, AES should set KMOD[1:0] to 00.*/
+        {
+          hcryp->Instance->CR &=  ~CRYP_KEYMODE_SHARED;
+        }
+      }
+      else
+      {
+        /* We should re-write Key, in the case where we change key after first operation */
+        if ((hcryp->Init.KeySelect == CRYP_KEYSEL_NORMAL) && (hcryp->Init.KeyMode == CRYP_KEYMODE_NORMAL))
+        {
+          /* Set the Key */
+          CRYP_SetKey(hcryp, hcryp->Init.KeySize);
+        }
+        /* Get tick */
+        tickstart = HAL_GetTick();
 
-            /* Change state */
-            hcryp->ErrorCode |= HAL_CRYP_ERROR_TIMEOUT;
-            hcryp->State = HAL_CRYP_STATE_READY;
-            __HAL_UNLOCK(hcryp);
-            return HAL_ERROR;
+        while (HAL_IS_BIT_CLR(hcryp->Instance->SR, CRYP_FLAG_KEYVALID))
+        {
+          /* Check for the Timeout */
+          if (Timeout != HAL_MAX_DELAY)
+          {
+            if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
+            {
+              /* Disable the CRYP peripheral clock */
+              __HAL_CRYP_DISABLE(hcryp);
+
+              /* Change state */
+              hcryp->ErrorCode |= HAL_CRYP_ERROR_TIMEOUT;
+              hcryp->State = HAL_CRYP_STATE_READY;
+              __HAL_UNLOCK(hcryp);
+              return HAL_ERROR;
+            }
           }
         }
       }
+      if (hcryp->Init.Algorithm != CRYP_AES_ECB)
+      {
+        /* Set the Initialization Vector */
+        CRYP_SetIV(hcryp);
+      }
     }
-    if (hcryp->Init.Algorithm != CRYP_AES_ECB)
+    /* key & IV configuration for CBC and CTR in interleave mode */
+    if (hcryp->Init.KeyIVConfigSkip == CRYP_IVCONFIG_ONCE)
     {
-      /* Set the Initialization Vector */
-      CRYP_SetIV(hcryp);
+      /* Set the Key */
+      CRYP_SetKey(hcryp, hcryp->Init.KeySize);
+      if (hcryp->Init.Algorithm != CRYP_AES_ECB)
+      {
+        /* Set the Initialization Vector*/
+        CRYP_SetIV(hcryp);
+      }
     }
   } /* If (dokeyivconfig == 1U) */
-
+  else
+  {
+    /* interleave mode Key configuration  */
+    if (hcryp->Init.KeyIVConfigSkip == CRYP_IVCONFIG_ONCE)
+    {
+      /* Set the Key */
+      CRYP_SetKey(hcryp, hcryp->Init.KeySize);
+    }
+  }
   /* Peripheral Key configuration to not do, IV to configure for CBC */
   if (hcryp->Init.KeyIVConfigSkip == CRYP_KEYNOCONFIG)
   {
@@ -2227,10 +2370,6 @@ static HAL_StatusTypeDef CRYP_AES_Encrypt_IT(CRYP_HandleTypeDef *hcryp)
 
   if (hcryp->Size != 0U)
   {
-
-    /* Enable computation complete flag and Key, Read and Write error interrupts */
-    __HAL_CRYP_ENABLE_IT(hcryp, CRYP_IT_CCFIE | CRYP_IT_RWEIE | CRYP_IT_KEIE);
-
     /* Enable CRYP */
     __HAL_CRYP_ENABLE(hcryp);
 
@@ -2243,6 +2382,9 @@ static HAL_StatusTypeDef CRYP_AES_Encrypt_IT(CRYP_HandleTypeDef *hcryp)
     hcryp->CrypInCount++;
     hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
     hcryp->CrypInCount++;
+
+    /* Enable computation complete flag and Key, Read and Write error interrupts */
+    __HAL_CRYP_ENABLE_IT(hcryp, CRYP_IT_CCFIE | CRYP_IT_RWEIE | CRYP_IT_KEIE);
   }
   else
   {
@@ -2266,7 +2408,7 @@ static HAL_StatusTypeDef CRYP_AES_Decrypt(CRYP_HandleTypeDef *hcryp, uint32_t Ti
   uint16_t outcount;  /* Temporary CrypOutCount Value */
   uint32_t dokeyivconfig = 1U; /* By default, carry out peripheral Key and IV configuration */
 
-  if (hcryp->Init.KeyIVConfigSkip == CRYP_KEYIVCONFIG_ONCE)
+  if ((hcryp->Init.KeyIVConfigSkip == CRYP_KEYIVCONFIG_ONCE) || (hcryp->Init.KeyIVConfigSkip == CRYP_IVCONFIG_ONCE))
   {
     if (hcryp->KeyIVConfig == 1U)
     {
@@ -2295,7 +2437,8 @@ static HAL_StatusTypeDef CRYP_AES_Decrypt(CRYP_HandleTypeDef *hcryp, uint32_t Ti
         MODIFY_REG(hcryp->Instance->CR, AES_CR_MODE, CRYP_OPERATINGMODE_KEYDERIVATION);
 
         /* Set the Key */
-        if (hcryp->Init.KeyIVConfigSkip != CRYP_KEYNOCONFIG)
+        if ((hcryp->Init.KeyIVConfigSkip == CRYP_KEYIVCONFIG_ONCE) || \
+            (hcryp->Init.KeyIVConfigSkip == CRYP_KEYIVCONFIG_ALWAYS))
         {
           if (hcryp->Init.KeyMode != CRYP_KEYMODE_SHARED)
           {
@@ -2305,6 +2448,17 @@ static HAL_StatusTypeDef CRYP_AES_Decrypt(CRYP_HandleTypeDef *hcryp, uint32_t Ti
           {
             hcryp->Instance->CR &=  ~CRYP_KEYMODE_SHARED;
           }
+        }
+
+        /* interleave mode Key configuration  */
+        else if (hcryp->Init.KeyIVConfigSkip == CRYP_IVCONFIG_ONCE)
+        {
+          /* Set the Key */
+          CRYP_SetKey(hcryp, hcryp->Init.KeySize);
+        }
+        else
+        {
+          /* Nothing to do */
         }
 
         /* Enable CRYP */
@@ -2388,7 +2542,47 @@ static HAL_StatusTypeDef CRYP_AES_Decrypt(CRYP_HandleTypeDef *hcryp, uint32_t Ti
     }
   } /* if (dokeyivconfig == 1U) */
 
+  else /* if (dokeyivconfig == 0U) */
+  {
+    /* interleave mode Key configuration  */
+    if (hcryp->Init.KeyIVConfigSkip == CRYP_IVCONFIG_ONCE)
+    {
+      if (hcryp->Instance == AES)
+      {
+        /*  Key preparation for ECB/CBC */
+        if (hcryp->Init.Algorithm != CRYP_AES_CTR)   /*ECB or CBC*/
+        {
+          /* key preparation for decryption, operating mode 2*/
+          MODIFY_REG(hcryp->Instance->CR, AES_CR_KMOD, CRYP_KEYMODE_NORMAL);
+          MODIFY_REG(hcryp->Instance->CR, AES_CR_MODE, CRYP_OPERATINGMODE_KEYDERIVATION);
 
+          /* Set the Key */
+          CRYP_SetKey(hcryp, hcryp->Init.KeySize);
+
+          /* Enable CRYP */
+          __HAL_CRYP_ENABLE(hcryp);
+
+          /* Wait for CCF flag to be raised */
+          if (CRYP_WaitOnCCFlag(hcryp, Timeout) != HAL_OK)
+          {
+            return HAL_ERROR;
+          }
+          /* Clear CCF Flag */
+          __HAL_CRYP_CLEAR_FLAG(hcryp, CRYP_CLEAR_CCF);
+
+          /* Return to decryption operating mode(Mode 3)*/
+          MODIFY_REG(hcryp->Instance->CR, AES_CR_MODE, CRYP_OPERATINGMODE_DECRYPT);
+        }
+        else  /*Algorithm CTR */
+        {
+          /* Set the Key */
+          CRYP_SetKey(hcryp, hcryp->Init.KeySize);
+
+        }
+      }
+    }
+
+  }
   /* Set the phase */
   hcryp->Phase = CRYP_PHASE_PROCESS;
 
@@ -2404,7 +2598,6 @@ static HAL_StatusTypeDef CRYP_AES_Decrypt(CRYP_HandleTypeDef *hcryp, uint32_t Ti
     incount = hcryp->CrypInCount;
     outcount = hcryp->CrypOutCount;
   }
-
   /* Disable CRYP */
   __HAL_CRYP_DISABLE(hcryp);
 
@@ -2576,9 +2769,6 @@ static HAL_StatusTypeDef CRYP_AES_Decrypt_IT(CRYP_HandleTypeDef *hcryp)
   hcryp->Phase = CRYP_PHASE_PROCESS;
   if (hcryp->Size != 0U)
   {
-    /* Enable computation complete flag and error interrupts */
-    __HAL_CRYP_ENABLE_IT(hcryp, CRYP_IT_CCFIE | CRYP_IT_RWEIE | CRYP_IT_KEIE);
-
     /* Enable CRYP */
     __HAL_CRYP_ENABLE(hcryp);
 
@@ -2591,6 +2781,9 @@ static HAL_StatusTypeDef CRYP_AES_Decrypt_IT(CRYP_HandleTypeDef *hcryp)
     hcryp->CrypInCount++;
     hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
     hcryp->CrypInCount++;
+
+    /* Enable computation complete flag and error interrupts */
+    __HAL_CRYP_ENABLE_IT(hcryp, CRYP_IT_CCFIE | CRYP_IT_RWEIE | CRYP_IT_KEIE);
   }
   else
   {

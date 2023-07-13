@@ -30,6 +30,7 @@ extern "C" {
 /** @addtogroup STM32H5xx_HAL_Driver
   * @{
   */
+#if defined (SDMMC1) || defined (SDMMC2)
 
 /** @addtogroup MMC
   * @{
@@ -808,6 +809,7 @@ HAL_StatusTypeDef HAL_MMC_AwakeDevice(MMC_HandleTypeDef *hmmc);
 /**
   * @}
   */
+#endif /* SDMMC1 || SDMMC2 */
 
 /**
   * @}

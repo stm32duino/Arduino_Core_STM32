@@ -248,15 +248,16 @@ typedef enum
   */
 typedef enum
 {
-  HAL_I3C_STATE_RESET      = 0x00U,   /*!< Peripheral is not yet Initialized                   */
-  HAL_I3C_STATE_READY      = 0x10U,   /*!< Peripheral Initialized and ready for use            */
-  HAL_I3C_STATE_BUSY       = 0x20U,   /*!< An internal process is ongoing                      */
-  HAL_I3C_STATE_BUSY_TX    = 0x21U,   /*!< Data Transmission process is ongoing                */
-  HAL_I3C_STATE_BUSY_RX    = 0x22U,   /*!< Data Reception process is ongoing                   */
-  HAL_I3C_STATE_BUSY_DAA   = 0x24U,   /*!< Dynamic address assignment process is ongoing       */
-  HAL_I3C_STATE_LISTEN     = 0x30U,   /*!< Listen process is ongoing                           */
-  HAL_I3C_STATE_ABORT      = 0x60U,   /*!< Abort user request ongoing                          */
-  HAL_I3C_STATE_ERROR      = 0xE0U,   /*!< Error                                               */
+  HAL_I3C_STATE_RESET       = 0x00U,   /*!< Peripheral is not yet Initialized                   */
+  HAL_I3C_STATE_READY       = 0x10U,   /*!< Peripheral Initialized and ready for use            */
+  HAL_I3C_STATE_BUSY        = 0x20U,   /*!< An internal process is ongoing                      */
+  HAL_I3C_STATE_BUSY_TX     = 0x21U,   /*!< Data Transmission process is ongoing                */
+  HAL_I3C_STATE_BUSY_RX     = 0x22U,   /*!< Data Reception process is ongoing                   */
+  HAL_I3C_STATE_BUSY_TX_RX  = 0x23U,   /*!< Data Multiple Transfer process is ongoing           */
+  HAL_I3C_STATE_BUSY_DAA    = 0x24U,   /*!< Dynamic address assignment process is ongoing       */
+  HAL_I3C_STATE_LISTEN      = 0x30U,   /*!< Listen process is ongoing                           */
+  HAL_I3C_STATE_ABORT       = 0x60U,   /*!< Abort user request ongoing                          */
+  HAL_I3C_STATE_ERROR       = 0xE0U,   /*!< Error                                               */
 
 } HAL_I3C_StateTypeDef;
 /**
@@ -428,40 +429,43 @@ typedef struct __I3C_HandleTypeDef
 #if (USE_HAL_I3C_REGISTER_CALLBACKS == 1U)
 
   void (* CtrlTxCpltCallback)(struct __I3C_HandleTypeDef *hi3c);
-  /*!< I3C Controller private data and CCC Tx Transfer complete callback    */
+  /*!< I3C Controller private data and CCC Tx Transfer complete callback                           */
 
   void (* CtrlRxCpltCallback)(struct __I3C_HandleTypeDef *hi3c);
-  /*!< I3C Controller private data and CCC Rx Transfer completed callback   */
+  /*!< I3C Controller private data and CCC Rx Transfer completed callback                          */
+
+  void (* CtrlMultipleXferCpltCallback)(struct __I3C_HandleTypeDef *hi3c);
+  /*!< I3C Controller multiple Direct CCC, I3C private or I2C Transfer completed callback          */
 
   void (* CtrlDAACpltCallback)(struct __I3C_HandleTypeDef *hi3c);
-  /*!< I3C Controller Dynamic Address Assignment completed callback         */
+  /*!< I3C Controller Dynamic Address Assignment completed callback                                */
 
   void (* TgtReqDynamicAddrCallback)(struct __I3C_HandleTypeDef *hi3c, uint64_t targetPayload);
   /*!< I3C Controller request dynamic address callback during Dynamic Address Assignment processus */
 
   void (* TgtTxCpltCallback)(struct __I3C_HandleTypeDef *hi3c);
-  /*!< I3C Target private data Tx Transfer completed callback               */
+  /*!< I3C Target private data Tx Transfer completed callback                                      */
 
   void (* TgtRxCpltCallback)(struct __I3C_HandleTypeDef *hi3c);
-  /*!< I3C Target private data Rx Transfer completed callback               */
+  /*!< I3C Target private data Rx Transfer completed callback                                      */
 
   void (* TgtHotJoinCallback)(struct __I3C_HandleTypeDef *hi3c, uint8_t dynamicAddress);
-  /*!< I3C Target Hot-Join callback                                         */
+  /*!< I3C Target Hot-Join callback                                                                */
 
   void (* NotifyCallback)(struct __I3C_HandleTypeDef *hi3c, uint32_t eventId);
-  /*!< I3C Target or Controller asynchronous events callback                */
+  /*!< I3C Target or Controller asynchronous events callback                                       */
 
   void (* ErrorCallback)(struct __I3C_HandleTypeDef *hi3c);
-  /*!< I3C Error callback                                                   */
+  /*!< I3C Error callback                                                                          */
 
   void (* AbortCpltCallback)(struct __I3C_HandleTypeDef *hi3c);
-  /*!< I3C Abort complete callback                                          */
+  /*!< I3C Abort complete callback                                                                 */
 
   void (* MspInitCallback)(struct __I3C_HandleTypeDef *hi3c);
-  /*!< I3C Msp Init callback                                                */
+  /*!< I3C Msp Init callback                                                                       */
 
   void (* MspDeInitCallback)(struct __I3C_HandleTypeDef *hi3c);
-  /*!< I3C Msp DeInit callback                                              */
+  /*!< I3C Msp DeInit callback                                                                     */
 
 #endif /* USE_HAL_I3C_REGISTER_CALLBACKS == 1U */
 
@@ -477,18 +481,32 @@ typedef struct __I3C_HandleTypeDef
   */
 typedef enum
 {
-  HAL_I3C_CTRL_TX_COMPLETE_CB_ID     = 0x00U,  /*!< I3C Controller Tx Transfer completed callback ID                  */
-  HAL_I3C_CTRL_RX_COMPLETE_CB_ID     = 0x01U,  /*!< I3C Controller Rx Transfer completed callback ID                  */
-  HAL_I3C_CTRL_DAA_COMPLETE_CB_ID    = 0x02U,  /*!< I3C Controller Dynamic Address Assignment completed callback ID   */
-  HAL_I3C_TGT_REQ_DYNAMIC_ADDR_CB_ID = 0x03U,  /*!< I3C Controller request dynamic address completed callback ID      */
-  HAL_I3C_TGT_TX_COMPLETE_CB_ID      = 0x04U,  /*!< I3C Target Tx Transfer completed callback ID                      */
-  HAL_I3C_TGT_RX_COMPLETE_CB_ID      = 0x05U,  /*!< I3C Target Rx Transfer completed callback ID                      */
-  HAL_I3C_TGT_HOTJOIN_CB_ID          = 0x06U,  /*!< I3C Target Hot-join notification callback ID                      */
-  HAL_I3C_NOTIFY_CB_ID               = 0x07U,  /*!< I3C Target or Controller receive notification callback ID         */
-  HAL_I3C_ERROR_CB_ID                = 0x08U,  /*!< I3C Error callback ID                                             */
-  HAL_I3C_ABORT_CB_ID                = 0x09U,  /*!< I3C Abort callback ID                                             */
-  HAL_I3C_MSPINIT_CB_ID              = 0x0AU,  /*!< I3C Msp Init callback ID                                          */
-  HAL_I3C_MSPDEINIT_CB_ID            = 0x0BU   /*!< I3C Msp DeInit callback ID                                        */
+  /*!< I3C Controller Tx Transfer completed callback ID                  */
+  HAL_I3C_CTRL_TX_COMPLETE_CB_ID               = 0x00U,
+  /*!< I3C Controller Rx Transfer completed callback ID                  */
+  HAL_I3C_CTRL_RX_COMPLETE_CB_ID               = 0x01U,
+  /*!< I3C Controller Multiple Transfer completed callback ID            */
+  HAL_I3C_CTRL_MULTIPLE_XFER_COMPLETE_CB_ID    = 0x02U,
+  /*!< I3C Controller Dynamic Address Assignment completed callback ID   */
+  HAL_I3C_CTRL_DAA_COMPLETE_CB_ID              = 0x03U,
+  /*!< I3C Controller request dynamic address completed callback ID      */
+  HAL_I3C_TGT_REQ_DYNAMIC_ADDR_CB_ID           = 0x04U,
+  /*!< I3C Target Tx Transfer completed callback ID                      */
+  HAL_I3C_TGT_TX_COMPLETE_CB_ID                = 0x05U,
+  /*!< I3C Target Rx Transfer completed callback ID                      */
+  HAL_I3C_TGT_RX_COMPLETE_CB_ID                = 0x06U,
+  /*!< I3C Target Hot-join notification callback ID                      */
+  HAL_I3C_TGT_HOTJOIN_CB_ID                    = 0x07U,
+  /*!< I3C Target or Controller receive notification callback ID         */
+  HAL_I3C_NOTIFY_CB_ID                         = 0x08U,
+  /*!< I3C Error callback ID                                             */
+  HAL_I3C_ERROR_CB_ID                          = 0x09U,
+  /*!< I3C Abort callback ID                                             */
+  HAL_I3C_ABORT_CB_ID                          = 0x0AU,
+  /*!< I3C Msp Init callback ID                                          */
+  HAL_I3C_MSPINIT_CB_ID                        = 0x0BU,
+  /*!< I3C Msp DeInit callback ID                                        */
+  HAL_I3C_MSPDEINIT_CB_ID                      = 0x0CU
 
 } HAL_I3C_CallbackIDTypeDef;
 /**
@@ -1028,6 +1046,7 @@ HAL_StatusTypeDef HAL_I3C_ActivateNotification(I3C_HandleTypeDef *hi3c, I3C_Xfer
 HAL_StatusTypeDef HAL_I3C_DeactivateNotification(I3C_HandleTypeDef *hi3c, uint32_t interruptMask);
 void HAL_I3C_CtrlTxCpltCallback(I3C_HandleTypeDef *hi3c);
 void HAL_I3C_CtrlRxCpltCallback(I3C_HandleTypeDef *hi3c);
+void HAL_I3C_CtrlMultipleXferCpltCallback(I3C_HandleTypeDef *hi3c);
 void HAL_I3C_CtrlDAACpltCallback(I3C_HandleTypeDef *hi3c);
 void HAL_I3C_TgtReqDynamicAddrCallback(I3C_HandleTypeDef *hi3c, uint64_t targetPayload);
 void HAL_I3C_TgtTxCpltCallback(I3C_HandleTypeDef *hi3c);
@@ -1118,6 +1137,12 @@ HAL_StatusTypeDef HAL_I3C_Ctrl_Receive_IT(I3C_HandleTypeDef   *hi3c,
 HAL_StatusTypeDef HAL_I3C_Ctrl_Receive_DMA(I3C_HandleTypeDef   *hi3c,
                                            I3C_XferTypeDef     *pXferData);
 
+/* Controller multiple Direct CCC Command, I3C private or I2C transfer APIs */
+HAL_StatusTypeDef HAL_I3C_Ctrl_MultipleTransfer_IT(I3C_HandleTypeDef   *hi3c,
+                                                   I3C_XferTypeDef     *pXferData);
+HAL_StatusTypeDef HAL_I3C_Ctrl_MultipleTransfer_DMA(I3C_HandleTypeDef   *hi3c,
+                                                    I3C_XferTypeDef     *pXferData);
+
 /* Controller assign dynamic address APIs */
 HAL_StatusTypeDef HAL_I3C_Ctrl_SetDynAddr(I3C_HandleTypeDef *hi3c, uint8_t devAddress);
 HAL_StatusTypeDef HAL_I3C_Ctrl_DynAddrAssign_IT(I3C_HandleTypeDef *hi3c, uint32_t dynOption);
@@ -1125,6 +1150,15 @@ HAL_StatusTypeDef HAL_I3C_Ctrl_DynAddrAssign(I3C_HandleTypeDef *hi3c,
                                              uint64_t          *target_payload,
                                              uint32_t           dynOption,
                                              uint32_t           timeout);
+/* Controller check device ready APIs */
+HAL_StatusTypeDef HAL_I3C_Ctrl_IsDeviceI3C_Ready(I3C_HandleTypeDef *hi3c,
+                                                 uint8_t            devAddress,
+                                                 uint32_t           trials,
+                                                 uint32_t           timeout);
+HAL_StatusTypeDef HAL_I3C_Ctrl_IsDeviceI2C_Ready(I3C_HandleTypeDef *hi3c,
+                                                 uint8_t            devAddress,
+                                                 uint32_t           trials,
+                                                 uint32_t           timeout);
 /**
   * @}
   */

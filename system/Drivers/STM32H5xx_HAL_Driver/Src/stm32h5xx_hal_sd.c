@@ -259,6 +259,7 @@
   * @{
   */
 
+#if defined (SDMMC1) || defined (SDMMC2)
 #ifdef HAL_SD_MODULE_ENABLED
 
 /* Private typedef -----------------------------------------------------------*/
@@ -435,7 +436,7 @@ HAL_StatusTypeDef HAL_SD_Init(SD_HandleTypeDef *hsd)
   tickstart = HAL_GetTick();
   while ((HAL_SD_GetCardState(hsd) != HAL_SD_CARD_TRANSFER))
   {
-    if ((HAL_GetTick() - tickstart) >=  SDMMC_DATATIMEOUT)
+    if ((HAL_GetTick() - tickstart) >=  SDMMC_SWDATATIMEOUT)
     {
       hsd->ErrorCode = HAL_SD_ERROR_TIMEOUT;
       hsd->State = HAL_SD_STATE_READY;
@@ -2808,7 +2809,7 @@ HAL_StatusTypeDef HAL_SD_ConfigSpeedBusOperation(SD_HandleTypeDef *hsd, uint32_t
   tickstart = HAL_GetTick();
   while ((HAL_SD_GetCardState(hsd) != HAL_SD_CARD_TRANSFER))
   {
-    if ((HAL_GetTick() - tickstart) >=  SDMMC_DATATIMEOUT)
+    if ((HAL_GetTick() - tickstart) >=  SDMMC_SWDATATIMEOUT)
     {
       hsd->ErrorCode = HAL_SD_ERROR_TIMEOUT;
       hsd->State = HAL_SD_STATE_READY;
@@ -2891,7 +2892,7 @@ HAL_StatusTypeDef HAL_SD_Abort(SD_HandleTypeDef *hsd)
       {
         while (!__HAL_SD_GET_FLAG(hsd, SDMMC_FLAG_DABORT | SDMMC_FLAG_BUSYD0END))
         {
-          if ((HAL_GetTick() - tickstart) >=  SDMMC_DATATIMEOUT)
+          if ((HAL_GetTick() - tickstart) >=  SDMMC_SWDATATIMEOUT)
           {
             hsd->ErrorCode = HAL_SD_ERROR_TIMEOUT;
             hsd->State = HAL_SD_STATE_READY;
@@ -2904,7 +2905,7 @@ HAL_StatusTypeDef HAL_SD_Abort(SD_HandleTypeDef *hsd)
       {
         while (!__HAL_SD_GET_FLAG(hsd, SDMMC_FLAG_DATAEND))
         {
-          if ((HAL_GetTick() - tickstart) >=  SDMMC_DATATIMEOUT)
+          if ((HAL_GetTick() - tickstart) >=  SDMMC_SWDATATIMEOUT)
           {
             hsd->ErrorCode = HAL_SD_ERROR_TIMEOUT;
             hsd->State = HAL_SD_STATE_READY;
@@ -2917,7 +2918,7 @@ HAL_StatusTypeDef HAL_SD_Abort(SD_HandleTypeDef *hsd)
     {
       while (!__HAL_SD_GET_FLAG(hsd, SDMMC_FLAG_DABORT | SDMMC_FLAG_DATAEND))
       {
-        if ((HAL_GetTick() - tickstart) >=  SDMMC_DATATIMEOUT)
+        if ((HAL_GetTick() - tickstart) >=  SDMMC_SWDATATIMEOUT)
         {
           hsd->ErrorCode = HAL_SD_ERROR_TIMEOUT;
           hsd->State = HAL_SD_STATE_READY;
@@ -3213,7 +3214,7 @@ static uint32_t SD_PowerON(SD_HandleTypeDef *hsd)
         /* Check to CKSTOP */
         while ((hsd->Instance->STA & SDMMC_FLAG_CKSTOP) != SDMMC_FLAG_CKSTOP)
         {
-          if ((HAL_GetTick() - tickstart) >=  SDMMC_DATATIMEOUT)
+          if ((HAL_GetTick() - tickstart) >=  SDMMC_SWDATATIMEOUT)
           {
             return HAL_SD_ERROR_TIMEOUT;
           }
@@ -3243,7 +3244,7 @@ static uint32_t SD_PowerON(SD_HandleTypeDef *hsd)
           /* Check VSWEND Flag */
           while ((hsd->Instance->STA & SDMMC_FLAG_VSWEND) != SDMMC_FLAG_VSWEND)
           {
-            if ((HAL_GetTick() - tickstart) >=  SDMMC_DATATIMEOUT)
+            if ((HAL_GetTick() - tickstart) >=  SDMMC_SWDATATIMEOUT)
             {
               return HAL_SD_ERROR_TIMEOUT;
             }
@@ -3351,7 +3352,7 @@ static uint32_t SD_SendSDStatus(SD_HandleTypeDef *hsd, uint32_t *pSDstatus)
       }
     }
 
-    if ((HAL_GetTick() - tickstart) >=  SDMMC_DATATIMEOUT)
+    if ((HAL_GetTick() - tickstart) >=  SDMMC_SWDATATIMEOUT)
     {
       return HAL_SD_ERROR_TIMEOUT;
     }
@@ -3379,7 +3380,7 @@ static uint32_t SD_SendSDStatus(SD_HandleTypeDef *hsd, uint32_t *pSDstatus)
     *pData = SDMMC_ReadFIFO(hsd->Instance);
     pData++;
 
-    if ((HAL_GetTick() - tickstart) >=  SDMMC_DATATIMEOUT)
+    if ((HAL_GetTick() - tickstart) >=  SDMMC_SWDATATIMEOUT)
     {
       return HAL_SD_ERROR_TIMEOUT;
     }
@@ -3570,7 +3571,7 @@ static uint32_t SD_FindSCR(SD_HandleTypeDef *hsd, uint32_t *pSCR)
     }
 
 
-    if ((HAL_GetTick() - tickstart) >=  SDMMC_DATATIMEOUT)
+    if ((HAL_GetTick() - tickstart) >=  SDMMC_SWDATATIMEOUT)
     {
       return HAL_SD_ERROR_TIMEOUT;
     }
@@ -3745,7 +3746,7 @@ uint32_t SD_SwitchSpeed(SD_HandleTypeDef *hsd, uint32_t SwitchSpeedMode)
         loop ++;
       }
 
-      if ((HAL_GetTick() - Timeout) >=  SDMMC_DATATIMEOUT)
+      if ((HAL_GetTick() - Timeout) >=  SDMMC_SWDATATIMEOUT)
       {
         hsd->ErrorCode = HAL_SD_ERROR_TIMEOUT;
         hsd->State = HAL_SD_STATE_READY;
@@ -3861,7 +3862,7 @@ static uint32_t SD_UltraHighSpeed(SD_HandleTypeDef *hsd, uint32_t UltraHighSpeed
         loop ++;
       }
 
-      if ((HAL_GetTick() - Timeout) >=  SDMMC_DATATIMEOUT)
+      if ((HAL_GetTick() - Timeout) >=  SDMMC_SWDATATIMEOUT)
       {
         hsd->ErrorCode = HAL_SD_ERROR_TIMEOUT;
         hsd->State = HAL_SD_STATE_READY;
@@ -3988,7 +3989,7 @@ static uint32_t SD_DDR_Mode(SD_HandleTypeDef *hsd)
         loop ++;
       }
 
-      if ((HAL_GetTick() - Timeout) >=  SDMMC_DATATIMEOUT)
+      if ((HAL_GetTick() - Timeout) >=  SDMMC_SWDATATIMEOUT)
       {
         hsd->ErrorCode = HAL_SD_ERROR_TIMEOUT;
         hsd->State = HAL_SD_STATE_READY;
@@ -4086,6 +4087,7 @@ __weak void HAL_SDEx_Write_DMALnkLstBufCpltCallback(SD_HandleTypeDef *hsd)
   */
 
 #endif /* HAL_SD_MODULE_ENABLED */
+#endif /* SDMMC1 || SDMMC2 */
 
 /**
   * @}

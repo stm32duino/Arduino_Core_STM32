@@ -91,7 +91,7 @@
 
     [..]
     Use function HAL_USART_UnRegisterCallback() to reset a callback to the default
-    weak (surcharged) function.
+    weak function.
     HAL_USART_UnRegisterCallback() takes as parameters the HAL peripheral handle,
     and the Callback ID.
     This function allows to reset following callbacks:
@@ -109,10 +109,10 @@
 
     [..]
     By default, after the HAL_USART_Init() and when the state is HAL_USART_STATE_RESET
-    all callbacks are set to the corresponding weak (surcharged) functions:
+    all callbacks are set to the corresponding weak functions:
     examples HAL_USART_TxCpltCallback(), HAL_USART_RxHalfCpltCallback().
     Exception done for MspInit and MspDeInit functions that are respectively
-    reset to the legacy weak (surcharged) functions in the HAL_USART_Init()
+    reset to the legacy weak functions in the HAL_USART_Init()
     and HAL_USART_DeInit() only when these callbacks are null (not registered beforehand).
     If not, MspInit or MspDeInit are not null, the HAL_USART_Init() and HAL_USART_DeInit()
     keep and use the user MspInit/MspDeInit callbacks (registered beforehand).
@@ -129,7 +129,7 @@
     [..]
     When The compilation define USE_HAL_USART_REGISTER_CALLBACKS is set to 0 or
     not defined, the callback registration feature is not available
-    and weak (surcharged) callbacks are used.
+    and weak callbacks are used.
 
 
   @endverbatim
@@ -408,7 +408,7 @@ __weak void HAL_USART_MspDeInit(USART_HandleTypeDef *husart)
 #if (USE_HAL_USART_REGISTER_CALLBACKS == 1)
 /**
   * @brief  Register a User USART Callback
-  *         To be used instead of the weak predefined callback
+  *         To be used to override the weak predefined callback
   * @note   The HAL_USART_RegisterCallback() may be called before HAL_USART_Init() in HAL_USART_STATE_RESET
   *         to register callbacks for HAL_USART_MSPINIT_CB_ID and HAL_USART_MSPDEINIT_CB_ID
   * @param  husart usart handle

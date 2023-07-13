@@ -441,11 +441,11 @@ __weak void HAL_HASH_MspDeInit(HASH_HandleTypeDef *hhash)
   * @param hhash HASH handle
   * @param CallbackID ID of the callback to be registered
   *        This parameter can be one of the following values:
-  *          @arg @ref HAL_HASH_INPUTCPLT_CB_ID HASH input completion Callback ID
-  *          @arg @ref HAL_HASH_DGSTCPLT_CB_ID HASH digest computation completion Callback ID
-  *          @arg @ref HAL_HASH_ERROR_CB_ID HASH error Callback ID
-  *          @arg @ref HAL_HASH_MSPINIT_CB_ID HASH MspInit callback ID
-  *          @arg @ref HAL_HASH_MSPDEINIT_CB_ID HASH MspDeInit callback ID
+  *          @arg HAL_HASH_INPUTCPLT_CB_ID input completion callback ID
+  *          @arg HAL_HASH_DGSTCPLT_CB_ID digest computation completion callback ID
+  *          @arg HAL_HASH_ERROR_CB_ID error callback ID
+  *          @arg HAL_HASH_MSPINIT_CB_ID MspInit callback ID
+  *          @arg HAL_HASH_MSPDEINIT_CB_ID MspDeInit callback ID
   * @param pCallback pointer to the Callback function
   * @retval status
   */
@@ -530,11 +530,11 @@ HAL_StatusTypeDef HAL_HASH_RegisterCallback(HASH_HandleTypeDef *hhash, HAL_HASH_
   * @param hhash HASH handle
   * @param CallbackID ID of the callback to be unregistered
   *        This parameter can be one of the following values:
-  *          @arg @ref HAL_HASH_INPUTCPLT_CB_ID HASH input completion Callback ID
-  *          @arg @ref HAL_HASH_DGSTCPLT_CB_ID HASH digest computation completion Callback ID
-  *          @arg @ref HAL_HASH_ERROR_CB_ID HASH error Callback ID
-  *          @arg @ref HAL_HASH_MSPINIT_CB_ID HASH MspInit callback ID
-  *          @arg @ref HAL_HASH_MSPDEINIT_CB_ID HASH MspDeInit callback ID
+  *          @arg HAL_HASH_INPUTCPLT_CB_ID HASH input completion Callback ID
+  *          @arg HAL_HASH_DGSTCPLT_CB_ID HASH digest computation completion Callback ID
+  *          @arg HAL_HASH_ERROR_CB_ID HASH error Callback ID
+  *          @arg HAL_HASH_MSPINIT_CB_ID HASH MspInit callback ID
+  *          @arg HAL_HASH_MSPDEINIT_CB_ID HASH MspDeInit callback ID
   * @retval status
   */
 HAL_StatusTypeDef HAL_HASH_UnRegisterCallback(HASH_HandleTypeDef *hhash, HAL_HASH_CallbackIDTypeDef CallbackID)
@@ -2226,9 +2226,11 @@ HAL_StatusTypeDef HAL_HASH_HMAC_Start_DMA(HASH_HandleTypeDef *hhash, const uint8
 void HAL_HASH_IRQHandler(HASH_HandleTypeDef *hhash)
 {
   HAL_StatusTypeDef status;
+  uint32_t itsource = hhash->Instance->IMR;
+  uint32_t itflag   = hhash->Instance->SR;
 
   /* If digest is ready */
-  if (__HAL_HASH_GET_FLAG(hhash, HASH_FLAG_DCIS))
+  if ((itflag & HASH_FLAG_DCIS) == HASH_FLAG_DCIS)
   {
     /* Read the digest */
     HASH_GetDigest(hhash, hhash->pHashOutBuffPtr, HASH_DIGEST_LENGTH(hhash));
@@ -2250,9 +2252,9 @@ void HAL_HASH_IRQHandler(HASH_HandleTypeDef *hhash)
 
   }
   /* If Peripheral ready to accept new data */
-  if (__HAL_HASH_GET_FLAG(hhash, HASH_FLAG_DINIS))
+  if ((itflag & HASH_FLAG_DINIS) == HASH_FLAG_DINIS)
   {
-    if (__HAL_HASH_GET_IT_SOURCE(hhash, HASH_IT_DINI))
+    if ((itsource & HASH_IT_DINI) == HASH_IT_DINI)
     {
       status = HASH_WriteData_IT(hhash);
       if (status != HAL_OK)

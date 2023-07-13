@@ -40,17 +40,102 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section1" checked aria-hidden="true"> <label for="collapse-section1" checked aria-hidden="true"><strong>V1.0.0 / 10-February-2023</strong></label>
+<input type="checkbox" id="collapse-section2" checked aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true"><strong>V1.1.0 / 07-June-2023</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <ul>
-<li>First official release of <strong>HAL and LL drivers</strong> for <strong>STM32H573xx / STM32H563xx / STM32H562xx / STM32H503xx</strong> devices</li>
+<li><p>Maintenance Release of <strong>HAL and LL drivers</strong> for <strong>STM32H573xx / STM32H563xx / STM32H562xx / STM32H503xx</strong> devices</p>
+<ul>
+<li>HAL drivers :
+<ul>
+<li>HAL CRYP driver:
+<ul>
+<li>Add management of interleave mode with new APIs :
+<ul>
+<li>HAL_CRYP_SaveContext() and HAL_CRYP_RestoreContext().</li>
+<li>Add CRYP_ContextTypeDef CRYP Context Structure.</li>
+</ul></li>
+</ul></li>
+<li>HAL Generic driver:
+<ul>
+<li>[SBS] Add APIs for Debug Control:
+<ul>
+<li>HAL_SBS_OpenAccessPort()</li>
+<li>HAL_SBS_OpenDebug()</li>
+<li>HAL_SBS_ConfigDebugLevel() / HAL_SBS_GetDebugLevel()</li>
+<li>HAL_SBS_LockDebugConfig()</li>
+<li>HAL_SBS_ConfigDebugSecurity() / HAL_SBS_GetDebugSecurity()</li>
+</ul></li>
+</ul></li>
+<li>HAL I2C driver:
+<ul>
+<li>Update I2C_ITMasterCplt() to fix issue related to TX IRQ not being disabled after data transfer.</li>
+<li>Fix issue related to HAL_I2C_IsDeviceReady().</li>
+<li>Fix issue related to switching from 10 bits to 7 bits addressing modes.</li>
+</ul></li>
+<li>HAL I3C driver:
+<ul>
+<li>Fix arbitration header disabling when using HAL_I3C_AddDescToFrame() with successive options.</li>
+<li>Add multiple transfer for Sensor Communication and Multiple CCC RX/TX command with the same interface.</li>
+<li>Add Interface to check the availability of I2C or I3C device in the Bus.</li>
+</ul></li>
+<li>HAL RTC Driver:
+<ul>
+<li>Update possible values of Active tamper RTC asynchronous prescaler clock selection field.</li>
+</ul></li>
+<li>HAL SAI Driver:
+<ul>
+<li>Reorder the call to SAI_Disable() to fix issue in HAL SAI abort and DMA stop functions.</li>
+</ul></li>
+<li>HAL TIMER driver:
+<ul>
+<li>Fix of issue related to channel being systematically disabled by HAL_TIM_OC_ConfigChannel() API.</li>
+<li>Fix assert check in HAL_TIM_OC_Start_IT().</li>
+<li>Enhance performance by removing multiple volatile reads or writes in interrupt handler.</li>
+</ul></li>
+</ul></li>
+<li>LL drivers :
+<ul>
+<li>LL SYSTEM driver:
+<ul>
+<li>[SBS] Add APIs for Debug Control:
+<ul>
+<li>LL_SBS_SetAuthDbgHDPL() / LL_SBS_GetAuthDbgHDPL()</li>
+<li>LL_SBS_SetAuthDbgSec() / LL_SBS_GetAuthDbgSec()</li>
+<li>LL_SBS_UnlockDebug() / LL_SBS_IsUnlockedDebug()</li>
+<li>LL_SBS_UnlockAccessPort() / LL_SBS_IsUnlockedAccessPort()</li>
+<li>LL_SBS_LockDebugConfig() / LL_SBS_IsLockedDebugConfig()</li>
+</ul></li>
+</ul></li>
+<li>LL RTC Driver:
+<ul>
+<li>Update possible values of Active tamper RTC asynchronous prescaler clock selection field.</li>
+</ul></li>
+</ul></li>
+</ul></li>
 </ul>
 <h2 id="known-limitations">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
 <h2 id="backward-compatibility">Backward compatibility</h2>
+<ul>
+<li>No compatibility break</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" checked aria-hidden="true"><strong>V1.0.0 / 10-February-2023</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<ul>
+<li>First official release of <strong>HAL and LL drivers</strong> for <strong>STM32H573xx / STM32H563xx / STM32H562xx / STM32H503xx</strong> devices</li>
+</ul>
+<h2 id="known-limitations-1">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="backward-compatibility-1">Backward compatibility</h2>
 <ul>
 <li>Not Applicable</li>
 </ul>

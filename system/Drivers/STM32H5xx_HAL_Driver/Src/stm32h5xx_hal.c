@@ -48,10 +48,10 @@
 /* Private typedef ---------------------------------------------------------------------------------------------------*/
 /* Private define ----------------------------------------------------------------------------------------------------*/
 /**
-  * @brief STM32H5xx HAL Driver version number 1.0.0
+  * @brief STM32H5xx HAL Driver version number 1.1.0
    */
 #define __STM32H5XX_HAL_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32H5XX_HAL_VERSION_SUB1   (0x00U) /*!< [23:16] sub1 version */
+#define __STM32H5XX_HAL_VERSION_SUB1   (0x01U) /*!< [23:16] sub1 version */
 #define __STM32H5XX_HAL_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
 #define __STM32H5XX_HAL_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32H5XX_HAL_VERSION         ((__STM32H5XX_HAL_VERSION_MAIN << 24U)\
@@ -62,6 +62,13 @@
 #if defined(VREFBUF)
 #define VREFBUF_TIMEOUT_VALUE           10U   /* 10 ms */
 #endif /* VREFBUF */
+
+/* Value used to increment hide protection level */
+#define SBS_HDPL_INCREMENT_VALUE  (uint8_t)0x6A
+
+/* Value used to lock/unlock debug functionalities */
+#define SBS_DEBUG_LOCK_VALUE      (uint8_t)0xC3
+#define SBS_DEBUG_UNLOCK_VALUE    (uint8_t)0xB4
 
 /* Private macro -----------------------------------------------------------------------------------------------------*/
 /* Private variables -------------------------------------------------------------------------------------------------*/
@@ -534,12 +541,12 @@ void HAL_DBGMCU_DisableDBGStandbyMode(void)
   * @}
   */
 
-/** @defgroup HAL_Exported_Functions_Group4 HAL SBS configuration functions
-  *  @brief    HAL SBS configuration functions
+/** @defgroup HAL_Exported_Functions_Group4 HAL VREFBUF Control functions
+  *  @brief    HAL VREFBUF Control functions
   *
 @verbatim
  =======================================================================================================================
-                                       ##### HAL SBS configuration functions #####
+                                       ##### HAL VREFBUF Control functions #####
  =======================================================================================================================
     [..]  This section provides functions allowing to:
       (+) Configure the Voltage reference buffer
@@ -635,6 +642,29 @@ void HAL_DisableVREFBUF(void)
   CLEAR_BIT(VREFBUF->CSR, VREFBUF_CSR_ENVR);
 }
 #endif /* VREFBUF */
+
+/**
+  * @}
+  */
+
+/** @defgroup HAL_Exported_Functions_Group5 HAL SBS configuration functions
+  *  @brief    HAL SBS configuration functions
+  *
+@verbatim
+ =======================================================================================================================
+                                       ##### HAL SBS configuration functions #####
+ =======================================================================================================================
+    [..]  This section provides functions allowing to:
+      (+) Select the Ethernet PHY Interface
+      (+) Enable/Disable the VDD I/Os Compensation Cell
+      (+) Code selection/configuration for the VDD I/O Compensation cell
+      (+) Get ready flag status of VDD I/Os Compensation cell
+      (+) Get PMOS/NMOS compensation value of the I/Os supplied by VDD
+      (+) Enable/Disable the NMI in case of double ECC error in FLASH Interface
+
+@endverbatim
+  * @{
+  */
 
 #if defined(SBS_PMCR_ETH_SEL_PHY)
 /**
@@ -747,7 +777,7 @@ uint32_t HAL_SBS_GetVddIO2CompensationCellReadyFlag(void)
 }
 
 /**
-  * @brief  Code selection for the VDD I/O Compensation cell
+  * @brief  Code configuration for the VDD I/O Compensation cell
   * @param  SBS_PMOSCode: PMOS compensation code
   *         This code is applied to the VDD I/O compensation cell when the CS1 bit of the
   *          SBS_CCSR is set
@@ -766,7 +796,7 @@ void HAL_SBS_VDDCompensationCodeConfig(uint32_t SBS_PMOSCode, uint32_t SBS_NMOSC
 }
 
 /**
-  * @brief  Code selection for the VDDIO I/O Compensation cell
+  * @brief  Code configuration for the VDDIO I/O Compensation cell
   * @param  SBS_PMOSCode: PMOS compensation code
   *         This code is applied to the VDDIO I/O compensation cell when the CS2 bit of the
   *          SBS_CCSR is set
@@ -821,6 +851,99 @@ uint32_t HAL_SBS_GetPMOSVddIO2CompensationValue(void)
   return (uint32_t)(READ_BIT(SBS->CCVALR, SBS_CCVALR_APSRC2) >>  SBS_CCVALR_APSRC2_Pos);
 }
 
+/**
+  * @brief  Disable the NMI in case of double ECC error in FLASH Interface.
+  *
+  * @retval None
+  */
+void HAL_SBS_FLASH_DisableECCNMI(void)
+{
+  SET_BIT(SBS->ECCNMIR, SBS_ECCNMIR_ECCNMI_MASK_EN);
+}
+
+/**
+  * @brief  Enable the NMI in case of double ECC error in FLASH Interface.
+  *
+  * @retval None
+  */
+void HAL_SBS_FLASH_EnableECCNMI(void)
+{
+  CLEAR_BIT(SBS->ECCNMIR, SBS_ECCNMIR_ECCNMI_MASK_EN);
+}
+
+/**
+  * @brief  Check if the NMI is Enabled in case of double ECC error in FLASH Interface.
+  *
+  * @retval State of bit (1 or 0).
+  */
+uint32_t HAL_SBS_FLASH_ECCNMI_IsDisabled(void)
+{
+  return ((READ_BIT(SBS->ECCNMIR, SBS_ECCNMIR_ECCNMI_MASK_EN) == SBS_ECCNMIR_ECCNMI_MASK_EN) ? 1UL : 0UL);
+}
+
+/**
+  * @}
+  */
+
+/** @defgroup HAL_Exported_Functions_Group6 HAL SBS Boot control functions
+  *  @brief    HAL SBS Boot functions
+  *
+@verbatim
+ =======================================================================================================================
+                                       ##### HAL SBS Boot control functions #####
+ =======================================================================================================================
+    [..]  This section provides functions allowing to:
+      (+) Increment the HDPL value
+      (+) Get the HDPL value
+
+@endverbatim
+  * @{
+  */
+
+/**
+  * @brief  Increment by 1 the HDPL value
+  * @retval None
+  */
+void HAL_SBS_IncrementHDPLValue(void)
+{
+  MODIFY_REG(SBS->HDPLCR, SBS_HDPLCR_INCR_HDPL, SBS_HDPL_INCREMENT_VALUE);
+}
+
+/**
+  * @brief  Get the HDPL Value.
+  *
+  * @retval  Returns the HDPL value
+  *          This return value can be one of the following values:
+  *            @arg SBS_HDPL_VALUE_0: HDPL0
+  *            @arg SBS_HDPL_VALUE_1: HDPL1
+  *            @arg SBS_HDPL_VALUE_2: HDPL2
+  *            @arg SBS_HDPL_VALUE_3: HDPL3
+  */
+uint32_t HAL_SBS_GetHDPLValue(void)
+{
+  return (uint32_t)(READ_BIT(SBS->HDPLSR, SBS_HDPLSR_HDPL));
+}
+
+/**
+  * @}
+  */
+
+/** @defgroup HAL_Exported_Functions_Group7 HAL SBS Hardware secure storage control functions
+  *  @brief    HAL SBS Hardware secure storage functions
+  *
+@verbatim
+ =======================================================================================================================
+                                       ##### HAL SBS Hardware secure storage control functions #####
+ =======================================================================================================================
+    [..]  This section provides functions allowing to:
+      (+) Select EPOCH security sent to SAES IP
+      (+) Set/Get EPOCH security selection
+      (+) Set/Get the OBK-HDPL Value
+
+@endverbatim
+  * @{
+  */
+
 #if defined(SBS_EPOCHSELCR_EPOCH_SEL)
 /**
   * @brief  Select EPOCH security sent to SAES IP to encrypt/decrypt keys
@@ -851,30 +974,6 @@ uint32_t HAL_SBS_GetEPOCHSelection(void)
   return (uint32_t)(READ_BIT(SBS->EPOCHSELCR, SBS_EPOCHSELCR_EPOCH_SEL));
 }
 #endif /* SBS_EPOCHSELCR_EPOCH_SEL */
-
-/**
-  * @brief  Increment by 1 the HDPL value
-  * @retval None
-  */
-void HAL_SBS_IncrementHDPLValue(void)
-{
-  MODIFY_REG(SBS->HDPLCR, SBS_HDPLCR_INCR_HDPL, 0x00000006AU);
-}
-
-/**
-  * @brief  Get the HDPL Value.
-  *
-  * @retval  Returns the HDPL value
-  *          This return value can be one of the following values:
-  *            @arg SBS_HDPL_VALUE_0: HDPL0
-  *            @arg SBS_HDPL_VALUE_1: HDPL1
-  *            @arg SBS_HDPL_VALUE_2: HDPL2
-  *            @arg SBS_HDPL_VALUE_3: HDPL3
-  */
-uint32_t HAL_SBS_GetHDPLValue(void)
-{
-  return (uint32_t)(READ_BIT(SBS->HDPLSR, SBS_HDPLSR_HDPL));
-}
 
 #if defined(SBS_NEXTHDPLCR_NEXTHDPL)
 /**
@@ -911,41 +1010,126 @@ uint32_t HAL_SBS_GetOBKHDPL(void)
 #endif /* SBS_NEXTHDPLCR_NEXTHDPL */
 
 /**
-  * @brief  Disable the NMI in case of double ECC error in FLASH Interface.
+  * @}
+  */
+
+/** @defgroup HAL_Exported_Functions_Group8 HAL SBS Debug control functions
+  *  @brief    HAL SBS Debug functions
   *
+@verbatim
+ =======================================================================================================================
+                                       ##### SBS Debug control functions #####
+ =======================================================================================================================
+    [..]  This section provides functions allowing to:
+      (+) Open the device access port
+      (+) Open the debug
+      (+) Configure the authenticated debug HDPL
+      (+) Get the current value of the hide protection level
+      (+) Lock the access to the debug control register
+      (+) Configure/Get the authenticated debug security access
+
+@endverbatim
+  * @{
+  */
+
+/**
+  * @brief  Open the device access port.
+  * @note   This function can be only used when device state is Closed.
   * @retval None
   */
-void HAL_SBS_FLASH_DisableECCNMI(void)
+void HAL_SBS_OpenAccessPort(void)
 {
-  SET_BIT(SBS->ECCNMIR, SBS_ECCNMIR_ECCNMI_MASK_EN);
+  MODIFY_REG(SBS->DBGCR, SBS_DBGCR_AP_UNLOCK, SBS_DEBUG_UNLOCK_VALUE);
 }
 
 /**
-  * @brief  Enable the NMI in case of double ECC error in FLASH Interface.
-  *
+  * @brief  Open the debug when the hide protection level is authorized.
+  * @note   This function can be only used when device state is Closed.
   * @retval None
   */
-void HAL_SBS_FLASH_EnableECCNMI(void)
+void HAL_SBS_OpenDebug(void)
 {
-  CLEAR_BIT(SBS->ECCNMIR, SBS_ECCNMIR_ECCNMI_MASK_EN);
+  MODIFY_REG(SBS->DBGCR, SBS_DBGCR_DBG_UNLOCK, (SBS_DEBUG_UNLOCK_VALUE << SBS_DBGCR_DBG_UNLOCK_Pos));
 }
 
 /**
-  * @brief  Check if the NMI is Enabled in case of double ECC error in FLASH Interface.
-  *
-  * @retval State of bit (1 or 0).
+  * @brief  Configure the authenticated debug hide protection level.
+  * @note   This function can be only used when device state is Closed.
+  * @param  Level Hide protection level where the authenticated debug opens
+  *            This value is one of @ref SBS_HDPL_Value (except SBS_HDPL_VALUE_0)
+  * @retval HAL_OK if parameter is correct
+  *         HAL_ERROR otherwise
   */
-uint32_t HAL_SBS_FLASH_ECCNMI_IsDisabled(void)
+HAL_StatusTypeDef HAL_SBS_ConfigDebugLevel(uint32_t Level)
 {
-  return ((READ_BIT(SBS->ECCNMIR, SBS_ECCNMIR_ECCNMI_MASK_EN) == SBS_ECCNMIR_ECCNMI_MASK_EN) ? 1UL : 0UL);
+  /* Check the parameter */
+  assert_param(IS_SBS_HDPL(Level));
+
+  if (Level != SBS_HDPL_VALUE_0)
+  {
+    MODIFY_REG(SBS->DBGCR, SBS_DBGCR_DBG_AUTH_HDPL, (Level << SBS_DBGCR_DBG_AUTH_HDPL_Pos));
+    return HAL_OK;
+  }
+  else
+  {
+    return HAL_ERROR;
+  }
 }
 
+/**
+  * @brief  Get the current value of the hide protection level.
+  * @note   This function can be only used when device state is Closed.
+  * @retval Current hide protection level
+  *            This value is one of @ref SBS_HDPL_Value
+  */
+uint32_t HAL_SBS_GetDebugLevel(void)
+{
+  return ((SBS->DBGCR & SBS_DBGCR_DBG_AUTH_HDPL) >> SBS_DBGCR_DBG_AUTH_HDPL_Pos);
+}
+
+/**
+  * @brief  Lock the access to the debug control register.
+  * @note   This function can be only used when device state is Closed.
+  * @note   locking the current debug configuration is released only by a reset.
+  * @retval None
+  */
+void HAL_SBS_LockDebugConfig(void)
+{
+  MODIFY_REG(SBS->DBGLOCKR, SBS_DBGLOCKR_DBGCFG_LOCK, SBS_DEBUG_LOCK_VALUE);
+}
+
+#if defined(SBS_DBGCR_DBG_AUTH_SEC)
+/**
+  * @brief  Configure the authenticated debug security access.
+  * @param  Control debug opening secure/non-secure or non-secure only
+  *         This parameter can be one of the following values:
+  *            @arg SBS_DEBUG_SEC_NSEC: debug opening for secure and non-secure.
+  *            @arg SBS_DEBUG_NSEC: debug opening for non-secure only.
+  * @retval None
+  */
+void HAL_SBS_ConfigDebugSecurity(uint32_t Security)
+{
+  MODIFY_REG(SBS->DBGCR, SBS_DBGCR_DBG_AUTH_SEC, (Security << SBS_DBGCR_DBG_AUTH_SEC_Pos));
+}
+
+/**
+  * @brief  Get the current value of the hide protection level.
+  * @note   This function can be only used when device state is Closed.
+  * @retval Returned value can be one of the following values:
+  *            @arg SBS_DEBUG_SEC_NSEC: debug opening for secure and non-secure.
+  *            @arg SBS_DEBUG_NSEC: debug opening for non-secure only.
+  */
+uint32_t HAL_SBS_GetDebugSecurity(void)
+{
+  return ((SBS->DBGCR & SBS_DBGCR_DBG_AUTH_SEC) >> SBS_DBGCR_DBG_AUTH_SEC_Pos);
+}
+#endif /* SBS_DBGCR_DBG_AUTH_SEC */
 
 /**
   * @}
   */
 
-/** @defgroup HAL_Exported_Functions_Group5 HAL SBS lock management functions
+/** @defgroup HAL_Exported_Functions_Group9 HAL SBS lock management functions
   *  @brief SBS lock management functions.
   *
 @verbatim
@@ -1014,7 +1198,7 @@ HAL_StatusTypeDef HAL_SBS_GetLock(uint32_t *pItem)
   * @}
   */
 
-/** @defgroup HAL_Exported_Functions_Group6 HAL SBS attributes management functions
+/** @defgroup HAL_Exported_Functions_Group10 HAL SBS attributes management functions
   *  @brief SBS attributes management functions.
   *
 @verbatim

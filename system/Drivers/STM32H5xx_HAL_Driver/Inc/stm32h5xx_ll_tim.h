@@ -1016,11 +1016,11 @@ typedef struct
 #define LL_TIM_ETR_FILTER_FDIV2_N8             (TIM_SMCR_ETF_2 | TIM_SMCR_ETF_0)                    /*!< fSAMPLING=fDTS/2, N=8 */
 #define LL_TIM_ETR_FILTER_FDIV4_N6             (TIM_SMCR_ETF_2 | TIM_SMCR_ETF_1)                    /*!< fSAMPLING=fDTS/4, N=6 */
 #define LL_TIM_ETR_FILTER_FDIV4_N8             (TIM_SMCR_ETF_2 | TIM_SMCR_ETF_1 | TIM_SMCR_ETF_0)   /*!< fSAMPLING=fDTS/4, N=8 */
-#define LL_TIM_ETR_FILTER_FDIV8_N6             TIM_SMCR_ETF_3                                       /*!< fSAMPLING=fDTS/8, N=8 */
-#define LL_TIM_ETR_FILTER_FDIV8_N8             (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_0)                    /*!< fSAMPLING=fDTS/16, N=5 */
-#define LL_TIM_ETR_FILTER_FDIV16_N5            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_1)                    /*!< fSAMPLING=fDTS/16, N=6 */
-#define LL_TIM_ETR_FILTER_FDIV16_N6            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_1 | TIM_SMCR_ETF_0)   /*!< fSAMPLING=fDTS/16, N=8 */
-#define LL_TIM_ETR_FILTER_FDIV16_N8            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_2)                    /*!< fSAMPLING=fDTS/16, N=5 */
+#define LL_TIM_ETR_FILTER_FDIV8_N6             TIM_SMCR_ETF_3                                       /*!< fSAMPLING=fDTS/8, N=6 */
+#define LL_TIM_ETR_FILTER_FDIV8_N8             (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_0)                    /*!< fSAMPLING=fDTS/16, N=8 */
+#define LL_TIM_ETR_FILTER_FDIV16_N5            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_1)                    /*!< fSAMPLING=fDTS/16, N=5 */
+#define LL_TIM_ETR_FILTER_FDIV16_N6            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_1 | TIM_SMCR_ETF_0)   /*!< fSAMPLING=fDTS/16, N=6 */
+#define LL_TIM_ETR_FILTER_FDIV16_N8            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_2)                    /*!< fSAMPLING=fDTS/16, N=8 */
 #define LL_TIM_ETR_FILTER_FDIV32_N5            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_2 | TIM_SMCR_ETF_0)   /*!< fSAMPLING=fDTS/32, N=5 */
 #define LL_TIM_ETR_FILTER_FDIV32_N6            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_2 | TIM_SMCR_ETF_1)   /*!< fSAMPLING=fDTS/32, N=6 */
 #define LL_TIM_ETR_FILTER_FDIV32_N8            TIM_SMCR_ETF                                         /*!< fSAMPLING=fDTS/32, N=8 */
@@ -1062,7 +1062,7 @@ typedef struct
 #define LL_TIM_TIM2_ETRSOURCE_TIM5_ETR    (TIM1_AF1_ETRSEL_0 | TIM1_AF1_ETRSEL_1| TIM1_AF1_ETRSEL_3 ) /*!< ETR input is connected to TIM5 ETR */
 #endif /* TIM5 */
 #if defined(ETH_NS)
-#define LL_TIM_TIM2_ETRSOURCE_ETH_PPS     (TIM1_AF1_ETRSEL_0 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_3 ) /*!< ETR input is connected to ETH PPS */
+#define LL_TIM_TIM2_ETRSOURCE_ETH_PPS     (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_3 ) /*!< ETR input is connected to ETH PPS */
 #endif /* ETH_NS */
 /**
   * @}
@@ -1083,7 +1083,7 @@ typedef struct
 #define LL_TIM_TIM3_ETRSOURCE_TIM5_ETR    (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1| TIM1_AF1_ETRSEL_0)  /*!< ETR input is connected to TIM5 ETR */
 #endif /* TIM5 */
 #if defined(ETH_NS)
-#define LL_TIM_TIM3_ETRSOURCE_ETH_PPS     (TIM1_AF1_ETRSEL_0 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_3 ) /*!< ETR input is connected to ETH PPS */
+#define LL_TIM_TIM3_ETRSOURCE_ETH_PPS     (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_3 ) /*!< ETR input is connected to ETH PPS */
 #endif /* ETH_NS */
 /**
   * @}
@@ -1094,8 +1094,8 @@ typedef struct
   * @{
   */
 #define LL_TIM_TIM4_ETRSOURCE_GPIO         0x00000000U                                                 /*!< ETR input is connected to GPIO */
-#define LL_TIM_TIM4_ETRSOURCE_TIM3_ETR     TIM1_AF1_ETRSEL_3                                           /*!< ETR input is connected to TIM3 ETR */
-#define LL_TIM_TIM4_ETRSOURCE_TIM4_ETR     (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_0)                     /*!< ETR input is connected to TIM4 ETR */
+#define LL_TIM_TIM4_ETRSOURCE_TIM2_ETR     TIM1_AF1_ETRSEL_3                                           /*!< ETR input is connected to TIM3 ETR */
+#define LL_TIM_TIM4_ETRSOURCE_TIM3_ETR     (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_0)                     /*!< ETR input is connected to TIM4 ETR */
 #define LL_TIM_TIM4_ETRSOURCE_TIM5_ETR     (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1| TIM1_AF1_ETRSEL_0)  /*!< ETR input is connected to TIM5 ETR */
 /**
   * @}
@@ -1320,7 +1320,7 @@ typedef struct
 #define LL_TIM_DMABURST_LENGTH_23TRANSFERS     (TIM_DCR_DBL_4 | TIM_DCR_DBL_2 | TIM_DCR_DBL_1)                 /*!< Transfer is done to 23 registers starting from the DMA burst base address */
 #define LL_TIM_DMABURST_LENGTH_24TRANSFERS     (TIM_DCR_DBL_4 | TIM_DCR_DBL_2 | TIM_DCR_DBL_1 | TIM_DCR_DBL_0) /*!< Transfer is done to 24 registers starting from the DMA burst base address */
 #define LL_TIM_DMABURST_LENGTH_25TRANSFERS     (TIM_DCR_DBL_4 | TIM_DCR_DBL_3)                                 /*!< Transfer is done to 25 registers starting from the DMA burst base address */
-#define LL_TIM_DMABURST_LENGTH_26TRANSFERS     (TIM_DCR_DBL_4 |  TIM_DCR_DBL_3 |  TIM_DCR_DBL_0)               /*!< Transfer is done to 26 registers starting from the DMA burst base address */
+#define LL_TIM_DMABURST_LENGTH_26TRANSFERS     (TIM_DCR_DBL_4 | TIM_DCR_DBL_3 | TIM_DCR_DBL_0)                 /*!< Transfer is done to 26 registers starting from the DMA burst base address */
 /**
   * @}
   */
@@ -3896,9 +3896,7 @@ __STATIC_INLINE void LL_TIM_ConfigETR(TIM_TypeDef *TIMx, uint32_t ETRPolarity, u
   *         TIM1: any combination of ETR_RMP where
   *
   *            @arg @ref LL_TIM_TIM1_ETRSOURCE_GPIO
-  @if STM32H503xx
   *            @arg @ref LL_TIM_TIM1_ETRSOURCE_COMP1      (*)
-  @endif
   *            @arg @ref LL_TIM_TIM1_ETRSOURCE_ADC1_AWD1
   *            @arg @ref LL_TIM_TIM1_ETRSOURCE_ADC1_AWD2
   *            @arg @ref LL_TIM_TIM1_ETRSOURCE_ADC1_AWD3
@@ -3906,9 +3904,7 @@ __STATIC_INLINE void LL_TIM_ConfigETR(TIM_TypeDef *TIMx, uint32_t ETRPolarity, u
   *         TIM2: any combination of ETR_RMP where
   *
   *            @arg @ref LL_TIM_TIM2_ETRSOURCE_GPIO
-  @if STM32H503xx
   *            @arg @ref LL_TIM_TIM2_ETRSOURCE_COMP1      (*)
-  @endif
   *            @arg @ref LL_TIM_TIM2_ETRSOURCE_LSE
   *            @arg @ref LL_TIM_TIM2_ETRSOURCE_SAI1_FSA   (*)
   *            @arg @ref LL_TIM_TIM2_ETRSOURCE_SAI1_FSB   (*)
@@ -3921,9 +3917,7 @@ __STATIC_INLINE void LL_TIM_ConfigETR(TIM_TypeDef *TIMx, uint32_t ETRPolarity, u
   *         TIM3: any combination of ETR_RMP where
   *
   *            @arg @ref LL_TIM_TIM3_ETRSOURCE_GPIO
-  @if STM32H503xx
   *            @arg @ref LL_TIM_TIM3_ETRSOURCE_COMP1      (*)
-  @endif
   *            @arg @ref LL_TIM_TIM3_ETRSOURCE_TIM2_ETR
   *            @arg @ref LL_TIM_TIM3_ETRSOURCE_TIM4_ETR   (*)
   *            @arg @ref LL_TIM_TIM3_ETRSOURCE_TIM5_ETR   (*)
@@ -3932,8 +3926,8 @@ __STATIC_INLINE void LL_TIM_ConfigETR(TIM_TypeDef *TIMx, uint32_t ETRPolarity, u
   *         TIM4: any combination of ETR_RMP where     (**)
   *
   *            @arg @ref LL_TIM_TIM4_ETRSOURCE_GPIO
+  *            @arg @ref LL_TIM_TIM4_ETRSOURCE_TIM2_ETR
   *            @arg @ref LL_TIM_TIM4_ETRSOURCE_TIM3_ETR
-  *            @arg @ref LL_TIM_TIM4_ETRSOURCE_TIM4_ETR
   *            @arg @ref LL_TIM_TIM4_ETRSOURCE_TIM5_ETR
   *
   *         TIM5: any combination of ETR_RMP where   (**)
@@ -4357,9 +4351,7 @@ __STATIC_INLINE uint32_t LL_TIM_IsEnabledAllOutputs(const TIM_TypeDef *TIMx)
   *         @arg @ref LL_TIM_BREAK_INPUT_BKIN2
   * @param  Source This parameter can be one of the following values:
   *         @arg @ref LL_TIM_BKIN_SOURCE_BKIN
-  @if STM32H503xx
   *         @arg @ref LL_TIM_BKIN_SOURCE_BKCOMP1 (*)
-  @endif
   *
   *         (*)  Value not defined in all devices.
   * @retval None
@@ -4384,9 +4376,7 @@ __STATIC_INLINE void LL_TIM_EnableBreakInputSource(TIM_TypeDef *TIMx, uint32_t B
   *         @arg @ref LL_TIM_BREAK_INPUT_BKIN2
   * @param  Source This parameter can be one of the following values:
   *         @arg @ref LL_TIM_BKIN_SOURCE_BKIN
-  @if STM32H503xx
   *         @arg @ref LL_TIM_BKIN_SOURCE_BKCOMP1 (*)
-  @endif
   *
   *         (*)  Value not defined in all devices.
   * @retval None
@@ -4411,9 +4401,7 @@ __STATIC_INLINE void LL_TIM_DisableBreakInputSource(TIM_TypeDef *TIMx, uint32_t 
   *         @arg @ref LL_TIM_BREAK_INPUT_BKIN2
   * @param  Source This parameter can be one of the following values:
   *         @arg @ref LL_TIM_BKIN_SOURCE_BKIN
-  @if STM32H503xx
   *         @arg @ref LL_TIM_BKIN_SOURCE_BKCOMP1 (*)
-  @endif
   * @param  Polarity This parameter can be one of the following values:
   *         @arg @ref LL_TIM_BKIN_POLARITY_LOW
   *         @arg @ref LL_TIM_BKIN_POLARITY_HIGH
@@ -6268,8 +6256,7 @@ ErrorStatus LL_TIM_BDTR_Init(TIM_TypeDef *TIMx, const LL_TIM_BDTR_InitTypeDef *T
   * @}
   */
 
-#endif /* TIM1 || TIM2 || TIM3 || TIM4 || TIM5 || TIM6 || TIM7 || TIM8 \
-       || TIM12 || TIM13 || TIM14 || TIM15 || TIM16 || TIM17 */
+#endif /* TIM1 || TIM2 || TIM3 || TIM4 || TIM5 || TIM6 || TIM7 || TIM8 || TIM12 || TIM13 || TIM14 || TIM15 || TIM16 || TIM17 */
 
 /**
   * @}
