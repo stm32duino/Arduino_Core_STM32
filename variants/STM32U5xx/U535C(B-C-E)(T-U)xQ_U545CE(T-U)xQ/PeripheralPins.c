@@ -15,7 +15,7 @@
  * STM32U535CCTxQ.xml, STM32U535CCUxQ.xml
  * STM32U535CETxQ.xml, STM32U535CEUxQ.xml
  * STM32U545CETxQ.xml, STM32U545CEUxQ.xml
- * CubeMX DB release 6.0.80
+ * CubeMX DB release 6.0.90
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

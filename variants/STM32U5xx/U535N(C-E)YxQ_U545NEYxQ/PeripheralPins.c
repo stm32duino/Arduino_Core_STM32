@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32U535NCYxQ.xml, STM32U535NEYxQ.xml
  * STM32U545NEYxQ.xml
- * CubeMX DB release 6.0.80
+ * CubeMX DB release 6.0.90
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
