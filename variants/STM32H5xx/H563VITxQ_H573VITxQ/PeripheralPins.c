@@ -12,7 +12,7 @@
  */
 /*
  * Automatically generated from STM32H563VITxQ.xml, STM32H573VITxQ.xml
- * CubeMX DB release 6.0.80
+ * CubeMX DB release 6.0.90
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
@@ -529,11 +529,11 @@ WEAK const PinMap PinMap_OCTOSPI_SSEL[] = {
 //*** USB ***
 
 #if defined(HAL_PCD_MODULE_ENABLED) || defined(HAL_HCD_MODULE_ENABLED)
-WEAK const PinMap PinMap_USB_DRD_FS[] = {
-  {PA_8,  USB_DRD_FS, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF10_USB)}, // USB_SOF
-  {PA_11, USB_DRD_FS, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_NOPULL, GPIO_AF10_USB)}, // USB_DM
-  {PA_12, USB_DRD_FS, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_NOPULL, GPIO_AF10_USB)}, // USB_DP
-  {NC,    NP,         0}
+WEAK const PinMap PinMap_USB[] = {
+  {PA_8,  USB, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF10_USB)}, // USB_SOF
+  {PA_11, USB, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_NOPULL, GPIO_AF10_USB)}, // USB_DM
+  {PA_12, USB, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_NOPULL, GPIO_AF10_USB)}, // USB_DP
+  {NC,    NP,  0}
 };
 #endif
 

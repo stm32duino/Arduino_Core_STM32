@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic H563VGTx
+GenH5.menu.pnum.GENERIC_H563VGTX=Generic H563VGTx
+GenH5.menu.pnum.GENERIC_H563VGTX.upload.maximum_size=1048576
+GenH5.menu.pnum.GENERIC_H563VGTX.upload.maximum_data_size=655360
+GenH5.menu.pnum.GENERIC_H563VGTX.build.board=GENERIC_H563VGTX
+GenH5.menu.pnum.GENERIC_H563VGTX.build.product_line=STM32H563xx
+GenH5.menu.pnum.GENERIC_H563VGTX.build.variant=STM32H5xx/H563V(G-I)T
+
+# Generic H563VITx
+GenH5.menu.pnum.GENERIC_H563VITX=Generic H563VITx
+GenH5.menu.pnum.GENERIC_H563VITX.upload.maximum_size=2097152
+GenH5.menu.pnum.GENERIC_H563VITX.upload.maximum_data_size=655360
+GenH5.menu.pnum.GENERIC_H563VITX.build.board=GENERIC_H563VITX
+GenH5.menu.pnum.GENERIC_H563VITX.build.product_line=STM32H563xx
+GenH5.menu.pnum.GENERIC_H563VITX.build.variant=STM32H5xx/H563V(G-I)T
+
