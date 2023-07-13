@@ -58,6 +58,7 @@ add_library(SrcWrapper_bin OBJECT EXCLUDE_FROM_ALL
   src/HAL/stm32yyxx_hal_fmpsmbus.c
   src/HAL/stm32yyxx_hal_fmpsmbus_ex.c
   src/HAL/stm32yyxx_hal_gfxmmu.c
+  src/HAL/stm32yyxx_hal_gfxtim.c
   src/HAL/stm32yyxx_hal_gpio.c
   src/HAL/stm32yyxx_hal_gpio_ex.c
   src/HAL/stm32yyxx_hal_gpu2d.c
