@@ -671,7 +671,8 @@ when the selected signal is detected on the SYNC input pin) */
                                          ((__VALUE__) == TSC_PG_PRESC_DIV128))
 
 #define IS_TSC_PG_PRESC_VS_CTPL(__PGPSC__, __CTPL__)    ((((__PGPSC__) == TSC_PG_PRESC_DIV1) && \
-                                                          ((__CTPL__) > TSC_CTPL_2CYCLES)) ||   \
+                                                          (((__CTPL__) == TSC_CTPL_1CYCLE) ||   \
+                                                           ((__CTPL__) > TSC_CTPL_2CYCLES))) ||   \
                                                          (((__PGPSC__) == TSC_PG_PRESC_DIV2) && \
                                                           ((__CTPL__) > TSC_CTPL_1CYCLE))  ||   \
                                                          (((__PGPSC__) > TSC_PG_PRESC_DIV2)  && \

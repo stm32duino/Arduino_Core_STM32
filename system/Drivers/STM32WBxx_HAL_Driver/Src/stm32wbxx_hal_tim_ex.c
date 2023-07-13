@@ -2463,7 +2463,7 @@ HAL_StatusTypeDef HAL_TIMEx_DisarmBreakInput(TIM_HandleTypeDef *htim, uint32_t B
   * @note  Break input is automatically armed as soon as MOE bit is set.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_TIMEx_ReArmBreakInput(TIM_HandleTypeDef *htim, uint32_t BreakInput)
+HAL_StatusTypeDef HAL_TIMEx_ReArmBreakInput(const TIM_HandleTypeDef *htim, uint32_t BreakInput)
 {
   HAL_StatusTypeDef status = HAL_OK;
   uint32_t tickstart;
@@ -2820,13 +2820,13 @@ static void TIM_CCxNChannelCmd(TIM_TypeDef *TIMx, uint32_t Channel, uint32_t Cha
 {
   uint32_t tmp;
 
-  tmp = TIM_CCER_CC1NE << (Channel & 0x1FU); /* 0x1FU = 31 bits max shift */
+  tmp = TIM_CCER_CC1NE << (Channel & 0xFU); /* 0xFU = 15 bits max shift */
 
   /* Reset the CCxNE Bit */
   TIMx->CCER &=  ~tmp;
 
   /* Set or reset the CCxNE Bit */
-  TIMx->CCER |= (uint32_t)(ChannelNState << (Channel & 0x1FU)); /* 0x1FU = 31 bits max shift */
+  TIMx->CCER |= (uint32_t)(ChannelNState << (Channel & 0xFU)); /* 0xFU = 15 bits max shift */
 }
 /**
   * @}

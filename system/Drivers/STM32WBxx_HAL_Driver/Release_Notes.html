@@ -40,7 +40,7 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section15" checked aria-hidden="true"> <label for="collapse-section15" aria-hidden="true">V1.13.0 / 8-February-2023</label>
+<input type="checkbox" id="collapse-section16" checked aria-hidden="true"> <label for="collapse-section16" aria-hidden="true">V1.14.0 / 07-June-2023</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <ul>
@@ -49,6 +49,67 @@
 </ul>
 <h2 id="contents">Contents</h2>
 <h3 id="hal-drivers-updates"><strong>HAL Drivers</strong> updates</h3>
+<ul>
+<li><strong>HAL CRYP</strong> driver
+<ul>
+<li>Update Crypt/Decrypt IT processes to avoid Computation Completed IRQ fires before the DINR pointer increment</li>
+</ul></li>
+<li><strong>HAL Generic</strong> driver
+<ul>
+<li>Update of HAL_GetTickFreq() brief</li>
+</ul></li>
+<li><strong>HAL I2C</strong> driver
+<ul>
+<li>Change HAL_I2C_IsDeviceReady to support 10 bit addressing mode</li>
+<li>Update HAL I2C driver to prefetch data before starting the transmission: implementation of errata sheet workaround I2C2-190208 : Transmission stalled after first byte</li>
+<li>Update HAL I2C driver to disable all interrupts after end of transaction</li>
+<li>Update HAL_I2C_Init API to clear ADD10 bit in 7 bit addressing mode</li>
+<li>Update HAL_I2C_Mem_Write_IT API to initialize XferSize at 0</li>
+</ul></li>
+<li><strong>HAL SMBUS</strong> driver
+<ul>
+<li>Update HAL I2C driver to prefetch data before starting the transmission: implementation of errata sheet workaround I2C2-190208 : Transmission stalled after first byte</li>
+</ul></li>
+<li><strong>HAL SPI</strong> driver
+<ul>
+<li>Fix driver to don’t update state in case of error. (HAL_SPI_STATE_READY will be set only in case of HAL_TIMEOUT)</li>
+<li>Update HAL_SPI_TransmitReceive API to set the bit CRCNEXT in case of one byte transaction</li>
+<li>Update IT API to enable interrupts after process unlock</li>
+</ul></li>
+<li><strong>HAL TSC</strong> driver
+<ul>
+<li>Add parameter assertion depends on Duration time restriction link to product</li>
+</ul></li>
+<li><strong>HAL UART</strong> driver
+<ul>
+<li>Update initialisation sequence for TXINV, RXINV and TXRXSWAP settings</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<h3 id="ll-drivers-updates"><strong>LL Drivers</strong> updates</h3>
+<ul>
+<li><strong>LL USB</strong> driver
+<ul>
+<li>Add USB_EPStopXfer() function</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<h2 id="backward-compatibility">Backward Compatibility</h2>
+<p>This release is compatible with the previous versions.</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section15" aria-hidden="true"> <label for="collapse-section15" aria-hidden="true">V1.13.0 / 8-February-2023</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<ul>
+<li>Maintenance release of HAL and Low Layer drivers to include latest corrections</li>
+<li>HAL/LL code quality enhancement</li>
+</ul>
+<h2 id="contents-1">Contents</h2>
+<h3 id="hal-drivers-updates-1"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li><strong>HAL FLASH</strong> driver
 <ul>
@@ -79,20 +140,20 @@
 </ul>
 <p><br />
 </p>
-<h2 id="backward-compatibility">Backward Compatibility</h2>
+<h2 id="backward-compatibility-1">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
 </div>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section14" aria-hidden="true"> <label for="collapse-section14" aria-hidden="true">V1.12.0 / 09-November-2022</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>Maintenance release of HAL and Low Layer drivers to include latest corrections</li>
 <li>Remove HAL_LOCK/HAL_UNLOCK calls in HAL_xxxx_RegisterCallback &amp; HAL_xxxx_UnregisterCallback for IPs (IRDA, LPTIM, SMARTCARD, TIM, UART, USART)</li>
 </ul>
-<h2 id="contents-1">Contents</h2>
-<h3 id="hal-drivers-updates-1"><strong>HAL Drivers</strong> updates</h3>
+<h2 id="contents-2">Contents</h2>
+<h3 id="hal-drivers-updates-2"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li><strong>HAL ADC</strong> driver
 <ul>
@@ -139,7 +200,7 @@
 </ul>
 <p><br />
 </p>
-<h3 id="ll-drivers-updates"><strong>LL Drivers</strong> updates</h3>
+<h3 id="ll-drivers-updates-1"><strong>LL Drivers</strong> updates</h3>
 <ul>
 <li><strong>LL ADC</strong> driver
 <ul>
@@ -160,20 +221,20 @@
 </ul>
 <p><br />
 </p>
-<h2 id="backward-compatibility-1">Backward Compatibility</h2>
+<h2 id="backward-compatibility-2">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
 </div>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section13" aria-hidden="true"> <label for="collapse-section13" aria-hidden="true">V1.11.0 / 01-June-2022</label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li>Maintenance release of HAL and Low Layer drivers to include latest corrections</li>
 <li>Correct English spelling errors and typos</li>
 </ul>
-<h2 id="contents-2">Contents</h2>
-<h3 id="hal-drivers-updates-2"><strong>HAL Drivers</strong> updates</h3>
+<h2 id="contents-3">Contents</h2>
+<h3 id="hal-drivers-updates-3"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li><strong>HAL EXTI</strong> driver
 <ul>
@@ -249,7 +310,7 @@
 </ul>
 <p><br />
 </p>
-<h3 id="ll-drivers-updates-1"><strong>LL Drivers</strong> updates</h3>
+<h3 id="ll-drivers-updates-2"><strong>LL Drivers</strong> updates</h3>
 <ul>
 <li><strong>LL I2C</strong> driver
 <ul>
@@ -285,19 +346,19 @@
 </ul>
 <p><br />
 </p>
-<h2 id="backward-compatibility-2">Backward Compatibility</h2>
+<h2 id="backward-compatibility-3">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
 </div>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section12" aria-hidden="true"> <label for="collapse-section12" aria-hidden="true">V1.10.1 / 27-March-2022</label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li>Patch release of <strong>HAL and Low Layer</strong> drivers</li>
 </ul>
-<h2 id="contents-3">Contents</h2>
-<h3 id="hal-drivers-updates-3"><strong>HAL Drivers</strong> updates</h3>
+<h2 id="contents-4">Contents</h2>
+<h3 id="hal-drivers-updates-4"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li><strong>HAL COMP</strong> driver
 <ul>
@@ -306,7 +367,7 @@
 </ul>
 <p><br />
 </p>
-<h3 id="ll-drivers-updates-2"><strong>LL Drivers</strong> updates</h3>
+<h3 id="ll-drivers-updates-3"><strong>LL Drivers</strong> updates</h3>
 <ul>
 <li><strong>LL COMP</strong> driver
 <ul>
@@ -315,21 +376,21 @@
 </ul>
 <p><br />
 </p>
-<h2 id="backward-compatibility-3">Backward Compatibility</h2>
+<h2 id="backward-compatibility-4">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
 </div>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section11" aria-hidden="true"> <label for="collapse-section11" aria-hidden="true">V1.10.0 / 12-November-2021</label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <ul>
 <li>Maintenance release of <strong>HAL and Low Layer</strong> drivers to include latest corrections</li>
 <li>All source files: update disclaimer to add reference to the new license agreement</li>
 <li>Correct English spelling errors and typos</li>
 </ul>
-<h2 id="contents-4">Contents</h2>
-<h3 id="hal-drivers-updates-4"><strong>HAL Drivers</strong> updates</h3>
+<h2 id="contents-5">Contents</h2>
+<h3 id="hal-drivers-updates-5"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li><strong>HAL ADC</strong> driver
 <ul>
@@ -400,7 +461,7 @@
 </ul>
 <p><br />
 </p>
-<h3 id="ll-drivers-updates-3"><strong>LL Drivers</strong> updates</h3>
+<h3 id="ll-drivers-updates-4"><strong>LL Drivers</strong> updates</h3>
 <ul>
 <li><strong>LL ADC</strong> driver
 <ul>
@@ -415,14 +476,14 @@
 </ul>
 <p><br />
 </p>
-<h2 id="backward-compatibility-4">Backward Compatibility</h2>
+<h2 id="backward-compatibility-5">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
 </div>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section10" aria-hidden="true"> <label for="collapse-section10" aria-hidden="true">V1.9.0 / 24-June-2021</label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <ul>
 <li>Maintenance release of <strong>HAL and Low Layer</strong> drivers to include latest corrections</li>
 <li>Update of HAL SMBUS driver to introduce fast mode and fast mode plus
@@ -436,8 +497,8 @@
 </ul>
 <p><br />
 </p>
-<h2 id="contents-5">Contents</h2>
-<h3 id="hal-drivers-updates-5"><strong>HAL Drivers</strong> updates</h3>
+<h2 id="contents-6">Contents</h2>
+<h3 id="hal-drivers-updates-6"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li><strong>HAL CORTEX</strong> driver
 <ul>
@@ -513,7 +574,7 @@
 </ul>
 <p><br />
 </p>
-<h3 id="ll-drivers-updates-4"><strong>LL Drivers</strong> updates</h3>
+<h3 id="ll-drivers-updates-5"><strong>LL Drivers</strong> updates</h3>
 <ul>
 <li><strong>LL DMA</strong> driver
 <ul>
@@ -540,14 +601,14 @@
 </ul>
 <p><br />
 </p>
-<h2 id="backward-compatibility-5">Backward Compatibility</h2>
+<h2 id="backward-compatibility-6">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
 </div>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section9" aria-hidden="true"> <label for="collapse-section9" aria-hidden="true">v1.8.0 / 12-February-2021</label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <h3 id="add-support-for-stm32wb15xx-and-stm32wb10xx">Add support for STM32WB15xx and STM32WB10xx</h3>
 <table>
 <thead>
@@ -683,14 +744,14 @@
 </tr>
 </tbody>
 </table>
-<h2 id="backward-compatibility-6">Backward Compatibility</h2>
+<h2 id="backward-compatibility-7">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
 </div>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section8"  aria-hidden="true"> <label for="collapse-section8" aria-hidden="true">v1.7.0 / 30-October-2020</label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
+<h2 id="main-changes-8">Main Changes</h2>
 <h3 id="maitenance-release">Maitenance release</h3>
 <p>All peripheral</p>
 <table>
@@ -763,14 +824,14 @@
 </tr>
 </tbody>
 </table>
-<h2 id="backward-compatibility-7">Backward Compatibility</h2>
+<h2 id="backward-compatibility-8">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
 </div>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section7" aria-hidden="true"> <label for="collapse-section7" aria-hidden="true">v1.6.0 / 05-June-2020</label>
 <div>
-<h2 id="main-changes-8">Main Changes</h2>
+<h2 id="main-changes-9">Main Changes</h2>
 <h3 id="maitenance-release-1">Maitenance release</h3>
 <p>All peripheral</p>
 <table>
@@ -875,14 +936,14 @@
 </tr>
 </tbody>
 </table>
-<h2 id="backward-compatibility-8">Backward Compatibility</h2>
+<h2 id="backward-compatibility-9">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
 </div>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true">v1.5.0 / 12-February-2020</label>
 <div>
-<h2 id="main-changes-9">Main Changes</h2>
+<h2 id="main-changes-10">Main Changes</h2>
 <h3 id="introduction-of-stm32wb5m-stm32wb35xx-and-stm32wb30xx-product">Introduction of STM32WB5M, STM32WB35xx and STM32WB30xx product</h3>
 <p>This release introduce the support of STM32WB5Mxx, STM32WB35xx product and its value line STM32WB30xx.</p>
 <p>Added features:</p>
@@ -927,14 +988,14 @@
 </tr>
 </tbody>
 </table>
-<h2 id="backward-compatibility-9">Backward Compatibility</h2>
+<h2 id="backward-compatibility-10">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
 </div>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section5"  aria-hidden="true"> <label for="collapse-section5" aria-hidden="true">v1.4.0 / 15-December-2019</label>
 <div>
-<h2 id="main-changes-10">Main Changes</h2>
+<h2 id="main-changes-11">Main Changes</h2>
 <h3 id="maitenance-release-2">Maitenance release</h3>
 <table>
 <thead>
@@ -978,7 +1039,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="backward-compatibility-10">Backward Compatibility</h2>
+<h2 id="backward-compatibility-11">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
 <h2 id="dependencies">Dependencies</h2>
 <p>This software release is compatible with:</p>
@@ -988,7 +1049,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true">v1.3.0 / 11-September-2019</label>
 <div>
-<h2 id="main-changes-11">Main Changes</h2>
+<h2 id="main-changes-12">Main Changes</h2>
 <h3 id="maitenance-release-3">Maitenance release</h3>
 <table>
 <thead>
@@ -1060,7 +1121,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="backward-compatibility-11">Backward Compatibility</h2>
+<h2 id="backward-compatibility-12">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
 <h2 id="dependencies-1">Dependencies</h2>
 <p>This software release is compatible with:</p>
@@ -1070,7 +1131,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V1.2.0 / 26-June-2019</label>
 <div>
-<h2 id="main-changes-12">Main Changes</h2>
+<h2 id="main-changes-13">Main Changes</h2>
 <h3 id="stm32wb50xx-introduction-and-maintenance-release">STM32WB50xx introduction and maintenance release</h3>
 <p>First release for STM32WBxx HAL drivers introducing <strong>stm32wb50xx</strong> devices.</p>
 <table>
@@ -1139,7 +1200,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="backward-compatibility-12">Backward Compatibility</h2>
+<h2 id="backward-compatibility-13">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
 <h2 id="dependencies-2">Dependencies</h2>
 <p>This software release is compatible with:</p>
@@ -1149,7 +1210,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">V1.1.0 / 05-April-2019</label>
 <div>
-<h2 id="main-changes-13">Main Changes</h2>
+<h2 id="main-changes-14">Main Changes</h2>
 <h3 id="maintenance-release">Maintenance release</h3>
 <p>Maintenance release of HAL and Low layers drivers supporting STM32WB55xx devices.</p>
 <table>
@@ -1203,7 +1264,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="backward-compatibility-13">Backward Compatibility</h2>
+<h2 id="backward-compatibility-14">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
 <h2 id="dependencies-3">Dependencies</h2>
 <p>This software release is compatible with:</p>
@@ -1213,7 +1274,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1"  aria-hidden="true"> <label for="collapse-section1" aria-hidden="true">V1.0.0 / 06-February-2019</label>
 <div>
-<h2 id="main-changes-14">Main Changes</h2>
+<h2 id="main-changes-15">Main Changes</h2>
 <h3 id="first-release">First release</h3>
 <p>First official release of HAL (Hardware Abstraction Layer) and LL (Low layers) drivers to support STM32WB55xx.</p>
 </div>

@@ -809,8 +809,8 @@ uint32_t             HAL_I2C_GetError(const I2C_HandleTypeDef *hi2c);
                                                                  (I2C_CR2_START) | (I2C_CR2_AUTOEND)) & \
                                                                 (~I2C_CR2_RD_WRN)) : \
                                                      (uint32_t)((((uint32_t)(__ADDRESS__) & (I2C_CR2_SADD)) | \
-                                                                 (I2C_CR2_ADD10) | (I2C_CR2_START)) & \
-                                                                (~I2C_CR2_RD_WRN)))
+                                                                 (I2C_CR2_ADD10) | (I2C_CR2_START) | \
+                                                                 (I2C_CR2_AUTOEND)) & (~I2C_CR2_RD_WRN)))
 
 #define I2C_CHECK_FLAG(__ISR__, __FLAG__)         ((((__ISR__) & ((__FLAG__) & I2C_FLAG_MASK)) == \
                                                     ((__FLAG__) & I2C_FLAG_MASK)) ? SET : RESET)

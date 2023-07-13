@@ -96,7 +96,7 @@ typedef enum
 {
   HAL_CRYP_SUSPEND_NONE            = 0x00U,    /*!< CRYP processing suspension not requested */
   HAL_CRYP_SUSPEND                 = 0x01U     /*!< CRYP processing suspension requested     */
-}HAL_SuspendTypeDef;
+} HAL_SuspendTypeDef;
 #endif /* USE_HAL_CRYP_SUSPEND_RESUME */
 
 /**
@@ -407,7 +407,7 @@ typedef  void (*pCRYP_CallbackTypeDef)(CRYP_HandleTypeDef *hcryp);    /*!< point
   *            @arg CRYP_FLAG_OFNE: Output FIFO is not empty
   *            @arg CRYP_FLAG_OFFU: Output FIFO is full
   *            @arg CRYP_FLAG_OUTRIS: Input FIFO service raw interrupt is pending
- * @retval The state of __FLAG__ (TRUE or FALSE).
+  * @retval The state of __FLAG__ (TRUE or FALSE).
   */
 
 #define CRYP_FLAG_MASK  0x0000001FU
@@ -434,7 +434,8 @@ typedef  void (*pCRYP_CallbackTypeDef)(CRYP_HandleTypeDef *hcryp);    /*!< point
   * @retval State of interruption (TRUE or FALSE).
   */
 
-#define __HAL_CRYP_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__) (((__HANDLE__)->Instance->CR & (__INTERRUPT__)) == (__INTERRUPT__))
+#define __HAL_CRYP_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__) (((__HANDLE__)->Instance->CR &\
+                                                              (__INTERRUPT__)) == (__INTERRUPT__))
 
 /** @brief  Check whether the specified CRYP interrupt is set or not.
   * @param  __HANDLE__ specifies the CRYP handle.
@@ -503,7 +504,8 @@ void HAL_CRYP_MspDeInit(CRYP_HandleTypeDef *hcryp);
 HAL_StatusTypeDef HAL_CRYP_SetConfig(CRYP_HandleTypeDef *hcryp, CRYP_ConfigTypeDef *pConf);
 HAL_StatusTypeDef HAL_CRYP_GetConfig(CRYP_HandleTypeDef *hcryp, CRYP_ConfigTypeDef *pConf);
 #if (USE_HAL_CRYP_REGISTER_CALLBACKS == 1U)
-HAL_StatusTypeDef HAL_CRYP_RegisterCallback(CRYP_HandleTypeDef *hcryp, HAL_CRYP_CallbackIDTypeDef CallbackID, pCRYP_CallbackTypeDef pCallback);
+HAL_StatusTypeDef HAL_CRYP_RegisterCallback(CRYP_HandleTypeDef *hcryp, HAL_CRYP_CallbackIDTypeDef CallbackID,
+                                            pCRYP_CallbackTypeDef pCallback);
 HAL_StatusTypeDef HAL_CRYP_UnRegisterCallback(CRYP_HandleTypeDef *hcryp, HAL_CRYP_CallbackIDTypeDef CallbackID);
 #endif /* USE_HAL_CRYP_REGISTER_CALLBACKS */
 #if (USE_HAL_CRYP_SUSPEND_RESUME == 1U)
@@ -520,8 +522,10 @@ HAL_StatusTypeDef HAL_CRYP_Resume(CRYP_HandleTypeDef *hcryp);
   */
 
 /* encryption/decryption ***********************************/
-HAL_StatusTypeDef HAL_CRYP_Encrypt(CRYP_HandleTypeDef *hcryp, uint32_t *Input, uint16_t Size, uint32_t *Output, uint32_t Timeout);
-HAL_StatusTypeDef HAL_CRYP_Decrypt(CRYP_HandleTypeDef *hcryp, uint32_t *Input, uint16_t Size, uint32_t *Output, uint32_t Timeout);
+HAL_StatusTypeDef HAL_CRYP_Encrypt(CRYP_HandleTypeDef *hcryp, uint32_t *Input, uint16_t Size, uint32_t *Output,
+                                   uint32_t Timeout);
+HAL_StatusTypeDef HAL_CRYP_Decrypt(CRYP_HandleTypeDef *hcryp, uint32_t *Input, uint16_t Size, uint32_t *Output,
+                                   uint32_t Timeout);
 HAL_StatusTypeDef HAL_CRYP_Encrypt_IT(CRYP_HandleTypeDef *hcryp, uint32_t *Input, uint16_t Size, uint32_t *Output);
 HAL_StatusTypeDef HAL_CRYP_Decrypt_IT(CRYP_HandleTypeDef *hcryp, uint32_t *Input, uint16_t Size, uint32_t *Output);
 HAL_StatusTypeDef HAL_CRYP_Encrypt_DMA(CRYP_HandleTypeDef *hcryp, uint32_t *Input, uint16_t Size, uint32_t *Output);
@@ -579,11 +583,11 @@ uint32_t HAL_CRYP_GetError(CRYP_HandleTypeDef *hcryp);
                              ((CONFIG) == CRYP_KEYIVCONFIG_ONCE))
 
 #define IS_CRYP_BUFFERSIZE(ALGO, DATAWIDTH, SIZE)                                             \
-       (((((ALGO) == CRYP_AES_CTR)) &&                                             \
-            ((((DATAWIDTH) == CRYP_DATAWIDTHUNIT_WORD) && (((SIZE) % 4U) == 0U))           || \
-             (((DATAWIDTH) == CRYP_DATAWIDTHUNIT_BYTE) && (((SIZE) % 16U) == 0U))))        || \
-         (((ALGO) == CRYP_AES_ECB) || ((ALGO) == CRYP_AES_CBC)                  || \
-          ((ALGO)== CRYP_AES_GCM_GMAC) || ((ALGO) == CRYP_AES_CCM)))
+  (((((ALGO) == CRYP_AES_CTR)) &&                                             \
+    ((((DATAWIDTH) == CRYP_DATAWIDTHUNIT_WORD) && (((SIZE) % 4U) == 0U))           || \
+     (((DATAWIDTH) == CRYP_DATAWIDTHUNIT_BYTE) && (((SIZE) % 16U) == 0U))))        || \
+   (((ALGO) == CRYP_AES_ECB) || ((ALGO) == CRYP_AES_CBC)                  || \
+    ((ALGO)== CRYP_AES_GCM_GMAC) || ((ALGO) == CRYP_AES_CCM)))
 
 /**
   * @}

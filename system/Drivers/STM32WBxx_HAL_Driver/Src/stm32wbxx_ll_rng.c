@@ -25,7 +25,7 @@
 #include "stm32_assert.h"
 #else
 #define assert_param(expr) ((void)0U)
-#endif
+#endif /* USE_FULL_ASSERT */
 
 /** @addtogroup STM32WBxx_LL_Driver
   * @{
@@ -68,16 +68,26 @@
   *          - SUCCESS: RNG registers are de-initialized
   *          - ERROR: not applicable
   */
-ErrorStatus LL_RNG_DeInit(RNG_TypeDef *RNGx)
+ErrorStatus LL_RNG_DeInit(const RNG_TypeDef *RNGx)
 {
+  ErrorStatus status = SUCCESS;
+
   /* Check the parameters */
   assert_param(IS_RNG_ALL_INSTANCE(RNGx));
-  /* Enable RNG reset state */
-  LL_AHB3_GRP1_ForceReset(LL_AHB3_GRP1_PERIPH_RNG);
+  if (RNGx == RNG)
+  {
+    /* Enable RNG reset state */
+    LL_AHB3_GRP1_ForceReset(LL_AHB3_GRP1_PERIPH_RNG);
 
-  /* Release RNG from reset state */
-  LL_AHB3_GRP1_ReleaseReset(LL_AHB3_GRP1_PERIPH_RNG);
-  return (SUCCESS);
+    /* Release RNG from reset state */
+    LL_AHB3_GRP1_ReleaseReset(LL_AHB3_GRP1_PERIPH_RNG);
+  }
+  else
+  {
+    status = ERROR;
+  }
+
+  return status;
 }
 
 /**
