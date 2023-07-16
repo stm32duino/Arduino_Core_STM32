@@ -518,7 +518,7 @@ uint32_t HardwareTimer::getOverflow(TimerFormat_t format)
   *           HERTZ_FORMAT:    overflow is the frequency in hertz for overflow
   * @retval None
   */
-void HardwareTimer::setOverflow(uint32_t overflow, TimerFormat_t format)
+void HardwareTimer::setOverflow(uint64_t overflow, TimerFormat_t format)
 {
   uint32_t ARR_RegisterValue;
   uint32_t PeriodTicks;
