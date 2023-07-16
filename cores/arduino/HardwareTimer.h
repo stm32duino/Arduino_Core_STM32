@@ -113,7 +113,7 @@ class HardwareTimer {
     uint32_t getPrescaleFactor();
 
     void setOverflow(uint64_t val, TimerFormat_t format = TICK_FORMAT); // set AutoReload register depending on format provided
-    uint32_t getOverflow(TimerFormat_t format = TICK_FORMAT); // return overflow depending on format provided
+    uint64_t getOverflow(TimerFormat_t format = TICK_FORMAT); // return overflow depending on format provided
 
     void setPWM(uint32_t channel, PinName pin, uint32_t frequency, uint32_t dutycycle, callback_function_t PeriodCallback = nullptr, callback_function_t CompareCallback = nullptr); // Set all in one command freq in HZ, Duty in percentage. Including both interrupt.
     void setPWM(uint32_t channel, uint32_t pin, uint32_t frequency, uint32_t dutycycle, callback_function_t PeriodCallback = nullptr, callback_function_t CompareCallback = nullptr);

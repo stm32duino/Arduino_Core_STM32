@@ -483,18 +483,18 @@ void HardwareTimer::setPrescaleFactor(uint32_t prescaler)
   *           MICROSEC_FORMAT: return number of microsecondes for overflow
   *           HERTZ_FORMAT:    return frequency in hertz for overflow
   */
-uint32_t HardwareTimer::getOverflow(TimerFormat_t format)
+uint64_t HardwareTimer::getOverflow(TimerFormat_t format)
 {
   // Hardware register correspond to period count-1. Example ARR register value 9 means period of 10 timer cycle
   uint32_t ARR_RegisterValue = LL_TIM_GetAutoReload(_timerObj.handle.Instance);
   uint32_t Prescalerfactor = LL_TIM_GetPrescaler(_timerObj.handle.Instance) + 1;
-  uint32_t return_value;
+  uint64_t return_value;
   switch (format) {
     case MICROSEC_FORMAT:
-      return_value = (uint32_t)(((ARR_RegisterValue + 1) * Prescalerfactor * 1000000.0) / getTimerClkFreq());
+      return_value = (uint64_t)(((ARR_RegisterValue + 1) * Prescalerfactor * 1000000.0) / getTimerClkFreq());
       break;
     case HERTZ_FORMAT:
-      return_value = (uint32_t)(getTimerClkFreq() / ((ARR_RegisterValue + 1) * Prescalerfactor));
+      return_value = (uint64_t)(getTimerClkFreq() / ((ARR_RegisterValue + 1) * Prescalerfactor));
       break;
     case TICK_FORMAT:
     default :
