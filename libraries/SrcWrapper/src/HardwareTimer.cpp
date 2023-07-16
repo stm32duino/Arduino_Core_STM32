@@ -521,7 +521,7 @@ uint32_t HardwareTimer::getOverflow(TimerFormat_t format)
 void HardwareTimer::setOverflow(uint64_t overflow, TimerFormat_t format)
 {
   uint32_t ARR_RegisterValue;
-  uint32_t PeriodTicks;
+  uint64_t PeriodTicks;
   uint32_t Prescalerfactor;
   uint32_t period_cyc;
   // Remark: Hardware register correspond to period count-1. Example ARR register value 9 means period of 10 timer cycle
