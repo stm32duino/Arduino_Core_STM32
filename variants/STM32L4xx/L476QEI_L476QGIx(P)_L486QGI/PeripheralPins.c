@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32L476Q(E-G)Ix.xml, STM32L476QGIxP.xml
  * STM32L486QGIx.xml
- * CubeMX DB release 6.0.80
+ * CubeMX DB release 6.0.90
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

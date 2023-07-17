@@ -1719,15 +1719,15 @@ void HAL_MMC_IRQHandler(MMC_HandleTypeDef *hmmc)
 #endif
         }
       }
+      /* Disable the DMA transfer for transmit request by setting the DMAEN bit
+      in the MMC DCTRL register */
+      hmmc->Instance->DCTRL &= (uint32_t)~((uint32_t)SDMMC_DCTRL_DMAEN);
+      /* Clear all the static flags */
+      __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_STATIC_DATA_FLAGS);
+      hmmc->State = HAL_MMC_STATE_READY;
+      hmmc->Context = MMC_CONTEXT_NONE;
       if(((context & MMC_CONTEXT_READ_SINGLE_BLOCK) == 0U) && ((context & MMC_CONTEXT_READ_MULTIPLE_BLOCK) == 0U))
       {
-        /* Disable the DMA transfer for transmit request by setting the DMAEN bit
-        in the MMC DCTRL register */
-        hmmc->Instance->DCTRL &= (uint32_t)~((uint32_t)SDMMC_DCTRL_DMAEN);
-
-        hmmc->State = HAL_MMC_STATE_READY;
-        hmmc->Context = MMC_CONTEXT_NONE;
-
 #if defined (USE_HAL_MMC_REGISTER_CALLBACKS) && (USE_HAL_MMC_REGISTER_CALLBACKS == 1U)
         hmmc->TxCpltCallback(hmmc);
 #else
@@ -4537,6 +4537,8 @@ static uint32_t MMC_PwrClassUpdate(MMC_HandleTypeDef *hmmc, uint32_t Wide, uint3
       supported_pwr_class = ((hmmc->Ext_CSD[(MMC_EXT_CSD_PWR_CL_52_INDEX/4)] >> MMC_EXT_CSD_PWR_CL_52_POS) & 0x000000FFU);
     }
     else
+#else /* Prevent compiler warning in case of -Wextra */
+    UNUSED(Speed);
 #endif
     {
       /* Field PWR_CL_26_xxx [201 or 203] */

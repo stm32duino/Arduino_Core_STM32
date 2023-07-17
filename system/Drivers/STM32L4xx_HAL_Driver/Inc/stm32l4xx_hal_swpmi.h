@@ -93,7 +93,7 @@ typedef struct
 
   SWPMI_InitTypeDef              Init;          /*!< SWPMI communication parameters       */
 
-  uint32_t                       *pTxBuffPtr;   /*!< Pointer to SWPMI Tx transfer Buffer  */
+  const uint32_t                 *pTxBuffPtr;   /*!< Pointer to SWPMI Tx transfer Buffer  */
 
   uint32_t                       TxXferSize;    /*!< SWPMI Tx Transfer size               */
 
@@ -405,11 +405,11 @@ HAL_StatusTypeDef HAL_SWPMI_UnRegisterCallback(SWPMI_HandleTypeDef        *hswpm
 #endif
 
 /* IO operation functions *****************************************************/
-HAL_StatusTypeDef HAL_SWPMI_Transmit(SWPMI_HandleTypeDef *hswpmi, uint32_t *pData, uint16_t Size, uint32_t Timeout);
+HAL_StatusTypeDef HAL_SWPMI_Transmit(SWPMI_HandleTypeDef *hswpmi, const uint32_t *pData, uint16_t Size, uint32_t Timeout);
 HAL_StatusTypeDef HAL_SWPMI_Receive(SWPMI_HandleTypeDef *hswpmi, uint32_t *pData, uint16_t Size, uint32_t Timeout);
-HAL_StatusTypeDef HAL_SWPMI_Transmit_IT(SWPMI_HandleTypeDef *hswpmi, uint32_t *pData, uint16_t Size);
+HAL_StatusTypeDef HAL_SWPMI_Transmit_IT(SWPMI_HandleTypeDef *hswpmi, const uint32_t *pData, uint16_t Size);
 HAL_StatusTypeDef HAL_SWPMI_Receive_IT(SWPMI_HandleTypeDef *hswpmi, uint32_t *pData, uint16_t Size);
-HAL_StatusTypeDef HAL_SWPMI_Transmit_DMA(SWPMI_HandleTypeDef *hswpmi, uint32_t *pData, uint16_t Size);
+HAL_StatusTypeDef HAL_SWPMI_Transmit_DMA(SWPMI_HandleTypeDef *hswpmi, const uint32_t *pData, uint16_t Size);
 HAL_StatusTypeDef HAL_SWPMI_Receive_DMA(SWPMI_HandleTypeDef *hswpmi, uint32_t *pData, uint16_t Size);
 HAL_StatusTypeDef HAL_SWPMI_DMAStop(SWPMI_HandleTypeDef *hswpmi);
 HAL_StatusTypeDef HAL_SWPMI_EnableLoopback(SWPMI_HandleTypeDef *hswpmi);
@@ -422,8 +422,8 @@ void              HAL_SWPMI_RxHalfCpltCallback(SWPMI_HandleTypeDef *hswpmi);
 void              HAL_SWPMI_ErrorCallback(SWPMI_HandleTypeDef *hswpmi);
 
 /* Peripheral Control and State functions  ************************************/
-HAL_SWPMI_StateTypeDef HAL_SWPMI_GetState(SWPMI_HandleTypeDef *hswpmi);
-uint32_t               HAL_SWPMI_GetError(SWPMI_HandleTypeDef *hswpmi);
+HAL_SWPMI_StateTypeDef HAL_SWPMI_GetState(const SWPMI_HandleTypeDef *hswpmi);
+uint32_t               HAL_SWPMI_GetError(const SWPMI_HandleTypeDef *hswpmi);
 
 /**
   * @}

@@ -162,7 +162,7 @@
       and a pointer to the user callback function.
 
       Use function HAL_QSPI_UnRegisterCallback() to reset a callback to the default
-      weak (surcharged) function. It allows to reset following callbacks:
+      weak (overridden) function. It allows to reset following callbacks:
         (+) ErrorCallback : callback when error occurs.
         (+) AbortCpltCallback : callback when abort is completed.
         (+) FifoThresholdCallback : callback when the fifo threshold is reached.
@@ -178,9 +178,9 @@
       This function) takes as parameters the HAL peripheral handle and the Callback ID.
 
       By default, after the HAL_QSPI_Init and if the state is HAL_QSPI_STATE_RESET
-      all callbacks are reset to the corresponding legacy weak (surcharged) functions.
+      all callbacks are reset to the corresponding legacy weak (overridden) functions.
       Exception done for MspInit and MspDeInit callbacks that are respectively
-      reset to the legacy weak (surcharged) functions in the HAL_QSPI_Init
+      reset to the legacy weak (overridden) functions in the HAL_QSPI_Init
       and  HAL_QSPI_DeInit only when these callbacks are null (not registered beforehand).
       If not, MspInit or MspDeInit are not null, the HAL_QSPI_Init and HAL_QSPI_DeInit
       keep and use the user MspInit/MspDeInit callbacks (registered beforehand)
@@ -195,7 +195,7 @@
 
       When The compilation define USE_HAL_QSPI_REGISTER_CALLBACKS is set to 0 or
       not defined, the callback registering feature is not available
-      and weak (surcharged) callbacks are used.
+      and weak (overridden) callbacks are used.
 
     *** Workarounds linked to Silicon Limitation ***
     ====================================================
@@ -2009,7 +2009,7 @@ __weak void HAL_QSPI_TimeOutCallback(QSPI_HandleTypeDef *hqspi)
 #if (USE_HAL_QSPI_REGISTER_CALLBACKS == 1)
 /**
   * @brief  Register a User QSPI Callback
-  *         To be used instead of the weak (surcharged) predefined callback
+  *         To be used to override the weak predefined callback
   * @param hqspi QSPI handle
   * @param CallbackId ID of the callback to be registered
   *        This parameter can be one of the following values:
@@ -2123,7 +2123,7 @@ HAL_StatusTypeDef HAL_QSPI_RegisterCallback (QSPI_HandleTypeDef *hqspi, HAL_QSPI
 
 /**
   * @brief  Unregister a User QSPI Callback
-  *         QSPI Callback is redirected to the weak (surcharged) predefined callback
+  *         QSPI Callback is redirected to the weak predefined callback
   * @param hqspi QSPI handle
   * @param CallbackId ID of the callback to be unregistered
   *        This parameter can be one of the following values:

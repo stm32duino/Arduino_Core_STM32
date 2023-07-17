@@ -86,103 +86,103 @@ typedef struct
 /** @defgroup TIMEx_Remap TIM Extended Remapping
   * @{
   */
-#define TIM_TIM1_ETR_ADC1_NONE      0x00000000U                                           /* !< TIM1_ETR is not connected to any AWD (analog watchdog)*/
-#define TIM_TIM1_ETR_ADC1_AWD1      TIM1_OR1_ETR_ADC1_RMP_0                               /* !< TIM1_ETR is connected to ADC1 AWD1 */
-#define TIM_TIM1_ETR_ADC1_AWD2      TIM1_OR1_ETR_ADC1_RMP_1                               /* !< TIM1_ETR is connected to ADC1 AWD2 */
-#define TIM_TIM1_ETR_ADC1_AWD3      (TIM1_OR1_ETR_ADC1_RMP_1 | TIM1_OR1_ETR_ADC1_RMP_0)   /* !< TIM1_ETR is connected to ADC1 AWD3 */
+#define TIM_TIM1_ETR_ADC1_NONE      0x00000000U                                           /*!< TIM1_ETR is not connected to any AWD (analog watchdog)*/
+#define TIM_TIM1_ETR_ADC1_AWD1      TIM1_OR1_ETR_ADC1_RMP_0                               /*!< TIM1_ETR is connected to ADC1 AWD1 */
+#define TIM_TIM1_ETR_ADC1_AWD2      TIM1_OR1_ETR_ADC1_RMP_1                               /*!< TIM1_ETR is connected to ADC1 AWD2 */
+#define TIM_TIM1_ETR_ADC1_AWD3      (TIM1_OR1_ETR_ADC1_RMP_1 | TIM1_OR1_ETR_ADC1_RMP_0)   /*!< TIM1_ETR is connected to ADC1 AWD3 */
 #if defined (ADC3)
-#define TIM_TIM1_ETR_ADC3_NONE      0x00000000U                                           /* !< TIM1_ETR is not connected to any AWD (analog watchdog)*/
-#define TIM_TIM1_ETR_ADC3_AWD1      TIM1_OR1_ETR_ADC3_RMP_0                               /* !< TIM1_ETR is connected to ADC3 AWD1 */
-#define TIM_TIM1_ETR_ADC3_AWD2      TIM1_OR1_ETR_ADC3_RMP_1                               /* !< TIM1_ETR is connected to ADC3 AWD2 */
-#define TIM_TIM1_ETR_ADC3_AWD3      (TIM1_OR1_ETR_ADC3_RMP_1 | TIM1_OR1_ETR_ADC3_RMP_0)   /* !< TIM1_ETR is connected to ADC3 AWD3 */
+#define TIM_TIM1_ETR_ADC3_NONE      0x00000000U                                           /*!< TIM1_ETR is not connected to any AWD (analog watchdog)*/
+#define TIM_TIM1_ETR_ADC3_AWD1      TIM1_OR1_ETR_ADC3_RMP_0                               /*!< TIM1_ETR is connected to ADC3 AWD1 */
+#define TIM_TIM1_ETR_ADC3_AWD2      TIM1_OR1_ETR_ADC3_RMP_1                               /*!< TIM1_ETR is connected to ADC3 AWD2 */
+#define TIM_TIM1_ETR_ADC3_AWD3      (TIM1_OR1_ETR_ADC3_RMP_1 | TIM1_OR1_ETR_ADC3_RMP_0)   /*!< TIM1_ETR is connected to ADC3 AWD3 */
 #endif /* ADC3 */
-#define TIM_TIM1_TI1_GPIO           0x00000000U                                           /* !< TIM1 TI1 is connected to GPIO */
-#define TIM_TIM1_TI1_COMP1          TIM1_OR1_TI1_RMP                                      /* !< TIM1 TI1 is connected to COMP1 */
-#define TIM_TIM1_ETR_GPIO           0x00000000U                                           /* !< TIM1_ETR is connected to GPIO */
-#define TIM_TIM1_ETR_COMP1          TIM1_OR2_ETRSEL_0                                     /* !< TIM1_ETR is connected to COMP1 output */
+#define TIM_TIM1_TI1_GPIO           0x00000000U                                           /*!< TIM1 TI1 is connected to GPIO */
+#define TIM_TIM1_TI1_COMP1          TIM1_OR1_TI1_RMP                                      /*!< TIM1 TI1 is connected to COMP1 */
+#define TIM_TIM1_ETR_GPIO           0x00000000U                                           /*!< TIM1_ETR is connected to GPIO */
+#define TIM_TIM1_ETR_COMP1          TIM1_OR2_ETRSEL_0                                     /*!< TIM1_ETR is connected to COMP1 output */
 #if defined(COMP2)
-#define TIM_TIM1_ETR_COMP2          TIM1_OR2_ETRSEL_1                                     /* !< TIM1_ETR is connected to COMP2 output */
+#define TIM_TIM1_ETR_COMP2          TIM1_OR2_ETRSEL_1                                     /*!< TIM1_ETR is connected to COMP2 output */
 #endif /* COMP2 */
 
 #if defined (USB_OTG_FS)
-#define TIM_TIM2_ITR1_TIM8_TRGO     0x00000000U                                           /* !< TIM2_ITR1 is connected to TIM8_TRGO */
-#define TIM_TIM2_ITR1_OTG_FS_SOF    TIM2_OR1_ITR1_RMP                                     /* !< TIM2_ITR1 is connected to OTG_FS SOF */
+#define TIM_TIM2_ITR1_TIM8_TRGO     0x00000000U                                           /*!< TIM2_ITR1 is connected to TIM8_TRGO */
+#define TIM_TIM2_ITR1_OTG_FS_SOF    TIM2_OR1_ITR1_RMP                                     /*!< TIM2_ITR1 is connected to OTG_FS SOF */
 #else
 #if defined(STM32L471xx)
-#define TIM_TIM2_ITR1_TIM8_TRGO     0x00000000U                                           /* !< TIM2_ITR1 is connected to TIM8_TRGO */
-#define TIM_TIM2_ITR1_NONE          TIM2_OR1_ITR1_RMP                                     /* !< No internal trigger on TIM2_ITR1 */
+#define TIM_TIM2_ITR1_TIM8_TRGO     0x00000000U                                           /*!< TIM2_ITR1 is connected to TIM8_TRGO */
+#define TIM_TIM2_ITR1_NONE          TIM2_OR1_ITR1_RMP                                     /*!< No internal trigger on TIM2_ITR1 */
 #else
-#define TIM_TIM2_ITR1_NONE          0x00000000U                                           /* !< No internal trigger on TIM2_ITR1 */
-#define TIM_TIM2_ITR1_USB_SOF       TIM2_OR1_ITR1_RMP                                     /* !< TIM2_ITR1 is connected to USB SOF */
+#define TIM_TIM2_ITR1_NONE          0x00000000U                                           /*!< No internal trigger on TIM2_ITR1 */
+#define TIM_TIM2_ITR1_USB_SOF       TIM2_OR1_ITR1_RMP                                     /*!< TIM2_ITR1 is connected to USB SOF */
 #endif /* STM32L471xx */
 #endif /* USB_OTG_FS */
-#define TIM_TIM2_ETR_GPIO           0x00000000U                                           /* !< TIM2_ETR is connected to GPIO */
-#define TIM_TIM2_ETR_LSE            TIM2_OR1_ETR1_RMP                                     /* !< TIM2_ETR is connected to LSE */
-#define TIM_TIM2_ETR_COMP1          TIM2_OR2_ETRSEL_0                                     /* !< TIM2_ETR is connected to COMP1 output */
+#define TIM_TIM2_ETR_GPIO           0x00000000U                                           /*!< TIM2_ETR is connected to GPIO */
+#define TIM_TIM2_ETR_LSE            TIM2_OR1_ETR1_RMP                                     /*!< TIM2_ETR is connected to LSE */
+#define TIM_TIM2_ETR_COMP1          TIM2_OR2_ETRSEL_0                                     /*!< TIM2_ETR is connected to COMP1 output */
 #if defined(COMP2)
-#define TIM_TIM2_ETR_COMP2          TIM2_OR2_ETRSEL_1                                     /* !< TIM2_ETR is connected to COMP2 output */
+#define TIM_TIM2_ETR_COMP2          TIM2_OR2_ETRSEL_1                                     /*!< TIM2_ETR is connected to COMP2 output */
 #endif /* COMP2 */
-#define TIM_TIM2_TI4_GPIO           0x00000000U                                           /* !< TIM2 TI4 is connected to GPIO */
-#define TIM_TIM2_TI4_COMP1          TIM2_OR1_TI4_RMP_0                                    /* !< TIM2 TI4 is connected to COMP1 output */
+#define TIM_TIM2_TI4_GPIO           0x00000000U                                           /*!< TIM2 TI4 is connected to GPIO */
+#define TIM_TIM2_TI4_COMP1          TIM2_OR1_TI4_RMP_0                                    /*!< TIM2 TI4 is connected to COMP1 output */
 #if defined(COMP2)
-#define TIM_TIM2_TI4_COMP2          TIM2_OR1_TI4_RMP_1                                    /* !< TIM2 TI4 is connected to COMP2 output */
-#define TIM_TIM2_TI4_COMP1_COMP2    (TIM2_OR1_TI4_RMP_1| TIM2_OR1_TI4_RMP_0)              /* !< TIM2 TI4 is connected to logical OR between COMP1 and COMP2 output2 */
+#define TIM_TIM2_TI4_COMP2          TIM2_OR1_TI4_RMP_1                                    /*!< TIM2 TI4 is connected to COMP2 output */
+#define TIM_TIM2_TI4_COMP1_COMP2    (TIM2_OR1_TI4_RMP_1| TIM2_OR1_TI4_RMP_0)              /*!< TIM2 TI4 is connected to logical OR between COMP1 and COMP2 output2 */
 #endif /* COMP2 */
 
 #if defined (TIM3)
-#define TIM_TIM3_TI1_GPIO           0x00000000U                                           /* !< TIM3 TI1 is connected to GPIO */
-#define TIM_TIM3_TI1_COMP1          TIM3_OR1_TI1_RMP_0                                    /* !< TIM3 TI1 is connected to COMP1 output */
-#define TIM_TIM3_TI1_COMP2          TIM3_OR1_TI1_RMP_1                                    /* !< TIM3 TI1 is connected to COMP2 output */
-#define TIM_TIM3_TI1_COMP1_COMP2    (TIM3_OR1_TI1_RMP_1 | TIM3_OR1_TI1_RMP_0)             /* !< TIM3 TI1 is connected to logical OR between COMP1 and COMP2 output2 */
-#define TIM_TIM3_ETR_GPIO           0x00000000U                                           /* !< TIM3_ETR is connected to GPIO */
-#define TIM_TIM3_ETR_COMP1          TIM3_OR2_ETRSEL_0                                     /* !< TIM3_ETR is connected to COMP1 output */
+#define TIM_TIM3_TI1_GPIO           0x00000000U                                           /*!< TIM3 TI1 is connected to GPIO */
+#define TIM_TIM3_TI1_COMP1          TIM3_OR1_TI1_RMP_0                                    /*!< TIM3 TI1 is connected to COMP1 output */
+#define TIM_TIM3_TI1_COMP2          TIM3_OR1_TI1_RMP_1                                    /*!< TIM3 TI1 is connected to COMP2 output */
+#define TIM_TIM3_TI1_COMP1_COMP2    (TIM3_OR1_TI1_RMP_1 | TIM3_OR1_TI1_RMP_0)             /*!< TIM3 TI1 is connected to logical OR between COMP1 and COMP2 output2 */
+#define TIM_TIM3_ETR_GPIO           0x00000000U                                           /*!< TIM3_ETR is connected to GPIO */
+#define TIM_TIM3_ETR_COMP1          TIM3_OR2_ETRSEL_0                                     /*!< TIM3_ETR is connected to COMP1 output */
 #endif /* TIM3 */
 
 #if defined (TIM8)
 #if defined(ADC2) && defined(ADC3)
-#define TIM_TIM8_ETR_ADC2_NONE      0x00000000U                                           /* !< TIM8_ETR is not connected to any AWD (analog watchdog)*/
-#define TIM_TIM8_ETR_ADC2_AWD1      TIM8_OR1_ETR_ADC2_RMP_0                               /* !< TIM8_ETR is connected to ADC2 AWD1 */
-#define TIM_TIM8_ETR_ADC2_AWD2      TIM8_OR1_ETR_ADC2_RMP_1                               /* !< TIM8_ETR is connected to ADC2 AWD2 */
-#define TIM_TIM8_ETR_ADC2_AWD3      (TIM8_OR1_ETR_ADC2_RMP_1 | TIM8_OR1_ETR_ADC2_RMP_0)   /* !< TIM8_ETR is connected to ADC2 AWD3 */
-#define TIM_TIM8_ETR_ADC3_NONE      0x00000000U                                           /* !< TIM8_ETR is not connected to any AWD (analog watchdog)*/
-#define TIM_TIM8_ETR_ADC3_AWD1      TIM8_OR1_ETR_ADC3_RMP_0                               /* !< TIM8_ETR is connected to ADC3 AWD1 */
-#define TIM_TIM8_ETR_ADC3_AWD2      TIM8_OR1_ETR_ADC3_RMP_1                               /* !< TIM8_ETR is connected to ADC3 AWD2 */
-#define TIM_TIM8_ETR_ADC3_AWD3      (TIM8_OR1_ETR_ADC3_RMP_1 | TIM8_OR1_ETR_ADC3_RMP_0)   /* !< TIM8_ETR is connected to ADC3 AWD3 */
+#define TIM_TIM8_ETR_ADC2_NONE      0x00000000U                                           /*!< TIM8_ETR is not connected to any AWD (analog watchdog)*/
+#define TIM_TIM8_ETR_ADC2_AWD1      TIM8_OR1_ETR_ADC2_RMP_0                               /*!< TIM8_ETR is connected to ADC2 AWD1 */
+#define TIM_TIM8_ETR_ADC2_AWD2      TIM8_OR1_ETR_ADC2_RMP_1                               /*!< TIM8_ETR is connected to ADC2 AWD2 */
+#define TIM_TIM8_ETR_ADC2_AWD3      (TIM8_OR1_ETR_ADC2_RMP_1 | TIM8_OR1_ETR_ADC2_RMP_0)   /*!< TIM8_ETR is connected to ADC2 AWD3 */
+#define TIM_TIM8_ETR_ADC3_NONE      0x00000000U                                           /*!< TIM8_ETR is not connected to any AWD (analog watchdog)*/
+#define TIM_TIM8_ETR_ADC3_AWD1      TIM8_OR1_ETR_ADC3_RMP_0                               /*!< TIM8_ETR is connected to ADC3 AWD1 */
+#define TIM_TIM8_ETR_ADC3_AWD2      TIM8_OR1_ETR_ADC3_RMP_1                               /*!< TIM8_ETR is connected to ADC3 AWD2 */
+#define TIM_TIM8_ETR_ADC3_AWD3      (TIM8_OR1_ETR_ADC3_RMP_1 | TIM8_OR1_ETR_ADC3_RMP_0)   /*!< TIM8_ETR is connected to ADC3 AWD3 */
 #endif /* ADC2 && ADC3 */
 
-#define TIM_TIM8_TI1_GPIO           0x00000000U                                           /* !< TIM8 TI1 is connected to GPIO */
-#define TIM_TIM8_TI1_COMP2          TIM8_OR1_TI1_RMP                                      /* !< TIM8 TI1 is connected to COMP1 */
-#define TIM_TIM8_ETR_GPIO           0x00000000U                                           /* !< TIM8_ETR is connected to GPIO */
-#define TIM_TIM8_ETR_COMP1          TIM8_OR2_ETRSEL_0                                     /* !< TIM8_ETR is connected to COMP1 output */
-#define TIM_TIM8_ETR_COMP2          TIM8_OR2_ETRSEL_1                                     /* !< TIM8_ETR is connected to COMP2 output */
+#define TIM_TIM8_TI1_GPIO           0x00000000U                                           /*!< TIM8 TI1 is connected to GPIO */
+#define TIM_TIM8_TI1_COMP2          TIM8_OR1_TI1_RMP                                      /*!< TIM8 TI1 is connected to COMP1 */
+#define TIM_TIM8_ETR_GPIO           0x00000000U                                           /*!< TIM8_ETR is connected to GPIO */
+#define TIM_TIM8_ETR_COMP1          TIM8_OR2_ETRSEL_0                                     /*!< TIM8_ETR is connected to COMP1 output */
+#define TIM_TIM8_ETR_COMP2          TIM8_OR2_ETRSEL_1                                     /*!< TIM8_ETR is connected to COMP2 output */
 #endif /* TIM8 */
 
-#define TIM_TIM15_TI1_GPIO          0x00000000U                                           /* !< TIM15 TI1 is connected to GPIO */
-#define TIM_TIM15_TI1_LSE           TIM15_OR1_TI1_RMP                                     /* !< TIM15 TI1 is connected to LSE */
-#define TIM_TIM15_ENCODERMODE_NONE  0x00000000U                                           /* !< No redirection */
-#define TIM_TIM15_ENCODERMODE_TIM2  TIM15_OR1_ENCODER_MODE_0                              /* !< TIM2 IC1 and TIM2 IC2 are connected to TIM15 IC1 and TIM15 IC2 respectively */
+#define TIM_TIM15_TI1_GPIO          0x00000000U                                           /*!< TIM15 TI1 is connected to GPIO */
+#define TIM_TIM15_TI1_LSE           TIM15_OR1_TI1_RMP                                     /*!< TIM15 TI1 is connected to LSE */
+#define TIM_TIM15_ENCODERMODE_NONE  0x00000000U                                           /*!< No redirection */
+#define TIM_TIM15_ENCODERMODE_TIM2  TIM15_OR1_ENCODER_MODE_0                              /*!< TIM2 IC1 and TIM2 IC2 are connected to TIM15 IC1 and TIM15 IC2 respectively */
 #if defined (TIM3)
-#define TIM_TIM15_ENCODERMODE_TIM3  TIM15_OR1_ENCODER_MODE_1                              /* !< TIM3 IC1 and TIM3 IC2 are connected to TIM15 IC1 and TIM15 IC2 respectively */
+#define TIM_TIM15_ENCODERMODE_TIM3  TIM15_OR1_ENCODER_MODE_1                              /*!< TIM3 IC1 and TIM3 IC2 are connected to TIM15 IC1 and TIM15 IC2 respectively */
 #endif /* TIM3 */
 #if defined (TIM4)
-#define TIM_TIM15_ENCODERMODE_TIM4  (TIM15_OR1_ENCODER_MODE_1 | TIM15_OR1_ENCODER_MODE_0) /* !< TIM4 IC1 and TIM4 IC2 are connected to TIM15 IC1 and TIM15 IC2 respectively */
+#define TIM_TIM15_ENCODERMODE_TIM4  (TIM15_OR1_ENCODER_MODE_1 | TIM15_OR1_ENCODER_MODE_0) /*!< TIM4 IC1 and TIM4 IC2 are connected to TIM15 IC1 and TIM15 IC2 respectively */
 #endif /* TIM4 */
 
-#define TIM_TIM16_TI1_GPIO          0x00000000U                                           /* !< TIM16 TI1 is connected to GPIO */
-#define TIM_TIM16_TI1_LSI           TIM16_OR1_TI1_RMP_0                                   /* !< TIM16 TI1 is connected to LSI */
-#define TIM_TIM16_TI1_LSE           TIM16_OR1_TI1_RMP_1                                   /* !< TIM16 TI1 is connected to LSE */
-#define TIM_TIM16_TI1_RTC           (TIM16_OR1_TI1_RMP_1 | TIM16_OR1_TI1_RMP_0)           /* !< TIM16 TI1 is connected to RTC wakeup interrupt */
+#define TIM_TIM16_TI1_GPIO          0x00000000U                                           /*!< TIM16 TI1 is connected to GPIO */
+#define TIM_TIM16_TI1_LSI           TIM16_OR1_TI1_RMP_0                                   /*!< TIM16 TI1 is connected to LSI */
+#define TIM_TIM16_TI1_LSE           TIM16_OR1_TI1_RMP_1                                   /*!< TIM16 TI1 is connected to LSE */
+#define TIM_TIM16_TI1_RTC           (TIM16_OR1_TI1_RMP_1 | TIM16_OR1_TI1_RMP_0)           /*!< TIM16 TI1 is connected to RTC wakeup interrupt */
 #if defined (TIM16_OR1_TI1_RMP_2)
-#define TIM_TIM16_TI1_MSI           TIM16_OR1_TI1_RMP_2                                   /* !< TIM16 TI1 is connected to MSI */
-#define TIM_TIM16_TI1_HSE_32        (TIM16_OR1_TI1_RMP_2 | TIM16_OR1_TI1_RMP_0)           /* !< TIM16 TI1 is connected to HSE div 32 */
-#define TIM_TIM16_TI1_MCO           (TIM16_OR1_TI1_RMP_2 | TIM16_OR1_TI1_RMP_1)           /* !< TIM16 TI1 is connected to MCO */
+#define TIM_TIM16_TI1_MSI           TIM16_OR1_TI1_RMP_2                                   /*!< TIM16 TI1 is connected to MSI */
+#define TIM_TIM16_TI1_HSE_32        (TIM16_OR1_TI1_RMP_2 | TIM16_OR1_TI1_RMP_0)           /*!< TIM16 TI1 is connected to HSE div 32 */
+#define TIM_TIM16_TI1_MCO           (TIM16_OR1_TI1_RMP_2 | TIM16_OR1_TI1_RMP_1)           /*!< TIM16 TI1 is connected to MCO */
 #endif /* TIM16_OR1_TI1_RMP_2 */
 
 #if defined (TIM17)
-#define TIM_TIM17_TI1_GPIO          0x00000000U                                           /* !< TIM17 TI1 is connected to GPIO */
-#define TIM_TIM17_TI1_MSI           TIM17_OR1_TI1_RMP_0                                   /* !< TIM17 TI1 is connected to MSI */
-#define TIM_TIM17_TI1_HSE_32        TIM17_OR1_TI1_RMP_1                                   /* !< TIM17 TI1 is connected to HSE div 32 */
-#define TIM_TIM17_TI1_MCO           (TIM17_OR1_TI1_RMP_1 | TIM17_OR1_TI1_RMP_0)           /* !< TIM17 TI1 is connected to MCO */
+#define TIM_TIM17_TI1_GPIO          0x00000000U                                           /*!< TIM17 TI1 is connected to GPIO */
+#define TIM_TIM17_TI1_MSI           TIM17_OR1_TI1_RMP_0                                   /*!< TIM17 TI1 is connected to MSI */
+#define TIM_TIM17_TI1_HSE_32        TIM17_OR1_TI1_RMP_1                                   /*!< TIM17 TI1 is connected to HSE div 32 */
+#define TIM_TIM17_TI1_MCO           (TIM17_OR1_TI1_RMP_1 | TIM17_OR1_TI1_RMP_0)           /*!< TIM17 TI1 is connected to MCO */
 #endif /* TIM17 */
 /**
   * @}
@@ -200,11 +200,11 @@ typedef struct
 /** @defgroup TIMEx_Break_Input_Source TIM Extended Break input source
   * @{
   */
-#define TIM_BREAKINPUTSOURCE_BKIN     0x00000001U                               /* !< An external source (GPIO) is connected to the BKIN pin  */
-#define TIM_BREAKINPUTSOURCE_COMP1    0x00000002U                               /* !< The COMP1 output is connected to the break input */
-#define TIM_BREAKINPUTSOURCE_COMP2    0x00000004U                               /* !< The COMP2 output is connected to the break input */
+#define TIM_BREAKINPUTSOURCE_BKIN     0x00000001U                               /*!< An external source (GPIO) is connected to the BKIN pin  */
+#define TIM_BREAKINPUTSOURCE_COMP1    0x00000002U                               /*!< The COMP1 output is connected to the break input */
+#define TIM_BREAKINPUTSOURCE_COMP2    0x00000004U                               /*!< The COMP2 output is connected to the break input */
 #if defined (DFSDM1_Channel0)
-#define TIM_BREAKINPUTSOURCE_DFSDM1   0x00000008U                               /* !< The analog watchdog output of the DFSDM1 peripheral is connected to the break input */
+#define TIM_BREAKINPUTSOURCE_DFSDM1   0x00000008U                               /*!< The analog watchdog output of the DFSDM1 peripheral is connected to the break input */
 #endif /* DFSDM1_Channel0 */
 /**
   * @}

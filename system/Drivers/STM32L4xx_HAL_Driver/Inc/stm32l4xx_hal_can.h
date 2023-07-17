@@ -209,7 +209,11 @@ typedef struct
 /**
   * @brief  CAN handle Structure definition
   */
+#if USE_HAL_CAN_REGISTER_CALLBACKS == 1
 typedef struct __CAN_HandleTypeDef
+#else
+typedef struct
+#endif /* USE_HAL_CAN_REGISTER_CALLBACKS */
 {
   CAN_TypeDef                 *Instance;                 /*!< Register base address */
 

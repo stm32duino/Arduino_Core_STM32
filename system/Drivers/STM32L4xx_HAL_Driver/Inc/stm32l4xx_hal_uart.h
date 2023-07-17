@@ -198,13 +198,24 @@ typedef enum
 /**
   * @brief HAL UART Reception type definition
   * @note  HAL UART Reception type value aims to identify which type of Reception is ongoing.
-  *        It is expected to admit following values :
+  *        This parameter can be a value of @ref UART_Reception_Type_Values :
   *           HAL_UART_RECEPTION_STANDARD         = 0x00U,
   *           HAL_UART_RECEPTION_TOIDLE           = 0x01U,
   *           HAL_UART_RECEPTION_TORTO            = 0x02U,
   *           HAL_UART_RECEPTION_TOCHARMATCH      = 0x03U,
   */
 typedef uint32_t HAL_UART_RxTypeTypeDef;
+
+/**
+  * @brief HAL UART Rx Event type definition
+  * @note  HAL UART Rx Event type value aims to identify which type of Event has occurred
+  *        leading to call of the RxEvent callback.
+  *        This parameter can be a value of @ref UART_RxEvent_Type_Values :
+  *           HAL_UART_RXEVENT_TC                 = 0x00U,
+  *           HAL_UART_RXEVENT_HT                 = 0x01U,
+  *           HAL_UART_RXEVENT_IDLE               = 0x02U,
+  */
+typedef uint32_t HAL_UART_RxEventTypeTypeDef;
 
 /**
   * @brief  UART handle Structure definition
@@ -241,6 +252,8 @@ typedef struct __UART_HandleTypeDef
 
 #endif /*USART_CR1_FIFOEN */
   __IO HAL_UART_RxTypeTypeDef ReceptionType;         /*!< Type of ongoing reception          */
+
+  __IO HAL_UART_RxEventTypeTypeDef RxEventType;      /*!< Type of Rx Event                   */
 
   void (*RxISR)(struct __UART_HandleTypeDef *huart); /*!< Function pointer on Rx IRQ handler */
 
@@ -835,13 +848,23 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
   * @}
   */
 
-/** @defgroup UART_RECEPTION_TYPE_Values  UART Reception type values
+/** @defgroup UART_Reception_Type_Values  UART Reception type values
   * @{
   */
 #define HAL_UART_RECEPTION_STANDARD          (0x00000000U)             /*!< Standard reception                       */
 #define HAL_UART_RECEPTION_TOIDLE            (0x00000001U)             /*!< Reception till completion or IDLE event  */
 #define HAL_UART_RECEPTION_TORTO             (0x00000002U)             /*!< Reception till completion or RTO event   */
 #define HAL_UART_RECEPTION_TOCHARMATCH       (0x00000003U)             /*!< Reception till completion or CM event    */
+/**
+  * @}
+  */
+
+/** @defgroup UART_RxEvent_Type_Values  UART RxEvent type values
+  * @{
+  */
+#define HAL_UART_RXEVENT_TC                  (0x00000000U)             /*!< RxEvent linked to Transfer Complete event */
+#define HAL_UART_RXEVENT_HT                  (0x00000001U)             /*!< RxEvent linked to Half Transfer event     */
+#define HAL_UART_RXEVENT_IDLE                (0x00000002U)             /*!< RxEvent linked to IDLE event              */
 /**
   * @}
   */

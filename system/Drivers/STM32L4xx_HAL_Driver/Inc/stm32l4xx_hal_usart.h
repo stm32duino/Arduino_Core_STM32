@@ -147,7 +147,7 @@ typedef struct __USART_HandleTypeDef
 
 #endif /* USART_CR1_FIFOEN */
 #if defined(USART_CR2_SLVEN)
-  uint32_t                      SlaveMode;               /*!< Enable/Disable UART SPI Slave Mode. This parameter can be a value
+  uint32_t                      SlaveMode;               /*!< Enable/Disable USART SPI Slave Mode. This parameter can be a value
                                                               of @ref USARTEx_Slave_Mode */
 
 #endif /* USART_CR2_SLVEN */

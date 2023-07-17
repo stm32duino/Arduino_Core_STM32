@@ -114,17 +114,17 @@ HAL_StatusTypeDef HAL_DMAEx_ConfigMuxSync(DMA_HandleTypeDef *hdma, HAL_DMA_MuxSy
   assert_param(IS_DMAMUX_SYNC_REQUEST_NUMBER(pSyncConfig->RequestNumber));
 
   /*Check if the DMA state is ready */
-  if(hdma->State == HAL_DMA_STATE_READY)
+  if (hdma->State == HAL_DMA_STATE_READY)
   {
     /* Process Locked */
     __HAL_LOCK(hdma);
 
     /* Set the new synchronization parameters (and keep the request ID filled during the Init)*/
-    MODIFY_REG( hdma->DMAmuxChannel->CCR, \
-               (~DMAMUX_CxCR_DMAREQ_ID) , \
+    MODIFY_REG(hdma->DMAmuxChannel->CCR, \
+               (~DMAMUX_CxCR_DMAREQ_ID), \
                ((pSyncConfig->SyncSignalID) << DMAMUX_CxCR_SYNC_ID_Pos) | ((pSyncConfig->RequestNumber - 1U) << DMAMUX_CxCR_NBREQ_Pos) | \
                pSyncConfig->SyncPolarity | ((uint32_t)pSyncConfig->SyncEnable << DMAMUX_CxCR_SE_Pos) | \
-                 ((uint32_t)pSyncConfig->EventEnable << DMAMUX_CxCR_EGE_Pos));
+               ((uint32_t)pSyncConfig->EventEnable << DMAMUX_CxCR_EGE_Pos));
 
     /* Process UnLocked */
     __HAL_UNLOCK(hdma);
@@ -147,7 +147,7 @@ HAL_StatusTypeDef HAL_DMAEx_ConfigMuxSync(DMA_HandleTypeDef *hdma, HAL_DMA_MuxSy
   *
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_DMAEx_ConfigMuxRequestGenerator (DMA_HandleTypeDef *hdma, HAL_DMA_MuxRequestGeneratorConfigTypeDef *pRequestGeneratorConfig)
+HAL_StatusTypeDef HAL_DMAEx_ConfigMuxRequestGenerator(DMA_HandleTypeDef *hdma, HAL_DMA_MuxRequestGeneratorConfigTypeDef *pRequestGeneratorConfig)
 {
   /* Check the parameters */
   assert_param(IS_DMA_ALL_INSTANCE(hdma->Instance));
@@ -160,24 +160,24 @@ HAL_StatusTypeDef HAL_DMAEx_ConfigMuxRequestGenerator (DMA_HandleTypeDef *hdma, 
   /* check if the DMA state is ready
      and DMA is using a DMAMUX request generator block
   */
-  if((hdma->State == HAL_DMA_STATE_READY) && (hdma->DMAmuxRequestGen != 0U))
+  if ((hdma->State == HAL_DMA_STATE_READY) && (hdma->DMAmuxRequestGen != 0U))
   {
     /* Process Locked */
     __HAL_LOCK(hdma);
 
     /* Set the request generator new parameters */
     hdma->DMAmuxRequestGen->RGCR = pRequestGeneratorConfig->SignalID | \
-                                  ((pRequestGeneratorConfig->RequestNumber - 1U) << DMAMUX_RGxCR_GNBREQ_Pos)| \
-                                  pRequestGeneratorConfig->Polarity;
-   /* Process UnLocked */
-   __HAL_UNLOCK(hdma);
+                                   ((pRequestGeneratorConfig->RequestNumber - 1U) << DMAMUX_RGxCR_GNBREQ_Pos) | \
+                                   pRequestGeneratorConfig->Polarity;
+    /* Process UnLocked */
+    __HAL_UNLOCK(hdma);
 
-   return HAL_OK;
- }
- else
- {
-   return HAL_ERROR;
- }
+    return HAL_OK;
+  }
+  else
+  {
+    return HAL_ERROR;
+  }
 }
 
 /**
@@ -186,7 +186,7 @@ HAL_StatusTypeDef HAL_DMAEx_ConfigMuxRequestGenerator (DMA_HandleTypeDef *hdma, 
   *              the configuration information for the specified DMA channel.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_DMAEx_EnableMuxRequestGenerator (DMA_HandleTypeDef *hdma)
+HAL_StatusTypeDef HAL_DMAEx_EnableMuxRequestGenerator(DMA_HandleTypeDef *hdma)
 {
   /* Check the parameters */
   assert_param(IS_DMA_ALL_INSTANCE(hdma->Instance));
@@ -194,18 +194,18 @@ HAL_StatusTypeDef HAL_DMAEx_EnableMuxRequestGenerator (DMA_HandleTypeDef *hdma)
   /* check if the DMA state is ready
      and DMA is using a DMAMUX request generator block
   */
-  if((hdma->State != HAL_DMA_STATE_RESET) && (hdma->DMAmuxRequestGen != 0))
+  if ((hdma->State != HAL_DMA_STATE_RESET) && (hdma->DMAmuxRequestGen != 0))
   {
 
     /* Enable the request generator*/
     hdma->DMAmuxRequestGen->RGCR |= DMAMUX_RGxCR_GE;
 
-   return HAL_OK;
- }
- else
- {
-   return HAL_ERROR;
- }
+    return HAL_OK;
+  }
+  else
+  {
+    return HAL_ERROR;
+  }
 }
 
 /**
@@ -214,7 +214,7 @@ HAL_StatusTypeDef HAL_DMAEx_EnableMuxRequestGenerator (DMA_HandleTypeDef *hdma)
   *              the configuration information for the specified DMA channel.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_DMAEx_DisableMuxRequestGenerator (DMA_HandleTypeDef *hdma)
+HAL_StatusTypeDef HAL_DMAEx_DisableMuxRequestGenerator(DMA_HandleTypeDef *hdma)
 {
   /* Check the parameters */
   assert_param(IS_DMA_ALL_INSTANCE(hdma->Instance));
@@ -222,7 +222,7 @@ HAL_StatusTypeDef HAL_DMAEx_DisableMuxRequestGenerator (DMA_HandleTypeDef *hdma)
   /* check if the DMA state is ready
      and DMA is using a DMAMUX request generator block
   */
-  if((hdma->State != HAL_DMA_STATE_RESET) && (hdma->DMAmuxRequestGen != 0))
+  if ((hdma->State != HAL_DMA_STATE_RESET) && (hdma->DMAmuxRequestGen != 0))
   {
 
     /* Disable the request generator*/
@@ -245,7 +245,7 @@ HAL_StatusTypeDef HAL_DMAEx_DisableMuxRequestGenerator (DMA_HandleTypeDef *hdma)
 void HAL_DMAEx_MUX_IRQHandler(DMA_HandleTypeDef *hdma)
 {
   /* Check for DMAMUX Synchronization overrun */
-  if((hdma->DMAmuxChannelStatus->CSR & hdma->DMAmuxChannelStatusMask) != 0U)
+  if ((hdma->DMAmuxChannelStatus->CSR & hdma->DMAmuxChannelStatusMask) != 0U)
   {
     /* Disable the synchro overrun interrupt */
     hdma->DMAmuxChannel->CCR &= ~DMAMUX_CxCR_SOIE;
@@ -256,17 +256,17 @@ void HAL_DMAEx_MUX_IRQHandler(DMA_HandleTypeDef *hdma)
     /* Update error code */
     hdma->ErrorCode |= HAL_DMA_ERROR_SYNC;
 
-    if(hdma->XferErrorCallback != NULL)
+    if (hdma->XferErrorCallback != NULL)
     {
       /* Transfer error callback */
       hdma->XferErrorCallback(hdma);
     }
   }
 
-  if(hdma->DMAmuxRequestGen != 0)
+  if (hdma->DMAmuxRequestGen != 0)
   {
-   /* if using a DMAMUX request generator block Check for DMAMUX request generator overrun */
-    if((hdma->DMAmuxRequestGenStatus->RGSR & hdma->DMAmuxRequestGenStatusMask) != 0U)
+    /* if using a DMAMUX request generator block Check for DMAMUX request generator overrun */
+    if ((hdma->DMAmuxRequestGenStatus->RGSR & hdma->DMAmuxRequestGenStatusMask) != 0U)
     {
       /* Disable the request gen overrun interrupt */
       hdma->DMAmuxRequestGen->RGCR &= ~DMAMUX_RGxCR_OIE;
@@ -277,7 +277,7 @@ void HAL_DMAEx_MUX_IRQHandler(DMA_HandleTypeDef *hdma)
       /* Update error code */
       hdma->ErrorCode |= HAL_DMA_ERROR_REQGEN;
 
-      if(hdma->XferErrorCallback != NULL)
+      if (hdma->XferErrorCallback != NULL)
       {
         /* Transfer error callback */
         hdma->XferErrorCallback(hdma);

@@ -1818,6 +1818,10 @@ mode.
                                             ((__PRESCALER__) == TIM_ICPSC_DIV4) || \
                                             ((__PRESCALER__) == TIM_ICPSC_DIV8))
 
+#define IS_TIM_CCX_CHANNEL(__INSTANCE__, __CHANNEL__) (IS_TIM_CCX_INSTANCE(__INSTANCE__, __CHANNEL__) && \
+                                                       ((__CHANNEL__) != (TIM_CHANNEL_5)) && \
+                                                       ((__CHANNEL__) != (TIM_CHANNEL_6)))
+
 #define IS_TIM_OPM_MODE(__MODE__)          (((__MODE__) == TIM_OPMODE_SINGLE) || \
                                             ((__MODE__) == TIM_OPMODE_REPETITIVE))
 
@@ -2232,7 +2236,7 @@ HAL_StatusTypeDef HAL_TIM_OnePulse_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Out
   * @{
   */
 /* Timer Encoder functions ****************************************************/
-HAL_StatusTypeDef HAL_TIM_Encoder_Init(TIM_HandleTypeDef *htim,  TIM_Encoder_InitTypeDef *sConfig);
+HAL_StatusTypeDef HAL_TIM_Encoder_Init(TIM_HandleTypeDef *htim, const TIM_Encoder_InitTypeDef *sConfig);
 HAL_StatusTypeDef HAL_TIM_Encoder_DeInit(TIM_HandleTypeDef *htim);
 void HAL_TIM_Encoder_MspInit(TIM_HandleTypeDef *htim);
 void HAL_TIM_Encoder_MspDeInit(TIM_HandleTypeDef *htim);

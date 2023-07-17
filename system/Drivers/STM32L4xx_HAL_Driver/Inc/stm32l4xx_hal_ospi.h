@@ -21,7 +21,7 @@
 #define STM32L4xx_HAL_OSPI_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -92,7 +92,7 @@ typedef struct
                                            Refresh+1 clock cycles.
                                            This parameter can be a value between 0 and 0xFFFFFFFF */
 #endif
-}OSPI_InitTypeDef;
+} OSPI_InitTypeDef;
 
 /**
   * @brief  HAL OSPI Handle Structure definition
@@ -113,21 +113,21 @@ typedef struct
   __IO uint32_t              ErrorCode;     /*!< Error code in case of HAL driver internal error  */
   uint32_t                   Timeout;       /*!< Timeout used for the OSPI external device access */
 #if defined (USE_HAL_OSPI_REGISTER_CALLBACKS) && (USE_HAL_OSPI_REGISTER_CALLBACKS == 1U)
-  void (* ErrorCallback)        (struct __OSPI_HandleTypeDef *hospi);
-  void (* AbortCpltCallback)    (struct __OSPI_HandleTypeDef *hospi);
+  void (* ErrorCallback)(struct __OSPI_HandleTypeDef *hospi);
+  void (* AbortCpltCallback)(struct __OSPI_HandleTypeDef *hospi);
   void (* FifoThresholdCallback)(struct __OSPI_HandleTypeDef *hospi);
-  void (* CmdCpltCallback)      (struct __OSPI_HandleTypeDef *hospi);
-  void (* RxCpltCallback)       (struct __OSPI_HandleTypeDef *hospi);
-  void (* TxCpltCallback)       (struct __OSPI_HandleTypeDef *hospi);
-  void (* RxHalfCpltCallback)   (struct __OSPI_HandleTypeDef *hospi);
-  void (* TxHalfCpltCallback)   (struct __OSPI_HandleTypeDef *hospi);
-  void (* StatusMatchCallback)  (struct __OSPI_HandleTypeDef *hospi);
-  void (* TimeOutCallback)      (struct __OSPI_HandleTypeDef *hospi);
+  void (* CmdCpltCallback)(struct __OSPI_HandleTypeDef *hospi);
+  void (* RxCpltCallback)(struct __OSPI_HandleTypeDef *hospi);
+  void (* TxCpltCallback)(struct __OSPI_HandleTypeDef *hospi);
+  void (* RxHalfCpltCallback)(struct __OSPI_HandleTypeDef *hospi);
+  void (* TxHalfCpltCallback)(struct __OSPI_HandleTypeDef *hospi);
+  void (* StatusMatchCallback)(struct __OSPI_HandleTypeDef *hospi);
+  void (* TimeOutCallback)(struct __OSPI_HandleTypeDef *hospi);
 
-  void (* MspInitCallback)      (struct __OSPI_HandleTypeDef *hospi);
-  void (* MspDeInitCallback)    (struct __OSPI_HandleTypeDef *hospi);
+  void (* MspInitCallback)(struct __OSPI_HandleTypeDef *hospi);
+  void (* MspDeInitCallback)(struct __OSPI_HandleTypeDef *hospi);
 #endif /* (USE_HAL_OSPI_REGISTER_CALLBACKS) && (USE_HAL_OSPI_REGISTER_CALLBACKS == 1U) */
-}OSPI_HandleTypeDef;
+} OSPI_HandleTypeDef;
 
 /**
   * @brief  HAL OSPI Regular Command Structure definition
@@ -178,7 +178,7 @@ typedef struct
                                            This parameter can be a value of @ref OSPI_DQSMode */
   uint32_t SIOOMode;                  /*!< It enables or not the SIOO mode.
                                            This parameter can be a value of @ref OSPI_SIOOMode */
-}OSPI_RegularCmdTypeDef;
+} OSPI_RegularCmdTypeDef;
 
 /**
   * @brief  HAL OSPI Hyperbus Configuration Structure definition
@@ -193,7 +193,7 @@ typedef struct
                                       This parameter can be a value of @ref OSPI_WriteZeroLatency */
   uint32_t LatencyMode;          /*!< It configures the latency mode.
                                       This parameter can be a value of @ref OSPI_LatencyMode */
-}OSPI_HyperbusCfgTypeDef;
+} OSPI_HyperbusCfgTypeDef;
 
 /**
   * @brief  HAL OSPI Hyperbus Command Structure definition
@@ -212,7 +212,7 @@ typedef struct
                                   In case of autopolling mode, this parameter can be any value between 1 and 4 */
   uint32_t DQSMode;          /*!< It enables or not the data strobe management.
                                   This parameter can be a value of @ref OSPI_DQSMode */
-}OSPI_HyperbusCmdTypeDef;
+} OSPI_HyperbusCmdTypeDef;
 
 /**
   * @brief  HAL OSPI Auto Polling mode configuration structure definition
@@ -229,7 +229,7 @@ typedef struct
                                     This parameter can be a value of @ref OSPI_AutomaticStop */
   uint32_t Interval;           /*!< Specifies the number of clock cycles between two read during automatic polling phases.
                                     This parameter can be any value between 0 and 0xFFFF */
-}OSPI_AutoPollingTypeDef;
+} OSPI_AutoPollingTypeDef;
 
 /**
   * @brief  HAL OSPI Memory Mapped mode configuration structure definition
@@ -240,7 +240,7 @@ typedef struct
                                     This parameter can be a value of @ref OSPI_TimeOutActivation */
   uint32_t TimeOutPeriod;      /*!< Specifies the number of clock to wait when the FIFO is full before to release the chip select.
                                     This parameter can be any value between 0 and 0xFFFF */
-}OSPI_MemoryMappedTypeDef;
+} OSPI_MemoryMappedTypeDef;
 
 /**
   * @brief HAL OSPI IO Manager Configuration structure definition
@@ -262,7 +262,7 @@ typedef struct
                                         if some signals are multiplexed in the OSPI IO Manager with the other OSPI.
                                         This parameter can be a value between 1 and 256 */
 #endif
-}OSPIM_CfgTypeDef;
+} OSPIM_CfgTypeDef;
 
 #if defined (USE_HAL_OSPI_REGISTER_CALLBACKS) && (USE_HAL_OSPI_REGISTER_CALLBACKS == 1U)
 /**
@@ -283,7 +283,7 @@ typedef enum
 
   HAL_OSPI_MSP_INIT_CB_ID       = 0x0AU,  /*!< OSPI MspInit Callback ID          */
   HAL_OSPI_MSP_DEINIT_CB_ID     = 0x0BU   /*!< OSPI MspDeInit Callback ID        */
-}HAL_OSPI_CallbackIDTypeDef;
+} HAL_OSPI_CallbackIDTypeDef;
 
 /**
   * @brief  HAL OSPI Callback pointer definition
@@ -771,10 +771,10 @@ typedef void (*pOSPI_CallbackTypeDef)(OSPI_HandleTypeDef *hospi);
 /** @addtogroup OSPI_Exported_Functions_Group1
   * @{
   */
-HAL_StatusTypeDef     HAL_OSPI_Init                 (OSPI_HandleTypeDef *hospi);
-void                  HAL_OSPI_MspInit              (OSPI_HandleTypeDef *hospi);
-HAL_StatusTypeDef     HAL_OSPI_DeInit               (OSPI_HandleTypeDef *hospi);
-void                  HAL_OSPI_MspDeInit            (OSPI_HandleTypeDef *hospi);
+HAL_StatusTypeDef     HAL_OSPI_Init(OSPI_HandleTypeDef *hospi);
+void                  HAL_OSPI_MspInit(OSPI_HandleTypeDef *hospi);
+HAL_StatusTypeDef     HAL_OSPI_DeInit(OSPI_HandleTypeDef *hospi);
+void                  HAL_OSPI_MspDeInit(OSPI_HandleTypeDef *hospi);
 
 /**
   * @}
@@ -785,7 +785,7 @@ void                  HAL_OSPI_MspDeInit            (OSPI_HandleTypeDef *hospi);
   * @{
   */
 /* OSPI IRQ handler function */
-void                  HAL_OSPI_IRQHandler           (OSPI_HandleTypeDef *hospi);
+void                  HAL_OSPI_IRQHandler(OSPI_HandleTypeDef *hospi);
 
 /* OSPI command configuration functions */
 HAL_StatusTypeDef     HAL_OSPI_Command(OSPI_HandleTypeDef *hospi, OSPI_RegularCmdTypeDef *cmd, uint32_t Timeout);
@@ -806,25 +806,25 @@ HAL_StatusTypeDef     HAL_OSPI_AutoPolling(OSPI_HandleTypeDef *hospi, OSPI_AutoP
 HAL_StatusTypeDef     HAL_OSPI_AutoPolling_IT(OSPI_HandleTypeDef *hospi, OSPI_AutoPollingTypeDef *cfg);
 
 /* OSPI memory-mapped mode functions */
-HAL_StatusTypeDef     HAL_OSPI_MemoryMapped         (OSPI_HandleTypeDef *hospi, OSPI_MemoryMappedTypeDef *cfg);
+HAL_StatusTypeDef     HAL_OSPI_MemoryMapped(OSPI_HandleTypeDef *hospi, OSPI_MemoryMappedTypeDef *cfg);
 
 /* Callback functions in non-blocking modes ***********************************/
-void                  HAL_OSPI_ErrorCallback        (OSPI_HandleTypeDef *hospi);
-void                  HAL_OSPI_AbortCpltCallback    (OSPI_HandleTypeDef *hospi);
+void                  HAL_OSPI_ErrorCallback(OSPI_HandleTypeDef *hospi);
+void                  HAL_OSPI_AbortCpltCallback(OSPI_HandleTypeDef *hospi);
 void                  HAL_OSPI_FifoThresholdCallback(OSPI_HandleTypeDef *hospi);
 
 /* OSPI indirect mode functions */
-void                  HAL_OSPI_CmdCpltCallback      (OSPI_HandleTypeDef *hospi);
-void                  HAL_OSPI_RxCpltCallback       (OSPI_HandleTypeDef *hospi);
-void                  HAL_OSPI_TxCpltCallback       (OSPI_HandleTypeDef *hospi);
-void                  HAL_OSPI_RxHalfCpltCallback   (OSPI_HandleTypeDef *hospi);
-void                  HAL_OSPI_TxHalfCpltCallback   (OSPI_HandleTypeDef *hospi);
+void                  HAL_OSPI_CmdCpltCallback(OSPI_HandleTypeDef *hospi);
+void                  HAL_OSPI_RxCpltCallback(OSPI_HandleTypeDef *hospi);
+void                  HAL_OSPI_TxCpltCallback(OSPI_HandleTypeDef *hospi);
+void                  HAL_OSPI_RxHalfCpltCallback(OSPI_HandleTypeDef *hospi);
+void                  HAL_OSPI_TxHalfCpltCallback(OSPI_HandleTypeDef *hospi);
 
 /* OSPI status flag polling mode functions */
-void                  HAL_OSPI_StatusMatchCallback  (OSPI_HandleTypeDef *hospi);
+void                  HAL_OSPI_StatusMatchCallback(OSPI_HandleTypeDef *hospi);
 
 /* OSPI memory-mapped mode functions */
-void                  HAL_OSPI_TimeOutCallback      (OSPI_HandleTypeDef *hospi);
+void                  HAL_OSPI_TimeOutCallback(OSPI_HandleTypeDef *hospi);
 
 #if defined (USE_HAL_OSPI_REGISTER_CALLBACKS) && (USE_HAL_OSPI_REGISTER_CALLBACKS == 1U)
 /* OSPI callback registering/unregistering */
@@ -840,13 +840,13 @@ HAL_StatusTypeDef     HAL_OSPI_UnRegisterCallback(OSPI_HandleTypeDef *hospi, HAL
 /** @addtogroup OSPI_Exported_Functions_Group3
   * @{
   */
-HAL_StatusTypeDef     HAL_OSPI_Abort                (OSPI_HandleTypeDef *hospi);
-HAL_StatusTypeDef     HAL_OSPI_Abort_IT             (OSPI_HandleTypeDef *hospi);
-HAL_StatusTypeDef     HAL_OSPI_SetFifoThreshold     (OSPI_HandleTypeDef *hospi, uint32_t Threshold);
-uint32_t              HAL_OSPI_GetFifoThreshold     (OSPI_HandleTypeDef *hospi);
-HAL_StatusTypeDef     HAL_OSPI_SetTimeout           (OSPI_HandleTypeDef *hospi, uint32_t Timeout);
-uint32_t              HAL_OSPI_GetError             (OSPI_HandleTypeDef *hospi);
-uint32_t              HAL_OSPI_GetState             (OSPI_HandleTypeDef *hospi);
+HAL_StatusTypeDef     HAL_OSPI_Abort(OSPI_HandleTypeDef *hospi);
+HAL_StatusTypeDef     HAL_OSPI_Abort_IT(OSPI_HandleTypeDef *hospi);
+HAL_StatusTypeDef     HAL_OSPI_SetFifoThreshold(OSPI_HandleTypeDef *hospi, uint32_t Threshold);
+uint32_t              HAL_OSPI_GetFifoThreshold(const OSPI_HandleTypeDef *hospi);
+HAL_StatusTypeDef     HAL_OSPI_SetTimeout(OSPI_HandleTypeDef *hospi, uint32_t Timeout);
+uint32_t              HAL_OSPI_GetError(const OSPI_HandleTypeDef *hospi);
+uint32_t              HAL_OSPI_GetState(const OSPI_HandleTypeDef *hospi);
 
 /**
   * @}
