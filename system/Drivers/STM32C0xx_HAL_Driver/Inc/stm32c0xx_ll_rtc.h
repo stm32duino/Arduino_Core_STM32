@@ -203,8 +203,8 @@ typedef struct
 /** @defgroup RTC_LL_EC_FORMAT FORMAT
   * @{
   */
-#define LL_RTC_FORMAT_BIN                  0x000000000U /*!< Binary data format */
-#define LL_RTC_FORMAT_BCD                  0x000000001U /*!< BCD data format */
+#define LL_RTC_FORMAT_BIN                  0U           /*!< Binary data format */
+#define LL_RTC_FORMAT_BCD                  1U           /*!< BCD data format */
 /**
   * @}
   */
@@ -212,7 +212,7 @@ typedef struct
 /** @defgroup RTC_LL_EC_ALMA_WEEKDAY_SELECTION RTC Alarm A Date WeekDay
   * @{
   */
-#define LL_RTC_ALMA_DATEWEEKDAYSEL_DATE    0x00000000U             /*!< Alarm A Date is selected */
+#define LL_RTC_ALMA_DATEWEEKDAYSEL_DATE    0U                      /*!< Alarm A Date is selected */
 #define LL_RTC_ALMA_DATEWEEKDAYSEL_WEEKDAY RTC_ALRMAR_WDSEL        /*!< Alarm A WeekDay is selected */
 /**
   * @}
@@ -285,7 +285,7 @@ typedef struct
 /** @defgroup RTC_LL_EC_HOURFORMAT  HOUR FORMAT
   * @{
   */
-#define LL_RTC_HOURFORMAT_24HOUR           0x00000000U           /*!< 24 hour/day format */
+#define LL_RTC_HOURFORMAT_24HOUR           0U                    /*!< 24 hour/day format */
 #define LL_RTC_HOURFORMAT_AMPM             RTC_CR_FMT            /*!< AM/PM hour format */
 /**
   * @}
@@ -294,8 +294,8 @@ typedef struct
 /** @defgroup RTC_LL_EC_ALARMOUT  ALARM OUTPUT
   * @{
   */
-#define LL_RTC_ALARMOUT_DISABLE            0x00000000U             /*!< Output disabled */
-#define LL_RTC_ALARMOUT_ALMA               RTC_CR_OSEL_0           /*!< Alarm A output enabled */
+#define LL_RTC_ALARMOUT_DISABLE            0U                    /*!< Output disabled */
+#define LL_RTC_ALARMOUT_ALMA               RTC_CR_OSEL_0         /*!< Alarm A output enabled */
 /**
   * @}
   */
@@ -304,7 +304,7 @@ typedef struct
   * @{
   */
 #define LL_RTC_ALARM_OUTPUTTYPE_OPENDRAIN  RTC_CR_TAMPALRM_TYPE  /*!< RTC_ALARM is open-drain output */
-#define LL_RTC_ALARM_OUTPUTTYPE_PUSHPULL   0x00000000U           /*!< RTC_ALARM is push-pull output */
+#define LL_RTC_ALARM_OUTPUTTYPE_PUSHPULL   0U                    /*!< RTC_ALARM is push-pull output */
 /**
   * @}
   */
@@ -312,7 +312,7 @@ typedef struct
 /** @defgroup RTC_LL_EC_OUTPUTPOLARITY_PIN  OUTPUT POLARITY PIN
   * @{
   */
-#define LL_RTC_OUTPUTPOLARITY_PIN_HIGH     0x00000000U           /*!< Pin is high when ALRAF is asserted (depending on OSEL)*/
+#define LL_RTC_OUTPUTPOLARITY_PIN_HIGH     0U                    /*!< Pin is high when ALRAF is asserted (depending on OSEL)*/
 #define LL_RTC_OUTPUTPOLARITY_PIN_LOW      RTC_CR_POL            /*!< Pin is low when ALRAF is asserted (depending on OSEL) */
 /**
   * @}
@@ -321,7 +321,7 @@ typedef struct
 /** @defgroup RTC_LL_EC_TIME_FORMAT TIME FORMAT
   * @{
   */
-#define LL_RTC_TIME_FORMAT_AM_OR_24        0x00000000U           /*!< AM or 24-hour format */
+#define LL_RTC_TIME_FORMAT_AM_OR_24        0U                    /*!< AM or 24-hour format */
 #define LL_RTC_TIME_FORMAT_PM              RTC_TR_PM             /*!< PM */
 /**
   * @}
@@ -330,8 +330,8 @@ typedef struct
 /** @defgroup RTC_LL_EC_SHIFT_SECOND  SHIFT SECOND
   * @{
   */
-#define LL_RTC_SHIFT_SECOND_DELAY          0x00000000U           /* Delay (seconds) = SUBFS / (PREDIV_S + 1) */
-#define LL_RTC_SHIFT_SECOND_ADVANCE        RTC_SHIFTR_ADD1S      /* Advance (seconds) = (1 - (SUBFS / (PREDIV_S + 1))) */
+#define LL_RTC_SHIFT_SECOND_DELAY          0U                   /*!< Delay (seconds) = SUBFS / (PREDIV_S + 1) */
+#define LL_RTC_SHIFT_SECOND_ADVANCE        RTC_SHIFTR_ADD1S     /*!< Advance (seconds) = (1 - (SUBFS / (PREDIV_S + 1))) */
 /**
   * @}
   */
@@ -339,7 +339,7 @@ typedef struct
 /** @defgroup RTC_LL_EC_ALMA_MASK  ALARMA MASK
   * @{
   */
-#define LL_RTC_ALMA_MASK_NONE              0x00000000U             /*!< No masks applied on Alarm A*/
+#define LL_RTC_ALMA_MASK_NONE              0U                      /*!< No masks applied on Alarm A*/
 #define LL_RTC_ALMA_MASK_DATEWEEKDAY       RTC_ALRMAR_MSK4         /*!< Date/day do not care in Alarm A comparison */
 #define LL_RTC_ALMA_MASK_HOURS             RTC_ALRMAR_MSK3         /*!< Hours do not care in Alarm A comparison */
 #define LL_RTC_ALMA_MASK_MINUTES           RTC_ALRMAR_MSK2         /*!< Minutes do not care in Alarm A comparison */
@@ -352,8 +352,8 @@ typedef struct
 /** @defgroup RTC_LL_EC_ALMA_TIME_FORMAT  ALARMA TIME FORMAT
   * @{
   */
-#define LL_RTC_ALMA_TIME_FORMAT_AM         0x00000000U           /*!< AM or 24-hour format */
-#define LL_RTC_ALMA_TIME_FORMAT_PM         RTC_ALRMAR_PM         /*!< PM */
+#define LL_RTC_ALMA_TIME_FORMAT_AM         0U                      /*!< AM or 24-hour format */
+#define LL_RTC_ALMA_TIME_FORMAT_PM         RTC_ALRMAR_PM           /*!< PM */
 /**
   * @}
   */
@@ -361,8 +361,8 @@ typedef struct
 /** @defgroup RTC_LL_EC_TIMESTAMP_EDGE  TIMESTAMP EDGE
   * @{
   */
-#define LL_RTC_TIMESTAMP_EDGE_RISING       0x00000000U           /*!< RTC_TS input rising edge generates a time-stamp event */
-#define LL_RTC_TIMESTAMP_EDGE_FALLING      RTC_CR_TSEDGE         /*!< RTC_TS input falling edge generates a time-stamp even */
+#define LL_RTC_TIMESTAMP_EDGE_RISING       0U                      /*!< RTC_TS input rising edge generates a time-stamp event */
+#define LL_RTC_TIMESTAMP_EDGE_FALLING      RTC_CR_TSEDGE           /*!< RTC_TS input falling edge generates a time-stamp even */
 /**
   * @}
   */
@@ -370,8 +370,8 @@ typedef struct
 /** @defgroup RTC_LL_EC_TS_TIME_FORMAT  TIMESTAMP TIME FORMAT
   * @{
   */
-#define LL_RTC_TS_TIME_FORMAT_AM           0x00000000U           /*!< AM or 24-hour format */
-#define LL_RTC_TS_TIME_FORMAT_PM           RTC_TSTR_PM           /*!< PM */
+#define LL_RTC_TS_TIME_FORMAT_AM           0U                      /*!< AM or 24-hour format */
+#define LL_RTC_TS_TIME_FORMAT_PM           RTC_TSTR_PM             /*!< PM */
 /**
   * @}
   */
@@ -379,7 +379,7 @@ typedef struct
 /** @defgroup RTC_LL_EC_CALIB_OUTPUT  Calibration output
   * @{
   */
-#define LL_RTC_CALIB_OUTPUT_NONE           0x00000000U                 /*!< Calibration output disabled */
+#define LL_RTC_CALIB_OUTPUT_NONE           0U                          /*!< Calibration output disabled */
 #define LL_RTC_CALIB_OUTPUT_1HZ            (RTC_CR_COE | RTC_CR_COSEL) /*!< Calibration output is 1 Hz */
 #define LL_RTC_CALIB_OUTPUT_512HZ          RTC_CR_COE                 /*!< Calibration output is 512 Hz */
 /**
@@ -389,7 +389,7 @@ typedef struct
 /** @defgroup RTC_LL_EC_CALIB_INSERTPULSE  Calibration pulse insertion
   * @{
   */
-#define LL_RTC_CALIB_INSERTPULSE_NONE      0x00000000U           /*!< No RTCCLK pulses are added */
+#define LL_RTC_CALIB_INSERTPULSE_NONE      0U                    /*!< No RTCCLK pulses are added */
 #define LL_RTC_CALIB_INSERTPULSE_SET       RTC_CALR_CALP         /*!< One RTCCLK pulse is effectively inserted every 2exp11 pulses (frequency increased by 488.5 ppm) */
 /**
   * @}
@@ -398,7 +398,7 @@ typedef struct
 /** @defgroup RTC_LL_EC_CALIB_PERIOD  Calibration period
   * @{
   */
-#define LL_RTC_CALIB_PERIOD_32SEC          0x00000000U           /*!< Use a 32-second calibration cycle period */
+#define LL_RTC_CALIB_PERIOD_32SEC          0U                    /*!< Use a 32-second calibration cycle period */
 #define LL_RTC_CALIB_PERIOD_16SEC          RTC_CALR_CALW16       /*!< Use a 16-second calibration cycle period */
 #define LL_RTC_CALIB_PERIOD_8SEC           RTC_CALR_CALW8        /*!< Use a 8-second calibration cycle period */
 /**
@@ -2205,7 +2205,7 @@ __STATIC_INLINE uint32_t LL_RTC_IsActiveFlag_ALRA(RTC_TypeDef *RTCx)
   */
 __STATIC_INLINE void LL_RTC_ClearFlag_TSOV(RTC_TypeDef *RTCx)
 {
-  SET_BIT(RTCx->SCR, RTC_SCR_CTSOVF);
+  WRITE_REG(RTCx->SCR, RTC_SCR_CTSOVF);
 }
 
 /**
@@ -2216,7 +2216,7 @@ __STATIC_INLINE void LL_RTC_ClearFlag_TSOV(RTC_TypeDef *RTCx)
   */
 __STATIC_INLINE void LL_RTC_ClearFlag_TS(RTC_TypeDef *RTCx)
 {
-  SET_BIT(RTCx->SCR, RTC_SCR_CTSF);
+  WRITE_REG(RTCx->SCR, RTC_SCR_CTSF);
 }
 
 
@@ -2228,7 +2228,7 @@ __STATIC_INLINE void LL_RTC_ClearFlag_TS(RTC_TypeDef *RTCx)
   */
 __STATIC_INLINE void LL_RTC_ClearFlag_ALRA(RTC_TypeDef *RTCx)
 {
-  SET_BIT(RTCx->SCR, RTC_SCR_CALRAF);
+  WRITE_REG(RTCx->SCR, RTC_SCR_CALRAF);
 }
 
 /**

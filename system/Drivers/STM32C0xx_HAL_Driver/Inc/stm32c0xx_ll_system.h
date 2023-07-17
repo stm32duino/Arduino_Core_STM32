@@ -91,9 +91,9 @@ extern "C" {
 /** @defgroup SYSTEM_LL_EC_IR_MOD SYSCFG IR Modulation
   * @{
   */
-#define LL_SYSCFG_IR_MOD_TIM16       (SYSCFG_CFGR1_IR_MOD_0 & SYSCFG_CFGR1_IR_MOD_1)    /*!< 00: Timer16 is selected as IRDA Modulation enveloppe source */
-#define LL_SYSCFG_IR_MOD_USART1      (SYSCFG_CFGR1_IR_MOD_0)                            /*!< 01: USART1 is selected as IRDA Modulation enveloppe source */
-#define LL_SYSCFG_IR_MOD_USART2      (SYSCFG_CFGR1_IR_MOD_1)                            /*!< 10: USART2 is selected as IRDA Modulation enveloppe source */
+#define LL_SYSCFG_IR_MOD_TIM16       (SYSCFG_CFGR1_IR_MOD_0 & SYSCFG_CFGR1_IR_MOD_1)    /*!< 00: Timer16 is selected as IRDA Modulation envelope source */
+#define LL_SYSCFG_IR_MOD_USART1      (SYSCFG_CFGR1_IR_MOD_0)                            /*!< 01: USART1 is selected as IRDA Modulation envelope source */
+#define LL_SYSCFG_IR_MOD_USART2      (SYSCFG_CFGR1_IR_MOD_1)                            /*!< 10: USART2 is selected as IRDA Modulation envelope source */
 
 /**
   * @}
@@ -175,44 +175,68 @@ extern "C" {
   * @}
   */
 
-/** @defgroup SYSTEM_LL_PINMUX PINMUX Config
+/** @defgroup SYSTEM_LL_PINMUX_CFG PINMUX Config
   * @{
   */
 #if (DEV_ID == 0x443UL)
-#define LL_PINMUX_SO8_PIN1_PB7               0x00000000U              /*!< STM32C011 SO8 package, Pin1 assigned to GPIO PB7 */
-#define LL_PINMUX_SO8_PIN1_PC14              SYSCFG_CFGR3_PINMUX0_0   /*!< STM32C011 SO8 package, Pin1 assigned to GPIO PC14 */
-#define LL_PINMUX_SO8_PIN4_PF2               0x00000000U              /*!< STM32C011 SO8 package, Pin4 assigned to GPIO PF2 */
-#define LL_PINMUX_SO8_PIN4_PA0               SYSCFG_CFGR3_PINMUX1_0   /*!< STM32C011 SO8 package, Pin4 assigned to GPIO PA0 */
-#define LL_PINMUX_SO8_PIN4_PA1               SYSCFG_CFGR3_PINMUX1_1   /*!< STM32C011 SO8 package, Pin4 assigned to GPIO PA1 */
-#define LL_PINMUX_SO8_PIN4_PA2               (SYSCFG_CFGR3_PINMUX1_0 | SYSCFG_CFGR3_PINMUX1_1)   /*!< STM32C011 SO8 package, Pin4 assigned to GPIO PA2 */
-#define LL_PINMUX_SO8_PIN5_PA8               0x00000000U              /*!< STM32C011 SO8 package, Pin5 assigned to GPIO PA8 */
-#define LL_PINMUX_SO8_PIN5_PA11              SYSCFG_CFGR3_PINMUX2_0   /*!< STM32C011 SO8 package, Pin5 assigned to GPIO PA11 */
-#define LL_PINMUX_SO8_PIN8_PA14              0x00000000U               /*!< STM32C011 SO8 package, Pin8 assigned to GPIO PA14 */
-#define LL_PINMUX_SO8_PIN8_PB6               SYSCFG_CFGR3_PINMUX3_0   /*!< STM32C011 SO8 package, Pin8 assigned to GPIO PB6 */
-#define LL_PINMUX_SO8_PIN8_PC15              SYSCFG_CFGR3_PINMUX3_1   /*!< STM32C011 SO8 package, Pin8 assigned to GPIO PC15 */
-#define LL_PINMUX_WLCSP12_PINE2_PA7          0x00000000U              /*!< STM32C011 WLCSP12 package, PinE2 assigned to GPIO PA7 */
-#define LL_PINMUX_WLCSP12_PINE2_PA12         SYSCFG_CFGR3_PINMUX4_0   /*!< STM32C011 WLCSP12 package, PinE2 assigned to GPIO PA12 */
-#define LL_PINMUX_WLCSP12_PINF1_PA3          0x00000000U              /*!< STM32C011 WLCSP12 package, PinF1 assigned to GPIO PA3*/
-#define LL_PINMUX_WLCSP12_PINF1_PA4          SYSCFG_CFGR3_PINMUX5_0   /*!< STM32C011 WLCSP12 package, PinF1 assigned to GPIO PA4 */
-#define LL_PINMUX_WLCSP12_PINF1_PA5          SYSCFG_CFGR3_PINMUX5_1   /*!< STM32C011 WLCSP12 package, PinF1 assigned to GPIO PA5 */
-#define LL_PINMUX_WLCSP12_PINF1_PA6          (SYSCFG_CFGR3_PINMUX5_0 | SYSCFG_CFGR3_PINMUX5_1)   /*!< STM32C011 WLCSP12 package, PinF1 assigned to GPIO PA6 */
+#define LL_PINMUX_SO8_PIN1_PB7               (((SYSCFG_CFGR3_PINMUX0_0 | SYSCFG_CFGR3_PINMUX0_1) << 16U) | 0x00000000U)              /*!< STM32C011 SO8 package, Pin1 assigned to GPIO PB7 */
+#define LL_PINMUX_SO8_PIN1_PC14              (((SYSCFG_CFGR3_PINMUX0_0 | SYSCFG_CFGR3_PINMUX0_1) << 16U) | SYSCFG_CFGR3_PINMUX0_0)   /*!< STM32C011 SO8 package, Pin1 assigned to GPIO PC14 */
+#define LL_PINMUX_SO8_PIN4_PF2               (((SYSCFG_CFGR3_PINMUX1_0 | SYSCFG_CFGR3_PINMUX1_1) << 16U) | 0x00000000U)              /*!< STM32C011 SO8 package, Pin4 assigned to GPIO PF2 */
+#define LL_PINMUX_SO8_PIN4_PA0               (((SYSCFG_CFGR3_PINMUX1_0 | SYSCFG_CFGR3_PINMUX1_1) << 16U) | SYSCFG_CFGR3_PINMUX1_0)   /*!< STM32C011 SO8 package, Pin4 assigned to GPIO PA0 */
+#define LL_PINMUX_SO8_PIN4_PA1               (((SYSCFG_CFGR3_PINMUX1_0 | SYSCFG_CFGR3_PINMUX1_1) << 16U) | SYSCFG_CFGR3_PINMUX1_1)   /*!< STM32C011 SO8 package, Pin4 assigned to GPIO PA1 */
+#define LL_PINMUX_SO8_PIN4_PA2               (((SYSCFG_CFGR3_PINMUX1_0 | SYSCFG_CFGR3_PINMUX1_1) << 16U) | SYSCFG_CFGR3_PINMUX1_0 | SYSCFG_CFGR3_PINMUX1_1)     /*!< STM32C011 SO8 package, Pin4 assigned to GPIO PA2 */
+#define LL_PINMUX_SO8_PIN5_PA8               (((SYSCFG_CFGR3_PINMUX2_0 | SYSCFG_CFGR3_PINMUX2_1) << 16U) | 0x00000000U)              /*!< STM32C011 SO8 package, Pin5 assigned to GPIO PA8 */
+#define LL_PINMUX_SO8_PIN5_PA11              (((SYSCFG_CFGR3_PINMUX2_0 | SYSCFG_CFGR3_PINMUX2_1) << 16U) | SYSCFG_CFGR3_PINMUX2_0)   /*!< STM32C011 SO8 package, Pin5 assigned to GPIO PA11 */
+#define LL_PINMUX_SO8_PIN8_PA14              (((SYSCFG_CFGR3_PINMUX3_0 | SYSCFG_CFGR3_PINMUX3_1) << 16U) | 0x00000000U)              /*!< STM32C011 SO8 package, Pin8 assigned to GPIO PA14 */
+#define LL_PINMUX_SO8_PIN8_PB6               (((SYSCFG_CFGR3_PINMUX3_0 | SYSCFG_CFGR3_PINMUX3_1) << 16U) | SYSCFG_CFGR3_PINMUX3_0)   /*!< STM32C011 SO8 package, Pin8 assigned to GPIO PB6 */
+#define LL_PINMUX_SO8_PIN8_PC15              (((SYSCFG_CFGR3_PINMUX3_0 | SYSCFG_CFGR3_PINMUX3_1) << 16U) | SYSCFG_CFGR3_PINMUX3_1)   /*!< STM32C011 SO8 package, Pin8 assigned to GPIO PC15 */
+#define LL_PINMUX_WLCSP12_PINE2_PA7          (((SYSCFG_CFGR3_PINMUX4_0 | SYSCFG_CFGR3_PINMUX4_1) << 16U) | 0x00000000U)              /*!< STM32C011 WLCSP12 package, PinE2 assigned to GPIO PA7 */
+#define LL_PINMUX_WLCSP12_PINE2_PA12         (((SYSCFG_CFGR3_PINMUX4_0 | SYSCFG_CFGR3_PINMUX4_1) << 16U) | SYSCFG_CFGR3_PINMUX4_0)   /*!< STM32C011 WLCSP12 package, PinE2 assigned to GPIO PA12 */
+#define LL_PINMUX_WLCSP12_PINF1_PA3          (((SYSCFG_CFGR3_PINMUX5_0 | SYSCFG_CFGR3_PINMUX5_1) << 16U) | 0x00000000U)              /*!< STM32C011 WLCSP12 package, PinF1 assigned to GPIO PA3*/
+#define LL_PINMUX_WLCSP12_PINF1_PA4          (((SYSCFG_CFGR3_PINMUX5_0 | SYSCFG_CFGR3_PINMUX5_1) << 16U) | SYSCFG_CFGR3_PINMUX5_0)   /*!< STM32C011 WLCSP12 package, PinF1 assigned to GPIO PA4 */
+#define LL_PINMUX_WLCSP12_PINF1_PA5          (((SYSCFG_CFGR3_PINMUX5_0 | SYSCFG_CFGR3_PINMUX5_1) << 16U) | SYSCFG_CFGR3_PINMUX5_1)   /*!< STM32C011 WLCSP12 package, PinF1 assigned to GPIO PA5 */
+#define LL_PINMUX_WLCSP12_PINF1_PA6          (((SYSCFG_CFGR3_PINMUX5_0 | SYSCFG_CFGR3_PINMUX5_1) << 16U) | SYSCFG_CFGR3_PINMUX5_0 | SYSCFG_CFGR3_PINMUX5_1)   /*!< STM32C011 WLCSP12 package, PinF1 assigned to GPIO PA6 */
+
 #elif (DEV_ID == 0x453UL)
-#define LL_PINMUX_WLCSP14_PINF2_PA1           0x00000000U             /*!< STM32C031 WLCSP14 package, PinF2 assigned to GPIO PA1 */
-#define LL_PINMUX_WLCSP14_PINF2_PA2           SYSCFG_CFGR3_PINMUX0_0  /*!< STM32C031 WLCSP14 package, PinF2 assigned to GPIO PA2 */
-#define LL_PINMUX_WLCSP14_PING3_PF2           0x00000000U             /*!< STM32C031 WLCSP14 package, PinG3 assigned to GPIO PF2 */
-#define LL_PINMUX_WLCSP14_PING3_PA0           SYSCFG_CFGR3_PINMUX1_0  /*!< STM32C031 WLCSP14 package, PinG3 assigned to GPIO PA0 */
-#define LL_PINMUX_WLCSP14_PINJ1_PA8           0x00000000U             /*!< STM32C031 WLCSP14 package, PinJ1 assigned to GPIO PA8 */
-#define LL_PINMUX_WLCSP14_PINJ1_PA11          SYSCFG_CFGR3_PINMUX2_0  /*!< STM32C031 WLCSP14 package, PinJ1 assigned to GPIO PA11 */
-#define LL_PINMUX_WLCSP14_PINH2_PA5           0x00000000U             /*!< STM32C031 WLCSP14 package, PinH2 assigned to GPIO PA5 */
-#define LL_PINMUX_WLCSP14_PINH2_PA6           SYSCFG_CFGR3_PINMUX3_0  /*!< STM32C031 WLCSP14 package, PinH2 assigned to GPIO PA6 */
-#define LL_PINMUX_WLCSP14_PING1_PA7           0x00000000U             /*!< STM32C031 WLCSP14 package, PinG1 assigned to GPIO PA7 */
-#define LL_PINMUX_WLCSP14_PING1_PA12          SYSCFG_CFGR3_PINMUX4_0  /*!< STM32C031 WLCSP14 package, PinG1 assigned to GPIO PA12 */
-#define LL_PINMUX_WLCSP14_PINJ3_PA3           0x00000000U             /*!< STM32C031 WLCSP14 package, PinJ3 assigned to GPIO PA3 */
-#define LL_PINMUX_WLCSP14_PINJ3_PA4           SYSCFG_CFGR3_PINMUX5_0  /*!< STM32C031 WLCSP14 package, PinJ3 assigned to GPIO PA4 */
-#endif
+#define LL_PINMUX_WLCSP14_PINF2_PA1           (((SYSCFG_CFGR3_PINMUX0_0 | SYSCFG_CFGR3_PINMUX0_1) << 16U) | 0x00000000U)             /*!< STM32C031 WLCSP14 package, PinF2 assigned to GPIO PA1 */
+#define LL_PINMUX_WLCSP14_PINF2_PA2           (((SYSCFG_CFGR3_PINMUX0_0 | SYSCFG_CFGR3_PINMUX0_1) << 16U) | SYSCFG_CFGR3_PINMUX0_0)  /*!< STM32C031 WLCSP14 package, PinF2 assigned to GPIO PA2 */
+#define LL_PINMUX_WLCSP14_PING3_PF2           (((SYSCFG_CFGR3_PINMUX1_0 | SYSCFG_CFGR3_PINMUX1_1) << 16U) | 0x00000000U)             /*!< STM32C031 WLCSP14 package, PinG3 assigned to GPIO PF2 */
+#define LL_PINMUX_WLCSP14_PING3_PA0           (((SYSCFG_CFGR3_PINMUX1_0 | SYSCFG_CFGR3_PINMUX1_1) << 16U) | SYSCFG_CFGR3_PINMUX1_0)  /*!< STM32C031 WLCSP14 package, PinG3 assigned to GPIO PA0 */
+#define LL_PINMUX_WLCSP14_PINJ1_PA8           (((SYSCFG_CFGR3_PINMUX2_0 | SYSCFG_CFGR3_PINMUX2_1) << 16U) | 0x00000000U)             /*!< STM32C031 WLCSP14 package, PinJ1 assigned to GPIO PA8 */
+#define LL_PINMUX_WLCSP14_PINJ1_PA11          (((SYSCFG_CFGR3_PINMUX2_0 | SYSCFG_CFGR3_PINMUX2_1) << 16U) | SYSCFG_CFGR3_PINMUX2_0)  /*!< STM32C031 WLCSP14 package, PinJ1 assigned to GPIO PA11 */
+#define LL_PINMUX_WLCSP14_PINH2_PA5           (((SYSCFG_CFGR3_PINMUX3_0 | SYSCFG_CFGR3_PINMUX3_1) << 16U) | 0x00000000U)             /*!< STM32C031 WLCSP14 package, PinH2 assigned to GPIO PA5 */
+#define LL_PINMUX_WLCSP14_PINH2_PA6           (((SYSCFG_CFGR3_PINMUX3_0 | SYSCFG_CFGR3_PINMUX3_1) << 16U) | SYSCFG_CFGR3_PINMUX3_0)  /*!< STM32C031 WLCSP14 package, PinH2 assigned to GPIO PA6 */
+#define LL_PINMUX_WLCSP14_PING1_PA7           (((SYSCFG_CFGR3_PINMUX4_0 | SYSCFG_CFGR3_PINMUX4_1) << 16U) | 0x00000000U)             /*!< STM32C031 WLCSP14 package, PinG1 assigned to GPIO PA7 */
+#define LL_PINMUX_WLCSP14_PING1_PA12          (((SYSCFG_CFGR3_PINMUX4_0 | SYSCFG_CFGR3_PINMUX4_1) << 16U) | SYSCFG_CFGR3_PINMUX4_0)  /*!< STM32C031 WLCSP14 package, PinG1 assigned to GPIO PA12 */
+#define LL_PINMUX_WLCSP14_PINJ3_PA3           (((SYSCFG_CFGR3_PINMUX5_0 | SYSCFG_CFGR3_PINMUX5_1) << 16U) | 0x00000000U)             /*!< STM32C031 WLCSP14 package, PinJ3 assigned to GPIO PA3 */
+#define LL_PINMUX_WLCSP14_PINJ3_PA4           (((SYSCFG_CFGR3_PINMUX5_0 | SYSCFG_CFGR3_PINMUX5_1) << 16U) | SYSCFG_CFGR3_PINMUX5_0)  /*!< STM32C031 WLCSP14 package, PinJ3 assigned to GPIO PA4 */
+#endif /* DEV_ID == 0x443UL */
 /**
   * @}
   */
+
+/** @defgroup SYSTEM_LL_PINMUX_SOURCE PINMUX Config Source
+  * @{
+  */
+#if (DEV_ID == 0x443UL)
+#define LL_PINMUX_SO8_PIN1               (SYSCFG_CFGR3_PINMUX0_0 | SYSCFG_CFGR3_PINMUX0_1)       /*!< STM32C011 SO8 package, GPIO Pin1 multiplexer  */
+#define LL_PINMUX_SO8_PIN4               (SYSCFG_CFGR3_PINMUX1_0 | SYSCFG_CFGR3_PINMUX1_1)       /*!< STM32C011 SO8 package, GPIO Pin4 multiplexer  */
+#define LL_PINMUX_SO8_PIN5               (SYSCFG_CFGR3_PINMUX2_0 | SYSCFG_CFGR3_PINMUX2_1)       /*!< STM32C011 SO8 package, GPIO Pin5 multiplexer  */
+#define LL_PINMUX_SO8_PIN8               (SYSCFG_CFGR3_PINMUX3_0 | SYSCFG_CFGR3_PINMUX3_1)       /*!< STM32C011 SO8 package, GPIO Pin8 multiplexer  */
+#define LL_PINMUX_WLCSP12_PINE2          (SYSCFG_CFGR3_PINMUX4_0 | SYSCFG_CFGR3_PINMUX4_1)       /*!< STM32C011 WLCSP12 package, GPIO PinE2 multiplexer */
+#define LL_PINMUX_WLCSP12_PINF1          (SYSCFG_CFGR3_PINMUX5_0 | SYSCFG_CFGR3_PINMUX5_1)       /*!< STM32C011 WLCSP12 package, GPIO PinF1 multiplexer */
+#elif (DEV_ID == 0x453UL)
+#define LL_PINMUX_WLCSP14_PINF2          (SYSCFG_CFGR3_PINMUX0_0 | SYSCFG_CFGR3_PINMUX0_1)       /*!< STM32C031 WLCSP14 package, GPIO PinF2 multiplexer */
+#define LL_PINMUX_WLCSP14_PING3          (SYSCFG_CFGR3_PINMUX1_0 | SYSCFG_CFGR3_PINMUX1_1)       /*!< STM32C031 WLCSP14 package, GPIO PinG3 multiplexer */
+#define LL_PINMUX_WLCSP14_PINJ1          (SYSCFG_CFGR3_PINMUX2_0 | SYSCFG_CFGR3_PINMUX2_1)       /*!< STM32C031 WLCSP14 package, GPIO PinJ1 multiplexer */
+#define LL_PINMUX_WLCSP14_PINH2          (SYSCFG_CFGR3_PINMUX3_0 | SYSCFG_CFGR3_PINMUX3_1)       /*!< STM32C031 WLCSP14 package, GPIO PinH2 multiplexer */
+#define LL_PINMUX_WLCSP14_PING1          (SYSCFG_CFGR3_PINMUX4_0 | SYSCFG_CFGR3_PINMUX4_1)       /*!< STM32C031 WLCSP14 package, GPIO PinG1 multiplexer */
+#define LL_PINMUX_WLCSP14_PINJ3          (SYSCFG_CFGR3_PINMUX5_0 | SYSCFG_CFGR3_PINMUX5_1)       /*!< STM32C031 WLCSP14 package, GPIO PinJ3 multiplexer */
+#endif /* DEV_ID == 0x443UL */
+ /**
+  * @}
+  */
+
 /**
   * @}
   */
@@ -416,24 +440,24 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetTIMBreakInputs(void)
 /**
   * @brief  Config PinMux
   * @rmtoll SYSCFG_CFGR3 CLL   LL_SYSCFG_ConfigPinMux\n
-  * @param  mux_cfg This parameter can be a combination of LL_PINMUX_xx defines
+  * @param  mux_cfg This parameter can be a value of @ref SYSTEM_LL_PINMUX_CFG
   * @retval None
   */
 __STATIC_INLINE void LL_SYSCFG_ConfigPinMux(uint32_t mux_cfg)
 {
-  WRITE_REG(SYSCFG->CFGR3, mux_cfg);
+  MODIFY_REG(SYSCFG->CFGR3, (mux_cfg >> 16U), (mux_cfg & 0x0000FFFFU));
 }
 
 /**
   * @brief  Get PinMux configuration
   * @rmtoll SYSCFG_CFGR3 CLL   LL_SYSCFG_GetConfigPinMux\n
-  * @retval Returned value can be can be a combination of LL_PINMUX_xx defines
+  * @param  LL_PINMUX_PACKx_PINy This parameter can be a value of @ref SYSTEM_LL_PINMUX_SOURCE
+  * @retval Returned value can be one of SYSTEM_LL_PINMUX_CFG defines
   */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetConfigPinMux(void)
+__STATIC_INLINE uint32_t LL_SYSCFG_GetConfigPinMux(uint32_t LL_PINMUX_PACKx_PINy)
 {
-  return (uint32_t)(READ_REG(SYSCFG->CFGR3));
+  return (uint32_t)(READ_BIT(SYSCFG->CFGR3, LL_PINMUX_PACKx_PINy) | (LL_PINMUX_PACKx_PINy << 16U));
 }
-
 
 #if defined(SYSCFG_ITLINE0_SR_EWDG)
 /**

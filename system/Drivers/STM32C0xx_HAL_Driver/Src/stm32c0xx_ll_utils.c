@@ -57,15 +57,15 @@
 /** @addtogroup UTILS_LL_Private_Macros
   * @{
   */
-#define IS_LL_UTILS_SYSCLK_DIV(__VALUE__) (((__VALUE__) == LL_RCC_SYSCLK_DIV_1)   \
-                                           || ((__VALUE__) == LL_RCC_SYSCLK_DIV_2)   \
-                                           || ((__VALUE__) == LL_RCC_SYSCLK_DIV_4)   \
-                                           || ((__VALUE__) == LL_RCC_SYSCLK_DIV_8)   \
-                                           || ((__VALUE__) == LL_RCC_SYSCLK_DIV_16)  \
-                                           || ((__VALUE__) == LL_RCC_SYSCLK_DIV_64)  \
-                                           || ((__VALUE__) == LL_RCC_SYSCLK_DIV_128) \
-                                           || ((__VALUE__) == LL_RCC_SYSCLK_DIV_256) \
-                                           || ((__VALUE__) == LL_RCC_SYSCLK_DIV_512))
+#define IS_LL_UTILS_SYSCLK_DIV(__VALUE__) (((__VALUE__) == LL_RCC_HCLK_DIV_1)    \
+                                           || ((__VALUE__) == LL_RCC_HCLK_DIV_2)   \
+                                           || ((__VALUE__) == LL_RCC_HCLK_DIV_4)   \
+                                           || ((__VALUE__) == LL_RCC_HCLK_DIV_8)   \
+                                           || ((__VALUE__) == LL_RCC_HCLK_DIV_16)  \
+                                           || ((__VALUE__) == LL_RCC_HCLK_DIV_64)  \
+                                           || ((__VALUE__) == LL_RCC_HCLK_DIV_128) \
+                                           || ((__VALUE__) == LL_RCC_HCLK_DIV_256) \
+                                           || ((__VALUE__) == LL_RCC_HCLK_DIV_512))
 
 #define IS_LL_UTILS_APB1_DIV(__VALUE__) (((__VALUE__) == LL_RCC_APB1_DIV_1) \
                                          || ((__VALUE__) == LL_RCC_APB1_DIV_2) \
@@ -226,14 +226,15 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
   *          - SUCCESS: Latency has been modified
   *          - ERROR: Latency cannot be modified
   */
-ErrorStatus UTILS_SetFlashLatency(uint32_t HCLK_Frequency)
+ErrorStatus LL_SetFlashLatency(uint32_t HCLK_Frequency)
 {
-  ErrorStatus status = SUCCESS;
-
-  uint32_t latency = LL_FLASH_LATENCY_0;  /* default value 0WS */
+  uint32_t timeout;
+  uint32_t getlatency;
+  uint32_t latency;
+  ErrorStatus status;
 
   /* Frequency cannot be equal to 0 */
-  if (HCLK_Frequency == 0U)
+  if ((HCLK_Frequency == 0U) || (HCLK_Frequency > UTILS_SCALE1_LATENCY2_FREQ))
   {
     status = ERROR;
   }
@@ -247,15 +248,28 @@ ErrorStatus UTILS_SetFlashLatency(uint32_t HCLK_Frequency)
     else
     {
       /* else HCLK_Frequency < 24MHz default LL_FLASH_LATENCY_0 0WS */
+      latency = LL_FLASH_LATENCY_0;
     }
 
     LL_FLASH_SetLatency(latency);
 
     /* Check that the new number of wait states is taken into account to access the Flash
        memory by reading the FLASH_ACR register */
-    if (LL_FLASH_GetLatency() != latency)
+    timeout = 2;
+    do
+    {
+      /* Wait for Flash latency to be updated */
+      getlatency = LL_FLASH_GetLatency();
+      timeout--;
+    } while ((getlatency != latency) && (timeout > 0U));
+
+    if(getlatency != latency)
     {
       status = ERROR;
+    }
+    else
+    {
+      status = SUCCESS;
     }
   }
   return status;

@@ -106,10 +106,12 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc)
 {
   HAL_StatusTypeDef tmp_hal_status;
   __IO uint32_t wait_loop_index = 0UL;
-  uint32_t backup_setting_adc_dma_transfer; /* Note: Variable not declared as volatile because register read is already declared as volatile */
+  uint32_t backup_setting_cfgr1;
   uint32_t calibration_index;
   uint32_t calibration_factor_accumulated = 0;
   uint32_t tickstart;
+  uint32_t adc_clk_async_presc;
+  __IO uint32_t delay_cpu_cycles;
 
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
@@ -130,14 +132,16 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc)
                       HAL_ADC_STATE_REG_BUSY,
                       HAL_ADC_STATE_BUSY_INTERNAL);
 
-    /* Disable ADC DMA transfer request during calibration */
+    /* Manage settings impacting calibration                                  */
+    /* - Disable ADC mode auto power-off                                      */
+    /* - Disable ADC DMA transfer request during calibration                  */
     /* Note: Specificity of this STM32 series: Calibration factor is          */
     /*       available in data register and also transferred by DMA.          */
     /*       To not insert ADC calibration factor among ADC conversion data   */
     /*       in array variable, DMA transfer must be disabled during          */
     /*       calibration.                                                     */
-    backup_setting_adc_dma_transfer = READ_BIT(hadc->Instance->CFGR1, ADC_CFGR1_DMAEN | ADC_CFGR1_DMACFG);
-    CLEAR_BIT(hadc->Instance->CFGR1, ADC_CFGR1_DMAEN | ADC_CFGR1_DMACFG);
+    backup_setting_cfgr1 = READ_BIT(hadc->Instance->CFGR1, ADC_CFGR1_DMAEN | ADC_CFGR1_DMACFG | ADC_CFGR1_AUTOFF);
+    CLEAR_BIT(hadc->Instance->CFGR1, ADC_CFGR1_DMAEN | ADC_CFGR1_DMACFG | ADC_CFGR1_AUTOFF);
 
     /* ADC calibration procedure */
     /* Note: Perform an averaging of 8 calibrations for optimized accuracy */
@@ -167,8 +171,29 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc)
     }
     /* Compute average */
     calibration_factor_accumulated /= calibration_index;
-    /* Apply calibration factor */
+    /* Apply calibration factor (requires ADC enable and disable process) */
     LL_ADC_Enable(hadc->Instance);
+
+    /* Case of ADC clocked at low frequency: Delay required between ADC enable and disable actions */
+    if(LL_ADC_GetClock(hadc->Instance) == LL_ADC_CLOCK_ASYNC)
+    {
+      adc_clk_async_presc = LL_ADC_GetCommonClock(__LL_ADC_COMMON_INSTANCE(hadc->Instance));
+
+      if(adc_clk_async_presc >= LL_ADC_CLOCK_ASYNC_DIV16)
+      {
+        /* Delay loop initialization and execution */
+        /* Delay depends on ADC clock prescaler: Compute ADC clock asynchronous prescaler to decimal format */
+        delay_cpu_cycles = (1U << ((adc_clk_async_presc >> ADC_CCR_PRESC_Pos) - 3U));
+        /* Divide variable by 2 to compensate partially CPU processing cycles */
+        delay_cpu_cycles >>= 1U;
+
+        while(delay_cpu_cycles != 0)
+        {
+          delay_cpu_cycles--;
+        }
+      }
+    }
+
     LL_ADC_SetCalibrationFactor(hadc->Instance, calibration_factor_accumulated);
     LL_ADC_Disable(hadc->Instance);
 
@@ -194,8 +219,8 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc)
       }
     }
 
-    /* Restore ADC DMA transfer request after calibration */
-    SET_BIT(hadc->Instance->CFGR1, backup_setting_adc_dma_transfer);
+    /* Restore configuration after calibration */
+    SET_BIT(hadc->Instance->CFGR1, backup_setting_cfgr1);
 
     /* Set ADC state */
     ADC_STATE_CLR_SET(hadc->State,

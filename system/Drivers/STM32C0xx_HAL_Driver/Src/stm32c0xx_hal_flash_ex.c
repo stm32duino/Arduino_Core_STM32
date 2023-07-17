@@ -566,6 +566,7 @@ static void FLASH_OB_WRPConfig(uint32_t WRPArea, uint32_t WRPStartOffset, uint32
   *         This parameter can be a combination of @ref FLASH_OB_USER_Type
   * @param  UserConfig  The FLASH User Option Bytes values.
   *         This parameter can be a combination of:
+  *         @arg @ref FLASH_OB_USER_BOR_ENABLE,
   *         @arg @ref FLASH_OB_USER_BOR_LEVEL,
   *         @arg @ref FLASH_OB_USER_nRST_STOP,
   *         @arg @ref FLASH_OB_USER_nRST_STANDBY,
@@ -765,6 +766,7 @@ static uint32_t FLASH_OB_GetRDP(void)
 /**
   * @brief  Return the FLASH User Option Byte value.
   * @retval The FLASH User Option Bytes values. It will be a combination of all the following values:
+  *         @arg @ref FLASH_OB_USER_BOR_ENABLE,
   *         @ref FLASH_OB_USER_BOR_LEVEL,
   *         @ref FLASH_OB_USER_nRST_STOP,
   *         @ref FLASH_OB_USER_nRST_STANDBY,

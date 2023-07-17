@@ -296,16 +296,16 @@ extern "C" {
   * @{
   */
 #if defined(STM32C011xx)
-#define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0uL :\
-                                      ((__GPIOx__) == (GPIOB))? 1uL :\
-                                      ((__GPIOx__) == (GPIOC))? 2uL :\
-                                      ((__GPIOx__) == (GPIOF))? 3uL : 5uL)
+#define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0UL :\
+                                      ((__GPIOx__) == (GPIOB))? 1UL :\
+                                      ((__GPIOx__) == (GPIOC))? 2UL :\
+                                      ((__GPIOx__) == (GPIOF))? 5UL : 6UL)
 #elif defined(STM32C031xx)
-#define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0uL :\
-                                      ((__GPIOx__) == (GPIOB))? 1uL :\
-                                      ((__GPIOx__) == (GPIOC))? 2uL :\
-                                      ((__GPIOx__) == (GPIOD))? 3uL :\
-                                      ((__GPIOx__) == (GPIOF))? 4uL : 5uL)
+#define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0UL :\
+                                      ((__GPIOx__) == (GPIOB))? 1UL :\
+                                      ((__GPIOx__) == (GPIOC))? 2UL :\
+                                      ((__GPIOx__) == (GPIOD))? 3UL :\
+                                      ((__GPIOx__) == (GPIOF))? 5UL : 6UL)
 #endif /* STM32C011xx */
 /**
   * @}

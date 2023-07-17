@@ -89,7 +89,7 @@
   *
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *PeriphClkInit)
+HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(const RCC_PeriphCLKInitTypeDef  *PeriphClkInit)
 {
   uint32_t tmpregister;
   uint32_t tickstart;

@@ -53,7 +53,7 @@ extern "C" {
 /** @defgroup RTCEx_Time_Stamp_Edges_definitions RTCEx Time Stamp Edges definition
   * @{
   */
-#define RTC_TIMESTAMPEDGE_RISING        0x00000000u
+#define RTC_TIMESTAMPEDGE_RISING        0x00000000U
 #define RTC_TIMESTAMPEDGE_FALLING       RTC_CR_TSEDGE
 /**
   * @}
@@ -62,7 +62,7 @@ extern "C" {
 /** @defgroup RTCEx_TimeStamp_Pin_Selections RTCEx TimeStamp Pin Selection
   * @{
   */
-#define RTC_TIMESTAMPPIN_DEFAULT              0x00000000u
+#define RTC_TIMESTAMPPIN_DEFAULT              0x00000000U
 /**
   * @}
   */
@@ -71,7 +71,7 @@ extern "C" {
 /** @defgroup RTCEx_Smooth_calib_period_Definitions RTCEx Smooth calib period Definitions
   * @{
   */
-#define RTC_SMOOTHCALIB_PERIOD_32SEC   0x00000000u              /*!< If RTCCLK = 32768 Hz, Smooth calibation
+#define RTC_SMOOTHCALIB_PERIOD_32SEC   0x00000000U              /*!< If RTCCLK = 32768 Hz, Smooth calibation
                                                                      period is 32s,  else 2exp20 RTCCLK pulses */
 #define RTC_SMOOTHCALIB_PERIOD_16SEC   RTC_CALR_CALW16          /*!< If RTCCLK = 32768 Hz, Smooth calibation
                                                                      period is 16s, else 2exp19 RTCCLK pulses */
@@ -87,7 +87,7 @@ extern "C" {
 #define RTC_SMOOTHCALIB_PLUSPULSES_SET    RTC_CALR_CALP            /*!< The number of RTCCLK pulses added
                                                                         during a X -second window = Y - CALM[8:0]
                                                                         with Y = 512, 256, 128 when X = 32, 16, 8 */
-#define RTC_SMOOTHCALIB_PLUSPULSES_RESET  0x00000000u              /*!< The number of RTCCLK pulses subbstited
+#define RTC_SMOOTHCALIB_PLUSPULSES_RESET  0x00000000U              /*!< The number of RTCCLK pulses subbstited
                                                                         during a 32-second window = CALM[8:0] */
 
 /**
@@ -97,7 +97,7 @@ extern "C" {
 /** @defgroup RTCEx_Calib_Output_selection_Definitions RTCEx Calib Output selection Definitions
   * @{
   */
-#define RTC_CALIBOUTPUT_512HZ            0x00000000u
+#define RTC_CALIBOUTPUT_512HZ            0x00000000U
 #define RTC_CALIBOUTPUT_1HZ              RTC_CR_COSEL
 
 /**
@@ -108,7 +108,7 @@ extern "C" {
 /** @defgroup RTCEx_Add_1_Second_Parameter_Definition RTCEx Add 1 Second Parameter Definitions
   * @{
   */
-#define RTC_SHIFTADD1S_RESET      0x00000000u
+#define RTC_SHIFTADD1S_RESET      0x00000000U
 #define RTC_SHIFTADD1S_SET        RTC_SHIFTR_ADD1S
 /**
   * @}

@@ -71,7 +71,7 @@ typedef enum
 /******  Cortex-M0+ Processor Exceptions Numbers ***************************************************************/
   NonMaskableInt_IRQn         = -14,    /*!< 2 Non Maskable Interrupt                                          */
   HardFault_IRQn              = -13,    /*!< 3 Cortex-M Hard Fault Interrupt                                   */
-  SVC_IRQn                    = -5,     /*!< 11 Cortex-M SV Call Interrupt                                     */
+  SVCall_IRQn                 = -5,     /*!< 11 Cortex-M SV Call Interrupt                                     */
   PendSV_IRQn                 = -2,     /*!< 14 Cortex-M Pend SV Interrupt                                     */
   SysTick_IRQn                = -1,     /*!< 15 Cortex-M System Tick Interrupt                                 */
 /******  STM32C0xxxx specific Interrupt Numbers ****************************************************************/
@@ -123,10 +123,10 @@ typedef struct
   __IO uint32_t SMPR;         /*!< ADC sampling time register,                    Address offset: 0x14 */
        uint32_t RESERVED1;    /*!< Reserved,                                                      0x18 */
        uint32_t RESERVED2;    /*!< Reserved,                                                      0x1C */
-  __IO uint32_t TR1;          /*!< ADC analog watchdog 1 threshold register,      Address offset: 0x20 */
-  __IO uint32_t TR2;          /*!< ADC analog watchdog 2 threshold register,      Address offset: 0x24 */
+  __IO uint32_t AWD1TR;       /*!< ADC analog watchdog 1 threshold register,      Address offset: 0x20 */
+  __IO uint32_t AWD2TR;       /*!< ADC analog watchdog 2 threshold register,      Address offset: 0x24 */
   __IO uint32_t CHSELR;       /*!< ADC group regular sequencer register,          Address offset: 0x28 */
-  __IO uint32_t TR3;          /*!< ADC analog watchdog 3 threshold register,      Address offset: 0x2C */
+  __IO uint32_t AWD3TR;       /*!< ADC analog watchdog 3 threshold register,      Address offset: 0x2C */
        uint32_t RESERVED3[4]; /*!< Reserved,                                               0x30 - 0x3C */
   __IO uint32_t DR;           /*!< ADC group regular data register,               Address offset: 0x40 */
        uint32_t RESERVED4[23];/*!< Reserved,                                               0x44 - 0x9C */
@@ -141,6 +141,10 @@ typedef struct
   __IO uint32_t CCR;          /*!< ADC common configuration register,             Address offset: ADC1 base address + 0x308 */
 } ADC_Common_TypeDef;
 
+/* Legacy registers naming */
+#define TR1     AWD1TR
+#define TR2     AWD2TR
+#define TR3     AWD3TR
 
 /**
   * @brief CRC calculation unit
@@ -239,8 +243,7 @@ typedef struct
   __IO uint32_t OPTKEYR;      /*!< FLASH Option Key register,                         Address offset: 0x0C */
   __IO uint32_t SR;           /*!< FLASH Status register,                             Address offset: 0x10 */
   __IO uint32_t CR;           /*!< FLASH Control register,                            Address offset: 0x14 */
-  __IO uint32_t ECCR;         /*!< FLASH ECC register,                                Address offset: 0x18 */
-       uint32_t RESERVED2;    /*!< Reserved2,                                         Address offset: 0x1C */
+       uint32_t RESERVED2[2]; /*!< Reserved2,                                         Address offset: 0x18 */
   __IO uint32_t OPTR;         /*!< FLASH Option register,                             Address offset: 0x20 */
   __IO uint32_t PCROP1ASR;    /*!< FLASH Bank PCROP area A Start address register,    Address offset: 0x24 */
   __IO uint32_t PCROP1AER;    /*!< FLASH Bank PCROP area A End address register,      Address offset: 0x28 */
@@ -327,10 +330,10 @@ typedef struct
   __IO uint32_t PUCRF;          /*!< PWR Pull-Up Control Register of port F,           Address offset: 0x48 */
   __IO uint32_t PDCRF;          /*!< PWR Pull-Down Control Register of port F,         Address offset: 0x4C */
        uint32_t RESERVED7[8];   /*!< Reserved,                                         Address offset: 0x50 */
-  __IO uint32_t BKPREG1;        /*!< Backup register 1,                                Address offset: 0x70 */
-  __IO uint32_t BKPREG2;        /*!< Backup register 2,                                Address offset: 0x74 */
-  __IO uint32_t BKPREG3;        /*!< Backup register 3,                                Address offset: 0x78 */
-  __IO uint32_t BKPREG4;        /*!< Backup register 4,                                Address offset: 0x7C */
+  __IO uint32_t BKP0R;          /*!< Backup register 0,                                Address offset: 0x70 */
+  __IO uint32_t BKP1R;          /*!< Backup register 1,                                Address offset: 0x74 */
+  __IO uint32_t BKP2R;          /*!< Backup register 2,                                Address offset: 0x78 */
+  __IO uint32_t BKP3R;          /*!< Backup register 3,                                Address offset: 0x7C */
 } PWR_TypeDef;
 
 /**
@@ -449,7 +452,7 @@ typedef struct
   __IO uint32_t BDTR;        /*!< TIM break and dead-time register,         Address offset: 0x44 */
   __IO uint32_t DCR;         /*!< TIM DMA control register,                 Address offset: 0x48 */
   __IO uint32_t DMAR;        /*!< TIM DMA address for full transfer,        Address offset: 0x4C */
-  __IO uint32_t OR1;         /*!< TIM option register,                      Address offset: 0x50 */
+  __IO uint32_t RESERVED;    /*!< Reserved,                                 Address offset: 0x50 */
   __IO uint32_t CCMR3;       /*!< TIM capture/compare mode register 3,      Address offset: 0x54 */
   __IO uint32_t CCR5;        /*!< TIM capture/compare register5,            Address offset: 0x58 */
   __IO uint32_t CCR6;        /*!< TIM capture/compare register6,            Address offset: 0x5C */
@@ -912,71 +915,129 @@ typedef struct
 #define ADC_SMPR_SMPSEL18_Msk          (0x1UL << ADC_SMPR_SMPSEL18_Pos)        /*!< 0x04000000 */
 #define ADC_SMPR_SMPSEL18              ADC_SMPR_SMPSEL18_Msk                   /*!< ADC channel 18 sampling time selection */
 
-/********************  Bit definition for ADC_TR1 register  *******************/
-#define ADC_TR1_LT1_Pos                (0U)
-#define ADC_TR1_LT1_Msk                (0xFFFUL << ADC_TR1_LT1_Pos)            /*!< 0x00000FFF */
-#define ADC_TR1_LT1                    ADC_TR1_LT1_Msk                         /*!< ADC analog watchdog 1 threshold low */
-#define ADC_TR1_LT1_0                  (0x001UL << ADC_TR1_LT1_Pos)            /*!< 0x00000001 */
-#define ADC_TR1_LT1_1                  (0x002UL << ADC_TR1_LT1_Pos)            /*!< 0x00000002 */
-#define ADC_TR1_LT1_2                  (0x004UL << ADC_TR1_LT1_Pos)            /*!< 0x00000004 */
-#define ADC_TR1_LT1_3                  (0x008UL << ADC_TR1_LT1_Pos)            /*!< 0x00000008 */
-#define ADC_TR1_LT1_4                  (0x010UL << ADC_TR1_LT1_Pos)            /*!< 0x00000010 */
-#define ADC_TR1_LT1_5                  (0x020UL << ADC_TR1_LT1_Pos)            /*!< 0x00000020 */
-#define ADC_TR1_LT1_6                  (0x040UL << ADC_TR1_LT1_Pos)            /*!< 0x00000040 */
-#define ADC_TR1_LT1_7                  (0x080UL << ADC_TR1_LT1_Pos)            /*!< 0x00000080 */
-#define ADC_TR1_LT1_8                  (0x100UL << ADC_TR1_LT1_Pos)            /*!< 0x00000100 */
-#define ADC_TR1_LT1_9                  (0x200UL << ADC_TR1_LT1_Pos)            /*!< 0x00000200 */
-#define ADC_TR1_LT1_10                 (0x400UL << ADC_TR1_LT1_Pos)            /*!< 0x00000400 */
-#define ADC_TR1_LT1_11                 (0x800UL << ADC_TR1_LT1_Pos)            /*!< 0x00000800 */
+/********************  Bit definition for ADC_AWD1TR register  *******************/
+#define ADC_AWD1TR_LT1_Pos                (0U)
+#define ADC_AWD1TR_LT1_Msk             (0xFFFUL << ADC_AWD1TR_LT1_Pos)         /*!< 0x00000FFF */
+#define ADC_AWD1TR_LT1                 ADC_AWD1TR_LT1_Msk                      /*!< ADC analog watchdog 1 threshold low */
+#define ADC_AWD1TR_LT1_0               (0x001UL << ADC_AWD1TR_LT1_Pos)         /*!< 0x00000001 */
+#define ADC_AWD1TR_LT1_1               (0x002UL << ADC_AWD1TR_LT1_Pos)         /*!< 0x00000002 */
+#define ADC_AWD1TR_LT1_2               (0x004UL << ADC_AWD1TR_LT1_Pos)         /*!< 0x00000004 */
+#define ADC_AWD1TR_LT1_3               (0x008UL << ADC_AWD1TR_LT1_Pos)         /*!< 0x00000008 */
+#define ADC_AWD1TR_LT1_4               (0x010UL << ADC_AWD1TR_LT1_Pos)         /*!< 0x00000010 */
+#define ADC_AWD1TR_LT1_5               (0x020UL << ADC_AWD1TR_LT1_Pos)         /*!< 0x00000020 */
+#define ADC_AWD1TR_LT1_6               (0x040UL << ADC_AWD1TR_LT1_Pos)         /*!< 0x00000040 */
+#define ADC_AWD1TR_LT1_7               (0x080UL << ADC_AWD1TR_LT1_Pos)         /*!< 0x00000080 */
+#define ADC_AWD1TR_LT1_8               (0x100UL << ADC_AWD1TR_LT1_Pos)         /*!< 0x00000100 */
+#define ADC_AWD1TR_LT1_9               (0x200UL << ADC_AWD1TR_LT1_Pos)         /*!< 0x00000200 */
+#define ADC_AWD1TR_LT1_10              (0x400UL << ADC_AWD1TR_LT1_Pos)         /*!< 0x00000400 */
+#define ADC_AWD1TR_LT1_11              (0x800UL << ADC_AWD1TR_LT1_Pos)         /*!< 0x00000800 */
 
-#define ADC_TR1_HT1_Pos                (16U)
-#define ADC_TR1_HT1_Msk                (0xFFFUL << ADC_TR1_HT1_Pos)            /*!< 0x0FFF0000 */
-#define ADC_TR1_HT1                    ADC_TR1_HT1_Msk                         /*!< ADC Analog watchdog 1 threshold high */
-#define ADC_TR1_HT1_0                  (0x001UL << ADC_TR1_HT1_Pos)            /*!< 0x00010000 */
-#define ADC_TR1_HT1_1                  (0x002UL << ADC_TR1_HT1_Pos)            /*!< 0x00020000 */
-#define ADC_TR1_HT1_2                  (0x004UL << ADC_TR1_HT1_Pos)            /*!< 0x00040000 */
-#define ADC_TR1_HT1_3                  (0x008UL << ADC_TR1_HT1_Pos)            /*!< 0x00080000 */
-#define ADC_TR1_HT1_4                  (0x010UL << ADC_TR1_HT1_Pos)            /*!< 0x00100000 */
-#define ADC_TR1_HT1_5                  (0x020UL << ADC_TR1_HT1_Pos)            /*!< 0x00200000 */
-#define ADC_TR1_HT1_6                  (0x040UL << ADC_TR1_HT1_Pos)            /*!< 0x00400000 */
-#define ADC_TR1_HT1_7                  (0x080UL << ADC_TR1_HT1_Pos)            /*!< 0x00800000 */
-#define ADC_TR1_HT1_8                  (0x100UL << ADC_TR1_HT1_Pos)            /*!< 0x01000000 */
-#define ADC_TR1_HT1_9                  (0x200UL << ADC_TR1_HT1_Pos)            /*!< 0x02000000 */
-#define ADC_TR1_HT1_10                 (0x400UL << ADC_TR1_HT1_Pos)            /*!< 0x04000000 */
-#define ADC_TR1_HT1_11                 (0x800UL << ADC_TR1_HT1_Pos)            /*!< 0x08000000 */
+#define ADC_AWD1TR_HT1_Pos             (16U)
+#define ADC_AWD1TR_HT1_Msk             (0xFFFUL << ADC_AWD1TR_HT1_Pos)         /*!< 0x0FFF0000 */
+#define ADC_AWD1TR_HT1                 ADC_AWD1TR_HT1_Msk                      /*!< ADC Analog watchdog 1 threshold high */
+#define ADC_AWD1TR_HT1_0               (0x001UL << ADC_AWD1TR_HT1_Pos)         /*!< 0x00010000 */
+#define ADC_AWD1TR_HT1_1               (0x002UL << ADC_AWD1TR_HT1_Pos)         /*!< 0x00020000 */
+#define ADC_AWD1TR_HT1_2               (0x004UL << ADC_AWD1TR_HT1_Pos)         /*!< 0x00040000 */
+#define ADC_AWD1TR_HT1_3               (0x008UL << ADC_AWD1TR_HT1_Pos)         /*!< 0x00080000 */
+#define ADC_AWD1TR_HT1_4               (0x010UL << ADC_AWD1TR_HT1_Pos)         /*!< 0x00100000 */
+#define ADC_AWD1TR_HT1_5               (0x020UL << ADC_AWD1TR_HT1_Pos)         /*!< 0x00200000 */
+#define ADC_AWD1TR_HT1_6               (0x040UL << ADC_AWD1TR_HT1_Pos)         /*!< 0x00400000 */
+#define ADC_AWD1TR_HT1_7               (0x080UL << ADC_AWD1TR_HT1_Pos)         /*!< 0x00800000 */
+#define ADC_AWD1TR_HT1_8               (0x100UL << ADC_AWD1TR_HT1_Pos)         /*!< 0x01000000 */
+#define ADC_AWD1TR_HT1_9               (0x200UL << ADC_AWD1TR_HT1_Pos)         /*!< 0x02000000 */
+#define ADC_AWD1TR_HT1_10              (0x400UL << ADC_AWD1TR_HT1_Pos)         /*!< 0x04000000 */
+#define ADC_AWD1TR_HT1_11              (0x800UL << ADC_AWD1TR_HT1_Pos)         /*!< 0x08000000 */
 
-/********************  Bit definition for ADC_TR2 register  *******************/
-#define ADC_TR2_LT2_Pos                (0U)
-#define ADC_TR2_LT2_Msk                (0xFFFUL << ADC_TR2_LT2_Pos)            /*!< 0x00000FFF */
-#define ADC_TR2_LT2                    ADC_TR2_LT2_Msk                         /*!< ADC analog watchdog 2 threshold low */
-#define ADC_TR2_LT2_0                  (0x001UL << ADC_TR2_LT2_Pos)            /*!< 0x00000001 */
-#define ADC_TR2_LT2_1                  (0x002UL << ADC_TR2_LT2_Pos)            /*!< 0x00000002 */
-#define ADC_TR2_LT2_2                  (0x004UL << ADC_TR2_LT2_Pos)            /*!< 0x00000004 */
-#define ADC_TR2_LT2_3                  (0x008UL << ADC_TR2_LT2_Pos)            /*!< 0x00000008 */
-#define ADC_TR2_LT2_4                  (0x010UL << ADC_TR2_LT2_Pos)            /*!< 0x00000010 */
-#define ADC_TR2_LT2_5                  (0x020UL << ADC_TR2_LT2_Pos)            /*!< 0x00000020 */
-#define ADC_TR2_LT2_6                  (0x040UL << ADC_TR2_LT2_Pos)            /*!< 0x00000040 */
-#define ADC_TR2_LT2_7                  (0x080UL << ADC_TR2_LT2_Pos)            /*!< 0x00000080 */
-#define ADC_TR2_LT2_8                  (0x100UL << ADC_TR2_LT2_Pos)            /*!< 0x00000100 */
-#define ADC_TR2_LT2_9                  (0x200UL << ADC_TR2_LT2_Pos)            /*!< 0x00000200 */
-#define ADC_TR2_LT2_10                 (0x400UL << ADC_TR2_LT2_Pos)            /*!< 0x00000400 */
-#define ADC_TR2_LT2_11                 (0x800UL << ADC_TR2_LT2_Pos)            /*!< 0x00000800 */
+/* Legacy definitions */
+#define ADC_TR1_LT1             ADC_AWD1TR_LT1
+#define ADC_TR1_LT1_0           ADC_AWD1TR_LT1_0
+#define ADC_TR1_LT1_1           ADC_AWD1TR_LT1_1
+#define ADC_TR1_LT1_2           ADC_AWD1TR_LT1_2
+#define ADC_TR1_LT1_3           ADC_AWD1TR_LT1_3
+#define ADC_TR1_LT1_4           ADC_AWD1TR_LT1_4
+#define ADC_TR1_LT1_5           ADC_AWD1TR_LT1_5
+#define ADC_TR1_LT1_6           ADC_AWD1TR_LT1_6
+#define ADC_TR1_LT1_7           ADC_AWD1TR_LT1_7
+#define ADC_TR1_LT1_8           ADC_AWD1TR_LT1_8
+#define ADC_TR1_LT1_9           ADC_AWD1TR_LT1_9
+#define ADC_TR1_LT1_10          ADC_AWD1TR_LT1_10
+#define ADC_TR1_LT1_11          ADC_AWD1TR_LT1_11
 
-#define ADC_TR2_HT2_Pos                (16U)
-#define ADC_TR2_HT2_Msk                (0xFFFUL << ADC_TR2_HT2_Pos)            /*!< 0x0FFF0000 */
-#define ADC_TR2_HT2                    ADC_TR2_HT2_Msk                         /*!< ADC analog watchdog 2 threshold high */
-#define ADC_TR2_HT2_0                  (0x001UL << ADC_TR2_HT2_Pos)            /*!< 0x00010000 */
-#define ADC_TR2_HT2_1                  (0x002UL << ADC_TR2_HT2_Pos)            /*!< 0x00020000 */
-#define ADC_TR2_HT2_2                  (0x004UL << ADC_TR2_HT2_Pos)            /*!< 0x00040000 */
-#define ADC_TR2_HT2_3                  (0x008UL << ADC_TR2_HT2_Pos)            /*!< 0x00080000 */
-#define ADC_TR2_HT2_4                  (0x010UL << ADC_TR2_HT2_Pos)            /*!< 0x00100000 */
-#define ADC_TR2_HT2_5                  (0x020UL << ADC_TR2_HT2_Pos)            /*!< 0x00200000 */
-#define ADC_TR2_HT2_6                  (0x040UL << ADC_TR2_HT2_Pos)            /*!< 0x00400000 */
-#define ADC_TR2_HT2_7                  (0x080UL << ADC_TR2_HT2_Pos)            /*!< 0x00800000 */
-#define ADC_TR2_HT2_8                  (0x100UL << ADC_TR2_HT2_Pos)            /*!< 0x01000000 */
-#define ADC_TR2_HT2_9                  (0x200UL << ADC_TR2_HT2_Pos)            /*!< 0x02000000 */
-#define ADC_TR2_HT2_10                 (0x400UL << ADC_TR2_HT2_Pos)            /*!< 0x04000000 */
-#define ADC_TR2_HT2_11                 (0x800UL << ADC_TR2_HT2_Pos)            /*!< 0x08000000 */
+#define ADC_TR1_HT1             ADC_AWD1TR_HT1
+#define ADC_TR1_HT1_0           ADC_AWD1TR_HT1_0
+#define ADC_TR1_HT1_1           ADC_AWD1TR_HT1_1
+#define ADC_TR1_HT1_2           ADC_AWD1TR_HT1_2
+#define ADC_TR1_HT1_3           ADC_AWD1TR_HT1_3
+#define ADC_TR1_HT1_4           ADC_AWD1TR_HT1_4
+#define ADC_TR1_HT1_5           ADC_AWD1TR_HT1_5
+#define ADC_TR1_HT1_6           ADC_AWD1TR_HT1_6
+#define ADC_TR1_HT1_7           ADC_AWD1TR_HT1_7
+#define ADC_TR1_HT1_8           ADC_AWD1TR_HT1_8
+#define ADC_TR1_HT1_9           ADC_AWD1TR_HT1_9
+#define ADC_TR1_HT1_10          ADC_AWD1TR_HT1_10
+#define ADC_TR1_HT1_11          ADC_AWD1TR_HT1_11
+
+/********************  Bit definition for ADC_AWD2TR register  *******************/
+#define ADC_AWD2TR_LT2_Pos             (0U)
+#define ADC_AWD2TR_LT2_Msk             (0xFFFUL << ADC_AWD2TR_LT2_Pos)         /*!< 0x00000FFF */
+#define ADC_AWD2TR_LT2                 ADC_AWD2TR_LT2_Msk                      /*!< ADC analog watchdog 2 threshold low */
+#define ADC_AWD2TR_LT2_0               (0x001UL << ADC_AWD2TR_LT2_Pos)         /*!< 0x00000001 */
+#define ADC_AWD2TR_LT2_1               (0x002UL << ADC_AWD2TR_LT2_Pos)         /*!< 0x00000002 */
+#define ADC_AWD2TR_LT2_2               (0x004UL << ADC_AWD2TR_LT2_Pos)         /*!< 0x00000004 */
+#define ADC_AWD2TR_LT2_3               (0x008UL << ADC_AWD2TR_LT2_Pos)         /*!< 0x00000008 */
+#define ADC_AWD2TR_LT2_4               (0x010UL << ADC_AWD2TR_LT2_Pos)         /*!< 0x00000010 */
+#define ADC_AWD2TR_LT2_5               (0x020UL << ADC_AWD2TR_LT2_Pos)         /*!< 0x00000020 */
+#define ADC_AWD2TR_LT2_6               (0x040UL << ADC_AWD2TR_LT2_Pos)         /*!< 0x00000040 */
+#define ADC_AWD2TR_LT2_7               (0x080UL << ADC_AWD2TR_LT2_Pos)         /*!< 0x00000080 */
+#define ADC_AWD2TR_LT2_8               (0x100UL << ADC_AWD2TR_LT2_Pos)         /*!< 0x00000100 */
+#define ADC_AWD2TR_LT2_9               (0x200UL << ADC_AWD2TR_LT2_Pos)         /*!< 0x00000200 */
+#define ADC_AWD2TR_LT2_10              (0x400UL << ADC_AWD2TR_LT2_Pos)         /*!< 0x00000400 */
+#define ADC_AWD2TR_LT2_11              (0x800UL << ADC_AWD2TR_LT2_Pos)         /*!< 0x00000800 */
+
+#define ADC_AWD2TR_HT2_Pos             (16U)
+#define ADC_AWD2TR_HT2_Msk             (0xFFFUL << ADC_AWD2TR_HT2_Pos)         /*!< 0x0FFF0000 */
+#define ADC_AWD2TR_HT2                 ADC_AWD2TR_HT2_Msk                      /*!< ADC analog watchdog 2 threshold high */
+#define ADC_AWD2TR_HT2_0               (0x001UL << ADC_AWD2TR_HT2_Pos)         /*!< 0x00010000 */
+#define ADC_AWD2TR_HT2_1               (0x002UL << ADC_AWD2TR_HT2_Pos)         /*!< 0x00020000 */
+#define ADC_AWD2TR_HT2_2               (0x004UL << ADC_AWD2TR_HT2_Pos)         /*!< 0x00040000 */
+#define ADC_AWD2TR_HT2_3               (0x008UL << ADC_AWD2TR_HT2_Pos)         /*!< 0x00080000 */
+#define ADC_AWD2TR_HT2_4               (0x010UL << ADC_AWD2TR_HT2_Pos)         /*!< 0x00100000 */
+#define ADC_AWD2TR_HT2_5               (0x020UL << ADC_AWD2TR_HT2_Pos)         /*!< 0x00200000 */
+#define ADC_AWD2TR_HT2_6               (0x040UL << ADC_AWD2TR_HT2_Pos)         /*!< 0x00400000 */
+#define ADC_AWD2TR_HT2_7               (0x080UL << ADC_AWD2TR_HT2_Pos)         /*!< 0x00800000 */
+#define ADC_AWD2TR_HT2_8               (0x100UL << ADC_AWD2TR_HT2_Pos)         /*!< 0x01000000 */
+#define ADC_AWD2TR_HT2_9               (0x200UL << ADC_AWD2TR_HT2_Pos)         /*!< 0x02000000 */
+#define ADC_AWD2TR_HT2_10              (0x400UL << ADC_AWD2TR_HT2_Pos)         /*!< 0x04000000 */
+#define ADC_AWD2TR_HT2_11              (0x800UL << ADC_AWD2TR_HT2_Pos)         /*!< 0x08000000 */
+
+/* Legacy definitions */
+#define ADC_TR2_LT2             ADC_AWD2TR_LT2
+#define ADC_TR2_LT2_0           ADC_AWD2TR_LT2_0
+#define ADC_TR2_LT2_1           ADC_AWD2TR_LT2_1
+#define ADC_TR2_LT2_2           ADC_AWD2TR_LT2_2
+#define ADC_TR2_LT2_3           ADC_AWD2TR_LT2_3
+#define ADC_TR2_LT2_4           ADC_AWD2TR_LT2_4
+#define ADC_TR2_LT2_5           ADC_AWD2TR_LT2_5
+#define ADC_TR2_LT2_6           ADC_AWD2TR_LT2_6
+#define ADC_TR2_LT2_7           ADC_AWD2TR_LT2_7
+#define ADC_TR2_LT2_8           ADC_AWD2TR_LT2_8
+#define ADC_TR2_LT2_9           ADC_AWD2TR_LT2_9
+#define ADC_TR2_LT2_10          ADC_AWD2TR_LT2_10
+#define ADC_TR2_LT2_11          ADC_AWD2TR_LT2_11
+
+#define ADC_TR2_HT2             ADC_AWD2TR_HT2
+#define ADC_TR2_HT2_0           ADC_AWD2TR_HT2_0
+#define ADC_TR2_HT2_1           ADC_AWD2TR_HT2_1
+#define ADC_TR2_HT2_2           ADC_AWD2TR_HT2_2
+#define ADC_TR2_HT2_3           ADC_AWD2TR_HT2_3
+#define ADC_TR2_HT2_4           ADC_AWD2TR_HT2_4
+#define ADC_TR2_HT2_5           ADC_AWD2TR_HT2_5
+#define ADC_TR2_HT2_6           ADC_AWD2TR_HT2_6
+#define ADC_TR2_HT2_7           ADC_AWD2TR_HT2_7
+#define ADC_TR2_HT2_8           ADC_AWD2TR_HT2_8
+#define ADC_TR2_HT2_9           ADC_AWD2TR_HT2_9
+#define ADC_TR2_HT2_10          ADC_AWD2TR_HT2_10
+#define ADC_TR2_HT2_11          ADC_AWD2TR_HT2_11
 
 /********************  Bit definition for ADC_CHSELR register  ****************/
 #define ADC_CHSELR_CHSEL_Pos           (0U)
@@ -1120,38 +1181,67 @@ typedef struct
 #define ADC_CHSELR_SQ1_2               (0x4UL << ADC_CHSELR_SQ1_Pos)           /*!< 0x00000004 */
 #define ADC_CHSELR_SQ1_3               (0x8UL << ADC_CHSELR_SQ1_Pos)           /*!< 0x00000008 */
 
-/********************  Bit definition for ADC_TR3 register  *******************/
-#define ADC_TR3_LT3_Pos                (0U)
-#define ADC_TR3_LT3_Msk                (0xFFFUL << ADC_TR3_LT3_Pos)            /*!< 0x00000FFF */
-#define ADC_TR3_LT3                    ADC_TR3_LT3_Msk                         /*!< ADC analog watchdog 3 threshold low */
-#define ADC_TR3_LT3_0                  (0x001UL << ADC_TR3_LT3_Pos)            /*!< 0x00000001 */
-#define ADC_TR3_LT3_1                  (0x002UL << ADC_TR3_LT3_Pos)            /*!< 0x00000002 */
-#define ADC_TR3_LT3_2                  (0x004UL << ADC_TR3_LT3_Pos)            /*!< 0x00000004 */
-#define ADC_TR3_LT3_3                  (0x008UL << ADC_TR3_LT3_Pos)            /*!< 0x00000008 */
-#define ADC_TR3_LT3_4                  (0x010UL << ADC_TR3_LT3_Pos)            /*!< 0x00000010 */
-#define ADC_TR3_LT3_5                  (0x020UL << ADC_TR3_LT3_Pos)            /*!< 0x00000020 */
-#define ADC_TR3_LT3_6                  (0x040UL << ADC_TR3_LT3_Pos)            /*!< 0x00000040 */
-#define ADC_TR3_LT3_7                  (0x080UL << ADC_TR3_LT3_Pos)            /*!< 0x00000080 */
-#define ADC_TR3_LT3_8                  (0x100UL << ADC_TR3_LT3_Pos)            /*!< 0x00000100 */
-#define ADC_TR3_LT3_9                  (0x200UL << ADC_TR3_LT3_Pos)            /*!< 0x00000200 */
-#define ADC_TR3_LT3_10                 (0x400UL << ADC_TR3_LT3_Pos)            /*!< 0x00000400 */
-#define ADC_TR3_LT3_11                 (0x800UL << ADC_TR3_LT3_Pos)            /*!< 0x00000800 */
+/********************  Bit definition for ADC_AWD3TR register  *******************/
+#define ADC_AWD3TR_LT3_Pos             (0U)
+#define ADC_AWD3TR_LT3_Msk             (0xFFFUL << ADC_AWD3TR_LT3_Pos)         /*!< 0x00000FFF */
+#define ADC_AWD3TR_LT3                 ADC_AWD3TR_LT3_Msk                      /*!< ADC analog watchdog 3 threshold low */
+#define ADC_AWD3TR_LT3_0               (0x001UL << ADC_AWD3TR_LT3_Pos)         /*!< 0x00000001 */
+#define ADC_AWD3TR_LT3_1               (0x002UL << ADC_AWD3TR_LT3_Pos)         /*!< 0x00000002 */
+#define ADC_AWD3TR_LT3_2               (0x004UL << ADC_AWD3TR_LT3_Pos)         /*!< 0x00000004 */
+#define ADC_AWD3TR_LT3_3               (0x008UL << ADC_AWD3TR_LT3_Pos)         /*!< 0x00000008 */
+#define ADC_AWD3TR_LT3_4               (0x010UL << ADC_AWD3TR_LT3_Pos)         /*!< 0x00000010 */
+#define ADC_AWD3TR_LT3_5               (0x020UL << ADC_AWD3TR_LT3_Pos)         /*!< 0x00000020 */
+#define ADC_AWD3TR_LT3_6               (0x040UL << ADC_AWD3TR_LT3_Pos)         /*!< 0x00000040 */
+#define ADC_AWD3TR_LT3_7               (0x080UL << ADC_AWD3TR_LT3_Pos)         /*!< 0x00000080 */
+#define ADC_AWD3TR_LT3_8               (0x100UL << ADC_AWD3TR_LT3_Pos)         /*!< 0x00000100 */
+#define ADC_AWD3TR_LT3_9               (0x200UL << ADC_AWD3TR_LT3_Pos)         /*!< 0x00000200 */
+#define ADC_AWD3TR_LT3_10              (0x400UL << ADC_AWD3TR_LT3_Pos)         /*!< 0x00000400 */
+#define ADC_AWD3TR_LT3_11              (0x800UL << ADC_AWD3TR_LT3_Pos)         /*!< 0x00000800 */
 
-#define ADC_TR3_HT3_Pos                (16U)
-#define ADC_TR3_HT3_Msk                (0xFFFUL << ADC_TR3_HT3_Pos)            /*!< 0x0FFF0000 */
-#define ADC_TR3_HT3                    ADC_TR3_HT3_Msk                         /*!< ADC analog watchdog 3 threshold high */
-#define ADC_TR3_HT3_0                  (0x001UL << ADC_TR3_HT3_Pos)            /*!< 0x00010000 */
-#define ADC_TR3_HT3_1                  (0x002UL << ADC_TR3_HT3_Pos)            /*!< 0x00020000 */
-#define ADC_TR3_HT3_2                  (0x004UL << ADC_TR3_HT3_Pos)            /*!< 0x00040000 */
-#define ADC_TR3_HT3_3                  (0x008UL << ADC_TR3_HT3_Pos)            /*!< 0x00080000 */
-#define ADC_TR3_HT3_4                  (0x010UL << ADC_TR3_HT3_Pos)            /*!< 0x00100000 */
-#define ADC_TR3_HT3_5                  (0x020UL << ADC_TR3_HT3_Pos)            /*!< 0x00200000 */
-#define ADC_TR3_HT3_6                  (0x040UL << ADC_TR3_HT3_Pos)            /*!< 0x00400000 */
-#define ADC_TR3_HT3_7                  (0x080UL << ADC_TR3_HT3_Pos)            /*!< 0x00800000 */
-#define ADC_TR3_HT3_8                  (0x100UL << ADC_TR3_HT3_Pos)            /*!< 0x01000000 */
-#define ADC_TR3_HT3_9                  (0x200UL << ADC_TR3_HT3_Pos)            /*!< 0x02000000 */
-#define ADC_TR3_HT3_10                 (0x400UL << ADC_TR3_HT3_Pos)            /*!< 0x04000000 */
-#define ADC_TR3_HT3_11                 (0x800UL << ADC_TR3_HT3_Pos)            /*!< 0x08000000 */
+#define ADC_AWD3TR_HT3_Pos             (16U)
+#define ADC_AWD3TR_HT3_Msk             (0xFFFUL << ADC_AWD3TR_HT3_Pos)         /*!< 0x0FFF0000 */
+#define ADC_AWD3TR_HT3                 ADC_AWD3TR_HT3_Msk                      /*!< ADC analog watchdog 3 threshold high */
+#define ADC_AWD3TR_HT3_0               (0x001UL << ADC_AWD3TR_HT3_Pos)         /*!< 0x00010000 */
+#define ADC_AWD3TR_HT3_1               (0x002UL << ADC_AWD3TR_HT3_Pos)         /*!< 0x00020000 */
+#define ADC_AWD3TR_HT3_2               (0x004UL << ADC_AWD3TR_HT3_Pos)         /*!< 0x00040000 */
+#define ADC_AWD3TR_HT3_3               (0x008UL << ADC_AWD3TR_HT3_Pos)         /*!< 0x00080000 */
+#define ADC_AWD3TR_HT3_4               (0x010UL << ADC_AWD3TR_HT3_Pos)         /*!< 0x00100000 */
+#define ADC_AWD3TR_HT3_5               (0x020UL << ADC_AWD3TR_HT3_Pos)         /*!< 0x00200000 */
+#define ADC_AWD3TR_HT3_6               (0x040UL << ADC_AWD3TR_HT3_Pos)         /*!< 0x00400000 */
+#define ADC_AWD3TR_HT3_7               (0x080UL << ADC_AWD3TR_HT3_Pos)         /*!< 0x00800000 */
+#define ADC_AWD3TR_HT3_8               (0x100UL << ADC_AWD3TR_HT3_Pos)         /*!< 0x01000000 */
+#define ADC_AWD3TR_HT3_9               (0x200UL << ADC_AWD3TR_HT3_Pos)         /*!< 0x02000000 */
+#define ADC_AWD3TR_HT3_10              (0x400UL << ADC_AWD3TR_HT3_Pos)         /*!< 0x04000000 */
+#define ADC_AWD3TR_HT3_11              (0x800UL << ADC_AWD3TR_HT3_Pos)         /*!< 0x08000000 */
+
+/* Legacy definitions */
+#define ADC_TR3_LT3             ADC_AWD3TR_LT3
+#define ADC_TR3_LT3_0           ADC_AWD3TR_LT3_0
+#define ADC_TR3_LT3_1           ADC_AWD3TR_LT3_1
+#define ADC_TR3_LT3_2           ADC_AWD3TR_LT3_2
+#define ADC_TR3_LT3_3           ADC_AWD3TR_LT3_3
+#define ADC_TR3_LT3_4           ADC_AWD3TR_LT3_4
+#define ADC_TR3_LT3_5           ADC_AWD3TR_LT3_5
+#define ADC_TR3_LT3_6           ADC_AWD3TR_LT3_6
+#define ADC_TR3_LT3_7           ADC_AWD3TR_LT3_7
+#define ADC_TR3_LT3_8           ADC_AWD3TR_LT3_8
+#define ADC_TR3_LT3_9           ADC_AWD3TR_LT3_9
+#define ADC_TR3_LT3_10          ADC_AWD3TR_LT3_10
+#define ADC_TR3_LT3_11          ADC_AWD3TR_LT3_11
+
+#define ADC_TR3_HT3             ADC_AWD3TR_HT3
+#define ADC_TR3_HT3_0           ADC_AWD3TR_HT3_0
+#define ADC_TR3_HT3_1           ADC_AWD3TR_HT3_1
+#define ADC_TR3_HT3_2           ADC_AWD3TR_HT3_2
+#define ADC_TR3_HT3_3           ADC_AWD3TR_HT3_3
+#define ADC_TR3_HT3_4           ADC_AWD3TR_HT3_4
+#define ADC_TR3_HT3_5           ADC_AWD3TR_HT3_5
+#define ADC_TR3_HT3_6           ADC_AWD3TR_HT3_6
+#define ADC_TR3_HT3_7           ADC_AWD3TR_HT3_7
+#define ADC_TR3_HT3_8           ADC_AWD3TR_HT3_8
+#define ADC_TR3_HT3_9           ADC_AWD3TR_HT3_9
+#define ADC_TR3_HT3_10          ADC_AWD3TR_HT3_10
+#define ADC_TR3_HT3_11          ADC_AWD3TR_HT3_11
 
 /********************  Bit definition for ADC_DR register  ********************/
 #define ADC_DR_DATA_Pos                (0U)
@@ -3899,6 +3989,11 @@ typedef struct
 #define PWR_PDCRF_PD2_Msk         (0x1UL << PWR_PDCRF_PD2_Pos)                 /*!< 0x00000004 */
 #define PWR_PDCRF_PD2             PWR_PDCRF_PD2_Msk                            /*!< Pin PF2 Pull-Down set */
 
+/********************  Bits definition for PWR_BKP0R register  ***************/
+#define PWR_BKP0R_Pos               (0U)
+#define PWR_BKP0R_Msk               (0xFFFFFFFFUL << PWR_BKP0R_Pos)           /*!< 0xFFFFFFFF */
+#define PWR_BKP0R                   PWR_BKP0R_Msk
+
 /********************  Bits definition for PWR_BKP1R register  ***************/
 #define PWR_BKP1R_Pos               (0U)
 #define PWR_BKP1R_Msk               (0xFFFFFFFFUL << PWR_BKP1R_Pos)           /*!< 0xFFFFFFFF */
@@ -3913,11 +4008,6 @@ typedef struct
 #define PWR_BKP3R_Pos               (0U)
 #define PWR_BKP3R_Msk               (0xFFFFFFFFUL << PWR_BKP3R_Pos)           /*!< 0xFFFFFFFF */
 #define PWR_BKP3R                   PWR_BKP3R_Msk
-
-/********************  Bits definition for PWR_BKP4R register  ***************/
-#define PWR_BKP4R_Pos               (0U)
-#define PWR_BKP4R_Msk               (0xFFFFFFFFUL << PWR_BKP4R_Pos)           /*!< 0xFFFFFFFF */
-#define PWR_BKP4R                   PWR_BKP4R_Msk
 /******************************************************************************/
 /*                                                                            */
 /*                           Reset and Clock Control                          */
@@ -5101,9 +5191,6 @@ typedef struct
 #define SYSCFG_CFGR1_I2C1_FMP_Pos             (20U)
 #define SYSCFG_CFGR1_I2C1_FMP_Msk             (0x1UL << SYSCFG_CFGR1_I2C1_FMP_Pos)     /*!< 0x00100000 */
 #define SYSCFG_CFGR1_I2C1_FMP                 SYSCFG_CFGR1_I2C1_FMP_Msk                /*!< Enable Fast Mode Plus on PB10, PB11, PF6 and PF7  */
-#define SYSCFG_CFGR1_I2C2_FMP_Pos             (21U)
-#define SYSCFG_CFGR1_I2C2_FMP_Msk             (0x1UL << SYSCFG_CFGR1_I2C2_FMP_Pos)     /*!< 0x00200000 */
-#define SYSCFG_CFGR1_I2C2_FMP                 SYSCFG_CFGR1_I2C2_FMP_Msk                /*!< Enable I2C2 Fast mode plus  */
 #define SYSCFG_CFGR1_I2C_PA9_FMP_Pos          (22U)
 #define SYSCFG_CFGR1_I2C_PA9_FMP_Msk          (0x1UL << SYSCFG_CFGR1_I2C_PA9_FMP_Pos)  /*!< 0x00400000 */
 #define SYSCFG_CFGR1_I2C_PA9_FMP              SYSCFG_CFGR1_I2C_PA9_FMP_Msk             /*!< Enable Fast Mode Plus on PA9  */
@@ -5951,127 +6038,58 @@ typedef struct
 #define TIM_DMAR_DMAB_Msk         (0xFFFFUL << TIM_DMAR_DMAB_Pos)              /*!< 0x0000FFFF */
 #define TIM_DMAR_DMAB             TIM_DMAR_DMAB_Msk                            /*!<DMA register for burst accesses */
 
-/*******************  Bit definition for TIM1_OR1 register  *******************/
-#define TIM1_OR1_OCREF_CLR_Pos     (0U)
-#define TIM1_OR1_OCREF_CLR_Msk     (0x1UL << TIM1_OR1_OCREF_CLR_Pos)           /*!< 0x00000001 */
-#define TIM1_OR1_OCREF_CLR         TIM1_OR1_OCREF_CLR_Msk                      /*!<OCREF clear input selection */
+/*******************  Bit definition for TIM_AF1 register  *******************/
+#define TIM_AF1_BKINE_Pos        (0U)
+#define TIM_AF1_BKINE_Msk        (0x1UL << TIM_AF1_BKINE_Pos)                /*!< 0x00000001 */
+#define TIM_AF1_BKINE            TIM_AF1_BKINE_Msk                           /*!<BRK BKIN input enable */
+#define TIM_AF1_BKCMP1E_Pos      (1U)
+#define TIM_AF1_BKCMP1E_Msk      (0x1UL << TIM_AF1_BKCMP1E_Pos)              /*!< 0x00000002 */
+#define TIM_AF1_BKCMP1E          TIM_AF1_BKCMP1E_Msk                         /*!<BRK COMP1 enable */
+#define TIM_AF1_BKCMP2E_Pos      (2U)
+#define TIM_AF1_BKCMP2E_Msk      (0x1UL << TIM_AF1_BKCMP2E_Pos)              /*!< 0x00000004 */
+#define TIM_AF1_BKCMP2E          TIM_AF1_BKCMP2E_Msk                         /*!<BRK COMP2 enable */
+#define TIM_AF1_BKINP_Pos        (9U)
+#define TIM_AF1_BKINP_Msk        (0x1UL << TIM_AF1_BKINP_Pos)                /*!< 0x00000200 */
+#define TIM_AF1_BKINP            TIM_AF1_BKINP_Msk                           /*!<BRK BKIN input polarity */
+#define TIM_AF1_BKCMP1P_Pos      (10U)
+#define TIM_AF1_BKCMP1P_Msk      (0x1UL << TIM_AF1_BKCMP1P_Pos)              /*!< 0x00000400 */
+#define TIM_AF1_BKCMP1P          TIM_AF1_BKCMP1P_Msk                         /*!<BRK COMP1 input polarity */
+#define TIM_AF1_BKCMP2P_Pos      (11U)
+#define TIM_AF1_BKCMP2P_Msk      (0x1UL << TIM_AF1_BKCMP2P_Pos)              /*!< 0x00000800 */
+#define TIM_AF1_BKCMP2P          TIM_AF1_BKCMP2P_Msk                         /*!<BRK COMP2 input polarity */
 
-/*******************  Bit definition for TIM1_AF1 register  *******************/
-#define TIM1_AF1_BKINE_Pos        (0U)
-#define TIM1_AF1_BKINE_Msk        (0x1UL << TIM1_AF1_BKINE_Pos)                /*!< 0x00000001 */
-#define TIM1_AF1_BKINE            TIM1_AF1_BKINE_Msk                           /*!<BRK BKIN input enable */
-#define TIM1_AF1_BKCMP1E_Pos      (1U)
-#define TIM1_AF1_BKCMP1E_Msk      (0x1UL << TIM1_AF1_BKCMP1E_Pos)              /*!< 0x00000002 */
-#define TIM1_AF1_BKCMP1E          TIM1_AF1_BKCMP1E_Msk                         /*!<BRK COMP1 enable */
-#define TIM1_AF1_BKCMP2E_Pos      (2U)
-#define TIM1_AF1_BKCMP2E_Msk      (0x1UL << TIM1_AF1_BKCMP2E_Pos)              /*!< 0x00000004 */
-#define TIM1_AF1_BKCMP2E          TIM1_AF1_BKCMP2E_Msk                         /*!<BRK COMP2 enable */
-#define TIM1_AF1_BKINP_Pos        (9U)
-#define TIM1_AF1_BKINP_Msk        (0x1UL << TIM1_AF1_BKINP_Pos)                /*!< 0x00000200 */
-#define TIM1_AF1_BKINP            TIM1_AF1_BKINP_Msk                           /*!<BRK BKIN input polarity */
-#define TIM1_AF1_BKCMP1P_Pos      (10U)
-#define TIM1_AF1_BKCMP1P_Msk      (0x1UL << TIM1_AF1_BKCMP1P_Pos)              /*!< 0x00000400 */
-#define TIM1_AF1_BKCMP1P          TIM1_AF1_BKCMP1P_Msk                         /*!<BRK COMP1 input polarity */
-#define TIM1_AF1_BKCMP2P_Pos      (11U)
-#define TIM1_AF1_BKCMP2P_Msk      (0x1UL << TIM1_AF1_BKCMP2P_Pos)              /*!< 0x00000800 */
-#define TIM1_AF1_BKCMP2P          TIM1_AF1_BKCMP2P_Msk                         /*!<BRK COMP2 input polarity */
+#define TIM_AF1_ETRSEL_Pos       (14U)
+#define TIM_AF1_ETRSEL_Msk       (0xFUL << TIM_AF1_ETRSEL_Pos)               /*!< 0x0003C000 */
+#define TIM_AF1_ETRSEL           TIM_AF1_ETRSEL_Msk                          /*!<ETRSEL[3:0] bits (TIM ETR source selection) */
+#define TIM_AF1_ETRSEL_0         (0x1UL << TIM_AF1_ETRSEL_Pos)               /*!< 0x00004000 */
+#define TIM_AF1_ETRSEL_1         (0x2UL << TIM_AF1_ETRSEL_Pos)               /*!< 0x00008000 */
+#define TIM_AF1_ETRSEL_2         (0x4UL << TIM_AF1_ETRSEL_Pos)               /*!< 0x00010000 */
+#define TIM_AF1_ETRSEL_3         (0x8UL << TIM_AF1_ETRSEL_Pos)               /*!< 0x00020000 */
 
-#define TIM1_AF1_ETRSEL_Pos       (14U)
-#define TIM1_AF1_ETRSEL_Msk       (0xFUL << TIM1_AF1_ETRSEL_Pos)               /*!< 0x0003C000 */
-#define TIM1_AF1_ETRSEL           TIM1_AF1_ETRSEL_Msk                          /*!<ETRSEL[3:0] bits (TIM1 ETR source selection) */
-#define TIM1_AF1_ETRSEL_0         (0x1UL << TIM1_AF1_ETRSEL_Pos)               /*!< 0x00004000 */
-#define TIM1_AF1_ETRSEL_1         (0x2UL << TIM1_AF1_ETRSEL_Pos)               /*!< 0x00008000 */
-#define TIM1_AF1_ETRSEL_2         (0x4UL << TIM1_AF1_ETRSEL_Pos)               /*!< 0x00010000 */
-#define TIM1_AF1_ETRSEL_3         (0x8UL << TIM1_AF1_ETRSEL_Pos)               /*!< 0x00020000 */
-
-/*******************  Bit definition for TIM1_AF2 register  *******************/
-#define TIM1_AF2_BK2INE_Pos       (0U)
-#define TIM1_AF2_BK2INE_Msk       (0x1UL << TIM1_AF2_BK2INE_Pos)               /*!< 0x00000001 */
-#define TIM1_AF2_BK2INE           TIM1_AF2_BK2INE_Msk                          /*!<BRK2 BKIN2 input enable */
-#define TIM1_AF2_BK2CMP1E_Pos     (1U)
-#define TIM1_AF2_BK2CMP1E_Msk     (0x1UL << TIM1_AF2_BK2CMP1E_Pos)             /*!< 0x00000002 */
-#define TIM1_AF2_BK2CMP1E         TIM1_AF2_BK2CMP1E_Msk                        /*!<BRK2 COMP1 enable */
-#define TIM1_AF2_BK2CMP2E_Pos     (2U)
-#define TIM1_AF2_BK2CMP2E_Msk     (0x1UL << TIM1_AF2_BK2CMP2E_Pos)             /*!< 0x00000004 */
-#define TIM1_AF2_BK2CMP2E         TIM1_AF2_BK2CMP2E_Msk                        /*!<BRK2 COMP2 enable */
-#define TIM1_AF2_BK2INP_Pos       (9U)
-#define TIM1_AF2_BK2INP_Msk       (0x1UL << TIM1_AF2_BK2INP_Pos)               /*!< 0x00000200 */
-#define TIM1_AF2_BK2INP           TIM1_AF2_BK2INP_Msk                          /*!<BRK2 BKIN2 input polarity */
-#define TIM1_AF2_BK2CMP1P_Pos     (10U)
-#define TIM1_AF2_BK2CMP1P_Msk     (0x1UL << TIM1_AF2_BK2CMP1P_Pos)             /*!< 0x00000400 */
-#define TIM1_AF2_BK2CMP1P         TIM1_AF2_BK2CMP1P_Msk                        /*!<BRK2 COMP1 input polarity */
-#define TIM1_AF2_BK2CMP2P_Pos     (11U)
-#define TIM1_AF2_BK2CMP2P_Msk     (0x1UL << TIM1_AF2_BK2CMP2P_Pos)             /*!< 0x00000800 */
-#define TIM1_AF2_BK2CMP2P         TIM1_AF2_BK2CMP2P_Msk                        /*!<BRK2 COMP2 input polarity */
-
-
-/*******************  Bit definition for TIM3_OR1 register  *******************/
-#define TIM3_OR1_OCREF_CLR_Pos     (0U)
-#define TIM3_OR1_OCREF_CLR_Msk     (0x1UL << TIM3_OR1_OCREF_CLR_Pos)           /*!< 0x00000001 */
-#define TIM3_OR1_OCREF_CLR         TIM3_OR1_OCREF_CLR_Msk                      /*!<OCREF clear input selection */
-
-/*******************  Bit definition for TIM3_AF1 register  *******************/
-#define TIM3_AF1_ETRSEL_Pos       (14U)
-#define TIM3_AF1_ETRSEL_Msk       (0xFUL << TIM3_AF1_ETRSEL_Pos)               /*!< 0x0003C000 */
-#define TIM3_AF1_ETRSEL           TIM3_AF1_ETRSEL_Msk                          /*!<ETRSEL[3:0] bits (TIM3 ETR source selection) */
-#define TIM3_AF1_ETRSEL_0         (0x1UL << TIM3_AF1_ETRSEL_Pos)               /*!< 0x00004000 */
-#define TIM3_AF1_ETRSEL_1         (0x2UL << TIM3_AF1_ETRSEL_Pos)               /*!< 0x00008000 */
-#define TIM3_AF1_ETRSEL_2         (0x4UL << TIM3_AF1_ETRSEL_Pos)               /*!< 0x00010000 */
-#define TIM3_AF1_ETRSEL_3         (0x8UL << TIM3_AF1_ETRSEL_Pos)               /*!< 0x00020000 */
-
-/*******************  Bit definition for TIM14_AF1 register  *******************/
-#define TIM14_AF1_ETRSEL_Pos      (14U)
-#define TIM14_AF1_ETRSEL_Msk      (0xFUL << TIM14_AF1_ETRSEL_Pos)              /*!< 0x0003C000 */
-#define TIM14_AF1_ETRSEL          TIM14_AF1_ETRSEL_Msk                         /*!<ETRSEL[3:0] bits (TIM3 ETR source selection) */
-#define TIM14_AF1_ETRSEL_0        (0x1UL << TIM14_AF1_ETRSEL_Pos)              /*!< 0x00004000 */
-#define TIM14_AF1_ETRSEL_1        (0x2UL << TIM14_AF1_ETRSEL_Pos)              /*!< 0x00008000 */
-#define TIM14_AF1_ETRSEL_2        (0x4UL << TIM14_AF1_ETRSEL_Pos)              /*!< 0x00010000 */
-#define TIM14_AF1_ETRSEL_3        (0x8UL << TIM14_AF1_ETRSEL_Pos)              /*!< 0x00020000 */
-
-/*******************  Bit definition for TIM16_AF1 register  ******************/
-#define TIM16_AF1_BKINE_Pos      (0U)
-#define TIM16_AF1_BKINE_Msk      (0x1UL << TIM16_AF1_BKINE_Pos)                /*!< 0x00000001 */
-#define TIM16_AF1_BKINE          TIM16_AF1_BKINE_Msk                           /*!<BRK BKIN input enable */
-#define TIM16_AF1_BKCMP1E_Pos    (1U)
-#define TIM16_AF1_BKCMP1E_Msk    (0x1UL << TIM16_AF1_BKCMP1E_Pos)              /*!< 0x00000002 */
-#define TIM16_AF1_BKCMP1E        TIM16_AF1_BKCMP1E_Msk                         /*!<BRK COMP1 enable */
-#define TIM16_AF1_BKCMP2E_Pos    (2U)
-#define TIM16_AF1_BKCMP2E_Msk    (0x1UL << TIM16_AF1_BKCMP2E_Pos)              /*!< 0x00000004 */
-#define TIM16_AF1_BKCMP2E        TIM16_AF1_BKCMP2E_Msk                         /*!<BRK COMP2 enable */
-#define TIM16_AF1_BKINP_Pos      (9U)
-#define TIM16_AF1_BKINP_Msk      (0x1UL << TIM16_AF1_BKINP_Pos)                /*!< 0x00000200 */
-#define TIM16_AF1_BKINP          TIM16_AF1_BKINP_Msk                           /*!<BRK BKIN input polarity */
-#define TIM16_AF1_BKCMP1P_Pos    (10U)
-#define TIM16_AF1_BKCMP1P_Msk    (0x1UL << TIM16_AF1_BKCMP1P_Pos)              /*!< 0x00000400 */
-#define TIM16_AF1_BKCMP1P        TIM16_AF1_BKCMP1P_Msk                         /*!<BRK COMP1 input polarity */
-#define TIM16_AF1_BKCMP2P_Pos    (11U)
-#define TIM16_AF1_BKCMP2P_Msk    (0x1UL << TIM16_AF1_BKCMP2P_Pos)              /*!< 0x00000800 */
-#define TIM16_AF1_BKCMP2P        TIM16_AF1_BKCMP2P_Msk                         /*!<BRK COMP2 input polarity */
-
-/*******************  Bit definition for TIM17_AF1 register  ******************/
-#define TIM17_AF1_BKINE_Pos      (0U)
-#define TIM17_AF1_BKINE_Msk      (0x1UL << TIM17_AF1_BKINE_Pos)                /*!< 0x00000001 */
-#define TIM17_AF1_BKINE          TIM17_AF1_BKINE_Msk                           /*!<BRK BKIN input enable */
-#define TIM17_AF1_BKCMP1E_Pos    (1U)
-#define TIM17_AF1_BKCMP1E_Msk    (0x1UL << TIM17_AF1_BKCMP1E_Pos)              /*!< 0x00000002 */
-#define TIM17_AF1_BKCMP1E        TIM17_AF1_BKCMP1E_Msk                         /*!<BRK COMP1 enable */
-#define TIM17_AF1_BKCMP2E_Pos    (2U)
-#define TIM17_AF1_BKCMP2E_Msk    (0x1UL << TIM17_AF1_BKCMP2E_Pos)              /*!< 0x00000004 */
-#define TIM17_AF1_BKCMP2E        TIM17_AF1_BKCMP2E_Msk                         /*!<BRK COMP2 enable */
-#define TIM17_AF1_BKINP_Pos      (9U)
-#define TIM17_AF1_BKINP_Msk      (0x1UL << TIM17_AF1_BKINP_Pos)                /*!< 0x00000200 */
-#define TIM17_AF1_BKINP          TIM17_AF1_BKINP_Msk                           /*!<BRK BKIN input polarity */
-#define TIM17_AF1_BKCMP1P_Pos    (10U)
-#define TIM17_AF1_BKCMP1P_Msk    (0x1UL << TIM17_AF1_BKCMP1P_Pos)              /*!< 0x00000400 */
-#define TIM17_AF1_BKCMP1P        TIM17_AF1_BKCMP1P_Msk                         /*!<BRK COMP1 input polarity */
-#define TIM17_AF1_BKCMP2P_Pos    (11U)
-#define TIM17_AF1_BKCMP2P_Msk    (0x1UL << TIM17_AF1_BKCMP2P_Pos)              /*!< 0x00000800 */
-#define TIM17_AF1_BKCMP2P        TIM17_AF1_BKCMP2P_Msk                         /*!<BRK COMP2 input polarity */
+/*******************  Bit definition for TIM_AF2 register  *******************/
+#define TIM_AF2_BK2INE_Pos       (0U)
+#define TIM_AF2_BK2INE_Msk       (0x1UL << TIM_AF2_BK2INE_Pos)               /*!< 0x00000001 */
+#define TIM_AF2_BK2INE           TIM_AF2_BK2INE_Msk                          /*!<BRK2 BKIN2 input enable */
+#define TIM_AF2_BK2CMP1E_Pos     (1U)
+#define TIM_AF2_BK2CMP1E_Msk     (0x1UL << TIM_AF2_BK2CMP1E_Pos)             /*!< 0x00000002 */
+#define TIM_AF2_BK2CMP1E         TIM_AF2_BK2CMP1E_Msk                        /*!<BRK2 COMP1 enable */
+#define TIM_AF2_BK2CMP2E_Pos     (2U)
+#define TIM_AF2_BK2CMP2E_Msk     (0x1UL << TIM_AF2_BK2CMP2E_Pos)             /*!< 0x00000004 */
+#define TIM_AF2_BK2CMP2E         TIM_AF2_BK2CMP2E_Msk                        /*!<BRK2 COMP2 enable */
+#define TIM_AF2_BK2INP_Pos       (9U)
+#define TIM_AF2_BK2INP_Msk       (0x1UL << TIM_AF2_BK2INP_Pos)               /*!< 0x00000200 */
+#define TIM_AF2_BK2INP           TIM_AF2_BK2INP_Msk                          /*!<BRK2 BKIN2 input polarity */
+#define TIM_AF2_BK2CMP1P_Pos     (10U)
+#define TIM_AF2_BK2CMP1P_Msk     (0x1UL << TIM_AF2_BK2CMP1P_Pos)             /*!< 0x00000400 */
+#define TIM_AF2_BK2CMP1P         TIM_AF2_BK2CMP1P_Msk                        /*!<BRK2 COMP1 input polarity */
+#define TIM_AF2_BK2CMP2P_Pos     (11U)
+#define TIM_AF2_BK2CMP2P_Msk     (0x1UL << TIM_AF2_BK2CMP2P_Pos)             /*!< 0x00000800 */
+#define TIM_AF2_BK2CMP2P         TIM_AF2_BK2CMP2P_Msk                        /*!<BRK2 COMP2 input polarity */
 
 /*******************  Bit definition for TIM_TISEL register  *********************/
 #define TIM_TISEL_TI1SEL_Pos      (0U)
 #define TIM_TISEL_TI1SEL_Msk      (0xFUL << TIM_TISEL_TI1SEL_Pos)              /*!< 0x0000000F */
-#define TIM_TISEL_TI1SEL          TIM_TISEL_TI1SEL_Msk                         /*!<TI1SEL[3:0] bits (TIM1 TI1 SEL)*/
+#define TIM_TISEL_TI1SEL          TIM_TISEL_TI1SEL_Msk                         /*!<TI1SEL[3:0] bits (TIM TI1 SEL)*/
 #define TIM_TISEL_TI1SEL_0        (0x1UL << TIM_TISEL_TI1SEL_Pos)              /*!< 0x00000001 */
 #define TIM_TISEL_TI1SEL_1        (0x2UL << TIM_TISEL_TI1SEL_Pos)              /*!< 0x00000002 */
 #define TIM_TISEL_TI1SEL_2        (0x4UL << TIM_TISEL_TI1SEL_Pos)              /*!< 0x00000004 */
@@ -6079,7 +6097,7 @@ typedef struct
 
 #define TIM_TISEL_TI2SEL_Pos      (8U)
 #define TIM_TISEL_TI2SEL_Msk      (0xFUL << TIM_TISEL_TI2SEL_Pos)              /*!< 0x00000F00 */
-#define TIM_TISEL_TI2SEL          TIM_TISEL_TI2SEL_Msk                         /*!<TI2SEL[3:0] bits (TIM1 TI2 SEL)*/
+#define TIM_TISEL_TI2SEL          TIM_TISEL_TI2SEL_Msk                         /*!<TI2SEL[3:0] bits (TIM TI2 SEL)*/
 #define TIM_TISEL_TI2SEL_0        (0x1UL << TIM_TISEL_TI2SEL_Pos)              /*!< 0x00000100 */
 #define TIM_TISEL_TI2SEL_1        (0x2UL << TIM_TISEL_TI2SEL_Pos)              /*!< 0x00000200 */
 #define TIM_TISEL_TI2SEL_2        (0x4UL << TIM_TISEL_TI2SEL_Pos)              /*!< 0x00000400 */
@@ -6087,7 +6105,7 @@ typedef struct
 
 #define TIM_TISEL_TI3SEL_Pos      (16U)
 #define TIM_TISEL_TI3SEL_Msk      (0xFUL << TIM_TISEL_TI3SEL_Pos)              /*!< 0x000F0000 */
-#define TIM_TISEL_TI3SEL          TIM_TISEL_TI3SEL_Msk                         /*!<TI3SEL[3:0] bits (TIM1 TI3 SEL)*/
+#define TIM_TISEL_TI3SEL          TIM_TISEL_TI3SEL_Msk                         /*!<TI3SEL[3:0] bits (TIM TI3 SEL)*/
 #define TIM_TISEL_TI3SEL_0        (0x1UL << TIM_TISEL_TI3SEL_Pos)              /*!< 0x00010000 */
 #define TIM_TISEL_TI3SEL_1        (0x2UL << TIM_TISEL_TI3SEL_Pos)              /*!< 0x00020000 */
 #define TIM_TISEL_TI3SEL_2        (0x4UL << TIM_TISEL_TI3SEL_Pos)              /*!< 0x00040000 */
@@ -6095,7 +6113,7 @@ typedef struct
 
 #define TIM_TISEL_TI4SEL_Pos      (24U)
 #define TIM_TISEL_TI4SEL_Msk      (0xFUL << TIM_TISEL_TI4SEL_Pos)              /*!< 0x0F000000 */
-#define TIM_TISEL_TI4SEL          TIM_TISEL_TI4SEL_Msk                         /*!<TI4SEL[3:0] bits (TIM1 TI4 SEL)*/
+#define TIM_TISEL_TI4SEL          TIM_TISEL_TI4SEL_Msk                         /*!<TI4SEL[3:0] bits (TIM TI4 SEL)*/
 #define TIM_TISEL_TI4SEL_0        (0x1UL << TIM_TISEL_TI4SEL_Pos)              /*!< 0x01000000 */
 #define TIM_TISEL_TI4SEL_1        (0x2UL << TIM_TISEL_TI4SEL_Pos)              /*!< 0x02000000 */
 #define TIM_TISEL_TI4SEL_2        (0x4UL << TIM_TISEL_TI4SEL_Pos)              /*!< 0x04000000 */
@@ -6636,31 +6654,40 @@ typedef struct
                                          ((INSTANCE) == TIM14)  || \
                                          ((INSTANCE) == TIM16)  || \
                                          ((INSTANCE) == TIM17))
+
 /****************** TIM Instances : supporting 32 bits counter ****************/
 #define IS_TIM_32B_COUNTER_INSTANCE(INSTANCE) (0UL)
+
 /****************** TIM Instances : supporting the break function *************/
 #define IS_TIM_BREAK_INSTANCE(INSTANCE)    (((INSTANCE) == TIM1)    || \
                                             ((INSTANCE) == TIM16)   || \
                                             ((INSTANCE) == TIM17))
+
 /************** TIM Instances : supporting Break source selection *************/
 #define IS_TIM_BREAKSOURCE_INSTANCE(INSTANCE) (0UL)
+
 /****************** TIM Instances : supporting 2 break inputs *****************/
 #define IS_TIM_BKIN2_INSTANCE(INSTANCE)    ((INSTANCE) == TIM1)
+
 /************* TIM Instances : at least 1 capture/compare channel *************/
 #define IS_TIM_CC1_INSTANCE(INSTANCE)   (((INSTANCE) == TIM1)   || \
                                          ((INSTANCE) == TIM3)   || \
                                          ((INSTANCE) == TIM14)  || \
                                          ((INSTANCE) == TIM16)  || \
                                          ((INSTANCE) == TIM17))
+
 /************ TIM Instances : at least 2 capture/compare channels *************/
 #define IS_TIM_CC2_INSTANCE(INSTANCE)   (((INSTANCE) == TIM1)   || \
                                          ((INSTANCE) == TIM3))
+
 /************ TIM Instances : at least 3 capture/compare channels *************/
 #define IS_TIM_CC3_INSTANCE(INSTANCE)   (((INSTANCE) == TIM1)   || \
                                          ((INSTANCE) == TIM3))
+
 /************ TIM Instances : at least 4 capture/compare channels *************/
 #define IS_TIM_CC4_INSTANCE(INSTANCE)   (((INSTANCE) == TIM1)   || \
                                          ((INSTANCE) == TIM3))
+
 /****************** TIM Instances : at least 5 capture/compare channels *******/
 #define IS_TIM_CC5_INSTANCE(INSTANCE)   ((INSTANCE) == TIM1)
 
@@ -6671,22 +6698,26 @@ typedef struct
 #define IS_TIM_CCDMA_INSTANCE(INSTANCE)    (((INSTANCE) == TIM1)   || \
                                             ((INSTANCE) == TIM16)  || \
                                             ((INSTANCE) == TIM17))
+
 /****************** TIM Instances : DMA requests generation (TIMx_DIER.UDE) ***/
 #define IS_TIM_DMA_INSTANCE(INSTANCE)      (((INSTANCE) == TIM1)   || \
                                             ((INSTANCE) == TIM3)   || \
                                             ((INSTANCE) == TIM16)  || \
                                             ((INSTANCE) == TIM17))
+
 /************ TIM Instances : DMA requests generation (TIMx_DIER.CCxDE) *******/
 #define IS_TIM_DMA_CC_INSTANCE(INSTANCE)   (((INSTANCE) == TIM1)   || \
                                             ((INSTANCE) == TIM3)   || \
                                             ((INSTANCE) == TIM14)  || \
                                             ((INSTANCE) == TIM16)  || \
                                             ((INSTANCE) == TIM17))
+
 /******************** TIM Instances : DMA burst feature ***********************/
 #define IS_TIM_DMABURST_INSTANCE(INSTANCE) (((INSTANCE) == TIM1)   || \
                                             ((INSTANCE) == TIM3)   || \
                                             ((INSTANCE) == TIM16)  || \
                                             ((INSTANCE) == TIM17))
+
 /******************* TIM Instances : output(s) available **********************/
 #define IS_TIM_CCX_INSTANCE(INSTANCE, CHANNEL) \
     ((((INSTANCE) == TIM1) &&                  \
@@ -6735,15 +6766,19 @@ typedef struct
 /****** TIM Instances : supporting external clock mode 1 for ETRF input *******/
 #define IS_TIM_CLOCKSOURCE_ETRMODE1_INSTANCE(INSTANCE) (((INSTANCE) == TIM1) || \
                                                         ((INSTANCE) == TIM3))
+
 /****** TIM Instances : supporting external clock mode 2 for ETRF input *******/
 #define IS_TIM_CLOCKSOURCE_ETRMODE2_INSTANCE(INSTANCE) (((INSTANCE) == TIM1) || \
                                                         ((INSTANCE) == TIM3))
+
 /****************** TIM Instances : supporting external clock mode 1 for TIX inputs*/
 #define IS_TIM_CLOCKSOURCE_TIX_INSTANCE(INSTANCE)      (((INSTANCE) == TIM1) || \
                                                         ((INSTANCE) == TIM3))
+
 /****************** TIM Instances : supporting internal trigger inputs(ITRX) *******/
 #define IS_TIM_CLOCKSOURCE_ITRX_INSTANCE(INSTANCE)     (((INSTANCE) == TIM1) || \
                                                         ((INSTANCE) == TIM3))
+
 /****************** TIM Instances : supporting combined 3-phase PWM mode ******/
 #define IS_TIM_COMBINED3PHASEPWM_INSTANCE(INSTANCE)    ((INSTANCE) == TIM1)
 
@@ -6751,9 +6786,11 @@ typedef struct
 #define IS_TIM_COMMUTATION_EVENT_INSTANCE(INSTANCE) (((INSTANCE) == TIM1)   || \
                                                      ((INSTANCE) == TIM16)  || \
                                                      ((INSTANCE) == TIM17))
+
 /****************** TIM Instances : supporting counting mode selection ********/
 #define IS_TIM_COUNTER_MODE_SELECT_INSTANCE(INSTANCE)  (((INSTANCE) == TIM1) || \
                                                         ((INSTANCE) == TIM3))
+
 /****************** TIM Instances : supporting encoder interface **************/
 #define IS_TIM_ENCODER_INTERFACE_INSTANCE(INSTANCE)  (((INSTANCE) == TIM1)  || \
                                                       ((INSTANCE) == TIM3))
@@ -6761,20 +6798,26 @@ typedef struct
 /****************** TIM Instances : supporting Hall sensor interface **********/
 #define IS_TIM_HALL_SENSOR_INTERFACE_INSTANCE(INSTANCE) (((INSTANCE) == TIM1)   || \
                                                          ((INSTANCE) == TIM3))
+
 /**************** TIM Instances : external trigger input available ************/
 #define IS_TIM_ETR_INSTANCE(INSTANCE)      (((INSTANCE) == TIM1)  || \
                                             ((INSTANCE) == TIM3))
+
 /**************** TIM Instances : supporting ETR source selection ***************/
-#define IS_TIM_ETRSEL_INSTANCE(INSTANCE)   (0UL)
+#define IS_TIM_ETRSEL_INSTANCE(INSTANCE)   (((INSTANCE) == TIM1))
+
 /****** TIM Instances : Master mode available (TIMx_CR2.MMS available )********/
 #define IS_TIM_MASTER_INSTANCE(INSTANCE)   (((INSTANCE) == TIM1)  || \
                                             ((INSTANCE) == TIM3))
+
 /*********** TIM Instances : Slave mode available (TIMx_SMCR available )*******/
 #define IS_TIM_SLAVE_INSTANCE(INSTANCE)    (((INSTANCE) == TIM1)  || \
                                             ((INSTANCE) == TIM3))
+
 /****************** TIM Instances : supporting OCxREF clear *******************/
 #define IS_TIM_OCXREF_CLEAR_INSTANCE(INSTANCE)        (((INSTANCE) == TIM1) || \
                                                        ((INSTANCE) == TIM3))
+
 /****************** TIM Instances : remapping capability **********************/
 #define IS_TIM_REMAP_INSTANCE(INSTANCE)    ((INSTANCE) == TIM1)
 
@@ -6792,10 +6835,12 @@ typedef struct
 /******************* TIM Instances : Timer input XOR function *****************/
 #define IS_TIM_XOR_INSTANCE(INSTANCE)      (((INSTANCE) == TIM1)   || \
                                             ((INSTANCE) == TIM3))
+
 /******************* TIM Instances : Timer input selection ********************/
 #define IS_TIM_TISEL_INSTANCE(INSTANCE) (((INSTANCE) == TIM14)  || \
                                          ((INSTANCE) == TIM16)  || \
                                          ((INSTANCE) == TIM17))
+
 /************ TIM Instances : Advanced timers  ********************************/
 #define IS_TIM_ADVANCED_INSTANCE(INSTANCE)    (((INSTANCE) == TIM1))
 

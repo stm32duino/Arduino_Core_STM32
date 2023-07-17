@@ -160,6 +160,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetTimeStamp(RTC_HandleTypeDef *hrtc, uint32_t TimeS
 /**
   * @brief  Set TimeStamp with Interrupt.
   * @note   This API must be called before enabling the TimeStamp feature.
+  * @note   The application must ensure that the EXTI RTC interrupt line is enabled.
   * @param  hrtc RTC handle
   * @param  TimeStampEdge Specifies the pin edge on which the TimeStamp is
   *         activated.
@@ -371,9 +372,6 @@ HAL_StatusTypeDef HAL_RTCEx_PollForTimeStampEvent(RTC_HandleTypeDef *hrtc, uint3
       /* Clear the TIMESTAMP OverRun Flag */
       __HAL_RTC_TIMESTAMP_CLEAR_FLAG(hrtc, RTC_FLAG_TSOVF);
 
-      /* Change TIMESTAMP state */
-      hrtc->State = HAL_RTC_STATE_ERROR;
-
       return HAL_ERROR;
     }
 
@@ -381,14 +379,18 @@ HAL_StatusTypeDef HAL_RTCEx_PollForTimeStampEvent(RTC_HandleTypeDef *hrtc, uint3
     {
       if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
       {
-        hrtc->State = HAL_RTC_STATE_TIMEOUT;
-        return HAL_TIMEOUT;
+        /* New check to avoid false timeout detection in case of preemption */
+        if (__HAL_RTC_TIMESTAMP_GET_FLAG(hrtc, RTC_FLAG_TSF) == 0U)
+        {
+          return HAL_TIMEOUT;
+        }
+        else
+        {
+          break;
+        }
       }
     }
   }
-
-  /* Change RTC state */
-  hrtc->State = HAL_RTC_STATE_READY;
 
   return HAL_OK;
 }
@@ -461,15 +463,16 @@ HAL_StatusTypeDef HAL_RTCEx_SetSmoothCalib(RTC_HandleTypeDef *hrtc, uint32_t Smo
   /* Disable the write protection for RTC registers */
   __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
 
-  /* check if a calibration is pending*/
-  if ((hrtc->Instance->ICSR & RTC_ICSR_RECALPF) != 0U)
-  {
-    tickstart = HAL_GetTick();
+  tickstart = HAL_GetTick();
 
+  /* check if a calibration is pending*/
+  while ((hrtc->Instance->ICSR & RTC_ICSR_RECALPF) != 0U)
+  {
     /* check if a calibration is pending*/
-    while ((hrtc->Instance->ICSR & RTC_ICSR_RECALPF) != 0U)
+    if ((HAL_GetTick() - tickstart) > RTC_TIMEOUT_VALUE)
     {
-      if ((HAL_GetTick() - tickstart) > RTC_TIMEOUT_VALUE)
+      /* New check to avoid false timeout detection in case of preemption */
+      if ((hrtc->Instance->ICSR & RTC_ICSR_RECALPF) != 0U)
       {
         /* Enable the write protection for RTC registers */
         __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
@@ -481,6 +484,10 @@ HAL_StatusTypeDef HAL_RTCEx_SetSmoothCalib(RTC_HandleTypeDef *hrtc, uint32_t Smo
         __HAL_UNLOCK(hrtc);
 
         return HAL_TIMEOUT;
+      }
+      else
+      {
+        break;
       }
     }
   }
@@ -535,15 +542,24 @@ HAL_StatusTypeDef HAL_RTCEx_SetSynchroShift(RTC_HandleTypeDef *hrtc, uint32_t Sh
   {
     if ((HAL_GetTick() - tickstart) > RTC_TIMEOUT_VALUE)
     {
-      /* Enable the write protection for RTC registers */
-      __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
+      /* New check to avoid false timeout detection in case of preemption */
+      if ((hrtc->Instance->ICSR & RTC_ICSR_SHPF) != 0U)
+      {
+        /* Enable the write protection for RTC registers */
+        __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
 
-      hrtc->State = HAL_RTC_STATE_TIMEOUT;
+        /* Change RTC state */
+        hrtc->State = HAL_RTC_STATE_TIMEOUT;
 
-      /* Process Unlocked */
-      __HAL_UNLOCK(hrtc);
+        /* Process Unlocked */
+        __HAL_UNLOCK(hrtc);
 
-      return HAL_TIMEOUT;
+        return HAL_TIMEOUT;
+      }
+      else
+      {
+        break;
+      }
     }
   }
 

@@ -40,10 +40,19 @@ extern "C" {
 /** @addtogroup RCC_Private_Constants
   * @{
   */
+
+/** @defgroup RCC_Timeout_Value Timeout Values
+  * @{
+  */
+#define RCC_LSE_TIMEOUT_VALUE     LSE_STARTUP_TIMEOUT  /* LSE timeout in ms        */
+/**
+  * @}
+  */
+
 /* Defines used for Flags */
-#define CR_REG_INDEX              1U
-#define CSR1_REG_INDEX            2U
-#define CSR2_REG_INDEX            3U
+#define RCC_CR_REG_INDEX          1U
+#define RCC_CSR1_REG_INDEX        2U
+#define RCC_CSR2_REG_INDEX        3U
 
 #define RCC_FLAG_MASK             0x1FU
 
@@ -223,14 +232,6 @@ typedef struct
   * @{
   */
 
-/** @defgroup RCC_Timeout_Value Timeout Values
-  * @{
-  */
-#define RCC_LSE_TIMEOUT_VALUE          LSE_STARTUP_TIMEOUT  /* LSE timeout in ms        */
-/**
-  * @}
-  */
-
 /** @defgroup RCC_Oscillator_Type Oscillator Type
   * @{
   */
@@ -331,7 +332,7 @@ typedef struct
   * @}
   */
 
-/** @defgroup RCC_SYS_Clock_Source  RCC SYS Clock Sourcee
+/** @defgroup RCC_SYS_Clock_Source  RCC SYS Clock Source
   * @{
   */
 #define RCC_SYSCLK_DIV1                0x00000000U                                                             /*!< SYSCLK not divided */
@@ -507,22 +508,22 @@ typedef struct
   * @{
   */
 /* Flags in the CR register */
-#define RCC_FLAG_HSIRDY                ((CR_REG_INDEX << 5U) | RCC_CR_HSIRDY_Pos) /*!< HSI Ready flag */
-#define RCC_FLAG_HSERDY                ((CR_REG_INDEX << 5U) | RCC_CR_HSERDY_Pos) /*!< HSE Ready flag */
+#define RCC_FLAG_HSIRDY                ((RCC_CR_REG_INDEX << 5U) | RCC_CR_HSIRDY_Pos) /*!< HSI Ready flag */
+#define RCC_FLAG_HSERDY                ((RCC_CR_REG_INDEX << 5U) | RCC_CR_HSERDY_Pos) /*!< HSE Ready flag */
 
 /* Flags in the CSR1 register */
-#define RCC_FLAG_LSERDY                ((CSR1_REG_INDEX << 5U) | RCC_CSR1_LSERDY_Pos)  /*!< LSE Ready flag */
-#define RCC_FLAG_LSECSSD               ((CSR1_REG_INDEX << 5U) | RCC_CSR1_LSECSSD_Pos) /*!< LSE Clock Security System Interrupt flag */
+#define RCC_FLAG_LSERDY                ((RCC_CSR1_REG_INDEX << 5U) | RCC_CSR1_LSERDY_Pos)  /*!< LSE Ready flag */
+#define RCC_FLAG_LSECSSD               ((RCC_CSR1_REG_INDEX << 5U) | RCC_CSR1_LSECSSD_Pos) /*!< LSE Clock Security System Interrupt flag */
 
 /* Flags in the CSR2 register */
-#define RCC_FLAG_LSIRDY                ((CSR2_REG_INDEX << 5U) | RCC_CSR2_LSIRDY_Pos)    /*!< LSI Ready flag */
-#define RCC_FLAG_OBLRST                ((CSR2_REG_INDEX << 5U) | RCC_CSR2_OBLRSTF_Pos)   /*!< Option Byte Loader reset flag */
-#define RCC_FLAG_PINRST                ((CSR2_REG_INDEX << 5U) | RCC_CSR2_PINRSTF_Pos)   /*!< PIN reset flag */
-#define RCC_FLAG_PWRRST                ((CSR2_REG_INDEX << 5U) | RCC_CSR2_PWRRSTF_Pos)   /*!< BOR or POR/PDR reset flag */
-#define RCC_FLAG_SFTRST                ((CSR2_REG_INDEX << 5U) | RCC_CSR2_SFTRSTF_Pos)   /*!< Software Reset flag */
-#define RCC_FLAG_IWDGRST               ((CSR2_REG_INDEX << 5U) | RCC_CSR2_IWDGRSTF_Pos)  /*!< Independent Watchdog reset flag */
-#define RCC_FLAG_WWDGRST               ((CSR2_REG_INDEX << 5U) | RCC_CSR2_WWDGRSTF_Pos)  /*!< Window watchdog reset flag */
-#define RCC_FLAG_LPWRRST               ((CSR2_REG_INDEX << 5U) | RCC_CSR2_LPWRRSTF_Pos)  /*!< Low-Power reset flag */
+#define RCC_FLAG_LSIRDY                ((RCC_CSR2_REG_INDEX << 5U) | RCC_CSR2_LSIRDY_Pos)    /*!< LSI Ready flag */
+#define RCC_FLAG_OBLRST                ((RCC_CSR2_REG_INDEX << 5U) | RCC_CSR2_OBLRSTF_Pos)   /*!< Option Byte Loader reset flag */
+#define RCC_FLAG_PINRST                ((RCC_CSR2_REG_INDEX << 5U) | RCC_CSR2_PINRSTF_Pos)   /*!< PIN reset flag */
+#define RCC_FLAG_PWRRST                ((RCC_CSR2_REG_INDEX << 5U) | RCC_CSR2_PWRRSTF_Pos)   /*!< BOR or POR/PDR reset flag */
+#define RCC_FLAG_SFTRST                ((RCC_CSR2_REG_INDEX << 5U) | RCC_CSR2_SFTRSTF_Pos)   /*!< Software Reset flag */
+#define RCC_FLAG_IWDGRST               ((RCC_CSR2_REG_INDEX << 5U) | RCC_CSR2_IWDGRSTF_Pos)  /*!< Independent Watchdog reset flag */
+#define RCC_FLAG_WWDGRST               ((RCC_CSR2_REG_INDEX << 5U) | RCC_CSR2_WWDGRSTF_Pos)  /*!< Window watchdog reset flag */
+#define RCC_FLAG_LPWRRST               ((RCC_CSR2_REG_INDEX << 5U) | RCC_CSR2_LPWRRSTF_Pos)  /*!< Low-Power reset flag */
 
 /**
   * @}
@@ -1532,7 +1533,7 @@ typedef struct
   *            @arg @ref RCC_MCO1SOURCE_NOCLOCK  MCO output disabled
   *            @arg @ref RCC_MCO1SOURCE_SYSCLK System  clock selected as MCO source
   *            @arg @ref RCC_MCO1SOURCE_HSI HSI clock selected as MCO source
-  *            @arg @ref RCC_MCO1SOURCE_HSE HSE clock selected as MCO sourcee
+  *            @arg @ref RCC_MCO1SOURCE_HSE HSE clock selected as MCO source
   *            @arg @ref RCC_MCO1SOURCE_LSI LSI clock selected as MCO source
   *            @arg @ref RCC_MCO1SOURCE_LSE LSE clock selected as MCO source
   * @param  __MCODIV__ specifies the MCO clock prescaler.
@@ -1556,7 +1557,7 @@ typedef struct
   *            @arg @ref RCC_MCO2SOURCE_NOCLOCK  MCO output disabled
   *            @arg @ref RCC_MCO2SOURCE_SYSCLK System  clock selected as MCO source
   *            @arg @ref RCC_MCO2SOURCE_HSI HSI clock selected as MCO source
-  *            @arg @ref RCC_MCO2SOURCE_HSE HSE clock selected as MCO sourcee
+  *            @arg @ref RCC_MCO2SOURCE_HSE HSE clock selected as MCO source
   *            @arg @ref RCC_MCO2SOURCE_LSI LSI clock selected as MCO source
   *            @arg @ref RCC_MCO2SOURCE_LSE LSE clock selected as MCO source
   * @param  __MCODIV__ specifies the MCO clock prescaler.
@@ -1652,9 +1653,9 @@ typedef struct
   *            @arg @ref RCC_FLAG_LPWRRST Low Power reset
   * @retval The new state of __FLAG__ (TRUE or FALSE).
   */
-#define __HAL_RCC_GET_FLAG(__FLAG__) (((((((__FLAG__) >> 5U) == CR_REG_INDEX) ? RCC->CR :                  \
-                                         ((((__FLAG__) >> 5U) == CSR1_REG_INDEX) ? RCC->CSR1 :              \
-                                          ((((__FLAG__) >> 5U) == CSR2_REG_INDEX) ? RCC->CSR2 : RCC->CIFR))) & \
+#define __HAL_RCC_GET_FLAG(__FLAG__) (((((((__FLAG__) >> 5U) == RCC_CR_REG_INDEX) ? RCC->CR :                  \
+                                         ((((__FLAG__) >> 5U) == RCC_CSR1_REG_INDEX) ? RCC->CSR1 :              \
+                                          ((((__FLAG__) >> 5U) == RCC_CSR2_REG_INDEX) ? RCC->CSR2 : RCC->CIFR))) & \
                                         (1U << ((__FLAG__) & RCC_FLAG_MASK))) != RESET) \
                                       ? 1U : 0U)
 
@@ -1681,8 +1682,8 @@ typedef struct
 
 /* Initialization and de-initialization functions  ******************************/
 HAL_StatusTypeDef HAL_RCC_DeInit(void);
-HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef *RCC_OscInitStruct);
-HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef *RCC_ClkInitStruct, uint32_t FLatency);
+HAL_StatusTypeDef HAL_RCC_OscConfig(const RCC_OscInitTypeDef *RCC_OscInitStruct);
+HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef *RCC_ClkInitStruct, uint32_t FLatency);
 
 /**
   * @}

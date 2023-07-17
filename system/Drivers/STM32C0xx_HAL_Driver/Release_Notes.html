@@ -66,21 +66,107 @@ drivers)</li>
 <section id="update-history" class="col-sm-12 col-lg-8">
 <h1>Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section2" checked aria-hidden="true">
-<label for="collapse-section2" checked aria-hidden="true">V1.0.1 /
-12-January-2023</label>
+<input type="checkbox" id="collapse-section3" checked aria-hidden="true">
+<label for="collapse-section3" checked aria-hidden="true">V1.1.0 /
+07-June-2023</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <ul>
+<li>Maintenance Release of STM32CubeC0 Firmware Package</li>
+</ul>
+<p><strong>HAL/LL Drivers</strong> updates</p>
+<ul>
+<li>HAL and LL drivers Maintenance Release for STM32C011xx / STM32C031xx
+devices</li>
+</ul>
+<p>– <strong>HAL Drivers</strong> updates</p>
+<ul>
+<li><strong>HAL RCC</strong> driver
+<ul>
+<li>Rename the following defines:
+<ul>
+<li>HSE_TIMEOUT_VALUE to RCC_HSE_TIMEOUT_VALUE</li>
+<li>HSI_TIMEOUT_VALUE to RCC_HSI_TIMEOUT_VALUE</li>
+<li>LSI_TIMEOUT_VALUE to RCC_LSI_TIMEOUT_VALUE</li>
+<li>CLOCKSWITCH_TIMEOUT_VALUE to RCC_CLOCKSWITCH_TIMEOUT_VALUE</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL RTC</strong> driver
+<ul>
+<li>Add __HAL_RTC_IS_CALENDAR_INITIALIZED macro</li>
+</ul></li>
+<li><strong>HAL TIM</strong> driver
+<ul>
+<li>Add __HAL_TIM_SELECT_CCDMAREQUEST macro</li>
+</ul></li>
+<li><strong>HAL UART</strong> driver
+<ul>
+<li>Add (HAL_UART_RxEventTypeTypeDef RxEventType) to the
+__UART_HandleTypeDef structure</li>
+<li>Add following defines:
+<ul>
+<li>HAL_UART_RXEVENT_TC (Transfer Complete event)</li>
+<li>HAL_UART_RXEVENT_HT (Half Transfer event)</li>
+<li>HAL_UART_RXEVENT_IDLE (IDLE event)</li>
+</ul></li>
+<li>Add HAL_UARTEx_GetRxEventType() API to provide Rx Event type (to be
+called within the user implementation of Rx Event Callback)</li>
+</ul></li>
+<li><strong>HAL</strong> driver
+<ul>
+<li>Update HAL_SYSCFG_SetPinBinding() to handle properly setting of a
+pin biding (w/o overwriting existing pins binding settings).</li>
+<li>Update HAL_SYSCFG_GetPinBinding() to get a pin biding setting.</li>
+</ul></li>
+</ul>
+<p>– <strong>LL Drivers</strong> updates</p>
+<ul>
+<li><strong>LL SYSTEM</strong> driver
+<ul>
+<li>Add SYSTEM_LL_PINMUX_SOURCE following defines:
+<ul>
+<li>LL_PINMUX_SO8_PIN1, LL_PINMUX_SO8_PIN4, LL_PINMUX_SO8_PIN5,
+LL_PINMUX_SO8_PIN8, LL_PINMUX_WLCSP12_PINE2, LL_PINMUX_WLCSP12_PINF1 in
+case of device <strong>STM32C011xx</strong> device</li>
+<li>LL_PINMUX_WLCSP14_PINF2, LL_PINMUX_WLCSP14_PING3,
+LL_PINMUX_WLCSP14_PINJ1, LL_PINMUX_WLCSP14_PINH2,
+LL_PINMUX_WLCSP14_PING1, LL_PINMUX_WLCSP14_PINJ3 in case of device
+<strong>STM32C031xx</strong> device</li>
+</ul></li>
+<li>Update LL_SYSCFG_ConfigPinMux() and LL_SYSCFG_GetConfigPinMux()
+functions</li>
+<li>LL_SYSCFG_ConfigPinMux() API updated to handle properly setting of a
+pin binding (w/o overwriting existing pins biding settings).</li>
+<li>LL_SYSCFG_GetConfigPinMux() API updated to get a pin biding
+setting.</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<p>N/A</p>
+<h2 id="backward-compatibility">Backward Compatibility</h2>
+<ul>
+<li>HAL_SYSCFG_GetPinBinding() and LL_SYSCFG_GetConfigPinMux() are
+updated.</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section2" aria-hidden="true">
+<label for="collapse-section2" checked aria-hidden="true">V1.0.1 /
+12-January-2023</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<ul>
 <li><p>Patch Release of STM32CubeC0 Firmware Package</p></li>
-<li><p>Update ADC HAL driver with proper internal sensor calibration implementation:</p>
+<li><p>Update ADC HAL driver with proper internal sensor calibration
+implementation:</p>
 <ul>
 <li>Helper macro “__LL_ADC_CALC_TEMPERATURE()” is not available and
 macro “__LL_ADC_CALC_TEMPERATURE_TYP_PARAMS()” must be used.</li>
 </ul></li>
 <li><p>Update RCC LL driver by adding missing AHB Prescaler.</p></li>
 </ul>
-<h2 id="known-limitations">Known Limitations</h2>
+<h2 id="known-limitations-1">Known Limitations</h2>
 <p>N/A</p>
 </div>
 </div>
@@ -89,10 +175,10 @@ macro “__LL_ADC_CALC_TEMPERATURE_TYP_PARAMS()” must be used.</li>
 <label for="collapse-section1" checked aria-hidden="true">V1.0.0 /
 09-February-2022</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <p>First official release of HAL and LL drivers for STM32C031xx /
 STM32C011xx devices</p>
-<h2 id="known-limitations-1">Known Limitations</h2>
+<h2 id="known-limitations-2">Known Limitations</h2>
 <p>N/A</p>
 </div>
 </div>

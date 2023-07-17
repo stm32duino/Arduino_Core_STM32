@@ -446,7 +446,7 @@ void HAL_PWREx_BKUPWrite(uint32_t BackupRegister, uint16_t Data)
   /* Check the parameters */
   assert_param(IS_PWR_BKP(BackupRegister));
 
-  tmp = (uint32_t) &(PWR->BKPREG1);
+  tmp = (uint32_t) &(PWR->BKP0R);
   tmp += (BackupRegister * 4U);
 
   /* Write the specified register */
@@ -467,7 +467,7 @@ uint32_t HAL_PWREx_BKUPRead(uint32_t BackupRegister)
   /* Check the parameters */
   assert_param(IS_PWR_BKP(BackupRegister));
 
-  tmp = (uint32_t) &(PWR->BKPREG1);
+  tmp = (uint32_t) &(PWR->BKP0R);
   tmp += (BackupRegister * 4U);
 
   /* Read the specified register */

@@ -336,7 +336,7 @@ HAL_StatusTypeDef HAL_EXTI_GetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigT
       assert_param(IS_EXTI_GPIO_PIN(linepos));
 
       regval = EXTI->EXTICR[(linepos >> 2U) & 0x03UL];
-      pExtiConfig->GPIOSel = ((regval << (EXTI_EXTICR1_EXTI1_Pos * (3U - (linepos & 0x03U)))) >> 24U);
+      pExtiConfig->GPIOSel = (regval >> (EXTI_EXTICR1_EXTI1_Pos * (linepos & 0x03u))) & EXTI_EXTICR1_EXTI0;
     }
   }
 
@@ -349,7 +349,7 @@ HAL_StatusTypeDef HAL_EXTI_GetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigT
   * @param  hexti Exti handle.
   * @retval HAL Status.
   */
-HAL_StatusTypeDef HAL_EXTI_ClearConfigLine(EXTI_HandleTypeDef *hexti)
+HAL_StatusTypeDef HAL_EXTI_ClearConfigLine(const EXTI_HandleTypeDef *hexti)
 {
   __IO uint32_t *regaddr;
   uint32_t regval;
@@ -492,7 +492,7 @@ HAL_StatusTypeDef HAL_EXTI_GetHandle(EXTI_HandleTypeDef *hexti, uint32_t ExtiLin
   * @param  hexti Exti handle.
   * @retval none.
   */
-void HAL_EXTI_IRQHandler(EXTI_HandleTypeDef *hexti)
+void HAL_EXTI_IRQHandler(const EXTI_HandleTypeDef *hexti)
 {
   __IO uint32_t *regaddr;
   uint32_t regval;
@@ -546,7 +546,7 @@ void HAL_EXTI_IRQHandler(EXTI_HandleTypeDef *hexti)
   *           @arg @ref EXTI_TRIGGER_FALLING
   * @retval 1 if interrupt is pending else 0.
   */
-uint32_t HAL_EXTI_GetPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
+uint32_t HAL_EXTI_GetPending(const EXTI_HandleTypeDef *hexti, uint32_t Edge)
 {
   __IO uint32_t *regaddr;
   uint32_t regval;
@@ -590,7 +590,7 @@ uint32_t HAL_EXTI_GetPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
   *           @arg @ref EXTI_TRIGGER_FALLING
   * @retval None.
   */
-void HAL_EXTI_ClearPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
+void HAL_EXTI_ClearPending(const EXTI_HandleTypeDef *hexti, uint32_t Edge)
 {
   __IO uint32_t *regaddr;
   uint32_t maskline;
@@ -626,7 +626,7 @@ void HAL_EXTI_ClearPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
   * @param  hexti Exti handle.
   * @retval None.
   */
-void HAL_EXTI_GenerateSWI(EXTI_HandleTypeDef *hexti)
+void HAL_EXTI_GenerateSWI(const EXTI_HandleTypeDef *hexti)
 {
   __IO uint32_t *regaddr;
   uint32_t maskline;

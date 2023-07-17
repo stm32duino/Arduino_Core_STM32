@@ -89,8 +89,8 @@ typedef struct
 typedef struct
 {
   uint8_t Hours;            /*!< Specifies the RTC Time Hour.
-                                 This parameter must be a number between Min_Data = 0 and Max_Data = 12 if the RTC_HourFormat_12 is selected.
-                                 This parameter must be a number between Min_Data = 0 and Max_Data = 23 if the RTC_HourFormat_24 is selected */
+                                 This parameter must be a number between Min_Data = 0 and Max_Data = 12 if the RTC_HOURFORMAT_12 is selected.
+                                 This parameter must be a number between Min_Data = 0 and Max_Data = 23 if the RTC_HOURFORMAT_24 is selected */
 
   uint8_t Minutes;          /*!< Specifies the RTC Time Minutes.
                                  This parameter must be a number between Min_Data = 0 and Max_Data = 59 */
@@ -224,7 +224,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
 /** @defgroup RTC_Hour_Formats RTC Hour Formats
   * @{
   */
-#define RTC_HOURFORMAT_24                   0x00000000u
+#define RTC_HOURFORMAT_24                   0U
 #define RTC_HOURFORMAT_12                   RTC_CR_FMT
 /**
   * @}
@@ -233,7 +233,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
 /** @defgroup RTCEx_Output_selection_Definitions RTCEx Output Selection Definition
   * @{
   */
-#define RTC_OUTPUT_DISABLE                  0x00000000u
+#define RTC_OUTPUT_DISABLE                  0U
 #define RTC_OUTPUT_ALARMA                   RTC_CR_OSEL_0
 
 /**
@@ -243,7 +243,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
 /** @defgroup RTC_Output_Polarity_Definitions RTC Output Polarity Definitions
   * @{
   */
-#define RTC_OUTPUT_POLARITY_HIGH            0x00000000u
+#define RTC_OUTPUT_POLARITY_HIGH            0U
 #define RTC_OUTPUT_POLARITY_LOW             RTC_CR_POL
 /**
   * @}
@@ -252,7 +252,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
 /** @defgroup RTC_Output_Type_ALARM_OUT RTC Output Type ALARM OUT
   * @{
   */
-#define RTC_OUTPUT_TYPE_PUSHPULL            0x00000000u
+#define RTC_OUTPUT_TYPE_PUSHPULL            0U
 #define RTC_OUTPUT_TYPE_OPENDRAIN           RTC_CR_TAMPALRM_TYPE
 /**
   * @}
@@ -261,7 +261,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
 /** @defgroup RTC_Output_PullUp_ALARM_OUT RTC Output Pull-Up ALARM OUT
   * @{
   */
-#define RTC_OUTPUT_PULLUP_NONE              0x00000000u
+#define RTC_OUTPUT_PULLUP_NONE              0U
 #define RTC_OUTPUT_PULLUP_ON                RTC_CR_TAMPALRM_PU
 /**
   * @}
@@ -270,7 +270,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
 /** @defgroup RTC_Output_ALARM_OUT_Remap RTC Output ALARM OUT Remap
   * @{
   */
-#define RTC_OUTPUT_REMAP_NONE               0x00000000u
+#define RTC_OUTPUT_REMAP_NONE               0U
 #define RTC_OUTPUT_REMAP_POS1               RTC_CR_OUT2EN
 /**
   * @}
@@ -279,8 +279,8 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
 /** @defgroup RTC_AM_PM_Definitions RTC AM PM Definitions
   * @{
   */
-#define RTC_HOURFORMAT12_AM                 ((uint8_t)0x00U)
-#define RTC_HOURFORMAT12_PM                 ((uint8_t)0x01U)
+#define RTC_HOURFORMAT12_AM                 ((uint8_t)0U)
+#define RTC_HOURFORMAT12_PM                 ((uint8_t)1U)
 /**
   * @}
   */
@@ -290,7 +290,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
   */
 #define RTC_DAYLIGHTSAVING_SUB1H            RTC_CR_SUB1H
 #define RTC_DAYLIGHTSAVING_ADD1H            RTC_CR_ADD1H
-#define RTC_DAYLIGHTSAVING_NONE             0x00000000u
+#define RTC_DAYLIGHTSAVING_NONE             0U
 /**
   * @}
   */
@@ -298,7 +298,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
 /** @defgroup RTC_StoreOperation_Definitions RTC StoreOperation Definitions
   * @{
   */
-#define RTC_STOREOPERATION_RESET            0x00000000u
+#define RTC_STOREOPERATION_RESET            0U
 #define RTC_STOREOPERATION_SET              RTC_CR_BKP
 /**
   * @}
@@ -307,8 +307,8 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
 /** @defgroup RTC_Input_parameter_format_definitions RTC Input Parameter Format Definitions
   * @{
   */
-#define RTC_FORMAT_BIN                      0x00000000u
-#define RTC_FORMAT_BCD                      0x00000001u
+#define RTC_FORMAT_BIN                      0U
+#define RTC_FORMAT_BCD                      1U
 /**
   * @}
   */
@@ -353,7 +353,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
 /** @defgroup RTC_AlarmDateWeekDay_Definitions RTC AlarmDateWeekDay Definitions
   * @{
   */
-#define RTC_ALARMDATEWEEKDAYSEL_DATE        0x00000000u
+#define RTC_ALARMDATEWEEKDAYSEL_DATE        0U
 #define RTC_ALARMDATEWEEKDAYSEL_WEEKDAY     RTC_ALRMAR_WDSEL
 
 /**
@@ -363,7 +363,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
 /** @defgroup RTC_AlarmMask_Definitions RTC AlarmMask Definitions
   * @{
   */
-#define RTC_ALARMMASK_NONE                  0x00000000u
+#define RTC_ALARMMASK_NONE                  0U
 #define RTC_ALARMMASK_DATEWEEKDAY           RTC_ALRMAR_MSK4
 #define RTC_ALARMMASK_HOURS                 RTC_ALRMAR_MSK3
 #define RTC_ALARMMASK_MINUTES               RTC_ALRMAR_MSK2
@@ -389,7 +389,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
 /** @defgroup RTC_Alarm_Sub_Seconds_Masks_Definitions RTC Alarm Sub Seconds Masks Definitions
   * @{
   */
-#define RTC_ALARMSUBSECONDMASK_ALL          0x00000000u                                                              /*!< All Alarm SS fields are masked.
+#define RTC_ALARMSUBSECONDMASK_ALL          0U                                                                       /*!< All Alarm SS fields are masked.
                                                                                                                           There is no comparison on sub seconds
                                                                                                                           for Alarm */
 #define RTC_ALARMSUBSECONDMASK_SS14_1       RTC_ALRMASSR_MASKSS_0                                                    /*!< SS[14:1] not used in Alarm
@@ -436,10 +436,10 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
   * @}
   */
 
-/** @defgroup RTC_Flag_Mask    RTC Flag Mask (5bits) describe in RTC_Flags_Definitions
+/** @defgroup RTC_Flag_Mask    RTC Flag Mask (5bits) describe __HAL_RTC_GET_FLAG()
   * @{
   */
-#define RTC_FLAG_MASK                       0x001Fu        /*!< RTC flags mask (5bits) */
+#define RTC_FLAG_MASK                       0x001FU        /*!< RTC flags mask (5bits) */
 /**
   * @}
   */
@@ -520,6 +520,13 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
   do{                                       \
     (__HANDLE__)->Instance->WPR = 0xFFU;   \
   } while(0U)
+
+/**
+  * @brief  Check whether the RTC Calendar is initialized.
+  * @param  __HANDLE__ specifies the RTC handle.
+  * @retval None
+  */
+#define __HAL_RTC_IS_CALENDAR_INITIALIZED(__HANDLE__)  (((((__HANDLE__)->Instance->ICSR) & (RTC_ICSR_INITS)) == RTC_ICSR_INITS) ? 1U : 0U)
 
 /**
   * @brief  Add 1 hour (summer time change).
@@ -751,10 +758,10 @@ HAL_RTCStateTypeDef HAL_RTC_GetState(RTC_HandleTypeDef *hrtc);
 #define RTC_DR_RESERVED_MASK                (RTC_DR_YT | RTC_DR_YU | RTC_DR_WDU | \
                                              RTC_DR_MT | RTC_DR_MU | RTC_DR_DT  | \
                                              RTC_DR_DU)
-#define RTC_INIT_MASK                       0xFFFFFFFFu
+#define RTC_INIT_MASK                       0xFFFFFFFFU
 #define RTC_RSF_MASK                        (~(RTC_ICSR_INIT | RTC_ICSR_RSF))
 
-#define RTC_TIMEOUT_VALUE                   1000u
+#define RTC_TIMEOUT_VALUE                   1000U
 
 #define RTC_EXTI_LINE_ALARM_EVENT           EXTI_IMR1_IM19  /*!< External interrupt line 19 Connected to the RTC Alarm event */
 
@@ -801,11 +808,11 @@ HAL_RTCStateTypeDef HAL_RTC_GetState(RTC_HandleTypeDef *hrtc);
 #define IS_RTC_FORMAT(FORMAT) (((FORMAT) == RTC_FORMAT_BIN) || \
                                ((FORMAT) == RTC_FORMAT_BCD))
 
-#define IS_RTC_YEAR(YEAR)              ((YEAR) <= 99u)
+#define IS_RTC_YEAR(YEAR)              ((YEAR) <= 99U)
 
-#define IS_RTC_MONTH(MONTH)            (((MONTH) >= 1u) && ((MONTH) <= 12u))
+#define IS_RTC_MONTH(MONTH)            (((MONTH) >= 1U) && ((MONTH) <= 12U))
 
-#define IS_RTC_DATE(DATE)              (((DATE) >= 1u) && ((DATE) <= 31u))
+#define IS_RTC_DATE(DATE)              (((DATE) >= 1U) && ((DATE) <= 31U))
 
 #define IS_RTC_WEEKDAY(WEEKDAY) (((WEEKDAY) == RTC_WEEKDAY_MONDAY)    || \
                                  ((WEEKDAY) == RTC_WEEKDAY_TUESDAY)   || \
@@ -815,7 +822,7 @@ HAL_RTCStateTypeDef HAL_RTC_GetState(RTC_HandleTypeDef *hrtc);
                                  ((WEEKDAY) == RTC_WEEKDAY_SATURDAY)  || \
                                  ((WEEKDAY) == RTC_WEEKDAY_SUNDAY))
 
-#define IS_RTC_ALARM_DATE_WEEKDAY_DATE(DATE) (((DATE) >0u) && ((DATE) <= 31u))
+#define IS_RTC_ALARM_DATE_WEEKDAY_DATE(DATE) (((DATE) >0U) && ((DATE) <= 31U))
 
 #define IS_RTC_ALARM_DATE_WEEKDAY_WEEKDAY(WEEKDAY) (((WEEKDAY) == RTC_WEEKDAY_MONDAY)    || \
                                                     ((WEEKDAY) == RTC_WEEKDAY_TUESDAY)   || \
@@ -851,17 +858,17 @@ HAL_RTCStateTypeDef HAL_RTC_GetState(RTC_HandleTypeDef *hrtc);
                                               ((MASK) == RTC_ALARMSUBSECONDMASK_SS14) || \
                                               ((MASK) == RTC_ALARMSUBSECONDMASK_NONE))
 
-#define IS_RTC_ASYNCH_PREDIV(PREDIV)   ((PREDIV) <= 0x7Fu)
+#define IS_RTC_ASYNCH_PREDIV(PREDIV)   ((PREDIV) <= 0x7FU)
 
-#define IS_RTC_SYNCH_PREDIV(PREDIV)    ((PREDIV) <= 0x7FFFu)
+#define IS_RTC_SYNCH_PREDIV(PREDIV)    ((PREDIV) <= 0x7FFFU)
 
-#define IS_RTC_HOUR12(HOUR)            (((HOUR) > 0u) && ((HOUR) <= 12u))
+#define IS_RTC_HOUR12(HOUR)            (((HOUR) > 0U) && ((HOUR) <= 12U))
 
-#define IS_RTC_HOUR24(HOUR)            ((HOUR) <= 23u)
+#define IS_RTC_HOUR24(HOUR)            ((HOUR) <= 23U)
 
-#define IS_RTC_MINUTES(MINUTES)        ((MINUTES) <= 59u)
+#define IS_RTC_MINUTES(MINUTES)        ((MINUTES) <= 59U)
 
-#define IS_RTC_SECONDS(SECONDS)        ((SECONDS) <= 59u)
+#define IS_RTC_SECONDS(SECONDS)        ((SECONDS) <= 59U)
 
 /**
   * @}

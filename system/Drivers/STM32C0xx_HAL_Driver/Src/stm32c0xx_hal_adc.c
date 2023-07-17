@@ -590,6 +590,7 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
       MODIFY_REG(hadc->Instance->CFGR1,
                  ADC_CFGR1_RES     |
                  ADC_CFGR1_DISCEN  |
+                 ADC_CFGR1_CHSELRMOD |
                  ADC_CFGR1_AUTOFF  |
                  ADC_CFGR1_WAIT    |
                  ADC_CFGR1_CONT    |
@@ -659,44 +660,19 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
     }
     else if (hadc->Init.ScanConvMode == ADC_SCAN_ENABLE)
     {
-      /* Count number of ranks available in HAL ADC handle variable */
-      uint32_t ADCGroupRegularSequencerRanksCount;
-
-      /* Parse all ranks from 1 to 8 */
-      for (ADCGroupRegularSequencerRanksCount = 0UL; ADCGroupRegularSequencerRanksCount < (8UL); ADCGroupRegularSequencerRanksCount++)
-      {
-        /* Check each sequencer rank until value of end of sequence */
-        if (((hadc->ADCGroupRegularSequencerRanks >> (ADCGroupRegularSequencerRanksCount * 4UL)) & ADC_CHSELR_SQ1) ==
-            ADC_CHSELR_SQ1)
-        {
-          break;
-        }
-      }
-
-      if (ADCGroupRegularSequencerRanksCount == 1UL)
-      {
-        /* Set ADC group regular sequencer:                                   */
-        /* Set sequencer scan length by clearing ranks above rank 1           */
-        /* and do not modify rank 1 value.                                    */
-        SET_BIT(hadc->Instance->CHSELR,
-                ADC_CHSELR_SQ2_TO_SQ8);
-      }
-      else
-      {
-        /* Set ADC group regular sequencer:                                   */
-        /*  - Set ADC group regular sequencer to value memorized              */
-        /*    in HAL ADC handle                                               */
-        /*    Note: This value maybe be initialized at a unknown value,       */
-        /*          therefore after the first call of "HAL_ADC_Init()",       */
-        /*          each rank corresponding to parameter "NbrOfConversion"    */
-        /*          must be set using "HAL_ADC_ConfigChannel()".              */
-        /*  - Set sequencer scan length by clearing ranks above maximum rank  */
-        /*    and do not modify other ranks value.                            */
-        MODIFY_REG(hadc->Instance->CHSELR,
-                   ADC_CHSELR_SQ_ALL,
-                   (ADC_CHSELR_SQ2_TO_SQ8 << (((hadc->Init.NbrOfConversion - 1UL) * ADC_REGULAR_RANK_2) & 0x1FUL)) | (hadc->ADCGroupRegularSequencerRanks)
-                  );
-      }
+      /* Set ADC group regular sequencer:                                   */
+      /*  - Set ADC group regular sequencer to value memorized              */
+      /*    in HAL ADC handle                                               */
+      /*    Note: This value maybe be initialized at a unknown value,       */
+      /*          therefore after the first call of "HAL_ADC_Init()",       */
+      /*          each rank corresponding to parameter "NbrOfConversion"    */
+      /*          must be set using "HAL_ADC_ConfigChannel()".              */
+      /*  - Set sequencer scan length by clearing ranks above maximum rank  */
+      /*    and do not modify other ranks value.                            */
+      MODIFY_REG(hadc->Instance->CHSELR,
+                  ADC_CHSELR_SQ_ALL,
+                  (ADC_CHSELR_SQ2_TO_SQ8 << (((hadc->Init.NbrOfConversion - 1UL) * ADC_REGULAR_RANK_2) & 0x1FUL)) | (hadc->ADCGroupRegularSequencerRanks)
+                );
     }
 
     /* Check back that ADC registers have effectively been configured to      */
@@ -818,7 +794,8 @@ HAL_StatusTypeDef HAL_ADC_DeInit(ADC_HandleTypeDef *hadc)
 
   /* Reset register CFGR1 */
   hadc->Instance->CFGR1 &= ~(ADC_CFGR1_AWD1CH  | ADC_CFGR1_AWD1EN | ADC_CFGR1_AWD1SGL | ADC_CFGR1_DISCEN |
-                             ADC_CFGR1_AUTOFF  | ADC_CFGR1_WAIT   | ADC_CFGR1_CONT    | ADC_CFGR1_OVRMOD |
+                             ADC_CFGR1_CHSELRMOD | ADC_CFGR1_AUTOFF |
+                             ADC_CFGR1_WAIT    | ADC_CFGR1_CONT   | ADC_CFGR1_OVRMOD  |
                              ADC_CFGR1_EXTEN   | ADC_CFGR1_EXTSEL | ADC_CFGR1_ALIGN   | ADC_CFGR1_RES    |
                              ADC_CFGR1_SCANDIR | ADC_CFGR1_DMACFG | ADC_CFGR1_DMAEN);
 
@@ -830,8 +807,10 @@ HAL_StatusTypeDef HAL_ADC_DeInit(ADC_HandleTypeDef *hadc)
   /* Reset register SMPR */
   hadc->Instance->SMPR &= ~ADC_SMPR_SMP1;
 
-  /* Reset register TR1 */
-  hadc->Instance->TR1 &= ~(ADC_TR1_HT1 | ADC_TR1_LT1);
+  /* Reset registers AWDxTR */
+  hadc->Instance->AWD1TR &= ~(ADC_AWD1TR_HT1 | ADC_AWD1TR_LT1);
+  hadc->Instance->AWD2TR &= ~(ADC_AWD2TR_HT2 | ADC_AWD2TR_LT2);
+  hadc->Instance->AWD3TR &= ~(ADC_AWD3TR_HT3 | ADC_AWD3TR_LT3);
 
   /* Reset register CHSELR */
   hadc->Instance->CHSELR &= ~(ADC_CHSELR_SQ_ALL);

@@ -94,7 +94,7 @@ extern "C" {
 typedef struct
 {
   uint32_t AHBCLKDivider;         /*!< The AHB clock (HCLK) divider. This clock is derived from the system clock (SYSCLK).
-                                       This parameter can be a value of @ref RCC_LL_EC_SYSCLK_DIV
+                                       This parameter can be a value of @ref RCC_HCLK_Clock_Source
 
                                        This feature can be modified afterwards using unitary function
                                        @ref LL_RCC_SetAHBPrescaler(). */
@@ -241,7 +241,10 @@ void        LL_mDelay(uint32_t Delay);
   * @{
   */
 void        LL_SetSystemCoreClock(uint32_t HCLKFrequency);
-ErrorStatus UTILS_SetFlashLatency(uint32_t HCLK_Frequency);
+ErrorStatus LL_SetFlashLatency(uint32_t HCLK_Frequency);
+/* alias for backward compatibility */
+#define UTILS_SetFlashLatency LL_SetFlashLatency
+
 /**
   * @}
   */

@@ -203,9 +203,12 @@ typedef struct __I2C_HandleTypeDef
   HAL_StatusTypeDef(*XferISR)(struct __I2C_HandleTypeDef *hi2c, uint32_t ITFlags, uint32_t ITSources);
   /*!< I2C transfer IRQ handler function pointer */
 
+#if defined(HAL_DMA_MODULE_ENABLED)
   DMA_HandleTypeDef          *hdmatx;        /*!< I2C Tx DMA handle parameters              */
 
   DMA_HandleTypeDef          *hdmarx;        /*!< I2C Rx DMA handle parameters              */
+
+#endif /*HAL_DMA_MODULE_ENABLED*/
 
   HAL_LockTypeDef            Lock;           /*!< I2C locking object                        */
 
@@ -216,6 +219,10 @@ typedef struct __I2C_HandleTypeDef
   __IO uint32_t              ErrorCode;      /*!< I2C Error code                            */
 
   __IO uint32_t              AddrEventCount; /*!< I2C Address Event counter                 */
+
+  __IO uint32_t              Devaddress;     /*!< I2C Target device address                 */
+
+  __IO uint32_t              Memaddress;     /*!< I2C Target memory address                 */
 
 #if (USE_HAL_I2C_REGISTER_CALLBACKS == 1)
   void (* MasterTxCpltCallback)(struct __I2C_HandleTypeDef *hi2c);
@@ -657,6 +664,7 @@ HAL_StatusTypeDef HAL_I2C_EnableListen_IT(I2C_HandleTypeDef *hi2c);
 HAL_StatusTypeDef HAL_I2C_DisableListen_IT(I2C_HandleTypeDef *hi2c);
 HAL_StatusTypeDef HAL_I2C_Master_Abort_IT(I2C_HandleTypeDef *hi2c, uint16_t DevAddress);
 
+#if defined(HAL_DMA_MODULE_ENABLED)
 /******* Non-Blocking mode: DMA */
 HAL_StatusTypeDef HAL_I2C_Master_Transmit_DMA(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint8_t *pData,
                                               uint16_t Size);
@@ -677,6 +685,7 @@ HAL_StatusTypeDef HAL_I2C_Slave_Seq_Transmit_DMA(I2C_HandleTypeDef *hi2c, uint8_
                                                  uint32_t XferOptions);
 HAL_StatusTypeDef HAL_I2C_Slave_Seq_Receive_DMA(I2C_HandleTypeDef *hi2c, uint8_t *pData, uint16_t Size,
                                                 uint32_t XferOptions);
+#endif /*HAL_DMA_MODULE_ENABLED*/
 /**
   * @}
   */
@@ -705,9 +714,9 @@ void HAL_I2C_AbortCpltCallback(I2C_HandleTypeDef *hi2c);
   * @{
   */
 /* Peripheral State, Mode and Error functions  *********************************/
-HAL_I2C_StateTypeDef HAL_I2C_GetState(I2C_HandleTypeDef *hi2c);
-HAL_I2C_ModeTypeDef  HAL_I2C_GetMode(I2C_HandleTypeDef *hi2c);
-uint32_t             HAL_I2C_GetError(I2C_HandleTypeDef *hi2c);
+HAL_I2C_StateTypeDef HAL_I2C_GetState(const I2C_HandleTypeDef *hi2c);
+HAL_I2C_ModeTypeDef  HAL_I2C_GetMode(const I2C_HandleTypeDef *hi2c);
+uint32_t             HAL_I2C_GetError(const I2C_HandleTypeDef *hi2c);
 
 /**
   * @}
@@ -800,8 +809,8 @@ uint32_t             HAL_I2C_GetError(I2C_HandleTypeDef *hi2c);
                                                                  (I2C_CR2_START) | (I2C_CR2_AUTOEND)) & \
                                                                 (~I2C_CR2_RD_WRN)) : \
                                                      (uint32_t)((((uint32_t)(__ADDRESS__) & (I2C_CR2_SADD)) | \
-                                                                 (I2C_CR2_ADD10) | (I2C_CR2_START)) & \
-                                                                (~I2C_CR2_RD_WRN)))
+                                                                 (I2C_CR2_ADD10) | (I2C_CR2_START) | \
+                                                                 (I2C_CR2_AUTOEND)) & (~I2C_CR2_RD_WRN)))
 
 #define I2C_CHECK_FLAG(__ISR__, __FLAG__)         ((((__ISR__) & ((__FLAG__) & I2C_FLAG_MASK)) == \
                                                     ((__FLAG__) & I2C_FLAG_MASK)) ? SET : RESET)

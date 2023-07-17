@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2022 STMicroelectronics.
+  * Copyright (c) 2022 STMicroelectronics.g
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -183,6 +183,8 @@ extern "C" {
 /* (feature of several watchdogs not available on all STM32 families)).       */
 /* - analog watchdog 1: monitored channel defined by number,                  */
 /*   selection of ADC group (ADC group regular).                              */
+/* - analog watchdog 2 and 3: monitored channel defined by bitfield, no       */
+/*   selection on groups.                                                     */
 
 /* Internal register offset for ADC analog watchdog channel configuration */
 #define ADC_AWD_CR1_REGOFFSET              (0x00000000UL)
@@ -343,7 +345,6 @@ typedef struct
                                              @note On this STM32 series, this parameter has some clock ratio constraints:
                                                    ADC clock synchronous (from PCLK) with prescaler 1 must be enabled only if PCLK has a 50% duty clock cycle
                                                    (APB prescaler configured inside the RCC must be bypassed and the system clock must by 50% duty cycle).
-
 
                                              This feature can be modified afterwards using unitary function @ref LL_ADC_SetClock().
                                              For more details, refer to description of this function. */
@@ -799,9 +800,9 @@ typedef struct
 /** @defgroup ADC_LL_EC_AWD_THRESHOLDS  Analog watchdog - Thresholds
   * @{
   */
-#define LL_ADC_AWD_THRESHOLD_HIGH          (ADC_TR1_HT1              ) /*!< ADC analog watchdog threshold high */
-#define LL_ADC_AWD_THRESHOLD_LOW           (              ADC_TR1_LT1) /*!< ADC analog watchdog threshold low */
-#define LL_ADC_AWD_THRESHOLDS_HIGH_LOW     (ADC_TR1_HT1 | ADC_TR1_LT1) /*!< ADC analog watchdog both thresholds high and low concatenated into the same data */
+#define LL_ADC_AWD_THRESHOLD_HIGH          (ADC_AWD1TR_HT1                 ) /*!< ADC analog watchdog threshold high */
+#define LL_ADC_AWD_THRESHOLD_LOW           (                 ADC_AWD1TR_LT1) /*!< ADC analog watchdog threshold low */
+#define LL_ADC_AWD_THRESHOLDS_HIGH_LOW     (ADC_AWD1TR_HT1 | ADC_AWD1TR_LT1) /*!< ADC analog watchdog both thresholds high and low concatenated into the same data */
 /**
   * @}
   */
@@ -858,7 +859,7 @@ typedef struct
 /** @defgroup ADC_LL_EC_HELPER_MACRO  Definitions of constants used by helper macro
   * @{
   */
-#define LL_ADC_TEMPERATURE_CALC_ERROR     ((int16_t)0x7FFF) /* Temperature calculation error using helper macro @ref __LL_ADC_CALC_TEMPERATURE(), due to issue on calibration parameters. This value is coded on 16 bits (to fit on signed word or double word) and corresponds to an inconsistent temperature value. */
+#define LL_ADC_TEMPERATURE_CALC_ERROR     ((int16_t)0x7FFF) /* Temperature calculation error using helper macro @ref __LL_ADC_CALC_TEMPERATURE_TYP_PARAMS(), due to issue on calibration parameters. This value is coded on 16 bits (to fit on signed word or double word) and corresponds to an inconsistent temperature value. */
 /**
   * @}
   */
@@ -3876,12 +3877,12 @@ __STATIC_INLINE void LL_ADC_SetAnalogWDMonitChannels(ADC_TypeDef *ADCx, uint32_t
   *         ADC state:
   *         ADC must be disabled or enabled without conversion on going
   *         on group regular.
-  * @rmtoll TR1      HT1            LL_ADC_ConfigAnalogWDThresholds\n
-  *         TR2      HT2            LL_ADC_ConfigAnalogWDThresholds\n
-  *         TR3      HT3            LL_ADC_ConfigAnalogWDThresholds\n
-  *         TR1      LT1            LL_ADC_ConfigAnalogWDThresholds\n
-  *         TR2      LT2            LL_ADC_ConfigAnalogWDThresholds\n
-  *         TR3      LT3            LL_ADC_ConfigAnalogWDThresholds
+  * @rmtoll AWD1TR   HT1            LL_ADC_ConfigAnalogWDThresholds\n
+  *         AWD2TR   HT2            LL_ADC_ConfigAnalogWDThresholds\n
+  *         AWD3TR   HT3            LL_ADC_ConfigAnalogWDThresholds\n
+  *         AWD1TR   LT1            LL_ADC_ConfigAnalogWDThresholds\n
+  *         AWD2TR   LT2            LL_ADC_ConfigAnalogWDThresholds\n
+  *         AWD3TR   LT3            LL_ADC_ConfigAnalogWDThresholds
   * @param  ADCx ADC instance
   * @param  AWDy This parameter can be one of the following values:
   *         @arg @ref LL_ADC_AWD1
@@ -3899,10 +3900,10 @@ __STATIC_INLINE void LL_ADC_ConfigAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t
   /* "AWDy".                                                                  */
   /* Parameters "AWDy" and "AWDThresholdxxxValue" are used with masks because */
   /* containing other bits reserved for other purpose.                        */
-  register __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->TR1, (((AWDy & ADC_AWD_TRX_REGOFFSET_MASK)) >> (ADC_AWD_TRX_REGOFFSET_BITOFFSET_POS)) + ((ADC_AWD_CR3_REGOFFSET & AWDy) >> (ADC_AWD_CRX_REGOFFSET_BITOFFSET_POS + 1UL)));
+  register __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->AWD1TR, (((AWDy & ADC_AWD_TRX_REGOFFSET_MASK)) >> (ADC_AWD_TRX_REGOFFSET_BITOFFSET_POS)) + ((ADC_AWD_CR3_REGOFFSET & AWDy) >> (ADC_AWD_CRX_REGOFFSET_BITOFFSET_POS + 1UL)));
 
   MODIFY_REG(*preg,
-             ADC_TR1_HT1 | ADC_TR1_LT1,
+             ADC_AWD1TR_HT1 | ADC_AWD1TR_LT1,
              (AWDThresholdHighValue << ADC_TR1_HT1_BITOFFSET_POS) | AWDThresholdLowValue);
 }
 /**
@@ -3951,12 +3952,12 @@ __STATIC_INLINE void LL_ADC_ConfigAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t
   *         ADC state:
   *         ADC can be disabled, enabled with or without conversion on going
   *         on ADC group regular.
-  * @rmtoll TR1      HT1            LL_ADC_SetAnalogWDThresholds\n
-  *         TR2      HT2            LL_ADC_SetAnalogWDThresholds\n
-  *         TR3      HT3            LL_ADC_SetAnalogWDThresholds\n
-  *         TR1      LT1            LL_ADC_SetAnalogWDThresholds\n
-  *         TR2      LT2            LL_ADC_SetAnalogWDThresholds\n
-  *         TR3      LT3            LL_ADC_SetAnalogWDThresholds
+  * @rmtoll AWD1TR   HT1            LL_ADC_SetAnalogWDThresholds\n
+  *         AWD2TR   HT2            LL_ADC_SetAnalogWDThresholds\n
+  *         AWD3TR   HT3            LL_ADC_SetAnalogWDThresholds\n
+  *         AWD1TR   LT1            LL_ADC_SetAnalogWDThresholds\n
+  *         AWD2TR   LT2            LL_ADC_SetAnalogWDThresholds\n
+  *         AWD3TR   LT3            LL_ADC_SetAnalogWDThresholds
   * @param  ADCx ADC instance
   * @param  AWDy This parameter can be one of the following values:
   *         @arg @ref LL_ADC_AWD1
@@ -3976,7 +3977,7 @@ __STATIC_INLINE void LL_ADC_SetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t AW
   /* "AWDThresholdsHighLow" and "AWDy".                                       */
   /* Parameters "AWDy" and "AWDThresholdValue" are used with masks because    */
   /* containing other bits reserved for other purpose.                        */
-  register __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->TR1, (((AWDy & ADC_AWD_TRX_REGOFFSET_MASK)) >> (ADC_AWD_TRX_REGOFFSET_BITOFFSET_POS)) + ((ADC_AWD_CR3_REGOFFSET & AWDy) >> (ADC_AWD_CRX_REGOFFSET_BITOFFSET_POS + 1UL)));
+  register __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->AWD1TR, (((AWDy & ADC_AWD_TRX_REGOFFSET_MASK)) >> (ADC_AWD_TRX_REGOFFSET_BITOFFSET_POS)) + ((ADC_AWD_CR3_REGOFFSET & AWDy) >> (ADC_AWD_CRX_REGOFFSET_BITOFFSET_POS + 1UL)));
 
   MODIFY_REG(*preg,
              AWDThresholdsHighLow,
@@ -3994,12 +3995,12 @@ __STATIC_INLINE void LL_ADC_SetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t AW
   * @note   In case of ADC resolution different of 12 bits,
   *         analog watchdog thresholds data require a specific shift.
   *         Use helper macro @ref __LL_ADC_ANALOGWD_GET_THRESHOLD_RESOLUTION().
-  * @rmtoll TR1      HT1            LL_ADC_GetAnalogWDThresholds\n
-  *         TR2      HT2            LL_ADC_GetAnalogWDThresholds\n
-  *         TR3      HT3            LL_ADC_GetAnalogWDThresholds\n
-  *         TR1      LT1            LL_ADC_GetAnalogWDThresholds\n
-  *         TR2      LT2            LL_ADC_GetAnalogWDThresholds\n
-  *         TR3      LT3            LL_ADC_GetAnalogWDThresholds
+  * @rmtoll AWD1TR   HT1            LL_ADC_GetAnalogWDThresholds\n
+  *         AWD2TR   HT2            LL_ADC_GetAnalogWDThresholds\n
+  *         AWD3TR   HT3            LL_ADC_GetAnalogWDThresholds\n
+  *         AWD1TR   LT1            LL_ADC_GetAnalogWDThresholds\n
+  *         AWD2TR   LT2            LL_ADC_GetAnalogWDThresholds\n
+  *         AWD3TR   LT3            LL_ADC_GetAnalogWDThresholds
   * @param  ADCx ADC instance
   * @param  AWDy This parameter can be one of the following values:
   *         @arg @ref LL_ADC_AWD1
@@ -4018,12 +4019,12 @@ __STATIC_INLINE uint32_t LL_ADC_GetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_
   /* "AWDThresholdsHighLow" and "AWDy".                                       */
   /* Parameters "AWDy" and "AWDThresholdValue" are used with masks because    */
   /* containing other bits reserved for other purpose.                        */
-  register const __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->TR1, (((AWDy & ADC_AWD_TRX_REGOFFSET_MASK)) >> (ADC_AWD_TRX_REGOFFSET_BITOFFSET_POS)) + ((ADC_AWD_CR3_REGOFFSET & AWDy) >> (ADC_AWD_CRX_REGOFFSET_BITOFFSET_POS + 1UL)));
+  register const __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->AWD1TR, (((AWDy & ADC_AWD_TRX_REGOFFSET_MASK)) >> (ADC_AWD_TRX_REGOFFSET_BITOFFSET_POS)) + ((ADC_AWD_CR3_REGOFFSET & AWDy) >> (ADC_AWD_CRX_REGOFFSET_BITOFFSET_POS + 1UL)));
 
   return (uint32_t)(READ_BIT(*preg,
-                             (AWDThresholdsHighLow | ADC_TR1_LT1))
+                             (AWDThresholdsHighLow | ADC_AWD1TR_LT1))
                     >> (((AWDThresholdsHighLow & ADC_AWD_TRX_BIT_HIGH_MASK) >> ADC_AWD_TRX_BIT_HIGH_SHIFT4) & ~
-                        (AWDThresholdsHighLow & ADC_TR1_LT1))
+                        (AWDThresholdsHighLow & ADC_AWD1TR_LT1))
                    );
 }
 
@@ -4337,6 +4338,9 @@ __STATIC_INLINE uint32_t LL_ADC_IsDisableOngoing(ADC_TypeDef *ADCx)
   *         DMA transfer setting restore after calibration.
   *         Refer to functions @ref LL_ADC_REG_GetDMATransfer(),
   *         @ref LL_ADC_REG_SetDMATransfer() ).
+  * @note   In case of usage of feature auto power-off:
+  *         This mode must be disabled during calibration
+  *         Refer to function @ref LL_ADC_SetLowPowerMode().
   * @note   On this STM32 series, setting of this feature is conditioned to
   *         ADC state:
   *         ADC must be ADC disabled.
@@ -4735,7 +4739,6 @@ __STATIC_INLINE void LL_ADC_ClearFlag_AWD1(ADC_TypeDef *ADCx)
 }
 
 /**
-
   * @brief  Clear flag ADC analog watchdog 2.
   * @rmtoll ISR      AWD2           LL_ADC_ClearFlag_AWD2
   * @param  ADCx ADC instance
