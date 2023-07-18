@@ -987,8 +987,15 @@ HAL_StatusTypeDef HAL_SMBUS_Master_Transmit_IT(SMBUS_HandleTypeDef *hsmbus, uint
       /* PEC byte is automatically sent by HW block, no need to manage it in Transmit process */
       if (SMBUS_GET_PEC_MODE(hsmbus) != 0UL)
       {
-        hsmbus->XferSize--;
-        hsmbus->XferCount--;
+        if (hsmbus->XferSize > 0U)
+        {
+          hsmbus->XferSize--;
+          hsmbus->XferCount--;
+        }
+        else
+        {
+          return HAL_ERROR;
+        }
       }
     }
 

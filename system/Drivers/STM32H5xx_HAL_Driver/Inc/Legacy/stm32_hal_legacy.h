@@ -37,16 +37,12 @@ extern "C" {
 #define AES_CLEARFLAG_CCF               CRYP_CLEARFLAG_CCF
 #define AES_CLEARFLAG_RDERR             CRYP_CLEARFLAG_RDERR
 #define AES_CLEARFLAG_WRERR             CRYP_CLEARFLAG_WRERR
-#if defined(STM32U5) || defined(STM32H7) || defined(STM32MP1)
+#if defined(STM32H7) || defined(STM32MP1)
 #define CRYP_DATATYPE_32B               CRYP_NO_SWAP
 #define CRYP_DATATYPE_16B               CRYP_HALFWORD_SWAP
 #define CRYP_DATATYPE_8B                CRYP_BYTE_SWAP
 #define CRYP_DATATYPE_1B                CRYP_BIT_SWAP
-#if defined(STM32U5)
-#define CRYP_CCF_CLEAR                  CRYP_CLEAR_CCF
-#define CRYP_ERR_CLEAR                  CRYP_CLEAR_RWEIF
-#endif /* STM32U5 */
-#endif /* STM32U5 || STM32H7 || STM32MP1 */
+#endif /* STM32H7 || STM32MP1 */
 /**
   * @}
   */
@@ -3930,6 +3926,12 @@ extern "C" {
                                                        (((__EXTI_LINE__) == RTC_EXTI_LINE_WAKEUPTIMER_EVENT) ? __HAL_RTC_WAKEUPTIMER_EXTI_GENERATE_SWIT() :  \
                                                         __HAL_RTC_TAMPER_TIMESTAMP_EXTI_GENERATE_SWIT()))
 #endif   /* STM32F1 */
+
+#if defined (STM32F0) || defined (STM32F2) || defined (STM32F3) || defined (STM32F4) || defined (STM32F7) || \
+    defined (STM32H7) || \
+    defined (STM32L0) || defined (STM32L1)
+#define __HAL_RTC_TAMPER_GET_IT                   __HAL_RTC_TAMPER_GET_FLAG
+#endif
 
 #define IS_ALARM                                  IS_RTC_ALARM
 #define IS_ALARM_MASK                             IS_RTC_ALARM_MASK

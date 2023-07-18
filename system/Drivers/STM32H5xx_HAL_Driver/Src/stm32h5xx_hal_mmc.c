@@ -251,6 +251,7 @@
   * @{
   */
 
+#if defined (SDMMC1) || defined (SDMMC2)
 #ifdef HAL_MMC_MODULE_ENABLED
 
 /* Private typedef -----------------------------------------------------------*/
@@ -4298,6 +4299,7 @@ __weak void HAL_MMCEx_Write_DMALnkLstBufCpltCallback(MMC_HandleTypeDef *hmmc)
   */
 
 #endif /* HAL_MMC_MODULE_ENABLED */
+#endif /* SDMMC1 || SDMMC2 */
 
 /**
   * @}

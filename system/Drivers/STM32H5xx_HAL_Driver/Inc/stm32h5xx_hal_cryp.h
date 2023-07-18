@@ -77,7 +77,6 @@ typedef struct
 
 } CRYP_ConfigTypeDef;
 
-
 /**
   * @brief  CRYP State Structure definition
   */
@@ -91,6 +90,31 @@ typedef enum
   HAL_CRYP_STATE_SUSPENDED         = 0x03U,   /*!< CRYP suspended                        */
 #endif /* USE_HAL_CRYP_SUSPEND_RESUME */
 } HAL_CRYP_STATETypeDef;
+
+/**
+  * @brief CRYP Context Structure definition
+  */
+
+typedef struct
+{
+  uint32_t DataType;                   /*!< This parameter can be a value of @ref CRYP_Data_Type */
+  uint32_t KeySize;                    /*!< This parameter can be a value of @ref CRYP_Key_Size */
+  uint32_t *pKey;                      /*!< The key used for encryption/decryption */
+  uint32_t *pInitVect;                 /*!< The initialization vector, counter with CBC and CTR Algorithm */
+  uint32_t Algorithm;                  /*!< This parameter can be a value of @ref CRYP_Algorithm_Mode */
+  uint32_t DataWidthUnit;              /*!< This parameter can be value of @ref CRYP_Data_Width_Unit */
+  uint32_t KeyIVConfigSkip;            /*!< This parameter can be a value of @ref CRYP_Configuration_Skip */
+  uint32_t KeyMode;                    /*!< This parameter can be value of @ref CRYP_Key_Mode */
+  uint32_t Phase;                      /*!< CRYP peripheral phase */
+  uint32_t KeyIVConfig;                /*!< CRYP peripheral Key and IV configuration flag */
+  uint32_t CR_Reg;                     /*!< CRYP CR register */
+  uint32_t IER_Reg;                    /*!< CRYP IER register */
+  uint32_t IVR0_Reg;                   /*!< CRYP IVR0 register */
+  uint32_t IVR1_Reg;                   /*!< CRYP IVR1 register */
+  uint32_t IVR2_Reg;                   /*!< CRYP IVR2 register */
+  uint32_t IVR3_Reg;                   /*!< CRYP IVR3 register */
+
+} CRYP_ContextTypeDef;
 
 #if (USE_HAL_CRYP_SUSPEND_RESUME == 1U)
 /**
@@ -340,10 +364,15 @@ typedef  void (*pCRYP_CallbackTypeDef)(CRYP_HandleTypeDef *hcryp);    /*!< point
   * @{
   */
 
-#define CRYP_NO_SWAP         0x00000000U             /*!< 32-bit data type (no swapping)        */
-#define CRYP_HALFWORD_SWAP   AES_CR_DATATYPE_0       /*!< 16-bit data type (half-word swapping) */
-#define CRYP_BYTE_SWAP       AES_CR_DATATYPE_1       /*!< 8-bit data type (byte swapping)       */
-#define CRYP_BIT_SWAP        AES_CR_DATATYPE         /*!< 1-bit data type (bit swapping)        */
+#define CRYP_DATATYPE_32B      0x00000000U
+#define CRYP_DATATYPE_16B      AES_CR_DATATYPE_0
+#define CRYP_DATATYPE_8B       AES_CR_DATATYPE_1
+#define CRYP_DATATYPE_1B       AES_CR_DATATYPE
+
+#define CRYP_NO_SWAP           CRYP_DATATYPE_32B      /*!< 32-bit data type (no swapping)        */
+#define CRYP_HALFWORD_SWAP     CRYP_DATATYPE_16B      /*!< 16-bit data type (half-word swapping) */
+#define CRYP_BYTE_SWAP         CRYP_DATATYPE_8B       /*!< 8-bit data type (byte swapping)       */
+#define CRYP_BIT_SWAP          CRYP_DATATYPE_1B       /*!< 1-bit data type (bit swapping)        */
 
 /**
   * @}
@@ -352,9 +381,9 @@ typedef  void (*pCRYP_CallbackTypeDef)(CRYP_HandleTypeDef *hcryp);    /*!< point
 /** @defgroup CRYP_Interrupt  CRYP Interrupt
   * @{
   */
-#define CRYP_IT_CCFIE     AES_IER_CCFIE /*!< Computation Complete interrupt enable */
-#define CRYP_IT_RWEIE     AES_IER_RWEIE /*!< Read or write Error interrupt enable  */
-#define CRYP_IT_KEIE      AES_IER_KEIE /*!< Key error interrupt enable  */
+#define CRYP_IT_CCFIE     AES_IER_CCFIE  /*!< Computation Complete interrupt enable */
+#define CRYP_IT_RWEIE     AES_IER_RWEIE  /*!< Read or write Error interrupt enable  */
+#define CRYP_IT_KEIE      AES_IER_KEIE   /*!< Key error interrupt enable  */
 #define CRYP_IT_RNGEIE    AES_IER_RNGEIE /*!< Rng error interrupt enable  */
 
 /**
@@ -365,15 +394,15 @@ typedef  void (*pCRYP_CallbackTypeDef)(CRYP_HandleTypeDef *hcryp);    /*!< point
   * @{
   */
 
-#define CRYP_FLAG_BUSY    AES_SR_BUSY   /*!< GCM process suspension forbidden
-                                             also set when transferring a shared key from SAES peripheral   */
-#define CRYP_FLAG_WRERR   (AES_SR_WRERR | 0x80000000U)  /*!< Write Error flag                     */
-#define CRYP_FLAG_RDERR   (AES_SR_RDERR | 0x80000000U) /*!< Read error  flag                     */
-#define CRYP_FLAG_CCF     AES_ISR_CCF    /*!< Computation completed flag as  AES_ISR_CCF         */
-#define CRYP_FLAG_KEYVALID     AES_SR_KEYVALID    /*!< Key Valid flag            */
-#define CRYP_FLAG_KEIF     AES_ISR_KEIF  /*Key error interrupt flag */
-#define CRYP_FLAG_RWEIF    AES_ISR_RWEIF /*Read or write error Interrupt flag */
-#define CRYP_FLAG_RNGEIF   AES_ISR_RNGEIF /*RNG error interrupt flag */
+#define CRYP_FLAG_BUSY       AES_SR_BUSY                   /*!< GCM process suspension forbidden also set when
+                                                             transferring a shared key from SAES peripheral  */
+#define CRYP_FLAG_WRERR      (AES_SR_WRERR | 0x80000000U)  /*!< Write Error flag  */
+#define CRYP_FLAG_RDERR      (AES_SR_RDERR | 0x80000000U)  /*!< Read error  flag  */
+#define CRYP_FLAG_CCF        AES_ISR_CCF                   /*!< Computation completed flag as  AES_ISR_CCF    */
+#define CRYP_FLAG_KEYVALID   AES_SR_KEYVALID               /*!< Key Valid flag          */
+#define CRYP_FLAG_KEIF       AES_ISR_KEIF                  /*!<Key error interrupt flag */
+#define CRYP_FLAG_RWEIF      AES_ISR_RWEIF                 /*!<Read or write error Interrupt flag */
+#define CRYP_FLAG_RNGEIF     AES_ISR_RNGEIF                /*!<RNG error interrupt flag           */
 
 
 /**
@@ -384,11 +413,11 @@ typedef  void (*pCRYP_CallbackTypeDef)(CRYP_HandleTypeDef *hcryp);    /*!< point
   * @{
   */
 
-#define CRYP_CLEAR_CCF      AES_ICR_CCF    /* Computation Complete Flag Clear */
-#define CRYP_CLEAR_RWEIF    AES_ICR_RWEIF  /* Clear Error Flag : RWEIF in AES_ISR and
+#define CRYP_CLEAR_CCF      AES_ICR_CCF    /*!< Computation Complete Flag Clear */
+#define CRYP_CLEAR_RWEIF    AES_ICR_RWEIF  /*!< Clear Error Flag : RWEIF in AES_ISR and
                                               both RDERR and WRERR flags in AES_SR */
-#define CRYP_CLEAR_KEIF     AES_ICR_KEIF   /* Clear Key Error Flag: KEIF in AES_ISR */
-#define CRYP_CLEAR_RNGEIF     AES_ICR_RNGEIF /* Clear rng Error Flag: RNGEIF in AES_ISR */
+#define CRYP_CLEAR_KEIF     AES_ICR_KEIF   /*!< Clear Key Error Flag: KEIF in AES_ISR */
+#define CRYP_CLEAR_RNGEIF   AES_ICR_RNGEIF /*!< Clear rng Error Flag: RNGEIF in AES_ISR */
 
 
 /**
@@ -399,9 +428,10 @@ typedef  void (*pCRYP_CallbackTypeDef)(CRYP_HandleTypeDef *hcryp);    /*!< point
   * @{
   */
 
-#define CRYP_KEYIVCONFIG_ALWAYS        0x00000000U            /*!< Peripheral Key and IV configuration to do systematically */
-#define CRYP_KEYIVCONFIG_ONCE          0x00000001U            /*!< Peripheral Key and IV configuration to do only once      */
-#define CRYP_KEYNOCONFIG               0x00000002U            /*!< Peripheral Key configuration to not do */
+#define CRYP_KEYIVCONFIG_ALWAYS  0x00000000U            /*!< Peripheral Key and IV configuration to do systematically */
+#define CRYP_KEYIVCONFIG_ONCE    0x00000001U            /*!< Peripheral Key and IV configuration to do only once      */
+#define CRYP_KEYNOCONFIG         0x00000002U            /*!< Peripheral Key configuration to not do */
+#define CRYP_IVCONFIG_ONCE       0x00000004U            /*!< Peripheral IV configuration do once for interleave mode */
 
 /**
   * @}
@@ -557,6 +587,9 @@ void HAL_CRYP_ProcessSuspend(CRYP_HandleTypeDef *hcryp);
 HAL_StatusTypeDef HAL_CRYP_Suspend(CRYP_HandleTypeDef *hcryp);
 HAL_StatusTypeDef HAL_CRYP_Resume(CRYP_HandleTypeDef *hcryp);
 #endif /* defined (USE_HAL_CRYP_SUSPEND_RESUME) */
+HAL_StatusTypeDef  HAL_CRYP_SaveContext(CRYP_HandleTypeDef *hcryp, CRYP_ContextTypeDef *pcont);
+HAL_StatusTypeDef HAL_CRYP_RestoreContext(CRYP_HandleTypeDef *hcryp, CRYP_ContextTypeDef *pcont);
+
 /**
   * @}
   */
@@ -623,6 +656,8 @@ uint32_t HAL_CRYP_GetError(const CRYP_HandleTypeDef *hcryp);
                                    ((DATATYPE) == CRYP_BIT_SWAP))
 
 #define IS_CRYP_INIT(CONFIG)(((CONFIG) == CRYP_KEYIVCONFIG_ALWAYS) || \
+                             ((CONFIG) == CRYP_KEYNOCONFIG)  || \
+                             ((CONFIG) == CRYP_IVCONFIG_ONCE)  || \
                              ((CONFIG) == CRYP_KEYIVCONFIG_ONCE))
 
 #define IS_CRYP_BUFFERSIZE(ALGO, DATAWIDTH, SIZE)                                             \
@@ -639,6 +674,13 @@ uint32_t HAL_CRYP_GetError(const CRYP_HandleTypeDef *hcryp);
 
 
 /* Private constants ---------------------------------------------------------*/
+/** @defgroup CRYP_Private_Constants CRYP Private Constants
+  * @{
+  */
+
+/**
+  * @}
+  */
 /* Private defines -----------------------------------------------------------*/
 /** @defgroup CRYP_Private_Defines CRYP Private Defines
   * @{
@@ -649,6 +691,14 @@ uint32_t HAL_CRYP_GetError(const CRYP_HandleTypeDef *hcryp);
   */
 
 /* Private variables ---------------------------------------------------------*/
+/** @defgroup CRYP_Private_Variables CRYP Private Variables
+  * @{
+  */
+
+/**
+  * @}
+  */
+
 /* Private functions ---------------------------------------------------------*/
 /** @defgroup CRYP_Private_Functions CRYP Private Functions
   * @{

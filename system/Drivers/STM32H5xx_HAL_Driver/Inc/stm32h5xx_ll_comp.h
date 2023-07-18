@@ -603,7 +603,7 @@ __STATIC_INLINE uint32_t LL_COMP_GetOutputBlankingSource(const COMP_TypeDef *COM
   * @note   After enable from off state, comparator requires a delay
   *         to reach reach propagation delay specification.
   *         Refer to device datasheet, parameter "tSTART".
-  * @rmtoll CFGR     EN             LL_COMP_Enable
+  * @rmtoll CFGR1    EN             LL_COMP_Enable
   * @param  COMPx Comparator instance
   * @retval None
   */
@@ -614,7 +614,7 @@ __STATIC_INLINE void LL_COMP_Enable(COMP_TypeDef *COMPx)
 
 /**
   * @brief  Disable comparator instance.
-  * @rmtoll CFGR     EN             LL_COMP_Disable
+  * @rmtoll CFGR1    EN             LL_COMP_Disable
   * @param  COMPx Comparator instance
   * @retval None
   */
@@ -626,7 +626,7 @@ __STATIC_INLINE void LL_COMP_Disable(COMP_TypeDef *COMPx)
 /**
   * @brief  Get comparator enable state
   *         (0: COMP is disabled, 1: COMP is enabled)
-  * @rmtoll CFGR     EN             LL_COMP_IsEnabled
+  * @rmtoll CFGR1    EN             LL_COMP_IsEnabled
   * @param  COMPx Comparator instance
   * @retval State of bit (1 or 0).
   */
@@ -639,7 +639,7 @@ __STATIC_INLINE uint32_t LL_COMP_IsEnabled(const COMP_TypeDef *COMPx)
   * @brief  Lock comparator instance.
   * @note   Once locked, comparator configuration can be accessed in read-only.
   * @note   The only way to unlock the comparator is a device hardware reset.
-  * @rmtoll CFGR     LOCK           LL_COMP_Lock
+  * @rmtoll CFGR1    LOCK           LL_COMP_Lock
   * @param  COMPx Comparator instance
   * @retval None
   */
@@ -653,7 +653,7 @@ __STATIC_INLINE void LL_COMP_Lock(COMP_TypeDef *COMPx)
   *         (0: COMP is unlocked, 1: COMP is locked).
   * @note   Once locked, comparator configuration can be accessed in read-only.
   * @note   The only way to unlock the comparator is a device hardware reset.
-  * @rmtoll CFGR     LOCK           LL_COMP_IsLocked
+  * @rmtoll CFGR1    LOCK           LL_COMP_IsLocked
   * @param  COMPx Comparator instance
   * @retval State of bit (1 or 0).
   */
@@ -685,6 +685,77 @@ __STATIC_INLINE uint32_t LL_COMP_IsLocked(const COMP_TypeDef *COMPx)
 __STATIC_INLINE uint32_t LL_COMP_ReadOutputLevel(const COMP_TypeDef *COMPx)
 {
   return (uint32_t)(READ_BIT(COMPx->SR, COMP_SR_C1VAL));
+}
+
+/**
+  * @}
+  */
+
+/** @defgroup COMP_LL_EF_FLAG_Management Comparator flag Management
+  * @{
+  */
+
+/**
+  * @brief  Get comparator output trigger flag (latched)
+  * @rmtoll SR       C1IF           LL_COMP_IsActiveFlag_OutputTrig
+  * @param  COMPx Comparator instance
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_COMP_IsActiveFlag_OutputTrig(const COMP_TypeDef *COMPx)
+{
+  return ((READ_BIT(COMPx->SR, COMP_SR_C1IF) == (COMP_SR_C1IF)) ? 1UL : 0UL);
+}
+
+/**
+  * @brief  Clear comparator comparator output trigger flag (latched)
+  * @rmtoll ICFR     CC1IF          LL_COMP_ClearFlag_OutputTrig
+  * @param  COMPx Comparator instance
+  * @retval None
+  */
+__STATIC_INLINE void LL_COMP_ClearFlag_OutputTrig(COMP_TypeDef *COMPx)
+{
+  SET_BIT(COMPx->ICFR, COMP_ICFR_CC1IF);
+}
+
+/**
+  * @}
+  */
+
+/** @defgroup COMP_LL_EF_IT_Management Comparartor IT management
+  * @{
+  */
+
+/**
+  * @brief  Enable comparator output trigger interrupt
+  * @rmtoll ICFR     ITEN           LL_COMP_EnableIT_OutputTrig
+  * @param  COMPx Comparator instance
+  * @retval None
+  */
+__STATIC_INLINE void LL_COMP_EnableIT_OutputTrig(COMP_TypeDef *COMPx)
+{
+  SET_BIT(COMPx->CFGR1, COMP_CFGR1_ITEN);
+}
+
+/**
+  * @brief  Disable comparator output trigger interrupt
+  * @rmtoll ICFR     ITEN           LL_COMP_DisableIT_OutputTrig
+  * @param  COMPx Comparator instance
+  * @retval None
+  */
+__STATIC_INLINE void LL_COMP_DisableIT_OutputTrig(COMP_TypeDef *COMPx)
+{
+  CLEAR_BIT(COMPx->CFGR1, COMP_CFGR1_ITEN);
+}
+
+/**
+  * @brief  Get comparator output trigger interrupt state
+  * @rmtoll ICFR     ITEN           LL_COMP_IsEnabledIT_OutputTrig
+  * @param  COMPx Comparator instance
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_COMP_IsEnabledIT_OutputTrig(const COMP_TypeDef *COMPx)
+{
+  return ((READ_BIT(COMPx->CFGR1, COMP_CFGR1_ITEN) == (COMP_CFGR1_ITEN)) ? 1UL : 0UL);
 }
 
 /**

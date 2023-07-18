@@ -30,7 +30,7 @@ extern "C" {
 /** @addtogroup STM32H5xx_Driver
   * @{
   */
-
+#if defined (SDMMC1) || defined (SDMMC2)
 /** @addtogroup SDMMC_LL
   * @{
   */
@@ -313,9 +313,14 @@ typedef struct
 #define SDMMC_SINGLE_BUS_SUPPORT           ((uint32_t)0x00010000U)
 #define SDMMC_CARD_LOCKED                  ((uint32_t)0x02000000U)
 
-#ifndef SDMMC_DATATIMEOUT
+#ifndef SDMMC_DATATIMEOUT /*Hardware Data Timeout (ms) */
 #define SDMMC_DATATIMEOUT                  ((uint32_t)0xFFFFFFFFU)
 #endif /* SDMMC_DATATIMEOUT */
+
+#ifndef SDMMC_SWDATATIMEOUT /*Software Data Timeout (ms) */
+#define SDMMC_SWDATATIMEOUT                SDMMC_DATATIMEOUT
+#endif /* SDMMC_SWDATATIMEOUT */
+
 #define SDMMC_0TO7BITS                     ((uint32_t)0x000000FFU)
 #define SDMMC_8TO15BITS                    ((uint32_t)0x0000FF00U)
 #define SDMMC_16TO23BITS                   ((uint32_t)0x00FF0000U)
@@ -1145,7 +1150,7 @@ uint32_t SDMMC_DMALinkedList_DisableCircularMode(SDMMC_DMALinkedListTypeDef *pLi
 /**
   * @}
   */
-
+#endif /* SDMMC1 || SDMMC2 */
 /**
   * @}
   */

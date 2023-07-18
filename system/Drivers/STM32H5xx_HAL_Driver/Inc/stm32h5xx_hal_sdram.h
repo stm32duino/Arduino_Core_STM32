@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2023 STMicroelectronics.
+  * Copyright (c) 2022 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -24,10 +24,10 @@
 extern "C" {
 #endif
 
+#if defined(FMC_Bank5_6_R)
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32h5xx_ll_fmc.h"
-#if defined(FMC_Bank5_6_R)
 
 /** @addtogroup STM32H5xx_HAL_Driver
   * @{

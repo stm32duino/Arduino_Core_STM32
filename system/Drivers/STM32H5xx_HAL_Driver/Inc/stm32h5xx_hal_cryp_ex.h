@@ -39,12 +39,66 @@ extern "C" {
   */
 
 /* Exported types ------------------------------------------------------------*/
+/** @defgroup CRYPEx_Exported_Types CRYPEx Exported Types
+  * @{
+  */
+
+/**
+  * @}
+  */
 /* Exported constants --------------------------------------------------------*/
+/** @defgroup CRYPEx_Exported_Constants CRYPEx Constants
+  * @{
+  */
+
+/**
+  * @}
+  */
 /* Private types -------------------------------------------------------------*/
+/** @defgroup CRYPEx_Private_Types CRYPEx Private Types
+  * @{
+  */
+
+/**
+  * @}
+  */
+
 /* Private variables ---------------------------------------------------------*/
+/** @defgroup CRYPEx_Private_Variables CRYPEx Private Variables
+  * @{
+  */
+
+/**
+  * @}
+  */
+
 /* Private constants ---------------------------------------------------------*/
+/** @defgroup CRYPEx_Private_Constants CRYPEx Private Constants
+  * @{
+  */
+
+/**
+  * @}
+  */
+
 /* Private macros ------------------------------------------------------------*/
+/** @defgroup CRYPEx_Private_Macros CRYPEx Private Macros
+  * @{
+  */
+
+/**
+  * @}
+  */
+
 /* Private functions ---------------------------------------------------------*/
+/** @defgroup CRYPEx_Private_Functions CRYPEx Private Functions
+  * @{
+  */
+
+/**
+  * @}
+  */
+
 /* Exported functions --------------------------------------------------------*/
 /** @defgroup CRYPEx_Exported_Functions CRYPEx Exported Functions
   * @{

@@ -56,7 +56,13 @@ extern "C" {
 /** @defgroup SYSTEM_LL_Private_Constants SYSTEM Private Constants
   * @{
   */
-
+#define LL_SBS_HDPL_INCREMENT_VALUE   0x6AU                               /*!< Define used for the HDPL increment */
+#define LL_SBS_DBG_UNLOCK             (0xB4U << SBS_DBGCR_DBG_UNLOCK_Pos) /*!< Define used to unlock debug */
+#define LL_SBS_ACCESS_PORT_UNLOCK     0xB4U                               /*!< Define used to unlock access port */
+#define LL_SBS_DBG_CONFIG_LOCK        0xC3U                               /*!< Define used to lock debug configuration */
+#define LL_SBS_DBG_CONFIG_UNLOCK      0xB4U                               /*!< Define used to unlock debug configuration */
+#define LL_SBS_DEBUG_SEC_NSEC         0xB4U                               /*!< Define used to open debug for secure and non-secure */
+#define LL_SBS_DEBUG_NSEC             0x3CU                               /*!< Define used to open debug for non-secure only */
 /**
   * @}
   */
@@ -154,10 +160,10 @@ extern "C" {
 /** @defgroup SYSTEM_LL_SBS_NextHDPL_Selection  Next HDPL Selection
   * @{
   */
-#define LL_SBS_OBKHDPL_INCR_0                   0x00000000U
-#define LL_SBS_OBKHDPL_INCR_1                   SBS_NEXTHDPLCR_NEXTHDPL_0
-#define LL_SBS_OBKHDPL_INCR_2                   SBS_NEXTHDPLCR_NEXTHDPL_1
-#define LL_SBS_OBKHDPL_INCR_3                   SBS_NEXTHDPLCR_NEXTHDPL
+#define LL_SBS_OBKHDPL_INCR_0           0x00000000U                   /*!< Index to add to the current HDPL to point (through OBK-HDPL) to the next secure storage areas */
+#define LL_SBS_OBKHDPL_INCR_1           SBS_NEXTHDPLCR_NEXTHDPL_0     /*!< Index to add to the current HDPL to point (through OBK-HDPL) to the next secure storage areas */
+#define LL_SBS_OBKHDPL_INCR_2           SBS_NEXTHDPLCR_NEXTHDPL_1     /*!< Index to add to the current HDPL to point (through OBK-HDPL) to the next secure storage areas */
+#define LL_SBS_OBKHDPL_INCR_3           SBS_NEXTHDPLCR_NEXTHDPL       /*!< Index to add to the current HDPL to point (through OBK-HDPL) to the next secure storage areas */
 /**
   * @}
   */
@@ -165,10 +171,10 @@ extern "C" {
 /** @defgroup SYSTEM_LL_SBS_HDPL_Value  HDPL Value
   * @{
   */
-#define LL_SBS_HDPL_VALUE_0                     0x000000B4U
-#define LL_SBS_HDPL_VALUE_1                     0x00000051U
-#define LL_SBS_HDPL_VALUE_2                     0x0000008AU
-#define LL_SBS_HDPL_VALUE_3                     0x0000006FU
+#define LL_SBS_HDPL_VALUE_0             0x000000B4U                   /*!< Hide protection level 0 */
+#define LL_SBS_HDPL_VALUE_1             0x00000051U                   /*!< Hide protection level 1 */
+#define LL_SBS_HDPL_VALUE_2             0x0000008AU                   /*!< Hide protection level 2 */
+#define LL_SBS_HDPL_VALUE_3             0x0000006FU                   /*!< Hide protection level 3 */
 /**
   * @}
   */
@@ -703,7 +709,7 @@ __STATIC_INLINE  void LL_SBS_FLASH_EnableECCNMI(void)
   */
 __STATIC_INLINE void LL_SBS_IncrementHDPLValue(void)
 {
-  MODIFY_REG(SBS->HDPLCR, SBS_HDPLCR_INCR_HDPL, 0x00000006AU);
+  MODIFY_REG(SBS->HDPLCR, SBS_HDPLCR_INCR_HDPL, LL_SBS_HDPL_INCREMENT_VALUE);
 }
 
 /**
@@ -758,6 +764,130 @@ __STATIC_INLINE  uint32_t LL_SBS_GetOBKHDPL(void)
   * @}
   */
 
+/** @defgroup SYSTEM_LL_SBS_EF_Debug_Control Debug Control
+  * @{
+  */
+
+/**
+  * @brief  Set the authenticated debug hide protection level
+  * @rmtoll SBS_DBGCR DBG_AUTH_HDPL     LL_SBS_SetAuthDbgHDPL
+  * @param  Level This parameter can be one of the following values:
+  *         @arg @ref LL_SBS_HDPL_VALUE_1
+  *         @arg @ref LL_SBS_HDPL_VALUE_2
+  *         @arg @ref LL_SBS_HDPL_VALUE_3
+  * @retval None
+  */
+__STATIC_INLINE void LL_SBS_SetAuthDbgHDPL(uint32_t Level)
+{
+  MODIFY_REG(SBS->DBGCR, SBS_DBGCR_DBG_AUTH_HDPL, (Level << SBS_DBGCR_DBG_AUTH_HDPL_Pos));
+}
+
+/**
+  * @brief  Get current hide protection level
+  * @rmtoll SBS_DBGCR DBG_AUTH_HDPL     LL_SBS_GetAuthDbgHDPL
+  * @retval Returned value is the hide protection level where the authenticated debug is opened:
+  *         @arg @ref LL_SBS_HDPL_VALUE_1
+  *         @arg @ref LL_SBS_HDPL_VALUE_2
+  *         @arg @ref LL_SBS_HDPL_VALUE_3
+  */
+__STATIC_INLINE uint32_t LL_SBS_GetAuthDbgHDPL(void)
+{
+  return (uint32_t)(READ_BIT(SBS->DBGCR, SBS_DBGCR_DBG_AUTH_HDPL) >> SBS_DBGCR_DBG_AUTH_HDPL_Pos);
+}
+
+#if defined(SBS_DBGCR_DBG_AUTH_SEC)
+/**
+  * @brief  Configure the authenticated debug security access.
+  * @rmtoll SBS_DBGCR DBG_AUTH_SEC     LL_SBS_SetAuthDbgSec
+  * @param  Control debug opening secure/non-secure or non-secure only
+  *         This parameter can be one of the following values:
+  *            @arg LL_SBS_DEBUG_SEC_NSEC: debug opening for secure and non-secure.
+  *            @arg LL_SBS_DEBUG_NSEC: debug opening for non-secure only.
+  * @retval None
+  */
+__STATIC_INLINE void LL_SBS_SetAuthDbgSec(uint32_t Security)
+{
+  MODIFY_REG(SBS->DBGCR, SBS_DBGCR_DBG_AUTH_SEC, (Security << SBS_DBGCR_DBG_AUTH_SEC_Pos));
+}
+
+/**
+  * @brief  Get the current value of the hide protection level.
+  * @rmtoll SBS_DBGCR DBG_AUTH_SEC     LL_SBS_GetAuthDbgSec
+  * @note   This function can be only used when device state is Closed.
+  * @retval Returned value can be one of the following values:
+  *            @arg SBS_DEBUG_SEC_NSEC: debug opening for secure and non-secure.
+  *            @arg any other value: debug opening for non-secure only.
+  */
+__STATIC_INLINE uint32_t LL_SBS_GetAuthDbgSec(void)
+{
+  return ((SBS->DBGCR & SBS_DBGCR_DBG_AUTH_SEC) >> SBS_DBGCR_DBG_AUTH_SEC_Pos);
+}
+
+#endif /* SBS_DBGCR_DBG_AUTH_SEC */
+
+/**
+  * @brief  Unlock the debug
+  * @rmtoll SBS_DBGCR DBG_UNLOCK     LL_SBS_UnlockDebug
+  * @retval None
+  */
+__STATIC_INLINE void LL_SBS_UnlockDebug(void)
+{
+  MODIFY_REG(SBS->DBGCR, SBS_DBGCR_DBG_UNLOCK, LL_SBS_DBG_UNLOCK);
+}
+
+/**
+  * @brief  Check if the debug is unlocked
+  * @rmtoll SBS_DBGCR DBG_UNLOCK     LL_SBS_IsUnlockedDebug
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_SBS_IsUnlockedDebug(void)
+{
+  return ((READ_BIT(SBS->DBGCR, SBS_DBGCR_DBG_UNLOCK) == LL_SBS_DBG_UNLOCK) ? 1UL : 0UL);
+}
+
+/**
+  * @brief  Unlock the access port
+  * @rmtoll SBS_DBGCR AP_UNLOCK     LL_SBS_UnlockAccessPort
+  * @retval None
+  */
+__STATIC_INLINE void LL_SBS_UnlockAccessPort(void)
+{
+  MODIFY_REG(SBS->DBGCR, SBS_DBGCR_AP_UNLOCK, LL_SBS_ACCESS_PORT_UNLOCK);
+}
+
+/**
+  * @brief  Check if the access port is unlocked
+  * @rmtoll SBS_DBGCR AP_UNLOCK     LL_SBS_IsUnlockedAccessPort
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_SBS_IsUnlockedAccessPort(void)
+{
+  return ((READ_BIT(SBS->DBGCR, SBS_DBGCR_AP_UNLOCK) == LL_SBS_ACCESS_PORT_UNLOCK) ? 1UL : 0UL);
+}
+
+/**
+  * @brief  Lock the debug configuration
+  * @rmtoll SBS_DBGLOCKR DBGCFG_LOCK     LL_SBS_LockDebugConfig
+  * @retval None
+  */
+__STATIC_INLINE void LL_SBS_LockDebugConfig(void)
+{
+  MODIFY_REG(SBS->DBGLOCKR, SBS_DBGLOCKR_DBGCFG_LOCK, LL_SBS_DBG_CONFIG_LOCK);
+}
+
+/**
+  * @brief  Check if the debug configuration is locked
+  * @rmtoll SBS_DBGLOCKR DBGCFG_LOCK     LL_SBS_IsLockedDebugConfig
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_SBS_IsLockedDebugConfig(void)
+{
+  return ((READ_BIT(SBS->DBGLOCKR, SBS_DBGLOCKR_DBGCFG_LOCK) != LL_SBS_DBG_CONFIG_UNLOCK) ? 1UL : 0UL);
+}
+
+/**
+  * @}
+  */
 
 /** @defgroup SYSTEM_LL_SBS_EF_lock_Management lock Management
   * @{

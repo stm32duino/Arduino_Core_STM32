@@ -2299,6 +2299,7 @@ typedef struct
   __IM NSSLIB_S_JumpHDPlvl3_TypeDef JumpHDPLvl3;
 } NSSLIB_pFunc_TypeDef;
 
+
 /** @} */ /* End of group STM32H5xx_Peripheral_peripheralAddr */
 
 
@@ -17882,11 +17883,12 @@ typedef struct
 #define TAMP_ATCR1_ATOSEL4_0                (0x1UL << TAMP_ATCR1_ATOSEL4_Pos)       /*!< 0x00004000 */
 #define TAMP_ATCR1_ATOSEL4_1                (0x2UL << TAMP_ATCR1_ATOSEL4_Pos)       /*!< 0x00008000 */
 #define TAMP_ATCR1_ATCKSEL_Pos              (16U)
-#define TAMP_ATCR1_ATCKSEL_Msk              (0x7UL << TAMP_ATCR1_ATCKSEL_Pos)       /*!< 0x00070000 */
+#define TAMP_ATCR1_ATCKSEL_Msk              (0xFUL << TAMP_ATCR1_ATCKSEL_Pos)       /*!< 0x000F0000 */
 #define TAMP_ATCR1_ATCKSEL                  TAMP_ATCR1_ATCKSEL_Msk
 #define TAMP_ATCR1_ATCKSEL_0                (0x1UL << TAMP_ATCR1_ATCKSEL_Pos)       /*!< 0x00010000 */
 #define TAMP_ATCR1_ATCKSEL_1                (0x2UL << TAMP_ATCR1_ATCKSEL_Pos)       /*!< 0x00020000 */
 #define TAMP_ATCR1_ATCKSEL_2                (0x4UL << TAMP_ATCR1_ATCKSEL_Pos)       /*!< 0x00040000 */
+#define TAMP_ATCR1_ATCKSEL_3                (0x8UL << TAMP_ATCR1_ATCKSEL_Pos)       /*!< 0x00080000 */
 #define TAMP_ATCR1_ATPER_Pos                (24U)
 #define TAMP_ATCR1_ATPER_Msk                (0x7UL << TAMP_ATCR1_ATPER_Pos)         /*!< 0x07000000 */
 #define TAMP_ATCR1_ATPER                    TAMP_ATCR1_ATPER_Msk
@@ -23261,8 +23263,6 @@ typedef struct
                                                         ((INSTANCE) == TIM5_NS)  || ((INSTANCE) == TIM5_S)  || \
                                                         ((INSTANCE) == TIM8_NS)  || ((INSTANCE) == TIM8_S)  || \
                                                         ((INSTANCE) == TIM12_NS) || ((INSTANCE) == TIM12_S) || \
-                                                        ((INSTANCE) == TIM13_NS) || ((INSTANCE) == TIM13_S) || \
-                                                        ((INSTANCE) == TIM14_NS) || ((INSTANCE) == TIM14_S) || \
                                                         ((INSTANCE) == TIM15_NS) || ((INSTANCE) == TIM15_S))
 
 /****************** TIM Instances : supporting internal trigger inputs(ITRX) *******/
@@ -23390,15 +23390,9 @@ typedef struct
                                             ((INSTANCE) == TIM15_NS) || ((INSTANCE) == TIM15_S))
 
 /******************* TIM Instances : Timer input selection ********************/
-#define IS_TIM_TISEL_INSTANCE(INSTANCE) (((INSTANCE) == TIM1_NS)  || ((INSTANCE) == TIM1_S) || \
-                                         ((INSTANCE) == TIM2_NS)  || ((INSTANCE) == TIM2_S) || \
+#define IS_TIM_TISEL_INSTANCE(INSTANCE) (((INSTANCE) == TIM2_NS)  || ((INSTANCE) == TIM2_S) || \
                                          ((INSTANCE) == TIM3_NS)  || ((INSTANCE) == TIM3_S) || \
-                                         ((INSTANCE) == TIM4_NS)  || ((INSTANCE) == TIM4_S) || \
-                                         ((INSTANCE) == TIM5_NS)  || ((INSTANCE) == TIM5_S) || \
-                                         ((INSTANCE) == TIM8_NS)  || ((INSTANCE) == TIM8_S) || \
                                          ((INSTANCE) == TIM12_NS) || ((INSTANCE) == TIM12_S)|| \
-                                         ((INSTANCE) == TIM13_NS) || ((INSTANCE) == TIM13_S)|| \
-                                         ((INSTANCE) == TIM14_NS) || ((INSTANCE) == TIM14_S)|| \
                                          ((INSTANCE) == TIM15_NS) || ((INSTANCE) == TIM15_S)|| \
                                          ((INSTANCE) == TIM16_NS) || ((INSTANCE) == TIM16_S)|| \
                                          ((INSTANCE) == TIM17_NS) || ((INSTANCE) == TIM17_S))

@@ -377,16 +377,16 @@ extern "C" {
                                            with which VrefInt has been calibrated in production
                                            (tolerance: +-10 mV) (unit: mV). */
 /* Temperature sensor */
-#define TEMPSENSOR_CAL1_ADDR               ((uint16_t*) (0x08FFF814UL)) /* Address of parameter TS_CAL1: On STM32H7,
+#define TEMPSENSOR_CAL1_ADDR               ((uint16_t*) (0x08FFF814UL)) /* Address of parameter TS_CAL1: On STM32H5,
                                            temperature sensor ADC raw data acquired at temperature  30 DegC
                                            (tolerance: +-5 DegC), Vref+ = 3.3 V (tolerance: +-10 mV). */
-#define TEMPSENSOR_CAL2_ADDR               ((uint16_t*) (0x08FFF818UL)) /* Address of parameter TS_CAL2: On STM32H7,
-                                           temperature sensor ADC raw data acquired at temperature 110 DegC
+#define TEMPSENSOR_CAL2_ADDR               ((uint16_t*) (0x08FFF818UL)) /* Address of parameter TS_CAL2: On STM32H5,
+                                           temperature sensor ADC raw data acquired at temperature 130 DegC
                                            (tolerance: +-5 DegC), Vref+ = 3.3 V (tolerance: +-10 mV). */
 #define TEMPSENSOR_CAL1_TEMP               (30L)                        /* Temperature at which temperature sensor
                                            has been calibrated in production for data into TEMPSENSOR_CAL1_ADDR
                                            (tolerance: +-5 DegC) (unit: DegC). */
-#define TEMPSENSOR_CAL2_TEMP               (110L)                       /* Temperature at which temperature sensor
+#define TEMPSENSOR_CAL2_TEMP               (130L)                       /* Temperature at which temperature sensor
                                            has been calibrated in production for data into TEMPSENSOR_CAL2_ADDR
                                            (tolerance: +-5 DegC) (unit: DegC). */
 #define TEMPSENSOR_CAL_VREFANALOG          (3300UL)                     /* Analog voltage reference (Vref+) value
@@ -2098,8 +2098,8 @@ typedef struct
 /* Literal set to maximum value (refer to device datasheet,                   */
 /* parameter "tSTART").                                                       */
 /* Unit: us                                                                   */
-#define LL_ADC_DELAY_TEMPSENSOR_STAB_US        (120UL)        /*!< Delay for temperature sensor stabilization time */
-#define LL_ADC_DELAY_TEMPSENSOR_BUFFER_STAB_US ( 15UL)        /*!< Delay for temperature sensor buffer stabilization
+#define LL_ADC_DELAY_TEMPSENSOR_STAB_US        ( 26UL)        /*!< Delay for temperature sensor stabilization time */
+#define LL_ADC_DELAY_TEMPSENSOR_BUFFER_STAB_US ( 26UL)        /*!< Delay for temperature sensor buffer stabilization
                                                                    time (starting from ADC enable, refer to
                                                                    @ref LL_ADC_Enable()) */
 

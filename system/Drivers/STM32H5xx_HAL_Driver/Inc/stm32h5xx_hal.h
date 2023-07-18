@@ -218,10 +218,10 @@ extern HAL_TickFreqTypeDef      uwTickFreq;
 /** @defgroup SBS_NextHDPL_Selection  Next HDPL Selection
   * @{
   */
-#define SBS_OBKHDPL_INCR_0                   0x00U
-#define SBS_OBKHDPL_INCR_1                   SBS_NEXTHDPLCR_NEXTHDPL_0
-#define SBS_OBKHDPL_INCR_2                   SBS_NEXTHDPLCR_NEXTHDPL_1
-#define SBS_OBKHDPL_INCR_3                   SBS_NEXTHDPLCR_NEXTHDPL
+#define SBS_OBKHDPL_INCR_0                   0x00U                      /*!< Index to add to the current HDPL to point (through OBK-HDPL) to the next secure storage areas */
+#define SBS_OBKHDPL_INCR_1                   SBS_NEXTHDPLCR_NEXTHDPL_0  /*!< Index to add to the current HDPL to point (through OBK-HDPL) to the next secure storage areas */
+#define SBS_OBKHDPL_INCR_2                   SBS_NEXTHDPLCR_NEXTHDPL_1  /*!< Index to add to the current HDPL to point (through OBK-HDPL) to the next secure storage areas */
+#define SBS_OBKHDPL_INCR_3                   SBS_NEXTHDPLCR_NEXTHDPL    /*!< Index to add to the current HDPL to point (through OBK-HDPL) to the next secure storage areas */
 /**
   * @}
   */
@@ -230,14 +230,24 @@ extern HAL_TickFreqTypeDef      uwTickFreq;
 /** @defgroup SBS_HDPL_Value  HDPL Value
   * @{
   */
-#define SBS_HDPL_VALUE_0                     0x000000B4U
-#define SBS_HDPL_VALUE_1                     0x00000051U
-#define SBS_HDPL_VALUE_2                     0x0000008AU
-#define SBS_HDPL_VALUE_3                     0x0000006FU
+#define SBS_HDPL_VALUE_0                     0x000000B4U   /*!< Hide protection level 0 */
+#define SBS_HDPL_VALUE_1                     0x00000051U   /*!< Hide protection level 0 */
+#define SBS_HDPL_VALUE_2                     0x0000008AU   /*!< Hide protection level 0 */
+#define SBS_HDPL_VALUE_3                     0x0000006FU   /*!< Hide protection level 0 */
 /**
   * @}
   */
 
+#if defined(SBS_DBGCR_DBG_AUTH_SEC)
+/** @defgroup SBS_DEBUG_SEC_Value  Debug sec Value
+  * @{
+  */
+#define SBS_DEBUG_SEC_NSEC                   0x000000B4U   /*!< Debug opening for secure and non-secure */
+#define SBS_DEBUG_NSEC                       0x0000003CU   /*!< Debug opening for non-secure only */
+/**
+  * @}
+  */
+#endif /* SBS_DBGCR_DBG_AUTH_SEC */
 
 /** @defgroup SBS_Lock_items SBS Lock items
   * @brief SBS items to set lock on
@@ -255,7 +265,7 @@ extern HAL_TickFreqTypeDef      uwTickFreq;
                                                                           code only) */
 #define SBS_LOCK_ALL                (SBS_MPU_NSEC|SBS_VTOR_NSEC|SBS_SAU|SBS_MPU_SEC|SBS_VTOR_AIRCR_SEC)  /*!< All */
 #else
-#define SBS_LOCK_ALL                (SBS_MPU_NSEC|SBS_VTOR_NSEC)  /*!< All (privileged secure or non-secure only) */
+#define SBS_LOCK_ALL                (SBS_MPU_NSEC|SBS_VTOR_NSEC)     /*!< All (privileged secure or non-secure only) */
 #endif /* __ARM_FEATURE_CMSE */
 /**
   * @}
@@ -646,6 +656,9 @@ extern HAL_TickFreqTypeDef      uwTickFreq;
                                          (((__PIN__) & SBS_FASTMODEPLUS_PB8) == SBS_FASTMODEPLUS_PB8))
 #endif /* SBS_FASTMODEPLUS_PB9 */
 
+#define IS_SBS_HDPL(__LEVEL__)          (((__LEVEL__) == SBS_HDPL_VALUE_0) || ((__LEVEL__) == SBS_HDPL_VALUE_1) || \
+                                         ((__LEVEL__) == SBS_HDPL_VALUE_2) || ((__LEVEL__) == SBS_HDPL_VALUE_3))
+
 #define IS_SBS_OBKHDPL_SELECTION(__SELECT__)    (((__SELECT__) == SBS_OBKHDPL_INCR_0)  || \
                                                  ((__SELECT__) == SBS_OBKHDPL_INCR_1)  || \
                                                  ((__SELECT__) == SBS_OBKHDPL_INCR_2)  || \
@@ -701,11 +714,11 @@ extern HAL_TickFreqTypeDef      uwTickFreq;
   */
 
 /* Initialization and de-initialization functions  ******************************/
-HAL_StatusTypeDef HAL_Init(void);
-HAL_StatusTypeDef HAL_DeInit(void);
-void HAL_MspInit(void);
-void HAL_MspDeInit(void);
-HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority);
+HAL_StatusTypeDef    HAL_Init(void);
+HAL_StatusTypeDef    HAL_DeInit(void);
+void                 HAL_MspInit(void);
+void                 HAL_MspDeInit(void);
+HAL_StatusTypeDef    HAL_InitTick(uint32_t TickPriority);
 
 /**
   * @}
@@ -716,20 +729,20 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority);
   */
 
 /* Peripheral Control functions  ************************************************/
-void HAL_IncTick(void);
-void HAL_Delay(uint32_t Delay);
-uint32_t HAL_GetTick(void);
-uint32_t HAL_GetTickPrio(void);
-HAL_StatusTypeDef HAL_SetTickFreq(HAL_TickFreqTypeDef Freq);
-HAL_TickFreqTypeDef HAL_GetTickFreq(void);
-void HAL_SuspendTick(void);
-void HAL_ResumeTick(void);
-uint32_t HAL_GetHalVersion(void);
-uint32_t HAL_GetREVID(void);
-uint32_t HAL_GetDEVID(void);
-uint32_t HAL_GetUIDw0(void);
-uint32_t HAL_GetUIDw1(void);
-uint32_t HAL_GetUIDw2(void);
+void                 HAL_IncTick(void);
+void                 HAL_Delay(uint32_t Delay);
+uint32_t             HAL_GetTick(void);
+uint32_t             HAL_GetTickPrio(void);
+HAL_StatusTypeDef    HAL_SetTickFreq(HAL_TickFreqTypeDef Freq);
+HAL_TickFreqTypeDef  HAL_GetTickFreq(void);
+void                 HAL_SuspendTick(void);
+void                 HAL_ResumeTick(void);
+uint32_t             HAL_GetHalVersion(void);
+uint32_t             HAL_GetREVID(void);
+uint32_t             HAL_GetDEVID(void);
+uint32_t             HAL_GetUIDw0(void);
+uint32_t             HAL_GetUIDw1(void);
+uint32_t             HAL_GetUIDw2(void);
 
 /**
   * @}
@@ -740,10 +753,10 @@ uint32_t HAL_GetUIDw2(void);
   */
 
 /* DBGMCU Peripheral Control functions  *****************************************/
-void HAL_DBGMCU_EnableDBGStopMode(void);
-void HAL_DBGMCU_DisableDBGStopMode(void);
-void HAL_DBGMCU_EnableDBGStandbyMode(void);
-void HAL_DBGMCU_DisableDBGStandbyMode(void);
+void                 HAL_DBGMCU_EnableDBGStopMode(void);
+void                 HAL_DBGMCU_DisableDBGStopMode(void);
+void                 HAL_DBGMCU_EnableDBGStandbyMode(void);
+void                 HAL_DBGMCU_DisableDBGStandbyMode(void);
 
 /**
   * @}
@@ -753,47 +766,92 @@ void HAL_DBGMCU_DisableDBGStandbyMode(void);
   * @{
   */
 
-/* SBS Control functions  ****************************************************/
-
+/* VREFBUF Control functions  ****************************************************/
 #if defined(VREFBUF)
-void HAL_VREFBUF_VoltageScalingConfig(uint32_t VoltageScaling);
-void HAL_VREFBUF_HighImpedanceConfig(uint32_t Mode);
-void HAL_VREFBUF_TrimmingConfig(uint32_t TrimmingValue);
-HAL_StatusTypeDef HAL_EnableVREFBUF(void);
-void HAL_DisableVREFBUF(void);
+void                 HAL_VREFBUF_VoltageScalingConfig(uint32_t VoltageScaling);
+void                 HAL_VREFBUF_HighImpedanceConfig(uint32_t Mode);
+void                 HAL_VREFBUF_TrimmingConfig(uint32_t TrimmingValue);
+HAL_StatusTypeDef    HAL_EnableVREFBUF(void);
+void                 HAL_DisableVREFBUF(void);
 #endif /* VREFBUF */
 
-void HAL_SBS_ETHInterfaceSelect(uint32_t SBS_ETHInterface);
-void HAL_SBS_EnableVddIO1CompensationCell(void);
-void HAL_SBS_DisableVddIO1CompensationCell(void);
-void HAL_SBS_EnableVddIO2CompensationCell(void);
-void HAL_SBS_DisableVddIO2CompensationCell(void);
-void HAL_SBS_VDDCompensationCodeSelect(uint32_t SBS_CompCode);
-void HAL_SBS_VDDIOCompensationCodeSelect(uint32_t SBS_CompCode);
-uint32_t HAL_SBS_GetVddIO1CompensationCellReadyFlag(void);
-uint32_t HAL_SBS_GetVddIO2CompensationCellReadyFlag(void);
-void HAL_SBS_VDDCompensationCodeConfig(uint32_t SBS_PMOSCode, uint32_t SBS_NMOSCode);
-void HAL_SBS_VDDIOCompensationCodeConfig(uint32_t SBS_PMOSCode, uint32_t SBS_NMOSCode);
-uint32_t HAL_SBS_GetNMOSVddCompensationValue(void);
-uint32_t HAL_SBS_GetPMOSVddCompensationValue(void);
-uint32_t HAL_SBS_GetNMOSVddIO2CompensationValue(void);
-uint32_t HAL_SBS_GetPMOSVddIO2CompensationValue(void);
-void HAL_SBS_EPOCHSelection(uint32_t Epoch_Selection);
-uint32_t HAL_SBS_GetEPOCHSelection(void);
-void HAL_SBS_IncrementHDPLValue(void);
-uint32_t HAL_SBS_GetHDPLValue(void);
-void HAL_SBS_SetOBKHDPL(uint32_t OBKHDPL_Value);
-uint32_t HAL_SBS_GetOBKHDPL(void);
-void HAL_SBS_FLASH_EnableECCNMI(void);
-void HAL_SBS_FLASH_DisableECCNMI(void);
-uint32_t HAL_SBS_FLASH_ECCNMI_IsDisabled(void);
+/**
+  * @}
+  */
+
+/** @addtogroup HAL_Exported_Functions_Group5
+  * @{
+  */
+
+/* SBS System Configuration functions  *******************************************/
+void                 HAL_SBS_ETHInterfaceSelect(uint32_t SBS_ETHInterface);
+void                 HAL_SBS_EnableVddIO1CompensationCell(void);
+void                 HAL_SBS_DisableVddIO1CompensationCell(void);
+void                 HAL_SBS_EnableVddIO2CompensationCell(void);
+void                 HAL_SBS_DisableVddIO2CompensationCell(void);
+void                 HAL_SBS_VDDCompensationCodeSelect(uint32_t SBS_CompCode);
+void                 HAL_SBS_VDDIOCompensationCodeSelect(uint32_t SBS_CompCode);
+uint32_t             HAL_SBS_GetVddIO1CompensationCellReadyFlag(void);
+uint32_t             HAL_SBS_GetVddIO2CompensationCellReadyFlag(void);
+void                 HAL_SBS_VDDCompensationCodeConfig(uint32_t SBS_PMOSCode, uint32_t SBS_NMOSCode);
+void                 HAL_SBS_VDDIOCompensationCodeConfig(uint32_t SBS_PMOSCode, uint32_t SBS_NMOSCode);
+uint32_t             HAL_SBS_GetNMOSVddCompensationValue(void);
+uint32_t             HAL_SBS_GetPMOSVddCompensationValue(void);
+uint32_t             HAL_SBS_GetNMOSVddIO2CompensationValue(void);
+uint32_t             HAL_SBS_GetPMOSVddIO2CompensationValue(void);
+void                 HAL_SBS_FLASH_EnableECCNMI(void);
+void                 HAL_SBS_FLASH_DisableECCNMI(void);
+uint32_t             HAL_SBS_FLASH_ECCNMI_IsDisabled(void);
+
+/**
+  * @}
+  */
+
+/** @addtogroup HAL_Exported_Functions_Group6
+  * @{
+  */
+
+/* SBS Boot control functions  ***************************************************/
+void                 HAL_SBS_IncrementHDPLValue(void);
+uint32_t             HAL_SBS_GetHDPLValue(void);
+
+/**
+  * @}
+  */
+
+/** @addtogroup HAL_Exported_Functions_Group7
+  * @{
+  */
+
+/* SBS Hardware secure storage control functions  ********************************/
+void                 HAL_SBS_EPOCHSelection(uint32_t Epoch_Selection);
+uint32_t             HAL_SBS_GetEPOCHSelection(void);
+void                 HAL_SBS_SetOBKHDPL(uint32_t OBKHDPL_Value);
+uint32_t             HAL_SBS_GetOBKHDPL(void);
+
+/**
+  * @}
+  */
+
+/** @addtogroup HAL_Exported_Functions_Group8
+  * @{
+  */
+
+/* SBS Debug control functions  ***************************************************/
+void                 HAL_SBS_OpenAccessPort(void);
+void                 HAL_SBS_OpenDebug(void);
+HAL_StatusTypeDef    HAL_SBS_ConfigDebugLevel(uint32_t Level);
+uint32_t             HAL_SBS_GetDebugLevel(void);
+void                 HAL_SBS_LockDebugConfig(void);
+void                 HAL_SBS_ConfigDebugSecurity(uint32_t Security);
+uint32_t             HAL_SBS_GetDebugSecurity(void);
 
 /**
   * @}
   */
 
 
-/** @addtogroup HAL_Exported_Functions_Group5
+/** @addtogroup HAL_Exported_Functions_Group9
   * @{
   */
 
@@ -805,7 +863,7 @@ HAL_StatusTypeDef HAL_SBS_GetLock(uint32_t *pItem);
   * @}
   */
 
-/** @addtogroup HAL_Exported_Functions_Group6
+/** @addtogroup HAL_Exported_Functions_Group10
   * @{
   */
 
