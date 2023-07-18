@@ -1882,6 +1882,7 @@ void HAL_PWREx_EnableRAMsContentStopRetention(uint32_t RAMSelection)
       break;
     }
 
+#if defined (PWR_CR2_PKARAMPDS)
     /* PKA32 RAM Stop retention */
     case PKARAM_ID:
     {
@@ -1894,6 +1895,7 @@ void HAL_PWREx_EnableRAMsContentStopRetention(uint32_t RAMSelection)
 
       break;
     }
+#endif /* PWR_CR2_PKARAMPDS */
 
 #if defined (PWR_CR2_DC2RAMPDS)
     /* DCACHE2 RAM Stop retention */
@@ -2130,6 +2132,7 @@ void HAL_PWREx_DisableRAMsContentStopRetention(uint32_t RAMSelection)
       break;
     }
 
+#if defined (PWR_CR2_PKARAMPDS)
     /* PKA32 RAM Stop retention */
     case PKARAM_ID:
     {
@@ -2142,6 +2145,7 @@ void HAL_PWREx_DisableRAMsContentStopRetention(uint32_t RAMSelection)
 
       break;
     }
+#endif /* PWR_CR2_PKARAMPDS */
 
 #if defined (PWR_CR2_DC2RAMPDS)
     /* DCACHE2 RAM Stop retention */

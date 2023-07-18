@@ -14,6 +14,7 @@
               + DMA channel configuration for indirect functional mode
               + Errors management and abort functionality
               + IO manager configuration
+
   ******************************************************************************
   * @attention
   *
@@ -189,7 +190,7 @@
 
     [..]
      Use function HAL_OSPI_UnRegisterCallback() to reset a callback to the default
-     weak (surcharged) function. It allows to reset following callbacks:
+     weak (overridden) function. It allows to reset following callbacks:
      (+) ErrorCallback : callback when error occurs.
      (+) AbortCpltCallback : callback when abort is completed.
      (+) FifoThresholdCallback : callback when the fifo threshold is reached.
@@ -207,9 +208,9 @@
 
     [..]
      By default, after the HAL_OSPI_Init() and if the state is HAL_OSPI_STATE_RESET
-     all callbacks are reset to the corresponding legacy weak (surcharged) functions.
+     all callbacks are reset to the corresponding legacy weak (overridden) functions.
      Exception done for MspInit and MspDeInit callbacks that are respectively
-     reset to the legacy weak (surcharged) functions in the HAL_OSPI_Init()
+     reset to the legacy weak (overridden) functions in the HAL_OSPI_Init()
      and HAL_OSPI_DeInit() only when these callbacks are null (not registered beforehand).
      If not, MspInit or MspDeInit are not null, the HAL_OSPI_Init() and HAL_OSPI_DeInit()
      keep and use the user MspInit/MspDeInit callbacks (registered beforehand)
@@ -226,7 +227,7 @@
     [..]
      When The compilation define USE_HAL_OSPI_REGISTER_CALLBACKS is set to 0 or
      not defined, the callback registering feature is not available
-     and weak (surcharged) callbacks are used.
+     and weak (overridden) callbacks are used.
 
   @endverbatim
   ******************************************************************************
@@ -284,7 +285,7 @@ static HAL_StatusTypeDef OSPI_WaitFlagStateUntilTimeout(OSPI_HandleTypeDef *hosp
 static HAL_StatusTypeDef OSPI_ConfigCmd(OSPI_HandleTypeDef *hospi, OSPI_RegularCmdTypeDef *cmd);
 #if     defined (OCTOSPIM)
 static HAL_StatusTypeDef OSPIM_GetConfig(uint8_t instance_nb, OSPIM_CfgTypeDef *cfg);
-#endif
+#endif /* OCTOSPIM */
 /**
   @endcond
   */
@@ -2130,7 +2131,7 @@ __weak void HAL_OSPI_TimeOutCallback(OSPI_HandleTypeDef *hospi)
 #if defined (USE_HAL_OSPI_REGISTER_CALLBACKS) && (USE_HAL_OSPI_REGISTER_CALLBACKS == 1U)
 /**
   * @brief  Register a User OSPI Callback
-  *         To be used instead of the weak (surcharged) predefined callback
+  *         To be used to override the weak predefined callback
   * @param hospi : OSPI handle
   * @param CallbackID : ID of the callback to be registered
   *        This parameter can be one of the following values:
@@ -2240,7 +2241,7 @@ HAL_StatusTypeDef HAL_OSPI_RegisterCallback(OSPI_HandleTypeDef *hospi, HAL_OSPI_
 
 /**
   * @brief  Unregister a User OSPI Callback
-  *         OSPI Callback is redirected to the weak (surcharged) predefined callback
+  *         OSPI Callback is redirected to the weak predefined callback
   * @param hospi : OSPI handle
   * @param CallbackID : ID of the callback to be unregistered
   *        This parameter can be one of the following values:
@@ -2542,7 +2543,7 @@ HAL_StatusTypeDef HAL_OSPI_SetFifoThreshold(OSPI_HandleTypeDef *hospi, uint32_t 
   * @param  hospi : OSPI handle.
   * @retval Fifo threshold
   */
-uint32_t HAL_OSPI_GetFifoThreshold(OSPI_HandleTypeDef *hospi)
+uint32_t HAL_OSPI_GetFifoThreshold(const OSPI_HandleTypeDef *hospi)
 {
   return ((READ_BIT(hospi->Instance->CR, OCTOSPI_CR_FTHRES) >> OCTOSPI_CR_FTHRES_Pos) + 1U);
 }
@@ -2563,7 +2564,7 @@ HAL_StatusTypeDef HAL_OSPI_SetTimeout(OSPI_HandleTypeDef *hospi, uint32_t Timeou
   * @param  hospi : OSPI handle
   * @retval OSPI Error Code
   */
-uint32_t HAL_OSPI_GetError(OSPI_HandleTypeDef *hospi)
+uint32_t HAL_OSPI_GetError(const OSPI_HandleTypeDef *hospi)
 {
   return hospi->ErrorCode;
 }
@@ -2573,7 +2574,7 @@ uint32_t HAL_OSPI_GetError(OSPI_HandleTypeDef *hospi)
   * @param  hospi : OSPI handle
   * @retval HAL state
   */
-uint32_t HAL_OSPI_GetState(OSPI_HandleTypeDef *hospi)
+uint32_t HAL_OSPI_GetState(const OSPI_HandleTypeDef *hospi)
 {
   /* Return OSPI handle state */
   return hospi->State;
@@ -2676,12 +2677,12 @@ HAL_StatusTypeDef HAL_OSPIM_Config(OSPI_HandleTypeDef *hospi, OSPIM_CfgTypeDef *
         }
         if (IOM_cfg[other_instance].IOLowPort != HAL_OSPIM_IOPORT_NONE)
         {
-          SET_BIT(OCTOSPIM->PCR[((IOM_cfg[other_instance].IOLowPort - 1U)& OSPI_IOM_PORT_MASK)],
+          SET_BIT(OCTOSPIM->PCR[((IOM_cfg[other_instance].IOLowPort - 1U)& OSPI_IOM_PORT_MASK)], \
                   OCTOSPIM_PCR_IOLSRC_1);
         }
         if (IOM_cfg[other_instance].IOHighPort != HAL_OSPIM_IOPORT_NONE)
         {
-          SET_BIT(OCTOSPIM->PCR[((IOM_cfg[other_instance].IOHighPort - 1U)& OSPI_IOM_PORT_MASK)],
+          SET_BIT(OCTOSPIM->PCR[((IOM_cfg[other_instance].IOHighPort - 1U)& OSPI_IOM_PORT_MASK)], \
                   OCTOSPIM_PCR_IOHSRC_1);
         }
       }
@@ -2857,7 +2858,7 @@ HAL_StatusTypeDef HAL_OSPIM_Config(OSPI_HandleTypeDef *hospi, OSPIM_CfgTypeDef *
 /**
   * @}
   */
-#endif
+#endif /* OCTOSPIM */
 
 /**
   @cond 0
@@ -3183,8 +3184,8 @@ static HAL_StatusTypeDef OSPI_ConfigCmd(OSPI_HandleTypeDef *hospi, OSPI_RegularC
         /* Configure the CCR register with all communication parameters */
         MODIFY_REG((*ccr_reg), (OCTOSPI_CCR_ADMODE | OCTOSPI_CCR_ADDTR | OCTOSPI_CCR_ADSIZE |
                                 OCTOSPI_CCR_DMODE  | OCTOSPI_CCR_DDTR),
-                   (cmd->AddressMode | cmd->AddressDtrMode | cmd->AddressSize     |
-                    cmd->DataMode    | cmd->DataDtrMode));
+                   (cmd->AddressMode | cmd->AddressDtrMode | cmd->AddressSize | cmd->DataMode |
+                    cmd->DataDtrMode));
       }
       else
       {
@@ -3325,7 +3326,7 @@ static HAL_StatusTypeDef OSPIM_GetConfig(uint8_t instance_nb, OSPIM_CfgTypeDef *
   /* Return function status */
   return status;
 }
-#endif
+#endif /* OCTOSPIM */
 
 
 /** @defgroup OSPI_Exported_Functions_Group5 Delay Block function
@@ -3379,7 +3380,7 @@ HAL_StatusTypeDef HAL_OSPI_DLYB_SetConfig(OSPI_HandleTypeDef *hospi, HAL_OSPI_DL
     LL_DLYB_SetDelay(DLYB_OCTOSPI2, pdlyb_cfg);
     status = HAL_OK;
   }
-#endif
+#endif /* OCTOSPI2 */
 
   else
   {
@@ -3402,7 +3403,7 @@ HAL_StatusTypeDef HAL_OSPI_DLYB_SetConfig(OSPI_HandleTypeDef *hospi, HAL_OSPI_DL
   * @param  pdlyb_cfg: Pointer to DLYB configuration structure.
   * @retval HAL status.
   */
-HAL_StatusTypeDef HAL_OSPI_DLYB_GetConfig(OSPI_HandleTypeDef *hospi, HAL_OSPI_DLYB_CfgTypeDef  *pdlyb_cfg)
+HAL_StatusTypeDef HAL_OSPI_DLYB_GetConfig(const OSPI_HandleTypeDef *hospi, HAL_OSPI_DLYB_CfgTypeDef  *pdlyb_cfg)
 {
   HAL_StatusTypeDef status = HAL_ERROR;
 
@@ -3417,7 +3418,7 @@ HAL_StatusTypeDef HAL_OSPI_DLYB_GetConfig(OSPI_HandleTypeDef *hospi, HAL_OSPI_DL
     LL_DLYB_GetDelay(DLYB_OCTOSPI2, pdlyb_cfg);
     status = HAL_OK;
   }
-#endif
+#endif /* OCTOSPI2 */
 
   else
   {
@@ -3473,7 +3474,7 @@ HAL_StatusTypeDef HAL_OSPI_DLYB_GetClockPeriod(OSPI_HandleTypeDef *hospi, HAL_OS
     /* Disable the DelayBlock */
     LL_DLYB_Disable(DLYB_OCTOSPI2);
   }
-#endif
+#endif /* OCTOSPI2 */
 
   else
   {
@@ -3491,10 +3492,6 @@ HAL_StatusTypeDef HAL_OSPI_DLYB_GetClockPeriod(OSPI_HandleTypeDef *hospi, HAL_OS
 }
 /**
   @endcond
-  */
-
-/**
-  * @}
   */
 
 /**

@@ -6,5 +6,7 @@
   #include "stm32f7xx_hal_jpeg.c"
 #elif STM32H7xx
   #include "stm32h7xx_hal_jpeg.c"
+#elif STM32U5xx
+  #include "stm32u5xx_hal_jpeg.c"
 #endif
 #pragma GCC diagnostic pop

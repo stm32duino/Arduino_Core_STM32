@@ -77,15 +77,15 @@
       and a pointer to the user callback function.
 
       Use function HAL_NAND_UnRegisterCallback() to reset a callback to the default
-      weak (surcharged) function. It allows to reset following callbacks:
+      weak (overridden) function. It allows to reset following callbacks:
         (+) MspInitCallback    : NAND MspInit.
         (+) MspDeInitCallback  : NAND MspDeInit.
       This function) takes as parameters the HAL peripheral handle and the Callback ID.
 
       By default, after the HAL_NAND_Init and if the state is HAL_NAND_STATE_RESET
-      all callbacks are reset to the corresponding legacy weak (surcharged) functions.
+      all callbacks are reset to the corresponding legacy weak (overridden) functions.
       Exception done for MspInit and MspDeInit callbacks that are respectively
-      reset to the legacy weak (surcharged) functions in the HAL_NAND_Init
+      reset to the legacy weak (overridden) functions in the HAL_NAND_Init
       and  HAL_NAND_DeInit only when these callbacks are null (not registered beforehand).
       If not, MspInit or MspDeInit are not null, the HAL_NAND_Init and HAL_NAND_DeInit
       keep and use the user MspInit/MspDeInit callbacks (registered beforehand)
@@ -100,7 +100,7 @@
 
       When The compilation define USE_HAL_NAND_REGISTER_CALLBACKS is set to 0 or
       not defined, the callback registering feature is not available
-      and weak (surcharged) callbacks are used.
+      and weak (overridden) callbacks are used.
 
   @endverbatim
   ******************************************************************************
@@ -1900,7 +1900,7 @@ uint32_t HAL_NAND_Address_Inc(const NAND_HandleTypeDef *hnand, NAND_AddressTypeD
 #if (USE_HAL_NAND_REGISTER_CALLBACKS == 1)
 /**
   * @brief  Register a User NAND Callback
-  *         To be used instead of the weak (surcharged) predefined callback
+  *         To be used to override the weak predefined callback
   * @param hnand : NAND handle
   * @param CallbackId : ID of the callback to be registered
   *        This parameter can be one of the following values:
@@ -1919,9 +1919,6 @@ HAL_StatusTypeDef HAL_NAND_RegisterCallback(NAND_HandleTypeDef *hnand, HAL_NAND_
   {
     return HAL_ERROR;
   }
-
-  /* Process locked */
-  __HAL_LOCK(hnand);
 
   if (hnand->State == HAL_NAND_STATE_READY)
   {
@@ -1964,14 +1961,12 @@ HAL_StatusTypeDef HAL_NAND_RegisterCallback(NAND_HandleTypeDef *hnand, HAL_NAND_
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hnand);
   return status;
 }
 
 /**
   * @brief  Unregister a User NAND Callback
-  *         NAND Callback is redirected to the weak (surcharged) predefined callback
+  *         NAND Callback is redirected to the weak predefined callback
   * @param hnand : NAND handle
   * @param CallbackId : ID of the callback to be unregistered
   *        This parameter can be one of the following values:
@@ -1983,9 +1978,6 @@ HAL_StatusTypeDef HAL_NAND_RegisterCallback(NAND_HandleTypeDef *hnand, HAL_NAND_
 HAL_StatusTypeDef HAL_NAND_UnRegisterCallback(NAND_HandleTypeDef *hnand, HAL_NAND_CallbackIDTypeDef CallbackId)
 {
   HAL_StatusTypeDef status = HAL_OK;
-
-  /* Process locked */
-  __HAL_LOCK(hnand);
 
   if (hnand->State == HAL_NAND_STATE_READY)
   {
@@ -2028,8 +2020,6 @@ HAL_StatusTypeDef HAL_NAND_UnRegisterCallback(NAND_HandleTypeDef *hnand, HAL_NAN
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hnand);
   return status;
 }
 #endif /* USE_HAL_NAND_REGISTER_CALLBACKS */

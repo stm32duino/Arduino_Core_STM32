@@ -1252,7 +1252,7 @@ __STATIC_INLINE uint32_t LL_PWR_GetSRAM5StopRetention(void)
   * @rmtoll CR5    SRAM6PDS6       LL_PWR_SetSRAM6StopRetention\n
   * @rmtoll CR5    SRAM6PDS7       LL_PWR_SetSRAM6StopRetention\n
   * @rmtoll CR5    SRAM6PDS8       LL_PWR_SetSRAM6StopRetention
-  * @param  SRAM5PageRetention : This parameter can be one of the following values:
+  * @param  SRAM6PageRetention : This parameter can be one of the following values:
   *         @arg @ref LL_PWR_SRAM6_STOP_NO_RETENTION
   *         @arg @ref LL_PWR_SRAM6_STOP_FULL_RETENTION
   *                      Or can be a combination of the following values:
@@ -1434,6 +1434,7 @@ __STATIC_INLINE uint32_t LL_PWR_GetPeriphRAMStopRetention(void)
   return ((~(READ_BIT(PWR->CR2, LL_PWR_PERIPHRAM_STOP_FULL_RETENTION))) & LL_PWR_PERIPHRAM_STOP_FULL_RETENTION);
 }
 
+#if defined (PWR_CR2_PKARAMPDS)
 /**
   * @brief  Set the PKA32 SRAM page retention in Stop mode.
   * @rmtoll CR2    PKARAMPDS       LL_PWR_SetPKARAMStopRetention
@@ -1458,6 +1459,7 @@ __STATIC_INLINE uint32_t LL_PWR_GetPKARAMStopRetention(void)
 {
   return ((~(READ_BIT(PWR->CR2, LL_PWR_PKARAM_STOP_FULL_RETENTION))) & LL_PWR_PKARAM_STOP_FULL_RETENTION);
 }
+#endif /* defined (PWR_CR2_PKARAMPDS) */
 
 #if defined (PWR_CR2_GPRAMPDS)
 /**
@@ -1519,7 +1521,7 @@ __STATIC_INLINE uint32_t LL_PWR_GetDSIRAMStopRetention(void)
 /**
   * @brief  Set the JPEG SRAM page retention in Stop mode.
   * @rmtoll CR2    JPEGRAMPDS       LL_PWR_SetJPEGRAMStopRetention
-  * @param  DSIRAMPageRetention : This parameter can be one of the following values:
+  * @param  JPEGRAMPageRetention : This parameter can be one of the following values:
   *         @arg @ref LL_PWR_JPEGRAM_STOP_NO_RETENTION
   *         @arg @ref LL_PWR_JPEGRAM_STOP_FULL_RETENTION
   * @retval None
@@ -1909,214 +1911,235 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledPVD(void)
 
 /**
   * @brief  Enable the independent USB supply.
-  * @rmtoll SVMCR    USV       LL_PWR_EnableVDDUSB
+  * @rmtoll SVMCR    USV       LL_PWR_EnableVddUSB
   * @retval None
   */
-__STATIC_INLINE void LL_PWR_EnableVDDUSB(void)
+__STATIC_INLINE void LL_PWR_EnableVddUSB(void)
 {
   SET_BIT(PWR->SVMCR, PWR_SVMCR_USV);
 }
-
+/* alias */
+#define LL_PWR_EnableVDDUSB  LL_PWR_EnableVddUSB
 /**
   * @brief  Disable the independent USB supply.
   * @rmtoll SVMCR    USV       LL_PWR_DisableVDDUSB
   * @retval None
   */
-__STATIC_INLINE void LL_PWR_DisableVDDUSB(void)
+__STATIC_INLINE void LL_PWR_DisableVddUSB(void)
 {
   CLEAR_BIT(PWR->SVMCR, PWR_SVMCR_USV);
 }
-
+/* alias */
+#define LL_PWR_DisableVDDUSB  LL_PWR_DisableVddUSB
 /**
   * @brief  Check if the independent USB supply is enabled.
-  * @rmtoll SVMCR    USV       LL_PWR_IsEnabledVDDUSB
+  * @rmtoll SVMCR    USV       LL_PWR_IsEnabledVddUSB
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_PWR_IsEnabledVDDUSB(void)
+__STATIC_INLINE uint32_t LL_PWR_IsEnabledVddUSB(void)
 {
   return ((READ_BIT(PWR->SVMCR, PWR_SVMCR_USV) == (PWR_SVMCR_USV)) ? 1UL : 0UL);
 }
-
+/* alias */
+#define LL_PWR_IsEnabledVDDUSB  LL_PWR_IsEnabledVddUSB
 /**
   * @brief  Enable the independent I/Os supply.
-  * @rmtoll SVMCR    IO2SV       LL_PWR_EnableVDDIO2
+  * @rmtoll SVMCR    IO2SV       LL_PWR_EnableVddIO2
   * @retval None
   */
-__STATIC_INLINE void LL_PWR_EnableVDDIO2(void)
+__STATIC_INLINE void LL_PWR_EnableVddIO2(void)
 {
   SET_BIT(PWR->SVMCR, PWR_SVMCR_IO2SV);
 }
-
+/* alias */
+#define LL_PWR_EnableVDDIO2  LL_PWR_EnableVddIO2
 /**
   * @brief  Disable the independent I/Os supply.
-  * @rmtoll SVMCR    IO2SV       LL_PWR_DisableVDDIO2
+  * @rmtoll SVMCR    IO2SV       LL_PWR_DisableVddIO2
   * @retval None
   */
-__STATIC_INLINE void LL_PWR_DisableVDDIO2(void)
+__STATIC_INLINE void LL_PWR_DisableVddIO2(void)
 {
   CLEAR_BIT(PWR->SVMCR, PWR_SVMCR_IO2SV);
 }
-
+/* alias */
+#define LL_PWR_DisableVDDIO2  LL_PWR_DisableVddIO2
 /**
   * @brief  Check if the independent I/Os supply is enabled.
-  * @rmtoll SVMCR    IO2SV       LL_PWR_IsEnabledVDDIO2
+  * @rmtoll SVMCR    IO2SV       LL_PWR_IsEnabledVddIO2
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_PWR_IsEnabledVDDIO2(void)
+__STATIC_INLINE uint32_t LL_PWR_IsEnabledVddIO2(void)
 {
   return ((READ_BIT(PWR->SVMCR, PWR_SVMCR_IO2SV) == (PWR_SVMCR_IO2SV)) ? 1UL : 0UL);
 }
-
+/* alias */
+#define LL_PWR_IsEnabledVDDIO2  LL_PWR_IsEnabledVddIO2
 /**
   * @brief  Enable the independent analog supply.
-  * @rmtoll SVMCR    ASV       LL_PWR_EnableVDDA
+  * @rmtoll SVMCR    ASV       LL_PWR_EnableVddA
   * @retval None
   */
-__STATIC_INLINE void LL_PWR_EnableVDDA(void)
+__STATIC_INLINE void LL_PWR_EnableVddA(void)
 {
   SET_BIT(PWR->SVMCR, PWR_SVMCR_ASV);
 }
-
+/* alias */
+#define LL_PWR_EnableVDDA  LL_PWR_EnableVddA
 /**
   * @brief  Disable the independent analog supply.
-  * @rmtoll SVMCR    ASV       LL_PWR_DisableVDDA
+  * @rmtoll SVMCR    ASV       LL_PWR_DisableVddA
   * @retval None
   */
-__STATIC_INLINE void LL_PWR_DisableVDDA(void)
+__STATIC_INLINE void LL_PWR_DisableVddA(void)
 {
   CLEAR_BIT(PWR->SVMCR, PWR_SVMCR_ASV);
 }
-
+/* alias */
+#define LL_PWR_DisableVDDA  LL_PWR_DisableVddA
 /**
   * @brief  Check if the independent analog supply is enabled.
-  * @rmtoll SVMCR    ASV       LL_PWR_IsEnabledVDDA
+  * @rmtoll SVMCR    ASV       LL_PWR_IsEnabledVddA
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_PWR_IsEnabledVDDA(void)
+__STATIC_INLINE uint32_t LL_PWR_IsEnabledVddA(void)
 {
   return ((READ_BIT(PWR->SVMCR, PWR_SVMCR_ASV) == (PWR_SVMCR_ASV)) ? 1UL : 0UL);
 }
-
+/* alias */
+#define LL_PWR_IsEnabledVDDA  LL_PWR_IsEnabledVddA
 /**
   * @brief  Enable the independent USB supply monitor.
-  * @rmtoll SVMCR    UVMEN       LL_PWR_EnableVDDUSBMonitor
+  * @rmtoll SVMCR    UVMEN       LL_PWR_EnableVddUSBMonitor
   * @retval None
   */
-__STATIC_INLINE void LL_PWR_EnableVDDUSBMonitor(void)
+__STATIC_INLINE void LL_PWR_EnableVddUSBMonitor(void)
 {
   SET_BIT(PWR->SVMCR, PWR_SVMCR_UVMEN);
 }
-
+/* alias */
+#define LL_PWR_EnableVDDUSBMonitor  LL_PWR_EnableVddUSBMonitor
 /**
   * @brief  Disable the independent USB supply monitor.
-  * @rmtoll SVMCR    UVMEN       LL_PWR_DisableVDDUSBMonitor
+  * @rmtoll SVMCR    UVMEN       LL_PWR_DisableVddUSBMonitor
   * @retval None
   */
-__STATIC_INLINE void LL_PWR_DisableVDDUSBMonitor(void)
+__STATIC_INLINE void LL_PWR_DisableVddUSBMonitor(void)
 {
   CLEAR_BIT(PWR->SVMCR, PWR_SVMCR_UVMEN);
 }
-
+/* alias */
+#define LL_PWR_DisableVDDUSBMonitor  LL_PWR_DisableVddUSBMonitor
 /**
   * @brief  Check if the independent USB supply monitor is enabled.
-  * @rmtoll SVMCR    UVMEN       LL_PWR_IsEnabledVDDUSBMonitor
+  * @rmtoll SVMCR    UVMEN       LL_PWR_IsEnabledVddUSBMonitor
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_PWR_IsEnabledVDDUSBMonitor(void)
+__STATIC_INLINE uint32_t LL_PWR_IsEnabledVddUSBMonitor(void)
 {
   return ((READ_BIT(PWR->SVMCR, PWR_SVMCR_UVMEN) == (PWR_SVMCR_UVMEN)) ? 1UL : 0UL);
 }
-
+/* alias */
+#define LL_PWR_IsEnabledVDDUSBMonitor  LL_PWR_IsEnabledVddUSBMonitor
 /**
   * @brief  Enable the independent I/Os supply monitor.
-  * @rmtoll SVMCR    IO2VMEN       LL_PWR_EnableVDDIO2Monitor
+  * @rmtoll SVMCR    IO2VMEN       LL_PWR_EnableVddIO2Monitor
   * @retval None
   */
-__STATIC_INLINE void LL_PWR_EnableVDDIO2Monitor(void)
+__STATIC_INLINE void LL_PWR_EnableVddIO2Monitor(void)
 {
   SET_BIT(PWR->SVMCR, PWR_SVMCR_IO2VMEN);
 }
-
+/* alias */
+#define LL_PWR_EnableVDDIO2Monitor  LL_PWR_EnableVddIO2Monitor
 /**
   * @brief  Disable the independent I/Os supply monitor.
-  * @rmtoll SVMCR    IO2VMEN       LL_PWR_DisableVDDIO2Monitor
+  * @rmtoll SVMCR    IO2VMEN       LL_PWR_DisableVddIO2Monitor
   * @retval None
   */
-__STATIC_INLINE void LL_PWR_DisableVDDIO2Monitor(void)
+__STATIC_INLINE void LL_PWR_DisableVddIO2Monitor(void)
 {
   CLEAR_BIT(PWR->SVMCR, PWR_SVMCR_IO2VMEN);
 }
-
+/* alias */
+#define LL_PWR_DisableVDDIO2Monitor  LL_PWR_DisableVddIO2Monitor
 /**
   * @brief  Check if the independent I/Os supply monitor is enabled.
-  * @rmtoll SVMCR    IO2VMEN       LL_PWR_IsEnabledVDDIO2Monitor
+  * @rmtoll SVMCR    IO2VMEN       LL_PWR_IsEnabledVddIO2Monitor
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_PWR_IsEnabledVDDIO2Monitor(void)
+__STATIC_INLINE uint32_t LL_PWR_IsEnabledVddIO2Monitor(void)
 {
   return ((READ_BIT(PWR->SVMCR, PWR_SVMCR_IO2VMEN) == (PWR_SVMCR_IO2VMEN)) ? 1UL : 0UL);
 }
-
+/* alias */
+#define LL_PWR_IsEnabledVDDIO2Monitor  LL_PWR_IsEnabledVddIO2Monitor
 /**
   * @brief  Enable the independent analog supply monitor 1.
-  * @rmtoll SVMCR    AVM1EN       LL_PWR_EnableVDDAMonitor1
+  * @rmtoll SVMCR    AVM1EN       LL_PWR_EnableVddAMonitor1
   * @retval None
   */
-__STATIC_INLINE void LL_PWR_EnableVDDAMonitor1(void)
+__STATIC_INLINE void LL_PWR_EnableVddAMonitor1(void)
 {
   SET_BIT(PWR->SVMCR, PWR_SVMCR_AVM1EN);
 }
-
+/* alias */
+#define LL_PWR_EnableVDDAMonitor1  LL_PWR_EnableVddAMonitor1
 /**
   * @brief  Disable the independent analog supply monitor 1.
-  * @rmtoll SVMCR    AVM1EN       LL_PWR_DisableVDDAMonitor1
+  * @rmtoll SVMCR    AVM1EN       LL_PWR_DisableVddAMonitor1
   * @retval None
   */
-__STATIC_INLINE void LL_PWR_DisableVDDAMonitor1(void)
+__STATIC_INLINE void LL_PWR_DisableVddAMonitor1(void)
 {
   CLEAR_BIT(PWR->SVMCR, PWR_SVMCR_AVM1EN);
 }
-
+/* alias */
+#define LL_PWR_DisableVDDAMonitor1  LL_PWR_DisableVddAMonitor1
 /**
   * @brief  Check if the independent analog supply monitor 1 is enabled.
-  * @rmtoll SVMCR    AVM1EN       LL_PWR_IsEnabledVDDAMonitor1
+  * @rmtoll SVMCR    AVM1EN       LL_PWR_IsEnabledVddAMonitor1
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_PWR_IsEnabledVDDAMonitor1(void)
+__STATIC_INLINE uint32_t LL_PWR_IsEnabledVddAMonitor1(void)
 {
   return ((READ_BIT(PWR->SVMCR, PWR_SVMCR_AVM1EN) == (PWR_SVMCR_AVM1EN)) ? 1UL : 0UL);
 }
-
+/* alias */
+#define LL_PWR_IsEnabledVDDAMonitor1  LL_PWR_IsEnabledVddAMonitor1
 /**
   * @brief  Enable the independent analog supply monitor 2.
-  * @rmtoll SVMCR    AVM2EN       LL_PWR_EnableVDDAMonitor2
+  * @rmtoll SVMCR    AVM2EN       LL_PWR_EnableVddAMonitor2
   * @retval None
   */
-__STATIC_INLINE void LL_PWR_EnableVDDAMonitor2(void)
+__STATIC_INLINE void LL_PWR_EnableVddAMonitor2(void)
 {
   SET_BIT(PWR->SVMCR, PWR_SVMCR_AVM2EN);
 }
-
+/* alias */
+#define LL_PWR_EnableVDDAMonitor2  LL_PWR_EnableVddAMonitor2
 /**
   * @brief  Disable the independent analog supply monitor 2.
-  * @rmtoll SVMCR    AVM2EN       LL_PWR_DisableVDDAMonitor2
+  * @rmtoll SVMCR    AVM2EN       LL_PWR_DisableVddAMonitor2
   * @retval None
   */
-__STATIC_INLINE void LL_PWR_DisableVDDAMonitor2(void)
+__STATIC_INLINE void LL_PWR_DisableVddAMonitor2(void)
 {
   CLEAR_BIT(PWR->SVMCR, PWR_SVMCR_AVM2EN);
 }
-
+/* alias */
+#define LL_PWR_DisableVDDAMonitor2  LL_PWR_DisableVddAMonitor2
 /**
   * @brief  Check if the independent analog supply monitor 2 is enabled.
-  * @rmtoll SVMCR    AVM2EN       LL_PWR_IsEnabledVDDAMonitor2
+  * @rmtoll SVMCR    AVM2EN       LL_PWR_IsEnabledVddAMonitor2
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_PWR_IsEnabledVDDAMonitor2(void)
+__STATIC_INLINE uint32_t LL_PWR_IsEnabledVddAMonitor2(void)
 {
   return ((READ_BIT(PWR->SVMCR, PWR_SVMCR_AVM2EN) == (PWR_SVMCR_AVM2EN)) ? 1UL : 0UL);
 }
-
+/* alias */
+#define LL_PWR_IsEnabledVDDAMonitor2  LL_PWR_IsEnabledVddAMonitor2
 /**
   * @brief  Enable the wake up pin_x.
   * @rmtoll WUCR1    WUPENx       LL_PWR_EnableWakeUpPin

@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32U535RBTx.xml, STM32U535RCTx.xml
  * STM32U535RETx.xml, STM32U545RETx.xml
- * CubeMX DB release 6.0.80
+ * CubeMX DB release 6.0.90
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

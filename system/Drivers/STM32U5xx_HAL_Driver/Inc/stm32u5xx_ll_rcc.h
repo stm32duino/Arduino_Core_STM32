@@ -778,6 +778,7 @@ typedef struct
   */
 
 
+#if defined(SAES)
 /** @defgroup RCC_LL_EC_SAES_CLKSOURCE  Peripheral SAES clock source selection
   * @{
   */
@@ -786,6 +787,7 @@ typedef struct
 /**
   * @}
   */
+#endif /* SAES */
 
 /** @defgroup RCC_LL_EC_USART Peripheral USARTx get clock source
   * @{
@@ -1007,6 +1009,7 @@ typedef struct
   */
 #endif /* HSPI */
 
+#if defined(SAES)
 /** @defgroup RCC_LL_EC_SAES  Peripheral SAES get clock source
   * @{
   */
@@ -1014,6 +1017,7 @@ typedef struct
 /**
   * @}
   */
+#endif /* SAES */
 
 #if defined(DSI)
 /** @defgroup RCC_LL_EC_DSI  Peripheral DSI get clock source
@@ -3216,6 +3220,8 @@ __STATIC_INLINE void LL_RCC_SetHSPIClockSource(uint32_t Source)
   MODIFY_REG(RCC->CCIPR2, RCC_CCIPR2_HSPISEL, Source);
 }
 #endif /* HSPI1 */
+
+#if defined(SAES)
 /**
   * @brief  Configure SAES clock source
   * @rmtoll CCIPR2        SAESSEL        LL_RCC_SetSAESClockSource
@@ -3228,6 +3234,7 @@ __STATIC_INLINE void LL_RCC_SetSAESClockSource(uint32_t Source)
 {
   MODIFY_REG(RCC->CCIPR2, RCC_CCIPR2_SAESSEL, Source);
 }
+#endif /* SAES */
 
 #if defined(DSI)
 /**
@@ -3685,6 +3692,7 @@ __STATIC_INLINE uint32_t LL_RCC_GetHSPIClockSource(uint32_t HSPIx)
   * @}
   */
 
+#if defined(SAES)
 /**
   * @brief  Get SAES kernel clock source
   * @rmtoll CCIPR2       SAESSEL      LL_RCC_GetSAESClockSource
@@ -3698,6 +3706,7 @@ __STATIC_INLINE uint32_t LL_RCC_GetSAESClockSource(uint32_t SAESx)
 {
   return (uint32_t)(READ_BIT(RCC->CCIPR2, SAESx));
 }
+#endif /* SAES */
 
 #if defined(DSI)
 /**
@@ -6071,7 +6080,9 @@ uint32_t    LL_RCC_GetADF1ClockFreq(uint32_t ADF1Source);
 uint32_t    LL_RCC_GetMDF1ClockFreq(uint32_t MDF1Source);
 uint32_t    LL_RCC_GetDAC1ClockFreq(uint32_t DAC1Source);
 uint32_t    LL_RCC_GetOCTOSPIClockFreq(uint32_t OCTOSPIxSource);
+#if defined(SAES)
 uint32_t    LL_RCC_GetSAESClockFreq(uint32_t SAESxSource);
+#endif /* SAES */
 uint32_t    LL_RCC_GetSPIClockFreq(uint32_t SPIxSource);
 #if defined(DSI)
 uint32_t    LL_RCC_GetDSIClockFreq(uint32_t DSIxSource);

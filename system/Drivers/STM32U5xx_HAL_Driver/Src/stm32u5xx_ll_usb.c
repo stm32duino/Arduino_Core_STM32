@@ -83,7 +83,8 @@ static HAL_StatusTypeDef USB_CoreReset(USB_OTG_GlobalTypeDef *USBx);
 HAL_StatusTypeDef USB_CoreInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef cfg)
 {
   HAL_StatusTypeDef ret;
-#if defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx)
+#if defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) \
+ || defined (STM32U5F7xx) || defined (STM32U5G7xx) || defined (STM32U5F9xx) || defined (STM32U5G9xx)
   if (cfg.phy_itface == USB_OTG_HS_EMBEDDED_PHY)
   {
     /* Init The UTMI Interface */
@@ -117,7 +118,8 @@ HAL_StatusTypeDef USB_CoreInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef c
     /* Deactivate the USB Transceiver */
     USBx->GCCFG &= ~(USB_OTG_GCCFG_PWRDWN);
   }
-#endif /* defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) */
+#endif /* defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) ||
+          defined (STM32U5F7xx) || defined (STM32U5G7xx) || defined (STM32U5F9xx) || defined (STM32U5G9xx) */
 
   return ret;
 }
@@ -297,10 +299,12 @@ HAL_StatusTypeDef USB_DevInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef cf
     USBx->DIEPTXF[i] = 0U;
   }
 
-#if defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx)
+#if defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) \
+ || defined (STM32U5F7xx) || defined (STM32U5G7xx) || defined (STM32U5F9xx) || defined (STM32U5G9xx)
   /* Disable USB PHY pulldown resistors */
   USBx->GCCFG &= ~USB_OTG_GCCFG_PULLDOWNEN;
-#endif /* defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) */
+#endif /* defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) ||
+          defined (STM32U5F7xx) || defined (STM32U5G7xx) || defined (STM32U5F9xx) || defined (STM32U5G9xx) */
 
   /* VBUS Sensing setup */
   if (cfg.vbus_sensing_enable == 0U)
@@ -311,21 +315,25 @@ HAL_StatusTypeDef USB_DevInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef cf
     USBx->GCCFG &= ~USB_OTG_GCCFG_VBDEN;
 
     /* B-peripheral session valid override enable */
-#if defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx)
+#if defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) \
+ || defined (STM32U5F7xx) || defined (STM32U5G7xx) || defined (STM32U5F9xx) || defined (STM32U5G9xx)
     USBx->GCCFG |= USB_OTG_GCCFG_VBVALEXTOEN;
     USBx->GCCFG |= USB_OTG_GCCFG_VBVALOVAL;
 #else
     USBx->GOTGCTL |= USB_OTG_GOTGCTL_BVALOEN;
     USBx->GOTGCTL |= USB_OTG_GOTGCTL_BVALOVAL;
-#endif /* defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) */
+#endif /* defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) ||
+          defined (STM32U5F7xx) || defined (STM32U5G7xx) || defined (STM32U5F9xx) || defined (STM32U5G9xx) */
   }
   else
   {
-#if defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx)
+#if defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) \
+ || defined (STM32U5F7xx) || defined (STM32U5G7xx) || defined (STM32U5F9xx) || defined (STM32U5G9xx)
     /* B-peripheral session valid override disable */
     USBx->GCCFG &= ~USB_OTG_GCCFG_VBVALEXTOEN;
     USBx->GCCFG &= ~USB_OTG_GCCFG_VBVALOVAL;
-#endif /* defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) */
+#endif /* defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) ||
+          defined (STM32U5F7xx) || defined (STM32U5G7xx) || defined (STM32U5F9xx) || defined (STM32U5G9xx) */
 
     /* Enable HW VBUS sensing */
     USBx->GCCFG |= USB_OTG_GCCFG_VBDEN;
@@ -334,7 +342,8 @@ HAL_StatusTypeDef USB_DevInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef cf
   /* Restart the Phy Clock */
   USBx_PCGCCTL = 0U;
 
-#if defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx)
+#if defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) \
+ || defined (STM32U5F7xx) || defined (STM32U5G7xx) || defined (STM32U5F9xx) || defined (STM32U5G9xx)
   if (cfg.phy_itface == USB_OTG_HS_EMBEDDED_PHY)
   {
     if (cfg.speed == USBD_HS_SPEED)
@@ -349,7 +358,8 @@ HAL_StatusTypeDef USB_DevInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef cf
     }
   }
   else
-#endif /* defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) */
+#endif /* defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) ||
+          defined (STM32U5F7xx) || defined (STM32U5G7xx) || defined (STM32U5F9xx) || defined (STM32U5G9xx) */
   {
     /* Set Core speed to Full speed mode */
     (void)USB_SetDevSpeed(USBx, USB_OTG_SPEED_FULL);
@@ -1206,7 +1216,7 @@ HAL_StatusTypeDef USB_DevDisconnect(USB_OTG_GlobalTypeDef *USBx)
   * @param  USBx  Selected device
   * @retval USB Global Interrupt status
   */
-uint32_t USB_ReadInterrupts(USB_OTG_GlobalTypeDef *USBx)
+uint32_t USB_ReadInterrupts(USB_OTG_GlobalTypeDef const *USBx)
 {
   uint32_t tmpreg;
 
@@ -1435,18 +1445,22 @@ HAL_StatusTypeDef USB_HostInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef c
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t i;
 
-#if defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx)
+#if defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) \
+ || defined (STM32U5F7xx) || defined (STM32U5G7xx) || defined (STM32U5F9xx) || defined (STM32U5G9xx)
   /* Enable USB PHY pulldown resistors */
   USBx->GCCFG |= USB_OTG_GCCFG_PULLDOWNEN;
-#endif /* defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) */
+#endif /* defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) ||
+          defined (STM32U5F7xx) || defined (STM32U5G7xx) || defined (STM32U5F9xx) || defined (STM32U5G9xx) */
 
   /* Restart the Phy Clock */
   USBx_PCGCCTL = 0U;
 
-#if defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx)
+#if defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) \
+ || defined (STM32U5F7xx) || defined (STM32U5G7xx) || defined (STM32U5F9xx) || defined (STM32U5G9xx)
   /* Disable VBUS override */
   USBx->GCCFG &= ~(USB_OTG_GCCFG_VBVALOVAL | USB_OTG_GCCFG_VBVALEXTOEN);
-#endif /* defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) */
+#endif /* defined (STM32U595xx) || defined (STM32U5A5xx) || defined (STM32U599xx) || defined (STM32U5A9xx) ||
+          defined (STM32U5F7xx) || defined (STM32U5G7xx) || defined (STM32U5F9xx) || defined (STM32U5G9xx) */
 
   /* Disable VBUS sensing */
   USBx->GCCFG &= ~(USB_OTG_GCCFG_VBDEN);
@@ -1628,7 +1642,7 @@ HAL_StatusTypeDef USB_DriveVbus(USB_OTG_GlobalTypeDef *USBx, uint8_t state)
   *            @arg HCD_SPEED_FULL: Full speed mode
   *            @arg HCD_SPEED_LOW: Low speed mode
   */
-uint32_t USB_GetHostSpeed(USB_OTG_GlobalTypeDef *USBx)
+uint32_t USB_GetHostSpeed(USB_OTG_GlobalTypeDef const *USBx)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
   __IO uint32_t hprt0 = 0U;
@@ -1642,7 +1656,7 @@ uint32_t USB_GetHostSpeed(USB_OTG_GlobalTypeDef *USBx)
   * @param  USBx  Selected device
   * @retval current frame number
   */
-uint32_t USB_GetCurrentFrame(USB_OTG_GlobalTypeDef *USBx)
+uint32_t USB_GetCurrentFrame(USB_OTG_GlobalTypeDef const *USBx)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
 
@@ -1813,22 +1827,27 @@ HAL_StatusTypeDef USB_HC_StartXfer(USB_OTG_GlobalTypeDef *USBx, USB_OTG_HCTypeDe
   uint16_t num_packets;
   uint16_t max_hc_pkt_count = HC_MAX_PKT_CNT;
 
-  if (((USBx->CID & (0x1U << 14)) != 0U) && (hc->speed == USBH_HS_SPEED))
+  if ((USBx->CID & (0x1U << 14)) != 0U)
   {
-    /* in DMA mode host Core automatically issues ping  in case of NYET/NAK */
-    if ((dma == 1U) && ((hc->ep_type == EP_TYPE_CTRL) || (hc->ep_type == EP_TYPE_BULK)))
+    /* in DMA mode host Core automatically issues ping in case of NYET/NAK */
+    if (dma == 1U)
     {
-      USBx_HC((uint32_t)ch_num)->HCINTMSK &= ~(USB_OTG_HCINTMSK_NYET |
-                                               USB_OTG_HCINTMSK_ACKM |
-                                               USB_OTG_HCINTMSK_NAKM);
-    }
+      if ((hc->ep_type == EP_TYPE_CTRL) || (hc->ep_type == EP_TYPE_BULK))
+      {
 
-    if ((dma == 0U) && (hc->do_ping == 1U))
+        USBx_HC((uint32_t)ch_num)->HCINTMSK &= ~(USB_OTG_HCINTMSK_NYET |
+                                                 USB_OTG_HCINTMSK_ACKM |
+                                                 USB_OTG_HCINTMSK_NAKM);
+      }
+    }
+    else
     {
-      (void)USB_DoPing(USBx, hc->ch_num);
-      return HAL_OK;
+      if ((hc->speed == USBH_HS_SPEED) && (hc->do_ping == 1U))
+      {
+        (void)USB_DoPing(USBx, hc->ch_num);
+        return HAL_OK;
+      }
     }
-
   }
 
   if (hc->do_ssplit == 1U)
@@ -2433,6 +2452,47 @@ HAL_StatusTypeDef USB_DevInit(USB_DRD_TypeDef *USBx, USB_DRD_CfgTypeDef cfg)
   return ret;
 }
 
+/**
+  * @brief  USB_FlushTxFifo : Flush a Tx FIFO
+  * @param  USBx : Selected device
+  * @param  num : FIFO number
+  *         This parameter can be a value from 1 to 15
+            15 means Flush all Tx FIFOs
+  * @retval HAL status
+  */
+HAL_StatusTypeDef USB_FlushTxFifo(USB_DRD_TypeDef const *USBx, uint32_t num)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(USBx);
+  UNUSED(num);
+
+  /* NOTE : - This function is not required by USB Device FS peripheral, it is used
+              only by USB OTG FS peripheral.
+            - This function is added to ensure compatibility across platforms.
+   */
+
+  return HAL_OK;
+}
+
+/**
+  * @brief  USB_FlushRxFifo : Flush Rx FIFO
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
+HAL_StatusTypeDef USB_FlushRxFifo(USB_DRD_TypeDef const *USBx)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(USBx);
+
+  /* NOTE : - This function is not required by USB Device FS peripheral, it is used
+              only by USB OTG FS peripheral.
+            - This function is added to ensure compatibility across platforms.
+   */
+
+  return HAL_OK;
+}
+
+
 #if defined (HAL_PCD_MODULE_ENABLED)
 /**
   * @brief  Activate and configure an endpoint
@@ -3012,7 +3072,7 @@ HAL_StatusTypeDef  USB_DevDisconnect(USB_DRD_TypeDef *USBx)
   * @param  USBx Selected device
   * @retval USB Global Interrupt status
   */
-uint32_t USB_ReadInterrupts(USB_DRD_TypeDef *USBx)
+uint32_t USB_ReadInterrupts(USB_DRD_TypeDef const *USBx)
 {
   uint32_t tmpreg;
 
@@ -3052,7 +3112,7 @@ HAL_StatusTypeDef USB_DeActivateRemoteWakeup(USB_DRD_TypeDef *USBx)
   * @param   wNBytes no. of bytes to be copied.
   * @retval None
   */
-void USB_WritePMA(USB_DRD_TypeDef *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes)
+void USB_WritePMA(USB_DRD_TypeDef const *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes)
 {
   UNUSED(USBx);
   uint32_t WrVal;
@@ -3109,7 +3169,7 @@ void USB_WritePMA(USB_DRD_TypeDef *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr
   * @param   wNBytes no. of bytes to be copied.
   * @retval None
   */
-void USB_ReadPMA(USB_DRD_TypeDef *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes)
+void USB_ReadPMA(USB_DRD_TypeDef const *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes)
 {
   UNUSED(USBx);
   uint32_t count;
@@ -3223,7 +3283,7 @@ HAL_StatusTypeDef USB_ResetPort(USB_DRD_TypeDef *USBx)
   *            @arg USB_DRD_SPEED_FS Full speed mode
   *            @arg USB_DRD_SPEED_LS Low speed mode
   */
-uint32_t USB_GetHostSpeed(USB_DRD_TypeDef *USBx)
+uint32_t USB_GetHostSpeed(USB_DRD_TypeDef const *USBx)
 {
   if ((USBx->ISTR & USB_ISTR_LS_DCONN) != 0U)
   {
@@ -3240,7 +3300,7 @@ uint32_t USB_GetHostSpeed(USB_DRD_TypeDef *USBx)
   * @param  USBx Selected device
   * @retval current frame number
   */
-uint32_t USB_GetCurrentFrame(USB_DRD_TypeDef *USBx)
+uint32_t USB_GetCurrentFrame(USB_DRD_TypeDef const *USBx)
 {
   return USBx->FNR & 0x7FFU;
 }

@@ -90,7 +90,6 @@
                                                              ((Channel)  == LL_DMA_CHANNEL_3)     || \
                                                              ((Channel)  == LL_DMA_CHANNEL_ALL))))
 
-
 #define IS_LL_GPDMA_CHANNEL_INSTANCE(INSTANCE, Channel)   (((INSTANCE) == GPDMA1)                && \
                                                            (((Channel)  == LL_DMA_CHANNEL_0)     || \
                                                             ((Channel)  == LL_DMA_CHANNEL_1)     || \
@@ -160,13 +159,19 @@
 #define IS_LL_DMA_BLKHW_REQUEST(__VALUE__)                (((__VALUE__) == LL_DMA_HWREQUEST_SINGLEBURST) || \
                                                            ((__VALUE__) == LL_DMA_HWREQUEST_BLK))
 
+#if defined (LL_GPDMA1_TRIGGER_JPEG_OFT)
+#define IS_LL_DMA_TRIGGER_SELECTION(__VALUE__)             ((__VALUE__) <= LL_GPDMA1_TRIGGER_JPEG_OFT)
+#else
 #define IS_LL_DMA_TRIGGER_SELECTION(__VALUE__)             ((__VALUE__) <= LL_GPDMA1_TRIGGER_ADC1_AWD1)
+#endif /* LL_GPDMA1_TRIGGER_JPEG_OFT */
 
-#if defined (LL_GPDMA1_REQUEST_ADC2)
+#if defined (LL_GPDMA1_REQUEST_JPEG_TX)
+#define IS_LL_DMA_REQUEST_SELECTION(__VALUE__)             ((__VALUE__) <= LL_GPDMA1_REQUEST_JPEG_TX)
+#elif defined (LL_GPDMA1_REQUEST_ADC2)
 #define IS_LL_DMA_REQUEST_SELECTION(__VALUE__)             ((__VALUE__) <= LL_GPDMA1_REQUEST_ADC2)
 #else
 #define IS_LL_DMA_REQUEST_SELECTION(__VALUE__)             ((__VALUE__) <= LL_GPDMA1_REQUEST_LPTIM3_UE)
-#endif /* LL_GPDMA1_REQUEST_ADC2 */
+#endif /* LL_GPDMA1_REQUEST_JPEG_TX */
 
 #define IS_LL_DMA_TRANSFER_EVENT_MODE(__VALUE__)          (((__VALUE__) == LL_DMA_TCEM_BLK_TRANSFER)         || \
                                                            ((__VALUE__) == LL_DMA_TCEM_RPT_BLK_TRANSFER)     || \
@@ -348,6 +353,7 @@ uint32_t LL_DMA_DeInit(DMA_TypeDef *DMAx, uint32_t Channel)
 
     /* Reset DMAx_Channely attribute */
     LL_DMA_DisableChannelPrivilege(DMAx, Channel);
+
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
     LL_DMA_DisableChannelSecure(DMAx, Channel);
 #endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
@@ -995,7 +1001,6 @@ uint32_t LL_DMA_CreateLinkNode(LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct, LL_DM
     reg_counter++;
   }
 
-
   /* Check if CBR1 register update is enabled */
   if ((DMA_InitNodeStruct->UpdateRegisters & LL_DMA_UPDATE_CBR1) == LL_DMA_UPDATE_CBR1)
   {
@@ -1028,7 +1033,6 @@ uint32_t LL_DMA_CreateLinkNode(LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct, LL_DM
     /* Increment counter for the next register */
     reg_counter++;
   }
-
 
   /* Check if CSAR register update is enabled */
   if ((DMA_InitNodeStruct->UpdateRegisters & LL_DMA_UPDATE_CSAR) == LL_DMA_UPDATE_CSAR)

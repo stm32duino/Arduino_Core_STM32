@@ -33,6 +33,7 @@ extern "C" {
 /** @addtogroup STM32U5xx_HAL_Driver
   * @{
   */
+#if defined (SDMMC1) || defined (SDMMC2)
 
 /** @defgroup SD SD
   * @brief SD HAL module driver
@@ -311,12 +312,12 @@ typedef void (*pSD_TransceiverCallbackTypeDef)(FlagStatus status);
 #define HAL_SD_ERROR_RX_OVERRUN               SDMMC_ERROR_RX_OVERRUN                  /*!< Receive FIFO overrun                                         */
 #define HAL_SD_ERROR_ADDR_MISALIGNED          SDMMC_ERROR_ADDR_MISALIGNED             /*!< Misaligned address                                           */
 #define HAL_SD_ERROR_BLOCK_LEN_ERR            SDMMC_ERROR_BLOCK_LEN_ERR               /*!< Transferred block length is not allowed for the card or the  */
-                                                                                      /*!< number of transferred bytes does not match the block length  */
+/*!< number of transferred bytes does not match the block length  */
 #define HAL_SD_ERROR_ERASE_SEQ_ERR            SDMMC_ERROR_ERASE_SEQ_ERR               /*!< An error in the sequence of erase command occurs             */
 #define HAL_SD_ERROR_BAD_ERASE_PARAM          SDMMC_ERROR_BAD_ERASE_PARAM             /*!< An invalid selection for erase groups                        */
 #define HAL_SD_ERROR_WRITE_PROT_VIOLATION     SDMMC_ERROR_WRITE_PROT_VIOLATION        /*!< Attempt to program a write protect block                     */
 #define HAL_SD_ERROR_LOCK_UNLOCK_FAILED       SDMMC_ERROR_LOCK_UNLOCK_FAILED          /*!< Sequence or password error has been detected in unlock       */
-                                                                                      /*!< command or if there was an attempt to access a locked card   */
+/*!< command or if there was an attempt to access a locked card   */
 #define HAL_SD_ERROR_COM_CRC_FAILED           SDMMC_ERROR_COM_CRC_FAILED              /*!< CRC check of the previous command failed                     */
 #define HAL_SD_ERROR_ILLEGAL_CMD              SDMMC_ERROR_ILLEGAL_CMD                 /*!< Command is not legal for the card state                      */
 #define HAL_SD_ERROR_CARD_ECC_FAILED          SDMMC_ERROR_CARD_ECC_FAILED             /*!< Card internal ECC was applied but failed to correct the data */
@@ -328,7 +329,7 @@ typedef void (*pSD_TransceiverCallbackTypeDef)(FlagStatus status);
 #define HAL_SD_ERROR_WP_ERASE_SKIP            SDMMC_ERROR_WP_ERASE_SKIP               /*!< Only partial address space was erased                        */
 #define HAL_SD_ERROR_CARD_ECC_DISABLED        SDMMC_ERROR_CARD_ECC_DISABLED           /*!< Command has been executed without using internal ECC         */
 #define HAL_SD_ERROR_ERASE_RESET              SDMMC_ERROR_ERASE_RESET                 /*!< Erase sequence was cleared before executing because an out   */
-                                                                                      /*!< of erase sequence command was received                       */
+/*!< of erase sequence command was received                       */
 #define HAL_SD_ERROR_AKE_SEQ_ERR              SDMMC_ERROR_AKE_SEQ_ERR                 /*!< Error in sequence of authentication                          */
 #define HAL_SD_ERROR_INVALID_VOLTRANGE        SDMMC_ERROR_INVALID_VOLTRANGE           /*!< Error in case of invalid voltage range                       */
 #define HAL_SD_ERROR_ADDR_OUT_OF_RANGE        SDMMC_ERROR_ADDR_OUT_OF_RANGE           /*!< Error when addressed block is out of range                   */
@@ -697,8 +698,8 @@ HAL_StatusTypeDef       HAL_SD_GetCardInfo(SD_HandleTypeDef *hsd, HAL_SD_CardInf
 /** @defgroup SD_Exported_Functions_Group5 Peripheral State and Errors functions
   * @{
   */
-HAL_SD_StateTypeDef HAL_SD_GetState(SD_HandleTypeDef *hsd);
-uint32_t            HAL_SD_GetError(SD_HandleTypeDef *hsd);
+HAL_SD_StateTypeDef HAL_SD_GetState(const SD_HandleTypeDef *hsd);
+uint32_t            HAL_SD_GetError(const SD_HandleTypeDef *hsd);
 /**
   * @}
   */
@@ -783,6 +784,7 @@ HAL_StatusTypeDef HAL_SD_Abort_IT(SD_HandleTypeDef *hsd);
 /**
   * @}
   */
+#endif /* SDMMC1 || SDMMC2 */
 
 /**
   * @}

@@ -183,7 +183,7 @@ HAL_StatusTypeDef HAL_NOR_Init(NOR_HandleTypeDef *hnor, FMC_NORSRAM_TimingTypeDe
 HAL_StatusTypeDef HAL_NOR_DeInit(NOR_HandleTypeDef *hnor);
 void HAL_NOR_MspInit(NOR_HandleTypeDef *hnor);
 void HAL_NOR_MspDeInit(NOR_HandleTypeDef *hnor);
-void HAL_NOR_MspWait(const NOR_HandleTypeDef *hnor, uint32_t Timeout);
+void HAL_NOR_MspWait(NOR_HandleTypeDef *hnor, uint32_t Timeout);
 /**
   * @}
   */
@@ -234,7 +234,7 @@ HAL_StatusTypeDef HAL_NOR_WriteOperation_Disable(NOR_HandleTypeDef *hnor);
 
 /* NOR State functions ********************************************************/
 HAL_NOR_StateTypeDef  HAL_NOR_GetState(const NOR_HandleTypeDef *hnor);
-HAL_NOR_StatusTypeDef HAL_NOR_GetStatus(const NOR_HandleTypeDef *hnor, uint32_t Address, uint32_t Timeout);
+HAL_NOR_StatusTypeDef HAL_NOR_GetStatus(NOR_HandleTypeDef *hnor, uint32_t Address, uint32_t Timeout);
 /**
   * @}
   */

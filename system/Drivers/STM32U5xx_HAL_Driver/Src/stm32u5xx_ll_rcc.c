@@ -1688,6 +1688,7 @@ uint32_t LL_RCC_GetOCTOSPIClockFreq(uint32_t OCTOSPIxSource)
   return octospi_frequency;
 }
 
+#if defined(SAES)
 /**
   * @brief  Return  SAESx clock frequency
   * @param  SAESxSource This parameter can be one of the following values:
@@ -1727,6 +1728,7 @@ uint32_t LL_RCC_GetSAESClockFreq(uint32_t SAESxSource)
 
   return rng_frequency;
 }
+#endif /* SAES */
 
 /**
   * @brief  Return FDCAN kernel clock frequency

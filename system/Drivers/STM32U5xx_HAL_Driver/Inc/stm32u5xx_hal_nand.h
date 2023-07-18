@@ -104,7 +104,6 @@ typedef struct
   FunctionalState ExtraCommandEnable;    /*!< NAND extra command needed for Page reading mode. This
                                               parameter is mandatory for some NAND parts after the read
                                               command (NAND_CMD_AREA_TRUE1) and before DATA reading sequence.
-                                              Example: Toshiba THTH58BYG3S0HBAI6.
                                               This parameter could be ENABLE or DISABLE
                                               Please check the Read Mode sequence in the NAND device datasheet */
 } NAND_DeviceConfigTypeDef;
