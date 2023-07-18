@@ -362,7 +362,7 @@ typedef struct
   * @{
   */
 
-ErrorStatus LL_LPTIM_DeInit(LPTIM_TypeDef *LPTIMx);
+ErrorStatus LL_LPTIM_DeInit(const LPTIM_TypeDef *LPTIMx);
 void LL_LPTIM_StructInit(LL_LPTIM_InitTypeDef *LPTIM_InitStruct);
 ErrorStatus LL_LPTIM_Init(LPTIM_TypeDef *LPTIMx, const LL_LPTIM_InitTypeDef *LPTIM_InitStruct);
 void LL_LPTIM_Disable(LPTIM_TypeDef *LPTIMx);

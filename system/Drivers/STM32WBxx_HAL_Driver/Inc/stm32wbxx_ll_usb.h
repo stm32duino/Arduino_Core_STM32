@@ -192,6 +192,9 @@ HAL_StatusTypeDef USB_EnableGlobalInt(USB_TypeDef *USBx);
 HAL_StatusTypeDef USB_DisableGlobalInt(USB_TypeDef *USBx);
 HAL_StatusTypeDef USB_SetCurrentMode(USB_TypeDef *USBx, USB_ModeTypeDef mode);
 
+HAL_StatusTypeDef USB_FlushRxFifo(USB_TypeDef const *USBx);
+HAL_StatusTypeDef USB_FlushTxFifo(USB_TypeDef const *USBx, uint32_t num);
+
 #if defined (HAL_PCD_MODULE_ENABLED)
 HAL_StatusTypeDef USB_ActivateEndpoint(USB_TypeDef *USBx, USB_EPTypeDef *ep);
 HAL_StatusTypeDef USB_DeactivateEndpoint(USB_TypeDef *USBx, USB_EPTypeDef *ep);
@@ -205,14 +208,14 @@ HAL_StatusTypeDef USB_SetDevAddress(USB_TypeDef *USBx, uint8_t address);
 HAL_StatusTypeDef USB_DevConnect(USB_TypeDef *USBx);
 HAL_StatusTypeDef USB_DevDisconnect(USB_TypeDef *USBx);
 HAL_StatusTypeDef USB_StopDevice(USB_TypeDef *USBx);
-uint32_t          USB_ReadInterrupts(USB_TypeDef *USBx);
+uint32_t          USB_ReadInterrupts(USB_TypeDef const *USBx);
 HAL_StatusTypeDef USB_ActivateRemoteWakeup(USB_TypeDef *USBx);
 HAL_StatusTypeDef USB_DeActivateRemoteWakeup(USB_TypeDef *USBx);
 
-void              USB_WritePMA(USB_TypeDef *USBx, uint8_t *pbUsrBuf,
+void              USB_WritePMA(USB_TypeDef const *USBx, uint8_t *pbUsrBuf,
                                uint16_t wPMABufAddr, uint16_t wNBytes);
 
-void              USB_ReadPMA(USB_TypeDef *USBx, uint8_t *pbUsrBuf,
+void              USB_ReadPMA(USB_TypeDef const *USBx, uint8_t *pbUsrBuf,
                               uint16_t wPMABufAddr, uint16_t wNBytes);
 
 /**

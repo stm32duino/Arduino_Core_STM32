@@ -126,11 +126,7 @@ static const uint8_t SHIFT_TAB_OISx[] =
 #define TIMx_OR_RMP_SHIFT 16U
 #define TIMx_OR_RMP_MASK  0x0000FFFFU
 #define TIM1_OR_RMP_MASK  ((TIM1_OR_ETR_ADC1_RMP | TIM1_OR_TI1_RMP) << TIMx_OR_RMP_SHIFT)
-#if defined(USB)
-#define TIM2_OR_RMP_MASK  ((TIM2_OR_TI4_RMP | TIM2_OR_ETR_RMP | TIM2_OR_ITR1_RMP) << TIMx_OR_RMP_SHIFT)
-#else
 #define TIM2_OR_RMP_MASK  ((TIM2_OR_TI4_RMP | TIM2_OR_ETR_RMP) << TIMx_OR_RMP_SHIFT)
-#endif
 #if defined(TIM16)
 #define TIM16_OR_RMP_MASK (TIM16_OR_TI1_RMP << TIMx_OR_RMP_SHIFT)
 #endif /* TIM16 */
@@ -972,11 +968,11 @@ typedef struct
 #define LL_TIM_ETR_FILTER_FDIV2_N8             (TIM_SMCR_ETF_2 | TIM_SMCR_ETF_0)                    /*!< fSAMPLING=fDTS/2, N=8 */
 #define LL_TIM_ETR_FILTER_FDIV4_N6             (TIM_SMCR_ETF_2 | TIM_SMCR_ETF_1)                    /*!< fSAMPLING=fDTS/4, N=6 */
 #define LL_TIM_ETR_FILTER_FDIV4_N8             (TIM_SMCR_ETF_2 | TIM_SMCR_ETF_1 | TIM_SMCR_ETF_0)   /*!< fSAMPLING=fDTS/4, N=8 */
-#define LL_TIM_ETR_FILTER_FDIV8_N6             TIM_SMCR_ETF_3                                       /*!< fSAMPLING=fDTS/8, N=8 */
-#define LL_TIM_ETR_FILTER_FDIV8_N8             (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_0)                    /*!< fSAMPLING=fDTS/16, N=5 */
-#define LL_TIM_ETR_FILTER_FDIV16_N5            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_1)                    /*!< fSAMPLING=fDTS/16, N=6 */
-#define LL_TIM_ETR_FILTER_FDIV16_N6            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_1 | TIM_SMCR_ETF_0)   /*!< fSAMPLING=fDTS/16, N=8 */
-#define LL_TIM_ETR_FILTER_FDIV16_N8            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_2)                    /*!< fSAMPLING=fDTS/16, N=5 */
+#define LL_TIM_ETR_FILTER_FDIV8_N6             TIM_SMCR_ETF_3                                       /*!< fSAMPLING=fDTS/8, N=6 */
+#define LL_TIM_ETR_FILTER_FDIV8_N8             (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_0)                    /*!< fSAMPLING=fDTS/16, N=8 */
+#define LL_TIM_ETR_FILTER_FDIV16_N5            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_1)                    /*!< fSAMPLING=fDTS/16, N=5 */
+#define LL_TIM_ETR_FILTER_FDIV16_N6            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_1 | TIM_SMCR_ETF_0)   /*!< fSAMPLING=fDTS/16, N=6 */
+#define LL_TIM_ETR_FILTER_FDIV16_N8            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_2)                    /*!< fSAMPLING=fDTS/16, N=8 */
 #define LL_TIM_ETR_FILTER_FDIV32_N5            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_2 | TIM_SMCR_ETF_0)   /*!< fSAMPLING=fDTS/32, N=5 */
 #define LL_TIM_ETR_FILTER_FDIV32_N6            (TIM_SMCR_ETF_3 | TIM_SMCR_ETF_2 | TIM_SMCR_ETF_1)   /*!< fSAMPLING=fDTS/32, N=6 */
 #define LL_TIM_ETR_FILTER_FDIV32_N8            TIM_SMCR_ETF                                         /*!< fSAMPLING=fDTS/32, N=8 */
@@ -1295,6 +1291,7 @@ typedef struct
 /**
 @endcond
   */
+
 /**
   * @}
   */
@@ -1423,11 +1420,6 @@ typedef struct
   */
 #define __LL_TIM_GET_ICPSC_RATIO(__ICPSC__)  \
   ((uint32_t)(0x01U << (((__ICPSC__) >> 16U) >> TIM_CCMR1_IC1PSC_Pos)))
-
-
-/**
-  * @}
-  */
 
 
 /**
@@ -2030,7 +2022,7 @@ __STATIC_INLINE void LL_TIM_CC_DisableChannel(TIM_TypeDef *TIMx, uint32_t Channe
   *         @arg @ref LL_TIM_CHANNEL_CH6
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_TIM_CC_IsEnabledChannel(TIM_TypeDef *TIMx, uint32_t Channels)
+__STATIC_INLINE uint32_t LL_TIM_CC_IsEnabledChannel(const TIM_TypeDef *TIMx, uint32_t Channels)
 {
   return ((READ_BIT(TIMx->CCER, Channels) == (Channels)) ? 1UL : 0UL);
 }
@@ -2371,7 +2363,7 @@ __STATIC_INLINE void LL_TIM_OC_DisableFast(TIM_TypeDef *TIMx, uint32_t Channel)
   *         @arg @ref LL_TIM_CHANNEL_CH6
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_TIM_OC_IsEnabledFast(TIM_TypeDef *TIMx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_TIM_OC_IsEnabledFast(const TIM_TypeDef *TIMx, uint32_t Channel)
 {
   uint8_t iChannel = TIM_GET_CHANNEL_INDEX(Channel);
   const __IO uint32_t *pReg = (__IO uint32_t *)((uint32_t)((uint32_t)(&TIMx->CCMR1) + OFFSET_TAB_CCMRx[iChannel]));
@@ -2447,7 +2439,7 @@ __STATIC_INLINE void LL_TIM_OC_DisablePreload(TIM_TypeDef *TIMx, uint32_t Channe
   *         @arg @ref LL_TIM_CHANNEL_CH6
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_TIM_OC_IsEnabledPreload(TIM_TypeDef *TIMx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_TIM_OC_IsEnabledPreload(const TIM_TypeDef *TIMx, uint32_t Channel)
 {
   uint8_t iChannel = TIM_GET_CHANNEL_INDEX(Channel);
   const __IO uint32_t *pReg = (__IO uint32_t *)((uint32_t)((uint32_t)(&TIMx->CCMR1) + OFFSET_TAB_CCMRx[iChannel]));
@@ -2532,7 +2524,7 @@ __STATIC_INLINE void LL_TIM_OC_DisableClear(TIM_TypeDef *TIMx, uint32_t Channel)
   *         @arg @ref LL_TIM_CHANNEL_CH6
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_TIM_OC_IsEnabledClear(TIM_TypeDef *TIMx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_TIM_OC_IsEnabledClear(const TIM_TypeDef *TIMx, uint32_t Channel)
 {
   uint8_t iChannel = TIM_GET_CHANNEL_INDEX(Channel);
   const __IO uint32_t *pReg = (__IO uint32_t *)((uint32_t)((uint32_t)(&TIMx->CCMR1) + OFFSET_TAB_CCMRx[iChannel]));
@@ -3081,7 +3073,7 @@ __STATIC_INLINE void LL_TIM_IC_DisableXORCombination(TIM_TypeDef *TIMx)
   * @param  TIMx Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_TIM_IC_IsEnabledXORCombination(TIM_TypeDef *TIMx)
+__STATIC_INLINE uint32_t LL_TIM_IC_IsEnabledXORCombination(const TIM_TypeDef *TIMx)
 {
   return ((READ_BIT(TIMx->CR2, TIM_CR2_TI1S) == (TIM_CR2_TI1S)) ? 1UL : 0UL);
 }
@@ -4993,7 +4985,7 @@ __STATIC_INLINE void LL_TIM_GenerateEvent_BRK2(TIM_TypeDef *TIMx)
   * @{
   */
 
-ErrorStatus LL_TIM_DeInit(TIM_TypeDef *TIMx);
+ErrorStatus LL_TIM_DeInit(const TIM_TypeDef *TIMx);
 void LL_TIM_StructInit(LL_TIM_InitTypeDef *TIM_InitStruct);
 ErrorStatus LL_TIM_Init(TIM_TypeDef *TIMx, const LL_TIM_InitTypeDef *TIM_InitStruct);
 void LL_TIM_OC_StructInit(LL_TIM_OC_InitTypeDef *TIM_OC_InitStruct);

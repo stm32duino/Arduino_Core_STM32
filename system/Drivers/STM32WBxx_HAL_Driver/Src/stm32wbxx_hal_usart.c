@@ -91,7 +91,7 @@
 
     [..]
     Use function HAL_USART_UnRegisterCallback() to reset a callback to the default
-    weak (surcharged) function.
+    weak function.
     HAL_USART_UnRegisterCallback() takes as parameters the HAL peripheral handle,
     and the Callback ID.
     This function allows to reset following callbacks:
@@ -109,10 +109,10 @@
 
     [..]
     By default, after the HAL_USART_Init() and when the state is HAL_USART_STATE_RESET
-    all callbacks are set to the corresponding weak (surcharged) functions:
+    all callbacks are set to the corresponding weak functions:
     examples HAL_USART_TxCpltCallback(), HAL_USART_RxHalfCpltCallback().
     Exception done for MspInit and MspDeInit functions that are respectively
-    reset to the legacy weak (surcharged) functions in the HAL_USART_Init()
+    reset to the legacy weak functions in the HAL_USART_Init()
     and HAL_USART_DeInit() only when these callbacks are null (not registered beforehand).
     If not, MspInit or MspDeInit are not null, the HAL_USART_Init() and HAL_USART_DeInit()
     keep and use the user MspInit/MspDeInit callbacks (registered beforehand).
@@ -129,7 +129,7 @@
     [..]
     When The compilation define USE_HAL_USART_REGISTER_CALLBACKS is set to 0 or
     not defined, the callback registration feature is not available
-    and weak (surcharged) callbacks are used.
+    and weak callbacks are used.
 
 
   @endverbatim
@@ -404,7 +404,7 @@ __weak void HAL_USART_MspDeInit(USART_HandleTypeDef *husart)
 #if (USE_HAL_USART_REGISTER_CALLBACKS == 1)
 /**
   * @brief  Register a User USART Callback
-  *         To be used instead of the weak predefined callback
+  *         To be used to override the weak predefined callback
   * @note   The HAL_USART_RegisterCallback() may be called before HAL_USART_Init() in HAL_USART_STATE_RESET
   *         to register callbacks for HAL_USART_MSPINIT_CB_ID and HAL_USART_MSPDEINIT_CB_ID
   * @param  husart usart handle
@@ -1850,9 +1850,6 @@ HAL_StatusTypeDef HAL_USART_DMAStop(USART_HandleTypeDef *husart)
         /* Set error code to DMA */
         husart->ErrorCode = HAL_USART_ERROR_DMA;
 
-        /* Process Unlocked */
-        __HAL_UNLOCK(husart);
-
         return HAL_TIMEOUT;
       }
     }
@@ -1866,9 +1863,6 @@ HAL_StatusTypeDef HAL_USART_DMAStop(USART_HandleTypeDef *husart)
       {
         /* Set error code to DMA */
         husart->ErrorCode = HAL_USART_ERROR_DMA;
-
-        /* Process Unlocked */
-        __HAL_UNLOCK(husart);
 
         return HAL_TIMEOUT;
       }
@@ -1919,9 +1913,6 @@ HAL_StatusTypeDef HAL_USART_Abort(USART_HandleTypeDef *husart)
           /* Set error code to DMA */
           husart->ErrorCode = HAL_USART_ERROR_DMA;
 
-          /* Process Unlocked */
-          __HAL_UNLOCK(husart);
-
           return HAL_TIMEOUT;
         }
       }
@@ -1946,9 +1937,6 @@ HAL_StatusTypeDef HAL_USART_Abort(USART_HandleTypeDef *husart)
         {
           /* Set error code to DMA */
           husart->ErrorCode = HAL_USART_ERROR_DMA;
-
-          /* Process Unlocked */
-          __HAL_UNLOCK(husart);
 
           return HAL_TIMEOUT;
         }
@@ -2136,7 +2124,7 @@ void HAL_USART_IRQHandler(USART_HandleTypeDef *husart)
   uint32_t errorcode;
 
   /* If no error occurs */
-  errorflags = (isrflags & (uint32_t)(USART_ISR_PE | USART_ISR_FE | USART_ISR_ORE | USART_ISR_NE | USART_ISR_UDR));
+  errorflags = (isrflags & (uint32_t)(USART_ISR_PE | USART_ISR_FE | USART_ISR_ORE | USART_ISR_NE | USART_ISR_RTOF | USART_ISR_UDR));
   if (errorflags == 0U)
   {
     /* USART in mode Receiver ---------------------------------------------------*/
@@ -2189,6 +2177,14 @@ void HAL_USART_IRQHandler(USART_HandleTypeDef *husart)
       __HAL_USART_CLEAR_IT(husart, USART_CLEAR_OREF);
 
       husart->ErrorCode |= HAL_USART_ERROR_ORE;
+    }
+
+    /* USART Receiver Timeout interrupt occurred ---------------------------------*/
+    if (((isrflags & USART_ISR_RTOF) != 0U) && ((cr1its & USART_CR1_RTOIE) != 0U))
+    {
+      __HAL_UART_CLEAR_FLAG(husart, UART_CLEAR_RTOF);
+
+      husart->ErrorCode |= HAL_USART_ERROR_RTO;
     }
 
     /* USART SPI slave underrun error interrupt occurred -------------------------*/
@@ -3248,6 +3244,7 @@ static void USART_RxISR_8BIT(USART_HandleTypeDef *husart)
   const HAL_USART_StateTypeDef state = husart->State;
   uint16_t txdatacount;
   uint16_t uhMask = husart->Mask;
+  uint32_t txftie;
 
   if ((state == HAL_USART_STATE_BUSY_RX) ||
       (state == HAL_USART_STATE_BUSY_TX_RX))
@@ -3267,7 +3264,8 @@ static void USART_RxISR_8BIT(USART_HandleTypeDef *husart)
       /* Clear RxISR function pointer */
       husart->RxISR = NULL;
 
-      /* txdatacount is a temporary variable for MISRAC2012-Rule-13.5 */
+      /* txftie and txdatacount are temporary variables for MISRAC2012-Rule-13.5 */
+      txftie = READ_BIT(husart->Instance->CR3, USART_CR3_TXFTIE);
       txdatacount = husart->TxXferCount;
 
       if (state == HAL_USART_STATE_BUSY_RX)
@@ -3291,6 +3289,7 @@ static void USART_RxISR_8BIT(USART_HandleTypeDef *husart)
 #endif /* USE_HAL_USART_REGISTER_CALLBACKS */
       }
       else if ((READ_BIT(husart->Instance->CR1, USART_CR1_TCIE) != USART_CR1_TCIE) &&
+               (txftie != USART_CR3_TXFTIE) &&
                (txdatacount == 0U))
       {
         /* TxRx process is completed, restore husart->State to Ready */
@@ -3337,6 +3336,7 @@ static void USART_RxISR_16BIT(USART_HandleTypeDef *husart)
   uint16_t txdatacount;
   uint16_t *tmp;
   uint16_t uhMask = husart->Mask;
+  uint32_t txftie;
 
   if ((state == HAL_USART_STATE_BUSY_RX) ||
       (state == HAL_USART_STATE_BUSY_TX_RX))
@@ -3357,7 +3357,8 @@ static void USART_RxISR_16BIT(USART_HandleTypeDef *husart)
       /* Clear RxISR function pointer */
       husart->RxISR = NULL;
 
-      /* txdatacount is a temporary variable for MISRAC2012-Rule-13.5 */
+      /* txftie and txdatacount are temporary variables for MISRAC2012-Rule-13.5 */
+      txftie = READ_BIT(husart->Instance->CR3, USART_CR3_TXFTIE);
       txdatacount = husart->TxXferCount;
 
       if (state == HAL_USART_STATE_BUSY_RX)
@@ -3381,6 +3382,7 @@ static void USART_RxISR_16BIT(USART_HandleTypeDef *husart)
 #endif /* USE_HAL_USART_REGISTER_CALLBACKS */
       }
       else if ((READ_BIT(husart->Instance->CR1, USART_CR1_TCIE) != USART_CR1_TCIE) &&
+               (txftie != USART_CR3_TXFTIE) &&
                (txdatacount == 0U))
       {
         /* TxRx process is completed, restore husart->State to Ready */
@@ -3428,6 +3430,7 @@ static void USART_RxISR_8BIT_FIFOEN(USART_HandleTypeDef *husart)
   uint16_t rxdatacount;
   uint16_t uhMask = husart->Mask;
   uint16_t nb_rx_data;
+  uint32_t txftie;
 
   /* Check that a Rx process is ongoing */
   if ((state == HAL_USART_STATE_BUSY_RX) ||
@@ -3453,7 +3456,8 @@ static void USART_RxISR_8BIT_FIFOEN(USART_HandleTypeDef *husart)
           /* Clear RxISR function pointer */
           husart->RxISR = NULL;
 
-          /* txdatacount is a temporary variable for MISRAC2012-Rule-13.5 */
+          /* txftie and txdatacount are temporary variables for MISRAC2012-Rule-13.5 */
+          txftie = READ_BIT(husart->Instance->CR3, USART_CR3_TXFTIE);
           txdatacount = husart->TxXferCount;
 
           if (state == HAL_USART_STATE_BUSY_RX)
@@ -3478,6 +3482,7 @@ static void USART_RxISR_8BIT_FIFOEN(USART_HandleTypeDef *husart)
 #endif /* USE_HAL_USART_REGISTER_CALLBACKS */
           }
           else if ((READ_BIT(husart->Instance->CR1, USART_CR1_TCIE) != USART_CR1_TCIE) &&
+                   (txftie != USART_CR3_TXFTIE) &&
                    (txdatacount == 0U))
           {
             /* TxRx process is completed, restore husart->State to Ready */
@@ -3559,6 +3564,7 @@ static void USART_RxISR_16BIT_FIFOEN(USART_HandleTypeDef *husart)
   uint16_t *tmp;
   uint16_t uhMask = husart->Mask;
   uint16_t nb_rx_data;
+  uint32_t txftie;
 
   /* Check that a Tx process is ongoing */
   if ((state == HAL_USART_STATE_BUSY_RX) ||
@@ -3585,7 +3591,8 @@ static void USART_RxISR_16BIT_FIFOEN(USART_HandleTypeDef *husart)
           /* Clear RxISR function pointer */
           husart->RxISR = NULL;
 
-          /* txdatacount is a temporary variable for MISRAC2012-Rule-13.5 */
+          /* txftie and txdatacount are temporary variables for MISRAC2012-Rule-13.5 */
+          txftie = READ_BIT(husart->Instance->CR3, USART_CR3_TXFTIE);
           txdatacount = husart->TxXferCount;
 
           if (state == HAL_USART_STATE_BUSY_RX)
@@ -3610,6 +3617,7 @@ static void USART_RxISR_16BIT_FIFOEN(USART_HandleTypeDef *husart)
 #endif /* USE_HAL_USART_REGISTER_CALLBACKS */
           }
           else if ((READ_BIT(husart->Instance->CR1, USART_CR1_TCIE) != USART_CR1_TCIE) &&
+                   (txftie != USART_CR3_TXFTIE) &&
                    (txdatacount == 0U))
           {
             /* TxRx process is completed, restore husart->State to Ready */
