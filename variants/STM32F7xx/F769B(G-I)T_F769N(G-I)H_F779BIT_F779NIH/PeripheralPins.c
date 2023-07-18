@@ -14,7 +14,7 @@
  * Automatically generated from STM32F769B(G-I)Tx.xml, STM32F769NGHx.xml
  * STM32F769NIHx.xml, STM32F779BITx.xml
  * STM32F779NIHx.xml
- * CubeMX DB release 6.0.80
+ * CubeMX DB release 6.0.90
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

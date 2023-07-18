@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32G473P(B-C-E)Ix.xml, STM32G474P(B-C-E)Ix.xml
  * STM32G483PEIx.xml, STM32G484PEIx.xml
- * CubeMX DB release 6.0.80
+ * CubeMX DB release 6.0.90
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
