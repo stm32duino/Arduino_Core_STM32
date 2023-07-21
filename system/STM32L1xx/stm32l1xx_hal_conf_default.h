@@ -167,22 +167,54 @@ in voltage and temperature.*/
   *        for possible callback identifiers defined in HAL_PPP_CallbackIDTypeDef
   *        for each PPP peripheral).
   */
+#if !defined(USE_HAL_ADC_REGISTER_CALLBACKS)
 #define USE_HAL_ADC_REGISTER_CALLBACKS        0U
+#endif
+#if !defined(USE_HAL_COMP_REGISTER_CALLBACKS)
 #define USE_HAL_COMP_REGISTER_CALLBACKS       0U
+#endif
+#if !defined(USE_HAL_DAC_REGISTER_CALLBACKS)
 #define USE_HAL_DAC_REGISTER_CALLBACKS        0U
+#endif
+#if !defined(USE_HAL_I2C_REGISTER_CALLBACKS)
 #define USE_HAL_I2C_REGISTER_CALLBACKS        0U
+#endif
+#if !defined(USE_HAL_I2S_REGISTER_CALLBACKS)
 #define USE_HAL_I2S_REGISTER_CALLBACKS        0U
+#endif
+#if !defined(USE_HAL_IRDA_REGISTER_CALLBACKS)
 #define USE_HAL_IRDA_REGISTER_CALLBACKS       0U
+#endif
+#if !defined(USE_HAL_OPAMP_REGISTER_CALLBACKS)
 #define USE_HAL_OPAMP_REGISTER_CALLBACKS      0U
+#endif
+#if !defined(USE_HAL_PCD_REGISTER_CALLBACKS)
 #define USE_HAL_PCD_REGISTER_CALLBACKS        0U
+#endif
+#if !defined(USE_HAL_RTC_REGISTER_CALLBACKS)
 #define USE_HAL_RTC_REGISTER_CALLBACKS        0U
+#endif
+#if !defined(USE_HAL_SDMMC_REGISTER_CALLBACKS)
 #define USE_HAL_SDMMC_REGISTER_CALLBACKS      0U
+#endif
+#if !defined(USE_HAL_SMARTCARD_REGISTER_CALLBACKS)
 #define USE_HAL_SMARTCARD_REGISTER_CALLBACKS  0U
+#endif
+#if !defined(USE_HAL_SPI_REGISTER_CALLBACKS)
 #define USE_HAL_SPI_REGISTER_CALLBACKS        0U
+#endif
+#if !defined(USE_HAL_TIM_REGISTER_CALLBACKS)
 #define USE_HAL_TIM_REGISTER_CALLBACKS        0U
+#endif
+#if !defined(USE_HAL_UART_REGISTER_CALLBACKS)
 #define USE_HAL_UART_REGISTER_CALLBACKS       0U
+#endif
+#if !defined(USE_HAL_USART_REGISTER_CALLBACKS)
 #define USE_HAL_USART_REGISTER_CALLBACKS      0U
+#endif
+#if !defined(USE_HAL_WWDG_REGISTER_CALLBACKS)
 #define USE_HAL_WWDG_REGISTER_CALLBACKS       0U
+#endif
 
 /* ################## SPI peripheral configuration ########################## */
 

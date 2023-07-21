@@ -89,15 +89,33 @@
 /**
   * @brief This is the list of modules where register callback can be used
   */
+#if !defined(USE_HAL_ADC_REGISTER_CALLBACKS)
 #define USE_HAL_ADC_REGISTER_CALLBACKS    0u
+#endif
+#if !defined(USE_HAL_CEC_REGISTER_CALLBACKS)
 #define USE_HAL_CEC_REGISTER_CALLBACKS    0u
+#endif
+#if !defined(USE_HAL_DAC_REGISTER_CALLBACKS)
 #define USE_HAL_DAC_REGISTER_CALLBACKS    0u
+#endif
+#if !defined(USE_HAL_I2C_REGISTER_CALLBACKS)
 #define USE_HAL_I2C_REGISTER_CALLBACKS    0u
+#endif
+#if !defined(USE_HAL_RNG_REGISTER_CALLBACKS)
 #define USE_HAL_RNG_REGISTER_CALLBACKS    0u
+#endif
+#if !defined(USE_HAL_SPI_REGISTER_CALLBACKS)
 #define USE_HAL_SPI_REGISTER_CALLBACKS    0u
+#endif
+#if !defined(USE_HAL_UART_REGISTER_CALLBACKS)
 #define USE_HAL_UART_REGISTER_CALLBACKS   0u
+#endif
+#if !defined(USE_HAL_USART_REGISTER_CALLBACKS)
 #define USE_HAL_USART_REGISTER_CALLBACKS  0u
+#endif
+#if !defined(USE_HAL_WWDG_REGISTER_CALLBACKS)
 #define USE_HAL_WWDG_REGISTER_CALLBACKS   0u
+#endif
 
 /* ################## SPI peripheral configuration ########################## */
 
