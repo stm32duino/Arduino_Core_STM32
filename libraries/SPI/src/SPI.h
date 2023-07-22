@@ -17,6 +17,7 @@
 extern "C" {
 #include "utility/spi_com.h"
 }
+#include "stm32yyxx_ll_spi.h"
 
 // SPI_HAS_TRANSACTION means SPI has
 //   - beginTransaction()
@@ -178,19 +179,12 @@ class SPIClass {
     virtual void transfer(byte _pin, void *_bufout, void *_bufin, size_t _count, SPITransferMode _mode = SPI_LAST);
 
     // Transfer functions when user controls himself the CS pin.
-    byte transfer(uint8_t _data, SPITransferMode _mode = SPI_LAST)
-    {
-      return transfer(CS_PIN_CONTROLLED_BY_USER, _data, _mode);
-    }
+    virtual uint8_t transfer(uint8_t data);
+    virtual void transfer(void *buf, size_t count);
 
     uint16_t transfer16(uint16_t _data, SPITransferMode _mode = SPI_LAST)
     {
       return transfer16(CS_PIN_CONTROLLED_BY_USER, _data, _mode);
-    }
-
-    void transfer(void *_buf, size_t _count, SPITransferMode _mode = SPI_LAST)
-    {
-      transfer(CS_PIN_CONTROLLED_BY_USER, _buf, _count, _mode);
     }
 
     void transfer(void *_bufout, void *_bufin, size_t _count, SPITransferMode _mode = SPI_LAST)

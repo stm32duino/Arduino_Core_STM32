@@ -399,6 +399,57 @@ void SPIClass::transfer(byte _pin, void *_bufout, void *_bufin, size_t _count, S
 }
 
 /**
+  * @brief  Transfer one byte on the SPI bus.
+  *         begin() or beginTransaction() must be called at least once before.
+  * @param  data: byte to send.
+  * @return byte received from the slave.
+  */
+uint8_t SPIClass::transfer(uint8_t data)
+{
+#if defined(SPI_SR_TXP)
+    while (!LL_SPI_IsActiveFlag_TXP(_spi.handle.Instance));
+#else
+    while (!LL_SPI_IsActiveFlag_TXE(_spi.handle.Instance));
+#endif
+    LL_SPI_TransmitData8(_spi.handle.Instance, data);
+
+#if defined(SPI_SR_RXP)
+      while (!LL_SPI_IsActiveFlag_RXP(_spi.handle.Instance));
+#else
+      while (!LL_SPI_IsActiveFlag_RXNE(_spi.handle.Instance));
+#endif
+      return LL_SPI_ReceiveData8(_spi.handle.Instance);
+}
+
+/**
+  * @brief  Transfer several bytes. Only one buffer used to send and receive data.
+  *         begin() or beginTransaction() must be called at least once before.
+  * @param  buf: pointer to the bytes to send. The bytes received are copy in
+  *         this buffer.
+  * @param  count: number of bytes to send/receive.
+  */
+void SPIClass::transfer(void *buf, size_t count)
+{
+    uint8_t *buffer = (uint8_t *) buf;
+    for (size_t index = 0; index < count; index++)
+    {
+#if defined(SPI_SR_TXP)
+        while (!LL_SPI_IsActiveFlag_TXP(_spi.handle.Instance));
+#else
+        while (!LL_SPI_IsActiveFlag_TXE(_spi.handle.Instance));
+#endif
+        LL_SPI_TransmitData8(_spi.handle.Instance, buffer[index]);
+
+#if defined(SPI_SR_RXP)
+        while (!LL_SPI_IsActiveFlag_RXP(_spi.handle.Instance));
+#else
+        while (!LL_SPI_IsActiveFlag_RXNE(_spi.handle.Instance));
+#endif
+        buffer[index] = LL_SPI_ReceiveData8(_spi.handle.Instance);
+    }
+}
+
+/**
   * @brief  Not implemented.
   */
 void SPIClass::usingInterrupt(uint8_t interruptNumber)
