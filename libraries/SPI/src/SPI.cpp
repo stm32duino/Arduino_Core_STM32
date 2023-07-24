@@ -407,18 +407,18 @@ void SPIClass::transfer(byte _pin, void *_bufout, void *_bufin, size_t _count, S
 uint8_t SPIClass::transfer(uint8_t data)
 {
 #if defined(SPI_SR_TXP)
-    while (!LL_SPI_IsActiveFlag_TXP(_spi.handle.Instance));
+  while (!LL_SPI_IsActiveFlag_TXP(_spi.handle.Instance));
 #else
-    while (!LL_SPI_IsActiveFlag_TXE(_spi.handle.Instance));
+  while (!LL_SPI_IsActiveFlag_TXE(_spi.handle.Instance));
 #endif
-    LL_SPI_TransmitData8(_spi.handle.Instance, data);
+  LL_SPI_TransmitData8(_spi.handle.Instance, data);
 
 #if defined(SPI_SR_RXP)
-      while (!LL_SPI_IsActiveFlag_RXP(_spi.handle.Instance));
+  while (!LL_SPI_IsActiveFlag_RXP(_spi.handle.Instance));
 #else
-      while (!LL_SPI_IsActiveFlag_RXNE(_spi.handle.Instance));
+  while (!LL_SPI_IsActiveFlag_RXNE(_spi.handle.Instance));
 #endif
-      return LL_SPI_ReceiveData8(_spi.handle.Instance);
+  return LL_SPI_ReceiveData8(_spi.handle.Instance);
 }
 
 /**
@@ -430,23 +430,22 @@ uint8_t SPIClass::transfer(uint8_t data)
   */
 void SPIClass::transfer(void *buf, size_t count)
 {
-    uint8_t *buffer = (uint8_t *) buf;
-    for (size_t index = 0; index < count; index++)
-    {
+  uint8_t *buffer = (uint8_t *) buf;
+  for (size_t index = 0; index < count; index++) {
 #if defined(SPI_SR_TXP)
-        while (!LL_SPI_IsActiveFlag_TXP(_spi.handle.Instance));
+    while (!LL_SPI_IsActiveFlag_TXP(_spi.handle.Instance));
 #else
-        while (!LL_SPI_IsActiveFlag_TXE(_spi.handle.Instance));
+    while (!LL_SPI_IsActiveFlag_TXE(_spi.handle.Instance));
 #endif
-        LL_SPI_TransmitData8(_spi.handle.Instance, buffer[index]);
+    LL_SPI_TransmitData8(_spi.handle.Instance, buffer[index]);
 
 #if defined(SPI_SR_RXP)
-        while (!LL_SPI_IsActiveFlag_RXP(_spi.handle.Instance));
+    while (!LL_SPI_IsActiveFlag_RXP(_spi.handle.Instance));
 #else
-        while (!LL_SPI_IsActiveFlag_RXNE(_spi.handle.Instance));
+    while (!LL_SPI_IsActiveFlag_RXNE(_spi.handle.Instance));
 #endif
-        buffer[index] = LL_SPI_ReceiveData8(_spi.handle.Instance);
-    }
+    buffer[index] = LL_SPI_ReceiveData8(_spi.handle.Instance);
+  }
 }
 
 /**
