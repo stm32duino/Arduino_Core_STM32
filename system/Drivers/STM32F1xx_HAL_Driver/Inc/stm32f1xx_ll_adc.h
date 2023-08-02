@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -313,8 +312,8 @@ typedef struct
 {
   uint32_t TriggerSource;               /*!< Set ADC group regular conversion trigger source: internal (SW start) or from external IP (timer event, external interrupt line).
                                              This parameter can be a value of @ref ADC_LL_EC_REG_TRIGGER_SOURCE
-                                             @note On this STM32 serie, external trigger is set with trigger polarity: rising edge
-                                                   (only trigger polarity available on this STM32 serie).
+                                             @note On this STM32 series, external trigger is set with trigger polarity: rising edge
+                                                   (only trigger polarity available on this STM32 series).
 
                                              This feature can be modified afterwards using unitary function @ref LL_ADC_REG_SetTriggerSource(). */
 
@@ -367,8 +366,8 @@ typedef struct
 {
   uint32_t TriggerSource;               /*!< Set ADC group injected conversion trigger source: internal (SW start) or from external IP (timer event, external interrupt line).
                                              This parameter can be a value of @ref ADC_LL_EC_INJ_TRIGGER_SOURCE
-                                             @note On this STM32 serie, external trigger is set with trigger polarity: rising edge
-                                                   (only trigger polarity available on this STM32 serie).
+                                             @note On this STM32 series, external trigger is set with trigger polarity: rising edge
+                                                   (only trigger polarity available on this STM32 series).
 
                                              This feature can be modified afterwards using unitary function @ref LL_ADC_INJ_SetTriggerSource(). */
 
@@ -408,15 +407,15 @@ typedef struct
   * @{
   */
 #define LL_ADC_FLAG_STRT                   ADC_SR_STRT        /*!< ADC flag ADC group regular conversion start */
-#define LL_ADC_FLAG_EOS                    ADC_SR_EOC         /*!< ADC flag ADC group regular end of sequence conversions (Note: on this STM32 serie, there is no flag ADC group regular end of unitary conversion. Flag noted as "EOC" is corresponding to flag "EOS" in other STM32 families) */
+#define LL_ADC_FLAG_EOS                    ADC_SR_EOC         /*!< ADC flag ADC group regular end of sequence conversions (Note: on this STM32 series, there is no flag ADC group regular end of unitary conversion. Flag noted as "EOC" is corresponding to flag "EOS" in other STM32 families) */
 #define LL_ADC_FLAG_JSTRT                  ADC_SR_JSTRT       /*!< ADC flag ADC group injected conversion start */
-#define LL_ADC_FLAG_JEOS                   ADC_SR_JEOC        /*!< ADC flag ADC group injected end of sequence conversions (Note: on this STM32 serie, there is no flag ADC group injected end of unitary conversion. Flag noted as "JEOC" is corresponding to flag "JEOS" in other STM32 families) */
+#define LL_ADC_FLAG_JEOS                   ADC_SR_JEOC        /*!< ADC flag ADC group injected end of sequence conversions (Note: on this STM32 series, there is no flag ADC group injected end of unitary conversion. Flag noted as "JEOC" is corresponding to flag "JEOS" in other STM32 families) */
 #define LL_ADC_FLAG_AWD1                   ADC_SR_AWD         /*!< ADC flag ADC analog watchdog 1 */
 #if defined(ADC_MULTIMODE_SUPPORT)
-#define LL_ADC_FLAG_EOS_MST                ADC_SR_EOC         /*!< ADC flag ADC multimode master group regular end of sequence conversions (Note: on this STM32 serie, there is no flag ADC group regular end of unitary conversion. Flag noted as "EOC" is corresponding to flag "EOS" in other STM32 families) */
-#define LL_ADC_FLAG_EOS_SLV                ADC_SR_EOC         /*!< ADC flag ADC multimode slave group regular end of sequence conversions (Note: on this STM32 serie, there is no flag ADC group regular end of unitary conversion. Flag noted as "EOC" is corresponding to flag "EOS" in other STM32 families) (on STM32F1, this flag must be read from ADC instance slave: ADC2) */
-#define LL_ADC_FLAG_JEOS_MST               ADC_SR_JEOC        /*!< ADC flag ADC multimode master group injected end of sequence conversions (Note: on this STM32 serie, there is no flag ADC group injected end of unitary conversion. Flag noted as "JEOC" is corresponding to flag "JEOS" in other STM32 families) */
-#define LL_ADC_FLAG_JEOS_SLV               ADC_SR_JEOC        /*!< ADC flag ADC multimode slave group injected end of sequence conversions (Note: on this STM32 serie, there is no flag ADC group injected end of unitary conversion. Flag noted as "JEOC" is corresponding to flag "JEOS" in other STM32 families) (on STM32F1, this flag must be read from ADC instance slave: ADC2) */
+#define LL_ADC_FLAG_EOS_MST                ADC_SR_EOC         /*!< ADC flag ADC multimode master group regular end of sequence conversions (Note: on this STM32 series, there is no flag ADC group regular end of unitary conversion. Flag noted as "EOC" is corresponding to flag "EOS" in other STM32 families) */
+#define LL_ADC_FLAG_EOS_SLV                ADC_SR_EOC         /*!< ADC flag ADC multimode slave group regular end of sequence conversions (Note: on this STM32 series, there is no flag ADC group regular end of unitary conversion. Flag noted as "EOC" is corresponding to flag "EOS" in other STM32 families) (on STM32F1, this flag must be read from ADC instance slave: ADC2) */
+#define LL_ADC_FLAG_JEOS_MST               ADC_SR_JEOC        /*!< ADC flag ADC multimode master group injected end of sequence conversions (Note: on this STM32 series, there is no flag ADC group injected end of unitary conversion. Flag noted as "JEOC" is corresponding to flag "JEOS" in other STM32 families) */
+#define LL_ADC_FLAG_JEOS_SLV               ADC_SR_JEOC        /*!< ADC flag ADC multimode slave group injected end of sequence conversions (Note: on this STM32 series, there is no flag ADC group injected end of unitary conversion. Flag noted as "JEOC" is corresponding to flag "JEOS" in other STM32 families) (on STM32F1, this flag must be read from ADC instance slave: ADC2) */
 #define LL_ADC_FLAG_AWD1_MST               ADC_SR_AWD         /*!< ADC flag ADC multimode master analog watchdog 1 of the ADC master */
 #define LL_ADC_FLAG_AWD1_SLV               ADC_SR_AWD         /*!< ADC flag ADC multimode slave analog watchdog 1 of the ADC slave (on STM32F1, this flag must be read from ADC instance slave: ADC2) */
 #endif
@@ -428,8 +427,8 @@ typedef struct
   * @brief    IT defines which can be used with LL_ADC_ReadReg and  LL_ADC_WriteReg functions
   * @{
   */
-#define LL_ADC_IT_EOS                      ADC_CR1_EOCIE      /*!< ADC interruption ADC group regular end of sequence conversions (Note: on this STM32 serie, there is no flag ADC group regular end of unitary conversion. Flag noted as "EOC" is corresponding to flag "EOS" in other STM32 families) */
-#define LL_ADC_IT_JEOS                     ADC_CR1_JEOCIE     /*!< ADC interruption ADC group injected end of sequence conversions (Note: on this STM32 serie, there is no flag ADC group injected end of unitary conversion. Flag noted as "JEOC" is corresponding to flag "JEOS" in other STM32 families) */
+#define LL_ADC_IT_EOS                      ADC_CR1_EOCIE      /*!< ADC interruption ADC group regular end of sequence conversions (Note: on this STM32 series, there is no flag ADC group regular end of unitary conversion. Flag noted as "EOC" is corresponding to flag "EOS" in other STM32 families) */
+#define LL_ADC_IT_JEOS                     ADC_CR1_JEOCIE     /*!< ADC interruption ADC group injected end of sequence conversions (Note: on this STM32 series, there is no flag ADC group injected end of unitary conversion. Flag noted as "JEOC" is corresponding to flag "JEOS" in other STM32 families) */
 #define LL_ADC_IT_AWD1                     ADC_CR1_AWDIE      /*!< ADC interruption ADC analog watchdog 1 */
 /**
   * @}
@@ -457,7 +456,7 @@ typedef struct
 /*       If they are not listed below, they do not require any specific       */
 /*       path enable. In this case, Access to measurement path is done        */
 /*       only by selecting the corresponding ADC internal channel.            */
-#define LL_ADC_PATH_INTERNAL_NONE          0x00000000U            /*!< ADC measurement pathes all disabled */
+#define LL_ADC_PATH_INTERNAL_NONE          0x00000000U            /*!< ADC measurement paths all disabled */
 #define LL_ADC_PATH_INTERNAL_VREFINT       (ADC_CR2_TSVREFE)      /*!< ADC measurement path to internal channel VrefInt */
 #define LL_ADC_PATH_INTERNAL_TEMPSENSOR    (ADC_CR2_TSVREFE)      /*!< ADC measurement path to internal channel temperature sensor */
 /**
@@ -476,7 +475,7 @@ typedef struct
   * @{
   */
 #define LL_ADC_DATA_ALIGN_RIGHT            0x00000000U            /*!< ADC conversion data alignment: right aligned (alignment on data register LSB bit 0)*/
-#define LL_ADC_DATA_ALIGN_LEFT             (ADC_CR2_ALIGN)        /*!< ADC conversion data alignment: left aligned (aligment on data register MSB bit 15)*/
+#define LL_ADC_DATA_ALIGN_LEFT             (ADC_CR2_ALIGN)        /*!< ADC conversion data alignment: left aligned (alignment on data register MSB bit 15)*/
 /**
   * @}
   */
@@ -889,7 +888,7 @@ typedef struct
 /*       configuration (system clock versus ADC clock),                       */
 /*       and therefore must be defined in user application.                   */
 /*       Indications for estimation of ADC timeout delays, for this           */
-/*       STM32 serie:                                                         */
+/*       STM32 series:                                                         */
 /*       - ADC enable time: maximum delay is 1us                              */
 /*         (refer to device datasheet, parameter "tSTAB")                     */
 /*       - ADC conversion time: duration depending on ADC clock and ADC       */
@@ -903,7 +902,7 @@ typedef struct
 #define LL_ADC_DELAY_TEMPSENSOR_STAB_US       (10U)  /*!< Delay for internal voltage reference stabilization time */
 
 /* Delay required between ADC disable and ADC calibration start.              */
-/* Note: On this STM32 serie, before starting a calibration,                  */
+/* Note: On this STM32 series, before starting a calibration,                  */
 /*       ADC must be disabled.                                                */
 /*       A minimum number of ADC clock cycles are required                    */
 /*       between ADC disable state and calibration start.                     */
@@ -915,7 +914,7 @@ typedef struct
 #define LL_ADC_DELAY_DISABLE_CALIB_ADC_CYCLES  (2U)  /*!< Delay required between ADC disable and ADC calibration start */
 
 /* Delay required between end of ADC Enable and the start of ADC calibration. */
-/* Note: On this STM32 serie, a minimum number of ADC clock cycles            */
+/* Note: On this STM32 series, a minimum number of ADC clock cycles            */
 /*       are required between the end of ADC enable and the start of ADC      */
 /*       calibration.                                                         */
 /*       Wait time can be computed in user application by waiting for the     */
@@ -1320,7 +1319,7 @@ typedef struct
   * @param  __AWD_THRESHOLD__ Value between Min_Data=0x000 and Max_Data=0xFFF
   * @retval Value between Min_Data=0x000 and Max_Data=0xFFF
   */
-/* Note: On this STM32 serie, ADC is fixed to resolution 12 bits.            */
+/* Note: On this STM32 series, ADC is fixed to resolution 12 bits.            */
 /*       This macro has been kept anyway for compatibility with other         */
 /*       STM32 families featuring different ADC resolutions.                  */
 #define __LL_ADC_ANALOGWD_SET_THRESHOLD_RESOLUTION(__ADC_RESOLUTION__, __AWD_THRESHOLD__) \
@@ -1342,7 +1341,7 @@ typedef struct
   * @param  __AWD_THRESHOLD_12_BITS__ Value between Min_Data=0x000 and Max_Data=0xFFF
   * @retval Value between Min_Data=0x000 and Max_Data=0xFFF
   */
-/* Note: On this STM32 serie, ADC is fixed to resolution 12 bits.            */
+/* Note: On this STM32 series, ADC is fixed to resolution 12 bits.            */
 /*       This macro has been kept anyway for compatibility with other         */
 /*       STM32 families featuring different ADC resolutions.                  */
 #define __LL_ADC_ANALOGWD_GET_THRESHOLD_RESOLUTION(__ADC_RESOLUTION__, __AWD_THRESHOLD_12_BITS__) \
@@ -1782,8 +1781,8 @@ __STATIC_INLINE uint32_t LL_ADC_GetSequencersScanMode(ADC_TypeDef *ADCx)
   * @brief  Set ADC group regular conversion trigger source:
   *         internal (SW start) or from external IP (timer event,
   *         external interrupt line).
-  * @note   On this STM32 serie, external trigger is set with trigger polarity:
-  *         rising edge (only trigger polarity available on this STM32 serie).
+  * @note   On this STM32 series, external trigger is set with trigger polarity:
+  *         rising edge (only trigger polarity available on this STM32 series).
   * @note   Availability of parameters of trigger sources from timer
   *         depends on timers availability on the selected device.
   * @rmtoll CR2      EXTSEL         LL_ADC_REG_SetTriggerSource
@@ -1814,7 +1813,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetSequencersScanMode(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_REG_SetTriggerSource(ADC_TypeDef *ADCx, uint32_t TriggerSource)
 {
-/* Note: On this STM32 serie, ADC group regular external trigger edge        */
+/* Note: On this STM32 series, ADC group regular external trigger edge        */
 /*       is used to perform a ADC conversion start.                           */
 /*       This function does not set external trigger edge.                    */
 /*       This feature is set using function                                   */
@@ -1908,7 +1907,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_IsTriggerSourceSWStart(ADC_TypeDef *ADCx)
   *             highest channel number).
   *           Sequencer ranks are selected using
   *           function "LL_ADC_REG_SetSequencerChannels()".
-  * @note   On this STM32 serie, group regular sequencer configuration
+  * @note   On this STM32 series, group regular sequencer configuration
   *         is conditioned to ADC instance sequencer mode.
   *         If ADC instance sequencer mode is disabled, sequencers of
   *         all groups (group regular, group injected) can be configured
@@ -1969,7 +1968,7 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerLength(ADC_TypeDef *ADCx, uint32_t S
   *             highest channel number).
   *           Sequencer ranks are selected using
   *           function "LL_ADC_REG_SetSequencerChannels()".
-  * @note   On this STM32 serie, group regular sequencer configuration
+  * @note   On this STM32 series, group regular sequencer configuration
   *         is conditioned to ADC instance sequencer mode.
   *         If ADC instance sequencer mode is disabled, sequencers of
   *         all groups (group regular, group injected) can be configured
@@ -2059,13 +2058,13 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerDiscont(ADC_TypeDef *ADCx)
   * @note   This function performs configuration of:
   *         - Channels ordering into each rank of scan sequence:
   *           whatever channel can be placed into whatever rank.
-  * @note   On this STM32 serie, ADC group regular sequencer is
+  * @note   On this STM32 series, ADC group regular sequencer is
   *         fully configurable: sequencer length and each rank
   *         affectation to a channel are configurable.
   *         Refer to description of function @ref LL_ADC_REG_SetSequencerLength().
   * @note   Depending on devices and packages, some channels may not be available.
   *         Refer to device datasheet for channels availability.
-  * @note   On this STM32 serie, to measure internal channels (VrefInt,
+  * @note   On this STM32 series, to measure internal channels (VrefInt,
   *         TempSensor, ...), measurement paths to internal channels must be
   *         enabled separately.
   *         This can be done using function @ref LL_ADC_SetCommonPathInternalCh().
@@ -2144,7 +2143,7 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
 /**
   * @brief  Get ADC group regular sequence: channel on the selected
   *         scan sequence rank.
-  * @note   On this STM32 serie, ADC group regular sequencer is
+  * @note   On this STM32 series, ADC group regular sequencer is
   *         fully configurable: sequencer length and each rank
   *         affectation to a channel are configurable.
   *         Refer to description of function @ref LL_ADC_REG_SetSequencerLength().
@@ -2344,8 +2343,8 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetDMATransfer(ADC_TypeDef *ADCx)
   * @brief  Set ADC group injected conversion trigger source:
   *         internal (SW start) or from external IP (timer event,
   *         external interrupt line).
-  * @note   On this STM32 serie, external trigger is set with trigger polarity:
-  *         rising edge (only trigger polarity available on this STM32 serie).
+  * @note   On this STM32 series, external trigger is set with trigger polarity:
+  *         rising edge (only trigger polarity available on this STM32 series).
   * @note   Availability of parameters of trigger sources from timer
   *         depends on timers availability on the selected device.
   * @rmtoll CR2      JEXTSEL        LL_ADC_INJ_SetTriggerSource
@@ -2375,7 +2374,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetDMATransfer(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_INJ_SetTriggerSource(ADC_TypeDef *ADCx, uint32_t TriggerSource)
 {
-/* Note: On this STM32 serie, ADC group injected external trigger edge       */
+/* Note: On this STM32 series, ADC group injected external trigger edge       */
 /*       is used to perform a ADC conversion start.                           */
 /*       This function does not set external trigger edge.                    */
 /*       This feature is set using function                                   */
@@ -2446,7 +2445,7 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_IsTriggerSourceSWStart(ADC_TypeDef *ADCx)
   *         - Sequence length: Number of ranks in the scan sequence.
   *         - Sequence direction: Unless specified in parameters, sequencer
   *           scan direction is forward (from rank 1 to rank n).
-  * @note   On this STM32 serie, group injected sequencer configuration
+  * @note   On this STM32 series, group injected sequencer configuration
   *         is conditioned to ADC instance sequencer mode.
   *         If ADC instance sequencer mode is disabled, sequencers of
   *         all groups (group regular, group injected) can be configured
@@ -2474,7 +2473,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetSequencerLength(ADC_TypeDef *ADCx, uint32_t S
   *         - Sequence length: Number of ranks in the scan sequence.
   *         - Sequence direction: Unless specified in parameters, sequencer
   *           scan direction is forward (from rank 1 to rank n).
-  * @note   On this STM32 serie, group injected sequencer configuration
+  * @note   On this STM32 series, group injected sequencer configuration
   *         is conditioned to ADC instance sequencer mode.
   *         If ADC instance sequencer mode is disabled, sequencers of
   *         all groups (group regular, group injected) can be configured
@@ -2533,7 +2532,7 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerDiscont(ADC_TypeDef *ADCx)
   *         sequence rank.
   * @note   Depending on devices and packages, some channels may not be available.
   *         Refer to device datasheet for channels availability.
-  * @note   On this STM32 serie, to measure internal channels (VrefInt,
+  * @note   On this STM32 series, to measure internal channels (VrefInt,
   *         TempSensor, ...), measurement paths to internal channels must be
   *         enabled separately.
   *         This can be done using function @ref LL_ADC_SetCommonPathInternalCh().
@@ -2776,7 +2775,7 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_GetOffset(ADC_TypeDef *ADCx, uint32_t Rank)
   *         TS_temp, ...).
   * @note   Conversion time is the addition of sampling time and processing time.
   *         Refer to reference manual for ADC processing time of
-  *         this STM32 serie.
+  *         this STM32 series.
   * @note   In case of ADC conversion of internal channel (VrefInt,
   *         temperature sensor, ...), a sampling time minimum value
   *         is required.
@@ -2854,7 +2853,7 @@ __STATIC_INLINE void LL_ADC_SetChannelSamplingTime(ADC_TypeDef *ADCx, uint32_t C
   *         of channel mapped on ADC group regular or injected.
   * @note   Conversion time is the addition of sampling time and processing time.
   *         Refer to reference manual for ADC processing time of
-  *         this STM32 serie.
+  *         this STM32 series.
   * @rmtoll SMPR1    SMP17          LL_ADC_GetChannelSamplingTime\n
   *         SMPR1    SMP16          LL_ADC_GetChannelSamplingTime\n
   *         SMPR1    SMP15          LL_ADC_GetChannelSamplingTime\n
@@ -2934,7 +2933,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetChannelSamplingTime(ADC_TypeDef *ADCx, uint32
   * @note   In case of need to define a single channel to monitor
   *         with analog watchdog from sequencer channel definition,
   *         use helper macro @ref __LL_ADC_ANALOGWD_CHANNEL_GROUP().
-  * @note   On this STM32 serie, there is only 1 kind of analog watchdog
+  * @note   On this STM32 series, there is only 1 kind of analog watchdog
   *         instance:
   *         - AWD standard (instance AWD1):
   *           - channels monitored: can monitor 1 channel or all channels.
@@ -3036,7 +3035,7 @@ __STATIC_INLINE void LL_ADC_SetAnalogWDMonitChannels(ADC_TypeDef *ADCx, uint32_t
   *           @ref __LL_ADC_CHANNEL_TO_DECIMAL_NB().
   *           Applicable only when the analog watchdog is set to monitor
   *           one channel.
-  * @note   On this STM32 serie, there is only 1 kind of analog watchdog
+  * @note   On this STM32 series, there is only 1 kind of analog watchdog
   *         instance:
   *         - AWD standard (instance AWD1):
   *           - channels monitored: can monitor 1 channel or all channels.
@@ -3115,7 +3114,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetAnalogWDMonitChannels(ADC_TypeDef *ADCx)
 /**
   * @brief  Set ADC analog watchdog threshold value of threshold
   *         high or low.
-  * @note   On this STM32 serie, there is only 1 kind of analog watchdog
+  * @note   On this STM32 series, there is only 1 kind of analog watchdog
   *         instance:
   *         - AWD standard (instance AWD1):
   *           - channels monitored: can monitor 1 channel or all channels.
@@ -3234,7 +3233,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetMultimode(ADC_Common_TypeDef *ADCxy_COMMON)
 
 /**
   * @brief  Enable the selected ADC instance.
-  * @note   On this STM32 serie, after ADC enable, a delay for
+  * @note   On this STM32 series, after ADC enable, a delay for
   *         ADC internal analog stabilization is required before performing a
   *         ADC conversion start.
   *         Refer to device datasheet, parameter tSTAB.
@@ -3272,12 +3271,12 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabled(ADC_TypeDef *ADCx)
 /**
   * @brief  Start ADC calibration in the mode single-ended
   *         or differential (for devices with differential mode available).
-  * @note   On this STM32 serie, before starting a calibration,
+  * @note   On this STM32 series, before starting a calibration,
   *         ADC must be disabled.
   *         A minimum number of ADC clock cycles are required
   *         between ADC disable state and calibration start.
   *         Refer to literal @ref LL_ADC_DELAY_DISABLE_CALIB_ADC_CYCLES.
-  * @note   On this STM32 serie, hardware prerequisite before starting a calibration:
+  * @note   On this STM32 series, hardware prerequisite before starting a calibration:
             the ADC must have been in power-on state for at least
             two ADC clock cycles.
   * @rmtoll CR2      CAL            LL_ADC_StartCalibration
@@ -3310,7 +3309,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsCalibrationOnGoing(ADC_TypeDef *ADCx)
 
 /**
   * @brief  Start ADC group regular conversion.
-  * @note   On this STM32 serie, this function is relevant only for
+  * @note   On this STM32 series, this function is relevant only for
   *         internal trigger (SW start), not for external trigger:
   *         - If ADC trigger has been set to software start, ADC conversion
   *           starts immediately.
@@ -3333,7 +3332,7 @@ __STATIC_INLINE void LL_ADC_REG_StartConversionSWStart(ADC_TypeDef *ADCx)
   * @brief  Start ADC group regular conversion from external trigger.
   * @note   ADC conversion will start at next trigger event (on the selected
   *         trigger edge) following the ADC start conversion command.
-  * @note   On this STM32 serie, this function is relevant for
+  * @note   On this STM32 series, this function is relevant for
   *         ADC conversion start from external trigger.
   *         If internal trigger (SW start) is needed, perform ADC conversion
   *         start using function @ref LL_ADC_REG_StartConversionSWStart().
@@ -3353,7 +3352,7 @@ __STATIC_INLINE void LL_ADC_REG_StartConversionExtTrig(ADC_TypeDef *ADCx, uint32
   * @note   No more ADC conversion will start at next trigger event
   *         following the ADC stop conversion command.
   *         If a conversion is on-going, it will be completed.
-  * @note   On this STM32 serie, there is no specific command
+  * @note   On this STM32 series, there is no specific command
   *         to stop a conversion on-going or to stop ADC converting
   *         in continuous mode. These actions can be performed
   *         using function @ref LL_ADC_Disable().
@@ -3436,7 +3435,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_ReadMultiConversionData32(ADC_TypeDef *ADCx,
 
 /**
   * @brief  Start ADC group injected conversion.
-  * @note   On this STM32 serie, this function is relevant only for
+  * @note   On this STM32 series, this function is relevant only for
   *         internal trigger (SW start), not for external trigger:
   *         - If ADC trigger has been set to software start, ADC conversion
   *           starts immediately.
@@ -3459,7 +3458,7 @@ __STATIC_INLINE void LL_ADC_INJ_StartConversionSWStart(ADC_TypeDef *ADCx)
   * @brief  Start ADC group injected conversion from external trigger.
   * @note   ADC conversion will start at next trigger event (on the selected
   *         trigger edge) following the ADC start conversion command.
-  * @note   On this STM32 serie, this function is relevant for
+  * @note   On this STM32 series, this function is relevant for
   *         ADC conversion start from external trigger.
   *         If internal trigger (SW start) is needed, perform ADC conversion
   *         start using function @ref LL_ADC_INJ_StartConversionSWStart().
@@ -3479,7 +3478,7 @@ __STATIC_INLINE void LL_ADC_INJ_StartConversionExtTrig(ADC_TypeDef *ADCx, uint32
   * @note   No more ADC conversion will start at next trigger event
   *         following the ADC stop conversion command.
   *         If a conversion is on-going, it will be completed.
-  * @note   On this STM32 serie, there is no specific command
+  * @note   On this STM32 series, there is no specific command
   *         to stop a conversion on-going or to stop ADC converting
   *         in continuous mode. These actions can be performed
   *         using function @ref LL_ADC_Disable().
@@ -3561,7 +3560,7 @@ __STATIC_INLINE uint16_t LL_ADC_INJ_ReadConversionData12(ADC_TypeDef *ADCx, uint
   */
 __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_EOS(ADC_TypeDef *ADCx)
 {
-  /* Note: on this STM32 serie, there is no flag ADC group regular           */
+  /* Note: on this STM32 series, there is no flag ADC group regular           */
   /*       end of unitary conversion.                                         */
   /*       Flag noted as "EOC" is corresponding to flag "EOS"                 */
   /*       in other STM32 families).                                          */
@@ -3577,7 +3576,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_EOS(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_JEOS(ADC_TypeDef *ADCx)
 {
-  /* Note: on this STM32 serie, there is no flag ADC group injected          */
+  /* Note: on this STM32 series, there is no flag ADC group injected          */
   /*       end of unitary conversion.                                         */
   /*       Flag noted as "JEOC" is corresponding to flag "JEOS"               */
   /*       in other STM32 families).                                          */
@@ -3603,7 +3602,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_AWD1(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_ClearFlag_EOS(ADC_TypeDef *ADCx)
 {
-  /* Note: on this STM32 serie, there is no flag ADC group regular           */
+  /* Note: on this STM32 series, there is no flag ADC group regular           */
   /*       end of unitary conversion.                                         */
   /*       Flag noted as "EOC" is corresponding to flag "EOS"                 */
   /*       in other STM32 families).                                          */
@@ -3619,7 +3618,7 @@ __STATIC_INLINE void LL_ADC_ClearFlag_EOS(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_ClearFlag_JEOS(ADC_TypeDef *ADCx)
 {
-  /* Note: on this STM32 serie, there is no flag ADC group injected          */
+  /* Note: on this STM32 series, there is no flag ADC group injected          */
   /*       end of unitary conversion.                                         */
   /*       Flag noted as "JEOC" is corresponding to flag "JEOS"               */
   /*       in other STM32 families).                                          */
@@ -3647,7 +3646,7 @@ __STATIC_INLINE void LL_ADC_ClearFlag_AWD1(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_MST_EOS(ADC_Common_TypeDef *ADCxy_COMMON)
 {
-  /* Note: on this STM32 serie, there is no flag ADC group regular           */
+  /* Note: on this STM32 series, there is no flag ADC group regular           */
   /*       end of unitary conversion.                                         */
   /*       Flag noted as "EOC" is corresponding to flag "EOS"                 */
   /*       in other STM32 families).                                          */
@@ -3663,7 +3662,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_MST_EOS(ADC_Common_TypeDef *ADCxy_C
   */
 __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_SLV_EOS(ADC_Common_TypeDef *ADCxy_COMMON)
 {
-  /* Note: on this STM32 serie, there is no flag ADC group regular           */
+  /* Note: on this STM32 series, there is no flag ADC group regular           */
   /*       end of unitary conversion.                                         */
   /*       Flag noted as "EOC" is corresponding to flag "EOS"                 */
   /*       in other STM32 families).                                          */
@@ -3683,7 +3682,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_SLV_EOS(ADC_Common_TypeDef *ADCxy_C
   */
 __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_MST_JEOS(ADC_Common_TypeDef *ADCxy_COMMON)
 {
-  /* Note: on this STM32 serie, there is no flag ADC group injected          */
+  /* Note: on this STM32 series, there is no flag ADC group injected          */
   /*       end of unitary conversion.                                         */
   /*       Flag noted as "JEOC" is corresponding to flag "JEOS"               */
   /*       in other STM32 families).                                          */
@@ -3699,7 +3698,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_MST_JEOS(ADC_Common_TypeDef *ADCxy_
   */
 __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_SLV_JEOS(ADC_Common_TypeDef *ADCxy_COMMON)
 {
-  /* Note: on this STM32 serie, there is no flag ADC group injected          */
+  /* Note: on this STM32 series, there is no flag ADC group injected          */
   /*       end of unitary conversion.                                         */
   /*       Flag noted as "JEOC" is corresponding to flag "JEOS"               */
   /*       in other STM32 families).                                          */
@@ -3753,7 +3752,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_SLV_AWD1(ADC_Common_TypeDef *ADCxy_
   */
 __STATIC_INLINE void LL_ADC_EnableIT_EOS(ADC_TypeDef *ADCx)
 {
-  /* Note: on this STM32 serie, there is no flag ADC group regular           */
+  /* Note: on this STM32 series, there is no flag ADC group regular           */
   /*       end of unitary conversion.                                         */
   /*       Flag noted as "EOC" is corresponding to flag "EOS"                 */
   /*       in other STM32 families).                                          */
@@ -3769,7 +3768,7 @@ __STATIC_INLINE void LL_ADC_EnableIT_EOS(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_EnableIT_JEOS(ADC_TypeDef *ADCx)
 {
-  /* Note: on this STM32 serie, there is no flag ADC group injected          */
+  /* Note: on this STM32 series, there is no flag ADC group injected          */
   /*       end of unitary conversion.                                         */
   /*       Flag noted as "JEOC" is corresponding to flag "JEOS"               */
   /*       in other STM32 families).                                          */
@@ -3795,7 +3794,7 @@ __STATIC_INLINE void LL_ADC_EnableIT_AWD1(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_DisableIT_EOS(ADC_TypeDef *ADCx)
 {
-  /* Note: on this STM32 serie, there is no flag ADC group regular           */
+  /* Note: on this STM32 series, there is no flag ADC group regular           */
   /*       end of unitary conversion.                                         */
   /*       Flag noted as "EOC" is corresponding to flag "EOS"                 */
   /*       in other STM32 families).                                          */
@@ -3811,7 +3810,7 @@ __STATIC_INLINE void LL_ADC_DisableIT_EOS(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_DisableIT_JEOS(ADC_TypeDef *ADCx)
 {
-  /* Note: on this STM32 serie, there is no flag ADC group injected          */
+  /* Note: on this STM32 series, there is no flag ADC group injected          */
   /*       end of unitary conversion.                                         */
   /*       Flag noted as "JEOC" is corresponding to flag "JEOS"               */
   /*       in other STM32 families).                                          */
@@ -3838,7 +3837,7 @@ __STATIC_INLINE void LL_ADC_DisableIT_AWD1(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_EOS(ADC_TypeDef *ADCx)
 {
-  /* Note: on this STM32 serie, there is no flag ADC group regular           */
+  /* Note: on this STM32 series, there is no flag ADC group regular           */
   /*       end of unitary conversion.                                         */
   /*       Flag noted as "EOC" is corresponding to flag "EOS"                 */
   /*       in other STM32 families).                                          */
@@ -3855,7 +3854,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_EOS(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_JEOS(ADC_TypeDef *ADCx)
 {
-  /* Note: on this STM32 serie, there is no flag ADC group injected          */
+  /* Note: on this STM32 series, there is no flag ADC group injected          */
   /*       end of unitary conversion.                                         */
   /*       Flag noted as "JEOC" is corresponding to flag "JEOS"               */
   /*       in other STM32 families).                                          */
@@ -3928,5 +3927,3 @@ void        LL_ADC_INJ_StructInit(LL_ADC_INJ_InitTypeDef *ADC_INJ_InitStruct);
 #endif
 
 #endif /* __STM32F1xx_LL_ADC_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

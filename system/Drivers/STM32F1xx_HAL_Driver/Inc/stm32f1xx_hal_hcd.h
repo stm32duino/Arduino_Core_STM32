@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -159,6 +158,10 @@ typedef struct
 
 #define __HAL_HCD_GET_FLAG(__HANDLE__, __INTERRUPT__)      ((USB_ReadInterrupts((__HANDLE__)->Instance)\
                                                              & (__INTERRUPT__)) == (__INTERRUPT__))
+
+#define __HAL_HCD_GET_CH_FLAG(__HANDLE__, __chnum__, __INTERRUPT__) \
+  ((USB_ReadChInterrupts((__HANDLE__)->Instance, (__chnum__)) & (__INTERRUPT__)) == (__INTERRUPT__))
+
 #define __HAL_HCD_CLEAR_FLAG(__HANDLE__, __INTERRUPT__)    (((__HANDLE__)->Instance->GINTSTS) = (__INTERRUPT__))
 #define __HAL_HCD_IS_INVALID_INTERRUPT(__HANDLE__)         (USB_ReadInterrupts((__HANDLE__)->Instance) == 0U)
 
@@ -248,6 +251,11 @@ HAL_StatusTypeDef HAL_HCD_HC_SubmitRequest(HCD_HandleTypeDef *hhcd, uint8_t ch_n
                                            uint8_t token, uint8_t *pbuff,
                                            uint16_t length, uint8_t do_ping);
 
+HAL_StatusTypeDef HAL_HCD_HC_SetHubInfo(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
+                                        uint8_t addr, uint8_t PortNbr);
+
+HAL_StatusTypeDef HAL_HCD_HC_ClearHubInfo(HCD_HandleTypeDef *hhcd, uint8_t ch_num);
+
 /* Non-Blocking mode: Interrupt */
 void HAL_HCD_IRQHandler(HCD_HandleTypeDef *hhcd);
 void HAL_HCD_WKUP_IRQHandler(HCD_HandleTypeDef *hhcd);
@@ -277,16 +285,13 @@ HAL_StatusTypeDef HAL_HCD_Stop(HCD_HandleTypeDef *hhcd);
 /** @addtogroup HCD_Exported_Functions_Group4 Peripheral State functions
   * @{
   */
-HCD_StateTypeDef        HAL_HCD_GetState(HCD_HandleTypeDef *hhcd);
-HCD_URBStateTypeDef     HAL_HCD_HC_GetURBState(HCD_HandleTypeDef *hhcd, uint8_t chnum);
-HCD_HCStateTypeDef      HAL_HCD_HC_GetState(HCD_HandleTypeDef *hhcd, uint8_t chnum);
-uint32_t                HAL_HCD_HC_GetXferCount(HCD_HandleTypeDef *hhcd, uint8_t chnum);
+HCD_StateTypeDef        HAL_HCD_GetState(HCD_HandleTypeDef const *hhcd);
+HCD_URBStateTypeDef     HAL_HCD_HC_GetURBState(HCD_HandleTypeDef const *hhcd, uint8_t chnum);
+HCD_HCStateTypeDef      HAL_HCD_HC_GetState(HCD_HandleTypeDef const *hhcd, uint8_t chnum);
+uint32_t                HAL_HCD_HC_GetXferCount(HCD_HandleTypeDef const *hhcd, uint8_t chnum);
 uint32_t                HAL_HCD_GetCurrentFrame(HCD_HandleTypeDef *hhcd);
 uint32_t                HAL_HCD_GetCurrentSpeed(HCD_HandleTypeDef *hhcd);
 
-/**
-  * @}
-  */
 
 /**
   * @}
@@ -307,6 +312,9 @@ uint32_t                HAL_HCD_GetCurrentSpeed(HCD_HandleTypeDef *hhcd);
 /**
   * @}
   */
+/**
+  * @}
+  */
 #endif /* defined (USB_OTG_FS) */
 
 #ifdef __cplusplus
@@ -314,5 +322,3 @@ uint32_t                HAL_HCD_GetCurrentSpeed(HCD_HandleTypeDef *hhcd);
 #endif
 
 #endif /* STM32F1xx_HAL_HCD_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

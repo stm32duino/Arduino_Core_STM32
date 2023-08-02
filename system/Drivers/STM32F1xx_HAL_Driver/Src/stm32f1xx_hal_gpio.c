@@ -8,6 +8,17 @@
   *           + Initialization and de-initialization functions
   *           + IO operation functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                     ##### GPIO Peripheral features #####
@@ -87,17 +98,6 @@
        The HSE has priority over the GPIO function.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -295,26 +295,6 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
         AFIO->EXTICR[position >> 2u] = temp;
 
 
-        /* Configure the interrupt mask */
-        if ((GPIO_Init->Mode & GPIO_MODE_IT) == GPIO_MODE_IT)
-        {
-          SET_BIT(EXTI->IMR, iocurrent);
-        }
-        else
-        {
-          CLEAR_BIT(EXTI->IMR, iocurrent);
-        }
-
-        /* Configure the event mask */
-        if ((GPIO_Init->Mode & GPIO_MODE_EVT) == GPIO_MODE_EVT)
-        {
-          SET_BIT(EXTI->EMR, iocurrent);
-        }
-        else
-        {
-          CLEAR_BIT(EXTI->EMR, iocurrent);
-        }
-
         /* Enable or disable the rising trigger */
         if ((GPIO_Init->Mode & RISING_EDGE) == RISING_EDGE)
         {
@@ -333,6 +313,26 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
         else
         {
           CLEAR_BIT(EXTI->FTSR, iocurrent);
+        }
+
+        /* Configure the event mask */
+        if ((GPIO_Init->Mode & GPIO_MODE_EVT) == GPIO_MODE_EVT)
+        {
+          SET_BIT(EXTI->EMR, iocurrent);
+        }
+        else
+        {
+          CLEAR_BIT(EXTI->EMR, iocurrent);
+        }
+
+        /* Configure the interrupt mask */
+        if ((GPIO_Init->Mode & GPIO_MODE_IT) == GPIO_MODE_IT)
+        {
+          SET_BIT(EXTI->IMR, iocurrent);
+        }
+        else
+        {
+          CLEAR_BIT(EXTI->IMR, iocurrent);
         }
       }
     }
@@ -375,16 +375,16 @@ void HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
       tmp &= 0x0FuL << (4u * (position & 0x03u));
       if (tmp == (GPIO_GET_INDEX(GPIOx) << (4u * (position & 0x03u))))
       {
-        tmp = 0x0FuL << (4u * (position & 0x03u));
-        CLEAR_BIT(AFIO->EXTICR[position >> 2u], tmp);
-
         /* Clear EXTI line configuration */
         CLEAR_BIT(EXTI->IMR, (uint32_t)iocurrent);
         CLEAR_BIT(EXTI->EMR, (uint32_t)iocurrent);
 
         /* Clear Rising Falling edge configuration */
-        CLEAR_BIT(EXTI->RTSR, (uint32_t)iocurrent);
         CLEAR_BIT(EXTI->FTSR, (uint32_t)iocurrent);
+        CLEAR_BIT(EXTI->RTSR, (uint32_t)iocurrent);
+
+        tmp = 0x0FuL << (4u * (position & 0x03u));
+        CLEAR_BIT(AFIO->EXTICR[position >> 2u], tmp);
       }
       /*------------------------- GPIO Mode Configuration --------------------*/
       /* Check if the current bit belongs to first half or last half of the pin count number
@@ -491,7 +491,7 @@ void HAL_GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
   /* Check the parameters */
   assert_param(IS_GPIO_PIN(GPIO_Pin));
 
-  /* get current Ouput Data Register value */
+  /* get current Output Data Register value */
   odr = GPIOx->ODR;
 
   /* Set selected pins that were at low level, and reset ones that were high */
@@ -584,4 +584,3 @@ __weak void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

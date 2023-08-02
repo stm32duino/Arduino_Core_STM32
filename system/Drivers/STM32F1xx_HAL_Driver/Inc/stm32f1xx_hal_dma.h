@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -110,29 +109,29 @@ typedef enum
   */
 typedef struct __DMA_HandleTypeDef
 {
-  DMA_Channel_TypeDef   *Instance;                       /*!< Register base address                  */
+  DMA_Channel_TypeDef        *Instance;                                                    /*!< Register base address                  */
 
-  DMA_InitTypeDef       Init;                            /*!< DMA communication parameters           */
+  DMA_InitTypeDef            Init;                                                         /*!< DMA communication parameters           */
 
-  HAL_LockTypeDef       Lock;                            /*!< DMA locking object                     */
+  HAL_LockTypeDef            Lock;                                                         /*!< DMA locking object                     */
 
-  HAL_DMA_StateTypeDef  State;                           /*!< DMA transfer state                     */
+  __IO HAL_DMA_StateTypeDef  State;                                                        /*!< DMA transfer state                     */
 
-  void                  *Parent;                                                      /*!< Parent object state                    */
+  void                       *Parent;                                                      /*!< Parent object state                    */
 
-  void                  (* XferCpltCallback)( struct __DMA_HandleTypeDef * hdma);     /*!< DMA transfer complete callback         */
+  void                       (* XferCpltCallback)( struct __DMA_HandleTypeDef * hdma);     /*!< DMA transfer complete callback         */
 
-  void                  (* XferHalfCpltCallback)( struct __DMA_HandleTypeDef * hdma); /*!< DMA Half transfer complete callback    */
+  void                       (* XferHalfCpltCallback)( struct __DMA_HandleTypeDef * hdma); /*!< DMA Half transfer complete callback    */
 
-  void                  (* XferErrorCallback)( struct __DMA_HandleTypeDef * hdma);    /*!< DMA transfer error callback            */
+  void                       (* XferErrorCallback)( struct __DMA_HandleTypeDef * hdma);    /*!< DMA transfer error callback            */
 
-  void                  (* XferAbortCallback)( struct __DMA_HandleTypeDef * hdma);    /*!< DMA transfer abort callback            */
+  void                       (* XferAbortCallback)( struct __DMA_HandleTypeDef * hdma);    /*!< DMA transfer abort callback            */
 
-  __IO uint32_t         ErrorCode;                                                    /*!< DMA Error code                         */
+  __IO uint32_t              ErrorCode;                                                    /*!< DMA Error code                         */
 
-  DMA_TypeDef            *DmaBaseAddress;                                             /*!< DMA Channel Base Address               */
+  DMA_TypeDef                *DmaBaseAddress;                                             /*!< DMA Channel Base Address               */
 
-  uint32_t               ChannelIndex;                                                /*!< DMA Channel Index                      */
+  uint32_t                   ChannelIndex;                                                /*!< DMA Channel Index                      */
 
 } DMA_HandleTypeDef;
 /**
@@ -454,4 +453,3 @@ uint32_t HAL_DMA_GetError(DMA_HandleTypeDef *hdma);
 
 #endif /* __STM32F1xx_HAL_DMA_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -6,20 +6,22 @@
   *          functionalities of the Analog to Digital Convertor (ADC)
   *          peripheral:
   *           + Initialization and de-initialization functions
-  *             ++ Initialization and Configuration of ADC
-  *           + Operation functions
-  *             ++ Start, stop, get result of conversions of regular
-  *                group, using 3 possible modes: polling, interruption or DMA.
-  *           + Control functions
-  *             ++ Channels configuration on regular group
-  *             ++ Channels configuration on injected group
-  *             ++ Analog Watchdog configuration
-  *           + State functions
-  *             ++ ADC state machine management
-  *             ++ Interrupts and flags management
+  *           + Peripheral Control functions
+  *           + Peripheral State functions
   *          Other functions (extended functions) are available in file
   *          "stm32f1xx_hal_adc_ex.c".
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                      ##### ADC peripheral features #####
@@ -247,11 +249,11 @@
 
      The compilation flag USE_HAL_ADC_REGISTER_CALLBACKS, when set to 1,
      allows the user to configure dynamically the driver callbacks.
-     Use Functions @ref HAL_ADC_RegisterCallback()
+     Use Functions HAL_ADC_RegisterCallback()
      to register an interrupt callback.
     [..]
 
-     Function @ref HAL_ADC_RegisterCallback() allows to register following callbacks:
+     Function HAL_ADC_RegisterCallback() allows to register following callbacks:
        (+) ConvCpltCallback               : ADC conversion complete callback
        (+) ConvHalfCpltCallback           : ADC conversion DMA half-transfer callback
        (+) LevelOutOfWindowCallback       : ADC analog watchdog 1 callback
@@ -263,11 +265,11 @@
      and a pointer to the user callback function.
     [..]
 
-     Use function @ref HAL_ADC_UnRegisterCallback to reset a callback to the default
+     Use function HAL_ADC_UnRegisterCallback to reset a callback to the default
      weak function.
     [..]
 
-     @ref HAL_ADC_UnRegisterCallback takes as parameters the HAL peripheral handle,
+     HAL_ADC_UnRegisterCallback takes as parameters the HAL peripheral handle,
      and the Callback ID.
      This function allows to reset following callbacks:
        (+) ConvCpltCallback               : ADC conversion complete callback
@@ -279,27 +281,27 @@
        (+) MspDeInitCallback              : ADC Msp DeInit callback
      [..]
 
-     By default, after the @ref HAL_ADC_Init() and when the state is @ref HAL_ADC_STATE_RESET
+     By default, after the HAL_ADC_Init() and when the state is HAL_ADC_STATE_RESET
      all callbacks are set to the corresponding weak functions:
-     examples @ref HAL_ADC_ConvCpltCallback(), @ref HAL_ADC_ErrorCallback().
+     examples HAL_ADC_ConvCpltCallback(), HAL_ADC_ErrorCallback().
      Exception done for MspInit and MspDeInit functions that are
-     reset to the legacy weak functions in the @ref HAL_ADC_Init()/ @ref HAL_ADC_DeInit() only when
+     reset to the legacy weak functions in the HAL_ADC_Init()/ HAL_ADC_DeInit() only when
      these callbacks are null (not registered beforehand).
     [..]
 
-     If MspInit or MspDeInit are not null, the @ref HAL_ADC_Init()/ @ref HAL_ADC_DeInit()
+     If MspInit or MspDeInit are not null, the HAL_ADC_Init()/ HAL_ADC_DeInit()
      keep and use the user MspInit/MspDeInit callbacks (registered beforehand) whatever the state.
      [..]
 
-     Callbacks can be registered/unregistered in @ref HAL_ADC_STATE_READY state only.
+     Callbacks can be registered/unregistered in HAL_ADC_STATE_READY state only.
      Exception done MspInit/MspDeInit functions that can be registered/unregistered
-     in @ref HAL_ADC_STATE_READY or @ref HAL_ADC_STATE_RESET state,
+     in HAL_ADC_STATE_READY or HAL_ADC_STATE_RESET state,
      thus registered (user) MspInit/DeInit callbacks can be used during the Init/DeInit.
     [..]
 
      Then, the user first registers the MspInit/MspDeInit user callbacks
-     using @ref HAL_ADC_RegisterCallback() before calling @ref HAL_ADC_DeInit()
-     or @ref HAL_ADC_Init() function.
+     using HAL_ADC_RegisterCallback() before calling HAL_ADC_DeInit()
+     or HAL_ADC_Init() function.
      [..]
 
      When the compilation flag USE_HAL_ADC_REGISTER_CALLBACKS is set to 0 or
@@ -307,18 +309,6 @@
      are set to the corresponding weak functions.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -1788,6 +1778,9 @@ uint32_t HAL_ADC_GetValue(ADC_HandleTypeDef* hadc)
   */
 void HAL_ADC_IRQHandler(ADC_HandleTypeDef* hadc)
 {
+  uint32_t tmp_sr = hadc->Instance->SR;
+  uint32_t tmp_cr1 = hadc->Instance->CR1;
+
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
   assert_param(IS_FUNCTIONAL_STATE(hadc->Init.ContinuousConvMode));
@@ -1795,9 +1788,9 @@ void HAL_ADC_IRQHandler(ADC_HandleTypeDef* hadc)
 
 
   /* ========== Check End of Conversion flag for regular group ========== */
-  if(__HAL_ADC_GET_IT_SOURCE(hadc, ADC_IT_EOC))
+  if((tmp_cr1 & ADC_IT_EOC) == ADC_IT_EOC)
   {
-    if(__HAL_ADC_GET_FLAG(hadc, ADC_FLAG_EOC) )
+    if((tmp_sr & ADC_FLAG_EOC) == ADC_FLAG_EOC)
     {
       /* Update state machine on conversion status if not in error state */
       if (HAL_IS_BIT_CLR(hadc->State, HAL_ADC_STATE_ERROR_INTERNAL))
@@ -1839,9 +1832,9 @@ void HAL_ADC_IRQHandler(ADC_HandleTypeDef* hadc)
   }
 
   /* ========== Check End of Conversion flag for injected group ========== */
-  if(__HAL_ADC_GET_IT_SOURCE(hadc, ADC_IT_JEOC))
+  if((tmp_cr1 & ADC_IT_JEOC) == ADC_IT_JEOC)
   {
-    if(__HAL_ADC_GET_FLAG(hadc, ADC_FLAG_JEOC))
+    if((tmp_sr & ADC_FLAG_JEOC) == ADC_FLAG_JEOC)
     {
       /* Update state machine on conversion status if not in error state */
       if (HAL_IS_BIT_CLR(hadc->State, HAL_ADC_STATE_ERROR_INTERNAL))
@@ -1887,9 +1880,9 @@ void HAL_ADC_IRQHandler(ADC_HandleTypeDef* hadc)
   }
 
   /* ========== Check Analog watchdog flags ========== */
-  if(__HAL_ADC_GET_IT_SOURCE(hadc, ADC_IT_AWD))
+  if((tmp_cr1 & ADC_IT_AWD) == ADC_IT_AWD)
   {
-    if(__HAL_ADC_GET_FLAG(hadc, ADC_FLAG_AWD))
+    if((tmp_sr & ADC_FLAG_AWD) == ADC_FLAG_AWD)
     {
       /* Set ADC state */
       SET_BIT(hadc->State, HAL_ADC_STATE_AWD1);
@@ -1995,7 +1988,7 @@ __weak void HAL_ADC_ErrorCallback(ADC_HandleTypeDef *hadc)
   * @note   Possibility to update parameters on the fly:
   *         This function initializes channel into regular group, following
   *         calls to this function can be used to reconfigure some parameters
-  *         of structure "ADC_ChannelConfTypeDef" on the fly, without reseting
+  *         of structure "ADC_ChannelConfTypeDef" on the fly, without resetting
   *         the ADC.
   *         The setting of these parameters is conditioned to ADC state.
   *         For parameters constraints, see comments of structure
@@ -2433,5 +2426,3 @@ void ADC_DMAError(DMA_HandleTypeDef *hdma)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

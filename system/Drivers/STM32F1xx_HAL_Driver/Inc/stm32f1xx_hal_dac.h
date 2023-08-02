@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -79,19 +78,19 @@ typedef struct
   __IO uint32_t               ErrorCode;     /*!< DAC Error code                    */
 
 #if (USE_HAL_DAC_REGISTER_CALLBACKS == 1)
-  void (* ConvCpltCallbackCh1)            (struct __DAC_HandleTypeDef *hdac);
-  void (* ConvHalfCpltCallbackCh1)        (struct __DAC_HandleTypeDef *hdac);
-  void (* ErrorCallbackCh1)               (struct __DAC_HandleTypeDef *hdac);
-  void (* DMAUnderrunCallbackCh1)         (struct __DAC_HandleTypeDef *hdac);
+  void (* ConvCpltCallbackCh1)(struct __DAC_HandleTypeDef *hdac);
+  void (* ConvHalfCpltCallbackCh1)(struct __DAC_HandleTypeDef *hdac);
+  void (* ErrorCallbackCh1)(struct __DAC_HandleTypeDef *hdac);
+  void (* DMAUnderrunCallbackCh1)(struct __DAC_HandleTypeDef *hdac);
 
-  void (* ConvCpltCallbackCh2)            (struct __DAC_HandleTypeDef *hdac);
-  void (* ConvHalfCpltCallbackCh2)        (struct __DAC_HandleTypeDef *hdac);
-  void (* ErrorCallbackCh2)               (struct __DAC_HandleTypeDef *hdac);
-  void (* DMAUnderrunCallbackCh2)         (struct __DAC_HandleTypeDef *hdac);
+  void (* ConvCpltCallbackCh2)(struct __DAC_HandleTypeDef *hdac);
+  void (* ConvHalfCpltCallbackCh2)(struct __DAC_HandleTypeDef *hdac);
+  void (* ErrorCallbackCh2)(struct __DAC_HandleTypeDef *hdac);
+  void (* DMAUnderrunCallbackCh2)(struct __DAC_HandleTypeDef *hdac);
 
 
-  void (* MspInitCallback)                (struct __DAC_HandleTypeDef *hdac);
-  void (* MspDeInitCallback)              (struct __DAC_HandleTypeDef *hdac);
+  void (* MspInitCallback)(struct __DAC_HandleTypeDef *hdac);
+  void (* MspDeInitCallback)(struct __DAC_HandleTypeDef *hdac);
 #endif /* USE_HAL_DAC_REGISTER_CALLBACKS */
 
 } DAC_HandleTypeDef;
@@ -382,7 +381,7 @@ void HAL_DAC_MspDeInit(DAC_HandleTypeDef *hdac);
 /* IO operation functions *****************************************************/
 HAL_StatusTypeDef HAL_DAC_Start(DAC_HandleTypeDef *hdac, uint32_t Channel);
 HAL_StatusTypeDef HAL_DAC_Stop(DAC_HandleTypeDef *hdac, uint32_t Channel);
-HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef *hdac, uint32_t Channel, uint32_t *pData, uint32_t Length,
+HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef *hdac, uint32_t Channel, const uint32_t *pData, uint32_t Length,
                                     uint32_t Alignment);
 HAL_StatusTypeDef HAL_DAC_Stop_DMA(DAC_HandleTypeDef *hdac, uint32_t Channel);
 void HAL_DAC_IRQHandler(DAC_HandleTypeDef *hdac);
@@ -408,8 +407,9 @@ HAL_StatusTypeDef     HAL_DAC_UnRegisterCallback(DAC_HandleTypeDef *hdac, HAL_DA
   * @{
   */
 /* Peripheral Control functions ***********************************************/
-uint32_t HAL_DAC_GetValue(DAC_HandleTypeDef *hdac, uint32_t Channel);
-HAL_StatusTypeDef HAL_DAC_ConfigChannel(DAC_HandleTypeDef *hdac, DAC_ChannelConfTypeDef *sConfig, uint32_t Channel);
+uint32_t HAL_DAC_GetValue(const DAC_HandleTypeDef *hdac, uint32_t Channel);
+HAL_StatusTypeDef HAL_DAC_ConfigChannel(DAC_HandleTypeDef *hdac,
+                                        const DAC_ChannelConfTypeDef *sConfig, uint32_t Channel);
 /**
   * @}
   */
@@ -418,8 +418,8 @@ HAL_StatusTypeDef HAL_DAC_ConfigChannel(DAC_HandleTypeDef *hdac, DAC_ChannelConf
   * @{
   */
 /* Peripheral State and Error functions ***************************************/
-HAL_DAC_StateTypeDef HAL_DAC_GetState(DAC_HandleTypeDef *hdac);
-uint32_t HAL_DAC_GetError(DAC_HandleTypeDef *hdac);
+HAL_DAC_StateTypeDef HAL_DAC_GetState(const DAC_HandleTypeDef *hdac);
+uint32_t HAL_DAC_GetError(const DAC_HandleTypeDef *hdac);
 
 /**
   * @}
@@ -455,5 +455,3 @@ void DAC_DMAHalfConvCpltCh1(DMA_HandleTypeDef *hdma);
 
 
 #endif /* STM32F1xx_HAL_DAC_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

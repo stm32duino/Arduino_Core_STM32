@@ -10,6 +10,17 @@
   *           + Peripheral Control functions
   *           + Peripheral State and Error functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                      ##### How to use this driver #####
@@ -105,8 +116,8 @@
     allows the user to configure dynamically the driver callbacks.
 
     [..]
-    Use Function @ref HAL_SMARTCARD_RegisterCallback() to register a user callback.
-    Function @ref HAL_SMARTCARD_RegisterCallback() allows to register following callbacks:
+    Use Function HAL_SMARTCARD_RegisterCallback() to register a user callback.
+    Function HAL_SMARTCARD_RegisterCallback() allows to register following callbacks:
     (+) TxCpltCallback            : Tx Complete Callback.
     (+) RxCpltCallback            : Rx Complete Callback.
     (+) ErrorCallback             : Error Callback.
@@ -119,9 +130,9 @@
     and a pointer to the user callback function.
 
     [..]
-    Use function @ref HAL_SMARTCARD_UnRegisterCallback() to reset a callback to the default
+    Use function HAL_SMARTCARD_UnRegisterCallback() to reset a callback to the default
     weak (surcharged) function.
-    @ref HAL_SMARTCARD_UnRegisterCallback() takes as parameters the HAL peripheral handle,
+    HAL_SMARTCARD_UnRegisterCallback() takes as parameters the HAL peripheral handle,
     and the Callback ID.
     This function allows to reset following callbacks:
     (+) TxCpltCallback            : Tx Complete Callback.
@@ -134,13 +145,13 @@
     (+) MspDeInitCallback         : SMARTCARD MspDeInit.
 
     [..]
-    By default, after the @ref HAL_SMARTCARD_Init() and when the state is HAL_SMARTCARD_STATE_RESET
+    By default, after the HAL_SMARTCARD_Init() and when the state is HAL_SMARTCARD_STATE_RESET
     all callbacks are set to the corresponding weak (surcharged) functions:
-    examples @ref HAL_SMARTCARD_TxCpltCallback(), @ref HAL_SMARTCARD_RxCpltCallback().
+    examples HAL_SMARTCARD_TxCpltCallback(), HAL_SMARTCARD_RxCpltCallback().
     Exception done for MspInit and MspDeInit functions that are respectively
-    reset to the legacy weak (surcharged) functions in the @ref HAL_SMARTCARD_Init()
-    and @ref HAL_SMARTCARD_DeInit() only when these callbacks are null (not registered beforehand).
-    If not, MspInit or MspDeInit are not null, the @ref HAL_SMARTCARD_Init() and @ref HAL_SMARTCARD_DeInit()
+    reset to the legacy weak (surcharged) functions in the HAL_SMARTCARD_Init()
+    and HAL_SMARTCARD_DeInit() only when these callbacks are null (not registered beforehand).
+    If not, MspInit or MspDeInit are not null, the HAL_SMARTCARD_Init() and HAL_SMARTCARD_DeInit()
     keep and use the user MspInit/MspDeInit callbacks (registered beforehand).
 
     [..]
@@ -149,8 +160,8 @@
     in HAL_SMARTCARD_STATE_READY or HAL_SMARTCARD_STATE_RESET state, thus registered (user)
     MspInit/DeInit callbacks can be used during the Init/DeInit.
     In that case first register the MspInit/MspDeInit user callbacks
-    using @ref HAL_SMARTCARD_RegisterCallback() before calling @ref HAL_SMARTCARD_DeInit()
-    or @ref HAL_SMARTCARD_Init() function.
+    using HAL_SMARTCARD_RegisterCallback() before calling HAL_SMARTCARD_DeInit()
+    or HAL_SMARTCARD_Init() function.
 
     [..]
     When The compilation define USE_HAL_SMARTCARD_REGISTER_CALLBACKS is set to 0 or
@@ -158,17 +169,6 @@
     and weak (surcharged) callbacks are used.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -446,6 +446,9 @@ __weak void HAL_SMARTCARD_MspDeInit(SMARTCARD_HandleTypeDef *hsc)
 /**
   * @brief  Register a User SMARTCARD Callback
   *         To be used instead of the weak predefined callback
+  * @note   The HAL_SMARTCARD_RegisterCallback() may be called before HAL_SMARTCARD_Init()
+  *         in HAL_SMARTCARD_STATE_RESET to register callbacks for HAL_SMARTCARD_MSPINIT_CB_ID
+  *         and HAL_SMARTCARD_MSPDEINIT_CB_ID
   * @param  hsc smartcard handle
   * @param  CallbackID ID of the callback to be registered
   *         This parameter can be one of the following values:
@@ -471,8 +474,6 @@ HAL_StatusTypeDef HAL_SMARTCARD_RegisterCallback(SMARTCARD_HandleTypeDef *hsc, H
 
     return HAL_ERROR;
   }
-  /* Process locked */
-  __HAL_LOCK(hsc);
 
   if (hsc->gState == HAL_SMARTCARD_STATE_READY)
   {
@@ -551,15 +552,15 @@ HAL_StatusTypeDef HAL_SMARTCARD_RegisterCallback(SMARTCARD_HandleTypeDef *hsc, H
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hsc);
-
   return status;
 }
 
 /**
   * @brief  Unregister an SMARTCARD callback
   *         SMARTCARD callback is redirected to the weak predefined callback
+  * @note   The HAL_SMARTCARD_UnRegisterCallback() may be called before HAL_SMARTCARD_Init()
+  *         in HAL_SMARTCARD_STATE_RESET to un-register callbacks for HAL_SMARTCARD_MSPINIT_CB_ID
+  *         and HAL_SMARTCARD_MSPDEINIT_CB_ID
   * @param  hsc smartcard handle
   * @param  CallbackID ID of the callback to be unregistered
   *         This parameter can be one of the following values:
@@ -576,9 +577,6 @@ HAL_StatusTypeDef HAL_SMARTCARD_RegisterCallback(SMARTCARD_HandleTypeDef *hsc, H
 HAL_StatusTypeDef HAL_SMARTCARD_UnRegisterCallback(SMARTCARD_HandleTypeDef *hsc, HAL_SMARTCARD_CallbackIDTypeDef CallbackID)
 {
   HAL_StatusTypeDef status = HAL_OK;
-
-  /* Process locked */
-  __HAL_LOCK(hsc);
 
   if (HAL_SMARTCARD_STATE_READY == hsc->gState)
   {
@@ -655,9 +653,6 @@ HAL_StatusTypeDef HAL_SMARTCARD_UnRegisterCallback(SMARTCARD_HandleTypeDef *hsc,
     /* Return error status */
     status =  HAL_ERROR;
   }
-
-  /* Release Lock */
-  __HAL_UNLOCK(hsc);
 
   return status;
 }
@@ -753,9 +748,9 @@ HAL_StatusTypeDef HAL_SMARTCARD_UnRegisterCallback(SMARTCARD_HandleTypeDef *hsc,
   * @param  Timeout Timeout duration
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SMARTCARD_Transmit(SMARTCARD_HandleTypeDef *hsc, uint8_t *pData, uint16_t Size, uint32_t Timeout)
+HAL_StatusTypeDef HAL_SMARTCARD_Transmit(SMARTCARD_HandleTypeDef *hsc, const uint8_t *pData, uint16_t Size, uint32_t Timeout)
 {
-  uint8_t *tmp = pData;
+  const uint8_t *tmp = pData;
   uint32_t tickstart = 0U;
 
   if(hsc->gState == HAL_SMARTCARD_STATE_READY)
@@ -873,7 +868,7 @@ HAL_StatusTypeDef HAL_SMARTCARD_Receive(SMARTCARD_HandleTypeDef *hsc, uint8_t *p
   * @param  Size   Amount of data to be sent
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SMARTCARD_Transmit_IT(SMARTCARD_HandleTypeDef *hsc, uint8_t *pData, uint16_t Size)
+HAL_StatusTypeDef HAL_SMARTCARD_Transmit_IT(SMARTCARD_HandleTypeDef *hsc, const uint8_t *pData, uint16_t Size)
 {
   /* Check that a Tx process is not already ongoing */
   if(hsc->gState == HAL_SMARTCARD_STATE_READY)
@@ -966,9 +961,9 @@ HAL_StatusTypeDef HAL_SMARTCARD_Receive_IT(SMARTCARD_HandleTypeDef *hsc, uint8_t
   * @param  Size   Amount of data to be sent
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SMARTCARD_Transmit_DMA(SMARTCARD_HandleTypeDef *hsc, uint8_t *pData, uint16_t Size)
+HAL_StatusTypeDef HAL_SMARTCARD_Transmit_DMA(SMARTCARD_HandleTypeDef *hsc, const uint8_t *pData, uint16_t Size)
 {
-  uint32_t *tmp;
+  const uint32_t *tmp;
 
   /* Check that a Tx process is not already ongoing */
   if(hsc->gState == HAL_SMARTCARD_STATE_READY)
@@ -998,8 +993,8 @@ HAL_StatusTypeDef HAL_SMARTCARD_Transmit_DMA(SMARTCARD_HandleTypeDef *hsc, uint8
     hsc->hdmatx->XferAbortCallback = NULL;
 
     /* Enable the SMARTCARD transmit DMA channel */
-    tmp = (uint32_t*)&pData;
-    HAL_DMA_Start_IT(hsc->hdmatx, *(uint32_t*)tmp, (uint32_t)&hsc->Instance->DR, Size);
+    tmp = (const uint32_t*)&pData;
+    HAL_DMA_Start_IT(hsc->hdmatx, *(const uint32_t*)tmp, (uint32_t)&hsc->Instance->DR, Size);
 
      /* Clear the TC flag in the SR register by writing 0 to it */
     __HAL_SMARTCARD_CLEAR_FLAG(hsc, SMARTCARD_FLAG_TC);
@@ -1777,7 +1772,7 @@ __weak void HAL_SMARTCARD_AbortReceiveCpltCallback (SMARTCARD_HandleTypeDef *hsc
   *                the configuration information for SMARTCARD module.
   * @retval HAL state
   */
-HAL_SMARTCARD_StateTypeDef HAL_SMARTCARD_GetState(SMARTCARD_HandleTypeDef *hsc)
+HAL_SMARTCARD_StateTypeDef HAL_SMARTCARD_GetState(const SMARTCARD_HandleTypeDef *hsc)
 {
   uint32_t temp1= 0x00U, temp2 = 0x00U;
   temp1 = hsc->gState;
@@ -1792,7 +1787,7 @@ HAL_SMARTCARD_StateTypeDef HAL_SMARTCARD_GetState(SMARTCARD_HandleTypeDef *hsc)
   *              the configuration information for the specified SMARTCARD.
   * @retval SMARTCARD Error Code
   */
-uint32_t HAL_SMARTCARD_GetError(SMARTCARD_HandleTypeDef *hsc)
+uint32_t HAL_SMARTCARD_GetError(const SMARTCARD_HandleTypeDef *hsc)
 {
   return hsc->ErrorCode;
 }
@@ -1918,11 +1913,12 @@ static void SMARTCARD_DMAError(DMA_HandleTypeDef *hdma)
 }
 
 /**
-  * @brief  This function handles SMARTCARD Communication Timeout.
+  * @brief  This function handles SMARTCARD Communication Timeout. It waits
+  *         until a flag is no longer in the specified status.
   * @param  hsc    Pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
   * @param  Flag   Specifies the SMARTCARD flag to check.
-  * @param  Status The new Flag status (SET or RESET).
+  * @param  Status The actual Flag status (SET or RESET).
   * @param  Timeout Timeout duration
   * @param  Tickstart Tick start value
   * @retval HAL status
@@ -2349,4 +2345,3 @@ static void SMARTCARD_SetConfig(SMARTCARD_HandleTypeDef *hsc)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
