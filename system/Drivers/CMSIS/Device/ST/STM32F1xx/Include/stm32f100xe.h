@@ -9,18 +9,17 @@
   *          This file contains:
   *           - Data structures and the address mapping for all peripherals
   *           - Peripheral's registers declarations and bits definition
-  *           - Macros to access peripheral’s registers hardware
+  *           - Macros to access peripheral's registers hardware
   *
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017-2021 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -1679,7 +1678,7 @@ typedef struct
 #define RCC_BDCR_RTCSEL_0                    (0x1UL << RCC_BDCR_RTCSEL_Pos)     /*!< 0x00000100 */
 #define RCC_BDCR_RTCSEL_1                    (0x2UL << RCC_BDCR_RTCSEL_Pos)     /*!< 0x00000200 */
 
-/*!< RTC congiguration */
+/*!< RTC configuration */
 #define RCC_BDCR_RTCSEL_NOCLOCK              0x00000000U                       /*!< No clock */
 #define RCC_BDCR_RTCSEL_LSE                  0x00000100U                       /*!< LSE oscillator clock used as RTC clock */
 #define RCC_BDCR_RTCSEL_LSI                  0x00000200U                       /*!< LSI oscillator clock used as RTC clock */
@@ -3727,7 +3726,7 @@ typedef struct
 #define ADC_CR2_DMA                         ADC_CR2_DMA_Msk                    /*!< ADC DMA transfer enable */
 #define ADC_CR2_ALIGN_Pos                   (11U)
 #define ADC_CR2_ALIGN_Msk                   (0x1UL << ADC_CR2_ALIGN_Pos)        /*!< 0x00000800 */
-#define ADC_CR2_ALIGN                       ADC_CR2_ALIGN_Msk                  /*!< ADC data alignement */
+#define ADC_CR2_ALIGN                       ADC_CR2_ALIGN_Msk                  /*!< ADC data alignment */
 
 #define ADC_CR2_JEXTSEL_Pos                 (12U)
 #define ADC_CR2_JEXTSEL_Msk                 (0x7UL << ADC_CR2_JEXTSEL_Pos)      /*!< 0x00007000 */
@@ -6529,20 +6528,20 @@ typedef struct
 #define ADC1_2_IRQn             ADC1_IRQn
 #define OTG_FS_WKUP_IRQn        CEC_IRQn
 #define USBWakeUp_IRQn          CEC_IRQn
-#define TIM8_BRK_IRQn           TIM12_IRQn
 #define TIM8_BRK_TIM12_IRQn     TIM12_IRQn
+#define TIM8_BRK_IRQn           TIM12_IRQn
 #define TIM8_UP_IRQn            TIM13_IRQn
 #define TIM8_UP_TIM13_IRQn      TIM13_IRQn
 #define TIM8_TRG_COM_TIM14_IRQn TIM14_IRQn
 #define TIM8_TRG_COM_IRQn       TIM14_IRQn
-#define TIM9_IRQn               TIM1_BRK_TIM15_IRQn
 #define TIM1_BRK_IRQn           TIM1_BRK_TIM15_IRQn
 #define TIM1_BRK_TIM9_IRQn      TIM1_BRK_TIM15_IRQn
-#define TIM1_TRG_COM_TIM11_IRQn TIM1_TRG_COM_TIM17_IRQn
+#define TIM9_IRQn               TIM1_BRK_TIM15_IRQn
 #define TIM1_TRG_COM_IRQn       TIM1_TRG_COM_TIM17_IRQn
+#define TIM1_TRG_COM_TIM11_IRQn TIM1_TRG_COM_TIM17_IRQn
 #define TIM11_IRQn              TIM1_TRG_COM_TIM17_IRQn
-#define TIM10_IRQn              TIM1_UP_TIM16_IRQn
 #define TIM1_UP_TIM10_IRQn      TIM1_UP_TIM16_IRQn
+#define TIM10_IRQn              TIM1_UP_TIM16_IRQn
 #define TIM1_UP_IRQn            TIM1_UP_TIM16_IRQn
 #define TIM6_IRQn               TIM6_DAC_IRQn
 
@@ -6551,20 +6550,20 @@ typedef struct
 #define ADC1_2_IRQHandler             ADC1_IRQHandler
 #define OTG_FS_WKUP_IRQHandler        CEC_IRQHandler
 #define USBWakeUp_IRQHandler          CEC_IRQHandler
-#define TIM8_BRK_IRQHandler           TIM12_IRQHandler
 #define TIM8_BRK_TIM12_IRQHandler     TIM12_IRQHandler
+#define TIM8_BRK_IRQHandler           TIM12_IRQHandler
 #define TIM8_UP_IRQHandler            TIM13_IRQHandler
 #define TIM8_UP_TIM13_IRQHandler      TIM13_IRQHandler
 #define TIM8_TRG_COM_TIM14_IRQHandler TIM14_IRQHandler
 #define TIM8_TRG_COM_IRQHandler       TIM14_IRQHandler
-#define TIM9_IRQHandler               TIM1_BRK_TIM15_IRQHandler
 #define TIM1_BRK_IRQHandler           TIM1_BRK_TIM15_IRQHandler
 #define TIM1_BRK_TIM9_IRQHandler      TIM1_BRK_TIM15_IRQHandler
-#define TIM1_TRG_COM_TIM11_IRQHandler TIM1_TRG_COM_TIM17_IRQHandler
+#define TIM9_IRQHandler               TIM1_BRK_TIM15_IRQHandler
 #define TIM1_TRG_COM_IRQHandler       TIM1_TRG_COM_TIM17_IRQHandler
+#define TIM1_TRG_COM_TIM11_IRQHandler TIM1_TRG_COM_TIM17_IRQHandler
 #define TIM11_IRQHandler              TIM1_TRG_COM_TIM17_IRQHandler
-#define TIM10_IRQHandler              TIM1_UP_TIM16_IRQHandler
 #define TIM1_UP_TIM10_IRQHandler      TIM1_UP_TIM16_IRQHandler
+#define TIM10_IRQHandler              TIM1_UP_TIM16_IRQHandler
 #define TIM1_UP_IRQHandler            TIM1_UP_TIM16_IRQHandler
 #define TIM6_IRQHandler               TIM6_DAC_IRQHandler
 
@@ -6586,4 +6585,3 @@ typedef struct
 
 
 
-  /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
