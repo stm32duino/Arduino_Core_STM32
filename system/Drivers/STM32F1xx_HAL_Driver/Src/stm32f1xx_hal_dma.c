@@ -70,13 +70,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -684,9 +683,9 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)
   * @brief Register callbacks
   * @param hdma: pointer to a DMA_HandleTypeDef structure that contains
   *              the configuration information for the specified DMA Channel.
-  * @param CallbackID: User Callback identifer
+  * @param CallbackID: User Callback identifier
   *                    a HAL_DMA_CallbackIDTypeDef ENUM as parameter.
-  * @param pCallback: pointer to private callbacsk function which has pointer to
+  * @param pCallback: pointer to private callback function which has pointer to
   *                   a DMA_HandleTypeDef structure as parameter.
   * @retval HAL status
   */
@@ -737,7 +736,7 @@ HAL_StatusTypeDef HAL_DMA_RegisterCallback(DMA_HandleTypeDef *hdma, HAL_DMA_Call
   * @brief UnRegister callbacks
   * @param hdma: pointer to a DMA_HandleTypeDef structure that contains
   *              the configuration information for the specified DMA Channel.
-  * @param CallbackID: User Callback identifer
+  * @param CallbackID: User Callback identifier
   *                    a HAL_DMA_CallbackIDTypeDef ENUM as parameter.
   * @retval HAL status
   */
@@ -812,7 +811,7 @@ HAL_StatusTypeDef HAL_DMA_UnRegisterCallback(DMA_HandleTypeDef *hdma, HAL_DMA_Ca
   */
 
 /**
-  * @brief  Return the DMA hande state.
+  * @brief  Return the DMA handle state.
   * @param  hdma: pointer to a DMA_HandleTypeDef structure that contains
   *               the configuration information for the specified DMA Channel.
   * @retval HAL state
@@ -896,4 +895,3 @@ static void DMA_SetConfig(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

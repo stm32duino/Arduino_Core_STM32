@@ -8,21 +8,20 @@
   *          is using in the C source code, usually in main.c. This file contains:
   *            - Configuration section that allows to select:
   *              - The STM32F1xx device used in the target application
-  *              - To use or not the peripheral’s drivers in application code(i.e.
-  *                code will be based on direct access to peripheral’s registers
+  *              - To use or not the peripheral's drivers in application code(i.e.
+  *                code will be based on direct access to peripheral's registers
   *                rather than drivers API), this option is controlled by
   *                "#define USE_HAL_DRIVER"
   *
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017-2021 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -90,11 +89,11 @@
 #endif /* USE_HAL_DRIVER */
 
 /**
-  * @brief CMSIS Device version number V4.3.3
+  * @brief CMSIS Device version number
   */
 #define __STM32F1_CMSIS_VERSION_MAIN   (0x04) /*!< [31:24] main version */
 #define __STM32F1_CMSIS_VERSION_SUB1   (0x03) /*!< [23:16] sub1 version */
-#define __STM32F1_CMSIS_VERSION_SUB2   (0x03) /*!< [15:8]  sub2 version */
+#define __STM32F1_CMSIS_VERSION_SUB2   (0x04) /*!< [15:8]  sub2 version */
 #define __STM32F1_CMSIS_VERSION_RC     (0x00) /*!< [7:0]  release candidate */
 #define __STM32F1_CMSIS_VERSION        ((__STM32F1_CMSIS_VERSION_MAIN << 24)\
                                        |(__STM32F1_CMSIS_VERSION_SUB1 << 16)\
@@ -272,4 +271,3 @@ typedef enum
 
 
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -15,13 +15,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017-2021 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -61,6 +60,9 @@ defined in linker script */
   .type Reset_Handler, %function
 Reset_Handler:
 
+/* Call the clock system initialization function.*/
+    bl  SystemInit
+
 /* Copy the data segment initializers from flash to SRAM */
   ldr r0, =_sdata
   ldr r1, =_edata
@@ -92,8 +94,6 @@ LoopFillZerobss:
   cmp r2, r4
   bcc FillZerobss
 
-/* Call the clock system intitialization function.*/
-    bl  SystemInit
 /* Call static constructors */
     bl __libc_init_array
 /* Call the application's entry point.*/
@@ -377,7 +377,7 @@ g_pfnVectors:
   .weak  SPI1_IRQHandler
   .thumb_set SPI1_IRQHandler,Default_Handler
 
-  .weak  SPI1_IRQHandler
+  .weak  SPI2_IRQHandler
   .thumb_set SPI2_IRQHandler,Default_Handler
 
   .weak  USART1_IRQHandler
@@ -404,5 +404,4 @@ g_pfnVectors:
   .weak  TIM7_IRQHandler
   .thumb_set TIM7_IRQHandler,Default_Handler
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

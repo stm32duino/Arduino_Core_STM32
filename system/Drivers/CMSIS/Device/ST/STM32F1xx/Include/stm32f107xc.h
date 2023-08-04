@@ -9,18 +9,17 @@
   *          This file contains:
   *           - Data structures and the address mapping for all peripherals
   *           - Peripheral's registers declarations and bits definition
-  *           - Macros to access peripheral’s registers hardware
+  *           - Macros to access peripheral's registers hardware
   *
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017-2021 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -1339,7 +1338,7 @@ typedef struct
 /*                                                                            */
 /******************************************************************************/
 /*
- * @brief Specific device feature definitions (not present on all devices in the STM32F1 serie)
+ * @brief Specific device feature definitions (not present on all devices in the STM32F1 series)
  */
 #define RCC_PLL2_SUPPORT                                                       /*!< Support PLL2 */
 #define RCC_PLLI2S_SUPPORT
@@ -1898,7 +1897,7 @@ typedef struct
 #define RCC_BDCR_RTCSEL_0                    (0x1UL << RCC_BDCR_RTCSEL_Pos)     /*!< 0x00000100 */
 #define RCC_BDCR_RTCSEL_1                    (0x2UL << RCC_BDCR_RTCSEL_Pos)     /*!< 0x00000200 */
 
-/*!< RTC congiguration */
+/*!< RTC configuration */
 #define RCC_BDCR_RTCSEL_NOCLOCK              0x00000000U                       /*!< No clock */
 #define RCC_BDCR_RTCSEL_LSE                  0x00000100U                       /*!< LSE oscillator clock used as RTC clock */
 #define RCC_BDCR_RTCSEL_LSI                  0x00000200U                       /*!< LSI oscillator clock used as RTC clock */
@@ -4164,7 +4163,7 @@ typedef struct
 #define ADC_CR2_DMA                         ADC_CR2_DMA_Msk                    /*!< ADC DMA transfer enable */
 #define ADC_CR2_ALIGN_Pos                   (11U)
 #define ADC_CR2_ALIGN_Msk                   (0x1UL << ADC_CR2_ALIGN_Pos)        /*!< 0x00000800 */
-#define ADC_CR2_ALIGN                       ADC_CR2_ALIGN_Msk                  /*!< ADC data alignement */
+#define ADC_CR2_ALIGN                       ADC_CR2_ALIGN_Msk                  /*!< ADC data alignment */
 
 #define ADC_CR2_JEXTSEL_Pos                 (12U)
 #define ADC_CR2_JEXTSEL_Msk                 (0x7UL << ADC_CR2_JEXTSEL_Pos)      /*!< 0x00007000 */
@@ -11852,7 +11851,7 @@ typedef struct
 /*                                                                            */
 /******************************************************************************/
 /*
- * @brief Specific device feature definitions (not present on all devices in the STM32F1 serie)
+ * @brief Specific device feature definitions (not present on all devices in the STM32F1 series)
  */
 #define SPI_I2S_SUPPORT       /*!< I2S support */
 #define I2S2_I2S3_CLOCK_FEATURE
@@ -13050,7 +13049,7 @@ typedef struct
 /*                Ethernet MMC Registers bits definition                      */
 /******************************************************************************/
 
-/* Bit definition for Ethernet MMC Contol Register */
+/* Bit definition for Ethernet MMC Control Register */
 #define ETH_MMCCR_MCF_Pos                      (3U)
 #define ETH_MMCCR_MCF_Msk                      (0x1UL << ETH_MMCCR_MCF_Pos)     /*!< 0x00000008 */
 #define ETH_MMCCR_MCF                          ETH_MMCCR_MCF_Msk               /* MMC Counter Freeze */
@@ -13128,7 +13127,7 @@ typedef struct
 #define ETH_MMCRFCECR_RFCEC_Msk                (0xFFFFFFFFUL << ETH_MMCRFCECR_RFCEC_Pos) /*!< 0xFFFFFFFF */
 #define ETH_MMCRFCECR_RFCEC                    ETH_MMCRFCECR_RFCEC_Msk         /* Number of frames received with CRC error. */
 
-/* Bit definition for Ethernet MMC Received Frames with Alignement Error Counter Register */
+/* Bit definition for Ethernet MMC Received Frames with Alignment Error Counter Register */
 #define ETH_MMCRFAECR_RFAEC_Pos                (0U)
 #define ETH_MMCRFAECR_RFAEC_Msk                (0xFFFFFFFFUL << ETH_MMCRFAECR_RFAEC_Pos) /*!< 0xFFFFFFFF */
 #define ETH_MMCRFAECR_RFAEC                    ETH_MMCRFAECR_RFAEC_Msk         /* Number of frames received with alignment (dribble) error */
@@ -13142,7 +13141,7 @@ typedef struct
 /*               Ethernet PTP Registers bits definition                       */
 /******************************************************************************/
 
-/* Bit definition for Ethernet PTP Time Stamp Contol Register */
+/* Bit definition for Ethernet PTP Time Stamp Control Register */
 #define ETH_PTPTSCR_TSARU_Pos                  (5U)
 #define ETH_PTPTSCR_TSARU_Msk                  (0x1UL << ETH_PTPTSCR_TSARU_Pos) /*!< 0x00000020 */
 #define ETH_PTPTSCR_TSARU                      ETH_PTPTSCR_TSARU_Msk           /* Addend register update */
@@ -13352,7 +13351,7 @@ typedef struct
 #define ETH_DMASR_RPS_Closing                  ETH_DMASR_RPS_Closing_Msk       /* Running - closing descriptor */
 #define ETH_DMASR_RPS_Queuing_Pos              (17U)
 #define ETH_DMASR_RPS_Queuing_Msk              (0x7UL << ETH_DMASR_RPS_Queuing_Pos) /*!< 0x000E0000 */
-#define ETH_DMASR_RPS_Queuing                  ETH_DMASR_RPS_Queuing_Msk       /* Running - queuing the recieve frame into host memory */
+#define ETH_DMASR_RPS_Queuing                  ETH_DMASR_RPS_Queuing_Msk       /* Running - queuing the receive frame into host memory */
 #define ETH_DMASR_NIS_Pos                      (16U)
 #define ETH_DMASR_NIS_Msk                      (0x1UL << ETH_DMASR_NIS_Pos)     /*!< 0x00010000 */
 #define ETH_DMASR_NIS                          ETH_DMASR_NIS_Msk               /* Normal interrupt summary */
@@ -15197,20 +15196,20 @@ typedef struct
 #define ADC1_IRQn               ADC1_2_IRQn
 #define USB_LP_IRQn             CAN1_RX0_IRQn
 #define USB_LP_CAN1_RX0_IRQn    CAN1_RX0_IRQn
-#define USB_HP_IRQn             CAN1_TX_IRQn
 #define USB_HP_CAN1_TX_IRQn     CAN1_TX_IRQn
+#define USB_HP_IRQn             CAN1_TX_IRQn
 #define DMA2_Channel4_5_IRQn    DMA2_Channel4_IRQn
 #define USBWakeUp_IRQn          OTG_FS_WKUP_IRQn
 #define CEC_IRQn                OTG_FS_WKUP_IRQn
+#define TIM9_IRQn               TIM1_BRK_IRQn
 #define TIM1_BRK_TIM9_IRQn      TIM1_BRK_IRQn
 #define TIM1_BRK_TIM15_IRQn     TIM1_BRK_IRQn
-#define TIM9_IRQn               TIM1_BRK_IRQn
-#define TIM11_IRQn              TIM1_TRG_COM_IRQn
-#define TIM1_TRG_COM_TIM17_IRQn TIM1_TRG_COM_IRQn
 #define TIM1_TRG_COM_TIM11_IRQn TIM1_TRG_COM_IRQn
-#define TIM1_UP_TIM16_IRQn      TIM1_UP_IRQn
-#define TIM1_UP_TIM10_IRQn      TIM1_UP_IRQn
+#define TIM1_TRG_COM_TIM17_IRQn TIM1_TRG_COM_IRQn
+#define TIM11_IRQn              TIM1_TRG_COM_IRQn
 #define TIM10_IRQn              TIM1_UP_IRQn
+#define TIM1_UP_TIM10_IRQn      TIM1_UP_IRQn
+#define TIM1_UP_TIM16_IRQn      TIM1_UP_IRQn
 #define TIM6_DAC_IRQn           TIM6_IRQn
 
 
@@ -15218,20 +15217,20 @@ typedef struct
 #define ADC1_IRQHandler               ADC1_2_IRQHandler
 #define USB_LP_IRQHandler             CAN1_RX0_IRQHandler
 #define USB_LP_CAN1_RX0_IRQHandler    CAN1_RX0_IRQHandler
-#define USB_HP_IRQHandler             CAN1_TX_IRQHandler
 #define USB_HP_CAN1_TX_IRQHandler     CAN1_TX_IRQHandler
+#define USB_HP_IRQHandler             CAN1_TX_IRQHandler
 #define DMA2_Channel4_5_IRQHandler    DMA2_Channel4_IRQHandler
 #define USBWakeUp_IRQHandler          OTG_FS_WKUP_IRQHandler
 #define CEC_IRQHandler                OTG_FS_WKUP_IRQHandler
+#define TIM9_IRQHandler               TIM1_BRK_IRQHandler
 #define TIM1_BRK_TIM9_IRQHandler      TIM1_BRK_IRQHandler
 #define TIM1_BRK_TIM15_IRQHandler     TIM1_BRK_IRQHandler
-#define TIM9_IRQHandler               TIM1_BRK_IRQHandler
-#define TIM11_IRQHandler              TIM1_TRG_COM_IRQHandler
-#define TIM1_TRG_COM_TIM17_IRQHandler TIM1_TRG_COM_IRQHandler
 #define TIM1_TRG_COM_TIM11_IRQHandler TIM1_TRG_COM_IRQHandler
-#define TIM1_UP_TIM16_IRQHandler      TIM1_UP_IRQHandler
-#define TIM1_UP_TIM10_IRQHandler      TIM1_UP_IRQHandler
+#define TIM1_TRG_COM_TIM17_IRQHandler TIM1_TRG_COM_IRQHandler
+#define TIM11_IRQHandler              TIM1_TRG_COM_IRQHandler
 #define TIM10_IRQHandler              TIM1_UP_IRQHandler
+#define TIM1_UP_TIM10_IRQHandler      TIM1_UP_IRQHandler
+#define TIM1_UP_TIM16_IRQHandler      TIM1_UP_IRQHandler
 #define TIM6_DAC_IRQHandler           TIM6_IRQHandler
 
 
@@ -15252,4 +15251,3 @@ typedef struct
 
 
 
-  /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
