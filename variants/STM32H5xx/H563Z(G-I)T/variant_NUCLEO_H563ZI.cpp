@@ -174,8 +174,7 @@ WEAK void SystemClock_Config(void)
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {};
   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {};
 
-  /** Configure the main internal regulator output voltage
-  */
+  /** Configure the main internal regulator output voltage */
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE0);
 
   while (!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY)) {}
