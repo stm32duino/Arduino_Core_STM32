@@ -92,38 +92,38 @@ extern "C" {
 #endif
 
 /**
- * @note How to generate PLL clock
- * <SOURCE>
- *   HSE      8 MHz ... STLINK MCO output
- *   HSE     24 MHz ... on-board X3 (default)
- *   HSE   4~50 MHz ... prepare your own external clock
- *   LSE 32.768 kHz ... on-board X2
- *   HSI     64 MHz ... internal clock
- *   HSI48   48 MHz ... internal clock for recovery
- *   LSI 32.768 kHz ... internal clock
- *   CSI      4 MHz ... internal clock for low power
- *
- * <MULTIPLEXER>
- *   SOURCE / PLLM * PLLN
- *
- * <TARGRT>
- *   PLL ... MULTIPLEXER / PLLP
- *
- * default CPU clock:
- *   24(HSE) / 12(PLLM) * 250(PLLN) / 2(PLLP) ... 250 MHz
- */
+* @note How to generate PLL clock
+* <SOURCE>
+*   HSE      8 MHz ... STLINK MCO output
+*   HSE     24 MHz ... on-board X3 (default)
+*   HSE   4~50 MHz ... prepare your own external clock
+*   LSE 32.768 kHz ... on-board X2
+*   HSI     64 MHz ... internal clock
+*   HSI48   48 MHz ... internal clock for recovery
+*   LSI 32.768 kHz ... internal clock
+*   CSI      4 MHz ... internal clock for low power
+*
+* <MULTIPLEXER>
+*   SOURCE / PLLM * PLLN
+*
+* <TARGRT>
+*   PLL ... MULTIPLEXER / PLLP
+*
+* default CPU clock:
+*   24(HSE) / 12(PLLM) * 250(PLLN) / 2(PLLP) ... 250 MHz
+*/
 
 WEAK void SystemClock_Config(void) {
   RCC_OscInitTypeDef RCC_OscInitStruct = {};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {};
   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {};
 
-  /** Configure the main internal regulator output voltage */
+  // Configure the main internal regulator output voltage
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE0);
 
   while (!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY)) {}
 
-  /** Initializes the RCC Oscillators according to the specified parameters in the RCC_OscInitTypeDef structure */
+  // Initializes the RCC Oscillators according to the specified parameters in the RCC_OscInitTypeDef structure
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_HSE | RCC_OSCILLATORTYPE_LSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS_DIGITAL;
   RCC_OscInitStruct.LSEState = RCC_LSE_ON;
@@ -145,7 +145,7 @@ WEAK void SystemClock_Config(void) {
     Error_Handler();
   }
 
-  /** Initializes the CPU, AHB and APB buses clocks */
+  // Initializes the CPU, AHB and APB buses clocks
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2 | RCC_CLOCKTYPE_PCLK3;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
@@ -157,7 +157,7 @@ WEAK void SystemClock_Config(void) {
     Error_Handler();
   }
 
-  /** Initializes the peripherals clock */
+  // Initializes the peripherals clock
   PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_ADCDAC | RCC_PERIPHCLK_LPUART1 | RCC_PERIPHCLK_OSPI | RCC_PERIPHCLK_SDMMC1 | RCC_PERIPHCLK_USB;
   PeriphClkInitStruct.AdcDacClockSelection = RCC_ADCDACCLKSOURCE_HCLK;
   PeriphClkInitStruct.Lpuart1ClockSelection = RCC_LPUART1CLKSOURCE_PLL2Q;
@@ -190,8 +190,9 @@ WEAK void SystemClock_Config(void) {
   }
 }
 
+// extern "C"
 #ifdef __cplusplus
-} // extern "C"
+}
 #endif
 
 #endif /* ARDUINO_NUCLEO_H503RB */
