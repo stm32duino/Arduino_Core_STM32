@@ -163,34 +163,33 @@ WEAK void SystemClock_Config(void)
     Error_Handler();
   }
 
-  // TODO: Edit peripherals clock config.
   /** Initializes the peripherals clock */
-  // PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_ADCDAC | RCC_PERIPHCLK_LPUART1 | RCC_PERIPHCLK_OSPI | RCC_PERIPHCLK_SDMMC1 | RCC_PERIPHCLK_USB;
-  // PeriphClkInitStruct.AdcDacClockSelection = RCC_ADCDACCLKSOURCE_HCLK;
-  // PeriphClkInitStruct.Lpuart1ClockSelection = RCC_LPUART1CLKSOURCE_PLL2Q;
-  // PeriphClkInitStruct.OspiClockSelection = RCC_OSPICLKSOURCE_HCLK;
-  // PeriphClkInitStruct.Sdmmc1ClockSelection = RCC_SDMMC1CLKSOURCE_PLL1Q;
-  // PeriphClkInitStruct.UsbClockSelection = RCC_USBCLKSOURCE_PLL3Q;
-  // PeriphClkInitStruct.PLL2.PLL2Source = RCC_PLL2_SOURCE_HSE;
-  // PeriphClkInitStruct.PLL2.PLL2M = 2;
-  // PeriphClkInitStruct.PLL2.PLL2N = 128;
-  // PeriphClkInitStruct.PLL2.PLL2P = 2;
-  // PeriphClkInitStruct.PLL2.PLL2Q = 16;
-  // PeriphClkInitStruct.PLL2.PLL2R = 2;
-  // PeriphClkInitStruct.PLL2.PLL2RGE = RCC_PLL2_VCIRANGE_2;
-  // PeriphClkInitStruct.PLL2.PLL2VCOSEL = RCC_PLL2_VCORANGE_WIDE;
-  // PeriphClkInitStruct.PLL2.PLL2FRACN = 0;
-  // PeriphClkInitStruct.PLL2.PLL2ClockOut = RCC_PLL2_DIVQ;
-  // PeriphClkInitStruct.PLL3.PLL3Source = RCC_PLL3_SOURCE_HSE;
-  // PeriphClkInitStruct.PLL3.PLL3M = 2;
-  // PeriphClkInitStruct.PLL3.PLL3N = 96;
-  // PeriphClkInitStruct.PLL3.PLL3P = 2;
-  // PeriphClkInitStruct.PLL3.PLL3Q = 8;
-  // PeriphClkInitStruct.PLL3.PLL3R = 2;
-  // PeriphClkInitStruct.PLL3.PLL3RGE = RCC_PLL3_VCIRANGE_0;
-  // PeriphClkInitStruct.PLL3.PLL3VCOSEL = RCC_PLL3_VCORANGE_MEDIUM;
-  // PeriphClkInitStruct.PLL3.PLL3FRACN = 0;
-  // PeriphClkInitStruct.PLL3.PLL3ClockOut = RCC_PLL3_DIVQ;
+  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_ADCDAC | RCC_PERIPHCLK_LPUART1 | RCC_PERIPHCLK_OSPI | RCC_PERIPHCLK_SDMMC1 | RCC_PERIPHCLK_USB;
+  PeriphClkInitStruct.AdcDacClockSelection = RCC_ADCDACCLKSOURCE_HCLK;
+  PeriphClkInitStruct.Lpuart1ClockSelection = RCC_LPUART1CLKSOURCE_PLL2Q;
+  PeriphClkInitStruct.OspiClockSelection = RCC_OSPICLKSOURCE_HCLK;
+  PeriphClkInitStruct.Sdmmc1ClockSelection = RCC_SDMMC1CLKSOURCE_PLL1Q;
+  PeriphClkInitStruct.UsbClockSelection = RCC_USBCLKSOURCE_PLL3Q;
+  PeriphClkInitStruct.PLL2.PLL2Source = RCC_PLL2_SOURCE_HSE;
+  PeriphClkInitStruct.PLL2.PLL2M = 6;
+  PeriphClkInitStruct.PLL2.PLL2N = 128;
+  PeriphClkInitStruct.PLL2.PLL2P = 2;
+  PeriphClkInitStruct.PLL2.PLL2Q = 16;
+  PeriphClkInitStruct.PLL2.PLL2R = 2;
+  PeriphClkInitStruct.PLL2.PLL2RGE = RCC_PLL2_VCIRANGE_2;
+  PeriphClkInitStruct.PLL2.PLL2VCOSEL = RCC_PLL2_VCORANGE_WIDE;
+  PeriphClkInitStruct.PLL2.PLL2FRACN = 0;
+  PeriphClkInitStruct.PLL2.PLL2ClockOut = RCC_PLL2_DIVQ;
+  PeriphClkInitStruct.PLL3.PLL3Source = RCC_PLL3_SOURCE_HSE;
+  PeriphClkInitStruct.PLL3.PLL3M = 6;
+  PeriphClkInitStruct.PLL3.PLL3N = 96;
+  PeriphClkInitStruct.PLL3.PLL3P = 2;
+  PeriphClkInitStruct.PLL3.PLL3Q = 8;
+  PeriphClkInitStruct.PLL3.PLL3R = 2;
+  PeriphClkInitStruct.PLL3.PLL3RGE = RCC_PLL2_VCIRANGE_2;
+  PeriphClkInitStruct.PLL3.PLL3VCOSEL = RCC_PLL2_VCORANGE_WIDE;
+  PeriphClkInitStruct.PLL3.PLL3FRACN = 0;
+  PeriphClkInitStruct.PLL3.PLL3ClockOut = RCC_PLL3_DIVQ;
 
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK) {
     Error_Handler();
