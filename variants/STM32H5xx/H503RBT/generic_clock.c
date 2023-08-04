@@ -15,38 +15,32 @@
 #include "pins_arduino.h"
 
 /**
-  * @brief  System Clock Configuration
-  * @param  None
-  * @retval None
-  */
-WEAK void SystemClock_Config(void)
-{
+ * @note How to generate PLL clock
+ * <SOURCE>
+ *   HSI     64 MHz ... internal clock
+ *   HSI48   48 MHz ... internal clock for recovery
+ *   LSI 32.768 kHz ... internal clock
+ *   CSI      4 MHz ... internal clock for low power
+ *
+ * <MULTIPLEXER>
+ *   SOURCE / PLLM * PLLN
+ *
+ * <TARGRT>
+ *   PLL ... MULTIPLEXER / PLLP
+ *
+ * default CPU clock:
+ *   4(CSI) / 1(PLLM) * 125(PLLN) / 2(PLLP) ... 250 MHz
+ */
+
+WEAK void SystemClock_Config(void) {
   RCC_OscInitTypeDef RCC_OscInitStruct = {};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {};
-  RCC_PeriphCLKInitTypeDef RCC_PeriphClkInitStruct = {};
+  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {};
 
   /** Configure the main internal regulator output voltage */
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE0);
 
   while (!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY)) {}
-
-  /**
-    * @note How to generate PLL clock
-    * <SOURCE>
-    *   HSI     64 MHz ... internal clock
-    *   HSI48   48 MHz ... internal clock for recovery
-    *   LSI     32 kHz ... internal clock
-    *   CSI      4 MHz ... internal clock for low power
-    *
-    * <MULTIPLEXER>
-    *   SOURCE / PLLM * PLLN
-    *
-    * <TARGRT>
-    *   PLL ... MULTIPLEXER / PLLP
-    *
-    * default CPU clock:
-    *   4(CSI) / 1(PLLM) * 125(PLLN) / 2(PLLP) ... 250 MHz
-    */
 
   /** Initializes the RCC Oscillators according to the specified parameters in the RCC_OscInitTypeDef structure */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48 | RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_LSI | RCC_OSCILLATORTYPE_CSI;
@@ -85,14 +79,14 @@ WEAK void SystemClock_Config(void)
   }
 
   /** Initializes the peripherals clock */
-  RCC_PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_ADCDAC | RCC_PERIPHCLK_LPUART1 | RCC_PERIPHCLK_OSPI | RCC_PERIPHCLK_SDMMC1 | RCC_PERIPHCLK_USB;
-  RCC_PeriphClkInitStruct.AdcDacClockSelection = RCC_ADCDACCLKSOURCE_HCLK;
-  RCC_PeriphClkInitStruct.Lpuart1ClockSelection = RCC_LPUART1CLKSOURCE_HSI;
-  RCC_PeriphClkInitStruct.OspiClockSelection = RCC_OSPICLKSOURCE_HCLK;
-  RCC_PeriphClkInitStruct.Sdmmc1ClockSelection = RCC_SDMMC1CLKSOURCE_PLL1Q;
-  RCC_PeriphClkInitStruct.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
+  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_ADCDAC | RCC_PERIPHCLK_LPUART1 | RCC_PERIPHCLK_OSPI | RCC_PERIPHCLK_SDMMC1 | RCC_PERIPHCLK_USB;
+  PeriphClkInitStruct.AdcDacClockSelection = RCC_ADCDACCLKSOURCE_HCLK;
+  PeriphClkInitStruct.Lpuart1ClockSelection = RCC_LPUART1CLKSOURCE_HSI;
+  PeriphClkInitStruct.OspiClockSelection = RCC_OSPICLKSOURCE_HCLK;
+  PeriphClkInitStruct.Sdmmc1ClockSelection = RCC_SDMMC1CLKSOURCE_PLL1Q;
+  PeriphClkInitStruct.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
 
-  if (HAL_RCCEx_PeriphCLKConfig(&RCC_PeriphClkInitStruct) != HAL_OK) {
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK) {
     Error_Handler();
   }
 }

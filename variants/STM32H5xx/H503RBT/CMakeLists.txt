@@ -29,4 +29,3 @@ target_link_libraries(variant_bin PUBLIC variant_usage)
 target_link_libraries(variant INTERFACE
   variant_bin
 )
-
