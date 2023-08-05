@@ -10,7 +10,6 @@
  *
  *******************************************************************************
  */
-
 #if defined(ARDUINO_NUCLEO_H563ZI)
 #include "pins_arduino.h"
 
@@ -174,35 +173,17 @@ WEAK void SystemClock_Config(void)
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {};
   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {};
 
-  /** Configure the main internal regulator output voltage */
+  /** Configure the main internal regulator output voltage
+  */
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE0);
 
   while (!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY)) {}
 
-  /**
-    * @note How to generate PLL clock
-    * <SOURCE>
-    *   HSE      8 MHz ... STLINK MCO output (default)
-    *   HSE     25 MHz ... on-board X3
-    *   HSE   4~50 MHz ... prepare your own external clock
-    *   LSE 32.768 kHz ... on-board X2
-    *   HSI     64 MHz ... internal clock
-    *   HSI48   48 MHz ... internal clock for recovery
-    *   LSI     32 kHz ... internal clock
-    *   CSI      4 MHz ... internal clock for low power
-    *
-    * <MULTIPLEXER>
-    *   SOURCE / PLLM * PLLN
-    *
-    * <TARGRT>
-    *   PLL ... MULTIPLEXER / PLLP
-    *
-    * default CPU clock:
-    *   8(HSE) / 4(PLLM) * 250(PLLN) / 2(PLLP) ... 250 MHz
-    */
-
-  /** Initializes the RCC Oscillators according to the specified parameters in the RCC_OscInitTypeDef structure */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_HSE | RCC_OSCILLATORTYPE_LSE;
+  /** Initializes the RCC Oscillators according to the specified parameters
+  * in the RCC_OscInitTypeDef structure.
+  */
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_HSE
+                                     | RCC_OSCILLATORTYPE_LSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS_DIGITAL;
   RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
@@ -218,13 +199,15 @@ WEAK void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1_VCIRANGE_1;
   RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1_VCORANGE_WIDE;
   RCC_OscInitStruct.PLL.PLLFRACN = 0;
-
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
     Error_Handler();
   }
 
-  /** Initializes the CPU, AHB and APB buses clocks */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2 | RCC_CLOCKTYPE_PCLK3;
+  /** Initializes the CPU, AHB and APB buses clocks
+  */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
+                                | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2
+                                | RCC_CLOCKTYPE_PCLK3;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
@@ -235,8 +218,11 @@ WEAK void SystemClock_Config(void)
     Error_Handler();
   }
 
-  /** Initializes the peripherals clock */
-  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_ADCDAC | RCC_PERIPHCLK_LPUART1 | RCC_PERIPHCLK_OSPI | RCC_PERIPHCLK_SDMMC1 | RCC_PERIPHCLK_USB;
+  /** Initializes the peripherals clock
+  */
+  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_ADCDAC | RCC_PERIPHCLK_LPUART1
+                                             | RCC_PERIPHCLK_OSPI | RCC_PERIPHCLK_SDMMC1
+                                             | RCC_PERIPHCLK_USB;
   PeriphClkInitStruct.AdcDacClockSelection = RCC_ADCDACCLKSOURCE_HCLK;
   PeriphClkInitStruct.PLL2.PLL2Source = RCC_PLL2_SOURCE_HSE;
   PeriphClkInitStruct.PLL2.PLL2M = 2;
@@ -262,7 +248,6 @@ WEAK void SystemClock_Config(void)
   PeriphClkInitStruct.PLL3.PLL3FRACN = 0;
   PeriphClkInitStruct.PLL3.PLL3ClockOut = RCC_PLL3_DIVQ;
   PeriphClkInitStruct.UsbClockSelection = RCC_USBCLKSOURCE_PLL3Q;
-
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK) {
     Error_Handler();
   }
@@ -271,5 +256,4 @@ WEAK void SystemClock_Config(void)
 #ifdef __cplusplus
 } // extern "C"
 #endif
-
 #endif /* ARDUINO_NUCLEO_H563ZI */
