@@ -15,10 +15,10 @@
 #include "pins_arduino.h"
 
 /**
-* @note How to generate PLL clock
+* @note [How to generate PLL clock]
 * <SOURCE>
 *   HSI     64 MHz ... internal clock
-*   HSI48   48 MHz ... internal clock for recovery
+*   HSI48   48 MHz ... internal clock for USB/RNG with recovery
 *   LSI 32.768 kHz ... internal clock
 *   CSI      4 MHz ... internal clock for low power
 *
@@ -28,10 +28,8 @@
 * <TARGRT>
 *   PLL ... MULTIPLEXER / PLLP
 *
-* default CPU clock:
-*   4(CSI) / 1(PLLM) * 125(PLLN) / 2(PLLP) ... 250 MHz
-*
-* PLL3 supports only H562/H563/H573.
+* - Default CPU clock: 4(CSI) / 1(PLLM) * 125(PLLN) / 2(PLLP) ... 250 MHz
+* - PLL3 supports only H562/H563/H573.
 */
 
 WEAK void SystemClock_Config(void) {

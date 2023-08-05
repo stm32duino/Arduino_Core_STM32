@@ -92,14 +92,14 @@ extern "C" {
 #endif
 
 /**
-* @note How to generate PLL clock
+* @note [How to generate PLL clock]
 * <SOURCE>
 *   HSE      8 MHz ... STLINK MCO output
 *   HSE     24 MHz ... on-board X3 (default)
 *   HSE   4~50 MHz ... prepare your own external clock
 *   LSE 32.768 kHz ... on-board X2
 *   HSI     64 MHz ... internal clock
-*   HSI48   48 MHz ... internal clock for recovery
+*   HSI48   48 MHz ... internal clock for USB/RNG with recovery
 *   LSI 32.768 kHz ... internal clock
 *   CSI      4 MHz ... internal clock for low power
 *
@@ -109,8 +109,8 @@ extern "C" {
 * <TARGRT>
 *   PLL ... MULTIPLEXER / PLLP
 *
-* default CPU clock:
-*   24(HSE) / 12(PLLM) * 250(PLLN) / 2(PLLP) ... 250 MHz
+* - Default CPU clock: 24(HSE) / 12(PLLM) * 250(PLLN) / 2(PLLP) ... 250 MHz
+* - PLL3 supports only H562/H563/H573.
 */
 
 WEAK void SystemClock_Config(void) {
