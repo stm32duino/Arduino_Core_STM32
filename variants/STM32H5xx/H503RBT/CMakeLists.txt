@@ -22,10 +22,10 @@ add_library(variant_bin STATIC EXCLUDE_FROM_ALL
   generic_clock.c
   PeripheralPins.c
   variant_generic.cpp
+  variant_NUCLEO_H503RB.cpp
 )
 target_link_libraries(variant_bin PUBLIC variant_usage)
 
 target_link_libraries(variant INTERFACE
   variant_bin
 )
-

@@ -11,12 +11,93 @@
  *******************************************************************************
  */
 
-#if defined(ARDUINO_GENERIC_H503RBTX)
+#if defined(ARDUINO_NUCLEO_H503RB)
 #include "pins_arduino.h"
+
+// Digital PinName array
+const PinName digitalPin[] = {
+  PA_0,   // D0/A0
+  PA_1,   // D1/A1
+  PA_2,   // D2/A2
+  PA_3,   // D3/A3
+  PA_4,   // D4/A4
+  PA_5,   // D5/A5
+  PA_6,   // D6/A6
+  PA_7,   // D7/A7
+  PA_8,   // D8
+  PA_9,   // D9
+  PA_10,  // D10
+  PA_11,  // D11
+  PA_12,  // D12
+  PA_13,  // D13
+  PA_14,  // D14
+  PA_15,  // D15
+  PB_0,   // D16/A8
+  PB_1,   // D17/A9
+  PB_2,   // D18
+  PB_3,   // D19
+  PB_4,   // D20
+  PB_5,   // D21
+  PB_6,   // D22
+  PB_7,   // D23
+  PB_8,   // D24
+  PB_10,  // D25
+  PB_12,  // D26
+  PB_13,  // D27
+  PB_14,  // D28
+  PB_15,  // D29
+  PC_0,   // D30/A10
+  PC_1,   // D31/A11
+  PC_2,   // D32/A12
+  PC_3,   // D33/A13
+  PC_4,   // D34/A14
+  PC_5,   // D35/A15
+  PC_6,   // D36
+  PC_7,   // D37
+  PC_8,   // D38
+  PC_9,   // D39
+  PC_10,  // D40
+  PC_11,  // D41
+  PC_12,  // D42
+  PC_13,  // D43
+  PC_14,  // D44
+  PC_15,  // D45
+  PD_2,   // D46
+  PH_0,   // D47
+  PH_1    // D48
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  0,  // A0,  PA0
+  1,  // A1,  PA1
+  2,  // A2,  PA2
+  3,  // A3,  PA3
+  4,  // A4,  PA4
+  5,  // A5,  PA5
+  6,  // A6,  PA6
+  7,  // A7,  PA7
+  16, // A8,  PB0
+  17, // A9,  PB1
+  30, // A10, PC0
+  31, // A11, PC1
+  32, // A12, PC2
+  33, // A13, PC3
+  34, // A14, PC4
+  35  // A15, PC5
+};
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
 * @note [How to generate PLL clock]
 * <SOURCE>
+*   HSE      8 MHz ... STLINK MCO output
+*   HSE     24 MHz ... on-board X3 (default)
+*   HSE   4~50 MHz ... prepare your own external clock
+*   LSE 32.768 kHz ... on-board X2
 *   HSI     64 MHz ... internal clock
 *   HSI48   48 MHz ... internal clock for USB/RNG with recovery
 *   LSI 32.768 kHz ... internal clock
@@ -28,7 +109,7 @@
 * <TARGRT>
 *   PLL ... MULTIPLEXER / PLLP
 *
-* - Default CPU clock: 4(CSI) / 2(PLLM) * 250(PLLN) / 2(PLLP) ... 250 MHz
+* - Default CPU clock: 24(HSE) / 12(PLLM) * 250(PLLN) / 2(PLLP) ... 250 MHz
 * - PLL3 supports only H562/H563/H573.
 */
 
@@ -43,17 +124,15 @@ WEAK void SystemClock_Config(void) {
   while (!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY)) {}
 
   /* Initializes the RCC Oscillators according to the specified parameters in the RCC_OscInitTypeDef structure */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48 | RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_LSI | RCC_OSCILLATORTYPE_CSI;
-  RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_HSE | RCC_OSCILLATORTYPE_LSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS_DIGITAL;
+  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSIDiv = RCC_HSI_DIV1;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
-  RCC_OscInitStruct.CSIState = RCC_CSI_ON;
-  RCC_OscInitStruct.CSICalibrationValue = RCC_CSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLL1_SOURCE_CSI;
-  RCC_OscInitStruct.PLL.PLLM = 2;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLL1_SOURCE_HSE;
+  RCC_OscInitStruct.PLL.PLLM = 12;
   RCC_OscInitStruct.PLL.PLLN = 250;
   RCC_OscInitStruct.PLL.PLLP = 2;
   RCC_OscInitStruct.PLL.PLLQ = 2;
@@ -91,4 +170,8 @@ WEAK void SystemClock_Config(void) {
   }
 }
 
-#endif /* ARDUINO_GENERIC_H503RBTX */
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* ARDUINO_NUCLEO_H503RB */
