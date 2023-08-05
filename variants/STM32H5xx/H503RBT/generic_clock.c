@@ -30,6 +30,8 @@
 *
 * default CPU clock:
 *   4(CSI) / 1(PLLM) * 125(PLLN) / 2(PLLP) ... 250 MHz
+*
+* PLL3 supports only H562/H563/H573.
 */
 
 WEAK void SystemClock_Config(void) {
@@ -44,11 +46,11 @@ WEAK void SystemClock_Config(void) {
 
   // Initializes the RCC Oscillators according to the specified parameters in the RCC_OscInitTypeDef structure
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48 | RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_LSI | RCC_OSCILLATORTYPE_CSI;
+  RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSIDiv = RCC_HSI_DIV1;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.LSIState = RCC_LSI_ON;
-  RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
   RCC_OscInitStruct.CSIState = RCC_CSI_ON;
   RCC_OscInitStruct.CSICalibrationValue = RCC_CSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
@@ -80,11 +82,11 @@ WEAK void SystemClock_Config(void) {
 
   // Initializes the peripherals clock
   PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_ADCDAC | RCC_PERIPHCLK_LPUART1 | RCC_PERIPHCLK_OSPI | RCC_PERIPHCLK_SDMMC1 | RCC_PERIPHCLK_USB;
-  PeriphClkInitStruct.AdcDacClockSelection = RCC_ADCDACCLKSOURCE_HCLK;
-  PeriphClkInitStruct.Lpuart1ClockSelection = RCC_LPUART1CLKSOURCE_HSI;
-  PeriphClkInitStruct.OspiClockSelection = RCC_OSPICLKSOURCE_HCLK;
-  PeriphClkInitStruct.Sdmmc1ClockSelection = RCC_SDMMC1CLKSOURCE_PLL1Q;
   PeriphClkInitStruct.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
+  PeriphClkInitStruct.Lpuart1ClockSelection = RCC_LPUART1CLKSOURCE_HSI;
+  PeriphClkInitStruct.Sdmmc1ClockSelection = RCC_SDMMC1CLKSOURCE_PLL1Q;
+  PeriphClkInitStruct.AdcDacClockSelection = RCC_ADCDACCLKSOURCE_HCLK;
+  PeriphClkInitStruct.OspiClockSelection = RCC_OSPICLKSOURCE_HCLK;
 
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK) {
     Error_Handler();
