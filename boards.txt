@@ -7204,6 +7204,14 @@ GenH5.build.flash_offset=0x0
 GenH5.upload.maximum_size=0
 GenH5.upload.maximum_data_size=0
 
+# Generic H503RBTx
+GenH5.menu.pnum.GENERIC_H503RBTX=Generic H503RBTx
+GenH5.menu.pnum.GENERIC_H503RBTX.upload.maximum_size=131072
+GenH5.menu.pnum.GENERIC_H503RBTX.upload.maximum_data_size=32768
+GenH5.menu.pnum.GENERIC_H503RBTX.build.board=GENERIC_H503RBTX
+GenH5.menu.pnum.GENERIC_H503RBTX.build.product_line=STM32H503xx
+GenH5.menu.pnum.GENERIC_H503RBTX.build.variant=STM32H5xx/H503RBT
+
 # Generic H563IIKxQ
 GenH5.menu.pnum.GENERIC_H563IIKXQ=Generic H563IIKxQ
 GenH5.menu.pnum.GENERIC_H563IIKXQ.upload.maximum_size=2097152
