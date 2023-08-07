@@ -64,6 +64,8 @@
   */
 
 /************************* Miscellaneous Configuration ************************/
+/*!< Uncomment the following line if you need to use initialized data in D2 domain SRAM (AHB SRAM) */
+/* #define DATA_IN_D2_SRAM */
 
 /* Note: Following vector table addresses must be defined in line with linker
          configuration. */
