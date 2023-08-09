@@ -757,7 +757,7 @@ Nucleo_32.menu.pnum.NUCLEO_F303K8.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_G031K8 board
 Nucleo_32.menu.pnum.NUCLEO_G031K8=Nucleo G031K8
-Nucleo_32.menu.pnum.NUCLEO_G031K8.node=NOD_G031K8
+Nucleo_32.menu.pnum.NUCLEO_G031K8.node="NODE_G031K8,NOD_G031K8"
 Nucleo_32.menu.pnum.NUCLEO_G031K8.upload.maximum_size=65536
 Nucleo_32.menu.pnum.NUCLEO_G031K8.upload.maximum_data_size=8192
 Nucleo_32.menu.pnum.NUCLEO_G031K8.build.mcu=cortex-m0plus
