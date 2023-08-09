@@ -38,9 +38,6 @@ target_link_options(ACSIP_S76S INTERFACE
   "SHELL: "
   -mcpu=${ACSIP_S76S_MCU}
 )
-target_link_libraries(ACSIP_S76S INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(ACSIP_S76S_serial_disabled INTERFACE)
 target_compile_options(ACSIP_S76S_serial_disabled INTERFACE
@@ -94,9 +91,6 @@ target_link_options(AFROFLIGHT_F103CB INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${AFROFLIGHT_F103CB_MCU}
-)
-target_link_libraries(AFROFLIGHT_F103CB INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(AFROFLIGHT_F103CB_serial_disabled INTERFACE)
@@ -180,9 +174,6 @@ target_link_options(AFROFLIGHT_F103CB_12M INTERFACE
   "SHELL: "
   -mcpu=${AFROFLIGHT_F103CB_12M_MCU}
 )
-target_link_libraries(AFROFLIGHT_F103CB_12M INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(AFROFLIGHT_F103CB_12M_serial_disabled INTERFACE)
 target_compile_options(AFROFLIGHT_F103CB_12M_serial_disabled INTERFACE
@@ -265,9 +256,6 @@ target_link_options(AFROFLIGHT_F103CB_12M_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${AFROFLIGHT_F103CB_12M_dfu2_MCU}
 )
-target_link_libraries(AFROFLIGHT_F103CB_12M_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # AFROFLIGHT_F103CB_12M_dfuo
@@ -309,9 +297,6 @@ target_link_options(AFROFLIGHT_F103CB_12M_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${AFROFLIGHT_F103CB_12M_dfuo_MCU}
-)
-target_link_libraries(AFROFLIGHT_F103CB_12M_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -355,9 +340,6 @@ target_link_options(AFROFLIGHT_F103CB_12M_hid INTERFACE
   "SHELL: "
   -mcpu=${AFROFLIGHT_F103CB_12M_hid_MCU}
 )
-target_link_libraries(AFROFLIGHT_F103CB_12M_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # AFROFLIGHT_F103CB_dfu2
@@ -399,9 +381,6 @@ target_link_options(AFROFLIGHT_F103CB_dfu2 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${AFROFLIGHT_F103CB_dfu2_MCU}
-)
-target_link_libraries(AFROFLIGHT_F103CB_dfu2 INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -445,9 +424,6 @@ target_link_options(AFROFLIGHT_F103CB_dfuo INTERFACE
   "SHELL: "
   -mcpu=${AFROFLIGHT_F103CB_dfuo_MCU}
 )
-target_link_libraries(AFROFLIGHT_F103CB_dfuo INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # AFROFLIGHT_F103CB_hid
@@ -490,9 +466,6 @@ target_link_options(AFROFLIGHT_F103CB_hid INTERFACE
   "SHELL: "
   -mcpu=${AFROFLIGHT_F103CB_hid_MCU}
 )
-target_link_libraries(AFROFLIGHT_F103CB_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # AGAFIA_SG0
@@ -534,9 +507,6 @@ target_link_options(AGAFIA_SG0 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
   "SHELL: "
   -mcpu=${AGAFIA_SG0_MCU}
-)
-target_link_libraries(AGAFIA_SG0 INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(AGAFIA_SG0_serial_disabled INTERFACE)
@@ -607,9 +577,6 @@ target_link_options(ARMED_V1 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${ARMED_V1_MCU}
-)
-target_link_libraries(ARMED_V1 INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(ARMED_V1_serial_disabled INTERFACE)
@@ -689,9 +656,6 @@ target_link_options(AURORA_ONE INTERFACE
   "SHELL: "
   -mcpu=${AURORA_ONE_MCU}
 )
-target_link_libraries(AURORA_ONE INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(AURORA_ONE_serial_disabled INTERFACE)
 target_compile_options(AURORA_ONE_serial_disabled INTERFACE
@@ -761,9 +725,6 @@ target_link_options(B_G431B_ESC1 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${B_G431B_ESC1_MCU}
-)
-target_link_libraries(B_G431B_ESC1 INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(B_G431B_ESC1_serial_disabled INTERFACE)
@@ -847,9 +808,6 @@ target_link_options(B_L072Z_LRWAN1 INTERFACE
   "SHELL: "
   -mcpu=${B_L072Z_LRWAN1_MCU}
 )
-target_link_libraries(B_L072Z_LRWAN1 INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(B_L072Z_LRWAN1_serial_disabled INTERFACE)
 target_compile_options(B_L072Z_LRWAN1_serial_disabled INTERFACE
@@ -931,9 +889,6 @@ target_link_options(B_L475E_IOT01A INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${B_L475E_IOT01A_MCU}
-)
-target_link_libraries(B_L475E_IOT01A INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(B_L475E_IOT01A_serial_disabled INTERFACE)
@@ -1017,9 +972,6 @@ target_link_options(B_L4S5I_IOT01A INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${B_L4S5I_IOT01A_MCU}
 )
-target_link_libraries(B_L4S5I_IOT01A INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(B_L4S5I_IOT01A_serial_disabled INTERFACE)
 target_compile_options(B_L4S5I_IOT01A_serial_disabled INTERFACE
@@ -1101,9 +1053,6 @@ target_link_options(B_U585I_IOT02A INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${B_U585I_IOT02A_MCU}
-)
-target_link_libraries(B_U585I_IOT02A INTERFACE
-  arm_ARMv8MMLlfsp_math
 )
 
 add_library(B_U585I_IOT02A_serial_disabled INTERFACE)
@@ -1187,9 +1136,6 @@ target_link_options(BLACK_F407VE INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${BLACK_F407VE_MCU}
 )
-target_link_libraries(BLACK_F407VE INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(BLACK_F407VE_serial_disabled INTERFACE)
 target_compile_options(BLACK_F407VE_serial_disabled INTERFACE
@@ -1272,9 +1218,6 @@ target_link_options(BLACK_F407VE_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${BLACK_F407VE_hid_MCU}
 )
-target_link_libraries(BLACK_F407VE_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # BLACK_F407VG
@@ -1316,9 +1259,6 @@ target_link_options(BLACK_F407VG INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${BLACK_F407VG_MCU}
-)
-target_link_libraries(BLACK_F407VG INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(BLACK_F407VG_serial_disabled INTERFACE)
@@ -1402,9 +1342,6 @@ target_link_options(BLACK_F407VG_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${BLACK_F407VG_hid_MCU}
 )
-target_link_libraries(BLACK_F407VG_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # BLACK_F407ZE
@@ -1446,9 +1383,6 @@ target_link_options(BLACK_F407ZE INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${BLACK_F407ZE_MCU}
-)
-target_link_libraries(BLACK_F407ZE INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(BLACK_F407ZE_serial_disabled INTERFACE)
@@ -1532,9 +1466,6 @@ target_link_options(BLACK_F407ZE_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${BLACK_F407ZE_hid_MCU}
 )
-target_link_libraries(BLACK_F407ZE_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # BLACK_F407ZG
@@ -1576,9 +1507,6 @@ target_link_options(BLACK_F407ZG INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${BLACK_F407ZG_MCU}
-)
-target_link_libraries(BLACK_F407ZG INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(BLACK_F407ZG_serial_disabled INTERFACE)
@@ -1662,9 +1590,6 @@ target_link_options(BLACK_F407ZG_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${BLACK_F407ZG_hid_MCU}
 )
-target_link_libraries(BLACK_F407ZG_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # BLACKPILL_F103C8
@@ -1706,9 +1631,6 @@ target_link_options(BLACKPILL_F103C8 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${BLACKPILL_F103C8_MCU}
-)
-target_link_libraries(BLACKPILL_F103C8 INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(BLACKPILL_F103C8_serial_disabled INTERFACE)
@@ -1792,9 +1714,6 @@ target_link_options(BLACKPILL_F103C8_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${BLACKPILL_F103C8_dfu2_MCU}
 )
-target_link_libraries(BLACKPILL_F103C8_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # BLACKPILL_F103C8_dfuo
@@ -1836,9 +1755,6 @@ target_link_options(BLACKPILL_F103C8_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${BLACKPILL_F103C8_dfuo_MCU}
-)
-target_link_libraries(BLACKPILL_F103C8_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -1882,9 +1798,6 @@ target_link_options(BLACKPILL_F103C8_hid INTERFACE
   "SHELL: "
   -mcpu=${BLACKPILL_F103C8_hid_MCU}
 )
-target_link_libraries(BLACKPILL_F103C8_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # BLACKPILL_F103CB
@@ -1926,9 +1839,6 @@ target_link_options(BLACKPILL_F103CB INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${BLACKPILL_F103CB_MCU}
-)
-target_link_libraries(BLACKPILL_F103CB INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(BLACKPILL_F103CB_serial_disabled INTERFACE)
@@ -2012,9 +1922,6 @@ target_link_options(BLACKPILL_F103CB_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${BLACKPILL_F103CB_dfu2_MCU}
 )
-target_link_libraries(BLACKPILL_F103CB_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # BLACKPILL_F103CB_dfuo
@@ -2056,9 +1963,6 @@ target_link_options(BLACKPILL_F103CB_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${BLACKPILL_F103CB_dfuo_MCU}
-)
-target_link_libraries(BLACKPILL_F103CB_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -2102,9 +2006,6 @@ target_link_options(BLACKPILL_F103CB_hid INTERFACE
   "SHELL: "
   -mcpu=${BLACKPILL_F103CB_hid_MCU}
 )
-target_link_libraries(BLACKPILL_F103CB_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # BLACKPILL_F303CC
@@ -2146,9 +2047,6 @@ target_link_options(BLACKPILL_F303CC INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=40960"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${BLACKPILL_F303CC_MCU}
-)
-target_link_libraries(BLACKPILL_F303CC INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(BLACKPILL_F303CC_serial_disabled INTERFACE)
@@ -2232,9 +2130,6 @@ target_link_options(BLACKPILL_F401CC INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${BLACKPILL_F401CC_MCU}
 )
-target_link_libraries(BLACKPILL_F401CC INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(BLACKPILL_F401CC_serial_disabled INTERFACE)
 target_compile_options(BLACKPILL_F401CC_serial_disabled INTERFACE
@@ -2317,9 +2212,6 @@ target_link_options(BLACKPILL_F401CC_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${BLACKPILL_F401CC_hid_MCU}
 )
-target_link_libraries(BLACKPILL_F401CC_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # BLACKPILL_F401CE
@@ -2361,9 +2253,6 @@ target_link_options(BLACKPILL_F401CE INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${BLACKPILL_F401CE_MCU}
-)
-target_link_libraries(BLACKPILL_F401CE INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(BLACKPILL_F401CE_serial_disabled INTERFACE)
@@ -2447,9 +2336,6 @@ target_link_options(BLACKPILL_F401CE_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${BLACKPILL_F401CE_hid_MCU}
 )
-target_link_libraries(BLACKPILL_F401CE_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # BLACKPILL_F411CE
@@ -2491,9 +2377,6 @@ target_link_options(BLACKPILL_F411CE INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${BLACKPILL_F411CE_MCU}
-)
-target_link_libraries(BLACKPILL_F411CE INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(BLACKPILL_F411CE_serial_disabled INTERFACE)
@@ -2577,9 +2460,6 @@ target_link_options(BLACKPILL_F411CE_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${BLACKPILL_F411CE_hid_MCU}
 )
-target_link_libraries(BLACKPILL_F411CE_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # BLUE_F407VE_MINI
@@ -2621,9 +2501,6 @@ target_link_options(BLUE_F407VE_MINI INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${BLUE_F407VE_MINI_MCU}
-)
-target_link_libraries(BLUE_F407VE_MINI INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(BLUE_F407VE_MINI_serial_disabled INTERFACE)
@@ -2707,9 +2584,6 @@ target_link_options(BLUE_F407VE_MINI_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${BLUE_F407VE_MINI_hid_MCU}
 )
-target_link_libraries(BLUE_F407VE_MINI_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # BLUEBUTTON_F103R8T
@@ -2751,9 +2625,6 @@ target_link_options(BLUEBUTTON_F103R8T INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${BLUEBUTTON_F103R8T_MCU}
-)
-target_link_libraries(BLUEBUTTON_F103R8T INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(BLUEBUTTON_F103R8T_serial_disabled INTERFACE)
@@ -2837,9 +2708,6 @@ target_link_options(BLUEBUTTON_F103R8T_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${BLUEBUTTON_F103R8T_dfu2_MCU}
 )
-target_link_libraries(BLUEBUTTON_F103R8T_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # BLUEBUTTON_F103R8T_dfuo
@@ -2881,9 +2749,6 @@ target_link_options(BLUEBUTTON_F103R8T_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${BLUEBUTTON_F103R8T_dfuo_MCU}
-)
-target_link_libraries(BLUEBUTTON_F103R8T_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -2927,9 +2792,6 @@ target_link_options(BLUEBUTTON_F103R8T_hid INTERFACE
   "SHELL: "
   -mcpu=${BLUEBUTTON_F103R8T_hid_MCU}
 )
-target_link_libraries(BLUEBUTTON_F103R8T_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # BLUEBUTTON_F103RBT
@@ -2971,9 +2833,6 @@ target_link_options(BLUEBUTTON_F103RBT INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${BLUEBUTTON_F103RBT_MCU}
-)
-target_link_libraries(BLUEBUTTON_F103RBT INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(BLUEBUTTON_F103RBT_serial_disabled INTERFACE)
@@ -3057,9 +2916,6 @@ target_link_options(BLUEBUTTON_F103RBT_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${BLUEBUTTON_F103RBT_dfu2_MCU}
 )
-target_link_libraries(BLUEBUTTON_F103RBT_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # BLUEBUTTON_F103RBT_dfuo
@@ -3101,9 +2957,6 @@ target_link_options(BLUEBUTTON_F103RBT_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${BLUEBUTTON_F103RBT_dfuo_MCU}
-)
-target_link_libraries(BLUEBUTTON_F103RBT_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -3147,9 +3000,6 @@ target_link_options(BLUEBUTTON_F103RBT_hid INTERFACE
   "SHELL: "
   -mcpu=${BLUEBUTTON_F103RBT_hid_MCU}
 )
-target_link_libraries(BLUEBUTTON_F103RBT_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # BLUEBUTTON_F103RCT
@@ -3191,9 +3041,6 @@ target_link_options(BLUEBUTTON_F103RCT INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${BLUEBUTTON_F103RCT_MCU}
-)
-target_link_libraries(BLUEBUTTON_F103RCT INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(BLUEBUTTON_F103RCT_serial_disabled INTERFACE)
@@ -3277,9 +3124,6 @@ target_link_options(BLUEBUTTON_F103RCT_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${BLUEBUTTON_F103RCT_dfu2_MCU}
 )
-target_link_libraries(BLUEBUTTON_F103RCT_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # BLUEBUTTON_F103RCT_dfuo
@@ -3321,9 +3165,6 @@ target_link_options(BLUEBUTTON_F103RCT_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${BLUEBUTTON_F103RCT_dfuo_MCU}
-)
-target_link_libraries(BLUEBUTTON_F103RCT_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -3367,9 +3208,6 @@ target_link_options(BLUEBUTTON_F103RCT_hid INTERFACE
   "SHELL: "
   -mcpu=${BLUEBUTTON_F103RCT_hid_MCU}
 )
-target_link_libraries(BLUEBUTTON_F103RCT_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # BLUEBUTTON_F103RET
@@ -3411,9 +3249,6 @@ target_link_options(BLUEBUTTON_F103RET INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${BLUEBUTTON_F103RET_MCU}
-)
-target_link_libraries(BLUEBUTTON_F103RET INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(BLUEBUTTON_F103RET_serial_disabled INTERFACE)
@@ -3497,9 +3332,6 @@ target_link_options(BLUEBUTTON_F103RET_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${BLUEBUTTON_F103RET_dfu2_MCU}
 )
-target_link_libraries(BLUEBUTTON_F103RET_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # BLUEBUTTON_F103RET_dfuo
@@ -3541,9 +3373,6 @@ target_link_options(BLUEBUTTON_F103RET_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${BLUEBUTTON_F103RET_dfuo_MCU}
-)
-target_link_libraries(BLUEBUTTON_F103RET_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -3587,9 +3416,6 @@ target_link_options(BLUEBUTTON_F103RET_hid INTERFACE
   "SHELL: "
   -mcpu=${BLUEBUTTON_F103RET_hid_MCU}
 )
-target_link_libraries(BLUEBUTTON_F103RET_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # BLUEPILL_F103C6
@@ -3631,9 +3457,6 @@ target_link_options(BLUEPILL_F103C6 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
   "SHELL: "
   -mcpu=${BLUEPILL_F103C6_MCU}
-)
-target_link_libraries(BLUEPILL_F103C6 INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(BLUEPILL_F103C6_serial_disabled INTERFACE)
@@ -3717,9 +3540,6 @@ target_link_options(BLUEPILL_F103C6_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${BLUEPILL_F103C6_dfu2_MCU}
 )
-target_link_libraries(BLUEPILL_F103C6_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # BLUEPILL_F103C6_dfuo
@@ -3761,9 +3581,6 @@ target_link_options(BLUEPILL_F103C6_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
   "SHELL: "
   -mcpu=${BLUEPILL_F103C6_dfuo_MCU}
-)
-target_link_libraries(BLUEPILL_F103C6_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -3807,9 +3624,6 @@ target_link_options(BLUEPILL_F103C6_hid INTERFACE
   "SHELL: "
   -mcpu=${BLUEPILL_F103C6_hid_MCU}
 )
-target_link_libraries(BLUEPILL_F103C6_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # BLUEPILL_F103C8
@@ -3851,9 +3665,6 @@ target_link_options(BLUEPILL_F103C8 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${BLUEPILL_F103C8_MCU}
-)
-target_link_libraries(BLUEPILL_F103C8 INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(BLUEPILL_F103C8_serial_disabled INTERFACE)
@@ -3937,9 +3748,6 @@ target_link_options(BLUEPILL_F103C8_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${BLUEPILL_F103C8_dfu2_MCU}
 )
-target_link_libraries(BLUEPILL_F103C8_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # BLUEPILL_F103C8_dfuo
@@ -3981,9 +3789,6 @@ target_link_options(BLUEPILL_F103C8_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${BLUEPILL_F103C8_dfuo_MCU}
-)
-target_link_libraries(BLUEPILL_F103C8_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -4027,9 +3832,6 @@ target_link_options(BLUEPILL_F103C8_hid INTERFACE
   "SHELL: "
   -mcpu=${BLUEPILL_F103C8_hid_MCU}
 )
-target_link_libraries(BLUEPILL_F103C8_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # BLUEPILL_F103CB
@@ -4071,9 +3873,6 @@ target_link_options(BLUEPILL_F103CB INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${BLUEPILL_F103CB_MCU}
-)
-target_link_libraries(BLUEPILL_F103CB INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(BLUEPILL_F103CB_serial_disabled INTERFACE)
@@ -4157,9 +3956,6 @@ target_link_options(BLUEPILL_F103CB_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${BLUEPILL_F103CB_dfu2_MCU}
 )
-target_link_libraries(BLUEPILL_F103CB_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # BLUEPILL_F103CB_dfuo
@@ -4201,9 +3997,6 @@ target_link_options(BLUEPILL_F103CB_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${BLUEPILL_F103CB_dfuo_MCU}
-)
-target_link_libraries(BLUEPILL_F103CB_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -4247,9 +4040,6 @@ target_link_options(BLUEPILL_F103CB_hid INTERFACE
   "SHELL: "
   -mcpu=${BLUEPILL_F103CB_hid_MCU}
 )
-target_link_libraries(BLUEPILL_F103CB_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # CoreBoard_F401RC
@@ -4291,9 +4081,6 @@ target_link_options(CoreBoard_F401RC INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${CoreBoard_F401RC_MCU}
-)
-target_link_libraries(CoreBoard_F401RC INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(CoreBoard_F401RC_serial_disabled INTERFACE)
@@ -4377,9 +4164,6 @@ target_link_options(CoreBoard_F401RC_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${CoreBoard_F401RC_hid_MCU}
 )
-target_link_libraries(CoreBoard_F401RC_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # DAISY_PATCH_SM
@@ -4421,9 +4205,6 @@ target_link_options(DAISY_PATCH_SM INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${DAISY_PATCH_SM_MCU}
-)
-target_link_libraries(DAISY_PATCH_SM INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(DAISY_PATCH_SM_serial_disabled INTERFACE)
@@ -4507,9 +4288,6 @@ target_link_options(DAISY_PETAL_SM INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${DAISY_PETAL_SM_MCU}
 )
-target_link_libraries(DAISY_PETAL_SM INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(DAISY_PETAL_SM_serial_disabled INTERFACE)
 target_compile_options(DAISY_PETAL_SM_serial_disabled INTERFACE
@@ -4591,9 +4369,6 @@ target_link_options(DAISY_SEED INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${DAISY_SEED_MCU}
-)
-target_link_libraries(DAISY_SEED INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(DAISY_SEED_serial_disabled INTERFACE)
@@ -4677,9 +4452,6 @@ target_link_options(DEMO_F030F4 INTERFACE
   "SHELL: "
   -mcpu=${DEMO_F030F4_MCU}
 )
-target_link_libraries(DEMO_F030F4 INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(DEMO_F030F4_serial_disabled INTERFACE)
 target_compile_options(DEMO_F030F4_serial_disabled INTERFACE
@@ -4749,9 +4521,6 @@ target_link_options(DEMO_F030F4_16M INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${DEMO_F030F4_16M_MCU}
-)
-target_link_libraries(DEMO_F030F4_16M INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(DEMO_F030F4_16M_serial_disabled INTERFACE)
@@ -4823,9 +4592,6 @@ target_link_options(DEMO_F030F4_HSI INTERFACE
   "SHELL: "
   -mcpu=${DEMO_F030F4_HSI_MCU}
 )
-target_link_libraries(DEMO_F030F4_HSI INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(DEMO_F030F4_HSI_serial_disabled INTERFACE)
 target_compile_options(DEMO_F030F4_HSI_serial_disabled INTERFACE
@@ -4895,9 +4661,6 @@ target_link_options(DevEBoxH743VITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${DevEBoxH743VITX_MCU}
-)
-target_link_libraries(DevEBoxH743VITX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(DevEBoxH743VITX_serial_disabled INTERFACE)
@@ -4981,9 +4744,6 @@ target_link_options(DevEBoxH750VBTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${DevEBoxH750VBTX_MCU}
 )
-target_link_libraries(DevEBoxH750VBTX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(DevEBoxH750VBTX_serial_disabled INTERFACE)
 target_compile_options(DevEBoxH750VBTX_serial_disabled INTERFACE
@@ -5065,9 +4825,6 @@ target_link_options(DISCO_F030R8 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${DISCO_F030R8_MCU}
-)
-target_link_libraries(DISCO_F030R8 INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(DISCO_F030R8_serial_disabled INTERFACE)
@@ -5151,9 +4908,6 @@ target_link_options(DISCO_F072RB INTERFACE
   "SHELL: "
   -mcpu=${DISCO_F072RB_MCU}
 )
-target_link_libraries(DISCO_F072RB INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(DISCO_F072RB_serial_disabled INTERFACE)
 target_compile_options(DISCO_F072RB_serial_disabled INTERFACE
@@ -5235,9 +4989,6 @@ target_link_options(DISCO_F100RB INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${DISCO_F100RB_MCU}
-)
-target_link_libraries(DISCO_F100RB INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(DISCO_F100RB_serial_disabled INTERFACE)
@@ -5321,9 +5072,6 @@ target_link_options(DISCO_F303VC INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${DISCO_F303VC_MCU}
 )
-target_link_libraries(DISCO_F303VC INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(DISCO_F303VC_serial_disabled INTERFACE)
 target_compile_options(DISCO_F303VC_serial_disabled INTERFACE
@@ -5405,9 +5153,6 @@ target_link_options(DISCO_F407VG INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${DISCO_F407VG_MCU}
-)
-target_link_libraries(DISCO_F407VG INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(DISCO_F407VG_serial_disabled INTERFACE)
@@ -5491,9 +5236,6 @@ target_link_options(DISCO_F413ZH INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${DISCO_F413ZH_MCU}
 )
-target_link_libraries(DISCO_F413ZH INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(DISCO_F413ZH_serial_disabled INTERFACE)
 target_compile_options(DISCO_F413ZH_serial_disabled INTERFACE
@@ -5575,9 +5317,6 @@ target_link_options(DISCO_F746NG INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${DISCO_F746NG_MCU}
-)
-target_link_libraries(DISCO_F746NG INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(DISCO_F746NG_serial_disabled INTERFACE)
@@ -5661,9 +5400,6 @@ target_link_options(DISCO_G0316 INTERFACE
   "SHELL: "
   -mcpu=${DISCO_G0316_MCU}
 )
-target_link_libraries(DISCO_G0316 INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(DISCO_G0316_serial_disabled INTERFACE)
 target_compile_options(DISCO_G0316_serial_disabled INTERFACE
@@ -5745,9 +5481,6 @@ target_link_options(DIYMORE_F407VGT INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${DIYMORE_F407VGT_MCU}
-)
-target_link_libraries(DIYMORE_F407VGT INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(DIYMORE_F407VGT_serial_disabled INTERFACE)
@@ -5831,9 +5564,6 @@ target_link_options(DIYMORE_F407VGT_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${DIYMORE_F407VGT_hid_MCU}
 )
-target_link_libraries(DIYMORE_F407VGT_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # EBB42_V1_1
@@ -5875,9 +5605,6 @@ target_link_options(EBB42_V1_1 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${EBB42_V1_1_MCU}
-)
-target_link_libraries(EBB42_V1_1 INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(EBB42_V1_1_serial_disabled INTERFACE)
@@ -5957,9 +5684,6 @@ target_link_options(EEXTR_F030_V1 INTERFACE
   "SHELL: "
   -mcpu=${EEXTR_F030_V1_MCU}
 )
-target_link_libraries(EEXTR_F030_V1 INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(EEXTR_F030_V1_serial_disabled INTERFACE)
 target_compile_options(EEXTR_F030_V1_serial_disabled INTERFACE
@@ -6038,9 +5762,6 @@ target_link_options(ELEKTOR_F072C8 INTERFACE
   "SHELL: "
   -mcpu=${ELEKTOR_F072C8_MCU}
 )
-target_link_libraries(ELEKTOR_F072C8 INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(ELEKTOR_F072C8_serial_disabled INTERFACE)
 target_compile_options(ELEKTOR_F072C8_serial_disabled INTERFACE
@@ -6095,9 +5816,6 @@ target_link_options(ELEKTOR_F072CB INTERFACE
   "SHELL: "
   -mcpu=${ELEKTOR_F072CB_MCU}
 )
-target_link_libraries(ELEKTOR_F072CB INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(ELEKTOR_F072CB_serial_disabled INTERFACE)
 target_compile_options(ELEKTOR_F072CB_serial_disabled INTERFACE
@@ -6151,9 +5869,6 @@ target_link_options(ETHERCAT_DUINO INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${ETHERCAT_DUINO_MCU}
-)
-target_link_libraries(ETHERCAT_DUINO INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(ETHERCAT_DUINO_serial_disabled INTERFACE)
@@ -6237,9 +5952,6 @@ target_link_options(FEATHER_F405 INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${FEATHER_F405_MCU}
 )
-target_link_libraries(FEATHER_F405 INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(FEATHER_F405_serial_disabled INTERFACE)
 target_compile_options(FEATHER_F405_serial_disabled INTERFACE
@@ -6322,9 +6034,6 @@ target_link_options(FEATHER_F405_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${FEATHER_F405_hid_MCU}
 )
-target_link_libraries(FEATHER_F405_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # FK407M1
@@ -6366,9 +6075,6 @@ target_link_options(FK407M1 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${FK407M1_MCU}
-)
-target_link_libraries(FK407M1 INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(FK407M1_serial_disabled INTERFACE)
@@ -6452,9 +6158,6 @@ target_link_options(FK407M1_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${FK407M1_hid_MCU}
 )
-target_link_libraries(FK407M1_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # FYSETC_S6
@@ -6496,9 +6199,6 @@ target_link_options(FYSETC_S6 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${FYSETC_S6_MCU}
-)
-target_link_libraries(FYSETC_S6 INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(FYSETC_S6_serial_disabled INTERFACE)
@@ -6578,9 +6278,6 @@ target_link_options(GENERIC_C011D6YX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_C011D6YX_MCU}
 )
-target_link_libraries(GENERIC_C011D6YX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_C011D6YX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_C011D6YX_serial_disabled INTERFACE
@@ -6634,9 +6331,6 @@ target_link_options(GENERIC_C011F4PX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_C011F4PX_MCU}
-)
-target_link_libraries(GENERIC_C011F4PX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_C011F4PX_serial_disabled INTERFACE)
@@ -6692,9 +6386,6 @@ target_link_options(GENERIC_C011F4UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_C011F4UX_MCU}
 )
-target_link_libraries(GENERIC_C011F4UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_C011F4UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_C011F4UX_serial_disabled INTERFACE
@@ -6748,9 +6439,6 @@ target_link_options(GENERIC_C011F6PX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_C011F6PX_MCU}
-)
-target_link_libraries(GENERIC_C011F6PX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_C011F6PX_serial_disabled INTERFACE)
@@ -6806,9 +6494,6 @@ target_link_options(GENERIC_C011F6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_C011F6UX_MCU}
 )
-target_link_libraries(GENERIC_C011F6UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_C011F6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_C011F6UX_serial_disabled INTERFACE
@@ -6862,9 +6547,6 @@ target_link_options(GENERIC_C031C4TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
   "SHELL: "
   -mcpu=${GENERIC_C031C4TX_MCU}
-)
-target_link_libraries(GENERIC_C031C4TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_C031C4TX_serial_disabled INTERFACE)
@@ -6920,9 +6602,6 @@ target_link_options(GENERIC_C031C4UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_C031C4UX_MCU}
 )
-target_link_libraries(GENERIC_C031C4UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_C031C4UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_C031C4UX_serial_disabled INTERFACE
@@ -6976,9 +6655,6 @@ target_link_options(GENERIC_C031C6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
   "SHELL: "
   -mcpu=${GENERIC_C031C6TX_MCU}
-)
-target_link_libraries(GENERIC_C031C6TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_C031C6TX_serial_disabled INTERFACE)
@@ -7034,9 +6710,6 @@ target_link_options(GENERIC_C031C6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_C031C6UX_MCU}
 )
-target_link_libraries(GENERIC_C031C6UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_C031C6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_C031C6UX_serial_disabled INTERFACE
@@ -7090,9 +6763,6 @@ target_link_options(GENERIC_C031F4PX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
   "SHELL: "
   -mcpu=${GENERIC_C031F4PX_MCU}
-)
-target_link_libraries(GENERIC_C031F4PX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_C031F4PX_serial_disabled INTERFACE)
@@ -7148,9 +6818,6 @@ target_link_options(GENERIC_C031F6PX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_C031F6PX_MCU}
 )
-target_link_libraries(GENERIC_C031F6PX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_C031F6PX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_C031F6PX_serial_disabled INTERFACE
@@ -7204,9 +6871,6 @@ target_link_options(GENERIC_F030C6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F030C6TX_MCU}
-)
-target_link_libraries(GENERIC_F030C6TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F030C6TX_serial_disabled INTERFACE)
@@ -7278,9 +6942,6 @@ target_link_options(GENERIC_F030C8TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F030C8TX_MCU}
 )
-target_link_libraries(GENERIC_F030C8TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F030C8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F030C8TX_serial_disabled INTERFACE
@@ -7350,9 +7011,6 @@ target_link_options(GENERIC_F030F4PX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F030F4PX_MCU}
-)
-target_link_libraries(GENERIC_F030F4PX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F030F4PX_serial_disabled INTERFACE)
@@ -7424,9 +7082,6 @@ target_link_options(GENERIC_F030K6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F030K6TX_MCU}
 )
-target_link_libraries(GENERIC_F030K6TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F030K6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F030K6TX_serial_disabled INTERFACE
@@ -7496,9 +7151,6 @@ target_link_options(GENERIC_F030R8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_F030R8TX_MCU}
-)
-target_link_libraries(GENERIC_F030R8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F030R8TX_serial_disabled INTERFACE)
@@ -7570,9 +7222,6 @@ target_link_options(GENERIC_F031C4TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F031C4TX_MCU}
 )
-target_link_libraries(GENERIC_F031C4TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F031C4TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F031C4TX_serial_disabled INTERFACE
@@ -7642,9 +7291,6 @@ target_link_options(GENERIC_F031C6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F031C6TX_MCU}
-)
-target_link_libraries(GENERIC_F031C6TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F031C6TX_serial_disabled INTERFACE)
@@ -7716,9 +7362,6 @@ target_link_options(GENERIC_F031E6YX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F031E6YX_MCU}
 )
-target_link_libraries(GENERIC_F031E6YX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F031E6YX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F031E6YX_serial_disabled INTERFACE
@@ -7788,9 +7431,6 @@ target_link_options(GENERIC_F031F4PX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F031F4PX_MCU}
-)
-target_link_libraries(GENERIC_F031F4PX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F031F4PX_serial_disabled INTERFACE)
@@ -7862,9 +7502,6 @@ target_link_options(GENERIC_F031F6PX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F031F6PX_MCU}
 )
-target_link_libraries(GENERIC_F031F6PX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F031F6PX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F031F6PX_serial_disabled INTERFACE
@@ -7934,9 +7571,6 @@ target_link_options(GENERIC_F031G4UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F031G4UX_MCU}
-)
-target_link_libraries(GENERIC_F031G4UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F031G4UX_serial_disabled INTERFACE)
@@ -8008,9 +7642,6 @@ target_link_options(GENERIC_F031G6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F031G6UX_MCU}
 )
-target_link_libraries(GENERIC_F031G6UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F031G6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F031G6UX_serial_disabled INTERFACE
@@ -8080,9 +7711,6 @@ target_link_options(GENERIC_F031K4UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F031K4UX_MCU}
-)
-target_link_libraries(GENERIC_F031K4UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F031K4UX_serial_disabled INTERFACE)
@@ -8154,9 +7782,6 @@ target_link_options(GENERIC_F031K6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F031K6TX_MCU}
 )
-target_link_libraries(GENERIC_F031K6TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F031K6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F031K6TX_serial_disabled INTERFACE
@@ -8226,9 +7851,6 @@ target_link_options(GENERIC_F031K6UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F031K6UX_MCU}
-)
-target_link_libraries(GENERIC_F031K6UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F031K6UX_serial_disabled INTERFACE)
@@ -8300,9 +7922,6 @@ target_link_options(GENERIC_F038C6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F038C6TX_MCU}
 )
-target_link_libraries(GENERIC_F038C6TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F038C6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F038C6TX_serial_disabled INTERFACE
@@ -8372,9 +7991,6 @@ target_link_options(GENERIC_F038E6YX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F038E6YX_MCU}
-)
-target_link_libraries(GENERIC_F038E6YX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F038E6YX_serial_disabled INTERFACE)
@@ -8446,9 +8062,6 @@ target_link_options(GENERIC_F038F6PX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F038F6PX_MCU}
 )
-target_link_libraries(GENERIC_F038F6PX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F038F6PX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F038F6PX_serial_disabled INTERFACE
@@ -8518,9 +8131,6 @@ target_link_options(GENERIC_F038G6UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F038G6UX_MCU}
-)
-target_link_libraries(GENERIC_F038G6UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F038G6UX_serial_disabled INTERFACE)
@@ -8592,9 +8202,6 @@ target_link_options(GENERIC_F038K6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F038K6UX_MCU}
 )
-target_link_libraries(GENERIC_F038K6UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F038K6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F038K6UX_serial_disabled INTERFACE
@@ -8664,9 +8271,6 @@ target_link_options(GENERIC_F042C4TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F042C4TX_MCU}
-)
-target_link_libraries(GENERIC_F042C4TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F042C4TX_serial_disabled INTERFACE)
@@ -8738,9 +8342,6 @@ target_link_options(GENERIC_F042C4UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F042C4UX_MCU}
 )
-target_link_libraries(GENERIC_F042C4UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F042C4UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F042C4UX_serial_disabled INTERFACE
@@ -8810,9 +8411,6 @@ target_link_options(GENERIC_F042C6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F042C6TX_MCU}
-)
-target_link_libraries(GENERIC_F042C6TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F042C6TX_serial_disabled INTERFACE)
@@ -8884,9 +8482,6 @@ target_link_options(GENERIC_F042C6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F042C6UX_MCU}
 )
-target_link_libraries(GENERIC_F042C6UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F042C6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F042C6UX_serial_disabled INTERFACE
@@ -8956,9 +8551,6 @@ target_link_options(GENERIC_F042F4PX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F042F4PX_MCU}
-)
-target_link_libraries(GENERIC_F042F4PX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F042F4PX_serial_disabled INTERFACE)
@@ -9030,9 +8622,6 @@ target_link_options(GENERIC_F042F6PX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F042F6PX_MCU}
 )
-target_link_libraries(GENERIC_F042F6PX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F042F6PX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F042F6PX_serial_disabled INTERFACE
@@ -9102,9 +8691,6 @@ target_link_options(GENERIC_F042G4UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F042G4UX_MCU}
-)
-target_link_libraries(GENERIC_F042G4UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F042G4UX_serial_disabled INTERFACE)
@@ -9176,9 +8762,6 @@ target_link_options(GENERIC_F042G6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F042G6UX_MCU}
 )
-target_link_libraries(GENERIC_F042G6UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F042G6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F042G6UX_serial_disabled INTERFACE
@@ -9248,9 +8831,6 @@ target_link_options(GENERIC_F042K4TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F042K4TX_MCU}
-)
-target_link_libraries(GENERIC_F042K4TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F042K4TX_serial_disabled INTERFACE)
@@ -9322,9 +8902,6 @@ target_link_options(GENERIC_F042K6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F042K6TX_MCU}
 )
-target_link_libraries(GENERIC_F042K6TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F042K6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F042K6TX_serial_disabled INTERFACE
@@ -9394,9 +8971,6 @@ target_link_options(GENERIC_F042T6YX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F042T6YX_MCU}
-)
-target_link_libraries(GENERIC_F042T6YX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F042T6YX_serial_disabled INTERFACE)
@@ -9468,9 +9042,6 @@ target_link_options(GENERIC_F048G6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F048G6UX_MCU}
 )
-target_link_libraries(GENERIC_F048G6UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F048G6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F048G6UX_serial_disabled INTERFACE
@@ -9540,9 +9111,6 @@ target_link_options(GENERIC_F048T6YX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F048T6YX_MCU}
-)
-target_link_libraries(GENERIC_F048T6YX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F048T6YX_serial_disabled INTERFACE)
@@ -9614,9 +9182,6 @@ target_link_options(GENERIC_F051C4TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F051C4TX_MCU}
 )
-target_link_libraries(GENERIC_F051C4TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F051C4TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F051C4TX_serial_disabled INTERFACE
@@ -9686,9 +9251,6 @@ target_link_options(GENERIC_F051C4UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_F051C4UX_MCU}
-)
-target_link_libraries(GENERIC_F051C4UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F051C4UX_serial_disabled INTERFACE)
@@ -9760,9 +9322,6 @@ target_link_options(GENERIC_F051K4TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F051K4TX_MCU}
 )
-target_link_libraries(GENERIC_F051K4TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F051K4TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F051K4TX_serial_disabled INTERFACE
@@ -9832,9 +9391,6 @@ target_link_options(GENERIC_F051K6UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_F051K6UX_MCU}
-)
-target_link_libraries(GENERIC_F051K6UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F051K6UX_serial_disabled INTERFACE)
@@ -9906,9 +9462,6 @@ target_link_options(GENERIC_F051K8UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F051K8UX_MCU}
 )
-target_link_libraries(GENERIC_F051K8UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F051K8UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F051K8UX_serial_disabled INTERFACE
@@ -9978,9 +9531,6 @@ target_link_options(GENERIC_F051R4TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_F051R4TX_MCU}
-)
-target_link_libraries(GENERIC_F051R4TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F051R4TX_serial_disabled INTERFACE)
@@ -10052,9 +9602,6 @@ target_link_options(GENERIC_F051T8YX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F051T8YX_MCU}
 )
-target_link_libraries(GENERIC_F051T8YX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F051T8YX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F051T8YX_serial_disabled INTERFACE
@@ -10124,9 +9671,6 @@ target_link_options(GENERIC_F058C8UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_F058C8UX_MCU}
-)
-target_link_libraries(GENERIC_F058C8UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F058C8UX_serial_disabled INTERFACE)
@@ -10198,9 +9742,6 @@ target_link_options(GENERIC_F058R8HX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F058R8HX_MCU}
 )
-target_link_libraries(GENERIC_F058R8HX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F058R8HX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F058R8HX_serial_disabled INTERFACE
@@ -10270,9 +9811,6 @@ target_link_options(GENERIC_F058R8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_F058R8TX_MCU}
-)
-target_link_libraries(GENERIC_F058R8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F058R8TX_serial_disabled INTERFACE)
@@ -10344,9 +9882,6 @@ target_link_options(GENERIC_F058T8YX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F058T8YX_MCU}
 )
-target_link_libraries(GENERIC_F058T8YX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F058T8YX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F058T8YX_serial_disabled INTERFACE
@@ -10416,9 +9951,6 @@ target_link_options(GENERIC_F070CBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_F070CBTX_MCU}
-)
-target_link_libraries(GENERIC_F070CBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F070CBTX_serial_disabled INTERFACE)
@@ -10490,9 +10022,6 @@ target_link_options(GENERIC_F070RBTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F070RBTX_MCU}
 )
-target_link_libraries(GENERIC_F070RBTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F070RBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F070RBTX_serial_disabled INTERFACE
@@ -10562,9 +10091,6 @@ target_link_options(GENERIC_F071C8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_F071C8TX_MCU}
-)
-target_link_libraries(GENERIC_F071C8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F071C8TX_serial_disabled INTERFACE)
@@ -10636,9 +10162,6 @@ target_link_options(GENERIC_F071C8UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F071C8UX_MCU}
 )
-target_link_libraries(GENERIC_F071C8UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F071C8UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F071C8UX_serial_disabled INTERFACE
@@ -10708,9 +10231,6 @@ target_link_options(GENERIC_F071CBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_F071CBTX_MCU}
-)
-target_link_libraries(GENERIC_F071CBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F071CBTX_serial_disabled INTERFACE)
@@ -10782,9 +10302,6 @@ target_link_options(GENERIC_F071CBUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F071CBUX_MCU}
 )
-target_link_libraries(GENERIC_F071CBUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F071CBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F071CBUX_serial_disabled INTERFACE
@@ -10854,9 +10371,6 @@ target_link_options(GENERIC_F071CBYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_F071CBYX_MCU}
-)
-target_link_libraries(GENERIC_F071CBYX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F071CBYX_serial_disabled INTERFACE)
@@ -10928,9 +10442,6 @@ target_link_options(GENERIC_F071RBTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F071RBTX_MCU}
 )
-target_link_libraries(GENERIC_F071RBTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F071RBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F071RBTX_serial_disabled INTERFACE
@@ -11000,9 +10511,6 @@ target_link_options(GENERIC_F071V8HX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_F071V8HX_MCU}
-)
-target_link_libraries(GENERIC_F071V8HX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F071V8HX_serial_disabled INTERFACE)
@@ -11074,9 +10582,6 @@ target_link_options(GENERIC_F071V8TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F071V8TX_MCU}
 )
-target_link_libraries(GENERIC_F071V8TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F071V8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F071V8TX_serial_disabled INTERFACE
@@ -11146,9 +10651,6 @@ target_link_options(GENERIC_F071VBHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_F071VBHX_MCU}
-)
-target_link_libraries(GENERIC_F071VBHX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F071VBHX_serial_disabled INTERFACE)
@@ -11220,9 +10722,6 @@ target_link_options(GENERIC_F071VBTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F071VBTX_MCU}
 )
-target_link_libraries(GENERIC_F071VBTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F071VBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F071VBTX_serial_disabled INTERFACE
@@ -11292,9 +10791,6 @@ target_link_options(GENERIC_F072C8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_F072C8TX_MCU}
-)
-target_link_libraries(GENERIC_F072C8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F072C8TX_serial_disabled INTERFACE)
@@ -11366,9 +10862,6 @@ target_link_options(GENERIC_F072C8UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F072C8UX_MCU}
 )
-target_link_libraries(GENERIC_F072C8UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F072C8UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F072C8UX_serial_disabled INTERFACE
@@ -11438,9 +10931,6 @@ target_link_options(GENERIC_F072CBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_F072CBTX_MCU}
-)
-target_link_libraries(GENERIC_F072CBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F072CBTX_serial_disabled INTERFACE)
@@ -11512,9 +11002,6 @@ target_link_options(GENERIC_F072CBUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F072CBUX_MCU}
 )
-target_link_libraries(GENERIC_F072CBUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F072CBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F072CBUX_serial_disabled INTERFACE
@@ -11584,9 +11071,6 @@ target_link_options(GENERIC_F072CBYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_F072CBYX_MCU}
-)
-target_link_libraries(GENERIC_F072CBYX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F072CBYX_serial_disabled INTERFACE)
@@ -11658,9 +11142,6 @@ target_link_options(GENERIC_F072R8TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F072R8TX_MCU}
 )
-target_link_libraries(GENERIC_F072R8TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F072R8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F072R8TX_serial_disabled INTERFACE
@@ -11730,9 +11211,6 @@ target_link_options(GENERIC_F072RBHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_F072RBHX_MCU}
-)
-target_link_libraries(GENERIC_F072RBHX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F072RBHX_serial_disabled INTERFACE)
@@ -11804,9 +11282,6 @@ target_link_options(GENERIC_F072RBIX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F072RBIX_MCU}
 )
-target_link_libraries(GENERIC_F072RBIX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F072RBIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F072RBIX_serial_disabled INTERFACE
@@ -11876,9 +11351,6 @@ target_link_options(GENERIC_F072RBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_F072RBTX_MCU}
-)
-target_link_libraries(GENERIC_F072RBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F072RBTX_serial_disabled INTERFACE)
@@ -11950,9 +11422,6 @@ target_link_options(GENERIC_F072V8HX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F072V8HX_MCU}
 )
-target_link_libraries(GENERIC_F072V8HX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F072V8HX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F072V8HX_serial_disabled INTERFACE
@@ -12022,9 +11491,6 @@ target_link_options(GENERIC_F072V8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_F072V8TX_MCU}
-)
-target_link_libraries(GENERIC_F072V8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F072V8TX_serial_disabled INTERFACE)
@@ -12096,9 +11562,6 @@ target_link_options(GENERIC_F072VBHX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F072VBHX_MCU}
 )
-target_link_libraries(GENERIC_F072VBHX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F072VBHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F072VBHX_serial_disabled INTERFACE
@@ -12168,9 +11631,6 @@ target_link_options(GENERIC_F072VBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_F072VBTX_MCU}
-)
-target_link_libraries(GENERIC_F072VBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F072VBTX_serial_disabled INTERFACE)
@@ -12242,9 +11702,6 @@ target_link_options(GENERIC_F078CBTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F078CBTX_MCU}
 )
-target_link_libraries(GENERIC_F078CBTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F078CBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F078CBTX_serial_disabled INTERFACE
@@ -12314,9 +11771,6 @@ target_link_options(GENERIC_F078CBUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_F078CBUX_MCU}
-)
-target_link_libraries(GENERIC_F078CBUX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F078CBUX_serial_disabled INTERFACE)
@@ -12388,9 +11842,6 @@ target_link_options(GENERIC_F078CBYX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F078CBYX_MCU}
 )
-target_link_libraries(GENERIC_F078CBYX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F078CBYX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F078CBYX_serial_disabled INTERFACE
@@ -12460,9 +11911,6 @@ target_link_options(GENERIC_F078RBHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_F078RBHX_MCU}
-)
-target_link_libraries(GENERIC_F078RBHX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F078RBHX_serial_disabled INTERFACE)
@@ -12534,9 +11982,6 @@ target_link_options(GENERIC_F078RBTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F078RBTX_MCU}
 )
-target_link_libraries(GENERIC_F078RBTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F078RBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F078RBTX_serial_disabled INTERFACE
@@ -12606,9 +12051,6 @@ target_link_options(GENERIC_F078VBHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_F078VBHX_MCU}
-)
-target_link_libraries(GENERIC_F078VBHX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F078VBHX_serial_disabled INTERFACE)
@@ -12680,9 +12122,6 @@ target_link_options(GENERIC_F078VBTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F078VBTX_MCU}
 )
-target_link_libraries(GENERIC_F078VBTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F078VBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F078VBTX_serial_disabled INTERFACE
@@ -12752,9 +12191,6 @@ target_link_options(GENERIC_F091CBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_F091CBTX_MCU}
-)
-target_link_libraries(GENERIC_F091CBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F091CBTX_serial_disabled INTERFACE)
@@ -12826,9 +12262,6 @@ target_link_options(GENERIC_F091CBUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F091CBUX_MCU}
 )
-target_link_libraries(GENERIC_F091CBUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F091CBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F091CBUX_serial_disabled INTERFACE
@@ -12898,9 +12331,6 @@ target_link_options(GENERIC_F091CCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_F091CCTX_MCU}
-)
-target_link_libraries(GENERIC_F091CCTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F091CCTX_serial_disabled INTERFACE)
@@ -12972,9 +12402,6 @@ target_link_options(GENERIC_F091CCUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F091CCUX_MCU}
 )
-target_link_libraries(GENERIC_F091CCUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F091CCUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F091CCUX_serial_disabled INTERFACE
@@ -13044,9 +12471,6 @@ target_link_options(GENERIC_F091RBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_F091RBTX_MCU}
-)
-target_link_libraries(GENERIC_F091RBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F091RBTX_serial_disabled INTERFACE)
@@ -13118,9 +12542,6 @@ target_link_options(GENERIC_F091RCHX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F091RCHX_MCU}
 )
-target_link_libraries(GENERIC_F091RCHX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F091RCHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F091RCHX_serial_disabled INTERFACE
@@ -13190,9 +12611,6 @@ target_link_options(GENERIC_F091RCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_F091RCTX_MCU}
-)
-target_link_libraries(GENERIC_F091RCTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F091RCTX_serial_disabled INTERFACE)
@@ -13264,9 +12682,6 @@ target_link_options(GENERIC_F091RCYX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F091RCYX_MCU}
 )
-target_link_libraries(GENERIC_F091RCYX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F091RCYX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F091RCYX_serial_disabled INTERFACE
@@ -13336,9 +12751,6 @@ target_link_options(GENERIC_F091VBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_F091VBTX_MCU}
-)
-target_link_libraries(GENERIC_F091VBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F091VBTX_serial_disabled INTERFACE)
@@ -13410,9 +12822,6 @@ target_link_options(GENERIC_F091VCHX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F091VCHX_MCU}
 )
-target_link_libraries(GENERIC_F091VCHX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F091VCHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F091VCHX_serial_disabled INTERFACE
@@ -13482,9 +12891,6 @@ target_link_options(GENERIC_F091VCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_F091VCTX_MCU}
-)
-target_link_libraries(GENERIC_F091VCTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F091VCTX_serial_disabled INTERFACE)
@@ -13556,9 +12962,6 @@ target_link_options(GENERIC_F098CCTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F098CCTX_MCU}
 )
-target_link_libraries(GENERIC_F098CCTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F098CCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F098CCTX_serial_disabled INTERFACE
@@ -13628,9 +13031,6 @@ target_link_options(GENERIC_F098CCUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_F098CCUX_MCU}
-)
-target_link_libraries(GENERIC_F098CCUX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F098CCUX_serial_disabled INTERFACE)
@@ -13702,9 +13102,6 @@ target_link_options(GENERIC_F098RCHX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F098RCHX_MCU}
 )
-target_link_libraries(GENERIC_F098RCHX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F098RCHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F098RCHX_serial_disabled INTERFACE
@@ -13774,9 +13171,6 @@ target_link_options(GENERIC_F098RCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_F098RCTX_MCU}
-)
-target_link_libraries(GENERIC_F098RCTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F098RCTX_serial_disabled INTERFACE)
@@ -13848,9 +13242,6 @@ target_link_options(GENERIC_F098RCYX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F098RCYX_MCU}
 )
-target_link_libraries(GENERIC_F098RCYX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F098RCYX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F098RCYX_serial_disabled INTERFACE
@@ -13920,9 +13311,6 @@ target_link_options(GENERIC_F098VCHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_F098VCHX_MCU}
-)
-target_link_libraries(GENERIC_F098VCHX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_F098VCHX_serial_disabled INTERFACE)
@@ -13994,9 +13382,6 @@ target_link_options(GENERIC_F098VCTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F098VCTX_MCU}
 )
-target_link_libraries(GENERIC_F098VCTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_F098VCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F098VCTX_serial_disabled INTERFACE
@@ -14066,9 +13451,6 @@ target_link_options(GENERIC_F100C4TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F100C4TX_MCU}
-)
-target_link_libraries(GENERIC_F100C4TX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F100C4TX_serial_disabled INTERFACE)
@@ -14152,9 +13534,6 @@ target_link_options(GENERIC_F100C4TX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100C4TX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F100C4TX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100C4TX_dfuo
@@ -14196,9 +13575,6 @@ target_link_options(GENERIC_F100C4TX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F100C4TX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F100C4TX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -14242,9 +13618,6 @@ target_link_options(GENERIC_F100C4TX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100C4TX_hid_MCU}
 )
-target_link_libraries(GENERIC_F100C4TX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100C6TX
@@ -14286,9 +13659,6 @@ target_link_options(GENERIC_F100C6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F100C6TX_MCU}
-)
-target_link_libraries(GENERIC_F100C6TX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F100C6TX_serial_disabled INTERFACE)
@@ -14372,9 +13742,6 @@ target_link_options(GENERIC_F100C6TX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100C6TX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F100C6TX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100C6TX_dfuo
@@ -14416,9 +13783,6 @@ target_link_options(GENERIC_F100C6TX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F100C6TX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F100C6TX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -14462,9 +13826,6 @@ target_link_options(GENERIC_F100C6TX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100C6TX_hid_MCU}
 )
-target_link_libraries(GENERIC_F100C6TX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100C8TX
@@ -14506,9 +13867,6 @@ target_link_options(GENERIC_F100C8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_F100C8TX_MCU}
-)
-target_link_libraries(GENERIC_F100C8TX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F100C8TX_serial_disabled INTERFACE)
@@ -14592,9 +13950,6 @@ target_link_options(GENERIC_F100C8TX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100C8TX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F100C8TX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100C8TX_dfuo
@@ -14636,9 +13991,6 @@ target_link_options(GENERIC_F100C8TX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_F100C8TX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F100C8TX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -14682,9 +14034,6 @@ target_link_options(GENERIC_F100C8TX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100C8TX_hid_MCU}
 )
-target_link_libraries(GENERIC_F100C8TX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100CBTX
@@ -14726,9 +14075,6 @@ target_link_options(GENERIC_F100CBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_F100CBTX_MCU}
-)
-target_link_libraries(GENERIC_F100CBTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F100CBTX_serial_disabled INTERFACE)
@@ -14812,9 +14158,6 @@ target_link_options(GENERIC_F100CBTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100CBTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F100CBTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100CBTX_dfuo
@@ -14856,9 +14199,6 @@ target_link_options(GENERIC_F100CBTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_F100CBTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F100CBTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -14902,9 +14242,6 @@ target_link_options(GENERIC_F100CBTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100CBTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F100CBTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100R4HX
@@ -14946,9 +14283,6 @@ target_link_options(GENERIC_F100R4HX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F100R4HX_MCU}
-)
-target_link_libraries(GENERIC_F100R4HX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F100R4HX_serial_disabled INTERFACE)
@@ -15032,9 +14366,6 @@ target_link_options(GENERIC_F100R4HX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100R4HX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F100R4HX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100R4HX_dfuo
@@ -15076,9 +14407,6 @@ target_link_options(GENERIC_F100R4HX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F100R4HX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F100R4HX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -15122,9 +14450,6 @@ target_link_options(GENERIC_F100R4HX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100R4HX_hid_MCU}
 )
-target_link_libraries(GENERIC_F100R4HX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100R6HX
@@ -15166,9 +14491,6 @@ target_link_options(GENERIC_F100R6HX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F100R6HX_MCU}
-)
-target_link_libraries(GENERIC_F100R6HX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F100R6HX_serial_disabled INTERFACE)
@@ -15252,9 +14574,6 @@ target_link_options(GENERIC_F100R6HX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100R6HX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F100R6HX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100R6HX_dfuo
@@ -15296,9 +14615,6 @@ target_link_options(GENERIC_F100R6HX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F100R6HX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F100R6HX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -15342,9 +14658,6 @@ target_link_options(GENERIC_F100R6HX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100R6HX_hid_MCU}
 )
-target_link_libraries(GENERIC_F100R6HX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100R8TX
@@ -15386,9 +14699,6 @@ target_link_options(GENERIC_F100R8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_F100R8TX_MCU}
-)
-target_link_libraries(GENERIC_F100R8TX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F100R8TX_serial_disabled INTERFACE)
@@ -15472,9 +14782,6 @@ target_link_options(GENERIC_F100R8TX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100R8TX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F100R8TX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100R8TX_dfuo
@@ -15516,9 +14823,6 @@ target_link_options(GENERIC_F100R8TX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_F100R8TX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F100R8TX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -15562,9 +14866,6 @@ target_link_options(GENERIC_F100R8TX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100R8TX_hid_MCU}
 )
-target_link_libraries(GENERIC_F100R8TX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100RBTX
@@ -15606,9 +14907,6 @@ target_link_options(GENERIC_F100RBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_F100RBTX_MCU}
-)
-target_link_libraries(GENERIC_F100RBTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F100RBTX_serial_disabled INTERFACE)
@@ -15692,9 +14990,6 @@ target_link_options(GENERIC_F100RBTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100RBTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F100RBTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100RBTX_dfuo
@@ -15736,9 +15031,6 @@ target_link_options(GENERIC_F100RBTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_F100RBTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F100RBTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -15782,9 +15074,6 @@ target_link_options(GENERIC_F100RBTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100RBTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F100RBTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100V8TX
@@ -15826,9 +15115,6 @@ target_link_options(GENERIC_F100V8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_F100V8TX_MCU}
-)
-target_link_libraries(GENERIC_F100V8TX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F100V8TX_serial_disabled INTERFACE)
@@ -15912,9 +15198,6 @@ target_link_options(GENERIC_F100V8TX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100V8TX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F100V8TX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100V8TX_dfuo
@@ -15956,9 +15239,6 @@ target_link_options(GENERIC_F100V8TX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_F100V8TX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F100V8TX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -16002,9 +15282,6 @@ target_link_options(GENERIC_F100V8TX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100V8TX_hid_MCU}
 )
-target_link_libraries(GENERIC_F100V8TX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100VBTX
@@ -16046,9 +15323,6 @@ target_link_options(GENERIC_F100VBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_F100VBTX_MCU}
-)
-target_link_libraries(GENERIC_F100VBTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F100VBTX_serial_disabled INTERFACE)
@@ -16132,9 +15406,6 @@ target_link_options(GENERIC_F100VBTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100VBTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F100VBTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100VBTX_dfuo
@@ -16176,9 +15447,6 @@ target_link_options(GENERIC_F100VBTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_F100VBTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F100VBTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -16222,9 +15490,6 @@ target_link_options(GENERIC_F100VBTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100VBTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F100VBTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100ZCTX
@@ -16266,9 +15531,6 @@ target_link_options(GENERIC_F100ZCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=24576"
   "SHELL: "
   -mcpu=${GENERIC_F100ZCTX_MCU}
-)
-target_link_libraries(GENERIC_F100ZCTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F100ZCTX_serial_disabled INTERFACE)
@@ -16352,9 +15614,6 @@ target_link_options(GENERIC_F100ZCTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100ZCTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F100ZCTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100ZCTX_dfuo
@@ -16396,9 +15655,6 @@ target_link_options(GENERIC_F100ZCTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=24576"
   "SHELL: "
   -mcpu=${GENERIC_F100ZCTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F100ZCTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -16442,9 +15698,6 @@ target_link_options(GENERIC_F100ZCTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100ZCTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F100ZCTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100ZDTX
@@ -16486,9 +15739,6 @@ target_link_options(GENERIC_F100ZDTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_F100ZDTX_MCU}
-)
-target_link_libraries(GENERIC_F100ZDTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F100ZDTX_serial_disabled INTERFACE)
@@ -16572,9 +15822,6 @@ target_link_options(GENERIC_F100ZDTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100ZDTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F100ZDTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100ZDTX_dfuo
@@ -16616,9 +15863,6 @@ target_link_options(GENERIC_F100ZDTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_F100ZDTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F100ZDTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -16662,9 +15906,6 @@ target_link_options(GENERIC_F100ZDTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100ZDTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F100ZDTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100ZETX
@@ -16706,9 +15947,6 @@ target_link_options(GENERIC_F100ZETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_F100ZETX_MCU}
-)
-target_link_libraries(GENERIC_F100ZETX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F100ZETX_serial_disabled INTERFACE)
@@ -16792,9 +16030,6 @@ target_link_options(GENERIC_F100ZETX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100ZETX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F100ZETX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F100ZETX_dfuo
@@ -16836,9 +16071,6 @@ target_link_options(GENERIC_F100ZETX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_F100ZETX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F100ZETX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -16882,9 +16114,6 @@ target_link_options(GENERIC_F100ZETX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F100ZETX_hid_MCU}
 )
-target_link_libraries(GENERIC_F100ZETX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101C4TX
@@ -16926,9 +16155,6 @@ target_link_options(GENERIC_F101C4TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F101C4TX_MCU}
-)
-target_link_libraries(GENERIC_F101C4TX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F101C4TX_serial_disabled INTERFACE)
@@ -17012,9 +16238,6 @@ target_link_options(GENERIC_F101C4TX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101C4TX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F101C4TX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101C4TX_dfuo
@@ -17056,9 +16279,6 @@ target_link_options(GENERIC_F101C4TX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F101C4TX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F101C4TX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -17102,9 +16322,6 @@ target_link_options(GENERIC_F101C4TX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101C4TX_hid_MCU}
 )
-target_link_libraries(GENERIC_F101C4TX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101C6TX
@@ -17146,9 +16363,6 @@ target_link_options(GENERIC_F101C6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F101C6TX_MCU}
-)
-target_link_libraries(GENERIC_F101C6TX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F101C6TX_serial_disabled INTERFACE)
@@ -17232,9 +16446,6 @@ target_link_options(GENERIC_F101C6TX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101C6TX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F101C6TX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101C6TX_dfuo
@@ -17276,9 +16487,6 @@ target_link_options(GENERIC_F101C6TX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F101C6TX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F101C6TX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -17322,9 +16530,6 @@ target_link_options(GENERIC_F101C6TX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101C6TX_hid_MCU}
 )
-target_link_libraries(GENERIC_F101C6TX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101R4TX
@@ -17366,9 +16571,6 @@ target_link_options(GENERIC_F101R4TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F101R4TX_MCU}
-)
-target_link_libraries(GENERIC_F101R4TX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F101R4TX_serial_disabled INTERFACE)
@@ -17452,9 +16654,6 @@ target_link_options(GENERIC_F101R4TX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101R4TX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F101R4TX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101R4TX_dfuo
@@ -17496,9 +16695,6 @@ target_link_options(GENERIC_F101R4TX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F101R4TX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F101R4TX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -17542,9 +16738,6 @@ target_link_options(GENERIC_F101R4TX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101R4TX_hid_MCU}
 )
-target_link_libraries(GENERIC_F101R4TX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101R6TX
@@ -17586,9 +16779,6 @@ target_link_options(GENERIC_F101R6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F101R6TX_MCU}
-)
-target_link_libraries(GENERIC_F101R6TX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F101R6TX_serial_disabled INTERFACE)
@@ -17672,9 +16862,6 @@ target_link_options(GENERIC_F101R6TX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101R6TX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F101R6TX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101R6TX_dfuo
@@ -17716,9 +16903,6 @@ target_link_options(GENERIC_F101R6TX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F101R6TX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F101R6TX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -17762,9 +16946,6 @@ target_link_options(GENERIC_F101R6TX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101R6TX_hid_MCU}
 )
-target_link_libraries(GENERIC_F101R6TX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101T4UX
@@ -17806,9 +16987,6 @@ target_link_options(GENERIC_F101T4UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F101T4UX_MCU}
-)
-target_link_libraries(GENERIC_F101T4UX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F101T4UX_serial_disabled INTERFACE)
@@ -17892,9 +17070,6 @@ target_link_options(GENERIC_F101T4UX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101T4UX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F101T4UX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101T4UX_dfuo
@@ -17936,9 +17111,6 @@ target_link_options(GENERIC_F101T4UX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${GENERIC_F101T4UX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F101T4UX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -17982,9 +17154,6 @@ target_link_options(GENERIC_F101T4UX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101T4UX_hid_MCU}
 )
-target_link_libraries(GENERIC_F101T4UX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101T6UX
@@ -18026,9 +17195,6 @@ target_link_options(GENERIC_F101T6UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F101T6UX_MCU}
-)
-target_link_libraries(GENERIC_F101T6UX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F101T6UX_serial_disabled INTERFACE)
@@ -18112,9 +17278,6 @@ target_link_options(GENERIC_F101T6UX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101T6UX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F101T6UX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101T6UX_dfuo
@@ -18156,9 +17319,6 @@ target_link_options(GENERIC_F101T6UX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F101T6UX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F101T6UX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -18202,9 +17362,6 @@ target_link_options(GENERIC_F101T6UX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101T6UX_hid_MCU}
 )
-target_link_libraries(GENERIC_F101T6UX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101V8TX
@@ -18246,9 +17403,6 @@ target_link_options(GENERIC_F101V8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
   "SHELL: "
   -mcpu=${GENERIC_F101V8TX_MCU}
-)
-target_link_libraries(GENERIC_F101V8TX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F101V8TX_serial_disabled INTERFACE)
@@ -18332,9 +17486,6 @@ target_link_options(GENERIC_F101V8TX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101V8TX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F101V8TX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101V8TX_dfuo
@@ -18376,9 +17527,6 @@ target_link_options(GENERIC_F101V8TX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
   "SHELL: "
   -mcpu=${GENERIC_F101V8TX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F101V8TX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -18422,9 +17570,6 @@ target_link_options(GENERIC_F101V8TX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101V8TX_hid_MCU}
 )
-target_link_libraries(GENERIC_F101V8TX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101VBTX
@@ -18466,9 +17611,6 @@ target_link_options(GENERIC_F101VBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_F101VBTX_MCU}
-)
-target_link_libraries(GENERIC_F101VBTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F101VBTX_serial_disabled INTERFACE)
@@ -18552,9 +17694,6 @@ target_link_options(GENERIC_F101VBTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101VBTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F101VBTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101VBTX_dfuo
@@ -18596,9 +17735,6 @@ target_link_options(GENERIC_F101VBTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_F101VBTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F101VBTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -18642,9 +17778,6 @@ target_link_options(GENERIC_F101VBTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101VBTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F101VBTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101ZCTX
@@ -18686,9 +17819,6 @@ target_link_options(GENERIC_F101ZCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_F101ZCTX_MCU}
-)
-target_link_libraries(GENERIC_F101ZCTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F101ZCTX_serial_disabled INTERFACE)
@@ -18772,9 +17902,6 @@ target_link_options(GENERIC_F101ZCTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101ZCTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F101ZCTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101ZCTX_dfuo
@@ -18816,9 +17943,6 @@ target_link_options(GENERIC_F101ZCTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_F101ZCTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F101ZCTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -18862,9 +17986,6 @@ target_link_options(GENERIC_F101ZCTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101ZCTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F101ZCTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101ZDTX
@@ -18906,9 +18027,6 @@ target_link_options(GENERIC_F101ZDTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_F101ZDTX_MCU}
-)
-target_link_libraries(GENERIC_F101ZDTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F101ZDTX_serial_disabled INTERFACE)
@@ -18992,9 +18110,6 @@ target_link_options(GENERIC_F101ZDTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101ZDTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F101ZDTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101ZDTX_dfuo
@@ -19036,9 +18151,6 @@ target_link_options(GENERIC_F101ZDTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_F101ZDTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F101ZDTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -19082,9 +18194,6 @@ target_link_options(GENERIC_F101ZDTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101ZDTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F101ZDTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101ZETX
@@ -19126,9 +18235,6 @@ target_link_options(GENERIC_F101ZETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_F101ZETX_MCU}
-)
-target_link_libraries(GENERIC_F101ZETX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F101ZETX_serial_disabled INTERFACE)
@@ -19212,9 +18318,6 @@ target_link_options(GENERIC_F101ZETX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101ZETX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F101ZETX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F101ZETX_dfuo
@@ -19256,9 +18359,6 @@ target_link_options(GENERIC_F101ZETX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_F101ZETX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F101ZETX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -19302,9 +18402,6 @@ target_link_options(GENERIC_F101ZETX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F101ZETX_hid_MCU}
 )
-target_link_libraries(GENERIC_F101ZETX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103C4TX
@@ -19346,9 +18443,6 @@ target_link_options(GENERIC_F103C4TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F103C4TX_MCU}
-)
-target_link_libraries(GENERIC_F103C4TX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103C4TX_serial_disabled INTERFACE)
@@ -19432,9 +18526,6 @@ target_link_options(GENERIC_F103C4TX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103C4TX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103C4TX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103C4TX_dfuo
@@ -19476,9 +18567,6 @@ target_link_options(GENERIC_F103C4TX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F103C4TX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103C4TX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -19522,9 +18610,6 @@ target_link_options(GENERIC_F103C4TX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103C4TX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103C4TX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103C6TX
@@ -19566,9 +18651,6 @@ target_link_options(GENERIC_F103C6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
   "SHELL: "
   -mcpu=${GENERIC_F103C6TX_MCU}
-)
-target_link_libraries(GENERIC_F103C6TX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103C6TX_serial_disabled INTERFACE)
@@ -19652,9 +18734,6 @@ target_link_options(GENERIC_F103C6TX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103C6TX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103C6TX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103C6TX_dfuo
@@ -19696,9 +18775,6 @@ target_link_options(GENERIC_F103C6TX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
   "SHELL: "
   -mcpu=${GENERIC_F103C6TX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103C6TX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -19742,9 +18818,6 @@ target_link_options(GENERIC_F103C6TX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103C6TX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103C6TX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103C6UX
@@ -19786,9 +18859,6 @@ target_link_options(GENERIC_F103C6UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
   "SHELL: "
   -mcpu=${GENERIC_F103C6UX_MCU}
-)
-target_link_libraries(GENERIC_F103C6UX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103C6UX_serial_disabled INTERFACE)
@@ -19872,9 +18942,6 @@ target_link_options(GENERIC_F103C6UX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103C6UX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103C6UX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103C6UX_dfuo
@@ -19916,9 +18983,6 @@ target_link_options(GENERIC_F103C6UX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
   "SHELL: "
   -mcpu=${GENERIC_F103C6UX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103C6UX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -19962,9 +19026,6 @@ target_link_options(GENERIC_F103C6UX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103C6UX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103C6UX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103C8TX
@@ -20006,9 +19067,6 @@ target_link_options(GENERIC_F103C8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103C8TX_MCU}
-)
-target_link_libraries(GENERIC_F103C8TX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103C8TX_serial_disabled INTERFACE)
@@ -20092,9 +19150,6 @@ target_link_options(GENERIC_F103C8TX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103C8TX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103C8TX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103C8TX_dfuo
@@ -20136,9 +19191,6 @@ target_link_options(GENERIC_F103C8TX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103C8TX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103C8TX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -20182,9 +19234,6 @@ target_link_options(GENERIC_F103C8TX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103C8TX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103C8TX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103CBTX
@@ -20226,9 +19275,6 @@ target_link_options(GENERIC_F103CBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103CBTX_MCU}
-)
-target_link_libraries(GENERIC_F103CBTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103CBTX_serial_disabled INTERFACE)
@@ -20312,9 +19358,6 @@ target_link_options(GENERIC_F103CBTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103CBTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103CBTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103CBTX_dfuo
@@ -20356,9 +19399,6 @@ target_link_options(GENERIC_F103CBTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103CBTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103CBTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -20402,9 +19442,6 @@ target_link_options(GENERIC_F103CBTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103CBTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103CBTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103CBUX
@@ -20446,9 +19483,6 @@ target_link_options(GENERIC_F103CBUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103CBUX_MCU}
-)
-target_link_libraries(GENERIC_F103CBUX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103CBUX_serial_disabled INTERFACE)
@@ -20532,9 +19566,6 @@ target_link_options(GENERIC_F103CBUX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103CBUX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103CBUX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103CBUX_dfuo
@@ -20576,9 +19607,6 @@ target_link_options(GENERIC_F103CBUX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103CBUX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103CBUX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -20622,9 +19650,6 @@ target_link_options(GENERIC_F103CBUX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103CBUX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103CBUX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103R4HX
@@ -20666,9 +19691,6 @@ target_link_options(GENERIC_F103R4HX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F103R4HX_MCU}
-)
-target_link_libraries(GENERIC_F103R4HX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103R4HX_serial_disabled INTERFACE)
@@ -20752,9 +19774,6 @@ target_link_options(GENERIC_F103R4HX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103R4HX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103R4HX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103R4HX_dfuo
@@ -20796,9 +19815,6 @@ target_link_options(GENERIC_F103R4HX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F103R4HX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103R4HX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -20842,9 +19858,6 @@ target_link_options(GENERIC_F103R4HX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103R4HX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103R4HX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103R4TX
@@ -20886,9 +19899,6 @@ target_link_options(GENERIC_F103R4TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F103R4TX_MCU}
-)
-target_link_libraries(GENERIC_F103R4TX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103R4TX_serial_disabled INTERFACE)
@@ -20972,9 +19982,6 @@ target_link_options(GENERIC_F103R4TX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103R4TX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103R4TX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103R4TX_dfuo
@@ -21016,9 +20023,6 @@ target_link_options(GENERIC_F103R4TX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F103R4TX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103R4TX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -21062,9 +20066,6 @@ target_link_options(GENERIC_F103R4TX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103R4TX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103R4TX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103R6HX
@@ -21106,9 +20107,6 @@ target_link_options(GENERIC_F103R6HX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
   "SHELL: "
   -mcpu=${GENERIC_F103R6HX_MCU}
-)
-target_link_libraries(GENERIC_F103R6HX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103R6HX_serial_disabled INTERFACE)
@@ -21192,9 +20190,6 @@ target_link_options(GENERIC_F103R6HX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103R6HX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103R6HX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103R6HX_dfuo
@@ -21236,9 +20231,6 @@ target_link_options(GENERIC_F103R6HX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
   "SHELL: "
   -mcpu=${GENERIC_F103R6HX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103R6HX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -21282,9 +20274,6 @@ target_link_options(GENERIC_F103R6HX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103R6HX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103R6HX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103R6TX
@@ -21326,9 +20315,6 @@ target_link_options(GENERIC_F103R6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
   "SHELL: "
   -mcpu=${GENERIC_F103R6TX_MCU}
-)
-target_link_libraries(GENERIC_F103R6TX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103R6TX_serial_disabled INTERFACE)
@@ -21412,9 +20398,6 @@ target_link_options(GENERIC_F103R6TX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103R6TX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103R6TX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103R6TX_dfuo
@@ -21456,9 +20439,6 @@ target_link_options(GENERIC_F103R6TX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
   "SHELL: "
   -mcpu=${GENERIC_F103R6TX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103R6TX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -21502,9 +20482,6 @@ target_link_options(GENERIC_F103R6TX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103R6TX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103R6TX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103R8HX
@@ -21546,9 +20523,6 @@ target_link_options(GENERIC_F103R8HX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103R8HX_MCU}
-)
-target_link_libraries(GENERIC_F103R8HX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103R8HX_serial_disabled INTERFACE)
@@ -21632,9 +20606,6 @@ target_link_options(GENERIC_F103R8HX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103R8HX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103R8HX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103R8HX_dfuo
@@ -21676,9 +20647,6 @@ target_link_options(GENERIC_F103R8HX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103R8HX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103R8HX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -21722,9 +20690,6 @@ target_link_options(GENERIC_F103R8HX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103R8HX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103R8HX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103R8TX
@@ -21766,9 +20731,6 @@ target_link_options(GENERIC_F103R8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103R8TX_MCU}
-)
-target_link_libraries(GENERIC_F103R8TX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103R8TX_serial_disabled INTERFACE)
@@ -21852,9 +20814,6 @@ target_link_options(GENERIC_F103R8TX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103R8TX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103R8TX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103R8TX_dfuo
@@ -21896,9 +20855,6 @@ target_link_options(GENERIC_F103R8TX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103R8TX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103R8TX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -21942,9 +20898,6 @@ target_link_options(GENERIC_F103R8TX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103R8TX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103R8TX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103RBHX
@@ -21986,9 +20939,6 @@ target_link_options(GENERIC_F103RBHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103RBHX_MCU}
-)
-target_link_libraries(GENERIC_F103RBHX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103RBHX_serial_disabled INTERFACE)
@@ -22072,9 +21022,6 @@ target_link_options(GENERIC_F103RBHX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103RBHX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103RBHX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103RBHX_dfuo
@@ -22116,9 +21063,6 @@ target_link_options(GENERIC_F103RBHX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103RBHX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103RBHX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -22162,9 +21106,6 @@ target_link_options(GENERIC_F103RBHX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103RBHX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103RBHX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103RBTX
@@ -22206,9 +21147,6 @@ target_link_options(GENERIC_F103RBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103RBTX_MCU}
-)
-target_link_libraries(GENERIC_F103RBTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103RBTX_serial_disabled INTERFACE)
@@ -22292,9 +21230,6 @@ target_link_options(GENERIC_F103RBTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103RBTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103RBTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103RBTX_dfuo
@@ -22336,9 +21271,6 @@ target_link_options(GENERIC_F103RBTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103RBTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103RBTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -22382,9 +21314,6 @@ target_link_options(GENERIC_F103RBTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103RBTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103RBTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103RCTX
@@ -22426,9 +21355,6 @@ target_link_options(GENERIC_F103RCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_F103RCTX_MCU}
-)
-target_link_libraries(GENERIC_F103RCTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103RCTX_serial_disabled INTERFACE)
@@ -22512,9 +21438,6 @@ target_link_options(GENERIC_F103RCTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103RCTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103RCTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103RCTX_dfuo
@@ -22556,9 +21479,6 @@ target_link_options(GENERIC_F103RCTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_F103RCTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103RCTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -22602,9 +21522,6 @@ target_link_options(GENERIC_F103RCTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103RCTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103RCTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103RCYX
@@ -22646,9 +21563,6 @@ target_link_options(GENERIC_F103RCYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_F103RCYX_MCU}
-)
-target_link_libraries(GENERIC_F103RCYX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103RCYX_serial_disabled INTERFACE)
@@ -22732,9 +21646,6 @@ target_link_options(GENERIC_F103RCYX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103RCYX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103RCYX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103RCYX_dfuo
@@ -22776,9 +21687,6 @@ target_link_options(GENERIC_F103RCYX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_F103RCYX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103RCYX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -22822,9 +21730,6 @@ target_link_options(GENERIC_F103RCYX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103RCYX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103RCYX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103RDTX
@@ -22866,9 +21771,6 @@ target_link_options(GENERIC_F103RDTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103RDTX_MCU}
-)
-target_link_libraries(GENERIC_F103RDTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103RDTX_serial_disabled INTERFACE)
@@ -22952,9 +21854,6 @@ target_link_options(GENERIC_F103RDTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103RDTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103RDTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103RDTX_dfuo
@@ -22996,9 +21895,6 @@ target_link_options(GENERIC_F103RDTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103RDTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103RDTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -23042,9 +21938,6 @@ target_link_options(GENERIC_F103RDTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103RDTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103RDTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103RDYX
@@ -23086,9 +21979,6 @@ target_link_options(GENERIC_F103RDYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103RDYX_MCU}
-)
-target_link_libraries(GENERIC_F103RDYX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103RDYX_serial_disabled INTERFACE)
@@ -23172,9 +22062,6 @@ target_link_options(GENERIC_F103RDYX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103RDYX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103RDYX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103RDYX_dfuo
@@ -23216,9 +22103,6 @@ target_link_options(GENERIC_F103RDYX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103RDYX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103RDYX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -23262,9 +22146,6 @@ target_link_options(GENERIC_F103RDYX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103RDYX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103RDYX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103RETX
@@ -23306,9 +22187,6 @@ target_link_options(GENERIC_F103RETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103RETX_MCU}
-)
-target_link_libraries(GENERIC_F103RETX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103RETX_serial_disabled INTERFACE)
@@ -23392,9 +22270,6 @@ target_link_options(GENERIC_F103RETX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103RETX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103RETX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103RETX_dfuo
@@ -23436,9 +22311,6 @@ target_link_options(GENERIC_F103RETX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103RETX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103RETX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -23482,9 +22354,6 @@ target_link_options(GENERIC_F103RETX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103RETX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103RETX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103REYX
@@ -23526,9 +22395,6 @@ target_link_options(GENERIC_F103REYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103REYX_MCU}
-)
-target_link_libraries(GENERIC_F103REYX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103REYX_serial_disabled INTERFACE)
@@ -23612,9 +22478,6 @@ target_link_options(GENERIC_F103REYX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103REYX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103REYX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103REYX_dfuo
@@ -23656,9 +22519,6 @@ target_link_options(GENERIC_F103REYX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103REYX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103REYX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -23702,9 +22562,6 @@ target_link_options(GENERIC_F103REYX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103REYX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103REYX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103RFTX
@@ -23746,9 +22603,6 @@ target_link_options(GENERIC_F103RFTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL: "
   -mcpu=${GENERIC_F103RFTX_MCU}
-)
-target_link_libraries(GENERIC_F103RFTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103RFTX_serial_disabled INTERFACE)
@@ -23832,9 +22686,6 @@ target_link_options(GENERIC_F103RFTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103RFTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103RFTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103RFTX_dfuo
@@ -23876,9 +22727,6 @@ target_link_options(GENERIC_F103RFTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL: "
   -mcpu=${GENERIC_F103RFTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103RFTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -23922,9 +22770,6 @@ target_link_options(GENERIC_F103RFTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103RFTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103RFTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103RGTX
@@ -23966,9 +22811,6 @@ target_link_options(GENERIC_F103RGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL: "
   -mcpu=${GENERIC_F103RGTX_MCU}
-)
-target_link_libraries(GENERIC_F103RGTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103RGTX_serial_disabled INTERFACE)
@@ -24052,9 +22894,6 @@ target_link_options(GENERIC_F103RGTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103RGTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103RGTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103RGTX_dfuo
@@ -24096,9 +22935,6 @@ target_link_options(GENERIC_F103RGTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL: "
   -mcpu=${GENERIC_F103RGTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103RGTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -24142,9 +22978,6 @@ target_link_options(GENERIC_F103RGTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103RGTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103RGTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103T4UX
@@ -24186,9 +23019,6 @@ target_link_options(GENERIC_F103T4UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F103T4UX_MCU}
-)
-target_link_libraries(GENERIC_F103T4UX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103T4UX_serial_disabled INTERFACE)
@@ -24272,9 +23102,6 @@ target_link_options(GENERIC_F103T4UX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103T4UX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103T4UX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103T4UX_dfuo
@@ -24316,9 +23143,6 @@ target_link_options(GENERIC_F103T4UX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${GENERIC_F103T4UX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103T4UX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -24362,9 +23186,6 @@ target_link_options(GENERIC_F103T4UX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103T4UX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103T4UX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103T6UX
@@ -24406,9 +23227,6 @@ target_link_options(GENERIC_F103T6UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
   "SHELL: "
   -mcpu=${GENERIC_F103T6UX_MCU}
-)
-target_link_libraries(GENERIC_F103T6UX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103T6UX_serial_disabled INTERFACE)
@@ -24492,9 +23310,6 @@ target_link_options(GENERIC_F103T6UX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103T6UX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103T6UX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103T6UX_dfuo
@@ -24536,9 +23351,6 @@ target_link_options(GENERIC_F103T6UX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
   "SHELL: "
   -mcpu=${GENERIC_F103T6UX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103T6UX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -24582,9 +23394,6 @@ target_link_options(GENERIC_F103T6UX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103T6UX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103T6UX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103T8UX
@@ -24626,9 +23435,6 @@ target_link_options(GENERIC_F103T8UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103T8UX_MCU}
-)
-target_link_libraries(GENERIC_F103T8UX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103T8UX_serial_disabled INTERFACE)
@@ -24712,9 +23518,6 @@ target_link_options(GENERIC_F103T8UX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103T8UX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103T8UX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103T8UX_dfuo
@@ -24756,9 +23559,6 @@ target_link_options(GENERIC_F103T8UX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103T8UX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103T8UX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -24802,9 +23602,6 @@ target_link_options(GENERIC_F103T8UX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103T8UX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103T8UX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103TBUX
@@ -24846,9 +23643,6 @@ target_link_options(GENERIC_F103TBUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103TBUX_MCU}
-)
-target_link_libraries(GENERIC_F103TBUX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103TBUX_serial_disabled INTERFACE)
@@ -24932,9 +23726,6 @@ target_link_options(GENERIC_F103TBUX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103TBUX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103TBUX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103TBUX_dfuo
@@ -24976,9 +23767,6 @@ target_link_options(GENERIC_F103TBUX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103TBUX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103TBUX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -25022,9 +23810,6 @@ target_link_options(GENERIC_F103TBUX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103TBUX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103TBUX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103V8HX
@@ -25066,9 +23851,6 @@ target_link_options(GENERIC_F103V8HX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103V8HX_MCU}
-)
-target_link_libraries(GENERIC_F103V8HX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103V8HX_serial_disabled INTERFACE)
@@ -25152,9 +23934,6 @@ target_link_options(GENERIC_F103V8HX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103V8HX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103V8HX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103V8HX_dfuo
@@ -25196,9 +23975,6 @@ target_link_options(GENERIC_F103V8HX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103V8HX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103V8HX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -25242,9 +24018,6 @@ target_link_options(GENERIC_F103V8HX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103V8HX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103V8HX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103V8TX
@@ -25286,9 +24059,6 @@ target_link_options(GENERIC_F103V8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103V8TX_MCU}
-)
-target_link_libraries(GENERIC_F103V8TX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103V8TX_serial_disabled INTERFACE)
@@ -25372,9 +24142,6 @@ target_link_options(GENERIC_F103V8TX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103V8TX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103V8TX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103V8TX_dfuo
@@ -25416,9 +24183,6 @@ target_link_options(GENERIC_F103V8TX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103V8TX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103V8TX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -25462,9 +24226,6 @@ target_link_options(GENERIC_F103V8TX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103V8TX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103V8TX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VBHX
@@ -25506,9 +24267,6 @@ target_link_options(GENERIC_F103VBHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103VBHX_MCU}
-)
-target_link_libraries(GENERIC_F103VBHX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103VBHX_serial_disabled INTERFACE)
@@ -25592,9 +24350,6 @@ target_link_options(GENERIC_F103VBHX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VBHX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103VBHX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VBHX_dfuo
@@ -25636,9 +24391,6 @@ target_link_options(GENERIC_F103VBHX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103VBHX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103VBHX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -25682,9 +24434,6 @@ target_link_options(GENERIC_F103VBHX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VBHX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103VBHX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VBIX
@@ -25726,9 +24475,6 @@ target_link_options(GENERIC_F103VBIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103VBIX_MCU}
-)
-target_link_libraries(GENERIC_F103VBIX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103VBIX_serial_disabled INTERFACE)
@@ -25812,9 +24558,6 @@ target_link_options(GENERIC_F103VBIX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VBIX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103VBIX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VBIX_dfuo
@@ -25856,9 +24599,6 @@ target_link_options(GENERIC_F103VBIX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103VBIX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103VBIX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -25902,9 +24642,6 @@ target_link_options(GENERIC_F103VBIX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VBIX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103VBIX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VBTX
@@ -25946,9 +24683,6 @@ target_link_options(GENERIC_F103VBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103VBTX_MCU}
-)
-target_link_libraries(GENERIC_F103VBTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103VBTX_serial_disabled INTERFACE)
@@ -26032,9 +24766,6 @@ target_link_options(GENERIC_F103VBTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VBTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103VBTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VBTX_dfuo
@@ -26076,9 +24807,6 @@ target_link_options(GENERIC_F103VBTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_F103VBTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103VBTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -26122,9 +24850,6 @@ target_link_options(GENERIC_F103VBTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VBTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103VBTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VCHX
@@ -26166,9 +24891,6 @@ target_link_options(GENERIC_F103VCHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_F103VCHX_MCU}
-)
-target_link_libraries(GENERIC_F103VCHX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103VCHX_serial_disabled INTERFACE)
@@ -26252,9 +24974,6 @@ target_link_options(GENERIC_F103VCHX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VCHX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103VCHX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VCHX_dfuo
@@ -26296,9 +25015,6 @@ target_link_options(GENERIC_F103VCHX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_F103VCHX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103VCHX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -26342,9 +25058,6 @@ target_link_options(GENERIC_F103VCHX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VCHX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103VCHX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VCTX
@@ -26386,9 +25099,6 @@ target_link_options(GENERIC_F103VCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_F103VCTX_MCU}
-)
-target_link_libraries(GENERIC_F103VCTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103VCTX_serial_disabled INTERFACE)
@@ -26472,9 +25182,6 @@ target_link_options(GENERIC_F103VCTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VCTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103VCTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VCTX_dfuo
@@ -26516,9 +25223,6 @@ target_link_options(GENERIC_F103VCTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_F103VCTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103VCTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -26562,9 +25266,6 @@ target_link_options(GENERIC_F103VCTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VCTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103VCTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VDHX
@@ -26606,9 +25307,6 @@ target_link_options(GENERIC_F103VDHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103VDHX_MCU}
-)
-target_link_libraries(GENERIC_F103VDHX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103VDHX_serial_disabled INTERFACE)
@@ -26692,9 +25390,6 @@ target_link_options(GENERIC_F103VDHX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VDHX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103VDHX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VDHX_dfuo
@@ -26736,9 +25431,6 @@ target_link_options(GENERIC_F103VDHX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103VDHX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103VDHX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -26782,9 +25474,6 @@ target_link_options(GENERIC_F103VDHX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VDHX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103VDHX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VDTX
@@ -26826,9 +25515,6 @@ target_link_options(GENERIC_F103VDTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103VDTX_MCU}
-)
-target_link_libraries(GENERIC_F103VDTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103VDTX_serial_disabled INTERFACE)
@@ -26912,9 +25598,6 @@ target_link_options(GENERIC_F103VDTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VDTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103VDTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VDTX_dfuo
@@ -26956,9 +25639,6 @@ target_link_options(GENERIC_F103VDTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103VDTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103VDTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -27002,9 +25682,6 @@ target_link_options(GENERIC_F103VDTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VDTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103VDTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VEHX
@@ -27046,9 +25723,6 @@ target_link_options(GENERIC_F103VEHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103VEHX_MCU}
-)
-target_link_libraries(GENERIC_F103VEHX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103VEHX_serial_disabled INTERFACE)
@@ -27132,9 +25806,6 @@ target_link_options(GENERIC_F103VEHX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VEHX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103VEHX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VEHX_dfuo
@@ -27176,9 +25847,6 @@ target_link_options(GENERIC_F103VEHX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103VEHX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103VEHX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -27222,9 +25890,6 @@ target_link_options(GENERIC_F103VEHX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VEHX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103VEHX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VETX
@@ -27266,9 +25931,6 @@ target_link_options(GENERIC_F103VETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103VETX_MCU}
-)
-target_link_libraries(GENERIC_F103VETX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103VETX_serial_disabled INTERFACE)
@@ -27352,9 +26014,6 @@ target_link_options(GENERIC_F103VETX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VETX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103VETX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VETX_dfuo
@@ -27396,9 +26055,6 @@ target_link_options(GENERIC_F103VETX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103VETX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103VETX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -27442,9 +26098,6 @@ target_link_options(GENERIC_F103VETX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VETX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103VETX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VFTX
@@ -27486,9 +26139,6 @@ target_link_options(GENERIC_F103VFTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL: "
   -mcpu=${GENERIC_F103VFTX_MCU}
-)
-target_link_libraries(GENERIC_F103VFTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103VFTX_serial_disabled INTERFACE)
@@ -27572,9 +26222,6 @@ target_link_options(GENERIC_F103VFTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VFTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103VFTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VFTX_dfuo
@@ -27616,9 +26263,6 @@ target_link_options(GENERIC_F103VFTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL: "
   -mcpu=${GENERIC_F103VFTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103VFTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -27662,9 +26306,6 @@ target_link_options(GENERIC_F103VFTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VFTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103VFTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VGTX
@@ -27706,9 +26347,6 @@ target_link_options(GENERIC_F103VGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL: "
   -mcpu=${GENERIC_F103VGTX_MCU}
-)
-target_link_libraries(GENERIC_F103VGTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103VGTX_serial_disabled INTERFACE)
@@ -27792,9 +26430,6 @@ target_link_options(GENERIC_F103VGTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VGTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103VGTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103VGTX_dfuo
@@ -27836,9 +26471,6 @@ target_link_options(GENERIC_F103VGTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL: "
   -mcpu=${GENERIC_F103VGTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103VGTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -27882,9 +26514,6 @@ target_link_options(GENERIC_F103VGTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103VGTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103VGTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZCHX
@@ -27926,9 +26555,6 @@ target_link_options(GENERIC_F103ZCHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_F103ZCHX_MCU}
-)
-target_link_libraries(GENERIC_F103ZCHX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103ZCHX_serial_disabled INTERFACE)
@@ -28012,9 +26638,6 @@ target_link_options(GENERIC_F103ZCHX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZCHX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103ZCHX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZCHX_dfuo
@@ -28056,9 +26679,6 @@ target_link_options(GENERIC_F103ZCHX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_F103ZCHX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103ZCHX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -28102,9 +26722,6 @@ target_link_options(GENERIC_F103ZCHX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZCHX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103ZCHX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZCTX
@@ -28146,9 +26763,6 @@ target_link_options(GENERIC_F103ZCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_F103ZCTX_MCU}
-)
-target_link_libraries(GENERIC_F103ZCTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103ZCTX_serial_disabled INTERFACE)
@@ -28232,9 +26846,6 @@ target_link_options(GENERIC_F103ZCTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZCTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103ZCTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZCTX_dfuo
@@ -28276,9 +26887,6 @@ target_link_options(GENERIC_F103ZCTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_F103ZCTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103ZCTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -28322,9 +26930,6 @@ target_link_options(GENERIC_F103ZCTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZCTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103ZCTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZDHX
@@ -28366,9 +26971,6 @@ target_link_options(GENERIC_F103ZDHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103ZDHX_MCU}
-)
-target_link_libraries(GENERIC_F103ZDHX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103ZDHX_serial_disabled INTERFACE)
@@ -28452,9 +27054,6 @@ target_link_options(GENERIC_F103ZDHX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZDHX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103ZDHX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZDHX_dfuo
@@ -28496,9 +27095,6 @@ target_link_options(GENERIC_F103ZDHX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103ZDHX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103ZDHX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -28542,9 +27138,6 @@ target_link_options(GENERIC_F103ZDHX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZDHX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103ZDHX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZDTX
@@ -28586,9 +27179,6 @@ target_link_options(GENERIC_F103ZDTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103ZDTX_MCU}
-)
-target_link_libraries(GENERIC_F103ZDTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103ZDTX_serial_disabled INTERFACE)
@@ -28672,9 +27262,6 @@ target_link_options(GENERIC_F103ZDTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZDTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103ZDTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZDTX_dfuo
@@ -28716,9 +27303,6 @@ target_link_options(GENERIC_F103ZDTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103ZDTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103ZDTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -28762,9 +27346,6 @@ target_link_options(GENERIC_F103ZDTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZDTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103ZDTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZEHX
@@ -28806,9 +27387,6 @@ target_link_options(GENERIC_F103ZEHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103ZEHX_MCU}
-)
-target_link_libraries(GENERIC_F103ZEHX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103ZEHX_serial_disabled INTERFACE)
@@ -28892,9 +27470,6 @@ target_link_options(GENERIC_F103ZEHX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZEHX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103ZEHX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZEHX_dfuo
@@ -28936,9 +27511,6 @@ target_link_options(GENERIC_F103ZEHX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103ZEHX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103ZEHX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -28982,9 +27554,6 @@ target_link_options(GENERIC_F103ZEHX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZEHX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103ZEHX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZETX
@@ -29026,9 +27595,6 @@ target_link_options(GENERIC_F103ZETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103ZETX_MCU}
-)
-target_link_libraries(GENERIC_F103ZETX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103ZETX_serial_disabled INTERFACE)
@@ -29112,9 +27678,6 @@ target_link_options(GENERIC_F103ZETX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZETX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103ZETX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZETX_dfuo
@@ -29156,9 +27719,6 @@ target_link_options(GENERIC_F103ZETX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F103ZETX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103ZETX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -29202,9 +27762,6 @@ target_link_options(GENERIC_F103ZETX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZETX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103ZETX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZFHX
@@ -29246,9 +27803,6 @@ target_link_options(GENERIC_F103ZFHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL: "
   -mcpu=${GENERIC_F103ZFHX_MCU}
-)
-target_link_libraries(GENERIC_F103ZFHX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103ZFHX_serial_disabled INTERFACE)
@@ -29332,9 +27886,6 @@ target_link_options(GENERIC_F103ZFHX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZFHX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103ZFHX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZFHX_dfuo
@@ -29376,9 +27927,6 @@ target_link_options(GENERIC_F103ZFHX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL: "
   -mcpu=${GENERIC_F103ZFHX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103ZFHX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -29422,9 +27970,6 @@ target_link_options(GENERIC_F103ZFHX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZFHX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103ZFHX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZFTX
@@ -29466,9 +28011,6 @@ target_link_options(GENERIC_F103ZFTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL: "
   -mcpu=${GENERIC_F103ZFTX_MCU}
-)
-target_link_libraries(GENERIC_F103ZFTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103ZFTX_serial_disabled INTERFACE)
@@ -29552,9 +28094,6 @@ target_link_options(GENERIC_F103ZFTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZFTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103ZFTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZFTX_dfuo
@@ -29596,9 +28135,6 @@ target_link_options(GENERIC_F103ZFTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL: "
   -mcpu=${GENERIC_F103ZFTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103ZFTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -29642,9 +28178,6 @@ target_link_options(GENERIC_F103ZFTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZFTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103ZFTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZGHX
@@ -29686,9 +28219,6 @@ target_link_options(GENERIC_F103ZGHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL: "
   -mcpu=${GENERIC_F103ZGHX_MCU}
-)
-target_link_libraries(GENERIC_F103ZGHX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103ZGHX_serial_disabled INTERFACE)
@@ -29772,9 +28302,6 @@ target_link_options(GENERIC_F103ZGHX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZGHX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103ZGHX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZGHX_dfuo
@@ -29816,9 +28343,6 @@ target_link_options(GENERIC_F103ZGHX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL: "
   -mcpu=${GENERIC_F103ZGHX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103ZGHX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -29862,9 +28386,6 @@ target_link_options(GENERIC_F103ZGHX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZGHX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103ZGHX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZGTX
@@ -29906,9 +28427,6 @@ target_link_options(GENERIC_F103ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL: "
   -mcpu=${GENERIC_F103ZGTX_MCU}
-)
-target_link_libraries(GENERIC_F103ZGTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F103ZGTX_serial_disabled INTERFACE)
@@ -29992,9 +28510,6 @@ target_link_options(GENERIC_F103ZGTX_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZGTX_dfu2_MCU}
 )
-target_link_libraries(GENERIC_F103ZGTX_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F103ZGTX_dfuo
@@ -30036,9 +28551,6 @@ target_link_options(GENERIC_F103ZGTX_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL: "
   -mcpu=${GENERIC_F103ZGTX_dfuo_MCU}
-)
-target_link_libraries(GENERIC_F103ZGTX_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -30082,9 +28594,6 @@ target_link_options(GENERIC_F103ZGTX_hid INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F103ZGTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F103ZGTX_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # GENERIC_F205RBTX
@@ -30126,9 +28635,6 @@ target_link_options(GENERIC_F205RBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F205RBTX_MCU}
-)
-target_link_libraries(GENERIC_F205RBTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F205RBTX_serial_disabled INTERFACE)
@@ -30212,9 +28718,6 @@ target_link_options(GENERIC_F205RCTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F205RCTX_MCU}
 )
-target_link_libraries(GENERIC_F205RCTX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F205RCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F205RCTX_serial_disabled INTERFACE
@@ -30296,9 +28799,6 @@ target_link_options(GENERIC_F205RETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F205RETX_MCU}
-)
-target_link_libraries(GENERIC_F205RETX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F205RETX_serial_disabled INTERFACE)
@@ -30382,9 +28882,6 @@ target_link_options(GENERIC_F205REYX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F205REYX_MCU}
 )
-target_link_libraries(GENERIC_F205REYX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F205REYX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F205REYX_serial_disabled INTERFACE
@@ -30466,9 +28963,6 @@ target_link_options(GENERIC_F205RFTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F205RFTX_MCU}
-)
-target_link_libraries(GENERIC_F205RFTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F205RFTX_serial_disabled INTERFACE)
@@ -30552,9 +29046,6 @@ target_link_options(GENERIC_F205RGEX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F205RGEX_MCU}
 )
-target_link_libraries(GENERIC_F205RGEX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F205RGEX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F205RGEX_serial_disabled INTERFACE
@@ -30636,9 +29127,6 @@ target_link_options(GENERIC_F205RGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F205RGTX_MCU}
-)
-target_link_libraries(GENERIC_F205RGTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F205RGTX_serial_disabled INTERFACE)
@@ -30722,9 +29210,6 @@ target_link_options(GENERIC_F205RGYX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F205RGYX_MCU}
 )
-target_link_libraries(GENERIC_F205RGYX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F205RGYX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F205RGYX_serial_disabled INTERFACE
@@ -30806,9 +29291,6 @@ target_link_options(GENERIC_F205VBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_F205VBTX_MCU}
-)
-target_link_libraries(GENERIC_F205VBTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F205VBTX_serial_disabled INTERFACE)
@@ -30892,9 +29374,6 @@ target_link_options(GENERIC_F205VCTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F205VCTX_MCU}
 )
-target_link_libraries(GENERIC_F205VCTX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F205VCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F205VCTX_serial_disabled INTERFACE
@@ -30976,9 +29455,6 @@ target_link_options(GENERIC_F205VETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F205VETX_MCU}
-)
-target_link_libraries(GENERIC_F205VETX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F205VETX_serial_disabled INTERFACE)
@@ -31062,9 +29538,6 @@ target_link_options(GENERIC_F205VFTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F205VFTX_MCU}
 )
-target_link_libraries(GENERIC_F205VFTX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F205VFTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F205VFTX_serial_disabled INTERFACE
@@ -31146,9 +29619,6 @@ target_link_options(GENERIC_F205VGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F205VGTX_MCU}
-)
-target_link_libraries(GENERIC_F205VGTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F205VGTX_serial_disabled INTERFACE)
@@ -31232,9 +29702,6 @@ target_link_options(GENERIC_F205ZCTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F205ZCTX_MCU}
 )
-target_link_libraries(GENERIC_F205ZCTX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F205ZCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F205ZCTX_serial_disabled INTERFACE
@@ -31316,9 +29783,6 @@ target_link_options(GENERIC_F205ZETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F205ZETX_MCU}
-)
-target_link_libraries(GENERIC_F205ZETX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F205ZETX_serial_disabled INTERFACE)
@@ -31402,9 +29866,6 @@ target_link_options(GENERIC_F205ZFTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F205ZFTX_MCU}
 )
-target_link_libraries(GENERIC_F205ZFTX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F205ZFTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F205ZFTX_serial_disabled INTERFACE
@@ -31486,9 +29947,6 @@ target_link_options(GENERIC_F205ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F205ZGTX_MCU}
-)
-target_link_libraries(GENERIC_F205ZGTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F205ZGTX_serial_disabled INTERFACE)
@@ -31572,9 +30030,6 @@ target_link_options(GENERIC_F207ICHX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F207ICHX_MCU}
 )
-target_link_libraries(GENERIC_F207ICHX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F207ICHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F207ICHX_serial_disabled INTERFACE
@@ -31656,9 +30111,6 @@ target_link_options(GENERIC_F207ICTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F207ICTX_MCU}
-)
-target_link_libraries(GENERIC_F207ICTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F207ICTX_serial_disabled INTERFACE)
@@ -31742,9 +30194,6 @@ target_link_options(GENERIC_F207IEHX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F207IEHX_MCU}
 )
-target_link_libraries(GENERIC_F207IEHX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F207IEHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F207IEHX_serial_disabled INTERFACE
@@ -31826,9 +30275,6 @@ target_link_options(GENERIC_F207IETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F207IETX_MCU}
-)
-target_link_libraries(GENERIC_F207IETX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F207IETX_serial_disabled INTERFACE)
@@ -31912,9 +30358,6 @@ target_link_options(GENERIC_F207IFHX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F207IFHX_MCU}
 )
-target_link_libraries(GENERIC_F207IFHX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F207IFHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F207IFHX_serial_disabled INTERFACE
@@ -31996,9 +30439,6 @@ target_link_options(GENERIC_F207IFTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F207IFTX_MCU}
-)
-target_link_libraries(GENERIC_F207IFTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F207IFTX_serial_disabled INTERFACE)
@@ -32082,9 +30522,6 @@ target_link_options(GENERIC_F207IGHX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F207IGHX_MCU}
 )
-target_link_libraries(GENERIC_F207IGHX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F207IGHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F207IGHX_serial_disabled INTERFACE
@@ -32166,9 +30603,6 @@ target_link_options(GENERIC_F207IGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F207IGTX_MCU}
-)
-target_link_libraries(GENERIC_F207IGTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F207IGTX_serial_disabled INTERFACE)
@@ -32252,9 +30686,6 @@ target_link_options(GENERIC_F207VCTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F207VCTX_MCU}
 )
-target_link_libraries(GENERIC_F207VCTX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F207VCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F207VCTX_serial_disabled INTERFACE
@@ -32336,9 +30767,6 @@ target_link_options(GENERIC_F207VETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F207VETX_MCU}
-)
-target_link_libraries(GENERIC_F207VETX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F207VETX_serial_disabled INTERFACE)
@@ -32422,9 +30850,6 @@ target_link_options(GENERIC_F207VFTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F207VFTX_MCU}
 )
-target_link_libraries(GENERIC_F207VFTX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F207VFTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F207VFTX_serial_disabled INTERFACE
@@ -32506,9 +30931,6 @@ target_link_options(GENERIC_F207VGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F207VGTX_MCU}
-)
-target_link_libraries(GENERIC_F207VGTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F207VGTX_serial_disabled INTERFACE)
@@ -32592,9 +31014,6 @@ target_link_options(GENERIC_F207ZCTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F207ZCTX_MCU}
 )
-target_link_libraries(GENERIC_F207ZCTX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F207ZCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F207ZCTX_serial_disabled INTERFACE
@@ -32676,9 +31095,6 @@ target_link_options(GENERIC_F207ZETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F207ZETX_MCU}
-)
-target_link_libraries(GENERIC_F207ZETX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F207ZETX_serial_disabled INTERFACE)
@@ -32762,9 +31178,6 @@ target_link_options(GENERIC_F207ZFTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F207ZFTX_MCU}
 )
-target_link_libraries(GENERIC_F207ZFTX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F207ZFTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F207ZFTX_serial_disabled INTERFACE
@@ -32846,9 +31259,6 @@ target_link_options(GENERIC_F207ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F207ZGTX_MCU}
-)
-target_link_libraries(GENERIC_F207ZGTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F207ZGTX_serial_disabled INTERFACE)
@@ -32932,9 +31342,6 @@ target_link_options(GENERIC_F215RETX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F215RETX_MCU}
 )
-target_link_libraries(GENERIC_F215RETX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F215RETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F215RETX_serial_disabled INTERFACE
@@ -33016,9 +31423,6 @@ target_link_options(GENERIC_F215RGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F215RGTX_MCU}
-)
-target_link_libraries(GENERIC_F215RGTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F215RGTX_serial_disabled INTERFACE)
@@ -33102,9 +31506,6 @@ target_link_options(GENERIC_F215VETX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F215VETX_MCU}
 )
-target_link_libraries(GENERIC_F215VETX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F215VETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F215VETX_serial_disabled INTERFACE
@@ -33186,9 +31587,6 @@ target_link_options(GENERIC_F215VGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F215VGTX_MCU}
-)
-target_link_libraries(GENERIC_F215VGTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F215VGTX_serial_disabled INTERFACE)
@@ -33272,9 +31670,6 @@ target_link_options(GENERIC_F215ZETX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F215ZETX_MCU}
 )
-target_link_libraries(GENERIC_F215ZETX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F215ZETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F215ZETX_serial_disabled INTERFACE
@@ -33356,9 +31751,6 @@ target_link_options(GENERIC_F215ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F215ZGTX_MCU}
-)
-target_link_libraries(GENERIC_F215ZGTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F215ZGTX_serial_disabled INTERFACE)
@@ -33442,9 +31834,6 @@ target_link_options(GENERIC_F217IEHX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F217IEHX_MCU}
 )
-target_link_libraries(GENERIC_F217IEHX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F217IEHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F217IEHX_serial_disabled INTERFACE
@@ -33526,9 +31915,6 @@ target_link_options(GENERIC_F217IETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F217IETX_MCU}
-)
-target_link_libraries(GENERIC_F217IETX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F217IETX_serial_disabled INTERFACE)
@@ -33612,9 +31998,6 @@ target_link_options(GENERIC_F217IGHX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F217IGHX_MCU}
 )
-target_link_libraries(GENERIC_F217IGHX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F217IGHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F217IGHX_serial_disabled INTERFACE
@@ -33696,9 +32079,6 @@ target_link_options(GENERIC_F217IGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F217IGTX_MCU}
-)
-target_link_libraries(GENERIC_F217IGTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F217IGTX_serial_disabled INTERFACE)
@@ -33782,9 +32162,6 @@ target_link_options(GENERIC_F217VETX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F217VETX_MCU}
 )
-target_link_libraries(GENERIC_F217VETX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F217VETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F217VETX_serial_disabled INTERFACE
@@ -33866,9 +32243,6 @@ target_link_options(GENERIC_F217VGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F217VGTX_MCU}
-)
-target_link_libraries(GENERIC_F217VGTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F217VGTX_serial_disabled INTERFACE)
@@ -33952,9 +32326,6 @@ target_link_options(GENERIC_F217ZETX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_F217ZETX_MCU}
 )
-target_link_libraries(GENERIC_F217ZETX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_F217ZETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F217ZETX_serial_disabled INTERFACE
@@ -34036,9 +32407,6 @@ target_link_options(GENERIC_F217ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${GENERIC_F217ZGTX_MCU}
-)
-target_link_libraries(GENERIC_F217ZGTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_F217ZGTX_serial_disabled INTERFACE)
@@ -34122,9 +32490,6 @@ target_link_options(GENERIC_F301C6TX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F301C6TX_MCU}
 )
-target_link_libraries(GENERIC_F301C6TX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F301C6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F301C6TX_serial_disabled INTERFACE
@@ -34206,9 +32571,6 @@ target_link_options(GENERIC_F301C8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F301C8TX_MCU}
-)
-target_link_libraries(GENERIC_F301C8TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F301C8TX_serial_disabled INTERFACE)
@@ -34292,9 +32654,6 @@ target_link_options(GENERIC_F301C8YX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F301C8YX_MCU}
 )
-target_link_libraries(GENERIC_F301C8YX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F301C8YX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F301C8YX_serial_disabled INTERFACE
@@ -34376,9 +32735,6 @@ target_link_options(GENERIC_F301K6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F301K6TX_MCU}
-)
-target_link_libraries(GENERIC_F301K6TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F301K6TX_serial_disabled INTERFACE)
@@ -34462,9 +32818,6 @@ target_link_options(GENERIC_F301K8TX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F301K8TX_MCU}
 )
-target_link_libraries(GENERIC_F301K8TX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F301K8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F301K8TX_serial_disabled INTERFACE
@@ -34546,9 +32899,6 @@ target_link_options(GENERIC_F301R6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F301R6TX_MCU}
-)
-target_link_libraries(GENERIC_F301R6TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F301R6TX_serial_disabled INTERFACE)
@@ -34632,9 +32982,6 @@ target_link_options(GENERIC_F301R8TX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F301R8TX_MCU}
 )
-target_link_libraries(GENERIC_F301R8TX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F301R8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F301R8TX_serial_disabled INTERFACE
@@ -34716,9 +33063,6 @@ target_link_options(GENERIC_F302R6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F302R6TX_MCU}
-)
-target_link_libraries(GENERIC_F302R6TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F302R6TX_serial_disabled INTERFACE)
@@ -34802,9 +33146,6 @@ target_link_options(GENERIC_F302R8TX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F302R8TX_MCU}
 )
-target_link_libraries(GENERIC_F302R8TX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F302R8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F302R8TX_serial_disabled INTERFACE
@@ -34886,9 +33227,6 @@ target_link_options(GENERIC_F303C6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F303C6TX_MCU}
-)
-target_link_libraries(GENERIC_F303C6TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F303C6TX_serial_disabled INTERFACE)
@@ -34972,9 +33310,6 @@ target_link_options(GENERIC_F303C8TX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F303C8TX_MCU}
 )
-target_link_libraries(GENERIC_F303C8TX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F303C8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F303C8TX_serial_disabled INTERFACE
@@ -35056,9 +33391,6 @@ target_link_options(GENERIC_F303CBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F303CBTX_MCU}
-)
-target_link_libraries(GENERIC_F303CBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F303CBTX_serial_disabled INTERFACE)
@@ -35142,9 +33474,6 @@ target_link_options(GENERIC_F303CCTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F303CCTX_MCU}
 )
-target_link_libraries(GENERIC_F303CCTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F303CCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F303CCTX_serial_disabled INTERFACE
@@ -35226,9 +33555,6 @@ target_link_options(GENERIC_F303K6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F303K6TX_MCU}
-)
-target_link_libraries(GENERIC_F303K6TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F303K6TX_serial_disabled INTERFACE)
@@ -35312,9 +33638,6 @@ target_link_options(GENERIC_F303K8TX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F303K8TX_MCU}
 )
-target_link_libraries(GENERIC_F303K8TX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F303K8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F303K8TX_serial_disabled INTERFACE
@@ -35396,9 +33719,6 @@ target_link_options(GENERIC_F303R6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F303R6TX_MCU}
-)
-target_link_libraries(GENERIC_F303R6TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F303R6TX_serial_disabled INTERFACE)
@@ -35482,9 +33802,6 @@ target_link_options(GENERIC_F303R8TX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F303R8TX_MCU}
 )
-target_link_libraries(GENERIC_F303R8TX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F303R8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F303R8TX_serial_disabled INTERFACE
@@ -35566,9 +33883,6 @@ target_link_options(GENERIC_F303RBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F303RBTX_MCU}
-)
-target_link_libraries(GENERIC_F303RBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F303RBTX_serial_disabled INTERFACE)
@@ -35652,9 +33966,6 @@ target_link_options(GENERIC_F303RCTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F303RCTX_MCU}
 )
-target_link_libraries(GENERIC_F303RCTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F303RCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F303RCTX_serial_disabled INTERFACE
@@ -35736,9 +34047,6 @@ target_link_options(GENERIC_F303RDTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F303RDTX_MCU}
-)
-target_link_libraries(GENERIC_F303RDTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F303RDTX_serial_disabled INTERFACE)
@@ -35822,9 +34130,6 @@ target_link_options(GENERIC_F303RETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F303RETX_MCU}
 )
-target_link_libraries(GENERIC_F303RETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F303RETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F303RETX_serial_disabled INTERFACE
@@ -35906,9 +34211,6 @@ target_link_options(GENERIC_F303VBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F303VBTX_MCU}
-)
-target_link_libraries(GENERIC_F303VBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F303VBTX_serial_disabled INTERFACE)
@@ -35992,9 +34294,6 @@ target_link_options(GENERIC_F303VCTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F303VCTX_MCU}
 )
-target_link_libraries(GENERIC_F303VCTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F303VCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F303VCTX_serial_disabled INTERFACE
@@ -36076,9 +34375,6 @@ target_link_options(GENERIC_F318C8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F318C8TX_MCU}
-)
-target_link_libraries(GENERIC_F318C8TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F318C8TX_serial_disabled INTERFACE)
@@ -36162,9 +34458,6 @@ target_link_options(GENERIC_F318C8YX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F318C8YX_MCU}
 )
-target_link_libraries(GENERIC_F318C8YX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F318C8YX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F318C8YX_serial_disabled INTERFACE
@@ -36246,9 +34539,6 @@ target_link_options(GENERIC_F318K8UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F318K8UX_MCU}
-)
-target_link_libraries(GENERIC_F318K8UX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F318K8UX_serial_disabled INTERFACE)
@@ -36332,9 +34622,6 @@ target_link_options(GENERIC_F328C8TX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F328C8TX_MCU}
 )
-target_link_libraries(GENERIC_F328C8TX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F328C8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F328C8TX_serial_disabled INTERFACE
@@ -36416,9 +34703,6 @@ target_link_options(GENERIC_F334C4TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F334C4TX_MCU}
-)
-target_link_libraries(GENERIC_F334C4TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F334C4TX_serial_disabled INTERFACE)
@@ -36502,9 +34786,6 @@ target_link_options(GENERIC_F334C6TX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F334C6TX_MCU}
 )
-target_link_libraries(GENERIC_F334C6TX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F334C6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F334C6TX_serial_disabled INTERFACE
@@ -36586,9 +34867,6 @@ target_link_options(GENERIC_F334C8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F334C8TX_MCU}
-)
-target_link_libraries(GENERIC_F334C8TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F334C8TX_serial_disabled INTERFACE)
@@ -36672,9 +34950,6 @@ target_link_options(GENERIC_F334K4TX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F334K4TX_MCU}
 )
-target_link_libraries(GENERIC_F334K4TX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F334K4TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F334K4TX_serial_disabled INTERFACE
@@ -36756,9 +35031,6 @@ target_link_options(GENERIC_F334K6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F334K6TX_MCU}
-)
-target_link_libraries(GENERIC_F334K6TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F334K6TX_serial_disabled INTERFACE)
@@ -36842,9 +35114,6 @@ target_link_options(GENERIC_F334K8TX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F334K8TX_MCU}
 )
-target_link_libraries(GENERIC_F334K8TX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F334K8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F334K8TX_serial_disabled INTERFACE
@@ -36926,9 +35195,6 @@ target_link_options(GENERIC_F334R6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F334R6TX_MCU}
-)
-target_link_libraries(GENERIC_F334R6TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F334R6TX_serial_disabled INTERFACE)
@@ -37012,9 +35278,6 @@ target_link_options(GENERIC_F334R8TX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F334R8TX_MCU}
 )
-target_link_libraries(GENERIC_F334R8TX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F334R8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F334R8TX_serial_disabled INTERFACE
@@ -37096,9 +35359,6 @@ target_link_options(GENERIC_F358CCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=40960"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F358CCTX_MCU}
-)
-target_link_libraries(GENERIC_F358CCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F358CCTX_serial_disabled INTERFACE)
@@ -37182,9 +35442,6 @@ target_link_options(GENERIC_F358RCTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F358RCTX_MCU}
 )
-target_link_libraries(GENERIC_F358RCTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F358RCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F358RCTX_serial_disabled INTERFACE
@@ -37266,9 +35523,6 @@ target_link_options(GENERIC_F358VCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=40960"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F358VCTX_MCU}
-)
-target_link_libraries(GENERIC_F358VCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F358VCTX_serial_disabled INTERFACE)
@@ -37352,9 +35606,6 @@ target_link_options(GENERIC_F378CCTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F378CCTX_MCU}
 )
-target_link_libraries(GENERIC_F378CCTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F378CCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F378CCTX_serial_disabled INTERFACE
@@ -37436,9 +35687,6 @@ target_link_options(GENERIC_F378RCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F378RCTX_MCU}
-)
-target_link_libraries(GENERIC_F378RCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F378RCTX_serial_disabled INTERFACE)
@@ -37522,9 +35770,6 @@ target_link_options(GENERIC_F378RCYX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F378RCYX_MCU}
 )
-target_link_libraries(GENERIC_F378RCYX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F378RCYX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F378RCYX_serial_disabled INTERFACE
@@ -37606,9 +35851,6 @@ target_link_options(GENERIC_F378VCHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F378VCHX_MCU}
-)
-target_link_libraries(GENERIC_F378VCHX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F378VCHX_serial_disabled INTERFACE)
@@ -37692,9 +35934,6 @@ target_link_options(GENERIC_F378VCTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F378VCTX_MCU}
 )
-target_link_libraries(GENERIC_F378VCTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F378VCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F378VCTX_serial_disabled INTERFACE
@@ -37776,9 +36015,6 @@ target_link_options(GENERIC_F398VETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F398VETX_MCU}
-)
-target_link_libraries(GENERIC_F398VETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F398VETX_serial_disabled INTERFACE)
@@ -37862,9 +36098,6 @@ target_link_options(GENERIC_F401CBUX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401CBUX_MCU}
 )
-target_link_libraries(GENERIC_F401CBUX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_F401CBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F401CBUX_serial_disabled INTERFACE
@@ -37947,9 +36180,6 @@ target_link_options(GENERIC_F401CBUX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401CBUX_hid_MCU}
 )
-target_link_libraries(GENERIC_F401CBUX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F401CBYX
@@ -37991,9 +36221,6 @@ target_link_options(GENERIC_F401CBYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401CBYX_MCU}
-)
-target_link_libraries(GENERIC_F401CBYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F401CBYX_serial_disabled INTERFACE)
@@ -38077,9 +36304,6 @@ target_link_options(GENERIC_F401CBYX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401CBYX_hid_MCU}
 )
-target_link_libraries(GENERIC_F401CBYX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F401CCFX
@@ -38121,9 +36345,6 @@ target_link_options(GENERIC_F401CCFX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401CCFX_MCU}
-)
-target_link_libraries(GENERIC_F401CCFX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F401CCFX_serial_disabled INTERFACE)
@@ -38207,9 +36428,6 @@ target_link_options(GENERIC_F401CCFX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401CCFX_hid_MCU}
 )
-target_link_libraries(GENERIC_F401CCFX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F401CCUX
@@ -38251,9 +36469,6 @@ target_link_options(GENERIC_F401CCUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401CCUX_MCU}
-)
-target_link_libraries(GENERIC_F401CCUX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F401CCUX_serial_disabled INTERFACE)
@@ -38337,9 +36552,6 @@ target_link_options(GENERIC_F401CCUX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401CCUX_hid_MCU}
 )
-target_link_libraries(GENERIC_F401CCUX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F401CCYX
@@ -38381,9 +36593,6 @@ target_link_options(GENERIC_F401CCYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401CCYX_MCU}
-)
-target_link_libraries(GENERIC_F401CCYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F401CCYX_serial_disabled INTERFACE)
@@ -38467,9 +36676,6 @@ target_link_options(GENERIC_F401CCYX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401CCYX_hid_MCU}
 )
-target_link_libraries(GENERIC_F401CCYX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F401CDUX
@@ -38511,9 +36717,6 @@ target_link_options(GENERIC_F401CDUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401CDUX_MCU}
-)
-target_link_libraries(GENERIC_F401CDUX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F401CDUX_serial_disabled INTERFACE)
@@ -38597,9 +36800,6 @@ target_link_options(GENERIC_F401CDUX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401CDUX_hid_MCU}
 )
-target_link_libraries(GENERIC_F401CDUX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F401CDYX
@@ -38641,9 +36841,6 @@ target_link_options(GENERIC_F401CDYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401CDYX_MCU}
-)
-target_link_libraries(GENERIC_F401CDYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F401CDYX_serial_disabled INTERFACE)
@@ -38727,9 +36924,6 @@ target_link_options(GENERIC_F401CDYX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401CDYX_hid_MCU}
 )
-target_link_libraries(GENERIC_F401CDYX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F401CEUX
@@ -38771,9 +36965,6 @@ target_link_options(GENERIC_F401CEUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401CEUX_MCU}
-)
-target_link_libraries(GENERIC_F401CEUX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F401CEUX_serial_disabled INTERFACE)
@@ -38857,9 +37048,6 @@ target_link_options(GENERIC_F401CEUX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401CEUX_hid_MCU}
 )
-target_link_libraries(GENERIC_F401CEUX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F401CEYX
@@ -38901,9 +37089,6 @@ target_link_options(GENERIC_F401CEYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401CEYX_MCU}
-)
-target_link_libraries(GENERIC_F401CEYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F401CEYX_serial_disabled INTERFACE)
@@ -38987,9 +37172,6 @@ target_link_options(GENERIC_F401CEYX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401CEYX_hid_MCU}
 )
-target_link_libraries(GENERIC_F401CEYX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F401RBTX
@@ -39031,9 +37213,6 @@ target_link_options(GENERIC_F401RBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401RBTX_MCU}
-)
-target_link_libraries(GENERIC_F401RBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F401RBTX_serial_disabled INTERFACE)
@@ -39117,9 +37296,6 @@ target_link_options(GENERIC_F401RBTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401RBTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F401RBTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F401RCTX
@@ -39161,9 +37337,6 @@ target_link_options(GENERIC_F401RCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401RCTX_MCU}
-)
-target_link_libraries(GENERIC_F401RCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F401RCTX_serial_disabled INTERFACE)
@@ -39247,9 +37420,6 @@ target_link_options(GENERIC_F401RCTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401RCTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F401RCTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F401RDTX
@@ -39291,9 +37461,6 @@ target_link_options(GENERIC_F401RDTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401RDTX_MCU}
-)
-target_link_libraries(GENERIC_F401RDTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F401RDTX_serial_disabled INTERFACE)
@@ -39377,9 +37544,6 @@ target_link_options(GENERIC_F401RDTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401RDTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F401RDTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F401RETX
@@ -39421,9 +37585,6 @@ target_link_options(GENERIC_F401RETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401RETX_MCU}
-)
-target_link_libraries(GENERIC_F401RETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F401RETX_serial_disabled INTERFACE)
@@ -39507,9 +37668,6 @@ target_link_options(GENERIC_F401RETX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401RETX_hid_MCU}
 )
-target_link_libraries(GENERIC_F401RETX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F401VBTX
@@ -39551,9 +37709,6 @@ target_link_options(GENERIC_F401VBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401VBTX_MCU}
-)
-target_link_libraries(GENERIC_F401VBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F401VBTX_serial_disabled INTERFACE)
@@ -39637,9 +37792,6 @@ target_link_options(GENERIC_F401VBTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401VBTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F401VBTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F401VCTX
@@ -39681,9 +37833,6 @@ target_link_options(GENERIC_F401VCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401VCTX_MCU}
-)
-target_link_libraries(GENERIC_F401VCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F401VCTX_serial_disabled INTERFACE)
@@ -39767,9 +37916,6 @@ target_link_options(GENERIC_F401VCTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401VCTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F401VCTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F401VDTX
@@ -39811,9 +37957,6 @@ target_link_options(GENERIC_F401VDTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401VDTX_MCU}
-)
-target_link_libraries(GENERIC_F401VDTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F401VDTX_serial_disabled INTERFACE)
@@ -39897,9 +38040,6 @@ target_link_options(GENERIC_F401VDTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401VDTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F401VDTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F401VETX
@@ -39941,9 +38081,6 @@ target_link_options(GENERIC_F401VETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401VETX_MCU}
-)
-target_link_libraries(GENERIC_F401VETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F401VETX_serial_disabled INTERFACE)
@@ -40027,9 +38164,6 @@ target_link_options(GENERIC_F401VETX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F401VETX_hid_MCU}
 )
-target_link_libraries(GENERIC_F401VETX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F405RGTX
@@ -40071,9 +38205,6 @@ target_link_options(GENERIC_F405RGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F405RGTX_MCU}
-)
-target_link_libraries(GENERIC_F405RGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F405RGTX_serial_disabled INTERFACE)
@@ -40157,9 +38288,6 @@ target_link_options(GENERIC_F405RGTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F405RGTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F405RGTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F407VETX
@@ -40201,9 +38329,6 @@ target_link_options(GENERIC_F407VETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F407VETX_MCU}
-)
-target_link_libraries(GENERIC_F407VETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F407VETX_serial_disabled INTERFACE)
@@ -40287,9 +38412,6 @@ target_link_options(GENERIC_F407VETX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F407VETX_hid_MCU}
 )
-target_link_libraries(GENERIC_F407VETX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F407VGTX
@@ -40331,9 +38453,6 @@ target_link_options(GENERIC_F407VGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F407VGTX_MCU}
-)
-target_link_libraries(GENERIC_F407VGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F407VGTX_serial_disabled INTERFACE)
@@ -40417,9 +38536,6 @@ target_link_options(GENERIC_F407VGTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F407VGTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F407VGTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F407ZETX
@@ -40461,9 +38577,6 @@ target_link_options(GENERIC_F407ZETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F407ZETX_MCU}
-)
-target_link_libraries(GENERIC_F407ZETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F407ZETX_serial_disabled INTERFACE)
@@ -40547,9 +38660,6 @@ target_link_options(GENERIC_F407ZETX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F407ZETX_hid_MCU}
 )
-target_link_libraries(GENERIC_F407ZETX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F407ZGTX
@@ -40591,9 +38701,6 @@ target_link_options(GENERIC_F407ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F407ZGTX_MCU}
-)
-target_link_libraries(GENERIC_F407ZGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F407ZGTX_serial_disabled INTERFACE)
@@ -40677,9 +38784,6 @@ target_link_options(GENERIC_F407ZGTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F407ZGTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F407ZGTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F410C8TX
@@ -40721,9 +38825,6 @@ target_link_options(GENERIC_F410C8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410C8TX_MCU}
-)
-target_link_libraries(GENERIC_F410C8TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F410C8TX_serial_disabled INTERFACE)
@@ -40807,9 +38908,6 @@ target_link_options(GENERIC_F410C8TX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410C8TX_hid_MCU}
 )
-target_link_libraries(GENERIC_F410C8TX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F410C8UX
@@ -40851,9 +38949,6 @@ target_link_options(GENERIC_F410C8UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410C8UX_MCU}
-)
-target_link_libraries(GENERIC_F410C8UX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F410C8UX_serial_disabled INTERFACE)
@@ -40937,9 +39032,6 @@ target_link_options(GENERIC_F410C8UX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410C8UX_hid_MCU}
 )
-target_link_libraries(GENERIC_F410C8UX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F410CBTX
@@ -40981,9 +39073,6 @@ target_link_options(GENERIC_F410CBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410CBTX_MCU}
-)
-target_link_libraries(GENERIC_F410CBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F410CBTX_serial_disabled INTERFACE)
@@ -41067,9 +39156,6 @@ target_link_options(GENERIC_F410CBTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410CBTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F410CBTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F410CBUX
@@ -41111,9 +39197,6 @@ target_link_options(GENERIC_F410CBUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410CBUX_MCU}
-)
-target_link_libraries(GENERIC_F410CBUX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F410CBUX_serial_disabled INTERFACE)
@@ -41197,9 +39280,6 @@ target_link_options(GENERIC_F410CBUX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410CBUX_hid_MCU}
 )
-target_link_libraries(GENERIC_F410CBUX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F410R8IX
@@ -41241,9 +39321,6 @@ target_link_options(GENERIC_F410R8IX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410R8IX_MCU}
-)
-target_link_libraries(GENERIC_F410R8IX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F410R8IX_serial_disabled INTERFACE)
@@ -41327,9 +39404,6 @@ target_link_options(GENERIC_F410R8IX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410R8IX_hid_MCU}
 )
-target_link_libraries(GENERIC_F410R8IX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F410R8TX
@@ -41371,9 +39445,6 @@ target_link_options(GENERIC_F410R8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410R8TX_MCU}
-)
-target_link_libraries(GENERIC_F410R8TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F410R8TX_serial_disabled INTERFACE)
@@ -41457,9 +39528,6 @@ target_link_options(GENERIC_F410R8TX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410R8TX_hid_MCU}
 )
-target_link_libraries(GENERIC_F410R8TX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F410RBIX
@@ -41501,9 +39569,6 @@ target_link_options(GENERIC_F410RBIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410RBIX_MCU}
-)
-target_link_libraries(GENERIC_F410RBIX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F410RBIX_serial_disabled INTERFACE)
@@ -41587,9 +39652,6 @@ target_link_options(GENERIC_F410RBIX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410RBIX_hid_MCU}
 )
-target_link_libraries(GENERIC_F410RBIX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F410RBTX
@@ -41631,9 +39693,6 @@ target_link_options(GENERIC_F410RBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410RBTX_MCU}
-)
-target_link_libraries(GENERIC_F410RBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F410RBTX_serial_disabled INTERFACE)
@@ -41717,9 +39776,6 @@ target_link_options(GENERIC_F410RBTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410RBTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F410RBTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F410T8YX
@@ -41761,9 +39817,6 @@ target_link_options(GENERIC_F410T8YX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410T8YX_MCU}
-)
-target_link_libraries(GENERIC_F410T8YX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F410T8YX_serial_disabled INTERFACE)
@@ -41847,9 +39900,6 @@ target_link_options(GENERIC_F410T8YX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410T8YX_hid_MCU}
 )
-target_link_libraries(GENERIC_F410T8YX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F410TBYX
@@ -41891,9 +39941,6 @@ target_link_options(GENERIC_F410TBYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410TBYX_MCU}
-)
-target_link_libraries(GENERIC_F410TBYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F410TBYX_serial_disabled INTERFACE)
@@ -41977,9 +40024,6 @@ target_link_options(GENERIC_F410TBYX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F410TBYX_hid_MCU}
 )
-target_link_libraries(GENERIC_F410TBYX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F411CCUX
@@ -42021,9 +40065,6 @@ target_link_options(GENERIC_F411CCUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F411CCUX_MCU}
-)
-target_link_libraries(GENERIC_F411CCUX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F411CCUX_serial_disabled INTERFACE)
@@ -42107,9 +40148,6 @@ target_link_options(GENERIC_F411CCUX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F411CCUX_hid_MCU}
 )
-target_link_libraries(GENERIC_F411CCUX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F411CCYX
@@ -42151,9 +40189,6 @@ target_link_options(GENERIC_F411CCYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F411CCYX_MCU}
-)
-target_link_libraries(GENERIC_F411CCYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F411CCYX_serial_disabled INTERFACE)
@@ -42237,9 +40272,6 @@ target_link_options(GENERIC_F411CCYX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F411CCYX_hid_MCU}
 )
-target_link_libraries(GENERIC_F411CCYX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F411CEUX
@@ -42281,9 +40313,6 @@ target_link_options(GENERIC_F411CEUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F411CEUX_MCU}
-)
-target_link_libraries(GENERIC_F411CEUX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F411CEUX_serial_disabled INTERFACE)
@@ -42367,9 +40396,6 @@ target_link_options(GENERIC_F411CEUX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F411CEUX_hid_MCU}
 )
-target_link_libraries(GENERIC_F411CEUX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F411CEYX
@@ -42411,9 +40437,6 @@ target_link_options(GENERIC_F411CEYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F411CEYX_MCU}
-)
-target_link_libraries(GENERIC_F411CEYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F411CEYX_serial_disabled INTERFACE)
@@ -42497,9 +40520,6 @@ target_link_options(GENERIC_F411CEYX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F411CEYX_hid_MCU}
 )
-target_link_libraries(GENERIC_F411CEYX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F411RCTX
@@ -42541,9 +40561,6 @@ target_link_options(GENERIC_F411RCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F411RCTX_MCU}
-)
-target_link_libraries(GENERIC_F411RCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F411RCTX_serial_disabled INTERFACE)
@@ -42627,9 +40644,6 @@ target_link_options(GENERIC_F411RCTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F411RCTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F411RCTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F411RETX
@@ -42671,9 +40685,6 @@ target_link_options(GENERIC_F411RETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F411RETX_MCU}
-)
-target_link_libraries(GENERIC_F411RETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F411RETX_serial_disabled INTERFACE)
@@ -42757,9 +40768,6 @@ target_link_options(GENERIC_F411RETX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F411RETX_hid_MCU}
 )
-target_link_libraries(GENERIC_F411RETX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F412CEUX
@@ -42801,9 +40809,6 @@ target_link_options(GENERIC_F412CEUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412CEUX_MCU}
-)
-target_link_libraries(GENERIC_F412CEUX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F412CEUX_serial_disabled INTERFACE)
@@ -42887,9 +40892,6 @@ target_link_options(GENERIC_F412CEUX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412CEUX_hid_MCU}
 )
-target_link_libraries(GENERIC_F412CEUX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F412CGUX
@@ -42931,9 +40933,6 @@ target_link_options(GENERIC_F412CGUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412CGUX_MCU}
-)
-target_link_libraries(GENERIC_F412CGUX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F412CGUX_serial_disabled INTERFACE)
@@ -43017,9 +41016,6 @@ target_link_options(GENERIC_F412CGUX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412CGUX_hid_MCU}
 )
-target_link_libraries(GENERIC_F412CGUX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F412RETX
@@ -43061,9 +41057,6 @@ target_link_options(GENERIC_F412RETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412RETX_MCU}
-)
-target_link_libraries(GENERIC_F412RETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F412RETX_serial_disabled INTERFACE)
@@ -43147,9 +41140,6 @@ target_link_options(GENERIC_F412RETX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412RETX_hid_MCU}
 )
-target_link_libraries(GENERIC_F412RETX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F412REYX
@@ -43191,9 +41181,6 @@ target_link_options(GENERIC_F412REYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412REYX_MCU}
-)
-target_link_libraries(GENERIC_F412REYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F412REYX_serial_disabled INTERFACE)
@@ -43277,9 +41264,6 @@ target_link_options(GENERIC_F412REYX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412REYX_hid_MCU}
 )
-target_link_libraries(GENERIC_F412REYX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F412REYXP
@@ -43321,9 +41305,6 @@ target_link_options(GENERIC_F412REYXP INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412REYXP_MCU}
-)
-target_link_libraries(GENERIC_F412REYXP INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F412REYXP_serial_disabled INTERFACE)
@@ -43407,9 +41388,6 @@ target_link_options(GENERIC_F412REYXP_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412REYXP_hid_MCU}
 )
-target_link_libraries(GENERIC_F412REYXP_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F412RGTX
@@ -43451,9 +41429,6 @@ target_link_options(GENERIC_F412RGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412RGTX_MCU}
-)
-target_link_libraries(GENERIC_F412RGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F412RGTX_serial_disabled INTERFACE)
@@ -43537,9 +41512,6 @@ target_link_options(GENERIC_F412RGTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412RGTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F412RGTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F412RGYX
@@ -43581,9 +41553,6 @@ target_link_options(GENERIC_F412RGYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412RGYX_MCU}
-)
-target_link_libraries(GENERIC_F412RGYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F412RGYX_serial_disabled INTERFACE)
@@ -43667,9 +41636,6 @@ target_link_options(GENERIC_F412RGYX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412RGYX_hid_MCU}
 )
-target_link_libraries(GENERIC_F412RGYX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F412RGYXP
@@ -43711,9 +41677,6 @@ target_link_options(GENERIC_F412RGYXP INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412RGYXP_MCU}
-)
-target_link_libraries(GENERIC_F412RGYXP INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F412RGYXP_serial_disabled INTERFACE)
@@ -43797,9 +41760,6 @@ target_link_options(GENERIC_F412RGYXP_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412RGYXP_hid_MCU}
 )
-target_link_libraries(GENERIC_F412RGYXP_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F412ZEJX
@@ -43841,9 +41801,6 @@ target_link_options(GENERIC_F412ZEJX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412ZEJX_MCU}
-)
-target_link_libraries(GENERIC_F412ZEJX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F412ZEJX_serial_disabled INTERFACE)
@@ -43927,9 +41884,6 @@ target_link_options(GENERIC_F412ZEJX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412ZEJX_hid_MCU}
 )
-target_link_libraries(GENERIC_F412ZEJX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F412ZETX
@@ -43971,9 +41925,6 @@ target_link_options(GENERIC_F412ZETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412ZETX_MCU}
-)
-target_link_libraries(GENERIC_F412ZETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F412ZETX_serial_disabled INTERFACE)
@@ -44057,9 +42008,6 @@ target_link_options(GENERIC_F412ZETX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412ZETX_hid_MCU}
 )
-target_link_libraries(GENERIC_F412ZETX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F412ZGJX
@@ -44101,9 +42049,6 @@ target_link_options(GENERIC_F412ZGJX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412ZGJX_MCU}
-)
-target_link_libraries(GENERIC_F412ZGJX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F412ZGJX_serial_disabled INTERFACE)
@@ -44187,9 +42132,6 @@ target_link_options(GENERIC_F412ZGJX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412ZGJX_hid_MCU}
 )
-target_link_libraries(GENERIC_F412ZGJX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F412ZGTX
@@ -44231,9 +42173,6 @@ target_link_options(GENERIC_F412ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412ZGTX_MCU}
-)
-target_link_libraries(GENERIC_F412ZGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F412ZGTX_serial_disabled INTERFACE)
@@ -44317,9 +42256,6 @@ target_link_options(GENERIC_F412ZGTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F412ZGTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F412ZGTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F413CGUX
@@ -44361,9 +42297,6 @@ target_link_options(GENERIC_F413CGUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F413CGUX_MCU}
-)
-target_link_libraries(GENERIC_F413CGUX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F413CGUX_serial_disabled INTERFACE)
@@ -44447,9 +42380,6 @@ target_link_options(GENERIC_F413CGUX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F413CGUX_hid_MCU}
 )
-target_link_libraries(GENERIC_F413CGUX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F413CHUX
@@ -44491,9 +42421,6 @@ target_link_options(GENERIC_F413CHUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F413CHUX_MCU}
-)
-target_link_libraries(GENERIC_F413CHUX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F413CHUX_serial_disabled INTERFACE)
@@ -44577,9 +42504,6 @@ target_link_options(GENERIC_F413CHUX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F413CHUX_hid_MCU}
 )
-target_link_libraries(GENERIC_F413CHUX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F413RGTX
@@ -44621,9 +42545,6 @@ target_link_options(GENERIC_F413RGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F413RGTX_MCU}
-)
-target_link_libraries(GENERIC_F413RGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F413RGTX_serial_disabled INTERFACE)
@@ -44707,9 +42628,6 @@ target_link_options(GENERIC_F413RGTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F413RGTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F413RGTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F413RHTX
@@ -44751,9 +42669,6 @@ target_link_options(GENERIC_F413RHTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F413RHTX_MCU}
-)
-target_link_libraries(GENERIC_F413RHTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F413RHTX_serial_disabled INTERFACE)
@@ -44837,9 +42752,6 @@ target_link_options(GENERIC_F413RHTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F413RHTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F413RHTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F413ZGJX
@@ -44881,9 +42793,6 @@ target_link_options(GENERIC_F413ZGJX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F413ZGJX_MCU}
-)
-target_link_libraries(GENERIC_F413ZGJX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F413ZGJX_serial_disabled INTERFACE)
@@ -44967,9 +42876,6 @@ target_link_options(GENERIC_F413ZGJX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F413ZGJX_hid_MCU}
 )
-target_link_libraries(GENERIC_F413ZGJX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F413ZGTX
@@ -45011,9 +42917,6 @@ target_link_options(GENERIC_F413ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F413ZGTX_MCU}
-)
-target_link_libraries(GENERIC_F413ZGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F413ZGTX_serial_disabled INTERFACE)
@@ -45097,9 +43000,6 @@ target_link_options(GENERIC_F413ZGTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F413ZGTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F413ZGTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F413ZHJX
@@ -45141,9 +43041,6 @@ target_link_options(GENERIC_F413ZHJX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F413ZHJX_MCU}
-)
-target_link_libraries(GENERIC_F413ZHJX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F413ZHJX_serial_disabled INTERFACE)
@@ -45227,9 +43124,6 @@ target_link_options(GENERIC_F413ZHJX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F413ZHJX_hid_MCU}
 )
-target_link_libraries(GENERIC_F413ZHJX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F413ZHTX
@@ -45271,9 +43165,6 @@ target_link_options(GENERIC_F413ZHTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F413ZHTX_MCU}
-)
-target_link_libraries(GENERIC_F413ZHTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F413ZHTX_serial_disabled INTERFACE)
@@ -45357,9 +43248,6 @@ target_link_options(GENERIC_F413ZHTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F413ZHTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F413ZHTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F415RGTX
@@ -45401,9 +43289,6 @@ target_link_options(GENERIC_F415RGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F415RGTX_MCU}
-)
-target_link_libraries(GENERIC_F415RGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F415RGTX_serial_disabled INTERFACE)
@@ -45487,9 +43372,6 @@ target_link_options(GENERIC_F415RGTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F415RGTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F415RGTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F417VETX
@@ -45531,9 +43413,6 @@ target_link_options(GENERIC_F417VETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F417VETX_MCU}
-)
-target_link_libraries(GENERIC_F417VETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F417VETX_serial_disabled INTERFACE)
@@ -45617,9 +43496,6 @@ target_link_options(GENERIC_F417VETX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F417VETX_hid_MCU}
 )
-target_link_libraries(GENERIC_F417VETX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F417VGTX
@@ -45661,9 +43537,6 @@ target_link_options(GENERIC_F417VGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F417VGTX_MCU}
-)
-target_link_libraries(GENERIC_F417VGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F417VGTX_serial_disabled INTERFACE)
@@ -45747,9 +43620,6 @@ target_link_options(GENERIC_F417VGTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F417VGTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F417VGTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F417ZETX
@@ -45791,9 +43661,6 @@ target_link_options(GENERIC_F417ZETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F417ZETX_MCU}
-)
-target_link_libraries(GENERIC_F417ZETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F417ZETX_serial_disabled INTERFACE)
@@ -45877,9 +43744,6 @@ target_link_options(GENERIC_F417ZETX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F417ZETX_hid_MCU}
 )
-target_link_libraries(GENERIC_F417ZETX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F417ZGTX
@@ -45921,9 +43785,6 @@ target_link_options(GENERIC_F417ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F417ZGTX_MCU}
-)
-target_link_libraries(GENERIC_F417ZGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F417ZGTX_serial_disabled INTERFACE)
@@ -46007,9 +43868,6 @@ target_link_options(GENERIC_F417ZGTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F417ZGTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F417ZGTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F423CHUX
@@ -46051,9 +43909,6 @@ target_link_options(GENERIC_F423CHUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F423CHUX_MCU}
-)
-target_link_libraries(GENERIC_F423CHUX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F423CHUX_serial_disabled INTERFACE)
@@ -46137,9 +43992,6 @@ target_link_options(GENERIC_F423CHUX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F423CHUX_hid_MCU}
 )
-target_link_libraries(GENERIC_F423CHUX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F423RHTX
@@ -46181,9 +44033,6 @@ target_link_options(GENERIC_F423RHTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F423RHTX_MCU}
-)
-target_link_libraries(GENERIC_F423RHTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F423RHTX_serial_disabled INTERFACE)
@@ -46267,9 +44116,6 @@ target_link_options(GENERIC_F423RHTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F423RHTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F423RHTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F423ZHJX
@@ -46311,9 +44157,6 @@ target_link_options(GENERIC_F423ZHJX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F423ZHJX_MCU}
-)
-target_link_libraries(GENERIC_F423ZHJX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F423ZHJX_serial_disabled INTERFACE)
@@ -46397,9 +44240,6 @@ target_link_options(GENERIC_F423ZHJX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F423ZHJX_hid_MCU}
 )
-target_link_libraries(GENERIC_F423ZHJX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F423ZHTX
@@ -46441,9 +44281,6 @@ target_link_options(GENERIC_F423ZHTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F423ZHTX_MCU}
-)
-target_link_libraries(GENERIC_F423ZHTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F423ZHTX_serial_disabled INTERFACE)
@@ -46527,9 +44364,6 @@ target_link_options(GENERIC_F423ZHTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F423ZHTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F423ZHTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F427ZGTX
@@ -46571,9 +44405,6 @@ target_link_options(GENERIC_F427ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F427ZGTX_MCU}
-)
-target_link_libraries(GENERIC_F427ZGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F427ZGTX_serial_disabled INTERFACE)
@@ -46657,9 +44488,6 @@ target_link_options(GENERIC_F427ZGTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F427ZGTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F427ZGTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F427ZITX
@@ -46701,9 +44529,6 @@ target_link_options(GENERIC_F427ZITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F427ZITX_MCU}
-)
-target_link_libraries(GENERIC_F427ZITX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F427ZITX_serial_disabled INTERFACE)
@@ -46787,9 +44612,6 @@ target_link_options(GENERIC_F427ZITX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F427ZITX_hid_MCU}
 )
-target_link_libraries(GENERIC_F427ZITX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F429ZETX
@@ -46831,9 +44653,6 @@ target_link_options(GENERIC_F429ZETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F429ZETX_MCU}
-)
-target_link_libraries(GENERIC_F429ZETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F429ZETX_serial_disabled INTERFACE)
@@ -46917,9 +44736,6 @@ target_link_options(GENERIC_F429ZETX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F429ZETX_hid_MCU}
 )
-target_link_libraries(GENERIC_F429ZETX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F429ZGTX
@@ -46961,9 +44777,6 @@ target_link_options(GENERIC_F429ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F429ZGTX_MCU}
-)
-target_link_libraries(GENERIC_F429ZGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F429ZGTX_serial_disabled INTERFACE)
@@ -47047,9 +44860,6 @@ target_link_options(GENERIC_F429ZGTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F429ZGTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F429ZGTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F429ZGYX
@@ -47091,9 +44901,6 @@ target_link_options(GENERIC_F429ZGYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F429ZGYX_MCU}
-)
-target_link_libraries(GENERIC_F429ZGYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F429ZGYX_serial_disabled INTERFACE)
@@ -47177,9 +44984,6 @@ target_link_options(GENERIC_F429ZGYX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F429ZGYX_hid_MCU}
 )
-target_link_libraries(GENERIC_F429ZGYX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F429ZITX
@@ -47221,9 +45025,6 @@ target_link_options(GENERIC_F429ZITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F429ZITX_MCU}
-)
-target_link_libraries(GENERIC_F429ZITX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F429ZITX_serial_disabled INTERFACE)
@@ -47307,9 +45108,6 @@ target_link_options(GENERIC_F429ZITX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F429ZITX_hid_MCU}
 )
-target_link_libraries(GENERIC_F429ZITX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F429ZIYX
@@ -47351,9 +45149,6 @@ target_link_options(GENERIC_F429ZIYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F429ZIYX_MCU}
-)
-target_link_libraries(GENERIC_F429ZIYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F429ZIYX_serial_disabled INTERFACE)
@@ -47437,9 +45232,6 @@ target_link_options(GENERIC_F429ZIYX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F429ZIYX_hid_MCU}
 )
-target_link_libraries(GENERIC_F429ZIYX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F437ZGTX
@@ -47481,9 +45273,6 @@ target_link_options(GENERIC_F437ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F437ZGTX_MCU}
-)
-target_link_libraries(GENERIC_F437ZGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F437ZGTX_serial_disabled INTERFACE)
@@ -47567,9 +45356,6 @@ target_link_options(GENERIC_F437ZGTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F437ZGTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F437ZGTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F437ZITX
@@ -47611,9 +45397,6 @@ target_link_options(GENERIC_F437ZITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F437ZITX_MCU}
-)
-target_link_libraries(GENERIC_F437ZITX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F437ZITX_serial_disabled INTERFACE)
@@ -47697,9 +45480,6 @@ target_link_options(GENERIC_F437ZITX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F437ZITX_hid_MCU}
 )
-target_link_libraries(GENERIC_F437ZITX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F439ZGTX
@@ -47741,9 +45521,6 @@ target_link_options(GENERIC_F439ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F439ZGTX_MCU}
-)
-target_link_libraries(GENERIC_F439ZGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F439ZGTX_serial_disabled INTERFACE)
@@ -47827,9 +45604,6 @@ target_link_options(GENERIC_F439ZGTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F439ZGTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F439ZGTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F439ZGYX
@@ -47871,9 +45645,6 @@ target_link_options(GENERIC_F439ZGYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F439ZGYX_MCU}
-)
-target_link_libraries(GENERIC_F439ZGYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F439ZGYX_serial_disabled INTERFACE)
@@ -47957,9 +45728,6 @@ target_link_options(GENERIC_F439ZGYX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F439ZGYX_hid_MCU}
 )
-target_link_libraries(GENERIC_F439ZGYX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F439ZITX
@@ -48001,9 +45769,6 @@ target_link_options(GENERIC_F439ZITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F439ZITX_MCU}
-)
-target_link_libraries(GENERIC_F439ZITX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F439ZITX_serial_disabled INTERFACE)
@@ -48087,9 +45852,6 @@ target_link_options(GENERIC_F439ZITX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F439ZITX_hid_MCU}
 )
-target_link_libraries(GENERIC_F439ZITX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F439ZIYX
@@ -48131,9 +45893,6 @@ target_link_options(GENERIC_F439ZIYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F439ZIYX_MCU}
-)
-target_link_libraries(GENERIC_F439ZIYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F439ZIYX_serial_disabled INTERFACE)
@@ -48217,9 +45976,6 @@ target_link_options(GENERIC_F439ZIYX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F439ZIYX_hid_MCU}
 )
-target_link_libraries(GENERIC_F439ZIYX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F446RCTX
@@ -48261,9 +46017,6 @@ target_link_options(GENERIC_F446RCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F446RCTX_MCU}
-)
-target_link_libraries(GENERIC_F446RCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F446RCTX_serial_disabled INTERFACE)
@@ -48347,9 +46100,6 @@ target_link_options(GENERIC_F446RCTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F446RCTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F446RCTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F446RETX
@@ -48391,9 +46141,6 @@ target_link_options(GENERIC_F446RETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F446RETX_MCU}
-)
-target_link_libraries(GENERIC_F446RETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F446RETX_serial_disabled INTERFACE)
@@ -48477,9 +46224,6 @@ target_link_options(GENERIC_F446RETX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F446RETX_hid_MCU}
 )
-target_link_libraries(GENERIC_F446RETX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F446VCTX
@@ -48521,9 +46265,6 @@ target_link_options(GENERIC_F446VCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F446VCTX_MCU}
-)
-target_link_libraries(GENERIC_F446VCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F446VCTX_serial_disabled INTERFACE)
@@ -48607,9 +46348,6 @@ target_link_options(GENERIC_F446VCTX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F446VCTX_hid_MCU}
 )
-target_link_libraries(GENERIC_F446VCTX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F446VETX
@@ -48651,9 +46389,6 @@ target_link_options(GENERIC_F446VETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F446VETX_MCU}
-)
-target_link_libraries(GENERIC_F446VETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_F446VETX_serial_disabled INTERFACE)
@@ -48737,9 +46472,6 @@ target_link_options(GENERIC_F446VETX_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F446VETX_hid_MCU}
 )
-target_link_libraries(GENERIC_F446VETX_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # GENERIC_F722RCTX
@@ -48781,9 +46513,6 @@ target_link_options(GENERIC_F722RCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F722RCTX_MCU}
-)
-target_link_libraries(GENERIC_F722RCTX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F722RCTX_serial_disabled INTERFACE)
@@ -48867,9 +46596,6 @@ target_link_options(GENERIC_F722RETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F722RETX_MCU}
 )
-target_link_libraries(GENERIC_F722RETX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F722RETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F722RETX_serial_disabled INTERFACE
@@ -48951,9 +46677,6 @@ target_link_options(GENERIC_F722ZCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F722ZCTX_MCU}
-)
-target_link_libraries(GENERIC_F722ZCTX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F722ZCTX_serial_disabled INTERFACE)
@@ -49037,9 +46760,6 @@ target_link_options(GENERIC_F722ZETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F722ZETX_MCU}
 )
-target_link_libraries(GENERIC_F722ZETX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F722ZETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F722ZETX_serial_disabled INTERFACE
@@ -49121,9 +46841,6 @@ target_link_options(GENERIC_F730R8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F730R8TX_MCU}
-)
-target_link_libraries(GENERIC_F730R8TX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F730R8TX_serial_disabled INTERFACE)
@@ -49207,9 +46924,6 @@ target_link_options(GENERIC_F732RETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F732RETX_MCU}
 )
-target_link_libraries(GENERIC_F732RETX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F732RETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F732RETX_serial_disabled INTERFACE
@@ -49291,9 +47005,6 @@ target_link_options(GENERIC_F732ZETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F732ZETX_MCU}
-)
-target_link_libraries(GENERIC_F732ZETX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F732ZETX_serial_disabled INTERFACE)
@@ -49377,9 +47088,6 @@ target_link_options(GENERIC_F745ZETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F745ZETX_MCU}
 )
-target_link_libraries(GENERIC_F745ZETX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F745ZETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F745ZETX_serial_disabled INTERFACE
@@ -49461,9 +47169,6 @@ target_link_options(GENERIC_F745ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F745ZGTX_MCU}
-)
-target_link_libraries(GENERIC_F745ZGTX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F745ZGTX_serial_disabled INTERFACE)
@@ -49547,9 +47252,6 @@ target_link_options(GENERIC_F746BETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F746BETX_MCU}
 )
-target_link_libraries(GENERIC_F746BETX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F746BETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F746BETX_serial_disabled INTERFACE
@@ -49631,9 +47333,6 @@ target_link_options(GENERIC_F746BGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F746BGTX_MCU}
-)
-target_link_libraries(GENERIC_F746BGTX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F746BGTX_serial_disabled INTERFACE)
@@ -49717,9 +47416,6 @@ target_link_options(GENERIC_F746NEHX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F746NEHX_MCU}
 )
-target_link_libraries(GENERIC_F746NEHX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F746NEHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F746NEHX_serial_disabled INTERFACE
@@ -49801,9 +47497,6 @@ target_link_options(GENERIC_F746NGHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F746NGHX_MCU}
-)
-target_link_libraries(GENERIC_F746NGHX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F746NGHX_serial_disabled INTERFACE)
@@ -49887,9 +47580,6 @@ target_link_options(GENERIC_F746ZETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F746ZETX_MCU}
 )
-target_link_libraries(GENERIC_F746ZETX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F746ZETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F746ZETX_serial_disabled INTERFACE
@@ -49971,9 +47661,6 @@ target_link_options(GENERIC_F746ZEYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F746ZEYX_MCU}
-)
-target_link_libraries(GENERIC_F746ZEYX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F746ZEYX_serial_disabled INTERFACE)
@@ -50057,9 +47744,6 @@ target_link_options(GENERIC_F746ZGTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F746ZGTX_MCU}
 )
-target_link_libraries(GENERIC_F746ZGTX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F746ZGTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F746ZGTX_serial_disabled INTERFACE
@@ -50141,9 +47825,6 @@ target_link_options(GENERIC_F746ZGYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F746ZGYX_MCU}
-)
-target_link_libraries(GENERIC_F746ZGYX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F746ZGYX_serial_disabled INTERFACE)
@@ -50227,9 +47908,6 @@ target_link_options(GENERIC_F750N8HX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F750N8HX_MCU}
 )
-target_link_libraries(GENERIC_F750N8HX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F750N8HX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F750N8HX_serial_disabled INTERFACE
@@ -50311,9 +47989,6 @@ target_link_options(GENERIC_F750Z8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F750Z8TX_MCU}
-)
-target_link_libraries(GENERIC_F750Z8TX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F750Z8TX_serial_disabled INTERFACE)
@@ -50397,9 +48072,6 @@ target_link_options(GENERIC_F756BGTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F756BGTX_MCU}
 )
-target_link_libraries(GENERIC_F756BGTX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F756BGTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F756BGTX_serial_disabled INTERFACE
@@ -50481,9 +48153,6 @@ target_link_options(GENERIC_F756NGHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F756NGHX_MCU}
-)
-target_link_libraries(GENERIC_F756NGHX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F756NGHX_serial_disabled INTERFACE)
@@ -50567,9 +48236,6 @@ target_link_options(GENERIC_F756ZGTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F756ZGTX_MCU}
 )
-target_link_libraries(GENERIC_F756ZGTX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F756ZGTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F756ZGTX_serial_disabled INTERFACE
@@ -50651,9 +48317,6 @@ target_link_options(GENERIC_F756ZGYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F756ZGYX_MCU}
-)
-target_link_libraries(GENERIC_F756ZGYX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F756ZGYX_serial_disabled INTERFACE)
@@ -50737,9 +48400,6 @@ target_link_options(GENERIC_F765IGKX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F765IGKX_MCU}
 )
-target_link_libraries(GENERIC_F765IGKX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F765IGKX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F765IGKX_serial_disabled INTERFACE
@@ -50821,9 +48481,6 @@ target_link_options(GENERIC_F765IGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F765IGTX_MCU}
-)
-target_link_libraries(GENERIC_F765IGTX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F765IGTX_serial_disabled INTERFACE)
@@ -50907,9 +48564,6 @@ target_link_options(GENERIC_F765IIKX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F765IIKX_MCU}
 )
-target_link_libraries(GENERIC_F765IIKX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F765IIKX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F765IIKX_serial_disabled INTERFACE
@@ -50991,9 +48645,6 @@ target_link_options(GENERIC_F765IITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F765IITX_MCU}
-)
-target_link_libraries(GENERIC_F765IITX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F765IITX_serial_disabled INTERFACE)
@@ -51077,9 +48728,6 @@ target_link_options(GENERIC_F765VGHX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F765VGHX_MCU}
 )
-target_link_libraries(GENERIC_F765VGHX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F765VGHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F765VGHX_serial_disabled INTERFACE
@@ -51161,9 +48809,6 @@ target_link_options(GENERIC_F765VGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F765VGTX_MCU}
-)
-target_link_libraries(GENERIC_F765VGTX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F765VGTX_serial_disabled INTERFACE)
@@ -51247,9 +48892,6 @@ target_link_options(GENERIC_F765VIHX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F765VIHX_MCU}
 )
-target_link_libraries(GENERIC_F765VIHX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F765VIHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F765VIHX_serial_disabled INTERFACE
@@ -51331,9 +48973,6 @@ target_link_options(GENERIC_F765VITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F765VITX_MCU}
-)
-target_link_libraries(GENERIC_F765VITX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F765VITX_serial_disabled INTERFACE)
@@ -51417,9 +49056,6 @@ target_link_options(GENERIC_F765ZGTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F765ZGTX_MCU}
 )
-target_link_libraries(GENERIC_F765ZGTX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F765ZGTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F765ZGTX_serial_disabled INTERFACE
@@ -51501,9 +49137,6 @@ target_link_options(GENERIC_F765ZITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F765ZITX_MCU}
-)
-target_link_libraries(GENERIC_F765ZITX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F765ZITX_serial_disabled INTERFACE)
@@ -51587,9 +49220,6 @@ target_link_options(GENERIC_F767IGKX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F767IGKX_MCU}
 )
-target_link_libraries(GENERIC_F767IGKX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F767IGKX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F767IGKX_serial_disabled INTERFACE
@@ -51671,9 +49301,6 @@ target_link_options(GENERIC_F767IGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F767IGTX_MCU}
-)
-target_link_libraries(GENERIC_F767IGTX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F767IGTX_serial_disabled INTERFACE)
@@ -51757,9 +49384,6 @@ target_link_options(GENERIC_F767IIKX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F767IIKX_MCU}
 )
-target_link_libraries(GENERIC_F767IIKX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F767IIKX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F767IIKX_serial_disabled INTERFACE
@@ -51841,9 +49465,6 @@ target_link_options(GENERIC_F767IITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F767IITX_MCU}
-)
-target_link_libraries(GENERIC_F767IITX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F767IITX_serial_disabled INTERFACE)
@@ -51927,9 +49548,6 @@ target_link_options(GENERIC_F767VGHX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F767VGHX_MCU}
 )
-target_link_libraries(GENERIC_F767VGHX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F767VGHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F767VGHX_serial_disabled INTERFACE
@@ -52011,9 +49629,6 @@ target_link_options(GENERIC_F767VGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F767VGTX_MCU}
-)
-target_link_libraries(GENERIC_F767VGTX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F767VGTX_serial_disabled INTERFACE)
@@ -52097,9 +49712,6 @@ target_link_options(GENERIC_F767VIHX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F767VIHX_MCU}
 )
-target_link_libraries(GENERIC_F767VIHX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F767VIHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F767VIHX_serial_disabled INTERFACE
@@ -52181,9 +49793,6 @@ target_link_options(GENERIC_F767VITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F767VITX_MCU}
-)
-target_link_libraries(GENERIC_F767VITX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F767VITX_serial_disabled INTERFACE)
@@ -52267,9 +49876,6 @@ target_link_options(GENERIC_F767ZGTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F767ZGTX_MCU}
 )
-target_link_libraries(GENERIC_F767ZGTX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F767ZGTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F767ZGTX_serial_disabled INTERFACE
@@ -52351,9 +49957,6 @@ target_link_options(GENERIC_F767ZITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F767ZITX_MCU}
-)
-target_link_libraries(GENERIC_F767ZITX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F767ZITX_serial_disabled INTERFACE)
@@ -52437,9 +50040,6 @@ target_link_options(GENERIC_F777IIKX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F777IIKX_MCU}
 )
-target_link_libraries(GENERIC_F777IIKX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F777IIKX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F777IIKX_serial_disabled INTERFACE
@@ -52521,9 +50121,6 @@ target_link_options(GENERIC_F777IITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F777IITX_MCU}
-)
-target_link_libraries(GENERIC_F777IITX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F777IITX_serial_disabled INTERFACE)
@@ -52607,9 +50204,6 @@ target_link_options(GENERIC_F777VIHX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F777VIHX_MCU}
 )
-target_link_libraries(GENERIC_F777VIHX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F777VIHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F777VIHX_serial_disabled INTERFACE
@@ -52691,9 +50285,6 @@ target_link_options(GENERIC_F777VITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F777VITX_MCU}
-)
-target_link_libraries(GENERIC_F777VITX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_F777VITX_serial_disabled INTERFACE)
@@ -52777,9 +50368,6 @@ target_link_options(GENERIC_F777ZITX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_F777ZITX_MCU}
 )
-target_link_libraries(GENERIC_F777ZITX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_F777ZITX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_F777ZITX_serial_disabled INTERFACE
@@ -52862,9 +50450,6 @@ target_link_options(GENERIC_G030C6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G030C6TX_MCU}
 )
-target_link_libraries(GENERIC_G030C6TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G030C6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G030C6TX_serial_disabled INTERFACE
@@ -52934,9 +50519,6 @@ target_link_options(GENERIC_G030C8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G030C8TX_MCU}
-)
-target_link_libraries(GENERIC_G030C8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G030C8TX_serial_disabled INTERFACE)
@@ -53008,9 +50590,6 @@ target_link_options(GENERIC_G030F6PX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G030F6PX_MCU}
 )
-target_link_libraries(GENERIC_G030F6PX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G030F6PX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G030F6PX_serial_disabled INTERFACE
@@ -53080,9 +50659,6 @@ target_link_options(GENERIC_G030J6MX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G030J6MX_MCU}
-)
-target_link_libraries(GENERIC_G030J6MX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G030J6MX_serial_disabled INTERFACE)
@@ -53154,9 +50730,6 @@ target_link_options(GENERIC_G030K6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G030K6TX_MCU}
 )
-target_link_libraries(GENERIC_G030K6TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G030K6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G030K6TX_serial_disabled INTERFACE
@@ -53226,9 +50799,6 @@ target_link_options(GENERIC_G030K8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G030K8TX_MCU}
-)
-target_link_libraries(GENERIC_G030K8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G030K8TX_serial_disabled INTERFACE)
@@ -53300,9 +50870,6 @@ target_link_options(GENERIC_G031C4TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G031C4TX_MCU}
 )
-target_link_libraries(GENERIC_G031C4TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G031C4TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G031C4TX_serial_disabled INTERFACE
@@ -53372,9 +50939,6 @@ target_link_options(GENERIC_G031C4UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G031C4UX_MCU}
-)
-target_link_libraries(GENERIC_G031C4UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G031C4UX_serial_disabled INTERFACE)
@@ -53446,9 +51010,6 @@ target_link_options(GENERIC_G031C6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G031C6TX_MCU}
 )
-target_link_libraries(GENERIC_G031C6TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G031C6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G031C6TX_serial_disabled INTERFACE
@@ -53518,9 +51079,6 @@ target_link_options(GENERIC_G031C6UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G031C6UX_MCU}
-)
-target_link_libraries(GENERIC_G031C6UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G031C6UX_serial_disabled INTERFACE)
@@ -53592,9 +51150,6 @@ target_link_options(GENERIC_G031C8TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G031C8TX_MCU}
 )
-target_link_libraries(GENERIC_G031C8TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G031C8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G031C8TX_serial_disabled INTERFACE
@@ -53664,9 +51219,6 @@ target_link_options(GENERIC_G031C8UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G031C8UX_MCU}
-)
-target_link_libraries(GENERIC_G031C8UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G031C8UX_serial_disabled INTERFACE)
@@ -53738,9 +51290,6 @@ target_link_options(GENERIC_G031F4PX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G031F4PX_MCU}
 )
-target_link_libraries(GENERIC_G031F4PX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G031F4PX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G031F4PX_serial_disabled INTERFACE
@@ -53810,9 +51359,6 @@ target_link_options(GENERIC_G031F6PX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G031F6PX_MCU}
-)
-target_link_libraries(GENERIC_G031F6PX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G031F6PX_serial_disabled INTERFACE)
@@ -53884,9 +51430,6 @@ target_link_options(GENERIC_G031F8PX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G031F8PX_MCU}
 )
-target_link_libraries(GENERIC_G031F8PX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G031F8PX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G031F8PX_serial_disabled INTERFACE
@@ -53956,9 +51499,6 @@ target_link_options(GENERIC_G031G4UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G031G4UX_MCU}
-)
-target_link_libraries(GENERIC_G031G4UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G031G4UX_serial_disabled INTERFACE)
@@ -54030,9 +51570,6 @@ target_link_options(GENERIC_G031G6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G031G6UX_MCU}
 )
-target_link_libraries(GENERIC_G031G6UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G031G6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G031G6UX_serial_disabled INTERFACE
@@ -54102,9 +51639,6 @@ target_link_options(GENERIC_G031G8UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G031G8UX_MCU}
-)
-target_link_libraries(GENERIC_G031G8UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G031G8UX_serial_disabled INTERFACE)
@@ -54176,9 +51710,6 @@ target_link_options(GENERIC_G031J4MX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G031J4MX_MCU}
 )
-target_link_libraries(GENERIC_G031J4MX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G031J4MX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G031J4MX_serial_disabled INTERFACE
@@ -54248,9 +51779,6 @@ target_link_options(GENERIC_G031J6MX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G031J6MX_MCU}
-)
-target_link_libraries(GENERIC_G031J6MX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G031J6MX_serial_disabled INTERFACE)
@@ -54322,9 +51850,6 @@ target_link_options(GENERIC_G031K4TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G031K4TX_MCU}
 )
-target_link_libraries(GENERIC_G031K4TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G031K4TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G031K4TX_serial_disabled INTERFACE
@@ -54394,9 +51919,6 @@ target_link_options(GENERIC_G031K4UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G031K4UX_MCU}
-)
-target_link_libraries(GENERIC_G031K4UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G031K4UX_serial_disabled INTERFACE)
@@ -54468,9 +51990,6 @@ target_link_options(GENERIC_G031K6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G031K6TX_MCU}
 )
-target_link_libraries(GENERIC_G031K6TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G031K6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G031K6TX_serial_disabled INTERFACE
@@ -54540,9 +52059,6 @@ target_link_options(GENERIC_G031K6UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G031K6UX_MCU}
-)
-target_link_libraries(GENERIC_G031K6UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G031K6UX_serial_disabled INTERFACE)
@@ -54614,9 +52130,6 @@ target_link_options(GENERIC_G031K8TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G031K8TX_MCU}
 )
-target_link_libraries(GENERIC_G031K8TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G031K8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G031K8TX_serial_disabled INTERFACE
@@ -54686,9 +52199,6 @@ target_link_options(GENERIC_G031K8UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G031K8UX_MCU}
-)
-target_link_libraries(GENERIC_G031K8UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G031K8UX_serial_disabled INTERFACE)
@@ -54760,9 +52270,6 @@ target_link_options(GENERIC_G031Y8YX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G031Y8YX_MCU}
 )
-target_link_libraries(GENERIC_G031Y8YX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G031Y8YX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G031Y8YX_serial_disabled INTERFACE
@@ -54832,9 +52339,6 @@ target_link_options(GENERIC_G041C6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G041C6TX_MCU}
-)
-target_link_libraries(GENERIC_G041C6TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G041C6TX_serial_disabled INTERFACE)
@@ -54906,9 +52410,6 @@ target_link_options(GENERIC_G041C6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G041C6UX_MCU}
 )
-target_link_libraries(GENERIC_G041C6UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G041C6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G041C6UX_serial_disabled INTERFACE
@@ -54978,9 +52479,6 @@ target_link_options(GENERIC_G041C8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G041C8TX_MCU}
-)
-target_link_libraries(GENERIC_G041C8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G041C8TX_serial_disabled INTERFACE)
@@ -55052,9 +52550,6 @@ target_link_options(GENERIC_G041C8UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G041C8UX_MCU}
 )
-target_link_libraries(GENERIC_G041C8UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G041C8UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G041C8UX_serial_disabled INTERFACE
@@ -55124,9 +52619,6 @@ target_link_options(GENERIC_G041F6PX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G041F6PX_MCU}
-)
-target_link_libraries(GENERIC_G041F6PX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G041F6PX_serial_disabled INTERFACE)
@@ -55198,9 +52690,6 @@ target_link_options(GENERIC_G041F8PX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G041F8PX_MCU}
 )
-target_link_libraries(GENERIC_G041F8PX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G041F8PX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G041F8PX_serial_disabled INTERFACE
@@ -55270,9 +52759,6 @@ target_link_options(GENERIC_G041G6UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G041G6UX_MCU}
-)
-target_link_libraries(GENERIC_G041G6UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G041G6UX_serial_disabled INTERFACE)
@@ -55344,9 +52830,6 @@ target_link_options(GENERIC_G041G8UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G041G8UX_MCU}
 )
-target_link_libraries(GENERIC_G041G8UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G041G8UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G041G8UX_serial_disabled INTERFACE
@@ -55416,9 +52899,6 @@ target_link_options(GENERIC_G041J6MX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G041J6MX_MCU}
-)
-target_link_libraries(GENERIC_G041J6MX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G041J6MX_serial_disabled INTERFACE)
@@ -55490,9 +52970,6 @@ target_link_options(GENERIC_G041K6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G041K6TX_MCU}
 )
-target_link_libraries(GENERIC_G041K6TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G041K6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G041K6TX_serial_disabled INTERFACE
@@ -55562,9 +53039,6 @@ target_link_options(GENERIC_G041K6UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G041K6UX_MCU}
-)
-target_link_libraries(GENERIC_G041K6UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G041K6UX_serial_disabled INTERFACE)
@@ -55636,9 +53110,6 @@ target_link_options(GENERIC_G041K8TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G041K8TX_MCU}
 )
-target_link_libraries(GENERIC_G041K8TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G041K8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G041K8TX_serial_disabled INTERFACE
@@ -55708,9 +53179,6 @@ target_link_options(GENERIC_G041K8UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_G041K8UX_MCU}
-)
-target_link_libraries(GENERIC_G041K8UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G041K8UX_serial_disabled INTERFACE)
@@ -55782,9 +53250,6 @@ target_link_options(GENERIC_G041Y8YX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G041Y8YX_MCU}
 )
-target_link_libraries(GENERIC_G041Y8YX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G041Y8YX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G041Y8YX_serial_disabled INTERFACE
@@ -55854,9 +53319,6 @@ target_link_options(GENERIC_G050C6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=18432"
   "SHELL: "
   -mcpu=${GENERIC_G050C6TX_MCU}
-)
-target_link_libraries(GENERIC_G050C6TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G050C6TX_serial_disabled INTERFACE)
@@ -55928,9 +53390,6 @@ target_link_options(GENERIC_G050C8TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G050C8TX_MCU}
 )
-target_link_libraries(GENERIC_G050C8TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G050C8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G050C8TX_serial_disabled INTERFACE
@@ -56000,9 +53459,6 @@ target_link_options(GENERIC_G050F6PX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=18432"
   "SHELL: "
   -mcpu=${GENERIC_G050F6PX_MCU}
-)
-target_link_libraries(GENERIC_G050F6PX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G050F6PX_serial_disabled INTERFACE)
@@ -56074,9 +53530,6 @@ target_link_options(GENERIC_G050K6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G050K6TX_MCU}
 )
-target_link_libraries(GENERIC_G050K6TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G050K6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G050K6TX_serial_disabled INTERFACE
@@ -56146,9 +53599,6 @@ target_link_options(GENERIC_G050K8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=18432"
   "SHELL: "
   -mcpu=${GENERIC_G050K8TX_MCU}
-)
-target_link_libraries(GENERIC_G050K8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G050K8TX_serial_disabled INTERFACE)
@@ -56220,9 +53670,6 @@ target_link_options(GENERIC_G051C6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G051C6TX_MCU}
 )
-target_link_libraries(GENERIC_G051C6TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G051C6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G051C6TX_serial_disabled INTERFACE
@@ -56292,9 +53739,6 @@ target_link_options(GENERIC_G051C6UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=18432"
   "SHELL: "
   -mcpu=${GENERIC_G051C6UX_MCU}
-)
-target_link_libraries(GENERIC_G051C6UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G051C6UX_serial_disabled INTERFACE)
@@ -56366,9 +53810,6 @@ target_link_options(GENERIC_G051C8TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G051C8TX_MCU}
 )
-target_link_libraries(GENERIC_G051C8TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G051C8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G051C8TX_serial_disabled INTERFACE
@@ -56438,9 +53879,6 @@ target_link_options(GENERIC_G051C8UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=18432"
   "SHELL: "
   -mcpu=${GENERIC_G051C8UX_MCU}
-)
-target_link_libraries(GENERIC_G051C8UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G051C8UX_serial_disabled INTERFACE)
@@ -56512,9 +53950,6 @@ target_link_options(GENERIC_G051F6PX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G051F6PX_MCU}
 )
-target_link_libraries(GENERIC_G051F6PX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G051F6PX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G051F6PX_serial_disabled INTERFACE
@@ -56584,9 +54019,6 @@ target_link_options(GENERIC_G051F8PX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=18432"
   "SHELL: "
   -mcpu=${GENERIC_G051F8PX_MCU}
-)
-target_link_libraries(GENERIC_G051F8PX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G051F8PX_serial_disabled INTERFACE)
@@ -56658,9 +54090,6 @@ target_link_options(GENERIC_G051F8YX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G051F8YX_MCU}
 )
-target_link_libraries(GENERIC_G051F8YX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G051F8YX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G051F8YX_serial_disabled INTERFACE
@@ -56730,9 +54159,6 @@ target_link_options(GENERIC_G051G6UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=18432"
   "SHELL: "
   -mcpu=${GENERIC_G051G6UX_MCU}
-)
-target_link_libraries(GENERIC_G051G6UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G051G6UX_serial_disabled INTERFACE)
@@ -56804,9 +54230,6 @@ target_link_options(GENERIC_G051G8UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G051G8UX_MCU}
 )
-target_link_libraries(GENERIC_G051G8UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G051G8UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G051G8UX_serial_disabled INTERFACE
@@ -56876,9 +54299,6 @@ target_link_options(GENERIC_G051K6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=18432"
   "SHELL: "
   -mcpu=${GENERIC_G051K6TX_MCU}
-)
-target_link_libraries(GENERIC_G051K6TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G051K6TX_serial_disabled INTERFACE)
@@ -56950,9 +54370,6 @@ target_link_options(GENERIC_G051K6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G051K6UX_MCU}
 )
-target_link_libraries(GENERIC_G051K6UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G051K6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G051K6UX_serial_disabled INTERFACE
@@ -57022,9 +54439,6 @@ target_link_options(GENERIC_G051K8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=18432"
   "SHELL: "
   -mcpu=${GENERIC_G051K8TX_MCU}
-)
-target_link_libraries(GENERIC_G051K8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G051K8TX_serial_disabled INTERFACE)
@@ -57096,9 +54510,6 @@ target_link_options(GENERIC_G051K8UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G051K8UX_MCU}
 )
-target_link_libraries(GENERIC_G051K8UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G051K8UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G051K8UX_serial_disabled INTERFACE
@@ -57168,9 +54579,6 @@ target_link_options(GENERIC_G061C6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=18432"
   "SHELL: "
   -mcpu=${GENERIC_G061C6TX_MCU}
-)
-target_link_libraries(GENERIC_G061C6TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G061C6TX_serial_disabled INTERFACE)
@@ -57242,9 +54650,6 @@ target_link_options(GENERIC_G061C6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G061C6UX_MCU}
 )
-target_link_libraries(GENERIC_G061C6UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G061C6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G061C6UX_serial_disabled INTERFACE
@@ -57314,9 +54719,6 @@ target_link_options(GENERIC_G061C8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=18432"
   "SHELL: "
   -mcpu=${GENERIC_G061C8TX_MCU}
-)
-target_link_libraries(GENERIC_G061C8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G061C8TX_serial_disabled INTERFACE)
@@ -57388,9 +54790,6 @@ target_link_options(GENERIC_G061C8UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G061C8UX_MCU}
 )
-target_link_libraries(GENERIC_G061C8UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G061C8UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G061C8UX_serial_disabled INTERFACE
@@ -57460,9 +54859,6 @@ target_link_options(GENERIC_G061F6PX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=18432"
   "SHELL: "
   -mcpu=${GENERIC_G061F6PX_MCU}
-)
-target_link_libraries(GENERIC_G061F6PX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G061F6PX_serial_disabled INTERFACE)
@@ -57534,9 +54930,6 @@ target_link_options(GENERIC_G061F8PX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G061F8PX_MCU}
 )
-target_link_libraries(GENERIC_G061F8PX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G061F8PX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G061F8PX_serial_disabled INTERFACE
@@ -57606,9 +54999,6 @@ target_link_options(GENERIC_G061F8YX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=18432"
   "SHELL: "
   -mcpu=${GENERIC_G061F8YX_MCU}
-)
-target_link_libraries(GENERIC_G061F8YX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G061F8YX_serial_disabled INTERFACE)
@@ -57680,9 +55070,6 @@ target_link_options(GENERIC_G061G6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G061G6UX_MCU}
 )
-target_link_libraries(GENERIC_G061G6UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G061G6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G061G6UX_serial_disabled INTERFACE
@@ -57752,9 +55139,6 @@ target_link_options(GENERIC_G061G8UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=18432"
   "SHELL: "
   -mcpu=${GENERIC_G061G8UX_MCU}
-)
-target_link_libraries(GENERIC_G061G8UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G061G8UX_serial_disabled INTERFACE)
@@ -57826,9 +55210,6 @@ target_link_options(GENERIC_G061K6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G061K6TX_MCU}
 )
-target_link_libraries(GENERIC_G061K6TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G061K6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G061K6TX_serial_disabled INTERFACE
@@ -57898,9 +55279,6 @@ target_link_options(GENERIC_G061K6UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=18432"
   "SHELL: "
   -mcpu=${GENERIC_G061K6UX_MCU}
-)
-target_link_libraries(GENERIC_G061K6UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G061K6UX_serial_disabled INTERFACE)
@@ -57972,9 +55350,6 @@ target_link_options(GENERIC_G061K8TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G061K8TX_MCU}
 )
-target_link_libraries(GENERIC_G061K8TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G061K8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G061K8TX_serial_disabled INTERFACE
@@ -58044,9 +55419,6 @@ target_link_options(GENERIC_G061K8UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=18432"
   "SHELL: "
   -mcpu=${GENERIC_G061K8UX_MCU}
-)
-target_link_libraries(GENERIC_G061K8UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G061K8UX_serial_disabled INTERFACE)
@@ -58118,9 +55490,6 @@ target_link_options(GENERIC_G070CBTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G070CBTX_MCU}
 )
-target_link_libraries(GENERIC_G070CBTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G070CBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G070CBTX_serial_disabled INTERFACE
@@ -58190,9 +55559,6 @@ target_link_options(GENERIC_G070KBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
   "SHELL: "
   -mcpu=${GENERIC_G070KBTX_MCU}
-)
-target_link_libraries(GENERIC_G070KBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G070KBTX_serial_disabled INTERFACE)
@@ -58264,9 +55630,6 @@ target_link_options(GENERIC_G070RBTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G070RBTX_MCU}
 )
-target_link_libraries(GENERIC_G070RBTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G070RBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G070RBTX_serial_disabled INTERFACE
@@ -58336,9 +55699,6 @@ target_link_options(GENERIC_G071C6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
   "SHELL: "
   -mcpu=${GENERIC_G071C6TX_MCU}
-)
-target_link_libraries(GENERIC_G071C6TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G071C6TX_serial_disabled INTERFACE)
@@ -58410,9 +55770,6 @@ target_link_options(GENERIC_G071C6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G071C6UX_MCU}
 )
-target_link_libraries(GENERIC_G071C6UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G071C6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G071C6UX_serial_disabled INTERFACE
@@ -58482,9 +55839,6 @@ target_link_options(GENERIC_G071C8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
   "SHELL: "
   -mcpu=${GENERIC_G071C8TX_MCU}
-)
-target_link_libraries(GENERIC_G071C8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G071C8TX_serial_disabled INTERFACE)
@@ -58556,9 +55910,6 @@ target_link_options(GENERIC_G071C8UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G071C8UX_MCU}
 )
-target_link_libraries(GENERIC_G071C8UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G071C8UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G071C8UX_serial_disabled INTERFACE
@@ -58628,9 +55979,6 @@ target_link_options(GENERIC_G071CBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
   "SHELL: "
   -mcpu=${GENERIC_G071CBTX_MCU}
-)
-target_link_libraries(GENERIC_G071CBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G071CBTX_serial_disabled INTERFACE)
@@ -58702,9 +56050,6 @@ target_link_options(GENERIC_G071CBUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G071CBUX_MCU}
 )
-target_link_libraries(GENERIC_G071CBUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G071CBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G071CBUX_serial_disabled INTERFACE
@@ -58774,9 +56119,6 @@ target_link_options(GENERIC_G071EBYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
   "SHELL: "
   -mcpu=${GENERIC_G071EBYX_MCU}
-)
-target_link_libraries(GENERIC_G071EBYX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G071EBYX_serial_disabled INTERFACE)
@@ -58848,9 +56190,6 @@ target_link_options(GENERIC_G071G6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G071G6UX_MCU}
 )
-target_link_libraries(GENERIC_G071G6UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G071G6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G071G6UX_serial_disabled INTERFACE
@@ -58920,9 +56259,6 @@ target_link_options(GENERIC_G071G8UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
   "SHELL: "
   -mcpu=${GENERIC_G071G8UX_MCU}
-)
-target_link_libraries(GENERIC_G071G8UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G071G8UX_serial_disabled INTERFACE)
@@ -58994,9 +56330,6 @@ target_link_options(GENERIC_G071G8UXN INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G071G8UXN_MCU}
 )
-target_link_libraries(GENERIC_G071G8UXN INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G071G8UXN_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G071G8UXN_serial_disabled INTERFACE
@@ -59066,9 +56399,6 @@ target_link_options(GENERIC_G071GBUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
   "SHELL: "
   -mcpu=${GENERIC_G071GBUX_MCU}
-)
-target_link_libraries(GENERIC_G071GBUX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G071GBUX_serial_disabled INTERFACE)
@@ -59140,9 +56470,6 @@ target_link_options(GENERIC_G071GBUXN INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G071GBUXN_MCU}
 )
-target_link_libraries(GENERIC_G071GBUXN INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G071GBUXN_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G071GBUXN_serial_disabled INTERFACE
@@ -59212,9 +56539,6 @@ target_link_options(GENERIC_G071K6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
   "SHELL: "
   -mcpu=${GENERIC_G071K6TX_MCU}
-)
-target_link_libraries(GENERIC_G071K6TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G071K6TX_serial_disabled INTERFACE)
@@ -59286,9 +56610,6 @@ target_link_options(GENERIC_G071K6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G071K6UX_MCU}
 )
-target_link_libraries(GENERIC_G071K6UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G071K6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G071K6UX_serial_disabled INTERFACE
@@ -59358,9 +56679,6 @@ target_link_options(GENERIC_G071K8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
   "SHELL: "
   -mcpu=${GENERIC_G071K8TX_MCU}
-)
-target_link_libraries(GENERIC_G071K8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G071K8TX_serial_disabled INTERFACE)
@@ -59432,9 +56750,6 @@ target_link_options(GENERIC_G071K8UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G071K8UX_MCU}
 )
-target_link_libraries(GENERIC_G071K8UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G071K8UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G071K8UX_serial_disabled INTERFACE
@@ -59504,9 +56819,6 @@ target_link_options(GENERIC_G071KBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
   "SHELL: "
   -mcpu=${GENERIC_G071KBTX_MCU}
-)
-target_link_libraries(GENERIC_G071KBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G071KBTX_serial_disabled INTERFACE)
@@ -59578,9 +56890,6 @@ target_link_options(GENERIC_G071KBUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G071KBUX_MCU}
 )
-target_link_libraries(GENERIC_G071KBUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G071KBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G071KBUX_serial_disabled INTERFACE
@@ -59650,9 +56959,6 @@ target_link_options(GENERIC_G071R6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
   "SHELL: "
   -mcpu=${GENERIC_G071R6TX_MCU}
-)
-target_link_libraries(GENERIC_G071R6TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G071R6TX_serial_disabled INTERFACE)
@@ -59724,9 +57030,6 @@ target_link_options(GENERIC_G071R8TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G071R8TX_MCU}
 )
-target_link_libraries(GENERIC_G071R8TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G071R8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G071R8TX_serial_disabled INTERFACE
@@ -59796,9 +57099,6 @@ target_link_options(GENERIC_G071RBIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
   "SHELL: "
   -mcpu=${GENERIC_G071RBIX_MCU}
-)
-target_link_libraries(GENERIC_G071RBIX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G071RBIX_serial_disabled INTERFACE)
@@ -59870,9 +57170,6 @@ target_link_options(GENERIC_G071RBTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G071RBTX_MCU}
 )
-target_link_libraries(GENERIC_G071RBTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G071RBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G071RBTX_serial_disabled INTERFACE
@@ -59942,9 +57239,6 @@ target_link_options(GENERIC_G081CBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
   "SHELL: "
   -mcpu=${GENERIC_G081CBTX_MCU}
-)
-target_link_libraries(GENERIC_G081CBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G081CBTX_serial_disabled INTERFACE)
@@ -60016,9 +57310,6 @@ target_link_options(GENERIC_G081CBUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G081CBUX_MCU}
 )
-target_link_libraries(GENERIC_G081CBUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G081CBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G081CBUX_serial_disabled INTERFACE
@@ -60088,9 +57379,6 @@ target_link_options(GENERIC_G081EBYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
   "SHELL: "
   -mcpu=${GENERIC_G081EBYX_MCU}
-)
-target_link_libraries(GENERIC_G081EBYX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G081EBYX_serial_disabled INTERFACE)
@@ -60162,9 +57450,6 @@ target_link_options(GENERIC_G081GBUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G081GBUX_MCU}
 )
-target_link_libraries(GENERIC_G081GBUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G081GBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G081GBUX_serial_disabled INTERFACE
@@ -60234,9 +57519,6 @@ target_link_options(GENERIC_G081GBUXN INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
   "SHELL: "
   -mcpu=${GENERIC_G081GBUXN_MCU}
-)
-target_link_libraries(GENERIC_G081GBUXN INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G081GBUXN_serial_disabled INTERFACE)
@@ -60308,9 +57590,6 @@ target_link_options(GENERIC_G081KBTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G081KBTX_MCU}
 )
-target_link_libraries(GENERIC_G081KBTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G081KBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G081KBTX_serial_disabled INTERFACE
@@ -60380,9 +57659,6 @@ target_link_options(GENERIC_G081KBUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
   "SHELL: "
   -mcpu=${GENERIC_G081KBUX_MCU}
-)
-target_link_libraries(GENERIC_G081KBUX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G081KBUX_serial_disabled INTERFACE)
@@ -60454,9 +57730,6 @@ target_link_options(GENERIC_G081RBIX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G081RBIX_MCU}
 )
-target_link_libraries(GENERIC_G081RBIX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G081RBIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G081RBIX_serial_disabled INTERFACE
@@ -60526,9 +57799,6 @@ target_link_options(GENERIC_G081RBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
   "SHELL: "
   -mcpu=${GENERIC_G081RBTX_MCU}
-)
-target_link_libraries(GENERIC_G081RBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G081RBTX_serial_disabled INTERFACE)
@@ -60600,9 +57870,6 @@ target_link_options(GENERIC_G0B0CETX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0B0CETX_MCU}
 )
-target_link_libraries(GENERIC_G0B0CETX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0B0CETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0B0CETX_serial_disabled INTERFACE
@@ -60672,9 +57939,6 @@ target_link_options(GENERIC_G0B0RETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0B0RETX_MCU}
-)
-target_link_libraries(GENERIC_G0B0RETX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0B0RETX_serial_disabled INTERFACE)
@@ -60746,9 +58010,6 @@ target_link_options(GENERIC_G0B0VETX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0B0VETX_MCU}
 )
-target_link_libraries(GENERIC_G0B0VETX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0B0VETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0B0VETX_serial_disabled INTERFACE
@@ -60818,9 +58079,6 @@ target_link_options(GENERIC_G0B1CBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0B1CBTX_MCU}
-)
-target_link_libraries(GENERIC_G0B1CBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0B1CBTX_serial_disabled INTERFACE)
@@ -60892,9 +58150,6 @@ target_link_options(GENERIC_G0B1CBUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0B1CBUX_MCU}
 )
-target_link_libraries(GENERIC_G0B1CBUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0B1CBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0B1CBUX_serial_disabled INTERFACE
@@ -60964,9 +58219,6 @@ target_link_options(GENERIC_G0B1CCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0B1CCTX_MCU}
-)
-target_link_libraries(GENERIC_G0B1CCTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0B1CCTX_serial_disabled INTERFACE)
@@ -61038,9 +58290,6 @@ target_link_options(GENERIC_G0B1CCUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0B1CCUX_MCU}
 )
-target_link_libraries(GENERIC_G0B1CCUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0B1CCUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0B1CCUX_serial_disabled INTERFACE
@@ -61110,9 +58359,6 @@ target_link_options(GENERIC_G0B1CETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0B1CETX_MCU}
-)
-target_link_libraries(GENERIC_G0B1CETX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0B1CETX_serial_disabled INTERFACE)
@@ -61184,9 +58430,6 @@ target_link_options(GENERIC_G0B1CEUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0B1CEUX_MCU}
 )
-target_link_libraries(GENERIC_G0B1CEUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0B1CEUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0B1CEUX_serial_disabled INTERFACE
@@ -61256,9 +58499,6 @@ target_link_options(GENERIC_G0B1KBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0B1KBTX_MCU}
-)
-target_link_libraries(GENERIC_G0B1KBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0B1KBTX_serial_disabled INTERFACE)
@@ -61330,9 +58570,6 @@ target_link_options(GENERIC_G0B1KBUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0B1KBUX_MCU}
 )
-target_link_libraries(GENERIC_G0B1KBUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0B1KBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0B1KBUX_serial_disabled INTERFACE
@@ -61402,9 +58639,6 @@ target_link_options(GENERIC_G0B1KCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0B1KCTX_MCU}
-)
-target_link_libraries(GENERIC_G0B1KCTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0B1KCTX_serial_disabled INTERFACE)
@@ -61476,9 +58710,6 @@ target_link_options(GENERIC_G0B1KCUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0B1KCUX_MCU}
 )
-target_link_libraries(GENERIC_G0B1KCUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0B1KCUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0B1KCUX_serial_disabled INTERFACE
@@ -61548,9 +58779,6 @@ target_link_options(GENERIC_G0B1KETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0B1KETX_MCU}
-)
-target_link_libraries(GENERIC_G0B1KETX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0B1KETX_serial_disabled INTERFACE)
@@ -61622,9 +58850,6 @@ target_link_options(GENERIC_G0B1KEUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0B1KEUX_MCU}
 )
-target_link_libraries(GENERIC_G0B1KEUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0B1KEUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0B1KEUX_serial_disabled INTERFACE
@@ -61694,9 +58919,6 @@ target_link_options(GENERIC_G0B1MBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0B1MBTX_MCU}
-)
-target_link_libraries(GENERIC_G0B1MBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0B1MBTX_serial_disabled INTERFACE)
@@ -61768,9 +58990,6 @@ target_link_options(GENERIC_G0B1MCTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0B1MCTX_MCU}
 )
-target_link_libraries(GENERIC_G0B1MCTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0B1MCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0B1MCTX_serial_disabled INTERFACE
@@ -61840,9 +59059,6 @@ target_link_options(GENERIC_G0B1METX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0B1METX_MCU}
-)
-target_link_libraries(GENERIC_G0B1METX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0B1METX_serial_disabled INTERFACE)
@@ -61914,9 +59130,6 @@ target_link_options(GENERIC_G0B1NEYX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0B1NEYX_MCU}
 )
-target_link_libraries(GENERIC_G0B1NEYX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0B1NEYX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0B1NEYX_serial_disabled INTERFACE
@@ -61986,9 +59199,6 @@ target_link_options(GENERIC_G0B1RBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0B1RBTX_MCU}
-)
-target_link_libraries(GENERIC_G0B1RBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0B1RBTX_serial_disabled INTERFACE)
@@ -62060,9 +59270,6 @@ target_link_options(GENERIC_G0B1RCTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0B1RCTX_MCU}
 )
-target_link_libraries(GENERIC_G0B1RCTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0B1RCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0B1RCTX_serial_disabled INTERFACE
@@ -62132,9 +59339,6 @@ target_link_options(GENERIC_G0B1RETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0B1RETX_MCU}
-)
-target_link_libraries(GENERIC_G0B1RETX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0B1RETX_serial_disabled INTERFACE)
@@ -62206,9 +59410,6 @@ target_link_options(GENERIC_G0B1VBIX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0B1VBIX_MCU}
 )
-target_link_libraries(GENERIC_G0B1VBIX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0B1VBIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0B1VBIX_serial_disabled INTERFACE
@@ -62278,9 +59479,6 @@ target_link_options(GENERIC_G0B1VBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0B1VBTX_MCU}
-)
-target_link_libraries(GENERIC_G0B1VBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0B1VBTX_serial_disabled INTERFACE)
@@ -62352,9 +59550,6 @@ target_link_options(GENERIC_G0B1VCIX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0B1VCIX_MCU}
 )
-target_link_libraries(GENERIC_G0B1VCIX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0B1VCIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0B1VCIX_serial_disabled INTERFACE
@@ -62424,9 +59619,6 @@ target_link_options(GENERIC_G0B1VCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0B1VCTX_MCU}
-)
-target_link_libraries(GENERIC_G0B1VCTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0B1VCTX_serial_disabled INTERFACE)
@@ -62498,9 +59690,6 @@ target_link_options(GENERIC_G0B1VEIX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0B1VEIX_MCU}
 )
-target_link_libraries(GENERIC_G0B1VEIX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0B1VEIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0B1VEIX_serial_disabled INTERFACE
@@ -62570,9 +59759,6 @@ target_link_options(GENERIC_G0B1VETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0B1VETX_MCU}
-)
-target_link_libraries(GENERIC_G0B1VETX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0B1VETX_serial_disabled INTERFACE)
@@ -62644,9 +59830,6 @@ target_link_options(GENERIC_G0C1CCTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0C1CCTX_MCU}
 )
-target_link_libraries(GENERIC_G0C1CCTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0C1CCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0C1CCTX_serial_disabled INTERFACE
@@ -62716,9 +59899,6 @@ target_link_options(GENERIC_G0C1CCUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0C1CCUX_MCU}
-)
-target_link_libraries(GENERIC_G0C1CCUX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0C1CCUX_serial_disabled INTERFACE)
@@ -62790,9 +59970,6 @@ target_link_options(GENERIC_G0C1CETX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0C1CETX_MCU}
 )
-target_link_libraries(GENERIC_G0C1CETX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0C1CETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0C1CETX_serial_disabled INTERFACE
@@ -62862,9 +60039,6 @@ target_link_options(GENERIC_G0C1CEUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0C1CEUX_MCU}
-)
-target_link_libraries(GENERIC_G0C1CEUX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0C1CEUX_serial_disabled INTERFACE)
@@ -62936,9 +60110,6 @@ target_link_options(GENERIC_G0C1KCTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0C1KCTX_MCU}
 )
-target_link_libraries(GENERIC_G0C1KCTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0C1KCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0C1KCTX_serial_disabled INTERFACE
@@ -63008,9 +60179,6 @@ target_link_options(GENERIC_G0C1KCUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0C1KCUX_MCU}
-)
-target_link_libraries(GENERIC_G0C1KCUX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0C1KCUX_serial_disabled INTERFACE)
@@ -63082,9 +60250,6 @@ target_link_options(GENERIC_G0C1KETX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0C1KETX_MCU}
 )
-target_link_libraries(GENERIC_G0C1KETX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0C1KETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0C1KETX_serial_disabled INTERFACE
@@ -63154,9 +60319,6 @@ target_link_options(GENERIC_G0C1KEUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0C1KEUX_MCU}
-)
-target_link_libraries(GENERIC_G0C1KEUX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0C1KEUX_serial_disabled INTERFACE)
@@ -63228,9 +60390,6 @@ target_link_options(GENERIC_G0C1MCTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0C1MCTX_MCU}
 )
-target_link_libraries(GENERIC_G0C1MCTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0C1MCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0C1MCTX_serial_disabled INTERFACE
@@ -63300,9 +60459,6 @@ target_link_options(GENERIC_G0C1METX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0C1METX_MCU}
-)
-target_link_libraries(GENERIC_G0C1METX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0C1METX_serial_disabled INTERFACE)
@@ -63374,9 +60530,6 @@ target_link_options(GENERIC_G0C1NEYX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0C1NEYX_MCU}
 )
-target_link_libraries(GENERIC_G0C1NEYX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0C1NEYX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0C1NEYX_serial_disabled INTERFACE
@@ -63446,9 +60599,6 @@ target_link_options(GENERIC_G0C1RCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0C1RCTX_MCU}
-)
-target_link_libraries(GENERIC_G0C1RCTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0C1RCTX_serial_disabled INTERFACE)
@@ -63520,9 +60670,6 @@ target_link_options(GENERIC_G0C1RETX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0C1RETX_MCU}
 )
-target_link_libraries(GENERIC_G0C1RETX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0C1RETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0C1RETX_serial_disabled INTERFACE
@@ -63592,9 +60739,6 @@ target_link_options(GENERIC_G0C1VCIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0C1VCIX_MCU}
-)
-target_link_libraries(GENERIC_G0C1VCIX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0C1VCIX_serial_disabled INTERFACE)
@@ -63666,9 +60810,6 @@ target_link_options(GENERIC_G0C1VCTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0C1VCTX_MCU}
 )
-target_link_libraries(GENERIC_G0C1VCTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0C1VCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0C1VCTX_serial_disabled INTERFACE
@@ -63738,9 +60879,6 @@ target_link_options(GENERIC_G0C1VEIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
   "SHELL: "
   -mcpu=${GENERIC_G0C1VEIX_MCU}
-)
-target_link_libraries(GENERIC_G0C1VEIX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_G0C1VEIX_serial_disabled INTERFACE)
@@ -63812,9 +60950,6 @@ target_link_options(GENERIC_G0C1VETX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_G0C1VETX_MCU}
 )
-target_link_libraries(GENERIC_G0C1VETX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_G0C1VETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G0C1VETX_serial_disabled INTERFACE
@@ -63884,9 +61019,6 @@ target_link_options(GENERIC_G431C6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431C6TX_MCU}
-)
-target_link_libraries(GENERIC_G431C6TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G431C6TX_serial_disabled INTERFACE)
@@ -63970,9 +61102,6 @@ target_link_options(GENERIC_G431C6UX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431C6UX_MCU}
 )
-target_link_libraries(GENERIC_G431C6UX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G431C6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G431C6UX_serial_disabled INTERFACE
@@ -64054,9 +61183,6 @@ target_link_options(GENERIC_G431C8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431C8TX_MCU}
-)
-target_link_libraries(GENERIC_G431C8TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G431C8TX_serial_disabled INTERFACE)
@@ -64140,9 +61266,6 @@ target_link_options(GENERIC_G431C8UX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431C8UX_MCU}
 )
-target_link_libraries(GENERIC_G431C8UX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G431C8UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G431C8UX_serial_disabled INTERFACE
@@ -64224,9 +61347,6 @@ target_link_options(GENERIC_G431CBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431CBTX_MCU}
-)
-target_link_libraries(GENERIC_G431CBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G431CBTX_serial_disabled INTERFACE)
@@ -64310,9 +61430,6 @@ target_link_options(GENERIC_G431CBUX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431CBUX_MCU}
 )
-target_link_libraries(GENERIC_G431CBUX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G431CBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G431CBUX_serial_disabled INTERFACE
@@ -64394,9 +61511,6 @@ target_link_options(GENERIC_G431K6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431K6TX_MCU}
-)
-target_link_libraries(GENERIC_G431K6TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G431K6TX_serial_disabled INTERFACE)
@@ -64480,9 +61594,6 @@ target_link_options(GENERIC_G431K6UX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431K6UX_MCU}
 )
-target_link_libraries(GENERIC_G431K6UX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G431K6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G431K6UX_serial_disabled INTERFACE
@@ -64564,9 +61675,6 @@ target_link_options(GENERIC_G431K8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431K8TX_MCU}
-)
-target_link_libraries(GENERIC_G431K8TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G431K8TX_serial_disabled INTERFACE)
@@ -64650,9 +61758,6 @@ target_link_options(GENERIC_G431K8UX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431K8UX_MCU}
 )
-target_link_libraries(GENERIC_G431K8UX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G431K8UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G431K8UX_serial_disabled INTERFACE
@@ -64734,9 +61839,6 @@ target_link_options(GENERIC_G431KBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431KBTX_MCU}
-)
-target_link_libraries(GENERIC_G431KBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G431KBTX_serial_disabled INTERFACE)
@@ -64820,9 +61922,6 @@ target_link_options(GENERIC_G431KBUX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431KBUX_MCU}
 )
-target_link_libraries(GENERIC_G431KBUX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G431KBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G431KBUX_serial_disabled INTERFACE
@@ -64904,9 +62003,6 @@ target_link_options(GENERIC_G431M6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431M6TX_MCU}
-)
-target_link_libraries(GENERIC_G431M6TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G431M6TX_serial_disabled INTERFACE)
@@ -64990,9 +62086,6 @@ target_link_options(GENERIC_G431M8TX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431M8TX_MCU}
 )
-target_link_libraries(GENERIC_G431M8TX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G431M8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G431M8TX_serial_disabled INTERFACE
@@ -65074,9 +62167,6 @@ target_link_options(GENERIC_G431MBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431MBTX_MCU}
-)
-target_link_libraries(GENERIC_G431MBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G431MBTX_serial_disabled INTERFACE)
@@ -65160,9 +62250,6 @@ target_link_options(GENERIC_G431R6IX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431R6IX_MCU}
 )
-target_link_libraries(GENERIC_G431R6IX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G431R6IX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G431R6IX_serial_disabled INTERFACE
@@ -65244,9 +62331,6 @@ target_link_options(GENERIC_G431R6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431R6TX_MCU}
-)
-target_link_libraries(GENERIC_G431R6TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G431R6TX_serial_disabled INTERFACE)
@@ -65330,9 +62414,6 @@ target_link_options(GENERIC_G431R8IX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431R8IX_MCU}
 )
-target_link_libraries(GENERIC_G431R8IX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G431R8IX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G431R8IX_serial_disabled INTERFACE
@@ -65414,9 +62495,6 @@ target_link_options(GENERIC_G431R8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431R8TX_MCU}
-)
-target_link_libraries(GENERIC_G431R8TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G431R8TX_serial_disabled INTERFACE)
@@ -65500,9 +62578,6 @@ target_link_options(GENERIC_G431RBIX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431RBIX_MCU}
 )
-target_link_libraries(GENERIC_G431RBIX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G431RBIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G431RBIX_serial_disabled INTERFACE
@@ -65584,9 +62659,6 @@ target_link_options(GENERIC_G431RBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431RBTX_MCU}
-)
-target_link_libraries(GENERIC_G431RBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G431RBTX_serial_disabled INTERFACE)
@@ -65670,9 +62742,6 @@ target_link_options(GENERIC_G431V6TX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431V6TX_MCU}
 )
-target_link_libraries(GENERIC_G431V6TX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G431V6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G431V6TX_serial_disabled INTERFACE
@@ -65754,9 +62823,6 @@ target_link_options(GENERIC_G431V8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431V8TX_MCU}
-)
-target_link_libraries(GENERIC_G431V8TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G431V8TX_serial_disabled INTERFACE)
@@ -65840,9 +62906,6 @@ target_link_options(GENERIC_G431VBTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G431VBTX_MCU}
 )
-target_link_libraries(GENERIC_G431VBTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G431VBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G431VBTX_serial_disabled INTERFACE
@@ -65924,9 +62987,6 @@ target_link_options(GENERIC_G441CBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G441CBTX_MCU}
-)
-target_link_libraries(GENERIC_G441CBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G441CBTX_serial_disabled INTERFACE)
@@ -66010,9 +63070,6 @@ target_link_options(GENERIC_G441CBUX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G441CBUX_MCU}
 )
-target_link_libraries(GENERIC_G441CBUX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G441CBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G441CBUX_serial_disabled INTERFACE
@@ -66094,9 +63151,6 @@ target_link_options(GENERIC_G441KBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G441KBTX_MCU}
-)
-target_link_libraries(GENERIC_G441KBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G441KBTX_serial_disabled INTERFACE)
@@ -66180,9 +63234,6 @@ target_link_options(GENERIC_G441KBUX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G441KBUX_MCU}
 )
-target_link_libraries(GENERIC_G441KBUX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G441KBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G441KBUX_serial_disabled INTERFACE
@@ -66264,9 +63315,6 @@ target_link_options(GENERIC_G441MBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G441MBTX_MCU}
-)
-target_link_libraries(GENERIC_G441MBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G441MBTX_serial_disabled INTERFACE)
@@ -66350,9 +63398,6 @@ target_link_options(GENERIC_G441RBIX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G441RBIX_MCU}
 )
-target_link_libraries(GENERIC_G441RBIX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G441RBIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G441RBIX_serial_disabled INTERFACE
@@ -66434,9 +63479,6 @@ target_link_options(GENERIC_G441RBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G441RBTX_MCU}
-)
-target_link_libraries(GENERIC_G441RBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G441RBTX_serial_disabled INTERFACE)
@@ -66520,9 +63562,6 @@ target_link_options(GENERIC_G441VBTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G441VBTX_MCU}
 )
-target_link_libraries(GENERIC_G441VBTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G441VBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G441VBTX_serial_disabled INTERFACE
@@ -66604,9 +63643,6 @@ target_link_options(GENERIC_G471CCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G471CCTX_MCU}
-)
-target_link_libraries(GENERIC_G471CCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G471CCTX_serial_disabled INTERFACE)
@@ -66690,9 +63726,6 @@ target_link_options(GENERIC_G471CETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G471CETX_MCU}
 )
-target_link_libraries(GENERIC_G471CETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G471CETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G471CETX_serial_disabled INTERFACE
@@ -66774,9 +63807,6 @@ target_link_options(GENERIC_G471MCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G471MCTX_MCU}
-)
-target_link_libraries(GENERIC_G471MCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G471MCTX_serial_disabled INTERFACE)
@@ -66860,9 +63890,6 @@ target_link_options(GENERIC_G471METX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G471METX_MCU}
 )
-target_link_libraries(GENERIC_G471METX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G471METX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G471METX_serial_disabled INTERFACE
@@ -66944,9 +63971,6 @@ target_link_options(GENERIC_G471QCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G471QCTX_MCU}
-)
-target_link_libraries(GENERIC_G471QCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G471QCTX_serial_disabled INTERFACE)
@@ -67030,9 +64054,6 @@ target_link_options(GENERIC_G471QETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G471QETX_MCU}
 )
-target_link_libraries(GENERIC_G471QETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G471QETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G471QETX_serial_disabled INTERFACE
@@ -67114,9 +64135,6 @@ target_link_options(GENERIC_G471RCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G471RCTX_MCU}
-)
-target_link_libraries(GENERIC_G471RCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G471RCTX_serial_disabled INTERFACE)
@@ -67200,9 +64218,6 @@ target_link_options(GENERIC_G471RETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G471RETX_MCU}
 )
-target_link_libraries(GENERIC_G471RETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G471RETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G471RETX_serial_disabled INTERFACE
@@ -67284,9 +64299,6 @@ target_link_options(GENERIC_G471VCHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G471VCHX_MCU}
-)
-target_link_libraries(GENERIC_G471VCHX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G471VCHX_serial_disabled INTERFACE)
@@ -67370,9 +64382,6 @@ target_link_options(GENERIC_G471VCIX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G471VCIX_MCU}
 )
-target_link_libraries(GENERIC_G471VCIX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G471VCIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G471VCIX_serial_disabled INTERFACE
@@ -67454,9 +64463,6 @@ target_link_options(GENERIC_G471VCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G471VCTX_MCU}
-)
-target_link_libraries(GENERIC_G471VCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G471VCTX_serial_disabled INTERFACE)
@@ -67540,9 +64546,6 @@ target_link_options(GENERIC_G471VEHX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G471VEHX_MCU}
 )
-target_link_libraries(GENERIC_G471VEHX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G471VEHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G471VEHX_serial_disabled INTERFACE
@@ -67624,9 +64627,6 @@ target_link_options(GENERIC_G471VEIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G471VEIX_MCU}
-)
-target_link_libraries(GENERIC_G471VEIX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G471VEIX_serial_disabled INTERFACE)
@@ -67710,9 +64710,6 @@ target_link_options(GENERIC_G471VETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G471VETX_MCU}
 )
-target_link_libraries(GENERIC_G471VETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G471VETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G471VETX_serial_disabled INTERFACE
@@ -67794,9 +64791,6 @@ target_link_options(GENERIC_G473CBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473CBTX_MCU}
-)
-target_link_libraries(GENERIC_G473CBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G473CBTX_serial_disabled INTERFACE)
@@ -67880,9 +64874,6 @@ target_link_options(GENERIC_G473CCTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473CCTX_MCU}
 )
-target_link_libraries(GENERIC_G473CCTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G473CCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G473CCTX_serial_disabled INTERFACE
@@ -67964,9 +64955,6 @@ target_link_options(GENERIC_G473CETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473CETX_MCU}
-)
-target_link_libraries(GENERIC_G473CETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G473CETX_serial_disabled INTERFACE)
@@ -68050,9 +65038,6 @@ target_link_options(GENERIC_G473MBTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473MBTX_MCU}
 )
-target_link_libraries(GENERIC_G473MBTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G473MBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G473MBTX_serial_disabled INTERFACE
@@ -68134,9 +65119,6 @@ target_link_options(GENERIC_G473MCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473MCTX_MCU}
-)
-target_link_libraries(GENERIC_G473MCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G473MCTX_serial_disabled INTERFACE)
@@ -68220,9 +65202,6 @@ target_link_options(GENERIC_G473METX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473METX_MCU}
 )
-target_link_libraries(GENERIC_G473METX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G473METX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G473METX_serial_disabled INTERFACE
@@ -68304,9 +65283,6 @@ target_link_options(GENERIC_G473PBIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473PBIX_MCU}
-)
-target_link_libraries(GENERIC_G473PBIX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G473PBIX_serial_disabled INTERFACE)
@@ -68390,9 +65366,6 @@ target_link_options(GENERIC_G473PCIX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473PCIX_MCU}
 )
-target_link_libraries(GENERIC_G473PCIX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G473PCIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G473PCIX_serial_disabled INTERFACE
@@ -68474,9 +65447,6 @@ target_link_options(GENERIC_G473PEIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473PEIX_MCU}
-)
-target_link_libraries(GENERIC_G473PEIX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G473PEIX_serial_disabled INTERFACE)
@@ -68560,9 +65530,6 @@ target_link_options(GENERIC_G473QBTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473QBTX_MCU}
 )
-target_link_libraries(GENERIC_G473QBTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G473QBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G473QBTX_serial_disabled INTERFACE
@@ -68644,9 +65611,6 @@ target_link_options(GENERIC_G473QCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473QCTX_MCU}
-)
-target_link_libraries(GENERIC_G473QCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G473QCTX_serial_disabled INTERFACE)
@@ -68730,9 +65694,6 @@ target_link_options(GENERIC_G473QETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473QETX_MCU}
 )
-target_link_libraries(GENERIC_G473QETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G473QETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G473QETX_serial_disabled INTERFACE
@@ -68814,9 +65775,6 @@ target_link_options(GENERIC_G473RBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473RBTX_MCU}
-)
-target_link_libraries(GENERIC_G473RBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G473RBTX_serial_disabled INTERFACE)
@@ -68900,9 +65858,6 @@ target_link_options(GENERIC_G473RCTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473RCTX_MCU}
 )
-target_link_libraries(GENERIC_G473RCTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G473RCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G473RCTX_serial_disabled INTERFACE
@@ -68984,9 +65939,6 @@ target_link_options(GENERIC_G473RETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473RETX_MCU}
-)
-target_link_libraries(GENERIC_G473RETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G473RETX_serial_disabled INTERFACE)
@@ -69070,9 +66022,6 @@ target_link_options(GENERIC_G473VBHX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473VBHX_MCU}
 )
-target_link_libraries(GENERIC_G473VBHX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G473VBHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G473VBHX_serial_disabled INTERFACE
@@ -69154,9 +66103,6 @@ target_link_options(GENERIC_G473VBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473VBTX_MCU}
-)
-target_link_libraries(GENERIC_G473VBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G473VBTX_serial_disabled INTERFACE)
@@ -69240,9 +66186,6 @@ target_link_options(GENERIC_G473VCHX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473VCHX_MCU}
 )
-target_link_libraries(GENERIC_G473VCHX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G473VCHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G473VCHX_serial_disabled INTERFACE
@@ -69324,9 +66267,6 @@ target_link_options(GENERIC_G473VCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473VCTX_MCU}
-)
-target_link_libraries(GENERIC_G473VCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G473VCTX_serial_disabled INTERFACE)
@@ -69410,9 +66350,6 @@ target_link_options(GENERIC_G473VEHX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473VEHX_MCU}
 )
-target_link_libraries(GENERIC_G473VEHX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G473VEHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G473VEHX_serial_disabled INTERFACE
@@ -69494,9 +66431,6 @@ target_link_options(GENERIC_G473VETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G473VETX_MCU}
-)
-target_link_libraries(GENERIC_G473VETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G473VETX_serial_disabled INTERFACE)
@@ -69580,9 +66514,6 @@ target_link_options(GENERIC_G474CBTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474CBTX_MCU}
 )
-target_link_libraries(GENERIC_G474CBTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G474CBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G474CBTX_serial_disabled INTERFACE
@@ -69664,9 +66595,6 @@ target_link_options(GENERIC_G474CCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474CCTX_MCU}
-)
-target_link_libraries(GENERIC_G474CCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G474CCTX_serial_disabled INTERFACE)
@@ -69750,9 +66678,6 @@ target_link_options(GENERIC_G474CETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474CETX_MCU}
 )
-target_link_libraries(GENERIC_G474CETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G474CETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G474CETX_serial_disabled INTERFACE
@@ -69834,9 +66759,6 @@ target_link_options(GENERIC_G474MBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474MBTX_MCU}
-)
-target_link_libraries(GENERIC_G474MBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G474MBTX_serial_disabled INTERFACE)
@@ -69920,9 +66842,6 @@ target_link_options(GENERIC_G474MCTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474MCTX_MCU}
 )
-target_link_libraries(GENERIC_G474MCTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G474MCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G474MCTX_serial_disabled INTERFACE
@@ -70004,9 +66923,6 @@ target_link_options(GENERIC_G474METX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474METX_MCU}
-)
-target_link_libraries(GENERIC_G474METX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G474METX_serial_disabled INTERFACE)
@@ -70090,9 +67006,6 @@ target_link_options(GENERIC_G474PBIX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474PBIX_MCU}
 )
-target_link_libraries(GENERIC_G474PBIX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G474PBIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G474PBIX_serial_disabled INTERFACE
@@ -70174,9 +67087,6 @@ target_link_options(GENERIC_G474PCIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474PCIX_MCU}
-)
-target_link_libraries(GENERIC_G474PCIX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G474PCIX_serial_disabled INTERFACE)
@@ -70260,9 +67170,6 @@ target_link_options(GENERIC_G474PEIX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474PEIX_MCU}
 )
-target_link_libraries(GENERIC_G474PEIX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G474PEIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G474PEIX_serial_disabled INTERFACE
@@ -70344,9 +67251,6 @@ target_link_options(GENERIC_G474QBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474QBTX_MCU}
-)
-target_link_libraries(GENERIC_G474QBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G474QBTX_serial_disabled INTERFACE)
@@ -70430,9 +67334,6 @@ target_link_options(GENERIC_G474QCTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474QCTX_MCU}
 )
-target_link_libraries(GENERIC_G474QCTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G474QCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G474QCTX_serial_disabled INTERFACE
@@ -70514,9 +67415,6 @@ target_link_options(GENERIC_G474QETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474QETX_MCU}
-)
-target_link_libraries(GENERIC_G474QETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G474QETX_serial_disabled INTERFACE)
@@ -70600,9 +67498,6 @@ target_link_options(GENERIC_G474RBTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474RBTX_MCU}
 )
-target_link_libraries(GENERIC_G474RBTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G474RBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G474RBTX_serial_disabled INTERFACE
@@ -70684,9 +67579,6 @@ target_link_options(GENERIC_G474RCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474RCTX_MCU}
-)
-target_link_libraries(GENERIC_G474RCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G474RCTX_serial_disabled INTERFACE)
@@ -70770,9 +67662,6 @@ target_link_options(GENERIC_G474RETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474RETX_MCU}
 )
-target_link_libraries(GENERIC_G474RETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G474RETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G474RETX_serial_disabled INTERFACE
@@ -70854,9 +67743,6 @@ target_link_options(GENERIC_G474VBHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474VBHX_MCU}
-)
-target_link_libraries(GENERIC_G474VBHX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G474VBHX_serial_disabled INTERFACE)
@@ -70940,9 +67826,6 @@ target_link_options(GENERIC_G474VBTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474VBTX_MCU}
 )
-target_link_libraries(GENERIC_G474VBTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G474VBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G474VBTX_serial_disabled INTERFACE
@@ -71024,9 +67907,6 @@ target_link_options(GENERIC_G474VCHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474VCHX_MCU}
-)
-target_link_libraries(GENERIC_G474VCHX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G474VCHX_serial_disabled INTERFACE)
@@ -71110,9 +67990,6 @@ target_link_options(GENERIC_G474VCTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474VCTX_MCU}
 )
-target_link_libraries(GENERIC_G474VCTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G474VCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G474VCTX_serial_disabled INTERFACE
@@ -71194,9 +68071,6 @@ target_link_options(GENERIC_G474VEHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474VEHX_MCU}
-)
-target_link_libraries(GENERIC_G474VEHX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G474VEHX_serial_disabled INTERFACE)
@@ -71280,9 +68154,6 @@ target_link_options(GENERIC_G474VETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G474VETX_MCU}
 )
-target_link_libraries(GENERIC_G474VETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G474VETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G474VETX_serial_disabled INTERFACE
@@ -71364,9 +68235,6 @@ target_link_options(GENERIC_G483CETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G483CETX_MCU}
-)
-target_link_libraries(GENERIC_G483CETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G483CETX_serial_disabled INTERFACE)
@@ -71450,9 +68318,6 @@ target_link_options(GENERIC_G483METX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G483METX_MCU}
 )
-target_link_libraries(GENERIC_G483METX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G483METX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G483METX_serial_disabled INTERFACE
@@ -71534,9 +68399,6 @@ target_link_options(GENERIC_G483PEIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G483PEIX_MCU}
-)
-target_link_libraries(GENERIC_G483PEIX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G483PEIX_serial_disabled INTERFACE)
@@ -71620,9 +68482,6 @@ target_link_options(GENERIC_G483QETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G483QETX_MCU}
 )
-target_link_libraries(GENERIC_G483QETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G483QETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G483QETX_serial_disabled INTERFACE
@@ -71704,9 +68563,6 @@ target_link_options(GENERIC_G483RETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G483RETX_MCU}
-)
-target_link_libraries(GENERIC_G483RETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G483RETX_serial_disabled INTERFACE)
@@ -71790,9 +68646,6 @@ target_link_options(GENERIC_G483VEHX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G483VEHX_MCU}
 )
-target_link_libraries(GENERIC_G483VEHX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G483VEHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G483VEHX_serial_disabled INTERFACE
@@ -71874,9 +68727,6 @@ target_link_options(GENERIC_G483VETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G483VETX_MCU}
-)
-target_link_libraries(GENERIC_G483VETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G483VETX_serial_disabled INTERFACE)
@@ -71960,9 +68810,6 @@ target_link_options(GENERIC_G484CETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G484CETX_MCU}
 )
-target_link_libraries(GENERIC_G484CETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G484CETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G484CETX_serial_disabled INTERFACE
@@ -72044,9 +68891,6 @@ target_link_options(GENERIC_G484METX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G484METX_MCU}
-)
-target_link_libraries(GENERIC_G484METX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G484METX_serial_disabled INTERFACE)
@@ -72130,9 +68974,6 @@ target_link_options(GENERIC_G484PEIX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G484PEIX_MCU}
 )
-target_link_libraries(GENERIC_G484PEIX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G484PEIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G484PEIX_serial_disabled INTERFACE
@@ -72214,9 +69055,6 @@ target_link_options(GENERIC_G484QETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G484QETX_MCU}
-)
-target_link_libraries(GENERIC_G484QETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G484QETX_serial_disabled INTERFACE)
@@ -72300,9 +69138,6 @@ target_link_options(GENERIC_G484RETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G484RETX_MCU}
 )
-target_link_libraries(GENERIC_G484RETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G484RETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G484RETX_serial_disabled INTERFACE
@@ -72384,9 +69219,6 @@ target_link_options(GENERIC_G484VEHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G484VEHX_MCU}
-)
-target_link_libraries(GENERIC_G484VEHX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G484VEHX_serial_disabled INTERFACE)
@@ -72470,9 +69302,6 @@ target_link_options(GENERIC_G484VETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G484VETX_MCU}
 )
-target_link_libraries(GENERIC_G484VETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G484VETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G484VETX_serial_disabled INTERFACE
@@ -72554,9 +69383,6 @@ target_link_options(GENERIC_G491CCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G491CCTX_MCU}
-)
-target_link_libraries(GENERIC_G491CCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G491CCTX_serial_disabled INTERFACE)
@@ -72640,9 +69466,6 @@ target_link_options(GENERIC_G491CETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G491CETX_MCU}
 )
-target_link_libraries(GENERIC_G491CETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G491CETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G491CETX_serial_disabled INTERFACE
@@ -72724,9 +69547,6 @@ target_link_options(GENERIC_G491KCUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G491KCUX_MCU}
-)
-target_link_libraries(GENERIC_G491KCUX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G491KCUX_serial_disabled INTERFACE)
@@ -72810,9 +69630,6 @@ target_link_options(GENERIC_G491KEUX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G491KEUX_MCU}
 )
-target_link_libraries(GENERIC_G491KEUX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G491KEUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G491KEUX_serial_disabled INTERFACE
@@ -72894,9 +69711,6 @@ target_link_options(GENERIC_G491MCSX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G491MCSX_MCU}
-)
-target_link_libraries(GENERIC_G491MCSX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G491MCSX_serial_disabled INTERFACE)
@@ -72980,9 +69794,6 @@ target_link_options(GENERIC_G491MCTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G491MCTX_MCU}
 )
-target_link_libraries(GENERIC_G491MCTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G491MCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G491MCTX_serial_disabled INTERFACE
@@ -73064,9 +69875,6 @@ target_link_options(GENERIC_G491MESX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G491MESX_MCU}
-)
-target_link_libraries(GENERIC_G491MESX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G491MESX_serial_disabled INTERFACE)
@@ -73150,9 +69958,6 @@ target_link_options(GENERIC_G491METX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G491METX_MCU}
 )
-target_link_libraries(GENERIC_G491METX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G491METX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G491METX_serial_disabled INTERFACE
@@ -73234,9 +70039,6 @@ target_link_options(GENERIC_G491RCIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G491RCIX_MCU}
-)
-target_link_libraries(GENERIC_G491RCIX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G491RCIX_serial_disabled INTERFACE)
@@ -73320,9 +70122,6 @@ target_link_options(GENERIC_G491RCTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G491RCTX_MCU}
 )
-target_link_libraries(GENERIC_G491RCTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G491RCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G491RCTX_serial_disabled INTERFACE
@@ -73404,9 +70203,6 @@ target_link_options(GENERIC_G491REIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G491REIX_MCU}
-)
-target_link_libraries(GENERIC_G491REIX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G491REIX_serial_disabled INTERFACE)
@@ -73490,9 +70286,6 @@ target_link_options(GENERIC_G491RETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G491RETX_MCU}
 )
-target_link_libraries(GENERIC_G491RETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G491RETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G491RETX_serial_disabled INTERFACE
@@ -73574,9 +70367,6 @@ target_link_options(GENERIC_G491REYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G491REYX_MCU}
-)
-target_link_libraries(GENERIC_G491REYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G491REYX_serial_disabled INTERFACE)
@@ -73660,9 +70450,6 @@ target_link_options(GENERIC_G491VCTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G491VCTX_MCU}
 )
-target_link_libraries(GENERIC_G491VCTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G491VCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G491VCTX_serial_disabled INTERFACE
@@ -73744,9 +70531,6 @@ target_link_options(GENERIC_G491VETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G491VETX_MCU}
-)
-target_link_libraries(GENERIC_G491VETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G491VETX_serial_disabled INTERFACE)
@@ -73830,9 +70614,6 @@ target_link_options(GENERIC_G4A1CETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G4A1CETX_MCU}
 )
-target_link_libraries(GENERIC_G4A1CETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G4A1CETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G4A1CETX_serial_disabled INTERFACE
@@ -73914,9 +70695,6 @@ target_link_options(GENERIC_G4A1KEUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G4A1KEUX_MCU}
-)
-target_link_libraries(GENERIC_G4A1KEUX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G4A1KEUX_serial_disabled INTERFACE)
@@ -74000,9 +70778,6 @@ target_link_options(GENERIC_G4A1MESX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G4A1MESX_MCU}
 )
-target_link_libraries(GENERIC_G4A1MESX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G4A1MESX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G4A1MESX_serial_disabled INTERFACE
@@ -74084,9 +70859,6 @@ target_link_options(GENERIC_G4A1METX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G4A1METX_MCU}
-)
-target_link_libraries(GENERIC_G4A1METX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G4A1METX_serial_disabled INTERFACE)
@@ -74170,9 +70942,6 @@ target_link_options(GENERIC_G4A1REIX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G4A1REIX_MCU}
 )
-target_link_libraries(GENERIC_G4A1REIX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G4A1REIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G4A1REIX_serial_disabled INTERFACE
@@ -74254,9 +71023,6 @@ target_link_options(GENERIC_G4A1RETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G4A1RETX_MCU}
-)
-target_link_libraries(GENERIC_G4A1RETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G4A1RETX_serial_disabled INTERFACE)
@@ -74340,9 +71106,6 @@ target_link_options(GENERIC_G4A1REYX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G4A1REYX_MCU}
 )
-target_link_libraries(GENERIC_G4A1REYX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_G4A1REYX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_G4A1REYX_serial_disabled INTERFACE
@@ -74424,9 +71187,6 @@ target_link_options(GENERIC_G4A1VETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_G4A1VETX_MCU}
-)
-target_link_libraries(GENERIC_G4A1VETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_G4A1VETX_serial_disabled INTERFACE)
@@ -74510,9 +71270,6 @@ target_link_options(GENERIC_H563IIKXQ INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H563IIKXQ_MCU}
 )
-target_link_libraries(GENERIC_H563IIKXQ INTERFACE
-  arm_ARMv8MMLlfsp_math
-)
 
 add_library(GENERIC_H563IIKXQ_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H563IIKXQ_serial_disabled INTERFACE
@@ -74594,9 +71351,6 @@ target_link_options(GENERIC_H563ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=655360"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H563ZGTX_MCU}
-)
-target_link_libraries(GENERIC_H563ZGTX INTERFACE
-  arm_ARMv8MMLlfsp_math
 )
 
 add_library(GENERIC_H563ZGTX_serial_disabled INTERFACE)
@@ -74680,9 +71434,6 @@ target_link_options(GENERIC_H563ZITX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H563ZITX_MCU}
 )
-target_link_libraries(GENERIC_H563ZITX INTERFACE
-  arm_ARMv8MMLlfsp_math
-)
 
 add_library(GENERIC_H563ZITX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H563ZITX_serial_disabled INTERFACE
@@ -74764,9 +71515,6 @@ target_link_options(GENERIC_H573IIKXQ INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=655360"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H573IIKXQ_MCU}
-)
-target_link_libraries(GENERIC_H573IIKXQ INTERFACE
-  arm_ARMv8MMLlfsp_math
 )
 
 add_library(GENERIC_H573IIKXQ_serial_disabled INTERFACE)
@@ -74850,9 +71598,6 @@ target_link_options(GENERIC_H573ZITX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H573ZITX_MCU}
 )
-target_link_libraries(GENERIC_H573ZITX INTERFACE
-  arm_ARMv8MMLlfsp_math
-)
 
 add_library(GENERIC_H573ZITX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H573ZITX_serial_disabled INTERFACE
@@ -74934,9 +71679,6 @@ target_link_options(GENERIC_H723ZETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H723ZETX_MCU}
-)
-target_link_libraries(GENERIC_H723ZETX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H723ZETX_serial_disabled INTERFACE)
@@ -75020,9 +71762,6 @@ target_link_options(GENERIC_H723ZGTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H723ZGTX_MCU}
 )
-target_link_libraries(GENERIC_H723ZGTX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_H723ZGTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H723ZGTX_serial_disabled INTERFACE
@@ -75104,9 +71843,6 @@ target_link_options(GENERIC_H730ZBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H730ZBTX_MCU}
-)
-target_link_libraries(GENERIC_H730ZBTX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H730ZBTX_serial_disabled INTERFACE)
@@ -75190,9 +71926,6 @@ target_link_options(GENERIC_H733ZGTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H733ZGTX_MCU}
 )
-target_link_libraries(GENERIC_H733ZGTX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_H733ZGTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H733ZGTX_serial_disabled INTERFACE
@@ -75274,9 +72007,6 @@ target_link_options(GENERIC_H742IGKX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H742IGKX_MCU}
-)
-target_link_libraries(GENERIC_H742IGKX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H742IGKX_serial_disabled INTERFACE)
@@ -75360,9 +72090,6 @@ target_link_options(GENERIC_H742IGTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H742IGTX_MCU}
 )
-target_link_libraries(GENERIC_H742IGTX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_H742IGTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H742IGTX_serial_disabled INTERFACE
@@ -75444,9 +72171,6 @@ target_link_options(GENERIC_H742IIKX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H742IIKX_MCU}
-)
-target_link_libraries(GENERIC_H742IIKX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H742IIKX_serial_disabled INTERFACE)
@@ -75530,9 +72254,6 @@ target_link_options(GENERIC_H742IITX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H742IITX_MCU}
 )
-target_link_libraries(GENERIC_H742IITX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_H742IITX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H742IITX_serial_disabled INTERFACE
@@ -75614,9 +72335,6 @@ target_link_options(GENERIC_H742VGHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H742VGHX_MCU}
-)
-target_link_libraries(GENERIC_H742VGHX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H742VGHX_serial_disabled INTERFACE)
@@ -75700,9 +72418,6 @@ target_link_options(GENERIC_H742VGTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H742VGTX_MCU}
 )
-target_link_libraries(GENERIC_H742VGTX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_H742VGTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H742VGTX_serial_disabled INTERFACE
@@ -75784,9 +72499,6 @@ target_link_options(GENERIC_H742VIHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H742VIHX_MCU}
-)
-target_link_libraries(GENERIC_H742VIHX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H742VIHX_serial_disabled INTERFACE)
@@ -75870,9 +72582,6 @@ target_link_options(GENERIC_H742VITX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H742VITX_MCU}
 )
-target_link_libraries(GENERIC_H742VITX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_H742VITX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H742VITX_serial_disabled INTERFACE
@@ -75954,9 +72663,6 @@ target_link_options(GENERIC_H742ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H742ZGTX_MCU}
-)
-target_link_libraries(GENERIC_H742ZGTX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H742ZGTX_serial_disabled INTERFACE)
@@ -76040,9 +72746,6 @@ target_link_options(GENERIC_H742ZITX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H742ZITX_MCU}
 )
-target_link_libraries(GENERIC_H742ZITX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_H742ZITX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H742ZITX_serial_disabled INTERFACE
@@ -76124,9 +72827,6 @@ target_link_options(GENERIC_H743IGKX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H743IGKX_MCU}
-)
-target_link_libraries(GENERIC_H743IGKX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H743IGKX_serial_disabled INTERFACE)
@@ -76210,9 +72910,6 @@ target_link_options(GENERIC_H743IGTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H743IGTX_MCU}
 )
-target_link_libraries(GENERIC_H743IGTX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_H743IGTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H743IGTX_serial_disabled INTERFACE
@@ -76294,9 +72991,6 @@ target_link_options(GENERIC_H743IIKX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H743IIKX_MCU}
-)
-target_link_libraries(GENERIC_H743IIKX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H743IIKX_serial_disabled INTERFACE)
@@ -76380,9 +73074,6 @@ target_link_options(GENERIC_H743IITX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H743IITX_MCU}
 )
-target_link_libraries(GENERIC_H743IITX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_H743IITX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H743IITX_serial_disabled INTERFACE
@@ -76464,9 +73155,6 @@ target_link_options(GENERIC_H743VGHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H743VGHX_MCU}
-)
-target_link_libraries(GENERIC_H743VGHX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H743VGHX_serial_disabled INTERFACE)
@@ -76550,9 +73238,6 @@ target_link_options(GENERIC_H743VGTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H743VGTX_MCU}
 )
-target_link_libraries(GENERIC_H743VGTX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_H743VGTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H743VGTX_serial_disabled INTERFACE
@@ -76634,9 +73319,6 @@ target_link_options(GENERIC_H743VIHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H743VIHX_MCU}
-)
-target_link_libraries(GENERIC_H743VIHX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H743VIHX_serial_disabled INTERFACE)
@@ -76720,9 +73402,6 @@ target_link_options(GENERIC_H743VITX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H743VITX_MCU}
 )
-target_link_libraries(GENERIC_H743VITX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_H743VITX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H743VITX_serial_disabled INTERFACE
@@ -76804,9 +73483,6 @@ target_link_options(GENERIC_H743ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H743ZGTX_MCU}
-)
-target_link_libraries(GENERIC_H743ZGTX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H743ZGTX_serial_disabled INTERFACE)
@@ -76890,9 +73566,6 @@ target_link_options(GENERIC_H743ZITX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H743ZITX_MCU}
 )
-target_link_libraries(GENERIC_H743ZITX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_H743ZITX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H743ZITX_serial_disabled INTERFACE
@@ -76974,9 +73647,6 @@ target_link_options(GENERIC_H747AGIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H747AGIX_MCU}
-)
-target_link_libraries(GENERIC_H747AGIX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H747AGIX_serial_disabled INTERFACE)
@@ -77060,9 +73730,6 @@ target_link_options(GENERIC_H747AIIX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H747AIIX_MCU}
 )
-target_link_libraries(GENERIC_H747AIIX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_H747AIIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H747AIIX_serial_disabled INTERFACE
@@ -77144,9 +73811,6 @@ target_link_options(GENERIC_H747IGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H747IGTX_MCU}
-)
-target_link_libraries(GENERIC_H747IGTX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H747IGTX_serial_disabled INTERFACE)
@@ -77230,9 +73894,6 @@ target_link_options(GENERIC_H747IITX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H747IITX_MCU}
 )
-target_link_libraries(GENERIC_H747IITX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_H747IITX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H747IITX_serial_disabled INTERFACE
@@ -77314,9 +73975,6 @@ target_link_options(GENERIC_H750IBKX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H750IBKX_MCU}
-)
-target_link_libraries(GENERIC_H750IBKX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H750IBKX_serial_disabled INTERFACE)
@@ -77400,9 +74058,6 @@ target_link_options(GENERIC_H750IBTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H750IBTX_MCU}
 )
-target_link_libraries(GENERIC_H750IBTX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_H750IBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H750IBTX_serial_disabled INTERFACE
@@ -77484,9 +74139,6 @@ target_link_options(GENERIC_H750VBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H750VBTX_MCU}
-)
-target_link_libraries(GENERIC_H750VBTX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H750VBTX_serial_disabled INTERFACE)
@@ -77570,9 +74222,6 @@ target_link_options(GENERIC_H750ZBTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H750ZBTX_MCU}
 )
-target_link_libraries(GENERIC_H750ZBTX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_H750ZBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H750ZBTX_serial_disabled INTERFACE
@@ -77654,9 +74303,6 @@ target_link_options(GENERIC_H753IIKX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H753IIKX_MCU}
-)
-target_link_libraries(GENERIC_H753IIKX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H753IIKX_serial_disabled INTERFACE)
@@ -77740,9 +74386,6 @@ target_link_options(GENERIC_H753IITX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H753IITX_MCU}
 )
-target_link_libraries(GENERIC_H753IITX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_H753IITX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H753IITX_serial_disabled INTERFACE
@@ -77824,9 +74467,6 @@ target_link_options(GENERIC_H753VIHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H753VIHX_MCU}
-)
-target_link_libraries(GENERIC_H753VIHX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H753VIHX_serial_disabled INTERFACE)
@@ -77910,9 +74550,6 @@ target_link_options(GENERIC_H753VITX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H753VITX_MCU}
 )
-target_link_libraries(GENERIC_H753VITX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_H753VITX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H753VITX_serial_disabled INTERFACE
@@ -77994,9 +74631,6 @@ target_link_options(GENERIC_H753ZITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H753ZITX_MCU}
-)
-target_link_libraries(GENERIC_H753ZITX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H753ZITX_serial_disabled INTERFACE)
@@ -78080,9 +74714,6 @@ target_link_options(GENERIC_H757AIIX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H757AIIX_MCU}
 )
-target_link_libraries(GENERIC_H757AIIX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(GENERIC_H757AIIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_H757AIIX_serial_disabled INTERFACE
@@ -78164,9 +74795,6 @@ target_link_options(GENERIC_H757IITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H757IITX_MCU}
-)
-target_link_libraries(GENERIC_H757IITX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(GENERIC_H757IITX_serial_disabled INTERFACE)
@@ -78250,9 +74878,6 @@ target_link_options(GENERIC_L010C6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L010C6TX_MCU}
 )
-target_link_libraries(GENERIC_L010C6TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L010C6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L010C6TX_serial_disabled INTERFACE
@@ -78322,9 +74947,6 @@ target_link_options(GENERIC_L010F4PX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=2048"
   "SHELL: "
   -mcpu=${GENERIC_L010F4PX_MCU}
-)
-target_link_libraries(GENERIC_L010F4PX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L010F4PX_serial_disabled INTERFACE)
@@ -78396,9 +75018,6 @@ target_link_options(GENERIC_L010K4TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L010K4TX_MCU}
 )
-target_link_libraries(GENERIC_L010K4TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L010K4TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L010K4TX_serial_disabled INTERFACE
@@ -78468,9 +75087,6 @@ target_link_options(GENERIC_L010R8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L010R8TX_MCU}
-)
-target_link_libraries(GENERIC_L010R8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L010R8TX_serial_disabled INTERFACE)
@@ -78542,9 +75158,6 @@ target_link_options(GENERIC_L010RBTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L010RBTX_MCU}
 )
-target_link_libraries(GENERIC_L010RBTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L010RBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L010RBTX_serial_disabled INTERFACE
@@ -78614,9 +75227,6 @@ target_link_options(GENERIC_L011D3PX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=2048"
   "SHELL: "
   -mcpu=${GENERIC_L011D3PX_MCU}
-)
-target_link_libraries(GENERIC_L011D3PX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L011D3PX_serial_disabled INTERFACE)
@@ -78688,9 +75298,6 @@ target_link_options(GENERIC_L011D4PX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L011D4PX_MCU}
 )
-target_link_libraries(GENERIC_L011D4PX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L011D4PX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L011D4PX_serial_disabled INTERFACE
@@ -78760,9 +75367,6 @@ target_link_options(GENERIC_L011E3YX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=2048"
   "SHELL: "
   -mcpu=${GENERIC_L011E3YX_MCU}
-)
-target_link_libraries(GENERIC_L011E3YX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L011E3YX_serial_disabled INTERFACE)
@@ -78834,9 +75438,6 @@ target_link_options(GENERIC_L011E4YX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L011E4YX_MCU}
 )
-target_link_libraries(GENERIC_L011E4YX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L011E4YX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L011E4YX_serial_disabled INTERFACE
@@ -78906,9 +75507,6 @@ target_link_options(GENERIC_L011F3PX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=2048"
   "SHELL: "
   -mcpu=${GENERIC_L011F3PX_MCU}
-)
-target_link_libraries(GENERIC_L011F3PX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L011F3PX_serial_disabled INTERFACE)
@@ -78980,9 +75578,6 @@ target_link_options(GENERIC_L011F3UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L011F3UX_MCU}
 )
-target_link_libraries(GENERIC_L011F3UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L011F3UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L011F3UX_serial_disabled INTERFACE
@@ -79052,9 +75647,6 @@ target_link_options(GENERIC_L011F4PX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=2048"
   "SHELL: "
   -mcpu=${GENERIC_L011F4PX_MCU}
-)
-target_link_libraries(GENERIC_L011F4PX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L011F4PX_serial_disabled INTERFACE)
@@ -79126,9 +75718,6 @@ target_link_options(GENERIC_L011F4UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L011F4UX_MCU}
 )
-target_link_libraries(GENERIC_L011F4UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L011F4UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L011F4UX_serial_disabled INTERFACE
@@ -79198,9 +75787,6 @@ target_link_options(GENERIC_L011G3UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=2048"
   "SHELL: "
   -mcpu=${GENERIC_L011G3UX_MCU}
-)
-target_link_libraries(GENERIC_L011G3UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L011G3UX_serial_disabled INTERFACE)
@@ -79272,9 +75858,6 @@ target_link_options(GENERIC_L011G4UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L011G4UX_MCU}
 )
-target_link_libraries(GENERIC_L011G4UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L011G4UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L011G4UX_serial_disabled INTERFACE
@@ -79344,9 +75927,6 @@ target_link_options(GENERIC_L011K3TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=2048"
   "SHELL: "
   -mcpu=${GENERIC_L011K3TX_MCU}
-)
-target_link_libraries(GENERIC_L011K3TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L011K3TX_serial_disabled INTERFACE)
@@ -79418,9 +75998,6 @@ target_link_options(GENERIC_L011K3UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L011K3UX_MCU}
 )
-target_link_libraries(GENERIC_L011K3UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L011K3UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L011K3UX_serial_disabled INTERFACE
@@ -79490,9 +76067,6 @@ target_link_options(GENERIC_L011K4TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=2048"
   "SHELL: "
   -mcpu=${GENERIC_L011K4TX_MCU}
-)
-target_link_libraries(GENERIC_L011K4TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L011K4TX_serial_disabled INTERFACE)
@@ -79564,9 +76138,6 @@ target_link_options(GENERIC_L011K4UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L011K4UX_MCU}
 )
-target_link_libraries(GENERIC_L011K4UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L011K4UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L011K4UX_serial_disabled INTERFACE
@@ -79636,9 +76207,6 @@ target_link_options(GENERIC_L021D4PX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=2048"
   "SHELL: "
   -mcpu=${GENERIC_L021D4PX_MCU}
-)
-target_link_libraries(GENERIC_L021D4PX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L021D4PX_serial_disabled INTERFACE)
@@ -79710,9 +76278,6 @@ target_link_options(GENERIC_L021F4PX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L021F4PX_MCU}
 )
-target_link_libraries(GENERIC_L021F4PX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L021F4PX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L021F4PX_serial_disabled INTERFACE
@@ -79782,9 +76347,6 @@ target_link_options(GENERIC_L021F4UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=2048"
   "SHELL: "
   -mcpu=${GENERIC_L021F4UX_MCU}
-)
-target_link_libraries(GENERIC_L021F4UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L021F4UX_serial_disabled INTERFACE)
@@ -79856,9 +76418,6 @@ target_link_options(GENERIC_L021G4UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L021G4UX_MCU}
 )
-target_link_libraries(GENERIC_L021G4UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L021G4UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L021G4UX_serial_disabled INTERFACE
@@ -79928,9 +76487,6 @@ target_link_options(GENERIC_L021K4TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=2048"
   "SHELL: "
   -mcpu=${GENERIC_L021K4TX_MCU}
-)
-target_link_libraries(GENERIC_L021K4TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L021K4TX_serial_disabled INTERFACE)
@@ -80002,9 +76558,6 @@ target_link_options(GENERIC_L021K4UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L021K4UX_MCU}
 )
-target_link_libraries(GENERIC_L021K4UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L021K4UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L021K4UX_serial_disabled INTERFACE
@@ -80074,9 +76627,6 @@ target_link_options(GENERIC_L031C4TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L031C4TX_MCU}
-)
-target_link_libraries(GENERIC_L031C4TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L031C4TX_serial_disabled INTERFACE)
@@ -80148,9 +76698,6 @@ target_link_options(GENERIC_L031C4UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L031C4UX_MCU}
 )
-target_link_libraries(GENERIC_L031C4UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L031C4UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L031C4UX_serial_disabled INTERFACE
@@ -80220,9 +76767,6 @@ target_link_options(GENERIC_L031C6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L031C6TX_MCU}
-)
-target_link_libraries(GENERIC_L031C6TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L031C6TX_serial_disabled INTERFACE)
@@ -80294,9 +76838,6 @@ target_link_options(GENERIC_L031C6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L031C6UX_MCU}
 )
-target_link_libraries(GENERIC_L031C6UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L031C6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L031C6UX_serial_disabled INTERFACE
@@ -80366,9 +76907,6 @@ target_link_options(GENERIC_L031E4YX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L031E4YX_MCU}
-)
-target_link_libraries(GENERIC_L031E4YX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L031E4YX_serial_disabled INTERFACE)
@@ -80440,9 +76978,6 @@ target_link_options(GENERIC_L031E6YX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L031E6YX_MCU}
 )
-target_link_libraries(GENERIC_L031E6YX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L031E6YX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L031E6YX_serial_disabled INTERFACE
@@ -80512,9 +77047,6 @@ target_link_options(GENERIC_L031F4PX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L031F4PX_MCU}
-)
-target_link_libraries(GENERIC_L031F4PX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L031F4PX_serial_disabled INTERFACE)
@@ -80586,9 +77118,6 @@ target_link_options(GENERIC_L031F6PX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L031F6PX_MCU}
 )
-target_link_libraries(GENERIC_L031F6PX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L031F6PX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L031F6PX_serial_disabled INTERFACE
@@ -80658,9 +77187,6 @@ target_link_options(GENERIC_L031G4UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L031G4UX_MCU}
-)
-target_link_libraries(GENERIC_L031G4UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L031G4UX_serial_disabled INTERFACE)
@@ -80732,9 +77258,6 @@ target_link_options(GENERIC_L031G6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L031G6UX_MCU}
 )
-target_link_libraries(GENERIC_L031G6UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L031G6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L031G6UX_serial_disabled INTERFACE
@@ -80804,9 +77327,6 @@ target_link_options(GENERIC_L031K4TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L031K4TX_MCU}
-)
-target_link_libraries(GENERIC_L031K4TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L031K4TX_serial_disabled INTERFACE)
@@ -80878,9 +77398,6 @@ target_link_options(GENERIC_L031K6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L031K6TX_MCU}
 )
-target_link_libraries(GENERIC_L031K6TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L031K6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L031K6TX_serial_disabled INTERFACE
@@ -80950,9 +77467,6 @@ target_link_options(GENERIC_L041C4TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L041C4TX_MCU}
-)
-target_link_libraries(GENERIC_L041C4TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L041C4TX_serial_disabled INTERFACE)
@@ -81024,9 +77538,6 @@ target_link_options(GENERIC_L041C6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L041C6TX_MCU}
 )
-target_link_libraries(GENERIC_L041C6TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L041C6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L041C6TX_serial_disabled INTERFACE
@@ -81096,9 +77607,6 @@ target_link_options(GENERIC_L041C6UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L041C6UX_MCU}
-)
-target_link_libraries(GENERIC_L041C6UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L041C6UX_serial_disabled INTERFACE)
@@ -81170,9 +77678,6 @@ target_link_options(GENERIC_L041E6YX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L041E6YX_MCU}
 )
-target_link_libraries(GENERIC_L041E6YX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L041E6YX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L041E6YX_serial_disabled INTERFACE
@@ -81242,9 +77747,6 @@ target_link_options(GENERIC_L041F6PX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L041F6PX_MCU}
-)
-target_link_libraries(GENERIC_L041F6PX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L041F6PX_serial_disabled INTERFACE)
@@ -81316,9 +77818,6 @@ target_link_options(GENERIC_L041G6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L041G6UX_MCU}
 )
-target_link_libraries(GENERIC_L041G6UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L041G6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L041G6UX_serial_disabled INTERFACE
@@ -81388,9 +77887,6 @@ target_link_options(GENERIC_L041K6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L041K6TX_MCU}
-)
-target_link_libraries(GENERIC_L041K6TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L041K6TX_serial_disabled INTERFACE)
@@ -81462,9 +77958,6 @@ target_link_options(GENERIC_L051C6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L051C6TX_MCU}
 )
-target_link_libraries(GENERIC_L051C6TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L051C6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L051C6TX_serial_disabled INTERFACE
@@ -81534,9 +78027,6 @@ target_link_options(GENERIC_L051C6UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L051C6UX_MCU}
-)
-target_link_libraries(GENERIC_L051C6UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L051C6UX_serial_disabled INTERFACE)
@@ -81608,9 +78098,6 @@ target_link_options(GENERIC_L051C8TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L051C8TX_MCU}
 )
-target_link_libraries(GENERIC_L051C8TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L051C8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L051C8TX_serial_disabled INTERFACE
@@ -81680,9 +78167,6 @@ target_link_options(GENERIC_L051C8UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L051C8UX_MCU}
-)
-target_link_libraries(GENERIC_L051C8UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L051C8UX_serial_disabled INTERFACE)
@@ -81754,9 +78238,6 @@ target_link_options(GENERIC_L052C6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L052C6TX_MCU}
 )
-target_link_libraries(GENERIC_L052C6TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L052C6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L052C6TX_serial_disabled INTERFACE
@@ -81826,9 +78307,6 @@ target_link_options(GENERIC_L052C6UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L052C6UX_MCU}
-)
-target_link_libraries(GENERIC_L052C6UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L052C6UX_serial_disabled INTERFACE)
@@ -81900,9 +78378,6 @@ target_link_options(GENERIC_L052C8TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L052C8TX_MCU}
 )
-target_link_libraries(GENERIC_L052C8TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L052C8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L052C8TX_serial_disabled INTERFACE
@@ -81972,9 +78447,6 @@ target_link_options(GENERIC_L052C8UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L052C8UX_MCU}
-)
-target_link_libraries(GENERIC_L052C8UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L052C8UX_serial_disabled INTERFACE)
@@ -82046,9 +78518,6 @@ target_link_options(GENERIC_L052K6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L052K6TX_MCU}
 )
-target_link_libraries(GENERIC_L052K6TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L052K6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L052K6TX_serial_disabled INTERFACE
@@ -82118,9 +78587,6 @@ target_link_options(GENERIC_L052K8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L052K8TX_MCU}
-)
-target_link_libraries(GENERIC_L052K8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L052K8TX_serial_disabled INTERFACE)
@@ -82192,9 +78658,6 @@ target_link_options(GENERIC_L052R6HX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L052R6HX_MCU}
 )
-target_link_libraries(GENERIC_L052R6HX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L052R6HX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L052R6HX_serial_disabled INTERFACE
@@ -82264,9 +78727,6 @@ target_link_options(GENERIC_L052R6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L052R6TX_MCU}
-)
-target_link_libraries(GENERIC_L052R6TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L052R6TX_serial_disabled INTERFACE)
@@ -82338,9 +78798,6 @@ target_link_options(GENERIC_L052R8HX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L052R8HX_MCU}
 )
-target_link_libraries(GENERIC_L052R8HX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L052R8HX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L052R8HX_serial_disabled INTERFACE
@@ -82410,9 +78867,6 @@ target_link_options(GENERIC_L052R8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L052R8TX_MCU}
-)
-target_link_libraries(GENERIC_L052R8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L052R8TX_serial_disabled INTERFACE)
@@ -82484,9 +78938,6 @@ target_link_options(GENERIC_L052T6YX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L052T6YX_MCU}
 )
-target_link_libraries(GENERIC_L052T6YX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L052T6YX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L052T6YX_serial_disabled INTERFACE
@@ -82556,9 +79007,6 @@ target_link_options(GENERIC_L052T8FX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L052T8FX_MCU}
-)
-target_link_libraries(GENERIC_L052T8FX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L052T8FX_serial_disabled INTERFACE)
@@ -82630,9 +79078,6 @@ target_link_options(GENERIC_L052T8YX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L052T8YX_MCU}
 )
-target_link_libraries(GENERIC_L052T8YX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L052T8YX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L052T8YX_serial_disabled INTERFACE
@@ -82702,9 +79147,6 @@ target_link_options(GENERIC_L053C6TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L053C6TX_MCU}
-)
-target_link_libraries(GENERIC_L053C6TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L053C6TX_serial_disabled INTERFACE)
@@ -82776,9 +79218,6 @@ target_link_options(GENERIC_L053C6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L053C6UX_MCU}
 )
-target_link_libraries(GENERIC_L053C6UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L053C6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L053C6UX_serial_disabled INTERFACE
@@ -82848,9 +79287,6 @@ target_link_options(GENERIC_L053C8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L053C8TX_MCU}
-)
-target_link_libraries(GENERIC_L053C8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L053C8TX_serial_disabled INTERFACE)
@@ -82922,9 +79358,6 @@ target_link_options(GENERIC_L053C8UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L053C8UX_MCU}
 )
-target_link_libraries(GENERIC_L053C8UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L053C8UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L053C8UX_serial_disabled INTERFACE
@@ -82994,9 +79427,6 @@ target_link_options(GENERIC_L053R6HX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L053R6HX_MCU}
-)
-target_link_libraries(GENERIC_L053R6HX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L053R6HX_serial_disabled INTERFACE)
@@ -83068,9 +79498,6 @@ target_link_options(GENERIC_L053R6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L053R6TX_MCU}
 )
-target_link_libraries(GENERIC_L053R6TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L053R6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L053R6TX_serial_disabled INTERFACE
@@ -83140,9 +79567,6 @@ target_link_options(GENERIC_L053R8HX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L053R8HX_MCU}
-)
-target_link_libraries(GENERIC_L053R8HX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L053R8HX_serial_disabled INTERFACE)
@@ -83214,9 +79638,6 @@ target_link_options(GENERIC_L053R8TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L053R8TX_MCU}
 )
-target_link_libraries(GENERIC_L053R8TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L053R8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L053R8TX_serial_disabled INTERFACE
@@ -83286,9 +79707,6 @@ target_link_options(GENERIC_L062C8UX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L062C8UX_MCU}
-)
-target_link_libraries(GENERIC_L062C8UX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L062C8UX_serial_disabled INTERFACE)
@@ -83360,9 +79778,6 @@ target_link_options(GENERIC_L062K8TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L062K8TX_MCU}
 )
-target_link_libraries(GENERIC_L062K8TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L062K8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L062K8TX_serial_disabled INTERFACE
@@ -83432,9 +79847,6 @@ target_link_options(GENERIC_L063C8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L063C8TX_MCU}
-)
-target_link_libraries(GENERIC_L063C8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L063C8TX_serial_disabled INTERFACE)
@@ -83506,9 +79918,6 @@ target_link_options(GENERIC_L063C8UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L063C8UX_MCU}
 )
-target_link_libraries(GENERIC_L063C8UX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L063C8UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L063C8UX_serial_disabled INTERFACE
@@ -83578,9 +79987,6 @@ target_link_options(GENERIC_L063R8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${GENERIC_L063R8TX_MCU}
-)
-target_link_libraries(GENERIC_L063R8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L063R8TX_serial_disabled INTERFACE)
@@ -83652,9 +80058,6 @@ target_link_options(GENERIC_L072CBTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L072CBTX_MCU}
 )
-target_link_libraries(GENERIC_L072CBTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L072CBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L072CBTX_serial_disabled INTERFACE
@@ -83724,9 +80127,6 @@ target_link_options(GENERIC_L072CBUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L072CBUX_MCU}
-)
-target_link_libraries(GENERIC_L072CBUX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L072CBUX_serial_disabled INTERFACE)
@@ -83798,9 +80198,6 @@ target_link_options(GENERIC_L072CBYX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L072CBYX_MCU}
 )
-target_link_libraries(GENERIC_L072CBYX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L072CBYX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L072CBYX_serial_disabled INTERFACE
@@ -83870,9 +80267,6 @@ target_link_options(GENERIC_L072CZEX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L072CZEX_MCU}
-)
-target_link_libraries(GENERIC_L072CZEX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L072CZEX_serial_disabled INTERFACE)
@@ -83944,9 +80338,6 @@ target_link_options(GENERIC_L072CZTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L072CZTX_MCU}
 )
-target_link_libraries(GENERIC_L072CZTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L072CZTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L072CZTX_serial_disabled INTERFACE
@@ -84016,9 +80407,6 @@ target_link_options(GENERIC_L072CZUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L072CZUX_MCU}
-)
-target_link_libraries(GENERIC_L072CZUX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L072CZUX_serial_disabled INTERFACE)
@@ -84090,9 +80478,6 @@ target_link_options(GENERIC_L072CZYX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L072CZYX_MCU}
 )
-target_link_libraries(GENERIC_L072CZYX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L072CZYX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L072CZYX_serial_disabled INTERFACE
@@ -84162,9 +80547,6 @@ target_link_options(GENERIC_L072KBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L072KBTX_MCU}
-)
-target_link_libraries(GENERIC_L072KBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L072KBTX_serial_disabled INTERFACE)
@@ -84236,9 +80618,6 @@ target_link_options(GENERIC_L072KBUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L072KBUX_MCU}
 )
-target_link_libraries(GENERIC_L072KBUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L072KBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L072KBUX_serial_disabled INTERFACE
@@ -84308,9 +80687,6 @@ target_link_options(GENERIC_L072KZTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L072KZTX_MCU}
-)
-target_link_libraries(GENERIC_L072KZTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L072KZTX_serial_disabled INTERFACE)
@@ -84382,9 +80758,6 @@ target_link_options(GENERIC_L072KZUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L072KZUX_MCU}
 )
-target_link_libraries(GENERIC_L072KZUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L072KZUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L072KZUX_serial_disabled INTERFACE
@@ -84454,9 +80827,6 @@ target_link_options(GENERIC_L072RBHX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L072RBHX_MCU}
-)
-target_link_libraries(GENERIC_L072RBHX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L072RBHX_serial_disabled INTERFACE)
@@ -84528,9 +80898,6 @@ target_link_options(GENERIC_L072RBIX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L072RBIX_MCU}
 )
-target_link_libraries(GENERIC_L072RBIX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L072RBIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L072RBIX_serial_disabled INTERFACE
@@ -84600,9 +80967,6 @@ target_link_options(GENERIC_L072RBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L072RBTX_MCU}
-)
-target_link_libraries(GENERIC_L072RBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L072RBTX_serial_disabled INTERFACE)
@@ -84674,9 +81038,6 @@ target_link_options(GENERIC_L072RZHX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L072RZHX_MCU}
 )
-target_link_libraries(GENERIC_L072RZHX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L072RZHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L072RZHX_serial_disabled INTERFACE
@@ -84746,9 +81107,6 @@ target_link_options(GENERIC_L072RZIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L072RZIX_MCU}
-)
-target_link_libraries(GENERIC_L072RZIX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L072RZIX_serial_disabled INTERFACE)
@@ -84820,9 +81178,6 @@ target_link_options(GENERIC_L072RZTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L072RZTX_MCU}
 )
-target_link_libraries(GENERIC_L072RZTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L072RZTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L072RZTX_serial_disabled INTERFACE
@@ -84892,9 +81247,6 @@ target_link_options(GENERIC_L072V8IX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L072V8IX_MCU}
-)
-target_link_libraries(GENERIC_L072V8IX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L072V8IX_serial_disabled INTERFACE)
@@ -84966,9 +81318,6 @@ target_link_options(GENERIC_L072V8TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L072V8TX_MCU}
 )
-target_link_libraries(GENERIC_L072V8TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L072V8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L072V8TX_serial_disabled INTERFACE
@@ -85038,9 +81387,6 @@ target_link_options(GENERIC_L072VBIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L072VBIX_MCU}
-)
-target_link_libraries(GENERIC_L072VBIX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L072VBIX_serial_disabled INTERFACE)
@@ -85112,9 +81458,6 @@ target_link_options(GENERIC_L072VBTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L072VBTX_MCU}
 )
-target_link_libraries(GENERIC_L072VBTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L072VBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L072VBTX_serial_disabled INTERFACE
@@ -85184,9 +81527,6 @@ target_link_options(GENERIC_L072VZIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L072VZIX_MCU}
-)
-target_link_libraries(GENERIC_L072VZIX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L072VZIX_serial_disabled INTERFACE)
@@ -85258,9 +81598,6 @@ target_link_options(GENERIC_L072VZTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L072VZTX_MCU}
 )
-target_link_libraries(GENERIC_L072VZTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L072VZTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L072VZTX_serial_disabled INTERFACE
@@ -85330,9 +81667,6 @@ target_link_options(GENERIC_L073CBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L073CBTX_MCU}
-)
-target_link_libraries(GENERIC_L073CBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L073CBTX_serial_disabled INTERFACE)
@@ -85404,9 +81738,6 @@ target_link_options(GENERIC_L073CBUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L073CBUX_MCU}
 )
-target_link_libraries(GENERIC_L073CBUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L073CBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L073CBUX_serial_disabled INTERFACE
@@ -85476,9 +81807,6 @@ target_link_options(GENERIC_L073CZTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L073CZTX_MCU}
-)
-target_link_libraries(GENERIC_L073CZTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L073CZTX_serial_disabled INTERFACE)
@@ -85550,9 +81878,6 @@ target_link_options(GENERIC_L073CZUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L073CZUX_MCU}
 )
-target_link_libraries(GENERIC_L073CZUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L073CZUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L073CZUX_serial_disabled INTERFACE
@@ -85622,9 +81947,6 @@ target_link_options(GENERIC_L073CZYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L073CZYX_MCU}
-)
-target_link_libraries(GENERIC_L073CZYX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L073CZYX_serial_disabled INTERFACE)
@@ -85696,9 +82018,6 @@ target_link_options(GENERIC_L073RBHX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L073RBHX_MCU}
 )
-target_link_libraries(GENERIC_L073RBHX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L073RBHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L073RBHX_serial_disabled INTERFACE
@@ -85768,9 +82087,6 @@ target_link_options(GENERIC_L073RBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L073RBTX_MCU}
-)
-target_link_libraries(GENERIC_L073RBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L073RBTX_serial_disabled INTERFACE)
@@ -85842,9 +82158,6 @@ target_link_options(GENERIC_L073RZHX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L073RZHX_MCU}
 )
-target_link_libraries(GENERIC_L073RZHX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L073RZHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L073RZHX_serial_disabled INTERFACE
@@ -85914,9 +82227,6 @@ target_link_options(GENERIC_L073RZIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L073RZIX_MCU}
-)
-target_link_libraries(GENERIC_L073RZIX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L073RZIX_serial_disabled INTERFACE)
@@ -85988,9 +82298,6 @@ target_link_options(GENERIC_L073RZTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L073RZTX_MCU}
 )
-target_link_libraries(GENERIC_L073RZTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L073RZTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L073RZTX_serial_disabled INTERFACE
@@ -86060,9 +82367,6 @@ target_link_options(GENERIC_L073V8IX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L073V8IX_MCU}
-)
-target_link_libraries(GENERIC_L073V8IX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L073V8IX_serial_disabled INTERFACE)
@@ -86134,9 +82438,6 @@ target_link_options(GENERIC_L073V8TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L073V8TX_MCU}
 )
-target_link_libraries(GENERIC_L073V8TX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L073V8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L073V8TX_serial_disabled INTERFACE
@@ -86206,9 +82507,6 @@ target_link_options(GENERIC_L073VBIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L073VBIX_MCU}
-)
-target_link_libraries(GENERIC_L073VBIX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L073VBIX_serial_disabled INTERFACE)
@@ -86280,9 +82578,6 @@ target_link_options(GENERIC_L073VBTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L073VBTX_MCU}
 )
-target_link_libraries(GENERIC_L073VBTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L073VBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L073VBTX_serial_disabled INTERFACE
@@ -86352,9 +82647,6 @@ target_link_options(GENERIC_L073VZIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L073VZIX_MCU}
-)
-target_link_libraries(GENERIC_L073VZIX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L073VZIX_serial_disabled INTERFACE)
@@ -86426,9 +82718,6 @@ target_link_options(GENERIC_L073VZTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L073VZTX_MCU}
 )
-target_link_libraries(GENERIC_L073VZTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L073VZTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L073VZTX_serial_disabled INTERFACE
@@ -86498,9 +82787,6 @@ target_link_options(GENERIC_L082CZUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L082CZUX_MCU}
-)
-target_link_libraries(GENERIC_L082CZUX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L082CZUX_serial_disabled INTERFACE)
@@ -86572,9 +82858,6 @@ target_link_options(GENERIC_L082CZYX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L082CZYX_MCU}
 )
-target_link_libraries(GENERIC_L082CZYX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L082CZYX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L082CZYX_serial_disabled INTERFACE
@@ -86644,9 +82927,6 @@ target_link_options(GENERIC_L082KBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L082KBTX_MCU}
-)
-target_link_libraries(GENERIC_L082KBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L082KBTX_serial_disabled INTERFACE)
@@ -86718,9 +82998,6 @@ target_link_options(GENERIC_L082KBUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L082KBUX_MCU}
 )
-target_link_libraries(GENERIC_L082KBUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L082KBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L082KBUX_serial_disabled INTERFACE
@@ -86790,9 +83067,6 @@ target_link_options(GENERIC_L082KZTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L082KZTX_MCU}
-)
-target_link_libraries(GENERIC_L082KZTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L082KZTX_serial_disabled INTERFACE)
@@ -86864,9 +83138,6 @@ target_link_options(GENERIC_L082KZUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L082KZUX_MCU}
 )
-target_link_libraries(GENERIC_L082KZUX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L082KZUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L082KZUX_serial_disabled INTERFACE
@@ -86936,9 +83207,6 @@ target_link_options(GENERIC_L083CBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L083CBTX_MCU}
-)
-target_link_libraries(GENERIC_L083CBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L083CBTX_serial_disabled INTERFACE)
@@ -87010,9 +83278,6 @@ target_link_options(GENERIC_L083CZTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L083CZTX_MCU}
 )
-target_link_libraries(GENERIC_L083CZTX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L083CZTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L083CZTX_serial_disabled INTERFACE
@@ -87082,9 +83347,6 @@ target_link_options(GENERIC_L083CZUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L083CZUX_MCU}
-)
-target_link_libraries(GENERIC_L083CZUX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L083CZUX_serial_disabled INTERFACE)
@@ -87156,9 +83418,6 @@ target_link_options(GENERIC_L083RBHX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L083RBHX_MCU}
 )
-target_link_libraries(GENERIC_L083RBHX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L083RBHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L083RBHX_serial_disabled INTERFACE
@@ -87228,9 +83487,6 @@ target_link_options(GENERIC_L083RBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L083RBTX_MCU}
-)
-target_link_libraries(GENERIC_L083RBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L083RBTX_serial_disabled INTERFACE)
@@ -87302,9 +83558,6 @@ target_link_options(GENERIC_L083RZHX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L083RZHX_MCU}
 )
-target_link_libraries(GENERIC_L083RZHX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L083RZHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L083RZHX_serial_disabled INTERFACE
@@ -87374,9 +83627,6 @@ target_link_options(GENERIC_L083RZTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L083RZTX_MCU}
-)
-target_link_libraries(GENERIC_L083RZTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L083RZTX_serial_disabled INTERFACE)
@@ -87448,9 +83698,6 @@ target_link_options(GENERIC_L083V8IX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L083V8IX_MCU}
 )
-target_link_libraries(GENERIC_L083V8IX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L083V8IX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L083V8IX_serial_disabled INTERFACE
@@ -87520,9 +83767,6 @@ target_link_options(GENERIC_L083V8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L083V8TX_MCU}
-)
-target_link_libraries(GENERIC_L083V8TX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L083V8TX_serial_disabled INTERFACE)
@@ -87594,9 +83838,6 @@ target_link_options(GENERIC_L083VBIX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L083VBIX_MCU}
 )
-target_link_libraries(GENERIC_L083VBIX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L083VBIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L083VBIX_serial_disabled INTERFACE
@@ -87666,9 +83907,6 @@ target_link_options(GENERIC_L083VBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L083VBTX_MCU}
-)
-target_link_libraries(GENERIC_L083VBTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L083VBTX_serial_disabled INTERFACE)
@@ -87740,9 +83978,6 @@ target_link_options(GENERIC_L083VZIX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L083VZIX_MCU}
 )
-target_link_libraries(GENERIC_L083VZIX INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(GENERIC_L083VZIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L083VZIX_serial_disabled INTERFACE
@@ -87812,9 +84047,6 @@ target_link_options(GENERIC_L083VZTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_L083VZTX_MCU}
-)
-target_link_libraries(GENERIC_L083VZTX INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(GENERIC_L083VZTX_serial_disabled INTERFACE)
@@ -87886,9 +84118,6 @@ target_link_options(GENERIC_L100C6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L100C6UX_MCU}
 )
-target_link_libraries(GENERIC_L100C6UX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_L100C6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L100C6UX_serial_disabled INTERFACE
@@ -87958,9 +84187,6 @@ target_link_options(GENERIC_L100C6UXA INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
   "SHELL: "
   -mcpu=${GENERIC_L100C6UXA_MCU}
-)
-target_link_libraries(GENERIC_L100C6UXA INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_L100C6UXA_serial_disabled INTERFACE)
@@ -88032,9 +84258,6 @@ target_link_options(GENERIC_L151C6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L151C6TX_MCU}
 )
-target_link_libraries(GENERIC_L151C6TX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_L151C6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L151C6TX_serial_disabled INTERFACE
@@ -88104,9 +84327,6 @@ target_link_options(GENERIC_L151C6TXA INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_L151C6TXA_MCU}
-)
-target_link_libraries(GENERIC_L151C6TXA INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_L151C6TXA_serial_disabled INTERFACE)
@@ -88178,9 +84398,6 @@ target_link_options(GENERIC_L151C6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L151C6UX_MCU}
 )
-target_link_libraries(GENERIC_L151C6UX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_L151C6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L151C6UX_serial_disabled INTERFACE
@@ -88250,9 +84467,6 @@ target_link_options(GENERIC_L151C6UXA INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_L151C6UXA_MCU}
-)
-target_link_libraries(GENERIC_L151C6UXA INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_L151C6UXA_serial_disabled INTERFACE)
@@ -88324,9 +84538,6 @@ target_link_options(GENERIC_L151C8TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L151C8TX_MCU}
 )
-target_link_libraries(GENERIC_L151C8TX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_L151C8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L151C8TX_serial_disabled INTERFACE
@@ -88396,9 +84607,6 @@ target_link_options(GENERIC_L151C8TXA INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_L151C8TXA_MCU}
-)
-target_link_libraries(GENERIC_L151C8TXA INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_L151C8TXA_serial_disabled INTERFACE)
@@ -88470,9 +84678,6 @@ target_link_options(GENERIC_L151C8UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L151C8UX_MCU}
 )
-target_link_libraries(GENERIC_L151C8UX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_L151C8UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L151C8UX_serial_disabled INTERFACE
@@ -88542,9 +84747,6 @@ target_link_options(GENERIC_L151C8UXA INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_L151C8UXA_MCU}
-)
-target_link_libraries(GENERIC_L151C8UXA INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_L151C8UXA_serial_disabled INTERFACE)
@@ -88616,9 +84818,6 @@ target_link_options(GENERIC_L151CBTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L151CBTX_MCU}
 )
-target_link_libraries(GENERIC_L151CBTX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_L151CBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L151CBTX_serial_disabled INTERFACE
@@ -88688,9 +84887,6 @@ target_link_options(GENERIC_L151CBTXA INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_L151CBTXA_MCU}
-)
-target_link_libraries(GENERIC_L151CBTXA INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_L151CBTXA_serial_disabled INTERFACE)
@@ -88762,9 +84958,6 @@ target_link_options(GENERIC_L151CBUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L151CBUX_MCU}
 )
-target_link_libraries(GENERIC_L151CBUX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_L151CBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L151CBUX_serial_disabled INTERFACE
@@ -88834,9 +85027,6 @@ target_link_options(GENERIC_L151CBUXA INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_L151CBUXA_MCU}
-)
-target_link_libraries(GENERIC_L151CBUXA INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_L151CBUXA_serial_disabled INTERFACE)
@@ -88908,9 +85098,6 @@ target_link_options(GENERIC_L151RETX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L151RETX_MCU}
 )
-target_link_libraries(GENERIC_L151RETX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_L151RETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L151RETX_serial_disabled INTERFACE
@@ -88980,9 +85167,6 @@ target_link_options(GENERIC_L151ZDTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_L151ZDTX_MCU}
-)
-target_link_libraries(GENERIC_L151ZDTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_L151ZDTX_serial_disabled INTERFACE)
@@ -89054,9 +85238,6 @@ target_link_options(GENERIC_L152C6TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L152C6TX_MCU}
 )
-target_link_libraries(GENERIC_L152C6TX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_L152C6TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L152C6TX_serial_disabled INTERFACE
@@ -89126,9 +85307,6 @@ target_link_options(GENERIC_L152C6TXA INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_L152C6TXA_MCU}
-)
-target_link_libraries(GENERIC_L152C6TXA INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_L152C6TXA_serial_disabled INTERFACE)
@@ -89200,9 +85378,6 @@ target_link_options(GENERIC_L152C6UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L152C6UX_MCU}
 )
-target_link_libraries(GENERIC_L152C6UX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_L152C6UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L152C6UX_serial_disabled INTERFACE
@@ -89272,9 +85447,6 @@ target_link_options(GENERIC_L152C6UXA INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${GENERIC_L152C6UXA_MCU}
-)
-target_link_libraries(GENERIC_L152C6UXA INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_L152C6UXA_serial_disabled INTERFACE)
@@ -89346,9 +85518,6 @@ target_link_options(GENERIC_L152C8TX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L152C8TX_MCU}
 )
-target_link_libraries(GENERIC_L152C8TX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_L152C8TX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L152C8TX_serial_disabled INTERFACE
@@ -89418,9 +85587,6 @@ target_link_options(GENERIC_L152C8TXA INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_L152C8TXA_MCU}
-)
-target_link_libraries(GENERIC_L152C8TXA INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_L152C8TXA_serial_disabled INTERFACE)
@@ -89492,9 +85658,6 @@ target_link_options(GENERIC_L152C8UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L152C8UX_MCU}
 )
-target_link_libraries(GENERIC_L152C8UX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_L152C8UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L152C8UX_serial_disabled INTERFACE
@@ -89564,9 +85727,6 @@ target_link_options(GENERIC_L152C8UXA INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_L152C8UXA_MCU}
-)
-target_link_libraries(GENERIC_L152C8UXA INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_L152C8UXA_serial_disabled INTERFACE)
@@ -89638,9 +85798,6 @@ target_link_options(GENERIC_L152CBTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L152CBTX_MCU}
 )
-target_link_libraries(GENERIC_L152CBTX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_L152CBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L152CBTX_serial_disabled INTERFACE
@@ -89710,9 +85867,6 @@ target_link_options(GENERIC_L152CBTXA INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_L152CBTXA_MCU}
-)
-target_link_libraries(GENERIC_L152CBTXA INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_L152CBTXA_serial_disabled INTERFACE)
@@ -89784,9 +85938,6 @@ target_link_options(GENERIC_L152CBUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L152CBUX_MCU}
 )
-target_link_libraries(GENERIC_L152CBUX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_L152CBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L152CBUX_serial_disabled INTERFACE
@@ -89856,9 +86007,6 @@ target_link_options(GENERIC_L152CBUXA INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${GENERIC_L152CBUXA_MCU}
-)
-target_link_libraries(GENERIC_L152CBUXA INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_L152CBUXA_serial_disabled INTERFACE)
@@ -89930,9 +86078,6 @@ target_link_options(GENERIC_L152RETX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L152RETX_MCU}
 )
-target_link_libraries(GENERIC_L152RETX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_L152RETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L152RETX_serial_disabled INTERFACE
@@ -90002,9 +86147,6 @@ target_link_options(GENERIC_L152ZDTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_L152ZDTX_MCU}
-)
-target_link_libraries(GENERIC_L152ZDTX INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(GENERIC_L152ZDTX_serial_disabled INTERFACE)
@@ -90076,9 +86218,6 @@ target_link_options(GENERIC_L162RETX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L162RETX_MCU}
 )
-target_link_libraries(GENERIC_L162RETX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_L162RETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L162RETX_serial_disabled INTERFACE
@@ -90149,9 +86288,6 @@ target_link_options(GENERIC_L162ZDTX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_L162ZDTX_MCU}
 )
-target_link_libraries(GENERIC_L162ZDTX INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(GENERIC_L162ZDTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L162ZDTX_serial_disabled INTERFACE
@@ -90221,9 +86357,6 @@ target_link_options(GENERIC_L412K8TX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=40960"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L412K8TX_MCU}
-)
-target_link_libraries(GENERIC_L412K8TX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L412K8TX_serial_disabled INTERFACE)
@@ -90307,9 +86440,6 @@ target_link_options(GENERIC_L412K8UX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L412K8UX_MCU}
 )
-target_link_libraries(GENERIC_L412K8UX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L412K8UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L412K8UX_serial_disabled INTERFACE
@@ -90391,9 +86521,6 @@ target_link_options(GENERIC_L412KBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=40960"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L412KBTX_MCU}
-)
-target_link_libraries(GENERIC_L412KBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L412KBTX_serial_disabled INTERFACE)
@@ -90477,9 +86604,6 @@ target_link_options(GENERIC_L412KBUX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L412KBUX_MCU}
 )
-target_link_libraries(GENERIC_L412KBUX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L412KBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L412KBUX_serial_disabled INTERFACE
@@ -90561,9 +86685,6 @@ target_link_options(GENERIC_L422KBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=40960"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L422KBTX_MCU}
-)
-target_link_libraries(GENERIC_L422KBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L422KBTX_serial_disabled INTERFACE)
@@ -90647,9 +86768,6 @@ target_link_options(GENERIC_L422KBUX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L422KBUX_MCU}
 )
-target_link_libraries(GENERIC_L422KBUX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L422KBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L422KBUX_serial_disabled INTERFACE
@@ -90731,9 +86849,6 @@ target_link_options(GENERIC_L431RBIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L431RBIX_MCU}
-)
-target_link_libraries(GENERIC_L431RBIX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L431RBIX_serial_disabled INTERFACE)
@@ -90817,9 +86932,6 @@ target_link_options(GENERIC_L431RBTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L431RBTX_MCU}
 )
-target_link_libraries(GENERIC_L431RBTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L431RBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L431RBTX_serial_disabled INTERFACE
@@ -90901,9 +87013,6 @@ target_link_options(GENERIC_L431RBYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L431RBYX_MCU}
-)
-target_link_libraries(GENERIC_L431RBYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L431RBYX_serial_disabled INTERFACE)
@@ -90987,9 +87096,6 @@ target_link_options(GENERIC_L431RCIX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L431RCIX_MCU}
 )
-target_link_libraries(GENERIC_L431RCIX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L431RCIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L431RCIX_serial_disabled INTERFACE
@@ -91071,9 +87177,6 @@ target_link_options(GENERIC_L431RCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L431RCTX_MCU}
-)
-target_link_libraries(GENERIC_L431RCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L431RCTX_serial_disabled INTERFACE)
@@ -91157,9 +87260,6 @@ target_link_options(GENERIC_L431RCYX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L431RCYX_MCU}
 )
-target_link_libraries(GENERIC_L431RCYX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L431RCYX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L431RCYX_serial_disabled INTERFACE
@@ -91241,9 +87341,6 @@ target_link_options(GENERIC_L432KBUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L432KBUX_MCU}
-)
-target_link_libraries(GENERIC_L432KBUX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L432KBUX_serial_disabled INTERFACE)
@@ -91327,9 +87424,6 @@ target_link_options(GENERIC_L432KCUX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L432KCUX_MCU}
 )
-target_link_libraries(GENERIC_L432KCUX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L432KCUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L432KCUX_serial_disabled INTERFACE
@@ -91411,9 +87505,6 @@ target_link_options(GENERIC_L433CBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L433CBTX_MCU}
-)
-target_link_libraries(GENERIC_L433CBTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L433CBTX_serial_disabled INTERFACE)
@@ -91497,9 +87588,6 @@ target_link_options(GENERIC_L433CBUX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L433CBUX_MCU}
 )
-target_link_libraries(GENERIC_L433CBUX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L433CBUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L433CBUX_serial_disabled INTERFACE
@@ -91581,9 +87669,6 @@ target_link_options(GENERIC_L433CCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L433CCTX_MCU}
-)
-target_link_libraries(GENERIC_L433CCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L433CCTX_serial_disabled INTERFACE)
@@ -91667,9 +87752,6 @@ target_link_options(GENERIC_L433CCUX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L433CCUX_MCU}
 )
-target_link_libraries(GENERIC_L433CCUX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L433CCUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L433CCUX_serial_disabled INTERFACE
@@ -91751,9 +87833,6 @@ target_link_options(GENERIC_L433RBIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L433RBIX_MCU}
-)
-target_link_libraries(GENERIC_L433RBIX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L433RBIX_serial_disabled INTERFACE)
@@ -91837,9 +87916,6 @@ target_link_options(GENERIC_L433RBTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L433RBTX_MCU}
 )
-target_link_libraries(GENERIC_L433RBTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L433RBTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L433RBTX_serial_disabled INTERFACE
@@ -91921,9 +87997,6 @@ target_link_options(GENERIC_L433RBYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L433RBYX_MCU}
-)
-target_link_libraries(GENERIC_L433RBYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L433RBYX_serial_disabled INTERFACE)
@@ -92007,9 +88080,6 @@ target_link_options(GENERIC_L433RCIX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L433RCIX_MCU}
 )
-target_link_libraries(GENERIC_L433RCIX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L433RCIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L433RCIX_serial_disabled INTERFACE
@@ -92091,9 +88161,6 @@ target_link_options(GENERIC_L433RCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L433RCTX_MCU}
-)
-target_link_libraries(GENERIC_L433RCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L433RCTX_serial_disabled INTERFACE)
@@ -92177,9 +88244,6 @@ target_link_options(GENERIC_L433RCTXP INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L433RCTXP_MCU}
 )
-target_link_libraries(GENERIC_L433RCTXP INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L433RCTXP_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L433RCTXP_serial_disabled INTERFACE
@@ -92261,9 +88325,6 @@ target_link_options(GENERIC_L433RCYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L433RCYX_MCU}
-)
-target_link_libraries(GENERIC_L433RCYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L433RCYX_serial_disabled INTERFACE)
@@ -92347,9 +88408,6 @@ target_link_options(GENERIC_L442KCUX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L442KCUX_MCU}
 )
-target_link_libraries(GENERIC_L442KCUX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L442KCUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L442KCUX_serial_disabled INTERFACE
@@ -92431,9 +88489,6 @@ target_link_options(GENERIC_L443CCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L443CCTX_MCU}
-)
-target_link_libraries(GENERIC_L443CCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L443CCTX_serial_disabled INTERFACE)
@@ -92517,9 +88572,6 @@ target_link_options(GENERIC_L443CCUX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L443CCUX_MCU}
 )
-target_link_libraries(GENERIC_L443CCUX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L443CCUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L443CCUX_serial_disabled INTERFACE
@@ -92601,9 +88653,6 @@ target_link_options(GENERIC_L443RCIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L443RCIX_MCU}
-)
-target_link_libraries(GENERIC_L443RCIX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L443RCIX_serial_disabled INTERFACE)
@@ -92687,9 +88736,6 @@ target_link_options(GENERIC_L443RCTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L443RCTX_MCU}
 )
-target_link_libraries(GENERIC_L443RCTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L443RCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L443RCTX_serial_disabled INTERFACE
@@ -92771,9 +88817,6 @@ target_link_options(GENERIC_L443RCYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L443RCYX_MCU}
-)
-target_link_libraries(GENERIC_L443RCYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L443RCYX_serial_disabled INTERFACE)
@@ -92857,9 +88900,6 @@ target_link_options(GENERIC_L452RCIX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L452RCIX_MCU}
 )
-target_link_libraries(GENERIC_L452RCIX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L452RCIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L452RCIX_serial_disabled INTERFACE
@@ -92941,9 +88981,6 @@ target_link_options(GENERIC_L452RCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=163840"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L452RCTX_MCU}
-)
-target_link_libraries(GENERIC_L452RCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L452RCTX_serial_disabled INTERFACE)
@@ -93027,9 +89064,6 @@ target_link_options(GENERIC_L452RCYX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L452RCYX_MCU}
 )
-target_link_libraries(GENERIC_L452RCYX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L452RCYX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L452RCYX_serial_disabled INTERFACE
@@ -93111,9 +89145,6 @@ target_link_options(GENERIC_L452REIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=163840"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L452REIX_MCU}
-)
-target_link_libraries(GENERIC_L452REIX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L452REIX_serial_disabled INTERFACE)
@@ -93197,9 +89228,6 @@ target_link_options(GENERIC_L452RETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L452RETX_MCU}
 )
-target_link_libraries(GENERIC_L452RETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L452RETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L452RETX_serial_disabled INTERFACE
@@ -93281,9 +89309,6 @@ target_link_options(GENERIC_L452RETXP INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=163840"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L452RETXP_MCU}
-)
-target_link_libraries(GENERIC_L452RETXP INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L452RETXP_serial_disabled INTERFACE)
@@ -93367,9 +89392,6 @@ target_link_options(GENERIC_L452REYX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L452REYX_MCU}
 )
-target_link_libraries(GENERIC_L452REYX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L452REYX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L452REYX_serial_disabled INTERFACE
@@ -93451,9 +89473,6 @@ target_link_options(GENERIC_L462REIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=163840"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L462REIX_MCU}
-)
-target_link_libraries(GENERIC_L462REIX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L462REIX_serial_disabled INTERFACE)
@@ -93537,9 +89556,6 @@ target_link_options(GENERIC_L462RETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L462RETX_MCU}
 )
-target_link_libraries(GENERIC_L462RETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L462RETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L462RETX_serial_disabled INTERFACE
@@ -93621,9 +89637,6 @@ target_link_options(GENERIC_L462REYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=163840"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L462REYX_MCU}
-)
-target_link_libraries(GENERIC_L462REYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L462REYX_serial_disabled INTERFACE)
@@ -93707,9 +89720,6 @@ target_link_options(GENERIC_L475RCTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L475RCTX_MCU}
 )
-target_link_libraries(GENERIC_L475RCTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L475RCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L475RCTX_serial_disabled INTERFACE
@@ -93791,9 +89801,6 @@ target_link_options(GENERIC_L475RETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L475RETX_MCU}
-)
-target_link_libraries(GENERIC_L475RETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L475RETX_serial_disabled INTERFACE)
@@ -93877,9 +89884,6 @@ target_link_options(GENERIC_L475RGTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L475RGTX_MCU}
 )
-target_link_libraries(GENERIC_L475RGTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L475RGTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L475RGTX_serial_disabled INTERFACE
@@ -93961,9 +89965,6 @@ target_link_options(GENERIC_L475VCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L475VCTX_MCU}
-)
-target_link_libraries(GENERIC_L475VCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L475VCTX_serial_disabled INTERFACE)
@@ -94047,9 +90048,6 @@ target_link_options(GENERIC_L475VETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L475VETX_MCU}
 )
-target_link_libraries(GENERIC_L475VETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L475VETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L475VETX_serial_disabled INTERFACE
@@ -94131,9 +90129,6 @@ target_link_options(GENERIC_L475VGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L475VGTX_MCU}
-)
-target_link_libraries(GENERIC_L475VGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L475VGTX_serial_disabled INTERFACE)
@@ -94217,9 +90212,6 @@ target_link_options(GENERIC_L476RCTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L476RCTX_MCU}
 )
-target_link_libraries(GENERIC_L476RCTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L476RCTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L476RCTX_serial_disabled INTERFACE
@@ -94301,9 +90293,6 @@ target_link_options(GENERIC_L476RETX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L476RETX_MCU}
-)
-target_link_libraries(GENERIC_L476RETX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L476RETX_serial_disabled INTERFACE)
@@ -94387,9 +90376,6 @@ target_link_options(GENERIC_L476RGTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L476RGTX_MCU}
 )
-target_link_libraries(GENERIC_L476RGTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L476RGTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L476RGTX_serial_disabled INTERFACE
@@ -94471,9 +90457,6 @@ target_link_options(GENERIC_L476VCTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L476VCTX_MCU}
-)
-target_link_libraries(GENERIC_L476VCTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L476VCTX_serial_disabled INTERFACE)
@@ -94557,9 +90540,6 @@ target_link_options(GENERIC_L476VETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L476VETX_MCU}
 )
-target_link_libraries(GENERIC_L476VETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L476VETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L476VETX_serial_disabled INTERFACE
@@ -94641,9 +90621,6 @@ target_link_options(GENERIC_L476VGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L476VGTX_MCU}
-)
-target_link_libraries(GENERIC_L476VGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L476VGTX_serial_disabled INTERFACE)
@@ -94727,9 +90704,6 @@ target_link_options(GENERIC_L486RGTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L486RGTX_MCU}
 )
-target_link_libraries(GENERIC_L486RGTX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L486RGTX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L486RGTX_serial_disabled INTERFACE
@@ -94811,9 +90785,6 @@ target_link_options(GENERIC_L486VGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L486VGTX_MCU}
-)
-target_link_libraries(GENERIC_L486VGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L486VGTX_serial_disabled INTERFACE)
@@ -94897,9 +90868,6 @@ target_link_options(GENERIC_L496ZETX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L496ZETX_MCU}
 )
-target_link_libraries(GENERIC_L496ZETX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L496ZETX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L496ZETX_serial_disabled INTERFACE
@@ -94981,9 +90949,6 @@ target_link_options(GENERIC_L496ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L496ZGTX_MCU}
-)
-target_link_libraries(GENERIC_L496ZGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L496ZGTX_serial_disabled INTERFACE)
@@ -95067,9 +91032,6 @@ target_link_options(GENERIC_L496ZGTXP INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L496ZGTXP_MCU}
 )
-target_link_libraries(GENERIC_L496ZGTXP INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L496ZGTXP_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L496ZGTXP_serial_disabled INTERFACE
@@ -95151,9 +91113,6 @@ target_link_options(GENERIC_L4A6ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4A6ZGTX_MCU}
-)
-target_link_libraries(GENERIC_L4A6ZGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L4A6ZGTX_serial_disabled INTERFACE)
@@ -95237,9 +91196,6 @@ target_link_options(GENERIC_L4A6ZGTXP INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4A6ZGTXP_MCU}
 )
-target_link_libraries(GENERIC_L4A6ZGTXP INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L4A6ZGTXP_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L4A6ZGTXP_serial_disabled INTERFACE
@@ -95321,9 +91277,6 @@ target_link_options(GENERIC_L4R5VGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=655360"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4R5VGTX_MCU}
-)
-target_link_libraries(GENERIC_L4R5VGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L4R5VGTX_serial_disabled INTERFACE)
@@ -95407,9 +91360,6 @@ target_link_options(GENERIC_L4R5VITX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4R5VITX_MCU}
 )
-target_link_libraries(GENERIC_L4R5VITX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L4R5VITX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L4R5VITX_serial_disabled INTERFACE
@@ -95491,9 +91441,6 @@ target_link_options(GENERIC_L4R5ZGTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=655360"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4R5ZGTX_MCU}
-)
-target_link_libraries(GENERIC_L4R5ZGTX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L4R5ZGTX_serial_disabled INTERFACE)
@@ -95577,9 +91524,6 @@ target_link_options(GENERIC_L4R5ZGYX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4R5ZGYX_MCU}
 )
-target_link_libraries(GENERIC_L4R5ZGYX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L4R5ZGYX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L4R5ZGYX_serial_disabled INTERFACE
@@ -95661,9 +91605,6 @@ target_link_options(GENERIC_L4R5ZITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=655360"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4R5ZITX_MCU}
-)
-target_link_libraries(GENERIC_L4R5ZITX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L4R5ZITX_serial_disabled INTERFACE)
@@ -95747,9 +91688,6 @@ target_link_options(GENERIC_L4R5ZITXP INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4R5ZITXP_MCU}
 )
-target_link_libraries(GENERIC_L4R5ZITXP INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L4R5ZITXP_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L4R5ZITXP_serial_disabled INTERFACE
@@ -95831,9 +91769,6 @@ target_link_options(GENERIC_L4R5ZIYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=655360"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4R5ZIYX_MCU}
-)
-target_link_libraries(GENERIC_L4R5ZIYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L4R5ZIYX_serial_disabled INTERFACE)
@@ -95917,9 +91852,6 @@ target_link_options(GENERIC_L4R7VITX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4R7VITX_MCU}
 )
-target_link_libraries(GENERIC_L4R7VITX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L4R7VITX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L4R7VITX_serial_disabled INTERFACE
@@ -96001,9 +91933,6 @@ target_link_options(GENERIC_L4R7ZITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=655360"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4R7ZITX_MCU}
-)
-target_link_libraries(GENERIC_L4R7ZITX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L4R7ZITX_serial_disabled INTERFACE)
@@ -96087,9 +92016,6 @@ target_link_options(GENERIC_L4R9ZGJX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4R9ZGJX_MCU}
 )
-target_link_libraries(GENERIC_L4R9ZGJX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L4R9ZGJX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L4R9ZGJX_serial_disabled INTERFACE
@@ -96171,9 +92097,6 @@ target_link_options(GENERIC_L4R9ZGYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=655360"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4R9ZGYX_MCU}
-)
-target_link_libraries(GENERIC_L4R9ZGYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L4R9ZGYX_serial_disabled INTERFACE)
@@ -96257,9 +92180,6 @@ target_link_options(GENERIC_L4R9ZIJX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4R9ZIJX_MCU}
 )
-target_link_libraries(GENERIC_L4R9ZIJX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L4R9ZIJX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L4R9ZIJX_serial_disabled INTERFACE
@@ -96341,9 +92261,6 @@ target_link_options(GENERIC_L4R9ZIYX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=655360"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4R9ZIYX_MCU}
-)
-target_link_libraries(GENERIC_L4R9ZIYX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L4R9ZIYX_serial_disabled INTERFACE)
@@ -96427,9 +92344,6 @@ target_link_options(GENERIC_L4S5VITX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4S5VITX_MCU}
 )
-target_link_libraries(GENERIC_L4S5VITX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L4S5VITX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L4S5VITX_serial_disabled INTERFACE
@@ -96511,9 +92425,6 @@ target_link_options(GENERIC_L4S5ZITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=655360"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4S5ZITX_MCU}
-)
-target_link_libraries(GENERIC_L4S5ZITX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L4S5ZITX_serial_disabled INTERFACE)
@@ -96597,9 +92508,6 @@ target_link_options(GENERIC_L4S5ZIYX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4S5ZIYX_MCU}
 )
-target_link_libraries(GENERIC_L4S5ZIYX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L4S5ZIYX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L4S5ZIYX_serial_disabled INTERFACE
@@ -96681,9 +92589,6 @@ target_link_options(GENERIC_L4S7VITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=655360"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4S7VITX_MCU}
-)
-target_link_libraries(GENERIC_L4S7VITX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L4S7VITX_serial_disabled INTERFACE)
@@ -96767,9 +92672,6 @@ target_link_options(GENERIC_L4S7ZITX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4S7ZITX_MCU}
 )
-target_link_libraries(GENERIC_L4S7ZITX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L4S7ZITX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L4S7ZITX_serial_disabled INTERFACE
@@ -96851,9 +92753,6 @@ target_link_options(GENERIC_L4S9ZIJX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=655360"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4S9ZIJX_MCU}
-)
-target_link_libraries(GENERIC_L4S9ZIJX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_L4S9ZIJX_serial_disabled INTERFACE)
@@ -96937,9 +92836,6 @@ target_link_options(GENERIC_L4S9ZIYX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L4S9ZIYX_MCU}
 )
-target_link_libraries(GENERIC_L4S9ZIYX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_L4S9ZIYX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L4S9ZIYX_serial_disabled INTERFACE
@@ -97021,9 +92917,6 @@ target_link_options(GENERIC_L552ZCTXQ INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L552ZCTXQ_MCU}
-)
-target_link_libraries(GENERIC_L552ZCTXQ INTERFACE
-  arm_ARMv8MMLlfsp_math
 )
 
 add_library(GENERIC_L552ZCTXQ_serial_disabled INTERFACE)
@@ -97107,9 +93000,6 @@ target_link_options(GENERIC_L552ZETXQ INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L552ZETXQ_MCU}
 )
-target_link_libraries(GENERIC_L552ZETXQ INTERFACE
-  arm_ARMv8MMLlfsp_math
-)
 
 add_library(GENERIC_L552ZETXQ_serial_disabled INTERFACE)
 target_compile_options(GENERIC_L552ZETXQ_serial_disabled INTERFACE
@@ -97191,9 +93081,6 @@ target_link_options(GENERIC_L562ZETXQ INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_L562ZETXQ_MCU}
-)
-target_link_libraries(GENERIC_L562ZETXQ INTERFACE
-  arm_ARMv8MMLlfsp_math
 )
 
 add_library(GENERIC_L562ZETXQ_serial_disabled INTERFACE)
@@ -97277,9 +93164,6 @@ target_link_options(GENERIC_NODE_SE_TTI INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_NODE_SE_TTI_MCU}
 )
-target_link_libraries(GENERIC_NODE_SE_TTI INTERFACE
-  arm_cortexM4l_math
-)
 
 add_library(GENERIC_NODE_SE_TTI_serial_disabled INTERFACE)
 target_compile_options(GENERIC_NODE_SE_TTI_serial_disabled INTERFACE
@@ -97333,9 +93217,6 @@ target_link_options(GENERIC_U575AGIXQ INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_U575AGIXQ_MCU}
-)
-target_link_libraries(GENERIC_U575AGIXQ INTERFACE
-  arm_ARMv8MMLlfsp_math
 )
 
 add_library(GENERIC_U575AGIXQ_serial_disabled INTERFACE)
@@ -97419,9 +93300,6 @@ target_link_options(GENERIC_U575AIIXQ INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_U575AIIXQ_MCU}
 )
-target_link_libraries(GENERIC_U575AIIXQ INTERFACE
-  arm_ARMv8MMLlfsp_math
-)
 
 add_library(GENERIC_U575AIIXQ_serial_disabled INTERFACE)
 target_compile_options(GENERIC_U575AIIXQ_serial_disabled INTERFACE
@@ -97503,9 +93381,6 @@ target_link_options(GENERIC_U575ZGTXQ INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=786432"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_U575ZGTXQ_MCU}
-)
-target_link_libraries(GENERIC_U575ZGTXQ INTERFACE
-  arm_ARMv8MMLlfsp_math
 )
 
 add_library(GENERIC_U575ZGTXQ_serial_disabled INTERFACE)
@@ -97589,9 +93464,6 @@ target_link_options(GENERIC_U575ZITXQ INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_U575ZITXQ_MCU}
 )
-target_link_libraries(GENERIC_U575ZITXQ INTERFACE
-  arm_ARMv8MMLlfsp_math
-)
 
 add_library(GENERIC_U575ZITXQ_serial_disabled INTERFACE)
 target_compile_options(GENERIC_U575ZITXQ_serial_disabled INTERFACE
@@ -97673,9 +93545,6 @@ target_link_options(GENERIC_U585AIIXQ INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_U585AIIXQ_MCU}
-)
-target_link_libraries(GENERIC_U585AIIXQ INTERFACE
-  arm_ARMv8MMLlfsp_math
 )
 
 add_library(GENERIC_U585AIIXQ_serial_disabled INTERFACE)
@@ -97759,9 +93628,6 @@ target_link_options(GENERIC_U585ZITXQ INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_U585ZITXQ_MCU}
 )
-target_link_libraries(GENERIC_U585ZITXQ INTERFACE
-  arm_ARMv8MMLlfsp_math
-)
 
 add_library(GENERIC_U585ZITXQ_serial_disabled INTERFACE)
 target_compile_options(GENERIC_U585ZITXQ_serial_disabled INTERFACE
@@ -97843,9 +93709,6 @@ target_link_options(GENERIC_WB15CCUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_WB15CCUX_MCU}
-)
-target_link_libraries(GENERIC_WB15CCUX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_WB15CCUX_serial_disabled INTERFACE)
@@ -97929,9 +93792,6 @@ target_link_options(GENERIC_WB55CCUX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_WB55CCUX_MCU}
 )
-target_link_libraries(GENERIC_WB55CCUX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_WB55CCUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_WB55CCUX_serial_disabled INTERFACE
@@ -98013,9 +93873,6 @@ target_link_options(GENERIC_WB55CEUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_WB55CEUX_MCU}
-)
-target_link_libraries(GENERIC_WB55CEUX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_WB55CEUX_serial_disabled INTERFACE)
@@ -98099,9 +93956,6 @@ target_link_options(GENERIC_WB55CGUX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_WB55CGUX_MCU}
 )
-target_link_libraries(GENERIC_WB55CGUX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_WB55CGUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_WB55CGUX_serial_disabled INTERFACE
@@ -98183,9 +94037,6 @@ target_link_options(GENERIC_WB55RCVX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_WB55RCVX_MCU}
-)
-target_link_libraries(GENERIC_WB55RCVX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_WB55RCVX_serial_disabled INTERFACE)
@@ -98269,9 +94120,6 @@ target_link_options(GENERIC_WB55REVX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_WB55REVX_MCU}
 )
-target_link_libraries(GENERIC_WB55REVX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_WB55REVX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_WB55REVX_serial_disabled INTERFACE
@@ -98353,9 +94201,6 @@ target_link_options(GENERIC_WB55RGVX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_WB55RGVX_MCU}
-)
-target_link_libraries(GENERIC_WB55RGVX INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(GENERIC_WB55RGVX_serial_disabled INTERFACE)
@@ -98439,9 +94284,6 @@ target_link_options(GENERIC_WB5MMGHX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_WB5MMGHX_MCU}
 )
-target_link_libraries(GENERIC_WB5MMGHX INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(GENERIC_WB5MMGHX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_WB5MMGHX_serial_disabled INTERFACE
@@ -98524,9 +94366,6 @@ target_link_options(GENERIC_WL54CCUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_WL54CCUX_MCU}
 )
-target_link_libraries(GENERIC_WL54CCUX INTERFACE
-  arm_cortexM4l_math
-)
 
 add_library(GENERIC_WL54CCUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_WL54CCUX_serial_disabled INTERFACE
@@ -98580,9 +94419,6 @@ target_link_options(GENERIC_WL54JCIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_WL54JCIX_MCU}
-)
-target_link_libraries(GENERIC_WL54JCIX INTERFACE
-  arm_cortexM4l_math
 )
 
 add_library(GENERIC_WL54JCIX_serial_disabled INTERFACE)
@@ -98638,9 +94474,6 @@ target_link_options(GENERIC_WL55CCUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_WL55CCUX_MCU}
 )
-target_link_libraries(GENERIC_WL55CCUX INTERFACE
-  arm_cortexM4l_math
-)
 
 add_library(GENERIC_WL55CCUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_WL55CCUX_serial_disabled INTERFACE
@@ -98694,9 +94527,6 @@ target_link_options(GENERIC_WL55JCIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_WL55JCIX_MCU}
-)
-target_link_libraries(GENERIC_WL55JCIX INTERFACE
-  arm_cortexM4l_math
 )
 
 add_library(GENERIC_WL55JCIX_serial_disabled INTERFACE)
@@ -98752,9 +94582,6 @@ target_link_options(GENERIC_WLE4C8UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_WLE4C8UX_MCU}
 )
-target_link_libraries(GENERIC_WLE4C8UX INTERFACE
-  arm_cortexM4l_math
-)
 
 add_library(GENERIC_WLE4C8UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_WLE4C8UX_serial_disabled INTERFACE
@@ -98808,9 +94635,6 @@ target_link_options(GENERIC_WLE4CBUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_WLE4CBUX_MCU}
-)
-target_link_libraries(GENERIC_WLE4CBUX INTERFACE
-  arm_cortexM4l_math
 )
 
 add_library(GENERIC_WLE4CBUX_serial_disabled INTERFACE)
@@ -98866,9 +94690,6 @@ target_link_options(GENERIC_WLE4CCUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_WLE4CCUX_MCU}
 )
-target_link_libraries(GENERIC_WLE4CCUX INTERFACE
-  arm_cortexM4l_math
-)
 
 add_library(GENERIC_WLE4CCUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_WLE4CCUX_serial_disabled INTERFACE
@@ -98922,9 +94743,6 @@ target_link_options(GENERIC_WLE4J8IX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_WLE4J8IX_MCU}
-)
-target_link_libraries(GENERIC_WLE4J8IX INTERFACE
-  arm_cortexM4l_math
 )
 
 add_library(GENERIC_WLE4J8IX_serial_disabled INTERFACE)
@@ -98980,9 +94798,6 @@ target_link_options(GENERIC_WLE4JBIX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_WLE4JBIX_MCU}
 )
-target_link_libraries(GENERIC_WLE4JBIX INTERFACE
-  arm_cortexM4l_math
-)
 
 add_library(GENERIC_WLE4JBIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_WLE4JBIX_serial_disabled INTERFACE
@@ -99036,9 +94851,6 @@ target_link_options(GENERIC_WLE4JCIX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${GENERIC_WLE4JCIX_MCU}
-)
-target_link_libraries(GENERIC_WLE4JCIX INTERFACE
-  arm_cortexM4l_math
 )
 
 add_library(GENERIC_WLE4JCIX_serial_disabled INTERFACE)
@@ -99094,9 +94906,6 @@ target_link_options(GENERIC_WLE5C8UX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_WLE5C8UX_MCU}
 )
-target_link_libraries(GENERIC_WLE5C8UX INTERFACE
-  arm_cortexM4l_math
-)
 
 add_library(GENERIC_WLE5C8UX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_WLE5C8UX_serial_disabled INTERFACE
@@ -99150,9 +94959,6 @@ target_link_options(GENERIC_WLE5CBUX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
   "SHELL: "
   -mcpu=${GENERIC_WLE5CBUX_MCU}
-)
-target_link_libraries(GENERIC_WLE5CBUX INTERFACE
-  arm_cortexM4l_math
 )
 
 add_library(GENERIC_WLE5CBUX_serial_disabled INTERFACE)
@@ -99208,9 +95014,6 @@ target_link_options(GENERIC_WLE5CCUX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_WLE5CCUX_MCU}
 )
-target_link_libraries(GENERIC_WLE5CCUX INTERFACE
-  arm_cortexM4l_math
-)
 
 add_library(GENERIC_WLE5CCUX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_WLE5CCUX_serial_disabled INTERFACE
@@ -99264,9 +95067,6 @@ target_link_options(GENERIC_WLE5J8IX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${GENERIC_WLE5J8IX_MCU}
-)
-target_link_libraries(GENERIC_WLE5J8IX INTERFACE
-  arm_cortexM4l_math
 )
 
 add_library(GENERIC_WLE5J8IX_serial_disabled INTERFACE)
@@ -99322,9 +95122,6 @@ target_link_options(GENERIC_WLE5JBIX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_WLE5JBIX_MCU}
 )
-target_link_libraries(GENERIC_WLE5JBIX INTERFACE
-  arm_cortexM4l_math
-)
 
 add_library(GENERIC_WLE5JBIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_WLE5JBIX_serial_disabled INTERFACE
@@ -99379,9 +95176,6 @@ target_link_options(GENERIC_WLE5JCIX INTERFACE
   "SHELL: "
   -mcpu=${GENERIC_WLE5JCIX_MCU}
 )
-target_link_libraries(GENERIC_WLE5JCIX INTERFACE
-  arm_cortexM4l_math
-)
 
 add_library(GENERIC_WLE5JCIX_serial_disabled INTERFACE)
 target_compile_options(GENERIC_WLE5JCIX_serial_disabled INTERFACE
@@ -99435,9 +95229,6 @@ target_link_options(HY_TINYSTM103TB INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${HY_TINYSTM103TB_MCU}
-)
-target_link_libraries(HY_TINYSTM103TB INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(HY_TINYSTM103TB_serial_disabled INTERFACE)
@@ -99521,9 +95312,6 @@ target_link_options(HY_TINYSTM103TB_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${HY_TINYSTM103TB_dfu2_MCU}
 )
-target_link_libraries(HY_TINYSTM103TB_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # HY_TINYSTM103TB_dfuo
@@ -99565,9 +95353,6 @@ target_link_options(HY_TINYSTM103TB_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${HY_TINYSTM103TB_dfuo_MCU}
-)
-target_link_libraries(HY_TINYSTM103TB_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -99611,9 +95396,6 @@ target_link_options(HY_TINYSTM103TB_hid INTERFACE
   "SHELL: "
   -mcpu=${HY_TINYSTM103TB_hid_MCU}
 )
-target_link_libraries(HY_TINYSTM103TB_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # LEAFONY_AP03
@@ -99655,9 +95437,6 @@ target_link_options(LEAFONY_AP03 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=163840"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${LEAFONY_AP03_MCU}
-)
-target_link_libraries(LEAFONY_AP03 INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(LEAFONY_AP03_serial_disabled INTERFACE)
@@ -99741,9 +95520,6 @@ target_link_options(LORA_E5_MINI INTERFACE
   "SHELL: "
   -mcpu=${LORA_E5_MINI_MCU}
 )
-target_link_libraries(LORA_E5_MINI INTERFACE
-  arm_cortexM4l_math
-)
 
 add_library(LORA_E5_MINI_serial_disabled INTERFACE)
 target_compile_options(LORA_E5_MINI_serial_disabled INTERFACE
@@ -99797,9 +95573,6 @@ target_link_options(MALYANM200_F070CB INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=15168"
   "SHELL: "
   -mcpu=${MALYANM200_F070CB_MCU}
-)
-target_link_libraries(MALYANM200_F070CB INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(MALYANM200_F070CB_serial_disabled INTERFACE)
@@ -99879,9 +95652,6 @@ target_link_options(MALYANM200_F103CB INTERFACE
   "SHELL: "
   -mcpu=${MALYANM200_F103CB_MCU}
 )
-target_link_libraries(MALYANM200_F103CB INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(MALYANM200_F103CB_serial_disabled INTERFACE)
 target_compile_options(MALYANM200_F103CB_serial_disabled INTERFACE
@@ -99960,9 +95730,6 @@ target_link_options(MALYANM300_F070CB INTERFACE
   "SHELL: "
   -mcpu=${MALYANM300_F070CB_MCU}
 )
-target_link_libraries(MALYANM300_F070CB INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(MALYANM300_F070CB_serial_disabled INTERFACE)
 target_compile_options(MALYANM300_F070CB_serial_disabled INTERFACE
@@ -100040,9 +95807,6 @@ target_link_options(MAPLEMINI_F103CB INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${MAPLEMINI_F103CB_MCU}
-)
-target_link_libraries(MAPLEMINI_F103CB INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(MAPLEMINI_F103CB_serial_disabled INTERFACE)
@@ -100126,9 +95890,6 @@ target_link_options(MAPLEMINI_F103CB_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${MAPLEMINI_F103CB_dfu2_MCU}
 )
-target_link_libraries(MAPLEMINI_F103CB_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # MAPLEMINI_F103CB_dfuo
@@ -100170,9 +95931,6 @@ target_link_options(MAPLEMINI_F103CB_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${MAPLEMINI_F103CB_dfuo_MCU}
-)
-target_link_libraries(MAPLEMINI_F103CB_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -100216,9 +95974,6 @@ target_link_options(MAPLEMINI_F103CB_hid INTERFACE
   "SHELL: "
   -mcpu=${MAPLEMINI_F103CB_hid_MCU}
 )
-target_link_libraries(MAPLEMINI_F103CB_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # MICROMOD_F405
@@ -100260,9 +96015,6 @@ target_link_options(MICROMOD_F405 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${MICROMOD_F405_MCU}
-)
-target_link_libraries(MICROMOD_F405 INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(MICROMOD_F405_serial_disabled INTERFACE)
@@ -100346,9 +96098,6 @@ target_link_options(MKR_SHARKY INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${MKR_SHARKY_MCU}
 )
-target_link_libraries(MKR_SHARKY INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(MKR_SHARKY_serial_disabled INTERFACE)
 target_compile_options(MKR_SHARKY_serial_disabled INTERFACE
@@ -100430,9 +96179,6 @@ target_link_options(NUCLEO_C031C6 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
   "SHELL: "
   -mcpu=${NUCLEO_C031C6_MCU}
-)
-target_link_libraries(NUCLEO_C031C6 INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(NUCLEO_C031C6_serial_disabled INTERFACE)
@@ -100516,9 +96262,6 @@ target_link_options(NUCLEO_F030R8 INTERFACE
   "SHELL: "
   -mcpu=${NUCLEO_F030R8_MCU}
 )
-target_link_libraries(NUCLEO_F030R8 INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(NUCLEO_F030R8_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_F030R8_serial_disabled INTERFACE
@@ -100600,9 +96343,6 @@ target_link_options(NUCLEO_F031K6 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
   "SHELL: "
   -mcpu=${NUCLEO_F031K6_MCU}
-)
-target_link_libraries(NUCLEO_F031K6 INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(NUCLEO_F031K6_serial_disabled INTERFACE)
@@ -100686,9 +96426,6 @@ target_link_options(NUCLEO_F042K6 INTERFACE
   "SHELL: "
   -mcpu=${NUCLEO_F042K6_MCU}
 )
-target_link_libraries(NUCLEO_F042K6 INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(NUCLEO_F042K6_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_F042K6_serial_disabled INTERFACE
@@ -100770,9 +96507,6 @@ target_link_options(NUCLEO_F070RB INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${NUCLEO_F070RB_MCU}
-)
-target_link_libraries(NUCLEO_F070RB INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(NUCLEO_F070RB_serial_disabled INTERFACE)
@@ -100856,9 +96590,6 @@ target_link_options(NUCLEO_F072RB INTERFACE
   "SHELL: "
   -mcpu=${NUCLEO_F072RB_MCU}
 )
-target_link_libraries(NUCLEO_F072RB INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(NUCLEO_F072RB_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_F072RB_serial_disabled INTERFACE
@@ -100940,9 +96671,6 @@ target_link_options(NUCLEO_F091RC INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${NUCLEO_F091RC_MCU}
-)
-target_link_libraries(NUCLEO_F091RC INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(NUCLEO_F091RC_serial_disabled INTERFACE)
@@ -101026,9 +96754,6 @@ target_link_options(NUCLEO_F103RB INTERFACE
   "SHELL: "
   -mcpu=${NUCLEO_F103RB_MCU}
 )
-target_link_libraries(NUCLEO_F103RB INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(NUCLEO_F103RB_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_F103RB_serial_disabled INTERFACE
@@ -101110,9 +96835,6 @@ target_link_options(NUCLEO_F207ZG INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL: "
   -mcpu=${NUCLEO_F207ZG_MCU}
-)
-target_link_libraries(NUCLEO_F207ZG INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(NUCLEO_F207ZG_serial_disabled INTERFACE)
@@ -101196,9 +96918,6 @@ target_link_options(NUCLEO_F302R8 INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_F302R8_MCU}
 )
-target_link_libraries(NUCLEO_F302R8 INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(NUCLEO_F302R8_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_F302R8_serial_disabled INTERFACE
@@ -101280,9 +96999,6 @@ target_link_options(NUCLEO_F303K8 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_F303K8_MCU}
-)
-target_link_libraries(NUCLEO_F303K8 INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(NUCLEO_F303K8_serial_disabled INTERFACE)
@@ -101366,9 +97082,6 @@ target_link_options(NUCLEO_F303RE INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_F303RE_MCU}
 )
-target_link_libraries(NUCLEO_F303RE INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(NUCLEO_F303RE_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_F303RE_serial_disabled INTERFACE
@@ -101450,9 +97163,6 @@ target_link_options(NUCLEO_F401RE INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_F401RE_MCU}
-)
-target_link_libraries(NUCLEO_F401RE INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(NUCLEO_F401RE_serial_disabled INTERFACE)
@@ -101536,9 +97246,6 @@ target_link_options(NUCLEO_F411RE INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_F411RE_MCU}
 )
-target_link_libraries(NUCLEO_F411RE INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(NUCLEO_F411RE_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_F411RE_serial_disabled INTERFACE
@@ -101620,9 +97327,6 @@ target_link_options(NUCLEO_F412ZG INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_F412ZG_MCU}
-)
-target_link_libraries(NUCLEO_F412ZG INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(NUCLEO_F412ZG_serial_disabled INTERFACE)
@@ -101706,9 +97410,6 @@ target_link_options(NUCLEO_F413ZH INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_F413ZH_MCU}
 )
-target_link_libraries(NUCLEO_F413ZH INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(NUCLEO_F413ZH_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_F413ZH_serial_disabled INTERFACE
@@ -101790,9 +97491,6 @@ target_link_options(NUCLEO_F429ZI INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_F429ZI_MCU}
-)
-target_link_libraries(NUCLEO_F429ZI INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(NUCLEO_F429ZI_serial_disabled INTERFACE)
@@ -101876,9 +97574,6 @@ target_link_options(NUCLEO_F446RE INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_F446RE_MCU}
 )
-target_link_libraries(NUCLEO_F446RE INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(NUCLEO_F446RE_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_F446RE_serial_disabled INTERFACE
@@ -101960,9 +97655,6 @@ target_link_options(NUCLEO_F722ZE INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL: "
   -mcpu=${NUCLEO_F722ZE_MCU}
-)
-target_link_libraries(NUCLEO_F722ZE INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(NUCLEO_F722ZE_serial_disabled INTERFACE)
@@ -102046,9 +97738,6 @@ target_link_options(NUCLEO_F746ZG INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_F746ZG_MCU}
 )
-target_link_libraries(NUCLEO_F746ZG INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(NUCLEO_F746ZG_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_F746ZG_serial_disabled INTERFACE
@@ -102130,9 +97819,6 @@ target_link_options(NUCLEO_F756ZG INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_F756ZG_MCU}
-)
-target_link_libraries(NUCLEO_F756ZG INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(NUCLEO_F756ZG_serial_disabled INTERFACE)
@@ -102216,9 +97902,6 @@ target_link_options(NUCLEO_F767ZI INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_F767ZI_MCU}
 )
-target_link_libraries(NUCLEO_F767ZI INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(NUCLEO_F767ZI_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_F767ZI_serial_disabled INTERFACE
@@ -102300,9 +97983,6 @@ target_link_options(NUCLEO_G031K8 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${NUCLEO_G031K8_MCU}
-)
-target_link_libraries(NUCLEO_G031K8 INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(NUCLEO_G031K8_serial_disabled INTERFACE)
@@ -102386,9 +98066,6 @@ target_link_options(NUCLEO_G070RB INTERFACE
   "SHELL: "
   -mcpu=${NUCLEO_G070RB_MCU}
 )
-target_link_libraries(NUCLEO_G070RB INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(NUCLEO_G070RB_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_G070RB_serial_disabled INTERFACE
@@ -102470,9 +98147,6 @@ target_link_options(NUCLEO_G071RB INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL: "
   -mcpu=${NUCLEO_G071RB_MCU}
-)
-target_link_libraries(NUCLEO_G071RB INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(NUCLEO_G071RB_serial_disabled INTERFACE)
@@ -102556,9 +98230,6 @@ target_link_options(NUCLEO_G0B1RE INTERFACE
   "SHELL: "
   -mcpu=${NUCLEO_G0B1RE_MCU}
 )
-target_link_libraries(NUCLEO_G0B1RE INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(NUCLEO_G0B1RE_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_G0B1RE_serial_disabled INTERFACE
@@ -102640,9 +98311,6 @@ target_link_options(NUCLEO_G431KB INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_G431KB_MCU}
-)
-target_link_libraries(NUCLEO_G431KB INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(NUCLEO_G431KB_serial_disabled INTERFACE)
@@ -102726,9 +98394,6 @@ target_link_options(NUCLEO_G431RB INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_G431RB_MCU}
 )
-target_link_libraries(NUCLEO_G431RB INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(NUCLEO_G431RB_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_G431RB_serial_disabled INTERFACE
@@ -102810,9 +98475,6 @@ target_link_options(NUCLEO_G474RE INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_G474RE_MCU}
-)
-target_link_libraries(NUCLEO_G474RE INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(NUCLEO_G474RE_serial_disabled INTERFACE)
@@ -102896,9 +98558,6 @@ target_link_options(NUCLEO_H563ZI INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_H563ZI_MCU}
 )
-target_link_libraries(NUCLEO_H563ZI INTERFACE
-  arm_ARMv8MMLlfsp_math
-)
 
 add_library(NUCLEO_H563ZI_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_H563ZI_serial_disabled INTERFACE
@@ -102980,9 +98639,6 @@ target_link_options(NUCLEO_H723ZG INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_H723ZG_MCU}
-)
-target_link_libraries(NUCLEO_H723ZG INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(NUCLEO_H723ZG_serial_disabled INTERFACE)
@@ -103066,9 +98722,6 @@ target_link_options(NUCLEO_H743ZI INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_H743ZI_MCU}
 )
-target_link_libraries(NUCLEO_H743ZI INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(NUCLEO_H743ZI_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_H743ZI_serial_disabled INTERFACE
@@ -103150,9 +98803,6 @@ target_link_options(NUCLEO_H743ZI2 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_H743ZI2_MCU}
-)
-target_link_libraries(NUCLEO_H743ZI2 INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(NUCLEO_H743ZI2_serial_disabled INTERFACE)
@@ -103236,9 +98886,6 @@ target_link_options(NUCLEO_L010RB INTERFACE
   "SHELL: "
   -mcpu=${NUCLEO_L010RB_MCU}
 )
-target_link_libraries(NUCLEO_L010RB INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(NUCLEO_L010RB_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_L010RB_serial_disabled INTERFACE
@@ -103320,9 +98967,6 @@ target_link_options(NUCLEO_L031K6 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
   "SHELL: "
   -mcpu=${NUCLEO_L031K6_MCU}
-)
-target_link_libraries(NUCLEO_L031K6 INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(NUCLEO_L031K6_serial_disabled INTERFACE)
@@ -103406,9 +99050,6 @@ target_link_options(NUCLEO_L053R8 INTERFACE
   "SHELL: "
   -mcpu=${NUCLEO_L053R8_MCU}
 )
-target_link_libraries(NUCLEO_L053R8 INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(NUCLEO_L053R8_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_L053R8_serial_disabled INTERFACE
@@ -103490,9 +99131,6 @@ target_link_options(NUCLEO_L073RZ INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${NUCLEO_L073RZ_MCU}
-)
-target_link_libraries(NUCLEO_L073RZ INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(NUCLEO_L073RZ_serial_disabled INTERFACE)
@@ -103576,9 +99214,6 @@ target_link_options(NUCLEO_L152RE INTERFACE
   "SHELL: "
   -mcpu=${NUCLEO_L152RE_MCU}
 )
-target_link_libraries(NUCLEO_L152RE INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(NUCLEO_L152RE_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_L152RE_serial_disabled INTERFACE
@@ -103660,9 +99295,6 @@ target_link_options(NUCLEO_L412KB INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=40960"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_L412KB_MCU}
-)
-target_link_libraries(NUCLEO_L412KB INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(NUCLEO_L412KB_serial_disabled INTERFACE)
@@ -103746,9 +99378,6 @@ target_link_options(NUCLEO_L432KC INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_L432KC_MCU}
 )
-target_link_libraries(NUCLEO_L432KC INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(NUCLEO_L432KC_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_L432KC_serial_disabled INTERFACE
@@ -103830,9 +99459,6 @@ target_link_options(NUCLEO_L433RC_P INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_L433RC_P_MCU}
-)
-target_link_libraries(NUCLEO_L433RC_P INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(NUCLEO_L433RC_P_serial_disabled INTERFACE)
@@ -103916,9 +99542,6 @@ target_link_options(NUCLEO_L452RE INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_L452RE_MCU}
 )
-target_link_libraries(NUCLEO_L452RE INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(NUCLEO_L452RE_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_L452RE_serial_disabled INTERFACE
@@ -104000,9 +99623,6 @@ target_link_options(NUCLEO_L452REP INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=163840"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_L452REP_MCU}
-)
-target_link_libraries(NUCLEO_L452REP INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(NUCLEO_L452REP_serial_disabled INTERFACE)
@@ -104086,9 +99706,6 @@ target_link_options(NUCLEO_L476RG INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_L476RG_MCU}
 )
-target_link_libraries(NUCLEO_L476RG INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(NUCLEO_L476RG_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_L476RG_serial_disabled INTERFACE
@@ -104170,9 +99787,6 @@ target_link_options(NUCLEO_L496ZG INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_L496ZG_MCU}
-)
-target_link_libraries(NUCLEO_L496ZG INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(NUCLEO_L496ZG_serial_disabled INTERFACE)
@@ -104256,9 +99870,6 @@ target_link_options(NUCLEO_L496ZG-P INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 "
   -mcpu=${NUCLEO_L496ZG-P_MCU}
 )
-target_link_libraries(NUCLEO_L496ZG-P INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(NUCLEO_L496ZG-P_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_L496ZG-P_serial_disabled INTERFACE
@@ -104340,9 +99951,6 @@ target_link_options(NUCLEO_L4R5ZI INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=655360"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_L4R5ZI_MCU}
-)
-target_link_libraries(NUCLEO_L4R5ZI INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(NUCLEO_L4R5ZI_serial_disabled INTERFACE)
@@ -104426,9 +100034,6 @@ target_link_options(NUCLEO_L4R5ZI_P INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_L4R5ZI_P_MCU}
 )
-target_link_libraries(NUCLEO_L4R5ZI_P INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(NUCLEO_L4R5ZI_P_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_L4R5ZI_P_serial_disabled INTERFACE
@@ -104510,9 +100115,6 @@ target_link_options(NUCLEO_L552ZE_Q INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_L552ZE_Q_MCU}
-)
-target_link_libraries(NUCLEO_L552ZE_Q INTERFACE
-  arm_ARMv8MMLlfsp_math
 )
 
 add_library(NUCLEO_L552ZE_Q_serial_disabled INTERFACE)
@@ -104596,9 +100198,6 @@ target_link_options(NUCLEO_U575ZI_Q INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_U575ZI_Q_MCU}
 )
-target_link_libraries(NUCLEO_U575ZI_Q INTERFACE
-  arm_ARMv8MMLlfsp_math
-)
 
 add_library(NUCLEO_U575ZI_Q_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_U575ZI_Q_serial_disabled INTERFACE
@@ -104680,9 +100279,6 @@ target_link_options(NUCLEO_WB15CC INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=12288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_WB15CC_MCU}
-)
-target_link_libraries(NUCLEO_WB15CC INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(NUCLEO_WB15CC_serial_disabled INTERFACE)
@@ -104766,9 +100362,6 @@ target_link_options(NUCLEO_WL55JC1 INTERFACE
   "SHELL: "
   -mcpu=${NUCLEO_WL55JC1_MCU}
 )
-target_link_libraries(NUCLEO_WL55JC1 INTERFACE
-  arm_cortexM4l_math
-)
 
 add_library(NUCLEO_WL55JC1_serial_disabled INTERFACE)
 target_compile_options(NUCLEO_WL55JC1_serial_disabled INTERFACE
@@ -104850,9 +100443,6 @@ target_link_options(OLIMEXINO_STM32F3 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=40960"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${OLIMEXINO_STM32F3_MCU}
-)
-target_link_libraries(OLIMEXINO_STM32F3 INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(OLIMEXINO_STM32F3_serial_disabled INTERFACE)
@@ -104936,9 +100526,6 @@ target_link_options(P_NUCLEO_WB55_USB_DONGLE INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${P_NUCLEO_WB55_USB_DONGLE_MCU}
 )
-target_link_libraries(P_NUCLEO_WB55_USB_DONGLE INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(P_NUCLEO_WB55_USB_DONGLE_serial_disabled INTERFACE)
 target_compile_options(P_NUCLEO_WB55_USB_DONGLE_serial_disabled INTERFACE
@@ -105020,9 +100607,6 @@ target_link_options(P_NUCLEO_WB55RG INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${P_NUCLEO_WB55RG_MCU}
-)
-target_link_libraries(P_NUCLEO_WB55RG INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(P_NUCLEO_WB55RG_serial_disabled INTERFACE)
@@ -105106,9 +100690,6 @@ target_link_options(PRNTR_V1 INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${PRNTR_V1_MCU}
 )
-target_link_libraries(PRNTR_V1 INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(PRNTR_V1_serial_disabled INTERFACE)
 target_compile_options(PRNTR_V1_serial_disabled INTERFACE
@@ -105186,9 +100767,6 @@ target_link_options(PRNTR_V2 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${PRNTR_V2_MCU}
-)
-target_link_libraries(PRNTR_V2 INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(PRNTR_V2_serial_disabled INTERFACE)
@@ -105268,9 +100846,6 @@ target_link_options(PX_HER0 INTERFACE
   "SHELL: "
   -mcpu=${PX_HER0_MCU}
 )
-target_link_libraries(PX_HER0 INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(PX_HER0_serial_disabled INTERFACE)
 target_compile_options(PX_HER0_serial_disabled INTERFACE
@@ -105340,9 +100915,6 @@ target_link_options(PYBSTICK26_DUINO INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${PYBSTICK26_DUINO_MCU}
-)
-target_link_libraries(PYBSTICK26_DUINO INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(PYBSTICK26_DUINO_serial_disabled INTERFACE)
@@ -105414,9 +100986,6 @@ target_link_options(PYBSTICK26_LITE INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${PYBSTICK26_LITE_MCU}
 )
-target_link_libraries(PYBSTICK26_LITE INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(PYBSTICK26_LITE_serial_disabled INTERFACE)
 target_compile_options(PYBSTICK26_LITE_serial_disabled INTERFACE
@@ -105486,9 +101055,6 @@ target_link_options(PYBSTICK26_PRO INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${PYBSTICK26_PRO_MCU}
-)
-target_link_libraries(PYBSTICK26_PRO INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(PYBSTICK26_PRO_serial_disabled INTERFACE)
@@ -105560,9 +101126,6 @@ target_link_options(PYBSTICK26_STD INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${PYBSTICK26_STD_MCU}
 )
-target_link_libraries(PYBSTICK26_STD INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(PYBSTICK26_STD_serial_disabled INTERFACE)
 target_compile_options(PYBSTICK26_STD_serial_disabled INTERFACE
@@ -105633,9 +101196,6 @@ target_link_options(RAK3172_MODULE INTERFACE
   "SHELL: "
   -mcpu=${RAK3172_MODULE_MCU}
 )
-target_link_libraries(RAK3172_MODULE INTERFACE
-  arm_cortexM4l_math
-)
 
 add_library(RAK3172_MODULE_serial_disabled INTERFACE)
 target_compile_options(RAK3172_MODULE_serial_disabled INTERFACE
@@ -105689,9 +101249,6 @@ target_link_options(RAK811_TRACKER INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
   "SHELL: "
   -mcpu=${RAK811_TRACKER_MCU}
-)
-target_link_libraries(RAK811_TRACKER INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(RAK811_TRACKER_serial_disabled INTERFACE)
@@ -105747,9 +101304,6 @@ target_link_options(RAK811_TRACKERA INTERFACE
   "SHELL: "
   -mcpu=${RAK811_TRACKERA_MCU}
 )
-target_link_libraries(RAK811_TRACKERA INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(RAK811_TRACKERA_serial_disabled INTERFACE)
 target_compile_options(RAK811_TRACKERA_serial_disabled INTERFACE
@@ -105803,9 +101357,6 @@ target_link_options(REMRAM_V1 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${REMRAM_V1_MCU}
-)
-target_link_libraries(REMRAM_V1 INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(REMRAM_V1_serial_disabled INTERFACE)
@@ -105885,9 +101436,6 @@ target_link_options(RHF76_052 INTERFACE
   "SHELL: "
   -mcpu=${RHF76_052_MCU}
 )
-target_link_libraries(RHF76_052 INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(RHF76_052_serial_disabled INTERFACE)
 target_compile_options(RHF76_052_serial_disabled INTERFACE
@@ -105941,9 +101489,6 @@ target_link_options(RUMBA32 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${RUMBA32_MCU}
-)
-target_link_libraries(RUMBA32 INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(RUMBA32_serial_disabled INTERFACE)
@@ -106022,9 +101567,6 @@ target_link_options(SFE_MMPB_STM32WB5MMG INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${SFE_MMPB_STM32WB5MMG_MCU}
-)
-target_link_libraries(SFE_MMPB_STM32WB5MMG INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(SFE_MMPB_STM32WB5MMG_serial_disabled INTERFACE)
@@ -106108,9 +101650,6 @@ target_link_options(Sparky_V1 INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${Sparky_V1_MCU}
 )
-target_link_libraries(Sparky_V1 INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(Sparky_V1_serial_disabled INTERFACE)
 target_compile_options(Sparky_V1_serial_disabled INTERFACE
@@ -106193,9 +101732,6 @@ target_link_options(Sparky_V1_dfu2 INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${Sparky_V1_dfu2_MCU}
 )
-target_link_libraries(Sparky_V1_dfu2 INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # Sparky_V1_dfuo
@@ -106237,9 +101773,6 @@ target_link_options(Sparky_V1_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=40960"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${Sparky_V1_dfuo_MCU}
-)
-target_link_libraries(Sparky_V1_dfuo INTERFACE
-  arm_cortexM4lf_math
 )
 
 
@@ -106283,9 +101816,6 @@ target_link_options(Sparky_V1_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${Sparky_V1_hid_MCU}
 )
-target_link_libraries(Sparky_V1_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # ST3DP001_EVAL
@@ -106327,9 +101857,6 @@ target_link_options(ST3DP001_EVAL INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${ST3DP001_EVAL_MCU}
-)
-target_link_libraries(ST3DP001_EVAL INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(ST3DP001_EVAL_serial_disabled INTERFACE)
@@ -106408,9 +101935,6 @@ target_link_options(STEVAL_MKBOXPRO INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${STEVAL_MKBOXPRO_MCU}
-)
-target_link_libraries(STEVAL_MKBOXPRO INTERFACE
-  arm_ARMv8MMLlfsp_math
 )
 
 add_library(STEVAL_MKBOXPRO_serial_disabled INTERFACE)
@@ -106494,9 +102018,6 @@ target_link_options(STEVAL_MKSBOX1V1 INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${STEVAL_MKSBOX1V1_MCU}
 )
-target_link_libraries(STEVAL_MKSBOX1V1 INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(STEVAL_MKSBOX1V1_serial_disabled INTERFACE)
 target_compile_options(STEVAL_MKSBOX1V1_serial_disabled INTERFACE
@@ -106578,9 +102099,6 @@ target_link_options(STM32C0116_DK INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
   "SHELL: "
   -mcpu=${STM32C0116_DK_MCU}
-)
-target_link_libraries(STM32C0116_DK INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(STM32C0116_DK_serial_disabled INTERFACE)
@@ -106664,9 +102182,6 @@ target_link_options(STM32C0316_DK INTERFACE
   "SHELL: "
   -mcpu=${STM32C0316_DK_MCU}
 )
-target_link_libraries(STM32C0316_DK INTERFACE
-  arm_cortexM0l_math
-)
 
 add_library(STM32C0316_DK_serial_disabled INTERFACE)
 target_compile_options(STM32C0316_DK_serial_disabled INTERFACE
@@ -106748,9 +102263,6 @@ target_link_options(STM32H573I_DK INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=655360"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${STM32H573I_DK_MCU}
-)
-target_link_libraries(STM32H573I_DK INTERFACE
-  arm_ARMv8MMLlfsp_math
 )
 
 add_library(STM32H573I_DK_serial_disabled INTERFACE)
@@ -106834,9 +102346,6 @@ target_link_options(STM32MP157A_DK1 INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${STM32MP157A_DK1_MCU}
 )
-target_link_libraries(STM32MP157A_DK1 INTERFACE
-  arm_cortexM4l_math
-)
 
 add_library(STM32MP157A_DK1_serial_disabled INTERFACE)
 target_compile_options(STM32MP157A_DK1_serial_disabled INTERFACE
@@ -106903,9 +102412,6 @@ target_link_options(STM32MP157C_DK2 INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${STM32MP157C_DK2_MCU}
 )
-target_link_libraries(STM32MP157C_DK2 INTERFACE
-  arm_cortexM4l_math
-)
 
 add_library(STM32MP157C_DK2_serial_disabled INTERFACE)
 target_compile_options(STM32MP157C_DK2_serial_disabled INTERFACE
@@ -106971,9 +102477,6 @@ target_link_options(STM32WB5MM_DK INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${STM32WB5MM_DK_MCU}
-)
-target_link_libraries(STM32WB5MM_DK INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(STM32WB5MM_DK_serial_disabled INTERFACE)
@@ -107057,9 +102560,6 @@ target_link_options(STORM32_V1_31_RC INTERFACE
   "SHELL: "
   -mcpu=${STORM32_V1_31_RC_MCU}
 )
-target_link_libraries(STORM32_V1_31_RC INTERFACE
-  arm_cortexM3l_math
-)
 
 add_library(STORM32_V1_31_RC_serial_disabled INTERFACE)
 target_compile_options(STORM32_V1_31_RC_serial_disabled INTERFACE
@@ -107137,9 +102637,6 @@ target_link_options(SWAN_R5 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=655360"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${SWAN_R5_MCU}
-)
-target_link_libraries(SWAN_R5 INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(SWAN_R5_serial_disabled INTERFACE)
@@ -107223,9 +102720,6 @@ target_link_options(THUNDERPACK_F411 INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${THUNDERPACK_F411_MCU}
 )
-target_link_libraries(THUNDERPACK_F411 INTERFACE
-  arm_cortexM4lf_math
-)
 
 add_library(THUNDERPACK_F411_serial_disabled INTERFACE)
 target_compile_options(THUNDERPACK_F411_serial_disabled INTERFACE
@@ -107308,9 +102802,6 @@ target_link_options(THUNDERPACK_F411_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${THUNDERPACK_F411_hid_MCU}
 )
-target_link_libraries(THUNDERPACK_F411_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # THUNDERPACK_L072
@@ -107352,9 +102843,6 @@ target_link_options(THUNDERPACK_L072 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
   "SHELL: "
   -mcpu=${THUNDERPACK_L072_MCU}
-)
-target_link_libraries(THUNDERPACK_L072 INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(THUNDERPACK_L072_serial_disabled INTERFACE)
@@ -107425,9 +102913,6 @@ target_link_options(VAKE_V1 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${VAKE_V1_MCU}
-)
-target_link_libraries(VAKE_V1 INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(VAKE_V1_serial_disabled INTERFACE)
@@ -107506,9 +102991,6 @@ target_link_options(VCCGND_F103ZET6 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${VCCGND_F103ZET6_MCU}
-)
-target_link_libraries(VCCGND_F103ZET6 INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(VCCGND_F103ZET6_serial_disabled INTERFACE)
@@ -107592,9 +103074,6 @@ target_link_options(VCCGND_F103ZET6_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${VCCGND_F103ZET6_dfu2_MCU}
 )
-target_link_libraries(VCCGND_F103ZET6_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # VCCGND_F103ZET6_dfuo
@@ -107636,9 +103115,6 @@ target_link_options(VCCGND_F103ZET6_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${VCCGND_F103ZET6_dfuo_MCU}
-)
-target_link_libraries(VCCGND_F103ZET6_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -107682,9 +103158,6 @@ target_link_options(VCCGND_F103ZET6_hid INTERFACE
   "SHELL: "
   -mcpu=${VCCGND_F103ZET6_hid_MCU}
 )
-target_link_libraries(VCCGND_F103ZET6_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # VCCGND_F103ZET6_MINI
@@ -107726,9 +103199,6 @@ target_link_options(VCCGND_F103ZET6_MINI INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${VCCGND_F103ZET6_MINI_MCU}
-)
-target_link_libraries(VCCGND_F103ZET6_MINI INTERFACE
-  arm_cortexM3l_math
 )
 
 add_library(VCCGND_F103ZET6_MINI_serial_disabled INTERFACE)
@@ -107812,9 +103282,6 @@ target_link_options(VCCGND_F103ZET6_MINI_dfu2 INTERFACE
   "SHELL: "
   -mcpu=${VCCGND_F103ZET6_MINI_dfu2_MCU}
 )
-target_link_libraries(VCCGND_F103ZET6_MINI_dfu2 INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # VCCGND_F103ZET6_MINI_dfuo
@@ -107856,9 +103323,6 @@ target_link_options(VCCGND_F103ZET6_MINI_dfuo INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
   "SHELL: "
   -mcpu=${VCCGND_F103ZET6_MINI_dfuo_MCU}
-)
-target_link_libraries(VCCGND_F103ZET6_MINI_dfuo INTERFACE
-  arm_cortexM3l_math
 )
 
 
@@ -107902,9 +103366,6 @@ target_link_options(VCCGND_F103ZET6_MINI_hid INTERFACE
   "SHELL: "
   -mcpu=${VCCGND_F103ZET6_MINI_hid_MCU}
 )
-target_link_libraries(VCCGND_F103ZET6_MINI_hid INTERFACE
-  arm_cortexM3l_math
-)
 
 
 # VCCGND_F407ZG_MINI
@@ -107946,9 +103407,6 @@ target_link_options(VCCGND_F407ZG_MINI INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${VCCGND_F407ZG_MINI_MCU}
-)
-target_link_libraries(VCCGND_F407ZG_MINI INTERFACE
-  arm_cortexM4lf_math
 )
 
 add_library(VCCGND_F407ZG_MINI_serial_disabled INTERFACE)
@@ -108032,9 +103490,6 @@ target_link_options(VCCGND_F407ZG_MINI_hid INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${VCCGND_F407ZG_MINI_hid_MCU}
 )
-target_link_libraries(VCCGND_F407ZG_MINI_hid INTERFACE
-  arm_cortexM4lf_math
-)
 
 
 # WeActMiniH743VITX
@@ -108076,9 +103531,6 @@ target_link_options(WeActMiniH743VITX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=524288"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${WeActMiniH743VITX_MCU}
-)
-target_link_libraries(WeActMiniH743VITX INTERFACE
-  arm_cortexM7lfsp_math
 )
 
 add_library(WeActMiniH743VITX_serial_disabled INTERFACE)
@@ -108162,9 +103614,6 @@ target_link_options(WeActMiniH750VBTX INTERFACE
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${WeActMiniH750VBTX_MCU}
 )
-target_link_libraries(WeActMiniH750VBTX INTERFACE
-  arm_cortexM7lfsp_math
-)
 
 add_library(WeActMiniH750VBTX_serial_disabled INTERFACE)
 target_compile_options(WeActMiniH750VBTX_serial_disabled INTERFACE
@@ -108246,9 +103695,6 @@ target_link_options(WRAITH32_V1 INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=7936"
   "SHELL: "
   -mcpu=${WRAITH32_V1_MCU}
-)
-target_link_libraries(WRAITH32_V1 INTERFACE
-  arm_cortexM0l_math
 )
 
 add_library(WRAITH32_V1_serial_disabled INTERFACE)

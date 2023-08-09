@@ -39,9 +39,6 @@ target_link_options({{pnum}} INTERFACE
   "SHELL:{{config.build.fpu}} {{config.build["float-abi"]}}"
   -mcpu={{ "${" }}{{pnum}}_MCU{{ "}" }}
 )
-target_link_libraries({{pnum}} INTERFACE
-  {{config.build.cmsis_lib_gcc}}
-)
 
 {% for label,subconfig in config.menu.xserial | dictsort %}
 add_library({{pnum}}_serial_{{label}} INTERFACE)
