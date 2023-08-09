@@ -115,17 +115,6 @@ def process_usb_configuration(cpp_defines):
         env.Append(CPPDEFINES=["HAL_PCD_MODULE_ENABLED"])
 
 
-def get_arm_math_lib(cpu):
-    if "m33" in cpu:
-        return "arm_ARMv8MMLlfsp_math"
-    elif "m4" in cpu:
-        return "arm_cortexM4lf_math"
-    elif "m7" in cpu:
-        return "arm_cortexM7lfsp_math"
-
-    return "arm_cortex%sl_math" % cpu[7:9].upper()
-
-
 def configure_application_offset(mcu, upload_protocol):
     offset = 0
 
@@ -340,13 +329,11 @@ env.Append(
         % board_config.get("upload.maximum_ram_size"),
     ],
     LIBS=[
-        get_arm_math_lib(board_config.get("build.cpu")),
         "c",
         "m",
         "gcc",
         "stdc++",
     ],
-    LIBPATH=[join(CMSIS_DIR, "DSP", "Lib", "GCC")],
 )
 
 env.ProcessFlags(board_config.get("build.framework_extra_flags.arduino", ""))
