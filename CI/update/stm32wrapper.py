@@ -53,7 +53,7 @@ j2_env = Environment(
 all_ll_header_file_template = j2_env.get_template(all_ll_h_file)
 ll_h_file_template = j2_env.get_template(ll_h_file)
 c_file_template = j2_env.get_template(c_file)
-dsp_file_template = Template('#include "../Source/{{ dsp }}/{{ dsp }}.c"')
+dsp_file_template = Template('#include "../Source/{{ dsp_dir }}/{{ dsp_name }}"\n\n')
 stm32_def_build_template = j2_env.get_template(stm32_def_build_file)
 system_stm32_template = j2_env.get_template(system_stm32_file)
 
@@ -279,19 +279,16 @@ def wrap(arg_core, arg_cmsis, log):
     else:
         # Delete all subfolders
         deleteFolder(CMSIS_DSP_outSrc_path / "*")
-        dirlist = []
         for path_object in CMSIS_DSPSrc_path.glob("**/*"):
             if path_object.is_file():
                 if path_object.name.endswith(".c"):
-                    dirlist.append(path_object.parent.name)
-        dirlist = sorted(set(dirlist))
-        for dn in dirlist:
-            fdn = CMSIS_DSP_outSrc_path / dn
-            if not fdn.is_dir():
-                createFolder(fdn)
-                out_file = open(fdn / (f"{dn}.c"), "w", newline="\n")
-                all_ll_file.write(dsp_file_template.render(dsp_path=dn))
-                out_file.close()
+                    dn = path_object.parent.name
+                    fn = path_object.name
+                    if dn in fn:
+                        fdn = CMSIS_DSP_outSrc_path / dn
+                        out_file = open(fdn / (f"{fn}"), "w", newline="\n")
+                        out_file.write(dsp_file_template.render(dsp_dir=dn, dsp_name=fn))
+                        out_file.close()
     return 0
 
 

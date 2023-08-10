@@ -35,7 +35,6 @@ Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.series=STM32F2xx
 Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.product_line=STM32F207xx
 Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.variant=STM32F2xx/F207Z(C-E-F-G)T_F217Z(E-G)T
 Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.cmsis_lib_gcc=arm_cortexM3l_math
 
 # NUCLEO_F412ZG board
 Nucleo_144.menu.pnum.NUCLEO_F412ZG=Nucleo F412ZG
@@ -49,7 +48,6 @@ Nucleo_144.menu.pnum.NUCLEO_F412ZG.build.board=NUCLEO_F412ZG
 Nucleo_144.menu.pnum.NUCLEO_F412ZG.build.series=STM32F4xx
 Nucleo_144.menu.pnum.NUCLEO_F412ZG.build.product_line=STM32F412Zx
 Nucleo_144.menu.pnum.NUCLEO_F412ZG.build.variant=STM32F4xx/F412Z(E-G)(J-T)
-Nucleo_144.menu.pnum.NUCLEO_F412ZG.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_F413ZH board
 Nucleo_144.menu.pnum.NUCLEO_F413ZH=Nucleo F413ZH
@@ -63,7 +61,6 @@ Nucleo_144.menu.pnum.NUCLEO_F413ZH.build.board=NUCLEO_F413ZH
 Nucleo_144.menu.pnum.NUCLEO_F413ZH.build.series=STM32F4xx
 Nucleo_144.menu.pnum.NUCLEO_F413ZH.build.product_line=STM32F413xx
 Nucleo_144.menu.pnum.NUCLEO_F413ZH.build.variant=STM32F4xx/F413Z(G-H)(J-T)_F423ZH(J-T)
-Nucleo_144.menu.pnum.NUCLEO_F413ZH.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_F429ZI board
 # Support: USB HID, Serial1 (USART1 on PG9, PG14) and Serial2 (USART2 on PD6, PD5)
@@ -78,7 +75,6 @@ Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.board=NUCLEO_F429ZI
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.series=STM32F4xx
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.product_line=STM32F429xx
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
-Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_F722ZE board
 Nucleo_144.menu.pnum.NUCLEO_F722ZE=Nucleo F722ZE
@@ -92,7 +88,6 @@ Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.series=STM32F7xx
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.product_line=STM32F722xx
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.variant_h=variant_NUCLEO_F722ZE.h
-Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
 # NUCLEO_F746ZG board
 Nucleo_144.menu.pnum.NUCLEO_F746ZG=Nucleo F746ZG
@@ -107,7 +102,6 @@ Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.series=STM32F7xx
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.product_line=STM32F746xx
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.variant_h=variant_NUCLEO_F7x6ZG.h
-Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
 # NUCLEO_F756ZG board
 Nucleo_144.menu.pnum.NUCLEO_F756ZG=Nucleo F756ZG
@@ -122,7 +116,6 @@ Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.series=STM32F7xx
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.product_line=STM32F756xx
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.variant_h=variant_NUCLEO_F7x6ZG.h
-Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
 # NUCLEO_F767ZI board
 Nucleo_144.menu.pnum.NUCLEO_F767ZI=Nucleo F767ZI
@@ -136,7 +129,6 @@ Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.board=NUCLEO_F767ZI
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.series=STM32F7xx
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.product_line=STM32F767xx
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
-Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
 # NUCLEO H563ZI
 Nucleo_144.menu.pnum.NUCLEO_H563ZI=Nucleo H563ZI
@@ -150,7 +142,6 @@ Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.board=NUCLEO_H563ZI
 Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.series=STM32H5xx
 Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.product_line=STM32H563xx
 Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.variant=STM32H5xx/H563Z(G-I)T
-Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
 
 # NUCLEO H723ZG board
 Nucleo_144.menu.pnum.NUCLEO_H723ZG=Nucleo H723ZG
@@ -164,7 +155,6 @@ Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.board=NUCLEO_H723ZG
 Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.series=STM32H7xx
 Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.product_line=STM32H723xx
 Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.variant=STM32H7xx/H723Z(E-G)T_H730ZBT_H733ZGT
-Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
 # NUCLEO_H743ZI board
 Nucleo_144.menu.pnum.NUCLEO_H743ZI=Nucleo H743ZI
@@ -178,7 +168,6 @@ Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.board=NUCLEO_H743ZI
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.series=STM32H7xx
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.product_line=STM32H743xx
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.variant=STM32H7xx/H742Z(G-I)T_H743Z(G-I)T_H747A(G-I)I_H747I(G-I)T_H750ZBT_H753ZIT_H757AII_H757IIT
-Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2=Nucleo H743ZI2
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.node="NODE_H743ZI,NOD_H743ZI2"
@@ -192,7 +181,6 @@ Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.series=STM32H7xx
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.product_line=STM32H743xx
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.variant=STM32H7xx/H742Z(G-I)T_H743Z(G-I)T_H747A(G-I)I_H747I(G-I)T_H750ZBT_H753ZIT_H757AII_H757IIT
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.variant_h=variant_NUCLEO_H743ZI.h
-Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
 # NUCLEO_L496ZG board
 Nucleo_144.menu.pnum.NUCLEO_L496ZG=Nucleo L496ZG
@@ -206,7 +194,6 @@ Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.board=NUCLEO_L496ZG
 Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.series=STM32L4xx
 Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.product_line=STM32L496xx
 Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.variant=STM32L4xx/L496Z(E-G)T_L4A6ZGT
-Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_L496ZG-P board
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P=Nucleo L496ZG-P
@@ -220,7 +207,6 @@ Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.board=NUCLEO_L496ZG_P
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.series=STM32L4xx
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.product_line=STM32L496xx
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.variant=STM32L4xx/L496ZGTxP_L4A6ZGTxP
-Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_L4R5ZI board
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI=Nucleo L4R5ZI
@@ -234,7 +220,6 @@ Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.board=NUCLEO_L4R5ZI
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.series=STM32L4xx
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.product_line=STM32L4R5xx
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.variant=STM32L4xx/L4R5Z(G-I)T_L4R7ZIT_L4S5ZIT_L4S7ZIT
-Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_L4R5ZI-P board
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P=Nucleo L4R5ZI-P
@@ -248,7 +233,6 @@ Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.build.board=NUCLEO_L4R5ZI_P
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.build.series=STM32L4xx
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.build.product_line=STM32L4R5xx
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.build.variant=STM32L4xx/L4R5ZITxP
-Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_L552ZE-Q board
 Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q=Nucleo L552ZE-Q
@@ -262,7 +246,6 @@ Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.board=NUCLEO_L552ZE_Q
 Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.series=STM32L5xx
 Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.product_line=STM32L552xx
 Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.variant=STM32L5xx/L552Z(C-E)TxQ_L562ZETxQ
-Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
 
 # NUCLEO_U575ZI_Q board
 Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q=Nucleo U575ZI-Q
@@ -276,7 +259,6 @@ Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.board=NUCLEO_U575ZI_Q
 Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.series=STM32U5xx
 Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.product_line=STM32U575xx
 Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.variant=STM32U5xx/U575Z(G-I)TxQ_U585ZITxQ
-Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
 Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
 # Upload menu
@@ -322,7 +304,6 @@ Nucleo_64.menu.pnum.NUCLEO_C031C6.build.board=NUCLEO_C031C6
 Nucleo_64.menu.pnum.NUCLEO_C031C6.build.series=STM32C0xx
 Nucleo_64.menu.pnum.NUCLEO_C031C6.build.product_line=STM32C031xx
 Nucleo_64.menu.pnum.NUCLEO_C031C6.build.variant=STM32C0xx/C031C(4-6)(T-U)
-Nucleo_64.menu.pnum.NUCLEO_C031C6.build.cmsis_lib_gcc=arm_cortexM0l_math
 Nucleo_64.menu.pnum.NUCLEO_C031C6.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
 
 # NUCLEO_F030R8 board
@@ -335,7 +316,6 @@ Nucleo_64.menu.pnum.NUCLEO_F030R8.build.board=NUCLEO_F030R8
 Nucleo_64.menu.pnum.NUCLEO_F030R8.build.series=STM32F0xx
 Nucleo_64.menu.pnum.NUCLEO_F030R8.build.product_line=STM32F030x8
 Nucleo_64.menu.pnum.NUCLEO_F030R8.build.variant=STM32F0xx/F030R8T
-Nucleo_64.menu.pnum.NUCLEO_F030R8.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # NUCLEO_F070RB board
 Nucleo_64.menu.pnum.NUCLEO_F070RB=Nucleo F070RB
@@ -347,7 +327,6 @@ Nucleo_64.menu.pnum.NUCLEO_F070RB.build.board=NUCLEO_F070RB
 Nucleo_64.menu.pnum.NUCLEO_F070RB.build.series=STM32F0xx
 Nucleo_64.menu.pnum.NUCLEO_F070RB.build.product_line=STM32F070xB
 Nucleo_64.menu.pnum.NUCLEO_F070RB.build.variant=STM32F0xx/F070RBT
-Nucleo_64.menu.pnum.NUCLEO_F070RB.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # NUCLEO_F072RB board
 Nucleo_64.menu.pnum.NUCLEO_F072RB=Nucleo F072RB
@@ -359,7 +338,6 @@ Nucleo_64.menu.pnum.NUCLEO_F072RB.build.board=NUCLEO_F072RB
 Nucleo_64.menu.pnum.NUCLEO_F072RB.build.series=STM32F0xx
 Nucleo_64.menu.pnum.NUCLEO_F072RB.build.product_line=STM32F072xB
 Nucleo_64.menu.pnum.NUCLEO_F072RB.build.variant=STM32F0xx/F072R8T_F072RB(H-I-T)
-Nucleo_64.menu.pnum.NUCLEO_F072RB.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # NUCLEO_F091RC board
 Nucleo_64.menu.pnum.NUCLEO_F091RC=Nucleo F091RC
@@ -371,7 +349,6 @@ Nucleo_64.menu.pnum.NUCLEO_F091RC.build.board=NUCLEO_F091RC
 Nucleo_64.menu.pnum.NUCLEO_F091RC.build.series=STM32F0xx
 Nucleo_64.menu.pnum.NUCLEO_F091RC.build.product_line=STM32F091xC
 Nucleo_64.menu.pnum.NUCLEO_F091RC.build.variant=STM32F0xx/F091RBT_F091RC(H-T-Y)
-Nucleo_64.menu.pnum.NUCLEO_F091RC.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # NUCLEO_F103RB board
 Nucleo_64.menu.pnum.NUCLEO_F103RB=Nucleo F103RB
@@ -383,7 +360,6 @@ Nucleo_64.menu.pnum.NUCLEO_F103RB.build.board=NUCLEO_F103RB
 Nucleo_64.menu.pnum.NUCLEO_F103RB.build.series=STM32F1xx
 Nucleo_64.menu.pnum.NUCLEO_F103RB.build.product_line=STM32F103xB
 Nucleo_64.menu.pnum.NUCLEO_F103RB.build.variant=STM32F1xx/F103R(8-B)T
-Nucleo_64.menu.pnum.NUCLEO_F103RB.build.cmsis_lib_gcc=arm_cortexM3l_math
 
 # NUCLEO_F302R8 board
 Nucleo_64.menu.pnum.NUCLEO_F302R8=Nucleo F302R8
@@ -397,7 +373,6 @@ Nucleo_64.menu.pnum.NUCLEO_F302R8.build.board=NUCLEO_F302R8
 Nucleo_64.menu.pnum.NUCLEO_F302R8.build.series=STM32F3xx
 Nucleo_64.menu.pnum.NUCLEO_F302R8.build.product_line=STM32F302x8
 Nucleo_64.menu.pnum.NUCLEO_F302R8.build.variant=STM32F3xx/F302R(6-8)T
-Nucleo_64.menu.pnum.NUCLEO_F302R8.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_F303RE board
 Nucleo_64.menu.pnum.NUCLEO_F303RE=Nucleo F303RE
@@ -411,7 +386,6 @@ Nucleo_64.menu.pnum.NUCLEO_F303RE.build.board=NUCLEO_F303RE
 Nucleo_64.menu.pnum.NUCLEO_F303RE.build.series=STM32F3xx
 Nucleo_64.menu.pnum.NUCLEO_F303RE.build.product_line=STM32F303xE
 Nucleo_64.menu.pnum.NUCLEO_F303RE.build.variant=STM32F3xx/F303R(D-E)T
-Nucleo_64.menu.pnum.NUCLEO_F303RE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_F401RE board
 Nucleo_64.menu.pnum.NUCLEO_F401RE=Nucleo F401RE
@@ -425,7 +399,6 @@ Nucleo_64.menu.pnum.NUCLEO_F401RE.build.board=NUCLEO_F401RE
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.series=STM32F4xx
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.product_line=STM32F401xE
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.variant=STM32F4xx/F401R(B-C-D-E)T
-Nucleo_64.menu.pnum.NUCLEO_F401RE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_F411RE board
 Nucleo_64.menu.pnum.NUCLEO_F411RE=Nucleo F411RE
@@ -439,7 +412,6 @@ Nucleo_64.menu.pnum.NUCLEO_F411RE.build.board=NUCLEO_F411RE
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.series=STM32F4xx
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.product_line=STM32F411xE
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.variant=STM32F4xx/F411R(C-E)T
-Nucleo_64.menu.pnum.NUCLEO_F411RE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_F446RE board
 Nucleo_64.menu.pnum.NUCLEO_F446RE=Nucleo F446RE
@@ -453,7 +425,6 @@ Nucleo_64.menu.pnum.NUCLEO_F446RE.build.board=NUCLEO_F446RE
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.series=STM32F4xx
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.product_line=STM32F446xx
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.variant=STM32F4xx/F446R(C-E)T
-Nucleo_64.menu.pnum.NUCLEO_F446RE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_G070RB board
 Nucleo_64.menu.pnum.NUCLEO_G070RB=Nucleo G070RB
@@ -465,7 +436,6 @@ Nucleo_64.menu.pnum.NUCLEO_G070RB.build.board=NUCLEO_G070RB
 Nucleo_64.menu.pnum.NUCLEO_G070RB.build.series=STM32G0xx
 Nucleo_64.menu.pnum.NUCLEO_G070RB.build.product_line=STM32G070xx
 Nucleo_64.menu.pnum.NUCLEO_G070RB.build.variant=STM32G0xx/G070RBT
-Nucleo_64.menu.pnum.NUCLEO_G070RB.build.cmsis_lib_gcc=arm_cortexM0l_math
 Nucleo_64.menu.pnum.NUCLEO_G070RB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # NUCLEO_G071RB board
@@ -478,7 +448,6 @@ Nucleo_64.menu.pnum.NUCLEO_G071RB.build.board=NUCLEO_G071RB
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.series=STM32G0xx
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.product_line=STM32G071xx
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.variant=STM32G0xx/G071R(6-8)T_G071RB(I-T)_G081RB(I-T)
-Nucleo_64.menu.pnum.NUCLEO_G071RB.build.cmsis_lib_gcc=arm_cortexM0l_math
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # NUCLEO_G0B1RE board
@@ -491,7 +460,6 @@ Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.board=NUCLEO_G0B1RE
 Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.series=STM32G0xx
 Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.product_line=STM32G0B1xx
 Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.variant=STM32G0xx/G0B1R(B-C-E)T_G0C1R(C-E)T
-Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.cmsis_lib_gcc=arm_cortexM0l_math
 Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # NUCLEO_G431RB board
@@ -506,7 +474,6 @@ Nucleo_64.menu.pnum.NUCLEO_G431RB.build.board=NUCLEO_G431RB
 Nucleo_64.menu.pnum.NUCLEO_G431RB.build.series=STM32G4xx
 Nucleo_64.menu.pnum.NUCLEO_G431RB.build.product_line=STM32G431xx
 Nucleo_64.menu.pnum.NUCLEO_G431RB.build.variant=STM32G4xx/G431R(6-8-B)(I-T)_G441RB(I-T)
-Nucleo_64.menu.pnum.NUCLEO_G431RB.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_G474RE board
 Nucleo_64.menu.pnum.NUCLEO_G474RE=Nucleo G474RE
@@ -520,7 +487,6 @@ Nucleo_64.menu.pnum.NUCLEO_G474RE.build.board=NUCLEO_G474RE
 Nucleo_64.menu.pnum.NUCLEO_G474RE.build.series=STM32G4xx
 Nucleo_64.menu.pnum.NUCLEO_G474RE.build.product_line=STM32G474xx
 Nucleo_64.menu.pnum.NUCLEO_G474RE.build.variant=STM32G4xx/G473R(B-C-E)T_G474R(B-C-E)T_G483RET_G484RET
-Nucleo_64.menu.pnum.NUCLEO_G474RE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_L010RB board
 Nucleo_64.menu.pnum.NUCLEO_L010RB=Nucleo L010RB
@@ -532,7 +498,6 @@ Nucleo_64.menu.pnum.NUCLEO_L010RB.build.board=NUCLEO_L010RB
 Nucleo_64.menu.pnum.NUCLEO_L010RB.build.series=STM32L0xx
 Nucleo_64.menu.pnum.NUCLEO_L010RB.build.product_line=STM32L010xB
 Nucleo_64.menu.pnum.NUCLEO_L010RB.build.variant=STM32L0xx/L010RBT
-Nucleo_64.menu.pnum.NUCLEO_L010RB.build.cmsis_lib_gcc=arm_cortexM0l_math
 Nucleo_64.menu.pnum.NUCLEO_L010RB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # NUCLEO_L053R8 board
@@ -545,7 +510,6 @@ Nucleo_64.menu.pnum.NUCLEO_L053R8.build.board=NUCLEO_L053R8
 Nucleo_64.menu.pnum.NUCLEO_L053R8.build.series=STM32L0xx
 Nucleo_64.menu.pnum.NUCLEO_L053R8.build.product_line=STM32L053xx
 Nucleo_64.menu.pnum.NUCLEO_L053R8.build.variant=STM32L0xx/L052R(6-8)T_L053R(6-8)T_L063R8T
-Nucleo_64.menu.pnum.NUCLEO_L053R8.build.cmsis_lib_gcc=arm_cortexM0l_math
 Nucleo_64.menu.pnum.NUCLEO_L053R8.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # NUCLEO_L073RZ board
@@ -558,7 +522,6 @@ Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.board=NUCLEO_L073RZ
 Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.series=STM32L0xx
 Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.product_line=STM32L073xx
 Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.variant=STM32L0xx/L072R(B-Z)T_L073R(B-Z)T_L083R(B-Z)T
-Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.cmsis_lib_gcc=arm_cortexM0l_math
 Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # NUCLEO_L152RE board
@@ -571,7 +534,6 @@ Nucleo_64.menu.pnum.NUCLEO_L152RE.build.board=NUCLEO_L152RE
 Nucleo_64.menu.pnum.NUCLEO_L152RE.build.series=STM32L1xx
 Nucleo_64.menu.pnum.NUCLEO_L152RE.build.product_line=STM32L152xE
 Nucleo_64.menu.pnum.NUCLEO_L152RE.build.variant=STM32L1xx/L151RET_L152RET_L162RET
-Nucleo_64.menu.pnum.NUCLEO_L152RE.build.cmsis_lib_gcc=arm_cortexM3l_math
 
 # NUCLEO_L433RC_P board
 Nucleo_64.menu.pnum.NUCLEO_L433RC_P=Nucleo L433RC-P
@@ -585,7 +547,6 @@ Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.board=NUCLEO_L433RC_P
 Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.series=STM32L4xx
 Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.product_line=STM32L433xx
 Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.variant=STM32L4xx/L433RCTxP
-Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_L452RE board
 Nucleo_64.menu.pnum.NUCLEO_L452RE=Nucleo L452RE
@@ -599,7 +560,6 @@ Nucleo_64.menu.pnum.NUCLEO_L452RE.build.board=NUCLEO_L452RE
 Nucleo_64.menu.pnum.NUCLEO_L452RE.build.series=STM32L4xx
 Nucleo_64.menu.pnum.NUCLEO_L452RE.build.product_line=STM32L452xx
 Nucleo_64.menu.pnum.NUCLEO_L452RE.build.variant=STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)
-Nucleo_64.menu.pnum.NUCLEO_L452RE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_L452RE-P board
 Nucleo_64.menu.pnum.NUCLEO_L452REP=Nucleo L452RE-P
@@ -613,7 +573,6 @@ Nucleo_64.menu.pnum.NUCLEO_L452REP.build.board=NUCLEO_L452RE_P
 Nucleo_64.menu.pnum.NUCLEO_L452REP.build.series=STM32L4xx
 Nucleo_64.menu.pnum.NUCLEO_L452REP.build.product_line=STM32L452xx
 Nucleo_64.menu.pnum.NUCLEO_L452REP.build.variant=STM32L4xx/L452RETxP
-Nucleo_64.menu.pnum.NUCLEO_L452REP.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_L476RG board
 Nucleo_64.menu.pnum.NUCLEO_L476RG=Nucleo L476RG
@@ -627,7 +586,6 @@ Nucleo_64.menu.pnum.NUCLEO_L476RG.build.board=NUCLEO_L476RG
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.series=STM32L4xx
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.product_line=STM32L476xx
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.variant=STM32L4xx/L475R(C-E-G)T_L476R(C-E-G)T_L486RGT
-Nucleo_64.menu.pnum.NUCLEO_L476RG.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_WB15CC
 Nucleo_64.menu.pnum.NUCLEO_WB15CC=Nucleo WB15CC
@@ -641,7 +599,6 @@ Nucleo_64.menu.pnum.NUCLEO_WB15CC.build.board=NUCLEO_WB15CC
 Nucleo_64.menu.pnum.NUCLEO_WB15CC.build.series=STM32WBxx
 Nucleo_64.menu.pnum.NUCLEO_WB15CC.build.product_line=STM32WB15xx
 Nucleo_64.menu.pnum.NUCLEO_WB15CC.build.variant=STM32WBxx/WB15CCU
-Nucleo_64.menu.pnum.NUCLEO_WB15CC.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # P_NUCLEO_WB55RG board
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG=P-Nucleo WB55RG
@@ -655,7 +612,6 @@ Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.board=P_NUCLEO_WB55RG
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.series=STM32WBxx
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.product_line=STM32WB55xx
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.variant=STM32WBxx/WB55R(C-E-G)V
-Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # P_NUCLEO_WB55 USB Dongle
 Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE=P-Nucleo WB55 USB Dongle
@@ -669,7 +625,6 @@ Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.board=P_NUCLEO_WB55_USB_DONGL
 Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.series=STM32WBxx
 Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.product_line=STM32WB55xx
 Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.variant=STM32WBxx/WB35C(C-E)UxA_WB55C(C-E-G)U
-Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_WL55JC1 board
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1=Nucleo WL55JC1
@@ -681,7 +636,6 @@ Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.board=NUCLEO_WL55JC1
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.series=STM32WLxx
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.product_line=STM32WLE5xx
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I
-Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.cmsis_lib_gcc=arm_cortexM4l_math
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.st_extra_flags=-D{build.product_line} -DUSE_CM4_STARTUP_FILE {build.xSerial}
 
 # Upload menu
@@ -727,7 +681,6 @@ Nucleo_32.menu.pnum.NUCLEO_F031K6.build.board=NUCLEO_F031K6
 Nucleo_32.menu.pnum.NUCLEO_F031K6.build.series=STM32F0xx
 Nucleo_32.menu.pnum.NUCLEO_F031K6.build.product_line=STM32F031x6
 Nucleo_32.menu.pnum.NUCLEO_F031K6.build.variant=STM32F0xx/F031K6T
-Nucleo_32.menu.pnum.NUCLEO_F031K6.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # NUCLEO_F042K6 board
 Nucleo_32.menu.pnum.NUCLEO_F042K6=Nucleo F042K6
@@ -739,7 +692,6 @@ Nucleo_32.menu.pnum.NUCLEO_F042K6.build.board=NUCLEO_F042K6
 Nucleo_32.menu.pnum.NUCLEO_F042K6.build.series=STM32F0xx
 Nucleo_32.menu.pnum.NUCLEO_F042K6.build.product_line=STM32F042x6
 Nucleo_32.menu.pnum.NUCLEO_F042K6.build.variant=STM32F0xx/F042K(4-6)T
-Nucleo_32.menu.pnum.NUCLEO_F042K6.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # NUCLEO_F303K8 board
 Nucleo_32.menu.pnum.NUCLEO_F303K8=Nucleo F303K8
@@ -753,7 +705,6 @@ Nucleo_32.menu.pnum.NUCLEO_F303K8.build.board=NUCLEO_F303K8
 Nucleo_32.menu.pnum.NUCLEO_F303K8.build.series=STM32F3xx
 Nucleo_32.menu.pnum.NUCLEO_F303K8.build.product_line=STM32F303x8
 Nucleo_32.menu.pnum.NUCLEO_F303K8.build.variant=STM32F3xx/F303K(6-8)T_F334K(4-6-8)T
-Nucleo_32.menu.pnum.NUCLEO_F303K8.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_G031K8 board
 Nucleo_32.menu.pnum.NUCLEO_G031K8=Nucleo G031K8
@@ -765,7 +716,6 @@ Nucleo_32.menu.pnum.NUCLEO_G031K8.build.board=NUCLEO_G031K8
 Nucleo_32.menu.pnum.NUCLEO_G031K8.build.series=STM32G0xx
 Nucleo_32.menu.pnum.NUCLEO_G031K8.build.product_line=STM32G031xx
 Nucleo_32.menu.pnum.NUCLEO_G031K8.build.variant=STM32G0xx/G031K(4-6-8)(T-U)_G041K(6-8)(T-U)
-Nucleo_32.menu.pnum.NUCLEO_G031K8.build.cmsis_lib_gcc=arm_cortexM0l_math
 Nucleo_32.menu.pnum.NUCLEO_G031K8.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # NUCLEO_G431KB board
@@ -780,7 +730,6 @@ Nucleo_32.menu.pnum.NUCLEO_G431KB.build.board=NUCLEO_G431KB
 Nucleo_32.menu.pnum.NUCLEO_G431KB.build.series=STM32G4xx
 Nucleo_32.menu.pnum.NUCLEO_G431KB.build.product_line=STM32G431xx
 Nucleo_32.menu.pnum.NUCLEO_G431KB.build.variant=STM32G4xx/G431K(6-8-B)(T-U)_G441KB(T-U)
-Nucleo_32.menu.pnum.NUCLEO_G431KB.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_L031K6 board
 Nucleo_32.menu.pnum.NUCLEO_L031K6=Nucleo L031K6
@@ -792,7 +741,6 @@ Nucleo_32.menu.pnum.NUCLEO_L031K6.build.board=NUCLEO_L031K6
 Nucleo_32.menu.pnum.NUCLEO_L031K6.build.series=STM32L0xx
 Nucleo_32.menu.pnum.NUCLEO_L031K6.build.product_line=STM32L031xx
 Nucleo_32.menu.pnum.NUCLEO_L031K6.build.variant=STM32L0xx/L031K(4-6)T_L041K6T
-Nucleo_32.menu.pnum.NUCLEO_L031K6.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # NUCLEO_L412KB board
 Nucleo_32.menu.pnum.NUCLEO_L412KB=Nucleo L412KB
@@ -806,7 +754,6 @@ Nucleo_32.menu.pnum.NUCLEO_L412KB.build.board=NUCLEO_L412KB
 Nucleo_32.menu.pnum.NUCLEO_L412KB.build.series=STM32L4xx
 Nucleo_32.menu.pnum.NUCLEO_L412KB.build.product_line=STM32L412xx
 Nucleo_32.menu.pnum.NUCLEO_L412KB.build.variant=STM32L4xx/L412K(8-B)(T-U)_L422KB(T-U)
-Nucleo_32.menu.pnum.NUCLEO_L412KB.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_L432KC board
 Nucleo_32.menu.pnum.NUCLEO_L432KC=Nucleo L432KC
@@ -820,7 +767,6 @@ Nucleo_32.menu.pnum.NUCLEO_L432KC.build.board=NUCLEO_L432KC
 Nucleo_32.menu.pnum.NUCLEO_L432KC.build.series=STM32L4xx
 Nucleo_32.menu.pnum.NUCLEO_L432KC.build.product_line=STM32L432xx
 Nucleo_32.menu.pnum.NUCLEO_L432KC.build.variant=STM32L4xx/L432K(B-C)U_L442KCU
-Nucleo_32.menu.pnum.NUCLEO_L432KC.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # Upload menu
 Nucleo_32.menu.upload_method.MassStorage=Mass Storage
@@ -868,7 +814,6 @@ Disco.menu.pnum.B_G431B_ESC1.build.series=STM32G4xx
 Disco.menu.pnum.B_G431B_ESC1.build.product_line=STM32G431xx
 Disco.menu.pnum.B_G431B_ESC1.build.variant=STM32G4xx/G431C(6-8-B)U_G441CBU
 Disco.menu.pnum.B_G431B_ESC1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.B_G431B_ESC1.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # B-L072Z-LRWAN1 board
 Disco.menu.pnum.B_L072Z_LRWAN1=B-L072Z-LRWAN1
@@ -881,7 +826,6 @@ Disco.menu.pnum.B_L072Z_LRWAN1.build.series=STM32L0xx
 Disco.menu.pnum.B_L072Z_LRWAN1.build.product_line=STM32L072xx
 Disco.menu.pnum.B_L072Z_LRWAN1.build.variant=STM32L0xx/L072CBY_L072CZ(E-Y)_L073CZY_L082CZY
 Disco.menu.pnum.B_L072Z_LRWAN1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.B_L072Z_LRWAN1.build.cmsis_lib_gcc=arm_cortexM0l_math
 Disco.menu.pnum.B_L072Z_LRWAN1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # B-L475E-IOT01A board
@@ -897,7 +841,6 @@ Disco.menu.pnum.B_L475E_IOT01A.build.series=STM32L4xx
 Disco.menu.pnum.B_L475E_IOT01A.build.product_line=STM32L475xx
 Disco.menu.pnum.B_L475E_IOT01A.build.variant=STM32L4xx/L475V(C-E-G)T_L476V(C-E-G)T_L486VGT
 Disco.menu.pnum.B_L475E_IOT01A.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.B_L475E_IOT01A.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # B_L4S5I_IOT01A board
 Disco.menu.pnum.B_L4S5I_IOT01A=B-L4S5I-IOT01A
@@ -912,7 +855,6 @@ Disco.menu.pnum.B_L4S5I_IOT01A.build.series=STM32L4xx
 Disco.menu.pnum.B_L4S5I_IOT01A.build.product_line=STM32L4S5xx
 Disco.menu.pnum.B_L4S5I_IOT01A.build.variant=STM32L4xx/L4R5V(G-I)T_L4R7VIT_L4S5VIT_L4S7VIT
 Disco.menu.pnum.B_L4S5I_IOT01A.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.B_L4S5I_IOT01A.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # B_U585I_IOT02A board
 Disco.menu.pnum.B_U585I_IOT02A=B-U585I-IOT02A
@@ -927,7 +869,6 @@ Disco.menu.pnum.B_U585I_IOT02A.build.series=STM32U5xx
 Disco.menu.pnum.B_U585I_IOT02A.build.product_line=STM32U585xx
 Disco.menu.pnum.B_U585I_IOT02A.build.variant=STM32U5xx/U575A(G-I)IxQ_U585AIIxQ
 Disco.menu.pnum.B_U585I_IOT02A.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.B_U585I_IOT02A.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
 
 # STM32C0316-DK board
 Disco.menu.pnum.STM32C0116_DK=STM32C0116-DK
@@ -939,7 +880,6 @@ Disco.menu.pnum.STM32C0116_DK.build.board=STM32C0116_DK
 Disco.menu.pnum.STM32C0116_DK.build.series=STM32C0xx
 Disco.menu.pnum.STM32C0116_DK.build.product_line=STM32C011xx
 Disco.menu.pnum.STM32C0116_DK.build.variant=STM32C0xx/C011D6Y_C011F(4-6)(P-U)_C031F(4-6)P
-Disco.menu.pnum.STM32C0116_DK.build.cmsis_lib_gcc=arm_cortexM0l_math
 Disco.menu.pnum.STM32C0116_DK.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
 
 # STM32C0316-DK board
@@ -952,7 +892,6 @@ Disco.menu.pnum.STM32C0316_DK.build.board=STM32C0316_DK
 Disco.menu.pnum.STM32C0316_DK.build.series=STM32C0xx
 Disco.menu.pnum.STM32C0316_DK.build.product_line=STM32C031xx
 Disco.menu.pnum.STM32C0316_DK.build.variant=STM32C0xx/C031C(4-6)(T-U)
-Disco.menu.pnum.STM32C0316_DK.build.cmsis_lib_gcc=arm_cortexM0l_math
 Disco.menu.pnum.STM32C0316_DK.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
 
 # DISCO_F030R8 board
@@ -965,7 +904,6 @@ Disco.menu.pnum.DISCO_F030R8.build.board=DISCO_F030R8
 Disco.menu.pnum.DISCO_F030R8.build.series=STM32F0xx
 Disco.menu.pnum.DISCO_F030R8.build.product_line=STM32F030x8
 Disco.menu.pnum.DISCO_F030R8.build.variant=STM32F0xx/F030R8T
-Disco.menu.pnum.DISCO_F030R8.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # DISCO_F072RB board
 Disco.menu.pnum.DISCO_F072RB=STM32F072B-DISCOVERY
@@ -977,7 +915,6 @@ Disco.menu.pnum.DISCO_F072RB.build.board=DISCO_F072RB
 Disco.menu.pnum.DISCO_F072RB.build.series=STM32F0xx
 Disco.menu.pnum.DISCO_F072RB.build.product_line=STM32F072xB
 Disco.menu.pnum.DISCO_F072RB.build.variant=STM32F0xx/F072R8T_F072RB(H-I-T)
-Disco.menu.pnum.DISCO_F072RB.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # DISCO_F100RB board
 Disco.menu.pnum.DISCO_F100RB=STM32F100RB-DISCVL
@@ -989,7 +926,6 @@ Disco.menu.pnum.DISCO_F100RB.build.board=DISCO_F100RB
 Disco.menu.pnum.DISCO_F100RB.build.series=STM32F1xx
 Disco.menu.pnum.DISCO_F100RB.build.product_line=STM32F100xB
 Disco.menu.pnum.DISCO_F100RB.build.variant=STM32F1xx/F100R(8-B)T
-Disco.menu.pnum.DISCO_F100RB.build.cmsis_lib_gcc=arm_cortexM3l_math
 
 # DISCO_F303VC board
 Disco.menu.pnum.DISCO_F303VC=STM32F3-DISCOVERY
@@ -1003,7 +939,6 @@ Disco.menu.pnum.DISCO_F303VC.build.board=DISCO_F303VC
 Disco.menu.pnum.DISCO_F303VC.build.series=STM32F3xx
 Disco.menu.pnum.DISCO_F303VC.build.product_line=STM32F303xC
 Disco.menu.pnum.DISCO_F303VC.build.variant=STM32F3xx/F303V(B-C)T
-Disco.menu.pnum.DISCO_F303VC.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # DISCO_F407VG board
 Disco.menu.pnum.DISCO_F407VG=STM32F407G-DISC1
@@ -1017,7 +952,6 @@ Disco.menu.pnum.DISCO_F407VG.build.board=DISCO_F407VG
 Disco.menu.pnum.DISCO_F407VG.build.series=STM32F4xx
 Disco.menu.pnum.DISCO_F407VG.build.product_line=STM32F407xx
 Disco.menu.pnum.DISCO_F407VG.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
-Disco.menu.pnum.DISCO_F407VG.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # DISCO_F413ZH board
 Disco.menu.pnum.DISCO_F413ZH=STM32F413H-DISCO
@@ -1032,7 +966,6 @@ Disco.menu.pnum.DISCO_F413ZH.build.series=STM32F4xx
 Disco.menu.pnum.DISCO_F413ZH.build.product_line=STM32F413xx
 Disco.menu.pnum.DISCO_F413ZH.build.variant=STM32F4xx/F413Z(G-H)(J-T)_F423ZH(J-T)
 Disco.menu.pnum.DISCO_F413ZH.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.DISCO_F413ZH.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # DISCO_F746NG board
 Disco.menu.pnum.DISCO_F746NG=STM32F746G-DISCOVERY
@@ -1047,7 +980,6 @@ Disco.menu.pnum.DISCO_F746NG.build.series=STM32F7xx
 Disco.menu.pnum.DISCO_F746NG.build.product_line=STM32F746xx
 Disco.menu.pnum.DISCO_F746NG.build.variant=STM32F7xx/F746B(E-G)T_F746N(E-G)H_F750N8H_F756BGT_F756NGH
 Disco.menu.pnum.DISCO_F746NG.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.DISCO_F746NG.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
 # DISCO_G0316 board
 Disco.menu.pnum.DISCO_G0316=STM32G0316-DISCO
@@ -1059,7 +991,6 @@ Disco.menu.pnum.DISCO_G0316.build.board=DISCO_G0316
 Disco.menu.pnum.DISCO_G0316.build.series=STM32G0xx
 Disco.menu.pnum.DISCO_G0316.build.product_line=STM32G031xx
 Disco.menu.pnum.DISCO_G0316.build.variant=STM32G0xx/G031J(4-6)M_G041J6M
-Disco.menu.pnum.DISCO_G0316.build.cmsis_lib_gcc=arm_cortexM0l_math
 Disco.menu.pnum.DISCO_G0316.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
 
 # STM32H573I-DK
@@ -1075,7 +1006,6 @@ Disco.menu.pnum.STM32H573I_DK.build.series=STM32H5xx
 Disco.menu.pnum.STM32H573I_DK.build.product_line=STM32H573xx
 Disco.menu.pnum.STM32H573I_DK.build.variant=STM32H5xx/H573IIKxQ
 Disco.menu.pnum.STM32H573I_DK.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.STM32H573I_DK.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
 
 # STM32WB5MM-DK board
 Disco.menu.pnum.STM32WB5MM_DK=STM32WB5MM-DK
@@ -1090,7 +1020,6 @@ Disco.menu.pnum.STM32WB5MM_DK.build.series=STM32WBxx
 Disco.menu.pnum.STM32WB5MM_DK.build.product_line=STM32WB5Mxx
 Disco.menu.pnum.STM32WB5MM_DK.build.variant=STM32WBxx/WB5MMGH
 Disco.menu.pnum.STM32WB5MM_DK.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.STM32WB5MM_DK.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # Upload menu
 Disco.menu.upload_method.MassStorage=Mass Storage
@@ -1137,7 +1066,6 @@ Eval.menu.pnum.STEVAL_MKSBOX1V1.build.series=STM32L4xx
 Eval.menu.pnum.STEVAL_MKSBOX1V1.build.product_line=STM32L4R9xx
 Eval.menu.pnum.STEVAL_MKSBOX1V1.build.variant=STM32L4xx/L4R9Z(G-I)J_L4S9ZIJ
 Eval.menu.pnum.STEVAL_MKSBOX1V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Eval.menu.pnum.STEVAL_MKSBOX1V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # STEVAL_MKBOXPRO board
 Eval.menu.pnum.STEVAL_MKBOXPRO=SensorTile.box Pro
@@ -1151,7 +1079,6 @@ Eval.menu.pnum.STEVAL_MKBOXPRO.build.series=STM32U5xx
 Eval.menu.pnum.STEVAL_MKBOXPRO.build.product_line=STM32U585xx
 Eval.menu.pnum.STEVAL_MKBOXPRO.build.variant=STM32U5xx/U575A(G-I)IxQ_U585AIIxQ
 Eval.menu.pnum.STEVAL_MKBOXPRO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Eval.menu.pnum.STEVAL_MKBOXPRO.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
 
 # Upload menu
 Eval.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
@@ -1178,7 +1105,6 @@ STM32MP1.build.mcu=cortex-m4
 STM32MP1.build.fpu=-mfpu=fpv4-sp-d16
 STM32MP1.build.float-abi=-mfloat-abi=hard
 STM32MP1.build.series=STM32MP1xx
-STM32MP1.build.cmsis_lib_gcc=arm_cortexM4l_math
 STM32MP1.build.st_extra_flags=-DCORE_CM4 -D{build.product_line} {build.enable_virtio} {build.xSerial}
 
 # STM32MP157A-DK1 board
@@ -1214,7 +1140,6 @@ GenC0.build.core=arduino
 GenC0.build.board=GenC0
 GenC0.build.mcu=cortex-m0plus
 GenC0.build.series=STM32C0xx
-GenC0.build.cmsis_lib_gcc=arm_cortexM0l_math
 GenC0.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
 GenC0.build.flash_offset=0x0
 GenC0.upload.maximum_size=0
@@ -1327,7 +1252,6 @@ GenF0.build.core=arduino
 GenF0.build.board=GenF0
 GenF0.build.mcu=cortex-m0
 GenF0.build.series=STM32F0xx
-GenF0.build.cmsis_lib_gcc=arm_cortexM0l_math
 GenF0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 GenF0.build.flash_offset=0x0
 GenF0.upload.maximum_size=0
@@ -2136,7 +2060,6 @@ GenF1.build.core=arduino
 GenF1.build.board=GenF1
 GenF1.build.mcu=cortex-m3
 GenF1.build.series=STM32F1xx
-GenF1.build.cmsis_lib_gcc=arm_cortexM3l_math
 GenF1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
 GenF1.build.flash_offset=0x0
 GenF1.upload.maximum_size=0
@@ -2892,7 +2815,6 @@ GenF2.build.board=GenF2
 GenF2.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 GenF2.build.mcu=cortex-m3
 GenF2.build.series=STM32F2xx
-GenF2.build.cmsis_lib_gcc=arm_cortexM3l_math
 GenF2.build.flash_offset=0x0
 GenF2.upload.maximum_size=0
 GenF2.upload.maximum_data_size=0
@@ -3301,7 +3223,6 @@ GenF3.build.mcu=cortex-m4
 GenF3.build.fpu=-mfpu=fpv4-sp-d16
 GenF3.build.float-abi=-mfloat-abi=hard
 GenF3.build.series=STM32F3xx
-GenF3.build.cmsis_lib_gcc=arm_cortexM4lf_math
 GenF3.build.flash_offset=0x0
 GenF3.upload.maximum_size=0
 GenF3.upload.maximum_data_size=0
@@ -3708,7 +3629,6 @@ GenF4.build.mcu=cortex-m4
 GenF4.build.fpu=-mfpu=fpv4-sp-d16
 GenF4.build.float-abi=-mfloat-abi=hard
 GenF4.build.series=STM32F4xx
-GenF4.build.cmsis_lib_gcc=arm_cortexM4lf_math
 GenF4.build.flash_offset=0x0
 GenF4.upload.maximum_size=0
 GenF4.upload.maximum_data_size=0
@@ -4569,7 +4489,6 @@ GenF7.build.mcu=cortex-m7
 GenF7.build.fpu=-mfpu=fpv4-sp-d16
 GenF7.build.float-abi=-mfloat-abi=hard
 GenF7.build.series=STM32F7xx
-GenF7.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 GenF7.build.flash_offset=0x0
 GenF7.upload.maximum_size=0
 GenF7.upload.maximum_data_size=0
@@ -4982,7 +4901,6 @@ GenG0.build.core=arduino
 GenG0.build.board=GenG0
 GenG0.build.mcu=cortex-m0plus
 GenG0.build.series=STM32G0xx
-GenG0.build.cmsis_lib_gcc=arm_cortexM0l_math
 GenG0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 GenG0.build.flash_offset=0x0
 GenG0.upload.maximum_size=0
@@ -6241,7 +6159,6 @@ GenG4.build.mcu=cortex-m4
 GenG4.build.fpu=-mfpu=fpv4-sp-d16
 GenG4.build.float-abi=-mfloat-abi=hard
 GenG4.build.series=STM32G4xx
-GenG4.build.cmsis_lib_gcc=arm_cortexM4lf_math
 GenG4.build.flash_offset=0x0
 GenG4.upload.maximum_size=0
 GenG4.upload.maximum_data_size=0
@@ -7283,7 +7200,6 @@ GenH5.build.mcu=cortex-m33
 GenH5.build.fpu=-mfpu=fpv4-sp-d16
 GenH5.build.float-abi=-mfloat-abi=hard
 GenH5.build.series=STM32H5xx
-GenH5.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
 GenH5.build.flash_offset=0x0
 GenH5.upload.maximum_size=0
 GenH5.upload.maximum_data_size=0
@@ -7351,7 +7267,6 @@ GenH7.name=Generic STM32H7 Series
 GenH7.build.core=arduino
 GenH7.build.board=GenH7
 GenH7.build.st_extra_flags=-DCORE_CM7 -D{build.product_line} {build.enable_usb} {build.xSerial}
-GenH7.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 GenH7.build.fpu=-mfpu=fpv4-sp-d16
 GenH7.build.float-abi=-mfloat-abi=hard
 GenH7.build.series=STM32H7xx
@@ -7770,7 +7685,6 @@ GenL0.build.board=GenL0
 GenL0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 GenL0.build.mcu=cortex-m0plus
 GenL0.build.series=STM32L0xx
-GenL0.build.cmsis_lib_gcc=arm_cortexM0l_math
 GenL0.build.flash_offset=0x0
 GenL0.upload.maximum_size=0
 GenL0.upload.maximum_data_size=0
@@ -8880,7 +8794,6 @@ GenL1.build.board=GenL1
 GenL1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 GenL1.build.mcu=cortex-m3
 GenL1.build.series=STM32L1xx
-GenL1.build.cmsis_lib_gcc=arm_cortexM3l_math
 GenL1.build.flash_offset=0x0
 GenL1.upload.maximum_size=0
 GenL1.upload.maximum_data_size=0
@@ -9168,7 +9081,6 @@ GenL4.build.mcu=cortex-m4
 GenL4.build.fpu=-mfpu=fpv4-sp-d16
 GenL4.build.float-abi=-mfloat-abi=hard
 GenL4.build.series=STM32L4xx
-GenL4.build.cmsis_lib_gcc=arm_cortexM4lf_math
 GenL4.build.flash_offset=0x0
 GenL4.upload.maximum_size=0
 GenL4.upload.maximum_data_size=0
@@ -9849,7 +9761,6 @@ GenL5.build.mcu=cortex-m33
 GenL5.build.fpu=-mfpu=fpv4-sp-d16
 GenL5.build.float-abi=-mfloat-abi=hard
 GenL5.build.series=STM32L5xx
-GenL5.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
 GenL5.build.flash_offset=0x0
 GenL5.upload.maximum_size=0
 GenL5.upload.maximum_data_size=0
@@ -9905,7 +9816,6 @@ GenU5.build.mcu=cortex-m33
 GenU5.build.fpu=-mfpu=fpv4-sp-d16
 GenU5.build.float-abi=-mfloat-abi=hard
 GenU5.build.series=STM32U5xx
-GenU5.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
 GenU5.build.flash_offset=0x0
 GenU5.upload.maximum_size=0
 GenU5.upload.maximum_data_size=0
@@ -9985,7 +9895,6 @@ GenWB.build.mcu=cortex-m4
 GenWB.build.fpu=-mfpu=fpv4-sp-d16
 GenWB.build.float-abi=-mfloat-abi=hard
 GenWB.build.series=STM32WBxx
-GenWB.build.cmsis_lib_gcc=arm_cortexM4lf_math
 GenWB.build.flash_offset=0x0
 GenWB.upload.maximum_size=0
 GenWB.upload.maximum_data_size=0
@@ -10081,7 +9990,6 @@ GenWL.build.mcu=cortex-m4
 #GenWL.build.fpu=-mfpu=fpv4-sp-d16
 #GenWL.build.float-abi=-mfloat-abi=hard
 GenWL.build.series=STM32WLxx
-GenWL.build.cmsis_lib_gcc=arm_cortexM4l_math
 GenWL.build.flash_offset=0x0
 GenWL.upload.maximum_size=0
 GenWL.upload.maximum_data_size=0
@@ -10255,7 +10163,6 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.ARMED_V1.build.product_line=STM32F407xx
 3dprinter.menu.pnum.ARMED_V1.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
 3dprinter.menu.pnum.ARMED_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-3dprinter.menu.pnum.ARMED_V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # Big Tree Tech EBB42_V1_1 board
 3dprinter.menu.pnum.EBB42_V1_1=Big Tree Tech EBB42 V1.1
@@ -10266,7 +10173,6 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.EBB42_V1_1.build.series=STM32G0xx
 3dprinter.menu.pnum.EBB42_V1_1.build.product_line=STM32G0B1xx
 3dprinter.menu.pnum.EBB42_V1_1.build.variant=STM32G0xx/G0B1C(B-C-E)(T-U)_G0C1C(C-E)(T-U)
-3dprinter.menu.pnum.EBB42_V1_1.build.cmsis_lib_gcc=arm_cortexM0l_math
 3dprinter.menu.pnum.EBB42_V1_1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # REMRAM_V1 board
@@ -10281,7 +10187,6 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.REMRAM_V1.build.product_line=STM32F765xx
 3dprinter.menu.pnum.REMRAM_V1.build.variant=STM32F7xx/F765V(G-I)(H-T)_F767V(G-I)(H-T)_F777VI(H-T)
 3dprinter.menu.pnum.REMRAM_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-3dprinter.menu.pnum.REMRAM_V1.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
 # RUMBA32 board
 3dprinter.menu.pnum.RUMBA32=RUMBA32
@@ -10295,7 +10200,6 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.RUMBA32.build.product_line=STM32F446xx
 3dprinter.menu.pnum.RUMBA32.build.variant=STM32F4xx/F446V(C-E)T
 3dprinter.menu.pnum.RUMBA32.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-3dprinter.menu.pnum.RUMBA32.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # STEVAL-3DP001V1 board
 3dprinter.menu.pnum.ST3DP001_EVAL=STEVAL-3DP001V1
@@ -10309,7 +10213,6 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.ST3DP001_EVAL.build.product_line=STM32F401xE
 3dprinter.menu.pnum.ST3DP001_EVAL.build.variant=STM32F4xx/F401V(B-C-D-E)T
 3dprinter.menu.pnum.ST3DP001_EVAL.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-3dprinter.menu.pnum.ST3DP001_EVAL.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # PRNTR_V1 board
 3dprinter.menu.pnum.PRNTR_V1=PRNTR v1
@@ -10323,7 +10226,6 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.PRNTR_V1.build.product_line=STM32F407xx
 3dprinter.menu.pnum.PRNTR_V1.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
 3dprinter.menu.pnum.PRNTR_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-3dprinter.menu.pnum.PRNTR_V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # PRNTR_V2 board
 3dprinter.menu.pnum.PRNTR_V2=PRNTR v2
@@ -10337,7 +10239,6 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.PRNTR_V2.build.product_line=STM32F407xx
 3dprinter.menu.pnum.PRNTR_V2.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
 3dprinter.menu.pnum.PRNTR_V2.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-3dprinter.menu.pnum.PRNTR_V2.build.cmsis_lib_gcc=arm_cortexM4lf_math
 3dprinter.menu.pnum.PRNTR_V2.build.flash_offset=0x8000
 3dprinter.menu.pnum.PRNTR_V2.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
@@ -10351,7 +10252,6 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.EEXTR_F030_V1.build.product_line=STM32F030x8
 3dprinter.menu.pnum.EEXTR_F030_V1.build.variant=STM32F0xx/F030C8T
 3dprinter.menu.pnum.EEXTR_F030_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-3dprinter.menu.pnum.EEXTR_F030_V1.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # MALYANM200_F103CB board
 3dprinter.menu.pnum.MALYANM200_F103CB=Malyan M200 V1
@@ -10363,7 +10263,6 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM200_F103CB.build.product_line=STM32F103xB
 3dprinter.menu.pnum.MALYANM200_F103CB.build.variant=STM32F1xx/F103C8T_F103CB(T-U)
 3dprinter.menu.pnum.MALYANM200_F103CB.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-3dprinter.menu.pnum.MALYANM200_F103CB.build.cmsis_lib_gcc=arm_cortexM3l_math
 3dprinter.menu.pnum.MALYANM200_F103CB.build.startup_file=-DCUSTOM_STARTUP_FILE
 3dprinter.menu.pnum.MALYANM200_F103CB.build.flash_offset=0x2000
 3dprinter.menu.pnum.MALYANM200_F103CB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
@@ -10378,7 +10277,6 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM200_F070CB.build.product_line=STM32F070xB
 3dprinter.menu.pnum.MALYANM200_F070CB.build.variant=STM32F0xx/F070CBT
 3dprinter.menu.pnum.MALYANM200_F070CB.build.variant_h=variant_MALYANMx00_F070CB.h
-3dprinter.menu.pnum.MALYANM200_F070CB.build.cmsis_lib_gcc=arm_cortexM0l_math
 3dprinter.menu.pnum.MALYANM200_F070CB.build.startup_file=-DCUSTOM_STARTUP_FILE
 3dprinter.menu.pnum.MALYANM200_F070CB.build.ldscript=MALYANMx00_F070CB.ld
 3dprinter.menu.pnum.MALYANM200_F070CB.build.flash_offset=0x2000
@@ -10394,7 +10292,6 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM300_F070CB.build.product_line=STM32F070xB
 3dprinter.menu.pnum.MALYANM300_F070CB.build.variant=STM32F0xx/F070CBT
 3dprinter.menu.pnum.MALYANM300_F070CB.build.variant_h=variant_MALYANMx00_F070CB.h
-3dprinter.menu.pnum.MALYANM300_F070CB.build.cmsis_lib_gcc=arm_cortexM0l_math
 3dprinter.menu.pnum.MALYANM300_F070CB.build.startup_file=-DCUSTOM_STARTUP_FILE
 3dprinter.menu.pnum.MALYANM200_F070CB.build.ldscript=MALYANMx00_F070CB.ld
 3dprinter.menu.pnum.MALYANM300_F070CB.build.flash_offset=0x2000
@@ -10412,7 +10309,6 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.VAKE_V1.build.product_line=STM32F446xx
 3dprinter.menu.pnum.VAKE_V1.build.variant=STM32F4xx/F446V(C-E)T
 3dprinter.menu.pnum.VAKE_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-3dprinter.menu.pnum.VAKE_V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # FYSETC_S6 board
 3dprinter.menu.pnum.FYSETC_S6=FYSETC_S6
@@ -10426,7 +10322,6 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.FYSETC_S6.build.product_line=STM32F446xx
 3dprinter.menu.pnum.FYSETC_S6.build.variant=STM32F4xx/F446V(C-E)T
 3dprinter.menu.pnum.FYSETC_S6.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-3dprinter.menu.pnum.FYSETC_S6.build.cmsis_lib_gcc=arm_cortexM4lf_math
 3dprinter.menu.pnum.FYSETC_S6.build.flash_offset=0x10000
 3dprinter.menu.pnum.FYSETC_S6.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
@@ -10464,7 +10359,6 @@ BluesW.menu.pnum.SWAN_R5=Swan R5
 BluesW.menu.pnum.SWAN_R5.upload.maximum_size=2097152
 BluesW.menu.pnum.SWAN_R5.upload.maximum_data_size=655360
 BluesW.menu.pnum.SWAN_R5.build.mcu=cortex-m4
-BluesW.menu.pnum.SWAN_R5.build.cmsis_lib_gcc=arm_cortexM4lf_math
 BluesW.menu.pnum.SWAN_R5.build.fpu=-mfpu=fpv4-sp-d16
 BluesW.menu.pnum.SWAN_R5.build.float-abi=-mfloat-abi=hard
 BluesW.menu.pnum.SWAN_R5.build.board=SWAN_R5
@@ -10513,7 +10407,6 @@ Elecgator.menu.pnum.ETHERCAT_DUINO.build.board=ETHERCAT_DUINO
 Elecgator.menu.pnum.ETHERCAT_DUINO.build.series=STM32F7xx
 Elecgator.menu.pnum.ETHERCAT_DUINO.build.product_line=STM32F746xx
 Elecgator.menu.pnum.ETHERCAT_DUINO.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
-Elecgator.menu.pnum.ETHERCAT_DUINO.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 Elecgator.menu.pnum.ETHERCAT_DUINO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
 # Upload menu
@@ -10550,7 +10443,6 @@ ESC_board.menu.pnum.WRAITH32_V1.build.series=STM32F0xx
 ESC_board.menu.pnum.WRAITH32_V1.build.product_line=STM32F051x8
 ESC_board.menu.pnum.WRAITH32_V1.build.variant=STM32F0xx/F051K(6-8)U
 ESC_board.menu.pnum.WRAITH32_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-ESC_board.menu.pnum.WRAITH32_V1.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # STORM32_V1_RC board
 ESC_board.menu.pnum.STORM32_V1_31_RC=STorM32 BGC v1.31 RC
@@ -10561,7 +10453,6 @@ ESC_board.menu.pnum.STORM32_V1_31_RC.build.board=STORM32_V1_31_RC
 ESC_board.menu.pnum.STORM32_V1_31_RC.build.series=STM32F1xx
 ESC_board.menu.pnum.STORM32_V1_31_RC.build.product_line=STM32F103xE
 ESC_board.menu.pnum.STORM32_V1_31_RC.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-ESC_board.menu.pnum.STORM32_V1_31_RC.build.cmsis_lib_gcc=arm_cortexM3l_math
 ESC_board.menu.pnum.STORM32_V1_31_RC.build.variant=STM32F1xx/F103R(C-D-E)T
 
 # Upload menu
@@ -10603,7 +10494,6 @@ Garatronic.menu.pnum.PYBSTICK26_DUINO.build.series=STM32F0xx
 Garatronic.menu.pnum.PYBSTICK26_DUINO.build.product_line=STM32F072xB
 Garatronic.menu.pnum.PYBSTICK26_DUINO.build.variant=STM32F0xx/F072R8T_F072RB(H-I-T)
 Garatronic.menu.pnum.PYBSTICK26_DUINO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Garatronic.menu.pnum.PYBSTICK26_DUINO.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # PYBSTICK26(LITE) board with F401CE
 Garatronic.menu.pnum.PYBSTICK26_LITE=PYBSTICK26 Lite
@@ -10615,7 +10505,6 @@ Garatronic.menu.pnum.PYBSTICK26_LITE.build.series=STM32F4xx
 Garatronic.menu.pnum.PYBSTICK26_LITE.build.product_line=STM32F401xE
 Garatronic.menu.pnum.PYBSTICK26_LITE.build.variant=STM32F4xx/F401CC(F-U-Y)_F401C(B-D-E)(U-Y)
 Garatronic.menu.pnum.PYBSTICK26_LITE.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Garatronic.menu.pnum.PYBSTICK26_LITE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 Garatronic.menu.pnum.PYBSTICK26_LITE.build.fpu=-mfpu=fpv4-sp-d16
 Garatronic.menu.pnum.PYBSTICK26_LITE.build.float-abi=-mfloat-abi=hard
 
@@ -10629,7 +10518,6 @@ Garatronic.menu.pnum.PYBSTICK26_STD.build.series=STM32F4xx
 Garatronic.menu.pnum.PYBSTICK26_STD.build.product_line=STM32F411xE
 Garatronic.menu.pnum.PYBSTICK26_STD.build.variant=STM32F4xx/F411R(C-E)T
 Garatronic.menu.pnum.PYBSTICK26_STD.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Garatronic.menu.pnum.PYBSTICK26_STD.build.cmsis_lib_gcc=arm_cortexM4lf_math
 Garatronic.menu.pnum.PYBSTICK26_STD.build.fpu=-mfpu=fpv4-sp-d16
 Garatronic.menu.pnum.PYBSTICK26_STD.build.float-abi=-mfloat-abi=hard
 
@@ -10643,7 +10531,6 @@ Garatronic.menu.pnum.PYBSTICK26_PRO.build.series=STM32F4xx
 Garatronic.menu.pnum.PYBSTICK26_PRO.build.product_line=STM32F412Rx
 Garatronic.menu.pnum.PYBSTICK26_PRO.build.variant=STM32F4xx/F412R(E-G)(T-Y)x(P)
 Garatronic.menu.pnum.PYBSTICK26_PRO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Garatronic.menu.pnum.PYBSTICK26_PRO.build.cmsis_lib_gcc=arm_cortexM4lf_math
 Garatronic.menu.pnum.PYBSTICK26_PRO.build.fpu=-mfpu=fpv4-sp-d16
 Garatronic.menu.pnum.PYBSTICK26_PRO.build.float-abi=-mfloat-abi=hard
 
@@ -10672,7 +10559,6 @@ GenFlight.menu.pnum.AFROFLIGHT_F103CB.upload.maximum_size=131072
 GenFlight.menu.pnum.AFROFLIGHT_F103CB.upload.maximum_data_size=20480
 GenFlight.menu.pnum.AFROFLIGHT_F103CB.build.mcu=cortex-m3
 GenFlight.menu.pnum.AFROFLIGHT_F103CB.build.series=STM32F1xx
-GenFlight.menu.pnum.AFROFLIGHT_F103CB.build.cmsis_lib_gcc=arm_cortexM3l_math
 GenFlight.menu.pnum.AFROFLIGHT_F103CB.build.board=AFROFLIGHT_F103CB
 GenFlight.menu.pnum.AFROFLIGHT_F103CB.build.product_line=STM32F103xB
 GenFlight.menu.pnum.AFROFLIGHT_F103CB.build.variant=STM32F1xx/F103C8T_F103CB(T-U)
@@ -10683,7 +10569,6 @@ GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.upload.maximum_size=131072
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.upload.maximum_data_size=20480
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.build.mcu=cortex-m3
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.build.series=STM32F1xx
-GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.build.cmsis_lib_gcc=arm_cortexM3l_math
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.build.board=AFROFLIGHT_F103CB_12M
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.build.product_line=STM32F103xB
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.build.variant=STM32F1xx/F103C8T_F103CB(T-U)
@@ -10695,7 +10580,6 @@ GenFlight.menu.pnum.Sparky_V1.upload.maximum_size=262144
 GenFlight.menu.pnum.Sparky_V1.upload.maximum_data_size=40960
 GenFlight.menu.pnum.Sparky_V1.build.mcu=cortex-m4
 GenFlight.menu.pnum.Sparky_V1.build.series=STM32F3xx
-GenFlight.menu.pnum.Sparky_V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
 GenFlight.menu.pnum.Sparky_V1.build.board=SPARKY_F303CC
 GenFlight.menu.pnum.Sparky_V1.build.product_line=STM32F303xC
 GenFlight.menu.pnum.Sparky_V1.build.fpu=-mfpu=fpv4-sp-d16
@@ -10767,7 +10651,6 @@ LoRa.menu.pnum.ACSIP_S76S.build.series=STM32L0xx
 LoRa.menu.pnum.ACSIP_S76S.build.product_line=STM32L073xx
 LoRa.menu.pnum.ACSIP_S76S.build.variant=STM32L0xx/L072R(B-Z)T_L073R(B-Z)T_L083R(B-Z)T
 LoRa.menu.pnum.ACSIP_S76S.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-LoRa.menu.pnum.ACSIP_S76S.build.cmsis_lib_gcc=arm_cortexM0l_math
 LoRa.menu.pnum.ACSIP_S76S.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # Generic node SE by The Things Industries
@@ -10780,7 +10663,6 @@ LoRa.menu.pnum.GENERIC_NODE_SE_TTI.build.series=STM32WLxx
 LoRa.menu.pnum.GENERIC_NODE_SE_TTI.build.product_line=STM32WL55xx
 LoRa.menu.pnum.GENERIC_NODE_SE_TTI.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
 LoRa.menu.pnum.GENERIC_NODE_SE_TTI.build.variant_h=variant_GENERIC_NODE_SE_TTI.h
-LoRa.menu.pnum.GENERIC_NODE_SE_TTI.build.cmsis_lib_gcc=arm_cortexM4l_math
 LoRa.menu.pnum.GENERIC_NODE_SE_TTI.build.st_extra_flags=-D{build.product_line} -DUSE_CM4_STARTUP_FILE {build.xSerial}
 
 # LORA_E5_MINI board
@@ -10794,7 +10676,6 @@ LoRa.menu.pnum.LORA_E5_MINI.build.product_line=STM32WLE5xx
 LoRa.menu.pnum.LORA_E5_MINI.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I
 LoRa.menu.pnum.LORA_E5_MINI.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 LoRa.menu.pnum.LORA_E5_MINI.build.variant_h=variant_LORA_E5_MINI.h
-LoRa.menu.pnum.LORA_E5_MINI.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # RAK3172 module
 LoRa.menu.pnum.RAK3172_MODULE=RAK3172 Module
@@ -10806,7 +10687,6 @@ LoRa.menu.pnum.RAK3172_MODULE.build.series=STM32WLxx
 LoRa.menu.pnum.RAK3172_MODULE.build.product_line=STM32WLE5xx
 LoRa.menu.pnum.RAK3172_MODULE.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
 LoRa.menu.pnum.RAK3172_MODULE.build.variant_h=variant_RAK3172_MODULE.h
-LoRa.menu.pnum.RAK3172_MODULE.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # RAK811_TRACKER board
 LoRa.menu.pnum.RAK811_TRACKER=RAK811 LoRa Tracker (16kb RAM)
@@ -10818,7 +10698,6 @@ LoRa.menu.pnum.RAK811_TRACKER.build.series=STM32L1xx
 LoRa.menu.pnum.RAK811_TRACKER.build.product_line=STM32L151xB
 LoRa.menu.pnum.RAK811_TRACKER.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
 LoRa.menu.pnum.RAK811_TRACKER.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-LoRa.menu.pnum.RAK811_TRACKER.build.cmsis_lib_gcc=arm_cortexM3l_math
 
 LoRa.menu.pnum.RAK811_TRACKERA=RAK811 LoRa Tracker (32kb RAM)
 LoRa.menu.pnum.RAK811_TRACKERA.upload.maximum_size=131072
@@ -10830,7 +10709,6 @@ LoRa.menu.pnum.RAK811_TRACKERA.build.product_line=STM32L151xBA
 LoRa.menu.pnum.RAK811_TRACKERA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
 LoRa.menu.pnum.RAK811_TRACKERA.build.variant_h=variant_RAK811_TRACKER.h
 LoRa.menu.pnum.RAK811_TRACKERA.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-LoRa.menu.pnum.RAK811_TRACKERA.build.cmsis_lib_gcc=arm_cortexM3l_math
 
 # RHF76_052 board
 LoRa.menu.pnum.RHF76_052=RHF76 052
@@ -10842,7 +10720,6 @@ LoRa.menu.pnum.RHF76_052.build.series=STM32L0xx
 LoRa.menu.pnum.RHF76_052.build.product_line=STM32L051xx
 LoRa.menu.pnum.RHF76_052.build.variant=STM32L0xx/L051C(6-8)(T-U)
 LoRa.menu.pnum.RHF76_052.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-LoRa.menu.pnum.RHF76_052.build.cmsis_lib_gcc=arm_cortexM0l_math
 LoRa.menu.pnum.RHF76_052.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # ELEKTOR_F072C8
@@ -10856,7 +10733,6 @@ LoRa.menu.pnum.ELEKTOR_F072C8.build.product_line=STM32F072xB
 LoRa.menu.pnum.ELEKTOR_F072C8.build.variant=STM32F0xx/F072C8(T-U)_F072CB(T-U-Y)
 LoRa.menu.pnum.ELEKTOR_F072C8.build.variant_h=variant_ELEKTOR_F072Cx.h
 LoRa.menu.pnum.ELEKTOR_F072C8.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-LoRa.menu.pnum.ELEKTOR_F072C8.build.cmsis_lib_gcc=arm_cortexM0l_math
 LoRa.menu.pnum.ELEKTOR_F072C8.build.st_extra_flags=-D{build.product_line} {build.xSerial}
 
 # ELEKTOR_F072CB
@@ -10870,7 +10746,6 @@ LoRa.menu.pnum.ELEKTOR_F072CB.build.product_line=STM32F072xB
 LoRa.menu.pnum.ELEKTOR_F072CB.build.variant=STM32F0xx/F072C8(T-U)_F072CB(T-U-Y)
 LoRa.menu.pnum.ELEKTOR_F072CB.build.variant_h=variant_ELEKTOR_F072Cx.h
 LoRa.menu.pnum.ELEKTOR_F072CB.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-LoRa.menu.pnum.ELEKTOR_F072CB.build.cmsis_lib_gcc=arm_cortexM0l_math
 LoRa.menu.pnum.ELEKTOR_F072CB.build.st_extra_flags=-D{build.product_line} {build.xSerial}
 
 # Upload menu
@@ -10914,7 +10789,6 @@ Midatronics.menu.pnum.MKR_SHARKY.build.board=MKR_SHARKY
 Midatronics.menu.pnum.MKR_SHARKY.build.series=STM32WBxx
 Midatronics.menu.pnum.MKR_SHARKY.build.product_line=STM32WB55xx
 Midatronics.menu.pnum.MKR_SHARKY.build.variant=STM32WBxx/WB35C(C-E)UxA_WB55C(C-E-G)U
-Midatronics.menu.pnum.MKR_SHARKY.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # Upload menu
 Midatronics.menu.upload_method.MassStorage=Mass Storage
@@ -10961,7 +10835,6 @@ SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.series=STM32WBxx
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.product_line=STM32WB5Mxx
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.variant=STM32WBxx/WB5MMGH
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.cmsis_lib_gcc=arm_cortexM4lf_math
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.vid=0x1B4F
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.pid=0x0034
 
@@ -10978,7 +10851,6 @@ SparkFun.menu.pnum.MICROMOD_F405.build.product_line=STM32F405xx
 SparkFun.menu.pnum.MICROMOD_F405.build.variant_h=variant_{build.board}.h
 SparkFun.menu.pnum.MICROMOD_F405.build.variant=STM32F4xx/F405RGT_F415RGT
 SparkFun.menu.pnum.MICROMOD_F405.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-SparkFun.menu.pnum.MICROMOD_F405.build.cmsis_lib_gcc=arm_cortexM4lf_math
 SparkFun.menu.pnum.MICROMOD_F405.build.vid=0x1B4F
 SparkFun.menu.pnum.MICROMOD_F405.build.pid=0x0029
 

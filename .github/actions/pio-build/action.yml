@@ -4,7 +4,7 @@ description: 'Compile using PlatformIO'
 inputs:
   cmsis-version:
     description: 'CMSIS package version to use'
-    default: '5.7.0'
+    default: '5.9.0'
 runs:
   using: 'docker'
   image: 'Dockerfile'
