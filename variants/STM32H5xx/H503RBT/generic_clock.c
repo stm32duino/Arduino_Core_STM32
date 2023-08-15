@@ -32,7 +32,8 @@
 * - PLL3 supports only H562/H563/H573.
 */
 
-WEAK void SystemClock_Config(void) {
+WEAK void SystemClock_Config(void)
+{
   RCC_OscInitTypeDef RCC_OscInitStruct = {};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {};
   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {};

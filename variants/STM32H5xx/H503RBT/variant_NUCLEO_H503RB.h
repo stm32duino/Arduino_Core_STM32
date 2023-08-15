@@ -16,55 +16,55 @@
 /*----------------------------------------------------------------------------
  *        STM32 pins number
  *----------------------------------------------------------------------------*/
+#define PA15                    0
+#define PA14                    1
+#define PA10                    2
+#define PB3                     3
+#define PB5                     4
+#define PB4                     5
+#define PB10                    6
+#define PA8                     7
+#define PC7                     8
+#define PC6                     9
+#define PC9                     10
+#define PA7                     11
+#define PA6                     12
+#define PA5                     13
+#define PB7                     14
+#define PB6                     15
 #define PA0                     PIN_A0
 #define PA1                     PIN_A1
 #define PA2                     PIN_A2
-#define PA3                     PIN_A3
-#define PA4                     PIN_A4
-#define PA5                     PIN_A5
-#define PA6                     PIN_A6
-#define PA7                     PIN_A7
-#define PA8                     8
-#define PA9                     9
-#define PA10                    10
-#define PA11                    11
-#define PA12                    12
-#define PA13                    13
-#define PA14                    14
-#define PA15                    15
-#define PB0                     PIN_A8
-#define PB1                     PIN_A9
-#define PB2                     18
-#define PB3                     19
-#define PB4                     20
-#define PB5                     21
-#define PB6                     22
-#define PB7                     23
-#define PB8                     24
-#define PB10                    25
-#define PB12                    26
-#define PB13                    27
-#define PB14                    28
-#define PB15                    29
-#define PC0                     PIN_A10
-#define PC1                     PIN_A11
-#define PC2                     PIN_A12
-#define PC3                     PIN_A13
+#define PB0                     PIN_A3
+#define PC1                     PIN_A4
+#define PC0                     PIN_A5
+#define PA3                     22
+#define PA4                     23
+#define PA9                     24
+#define PA13                    25
+#define PC2                     26
+#define PC3                     27
+#define PC5                     28
+#define PC8                     29
+#define PC10                    30
+#define PC11                    31
+#define PC12                    32
+#define PC13                    33
+#define PC14                    34
+#define PC15                    35
+#define PD2                     36
+#define PH0                     37
+#define PH1                     38
+#define PA12                    PIN_A6
+#define PA11                    PIN_A7
+#define PB12                    PIN_A8
+#define PB2                     PIN_A9
+#define PB1                     PIN_A10
+#define PB15                    PIN_A11
+#define PB14                    PIN_A12
+#define PB13                    PIN_A13
 #define PC4                     PIN_A14
-#define PC5                     PIN_A15
-#define PC6                     36
-#define PC7                     37
-#define PC8                     38
-#define PC9                     39
-#define PC10                    40
-#define PC11                    41
-#define PC12                    42
-#define PC13                    43
-#define PC14                    44
-#define PC15                    45
-#define PD2                     46
-#define PH0                     47
-#define PH1                     48
+#define PB8                     PIN_A15
 
 // Alternate pins number
 #define PA0_ALT1                (PA0  | ALT1)
@@ -115,43 +115,12 @@
 
 // On-board LED pin number
 #ifndef LED_BUILTIN
-  #define LED_BUILTIN           PNUM_NOT_DEFINED
+  #define LED_BUILTIN           PA5
 #endif
 
 // On-board user button
 #ifndef USER_BTN
-  #define USER_BTN              PNUM_NOT_DEFINED
-#endif
-
-// SPI definitions
-#ifndef PIN_SPI_SS
-  #define PIN_SPI_SS            PA0
-#endif
-#ifndef PIN_SPI_SS1
-  #define PIN_SPI_SS1           PA4_ALT1
-#endif
-#ifndef PIN_SPI_SS2
-  #define PIN_SPI_SS2           PA15_ALT1
-#endif
-#ifndef PIN_SPI_SS3
-  #define PIN_SPI_SS3           PB10
-#endif
-#ifndef PIN_SPI_MOSI
-  #define PIN_SPI_MOSI          PA3
-#endif
-#ifndef PIN_SPI_MISO
-  #define PIN_SPI_MISO          PA2
-#endif
-#ifndef PIN_SPI_SCK
-  #define PIN_SPI_SCK           PA1
-#endif
-
-// I2C definitions
-#ifndef PIN_WIRE_SDA
-  #define PIN_WIRE_SDA          PB3
-#endif
-#ifndef PIN_WIRE_SCL
-  #define PIN_WIRE_SCL          PB3
+  #define USER_BTN              PC13
 #endif
 
 // Timer Definitions
@@ -165,16 +134,16 @@
 
 // UART Definitions
 #ifndef SERIAL_UART_INSTANCE
-  #define SERIAL_UART_INSTANCE  1
+  #define SERIAL_UART_INSTANCE  3
 #endif
 
 // Default pin used for generic 'Serial' instance
 // Mandatory for Firmata
 #ifndef PIN_SERIAL_RX
-  #define PIN_SERIAL_RX         PA1
+  #define PIN_SERIAL_RX         PA3
 #endif
 #ifndef PIN_SERIAL_TX
-  #define PIN_SERIAL_TX         PA2
+  #define PIN_SERIAL_TX         PA4
 #endif
 
 // Extra HAL modules
