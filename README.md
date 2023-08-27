@@ -368,6 +368,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32F437ZG<br>STM32F437ZI | Generic Board | **2.0.0** |
 | :green_heart: | STM32F439ZG<br>STM32F439ZI | Generic Board | **2.0.0** |
 | :green_heart:  | STM32F446RC<br>STM32F446RE | Generic Board | *1.9.0* |  |
+| :yellow_heart:  | STM32F446ZC<br>STM32F446ZE | Generic Board | **2.7.0** |  |
 | :green_heart: | STM32F446VC<br>STM32F446VE | Generic Board | **2.0.0** |
 | :green_heart:  | STM32F411CE | [ThunderPack v1.1+](https://github.com/jgillick/ThunderPack) | *1.9.0* |  |
 
