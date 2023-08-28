@@ -71230,6 +71230,91 @@ target_compile_options(GENERIC_G4A1VETX_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
+# GENERIC_H503RBTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_H503RBTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32H5xx/H503RBT")
+set(GENERIC_H503RBTX_MAXSIZE 131072)
+set(GENERIC_H503RBTX_MAXDATASIZE 32768)
+set(GENERIC_H503RBTX_MCU cortex-m33)
+set(GENERIC_H503RBTX_FPCONF "-")
+add_library(GENERIC_H503RBTX INTERFACE)
+target_compile_options(GENERIC_H503RBTX INTERFACE
+  "SHELL:-DSTM32H503xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H503RBTX_MCU}
+)
+target_compile_definitions(GENERIC_H503RBTX INTERFACE
+  "STM32H5xx"
+	"ARDUINO_GENERIC_H503RBTX"
+	"BOARD_NAME=\"GENERIC_H503RBTX\""
+	"BOARD_ID=GENERIC_H503RBTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_H503RBTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32H5xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Source/Templates/gcc/
+  ${GENERIC_H503RBTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_H503RBTX INTERFACE
+  "LINKER:--default-script=${GENERIC_H503RBTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_H503RBTX_MCU}
+)
+target_link_libraries(GENERIC_H503RBTX INTERFACE
+  arm_ARMv8MMLlfsp_math
+)
+
+add_library(GENERIC_H503RBTX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_H503RBTX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_H503RBTX_serial_generic INTERFACE)
+target_compile_options(GENERIC_H503RBTX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_H503RBTX_serial_none INTERFACE)
+target_compile_options(GENERIC_H503RBTX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_H503RBTX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_H503RBTX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_H503RBTX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_H503RBTX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_H503RBTX_usb_HID INTERFACE)
+target_compile_options(GENERIC_H503RBTX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_H503RBTX_usb_none INTERFACE)
+target_compile_options(GENERIC_H503RBTX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_H503RBTX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_H503RBTX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_H503RBTX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_H503RBTX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_H503RBTX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_H503RBTX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
 # GENERIC_H563IIKXQ
 # -----------------------------------------------------------------------------
 
@@ -98515,6 +98600,91 @@ target_compile_options(NUCLEO_G474RE_xusb_HS INTERFACE
 )
 add_library(NUCLEO_G474RE_xusb_HSFS INTERFACE)
 target_compile_options(NUCLEO_G474RE_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# NUCLEO_H503RB
+# -----------------------------------------------------------------------------
+
+set(NUCLEO_H503RB_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32H5xx/H503RBT")
+set(NUCLEO_H503RB_MAXSIZE 131072)
+set(NUCLEO_H503RB_MAXDATASIZE 32768)
+set(NUCLEO_H503RB_MCU cortex-m33)
+set(NUCLEO_H503RB_FPCONF "fpv4-sp-d16-hard")
+add_library(NUCLEO_H503RB INTERFACE)
+target_compile_options(NUCLEO_H503RB INTERFACE
+  "SHELL:-DSTM32H503xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${NUCLEO_H503RB_MCU}
+)
+target_compile_definitions(NUCLEO_H503RB INTERFACE
+  "STM32H5xx"
+	"ARDUINO_NUCLEO_H503RB"
+	"BOARD_NAME=\"NUCLEO_H503RB\""
+	"BOARD_ID=NUCLEO_H503RB"
+	"VARIANT_H=\"variant_NUCLEO_H503RB.h\""
+)
+target_include_directories(NUCLEO_H503RB INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32H5xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32H5xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32H5xx/Source/Templates/gcc/
+  ${NUCLEO_H503RB_VARIANT_PATH}
+)
+
+target_link_options(NUCLEO_H503RB INTERFACE
+  "LINKER:--default-script=${NUCLEO_H503RB_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${NUCLEO_H503RB_MCU}
+)
+target_link_libraries(NUCLEO_H503RB INTERFACE
+  
+)
+
+add_library(NUCLEO_H503RB_serial_disabled INTERFACE)
+target_compile_options(NUCLEO_H503RB_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_H503RB_serial_generic INTERFACE)
+target_compile_options(NUCLEO_H503RB_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(NUCLEO_H503RB_serial_none INTERFACE)
+target_compile_options(NUCLEO_H503RB_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(NUCLEO_H503RB_usb_CDC INTERFACE)
+target_compile_options(NUCLEO_H503RB_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(NUCLEO_H503RB_usb_CDCgen INTERFACE)
+target_compile_options(NUCLEO_H503RB_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(NUCLEO_H503RB_usb_HID INTERFACE)
+target_compile_options(NUCLEO_H503RB_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(NUCLEO_H503RB_usb_none INTERFACE)
+target_compile_options(NUCLEO_H503RB_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_H503RB_xusb_FS INTERFACE)
+target_compile_options(NUCLEO_H503RB_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_H503RB_xusb_HS INTERFACE)
+target_compile_options(NUCLEO_H503RB_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(NUCLEO_H503RB_xusb_HSFS INTERFACE)
+target_compile_options(NUCLEO_H503RB_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
