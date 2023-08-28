@@ -488,6 +488,19 @@ Nucleo_64.menu.pnum.NUCLEO_G474RE.build.series=STM32G4xx
 Nucleo_64.menu.pnum.NUCLEO_G474RE.build.product_line=STM32G474xx
 Nucleo_64.menu.pnum.NUCLEO_G474RE.build.variant=STM32G4xx/G473R(B-C-E)T_G474R(B-C-E)T_G483RET_G484RET
 
+# NUCLEO H503RB
+Nucleo_64.menu.pnum.NUCLEO_H503RB=Nucleo H503RB
+Nucleo_64.menu.pnum.NUCLEO_H503RB.node=NOD_H503RB
+Nucleo_64.menu.pnum.NUCLEO_H503RB.upload.maximum_size=131072
+Nucleo_64.menu.pnum.NUCLEO_H503RB.upload.maximum_data_size=32768
+Nucleo_64.menu.pnum.NUCLEO_H503RB.build.mcu=cortex-m33
+Nucleo_64.menu.pnum.NUCLEO_H503RB.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_H503RB.build.float-abi=-mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_H503RB.build.board=NUCLEO_H503RB
+Nucleo_64.menu.pnum.NUCLEO_H503RB.build.series=STM32H5xx
+Nucleo_64.menu.pnum.NUCLEO_H503RB.build.product_line=STM32H503xx
+Nucleo_64.menu.pnum.NUCLEO_H503RB.build.variant=STM32H5xx/H503RBT
+
 # NUCLEO_L010RB board
 Nucleo_64.menu.pnum.NUCLEO_L010RB=Nucleo L010RB
 Nucleo_64.menu.pnum.NUCLEO_L010RB.node=NODE_L010RB
