@@ -46474,6 +46474,750 @@ target_link_options(GENERIC_F446VETX_hid INTERFACE
 )
 
 
+# GENERIC_F446ZCHX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F446ZCHX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F4xx/F446Z(C-E)(H-J-T)")
+set(GENERIC_F446ZCHX_MAXSIZE 262144)
+set(GENERIC_F446ZCHX_MAXDATASIZE 131072)
+set(GENERIC_F446ZCHX_MCU cortex-m4)
+set(GENERIC_F446ZCHX_FPCONF "-")
+add_library(GENERIC_F446ZCHX INTERFACE)
+target_compile_options(GENERIC_F446ZCHX INTERFACE
+  "SHELL:-DSTM32F446xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZCHX_MCU}
+)
+target_compile_definitions(GENERIC_F446ZCHX INTERFACE
+  "STM32F4xx"
+	"ARDUINO_GENERIC_F446ZCHX"
+	"BOARD_NAME=\"GENERIC_F446ZCHX\""
+	"BOARD_ID=GENERIC_F446ZCHX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F446ZCHX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/
+  ${GENERIC_F446ZCHX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F446ZCHX INTERFACE
+  "LINKER:--default-script=${GENERIC_F446ZCHX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZCHX_MCU}
+)
+
+add_library(GENERIC_F446ZCHX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_F446ZCHX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F446ZCHX_serial_generic INTERFACE)
+target_compile_options(GENERIC_F446ZCHX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_F446ZCHX_serial_none INTERFACE)
+target_compile_options(GENERIC_F446ZCHX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_F446ZCHX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_F446ZCHX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_F446ZCHX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_F446ZCHX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_F446ZCHX_usb_HID INTERFACE)
+target_compile_options(GENERIC_F446ZCHX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_F446ZCHX_usb_none INTERFACE)
+target_compile_options(GENERIC_F446ZCHX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F446ZCHX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_F446ZCHX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F446ZCHX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_F446ZCHX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_F446ZCHX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_F446ZCHX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_F446ZCHX_hid
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F446ZCHX_hid_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F4xx/F446Z(C-E)(H-J-T)")
+set(GENERIC_F446ZCHX_hid_MAXSIZE 262144)
+set(GENERIC_F446ZCHX_hid_MAXDATASIZE 131072)
+set(GENERIC_F446ZCHX_hid_MCU cortex-m4)
+set(GENERIC_F446ZCHX_hid_FPCONF "-")
+add_library(GENERIC_F446ZCHX_hid INTERFACE)
+target_compile_options(GENERIC_F446ZCHX_hid INTERFACE
+  "SHELL:-DSTM32F446xx  -DHAL_UART_MODULE_ENABLED -DBL_HID"
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZCHX_hid_MCU}
+)
+target_compile_definitions(GENERIC_F446ZCHX_hid INTERFACE
+  "STM32F4xx"
+	"ARDUINO_GENERIC_F446ZCHX"
+	"BOARD_NAME=\"GENERIC_F446ZCHX\""
+	"BOARD_ID=GENERIC_F446ZCHX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F446ZCHX_hid INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/
+  ${GENERIC_F446ZCHX_hid_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F446ZCHX_hid INTERFACE
+  "LINKER:--default-script=${GENERIC_F446ZCHX_hid_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x4000"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZCHX_hid_MCU}
+)
+
+
+# GENERIC_F446ZCJX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F446ZCJX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F4xx/F446Z(C-E)(H-J-T)")
+set(GENERIC_F446ZCJX_MAXSIZE 262144)
+set(GENERIC_F446ZCJX_MAXDATASIZE 131072)
+set(GENERIC_F446ZCJX_MCU cortex-m4)
+set(GENERIC_F446ZCJX_FPCONF "-")
+add_library(GENERIC_F446ZCJX INTERFACE)
+target_compile_options(GENERIC_F446ZCJX INTERFACE
+  "SHELL:-DSTM32F446xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZCJX_MCU}
+)
+target_compile_definitions(GENERIC_F446ZCJX INTERFACE
+  "STM32F4xx"
+	"ARDUINO_GENERIC_F446ZCJX"
+	"BOARD_NAME=\"GENERIC_F446ZCJX\""
+	"BOARD_ID=GENERIC_F446ZCJX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F446ZCJX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/
+  ${GENERIC_F446ZCJX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F446ZCJX INTERFACE
+  "LINKER:--default-script=${GENERIC_F446ZCJX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZCJX_MCU}
+)
+
+add_library(GENERIC_F446ZCJX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_F446ZCJX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F446ZCJX_serial_generic INTERFACE)
+target_compile_options(GENERIC_F446ZCJX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_F446ZCJX_serial_none INTERFACE)
+target_compile_options(GENERIC_F446ZCJX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_F446ZCJX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_F446ZCJX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_F446ZCJX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_F446ZCJX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_F446ZCJX_usb_HID INTERFACE)
+target_compile_options(GENERIC_F446ZCJX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_F446ZCJX_usb_none INTERFACE)
+target_compile_options(GENERIC_F446ZCJX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F446ZCJX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_F446ZCJX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F446ZCJX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_F446ZCJX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_F446ZCJX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_F446ZCJX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_F446ZCJX_hid
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F446ZCJX_hid_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F4xx/F446Z(C-E)(H-J-T)")
+set(GENERIC_F446ZCJX_hid_MAXSIZE 262144)
+set(GENERIC_F446ZCJX_hid_MAXDATASIZE 131072)
+set(GENERIC_F446ZCJX_hid_MCU cortex-m4)
+set(GENERIC_F446ZCJX_hid_FPCONF "-")
+add_library(GENERIC_F446ZCJX_hid INTERFACE)
+target_compile_options(GENERIC_F446ZCJX_hid INTERFACE
+  "SHELL:-DSTM32F446xx  -DHAL_UART_MODULE_ENABLED -DBL_HID"
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZCJX_hid_MCU}
+)
+target_compile_definitions(GENERIC_F446ZCJX_hid INTERFACE
+  "STM32F4xx"
+	"ARDUINO_GENERIC_F446ZCJX"
+	"BOARD_NAME=\"GENERIC_F446ZCJX\""
+	"BOARD_ID=GENERIC_F446ZCJX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F446ZCJX_hid INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/
+  ${GENERIC_F446ZCJX_hid_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F446ZCJX_hid INTERFACE
+  "LINKER:--default-script=${GENERIC_F446ZCJX_hid_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x4000"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZCJX_hid_MCU}
+)
+
+
+# GENERIC_F446ZCTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F446ZCTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F4xx/F446Z(C-E)(H-J-T)")
+set(GENERIC_F446ZCTX_MAXSIZE 262144)
+set(GENERIC_F446ZCTX_MAXDATASIZE 131072)
+set(GENERIC_F446ZCTX_MCU cortex-m4)
+set(GENERIC_F446ZCTX_FPCONF "-")
+add_library(GENERIC_F446ZCTX INTERFACE)
+target_compile_options(GENERIC_F446ZCTX INTERFACE
+  "SHELL:-DSTM32F446xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZCTX_MCU}
+)
+target_compile_definitions(GENERIC_F446ZCTX INTERFACE
+  "STM32F4xx"
+	"ARDUINO_GENERIC_F446ZCTX"
+	"BOARD_NAME=\"GENERIC_F446ZCTX\""
+	"BOARD_ID=GENERIC_F446ZCTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F446ZCTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/
+  ${GENERIC_F446ZCTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F446ZCTX INTERFACE
+  "LINKER:--default-script=${GENERIC_F446ZCTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZCTX_MCU}
+)
+
+add_library(GENERIC_F446ZCTX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_F446ZCTX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F446ZCTX_serial_generic INTERFACE)
+target_compile_options(GENERIC_F446ZCTX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_F446ZCTX_serial_none INTERFACE)
+target_compile_options(GENERIC_F446ZCTX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_F446ZCTX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_F446ZCTX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_F446ZCTX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_F446ZCTX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_F446ZCTX_usb_HID INTERFACE)
+target_compile_options(GENERIC_F446ZCTX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_F446ZCTX_usb_none INTERFACE)
+target_compile_options(GENERIC_F446ZCTX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F446ZCTX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_F446ZCTX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F446ZCTX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_F446ZCTX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_F446ZCTX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_F446ZCTX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_F446ZCTX_hid
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F446ZCTX_hid_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F4xx/F446Z(C-E)(H-J-T)")
+set(GENERIC_F446ZCTX_hid_MAXSIZE 262144)
+set(GENERIC_F446ZCTX_hid_MAXDATASIZE 131072)
+set(GENERIC_F446ZCTX_hid_MCU cortex-m4)
+set(GENERIC_F446ZCTX_hid_FPCONF "-")
+add_library(GENERIC_F446ZCTX_hid INTERFACE)
+target_compile_options(GENERIC_F446ZCTX_hid INTERFACE
+  "SHELL:-DSTM32F446xx  -DHAL_UART_MODULE_ENABLED -DBL_HID"
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZCTX_hid_MCU}
+)
+target_compile_definitions(GENERIC_F446ZCTX_hid INTERFACE
+  "STM32F4xx"
+	"ARDUINO_GENERIC_F446ZCTX"
+	"BOARD_NAME=\"GENERIC_F446ZCTX\""
+	"BOARD_ID=GENERIC_F446ZCTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F446ZCTX_hid INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/
+  ${GENERIC_F446ZCTX_hid_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F446ZCTX_hid INTERFACE
+  "LINKER:--default-script=${GENERIC_F446ZCTX_hid_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x4000"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZCTX_hid_MCU}
+)
+
+
+# GENERIC_F446ZEHX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F446ZEHX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F4xx/F446Z(C-E)(H-J-T)")
+set(GENERIC_F446ZEHX_MAXSIZE 524288)
+set(GENERIC_F446ZEHX_MAXDATASIZE 131072)
+set(GENERIC_F446ZEHX_MCU cortex-m4)
+set(GENERIC_F446ZEHX_FPCONF "-")
+add_library(GENERIC_F446ZEHX INTERFACE)
+target_compile_options(GENERIC_F446ZEHX INTERFACE
+  "SHELL:-DSTM32F446xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZEHX_MCU}
+)
+target_compile_definitions(GENERIC_F446ZEHX INTERFACE
+  "STM32F4xx"
+	"ARDUINO_GENERIC_F446ZEHX"
+	"BOARD_NAME=\"GENERIC_F446ZEHX\""
+	"BOARD_ID=GENERIC_F446ZEHX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F446ZEHX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/
+  ${GENERIC_F446ZEHX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F446ZEHX INTERFACE
+  "LINKER:--default-script=${GENERIC_F446ZEHX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZEHX_MCU}
+)
+
+add_library(GENERIC_F446ZEHX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_F446ZEHX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F446ZEHX_serial_generic INTERFACE)
+target_compile_options(GENERIC_F446ZEHX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_F446ZEHX_serial_none INTERFACE)
+target_compile_options(GENERIC_F446ZEHX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_F446ZEHX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_F446ZEHX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_F446ZEHX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_F446ZEHX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_F446ZEHX_usb_HID INTERFACE)
+target_compile_options(GENERIC_F446ZEHX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_F446ZEHX_usb_none INTERFACE)
+target_compile_options(GENERIC_F446ZEHX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F446ZEHX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_F446ZEHX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F446ZEHX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_F446ZEHX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_F446ZEHX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_F446ZEHX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_F446ZEHX_hid
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F446ZEHX_hid_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F4xx/F446Z(C-E)(H-J-T)")
+set(GENERIC_F446ZEHX_hid_MAXSIZE 524288)
+set(GENERIC_F446ZEHX_hid_MAXDATASIZE 131072)
+set(GENERIC_F446ZEHX_hid_MCU cortex-m4)
+set(GENERIC_F446ZEHX_hid_FPCONF "-")
+add_library(GENERIC_F446ZEHX_hid INTERFACE)
+target_compile_options(GENERIC_F446ZEHX_hid INTERFACE
+  "SHELL:-DSTM32F446xx  -DHAL_UART_MODULE_ENABLED -DBL_HID"
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZEHX_hid_MCU}
+)
+target_compile_definitions(GENERIC_F446ZEHX_hid INTERFACE
+  "STM32F4xx"
+	"ARDUINO_GENERIC_F446ZEHX"
+	"BOARD_NAME=\"GENERIC_F446ZEHX\""
+	"BOARD_ID=GENERIC_F446ZEHX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F446ZEHX_hid INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/
+  ${GENERIC_F446ZEHX_hid_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F446ZEHX_hid INTERFACE
+  "LINKER:--default-script=${GENERIC_F446ZEHX_hid_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x4000"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZEHX_hid_MCU}
+)
+
+
+# GENERIC_F446ZEJX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F446ZEJX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F4xx/F446Z(C-E)(H-J-T)")
+set(GENERIC_F446ZEJX_MAXSIZE 524288)
+set(GENERIC_F446ZEJX_MAXDATASIZE 131072)
+set(GENERIC_F446ZEJX_MCU cortex-m4)
+set(GENERIC_F446ZEJX_FPCONF "-")
+add_library(GENERIC_F446ZEJX INTERFACE)
+target_compile_options(GENERIC_F446ZEJX INTERFACE
+  "SHELL:-DSTM32F446xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZEJX_MCU}
+)
+target_compile_definitions(GENERIC_F446ZEJX INTERFACE
+  "STM32F4xx"
+	"ARDUINO_GENERIC_F446ZEJX"
+	"BOARD_NAME=\"GENERIC_F446ZEJX\""
+	"BOARD_ID=GENERIC_F446ZEJX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F446ZEJX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/
+  ${GENERIC_F446ZEJX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F446ZEJX INTERFACE
+  "LINKER:--default-script=${GENERIC_F446ZEJX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZEJX_MCU}
+)
+
+add_library(GENERIC_F446ZEJX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_F446ZEJX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F446ZEJX_serial_generic INTERFACE)
+target_compile_options(GENERIC_F446ZEJX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_F446ZEJX_serial_none INTERFACE)
+target_compile_options(GENERIC_F446ZEJX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_F446ZEJX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_F446ZEJX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_F446ZEJX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_F446ZEJX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_F446ZEJX_usb_HID INTERFACE)
+target_compile_options(GENERIC_F446ZEJX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_F446ZEJX_usb_none INTERFACE)
+target_compile_options(GENERIC_F446ZEJX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F446ZEJX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_F446ZEJX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F446ZEJX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_F446ZEJX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_F446ZEJX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_F446ZEJX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_F446ZEJX_hid
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F446ZEJX_hid_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F4xx/F446Z(C-E)(H-J-T)")
+set(GENERIC_F446ZEJX_hid_MAXSIZE 524288)
+set(GENERIC_F446ZEJX_hid_MAXDATASIZE 131072)
+set(GENERIC_F446ZEJX_hid_MCU cortex-m4)
+set(GENERIC_F446ZEJX_hid_FPCONF "-")
+add_library(GENERIC_F446ZEJX_hid INTERFACE)
+target_compile_options(GENERIC_F446ZEJX_hid INTERFACE
+  "SHELL:-DSTM32F446xx  -DHAL_UART_MODULE_ENABLED -DBL_HID"
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZEJX_hid_MCU}
+)
+target_compile_definitions(GENERIC_F446ZEJX_hid INTERFACE
+  "STM32F4xx"
+	"ARDUINO_GENERIC_F446ZEJX"
+	"BOARD_NAME=\"GENERIC_F446ZEJX\""
+	"BOARD_ID=GENERIC_F446ZEJX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F446ZEJX_hid INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/
+  ${GENERIC_F446ZEJX_hid_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F446ZEJX_hid INTERFACE
+  "LINKER:--default-script=${GENERIC_F446ZEJX_hid_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x4000"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZEJX_hid_MCU}
+)
+
+
+# GENERIC_F446ZETX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F446ZETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F4xx/F446Z(C-E)(H-J-T)")
+set(GENERIC_F446ZETX_MAXSIZE 524288)
+set(GENERIC_F446ZETX_MAXDATASIZE 131072)
+set(GENERIC_F446ZETX_MCU cortex-m4)
+set(GENERIC_F446ZETX_FPCONF "-")
+add_library(GENERIC_F446ZETX INTERFACE)
+target_compile_options(GENERIC_F446ZETX INTERFACE
+  "SHELL:-DSTM32F446xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZETX_MCU}
+)
+target_compile_definitions(GENERIC_F446ZETX INTERFACE
+  "STM32F4xx"
+	"ARDUINO_GENERIC_F446ZETX"
+	"BOARD_NAME=\"GENERIC_F446ZETX\""
+	"BOARD_ID=GENERIC_F446ZETX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F446ZETX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/
+  ${GENERIC_F446ZETX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F446ZETX INTERFACE
+  "LINKER:--default-script=${GENERIC_F446ZETX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZETX_MCU}
+)
+
+add_library(GENERIC_F446ZETX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_F446ZETX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F446ZETX_serial_generic INTERFACE)
+target_compile_options(GENERIC_F446ZETX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_F446ZETX_serial_none INTERFACE)
+target_compile_options(GENERIC_F446ZETX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_F446ZETX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_F446ZETX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_F446ZETX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_F446ZETX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_F446ZETX_usb_HID INTERFACE)
+target_compile_options(GENERIC_F446ZETX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_F446ZETX_usb_none INTERFACE)
+target_compile_options(GENERIC_F446ZETX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F446ZETX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_F446ZETX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F446ZETX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_F446ZETX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_F446ZETX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_F446ZETX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_F446ZETX_hid
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F446ZETX_hid_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F4xx/F446Z(C-E)(H-J-T)")
+set(GENERIC_F446ZETX_hid_MAXSIZE 524288)
+set(GENERIC_F446ZETX_hid_MAXDATASIZE 131072)
+set(GENERIC_F446ZETX_hid_MCU cortex-m4)
+set(GENERIC_F446ZETX_hid_FPCONF "-")
+add_library(GENERIC_F446ZETX_hid INTERFACE)
+target_compile_options(GENERIC_F446ZETX_hid INTERFACE
+  "SHELL:-DSTM32F446xx  -DHAL_UART_MODULE_ENABLED -DBL_HID"
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZETX_hid_MCU}
+)
+target_compile_definitions(GENERIC_F446ZETX_hid INTERFACE
+  "STM32F4xx"
+	"ARDUINO_GENERIC_F446ZETX"
+	"BOARD_NAME=\"GENERIC_F446ZETX\""
+	"BOARD_ID=GENERIC_F446ZETX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F446ZETX_hid INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/
+  ${GENERIC_F446ZETX_hid_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F446ZETX_hid INTERFACE
+  "LINKER:--default-script=${GENERIC_F446ZETX_hid_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x4000"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F446ZETX_hid_MCU}
+)
+
+
 # GENERIC_F722RCTX
 # -----------------------------------------------------------------------------
 
@@ -71269,9 +72013,6 @@ target_link_options(GENERIC_H503RBTX INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${GENERIC_H503RBTX_MCU}
-)
-target_link_libraries(GENERIC_H503RBTX INTERFACE
-  arm_ARMv8MMLlfsp_math
 )
 
 add_library(GENERIC_H503RBTX_serial_disabled INTERFACE)
@@ -97701,6 +98442,88 @@ target_compile_options(NUCLEO_F446RE_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
+# NUCLEO_F446ZE
+# -----------------------------------------------------------------------------
+
+set(NUCLEO_F446ZE_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F4xx/F446Z(C-E)(H-J-T)")
+set(NUCLEO_F446ZE_MAXSIZE 524288)
+set(NUCLEO_F446ZE_MAXDATASIZE 131072)
+set(NUCLEO_F446ZE_MCU cortex-m4)
+set(NUCLEO_F446ZE_FPCONF "fpv4-sp-d16-hard")
+add_library(NUCLEO_F446ZE INTERFACE)
+target_compile_options(NUCLEO_F446ZE INTERFACE
+  "SHELL:-DSTM32F446xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${NUCLEO_F446ZE_MCU}
+)
+target_compile_definitions(NUCLEO_F446ZE INTERFACE
+  "STM32F4xx"
+	"ARDUINO_NUCLEO_F446ZE"
+	"BOARD_NAME=\"NUCLEO_F446ZE\""
+	"BOARD_ID=NUCLEO_F446ZE"
+	"VARIANT_H=\"variant_NUCLEO_F446ZE.h\""
+)
+target_include_directories(NUCLEO_F446ZE INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/
+  ${NUCLEO_F446ZE_VARIANT_PATH}
+)
+
+target_link_options(NUCLEO_F446ZE INTERFACE
+  "LINKER:--default-script=${NUCLEO_F446ZE_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${NUCLEO_F446ZE_MCU}
+)
+
+add_library(NUCLEO_F446ZE_serial_disabled INTERFACE)
+target_compile_options(NUCLEO_F446ZE_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_F446ZE_serial_generic INTERFACE)
+target_compile_options(NUCLEO_F446ZE_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(NUCLEO_F446ZE_serial_none INTERFACE)
+target_compile_options(NUCLEO_F446ZE_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(NUCLEO_F446ZE_usb_CDC INTERFACE)
+target_compile_options(NUCLEO_F446ZE_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(NUCLEO_F446ZE_usb_CDCgen INTERFACE)
+target_compile_options(NUCLEO_F446ZE_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(NUCLEO_F446ZE_usb_HID INTERFACE)
+target_compile_options(NUCLEO_F446ZE_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(NUCLEO_F446ZE_usb_none INTERFACE)
+target_compile_options(NUCLEO_F446ZE_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_F446ZE_xusb_FS INTERFACE)
+target_compile_options(NUCLEO_F446ZE_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_F446ZE_xusb_HS INTERFACE)
+target_compile_options(NUCLEO_F446ZE_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(NUCLEO_F446ZE_xusb_HSFS INTERFACE)
+target_compile_options(NUCLEO_F446ZE_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
 # NUCLEO_F722ZE
 # -----------------------------------------------------------------------------
 
@@ -98642,9 +99465,6 @@ target_link_options(NUCLEO_H503RB INTERFACE
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_H503RB_MCU}
-)
-target_link_libraries(NUCLEO_H503RB INTERFACE
-  
 )
 
 add_library(NUCLEO_H503RB_serial_disabled INTERFACE)
