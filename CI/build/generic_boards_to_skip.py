@@ -14,21 +14,13 @@ parser = argparse.ArgumentParser(
     description="Generate list of generic boards to skip for ci core config"
 )
 
-parser.add_argument("-f", "--family", metavar="pattern", help="Family name to generate")
-
-args = parser.parse_args()
-
 
 def main():
-    if args.family:
-        filtered_family = args.family.upper()
     # Get mcu_family directories
     mcu_families = sorted(variant_path.glob("STM32*/"))
     boards_list = []
     # Parse boards from all
     for mcu_family in mcu_families:
-        if args.family and filtered_family not in str(mcu_family):
-            continue
         # Search all directory with ldscript.ld
         variants_list = sorted(mcu_family.glob("**/ldscript.ld"))
         for variant in variants_list:
