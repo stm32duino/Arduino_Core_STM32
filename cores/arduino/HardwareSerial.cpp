@@ -441,7 +441,7 @@ void HardwareSerial::begin(unsigned long baud, byte config)
 void HardwareSerial::end()
 {
   // wait for transmission of outgoing data
-  flush();
+  flush(TX_TIMEOUT);
 
   uart_deinit(&_serial);
 
@@ -487,20 +487,25 @@ int HardwareSerial::availableForWrite(void)
   return tail - head - 1;
 }
 
-void HardwareSerial::flush()
+void HardwareSerial::flush(uint32_t timeout)
 {
   // If we have never written a byte, no need to flush. This special
   // case is needed since there is no way to force the TXC (transmit
   // complete) bit to 1 during initialization
-  if (!_written) {
-    return;
+  if (_written) {
+    uint32_t tickstart = HAL_GetTick();
+    while ((_serial.tx_head != _serial.tx_tail)) {
+      // the interrupt handler will free up space for us
+      // Only manage timeout if any
+      if ((timeout != 0) && ((HAL_GetTick() - tickstart) >= timeout)) {
+        // clear any transmit data
+        _serial.tx_head = _serial.tx_tail;
+        break;
+      }
+    }
+    // If we get here, nothing is queued anymore (DRIE is disabled) and
+    // the hardware finished transmission (TXC is set).
   }
-
-  while ((_serial.tx_head != _serial.tx_tail)) {
-    // nop, the interrupt handler will free up space for us
-  }
-  // If we get here, nothing is queued anymore (DRIE is disabled) and
-  // the hardware finished transmission (TXC is set).
 }
 
 size_t HardwareSerial::write(const uint8_t *buffer, size_t size)
