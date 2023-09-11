@@ -86,7 +86,9 @@ struct serial_s {
 };
 
 /* Exported constants --------------------------------------------------------*/
+#ifndef TX_TIMEOUT
 #define TX_TIMEOUT  1000
+#endif
 
 #if !defined(RCC_USART1CLKSOURCE_HSI)
 /* Some series like C0 have 2 derivated clock from HSI: HSIKER (for peripherals)
