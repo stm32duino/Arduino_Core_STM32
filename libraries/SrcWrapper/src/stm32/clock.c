@@ -128,16 +128,17 @@ void enableClock(sourceClock_t source)
         RCC_OscInitStruct.LSEState = RCC_LSE_ON;
       }
       break;
-    case HSE_CLOCK:
+    case HSE_CLOCK: {
 #if defined(RCC_HSE_BYPASS_PWR) && defined(LORAWAN_BOARD_HAS_TCXO) && (LORAWAN_BOARD_HAS_TCXO == 1)
-      uint32_t HSEState = RCC_HSE_BYPASS_PWR;
+        uint32_t HSEState = RCC_HSE_BYPASS_PWR;
 #else
-      uint32_t HSEState = RCC_HSE_ON;
+        uint32_t HSEState = RCC_HSE_ON;
 #endif
-      __HAL_RCC_HSE_CONFIG(HSEState);
-      if (__HAL_RCC_GET_FLAG(RCC_FLAG_HSERDY) == RESET) {
-        RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_HSE;
-        RCC_OscInitStruct.HSEState = HSEState;
+        __HAL_RCC_HSE_CONFIG(HSEState);
+        if (__HAL_RCC_GET_FLAG(RCC_FLAG_HSERDY) == RESET) {
+          RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_HSE;
+          RCC_OscInitStruct.HSEState = HSEState;
+        }
       }
       break;
     default:
