@@ -195,6 +195,20 @@ Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.product_line=STM32H743xx
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.variant=STM32H7xx/H742Z(G-I)T_H743Z(G-I)T_H747A(G-I)I_H747I(G-I)T_H750ZBT_H753ZIT_H757AII_H757IIT
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.variant_h=variant_NUCLEO_H743ZI.h
 
+# NUCLEO_H753ZI board
+Nucleo_144.menu.pnum.NUCLEO_H753ZI=Nucleo H753ZI
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.node=NODE_H753ZI
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.upload.maximum_size=2097152
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.upload.maximum_data_size=524288
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.mcu=cortex-m7
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.float-abi=-mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.board=NUCLEO_H753ZI
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.series=STM32H7xx
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.product_line=STM32H753xx
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.variant=STM32H7xx/H742Z(G-I)T_H743Z(G-I)T_H747A(G-I)I_H747I(G-I)T_H750ZBT_H753ZIT_H757AII_H757IIT
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.variant_h=variant_NUCLEO_H753ZI.h
+
 # NUCLEO_L496ZG board
 Nucleo_144.menu.pnum.NUCLEO_L496ZG=Nucleo L496ZG
 Nucleo_144.menu.pnum.NUCLEO_L496ZG.node=NODE_L496ZG
