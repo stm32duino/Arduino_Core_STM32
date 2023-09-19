@@ -116,6 +116,22 @@ def process_usb_configuration(cpp_defines):
 
 
 def configure_application_offset(mcu, upload_protocol):
+
+    # (addition to allow for custom bootloaders (e.g. OTA)) check if LD_FLASH_OFFSET is already set by the user
+    linkFlags = env.get("LINKFLAGS")
+    entry: str
+    for entry in linkFlags:
+        if("-Wl,--defsym=LD_FLASH_OFFSET=" in entry):
+            offset = int(entry.removeprefix("-Wl,--defsym=LD_FLASH_OFFSET="), 0) # NOTE: converting to int is needed for the '!=0' check later. Otherwise, i'd prefer to keep this a string
+            print("existing LD_FLASH_OFFSET link-flag found:",hex(offset),"   Setting VECT_TAB_OFFSET accordingly")
+            if("VECT_TAB_OFFSET" in env.Flatten(env.get("CPPDEFINES", []))):
+                print("Warning! overwriting VECT_TAB_OFFSET with:", hex(offset))
+            env.Append(
+                CPPDEFINES=[("VECT_TAB_OFFSET", "%s" % hex(offset))],
+            )
+            return # exit the function
+    #else: (if it didn't return() )
+    
     offset = 0
 
     if upload_protocol == "hid":
@@ -137,6 +153,8 @@ def configure_application_offset(mcu, upload_protocol):
             env.Append(CPPDEFINES=["BL_LEGACY_LEAF"])
 
     if offset != 0:
+        if("VECT_TAB_OFFSET" in env.Flatten(env.get("CPPDEFINES", []))):
+            print("Warning! overwriting VECT_TAB_OFFSET with LD_FLASH_OFFSET:", hex(offset)) # (addition for some extra debug)
         env.Append(
             CPPDEFINES=[("VECT_TAB_OFFSET", "%s" % hex(offset))],
         )
