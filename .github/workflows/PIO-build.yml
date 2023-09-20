@@ -14,7 +14,7 @@ on:
       - '!CI/build/platformio-builder.py'
       - cmake/**
       - tools/**
-      - '!tools/platformio-build.py'
+      - '!tools/platformio/platformio-build.py'
   pull_request:
     paths-ignore:
       - .github/**
@@ -27,7 +27,7 @@ on:
       - '!CI/build/platformio-builder.py'
       - cmake/**
       - tools/**
-      - '!tools/platformio-build.py'
+      - '!tools/platformio/platformio-build.py'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 jobs:
