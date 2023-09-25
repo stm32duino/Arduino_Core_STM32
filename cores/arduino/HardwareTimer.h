@@ -91,7 +91,7 @@ typedef enum {
 } TimerCompareFormat_t;
 
 typedef enum {
-  FILTER_NONE = 1,  // No filter
+  FILTER_NONE = 0,  // No filter
   FILTER_CKINT_N2,  // Sampling rate is same as clock interrupt, n=2 events
   FILTER_CKINT_N4,  // Sampling rate is same as clock interrupt, n=4 events
   FILTER_CKINT_N8,  // Sampling rate is same as clock interrupt, n=8 events

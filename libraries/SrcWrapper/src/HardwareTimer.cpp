@@ -624,61 +624,6 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, uint32_t pin, C
   setMode(channel, mode, digitalPinToPinName(pin), filter);
 }
 
-inline uint8_t getICFBitsFromFilterMode(ChannelInputFilter_t filter)
-{
-  switch (filter) {
-    case FILTER_NONE:
-      return 0;
-      break;
-    case FILTER_CKINT_N2:
-      return 1;
-      break;
-    case FILTER_CKINT_N4:
-      return 2;
-      break;
-    case FILTER_CKINT_N8:
-      return 3;
-      break;
-    case FILTER_DTS2_N6:
-      return 4;
-      break;
-    case FILTER_DTS2_N8:
-      return 5;
-      break;
-    case FILTER_DTS4_N6:
-      return 6;
-      break;
-    case FILTER_DTS4_N8:
-      return 7;
-      break;
-    case FILTER_DTS8_N6:
-      return 8;
-      break;
-    case FILTER_DTS8_N8:
-      return 9;
-      break;
-    case FILTER_DTS16_N5:
-      return 10;
-      break;
-    case FILTER_DTS16_N6:
-      return 11;
-      break;
-    case FILTER_DTS16_N8:
-      return 12;
-      break;
-    case FILTER_DTS32_N5:
-      return 13;
-      break;
-    case FILTER_DTS32_N6:
-      return 14;
-      break;
-    case FILTER_DTS32_N8:
-      return 15;
-      break;
-  }
-  return 0;
-}
-
 /**
   * @brief  Set channel mode
   * @param  channel: Arduino channel [1..4]
@@ -714,7 +659,7 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin, Ch
   channelIC.ICPolarity = TIM_ICPOLARITY_RISING;
   channelIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
   channelIC.ICPrescaler = TIM_ICPSC_DIV1;
-  channelIC.ICFilter = getICFBitsFromFilterMode(filter);
+  channelIC.ICFilter = filter;
 
   switch (mode) {
     case TIMER_DISABLED:
