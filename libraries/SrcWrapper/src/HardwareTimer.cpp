@@ -619,9 +619,9 @@ void HardwareTimer::setCount(uint32_t counter, TimerFormat_t format)
   * @param  pin: Arduino pin number, ex: D1, 1 or PA1
   * @retval None
   */
-void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, uint32_t pin)
+void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, uint32_t pin, ChannelInputFilter_t filter)
 {
-  setMode(channel, mode, digitalPinToPinName(pin));
+  setMode(channel, mode, digitalPinToPinName(pin), filter);
 }
 
 /**
@@ -631,7 +631,7 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, uint32_t pin)
   * @param  pin: pin name, ex: PB_0
   * @retval None
   */
-void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
+void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin, ChannelInputFilter_t filter)
 {
   int timChannel = getChannel(channel);
   int timAssociatedInputChannel;
@@ -659,7 +659,7 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
   channelIC.ICPolarity = TIM_ICPOLARITY_RISING;
   channelIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
   channelIC.ICPrescaler = TIM_ICPSC_DIV1;
-  channelIC.ICFilter = 0;
+  channelIC.ICFilter = filter;
 
   switch (mode) {
     case TIMER_DISABLED:
