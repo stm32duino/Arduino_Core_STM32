@@ -79,6 +79,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [Electronic Speed Controller boards](#electronic-speed-controller-boards)
  - [Garatronic/McHobby boards](#garatronicmchobby-boards)
  - [Generic flight controllers](#generic-flight-controllers)
+ - [IoT continuum boards](#iot-continuum-boards)
  - [LoRa boards](#lora-boards)
  - [Midatronics boards](#midatronics-boards)
  - [SparkFun boards](#sparkfun-boards)
@@ -773,6 +774,12 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32F103CB | Afro Flight Rev5 (8/12MHz) | *1.7.0* |  |
 | :green_heart:  | STM32F303CC | [Sparky V1](https://github.com/TauLabs/TauLabs/wiki/Sparky) | *1.6.0* |  |
+
+### [IoT continuum](https://iotjourney.orange.com/fr-FR) boards
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart: | STM32U585CIU6 | [IoT continuum DevKit Board - STM32U585CIU6](https://iotjourney.orange.com/en/iotcontinuum/kits) | **2.7.0** |  |
 
 ### LoRa boards
 

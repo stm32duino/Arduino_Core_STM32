@@ -10758,6 +10758,48 @@ GenFlight.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
 GenFlight.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF
 
 ################################################################################
+# IoT continuum Boards
+
+IotContinuum.name=IoT continuum boards
+
+IotContinuum.build.core=arduino
+IotContinuum.build.board=IOT_CONTINUUM
+IotContinuum.build.variant_h=variant_{build.board}.h
+IotContinuum.build.st_extra_flags=-D{build.product_line} {build.xSerial}
+IotContinuum.build.flash_offset=0x0
+IotContinuum.upload.maximum_size=0
+IotContinuum.upload.maximum_data_size=0
+
+# IoT continuum Dev Kit Board
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM=IoT continuum Dev Kit
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.upload.maximum_size=2097152
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.upload.maximum_data_size=786432
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.mcu=cortex-m33
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.fpu=-mfpu=fpv4-sp-d16
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.float-abi=-mfloat-abi=hard
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.board=DEVKIT_IOT_CONTINUUM
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.series=STM32U5xx
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.product_line=STM32U585xx
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.variant=STM32U5xx/U575C(G-I)(T-U)_U585CI(T-U)
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+
+# Upload menu
+IotContinuum.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+IotContinuum.menu.upload_method.swdMethod.upload.protocol=0
+IotContinuum.menu.upload_method.swdMethod.upload.options=
+IotContinuum.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+IotContinuum.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+IotContinuum.menu.upload_method.serialMethod.upload.protocol=1
+IotContinuum.menu.upload_method.serialMethod.upload.options={serial.port.file}
+IotContinuum.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+IotContinuum.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+IotContinuum.menu.upload_method.dfuMethod.upload.protocol=2
+IotContinuum.menu.upload_method.dfuMethod.upload.options=
+IotContinuum.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+################################################################################
 # LoRa boards
 
 LoRa.name=LoRa boards
@@ -10998,7 +11040,6 @@ SparkFun.menu.upload_method.dfuMethod.upload.protocol=2
 SparkFun.menu.upload_method.dfuMethod.upload.options=
 SparkFun.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
-
 ################################################################################
 # Serialx activation
 Nucleo_144.menu.xserial.generic=Enabled (generic 'Serial')
@@ -11188,6 +11229,12 @@ GenFlight.menu.xserial.none=Enabled (no generic 'Serial')
 GenFlight.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenFlight.menu.xserial.disabled=Disabled (no Serial support)
 GenFlight.menu.xserial.disabled.build.xSerial=
+
+IotContinuum.menu.xserial.generic=Enabled (generic 'Serial')
+IotContinuum.menu.xserial.none=Enabled (no generic 'Serial')
+IotContinuum.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+IotContinuum.menu.xserial.disabled=Disabled (no Serial support)
+IotContinuum.menu.xserial.disabled.build.xSerial=
 
 LoRa.menu.xserial.generic=Enabled (generic 'Serial')
 LoRa.menu.xserial.none=Enabled (no generic 'Serial')
@@ -12157,6 +12204,26 @@ GenFlight.menu.opt.ogstd.build.flags.optimize=-Og
 GenFlight.menu.opt.o0std=No Optimization (-O0)
 GenFlight.menu.opt.o0std.build.flags.optimize=-O0
 
+IotContinuum.menu.opt.osstd=Smallest (-Os default)
+IotContinuum.menu.opt.oslto=Smallest (-Os) with LTO
+IotContinuum.menu.opt.oslto.build.flags.optimize=-Os -flto
+IotContinuum.menu.opt.o1std=Fast (-O1)
+IotContinuum.menu.opt.o1std.build.flags.optimize=-O1
+IotContinuum.menu.opt.o1lto=Fast (-O1) with LTO
+IotContinuum.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+IotContinuum.menu.opt.o2std=Faster (-O2)
+IotContinuum.menu.opt.o2std.build.flags.optimize=-O2
+IotContinuum.menu.opt.o2lto=Faster (-O2) with LTO
+IotContinuum.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+IotContinuum.menu.opt.o3std=Fastest (-O3)
+IotContinuum.menu.opt.o3std.build.flags.optimize=-O3
+IotContinuum.menu.opt.o3lto=Fastest (-O3) with LTO
+IotContinuum.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+IotContinuum.menu.opt.ogstd=Debug (-Og)
+IotContinuum.menu.opt.ogstd.build.flags.optimize=-Og
+IotContinuum.menu.opt.o0std=No Optimization (-O0)
+IotContinuum.menu.opt.o0std.build.flags.optimize=-O0
+
 LoRa.menu.opt.osstd=Smallest (-Os default)
 LoRa.menu.opt.oslto=Smallest (-Os) with LTO
 LoRa.menu.opt.oslto.build.flags.optimize=-Os -flto
@@ -12445,6 +12512,14 @@ GenFlight.menu.dbg.enable_log=Core logs Enabled
 GenFlight.menu.dbg.enable_log.build.flags.debug=
 GenFlight.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 GenFlight.menu.dbg.enable_all.build.flags.debug=-g
+
+IotContinuum.menu.dbg.none=None
+IotContinuum.menu.dbg.enable_sym=Symbols Enabled (-g)
+IotContinuum.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+IotContinuum.menu.dbg.enable_log=Core logs Enabled
+IotContinuum.menu.dbg.enable_log.build.flags.debug=
+IotContinuum.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+IotContinuum.menu.dbg.enable_all.build.flags.debug=-g
 
 LoRa.menu.dbg.none=None
 LoRa.menu.dbg.enable_sym=Symbols Enabled (-g)
@@ -12770,6 +12845,16 @@ GenFlight.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenFlight.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenFlight.menu.rtlib.full=Newlib Standard
 GenFlight.menu.rtlib.full.build.flags.ldspecs=
+
+IotContinuum.menu.rtlib.nano=Newlib Nano (default)
+IotContinuum.menu.rtlib.nanofp=Newlib Nano + Float Printf
+IotContinuum.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+IotContinuum.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+IotContinuum.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+IotContinuum.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+IotContinuum.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+IotContinuum.menu.rtlib.full=Newlib Standard
+IotContinuum.menu.rtlib.full.build.flags.ldspecs=
 
 LoRa.menu.rtlib.nano=Newlib Nano (default)
 LoRa.menu.rtlib.nanofp=Newlib Nano + Float Printf
