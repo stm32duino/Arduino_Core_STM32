@@ -95,7 +95,7 @@ static inline void disableBackupDomain(void)
   HAL_PWR_DisableBkUpAccess();
 #endif
 #ifdef __HAL_RCC_BKPSRAM_CLK_DISABLE
-  /* Disnable BKPSRAM CLK for backup SRAM */
+  /* Disable BKPSRAM CLK for backup SRAM */
   __HAL_RCC_BKPSRAM_CLK_DISABLE();
 #endif
 #ifdef __HAL_RCC_BKP_CLK_DISABLE
