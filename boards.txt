@@ -1047,6 +1047,21 @@ Disco.menu.pnum.STM32H573I_DK.build.product_line=STM32H573xx
 Disco.menu.pnum.STM32H573I_DK.build.variant=STM32H5xx/H573IIKxQ
 Disco.menu.pnum.STM32H573I_DK.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
+# STM32H747I-DISCO
+Disco.menu.pnum.STM32H747I_DISCO=STM32H747I-DISCO
+Disco.menu.pnum.STM32H747I_DISCO.node=DIS_H747XI
+Disco.menu.pnum.STM32H747I_DISCO.upload.maximum_size=2097152
+Disco.menu.pnum.STM32H747I_DISCO.upload.maximum_data_size=524288
+Disco.menu.pnum.STM32H747I_DISCO.build.mcu=cortex-m7
+Disco.menu.pnum.STM32H747I_DISCO.build.fpu=-mfpu=fpv4-sp-d16
+Disco.menu.pnum.STM32H747I_DISCO.build.float-abi=-mfloat-abi=hard
+Disco.menu.pnum.STM32H747I_DISCO.build.board=STM32H747I_DISCO
+Disco.menu.pnum.STM32H747I_DISCO.build.series=STM32H7xx
+Disco.menu.pnum.STM32H747I_DISCO.build.product_line=STM32H747xx
+Disco.menu.pnum.STM32H747I_DISCO.build.variant=STM32H7xx/H742X(G-I)H_H743X(G-I)H_H745X(G-I)H_H747X(G-I)H_H750XBH_H753XIH_H755XIH_H757XIH
+Disco.menu.pnum.STM32H747I_DISCO.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DCORE_CM7
+Disco.menu.pnum.STM32H747I_DISCO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+
 # STM32WB5MM-DK board
 Disco.menu.pnum.STM32WB5MM_DK=STM32WB5MM-DK
 Disco.menu.pnum.STM32WB5MM_DK.node="DIS_WB5MMG"
