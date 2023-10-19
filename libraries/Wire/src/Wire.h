@@ -78,6 +78,7 @@ class TwoWire : public Stream {
   public:
     TwoWire();
     TwoWire(uint32_t sda, uint32_t scl);
+    ~TwoWire();
     // setSCL/SDA have to be called before begin()
     void setSCL(uint32_t scl)
     {

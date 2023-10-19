@@ -45,6 +45,15 @@ TwoWire::TwoWire(uint32_t sda, uint32_t scl)
   _i2c.scl = digitalPinToPinName(scl);
 }
 
+/**
+  * @brief  TwoWire destructor
+  * @retval None
+  */
+TwoWire::~TwoWire()
+{
+  end();
+}
+
 // Public Methods //////////////////////////////////////////////////////////////
 
 void TwoWire::begin(uint32_t sda, uint32_t scl)
@@ -106,11 +115,15 @@ void TwoWire::begin(int address, bool generalCall, bool NoStretchMode)
 void TwoWire::end(void)
 {
   i2c_deinit(&_i2c);
-  free(txBuffer);
-  txBuffer = nullptr;
+  if (txBuffer != nullptr) {
+    free(txBuffer);
+    txBuffer = nullptr;
+  }
   txBufferAllocated = 0;
-  free(rxBuffer);
-  rxBuffer = nullptr;
+  if (rxBuffer != nullptr) {
+    free(rxBuffer);
+    rxBuffer = nullptr;
+  }
   rxBufferAllocated = 0;
 }
 
