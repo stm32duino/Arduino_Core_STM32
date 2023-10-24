@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * Copyright (c) 2020-2021, STMicroelectronics
+ * Copyright (c) 2023, STMicroelectronics
  * All rights reserved.
  *
  * This software component is licensed by ST under BSD 3-Clause license,
@@ -10,16 +10,63 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_U575CGTX) || defined(ARDUINO_GENERIC_U575CGUX) ||\
-    defined(ARDUINO_GENERIC_U575CITX) || defined(ARDUINO_GENERIC_U575CIUX) ||\
-    defined(ARDUINO_GENERIC_U585CITX) || defined(ARDUINO_GENERIC_U585CIUX)
+#if defined(ARDUINO_DEVKIT_IOT_CONTINUUM)
 #include "pins_arduino.h"
 
-/**
-  * @brief  System Clock Configuration
-  * @param  None
-  * @retval None
-  */
+// Digital PinName array
+const PinName digitalPin[] = {
+  PA_2,   // D0/TX
+  PA_3,   // D1/RX
+  PA_0,   // D2/A0
+  PA_1,   // D3/A1
+  PA_6,   // D4/A2
+  PB_10,  // D5
+  PB_14,  // D6
+  PB_0,   // D7/A3
+  PB_1,   // D8/A4
+  PB_15,  // D9
+  PA_8,   // D10
+  PA_11,  // D11
+  PB_13,  // D12
+  PB_2,   // D13/A5
+  PB_3,   // D14/SCK
+  PB_4,   // D15/MISO
+  PB_5,   // D16/MOSI
+  PB_6,   // D17/SCL
+  PB_7,   // D18/SDA
+  PA_4,   // D19/A6
+  PA_5,   // D20
+  PA_7,   // D21
+  PA_9,   // D22
+  PA_10,  // D23
+  PA_12,  // D24
+  PA_13,  // D25
+  PA_14,  // D26
+  PA_15,  // D27
+  PB_8,   // D28
+  PB_9,   // D29
+  PB_12,  // D30
+  PC_13,  // D31
+  PC_14,  // D32
+  PC_15,  // D33
+  PH_0,   // D34
+  PH_1,   // D35
+  PH_3    // D36
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  2,  // A0,  PA0
+  3,  // A1,  PA1
+  4,  // A2,  PA6
+  7,  // A3,  PB0
+  8,  // A4,  PB1
+  13, // A5,  PB2
+  19  // A6,  PA4
+};
+
+/** System Clock Configuration
+*/
 WEAK void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {};
@@ -31,21 +78,19 @@ WEAK void SystemClock_Config(void)
   if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1) != HAL_OK) {
     Error_Handler();
   }
-
-  /** Initializes the CPU, AHB and APB buses clocks
+  /** Configure LSE Drive Capability
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48 | RCC_OSCILLATORTYPE_HSI
-                                     | RCC_OSCILLATORTYPE_MSI;
+  HAL_PWR_EnableBkUpAccess();
+  __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);
+  /** Initializes the CPU, AHB and APB busses clocks
+  */
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.MSIState = RCC_MSI_ON;
-  RCC_OscInitStruct.MSICalibrationValue = RCC_MSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_0;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_MSI;
-  RCC_OscInitStruct.PLL.PLLMBOOST = RCC_PLLMBOOST_DIV4;
-  RCC_OscInitStruct.PLL.PLLM = 3;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+  RCC_OscInitStruct.PLL.PLLMBOOST = RCC_PLLMBOOST_DIV1;
+  RCC_OscInitStruct.PLL.PLLM = 1;
   RCC_OscInitStruct.PLL.PLLN = 10;
   RCC_OscInitStruct.PLL.PLLP = 2;
   RCC_OscInitStruct.PLL.PLLQ = 2;
@@ -71,14 +116,11 @@ WEAK void SystemClock_Config(void)
     Error_Handler();
   }
 
-  /** Initializes the peripherals clock
-  */
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_CLK48 | RCC_PERIPHCLK_LPUART1;
-  PeriphClkInit.IclkClockSelection = RCC_CLK48CLKSOURCE_HSI48;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_LPUART1;
   PeriphClkInit.Lpuart1ClockSelection = RCC_LPUART1CLKSOURCE_HSI;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
     Error_Handler();
   }
 }
 
-#endif /* ARDUINO_GENERIC_* */
+#endif /* ARDUINO_DEVKIT_IOT_CONTINUUM */
