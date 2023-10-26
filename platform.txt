@@ -117,8 +117,8 @@ extras.path={build.system.path}/extras
 # Create {build.opt} if not exists in the output sketch dir and force include of SrcWrapper library
 recipe.hooks.prebuild.1.pattern="{extras.path}/prebuild.sh" "{build.path}" "{build.source.path}" "{runtime.platform.path}"
 recipe.hooks.prebuild.1.pattern.windows="{runtime.tools.STM32Tools.path}/win/busybox.exe" sh "{extras.path}/prebuild.sh" "{build.path}" "{build.source.path}" "{runtime.platform.path}"
-recipe.hooks.postbuild.1.pattern="{extras.path}/postbuild.sh" "{build.path}" "{build.series}" "{runtime.platform.path}"
-recipe.hooks.postbuild.1.pattern.windows="{runtime.tools.STM32Tools.path}/win/busybox.exe" sh "{extras.path}/postbuild.sh" "{build.path}" "{build.series}" "{runtime.platform.path}"
+recipe.hooks.postbuild.1.pattern="{extras.path}/postbuild.sh" "{build.path}" "{build.series}" "{runtime.platform.path}" "{upload.openocd.config}"
+recipe.hooks.postbuild.1.pattern.windows="{runtime.tools.STM32Tools.path}/win/busybox.exe" sh "{extras.path}/postbuild.sh" "{build.path}" "{build.series}" "{runtime.platform.path}" "{upload.openocd.config}"
 
 # compile patterns
 # ---------------------
@@ -178,6 +178,15 @@ tools.stm32CubeProg.cmd=stm32CubeProg.sh
 tools.stm32CubeProg.upload.params.verbose=
 tools.stm32CubeProg.upload.params.quiet=
 tools.stm32CubeProg.upload.pattern="{busybox}" sh "{path}/{cmd}" {upload.protocol} "{build.path}/{build.project_name}.bin" {build.flash_offset} {upload.options}
+
+# CMSIS-DAP upload via OpenOCD
+tools.cmsis-dap.openocd={runtime.tools.xpack-openocd-0.12.0-1.path}
+tools.cmsis-dap.busybox=
+tools.cmsis-dap.busybox.windows={runtime.tools.STM32Tools.path}/win/busybox.exe
+tools.cmsis-dap.cmd={extras.path}/openocdUpload.sh
+tools.cmsis-dap.scripts_dir={openocd}/openocd/scripts
+tools.cmsis-dap.upload.pattern="{busybox}" sh "{cmd}" "{openocd}" "{build.path}" -c "program {build.path}/{build.project_name}.elf verify reset; shutdown;"
+
 
 # blackmagic upload for generic STM32
 tools.bmp_upload.cmd=arm-none-eabi-gdb

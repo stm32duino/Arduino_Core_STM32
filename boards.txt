@@ -10511,6 +10511,13 @@ BluesW.menu.upload_method.dfuMethod.upload.protocol=2
 BluesW.menu.upload_method.dfuMethod.upload.options=
 BluesW.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+BluesW.menu.upload_method.swdCmsisDapMethod=OpenOCD (CMSIS-DAP)
+BluesW.menu.upload_method.swdCmsisDapMethod.upload.openocd.config=cmsis-dap
+# This line is necessary or the error "programmer required to upload" occurs.
+BluesW.menu.upload_method.swdCmsisDapMethod.upload.protocol=
+BluesW.menu.upload_method.swdCmsisDapMethod.upload.tool=cmsis-dap
+
+
 ################################################################################
 # Elecgator boards
 
