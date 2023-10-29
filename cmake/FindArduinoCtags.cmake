@@ -6,7 +6,9 @@ function(get_ctags)
 
   # Prevent warnings in CMake>=3.24 regarding ExternalProject_Add()
   # cf. https://cmake.org/cmake/help/latest/policy/CMP0135.html
-  cmake_policy(SET CMP0135 OLD)
+  if (POLICY CMP0135)
+    cmake_policy(SET CMP0135 OLD)
+  endif()
 
   cmake_host_system_information(
     RESULT HOSTINFO
