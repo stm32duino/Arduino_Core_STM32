@@ -316,9 +316,24 @@ def updateSTRepo():
                     f"{rname}/{bname}",
                 ],
             ]
+            gitmodule_path = repo_path / ".gitmodules"
+            if gitmodule_path.exists():
+                git_cmds += (
+                    [
+                        "git",
+                        "-C",
+                        repo_path,
+                        "submodule",
+                        "update",
+                        "--init",
+                        "--recursive",
+                    ],
+                )
         else:
             # Clone it as it does not exists yet
-            git_cmds = [["git", "-C", repo_local_path, "clone", gh_STM32Cube]]
+            git_cmds = [
+                ["git", "-C", repo_local_path, "clone", "--recursive", gh_STM32Cube]
+            ]
         for cmd in git_cmds:
             execute_cmd(cmd, None)
         latestTag(serie, repo_name, repo_path)
@@ -336,7 +351,10 @@ def latestTag(serie, repo_name, repo_path):
     version_tag = execute_cmd(
         ["git", "-C", repo_path, "describe", "--tags", sha1_id], None
     )
-    execute_cmd(["git", "-C", repo_path, "checkout", version_tag], subprocess.DEVNULL)
+    execute_cmd(
+        ["git", "-C", repo_path, "checkout", "-f", "--recurse-submodules", version_tag],
+        subprocess.DEVNULL,
+    )
     cube_versions[serie] = version_tag
     # print(f"Latest tagged version available for {repo_name} is {version_tag}")
 
