@@ -74,13 +74,6 @@ void SPIClass::begin(uint8_t _pin)
            spiSettings[idx].dMode,
            spiSettings[idx].bOrder);
   _CSPinConfig = _pin;
-#if __has_include("WiFi.h")
-  // Wait wifi shield initialization.
-  // Should be better to do in SpiDrv::begin() of WiFi library but it seems
-  // there is no more update on this library as shield is retired.
-  delay(2000);
-#endif
-
 }
 
 /**
