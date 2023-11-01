@@ -100,6 +100,7 @@ extern "C" {
 #endif /* FLASH_BASE_ADDRESS */
 
 #if !defined(DATA_EEPROM_BASE)
+static bool is_buffer_filled = false, is_buffer_dirty = false;
 static uint8_t eeprom_buffer[E2END + 1] __attribute__((aligned(8))) = {0};
 #endif
 
@@ -166,6 +167,7 @@ uint8_t eeprom_buffered_read_byte(const uint32_t pos)
 void eeprom_buffered_write_byte(uint32_t pos, uint8_t value)
 {
   eeprom_buffer[pos] = value;
+  is_buffer_dirty = true;
 }
 
 /**
@@ -175,6 +177,8 @@ void eeprom_buffered_write_byte(uint32_t pos, uint8_t value)
   */
 void eeprom_buffer_fill(void)
 {
+  if(is_buffer_filled)
+    return;
 #if defined(ICACHE) && defined (HAL_ICACHE_MODULE_ENABLED) && !defined(HAL_ICACHE_MODULE_DISABLED)
   bool icache_enabled = false;
   if (HAL_ICACHE_IsEnabled() == 1) {
@@ -194,6 +198,7 @@ void eeprom_buffer_fill(void)
     }
   }
 #endif /* ICACHE && HAL_ICACHE_MODULE_ENABLED && !HAL_ICACHE_MODULE_DISABLED */
+  is_buffer_filled = true;
 }
 
 #if defined(EEPROM_RETRAM_MODE)
@@ -217,6 +222,8 @@ void eeprom_buffer_flush(void)
   */
 void eeprom_buffer_flush(void)
 {
+  if(!is_buffer_dirty)
+    return;
 #if defined(ICACHE) && defined (HAL_ICACHE_MODULE_ENABLED) && !defined(HAL_ICACHE_MODULE_DISABLED)
   bool icache_enabled = false;
   if (HAL_ICACHE_IsEnabled() == 1) {
@@ -337,6 +344,7 @@ void eeprom_buffer_flush(void)
     }
   }
 #endif /* ICACHE && HAL_ICACHE_MODULE_ENABLED && !HAL_ICACHE_MODULE_DISABLED */
+  is_buffer_dirty = false;
 }
 
 #endif /* defined(EEPROM_RETRAM_MODE) */
