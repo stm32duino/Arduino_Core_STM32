@@ -150,24 +150,14 @@ void eeprom_write_byte(uint32_t pos, uint8_t value)
 #if !defined(DATA_EEPROM_BASE)
 
 /**
-  * @brief  This function disables the auto flush in eeprom_write_byte - user will need to call eeprom_buffer_flush() explicitly
+  * @brief  This function controls the auto flush in eeprom_write_byte - user will need to call eeprom_buffer_flush() explicitly if disabled
   *         It affects write operations through eeprom_write_byte() explicit call, EEPtr, EERef and EEPROMClass classes
   * @param  none
   * @retval none
   */
-void disable_auto_flush(void)
+void eeprom_auto_flush(bool enable)
 {
-  do_auto_flush = false;
-}
-
-/**
-  * @brief  This function enables the auto flush in eeprom_write_byte - it is enabled by default
-  * @param  none
-  * @retval none
-  */
-void enable_auto_flush(void)
-{
-  do_auto_flush = true;
+  do_auto_flush = enable;
 }
 
 /**
