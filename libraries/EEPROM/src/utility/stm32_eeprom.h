@@ -116,8 +116,7 @@ void eeprom_write_byte(uint32_t pos, uint8_t value);
 #if !defined(DATA_EEPROM_BASE)
 void eeprom_buffer_fill();
 void eeprom_buffer_flush();
-void eeprom_disable_auto_flush();
-void eeprom_enable_auto_flush();
+void eeprom_auto_flush(bool enable);
 uint8_t eeprom_buffered_read_byte(const uint32_t pos);
 void eeprom_buffered_write_byte(uint32_t pos, uint8_t value);
 #endif /* ! DATA_EEPROM_BASE */
