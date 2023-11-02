@@ -189,7 +189,6 @@ uint8_t eeprom_buffered_read_byte(const uint32_t pos)
 void eeprom_buffered_write_byte(uint32_t pos, uint8_t value)
 {
   eeprom_buffer[pos] = value;
-  is_buffer_dirty = true;
 }
 
 /**
