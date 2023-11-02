@@ -241,14 +241,14 @@ struct EEPROMClass {
     EEPtr e = idx;
     const uint8_t *ptr = (const uint8_t *) &t;
 #if !defined(DATA_EEPROM_BASE)
-    eeprom_disable_auto_flush();
+    eeprom_auto_flush(false);
 #endif
     for (int count = sizeof(T) ; count ; --count, ++e) {
       (*e).update(*ptr++);
     }
 #if !defined(DATA_EEPROM_BASE)
     eeprom_buffer_flush();
-    eeprom_enable_auto_flush();
+    eeprom_auto_flush(true);
 #endif
     return t;
   }
