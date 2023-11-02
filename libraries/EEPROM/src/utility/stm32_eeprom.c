@@ -100,7 +100,7 @@ extern "C" {
 #endif /* FLASH_BASE_ADDRESS */
 
 #if !defined(DATA_EEPROM_BASE)
-static bool is_buffer_filled = false, is_buffer_dirty = false;
+static bool is_buffer_filled = false, do_auto_flush = true;
 static uint8_t eeprom_buffer[E2END + 1] __attribute__((aligned(8))) = {0};
 #endif
 
@@ -142,11 +142,33 @@ void eeprom_write_byte(uint32_t pos, uint8_t value)
   }
 #else
   eeprom_buffered_write_byte(pos, value);
-  eeprom_buffer_flush();
+  if(do_auto_flush)
+    eeprom_buffer_flush();
 #endif /* _EEPROM_BASE */
 }
 
 #if !defined(DATA_EEPROM_BASE)
+
+/**
+  * @brief  This function disables the auto flush in eeprom_write_byte - user will need to call eeprom_buffer_flush() explicitly
+  *         It affects write operations through eeprom_write_byte() explicit call, EEPtr, EERef and EEPROMClass classes
+  * @param  none
+  * @retval none
+  */
+void disable_auto_flush(void)
+{
+  do_auto_flush = false;
+}
+
+/**
+  * @brief  This function enables the auto flush in eeprom_write_byte - it is enabled by default
+  * @param  none
+  * @retval none
+  */
+void enable_auto_flush(void)
+{
+  do_auto_flush = true;
+}
 
 /**
   * @brief  Function reads a byte from the eeprom buffer
@@ -222,8 +244,6 @@ void eeprom_buffer_flush(void)
   */
 void eeprom_buffer_flush(void)
 {
-  if(!is_buffer_dirty)
-    return;
 #if defined(ICACHE) && defined (HAL_ICACHE_MODULE_ENABLED) && !defined(HAL_ICACHE_MODULE_DISABLED)
   bool icache_enabled = false;
   if (HAL_ICACHE_IsEnabled() == 1) {
@@ -344,7 +364,6 @@ void eeprom_buffer_flush(void)
     }
   }
 #endif /* ICACHE && HAL_ICACHE_MODULE_ENABLED && !HAL_ICACHE_MODULE_DISABLED */
-  is_buffer_dirty = false;
 }
 
 #endif /* defined(EEPROM_RETRAM_MODE) */
