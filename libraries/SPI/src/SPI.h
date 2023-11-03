@@ -140,7 +140,6 @@ class SPIClass {
     virtual byte transfer(uint8_t _data);
     virtual uint16_t transfer16(uint16_t _data);
     virtual void transfer(void *_buf, size_t _count);
-    virtual void transfer(void *_bufout, void *_bufin, size_t _count);
 
     /* These methods are deprecated and kept for compatibility.
      * Use SPISettings with SPI.beginTransaction() to configure SPI parameters.
@@ -184,7 +183,6 @@ class SUBGHZSPIClass : public SPIClass {
     byte transfer(uint8_t _data);
     uint16_t transfer16(uint16_t _data);
     void transfer(void *_buf, size_t _count);
-    void transfer(void *_bufout, void *_bufin, size_t _count);
     void enableDebugPins(uint32_t mosi = DEBUG_SUBGHZSPI_MOSI, uint32_t miso = DEBUG_SUBGHZSPI_MISO, uint32_t sclk = DEBUG_SUBGHZSPI_SCLK, uint32_t ssel = DEBUG_SUBGHZSPI_SS);
 
     using SPIClass::beginTransaction;

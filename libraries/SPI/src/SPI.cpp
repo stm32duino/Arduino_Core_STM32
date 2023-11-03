@@ -165,9 +165,8 @@ void SPIClass::setClockDivider(uint8_t _divider)
   */
 byte SPIClass::transfer(uint8_t data)
 {
-  uint8_t rx_buffer = 0;
-  spi_transfer(&_spi, &data, &rx_buffer, sizeof(uint8_t), SPI_TRANSFER_TIMEOUT, _spiSettings.noReceive);
-  return rx_buffer;
+  spi_transfer(&_spi, &data, sizeof(uint8_t), SPI_TRANSFER_TIMEOUT, _spiSettings.noReceive);
+  return data;
 }
 
 /**
@@ -178,22 +177,21 @@ byte SPIClass::transfer(uint8_t data)
   */
 uint16_t SPIClass::transfer16(uint16_t data)
 {
-  uint16_t rx_buffer = 0;
   uint16_t tmp;
 
   if (_spiSettings.bOrder) {
     tmp = ((data & 0xff00) >> 8) | ((data & 0xff) << 8);
     data = tmp;
   }
-  spi_transfer(&_spi, (uint8_t *)&data, (uint8_t *)&rx_buffer, sizeof(uint16_t),
+  spi_transfer(&_spi, (uint8_t *)&data, sizeof(uint16_t),
                SPI_TRANSFER_TIMEOUT, _spiSettings.noReceive);
 
   if (_spiSettings.bOrder) {
-    tmp = ((rx_buffer & 0xff00) >> 8) | ((rx_buffer & 0xff) << 8);
-    rx_buffer = tmp;
+    tmp = ((data & 0xff00) >> 8) | ((data & 0xff) << 8);
+    data = tmp;
   }
 
-  return rx_buffer;
+  return data;
 }
 
 /**
@@ -205,24 +203,8 @@ uint16_t SPIClass::transfer16(uint16_t data)
   */
 void SPIClass::transfer(void *_buf, size_t _count)
 {
-  if ((_count != 0) && (_buf != NULL)) {
-    spi_transfer(&_spi, ((uint8_t *)_buf), ((uint8_t *)_buf), _count,
-                 SPI_TRANSFER_TIMEOUT, _spiSettings.noReceive);
-  }
-}
-
-/**
-  * @brief  Transfer several bytes. One buffer contains the data to send and
-  *         another one will contains the data received. begin() or
-  *         beginTransaction() must be called at least once before.
-  * @param  _bufout: pointer to the bytes to send.
-  * @param  _bufin: pointer to the bytes received.
-  * @param  _count: number of bytes to send/receive.
-  */
-void SPIClass::transfer(void *_bufout, void *_bufin, size_t _count)
-{
-  if ((_count != 0) && (_bufout != NULL) && (_bufin != NULL)) {
-    spi_transfer(&_spi, ((uint8_t *)_bufout), ((uint8_t *)_bufin), _count,
+  if ((count != 0) && (buf != NULL)) {
+    spi_transfer(&_spi, ((uint8_t *)buf), count,
                  SPI_TRANSFER_TIMEOUT, _spiSettings.noReceive);
   }
 }
@@ -279,11 +261,6 @@ uint16_t SUBGHZSPIClass::transfer16(uint16_t _data)
 void SUBGHZSPIClass::transfer(void *_buf, size_t _count)
 {
   SPIClass::transfer(_buf, _count);
-}
-
-void SUBGHZSPIClass::transfer(void *_bufout, void *_bufin, size_t _count)
-{
-  SPIClass::transfer(_bufout, _bufin, _count);
 }
 
 void SUBGHZSPIClass::enableDebugPins(uint32_t mosi, uint32_t miso, uint32_t sclk, uint32_t ssel)
