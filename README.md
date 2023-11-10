@@ -383,8 +383,12 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart: | STM32F722RC<br>STM32F722RE | Generic Board | *2.3.0* |  |
 | :green_heart:  | STM32F722ZC<br>STM32F722ZE | Generic Board | *2.4.0* |  |
-| :green_heart: | STM32F730R8<br>STM32F732RE | Generic Board | *2.3.0* |  |
+| :yellow_heart: | STM32F723IC<br>STM32F723IE | Generic Board | **2.7.0** |  |
+| :yellow_heart: | STM32F730I8K | Generic Board | **2.7.0** |  |
+| :green_heart: | STM32F730R8 | Generic Board | *2.3.0* |  |
+| :green_heart: | STM32F732RE | Generic Board | *2.3.0* |  |
 | :green_heart:  | STM32F732ZE | Generic Board | *2.4.0* |  |
+| :yellow_heart: | STM32F733IE<br> | Generic Board | **2.7.0** |  |
 | :green_heart: | STM32F745ZE<br>STM32F745ZG | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32F746BE<br>STM32F746BG<br>STM32F746NE<br>STM32F746NG | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32F746ZE<br>STM32F746ZG | Generic Board | *2.0.0* |  |
