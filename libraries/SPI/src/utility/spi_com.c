@@ -214,7 +214,7 @@ static uint32_t compute_disable_delay(spi_t *obj)
   SPI_HandleTypeDef *handle = &(obj->handle);
 
   prescaler = 1 << ((handle->Init.BaudRatePrescaler >> SPI_CFG1_MBR_Pos) + 1);
-  disable_delay = ((prescaler * 1000000) / spi_freq) / 2;
+  disable_delay = (((prescaler * 1000000) / spi_freq) / 2) + 1;
   return disable_delay;
 }
 #endif
