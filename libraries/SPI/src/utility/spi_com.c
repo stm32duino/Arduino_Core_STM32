@@ -227,7 +227,7 @@ static uint32_t compute_disable_delay(spi_t *obj)
   * @param  msb : set to 1 in msb first
   * @retval None
   */
-void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
+void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb)
 {
   if (obj == NULL) {
     return;
@@ -313,13 +313,13 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
 
   handle->Init.Direction         = SPI_DIRECTION_2LINES;
 
-  if ((mode == SPI_MODE_0) || (mode == SPI_MODE_2)) {
+  if ((mode == SPI_MODE0) || (mode == SPI_MODE2)) {
     handle->Init.CLKPhase          = SPI_PHASE_1EDGE;
   } else {
     handle->Init.CLKPhase          = SPI_PHASE_2EDGE;
   }
 
-  if ((mode == SPI_MODE_0) || (mode == SPI_MODE_1)) {
+  if ((mode == SPI_MODE0) || (mode == SPI_MODE1)) {
     handle->Init.CLKPolarity       = SPI_POLARITY_LOW;
   } else {
     handle->Init.CLKPolarity       = SPI_POLARITY_HIGH;
@@ -497,37 +497,24 @@ void spi_deinit(spi_t *obj)
 }
 
 /**
-  * @brief This function is implemented by user to send data over SPI interface
-  * @param  obj : pointer to spi_t structure
-  * @param  Data : data to be sent
-  * @param  len : length in bytes of the data to be sent
-  * @param  Timeout: Timeout duration in tick
-  * @retval status of the send operation (0) in case of error
-  */
-spi_status_e spi_send(spi_t *obj, uint8_t *Data, uint16_t len, uint32_t Timeout)
-{
-  return spi_transfer(obj, Data, Data, len, Timeout, 1 /* SPI_TRANSMITONLY */);
-}
-
-/**
   * @brief This function is implemented by user to send/receive data over
   *         SPI interface
   * @param  obj : pointer to spi_t structure
-  * @param  tx_buffer : tx data to send before reception
-  * @param  rx_buffer : data to receive
+  * @param  buffer : tx data to send before reception
   * @param  len : length in byte of the data to send and receive
   * @param  Timeout: Timeout duration in tick
   * @param  skipReceive: skip receiving data after transmit or not
   * @retval status of the send operation (0) in case of error
   */
-spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
-                          uint16_t len, uint32_t Timeout, bool skipReceive)
+spi_status_e spi_transfer(spi_t *obj, uint8_t *buffer, uint16_t len,
+                          uint32_t Timeout, bool skipReceive)
 {
   spi_status_e ret = SPI_OK;
   uint32_t tickstart, size = len;
   SPI_TypeDef *_SPI = obj->handle.Instance;
+  uint8_t *tx_buffer = buffer;
 
-  if ((obj == NULL) || (len == 0) || (Timeout == 0U)) {
+  if ((len == 0) || (Timeout == 0U)) {
     return Timeout > 0U ? SPI_ERROR : SPI_TIMEOUT;
   }
   tickstart = HAL_GetTick();
@@ -553,7 +540,7 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
 #else
       while (!LL_SPI_IsActiveFlag_RXNE(_SPI));
 #endif
-      *rx_buffer++ = LL_SPI_ReceiveData8(_SPI);
+      *buffer++ = LL_SPI_ReceiveData8(_SPI);
     }
     if ((Timeout != HAL_MAX_DELAY) && (HAL_GetTick() - tickstart >= Timeout)) {
       ret = SPI_TIMEOUT;
