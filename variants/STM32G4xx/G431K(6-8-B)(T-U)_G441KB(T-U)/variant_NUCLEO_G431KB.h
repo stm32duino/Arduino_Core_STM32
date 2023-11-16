@@ -19,7 +19,7 @@
 #define PA10                    0
 #define PA9                     1
 #define PA12                    2
-#define PB0                     3
+#define PB0                     PIN_A8
 #define PB7                     4
 #define PA15                    5
 #define PB6                     6
@@ -78,7 +78,7 @@
 // This must be a literal
 #define NUM_DIGITAL_PINS        25
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
-#define NUM_ANALOG_INPUTS       8
+#define NUM_ANALOG_INPUTS       9
 
 // On-board LED pin number
 #ifndef LED_BUILTIN
