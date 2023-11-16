@@ -47600,6 +47600,416 @@ target_compile_options(GENERIC_F722ZETX_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
+# GENERIC_F723ICKX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F723ICKX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F723I(C-E)(K-T)_F730I8K_F733IE(K-T)")
+set(GENERIC_F723ICKX_MAXSIZE 262144)
+set(GENERIC_F723ICKX_MAXDATASIZE 196608)
+set(GENERIC_F723ICKX_MCU cortex-m7)
+set(GENERIC_F723ICKX_FPCONF "-")
+add_library(GENERIC_F723ICKX INTERFACE)
+target_compile_options(GENERIC_F723ICKX INTERFACE
+  "SHELL:-DSTM32F723xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F723ICKX_MCU}
+)
+target_compile_definitions(GENERIC_F723ICKX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F723ICKX"
+	"BOARD_NAME=\"GENERIC_F723ICKX\""
+	"BOARD_ID=GENERIC_F723ICKX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F723ICKX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F723ICKX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F723ICKX INTERFACE
+  "LINKER:--default-script=${GENERIC_F723ICKX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F723ICKX_MCU}
+)
+
+add_library(GENERIC_F723ICKX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_F723ICKX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F723ICKX_serial_generic INTERFACE)
+target_compile_options(GENERIC_F723ICKX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_F723ICKX_serial_none INTERFACE)
+target_compile_options(GENERIC_F723ICKX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_F723ICKX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_F723ICKX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_F723ICKX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_F723ICKX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_F723ICKX_usb_HID INTERFACE)
+target_compile_options(GENERIC_F723ICKX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_F723ICKX_usb_none INTERFACE)
+target_compile_options(GENERIC_F723ICKX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F723ICKX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_F723ICKX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F723ICKX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_F723ICKX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_F723ICKX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_F723ICKX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_F723ICTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F723ICTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F723I(C-E)(K-T)_F730I8K_F733IE(K-T)")
+set(GENERIC_F723ICTX_MAXSIZE 262144)
+set(GENERIC_F723ICTX_MAXDATASIZE 196608)
+set(GENERIC_F723ICTX_MCU cortex-m7)
+set(GENERIC_F723ICTX_FPCONF "-")
+add_library(GENERIC_F723ICTX INTERFACE)
+target_compile_options(GENERIC_F723ICTX INTERFACE
+  "SHELL:-DSTM32F723xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F723ICTX_MCU}
+)
+target_compile_definitions(GENERIC_F723ICTX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F723ICTX"
+	"BOARD_NAME=\"GENERIC_F723ICTX\""
+	"BOARD_ID=GENERIC_F723ICTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F723ICTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F723ICTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F723ICTX INTERFACE
+  "LINKER:--default-script=${GENERIC_F723ICTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F723ICTX_MCU}
+)
+
+add_library(GENERIC_F723ICTX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_F723ICTX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F723ICTX_serial_generic INTERFACE)
+target_compile_options(GENERIC_F723ICTX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_F723ICTX_serial_none INTERFACE)
+target_compile_options(GENERIC_F723ICTX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_F723ICTX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_F723ICTX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_F723ICTX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_F723ICTX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_F723ICTX_usb_HID INTERFACE)
+target_compile_options(GENERIC_F723ICTX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_F723ICTX_usb_none INTERFACE)
+target_compile_options(GENERIC_F723ICTX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F723ICTX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_F723ICTX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F723ICTX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_F723ICTX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_F723ICTX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_F723ICTX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_F723IEKX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F723IEKX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F723I(C-E)(K-T)_F730I8K_F733IE(K-T)")
+set(GENERIC_F723IEKX_MAXSIZE 524288)
+set(GENERIC_F723IEKX_MAXDATASIZE 196608)
+set(GENERIC_F723IEKX_MCU cortex-m7)
+set(GENERIC_F723IEKX_FPCONF "-")
+add_library(GENERIC_F723IEKX INTERFACE)
+target_compile_options(GENERIC_F723IEKX INTERFACE
+  "SHELL:-DSTM32F723xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F723IEKX_MCU}
+)
+target_compile_definitions(GENERIC_F723IEKX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F723IEKX"
+	"BOARD_NAME=\"GENERIC_F723IEKX\""
+	"BOARD_ID=GENERIC_F723IEKX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F723IEKX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F723IEKX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F723IEKX INTERFACE
+  "LINKER:--default-script=${GENERIC_F723IEKX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F723IEKX_MCU}
+)
+
+add_library(GENERIC_F723IEKX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_F723IEKX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F723IEKX_serial_generic INTERFACE)
+target_compile_options(GENERIC_F723IEKX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_F723IEKX_serial_none INTERFACE)
+target_compile_options(GENERIC_F723IEKX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_F723IEKX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_F723IEKX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_F723IEKX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_F723IEKX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_F723IEKX_usb_HID INTERFACE)
+target_compile_options(GENERIC_F723IEKX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_F723IEKX_usb_none INTERFACE)
+target_compile_options(GENERIC_F723IEKX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F723IEKX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_F723IEKX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F723IEKX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_F723IEKX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_F723IEKX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_F723IEKX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_F723IETX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F723IETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F723I(C-E)(K-T)_F730I8K_F733IE(K-T)")
+set(GENERIC_F723IETX_MAXSIZE 524288)
+set(GENERIC_F723IETX_MAXDATASIZE 196608)
+set(GENERIC_F723IETX_MCU cortex-m7)
+set(GENERIC_F723IETX_FPCONF "-")
+add_library(GENERIC_F723IETX INTERFACE)
+target_compile_options(GENERIC_F723IETX INTERFACE
+  "SHELL:-DSTM32F723xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F723IETX_MCU}
+)
+target_compile_definitions(GENERIC_F723IETX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F723IETX"
+	"BOARD_NAME=\"GENERIC_F723IETX\""
+	"BOARD_ID=GENERIC_F723IETX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F723IETX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F723IETX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F723IETX INTERFACE
+  "LINKER:--default-script=${GENERIC_F723IETX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F723IETX_MCU}
+)
+
+add_library(GENERIC_F723IETX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_F723IETX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F723IETX_serial_generic INTERFACE)
+target_compile_options(GENERIC_F723IETX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_F723IETX_serial_none INTERFACE)
+target_compile_options(GENERIC_F723IETX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_F723IETX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_F723IETX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_F723IETX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_F723IETX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_F723IETX_usb_HID INTERFACE)
+target_compile_options(GENERIC_F723IETX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_F723IETX_usb_none INTERFACE)
+target_compile_options(GENERIC_F723IETX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F723IETX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_F723IETX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F723IETX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_F723IETX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_F723IETX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_F723IETX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_F730I8KX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F730I8KX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F723I(C-E)(K-T)_F730I8K_F733IE(K-T)")
+set(GENERIC_F730I8KX_MAXSIZE 65536)
+set(GENERIC_F730I8KX_MAXDATASIZE 196608)
+set(GENERIC_F730I8KX_MCU cortex-m7)
+set(GENERIC_F730I8KX_FPCONF "-")
+add_library(GENERIC_F730I8KX INTERFACE)
+target_compile_options(GENERIC_F730I8KX INTERFACE
+  "SHELL:-DSTM32F730xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F730I8KX_MCU}
+)
+target_compile_definitions(GENERIC_F730I8KX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F730I8KX"
+	"BOARD_NAME=\"GENERIC_F730I8KX\""
+	"BOARD_ID=GENERIC_F730I8KX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F730I8KX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F730I8KX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F730I8KX INTERFACE
+  "LINKER:--default-script=${GENERIC_F730I8KX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=65536"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F730I8KX_MCU}
+)
+
+add_library(GENERIC_F730I8KX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_F730I8KX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F730I8KX_serial_generic INTERFACE)
+target_compile_options(GENERIC_F730I8KX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_F730I8KX_serial_none INTERFACE)
+target_compile_options(GENERIC_F730I8KX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_F730I8KX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_F730I8KX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_F730I8KX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_F730I8KX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_F730I8KX_usb_HID INTERFACE)
+target_compile_options(GENERIC_F730I8KX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_F730I8KX_usb_none INTERFACE)
+target_compile_options(GENERIC_F730I8KX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F730I8KX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_F730I8KX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F730I8KX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_F730I8KX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_F730I8KX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_F730I8KX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
 # GENERIC_F730R8TX
 # -----------------------------------------------------------------------------
 
@@ -47843,6 +48253,170 @@ target_compile_options(GENERIC_F732ZETX_xusb_HS INTERFACE
 )
 add_library(GENERIC_F732ZETX_xusb_HSFS INTERFACE)
 target_compile_options(GENERIC_F732ZETX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_F733IEKX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F733IEKX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F723I(C-E)(K-T)_F730I8K_F733IE(K-T)")
+set(GENERIC_F733IEKX_MAXSIZE 524288)
+set(GENERIC_F733IEKX_MAXDATASIZE 196608)
+set(GENERIC_F733IEKX_MCU cortex-m7)
+set(GENERIC_F733IEKX_FPCONF "-")
+add_library(GENERIC_F733IEKX INTERFACE)
+target_compile_options(GENERIC_F733IEKX INTERFACE
+  "SHELL:-DSTM32F733xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F733IEKX_MCU}
+)
+target_compile_definitions(GENERIC_F733IEKX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F733IEKX"
+	"BOARD_NAME=\"GENERIC_F733IEKX\""
+	"BOARD_ID=GENERIC_F733IEKX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F733IEKX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F733IEKX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F733IEKX INTERFACE
+  "LINKER:--default-script=${GENERIC_F733IEKX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F733IEKX_MCU}
+)
+
+add_library(GENERIC_F733IEKX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_F733IEKX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F733IEKX_serial_generic INTERFACE)
+target_compile_options(GENERIC_F733IEKX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_F733IEKX_serial_none INTERFACE)
+target_compile_options(GENERIC_F733IEKX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_F733IEKX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_F733IEKX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_F733IEKX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_F733IEKX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_F733IEKX_usb_HID INTERFACE)
+target_compile_options(GENERIC_F733IEKX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_F733IEKX_usb_none INTERFACE)
+target_compile_options(GENERIC_F733IEKX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F733IEKX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_F733IEKX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F733IEKX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_F733IEKX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_F733IEKX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_F733IEKX_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# GENERIC_F733IETX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F733IETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F723I(C-E)(K-T)_F730I8K_F733IE(K-T)")
+set(GENERIC_F733IETX_MAXSIZE 524288)
+set(GENERIC_F733IETX_MAXDATASIZE 196608)
+set(GENERIC_F733IETX_MCU cortex-m7)
+set(GENERIC_F733IETX_FPCONF "-")
+add_library(GENERIC_F733IETX INTERFACE)
+target_compile_options(GENERIC_F733IETX INTERFACE
+  "SHELL:-DSTM32F733xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F733IETX_MCU}
+)
+target_compile_definitions(GENERIC_F733IETX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F733IETX"
+	"BOARD_NAME=\"GENERIC_F733IETX\""
+	"BOARD_ID=GENERIC_F733IETX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F733IETX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F733IETX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F733IETX INTERFACE
+  "LINKER:--default-script=${GENERIC_F733IETX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F733IETX_MCU}
+)
+
+add_library(GENERIC_F733IETX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_F733IETX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F733IETX_serial_generic INTERFACE)
+target_compile_options(GENERIC_F733IETX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_F733IETX_serial_none INTERFACE)
+target_compile_options(GENERIC_F733IETX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(GENERIC_F733IETX_usb_CDC INTERFACE)
+target_compile_options(GENERIC_F733IETX_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(GENERIC_F733IETX_usb_CDCgen INTERFACE)
+target_compile_options(GENERIC_F733IETX_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(GENERIC_F733IETX_usb_HID INTERFACE)
+target_compile_options(GENERIC_F733IETX_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=0 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(GENERIC_F733IETX_usb_none INTERFACE)
+target_compile_options(GENERIC_F733IETX_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F733IETX_xusb_FS INTERFACE)
+target_compile_options(GENERIC_F733IETX_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_F733IETX_xusb_HS INTERFACE)
+target_compile_options(GENERIC_F733IETX_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(GENERIC_F733IETX_xusb_HSFS INTERFACE)
+target_compile_options(GENERIC_F733IETX_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
