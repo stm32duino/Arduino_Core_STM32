@@ -101,7 +101,7 @@ class SubGhzClass {
     // supported by the radio, which should always work (no chance of
     // bad wiring that requires reducing the speed).
     // This value should be passed to `SubGhz.SPI.beginTransaction()`.
-    static constexpr SPISettings spi_settings = {16000000, MSBFIRST, SPI_MODE_0};
+    static constexpr SPISettings spi_settings = {16000000, MSBFIRST, SPI_MODE0};
 
   protected:
     // To access handleIrq()
