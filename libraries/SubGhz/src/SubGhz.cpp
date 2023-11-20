@@ -21,8 +21,6 @@ extern "C" void SUBGHZ_Radio_IRQHandler(void)
   SubGhz.handleIrq();
 }
 
-constexpr SPISettings SubGhzClass::spi_settings;
-
 void SubGhzClass::handleIrq()
 {
   if (callback) {
