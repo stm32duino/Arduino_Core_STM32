@@ -38,9 +38,6 @@ extern "C" {
 #define SPI_CLOCK_DIV64  64
 #define SPI_CLOCK_DIV128 128
 
-#define SPI_TRANSMITRECEIVE 0x0
-#define SPI_TRANSMITONLY 0x1
-
 // Defines a default timeout delay in milliseconds for the SPI transfer
 #ifndef SPI_TRANSFER_TIMEOUT
   #define SPI_TRANSFER_TIMEOUT 1000
@@ -48,25 +45,22 @@ extern "C" {
 
 class SPISettings {
   public:
-    constexpr SPISettings(uint32_t clock, BitOrder bitOrder, SPIMode dataMode, bool noRecv = SPI_TRANSMITRECEIVE)
+    constexpr SPISettings(uint32_t clock, BitOrder bitOrder, SPIMode dataMode)
       : clockFreq(clock),
         bitOrder(bitOrder),
-        dataMode(dataMode),
-        noReceive(noRecv)
+        dataMode(dataMode)
     { }
     constexpr SPISettings()
       : clockFreq(SPI_SPEED_CLOCK_DEFAULT),
         bitOrder(MSBFIRST),
-        dataMode(SPI_MODE0),
-        noReceive(SPI_TRANSMITRECEIVE)
+        dataMode(SPI_MODE0)
     { }
 
     bool operator==(const SPISettings &rhs) const
     {
       if ((this->clockFreq == rhs.clockFreq) &&
           (this->bitOrder == rhs.bitOrder) &&
-          (this->dataMode == rhs.dataMode) &&
-          (this->noReceive == rhs.noReceive)) {
+          (this->dataMode == rhs.dataMode)) {
         return true;
       }
       return false;
@@ -81,7 +75,6 @@ class SPISettings {
     uint32_t clockFreq; //specifies the spi bus maximum clock speed
     BitOrder bitOrder;  //bit order (MSBFirst or LSBFirst)
     SPIMode  dataMode;  //one of the data mode
-    bool noReceive;
 
     friend class SPIClass;
 };

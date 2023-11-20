@@ -160,7 +160,7 @@ void SPIClass::setClockDivider(uint8_t divider)
   */
 uint8_t SPIClass::transfer(uint8_t data)
 {
-  spi_transfer(&_spi, &data, sizeof(uint8_t), SPI_TRANSFER_TIMEOUT, _spiSettings.noReceive);
+  spi_transfer(&_spi, &data, sizeof(uint8_t), SPI_TRANSFER_TIMEOUT, false);
   return data;
 }
 
@@ -179,7 +179,7 @@ uint16_t SPIClass::transfer16(uint16_t data)
     data = tmp;
   }
   spi_transfer(&_spi, (uint8_t *)&data, sizeof(uint16_t),
-               SPI_TRANSFER_TIMEOUT, _spiSettings.noReceive);
+               SPI_TRANSFER_TIMEOUT, false);
 
   if (_spiSettings.bitOrder) {
     tmp = ((data & 0xff00) >> 8) | ((data & 0xff) << 8);
@@ -200,7 +200,7 @@ void SPIClass::transfer(void *buf, size_t count)
 {
   if ((count != 0) && (buf != NULL)) {
     spi_transfer(&_spi, ((uint8_t *)buf), count,
-                 SPI_TRANSFER_TIMEOUT, _spiSettings.noReceive);
+                 SPI_TRANSFER_TIMEOUT, false);
   }
 }
 

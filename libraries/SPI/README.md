@@ -7,10 +7,6 @@ User have 2 possibilities about the management of the CS pin:
 * the CS pin is managed directly by the user code before to transfer the data (like the Arduino SPI library)
 * the user uses a hardware CS pin linked to the SPI peripheral
 
-### New SPISetting parameter
-
-* `noReceive`: value can be `SPI_TRANSMITRECEIVE` or `SPI_TRANSMITONLY`. It allows to skip receive data after transmitting. Default `SPI_TRANSMITRECEIVE`.
-
 ### New API functions
 
 * `SPIClass::SPIClass(uint8_t mosi, uint8_t miso, uint8_t sclk, uint8_t ssel)`: alternative class constructor
