@@ -35,6 +35,10 @@ void setup() {
 }
 ```
 
+### Extended API
+
+* All `transfer()` API's have a new bool argument `skipReceive`. It allows to skip receive data after transmitting. Value can be `SPI_TRANSMITRECEIVE` or `SPI_TRANSMITONLY`. Default `SPI_TRANSMITRECEIVE`.
+
 #### Change default `SPI` instance pins
 It is also possible to change the default pins used by the `SPI` instance using above API:
 

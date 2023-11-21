@@ -38,6 +38,9 @@ extern "C" {
 #define SPI_CLOCK_DIV64  64
 #define SPI_CLOCK_DIV128 128
 
+#define SPI_TRANSMITRECEIVE false
+#define SPI_TRANSMITONLY true
+
 // Defines a default timeout delay in milliseconds for the SPI transfer
 #ifndef SPI_TRANSFER_TIMEOUT
   #define SPI_TRANSFER_TIMEOUT 1000
@@ -131,9 +134,9 @@ class SPIClass {
     /* Transfer functions: must be called after initialization of the SPI
      * instance with begin() or beginTransaction().
      */
-    virtual uint8_t transfer(uint8_t data);
-    virtual uint16_t transfer16(uint16_t data);
-    virtual void transfer(void *buf, size_t count);
+    virtual uint8_t transfer(uint8_t data, bool skipReceive = SPI_TRANSMITRECEIVE);
+    virtual uint16_t transfer16(uint16_t data, bool skipReceive = SPI_TRANSMITRECEIVE);
+    virtual void transfer(void *buf, size_t count, bool skipReceive = SPI_TRANSMITRECEIVE);
 
     /* These methods are deprecated and kept for compatibility.
      * Use SPISettings with SPI.beginTransaction() to configure SPI parameters.

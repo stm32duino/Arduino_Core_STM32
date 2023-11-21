@@ -156,11 +156,14 @@ void SPIClass::setClockDivider(uint8_t divider)
   * @brief  Transfer one byte on the SPI bus.
   *         begin() or beginTransaction() must be called at least once before.
   * @param  data: byte to send.
+  * @param  skipReceive: skip receiving data after transmit or not.
+  *         SPI_TRANSMITRECEIVE or SPI_TRANSMITONLY.
+  *         Optional, default: SPI_TRANSMITRECEIVE.
   * @return byte received from the slave.
   */
-uint8_t SPIClass::transfer(uint8_t data)
+uint8_t SPIClass::transfer(uint8_t data, bool skipReceive)
 {
-  spi_transfer(&_spi, &data, sizeof(uint8_t), SPI_TRANSFER_TIMEOUT, false);
+  spi_transfer(&_spi, &data, sizeof(uint8_t), SPI_TRANSFER_TIMEOUT, skipReceive);
   return data;
 }
 
@@ -168,9 +171,12 @@ uint8_t SPIClass::transfer(uint8_t data)
   * @brief  Transfer two bytes on the SPI bus in 16 bits format.
   *         begin() or beginTransaction() must be called at least once before.
   * @param  data: bytes to send.
+  * @param  skipReceive: skip receiving data after transmit or not.
+  *         SPI_TRANSMITRECEIVE or SPI_TRANSMITONLY.
+  *         Optional, default: SPI_TRANSMITRECEIVE.
   * @return bytes received from the slave in 16 bits format.
   */
-uint16_t SPIClass::transfer16(uint16_t data)
+uint16_t SPIClass::transfer16(uint16_t data, bool skipReceive)
 {
   uint16_t tmp;
 
@@ -179,7 +185,7 @@ uint16_t SPIClass::transfer16(uint16_t data)
     data = tmp;
   }
   spi_transfer(&_spi, (uint8_t *)&data, sizeof(uint16_t),
-               SPI_TRANSFER_TIMEOUT, false);
+               SPI_TRANSFER_TIMEOUT, skipReceive);
 
   if (_spiSettings.bitOrder) {
     tmp = ((data & 0xff00) >> 8) | ((data & 0xff) << 8);
@@ -195,12 +201,15 @@ uint16_t SPIClass::transfer16(uint16_t data)
   * @param  buf: pointer to the bytes to send. The bytes received are copy in
   *         this buffer.
   * @param  count: number of bytes to send/receive.
+  * @param  skipReceive: skip receiving data after transmit or not.
+  *         SPI_TRANSMITRECEIVE or SPI_TRANSMITONLY.
+  *         Optional, default: SPI_TRANSMITRECEIVE.
   */
-void SPIClass::transfer(void *buf, size_t count)
+void SPIClass::transfer(void *buf, size_t count, bool skipReceive)
 {
   if ((count != 0) && (buf != NULL)) {
     spi_transfer(&_spi, ((uint8_t *)buf), count,
-                 SPI_TRANSFER_TIMEOUT, false);
+                 SPI_TRANSFER_TIMEOUT, skipReceive);
   }
 }
 
