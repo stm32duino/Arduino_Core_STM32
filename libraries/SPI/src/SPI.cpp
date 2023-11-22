@@ -237,35 +237,6 @@ void SPIClass::detachInterrupt(void)
 }
 
 #if defined(SUBGHZSPI_BASE)
-void SUBGHZSPIClass::begin()
-{
-  SPIClass::begin();
-}
-
-void SUBGHZSPIClass::beginTransaction(SPISettings settings)
-{
-  SPIClass::beginTransaction(settings);
-}
-
-byte SUBGHZSPIClass::transfer(uint8_t _data)
-{
-  byte res;
-  res = SPIClass::transfer(_data);
-  return res;
-}
-
-uint16_t SUBGHZSPIClass::transfer16(uint16_t _data)
-{
-  uint16_t rx_buffer = 0;
-  rx_buffer = SPIClass::transfer16(_data);
-  return rx_buffer;
-}
-
-void SUBGHZSPIClass::transfer(void *_buf, size_t _count)
-{
-  SPIClass::transfer(_buf, _count);
-}
-
 void SUBGHZSPIClass::enableDebugPins(uint32_t mosi, uint32_t miso, uint32_t sclk, uint32_t ssel)
 {
   /* Configure SPI GPIO pins */

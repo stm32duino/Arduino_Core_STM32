@@ -174,16 +174,7 @@ class SUBGHZSPIClass : public SPIClass {
       _spi.spi = SUBGHZSPI;
     }
 
-    void begin();
-    void beginTransaction(SPISettings settings);
-    byte transfer(uint8_t _data);
-    uint16_t transfer16(uint16_t _data);
-    void transfer(void *_buf, size_t _count);
     void enableDebugPins(uint32_t mosi = DEBUG_SUBGHZSPI_MOSI, uint32_t miso = DEBUG_SUBGHZSPI_MISO, uint32_t sclk = DEBUG_SUBGHZSPI_SCLK, uint32_t ssel = DEBUG_SUBGHZSPI_SS);
-
-    using SPIClass::beginTransaction;
-    using SPIClass::transfer;
-    using SPIClass::transfer16;
 };
 
 #endif
