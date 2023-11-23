@@ -227,7 +227,7 @@ static uint32_t compute_disable_delay(spi_t *obj)
   * @param  msb : set to 1 in msb first
   * @retval None
   */
-void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb)
+void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
 {
   if (obj == NULL) {
     return;
@@ -313,13 +313,13 @@ void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb)
 
   handle->Init.Direction         = SPI_DIRECTION_2LINES;
 
-  if ((mode == SPI_MODE0) || (mode == SPI_MODE2)) {
+  if ((mode == SPI_MODE_0) || (mode == SPI_MODE_2)) {
     handle->Init.CLKPhase          = SPI_PHASE_1EDGE;
   } else {
     handle->Init.CLKPhase          = SPI_PHASE_2EDGE;
   }
 
-  if ((mode == SPI_MODE0) || (mode == SPI_MODE1)) {
+  if ((mode == SPI_MODE_0) || (mode == SPI_MODE_1)) {
     handle->Init.CLKPolarity       = SPI_POLARITY_LOW;
   } else {
     handle->Init.CLKPolarity       = SPI_POLARITY_HIGH;

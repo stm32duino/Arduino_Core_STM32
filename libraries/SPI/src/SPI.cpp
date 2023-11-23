@@ -57,10 +57,9 @@ SPIClass::SPIClass(uint32_t mosi, uint32_t miso, uint32_t sclk, uint32_t ssel)
 void SPIClass::begin(void)
 {
   _spi.handle.State = HAL_SPI_STATE_RESET;
-  _spiSettings = DEFAULT_SPI_SETTINGS;
-  spi_init(&_spi, _spiSettings.getClockFreq(),
-           _spiSettings.getDataMode(),
-           _spiSettings.getBitOrder());
+  spi_init(&_spi, _spiSettings.clk,
+           _spiSettings.dMode,
+           _spiSettings.bOrder);
 }
 
 /**
@@ -70,12 +69,14 @@ void SPIClass::begin(void)
   */
 void SPIClass::beginTransaction(SPISettings settings)
 {
-  if (_spiSettings != settings) {
-    _spiSettings = settings;
-    spi_init(&_spi, _spiSettings.getClockFreq(),
-             _spiSettings.getDataMode(),
-             _spiSettings.getBitOrder());
-  }
+  _spiSettings.clk = settings.clk;
+  _spiSettings.dMode = settings.dMode;
+  _spiSettings.bOrder = settings.bOrder;
+  _spiSettings.noReceive = settings.noReceive;
+
+  spi_init(&_spi, _spiSettings.clk,
+           _spiSettings.dMode,
+           _spiSettings.bOrder);
 }
 
 /**
@@ -101,17 +102,17 @@ void SPIClass::end()
   */
 void SPIClass::setBitOrder(BitOrder bitOrder)
 {
-  _spiSettings.setBitOrder(bitOrder);
+  _spiSettings.bOrder = bitOrder;
 
-  spi_init(&_spi, _spiSettings.getClockFreq(),
-           _spiSettings.getDataMode(),
-           _spiSettings.getBitOrder());
+  spi_init(&_spi, _spiSettings.clk,
+           _spiSettings.dMode,
+           _spiSettings.bOrder);
 }
 
 /**
   * @brief  Deprecated function.
   *         Configure the data mode (clock polarity and clock phase)
-  * @param  mode: SPI_MODE0, SPI_MODE1, SPI_MODE2 or SPI_MODE3
+  * @param  _mode: SPI_MODE0, SPI_MODE1, SPI_MODE2 or SPI_MODE3
   * @note
   *         Mode          Clock Polarity (CPOL)   Clock Phase (CPHA)
   *         SPI_MODE0             0                     0
@@ -119,19 +120,21 @@ void SPIClass::setBitOrder(BitOrder bitOrder)
   *         SPI_MODE2             1                     0
   *         SPI_MODE3             1                     1
   */
-
-void SPIClass::setDataMode(uint8_t mode)
+void SPIClass::setDataMode(uint8_t _mode)
 {
-  setDataMode((SPIMode)mode);
-}
+  if (SPI_MODE0 == _mode) {
+    _spiSettings.dMode = SPI_MODE_0;
+  } else if (SPI_MODE1 == _mode) {
+    _spiSettings.dMode = SPI_MODE_1;
+  } else if (SPI_MODE2 == _mode) {
+    _spiSettings.dMode = SPI_MODE_2;
+  } else if (SPI_MODE3 == _mode) {
+    _spiSettings.dMode = SPI_MODE_3;
+  }
 
-void SPIClass::setDataMode(SPIMode mode)
-{
-  _spiSettings.setDataMode(mode);
-
-  spi_init(&_spi, _spiSettings.getClockFreq(),
-           _spiSettings.getDataMode(),
-           _spiSettings.getBitOrder());
+  spi_init(&_spi, _spiSettings.clk,
+           _spiSettings.dMode,
+           _spiSettings.bOrder);
 }
 
 /**
@@ -143,15 +146,15 @@ void SPIClass::setDataMode(SPIMode mode)
 void SPIClass::setClockDivider(uint8_t _divider)
 {
   if (_divider == 0) {
-    _spiSettings.setClockFreq(SPI_SPEED_CLOCK_DEFAULT);
+    _spiSettings.clk = SPI_SPEED_CLOCK_DEFAULT;
   } else {
-    /* Get clock freq of the SPI instance and compute it */
-    _spiSettings.setClockFreq(spi_getClkFreq(&_spi) / _divider);
+    /* Get clk freq of the SPI instance and compute it */
+    _spiSettings.clk = spi_getClkFreq(&_spi) / _divider;
   }
 
-  spi_init(&_spi, _spiSettings.getClockFreq(),
-           _spiSettings.getDataMode(),
-           _spiSettings.getBitOrder());
+  spi_init(&_spi, _spiSettings.clk,
+           _spiSettings.dMode,
+           _spiSettings.bOrder);
 }
 
 /**
@@ -160,9 +163,9 @@ void SPIClass::setClockDivider(uint8_t _divider)
   * @param  data: byte to send.
   * @return byte received from the slave.
   */
-uint8_t SPIClass::transfer(uint8_t data)
+byte SPIClass::transfer(uint8_t data)
 {
-  spi_transfer(&_spi, &data, sizeof(uint8_t), SPI_TRANSFER_TIMEOUT, _spiSettings.getSkipRecv());
+  spi_transfer(&_spi, &data, sizeof(uint8_t), SPI_TRANSFER_TIMEOUT, _spiSettings.noReceive);
   return data;
 }
 
@@ -176,14 +179,14 @@ uint16_t SPIClass::transfer16(uint16_t data)
 {
   uint16_t tmp;
 
-  if (_spiSettings.getBitOrder()) {
+  if (_spiSettings.bOrder) {
     tmp = ((data & 0xff00) >> 8) | ((data & 0xff) << 8);
     data = tmp;
   }
   spi_transfer(&_spi, (uint8_t *)&data, sizeof(uint16_t),
-               SPI_TRANSFER_TIMEOUT, _spiSettings.getSkipRecv());
+               SPI_TRANSFER_TIMEOUT, _spiSettings.noReceive);
 
-  if (_spiSettings.getBitOrder()) {
+  if (_spiSettings.bOrder) {
     tmp = ((data & 0xff00) >> 8) | ((data & 0xff) << 8);
     data = tmp;
   }
@@ -194,30 +197,22 @@ uint16_t SPIClass::transfer16(uint16_t data)
 /**
   * @brief  Transfer several bytes. Only one buffer used to send and receive data.
   *         begin() or beginTransaction() must be called at least once before.
-  * @param  buf: pointer to the bytes to send. The bytes received are copy in
+  * @param  _buf: pointer to the bytes to send. The bytes received are copy in
   *         this buffer.
-  * @param  count: number of bytes to send/receive.
+  * @param  _count: number of bytes to send/receive.
   */
-void SPIClass::transfer(void *buf, size_t count)
+void SPIClass::transfer(void *_buf, size_t _count)
 {
   if ((count != 0) && (buf != NULL)) {
     spi_transfer(&_spi, ((uint8_t *)buf), count,
-                 SPI_TRANSFER_TIMEOUT, _spiSettings.getSkipRecv());
+                 SPI_TRANSFER_TIMEOUT, _spiSettings.noReceive);
   }
 }
 
 /**
   * @brief  Not implemented.
   */
-void SPIClass::usingInterrupt(int interruptNumber)
-{
-  UNUSED(interruptNumber);
-}
-
-/**
-  * @brief  Not implemented.
-  */
-void SPIClass::notUsingInterrupt(int interruptNumber)
+void SPIClass::usingInterrupt(uint8_t interruptNumber)
 {
   UNUSED(interruptNumber);
 }

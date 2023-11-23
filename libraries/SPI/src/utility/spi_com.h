@@ -85,13 +85,12 @@ typedef struct spi_s spi_t;
 //SPI_MODE2             1                         0
 //SPI_MODE3             1                         1
 //enum definitions coming from SPI.h of SAM
-// SPI mode parameters for SPISettings
 typedef enum {
-  SPI_MODE0 = 0,
-  SPI_MODE1 = 1,
-  SPI_MODE2 = 2,
-  SPI_MODE3 = 3,
-} SPIMode;
+  SPI_MODE_0 = 0x00,
+  SPI_MODE_1 = 0x01,
+  SPI_MODE_2 = 0x02,
+  SPI_MODE_3 = 0x03
+} spi_mode_e;
 
 ///@brief SPI errors
 typedef enum {
@@ -101,7 +100,7 @@ typedef enum {
 } spi_status_e;
 
 /* Exported functions ------------------------------------------------------- */
-void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb);
+void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb);
 void spi_deinit(spi_t *obj);
 spi_status_e spi_transfer(spi_t *obj, uint8_t *buffer, uint16_t len,
                           uint32_t Timeout, bool skipReceive);
