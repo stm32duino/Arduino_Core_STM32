@@ -56,6 +56,16 @@ core_CMSIS_versions = collections.OrderedDict()  # key: serie name, value: CMSIS
 md_CMSIS_path = "STM32YYxx_CMSIS_version.md"
 md_HAL_path = "STM32YYxx_HAL_Driver_version.md"
 
+# Pattern list of files to skip
+hal_skip_pattern = {"*.chm"}
+cmsis_skip_pattern = {"iar", "arm"}
+common_skip_pattern = {
+    ".github",
+    "CODE_OF_CONDUCT.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+}
+
 # stm32 def file to update
 stm32_def = "stm32_def.h"
 
@@ -845,7 +855,11 @@ Included in STM32Cube{0} FW {2}""".format(
             HAL_serie_cube_path = (
                 cube_path / hal_src_path / f"STM32{serie}xx_HAL_Driver"
             )
-            copyFolder(HAL_serie_cube_path, HAL_serie_core_path, {"*.chm"})
+            copyFolder(
+                HAL_serie_cube_path,
+                HAL_serie_core_path,
+                hal_skip_pattern.union(common_skip_pattern),
+            )
             # Update MD file
             updateMDFile(md_HAL_path, serie, cube_HAL_ver)
             # Commit all HAL files
@@ -863,7 +877,11 @@ Included in STM32Cube{0} FW {2}""".format(
             deleteFolder(CMSIS_serie_dest_path)
             # Copy new one
             CMSIS_serie_cube_path = cube_path / cmsis_src_path / f"STM32{serie}xx"
-            copyFolder(CMSIS_serie_cube_path, CMSIS_serie_dest_path, {"iar", "arm"})
+            copyFolder(
+                CMSIS_serie_cube_path,
+                CMSIS_serie_dest_path,
+                cmsis_skip_pattern.union(common_skip_pattern),
+            )
             # Update MD file
             updateMDFile(md_CMSIS_path, serie, cube_CMSIS_ver)
             # Commit all CMSIS files
