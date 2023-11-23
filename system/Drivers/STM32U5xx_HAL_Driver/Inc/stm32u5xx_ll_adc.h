@@ -2684,9 +2684,36 @@ single-ended and differential modes. */
 #define __LL_ADC_CALC_DATA_TO_VOLTAGE(__ADC_INSTANCE__, __VREFANALOG_VOLTAGE__,\
                                       __ADC_DATA__,                            \
                                       __ADC_RESOLUTION__)                      \
-((__ADC_DATA__) * (__VREFANALOG_VOLTAGE__)                                   \
- / __LL_ADC_DIGITAL_SCALE(__ADC_INSTANCE__, __ADC_RESOLUTION__)              \
+((__ADC_DATA__) * (int32_t)(__VREFANALOG_VOLTAGE__)                            \
+ / (int32_t)(__LL_ADC_DIGITAL_SCALE(__ADC_INSTANCE__, __ADC_RESOLUTION__))     \
 )
+
+/**
+  * @brief  Helper macro to calculate the voltage (unit: mVolt)
+  *         corresponding to a ADC conversion data (unit: digital value) in
+  *         differential ended mode.
+  * @note   On STM32U5, this feature is available on ADC instances: ADC1, ADC2.
+  * @note   ADC data from ADC data register is unsigned and centered around
+  *         middle code in. Converted voltage can be positive or negative
+  *         depending on differential input voltages.
+  * @note   Analog reference voltage (Vref+) must be either known from
+  *         user board environment or can be calculated using ADC measurement
+  *         and ADC helper macro @ref __LL_ADC_CALC_VREFANALOG_VOLTAGE().
+  * @param  __VREFANALOG_VOLTAGE__ Analog reference voltage (unit: mV)
+  * @param  __ADC_DATA__ ADC conversion data (unit: digital value).
+  * @param  __ADC_INSTANCE__ ADC instance
+  * @param  __ADC_RESOLUTION__ This parameter can be one of the following values:
+  *         @arg @ref LL_ADC_RESOLUTION_14B
+  *         @arg @ref LL_ADC_RESOLUTION_12B
+  *         @arg @ref LL_ADC_RESOLUTION_10B
+  *         @arg @ref LL_ADC_RESOLUTION_8B
+  * @retval ADC conversion data equivalent voltage value (unit: mVolt)
+  */
+#define __LL_ADC_CALC_DIFF_DATA_TO_VOLTAGE(__ADC_INSTANCE__, __VREFANALOG_VOLTAGE__,                            \
+                                           __ADC_DATA__,                                                        \
+                                           __ADC_RESOLUTION__)                                                  \
+((int32_t)((__ADC_DATA__) << 1U) * (int32_t)(__VREFANALOG_VOLTAGE__)                                             \
+ / (int32_t)(__LL_ADC_DIGITAL_SCALE(__ADC_INSTANCE__, __ADC_RESOLUTION__)) - (int32_t)(__VREFANALOG_VOLTAGE__))
 
 /**
   * @brief  Helper macro to calculate analog reference voltage (Vref+)
@@ -2895,8 +2922,8 @@ single-ended and differential modes. */
   *         use a different data register outside of ADC instance scope
   *         (common data register). This macro manages this register difference,
   *         only ADC instance has to be set as parameter.
-  * @rmtoll DR       RDATA          LL_ADC_DMA_GetRegAddr
-  *         CDR      RDATA_MST      LL_ADC_DMA_GetRegAddr
+  * @rmtoll DR       RDATA          LL_ADC_DMA_GetRegAddr\n
+  *         CDR      RDATA_MST      LL_ADC_DMA_GetRegAddr\n
   *         CDR      RDATA_SLV      LL_ADC_DMA_GetRegAddr
   * @param  ADCx ADC instance
   * @param  RegisterValue This parameter can be one of the following values:
@@ -2980,7 +3007,7 @@ __STATIC_INLINE uint32_t LL_ADC_DMA_GetRegAddr(const ADC_TypeDef *ADCx, uint32_t
   *         This check can be done with function @ref LL_ADC_IsEnabled() for each
   *         ADC instance or by using helper macro helper macro
   *         @ref __LL_ADC_IS_ENABLED_ALL_COMMON_INSTANCE().
-  * @rmtoll CCR      CKMODE         LL_ADC_SetCommonClock
+  * @rmtoll CCR      CKMODE         LL_ADC_SetCommonClock\n
   *         CCR      PRESC          LL_ADC_SetCommonClock
   * @param  ADCxy_COMMON ADC common instance
   *         (can be set directly from CMSIS definition or by using helper macro @ref __LL_ADC_COMMON_INSTANCE() )
@@ -3006,7 +3033,7 @@ __STATIC_INLINE void LL_ADC_SetCommonClock(ADC_Common_TypeDef *ADCxy_COMMON, uin
 
 /**
   * @brief  Get parameter common to several ADC: Clock source and prescaler.
-  * @rmtoll CCR      CKMODE         LL_ADC_GetCommonClock
+  * @rmtoll CCR      CKMODE         LL_ADC_GetCommonClock\n
   *         CCR      PRESC          LL_ADC_GetCommonClock
   * @param  ADCxy_COMMON ADC common instance
   *         (can be set directly from CMSIS definition or by using helper macro @ref __LL_ADC_COMMON_INSTANCE() )
@@ -3053,8 +3080,8 @@ __STATIC_INLINE uint32_t LL_ADC_GetCommonClock(const ADC_Common_TypeDef *ADCxy_C
   *         This check can be done with function @ref LL_ADC_IsEnabled() for each
   *         ADC instance or by using helper macro helper macro
   *         @ref __LL_ADC_IS_ENABLED_ALL_COMMON_INSTANCE().
-  * @rmtoll CCR      VREFEN         LL_ADC_SetCommonPathInternalChAdd
-  *         CCR      VSENSESEL      LL_ADC_SetCommonPathInternalChAdd
+  * @rmtoll CCR      VREFEN         LL_ADC_SetCommonPathInternalChAdd\n
+  *         CCR      VSENSESEL      LL_ADC_SetCommonPathInternalChAdd\n
   *         CCR      VBATEN         LL_ADC_SetCommonPathInternalChAdd
   * @param  ADCxy_COMMON ADC common instance
   *         (can be set directly from CMSIS definition or by using helper macro @ref __LL_ADC_COMMON_INSTANCE() )
@@ -3083,8 +3110,8 @@ __STATIC_INLINE void LL_ADC_SetCommonPathInternalChAdd(ADC_Common_TypeDef *ADCxy
   *         This check can be done with function @ref LL_ADC_IsEnabled() for each
   *         ADC instance or by using helper macro helper macro
   *         @ref __LL_ADC_IS_ENABLED_ALL_COMMON_INSTANCE().
-  * @rmtoll CCR      VREFEN         LL_ADC_SetCommonPathInternalChRem
-  *         CCR      VSENSESEL      LL_ADC_SetCommonPathInternalChRem
+  * @rmtoll CCR      VREFEN         LL_ADC_SetCommonPathInternalChRem\n
+  *         CCR      VSENSESEL      LL_ADC_SetCommonPathInternalChRem\n
   *         CCR      VBATEN         LL_ADC_SetCommonPathInternalChRem
   * @param  ADCxy_COMMON ADC common instance
   *         (can be set directly from CMSIS definition or by using helper macro @ref __LL_ADC_COMMON_INSTANCE() )
@@ -3123,8 +3150,8 @@ __STATIC_INLINE void LL_ADC_SetCommonPathInternalChRem(ADC_Common_TypeDef *ADCxy
   *         This check can be done with function @ref LL_ADC_IsEnabled() for each
   *         ADC instance or by using helper macro helper macro
   *         @ref __LL_ADC_IS_ENABLED_ALL_COMMON_INSTANCE().
-  * @rmtoll CCR      VREFEN         LL_ADC_SetCommonPathInternalCh
-  *         CCR      VSENSESEL      LL_ADC_SetCommonPathInternalCh
+  * @rmtoll CCR      VREFEN         LL_ADC_SetCommonPathInternalCh\n
+  *         CCR      VSENSESEL      LL_ADC_SetCommonPathInternalCh\n
   *         CCR      VBATEN         LL_ADC_SetCommonPathInternalCh
   * @param  ADCxy_COMMON ADC common instance
   *         (can be set directly from CMSIS definition or by using helper macro @ref __LL_ADC_COMMON_INSTANCE() )
@@ -3146,8 +3173,8 @@ __STATIC_INLINE void LL_ADC_SetCommonPathInternalCh(ADC_Common_TypeDef *ADCxy_CO
   * @note   One or several values can be selected.
   *         Example: (LL_ADC_PATH_INTERNAL_VREFINT |
   *                   LL_ADC_PATH_INTERNAL_TEMPSENSOR)
-  * @rmtoll CCR      VREFEN         LL_ADC_GetCommonPathInternalCh
-  *         CCR      VSENSESEL      LL_ADC_GetCommonPathInternalCh
+  * @rmtoll CCR      VREFEN         LL_ADC_GetCommonPathInternalCh\n
+  *         CCR      VSENSESEL      LL_ADC_GetCommonPathInternalCh\n
   *         CCR      VBATEN         LL_ADC_GetCommonPathInternalCh
   * @param  ADCxy_COMMON ADC common instance
   *         (can be set directly from CMSIS definition or by using helper macro @ref __LL_ADC_COMMON_INSTANCE() )
@@ -3272,7 +3299,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetCalibrationOffsetFactor(ADC_TypeDef *ADCx, ui
   *         ADC state:
   *         ADC must be enabled, without calibration on going, without conversion
   *         on going on group regular.
-  * @rmtoll CALFACT2  LINCALFACT      LL_ADC_SetCalibrationLinearFactor
+  * @rmtoll CALFACT2  LINCALFACT      LL_ADC_SetCalibrationLinearFactor\n
   *         CALFACT2  LINCALFACT      LL_ADC_SetCalibrationLinearFactor
   * @param  ADCx ADC instance (on STM32U5, feature available on ADC instances: ADC1, ADC2)
   * @param  LinearityWord This parameter can be one of the following values:
@@ -3302,7 +3329,7 @@ __STATIC_INLINE void LL_ADC_SetCalibrationLinearFactor(ADC_TypeDef *ADCx, uint32
   * @note   Calibration factors are set by hardware after performing
   *         a calibration run using function @ref LL_ADC_StartCalibration().
   * @note   On STM32U5, this feature is available on ADC instances: ADC1, ADC2.
-  * @rmtoll CALFACT2  LINCALFACT      LL_ADC_GetCalibrationLinearFactor
+  * @rmtoll CALFACT2  LINCALFACT      LL_ADC_GetCalibrationLinearFactor\n
   *         CALFACT2  LINCALFACT      LL_ADC_GetCalibrationLinearFactor
   * @param  ADCx ADC instance (on STM32U5, feature available on ADC instances: ADC1, ADC2)
   * @param  LinearityWord This parameter can be one of the following values:
@@ -3564,17 +3591,17 @@ __STATIC_INLINE uint32_t LL_ADC_GetLowPowerMode(const ADC_TypeDef *ADCx)
   *         on either groups regular or injected.
   * @note   On STM32U5, some fast channels are available: fast analog inputs
   *         coming from GPIO pads (ADC_IN0..5).
-  * @rmtoll OFR1     OFFSET1_CH     LL_ADC_SetOffset
-  *         OFR1     OFFSET1        LL_ADC_SetOffset
-  *         OFR1     OFFSET1_EN     LL_ADC_SetOffset
-  *         OFR2     OFFSET2_CH     LL_ADC_SetOffset
-  *         OFR2     OFFSET2        LL_ADC_SetOffset
-  *         OFR2     OFFSET2_EN     LL_ADC_SetOffset
-  *         OFR3     OFFSET3_CH     LL_ADC_SetOffset
-  *         OFR3     OFFSET3        LL_ADC_SetOffset
-  *         OFR3     OFFSET3_EN     LL_ADC_SetOffset
-  *         OFR4     OFFSET4_CH     LL_ADC_SetOffset
-  *         OFR4     OFFSET4        LL_ADC_SetOffset
+  * @rmtoll OFR1     OFFSET1_CH     LL_ADC_SetOffset\n
+  *         OFR1     OFFSET1        LL_ADC_SetOffset\n
+  *         OFR1     OFFSET1_EN     LL_ADC_SetOffset\n
+  *         OFR2     OFFSET2_CH     LL_ADC_SetOffset\n
+  *         OFR2     OFFSET2        LL_ADC_SetOffset\n
+  *         OFR2     OFFSET2_EN     LL_ADC_SetOffset\n
+  *         OFR3     OFFSET3_CH     LL_ADC_SetOffset\n
+  *         OFR3     OFFSET3        LL_ADC_SetOffset\n
+  *         OFR3     OFFSET3_EN     LL_ADC_SetOffset\n
+  *         OFR4     OFFSET4_CH     LL_ADC_SetOffset\n
+  *         OFR4     OFFSET4        LL_ADC_SetOffset\n
   *         OFR4     OFFSET4_EN     LL_ADC_SetOffset
   * @param  ADCx ADC instance
   * @param  Offsety This parameter can be one of the following values:
@@ -3645,9 +3672,9 @@ __STATIC_INLINE void LL_ADC_SetOffset(ADC_TypeDef *ADCx, uint32_t Offsety, uint3
   *           @ref __LL_ADC_CHANNEL_TO_DECIMAL_NB().
   * @note   On STM32U5, some fast channels are available: fast analog inputs
   *         coming from GPIO pads (ADC_IN0..5).
-  * @rmtoll OFR1     OFFSET1_CH     LL_ADC_GetOffsetChannel
-  *         OFR2     OFFSET2_CH     LL_ADC_GetOffsetChannel
-  *         OFR3     OFFSET3_CH     LL_ADC_GetOffsetChannel
+  * @rmtoll OFR1     OFFSET1_CH     LL_ADC_GetOffsetChannel\n
+  *         OFR2     OFFSET2_CH     LL_ADC_GetOffsetChannel\n
+  *         OFR3     OFFSET3_CH     LL_ADC_GetOffsetChannel\n
   *         OFR4     OFFSET4_CH     LL_ADC_GetOffsetChannel
   * @param  ADCx ADC instance
   * @param  Offsety This parameter can be one of the following values:
@@ -3706,9 +3733,9 @@ __STATIC_INLINE uint32_t LL_ADC_GetOffsetChannel(const ADC_TypeDef *ADCx, uint32
   * @note   Caution: Offset format is dependent to ADC resolution:
   *         offset has to be left-aligned on bit 11, the LSB (right bits)
   *         are set to 0.
-  * @rmtoll OFR1     OFFSET1        LL_ADC_GetOffsetLevel
-  *         OFR2     OFFSET2        LL_ADC_GetOffsetLevel
-  *         OFR3     OFFSET3        LL_ADC_GetOffsetLevel
+  * @rmtoll OFR1     OFFSET1        LL_ADC_GetOffsetLevel\n
+  *         OFR2     OFFSET2        LL_ADC_GetOffsetLevel\n
+  *         OFR3     OFFSET3        LL_ADC_GetOffsetLevel\n
   *         OFR4     OFFSET4        LL_ADC_GetOffsetLevel
   * @param  ADCx ADC instance
   * @param  Offsety This parameter can be one of the following values:
@@ -3732,9 +3759,9 @@ __STATIC_INLINE uint32_t LL_ADC_GetOffsetLevel(const ADC_TypeDef *ADCx, uint32_t
   *         ADC state:
   *         ADC must be disabled or enabled without conversion on going
   *         on either groups regular or injected.
-  * @rmtoll OFR1     OFFSETPOS      LL_ADC_SetOffsetSign
-  *         OFR2     OFFSETPOS      LL_ADC_SetOffsetSign
-  *         OFR3     OFFSETPOS      LL_ADC_SetOffsetSign
+  * @rmtoll OFR1     OFFSETPOS      LL_ADC_SetOffsetSign\n
+  *         OFR2     OFFSETPOS      LL_ADC_SetOffsetSign\n
+  *         OFR3     OFFSETPOS      LL_ADC_SetOffsetSign\n
   *         OFR4     OFFSETPOS      LL_ADC_SetOffsetSign
   * @param  ADCx ADC instance
   * @param  Offsety This parameter can be one of the following values:
@@ -3757,9 +3784,9 @@ __STATIC_INLINE void LL_ADC_SetOffsetSign(ADC_TypeDef *ADCx, uint32_t Offsety, u
 /**
   * @brief  Get for the ADC selected offset number 1, 2, 3 or 4:
   *         offset sign if positive or negative.
-  * @rmtoll OFR1     OFFSETPOS      LL_ADC_GetOffsetSign
-  *         OFR2     OFFSETPOS      LL_ADC_GetOffsetSign
-  *         OFR3     OFFSETPOS      LL_ADC_GetOffsetSign
+  * @rmtoll OFR1     OFFSETPOS      LL_ADC_GetOffsetSign\n
+  *         OFR2     OFFSETPOS      LL_ADC_GetOffsetSign\n
+  *         OFR3     OFFSETPOS      LL_ADC_GetOffsetSign\n
   *         OFR4     OFFSETPOS      LL_ADC_GetOffsetSign
   * @param  ADCx ADC instance
   * @param  Offsety This parameter can be one of the following values:
@@ -3781,9 +3808,9 @@ __STATIC_INLINE uint32_t LL_ADC_GetOffsetSign(const ADC_TypeDef *ADCx, uint32_t 
 /**
   * @brief  Set Signed saturation for the ADC selected offset number 1, 2, 3 or 4:
   *         signed offset saturation if enabled or disabled.
-  * @rmtoll OFR1     SSAT          LL_ADC_SetOffsetSignedSaturation
-  *         OFR2     SSAT          LL_ADC_SetOffsetSignedSaturation
-  *         OFR3     SSAT          LL_ADC_SetOffsetSignedSaturation
+  * @rmtoll OFR1     SSAT          LL_ADC_SetOffsetSignedSaturation\n
+  *         OFR2     SSAT          LL_ADC_SetOffsetSignedSaturation\n
+  *         OFR3     SSAT          LL_ADC_SetOffsetSignedSaturation\n
   *         OFR4     SSAT          LL_ADC_SetOffsetSignedSaturation
   * @param  ADCx ADC instance
   * @param  Offsety This parameter can be one of the following values:
@@ -3806,9 +3833,9 @@ __STATIC_INLINE void LL_ADC_SetOffsetSignedSaturation(ADC_TypeDef *ADCx, uint32_
 /**
   * @brief  Get Signed saturation for the ADC selected offset number 1, 2, 3 or 4:
   *         signed offset saturation if enabled or disabled.
-  * @rmtoll OFR1     SSAT          LL_ADC_GetOffsetSignedSaturation
-  *         OFR2     SSAT          LL_ADC_GetOffsetSignedSaturation
-  *         OFR3     SSAT          LL_ADC_GetOffsetSignedSaturation
+  * @rmtoll OFR1     SSAT          LL_ADC_GetOffsetSignedSaturation\n
+  *         OFR2     SSAT          LL_ADC_GetOffsetSignedSaturation\n
+  *         OFR3     SSAT          LL_ADC_GetOffsetSignedSaturation\n
   *         OFR4     SSAT          LL_ADC_GetOffsetSignedSaturation
   * @param  ADCx ADC instance
   * @param  Offsety This parameter can be one of the following values:
@@ -3829,9 +3856,9 @@ __STATIC_INLINE uint32_t LL_ADC_GetOffsetSignedSaturation(const ADC_TypeDef *ADC
 /**
   * @brief  Set Unsigned saturation for the ADC selected offset number 1, 2, 3 or 4:
   *         signed offset saturation if enabled or disabled.
-  * @rmtoll OFR1     USAT          LL_ADC_SetOffsetUnsignedSaturation
-  *         OFR2     USAT          LL_ADC_SetOffsetUnsignedSaturation
-  *         OFR3     USAT          LL_ADC_SetOffsetUnsignedSaturation
+  * @rmtoll OFR1     USAT          LL_ADC_SetOffsetUnsignedSaturation\n
+  *         OFR2     USAT          LL_ADC_SetOffsetUnsignedSaturation\n
+  *         OFR3     USAT          LL_ADC_SetOffsetUnsignedSaturation\n
   *         OFR4     USAT          LL_ADC_SetOffsetUnsignedSaturation
   * @param  ADCx ADC instance
   * @param  Offsety This parameter can be one of the following values:
@@ -3854,9 +3881,9 @@ __STATIC_INLINE void LL_ADC_SetOffsetUnsignedSaturation(ADC_TypeDef *ADCx, uint3
 /**
   * @brief  Get Unsigned saturation for the ADC selected offset number 1, 2, 3 or 4:
   *         signed offset saturation if enabled or disabled.
-  * @rmtoll OFR1     USAT          LL_ADC_GetOffsetUnsignedSaturation
-  *         OFR2     USAT          LL_ADC_GetOffsetUnsignedSaturation
-  *         OFR3     USAT          LL_ADC_GetOffsetUnsignedSaturation
+  * @rmtoll OFR1     USAT          LL_ADC_GetOffsetUnsignedSaturation\n
+  *         OFR2     USAT          LL_ADC_GetOffsetUnsignedSaturation\n
+  *         OFR3     USAT          LL_ADC_GetOffsetUnsignedSaturation\n
   *         OFR4     USAT          LL_ADC_GetOffsetUnsignedSaturation
   * @param  ADCx ADC instance
   * @param  Offsety This parameter can be one of the following values:
@@ -3886,7 +3913,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetOffsetUnsignedSaturation(const ADC_TypeDef *A
   *         ADC state:
   *         ADC must be disabled or enabled without conversion on going
   *         on either groups regular or injected.
-  * @rmtoll GCOMP    GCOMPCOEFF     LL_ADC_SetGainCompensation
+  * @rmtoll GCOMP    GCOMPCOEFF     LL_ADC_SetGainCompensation\n
   *         CFGR2    GCOMP          LL_ADC_SetGainCompensation
   * @param  ADCx ADC instance
   * @param  GainCompensation This parameter can be:
@@ -3902,7 +3929,7 @@ __STATIC_INLINE void LL_ADC_SetGainCompensation(ADC_TypeDef *ADCx, uint32_t Gain
 
 /**
   * @brief  Get the ADC gain compensation value
-  * @rmtoll GCOMP    GCOMPCOEFF     LL_ADC_GetGainCompensation
+  * @rmtoll GCOMP    GCOMPCOEFF     LL_ADC_GetGainCompensation\n
   *         CFGR2    GCOMP          LL_ADC_GetGainCompensation
   * @param  ADCx ADC instance
   * @retval Returned value can be:
@@ -3947,8 +3974,8 @@ __STATIC_INLINE uint32_t LL_ADC_GetGainCompensation(const ADC_TypeDef *ADCx)
   *         ADC must be disabled or enabled without conversion on going
   *         on group regular.
   * @note   Applicable only on ADC4 instance
-  * @rmtoll SMPR     SMP1           LL_ADC_SetSamplingTimeCommonChannels
-  * @rmtoll SMPR     SMP2           LL_ADC_SetSamplingTimeCommonChannels
+  * @rmtoll SMPR     SMP1           LL_ADC_SetSamplingTimeCommonChannels\n
+  *         SMPR     SMP2           LL_ADC_SetSamplingTimeCommonChannels
   * @param  ADCx ADC instance
   * @param  SamplingTimeY This parameter can be one of the following values:
   *         @arg @ref LL_ADC_SAMPLINGTIME_COMMON_1
@@ -3981,8 +4008,8 @@ __STATIC_INLINE void LL_ADC_SetSamplingTimeCommonChannels(ADC_TypeDef *ADCx, uin
   * @note   Conversion time is the addition of sampling time and processing time.
   *         Refer to reference manual for ADC processing time of
   *         this STM32 series.
-  * @rmtoll SMPR     SMP1           LL_ADC_GetSamplingTimeCommonChannels
-  * @rmtoll SMPR     SMP2           LL_ADC_GetSamplingTimeCommonChannels
+  * @rmtoll SMPR     SMP1           LL_ADC_GetSamplingTimeCommonChannels\n
+  *         SMPR     SMP2           LL_ADC_GetSamplingTimeCommonChannels
   * @param  ADCx ADC instance (ADC4 for this device)
   * @param  SamplingTimeY This parameter can be one of the following values:
   *         @arg @ref LL_ADC_SAMPLINGTIME_COMMON_1
@@ -4023,7 +4050,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetSamplingTimeCommonChannels(const ADC_TypeDef 
   *         ADC state:
   *         ADC must be disabled or enabled without conversion on going
   *         on group regular.
-  * @rmtoll CFGR     EXTSEL         LL_ADC_REG_SetTriggerSource
+  * @rmtoll CFGR     EXTSEL         LL_ADC_REG_SetTriggerSource\n
   *         CFGR     EXTEN          LL_ADC_REG_SetTriggerSource
   * @param  ADCx ADC instance
   * @param  TriggerSource This parameter can be one of the following values:
@@ -4073,7 +4100,7 @@ __STATIC_INLINE void LL_ADC_REG_SetTriggerSource(ADC_TypeDef *ADCx, uint32_t Tri
   *         use function @ref LL_ADC_REG_IsTriggerSourceSWStart.
   * @note   Availability of parameters of trigger sources from timer
   *         depends on timers availability on the selected device.
-  * @rmtoll CFGR     EXTSEL         LL_ADC_REG_GetTriggerSource
+  * @rmtoll CFGR     EXTSEL         LL_ADC_REG_GetTriggerSource\n
   *         CFGR     EXTEN          LL_ADC_REG_GetTriggerSource
   * @param  ADCx ADC instance
   * @retval Returned value can be one of the following values:
@@ -4250,7 +4277,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetTriggerFrequencyMode(const ADC_TypeDef *ADCx)
   *         ADC state:
   *         ADC must be disabled or enabled without conversion on going
   *         on group regular.
-  * @rmtoll CFGR2    BULB           LL_ADC_REG_SetSamplingMode
+  * @rmtoll CFGR2    BULB           LL_ADC_REG_SetSamplingMode\n
   *         CFGR2    SMPTRIG        LL_ADC_REG_SetSamplingMode
   * @param  ADCx ADC instance
   * @param  SamplingMode This parameter can be one of the following values:
@@ -4266,7 +4293,7 @@ __STATIC_INLINE void LL_ADC_REG_SetSamplingMode(ADC_TypeDef *ADCx, uint32_t Samp
 
 /**
   * @brief  Get the ADC sampling mode
-  * @rmtoll CFGR2    BULB           LL_ADC_REG_GetSamplingMode
+  * @rmtoll CFGR2    BULB           LL_ADC_REG_GetSamplingMode\n
   *         CFGR2    SMPTRIG        LL_ADC_REG_GetSamplingMode
   * @param  ADCx ADC instance
   * @retval Returned value can be one of the following values:
@@ -4540,7 +4567,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerLength(const ADC_TypeDef *ADCx)
   *         ADC state:
   *         ADC must be disabled or enabled without conversion on going
   *         on group regular.
-  * @rmtoll CFGR     DISCEN         LL_ADC_REG_SetSequencerDiscont
+  * @rmtoll CFGR     DISCEN         LL_ADC_REG_SetSequencerDiscont\n
   *         CFGR     DISCNUM        LL_ADC_REG_SetSequencerDiscont
   * @param  ADCx ADC instance
   * @param  SeqDiscont This parameter can be one of the following values:
@@ -4564,7 +4591,7 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerDiscont(ADC_TypeDef *ADCx, uint32_t 
   * @brief  Get ADC group regular sequencer discontinuous mode:
   *         sequence subdivided and scan conversions interrupted every selected
   *         number of ranks.
-  * @rmtoll CFGR     DISCEN         LL_ADC_REG_GetSequencerDiscont
+  * @rmtoll CFGR     DISCEN         LL_ADC_REG_GetSequencerDiscont\n
   *         CFGR     DISCNUM        LL_ADC_REG_GetSequencerDiscont
   * @param  ADCx ADC instance
   * @retval Returned value can be one of the following values:
@@ -4603,21 +4630,21 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerDiscont(const ADC_TypeDef *ADCx)
   *         ADC state:
   *         ADC must be disabled or enabled without conversion on going
   *         on group regular.
-  * @rmtoll SQR1     SQ1            LL_ADC_REG_SetSequencerRanks
-  *         SQR1     SQ2            LL_ADC_REG_SetSequencerRanks
-  *         SQR1     SQ3            LL_ADC_REG_SetSequencerRanks
-  *         SQR1     SQ4            LL_ADC_REG_SetSequencerRanks
-  *         SQR2     SQ5            LL_ADC_REG_SetSequencerRanks
-  *         SQR2     SQ6            LL_ADC_REG_SetSequencerRanks
-  *         SQR2     SQ7            LL_ADC_REG_SetSequencerRanks
-  *         SQR2     SQ8            LL_ADC_REG_SetSequencerRanks
-  *         SQR2     SQ9            LL_ADC_REG_SetSequencerRanks
-  *         SQR3     SQ10           LL_ADC_REG_SetSequencerRanks
-  *         SQR3     SQ11           LL_ADC_REG_SetSequencerRanks
-  *         SQR3     SQ12           LL_ADC_REG_SetSequencerRanks
-  *         SQR3     SQ13           LL_ADC_REG_SetSequencerRanks
-  *         SQR3     SQ14           LL_ADC_REG_SetSequencerRanks
-  *         SQR4     SQ15           LL_ADC_REG_SetSequencerRanks
+  * @rmtoll SQR1     SQ1            LL_ADC_REG_SetSequencerRanks\n
+  *         SQR1     SQ2            LL_ADC_REG_SetSequencerRanks\n
+  *         SQR1     SQ3            LL_ADC_REG_SetSequencerRanks\n
+  *         SQR1     SQ4            LL_ADC_REG_SetSequencerRanks\n
+  *         SQR2     SQ5            LL_ADC_REG_SetSequencerRanks\n
+  *         SQR2     SQ6            LL_ADC_REG_SetSequencerRanks\n
+  *         SQR2     SQ7            LL_ADC_REG_SetSequencerRanks\n
+  *         SQR2     SQ8            LL_ADC_REG_SetSequencerRanks\n
+  *         SQR2     SQ9            LL_ADC_REG_SetSequencerRanks\n
+  *         SQR3     SQ10           LL_ADC_REG_SetSequencerRanks\n
+  *         SQR3     SQ11           LL_ADC_REG_SetSequencerRanks\n
+  *         SQR3     SQ12           LL_ADC_REG_SetSequencerRanks\n
+  *         SQR3     SQ13           LL_ADC_REG_SetSequencerRanks\n
+  *         SQR3     SQ14           LL_ADC_REG_SetSequencerRanks\n
+  *         SQR4     SQ15           LL_ADC_REG_SetSequencerRanks\n
   *         SQR4     SQ16           LL_ADC_REG_SetSequencerRanks
   * @param  ADCx ADC instance
   * @param  Rank This parameter can be one of the following values:
@@ -4717,21 +4744,21 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
   *         - To get the channel number in decimal format:
   *           process the returned value with the helper macro
   *           @ref __LL_ADC_CHANNEL_TO_DECIMAL_NB().
-  * @rmtoll SQR1     SQ1            LL_ADC_REG_GetSequencerRanks
-  *         SQR1     SQ2            LL_ADC_REG_GetSequencerRanks
-  *         SQR1     SQ3            LL_ADC_REG_GetSequencerRanks
-  *         SQR1     SQ4            LL_ADC_REG_GetSequencerRanks
-  *         SQR2     SQ5            LL_ADC_REG_GetSequencerRanks
-  *         SQR2     SQ6            LL_ADC_REG_GetSequencerRanks
-  *         SQR2     SQ7            LL_ADC_REG_GetSequencerRanks
-  *         SQR2     SQ8            LL_ADC_REG_GetSequencerRanks
-  *         SQR2     SQ9            LL_ADC_REG_GetSequencerRanks
-  *         SQR3     SQ10           LL_ADC_REG_GetSequencerRanks
-  *         SQR3     SQ11           LL_ADC_REG_GetSequencerRanks
-  *         SQR3     SQ12           LL_ADC_REG_GetSequencerRanks
-  *         SQR3     SQ13           LL_ADC_REG_GetSequencerRanks
-  *         SQR3     SQ14           LL_ADC_REG_GetSequencerRanks
-  *         SQR4     SQ15           LL_ADC_REG_GetSequencerRanks
+  * @rmtoll SQR1     SQ1            LL_ADC_REG_GetSequencerRanks\n
+  *         SQR1     SQ2            LL_ADC_REG_GetSequencerRanks\n
+  *         SQR1     SQ3            LL_ADC_REG_GetSequencerRanks\n
+  *         SQR1     SQ4            LL_ADC_REG_GetSequencerRanks\n
+  *         SQR2     SQ5            LL_ADC_REG_GetSequencerRanks\n
+  *         SQR2     SQ6            LL_ADC_REG_GetSequencerRanks\n
+  *         SQR2     SQ7            LL_ADC_REG_GetSequencerRanks\n
+  *         SQR2     SQ8            LL_ADC_REG_GetSequencerRanks\n
+  *         SQR2     SQ9            LL_ADC_REG_GetSequencerRanks\n
+  *         SQR3     SQ10           LL_ADC_REG_GetSequencerRanks\n
+  *         SQR3     SQ11           LL_ADC_REG_GetSequencerRanks\n
+  *         SQR3     SQ12           LL_ADC_REG_GetSequencerRanks\n
+  *         SQR3     SQ13           LL_ADC_REG_GetSequencerRanks\n
+  *         SQR3     SQ14           LL_ADC_REG_GetSequencerRanks\n
+  *         SQR4     SQ15           LL_ADC_REG_GetSequencerRanks\n
   *         SQR4     SQ16           LL_ADC_REG_GetSequencerRanks
   * @param  ADCx ADC instance
   * @param  Rank This parameter can be one of the following values:
@@ -4880,24 +4907,24 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerScanDirection(const ADC_TypeDef 
   *         on group regular.
   * @note   One or several values can be selected.
   *         Example: (LL_ADC_CHANNEL_4 | LL_ADC_CHANNEL_12 | ...)
-  * @rmtoll CHSELR   CHSEL0         LL_ADC_REG_SetSequencerChannels
-  *         CHSELR   CHSEL1         LL_ADC_REG_SetSequencerChannels
-  *         CHSELR   CHSEL2         LL_ADC_REG_SetSequencerChannels
-  *         CHSELR   CHSEL3         LL_ADC_REG_SetSequencerChannels
-  *         CHSELR   CHSEL4         LL_ADC_REG_SetSequencerChannels
-  *         CHSELR   CHSEL5         LL_ADC_REG_SetSequencerChannels
-  *         CHSELR   CHSEL6         LL_ADC_REG_SetSequencerChannels
-  *         CHSELR   CHSEL7         LL_ADC_REG_SetSequencerChannels
-  *         CHSELR   CHSEL8         LL_ADC_REG_SetSequencerChannels
-  *         CHSELR   CHSEL9         LL_ADC_REG_SetSequencerChannels
-  *         CHSELR   CHSEL10        LL_ADC_REG_SetSequencerChannels
-  *         CHSELR   CHSEL11        LL_ADC_REG_SetSequencerChannels
-  *         CHSELR   CHSEL12        LL_ADC_REG_SetSequencerChannels
-  *         CHSELR   CHSEL13        LL_ADC_REG_SetSequencerChannels
-  *         CHSELR   CHSEL14        LL_ADC_REG_SetSequencerChannels
-  *         CHSELR   CHSEL15        LL_ADC_REG_SetSequencerChannels
-  *         CHSELR   CHSEL16        LL_ADC_REG_SetSequencerChannels
-  *         CHSELR   CHSEL17        LL_ADC_REG_SetSequencerChannels
+  * @rmtoll CHSELR   CHSEL0         LL_ADC_REG_SetSequencerChannels\n
+  *         CHSELR   CHSEL1         LL_ADC_REG_SetSequencerChannels\n
+  *         CHSELR   CHSEL2         LL_ADC_REG_SetSequencerChannels\n
+  *         CHSELR   CHSEL3         LL_ADC_REG_SetSequencerChannels\n
+  *         CHSELR   CHSEL4         LL_ADC_REG_SetSequencerChannels\n
+  *         CHSELR   CHSEL5         LL_ADC_REG_SetSequencerChannels\n
+  *         CHSELR   CHSEL6         LL_ADC_REG_SetSequencerChannels\n
+  *         CHSELR   CHSEL7         LL_ADC_REG_SetSequencerChannels\n
+  *         CHSELR   CHSEL8         LL_ADC_REG_SetSequencerChannels\n
+  *         CHSELR   CHSEL9         LL_ADC_REG_SetSequencerChannels\n
+  *         CHSELR   CHSEL10        LL_ADC_REG_SetSequencerChannels\n
+  *         CHSELR   CHSEL11        LL_ADC_REG_SetSequencerChannels\n
+  *         CHSELR   CHSEL12        LL_ADC_REG_SetSequencerChannels\n
+  *         CHSELR   CHSEL13        LL_ADC_REG_SetSequencerChannels\n
+  *         CHSELR   CHSEL14        LL_ADC_REG_SetSequencerChannels\n
+  *         CHSELR   CHSEL15        LL_ADC_REG_SetSequencerChannels\n
+  *         CHSELR   CHSEL16        LL_ADC_REG_SetSequencerChannels\n
+  *         CHSELR   CHSEL17        LL_ADC_REG_SetSequencerChannels\n
   *         CHSELR   CHSEL18        LL_ADC_REG_SetSequencerChannels
   * @param  ADCx ADC instance
   * @param  Channel This parameter can be a combination of the following values:
@@ -4964,24 +4991,24 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerChannels(ADC_TypeDef *ADCx, uint32_t
   *         on group regular.
   * @note   One or several values can be selected.
   *         Example: (LL_ADC_CHANNEL_4 | LL_ADC_CHANNEL_12 | ...)
-  * @rmtoll CHSELR   CHSEL0         LL_ADC_REG_SetSequencerChAdd
-  *         CHSELR   CHSEL1         LL_ADC_REG_SetSequencerChAdd
-  *         CHSELR   CHSEL2         LL_ADC_REG_SetSequencerChAdd
-  *         CHSELR   CHSEL3         LL_ADC_REG_SetSequencerChAdd
-  *         CHSELR   CHSEL4         LL_ADC_REG_SetSequencerChAdd
-  *         CHSELR   CHSEL5         LL_ADC_REG_SetSequencerChAdd
-  *         CHSELR   CHSEL6         LL_ADC_REG_SetSequencerChAdd
-  *         CHSELR   CHSEL7         LL_ADC_REG_SetSequencerChAdd
-  *         CHSELR   CHSEL8         LL_ADC_REG_SetSequencerChAdd
-  *         CHSELR   CHSEL9         LL_ADC_REG_SetSequencerChAdd
-  *         CHSELR   CHSEL10        LL_ADC_REG_SetSequencerChAdd
-  *         CHSELR   CHSEL11        LL_ADC_REG_SetSequencerChAdd
-  *         CHSELR   CHSEL12        LL_ADC_REG_SetSequencerChAdd
-  *         CHSELR   CHSEL13        LL_ADC_REG_SetSequencerChAdd
-  *         CHSELR   CHSEL14        LL_ADC_REG_SetSequencerChAdd
-  *         CHSELR   CHSEL15        LL_ADC_REG_SetSequencerChAdd
-  *         CHSELR   CHSEL16        LL_ADC_REG_SetSequencerChAdd
-  *         CHSELR   CHSEL17        LL_ADC_REG_SetSequencerChAdd
+  * @rmtoll CHSELR   CHSEL0         LL_ADC_REG_SetSequencerChAdd\n
+  *         CHSELR   CHSEL1         LL_ADC_REG_SetSequencerChAdd\n
+  *         CHSELR   CHSEL2         LL_ADC_REG_SetSequencerChAdd\n
+  *         CHSELR   CHSEL3         LL_ADC_REG_SetSequencerChAdd\n
+  *         CHSELR   CHSEL4         LL_ADC_REG_SetSequencerChAdd\n
+  *         CHSELR   CHSEL5         LL_ADC_REG_SetSequencerChAdd\n
+  *         CHSELR   CHSEL6         LL_ADC_REG_SetSequencerChAdd\n
+  *         CHSELR   CHSEL7         LL_ADC_REG_SetSequencerChAdd\n
+  *         CHSELR   CHSEL8         LL_ADC_REG_SetSequencerChAdd\n
+  *         CHSELR   CHSEL9         LL_ADC_REG_SetSequencerChAdd\n
+  *         CHSELR   CHSEL10        LL_ADC_REG_SetSequencerChAdd\n
+  *         CHSELR   CHSEL11        LL_ADC_REG_SetSequencerChAdd\n
+  *         CHSELR   CHSEL12        LL_ADC_REG_SetSequencerChAdd\n
+  *         CHSELR   CHSEL13        LL_ADC_REG_SetSequencerChAdd\n
+  *         CHSELR   CHSEL14        LL_ADC_REG_SetSequencerChAdd\n
+  *         CHSELR   CHSEL15        LL_ADC_REG_SetSequencerChAdd\n
+  *         CHSELR   CHSEL16        LL_ADC_REG_SetSequencerChAdd\n
+  *         CHSELR   CHSEL17        LL_ADC_REG_SetSequencerChAdd\n
   *         CHSELR   CHSEL18        LL_ADC_REG_SetSequencerChAdd
   * @param  ADCx ADC instance
   * @param  Channel This parameter can be a combination of the following values:
@@ -5048,24 +5075,24 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerChAdd(ADC_TypeDef *ADCx, uint32_t Ch
   *         on group regular.
   * @note   One or several values can be selected.
   *         Example: (LL_ADC_CHANNEL_4 | LL_ADC_CHANNEL_12 | ...)
-  * @rmtoll CHSELR   CHSEL0         LL_ADC_REG_SetSequencerChRem
-  *         CHSELR   CHSEL1         LL_ADC_REG_SetSequencerChRem
-  *         CHSELR   CHSEL2         LL_ADC_REG_SetSequencerChRem
-  *         CHSELR   CHSEL3         LL_ADC_REG_SetSequencerChRem
-  *         CHSELR   CHSEL4         LL_ADC_REG_SetSequencerChRem
-  *         CHSELR   CHSEL5         LL_ADC_REG_SetSequencerChRem
-  *         CHSELR   CHSEL6         LL_ADC_REG_SetSequencerChRem
-  *         CHSELR   CHSEL7         LL_ADC_REG_SetSequencerChRem
-  *         CHSELR   CHSEL8         LL_ADC_REG_SetSequencerChRem
-  *         CHSELR   CHSEL9         LL_ADC_REG_SetSequencerChRem
-  *         CHSELR   CHSEL10        LL_ADC_REG_SetSequencerChRem
-  *         CHSELR   CHSEL11        LL_ADC_REG_SetSequencerChRem
-  *         CHSELR   CHSEL12        LL_ADC_REG_SetSequencerChRem
-  *         CHSELR   CHSEL13        LL_ADC_REG_SetSequencerChRem
-  *         CHSELR   CHSEL14        LL_ADC_REG_SetSequencerChRem
-  *         CHSELR   CHSEL15        LL_ADC_REG_SetSequencerChRem
-  *         CHSELR   CHSEL16        LL_ADC_REG_SetSequencerChRem
-  *         CHSELR   CHSEL17        LL_ADC_REG_SetSequencerChRem
+  * @rmtoll CHSELR   CHSEL0         LL_ADC_REG_SetSequencerChRem\n
+  *         CHSELR   CHSEL1         LL_ADC_REG_SetSequencerChRem\n
+  *         CHSELR   CHSEL2         LL_ADC_REG_SetSequencerChRem\n
+  *         CHSELR   CHSEL3         LL_ADC_REG_SetSequencerChRem\n
+  *         CHSELR   CHSEL4         LL_ADC_REG_SetSequencerChRem\n
+  *         CHSELR   CHSEL5         LL_ADC_REG_SetSequencerChRem\n
+  *         CHSELR   CHSEL6         LL_ADC_REG_SetSequencerChRem\n
+  *         CHSELR   CHSEL7         LL_ADC_REG_SetSequencerChRem\n
+  *         CHSELR   CHSEL8         LL_ADC_REG_SetSequencerChRem\n
+  *         CHSELR   CHSEL9         LL_ADC_REG_SetSequencerChRem\n
+  *         CHSELR   CHSEL10        LL_ADC_REG_SetSequencerChRem\n
+  *         CHSELR   CHSEL11        LL_ADC_REG_SetSequencerChRem\n
+  *         CHSELR   CHSEL12        LL_ADC_REG_SetSequencerChRem\n
+  *         CHSELR   CHSEL13        LL_ADC_REG_SetSequencerChRem\n
+  *         CHSELR   CHSEL14        LL_ADC_REG_SetSequencerChRem\n
+  *         CHSELR   CHSEL15        LL_ADC_REG_SetSequencerChRem\n
+  *         CHSELR   CHSEL16        LL_ADC_REG_SetSequencerChRem\n
+  *         CHSELR   CHSEL17        LL_ADC_REG_SetSequencerChRem\n
   *         CHSELR   CHSEL18        LL_ADC_REG_SetSequencerChRem
   * @param  ADCx ADC instance
   * @param  Channel This parameter can be a combination of the following values:
@@ -5130,24 +5157,24 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerChRem(ADC_TypeDef *ADCx, uint32_t Ch
   *         on group regular.
   * @note   One or several values can be retrieved.
   *         Example: (LL_ADC_CHANNEL_4 | LL_ADC_CHANNEL_12 | ...)
-  * @rmtoll CHSELR   CHSEL0         LL_ADC_REG_GetSequencerChannels
-  *         CHSELR   CHSEL1         LL_ADC_REG_GetSequencerChannels
-  *         CHSELR   CHSEL2         LL_ADC_REG_GetSequencerChannels
-  *         CHSELR   CHSEL3         LL_ADC_REG_GetSequencerChannels
-  *         CHSELR   CHSEL4         LL_ADC_REG_GetSequencerChannels
-  *         CHSELR   CHSEL5         LL_ADC_REG_GetSequencerChannels
-  *         CHSELR   CHSEL6         LL_ADC_REG_GetSequencerChannels
-  *         CHSELR   CHSEL7         LL_ADC_REG_GetSequencerChannels
-  *         CHSELR   CHSEL8         LL_ADC_REG_GetSequencerChannels
-  *         CHSELR   CHSEL9         LL_ADC_REG_GetSequencerChannels
-  *         CHSELR   CHSEL10        LL_ADC_REG_GetSequencerChannels
-  *         CHSELR   CHSEL11        LL_ADC_REG_GetSequencerChannels
-  *         CHSELR   CHSEL12        LL_ADC_REG_GetSequencerChannels
-  *         CHSELR   CHSEL13        LL_ADC_REG_GetSequencerChannels
-  *         CHSELR   CHSEL14        LL_ADC_REG_GetSequencerChannels
-  *         CHSELR   CHSEL15        LL_ADC_REG_GetSequencerChannels
-  *         CHSELR   CHSEL16        LL_ADC_REG_GetSequencerChannels
-  *         CHSELR   CHSEL17        LL_ADC_REG_GetSequencerChannels
+  * @rmtoll CHSELR   CHSEL0         LL_ADC_REG_GetSequencerChannels\n
+  *         CHSELR   CHSEL1         LL_ADC_REG_GetSequencerChannels\n
+  *         CHSELR   CHSEL2         LL_ADC_REG_GetSequencerChannels\n
+  *         CHSELR   CHSEL3         LL_ADC_REG_GetSequencerChannels\n
+  *         CHSELR   CHSEL4         LL_ADC_REG_GetSequencerChannels\n
+  *         CHSELR   CHSEL5         LL_ADC_REG_GetSequencerChannels\n
+  *         CHSELR   CHSEL6         LL_ADC_REG_GetSequencerChannels\n
+  *         CHSELR   CHSEL7         LL_ADC_REG_GetSequencerChannels\n
+  *         CHSELR   CHSEL8         LL_ADC_REG_GetSequencerChannels\n
+  *         CHSELR   CHSEL9         LL_ADC_REG_GetSequencerChannels\n
+  *         CHSELR   CHSEL10        LL_ADC_REG_GetSequencerChannels\n
+  *         CHSELR   CHSEL11        LL_ADC_REG_GetSequencerChannels\n
+  *         CHSELR   CHSEL12        LL_ADC_REG_GetSequencerChannels\n
+  *         CHSELR   CHSEL13        LL_ADC_REG_GetSequencerChannels\n
+  *         CHSELR   CHSEL14        LL_ADC_REG_GetSequencerChannels\n
+  *         CHSELR   CHSEL15        LL_ADC_REG_GetSequencerChannels\n
+  *         CHSELR   CHSEL16        LL_ADC_REG_GetSequencerChannels\n
+  *         CHSELR   CHSEL17        LL_ADC_REG_GetSequencerChannels\n
   *         CHSELR   CHSEL18        LL_ADC_REG_GetSequencerChannels
   * @param  ADCx ADC instance
   * @retval Returned value can be a combination of the following values:
@@ -5215,6 +5242,26 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerChannels(const ADC_TypeDef *ADCx
   * @note   This function set the the value for the channel preselection register
   *         corresponding to ADC channel to be selected.
   * @note   Caution: This is not valid for ADC4.
+  * @rmtoll PCSEL   PCSEL0         LL_ADC_CHANNEL_0\n
+  *         PCSEL   PCSEL1         LL_ADC_CHANNEL_1\n
+  *         PCSEL   PCSEL2         LL_ADC_CHANNEL_2\n
+  *         PCSEL   PCSEL3         LL_ADC_CHANNEL_3\n
+  *         PCSEL   PCSEL4         LL_ADC_CHANNEL_4\n
+  *         PCSEL   PCSEL5         LL_ADC_CHANNEL_5\n
+  *         PCSEL   PCSEL6         LL_ADC_CHANNEL_6\n
+  *         PCSEL   PCSEL7         LL_ADC_CHANNEL_7\n
+  *         PCSEL   PCSEL8         LL_ADC_CHANNEL_8\n
+  *         PCSEL   PCSEL9         LL_ADC_CHANNEL_9\n
+  *         PCSEL   PCSEL10        LL_ADC_CHANNEL_10\n
+  *         PCSEL   PCSEL11        LL_ADC_CHANNEL_11\n
+  *         PCSEL   PCSEL12        LL_ADC_CHANNEL_12\n
+  *         PCSEL   PCSEL13        LL_ADC_CHANNEL_13\n
+  *         PCSEL   PCSEL14        LL_ADC_CHANNEL_14\n
+  *         PCSEL   PCSEL15        LL_ADC_CHANNEL_15\n
+  *         PCSEL   PCSEL16        LL_ADC_CHANNEL_16\n
+  *         PCSEL   PCSEL17        LL_ADC_CHANNEL_17\n
+  *         PCSEL   PCSEL18        LL_ADC_CHANNEL_18\n
+  *         PCSEL   PCSEL19        LL_ADC_CHANNEL_19
   * @param  ADCx ADC instance.
   * @param  Channel This parameter can be one of the following values:
   *         @arg @ref LL_ADC_CHANNEL_0
@@ -5255,29 +5302,28 @@ __STATIC_INLINE void LL_ADC_SetChannelPreselection(ADC_TypeDef *ADCx, uint32_t C
   * @note   This function set the the value for the channel preselection register
   *         corresponding to ADC channel to be selected.
   * @note   Caution: This is not valid for ADC4.
-  * @param  ADCx ADC instance.
-  *
-  * @retval Returned decimal value that can correspend to one or multiple channels:
-  * @rmtoll PCSEL   PCSEL0         LL_ADC_CHANNEL_0
-  *         PCSEL   PCSEL1         LL_ADC_CHANNEL_1
-  *         PCSEL   PCSEL2         LL_ADC_CHANNEL_2
-  *         PCSEL   PCSEL3         LL_ADC_CHANNEL_3
-  *         PCSEL   PCSEL4         LL_ADC_CHANNEL_4
-  *         PCSEL   PCSEL5         LL_ADC_CHANNEL_5
-  *         PCSEL   PCSEL6         LL_ADC_CHANNEL_6
-  *         PCSEL   PCSEL7         LL_ADC_CHANNEL_7
-  *         PCSEL   PCSEL8         LL_ADC_CHANNEL_8
-  *         PCSEL   PCSEL9         LL_ADC_CHANNEL_9
-  *         PCSEL   PCSEL10        LL_ADC_CHANNEL_10
-  *         PCSEL   PCSEL11        LL_ADC_CHANNEL_11
-  *         PCSEL   PCSEL12        LL_ADC_CHANNEL_12
-  *         PCSEL   PCSEL13        LL_ADC_CHANNEL_13
-  *         PCSEL   PCSEL14        LL_ADC_CHANNEL_14
-  *         PCSEL   PCSEL15        LL_ADC_CHANNEL_15
-  *         PCSEL   PCSEL16        LL_ADC_CHANNEL_16
-  *         PCSEL   PCSEL17        LL_ADC_CHANNEL_17
-  *         PCSEL   PCSEL18        LL_ADC_CHANNEL_18
+  * @rmtoll PCSEL   PCSEL0         LL_ADC_CHANNEL_0\n
+  *         PCSEL   PCSEL1         LL_ADC_CHANNEL_1\n
+  *         PCSEL   PCSEL2         LL_ADC_CHANNEL_2\n
+  *         PCSEL   PCSEL3         LL_ADC_CHANNEL_3\n
+  *         PCSEL   PCSEL4         LL_ADC_CHANNEL_4\n
+  *         PCSEL   PCSEL5         LL_ADC_CHANNEL_5\n
+  *         PCSEL   PCSEL6         LL_ADC_CHANNEL_6\n
+  *         PCSEL   PCSEL7         LL_ADC_CHANNEL_7\n
+  *         PCSEL   PCSEL8         LL_ADC_CHANNEL_8\n
+  *         PCSEL   PCSEL9         LL_ADC_CHANNEL_9\n
+  *         PCSEL   PCSEL10        LL_ADC_CHANNEL_10\n
+  *         PCSEL   PCSEL11        LL_ADC_CHANNEL_11\n
+  *         PCSEL   PCSEL12        LL_ADC_CHANNEL_12\n
+  *         PCSEL   PCSEL13        LL_ADC_CHANNEL_13\n
+  *         PCSEL   PCSEL14        LL_ADC_CHANNEL_14\n
+  *         PCSEL   PCSEL15        LL_ADC_CHANNEL_15\n
+  *         PCSEL   PCSEL16        LL_ADC_CHANNEL_16\n
+  *         PCSEL   PCSEL17        LL_ADC_CHANNEL_17\n
+  *         PCSEL   PCSEL18        LL_ADC_CHANNEL_18\n
   *         PCSEL   PCSEL19        LL_ADC_CHANNEL_19
+  * @param  ADCx ADC instance.
+  * @retval Returned decimal value that can correspend to one or multiple channels:
   *
   * @note   User helper macro @ref __LL_ADC_DECIMAL_NB_TO_CHANNEL().
   */
@@ -5364,7 +5410,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetLPModeAutonomousDPD(const ADC_TypeDef *ADCx)
   *         ADC4 is put on hold during one or two ADC4 clock cycles to avoid noise on Vref+.
   *         ADC state:
   *         ADC must be disabled.
-  * @rmtoll PWRR     VREFPROT             LL_ADC_SetVrefProtection
+  * @rmtoll PWRR     VREFPROT             LL_ADC_SetVrefProtection\n
   *         PWRR     VREFSECSMP           LL_ADC_SetVrefProtection
   * @param  ADCx ADC instance
   * @param  VrefProtection This parameter can be one of the following values:
@@ -5380,7 +5426,7 @@ __STATIC_INLINE void LL_ADC_SetVrefProtection(ADC_TypeDef *ADCx, uint32_t VrefPr
 
 /**
   * @brief  ADC VREF protection when multiple ADCs are working simultaneously
-  * @rmtoll PWRR     VREFPROT             LL_ADC_GetVrefProtection
+  * @rmtoll PWRR     VREFPROT             LL_ADC_GetVrefProtection\n
   *         PWRR     VREFSECSMP           LL_ADC_GetVrefProtection
   * @param  ADCx ADC instance
   * @retval Returned value can be one of the following values:
@@ -5499,7 +5545,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetDataTransferMode(const ADC_TypeDef *ADCx)
   *         ADC state:
   *         ADC must be disabled or enabled without conversion on going
   *         on group regular.
-  * @rmtoll CFGR1    DMAEN          LL_ADC_REG_SetDMATransfer
+  * @rmtoll CFGR1    DMAEN          LL_ADC_REG_SetDMATransfer\n
   *         CFGR1    DMACFG         LL_ADC_REG_SetDMATransfer
   * @param  ADCx ADC instance
   * @param  DMATransfer This parameter can be one of the following values:
@@ -5533,7 +5579,7 @@ __STATIC_INLINE void LL_ADC_REG_SetDMATransfer(ADC_TypeDef *ADCx, uint32_t DMATr
   *         (overrun flag and interruption if enabled).
   * @note   To configure DMA source address (peripheral address),
   *         use function @ref LL_ADC_DMA_GetRegAddr().
-  * @rmtoll CFGR1    DMAEN          LL_ADC_REG_GetDMATransfer
+  * @rmtoll CFGR1    DMAEN          LL_ADC_REG_GetDMATransfer\n
   *         CFGR1    DMACFG         LL_ADC_REG_GetDMATransfer
   * @param  ADCx ADC instance
   * @retval Returned value can be one of the following values:
@@ -5609,7 +5655,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetOverrun(const ADC_TypeDef *ADCx)
   *         ADC state:
   *         ADC must not be disabled. Can be enabled with or without conversion
   *         on going on either groups regular or injected.
-  * @rmtoll JSQR     JEXTSEL        LL_ADC_INJ_SetTriggerSource
+  * @rmtoll JSQR     JEXTSEL        LL_ADC_INJ_SetTriggerSource\n
   *         JSQR     JEXTEN         LL_ADC_INJ_SetTriggerSource
   * @param  ADCx ADC instance
   * @param  TriggerSource This parameter can be one of the following values:
@@ -5652,7 +5698,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetTriggerSource(ADC_TypeDef *ADCx, uint32_t Tri
   *         use function @ref LL_ADC_INJ_IsTriggerSourceSWStart.
   * @note   Availability of parameters of trigger sources from timer
   *         depends on timers availability on the selected device.
-  * @rmtoll JSQR     JEXTSEL        LL_ADC_INJ_GetTriggerSource
+  * @rmtoll JSQR     JEXTSEL        LL_ADC_INJ_GetTriggerSource\n
   *         JSQR     JEXTEN         LL_ADC_INJ_GetTriggerSource
   * @param  ADCx ADC instance
   * @retval Returned value can be one of the following values:
@@ -5839,9 +5885,9 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerDiscont(const ADC_TypeDef *ADCx)
   *         ADC state:
   *         ADC must not be disabled. Can be enabled with or without conversion
   *         on going on either groups regular or injected.
-  * @rmtoll JSQR     JSQ1           LL_ADC_INJ_SetSequencerRanks
-  *         JSQR     JSQ2           LL_ADC_INJ_SetSequencerRanks
-  *         JSQR     JSQ3           LL_ADC_INJ_SetSequencerRanks
+  * @rmtoll JSQR     JSQ1           LL_ADC_INJ_SetSequencerRanks\n
+  *         JSQR     JSQ2           LL_ADC_INJ_SetSequencerRanks\n
+  *         JSQR     JSQ3           LL_ADC_INJ_SetSequencerRanks\n
   *         JSQR     JSQ4           LL_ADC_INJ_SetSequencerRanks
   * @param  ADCx ADC instance
   * @param  Rank This parameter can be one of the following values:
@@ -5912,9 +5958,9 @@ __STATIC_INLINE void LL_ADC_INJ_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
   *         - To get the channel number in decimal format:
   *           process the returned value with the helper macro
   *           @ref __LL_ADC_CHANNEL_TO_DECIMAL_NB().
-  * @rmtoll JSQR     JSQ1           LL_ADC_INJ_GetSequencerRanks
-  *         JSQR     JSQ2           LL_ADC_INJ_GetSequencerRanks
-  *         JSQR     JSQ3           LL_ADC_INJ_GetSequencerRanks
+  * @rmtoll JSQR     JSQ1           LL_ADC_INJ_GetSequencerRanks\n
+  *         JSQR     JSQ2           LL_ADC_INJ_GetSequencerRanks\n
+  *         JSQR     JSQ3           LL_ADC_INJ_GetSequencerRanks\n
   *         JSQR     JSQ4           LL_ADC_INJ_GetSequencerRanks
   * @param  ADCx ADC instance
   * @param  Rank This parameter can be one of the following values:
@@ -6043,12 +6089,12 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_GetTrigAuto(const ADC_TypeDef *ADCx)
   *         ADC state:
   *         ADC must not be disabled. Can be enabled with or without conversion
   *         on going on either groups regular or injected.
-  * @rmtoll JSQR     JEXTSEL        LL_ADC_INJ_ConfigQueueContext
-  *         JSQR     JEXTEN         LL_ADC_INJ_ConfigQueueContext
-  *         JSQR     JL             LL_ADC_INJ_ConfigQueueContext
-  *         JSQR     JSQ1           LL_ADC_INJ_ConfigQueueContext
-  *         JSQR     JSQ2           LL_ADC_INJ_ConfigQueueContext
-  *         JSQR     JSQ3           LL_ADC_INJ_ConfigQueueContext
+  * @rmtoll JSQR     JEXTSEL        LL_ADC_INJ_ConfigQueueContext\n
+  *         JSQR     JEXTEN         LL_ADC_INJ_ConfigQueueContext\n
+  *         JSQR     JL             LL_ADC_INJ_ConfigQueueContext\n
+  *         JSQR     JSQ1           LL_ADC_INJ_ConfigQueueContext\n
+  *         JSQR     JSQ2           LL_ADC_INJ_ConfigQueueContext\n
+  *         JSQR     JSQ3           LL_ADC_INJ_ConfigQueueContext\n
   *         JSQR     JSQ4           LL_ADC_INJ_ConfigQueueContext
   * @param  ADCx ADC instance
   * @param  TriggerSource This parameter can be one of the following values:
@@ -6290,24 +6336,24 @@ __STATIC_INLINE void LL_ADC_INJ_ConfigQueueContext(ADC_TypeDef *ADCx,
   *         ADC state:
   *         ADC must be disabled or enabled without conversion on going
   *         on either groups regular or injected.
-  * @rmtoll SMPR1    SMP0           LL_ADC_SetChannelSamplingTime
-  *         SMPR1    SMP1           LL_ADC_SetChannelSamplingTime
-  *         SMPR1    SMP2           LL_ADC_SetChannelSamplingTime
-  *         SMPR1    SMP3           LL_ADC_SetChannelSamplingTime
-  *         SMPR1    SMP4           LL_ADC_SetChannelSamplingTime
-  *         SMPR1    SMP5           LL_ADC_SetChannelSamplingTime
-  *         SMPR1    SMP6           LL_ADC_SetChannelSamplingTime
-  *         SMPR1    SMP7           LL_ADC_SetChannelSamplingTime
-  *         SMPR1    SMP8           LL_ADC_SetChannelSamplingTime
-  *         SMPR1    SMP9           LL_ADC_SetChannelSamplingTime
-  *         SMPR2    SMP10          LL_ADC_SetChannelSamplingTime
-  *         SMPR2    SMP11          LL_ADC_SetChannelSamplingTime
-  *         SMPR2    SMP12          LL_ADC_SetChannelSamplingTime
-  *         SMPR2    SMP13          LL_ADC_SetChannelSamplingTime
-  *         SMPR2    SMP14          LL_ADC_SetChannelSamplingTime
-  *         SMPR2    SMP15          LL_ADC_SetChannelSamplingTime
-  *         SMPR2    SMP16          LL_ADC_SetChannelSamplingTime
-  *         SMPR2    SMP17          LL_ADC_SetChannelSamplingTime
+  * @rmtoll SMPR1    SMP0           LL_ADC_SetChannelSamplingTime\n
+  *         SMPR1    SMP1           LL_ADC_SetChannelSamplingTime\n
+  *         SMPR1    SMP2           LL_ADC_SetChannelSamplingTime\n
+  *         SMPR1    SMP3           LL_ADC_SetChannelSamplingTime\n
+  *         SMPR1    SMP4           LL_ADC_SetChannelSamplingTime\n
+  *         SMPR1    SMP5           LL_ADC_SetChannelSamplingTime\n
+  *         SMPR1    SMP6           LL_ADC_SetChannelSamplingTime\n
+  *         SMPR1    SMP7           LL_ADC_SetChannelSamplingTime\n
+  *         SMPR1    SMP8           LL_ADC_SetChannelSamplingTime\n
+  *         SMPR1    SMP9           LL_ADC_SetChannelSamplingTime\n
+  *         SMPR2    SMP10          LL_ADC_SetChannelSamplingTime\n
+  *         SMPR2    SMP11          LL_ADC_SetChannelSamplingTime\n
+  *         SMPR2    SMP12          LL_ADC_SetChannelSamplingTime\n
+  *         SMPR2    SMP13          LL_ADC_SetChannelSamplingTime\n
+  *         SMPR2    SMP14          LL_ADC_SetChannelSamplingTime\n
+  *         SMPR2    SMP15          LL_ADC_SetChannelSamplingTime\n
+  *         SMPR2    SMP16          LL_ADC_SetChannelSamplingTime\n
+  *         SMPR2    SMP17          LL_ADC_SetChannelSamplingTime\n
   *         SMPR2    SMP18          LL_ADC_SetChannelSamplingTime
   * @param  ADCx ADC instance
   * @param  Channel This parameter can be one of the following values:
@@ -6400,24 +6446,24 @@ __STATIC_INLINE void LL_ADC_SetChannelSamplingTime(ADC_TypeDef *ADCx, uint32_t C
   *         - 10.5 ADC clock cycles at ADC resolution 10 bits
   *         - 8.5 ADC clock cycles at ADC resolution 8 bits
   *         - 6.5 ADC clock cycles at ADC resolution 6 bits
-  * @rmtoll SMPR1    SMP0           LL_ADC_GetChannelSamplingTime
-  *         SMPR1    SMP1           LL_ADC_GetChannelSamplingTime
-  *         SMPR1    SMP2           LL_ADC_GetChannelSamplingTime
-  *         SMPR1    SMP3           LL_ADC_GetChannelSamplingTime
-  *         SMPR1    SMP4           LL_ADC_GetChannelSamplingTime
-  *         SMPR1    SMP5           LL_ADC_GetChannelSamplingTime
-  *         SMPR1    SMP6           LL_ADC_GetChannelSamplingTime
-  *         SMPR1    SMP7           LL_ADC_GetChannelSamplingTime
-  *         SMPR1    SMP8           LL_ADC_GetChannelSamplingTime
-  *         SMPR1    SMP9           LL_ADC_GetChannelSamplingTime
-  *         SMPR2    SMP10          LL_ADC_GetChannelSamplingTime
-  *         SMPR2    SMP11          LL_ADC_GetChannelSamplingTime
-  *         SMPR2    SMP12          LL_ADC_GetChannelSamplingTime
-  *         SMPR2    SMP13          LL_ADC_GetChannelSamplingTime
-  *         SMPR2    SMP14          LL_ADC_GetChannelSamplingTime
-  *         SMPR2    SMP15          LL_ADC_GetChannelSamplingTime
-  *         SMPR2    SMP16          LL_ADC_GetChannelSamplingTime
-  *         SMPR2    SMP17          LL_ADC_GetChannelSamplingTime
+  * @rmtoll SMPR1    SMP0           LL_ADC_GetChannelSamplingTime\n
+  *         SMPR1    SMP1           LL_ADC_GetChannelSamplingTime\n
+  *         SMPR1    SMP2           LL_ADC_GetChannelSamplingTime\n
+  *         SMPR1    SMP3           LL_ADC_GetChannelSamplingTime\n
+  *         SMPR1    SMP4           LL_ADC_GetChannelSamplingTime\n
+  *         SMPR1    SMP5           LL_ADC_GetChannelSamplingTime\n
+  *         SMPR1    SMP6           LL_ADC_GetChannelSamplingTime\n
+  *         SMPR1    SMP7           LL_ADC_GetChannelSamplingTime\n
+  *         SMPR1    SMP8           LL_ADC_GetChannelSamplingTime\n
+  *         SMPR1    SMP9           LL_ADC_GetChannelSamplingTime\n
+  *         SMPR2    SMP10          LL_ADC_GetChannelSamplingTime\n
+  *         SMPR2    SMP11          LL_ADC_GetChannelSamplingTime\n
+  *         SMPR2    SMP12          LL_ADC_GetChannelSamplingTime\n
+  *         SMPR2    SMP13          LL_ADC_GetChannelSamplingTime\n
+  *         SMPR2    SMP14          LL_ADC_GetChannelSamplingTime\n
+  *         SMPR2    SMP15          LL_ADC_GetChannelSamplingTime\n
+  *         SMPR2    SMP16          LL_ADC_GetChannelSamplingTime\n
+  *         SMPR2    SMP17          LL_ADC_GetChannelSamplingTime\n
   *         SMPR2    SMP18          LL_ADC_GetChannelSamplingTime
   * @param  ADCx ADC instance
   * @param  Channel This parameter can be one of the following values:
@@ -6650,11 +6696,11 @@ __STATIC_INLINE uint32_t LL_ADC_GetChannelSingleDiff(const ADC_TypeDef *ADCx, ui
   *         ADC state:
   *         ADC must be disabled or enabled without conversion on going
   *         on either groups regular or injected.
-  * @rmtoll CFGR     AWD1CH         LL_ADC_SetAnalogWDMonitChannels
-  *         CFGR     AWD1SGL        LL_ADC_SetAnalogWDMonitChannels
-  *         CFGR     AWD1EN         LL_ADC_SetAnalogWDMonitChannels
-  *         CFGR     JAWD1EN        LL_ADC_SetAnalogWDMonitChannels
-  *         AWD2CR   AWD2CH         LL_ADC_SetAnalogWDMonitChannels
+  * @rmtoll CFGR     AWD1CH         LL_ADC_SetAnalogWDMonitChannels\n
+  *         CFGR     AWD1SGL        LL_ADC_SetAnalogWDMonitChannels\n
+  *         CFGR     AWD1EN         LL_ADC_SetAnalogWDMonitChannels\n
+  *         CFGR     JAWD1EN        LL_ADC_SetAnalogWDMonitChannels\n
+  *         AWD2CR   AWD2CH         LL_ADC_SetAnalogWDMonitChannels\n
   *         AWD3CR   AWD3CH         LL_ADC_SetAnalogWDMonitChannels
   * @param  ADCx ADC instance
   * @param  AWDy This parameter can be one of the following values:
@@ -6818,11 +6864,11 @@ __STATIC_INLINE void LL_ADC_SetAnalogWDMonitChannels(ADC_TypeDef *ADCx, uint32_t
   *         ADC state:
   *         ADC must be disabled or enabled without conversion on going
   *         on either groups regular or injected.
-  * @rmtoll CFGR     AWD1CH         LL_ADC_GetAnalogWDMonitChannels
-  *         CFGR     AWD1SGL        LL_ADC_GetAnalogWDMonitChannels
-  *         CFGR     AWD1EN         LL_ADC_GetAnalogWDMonitChannels
-  *         CFGR     JAWD1EN        LL_ADC_GetAnalogWDMonitChannels
-  *         AWD2CR   AWD2CH         LL_ADC_GetAnalogWDMonitChannels
+  * @rmtoll CFGR     AWD1CH         LL_ADC_GetAnalogWDMonitChannels\n
+  *         CFGR     AWD1SGL        LL_ADC_GetAnalogWDMonitChannels\n
+  *         CFGR     AWD1EN         LL_ADC_GetAnalogWDMonitChannels\n
+  *         CFGR     JAWD1EN        LL_ADC_GetAnalogWDMonitChannels\n
+  *         AWD2CR   AWD2CH         LL_ADC_GetAnalogWDMonitChannels\n
   *         AWD3CR   AWD3CH         LL_ADC_GetAnalogWDMonitChannels
   * @param  ADCx ADC instance
   * @param  AWDy This parameter can be one of the following values:
@@ -7016,11 +7062,11 @@ __STATIC_INLINE uint32_t LL_ADC_GetAnalogWDMonitChannels(const ADC_TypeDef *ADCx
   *         ADC state:
   *         ADC must be disabled or enabled without conversion on going
   *         on either ADC groups regular or injected.
-  * @rmtoll TR1      HT1            LL_ADC_SetAnalogWDThresholds
-  *         TR2      HT2            LL_ADC_SetAnalogWDThresholds
-  *         TR3      HT3            LL_ADC_SetAnalogWDThresholds
-  *         TR1      LT1            LL_ADC_SetAnalogWDThresholds
-  *         TR2      LT2            LL_ADC_SetAnalogWDThresholds
+  * @rmtoll TR1      HT1            LL_ADC_SetAnalogWDThresholds\n
+  *         TR2      HT2            LL_ADC_SetAnalogWDThresholds\n
+  *         TR3      HT3            LL_ADC_SetAnalogWDThresholds\n
+  *         TR1      LT1            LL_ADC_SetAnalogWDThresholds\n
+  *         TR2      LT2            LL_ADC_SetAnalogWDThresholds\n
   *         TR3      LT3            LL_ADC_SetAnalogWDThresholds
   * @param  ADCx ADC instance
   * @param  AWDy This parameter can be one of the following values:
@@ -7084,11 +7130,11 @@ __STATIC_INLINE void LL_ADC_SetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t AW
   * @note   In case of ADC resolution different of 12 bits,
   *         analog watchdog thresholds data require a specific shift.
   *         Use helper macro @ref __LL_ADC_ANALOGWD_GET_THRESHOLD_RESOLUTION().
-  * @rmtoll TR1      HT1            LL_ADC_GetAnalogWDThresholds
-  *         TR2      HT2            LL_ADC_GetAnalogWDThresholds
-  *         TR3      HT3            LL_ADC_GetAnalogWDThresholds
-  *         TR1      LT1            LL_ADC_GetAnalogWDThresholds
-  *         TR2      LT2            LL_ADC_GetAnalogWDThresholds
+  * @rmtoll TR1      HT1            LL_ADC_GetAnalogWDThresholds\n
+  *         TR2      HT2            LL_ADC_GetAnalogWDThresholds\n
+  *         TR3      HT3            LL_ADC_GetAnalogWDThresholds\n
+  *         TR1      LT1            LL_ADC_GetAnalogWDThresholds\n
+  *         TR2      LT2            LL_ADC_GetAnalogWDThresholds\n
   *         TR3      LT3            LL_ADC_GetAnalogWDThresholds
   * @param  ADCx ADC instance
   * @param  AWDy This parameter can be one of the following values:
@@ -7186,11 +7232,11 @@ __STATIC_INLINE uint32_t LL_ADC_GetAnalogWDThresholds(const ADC_TypeDef *ADCx, u
   *         ADC state:
   *         ADC must be disabled or enabled without conversion on going
   *         on group regular.
-  * @rmtoll TR1      HT1            LL_ADC_ConfigAnalogWDThresholds
-  *         TR2      HT2            LL_ADC_ConfigAnalogWDThresholds
-  *         TR3      HT3            LL_ADC_ConfigAnalogWDThresholds
-  *         TR1      LT1            LL_ADC_ConfigAnalogWDThresholds
-  *         TR2      LT2            LL_ADC_ConfigAnalogWDThresholds
+  * @rmtoll TR1      HT1            LL_ADC_ConfigAnalogWDThresholds\n
+  *         TR2      HT2            LL_ADC_ConfigAnalogWDThresholds\n
+  *         TR3      HT3            LL_ADC_ConfigAnalogWDThresholds\n
+  *         TR1      LT1            LL_ADC_ConfigAnalogWDThresholds\n
+  *         TR2      LT2            LL_ADC_ConfigAnalogWDThresholds\n
   *         TR3      LT3            LL_ADC_ConfigAnalogWDThresholds
   * @param  ADCx ADC instance
   * @param  AWDy This parameter can be one of the following values:
@@ -7325,8 +7371,8 @@ __STATIC_INLINE uint32_t LL_ADC_GetAWDFilteringConfiguration(const ADC_TypeDef *
   *         ADC state:
   *         ADC must be disabled or enabled without conversion on going
   *         on either groups regular or injected.
-  * @rmtoll CFGR2    ROVSE          LL_ADC_SetOverSamplingScope
-  *         CFGR2    JOVSE          LL_ADC_SetOverSamplingScope
+  * @rmtoll CFGR2    ROVSE          LL_ADC_SetOverSamplingScope\n
+  *         CFGR2    JOVSE          LL_ADC_SetOverSamplingScope\n
   *         CFGR2    ROVSM          LL_ADC_SetOverSamplingScope
   * @param  ADCx ADC instance
   * @param  OvsScope This parameter can be one of the following values:
@@ -7358,8 +7404,8 @@ __STATIC_INLINE void LL_ADC_SetOverSamplingScope(ADC_TypeDef *ADCx, uint32_t Ovs
   *         the oversampling on ADC group regular is either
   *         temporary stopped and continued, or resumed from start
   *         (oversampler buffer reset).
-  * @rmtoll CFGR2    ROVSE          LL_ADC_GetOverSamplingScope
-  *         CFGR2    JOVSE          LL_ADC_GetOverSamplingScope
+  * @rmtoll CFGR2    ROVSE          LL_ADC_GetOverSamplingScope\n
+  *         CFGR2    JOVSE          LL_ADC_GetOverSamplingScope\n
   *         CFGR2    ROVSM          LL_ADC_GetOverSamplingScope
   * @param  ADCx ADC instance
   * @retval Returned value can be one of the following values:
@@ -7437,7 +7483,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetOverSamplingDiscont(const ADC_TypeDef *ADCx)
   *         ADC state:
   *         ADC must be disabled or enabled without conversion on going
   *         on either groups regular or injected.
-  * @rmtoll CFGR2    OVSS           LL_ADC_ConfigOverSamplingRatioShift
+  * @rmtoll CFGR2    OVSS           LL_ADC_ConfigOverSamplingRatioShift\n
   *         CFGR2    OVSR           LL_ADC_ConfigOverSamplingRatioShift
   * @param  ADCx ADC instance
   * @param  Ratio For ADC instance ADC1, ADC2: This parameter can be in the range from 1 to 1024.
@@ -7956,8 +8002,8 @@ __STATIC_INLINE uint32_t LL_ADC_IsDisableOngoing(const ADC_TypeDef *ADCx)
   * @note   On this STM32 series, setting of this feature is conditioned to
   *         ADC state:
   *         ADC must be ADC disabled.
-  * @rmtoll CR       ADCAL          LL_ADC_StartCalibration
-  *         CR       ADCALDIF       LL_ADC_StartCalibration
+  * @rmtoll CR       ADCAL          LL_ADC_StartCalibration\n
+  *         CR       ADCALDIF       LL_ADC_StartCalibration\n
   *         CR       ADCALLIN       LL_ADC_StartCalibration
   * @param  ADCx ADC instance
   * @param  CalibrationMode This parameter can be one of the following values:
@@ -8170,7 +8216,7 @@ __STATIC_INLINE uint8_t LL_ADC_REG_ReadConversionData8(const ADC_TypeDef *ADCx)
   *         transfer by DMA, because this function can do the same
   *         by getting multimode conversion data of ADC master or ADC slave
   *         separately).
-  * @rmtoll CDR      RDATA_MST      LL_ADC_REG_ReadMultiConversionData32
+  * @rmtoll CDR      RDATA_MST      LL_ADC_REG_ReadMultiConversionData32\n
   *         CDR      RDATA_SLV      LL_ADC_REG_ReadMultiConversionData32
   * @param  ADCxy_COMMON ADC common instance
   *         (can be set directly from CMSIS definition or by using helper macro @ref __LL_ADC_COMMON_INSTANCE() )
@@ -8265,9 +8311,9 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_IsStopConversionOngoing(const ADC_TypeDef *A
   *         all ADC configurations: all ADC resolutions and
   *         all oversampling increased data width (for devices
   *         with feature oversampling).
-  * @rmtoll JDR1     JDATA          LL_ADC_INJ_ReadConversionData32
-  *         JDR2     JDATA          LL_ADC_INJ_ReadConversionData32
-  *         JDR3     JDATA          LL_ADC_INJ_ReadConversionData32
+  * @rmtoll JDR1     JDATA          LL_ADC_INJ_ReadConversionData32\n
+  *         JDR2     JDATA          LL_ADC_INJ_ReadConversionData32\n
+  *         JDR3     JDATA          LL_ADC_INJ_ReadConversionData32\n
   *         JDR4     JDATA          LL_ADC_INJ_ReadConversionData32
   * @param  ADCx ADC instance
   * @param  Rank This parameter can be one of the following values:
@@ -8291,9 +8337,9 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_ReadConversionData32(const ADC_TypeDef *ADCx
   * @note   For devices with feature oversampling: Oversampling
   *         can increase data width, function for extended range
   *         may be needed: @ref LL_ADC_INJ_ReadConversionData32.
-  * @rmtoll JDR1     JDATA          LL_ADC_INJ_ReadConversionData16
-  *         JDR2     JDATA          LL_ADC_INJ_ReadConversionData16
-  *         JDR3     JDATA          LL_ADC_INJ_ReadConversionData16
+  * @rmtoll JDR1     JDATA          LL_ADC_INJ_ReadConversionData16\n
+  *         JDR2     JDATA          LL_ADC_INJ_ReadConversionData16\n
+  *         JDR3     JDATA          LL_ADC_INJ_ReadConversionData16\n
   *         JDR4     JDATA          LL_ADC_INJ_ReadConversionData16
   * @param  ADCx ADC instance
   * @param  Rank This parameter can be one of the following values:
@@ -8317,9 +8363,9 @@ __STATIC_INLINE uint16_t LL_ADC_INJ_ReadConversionData16(const ADC_TypeDef *ADCx
   * @note   For devices with feature oversampling: Oversampling
   *         can increase data width, function for extended range
   *         may be needed: @ref LL_ADC_INJ_ReadConversionData32.
-  * @rmtoll JDR1     JDATA          LL_ADC_INJ_ReadConversionData14
-  *         JDR2     JDATA          LL_ADC_INJ_ReadConversionData14
-  *         JDR3     JDATA          LL_ADC_INJ_ReadConversionData14
+  * @rmtoll JDR1     JDATA          LL_ADC_INJ_ReadConversionData14\n
+  *         JDR2     JDATA          LL_ADC_INJ_ReadConversionData14\n
+  *         JDR3     JDATA          LL_ADC_INJ_ReadConversionData14\n
   *         JDR4     JDATA          LL_ADC_INJ_ReadConversionData14
   * @param  ADCx ADC instance
   * @param  Rank This parameter can be one of the following values:
@@ -8343,9 +8389,9 @@ __STATIC_INLINE uint16_t LL_ADC_INJ_ReadConversionData14(const ADC_TypeDef *ADCx
   * @note   For devices with feature oversampling: Oversampling
   *         can increase data width, function for extended range
   *         may be needed: @ref LL_ADC_INJ_ReadConversionData32.
-  * @rmtoll JDR1     JDATA          LL_ADC_INJ_ReadConversionData12
-  *         JDR2     JDATA          LL_ADC_INJ_ReadConversionData12
-  *         JDR3     JDATA          LL_ADC_INJ_ReadConversionData12
+  * @rmtoll JDR1     JDATA          LL_ADC_INJ_ReadConversionData12\n
+  *         JDR2     JDATA          LL_ADC_INJ_ReadConversionData12\n
+  *         JDR3     JDATA          LL_ADC_INJ_ReadConversionData12\n
   *         JDR4     JDATA          LL_ADC_INJ_ReadConversionData12
   * @param  ADCx ADC instance
   * @param  Rank This parameter can be one of the following values:
@@ -8369,9 +8415,9 @@ __STATIC_INLINE uint16_t LL_ADC_INJ_ReadConversionData12(const ADC_TypeDef *ADCx
   * @note   For devices with feature oversampling: Oversampling
   *         can increase data width, function for extended range
   *         may be needed: @ref LL_ADC_INJ_ReadConversionData32.
-  * @rmtoll JDR1     JDATA          LL_ADC_INJ_ReadConversionData10
-  *         JDR2     JDATA          LL_ADC_INJ_ReadConversionData10
-  *         JDR3     JDATA          LL_ADC_INJ_ReadConversionData10
+  * @rmtoll JDR1     JDATA          LL_ADC_INJ_ReadConversionData10\n
+  *         JDR2     JDATA          LL_ADC_INJ_ReadConversionData10\n
+  *         JDR3     JDATA          LL_ADC_INJ_ReadConversionData10\n
   *         JDR4     JDATA          LL_ADC_INJ_ReadConversionData10
   * @param  ADCx ADC instance
   * @param  Rank This parameter can be one of the following values:
@@ -8395,9 +8441,9 @@ __STATIC_INLINE uint16_t LL_ADC_INJ_ReadConversionData10(const ADC_TypeDef *ADCx
   * @note   For devices with feature oversampling: Oversampling
   *         can increase data width, function for extended range
   *         may be needed: @ref LL_ADC_INJ_ReadConversionData32.
-  * @rmtoll JDR1     JDATA          LL_ADC_INJ_ReadConversionData8
-  *         JDR2     JDATA          LL_ADC_INJ_ReadConversionData8
-  *         JDR3     JDATA          LL_ADC_INJ_ReadConversionData8
+  * @rmtoll JDR1     JDATA          LL_ADC_INJ_ReadConversionData8\n
+  *         JDR2     JDATA          LL_ADC_INJ_ReadConversionData8\n
+  *         JDR3     JDATA          LL_ADC_INJ_ReadConversionData8\n
   *         JDR4     JDATA          LL_ADC_INJ_ReadConversionData8
   * @param  ADCx ADC instance
   * @param  Rank This parameter can be one of the following values:
