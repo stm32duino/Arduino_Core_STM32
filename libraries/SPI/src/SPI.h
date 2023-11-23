@@ -38,12 +38,6 @@ extern "C" {
 #define SPI_CLOCK_DIV64  64
 #define SPI_CLOCK_DIV128 128
 
-// SPI mode parameters for SPISettings
-#define SPI_MODE0 0x00
-#define SPI_MODE1 0x01
-#define SPI_MODE2 0x02
-#define SPI_MODE3 0x03
-
 #define SPI_TRANSMITRECEIVE 0x0
 #define SPI_TRANSMITONLY 0x1
 
@@ -54,35 +48,42 @@ extern "C" {
 
 class SPISettings {
   public:
-    constexpr SPISettings(uint32_t clock, BitOrder bitOrder, uint8_t dataMode, bool noRecv = SPI_TRANSMITRECEIVE)
-      : clk(clock),
-        bOrder(bitOrder),
-        dMode((spi_mode_e)(
-                (SPI_MODE0 == dataMode) ? SPI_MODE_0 :
-                (SPI_MODE1 == dataMode) ? SPI_MODE_1 :
-                (SPI_MODE2 == dataMode) ? SPI_MODE_2 :
-                (SPI_MODE3 == dataMode) ? SPI_MODE_3 :
-                SPI_MODE0
-              )),
+    constexpr SPISettings(uint32_t clock, BitOrder bitOrder, SPIMode dataMode, bool noRecv = SPI_TRANSMITRECEIVE)
+      : clockFreq(clock),
+        bitOrder(bitOrder),
+        dataMode(dataMode),
         noReceive(noRecv)
     { }
     constexpr SPISettings()
-      : clk(SPI_SPEED_CLOCK_DEFAULT),
-        bOrder(MSBFIRST),
-        dMode(SPI_MODE_0),
+      : clockFreq(SPI_SPEED_CLOCK_DEFAULT),
+        bitOrder(MSBFIRST),
+        dataMode(SPI_MODE0),
         noReceive(SPI_TRANSMITRECEIVE)
     { }
+
+    bool operator==(const SPISettings &rhs) const
+    {
+      if ((this->clockFreq == rhs.clockFreq) &&
+          (this->bitOrder == rhs.bitOrder) &&
+          (this->dataMode == rhs.dataMode) &&
+          (this->noReceive == rhs.noReceive)) {
+        return true;
+      }
+      return false;
+    }
+
+    bool operator!=(const SPISettings &rhs) const
+    {
+      return !(*this == rhs);
+    }
+
   private:
-    uint32_t clk;       //specifies the spi bus maximum clock speed
-    BitOrder bOrder;    //bit order (MSBFirst or LSBFirst)
-    spi_mode_e dMode;   //one of the data mode
-    //Mode          Clock Polarity (CPOL)   Clock Phase (CPHA)
-    //SPI_MODE0             0                     0
-    //SPI_MODE1             0                     1
-    //SPI_MODE2             1                     0
-    //SPI_MODE3             1                     1
-    friend class SPIClass;
+    uint32_t clockFreq; //specifies the spi bus maximum clock speed
+    BitOrder bitOrder;  //bit order (MSBFirst or LSBFirst)
+    SPIMode  dataMode;  //one of the data mode
     bool noReceive;
+
+    friend class SPIClass;
 };
 
 class SPIClass {
@@ -125,7 +126,7 @@ class SPIClass {
       _spi.pin_ssel = (ssel);
     };
 
-    virtual void begin();
+    virtual void begin(void);
     void end(void);
 
     /* This function should be used to configure the SPI instance in case you
@@ -137,19 +138,21 @@ class SPIClass {
     /* Transfer functions: must be called after initialization of the SPI
      * instance with begin() or beginTransaction().
      */
-    virtual byte transfer(uint8_t _data);
-    virtual uint16_t transfer16(uint16_t _data);
-    virtual void transfer(void *_buf, size_t _count);
+    virtual uint8_t transfer(uint8_t data);
+    virtual uint16_t transfer16(uint16_t data);
+    virtual void transfer(void *buf, size_t count);
 
     /* These methods are deprecated and kept for compatibility.
      * Use SPISettings with SPI.beginTransaction() to configure SPI parameters.
      */
     void setBitOrder(BitOrder);
     void setDataMode(uint8_t);
+    void setDataMode(SPIMode);
     void setClockDivider(uint8_t);
 
-    // Not implemented functions. Kept for backward compatibility.
-    void usingInterrupt(uint8_t interruptNumber);
+    // Not implemented functions. Kept for compatibility.
+    void usingInterrupt(int interruptNumber);
+    void notUsingInterrupt(int interruptNumber);
     void attachInterrupt(void);
     void detachInterrupt(void);
 
