@@ -48,6 +48,11 @@ extern "C" {
 
 class SPISettings {
   public:
+    constexpr SPISettings(uint32_t clock, BitOrder bitOrder, uint8_t dataMode)
+      : clockFreq(clock),
+        bitOrder(bitOrder),
+        dataMode((SPIMode)dataMode)
+    { }
     constexpr SPISettings(uint32_t clock, BitOrder bitOrder, SPIMode dataMode)
       : clockFreq(clock),
         bitOrder(bitOrder),
