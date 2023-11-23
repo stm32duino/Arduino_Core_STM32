@@ -126,7 +126,7 @@ void SystemClock_Config(void)
    *  * Production mode: Both CA7 and CM4 core running, BOOT0 and BOOT2 are ON.
    *  * Engineering mode: Only CM4 running, BOOT0 = OFF, BOOT2 = ON.
    * See:
-   *  https://wiki.st.com/stm32mpu/wiki/STM32CubeMP1_development_guidelines
+   *  https://wiki.st.com/stm32mpu/wiki/How_to_use_engineering_and_production_modes
    */
   if (!IS_ENGINEERING_BOOT_MODE()) {
     return;
