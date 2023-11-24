@@ -122,21 +122,21 @@ class SPIClass {
       _spi.pin_ssel = (ssel);
     };
 
-    virtual void begin(void);
+    void begin(void);
     void end(void);
 
     /* This function should be used to configure the SPI instance in case you
      * don't use default parameters.
      */
     void beginTransaction(SPISettings settings);
-    virtual void endTransaction(void);
+    void endTransaction(void);
 
     /* Transfer functions: must be called after initialization of the SPI
      * instance with begin() or beginTransaction().
      */
-    virtual uint8_t transfer(uint8_t data, bool skipReceive = SPI_TRANSMITRECEIVE);
-    virtual uint16_t transfer16(uint16_t data, bool skipReceive = SPI_TRANSMITRECEIVE);
-    virtual void transfer(void *buf, size_t count, bool skipReceive = SPI_TRANSMITRECEIVE);
+    uint8_t transfer(uint8_t data, bool skipReceive = SPI_TRANSMITRECEIVE);
+    uint16_t transfer16(uint16_t data, bool skipReceive = SPI_TRANSMITRECEIVE);
+    void transfer(void *buf, size_t count, bool skipReceive = SPI_TRANSMITRECEIVE);
 
     /* These methods are deprecated and kept for compatibility.
      * Use SPISettings with SPI.beginTransaction() to configure SPI parameters.
