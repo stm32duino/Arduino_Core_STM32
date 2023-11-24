@@ -502,69 +502,68 @@ void spi_deinit(spi_t *obj)
   * @param  obj : pointer to spi_t structure
   * @param  buffer : tx data to send before reception
   * @param  len : length in byte of the data to send and receive
-  * @param  Timeout: Timeout duration in tick
   * @param  skipReceive: skip receiving data after transmit or not
   * @retval status of the send operation (0) in case of error
   */
-spi_status_e spi_transfer(spi_t *obj, uint8_t *buffer, uint16_t len,
-                          uint32_t Timeout, bool skipReceive)
+spi_status_e spi_transfer(spi_t *obj, uint8_t *buffer, uint16_t len, bool skipReceive)
 {
   spi_status_e ret = SPI_OK;
   uint32_t tickstart, size = len;
   SPI_TypeDef *_SPI = obj->handle.Instance;
   uint8_t *tx_buffer = buffer;
 
-  if ((len == 0) || (Timeout == 0U)) {
-    return Timeout > 0U ? SPI_ERROR : SPI_TIMEOUT;
-  }
-  tickstart = HAL_GetTick();
+  if (len == 0) {
+    ret = SPI_ERROR;
+  } else {
+    tickstart = HAL_GetTick();
 
 #if defined(SPI_CR2_TSIZE)
-  /* Start transfer */
-  LL_SPI_SetTransferSize(_SPI, size);
-  LL_SPI_Enable(_SPI);
-  LL_SPI_StartMasterTransfer(_SPI);
+    /* Start transfer */
+    LL_SPI_SetTransferSize(_SPI, size);
+    LL_SPI_Enable(_SPI);
+    LL_SPI_StartMasterTransfer(_SPI);
 #endif
 
-  while (size--) {
+    while (size--) {
 #if defined(SPI_SR_TXP)
-    while (!LL_SPI_IsActiveFlag_TXP(_SPI));
+      while (!LL_SPI_IsActiveFlag_TXP(_SPI));
 #else
-    while (!LL_SPI_IsActiveFlag_TXE(_SPI));
+      while (!LL_SPI_IsActiveFlag_TXE(_SPI));
 #endif
-    LL_SPI_TransmitData8(_SPI, *tx_buffer++);
+      LL_SPI_TransmitData8(_SPI, *tx_buffer++);
 
-    if (!skipReceive) {
+      if (!skipReceive) {
 #if defined(SPI_SR_RXP)
-      while (!LL_SPI_IsActiveFlag_RXP(_SPI));
+        while (!LL_SPI_IsActiveFlag_RXP(_SPI));
 #else
-      while (!LL_SPI_IsActiveFlag_RXNE(_SPI));
+        while (!LL_SPI_IsActiveFlag_RXNE(_SPI));
 #endif
-      *buffer++ = LL_SPI_ReceiveData8(_SPI);
+        *buffer++ = LL_SPI_ReceiveData8(_SPI);
+      }
+      if ((SPI_TRANSFER_TIMEOUT != HAL_MAX_DELAY) &&
+          (HAL_GetTick() - tickstart >= SPI_TRANSFER_TIMEOUT)) {
+        ret = SPI_TIMEOUT;
+        break;
+      }
     }
-    if ((Timeout != HAL_MAX_DELAY) && (HAL_GetTick() - tickstart >= Timeout)) {
-      ret = SPI_TIMEOUT;
-      break;
-    }
-  }
 
 #if defined(SPI_IFCR_EOTC)
-  // Add a delay before disabling SPI otherwise last-bit/last-clock may be truncated
-  // See https://github.com/stm32duino/Arduino_Core_STM32/issues/1294
-  // Computed delay is half SPI clock
-  delayMicroseconds(obj->disable_delay);
+    // Add a delay before disabling SPI otherwise last-bit/last-clock may be truncated
+    // See https://github.com/stm32duino/Arduino_Core_STM32/issues/1294
+    // Computed delay is half SPI clock
+    delayMicroseconds(obj->disable_delay);
 
-  /* Close transfer */
-  /* Clear flags */
-  LL_SPI_ClearFlag_EOT(_SPI);
-  LL_SPI_ClearFlag_TXTF(_SPI);
-  /* Disable SPI peripheral */
-  LL_SPI_Disable(_SPI);
+    /* Close transfer */
+    /* Clear flags */
+    LL_SPI_ClearFlag_EOT(_SPI);
+    LL_SPI_ClearFlag_TXTF(_SPI);
+    /* Disable SPI peripheral */
+    LL_SPI_Disable(_SPI);
 #else
-  /* Wait for end of transfer */
-  while (LL_SPI_IsActiveFlag_BSY(_SPI));
+    /* Wait for end of transfer */
+    while (LL_SPI_IsActiveFlag_BSY(_SPI));
 #endif
-
+  }
   return ret;
 }
 

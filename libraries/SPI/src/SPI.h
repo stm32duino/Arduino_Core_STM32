@@ -41,11 +41,6 @@ extern "C" {
 #define SPI_TRANSMITRECEIVE false
 #define SPI_TRANSMITONLY true
 
-// Defines a default timeout delay in milliseconds for the SPI transfer
-#ifndef SPI_TRANSFER_TIMEOUT
-  #define SPI_TRANSFER_TIMEOUT 1000
-#endif
-
 class SPISettings {
   public:
     constexpr SPISettings(uint32_t clock, BitOrder bitOrder, uint8_t dataMode)
