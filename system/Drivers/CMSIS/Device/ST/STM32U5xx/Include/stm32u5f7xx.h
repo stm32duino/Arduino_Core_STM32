@@ -26361,11 +26361,11 @@ typedef struct
   */
 
 /******************************* ADC Instances ********************************/
-#define IS_ADC_ALL_INSTANCE(INSTANCE) (((INSTANCE) == ADC1_NS)||                   \
-                                       ((INSTANCE) == ADC1_S) ||                   \
+#define IS_ADC_ALL_INSTANCE(INSTANCE) (((INSTANCE) == ADC1_NS) ||                   \
+                                       ((INSTANCE) == ADC1_S)  ||                   \
                                        ((INSTANCE) == ADC2_NS) ||                   \
                                        ((INSTANCE) == ADC2_S)  ||                   \
-                                       ((INSTANCE) == ADC4_NS)||                   \
+                                       ((INSTANCE) == ADC4_NS) ||                   \
                                        ((INSTANCE) == ADC4_S))
 
 #define IS_ADC_MULTIMODE_MASTER_INSTANCE(INSTANCE) (((INSTANCE) == ADC1_NS) || \

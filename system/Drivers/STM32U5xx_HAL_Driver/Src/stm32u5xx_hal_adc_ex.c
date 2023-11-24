@@ -210,8 +210,11 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc, uint32_t 
 
         if (tmp_hal_status == HAL_OK)
         {
+          /* Use a Data Memory Barrier instruction to avoid synchronization issues when accessing ADC registers */
           MODIFY_REG(hadc->Instance->CR, ADC_CR_CALINDEX, 0x9UL << ADC_CR_CALINDEX_Pos);
-          MODIFY_REG(hadc->Instance->CALFACT2, 0x00FF0000UL, 0x00020000UL);
+          __DMB();
+          MODIFY_REG(hadc->Instance->CALFACT2, 0xFFFFFF00UL, 0x03021100UL);
+          __DMB();
           SET_BIT(hadc->Instance->CALFACT, ADC_CALFACT_LATCH_COEF);
 
           tmp_hal_status = ADC_Disable(hadc);
