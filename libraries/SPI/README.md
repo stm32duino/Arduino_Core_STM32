@@ -7,10 +7,6 @@ User have 2 possibilities about the management of the CS pin:
 * the CS pin is managed directly by the user code before to transfer the data (like the Arduino SPI library)
 * the user uses a hardware CS pin linked to the SPI peripheral
 
-### New SPISetting parameter
-
-* `noReceive`: value can be `SPI_TRANSMITRECEIVE` or `SPI_TRANSMITONLY`. It allows to skip receive data after transmitting. Default `SPI_TRANSMITRECEIVE`.
-
 ### New API functions
 
 * `SPIClass::SPIClass(uint8_t mosi, uint8_t miso, uint8_t sclk, uint8_t ssel)`: alternative class constructor
@@ -39,10 +35,15 @@ void setup() {
 }
 ```
 
+### Extended API
+
+* All `transfer()` API's have a new bool argument `skipReceive`. It allows to skip receive data after transmitting. Value can be `SPI_TRANSMITRECEIVE` or `SPI_TRANSMITONLY`. Default `SPI_TRANSMITRECEIVE`.
+
 #### Change default `SPI` instance pins
 It is also possible to change the default pins used by the `SPI` instance using above API:
 
-[[/img/Warning-icon.png|alt="Warning"]] **Have to be called before `begin()`.**
+> [!WARNING]
+> **Have to be called before `begin()`.**
 
 * `void setMISO(uint32_t miso)`
 * `void setMOSI(uint32_t mosi)`
@@ -53,7 +54,8 @@ It is also possible to change the default pins used by the `SPI` instance using 
 * `void setSCLK(PinName sclk)`
 * `void setSSEL(PinName ssel)`
 
-**_Note 1_** Using `setSSEL()` allows to enable hardware CS pin management linked to the SPI peripheral.
+> [!NOTE]
+> Using `setSSEL()` allows to enable hardware CS pin management linked to the SPI peripheral.
 
 ##### Example:
 ```C++

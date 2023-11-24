@@ -57,10 +57,10 @@ SPIClass::SPIClass(uint32_t mosi, uint32_t miso, uint32_t sclk, uint32_t ssel)
 void SPIClass::begin(void)
 {
   _spi.handle.State = HAL_SPI_STATE_RESET;
-  _spiSettings = DEFAULT_SPI_SETTINGS;
-  spi_init(&_spi, _spiSettings.getClockFreq(),
-           _spiSettings.getDataMode(),
-           _spiSettings.getBitOrder());
+  _spiSettings = SPISettings();
+  spi_init(&_spi, _spiSettings.clockFreq,
+           _spiSettings.dataMode,
+           _spiSettings.bitOrder);
 }
 
 /**
@@ -72,9 +72,9 @@ void SPIClass::beginTransaction(SPISettings settings)
 {
   if (_spiSettings != settings) {
     _spiSettings = settings;
-    spi_init(&_spi, _spiSettings.getClockFreq(),
-             _spiSettings.getDataMode(),
-             _spiSettings.getBitOrder());
+    spi_init(&_spi, _spiSettings.clockFreq,
+             _spiSettings.dataMode,
+             _spiSettings.bitOrder);
   }
 }
 
@@ -89,7 +89,7 @@ void SPIClass::endTransaction(void)
 /**
   * @brief  Deinitialize the SPI instance and stop it.
   */
-void SPIClass::end()
+void SPIClass::end(void)
 {
   spi_deinit(&_spi);
 }
@@ -97,15 +97,15 @@ void SPIClass::end()
 /**
   * @brief  Deprecated function.
   *         Configure the bit order: MSB first or LSB first.
-  * @param  _bitOrder: MSBFIRST or LSBFIRST
+  * @param  bitOrder: MSBFIRST or LSBFIRST
   */
 void SPIClass::setBitOrder(BitOrder bitOrder)
 {
-  _spiSettings.setBitOrder(bitOrder);
+  _spiSettings.bitOrder = bitOrder;
 
-  spi_init(&_spi, _spiSettings.getClockFreq(),
-           _spiSettings.getDataMode(),
-           _spiSettings.getBitOrder());
+  spi_init(&_spi, _spiSettings.clockFreq,
+           _spiSettings.dataMode,
+           _spiSettings.bitOrder);
 }
 
 /**
@@ -119,7 +119,6 @@ void SPIClass::setBitOrder(BitOrder bitOrder)
   *         SPI_MODE2             1                     0
   *         SPI_MODE3             1                     1
   */
-
 void SPIClass::setDataMode(uint8_t mode)
 {
   setDataMode((SPIMode)mode);
@@ -127,42 +126,44 @@ void SPIClass::setDataMode(uint8_t mode)
 
 void SPIClass::setDataMode(SPIMode mode)
 {
-  _spiSettings.setDataMode(mode);
-
-  spi_init(&_spi, _spiSettings.getClockFreq(),
-           _spiSettings.getDataMode(),
-           _spiSettings.getBitOrder());
+  _spiSettings.dataMode = mode;
+  spi_init(&_spi, _spiSettings.clockFreq,
+           _spiSettings.dataMode,
+           _spiSettings.bitOrder);
 }
 
 /**
   * @brief  Deprecated function.
   *         Configure the clock speed
-  * @param  _divider: the SPI clock can be divided by values from 1 to 255.
+  * @param  divider: the SPI clock can be divided by values from 1 to 255.
   *         If 0, default SPI speed is used.
   */
-void SPIClass::setClockDivider(uint8_t _divider)
+void SPIClass::setClockDivider(uint8_t divider)
 {
-  if (_divider == 0) {
-    _spiSettings.setClockFreq(SPI_SPEED_CLOCK_DEFAULT);
+  if (divider == 0) {
+    _spiSettings.clockFreq = SPI_SPEED_CLOCK_DEFAULT;
   } else {
-    /* Get clock freq of the SPI instance and compute it */
-    _spiSettings.setClockFreq(spi_getClkFreq(&_spi) / _divider);
+    /* Get clk freq of the SPI instance and compute it */
+    _spiSettings.clockFreq = spi_getClkFreq(&_spi) / divider;
   }
 
-  spi_init(&_spi, _spiSettings.getClockFreq(),
-           _spiSettings.getDataMode(),
-           _spiSettings.getBitOrder());
+  spi_init(&_spi, _spiSettings.clockFreq,
+           _spiSettings.dataMode,
+           _spiSettings.bitOrder);
 }
 
 /**
   * @brief  Transfer one byte on the SPI bus.
   *         begin() or beginTransaction() must be called at least once before.
   * @param  data: byte to send.
+  * @param  skipReceive: skip receiving data after transmit or not.
+  *         SPI_TRANSMITRECEIVE or SPI_TRANSMITONLY.
+  *         Optional, default: SPI_TRANSMITRECEIVE.
   * @return byte received from the slave.
   */
-uint8_t SPIClass::transfer(uint8_t data)
+uint8_t SPIClass::transfer(uint8_t data, bool skipReceive)
 {
-  spi_transfer(&_spi, &data, sizeof(uint8_t), SPI_TRANSFER_TIMEOUT, _spiSettings.getSkipRecv());
+  spi_transfer(&_spi, &data, sizeof(uint8_t), SPI_TRANSFER_TIMEOUT, skipReceive);
   return data;
 }
 
@@ -170,20 +171,23 @@ uint8_t SPIClass::transfer(uint8_t data)
   * @brief  Transfer two bytes on the SPI bus in 16 bits format.
   *         begin() or beginTransaction() must be called at least once before.
   * @param  data: bytes to send.
+  * @param  skipReceive: skip receiving data after transmit or not.
+  *         SPI_TRANSMITRECEIVE or SPI_TRANSMITONLY.
+  *         Optional, default: SPI_TRANSMITRECEIVE.
   * @return bytes received from the slave in 16 bits format.
   */
-uint16_t SPIClass::transfer16(uint16_t data)
+uint16_t SPIClass::transfer16(uint16_t data, bool skipReceive)
 {
   uint16_t tmp;
 
-  if (_spiSettings.getBitOrder()) {
+  if (_spiSettings.bitOrder) {
     tmp = ((data & 0xff00) >> 8) | ((data & 0xff) << 8);
     data = tmp;
   }
   spi_transfer(&_spi, (uint8_t *)&data, sizeof(uint16_t),
-               SPI_TRANSFER_TIMEOUT, _spiSettings.getSkipRecv());
+               SPI_TRANSFER_TIMEOUT, skipReceive);
 
-  if (_spiSettings.getBitOrder()) {
+  if (_spiSettings.bitOrder) {
     tmp = ((data & 0xff00) >> 8) | ((data & 0xff) << 8);
     data = tmp;
   }
@@ -197,12 +201,15 @@ uint16_t SPIClass::transfer16(uint16_t data)
   * @param  buf: pointer to the bytes to send. The bytes received are copy in
   *         this buffer.
   * @param  count: number of bytes to send/receive.
+  * @param  skipReceive: skip receiving data after transmit or not.
+  *         SPI_TRANSMITRECEIVE or SPI_TRANSMITONLY.
+  *         Optional, default: SPI_TRANSMITRECEIVE.
   */
-void SPIClass::transfer(void *buf, size_t count)
+void SPIClass::transfer(void *buf, size_t count, bool skipReceive)
 {
   if ((count != 0) && (buf != NULL)) {
     spi_transfer(&_spi, ((uint8_t *)buf), count,
-                 SPI_TRANSFER_TIMEOUT, _spiSettings.getSkipRecv());
+                 SPI_TRANSFER_TIMEOUT, skipReceive);
   }
 }
 
@@ -239,35 +246,6 @@ void SPIClass::detachInterrupt(void)
 }
 
 #if defined(SUBGHZSPI_BASE)
-void SUBGHZSPIClass::begin()
-{
-  SPIClass::begin();
-}
-
-void SUBGHZSPIClass::beginTransaction(SPISettings settings)
-{
-  SPIClass::beginTransaction(settings);
-}
-
-byte SUBGHZSPIClass::transfer(uint8_t _data)
-{
-  byte res;
-  res = SPIClass::transfer(_data);
-  return res;
-}
-
-uint16_t SUBGHZSPIClass::transfer16(uint16_t _data)
-{
-  uint16_t rx_buffer = 0;
-  rx_buffer = SPIClass::transfer16(_data);
-  return rx_buffer;
-}
-
-void SUBGHZSPIClass::transfer(void *_buf, size_t _count)
-{
-  SPIClass::transfer(_buf, _count);
-}
-
 void SUBGHZSPIClass::enableDebugPins(uint32_t mosi, uint32_t miso, uint32_t sclk, uint32_t ssel)
 {
   /* Configure SPI GPIO pins */

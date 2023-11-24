@@ -38,8 +38,8 @@ extern "C" {
 #define SPI_CLOCK_DIV64  64
 #define SPI_CLOCK_DIV128 128
 
-#define SPI_TRANSMITRECEIVE 0x0
-#define SPI_TRANSMITONLY 0x1
+#define SPI_TRANSMITRECEIVE false
+#define SPI_TRANSMITONLY true
 
 // Defines a default timeout delay in milliseconds for the SPI transfer
 #ifndef SPI_TRANSFER_TIMEOUT
@@ -48,36 +48,27 @@ extern "C" {
 
 class SPISettings {
   public:
-    SPISettings(uint32_t clock, BitOrder bitOrder, SPIMode dataMode, bool skipRecv = SPI_TRANSMITRECEIVE)
-    {
-      if (__builtin_constant_p(clock)) {
-        init_AlwaysInline(clock, bitOrder, dataMode, skipRecv);
-      } else {
-        init_MightInline(clock, bitOrder, dataMode, skipRecv);
-      }
-    }
-
-    SPISettings(uint32_t clock, BitOrder bitOrder, int dataMode, bool skipRecv = SPI_TRANSMITRECEIVE)
-    {
-      if (__builtin_constant_p(clock)) {
-        init_AlwaysInline(clock, bitOrder, (SPIMode)dataMode, skipRecv);
-      } else {
-        init_MightInline(clock, bitOrder, (SPIMode)dataMode, skipRecv);
-      }
-    }
-
-    // Default speed set to 4MHz, SPI mode set to MODE 0 and Bit order set to MSB first.
-    SPISettings()
-    {
-      init_AlwaysInline(SPI_SPEED_CLOCK_DEFAULT, MSBFIRST, SPI_MODE0, SPI_TRANSMITRECEIVE);
-    }
+    constexpr SPISettings(uint32_t clock, BitOrder bitOrder, uint8_t dataMode)
+      : clockFreq(clock),
+        bitOrder(bitOrder),
+        dataMode((SPIMode)dataMode)
+    { }
+    constexpr SPISettings(uint32_t clock, BitOrder bitOrder, SPIMode dataMode)
+      : clockFreq(clock),
+        bitOrder(bitOrder),
+        dataMode(dataMode)
+    { }
+    constexpr SPISettings()
+      : clockFreq(SPI_SPEED_CLOCK_DEFAULT),
+        bitOrder(MSBFIRST),
+        dataMode(SPI_MODE0)
+    { }
 
     bool operator==(const SPISettings &rhs) const
     {
       if ((this->clockFreq == rhs.clockFreq) &&
           (this->bitOrder == rhs.bitOrder) &&
-          (this->dataMode == rhs.dataMode) &&
-          (this->skipRecv == rhs.skipRecv)) {
+          (this->dataMode == rhs.dataMode)) {
         return true;
       }
       return false;
@@ -88,64 +79,13 @@ class SPISettings {
       return !(*this == rhs);
     }
 
-    uint32_t getClockFreq() const
-    {
-      return clockFreq;
-    }
-    SPIMode getDataMode() const
-    {
-      return dataMode;
-    }
-    BitOrder getBitOrder() const
-    {
-      return (bitOrder);
-    }
-    bool getSkipRecv() const
-    {
-      return skipRecv;
-    }
-
-    void setClockFreq(uint32_t clkFreq)
-    {
-      clockFreq = clkFreq;
-    }
-    void setDataMode(SPIMode mode)
-    {
-      dataMode = mode;
-    }
-    void setBitOrder(BitOrder order)
-    {
-      bitOrder = order;
-    }
-    void setSkipRecv(bool skip)
-    {
-      skipRecv = skip;
-    }
-
   private:
-    void init_MightInline(uint32_t clock, BitOrder bitOrder, SPIMode dataMode, bool skipRecv)
-    {
-      init_AlwaysInline(clock, bitOrder, dataMode, skipRecv);
-    }
+    uint32_t clockFreq; //specifies the spi bus maximum clock speed
+    BitOrder bitOrder;  //bit order (MSBFirst or LSBFirst)
+    SPIMode  dataMode;  //one of the data mode
 
-    // Core developer MUST use an helper function in beginTransaction() to use this data
-    void init_AlwaysInline(uint32_t clock, BitOrder bitOrder, SPIMode dataMode, bool skipRecv) __attribute__((__always_inline__))
-    {
-      this->clockFreq = clock;
-      this->dataMode = dataMode;
-      this->bitOrder = bitOrder;
-      this->skipRecv = skipRecv;
-    }
-
-    uint32_t clockFreq;
-    SPIMode dataMode;
-    BitOrder bitOrder;
-    bool skipRecv;
-
-    friend class HardwareSPI;
+    friend class SPIClass;
 };
-
-const SPISettings DEFAULT_SPI_SETTINGS = SPISettings();
 
 class SPIClass {
   public:
@@ -199,9 +139,9 @@ class SPIClass {
     /* Transfer functions: must be called after initialization of the SPI
      * instance with begin() or beginTransaction().
      */
-    virtual uint8_t transfer(uint8_t _data);
-    virtual uint16_t transfer16(uint16_t _data);
-    virtual void transfer(void *buf, size_t count);
+    virtual uint8_t transfer(uint8_t data, bool skipReceive = SPI_TRANSMITRECEIVE);
+    virtual uint16_t transfer16(uint16_t data, bool skipReceive = SPI_TRANSMITRECEIVE);
+    virtual void transfer(void *buf, size_t count, bool skipReceive = SPI_TRANSMITRECEIVE);
 
     /* These methods are deprecated and kept for compatibility.
      * Use SPISettings with SPI.beginTransaction() to configure SPI parameters.
@@ -229,7 +169,7 @@ class SPIClass {
 
   private:
     /* Current SPISettings */
-    SPISettings   _spiSettings = DEFAULT_SPI_SETTINGS;
+    SPISettings   _spiSettings = SPISettings();
 };
 
 extern SPIClass SPI;
@@ -242,16 +182,7 @@ class SUBGHZSPIClass : public SPIClass {
       _spi.spi = SUBGHZSPI;
     }
 
-    void begin();
-    void beginTransaction(SPISettings settings);
-    byte transfer(uint8_t _data);
-    uint16_t transfer16(uint16_t _data);
-    void transfer(void *_buf, size_t _count);
     void enableDebugPins(uint32_t mosi = DEBUG_SUBGHZSPI_MOSI, uint32_t miso = DEBUG_SUBGHZSPI_MISO, uint32_t sclk = DEBUG_SUBGHZSPI_SCLK, uint32_t ssel = DEBUG_SUBGHZSPI_SS);
-
-    using SPIClass::beginTransaction;
-    using SPIClass::transfer;
-    using SPIClass::transfer16;
 };
 
 #endif
