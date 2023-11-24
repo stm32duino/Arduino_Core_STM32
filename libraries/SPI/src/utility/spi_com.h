@@ -110,7 +110,7 @@ typedef enum {
 /* Exported functions ------------------------------------------------------- */
 void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb);
 void spi_deinit(spi_t *obj);
-spi_status_e spi_transfer(spi_t *obj, uint8_t *buffer, uint16_t len, bool skipReceive);
+spi_status_e spi_transfer(spi_t *obj, const uint8_t *tx_buffer, uint8_t *rx_buffer, uint16_t len);
 uint32_t spi_getClkFreq(spi_t *obj);
 
 #ifdef __cplusplus

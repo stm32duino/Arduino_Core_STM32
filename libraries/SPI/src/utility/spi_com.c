@@ -500,17 +500,18 @@ void spi_deinit(spi_t *obj)
   * @brief This function is implemented by user to send/receive data over
   *         SPI interface
   * @param  obj : pointer to spi_t structure
-  * @param  buffer : tx data to send before reception
+  * @param  tx_buffer : tx data to send before reception
+  * @param  rx_buffer : rx data to receive if not numm
   * @param  len : length in byte of the data to send and receive
-  * @param  skipReceive: skip receiving data after transmit or not
   * @retval status of the send operation (0) in case of error
   */
-spi_status_e spi_transfer(spi_t *obj, uint8_t *buffer, uint16_t len, bool skipReceive)
+spi_status_e spi_transfer(spi_t *obj, const uint8_t *tx_buffer, uint8_t *rx_buffer,
+                          uint16_t len)
 {
   spi_status_e ret = SPI_OK;
   uint32_t tickstart, size = len;
   SPI_TypeDef *_SPI = obj->handle.Instance;
-  uint8_t *tx_buffer = buffer;
+  uint8_t *tx_buf = (uint8_t *)tx_buffer;
 
   if (len == 0) {
     ret = SPI_ERROR;
@@ -530,15 +531,17 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *buffer, uint16_t len, bool skipRe
 #else
       while (!LL_SPI_IsActiveFlag_TXE(_SPI));
 #endif
-      LL_SPI_TransmitData8(_SPI, *tx_buffer++);
+      LL_SPI_TransmitData8(_SPI, tx_buf ? *tx_buf++ : 0XFF);
 
-      if (!skipReceive) {
 #if defined(SPI_SR_RXP)
-        while (!LL_SPI_IsActiveFlag_RXP(_SPI));
+      while (!LL_SPI_IsActiveFlag_RXP(_SPI));
 #else
-        while (!LL_SPI_IsActiveFlag_RXNE(_SPI));
+      while (!LL_SPI_IsActiveFlag_RXNE(_SPI));
 #endif
-        *buffer++ = LL_SPI_ReceiveData8(_SPI);
+      if (rx_buffer) {
+        *rx_buffer++ = LL_SPI_ReceiveData8(_SPI);
+      } else {
+        LL_SPI_ReceiveData8(_SPI);
       }
       if ((SPI_TRANSFER_TIMEOUT != HAL_MAX_DELAY) &&
           (HAL_GetTick() - tickstart >= SPI_TRANSFER_TIMEOUT)) {

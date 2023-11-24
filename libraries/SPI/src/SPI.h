@@ -138,6 +138,11 @@ class SPIClass {
     uint16_t transfer16(uint16_t data, bool skipReceive = SPI_TRANSMITRECEIVE);
     void transfer(void *buf, size_t count, bool skipReceive = SPI_TRANSMITRECEIVE);
 
+    /* Expand SPI API
+     * https://github.com/arduino/ArduinoCore-API/discussions/189
+     */
+    void transfer(const void *tx_buf, void *rx_buf, size_t count);
+
     /* These methods are deprecated and kept for compatibility.
      * Use SPISettings with SPI.beginTransaction() to configure SPI parameters.
      */
