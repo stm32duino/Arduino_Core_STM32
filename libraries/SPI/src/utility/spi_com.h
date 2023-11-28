@@ -78,6 +78,13 @@ typedef struct spi_s spi_t;
 #define SPI_SPEED_CLOCK_DIV128_MHZ  ((uint32_t)128)
 #define SPI_SPEED_CLOCK_DIV256_MHZ  ((uint32_t)256)
 
+// Defines a default timeout delay in milliseconds for the SPI transfer
+#ifndef SPI_TRANSFER_TIMEOUT
+#define SPI_TRANSFER_TIMEOUT 1000
+#elif SPI_TRANSFER_TIMEOUT <= 0
+#error "SPI_TRANSFER_TIMEOUT cannot be less or equal to 0!"
+#endif
+
 ///@brief specifies the SPI mode to use
 //Mode          Clock Polarity (CPOL)       Clock Phase (CPHA)
 //SPI_MODE0             0                         0
@@ -103,8 +110,7 @@ typedef enum {
 /* Exported functions ------------------------------------------------------- */
 void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb);
 void spi_deinit(spi_t *obj);
-spi_status_e spi_transfer(spi_t *obj, uint8_t *buffer, uint16_t len,
-                          uint32_t Timeout, bool skipReceive);
+spi_status_e spi_transfer(spi_t *obj, const uint8_t *tx_buffer, uint8_t *rx_buffer, uint16_t len);
 uint32_t spi_getClkFreq(spi_t *obj);
 
 #ifdef __cplusplus

@@ -163,7 +163,7 @@ void SPIClass::setClockDivider(uint8_t divider)
   */
 uint8_t SPIClass::transfer(uint8_t data, bool skipReceive)
 {
-  spi_transfer(&_spi, &data, sizeof(uint8_t), SPI_TRANSFER_TIMEOUT, skipReceive);
+  spi_transfer(&_spi, &data, (!skipReceive) ? &data : NULL, sizeof(uint8_t));
   return data;
 }
 
@@ -184,8 +184,7 @@ uint16_t SPIClass::transfer16(uint16_t data, bool skipReceive)
     tmp = ((data & 0xff00) >> 8) | ((data & 0xff) << 8);
     data = tmp;
   }
-  spi_transfer(&_spi, (uint8_t *)&data, sizeof(uint16_t),
-               SPI_TRANSFER_TIMEOUT, skipReceive);
+  spi_transfer(&_spi, (uint8_t *)&data, (!skipReceive) ? (uint8_t *)&data : NULL, sizeof(uint16_t));
 
   if (_spiSettings.bitOrder) {
     tmp = ((data & 0xff00) >> 8) | ((data & 0xff) << 8);
@@ -207,11 +206,26 @@ uint16_t SPIClass::transfer16(uint16_t data, bool skipReceive)
   */
 void SPIClass::transfer(void *buf, size_t count, bool skipReceive)
 {
-  if ((count != 0) && (buf != NULL)) {
-    spi_transfer(&_spi, ((uint8_t *)buf), count,
-                 SPI_TRANSFER_TIMEOUT, skipReceive);
-  }
+  spi_transfer(&_spi, (uint8_t *)buf, (!skipReceive) ? (uint8_t *)buf : NULL, count);
+
 }
+
+/**
+  * @brief  Transfer several bytes. One constant buffer used to send and
+  *         one to receive data.
+  *         begin() or beginTransaction() must be called at least once before.
+  * @param  tx_buf: array of Tx bytes that is filled by the user before starting
+  *                 the SPI transfer. If NULL, default dummy 0xFF bytes will be
+  *                 clocked out.
+  * @param  rx_buf: array of Rx bytes that will be filled by the slave during
+  *                 the SPI transfer. If NULL, the received data will be discarded.
+  * @param  count: number of bytes to send/receive.
+  */
+void SPIClass::transfer(const void *tx_buf, void *rx_buf, size_t count)
+{
+  spi_transfer(&_spi, ((const uint8_t *)tx_buf), ((uint8_t *)rx_buf), count);
+}
+
 
 /**
   * @brief  Not implemented.

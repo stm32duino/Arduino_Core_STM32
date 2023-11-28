@@ -7,16 +7,18 @@ User have 2 possibilities about the management of the CS pin:
 * the CS pin is managed directly by the user code before to transfer the data (like the Arduino SPI library)
 * the user uses a hardware CS pin linked to the SPI peripheral
 
-### New API functions
+## New API functions
 
-* `SPIClass::SPIClass(uint8_t mosi, uint8_t miso, uint8_t sclk, uint8_t ssel)`: alternative class constructor
-_Params_ SPI `mosi` pin
-_Params_ SPI `miso` pin
-_Params_ SPI `sclk` pin
+#### Alternative class constructor
+* `SPIClass::SPIClass(uint8_t mosi, uint8_t miso, uint8_t sclk, uint8_t ssel)`
+
+_Param_ SPI `mosi` pin
+
+_Param_ SPI `miso` pin
+
+_Param_ SPI `sclk` pin
+
 _Params_ (optional) SPI `ssel` pin. This pin must be an hardware CS pin. If you configure this pin, the chip select will be managed by the SPI peripheral.
-
- * `SPI_HandleTypeDef *getHandle(void)`: Could be used to mix Arduino API and STM32Cube HAL API (ex: DMA). **Use at your own risk.**
-
 
 ##### Example
 
@@ -35,9 +37,15 @@ void setup() {
 }
 ```
 
-### Extended API
+#### Transfer with Tx/Rx buffer
 
-* All `transfer()` API's have a new bool argument `skipReceive`. It allows to skip receive data after transmitting. Value can be `SPI_TRANSMITRECEIVE` or `SPI_TRANSMITONLY`. Default `SPI_TRANSMITRECEIVE`.
+* `void transfer(const void *tx_buf, void *rx_buf, size_t count)` :Transfer several bytes. One constant buffer used to send and one to receive data.
+
+  _Param_  `tx_buf`: constant array of Tx bytes that is filled by the user before starting the SPI transfer. If NULL, default dummy 0xFF bytes will be clocked out.
+
+  _Param_  `rx_buf`: array of Rx bytes that will be filled by the slave during the SPI transfer. If NULL, the received data will be discarded.
+
+  _Param_ `count`: number of bytes to send/receive.
 
 #### Change default `SPI` instance pins
 It is also possible to change the default pins used by the `SPI` instance using above API:
@@ -63,3 +71,9 @@ It is also possible to change the default pins used by the `SPI` instance using 
     SPI.setMOSI(PC2); // using pin number PYn
     SPI.begin(2);
 ```
+
+* `SPI_HandleTypeDef *getHandle(void)`: Could be used to mix Arduino API and STM32Cube HAL API (ex: DMA). **Use at your own risk.**
+
+## Extended API
+
+* All defaustatndard `transfer()` API's have a new bool argument `skipReceive`. It allows to skip receive data after transmitting. Value can be `SPI_TRANSMITRECEIVE` or `SPI_TRANSMITONLY`. Default `SPI_TRANSMITRECEIVE`.
