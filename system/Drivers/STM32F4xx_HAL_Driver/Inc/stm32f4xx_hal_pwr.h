@@ -114,6 +114,8 @@ typedef struct
   */
 #define PWR_SLEEPENTRY_WFI              ((uint8_t)0x01)
 #define PWR_SLEEPENTRY_WFE              ((uint8_t)0x02)
+#define PWR_SLEEPENTRY_WFE_NO_EVT_CLEAR ((uint8_t)0x03)
+
 /**
   * @}
   */
@@ -123,6 +125,7 @@ typedef struct
   */
 #define PWR_STOPENTRY_WFI               ((uint8_t)0x01)
 #define PWR_STOPENTRY_WFE               ((uint8_t)0x02)
+#define PWR_STOPENTRY_WFE_NO_EVT_CLEAR  ((uint8_t)0x03)
 /**
   * @}
   */
@@ -401,8 +404,14 @@ void HAL_PWR_DisableSEVOnPend(void);
                               ((MODE) == PWR_PVD_MODE_NORMAL))
 #define IS_PWR_REGULATOR(REGULATOR) (((REGULATOR) == PWR_MAINREGULATOR_ON) || \
                                      ((REGULATOR) == PWR_LOWPOWERREGULATOR_ON))
-#define IS_PWR_SLEEP_ENTRY(ENTRY) (((ENTRY) == PWR_SLEEPENTRY_WFI) || ((ENTRY) == PWR_SLEEPENTRY_WFE))
-#define IS_PWR_STOP_ENTRY(ENTRY) (((ENTRY) == PWR_STOPENTRY_WFI) || ((ENTRY) == PWR_STOPENTRY_WFE))
+
+#define IS_PWR_SLEEP_ENTRY(ENTRY) (((ENTRY) == PWR_SLEEPENTRY_WFI) || \
+                                   ((ENTRY) == PWR_SLEEPENTRY_WFE) || \
+                                   ((ENTRY) == PWR_SLEEPENTRY_WFE_NO_EVT_CLEAR))
+
+#define IS_PWR_STOP_ENTRY(ENTRY) (((ENTRY) == PWR_STOPENTRY_WFI) || \
+                                  ((ENTRY) == PWR_STOPENTRY_WFE) || \
+                                  ((ENTRY) == PWR_STOPENTRY_WFE_NO_EVT_CLEAR))
 /**
   * @}
   */

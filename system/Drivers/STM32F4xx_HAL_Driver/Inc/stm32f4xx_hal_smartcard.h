@@ -671,8 +671,8 @@ void HAL_SMARTCARD_AbortReceiveCpltCallback(SMARTCARD_HandleTypeDef *hsc);
   * @{
   */
 /* Peripheral State functions  **************************************************/
-HAL_SMARTCARD_StateTypeDef HAL_SMARTCARD_GetState(SMARTCARD_HandleTypeDef *hsc);
-uint32_t HAL_SMARTCARD_GetError(SMARTCARD_HandleTypeDef *hsc);
+HAL_SMARTCARD_StateTypeDef HAL_SMARTCARD_GetState(const SMARTCARD_HandleTypeDef *hsc);
+uint32_t HAL_SMARTCARD_GetError(const SMARTCARD_HandleTypeDef *hsc);
 /**
   * @}
   */

@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2017 STMicroelectronics.
+  * Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -489,6 +489,12 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
                                                           (__HANDLE__)->Instance->WPR = 0xFFU;  \
                                                         } while(0U)
 
+/**
+  * @brief  Check whether the RTC Calendar is initialized.
+  * @param  __HANDLE__ specifies the RTC handle.
+  * @retval None
+  */
+#define __HAL_RTC_IS_CALENDAR_INITIALIZED(__HANDLE__)                 (((((__HANDLE__)->Instance->ISR) & (RTC_FLAG_INITS)) == RTC_FLAG_INITS) ? 1U : 0U)
 
 /**
   * @brief  Enable the RTC ALARMA peripheral.
@@ -772,6 +778,7 @@ HAL_RTCStateTypeDef HAL_RTC_GetState(RTC_HandleTypeDef *hrtc);
                                             RTC_DR_MT | RTC_DR_MU | \
                                             RTC_DR_DT | RTC_DR_DU | \
                                             RTC_DR_WDU))
+#define RTC_ISR_RESERVED_MASK   ((uint32_t)(RTC_FLAGS_MASK | RTC_ISR_INIT))
 #define RTC_INIT_MASK           0xFFFFFFFFU
 #define RTC_RSF_MASK            ((uint32_t)~(RTC_ISR_INIT | RTC_ISR_RSF))
 #define RTC_FLAGS_MASK          ((uint32_t)(RTC_FLAG_INITF   | RTC_FLAG_INITS  | \

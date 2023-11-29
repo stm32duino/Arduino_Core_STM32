@@ -59,7 +59,7 @@
   *          - SUCCESS: RNG registers are de-initialized
   *          - ERROR: not applicable
   */
-ErrorStatus LL_RNG_DeInit(RNG_TypeDef *RNGx)
+ErrorStatus LL_RNG_DeInit(const RNG_TypeDef *RNGx)
 {
   ErrorStatus status = SUCCESS;
 
@@ -77,7 +77,7 @@ ErrorStatus LL_RNG_DeInit(RNG_TypeDef *RNGx)
     /* Enable RNG reset state */
     LL_AHB2_GRP1_ForceReset(LL_AHB2_GRP1_PERIPH_RNG);
 
-  /* Release RNG from reset state */
+    /* Release RNG from reset state */
     LL_AHB2_GRP1_ReleaseReset(LL_AHB2_GRP1_PERIPH_RNG);
 #endif /* !RCC_AHB2_SUPPORT */
   }

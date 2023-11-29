@@ -1657,7 +1657,7 @@ static void HASH_DMAXferCplt(DMA_HandleTypeDef *hdma)
   HASH_HandleTypeDef *hhash = (HASH_HandleTypeDef *)((DMA_HandleTypeDef *)hdma)->Parent;
   uint32_t inputaddr;
   uint32_t buffersize;
-  HAL_StatusTypeDef status = HAL_OK;
+  HAL_StatusTypeDef status;
 
   if (hhash->State != HAL_HASH_STATE_SUSPENDED)
   {

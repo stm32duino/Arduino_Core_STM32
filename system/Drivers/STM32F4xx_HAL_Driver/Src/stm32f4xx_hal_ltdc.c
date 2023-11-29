@@ -178,7 +178,13 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+/** @defgroup LTDC_Private_Define LTDC Private Define
+  * @{
+  */
 #define LTDC_TIMEOUT_VALUE ((uint32_t)100U)  /* 100ms */
+/**
+  * @}
+  */
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
@@ -549,7 +555,7 @@ HAL_StatusTypeDef HAL_LTDC_UnRegisterCallback(LTDC_HandleTypeDef *hltdc, HAL_LTD
         break;
 
       case HAL_LTDC_MSPINIT_CB_ID :
-        hltdc->MspInitCallback = HAL_LTDC_MspInit;                  /* Legcay weak MspInit Callback     */
+        hltdc->MspInitCallback = HAL_LTDC_MspInit;                  /* Legcay weak MspInit Callback  */
         break;
 
       case HAL_LTDC_MSPDEINIT_CB_ID :

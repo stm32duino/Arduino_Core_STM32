@@ -33,10 +33,12 @@
         (##) SPDIFRX pins configuration:
             (+++) Enable the clock for the SPDIFRX GPIOs.
             (+++) Configure these SPDIFRX pins as alternate function pull-up.
-        (##) NVIC configuration if you need to use interrupt process (HAL_SPDIFRX_ReceiveControlFlow_IT() and HAL_SPDIFRX_ReceiveDataFlow_IT() API's).
+        (##) NVIC configuration if you need to use interrupt process (HAL_SPDIFRX_ReceiveControlFlow_IT() and
+             HAL_SPDIFRX_ReceiveDataFlow_IT() API's).
             (+++) Configure the SPDIFRX interrupt priority.
             (+++) Enable the NVIC SPDIFRX IRQ handle.
-        (##) DMA Configuration if you need to use DMA process (HAL_SPDIFRX_ReceiveDataFlow_DMA() and HAL_SPDIFRX_ReceiveControlFlow_DMA() API's).
+        (##) DMA Configuration if you need to use DMA process (HAL_SPDIFRX_ReceiveDataFlow_DMA() and
+             HAL_SPDIFRX_ReceiveControlFlow_DMA() API's).
             (+++) Declare a DMA handle structure for the reception of the Data Flow channel.
             (+++) Declare a DMA handle structure for the reception of the Control Flow channel.
             (+++) Enable the DMAx interface clock.
@@ -46,8 +48,8 @@
             (+++) Configure the priority and enable the NVIC for the transfer complete interrupt on the
                 DMA CtrlRx/DataRx channel.
 
-   (#) Program the input selection, re-tries number, wait for activity, channel status selection, data format, stereo mode and masking of user bits
-       using HAL_SPDIFRX_Init() function.
+   (#) Program the input selection, re-tries number, wait for activity, channel status selection, data format,
+       stereo mode and masking of user bits using HAL_SPDIFRX_Init() function.
 
    -@- The specific SPDIFRX interrupts (RXNE/CSRNE and Error Interrupts) will be managed using the macros
        __SPDIFRX_ENABLE_IT() and __SPDIFRX_DISABLE_IT() inside the receive process.
@@ -90,7 +92,7 @@
    =============================================
    [..]
      Below the list of most used macros in SPDIFRX HAL driver.
-      (+) __HAL_SPDIFRX_IDLE: Disable the specified SPDIFRX peripheral (IDEL State)
+      (+) __HAL_SPDIFRX_IDLE: Disable the specified SPDIFRX peripheral (IDLE State)
       (+) __HAL_SPDIFRX_SYNC: Enable the synchronization state of the specified SPDIFRX peripheral (SYNC State)
       (+) __HAL_SPDIFRX_RCV: Enable the receive state of the specified SPDIFRX peripheral (RCV State)
       (+) __HAL_SPDIFRX_ENABLE_IT : Enable the specified SPDIFRX interrupts
@@ -173,8 +175,13 @@
 #if defined(STM32F446xx)
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#define SPDIFRX_TIMEOUT_VALUE  0xFFFFU
-
+/** @defgroup SPDIFRX_Private_Defines SPDIFRX Private Defines
+  * @{
+  */
+#define SPDIFRX_TIMEOUT_VALUE  10U
+/**
+  * @}
+  */
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
@@ -888,7 +895,8 @@ HAL_StatusTypeDef HAL_SPDIFRX_ReceiveDataFlow_IT(SPDIFRX_HandleTypeDef *hspdif, 
       {
         if (count == 0U)
         {
-          /* Disable TXE, RXNE, PE and ERR (Frame error, noise error, overrun error) interrupts for the interrupt process */
+          /* Disable TXE, RXNE, PE and ERR (Frame error, noise error, overrun error) interrupts for the interrupt
+             process */
           __HAL_SPDIFRX_DISABLE_IT(hspdif, SPDIFRX_IT_RXNE);
           __HAL_SPDIFRX_DISABLE_IT(hspdif, SPDIFRX_IT_CSRNE);
           __HAL_SPDIFRX_DISABLE_IT(hspdif, SPDIFRX_IT_PERRIE);
@@ -973,7 +981,8 @@ HAL_StatusTypeDef HAL_SPDIFRX_ReceiveControlFlow_IT(SPDIFRX_HandleTypeDef *hspdi
       {
         if (count == 0U)
         {
-          /* Disable TXE, RXNE, PE and ERR (Frame error, noise error, overrun error) interrupts for the interrupt process */
+          /* Disable TXE, RXNE, PE and ERR (Frame error, noise error, overrun error) interrupts for the interrupt
+             process */
           __HAL_SPDIFRX_DISABLE_IT(hspdif, SPDIFRX_IT_RXNE);
           __HAL_SPDIFRX_DISABLE_IT(hspdif, SPDIFRX_IT_CSRNE);
           __HAL_SPDIFRX_DISABLE_IT(hspdif, SPDIFRX_IT_PERRIE);
@@ -1047,7 +1056,8 @@ HAL_StatusTypeDef HAL_SPDIFRX_ReceiveDataFlow_DMA(SPDIFRX_HandleTypeDef *hspdif,
     hspdif->hdmaDrRx->XferErrorCallback = SPDIFRX_DMAError;
 
     /* Enable the DMA request */
-    if (HAL_DMA_Start_IT(hspdif->hdmaDrRx, (uint32_t)&hspdif->Instance->DR, (uint32_t)hspdif->pRxBuffPtr, Size) != HAL_OK)
+    if (HAL_DMA_Start_IT(hspdif->hdmaDrRx, (uint32_t)&hspdif->Instance->DR, (uint32_t)hspdif->pRxBuffPtr, Size) !=
+        HAL_OK)
     {
       /* Set SPDIFRX error */
       hspdif->ErrorCode = HAL_SPDIFRX_ERROR_DMA;
@@ -1074,7 +1084,8 @@ HAL_StatusTypeDef HAL_SPDIFRX_ReceiveDataFlow_DMA(SPDIFRX_HandleTypeDef *hspdif,
       {
         if (count == 0U)
         {
-          /* Disable TXE, RXNE, PE and ERR (Frame error, noise error, overrun error) interrupts for the interrupt process */
+          /* Disable TXE, RXNE, PE and ERR (Frame error, noise error, overrun error) interrupts for the interrupt
+             process */
           __HAL_SPDIFRX_DISABLE_IT(hspdif, SPDIFRX_IT_RXNE);
           __HAL_SPDIFRX_DISABLE_IT(hspdif, SPDIFRX_IT_CSRNE);
           __HAL_SPDIFRX_DISABLE_IT(hspdif, SPDIFRX_IT_PERRIE);
@@ -1148,7 +1159,8 @@ HAL_StatusTypeDef HAL_SPDIFRX_ReceiveControlFlow_DMA(SPDIFRX_HandleTypeDef *hspd
     hspdif->hdmaCsRx->XferErrorCallback = SPDIFRX_DMAError;
 
     /* Enable the DMA request */
-    if (HAL_DMA_Start_IT(hspdif->hdmaCsRx, (uint32_t)&hspdif->Instance->CSR, (uint32_t)hspdif->pCsBuffPtr, Size) != HAL_OK)
+    if (HAL_DMA_Start_IT(hspdif->hdmaCsRx, (uint32_t)&hspdif->Instance->CSR, (uint32_t)hspdif->pCsBuffPtr, Size) !=
+        HAL_OK)
     {
       /* Set SPDIFRX error */
       hspdif->ErrorCode = HAL_SPDIFRX_ERROR_DMA;
@@ -1175,7 +1187,8 @@ HAL_StatusTypeDef HAL_SPDIFRX_ReceiveControlFlow_DMA(SPDIFRX_HandleTypeDef *hspd
       {
         if (count == 0U)
         {
-          /* Disable TXE, RXNE, PE and ERR (Frame error, noise error, overrun error) interrupts for the interrupt process */
+          /* Disable TXE, RXNE, PE and ERR (Frame error, noise error, overrun error) interrupts for the interrupt
+             process */
           __HAL_SPDIFRX_DISABLE_IT(hspdif, SPDIFRX_IT_RXNE);
           __HAL_SPDIFRX_DISABLE_IT(hspdif, SPDIFRX_IT_CSRNE);
           __HAL_SPDIFRX_DISABLE_IT(hspdif, SPDIFRX_IT_PERRIE);
@@ -1224,8 +1237,14 @@ HAL_StatusTypeDef HAL_SPDIFRX_DMAStop(SPDIFRX_HandleTypeDef *hspdif)
   hspdif->Instance->CR &= (uint16_t)(~SPDIFRX_CR_CBDMAEN);
 
   /* Disable the SPDIFRX DMA channel */
-  __HAL_DMA_DISABLE(hspdif->hdmaDrRx);
-  __HAL_DMA_DISABLE(hspdif->hdmaCsRx);
+  if (hspdif->hdmaDrRx != NULL)
+  {
+    __HAL_DMA_DISABLE(hspdif->hdmaDrRx);
+  }
+  if (hspdif->hdmaCsRx != NULL)
+  {
+    __HAL_DMA_DISABLE(hspdif->hdmaCsRx);
+  }
 
   /* Disable SPDIFRX peripheral */
   __HAL_SPDIFRX_IDLE(hspdif);
@@ -1578,8 +1597,8 @@ static void SPDIFRX_ReceiveControlFlow_IT(SPDIFRX_HandleTypeDef *hspdif)
   * @param tickstart Tick start value
   * @retval HAL status
   */
-static HAL_StatusTypeDef SPDIFRX_WaitOnFlagUntilTimeout(SPDIFRX_HandleTypeDef *hspdif, uint32_t Flag, FlagStatus Status,
-                                                        uint32_t Timeout, uint32_t tickstart)
+static HAL_StatusTypeDef SPDIFRX_WaitOnFlagUntilTimeout(SPDIFRX_HandleTypeDef *hspdif, uint32_t Flag,
+                                                        FlagStatus Status, uint32_t Timeout, uint32_t tickstart)
 {
   /* Wait until flag is set */
   while (__HAL_SPDIFRX_GET_FLAG(hspdif, Flag) == Status)
@@ -1589,7 +1608,8 @@ static HAL_StatusTypeDef SPDIFRX_WaitOnFlagUntilTimeout(SPDIFRX_HandleTypeDef *h
     {
       if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
       {
-        /* Disable TXE, RXNE, PE and ERR (Frame error, noise error, overrun error) interrupts for the interrupt process */
+        /* Disable TXE, RXNE, PE and ERR (Frame error, noise error, overrun error) interrupts for the interrupt
+           process */
         __HAL_SPDIFRX_DISABLE_IT(hspdif, SPDIFRX_IT_RXNE);
         __HAL_SPDIFRX_DISABLE_IT(hspdif, SPDIFRX_IT_CSRNE);
         __HAL_SPDIFRX_DISABLE_IT(hspdif, SPDIFRX_IT_PERRIE);
