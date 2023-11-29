@@ -304,7 +304,7 @@ typedef struct
                                         delay between ALE low and RE low.
                                         This parameter can be a number between Min_Data = 0 and Max_Data = 255 */
 } FSMC_NAND_InitTypeDef;
-#endif
+#endif /* FSMC_Bank2_3 */
 
 #if defined(FSMC_Bank2_3) || defined(FSMC_Bank4)
 /**

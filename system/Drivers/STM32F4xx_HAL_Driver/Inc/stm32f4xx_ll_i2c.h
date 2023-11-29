@@ -263,7 +263,7 @@ typedef struct
   * @}
   */
 
-/** @defgroup I2C_LL_EM_Exported_Macros_Helper Exported_Macros_Helper
+/** @defgroup I2C_LL_EM_Exported_Macros_Helper Exported Macros Helper
   * @{
   */
 
@@ -869,7 +869,7 @@ __STATIC_INLINE void LL_I2C_ConfigSpeed(I2C_TypeDef *I2Cx, uint32_t PeriphClock,
 
 /**
   * @brief  Configure peripheral mode.
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @rmtoll CR1          SMBUS         LL_I2C_SetMode\n
   *         CR1          SMBTYPE       LL_I2C_SetMode\n
@@ -889,7 +889,7 @@ __STATIC_INLINE void LL_I2C_SetMode(I2C_TypeDef *I2Cx, uint32_t PeripheralMode)
 
 /**
   * @brief  Get peripheral mode.
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @rmtoll CR1          SMBUS         LL_I2C_GetMode\n
   *         CR1          SMBTYPE       LL_I2C_GetMode\n
@@ -908,7 +908,7 @@ __STATIC_INLINE uint32_t LL_I2C_GetMode(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Enable SMBus alert (Host or Device mode)
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @note   SMBus Device mode:
   *         - SMBus Alert pin is drived low and
@@ -926,7 +926,7 @@ __STATIC_INLINE void LL_I2C_EnableSMBusAlert(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Disable SMBus alert (Host or Device mode)
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @note   SMBus Device mode:
   *         - SMBus Alert pin is not drived (can be used as a standard GPIO) and
@@ -944,7 +944,7 @@ __STATIC_INLINE void LL_I2C_DisableSMBusAlert(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Check if SMBus alert (Host or Device mode) is enabled or disabled.
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @rmtoll CR1          ALERT         LL_I2C_IsEnabledSMBusAlert
   * @param  I2Cx I2C Instance.
@@ -957,7 +957,7 @@ __STATIC_INLINE uint32_t LL_I2C_IsEnabledSMBusAlert(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Enable SMBus Packet Error Calculation (PEC).
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @rmtoll CR1          ENPEC         LL_I2C_EnableSMBusPEC
   * @param  I2Cx I2C Instance.
@@ -970,7 +970,7 @@ __STATIC_INLINE void LL_I2C_EnableSMBusPEC(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Disable SMBus Packet Error Calculation (PEC).
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @rmtoll CR1          ENPEC         LL_I2C_DisableSMBusPEC
   * @param  I2Cx I2C Instance.
@@ -983,7 +983,7 @@ __STATIC_INLINE void LL_I2C_DisableSMBusPEC(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Check if SMBus Packet Error Calculation (PEC) is enabled or disabled.
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @rmtoll CR1          ENPEC         LL_I2C_IsEnabledSMBusPEC
   * @param  I2Cx I2C Instance.
@@ -1166,7 +1166,7 @@ __STATIC_INLINE uint32_t LL_I2C_IsEnabledIT_BUF(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Enable Error interrupts.
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @note   Any of these errors will generate interrupt :
   *         Bus Error detection (BERR)
@@ -1187,7 +1187,7 @@ __STATIC_INLINE void LL_I2C_EnableIT_ERR(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Disable Error interrupts.
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @note   Any of these errors will generate interrupt :
   *         Bus Error detection (BERR)
@@ -1370,7 +1370,7 @@ __STATIC_INLINE uint32_t LL_I2C_IsActiveFlag_OVR(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Indicate the status of SMBus PEC error flag in reception.
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @rmtoll SR1          PECERR        LL_I2C_IsActiveSMBusFlag_PECERR
   * @param  I2Cx I2C Instance.
@@ -1383,7 +1383,7 @@ __STATIC_INLINE uint32_t LL_I2C_IsActiveSMBusFlag_PECERR(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Indicate the status of SMBus Timeout detection flag.
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @rmtoll SR1          TIMEOUT       LL_I2C_IsActiveSMBusFlag_TIMEOUT
   * @param  I2Cx I2C Instance.
@@ -1396,7 +1396,7 @@ __STATIC_INLINE uint32_t LL_I2C_IsActiveSMBusFlag_TIMEOUT(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Indicate the status of SMBus alert flag.
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @rmtoll SR1          SMBALERT      LL_I2C_IsActiveSMBusFlag_ALERT
   * @param  I2Cx I2C Instance.
@@ -1435,7 +1435,7 @@ __STATIC_INLINE uint32_t LL_I2C_IsActiveFlag_DUAL(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Indicate the status of SMBus Host address reception (Slave mode).
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @note   RESET: No SMBus Host address
   *         SET: SMBus Host address received.
@@ -1451,7 +1451,7 @@ __STATIC_INLINE uint32_t LL_I2C_IsActiveSMBusFlag_SMBHOST(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Indicate the status of SMBus Device default address reception (Slave mode).
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @note   RESET: No SMBus Device default address
   *         SET: SMBus Device default address received.
@@ -1583,7 +1583,7 @@ __STATIC_INLINE void LL_I2C_ClearSMBusFlag_PECERR(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Clear SMBus Timeout detection flag.
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @rmtoll SR1          TIMEOUT       LL_I2C_ClearSMBusFlag_TIMEOUT
   * @param  I2Cx I2C Instance.
@@ -1596,7 +1596,7 @@ __STATIC_INLINE void LL_I2C_ClearSMBusFlag_TIMEOUT(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Clear SMBus Alert flag.
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @rmtoll SR1          SMBALERT      LL_I2C_ClearSMBusFlag_ALERT
   * @param  I2Cx I2C Instance.
@@ -1774,7 +1774,7 @@ __STATIC_INLINE uint32_t LL_I2C_IsEnabledLastDMA(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Enable transfer or internal comparison of the SMBus Packet Error byte (transmission or reception mode).
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @note   This feature is cleared by hardware when the PEC byte is transferred or compared,
   *         or by a START or STOP condition, it is also cleared by software.
@@ -1789,7 +1789,7 @@ __STATIC_INLINE void LL_I2C_EnableSMBusPECCompare(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Disable transfer or internal comparison of the SMBus Packet Error byte (transmission or reception mode).
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @rmtoll CR1          PEC           LL_I2C_DisableSMBusPECCompare
   * @param  I2Cx I2C Instance.
@@ -1802,7 +1802,7 @@ __STATIC_INLINE void LL_I2C_DisableSMBusPECCompare(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Check if the SMBus Packet Error byte transfer or internal comparison is requested or not.
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @rmtoll CR1          PEC           LL_I2C_IsEnabledSMBusPECCompare
   * @param  I2Cx I2C Instance.
@@ -1815,7 +1815,7 @@ __STATIC_INLINE uint32_t LL_I2C_IsEnabledSMBusPECCompare(I2C_TypeDef *I2Cx)
 
 /**
   * @brief  Get the SMBus Packet Error byte calculated.
-  * @note   Macro @ref IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
+  * @note   Macro IS_SMBUS_ALL_INSTANCE(I2Cx) can be used to check whether or not
   *         SMBus feature is supported by the I2Cx Instance.
   * @rmtoll SR2          PEC           LL_I2C_GetSMBusPEC
   * @param  I2Cx I2C Instance.

@@ -369,7 +369,7 @@ typedef struct
                                         delay between ALE low and RE low.
                                         This parameter can be a number between Min_Data = 0 and Max_Data = 255 */
 } FMC_NAND_InitTypeDef;
-#endif
+#endif /* FMC_Bank3 || FMC_Bank2_3 */
 
 #if defined(FMC_Bank3) || defined(FMC_Bank2_3) || defined(FMC_Bank4)
 /**
@@ -1388,7 +1388,7 @@ HAL_StatusTypeDef  FMC_SDRAM_SendCommand(FMC_SDRAM_TypeDef *Device,
 HAL_StatusTypeDef  FMC_SDRAM_ProgramRefreshRate(FMC_SDRAM_TypeDef *Device, uint32_t RefreshRate);
 HAL_StatusTypeDef  FMC_SDRAM_SetAutoRefreshNumber(FMC_SDRAM_TypeDef *Device,
                                                   uint32_t AutoRefreshNumber);
-uint32_t           FMC_SDRAM_GetModeStatus(FMC_SDRAM_TypeDef *Device, uint32_t Bank);
+uint32_t           FMC_SDRAM_GetModeStatus(const FMC_SDRAM_TypeDef *Device, uint32_t Bank);
 /**
   * @}
   */

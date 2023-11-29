@@ -171,6 +171,7 @@ typedef struct
   *
   */
 
+#ifdef HAL_ETH_USE_PTP
 /**
   * @brief  ETH Timeupdate structure definition
   */
@@ -182,6 +183,7 @@ typedef struct
 /**
   *
   */
+#endif  /* HAL_ETH_USE_PTP */
 
 /**
   * @brief  DMA Receive Descriptors Wrapper structure definition
@@ -347,7 +349,6 @@ typedef struct
 
   uint32_t        BurstMode;               /*!< Sets the AHB Master interface burst transfers.
                                                      This parameter can be a value of @ref ETH_Burst_Mode */
-
   FunctionalState      DropTCPIPChecksumErrorFrame; /*!< Selects or not the Dropping of TCP/IP Checksum Error Frames */
 
   FunctionalState      ReceiveStoreForward;         /*!< Enables or disables the Receive store and forward mode */
@@ -407,6 +408,7 @@ typedef enum
   *
   */
 
+#ifdef HAL_ETH_USE_PTP
 /**
   * @brief  HAL ETH PTP Update type enum definition
   */
@@ -418,13 +420,13 @@ typedef enum
 /**
   *
   */
+#endif  /* HAL_ETH_USE_PTP */
 
 /**
   * @brief  ETH Init Structure definition
   */
 typedef struct
 {
-
   uint8_t
   *MACAddr;                  /*!< MAC Address of used Hardware: must be pointer on an array of 6 bytes */
 
@@ -443,6 +445,7 @@ typedef struct
   *
   */
 
+#ifdef HAL_ETH_USE_PTP
 /**
   * @brief  ETH PTP Init Structure definition
   */
@@ -470,6 +473,7 @@ typedef struct
 /**
   *
   */
+#endif  /* HAL_ETH_USE_PTP */
 
 /**
   * @brief  HAL State structures definition
@@ -538,7 +542,7 @@ typedef struct
 
   __IO HAL_ETH_StateTypeDef  gState;                   /*!< ETH state information related to global Handle management
                                                               and also related to Tx operations. This parameter can
-                                                              be a value of @ref HAL_ETH_StateTypeDef */
+                                                              be a value of @ref ETH_State_Codes */
 
   __IO uint32_t              ErrorCode;                 /*!< Holds the global Error code of the ETH HAL status machine
                                                              This parameter can be a value of @ref ETH_Error_Code.*/
@@ -595,13 +599,11 @@ typedef enum
 {
   HAL_ETH_MSPINIT_CB_ID            = 0x00U,    /*!< ETH MspInit callback ID           */
   HAL_ETH_MSPDEINIT_CB_ID          = 0x01U,    /*!< ETH MspDeInit callback ID         */
-
   HAL_ETH_TX_COMPLETE_CB_ID        = 0x02U,    /*!< ETH Tx Complete Callback ID       */
   HAL_ETH_RX_COMPLETE_CB_ID        = 0x03U,    /*!< ETH Rx Complete Callback ID       */
   HAL_ETH_ERROR_CB_ID              = 0x04U,    /*!< ETH Error Callback ID             */
   HAL_ETH_PMT_CB_ID                = 0x06U,    /*!< ETH Power Management Callback ID  */
   HAL_ETH_WAKEUP_CB_ID             = 0x08U     /*!< ETH Wake UP Callback ID           */
-
 
 } HAL_ETH_CallbackIDTypeDef;
 
@@ -1298,7 +1300,7 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
   * @}
   */
 
-/** @defgroup HAL_ETH_StateTypeDef ETH States
+/** @defgroup ETH_State_Codes ETH States
   * @{
   */
 #define HAL_ETH_STATE_RESET       0x00000000U    /*!< Peripheral not yet Initialized or disabled */
@@ -1902,6 +1904,7 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
   *   enabled @ref ETH_MAC_Interrupts
   * @retval None
   */
+
 #define __HAL_ETH_MAC_ENABLE_IT(__HANDLE__, __INTERRUPT__)                 ((__HANDLE__)->Instance->MACIER \
                                                                             |= (__INTERRUPT__))
 
@@ -1921,8 +1924,8 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
   * @param  __INTERRUPT__: specifies the flag to check. @ref ETH_MAC_Interrupts
   * @retval The state of ETH MAC IT (SET or RESET).
   */
-#define __HAL_ETH_MAC_GET_IT(__HANDLE__, __INTERRUPT__)                   (((__HANDLE__)->Instance->MACSR &\
-                                                                            ( __INTERRUPT__)) == ( __INTERRUPT__))
+#define __HAL_ETH_MAC_GET_IT(__HANDLE__, __INTERRUPT__)                     (((__HANDLE__)->Instance->MACSR &\
+                                                                              ( __INTERRUPT__)) == ( __INTERRUPT__))
 
 /*!< External interrupt line 19 Connected to the ETH wakeup EXTI Line */
 #define ETH_WAKEUP_EXTI_LINE  0x00080000U
@@ -1991,6 +1994,7 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
                                                            (__FLAG__)) == (__FLAG__)) ? SET : RESET)
 
 #define __HAL_ETH_SET_PTP_CONTROL(__HANDLE__, __FLAG__)   ((__HANDLE__)->Instance->PTPTSCR |= (__FLAG__))
+
 /**
   * @}
   */
@@ -2059,7 +2063,7 @@ HAL_StatusTypeDef HAL_ETH_UnRegisterTxPtpCallback(ETH_HandleTypeDef *heth);
 HAL_StatusTypeDef HAL_ETH_Transmit(ETH_HandleTypeDef *heth, ETH_TxPacketConfig *pTxConfig, uint32_t Timeout);
 HAL_StatusTypeDef HAL_ETH_Transmit_IT(ETH_HandleTypeDef *heth, ETH_TxPacketConfig *pTxConfig);
 
-HAL_StatusTypeDef HAL_ETH_WritePHYRegister(ETH_HandleTypeDef *heth, uint32_t PHYAddr, uint32_t PHYReg,
+HAL_StatusTypeDef HAL_ETH_WritePHYRegister(const ETH_HandleTypeDef *heth, uint32_t PHYAddr, uint32_t PHYReg,
                                            uint32_t RegValue);
 HAL_StatusTypeDef HAL_ETH_ReadPHYRegister(ETH_HandleTypeDef *heth, uint32_t PHYAddr, uint32_t PHYReg,
                                           uint32_t *pRegValue);
@@ -2095,12 +2099,14 @@ void              HAL_ETH_SetRxVLANIdentifier(ETH_HandleTypeDef *heth, uint32_t 
 
 /* MAC L2 Packet Filtering APIs  **********************************************/
 HAL_StatusTypeDef HAL_ETH_GetMACFilterConfig(ETH_HandleTypeDef *heth, ETH_MACFilterConfigTypeDef *pFilterConfig);
-HAL_StatusTypeDef HAL_ETH_SetMACFilterConfig(ETH_HandleTypeDef *heth, ETH_MACFilterConfigTypeDef *pFilterConfig);
+HAL_StatusTypeDef HAL_ETH_SetMACFilterConfig(ETH_HandleTypeDef *heth, const ETH_MACFilterConfigTypeDef *pFilterConfig);
 HAL_StatusTypeDef HAL_ETH_SetHashTable(ETH_HandleTypeDef *heth, uint32_t *pHashTable);
-HAL_StatusTypeDef HAL_ETH_SetSourceMACAddrMatch(ETH_HandleTypeDef *heth, uint32_t AddrNbr, uint8_t *pMACAddr);
+HAL_StatusTypeDef HAL_ETH_SetSourceMACAddrMatch(const ETH_HandleTypeDef *heth, uint32_t AddrNbr,
+                                                const uint8_t *pMACAddr);
 
 /* MAC Power Down APIs    *****************************************************/
-void              HAL_ETH_EnterPowerDownMode(ETH_HandleTypeDef *heth, ETH_PowerDownConfigTypeDef *pPowerDownConfig);
+void              HAL_ETH_EnterPowerDownMode(ETH_HandleTypeDef *heth,
+                                             const ETH_PowerDownConfigTypeDef *pPowerDownConfig);
 void              HAL_ETH_ExitPowerDownMode(ETH_HandleTypeDef *heth);
 HAL_StatusTypeDef HAL_ETH_SetWakeUpFilter(ETH_HandleTypeDef *heth, uint32_t *pFilter, uint32_t Count);
 
@@ -2112,11 +2118,11 @@ HAL_StatusTypeDef HAL_ETH_SetWakeUpFilter(ETH_HandleTypeDef *heth, uint32_t *pFi
   * @{
   */
 /* Peripheral State functions  **************************************************/
-HAL_ETH_StateTypeDef HAL_ETH_GetState(ETH_HandleTypeDef *heth);
-uint32_t             HAL_ETH_GetError(ETH_HandleTypeDef *heth);
-uint32_t             HAL_ETH_GetDMAError(ETH_HandleTypeDef *heth);
-uint32_t             HAL_ETH_GetMACError(ETH_HandleTypeDef *heth);
-uint32_t             HAL_ETH_GetMACWakeUpSource(ETH_HandleTypeDef *heth);
+HAL_ETH_StateTypeDef HAL_ETH_GetState(const ETH_HandleTypeDef *heth);
+uint32_t             HAL_ETH_GetError(const ETH_HandleTypeDef *heth);
+uint32_t             HAL_ETH_GetDMAError(const ETH_HandleTypeDef *heth);
+uint32_t             HAL_ETH_GetMACError(const ETH_HandleTypeDef *heth);
+uint32_t             HAL_ETH_GetMACWakeUpSource(const ETH_HandleTypeDef *heth);
 /**
   * @}
   */
@@ -2140,5 +2146,3 @@ uint32_t             HAL_ETH_GetMACWakeUpSource(ETH_HandleTypeDef *heth);
 #endif
 
 #endif /* STM32F4xx_HAL_ETH_H */
-
-

@@ -71,8 +71,8 @@ extern "C" {
   */
 
 /* Extended features functions ************************************************/
-void SAI_BlockSynchroConfig(SAI_HandleTypeDef *hsai);
-uint32_t SAI_GetInputClock(SAI_HandleTypeDef *hsai);
+void SAI_BlockSynchroConfig(const SAI_HandleTypeDef *hsai);
+uint32_t SAI_GetInputClock(const SAI_HandleTypeDef *hsai);
 /**
   * @}
   */

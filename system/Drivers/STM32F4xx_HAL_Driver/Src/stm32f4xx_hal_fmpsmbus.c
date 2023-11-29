@@ -209,20 +209,28 @@
 /** @addtogroup FMPSMBUS_Private_Functions FMPSMBUS Private Functions
   * @{
   */
+/* Private functions to handle flags during polling transfer */
 static HAL_StatusTypeDef FMPSMBUS_WaitOnFlagUntilTimeout(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t Flag,
-                                                      FlagStatus Status, uint32_t Timeout);
+                                                         FlagStatus Status, uint32_t Timeout);
 
-static void FMPSMBUS_Enable_IRQ(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t InterruptRequest);
-static void FMPSMBUS_Disable_IRQ(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t InterruptRequest);
+/* Private functions for FMPSMBUS transfer IRQ handler */
 static HAL_StatusTypeDef FMPSMBUS_Master_ISR(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t StatusFlags);
 static HAL_StatusTypeDef FMPSMBUS_Slave_ISR(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t StatusFlags);
-
-static void FMPSMBUS_ConvertOtherXferOptions(FMPSMBUS_HandleTypeDef *hfmpsmbus);
-
 static void FMPSMBUS_ITErrorHandler(FMPSMBUS_HandleTypeDef *hfmpsmbus);
 
+/* Private functions to centralize the enable/disable of Interrupts */
+static void FMPSMBUS_Enable_IRQ(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t InterruptRequest);
+static void FMPSMBUS_Disable_IRQ(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t InterruptRequest);
+
+/* Private function to flush TXDR register */
+static void FMPSMBUS_Flush_TXDR(FMPSMBUS_HandleTypeDef *hfmpsmbus);
+
+/* Private function to handle start, restart or stop a transfer */
 static void FMPSMBUS_TransferConfig(FMPSMBUS_HandleTypeDef *hfmpsmbus,  uint16_t DevAddress, uint8_t Size,
-                                 uint32_t Mode, uint32_t Request);
+                                    uint32_t Mode, uint32_t Request);
+
+/* Private function to Convert Specific options */
+static void FMPSMBUS_ConvertOtherXferOptions(FMPSMBUS_HandleTypeDef *hfmpsmbus);
 /**
   * @}
   */
@@ -371,13 +379,13 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Init(FMPSMBUS_HandleTypeDef *hfmpsmbus)
   /*---------------------------- FMPSMBUSx OAR2 Configuration -----------------------*/
   /* Configure FMPSMBUSx: Dual mode and Own Address2 */
   hfmpsmbus->Instance->OAR2 = (hfmpsmbus->Init.DualAddressMode | hfmpsmbus->Init.OwnAddress2 | \
-                            (hfmpsmbus->Init.OwnAddress2Masks << 8U));
+                               (hfmpsmbus->Init.OwnAddress2Masks << 8U));
 
   /*---------------------------- FMPSMBUSx CR1 Configuration ------------------------*/
   /* Configure FMPSMBUSx: Generalcall and NoStretch mode */
   hfmpsmbus->Instance->CR1 = (hfmpsmbus->Init.GeneralCallMode | hfmpsmbus->Init.NoStretchMode | \
-                           hfmpsmbus->Init.PacketErrorCheckMode | hfmpsmbus->Init.PeripheralMode | \
-                           hfmpsmbus->Init.AnalogFilter);
+                              hfmpsmbus->Init.PacketErrorCheckMode | hfmpsmbus->Init.PeripheralMode | \
+                              hfmpsmbus->Init.AnalogFilter);
 
   /* Enable Slave Byte Control only in case of Packet Error Check is enabled
      and FMPSMBUS Peripheral is set in Slave mode */
@@ -577,6 +585,9 @@ HAL_StatusTypeDef HAL_FMPSMBUS_ConfigDigitalFilter(FMPSMBUS_HandleTypeDef *hfmps
 /**
   * @brief  Register a User FMPSMBUS Callback
   *         To be used instead of the weak predefined callback
+  * @note   The HAL_FMPSMBUS_RegisterCallback() may be called before HAL_FMPSMBUS_Init() in
+  *         HAL_FMPSMBUS_STATE_RESET to register callbacks for HAL_FMPSMBUS_MSPINIT_CB_ID and
+  *         HAL_FMPSMBUS_MSPDEINIT_CB_ID.
   * @param  hfmpsmbus Pointer to a FMPSMBUS_HandleTypeDef structure that contains
   *                the configuration information for the specified FMPSMBUS.
   * @param  CallbackID ID of the callback to be registered
@@ -593,8 +604,8 @@ HAL_StatusTypeDef HAL_FMPSMBUS_ConfigDigitalFilter(FMPSMBUS_HandleTypeDef *hfmps
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_FMPSMBUS_RegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus,
-                                             HAL_FMPSMBUS_CallbackIDTypeDef CallbackID,
-                                             pFMPSMBUS_CallbackTypeDef pCallback)
+                                                HAL_FMPSMBUS_CallbackIDTypeDef CallbackID,
+                                                pFMPSMBUS_CallbackTypeDef pCallback)
 {
   HAL_StatusTypeDef status = HAL_OK;
 
@@ -605,9 +616,6 @@ HAL_StatusTypeDef HAL_FMPSMBUS_RegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsmbu
 
     return HAL_ERROR;
   }
-
-  /* Process locked */
-  __HAL_LOCK(hfmpsmbus);
 
   if (HAL_FMPSMBUS_STATE_READY == hfmpsmbus->State)
   {
@@ -684,14 +692,15 @@ HAL_StatusTypeDef HAL_FMPSMBUS_RegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsmbu
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hfmpsmbus);
   return status;
 }
 
 /**
   * @brief  Unregister an FMPSMBUS Callback
   *         FMPSMBUS callback is redirected to the weak predefined callback
+  * @note   The HAL_FMPSMBUS_UnRegisterCallback() may be called before HAL_FMPSMBUS_Init() in
+  *         HAL_FMPSMBUS_STATE_RESET to un-register callbacks for HAL_FMPSMBUS_MSPINIT_CB_ID and
+  *         HAL_FMPSMBUS_MSPDEINIT_CB_ID
   * @param  hfmpsmbus Pointer to a FMPSMBUS_HandleTypeDef structure that contains
   *                the configuration information for the specified FMPSMBUS.
   * @param  CallbackID ID of the callback to be unregistered
@@ -708,12 +717,9 @@ HAL_StatusTypeDef HAL_FMPSMBUS_RegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsmbu
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus,
-                                               HAL_FMPSMBUS_CallbackIDTypeDef CallbackID)
+                                                  HAL_FMPSMBUS_CallbackIDTypeDef CallbackID)
 {
   HAL_StatusTypeDef status = HAL_OK;
-
-  /* Process locked */
-  __HAL_LOCK(hfmpsmbus);
 
   if (HAL_FMPSMBUS_STATE_READY == hfmpsmbus->State)
   {
@@ -790,8 +796,6 @@ HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsm
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hfmpsmbus);
   return status;
 }
 
@@ -804,7 +808,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsm
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_FMPSMBUS_RegisterAddrCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus,
-                                                 pFMPSMBUS_AddrCallbackTypeDef pCallback)
+                                                    pFMPSMBUS_AddrCallbackTypeDef pCallback)
 {
   HAL_StatusTypeDef status = HAL_OK;
 
@@ -815,8 +819,6 @@ HAL_StatusTypeDef HAL_FMPSMBUS_RegisterAddrCallback(FMPSMBUS_HandleTypeDef *hfmp
 
     return HAL_ERROR;
   }
-  /* Process locked */
-  __HAL_LOCK(hfmpsmbus);
 
   if (HAL_FMPSMBUS_STATE_READY == hfmpsmbus->State)
   {
@@ -831,8 +833,6 @@ HAL_StatusTypeDef HAL_FMPSMBUS_RegisterAddrCallback(FMPSMBUS_HandleTypeDef *hfmp
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hfmpsmbus);
   return status;
 }
 
@@ -847,9 +847,6 @@ HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterAddrCallback(FMPSMBUS_HandleTypeDef *hf
 {
   HAL_StatusTypeDef status = HAL_OK;
 
-  /* Process locked */
-  __HAL_LOCK(hfmpsmbus);
-
   if (HAL_FMPSMBUS_STATE_READY == hfmpsmbus->State)
   {
     hfmpsmbus->AddrCallback = HAL_FMPSMBUS_AddrCallback; /* Legacy weak AddrCallback  */
@@ -863,8 +860,6 @@ HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterAddrCallback(FMPSMBUS_HandleTypeDef *hf
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hfmpsmbus);
   return status;
 }
 
@@ -929,9 +924,10 @@ HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterAddrCallback(FMPSMBUS_HandleTypeDef *hf
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_FMPSMBUS_Master_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress,
-                                               uint8_t *pData, uint16_t Size, uint32_t XferOptions)
+                                                  uint8_t *pData, uint16_t Size, uint32_t XferOptions)
 {
   uint32_t tmp;
+  uint32_t sizetoxfer;
 
   /* Check the parameters */
   assert_param(IS_FMPSMBUS_TRANSFER_OPTIONS_REQUEST(XferOptions));
@@ -964,13 +960,37 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Master_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsm
       hfmpsmbus->XferSize = Size;
     }
 
+    sizetoxfer = hfmpsmbus->XferSize;
+    if ((sizetoxfer > 0U) && ((XferOptions == FMPSMBUS_FIRST_FRAME) ||
+                              (XferOptions == FMPSMBUS_FIRST_AND_LAST_FRAME_NO_PEC) ||
+                              (XferOptions == FMPSMBUS_FIRST_FRAME_WITH_PEC) ||
+                              (XferOptions == FMPSMBUS_FIRST_AND_LAST_FRAME_WITH_PEC)))
+    {
+      if (hfmpsmbus->pBuffPtr != NULL)
+      {
+        /* Preload TX register */
+        /* Write data to TXDR */
+        hfmpsmbus->Instance->TXDR = *hfmpsmbus->pBuffPtr;
+
+        /* Increment Buffer pointer */
+        hfmpsmbus->pBuffPtr++;
+
+        hfmpsmbus->XferCount--;
+        hfmpsmbus->XferSize--;
+      }
+      else
+      {
+        return HAL_ERROR;
+      }
+    }
+
     /* Send Slave Address */
     /* Set NBYTES to write and reload if size > MAX_NBYTE_SIZE and generate RESTART */
-    if ((hfmpsmbus->XferSize < hfmpsmbus->XferCount) && (hfmpsmbus->XferSize == MAX_NBYTE_SIZE))
+    if ((sizetoxfer < hfmpsmbus->XferCount) && (sizetoxfer == MAX_NBYTE_SIZE))
     {
-      FMPSMBUS_TransferConfig(hfmpsmbus, DevAddress, (uint8_t)hfmpsmbus->XferSize,
-                           FMPSMBUS_RELOAD_MODE | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE),
-                           FMPSMBUS_GENERATE_START_WRITE);
+      FMPSMBUS_TransferConfig(hfmpsmbus, DevAddress, (uint8_t)sizetoxfer,
+                              FMPSMBUS_RELOAD_MODE | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE),
+                              FMPSMBUS_GENERATE_START_WRITE);
     }
     else
     {
@@ -983,8 +1003,8 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Master_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsm
       if ((hfmpsmbus->PreviousState == HAL_FMPSMBUS_STATE_MASTER_BUSY_TX) && \
           (IS_FMPSMBUS_TRANSFER_OTHER_OPTIONS_REQUEST(tmp) == 0))
       {
-        FMPSMBUS_TransferConfig(hfmpsmbus, DevAddress, (uint8_t)hfmpsmbus->XferSize, hfmpsmbus->XferOptions,
-                             FMPSMBUS_NO_STARTSTOP);
+        FMPSMBUS_TransferConfig(hfmpsmbus, DevAddress, (uint8_t)sizetoxfer, hfmpsmbus->XferOptions,
+                                FMPSMBUS_NO_STARTSTOP);
       }
       /* Else transfer direction change, so generate Restart with new transfer direction */
       else
@@ -993,17 +1013,24 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Master_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsm
         FMPSMBUS_ConvertOtherXferOptions(hfmpsmbus);
 
         /* Handle Transfer */
-        FMPSMBUS_TransferConfig(hfmpsmbus, DevAddress, (uint8_t)hfmpsmbus->XferSize,
-                             hfmpsmbus->XferOptions,
-                             FMPSMBUS_GENERATE_START_WRITE);
+        FMPSMBUS_TransferConfig(hfmpsmbus, DevAddress, (uint8_t)sizetoxfer,
+                                hfmpsmbus->XferOptions,
+                                FMPSMBUS_GENERATE_START_WRITE);
       }
 
       /* If PEC mode is enable, size to transmit manage by SW part should be Size-1 byte, corresponding to PEC byte */
       /* PEC byte is automatically sent by HW block, no need to manage it in Transmit process */
       if (FMPSMBUS_GET_PEC_MODE(hfmpsmbus) != 0UL)
       {
-        hfmpsmbus->XferSize--;
-        hfmpsmbus->XferCount--;
+        if (hfmpsmbus->XferSize > 0U)
+        {
+          hfmpsmbus->XferSize--;
+          hfmpsmbus->XferCount--;
+        }
+        else
+        {
+          return HAL_ERROR;
+        }
       }
     }
 
@@ -1035,7 +1062,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Master_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsm
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_FMPSMBUS_Master_Receive_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress, uint8_t *pData,
-                                              uint16_t Size, uint32_t XferOptions)
+                                                 uint16_t Size, uint32_t XferOptions)
 {
   uint32_t tmp;
 
@@ -1076,8 +1103,8 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Master_Receive_IT(FMPSMBUS_HandleTypeDef *hfmpsmb
     if ((hfmpsmbus->XferSize < hfmpsmbus->XferCount) && (hfmpsmbus->XferSize == MAX_NBYTE_SIZE))
     {
       FMPSMBUS_TransferConfig(hfmpsmbus, DevAddress, (uint8_t)hfmpsmbus->XferSize,
-                           FMPSMBUS_RELOAD_MODE  | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE),
-                           FMPSMBUS_GENERATE_START_READ);
+                              FMPSMBUS_RELOAD_MODE  | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE),
+                              FMPSMBUS_GENERATE_START_READ);
     }
     else
     {
@@ -1091,7 +1118,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Master_Receive_IT(FMPSMBUS_HandleTypeDef *hfmpsmb
           (IS_FMPSMBUS_TRANSFER_OTHER_OPTIONS_REQUEST(tmp) == 0))
       {
         FMPSMBUS_TransferConfig(hfmpsmbus, DevAddress, (uint8_t)hfmpsmbus->XferSize, hfmpsmbus->XferOptions,
-                             FMPSMBUS_NO_STARTSTOP);
+                                FMPSMBUS_NO_STARTSTOP);
       }
       /* Else transfer direction change, so generate Restart with new transfer direction */
       else
@@ -1101,8 +1128,8 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Master_Receive_IT(FMPSMBUS_HandleTypeDef *hfmpsmb
 
         /* Handle Transfer */
         FMPSMBUS_TransferConfig(hfmpsmbus, DevAddress, (uint8_t)hfmpsmbus->XferSize,
-                             hfmpsmbus->XferOptions,
-                             FMPSMBUS_GENERATE_START_READ);
+                                hfmpsmbus->XferOptions,
+                                FMPSMBUS_GENERATE_START_READ);
       }
     }
 
@@ -1197,7 +1224,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Master_Abort_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_FMPSMBUS_Slave_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint8_t *pData, uint16_t Size,
-                                              uint32_t XferOptions)
+                                                 uint32_t XferOptions)
 {
   /* Check the parameters */
   assert_param(IS_FMPSMBUS_TRANSFER_OPTIONS_REQUEST(XferOptions));
@@ -1246,14 +1273,14 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Slave_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsmb
     if ((hfmpsmbus->XferSize < hfmpsmbus->XferCount) && (hfmpsmbus->XferSize == MAX_NBYTE_SIZE))
     {
       FMPSMBUS_TransferConfig(hfmpsmbus, 0, (uint8_t)hfmpsmbus->XferSize,
-                           FMPSMBUS_RELOAD_MODE | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE),
-                           FMPSMBUS_NO_STARTSTOP);
+                              FMPSMBUS_RELOAD_MODE | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE),
+                              FMPSMBUS_NO_STARTSTOP);
     }
     else
     {
       /* Set NBYTE to transmit */
       FMPSMBUS_TransferConfig(hfmpsmbus, 0, (uint8_t)hfmpsmbus->XferSize, hfmpsmbus->XferOptions,
-                           FMPSMBUS_NO_STARTSTOP);
+                              FMPSMBUS_NO_STARTSTOP);
 
       /* If PEC mode is enable, size to transmit should be Size-1 byte, corresponding to PEC byte */
       /* PEC byte is automatically sent by HW block, no need to manage it in Transmit process */
@@ -1295,7 +1322,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Slave_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsmb
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_FMPSMBUS_Slave_Receive_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint8_t *pData, uint16_t Size,
-                                             uint32_t XferOptions)
+                                                uint32_t XferOptions)
 {
   /* Check the parameters */
   assert_param(IS_FMPSMBUS_TRANSFER_OPTIONS_REQUEST(XferOptions));
@@ -1340,7 +1367,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Slave_Receive_IT(FMPSMBUS_HandleTypeDef *hfmpsmbu
     if (((FMPSMBUS_GET_PEC_MODE(hfmpsmbus) != 0UL) && (hfmpsmbus->XferSize == 2U)) || (hfmpsmbus->XferSize == 1U))
     {
       FMPSMBUS_TransferConfig(hfmpsmbus, 0, (uint8_t)hfmpsmbus->XferSize, hfmpsmbus->XferOptions,
-                           FMPSMBUS_NO_STARTSTOP);
+                              FMPSMBUS_NO_STARTSTOP);
     }
     else
     {
@@ -1455,7 +1482,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_DisableAlert_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_FMPSMBUS_IsDeviceReady(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress, uint32_t Trials,
-                                          uint32_t Timeout)
+                                             uint32_t Timeout)
 {
   uint32_t tickstart;
 
@@ -1604,7 +1631,7 @@ void HAL_FMPSMBUS_EV_IRQHandler(FMPSMBUS_HandleTypeDef *hfmpsmbus)
 
   /* FMPSMBUS in mode Transmitter ---------------------------------------------------*/
   if ((FMPSMBUS_CHECK_IT_SOURCE(tmpcr1value, (FMPSMBUS_IT_TCI | FMPSMBUS_IT_STOPI |
-                                           FMPSMBUS_IT_NACKI | FMPSMBUS_IT_TXI)) != RESET) &&
+                                              FMPSMBUS_IT_NACKI | FMPSMBUS_IT_TXI)) != RESET) &&
       ((FMPSMBUS_CHECK_FLAG(tmpisrvalue, FMPSMBUS_FLAG_TXIS) != RESET) ||
        (FMPSMBUS_CHECK_FLAG(tmpisrvalue, FMPSMBUS_FLAG_TCR) != RESET) ||
        (FMPSMBUS_CHECK_FLAG(tmpisrvalue, FMPSMBUS_FLAG_TC) != RESET) ||
@@ -1629,7 +1656,7 @@ void HAL_FMPSMBUS_EV_IRQHandler(FMPSMBUS_HandleTypeDef *hfmpsmbus)
 
   /* FMPSMBUS in mode Receiver ----------------------------------------------------*/
   if ((FMPSMBUS_CHECK_IT_SOURCE(tmpcr1value, (FMPSMBUS_IT_TCI | FMPSMBUS_IT_STOPI |
-                                           FMPSMBUS_IT_NACKI | FMPSMBUS_IT_RXI)) != RESET) &&
+                                              FMPSMBUS_IT_NACKI | FMPSMBUS_IT_RXI)) != RESET) &&
       ((FMPSMBUS_CHECK_FLAG(tmpisrvalue, FMPSMBUS_FLAG_RXNE) != RESET) ||
        (FMPSMBUS_CHECK_FLAG(tmpisrvalue, FMPSMBUS_FLAG_TCR) != RESET) ||
        (FMPSMBUS_CHECK_FLAG(tmpisrvalue, FMPSMBUS_FLAG_TC) != RESET) ||
@@ -1750,7 +1777,7 @@ __weak void HAL_FMPSMBUS_SlaveRxCpltCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus)
   * @retval None
   */
 __weak void HAL_FMPSMBUS_AddrCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint8_t TransferDirection,
-                                   uint16_t AddrMatchCode)
+                                      uint16_t AddrMatchCode)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hfmpsmbus);
@@ -1819,7 +1846,7 @@ __weak void HAL_FMPSMBUS_ErrorCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus)
   *                the configuration information for the specified FMPSMBUS.
   * @retval HAL state
   */
-uint32_t HAL_FMPSMBUS_GetState(FMPSMBUS_HandleTypeDef *hfmpsmbus)
+uint32_t HAL_FMPSMBUS_GetState(const FMPSMBUS_HandleTypeDef *hfmpsmbus)
 {
   /* Return FMPSMBUS handle state */
   return hfmpsmbus->State;
@@ -1831,7 +1858,7 @@ uint32_t HAL_FMPSMBUS_GetState(FMPSMBUS_HandleTypeDef *hfmpsmbus)
   *              the configuration information for the specified FMPSMBUS.
   * @retval FMPSMBUS Error Code
   */
-uint32_t HAL_FMPSMBUS_GetError(FMPSMBUS_HandleTypeDef *hfmpsmbus)
+uint32_t HAL_FMPSMBUS_GetError(const FMPSMBUS_HandleTypeDef *hfmpsmbus)
 {
   return hfmpsmbus->ErrorCode;
 }
@@ -1871,6 +1898,9 @@ static HAL_StatusTypeDef FMPSMBUS_Master_ISR(FMPSMBUS_HandleTypeDef *hfmpsmbus, 
     /* Set corresponding Error Code */
     /* No need to generate STOP, it is automatically done */
     hfmpsmbus->ErrorCode |= HAL_FMPSMBUS_ERROR_ACKF;
+
+    /* Flush TX register */
+    FMPSMBUS_Flush_TXDR(hfmpsmbus);
 
     /* Process Unlocked */
     __HAL_UNLOCK(hfmpsmbus);
@@ -1997,15 +2027,15 @@ static HAL_StatusTypeDef FMPSMBUS_Master_ISR(FMPSMBUS_HandleTypeDef *hfmpsmbus, 
       if (hfmpsmbus->XferCount > MAX_NBYTE_SIZE)
       {
         FMPSMBUS_TransferConfig(hfmpsmbus, DevAddress, MAX_NBYTE_SIZE,
-                             (FMPSMBUS_RELOAD_MODE | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE)),
-                             FMPSMBUS_NO_STARTSTOP);
+                                (FMPSMBUS_RELOAD_MODE | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE)),
+                                FMPSMBUS_NO_STARTSTOP);
         hfmpsmbus->XferSize = MAX_NBYTE_SIZE;
       }
       else
       {
         hfmpsmbus->XferSize = hfmpsmbus->XferCount;
         FMPSMBUS_TransferConfig(hfmpsmbus, DevAddress, (uint8_t)hfmpsmbus->XferSize, hfmpsmbus->XferOptions,
-                             FMPSMBUS_NO_STARTSTOP);
+                                FMPSMBUS_NO_STARTSTOP);
         /* If PEC mode is enable, size to transmit should be Size-1 byte, corresponding to PEC byte */
         /* PEC byte is automatically sent by HW block, no need to manage it in Transmit process */
         if (FMPSMBUS_GET_PEC_MODE(hfmpsmbus) != 0UL)
@@ -2162,6 +2192,9 @@ static HAL_StatusTypeDef FMPSMBUS_Slave_ISR(FMPSMBUS_HandleTypeDef *hfmpsmbus, u
       /* Clear NACK Flag */
       __HAL_FMPSMBUS_CLEAR_FLAG(hfmpsmbus, FMPSMBUS_FLAG_AF);
 
+      /* Flush TX register */
+      FMPSMBUS_Flush_TXDR(hfmpsmbus);
+
       /* Process Unlocked */
       __HAL_UNLOCK(hfmpsmbus);
     }
@@ -2182,6 +2215,9 @@ static HAL_StatusTypeDef FMPSMBUS_Slave_ISR(FMPSMBUS_HandleTypeDef *hfmpsmbus, u
 
       /* Set ErrorCode corresponding to a Non-Acknowledge */
       hfmpsmbus->ErrorCode |= HAL_FMPSMBUS_ERROR_ACKF;
+
+      /* Flush TX register */
+      FMPSMBUS_Flush_TXDR(hfmpsmbus);
 
       /* Process Unlocked */
       __HAL_UNLOCK(hfmpsmbus);
@@ -2258,8 +2294,8 @@ static HAL_StatusTypeDef FMPSMBUS_Slave_ISR(FMPSMBUS_HandleTypeDef *hfmpsmbus, u
       {
         /* Set Reload for next Bytes */
         FMPSMBUS_TransferConfig(hfmpsmbus, 0, 1,
-                             FMPSMBUS_RELOAD_MODE  | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE),
-                             FMPSMBUS_NO_STARTSTOP);
+                                FMPSMBUS_RELOAD_MODE  | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE),
+                                FMPSMBUS_NO_STARTSTOP);
 
         /* Ack last Byte Read */
         hfmpsmbus->Instance->CR2 &= ~FMPI2C_CR2_NACK;
@@ -2272,15 +2308,15 @@ static HAL_StatusTypeDef FMPSMBUS_Slave_ISR(FMPSMBUS_HandleTypeDef *hfmpsmbus, u
         if (hfmpsmbus->XferCount > MAX_NBYTE_SIZE)
         {
           FMPSMBUS_TransferConfig(hfmpsmbus, 0, MAX_NBYTE_SIZE,
-                               (FMPSMBUS_RELOAD_MODE | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE)),
-                               FMPSMBUS_NO_STARTSTOP);
+                                  (FMPSMBUS_RELOAD_MODE | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE)),
+                                  FMPSMBUS_NO_STARTSTOP);
           hfmpsmbus->XferSize = MAX_NBYTE_SIZE;
         }
         else
         {
           hfmpsmbus->XferSize = hfmpsmbus->XferCount;
           FMPSMBUS_TransferConfig(hfmpsmbus, 0, (uint8_t)hfmpsmbus->XferSize, hfmpsmbus->XferOptions,
-                               FMPSMBUS_NO_STARTSTOP);
+                                  FMPSMBUS_NO_STARTSTOP);
           /* If PEC mode is enable, size to transmit should be Size-1 byte, corresponding to PEC byte */
           /* PEC byte is automatically sent by HW block, no need to manage it in Transmit process */
           if (FMPSMBUS_GET_PEC_MODE(hfmpsmbus) != 0UL)
@@ -2584,7 +2620,13 @@ static void FMPSMBUS_ITErrorHandler(FMPSMBUS_HandleTypeDef *hfmpsmbus)
     __HAL_FMPSMBUS_CLEAR_FLAG(hfmpsmbus, FMPSMBUS_FLAG_PECERR);
   }
 
-  /* Store current volatile hfmpsmbus->State, misra rule */
+  if (hfmpsmbus->ErrorCode != HAL_FMPSMBUS_ERROR_NONE)
+  {
+    /* Flush TX register */
+    FMPSMBUS_Flush_TXDR(hfmpsmbus);
+  }
+
+  /* Store current volatile hfmpsmbus->ErrorCode, misra rule */
   tmperror = hfmpsmbus->ErrorCode;
 
   /* Call the Error Callback in case of Error detected */
@@ -2625,7 +2667,7 @@ static void FMPSMBUS_ITErrorHandler(FMPSMBUS_HandleTypeDef *hfmpsmbus)
   * @retval HAL status
   */
 static HAL_StatusTypeDef FMPSMBUS_WaitOnFlagUntilTimeout(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t Flag,
-                                                      FlagStatus Status, uint32_t Timeout)
+                                                         FlagStatus Status, uint32_t Timeout)
 {
   uint32_t tickstart = HAL_GetTick();
 
@@ -2655,6 +2697,27 @@ static HAL_StatusTypeDef FMPSMBUS_WaitOnFlagUntilTimeout(FMPSMBUS_HandleTypeDef 
 }
 
 /**
+  * @brief  FMPSMBUS Tx data register flush process.
+  * @param  hfmpsmbus FMPSMBUS handle.
+  * @retval None
+  */
+static void FMPSMBUS_Flush_TXDR(FMPSMBUS_HandleTypeDef *hfmpsmbus)
+{
+  /* If a pending TXIS flag is set */
+  /* Write a dummy data in TXDR to clear it */
+  if (__HAL_FMPSMBUS_GET_FLAG(hfmpsmbus, FMPSMBUS_FLAG_TXIS) != RESET)
+  {
+    hfmpsmbus->Instance->TXDR = 0x00U;
+  }
+
+  /* Flush TX register if not empty */
+  if (__HAL_FMPSMBUS_GET_FLAG(hfmpsmbus, FMPSMBUS_FLAG_TXE) == RESET)
+  {
+    __HAL_FMPSMBUS_CLEAR_FLAG(hfmpsmbus, FMPSMBUS_FLAG_TXE);
+  }
+}
+
+/**
   * @brief  Handle FMPSMBUSx communication when starting transfer or during transfer (TC or TCR flag are set).
   * @param  hfmpsmbus FMPSMBUS handle.
   * @param  DevAddress specifies the slave address to be programmed.
@@ -2675,7 +2738,7 @@ static HAL_StatusTypeDef FMPSMBUS_WaitOnFlagUntilTimeout(FMPSMBUS_HandleTypeDef 
   * @retval None
   */
 static void FMPSMBUS_TransferConfig(FMPSMBUS_HandleTypeDef *hfmpsmbus,  uint16_t DevAddress, uint8_t Size,
-                                 uint32_t Mode, uint32_t Request)
+                                    uint32_t Mode, uint32_t Request)
 {
   /* Check the parameters */
   assert_param(IS_FMPSMBUS_ALL_INSTANCE(hfmpsmbus->Instance));

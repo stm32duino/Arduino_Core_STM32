@@ -684,8 +684,8 @@ typedef struct
   */
 
 /** @defgroup ADC_LL_EC_REG_CONTINUOUS_MODE  ADC group regular - Continuous mode
-* @{
-*/
+  * @{
+  */
 #define LL_ADC_REG_CONV_SINGLE             0x00000000UL             /*!< ADC conversions are performed in single mode: one conversion per trigger */
 #define LL_ADC_REG_CONV_CONTINUOUS         (ADC_CR2_CONT)          /*!< ADC conversions are performed in continuous mode: after the first trigger, following conversions launched successively automatically */
 /**
@@ -808,8 +808,8 @@ typedef struct
   */
 
 /** @defgroup ADC_LL_EC_INJ_TRIG_AUTO  ADC group injected - Automatic trigger mode
-* @{
-*/
+  * @{
+  */
 #define LL_ADC_INJ_TRIG_INDEPENDENT        0x00000000UL            /*!< ADC group injected conversion trigger independent. Setting mandatory if ADC group injected injected trigger source is set to an external trigger. */
 #define LL_ADC_INJ_TRIG_FROM_GRP_REGULAR   (ADC_CR1_JAUTO)        /*!< ADC group injected conversion trigger from ADC group regular. Setting compliant only with group injected trigger source set to SW start, without any further action on  ADC group injected conversion start or stop: in this case, ADC group injected is controlled only from ADC group regular. */
 /**
@@ -1866,12 +1866,12 @@ __STATIC_INLINE uint32_t LL_ADC_DMA_GetRegAddr(ADC_TypeDef *ADCx, uint32_t Regis
   if (Register == LL_ADC_DMA_REG_REGULAR_DATA)
   {
     /* Retrieve address of register DR */
-    data_reg_addr = (uint32_t)&(ADCx->DR);
+    data_reg_addr = (uint32_t) & (ADCx->DR);
   }
   else /* (Register == LL_ADC_DMA_REG_REGULAR_DATA_MULTI) */
   {
     /* Retrieve address of register CDR */
-    data_reg_addr = (uint32_t)&((__LL_ADC_COMMON_INSTANCE(ADCx))->CDR);
+    data_reg_addr = (uint32_t) & ((__LL_ADC_COMMON_INSTANCE(ADCx))->CDR);
   }
 
   return data_reg_addr;
@@ -1879,8 +1879,11 @@ __STATIC_INLINE uint32_t LL_ADC_DMA_GetRegAddr(ADC_TypeDef *ADCx, uint32_t Regis
 #else
 __STATIC_INLINE uint32_t LL_ADC_DMA_GetRegAddr(ADC_TypeDef *ADCx, uint32_t Register)
 {
+  /* Prevent unused argument compilation warning */
+  (void)Register;
+
   /* Retrieve address of register DR */
-  return (uint32_t)&(ADCx->DR);
+  return (uint32_t) & (ADCx->DR);
 }
 #endif
 
@@ -2145,11 +2148,11 @@ __STATIC_INLINE uint32_t LL_ADC_GetSequencersScanMode(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_REG_SetTriggerSource(ADC_TypeDef *ADCx, uint32_t TriggerSource)
 {
-/* Note: On this STM32 series, ADC group regular external trigger edge        */
-/*       is used to perform a ADC conversion start.                           */
-/*       This function does not set external trigger edge.                    */
-/*       This feature is set using function                                   */
-/*       @ref LL_ADC_REG_StartConversionExtTrig().                            */
+  /* Note: On this STM32 series, ADC group regular external trigger edge        */
+  /*       is used to perform a ADC conversion start.                           */
+  /*       This function does not set external trigger edge.                    */
+  /*       This feature is set using function                                   */
+  /*       @ref LL_ADC_REG_StartConversionExtTrig().                            */
   MODIFY_REG(ADCx->CR2, ADC_CR2_EXTSEL, (TriggerSource & ADC_CR2_EXTSEL));
 }
 
@@ -2588,10 +2591,10 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerRanks(ADC_TypeDef *ADCx, uint32_
 {
   __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->SQR1, __ADC_MASK_SHIFT(Rank, ADC_REG_SQRX_REGOFFSET_MASK));
 
-  return (uint32_t) (READ_BIT(*preg,
-                              ADC_CHANNEL_ID_NUMBER_MASK << (Rank & ADC_REG_RANK_ID_SQRX_MASK))
-                     >> (Rank & ADC_REG_RANK_ID_SQRX_MASK)
-                    );
+  return (uint32_t)(READ_BIT(*preg,
+                             ADC_CHANNEL_ID_NUMBER_MASK << (Rank & ADC_REG_RANK_ID_SQRX_MASK))
+                    >> (Rank & ADC_REG_RANK_ID_SQRX_MASK)
+                   );
 }
 
 /**
@@ -2780,11 +2783,11 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetFlagEndOfConversion(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_INJ_SetTriggerSource(ADC_TypeDef *ADCx, uint32_t TriggerSource)
 {
-/* Note: On this STM32 series, ADC group injected external trigger edge       */
-/*       is used to perform a ADC conversion start.                           */
-/*       This function does not set external trigger edge.                    */
-/*       This feature is set using function                                   */
-/*       @ref LL_ADC_INJ_StartConversionExtTrig().                            */
+  /* Note: On this STM32 series, ADC group injected external trigger edge       */
+  /*       is used to perform a ADC conversion start.                           */
+  /*       This function does not set external trigger edge.                    */
+  /*       This feature is set using function                                   */
+  /*       @ref LL_ADC_INJ_StartConversionExtTrig().                            */
   MODIFY_REG(ADCx->CR2, ADC_CR2_JEXTSEL, (TriggerSource & ADC_CR2_JEXTSEL));
 }
 
@@ -4015,7 +4018,7 @@ __STATIC_INLINE uint16_t LL_ADC_REG_ReadConversionData10(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE uint8_t LL_ADC_REG_ReadConversionData8(ADC_TypeDef *ADCx)
 {
-  return (uint16_t)(READ_BIT(ADCx->DR, ADC_DR_DATA));
+  return (uint8_t)(READ_BIT(ADCx->DR, ADC_DR_DATA));
 }
 
 /**
@@ -4030,7 +4033,7 @@ __STATIC_INLINE uint8_t LL_ADC_REG_ReadConversionData8(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE uint8_t LL_ADC_REG_ReadConversionData6(ADC_TypeDef *ADCx)
 {
-  return (uint16_t)(READ_BIT(ADCx->DR, ADC_DR_DATA));
+  return (uint8_t)(READ_BIT(ADCx->DR, ADC_DR_DATA));
 }
 
 #if defined(ADC_MULTIMODE_SUPPORT)
@@ -4546,7 +4549,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_SLV1_AWD1(ADC_Common_TypeDef *ADCxy
   */
 __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_SLV2_AWD1(ADC_Common_TypeDef *ADCxy_COMMON)
 {
-    return (READ_BIT(ADCxy_COMMON->CSR, LL_ADC_FLAG_AWD1_SLV2) == (LL_ADC_FLAG_AWD1_SLV2));
+  return (READ_BIT(ADCxy_COMMON->CSR, LL_ADC_FLAG_AWD1_SLV2) == (LL_ADC_FLAG_AWD1_SLV2));
 }
 
 #endif /* ADC_MULTIMODE_SUPPORT */
