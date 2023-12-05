@@ -82,10 +82,11 @@ compiler.arm.cmsis.c.flags="-I{runtime.tools.CMSIS-5.9.0.path}/CMSIS/Core/Includ
 build.usb_flags=-DUSBCON {build.usb_speed} -DUSBD_VID={build.vid} -DUSBD_PID={build.pid} -DHAL_PCD_MODULE_ENABLED
 
 # Specify defaults for vid/pid, since an empty value is impossible to
-# detect in the preprocessor, but a 0 can be checked for.
+# detect in the preprocessor, but a 0 can be checked for vid and -1
+# for pid (can be 0).
 # Boards should specify either both, or neither of these.
 build.vid=0
-build.pid=0
+build.pid=-1
 
 # To customize the USB manufacturer or product string, must add defines
 # for them, e.g.:
