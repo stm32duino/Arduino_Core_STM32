@@ -804,6 +804,49 @@ void i2c_deinit(i2c_t *obj)
   HAL_NVIC_DisableIRQ(obj->irqER);
 #endif /* !STM32C0xx && !STM32F0xx && !STM32G0xx && !STM32L0xx */
   HAL_I2C_DeInit(&(obj->handle));
+  // Reset I2Cx and disable clock
+#if defined I2C1_BASE
+  if (obj->i2c == I2C1) {
+    __HAL_RCC_I2C1_FORCE_RESET();
+    __HAL_RCC_I2C1_RELEASE_RESET();
+    __HAL_RCC_I2C1_CLK_DISABLE();
+  }
+#endif // I2C1_BASE
+#if defined I2C2_BASE
+  if (obj->i2c == I2C2) {
+    __HAL_RCC_I2C2_FORCE_RESET();
+    __HAL_RCC_I2C2_RELEASE_RESET();
+    __HAL_RCC_I2C2_CLK_DISABLE();
+  }
+#endif // I2C2_BASE
+#if defined I2C3_BASE
+  if (obj->i2c == I2C3) {
+    __HAL_RCC_I2C3_FORCE_RESET();
+    __HAL_RCC_I2C3_RELEASE_RESET();
+    __HAL_RCC_I2C3_CLK_DISABLE();
+  }
+#endif // I2C3_BASE
+#if defined I2C4_BASE
+  if (obj->i2c == I2C4) {
+    __HAL_RCC_I2C4_FORCE_RESET();
+    __HAL_RCC_I2C4_RELEASE_RESET();
+    __HAL_RCC_I2C4_CLK_DISABLE();
+  }
+#endif // I2C4_BASE
+#if defined I2C5_BASE
+  if (obj->i2c == I2C5) {
+    __HAL_RCC_I2C5_FORCE_RESET();
+    __HAL_RCC_I2C5_RELEASE_RESET();
+    __HAL_RCC_I2C5_CLK_DISABLE();
+  }
+#endif // I2C5_BASE
+#if defined I2C6_BASE
+  if (obj->i2c == I2C6) {
+    __HAL_RCC_I2C6_FORCE_RESET();
+    __HAL_RCC_I2C6_RELEASE_RESET();
+    __HAL_RCC_I2C6_CLK_DISABLE();
+  }
+#endif // I2C6_BASE
 }
 
 /**
