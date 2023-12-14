@@ -30,7 +30,7 @@ https://fabienferrero.github.io/ArduinoBoardManagerJSON/package_leat-echostar-te
 
 # Integrated example
 
-Since [version 2.8.0-dev1](https://github.com/nguyenmanhthao996tn/LEAT-EchoStar-Terminal-BSP/releases/tag/2.8.0-dev1), there are integrated examples dedicated for LEAT EchoStar Terminals in File -> Examples -> EchoStar_Term_Examples. The list of currently available examples:
+Since [version 2.8.0-dev1](https://github.com/nguyenmanhthao996tn/LEAT-EchoStar-Terminal-BSP/releases/tag/2.8.0-dev1), there are integrated examples dedicated for **LEAT EchoStar Terminals** in **File** &rightarrow; **Examples** &rightarrow; **EchoStar_Term_Examples**. The list of currently available examples:
 - 0_LED_n_Button
 - 1_USB_Serial_ByPass_for_GNSS
 - 2_USB_Serial_ByPass_for_EM2050
