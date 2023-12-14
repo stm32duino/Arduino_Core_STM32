@@ -96,13 +96,34 @@
 
 // On-board LED pin number
 #ifndef LED_BUILTIN
-  #define LED_BUILTIN           PNUM_NOT_DEFINED
+  #define LED_BUILTIN           PA13
 #endif
 
 // On-board user button
 #ifndef USER_BTN
-  #define USER_BTN              PNUM_NOT_DEFINED
+  #define USER_BTN              PC2
 #endif
+
+// EchoStar EM2050 Module
+#define ECHOSTAR_TXD_PIN PC0
+#define ECHOSTAR_RXD_PIN PC1
+#define ECHOSTAR_SWCTRL_PIN PB4
+#define DPDT_CTRL_PIN PB8
+
+// GNSS
+#define GNSS_TXD_PIN PB7
+#define GNSS_RXD_PIN PA9
+#define GNSS_WAKEUP_PIN PB5
+#define GNSS_ENABLE_PIN PA1
+#define GNSS_V_BCKP_PIN PC3
+
+// Sensors
+#define SENSORS_ENABLE_PIN PA14
+#define SENSORS_I2C_SDA_PIN PA10
+#define SENSORS_I2C_SCL_PIN PB6
+
+#define SENSORS_BME280_ADDRESS 0x76
+#define SENSORS_KX023_ADDRESS 0x1F
 
 // SPI definitions
 #ifndef PIN_SPI_SS
