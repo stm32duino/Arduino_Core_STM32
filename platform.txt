@@ -4,7 +4,7 @@
 # For more info:
 # https://arduino.github.io/arduino-cli/latest/platform-specification/
 
-name=STM32 boards groups (Board to be selected from Tools submenu 'Board part number')
+name=LEAT EchoStar Terminals
 version=2.8.0-dev
 
 # STM compile variables
