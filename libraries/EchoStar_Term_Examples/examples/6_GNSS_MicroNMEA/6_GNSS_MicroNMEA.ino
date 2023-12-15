@@ -23,8 +23,8 @@ void setup()
 {
   gnss_fix_status = false;
 
-  pinMode(LED_1_PIN, OUTPUT);
-  digitalWrite(LED_1_PIN, HIGH);
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, HIGH);
 
   pinMode(GNSS_ENABLE_PIN, OUTPUT);
   digitalWrite(GNSS_ENABLE_PIN, LOW);
