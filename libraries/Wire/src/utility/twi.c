@@ -804,6 +804,9 @@ void i2c_deinit(i2c_t *obj)
   HAL_NVIC_DisableIRQ(obj->irqER);
 #endif /* !STM32C0xx && !STM32F0xx && !STM32G0xx && !STM32L0xx */
   HAL_I2C_DeInit(&(obj->handle));
+  /* Reset I2C GPIO pins as INPUT_ANALOG */
+  pin_function(obj->scl, STM_PIN_DATA(STM_MODE_ANALOG, GPIO_NOPULL, 0));
+  pin_function(obj->sda, STM_PIN_DATA(STM_MODE_ANALOG, GPIO_NOPULL, 0));
   // Reset I2Cx and disable clock
 #if defined I2C1_BASE
   if (obj->i2c == I2C1) {
