@@ -50,9 +50,12 @@ extern "C" {
 /* (concatenation of multiple bits used in different registers)               */
 /* - Comparator instance selected as master for window mode : register offset */
 /* - Window mode enable or disable: bit value */
-#define LL_COMP_WINDOWMODE_COMP_ODD_REGOFFSET_MASK  (0x00000000UL) /* Register of COMP instance odd (COMP1_CSR, ...) defined as reference register */
-#define LL_COMP_WINDOWMODE_COMP_EVEN_REGOFFSET_MASK (0x00000001UL) /* Register of COMP instance even (COMP2_CSR, ...) offset vs register of COMP instance odd */
-#define LL_COMP_WINDOWMODE_COMPX_REGOFFSET_MASK     (LL_COMP_WINDOWMODE_COMP_ODD_REGOFFSET_MASK | LL_COMP_WINDOWMODE_COMP_EVEN_REGOFFSET_MASK)
+#define LL_COMP_WINDOWMODE_COMP_ODD_REGOFFSET_MASK  (0x00000000UL) /* Register of COMP instance odd (COMP1_CSR, ...)
+                                                                      defined as reference register */
+#define LL_COMP_WINDOWMODE_COMP_EVEN_REGOFFSET_MASK (0x00000001UL) /* Register of COMP instance even (COMP2_CSR, ...)
+                                                                      offset vs register of COMP instance odd */
+#define LL_COMP_WINDOWMODE_COMPX_REGOFFSET_MASK     (LL_COMP_WINDOWMODE_COMP_ODD_REGOFFSET_MASK  \
+                                                     | LL_COMP_WINDOWMODE_COMP_EVEN_REGOFFSET_MASK)
 #define LL_COMP_WINDOWMODE_COMPX_SETTING_MASK       (COMP_CSR_WINMODE)
 #define LL_COMP_WINDOWOUTPUT_COMPX_SETTING_MASK     (COMP_CSR_WINOUT)
 #define LL_COMP_WINDOWOUTPUT_BOTH_SETTING_MASK      (COMP_CSR_WINOUT << 1UL)
@@ -99,33 +102,33 @@ typedef struct
 {
   uint32_t PowerMode;                   /*!< Set comparator operating mode to adjust power and speed.
                                              This parameter can be a value of @ref COMP_LL_EC_POWERMODE
-
-                                             This feature can be modified afterwards using unitary function @ref LL_COMP_SetPowerMode(). */
+                                             This feature can be modified afterwards using unitary
+                                             function @ref LL_COMP_SetPowerMode(). */
 
   uint32_t InputPlus;                   /*!< Set comparator input plus (non-inverting input).
                                              This parameter can be a value of @ref COMP_LL_EC_INPUT_PLUS
-
-                                             This feature can be modified afterwards using unitary function @ref LL_COMP_SetInputPlus(). */
+                                             This feature can be modified afterwards using unitary function
+                                             @ref LL_COMP_SetInputPlus(). */
 
   uint32_t InputMinus;                  /*!< Set comparator input minus (inverting input).
                                              This parameter can be a value of @ref COMP_LL_EC_INPUT_MINUS
-
-                                             This feature can be modified afterwards using unitary function @ref LL_COMP_SetInputMinus(). */
+                                             This feature can be modified afterwards using unitary function
+                                              @ref LL_COMP_SetInputMinus(). */
 
   uint32_t InputHysteresis;             /*!< Set comparator hysteresis mode of the input minus.
                                              This parameter can be a value of @ref COMP_LL_EC_INPUT_HYSTERESIS
-
-                                             This feature can be modified afterwards using unitary function @ref LL_COMP_SetInputHysteresis(). */
+                                             This feature can be modified afterwards using unitary function
+                                             @ref LL_COMP_SetInputHysteresis(). */
 
   uint32_t OutputPolarity;              /*!< Set comparator output polarity.
                                              This parameter can be a value of @ref COMP_LL_EC_OUTPUT_POLARITY
-
-                                             This feature can be modified afterwards using unitary function @ref LL_COMP_SetOutputPolarity(). */
+                                             This feature can be modified afterwards using unitary function
+                                             @ref LL_COMP_SetOutputPolarity(). */
 
   uint32_t OutputBlankingSource;        /*!< Set comparator blanking source.
                                              This parameter can be a value of @ref COMP_LL_EC_OUTPUT_BLANKING_SOURCE
-
-                                             This feature can be modified afterwards using unitary function @ref LL_COMP_SetOutputBlankingSource(). */
+                                             This feature can be modified afterwards using unitary function
+                                             @ref LL_COMP_SetOutputBlankingSource(). */
 
 } LL_COMP_InitTypeDef;
 
@@ -138,6 +141,7 @@ typedef struct
 /** @defgroup COMP_LL_Exported_Constants COMP Exported Constants
   * @{
   */
+
 
 /** @defgroup COMP_LL_EC_COMMON_WINDOWMODE Comparator common modes - Window mode
   * @{
@@ -153,15 +157,16 @@ typedef struct
   * @{
   */
 #define LL_COMP_WINDOWOUTPUT_EACH_COMP               (0x00000000UL)                                                  /*!< Window output default mode: Comparators output are indicating each their own state. To know window mode state: each comparator output must be read, if "((COMPx exclusive or COMPy) == 1)" then monitored signal is within comparators window. The same way, if both comparators output are high, then monitored signal is below window. */
-#define LL_COMP_WINDOWOUTPUT_COMP1                   (COMP_CSR_WINOUT | LL_COMP_WINDOWMODE_COMP_ODD_REGOFFSET_MASK)  /*!< Window output synthetized on COMP1 output: COMP1 output is no more indicating its own state, but global window mode state (logical high means monitored signal is within comparators window). Note: impacts only comparator output signal level (COMPx_OUT propagated to GPIO, EXTI lines, timers, ...), does not impact output digital state of comparator (COMPx_VALUE) always reflecting each comparator output state.*/
-#define LL_COMP_WINDOWOUTPUT_COMP2                   (COMP_CSR_WINOUT | LL_COMP_WINDOWMODE_COMP_EVEN_REGOFFSET_MASK) /*!< Window output synthetized on COMP2 output: COMP2 output is no more indicating its own state, but global window mode state (logical high means monitored signal is within comparators window). Note: impacts only comparator output signal level (COMPx_OUT propagated to GPIO, EXTI lines, timers, ...), does not impact output digital state of comparator (COMPx_VALUE) always reflecting each comparator output state.*/
+#define LL_COMP_WINDOWOUTPUT_COMP1                   (COMP_CSR_WINOUT | LL_COMP_WINDOWMODE_COMP_ODD_REGOFFSET_MASK)  /*!< Window output synthesized on COMP1 output: COMP1 output is no more indicating its own state, but global window mode state (logical high means monitored signal is within comparators window). Note: impacts only comparator output signal level (COMPx_OUT propagated to GPIO, EXTI lines, timers, ...), does not impact output digital state of comparator (COMPx_VALUE) always reflecting each comparator output state.*/
+#define LL_COMP_WINDOWOUTPUT_COMP2                   (COMP_CSR_WINOUT | LL_COMP_WINDOWMODE_COMP_EVEN_REGOFFSET_MASK) /*!< Window output synthesized on COMP2 output: COMP2 output is no more indicating its own state, but global window mode state (logical high means monitored signal is within comparators window). Note: impacts only comparator output signal level (COMPx_OUT propagated to GPIO, EXTI lines, timers, ...), does not impact output digital state of comparator (COMPx_VALUE) always reflecting each comparator output state.*/
 #if defined(COMP3)
-#define LL_COMP_WINDOWOUTPUT_COMP3                   (COMP_CSR_WINOUT | LL_COMP_WINDOWMODE_COMP_ODD_REGOFFSET_MASK)  /*!< Window output synthetized on COMP3 output: COMP3 output is no more indicating its own state, but global window mode state (logical high means monitored signal is within comparators window). Available only on devices featuring COMP3 instance. */
+#define LL_COMP_WINDOWOUTPUT_COMP3                   (COMP_CSR_WINOUT | LL_COMP_WINDOWMODE_COMP_ODD_REGOFFSET_MASK)  /*!< Window output synthesized on COMP3 output: COMP3 output is no more indicating its own state, but global window mode state (logical high means monitored signal is within comparators window). Available only on devices featuring COMP3 instance. */
 #endif /* COMP3 */
-#define LL_COMP_WINDOWOUTPUT_BOTH                    (COMP_CSR_WINOUT | LL_COMP_WINDOWMODE_COMP_EVEN_REGOFFSET_MASK | LL_COMP_WINDOWOUTPUT_BOTH_SETTING_MASK)      /*!< Window output synthetized on both comparators output of pair of comparator selected (COMP1 and COMP2, or COMP2 and COMP3 for devices featuring COMP3 instance): both comparators outputs are no more indicating their own state, but global window mode state (logical high means monitored signal is within comparators window). This is a specific configuration (technically possible but not relevant from application point of view: 2 comparators output used for the same signal level), standard configuration for window mode is one of the settings above. */
+#define LL_COMP_WINDOWOUTPUT_BOTH                    (COMP_CSR_WINOUT | LL_COMP_WINDOWMODE_COMP_EVEN_REGOFFSET_MASK | LL_COMP_WINDOWOUTPUT_BOTH_SETTING_MASK)      /*!< Window output synthesized on both comparators output of pair of comparator selected (COMP1 and COMP2, or COMP2 and COMP3 for devices featuring COMP3 instance): both comparators outputs are no more indicating their own state, but global window mode state (logical high means monitored signal is within comparators window). This is a specific configuration (technically possible but not relevant from application point of view: 2 comparators output used for the same signal level), standard configuration for window mode is one of the settings above. */
 /**
   * @}
   */
+
 
 /** @defgroup COMP_LL_EC_POWERMODE Comparator modes - Power mode
   * @{
@@ -316,13 +321,13 @@ typedef struct
 #if defined(COMP3)
 #define __LL_COMP_COMMON_INSTANCE(__COMPx__)                                   \
   ((((__COMPx__) == COMP3))                                                    \
-    ? (                                                                        \
-       (COMP23_COMMON)                                                         \
-      )                                                                        \
-      :                                                                        \
-      (                                                                        \
-       (COMP12_COMMON)                                                         \
-      )                                                                        \
+   ? (                                                                        \
+                                                                              (COMP23_COMMON)                                                         \
+     )                                                                        \
+   :                                                                        \
+   (                                                                        \
+                                                                            (COMP12_COMMON)                                                         \
+   )                                                                        \
   )
 #else
 #define __LL_COMP_COMMON_INSTANCE(__COMPx__)                                   \
@@ -342,9 +347,11 @@ typedef struct
   * @{
   */
 
-/** @defgroup COMP_LL_EF_Configuration_comparator_common Configuration of COMP hierarchical scope: common to several COMP instances
+/** @defgroup COMP_LL_EF_Configuration_comparator_common Configuration of COMP hierarchical scope:
+  *           common to several COMP instances
   * @{
   */
+
 
 /**
   * @brief  Set window mode of a pair of comparators instances
@@ -371,19 +378,21 @@ __STATIC_INLINE void LL_COMP_SetCommonWindowMode(COMP_Common_TypeDef *COMPxy_COM
   /* Note: Exception for STM32G0 devices featuring ADC3 instance: in common   */
   /*       group of COMP2 and COMP3, instances odd and even are inverted.     */
   /*       Perform switch of parameter selected.                              */
-  if(COMPxy_COMMON == COMP23_COMMON)
+  if (COMPxy_COMMON == COMP23_COMMON)
   {
-    if(WindowMode == LL_COMP_WINDOWMODE_COMP2_INPUT_PLUS_COMMON)
+    if (WindowMode == LL_COMP_WINDOWMODE_COMP2_INPUT_PLUS_COMMON)
     {
       window_mode_tmp = LL_COMP_WINDOWMODE_COMP1_INPUT_PLUS_COMMON;
     }
   }
 #endif /* COMP3 */
 
-  __IO uint32_t *preg = __COMP_PTR_REG_OFFSET(COMPxy_COMMON->CSR_ODD, (window_mode_tmp & LL_COMP_WINDOWMODE_COMPX_REGOFFSET_MASK));
+  __IO uint32_t *preg = __COMP_PTR_REG_OFFSET(COMPxy_COMMON->CSR_ODD,
+                                              (window_mode_tmp & LL_COMP_WINDOWMODE_COMPX_REGOFFSET_MASK));
 
   /* Clear the potential previous setting of window mode */
-  __IO uint32_t *preg_clear = __COMP_PTR_REG_OFFSET(COMPxy_COMMON->CSR_ODD, (~(window_mode_tmp & LL_COMP_WINDOWMODE_COMPX_REGOFFSET_MASK) & 0x1UL));
+  __IO uint32_t *preg_clear = __COMP_PTR_REG_OFFSET(COMPxy_COMMON->CSR_ODD,
+                                                    (~(window_mode_tmp & LL_COMP_WINDOWMODE_COMPX_REGOFFSET_MASK) & 0x1UL));
   CLEAR_BIT(*preg_clear,
             COMP_CSR_WINMODE
            );
@@ -409,7 +418,7 @@ __STATIC_INLINE void LL_COMP_SetCommonWindowMode(COMP_Common_TypeDef *COMPxy_COM
   *         (1) Parameter available on all STM32G0 devices, must be used with comparator common instance COMP12_COMMON
   *         (2) Parameter specificity on devices STM32G0B1xx and STM32G0C1xx: only parameter that can be used only with comparator common instance COMP23_COMMON
   */
-__STATIC_INLINE uint32_t LL_COMP_GetCommonWindowMode(COMP_Common_TypeDef *COMPxy_COMMON)
+__STATIC_INLINE uint32_t LL_COMP_GetCommonWindowMode(const COMP_Common_TypeDef *COMPxy_COMMON)
 {
   /* Note: On this STM32 series, window mode can be set from any instance     */
   /*       of the pair of comparator instances.                               */
@@ -420,7 +429,7 @@ __STATIC_INLINE uint32_t LL_COMP_GetCommonWindowMode(COMP_Common_TypeDef *COMPxy
   /* Note: Exception for STM32G0 devices featuring ADC3 instance: in common   */
   /*       group of COMP2 and COMP3, instances odd and even are inverted.     */
   /*       Perform switch of parameter selected.                              */
-  if(COMPxy_COMMON == COMP23_COMMON)
+  if (COMPxy_COMMON == COMP23_COMMON)
   {
     window_mode_comp_odd = (uint32_t)READ_BIT(COMPxy_COMMON->CSR_EVEN, COMP_CSR_WINMODE);
     window_mode_comp_even = (uint32_t)READ_BIT(COMPxy_COMMON->CSR_ODD, COMP_CSR_WINMODE);
@@ -431,13 +440,14 @@ __STATIC_INLINE uint32_t LL_COMP_GetCommonWindowMode(COMP_Common_TypeDef *COMPxy
     window_mode_comp_even = (uint32_t)READ_BIT(COMPxy_COMMON->CSR_EVEN, COMP_CSR_WINMODE);
   }
 #else
-   const uint32_t window_mode_comp_odd = (uint32_t)READ_BIT(COMPxy_COMMON->CSR_ODD, COMP_CSR_WINMODE);
-   const uint32_t window_mode_comp_even = (uint32_t)READ_BIT(COMPxy_COMMON->CSR_EVEN, COMP_CSR_WINMODE);
+  const uint32_t window_mode_comp_odd = (uint32_t)READ_BIT(COMPxy_COMMON->CSR_ODD, COMP_CSR_WINMODE);
+  const uint32_t window_mode_comp_even = (uint32_t)READ_BIT(COMPxy_COMMON->CSR_EVEN, COMP_CSR_WINMODE);
 #endif /* COMP3 */
-
   return (uint32_t)(window_mode_comp_odd
                     | window_mode_comp_even
-                    | ((window_mode_comp_even >> LL_COMP_WINDOWMODE_BITOFFSET_POS) * LL_COMP_WINDOWMODE_COMP_EVEN_REGOFFSET_MASK));
+                    | ((window_mode_comp_even >> LL_COMP_WINDOWMODE_BITOFFSET_POS)
+                       * LL_COMP_WINDOWMODE_COMP_EVEN_REGOFFSET_MASK)
+                   );
 }
 
 /**
@@ -465,13 +475,13 @@ __STATIC_INLINE void LL_COMP_SetCommonWindowOutput(COMP_Common_TypeDef *COMPxy_C
   /* Note: Exception for STM32G0 devices featuring ADC3 instance: in common   */
   /*       group of COMP2 and COMP3, instances odd and even are inverted.     */
   /*       Perform switch of parameter selected.                              */
-  if(COMPxy_COMMON == COMP23_COMMON)
+  if (COMPxy_COMMON == COMP23_COMMON)
   {
-    if(WindowOutput == LL_COMP_WINDOWOUTPUT_COMP2)
+    if (WindowOutput == LL_COMP_WINDOWOUTPUT_COMP2)
     {
       window_output_tmp = LL_COMP_WINDOWOUTPUT_COMP3;
     }
-    else if(WindowOutput == LL_COMP_WINDOWOUTPUT_COMP3)
+    else if (WindowOutput == LL_COMP_WINDOWOUTPUT_COMP3)
     {
       window_output_tmp = LL_COMP_WINDOWOUTPUT_COMP2;
     }
@@ -515,7 +525,7 @@ __STATIC_INLINE void LL_COMP_SetCommonWindowOutput(COMP_Common_TypeDef *COMPxy_C
   *         (1) Parameter available on all STM32G0 devices, must be used with comparator common instance COMP12_COMMON
   *         (2) Parameter available only on devices STM32G0B1xx and STM32G0C1xx, must be used with comparator common instance COMP23_COMMON
   */
-__STATIC_INLINE uint32_t LL_COMP_GetCommonWindowOutput(COMP_Common_TypeDef *COMPxy_COMMON)
+__STATIC_INLINE uint32_t LL_COMP_GetCommonWindowOutput(const COMP_Common_TypeDef *COMPxy_COMMON)
 {
 #if defined(COMP3)
   uint32_t window_output_comp_odd;
@@ -524,7 +534,7 @@ __STATIC_INLINE uint32_t LL_COMP_GetCommonWindowOutput(COMP_Common_TypeDef *COMP
   /* Note: Exception for STM32G0 devices featuring ADC3 instance: in common   */
   /*       group of COMP2 and COMP3, instances odd and even are inverted.     */
   /*       Perform switch of parameter selected.                              */
-  if(COMPxy_COMMON == COMP23_COMMON)
+  if (COMPxy_COMMON == COMP23_COMMON)
   {
     window_output_comp_odd = (uint32_t)READ_BIT(COMPxy_COMMON->CSR_EVEN, COMP_CSR_WINOUT);
     window_output_comp_even = (uint32_t)READ_BIT(COMPxy_COMMON->CSR_ODD, COMP_CSR_WINOUT);
@@ -545,6 +555,7 @@ __STATIC_INLINE uint32_t LL_COMP_GetCommonWindowOutput(COMP_Common_TypeDef *COMP
                     | ((window_output_comp_even >> COMP_CSR_WINOUT_Pos) * LL_COMP_WINDOWMODE_COMP_EVEN_REGOFFSET_MASK)
                     | (window_output_comp_odd + window_output_comp_even));
 }
+
 
 /**
   * @}
@@ -576,7 +587,7 @@ __STATIC_INLINE void LL_COMP_SetPowerMode(COMP_TypeDef *COMPx, uint32_t PowerMod
   *         @arg @ref LL_COMP_POWERMODE_HIGHSPEED
   *         @arg @ref LL_COMP_POWERMODE_MEDIUMSPEED
   */
-__STATIC_INLINE uint32_t LL_COMP_GetPowerMode(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_GetPowerMode(const COMP_TypeDef *COMPx)
 {
   return (uint32_t)(READ_BIT(COMPx->CSR, COMP_CSR_PWRMODE));
 }
@@ -655,7 +666,7 @@ __STATIC_INLINE void LL_COMP_SetInputPlus(COMP_TypeDef *COMPx, uint32_t InputPlu
   *         @arg @ref LL_COMP_INPUT_PLUS_IO2
   *         @arg @ref LL_COMP_INPUT_PLUS_IO3
   */
-__STATIC_INLINE uint32_t LL_COMP_GetInputPlus(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_GetInputPlus(const COMP_TypeDef *COMPx)
 {
   return (uint32_t)(READ_BIT(COMPx->CSR, COMP_CSR_INPSEL));
 }
@@ -707,7 +718,7 @@ __STATIC_INLINE void LL_COMP_SetInputMinus(COMP_TypeDef *COMPx, uint32_t InputMi
   *         @arg @ref LL_COMP_INPUT_MINUS_IO2
   *         @arg @ref LL_COMP_INPUT_MINUS_IO3
   */
-__STATIC_INLINE uint32_t LL_COMP_GetInputMinus(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_GetInputMinus(const COMP_TypeDef *COMPx)
 {
   return (uint32_t)(READ_BIT(COMPx->CSR, COMP_CSR_INMSEL));
 }
@@ -738,7 +749,7 @@ __STATIC_INLINE void LL_COMP_SetInputHysteresis(COMP_TypeDef *COMPx, uint32_t In
   *         @arg @ref LL_COMP_HYSTERESIS_MEDIUM
   *         @arg @ref LL_COMP_HYSTERESIS_HIGH
   */
-__STATIC_INLINE uint32_t LL_COMP_GetInputHysteresis(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_GetInputHysteresis(const COMP_TypeDef *COMPx)
 {
   return (uint32_t)(READ_BIT(COMPx->CSR, COMP_CSR_HYST));
 }
@@ -773,7 +784,7 @@ __STATIC_INLINE void LL_COMP_SetOutputPolarity(COMP_TypeDef *COMPx, uint32_t Out
   *         @arg @ref LL_COMP_OUTPUTPOL_NONINVERTED
   *         @arg @ref LL_COMP_OUTPUTPOL_INVERTED
   */
-__STATIC_INLINE uint32_t LL_COMP_GetOutputPolarity(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_GetOutputPolarity(const COMP_TypeDef *COMPx)
 {
   return (uint32_t)(READ_BIT(COMPx->CSR, COMP_CSR_POLARITY));
 }
@@ -822,7 +833,7 @@ __STATIC_INLINE void LL_COMP_SetOutputBlankingSource(COMP_TypeDef *COMPx, uint32
   *         (1) Parameter availability depending on timer availability
   *             on the selected device.
   */
-__STATIC_INLINE uint32_t LL_COMP_GetOutputBlankingSource(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_GetOutputBlankingSource(const COMP_TypeDef *COMPx)
 {
   return (uint32_t)(READ_BIT(COMPx->CSR, COMP_CSR_BLANKING));
 }
@@ -867,7 +878,7 @@ __STATIC_INLINE void LL_COMP_Disable(COMP_TypeDef *COMPx)
   * @param  COMPx Comparator instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_COMP_IsEnabled(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_IsEnabled(const COMP_TypeDef *COMPx)
 {
   return ((READ_BIT(COMPx->CSR, COMP_CSR_EN) == (COMP_CSR_EN)) ? 1UL : 0UL);
 }
@@ -894,7 +905,7 @@ __STATIC_INLINE void LL_COMP_Lock(COMP_TypeDef *COMPx)
   * @param  COMPx Comparator instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_COMP_IsLocked(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_IsLocked(const COMP_TypeDef *COMPx)
 {
   return ((READ_BIT(COMPx->CSR, COMP_CSR_LOCK) == (COMP_CSR_LOCK)) ? 1UL : 0UL);
 }
@@ -919,7 +930,7 @@ __STATIC_INLINE uint32_t LL_COMP_IsLocked(COMP_TypeDef *COMPx)
   *         @arg @ref LL_COMP_OUTPUT_LEVEL_LOW
   *         @arg @ref LL_COMP_OUTPUT_LEVEL_HIGH
   */
-__STATIC_INLINE uint32_t LL_COMP_ReadOutputLevel(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_ReadOutputLevel(const COMP_TypeDef *COMPx)
 {
   return (uint32_t)(READ_BIT(COMPx->CSR, COMP_CSR_VALUE)
                     >> LL_COMP_OUTPUT_LEVEL_BITOFFSET_POS);
@@ -935,7 +946,7 @@ __STATIC_INLINE uint32_t LL_COMP_ReadOutputLevel(COMP_TypeDef *COMPx)
   */
 
 ErrorStatus LL_COMP_DeInit(COMP_TypeDef *COMPx);
-ErrorStatus LL_COMP_Init(COMP_TypeDef *COMPx, LL_COMP_InitTypeDef *COMP_InitStruct);
+ErrorStatus LL_COMP_Init(COMP_TypeDef *COMPx, const LL_COMP_InitTypeDef *COMP_InitStruct);
 void        LL_COMP_StructInit(LL_COMP_InitTypeDef *COMP_InitStruct);
 
 /**

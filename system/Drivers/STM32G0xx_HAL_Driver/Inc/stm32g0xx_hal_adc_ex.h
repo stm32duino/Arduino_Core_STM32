@@ -144,7 +144,7 @@ extern "C" {
 
 /* ADC calibration */
 HAL_StatusTypeDef       HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc);
-uint32_t                HAL_ADCEx_Calibration_GetValue(ADC_HandleTypeDef *hadc);
+uint32_t                HAL_ADCEx_Calibration_GetValue(const ADC_HandleTypeDef *hadc);
 HAL_StatusTypeDef       HAL_ADCEx_Calibration_SetValue(ADC_HandleTypeDef *hadc, uint32_t CalibrationFactor);
 
 /* ADC IRQHandler and Callbacks used in non-blocking modes (Interruption) */

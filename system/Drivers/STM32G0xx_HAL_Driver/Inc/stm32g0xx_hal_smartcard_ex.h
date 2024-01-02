@@ -247,7 +247,7 @@ extern "C" {
     }                                                          \
     else if((__HANDLE__)->Instance == USART3)                  \
     {                                                          \
-      switch(__HAL_RCC_GET_USART2_SOURCE())                    \
+      switch(__HAL_RCC_GET_USART3_SOURCE())                    \
       {                                                        \
         case RCC_USART3CLKSOURCE_PCLK1:                        \
           (__CLOCKSOURCE__) = SMARTCARD_CLOCKSOURCE_PCLK1;     \

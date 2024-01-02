@@ -592,13 +592,14 @@ void              HAL_PWREx_DisablePVD(void);
 /* Power voltage monitoring configuration functions ***************************/
 void HAL_PWREx_EnableVddIO2(void);
 void HAL_PWREx_DisableVddIO2(void);
-void HAL_PWREx_EnableVddUSB(void);
-void HAL_PWREx_DisableVddUSB(void);
 void HAL_PWREx_EnablePVMUSB(void);
 void HAL_PWREx_DisablePVMUSB(void);
 HAL_StatusTypeDef HAL_PWREx_ConfigPVM(PWR_PVMTypeDef *sConfigPVM);
 #endif /* PWR_PVM_SUPPORT */
-
+#if defined(PWR_CR2_USV)
+void HAL_PWREx_EnableVddUSB(void);
+void HAL_PWREx_DisableVddUSB(void);
+#endif /* PWR_CR2_USV */
 /* Low Power modes configuration functions ************************************/
 void              HAL_PWREx_EnableLowPowerRunMode(void);
 HAL_StatusTypeDef HAL_PWREx_DisableLowPowerRunMode(void);

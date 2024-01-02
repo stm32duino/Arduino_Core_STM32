@@ -269,7 +269,7 @@ ErrorStatus LL_ADC_CommonDeInit(ADC_Common_TypeDef *ADCxy_COMMON)
   *          - SUCCESS: ADC common registers are initialized
   *          - ERROR: ADC common registers are not initialized
   */
-ErrorStatus LL_ADC_CommonInit(ADC_Common_TypeDef *ADCxy_COMMON, LL_ADC_CommonInitTypeDef *pADC_CommonInitStruct)
+ErrorStatus LL_ADC_CommonInit(ADC_Common_TypeDef *ADCxy_COMMON, const LL_ADC_CommonInitTypeDef *pADC_CommonInitStruct)
 {
   ErrorStatus status = SUCCESS;
 
@@ -339,24 +339,13 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *ADCx)
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(ADCx));
 
-  /* Disable ADC instance if not already disabled.                            */
+  /* Disable ADC instance if not already disabled. */
   if (LL_ADC_IsEnabled(ADCx) == 1UL)
   {
-    /* Set ADC group regular trigger source to SW start to ensure to not      */
-    /* have an external trigger event occurring during the conversion stop    */
-    /* ADC disable process.                                                   */
-    LL_ADC_REG_SetTriggerSource(ADCx, LL_ADC_REG_TRIG_SOFTWARE);
+    /* Stop potential ADC conversion on going on ADC group regular. */
+    LL_ADC_REG_StopConversion(ADCx);
 
-    /* Stop potential ADC conversion on going on ADC group regular.           */
-    if (LL_ADC_REG_IsConversionOngoing(ADCx) != 0UL)
-    {
-      if (LL_ADC_REG_IsStopConversionOngoing(ADCx) == 0UL)
-      {
-        LL_ADC_REG_StopConversion(ADCx);
-      }
-    }
-
-    /* Wait for ADC conversions are effectively stopped                       */
+    /* Wait for ADC conversions are effectively stopped */
     timeout_cpu_cycles = ADC_TIMEOUT_STOP_CONVERSION_CPU_CYCLES;
     while (LL_ADC_REG_IsStopConversionOngoing(ADCx) == 1UL)
     {
@@ -432,31 +421,13 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *ADCx)
     /* Reset register CFGR1 */
     CLEAR_BIT(ADCx->CFGR1,
               (ADC_CFGR1_AWD1CH  | ADC_CFGR1_AWD1EN | ADC_CFGR1_AWD1SGL | ADC_CFGR1_DISCEN
-               | ADC_CFGR1_AUTOFF  | ADC_CFGR1_WAIT   | ADC_CFGR1_CONT    | ADC_CFGR1_OVRMOD
+               | ADC_CFGR1_CHSELRMOD | ADC_CFGR1_AUTOFF  | ADC_CFGR1_WAIT   | ADC_CFGR1_CONT    | ADC_CFGR1_OVRMOD
                | ADC_CFGR1_EXTEN   | ADC_CFGR1_EXTSEL | ADC_CFGR1_ALIGN   | ADC_CFGR1_RES
                | ADC_CFGR1_SCANDIR | ADC_CFGR1_DMACFG | ADC_CFGR1_DMAEN)
              );
 
-    /* Reset register CFGR2 */
-    /* Note: Update of ADC clock mode is conditioned to ADC state disabled:   */
-    /*       already done above.                                              */
-    CLEAR_BIT(ADCx->CFGR2,
-              (ADC_CFGR2_CKMODE
-               | ADC_CFGR2_TOVS   | ADC_CFGR2_OVSS  | ADC_CFGR2_OVSR
-               | ADC_CFGR2_OVSE)
-             );
-
     /* Reset register SMPR */
     CLEAR_BIT(ADCx->SMPR, ADC_SMPR_SMP1 | ADC_SMPR_SMP2 | ADC_SMPR_SMPSEL);
-
-    /* Reset register AWD1TR */
-    MODIFY_REG(ADCx->AWD1TR, ADC_AWD1TR_HT1 | ADC_AWD1TR_LT1, ADC_AWD1TR_HT1);
-
-    /* Reset register AWD2TR */
-    MODIFY_REG(ADCx->AWD2TR, ADC_AWD2TR_HT2 | ADC_AWD2TR_LT2, ADC_AWD2TR_HT2);
-
-    /* Reset register AWD3TR */
-    MODIFY_REG(ADCx->AWD3TR, ADC_AWD3TR_HT3 | ADC_AWD3TR_LT3, ADC_AWD3TR_HT3);
 
     /* Reset register CHSELR */
     CLEAR_BIT(ADCx->CHSELR,
@@ -466,6 +437,15 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *ADCx)
                | ADC_CHSELR_CHSEL7  | ADC_CHSELR_CHSEL6  | ADC_CHSELR_CHSEL5  | ADC_CHSELR_CHSEL4
                | ADC_CHSELR_CHSEL3  | ADC_CHSELR_CHSEL2  | ADC_CHSELR_CHSEL1  | ADC_CHSELR_CHSEL0)
              );
+
+    /* Reset register AWD1TR */
+    MODIFY_REG(ADCx->AWD1TR, ADC_AWD1TR_HT1 | ADC_AWD1TR_LT1, ADC_AWD1TR_HT1);
+
+    /* Reset register AWD2TR */
+    MODIFY_REG(ADCx->AWD2TR, ADC_AWD2TR_HT2 | ADC_AWD2TR_LT2, ADC_AWD2TR_HT2);
+
+    /* Reset register AWD3TR */
+    MODIFY_REG(ADCx->AWD3TR, ADC_AWD3TR_HT3 | ADC_AWD3TR_LT3, ADC_AWD3TR_HT3);
 
     /* Wait for ADC channel configuration ready */
     timeout_cpu_cycles = ADC_TIMEOUT_CCRDY_CPU_CYCLES;
@@ -488,6 +468,17 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *ADCx)
 
     /* Reset register CALFACT */
     CLEAR_BIT(ADCx->CALFACT, ADC_CALFACT_CALFACT);
+
+    /* Reset register CFGR2 */
+    /* Note: CFGR2 reset done at the end of de-initialization due to          */
+    /*       clock source reset                                               */
+    /* Note: Update of ADC clock mode is conditioned to ADC state disabled:   */
+    /*       already done above.                                              */
+    CLEAR_BIT(ADCx->CFGR2,
+              (ADC_CFGR2_CKMODE
+               | ADC_CFGR2_TOVS   | ADC_CFGR2_OVSS  | ADC_CFGR2_OVSR
+               | ADC_CFGR2_OVSE)
+             );
 
   }
   else
@@ -513,7 +504,7 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *ADCx)
   *         is conditioned to ADC state:
   *         ADC instance must be disabled.
   *         This condition is applied to all ADC features, for efficiency
-  *         and compatibility over all STM32 families. However, the different
+  *         and compatibility over all STM32 series. However, the different
   *         features can be set under different ADC state conditions
   *         (setting possible with ADC enabled without conversion on going,
   *         ADC enabled with conversion on going, ...)
@@ -540,7 +531,7 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *ADCx)
   *          - SUCCESS: ADC registers are initialized
   *          - ERROR: ADC registers are not initialized
   */
-ErrorStatus LL_ADC_Init(ADC_TypeDef *ADCx, LL_ADC_InitTypeDef *pADC_InitStruct)
+ErrorStatus LL_ADC_Init(ADC_TypeDef *ADCx, const LL_ADC_InitTypeDef *pADC_InitStruct)
 {
   ErrorStatus status = SUCCESS;
 
@@ -614,7 +605,7 @@ void LL_ADC_StructInit(LL_ADC_InitTypeDef *pADC_InitStruct)
   *         is conditioned to ADC state:
   *         ADC instance must be disabled.
   *         This condition is applied to all ADC features, for efficiency
-  *         and compatibility over all STM32 families. However, the different
+  *         and compatibility over all STM32 series. However, the different
   *         features can be set under different ADC state conditions
   *         (setting possible with ADC enabled without conversion on going,
   *         ADC enabled with conversion on going, ...)
@@ -644,7 +635,7 @@ void LL_ADC_StructInit(LL_ADC_InitTypeDef *pADC_InitStruct)
   *          - SUCCESS: ADC registers are initialized
   *          - ERROR: ADC registers are not initialized
   */
-ErrorStatus LL_ADC_REG_Init(ADC_TypeDef *ADCx, LL_ADC_REG_InitTypeDef *pADC_RegInitStruct)
+ErrorStatus LL_ADC_REG_Init(ADC_TypeDef *ADCx, const LL_ADC_REG_InitTypeDef *pADC_RegInitStruct)
 {
   ErrorStatus status = SUCCESS;
 

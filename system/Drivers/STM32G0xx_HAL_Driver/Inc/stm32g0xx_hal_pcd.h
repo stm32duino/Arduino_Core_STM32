@@ -96,8 +96,8 @@ typedef struct
   PCD_TypeDef             *Instance;   /*!< Register base address             */
   PCD_InitTypeDef         Init;        /*!< PCD required parameters           */
   __IO uint8_t            USB_Address; /*!< USB Address                       */
-  PCD_EPTypeDef           IN_ep[8];   /*!< IN endpoint parameters             */
-  PCD_EPTypeDef           OUT_ep[8];  /*!< OUT endpoint parameters            */
+  PCD_EPTypeDef           IN_ep[8];    /*!< IN endpoint parameters            */
+  PCD_EPTypeDef           OUT_ep[8];   /*!< OUT endpoint parameters           */
   HAL_LockTypeDef         Lock;        /*!< PCD peripheral status             */
   __IO PCD_StateTypeDef   State;       /*!< PCD communication state           */
   __IO  uint32_t          ErrorCode;   /*!< PCD Error code                    */
@@ -185,12 +185,12 @@ typedef struct
   *  @brief macros to handle interrupts and specific clock configurations
   * @{
   */
+#define __HAL_PCD_ENABLE(__HANDLE__)                       (void)USB_EnableGlobalInt ((__HANDLE__)->Instance)
+#define __HAL_PCD_DISABLE(__HANDLE__)                      (void)USB_DisableGlobalInt ((__HANDLE__)->Instance)
 
+#define __HAL_PCD_GET_FLAG(__HANDLE__, __INTERRUPT__) \
+  ((USB_ReadInterrupts((__HANDLE__)->Instance) & (__INTERRUPT__)) == (__INTERRUPT__))
 
-#define __HAL_PCD_ENABLE(__HANDLE__)                              (void)USB_EnableGlobalInt ((__HANDLE__)->Instance)
-#define __HAL_PCD_DISABLE(__HANDLE__)                             (void)USB_DisableGlobalInt ((__HANDLE__)->Instance)
-#define __HAL_PCD_GET_FLAG(__HANDLE__, __INTERRUPT__)             ((USB_ReadInterrupts((__HANDLE__)->Instance)\
-                                                                    & (__INTERRUPT__)) == (__INTERRUPT__))
 
 #define __HAL_PCD_CLEAR_FLAG(__HANDLE__, __INTERRUPT__)           (((__HANDLE__)->Instance->ISTR)\
                                                                    &= (uint16_t)(~(__INTERRUPT__)))
@@ -334,7 +334,7 @@ HAL_StatusTypeDef HAL_PCD_EP_Flush(PCD_HandleTypeDef *hpcd, uint8_t ep_addr);
 HAL_StatusTypeDef HAL_PCD_EP_Abort(PCD_HandleTypeDef *hpcd, uint8_t ep_addr);
 HAL_StatusTypeDef HAL_PCD_ActivateRemoteWakeup(PCD_HandleTypeDef *hpcd);
 HAL_StatusTypeDef HAL_PCD_DeActivateRemoteWakeup(PCD_HandleTypeDef *hpcd);
-uint32_t          HAL_PCD_EP_GetRxCount(PCD_HandleTypeDef *hpcd, uint8_t ep_addr);
+uint32_t          HAL_PCD_EP_GetRxCount(PCD_HandleTypeDef const *hpcd, uint8_t ep_addr);
 /**
   * @}
   */
@@ -343,7 +343,7 @@ uint32_t          HAL_PCD_EP_GetRxCount(PCD_HandleTypeDef *hpcd, uint8_t ep_addr
 /** @addtogroup PCD_Exported_Functions_Group4 Peripheral State functions
   * @{
   */
-PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
+PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef const *hpcd);
 /**
   * @}
   */
@@ -411,14 +411,18 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
 /** @defgroup PCD_Private_Macros PCD Private Macros
   * @{
   */
+
+/* PMA RX counter */
+#ifndef PCD_RX_PMA_CNT
+#define PCD_RX_PMA_CNT                                               10U
+#endif /* PCD_RX_PMA_CNT */
+
 /* SetENDPOINT */
 #define PCD_SET_ENDPOINT                       USB_DRD_SET_CHEP
 
 /* GetENDPOINT Register value*/
 #define PCD_GET_ENDPOINT                       USB_DRD_GET_CHEP
 
-/* ENDPOINT transfer */
-#define USB_EP0StartXfer                       USB_EPStartXfer
 
 /**
   * @brief free buffer used from the application realizing it to the line
@@ -530,7 +534,7 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
 __STATIC_INLINE uint16_t PCD_GET_EP_RX_CNT(const PCD_TypeDef *Instance, uint16_t bEpNum)
 {
   UNUSED(Instance);
-  __IO uint32_t count = 10U;
+  __IO uint32_t count = PCD_RX_PMA_CNT;
 
   /* WA: few cycles for RX PMA descriptor to update */
   while (count > 0U)
@@ -573,7 +577,7 @@ __STATIC_INLINE uint16_t PCD_GET_EP_RX_CNT(const PCD_TypeDef *Instance, uint16_t
 __STATIC_INLINE uint16_t PCD_GET_EP_DBUF0_CNT(const PCD_TypeDef *Instance, uint16_t bEpNum)
 {
   UNUSED(Instance);
-  __IO uint32_t count = 10U;
+  __IO uint32_t count = PCD_RX_PMA_CNT;
 
   /* WA: few cycles for RX PMA descriptor to update */
   while (count > 0U)
@@ -593,7 +597,7 @@ __STATIC_INLINE uint16_t PCD_GET_EP_DBUF0_CNT(const PCD_TypeDef *Instance, uint1
 __STATIC_INLINE uint16_t PCD_GET_EP_DBUF1_CNT(const PCD_TypeDef *Instance, uint16_t bEpNum)
 {
   UNUSED(Instance);
-  __IO uint32_t count = 10U;
+  __IO uint32_t count = PCD_RX_PMA_CNT;
 
   /* WA: few cycles for RX PMA descriptor to update */
   while (count > 0U)
@@ -603,6 +607,7 @@ __STATIC_INLINE uint16_t PCD_GET_EP_DBUF1_CNT(const PCD_TypeDef *Instance, uint1
 
   return (uint16_t)USB_DRD_GET_CHEP_DBUF1_CNT((Instance), (bEpNum));
 }
+
 
 /**
   * @}

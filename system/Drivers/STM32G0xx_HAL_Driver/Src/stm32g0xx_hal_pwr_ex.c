@@ -246,7 +246,7 @@ void HAL_PWREx_DisablePVD(void)
 }
 #endif /* PWR_PVD_SUPPORT */
 
-#if defined(PWR_PVM_SUPPORT)
+#if defined(PWR_CR2_USV)
 /**
   * @brief Enable VDDUSB supply.
   * @note  Remove VDDUSB electrical and logical isolation, once VDDUSB supply is present.
@@ -265,7 +265,7 @@ void HAL_PWREx_DisableVddUSB(void)
 {
   CLEAR_BIT(PWR->CR2, PWR_CR2_USV);
 }
-#endif /* PWR_PVM_SUPPORT */
+#endif /* PWR_CR2_USV */
 
 #if defined(PWR_CR2_IOSV)
 /**

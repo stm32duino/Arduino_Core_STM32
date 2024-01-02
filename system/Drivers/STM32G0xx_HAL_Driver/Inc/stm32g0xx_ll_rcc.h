@@ -374,10 +374,12 @@ typedef struct
 #define LL_RCC_USART1_CLKSOURCE_SYSCLK     ((RCC_CCIPR_USART1SEL << 16U) | RCC_CCIPR_USART1SEL_0)  /*!< SYSCLK clock used as USART1 clock source */
 #define LL_RCC_USART1_CLKSOURCE_HSI        ((RCC_CCIPR_USART1SEL << 16U) | RCC_CCIPR_USART1SEL_1)  /*!< HSI clock used as USART1 clock source */
 #define LL_RCC_USART1_CLKSOURCE_LSE        ((RCC_CCIPR_USART1SEL << 16U) | RCC_CCIPR_USART1SEL)    /*!< LSE clock used as USART1 clock source */
+#if defined(RCC_CCIPR_USART2SEL)
 #define LL_RCC_USART2_CLKSOURCE_PCLK1      ((RCC_CCIPR_USART2SEL << 16U) | 0x00000000U)            /*!< PCLK1 clock used as USART2 clock source */
 #define LL_RCC_USART2_CLKSOURCE_SYSCLK     ((RCC_CCIPR_USART2SEL << 16U) | RCC_CCIPR_USART2SEL_0)  /*!< SYSCLK clock used as USART2 clock source */
 #define LL_RCC_USART2_CLKSOURCE_HSI        ((RCC_CCIPR_USART2SEL << 16U) | RCC_CCIPR_USART2SEL_1)  /*!< HSI clock used as USART2 clock source */
 #define LL_RCC_USART2_CLKSOURCE_LSE        ((RCC_CCIPR_USART2SEL << 16U) | RCC_CCIPR_USART2SEL)    /*!< LSE clock used as USART2 clock source */
+#endif /* RCC_CCIPR_USART2SEL */
 #if defined(RCC_CCIPR_USART3SEL)
 #define LL_RCC_USART3_CLKSOURCE_PCLK1      ((RCC_CCIPR_USART3SEL << 16U) | 0x00000000U)           /*!< PCLK1 clock used as USART3 clock source */
 #define LL_RCC_USART3_CLKSOURCE_SYSCLK     ((RCC_CCIPR_USART3SEL << 16U) | RCC_CCIPR_USART3SEL_0) /*!< SYSCLK clock used as USART3 clock source */
@@ -563,7 +565,9 @@ typedef struct
   * @{
   */
 #define LL_RCC_USART1_CLKSOURCE            RCC_CCIPR_USART1SEL /*!< USART1 Clock source selection */
+#if defined(RCC_CCIPR_USART2SEL)
 #define LL_RCC_USART2_CLKSOURCE            RCC_CCIPR_USART2SEL /*!< USART2 Clock source selection */
+#endif /* RCC_CCIPR_USART2SEL */
 #if defined(RCC_CCIPR_USART3SEL)
 #define LL_RCC_USART3_CLKSOURCE            RCC_CCIPR_USART3SEL /*!< USART3 Clock source selection */
 #endif /* RCC_CCIPR_USART3SEL */
@@ -1916,10 +1920,10 @@ __STATIC_INLINE void LL_RCC_ConfigMCO2(uint32_t MCOxSource, uint32_t MCOxPrescal
   *         @arg @ref LL_RCC_USART1_CLKSOURCE_SYSCLK
   *         @arg @ref LL_RCC_USART1_CLKSOURCE_HSI
   *         @arg @ref LL_RCC_USART1_CLKSOURCE_LSE
-  *         @arg @ref LL_RCC_USART2_CLKSOURCE_PCLK1
-  *         @arg @ref LL_RCC_USART2_CLKSOURCE_SYSCLK
-  *         @arg @ref LL_RCC_USART2_CLKSOURCE_HSI
-  *         @arg @ref LL_RCC_USART2_CLKSOURCE_LSE
+  *         @arg @ref LL_RCC_USART2_CLKSOURCE_PCLK1 (*)
+  *         @arg @ref LL_RCC_USART2_CLKSOURCE_SYSCLK (*)
+  *         @arg @ref LL_RCC_USART2_CLKSOURCE_HSI (*)
+  *         @arg @ref LL_RCC_USART2_CLKSOURCE_LSE (*)
   *         @arg @ref LL_RCC_USART3_CLKSOURCE_PCLK1 (*)
   *         @arg @ref LL_RCC_USART3_CLKSOURCE_SYSCLK (*)
   *         @arg @ref LL_RCC_USART3_CLKSOURCE_HSI (*)
@@ -2160,10 +2164,10 @@ __STATIC_INLINE void LL_RCC_SetI2SClockSource(uint32_t I2SxSource)
   *         @arg @ref LL_RCC_USART1_CLKSOURCE_SYSCLK
   *         @arg @ref LL_RCC_USART1_CLKSOURCE_HSI
   *         @arg @ref LL_RCC_USART1_CLKSOURCE_LSE
-  *         @arg @ref LL_RCC_USART2_CLKSOURCE_PCLK1
-  *         @arg @ref LL_RCC_USART2_CLKSOURCE_SYSCLK
-  *         @arg @ref LL_RCC_USART2_CLKSOURCE_HSI
-  *         @arg @ref LL_RCC_USART2_CLKSOURCE_LSE
+  *         @arg @ref LL_RCC_USART2_CLKSOURCE_PCLK1 (*)
+  *         @arg @ref LL_RCC_USART2_CLKSOURCE_SYSCLK (*)
+  *         @arg @ref LL_RCC_USART2_CLKSOURCE_HSI (*)
+  *         @arg @ref LL_RCC_USART2_CLKSOURCE_LSE (*)
   *         @arg @ref LL_RCC_USART3_CLKSOURCE_PCLK1 (*)
   *         @arg @ref LL_RCC_USART3_CLKSOURCE_SYSCLK (*)
   *         @arg @ref LL_RCC_USART3_CLKSOURCE_HSI (*)
