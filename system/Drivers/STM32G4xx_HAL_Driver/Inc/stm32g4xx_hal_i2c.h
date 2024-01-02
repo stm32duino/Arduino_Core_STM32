@@ -118,8 +118,6 @@ typedef enum
   HAL_I2C_STATE_BUSY_RX_LISTEN    = 0x2AU,   /*!< Address Listen Mode and Data Reception
                                                  process is ongoing                         */
   HAL_I2C_STATE_ABORT             = 0x60U,   /*!< Abort user request ongoing                */
-  HAL_I2C_STATE_TIMEOUT           = 0xA0U,   /*!< Timeout state                             */
-  HAL_I2C_STATE_ERROR             = 0xE0U    /*!< Error                                     */
 
 } HAL_I2C_StateTypeDef;
 
@@ -207,6 +205,7 @@ typedef struct __I2C_HandleTypeDef
 
   DMA_HandleTypeDef          *hdmarx;        /*!< I2C Rx DMA handle parameters              */
 
+
   HAL_LockTypeDef            Lock;           /*!< I2C locking object                        */
 
   __IO HAL_I2C_StateTypeDef  State;          /*!< I2C communication state                   */
@@ -216,6 +215,10 @@ typedef struct __I2C_HandleTypeDef
   __IO uint32_t              ErrorCode;      /*!< I2C Error code                            */
 
   __IO uint32_t              AddrEventCount; /*!< I2C Address Event counter                 */
+
+  __IO uint32_t              Devaddress;     /*!< I2C Target device address                 */
+
+  __IO uint32_t              Memaddress;     /*!< I2C Target memory address                 */
 
 #if (USE_HAL_I2C_REGISTER_CALLBACKS == 1)
   void (* MasterTxCpltCallback)(struct __I2C_HandleTypeDef *hi2c);
@@ -705,9 +708,9 @@ void HAL_I2C_AbortCpltCallback(I2C_HandleTypeDef *hi2c);
   * @{
   */
 /* Peripheral State, Mode and Error functions  *********************************/
-HAL_I2C_StateTypeDef HAL_I2C_GetState(I2C_HandleTypeDef *hi2c);
-HAL_I2C_ModeTypeDef  HAL_I2C_GetMode(I2C_HandleTypeDef *hi2c);
-uint32_t             HAL_I2C_GetError(I2C_HandleTypeDef *hi2c);
+HAL_I2C_StateTypeDef HAL_I2C_GetState(const I2C_HandleTypeDef *hi2c);
+HAL_I2C_ModeTypeDef  HAL_I2C_GetMode(const I2C_HandleTypeDef *hi2c);
+uint32_t             HAL_I2C_GetError(const I2C_HandleTypeDef *hi2c);
 
 /**
   * @}
@@ -800,8 +803,8 @@ uint32_t             HAL_I2C_GetError(I2C_HandleTypeDef *hi2c);
                                                                  (I2C_CR2_START) | (I2C_CR2_AUTOEND)) & \
                                                                 (~I2C_CR2_RD_WRN)) : \
                                                      (uint32_t)((((uint32_t)(__ADDRESS__) & (I2C_CR2_SADD)) | \
-                                                                 (I2C_CR2_ADD10) | (I2C_CR2_START)) & \
-                                                                (~I2C_CR2_RD_WRN)))
+                                                                 (I2C_CR2_ADD10) | (I2C_CR2_START) | \
+                                                                 (I2C_CR2_AUTOEND)) & (~I2C_CR2_RD_WRN)))
 
 #define I2C_CHECK_FLAG(__ISR__, __FLAG__)         ((((__ISR__) & ((__FLAG__) & I2C_FLAG_MASK)) == \
                                                     ((__FLAG__) & I2C_FLAG_MASK)) ? SET : RESET)

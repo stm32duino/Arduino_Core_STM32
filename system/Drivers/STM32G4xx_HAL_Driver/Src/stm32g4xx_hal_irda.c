@@ -142,7 +142,7 @@
 
     [..]
     Use function HAL_IRDA_UnRegisterCallback() to reset a callback to the default
-    weak (surcharged) function.
+    weak function.
     HAL_IRDA_UnRegisterCallback() takes as parameters the HAL peripheral handle,
     and the Callback ID.
     This function allows to reset following callbacks:
@@ -159,10 +159,10 @@
 
     [..]
     By default, after the HAL_IRDA_Init() and when the state is HAL_IRDA_STATE_RESET
-    all callbacks are set to the corresponding weak (surcharged) functions:
+    all callbacks are set to the corresponding weak functions:
     examples HAL_IRDA_TxCpltCallback(), HAL_IRDA_RxHalfCpltCallback().
     Exception done for MspInit and MspDeInit functions that are respectively
-    reset to the legacy weak (surcharged) functions in the HAL_IRDA_Init()
+    reset to the legacy weak functions in the HAL_IRDA_Init()
     and HAL_IRDA_DeInit() only when these callbacks are null (not registered beforehand).
     If not, MspInit or MspDeInit are not null, the HAL_IRDA_Init() and HAL_IRDA_DeInit()
     keep and use the user MspInit/MspDeInit callbacks (registered beforehand).
@@ -179,7 +179,7 @@
     [..]
     When The compilation define USE_HAL_IRDA_REGISTER_CALLBACKS is set to 0 or
     not defined, the callback registration feature is not available
-    and weak (surcharged) callbacks are used.
+    and weak callbacks are used.
 
   @endverbatim
   ******************************************************************************
@@ -462,7 +462,9 @@ __weak void HAL_IRDA_MspDeInit(IRDA_HandleTypeDef *hirda)
 #if (USE_HAL_IRDA_REGISTER_CALLBACKS == 1)
 /**
   * @brief  Register a User IRDA Callback
-  *         To be used instead of the weak predefined callback
+  *         To be used to override the weak predefined callback
+  * @note   The HAL_IRDA_RegisterCallback() may be called before HAL_IRDA_Init() in HAL_IRDA_STATE_RESET
+  *         to register callbacks for HAL_IRDA_MSPINIT_CB_ID and HAL_IRDA_MSPDEINIT_CB_ID
   * @param  hirda irda handle
   * @param  CallbackID ID of the callback to be registered
   *         This parameter can be one of the following values:
@@ -491,8 +493,6 @@ HAL_StatusTypeDef HAL_IRDA_RegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRDA_
 
     return HAL_ERROR;
   }
-  /* Process locked */
-  __HAL_LOCK(hirda);
 
   if (hirda->gState == HAL_IRDA_STATE_READY)
   {
@@ -577,15 +577,14 @@ HAL_StatusTypeDef HAL_IRDA_RegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRDA_
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hirda);
-
   return status;
 }
 
 /**
   * @brief  Unregister an IRDA callback
   *         IRDA callback is redirected to the weak predefined callback
+  * @note   The HAL_IRDA_UnRegisterCallback() may be called before HAL_IRDA_Init() in HAL_IRDA_STATE_RESET
+  *         to un-register callbacks for HAL_IRDA_MSPINIT_CB_ID and HAL_IRDA_MSPDEINIT_CB_ID
   * @param  hirda irda handle
   * @param  CallbackID ID of the callback to be unregistered
   *         This parameter can be one of the following values:
@@ -604,9 +603,6 @@ HAL_StatusTypeDef HAL_IRDA_RegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRDA_
 HAL_StatusTypeDef HAL_IRDA_UnRegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRDA_CallbackIDTypeDef CallbackID)
 {
   HAL_StatusTypeDef status = HAL_OK;
-
-  /* Process locked */
-  __HAL_LOCK(hirda);
 
   if (HAL_IRDA_STATE_READY == hirda->gState)
   {
@@ -692,9 +688,6 @@ HAL_StatusTypeDef HAL_IRDA_UnRegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRD
     /* Return error status */
     status =  HAL_ERROR;
   }
-
-  /* Release Lock */
-  __HAL_UNLOCK(hirda);
 
   return status;
 }
@@ -2192,7 +2185,7 @@ __weak void HAL_IRDA_AbortReceiveCpltCallback(IRDA_HandleTypeDef *hirda)
   *                the configuration information for the specified IRDA module.
   * @retval HAL state
   */
-HAL_IRDA_StateTypeDef HAL_IRDA_GetState(IRDA_HandleTypeDef *hirda)
+HAL_IRDA_StateTypeDef HAL_IRDA_GetState(const IRDA_HandleTypeDef *hirda)
 {
   /* Return IRDA handle state */
   uint32_t temp1;
@@ -2209,7 +2202,7 @@ HAL_IRDA_StateTypeDef HAL_IRDA_GetState(IRDA_HandleTypeDef *hirda)
   *               the configuration information for the specified IRDA module.
   * @retval IRDA Error Code
   */
-uint32_t HAL_IRDA_GetError(IRDA_HandleTypeDef *hirda)
+uint32_t HAL_IRDA_GetError(const IRDA_HandleTypeDef *hirda)
 {
   return hirda->ErrorCode;
 }
@@ -2432,7 +2425,6 @@ static void IRDA_EndTxTransfer(IRDA_HandleTypeDef *hirda)
   /* At end of Tx process, restore hirda->gState to Ready */
   hirda->gState = HAL_IRDA_STATE_READY;
 }
-
 
 /**
   * @brief  End ongoing Rx transfer on UART peripheral (following error detection or Reception completion).

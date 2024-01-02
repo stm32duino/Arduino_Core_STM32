@@ -4629,7 +4629,7 @@ void HAL_HRTIM_MspDeInit(HRTIM_HandleTypeDef *hhrtim);
 
 HAL_StatusTypeDef HAL_HRTIM_TimeBaseConfig(HRTIM_HandleTypeDef *hhrtim,
                                            uint32_t TimerIdx,
-                                           HRTIM_TimeBaseCfgTypeDef * pTimeBaseCfg);
+                                           const HRTIM_TimeBaseCfgTypeDef * pTimeBaseCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_DLLCalibrationStart(HRTIM_HandleTypeDef *hhrtim,
                                                 uint32_t CalibrationRate);
@@ -4681,7 +4681,7 @@ HAL_StatusTypeDef HAL_HRTIM_SimpleBaseStop_DMA(HRTIM_HandleTypeDef *hhrtim,
 HAL_StatusTypeDef HAL_HRTIM_SimpleOCChannelConfig(HRTIM_HandleTypeDef *hhrtim,
                                                  uint32_t TimerIdx,
                                                  uint32_t OCChannel,
-                                                 HRTIM_SimpleOCChannelCfgTypeDef* pSimpleOCChannelCfg);
+                                                 const HRTIM_SimpleOCChannelCfgTypeDef* pSimpleOCChannelCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_SimpleOCStart(HRTIM_HandleTypeDef *hhrtim,
                                          uint32_t TimerIdx,
@@ -4721,7 +4721,7 @@ HAL_StatusTypeDef HAL_HRTIM_SimpleOCStop_DMA(HRTIM_HandleTypeDef *hhrtim,
 HAL_StatusTypeDef HAL_HRTIM_SimplePWMChannelConfig(HRTIM_HandleTypeDef *hhrtim,
                                                   uint32_t TimerIdx,
                                                   uint32_t PWMChannel,
-                                                  HRTIM_SimplePWMChannelCfgTypeDef* pSimplePWMChannelCfg);
+                                                  const HRTIM_SimplePWMChannelCfgTypeDef* pSimplePWMChannelCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_SimplePWMStart(HRTIM_HandleTypeDef *hhrtim,
                                           uint32_t TimerIdx,
@@ -4761,7 +4761,7 @@ HAL_StatusTypeDef HAL_HRTIM_SimplePWMStop_DMA(HRTIM_HandleTypeDef *hhrtim,
 HAL_StatusTypeDef HAL_HRTIM_SimpleCaptureChannelConfig(HRTIM_HandleTypeDef *hhrtim,
                                                       uint32_t TimerIdx,
                                                       uint32_t CaptureChannel,
-                                                      HRTIM_SimpleCaptureChannelCfgTypeDef* pSimpleCaptureChannelCfg);
+                                                      const HRTIM_SimpleCaptureChannelCfgTypeDef* pSimpleCaptureChannelCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_SimpleCaptureStart(HRTIM_HandleTypeDef *hhrtim,
                                               uint32_t TimerIdx,
@@ -4801,7 +4801,7 @@ HAL_StatusTypeDef HAL_HRTIM_SimpleCaptureStop_DMA(HRTIM_HandleTypeDef *hhrtim,
 HAL_StatusTypeDef HAL_HRTIM_SimpleOnePulseChannelConfig(HRTIM_HandleTypeDef *hhrtim,
                                                        uint32_t TimerIdx,
                                                        uint32_t OnePulseChannel,
-                                                       HRTIM_SimpleOnePulseChannelCfgTypeDef* pSimpleOnePulseChannelCfg);
+                                                       const HRTIM_SimpleOnePulseChannelCfgTypeDef* pSimpleOnePulseChannelCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_SimpleOnePulseStart(HRTIM_HandleTypeDef *hhrtim,
                                                uint32_t TimerIdx,
@@ -4827,29 +4827,29 @@ HAL_StatusTypeDef HAL_HRTIM_SimpleOnePulseStop_IT(HRTIM_HandleTypeDef *hhrtim,
 * @{
 */
 HAL_StatusTypeDef HAL_HRTIM_BurstModeConfig(HRTIM_HandleTypeDef *hhrtim,
-                                            HRTIM_BurstModeCfgTypeDef* pBurstModeCfg);
+                                            const HRTIM_BurstModeCfgTypeDef* pBurstModeCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_EventConfig(HRTIM_HandleTypeDef *hhrtim,
                                         uint32_t Event,
-                                        HRTIM_EventCfgTypeDef* pEventCfg);
+                                        const HRTIM_EventCfgTypeDef* pEventCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_EventPrescalerConfig(HRTIM_HandleTypeDef *hhrtim,
                                                  uint32_t Prescaler);
 
 HAL_StatusTypeDef HAL_HRTIM_FaultConfig(HRTIM_HandleTypeDef *hhrtim,
                                         uint32_t Fault,
-                                        HRTIM_FaultCfgTypeDef* pFaultCfg);
+                                        const HRTIM_FaultCfgTypeDef* pFaultCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_FaultPrescalerConfig(HRTIM_HandleTypeDef *hhrtim,
                                                  uint32_t Prescaler);
 
 HAL_StatusTypeDef HAL_HRTIM_FaultBlankingConfigAndEnable(HRTIM_HandleTypeDef * hhrtim,
                                                uint32_t Fault,
-                                               HRTIM_FaultBlankingCfgTypeDef* pFaultBlkCfg);
+                                               const HRTIM_FaultBlankingCfgTypeDef* pFaultBlkCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_FaultCounterConfig(HRTIM_HandleTypeDef * hhrtim,
                                                uint32_t Fault,
-                                               HRTIM_FaultBlankingCfgTypeDef* pFaultBlkCfg);
+                                               const HRTIM_FaultBlankingCfgTypeDef* pFaultBlkCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_FaultCounterReset(HRTIM_HandleTypeDef * hhrtim,
                                               uint32_t Fault);
@@ -4862,7 +4862,7 @@ void HAL_HRTIM_FaultModeCtl(HRTIM_HandleTypeDef * hhrtim,
 
 HAL_StatusTypeDef HAL_HRTIM_ADCTriggerConfig(HRTIM_HandleTypeDef *hhrtim,
                                              uint32_t ADCTrigger,
-                                             HRTIM_ADCTriggerCfgTypeDef* pADCTriggerCfg);
+                                             const HRTIM_ADCTriggerCfgTypeDef* pADCTriggerCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_ADCPostScalerConfig(HRTIM_HandleTypeDef * hhrtim,
                                              uint32_t ADCTrigger,
@@ -4887,30 +4887,30 @@ HAL_StatusTypeDef HAL_HRTIM_OutputSwapDisable(HRTIM_HandleTypeDef * hhrtim,
 /* Waveform related functions *************************************************/
 HAL_StatusTypeDef HAL_HRTIM_WaveformTimerConfig(HRTIM_HandleTypeDef *hhrtim,
                                                 uint32_t TimerIdx,
-                                                HRTIM_TimerCfgTypeDef * pTimerCfg);
+                                                const HRTIM_TimerCfgTypeDef * pTimerCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_WaveformTimerControl(HRTIM_HandleTypeDef * hhrtim,
                                                 uint32_t TimerIdx,
-                                                HRTIM_TimerCtlTypeDef * pTimerCtl);
+                                                const HRTIM_TimerCtlTypeDef * pTimerCtl);
 
 HAL_StatusTypeDef HAL_HRTIM_TimerDualChannelDacConfig(HRTIM_HandleTypeDef * hhrtim,
                                                 uint32_t TimerIdx,
-                                                HRTIM_TimerCtlTypeDef * pTimerCtl);
+                                                const HRTIM_TimerCtlTypeDef * pTimerCtl);
 
 HAL_StatusTypeDef HAL_HRTIM_WaveformCompareConfig(HRTIM_HandleTypeDef *hhrtim,
                                                   uint32_t TimerIdx,
                                                   uint32_t CompareUnit,
-                                                  HRTIM_CompareCfgTypeDef* pCompareCfg);
+                                                  const HRTIM_CompareCfgTypeDef* pCompareCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_WaveformCaptureConfig(HRTIM_HandleTypeDef *hhrtim,
                                                   uint32_t TimerIdx,
                                                   uint32_t CaptureUnit,
-                                                  HRTIM_CaptureCfgTypeDef* pCaptureCfg);
+                                                  const HRTIM_CaptureCfgTypeDef* pCaptureCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_WaveformOutputConfig(HRTIM_HandleTypeDef *hhrtim,
                                                  uint32_t TimerIdx,
                                                  uint32_t Output,
-                                                 HRTIM_OutputCfgTypeDef * pOutputCfg);
+                                                 const HRTIM_OutputCfgTypeDef * pOutputCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_WaveformSetOutputLevel(HRTIM_HandleTypeDef *hhrtim,
                                                    uint32_t TimerIdx,
@@ -4920,12 +4920,12 @@ HAL_StatusTypeDef HAL_HRTIM_WaveformSetOutputLevel(HRTIM_HandleTypeDef *hhrtim,
 HAL_StatusTypeDef HAL_HRTIM_TimerEventFilteringConfig(HRTIM_HandleTypeDef *hhrtim,
                                                       uint32_t TimerIdx,
                                                       uint32_t Event,
-                                                      HRTIM_TimerEventFilteringCfgTypeDef * pTimerEventFilteringCfg);
+                                                      const HRTIM_TimerEventFilteringCfgTypeDef * pTimerEventFilteringCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_ExtEventCounterConfig(HRTIM_HandleTypeDef * hhrtim,
                                                      uint32_t TimerIdx,
                                                      uint32_t EventCounter,
-                                                     HRTIM_ExternalEventCfgTypeDef* pTimerExternalEventCfg);
+                                                     const HRTIM_ExternalEventCfgTypeDef* pTimerExternalEventCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_ExtEventCounterEnable(HRTIM_HandleTypeDef * hhrtim,
                                                       uint32_t TimerIdx,
@@ -4941,11 +4941,11 @@ HAL_StatusTypeDef HAL_HRTIM_ExtEventCounterReset(HRTIM_HandleTypeDef * hhrtim,
 
 HAL_StatusTypeDef HAL_HRTIM_DeadTimeConfig(HRTIM_HandleTypeDef *hhrtim,
                                            uint32_t TimerIdx,
-                                           HRTIM_DeadTimeCfgTypeDef* pDeadTimeCfg);
+                                           const HRTIM_DeadTimeCfgTypeDef* pDeadTimeCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_ChopperModeConfig(HRTIM_HandleTypeDef *hhrtim,
                                               uint32_t TimerIdx,
-                                              HRTIM_ChopperModeCfgTypeDef* pChopperModeCfg);
+                                              const HRTIM_ChopperModeCfgTypeDef* pChopperModeCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_BurstDMAConfig(HRTIM_HandleTypeDef *hhrtim,
                                            uint32_t TimerIdx,
@@ -5010,38 +5010,38 @@ HAL_StatusTypeDef HAL_HRTIM_UpdateDisable(HRTIM_HandleTypeDef *hhrtim,
 * @{
 */
 /* HRTIM peripheral state functions */
-HAL_HRTIM_StateTypeDef HAL_HRTIM_GetState(HRTIM_HandleTypeDef* hhrtim);
+HAL_HRTIM_StateTypeDef HAL_HRTIM_GetState(const HRTIM_HandleTypeDef* hhrtim);
 
-uint32_t HAL_HRTIM_GetCapturedValue(HRTIM_HandleTypeDef * hhrtim,
+uint32_t HAL_HRTIM_GetCapturedValue(const HRTIM_HandleTypeDef * hhrtim,
                                     uint32_t TimerIdx,
                                     uint32_t CaptureUnit);
 
-uint32_t HAL_HRTIM_GetCapturedDir(HRTIM_HandleTypeDef * hhrtim,
+uint32_t HAL_HRTIM_GetCapturedDir(const HRTIM_HandleTypeDef * hhrtim,
                                     uint32_t TimerIdx,
                                     uint32_t CaptureUnit);
 
-HRTIM_CaptureValueTypeDef HAL_HRTIM_GetCaptured(HRTIM_HandleTypeDef * hhrtim,
+HRTIM_CaptureValueTypeDef HAL_HRTIM_GetCaptured(const HRTIM_HandleTypeDef * hhrtim,
                                     uint32_t TimerIdx,
                                     uint32_t CaptureUnit);
 
-uint32_t HAL_HRTIM_WaveformGetOutputLevel(HRTIM_HandleTypeDef *hhrtim,
+uint32_t HAL_HRTIM_WaveformGetOutputLevel(const HRTIM_HandleTypeDef *hhrtim,
                                           uint32_t TimerIdx,
                                           uint32_t Output);
 
-uint32_t HAL_HRTIM_WaveformGetOutputState(HRTIM_HandleTypeDef * hhrtim,
+uint32_t HAL_HRTIM_WaveformGetOutputState(const HRTIM_HandleTypeDef * hhrtim,
                                           uint32_t TimerIdx,
                                           uint32_t Output);
 
-uint32_t HAL_HRTIM_GetDelayedProtectionStatus(HRTIM_HandleTypeDef *hhrtim,
+uint32_t HAL_HRTIM_GetDelayedProtectionStatus(const HRTIM_HandleTypeDef *hhrtim,
                                               uint32_t TimerIdx,
                                               uint32_t Output);
 
-uint32_t HAL_HRTIM_GetBurstStatus(HRTIM_HandleTypeDef *hhrtim);
+uint32_t HAL_HRTIM_GetBurstStatus(const HRTIM_HandleTypeDef *hhrtim);
 
-uint32_t HAL_HRTIM_GetCurrentPushPullStatus(HRTIM_HandleTypeDef *hhrtim,
+uint32_t HAL_HRTIM_GetCurrentPushPullStatus(const HRTIM_HandleTypeDef *hhrtim,
                                             uint32_t TimerIdx);
 
-uint32_t HAL_HRTIM_GetIdlePushPullStatus(HRTIM_HandleTypeDef *hhrtim,
+uint32_t HAL_HRTIM_GetIdlePushPullStatus(const HRTIM_HandleTypeDef *hhrtim,
                                          uint32_t TimerIdx);
 
 /**

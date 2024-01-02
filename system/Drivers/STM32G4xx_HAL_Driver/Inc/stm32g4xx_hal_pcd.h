@@ -101,8 +101,8 @@ typedef struct
   PCD_TypeDef             *Instance;   /*!< Register base address             */
   PCD_InitTypeDef         Init;        /*!< PCD required parameters           */
   __IO uint8_t            USB_Address; /*!< USB Address                       */
-  PCD_EPTypeDef           IN_ep[8];   /*!< IN endpoint parameters             */
-  PCD_EPTypeDef           OUT_ep[8];  /*!< OUT endpoint parameters            */
+  PCD_EPTypeDef           IN_ep[8];    /*!< IN endpoint parameters            */
+  PCD_EPTypeDef           OUT_ep[8];   /*!< OUT endpoint parameters           */
   HAL_LockTypeDef         Lock;        /*!< PCD peripheral status             */
   __IO PCD_StateTypeDef   State;       /*!< PCD communication state           */
   __IO  uint32_t          ErrorCode;   /*!< PCD Error code                    */
@@ -190,12 +190,12 @@ typedef struct
   *  @brief macros to handle interrupts and specific clock configurations
   * @{
   */
+#define __HAL_PCD_ENABLE(__HANDLE__)                       (void)USB_EnableGlobalInt ((__HANDLE__)->Instance)
+#define __HAL_PCD_DISABLE(__HANDLE__)                      (void)USB_DisableGlobalInt ((__HANDLE__)->Instance)
 
+#define __HAL_PCD_GET_FLAG(__HANDLE__, __INTERRUPT__) \
+  ((USB_ReadInterrupts((__HANDLE__)->Instance) & (__INTERRUPT__)) == (__INTERRUPT__))
 
-#define __HAL_PCD_ENABLE(__HANDLE__)                              (void)USB_EnableGlobalInt ((__HANDLE__)->Instance)
-#define __HAL_PCD_DISABLE(__HANDLE__)                             (void)USB_DisableGlobalInt ((__HANDLE__)->Instance)
-#define __HAL_PCD_GET_FLAG(__HANDLE__, __INTERRUPT__)             ((USB_ReadInterrupts((__HANDLE__)->Instance)\
-                                                                    & (__INTERRUPT__)) == (__INTERRUPT__))
 
 #define __HAL_PCD_CLEAR_FLAG(__HANDLE__, __INTERRUPT__)           (((__HANDLE__)->Instance->ISTR)\
                                                                    &= (uint16_t)(~(__INTERRUPT__)))
@@ -262,12 +262,10 @@ typedef void (*pPCD_BcdCallbackTypeDef)(PCD_HandleTypeDef *hpcd, PCD_BCD_MsgType
   * @}
   */
 
-HAL_StatusTypeDef HAL_PCD_RegisterCallback(PCD_HandleTypeDef *hpcd,
-                                           HAL_PCD_CallbackIDTypeDef CallbackID,
+HAL_StatusTypeDef HAL_PCD_RegisterCallback(PCD_HandleTypeDef *hpcd, HAL_PCD_CallbackIDTypeDef CallbackID,
                                            pPCD_CallbackTypeDef pCallback);
 
-HAL_StatusTypeDef HAL_PCD_UnRegisterCallback(PCD_HandleTypeDef *hpcd,
-                                             HAL_PCD_CallbackIDTypeDef CallbackID);
+HAL_StatusTypeDef HAL_PCD_UnRegisterCallback(PCD_HandleTypeDef *hpcd, HAL_PCD_CallbackIDTypeDef CallbackID);
 
 HAL_StatusTypeDef HAL_PCD_RegisterDataOutStageCallback(PCD_HandleTypeDef *hpcd,
                                                        pPCD_DataOutStageCallbackTypeDef pCallback);
@@ -289,14 +287,10 @@ HAL_StatusTypeDef HAL_PCD_RegisterIsoInIncpltCallback(PCD_HandleTypeDef *hpcd,
 
 HAL_StatusTypeDef HAL_PCD_UnRegisterIsoInIncpltCallback(PCD_HandleTypeDef *hpcd);
 
-HAL_StatusTypeDef HAL_PCD_RegisterBcdCallback(PCD_HandleTypeDef *hpcd,
-                                              pPCD_BcdCallbackTypeDef pCallback);
-
+HAL_StatusTypeDef HAL_PCD_RegisterBcdCallback(PCD_HandleTypeDef *hpcd, pPCD_BcdCallbackTypeDef pCallback);
 HAL_StatusTypeDef HAL_PCD_UnRegisterBcdCallback(PCD_HandleTypeDef *hpcd);
 
-HAL_StatusTypeDef HAL_PCD_RegisterLpmCallback(PCD_HandleTypeDef *hpcd,
-                                              pPCD_LpmCallbackTypeDef pCallback);
-
+HAL_StatusTypeDef HAL_PCD_RegisterLpmCallback(PCD_HandleTypeDef *hpcd, pPCD_LpmCallbackTypeDef pCallback);
 HAL_StatusTypeDef HAL_PCD_UnRegisterLpmCallback(PCD_HandleTypeDef *hpcd);
 #endif /* USE_HAL_PCD_REGISTER_CALLBACKS */
 /**
@@ -335,22 +329,17 @@ void HAL_PCD_ISOINIncompleteCallback(PCD_HandleTypeDef *hpcd, uint8_t epnum);
 HAL_StatusTypeDef HAL_PCD_DevConnect(PCD_HandleTypeDef *hpcd);
 HAL_StatusTypeDef HAL_PCD_DevDisconnect(PCD_HandleTypeDef *hpcd);
 HAL_StatusTypeDef HAL_PCD_SetAddress(PCD_HandleTypeDef *hpcd, uint8_t address);
-HAL_StatusTypeDef HAL_PCD_EP_Open(PCD_HandleTypeDef *hpcd, uint8_t ep_addr,
-                                  uint16_t ep_mps, uint8_t ep_type);
-
+HAL_StatusTypeDef HAL_PCD_EP_Open(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, uint16_t ep_mps, uint8_t ep_type);
 HAL_StatusTypeDef HAL_PCD_EP_Close(PCD_HandleTypeDef *hpcd, uint8_t ep_addr);
-HAL_StatusTypeDef HAL_PCD_EP_Receive(PCD_HandleTypeDef *hpcd, uint8_t ep_addr,
-                                     uint8_t *pBuf, uint32_t len);
-
-HAL_StatusTypeDef HAL_PCD_EP_Transmit(PCD_HandleTypeDef *hpcd, uint8_t ep_addr,
-                                      uint8_t *pBuf, uint32_t len);
-
+HAL_StatusTypeDef HAL_PCD_EP_Receive(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, uint8_t *pBuf, uint32_t len);
+HAL_StatusTypeDef HAL_PCD_EP_Transmit(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, uint8_t *pBuf, uint32_t len);
 HAL_StatusTypeDef HAL_PCD_EP_SetStall(PCD_HandleTypeDef *hpcd, uint8_t ep_addr);
 HAL_StatusTypeDef HAL_PCD_EP_ClrStall(PCD_HandleTypeDef *hpcd, uint8_t ep_addr);
 HAL_StatusTypeDef HAL_PCD_EP_Flush(PCD_HandleTypeDef *hpcd, uint8_t ep_addr);
+HAL_StatusTypeDef HAL_PCD_EP_Abort(PCD_HandleTypeDef *hpcd, uint8_t ep_addr);
 HAL_StatusTypeDef HAL_PCD_ActivateRemoteWakeup(PCD_HandleTypeDef *hpcd);
 HAL_StatusTypeDef HAL_PCD_DeActivateRemoteWakeup(PCD_HandleTypeDef *hpcd);
-uint32_t          HAL_PCD_EP_GetRxCount(PCD_HandleTypeDef *hpcd, uint8_t ep_addr);
+uint32_t          HAL_PCD_EP_GetRxCount(PCD_HandleTypeDef const *hpcd, uint8_t ep_addr);
 /**
   * @}
   */
@@ -359,7 +348,7 @@ uint32_t          HAL_PCD_EP_GetRxCount(PCD_HandleTypeDef *hpcd, uint8_t ep_addr
 /** @addtogroup PCD_Exported_Functions_Group4 Peripheral State functions
   * @{
   */
-PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
+PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef const *hpcd);
 /**
   * @}
   */
@@ -433,14 +422,12 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
 #define USB_CNTRX_BLSIZE                      (0x1U << 15)
 
 /* SetENDPOINT */
-#define PCD_SET_ENDPOINT(USBx, bEpNum, wRegValue)  (*(__IO uint16_t *)\
-                                                    (&(USBx)->EP0R + ((bEpNum) * 2U)) = (uint16_t)(wRegValue))
+#define PCD_SET_ENDPOINT(USBx, bEpNum, wRegValue) \
+  (*(__IO uint16_t *)(&(USBx)->EP0R + ((bEpNum) * 2U)) = (uint16_t)(wRegValue))
 
 /* GetENDPOINT */
 #define PCD_GET_ENDPOINT(USBx, bEpNum)             (*(__IO uint16_t *)(&(USBx)->EP0R + ((bEpNum) * 2U)))
 
-/* ENDPOINT transfer */
-#define USB_EP0StartXfer                           USB_EPStartXfer
 
 /**
   * @brief  sets the type in the endpoint register(bits EP_TYPE[1:0])
@@ -449,8 +436,9 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
   * @param  wType Endpoint Type.
   * @retval None
   */
-#define PCD_SET_EPTYPE(USBx, bEpNum, wType) (PCD_SET_ENDPOINT((USBx), (bEpNum), ((PCD_GET_ENDPOINT((USBx), (bEpNum))\
-                                                              & USB_EP_T_MASK) | (wType) | USB_EP_CTR_TX | USB_EP_CTR_RX)))
+#define PCD_SET_EPTYPE(USBx, bEpNum, wType) \
+  (PCD_SET_ENDPOINT((USBx), (bEpNum), \
+                    ((PCD_GET_ENDPOINT((USBx), (bEpNum)) & USB_EP_T_MASK) | (wType) | USB_EP_CTR_TX | USB_EP_CTR_RX)))
 
 
 /**
@@ -740,11 +728,13 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
   */
 #define PCD_GET_EP_ADDRESS(USBx, bEpNum) ((uint8_t)(PCD_GET_ENDPOINT((USBx), (bEpNum)) & USB_EPADDR_FIELD))
 
-#define PCD_EP_TX_CNT(USBx, bEpNum) ((uint16_t *)((((uint32_t)(USBx)->BTABLE\
-                                                    + ((uint32_t)(bEpNum) * 8U) + 2U) * PMA_ACCESS) + ((uint32_t)(USBx) + 0x400U)))
+#define PCD_EP_TX_CNT(USBx, bEpNum) \
+  ((uint16_t *)((((uint32_t)(USBx)->BTABLE + \
+                  ((uint32_t)(bEpNum) * 8U) + 2U) * PMA_ACCESS) + ((uint32_t)(USBx) + 0x400U)))
 
-#define PCD_EP_RX_CNT(USBx, bEpNum) ((uint16_t *)((((uint32_t)(USBx)->BTABLE\
-                                                    + ((uint32_t)(bEpNum) * 8U) + 6U) * PMA_ACCESS) + ((uint32_t)(USBx) + 0x400U)))
+#define PCD_EP_RX_CNT(USBx, bEpNum) \
+  ((uint16_t *)((((uint32_t)(USBx)->BTABLE + \
+                  ((uint32_t)(bEpNum) * 8U) + 6U) * PMA_ACCESS) + ((uint32_t)(USBx) + 0x400U)))
 
 
 /**
@@ -797,7 +787,7 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
     { \
       (wNBlocks)--; \
     } \
-    *(pdwReg) = (uint16_t)(((wNBlocks) << 10) | USB_CNTRX_BLSIZE); \
+    *(pdwReg) |= (uint16_t)(((wNBlocks) << 10) | USB_CNTRX_BLSIZE); \
   } while(0) /* PCD_CALC_BLK32 */
 
 #define PCD_CALC_BLK2(pdwReg, wCount, wNBlocks) \
@@ -807,12 +797,14 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
     { \
       (wNBlocks)++; \
     } \
-    *(pdwReg) = (uint16_t)((wNBlocks) << 10); \
+    *(pdwReg) |= (uint16_t)((wNBlocks) << 10); \
   } while(0) /* PCD_CALC_BLK2 */
 
 #define PCD_SET_EP_CNT_RX_REG(pdwReg, wCount) \
   do { \
     uint32_t wNBlocks; \
+    \
+    *(pdwReg) &= 0x3FFU; \
     \
     if ((wCount) > 62U) \
     { \
@@ -822,7 +814,6 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
     { \
       if ((wCount) == 0U) \
       { \
-        *(pdwReg) &= (uint16_t)~USB_CNTRX_NBLK_MSK; \
         *(pdwReg) |= USB_CNTRX_BLSIZE; \
       } \
       else \
