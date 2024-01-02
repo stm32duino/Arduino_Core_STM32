@@ -73,8 +73,8 @@ extern "C" {
   */
 
 /**
- * @}
- */
+  * @}
+  */
 
 /* Private functions ---------------------------------------------------------*/
 /** @defgroup CRYPEx_Private_Functions CRYPEx Private Functions

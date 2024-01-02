@@ -127,7 +127,6 @@ Infinite_Loop:
 ******************************************************************************/
   .section .isr_vector,"a",%progbits
   .type g_pfnVectors, %object
-  .size g_pfnVectors, .-g_pfnVectors
 
 g_pfnVectors:
   .word _estack
@@ -178,6 +177,8 @@ g_pfnVectors:
   .word USART3_4_5_6_LPUART1_IRQHandler   /* USART3, USART4, USART5, USART6, LPUART1   */
   .word CEC_IRQHandler                    /* CEC                          */
   .word AES_RNG_IRQHandler                /* AES and RNG                  */
+
+  .size g_pfnVectors, .-g_pfnVectors
 
 /*******************************************************************************
 *

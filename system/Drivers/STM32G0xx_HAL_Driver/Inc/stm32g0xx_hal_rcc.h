@@ -145,9 +145,19 @@ extern "C" {
                                          ((__SOURCE__) == RCC_RTCCLKSOURCE_HSE_DIV32))
 
 #if defined(RCC_MCO2_SUPPORT)
-#define IS_RCC_MCO(__MCOX__) ( ((__MCOX__) == RCC_MCO1) || ((__MCOX__) == RCC_MCO2) )
+#define IS_RCC_MCO(__MCOX__) ( ((__MCOX__) == RCC_MCO_PA8)  || \
+                               ((__MCOX__) == RCC_MCO_PA9)  || \
+                               ((__MCOX__) == RCC_MCO_PD10) || \
+                               ((__MCOX__) == RCC_MCO_PF2)  || \
+                               ((__MCOX__) == RCC_MCO_PA10) || \
+                               ((__MCOX__) == RCC_MCO_PA15) || \
+                               ((__MCOX__) == RCC_MCO_PB2)  || \
+                               ((__MCOX__) == RCC_MCO_PD7))
 #else
-#define IS_RCC_MCO(__MCOX__) ((__MCOX__) == RCC_MCO1)
+#define IS_RCC_MCO(__MCOX__) ( ((__MCOX__) == RCC_MCO_PA8)  || \
+                               ((__MCOX__) == RCC_MCO_PA9)  || \
+                               ((__MCOX__) == RCC_MCO_PD10) || \
+                               ((__MCOX__) == RCC_MCO_PF2))
 #endif /* RCC_MCO2_SUPPORT */
 
 #if defined(STM32G0C1xx) || defined(STM32G0B1xx)
@@ -628,12 +638,36 @@ typedef struct
 /** @defgroup RCC_MCO_Index MCO Index
   * @{
   */
-#define RCC_MCO1                       0x00000000U
+
+/* 32     28      20       16      0
+   --------------------------------
+   | MCO   | GPIO  | GPIO  | GPIO  |
+   | Index |  AF   | Port  |  Pin  |
+   -------------------------------*/
+
+#define RCC_MCO_GPIOPORT_POS   16U
+#define RCC_MCO_GPIOPORT_MASK  (0xFUL << RCC_MCO_GPIOPORT_POS)
+#define RCC_MCO_GPIOAF_POS     20U
+#define RCC_MCO_GPIOAF_MASK    (0xFFUL << RCC_MCO_GPIOAF_POS)
+#define RCC_MCO_INDEX_POS      28U
+#define RCC_MCO_INDEX_MASK     (0x1UL << RCC_MCO_INDEX_POS)
+#define RCC_MCO1_INDEX         (0x0UL << RCC_MCO_INDEX_POS)             /*!< MCO1 index */
+#define RCC_MCO_PA8            (RCC_MCO1_INDEX | (GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS) | (GPIO_GET_INDEX(GPIOA) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_8)
+#define RCC_MCO_PA9            (RCC_MCO1_INDEX | (GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS) | (GPIO_GET_INDEX(GPIOA) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_9)
+#define RCC_MCO_PD10           (RCC_MCO1_INDEX | (GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS) | (GPIO_GET_INDEX(GPIOD) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_10) /* Not defined for all stm32g0xx family lines */
+#define RCC_MCO_PF2            (RCC_MCO1_INDEX | (GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS) | (GPIO_GET_INDEX(GPIOF) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_2)  /* Not defined for all stm32g0xx family lines */
+#define RCC_MCO1               RCC_MCO_PA8
+
 #if defined(RCC_MCO2_SUPPORT)
-#define RCC_MCO2                       0x00000001U            /*!< MCO2 index */
+#define RCC_MCO2_INDEX         (0x1u << RCC_MCO_INDEX_POS)              /*!< MCO2 index */
+#define RCC_MCO_PA10           (RCC_MCO2_INDEX | (GPIO_AF3_MCO2 << RCC_MCO_GPIOAF_POS) | (GPIO_GET_INDEX(GPIOA) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_10)
+#define RCC_MCO_PA15           (RCC_MCO2_INDEX | (GPIO_AF3_MCO2 << RCC_MCO_GPIOAF_POS) | (GPIO_GET_INDEX(GPIOA) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_15)
+#define RCC_MCO_PB2            (RCC_MCO2_INDEX | (GPIO_AF3_MCO2 << RCC_MCO_GPIOAF_POS) | (GPIO_GET_INDEX(GPIOB) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_2)
+#define RCC_MCO_PD7            (RCC_MCO2_INDEX | (GPIO_AF3_MCO2 << RCC_MCO_GPIOAF_POS) | (GPIO_GET_INDEX(GPIOD) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_7)
+#define RCC_MCO2                RCC_MCO_PA10
 #endif /* RCC_MCO2_SUPPORT */
 
-#define RCC_MCO                        RCC_MCO1               /*!< MCO1 to be compliant with other families with 2 MCOs*/
+#define RCC_MCO                RCC_MCO1               /*!< MCO1 to be compliant with other families with 2 MCOs*/
 /**
   * @}
   */
@@ -2878,7 +2912,7 @@ typedef struct
   *            @arg @ref RCC_MCO1SOURCE_NOCLOCK  MCO output disabled
   *            @arg @ref RCC_MCO1SOURCE_SYSCLK System  clock selected as MCO source
   *            @arg @ref RCC_MCO1SOURCE_HSI HSI clock selected as MCO source
-  *            @arg @ref RCC_MCO1SOURCE_HSE HSE clock selected as MCO sourcee
+  *            @arg @ref RCC_MCO1SOURCE_HSE HSE clock selected as MCO source
   *            @arg @ref RCC_MCO1SOURCE_PLLCLK  Main PLL clock selected as MCO source
   *            @arg @ref RCC_MCO1SOURCE_LSI LSI clock selected as MCO source
   *            @arg @ref RCC_MCO1SOURCE_LSE LSE clock selected as MCO source
@@ -2915,7 +2949,7 @@ typedef struct
   *            @arg @ref RCC_MCO2SOURCE_NOCLOCK  MCO2 output disabled
   *            @arg @ref RCC_MCO2SOURCE_SYSCLK System  clock selected as MCO source
   *            @arg @ref RCC_MCO2SOURCE_HSI HSI clock selected as MCO2 source
-  *            @arg @ref RCC_MCO2SOURCE_HSE HSE clock selected as MCO2 sourcee
+  *            @arg @ref RCC_MCO2SOURCE_HSE HSE clock selected as MCO2 source
   *            @arg @ref RCC_MCO2SOURCE_PLLCLK  Main PLL clock selected as MCO2 source
   *            @arg @ref RCC_MCO2SOURCE_LSI LSI clock selected as MCO2 source
   *            @arg @ref RCC_MCO2SOURCE_LSE LSE clock selected as MCO2 source

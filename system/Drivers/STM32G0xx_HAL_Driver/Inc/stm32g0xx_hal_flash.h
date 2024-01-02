@@ -763,8 +763,8 @@ typedef struct
 #endif /* FLASH_DBANK_SUPPORT */
 
 /**
-  * @brief  Clear the FLASH pending flags.
-  * @param  __FLAG__ specifies the FLASH flags to clear.
+  * @brief  Clear the FLASH pending flag.
+  * @param  __FLAG__ specifies the FLASH flag to clear.
   *         This parameter can be one of the following values :
   *     @arg @ref FLASH_FLAG_EOP FLASH End of Operation flag
   *     @arg @ref FLASH_FLAG_OPERR FLASH Operation error flag
@@ -788,12 +788,12 @@ typedef struct
   */
 #if defined(FLASH_DBANK_SUPPORT)
 #define __HAL_FLASH_CLEAR_FLAG(__FLAG__)        do { if(((__FLAG__) & (FLASH_FLAG_SR_ID << FLASH_FLAG_REG_POS)) != 0U)         { FLASH->SR = (1uL << ((__FLAG__) & 0x1Fu)); }    \
-                                                     else if(((__FLAG__) & (FLASH_FLAG_ECCR1_ID << FLASH_FLAG_REG_POS)) != 0U) { FLASH->ECCR = (1uL << ((__FLAG__) & 0x1Fu)); }  \
-                                                     else if(((__FLAG__) & (FLASH_FLAG_ECCR2_ID << FLASH_FLAG_REG_POS)) != 0U) { FLASH->ECC2R = (1uL << ((__FLAG__) & 0x1Fu)); }  \
+                                                     else if(((__FLAG__) & (FLASH_FLAG_ECCR1_ID << FLASH_FLAG_REG_POS)) != 0U) { FLASH->ECCR |= (1uL << ((__FLAG__) & 0x1Fu)); }  \
+                                                     else if(((__FLAG__) & (FLASH_FLAG_ECCR2_ID << FLASH_FLAG_REG_POS)) != 0U) { FLASH->ECC2R |= (1uL << ((__FLAG__) & 0x1Fu)); }  \
                                                    } while(0U)
 #else
 #define __HAL_FLASH_CLEAR_FLAG(__FLAG__)        do { if(((__FLAG__) & (FLASH_FLAG_SR_ID << FLASH_FLAG_REG_POS)) != 0U)         { FLASH->SR = (1uL << ((__FLAG__) & 0x1Fu)); }    \
-                                                     else if(((__FLAG__) & (FLASH_FLAG_ECCR1_ID << FLASH_FLAG_REG_POS)) != 0U) { FLASH->ECCR = (1uL << ((__FLAG__) & 0x1Fu)); }  \
+                                                     else if(((__FLAG__) & (FLASH_FLAG_ECCR1_ID << FLASH_FLAG_REG_POS)) != 0U) { FLASH->ECCR |= (1uL << ((__FLAG__) & 0x1Fu)); }  \
                                                    } while(0U)
 #endif /* FLASH_DBANK_SUPPORT */
 /**

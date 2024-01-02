@@ -1688,8 +1688,8 @@ HAL_StatusTypeDef HAL_RTC_WaitForSynchro(RTC_HandleTypeDef* hrtc)
 {
   uint32_t tickstart;
 
-  /* Clear RSF flag */
-  hrtc->Instance->ICSR &= (uint32_t)RTC_RSF_MASK;
+  /* Clear RSF flag, keep reserved bits at reset values (setting other flags has no effect) */
+  hrtc->Instance->ICSR = ((uint32_t)(RTC_RSF_MASK & RTC_ICSR_RESERVED_MASK));
 
   tickstart = HAL_GetTick();
 
