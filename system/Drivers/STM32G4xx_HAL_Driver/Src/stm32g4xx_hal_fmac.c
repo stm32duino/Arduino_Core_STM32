@@ -166,7 +166,7 @@
 
     [..]
       Use function HAL_FMAC_UnRegisterCallback() to reset a callback to the default
-      weak (surcharged) function.
+      weak function.
       HAL_FMAC_UnRegisterCallback() takes as parameters the HAL peripheral handle
       and the Callback ID.
       This function allows to reset following callbacks:
@@ -182,10 +182,10 @@
 
     [..]
       By default, after the HAL_FMAC_Init() and when the state is HAL_FMAC_STATE_RESET
-      all callbacks are set to the corresponding weak (surcharged) functions:
+      all callbacks are set to the corresponding weak functions:
       examples GetDataCallback(), OutputDataReadyCallback().
       Exception done for MspInit and MspDeInit functions that are respectively
-      reset to the legacy weak (surcharged) functions in the HAL_FMAC_Init()
+      reset to the legacy weak functions in the HAL_FMAC_Init()
       and HAL_FMAC_DeInit() only when these callbacks are null (not registered beforehand).
       If not, MspInit or MspDeInit are not null, the HAL_FMAC_Init() and HAL_FMAC_DeInit()
       keep and use the user MspInit/MspDeInit callbacks (registered beforehand).
@@ -202,7 +202,7 @@
     [..]
       When the compilation define USE_HAL_FMAC_REGISTER_CALLBACKS is set to 0 or
       not defined, the callback registration feature is not available
-      and weak (surcharged) callbacks are used.
+      and weak callbacks are used.
 
 
   @endverbatim
@@ -528,6 +528,8 @@ __weak void HAL_FMAC_MspDeInit(FMAC_HandleTypeDef *hfmac)
 /**
   * @brief  Register a User FMAC Callback.
   * @note   The User FMAC Callback is to be used instead of the weak predefined callback.
+  * @note   The HAL_FMAC_RegisterCallback() may be called before HAL_FMAC_Init() in HAL_FMAC_STATE_RESET to register
+  *         callbacks for HAL_FMAC_MSPINIT_CB_ID and HAL_FMAC_MSPDEINIT_CB_ID.
   * @param  hfmac pointer to a FMAC_HandleTypeDef structure that contains
   *         the configuration information for FMAC module.
   * @param  CallbackID ID of the callback to be registered.
@@ -562,7 +564,6 @@ HAL_StatusTypeDef HAL_FMAC_RegisterCallback(FMAC_HandleTypeDef *hfmac, HAL_FMAC_
 
     return HAL_ERROR;
   }
-  __HAL_LOCK(hfmac);
 
   if (hfmac->State == HAL_FMAC_STATE_READY)
   {
@@ -643,14 +644,14 @@ HAL_StatusTypeDef HAL_FMAC_RegisterCallback(FMAC_HandleTypeDef *hfmac, HAL_FMAC_
     status =  HAL_ERROR;
   }
 
-  __HAL_UNLOCK(hfmac);
-
   return status;
 }
 
 /**
   * @brief  Unregister a FMAC CallBack.
   * @note   The FMAC callback is redirected to the weak predefined callback.
+  * @note   The HAL_FMAC_UnRegisterCallback() may be called before HAL_FMAC_Init() in HAL_FMAC_STATE_RESET to register
+  *         callbacks for HAL_FMAC_MSPINIT_CB_ID and HAL_FMAC_MSPDEINIT_CB_ID.
   * @param  hfmac pointer to a FMAC_HandleTypeDef structure that contains
   *         the configuration information for FMAC module
   * @param  CallbackID ID of the callback to be unregistered.
@@ -675,8 +676,6 @@ HAL_StatusTypeDef HAL_FMAC_UnRegisterCallback(FMAC_HandleTypeDef *hfmac, HAL_FMA
   {
     return HAL_ERROR;
   }
-
-  __HAL_LOCK(hfmac);
 
   if (hfmac->State == HAL_FMAC_STATE_READY)
   {
@@ -759,8 +758,6 @@ HAL_StatusTypeDef HAL_FMAC_UnRegisterCallback(FMAC_HandleTypeDef *hfmac, HAL_FMA
     /* Return error status */
     status = HAL_ERROR;
   }
-
-  __HAL_UNLOCK(hfmac);
 
   return status;
 }
@@ -1530,7 +1527,7 @@ void HAL_FMAC_IRQHandler(FMAC_HandleTypeDef *hfmac)
   *         the configuration information for FMAC module.
   * @retval HAL_FMAC_StateTypeDef FMAC state
   */
-HAL_FMAC_StateTypeDef HAL_FMAC_GetState(FMAC_HandleTypeDef *hfmac)
+HAL_FMAC_StateTypeDef HAL_FMAC_GetState(const FMAC_HandleTypeDef *hfmac)
 {
   /* Return FMAC state */
   return hfmac->State;
@@ -1543,7 +1540,7 @@ HAL_FMAC_StateTypeDef HAL_FMAC_GetState(FMAC_HandleTypeDef *hfmac)
   * @note   The returned error is a bit-map combination of possible errors.
   * @retval uint32_t Error bit-map based on @ref FMAC_Error_Code
   */
-uint32_t HAL_FMAC_GetError(FMAC_HandleTypeDef *hfmac)
+uint32_t HAL_FMAC_GetError(const FMAC_HandleTypeDef *hfmac)
 {
   /* Return FMAC error code */
   return hfmac->ErrorCode;
