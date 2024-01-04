@@ -108,6 +108,11 @@ PH_12_ALT1 = PH_12 | ALT1,
   USB_OTG_HS_DM   = PA_11,
   USB_OTG_HS_DP   = PA_12,
   USB_OTG_HS_ID   = PA_10,
-  USB_OTG_HS_SOF  = PA_8,
+  #ifdef USB_OTG_HS_SOF_PA_8
+    USB_OTG_HS_SOF  = PA_8,
+  #endif
+  #ifdef USB_OTG_HS_SOF_PA_14
+    USB_OTG_HS_SOF  = PA_14,
+  #endif
   USB_OTG_HS_VBUS = PA_9,
 #endif

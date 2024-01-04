@@ -12,7 +12,7 @@
  */
 /*
  * Automatically generated from STM32H562ZGTx.xml, STM32H562ZITx.xml
- * CubeMX DB release 6.0.90
+ * CubeMX DB release 6.0.100
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
