@@ -417,7 +417,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32G030C6<br>STM32G030C8 | Generic Board | *2.2.0* |
 | :green_heart: | STM32G030F6<br>STM32G030F6 | Generic Board | *2.2.0* |
 | :green_heart: | STM32G030K8 | Aurora One | *2.0.0* |
-| :green_heart: | STM32G071CB | [AGAFIA SG0](https://www.sigmaic.com/categories/agafia-series/3977629000000740015) | *2.3.0* |
+| :green_heart: | STM32G071CB | [AGAFIA SG0](https://www.sigmaic.com) | *2.3.0* |
 | :green_heart:  | STM32G030J6 | Generic Board | *2.4.0* |  |
 | :green_heart: | STM32G030K6<br>STM32G030K8 | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32G031C4<br>STM32G031C6<br>STM32G031C8 | Generic Board | *2.4.0* |  |
