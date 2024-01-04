@@ -154,7 +154,7 @@ Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.board=NUCLEO_H563ZI
 Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.series=STM32H5xx
 Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.product_line=STM32H563xx
-Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.variant=STM32H5xx/H563Z(G-I)T
+Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.variant=STM32H5xx/H563Z(G-I)T_H573ZIT
 
 # NUCLEO H723ZG board
 Nucleo_144.menu.pnum.NUCLEO_H723ZG=Nucleo H723ZG
@@ -1044,7 +1044,7 @@ Disco.menu.pnum.STM32H573I_DK.build.float-abi=-mfloat-abi=hard
 Disco.menu.pnum.STM32H573I_DK.build.board=STM32H573I_DK
 Disco.menu.pnum.STM32H573I_DK.build.series=STM32H5xx
 Disco.menu.pnum.STM32H573I_DK.build.product_line=STM32H573xx
-Disco.menu.pnum.STM32H573I_DK.build.variant=STM32H5xx/H573IIKxQ
+Disco.menu.pnum.STM32H573I_DK.build.variant=STM32H5xx/H563IIKxQ_H573IIKxQ
 Disco.menu.pnum.STM32H573I_DK.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
 # STM32H747I-DISCO
@@ -7377,7 +7377,7 @@ GenH5.menu.pnum.GENERIC_H563IIKXQ.upload.maximum_size=2097152
 GenH5.menu.pnum.GENERIC_H563IIKXQ.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H563IIKXQ.build.board=GENERIC_H563IIKXQ
 GenH5.menu.pnum.GENERIC_H563IIKXQ.build.product_line=STM32H563xx
-GenH5.menu.pnum.GENERIC_H563IIKXQ.build.variant=STM32H5xx/H563IIKxQ
+GenH5.menu.pnum.GENERIC_H563IIKXQ.build.variant=STM32H5xx/H563IIKxQ_H573IIKxQ
 
 # Generic H563ZGTx
 GenH5.menu.pnum.GENERIC_H563ZGTX=Generic H563ZGTx
@@ -7385,7 +7385,7 @@ GenH5.menu.pnum.GENERIC_H563ZGTX.upload.maximum_size=1048576
 GenH5.menu.pnum.GENERIC_H563ZGTX.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H563ZGTX.build.board=GENERIC_H563ZGTX
 GenH5.menu.pnum.GENERIC_H563ZGTX.build.product_line=STM32H563xx
-GenH5.menu.pnum.GENERIC_H563ZGTX.build.variant=STM32H5xx/H563Z(G-I)T
+GenH5.menu.pnum.GENERIC_H563ZGTX.build.variant=STM32H5xx/H563Z(G-I)T_H573ZIT
 
 # Generic H563ZITx
 GenH5.menu.pnum.GENERIC_H563ZITX=Generic H563ZITx
@@ -7393,7 +7393,7 @@ GenH5.menu.pnum.GENERIC_H563ZITX.upload.maximum_size=2097152
 GenH5.menu.pnum.GENERIC_H563ZITX.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H563ZITX.build.board=GENERIC_H563ZITX
 GenH5.menu.pnum.GENERIC_H563ZITX.build.product_line=STM32H563xx
-GenH5.menu.pnum.GENERIC_H563ZITX.build.variant=STM32H5xx/H563Z(G-I)T
+GenH5.menu.pnum.GENERIC_H563ZITX.build.variant=STM32H5xx/H563Z(G-I)T_H573ZIT
 
 # Generic H573IIKxQ
 GenH5.menu.pnum.GENERIC_H573IIKXQ=Generic H573IIKxQ
@@ -7401,7 +7401,7 @@ GenH5.menu.pnum.GENERIC_H573IIKXQ.upload.maximum_size=2097152
 GenH5.menu.pnum.GENERIC_H573IIKXQ.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H573IIKXQ.build.board=GENERIC_H573IIKXQ
 GenH5.menu.pnum.GENERIC_H573IIKXQ.build.product_line=STM32H573xx
-GenH5.menu.pnum.GENERIC_H573IIKXQ.build.variant=STM32H5xx/H573IIKxQ
+GenH5.menu.pnum.GENERIC_H573IIKXQ.build.variant=STM32H5xx/H563IIKxQ_H573IIKxQ
 
 # Generic H573ZITx
 GenH5.menu.pnum.GENERIC_H573ZITX=Generic H573ZITx
@@ -7409,7 +7409,7 @@ GenH5.menu.pnum.GENERIC_H573ZITX.upload.maximum_size=2097152
 GenH5.menu.pnum.GENERIC_H573ZITX.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H573ZITX.build.board=GENERIC_H573ZITX
 GenH5.menu.pnum.GENERIC_H573ZITX.build.product_line=STM32H573xx
-GenH5.menu.pnum.GENERIC_H573ZITX.build.variant=STM32H5xx/H573ZIT
+GenH5.menu.pnum.GENERIC_H573ZITX.build.variant=STM32H5xx/H563Z(G-I)T_H573ZIT
 
 # Upload menu
 GenH5.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
