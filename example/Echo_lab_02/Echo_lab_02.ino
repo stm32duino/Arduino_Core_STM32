@@ -10,10 +10,11 @@
  #define DATA_INTERVAL 5000 //ms
  #define ADC_AREF 3.3f
  #define BATVOLT_R1 1.0f
- #define BATVOLT_R2 2.0f
+ #define BATVOLT_R2 1.0f
  #define BATVOLT_PIN PA2
  #define LED_1_PIN PA13
-#define BTN_1_PIN PC2
+ #define BTN_1_PIN PC2
+// #define SLEEP 1
 
 #define ECHOSTAR_TXD_PIN PC0
 #define ECHOSTAR_RXD_PIN PC1
@@ -39,12 +40,11 @@ volatile int switch_reversing_control = SWITCH_REVERSING_CONTROL_DEFAULT_VALUE;
 
 #include <Wire.h>
 #include <Kionix_KX023.h> // https://github.com/nguyenmanhthao996tn/Kionix_KX023
-#include <Wire.h>
-#include <Adafruit_Sensor.h> // https://github.com/adafruit/Adafruit_BME280_Library
-#include <Adafruit_BME280.h> // https://github.com/adafruit/Adafruit_Sensor
+#include <Adafruit_Sensor.h> // https://github.com/adafruit/Adafruit_Sensor
+#include <Adafruit_BME280.h> // https://github.com/adafruit/Adafruit_BME280_Library
 #include <MicroNMEA.h> // https://github.com/stevemarple/MicroNMEA
 #include "STM32LowPower.h"
-#include <STM32RTC.h>
+
 
 
 KX023 myIMU(Wire, SENSORS_KX023_ADDRESS);
@@ -151,9 +151,11 @@ Serial.begin(115200);
   LowPower.begin();
 
   getSensorDataPrevMillis=millis(); 
- 
-
-  delay(1000);
+  delay(4000);
+  SerialLP1.print("AT+JOIN");
+  delay(200);
+  SerialLP1.print("AT+TXPMSS=14");
+  delay(200);
   digitalWrite(LED_BUILTIN, LOW);
 
 }
@@ -194,10 +196,13 @@ void loop()
         SendLoRa(1);
         lowpower=1;
         mode=0;
-        getSensorDataPrevMillis=currentMillis; 
-        //LowPower.deepSleep(3000);        
-        
-        //delay(10000);           
+        getSensorDataPrevMillis=currentMillis;
+
+        #ifdef SLEEP
+        LowPower.deepSleep(10000);
+        #else       
+        delay(10000); 
+        #endif          
       }
   }
   
