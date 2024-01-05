@@ -13,8 +13,7 @@
  #define BATVOLT_R2 1.0f
  #define BATVOLT_PIN PA2
  #define LED_1_PIN PA13
- #define BTN_1_PIN PC2
-// #define SLEEP 1
+#define BTN_1_PIN PC2
 
 #define ECHOSTAR_TXD_PIN PC0
 #define ECHOSTAR_RXD_PIN PC1
@@ -35,16 +34,17 @@
 volatile int switch_reversing_control = SWITCH_REVERSING_CONTROL_DEFAULT_VALUE;
 
  // max. 250 seconds for GPS fix
-#define FIXTIME 150
-#define PERIOD 120
+#define FIXTIME 180
+#define PERIOD 150
 
 #include <Wire.h>
 #include <Kionix_KX023.h> // https://github.com/nguyenmanhthao996tn/Kionix_KX023
-#include <Adafruit_Sensor.h> // https://github.com/adafruit/Adafruit_Sensor
-#include <Adafruit_BME280.h> // https://github.com/adafruit/Adafruit_BME280_Library
+#include <Wire.h>
+#include <Adafruit_Sensor.h> // https://github.com/adafruit/Adafruit_BME280_Library
+#include <Adafruit_BME280.h> // https://github.com/adafruit/Adafruit_Sensor
 #include <MicroNMEA.h> // https://github.com/stevemarple/MicroNMEA
 #include "STM32LowPower.h"
-
+#include <STM32RTC.h>
 
 
 KX023 myIMU(Wire, SENSORS_KX023_ADDRESS);
@@ -79,6 +79,10 @@ int day;
 int hr;
 int minute;
 double sec;
+
+struct DLresults {
+    int8_t SNR, RSSI, freq_error;
+};
 
 
 void swctrl_change_isr(void)
@@ -151,10 +155,14 @@ Serial.begin(115200);
   LowPower.begin();
 
   getSensorDataPrevMillis=millis(); 
-  delay(4000);
-  SerialLP1.print("AT+JOIN");
-  delay(200);
-  SerialLP1.print("AT+TXPMSS=14");
+ 
+
+  delay(600);
+  SerialLP1.println("AT+TXPMSS=23");
+   delay(200);
+   SerialLP1.println("AT+ADR=1");
+   delay(200);
+  SerialLP1.println("AT+JOIN");
   delay(200);
   digitalWrite(LED_BUILTIN, LOW);
 
@@ -175,9 +183,16 @@ void loop()
   }
   if(lowpower==1 && (currentMillis - getSensorDataPrevMillis >3000)){
   Serial.println("Sleeping");
-  delay(20);
-  blink(100);
-  //LowPower.idle(1000);
+  //delay(20);
+  //  Serial.end();
+  // Serial1.end(); // UART GNSS
+  // SerialLP1.end(); // UART EM2050
+  // blink(50);
+  // LowPower.sleep(10000);
+  // delay(100);
+  // Serial.begin(115200);
+  // Serial1.begin(9600); // UART GNSS
+  // SerialLP1.begin(115200); // UART EM2050
   delay(10000);
  
   }
@@ -193,16 +208,13 @@ void loop()
         ttf = gnss_fix()/1000;
         gnss(0);
         mode=1;
-        SendLoRa(1);
+        SendLoRa(1);        
         lowpower=1;
         mode=0;
-        getSensorDataPrevMillis=currentMillis;
-
-        #ifdef SLEEP
-        LowPower.deepSleep(10000);
-        #else       
-        delay(10000); 
-        #endif          
+        getSensorDataPrevMillis=currentMillis; 
+        //LowPower.deepSleep(3000);        
+        
+        //delay(10000);           
       }
   }
   
@@ -270,6 +282,7 @@ if(mode == 2) {
       } 
     else if(CMD.equalsIgnoreCase("LORA")){
       mode=1;
+      lowpower=0;
       Serial.println("Mode LoRA");
       }
     else if(CMD.equalsIgnoreCase("SENDLORA")){
@@ -277,6 +290,7 @@ if(mode == 2) {
     SendLoRa(1);
     }
     else if(CMD.equalsIgnoreCase("RESET")){
+      lowpower=0;
       mode=0;
       NMEA=0;
       digitalWrite(GNSS_ENABLE_PIN, LOW);
@@ -286,7 +300,18 @@ if(mode == 2) {
       mode=1;
       SerialLP1.print("AT+REGION=EU868");
       Serial.println("Set EU868 mode");
-      }  
+      } 
+    else if(CMD.equalsIgnoreCase("pwr")){
+       Serial.println(readpwr());      
+      } 
+     else if(CMD.equalsIgnoreCase("dl")){
+      DLresults dl = readDL();
+       Serial.print(dl.SNR);
+       Serial.print(" "); 
+       Serial.print(dl.RSSI);
+       Serial.print(" ");  
+       Serial.print(dl.freq_error);     
+      }   
      else if(CMD.equalsIgnoreCase("setMSS")){
       mode=1;
       SerialLP1.print("AT+REGION=MSS-S");
@@ -391,6 +416,8 @@ int8_t z = (int8_t) 50*kx_z;
 int16_t b = meas_bat();
 long lat= nmea.getLatitude(); //Latitude : 0.0001 ° Signed MSB
 long lon= nmea.getLongitude(); //Longitude : 0.0001 ° Signed MSB
+int8_t speed = (int8_t) (nmea.getSpeed()/1000);
+int8_t pwr = (int8_t) readpwr();
 float gnss_lat= (float)lat/1E6;
 float gnss_lon= (float)lon/1E6;
 long alt;
@@ -399,6 +426,7 @@ int32_t AltitudeBinary= alt/100; // Altitude : 0.01 meter Signed MSB
 uint8_t s= nmea.getNumSatellites(); // nb of satellite in view with GNSS
 //uint16_t bat = measure_bat();
 uint16_t bat = read_bat();
+DLresults dl = readDL();
 
   uint32_t LatitudeBinary = ((gnss_lat + 90) / 180) * 16777215;
   uint32_t LongitudeBinary =  ((gnss_lon + 180) / 360) * 16777215;
@@ -451,6 +479,10 @@ mydata[i++] = s;
 mydata[i++] = bat >> 8;
 mydata[i++] = bat & 0xFF;
 mydata[i++] = ttf;
+mydata[i++] = speed;
+mydata[i++] = pwr;
+mydata[i++] = (int8_t)dl.SNR/4;
+mydata[i++] = (int8_t)-dl.RSSI;
 
 
 char str[32];
@@ -548,11 +580,9 @@ uint16_t read_bat(void){
 
 }
 
-long gnss_fix(void) {
-
-  
+long gnss_fix(void) {  
    long startTime = millis(); 
-while ((nmea.getNumSatellites()<6)  && (millis() - startTime < (FIXTIME*1000))) {
+while (((nmea.getNumSatellites()<8) || (nmea.getLatitude()==0)) && (millis() - startTime < (FIXTIME*1000))) {
   
   currentMillis = millis();  
       // Print sensor & gps data
@@ -569,8 +599,65 @@ while ((nmea.getNumSatellites()<6)  && (millis() - startTime < (FIXTIME*1000))) 
     for (int i = 0; i < len; i++) {
       nmea.process(*(revChar + i));
     }
+}
+long delay =millis();
+while((millis() - delay) <2300){
+revString = Serial1.readStringUntil(0x0D);
+    len = revString.length() + 1;
+    revString.toCharArray(revChar, len);
+    for (int i = 0; i < len; i++) {
+      nmea.process(*(revChar + i));
+    }
+}
+
+return millis() - startTime;
 
 }
-return millis() - startTime;
+
+int readpwr(void){
+while (SerialLP1.available())
+        {
+        SerialLP1.read();
+        }
+      SerialLP1.println("AT+TXPMSS?");
+      String temp= SerialLP1.readStringUntil('\n');
+      //Serial.println(temp);
+      temp= SerialLP1.readStringUntil(':');
+      //Serial.println(temp);
+            temp= SerialLP1.readStringUntil('\n');
+     // Serial.println(temp);
+     // temp= SerialLP1.readStringUntil('\n');
+      //Serial.println(temp);
+      return temp.toInt();
+
 }
+
+DLresults readDL(void){
+  DLresults read;
+while (SerialLP1.available())
+        {
+        SerialLP1.read();
+        }
+      SerialLP1.println("AT+PKTST?");
+      String temp= SerialLP1.readStringUntil('\n');
+      //Serial.println(temp);
+      temp= SerialLP1.readStringUntil(':');
+      //Serial.println(temp);
+      temp = SerialLP1.readStringUntil(',');
+      //Serial.println(temp);
+            read.SNR=temp.toInt();
+            temp = SerialLP1.readStringUntil(',');
+        //    Serial.println(temp);
+            read.RSSI=temp.toInt();
+            temp = SerialLP1.readStringUntil('\n');
+          //  Serial.println(temp);
+            read.freq_error=temp.toInt();
+     // Serial.println(temp);
+     // temp= SerialLP1.readStringUntil('\n');
+      //Serial.println(temp);
+      return read;
+
+}
+
+
 
