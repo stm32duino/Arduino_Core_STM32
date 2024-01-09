@@ -19,7 +19,7 @@ compiler.warning_flags.all=-Wall -Wextra
 
 # EXPERIMENTAL feature: optimization flags
 #  - this is alpha and may be subject to change without notice
-compiler.optimization_flags={compiler.optimization_flags}
+compiler.optimization_flags={build.flags.optimize} {build.flags.debug}
 compiler.optimization_flags.release={build.flags.optimize} {build.flags.debug}
 compiler.optimization_flags.debug=-Og -g
 
