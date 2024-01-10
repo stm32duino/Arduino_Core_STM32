@@ -3643,7 +3643,8 @@ extern "C" {
 #define RCC_MCOSOURCE_PLLCLK_DIV2   RCC_MCO1SOURCE_PLLCLK_DIV2
 
 #if defined(STM32L4) || defined(STM32WB) || defined(STM32G0) || defined(STM32G4) || defined(STM32L5) || \
-    defined(STM32WL) || defined(STM32C0)
+      defined(STM32WL) || defined(STM32C0)
+
 #define RCC_RTCCLKSOURCE_NO_CLK     RCC_RTCCLKSOURCE_NONE
 #else
 #define RCC_RTCCLKSOURCE_NONE       RCC_RTCCLKSOURCE_NO_CLK
@@ -3892,7 +3893,8 @@ extern "C" {
   */
 #if defined (STM32G0) || defined (STM32L5) || defined (STM32L412xx) || defined (STM32L422xx) || \
     defined (STM32L4P5xx)|| defined (STM32L4Q5xx) || defined (STM32G4) || defined (STM32WL) || defined (STM32U5) || \
-    defined (STM32WBA) || defined (STM32H5) || defined (STM32C0)
+    defined (STM32WBA) || defined (STM32H5) || \
+    defined (STM32C0)
 #else
 #define __HAL_RTC_CLEAR_FLAG                      __HAL_RTC_EXTI_CLEAR_FLAG
 #endif
@@ -3929,7 +3931,8 @@ extern "C" {
 
 #if defined (STM32F0) || defined (STM32F2) || defined (STM32F3) || defined (STM32F4) || defined (STM32F7) || \
     defined (STM32H7) || \
-    defined (STM32L0) || defined (STM32L1)
+    defined (STM32L0) || defined (STM32L1) || \
+    defined (STM32WB)
 #define __HAL_RTC_TAMPER_GET_IT                   __HAL_RTC_TAMPER_GET_FLAG
 #endif
 

@@ -926,7 +926,7 @@ HAL_StatusTypeDef HAL_SMBUS_Master_Transmit_IT(SMBUS_HandleTypeDef *hsmbus, uint
                                                uint8_t *pData, uint16_t Size, uint32_t XferOptions)
 {
   uint32_t tmp;
-  uint32_t sizetoxfer = 0U;
+  uint32_t sizetoxfer;
 
   /* Check the parameters */
   assert_param(IS_SMBUS_TRANSFER_OPTIONS_REQUEST(XferOptions));
@@ -960,10 +960,10 @@ HAL_StatusTypeDef HAL_SMBUS_Master_Transmit_IT(SMBUS_HandleTypeDef *hsmbus, uint
     }
 
     sizetoxfer = hsmbus->XferSize;
-    if ((hsmbus->XferSize > 0U) && ((XferOptions == SMBUS_FIRST_FRAME) ||
-                                    (XferOptions == SMBUS_FIRST_AND_LAST_FRAME_NO_PEC) ||
-                                    (XferOptions == SMBUS_FIRST_FRAME_WITH_PEC) ||
-                                    (XferOptions == SMBUS_FIRST_AND_LAST_FRAME_WITH_PEC)))
+    if ((sizetoxfer > 0U) && ((XferOptions == SMBUS_FIRST_FRAME) ||
+                              (XferOptions == SMBUS_FIRST_AND_LAST_FRAME_NO_PEC) ||
+                              (XferOptions == SMBUS_FIRST_FRAME_WITH_PEC) ||
+                              (XferOptions == SMBUS_FIRST_AND_LAST_FRAME_WITH_PEC)))
     {
       if (hsmbus->pBuffPtr != NULL)
       {
