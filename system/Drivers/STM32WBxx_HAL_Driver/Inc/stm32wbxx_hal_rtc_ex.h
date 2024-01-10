@@ -794,14 +794,6 @@ typedef struct
   *
   * @retval None
   */
-#if defined(RTC_TAMPER1_SUPPORT) && defined(RTC_TAMPER3_SUPPORT)
-#define __HAL_RTC_TAMPER_GET_IT(__HANDLE__, __INTERRUPT__)    (((__INTERRUPT__) == RTC_IT_TAMP1) ? (((((__HANDLE__)->Instance->ISR) & ((__INTERRUPT__)>> 3U)) != 0U) ? 1U : 0U) : \
-                                                               ((__INTERRUPT__) == RTC_IT_TAMP2) ? (((((__HANDLE__)->Instance->ISR) & ((__INTERRUPT__)>> 5U)) != 0U) ? 1U : 0U) : \
-                                                               ((__INTERRUPT__) == RTC_IT_TAMP3) ? (((((__HANDLE__)->Instance->ISR) & ((__INTERRUPT__)>> 7U)) != 0U) ? 1U : 0U))
-#else
-#define __HAL_RTC_TAMPER_GET_IT(__HANDLE__, __INTERRUPT__)    (((__INTERRUPT__)\
-                                                                == RTC_IT_TAMP1) ? (((((__HANDLE__)->Instance->ISR) & ((__INTERRUPT__)>> 3U)) != 0U) ? 1U : 0U))
-#endif /* RTC_TAMPER1_SUPPORT || RTC_TAMPER3_SUPPORT */
 
 /**************************************************************************************************/
 
