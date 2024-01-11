@@ -688,7 +688,7 @@ ble_file_list = [
 
 def applyBlePatch():
     print(" Applying patches to ble library")
-    BLE_patch_path = repo_local_path / repo_ble_name / "extras" / "STM32Cube_FW"
+    BLE_patch_path = repo_local_path / repo_ble_name / "extras" / "STM32_WPAN"
     patch_list = []
 
     if BLE_patch_path.is_dir():
@@ -755,10 +755,10 @@ def updateBleLibrary():
     else:
         cube_name = f"{repo_generic_name}WB"
         cube_path = repo_local_path / cube_name
-    ble_path = repo_local_path / repo_ble_name / "src" / "utility" / "STM32Cube_FW"
+    ble_path = repo_local_path / repo_ble_name / "src" / "utility" / "STM32_WPAN"
     cube_version = cube_versions["WB"]
 
-    ble_commit_msg = f"chore: update STM32Cube_FW from Cube version {cube_version}"
+    ble_commit_msg = f"chore: update STM32_WPAN from Cube version {cube_version}"
 
     for file in ble_file_list:
         file_path = Path(cube_path / file)
