@@ -57,9 +57,13 @@ extern "C" {
 #if !defined (STM32F1xx) && !defined (STM32F2xx) && !defined (STM32F4xx) &&\
     !defined (STM32L1xx)
 #define I2C_TIMING
+#if !defined(I2C_TIMING_SM) || !defined(I2C_TIMING_FM) || !defined(I2C_TIMING_FMP)
+#define I2C_TIMING_COMPUTE
+#endif /* !(I2C_TIMING_SM) || !(I2C_TIMING_FM) || !(I2C_TIMING_FMP)*/
+
 #endif
 
-#ifdef I2C_TIMING
+#ifdef I2C_TIMING_COMPUTE
 #ifndef I2C_VALID_TIMING_NBR
 #define I2C_VALID_TIMING_NBR          8U
 #endif
@@ -152,7 +156,7 @@ static const I2C_Charac_t I2C_Charac[] = {
     .dnf = I2C_DIGITAL_FILTER_COEF,
   }
 };
-#endif /* I2C_TIMING */
+#endif /* I2C_TIMING_COMPUTE */
 
 /*  Family specific description for I2C */
 typedef enum {
@@ -180,7 +184,7 @@ typedef enum {
 /* Private Variables */
 static I2C_HandleTypeDef *i2c_handles[I2C_NUM];
 
-#ifdef I2C_TIMING
+#ifdef I2C_TIMING_COMPUTE
 /**
   * @brief  This function return the I2C clock source frequency.
   * @param  i2c: I2C instance
@@ -565,7 +569,7 @@ static uint32_t i2c_computeTiming(uint32_t clkSrcFreq, uint32_t i2c_speed)
   }
   return ret;
 }
-#endif /* I2C_TIMING */
+#endif /* I2C_TIMING_COMPUTE */
 
 /**
 * @brief Compute I2C timing according current I2C clock source and
@@ -587,6 +591,9 @@ static uint32_t i2c_getTiming(i2c_t *obj, uint32_t frequency)
     i2c_speed = 1000000;
   }
 #ifdef I2C_TIMING
+#ifndef I2C_TIMING_COMPUTE
+  UNUSED(obj);
+#endif
   if (i2c_speed != 0U) {
     switch (i2c_speed) {
       default:
