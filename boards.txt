@@ -12501,7 +12501,7 @@ STM32MP1.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 STM32MP1.menu.dbg.enable_all.build.flags.debug=-g
 
 GenC0.menu.dbg.none=None
-GenC0.menu.dbg.enable=Enabled (-g)
+GenC0.menu.dbg.enable=Symbols Enabled (-g)
 GenC0.menu.dbg.enable.build.flags.debug=-g
 
 GenF0.menu.dbg.none=None
