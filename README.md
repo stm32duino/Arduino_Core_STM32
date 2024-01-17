@@ -89,6 +89,10 @@ The variant in this core includes pre-define for MCU pins connected to on-boards
 | ArduinoIDE 2             |  :grey_question:   | :grey_question: | :grey_question: |
 | Arduino IDE Legacy 1.8.x | :heavy_check_mark: | :grey_question: | :grey_question: |
 
+# Known issues
+
+- Need to install [stm32duino/Arduino_Core_STM32](https://github.com/stm32duino/Arduino_Core_STM32)
+
 # Credit
 
 - [stm32duino/Arduino_Core_STM32](https://github.com/stm32duino/Arduino_Core_STM32)
