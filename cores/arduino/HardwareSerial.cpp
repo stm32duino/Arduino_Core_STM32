@@ -487,6 +487,11 @@ int HardwareSerial::availableForWrite(void)
   return tail - head - 1;
 }
 
+void HardwareSerial::flush()
+{
+  flush(0);
+}
+
 void HardwareSerial::flush(uint32_t timeout)
 {
   // If we have never written a byte, no need to flush. This special
@@ -642,7 +647,7 @@ void HardwareSerial::enableHalfDuplexRx(void)
   if (isHalfDuplex()) {
     // In half-duplex mode we have to wait for all TX characters to
     // be transmitted before we can receive data.
-    flush();
+    flush(0);
     if (!_rx_enabled) {
       _rx_enabled = true;
       uart_enable_rx(&_serial);
