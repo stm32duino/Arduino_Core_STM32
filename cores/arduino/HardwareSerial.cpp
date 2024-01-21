@@ -647,7 +647,7 @@ void HardwareSerial::enableHalfDuplexRx(void)
   if (isHalfDuplex()) {
     // In half-duplex mode we have to wait for all TX characters to
     // be transmitted before we can receive data.
-    flush(0);
+    flush();
     if (!_rx_enabled) {
       _rx_enabled = true;
       uart_enable_rx(&_serial);
