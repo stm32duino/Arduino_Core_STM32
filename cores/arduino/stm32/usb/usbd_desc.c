@@ -26,43 +26,24 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 
-/* USB VID and PID have to be specified to correct values.
- * They can be defined thanks:
- *   - boards.txt: *.build.vid or *.build.pid
- *   - build_opt.h: define CUSTOM_USBD_VID or CUSTOM_USBD_PID
- * Else if not defined or specified, default to the ST VID,
- * with PID assigned to HID or CDC devices.
- */
-#if !defined(USBD_VID) || USBD_VID == 0
-  // Undef the default definition
-  #undef USBD_VID
-  #if defined(CUSTOM_USBD_VID)
-    #define USBD_VID    CUSTOM_USBD_VID
-  #else
-    // Define default values
-    #define USBD_VID    0x0483
-  #endif
-#endif /* USBD_VID */
-
-#if !defined(USBD_PID) || USBD_PID == -1
-  // Undef the default definition
+/* USB VID and PID: Either both or neither must be specified. If not
+ * specified, default to the ST VID, with a PID assigned to HID or a PID
+ * assigned to CDC devices. */
+#if !USBD_PID && !USBD_VID
+  // Undef the default zero values
   #undef USBD_PID
-  #if defined(CUSTOM_USBD_PID)
-    #define USBD_PID    CUSTOM_USBD_PID
-  #else
-    // Define default values, based on the USB class used
-    #if defined(USBD_USE_HID_COMPOSITE)
-      #define USBD_PID  0x5711
-    #elif defined(USBD_USE_CDC)
-      #define USBD_PID  0x5740
-    #else
-      #error "USB PID not specified"
-    #endif
+  #undef USBD_VID
+  // Define default values, based on the USB class used
+  #define USBD_VID 0x0483
+  #if defined(USBD_USE_HID_COMPOSITE)
+    #define USBD_PID                      0x5711
+  #elif defined(USBD_USE_CDC)
+    #define USBD_PID                      0x5740
   #endif
-#endif /* USBD_VID */
+#endif /* !USBD_PID && !USBD_VID */
 
-#if USBD_VID == 0
-  #error "USB VID not properly specified"
+#if !USBD_VID || !USBD_PID
+  #error "USB VID or PID not specified"
 #endif
 
 /* Manufacturer string: Use the specified string if specified, guess

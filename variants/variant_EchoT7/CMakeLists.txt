@@ -21,11 +21,9 @@ target_link_libraries(variant INTERFACE variant_usage)
 add_library(variant_bin STATIC EXCLUDE_FROM_ALL
   generic_clock.c
   PeripheralPins.c
-  PeripheralPins_SFE_MMPB_STM32WB5MMG.c
-  PeripheralPins_STM32WB5MM_DK.c
+  PeripheralPins_DEVKIT_IOT_CONTINUUM.c
+  variant_DEVKIT_IOT_CONTINUUM.cpp
   variant_generic.cpp
-  variant_SFE_MMPB_STM32WB5MMG.cpp
-  variant_STM32WB5MM_DK.cpp
 )
 target_link_libraries(variant_bin PUBLIC variant_usage)
 

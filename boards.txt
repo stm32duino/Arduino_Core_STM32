@@ -120,3 +120,91 @@ EchoT6.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 EchoT6.menu.upload_method.serialMethod.upload.protocol=1
 EchoT6.menu.upload_method.serialMethod.upload.options={serial.port.file}
 EchoT6.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+################################################################################
+
+# EchoStar Term 7
+EchoT7.name=EchoStar Term 7
+
+EchoT7.build.core=arduino
+EchoT7.build.board=GENERIC_U585CITX
+EchoT7.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+EchoT7.build.mcu=cortex-m33
+EchoT7.build.fpu=-mfpu=fpv4-sp-d16
+EchoT7.build.float-abi=-mfloat-abi=hard
+EchoT7.build.series=STM32U5xx
+EchoT7.build.cmsis_lib_gcc=arm_cortexM4lf_math
+EchoT7.build.flash_offset=0x0
+EchoT7.build.product_line=STM32U585xx
+EchoT7.build.variant=variant_EchoT7
+EchoT7.upload.maximum_size=2097152
+EchoT7.upload.maximum_data_size=786432
+
+# U(S)ART support
+EchoT7.menu.xserial.generic=Enabled (generic 'Serial')
+EchoT7.menu.xserial.none=Enabled (no generic 'Serial')
+EchoT7.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+EchoT7.menu.xserial.disabled=Disabled (no Serial support)
+EchoT7.menu.xserial.disabled.build.xSerial=
+
+# USB support (if available)
+EchoT7.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+EchoT7.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+EchoT7.menu.usb.CDC=CDC (no generic 'Serial')
+EchoT7.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+EchoT7.menu.usb.HID=HID (keyboard and mouse)
+EchoT7.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+EchoT7.menu.usb.none=None
+
+# USB speed (if available)
+EchoT7.menu.xusb.FS=Low/Full Speed
+EchoT7.menu.xusb.HS=High Speed
+EchoT7.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+EchoT7.menu.xusb.HSFS=High Speed in Full Speed mode
+EchoT7.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+# Optimize
+
+EchoT7.menu.opt.o1std=Fast (-O1)
+EchoT7.menu.opt.o1std.build.flags.optimize=-O1
+EchoT7.menu.opt.o1lto=Fast (-O1) with LTO
+EchoT7.menu.opt.osstd=Smallest (-Os default)
+EchoT7.menu.opt.osstd.build.flags.optimize=-Os
+EchoT7.menu.opt.oslto=Smallest (-Os) with LTO
+EchoT7.menu.opt.oslto.build.flags.optimize=-Os -flto
+
+# Debug symbols and core logs
+EchoT7.menu.dbg.none=None
+EchoT7.menu.dbg.enable_sym=Symbols Enabled (-g)
+EchoT7.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+EchoT7.menu.dbg.enable_log=Core logs Enabled
+EchoT7.menu.dbg.enable_log.build.flags.debug=
+EchoT7.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+EchoT7.menu.dbg.enable_all.build.flags.debug=-g
+
+# C Runtime Library
+EchoT7.menu.rtlib.nano=Newlib Nano (default)
+EchoT7.menu.rtlib.nanofp=Newlib Nano + Float Printf
+EchoT7.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+EchoT7.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+EchoT7.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+EchoT7.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+EchoT7.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+EchoT7.menu.rtlib.full=Newlib Standard
+EchoT7.menu.rtlib.full.build.flags.ldspecs=
+
+# Upload method
+EchoT7.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+EchoT7.menu.upload_method.dfuMethod.upload.protocol=2
+EchoT7.menu.upload_method.dfuMethod.upload.options=
+EchoT7.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+EchoT7.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+EchoT7.menu.upload_method.swdMethod.upload.protocol=0
+EchoT7.menu.upload_method.swdMethod.upload.options=
+EchoT7.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+EchoT7.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+EchoT7.menu.upload_method.serialMethod.upload.protocol=1
+EchoT7.menu.upload_method.serialMethod.upload.options={serial.port.file}
+EchoT7.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
