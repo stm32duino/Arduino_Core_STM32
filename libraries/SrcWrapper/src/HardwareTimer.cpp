@@ -168,6 +168,10 @@ void HardwareTimer::pause()
   */
 void HardwareTimer::pauseChannel(uint32_t channel)
 {
+  if (channel < 1 || channel > TIMER_CHANNELS) {
+    return;
+  }
+
   int timAssociatedInputChannel;
   int LLChannel = getLLChannel(channel);
   if (LLChannel == -1) {
