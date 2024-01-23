@@ -168,7 +168,7 @@ void HardwareTimer::pause()
   */
 void HardwareTimer::pauseChannel(uint32_t channel)
 {
-  if (channel < 1 || channel > TIMER_CHANNELS) {
+  if ((channel < 1) || (channel > TIMER_CHANNELS)) {
     return;
   }
 
