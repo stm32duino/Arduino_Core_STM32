@@ -8,16 +8,16 @@
 #include <Wire.h>
 
 void setup() {
-  pinMode(SENSORS_ENABLE_PIN, OUTPUT);
-  digitalWrite(SENSORS_ENABLE_PIN, HIGH);
+  pinMode(SENSORS_PWR_ENABLE_PIN, OUTPUT);
+  digitalWrite(SENSORS_PWR_ENABLE_PIN, HIGH);
 
   Wire.setSDA(SENSORS_I2C_SDA_PIN);
   Wire.setSCL(SENSORS_I2C_SCL_PIN);
   Wire.begin();
 
-  Serial.begin(115200);
-  while (!Serial);
-  Serial.println("\nEchoStar I2C Scanner");
+  USB_SERIAL.begin(115200);
+  while (!USB_SERIAL);
+  USB_SERIAL.println("\nEchoStar I2C Scanner");
 
   delay(200);
 }
@@ -31,7 +31,7 @@ void do_i2c_scan(void) {
   byte error, address;
   int nDevices;
 
-  Serial.println("Scanning...");
+  USB_SERIAL.println("Scanning...");
 
   nDevices = 0;
   for (address = 1; address < 127; address++ )
@@ -41,24 +41,24 @@ void do_i2c_scan(void) {
 
     if (error == 0)
     {
-      Serial.print("I2C device found at address 0x");
+      USB_SERIAL.print("I2C device found at address 0x");
       if (address < 16)
-        Serial.print("0");
-      Serial.print(address, HEX);
-      Serial.println("  !");
+        USB_SERIAL.print("0");
+      USB_SERIAL.print(address, HEX);
+      USB_SERIAL.println("  !");
 
       nDevices++;
     }
     else if (error == 4)
     {
-      Serial.print("Unknown error at address 0x");
+      USB_SERIAL.print("Unknown error at address 0x");
       if (address < 16)
-        Serial.print("0");
-      Serial.println(address, HEX);
+        USB_SERIAL.print("0");
+      USB_SERIAL.println(address, HEX);
     }
   }
   if (nDevices == 0)
-    Serial.println("No I2C devices found\n");
+    USB_SERIAL.println("No I2C devices found\n");
   else
-    Serial.println("done\n");
+    USB_SERIAL.println("done\n");
 }

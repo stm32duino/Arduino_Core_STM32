@@ -12,31 +12,31 @@ void setup()
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, HIGH);
 
-  pinMode(GNSS_ENABLE_PIN, OUTPUT);
-  digitalWrite(GNSS_ENABLE_PIN, HIGH);
+  pinMode(GNSS_PWR_ENABLE_PIN, OUTPUT);
+  digitalWrite(GNSS_PWR_ENABLE_PIN, HIGH);
   pinMode(GNSS_V_BCKP_PIN, OUTPUT);
   digitalWrite(GNSS_V_BCKP_PIN, HIGH);
   
-  Serial.begin(9600);
-  while (!Serial)
+  USB_SERIAL.begin(9600);
+  while (!USB_SERIAL)
     ;
 
-  Serial.println("Starting...");
+  USB_SERIAL.println("Starting...");
 
-  Serial1.begin(9600);
+  GNSS_SERIAL.begin(9600);
   delay(1000);
 }
 
 void loop()
 {
-  if (Serial1.available())
+  if (GNSS_SERIAL.available())
   {
-    Serial.write(Serial1.read());
+    USB_SERIAL.write(GNSS_SERIAL.read());
   }
 
-  if (Serial.available())
+  if (USB_SERIAL.available())
   {
-    char c = Serial.read();
-    Serial1.write(c);
+    char c = USB_SERIAL.read();
+    GNSS_SERIAL.write(c);
   }
 }

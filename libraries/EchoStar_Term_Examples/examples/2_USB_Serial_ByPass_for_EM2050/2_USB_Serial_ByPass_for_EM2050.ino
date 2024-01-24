@@ -2,7 +2,7 @@
  * @brief This example will forward serial signal from the USB to EchoStar module and vice versa.
  *        In another word, it will by pass the MCU.
  *
- *        The DPDT RF Switch control signal can be reversed by sending '*' character to the USB Serial.
+ *        The DPDT RF Switch control signal can be reversed by sending '*' character to the USB USB_SERIAL.
  *
  * @author mtnguyen
  * @version 1.0.0
@@ -24,17 +24,17 @@ void setup()
   pinMode(ECHOSTAR_SWCTRL_PIN, INPUT);
   attachInterrupt(digitalPinToInterrupt(ECHOSTAR_SWCTRL_PIN), swctrl_change_isr, CHANGE);
 
-  Serial.begin(115200);
-  while (!Serial)
+  USB_SERIAL.begin(115200);
+  while (!USB_SERIAL)
     ;
 
-  Serial.println("Starting...");
+  USB_SERIAL.println("Starting...");
 
   do_switch_ctrl_update();
-  Serial.print("RF Switch reverse control: ");
-  Serial.println(switch_reversing_control ? "ENABLE" : "DISABLE");
+  USB_SERIAL.print("RF Switch reverse control: ");
+  USB_SERIAL.println(switch_reversing_control ? "ENABLE" : "DISABLE");
 
-  SerialLP1.begin(115200);
+  ECHOSTAR_SERIAL.begin(115200);
   delay(1000);
 
   digitalWrite(LED_BUILTIN, LOW);
@@ -42,23 +42,23 @@ void setup()
 
 void loop()
 {
-  if (SerialLP1.available())
+  if (ECHOSTAR_SERIAL.available())
   {
-    Serial.write(SerialLP1.read());
+    USB_SERIAL.write(ECHOSTAR_SERIAL.read());
   }
 
-  if (Serial.available())
+  if (USB_SERIAL.available())
   {
-    char c = Serial.read();
-    SerialLP1.write(c);
+    char c = USB_SERIAL.read();
+    ECHOSTAR_SERIAL.write(c);
 
     if (c == '*')
     {
       switch_reversing_control ^= true;
       do_switch_ctrl_update();
 
-      Serial.print("RF Switch reverse control: ");
-      Serial.println(switch_reversing_control ? "ENABLE" : "DISABLE");
+      USB_SERIAL.print("RF Switch reverse control: ");
+      USB_SERIAL.println(switch_reversing_control ? "ENABLE" : "DISABLE");
     }
   }
 }

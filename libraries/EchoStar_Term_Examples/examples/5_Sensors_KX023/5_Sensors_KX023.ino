@@ -1,52 +1,68 @@
-/**
-* @brief This example demonstrates how to read data from the accelerometer KX023-1025.
-*
-* @author mtnguyen
-* @version 1.0.0
-*/
-
 #include <Wire.h>
 #include <Kionix_KX023.h> // https://github.com/nguyenmanhthao996tn/Kionix_KX023
 
 KX023 myIMU(Wire, SENSORS_KX023_ADDRESS);
 float kx_x, kx_y, kx_z;
 
-void setup() {
-  pinMode(SENSORS_ENABLE_PIN, OUTPUT);
-  digitalWrite(SENSORS_ENABLE_PIN, HIGH);
+void gpio_init(void)
+{
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, LOW);
+
+  pinMode(SENSORS_PWR_ENABLE_PIN, OUTPUT);
+  digitalWrite(SENSORS_PWR_ENABLE_PIN, HIGH);
+}
+
+void inline led_blink(uint8_t num_of_blink = 1)
+{
+  for (; num_of_blink > 0; num_of_blink--)
+  {
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(50);
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(150);
+  }
+}
+
+void setup(void)
+{
+  USB_SERIAL.begin(9600);
+
+  gpio_init();
 
   Wire.setSDA(SENSORS_I2C_SDA_PIN);
   Wire.setSCL(SENSORS_I2C_SCL_PIN);
   Wire.begin();
 
-  Serial.begin(115200);
-  while (!Serial);
-  Serial.println("\nEchoStar I2C Scanner");
+  while (!USB_SERIAL && millis() < 5000)
+    ;
+  USB_SERIAL.println("****** KX023-1025 Asynchronous Read Back Acceleration Data for Echo Star Term 6 ******");
 
-  delay(200);
-
-  if (myIMU.begin())
+  KX023_Status_t status = myIMU.begin();
+  if (status == KX023_STATUS_OK)
   {
-    Serial.println("Could not find KX023-1025? Check wiring");
+    USB_SERIAL.println("KX023-1025: OK");
   }
   else
   {
-    Serial.println("KX023-1025: OK");
+    USB_SERIAL.println(kx023_get_status_string(status));
   }
-  myIMU.configContinuousReading(LOWPOWER, RANGE_8G, DATARATE_100HZ);
 
-  delay(2000);
+  myIMU.configAsynchronousReadBackAccelerationData(KX023_ACCLERATION_RANGE_2G, KX023_ODR_25HZ);
+
+  myIMU.setOperatingMode();
+  delay(50);
 }
 
-void loop() {
-  myIMU.readAcceleration(&kx_x, &kx_y, &kx_z);
-  Serial.print("KX023-1025: ");
-  Serial.print(kx_x);
-  Serial.print(", ");
-  Serial.print(kx_y);
-  Serial.print(", ");
-  Serial.print(kx_z);
-  Serial.println("");
-  
-  delay(100);
+void loop(void)
+{
+  myIMU.readAsynchronousReadBackAccelerationData(&kx_x, &kx_y, &kx_z);
+  USB_SERIAL.print(kx_x);
+  USB_SERIAL.print(", ");
+  USB_SERIAL.print(kx_y);
+  USB_SERIAL.print(", ");
+  USB_SERIAL.print(kx_z);
+  USB_SERIAL.println("");
+
+  led_blink();
 }

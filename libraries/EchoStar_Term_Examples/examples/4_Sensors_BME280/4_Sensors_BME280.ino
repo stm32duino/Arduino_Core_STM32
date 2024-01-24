@@ -14,35 +14,35 @@ Adafruit_BME280 bme;
 
 void setup()
 {
-  pinMode(SENSORS_ENABLE_PIN, OUTPUT);
-  digitalWrite(SENSORS_ENABLE_PIN, HIGH);
+  pinMode(SENSORS_PWR_ENABLE_PIN, OUTPUT);
+  digitalWrite(SENSORS_PWR_ENABLE_PIN, HIGH);
 
   Wire.setSDA(SENSORS_I2C_SDA_PIN);
   Wire.setSCL(SENSORS_I2C_SCL_PIN);
   Wire.begin();
 
-  Serial.begin(115200);
-  while (!Serial)
+  USB_SERIAL.begin(115200);
+  while (!USB_SERIAL)
     ;
-  Serial.println("\nEchoStar I2C Scanner");
+  USB_SERIAL.println("\nEchoStar I2C Scanner");
 
   delay(200);
 
   unsigned status = bme.begin(SENSORS_BME280_ADDRESS, &Wire);
   if (!status)
   {
-    Serial.println("Could not find a valid BME280 sensor, check wiring, address, sensor ID!");
-    Serial.print("SensorID was: 0x");
-    Serial.println(bme.sensorID(), 16);
-    Serial.print("        ID of 0xFF probably means a bad address, a BMP 180 or BMP 085\n");
-    Serial.print("   ID of 0x56-0x58 represents a BMP 280,\n");
-    Serial.print("        ID of 0x60 represents a BME 280.\n");
-    Serial.print("        ID of 0x61 represents a BME 680.\n");
+    USB_SERIAL.println("Could not find a valid BME280 sensor, check wiring, address, sensor ID!");
+    USB_SERIAL.print("SensorID was: 0x");
+    USB_SERIAL.println(bme.sensorID(), 16);
+    USB_SERIAL.print("        ID of 0xFF probably means a bad address, a BMP 180 or BMP 085\n");
+    USB_SERIAL.print("   ID of 0x56-0x58 represents a BMP 280,\n");
+    USB_SERIAL.print("        ID of 0x60 represents a BME 280.\n");
+    USB_SERIAL.print("        ID of 0x61 represents a BME 680.\n");
     while (1)
       delay(10);
   }
 
-  Serial.println("BME280 Initialization DONE");
+  USB_SERIAL.println("BME280 Initialization DONE");
 }
 
 void loop()
@@ -53,22 +53,22 @@ void loop()
 
 void printValues()
 {
-  Serial.print("Temperature = ");
-  Serial.print(bme.readTemperature());
-  Serial.println(" °C");
+  USB_SERIAL.print("Temperature = ");
+  USB_SERIAL.print(bme.readTemperature());
+  USB_SERIAL.println(" °C");
 
-  Serial.print("Pressure = ");
+  USB_SERIAL.print("Pressure = ");
 
-  Serial.print(bme.readPressure() / 100.0F);
-  Serial.println(" hPa");
+  USB_SERIAL.print(bme.readPressure() / 100.0F);
+  USB_SERIAL.println(" hPa");
 
-  Serial.print("Approx. Altitude = ");
-  Serial.print(bme.readAltitude(SEALEVELPRESSURE_HPA));
-  Serial.println(" m");
+  USB_SERIAL.print("Approx. Altitude = ");
+  USB_SERIAL.print(bme.readAltitude(SEALEVELPRESSURE_HPA));
+  USB_SERIAL.println(" m");
 
-  Serial.print("Humidity = ");
-  Serial.print(bme.readHumidity());
-  Serial.println(" %");
+  USB_SERIAL.print("Humidity = ");
+  USB_SERIAL.print(bme.readHumidity());
+  USB_SERIAL.println(" %");
 
-  Serial.println();
+  USB_SERIAL.println();
 }
