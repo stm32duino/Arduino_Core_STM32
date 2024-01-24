@@ -96,13 +96,47 @@
 
 // On-board LED pin number
 #ifndef LED_BUILTIN
-  #define LED_BUILTIN           PNUM_NOT_DEFINED
+  #define LED_BUILTIN           PA13
 #endif
 
 // On-board user button
 #ifndef USER_BTN
-  #define USER_BTN              PNUM_NOT_DEFINED
+  #define USER_BTN              PC2
 #endif
+
+// EchoStar EM2050 Module
+#define ECHOSTAR_PWR_ENABLE_PIN -1
+#define ECHOSTAR_TXD_PIN PC0
+#define ECHOSTAR_RXD_PIN PC1
+#define ECHOSTAR_RTS_PIN PC12
+#define ECHOSTAR_BOOT_PIN PC11
+#define ECHOSTAR_nRST_PIN PC10
+#define ECHOSTAR_SWCTRL_PIN PB4
+#define DPDT_PWR_ENABLE_PIN -1
+#define DPDT_CTRL_PIN PB8
+
+// GNSS
+#define GNSS_TXD_PIN PB7
+#define GNSS_RXD_PIN PA9
+#define GNSS_WAKEUP_PIN PB5
+#define GNSS_PWR_ENABLE_PIN PA1
+#define GNSS_V_BCKP_PIN PC3
+#define GNSS_1PPS_PIN PA0
+
+// Sensors
+#define SENSORS_PWR_ENABLE_PIN PA14
+#define SENSORS_I2C_SDA_PIN PA10
+#define SENSORS_I2C_SCL_PIN PB6
+#define SENSORS_BATERY_ADC_PIN PA2
+#define SENSORS_ACC_INT_1_PIN PB11
+#define SENSORS_ACC_INT_2_PIN PB10
+#define SENSORS_ACC_TRIG_PIN PB12
+
+#define USB_SERIAL Serial
+#define GNSS_SERIAL Serial1
+#define ECHOSTAR_SERIAL SerialLP1
+#define SENSORS_BME280_ADDRESS 0x76
+#define SENSORS_KX023_ADDRESS 0x1F
 
 // SPI definitions
 #ifndef PIN_SPI_SS
@@ -129,10 +163,10 @@
 
 // I2C definitions
 #ifndef PIN_WIRE_SDA
-  #define PIN_WIRE_SDA          PA10
+  #define PIN_WIRE_SDA          SENSORS_I2C_SDA_PIN
 #endif
 #ifndef PIN_WIRE_SCL
-  #define PIN_WIRE_SCL          PA9
+  #define PIN_WIRE_SCL          SENSORS_I2C_SCL_PIN
 #endif
 
 // Timer Definitions
@@ -156,6 +190,22 @@
 #endif
 #ifndef PIN_SERIAL_TX
   #define PIN_SERIAL_TX         PA2
+#endif
+
+#define ENABLE_HWSERIAL1
+#ifndef PIN_SERIAL1_RX
+  #define PIN_SERIAL1_RX         PB7
+#endif
+#ifndef PIN_SERIAL1_TX
+  #define PIN_SERIAL1_TX         PA9
+#endif
+
+#define ENABLE_HWSERIALLP1
+#ifndef PIN_SERIALLP1_RX
+  #define PIN_SERIALLP1_RX         PC0
+#endif
+#ifndef PIN_SERIALLP1_TX
+  #define PIN_SERIALLP1_TX         PC1
 #endif
 
 // Extra HAL modules
