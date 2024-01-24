@@ -4,7 +4,10 @@
 
 This reposistory contains the Arduino Core for LEAT EchoStar Terminals.
 
-<img src="https://nguyenmanhthao996tn.github.io/other_resource/Echo_term_6.jpg" width="350">
+### EchoStar-Term-7 with IP65 transparent casing
+| 📡 🛰️ | 📡 🛰️ |
+|:---:|:---:|
+| <img src="https://nguyenmanhthao996tn.github.io/other_resource/t7_w_opened_case.jpg" height="350"> | <img src="https://nguyenmanhthao996tn.github.io/other_resource/t7_w_closed_case.jpg" height="350"> |
 
 ### Supported boards:
 
@@ -115,3 +118,4 @@ The variant in this core includes pre-define for MCU pins connected to on-boards
 
 ---
 #### *Maintained by Prof. Fabien Ferrero & mtnguyen at Laboratoire d’Electronique, Antennes et Télécommunications (LEAT)*
+🇫🇷 🇻🇳
