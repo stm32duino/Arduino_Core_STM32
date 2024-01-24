@@ -2,12 +2,12 @@
  * @brief This example will scan for the address of I2C sensors on the board.
  *
  * @author mtnguyen
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 #include <Wire.h>
 
-void setup() {
+void setup(void) {
   pinMode(SENSORS_PWR_ENABLE_PIN, OUTPUT);
   digitalWrite(SENSORS_PWR_ENABLE_PIN, HIGH);
 
@@ -22,7 +22,7 @@ void setup() {
   delay(200);
 }
 
-void loop() {
+void loop(void) {
   do_i2c_scan();
   delay(5000);
 }

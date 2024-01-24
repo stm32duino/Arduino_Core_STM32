@@ -1,3 +1,10 @@
+/**
+ * @brief This example demonstrates how to read data from KX023.
+ *
+ * @author mtnguyen
+ * @version 1.1.0
+ */
+
 #include <Wire.h>
 #include <Kionix_KX023.h> // https://github.com/nguyenmanhthao996tn/Kionix_KX023
 

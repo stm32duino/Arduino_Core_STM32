@@ -1,15 +1,15 @@
 /**
- * @brief This example demonstrates how to use integrated LED & button on EchoStar-term-6 board.
+ * @brief This example demonstrates how to use integrated LED & button.
  * The integrated LED blinks X time(s) every 2 seconds. X vary from 1 to 3 and increase when User Button pressed.
  * 
  * @author mtnguyen
- * @version 1.0.0
+ * @version 1.1.0
  * 
  */
 
 volatile int num_of_blink = 1;
 
-void setup()
+void setup(void)
 {
   num_of_blink = 1;
 
@@ -20,7 +20,7 @@ void setup()
   attachInterrupt(digitalPinToInterrupt(USER_BTN), button_1_isr, RISING);
 }
 
-void loop()
+void loop(void)
 {
   for (int i = 0; i < num_of_blink; i++)
   {

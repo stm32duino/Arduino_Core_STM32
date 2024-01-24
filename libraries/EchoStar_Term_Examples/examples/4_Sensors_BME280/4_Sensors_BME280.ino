@@ -2,7 +2,7 @@
 * @brief This example demonstrates how to read data from BME280.
 *
 * @author mtnguyen
-* @version 1.0.0
+* @version 1.1.0
 */
 
 #include <Wire.h>
@@ -12,7 +12,7 @@
 Adafruit_BME280 bme;
 #define SEALEVELPRESSURE_HPA (1013.25)
 
-void setup()
+void setup(void)
 {
   pinMode(SENSORS_PWR_ENABLE_PIN, OUTPUT);
   digitalWrite(SENSORS_PWR_ENABLE_PIN, HIGH);
@@ -24,7 +24,7 @@ void setup()
   USB_SERIAL.begin(115200);
   while (!USB_SERIAL)
     ;
-  USB_SERIAL.println("\nEchoStar I2C Scanner");
+  USB_SERIAL.println("\nEchoStar BME280 Test");
 
   delay(200);
 
@@ -45,7 +45,7 @@ void setup()
   USB_SERIAL.println("BME280 Initialization DONE");
 }
 
-void loop()
+void loop(void)
 {
   printValues();
   delay(1000);

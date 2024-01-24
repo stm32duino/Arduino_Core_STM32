@@ -3,11 +3,11 @@
  *        the GNSS LC76F module and vice versa. In another word, it will by pass the MCU.
  * 
  * @author mtnguyen
- * @version 1.0.0
+ * @version 1.1.0
  * 
  */
 
-void setup()
+void setup(void)
 {
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, HIGH);
@@ -17,17 +17,17 @@ void setup()
   pinMode(GNSS_V_BCKP_PIN, OUTPUT);
   digitalWrite(GNSS_V_BCKP_PIN, HIGH);
   
-  USB_SERIAL.begin(9600);
+  USB_SERIAL.begin(115200);
   while (!USB_SERIAL)
     ;
 
   USB_SERIAL.println("Starting...");
 
-  GNSS_SERIAL.begin(9600);
+  GNSS_SERIAL.begin(115200);
   delay(1000);
 }
 
-void loop()
+void loop(void)
 {
   if (GNSS_SERIAL.available())
   {

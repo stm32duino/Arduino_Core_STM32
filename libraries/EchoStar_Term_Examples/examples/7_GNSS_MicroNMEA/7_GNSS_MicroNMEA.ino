@@ -6,7 +6,7 @@
  *        the USB_SERIAL will stop printing NMEA sentences and how time-to-first-fix & GNSS data.
  * 
  * @author mtnguyen
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 #include <MicroNMEA.h> // https://github.com/stevemarple/MicroNMEA
@@ -19,7 +19,7 @@ bool gnss_fix_status = false;
 uint32_t start_timestamp = 0;
 uint32_t stop_timestamp = 0;
 
-void setup()
+void setup(void)
 {
   gnss_fix_status = false;
 
@@ -31,13 +31,13 @@ void setup()
   pinMode(GNSS_V_BCKP_PIN, OUTPUT);
   digitalWrite(GNSS_V_BCKP_PIN, LOW);
 
-  USB_SERIAL.begin(9600);
+  USB_SERIAL.begin(115200);
   while (!USB_SERIAL)
     ;
 
   USB_SERIAL.println("Starting...");
 
-  GNSS_SERIAL.begin(9600);
+  GNSS_SERIAL.begin(115200);
 
   delay(5000);
   digitalWrite(GNSS_PWR_ENABLE_PIN, HIGH);
@@ -45,7 +45,7 @@ void setup()
   start_timestamp = millis();
 }
 
-void loop()
+void loop(void)
 {
   if (GNSS_SERIAL.available())
   {
