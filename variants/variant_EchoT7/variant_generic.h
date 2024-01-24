@@ -12,6 +12,14 @@
  */
 #pragma once
 
+#define LEAT_BOARD_VERSION 7
+
+#define CORE_VERSION_MAJOR 12
+#define CORE_VERSION_MINOR 7
+#define CORE_VERSION_PATCH 1
+#define CORE_VERSION_BUILD 0
+#define CORE_VERSION_STRING "12.7.1-0"
+
 /*----------------------------------------------------------------------------
  *        STM32 pins number
  *----------------------------------------------------------------------------*/
@@ -113,10 +121,10 @@
 // GNSS
 #define GNSS_TXD_PIN PA1
 #define GNSS_RXD_PIN PA0
-#define GNSS_WAKEUP_PIN -1
+// #define GNSS_WAKEUP_PIN -1
 #define GNSS_PWR_ENABLE_PIN PC13
-#define GNSS_V_BCKP_PIN -1
-#define GNSS_1PPS_PIN -1
+#define GNSS_V_BCKP_PIN PH0
+// #define GNSS_1PPS_PIN -1
 
 // Sensors
 #define SENSORS_PWR_ENABLE_PIN PA13
@@ -124,13 +132,14 @@
 #define SENSORS_I2C_SCL_PIN PB8
 #define SENSORS_BATERY_ADC_PIN PB1
 #define SENSORS_ACC_INT_1_PIN PA8
-#define SENSORS_ACC_INT_2_PIN -1
-#define SENSORS_ACC_TRIG_PIN -1
+// #define SENSORS_ACC_INT_2_PIN -1
+// #define SENSORS_ACC_TRIG_PIN -1
 
 #define USB_SERIAL Serial
 #define GNSS_SERIAL Serial4
 #define ECHOSTAR_SERIAL Serial1
 #define SENSORS_BME280_ADDRESS 0x76
+#define SENSORS_BME680_ADDRESS 0x77
 #define SENSORS_KX023_ADDRESS 0x1F
 
 // SPI definitions

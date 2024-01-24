@@ -12,6 +12,14 @@
  */
 #pragma once
 
+#define LEAT_BOARD_VERSION 6
+
+#define CORE_VERSION_MAJOR 12
+#define CORE_VERSION_MINOR 7
+#define CORE_VERSION_PATCH 1
+#define CORE_VERSION_BUILD 0
+#define CORE_VERSION_STRING "12.7.1-0"
+
 /*----------------------------------------------------------------------------
  *        STM32 pins number
  *----------------------------------------------------------------------------*/
@@ -105,14 +113,14 @@
 #endif
 
 // EchoStar EM2050 Module
-#define ECHOSTAR_PWR_ENABLE_PIN -1
+// #define ECHOSTAR_PWR_ENABLE_PIN -1
 #define ECHOSTAR_TXD_PIN PC0
 #define ECHOSTAR_RXD_PIN PC1
 #define ECHOSTAR_RTS_PIN PC12
 #define ECHOSTAR_BOOT_PIN PC11
 #define ECHOSTAR_nRST_PIN PC10
 #define ECHOSTAR_SWCTRL_PIN PB4
-#define DPDT_PWR_ENABLE_PIN -1
+// #define DPDT_PWR_ENABLE_PIN -1
 #define DPDT_CTRL_PIN PB8
 
 // GNSS
@@ -136,6 +144,7 @@
 #define GNSS_SERIAL Serial1
 #define ECHOSTAR_SERIAL SerialLP1
 #define SENSORS_BME280_ADDRESS 0x76
+// #define SENSORS_BME680_ADDRESS 0x77
 #define SENSORS_KX023_ADDRESS 0x1F
 
 // SPI definitions
