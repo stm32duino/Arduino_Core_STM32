@@ -11,7 +11,7 @@ This reposistory contains the Arduino Core for LEAT EchoStar Terminals.
  
  From the USB Serial Port, command supported are :
  
- * < $BME >   : Read BME280 and provide Temperature, Humidity and Pressure
+ * '$BME'   : Read BME280 and provide Temperature, Humidity and Pressure
  * "$KX"   : Read KX023 and provide accelaration along X,Y and Z
  * "$RESET"   : Reset to initial state, can be use to exit from GNSS mode
  * "$GNSS"   : Start GNSS mode, print every 5s the log from GNSS module
