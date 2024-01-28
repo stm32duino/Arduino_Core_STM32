@@ -21,7 +21,10 @@ This reposistory contains the Arduino Core for LEAT EchoStar Terminals.
  * `$setMSS`   : Set EM2050 for Satellite LoRaWAN MSS supporting Echostar Mobile network
  * `$dl`   : Provide EM2050 downlink parameters
  * `$pwr`   : Provide EM2050 Tx power, it is usefull with Adaptative DataRate in Activated
- * `$SENDLORA`   : Send a LoRaWan packet with board sensor value 
+ * `$SENDLORA`   : Send a LoRaWan packet with board sensor value
+
+   If no usb is connected to the terminal, the code will periodically transmit a LoRaWan packet to the network.
+   No sleep mode is implemented, limiting the terminal's lifetime with a battery.
 
 ### Supported boards: 
 
