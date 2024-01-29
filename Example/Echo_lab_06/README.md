@@ -1,6 +1,6 @@
 # LEAT EchoStar Terminal BSP
 
-###### This document is applied to core version 12.7.1-0
+###### This document is applied to core version 12.7.2-0
 
 This reposistory contains the Arduino Core for LEAT EchoStar Terminals.
 

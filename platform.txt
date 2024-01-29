@@ -9,7 +9,7 @@
 # https://arduino.github.io/arduino-cli/latest/platform-specification/
 
 name=LEAT EchoStar Terminals
-version=12.7.1-0
+version=12.7.2-0
 
 # STM compile variables
 
