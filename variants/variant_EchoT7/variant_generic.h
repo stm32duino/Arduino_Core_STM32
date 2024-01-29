@@ -138,6 +138,7 @@
 #define USB_SERIAL Serial
 #define GNSS_SERIAL Serial4
 #define ECHOSTAR_SERIAL Serial1
+#define HEADER_SERIAL Serial2
 #define SENSORS_BME280_ADDRESS 0x76
 #define SENSORS_BME680_ADDRESS 0x77
 #define SENSORS_KX023_ADDRESS 0x1F
@@ -191,6 +192,12 @@
   #define HAVE_HWSERIAL1
   #define PIN_SERIAL1_RX PA10
   #define PIN_SERIAL1_TX PA9
+#endif
+
+#ifndef HAVE_HWSERIAL2
+  #define HAVE_HWSERIAL2
+  #define PIN_SERIAL2_RX PA3
+  #define PIN_SERIAL2_TX PA2
 #endif
 
 // Default pin used for generic 'Serial' instance
