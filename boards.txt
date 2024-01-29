@@ -47,13 +47,6 @@ EchoT7.menu.usb.HID=HID (keyboard and mouse)
 EchoT7.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 EchoT7.menu.usb.none=None
 
-# USB speed (if available)
-EchoT7.menu.xusb.FS=Low/Full Speed
-EchoT7.menu.xusb.HS=High Speed
-EchoT7.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
-EchoT7.menu.xusb.HSFS=High Speed in Full Speed mode
-EchoT7.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
-
 # Optimize
 
 EchoT7.menu.opt.o1std=Fast (-O1)
@@ -142,13 +135,6 @@ EchoT6.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_
 EchoT6.menu.usb.HID=HID (keyboard and mouse)
 EchoT6.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 EchoT6.menu.usb.none=None
-
-# USB speed (if available)
-EchoT6.menu.xusb.FS=Low/Full Speed
-EchoT6.menu.xusb.HS=High Speed
-EchoT6.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
-EchoT6.menu.xusb.HSFS=High Speed in Full Speed mode
-EchoT6.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 # Optimize
 EchoT6.menu.opt.o3std=Fastest (-O3)
