@@ -43,8 +43,8 @@ volatile int switch_reversing_control = SWITCH_REVERSING_CONTROL_DEFAULT_VALUE;
 #include <Adafruit_Sensor.h> // https://github.com/adafruit/Adafruit_BME280_Library
 #include <Adafruit_BME280.h> // https://github.com/adafruit/Adafruit_Sensor
 #include <MicroNMEA.h> // https://github.com/stevemarple/MicroNMEA
-#include "STM32LowPower.h"
-#include <STM32RTC.h>
+//#include "STM32LowPower.h"
+//#include <STM32RTC.h>
 
 
 KX023 myIMU(Wire, SENSORS_KX023_ADDRESS);
@@ -154,7 +154,7 @@ Serial.begin(115200);
   Serial1.begin(9600); // UART GNSS
   SerialLP1.begin(115200); // UART EM2050
 
-  LowPower.begin();
+  //LowPower.begin();
 
   getSensorDataPrevMillis=millis(); 
  
