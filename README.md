@@ -35,8 +35,9 @@ This reposistory contains the Arduino Core for LEAT EchoStar Terminals.
 
 1. [Download and install the Arduino IDE](https://www.arduino.cc/en/Main/Software) (at least version v1.8.13)
 2. Start the Arduino IDE
-3. Go to Preferences
-4. Copy & Add the following JSON URL to your "**Additional Board Manager URL**"
+3. "LEAT EchoStar Core" required STM32duino/ArduinoCoreSTM32 to be installed, please install using this link : [ArduinoCoreSTM32](https://github.com/stm32duino/Arduino_Core_STM32?tab=readme-ov-file#getting-started)
+4. Go to Preferences
+5. Copy & Add the following JSON URL to your "**Additional Board Manager URL**"
 ```
 https://fabienferrero.github.io/ArduinoBoardManagerJSON/package_leat-echostar-terminal_index.json
 ``` 
