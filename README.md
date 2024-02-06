@@ -43,7 +43,9 @@ https://fabienferrero.github.io/ArduinoBoardManagerJSON/package_leat-echostar-te
 ``` 
 5. Open the Boards Manager from the **Tools** -> **Board menu** and install "_LEAT EchoStar Terminals_"
 6. Select your board from the **Tools** -> **Board menu**
-7. Config the approriate settings in **Tools** menu, and upload your source code.
+7. Config the appropriate settings in **Tools** menu (we use DFU to upload the code)
+8. Reset the Echostar terminal in boot mode (press the boot and reset buttons at the same time, and release the reset button first)
+9. Upload your source code.
 
 # Integrated example
 
