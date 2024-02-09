@@ -23,6 +23,7 @@ Nucleo_144.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build
 Nucleo_144.build.flash_offset=0x0
 Nucleo_144.upload.maximum_size=0
 Nucleo_144.upload.maximum_data_size=0
+Nucleo_144.programmer.default=stlink
 Nucleo_144.vid.0=0x0483
 Nucleo_144.pid.0=0x5740
 Nucleo_144.vid.1=0x0483
@@ -352,6 +353,7 @@ Nucleo_64.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.
 Nucleo_64.build.flash_offset=0x0
 Nucleo_64.upload.maximum_size=0
 Nucleo_64.upload.maximum_data_size=0
+Nucleo_64.programmer.default=stlink
 Nucleo_64.vid.0=0x0483
 Nucleo_64.pid.0=0x5740
 # STlink V1/V2.1/V3
@@ -771,6 +773,7 @@ Nucleo_32.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.
 Nucleo_32.build.flash_offset=0x0
 Nucleo_32.upload.maximum_size=0
 Nucleo_32.upload.maximum_data_size=0
+Nucleo_32.programmer.default=stlink
 Nucleo_32.vid.0=0x0483
 Nucleo_32.pid.0=0x5740
 # STlink V1/V2.1/V3
@@ -917,6 +920,7 @@ Disco.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 Disco.build.flash_offset=0x0
 Disco.upload.maximum_size=0
 Disco.upload.maximum_data_size=0
+Disco.programmer.default=stlink
 Disco.vid.0=0x0483
 Disco.pid.0=0x5740
 # STlink V1/V2.1/V3
@@ -1201,6 +1205,7 @@ Eval.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSeri
 Eval.build.flash_offset=0x0
 Eval.upload.maximum_size=0
 Eval.upload.maximum_data_size=0
+Eval.programmer.default=stlink
 Eval.vid.0=0x0483
 Eval.pid.0=0x5740
 # STlink V1/V2.1/V3
@@ -1262,6 +1267,7 @@ STM32MP1.name=STM32MP1 series coprocessor
 STM32MP1.build.flash_offset=0x0
 STM32MP1.upload.maximum_size=0
 STM32MP1.upload.maximum_data_size=0
+STM32MP1.programmer.default=stlink
 STM32MP1.vid.0=0x0483
 STM32MP1.pid.0=0x5740
 
@@ -1310,6 +1316,7 @@ GenC0.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=
 GenC0.build.flash_offset=0x0
 GenC0.upload.maximum_size=0
 GenC0.upload.maximum_data_size=0
+GenC0.programmer.default=stlink
 GenC0.vid.0=0x0483
 GenC0.pid.0=0x5740
 
@@ -1440,6 +1447,7 @@ GenF0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 GenF0.build.flash_offset=0x0
 GenF0.upload.maximum_size=0
 GenF0.upload.maximum_data_size=0
+GenF0.programmer.default=stlink
 GenF0.vid.0=0x0483
 GenF0.pid.0=0x5740
 
@@ -2250,6 +2258,7 @@ GenF1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 GenF1.build.flash_offset=0x0
 GenF1.upload.maximum_size=0
 GenF1.upload.maximum_data_size=0
+GenF1.programmer.default=stlink
 GenF1.vid.0=0x0483
 GenF1.pid.0=0x5740
 # DFU mode on built-in bootloader not available, assuming using STM32duino-bootloader
@@ -3007,6 +3016,7 @@ GenF2.build.series=STM32F2xx
 GenF2.build.flash_offset=0x0
 GenF2.upload.maximum_size=0
 GenF2.upload.maximum_data_size=0
+GenF2.programmer.default=stlink
 GenF2.vid.0=0x0483
 GenF2.pid.0=0x5740
 
@@ -3417,6 +3427,7 @@ GenF3.build.series=STM32F3xx
 GenF3.build.flash_offset=0x0
 GenF3.upload.maximum_size=0
 GenF3.upload.maximum_data_size=0
+GenF3.programmer.default=stlink
 GenF3.vid.0=0x0483
 GenF3.pid.0=0x5740
 
@@ -3825,6 +3836,7 @@ GenF4.build.series=STM32F4xx
 GenF4.build.flash_offset=0x0
 GenF4.upload.maximum_size=0
 GenF4.upload.maximum_data_size=0
+GenF4.programmer.default=stlink
 GenF4.vid.0=0x0483
 GenF4.pid.0=0x5740
 
@@ -4735,6 +4747,7 @@ GenF7.build.series=STM32F7xx
 GenF7.build.flash_offset=0x0
 GenF7.upload.maximum_size=0
 GenF7.upload.maximum_data_size=0
+GenF7.programmer.default=stlink
 GenF7.vid.0=0x0483
 GenF7.pid.0=0x5740
 
@@ -5206,6 +5219,7 @@ GenG0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 GenG0.build.flash_offset=0x0
 GenG0.upload.maximum_size=0
 GenG0.upload.maximum_data_size=0
+GenG0.programmer.default=stlink
 GenG0.vid.0=0x0483
 GenG0.pid.0=0x5740
 
@@ -6465,6 +6479,7 @@ GenG4.build.series=STM32G4xx
 GenG4.build.flash_offset=0x0
 GenG4.upload.maximum_size=0
 GenG4.upload.maximum_data_size=0
+GenG4.programmer.default=stlink
 GenG4.vid.0=0x0483
 GenG4.pid.0=0x5740
 
@@ -7506,6 +7521,7 @@ GenH5.build.series=STM32H5xx
 GenH5.build.flash_offset=0x0
 GenH5.upload.maximum_size=0
 GenH5.upload.maximum_data_size=0
+GenH5.programmer.default=stlink
 GenH5.vid.0=0x0483
 GenH5.pid.0=0x5740
 
@@ -7587,6 +7603,7 @@ GenH7.build.mcu=cortex-m7
 GenH7.build.flash_offset=0x0
 GenH7.upload.maximum_size=0
 GenH7.upload.maximum_data_size=0
+GenH7.programmer.default=stlink
 GenH7.vid.0=0x0483
 GenH7.pid.0=0x5740
 
@@ -8155,6 +8172,7 @@ GenL0.build.series=STM32L0xx
 GenL0.build.flash_offset=0x0
 GenL0.upload.maximum_size=0
 GenL0.upload.maximum_data_size=0
+GenL0.programmer.default=stlink
 GenL0.vid.0=0x0483
 GenL0.pid.0=0x5740
 
@@ -9298,6 +9316,7 @@ GenL1.build.series=STM32L1xx
 GenL1.build.flash_offset=0x0
 GenL1.upload.maximum_size=0
 GenL1.upload.maximum_data_size=0
+GenL1.programmer.default=stlink
 GenL1.vid.0=0x0483
 GenL1.pid.0=0x5740
 
@@ -9587,6 +9606,7 @@ GenL4.build.series=STM32L4xx
 GenL4.build.flash_offset=0x0
 GenL4.upload.maximum_size=0
 GenL4.upload.maximum_data_size=0
+GenL4.programmer.default=stlink
 GenL4.vid.0=0x0483
 GenL4.pid.0=0x5740
 
@@ -10269,6 +10289,7 @@ GenL5.build.series=STM32L5xx
 GenL5.build.flash_offset=0x0
 GenL5.upload.maximum_size=0
 GenL5.upload.maximum_data_size=0
+GenL5.programmer.default=stlink
 GenL5.vid.0=0x0483
 GenL5.pid.0=0x5740
 
@@ -10326,6 +10347,7 @@ GenU5.build.series=STM32U5xx
 GenU5.build.flash_offset=0x0
 GenU5.upload.maximum_size=0
 GenU5.upload.maximum_data_size=0
+GenU5.programmer.default=stlink
 GenU5.vid.0=0x0483
 GenU5.pid.0=0x5740
 
@@ -10439,6 +10461,7 @@ GenWB.build.series=STM32WBxx
 GenWB.build.flash_offset=0x0
 GenWB.upload.maximum_size=0
 GenWB.upload.maximum_data_size=0
+GenWB.programmer.default=stlink
 GenWB.vid.0=0x0483
 GenWB.pid.0=0x5740
 
@@ -10536,6 +10559,7 @@ GenWBA.build.series=STM32WBAxx
 GenWBA.build.flash_offset=0x0
 GenWBA.upload.maximum_size=0
 GenWBA.upload.maximum_data_size=0
+GenWBA.programmer.default=stlink
 GenWBA.vid.0=0x0483
 GenWBA.pid.0=0x5740
 
@@ -10580,6 +10604,7 @@ GenWL.build.series=STM32WLxx
 GenWL.build.flash_offset=0x0
 GenWL.upload.maximum_size=0
 GenWL.upload.maximum_data_size=0
+GenWL.programmer.default=stlink
 GenWL.vid.0=0x0483
 GenWL.pid.0=0x5740
 
@@ -10739,6 +10764,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.build.flash_offset=0x0
 3dprinter.upload.maximum_size=0
 3dprinter.upload.maximum_data_size=0
+3dprinter.programmer.default=stlink
 3dprinter.vid.0=0x0483
 3dprinter.pid.0=0x5740
 
@@ -10944,6 +10970,7 @@ Blues.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 Blues.build.flash_offset=0x0
 Blues.upload.maximum_size=0
 Blues.upload.maximum_data_size=0
+Blues.programmer.default=stlink
 Blues.vid.0=0x30A4
 
 # Swan R5 board
@@ -11002,6 +11029,7 @@ Elecgator.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.
 Elecgator.build.flash_offset=0x0
 Elecgator.upload.maximum_size=0
 Elecgator.upload.maximum_data_size=0
+Elecgator.programmer.default=stlink
 Elecgator.vid.0=0x0483
 Elecgator.pid.0=0x5740
 
@@ -11041,6 +11069,7 @@ ESC_board.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.
 ESC_board.build.flash_offset=0x0
 ESC_board.upload.maximum_size=0
 ESC_board.upload.maximum_data_size=0
+ESC_board.programmer.default=stlink
 ESC_board.vid.0=0x0483
 ESC_board.pid.0=0x5740
 
@@ -11094,6 +11123,7 @@ Garatronic.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build
 Garatronic.build.flash_offset=0x0
 Garatronic.upload.maximum_size=0
 Garatronic.upload.maximum_data_size=0
+Garatronic.programmer.default=stlink
 Garatronic.vid.0=0x0483
 Garatronic.pid.0=0x5740
 
@@ -11165,6 +11195,7 @@ GenFlight.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.
 GenFlight.build.flash_offset=0x0
 GenFlight.upload.maximum_size=0
 GenFlight.upload.maximum_data_size=0
+GenFlight.programmer.default=stlink
 GenFlight.vid.0=0x0483
 GenFlight.pid.0=0x5740
 
@@ -11258,6 +11289,7 @@ IotContinuum.build.st_extra_flags=-D{build.product_line} {build.xSerial}
 IotContinuum.build.flash_offset=0x0
 IotContinuum.upload.maximum_size=0
 IotContinuum.upload.maximum_data_size=0
+IotContinuum.programmer.default=stlink
 IotContinuum.vid.0=0x0483
 IotContinuum.pid.0=0x5740
 
@@ -11301,6 +11333,7 @@ LoRa.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSeri
 LoRa.build.flash_offset=0x0
 LoRa.upload.maximum_size=0
 LoRa.upload.maximum_data_size=0
+LoRa.programmer.default=stlink
 LoRa.vid.0=0x0483
 LoRa.pid.0=0x5740
 
@@ -11439,6 +11472,7 @@ Midatronics.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {buil
 Midatronics.build.flash_offset=0x0
 Midatronics.upload.maximum_size=0
 Midatronics.upload.maximum_data_size=0
+Midatronics.programmer.default=stlink
 Midatronics.vid.0=0x0483
 Midatronics.pid.0=0x5740
 
@@ -11487,6 +11521,7 @@ SparkFun.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.x
 SparkFun.build.flash_offset=0x0
 SparkFun.upload.maximum_size=0
 SparkFun.upload.maximum_data_size=0
+SparkFun.programmer.default=stlink
 SparkFun.vid.0=0x0483
 SparkFun.pid.0=0x5740
 
@@ -11546,6 +11581,7 @@ ELV_Modular_System.build.board=ELV_Modular_System
 ELV_Modular_System.build.variant_h=variant_{build.board}.h
 ELV_Modular_System.upload.maximum_size=0
 ELV_Modular_System.upload.maximum_data_size=0
+ELV_Modular_System.programmer.default=stlink
 ELV_Modular_System.vid.0=0x0483
 ELV_Modular_System.pid.0=0x5740
 
