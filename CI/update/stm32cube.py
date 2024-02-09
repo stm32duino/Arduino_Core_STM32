@@ -369,41 +369,23 @@ def latestTag(serie, repo_name, repo_path):
     # print(f"Latest tagged version available for {repo_name} is {version_tag}")
 
 
-def parseVersion(path):
+def parseVersion(path, patterns):
     main_found = False
     sub1_found = False
     sub2_found = False
     rc_found = False
-    if "HAL" in str(path):
-        main_pattern = re.compile(r"HAL_VERSION_MAIN.*0x([\dA-Fa-f]+)")
-        sub1_pattern = re.compile(r"HAL_VERSION_SUB1.*0x([\dA-Fa-f]+)")
-        sub2_pattern = re.compile(r"HAL_VERSION_SUB2.*0x([\dA-Fa-f]+)")
-        rc_pattern = re.compile(r"HAL_VERSION_RC.*0x([\dA-Fa-f]+)")
-    else:
-        main_pattern = re.compile(
-            r"(?:CMSIS|DEVICE|CMSIS_DEVICE)_VERSION_MAIN.*0x([\dA-Fa-f]+)"
-        )
-        sub1_pattern = re.compile(
-            r"(?:CMSIS|DEVICE|CMSIS_DEVICE)_VERSION_SUB1.*0x([\dA-Fa-f]+)"
-        )
-        sub2_pattern = re.compile(
-            r"(?:CMSIS|DEVICE|CMSIS_DEVICE)_VERSION_SUB2.*0x([\dA-Fa-f]+)"
-        )
-        rc_pattern = re.compile(
-            r"(?:CMSIS|DEVICE|CMSIS_DEVICE)_VERSION_RC.*0x([\dA-Fa-f]+)"
-        )
 
     for i, line in enumerate(open(path, encoding="utf8", errors="ignore")):
-        for match in re.finditer(main_pattern, line):
+        for match in re.finditer(patterns[0], line):
             VERSION_MAIN = int(match.group(1), 16)
             main_found = True
-        for match in re.finditer(sub1_pattern, line):
+        for match in re.finditer(patterns[1], line):
             VERSION_SUB1 = int(match.group(1), 16)
             sub1_found = True
-        for match in re.finditer(sub2_pattern, line):
+        for match in re.finditer(patterns[2], line):
             VERSION_SUB2 = int(match.group(1), 16)
             sub2_found = True
-        for match in re.finditer(rc_pattern, line):
+        for match in re.finditer(patterns[3], line):
             VERSION_RC = int(match.group(1), 16)
             rc_found = True
         if main_found and sub1_found and sub2_found and rc_found:
@@ -434,6 +416,12 @@ def parseVersion(path):
 def checkVersion(serie, repo_path):
     lserie = serie.lower()
     userie = serie.upper()
+
+    patterns = [re.compile(r"HAL_VERSION_MAIN.*0x([\dA-Fa-f]+)")]
+    patterns.append(re.compile(r"HAL_VERSION_SUB1.*0x([\dA-Fa-f]+)"))
+    patterns.append(re.compile(r"HAL_VERSION_SUB2.*0x([\dA-Fa-f]+)"))
+    patterns.append(re.compile(r"HAL_VERSION_RC.*0x([\dA-Fa-f]+)"))
+
     HAL_file = (
         repo_path
         / hal_src_path
@@ -441,7 +429,17 @@ def checkVersion(serie, repo_path):
         / "Src"
         / f"stm32{lserie}xx_hal.c"
     )
-    cube_HAL_versions[serie] = parseVersion(HAL_file)
+    with open(HAL_file, "r") as fp:
+        data = fp.read()
+        if "HAL_VERSION_MAIN" not in data:
+            HAL_file = (
+                repo_path
+                / hal_src_path
+                / f"STM32{userie}xx_HAL_Driver"
+                / "Inc"
+                / f"stm32{lserie}xx_hal.h"
+            )
+    cube_HAL_versions[serie] = parseVersion(HAL_file, patterns)
     if upargs.add:
         core_HAL_versions[serie] = "0.0.0"
     else:
@@ -451,8 +449,20 @@ def checkVersion(serie, repo_path):
             / "Src"
             / f"stm32{lserie}xx_hal.c"
         )
-        core_HAL_versions[serie] = parseVersion(HAL_file)
+        core_HAL_versions[serie] = parseVersion(HAL_file, patterns)
 
+    patterns = [
+        re.compile(r"(?:CMSIS|DEVICE|CMSIS_DEVICE)_VERSION_MAIN.*0x([\dA-Fa-f]+)")
+    ]
+    patterns.append(
+        re.compile(r"(?:CMSIS|DEVICE|CMSIS_DEVICE)_VERSION_SUB1.*0x([\dA-Fa-f]+)")
+    )
+    patterns.append(
+        re.compile(r"(?:CMSIS|DEVICE|CMSIS_DEVICE)_VERSION_SUB2.*0x([\dA-Fa-f]+)")
+    )
+    patterns.append(
+        re.compile(r"(?:CMSIS|DEVICE|CMSIS_DEVICE)_VERSION_RC.*0x([\dA-Fa-f]+)")
+    )
     CMSIS_file = (
         repo_path
         / cmsis_src_path
@@ -460,14 +470,14 @@ def checkVersion(serie, repo_path):
         / "Include"
         / f"stm32{lserie}xx.h"
     )
-    cube_CMSIS_versions[serie] = parseVersion(CMSIS_file)
+    cube_CMSIS_versions[serie] = parseVersion(CMSIS_file, patterns)
     if upargs.add:
         core_CMSIS_versions[serie] = "0.0.0"
     else:
         CMSIS_file = (
             cmsis_dest_path / f"STM32{userie}xx" / "Include" / f"stm32{lserie}xx.h"
         )
-        core_CMSIS_versions[serie] = parseVersion(CMSIS_file)
+        core_CMSIS_versions[serie] = parseVersion(CMSIS_file, patterns)
 
     # print(f"STM32Cube{serie} HAL version: {cube_HAL_versions[serie]}")
     # print(f"STM32Core{serie} HAL version: {core_HAL_versions[serie]}")
