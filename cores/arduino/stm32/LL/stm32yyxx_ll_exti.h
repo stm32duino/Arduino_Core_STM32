@@ -44,6 +44,8 @@
   #include "stm32u5xx_ll_exti.h"
 #elif STM32WBxx
   #include "stm32wbxx_ll_exti.h"
+#elif STM32WBAxx
+  #include "stm32wbaxx_ll_exti.h"
 #elif STM32WLxx
   #include "stm32wlxx_ll_exti.h"
 #endif
