@@ -137,10 +137,18 @@ extern "C" {
 /**
   * @brief This is the HAL system configuration section
   */
+#if !defined (VDD_VALUE)
 #define  VDD_VALUE                    3300UL /*!< Value of VDD in mv */
+#endif
+#if !defined (TICK_INT_PRIORITY)
 #define  TICK_INT_PRIORITY            ((1UL<<__NVIC_PRIO_BITS) - 1UL)  /*!< tick interrupt priority (lowest by default) */
+#endif
+#if !defined (USE_RTOS)
 #define  USE_RTOS                     0U
+#endif
+#if !defined (PREFETCH_ENABLE)
 #define  PREFETCH_ENABLE              1U               /*!< Enable prefetch */
+#endif
 
 /* ########################## Assert Selection ############################## */
 /**
