@@ -10275,6 +10275,48 @@ GenWB.menu.upload_method.dfuMethod.upload.options=
 GenWB.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
+# Generic WBA
+GenWBA.name=Generic STM32WBA series
+
+GenWBA.build.core=arduino
+GenWBA.build.board=GenWBA
+GenWBA.build.st_extra_flags=-D{build.product_line} {build.xSerial}
+GenWBA.build.mcu=cortex-m33
+GenWBA.build.fpu=-mfpu=fpv4-sp-d16
+GenWBA.build.float-abi=-mfloat-abi=hard
+GenWBA.build.series=STM32WBAxx
+GenWBA.build.flash_offset=0x0
+GenWBA.upload.maximum_size=0
+GenWBA.upload.maximum_data_size=0
+
+# Generic WBA55CEUx
+GenWBA.menu.pnum.GENERIC_WBA55CEUX=Generic WBA55CEUx
+GenWBA.menu.pnum.GENERIC_WBA55CEUX.upload.maximum_size=524288
+GenWBA.menu.pnum.GENERIC_WBA55CEUX.upload.maximum_data_size=98304
+GenWBA.menu.pnum.GENERIC_WBA55CEUX.build.board=GENERIC_WBA55CEUX
+GenWBA.menu.pnum.GENERIC_WBA55CEUX.build.product_line=STM32WBA55xx
+GenWBA.menu.pnum.GENERIC_WBA55CEUX.build.variant=STM32WBAxx/WBA55C(E-G)U
+
+# Generic WBA55CGUx
+GenWBA.menu.pnum.GENERIC_WBA55CGUX=Generic WBA55CGUx
+GenWBA.menu.pnum.GENERIC_WBA55CGUX.upload.maximum_size=1048576
+GenWBA.menu.pnum.GENERIC_WBA55CGUX.upload.maximum_data_size=131072
+GenWBA.menu.pnum.GENERIC_WBA55CGUX.build.board=GENERIC_WBA55CGUX
+GenWBA.menu.pnum.GENERIC_WBA55CGUX.build.product_line=STM32WBA55xx
+GenWBA.menu.pnum.GENERIC_WBA55CGUX.build.variant=STM32WBAxx/WBA55C(E-G)U
+
+# Upload menu
+GenWBA.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenWBA.menu.upload_method.swdMethod.upload.protocol=0
+GenWBA.menu.upload_method.swdMethod.upload.options=
+GenWBA.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenWBA.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenWBA.menu.upload_method.serialMethod.upload.protocol=1
+GenWBA.menu.upload_method.serialMethod.upload.options={serial.port.file}
+GenWBA.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+################################################################################
 # Generic WL
 GenWL.name=Generic STM32WL series
 
@@ -11355,6 +11397,12 @@ GenWB.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenWB.menu.xserial.disabled=Disabled (no Serial support)
 GenWB.menu.xserial.disabled.build.xSerial=
 
+GenWBA.menu.xserial.generic=Enabled (generic 'Serial')
+GenWBA.menu.xserial.none=Enabled (no generic 'Serial')
+GenWBA.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenWBA.menu.xserial.disabled=Disabled (no Serial support)
+GenWBA.menu.xserial.disabled.build.xSerial=
+
 GenWL.menu.xserial.generic=Enabled (generic 'Serial')
 GenWL.menu.xserial.none=Enabled (no generic 'Serial')
 GenWL.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -12231,6 +12279,26 @@ GenWB.menu.opt.ogstd.build.flags.optimize=-Og
 GenWB.menu.opt.o0std=No Optimization (-O0)
 GenWB.menu.opt.o0std.build.flags.optimize=-O0
 
+GenWBA.menu.opt.osstd=Smallest (-Os default)
+GenWBA.menu.opt.oslto=Smallest (-Os) with LTO
+GenWBA.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenWBA.menu.opt.o1std=Fast (-O1)
+GenWBA.menu.opt.o1std.build.flags.optimize=-O1
+GenWBA.menu.opt.o1lto=Fast (-O1) with LTO
+GenWBA.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenWBA.menu.opt.o2std=Faster (-O2)
+GenWBA.menu.opt.o2std.build.flags.optimize=-O2
+GenWBA.menu.opt.o2lto=Faster (-O2) with LTO
+GenWBA.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenWBA.menu.opt.o3std=Fastest (-O3)
+GenWBA.menu.opt.o3std.build.flags.optimize=-O3
+GenWBA.menu.opt.o3lto=Fastest (-O3) with LTO
+GenWBA.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenWBA.menu.opt.ogstd=Debug (-Og)
+GenWBA.menu.opt.ogstd.build.flags.optimize=-Og
+GenWBA.menu.opt.o0std=No Optimization (-O0)
+GenWBA.menu.opt.o0std.build.flags.optimize=-O0
+
 GenWL.menu.opt.osstd=Smallest (-Os default)
 GenWL.menu.opt.oslto=Smallest (-Os) with LTO
 GenWL.menu.opt.oslto.build.flags.optimize=-Os -flto
@@ -12624,6 +12692,14 @@ GenWB.menu.dbg.enable_log.build.flags.debug=
 GenWB.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 GenWB.menu.dbg.enable_all.build.flags.debug=-g
 
+GenWBA.menu.dbg.none=None
+GenWBA.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenWBA.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenWBA.menu.dbg.enable_log=Core logs Enabled
+GenWBA.menu.dbg.enable_log.build.flags.debug=
+GenWBA.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenWBA.menu.dbg.enable_all.build.flags.debug=-g
+
 GenWL.menu.dbg.none=None
 GenWL.menu.dbg.enable_sym=Symbols Enabled (-g)
 GenWL.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
@@ -12942,6 +13018,16 @@ GenWB.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenWB.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenWB.menu.rtlib.full=Newlib Standard
 GenWB.menu.rtlib.full.build.flags.ldspecs=
+
+GenWBA.menu.rtlib.nano=Newlib Nano (default)
+GenWBA.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenWBA.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenWBA.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenWBA.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenWBA.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenWBA.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenWBA.menu.rtlib.full=Newlib Standard
+GenWBA.menu.rtlib.full.build.flags.ldspecs=
 
 GenWL.menu.rtlib.nano=Newlib Nano (default)
 GenWL.menu.rtlib.nanofp=Newlib Nano + Float Printf
