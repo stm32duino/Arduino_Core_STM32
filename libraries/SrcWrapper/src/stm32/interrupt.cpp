@@ -70,7 +70,8 @@ static gpio_irq_conf_str gpio_irq_conf[NB_EXTI] = {
   {.irqnb = EXTI4_15_IRQn,  .callback = NULL}, //GPIO_PIN_13
   {.irqnb = EXTI4_15_IRQn,  .callback = NULL}, //GPIO_PIN_14
   {.irqnb = EXTI4_15_IRQn,  .callback = NULL}  //GPIO_PIN_15
-#elif defined (STM32H5xx) || defined (STM32MP1xx) || defined (STM32L5xx) || defined (STM32U5xx)
+#elif defined (STM32H5xx) || defined (STM32MP1xx) || defined (STM32L5xx) ||\
+      defined (STM32U5xx) || defined (STM32WBAxx)
   {.irqnb = EXTI0_IRQn,     .callback = NULL}, //GPIO_PIN_0
   {.irqnb = EXTI1_IRQn,     .callback = NULL}, //GPIO_PIN_1
   {.irqnb = EXTI2_IRQn,     .callback = NULL}, //GPIO_PIN_2
@@ -251,7 +252,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 }
 
 #if defined(STM32C0xx) || defined(STM32G0xx) || defined(STM32H5xx) || \
-    defined(STM32MP1xx) || defined(STM32L5xx) || defined(STM32U5xx)
+    defined(STM32MP1xx) || defined(STM32L5xx) || defined(STM32U5xx)  || \
+    defined(STM32WBAxx)
 /**
   * @brief  EXTI line detection callback.
   * @param  GPIO_Pin Specifies the port pin connected to corresponding EXTI line.
@@ -374,7 +376,8 @@ void EXTI4_IRQHandler(void)
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_4);
 }
 
-#if !defined(STM32H5xx) && !defined(STM32MP1xx) && !defined(STM32L5xx) && !defined(STM32U5xx)
+#if !defined(STM32H5xx) && !defined(STM32MP1xx) && !defined(STM32L5xx) && \
+    !defined(STM32U5xx)&&  !defined(STM32WBAxx)
 /**
   * @brief This function handles external line 5 to 9 interrupt request.
   * @param  None
