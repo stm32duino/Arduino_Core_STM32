@@ -71,7 +71,7 @@
 #endif
 
 // Here define some compatibility
-#ifndef ADC1
+#if !defined (ADC1) && defined (ADC)
   #define ADC1 ADC
 #endif
 #ifndef CAN1
