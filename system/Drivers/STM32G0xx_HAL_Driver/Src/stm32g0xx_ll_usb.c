@@ -27,7 +27,7 @@
                     ##### How to use this driver #####
   ==============================================================================
     [..]
-      (#) Fill parameters of Init structure in USB_OTG_CfgTypeDef structure.
+      (#) Fill parameters of Init structure in USB_CfgTypeDef structure.
 
       (#) Call USB_CoreInit() API to initialize the USB Core peripheral.
 
@@ -91,16 +91,21 @@ static HAL_StatusTypeDef USB_CoreReset(USB_DRD_TypeDef *USBx)
   */
 HAL_StatusTypeDef USB_CoreInit(USB_DRD_TypeDef *USBx, USB_DRD_CfgTypeDef cfg)
 {
+  HAL_StatusTypeDef ret;
   UNUSED(cfg);
-  HAL_StatusTypeDef state;
+
+  if (USBx == NULL)
+  {
+    return HAL_ERROR;
+  }
 
   /* Reset after a PHY select */
-  state = USB_CoreReset(USBx);
+  ret = USB_CoreReset(USBx);
 
   /* Clear pending interrupts */
   USBx->ISTR = 0U;
 
-  return state;
+  return ret;
 }
 
 /**
@@ -164,9 +169,13 @@ HAL_StatusTypeDef USB_SetCurrentMode(USB_DRD_TypeDef *USBx, USB_DRD_ModeTypeDef 
   {
     USBx->CNTR &= ~USB_CNTR_HOST;
   }
-  else
+  else if (mode == USB_HOST_MODE)
   {
     USBx->CNTR |= USB_CNTR_HOST;
+  }
+  else
+  {
+    return HAL_ERROR;
   }
 
   return HAL_OK;
@@ -182,8 +191,11 @@ HAL_StatusTypeDef USB_SetCurrentMode(USB_DRD_TypeDef *USBx, USB_DRD_ModeTypeDef 
   */
 HAL_StatusTypeDef USB_DevInit(USB_DRD_TypeDef *USBx, USB_DRD_CfgTypeDef cfg)
 {
+  HAL_StatusTypeDef ret;
+
   /* Prevent unused argument(s) compilation warning */
   UNUSED(cfg);
+
   /* Force Reset */
   USBx->CNTR = USB_CNTR_USBRST;
 
@@ -191,13 +203,54 @@ HAL_StatusTypeDef USB_DevInit(USB_DRD_TypeDef *USBx, USB_DRD_CfgTypeDef cfg)
   USBx->CNTR &= ~USB_CNTR_USBRST;
 
   /* Set the Device Mode */
-  (void)USB_SetCurrentMode(USBx, USB_DEVICE_MODE);
+  ret = USB_SetCurrentMode(USBx, USB_DEVICE_MODE);
 
   /* Clear pending interrupts */
   USBx->ISTR = 0U;
 
+  return ret;
+}
+
+/**
+  * @brief  USB_FlushTxFifo : Flush a Tx FIFO
+  * @param  USBx : Selected device
+  * @param  num : FIFO number
+  *         This parameter can be a value from 1 to 15
+            15 means Flush all Tx FIFOs
+  * @retval HAL status
+  */
+HAL_StatusTypeDef USB_FlushTxFifo(USB_DRD_TypeDef const *USBx, uint32_t num)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(USBx);
+  UNUSED(num);
+
+  /* NOTE : - This function is not required by USB Device FS peripheral, it is used
+              only by USB OTG FS peripheral.
+            - This function is added to ensure compatibility across platforms.
+   */
+
   return HAL_OK;
 }
+
+/**
+  * @brief  USB_FlushRxFifo : Flush Rx FIFO
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
+HAL_StatusTypeDef USB_FlushRxFifo(USB_DRD_TypeDef const *USBx)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(USBx);
+
+  /* NOTE : - This function is not required by USB Device FS peripheral, it is used
+              only by USB OTG FS peripheral.
+            - This function is added to ensure compatibility across platforms.
+   */
+
+  return HAL_OK;
+}
+
 
 #if defined (HAL_PCD_MODULE_ENABLED)
 /**
@@ -778,7 +831,7 @@ HAL_StatusTypeDef  USB_DevDisconnect(USB_DRD_TypeDef *USBx)
   * @param  USBx Selected device
   * @retval USB Global Interrupt status
   */
-uint32_t USB_ReadInterrupts(USB_DRD_TypeDef *USBx)
+uint32_t USB_ReadInterrupts(USB_DRD_TypeDef const *USBx)
 {
   uint32_t tmpreg;
 
@@ -818,7 +871,7 @@ HAL_StatusTypeDef USB_DeActivateRemoteWakeup(USB_DRD_TypeDef *USBx)
   * @param   wNBytes no. of bytes to be copied.
   * @retval None
   */
-void USB_WritePMA(USB_DRD_TypeDef *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes)
+void USB_WritePMA(USB_DRD_TypeDef const *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes)
 {
   UNUSED(USBx);
   uint32_t WrVal;
@@ -875,7 +928,7 @@ void USB_WritePMA(USB_DRD_TypeDef *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr
   * @param   wNBytes no. of bytes to be copied.
   * @retval None
   */
-void USB_ReadPMA(USB_DRD_TypeDef *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes)
+void USB_ReadPMA(USB_DRD_TypeDef const *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes)
 {
   UNUSED(USBx);
   uint32_t count;
@@ -989,7 +1042,7 @@ HAL_StatusTypeDef USB_ResetPort(USB_DRD_TypeDef *USBx)
   *            @arg USB_DRD_SPEED_FS Full speed mode
   *            @arg USB_DRD_SPEED_LS Low speed mode
   */
-uint32_t USB_GetHostSpeed(USB_DRD_TypeDef *USBx)
+uint32_t USB_GetHostSpeed(USB_DRD_TypeDef const *USBx)
 {
   if ((USBx->ISTR & USB_ISTR_LS_DCONN) != 0U)
   {
@@ -1006,7 +1059,7 @@ uint32_t USB_GetHostSpeed(USB_DRD_TypeDef *USBx)
   * @param  USBx Selected device
   * @retval current frame number
   */
-uint32_t USB_GetCurrentFrame(USB_DRD_TypeDef *USBx)
+uint32_t USB_GetCurrentFrame(USB_DRD_TypeDef const *USBx)
 {
   return USBx->FNR & 0x7FFU;
 }

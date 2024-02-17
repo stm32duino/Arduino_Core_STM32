@@ -137,14 +137,14 @@
 /** @defgroup TIM_LL_Private_Functions TIM Private Functions
   * @{
   */
-static ErrorStatus OC1Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCInitStruct);
-static ErrorStatus OC2Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCInitStruct);
-static ErrorStatus OC3Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCInitStruct);
-static ErrorStatus OC4Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCInitStruct);
-static ErrorStatus IC1Config(TIM_TypeDef *TIMx, LL_TIM_IC_InitTypeDef *TIM_ICInitStruct);
-static ErrorStatus IC2Config(TIM_TypeDef *TIMx, LL_TIM_IC_InitTypeDef *TIM_ICInitStruct);
-static ErrorStatus IC3Config(TIM_TypeDef *TIMx, LL_TIM_IC_InitTypeDef *TIM_ICInitStruct);
-static ErrorStatus IC4Config(TIM_TypeDef *TIMx, LL_TIM_IC_InitTypeDef *TIM_ICInitStruct);
+static ErrorStatus OC1Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM_OCInitStruct);
+static ErrorStatus OC2Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM_OCInitStruct);
+static ErrorStatus OC3Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM_OCInitStruct);
+static ErrorStatus OC4Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM_OCInitStruct);
+static ErrorStatus IC1Config(TIM_TypeDef *TIMx, const LL_TIM_IC_InitTypeDef *TIM_ICInitStruct);
+static ErrorStatus IC2Config(TIM_TypeDef *TIMx, const LL_TIM_IC_InitTypeDef *TIM_ICInitStruct);
+static ErrorStatus IC3Config(TIM_TypeDef *TIMx, const LL_TIM_IC_InitTypeDef *TIM_ICInitStruct);
+static ErrorStatus IC4Config(TIM_TypeDef *TIMx, const LL_TIM_IC_InitTypeDef *TIM_ICInitStruct);
 /**
   * @}
   */
@@ -165,7 +165,7 @@ static ErrorStatus IC4Config(TIM_TypeDef *TIMx, LL_TIM_IC_InitTypeDef *TIM_ICIni
   *          - SUCCESS: TIMx registers are de-initialized
   *          - ERROR: invalid TIMx instance
   */
-ErrorStatus LL_TIM_DeInit(TIM_TypeDef *TIMx)
+ErrorStatus LL_TIM_DeInit(const TIM_TypeDef *TIMx)
 {
   ErrorStatus result = SUCCESS;
 
@@ -301,7 +301,7 @@ void LL_TIM_StructInit(LL_TIM_InitTypeDef *TIM_InitStruct)
   *          - SUCCESS: TIMx registers are de-initialized
   *          - ERROR: not applicable
   */
-ErrorStatus LL_TIM_Init(TIM_TypeDef *TIMx, LL_TIM_InitTypeDef *TIM_InitStruct)
+ErrorStatus LL_TIM_Init(TIM_TypeDef *TIMx, const LL_TIM_InitTypeDef *TIM_InitStruct)
 {
   uint32_t tmpcr1;
 
@@ -380,7 +380,7 @@ void LL_TIM_OC_StructInit(LL_TIM_OC_InitTypeDef *TIM_OC_InitStruct)
   *          - SUCCESS: TIMx output channel is initialized
   *          - ERROR: TIMx output channel is not initialized
   */
-ErrorStatus LL_TIM_OC_Init(TIM_TypeDef *TIMx, uint32_t Channel, LL_TIM_OC_InitTypeDef *TIM_OC_InitStruct)
+ErrorStatus LL_TIM_OC_Init(TIM_TypeDef *TIMx, uint32_t Channel, const LL_TIM_OC_InitTypeDef *TIM_OC_InitStruct)
 {
   ErrorStatus result = ERROR;
 
@@ -435,7 +435,7 @@ void LL_TIM_IC_StructInit(LL_TIM_IC_InitTypeDef *TIM_ICInitStruct)
   *          - SUCCESS: TIMx output channel is initialized
   *          - ERROR: TIMx output channel is not initialized
   */
-ErrorStatus LL_TIM_IC_Init(TIM_TypeDef *TIMx, uint32_t Channel, LL_TIM_IC_InitTypeDef *TIM_IC_InitStruct)
+ErrorStatus LL_TIM_IC_Init(TIM_TypeDef *TIMx, uint32_t Channel, const LL_TIM_IC_InitTypeDef *TIM_IC_InitStruct)
 {
   ErrorStatus result = ERROR;
 
@@ -489,7 +489,7 @@ void LL_TIM_ENCODER_StructInit(LL_TIM_ENCODER_InitTypeDef *TIM_EncoderInitStruct
   *          - SUCCESS: TIMx registers are de-initialized
   *          - ERROR: not applicable
   */
-ErrorStatus LL_TIM_ENCODER_Init(TIM_TypeDef *TIMx, LL_TIM_ENCODER_InitTypeDef *TIM_EncoderInitStruct)
+ErrorStatus LL_TIM_ENCODER_Init(TIM_TypeDef *TIMx, const LL_TIM_ENCODER_InitTypeDef *TIM_EncoderInitStruct)
 {
   uint32_t tmpccmr1;
   uint32_t tmpccer;
@@ -582,7 +582,7 @@ void LL_TIM_HALLSENSOR_StructInit(LL_TIM_HALLSENSOR_InitTypeDef *TIM_HallSensorI
   *          - SUCCESS: TIMx registers are de-initialized
   *          - ERROR: not applicable
   */
-ErrorStatus LL_TIM_HALLSENSOR_Init(TIM_TypeDef *TIMx, LL_TIM_HALLSENSOR_InitTypeDef *TIM_HallSensorInitStruct)
+ErrorStatus LL_TIM_HALLSENSOR_Init(TIM_TypeDef *TIMx, const LL_TIM_HALLSENSOR_InitTypeDef *TIM_HallSensorInitStruct)
 {
   uint32_t tmpcr2;
   uint32_t tmpccmr1;
@@ -687,7 +687,7 @@ void LL_TIM_BDTR_StructInit(LL_TIM_BDTR_InitTypeDef *TIM_BDTRInitStruct)
   *          - SUCCESS: Break and Dead Time is initialized
   *          - ERROR: not applicable
   */
-ErrorStatus LL_TIM_BDTR_Init(TIM_TypeDef *TIMx, LL_TIM_BDTR_InitTypeDef *TIM_BDTRInitStruct)
+ErrorStatus LL_TIM_BDTR_Init(TIM_TypeDef *TIMx, const LL_TIM_BDTR_InitTypeDef *TIM_BDTRInitStruct)
 {
   uint32_t tmpbdtr = 0;
 
@@ -711,7 +711,6 @@ ErrorStatus LL_TIM_BDTR_Init(TIM_TypeDef *TIMx, LL_TIM_BDTR_InitTypeDef *TIM_BDT
   MODIFY_REG(tmpbdtr, TIM_BDTR_BKE, TIM_BDTRInitStruct->BreakState);
   MODIFY_REG(tmpbdtr, TIM_BDTR_BKP, TIM_BDTRInitStruct->BreakPolarity);
   MODIFY_REG(tmpbdtr, TIM_BDTR_AOE, TIM_BDTRInitStruct->AutomaticOutput);
-  MODIFY_REG(tmpbdtr, TIM_BDTR_MOE, TIM_BDTRInitStruct->AutomaticOutput);
 
   /* Set TIMx_BDTR */
   LL_TIM_WriteReg(TIMx, BDTR, tmpbdtr);
@@ -738,7 +737,7 @@ ErrorStatus LL_TIM_BDTR_Init(TIM_TypeDef *TIMx, LL_TIM_BDTR_InitTypeDef *TIM_BDT
   *          - SUCCESS: TIMx registers are de-initialized
   *          - ERROR: not applicable
   */
-static ErrorStatus OC1Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCInitStruct)
+static ErrorStatus OC1Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM_OCInitStruct)
 {
   uint32_t tmpccmr1;
   uint32_t tmpccer;
@@ -749,8 +748,6 @@ static ErrorStatus OC1Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCIni
   assert_param(IS_LL_TIM_OCMODE(TIM_OCInitStruct->OCMode));
   assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCState));
   assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCPolarity));
-  assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCNState));
-  assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCNPolarity));
 
   /* Disable the Channel 1: Reset the CC1E Bit */
   CLEAR_BIT(TIMx->CCER, TIM_CCER_CC1E);
@@ -778,8 +775,10 @@ static ErrorStatus OC1Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCIni
 
   if (IS_TIM_BREAK_INSTANCE(TIMx))
   {
-    assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCNIdleState));
     assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCIdleState));
+    assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCNState));
+    assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCNPolarity));
+    assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCNIdleState));
 
     /* Set the complementary output Polarity */
     MODIFY_REG(tmpccer, TIM_CCER_CC1NP, TIM_OCInitStruct->OCNPolarity << 2U);
@@ -817,7 +816,7 @@ static ErrorStatus OC1Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCIni
   *          - SUCCESS: TIMx registers are de-initialized
   *          - ERROR: not applicable
   */
-static ErrorStatus OC2Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCInitStruct)
+static ErrorStatus OC2Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM_OCInitStruct)
 {
   uint32_t tmpccmr1;
   uint32_t tmpccer;
@@ -828,8 +827,6 @@ static ErrorStatus OC2Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCIni
   assert_param(IS_LL_TIM_OCMODE(TIM_OCInitStruct->OCMode));
   assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCState));
   assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCPolarity));
-  assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCNState));
-  assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCNPolarity));
 
   /* Disable the Channel 2: Reset the CC2E Bit */
   CLEAR_BIT(TIMx->CCER, TIM_CCER_CC2E);
@@ -857,8 +854,10 @@ static ErrorStatus OC2Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCIni
 
   if (IS_TIM_BREAK_INSTANCE(TIMx))
   {
-    assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCNIdleState));
     assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCIdleState));
+    assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCNState));
+    assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCNPolarity));
+    assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCNIdleState));
 
     /* Set the complementary output Polarity */
     MODIFY_REG(tmpccer, TIM_CCER_CC2NP, TIM_OCInitStruct->OCNPolarity << 6U);
@@ -896,7 +895,7 @@ static ErrorStatus OC2Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCIni
   *          - SUCCESS: TIMx registers are de-initialized
   *          - ERROR: not applicable
   */
-static ErrorStatus OC3Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCInitStruct)
+static ErrorStatus OC3Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM_OCInitStruct)
 {
   uint32_t tmpccmr2;
   uint32_t tmpccer;
@@ -907,8 +906,6 @@ static ErrorStatus OC3Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCIni
   assert_param(IS_LL_TIM_OCMODE(TIM_OCInitStruct->OCMode));
   assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCState));
   assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCPolarity));
-  assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCNState));
-  assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCNPolarity));
 
   /* Disable the Channel 3: Reset the CC3E Bit */
   CLEAR_BIT(TIMx->CCER, TIM_CCER_CC3E);
@@ -936,8 +933,10 @@ static ErrorStatus OC3Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCIni
 
   if (IS_TIM_BREAK_INSTANCE(TIMx))
   {
-    assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCNIdleState));
     assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCIdleState));
+    assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCNState));
+    assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCNPolarity));
+    assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCNIdleState));
 
     /* Set the complementary output Polarity */
     MODIFY_REG(tmpccer, TIM_CCER_CC3NP, TIM_OCInitStruct->OCNPolarity << 10U);
@@ -975,7 +974,7 @@ static ErrorStatus OC3Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCIni
   *          - SUCCESS: TIMx registers are de-initialized
   *          - ERROR: not applicable
   */
-static ErrorStatus OC4Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCInitStruct)
+static ErrorStatus OC4Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM_OCInitStruct)
 {
   uint32_t tmpccmr2;
   uint32_t tmpccer;
@@ -986,8 +985,6 @@ static ErrorStatus OC4Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCIni
   assert_param(IS_LL_TIM_OCMODE(TIM_OCInitStruct->OCMode));
   assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCState));
   assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCPolarity));
-  assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCNPolarity));
-  assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCNState));
 
   /* Disable the Channel 4: Reset the CC4E Bit */
   CLEAR_BIT(TIMx->CCER, TIM_CCER_CC4E);
@@ -1015,7 +1012,6 @@ static ErrorStatus OC4Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCIni
 
   if (IS_TIM_BREAK_INSTANCE(TIMx))
   {
-    assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCNIdleState));
     assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCIdleState));
 
     /* Set the Output Idle state */
@@ -1037,7 +1033,6 @@ static ErrorStatus OC4Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCIni
   return SUCCESS;
 }
 
-
 /**
   * @brief  Configure the TIMx input channel 1.
   * @param  TIMx Timer Instance
@@ -1046,7 +1041,7 @@ static ErrorStatus OC4Config(TIM_TypeDef *TIMx, LL_TIM_OC_InitTypeDef *TIM_OCIni
   *          - SUCCESS: TIMx registers are de-initialized
   *          - ERROR: not applicable
   */
-static ErrorStatus IC1Config(TIM_TypeDef *TIMx, LL_TIM_IC_InitTypeDef *TIM_ICInitStruct)
+static ErrorStatus IC1Config(TIM_TypeDef *TIMx, const LL_TIM_IC_InitTypeDef *TIM_ICInitStruct)
 {
   /* Check the parameters */
   assert_param(IS_TIM_CC1_INSTANCE(TIMx));
@@ -1079,7 +1074,7 @@ static ErrorStatus IC1Config(TIM_TypeDef *TIMx, LL_TIM_IC_InitTypeDef *TIM_ICIni
   *          - SUCCESS: TIMx registers are de-initialized
   *          - ERROR: not applicable
   */
-static ErrorStatus IC2Config(TIM_TypeDef *TIMx, LL_TIM_IC_InitTypeDef *TIM_ICInitStruct)
+static ErrorStatus IC2Config(TIM_TypeDef *TIMx, const LL_TIM_IC_InitTypeDef *TIM_ICInitStruct)
 {
   /* Check the parameters */
   assert_param(IS_TIM_CC2_INSTANCE(TIMx));
@@ -1112,7 +1107,7 @@ static ErrorStatus IC2Config(TIM_TypeDef *TIMx, LL_TIM_IC_InitTypeDef *TIM_ICIni
   *          - SUCCESS: TIMx registers are de-initialized
   *          - ERROR: not applicable
   */
-static ErrorStatus IC3Config(TIM_TypeDef *TIMx, LL_TIM_IC_InitTypeDef *TIM_ICInitStruct)
+static ErrorStatus IC3Config(TIM_TypeDef *TIMx, const LL_TIM_IC_InitTypeDef *TIM_ICInitStruct)
 {
   /* Check the parameters */
   assert_param(IS_TIM_CC3_INSTANCE(TIMx));
@@ -1145,7 +1140,7 @@ static ErrorStatus IC3Config(TIM_TypeDef *TIMx, LL_TIM_IC_InitTypeDef *TIM_ICIni
   *          - SUCCESS: TIMx registers are de-initialized
   *          - ERROR: not applicable
   */
-static ErrorStatus IC4Config(TIM_TypeDef *TIMx, LL_TIM_IC_InitTypeDef *TIM_ICInitStruct)
+static ErrorStatus IC4Config(TIM_TypeDef *TIMx, const LL_TIM_IC_InitTypeDef *TIM_ICInitStruct)
 {
   /* Check the parameters */
   assert_param(IS_TIM_CC4_INSTANCE(TIMx));
@@ -1162,7 +1157,7 @@ static ErrorStatus IC4Config(TIM_TypeDef *TIMx, LL_TIM_IC_InitTypeDef *TIM_ICIni
              (TIM_CCMR2_CC4S | TIM_CCMR2_IC4F | TIM_CCMR2_IC4PSC),
              (TIM_ICInitStruct->ICActiveInput | TIM_ICInitStruct->ICFilter | TIM_ICInitStruct->ICPrescaler) >> 8U);
 
-  /* Select the Polarity and set the CC2E Bit */
+  /* Select the Polarity and set the CC4E Bit */
   MODIFY_REG(TIMx->CCER,
              (TIM_CCER_CC4P | TIM_CCER_CC4NP),
              ((TIM_ICInitStruct->ICPolarity << 12U) | TIM_CCER_CC4E));

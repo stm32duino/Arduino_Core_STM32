@@ -1,39 +1,13 @@
-/**
-  ******************************************************************************
-  * @file    spi_com.h
-  * @author  WI6LABS
-  * @version V1.0.0
-  * @date    01-August-2016
-  * @brief   Header for spi module
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
-  *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-  *
-  ******************************************************************************
-  */
+/*
+ * Copyright (c) 2016 Frederic Pillon <frederic.pillon@st.com> for
+ * STMicroelectronics. All right reserved.
+ * Header utility of the spi module for arduino.
+ *
+ * This file is free software; you can redistribute it and/or modify
+ * it under the terms of either the GNU General Public License version 2
+ * or the GNU Lesser General Public License version 2.1, both as
+ * published by the Free Software Foundation.
+ */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __SPI_COM_H
@@ -78,6 +52,13 @@ typedef struct spi_s spi_t;
 #define SPI_SPEED_CLOCK_DIV128_MHZ  ((uint32_t)128)
 #define SPI_SPEED_CLOCK_DIV256_MHZ  ((uint32_t)256)
 
+// Defines a default timeout delay in milliseconds for the SPI transfer
+#ifndef SPI_TRANSFER_TIMEOUT
+#define SPI_TRANSFER_TIMEOUT 1000
+#elif SPI_TRANSFER_TIMEOUT <= 0
+#error "SPI_TRANSFER_TIMEOUT cannot be less or equal to 0!"
+#endif
+
 ///@brief specifies the SPI mode to use
 //Mode          Clock Polarity (CPOL)       Clock Phase (CPHA)
 //SPI_MODE0             0                         0
@@ -85,12 +66,13 @@ typedef struct spi_s spi_t;
 //SPI_MODE2             1                         0
 //SPI_MODE3             1                         1
 //enum definitions coming from SPI.h of SAM
+// SPI mode parameters for SPISettings
 typedef enum {
-  SPI_MODE_0 = 0x00,
-  SPI_MODE_1 = 0x01,
-  SPI_MODE_2 = 0x02,
-  SPI_MODE_3 = 0x03
-} spi_mode_e;
+  SPI_MODE0 = 0,
+  SPI_MODE1 = 1,
+  SPI_MODE2 = 2,
+  SPI_MODE3 = 3,
+} SPIMode;
 
 ///@brief SPI errors
 typedef enum {
@@ -100,11 +82,9 @@ typedef enum {
 } spi_status_e;
 
 /* Exported functions ------------------------------------------------------- */
-void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb);
+void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb);
 void spi_deinit(spi_t *obj);
-spi_status_e spi_send(spi_t *obj, uint8_t *Data, uint16_t len, uint32_t Timeout);
-spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer,
-                          uint8_t *rx_buffer, uint16_t len, uint32_t Timeout, bool skipReceive);
+spi_status_e spi_transfer(spi_t *obj, const uint8_t *tx_buffer, uint8_t *rx_buffer, uint16_t len);
 uint32_t spi_getClkFreq(spi_t *obj);
 
 #ifdef __cplusplus

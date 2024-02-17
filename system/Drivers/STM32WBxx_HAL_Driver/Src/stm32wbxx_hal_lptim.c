@@ -43,7 +43,7 @@
          (++) Clock: the counter clock.
              (+++) Source   : it can be either the ULPTIM input (IN1) or one of
                               the internal clock; (APB, LSE, LSI or MSI).
-                   CAUTION: if LSI2 is selected as LPTIM cock source, LSI1 has
+                   CAUTION: if LSI2 is selected as LPTIM clock source, LSI1 has
                             to be enabled as well (for further information please
                             refer to errata sheet ES0394).
              (+++) Prescaler: select the clock divider.

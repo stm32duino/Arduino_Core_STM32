@@ -606,6 +606,9 @@ void FLASH_PageErase(uint32_t Banks, uint32_t Page)
   {
     tmp &= ~FLASH_CR_BKER;
   }
+#else
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(Banks);
 #endif /* FLASH_DBANK_SUPPORT */
 
   /* Set page number, Page Erase bit & Start bit */
@@ -629,7 +632,6 @@ void FLASH_FlushCaches(void)
     __HAL_FLASH_INSTRUCTION_CACHE_ENABLE();
   }
 }
-
 
 /**
   * @brief  Configure the write protection of the desired pages.

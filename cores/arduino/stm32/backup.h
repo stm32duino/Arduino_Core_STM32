@@ -86,6 +86,10 @@ static inline void enableBackupDomain(void)
   /* Enable BKPSRAM CLK for backup SRAM */
   __HAL_RCC_BKPSRAM_CLK_ENABLE();
 #endif
+#if defined(TAMP_BKP0R) && defined(__HAL_RCC_RTCAPB_CLK_ENABLE)
+  /* Enable RTC CLK for TAMP backup registers */
+  __HAL_RCC_RTCAPB_CLK_ENABLE();
+#endif
 }
 
 static inline void disableBackupDomain(void)
@@ -95,12 +99,16 @@ static inline void disableBackupDomain(void)
   HAL_PWR_DisableBkUpAccess();
 #endif
 #ifdef __HAL_RCC_BKPSRAM_CLK_DISABLE
-  /* Disnable BKPSRAM CLK for backup SRAM */
+  /* Disable BKPSRAM CLK for backup SRAM */
   __HAL_RCC_BKPSRAM_CLK_DISABLE();
 #endif
 #ifdef __HAL_RCC_BKP_CLK_DISABLE
   /* Disable BKP CLK for backup registers */
   __HAL_RCC_BKP_CLK_DISABLE();
+#endif
+#if defined(TAMP_BKP0R) && defined(__HAL_RCC_RTCAPB_CLK_DISABLE)
+  /* Disable RTC CLK for TAMP backup registers */
+  __HAL_RCC_RTCAPB_CLK_DISABLE();
 #endif
 }
 

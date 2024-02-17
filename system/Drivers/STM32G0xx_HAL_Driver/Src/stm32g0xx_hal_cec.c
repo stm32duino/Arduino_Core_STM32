@@ -830,7 +830,7 @@ void HAL_CEC_IRQHandler(CEC_HandleTypeDef *hcec)
       __HAL_CEC_LAST_BYTE_TX_SET(hcec);
     }
     /* In all cases transmit the byte */
-    hcec->Instance->TXDR = (uint8_t)*hcec->pTxBuffPtr;
+    hcec->Instance->TXDR = (uint8_t) * hcec->pTxBuffPtr;
     hcec->pTxBuffPtr++;
     /* clear Tx-Byte request flag */
     __HAL_CEC_CLEAR_FLAG(hcec, CEC_FLAG_TXBR);
@@ -856,7 +856,7 @@ void HAL_CEC_IRQHandler(CEC_HandleTypeDef *hcec)
 
   /* ----------------------------Rx/Tx Error Management----------------------------------*/
   if ((itflag & (CEC_ISR_RXOVR | CEC_ISR_BRE | CEC_ISR_SBPE | CEC_ISR_LBPE | CEC_ISR_RXACKE | CEC_ISR_TXUDR |
-              CEC_ISR_TXERR | CEC_ISR_TXACKE)) != 0U)
+                 CEC_ISR_TXERR | CEC_ISR_TXACKE)) != 0U)
   {
     hcec->ErrorCode = itflag;
     __HAL_CEC_CLEAR_FLAG(hcec, HAL_CEC_ERROR_RXOVR | HAL_CEC_ERROR_BRE | CEC_FLAG_LBPE | CEC_FLAG_SBPE |

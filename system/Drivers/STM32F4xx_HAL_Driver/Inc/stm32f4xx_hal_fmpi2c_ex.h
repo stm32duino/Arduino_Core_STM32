@@ -115,12 +115,12 @@ void HAL_FMPI2CEx_DisableFastModePlus(uint32_t ConfigFastModePlus);
   * @{
   */
 #define IS_FMPI2C_ANALOG_FILTER(FILTER)    (((FILTER) == FMPI2C_ANALOGFILTER_ENABLE) || \
-                                         ((FILTER) == FMPI2C_ANALOGFILTER_DISABLE))
+                                            ((FILTER) == FMPI2C_ANALOGFILTER_DISABLE))
 
 #define IS_FMPI2C_DIGITAL_FILTER(FILTER)   ((FILTER) <= 0x0000000FU)
 
 #define IS_FMPI2C_FASTMODEPLUS(__CONFIG__) ((((__CONFIG__) & (FMPI2C_FASTMODEPLUS_SCL)) == FMPI2C_FASTMODEPLUS_SCL) || \
-                                         (((__CONFIG__) & (FMPI2C_FASTMODEPLUS_SDA)) == FMPI2C_FASTMODEPLUS_SDA))
+                                            (((__CONFIG__) & (FMPI2C_FASTMODEPLUS_SDA)) == FMPI2C_FASTMODEPLUS_SDA))
 /**
   * @}
   */

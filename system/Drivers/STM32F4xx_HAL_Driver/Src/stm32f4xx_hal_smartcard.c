@@ -449,6 +449,9 @@ __weak void HAL_SMARTCARD_MspDeInit(SMARTCARD_HandleTypeDef *hsc)
 /**
   * @brief  Register a User SMARTCARD Callback
   *         To be used instead of the weak predefined callback
+  * @note   The HAL_SMARTCARD_RegisterCallback() may be called before HAL_SMARTCARD_Init()
+  *         in HAL_SMARTCARD_STATE_RESET to register callbacks for HAL_SMARTCARD_MSPINIT_CB_ID
+  *         and HAL_SMARTCARD_MSPDEINIT_CB_ID
   * @param  hsc smartcard handle
   * @param  CallbackID ID of the callback to be registered
   *         This parameter can be one of the following values:
@@ -474,8 +477,6 @@ HAL_StatusTypeDef HAL_SMARTCARD_RegisterCallback(SMARTCARD_HandleTypeDef *hsc, H
 
     return HAL_ERROR;
   }
-  /* Process locked */
-  __HAL_LOCK(hsc);
 
   if (hsc->gState == HAL_SMARTCARD_STATE_READY)
   {
@@ -554,15 +555,15 @@ HAL_StatusTypeDef HAL_SMARTCARD_RegisterCallback(SMARTCARD_HandleTypeDef *hsc, H
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hsc);
-
   return status;
 }
 
 /**
   * @brief  Unregister an SMARTCARD callback
   *         SMARTCARD callback is redirected to the weak predefined callback
+  * @note   The HAL_SMARTCARD_UnRegisterCallback() may be called before HAL_SMARTCARD_Init()
+  *         in HAL_SMARTCARD_STATE_RESET to un-register callbacks for HAL_SMARTCARD_MSPINIT_CB_ID
+  *         and HAL_SMARTCARD_MSPDEINIT_CB_ID
   * @param  hsc smartcard handle
   * @param  CallbackID ID of the callback to be unregistered
   *         This parameter can be one of the following values:
@@ -579,9 +580,6 @@ HAL_StatusTypeDef HAL_SMARTCARD_RegisterCallback(SMARTCARD_HandleTypeDef *hsc, H
 HAL_StatusTypeDef HAL_SMARTCARD_UnRegisterCallback(SMARTCARD_HandleTypeDef *hsc, HAL_SMARTCARD_CallbackIDTypeDef CallbackID)
 {
   HAL_StatusTypeDef status = HAL_OK;
-
-  /* Process locked */
-  __HAL_LOCK(hsc);
 
   if (HAL_SMARTCARD_STATE_READY == hsc->gState)
   {
@@ -658,9 +656,6 @@ HAL_StatusTypeDef HAL_SMARTCARD_UnRegisterCallback(SMARTCARD_HandleTypeDef *hsc,
     /* Return error status */
     status =  HAL_ERROR;
   }
-
-  /* Release Lock */
-  __HAL_UNLOCK(hsc);
 
   return status;
 }
@@ -1780,7 +1775,7 @@ __weak void HAL_SMARTCARD_AbortReceiveCpltCallback (SMARTCARD_HandleTypeDef *hsc
   *                the configuration information for SMARTCARD module.
   * @retval HAL state
   */
-HAL_SMARTCARD_StateTypeDef HAL_SMARTCARD_GetState(SMARTCARD_HandleTypeDef *hsc)
+HAL_SMARTCARD_StateTypeDef HAL_SMARTCARD_GetState(const SMARTCARD_HandleTypeDef *hsc)
 {
   uint32_t temp1= 0x00U, temp2 = 0x00U;
   temp1 = hsc->gState;
@@ -1795,7 +1790,7 @@ HAL_SMARTCARD_StateTypeDef HAL_SMARTCARD_GetState(SMARTCARD_HandleTypeDef *hsc)
   *              the configuration information for the specified SMARTCARD.
   * @retval SMARTCARD Error Code
   */
-uint32_t HAL_SMARTCARD_GetError(SMARTCARD_HandleTypeDef *hsc)
+uint32_t HAL_SMARTCARD_GetError(const SMARTCARD_HandleTypeDef *hsc)
 {
   return hsc->ErrorCode;
 }

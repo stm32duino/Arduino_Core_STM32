@@ -1,40 +1,13 @@
-/**
-  ******************************************************************************
-  * @file    spi_com.c
-  * @author  WI6LABS
-  * @version V1.0.0
-  * @date    01-August-2016
-  * @brief   provide the SPI interface
-  *
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
-  *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-  *
-  ******************************************************************************
-  */
+/*
+ * Copyright (c) 2016 Frederic Pillon <frederic.pillon@st.com> for
+ * STMicroelectronics. All right reserved.
+ * Interface utility of the spi module for arduino.
+ *
+ * This file is free software; you can redistribute it and/or modify
+ * it under the terms of either the GNU General Public License version 2
+ * or the GNU Lesser General Public License version 2.1, both as
+ * published by the Free Software Foundation.
+ */
 #include "wiring_time.h"
 #include "core_debug.h"
 #include "stm32_def.h"
@@ -214,7 +187,7 @@ static uint32_t compute_disable_delay(spi_t *obj)
   SPI_HandleTypeDef *handle = &(obj->handle);
 
   prescaler = 1 << ((handle->Init.BaudRatePrescaler >> SPI_CFG1_MBR_Pos) + 1);
-  disable_delay = ((prescaler * 1000000) / spi_freq) / 2;
+  disable_delay = (((prescaler * 1000000) / spi_freq) / 2) + 1;
   return disable_delay;
 }
 #endif
@@ -227,7 +200,7 @@ static uint32_t compute_disable_delay(spi_t *obj)
   * @param  msb : set to 1 in msb first
   * @retval None
   */
-void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
+void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb)
 {
   if (obj == NULL) {
     return;
@@ -313,13 +286,13 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
 
   handle->Init.Direction         = SPI_DIRECTION_2LINES;
 
-  if ((mode == SPI_MODE_0) || (mode == SPI_MODE_2)) {
+  if ((mode == SPI_MODE0) || (mode == SPI_MODE2)) {
     handle->Init.CLKPhase          = SPI_PHASE_1EDGE;
   } else {
     handle->Init.CLKPhase          = SPI_PHASE_2EDGE;
   }
 
-  if ((mode == SPI_MODE_0) || (mode == SPI_MODE_1)) {
+  if ((mode == SPI_MODE0) || (mode == SPI_MODE1)) {
     handle->Init.CLKPolarity       = SPI_POLARITY_LOW;
   } else {
     handle->Init.CLKPolarity       = SPI_POLARITY_HIGH;
@@ -497,87 +470,76 @@ void spi_deinit(spi_t *obj)
 }
 
 /**
-  * @brief This function is implemented by user to send data over SPI interface
-  * @param  obj : pointer to spi_t structure
-  * @param  Data : data to be sent
-  * @param  len : length in bytes of the data to be sent
-  * @param  Timeout: Timeout duration in tick
-  * @retval status of the send operation (0) in case of error
-  */
-spi_status_e spi_send(spi_t *obj, uint8_t *Data, uint16_t len, uint32_t Timeout)
-{
-  return spi_transfer(obj, Data, Data, len, Timeout, 1 /* SPI_TRANSMITONLY */);
-}
-
-/**
   * @brief This function is implemented by user to send/receive data over
   *         SPI interface
   * @param  obj : pointer to spi_t structure
   * @param  tx_buffer : tx data to send before reception
-  * @param  rx_buffer : data to receive
+  * @param  rx_buffer : rx data to receive if not numm
   * @param  len : length in byte of the data to send and receive
-  * @param  Timeout: Timeout duration in tick
-  * @param  skipReceive: skip receiving data after transmit or not
   * @retval status of the send operation (0) in case of error
   */
-spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
-                          uint16_t len, uint32_t Timeout, bool skipReceive)
+spi_status_e spi_transfer(spi_t *obj, const uint8_t *tx_buffer, uint8_t *rx_buffer,
+                          uint16_t len)
 {
   spi_status_e ret = SPI_OK;
   uint32_t tickstart, size = len;
   SPI_TypeDef *_SPI = obj->handle.Instance;
+  uint8_t *tx_buf = (uint8_t *)tx_buffer;
 
-  if ((obj == NULL) || (len == 0) || (Timeout == 0U)) {
-    return Timeout > 0U ? SPI_ERROR : SPI_TIMEOUT;
-  }
-  tickstart = HAL_GetTick();
+  if (len == 0) {
+    ret = SPI_ERROR;
+  } else {
+    tickstart = HAL_GetTick();
 
 #if defined(SPI_CR2_TSIZE)
-  /* Start transfer */
-  LL_SPI_SetTransferSize(_SPI, size);
-  LL_SPI_Enable(_SPI);
-  LL_SPI_StartMasterTransfer(_SPI);
+    /* Start transfer */
+    LL_SPI_SetTransferSize(_SPI, size);
+    LL_SPI_Enable(_SPI);
+    LL_SPI_StartMasterTransfer(_SPI);
 #endif
 
-  while (size--) {
+    while (size--) {
 #if defined(SPI_SR_TXP)
-    while (!LL_SPI_IsActiveFlag_TXP(_SPI));
+      while (!LL_SPI_IsActiveFlag_TXP(_SPI));
 #else
-    while (!LL_SPI_IsActiveFlag_TXE(_SPI));
+      while (!LL_SPI_IsActiveFlag_TXE(_SPI));
 #endif
-    LL_SPI_TransmitData8(_SPI, *tx_buffer++);
+      LL_SPI_TransmitData8(_SPI, tx_buf ? *tx_buf++ : 0XFF);
 
-    if (!skipReceive) {
 #if defined(SPI_SR_RXP)
       while (!LL_SPI_IsActiveFlag_RXP(_SPI));
 #else
       while (!LL_SPI_IsActiveFlag_RXNE(_SPI));
 #endif
-      *rx_buffer++ = LL_SPI_ReceiveData8(_SPI);
+      if (rx_buffer) {
+        *rx_buffer++ = LL_SPI_ReceiveData8(_SPI);
+      } else {
+        LL_SPI_ReceiveData8(_SPI);
+      }
+      if ((SPI_TRANSFER_TIMEOUT != HAL_MAX_DELAY) &&
+          (HAL_GetTick() - tickstart >= SPI_TRANSFER_TIMEOUT)) {
+        ret = SPI_TIMEOUT;
+        break;
+      }
     }
-    if ((Timeout != HAL_MAX_DELAY) && (HAL_GetTick() - tickstart >= Timeout)) {
-      ret = SPI_TIMEOUT;
-      break;
-    }
-  }
 
 #if defined(SPI_IFCR_EOTC)
-  // Add a delay before disabling SPI otherwise last-bit/last-clock may be truncated
-  // See https://github.com/stm32duino/Arduino_Core_STM32/issues/1294
-  // Computed delay is half SPI clock
-  delayMicroseconds(obj->disable_delay);
+    // Add a delay before disabling SPI otherwise last-bit/last-clock may be truncated
+    // See https://github.com/stm32duino/Arduino_Core_STM32/issues/1294
+    // Computed delay is half SPI clock
+    delayMicroseconds(obj->disable_delay);
 
-  /* Close transfer */
-  /* Clear flags */
-  LL_SPI_ClearFlag_EOT(_SPI);
-  LL_SPI_ClearFlag_TXTF(_SPI);
-  /* Disable SPI peripheral */
-  LL_SPI_Disable(_SPI);
+    /* Close transfer */
+    /* Clear flags */
+    LL_SPI_ClearFlag_EOT(_SPI);
+    LL_SPI_ClearFlag_TXTF(_SPI);
+    /* Disable SPI peripheral */
+    LL_SPI_Disable(_SPI);
 #else
-  /* Wait for end of transfer */
-  while (LL_SPI_IsActiveFlag_BSY(_SPI));
+    /* Wait for end of transfer */
+    while (LL_SPI_IsActiveFlag_BSY(_SPI));
 #endif
-
+  }
   return ret;
 }
 

@@ -560,6 +560,13 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc); /*!< pointer to 
   } while(0U)
 
 /**
+  * @brief  Check whether the RTC Calendar is initialized.
+  * @param  __HANDLE__ specifies the RTC handle.
+  * @retval None
+  */
+#define __HAL_RTC_IS_CALENDAR_INITIALIZED(__HANDLE__)  (((((__HANDLE__)->Instance->ICSR) & (RTC_ICSR_INITS)) == RTC_ICSR_INITS) ? 1U : 0U)
+
+/**
   * @brief  Add 1 hour (summer time change).
   * @note   This interface is deprecated.
   *         To manage Daylight Saving Time, please use HAL_RTC_DST_xxx functions
@@ -877,6 +884,10 @@ HAL_RTCStateTypeDef HAL_RTC_GetState(RTC_HandleTypeDef *hrtc);
 #define RTC_DR_RESERVED_MASK                (RTC_DR_YT | RTC_DR_YU | RTC_DR_WDU | \
                                              RTC_DR_MT | RTC_DR_MU | RTC_DR_DT  | \
                                              RTC_DR_DU)
+#define RTC_ICSR_RESERVED_MASK              (RTC_ICSR_RECALPF | RTC_ICSR_INIT | RTC_ICSR_INITF | \
+                                            RTC_ICSR_RSF | RTC_ICSR_INITS | RTC_ICSR_SHPF | \
+                                            RTC_ICSR_WUTWF | RTC_ICSR_ALRBWF | RTC_ICSR_ALRAWF)
+#define RTC_RSF_MASK                        (~(RTC_ICSR_INIT | RTC_ICSR_RSF))
 #define RTC_INIT_MASK                       0xFFFFFFFFU
 
 #define RTC_TIMEOUT_VALUE                   1000U

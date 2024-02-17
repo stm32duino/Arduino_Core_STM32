@@ -479,7 +479,7 @@ __weak HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruc
         /* Get Start Tick */
         tickstart = HAL_GetTick();
 
-        /* Wait till PLL is ready */
+        /* Wait till PLL is disabled */
         while(__HAL_RCC_GET_FLAG(RCC_FLAG_PLLRDY) != RESET)
         {
           if((HAL_GetTick() - tickstart ) > PLL_TIMEOUT_VALUE)
@@ -517,7 +517,7 @@ __weak HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruc
         /* Get Start Tick */
         tickstart = HAL_GetTick();
 
-        /* Wait till PLL is ready */
+        /* Wait till PLL is disabled */
         while(__HAL_RCC_GET_FLAG(RCC_FLAG_PLLRDY) != RESET)
         {
           if((HAL_GetTick() - tickstart ) > PLL_TIMEOUT_VALUE)

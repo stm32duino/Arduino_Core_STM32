@@ -11,24 +11,21 @@
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <link rel="stylesheet" href="_htmresc/mini-st.css" />
+  <link rel="stylesheet" href="_htmresc/mini-st_2020.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
+  <link rel="icon" type="image/x-icon" href="_htmresc/favicon.png" />
 </head>
 <body>
 <div class="row">
 <div class="col-sm-12 col-lg-4">
-<div class="card fluid">
-<div class="sectione dark">
 <center>
 <h1 id="release-notes-for-stm32g4xx-hal-drivers"><small>Release Notes for</small> STM32G4xx HAL Drivers</h1>
 <p>Copyright © 2019 STMicroelectronics<br />
 </p>
-<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo.png" alt="ST logo" /></a>
+<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
 </center>
-</div>
-</div>
 <h1 id="purpose">Purpose</h1>
 <p>The STM32Cube HAL and LL, an STM32 abstraction layer embedded software, ensure maximized portability across STM32 portfolio.</p>
 <p>The Portable APIs layer provides a generic, multi instanced and simple set of APIs to interact with the upper layer (application, libraries and stacks). It is composed of native and extended APIs set. It is directly built around a generic architecture and allows the build-upon layers, like the middleware layer, to implement its functions without knowing in-depth the used STM32 device. This improves the library code reusability and guarantees an easy portability on other devices and STM32 families.</p>
@@ -43,14 +40,236 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section6" checked aria-hidden="true"> <label for="collapse-section6" aria-hidden="true">V1.2.2 / 10-November-2021</label>
+<input type="checkbox" id="collapse-section7" checked aria-hidden="true"> <label for="collapse-section7" aria-hidden="true">V1.2.3 / 15-December-2023</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <h3 id="maintenance-release">Maintenance Release</h3>
 <ul>
-<li><p>General updates to fix known defects and enhancements implementation</p></li>
-<li><strong>HAL</strong></li>
-<li>General updates to fix known defects and enhancements implementation.</li>
+<li>HAL code quality enhancement for MISRA-C Rule-8.13 by adding const qualifiers.</li>
+<li><strong>HAL Generic</strong> update
+<ul>
+<li>Add implementation of utility APIs HAL_GetUIDw0, HAL_GetUIDw1 and HAL_GetUIDw2.</li>
+<li>Allow redefinition of macro UNUSED(x).</li>
+<li>Update of HAL_GetTickFreq() brief.</li>
+</ul></li>
+<li><strong>HAL/LL ADC</strong> update
+<ul>
+<li>Add “ADC_CHANNEL_0” in IS_ADC_CHANNEL() macro.</li>
+<li>Add helper macro to convert data from differential mode.</li>
+<li>Remove useless action of conversion trigger change in function LL_ADC_DeInit(); Moreover; this action was not compliant with ADC enable state (cf reference manual).</li>
+</ul></li>
+<li><strong>HAL/LL TIM</strong> update
+<ul>
+<li>Manage configuration of the Capture/compare DMA request source:
+<ul>
+<li>Add related new exported constants (TIM_CCDMAREQUEST_CC, TIM_CCDMAREQUEST_UPDATE).</li>
+<li>Create a new macro __HAL_TIM_SELECT_CCDMAREQUEST() allowing to program the TIMx_CR2.CCDS bitfield.</li>
+</ul></li>
+<li>Remove useless definition of macro IS_TIM_INTERNAL_TRIGGEREVENT_SELECTION.</li>
+<li>Improve driver robustness against wrong period values.</li>
+<li>Improve driver robustness against wrong DMA related parameters.</li>
+<li>Improve period configuration parameter check.</li>
+<li>Minor typo correction in hal_tim header file.</li>
+<li>Update __LL_TIM_CALC_PSC() macro to round up the evaluated value when the fractional part of the division is greater than 0.5.</li>
+<li>Remove useless check on IS_TIM_ADVANCED_INSTANCE() within LL_TIM_BDTR_Init() to fix Break Filter configuration problem with specific TIM instances.</li>
+<li>Update LL_TIM_DisableBreakInputSource() and LL_TIM_SetBreakInputSourcePolarity() APIs description.</li>
+<li>Remove lock management from callback management functions.</li>
+<li>Remove multiple volatile reads or writes in interrupt handler for better performance.</li>
+<li>Improve HAL TIM driver’s operational behavior.</li>
+<li>Assert check for the right channels.</li>
+<li>Fix typo in PWM symmetric mode related constants names.</li>
+<li>Remove unnecessary change of MOE bitfield in LL_TIM_BDTR_Init().</li>
+</ul></li>
+<li><strong>HAL/LL LPTIM</strong> update
+<ul>
+<li>Improve LPTIM FSM management consistency.</li>
+<li>Apply same naming rules to clear FLAG related functions.</li>
+<li>Remove Lock management from callback management functions.</li>
+<li>Remove redundant IS_LPTIM_AUTORELOAD macro.</li>
+</ul></li>
+<li><strong>HAL/LL RCC</strong> update
+<ul>
+<li>Add uint32_t cast to shift left operands constants defined with ‘U’ suffix in case MISRAC2012-Rule-12.2 violated.</li>
+<li>Wait PLL1RDY to be off before clearing PLL1 source.</li>
+<li>Set RCC_CRS_HSI48CALIBRATION_DEFAULT to 0x40 to be consistent with REFMAN and LL CRS driver.</li>
+<li>Fix wrong RCC_APB1ENR1_WWDG2EN bit referenced in __HAL_RCC_WWDG_CLK_DISABLE() macro.</li>
+<li>Modify the comment in PLL configuration.</li>
+</ul></li>
+<li><strong>HAL CORTEX</strong> update
+<ul>
+<li>Updated HAL_MPU_ConfigRegion() to allow the configuration of the MPU registers independently of the value of Enable/Disable field.</li>
+<li>Add new APIs HAL_MPU_EnableRegion() / HAL_MPU_DisableRegion().</li>
+</ul></li>
+<li><strong>HAL DAC</strong> update
+<ul>
+<li>Fix incorrect word ‘surcharged’ in functions headers.</li>
+<li>Updated DAC buffer calibration according to RM.</li>
+<li>Fix HAL_GetTick() timeout vulnerability.</li>
+</ul></li>
+<li><strong>HAL EXTI</strong> update
+<ul>
+<li>Fix computation of pExtiConfig-&gt;GPIOSel in HAL_EXTI_GetConfigLine().</li>
+<li>Fix the wrong references in the “How to use this driver” section.</li>
+</ul></li>
+<li><strong>HAL CORDIC</strong> update
+<ul>
+<li>Fix incorrect word ‘surcharged’ in functions headers.</li>
+</ul></li>
+<li><strong>HAL FMAC</strong> update
+<ul>
+<li>Avoid usage of magic numbers.</li>
+<li>Fix incorrect word ‘surcharged’ in functions headers.</li>
+</ul></li>
+<li><strong>HAL/LL HRTIM</strong> update
+<ul>
+<li>Rework HAL_HRTIM_Get…() getter functions not to change the handle state in case input parameter is out-of-range.</li>
+<li>Add a right shift of the read bit field in LL_HRTIM_FLT_GetResetMode() before returning the result.</li>
+<li>Fix erroneous fault counter threshold configuration function.</li>
+<li>Fix typo in LL_HRTIM_FLT_ResetCounter() API header.</li>
+</ul></li>
+<li><strong>HAL RTC</strong> update
+<ul>
+<li>Check if the RTC calendar has been previously initialized before entering Initialization mode.</li>
+<li>Optimize the way RSF flag is cleared in HAL_RTC_WaitForSynchro().</li>
+<li>Correct misleading note about shadow registers.</li>
+</ul></li>
+<li><strong>HAL FMC</strong> update
+<ul>
+<li>Fix Hardfault issues when executing NOR read operations caused by FMC_WRITE_OPERATION_DISABLE.</li>
+</ul></li>
+<li><strong>HAL CRYP</strong> update
+<ul>
+<li>Mask arrays are declared as static const.</li>
+<li>Update Crypt/Decrypt IT processes to avoid Computation Completed IRQ fires before the DINR pointer increment.</li>
+<li>Update AES GCM in interrupt mode to avoid Computation Completed IRQ fires before the DINR pointer increment.</li>
+</ul></li>
+<li><strong>HAL FLASH</strong> update
+<ul>
+<li>Update the hal_flash_ex.c file to correctly support the PB4_PUPEN Option.</li>
+<li>Fix FLASH_PAGE_NB value for STM32G4 category 3 devices.</li>
+</ul></li>
+<li><strong>HAL CRC</strong> update
+<ul>
+<li>Add filter in HAL_CRCEx_Polynomial_Set() to exclude even polynomials.</li>
+</ul></li>
+<li><strong>HAL QSPI</strong> update
+<ul>
+<li>Update HAL_QSPI_Abort() and HAL_QSPI_Abort_IT() APIs to check on QSPI BUSY flag status before executing the abort procedure.</li>
+<li>Fix incorrect word ‘surcharged’ in functions headers.</li>
+</ul></li>
+<li><strong>HAL SMBUS</strong> update
+<ul>
+<li>Remove Lock management from callback management functions.</li>
+<li>Update HAL SMBUS driver to prefetch data before starting the transmission: implementation of errata sheet workaround I2C2-190208 : Transmission stalled after first byte.</li>
+<li>Update SMBUS_ITErrorHandler to flash TXDR just in case of error.</li>
+</ul></li>
+<li><strong>HAL UART</strong> update
+<ul>
+<li>Add a new API HAL_UARTEx_GetRxEventType that could be used to retrieve the type of event that has led the RxEventCallback execution.</li>
+<li>Remove of HAL_LOCK/HAL_UNLOCK calls in HAL UART Tx and Rx APIs.</li>
+<li>Remove __HAL_LOCK() from HAL_xxx_RegisterCallback()/HAL_xxx_UnRegisterCallback().</li>
+<li>Disable the Receiver Timeout Interrupt when data reception is completed.</li>
+<li>Rework of UART_WaitOnFlagUntilTimeout() API to avoid being stuck forever when UART overrun error occurs and to enhance behavior.</li>
+<li>Update initialisation sequence for TXINV, RXINV and TXRXSWAP settings.</li>
+<li>Fix incorrect gState check in HAL_UART_RegisterRxEventCallback/HAL_UART_UnRegisterRxEventCallback to allow user Rx Event Callback registration when a transmit is ongoing.</li>
+<li>Avoid RTOF flag to be cleared by a transmit process in polling mode.</li>
+</ul></li>
+<li><strong>HAL SMARTCARD</strong> update
+<ul>
+<li>Remove __HAL_LOCK() from HAL_xxx_RegisterCallback()/HAL_xxx_UnRegisterCallback().</li>
+</ul></li>
+<li><strong>HAL SPI</strong> update
+<ul>
+<li>Fix driver to don’t update state in case of error (HAL_SPI_STATE_READY will be set only in case of HAL_TIMEOUT).</li>
+<li>Update HAL_SPI_TransmitReceive API to set the bit CRCNEXT in case of one byte transaction.</li>
+<li>Update IT API to enable interrupts after process unlock.</li>
+</ul></li>
+<li><strong>HAL IRDA</strong> update
+<ul>
+<li>Remove __HAL_LOCK() from HAL_xxx_RegisterCallback()/HAL_xxx_UnRegisterCallback().</li>
+</ul></li>
+<li><strong>HAL FDCAN</strong> update
+<ul>
+<li>Refine description of IsFilterMatchingFrame and FilterIndex, members of structure FDCAN_RxHeaderTypeDef.</li>
+<li>Fix GetIndex issue in HAL_FDCAN_GetRxMessage.</li>
+<li>Modify misleading DataLength values.</li>
+</ul></li>
+<li><strong>HAL SAI</strong> update
+<ul>
+<li>Avoid using magic numbers.</li>
+<li>Fix misalignment between reference manual and HAL SAI driver: remove GCR register.</li>
+<li>Improve audio quality (avoid potential glitch).</li>
+<li>Fix incorrect word ‘surcharged’.</li>
+</ul></li>
+<li><strong>HAL USART</strong> update
+<ul>
+<li>Remove __HAL_LOCK() from HAL_xxx_RegisterCallback()/HAL_xxx_UnRegisterCallback().</li>
+</ul></li>
+<li><strong>HAL/LL I2C</strong> update
+<ul>
+<li>Move polling code of HAL memory interface through interrupt management to prevent timeout issue using HAL MEM interface through FreeRTOS.</li>
+<li>Update I2C_IsErrorOccurred to return error if timeout is detected.</li>
+<li>Clear the ADDRF flag only when direction is confirmed as changed, to prevent that the ADDRF flag is cleared too early when the restart is received.</li>
+<li>Remove Lock management from callback management functions.</li>
+<li>Duplicate the test condition after timeout detection to avoid false timeout detection.</li>
+<li>Update HAL_I2C_IsDeviceReady() API to support 10_bit addressing mode: Update done on the macro I2C_GENERATE_START.</li>
+<li>Update HAL I2C driver to prefetch data before starting the transmission: implementation of errata sheet workaround I2C2-190208 : Transmission stalled after first byte.</li>
+<li>Update HAL I2C driver to disable all interrupts after end of transaction.</li>
+<li>Update HAL_I2C_Init API to clear ADD10 bit in 7 bit addressing mode.</li>
+<li>Solve Slave No stretch not functional by using HAL Slave interface.</li>
+<li>Update HAL_I2C_Mem_Write_IT API to initialize XferSize at 0.</li>
+<li>Update I2C_Slave_ISR_IT, I2C_Slave_ISR_DMA and I2C_ITSlaveCplt to prevent the call of HAL_I2C_ListenCpltCallback twice.</li>
+<li>Update I2C_WaitOnRXNEFlagUntilTimeout to check I2C_FLAG_AF independently from I2C_FLAG_RXNE.</li>
+<li>Remove the unusable code in function HAL_I2C_IsDeviceReady.</li>
+<li>Update I2C_WaitOnFlagUntilTimeout to handle error case.</li>
+<li>Update HAL_I2C_Slave_Transmit to check if the received NACK is the good one.</li>
+<li>Update LL_I2C_HandleTranfer function to prevent undefined behavior of volatile usage before updating the CR2 register.</li>
+</ul></li>
+<li><strong>LL UCPD</strong> update
+<ul>
+<li>Correct register accessed by LL_UCPD_ReadRxPaySize() function.</li>
+</ul></li>
+<li><strong>HAL USB</strong> update
+<ul>
+<li>Add new function HAL_PCD_EP_Abort() to abort current USB endpoint transfer.</li>
+<li>PCD: add supporting multi packets transfer on Interrupt endpoint.</li>
+<li>PCD: software correction added to avoid unexpected STALL condition during EP0 multi packet OUT transfer.</li>
+<li>Set DCD timeout to a minimum of 300ms before starting BCD primary detection process.</li>
+<li>hal_pcd.h: add a mask for USB RX bytes count.</li>
+</ul></li>
+<li><strong>LL UTILS</strong> update
+<ul>
+<li>Align UTILS_PLLVCO_INPUT_MAX value with documentation.</li>
+<li>Update the number of LATENCY to be coherent with the reference manual.</li>
+<li>Update package type definitions to be aligned with RM0440.</li>
+<li>Fix a condition in LL_SetFlashLatency() API to avoid generation of Rule-10.1_R2 warning.</li>
+<li>Add else statement in the end of LL_SetFlashLatency API to avoid Misra-C 2012 Rule-15.7 warnings.</li>
+<li>Fix a note about Ticks parameter.</li>
+</ul></li>
+</ul>
+<h2 id="development-toolchains-and-compilers">Development Toolchains and Compilers</h2>
+<ul>
+<li>IAR Embedded Workbench for ARM (EWARM) toolchain <strong>V8.50.9</strong> + ST-LINKV2</li>
+<li>RealView Microcontroller Development Kit (MDK-ARM) toolchain <strong>V5.38</strong> + ST-LINKV2</li>
+<li>STM32CubeIDE toolchain (gcc9_2020_q2_update) <strong>V1.14.0</strong></li>
+</ul>
+<h2 id="supported-devices">Supported Devices</h2>
+<ul>
+<li>STM32G431/41xx</li>
+<li>STM32G471xx</li>
+<li>STM32G473/83xx</li>
+<li>STM32G474/84xx</li>
+<li>STM32G491/A1xx</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true">V1.2.2 / 10-November-2021</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<h3 id="maintenance-release-1">Maintenance Release</h3>
+<ul>
+<li><p>General updates to fix known defects and enhancements implementation.</p></li>
 <li><strong>HAL/LL ADC</strong> update
 <ul>
 <li>Update HAL_ADC_Start_DMA() API to avoid return error when using Independent instance with multimode activated.</li>
@@ -189,13 +408,13 @@
 <li>Update implementation of “HAL_NAND_Write_Page_16b” and “HAL_NAND_Read_Page_16b” APIs implementation to fix an issue with the page calculation of 8 bits memories.</li>
 </ul></li>
 </ul>
-<h2 id="development-toolchains-and-compilers">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-1">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.50.4 + ST-LINKV2</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.31 + ST-LINKV2</li>
 <li>STM32CubeIDE toolchain (gcc9_2020_q2_update) <strong>V1.7.0</strong></li>
 </ul>
-<h2 id="supported-devices">Supported Devices</h2>
+<h2 id="supported-devices-1">Supported Devices</h2>
 <ul>
 <li>STM32G431/41xx</li>
 <li>STM32G471xx</li>
@@ -208,8 +427,8 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true">V1.2.1 / 27-January-2021</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
-<h3 id="maintenance-release-1">Maintenance Release</h3>
+<h2 id="main-changes-2">Main Changes</h2>
+<h3 id="maintenance-release-2">Maintenance Release</h3>
 <ul>
 <li><p>General updates to fix known defects and enhancements implementation</p></li>
 <li><strong>HAL</strong></li>
@@ -313,7 +532,7 @@
 <li>NOR_CMD_READ_STATUS_REG</li>
 <li>NOR_CMD_CLEAR_STATUS_REG</li>
 </ul></li>
-<li>Updated muliple APIs to treat separetely the different memory types.</li>
+<li>Updated multiple APIs to treat separately the different memory types.</li>
 </ul></li>
 <li><strong>LL FMC </strong> Update
 <ul>
@@ -383,13 +602,13 @@
 </ul></li>
 <li><p>Added few instructions before reading the RX count register.</p></li>
 </ul>
-<h2 id="development-toolchains-and-compilers-1">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-2">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain <strong>V8.50.4</strong> + ST-LINKV2</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain <strong>V5.31</strong> + ST-LINKV2</li>
 <li>STM32CubeIDE toolchain <strong>V1.6.0</strong></li>
 </ul>
-<h2 id="supported-devices-1">Supported Devices</h2>
+<h2 id="supported-devices-2">Supported Devices</h2>
 <ul>
 <li>STM32G431/41xx</li>
 <li>STM32G471xx</li>
@@ -402,8 +621,8 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true">V1.2.0 / 26-June-2020</label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
-<h3 id="maintenance-release-2">Maintenance Release</h3>
+<h2 id="main-changes-3">Main Changes</h2>
+<h3 id="maintenance-release-3">Maintenance Release</h3>
 <ul>
 <li>Add support for STM32G491xx and STM32G4A1 part numbers</li>
 <li><p>General updates to fix known defects and enhancements implementation</p></li>
@@ -489,7 +708,7 @@
 </ul></li>
 <li><strong>HAL/LL RCC</strong> update
 <ul>
-<li>Update Table 1. HCLK clock frequency for STM32G4xx devices to be aligned with referance manual RM0440</li>
+<li>Update Table 1. HCLK clock frequency for STM32G4xx devices to be aligned with reference manual RM0440</li>
 <li>Update peripheral clock to support <strong>STM32G491/STM32G4A1</strong> devices:
 <ul>
 <li>HAL_RCCEx_GetPeriphCLKConfig</li>
@@ -533,13 +752,13 @@
 <li>Correct some word spelling issues</li>
 </ul></li>
 </ul>
-<h2 id="development-toolchains-and-compilers-2">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-3">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.40.1</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain <strong>V5.29</strong></li>
 <li>STM32CubeIDE toolchain <strong>V1.4.0</strong></li>
 </ul>
-<h2 id="supported-devices-2">Supported Devices</h2>
+<h2 id="supported-devices-3">Supported Devices</h2>
 <ul>
 <li>STM32G431/41xx</li>
 <li>STM32G471xx</li>
@@ -552,8 +771,8 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V1.1.1 / 14-February-2020</label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
-<h3 id="maintenance-release-3">Maintenance Release</h3>
+<h2 id="main-changes-4">Main Changes</h2>
+<h3 id="maintenance-release-4">Maintenance Release</h3>
 <ul>
 <li><p>General updates to fix known defects and enhancements implementation</p></li>
 <li><strong>HAL/LL CRYP</strong> update
@@ -736,13 +955,13 @@
 <li>API LL_PLL_ConfigSystemClock_HSI() and API LL_PLL_ConfigSystemClock_HSE() updated to set back the AHB prescaler to 1 after it has been temporarily set to 2 to avoid undershoot when configuring PLL at high frequencies.</li>
 </ul></li>
 </ul>
-<h2 id="development-toolchains-and-compilers-3">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-4">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.32.3</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.27.1</li>
 <li>STM32CubeIDE toolchain v1.3.0</li>
 </ul>
-<h2 id="supported-devices-3">Supported Devices</h2>
+<h2 id="supported-devices-4">Supported Devices</h2>
 <ul>
 <li>STM32G431/41xx</li>
 <li>STM32G471xx</li>
@@ -754,8 +973,8 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">V1.1.0 / 28-June-2019</label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
-<h3 id="maintenance-release-4">Maintenance Release</h3>
+<h2 id="main-changes-5">Main Changes</h2>
+<h3 id="maintenance-release-5">Maintenance Release</h3>
 <p>Maintenance release of HAL (Hardware Abstraction Layer) and LL (Low layers) drivers to support STM32G431/41xx, STM32G471xx, STM32G473/83xx and STM32G474/84xx.</p>
 <h2 id="contents">Contents</h2>
 <table>
@@ -838,13 +1057,13 @@
 </tr>
 </tbody>
 </table>
-<h2 id="development-toolchains-and-compilers-4">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-5">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.20.2</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.25</li>
 <li>System Workbench STM32 (SW4STM32) toolchain V2.7.2</li>
 </ul>
-<h2 id="supported-devices-4">Supported Devices</h2>
+<h2 id="supported-devices-5">Supported Devices</h2>
 <ul>
 <li>STM32G431/41xx</li>
 <li>STM32G471xx</li>
@@ -856,16 +1075,16 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true">V1.0.0 / 12-April-2019</label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <h3 id="first-release">First release</h3>
 <p>First official release of HAL (Hardware Abstraction Layer) and LL (Low layers) drivers to support STM32G431/41xx, STM32G471xx, STM32G473/83xx and STM32G474/84xx.</p>
-<h2 id="development-toolchains-and-compilers-5">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-6">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.20.2</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.25</li>
 <li>System Workbench STM32 (SW4STM32) toolchain V2.7.2</li>
 </ul>
-<h2 id="supported-devices-5">Supported Devices</h2>
+<h2 id="supported-devices-6">Supported Devices</h2>
 <ul>
 <li>STM32G431/41xx</li>
 <li>STM32G471xx</li>

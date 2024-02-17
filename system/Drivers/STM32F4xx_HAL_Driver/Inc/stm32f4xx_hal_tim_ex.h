@@ -74,9 +74,8 @@ typedef struct
 #if defined (TIM2)
 #if defined(TIM8)
 #define TIM_TIM2_TIM8_TRGO                     0x00000000U                              /*!< TIM2 ITR1 is connected to TIM8 TRGO */
-#else
-#define TIM_TIM2_ETH_PTP                       TIM_OR_ITR1_RMP_0                        /*!< TIM2 ITR1 is connected to PTP trigger output */
 #endif /*  TIM8 */
+#define TIM_TIM2_ETH_PTP                       TIM_OR_ITR1_RMP_0                        /*!< TIM2 ITR1 is connected to PTP trigger output */
 #define TIM_TIM2_USBFS_SOF                     TIM_OR_ITR1_RMP_1                        /*!< TIM2 ITR1 is connected to OTG FS SOF */
 #define TIM_TIM2_USBHS_SOF                     (TIM_OR_ITR1_RMP_1 | TIM_OR_ITR1_RMP_0)  /*!< TIM2 ITR1 is connected to OTG HS SOF */
 #endif /* TIM2 */
@@ -205,7 +204,7 @@ typedef struct
   * @{
   */
 /*  Timer Hall Sensor functions  **********************************************/
-HAL_StatusTypeDef HAL_TIMEx_HallSensor_Init(TIM_HandleTypeDef *htim, TIM_HallSensor_InitTypeDef *sConfig);
+HAL_StatusTypeDef HAL_TIMEx_HallSensor_Init(TIM_HandleTypeDef *htim, const TIM_HallSensor_InitTypeDef *sConfig);
 HAL_StatusTypeDef HAL_TIMEx_HallSensor_DeInit(TIM_HandleTypeDef *htim);
 
 void HAL_TIMEx_HallSensor_MspInit(TIM_HandleTypeDef *htim);
@@ -238,7 +237,8 @@ HAL_StatusTypeDef HAL_TIMEx_OCN_Start_IT(TIM_HandleTypeDef *htim, uint32_t Chann
 HAL_StatusTypeDef HAL_TIMEx_OCN_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Channel);
 
 /* Non-Blocking mode: DMA */
-HAL_StatusTypeDef HAL_TIMEx_OCN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channel, uint32_t *pData, uint16_t Length);
+HAL_StatusTypeDef HAL_TIMEx_OCN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channel, const uint32_t *pData,
+                                          uint16_t Length);
 HAL_StatusTypeDef HAL_TIMEx_OCN_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Channel);
 /**
   * @}
@@ -257,7 +257,8 @@ HAL_StatusTypeDef HAL_TIMEx_PWMN_Stop(TIM_HandleTypeDef *htim, uint32_t Channel)
 HAL_StatusTypeDef HAL_TIMEx_PWMN_Start_IT(TIM_HandleTypeDef *htim, uint32_t Channel);
 HAL_StatusTypeDef HAL_TIMEx_PWMN_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Channel);
 /* Non-Blocking mode: DMA */
-HAL_StatusTypeDef HAL_TIMEx_PWMN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channel, uint32_t *pData, uint16_t Length);
+HAL_StatusTypeDef HAL_TIMEx_PWMN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channel, const uint32_t *pData,
+                                           uint16_t Length);
 HAL_StatusTypeDef HAL_TIMEx_PWMN_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Channel);
 /**
   * @}
@@ -291,9 +292,9 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_IT(TIM_HandleTypeDef *htim, uint32
 HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_DMA(TIM_HandleTypeDef *htim, uint32_t  InputTrigger,
                                                   uint32_t  CommutationSource);
 HAL_StatusTypeDef HAL_TIMEx_MasterConfigSynchronization(TIM_HandleTypeDef *htim,
-                                                        TIM_MasterConfigTypeDef *sMasterConfig);
+                                                        const TIM_MasterConfigTypeDef *sMasterConfig);
 HAL_StatusTypeDef HAL_TIMEx_ConfigBreakDeadTime(TIM_HandleTypeDef *htim,
-                                                TIM_BreakDeadTimeConfigTypeDef *sBreakDeadTimeConfig);
+                                                const TIM_BreakDeadTimeConfigTypeDef *sBreakDeadTimeConfig);
 HAL_StatusTypeDef HAL_TIMEx_RemapConfig(TIM_HandleTypeDef *htim, uint32_t Remap);
 /**
   * @}
@@ -316,8 +317,8 @@ void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim);
   * @{
   */
 /* Extended Peripheral State functions  ***************************************/
-HAL_TIM_StateTypeDef HAL_TIMEx_HallSensor_GetState(TIM_HandleTypeDef *htim);
-HAL_TIM_ChannelStateTypeDef HAL_TIMEx_GetChannelNState(TIM_HandleTypeDef *htim,  uint32_t ChannelN);
+HAL_TIM_StateTypeDef HAL_TIMEx_HallSensor_GetState(const TIM_HandleTypeDef *htim);
+HAL_TIM_ChannelStateTypeDef HAL_TIMEx_GetChannelNState(const TIM_HandleTypeDef *htim,  uint32_t ChannelN);
 /**
   * @}
   */

@@ -2621,7 +2621,7 @@ Please check the value set for 'CUBEMX_DIRECTORY' in '{config_filename}' file.""
             db_release = item.attributes["Release"].value
 
 # Process DB release
-release_regex = r".*(\d+.\d+.\d+)$"
+release_regex = r".*(\d+\.\d+\.\d+)$"
 release_match = re.match(release_regex, db_release)
 if release_match:
     db_release = release_match.group(1)

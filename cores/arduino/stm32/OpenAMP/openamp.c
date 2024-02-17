@@ -119,7 +119,7 @@ int OPENAMP_Init()
 
   MAILBOX_Init();
 
-  /* Libmetal Initilalization */
+  /* Libmetal Initialization */
   status = OPENAMP_shmem_init(RPMSG_REMOTE);
   if (status) {
     return status;

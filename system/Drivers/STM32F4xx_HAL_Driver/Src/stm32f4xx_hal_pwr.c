@@ -179,10 +179,12 @@ void HAL_PWR_DisableBkUpAccess(void)
    ==================
     [..]
       (+) Entry:
-        The Sleep mode is entered by using the HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI)
+        The Sleep mode is entered by using the HAL_PWR_EnterSLEEPMode(Regulator, SLEEPEntry)
               functions with
           (++) PWR_SLEEPENTRY_WFI: enter SLEEP mode with WFI instruction
           (++) PWR_SLEEPENTRY_WFE: enter SLEEP mode with WFE instruction
+          (++) PWR_SLEEPENTRY_WFE_NO_EVT_CLEAR: Enter SLEEP mode with WFE instruction and
+                                                no clear of pending event before.
 
       -@@- The Regulator parameter is not used for the STM32F4 family
               and is kept as parameter just to maintain compatibility with the
@@ -204,10 +206,17 @@ void HAL_PWR_DisableBkUpAccess(void)
       the HAL_PWREx_DisableFlashPowerDown() function.
 
       (+) Entry:
-         The Stop mode is entered using the HAL_PWR_EnterSTOPMode(PWR_MAINREGULATOR_ON)
+         The Stop mode is entered using the HAL_PWR_EnterSTOPMode(Regulator, STOPEntry)
              function with:
-          (++) Main regulator ON.
-          (++) Low Power regulator ON.
+       (++) Regulator:
+        (+++) Main regulator ON.
+        (+++) Low Power regulator ON.
+       (++) STOPEntry:
+        (+++) PWR_STOPENTRY_WFI              : Enter STOP mode with WFI instruction.
+        (+++) PWR_STOPENTRY_WFE              : Enter STOP mode with WFE instruction and
+                                               clear of pending events before.
+        (+++) PWR_STOPENTRY_WFE_NO_EVT_CLEAR : Enter STOP mode with WFE instruction and
+                                               no clear of pending event before.
       (+) Exit:
         Any EXTI Line (Internal or External) configured in Interrupt/Event mode.
 
@@ -372,12 +381,18 @@ void HAL_PWR_DisableWakeUpPin(uint32_t WakeUpPinx)
   *       just to maintain compatibility with the lower power families.
   * @param SLEEPEntry Specifies if SLEEP mode in entered with WFI or WFE instruction.
   *          This parameter can be one of the following values:
-  *            @arg PWR_SLEEPENTRY_WFI: enter SLEEP mode with WFI instruction
-  *            @arg PWR_SLEEPENTRY_WFE: enter SLEEP mode with WFE instruction
+  *            @arg PWR_SLEEPENTRY_WFI              : Enter SLEEP mode with WFI instruction
+  *            @arg PWR_SLEEPENTRY_WFE              : Enter SLEEP mode with WFE instruction and
+  *                                                   clear of pending events before.
+  *            @arg PWR_SLEEPENTRY_WFE_NO_EVT_CLEAR : Enter SLEEP mode with WFE instruction and
+  *                                                   no clear of pending event before.
   * @retval None
   */
 void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(Regulator);
+
   /* Check the parameters */
   assert_param(IS_PWR_REGULATOR(Regulator));
   assert_param(IS_PWR_SLEEP_ENTRY(SLEEPEntry));
@@ -393,9 +408,14 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
   }
   else
   {
+    if(SLEEPEntry != PWR_SLEEPENTRY_WFE_NO_EVT_CLEAR)
+    {
+      /* Clear all pending event */
+      __SEV();
+      __WFE();
+    }
+
     /* Request Wait For Event */
-    __SEV();
-    __WFE();
     __WFE();
   }
 }
@@ -415,8 +435,11 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
   *            @arg PWR_LOWPOWERREGULATOR_ON: Stop mode with low power regulator ON
   * @param STOPEntry Specifies if Stop mode in entered with WFI or WFE instruction.
   *          This parameter can be one of the following values:
-  *            @arg PWR_STOPENTRY_WFI: Enter Stop mode with WFI instruction
-  *            @arg PWR_STOPENTRY_WFE: Enter Stop mode with WFE instruction
+  *            @arg PWR_STOPENTRY_WFI              : Enter Stop mode with WFI instruction
+  *            @arg PWR_STOPENTRY_WFE              : Enter Stop mode with WFE instruction and
+  *                                                  clear of pending events before.
+  *            @arg PWR_STOPENTRY_WFE_NO_EVT_CLEAR : Enter STOP mode with WFE instruction and
+  *                                                  no clear of pending event before.
   * @retval None
   */
 void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
@@ -439,9 +462,13 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
   }
   else
   {
+    if(STOPEntry != PWR_STOPENTRY_WFE_NO_EVT_CLEAR)
+    {
+      /* Clear all pending event */
+      __SEV();
+      __WFE();
+    }
     /* Request Wait For Event */
-    __SEV();
-    __WFE();
     __WFE();
   }
   /* Reset SLEEPDEEP bit of Cortex System Control Register */

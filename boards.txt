@@ -154,7 +154,7 @@ Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.board=NUCLEO_H563ZI
 Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.series=STM32H5xx
 Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.product_line=STM32H563xx
-Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.variant=STM32H5xx/H563Z(G-I)T
+Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.variant=STM32H5xx/H563Z(G-I)T_H573ZIT
 
 # NUCLEO H723ZG board
 Nucleo_144.menu.pnum.NUCLEO_H723ZG=Nucleo H723ZG
@@ -194,6 +194,20 @@ Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.series=STM32H7xx
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.product_line=STM32H743xx
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.variant=STM32H7xx/H742Z(G-I)T_H743Z(G-I)T_H747A(G-I)I_H747I(G-I)T_H750ZBT_H753ZIT_H757AII_H757IIT
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.variant_h=variant_NUCLEO_H743ZI.h
+
+# NUCLEO_H753ZI board
+Nucleo_144.menu.pnum.NUCLEO_H753ZI=Nucleo H753ZI
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.node=NODE_H753ZI
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.upload.maximum_size=2097152
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.upload.maximum_data_size=524288
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.mcu=cortex-m7
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.float-abi=-mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.board=NUCLEO_H753ZI
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.series=STM32H7xx
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.product_line=STM32H753xx
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.variant=STM32H7xx/H742Z(G-I)T_H743Z(G-I)T_H747A(G-I)I_H747I(G-I)T_H750ZBT_H753ZIT_H757AII_H757IIT
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.variant_h=variant_NUCLEO_H753ZI.h
 
 # NUCLEO_L496ZG board
 Nucleo_144.menu.pnum.NUCLEO_L496ZG=Nucleo L496ZG
@@ -1030,8 +1044,23 @@ Disco.menu.pnum.STM32H573I_DK.build.float-abi=-mfloat-abi=hard
 Disco.menu.pnum.STM32H573I_DK.build.board=STM32H573I_DK
 Disco.menu.pnum.STM32H573I_DK.build.series=STM32H5xx
 Disco.menu.pnum.STM32H573I_DK.build.product_line=STM32H573xx
-Disco.menu.pnum.STM32H573I_DK.build.variant=STM32H5xx/H573IIKxQ
+Disco.menu.pnum.STM32H573I_DK.build.variant=STM32H5xx/H563IIKxQ_H573IIKxQ
 Disco.menu.pnum.STM32H573I_DK.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+
+# STM32H747I-DISCO
+Disco.menu.pnum.STM32H747I_DISCO=STM32H747I-DISCO
+Disco.menu.pnum.STM32H747I_DISCO.node=DIS_H747XI
+Disco.menu.pnum.STM32H747I_DISCO.upload.maximum_size=2097152
+Disco.menu.pnum.STM32H747I_DISCO.upload.maximum_data_size=524288
+Disco.menu.pnum.STM32H747I_DISCO.build.mcu=cortex-m7
+Disco.menu.pnum.STM32H747I_DISCO.build.fpu=-mfpu=fpv4-sp-d16
+Disco.menu.pnum.STM32H747I_DISCO.build.float-abi=-mfloat-abi=hard
+Disco.menu.pnum.STM32H747I_DISCO.build.board=STM32H747I_DISCO
+Disco.menu.pnum.STM32H747I_DISCO.build.series=STM32H7xx
+Disco.menu.pnum.STM32H747I_DISCO.build.product_line=STM32H747xx
+Disco.menu.pnum.STM32H747I_DISCO.build.variant=STM32H7xx/H742X(G-I)H_H743X(G-I)H_H745X(G-I)H_H747X(G-I)H_H750XBH_H753XIH_H755XIH_H757XIH
+Disco.menu.pnum.STM32H747I_DISCO.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DCORE_CM7
+Disco.menu.pnum.STM32H747I_DISCO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
 # STM32WB5MM-DK board
 Disco.menu.pnum.STM32WB5MM_DK=STM32WB5MM-DK
@@ -4599,6 +4628,46 @@ GenF7.menu.pnum.GENERIC_F722ZETX.build.board=GENERIC_F722ZETX
 GenF7.menu.pnum.GENERIC_F722ZETX.build.product_line=STM32F722xx
 GenF7.menu.pnum.GENERIC_F722ZETX.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
 
+# Generic F723ICKx
+GenF7.menu.pnum.GENERIC_F723ICKX=Generic F723ICKx
+GenF7.menu.pnum.GENERIC_F723ICKX.upload.maximum_size=262144
+GenF7.menu.pnum.GENERIC_F723ICKX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F723ICKX.build.board=GENERIC_F723ICKX
+GenF7.menu.pnum.GENERIC_F723ICKX.build.product_line=STM32F723xx
+GenF7.menu.pnum.GENERIC_F723ICKX.build.variant=STM32F7xx/F723I(C-E)(K-T)_F730I8K_F733IE(K-T)
+
+# Generic F723ICTx
+GenF7.menu.pnum.GENERIC_F723ICTX=Generic F723ICTx
+GenF7.menu.pnum.GENERIC_F723ICTX.upload.maximum_size=262144
+GenF7.menu.pnum.GENERIC_F723ICTX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F723ICTX.build.board=GENERIC_F723ICTX
+GenF7.menu.pnum.GENERIC_F723ICTX.build.product_line=STM32F723xx
+GenF7.menu.pnum.GENERIC_F723ICTX.build.variant=STM32F7xx/F723I(C-E)(K-T)_F730I8K_F733IE(K-T)
+
+# Generic F723IEKx
+GenF7.menu.pnum.GENERIC_F723IEKX=Generic F723IEKx
+GenF7.menu.pnum.GENERIC_F723IEKX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F723IEKX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F723IEKX.build.board=GENERIC_F723IEKX
+GenF7.menu.pnum.GENERIC_F723IEKX.build.product_line=STM32F723xx
+GenF7.menu.pnum.GENERIC_F723IEKX.build.variant=STM32F7xx/F723I(C-E)(K-T)_F730I8K_F733IE(K-T)
+
+# Generic F723IETx
+GenF7.menu.pnum.GENERIC_F723IETX=Generic F723IETx
+GenF7.menu.pnum.GENERIC_F723IETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F723IETX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F723IETX.build.board=GENERIC_F723IETX
+GenF7.menu.pnum.GENERIC_F723IETX.build.product_line=STM32F723xx
+GenF7.menu.pnum.GENERIC_F723IETX.build.variant=STM32F7xx/F723I(C-E)(K-T)_F730I8K_F733IE(K-T)
+
+# Generic F730I8Kx
+GenF7.menu.pnum.GENERIC_F730I8KX=Generic F730I8Kx
+GenF7.menu.pnum.GENERIC_F730I8KX.upload.maximum_size=65536
+GenF7.menu.pnum.GENERIC_F730I8KX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F730I8KX.build.board=GENERIC_F730I8KX
+GenF7.menu.pnum.GENERIC_F730I8KX.build.product_line=STM32F730xx
+GenF7.menu.pnum.GENERIC_F730I8KX.build.variant=STM32F7xx/F723I(C-E)(K-T)_F730I8K_F733IE(K-T)
+
 # Generic F730R8Tx
 GenF7.menu.pnum.GENERIC_F730R8TX=Generic F730R8Tx
 GenF7.menu.pnum.GENERIC_F730R8TX.upload.maximum_size=65536
@@ -4622,6 +4691,22 @@ GenF7.menu.pnum.GENERIC_F732ZETX.upload.maximum_data_size=262144
 GenF7.menu.pnum.GENERIC_F732ZETX.build.board=GENERIC_F732ZETX
 GenF7.menu.pnum.GENERIC_F732ZETX.build.product_line=STM32F732xx
 GenF7.menu.pnum.GENERIC_F732ZETX.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
+
+# Generic F733IEKx
+GenF7.menu.pnum.GENERIC_F733IEKX=Generic F733IEKx
+GenF7.menu.pnum.GENERIC_F733IEKX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F733IEKX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F733IEKX.build.board=GENERIC_F733IEKX
+GenF7.menu.pnum.GENERIC_F733IEKX.build.product_line=STM32F733xx
+GenF7.menu.pnum.GENERIC_F733IEKX.build.variant=STM32F7xx/F723I(C-E)(K-T)_F730I8K_F733IE(K-T)
+
+# Generic F733IETx
+GenF7.menu.pnum.GENERIC_F733IETX=Generic F733IETx
+GenF7.menu.pnum.GENERIC_F733IETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F733IETX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F733IETX.build.board=GENERIC_F733IETX
+GenF7.menu.pnum.GENERIC_F733IETX.build.product_line=STM32F733xx
+GenF7.menu.pnum.GENERIC_F733IETX.build.variant=STM32F7xx/F723I(C-E)(K-T)_F730I8K_F733IE(K-T)
 
 # Generic F745ZETx
 GenF7.menu.pnum.GENERIC_F745ZETX=Generic F745ZETx
@@ -7292,7 +7377,7 @@ GenH5.menu.pnum.GENERIC_H563IIKXQ.upload.maximum_size=2097152
 GenH5.menu.pnum.GENERIC_H563IIKXQ.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H563IIKXQ.build.board=GENERIC_H563IIKXQ
 GenH5.menu.pnum.GENERIC_H563IIKXQ.build.product_line=STM32H563xx
-GenH5.menu.pnum.GENERIC_H563IIKXQ.build.variant=STM32H5xx/H563IIKxQ
+GenH5.menu.pnum.GENERIC_H563IIKXQ.build.variant=STM32H5xx/H563IIKxQ_H573IIKxQ
 
 # Generic H563ZGTx
 GenH5.menu.pnum.GENERIC_H563ZGTX=Generic H563ZGTx
@@ -7300,7 +7385,7 @@ GenH5.menu.pnum.GENERIC_H563ZGTX.upload.maximum_size=1048576
 GenH5.menu.pnum.GENERIC_H563ZGTX.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H563ZGTX.build.board=GENERIC_H563ZGTX
 GenH5.menu.pnum.GENERIC_H563ZGTX.build.product_line=STM32H563xx
-GenH5.menu.pnum.GENERIC_H563ZGTX.build.variant=STM32H5xx/H563Z(G-I)T
+GenH5.menu.pnum.GENERIC_H563ZGTX.build.variant=STM32H5xx/H563Z(G-I)T_H573ZIT
 
 # Generic H563ZITx
 GenH5.menu.pnum.GENERIC_H563ZITX=Generic H563ZITx
@@ -7308,7 +7393,7 @@ GenH5.menu.pnum.GENERIC_H563ZITX.upload.maximum_size=2097152
 GenH5.menu.pnum.GENERIC_H563ZITX.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H563ZITX.build.board=GENERIC_H563ZITX
 GenH5.menu.pnum.GENERIC_H563ZITX.build.product_line=STM32H563xx
-GenH5.menu.pnum.GENERIC_H563ZITX.build.variant=STM32H5xx/H563Z(G-I)T
+GenH5.menu.pnum.GENERIC_H563ZITX.build.variant=STM32H5xx/H563Z(G-I)T_H573ZIT
 
 # Generic H573IIKxQ
 GenH5.menu.pnum.GENERIC_H573IIKXQ=Generic H573IIKxQ
@@ -7316,7 +7401,7 @@ GenH5.menu.pnum.GENERIC_H573IIKXQ.upload.maximum_size=2097152
 GenH5.menu.pnum.GENERIC_H573IIKXQ.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H573IIKXQ.build.board=GENERIC_H573IIKXQ
 GenH5.menu.pnum.GENERIC_H573IIKXQ.build.product_line=STM32H573xx
-GenH5.menu.pnum.GENERIC_H573IIKXQ.build.variant=STM32H5xx/H573IIKxQ
+GenH5.menu.pnum.GENERIC_H573IIKXQ.build.variant=STM32H5xx/H563IIKxQ_H573IIKxQ
 
 # Generic H573ZITx
 GenH5.menu.pnum.GENERIC_H573ZITX=Generic H573ZITx
@@ -7324,7 +7409,7 @@ GenH5.menu.pnum.GENERIC_H573ZITX.upload.maximum_size=2097152
 GenH5.menu.pnum.GENERIC_H573ZITX.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H573ZITX.build.board=GENERIC_H573ZITX
 GenH5.menu.pnum.GENERIC_H573ZITX.build.product_line=STM32H573xx
-GenH5.menu.pnum.GENERIC_H573ZITX.build.variant=STM32H5xx/H573ZIT
+GenH5.menu.pnum.GENERIC_H573ZITX.build.variant=STM32H5xx/H563Z(G-I)T_H573ZIT
 
 # Upload menu
 GenH5.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
@@ -7526,6 +7611,22 @@ GenH7.menu.pnum.GENERIC_H742VITX.build.board=GENERIC_H742VITX
 GenH7.menu.pnum.GENERIC_H742VITX.build.product_line=STM32H742xx
 GenH7.menu.pnum.GENERIC_H742VITX.build.variant=STM32H7xx/H742V(G-I)(H-T)_H743V(G-I)(H-T)_H750VBT_H753VI(H-T)
 
+# Generic H742XGHx
+GenH7.menu.pnum.GENERIC_H742XGHX=Generic H742XGHx
+GenH7.menu.pnum.GENERIC_H742XGHX.upload.maximum_size=1048576
+GenH7.menu.pnum.GENERIC_H742XGHX.upload.maximum_data_size=524288
+GenH7.menu.pnum.GENERIC_H742XGHX.build.board=GENERIC_H742XGHX
+GenH7.menu.pnum.GENERIC_H742XGHX.build.product_line=STM32H742xx
+GenH7.menu.pnum.GENERIC_H742XGHX.build.variant=STM32H7xx/H742X(G-I)H_H743X(G-I)H_H745X(G-I)H_H747X(G-I)H_H750XBH_H753XIH_H755XIH_H757XIH
+
+# Generic H742XIHx
+GenH7.menu.pnum.GENERIC_H742XIHX=Generic H742XIHx
+GenH7.menu.pnum.GENERIC_H742XIHX.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H742XIHX.upload.maximum_data_size=524288
+GenH7.menu.pnum.GENERIC_H742XIHX.build.board=GENERIC_H742XIHX
+GenH7.menu.pnum.GENERIC_H742XIHX.build.product_line=STM32H742xx
+GenH7.menu.pnum.GENERIC_H742XIHX.build.variant=STM32H7xx/H742X(G-I)H_H743X(G-I)H_H745X(G-I)H_H747X(G-I)H_H750XBH_H753XIH_H755XIH_H757XIH
+
 # Generic H742ZGTx
 GenH7.menu.pnum.GENERIC_H742ZGTX=Generic H742ZGTx
 GenH7.menu.pnum.GENERIC_H742ZGTX.upload.maximum_size=1048576
@@ -7606,6 +7707,22 @@ GenH7.menu.pnum.GENERIC_H743VITX.build.board=GENERIC_H743VITX
 GenH7.menu.pnum.GENERIC_H743VITX.build.product_line=STM32H743xx
 GenH7.menu.pnum.GENERIC_H743VITX.build.variant=STM32H7xx/H742V(G-I)(H-T)_H743V(G-I)(H-T)_H750VBT_H753VI(H-T)
 
+# Generic H743XGHx
+GenH7.menu.pnum.GENERIC_H743XGHX=Generic H743XGHx
+GenH7.menu.pnum.GENERIC_H743XGHX.upload.maximum_size=1048576
+GenH7.menu.pnum.GENERIC_H743XGHX.upload.maximum_data_size=524288
+GenH7.menu.pnum.GENERIC_H743XGHX.build.board=GENERIC_H743XGHX
+GenH7.menu.pnum.GENERIC_H743XGHX.build.product_line=STM32H743xx
+GenH7.menu.pnum.GENERIC_H743XGHX.build.variant=STM32H7xx/H742X(G-I)H_H743X(G-I)H_H745X(G-I)H_H747X(G-I)H_H750XBH_H753XIH_H755XIH_H757XIH
+
+# Generic H743XIHx
+GenH7.menu.pnum.GENERIC_H743XIHX=Generic H743XIHx
+GenH7.menu.pnum.GENERIC_H743XIHX.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H743XIHX.upload.maximum_data_size=524288
+GenH7.menu.pnum.GENERIC_H743XIHX.build.board=GENERIC_H743XIHX
+GenH7.menu.pnum.GENERIC_H743XIHX.build.product_line=STM32H743xx
+GenH7.menu.pnum.GENERIC_H743XIHX.build.variant=STM32H7xx/H742X(G-I)H_H743X(G-I)H_H745X(G-I)H_H747X(G-I)H_H750XBH_H753XIH_H755XIH_H757XIH
+
 # Generic H743ZGTx
 GenH7.menu.pnum.GENERIC_H743ZGTX=Generic H743ZGTx
 GenH7.menu.pnum.GENERIC_H743ZGTX.upload.maximum_size=1048576
@@ -7621,6 +7738,22 @@ GenH7.menu.pnum.GENERIC_H743ZITX.upload.maximum_data_size=524288
 GenH7.menu.pnum.GENERIC_H743ZITX.build.board=GENERIC_H743ZITX
 GenH7.menu.pnum.GENERIC_H743ZITX.build.product_line=STM32H743xx
 GenH7.menu.pnum.GENERIC_H743ZITX.build.variant=STM32H7xx/H742Z(G-I)T_H743Z(G-I)T_H747A(G-I)I_H747I(G-I)T_H750ZBT_H753ZIT_H757AII_H757IIT
+
+# Generic H745XGHx
+GenH7.menu.pnum.GENERIC_H745XGHX=Generic H745XGHx
+GenH7.menu.pnum.GENERIC_H745XGHX.upload.maximum_size=1048576
+GenH7.menu.pnum.GENERIC_H745XGHX.upload.maximum_data_size=524288
+GenH7.menu.pnum.GENERIC_H745XGHX.build.board=GENERIC_H745XGHX
+GenH7.menu.pnum.GENERIC_H745XGHX.build.product_line=STM32H745xG
+GenH7.menu.pnum.GENERIC_H745XGHX.build.variant=STM32H7xx/H742X(G-I)H_H743X(G-I)H_H745X(G-I)H_H747X(G-I)H_H750XBH_H753XIH_H755XIH_H757XIH
+
+# Generic H745XIHx
+GenH7.menu.pnum.GENERIC_H745XIHX=Generic H745XIHx
+GenH7.menu.pnum.GENERIC_H745XIHX.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H745XIHX.upload.maximum_data_size=524288
+GenH7.menu.pnum.GENERIC_H745XIHX.build.board=GENERIC_H745XIHX
+GenH7.menu.pnum.GENERIC_H745XIHX.build.product_line=STM32H745xx
+GenH7.menu.pnum.GENERIC_H745XIHX.build.variant=STM32H7xx/H742X(G-I)H_H743X(G-I)H_H745X(G-I)H_H747X(G-I)H_H750XBH_H753XIH_H755XIH_H757XIH
 
 # Generic H747AGIx
 GenH7.menu.pnum.GENERIC_H747AGIX=Generic H747AGIx
@@ -7654,6 +7787,22 @@ GenH7.menu.pnum.GENERIC_H747IITX.build.board=GENERIC_H747IITX
 GenH7.menu.pnum.GENERIC_H747IITX.build.product_line=STM32H747xx
 GenH7.menu.pnum.GENERIC_H747IITX.build.variant=STM32H7xx/H742Z(G-I)T_H743Z(G-I)T_H747A(G-I)I_H747I(G-I)T_H750ZBT_H753ZIT_H757AII_H757IIT
 
+# Generic H747XGHx
+GenH7.menu.pnum.GENERIC_H747XGHX=Generic H747XGHx
+GenH7.menu.pnum.GENERIC_H747XGHX.upload.maximum_size=1048576
+GenH7.menu.pnum.GENERIC_H747XGHX.upload.maximum_data_size=524288
+GenH7.menu.pnum.GENERIC_H747XGHX.build.board=GENERIC_H747XGHX
+GenH7.menu.pnum.GENERIC_H747XGHX.build.product_line=STM32H747xG
+GenH7.menu.pnum.GENERIC_H747XGHX.build.variant=STM32H7xx/H742X(G-I)H_H743X(G-I)H_H745X(G-I)H_H747X(G-I)H_H750XBH_H753XIH_H755XIH_H757XIH
+
+# Generic H747XIHx
+GenH7.menu.pnum.GENERIC_H747XIHX=Generic H747XIHx
+GenH7.menu.pnum.GENERIC_H747XIHX.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H747XIHX.upload.maximum_data_size=524288
+GenH7.menu.pnum.GENERIC_H747XIHX.build.board=GENERIC_H747XIHX
+GenH7.menu.pnum.GENERIC_H747XIHX.build.product_line=STM32H747xx
+GenH7.menu.pnum.GENERIC_H747XIHX.build.variant=STM32H7xx/H742X(G-I)H_H743X(G-I)H_H745X(G-I)H_H747X(G-I)H_H750XBH_H753XIH_H755XIH_H757XIH
+
 # Generic H750IBKx
 GenH7.menu.pnum.GENERIC_H750IBKX=Generic H750IBKx
 GenH7.menu.pnum.GENERIC_H750IBKX.upload.maximum_size=131072
@@ -7677,6 +7826,14 @@ GenH7.menu.pnum.GENERIC_H750VBTX.upload.maximum_data_size=524288
 GenH7.menu.pnum.GENERIC_H750VBTX.build.board=GENERIC_H750VBTX
 GenH7.menu.pnum.GENERIC_H750VBTX.build.product_line=STM32H750xx
 GenH7.menu.pnum.GENERIC_H750VBTX.build.variant=STM32H7xx/H742V(G-I)(H-T)_H743V(G-I)(H-T)_H750VBT_H753VI(H-T)
+
+# Generic H750XBHx
+GenH7.menu.pnum.GENERIC_H750XBHX=Generic H750XBHx
+GenH7.menu.pnum.GENERIC_H750XBHX.upload.maximum_size=131072
+GenH7.menu.pnum.GENERIC_H750XBHX.upload.maximum_data_size=524288
+GenH7.menu.pnum.GENERIC_H750XBHX.build.board=GENERIC_H750XBHX
+GenH7.menu.pnum.GENERIC_H750XBHX.build.product_line=STM32H750xx
+GenH7.menu.pnum.GENERIC_H750XBHX.build.variant=STM32H7xx/H742X(G-I)H_H743X(G-I)H_H745X(G-I)H_H747X(G-I)H_H750XBH_H753XIH_H755XIH_H757XIH
 
 # Generic H750ZBTx
 GenH7.menu.pnum.GENERIC_H750ZBTX=Generic H750ZBTx
@@ -7718,6 +7875,14 @@ GenH7.menu.pnum.GENERIC_H753VITX.build.board=GENERIC_H753VITX
 GenH7.menu.pnum.GENERIC_H753VITX.build.product_line=STM32H753xx
 GenH7.menu.pnum.GENERIC_H753VITX.build.variant=STM32H7xx/H742V(G-I)(H-T)_H743V(G-I)(H-T)_H750VBT_H753VI(H-T)
 
+# Generic H753XIHx
+GenH7.menu.pnum.GENERIC_H753XIHX=Generic H753XIHx
+GenH7.menu.pnum.GENERIC_H753XIHX.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H753XIHX.upload.maximum_data_size=524288
+GenH7.menu.pnum.GENERIC_H753XIHX.build.board=GENERIC_H753XIHX
+GenH7.menu.pnum.GENERIC_H753XIHX.build.product_line=STM32H753xx
+GenH7.menu.pnum.GENERIC_H753XIHX.build.variant=STM32H7xx/H742X(G-I)H_H743X(G-I)H_H745X(G-I)H_H747X(G-I)H_H750XBH_H753XIH_H755XIH_H757XIH
+
 # Generic H753ZITx
 GenH7.menu.pnum.GENERIC_H753ZITX=Generic H753ZITx
 GenH7.menu.pnum.GENERIC_H753ZITX.upload.maximum_size=2097152
@@ -7725,6 +7890,14 @@ GenH7.menu.pnum.GENERIC_H753ZITX.upload.maximum_data_size=524288
 GenH7.menu.pnum.GENERIC_H753ZITX.build.board=GENERIC_H753ZITX
 GenH7.menu.pnum.GENERIC_H753ZITX.build.product_line=STM32H753xx
 GenH7.menu.pnum.GENERIC_H753ZITX.build.variant=STM32H7xx/H742Z(G-I)T_H743Z(G-I)T_H747A(G-I)I_H747I(G-I)T_H750ZBT_H753ZIT_H757AII_H757IIT
+
+# Generic H755XIHx
+GenH7.menu.pnum.GENERIC_H755XIHX=Generic H755XIHx
+GenH7.menu.pnum.GENERIC_H755XIHX.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H755XIHX.upload.maximum_data_size=524288
+GenH7.menu.pnum.GENERIC_H755XIHX.build.board=GENERIC_H755XIHX
+GenH7.menu.pnum.GENERIC_H755XIHX.build.product_line=STM32H755xx
+GenH7.menu.pnum.GENERIC_H755XIHX.build.variant=STM32H7xx/H742X(G-I)H_H743X(G-I)H_H745X(G-I)H_H747X(G-I)H_H750XBH_H753XIH_H755XIH_H757XIH
 
 # Generic H757AIIx
 GenH7.menu.pnum.GENERIC_H757AIIX=Generic H757AIIx
@@ -7741,6 +7914,14 @@ GenH7.menu.pnum.GENERIC_H757IITX.upload.maximum_data_size=524288
 GenH7.menu.pnum.GENERIC_H757IITX.build.board=GENERIC_H757IITX
 GenH7.menu.pnum.GENERIC_H757IITX.build.product_line=STM32H757xx
 GenH7.menu.pnum.GENERIC_H757IITX.build.variant=STM32H7xx/H742Z(G-I)T_H743Z(G-I)T_H747A(G-I)I_H747I(G-I)T_H750ZBT_H753ZIT_H757AII_H757IIT
+
+# Generic H757XIHx
+GenH7.menu.pnum.GENERIC_H757XIHX=Generic H757XIHx
+GenH7.menu.pnum.GENERIC_H757XIHX.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H757XIHX.upload.maximum_data_size=524288
+GenH7.menu.pnum.GENERIC_H757XIHX.build.board=GENERIC_H757XIHX
+GenH7.menu.pnum.GENERIC_H757XIHX.build.product_line=STM32H757xx
+GenH7.menu.pnum.GENERIC_H757XIHX.build.variant=STM32H7xx/H742X(G-I)H_H743X(G-I)H_H745X(G-I)H_H747X(G-I)H_H750XBH_H753XIH_H755XIH_H757XIH
 
 # Upload menu
 GenH7.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
@@ -9918,6 +10099,22 @@ GenU5.menu.pnum.GENERIC_U575AIIXQ.build.board=GENERIC_U575AIIXQ
 GenU5.menu.pnum.GENERIC_U575AIIXQ.build.product_line=STM32U575xx
 GenU5.menu.pnum.GENERIC_U575AIIXQ.build.variant=STM32U5xx/U575A(G-I)IxQ_U585AIIxQ
 
+# Generic U575CITx
+GenU5.menu.pnum.GENERIC_U575CITX=Generic U575CITx
+GenU5.menu.pnum.GENERIC_U575CITX.upload.maximum_size=2097152
+GenU5.menu.pnum.GENERIC_U575CITX.upload.maximum_data_size=786432
+GenU5.menu.pnum.GENERIC_U575CITX.build.board=GENERIC_U575CITX
+GenU5.menu.pnum.GENERIC_U575CITX.build.product_line=STM32U575xx
+GenU5.menu.pnum.GENERIC_U575CITX.build.variant=STM32U5xx/U575C(G-I)(T-U)_U585CI(T-U)
+
+# Generic U575CIUx
+GenU5.menu.pnum.GENERIC_U575CIUX=Generic U575CIUx
+GenU5.menu.pnum.GENERIC_U575CIUX.upload.maximum_size=2097152
+GenU5.menu.pnum.GENERIC_U575CIUX.upload.maximum_data_size=786432
+GenU5.menu.pnum.GENERIC_U575CIUX.build.board=GENERIC_U575CIUX
+GenU5.menu.pnum.GENERIC_U575CIUX.build.product_line=STM32U575xx
+GenU5.menu.pnum.GENERIC_U575CIUX.build.variant=STM32U5xx/U575C(G-I)(T-U)_U585CI(T-U)
+
 # Generic U575ZGTxQ
 GenU5.menu.pnum.GENERIC_U575ZGTXQ=Generic U575ZGTxQ
 GenU5.menu.pnum.GENERIC_U575ZGTXQ.upload.maximum_size=1048576
@@ -9934,14 +10131,6 @@ GenU5.menu.pnum.GENERIC_U575ZITXQ.build.board=GENERIC_U575ZITXQ
 GenU5.menu.pnum.GENERIC_U575ZITXQ.build.product_line=STM32U575xx
 GenU5.menu.pnum.GENERIC_U575ZITXQ.build.variant=STM32U5xx/U575Z(G-I)TxQ_U585ZITxQ
 
-# Generic U585ZITxQ
-GenU5.menu.pnum.GENERIC_U585ZITXQ=Generic U585ZITxQ
-GenU5.menu.pnum.GENERIC_U585ZITXQ.upload.maximum_size=2097152
-GenU5.menu.pnum.GENERIC_U585ZITXQ.upload.maximum_data_size=786432
-GenU5.menu.pnum.GENERIC_U585ZITXQ.build.board=GENERIC_U585ZITXQ
-GenU5.menu.pnum.GENERIC_U585ZITXQ.build.product_line=STM32U585xx
-GenU5.menu.pnum.GENERIC_U585ZITXQ.build.variant=STM32U5xx/U575Z(G-I)TxQ_U585ZITxQ
-
 # Generic U585AIIxQ
 GenU5.menu.pnum.GENERIC_U585AIIXQ=Generic U585AIIxQ
 GenU5.menu.pnum.GENERIC_U585AIIXQ.upload.maximum_size=2097152
@@ -9949,6 +10138,30 @@ GenU5.menu.pnum.GENERIC_U585AIIXQ.upload.maximum_data_size=262144
 GenU5.menu.pnum.GENERIC_U585AIIXQ.build.board=GENERIC_U585AIIXQ
 GenU5.menu.pnum.GENERIC_U585AIIXQ.build.product_line=STM32U585xx
 GenU5.menu.pnum.GENERIC_U585AIIXQ.build.variant=STM32U5xx/U575A(G-I)IxQ_U585AIIxQ
+
+# Generic U585CITx
+GenU5.menu.pnum.GENERIC_U585CITX=Generic U585CITx
+GenU5.menu.pnum.GENERIC_U585CITX.upload.maximum_size=2097152
+GenU5.menu.pnum.GENERIC_U585CITX.upload.maximum_data_size=786432
+GenU5.menu.pnum.GENERIC_U585CITX.build.board=GENERIC_U585CITX
+GenU5.menu.pnum.GENERIC_U585CITX.build.product_line=STM32U585xx
+GenU5.menu.pnum.GENERIC_U585CITX.build.variant=STM32U5xx/U575C(G-I)(T-U)_U585CI(T-U)
+
+# Generic U585CIUx
+GenU5.menu.pnum.GENERIC_U585CIUX=Generic U585CIUx
+GenU5.menu.pnum.GENERIC_U585CIUX.upload.maximum_size=2097152
+GenU5.menu.pnum.GENERIC_U585CIUX.upload.maximum_data_size=786432
+GenU5.menu.pnum.GENERIC_U585CIUX.build.board=GENERIC_U585CIUX
+GenU5.menu.pnum.GENERIC_U585CIUX.build.product_line=STM32U585xx
+GenU5.menu.pnum.GENERIC_U585CIUX.build.variant=STM32U5xx/U575C(G-I)(T-U)_U585CI(T-U)
+
+# Generic U585ZITxQ
+GenU5.menu.pnum.GENERIC_U585ZITXQ=Generic U585ZITxQ
+GenU5.menu.pnum.GENERIC_U585ZITXQ.upload.maximum_size=2097152
+GenU5.menu.pnum.GENERIC_U585ZITXQ.upload.maximum_data_size=786432
+GenU5.menu.pnum.GENERIC_U585ZITXQ.build.board=GENERIC_U585ZITXQ
+GenU5.menu.pnum.GENERIC_U585ZITXQ.build.product_line=STM32U585xx
+GenU5.menu.pnum.GENERIC_U585ZITXQ.build.variant=STM32U5xx/U575Z(G-I)TxQ_U585ZITxQ
 
 # Upload menu
 GenU5.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
@@ -10712,6 +10925,48 @@ GenFlight.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
 GenFlight.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF
 
 ################################################################################
+# IoT continuum Boards
+
+IotContinuum.name=IoT continuum boards
+
+IotContinuum.build.core=arduino
+IotContinuum.build.board=IOT_CONTINUUM
+IotContinuum.build.variant_h=variant_{build.board}.h
+IotContinuum.build.st_extra_flags=-D{build.product_line} {build.xSerial}
+IotContinuum.build.flash_offset=0x0
+IotContinuum.upload.maximum_size=0
+IotContinuum.upload.maximum_data_size=0
+
+# IoT continuum Dev Kit Board
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM=IoT continuum Dev Kit
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.upload.maximum_size=2097152
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.upload.maximum_data_size=786432
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.mcu=cortex-m33
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.fpu=-mfpu=fpv4-sp-d16
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.float-abi=-mfloat-abi=hard
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.board=DEVKIT_IOT_CONTINUUM
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.series=STM32U5xx
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.product_line=STM32U585xx
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.variant=STM32U5xx/U575C(G-I)(T-U)_U585CI(T-U)
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+
+# Upload menu
+IotContinuum.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+IotContinuum.menu.upload_method.swdMethod.upload.protocol=0
+IotContinuum.menu.upload_method.swdMethod.upload.options=
+IotContinuum.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+IotContinuum.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+IotContinuum.menu.upload_method.serialMethod.upload.protocol=1
+IotContinuum.menu.upload_method.serialMethod.upload.options={serial.port.file}
+IotContinuum.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+IotContinuum.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+IotContinuum.menu.upload_method.dfuMethod.upload.protocol=2
+IotContinuum.menu.upload_method.dfuMethod.upload.options=
+IotContinuum.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+################################################################################
 # LoRa boards
 
 LoRa.name=LoRa boards
@@ -10952,7 +11207,6 @@ SparkFun.menu.upload_method.dfuMethod.upload.protocol=2
 SparkFun.menu.upload_method.dfuMethod.upload.options=
 SparkFun.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
-
 ################################################################################
 # Serialx activation
 Nucleo_144.menu.xserial.generic=Enabled (generic 'Serial')
@@ -11142,6 +11396,12 @@ GenFlight.menu.xserial.none=Enabled (no generic 'Serial')
 GenFlight.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenFlight.menu.xserial.disabled=Disabled (no Serial support)
 GenFlight.menu.xserial.disabled.build.xSerial=
+
+IotContinuum.menu.xserial.generic=Enabled (generic 'Serial')
+IotContinuum.menu.xserial.none=Enabled (no generic 'Serial')
+IotContinuum.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+IotContinuum.menu.xserial.disabled=Disabled (no Serial support)
+IotContinuum.menu.xserial.disabled.build.xSerial=
 
 LoRa.menu.xserial.generic=Enabled (generic 'Serial')
 LoRa.menu.xserial.none=Enabled (no generic 'Serial')
@@ -12111,6 +12371,26 @@ GenFlight.menu.opt.ogstd.build.flags.optimize=-Og
 GenFlight.menu.opt.o0std=No Optimization (-O0)
 GenFlight.menu.opt.o0std.build.flags.optimize=-O0
 
+IotContinuum.menu.opt.osstd=Smallest (-Os default)
+IotContinuum.menu.opt.oslto=Smallest (-Os) with LTO
+IotContinuum.menu.opt.oslto.build.flags.optimize=-Os -flto
+IotContinuum.menu.opt.o1std=Fast (-O1)
+IotContinuum.menu.opt.o1std.build.flags.optimize=-O1
+IotContinuum.menu.opt.o1lto=Fast (-O1) with LTO
+IotContinuum.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+IotContinuum.menu.opt.o2std=Faster (-O2)
+IotContinuum.menu.opt.o2std.build.flags.optimize=-O2
+IotContinuum.menu.opt.o2lto=Faster (-O2) with LTO
+IotContinuum.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+IotContinuum.menu.opt.o3std=Fastest (-O3)
+IotContinuum.menu.opt.o3std.build.flags.optimize=-O3
+IotContinuum.menu.opt.o3lto=Fastest (-O3) with LTO
+IotContinuum.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+IotContinuum.menu.opt.ogstd=Debug (-Og)
+IotContinuum.menu.opt.ogstd.build.flags.optimize=-Og
+IotContinuum.menu.opt.o0std=No Optimization (-O0)
+IotContinuum.menu.opt.o0std.build.flags.optimize=-O0
+
 LoRa.menu.opt.osstd=Smallest (-Os default)
 LoRa.menu.opt.oslto=Smallest (-Os) with LTO
 LoRa.menu.opt.oslto.build.flags.optimize=-Os -flto
@@ -12221,7 +12501,7 @@ STM32MP1.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 STM32MP1.menu.dbg.enable_all.build.flags.debug=-g
 
 GenC0.menu.dbg.none=None
-GenC0.menu.dbg.enable=Enabled (-g)
+GenC0.menu.dbg.enable=Symbols Enabled (-g)
 GenC0.menu.dbg.enable.build.flags.debug=-g
 
 GenF0.menu.dbg.none=None
@@ -12399,6 +12679,14 @@ GenFlight.menu.dbg.enable_log=Core logs Enabled
 GenFlight.menu.dbg.enable_log.build.flags.debug=
 GenFlight.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 GenFlight.menu.dbg.enable_all.build.flags.debug=-g
+
+IotContinuum.menu.dbg.none=None
+IotContinuum.menu.dbg.enable_sym=Symbols Enabled (-g)
+IotContinuum.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+IotContinuum.menu.dbg.enable_log=Core logs Enabled
+IotContinuum.menu.dbg.enable_log.build.flags.debug=
+IotContinuum.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+IotContinuum.menu.dbg.enable_all.build.flags.debug=-g
 
 LoRa.menu.dbg.none=None
 LoRa.menu.dbg.enable_sym=Symbols Enabled (-g)
@@ -12724,6 +13012,16 @@ GenFlight.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenFlight.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenFlight.menu.rtlib.full=Newlib Standard
 GenFlight.menu.rtlib.full.build.flags.ldspecs=
+
+IotContinuum.menu.rtlib.nano=Newlib Nano (default)
+IotContinuum.menu.rtlib.nanofp=Newlib Nano + Float Printf
+IotContinuum.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+IotContinuum.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+IotContinuum.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+IotContinuum.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+IotContinuum.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+IotContinuum.menu.rtlib.full=Newlib Standard
+IotContinuum.menu.rtlib.full.build.flags.ldspecs=
 
 LoRa.menu.rtlib.nano=Newlib Nano (default)
 LoRa.menu.rtlib.nanofp=Newlib Nano + Float Printf

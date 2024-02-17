@@ -60,6 +60,9 @@ defined in linker script */
 Reset_Handler:
   ldr   sp, =_estack       /* set stack pointer */
 
+/* Call the clock system initialization function.*/
+  bl  SystemInit
+
 /* Copy the data segment initializers from flash to SRAM */
   ldr r0, =_sdata
   ldr r1, =_edata
@@ -91,8 +94,6 @@ LoopFillZerobss:
   cmp r2, r4
   bcc FillZerobss
 
-/* Call the clock system initialization function.*/
-  bl  SystemInit
 /* Call static constructors */
     bl __libc_init_array
 /* Call the application's entry point.*/
@@ -121,7 +122,6 @@ Infinite_Loop:
 *******************************************************************************/
    .section  .isr_vector,"a",%progbits
   .type  g_pfnVectors, %object
-  .size  g_pfnVectors, .-g_pfnVectors
 
 g_pfnVectors:
   .word  _estack
@@ -234,6 +234,9 @@ g_pfnVectors:
   .word     LTDC_IRQHandler                   /* LTDC_IRQHandler			  */
   .word     LTDC_ER_IRQHandler                /* LTDC_ER_IRQHandler			  */
   .word     DMA2D_IRQHandler                  /* DMA2D                        */
+
+
+  .size  g_pfnVectors, .-g_pfnVectors
 
 /*******************************************************************************
 *

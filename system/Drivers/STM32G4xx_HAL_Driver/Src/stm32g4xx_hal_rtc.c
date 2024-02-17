@@ -372,24 +372,28 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
     /* Set RTC state */
     hrtc->State = HAL_RTC_STATE_BUSY;
 
-    /* Disable the write protection for RTC registers */
-    __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
-
-    /* Enter Initialization mode */
-    status = RTC_EnterInitMode(hrtc);
-
-    if (status == HAL_OK)
+    /* Check whether the calendar needs to be initialized */
+    if (__HAL_RTC_IS_CALENDAR_INITIALIZED(hrtc) == 0U)
     {
-      /* Clear RTC_CR FMT, OSEL and POL Bits */
-      CLEAR_BIT(hrtc->Instance->CR, (RTC_CR_FMT | RTC_CR_POL | RTC_CR_OSEL | RTC_CR_TAMPOE));
-      /* Set RTC_CR register */
-      SET_BIT(hrtc->Instance->CR, (hrtc->Init.HourFormat | hrtc->Init.OutPut | hrtc->Init.OutPutPolarity));
+      /* Disable the write protection for RTC registers */
+      __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
 
-      /* Configure the RTC PRER */
-      WRITE_REG(hrtc->Instance->PRER, ((hrtc->Init.SynchPrediv) | (hrtc->Init.AsynchPrediv << RTC_PRER_PREDIV_A_Pos)));
+      /* Enter Initialization mode */
+      status = RTC_EnterInitMode(hrtc);
 
-      /* Exit Initialization mode */
-      status = RTC_ExitInitMode(hrtc);
+      if (status == HAL_OK)
+      {
+        /* Clear RTC_CR FMT, OSEL and POL Bits */
+        CLEAR_BIT(hrtc->Instance->CR, (RTC_CR_FMT | RTC_CR_POL | RTC_CR_OSEL | RTC_CR_TAMPOE));
+        /* Set RTC_CR register */
+        SET_BIT(hrtc->Instance->CR, (hrtc->Init.HourFormat | hrtc->Init.OutPut | hrtc->Init.OutPutPolarity));
+
+        /* Configure the RTC PRER */
+        WRITE_REG(hrtc->Instance->PRER, ((hrtc->Init.SynchPrediv) | (hrtc->Init.AsynchPrediv << RTC_PRER_PREDIV_A_Pos)));
+
+        /* Exit Initialization mode */
+        status = RTC_ExitInitMode(hrtc);
+      }
 
       if (status == HAL_OK)
       {
@@ -397,10 +401,15 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
                    RTC_CR_TAMPALRM_PU | RTC_CR_TAMPALRM_TYPE | RTC_CR_OUT2EN, \
                    hrtc->Init.OutPutPullUp | hrtc->Init.OutPutType | hrtc->Init.OutPutRemap);
       }
-    }
 
-    /* Enable the write protection for RTC registers */
-    __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
+      /* Enable the write protection for RTC registers */
+      __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
+    }
+    else
+    {
+      /* The calendar is already initialized */
+      status = HAL_OK;
+    }
 
     if (status == HAL_OK)
     {
@@ -1794,8 +1803,8 @@ HAL_StatusTypeDef HAL_RTC_WaitForSynchro(RTC_HandleTypeDef *hrtc)
 {
   uint32_t tickstart;
 
-  /* Clear RSF flag */
-  CLEAR_BIT(hrtc->Instance->ICSR, RTC_ICSR_RSF);
+  /* Clear RSF flag, keep reserved bits at reset values (setting other flags has no effect) */
+  hrtc->Instance->ICSR = ((uint32_t)(RTC_RSF_MASK & RTC_ICSR_RESERVED_MASK));
 
   tickstart = HAL_GetTick();
 

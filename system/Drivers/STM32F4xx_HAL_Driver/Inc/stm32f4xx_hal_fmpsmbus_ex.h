@@ -104,9 +104,9 @@ void HAL_FMPSMBUSEx_DisableFastModePlus(uint32_t ConfigFastModePlus);
   * @{
   */
 #define IS_FMPSMBUS_FASTMODEPLUS(__CONFIG__) ((((__CONFIG__) & (FMPSMBUS_FASTMODEPLUS_SCL)) == \
-                                            FMPSMBUS_FASTMODEPLUS_SCL) || \
-                                           (((__CONFIG__) & (FMPSMBUS_FASTMODEPLUS_SDA)) == \
-                                            FMPSMBUS_FASTMODEPLUS_SDA))
+                                               FMPSMBUS_FASTMODEPLUS_SCL) || \
+                                              (((__CONFIG__) & (FMPSMBUS_FASTMODEPLUS_SDA)) == \
+                                               FMPSMBUS_FASTMODEPLUS_SDA))
 /**
   * @}
   */

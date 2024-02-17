@@ -484,7 +484,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef * hrtc); /*!< pointer to
   *           - YYYYY  : Interrupt flag position in the XX register (5bits)
   *           - XX  : Interrupt status register (2bits)
   *                 - 01: ICSR register
-  *                 - 10: SR or SCR or MISR or SMISR registers
+  *                 - 10: SR or SCR or MISR registers
   * @{
   */
 #define RTC_FLAG_RECALPF                    (0x00000100U | RTC_ICSR_RECALPF_Pos) /*!< Recalibration pending Flag */
@@ -664,9 +664,9 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef * hrtc); /*!< pointer to
   *         This parameter can be:
   *            @arg @ref RTC_IT_ALRA Alarm A interrupt
   *            @arg @ref RTC_IT_ALRB Alarm B interrupt
-  * @retval None
+  * @retval The state of __INTERRUPT__ (TRUE or FALSE).
   */
-#define __HAL_RTC_ALARM_GET_IT(__HANDLE__, __INTERRUPT__) (((((__HANDLE__)->Instance->SR)& ((__INTERRUPT__)>> 12U)) != 0U)? 1U : 0U)
+#define __HAL_RTC_ALARM_GET_IT(__HANDLE__, __INTERRUPT__) (((((__HANDLE__)->Instance->MISR) & ((__INTERRUPT__) >> 12U)) != 0U) ? 1U : 0U)
 
 /**
   * @brief  Check whether the specified RTC Alarm interrupt has been enabled or not.
@@ -675,7 +675,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef * hrtc); /*!< pointer to
   *         This parameter can be:
   *            @arg @ref RTC_IT_ALRA Alarm A interrupt
   *            @arg @ref RTC_IT_ALRB Alarm B interrupt
-  * @retval None
+  * @retval The state of __INTERRUPT__ (TRUE or FALSE).
   */
 #define __HAL_RTC_ALARM_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)     (((((__HANDLE__)->Instance->CR) & (__INTERRUPT__)) != 0U) ? 1U : 0U)
 
@@ -688,9 +688,13 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef * hrtc); /*!< pointer to
   *            @arg @ref RTC_FLAG_ALRBF
   *            @arg @ref RTC_FLAG_ALRAWF
   *            @arg @ref RTC_FLAG_ALRBWF
-  * @retval None
+  * @retval The state of __FLAG__ (TRUE or FALSE).
   */
-#define __HAL_RTC_ALARM_GET_FLAG(__HANDLE__, __FLAG__)   (__HAL_RTC_GET_FLAG((__HANDLE__), (__FLAG__)))
+#define __HAL_RTC_ALARM_GET_FLAG(__HANDLE__, __FLAG__)( \
+                                ((__FLAG__) == RTC_FLAG_ALRAF)  ? (((((__HANDLE__)->Instance->SR)   & (RTC_SR_ALRAF))    != 0U) ? 1U : 0U):\
+                                ((__FLAG__) == RTC_FLAG_ALRBF)  ? (((((__HANDLE__)->Instance->SR)   & (RTC_SR_ALRBF))    != 0U) ? 1U : 0U):\
+                                ((__FLAG__) == RTC_FLAG_ALRAWF) ? (((((__HANDLE__)->Instance->ICSR) & (RTC_ICSR_ALRAWF)) != 0U) ? 1U : 0U):\
+                                                                  (((((__HANDLE__)->Instance->ICSR) & (RTC_ICSR_ALRBWF)) != 0U) ? 1U : 0U))
 
 /**
   * @brief  Clear the RTC Alarms pending flags.
@@ -701,8 +705,9 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef * hrtc); /*!< pointer to
   *             @arg @ref RTC_FLAG_ALRBF
   * @retval None
   */
-#define __HAL_RTC_ALARM_CLEAR_FLAG(__HANDLE__, __FLAG__)   (((__FLAG__) == RTC_FLAG_ALRAF) ? (__HAL_RTC_CLEAR_FLAG((__HANDLE__), RTC_CLEAR_ALRAF)) : \
-                                                            (__HAL_RTC_CLEAR_FLAG((__HANDLE__), RTC_CLEAR_ALRBF)))
+#define __HAL_RTC_ALARM_CLEAR_FLAG(__HANDLE__, __FLAG__)( \
+                                ((__FLAG__) == RTC_FLAG_ALRAF) ? ((__HANDLE__)->Instance->SCR |= (RTC_SCR_CALRAF)):\
+                                                                 ((__HANDLE__)->Instance->SCR |= (RTC_SCR_CALRBF)))
 
 /**
   * @brief  Enable interrupt on the RTC Alarm associated Exti line.
@@ -827,6 +832,9 @@ HAL_RTCStateTypeDef HAL_RTC_GetState(RTC_HandleTypeDef *hrtc);
 #define RTC_DR_RESERVED_MASK                (RTC_DR_YT | RTC_DR_YU | RTC_DR_WDU | \
                                             RTC_DR_MT | RTC_DR_MU | RTC_DR_DT  | \
                                             RTC_DR_DU)
+#define RTC_ICSR_RESERVED_MASK              (RTC_ICSR_RECALPF | RTC_ICSR_INIT | RTC_ICSR_INITF | \
+                                            RTC_ICSR_RSF | RTC_ICSR_INITS | RTC_ICSR_SHPF | \
+                                            RTC_ICSR_WUTWF | RTC_ICSR_ALRBWF | RTC_ICSR_ALRAWF)
 #define RTC_INIT_MASK                       0xFFFFFFFFu
 #define RTC_RSF_MASK                        (~(RTC_ICSR_INIT | RTC_ICSR_RSF))
 

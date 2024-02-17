@@ -136,13 +136,19 @@ def configure_application_offset(mcu, upload_protocol):
                 offset = 0x2000
             env.Append(CPPDEFINES=["BL_LEGACY_LEAF"])
 
-    if offset != 0:
-        env.Append(
-            CPPDEFINES=[("VECT_TAB_OFFSET", "%s" % hex(offset))],
-        )
+    env.Append(
+        CPPDEFINES=[
+            ("VECT_TAB_OFFSET", board_config.get("build.flash_offset", hex(offset)))
+        ],
+    )
 
     # LD_FLASH_OFFSET is mandatory even if there is no offset
-    env.Append(LINKFLAGS=["-Wl,--defsym=LD_FLASH_OFFSET=%s" % hex(offset)])
+    env.Append(
+        LINKFLAGS=[
+            "-Wl,--defsym=LD_FLASH_OFFSET=%s"
+            % board_config.get("build.flash_offset", hex(offset))
+        ]
+    )
 
 
 def load_boards_remap():
@@ -190,6 +196,7 @@ def get_arduino_board_id(board_config, mcu):
 
     return board_id.upper()
 
+
 board_id = get_arduino_board_id(board_config, mcu)
 machine_flags = [
     "-mcpu=%s" % board_config.get("build.cpu"),
@@ -197,7 +204,10 @@ machine_flags = [
 ]
 
 if (
-    any(cpu in board_config.get("build.cpu") for cpu in ("cortex-m33", "cortex-m4", "cortex-m7"))
+    any(
+        cpu in board_config.get("build.cpu")
+        for cpu in ("cortex-m33", "cortex-m4", "cortex-m7")
+    )
     and "stm32wl" not in mcu
 ):
     machine_flags.extend(["-mfpu=fpv4-sp-d16", "-mfloat-abi=hard"])
@@ -205,27 +215,31 @@ if (
 env.Append(
     ASFLAGS=machine_flags,
     ASPPFLAGS=[
-        "-x", "assembler-with-cpp",
+        "-x",
+        "assembler-with-cpp",
     ],
-    CFLAGS=["-std=gnu11"],
+    CFLAGS=["-std=gnu17"],
     CXXFLAGS=[
-        "-std=gnu++14",
+        "-std=gnu++17",
         "-fno-threadsafe-statics",
         "-fno-rtti",
         "-fno-exceptions",
         "-fno-use-cxa-atexit",
     ],
-    CCFLAGS=machine_flags + [
+    CCFLAGS=machine_flags
+    + [
         "-Os",  # optimize for size
         "-ffunction-sections",  # place each function in its own section
         "-fdata-sections",
         "-nostdlib",
-        "--param", "max-inline-insns-single=500",
+        "--param",
+        "max-inline-insns-single=500",
     ],
     CPPDEFINES=[
         series,
         ("ARDUINO", 10808),
         "ARDUINO_ARCH_STM32",
+        "NDEBUG",
         "ARDUINO_%s" % board_id,
         ("BOARD_NAME", '\\"%s\\"' % board_id),
         "HAL_UART_MODULE_ENABLED",
@@ -316,7 +330,8 @@ env.Append(
         join(CMSIS_DIR, "DSP", "PrivateInclude"),
         join(FRAMEWORK_DIR, "cores", "arduino"),
     ],
-    LINKFLAGS=machine_flags + [
+    LINKFLAGS=machine_flags
+    + [
         "-Os",
         "--specs=nano.specs",
         "-Wl,--gc-sections,--relax",
@@ -327,6 +342,7 @@ env.Append(
         "-Wl,--defsym=LD_MAX_SIZE=%d" % board_config.get("upload.maximum_size"),
         "-Wl,--defsym=LD_MAX_DATA_SIZE=%d"
         % board_config.get("upload.maximum_ram_size"),
+        '-Wl,-Map="%s"' % join("${BUILD_DIR}", "${PROGNAME}.map"),
     ],
     LIBS=[
         "c",

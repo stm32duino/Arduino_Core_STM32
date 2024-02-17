@@ -188,7 +188,7 @@
 #if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
 static void LPTIM_ResetCallback(LPTIM_HandleTypeDef *lptim);
 #endif /* USE_HAL_LPTIM_REGISTER_CALLBACKS */
-static HAL_StatusTypeDef LPTIM_WaitForFlag(LPTIM_HandleTypeDef *hlptim, uint32_t flag);
+static HAL_StatusTypeDef LPTIM_WaitForFlag(const LPTIM_HandleTypeDef *hlptim, uint32_t flag);
 
 /* Exported functions --------------------------------------------------------*/
 
@@ -458,7 +458,7 @@ __weak void HAL_LPTIM_MspDeInit(LPTIM_HandleTypeDef *hlptim)
   * @brief  Start the LPTIM PWM generation.
   * @param  hlptim LPTIM handle
   * @param  Period Specifies the Autoreload value.
-  *         This parameter must be a value between 0x0000 and 0xFFFF.
+  *         This parameter must be a value between 0x0001 and 0xFFFF.
   * @param  Pulse Specifies the compare value.
   *         This parameter must be a value between 0x0000 and 0xFFFF.
   * @retval HAL status
@@ -506,7 +506,7 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Start(LPTIM_HandleTypeDef *hlptim, uint32_t Peri
   /* Start timer in continuous mode */
   __HAL_LPTIM_START_CONTINUOUS(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -523,7 +523,7 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Stop(LPTIM_HandleTypeDef *hlptim)
   /* Check the parameters */
   assert_param(IS_LPTIM_INSTANCE(hlptim->Instance));
 
-  /* Set the LPTIM state */
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_BUSY;
 
   /* Disable the Peripheral */
@@ -534,7 +534,7 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Stop(LPTIM_HandleTypeDef *hlptim)
     return HAL_TIMEOUT;
   }
 
-  /* Change the LPTIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -545,7 +545,7 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Stop(LPTIM_HandleTypeDef *hlptim)
   * @brief  Start the LPTIM PWM generation in interrupt mode.
   * @param  hlptim LPTIM handle
   * @param  Period Specifies the Autoreload value.
-  *         This parameter must be a value between 0x0000 and 0xFFFF
+  *         This parameter must be a value between 0x0001 and 0xFFFF
   * @param  Pulse Specifies the compare value.
   *         This parameter must be a value between 0x0000 and 0xFFFF
   * @retval HAL status
@@ -623,7 +623,7 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32_t P
   /* Start timer in continuous mode */
   __HAL_LPTIM_START_CONTINUOUS(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -640,7 +640,7 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Stop_IT(LPTIM_HandleTypeDef *hlptim)
   /* Check the parameters */
   assert_param(IS_LPTIM_INSTANCE(hlptim->Instance));
 
-  /* Set the LPTIM state */
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_BUSY;
 
   /* Disable the Peripheral */
@@ -670,7 +670,7 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Stop_IT(LPTIM_HandleTypeDef *hlptim)
     __HAL_LPTIM_DISABLE_IT(hlptim, LPTIM_IT_EXTTRIG);
   }
 
-  /* Change the LPTIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -681,7 +681,7 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Stop_IT(LPTIM_HandleTypeDef *hlptim)
   * @brief  Start the LPTIM One pulse generation.
   * @param  hlptim LPTIM handle
   * @param  Period Specifies the Autoreload value.
-  *         This parameter must be a value between 0x0000 and 0xFFFF.
+  *         This parameter must be a value between 0x0001 and 0xFFFF.
   * @param  Pulse Specifies the compare value.
   *         This parameter must be a value between 0x0000 and 0xFFFF.
   * @retval HAL status
@@ -729,7 +729,7 @@ HAL_StatusTypeDef HAL_LPTIM_OnePulse_Start(LPTIM_HandleTypeDef *hlptim, uint32_t
   /* Start timer in single (one shot) mode */
   __HAL_LPTIM_START_SINGLE(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -757,7 +757,7 @@ HAL_StatusTypeDef HAL_LPTIM_OnePulse_Stop(LPTIM_HandleTypeDef *hlptim)
     return HAL_TIMEOUT;
   }
 
-  /* Change the LPTIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -768,7 +768,7 @@ HAL_StatusTypeDef HAL_LPTIM_OnePulse_Stop(LPTIM_HandleTypeDef *hlptim)
   * @brief  Start the LPTIM One pulse generation in interrupt mode.
   * @param  hlptim LPTIM handle
   * @param  Period Specifies the Autoreload value.
-  *         This parameter must be a value between 0x0000 and 0xFFFF.
+  *         This parameter must be a value between 0x0001 and 0xFFFF.
   * @param  Pulse Specifies the compare value.
   *         This parameter must be a value between 0x0000 and 0xFFFF.
   * @retval HAL status
@@ -846,7 +846,7 @@ HAL_StatusTypeDef HAL_LPTIM_OnePulse_Start_IT(LPTIM_HandleTypeDef *hlptim, uint3
   /* Start timer in single (one shot) mode */
   __HAL_LPTIM_START_SINGLE(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -865,6 +865,7 @@ HAL_StatusTypeDef HAL_LPTIM_OnePulse_Stop_IT(LPTIM_HandleTypeDef *hlptim)
 
   /* Set the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_BUSY;
+
 
   /* Disable the Peripheral */
   __HAL_LPTIM_DISABLE(hlptim);
@@ -893,7 +894,7 @@ HAL_StatusTypeDef HAL_LPTIM_OnePulse_Stop_IT(LPTIM_HandleTypeDef *hlptim)
     __HAL_LPTIM_DISABLE_IT(hlptim, LPTIM_IT_EXTTRIG);
   }
 
-  /* Change the LPTIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -904,7 +905,7 @@ HAL_StatusTypeDef HAL_LPTIM_OnePulse_Stop_IT(LPTIM_HandleTypeDef *hlptim)
   * @brief  Start the LPTIM in Set once mode.
   * @param  hlptim LPTIM handle
   * @param  Period Specifies the Autoreload value.
-  *         This parameter must be a value between 0x0000 and 0xFFFF.
+  *         This parameter must be a value between 0x0001 and 0xFFFF.
   * @param  Pulse Specifies the compare value.
   *         This parameter must be a value between 0x0000 and 0xFFFF.
   * @retval HAL status
@@ -952,7 +953,7 @@ HAL_StatusTypeDef HAL_LPTIM_SetOnce_Start(LPTIM_HandleTypeDef *hlptim, uint32_t 
   /* Start timer in single (one shot) mode */
   __HAL_LPTIM_START_SINGLE(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -980,7 +981,7 @@ HAL_StatusTypeDef HAL_LPTIM_SetOnce_Stop(LPTIM_HandleTypeDef *hlptim)
     return HAL_TIMEOUT;
   }
 
-  /* Change the LPTIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1069,7 +1070,7 @@ HAL_StatusTypeDef HAL_LPTIM_SetOnce_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32
   /* Start timer in single (one shot) mode */
   __HAL_LPTIM_START_SINGLE(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1116,7 +1117,7 @@ HAL_StatusTypeDef HAL_LPTIM_SetOnce_Stop_IT(LPTIM_HandleTypeDef *hlptim)
     __HAL_LPTIM_DISABLE_IT(hlptim, LPTIM_IT_EXTTRIG);
   }
 
-  /* Change the LPTIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1127,7 +1128,7 @@ HAL_StatusTypeDef HAL_LPTIM_SetOnce_Stop_IT(LPTIM_HandleTypeDef *hlptim)
   * @brief  Start the Encoder interface.
   * @param  hlptim LPTIM handle
   * @param  Period Specifies the Autoreload value.
-  *         This parameter must be a value between 0x0000 and 0xFFFF.
+  *         This parameter must be a value between 0x0001 and 0xFFFF.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_LPTIM_Encoder_Start(LPTIM_HandleTypeDef *hlptim, uint32_t Period)
@@ -1177,7 +1178,7 @@ HAL_StatusTypeDef HAL_LPTIM_Encoder_Start(LPTIM_HandleTypeDef *hlptim, uint32_t 
   /* Start timer in continuous mode */
   __HAL_LPTIM_START_CONTINUOUS(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1208,7 +1209,7 @@ HAL_StatusTypeDef HAL_LPTIM_Encoder_Stop(LPTIM_HandleTypeDef *hlptim)
   /* Reset ENC bit to disable the encoder interface */
   hlptim->Instance->CFGR &= ~LPTIM_CFGR_ENC;
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1287,7 +1288,7 @@ HAL_StatusTypeDef HAL_LPTIM_Encoder_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32
   /* Start timer in continuous mode */
   __HAL_LPTIM_START_CONTINUOUS(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1324,7 +1325,7 @@ HAL_StatusTypeDef HAL_LPTIM_Encoder_Stop_IT(LPTIM_HandleTypeDef *hlptim)
   /* Disable "switch to up direction" interrupt */
   __HAL_LPTIM_DISABLE_IT(hlptim, LPTIM_IT_UP);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1337,7 +1338,7 @@ HAL_StatusTypeDef HAL_LPTIM_Encoder_Stop_IT(LPTIM_HandleTypeDef *hlptim)
   *         trigger event will reset the counter and the timer restarts.
   * @param  hlptim LPTIM handle
   * @param  Period Specifies the Autoreload value.
-  *         This parameter must be a value between 0x0000 and 0xFFFF.
+  *         This parameter must be a value between 0x0001 and 0xFFFF.
   * @param  Timeout Specifies the TimeOut value to reset the counter.
   *         This parameter must be a value between 0x0000 and 0xFFFF.
   * @retval HAL status
@@ -1385,7 +1386,7 @@ HAL_StatusTypeDef HAL_LPTIM_TimeOut_Start(LPTIM_HandleTypeDef *hlptim, uint32_t 
   /* Start timer in continuous mode */
   __HAL_LPTIM_START_CONTINUOUS(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1416,7 +1417,7 @@ HAL_StatusTypeDef HAL_LPTIM_TimeOut_Stop(LPTIM_HandleTypeDef *hlptim)
   /* Reset TIMOUT bit to enable the timeout function */
   hlptim->Instance->CFGR &= ~LPTIM_CFGR_TIMOUT;
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1429,7 +1430,7 @@ HAL_StatusTypeDef HAL_LPTIM_TimeOut_Stop(LPTIM_HandleTypeDef *hlptim)
   *         trigger event will reset the counter and the timer restarts.
   * @param  hlptim LPTIM handle
   * @param  Period Specifies the Autoreload value.
-  *         This parameter must be a value between 0x0000 and 0xFFFF.
+  *         This parameter must be a value between 0x0001 and 0xFFFF.
   * @param  Timeout Specifies the TimeOut value to reset the counter.
   *         This parameter must be a value between 0x0000 and 0xFFFF.
   * @retval HAL status
@@ -1494,7 +1495,7 @@ HAL_StatusTypeDef HAL_LPTIM_TimeOut_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32
   /* Start timer in continuous mode */
   __HAL_LPTIM_START_CONTINUOUS(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1511,11 +1512,12 @@ HAL_StatusTypeDef HAL_LPTIM_TimeOut_Stop_IT(LPTIM_HandleTypeDef *hlptim)
   /* Check the parameters */
   assert_param(IS_LPTIM_INSTANCE(hlptim->Instance));
 
-  /* Set the LPTIM state */
-  hlptim->State = HAL_LPTIM_STATE_BUSY;
 
   /* Disable EXTI Line interrupt on the LPTIM Wake-up Timer */
   __HAL_LPTIM_WAKEUPTIMER_EXTI_DISABLE_IT();
+
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_BUSY;
 
   /* Disable the Peripheral */
   __HAL_LPTIM_DISABLE(hlptim);
@@ -1531,7 +1533,7 @@ HAL_StatusTypeDef HAL_LPTIM_TimeOut_Stop_IT(LPTIM_HandleTypeDef *hlptim)
   /* Disable Compare match interrupt */
   __HAL_LPTIM_DISABLE_IT(hlptim, LPTIM_IT_CMPM);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1542,7 +1544,7 @@ HAL_StatusTypeDef HAL_LPTIM_TimeOut_Stop_IT(LPTIM_HandleTypeDef *hlptim)
   * @brief  Start the Counter mode.
   * @param  hlptim LPTIM handle
   * @param  Period Specifies the Autoreload value.
-  *         This parameter must be a value between 0x0000 and 0xFFFF.
+  *         This parameter must be a value between 0x0001 and 0xFFFF.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_LPTIM_Counter_Start(LPTIM_HandleTypeDef *hlptim, uint32_t Period)
@@ -1582,7 +1584,7 @@ HAL_StatusTypeDef HAL_LPTIM_Counter_Start(LPTIM_HandleTypeDef *hlptim, uint32_t 
   /* Start timer in continuous mode */
   __HAL_LPTIM_START_CONTINUOUS(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1610,7 +1612,7 @@ HAL_StatusTypeDef HAL_LPTIM_Counter_Stop(LPTIM_HandleTypeDef *hlptim)
     return HAL_TIMEOUT;
   }
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1621,7 +1623,7 @@ HAL_StatusTypeDef HAL_LPTIM_Counter_Stop(LPTIM_HandleTypeDef *hlptim)
   * @brief  Start the Counter mode in interrupt mode.
   * @param  hlptim LPTIM handle
   * @param  Period Specifies the Autoreload value.
-  *         This parameter must be a value between 0x0000 and 0xFFFF.
+  *         This parameter must be a value between 0x0001 and 0xFFFF.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_LPTIM_Counter_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32_t Period)
@@ -1681,7 +1683,7 @@ HAL_StatusTypeDef HAL_LPTIM_Counter_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32
   /* Start timer in continuous mode */
   __HAL_LPTIM_START_CONTINUOUS(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1698,11 +1700,12 @@ HAL_StatusTypeDef HAL_LPTIM_Counter_Stop_IT(LPTIM_HandleTypeDef *hlptim)
   /* Check the parameters */
   assert_param(IS_LPTIM_INSTANCE(hlptim->Instance));
 
-  /* Set the LPTIM state */
-  hlptim->State = HAL_LPTIM_STATE_BUSY;
 
   /* Disable EXTI Line interrupt on the LPTIM Wake-up Timer */
   __HAL_LPTIM_WAKEUPTIMER_EXTI_DISABLE_IT();
+
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_BUSY;
 
   /* Disable the Peripheral */
   __HAL_LPTIM_DISABLE(hlptim);
@@ -1717,7 +1720,7 @@ HAL_StatusTypeDef HAL_LPTIM_Counter_Stop_IT(LPTIM_HandleTypeDef *hlptim)
 
   /* Disable Autoreload match interrupt */
   __HAL_LPTIM_DISABLE_IT(hlptim, LPTIM_IT_ARRM);
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1748,7 +1751,7 @@ HAL_StatusTypeDef HAL_LPTIM_Counter_Stop_IT(LPTIM_HandleTypeDef *hlptim)
   * @param  hlptim LPTIM handle
   * @retval Counter value.
   */
-uint32_t HAL_LPTIM_ReadCounter(LPTIM_HandleTypeDef *hlptim)
+uint32_t HAL_LPTIM_ReadCounter(const LPTIM_HandleTypeDef *hlptim)
 {
   /* Check the parameters */
   assert_param(IS_LPTIM_INSTANCE(hlptim->Instance));
@@ -1761,7 +1764,7 @@ uint32_t HAL_LPTIM_ReadCounter(LPTIM_HandleTypeDef *hlptim)
   * @param  hlptim LPTIM handle
   * @retval Autoreload value.
   */
-uint32_t HAL_LPTIM_ReadAutoReload(LPTIM_HandleTypeDef *hlptim)
+uint32_t HAL_LPTIM_ReadAutoReload(const LPTIM_HandleTypeDef *hlptim)
 {
   /* Check the parameters */
   assert_param(IS_LPTIM_INSTANCE(hlptim->Instance));
@@ -1774,7 +1777,7 @@ uint32_t HAL_LPTIM_ReadAutoReload(LPTIM_HandleTypeDef *hlptim)
   * @param  hlptim LPTIM handle
   * @retval Compare value.
   */
-uint32_t HAL_LPTIM_ReadCompare(LPTIM_HandleTypeDef *hlptim)
+uint32_t HAL_LPTIM_ReadCompare(const LPTIM_HandleTypeDef *hlptim)
 {
   /* Check the parameters */
   assert_param(IS_LPTIM_INSTANCE(hlptim->Instance));
@@ -2069,9 +2072,6 @@ HAL_StatusTypeDef HAL_LPTIM_RegisterCallback(LPTIM_HandleTypeDef        *hlptim,
     return HAL_ERROR;
   }
 
-  /* Process locked */
-  __HAL_LOCK(hlptim);
-
   if (hlptim->State == HAL_LPTIM_STATE_READY)
   {
     switch (CallbackID)
@@ -2142,9 +2142,6 @@ HAL_StatusTypeDef HAL_LPTIM_RegisterCallback(LPTIM_HandleTypeDef        *hlptim,
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hlptim);
-
   return status;
 }
 
@@ -2169,9 +2166,6 @@ HAL_StatusTypeDef HAL_LPTIM_UnRegisterCallback(LPTIM_HandleTypeDef        *hlpti
                                                HAL_LPTIM_CallbackIDTypeDef CallbackID)
 {
   HAL_StatusTypeDef status = HAL_OK;
-
-  /* Process locked */
-  __HAL_LOCK(hlptim);
 
   if (hlptim->State == HAL_LPTIM_STATE_READY)
   {
@@ -2254,9 +2248,6 @@ HAL_StatusTypeDef HAL_LPTIM_UnRegisterCallback(LPTIM_HandleTypeDef        *hlpti
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hlptim);
-
   return status;
 }
 #endif /* USE_HAL_LPTIM_REGISTER_CALLBACKS */
@@ -2284,7 +2275,7 @@ HAL_StatusTypeDef HAL_LPTIM_UnRegisterCallback(LPTIM_HandleTypeDef        *hlpti
   * @param  hlptim LPTIM handle
   * @retval HAL state
   */
-HAL_LPTIM_StateTypeDef HAL_LPTIM_GetState(LPTIM_HandleTypeDef *hlptim)
+HAL_LPTIM_StateTypeDef HAL_LPTIM_GetState(const LPTIM_HandleTypeDef *hlptim)
 {
   /* Return LPTIM handle state */
   return hlptim->State;
@@ -2331,7 +2322,7 @@ static void LPTIM_ResetCallback(LPTIM_HandleTypeDef *lptim)
   * @param  flag   The lptim flag
   * @retval HAL status
   */
-static HAL_StatusTypeDef LPTIM_WaitForFlag(LPTIM_HandleTypeDef *hlptim, uint32_t flag)
+static HAL_StatusTypeDef LPTIM_WaitForFlag(const LPTIM_HandleTypeDef *hlptim, uint32_t flag)
 {
   HAL_StatusTypeDef result = HAL_OK;
   uint32_t count = TIMEOUT * (SystemCoreClock / 20UL / 1000UL);

@@ -57,9 +57,13 @@ extern "C" {
 #if !defined (STM32F1xx) && !defined (STM32F2xx) && !defined (STM32F4xx) &&\
     !defined (STM32L1xx)
 #define I2C_TIMING
+#if !defined(I2C_TIMING_SM) || !defined(I2C_TIMING_FM) || !defined(I2C_TIMING_FMP)
+#define I2C_TIMING_COMPUTE
+#endif /* !(I2C_TIMING_SM) || !(I2C_TIMING_FM) || !(I2C_TIMING_FMP)*/
+
 #endif
 
-#ifdef I2C_TIMING
+#ifdef I2C_TIMING_COMPUTE
 #ifndef I2C_VALID_TIMING_NBR
 #define I2C_VALID_TIMING_NBR          8U
 #endif
@@ -152,7 +156,7 @@ static const I2C_Charac_t I2C_Charac[] = {
     .dnf = I2C_DIGITAL_FILTER_COEF,
   }
 };
-#endif /* I2C_TIMING */
+#endif /* I2C_TIMING_COMPUTE */
 
 /*  Family specific description for I2C */
 typedef enum {
@@ -180,7 +184,7 @@ typedef enum {
 /* Private Variables */
 static I2C_HandleTypeDef *i2c_handles[I2C_NUM];
 
-#ifdef I2C_TIMING
+#ifdef I2C_TIMING_COMPUTE
 /**
   * @brief  This function return the I2C clock source frequency.
   * @param  i2c: I2C instance
@@ -565,7 +569,7 @@ static uint32_t i2c_computeTiming(uint32_t clkSrcFreq, uint32_t i2c_speed)
   }
   return ret;
 }
-#endif /* I2C_TIMING */
+#endif /* I2C_TIMING_COMPUTE */
 
 /**
 * @brief Compute I2C timing according current I2C clock source and
@@ -587,6 +591,9 @@ static uint32_t i2c_getTiming(i2c_t *obj, uint32_t frequency)
     i2c_speed = 1000000;
   }
 #ifdef I2C_TIMING
+#ifndef I2C_TIMING_COMPUTE
+  UNUSED(obj);
+#endif
   if (i2c_speed != 0U) {
     switch (i2c_speed) {
       default:
@@ -804,6 +811,52 @@ void i2c_deinit(i2c_t *obj)
   HAL_NVIC_DisableIRQ(obj->irqER);
 #endif /* !STM32C0xx && !STM32F0xx && !STM32G0xx && !STM32L0xx */
   HAL_I2C_DeInit(&(obj->handle));
+  /* Reset I2C GPIO pins as INPUT_ANALOG */
+  pin_function(obj->scl, STM_PIN_DATA(STM_MODE_ANALOG, GPIO_NOPULL, 0));
+  pin_function(obj->sda, STM_PIN_DATA(STM_MODE_ANALOG, GPIO_NOPULL, 0));
+  // Reset I2Cx and disable clock
+#if defined I2C1_BASE
+  if (obj->i2c == I2C1) {
+    __HAL_RCC_I2C1_FORCE_RESET();
+    __HAL_RCC_I2C1_RELEASE_RESET();
+    __HAL_RCC_I2C1_CLK_DISABLE();
+  }
+#endif // I2C1_BASE
+#if defined I2C2_BASE
+  if (obj->i2c == I2C2) {
+    __HAL_RCC_I2C2_FORCE_RESET();
+    __HAL_RCC_I2C2_RELEASE_RESET();
+    __HAL_RCC_I2C2_CLK_DISABLE();
+  }
+#endif // I2C2_BASE
+#if defined I2C3_BASE
+  if (obj->i2c == I2C3) {
+    __HAL_RCC_I2C3_FORCE_RESET();
+    __HAL_RCC_I2C3_RELEASE_RESET();
+    __HAL_RCC_I2C3_CLK_DISABLE();
+  }
+#endif // I2C3_BASE
+#if defined I2C4_BASE
+  if (obj->i2c == I2C4) {
+    __HAL_RCC_I2C4_FORCE_RESET();
+    __HAL_RCC_I2C4_RELEASE_RESET();
+    __HAL_RCC_I2C4_CLK_DISABLE();
+  }
+#endif // I2C4_BASE
+#if defined I2C5_BASE
+  if (obj->i2c == I2C5) {
+    __HAL_RCC_I2C5_FORCE_RESET();
+    __HAL_RCC_I2C5_RELEASE_RESET();
+    __HAL_RCC_I2C5_CLK_DISABLE();
+  }
+#endif // I2C5_BASE
+#if defined I2C6_BASE
+  if (obj->i2c == I2C6) {
+    __HAL_RCC_I2C6_FORCE_RESET();
+    __HAL_RCC_I2C6_RELEASE_RESET();
+    __HAL_RCC_I2C6_CLK_DISABLE();
+  }
+#endif // I2C6_BASE
 }
 
 /**

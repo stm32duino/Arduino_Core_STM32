@@ -22,6 +22,7 @@
 
 #include "clock.h"
 #include "dwt.h"
+#include <sys/time.h> // for struct timeval
 
 #ifdef __cplusplus
 extern "C" {
@@ -84,6 +85,27 @@ static inline void delayMicroseconds(uint32_t us)
     oldTicks = currentTicks;
   } while (nbTicks > elapsedTicks);
 #endif
+}
+
+/**
+ * \brief gives the number of seconds and microseconds since the Epoch
+ *
+ *        based on millisecond since last power on.
+ *
+ * \note  The function is declared as weak  to be overwritten  in case of other
+ *        implementations in user file (using RTC values for example).
+ *
+ * \param tv argument is a struct timeval
+ * \param tz argument is a struct timezone (unused)
+ *
+ * \return 0
+ */
+int __attribute__((weak)) _gettimeofday(struct timeval *tv, void *tz)
+{
+  (void)tz;
+  tv->tv_sec = getCurrentMillis() / 1000;
+  tv->tv_usec = getCurrentMicros() - (tv->tv_sec * 1000000);  // get remaining microseconds
+  return 0;
 }
 
 #ifdef __cplusplus

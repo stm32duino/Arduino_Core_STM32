@@ -14,7 +14,7 @@ on:
       - '!CI/build/platformio-builder.py'
       - cmake/**
       - tools/**
-      - '!tools/platformio-build.py'
+      - '!tools/platformio/platformio-build.py'
   pull_request:
     paths-ignore:
       - .github/**
@@ -27,7 +27,7 @@ on:
       - '!CI/build/platformio-builder.py'
       - cmake/**
       - tools/**
-      - '!tools/platformio-build.py'
+      - '!tools/platformio/platformio-build.py'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 jobs:
@@ -39,11 +39,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@main
 
-    # - name: PlatformIO
-    #   id: Compile
-    #   uses: ./.github/actions/pio-build
-    # Use the output from the `Astyle` step
-    - name: Warning
-      run: |
-        echo "PlatformIO build disabled while not support CMSIS update."
-        exit 0
+    - name: PlatformIO
+      id: Compile
+      uses: ./.github/actions/pio-build

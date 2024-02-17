@@ -159,8 +159,8 @@
 /** @defgroup CORDIC_Private_Functions CORDIC Private Functions
   * @{
   */
-static void CORDIC_WriteInDataIncrementPtr(CORDIC_HandleTypeDef *hcordic, int32_t **ppInBuff);
-static void CORDIC_ReadOutDataIncrementPtr(CORDIC_HandleTypeDef *hcordic, int32_t **ppOutBuff);
+static void CORDIC_WriteInDataIncrementPtr(const CORDIC_HandleTypeDef *hcordic, const int32_t **ppInBuff);
+static void CORDIC_ReadOutDataIncrementPtr(const CORDIC_HandleTypeDef *hcordic, int32_t **ppOutBuff);
 static void CORDIC_DMAInCplt(DMA_HandleTypeDef *hdma);
 static void CORDIC_DMAOutCplt(DMA_HandleTypeDef *hdma);
 static void CORDIC_DMAError(DMA_HandleTypeDef *hdma);
@@ -555,7 +555,7 @@ HAL_StatusTypeDef HAL_CORDIC_UnRegisterCallback(CORDIC_HandleTypeDef *hcordic, H
   *         contains the CORDIC configuration information.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_CORDIC_Configure(CORDIC_HandleTypeDef *hcordic, CORDIC_ConfigTypeDef *sConfig)
+HAL_StatusTypeDef HAL_CORDIC_Configure(CORDIC_HandleTypeDef *hcordic, const CORDIC_ConfigTypeDef *sConfig)
 {
   HAL_StatusTypeDef status = HAL_OK;
 
@@ -602,12 +602,12 @@ HAL_StatusTypeDef HAL_CORDIC_Configure(CORDIC_HandleTypeDef *hcordic, CORDIC_Con
   * @param  Timeout Specify Timeout value
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_CORDIC_Calculate(CORDIC_HandleTypeDef *hcordic, int32_t *pInBuff, int32_t *pOutBuff,
+HAL_StatusTypeDef HAL_CORDIC_Calculate(CORDIC_HandleTypeDef *hcordic, const int32_t *pInBuff, int32_t *pOutBuff,
                                        uint32_t NbCalc, uint32_t Timeout)
 {
   uint32_t tickstart;
   uint32_t index;
-  int32_t *p_tmp_in_buff = pInBuff;
+  const int32_t *p_tmp_in_buff = pInBuff;
   int32_t *p_tmp_out_buff = pOutBuff;
 
   /* Check parameters setting */
@@ -696,12 +696,12 @@ HAL_StatusTypeDef HAL_CORDIC_Calculate(CORDIC_HandleTypeDef *hcordic, int32_t *p
   * @param  Timeout Specify Timeout value
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_CORDIC_CalculateZO(CORDIC_HandleTypeDef *hcordic, int32_t *pInBuff, int32_t *pOutBuff,
+HAL_StatusTypeDef HAL_CORDIC_CalculateZO(CORDIC_HandleTypeDef *hcordic, const int32_t *pInBuff, int32_t *pOutBuff,
                                          uint32_t NbCalc, uint32_t Timeout)
 {
   uint32_t tickstart;
   uint32_t index;
-  int32_t *p_tmp_in_buff = pInBuff;
+  const int32_t *p_tmp_in_buff = pInBuff;
   int32_t *p_tmp_out_buff = pOutBuff;
 
   /* Check parameters setting */
@@ -789,10 +789,10 @@ HAL_StatusTypeDef HAL_CORDIC_CalculateZO(CORDIC_HandleTypeDef *hcordic, int32_t 
   * @param  NbCalc Number of CORDIC calculation to process.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_CORDIC_Calculate_IT(CORDIC_HandleTypeDef *hcordic, int32_t *pInBuff, int32_t *pOutBuff,
+HAL_StatusTypeDef HAL_CORDIC_Calculate_IT(CORDIC_HandleTypeDef *hcordic, const int32_t *pInBuff, int32_t *pOutBuff,
                                           uint32_t NbCalc)
 {
-  int32_t *tmp_pInBuff = pInBuff;
+  const int32_t *tmp_pInBuff = pInBuff;
 
   /* Check parameters setting */
   if ((pInBuff == NULL) || (pOutBuff == NULL) || (NbCalc == 0U))
@@ -881,13 +881,11 @@ HAL_StatusTypeDef HAL_CORDIC_Calculate_IT(CORDIC_HandleTypeDef *hcordic, int32_t
   *         DMA transfer to and from the Peripheral.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_CORDIC_Calculate_DMA(CORDIC_HandleTypeDef *hcordic, int32_t *pInBuff, int32_t *pOutBuff,
+HAL_StatusTypeDef HAL_CORDIC_Calculate_DMA(CORDIC_HandleTypeDef *hcordic, const int32_t *pInBuff, int32_t *pOutBuff,
                                            uint32_t NbCalc, uint32_t DMADirection)
 {
   uint32_t sizeinbuff;
   uint32_t sizeoutbuff;
-  uint32_t inputaddr;
-  uint32_t outputaddr;
 
   /* Check the parameters */
   assert_param(IS_CORDIC_DMA_DIRECTION(DMADirection));
@@ -960,10 +958,9 @@ HAL_StatusTypeDef HAL_CORDIC_Calculate_DMA(CORDIC_HandleTypeDef *hcordic, int32_
         sizeoutbuff = NbCalc;
       }
 
-      outputaddr = (uint32_t)pOutBuff;
-
       /* Enable the DMA stream managing CORDIC output data read */
-      if (HAL_DMA_Start_IT(hcordic->hdmaOut, (uint32_t)&hcordic->Instance->RDATA, outputaddr, sizeoutbuff) != HAL_OK)
+      if (HAL_DMA_Start_IT(hcordic->hdmaOut, (uint32_t)&hcordic->Instance->RDATA, (uint32_t) pOutBuff, sizeoutbuff)
+          != HAL_OK)
       {
         /* Update the error code */
         hcordic->ErrorCode |= HAL_CORDIC_ERROR_DMA;
@@ -995,10 +992,9 @@ HAL_StatusTypeDef HAL_CORDIC_Calculate_DMA(CORDIC_HandleTypeDef *hcordic, int32_
         sizeinbuff = NbCalc;
       }
 
-      inputaddr  = (uint32_t)pInBuff;
-
       /* Enable the DMA stream managing CORDIC input data write */
-      if (HAL_DMA_Start_IT(hcordic->hdmaIn, inputaddr, (uint32_t)&hcordic->Instance->WDATA, sizeinbuff) != HAL_OK)
+      if (HAL_DMA_Start_IT(hcordic->hdmaIn, (uint32_t) pInBuff, (uint32_t)&hcordic->Instance->WDATA, sizeinbuff)
+          != HAL_OK)
       {
         /* Update the error code */
         hcordic->ErrorCode |= HAL_CORDIC_ERROR_DMA;
@@ -1137,7 +1133,7 @@ void HAL_CORDIC_IRQHandler(CORDIC_HandleTypeDef *hcordic)
         /*Call registered callback*/
         hcordic->CalculateCpltCallback(hcordic);
 #else
-        /*Call legacy weak (surcharged) callback*/
+        /*Call legacy weak callback*/
         HAL_CORDIC_CalculateCpltCallback(hcordic);
 #endif /* USE_HAL_CORDIC_REGISTER_CALLBACKS */
       }
@@ -1169,7 +1165,7 @@ void HAL_CORDIC_IRQHandler(CORDIC_HandleTypeDef *hcordic)
   *         the configuration information for CORDIC module
   * @retval HAL state
   */
-HAL_CORDIC_StateTypeDef HAL_CORDIC_GetState(CORDIC_HandleTypeDef *hcordic)
+HAL_CORDIC_StateTypeDef HAL_CORDIC_GetState(const CORDIC_HandleTypeDef *hcordic)
 {
   /* Return CORDIC handle state */
   return hcordic->State;
@@ -1182,7 +1178,7 @@ HAL_CORDIC_StateTypeDef HAL_CORDIC_GetState(CORDIC_HandleTypeDef *hcordic)
   * @note   The returned error is a bit-map combination of possible errors
   * @retval Error bit-map
   */
-uint32_t HAL_CORDIC_GetError(CORDIC_HandleTypeDef *hcordic)
+uint32_t HAL_CORDIC_GetError(const CORDIC_HandleTypeDef *hcordic)
 {
   /* Return CORDIC error code */
   return hcordic->ErrorCode;
@@ -1207,7 +1203,7 @@ uint32_t HAL_CORDIC_GetError(CORDIC_HandleTypeDef *hcordic)
   * @param  ppInBuff Pointer to pointer to input buffer.
   * @retval none
   */
-static void CORDIC_WriteInDataIncrementPtr(CORDIC_HandleTypeDef *hcordic, int32_t **ppInBuff)
+static void CORDIC_WriteInDataIncrementPtr(const CORDIC_HandleTypeDef *hcordic, const int32_t **ppInBuff)
 {
   /* First write of input data in the Write Data register */
   WRITE_REG(hcordic->Instance->WDATA, (uint32_t) **ppInBuff);
@@ -1233,7 +1229,7 @@ static void CORDIC_WriteInDataIncrementPtr(CORDIC_HandleTypeDef *hcordic, int32_
   * @param  ppOutBuff Pointer to pointer to output buffer.
   * @retval none
   */
-static void CORDIC_ReadOutDataIncrementPtr(CORDIC_HandleTypeDef *hcordic, int32_t **ppOutBuff)
+static void CORDIC_ReadOutDataIncrementPtr(const CORDIC_HandleTypeDef *hcordic, int32_t **ppOutBuff)
 {
   /* First read of output data from the Read Data register */
   **ppOutBuff = (int32_t)READ_REG(hcordic->Instance->RDATA);
@@ -1278,7 +1274,7 @@ static void CORDIC_DMAInCplt(DMA_HandleTypeDef *hdma)
     /*Call registered callback*/
     hcordic->CalculateCpltCallback(hcordic);
 #else
-    /*Call legacy weak (surcharged) callback*/
+    /*Call legacy weak callback*/
     HAL_CORDIC_CalculateCpltCallback(hcordic);
 #endif /* USE_HAL_CORDIC_REGISTER_CALLBACKS */
   }
@@ -1307,7 +1303,7 @@ static void CORDIC_DMAOutCplt(DMA_HandleTypeDef *hdma)
   /*Call registered callback*/
   hcordic->CalculateCpltCallback(hcordic);
 #else
-  /*Call legacy weak (surcharged) callback*/
+  /*Call legacy weak callback*/
   HAL_CORDIC_CalculateCpltCallback(hcordic);
 #endif /* USE_HAL_CORDIC_REGISTER_CALLBACKS */
 }
@@ -1332,7 +1328,7 @@ static void CORDIC_DMAError(DMA_HandleTypeDef *hdma)
   /*Call registered callback*/
   hcordic->ErrorCallback(hcordic);
 #else
-  /*Call legacy weak (surcharged) callback*/
+  /*Call legacy weak callback*/
   HAL_CORDIC_ErrorCallback(hcordic);
 #endif /* USE_HAL_CORDIC_REGISTER_CALLBACKS */
 }

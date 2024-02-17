@@ -4045,6 +4045,12 @@ typedef struct
 #define RCC_CFGR_SWS_1                 (0x2UL << RCC_CFGR_SWS_Pos)             /*!< 0x00000010 */
 #define RCC_CFGR_SWS_2                 (0x4UL << RCC_CFGR_SWS_Pos)             /*!< 0x00000020 */
 
+#define RCC_CFGR_SWS_HSISYS            (0x00000000UL)                          /*!< HSISYS used as system clock */
+#define RCC_CFGR_SWS_HSE               (0x00000008UL)                          /*!< HSE used as system clock */
+#define RCC_CFGR_SWS_PLLRCLK           (0x00000010UL)                          /*!< PLLRCLK used as system clock */
+#define RCC_CFGR_SWS_LSI               (0x00000018UL)                          /*!< LSI used as system clock */
+#define RCC_CFGR_SWS_LSE               (0x00000100UL)                          /*!< LSE used as system clock */
+
 /*!< HPRE configuration */
 #define RCC_CFGR_HPRE_Pos              (8U)
 #define RCC_CFGR_HPRE_Msk              (0xFUL << RCC_CFGR_HPRE_Pos)            /*!< 0x00000F00 */

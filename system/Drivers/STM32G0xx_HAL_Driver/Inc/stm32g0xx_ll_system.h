@@ -96,12 +96,12 @@ extern "C" {
 /** @defgroup SYSTEM_LL_EC_IR_MOD SYSCFG IR Modulation
   * @{
   */
-#define LL_SYSCFG_IR_MOD_TIM16       (SYSCFG_CFGR1_IR_MOD_0 & SYSCFG_CFGR1_IR_MOD_1)    /*!< 00: Timer16 is selected as IRDA Modulation enveloppe source */
-#define LL_SYSCFG_IR_MOD_USART1      (SYSCFG_CFGR1_IR_MOD_0)                            /*!< 01: USART1 is selected as IRDA Modulation enveloppe source */
+#define LL_SYSCFG_IR_MOD_TIM16       (SYSCFG_CFGR1_IR_MOD_0 & SYSCFG_CFGR1_IR_MOD_1)    /*!< 00: Timer16 is selected as IRDA Modulation envelope source */
+#define LL_SYSCFG_IR_MOD_USART1      (SYSCFG_CFGR1_IR_MOD_0)                            /*!< 01: USART1 is selected as IRDA Modulation envelope source */
 #if defined(USART4)
-#define LL_SYSCFG_IR_MOD_USART4      (SYSCFG_CFGR1_IR_MOD_1)                            /*!< 10: USART4 is selected as IRDA Modulation enveloppe source */
+#define LL_SYSCFG_IR_MOD_USART4      (SYSCFG_CFGR1_IR_MOD_1)                            /*!< 10: USART4 is selected as IRDA Modulation envelope source */
 #else
-#define LL_SYSCFG_IR_MOD_USART2      (SYSCFG_CFGR1_IR_MOD_1)                            /*!< 10: USART2 is selected as IRDA Modulation enveloppe source */
+#define LL_SYSCFG_IR_MOD_USART2      (SYSCFG_CFGR1_IR_MOD_1)                            /*!< 10: USART2 is selected as IRDA Modulation envelope source */
 #endif /* USART4 */
 /**
   * @}
@@ -1018,7 +1018,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_ADC(void)
 
 #if defined(SYSCFG_ITLINE12_SR_COMP1)
 /**
-  * @brief  Check if Comparator 1 interrupt occurred or not (EXTI line 21).
+  * @brief  Check if Comparator 1 interrupt occurred or not (EXTI line 17).
   * @rmtoll SYSCFG_ITLINE12 SR_COMP1      LL_SYSCFG_IsActiveFlag_COMP1
   * @retval State of bit (1 or 0).
   */
@@ -1030,7 +1030,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_COMP1(void)
 
 #if defined(SYSCFG_ITLINE12_SR_COMP2)
 /**
-  * @brief  Check if Comparator 2 interrupt occurred or not (EXTI line 22).
+  * @brief  Check if Comparator 2 interrupt occurred or not (EXTI line 18).
   * @rmtoll SYSCFG_ITLINE12 SR_COMP2      LL_SYSCFG_IsActiveFlag_COMP2
   * @retval State of bit (1 or 0).
   */

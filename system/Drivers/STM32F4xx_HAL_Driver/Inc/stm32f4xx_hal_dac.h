@@ -78,19 +78,19 @@ typedef struct
   __IO uint32_t               ErrorCode;     /*!< DAC Error code                    */
 
 #if (USE_HAL_DAC_REGISTER_CALLBACKS == 1)
-  void (* ConvCpltCallbackCh1)            (struct __DAC_HandleTypeDef *hdac);
-  void (* ConvHalfCpltCallbackCh1)        (struct __DAC_HandleTypeDef *hdac);
-  void (* ErrorCallbackCh1)               (struct __DAC_HandleTypeDef *hdac);
-  void (* DMAUnderrunCallbackCh1)         (struct __DAC_HandleTypeDef *hdac);
+  void (* ConvCpltCallbackCh1)(struct __DAC_HandleTypeDef *hdac);
+  void (* ConvHalfCpltCallbackCh1)(struct __DAC_HandleTypeDef *hdac);
+  void (* ErrorCallbackCh1)(struct __DAC_HandleTypeDef *hdac);
+  void (* DMAUnderrunCallbackCh1)(struct __DAC_HandleTypeDef *hdac);
 #if defined(DAC_CHANNEL2_SUPPORT)
-  void (* ConvCpltCallbackCh2)            (struct __DAC_HandleTypeDef *hdac);
-  void (* ConvHalfCpltCallbackCh2)        (struct __DAC_HandleTypeDef *hdac);
-  void (* ErrorCallbackCh2)               (struct __DAC_HandleTypeDef *hdac);
-  void (* DMAUnderrunCallbackCh2)         (struct __DAC_HandleTypeDef *hdac);
+  void (* ConvCpltCallbackCh2)(struct __DAC_HandleTypeDef *hdac);
+  void (* ConvHalfCpltCallbackCh2)(struct __DAC_HandleTypeDef *hdac);
+  void (* ErrorCallbackCh2)(struct __DAC_HandleTypeDef *hdac);
+  void (* DMAUnderrunCallbackCh2)(struct __DAC_HandleTypeDef *hdac);
 #endif /* DAC_CHANNEL2_SUPPORT */
 
-  void (* MspInitCallback)                (struct __DAC_HandleTypeDef *hdac);
-  void (* MspDeInitCallback)              (struct __DAC_HandleTypeDef *hdac);
+  void (* MspInitCallback)(struct __DAC_HandleTypeDef *hdac);
+  void (* MspDeInitCallback)(struct __DAC_HandleTypeDef *hdac);
 #endif /* USE_HAL_DAC_REGISTER_CALLBACKS */
 
 } DAC_HandleTypeDef;
@@ -404,7 +404,7 @@ void HAL_DAC_MspDeInit(DAC_HandleTypeDef *hdac);
 /* IO operation functions *****************************************************/
 HAL_StatusTypeDef HAL_DAC_Start(DAC_HandleTypeDef *hdac, uint32_t Channel);
 HAL_StatusTypeDef HAL_DAC_Stop(DAC_HandleTypeDef *hdac, uint32_t Channel);
-HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef *hdac, uint32_t Channel, uint32_t *pData, uint32_t Length,
+HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef *hdac, uint32_t Channel, const uint32_t *pData, uint32_t Length,
                                     uint32_t Alignment);
 HAL_StatusTypeDef HAL_DAC_Stop_DMA(DAC_HandleTypeDef *hdac, uint32_t Channel);
 void HAL_DAC_IRQHandler(DAC_HandleTypeDef *hdac);
@@ -430,8 +430,9 @@ HAL_StatusTypeDef     HAL_DAC_UnRegisterCallback(DAC_HandleTypeDef *hdac, HAL_DA
   * @{
   */
 /* Peripheral Control functions ***********************************************/
-uint32_t HAL_DAC_GetValue(DAC_HandleTypeDef *hdac, uint32_t Channel);
-HAL_StatusTypeDef HAL_DAC_ConfigChannel(DAC_HandleTypeDef *hdac, DAC_ChannelConfTypeDef *sConfig, uint32_t Channel);
+uint32_t HAL_DAC_GetValue(const DAC_HandleTypeDef *hdac, uint32_t Channel);
+HAL_StatusTypeDef HAL_DAC_ConfigChannel(DAC_HandleTypeDef *hdac,
+                                        const DAC_ChannelConfTypeDef *sConfig, uint32_t Channel);
 /**
   * @}
   */
@@ -440,8 +441,8 @@ HAL_StatusTypeDef HAL_DAC_ConfigChannel(DAC_HandleTypeDef *hdac, DAC_ChannelConf
   * @{
   */
 /* Peripheral State and Error functions ***************************************/
-HAL_DAC_StateTypeDef HAL_DAC_GetState(DAC_HandleTypeDef *hdac);
-uint32_t HAL_DAC_GetError(DAC_HandleTypeDef *hdac);
+HAL_DAC_StateTypeDef HAL_DAC_GetState(const DAC_HandleTypeDef *hdac);
+uint32_t HAL_DAC_GetError(const DAC_HandleTypeDef *hdac);
 
 /**
   * @}
@@ -477,4 +478,3 @@ void DAC_DMAHalfConvCpltCh1(DMA_HandleTypeDef *hdma);
 
 
 #endif /* STM32F4xx_HAL_DAC_H */
-

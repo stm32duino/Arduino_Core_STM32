@@ -95,7 +95,7 @@
   *               the configuration information for SAI module.
   * @retval SAI Clock Input
   */
-void SAI_BlockSynchroConfig(SAI_HandleTypeDef *hsai)
+void SAI_BlockSynchroConfig(const SAI_HandleTypeDef *hsai)
 {
   uint32_t tmpregisterGCR;
 
@@ -158,7 +158,7 @@ void SAI_BlockSynchroConfig(SAI_HandleTypeDef *hsai)
 *               the configuration information for SAI module.
 * @retval SAI Clock Input
 */
-uint32_t SAI_GetInputClock(SAI_HandleTypeDef *hsai)
+uint32_t SAI_GetInputClock(const SAI_HandleTypeDef *hsai)
 {
   /* This variable used to store the SAI_CK_x (value in Hz) */
   uint32_t saiclocksource = 0U;

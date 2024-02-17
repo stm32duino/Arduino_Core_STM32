@@ -135,7 +135,7 @@ __STATIC_INLINE void LL_CRC_FeedData32(CRC_TypeDef *CRCx, uint32_t InData)
   * @param  CRCx CRC Instance
   * @retval Current CRC calculation result as stored in CRC_DR register (32 bits).
   */
-__STATIC_INLINE uint32_t LL_CRC_ReadData32(CRC_TypeDef *CRCx)
+__STATIC_INLINE uint32_t LL_CRC_ReadData32(const CRC_TypeDef *CRCx)
 {
   return (uint32_t)(READ_REG(CRCx->DR));
 }
@@ -173,7 +173,7 @@ __STATIC_INLINE void LL_CRC_Write_IDR(CRC_TypeDef *CRCx, uint32_t InData)
   * @{
   */
 
-ErrorStatus LL_CRC_DeInit(CRC_TypeDef *CRCx);
+ErrorStatus LL_CRC_DeInit(const CRC_TypeDef *CRCx);
 
 /**
   * @}

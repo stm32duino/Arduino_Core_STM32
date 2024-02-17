@@ -23,6 +23,7 @@ add_library(variant_bin STATIC EXCLUDE_FROM_ALL
   PeripheralPins.c
   variant_generic.cpp
   variant_NUCLEO_H743ZI.cpp
+  variant_NUCLEO_H753ZI.cpp
 )
 target_link_libraries(variant_bin PUBLIC variant_usage)
 

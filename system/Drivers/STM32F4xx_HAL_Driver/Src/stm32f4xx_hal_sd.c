@@ -696,7 +696,11 @@ HAL_StatusTypeDef HAL_SD_ReadBlocks(SD_HandleTypeDef *hsd, uint8_t *pData, uint3
     }
 
     /* Get error state */
+#if defined(SDIO_STA_STBITERR)
+    if(__HAL_SD_GET_FLAG(hsd, SDIO_FLAG_DTIMEOUT) || (__HAL_SD_GET_FLAG(hsd, SDIO_FLAG_STBITERR)))
+#else /* SDIO_STA_STBITERR not defined */
     if(__HAL_SD_GET_FLAG(hsd, SDIO_FLAG_DTIMEOUT))
+#endif /* SDIO_STA_STBITERR */
     {
       /* Clear all the static flags */
       __HAL_SD_CLEAR_FLAG(hsd, SDIO_STATIC_FLAGS);
@@ -911,7 +915,11 @@ HAL_StatusTypeDef HAL_SD_WriteBlocks(SD_HandleTypeDef *hsd, uint8_t *pData, uint
     }
 
     /* Get error state */
+#if defined(SDIO_STA_STBITERR)
+    if(__HAL_SD_GET_FLAG(hsd, SDIO_FLAG_DTIMEOUT) || (__HAL_SD_GET_FLAG(hsd, SDIO_FLAG_STBITERR)))
+#else /* SDIO_STA_STBITERR not defined */
     if(__HAL_SD_GET_FLAG(hsd, SDIO_FLAG_DTIMEOUT))
+#endif /* SDIO_STA_STBITERR */
     {
       /* Clear all the static flags */
       __HAL_SD_CLEAR_FLAG(hsd, SDIO_STATIC_FLAGS);
@@ -2921,13 +2929,17 @@ static uint32_t SD_SendSDStatus(SD_HandleTypeDef *hsd, uint32_t *pSDstatus)
       }
     }
 
-    if((HAL_GetTick() - tickstart) >=  SDMMC_DATATIMEOUT)
+    if((HAL_GetTick() - tickstart) >=  SDMMC_SWDATATIMEOUT)
     {
       return HAL_SD_ERROR_TIMEOUT;
     }
   }
 
+#if defined(SDIO_STA_STBITERR)
+  if(__HAL_SD_GET_FLAG(hsd, SDIO_FLAG_DTIMEOUT) || (__HAL_SD_GET_FLAG(hsd, SDIO_FLAG_STBITERR)))
+#else /* SDIO_STA_STBITERR not defined */
   if(__HAL_SD_GET_FLAG(hsd, SDIO_FLAG_DTIMEOUT))
+#endif /* SDIO_STA_STBITERR */
   {
     return HAL_SD_ERROR_DATA_TIMEOUT;
   }
@@ -2949,7 +2961,7 @@ static uint32_t SD_SendSDStatus(SD_HandleTypeDef *hsd, uint32_t *pSDstatus)
     *pData = SDIO_ReadFIFO(hsd->Instance);
     pData++;
 
-    if((HAL_GetTick() - tickstart) >=  SDMMC_DATATIMEOUT)
+    if((HAL_GetTick() - tickstart) >=  SDMMC_SWDATATIMEOUT)
     {
       return HAL_SD_ERROR_TIMEOUT;
     }
@@ -3141,13 +3153,17 @@ static uint32_t SD_FindSCR(SD_HandleTypeDef *hsd, uint32_t *pSCR)
       break;
     }
 
-    if((HAL_GetTick() - tickstart) >=  SDMMC_DATATIMEOUT)
+    if((HAL_GetTick() - tickstart) >=  SDMMC_SWDATATIMEOUT)
     {
       return HAL_SD_ERROR_TIMEOUT;
     }
   }
 
+#if defined(SDIO_STA_STBITERR)
+  if(__HAL_SD_GET_FLAG(hsd, SDIO_FLAG_DTIMEOUT) || (__HAL_SD_GET_FLAG(hsd, SDIO_FLAG_STBITERR)))
+#else /* SDIO_STA_STBITERR not defined */
   if(__HAL_SD_GET_FLAG(hsd, SDIO_FLAG_DTIMEOUT))
+#endif /* SDIO_STA_STBITERR */
   {
     __HAL_SD_CLEAR_FLAG(hsd, SDIO_FLAG_DTIMEOUT);
 

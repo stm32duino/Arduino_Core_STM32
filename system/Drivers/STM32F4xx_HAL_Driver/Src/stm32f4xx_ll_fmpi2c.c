@@ -46,22 +46,22 @@
   */
 
 #define IS_LL_FMPI2C_PERIPHERAL_MODE(__VALUE__)    (((__VALUE__) == LL_FMPI2C_MODE_I2C)          || \
-                                                 ((__VALUE__) == LL_FMPI2C_MODE_SMBUS_HOST)   || \
-                                                 ((__VALUE__) == LL_FMPI2C_MODE_SMBUS_DEVICE) || \
-                                                 ((__VALUE__) == LL_FMPI2C_MODE_SMBUS_DEVICE_ARP))
+                                                    ((__VALUE__) == LL_FMPI2C_MODE_SMBUS_HOST)   || \
+                                                    ((__VALUE__) == LL_FMPI2C_MODE_SMBUS_DEVICE) || \
+                                                    ((__VALUE__) == LL_FMPI2C_MODE_SMBUS_DEVICE_ARP))
 
 #define IS_LL_FMPI2C_ANALOG_FILTER(__VALUE__)      (((__VALUE__) == LL_FMPI2C_ANALOGFILTER_ENABLE) || \
-                                                 ((__VALUE__) == LL_FMPI2C_ANALOGFILTER_DISABLE))
+                                                    ((__VALUE__) == LL_FMPI2C_ANALOGFILTER_DISABLE))
 
 #define IS_LL_FMPI2C_DIGITAL_FILTER(__VALUE__)     ((__VALUE__) <= 0x0000000FU)
 
 #define IS_LL_FMPI2C_OWN_ADDRESS1(__VALUE__)       ((__VALUE__) <= 0x000003FFU)
 
 #define IS_LL_FMPI2C_TYPE_ACKNOWLEDGE(__VALUE__)   (((__VALUE__) == LL_FMPI2C_ACK) || \
-                                                 ((__VALUE__) == LL_FMPI2C_NACK))
+                                                    ((__VALUE__) == LL_FMPI2C_NACK))
 
 #define IS_LL_FMPI2C_OWN_ADDRSIZE(__VALUE__)       (((__VALUE__) == LL_FMPI2C_OWNADDRESS1_7BIT) || \
-                                                 ((__VALUE__) == LL_FMPI2C_OWNADDRESS1_10BIT))
+                                                    ((__VALUE__) == LL_FMPI2C_OWNADDRESS1_10BIT))
 /**
   * @}
   */
@@ -84,7 +84,7 @@
   *          - SUCCESS: FMPI2C registers are de-initialized
   *          - ERROR: FMPI2C registers are not de-initialized
   */
-ErrorStatus LL_FMPI2C_DeInit(FMPI2C_TypeDef *FMPI2Cx)
+ErrorStatus LL_FMPI2C_DeInit(const FMPI2C_TypeDef *FMPI2Cx)
 {
   ErrorStatus status = SUCCESS;
 
@@ -115,7 +115,7 @@ ErrorStatus LL_FMPI2C_DeInit(FMPI2C_TypeDef *FMPI2Cx)
   *          - SUCCESS: FMPI2C registers are initialized
   *          - ERROR: Not applicable
   */
-ErrorStatus LL_FMPI2C_Init(FMPI2C_TypeDef *FMPI2Cx, LL_FMPI2C_InitTypeDef *FMPI2C_InitStruct)
+ErrorStatus LL_FMPI2C_Init(FMPI2C_TypeDef *FMPI2Cx, const LL_FMPI2C_InitTypeDef *FMPI2C_InitStruct)
 {
   /* Check the FMPI2C Instance FMPI2Cx */
   assert_param(IS_FMPI2C_ALL_INSTANCE(FMPI2Cx));

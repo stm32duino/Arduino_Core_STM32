@@ -372,6 +372,16 @@ __STATIC_INLINE void LL_LPM_DisableEventOnPend(void)
 }
 
 /**
+  * @brief  Clear pending events.
+  * @retval None
+  */
+__STATIC_INLINE void LL_LPM_ClearEvent(void)
+{
+  __SEV();
+  __WFE();
+}
+
+/**
   * @}
   */
 

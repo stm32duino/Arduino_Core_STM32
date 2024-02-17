@@ -298,7 +298,7 @@ And then the Device Tree should enable TIM1 for the coprocessor, although this d
 [STM32MP157A-DK1]: https://www.st.com/en/evaluation-tools/stm32mp157a-dk1.html
 [STM32MP157C-DK2]: https://www.st.com/en/evaluation-tools/stm32mp157c-dk2.html
 
-[Cortex-M4 Engineering mode]: https://wiki.st.com/stm32mpu/wiki/STM32CubeMP1_development_guidelines
+[Cortex-M4 Engineering mode]: https://wiki.st.com/stm32mpu/wiki/How_to_use_engineering_and_production_modes
 [STM32MP15 Starter Package]: https://wiki.st.com/stm32mpu/wiki/STM32MP15_Discovery_kits_-_Starter_Package
 [STM32 MPU OpenSTLinux Distribution]: https://wiki.st.com/stm32mpu/wiki/STM32MP1_Distribution_Package
 [Balena OS]: https://github.com/kbumsik/balena-st-stm32mp

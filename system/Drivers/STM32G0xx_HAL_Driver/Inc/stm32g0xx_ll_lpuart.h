@@ -1637,8 +1637,7 @@ __STATIC_INLINE uint32_t LL_LPUART_IsActiveFlag_IDLE(const USART_TypeDef *LPUART
   return ((READ_BIT(LPUARTx->ISR, USART_ISR_IDLE) == (USART_ISR_IDLE)) ? 1UL : 0UL);
 }
 
-/* Legacy define */
-#define LL_LPUART_IsActiveFlag_RXNE  LL_LPUART_IsActiveFlag_RXNE_RXFNE
+#define LL_LPUART_IsActiveFlag_RXNE  LL_LPUART_IsActiveFlag_RXNE_RXFNE /* Redefinition for legacy purpose */
 
 /**
   * @brief  Check if the LPUART Read Data Register or LPUART RX FIFO Not Empty Flag is set or not
@@ -1662,8 +1661,7 @@ __STATIC_INLINE uint32_t LL_LPUART_IsActiveFlag_TC(const USART_TypeDef *LPUARTx)
   return ((READ_BIT(LPUARTx->ISR, USART_ISR_TC) == (USART_ISR_TC)) ? 1UL : 0UL);
 }
 
-/* Legacy define */
-#define LL_LPUART_IsActiveFlag_TXE  LL_LPUART_IsActiveFlag_TXE_TXFNF
+#define LL_LPUART_IsActiveFlag_TXE  LL_LPUART_IsActiveFlag_TXE_TXFNF /* Redefinition for legacy purpose */
 
 /**
   * @brief  Check if the LPUART Transmit Data Register Empty or LPUART TX FIFO Not Full Flag is set or not
@@ -1937,8 +1935,7 @@ __STATIC_INLINE void LL_LPUART_EnableIT_IDLE(USART_TypeDef *LPUARTx)
   ATOMIC_SET_BIT(LPUARTx->CR1, USART_CR1_IDLEIE);
 }
 
-/* Legacy define */
-#define LL_LPUART_EnableIT_RXNE  LL_LPUART_EnableIT_RXNE_RXFNE
+#define LL_LPUART_EnableIT_RXNE  LL_LPUART_EnableIT_RXNE_RXFNE /* Redefinition for legacy purpose */
 
 /**
   * @brief  Enable RX Not Empty and RX FIFO Not Empty Interrupt
@@ -1962,8 +1959,7 @@ __STATIC_INLINE void LL_LPUART_EnableIT_TC(USART_TypeDef *LPUARTx)
   ATOMIC_SET_BIT(LPUARTx->CR1, USART_CR1_TCIE);
 }
 
-/* Legacy define */
-#define LL_LPUART_EnableIT_TXE  LL_LPUART_EnableIT_TXE_TXFNF
+#define LL_LPUART_EnableIT_TXE  LL_LPUART_EnableIT_TXE_TXFNF /* Redefinition for legacy purpose */
 
 /**
   * @brief  Enable TX Empty and TX FIFO Not Full Interrupt
@@ -2090,8 +2086,7 @@ __STATIC_INLINE void LL_LPUART_DisableIT_IDLE(USART_TypeDef *LPUARTx)
   ATOMIC_CLEAR_BIT(LPUARTx->CR1, USART_CR1_IDLEIE);
 }
 
-/* Legacy define */
-#define LL_LPUART_DisableIT_RXNE  LL_LPUART_DisableIT_RXNE_RXFNE
+#define LL_LPUART_DisableIT_RXNE  LL_LPUART_DisableIT_RXNE_RXFNE /* Redefinition for legacy purpose */
 
 /**
   * @brief  Disable RX Not Empty and RX FIFO Not Empty Interrupt
@@ -2115,8 +2110,7 @@ __STATIC_INLINE void LL_LPUART_DisableIT_TC(USART_TypeDef *LPUARTx)
   ATOMIC_CLEAR_BIT(LPUARTx->CR1, USART_CR1_TCIE);
 }
 
-/* Legacy define */
-#define LL_LPUART_DisableIT_TXE  LL_LPUART_DisableIT_TXE_TXFNF
+#define LL_LPUART_DisableIT_TXE  LL_LPUART_DisableIT_TXE_TXFNF /* Redefinition for legacy purpose */
 
 /**
   * @brief  Disable TX Empty and TX FIFO Not Full Interrupt
@@ -2243,8 +2237,7 @@ __STATIC_INLINE uint32_t LL_LPUART_IsEnabledIT_IDLE(const USART_TypeDef *LPUARTx
   return ((READ_BIT(LPUARTx->CR1, USART_CR1_IDLEIE) == (USART_CR1_IDLEIE)) ? 1UL : 0UL);
 }
 
-/* Legacy define */
-#define LL_LPUART_IsEnabledIT_RXNE  LL_LPUART_IsEnabledIT_RXNE_RXFNE
+#define LL_LPUART_IsEnabledIT_RXNE  LL_LPUART_IsEnabledIT_RXNE_RXFNE /* Redefinition for legacy purpose */
 
 /**
   * @brief  Check if the LPUART RX Not Empty and LPUART RX FIFO Not Empty Interrupt is enabled or disabled.
@@ -2268,8 +2261,7 @@ __STATIC_INLINE uint32_t LL_LPUART_IsEnabledIT_TC(const USART_TypeDef *LPUARTx)
   return ((READ_BIT(LPUARTx->CR1, USART_CR1_TCIE) == (USART_CR1_TCIE)) ? 1UL : 0UL);
 }
 
-/* Legacy define */
-#define LL_LPUART_IsEnabledIT_TXE  LL_LPUART_IsEnabledIT_TXE_TXFNF
+#define LL_LPUART_IsEnabledIT_TXE  LL_LPUART_IsEnabledIT_TXE_TXFNF /* Redefinition for legacy purpose */
 
 /**
   * @brief  Check if the LPUART TX Empty and LPUART TX FIFO Not Full Interrupt is enabled or disabled
