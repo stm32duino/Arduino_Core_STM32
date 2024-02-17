@@ -1006,8 +1006,8 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
       return 0;
     }
   } else {
-#if defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F3xx) || defined(STM32F4xx)
-    LL_ADC_REG_StartConversionSWstart(AdcHandle.Instance);
+#if defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx) || defined(STM32L1xx)
+    LL_ADC_REG_StartConversionSWStart(AdcHandle.Instance);
 #else
     LL_ADC_REG_StartConversion(AdcHandle.Instance);
 #endif
