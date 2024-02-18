@@ -861,9 +861,8 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #endif
 #if !defined(STM32F1xx) && !defined(STM32F2xx) && !defined(STM32F3xx) && \
     !defined(STM32F4xx) && !defined(STM32F7xx) && !defined(STM32G4xx) && \
-    !defined(STM32H5xx) && !defined(STM32H7xx) && !defined(STM32L4xx) &&  \
-    !defined(STM32L5xx) && !defined(STM32MP1xx) && !defined(STM32WBxx) || \
-    defined(ADC_SUPPORT_2_5_MSPS)
+    !defined(STM32H7xx) && !defined(STM32L4xx) && !defined(STM32L5xx) && \
+    !defined(STM32MP1xx) && !defined(STM32WBxx) ||  defined(ADC_SUPPORT_2_5_MSPS)
   AdcHandle.Init.LowPowerAutoPowerOff  = DISABLE;                       /* ADC automatically powers-off after a conversion and automatically wakes-up when a new conversion is triggered */
 #endif
 #ifdef ADC_CHANNELS_BANK_B
@@ -942,8 +941,8 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 
   AdcChannelConf.Channel      = channel;                          /* Specifies the channel to configure into ADC */
 
-#if defined(STM32G4xx) || defined(STM32H5xx) || defined(STM32L4xx) || \
-    defined(STM32L5xx) || defined(STM32WBxx)
+#if defined(STM32G4xx) || defined(STM32L4xx) || defined(STM32L5xx) || \
+    defined(STM32WBxx)
   if (!IS_ADC_CHANNEL(&AdcHandle, AdcChannelConf.Channel)) {
 #else
   if (!IS_ADC_CHANNEL(AdcChannelConf.Channel)) {
@@ -1000,18 +999,10 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #endif
   }
 
-  if (!LL_ADC_IsEnabled(AdcHandle.Instance)) {
-    /*##-3- Start the conversion process ####################*/
-    if (HAL_ADC_Start(&AdcHandle) != HAL_OK) {
-      /* Start Conversion Error */
-      return 0;
-    }
-  } else {
-#if defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx) || defined(STM32L1xx)
-    LL_ADC_REG_StartConversionSWStart(AdcHandle.Instance);
-#else
-    LL_ADC_REG_StartConversion(AdcHandle.Instance);
-#endif
+  /*##-3- Start the conversion process ####################*/
+  if (HAL_ADC_Start(&AdcHandle) != HAL_OK) {
+    /* Start Conversion Error */
+    return 0;
   }
 
   /*##-4- Wait for the end of conversion #####################################*/
