@@ -942,8 +942,8 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 
   AdcChannelConf.Channel      = channel;                          /* Specifies the channel to configure into ADC */
 
-#if defined(STM32G4xx) || defined(STM32L4xx) || defined(STM32L5xx) || \
-    defined(STM32WBxx)
+#if defined(STM32G4xx) || defined(STM32H5xx) || defined(STM32L4xx) || \
+    defined(STM32L5xx) || defined(STM32WBxx)
   if (!IS_ADC_CHANNEL(&AdcHandle, AdcChannelConf.Channel)) {
 #else
   if (!IS_ADC_CHANNEL(AdcChannelConf.Channel)) {
