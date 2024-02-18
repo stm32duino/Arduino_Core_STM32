@@ -850,7 +850,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #ifdef ADC_SCAN_SEQ_FIXED
   AdcHandle.Init.ScanConvMode          = ADC_SCAN_SEQ_FIXED;            /* Sequencer disabled (ADC conversion on only 1 channel: channel set on rank 1) */
 #else
-  AdcHandle.Init.ScanConvMode          = DISABLE;                       /* Sequencer disabled (ADC conversion on only 1 channel: channel set on rank 1) */
+  AdcHandle.Init.ScanConvMode          = ENABLE;                        /* Sequencer disabled (ADC conversion on only 1 channel: channel set on rank 1) */
 #endif
 #ifdef ADC_EOC_SINGLE_CONV
   AdcHandle.Init.EOCSelection          = ADC_EOC_SINGLE_CONV;           /* EOC flag picked-up to indicate conversion end */
@@ -932,7 +932,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   } else {
     AdcHandle.State = HAL_ADC_STATE_READY;
   }
-  
+
   AdcHandle.DMA_Handle = NULL;
   AdcHandle.Lock = HAL_UNLOCKED;
   /* Some other ADC_HandleTypeDef fields exists but not required */
