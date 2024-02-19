@@ -927,17 +927,21 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   AdcHandle.Init.VrefProtection = ADC_VREF_PPROT_NONE;
 #endif
 
-  if (!LL_ADC_IsEnabled(AdcHandle.Instance)) {
-    AdcHandle.State = HAL_ADC_STATE_RESET;
-  } else {
-    AdcHandle.State = HAL_ADC_STATE_READY;
-  }
-
   AdcHandle.DMA_Handle = NULL;
   AdcHandle.Lock = HAL_UNLOCKED;
   /* Some other ADC_HandleTypeDef fields exists but not required */
 
   g_current_pin = pin; /* Needed for HAL_ADC_MspInit*/
+
+  if (!LL_ADC_IsEnabled(AdcHandle.Instance)) {
+    AdcHandle.State = HAL_ADC_STATE_RESET;
+  } else {
+    AdcHandle.State = HAL_ADC_STATE_READY;
+    /* Configure ADC GPIO pin */
+    if (!(g_current_pin & PADC_BASE)) {
+      pinmap_pinout(g_current_pin, PinMap_ADC);
+    }
+  }
 
   if (HAL_ADC_Init(&AdcHandle) != HAL_OK) {
     return 0;
