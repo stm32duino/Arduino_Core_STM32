@@ -666,6 +666,19 @@ Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.series=STM32WBxx
 Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.product_line=STM32WB55xx
 Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.variant=STM32WBxx/WB35C(C-E)UxA_WB55C(C-E-G)U
 
+# NUCLEO WBA55CG
+Nucleo_64.menu.pnum.NUCLEO_WBA55CG=Nucleo WBA55CG
+Nucleo_64.menu.pnum.NUCLEO_WBA55CG.node="NOD_WBA52CG,NOD_WBA55CG"
+Nucleo_64.menu.pnum.NUCLEO_WBA55CG.upload.maximum_size=1048576
+Nucleo_64.menu.pnum.NUCLEO_WBA55CG.upload.maximum_data_size=131072
+Nucleo_64.menu.pnum.NUCLEO_WBA55CG.build.mcu=cortex-m33
+Nucleo_64.menu.pnum.NUCLEO_WBA55CG.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_WBA55CG.build.float-abi=-mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_WBA55CG.build.board=NUCLEO_WBA55CG
+Nucleo_64.menu.pnum.NUCLEO_WBA55CG.build.series=STM32WBAxx
+Nucleo_64.menu.pnum.NUCLEO_WBA55CG.build.product_line=STM32WBA55xx
+Nucleo_64.menu.pnum.NUCLEO_WBA55CG.build.variant=STM32WBAxx/WBA55C(E-G)U
+
 # NUCLEO_WL55JC1 board
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1=Nucleo WL55JC1
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1.node="NOD_WL55JC"
