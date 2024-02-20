@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic WBA55UEIx
+GenWBA.menu.pnum.GENERIC_WBA55UEIX=Generic WBA55UEIx
+GenWBA.menu.pnum.GENERIC_WBA55UEIX.upload.maximum_size=524288
+GenWBA.menu.pnum.GENERIC_WBA55UEIX.upload.maximum_data_size=98304
+GenWBA.menu.pnum.GENERIC_WBA55UEIX.build.board=GENERIC_WBA55UEIX
+GenWBA.menu.pnum.GENERIC_WBA55UEIX.build.product_line=STM32WBA55xx
+GenWBA.menu.pnum.GENERIC_WBA55UEIX.build.variant=STM32WBAxx/WBA55U(E-G)I
+
+# Generic WBA55UGIx
+GenWBA.menu.pnum.GENERIC_WBA55UGIX=Generic WBA55UGIx
+GenWBA.menu.pnum.GENERIC_WBA55UGIX.upload.maximum_size=1048576
+GenWBA.menu.pnum.GENERIC_WBA55UGIX.upload.maximum_data_size=131072
+GenWBA.menu.pnum.GENERIC_WBA55UGIX.build.board=GENERIC_WBA55UGIX
+GenWBA.menu.pnum.GENERIC_WBA55UGIX.build.product_line=STM32WBA55xx
+GenWBA.menu.pnum.GENERIC_WBA55UGIX.build.variant=STM32WBAxx/WBA55U(E-G)I
+
