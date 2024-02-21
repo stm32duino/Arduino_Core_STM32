@@ -27,7 +27,7 @@ function(sketch_preprocess_sources)
         COMPILE_OPTIONS "-include;Arduino.h;-include;${SRCFILE}.h"
         OBJECT_DEPENDS "${SRCFILE}.h"
       )
-      list(APPEND SRCLIST ${SRCFILE}.cpp)
+      list(APPEND SRCLIST ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.cpp)
     else()
       list(APPEND SRCLIST ${SRCFILE})
     endif()
