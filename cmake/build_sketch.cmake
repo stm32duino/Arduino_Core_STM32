@@ -1,14 +1,18 @@
 cmake_minimum_required(VERSION 3.21)
 
+# Only want the variant and library targets to be defined once
+include_guard(GLOBAL)
+
 include(sketch_preprocess_sources)
 include(convert_file)
 
 include(set_base_arduino_config)
 
+add_subdirectory(${BUILD_VARIANT_PATH} ./variant)
+add_subdirectory(${BUILD_CORE_PATH} ./cores/arduino)
+add_subdirectory(${BUILD_LIB_PATH} ./libraries)
+
 function(build_sketch)
-  add_subdirectory(${BUILD_VARIANT_PATH} ./variant)
-  add_subdirectory(${BUILD_CORE_PATH} ./cores/arduino)
-  add_subdirectory(${BUILD_LIB_PATH} ./libraries)
 
 
   cmake_parse_arguments(PARSE_ARGV 0 SKBD "" "TARGET" "SOURCES;DEPENDS")
