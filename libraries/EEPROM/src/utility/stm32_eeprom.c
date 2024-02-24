@@ -26,7 +26,7 @@ extern "C" {
 #endif
 
 /* Be able to change FLASH_BANK_NUMBER to use if relevant */
-#if !defined(FLASH_BANK_NUMBER) && defined(FLASH_BANK_1)
+#if !defined(FLASH_BANK_NUMBER) && defined(FLASH_BANK_1) && !defined(STM32WBAxx)
 #if defined(FLASH_BANK_2)
 #define FLASH_BANK_NUMBER   FLASH_BANK_2
 #else /* FLASH_BANK_1 */
