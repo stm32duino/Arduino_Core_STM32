@@ -47,6 +47,7 @@ jobs:
           - NUCLEO_L552ZE_Q
           - NUCLEO_U575ZI_Q
           - P_NUCLEO_WB55RG
+          - NUCLEO_WBA55CG
           - NUCLEO_WL55JC1
 
     steps:
