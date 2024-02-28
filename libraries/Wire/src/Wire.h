@@ -76,8 +76,7 @@ class TwoWire : public Stream {
     void recoverBus(void);
 
   public:
-    TwoWire();
-    TwoWire(uint32_t sda, uint32_t scl);
+    TwoWire(uint32_t sda = SDA, uint32_t scl = SCL);
     ~TwoWire();
     // setSCL/SDA have to be called before begin()
     void setSCL(uint32_t scl)
