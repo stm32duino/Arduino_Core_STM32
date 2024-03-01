@@ -314,8 +314,8 @@ def updateSTRepo():
         if repo_path.exists():
             rname, bname = getRepoBranchName(repo_path)
             # Get new tags from the remote
-            git_cmds = [
-                ["git", "-C", repo_path, "fetch"],
+            execute_cmd(["git", "-C", repo_path, "fetch"], None)
+            execute_cmd(
                 [
                     "git",
                     "-C",
@@ -325,10 +325,11 @@ def updateSTRepo():
                     bname,
                     f"{rname}/{bname}",
                 ],
-            ]
+                None,
+            )
             gitmodule_path = repo_path / ".gitmodules"
             if gitmodule_path.exists():
-                git_cmds += (
+                execute_cmd(
                     [
                         "git",
                         "-C",
@@ -338,14 +339,14 @@ def updateSTRepo():
                         "--init",
                         "--recursive",
                     ],
+                    None,
                 )
         else:
             # Clone it as it does not exists yet
-            git_cmds = [
-                ["git", "-C", repo_local_path, "clone", "--recursive", gh_STM32Cube]
-            ]
-        for cmd in git_cmds:
-            execute_cmd(cmd, None)
+            execute_cmd(
+                ["git", "-C", repo_local_path, "clone", "--recursive", gh_STM32Cube],
+                None,
+            )
         latestTag(serie, repo_name, repo_path)
         checkVersion(serie, repo_path)
 
