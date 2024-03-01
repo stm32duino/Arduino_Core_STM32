@@ -58,6 +58,8 @@
   #include "stm32u5xx.h"
 #elif defined(STM32WBxx)
   #include "stm32wbxx.h"
+#elif defined(STM32WBAxx)
+  #include "stm32wbaxx.h"
 #elif defined(STM32WLxx)
   #include "stm32wlxx.h"
 #else
@@ -69,7 +71,7 @@
 #endif
 
 // Here define some compatibility
-#ifndef ADC1
+#if !defined (ADC1) && defined (ADC)
   #define ADC1 ADC
 #endif
 #ifndef CAN1

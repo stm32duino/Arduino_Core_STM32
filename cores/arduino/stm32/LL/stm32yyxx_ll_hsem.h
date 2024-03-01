@@ -14,6 +14,8 @@
   #include "stm32mp1xx_ll_hsem.h"
 #elif STM32WBxx
   #include "stm32wbxx_ll_hsem.h"
+#elif STM32WBAxx
+  #include "stm32wbaxx_ll_hsem.h"
 #elif STM32WLxx
   #include "stm32wlxx_ll_hsem.h"
 #endif

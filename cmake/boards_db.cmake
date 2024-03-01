@@ -97092,6 +97092,114 @@ target_compile_options(GENERIC_WB5MMGHX_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
+# GENERIC_WBA55CEUX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_WBA55CEUX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32WBAxx/WBA55C(E-G)U")
+set(GENERIC_WBA55CEUX_MAXSIZE 524288)
+set(GENERIC_WBA55CEUX_MAXDATASIZE 98304)
+set(GENERIC_WBA55CEUX_MCU cortex-m33)
+set(GENERIC_WBA55CEUX_FPCONF "-")
+add_library(GENERIC_WBA55CEUX INTERFACE)
+target_compile_options(GENERIC_WBA55CEUX INTERFACE
+  "SHELL:-DSTM32WBA55xx "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_WBA55CEUX_MCU}
+)
+target_compile_definitions(GENERIC_WBA55CEUX INTERFACE
+  "STM32WBAxx"
+	"ARDUINO_GENERIC_WBA55CEUX"
+	"BOARD_NAME=\"GENERIC_WBA55CEUX\""
+	"BOARD_ID=GENERIC_WBA55CEUX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_WBA55CEUX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32WBAxx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32WBAxx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32WBAxx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32WBAxx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32WBAxx/Source/Templates/gcc/
+  ${GENERIC_WBA55CEUX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_WBA55CEUX INTERFACE
+  "LINKER:--default-script=${GENERIC_WBA55CEUX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_WBA55CEUX_MCU}
+)
+
+add_library(GENERIC_WBA55CEUX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_WBA55CEUX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_WBA55CEUX_serial_generic INTERFACE)
+target_compile_options(GENERIC_WBA55CEUX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_WBA55CEUX_serial_none INTERFACE)
+target_compile_options(GENERIC_WBA55CEUX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+
+# GENERIC_WBA55CGUX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_WBA55CGUX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32WBAxx/WBA55C(E-G)U")
+set(GENERIC_WBA55CGUX_MAXSIZE 1048576)
+set(GENERIC_WBA55CGUX_MAXDATASIZE 131072)
+set(GENERIC_WBA55CGUX_MCU cortex-m33)
+set(GENERIC_WBA55CGUX_FPCONF "-")
+add_library(GENERIC_WBA55CGUX INTERFACE)
+target_compile_options(GENERIC_WBA55CGUX INTERFACE
+  "SHELL:-DSTM32WBA55xx "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_WBA55CGUX_MCU}
+)
+target_compile_definitions(GENERIC_WBA55CGUX INTERFACE
+  "STM32WBAxx"
+	"ARDUINO_GENERIC_WBA55CGUX"
+	"BOARD_NAME=\"GENERIC_WBA55CGUX\""
+	"BOARD_ID=GENERIC_WBA55CGUX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_WBA55CGUX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32WBAxx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32WBAxx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32WBAxx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32WBAxx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32WBAxx/Source/Templates/gcc/
+  ${GENERIC_WBA55CGUX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_WBA55CGUX INTERFACE
+  "LINKER:--default-script=${GENERIC_WBA55CGUX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=1048576"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_WBA55CGUX_MCU}
+)
+
+add_library(GENERIC_WBA55CGUX_serial_disabled INTERFACE)
+target_compile_options(GENERIC_WBA55CGUX_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(GENERIC_WBA55CGUX_serial_generic INTERFACE)
+target_compile_options(GENERIC_WBA55CGUX_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(GENERIC_WBA55CGUX_serial_none INTERFACE)
+target_compile_options(GENERIC_WBA55CGUX_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+
 # GENERIC_WL54CCUX
 # -----------------------------------------------------------------------------
 
@@ -103331,6 +103439,88 @@ target_compile_options(NUCLEO_WB15CC_xusb_HS INTERFACE
 )
 add_library(NUCLEO_WB15CC_xusb_HSFS INTERFACE)
 target_compile_options(NUCLEO_WB15CC_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# NUCLEO_WBA55CG
+# -----------------------------------------------------------------------------
+
+set(NUCLEO_WBA55CG_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32WBAxx/WBA55C(E-G)U")
+set(NUCLEO_WBA55CG_MAXSIZE 1048576)
+set(NUCLEO_WBA55CG_MAXDATASIZE 131072)
+set(NUCLEO_WBA55CG_MCU cortex-m33)
+set(NUCLEO_WBA55CG_FPCONF "fpv4-sp-d16-hard")
+add_library(NUCLEO_WBA55CG INTERFACE)
+target_compile_options(NUCLEO_WBA55CG INTERFACE
+  "SHELL:-DSTM32WBA55xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${NUCLEO_WBA55CG_MCU}
+)
+target_compile_definitions(NUCLEO_WBA55CG INTERFACE
+  "STM32WBAxx"
+	"ARDUINO_NUCLEO_WBA55CG"
+	"BOARD_NAME=\"NUCLEO_WBA55CG\""
+	"BOARD_ID=NUCLEO_WBA55CG"
+	"VARIANT_H=\"variant_NUCLEO_WBA55CG.h\""
+)
+target_include_directories(NUCLEO_WBA55CG INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32WBAxx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32WBAxx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32WBAxx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32WBAxx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32WBAxx/Source/Templates/gcc/
+  ${NUCLEO_WBA55CG_VARIANT_PATH}
+)
+
+target_link_options(NUCLEO_WBA55CG INTERFACE
+  "LINKER:--default-script=${NUCLEO_WBA55CG_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=1048576"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${NUCLEO_WBA55CG_MCU}
+)
+
+add_library(NUCLEO_WBA55CG_serial_disabled INTERFACE)
+target_compile_options(NUCLEO_WBA55CG_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_WBA55CG_serial_generic INTERFACE)
+target_compile_options(NUCLEO_WBA55CG_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(NUCLEO_WBA55CG_serial_none INTERFACE)
+target_compile_options(NUCLEO_WBA55CG_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(NUCLEO_WBA55CG_usb_CDC INTERFACE)
+target_compile_options(NUCLEO_WBA55CG_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=-1 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(NUCLEO_WBA55CG_usb_CDCgen INTERFACE)
+target_compile_options(NUCLEO_WBA55CG_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=-1 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(NUCLEO_WBA55CG_usb_HID INTERFACE)
+target_compile_options(NUCLEO_WBA55CG_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=-1 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(NUCLEO_WBA55CG_usb_none INTERFACE)
+target_compile_options(NUCLEO_WBA55CG_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_WBA55CG_xusb_FS INTERFACE)
+target_compile_options(NUCLEO_WBA55CG_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_WBA55CG_xusb_HS INTERFACE)
+target_compile_options(NUCLEO_WBA55CG_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(NUCLEO_WBA55CG_xusb_HSFS INTERFACE)
+target_compile_options(NUCLEO_WBA55CG_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 

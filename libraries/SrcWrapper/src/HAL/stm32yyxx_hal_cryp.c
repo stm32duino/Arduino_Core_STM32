@@ -30,6 +30,8 @@
   #include "stm32u5xx_hal_cryp.c"
 #elif STM32WBxx
   #include "stm32wbxx_hal_cryp.c"
+#elif STM32WBAxx
+  #include "stm32wbaxx_hal_cryp.c"
 #elif STM32WLxx
   #include "stm32wlxx_hal_cryp.c"
 #endif

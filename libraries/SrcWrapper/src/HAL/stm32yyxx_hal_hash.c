@@ -20,5 +20,7 @@
   #include "stm32mp1xx_hal_hash.c"
 #elif STM32U5xx
   #include "stm32u5xx_hal_hash.c"
+#elif STM32WBAxx
+  #include "stm32wbaxx_hal_hash.c"
 #endif
 #pragma GCC diagnostic pop

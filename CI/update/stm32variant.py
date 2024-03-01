@@ -2141,10 +2141,11 @@ def merge_dir(out_temp_path, group_mcu_dir, mcu_family, periph_xml, variant_exp)
     mcu_dir = group_mcu_dir[0]
     # Merge if needed
     if len(group_mcu_dir) != 1:
-        index_mcu_base = 5
-        # Key function
-        if "MP1" in mcu_family.name:
-            index_mcu_base += 1
+        # Handle mcu name length dynamically
+        # Add 3 for extra information line, #pin and flash
+        index_mcu_base = (
+            len(mcu_family.name.removeprefix("STM32").removesuffix("xx")) + 3
+        )
 
         # Extract only dir name
         for dir_name in group_mcu_dir:

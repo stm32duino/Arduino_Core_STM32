@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic WBA52KEUx
+GenWBA.menu.pnum.GENERIC_WBA52KEUX=Generic WBA52KEUx
+GenWBA.menu.pnum.GENERIC_WBA52KEUX.upload.maximum_size=524288
+GenWBA.menu.pnum.GENERIC_WBA52KEUX.upload.maximum_data_size=98304
+GenWBA.menu.pnum.GENERIC_WBA52KEUX.build.board=GENERIC_WBA52KEUX
+GenWBA.menu.pnum.GENERIC_WBA52KEUX.build.product_line=STM32WBA52xx
+GenWBA.menu.pnum.GENERIC_WBA52KEUX.build.variant=STM32WBAxx/WBA52K(E-G)U_WBA54K(E-G)U
+
+# Generic WBA52KGUx
+GenWBA.menu.pnum.GENERIC_WBA52KGUX=Generic WBA52KGUx
+GenWBA.menu.pnum.GENERIC_WBA52KGUX.upload.maximum_size=1048576
+GenWBA.menu.pnum.GENERIC_WBA52KGUX.upload.maximum_data_size=131072
+GenWBA.menu.pnum.GENERIC_WBA52KGUX.build.board=GENERIC_WBA52KGUX
+GenWBA.menu.pnum.GENERIC_WBA52KGUX.build.product_line=STM32WBA52xx
+GenWBA.menu.pnum.GENERIC_WBA52KGUX.build.variant=STM32WBAxx/WBA52K(E-G)U_WBA54K(E-G)U
+
+# Generic WBA54KEUx
+GenWBA.menu.pnum.GENERIC_WBA54KEUX=Generic WBA54KEUx
+GenWBA.menu.pnum.GENERIC_WBA54KEUX.upload.maximum_size=524288
+GenWBA.menu.pnum.GENERIC_WBA54KEUX.upload.maximum_data_size=98304
+GenWBA.menu.pnum.GENERIC_WBA54KEUX.build.board=GENERIC_WBA54KEUX
+GenWBA.menu.pnum.GENERIC_WBA54KEUX.build.product_line=STM32WBA54xx
+GenWBA.menu.pnum.GENERIC_WBA54KEUX.build.variant=STM32WBAxx/WBA52K(E-G)U_WBA54K(E-G)U
+
+# Generic WBA54KGUx
+GenWBA.menu.pnum.GENERIC_WBA54KGUX=Generic WBA54KGUx
+GenWBA.menu.pnum.GENERIC_WBA54KGUX.upload.maximum_size=1048576
+GenWBA.menu.pnum.GENERIC_WBA54KGUX.upload.maximum_data_size=131072
+GenWBA.menu.pnum.GENERIC_WBA54KGUX.build.board=GENERIC_WBA54KGUX
+GenWBA.menu.pnum.GENERIC_WBA54KGUX.build.product_line=STM32WBA54xx
+GenWBA.menu.pnum.GENERIC_WBA54KGUX.build.variant=STM32WBAxx/WBA52K(E-G)U_WBA54K(E-G)U
+
