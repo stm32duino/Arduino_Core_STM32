@@ -450,6 +450,16 @@ def checkVersion(serie, repo_path):
             / "Src"
             / f"stm32{lserie}xx_hal.c"
         )
+        with open(HAL_file, "r") as fp:
+            data = fp.read()
+            if "HAL_VERSION_MAIN" not in data:
+                HAL_file = (
+                    repo_path
+                    / hal_dest_path
+                    / f"STM32{userie}xx_HAL_Driver"
+                    / "Inc"
+                    / f"stm32{lserie}xx_hal.h"
+                )
         core_HAL_versions[serie] = parseVersion(HAL_file, patterns)
 
     patterns = [
