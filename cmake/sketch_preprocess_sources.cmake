@@ -5,29 +5,31 @@ function(sketch_preprocess_sources)
   set(SRCLIST "")
   foreach(SRCFILE IN LISTS SPC_SOURCES)
     if (${SRCFILE} MATCHES "\.ino$")
+      # Convert <file>.ino to ${CMAKE_CURRENT_BINARY_DIR}/<file>.ino.{cpp,h}
       cmake_path(GET SRCFILE FILENAME SRC_BASE_NAME)
+      set(SRC_BINARY_BASE_NAME ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME})
 
       configure_file(
         ${SRCFILE}
-        ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.cpp
+        ${SRC_BINARY_BASE_NAME}.cpp
         COPYONLY
       )
 
-      add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.h
-        COMMAND ${ARDUINOCTAGS_EXECUTABLE} -u --language-force=c++ -f ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.ctags --c++-kinds=svpf --fields=KSTtzns --line-directives ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.cpp
-        COMMAND ${Python3_EXECUTABLE} ${SCRIPTS_FOLDER}/generate_header.py -i ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.ctags -o ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.h
+      add_custom_command(OUTPUT ${SRC_BINARY_BASE_NAME}.h
+        COMMAND ${ARDUINOCTAGS_EXECUTABLE} -u --language-force=c++ -f ${SRC_BINARY_BASE_NAME}.ctags --c++-kinds=svpf --fields=KSTtzns --line-directives ${SRC_BINARY_BASE_NAME}.cpp
+        COMMAND ${Python3_EXECUTABLE} ${SCRIPTS_FOLDER}/generate_header.py -i ${SRC_BINARY_BASE_NAME}.ctags -o ${SRC_BINARY_BASE_NAME}.h
 
-        DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.cpp
-        BYPRODUCTS ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.ctags
+        DEPENDS ${SRC_BINARY_BASE_NAME}.cpp
+        BYPRODUCTS ${SRC_BINARY_BASE_NAME}.ctags
         VERBATIM
       )
 
-      set_source_files_properties(${SRCFILE}.cpp
+      set_source_files_properties(${SRC_BINARY_BASE_NAME}.cpp
         PROPERTIES
-        COMPILE_OPTIONS "-include;Arduino.h;-include;${SRCFILE}.h"
-        OBJECT_DEPENDS "${SRCFILE}.h"
+        COMPILE_OPTIONS "-include;Arduino.h;-include;${SRC_BINARY_BASE_NAME}.h"
+        OBJECT_DEPENDS ${SRC_BINARY_BASE_NAME}.h
       )
-      list(APPEND SRCLIST ${SRCFILE}.cpp)
+      list(APPEND SRCLIST ${SRC_BINARY_BASE_NAME}.cpp)
     else()
       list(APPEND SRCLIST ${SRCFILE})
     endif()
