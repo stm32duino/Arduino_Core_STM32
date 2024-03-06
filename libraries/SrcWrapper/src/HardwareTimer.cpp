@@ -75,9 +75,6 @@ HardwareTimer::HardwareTimer(TIM_TypeDef *instance)
 void HardwareTimer::setup(TIM_TypeDef *instance)
 {
   uint32_t index = get_timer_index(instance);
-  if (index == UNKNOWN_TIMER) {
-    Error_Handler();
-  }
 
   // Already initialized?
   if (_timerObj.handle.Instance) {
@@ -174,14 +171,7 @@ void HardwareTimer::pauseChannel(uint32_t channel)
 
   int timAssociatedInputChannel;
   int LLChannel = getLLChannel(channel);
-  if (LLChannel == -1) {
-    Error_Handler();
-  }
-
   int interrupt = getIT(channel);
-  if (interrupt == -1) {
-    Error_Handler();
-  }
 
   // Disable channel and corresponding interrupt
   __HAL_TIM_DISABLE_IT(&(_timerObj.handle), interrupt);
@@ -234,11 +224,11 @@ void HardwareTimer::resume(void)
 /**
   * @brief  Convert arduino channel into HAL channel
   * @param  Arduino channel [1..4]
-  * @retval HAL channel. return -1 if arduino channel is invalid
+  * @retval HAL channel. Error handler called if arduino channel is invalid
   */
 int HardwareTimer::getChannel(uint32_t channel)
 {
-  uint32_t return_value;
+  int return_value = -1;
 
   switch (channel) {
     case 1:
@@ -254,7 +244,7 @@ int HardwareTimer::getChannel(uint32_t channel)
       return_value = TIM_CHANNEL_4;
       break;
     default:
-      return_value = -1;
+      Error_Handler();
   }
   return return_value;
 }
@@ -262,7 +252,7 @@ int HardwareTimer::getChannel(uint32_t channel)
 /**
   * @brief  Convert arduino channel into LL channels used (regular and/or complementary)
   * @param  Arduino channel [1..4]
-  * @retval LL channel. return -1 if arduino channel is invalid
+  * @retval LL channel. Error handler called if arduino channel is invalid
   */
 int HardwareTimer::getLLChannel(uint32_t channel)
 {
@@ -310,17 +300,20 @@ int HardwareTimer::getLLChannel(uint32_t channel)
         return_value = -1;
     }
   }
+  if (return_value == -1) {
+    Error_Handler();
+  }
   return return_value;
 }
 
 /**
   * @brief  Convert arduino channel into HAL Interrupt ID
   * @param  Arduino channel [1..4]
-  * @retval HAL channel. return -1 if arduino channel is invalid
+  * @retval HAL channel. Error handler called if arduino channel is invalid
   */
 int HardwareTimer::getIT(uint32_t channel)
 {
-  uint32_t return_value;
+  int return_value = -1;
 
   switch (channel) {
     case 1:
@@ -336,7 +329,7 @@ int HardwareTimer::getIT(uint32_t channel)
       return_value = TIM_IT_CC4;
       break;
     default:
-      return_value = -1;
+      Error_Handler();
   }
   return return_value;
 }
@@ -378,19 +371,7 @@ void HardwareTimer::resumeChannel(uint32_t channel)
 {
   int timChannel = getChannel(channel);
   int timAssociatedInputChannel;
-  if (timChannel == -1) {
-    Error_Handler();
-  }
-
   int interrupt = getIT(channel);
-  if (interrupt == -1) {
-    Error_Handler();
-  }
-
-  int LLChannel = getLLChannel(channel);
-  if (LLChannel == -1) {
-    Error_Handler();
-  }
 
   // Clear flag and enable IT
   if (callbacks[channel]) {
@@ -643,10 +624,6 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin, Ch
   TIM_OC_InitTypeDef channelOC;
   TIM_IC_InitTypeDef channelIC;
 
-  if (timChannel == -1) {
-    Error_Handler();
-  }
-
   /* Configure some default values. Maybe overwritten later */
   channelOC.OCMode = TIMER_NOT_USED;
   channelOC.Pulse = __HAL_TIM_GET_COMPARE(&(_timerObj.handle), timChannel);  // keep same value already written in hardware register
@@ -822,10 +799,6 @@ void HardwareTimer::setCaptureCompare(uint32_t channel, uint32_t compare, TimerC
   uint32_t Prescalerfactor = LL_TIM_GetPrescaler(_timerObj.handle.Instance) + 1;
   uint32_t CCR_RegisterValue;
 
-  if (timChannel == -1) {
-    Error_Handler();
-  }
-
   switch (format) {
     case MICROSEC_COMPARE_FORMAT:
       CCR_RegisterValue = ((compare * (getTimerClkFreq() / 1000000)) / Prescalerfactor);
@@ -888,10 +861,6 @@ uint32_t HardwareTimer::getCaptureCompare(uint32_t channel,  TimerCompareFormat_
   uint32_t CCR_RegisterValue = __HAL_TIM_GET_COMPARE(&(_timerObj.handle), timChannel);
   uint32_t Prescalerfactor = LL_TIM_GetPrescaler(_timerObj.handle.Instance) + 1;
   uint32_t return_value;
-
-  if (timChannel == -1) {
-    Error_Handler();
-  }
 
   switch (format) {
     case MICROSEC_COMPARE_FORMAT:
@@ -1030,9 +999,6 @@ void HardwareTimer::detachInterrupt()
 void HardwareTimer::attachInterrupt(uint32_t channel, callback_function_t callback)
 {
   int interrupt = getIT(channel);
-  if (interrupt == -1) {
-    Error_Handler();
-  }
 
   if ((channel == 0) || (channel > (TIMER_CHANNELS + 1))) {
     Error_Handler();  // only channel 1..4 have an interrupt
@@ -1059,9 +1025,6 @@ void HardwareTimer::attachInterrupt(uint32_t channel, callback_function_t callba
 void HardwareTimer::detachInterrupt(uint32_t channel)
 {
   int interrupt = getIT(channel);
-  if (interrupt == -1) {
-    Error_Handler();
-  }
 
   if ((channel == 0) || (channel > (TIMER_CHANNELS + 1))) {
     Error_Handler();  // only channel 1..4 have an interrupt
@@ -1197,14 +1160,6 @@ bool HardwareTimer::isRunningChannel(uint32_t channel)
   int LLChannel = getLLChannel(channel);
   int interrupt = getIT(channel);
   bool ret;
-
-  if (LLChannel == -1) {
-    Error_Handler();
-  }
-
-  if (interrupt == -1) {
-    Error_Handler();
-  }
 
   // channel is running if: timer is running, and either output channel is
   // enabled or interrupt is set
@@ -1365,6 +1320,9 @@ timer_index_t get_timer_index(TIM_TypeDef *instance)
     index = TIMER22_INDEX;
   }
 #endif
+  if (index == UNKNOWN_TIMER) {
+    Error_Handler();
+  }
   return index;
 }
 
