@@ -181,10 +181,11 @@ class HardwareTimer {
     int getLLChannel(uint32_t channel);
     int getIT(uint32_t channel);
     int getAssociatedChannel(uint32_t channel);
-#if defined(TIM_CCER_CC1NE)
-    bool isComplementaryChannel[TIMER_CHANNELS];
-#endif
+
   private:
+    // Store for each channel if regular, complementary or both are used
+    // High part for complementary (COMPLEMENTARY_CHAN_MASK), low part for regular (REGULAR_CHAN_MASK)
+    uint8_t __ChannelsUsed[TIMER_CHANNELS];
     TimerModes_t  _ChannelMode[TIMER_CHANNELS];
     timerObj_t _timerObj;
     callback_function_t callbacks[1 + TIMER_CHANNELS]; //Callbacks: 0 for update, 1-4 for channels. (channel5/channel6, if any, doesn't have interrupt)
