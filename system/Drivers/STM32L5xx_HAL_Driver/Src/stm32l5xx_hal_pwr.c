@@ -560,10 +560,6 @@ void HAL_PWR_EnterSTANDBYMode(void)
   /* Set SLEEPDEEP bit of Cortex System Control Register */
   SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
 
-  /* This option is used to ensure that store operations are completed */
-#if defined ( __CC_ARM)
-  __force_stores();
-#endif
   /* Request Wait For Interrupt */
   __WFI();
 }
@@ -674,7 +670,6 @@ __weak void HAL_PWR_PVDCallback(void)
 void HAL_PWR_ConfigAttributes(uint32_t Item, uint32_t Attributes)
 {
   /* Check the parameters */
-  assert_param(IS_PWR_ITEMS_ATTRIBUTES(Item));
   assert_param(IS_PWR_ATTRIBUTES(Attributes));
 
   /* Privilege/non-privilege attribute */
@@ -694,6 +689,9 @@ void HAL_PWR_ConfigAttributes(uint32_t Item, uint32_t Attributes)
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 
+  /* Check the parameters */
+  assert_param(IS_PWR_ITEMS_ATTRIBUTES(Item));
+
   /* Secure/non-secure attribute */
   if ((Attributes & PWR_SEC) == PWR_SEC)
   {
@@ -707,6 +705,11 @@ void HAL_PWR_ConfigAttributes(uint32_t Item, uint32_t Attributes)
   {
     /* do nothing */
   }
+
+#else
+
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(Item);
 
 #endif /* __ARM_FEATURE_CMSE */
 }
@@ -729,9 +732,6 @@ HAL_StatusTypeDef HAL_PWR_GetConfigAttributes(uint32_t Item, uint32_t *pAttribut
     return HAL_ERROR;
   }
 
-  /* Check the parameters */
-  assert_param(IS_PWR_ITEMS_ATTRIBUTES(Item));
-
   /* Get privilege or non-privilege attribute */
   if (READ_BIT(PWR->PRIVCFGR, PWR_PRIVCFGR_PRIV) != 0x00U)
   {
@@ -744,6 +744,9 @@ HAL_StatusTypeDef HAL_PWR_GetConfigAttributes(uint32_t Item, uint32_t *pAttribut
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 
+  /* Check the parameters */
+  assert_param(IS_PWR_ITEMS_ATTRIBUTES(Item));
+
   /* Get the secure or non-secure attribute state */
   if ((PWR_S->SECCFGR & Item) == Item)
   {
@@ -753,6 +756,11 @@ HAL_StatusTypeDef HAL_PWR_GetConfigAttributes(uint32_t Item, uint32_t *pAttribut
   {
     attributes |= PWR_NSEC;
   }
+
+#else
+
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(Item);
 
 #endif /* __ARM_FEATURE_CMSE */
 

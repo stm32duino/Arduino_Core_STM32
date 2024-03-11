@@ -41,16 +41,178 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section6" checked aria-hidden="true"> <label for="collapse-section6" aria-hidden="true"><strong>V1.0.5 / 04-November-2022</strong></label>
+<input type="checkbox" id="collapse-section7" checked aria-hidden="true"> <label for="collapse-section7" aria-hidden="true"><strong>V1.0.6 / 09-February-2024</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <p><strong>Maintenance release</strong></p>
 <h2 id="contents">Contents</h2>
 <ul>
 <li>General updates to fix known defects and implementation enhancements.</li>
-<li>All source files: update disclaimer to add reference to the new license agreement.</li>
 </ul>
 <h3 id="hal-drivers-updates"><strong>HAL Drivers</strong> updates</h3>
+<ul>
+<li>HAL code quality enhancement for MISRA-C2012 Rule-8.13 by adding const qualifiers.</li>
+<li><strong>HAL Generic</strong>
+<ul>
+<li>Allow redefinition of macro UNUSED(x).</li>
+<li>Update of HAL_GetTickFreq() API brief.</li>
+</ul></li>
+<li><strong>HAL/LL RCC</strong>
+<ul>
+<li>Fix HAL_RCC_GetOscConfig() API to return oscillator state based on xxxRDY bit status.</li>
+<li>Add uint32_t cast to shift left operands constants defined with ‘U’ suffix in case MISRAC2012-Rule-12.2 violated.</li>
+<li>Invoke UNUSED() macro to avoid compilation warnings due to unused parameter(s).</li>
+<li>Correct LSE config macro regarding LSESYS handling.</li>
+</ul></li>
+<li><strong>HAL PWR</strong>
+<ul>
+<li>Update HAL_PWR_EnterSTANDBYMode() and HAL_PWREx_EnterSHUTDOWNMode() APIs to remove call to the __force_stores() intrinsic API:
+<ul>
+<li>No longer need to call __force_stores() with MDK-ARM V5.6.0 version and later.</li>
+</ul></li>
+<li>Invoke UNUSED() macro in HAL_PWR_ConfigAttributes() and HAL_PWR_GetConfigAttributes() APIs to avoid compilation warnings due to unused parameter.</li>
+</ul></li>
+<li><strong>HAL GPIO</strong>
+<ul>
+<li>Update HAL_GPIO_LockPin() API description to return HAL status instead of None.</li>
+<li>Optimize the implementation of HAL_GPIO_ConfigPinAttributes() API.</li>
+<li>Replace GPIO_Pin_x with GPIO_PIN_x to be compliant with macros definition.</li>
+</ul></li>
+<li><strong>HAL SAI</strong>
+<ul>
+<li>Improve audio quality (avoid potential glitch).</li>
+</ul></li>
+<li><strong>HAL/LL CORTEX</strong>
+<ul>
+<li>Align MPU Enable/Disable APIs with ARM’s last recommendations in the usage of Data Memory and Data/Instruction Synchronization barriers.</li>
+<li>Align LL_MPU_ACCESS_OUTER_SHAREABLE defined value with ARMv8-M Architecture documentation.</li>
+<li>Update HAL_MPU_ConfigRegion() API to allow the configuration of the MPU registers independently of the value of Enable/Disable field.</li>
+<li>Add new APIs HAL_MPU_EnableRegion() / HAL_MPU_DisableRegion().</li>
+</ul></li>
+<li><strong>HAL ICACHE</strong>
+<ul>
+<li>Update HAL_ICACHE_DeInit to set registers to reset value.</li>
+<li>Update HAL_ICACHE_Invalidate() to prevent launching an invalidation if one has already been launched.</li>
+<li>Update “How to use” for HAL_ICACHE_Enable() API.</li>
+</ul></li>
+<li><strong>HAL HASH</strong>
+<ul>
+<li>Read the last remaining bytes (3 or 2 or 1) of the data in a temporary variable (taking into account swap mode) and enter this variable into the HASH-&gt;DIN when the data is not a multiple of 4 bytes.</li>
+<li>HAL code quality enhancement for MISRA-C2012 Rule-12.1, Rule-10.7, Rule-10.6 and Rule-10.4.</li>
+</ul></li>
+<li><strong>HAL DAC</strong>
+<ul>
+<li>Updated DAC buffer calibration according to RM.</li>
+</ul></li>
+<li><strong>LL RTC</strong>
+<ul>
+<li>Correct misleading note about shadow registers.</li>
+</ul></li>
+<li><strong>HAL/LL TIM</strong>
+<ul>
+<li>Remove multiple volatile reads or writes in interrupt handler for better performance.</li>
+<li>Improve HAL TIM driver’s operational behavior.</li>
+<li>Assert check for the right channels.</li>
+<li>Remove unnecessary change of MOE bitfield in LL_TIM_BDTR_Init() API.</li>
+<li>Remove useless check on IS_TIM_ADVANCED_INSTANCE() within LL_TIM_BDTR_Init() API to fix Break Filter configuration problem with specific TIM instances.</li>
+<li>Improve period configuration parameter check.</li>
+<li>Fix typo in PWM symmetric mode related constants names.</li>
+</ul></li>
+<li><strong>HAL LPTIM</strong>
+<ul>
+<li>Remove redundant IS_LPTIM_AUTORELOAD macro.</li>
+</ul></li>
+<li><strong>HAL UART</strong>
+<ul>
+<li>Update initialisation sequence for TXINV, RXINV and TXRXSWAP settings.</li>
+<li>Fix incorrect gState check in HAL_UART_RegisterRxEventCallback()/HAL_UART_UnRegisterRxEventCallback() APIs to allow user Rx Event Callback registration when a transmit is ongoing.</li>
+<li>Avoid RTOF flag to be cleared by a transmit process in polling mode.</li>
+<li>Add LL LPUART API allowing TX FIFO flush request.</li>
+</ul></li>
+<li><strong>HAL USART</strong>
+<ul>
+<li>Improve the visibility of the SPI function support in HAL USART description.</li>
+</ul></li>
+<li><strong>HAL CRYP</strong>
+<ul>
+<li>Update AES GCM in interrupt mode to avoid Computation Completed IRQ fires before the DINR pointer increment.</li>
+<li>Update Crypt/Decrypt IT processes to avoid Computation Completed IRQ fires before the DINR pointer increment.</li>
+<li>HAL code quality enhancement for MISRA-C2012 Rule-10.4.</li>
+</ul></li>
+<li><strong>HAL FDCAN</strong>
+<ul>
+<li>Fix GetIndex issue in HAL_FDCAN_GetRxMessage() API.</li>
+<li>Remove shift from ‘FDCAN_DLC_BYTES_X’ definitions so that values taken by ‘DataLength’ structure member comply to the definition of a DLC.</li>
+</ul></li>
+<li><strong>HAL SPI</strong>
+<ul>
+<li>Fix driver to don’t update state in case of error. (HAL_SPI_STATE_READY will be set only in case of HAL_TIMEOUT).</li>
+<li>Update HAL_SPI_TransmitReceive() API to set the bit CRCNEXT in case of one byte transaction.</li>
+<li>Update IT API to enable interrupts after process unlock.</li>
+</ul></li>
+<li><strong>HAL TSC</strong>
+<ul>
+<li>Update IS_TSC_PG_PRESC_VS_CTPL() assert macro: Add parameter assertion depends on Duration time restriction link to product.</li>
+</ul></li>
+<li><strong>HAL/LL I2C</strong>
+<ul>
+<li>Update HAL_I2C_IsDeviceReady() API to support 10_bit addressing mode: Update done on the macro I2C_GENERATE_START.</li>
+<li>Update HAL I2C driver to prefetch data before starting the transmission: implementation of errata sheet workaround I2C2-190208 : Transmission stalled after first byte.</li>
+<li>Update HAL I2C driver to disable all interrupts after end of transaction.</li>
+<li>Update HAL_I2C_Init() API to clear ADD10 bit in 7 bit addressing mode.</li>
+<li>Update HAL_I2C_Mem_Write_IT() API to initialize XferSize at 0.</li>
+<li>Update I2C_Slave_ISR_IT(), I2C_Slave_ISR_DMA() and I2C_ITSlaveCplt() APIs to prevent the call of HAL_I2C_ListenCpltCallback twice.</li>
+<li>Update I2C_WaitOnRXNEFlagUntilTimeout() API to check I2C_FLAG_AF independently from I2C_FLAG_RXNE.</li>
+<li>Remove the unusable code in HAL_I2C_IsDeviceReady() API.</li>
+<li>Update LL_I2C_HandleTranfer() API to prevent undefined behavior of volatile usage before updating the CR2 register.</li>
+<li>Update I2C_WaitOnFlagUntilTimeout() API to handle error case.</li>
+<li>Add a temporary variable to get the value to check before comparison.</li>
+<li>Add abort memory management to HAL_I2C_Master_Abort_IT() API.</li>
+<li>Move the prefetch process in HAL_I2C_Slave_Transmit() API.</li>
+</ul></li>
+<li><strong>HAL SMBUS</strong>
+<ul>
+<li>Update HAL SMBUS driver to prefetch data before starting the transmission: implementation of errata sheet workaround I2C2-190208 : Transmission stalled after first byte.</li>
+</ul></li>
+<li><strong>HAL SMARTCARD</strong>
+<ul>
+<li>Update SMARTCARD_SetConfig() API to fix CONSTANT_EXPRESSION_RESULT Coverity warning.</li>
+</ul></li>
+<li><strong>HAL SDMMC</strong>
+<ul>
+<li>Update HAL_SD_ConfigSpeedBusOperation() API to add support of switch to Default Speed.</li>
+<li>Fix CodeSonar Division by Zero and Empty while Statement warnings.</li>
+<li>Remove __HAL_LOCK() API from HAL_xxx_RegisterCallback()/HAL_xxx_UnRegisterCallback() APIs.</li>
+<li>Improve the abort mechanism for specific cases.</li>
+<li>Fix Misra-C 2012 warnings MISRAC2012-Rule-15.6_e and MISRAC2012-Rule-15.7.</li>
+<li>Fix typos in constants used for variable assignments : MMC instead of SD.</li>
+<li>Substitute magic numbers by macros.</li>
+<li>Fix Misra-C 2012 warning MISRAC2012-Rule-12.1.</li>
+<li>Add MMC Card Reply Protected Memory Block (RPMB) APIs.</li>
+<li>Add HAL_MMC_BOOT_PARTITION1 and HAL_MMC_BOOT_PARTITION2 macros.</li>
+<li>Add configurable HW/SW Timeout.</li>
+</ul></li>
+<li><strong>LL UTILS</strong>
+<ul>
+<li>Update LL_InitTick() API documentation: update “Ticks” parameter description.</li>
+</ul></li>
+</ul>
+<h2 id="notes">Notes</h2>
+<p>For HAL drivers usage, stm32l5xx_hal_conf_template.h file must be copied in user application as stm32l5xx_hal_conf.h with optional configuration update.</p>
+<p>For LL drivers usage, stm32_assert_template.h file must be copied in user application as stm32_assert.h with optional assert configuration update.</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true"><strong>V1.0.5 / 04-November-2022</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<p><strong>Maintenance release</strong></p>
+<h2 id="contents-1">Contents</h2>
+<ul>
+<li>General updates to fix known defects and implementation enhancements.</li>
+<li>All source files: update disclaimer to add reference to the new license agreement.</li>
+</ul>
+<h3 id="hal-drivers-updates-1"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li><strong>HAL Generic</strong>
 <ul>
@@ -248,7 +410,7 @@
 <li>Update the way to declare licenses.</li>
 </ul></li>
 </ul>
-<h2 id="notes">Notes</h2>
+<h2 id="notes-1">Notes</h2>
 <p>For HAL drivers usage, stm32l5xx_hal_conf_template.h file must be copied in user application as stm32l5xx_hal_conf.h with optional configuration update.</p>
 <p>For LL drivers usage, stm32_assert_template.h file must be copied in user application as stm32_assert.h with optional assert configuration update.</p>
 </div>
@@ -256,12 +418,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true"><strong>V1.0.4 / 10-February-2021</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <p><strong>Maintenance release</strong></p>
-<h2 id="contents-1">Contents</h2>
+<h2 id="contents-2">Contents</h2>
 <p>Maintenance release of <strong>HAL and Low Layer drivers</strong> for <strong>STM32L552xx/STM32L562xx</strong> devices</p>
 <p>Superset features device STM32L562xx API User Manual available (STM32L562xx_User_Manual.chm)</p>
-<h3 id="hal-drivers-updates-1"><strong>HAL Drivers</strong> updates</h3>
+<h3 id="hal-drivers-updates-2"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li><strong>HAL ADC</strong> driver
 <ul>
@@ -410,7 +572,7 @@
 <li>Remove useless IS_LL_USART_BRR_MAX() macro</li>
 </ul></li>
 </ul>
-<h2 id="notes-1">Notes</h2>
+<h2 id="notes-2">Notes</h2>
 <p>For HAL drivers usage, stm32l5xx_hal_conf_template.h file must be copied in user application as stm32l5xx_hal_conf.h with optional configuration update.</p>
 <p>For LL drivers usage, stm32_assert_template.h file must be copied in user application as stm32_assert.h with optional assert configuration update.</p>
 </div>
@@ -418,12 +580,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.0.3 / 26-June-2020</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <p><strong>Fourth release</strong></p>
-<h2 id="contents-2">Contents</h2>
+<h2 id="contents-3">Contents</h2>
 <p>Fourth release of <strong>HAL and Low Layer drivers</strong> for <strong>STM32L552xx/STM32L562xx</strong> devices</p>
 <p>Superset features device STM32L562xx API User Manual available (STM32L562xx_User_Manual.chm)</p>
-<h3 id="hal-drivers-updates-2"><strong>HAL Drivers</strong> updates</h3>
+<h3 id="hal-drivers-updates-3"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li>Global removal of ‘register’ storage class qualifier deprecated since C++ 11</li>
 <li><strong>HAL</strong> generic driver
@@ -537,7 +699,7 @@
 <li>Change default CFGR1 register values in LL_UCPD_StructInit()</li>
 </ul></li>
 </ul>
-<h2 id="notes-2">Notes</h2>
+<h2 id="notes-3">Notes</h2>
 <p>For HAL drivers usage, stm32l5xx_hal_conf_template.h file must be copied in user application as stm32l5xx_hal_conf.h with optional configuration update.</p>
 <p>For LL drivers usage, stm32_assert_template.h file must be copied in user application as stm32_assert.h with optional assert configuration update.</p>
 </div>
@@ -545,12 +707,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true"><strong>V1.0.2 / 12-February-2020</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <p><strong>Third release</strong></p>
-<h2 id="contents-3">Contents</h2>
+<h2 id="contents-4">Contents</h2>
 <p>Third official release of <strong>HAL and Low Layer drivers</strong> for <strong>STM32L552xx/STM32L562xx</strong> devices</p>
 <p>Superset features device STM32L562xx API User Manual available (STM32L562xx_User_Manual.chm)</p>
-<h3 id="hal-drivers-updates-3"><strong>HAL Drivers</strong> updates</h3>
+<h3 id="hal-drivers-updates-4"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li><strong>HAL FLASH</strong> driver
 <ul>
@@ -583,7 +745,7 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="notes-3">Notes</h2>
+<h2 id="notes-4">Notes</h2>
 <p>For HAL drivers usage, stm32l5xx_hal_conf_template.h file must be copied in user application as stm32l5xx_hal_conf.h with optional configuration update.</p>
 <p>For LL drivers usage, stm32_assert_template.h file must be copied in user application as stm32_assert.h with optional assert configuration update.</p>
 <h2 id="known-limitations">Known Limitations</h2>
@@ -598,12 +760,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true"><strong>V1.0.1 / 22-January-2020</strong></label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <p><strong>Second release</strong></p>
-<h2 id="contents-4">Contents</h2>
+<h2 id="contents-5">Contents</h2>
 <p>Second official release of <strong>HAL and Low Layer drivers</strong> for <strong>STM32L552xx/STM32L562xx</strong> devices</p>
 <p>Superset features device STM32L562xx API User Manual available (STM32L562xx_User_Manual.chm)</p>
-<h3 id="hal-drivers-updates-4"><strong>HAL Drivers</strong> updates</h3>
+<h3 id="hal-drivers-updates-5"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li><strong>HAL FLASH</strong> driver
 <ul>
@@ -662,7 +824,7 @@
 <li>Add LL_SetFlashLatency() API</li>
 </ul></li>
 </ul>
-<h2 id="notes-4">Notes</h2>
+<h2 id="notes-5">Notes</h2>
 <p>For HAL drivers usage, stm32l5xx_hal_conf_template.h file must be copied in user application as stm32l5xx_hal_conf.h with optional configuration update.</p>
 <p>For LL drivers usage, stm32_assert_template.h file must be copied in user application as stm32_assert.h with optional assert configuration update.</p>
 </div>
@@ -670,9 +832,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true"><strong>V1.0.0 / 13-December-2019</strong></label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <p><strong>First release</strong></p>
-<h2 id="contents-5">Contents</h2>
+<h2 id="contents-6">Contents</h2>
 <p>First official release of <strong>HAL and Low Layer drivers</strong> for <strong>STM32L552xx/STM32L562xx</strong> devices</p>
 <p>Superset features device STM32L562xx API User Manual available (STM32L562xx_User_Manual.chm)</p>
 <h3 id="hal-drivers">HAL Drivers</h3>
@@ -684,7 +846,7 @@
 <ul>
 <li>ADC, BUS, COMP, CORTEX, CRC, CRS, CRYP, DAC, DMA, DMAMUX, EXTI, GPIO, I2C, IWDG, LPTIM, LPUART, OPAMP, PKA, PWR, RCC, RNG, RTC, SDMMC, SPI, SYSTEM, TIM, UCPD, USART, UTILS, WWDG</li>
 </ul>
-<h2 id="notes-5">Notes</h2>
+<h2 id="notes-6">Notes</h2>
 <p>For HAL drivers usage, stm32l5xx_hal_conf_template.h file must be copied in user application as stm32l5xx_hal_conf.h with optional configuration update.</p>
 <p>For LL drivers usage, stm32_assert_template.h file must be copied in user application as stm32_assert.h with optional assert configuration update.</p>
 </div>

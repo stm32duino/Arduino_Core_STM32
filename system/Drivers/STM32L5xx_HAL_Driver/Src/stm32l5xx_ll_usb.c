@@ -172,6 +172,47 @@ HAL_StatusTypeDef USB_DevInit(USB_TypeDef *USBx, USB_CfgTypeDef cfg)
   return HAL_OK;
 }
 
+/**
+  * @brief  USB_FlushTxFifo : Flush a Tx FIFO
+  * @param  USBx : Selected device
+  * @param  num : FIFO number
+  *         This parameter can be a value from 1 to 15
+            15 means Flush all Tx FIFOs
+  * @retval HAL status
+  */
+HAL_StatusTypeDef USB_FlushTxFifo(USB_TypeDef const *USBx, uint32_t num)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(USBx);
+  UNUSED(num);
+
+  /* NOTE : - This function is not required by USB Device FS peripheral, it is used
+              only by USB OTG FS peripheral.
+            - This function is added to ensure compatibility across platforms.
+   */
+
+  return HAL_OK;
+}
+
+/**
+  * @brief  USB_FlushRxFifo : Flush Rx FIFO
+  * @param  USBx : Selected device
+  * @retval HAL status
+  */
+HAL_StatusTypeDef USB_FlushRxFifo(USB_TypeDef const *USBx)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(USBx);
+
+  /* NOTE : - This function is not required by USB Device FS peripheral, it is used
+              only by USB OTG FS peripheral.
+            - This function is added to ensure compatibility across platforms.
+   */
+
+  return HAL_OK;
+}
+
+
 #if defined (HAL_PCD_MODULE_ENABLED)
 /**
   * @brief  Activate and configure an endpoint
@@ -751,7 +792,7 @@ HAL_StatusTypeDef  USB_DevDisconnect(USB_TypeDef *USBx)
   * @param  USBx Selected device
   * @retval USB Global Interrupt status
   */
-uint32_t USB_ReadInterrupts(USB_TypeDef *USBx)
+uint32_t USB_ReadInterrupts(USB_TypeDef const *USBx)
 {
   uint32_t tmpreg;
 
@@ -791,7 +832,7 @@ HAL_StatusTypeDef USB_DeActivateRemoteWakeup(USB_TypeDef *USBx)
   * @param   wNBytes no. of bytes to be copied.
   * @retval None
   */
-void USB_WritePMA(USB_TypeDef *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes)
+void USB_WritePMA(USB_TypeDef const *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes)
 {
   uint32_t n = ((uint32_t)wNBytes + 1U) >> 1;
   uint32_t BaseAddr = (uint32_t)USBx;
@@ -826,7 +867,7 @@ void USB_WritePMA(USB_TypeDef *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, ui
   * @param   wNBytes no. of bytes to be copied.
   * @retval None
   */
-void USB_ReadPMA(USB_TypeDef *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes)
+void USB_ReadPMA(USB_TypeDef const *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes)
 {
   uint32_t n = (uint32_t)wNBytes >> 1;
   uint32_t BaseAddr = (uint32_t)USBx;

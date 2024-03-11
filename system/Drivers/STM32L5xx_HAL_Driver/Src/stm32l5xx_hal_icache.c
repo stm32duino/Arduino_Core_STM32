@@ -45,30 +45,35 @@
      The ICACHE HAL driver can be used as follows:
 
     (#) Optionally configure the Instruction Cache mode with
-        @ref HAL_ICACHE_ConfigAssociativityMode() if the default configuration
+        HAL_ICACHE_ConfigAssociativityMode() if the default configuration
         does not suit the application requirements.
 
     (#) Enable and disable the Instruction Cache with respectively
-        @ref HAL_ICACHE_Enable() and @ref HAL_ICACHE_Disable().
-        Use @ref HAL_ICACHE_IsEnabled() to get the Instruction Cache status.
+        HAL_ICACHE_Enable() and HAL_ICACHE_Disable().
+        Use HAL_ICACHE_IsEnabled() to get the Instruction Cache status.
+        To ensure a deterministic cache behavior after power on, system reset or after
+        a call to @ref HAL_ICACHE_Disable(), the application must call
+        @ref HAL_ICACHE_WaitForInvalidateComplete(). Indeed on power on, system reset
+        or cache disable, an automatic cache invalidation procedure is launched and the
+        cache is bypassed until the operation completes.
 
     (#) Initiate the cache maintenance invalidation procedure with either
-        @ref HAL_ICACHE_Invalidate() (blocking mode) or @ref HAL_ICACHE_Invalidate_IT()
+        HAL_ICACHE_Invalidate() (blocking mode) or HAL_ICACHE_Invalidate_IT()
         (interrupt mode). When interrupt mode is used, the callback function
-        @ref HAL_ICACHE_InvalidateCompleteCallback() is called when the invalidate
-        procedure is complete. The function @ref HAL_ICACHE_WaitForInvalidateComplete()
+        HAL_ICACHE_InvalidateCompleteCallback() is called when the invalidate
+        procedure is complete. The function HAL_ICACHE_WaitForInvalidateComplete()
         may be called to wait for the end of the invalidate procedure automatically
-        initiated when disabling the Instruction Cache with @ref HAL_ICACHE_Disable().
+        initiated when disabling the Instruction Cache with HAL_ICACHE_Disable().
         The cache operation is bypassed during the invalidation procedure.
 
     (#) Use the performance monitoring counters for Hit and Miss with the following
-        functions: @ref HAL_ICACHE_Monitor_Start(), @ref HAL_ICACHE_Monitor_Stop(),
-        @ref HAL_ICACHE_Monitor_Reset(), @ref HAL_ICACHE_Monitor_GetHitValue() and
-        @ref HAL_ICACHE_Monitor_GetMissValue()
+        functions: HAL_ICACHE_Monitor_Start(), HAL_ICACHE_Monitor_Stop(),
+        HAL_ICACHE_Monitor_Reset(), HAL_ICACHE_Monitor_GetHitValue() and
+        HAL_ICACHE_Monitor_GetMissValue()
 
     (#) Enable and disable up to four regions to remap input address from external
         memories to the internal Code region for execution with
-        @ref HAL_ICACHE_EnableRemapRegion() and @ref HAL_ICACHE_DisableRemapRegion()
+        HAL_ICACHE_EnableRemapRegion() and HAL_ICACHE_DisableRemapRegion()
 
   @endverbatim
   */
@@ -84,7 +89,7 @@
   * @brief HAL ICACHE module driver
   * @{
   */
-#ifdef HAL_ICACHE_MODULE_ENABLED
+#if defined(ICACHE) && defined (HAL_ICACHE_MODULE_ENABLED)
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private constants ---------------------------------------------------------*/
@@ -183,32 +188,32 @@ HAL_StatusTypeDef HAL_ICACHE_ConfigAssociativityMode(uint32_t AssociativityMode)
 
 /**
   * @brief  DeInitialize the Instruction Cache.
-  * @retval HAL status (HAL_OK/HAL_TIMEOUT)
+  * @retval HAL status (HAL_OK)
   */
 HAL_StatusTypeDef HAL_ICACHE_DeInit(void)
 {
-  HAL_StatusTypeDef status;
-
-  /* Disable cache with reset value for 2-ways set associative mode */
-  WRITE_REG(ICACHE->CR, ICACHE_CR_WAYSEL);
-
-  /* Stop monitor and reset monitor values */
-  (void)HAL_ICACHE_Monitor_Stop(ICACHE_MONITOR_HIT_MISS);
-  (void)HAL_ICACHE_Monitor_Reset(ICACHE_MONITOR_HIT_MISS);
-
-  /* No remapped regions */
-  (void)HAL_ICACHE_DisableRemapRegion(ICACHE_REGION_0);
-  (void)HAL_ICACHE_DisableRemapRegion(ICACHE_REGION_1);
-  (void)HAL_ICACHE_DisableRemapRegion(ICACHE_REGION_2);
-  (void)HAL_ICACHE_DisableRemapRegion(ICACHE_REGION_3);
-
-  /* Wait for end of invalidate cache procedure */
-  status = HAL_ICACHE_WaitForInvalidateComplete();
+  /* Reset interrupt enable value */
+  WRITE_REG(ICACHE->IER, 0U);
 
   /* Clear any pending flags */
   WRITE_REG(ICACHE->FCR, ICACHE_FCR_CBSYENDF | ICACHE_FCR_CERRF);
 
-  return status;
+  /* Disable cache then set default associative mode value */
+  CLEAR_BIT(ICACHE->CR, ICACHE_CR_EN);
+  WRITE_REG(ICACHE->CR, ICACHE_CR_WAYSEL);
+
+  /* Stop monitor and reset monitor values */
+  CLEAR_BIT(ICACHE->CR, ICACHE_MONITOR_HIT_MISS);
+  SET_BIT(ICACHE->CR, (ICACHE_MONITOR_HIT_MISS << 2U));
+  CLEAR_BIT(ICACHE->CR, (ICACHE_MONITOR_HIT_MISS << 2U));
+
+  /* Reset regions configuration values */
+  WRITE_REG(ICACHE->CRR0, ICACHE_REGIONSIZE_2MB << ICACHE_CRRx_RSIZE_Pos);
+  WRITE_REG(ICACHE->CRR1, ICACHE_REGIONSIZE_2MB << ICACHE_CRRx_RSIZE_Pos);
+  WRITE_REG(ICACHE->CRR2, ICACHE_REGIONSIZE_2MB << ICACHE_CRRx_RSIZE_Pos);
+  WRITE_REG(ICACHE->CRR3, ICACHE_REGIONSIZE_2MB << ICACHE_CRRx_RSIZE_Pos);
+
+  return HAL_OK;
 }
 
 /**
@@ -281,21 +286,14 @@ HAL_StatusTypeDef HAL_ICACHE_Invalidate(void)
 {
   HAL_StatusTypeDef status;
 
-  /* Check no ongoing operation */
-  if (READ_BIT(ICACHE->SR, ICACHE_SR_BUSYF) != 0U)
+  /* Check if no ongoing operation */
+  if (READ_BIT(ICACHE->SR, ICACHE_SR_BUSYF) == 0U)
   {
-    status = HAL_ERROR;
-  }
-  else
-  {
-    /* Make sure BSYENDF is reset before to start cache invalidation */
-    WRITE_REG(ICACHE->FCR, ICACHE_FCR_CBSYENDF);
-
     /* Launch cache invalidation */
     SET_BIT(ICACHE->CR, ICACHE_CR_CACHEINV);
-
-    status = HAL_ICACHE_WaitForInvalidateComplete();
   }
+
+  status = HAL_ICACHE_WaitForInvalidateComplete();
 
   return status;
 }
@@ -642,7 +640,7 @@ HAL_StatusTypeDef  HAL_ICACHE_DisableRemapRegion(uint32_t Region)
   * @}
   */
 
-#endif /* HAL_ICACHE_MODULE_ENABLED */
+#endif /* ICACHE && HAL_ICACHE_MODULE_ENABLED */
 
 /**
   * @}

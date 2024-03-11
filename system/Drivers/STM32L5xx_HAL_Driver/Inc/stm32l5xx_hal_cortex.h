@@ -277,11 +277,15 @@ void HAL_SYSTICK_Callback(void);
 #if (__MPU_PRESENT == 1)
 void HAL_MPU_Enable(uint32_t MPU_Control);
 void HAL_MPU_Disable(void);
+void HAL_MPU_EnableRegion(uint32_t RegionNumber);
+void HAL_MPU_DisableRegion(uint32_t RegionNumber);
 void HAL_MPU_ConfigRegion(MPU_Region_InitTypeDef *MPU_RegionInit);
 void HAL_MPU_ConfigMemoryAttributes(MPU_Attributes_InitTypeDef *MPU_AttributesInit);
 #ifdef MPU_NS
 void HAL_MPU_Enable_NS(uint32_t MPU_Control);
 void HAL_MPU_Disable_NS(void);
+void HAL_MPU_EnableRegion_NS(uint32_t RegionNumber);
+void HAL_MPU_DisableRegion_NS(uint32_t RegionNumber);
 void HAL_MPU_ConfigRegion_NS(MPU_Region_InitTypeDef *MPU_RegionInit);
 void HAL_MPU_ConfigMemoryAttributes_NS(MPU_Attributes_InitTypeDef *MPU_AttributesInit);
 #endif /* MPU_NS */

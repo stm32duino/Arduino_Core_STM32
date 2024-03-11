@@ -1833,7 +1833,7 @@ __STATIC_INLINE void LL_UCPD_SetRxOrdExt2(UCPD_TypeDef *UCPDx, uint32_t SOPExt)
   */
 
 ErrorStatus LL_UCPD_DeInit(UCPD_TypeDef *UCPDx);
-ErrorStatus LL_UCPD_Init(UCPD_TypeDef *UCPDx, LL_UCPD_InitTypeDef *UCPD_InitStruct);
+ErrorStatus LL_UCPD_Init(UCPD_TypeDef *UCPDx, const LL_UCPD_InitTypeDef *UCPD_InitStruct);
 void        LL_UCPD_StructInit(LL_UCPD_InitTypeDef *UCPD_InitStruct);
 
 /**
