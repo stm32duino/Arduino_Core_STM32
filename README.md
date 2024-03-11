@@ -285,8 +285,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F103ZC<br>STM32F103ZD<br>STM32F103ZE<br>STM32F103ZF<br>STM32F103ZG | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F103TB | HY-TinySTM103T | *1.5.0* | [More info](https://www.hotmcu.com/stm32f103tb-arm-cortex-m3-development-board-p-222.html) |
 | :green_heart:  | STM32F103CB | Maple Mini | *1.2.0* | [More info](https://www.leaflabs.com/maple)<br>USB CDC support since *1.5.0*<br>Maple bootloaders support since *1.6.0* |
-| :green_heart:  | STM32F103ZE | [vcc-gnd.com](https://stm32-base.org/boards/STM32F103ZET6-VCC-GND-XLarge) | *1.9.0* | [More info](http://www.vcc-gnd.com/rtd/html/STM32/quickref.html#stm32f1) |
-| :green_heart:  | STM32F103ZE | vcc-gnd.com Mini | *1.9.0* | [More info](http://www.vcc-gnd.com/rtd/html/STM32/quickref.html#stm32f1) |
+| :green_heart:  | STM32F103ZE | [vcc-gnd.com](https://stm32-base.org/boards/STM32F103ZET6-VCC-GND-XLarge) | *1.9.0* |  |
+| :green_heart:  | STM32F103ZE | vcc-gnd.com Mini | *1.9.0* |  |
 
 ### Generic STM32F2 boards
 
@@ -346,8 +346,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F411CE | [WeAct Black Pill](https://stm32-base.org/boards/STM32F411CEU6-WeAct-Black-Pill-V2.0) | *1.9.0* | [More info](https://github.com/WeActStudio/WeActStudio.MiniSTM32F4x1) |
 | :green_heart:  | STM32F407VE<br>STM32F407VG | [STM32 F4VE / Black F407VET6](https://stm32-base.org/boards/STM32F407VET6-STM32-F4VE-V2.0) | *1.4.0* | STM32F407VG support since *1.5.0* |
 | :green_heart:  | STM32F407ZE<br>STM32F407ZG | Black F407ZE / Black F407ZG | *1.5.0* |  |
-| :green_heart: | STM32F407ZG | vcc-gnd.com Mini | **2.0.0** | [More info](http://www.vcc-gnd.com/rtd/html/STM32/quickref.html#stm32f4) |
-| :green_heart:  | STM32F407VE | [vcc-gnd.com Mini](https://stm32-base.org/boards/STM32F407VET6-VCC-GND-Small) | *1.4.0* | [More info](http://vcc-gnd.com/rtd/html/STM32/quickref.html#stm32f4) |
+| :green_heart: | STM32F407ZG | vcc-gnd.com Mini | **2.0.0** |  |
+| :green_heart:  | STM32F407VE | [vcc-gnd.com Mini](https://stm32-base.org/boards/STM32F407VET6-VCC-GND-Small) | *1.4.0* |  |
 | :green_heart:  | STM32F401RC | [STM32F Core Board](https://stm32-base.org/boards/STM32F401RCT6-STM32F-Core-Board) | *1.7.0* |  |
 | :green_heart:  | STM32F407VG | [DIYMORE STM32F407VGT](https://stm32-base.org/boards/STM32F407VGT6-diymore) | *1.5.0* |  |
 | :green_heart:  | STM32F407VE | [FK407M1](https://stm32-base.org/boards/STM32F407VET6-FK407M1-V1.0) | *1.5.0* |  |
