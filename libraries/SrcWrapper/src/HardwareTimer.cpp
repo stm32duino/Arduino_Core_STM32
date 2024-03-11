@@ -37,6 +37,18 @@
 /* Private Variables */
 timerObj_t *HardwareTimer_Handle[TIMER_NUM] = {NULL};
 
+#if defined(HAL_FDCAN_MODULE_ENABLED) && defined(STM32G0xx) && defined(FDCAN1_BASE)
+  /* Pointer to a FDCAN_HandleTypeDef structure that contains
+  * the configuration information for the specified FDCAN.
+  * Application have to declare them properly to be able to call
+  * the HAL_FDCAN_IRQHandler().
+  */
+  extern FDCAN_HandleTypeDef *phfdcan1;
+  #if defined(FDCAN2_BASE)
+    extern FDCAN_HandleTypeDef *phfdcan2;
+  #endif
+#endif
+
 /**
   * @brief  HardwareTimer constructor: make uninitialized timer
   *         Before calling any methods, call setup to select and setup
@@ -1761,6 +1773,17 @@ extern "C" {
     if (HardwareTimer_Handle[TIMER16_INDEX]) {
       HAL_TIM_IRQHandler(&HardwareTimer_Handle[TIMER16_INDEX]->handle);
     }
+#if defined(HAL_FDCAN_MODULE_ENABLED) && defined(STM32G0xx) && defined(FDCAN1_BASE)
+    /* FDCAN1_IT0 and FDCAN2_IT0 Interrupt */
+    if ((phfdcan1) && (__HAL_GET_PENDING_IT(HAL_ITLINE_FDCAN1_IT0) != RESET)) {
+      HAL_FDCAN_IRQHandler(phfdcan1);
+    }
+#if defined(FDCAN2_BASE)
+    if ((phfdcan2) && (__HAL_GET_PENDING_IT(HAL_ITLINE_FDCAN2_IT0) != RESET)) {
+      HAL_FDCAN_IRQHandler(phfdcan2);
+    }
+#endif
+#endif
   }
 #endif
 #endif //TIM16_BASE
@@ -1776,6 +1799,17 @@ extern "C" {
     if (HardwareTimer_Handle[TIMER17_INDEX]) {
       HAL_TIM_IRQHandler(&HardwareTimer_Handle[TIMER17_INDEX]->handle);
     }
+#if defined(HAL_FDCAN_MODULE_ENABLED) && defined(STM32G0xx) && defined(FDCAN1_BASE)
+    /* FDCAN1_IT1 and FDCAN2_IT1 Interrupt */
+    if ((phfdcan1) && (__HAL_GET_PENDING_IT(HAL_ITLINE_FDCAN1_IT1) != RESET)) {
+      HAL_FDCAN_IRQHandler(phfdcan1);
+    }
+#if defined(FDCAN2_BASE)
+    if ((phfdcan2) && (__HAL_GET_PENDING_IT(HAL_ITLINE_FDCAN2_IT1) != RESET)) {
+      HAL_FDCAN_IRQHandler(phfdcan2);
+    }
+#endif
+#endif
   }
 #endif //TIM17_BASE
 
