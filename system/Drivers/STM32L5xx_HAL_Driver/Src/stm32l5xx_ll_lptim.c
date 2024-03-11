@@ -92,7 +92,7 @@
   *          - SUCCESS: LPTIMx registers are de-initialized
   *          - ERROR: invalid LPTIMx instance
   */
-ErrorStatus LL_LPTIM_DeInit(LPTIM_TypeDef *LPTIMx)
+ErrorStatus LL_LPTIM_DeInit(const LPTIM_TypeDef *LPTIMx)
 {
   ErrorStatus result = SUCCESS;
 

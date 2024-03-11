@@ -16805,7 +16805,7 @@ typedef struct
 /******************  Bit definition for SYSCFG_CSLCKR register  ***************/
 #define SYSCFG_CSLCKR_LOCKSVTAIRCR_Pos  (0U)
 #define SYSCFG_CSLCKR_LOCKSVTAIRCR_Msk  (0x1UL << SYSCFG_CSLCKR_LOCKSVTAIRCR_Pos)/*!< 0x00000001 */
-#define SYSCFG_CSLCKR_LOCKSVTAIRCR      SYSCFG_CSLCKR_LOCKSVTAIRCR_Msk         /*!< Disable changes to the secure vectror table address, handling of system faults */
+#define SYSCFG_CSLCKR_LOCKSVTAIRCR      SYSCFG_CSLCKR_LOCKSVTAIRCR_Msk         /*!< Disable changes to the secure vector table address, handling of system faults */
 #define SYSCFG_CSLCKR_LOCKSMPU_Pos      (1U)
 #define SYSCFG_CSLCKR_LOCKSMPU_Msk      (0x1UL << SYSCFG_CSLCKR_LOCKSMPU_Pos)  /*!< 0x00000002 */
 #define SYSCFG_CSLCKR_LOCKSMPU          SYSCFG_CSLCKR_LOCKSMPU_Msk             /*!< Disable changes to the secure MPU registers writes by SW or debug agent */

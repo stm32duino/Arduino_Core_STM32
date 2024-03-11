@@ -71,8 +71,8 @@
   */
 
 /** @defgroup CRYPEx_Exported_Functions_Group1 Extended AES processing functions
- *  @brief   Extended processing functions.
- *
+  *  @brief   Extended processing functions.
+  *
 @verbatim
   ==============================================================================
               ##### Extended AES processing functions #####
@@ -161,7 +161,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
       /* Check for the Timeout */
       if (Timeout != HAL_MAX_DELAY)
       {
-        if (((HAL_GetTick() - tickstart) > Timeout)||(Timeout == 0U))
+        if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
         {
           /* Disable the CRYP peripheral clock */
           __HAL_CRYP_DISABLE(hcryp);
@@ -267,7 +267,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
       /* Check for the Timeout */
       if (Timeout != HAL_MAX_DELAY)
       {
-        if (((HAL_GetTick() - tickstart) > Timeout) ||(Timeout == 0U))
+        if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
         {
           /* Disable the CRYP peripheral Clock */
           __HAL_CRYP_DISABLE(hcryp);

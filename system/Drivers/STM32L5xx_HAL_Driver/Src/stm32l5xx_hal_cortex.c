@@ -426,6 +426,8 @@ __weak void HAL_SYSTICK_Callback(void)
   */
 void HAL_MPU_Enable(uint32_t MPU_Control)
 {
+  __DMB(); /* Data Memory Barrier operation to force any outstanding writes to memory before enabling the MPU */
+
   /* Enable the MPU */
   MPU->CTRL   = MPU_Control | MPU_CTRL_ENABLE_Msk;
 
@@ -433,9 +435,9 @@ void HAL_MPU_Enable(uint32_t MPU_Control)
   SCB->SHCSR |= SCB_SHCSR_MEMFAULTENA_Msk;
 
   /* Follow ARM recommendation with */
-  /* - Data Memory Barrier and Instruction Synchronization to insure MPU usage */
-  __DMB(); /* Force memory writes before continuing */
-  __ISB(); /* Flush and refill pipeline with updated permissions */
+  /* Data Synchronization and Instruction Synchronization Barriers to ensure MPU configuration */
+  __DSB(); /* Ensure that the subsequent instruction is executed only after the write to memory */
+  __ISB(); /* Flush and refill pipeline with updated MPU configuration settings */
 }
 
 /**
@@ -446,8 +448,48 @@ void HAL_MPU_Disable(void)
 {
   __DMB(); /* Force any outstanding transfers to complete before disabling MPU */
 
+  /* Disable fault exceptions */
+  SCB->SHCSR &= ~SCB_SHCSR_MEMFAULTENA_Msk;
+
   /* Disable the MPU */
   MPU->CTRL  &= ~MPU_CTRL_ENABLE_Msk;
+
+  /* Follow ARM recommendation with */
+  /* Data Synchronization and Instruction Synchronization Barriers to ensure MPU configuration */
+  __DSB(); /* Ensure that the subsequent instruction is executed only after the write to memory */
+  __ISB(); /* Flush and refill pipeline with updated MPU configuration settings */
+}
+
+/**
+  * @brief  Enable the MPU Region.
+  * @retval None
+  */
+void HAL_MPU_EnableRegion(uint32_t RegionNumber)
+{
+  /* Check the parameters */
+  assert_param(IS_MPU_REGION_NUMBER(RegionNumber));
+
+  /* Set the Region number */
+  MPU->RNR = RegionNumber;
+
+  /* Enable the Region */
+  SET_BIT(MPU->RLAR, MPU_RLAR_EN_Msk);
+}
+
+/**
+  * @brief  Disable the MPU Region.
+  * @retval None
+  */
+void HAL_MPU_DisableRegion(uint32_t RegionNumber)
+{
+  /* Check the parameters */
+  assert_param(IS_MPU_REGION_NUMBER(RegionNumber));
+
+  /* Set the Region number */
+  MPU->RNR = RegionNumber;
+
+  /* Disable the Region */
+  CLEAR_BIT(MPU->RLAR, MPU_RLAR_EN_Msk);
 }
 
 /**
@@ -486,6 +528,8 @@ void HAL_MPU_ConfigMemoryAttributes(MPU_Attributes_InitTypeDef *MPU_AttributesIn
   */
 void HAL_MPU_Enable_NS(uint32_t MPU_Control)
 {
+  __DMB(); /* Data Memory Barrier operation to force any outstanding writes to memory before enabling the MPU */
+
   /* Enable the MPU */
   MPU_NS->CTRL   = MPU_Control | MPU_CTRL_ENABLE_Msk;
 
@@ -493,9 +537,9 @@ void HAL_MPU_Enable_NS(uint32_t MPU_Control)
   SCB_NS->SHCSR |= SCB_SHCSR_MEMFAULTENA_Msk;
 
   /* Follow ARM recommendation with */
-  /* - Data Memory Barrier and Instruction Synchronization to insure MPU usage */
-  __DMB(); /* Force memory writes before continuing */
-  __ISB(); /* Flush and refill pipeline with updated permissions */
+  /* Data Synchronization and Instruction Synchronization Barriers to ensure MPU configuration */
+  __DSB(); /* Ensure that the subsequent instruction is executed only after the write to memory */
+  __ISB(); /* Flush and refill pipeline with updated MPU configuration settings */
 }
 
 /**
@@ -506,8 +550,48 @@ void HAL_MPU_Disable_NS(void)
 {
   __DMB(); /* Force any outstanding transfers to complete before disabling MPU */
 
+  /* Disable fault exceptions */
+  SCB_NS->SHCSR &= ~SCB_SHCSR_MEMFAULTENA_Msk;
+
   /* Disable the MPU */
   MPU_NS->CTRL  &= ~MPU_CTRL_ENABLE_Msk;
+
+  /* Follow ARM recommendation with */
+  /* Data Synchronization and Instruction Synchronization Barriers to ensure MPU configuration */
+  __DSB(); /* Ensure that the subsequent instruction is executed only after the write to memory */
+  __ISB(); /* Flush and refill pipeline with updated MPU configuration settings */
+}
+
+/**
+  * @brief  Enable the non-secure MPU Region.
+  * @retval None
+  */
+void HAL_MPU_EnableRegion_NS(uint32_t RegionNumber)
+{
+  /* Check the parameters */
+  assert_param(IS_MPU_REGION_NUMBER(RegionNumber));
+
+  /* Set the Region number */
+  MPU_NS->RNR = RegionNumber;
+
+  /* Enable the Region */
+  SET_BIT(MPU_NS->RLAR, MPU_RLAR_EN_Msk);
+}
+
+/**
+  * @brief  Disable the non-secure MPU Region.
+  * @retval None
+  */
+void HAL_MPU_DisableRegion_NS(uint32_t RegionNumber)
+{
+  /* Check the parameters */
+  assert_param(IS_MPU_REGION_NUMBER(RegionNumber));
+
+  /* Set the Region number */
+  MPU_NS->RNR = RegionNumber;
+
+  /* Disable the Region */
+  CLEAR_BIT(MPU_NS->RLAR, MPU_RLAR_EN_Msk);
 }
 
 /**
@@ -538,11 +622,6 @@ void HAL_MPU_ConfigMemoryAttributes_NS(MPU_Attributes_InitTypeDef *MPU_Attribute
 /**
   * @}
   */
-
-/**
-  * @}
-  */
-
 /* Private functions ---------------------------------------------------------*/
 /** @addtogroup CORTEX_Private_Functions
   * @{
@@ -555,6 +634,9 @@ static void MPU_ConfigRegion(MPU_Type* MPUx, MPU_Region_InitTypeDef *MPU_RegionI
   /* Check the parameters */
   assert_param(IS_MPU_REGION_NUMBER(MPU_RegionInit->Number));
   assert_param(IS_MPU_REGION_ENABLE(MPU_RegionInit->Enable));
+  assert_param(IS_MPU_INSTRUCTION_ACCESS(MPU_RegionInit->DisableExec));
+  assert_param(IS_MPU_REGION_PERMISSION_ATTRIBUTE(MPU_RegionInit->AccessPermission));
+  assert_param(IS_MPU_ACCESS_SHAREABLE(MPU_RegionInit->IsShareable));
 
   /* Follow ARM recommendation with Data Memory Barrier prior to MPU configuration */
   __DMB();
@@ -562,27 +644,18 @@ static void MPU_ConfigRegion(MPU_Type* MPUx, MPU_Region_InitTypeDef *MPU_RegionI
   /* Set the Region number */
   MPUx->RNR = MPU_RegionInit->Number;
 
-  if (MPU_RegionInit->Enable != MPU_REGION_DISABLE)
-  {
-    /* Check the parameters */
-    assert_param(IS_MPU_INSTRUCTION_ACCESS(MPU_RegionInit->DisableExec));
-    assert_param(IS_MPU_REGION_PERMISSION_ATTRIBUTE(MPU_RegionInit->AccessPermission));
-    assert_param(IS_MPU_ACCESS_SHAREABLE(MPU_RegionInit->IsShareable));
+  /* Disable the Region */
+  CLEAR_BIT(MPUx->RLAR, MPU_RLAR_EN_Msk);
 
-    MPUx->RBAR = (((uint32_t)MPU_RegionInit->BaseAddress & 0xFFFFFFE0U)  |
-                  ((uint32_t)MPU_RegionInit->IsShareable      << MPU_RBAR_SH_Pos)  |
-                  ((uint32_t)MPU_RegionInit->AccessPermission << MPU_RBAR_AP_Pos)  |
-                  ((uint32_t)MPU_RegionInit->DisableExec      << MPU_RBAR_XN_Pos));
+  /* Apply configuration */
+  MPUx->RBAR = (((uint32_t)MPU_RegionInit->BaseAddress & 0xFFFFFFE0U)  |
+                ((uint32_t)MPU_RegionInit->IsShareable      << MPU_RBAR_SH_Pos)  |
+                ((uint32_t)MPU_RegionInit->AccessPermission << MPU_RBAR_AP_Pos)  |
+                ((uint32_t)MPU_RegionInit->DisableExec      << MPU_RBAR_XN_Pos));
 
-    MPUx->RLAR = (((uint32_t)MPU_RegionInit->LimitAddress & 0xFFFFFFE0U) |
-                  ((uint32_t)MPU_RegionInit->AttributesIndex << MPU_RLAR_AttrIndx_Pos) |
-                  ((uint32_t)MPU_RegionInit->Enable          << MPU_RLAR_EN_Pos));
-  }
-  else
-  {
-    MPUx->RLAR = 0U;
-    MPUx->RBAR = 0U;
-  }
+  MPUx->RLAR = (((uint32_t)MPU_RegionInit->LimitAddress & 0xFFFFFFE0U) |
+                ((uint32_t)MPU_RegionInit->AttributesIndex << MPU_RLAR_AttrIndx_Pos) |
+                ((uint32_t)MPU_RegionInit->Enable          << MPU_RLAR_EN_Pos));
 }
 
 static void MPU_ConfigMemoryAttributes(MPU_Type* MPUx, MPU_Attributes_InitTypeDef *MPU_AttributesInit)

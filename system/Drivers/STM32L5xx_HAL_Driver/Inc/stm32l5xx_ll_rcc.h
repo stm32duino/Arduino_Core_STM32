@@ -414,18 +414,18 @@ typedef struct
 /** @defgroup RCC_LL_EC_I2C_CLKSOURCE  Peripheral I2Cx clock source selection
   * @{
   */
-#define LL_RCC_I2C1_CLKSOURCE_PCLK1        ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C1SEL_Pos << 16U))                                                    /*!< PCLK1 clock used as I2C1 clock source */
-#define LL_RCC_I2C1_CLKSOURCE_SYSCLK       ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C1SEL_Pos << 16U) | (RCC_CCIPR1_I2C1SEL_0 >> RCC_CCIPR1_I2C1SEL_Pos)) /*!< SYSCLK clock used as I2C1 clock source */
-#define LL_RCC_I2C1_CLKSOURCE_HSI          ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C1SEL_Pos << 16U) | (RCC_CCIPR1_I2C1SEL_1 >> RCC_CCIPR1_I2C1SEL_Pos)) /*!< HSI clock used as I2C1 clock source */
-#define LL_RCC_I2C2_CLKSOURCE_PCLK1        ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C2SEL_Pos << 16U))                                                    /*!< PCLK1 clock used as I2C2 clock source */
-#define LL_RCC_I2C2_CLKSOURCE_SYSCLK       ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C2SEL_Pos << 16U) | (RCC_CCIPR1_I2C2SEL_0 >> RCC_CCIPR1_I2C2SEL_Pos)) /*!< SYSCLK clock used as I2C2 clock source */
-#define LL_RCC_I2C2_CLKSOURCE_HSI          ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C2SEL_Pos << 16U) | (RCC_CCIPR1_I2C2SEL_1 >> RCC_CCIPR1_I2C2SEL_Pos)) /*!< HSI clock used as I2C2 clock source */
-#define LL_RCC_I2C3_CLKSOURCE_PCLK1        ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C3SEL_Pos << 16U))                                                    /*!< PCLK1 clock used as I2C3 clock source */
-#define LL_RCC_I2C3_CLKSOURCE_SYSCLK       ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C3SEL_Pos << 16U) | (RCC_CCIPR1_I2C3SEL_0 >> RCC_CCIPR1_I2C3SEL_Pos)) /*!< SYSCLK clock used as I2C3 clock source */
-#define LL_RCC_I2C3_CLKSOURCE_HSI          ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C3SEL_Pos << 16U) | (RCC_CCIPR1_I2C3SEL_1 >> RCC_CCIPR1_I2C3SEL_Pos)) /*!< HSI clock used as I2C3 clock source */
-#define LL_RCC_I2C4_CLKSOURCE_PCLK1        ((RCC_OFFSET_CCIPR2 << 24U) | (RCC_CCIPR2_I2C4SEL_Pos << 16U))                                                    /*!< PCLK1 clock used as I2C4 clock source */
-#define LL_RCC_I2C4_CLKSOURCE_SYSCLK       ((RCC_OFFSET_CCIPR2 << 24U) | (RCC_CCIPR2_I2C4SEL_Pos << 16U) | (RCC_CCIPR2_I2C4SEL_0 >> RCC_CCIPR2_I2C4SEL_Pos)) /*!< SYSCLK clock used as I2C4 clock source */
-#define LL_RCC_I2C4_CLKSOURCE_HSI          ((RCC_OFFSET_CCIPR2 << 24U) | (RCC_CCIPR2_I2C4SEL_Pos << 16U) | (RCC_CCIPR2_I2C4SEL_1 >> RCC_CCIPR2_I2C4SEL_Pos)) /*!< HSI clock used as I2C4 clock source */
+#define LL_RCC_I2C1_CLKSOURCE_PCLK1        (((uint32_t)RCC_OFFSET_CCIPR1 << 24U) | ((uint32_t)RCC_CCIPR1_I2C1SEL_Pos << 16U))                                                    /*!< PCLK1 clock used as I2C1 clock source */
+#define LL_RCC_I2C1_CLKSOURCE_SYSCLK       (((uint32_t)RCC_OFFSET_CCIPR1 << 24U) | ((uint32_t)RCC_CCIPR1_I2C1SEL_Pos << 16U) | (RCC_CCIPR1_I2C1SEL_0 >> RCC_CCIPR1_I2C1SEL_Pos)) /*!< SYSCLK clock used as I2C1 clock source */
+#define LL_RCC_I2C1_CLKSOURCE_HSI          (((uint32_t)RCC_OFFSET_CCIPR1 << 24U) | ((uint32_t)RCC_CCIPR1_I2C1SEL_Pos << 16U) | (RCC_CCIPR1_I2C1SEL_1 >> RCC_CCIPR1_I2C1SEL_Pos)) /*!< HSI clock used as I2C1 clock source */
+#define LL_RCC_I2C2_CLKSOURCE_PCLK1        (((uint32_t)RCC_OFFSET_CCIPR1 << 24U) | ((uint32_t)RCC_CCIPR1_I2C2SEL_Pos << 16U))                                                    /*!< PCLK1 clock used as I2C2 clock source */
+#define LL_RCC_I2C2_CLKSOURCE_SYSCLK       (((uint32_t)RCC_OFFSET_CCIPR1 << 24U) | ((uint32_t)RCC_CCIPR1_I2C2SEL_Pos << 16U) | (RCC_CCIPR1_I2C2SEL_0 >> RCC_CCIPR1_I2C2SEL_Pos)) /*!< SYSCLK clock used as I2C2 clock source */
+#define LL_RCC_I2C2_CLKSOURCE_HSI          (((uint32_t)RCC_OFFSET_CCIPR1 << 24U) | ((uint32_t)RCC_CCIPR1_I2C2SEL_Pos << 16U) | (RCC_CCIPR1_I2C2SEL_1 >> RCC_CCIPR1_I2C2SEL_Pos)) /*!< HSI clock used as I2C2 clock source */
+#define LL_RCC_I2C3_CLKSOURCE_PCLK1        (((uint32_t)RCC_OFFSET_CCIPR1 << 24U) | ((uint32_t)RCC_CCIPR1_I2C3SEL_Pos << 16U))                                                    /*!< PCLK1 clock used as I2C3 clock source */
+#define LL_RCC_I2C3_CLKSOURCE_SYSCLK       (((uint32_t)RCC_OFFSET_CCIPR1 << 24U) | ((uint32_t)RCC_CCIPR1_I2C3SEL_Pos << 16U) | (RCC_CCIPR1_I2C3SEL_0 >> RCC_CCIPR1_I2C3SEL_Pos)) /*!< SYSCLK clock used as I2C3 clock source */
+#define LL_RCC_I2C3_CLKSOURCE_HSI          (((uint32_t)RCC_OFFSET_CCIPR1 << 24U) | ((uint32_t)RCC_CCIPR1_I2C3SEL_Pos << 16U) | (RCC_CCIPR1_I2C3SEL_1 >> RCC_CCIPR1_I2C3SEL_Pos)) /*!< HSI clock used as I2C3 clock source */
+#define LL_RCC_I2C4_CLKSOURCE_PCLK1        (((uint32_t)RCC_OFFSET_CCIPR2 << 24U) | ((uint32_t)RCC_CCIPR2_I2C4SEL_Pos << 16U))                                                    /*!< PCLK1 clock used as I2C4 clock source */
+#define LL_RCC_I2C4_CLKSOURCE_SYSCLK       (((uint32_t)RCC_OFFSET_CCIPR2 << 24U) | ((uint32_t)RCC_CCIPR2_I2C4SEL_Pos << 16U) | (RCC_CCIPR2_I2C4SEL_0 >> RCC_CCIPR2_I2C4SEL_Pos)) /*!< SYSCLK clock used as I2C4 clock source */
+#define LL_RCC_I2C4_CLKSOURCE_HSI          (((uint32_t)RCC_OFFSET_CCIPR2 << 24U) | ((uint32_t)RCC_CCIPR2_I2C4SEL_Pos << 16U) | (RCC_CCIPR2_I2C4SEL_1 >> RCC_CCIPR2_I2C4SEL_Pos)) /*!< HSI clock used as I2C4 clock source */
 /**
   * @}
   */
@@ -587,10 +587,10 @@ typedef struct
 /** @defgroup RCC_LL_EC_I2C Peripheral I2Cx get clock source
   * @{
   */
-#define LL_RCC_I2C1_CLKSOURCE              ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C1SEL_Pos << 16U) | (RCC_CCIPR1_I2C1SEL >> RCC_CCIPR1_I2C1SEL_Pos)) /*!< I2C1 Clock source selection */
-#define LL_RCC_I2C2_CLKSOURCE              ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C2SEL_Pos << 16U) | (RCC_CCIPR1_I2C2SEL >> RCC_CCIPR1_I2C2SEL_Pos)) /*!< I2C2 Clock source selection */
-#define LL_RCC_I2C3_CLKSOURCE              ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C3SEL_Pos << 16U) | (RCC_CCIPR1_I2C3SEL >> RCC_CCIPR1_I2C3SEL_Pos)) /*!< I2C3 Clock source selection */
-#define LL_RCC_I2C4_CLKSOURCE              ((RCC_OFFSET_CCIPR2 << 24U) | (RCC_CCIPR2_I2C4SEL_Pos << 16U) | (RCC_CCIPR2_I2C4SEL >> RCC_CCIPR2_I2C4SEL_Pos)) /*!< I2C4 Clock source selection */
+#define LL_RCC_I2C1_CLKSOURCE              (((uint32_t)RCC_OFFSET_CCIPR1 << 24U) | ((uint32_t)RCC_CCIPR1_I2C1SEL_Pos << 16U) | (RCC_CCIPR1_I2C1SEL >> RCC_CCIPR1_I2C1SEL_Pos)) /*!< I2C1 Clock source selection */
+#define LL_RCC_I2C2_CLKSOURCE              (((uint32_t)RCC_OFFSET_CCIPR1 << 24U) | ((uint32_t)RCC_CCIPR1_I2C2SEL_Pos << 16U) | (RCC_CCIPR1_I2C2SEL >> RCC_CCIPR1_I2C2SEL_Pos)) /*!< I2C2 Clock source selection */
+#define LL_RCC_I2C3_CLKSOURCE              (((uint32_t)RCC_OFFSET_CCIPR1 << 24U) | ((uint32_t)RCC_CCIPR1_I2C3SEL_Pos << 16U) | (RCC_CCIPR1_I2C3SEL >> RCC_CCIPR1_I2C3SEL_Pos)) /*!< I2C3 Clock source selection */
+#define LL_RCC_I2C4_CLKSOURCE              (((uint32_t)RCC_OFFSET_CCIPR2 << 24U) | ((uint32_t)RCC_CCIPR2_I2C4SEL_Pos << 16U) | (RCC_CCIPR2_I2C4SEL >> RCC_CCIPR2_I2C4SEL_Pos)) /*!< I2C4 Clock source selection */
 /**
   * @}
   */

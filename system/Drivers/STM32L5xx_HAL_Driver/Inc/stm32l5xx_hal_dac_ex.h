@@ -81,6 +81,7 @@ extern "C" {
   * @}
   */
 
+
 /**
   * @}
   */
@@ -122,9 +123,8 @@ extern "C" {
 
 #define IS_DAC_NEWTRIMMINGVALUE(TRIMMINGVALUE) ((TRIMMINGVALUE) <= 0x1FU)
 
-#define IS_DAC_CHIP_CONNECTION(CONNECT) (((CONNECT) == DAC_CHIPCONNECT_EXTERNAL) || \
-                                         ((CONNECT) == DAC_CHIPCONNECT_INTERNAL) || \
-                                         ((CONNECT) == DAC_CHIPCONNECT_BOTH))
+#define IS_DAC_CHIP_CONNECTION(CONNECT) (((CONNECT) == DAC_CHIPCONNECT_DISABLE) || \
+                                         ((CONNECT) == DAC_CHIPCONNECT_ENABLE))
 
 #define IS_DAC_TRIMMING(TRIMMING) (((TRIMMING) == DAC_TRIMMING_FACTORY) || \
                                    ((TRIMMING) == DAC_TRIMMING_USER))
@@ -174,15 +174,17 @@ HAL_StatusTypeDef HAL_DACEx_NoiseWaveGenerate(DAC_HandleTypeDef *hdac, uint32_t 
 
 HAL_StatusTypeDef HAL_DACEx_DualStart(DAC_HandleTypeDef *hdac);
 HAL_StatusTypeDef HAL_DACEx_DualStop(DAC_HandleTypeDef *hdac);
-HAL_StatusTypeDef HAL_DACEx_DualStart_DMA(DAC_HandleTypeDef *hdac, uint32_t Channel, uint32_t *pData, uint32_t Length,
-                                          uint32_t Alignment);
+HAL_StatusTypeDef HAL_DACEx_DualStart_DMA(DAC_HandleTypeDef *hdac, uint32_t Channel,
+                                          const uint32_t *pData, uint32_t Length, uint32_t Alignment);
 HAL_StatusTypeDef HAL_DACEx_DualStop_DMA(DAC_HandleTypeDef *hdac, uint32_t Channel);
 HAL_StatusTypeDef HAL_DACEx_DualSetValue(DAC_HandleTypeDef *hdac, uint32_t Alignment, uint32_t Data1, uint32_t Data2);
-uint32_t HAL_DACEx_DualGetValue(DAC_HandleTypeDef *hdac);
+uint32_t HAL_DACEx_DualGetValue(const DAC_HandleTypeDef *hdac);
+
 void HAL_DACEx_ConvCpltCallbackCh2(DAC_HandleTypeDef *hdac);
 void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac);
 void HAL_DACEx_ErrorCallbackCh2(DAC_HandleTypeDef *hdac);
 void HAL_DACEx_DMAUnderrunCallbackCh2(DAC_HandleTypeDef *hdac);
+
 
 /**
   * @}
@@ -196,7 +198,7 @@ void HAL_DACEx_DMAUnderrunCallbackCh2(DAC_HandleTypeDef *hdac);
 HAL_StatusTypeDef HAL_DACEx_SelfCalibrate(DAC_HandleTypeDef *hdac, DAC_ChannelConfTypeDef *sConfig, uint32_t Channel);
 HAL_StatusTypeDef HAL_DACEx_SetUserTrimming(DAC_HandleTypeDef *hdac, DAC_ChannelConfTypeDef *sConfig, uint32_t Channel,
                                             uint32_t NewTrimmingValue);
-uint32_t HAL_DACEx_GetTrimOffset(DAC_HandleTypeDef *hdac, uint32_t Channel);
+uint32_t HAL_DACEx_GetTrimOffset(const DAC_HandleTypeDef *hdac, uint32_t Channel);
 
 /**
   * @}
@@ -235,4 +237,3 @@ void DAC_DMAHalfConvCpltCh2(DMA_HandleTypeDef *hdma);
 #endif
 
 #endif /* STM32L5xx_HAL_DAC_EX_H */
-
