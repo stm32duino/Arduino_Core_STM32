@@ -409,7 +409,11 @@ void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
     }
 
     dacChannelConf.DAC_Trigger = DAC_TRIGGER_NONE;
+#if defined(DISABLE_DAC_OUTPUTBUFFER)
+    dacChannelConf.DAC_OutputBuffer = DAC_OUTPUTBUFFER_DISABLE;
+#else
     dacChannelConf.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
+#endif
 #if defined(DAC_OUTPUTSWITCH_ENABLE)
     dacChannelConf.DAC_OutputSwitch = DAC_OUTPUTSWITCH_ENABLE;
 #endif
