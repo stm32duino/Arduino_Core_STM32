@@ -23,7 +23,7 @@ compiler.optimization_flags={build.flags.optimize} {build.flags.debug}
 compiler.optimization_flags.release={build.flags.optimize} {build.flags.debug}
 compiler.optimization_flags.debug=-Og -g
 
-compiler.path={runtime.tools.xpack-arm-none-eabi-gcc-12.2.1-1.2.path}/bin/
+compiler.path={runtime.tools.xpack-arm-none-eabi-gcc-13.2.1-1.1.path}/bin/
 
 compiler.S.cmd=arm-none-eabi-gcc
 compiler.c.cmd=arm-none-eabi-gcc
