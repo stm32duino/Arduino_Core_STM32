@@ -121,10 +121,12 @@ uint8_t Servo::attach(int pin, int min, int max, int value)
   if (this->servoIndex < MAX_SERVOS) {
     pinMode(pin, OUTPUT);                                   // set servo pin to output
     servos[this->servoIndex].Pin.nbr = pin;
-    write(value);
     // todo min/max check: abs(min - MIN_PULSE_WIDTH) /4 < 128
     this->min  = (MIN_PULSE_WIDTH - min) / 4; //resolution of min/max is 4 uS
     this->max  = (MAX_PULSE_WIDTH - max) / 4;
+
+    write(value); // set the initial position
+
     // initialize the timer if it has not already been initialized
     if (isTimerActive() == false) {
       TimerServoInit();
