@@ -82,6 +82,7 @@ class IPAddress : public Printable {
     IPAddress &operator=(uint32_t address);
 
     virtual size_t printTo(Print &p) const;
+    String toString() const;
 
     friend class EthernetClass;
     friend class UDP;
