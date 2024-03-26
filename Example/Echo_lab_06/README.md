@@ -22,6 +22,7 @@ This reposistory contains the Arduino Core for LEAT EchoStar Terminals.
  * `$dl`   : Provide EM2050 downlink parameters
  * `$pwr`   : Provide EM2050 Tx power, it is usefull with Adaptative DataRate in Activated
  * `$SENDLORA`   : Send a LoRaWan packet with board sensor value
+ * `$PERIODIC`   : Toggle the periodic mode (send LoRaWan message every 3mn)
 
    If no usb is connected to the terminal, the code will periodically transmit a LoRaWan packet to the network.
    No sleep mode is implemented, limiting the terminal's lifetime with a battery.
