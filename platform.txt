@@ -7,9 +7,33 @@
 name=STM32 boards groups (Board to be selected from Tools submenu 'Board part number')
 version=2.8.0-dev
 
+
+# Define variables used multiple times in platform file
+# --------------------
+tool_suffix=
+tool_suffix.windows=.exe
+
+busybox=
+busybox.windows={runtime.tools.STM32Tools.path}/win/busybox.exe
+
+toolchain_dir={runtime.tools.xpack-arm-none-eabi-gcc-13.2.1-1.1.path}
+openocd_dir={runtime.tools.xpack-openocd-0.12.0-2.path}
+
+tools_bin_path.windows={runtime.tools.STM32Tools.path}/win
+tools_bin_path.macosx={runtime.tools.STM32Tools.path}/macosx
+tools_bin_path.linux={runtime.tools.STM32Tools.path}/linux
+
+core_stm32_dir={build.core.path}/stm32
+core_usb_dir={core_stm32_dir}/usb
+hal_dir={build.system.path}/Drivers/{build.series}_HAL_Driver
+cmsis_dir={runtime.tools.CMSIS-5.9.0.path}/CMSIS
+cmsis_dev_dir={build.system.path}/Drivers/CMSIS/Device/ST/{build.series}
+usbd_core_dir={build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core
+
 # STM compile variables
 # ----------------------
-compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{build.core.path}/stm32" "-I{build.core.path}/stm32/LL" "-I{build.core.path}/stm32/usb" "-I{build.core.path}/stm32/OpenAMP" "-I{build.core.path}/stm32/usb/hid" "-I{build.core.path}/stm32/usb/cdc" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Inc" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Src" "-I{build.system.path}/{build.series}" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Inc" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Src" {build.virtio_extra_include}
+compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{core_stm32_dir}" "-I{core_stm32_dir}/LL" "-I{core_usb_dir}" "-I{core_stm32_dir}/OpenAMP" "-I{core_usb_dir}/hid" "-I{core_usb_dir}/cdc" "-I{hal_dir}/Inc" "-I{hal_dir}/Src" "-I{build.system.path}/{build.series}" "-I{usbd_core_dir}/Inc" "-I{usbd_core_dir}/Src" {build.virtio_extra_include}
+compiler.arm.cmsis.c.flags="-I{cmsis_dir}/Core/Include/" "-I{cmsis_dev_dir}/Include/" "-I{cmsis_dev_dir}/Source/Templates/gcc/" "-I{cmsis_dir}/DSP/Include" "-I{cmsis_dir}/DSP/PrivateInclude"
 
 compiler.warning_flags=-w
 compiler.warning_flags.none=-w
@@ -23,7 +47,7 @@ compiler.optimization_flags={build.flags.optimize} {build.flags.debug}
 compiler.optimization_flags.release={build.flags.optimize} {build.flags.debug}
 compiler.optimization_flags.debug=-Og -g
 
-compiler.path={runtime.tools.xpack-arm-none-eabi-gcc-13.2.1-1.1.path}/bin/
+compiler.path={toolchain_dir}/bin/
 
 compiler.S.cmd=arm-none-eabi-gcc
 compiler.c.cmd=arm-none-eabi-gcc
@@ -75,8 +99,6 @@ compiler.ar.extra_flags=
 compiler.elf2bin.extra_flags=
 compiler.elf2hex.extra_flags=
 
-compiler.arm.cmsis.c.flags="-I{runtime.tools.CMSIS-5.9.0.path}/CMSIS/Core/Include/" "-I{build.system.path}/Drivers/CMSIS/Device/ST/{build.series}/Include/" "-I{build.system.path}/Drivers/CMSIS/Device/ST/{build.series}/Source/Templates/gcc/" "-I{runtime.tools.CMSIS-5.9.0.path}/CMSIS/DSP/Include" "-I{runtime.tools.CMSIS-5.9.0.path}/CMSIS/DSP/PrivateInclude"
-
 # USB Flags
 # ---------
 build.usb_flags=-DUSBCON {build.usb_speed} -DUSBD_VID={build.vid} -DUSBD_PID={build.pid} -DHAL_PCD_MODULE_ENABLED
@@ -122,10 +144,8 @@ build.opt.path={build.path}/sketch/{build.opt.name}
 extras.path={build.system.path}/extras
 
 # Create {build.opt} if not exists in the output sketch dir and force include of SrcWrapper library
-recipe.hooks.prebuild.1.pattern="{extras.path}/prebuild.sh" "{build.path}" "{build.source.path}" "{runtime.platform.path}"
-recipe.hooks.prebuild.1.pattern.windows="{runtime.tools.STM32Tools.path}/win/busybox.exe" sh "{extras.path}/prebuild.sh" "{build.path}" "{build.source.path}" "{runtime.platform.path}"
-recipe.hooks.postbuild.1.pattern="{extras.path}/postbuild.sh" "{build.path}" "{build.series}" "{runtime.platform.path}"
-recipe.hooks.postbuild.1.pattern.windows="{runtime.tools.STM32Tools.path}/win/busybox.exe" sh "{extras.path}/postbuild.sh" "{build.path}" "{build.series}" "{runtime.platform.path}"
+recipe.hooks.prebuild.1.pattern="{busybox}" sh "{extras.path}/prebuild.sh" "{build.path}" "{build.source.path}" "{runtime.platform.path}"
+recipe.hooks.postbuild.1.pattern="{busybox}" sh "{extras.path}/postbuild.sh" "{build.path}" "{build.series}" "{runtime.platform.path}"
 
 # compile patterns
 # ---------------------
@@ -149,7 +169,7 @@ recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.f
 recipe.objcopy.bin.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.elf2bin.flags} {compiler.elf2bin.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.bin"
 
 ## Create output (.hex file)
-recipe.objcopy.hex.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.elf2hex.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.hex"
+recipe.objcopy.hex.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf2hex.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.hex"
 
 build.preferred_out_format=bin
 
@@ -170,17 +190,12 @@ recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
 # Upload to board via mass storage
 tools.massStorageCopy.cmd=massStorageCopy.sh
 tools.massStorageCopy.cmd.windows=massStorageCopy.bat
-tools.massStorageCopy.path={runtime.tools.STM32Tools.path}/win
-tools.massStorageCopy.path.macosx={runtime.tools.STM32Tools.path}/macosx
-tools.massStorageCopy.path.linux={runtime.tools.STM32Tools.path}/linux
 tools.massStorageCopy.upload.params.verbose=
 tools.massStorageCopy.upload.params.quiet=
-tools.massStorageCopy.upload.pattern="{path}/{cmd}" {upload.verbose} -I "{build.path}/{build.project_name}.bin" -O "{node}"
+tools.massStorageCopy.upload.pattern="{tools_bin_path}/{cmd}" {upload.verbose} -I "{build.path}/{build.project_name}.bin" -O "{node}"
 
 # STM32CubeProgrammer upload
 tools.stm32CubeProg.path={runtime.tools.STM32Tools.path}
-tools.stm32CubeProg.busybox=
-tools.stm32CubeProg.busybox.windows={path}/win/busybox.exe
 tools.stm32CubeProg.cmd=stm32CubeProg.sh
 tools.stm32CubeProg.upload.params.verbose=
 tools.stm32CubeProg.upload.params.quiet=
@@ -188,7 +203,7 @@ tools.stm32CubeProg.upload.pattern="{busybox}" sh "{path}/{cmd}" {upload.protoco
 
 # blackmagic upload for generic STM32
 tools.bmp_upload.cmd=arm-none-eabi-gdb
-tools.bmp_upload.path={runtime.tools.xpack-arm-none-eabi-gcc.path}/bin
+tools.bmp_upload.path={toolchain_dir}/bin
 tools.bmp_upload.upload.speed=230400
 tools.bmp_upload.upload.params.verbose=-batch
 tools.bmp_upload.upload.params.quiet=--batch-silent
@@ -198,17 +213,12 @@ tools.bmp_upload.upload.pattern.windows="{path}/{cmd}" -nx -b {upload.speed} {up
 # HID flash 2.2 (HID bootloader v2.2 for STM32F1 and STM32F4 series)
 tools.hid_upload.cmd=hid-flash
 tools.hid_upload.cmd.windows=hid-flash.exe
-tools.hid_upload.path={runtime.tools.STM32Tools.path}/win
-tools.hid_upload.path.macosx={runtime.tools.STM32Tools.path}/macosx
-tools.hid_upload.path.linux={runtime.tools.STM32Tools.path}/linux
 tools.hid_upload.upload.params.verbose=-d
 tools.hid_upload.upload.params.quiet=n
-tools.hid_upload.upload.pattern="{path}/{cmd}" "{build.path}/{build.project_name}.bin" {serial.port.file}
+tools.hid_upload.upload.pattern="{tools_bin_path}/{cmd}" "{build.path}/{build.project_name}.bin" {serial.port.file}
 
 # Upload using Maple bootloader over DFU
 tools.maple_upload.script=maple_upload.sh
-tools.maple_upload.busybox=
-tools.maple_upload.busybox.windows={path}/win/busybox.exe
 tools.maple_upload.path={runtime.tools.STM32Tools.path}
 tools.maple_upload.upload.params.verbose=-d
 tools.maple_upload.upload.params.quiet=n
@@ -216,8 +226,6 @@ tools.maple_upload.upload.pattern="{busybox}" sh "{path}/{script}" {serial.port.
 
 # STM32MP1 self-contained shell script
 tools.remoteproc_gen.path={runtime.tools.STM32Tools.path}
-tools.remoteproc_gen.busybox=
-tools.remoteproc_gen.busybox.windows={path}/win/busybox.exe
 tools.remoteproc_gen.script=run_arduino_gen.sh
 tools.remoteproc_gen.upload.params.verbose=
 tools.remoteproc_gen.upload.params.quiet=
@@ -229,9 +237,9 @@ tools.remoteproc_gen.upload.pattern="{busybox}" sh "{path}/{script}" generate "{
 # - this is alpha and may be subject to change without notice
 debug.executable={build.path}/{build.project_name}.elf
 debug.toolchain=gcc
-debug.toolchain.path={compiler.path}
+debug.toolchain.path={toolchain_dir.path}/bin
 debug.toolchain.prefix=arm-none-eabi-
 debug.server=openocd
-debug.server.openocd.path={runtime.tools.xpack-openocd-0.12.0-2.path}/bin/openocd
-debug.server.openocd.scripts_dir={runtime.tools.xpack-openocd-0.12.0-2.path}/openocd/scripts
+debug.server.openocd.path={openocd_dir}/bin/openocd
+debug.server.openocd.scripts_dir={openocd_dir}/openocd/scripts
 debug.server.openocd.script={build.path}/openocd.cfg
