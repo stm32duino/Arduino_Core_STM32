@@ -12,8 +12,7 @@
  #define ADC_AREF 3.3f
  #define BATVOLT_R1 1.0f
  #define BATVOLT_R2 1.0f
-  #define SLEEP 1
-
+ #define SLEEP 1
 
 #define SWITCH_REVERSING_CONTROL_DEFAULT_VALUE false
 volatile int switch_reversing_control = SWITCH_REVERSING_CONTROL_DEFAULT_VALUE;
@@ -21,7 +20,7 @@ volatile int switch_reversing_control = SWITCH_REVERSING_CONTROL_DEFAULT_VALUE;
  // max. 250 seconds for GPS fix
 #define FIXTIME 180
 // Perdio to send GNSS position to sat network
-#define PERIOD 120
+#define PERIOD 180
 
 #include <Wire.h>
 #include <Kionix_KX023.h> // https://github.com/nguyenmanhthao996tn/Kionix_KX023
@@ -107,9 +106,7 @@ void setup()
   pinMode(SENSORS_PWR_ENABLE_PIN, OUTPUT);
   digitalWrite(SENSORS_PWR_ENABLE_PIN, HIGH);
   pinMode(DPDT_CTRL_PIN, OUTPUT);
-  digitalWrite(DPDT_CTRL_PIN, LOW);
-
-  
+  digitalWrite(DPDT_CTRL_PIN, LOW);  
   
   pinMode(ECHOSTAR_SWCTRL_PIN, INPUT);
   attachInterrupt(digitalPinToInterrupt(ECHOSTAR_SWCTRL_PIN), swctrl_change_isr, CHANGE);
@@ -137,11 +134,16 @@ void setup()
 
 
   pinMode(ECHOSTAR_BOOT_PIN, OUTPUT);
-   digitalWrite(ECHOSTAR_BOOT_PIN, HIGH);
+  digitalWrite(ECHOSTAR_BOOT_PIN, HIGH);
 
    
   pinMode(ECHOSTAR_RTS_PIN, OUTPUT);
-   digitalWrite(ECHOSTAR_RTS_PIN, HIGH);
+  digitalWrite(ECHOSTAR_RTS_PIN, LOW);
+
+  USB_SERIAL.begin(115200);
+  while (!USB_SERIAL && ((millis()-getSensorDataPrevMillis)>5000)){
+delay(10);
+  }  
 
   
   if (myIMU.begin())
@@ -155,12 +157,7 @@ void setup()
   myIMU.configAsynchronousReadBackAccelerationData(KX023_ACCLERATION_RANGE_2G, KX023_ODR_25HZ);
       myIMU.setOperatingMode();      
 
-  getSensorDataPrevMillis = millis();
-
-USB_SERIAL.begin(115200);
-  while (!Serial && ((millis()-getSensorDataPrevMillis)>5000)){
-delay(10);
-  }     
+  getSensorDataPrevMillis = millis();   
 
    if((millis()-getSensorDataPrevMillis)>5000){
     lora_sending=true;}
@@ -207,7 +204,7 @@ void loop()
       gnss(1);
       mode=2;
       NMEA=1;
-   Serial.println("Push button");
+   USB_SERIAL.println("Push button");
   button=0;    
   }
 
@@ -219,8 +216,9 @@ void loop()
    //GNSS_SERIAL.end(); // UART GNSS
  //ECHOSTAR_SERIAL.end(); // UART EM2050
  //digitalWrite(SENSORS_PWR_ENABLE_PIN, LOW);
+ //digitalWrite(ECHOSTAR_BOOT_PIN, LOW);
  digitalWrite(ECHOSTAR_BOOT_PIN, LOW);
-digitalWrite(ECHOSTAR_RTS_PIN, LOW);
+//digitalWrite(ECHOSTAR_RTS_PIN, LOW);
 
  blink(50);
 
@@ -230,13 +228,9 @@ digitalWrite(ECHOSTAR_RTS_PIN, LOW);
  delay(20);
 #else
 delay(Sleeptime);
-
  #endif
 
-
-//digitalWrite(SENSORS_PWR_ENABLE_PIN, HIGH);
 digitalWrite(ECHOSTAR_BOOT_PIN, HIGH);
-
 //bme.begin(SENSORS_BME680_ADDRESS);
  //USB_SERIAL.begin(115200);
  //GNSS_SERIAL.begin(115200); // UART GNSS
@@ -246,6 +240,10 @@ digitalWrite(ECHOSTAR_BOOT_PIN, HIGH);
   if (lora_sending==1){
       currentMillis = millis();      
       if (currentMillis - getSensorDataPrevMillis > PERIOD*1000){
+
+        //digitalWrite(SENSORS_PWR_ENABLE_PIN, HIGH);
+        
+        bme.beginReading();
         //getSensorDataPrevMillis=currentMillis;  
         mode=0;
         nmea.clear(); // reset NMEA
@@ -254,6 +252,12 @@ digitalWrite(ECHOSTAR_BOOT_PIN, HIGH);
         ttf = gnss_fix()/1000;
         gnss(0); // Power OFF GNSS LDO
         mode=1;
+        // digitalWrite(ECHOSTAR_RTS_PIN, LOW);
+        // delay(500);     
+        // while (ECHOSTAR_SERIAL.available())
+        // {
+        // USB_SERIAL.write(ECHOSTAR_SERIAL.read());        
+        // }
         SendLoRa(1);        
         lowpower=1;      
         getSensorDataPrevMillis=currentMillis;          
@@ -264,7 +268,7 @@ digitalWrite(ECHOSTAR_BOOT_PIN, HIGH);
 if (mode==1) {
   while (ECHOSTAR_SERIAL.available())
         {
-        Serial.write(ECHOSTAR_SERIAL.read());
+        USB_SERIAL.write(ECHOSTAR_SERIAL.read());
         }
 }
 
@@ -289,19 +293,19 @@ if(mode == 2) {
       nmea.process(*(revChar + i));      
     }
   }
-  if (NMEA==1 && Serial.available()) {
-       revString = Serial.readStringUntil(0x0D);       
+  if (NMEA==1 &&  USB_SERIAL.available()) {
+       revString =  USB_SERIAL.readStringUntil(0x0D);       
         GNSS_SERIAL.println(revString);
       }
 }
 
-  if (NMEA != 1 && Serial.available()) {      // If anything comes in Serial (USB),
-    char c = Serial.read();    
+  if (NMEA != 1 &&  USB_SERIAL.available()) {      // If anything comes in Serial (USB),
+    char c =  USB_SERIAL.read();    
   
   if(c=='$'){     
     blink(50);
     
-    String CMD=Serial.readStringUntil('\r');
+    String CMD= USB_SERIAL.readStringUntil('\r');
     USB_SERIAL.println(CMD);           
     if(CMD.equalsIgnoreCase("GNSS")){
       lowpower=0;
@@ -310,7 +314,7 @@ if(mode == 2) {
       NMEA=0;
       USB_SERIAL.println("Mode GNSS");
       }
-      if(CMD.equalsIgnoreCase("NMEA")){
+    else if(CMD.equalsIgnoreCase("NMEA")){
       lowpower=0;
       gnss(1);
       mode=2;
@@ -387,10 +391,7 @@ if(mode == 2) {
 
 void button_1_isr(void)
 {
-  delay(10);
-  if(digitalRead(USER_BTN)){
-  button++;
-  }
+  button++;  
 }
 
 void blink(int blinktime){
@@ -464,20 +465,18 @@ uint16_t p =(uint16_t)(bme.pressure/10);
 int8_t x = (int8_t) 50*kx_x;
 int8_t y = (int8_t) 50*kx_y;
 int8_t z = (int8_t) 50*kx_z;
-int16_t b = meas_bat();
 long lat= nmea.getLatitude(); //Latitude : 0.0001 ° Signed MSB
 long lon= nmea.getLongitude(); //Longitude : 0.0001 ° Signed MSB
 int8_t speed = (int8_t) (nmea.getSpeed()/1000);
-int8_t pwr = (int8_t) readpwr();
 float gnss_lat= (float)lat/1E6;
 float gnss_lon= (float)lon/1E6;
 long alt;
 nmea.getAltitude(alt);
 int32_t AltitudeBinary= alt/100; // Altitude : 0.01 meter Signed MSB
 uint8_t s= nmea.getNumSatellites(); // nb of satellite in view with GNSS
-//uint16_t bat = measure_bat();
 uint16_t bat = read_bat();
 DLresults dl = readDL();
+int8_t pwr = (int8_t) readpwr();
 
   uint32_t LatitudeBinary = ((gnss_lat + 90) / 180) * 16777215;
   uint32_t LongitudeBinary =  ((gnss_lon + 180) / 360) * 16777215;
@@ -612,12 +611,9 @@ USB_SERIAL.println(it);
 it++;
      }
 
-int16_t meas_bat(void) {
-  return 0;
-}
 
 uint16_t read_bat(void){
-  uint16_t  voltage_adc = (uint16_t)analogRead(BATVOLT_R2);
+  uint16_t  voltage_adc = (uint16_t)analogRead(SENSORS_BATERY_ADC_PIN);
   uint16_t  voltage = (uint16_t)((ADC_AREF / 1.024) * (BATVOLT_R1 + BATVOLT_R2) / BATVOLT_R2 * (float)voltage_adc);    
     return voltage;
 }
@@ -664,6 +660,7 @@ while (ECHOSTAR_SERIAL.available())
         ECHOSTAR_SERIAL.read();
         }
       ECHOSTAR_SERIAL.println("AT+CTP?");
+      delay(10);
       String temp= ECHOSTAR_SERIAL.readStringUntil('\n');
       temp= ECHOSTAR_SERIAL.readStringUntil(':');      
             temp= ECHOSTAR_SERIAL.readStringUntil('\n');
