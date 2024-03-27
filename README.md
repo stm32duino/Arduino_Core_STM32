@@ -49,15 +49,22 @@ https://fabienferrero.github.io/ArduinoBoardManagerJSON/package_leat-echostar-te
 
 # Integrated example
 
-Since [version 2.8.0-dev1](https://github.com/nguyenmanhthao996tn/LEAT-EchoStar-Terminal-BSP/releases/tag/2.8.0-dev1), there are integrated examples dedicated for **LEAT EchoStar Terminals** in **File** &rightarrow; **Examples** &rightarrow; **EchoStar_Term_Examples**. The list of currently available examples:
-- 0_LED_n_Button
-- 1_USB_Serial_ByPass_for_GNSS
-- 2_USB_Serial_ByPass_for_EM2050
-- 3_Sensors_I2C_Scanner
-- 4_Sensors_BME280
-- 5_Sensors_BME680
-- 6_Sensors_KX023
-- 7_GNSS_MicroNMEA
+Since [version 2.8.0-dev1](https://github.com/nguyenmanhthao996tn/LEAT-EchoStar-Terminal-BSP/releases/tag/2.8.0-dev1), there are integrated examples dedicated for **LEAT EchoStar Terminals** in **File** &rightarrow; **Examples** &rightarrow; **Basic_Examples**. The list of currently available examples:
+- [0_LED_n_Button](libraries/Basic_Examples/examples/0_LED_n_Button)
+- [1_USB_Serial_ByPass_for_GNSS](libraries/Basic_Examples/examples/1_USB_Serial_ByPass_for_GNSS)
+- [2_USB_Serial_ByPass_for_EM2050](libraries/Basic_Examples/examples/2_USB_Serial_ByPass_for_EM2050)
+- [3_Sensors_I2C_Scanner](libraries/Basic_Examples/examples/3_Sensors_I2C_Scanner)
+- [4_Sensors_BME280](libraries/Basic_Examples/examples/4_Sensors_BME280)
+- [5_Sensors_BME680](libraries/Basic_Examples/examples/5_Sensors_BME680)
+- [6_Sensors_KX023](libraries/Basic_Examples/examples/6_Sensors_KX023)
+- [7_GNSS_MicroNMEA](libraries/Basic_Examples/examples/7_GNSS_MicroNMEA)
+- 8_Others
+  - [Term7_EM2050_Firmware_Uploader](libraries/Basic_Examples/examples/8_Others/Term7_EM2050_Firmware_Uploader)
+
+There are also tracker application examples that collect GNSS location, sensor data and send to satellite(s) in certain periodic cycle. These examples can be found in **File** &rightarrow; **Examples** &rightarrow; **Extended_Examples**.
+- [Echo_lab_06](libraries/Extended_Examples/examples/Echo_lab_06)
+- [Echo_lab_07](libraries/Extended_Examples/examples/Echo_lab_07)
+- [Echo_lab_07_LP](libraries/Extended_Examples/examples/Echo_lab_07_LP)
 
 There are external libraries used in these example. They could be found & installed from this list:
 - [adafruit/Adafruit_BME280_Library](https://github.com/adafruit/Adafruit_BME280_Library)
