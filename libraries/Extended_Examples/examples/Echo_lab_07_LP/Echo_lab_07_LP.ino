@@ -650,7 +650,7 @@ int16_t meas_bat(void) {
 }
 
 uint16_t read_bat(void){
-  uint16_t  voltage_adc = (uint16_t)analogRead(BATVOLT_R2);
+  uint16_t  voltage_adc = (uint16_t)analogRead(SENSORS_BATERY_ADC_PIN);
   uint16_t  voltage = (uint16_t)((ADC_AREF / 1.024) * (BATVOLT_R1 + BATVOLT_R2) / BATVOLT_R2 * (float)voltage_adc);    
     return voltage;
 }
