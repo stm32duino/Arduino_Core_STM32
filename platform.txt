@@ -202,7 +202,7 @@ tools.stm32CubeProg.path={runtime.tools.STM32Tools.path}
 tools.stm32CubeProg.cmd=stm32CubeProg.sh
 tools.stm32CubeProg.upload.params.verbose=
 tools.stm32CubeProg.upload.params.quiet=
-tools.stm32CubeProg.upload.pattern="{busybox}" sh "{path}/{cmd}" {upload.protocol} "{build.path}/{build.project_name}.bin" {build.flash_offset} 0 {upload.vid}:{upload.pid} {upload.options}
+tools.stm32CubeProg.upload.pattern="{busybox}" sh "{path}/{cmd}" -i {upload.protocol} -f "{build.path}/{build.project_name}.bin" -o {build.flash_offset} {upload.options}
 
 # blackmagic upload for generic STM32
 tools.bmp_upload.cmd=arm-none-eabi-gdb
