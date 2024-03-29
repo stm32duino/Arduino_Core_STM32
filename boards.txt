@@ -229,7 +229,7 @@ Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.upload.maximum_size=1048576
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.upload.maximum_data_size=327680
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.mcu=cortex-m4
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.fpu=-mfpu=fpv4-sp-d16
-Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.float-abi=-mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.board=NUCLEO_L496ZG_P
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.series=STM32L4xx
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.product_line=STM32L496xx
