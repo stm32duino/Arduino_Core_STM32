@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh -
 
 BUILD_PATH="$1"
 BUILD_SERIE="$2"
