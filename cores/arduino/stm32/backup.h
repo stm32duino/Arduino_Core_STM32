@@ -24,6 +24,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_def.h"
 #include "stm32yyxx_ll_rtc.h"
+#include "stm32yyxx_ll_pwr.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -128,7 +129,7 @@ static inline void setBackupRegister(uint32_t index, uint32_t value)
 #else
   LL_RTC_BKP_SetRegister(TAMP, index, value);
 #endif
-#elif defined(BKPREG1)
+#elif defined(PWR_BKP0R)
   LL_PWR_BKP_SetRegister(index, value);
 #else
   UNUSED(index);
@@ -152,7 +153,7 @@ static inline uint32_t getBackupRegister(uint32_t index)
 #else
   return LL_RTC_BKP_GetRegister(TAMP, index);
 #endif
-#elif defined(BKPREG1)
+#elif defined(PWR_BKP0R)
   return LL_PWR_BKP_GetRegister(index);
 #else
   UNUSED(index);
