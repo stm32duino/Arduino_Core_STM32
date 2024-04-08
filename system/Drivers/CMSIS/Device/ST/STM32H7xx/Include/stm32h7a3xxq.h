@@ -209,7 +209,7 @@ typedef enum
 /**
   * @brief Configuration of the Cortex-M7 Processor and Core Peripherals
    */
-#define __CM7_REV               0x0100U   /*!< Cortex-M7 revision r1p0                       */
+#define __CM7_REV               0x0110U   /*!< Cortex-M7 revision r1p2                       */
 #define __MPU_PRESENT             1U       /*!< CM7 provides an MPU                           */
 #define __NVIC_PRIO_BITS          4U       /*!< CM7 uses 4 Bits for the Priority Levels       */
 #define __Vendor_SysTickConfig    0U       /*!< Set to 1 if different SysTick Config is used  */
@@ -2288,7 +2288,6 @@ typedef struct
 #define MDMA_Channel13_BASE   (MDMA_BASE + 0x00000380UL)
 #define MDMA_Channel14_BASE   (MDMA_BASE + 0x000003C0UL)
 #define MDMA_Channel15_BASE   (MDMA_BASE + 0x00000400UL)
-#define MDMA_Channel16_BASE   (MDMA_BASE + 0x00000440UL)
 
 /* GFXMMU virtual buffers base address */
 #define GFXMMU_VIRTUAL_BUFFERS_BASE  (0x25000000UL)
@@ -9425,7 +9424,7 @@ typedef struct
 #define FMC_SDCMR_MODE             FMC_SDCMR_MODE_Msk                          /*!<MODE[2:0] bits (Command mode) */
 #define FMC_SDCMR_MODE_0           (0x1UL << FMC_SDCMR_MODE_Pos)                /*!< 0x00000001 */
 #define FMC_SDCMR_MODE_1           (0x2UL << FMC_SDCMR_MODE_Pos)                /*!< 0x00000002 */
-#define FMC_SDCMR_MODE_2           (0x3UL << FMC_SDCMR_MODE_Pos)                /*!< 0x00000003 */
+#define FMC_SDCMR_MODE_2           (0x4UL << FMC_SDCMR_MODE_Pos)                /*!< 0x00000004 */
 
 #define FMC_SDCMR_CTB2_Pos         (3U)
 #define FMC_SDCMR_CTB2_Msk         (0x1UL << FMC_SDCMR_CTB2_Pos)               /*!< 0x00000008 */
@@ -11315,7 +11314,7 @@ typedef struct
 /********************  Bit definition for SR register  ********************/
 #define JPEG_SR_IFTF_Pos                (1U)
 #define JPEG_SR_IFTF_Msk                (0x1UL << JPEG_SR_IFTF_Pos)            /*!< 0x00000002 */
-#define JPEG_SR_IFTF                    JPEG_SR_IFTF_Msk                       /*!<Input FIFO is not full and is bellow its threshold flag */
+#define JPEG_SR_IFTF                    JPEG_SR_IFTF_Msk                       /*!<Input FIFO is not full and is below its threshold flag */
 #define JPEG_SR_IFNFF_Pos               (2U)
 #define JPEG_SR_IFNFF_Msk               (0x1UL << JPEG_SR_IFNFF_Pos)           /*!< 0x00000004 */
 #define JPEG_SR_IFNFF                   JPEG_SR_IFNFF_Msk                      /*!<Input FIFO Not Full Flag, a data can be written */
@@ -20207,6 +20206,9 @@ typedef struct
 #define USB_OTG_GOTGCTL_OTGVER_Pos               (20U)
 #define USB_OTG_GOTGCTL_OTGVER_Msk               (0x1UL << USB_OTG_GOTGCTL_OTGVER_Pos) /*!< 0x00100000 */
 #define USB_OTG_GOTGCTL_OTGVER                   USB_OTG_GOTGCTL_OTGVER_Msk    /*!< OTG version  */
+#define USB_OTG_GOTGCTL_CURMOD_Pos               (21U)
+#define USB_OTG_GOTGCTL_CURMOD_Msk               (0x1UL << USB_OTG_GOTGCTL_CURMOD_Pos) /*!< 0x00200000 */
+#define USB_OTG_GOTGCTL_CURMOD                   USB_OTG_GOTGCTL_CURMOD_Msk    /*!< Current mode of operation */
 
 /********************  Bit definition forUSB_OTG_HCFG register  ********************/
 
@@ -20232,7 +20234,7 @@ typedef struct
 
 #define USB_OTG_DCFG_DAD_Pos                     (4U)
 #define USB_OTG_DCFG_DAD_Msk                     (0x7FUL << USB_OTG_DCFG_DAD_Pos) /*!< 0x000007F0 */
-#define USB_OTG_DCFG_DAD                         USB_OTG_DCFG_DAD_Msk          /*!< Device address */
+#define USB_OTG_DCFG_DAD                         USB_OTG_DCFG_DAD_Msk             /*!< Device address */
 #define USB_OTG_DCFG_DAD_0                       (0x01UL << USB_OTG_DCFG_DAD_Pos) /*!< 0x00000010 */
 #define USB_OTG_DCFG_DAD_1                       (0x02UL << USB_OTG_DCFG_DAD_Pos) /*!< 0x00000020 */
 #define USB_OTG_DCFG_DAD_2                       (0x04UL << USB_OTG_DCFG_DAD_Pos) /*!< 0x00000040 */
@@ -20243,13 +20245,21 @@ typedef struct
 
 #define USB_OTG_DCFG_PFIVL_Pos                   (11U)
 #define USB_OTG_DCFG_PFIVL_Msk                   (0x3UL << USB_OTG_DCFG_PFIVL_Pos) /*!< 0x00001800 */
-#define USB_OTG_DCFG_PFIVL                       USB_OTG_DCFG_PFIVL_Msk        /*!< Periodic (micro)frame interval */
+#define USB_OTG_DCFG_PFIVL                       USB_OTG_DCFG_PFIVL_Msk            /*!< Periodic (micro)frame interval */
 #define USB_OTG_DCFG_PFIVL_0                     (0x1UL << USB_OTG_DCFG_PFIVL_Pos) /*!< 0x00000800 */
 #define USB_OTG_DCFG_PFIVL_1                     (0x2UL << USB_OTG_DCFG_PFIVL_Pos) /*!< 0x00001000 */
 
+#define USB_OTG_DCFG_XCVRDLY_Pos                 (14U)
+#define USB_OTG_DCFG_XCVRDLY_Msk                 (0x1UL << USB_OTG_DCFG_XCVRDLY_Pos) /*!< 0x00004000 */
+#define USB_OTG_DCFG_XCVRDLY                     USB_OTG_DCFG_XCVRDLY_Msk            /*!< Transceiver delay */
+
+#define USB_OTG_DCFG_ERRATIM_Pos                 (15U)
+#define USB_OTG_DCFG_ERRATIM_Msk                 (0x1UL << USB_OTG_DCFG_ERRATIM_Pos) /*!< 0x00008000 */
+#define USB_OTG_DCFG_ERRATIM                     USB_OTG_DCFG_ERRATIM_Msk            /*!< Erratic error interrupt mask */
+
 #define USB_OTG_DCFG_PERSCHIVL_Pos               (24U)
 #define USB_OTG_DCFG_PERSCHIVL_Msk               (0x3UL << USB_OTG_DCFG_PERSCHIVL_Pos) /*!< 0x03000000 */
-#define USB_OTG_DCFG_PERSCHIVL                   USB_OTG_DCFG_PERSCHIVL_Msk    /*!< Periodic scheduling interval */
+#define USB_OTG_DCFG_PERSCHIVL                   USB_OTG_DCFG_PERSCHIVL_Msk            /*!< Periodic scheduling interval */
 #define USB_OTG_DCFG_PERSCHIVL_0                 (0x1UL << USB_OTG_DCFG_PERSCHIVL_Pos) /*!< 0x01000000 */
 #define USB_OTG_DCFG_PERSCHIVL_1                 (0x2UL << USB_OTG_DCFG_PERSCHIVL_Pos) /*!< 0x02000000 */
 
@@ -20319,6 +20329,12 @@ typedef struct
 #define USB_OTG_DCTL_POPRGDNE_Pos                (11U)
 #define USB_OTG_DCTL_POPRGDNE_Msk                (0x1UL << USB_OTG_DCTL_POPRGDNE_Pos) /*!< 0x00000800 */
 #define USB_OTG_DCTL_POPRGDNE                    USB_OTG_DCTL_POPRGDNE_Msk     /*!< Power-on programming done */
+#define USB_OTG_DCTL_ENCONTONBNA_Pos             (17U)
+#define USB_OTG_DCTL_ENCONTONBNA_Msk             (0x1UL << USB_OTG_DCTL_ENCONTONBNA_Pos) /*!< 0x00020000 */
+#define USB_OTG_DCTL_ENCONTONBNA                 USB_OTG_DCTL_ENCONTONBNA_Msk  /*!< Enable continue on BNA */
+#define USB_OTG_DCTL_DSBESLRJCT_Pos              (18U)
+#define USB_OTG_DCTL_DSBESLRJCT_Msk              (0x1UL << USB_OTG_DCTL_DSBESLRJCT_Pos) /*!< 0x00040000 */
+#define USB_OTG_DCTL_DSBESLRJCT                  USB_OTG_DCTL_DSBESLRJCT_Msk  /*!< Deep sleep BESL reject */
 
 /********************  Bit definition forUSB_OTG_HFIR register  ********************/
 #define USB_OTG_HFIR_FRIVL_Pos                   (0U)
@@ -20436,7 +20452,7 @@ typedef struct
 #define USB_OTG_GUSBCFG_FDMOD                    USB_OTG_GUSBCFG_FDMOD_Msk     /*!< Forced peripheral mode          */
 #define USB_OTG_GUSBCFG_CTXPKT_Pos               (31U)
 #define USB_OTG_GUSBCFG_CTXPKT_Msk               (0x1UL << USB_OTG_GUSBCFG_CTXPKT_Pos) /*!< 0x80000000 */
-#define USB_OTG_GUSBCFG_CTXPKT                   USB_OTG_GUSBCFG_CTXPKT_Msk    /*!< Corrupt Tx packet               */
+#define USB_OTG_GUSBCFG_CTXPKT                   USB_OTG_GUSBCFG_CTXPKT_Msk    /*!< Corrupt Tx packet for debug propose only; must be kept at reset value */
 
 /********************  Bit definition forUSB_OTG_GRSTCTL register  ********************/
 #define USB_OTG_GRSTCTL_CSRST_Pos                (0U)

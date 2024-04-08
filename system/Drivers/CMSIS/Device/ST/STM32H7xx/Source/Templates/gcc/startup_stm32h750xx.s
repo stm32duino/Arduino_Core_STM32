@@ -121,7 +121,6 @@ Infinite_Loop:
 *******************************************************************************/
    .section  .isr_vector,"a",%progbits
   .type  g_pfnVectors, %object
-  .size  g_pfnVectors, .-g_pfnVectors
 
 
 g_pfnVectors:
@@ -294,6 +293,8 @@ g_pfnVectors:
   .word     0                                 /* Reserved                   */
   .word     0                                 /* Reserved                   */
   .word     WAKEUP_PIN_IRQHandler             /* Interrupt for all 6 wake-up pins */
+
+  .size  g_pfnVectors, .-g_pfnVectors
 
 /*******************************************************************************
 *

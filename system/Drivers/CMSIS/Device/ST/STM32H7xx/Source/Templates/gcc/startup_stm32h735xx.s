@@ -121,7 +121,6 @@ Infinite_Loop:
 *******************************************************************************/
    .section  .isr_vector,"a",%progbits
   .type  g_pfnVectors, %object
-  .size  g_pfnVectors, .-g_pfnVectors
 
 
 g_pfnVectors:
@@ -307,6 +306,8 @@ g_pfnVectors:
   .word     FDCAN3_IT1_IRQHandler             /* FDCAN3 interrupt line 1  */
   .word     TIM23_IRQHandler                  /* TIM23 global interrupt   */
   .word     TIM24_IRQHandler                  /* TIM24 global interrupt   */
+
+  .size  g_pfnVectors, .-g_pfnVectors
 
 /*******************************************************************************
 *
