@@ -2494,6 +2494,7 @@ system_path = root_dir / "system"
 templates_dir = script_path / "templates"
 mcu_family_dir = ""
 filtered_family = ""
+refname_filter = ["STM32MP13", "STM32H7R", "STM32H7S"]
 periph_c_filename = "PeripheralPins.c"
 pinvar_h_filename = "PinNamesVar.h"
 config_filename = script_path / "variant_config.json"
@@ -2633,8 +2634,13 @@ for mcu_file in mcu_list:
     # Open input file
     xml_mcu = parse(str(mcu_file))
     parse_mcu_file()
-    # Generate only for one family
-    if filtered_family and filtered_family not in mcu_family or "MP13" in mcu_refname:
+
+    # Generate only for one family or supported reference
+    if (
+        filtered_family
+        and filtered_family not in mcu_family
+        or any(skp in mcu_refname for skp in refname_filter)
+    ):
         xml_mcu.unlink()
         continue
 
