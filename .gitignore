@@ -32,3 +32,4 @@ __pycache__/
 # VisualStudioCode
 .vscode/*
 *.code-workspace
+.vscode-ctags
