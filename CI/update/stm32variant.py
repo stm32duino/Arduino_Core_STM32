@@ -2257,7 +2257,7 @@ def merge_dir(out_temp_path, group_mcu_dir, mcu_family, periph_xml, variant_exp)
 # Aggregating all generated files
 def aggregate_dir():
     # Get mcu_family directories
-    out_temp_path = cur_dir / "variants"
+    out_temp_path = tmp_dir
     mcu_families = sorted(out_temp_path.glob("STM32*/"))
 
     group_mcu_dir = []
@@ -2495,22 +2495,21 @@ def manage_repo():
 
 
 # main
-cur_dir = Path.cwd()
-tmp_dir = cur_dir / "variants"
-root_dir = cur_dir.parents[1]
+tmp_dir = script_path / "variants"
+root_dir = script_path.parents[1]
 system_path = root_dir / "system"
-templates_dir = cur_dir / "templates"
+templates_dir = script_path / "templates"
 mcu_family_dir = ""
 filtered_family = ""
 # filtered_mcu_file = ""
 periph_c_filename = "PeripheralPins.c"
 pinvar_h_filename = "PinNamesVar.h"
-config_filename = Path("variant_config.json")
+config_filename = script_path / "variant_config.json"
 variant_h_filename = "variant_generic.h"
 variant_cpp_filename = "variant_generic.cpp"
 boards_entry_filename = "boards_entry.txt"
 generic_clock_filename = "generic_clock.c"
-repo_local_path = cur_dir / "repo"
+repo_local_path = script_path / "repo"
 cubemxdir = Path()
 gh_url = "https://github.com/STMicroelectronics/STM32_open_pin_data"
 repo_name = gh_url.rsplit("/", 1)[-1]
