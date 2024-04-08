@@ -1,4 +1,4 @@
-﻿/**
+/**
   ******************************************************************************
   * @file    stm32h503xx.h
   * @author  MCD Application Team
@@ -429,22 +429,22 @@ typedef struct
   __IO uint32_t SWIER1;         /*!< EXTI Software Interrupt event Register 1,        Address offset:   0x08 */
   __IO uint32_t RPR1;           /*!< EXTI Rising Pending Register 1,                  Address offset:   0x0C */
   __IO uint32_t FPR1;           /*!< EXTI Falling Pending Register 1,                 Address offset:   0x10 */
-  __IO uint32_t SECCFGR1;       /*!< EXTI Security Configuration Register 1,          Address offset:   0x14 */
+       uint32_t RESERVED1;      /*!< Reserved 1,                                      Address offset:   0x14 */
   __IO uint32_t PRIVCFGR1;      /*!< EXTI Privilege Configuration Register 1,         Address offset:   0x18 */
-       uint32_t RESERVED1;      /*!< Reserved 1,                                      Address offset:   0x1C */
+       uint32_t RESERVED2;      /*!< Reserved 2,                                      Address offset:   0x1C */
   __IO uint32_t RTSR2;          /*!< EXTI Rising Trigger Selection Register 2,        Address offset:   0x20 */
   __IO uint32_t FTSR2;          /*!< EXTI Falling Trigger Selection Register 2,       Address offset:   0x24 */
   __IO uint32_t SWIER2;         /*!< EXTI Software Interrupt event Register 2,        Address offset:   0x28 */
   __IO uint32_t RPR2;           /*!< EXTI Rising Pending Register 2,                  Address offset:   0x2C */
   __IO uint32_t FPR2;           /*!< EXTI Falling Pending Register 2,                 Address offset:   0x30 */
-  __IO uint32_t SECCFGR2;       /*!< EXTI Security Configuration Register 2,          Address offset:   0x34 */
+       uint32_t RESERVED3;      /*!< Reserved 3,                                      Address offset:   0x34 */
   __IO uint32_t PRIVCFGR2;      /*!< EXTI Privilege Configuration Register 2,         Address offset:   0x38 */
-       uint32_t RESERVED2[9];   /*!< Reserved 2,                                                 0x3C-- 0x5C */
+       uint32_t RESERVED4[9];   /*!< Reserved 4,                                                 0x3C-- 0x5C */
   __IO uint32_t EXTICR[4];      /*!< EXIT External Interrupt Configuration Register,            0x60 -- 0x6C */
-       uint32_t RESERVED3[4];   /*!< Reserved 3,                                                0x70 -- 0x7C */
+       uint32_t RESERVED5[4];   /*!< Reserved 5,                                                0x70 -- 0x7C */
   __IO uint32_t IMR1;           /*!< EXTI Interrupt Mask Register 1,                  Address offset:   0x80 */
   __IO uint32_t EMR1;           /*!< EXTI Event Mask Register 1,                      Address offset:   0x84 */
-       uint32_t RESERVED4[2];   /*!< Reserved 4,                                                0x88 -- 0x8C */
+       uint32_t RESERVED6[2];   /*!< Reserved 6,                                                0x88 -- 0x8C */
   __IO uint32_t IMR2;           /*!< EXTI Interrupt Mask Register 2,                  Address offset:   0x90 */
   __IO uint32_t EMR2;           /*!< EXTI Event Mask Register 2,                      Address offset:   0x94 */
 } EXTI_TypeDef;
@@ -537,8 +537,6 @@ typedef struct
        uint32_t RESERVED3[17];  /*!< Reserved3,                                                            Address offset: 0x2C-0x6C */
   __IO uint32_t MPCWM4ACFGR;    /*!< TZSC memory 4 sub-region A watermark configuration register,          Address offset: 0x70      */
   __IO uint32_t MPCWM4AR;       /*!< TZSC memory 4 sub-region A watermark register,                        Address offset: 0x74      */
-  __IO uint32_t MPCWM4BCFGR;    /*!< TZSC memory 4 sub-region B watermark configuration register,          Address offset: 0x78      */
-  __IO uint32_t MPCWM4BR;       /*!< TZSC memory 4 sub-region B watermark register,                        Address offset: 0x7c      */
 } GTZC_TZSC_TypeDef;
 
 typedef struct
@@ -591,7 +589,8 @@ typedef struct
   __IO uint32_t TISEL;       /*!< TIM Input Selection register,             Address offset: 0x5C */
   __IO uint32_t AF1;         /*!< TIM alternate function option register 1, Address offset: 0x60 */
   __IO uint32_t AF2;         /*!< TIM alternate function option register 2, Address offset: 0x64 */
-       uint32_t RESERVED0[221];/*!< Reserved,                               Address offset: 0x68 */
+  __IO uint32_t OR1 ;        /*!< TIM option register,                      Address offset: 0x68 */
+       uint32_t RESERVED0[220];/*!< Reserved,                               Address offset: 0x6C */
   __IO uint32_t DCR;         /*!< TIM DMA control register,                 Address offset: 0x3DC */
   __IO uint32_t DMAR;        /*!< TIM DMA address for full transfer,        Address offset: 0x3E0 */
 } TIM_TypeDef;
@@ -768,6 +767,7 @@ typedef struct
   uint32_t      RESERVED21;    /*!< Reserved,                                                                Address offset: 0x110 */
   __IO uint32_t PRIVCFGR;      /*!< RCC Privilege configuration register                                     Address offset: 0x114 */
 } RCC_TypeDef;
+
 
 /*
 * @brief RTC Specific device feature definitions
@@ -1298,9 +1298,6 @@ typedef struct
 #define FLASH_SYSTEM_BASE_NS    (0x0BF80000UL) /*!< FLASH System non-secure base address  */
 #define FLASH_SYSTEM_SIZE       (0x8000U)      /*!< 32 Kbytes system Flash */
 
-
-/*!< USB PMA SIZE */
-#define USB_DRD_PMA_SIZE        (2048U)         /*!< USB PMA Size 2Kbyte */
 
 /*!< Non Secure Service Library */
 /************ RSSLIB SAU system Flash region definition constants *************/
@@ -4286,104 +4283,6 @@ typedef struct
 #define EXTI_FPR1_FPIF16_Msk                (0x1UL << EXTI_FPR1_FPIF16_Pos)         /*!< 0x00010000 */
 #define EXTI_FPR1_FPIF16                    EXTI_FPR1_FPIF16_Msk                    /*!< Falling Pending Interrupt Flag on line 16 */
 
-/*******************  Bit definition for EXTI_SECENR1 register  ******************/
-#define EXTI_SECENR1_SEC0_Pos              (0U)
-#define EXTI_SECENR1_SEC0_Msk              (0x1UL << EXTI_SECENR1_SEC0_Pos)       /*!< 0x00000001 */
-#define EXTI_SECENR1_SEC0                  EXTI_SECENR1_SEC0_Msk                  /*!< Security enable on line 0 */
-#define EXTI_SECENR1_SEC1_Pos              (1U)
-#define EXTI_SECENR1_SEC1_Msk              (0x1UL << EXTI_SECENR1_SEC1_Pos)       /*!< 0x00000002 */
-#define EXTI_SECENR1_SEC1                  EXTI_SECENR1_SEC1_Msk                  /*!< Security enable on line 1 */
-#define EXTI_SECENR1_SEC2_Pos              (2U)
-#define EXTI_SECENR1_SEC2_Msk              (0x1UL << EXTI_SECENR1_SEC2_Pos)       /*!< 0x00000004 */
-#define EXTI_SECENR1_SEC2                  EXTI_SECENR1_SEC2_Msk                  /*!< Security enable on line 2 */
-#define EXTI_SECENR1_SEC3_Pos              (3U)
-#define EXTI_SECENR1_SEC3_Msk              (0x1UL << EXTI_SECENR1_SEC3_Pos)       /*!< 0x00000008 */
-#define EXTI_SECENR1_SEC3                  EXTI_SECENR1_SEC3_Msk                  /*!< Security enable on line 3 */
-#define EXTI_SECENR1_SEC4_Pos              (4U)
-#define EXTI_SECENR1_SEC4_Msk              (0x1UL << EXTI_SECENR1_SEC4_Pos)       /*!< 0x00000010 */
-#define EXTI_SECENR1_SEC4                  EXTI_SECENR1_SEC4_Msk                  /*!< Security enable on line 4 */
-#define EXTI_SECENR1_SEC5_Pos              (5U)
-#define EXTI_SECENR1_SEC5_Msk              (0x1UL << EXTI_SECENR1_SEC5_Pos)       /*!< 0x00000020 */
-#define EXTI_SECENR1_SEC5                  EXTI_SECENR1_SEC5_Msk                  /*!< Security enable on line 5 */
-#define EXTI_SECENR1_SEC6_Pos              (6U)
-#define EXTI_SECENR1_SEC6_Msk              (0x1UL << EXTI_SECENR1_SEC6_Pos)       /*!< 0x00000040 */
-#define EXTI_SECENR1_SEC6                  EXTI_SECENR1_SEC6_Msk                  /*!< Security enable on line 6 */
-#define EXTI_SECENR1_SEC7_Pos              (7U)
-#define EXTI_SECENR1_SEC7_Msk              (0x1UL << EXTI_SECENR1_SEC7_Pos)       /*!< 0x00000080 */
-#define EXTI_SECENR1_SEC7                  EXTI_SECENR1_SEC7_Msk                  /*!< Security enable on line 7 */
-#define EXTI_SECENR1_SEC8_Pos              (8U)
-#define EXTI_SECENR1_SEC8_Msk              (0x1UL << EXTI_SECENR1_SEC8_Pos)       /*!< 0x00000100 */
-#define EXTI_SECENR1_SEC8                  EXTI_SECENR1_SEC8_Msk                  /*!< Security enable on line 8 */
-#define EXTI_SECENR1_SEC9_Pos              (9U)
-#define EXTI_SECENR1_SEC9_Msk              (0x1UL << EXTI_SECENR1_SEC9_Pos)       /*!< 0x00000200 */
-#define EXTI_SECENR1_SEC9                  EXTI_SECENR1_SEC9_Msk                  /*!< Security enable on line 9 */
-#define EXTI_SECENR1_SEC10_Pos             (10U)
-#define EXTI_SECENR1_SEC10_Msk             (0x1UL << EXTI_SECENR1_SEC10_Pos)      /*!< 0x00000400 */
-#define EXTI_SECENR1_SEC10                 EXTI_SECENR1_SEC10_Msk                 /*!< Security enable on line 10 */
-#define EXTI_SECENR1_SEC11_Pos             (11U)
-#define EXTI_SECENR1_SEC11_Msk             (0x1UL << EXTI_SECENR1_SEC11_Pos)      /*!< 0x00000800 */
-#define EXTI_SECENR1_SEC11                 EXTI_SECENR1_SEC11_Msk                 /*!< Security enable on line 11 */
-#define EXTI_SECENR1_SEC12_Pos             (12U)
-#define EXTI_SECENR1_SEC12_Msk             (0x1UL << EXTI_SECENR1_SEC12_Pos)      /*!< 0x00001000 */
-#define EXTI_SECENR1_SEC12                 EXTI_SECENR1_SEC12_Msk                 /*!< Security enable on line 12 */
-#define EXTI_SECENR1_SEC13_Pos             (13U)
-#define EXTI_SECENR1_SEC13_Msk             (0x1UL << EXTI_SECENR1_SEC13_Pos)      /*!< 0x00002000 */
-#define EXTI_SECENR1_SEC13                 EXTI_SECENR1_SEC13_Msk                 /*!< Security enable on line 13 */
-#define EXTI_SECENR1_SEC14_Pos             (14U)
-#define EXTI_SECENR1_SEC14_Msk             (0x1UL << EXTI_SECENR1_SEC14_Pos)      /*!< 0x00004000 */
-#define EXTI_SECENR1_SEC14                 EXTI_SECENR1_SEC14_Msk                 /*!< Security enable on line 14 */
-#define EXTI_SECENR1_SEC15_Pos             (15U)
-#define EXTI_SECENR1_SEC15_Msk             (0x1UL << EXTI_SECENR1_SEC15_Pos)      /*!< 0x00008000 */
-#define EXTI_SECENR1_SEC15                 EXTI_SECENR1_SEC15_Msk                 /*!< Security enable on line 15 */
-#define EXTI_SECENR1_SEC16_Pos             (16U)
-#define EXTI_SECENR1_SEC16_Msk             (0x1UL << EXTI_SECENR1_SEC16_Pos)      /*!< 0x00010000 */
-#define EXTI_SECENR1_SEC16                 EXTI_SECENR1_SEC16_Msk                 /*!< Security enable on line 16 */
-#define EXTI_SECENR1_SEC17_Pos             (17U)
-#define EXTI_SECENR1_SEC17_Msk             (0x1UL << EXTI_SECENR1_SEC17_Pos)      /*!< 0x00020000 */
-#define EXTI_SECENR1_SEC17                 EXTI_SECENR1_SEC17_Msk                 /*!< Security enable on line 17 */
-#define EXTI_SECENR1_SEC18_Pos             (18U)
-#define EXTI_SECENR1_SEC18_Msk             (0x1UL << EXTI_SECENR1_SEC18_Pos)      /*!< 0x00040000 */
-#define EXTI_SECENR1_SEC18                 EXTI_SECENR1_SEC18_Msk                 /*!< Security enable on line 18 */
-#define EXTI_SECENR1_SEC19_Pos             (19U)
-#define EXTI_SECENR1_SEC19_Msk             (0x1UL << EXTI_SECENR1_SEC19_Pos)      /*!< 0x00080000 */
-#define EXTI_SECENR1_SEC19                 EXTI_SECENR1_SEC19_Msk                 /*!< Security enable on line 19 */
-#define EXTI_SECENR1_SEC20_Pos             (20U)
-#define EXTI_SECENR1_SEC20_Msk             (0x1UL << EXTI_SECENR1_SEC20_Pos)      /*!< 0x00100000 */
-#define EXTI_SECENR1_SEC20                 EXTI_SECENR1_SEC20_Msk                 /*!< Security enable on line 20 */
-#define EXTI_SECENR1_SEC21_Pos             (21U)
-#define EXTI_SECENR1_SEC21_Msk             (0x1UL << EXTI_SECENR1_SEC21_Pos)      /*!< 0x00200000 */
-#define EXTI_SECENR1_SEC21                 EXTI_SECENR1_SEC21_Msk                 /*!< Security enable on line 21 */
-#define EXTI_SECENR1_SEC22_Pos             (22U)
-#define EXTI_SECENR1_SEC22_Msk             (0x1UL << EXTI_SECENR1_SEC22_Pos)      /*!< 0x00400000 */
-#define EXTI_SECENR1_SEC22                 EXTI_SECENR1_SEC22_Msk                 /*!< Security enable on line 22 */
-#define EXTI_SECENR1_SEC23_Pos             (23U)
-#define EXTI_SECENR1_SEC23_Msk             (0x1UL << EXTI_SECENR1_SEC23_Pos)      /*!< 0x00800000 */
-#define EXTI_SECENR1_SEC23                 EXTI_SECENR1_SEC23_Msk                 /*!< Security enable on line 23 */
-#define EXTI_SECENR1_SEC24_Pos             (24U)
-#define EXTI_SECENR1_SEC24_Msk             (0x1UL << EXTI_SECENR1_SEC24_Pos)      /*!< 0x01000000 */
-#define EXTI_SECENR1_SEC24                 EXTI_SECENR1_SEC24_Msk                 /*!< Security enable on line 24 */
-#define EXTI_SECENR1_SEC25_Pos             (25U)
-#define EXTI_SECENR1_SEC25_Msk             (0x1UL << EXTI_SECENR1_SEC25_Pos)      /*!< 0x02000000 */
-#define EXTI_SECENR1_SEC25                 EXTI_SECENR1_SEC25_Msk                 /*!< Security enable on line 25 */
-#define EXTI_SECENR1_SEC26_Pos             (26U)
-#define EXTI_SECENR1_SEC26_Msk             (0x1UL << EXTI_SECENR1_SEC26_Pos)      /*!< 0x04000000 */
-#define EXTI_SECENR1_SEC26                 EXTI_SECENR1_SEC26_Msk                 /*!< Security enable on line 26 */
-#define EXTI_SECENR1_SEC27_Pos             (27U)
-#define EXTI_SECENR1_SEC27_Msk             (0x1UL << EXTI_SECENR1_SEC27_Pos)      /*!< 0x08000000 */
-#define EXTI_SECENR1_SEC27                 EXTI_SECENR1_SEC27_Msk                 /*!< Security enable on line 27 */
-#define EXTI_SECENR1_SEC28_Pos             (28U)
-#define EXTI_SECENR1_SEC28_Msk             (0x1UL << EXTI_SECENR1_SEC28_Pos)      /*!< 0x10000000 */
-#define EXTI_SECENR1_SEC28                 EXTI_SECENR1_SEC28_Msk                 /*!< Security enable on line 28 */
-#define EXTI_SECENR1_SEC29_Pos             (29U)
-#define EXTI_SECENR1_SEC29_Msk             (0x1UL << EXTI_SECENR1_SEC29_Pos)      /*!< 0x20000000 */
-#define EXTI_SECENR1_SEC29                 EXTI_SECENR1_SEC29_Msk                 /*!< Security enable on line 29 */
-#define EXTI_SECENR1_SEC30_Pos             (30U)
-#define EXTI_SECENR1_SEC30_Msk             (0x1UL << EXTI_SECENR1_SEC30_Pos)      /*!< 0x40000000 */
-#define EXTI_SECENR1_SEC30                 EXTI_SECENR1_SEC30_Msk                 /*!< Security enable on line 30 */
-#define EXTI_SECENR1_SEC31_Pos             (31U)
-#define EXTI_SECENR1_SEC31_Msk             (0x1UL << EXTI_SECENR1_SEC31_Pos)      /*!< 0x80000000 */
-#define EXTI_SECENR1_SEC31                 EXTI_SECENR1_SEC31_Msk                 /*!< Security enable on line 31 */
-
 
 /*******************  Bit definition for EXTI_PRIVENR1 register  ******************/
 #define EXTI_PRIVENR1_PRIV0_Pos             (0U)
@@ -4440,24 +4339,15 @@ typedef struct
 #define EXTI_PRIVENR1_PRIV17_Pos            (17U)
 #define EXTI_PRIVENR1_PRIV17_Msk            (0x1UL << EXTI_PRIVENR1_PRIV17_Pos)     /*!< 0x00020000 */
 #define EXTI_PRIVENR1_PRIV17                EXTI_PRIVENR1_PRIV17_Msk                /*!< Privilege enable on line 17 */
-#define EXTI_PRIVENR1_PRIV18_Pos            (18U)
-#define EXTI_PRIVENR1_PRIV18_Msk            (0x1UL << EXTI_PRIVENR1_PRIV18_Pos)     /*!< 0x00040000 */
-#define EXTI_PRIVENR1_PRIV18                EXTI_PRIVENR1_PRIV18_Msk                /*!< Privilege enable on line 18 */
 #define EXTI_PRIVENR1_PRIV19_Pos            (19U)
 #define EXTI_PRIVENR1_PRIV19_Msk            (0x1UL << EXTI_PRIVENR1_PRIV19_Pos)     /*!< 0x00080000 */
 #define EXTI_PRIVENR1_PRIV19                EXTI_PRIVENR1_PRIV19_Msk                /*!< Privilege enable on line 19 */
-#define EXTI_PRIVENR1_PRIV20_Pos            (20U)
-#define EXTI_PRIVENR1_PRIV20_Msk            (0x1UL << EXTI_PRIVENR1_PRIV20_Pos)     /*!< 0x00100000 */
-#define EXTI_PRIVENR1_PRIV20                EXTI_PRIVENR1_PRIV20_Msk                /*!< Privilege enable on line 20 */
 #define EXTI_PRIVENR1_PRIV21_Pos            (21U)
 #define EXTI_PRIVENR1_PRIV21_Msk            (0x1UL << EXTI_PRIVENR1_PRIV21_Pos)     /*!< 0x00200000 */
 #define EXTI_PRIVENR1_PRIV21                EXTI_PRIVENR1_PRIV21_Msk                /*!< Privilege enable on line 21 */
 #define EXTI_PRIVENR1_PRIV22_Pos            (22U)
 #define EXTI_PRIVENR1_PRIV22_Msk            (0x1UL << EXTI_PRIVENR1_PRIV22_Pos)     /*!< 0x00400000 */
 #define EXTI_PRIVENR1_PRIV22                EXTI_PRIVENR1_PRIV22_Msk                /*!< Privilege enable on line 22 */
-#define EXTI_PRIVENR1_PRIV23_Pos            (23U)
-#define EXTI_PRIVENR1_PRIV23_Msk            (0x1UL << EXTI_PRIVENR1_PRIV23_Pos)     /*!< 0x00800000 */
-#define EXTI_PRIVENR1_PRIV23                EXTI_PRIVENR1_PRIV23_Msk                /*!< Privilege enable on line 23 */
 #define EXTI_PRIVENR1_PRIV24_Pos            (24U)
 #define EXTI_PRIVENR1_PRIV24_Msk            (0x1UL << EXTI_PRIVENR1_PRIV24_Pos)     /*!< 0x01000000 */
 #define EXTI_PRIVENR1_PRIV24                EXTI_PRIVENR1_PRIV24_Msk                /*!< Privilege enable on line 24 */
@@ -4476,20 +4366,11 @@ typedef struct
 #define EXTI_PRIVENR1_PRIV29_Pos            (29U)
 #define EXTI_PRIVENR1_PRIV29_Msk            (0x1UL << EXTI_PRIVENR1_PRIV29_Pos)      /*!< 0x20000000 */
 #define EXTI_PRIVENR1_PRIV29                EXTI_PRIVENR1_PRIV29_Msk                 /*!< Privilege enable on line 29 */
-#define EXTI_PRIVENR1_PRIV30_Pos            (30U)
-#define EXTI_PRIVENR1_PRIV30_Msk            (0x1UL << EXTI_PRIVENR1_PRIV30_Pos)      /*!< 0x40000000 */
-#define EXTI_PRIVENR1_PRIV30                EXTI_PRIVENR1_PRIV30_Msk                 /*!< Privilege enable on line 30 */
-#define EXTI_PRIVENR1_PRIV31_Pos            (31U)
-#define EXTI_PRIVENR1_PRIV31_Msk            (0x1UL << EXTI_PRIVENR1_PRIV31_Pos)      /*!< 0x80000000 */
-#define EXTI_PRIVENR1_PRIV31                EXTI_PRIVENR1_PRIV31_Msk                 /*!< Privilege enable on line 31 */
 
 /******************  Bit definition for EXTI_RTSR2 register  *******************/
-#define EXTI_RTSR2_TR_Pos                   (14U)
-#define EXTI_RTSR2_TR_Msk                   (0x244UL << EXTI_RTSR2_TR_Pos)              /*!< 0x00244000 */
+#define EXTI_RTSR2_TR_Pos                   (16U)
+#define EXTI_RTSR2_TR_Msk                   (0x24UL << EXTI_RTSR2_TR_Pos)               /*!< 0x00240000 */
 #define EXTI_RTSR2_TR                       EXTI_RTSR2_TR_Msk                           /*!< Rising trigger event configuration bit */
-#define EXTI_RTSR2_TR46_Pos                 (14U)
-#define EXTI_RTSR2_TR46_Msk                 (0x1UL << EXTI_RTSR2_TR46_Pos)              /*!< 0x00004000 */
-#define EXTI_RTSR2_TR46                     EXTI_RTSR2_TR46_Msk                         /*!< Rising trigger event configuration bit of line 46 */
 #define EXTI_RTSR2_TR50_Pos                 (18U)
 #define EXTI_RTSR2_TR50_Msk                 (0x1UL << EXTI_RTSR2_TR50_Pos)              /*!< 0x00040000 */
 #define EXTI_RTSR2_TR50                     EXTI_RTSR2_TR50_Msk                         /*!< Rising trigger event configuration bit of line 50 */
@@ -4498,12 +4379,9 @@ typedef struct
 #define EXTI_RTSR2_TR53                     EXTI_RTSR2_TR53_Msk                         /*!< Rising trigger event configuration bit of line 53 */
 
 /******************  Bit definition for EXTI_FTSR2 register  *******************/
-#define EXTI_FTSR2_TR_Pos                   (14U)
-#define EXTI_FTSR2_TR_Msk                   (0x244 << EXTI_FTSR2_TR_Pos)                /*!< 0x00244000 */
+#define EXTI_FTSR2_TR_Pos                   (16U)
+#define EXTI_FTSR2_TR_Msk                   (0x24 << EXTI_FTSR2_TR_Pos)                 /*!< 0x00240000 */
 #define EXTI_FTSR2_TR                       EXTI_FTSR2_TR_Msk                           /*!< Falling trigger event configuration bit */
-#define EXTI_FTSR2_TR46_Pos                 (14U)
-#define EXTI_FTSR2_TR46_Msk                 (0x1UL << EXTI_FTSR2_TR46_Pos)              /*!< 0x00004000 */
-#define EXTI_FTSR2_TR46                     EXTI_FTSR2_TR46_Msk                         /*!< Falling trigger event configuration bit of line 46 */
 #define EXTI_FTSR2_TR50_Pos                 (18U)
 #define EXTI_FTSR2_TR50_Msk                 (0x1UL << EXTI_FTSR2_TR50_Pos)              /*!< 0x00040000 */
 #define EXTI_FTSR2_TR50                     EXTI_FTSR2_TR50_Msk                         /*!< Falling trigger event configuration bit of line 50 */
@@ -4512,9 +4390,6 @@ typedef struct
 #define EXTI_FTSR2_TR53                     EXTI_FTSR2_TR53_Msk                         /*!< Falling trigger event configuration bit of line 53 */
 
 /******************  Bit definition for EXTI_SWIER2 register  ******************/
-#define EXTI_SWIER2_SWIER46_Pos            (14U)
-#define EXTI_SWIER2_SWIER46_Msk            (0x1UL << EXTI_SWIER2_SWIER46_Pos)          /*!< 0x00004000 */
-#define EXTI_SWIER2_SWIER46                EXTI_SWIER2_SWIER46_Msk                     /*!< Software Interrupt on line 46 */
 #define EXTI_SWIER2_SWIER50_Pos            (18U)
 #define EXTI_SWIER2_SWIER50_Msk            (0x1UL << EXTI_SWIER2_SWIER50_Pos)          /*!< 0x00040000 */
 #define EXTI_SWIER2_SWIER50                EXTI_SWIER2_SWIER50_Msk                     /*!< Software Interrupt on line 50 */
@@ -4523,12 +4398,9 @@ typedef struct
 #define EXTI_SWIER2_SWIER53                EXTI_SWIER2_SWIER53_Msk                     /*!< Software Interrupt on line 53 */
 
 /******************  Bit definition for EXTI_RPR2 register  *******************/
-#define EXTI_RPR2_RPIF_Pos                   (14U)
-#define EXTI_RPR2_RPIF_Msk                   (0x244UL << EXTI_RPR2_RPIF_Pos)        /*!< 0x00244000 */
+#define EXTI_RPR2_RPIF_Pos                   (16U)
+#define EXTI_RPR2_RPIF_Msk                   (0x24UL << EXTI_RPR2_RPIF_Pos)         /*!< 0x00240000 */
 #define EXTI_RPR2_RPIF                       EXTI_RPR2_RPIF_Msk                     /*!< Rising pending edge configuration bits */
-#define EXTI_RPR2_RPIF46_Pos                 (14U)
-#define EXTI_RPR2_RPIF46_Msk                 (0x1UL << EXTI_RPR2_RPIF46_Pos)        /*!< 0x00004000 */
-#define EXTI_RPR2_RPIF46                     EXTI_RPR2_RPIF46_Msk                   /*!< Rising pending edge configuration bit of line 46 */
 #define EXTI_RPR2_RPIF50_Pos                 (18U)
 #define EXTI_RPR2_RPIF50_Msk                 (0x1UL << EXTI_RPR2_RPIF50_Pos)        /*!< 0x00040000 */
 #define EXTI_RPR2_RPIF50                     EXTI_RPR2_RPIF50_Msk                   /*!< Rising pending edge configuration bit of line 50 */
@@ -4537,12 +4409,9 @@ typedef struct
 #define EXTI_RPR2_RPIF53                     EXTI_RPR2_RPIF53_Msk                   /*!< Rising pending edge configuration bit of line 53 */
 
 /******************  Bit definition for EXTI_FPR2 register  *******************/
-#define EXTI_FPR2_FPIF_Pos                   (14U)
-#define EXTI_FPR2_FPIF_Msk                   (0x244UL << EXTI_FPR2_FPIF_Pos)        /*!< 0x00244000 */
+#define EXTI_FPR2_FPIF_Pos                   (16U)
+#define EXTI_FPR2_FPIF_Msk                   (0x24UL << EXTI_FPR2_FPIF_Pos)         /*!< 0x00240000 */
 #define EXTI_FPR2_FPIF                       EXTI_FPR2_FPIF_Msk                     /*!< Rising falling edge configuration bits */
-#define EXTI_FPR2_FPIF46_Pos                 (14U)
-#define EXTI_FPR2_FPIF46_Msk                 (0x1UL << EXTI_FPR2_FPIF46_Pos)        /*!< 0x00004000 */
-#define EXTI_FPR2_FPIF46                     EXTI_FPR2_FPIF46_Msk                   /*!< Rising falling edge configuration bit of line 46 */
 #define EXTI_FPR2_FPIF50_Pos                 (18U)
 #define EXTI_FPR2_FPIF50_Msk                 (0x1UL << EXTI_FPR2_FPIF50_Pos)        /*!< 0x00040000 */
 #define EXTI_FPR2_FPIF50                     EXTI_FPR2_FPIF50_Msk                   /*!< Rising falling edge configuration bit of line 50 */
@@ -4550,102 +4419,7 @@ typedef struct
 #define EXTI_FPR2_FPIF53_Msk                 (0x1UL << EXTI_FPR2_FPIF53_Pos)        /*!< 0x00200000 */
 #define EXTI_FPR2_FPIF53                     EXTI_FPR2_FPIF53_Msk                   /*!< Rising falling edge configuration bit of line 53 */
 
-/*******************  Bit definition for EXTI_SECENR2 register  ******************/
-#define EXTI_SECENR2_SEC32_Pos              (0U)
-#define EXTI_SECENR2_SEC32_Msk              (0x1UL << EXTI_SECENR2_SEC32_Pos)       /*!< 0x00000001 */
-#define EXTI_SECENR2_SEC32                  EXTI_SECENR2_SEC32_Msk                  /*!< Security enable on line 32 */
-#define EXTI_SECENR2_SEC33_Pos              (1U)
-#define EXTI_SECENR2_SEC33_Msk              (0x1UL << EXTI_SECENR2_SEC33_Pos)       /*!< 0x00000002 */
-#define EXTI_SECENR2_SEC33                  EXTI_SECENR2_SEC33_Msk                  /*!< Security enable on line 33 */
-#define EXTI_SECENR2_SEC34_Pos              (2U)
-#define EXTI_SECENR2_SEC34_Msk              (0x1UL << EXTI_SECENR2_SEC34_Pos)       /*!< 0x00000004 */
-#define EXTI_SECENR2_SEC34                  EXTI_SECENR2_SEC34_Msk                  /*!< Security enable on line 2 */
-#define EXTI_SECENR2_SEC35_Pos              (3U)
-#define EXTI_SECENR2_SEC35_Msk              (0x1UL << EXTI_SECENR2_SEC35_Pos)       /*!< 0x00000008 */
-#define EXTI_SECENR2_SEC35                  EXTI_SECENR2_SEC35_Msk                  /*!< Security enable on line 3 */
-#define EXTI_SECENR2_SEC36_Pos              (4U)
-#define EXTI_SECENR2_SEC36_Msk              (0x1UL << EXTI_SECENR2_SEC36_Pos)       /*!< 0x00000010 */
-#define EXTI_SECENR2_SEC36                  EXTI_SECENR2_SEC36_Msk                  /*!< Security enable on line 4 */
-#define EXTI_SECENR2_SEC37_Pos              (5U)
-#define EXTI_SECENR2_SEC37_Msk              (0x1UL << EXTI_SECENR2_SEC37_Pos)       /*!< 0x00000020 */
-#define EXTI_SECENR2_SEC37                  EXTI_SECENR2_SEC37_Msk                  /*!< Security enable on line 5 */
-#define EXTI_SECENR2_SEC38_Pos              (6U)
-#define EXTI_SECENR2_SEC38_Msk              (0x1UL << EXTI_SECENR2_SEC38_Pos)       /*!< 0x00000040 */
-#define EXTI_SECENR2_SEC38                  EXTI_SECENR2_SEC38_Msk                  /*!< Security enable on line 6 */
-#define EXTI_SECENR2_SEC39_Pos              (7U)
-#define EXTI_SECENR2_SEC39_Msk              (0x1UL << EXTI_SECENR2_SEC39_Pos)       /*!< 0x00000080 */
-#define EXTI_SECENR2_SEC39                  EXTI_SECENR2_SEC39_Msk                  /*!< Security enable on line 7 */
-#define EXTI_SECENR2_SEC40_Pos              (8U)
-#define EXTI_SECENR2_SEC40_Msk              (0x1UL << EXTI_SECENR2_SEC40_Pos)       /*!< 0x00000100 */
-#define EXTI_SECENR2_SEC40                  EXTI_SECENR2_SEC40_Msk                  /*!< Security enable on line 8 */
-#define EXTI_SECENR2_SEC41_Pos              (9U)
-#define EXTI_SECENR2_SEC41_Msk              (0x1UL << EXTI_SECENR2_SEC41_Pos)       /*!< 0x00000200 */
-#define EXTI_SECENR2_SEC41                  EXTI_SECENR2_SEC41_Msk                  /*!< Security enable on line 9 */
-#define EXTI_SECENR2_SEC42_Pos             (10U)
-#define EXTI_SECENR2_SEC42_Msk             (0x1UL << EXTI_SECENR2_SEC42_Pos)        /*!< 0x00000400 */
-#define EXTI_SECENR2_SEC42                 EXTI_SECENR2_SEC42_Msk                   /*!< Security enable on line 10 */
-#define EXTI_SECENR2_SEC43_Pos             (11U)
-#define EXTI_SECENR2_SEC43_Msk             (0x1UL << EXTI_SECENR2_SEC43_Pos)        /*!< 0x00000800 */
-#define EXTI_SECENR2_SEC43                 EXTI_SECENR2_SEC43_Msk                   /*!< Security enable on line 11 */
-#define EXTI_SECENR2_SEC44_Pos             (12U)
-#define EXTI_SECENR2_SEC44_Msk             (0x1UL << EXTI_SECENR2_SEC44_Pos)        /*!< 0x00001000 */
-#define EXTI_SECENR2_SEC44                 EXTI_SECENR2_SEC44_Msk                   /*!< Security enable on line 12 */
-#define EXTI_SECENR2_SEC45_Pos             (13U)
-#define EXTI_SECENR2_SEC45_Msk             (0x1UL << EXTI_SECENR2_SEC45_Pos)        /*!< 0x00002000 */
-#define EXTI_SECENR2_SEC45                 EXTI_SECENR2_SEC45_Msk                   /*!< Security enable on line 13 */
-#define EXTI_SECENR2_SEC46_Pos             (14U)
-#define EXTI_SECENR2_SEC46_Msk             (0x1UL << EXTI_SECENR2_SEC46_Pos)        /*!< 0x00004000 */
-#define EXTI_SECENR2_SEC46                 EXTI_SECENR2_SEC46_Msk                   /*!< Security enable on line 14 */
-#define EXTI_SECENR2_SEC47_Pos             (15U)
-#define EXTI_SECENR2_SEC47_Msk             (0x1UL << EXTI_SECENR2_SEC47_Pos)        /*!< 0x00008000 */
-#define EXTI_SECENR2_SEC47                 EXTI_SECENR2_SEC47_Msk                   /*!< Security enable on line 15 */
-#define EXTI_SECENR2_SEC48_Pos             (16U)
-#define EXTI_SECENR2_SEC48_Msk             (0x1UL << EXTI_SECENR2_SEC48_Pos)        /*!< 0x00010000 */
-#define EXTI_SECENR2_SEC48                 EXTI_SECENR2_SEC48_Msk                   /*!< Security enable on line 16 */
-#define EXTI_SECENR2_SEC49_Pos             (17U)
-#define EXTI_SECENR2_SEC49_Msk             (0x1UL << EXTI_SECENR2_SEC49_Pos)        /*!< 0x00020000 */
-#define EXTI_SECENR2_SEC49                 EXTI_SECENR2_SEC49_Msk                   /*!< Security enable on line 17 */
-#define EXTI_SECENR2_SEC50_Pos             (18U)
-#define EXTI_SECENR2_SEC50_Msk             (0x1UL << EXTI_SECENR2_SEC50_Pos)        /*!< 0x00040000 */
-#define EXTI_SECENR2_SEC50                 EXTI_SECENR2_SEC50_Msk                   /*!< Security enable on line 18 */
-#define EXTI_SECENR2_SEC51_Pos             (19U)
-#define EXTI_SECENR2_SEC51_Msk             (0x1UL << EXTI_SECENR2_SEC51_Pos)        /*!< 0x00080000 */
-#define EXTI_SECENR2_SEC51                 EXTI_SECENR2_SEC51_Msk                   /*!< Security enable on line 19 */
-#define EXTI_SECENR2_SEC52_Pos             (20U)
-#define EXTI_SECENR2_SEC52_Msk             (0x1UL << EXTI_SECENR2_SEC52_Pos)        /*!< 0x00100000 */
-#define EXTI_SECENR2_SEC52                 EXTI_SECENR2_SEC52_Msk                   /*!< Security enable on line 20 */
-#define EXTI_SECENR2_SEC53_Pos             (21U)
-#define EXTI_SECENR2_SEC53_Msk             (0x1UL << EXTI_SECENR2_SEC53_Pos)        /*!< 0x00200000 */
-#define EXTI_SECENR2_SEC53                 EXTI_SECENR2_SEC53_Msk                   /*!< Security enable on line 21 */
-#define EXTI_SECENR2_SEC54_Pos             (22U)
-#define EXTI_SECENR2_SEC54_Msk             (0x1UL << EXTI_SECENR2_SEC54_Pos)        /*!< 0x00400000 */
-#define EXTI_SECENR2_SEC54                 EXTI_SECENR2_SEC54_Msk                   /*!< Security enable on line 22 */
-#define EXTI_SECENR2_SEC55_Pos             (23U)
-#define EXTI_SECENR2_SEC55_Msk             (0x1UL << EXTI_SECENR2_SEC55_Pos)        /*!< 0x00800000 */
-#define EXTI_SECENR2_SEC55                 EXTI_SECENR2_SEC55_Msk                   /*!< Security enable on line 23 */
-#define EXTI_SECENR2_SEC56_Pos             (24U)
-#define EXTI_SECENR2_SEC56_Msk             (0x1UL << EXTI_SECENR2_SEC56_Pos)        /*!< 0x01000000 */
-#define EXTI_SECENR2_SEC56                 EXTI_SECENR2_SEC56_Msk                   /*!< Security enable on line 24 */
-#define EXTI_SECENR2_SEC57_Pos             (25U)
-#define EXTI_SECENR2_SEC57_Msk             (0x1UL << EXTI_SECENR2_SEC57_Pos)        /*!< 0x02000000 */
-#define EXTI_SECENR2_SEC57                 EXTI_SECENR2_SEC57_Msk                   /*!< Security enable on line 25 */
-
 /*******************  Bit definition for EXTI_PRIVENR2 register  ******************/
-#define EXTI_PRIVENR2_PRIV32_Pos              (0U)
-#define EXTI_PRIVENR2_PRIV32_Msk              (0x1UL << EXTI_PRIVENR2_PRIV32_Pos)       /*!< 0x00000001 */
-#define EXTI_PRIVENR2_PRIV32                  EXTI_PRIVENR2_PRIV32_Msk                  /*!< Security enable on line 32 */
-#define EXTI_PRIVENR2_PRIV33_Pos              (1U)
-#define EXTI_PRIVENR2_PRIV33_Msk              (0x1UL << EXTI_PRIVENR2_PRIV33_Pos)       /*!< 0x00000002 */
-#define EXTI_PRIVENR2_PRIV33                  EXTI_PRIVENR2_PRIV33_Msk                  /*!< Security enable on line 33 */
-#define EXTI_PRIVENR2_PRIV34_Pos              (2U)
-#define EXTI_PRIVENR2_PRIV34_Msk              (0x1UL << EXTI_PRIVENR2_PRIV34_Pos)       /*!< 0x00000004 */
-#define EXTI_PRIVENR2_PRIV34                  EXTI_PRIVENR2_PRIV34_Msk                  /*!< Security enable on line 2 */
-#define EXTI_PRIVENR2_PRIV35_Pos              (3U)
-#define EXTI_PRIVENR2_PRIV35_Msk              (0x1UL << EXTI_PRIVENR2_PRIV35_Pos)       /*!< 0x00000008 */
-#define EXTI_PRIVENR2_PRIV35                  EXTI_PRIVENR2_PRIV35_Msk                  /*!< Security enable on line 3 */
-#define EXTI_PRIVENR2_PRIV36_Pos              (4U)
-#define EXTI_PRIVENR2_PRIV36_Msk              (0x1UL << EXTI_PRIVENR2_PRIV36_Pos)       /*!< 0x00000010 */
-#define EXTI_PRIVENR2_PRIV36                  EXTI_PRIVENR2_PRIV36_Msk                  /*!< Security enable on line 4 */
 #define EXTI_PRIVENR2_PRIV37_Pos              (5U)
 #define EXTI_PRIVENR2_PRIV37_Msk              (0x1UL << EXTI_PRIVENR2_PRIV37_Pos)       /*!< 0x00000020 */
 #define EXTI_PRIVENR2_PRIV37                  EXTI_PRIVENR2_PRIV37_Msk                  /*!< Security enable on line 5 */
@@ -4664,51 +4438,18 @@ typedef struct
 #define EXTI_PRIVENR2_PRIV42_Pos             (10U)
 #define EXTI_PRIVENR2_PRIV42_Msk             (0x1UL << EXTI_PRIVENR2_PRIV42_Pos)        /*!< 0x00000400 */
 #define EXTI_PRIVENR2_PRIV42                 EXTI_PRIVENR2_PRIV42_Msk                   /*!< Security enable on line 10 */
-#define EXTI_PRIVENR2_PRIV43_Pos             (11U)
-#define EXTI_PRIVENR2_PRIV43_Msk             (0x1UL << EXTI_PRIVENR2_PRIV43_Pos)        /*!< 0x00000800 */
-#define EXTI_PRIVENR2_PRIV43                 EXTI_PRIVENR2_PRIV43_Msk                   /*!< Security enable on line 11 */
-#define EXTI_PRIVENR2_PRIV44_Pos             (12U)
-#define EXTI_PRIVENR2_PRIV44_Msk             (0x1UL << EXTI_PRIVENR2_PRIV44_Pos)        /*!< 0x00001000 */
-#define EXTI_PRIVENR2_PRIV44                 EXTI_PRIVENR2_PRIV44_Msk                   /*!< Security enable on line 12 */
-#define EXTI_PRIVENR2_PRIV45_Pos             (13U)
-#define EXTI_PRIVENR2_PRIV45_Msk             (0x1UL << EXTI_PRIVENR2_PRIV45_Pos)        /*!< 0x00002000 */
-#define EXTI_PRIVENR2_PRIV45                 EXTI_PRIVENR2_PRIV45_Msk                   /*!< Security enable on line 13 */
-#define EXTI_PRIVENR2_PRIV46_Pos             (14U)
-#define EXTI_PRIVENR2_PRIV46_Msk             (0x1UL << EXTI_PRIVENR2_PRIV46_Pos)        /*!< 0x00004000 */
-#define EXTI_PRIVENR2_PRIV46                 EXTI_PRIVENR2_PRIV46_Msk                   /*!< Security enable on line 14 */
 #define EXTI_PRIVENR2_PRIV47_Pos             (15U)
 #define EXTI_PRIVENR2_PRIV47_Msk             (0x1UL << EXTI_PRIVENR2_PRIV47_Pos)        /*!< 0x00008000 */
 #define EXTI_PRIVENR2_PRIV47                 EXTI_PRIVENR2_PRIV47_Msk                   /*!< Security enable on line 15 */
-#define EXTI_PRIVENR2_PRIV48_Pos             (16U)
-#define EXTI_PRIVENR2_PRIV48_Msk             (0x1UL << EXTI_PRIVENR2_PRIV48_Pos)        /*!< 0x00010000 */
-#define EXTI_PRIVENR2_PRIV48                 EXTI_PRIVENR2_PRIV48_Msk                   /*!< Security enable on line 16 */
 #define EXTI_PRIVENR2_PRIV49_Pos             (17U)
 #define EXTI_PRIVENR2_PRIV49_Msk             (0x1UL << EXTI_PRIVENR2_PRIV49_Pos)        /*!< 0x00020000 */
 #define EXTI_PRIVENR2_PRIV49                 EXTI_PRIVENR2_PRIV49_Msk                   /*!< Security enable on line 17 */
 #define EXTI_PRIVENR2_PRIV50_Pos             (18U)
 #define EXTI_PRIVENR2_PRIV50_Msk             (0x1UL << EXTI_PRIVENR2_PRIV50_Pos)        /*!< 0x00040000 */
 #define EXTI_PRIVENR2_PRIV50                 EXTI_PRIVENR2_PRIV50_Msk                   /*!< Security enable on line 18 */
-#define EXTI_PRIVENR2_PRIV51_Pos             (19U)
-#define EXTI_PRIVENR2_PRIV51_Msk             (0x1UL << EXTI_PRIVENR2_PRIV51_Pos)        /*!< 0x00080000 */
-#define EXTI_PRIVENR2_PRIV51                 EXTI_PRIVENR2_PRIV51_Msk                   /*!< Security enable on line 19 */
-#define EXTI_PRIVENR2_PRIV52_Pos             (20U)
-#define EXTI_PRIVENR2_PRIV52_Msk             (0x1UL << EXTI_PRIVENR2_PRIV52_Pos)        /*!< 0x00100000 */
-#define EXTI_PRIVENR2_PRIV52                 EXTI_PRIVENR2_PRIV52_Msk                   /*!< Security enable on line 20 */
 #define EXTI_PRIVENR2_PRIV53_Pos             (21U)
 #define EXTI_PRIVENR2_PRIV53_Msk             (0x1UL << EXTI_PRIVENR2_PRIV53_Pos)        /*!< 0x00200000 */
 #define EXTI_PRIVENR2_PRIV53                 EXTI_PRIVENR2_PRIV53_Msk                   /*!< Security enable on line 21 */
-#define EXTI_PRIVENR2_PRIV54_Pos             (22U)
-#define EXTI_PRIVENR2_PRIV54_Msk             (0x1UL << EXTI_PRIVENR2_PRIV54_Pos)        /*!< 0x00400000 */
-#define EXTI_PRIVENR2_PRIV54                 EXTI_PRIVENR2_PRIV54_Msk                   /*!< Security enable on line 22 */
-#define EXTI_PRIVENR2_PRIV55_Pos             (23U)
-#define EXTI_PRIVENR2_PRIV55_Msk             (0x1UL << EXTI_PRIVENR2_PRIV55_Pos)        /*!< 0x00800000 */
-#define EXTI_PRIVENR2_PRIV55                 EXTI_PRIVENR2_PRIV55_Msk                   /*!< Security enable on line 23 */
-#define EXTI_PRIVENR2_PRIV56_Pos             (24U)
-#define EXTI_PRIVENR2_PRIV56_Msk             (0x1UL << EXTI_PRIVENR2_PRIV56_Pos)        /*!< 0x01000000 */
-#define EXTI_PRIVENR2_PRIV56                 EXTI_PRIVENR2_PRIV56_Msk                   /*!< Security enable on line 24 */
-#define EXTI_PRIVENR2_PRIV57_Pos             (25U)
-#define EXTI_PRIVENR2_PRIV57_Msk             (0x1UL << EXTI_PRIVENR2_PRIV57_Pos)        /*!< 0x02000000 */
-#define EXTI_PRIVENR2_PRIV57                 EXTI_PRIVENR2_PRIV57_Msk                   /*!< Security enable on line 25 */
 
 /*****************  Bit definition for EXTI_EXTICR1 register  **************/
 #define EXTI_EXTICR1_EXTI0_Pos              (0U)
@@ -4832,7 +4573,7 @@ typedef struct
 
 /*******************  Bit definition for EXTI_IMR1 register  ******************/
 #define EXTI_IMR1_IM_Pos                    (0U)
-#define EXTI_IMR1_IM_Msk                    (0xFFFFFFFFUL << EXTI_IMR1_IM_Pos)      /*!< 0xFFFFFFFF */
+#define EXTI_IMR1_IM_Msk                    (0x3F6BFFFFUL << EXTI_IMR1_IM_Pos)      /*!< 0x3F6BFFFF */
 #define EXTI_IMR1_IM                        EXTI_IMR1_IM_Msk                        /*!< Interrupt Mask */
 #define EXTI_IMR1_IM0_Pos                   (0U)
 #define EXTI_IMR1_IM0_Msk                   (0x1UL << EXTI_IMR1_IM0_Pos)            /*!< 0x00000001 */
@@ -4888,24 +4629,15 @@ typedef struct
 #define EXTI_IMR1_IM17_Pos                  (17U)
 #define EXTI_IMR1_IM17_Msk                  (0x1UL << EXTI_IMR1_IM17_Pos)           /*!< 0x00020000 */
 #define EXTI_IMR1_IM17                      EXTI_IMR1_IM17_Msk                      /*!< Interrupt Mask on line 17 */
-#define EXTI_IMR1_IM18_Pos                  (18U)
-#define EXTI_IMR1_IM18_Msk                  (0x1UL << EXTI_IMR1_IM18_Pos)           /*!< 0x00040000 */
-#define EXTI_IMR1_IM18                      EXTI_IMR1_IM18_Msk                      /*!< Interrupt Mask on line 18 */
 #define EXTI_IMR1_IM19_Pos                  (19U)
 #define EXTI_IMR1_IM19_Msk                  (0x1UL << EXTI_IMR1_IM19_Pos)           /*!< 0x00080000 */
 #define EXTI_IMR1_IM19                      EXTI_IMR1_IM19_Msk                      /*!< Interrupt Mask on line 19 */
-#define EXTI_IMR1_IM20_Pos                  (20U)
-#define EXTI_IMR1_IM20_Msk                  (0x1UL << EXTI_IMR1_IM20_Pos)           /*!< 0x00100000 */
-#define EXTI_IMR1_IM20                      EXTI_IMR1_IM20_Msk                      /*!< Interrupt Mask on line 20 */
 #define EXTI_IMR1_IM21_Pos                  (21U)
 #define EXTI_IMR1_IM21_Msk                  (0x1UL << EXTI_IMR1_IM21_Pos)           /*!< 0x00200000 */
 #define EXTI_IMR1_IM21                      EXTI_IMR1_IM21_Msk                      /*!< Interrupt Mask on line 21 */
 #define EXTI_IMR1_IM22_Pos                  (22U)
 #define EXTI_IMR1_IM22_Msk                  (0x1UL << EXTI_IMR1_IM22_Pos)           /*!< 0x00400000 */
 #define EXTI_IMR1_IM22                      EXTI_IMR1_IM22_Msk                      /*!< Interrupt Mask on line 22 */
-#define EXTI_IMR1_IM23_Pos                  (23U)
-#define EXTI_IMR1_IM23_Msk                  (0x1UL << EXTI_IMR1_IM23_Pos)           /*!< 0x00800000 */
-#define EXTI_IMR1_IM23                      EXTI_IMR1_IM23_Msk                      /*!< Interrupt Mask on line 23 */
 #define EXTI_IMR1_IM24_Pos                  (24U)
 #define EXTI_IMR1_IM24_Msk                  (0x1UL << EXTI_IMR1_IM24_Pos)           /*!< 0x01000000 */
 #define EXTI_IMR1_IM24                      EXTI_IMR1_IM24_Msk                      /*!< Interrupt Mask on line 24 */
@@ -4924,12 +4656,6 @@ typedef struct
 #define EXTI_IMR1_IM29_Pos                  (29U)
 #define EXTI_IMR1_IM29_Msk                  (0x1UL << EXTI_IMR1_IM29_Pos)           /*!< 0x20000000 */
 #define EXTI_IMR1_IM29                      EXTI_IMR1_IM29_Msk                      /*!< Interrupt Mask on line 29 */
-#define EXTI_IMR1_IM30_Pos                  (30U)
-#define EXTI_IMR1_IM30_Msk                  (0x1UL << EXTI_IMR1_IM30_Pos)           /*!< 0x40000000 */
-#define EXTI_IMR1_IM30                      EXTI_IMR1_IM30_Msk                      /*!< Interrupt Mask on line 30 */
-#define EXTI_IMR1_IM31_Pos                  (31U)
-#define EXTI_IMR1_IM31_Msk                  (0x1UL << EXTI_IMR1_IM31_Pos)           /*!< 0x80000000 */
-#define EXTI_IMR1_IM31                      EXTI_IMR1_IM31_Msk                      /*!< Interrupt Mask on line 31 */
 
 /*******************  Bit definition for EXTI_EMR1 register  ******************/
 #define EXTI_EMR1_EM_Pos                    (0U)
@@ -4989,24 +4715,15 @@ typedef struct
 #define EXTI_EMR1_EM17_Pos                  (17U)
 #define EXTI_EMR1_EM17_Msk                  (0x1UL << EXTI_EMR1_EM17_Pos)           /*!< 0x00020000 */
 #define EXTI_EMR1_EM17                      EXTI_EMR1_EM17_Msk                      /*!< Event Mask on line 17 */
-#define EXTI_EMR1_EM18_Pos                  (18U)
-#define EXTI_EMR1_EM18_Msk                  (0x1UL << EXTI_EMR1_EM18_Pos)           /*!< 0x00040000 */
-#define EXTI_EMR1_EM18                      EXTI_EMR1_EM18_Msk                      /*!< Event Mask on line 18 */
 #define EXTI_EMR1_EM19_Pos                  (19U)
 #define EXTI_EMR1_EM19_Msk                  (0x1UL << EXTI_EMR1_EM19_Pos)           /*!< 0x00080000 */
 #define EXTI_EMR1_EM19                      EXTI_EMR1_EM19_Msk                      /*!< Event Mask on line 19 */
-#define EXTI_EMR1_EM20_Pos                  (20U)
-#define EXTI_EMR1_EM20_Msk                  (0x1UL << EXTI_EMR1_EM20_Pos)           /*!< 0x00100000 */
-#define EXTI_EMR1_EM20                      EXTI_EMR1_EM20_Msk                      /*!< Event Mask on line 20 */
 #define EXTI_EMR1_EM21_Pos                  (21U)
 #define EXTI_EMR1_EM21_Msk                  (0x1UL << EXTI_EMR1_EM21_Pos)           /*!< 0x00200000 */
 #define EXTI_EMR1_EM21                      EXTI_EMR1_EM21_Msk                      /*!< Event Mask on line 21 */
 #define EXTI_EMR1_EM22_Pos                  (22U)
 #define EXTI_EMR1_EM22_Msk                  (0x1UL << EXTI_EMR1_EM22_Pos)           /*!< 0x00400000 */
 #define EXTI_EMR1_EM22                      EXTI_EMR1_EM22_Msk                      /*!< Event Mask on line 22 */
-#define EXTI_EMR1_EM23_Pos                  (23U)
-#define EXTI_EMR1_EM23_Msk                  (0x1UL << EXTI_EMR1_EM23_Pos)           /*!< 0x00800000 */
-#define EXTI_EMR1_EM23                      EXTI_EMR1_EM23_Msk                      /*!< Event Mask on line 23 */
 #define EXTI_EMR1_EM24_Pos                  (24U)
 #define EXTI_EMR1_EM24_Msk                  (0x1UL << EXTI_EMR1_EM24_Pos)           /*!< 0x01000000 */
 #define EXTI_EMR1_EM24                      EXTI_EMR1_EM24_Msk                      /*!< Event Mask on line 24 */
@@ -5025,32 +4742,11 @@ typedef struct
 #define EXTI_EMR1_EM29_Pos                  (29U)
 #define EXTI_EMR1_EM29_Msk                  (0x1UL << EXTI_EMR1_EM29_Pos)           /*!< 0x20000000 */
 #define EXTI_EMR1_EM29                      EXTI_EMR1_EM29_Msk                      /*!< Event Mask on line 29 */
-#define EXTI_EMR1_EM30_Pos                  (30U)
-#define EXTI_EMR1_EM30_Msk                  (0x1UL << EXTI_EMR1_EM30_Pos)           /*!< 0x40000000 */
-#define EXTI_EMR1_EM30                      EXTI_EMR1_EM30_Msk                      /*!< Event Mask on line 30 */
-#define EXTI_EMR1_EM31_Pos                  (31U)
-#define EXTI_EMR1_EM31_Msk                  (0x1UL << EXTI_EMR1_EM31_Pos)           /*!< 0x80000000 */
-#define EXTI_EMR1_EM31                      EXTI_EMR1_EM31_Msk                      /*!< Event Mask on line 31 */
 
 /*******************  Bit definition for EXTI_IMR2 register  *******************/
 #define EXTI_IMR2_IM_Pos                    (0U)
-#define EXTI_IMR2_IM_Msk                    (0x003FFFFFUL << EXTI_IMR2_IM_Pos)      /*!< 0x003FFFFF */
+#define EXTI_IMR2_IM_Msk                    (0x002687E0UL << EXTI_IMR2_IM_Pos)      /*!< 0x002687E0 */
 #define EXTI_IMR2_IM                        EXTI_IMR2_IM_Msk                        /*!< Interrupt Mask */
-#define EXTI_IMR2_IM32_Pos                  (0U)
-#define EXTI_IMR2_IM32_Msk                  (0x1UL << EXTI_IMR2_IM32_Pos)           /*!< 0x00000001 */
-#define EXTI_IMR2_IM32                      EXTI_IMR2_IM32_Msk                      /*!< Interrupt Mask on line 32 */
-#define EXTI_IMR2_IM33_Pos                  (1U)
-#define EXTI_IMR2_IM33_Msk                  (0x1UL << EXTI_IMR2_IM33_Pos)           /*!< 0x00000002 */
-#define EXTI_IMR2_IM33                      EXTI_IMR2_IM33_Msk                      /*!< Interrupt Mask on line 33 */
-#define EXTI_IMR2_IM34_Pos                  (2U)
-#define EXTI_IMR2_IM34_Msk                  (0x1UL << EXTI_IMR2_IM34_Pos)           /*!< 0x00000004 */
-#define EXTI_IMR2_IM34                      EXTI_IMR2_IM34_Msk                      /*!< Interrupt Mask on line 34 */
-#define EXTI_IMR2_IM35_Pos                  (3U)
-#define EXTI_IMR2_IM35_Msk                  (0x1UL << EXTI_IMR2_IM35_Pos)           /*!< 0x00000008 */
-#define EXTI_IMR2_IM35                      EXTI_IMR2_IM35_Msk                      /*!< Interrupt Mask on line 35 */
-#define EXTI_IMR2_IM36_Pos                  (4U)
-#define EXTI_IMR2_IM36_Msk                  (0x1UL << EXTI_IMR2_IM36_Pos)           /*!< 0x00000010 */
-#define EXTI_IMR2_IM36                      EXTI_IMR2_IM36_Msk                      /*!< Interrupt Mask on line 36 */
 #define EXTI_IMR2_IM37_Pos                  (5U)
 #define EXTI_IMR2_IM37_Msk                  (0x1UL << EXTI_IMR2_IM37_Pos)           /*!< 0x00000020 */
 #define EXTI_IMR2_IM37                      EXTI_IMR2_IM37_Msk                      /*!< Interrupt Mask on line 37 */
@@ -5069,69 +4765,24 @@ typedef struct
 #define EXTI_IMR2_IM42_Pos                  (10U)
 #define EXTI_IMR2_IM42_Msk                  (0x1UL << EXTI_IMR2_IM42_Pos)           /*!< 0x00000400 */
 #define EXTI_IMR2_IM42                      EXTI_IMR2_IM42_Msk                      /*!< Interrupt Mask on line 42 */
-#define EXTI_IMR2_IM43_Pos                  (11U)
-#define EXTI_IMR2_IM43_Msk                  (0x1UL << EXTI_IMR2_IM43_Pos)           /*!< 0x00000800 */
-#define EXTI_IMR2_IM43                      EXTI_IMR2_IM43_Msk                      /*!< Interrupt Mask on line 43 */
-#define EXTI_IMR2_IM44_Pos                  (12U)
-#define EXTI_IMR2_IM44_Msk                  (0x1UL << EXTI_IMR2_IM44_Pos)           /*!< 0x00001000 */
-#define EXTI_IMR2_IM44                      EXTI_IMR2_IM44_Msk                      /*!< Interrupt Mask on line 44 */
-#define EXTI_IMR2_IM46_Pos                  (14U)
-#define EXTI_IMR2_IM46_Msk                  (0x1UL << EXTI_IMR2_IM46_Pos)           /*!< 0x00004000 */
-#define EXTI_IMR2_IM46                      EXTI_IMR2_IM46_Msk                      /*!< Interrupt Mask on line 46 */
 #define EXTI_IMR2_IM47_Pos                  (15U)
 #define EXTI_IMR2_IM47_Msk                  (0x1UL << EXTI_IMR2_IM47_Pos)           /*!< 0x00008000 */
 #define EXTI_IMR2_IM47                      EXTI_IMR2_IM47_Msk                      /*!< Interrupt Mask on line 47 */
-#define EXTI_IMR2_IM48_Pos                  (16U)
-#define EXTI_IMR2_IM48_Msk                  (0x1UL << EXTI_IMR2_IM48_Pos)           /*!< 0x00010000 */
-#define EXTI_IMR2_IM48                      EXTI_IMR2_IM48_Msk                      /*!< Interrupt Mask on line 48 */
 #define EXTI_IMR2_IM49_Pos                  (17U)
 #define EXTI_IMR2_IM49_Msk                  (0x1UL << EXTI_IMR2_IM49_Pos)           /*!< 0x00020000 */
 #define EXTI_IMR2_IM49                      EXTI_IMR2_IM49_Msk                      /*!< Interrupt Mask on line 49 */
 #define EXTI_IMR2_IM50_Pos                  (18U)
 #define EXTI_IMR2_IM50_Msk                  (0x1UL << EXTI_IMR2_IM50_Pos)           /*!< 0x00040000 */
 #define EXTI_IMR2_IM50                      EXTI_IMR2_IM50_Msk                      /*!< Interrupt Mask on line 50 */
-#define EXTI_IMR2_IM51_Pos                  (19U)
-#define EXTI_IMR2_IM51_Msk                  (0x1UL << EXTI_IMR2_IM51_Pos)           /*!< 0x00080000 */
-#define EXTI_IMR2_IM51                      EXTI_IMR2_IM51_Msk                      /*!< Interrupt Mask on line 51 */
-#define EXTI_IMR2_IM52_Pos                  (20U)
-#define EXTI_IMR2_IM52_Msk                  (0x1UL << EXTI_IMR2_IM52_Pos)           /*!< 0x00100000 */
-#define EXTI_IMR2_IM52                      EXTI_IMR2_IM52_Msk                      /*!< Interrupt Mask on line 52 */
 #define EXTI_IMR2_IM53_Pos                  (21U)
 #define EXTI_IMR2_IM53_Msk                  (0x1UL << EXTI_IMR2_IM53_Pos)           /*!< 0x00200000 */
 #define EXTI_IMR2_IM53                      EXTI_IMR2_IM53_Msk                      /*!< Interrupt Mask on line 53 */
-#define EXTI_IMR2_IM54_Pos                  (22U)
-#define EXTI_IMR2_IM54_Msk                  (0x1UL << EXTI_IMR2_IM54_Pos)           /*!< 0x00400000 */
-#define EXTI_IMR2_IM54                      EXTI_IMR2_IM54_Msk                      /*!< Interrupt Mask on line 54 */
-#define EXTI_IMR2_IM55_Pos                  (23U)
-#define EXTI_IMR2_IM55_Msk                  (0x1UL << EXTI_IMR2_IM55_Pos)           /*!< 0x00800000 */
-#define EXTI_IMR2_IM55                      EXTI_IMR2_IM55_Msk                      /*!< Interrupt Mask on line 55 */
-#define EXTI_IMR2_IM56_Pos                  (24U)
-#define EXTI_IMR2_IM56_Msk                  (0x1UL << EXTI_IMR2_IM56_Pos)           /*!< 0x01000000 */
-#define EXTI_IMR2_IM56                      EXTI_IMR2_IM56_Msk                      /*!< Interrupt Mask on line 56 */
-#define EXTI_IMR2_IM57_Pos                  (25U)
-#define EXTI_IMR2_IM57_Msk                  (0x1UL << EXTI_IMR2_IM57_Pos)           /*!< 0x02000000 */
-#define EXTI_IMR2_IM57                      EXTI_IMR2_IM57_Msk                      /*!< Interrupt Mask on line 57 */
 
 
 /*******************  Bit definition for EXTI_EMR2 register  *******************/
 #define EXTI_EMR2_EM_Pos                    (0U)
-#define EXTI_EMR2_EM_Msk                    (0x03FFFFFFUL << EXTI_EMR2_EM_Pos)      /*!< 0x03FFFFFF */
+#define EXTI_EMR2_EM_Msk                    (0x002687E0UL << EXTI_EMR2_EM_Pos)      /*!< 0x002687E0 */
 #define EXTI_EMR2_EM                        EXTI_EMR2_EM_Msk                        /*!< Event Mask */
-#define EXTI_EMR2_EM32_Pos                  (0U)
-#define EXTI_EMR2_EM32_Msk                  (0x1UL << EXTI_EMR2_EM32_Pos)           /*!< 0x00000001 */
-#define EXTI_EMR2_EM32                      EXTI_EMR2_EM32_Msk                      /*!< Event Mask on line 32*/
-#define EXTI_EMR2_EM33_Pos                  (1U)
-#define EXTI_EMR2_EM33_Msk                  (0x1UL << EXTI_EMR2_EM33_Pos)           /*!< 0x00000002 */
-#define EXTI_EMR2_EM33                      EXTI_EMR2_EM33_Msk                      /*!< Event Mask on line 33*/
-#define EXTI_EMR2_EM34_Pos                  (2U)
-#define EXTI_EMR2_EM34_Msk                  (0x1UL << EXTI_EMR2_EM34_Pos)           /*!< 0x00000004 */
-#define EXTI_EMR2_EM34                      EXTI_EMR2_EM34_Msk                      /*!< Event Mask on line 34*/
-#define EXTI_EMR2_EM35_Pos                  (3U)
-#define EXTI_EMR2_EM35_Msk                  (0x1UL << EXTI_EMR2_EM35_Pos)           /*!< 0x00000008 */
-#define EXTI_EMR2_EM35                      EXTI_EMR2_EM35_Msk                      /*!< Event Mask on line 35*/
-#define EXTI_EMR2_EM36_Pos                  (4U)
-#define EXTI_EMR2_EM36_Msk                  (0x1UL << EXTI_EMR2_EM36_Pos)           /*!< 0x00000010 */
-#define EXTI_EMR2_EM36                      EXTI_EMR2_EM36_Msk                      /*!< Event Mask on line 36*/
 #define EXTI_EMR2_EM37_Pos                  (5U)
 #define EXTI_EMR2_EM37_Msk                  (0x1UL << EXTI_EMR2_EM37_Pos)           /*!< 0x00000020 */
 #define EXTI_EMR2_EM37                      EXTI_EMR2_EM37_Msk                      /*!< Event Mask on line 37*/
@@ -5150,48 +4801,18 @@ typedef struct
 #define EXTI_EMR2_EM42_Pos                  (10U)
 #define EXTI_EMR2_EM42_Msk                  (0x1UL << EXTI_EMR2_EM42_Pos)           /*!< 0x00000400 */
 #define EXTI_EMR2_EM42                      EXTI_EMR2_EM42_Msk                      /*!< Event Mask on line 42 */
-#define EXTI_EMR2_EM43_Pos                  (11U)
-#define EXTI_EMR2_EM43_Msk                  (0x1UL << EXTI_EMR2_EM43_Pos)           /*!< 0x00000800 */
-#define EXTI_EMR2_EM43                      EXTI_EMR2_EM43_Msk                      /*!< Event Mask on line 43 */
-#define EXTI_EMR2_EM44_Pos                  (12U)
-#define EXTI_EMR2_EM44_Msk                  (0x1UL << EXTI_EMR2_EM44_Pos)           /*!< 0x00001000 */
-#define EXTI_EMR2_EM44                      EXTI_EMR2_EM44_Msk                      /*!< Event Mask on line 44 */
-#define EXTI_EMR2_EM46_Pos                  (14U)
-#define EXTI_EMR2_EM46_Msk                  (0x1UL << EXTI_EMR2_EM46_Pos)           /*!< 0x00004000 */
-#define EXTI_EMR2_EM46                      EXTI_EMR2_EM46_Msk                      /*!< Event Mask on line 46 */
 #define EXTI_EMR2_EM47_Pos                  (15U)
 #define EXTI_EMR2_EM47_Msk                  (0x1UL << EXTI_EMR2_EM47_Pos)           /*!< 0x00008000 */
 #define EXTI_EMR2_EM47                      EXTI_EMR2_EM47_Msk                      /*!< Event Mask on line 47 */
-#define EXTI_EMR2_EM48_Pos                  (16U)
-#define EXTI_EMR2_EM48_Msk                  (0x1UL << EXTI_EMR2_EM48_Pos)           /*!< 0x00010000 */
-#define EXTI_EMR2_EM48                      EXTI_EMR2_EM48_Msk                      /*!< Event Mask on line 48 */
 #define EXTI_EMR2_EM49_Pos                  (17U)
 #define EXTI_EMR2_EM49_Msk                  (0x1UL << EXTI_EMR2_EM49_Pos)           /*!< 0x00020000 */
 #define EXTI_EMR2_EM49                      EXTI_EMR2_EM49_Msk                      /*!< Event Mask on line 49 */
 #define EXTI_EMR2_EM50_Pos                  (18U)
 #define EXTI_EMR2_EM50_Msk                  (0x1UL << EXTI_EMR2_EM50_Pos)           /*!< 0x00040000 */
 #define EXTI_EMR2_EM50                      EXTI_EMR2_EM50_Msk                      /*!< Event Mask on line 50 */
-#define EXTI_EMR2_EM51_Pos                  (19U)
-#define EXTI_EMR2_EM51_Msk                  (0x1UL << EXTI_EMR2_EM51_Pos)           /*!< 0x00080000 */
-#define EXTI_EMR2_EM51                      EXTI_EMR2_EM51_Msk                      /*!< Event Mask on line 51 */
-#define EXTI_EMR2_EM52_Pos                  (20U)
-#define EXTI_EMR2_EM52_Msk                  (0x1UL << EXTI_EMR2_EM52_Pos)           /*!< 0x00100000 */
-#define EXTI_EMR2_EM52                      EXTI_EMR2_EM52_Msk                      /*!< Event Mask on line 52 */
 #define EXTI_EMR2_EM53_Pos                  (21U)
 #define EXTI_EMR2_EM53_Msk                  (0x1UL << EXTI_EMR2_EM53_Pos)           /*!< 0x00200000 */
 #define EXTI_EMR2_EM53                      EXTI_EMR2_EM53_Msk                      /*!< Event Mask on line 53 */
-#define EXTI_EMR2_EM54_Pos                  (22U)
-#define EXTI_EMR2_EM54_Msk                  (0x1UL << EXTI_EMR2_EM54_Pos)           /*!< 0x00400000 */
-#define EXTI_EMR2_EM54                      EXTI_EMR2_EM54_Msk                      /*!< Event Mask on line 54 */
-#define EXTI_EMR2_EM55_Pos                  (23U)
-#define EXTI_EMR2_EM55_Msk                  (0x1UL << EXTI_EMR2_EM55_Pos)           /*!< 0x00800000 */
-#define EXTI_EMR2_EM55                      EXTI_EMR2_EM55_Msk                      /*!< Event Mask on line 55 */
-#define EXTI_EMR2_EM56_Pos                  (24U)
-#define EXTI_EMR2_EM56_Msk                  (0x1UL << EXTI_EMR2_EM56_Pos)           /*!< 0x01000000 */
-#define EXTI_EMR2_EM56                      EXTI_EMR2_EM56_Msk                      /*!< Event Mask on line 56 */
-#define EXTI_EMR2_EM57_Pos                  (25U)
-#define EXTI_EMR2_EM57_Msk                  (0x1UL << EXTI_EMR2_EM57_Pos)           /*!< 0x02000000 */
-#define EXTI_EMR2_EM57                      EXTI_EMR2_EM57_Msk                      /*!< Event Mask on line 57 */
 
 /******************************************************************************/
 /*                                                                            */
@@ -5775,7 +5396,7 @@ typedef struct
 /*                                    FLASH                                   */
 /*                                                                            */
 /******************************************************************************/
-#define FLASH_LATENCY_DEFAULT               FLASH_ACR_LATENCY_3WS                   /* FLASH Three Latency cycle */
+#define FLASH_LATENCY_DEFAULT               FLASH_ACR_LATENCY_3WS                   /*!< FLASH Three Latency cycle */
 #define FLASH_BLOCKBASED_NB_REG             (1U)                                    /*!< 1 Block-based registers for each Flash bank */
 #define FLASH_SIZE_DEFAULT                  (0x20000U)                              /*!< FLASH Size */
 #define FLASH_SECTOR_NB                     (8U)                                    /*!< Flash Sector number */
@@ -7831,6 +7452,11 @@ typedef struct
 #define TIM1_AF2_OCRSEL                     TIM1_AF2_OCRSEL_Msk                     /*!<OCREF_CLR source selection */
 #define TIM1_AF2_OCRSEL_0                   (0x1UL << TIM1_AF2_OCRSEL_Pos)          /*!< 0x00010000 */
 
+/*******************  Bit definition for TIM_OR1 register  *********************/
+#define TIM_OR1_RTCPREEN_Pos                 (1U)
+#define TIM_OR1_RTCPREEN_Msk                 (0x1UL << TIM_OR1_RTCPREEN_Pos)           /*!< 0x00000002 */
+#define TIM_OR1_RTCPREEN                     TIM_OR1_RTCPREEN_Msk                      /*!< RTCPRE HSE divider enable */
+
 /*******************  Bit definition for TIM_TISEL register  *********************/
 #define TIM_TISEL_TI1SEL_Pos                (0U)
 #define TIM_TISEL_TI1SEL_Msk                (0xFUL << TIM_TISEL_TI1SEL_Pos)         /*!< 0x0000000F */
@@ -8340,9 +7966,9 @@ typedef struct
 #define PWR_SCCR_LDOEN                       PWR_SCCR_LDOEN_Msk
 
 /********************  Bit definition for PWR_VMCR register  ******************/
-#define PWR_VMCR_PVDEN_Pos                    (0U)
-#define PWR_VMCR_PVDEN_Msk                    (0x1UL << PWR_VMCR_PVDEN_Pos)
-#define PWR_VMCR_PVDEN                        PWR_VMCR_PVDEN_Msk
+#define PWR_VMCR_PVDEN_Pos                   (0U)
+#define PWR_VMCR_PVDEN_Msk                   (0x1UL << PWR_VMCR_PVDEN_Pos)
+#define PWR_VMCR_PVDEN                       PWR_VMCR_PVDEN_Msk
 #define PWR_VMCR_PLS_Pos                     (1U)
 #define PWR_VMCR_PLS_Msk                     (0x7UL << PWR_VMCR_PLS_Pos)
 #define PWR_VMCR_PLS                         PWR_VMCR_PLS_Msk
@@ -9182,6 +8808,9 @@ typedef struct
 #define RCC_AHB2RSTR_RNGRST_Pos             (18U)
 #define RCC_AHB2RSTR_RNGRST_Msk             (0x1UL << RCC_AHB2RSTR_RNGRST_Pos)      /*!< 0x00040000 */
 #define RCC_AHB2RSTR_RNGRST                 RCC_AHB2RSTR_RNGRST_Msk
+#define RCC_AHB2RSTR_PKARST_Pos             (19U)
+#define RCC_AHB2RSTR_PKARST_Msk             (0x1UL << RCC_AHB2RSTR_PKARST_Pos)      /*!< 0x00080000 */
+#define RCC_AHB2RSTR_PKARST                 RCC_AHB2RSTR_PKARST_Msk
 
 /********************  Bit definition for RCC_APB1LRSTR register  **************/
 #define RCC_APB1LRSTR_TIM2RST_Pos           (0U)
@@ -9317,6 +8946,9 @@ typedef struct
 #define RCC_AHB2ENR_RNGEN_Pos               (18U)
 #define RCC_AHB2ENR_RNGEN_Msk               (0x1UL << RCC_AHB2ENR_RNGEN_Pos)        /*!< 0x00040000 */
 #define RCC_AHB2ENR_RNGEN                   RCC_AHB2ENR_RNGEN_Msk
+#define RCC_AHB2ENR_PKAEN_Pos               (19U)
+#define RCC_AHB2ENR_PKAEN_Msk               (0x1UL << RCC_AHB2ENR_PKAEN_Pos)        /*!< 0x00080000 */
+#define RCC_AHB2ENR_PKAEN                   RCC_AHB2ENR_PKAEN_Msk
 #define RCC_AHB2ENR_SRAM2EN_Pos             (30U)
 #define RCC_AHB2ENR_SRAM2EN_Msk             (0x1UL << RCC_AHB2ENR_SRAM2EN_Pos)      /*!< 0x40000000 */
 #define RCC_AHB2ENR_SRAM2EN                 RCC_AHB2ENR_SRAM2EN_Msk
@@ -9467,6 +9099,9 @@ typedef struct
 #define RCC_AHB2LPENR_RNGLPEN_Pos           (18U)
 #define RCC_AHB2LPENR_RNGLPEN_Msk           (0x1UL << RCC_AHB2LPENR_RNGLPEN_Pos)    /*!< 0x00040000 */
 #define RCC_AHB2LPENR_RNGLPEN               RCC_AHB2LPENR_RNGLPEN_Msk
+#define RCC_AHB2LPENR_PKALPEN_Pos           (19U)
+#define RCC_AHB2LPENR_PKALPEN_Msk           (0x1UL << RCC_AHB2LPENR_PKALPEN_Pos)    /*!< 0x00080000 */
+#define RCC_AHB2LPENR_PKALPEN               RCC_AHB2LPENR_PKALPEN_Msk
 #define RCC_AHB2LPENR_SRAM2LPEN_Pos         (30U)
 #define RCC_AHB2LPENR_SRAM2LPEN_Msk         (0x1UL << RCC_AHB2LPENR_SRAM2LPEN_Pos)  /*!< 0x40000000 */
 #define RCC_AHB2LPENR_SRAM2LPEN             RCC_AHB2LPENR_SRAM2LPEN_Msk
@@ -11196,7 +10831,6 @@ typedef struct
 #define GTZC_TZSC_MPCWMR_SUBZ_LENGTH        GTZC_TZSC_MPCWMR_SUBZ_LENGTH_Msk
 
 /*******  Bits definition for TZSC _SECCFGRx/_PRIVCFGRx registers  *****/
-/*******  Bits definition for TZIC _IERx/_SRx/_IFCRx registers  ********/
 
 /***************  Bits definition for register x=1 (TZSC1) *************/
 #define GTZC_CFGR1_TIM2_Pos                 (0U)
@@ -11234,7 +10868,6 @@ typedef struct
 #define GTZC_CFGR1_LPTIM2_Pos               (31U)
 #define GTZC_CFGR1_LPTIM2_Msk               (0x01UL << GTZC_CFGR1_LPTIM2_Pos)
 
-
 /***************  Bits definition for register x=2 (TZSC1) *************/
 #define GTZC_CFGR2_FDCAN1_Pos               (0U)
 #define GTZC_CFGR2_FDCAN1_Msk               (0x01UL << GTZC_CFGR2_FDCAN1_Pos)
@@ -11268,6 +10901,8 @@ typedef struct
 #define GTZC_CFGR3_HASH_Msk                 (0x01UL << GTZC_CFGR3_HASH_Pos)
 #define GTZC_CFGR3_RNG_Pos                  (18U)
 #define GTZC_CFGR3_RNG_Msk                  (0x01UL << GTZC_CFGR3_RNG_Pos)
+#define GTZC_CFGR3_PKA_Pos                  (20U)
+#define GTZC_CFGR3_PKA_Msk                  (0x01UL << GTZC_CFGR3_PKA_Pos)
 #define GTZC_CFGR3_RAMCFG_Pos               (26U)
 #define GTZC_CFGR3_RAMCFG_Msk               (0x01UL << GTZC_CFGR3_RAMCFG_Pos)
 
@@ -11280,6 +10915,7 @@ typedef struct
 #define GTZC_CFGR4_FLASH_Msk                (0x01UL << GTZC_CFGR4_FLASH_Pos)
 #define GTZC_CFGR4_FLASH_REG_Pos            (3U)
 #define GTZC_CFGR4_FLASH_REG_Msk            (0x01UL << GTZC_CFGR4_FLASH_REG_Pos)
+
 #define GTZC_CFGR4_SBS_Pos                  (6U)
 #define GTZC_CFGR4_SBS_Msk                  (0x01UL << GTZC_CFGR4_SBS_Pos)
 #define GTZC_CFGR4_RTC_Pos                  (7U)
@@ -11304,6 +10940,7 @@ typedef struct
 #define GTZC_CFGR4_SRAM2_Msk                (0x01UL << GTZC_CFGR4_SRAM2_Pos)
 #define GTZC_CFGR4_MPCBB2_REG_Pos           (27U)
 #define GTZC_CFGR4_MPCBB2_REG_Msk           (0x01UL << GTZC_CFGR4_MPCBB2_REG_Pos)
+
 
 
 /*******************  Bits definition for GTZC_TZSC_PRIVCFGR1 register  ***************/
@@ -11355,6 +10992,8 @@ typedef struct
 #define GTZC_TZSC1_PRIVCFGR2_LPTIM1_Msk         GTZC_CFGR2_LPTIM1_Msk
 
 /*******************  Bits definition for GTZC_TZSC_PRIVCFGR3 register  ***************/
+#define GTZC_TZSC1_PRIVCFGR3_I3C2_Pos           GTZC_CFGR3_I3C2_Pos
+#define GTZC_TZSC1_PRIVCFGR3_I3C2_Msk           GTZC_CFGR3_I3C2_Msk
 #define GTZC_TZSC1_PRIVCFGR3_CRC_Pos            GTZC_CFGR3_CRC_Pos
 #define GTZC_TZSC1_PRIVCFGR3_CRC_Msk            GTZC_CFGR3_CRC_Msk
 #define GTZC_TZSC1_PRIVCFGR3_ICACHE_REG_Pos     GTZC_CFGR3_ICACHE_REG_Pos
@@ -11365,83 +11004,12 @@ typedef struct
 #define GTZC_TZSC1_PRIVCFGR3_HASH_Msk           GTZC_CFGR3_HASH_Msk
 #define GTZC_TZSC1_PRIVCFGR3_RNG_Pos            GTZC_CFGR3_RNG_Pos
 #define GTZC_TZSC1_PRIVCFGR3_RNG_Msk            GTZC_CFGR3_RNG_Msk
+#define GTZC_TZSC1_PRIVCFGR3_PKA_Pos            GTZC_CFGR3_PKA_Pos
+#define GTZC_TZSC1_PRIVCFGR3_PKA_Msk            GTZC_CFGR3_PKA_Msk
 #define GTZC_TZSC1_PRIVCFGR3_RAMCFG_Pos         GTZC_CFGR3_RAMCFG_Pos
 #define GTZC_TZSC1_PRIVCFGR3_RAMCFG_Msk         GTZC_CFGR3_RAMCFG_Msk
 
 
-/*******************  Bits definition for GTZC_MPCBB_CR register  *****************/
-#define GTZC_MPCBB_CR_GLOCK_Pos             (0U)
-#define GTZC_MPCBB_CR_GLOCK_Msk             (0x01UL << GTZC_MPCBB_CR_GLOCK_Pos)       /*!< 0x00000001 */
-#define GTZC_MPCBB_CR_INVSECSTATE_Pos       (30U)
-#define GTZC_MPCBB_CR_INVSECSTATE_Msk       (0x01UL << GTZC_MPCBB_CR_INVSECSTATE_Pos) /*!< 0x40000000 */
-#define GTZC_MPCBB_CR_SRWILADIS_Pos         (31U)
-#define GTZC_MPCBB_CR_SRWILADIS_Msk         (0x01UL << GTZC_MPCBB_CR_SRWILADIS_Pos)   /*!< 0x80000000 */
-
-/*******************  Bits definition for GTZC_MPCBB_CFGLOCKR1 register  ************/
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK0_Pos      (0U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK0_Msk      (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK0_Pos) /*!< 0x00000001 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK1_Pos      (1U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK1_Msk      (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK1_Pos) /*!< 0x00000002 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK2_Pos      (2U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK2_Msk      (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK2_Pos) /*!< 0x00000004 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK3_Pos      (3U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK3_Msk      (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK3_Pos) /*!< 0x00000008 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK4_Pos      (4U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK4_Msk      (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK4_Pos) /*!< 0x00000010 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK5_Pos      (5U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK5_Msk      (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK5_Pos) /*!< 0x00000020 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK6_Pos      (6U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK6_Msk      (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK6_Pos) /*!< 0x00000040 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK7_Pos      (7U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK7_Msk      (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK7_Pos) /*!< 0x00000080 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK8_Pos      (8U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK8_Msk      (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK8_Pos) /*!< 0x00000100 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK9_Pos      (9U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK9_Msk      (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK9_Pos) /*!< 0x00000200 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK10_Pos     (10U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK10_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK10_Pos) /*!< 0x00000400 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK11_Pos     (11U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK11_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK11_Pos) /*!< 0x00000800 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK12_Pos     (12U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK12_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK12_Pos) /*!< 0x00001000 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK13_Pos     (13U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK13_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK13_Pos) /*!< 0x00002000 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK14_Pos     (14U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK14_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK14_Pos) /*!< 0x00004000 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK15_Pos     (15U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK15_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK15_Pos) /*!< 0x00008000 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK16_Pos     (16U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK16_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK16_Pos) /*!< 0x00010000 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK17_Pos     (17U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK17_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK17_Pos) /*!< 0x00020000 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK18_Pos     (18U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK18_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK18_Pos) /*!< 0x00040000 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK19_Pos     (19U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK19_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK19_Pos) /*!< 0x00080000 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK20_Pos     (20U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK20_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK20_Pos) /*!< 0x00100000 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK21_Pos     (21U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK21_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK21_Pos) /*!< 0x00200000 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK22_Pos     (22U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK22_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK22_Pos) /*!< 0x00400000 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK23_Pos     (23U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK23_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK23_Pos) /*!< 0x00800000 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK24_Pos     (24U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK24_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK24_Pos) /*!< 0x01000000 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK25_Pos     (25U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK25_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK25_Pos) /*!< 0x02000000 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK26_Pos     (26U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK26_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK26_Pos) /*!< 0x04000000 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK27_Pos     (27U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK27_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK27_Pos) /*!< 0x08000000 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK28_Pos     (28U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK28_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK28_Pos) /*!< 0x10000000 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK29_Pos     (29U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK29_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK29_Pos) /*!< 0x20000000 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK30_Pos     (30U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK30_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK30_Pos) /*!< 0x40000000 */
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK31_Pos     (31U)
-#define GTZC_MPCBB_CFGLOCKR1_SPLCK31_Msk     (0x01UL << GTZC_MPCBB_CFGLOCKR1_SPLCK31_Pos) /*!< 0x80000000 */
 
 
 
@@ -12774,6 +12342,15 @@ typedef struct
 #define I3C_BCR_BCR2_Pos                    (2U)
 #define I3C_BCR_BCR2_Msk                    (0x1UL << I3C_BCR_BCR2_Pos)             /*!< 0x00000004 */
 #define I3C_BCR_BCR2                        I3C_BCR_BCR2_Msk                        /*!< IBI Payload additional Mandatory Data Byte */
+#define I3C_BCR_BCR3_Pos                    (3U)
+#define I3C_BCR_BCR3_Msk                    (0x1UL << I3C_BCR_BCR3_Pos)             /*!< 0x00000008 */
+#define I3C_BCR_BCR3                        I3C_BCR_BCR3_Msk                        /*!< Offline capable */
+#define I3C_BCR_BCR4_Pos                    (4U)
+#define I3C_BCR_BCR4_Msk                    (0x1UL << I3C_BCR_BCR4_Pos)             /*!< 0x00000010 */
+#define I3C_BCR_BCR4                        I3C_BCR_BCR4_Msk                        /*!< Virtual target support */
+#define I3C_BCR_BCR5_Pos                    (5U)
+#define I3C_BCR_BCR5_Msk                    (0x1UL << I3C_BCR_BCR5_Pos)             /*!< 0x00000020 */
+#define I3C_BCR_BCR5                        I3C_BCR_BCR5_Msk                        /*!< Advanced capabilities */
 #define I3C_BCR_BCR6_Pos                    (6U)
 #define I3C_BCR_BCR6_Msk                    (0x1UL << I3C_BCR_BCR6_Pos)             /*!< 0x00000040 */
 #define I3C_BCR_BCR6                        I3C_BCR_BCR6_Msk                        /*!< Device Role shared during Dynamic Address Assignment */
@@ -13619,13 +13196,20 @@ typedef struct
 #define USB_PMA_RXBD_ADDMSK                        (0xFFFF0000UL)
 #define USB_PMA_RXBD_COUNTMSK                      (0x03FFFFFFUL)
 
+/*!< USB PMA SIZE */
+#define USB_DRD_PMA_SIZE                                  (2048U)           /*!< USB PMA Size 2Kbyte */
+
+#define USB_DRD_FS_EP_NBR                                    (8U)           /*!< Number of USB Device endpoints */
+#define USB_DRD_FS_CH_NBR                                    (8U)           /*!< Number of USB Host channels */
+
+
+
 
 /** @addtogroup STM32H5xx_Peripheral_Exported_macros
   * @{
   */
 
 /******************************* ADC Instances ********************************/
-
 #define IS_ADC_ALL_INSTANCE(INSTANCE) (((INSTANCE) == ADC1_NS))
 
 #define IS_ADC_MULTIMODE_MASTER_INSTANCE(INSTANCE) (((INSTANCE) == ADC1_NS))
@@ -13663,13 +13247,19 @@ typedef struct
                                                  ((INSTANCE) == GPDMA2_Channel6_NS)  || \
                                                  ((INSTANCE) == GPDMA2_Channel7_NS))
 
+#define IS_DMA_PFREQ_INSTANCE(INSTANCE) (((INSTANCE) == GPDMA1_Channel0_NS)  || \
+                                         ((INSTANCE) == GPDMA1_Channel7_NS)  || \
+                                         ((INSTANCE) == GPDMA2_Channel0_NS)  || \
+                                         ((INSTANCE) == GPDMA2_Channel7_NS))
+
 /****************************** RAMCFG Instances ********************************/
 #define IS_RAMCFG_ALL_INSTANCE(INSTANCE) (((INSTANCE) == RAMCFG_SRAM1_NS) || \
                                           ((INSTANCE) == RAMCFG_SRAM2_NS) || \
                                           ((INSTANCE) == RAMCFG_BKPRAM_NS))
 
 /***************************** RAMCFG ECC Instances *****************************/
-#define IS_RAMCFG_ECC_INSTANCE(INSTANCE) (((INSTANCE) == RAMCFG_SRAM2_NS) || \
+#define IS_RAMCFG_ECC_INSTANCE(INSTANCE) (((INSTANCE) == RAMCFG_SRAM1_NS) || \
+                                          ((INSTANCE) == RAMCFG_SRAM2_NS) || \
                                           ((INSTANCE) == RAMCFG_BKPRAM_NS))
 
 /************************ RAMCFG Write Protection Instances *********************/

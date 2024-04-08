@@ -1,15 +1,17 @@
 # STM32CubeH5 CMSIS Device MCU Component
 
+![latest tag](https://img.shields.io/github/v/tag/STMicroelectronics/cmsis_device_h5.svg?color=brightgreen)
+
 ## Overview
 
-**STM32Cube** is an STMicroelectronics original initiative to ease the developers life by reducing efforts, time and cost.
+**STM32Cube** is a STMicroelectronics original initiative aimed at making life easier for developers by reducing effort, time and cost.
 
 **STM32Cube** covers the overall STM32 products portfolio. It includes a comprehensive embedded software platform delivered for each STM32 series.
    * The CMSIS modules (core and device) corresponding to the ARM(tm) core implemented in this STM32 product.
    * The STM32 HAL-LL drivers, an abstraction layer offering a set of APIs ensuring maximized portability across the STM32 portfolio.
-   * The BSP drivers of each evaluation, demonstration or nucleo board provided for this STM32 series.
+   * The BSP drivers of each evaluation, demonstration, or nucleo board provided for this STM32 series.
    * A consistent set of middleware libraries such as FileX, USBX, TheadX ...
-   * A full set of software projects (basic examples, applications, and demonstrations) for each board provided for this STM32 series.
+   * A full set of software projects (basic examples, applications, and demonstrations) for each board, each project developed in three flavors using three toolchains (EWARM, MDK-ARM, and STM32CubeIDE).
 
 Two models of publication are proposed for the STM32Cube embedded software:
    * The monolithic **MCU Package**: all STM32Cube software modules of one STM32 series are present (Drivers, Middleware, Projects, Utilities) in the repository (usual name **STM32Cubexx**, xx corresponding to the STM32 series).
@@ -31,6 +33,4 @@ The full **STM32CubeH5** MCU package is available [here](https://github.com/STMi
 
 ## Troubleshooting
 
-If you have any issue with the software content of this repository, you can file an issue [here](https://github.com/STMicroelectronics/cmsis_device_h5/issues/new).
-
-For any other question related to the product, the tools, the environment, you can submit a topic on the [ST Community/STM32 MCUs forum](https://community.st.com/s/group/0F90X000000AXsASAW/stm32-mcus).
+Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) guide.
