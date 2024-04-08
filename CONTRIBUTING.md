@@ -42,8 +42,7 @@ An easy to read pull request will speed up the merging process. Your commit mess
 And containing enough information on their own. When this is done consistently your pull request will have an easy
 to read log of changes.
 
-Your commits need to be [atomic](https://www.freshconsulting.com/atomic-commits/) which allows the repository to remain
-flexible after merging.
+Your commits need to be atomic which allows the repository to remain flexible after merging.
 
 If you did not read the following 7 points before or just want to fresh up. Please read up on them on this [website](https://chris.beams.io/posts/git-commit) by Chris Beams.
 
