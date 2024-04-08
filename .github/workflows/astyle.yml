@@ -31,11 +31,11 @@ jobs:
     steps:
     # First of all, clone the repo using the checkout action.
     - name: Checkout
-      uses: actions/checkout@main
+      uses: actions/checkout@v4
 
     - name: Astyle check
       id: Astyle
-      uses: stm32duino/actions/astyle-check@main
+      uses: stm32duino/actions/astyle-check@v1
       with:
         astyle-definition: 'CI/astyle/.astylerc'
         ignore-path-list: 'CI/astyle/.astyleignore'

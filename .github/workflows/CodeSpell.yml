@@ -14,11 +14,11 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@main
+        uses: actions/checkout@v4
 
       # See: https://github.com/codespell-project/actions-codespell/blob/master/README.md
       - name: Spell check
-        uses: codespell-project/actions-codespell@master
+        uses: codespell-project/actions-codespell@v2
         with:
           check_filenames: true
           check_hidden: true
