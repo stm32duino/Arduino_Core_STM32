@@ -132,7 +132,7 @@
 #define PH2                     PIN_A28
 #define PH3                     PIN_A29
 #define PH4                     PIN_A30
-#define PH5                     PIN_A31
+#define PH5                     117
 #define PH6                     118
 #define PH7                     119
 #define PH8                     120
@@ -143,10 +143,10 @@
 #define PH13                    125
 #define PH14                    126
 #define PH15                    127
-#define PA0_C                   PIN_A32
-#define PA1_C                   PIN_A33
-#define PC2_C                   PIN_A34
-#define PC3_C                   PIN_A35
+#define PA0_C                   PIN_A31
+#define PA1_C                   PIN_A32
+#define PC2_C                   PIN_A33
+#define PC3_C                   PIN_A34
 
 // Alternate pins number
 #define PA0_ALT1                (PA0   | ALT1)
@@ -219,7 +219,7 @@
 
 #define NUM_DIGITAL_PINS        132
 #define NUM_DUALPAD_PINS        4
-#define NUM_ANALOG_INPUTS       36
+#define NUM_ANALOG_INPUTS       35
 
 // On-board LED pin number
 #ifndef LED_BUILTIN

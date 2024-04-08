@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32H725IEKx.xml, STM32H725IGKx.xml
  * STM32H730IBKxQ.xml, STM32H735IGKx.xml
- * CubeMX DB release 6.0.100
+ * CubeMX DB release 6.0.110
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
@@ -88,7 +88,6 @@ WEAK const PinMap PinMap_ADC[] = {
   {PH_2,        ADC3, STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 13, 0)}, // ADC3_INP13
   {PH_3,        ADC3, STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 14, 0)}, // ADC3_INP14
   {PH_4,        ADC3, STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 15, 0)}, // ADC3_INP15
-  {PH_5,        ADC3, STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 16, 0)}, // ADC3_INP16
   {NC,          NP,   0}
 };
 #endif
