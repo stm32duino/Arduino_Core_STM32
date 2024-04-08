@@ -35,11 +35,11 @@ jobs:
     steps:
     # First of all, clone the repo using the checkout action.
     - name: Checkout
-      uses: actions/checkout@main
+      uses: actions/checkout@v4
 
     - name: Compilation
       id: Compile
-      uses: stm32duino/actions/compile-examples@main
+      uses: stm32duino/actions/compile-examples@v1
       with:
         additional-url: 'https://github.com/stm32duino/BoardManagerFiles/raw/dev/package_stmicroelectronics_index.json'
 
