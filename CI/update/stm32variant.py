@@ -149,17 +149,6 @@ def update_file(filePath, compile_pattern, subs):
         file.write(fileContents)
 
 
-# get xml family
-def get_mcu_family(mcu_file):
-    xml_mcu = parse(str(mcu_file))
-    mcu_node = xml_mcu.getElementsByTagName("Mcu")[0]
-    mcu_family = mcu_node.attributes["Family"].value
-    if mcu_family.endswith("+"):
-        mcu_family = mcu_family[:-1]
-    xml_mcu.unlink()
-    return mcu_family
-
-
 # mcu file parsing
 def parse_mcu_file():
     global gpiofile
@@ -908,9 +897,11 @@ def can_pinmap(lst):
         )
     return dict(
         name=name,
-        hal=["CAN", "CAN_LEGACY"]
-        if name != "FDCAN" and any(mcu in mcu_family for mcu in legacy_hal["CAN"])
-        else name,
+        hal=(
+            ["CAN", "CAN_LEGACY"]
+            if name != "FDCAN" and any(mcu in mcu_family for mcu in legacy_hal["CAN"])
+            else name
+        ),
         aname=aname,
         data="",
         wpin=max(wpin) + 1,
@@ -939,9 +930,11 @@ def eth_pinmap():
         )
     return dict(
         name="ETHERNET",
-        hal=["ETH", "ETH_LEGACY"]
-        if any(mcu in mcu_family for mcu in legacy_hal["ETH"])
-        else "ETH",
+        hal=(
+            ["ETH", "ETH_LEGACY"]
+            if any(mcu in mcu_family for mcu in legacy_hal["ETH"])
+            else "ETH"
+        ),
         aname="Ethernet",
         data="",
         wpin=max(wpin) + 1,
@@ -2501,7 +2494,6 @@ system_path = root_dir / "system"
 templates_dir = script_path / "templates"
 mcu_family_dir = ""
 filtered_family = ""
-# filtered_mcu_file = ""
 periph_c_filename = "PeripheralPins.c"
 pinvar_h_filename = "PinNamesVar.h"
 config_filename = script_path / "variant_config.json"
@@ -2553,18 +2545,6 @@ group.add_argument(
     help="list available xml files description in database",
     action="store_true",
 )
-# group.add_argument(
-#     "-m",
-#     "--mcu",
-#     metavar="xml",
-#     help=textwrap.dedent(
-#         """\
-# Generate all files for specified mcu xml file description in database.
-# This xml file can contain non alpha characters in its name,
-# you should call it with double quotes.
-# """
-#     ),
-# )
 
 group.add_argument(
     "-f",
@@ -2627,16 +2607,6 @@ if release_match:
     db_release = release_match.group(1)
 print(f"CubeMX DB release {db_release}\n")
 
-# if args.mcu:
-#     # Check input file exists
-#     if not ((dirMCU / args.mcu).is_file()):
-#         print("\n" + args.mcu + " file not found")
-#         print("\nCheck in " + dirMCU + " the correct name of this file")
-#         print("\nYou may use double quotes for file containing special characters")
-#         quit()
-#     # Get the family of the desired mcu file
-#     filtered_mcu_file = dirMCU / args.mcu
-#     filtered_family = get_mcu_family(filtered_mcu_file)
 if args.family:
     filtered_family = args.family.upper()
 # Get all xml files
