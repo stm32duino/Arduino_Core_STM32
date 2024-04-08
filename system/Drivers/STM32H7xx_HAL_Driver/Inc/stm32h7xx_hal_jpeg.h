@@ -289,7 +289,7 @@ typedef  void (*pJPEG_DataReadyCallbackTypeDef)(JPEG_HandleTypeDef *hjpeg, uint8
   * @brief JPEG Flags definition
   * @{
   */
-#define JPEG_FLAG_IFTF     ((uint32_t)JPEG_SR_IFTF)   /*!< Input FIFO is not full and is bellow its threshold flag */
+#define JPEG_FLAG_IFTF     ((uint32_t)JPEG_SR_IFTF)   /*!< Input FIFO is not full and is below its threshold flag */
 #define JPEG_FLAG_IFNFF    ((uint32_t)JPEG_SR_IFNFF)  /*!< Input FIFO Not Full Flag, a data can be written */
 #define JPEG_FLAG_OFTF     ((uint32_t)JPEG_SR_OFTF)   /*!< Output FIFO is not empty and has reach its threshold */
 #define JPEG_FLAG_OFNEF    ((uint32_t)JPEG_SR_OFNEF)  /*!< Output FIFO is not empty, a data is available  */
@@ -357,7 +357,7 @@ typedef  void (*pJPEG_DataReadyCallbackTypeDef)(JPEG_HandleTypeDef *hjpeg, uint8
   * @param  __HANDLE__ specifies the JPEG handle.
   * @param  __FLAG__  specifies the flag to check
   *         This parameter can be one of the following values:
-  *         @arg JPEG_FLAG_IFTF  : The input FIFO is not full and is bellow its threshold flag
+  *         @arg JPEG_FLAG_IFTF  : The input FIFO is not full and is below its threshold flag
   *         @arg JPEG_FLAG_IFNFF : The input FIFO Not Full Flag, a data can be written
   *         @arg JPEG_FLAG_OFTF  : The output FIFO is not empty and has reach its threshold
   *         @arg JPEG_FLAG_OFNEF : The output FIFO is not empty, a data is available

@@ -2058,8 +2058,11 @@ void HAL_PWREx_PVD_AVD_IRQHandler (void)
         /* PWR PVD interrupt user callback */
         HAL_PWR_PVDCallback ();
 
-        /* Clear PWR EXTI D1/CD pending bit */
-        __HAL_PWR_PVD_EXTI_CLEAR_FLAG ();
+        if(__HAL_PWR_GET_FLAG (PWR_FLAG_AVDO) == 0U)
+        {
+          /* Clear PWR EXTI D1/CD pending bit */
+          __HAL_PWR_PVD_EXTI_CLEAR_FLAG ();
+        }
       }
     }
 #if defined (DUAL_CORE)
@@ -2071,8 +2074,11 @@ void HAL_PWREx_PVD_AVD_IRQHandler (void)
         /* PWR PVD interrupt user callback */
         HAL_PWR_PVDCallback ();
 
-        /* Clear PWR EXTI D2 pending bit */
-        __HAL_PWR_PVD_EXTID2_CLEAR_FLAG();
+        if(__HAL_PWR_GET_FLAG (PWR_FLAG_AVDO) == 0U)
+        {
+          /* Clear PWR EXTI D2 pending bit */
+          __HAL_PWR_PVD_EXTID2_CLEAR_FLAG ();
+        }
       }
     }
 #endif /* defined (DUAL_CORE) */
@@ -2091,8 +2097,11 @@ void HAL_PWREx_PVD_AVD_IRQHandler (void)
         /* PWR AVD interrupt user callback */
         HAL_PWREx_AVDCallback ();
 
-        /* Clear PWR EXTI D1/CD pending bit */
-        __HAL_PWR_AVD_EXTI_CLEAR_FLAG ();
+        if(__HAL_PWR_GET_FLAG (PWR_FLAG_PVDO) == 0U)
+        {
+          /* Clear PWR EXTI D1/CD pending bit */
+          __HAL_PWR_AVD_EXTI_CLEAR_FLAG ();
+        }
       }
     }
 #if defined (DUAL_CORE)
@@ -2104,8 +2113,11 @@ void HAL_PWREx_PVD_AVD_IRQHandler (void)
         /* PWR AVD interrupt user callback */
         HAL_PWREx_AVDCallback ();
 
-        /* Clear PWR EXTI D2 pending bit */
-        __HAL_PWR_AVD_EXTID2_CLEAR_FLAG ();
+        if(__HAL_PWR_GET_FLAG (PWR_FLAG_PVDO) == 0U)
+        {
+          /* Clear PWR EXTI D2 pending bit */
+          __HAL_PWR_AVD_EXTID2_CLEAR_FLAG ();
+        }
       }
     }
 #endif /* defined (DUAL_CORE) */

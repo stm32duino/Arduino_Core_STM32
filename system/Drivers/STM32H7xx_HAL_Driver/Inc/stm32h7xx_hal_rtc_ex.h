@@ -936,22 +936,6 @@ typedef struct
 #endif /* TAMP */
 
 /**
-  * @brief  Check whether the specified RTC Tamper interrupt has occurred or not.
-  * @param  __HANDLE__ specifies the RTC handle.
-  * @param  __INTERRUPT__ specifies the RTC Tamper interrupt to check.
-  *         This parameter can be:
-  *            @arg  RTC_FLAG_TAMP1F: Tamper1 interrupt flag
-  *            @arg  RTC_FLAG_TAMP2F: Tamper2 interrupt flag
-  *            @arg  RTC_FLAG_TAMP3F: Tamper3 interrupt flag
-  * @retval Flag status
-  */
-#if defined(TAMP)
-#define __HAL_RTC_TAMPER_GET_IT(__HANDLE__, __INTERRUPT__)     ((((((TAMP_TypeDef *)((uint32_t)((__HANDLE__)->Instance) + TAMP_OFFSET))->SR) & (__INTERRUPT__)) != 0U) ? 1U : 0U)
-#else
-#define __HAL_RTC_TAMPER_GET_IT(__HANDLE__, __INTERRUPT__)     (((((__HANDLE__)->Instance->ISR) & (__INTERRUPT__)) != 0U) ? 1U : 0U)
-#endif /* TAMP */
-
-/**
   * @brief  Check whether the specified RTC Tamper interrupt has been enabled or not.
   * @param  __HANDLE__ specifies the RTC handle.
   * @param  __INTERRUPT__ specifies the RTC Tamper interrupt source to check.

@@ -66,11 +66,11 @@
 /* Private functions  --------------------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
 
-/** @addtogroup RNG_Ex_Exported_Functions
+/** @defgroup RNG_Ex_Exported_Functions RNG_Ex Exported Functions
   * @{
   */
 
-/** @addtogroup RNG_Ex_Exported_Functions_Group1
+/** @defgroup RNG_Ex_Exported_Functions_Group1 Configuration and lock functions
   *  @brief   Configuration functions
   *
 @verbatim
@@ -90,12 +90,12 @@
   *         RNG_ConfigTypeDef.
   * @param  hrng pointer to a RNG_HandleTypeDef structure that contains
   *          the configuration information for RNG.
-  * @param  pConf: pointer to a RNG_ConfigTypeDef structure that contains
+  * @param  pConf pointer to a RNG_ConfigTypeDef structure that contains
   *         the configuration information for RNG module
 
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_RNGEx_SetConfig(RNG_HandleTypeDef *hrng, RNG_ConfigTypeDef *pConf)
+HAL_StatusTypeDef HAL_RNGEx_SetConfig(RNG_HandleTypeDef *hrng, const RNG_ConfigTypeDef *pConf)
 {
   uint32_t tickstart;
   uint32_t cr_value;
@@ -189,7 +189,7 @@ HAL_StatusTypeDef HAL_RNGEx_SetConfig(RNG_HandleTypeDef *hrng, RNG_ConfigTypeDef
   *         RNG_ConfigTypeDef.
   * @param  hrng pointer to a RNG_HandleTypeDef structure that contains
   *          the configuration information for RNG.
-  * @param  pConf: pointer to a RNG_ConfigTypeDef structure that contains
+  * @param  pConf pointer to a RNG_ConfigTypeDef structure that contains
   *         the configuration information for RNG module
 
   * @retval HAL status
@@ -283,12 +283,12 @@ HAL_StatusTypeDef HAL_RNGEx_LockConfig(RNG_HandleTypeDef *hrng)
   * @}
   */
 
-/** @addtogroup RNG_Ex_Exported_Functions_Group2
+/** @defgroup RNG_Ex_Exported_Functions_Group2 Recover from seed error function
   *  @brief   Recover from seed error function
   *
 @verbatim
  ===============================================================================
-          ##### Configuration and lock functions #####
+          ##### Recover from seed error function #####
  ===============================================================================
     [..]  This section provide function allowing to:
       (+) Recover from a seed error

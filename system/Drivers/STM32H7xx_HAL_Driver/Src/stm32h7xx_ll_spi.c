@@ -236,7 +236,7 @@
   *          - SUCCESS: SPI registers are de-initialized
   *          - ERROR: SPI registers are not de-initialized
   */
-ErrorStatus LL_SPI_DeInit(SPI_TypeDef *SPIx)
+ErrorStatus LL_SPI_DeInit(const SPI_TypeDef *SPIx)
 {
   ErrorStatus status = ERROR;
 
@@ -547,7 +547,7 @@ void LL_SPI_StructInit(LL_SPI_InitTypeDef *SPI_InitStruct)
   *          - SUCCESS: SPI registers are de-initialized
   *          - ERROR: SPI registers are not de-initialized
   */
-ErrorStatus LL_I2S_DeInit(SPI_TypeDef *SPIx)
+ErrorStatus LL_I2S_DeInit(const SPI_TypeDef *SPIx)
 {
   return LL_SPI_DeInit(SPIx);
 }
@@ -565,16 +565,19 @@ ErrorStatus LL_I2S_DeInit(SPI_TypeDef *SPIx)
   *          - SUCCESS: SPI registers are Initialized
   *          - ERROR: SPI registers are not Initialized
   */
-ErrorStatus LL_I2S_Init(SPI_TypeDef *SPIx, LL_I2S_InitTypeDef *I2S_InitStruct)
+ErrorStatus LL_I2S_Init(SPI_TypeDef *SPIx, const LL_I2S_InitTypeDef *I2S_InitStruct)
 {
   uint32_t i2sdiv = 0UL;
   uint32_t i2sodd = 0UL;
   uint32_t packetlength = 1UL;
   uint32_t ispcm = 0UL;
   uint32_t tmp;
-  uint32_t sourceclock;
+  uint32_t sourceclock = 0UL;
 
   ErrorStatus status = ERROR;
+
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(sourceclock);
 
   /* Check the I2S parameters */
   assert_param(IS_I2S_ALL_INSTANCE(SPIx));

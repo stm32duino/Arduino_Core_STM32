@@ -59,7 +59,7 @@
 #define IS_LL_RNG_CONFIG2 (__CONFIG2__) ((__CONFIG2__) <= 0x07UL)
 
 #define IS_LL_RNG_CONFIG3 (__CONFIG3__) ((__CONFIG3__) <= 0xFUL)
-#endif /* RNG_CR_CONDRST*/
+#endif /* RNG_CR_CONDRST */
 /**
   * @}
   */
@@ -81,7 +81,7 @@
   *          - SUCCESS: RNG registers are de-initialized
   *          - ERROR: not applicable
   */
-ErrorStatus LL_RNG_DeInit(RNG_TypeDef *RNGx)
+ErrorStatus LL_RNG_DeInit(const RNG_TypeDef *RNGx)
 {
   ErrorStatus status = SUCCESS;
 
