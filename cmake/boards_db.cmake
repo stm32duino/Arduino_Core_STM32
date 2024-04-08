@@ -102957,13 +102957,13 @@ set(NUCLEO_L496ZG-P_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4x
 set(NUCLEO_L496ZG-P_MAXSIZE 1048576)
 set(NUCLEO_L496ZG-P_MAXDATASIZE 327680)
 set(NUCLEO_L496ZG-P_MCU cortex-m4)
-set(NUCLEO_L496ZG-P_FPCONF "fpv4-sp-d16-")
+set(NUCLEO_L496ZG-P_FPCONF "fpv4-sp-d16-hard")
 add_library(NUCLEO_L496ZG-P INTERFACE)
 target_compile_options(NUCLEO_L496ZG-P INTERFACE
   "SHELL:-DSTM32L496xx  "
   "SHELL:"
   "SHELL:"
-  "SHELL:-mfpu=fpv4-sp-d16 "
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_L496ZG-P_MCU}
 )
 target_compile_definitions(NUCLEO_L496ZG-P INTERFACE
@@ -102987,7 +102987,7 @@ target_link_options(NUCLEO_L496ZG-P INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
 	"LINKER:--defsym=LD_MAX_SIZE=1048576"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
-  "SHELL:-mfpu=fpv4-sp-d16 "
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
   -mcpu=${NUCLEO_L496ZG-P_MCU}
 )
 
