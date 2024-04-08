@@ -2005,26 +2005,30 @@ HAL_StatusTypeDef HAL_CRYP_Decrypt_DMA(CRYP_HandleTypeDef *hcryp, uint32_t *pInp
   */
 void HAL_CRYP_IRQHandler(CRYP_HandleTypeDef *hcryp)
 {
+  uint32_t itsource   = hcryp->Instance->IER;
+  uint32_t itflagsr   = hcryp->Instance->SR;
+  uint32_t itflagisr  = hcryp->Instance->ISR;
+
   /* Check if Read or write error occurred */
-  if (__HAL_CRYP_GET_IT_SOURCE(hcryp, CRYP_IT_RWEIE) != RESET)
+  if ((itsource & CRYP_IT_RWEIE) != 0U)
   {
     /* If write Error occurred */
-    if (__HAL_CRYP_GET_FLAG(hcryp, CRYP_FLAG_WRERR) != RESET)
+    if ((itflagsr & CRYP_FLAG_WRERR) != 0U)
     {
       hcryp->ErrorCode |= HAL_CRYP_ERROR_WRITE;
       __HAL_CRYP_CLEAR_FLAG(hcryp, CRYP_CLEAR_RWEIF);
     }
     /* If read Error occurred */
-    if (__HAL_CRYP_GET_FLAG(hcryp, CRYP_FLAG_RDERR) != RESET)
+    if ((itflagsr & CRYP_FLAG_RDERR) != 0U)
     {
       hcryp->ErrorCode |= HAL_CRYP_ERROR_READ;
       __HAL_CRYP_CLEAR_FLAG(hcryp, CRYP_CLEAR_RWEIF);
     }
   }
   /* Check if Key error occurred */
-  if (__HAL_CRYP_GET_IT_SOURCE(hcryp, CRYP_IT_KEIE) != RESET)
+  if ((itsource & CRYP_IT_KEIE) != 0U)
   {
-    if (__HAL_CRYP_GET_FLAG(hcryp, CRYP_FLAG_KEIF) != RESET)
+    if ((itflagisr & CRYP_FLAG_KEIF) != 0U)
     {
       hcryp->ErrorCode |= HAL_CRYP_ERROR_KEY;
       __HAL_CRYP_CLEAR_FLAG(hcryp, CRYP_CLEAR_KEIF);
@@ -2033,9 +2037,9 @@ void HAL_CRYP_IRQHandler(CRYP_HandleTypeDef *hcryp)
     }
   }
 
-  if (__HAL_CRYP_GET_FLAG(hcryp, CRYP_FLAG_CCF) != RESET)
+  if ((itflagisr & CRYP_FLAG_CCF) != 0U)
   {
-    if (__HAL_CRYP_GET_IT_SOURCE(hcryp, CRYP_IT_CCFIE) != RESET)
+    if ((itsource & CRYP_IT_CCFIE) != 0U)
     {
       /* Clear computation complete flag */
       __HAL_CRYP_CLEAR_FLAG(hcryp, CRYP_CLEAR_CCF);

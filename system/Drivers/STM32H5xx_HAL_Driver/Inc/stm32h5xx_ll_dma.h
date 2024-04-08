@@ -367,7 +367,7 @@ typedef struct
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
   uint32_t DestSecure;           /*!< This field specify the destination secure.
                                       This parameter can be a value of @ref DMA_LL_EC_DESTINATION_SECURITY_ATTRIBUTE. */
-#endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 
   uint32_t DestAllocatedPort;    /*!< This field specify the destination allocated port.
                                       This parameter can be a value of @ref DMA_LL_EC_DESTINATION_ALLOCATED_PORT.     */
@@ -390,7 +390,7 @@ typedef struct
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
   uint32_t SrcSecure;            /*!< This field specify the source secure.
                                       This parameter can be a value of @ref DMA_LL_EC_SOURCE_SECURITY_ATTRIBUTE.      */
-#endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 
   uint32_t SrcAllocatedPort;     /*!< This field specify the source allocated port.
                                       This parameter can be a value of @ref DMA_LL_EC_SOURCE_ALLOCATED_PORT.          */
@@ -441,7 +441,7 @@ typedef struct
                                       This parameter can be a value of @ref DMA_LL_EC_REQUEST_SELECTION.              */
 
   uint32_t Mode;                  /*!< This field DMA Transfer Mode.
-                                      This parameter can be a value of @ref DMA_Transfer_Mode.                        */
+                                      This parameter can be a value of @ref DMA_LL_TRANSFER_MODE.                     */
 
   /* CBR1 register fields ******************************************************
      If any CBR1 fields need to be updated comparing to previous node, it is
@@ -573,14 +573,14 @@ typedef struct
   */
 typedef struct
 {
-  __IO uint32_t LinkRegisters[8];
+  __IO uint32_t LinkRegisters[8U];
 
 } LL_DMA_LinkNodeTypeDef;
 /**
   * @}
   */
 
-#endif /* defined (USE_FULL_LL_DRIVER) */
+#endif /* USE_FULL_LL_DRIVER */
 
 /* Exported constants --------------------------------------------------------*/
 
@@ -609,7 +609,7 @@ typedef struct
 #define LL_DMA_CHANNEL_15  (0x0FU)
 #if defined (USE_FULL_LL_DRIVER)
 #define LL_DMA_CHANNEL_ALL (0x10U)
-#endif /* defined (USE_FULL_LL_DRIVER) */
+#endif /* USE_FULL_LL_DRIVER */
 /**
   * @}
   */
@@ -629,7 +629,7 @@ typedef struct
 /**
   * @}
   */
-#endif /* defined (USE_FULL_LL_DRIVER) */
+#endif /* USE_FULL_LL_DRIVER */
 
 /** @defgroup DMA_LL_EC_PRIORITY_LEVEL Priority Level
   * @{
@@ -912,7 +912,7 @@ typedef struct
 /**
   * @}
   */
-#endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 
 /** @defgroup DMA_LL_EC_LINKEDLIST_NODE_TYPE Linked list node type
   * @{
@@ -1431,9 +1431,9 @@ typedef struct
 #if defined (COMP1)
 #define LL_GPDMA1_TRIGGER_COMP1_OUT           44U      /*!< GPDMA1 HW Trigger signal is COMP1_OUT          */
 #endif /* COMP1 */
-#if defined (STM32H503xx)
-#define LL_GPDMA1_TRIGGER_EVENTOUT            45U      /*!< GPDMA1 HW Trigger signal is COMP1_OUT          */
-#endif /* STM32H503xx */
+#if defined (STM32H503xx) || defined(STM32H523xx) || defined(STM32H533xx)
+#define LL_GPDMA1_TRIGGER_EVENTOUT            45U      /*!< GPDMA1 HW Trigger signal is EVENTOUT           */
+#endif /* STM32H503xx || STM32H523xx || STM32H533xx */
 
 /* GPDMA2 Hardware Triggers */
 #define LL_GPDMA2_TRIGGER_EXTI_LINE0          0U       /*!< GPDMA2 HW Trigger signal is EXTI_LINE0         */
@@ -1495,9 +1495,9 @@ typedef struct
 #if defined (COMP1)
 #define LL_GPDMA2_TRIGGER_COMP1_OUT           44U      /*!< GPDMA2 HW Trigger signal is COMP1_OUT          */
 #endif /* COMP1 */
-#if defined (STM32H503xx)
-#define LL_GPDMA2_TRIGGER_EVENTOUT            45U      /*!< GPDMA2 HW Trigger signal is COMP1_OUT          */
-#endif /* STM32H503xx */
+#if defined (STM32H503xx) || defined(STM32H523xx) || defined(STM32H533xx)
+#define LL_GPDMA2_TRIGGER_EVENTOUT            45U      /*!< GPDMA2 HW Trigger signal is EVENTOUT           */
+#endif /* STM32H503xx || STM32H523xx || STM32H533xx */
 /**
   * @}
   */
@@ -2109,7 +2109,7 @@ __STATIC_INLINE void LL_DMA_ConfigChannelSecure(DMA_TypeDef *DMAx, uint32_t Chan
   uint32_t dma_base_addr = (uint32_t)DMAx;
   MODIFY_REG(DMAx->SECCFGR, (DMA_SECCFGR_SEC0 << Channel), ((Configuration & LL_DMA_CHANNEL_SEC) << Channel));
   MODIFY_REG(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CTR1,
-             (DMA_CTR1_DSEC | DMA_CTR1_DSEC), (Configuration & (~LL_DMA_CHANNEL_SEC)));
+             (DMA_CTR1_SSEC | DMA_CTR1_DSEC), (Configuration & (~LL_DMA_CHANNEL_SEC)));
 }
 
 /**
@@ -2155,7 +2155,9 @@ __STATIC_INLINE void LL_DMA_DisableChannelDestSecure(const DMA_TypeDef *DMAx, ui
   uint32_t dma_base_addr = (uint32_t)DMAx;
   CLEAR_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CTR1, DMA_CTR1_DSEC);
 }
+#endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 
+#if defined (DMA_SECCFGR_SEC0)
 /**
   * @brief Check security attribute of the DMA transfer to the destination.
   * @note  This API is used for all available DMA channels.
@@ -2178,7 +2180,9 @@ __STATIC_INLINE uint32_t LL_DMA_IsEnabledChannelDestSecure(const DMA_TypeDef *DM
   return ((READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CTR1, DMA_CTR1_DSEC)
            == (DMA_CTR1_DSEC)) ? 1UL : 0UL);
 }
+#endif /* DMA_SECCFGR_SEC0 */
 
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 /**
   * @brief Enable security attribute of the DMA transfer from the source.
   * @note  This API is used for all available DMA channels.
@@ -2222,7 +2226,9 @@ __STATIC_INLINE void LL_DMA_DisableChannelSrcSecure(const DMA_TypeDef *DMAx, uin
   uint32_t dma_base_addr = (uint32_t)DMAx;
   CLEAR_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CTR1, DMA_CTR1_SSEC);
 }
+#endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 
+#if defined (DMA_SECCFGR_SEC0)
 /**
   * @brief Check security attribute of the DMA transfer from the source.
   * @note  This API is used for all available DMA channels.
@@ -2245,7 +2251,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsEnabledChannelSrcSecure(const DMA_TypeDef *DMA
   return ((READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CTR1, DMA_CTR1_SSEC)
            == (DMA_CTR1_SSEC)) ? 1UL : 0UL);
 }
-#endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#endif /* DMA_SECCFGR_SEC0 */
 
 /**
   * @brief Set destination allocated port.
@@ -2839,7 +2845,8 @@ __STATIC_INLINE uint32_t LL_DMA_GetSrcDataWidth(const DMA_TypeDef *DMAx, uint32_
   *         CTR2        TRIGM              LL_DMA_ConfigChannelTransfer\n
   *         CTR2        BREQ               LL_DMA_ConfigChannelTransfer\n
   *         CTR2        DREQ               LL_DMA_ConfigChannelTransfer\n
-  *         CTR2        SWREQ              LL_DMA_ConfigChannelTransfer
+  *         CTR2        SWREQ              LL_DMA_ConfigChannelTransfer\n
+  *         CTR2        PFREQ              LL_DMA_ConfigChannelTransfer
   * @param  DMAx DMAx Instance
   * @param  Channel This parameter can be one of the following values:
   *         @arg @ref LL_DMA_CHANNEL_0
@@ -2853,13 +2860,14 @@ __STATIC_INLINE uint32_t LL_DMA_GetSrcDataWidth(const DMA_TypeDef *DMAx, uint32_
   * @param  Configuration This parameter must be a combination of all the following values:
   *         @arg @ref LL_DMA_TCEM_BLK_TRANSFER          or @ref LL_DMA_TCEM_RPT_BLK_TRANSFER      or
   *              @ref LL_DMA_TCEM_EACH_LLITEM_TRANSFER  or @ref LL_DMA_TCEM_LAST_LLITEM_TRANSFER
-  *         @arg @ref LL_DMA_TRIG_POLARITY_MASKED       or @ref LL_DMA_HWREQUEST_BLK
-  *         @arg @ref LL_DMA_HWREQUEST_SINGLEBURST      or @ref LL_DMA_TRIG_POLARITY_RISING       or
+  *         @arg @ref LL_DMA_HWREQUEST_SINGLEBURST      or @ref LL_DMA_HWREQUEST_BLK
+  *         @arg @ref LL_DMA_TRIG_POLARITY_MASKED       or @ref LL_DMA_TRIG_POLARITY_RISING       or
   *              @ref LL_DMA_TRIG_POLARITY_FALLING
   *         @arg @ref LL_DMA_TRIGM_BLK_TRANSFER         or @ref LL_DMA_TRIGM_RPT_BLK_TRANSFER     or
   *              @ref LL_DMA_TRIGM_LLI_LINK_TRANSFER    or @ref LL_DMA_TRIGM_SINGLBURST_TRANSFER
   *         @arg @ref LL_DMA_DIRECTION_PERIPH_TO_MEMORY or @ref LL_DMA_DIRECTION_MEMORY_TO_PERIPH or
   *              @ref LL_DMA_DIRECTION_MEMORY_TO_MEMORY
+  *         @arg @ref LL_DMA_NORMAL                     or @ref LL_DMA_PFCTRL
   *@retval None.
   */
 __STATIC_INLINE void LL_DMA_ConfigChannelTransfer(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t Configuration)
@@ -4079,7 +4087,7 @@ __STATIC_INLINE void LL_DMA_ConfigBlkRptAddrUpdate(const DMA_TypeDef *DMAx, uint
   * @param  BlkDataLength Block transfer length
                           Value between 0 to 0x0000FFFF
   * @param  BlkRptCount Block repeat counter
-  *                     Value between 0 to 0x00000EFF
+  *                     Value between 0 to 0x000007FF
   *@retval None.
   */
 __STATIC_INLINE void LL_DMA_ConfigBlkCounters(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t BlkDataLength,
@@ -4253,7 +4261,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetSrcAddrUpdate(const DMA_TypeDef *DMAx, uint32
   *         @arg @ref LL_DMA_CHANNEL_6
   *         @arg @ref LL_DMA_CHANNEL_7
   * @param  BlkRptCount Block repeat counter
-  *                     Value between 0 to 0x00000EFF
+  *                     Value between 0 to 0x000007FF
   * @retval None.
   */
 __STATIC_INLINE void LL_DMA_SetBlkRptCount(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t BlkRptCount)
@@ -4271,7 +4279,7 @@ __STATIC_INLINE void LL_DMA_SetBlkRptCount(const DMA_TypeDef *DMAx, uint32_t Cha
   * @param  Channel This parameter can be one of the following values:
   *         @arg @ref LL_DMA_CHANNEL_6
   *         @arg @ref LL_DMA_CHANNEL_7
-  * @retval Between 0 to 0x00000EFF
+  * @retval Between 0 to 0x000007FF
   */
 __STATIC_INLINE uint32_t LL_DMA_GetBlkRptCount(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
@@ -4659,7 +4667,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetBlkRptSrcAddrUpdateValue(const DMA_TypeDef *D
   *         @arg @ref LL_DMA_UPDATE_CTR3  (This value is allowed only for 2D addressing channels)
   *         @arg @ref LL_DMA_UPDATE_CBR2  (This value is allowed only for 2D addressing channels)
   *         @arg @ref LL_DMA_UPDATE_CLLR
-  * @param  LinkedListAddrOffset Between 0 to 0x0000FFFC
+  * @param  LinkedListAddrOffset Between 0 to 0x0000FFFC by increment of 4 Bytes.
   * @retval None.
   */
 __STATIC_INLINE void LL_DMA_ConfigLinkUpdate(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t RegistersUpdate,
@@ -5185,7 +5193,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsEnabledCLLRUpdate(const DMA_TypeDef *DMAx, uin
   *         @arg @ref LL_DMA_CHANNEL_5
   *         @arg @ref LL_DMA_CHANNEL_6
   *         @arg @ref LL_DMA_CHANNEL_7
-  * @param  LinkedListAddrOffset Between 0 to 0x0000FFFC
+  * @param  LinkedListAddrOffset Between 0 to 0x0000FFFC by increment of 4 Bytes.
   * @retval None.
   */
 __STATIC_INLINE void LL_DMA_SetLinkedListAddrOffset(const DMA_TypeDef *DMAx, uint32_t Channel,
@@ -5283,7 +5291,9 @@ __STATIC_INLINE void LL_DMA_DisableChannelSecure(DMA_TypeDef *DMAx, uint32_t Cha
 {
   CLEAR_BIT(DMAx->SECCFGR, (DMA_SECCFGR_SEC0 << (Channel & 0x0000000FU)));
 }
+#endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 
+#if defined (DMA_SECCFGR_SEC0)
 /**
   * @brief Check if DMA channel secure is enabled.
   * @note  This API is used for all available DMA channels.
@@ -5305,7 +5315,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsEnabledChannelSecure(const DMA_TypeDef *DMAx, 
   return ((READ_BIT(DMAx->SECCFGR, (DMA_SECCFGR_SEC0 << (Channel & 0x0000000FU)))
            == (DMA_SECCFGR_SEC0 << (Channel & 0x0000000FU))) ? 1UL : 0UL);
 }
-#endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#endif /* DMA_SECCFGR_SEC0 */
 
 /**
   * @brief Enable the DMA channel privilege attribute.
@@ -5392,7 +5402,7 @@ __STATIC_INLINE void LL_DMA_EnableChannelLockAttribute(DMA_TypeDef *DMAx, uint32
 {
   SET_BIT(DMAx->RCFGLOCKR, (DMA_RCFGLOCKR_LOCK0 << (Channel & 0x0000000FU)));
 }
-#endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 
 #if defined (DMA_RCFGLOCKR_LOCK0)
 /**
@@ -5417,7 +5427,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsEnabledChannelLockAttribute(const DMA_TypeDef 
            == (DMA_RCFGLOCKR_LOCK0 << (Channel & 0x0000000FU))) ? 1UL : 0UL);
 }
 
-#endif /* defined (DMA_RCFGLOCKR_LOCK0) */
+#endif /* DMA_RCFGLOCKR_LOCK0 */
 /**
   * @}
   */
@@ -5808,7 +5818,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_SMIS(const DMA_TypeDef *DMAx, uint3
   return ((READ_BIT(DMAx->SMISR, (DMA_SMISR_MIS0 << (Channel & 0x0000000FU)))
            == (DMA_SMISR_MIS0 << (Channel & 0x0000000FU))) ? 1UL : 0UL);
 }
-#endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 /**
   * @}
   */
@@ -6311,7 +6321,7 @@ void     LL_DMA_DisconnectNextLinkNode(LL_DMA_LinkNodeTypeDef *pLinkNode, uint32
 /**
   * @}
   */
-#endif /* defined (USE_FULL_LL_DRIVER) */
+#endif /* USE_FULL_LL_DRIVER */
 
 /**
   * @}
@@ -6321,7 +6331,7 @@ void     LL_DMA_DisconnectNextLinkNode(LL_DMA_LinkNodeTypeDef *pLinkNode, uint32
   * @}
   */
 
-#endif /* defined (GPDMA1) */
+#endif /* GPDMA1 */
 
 /**
   * @}

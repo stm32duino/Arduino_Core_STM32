@@ -134,33 +134,42 @@
 #define GTZC_TZSC_MPCWM4_SDRAM_MEM_SIZE   0x10000000U    /* 256MB max size */
 #endif /* defined(FMC_SDRAM_BANK_2) */
 
-/* Definitions for GTZC TZSC & TZIC ALL register values */
-#if defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
-#define TZSC1_SECCFGR1_ALL       (0xFFFFFFFFUL)
-#define TZSC1_SECCFGR2_ALL       (0xFF0FFF07UL)
-#define TZSC1_SECCFGR3_ALL       (0x05FFFF03UL)
-#endif /* defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
-
-#if defined (GTZC_TZIC1)
-#define TZSC1_PRIVCFGR1_ALL      (0xFFFFFFFFUL)
-#define TZSC1_PRIVCFGR2_ALL      (0xFF0FFF07UL)
-#define TZSC1_PRIVCFGR3_ALL      (0x05FFFF03UL)
+/* Definitions for GTZC TZSC & TZIC Crypto peripherals */
+#if defined(STM32H573xx) || defined(STM32H533xx)
+#define GTZC_CRYP_CFG3_MSK               0x00190000U
+#define GTZC_CRYP_CFG4_MSK               0x00000010U
 #else
-#define TZSC1_PRIVCFGR1_ALL      (0xC21E7E33UL)
-#define TZSC1_PRIVCFGR2_ALL      (0x12080B19UL)
-#define TZSC1_PRIVCFGR3_ALL      (0x04065106UL)
-#endif /* defined (GTZC_TZIC1) */
+#define GTZC_CRYP_CFG3_MSK               0U
+#define GTZC_CRYP_CFG4_MSK               0U
+#endif /* defined(STM32H573xx) || defined(STM32H533xx) */
+
+/* Definitions for GTZC TZSC & TZIC ALL register values */
+#if defined(STM32H573xx) || defined(STM32H563xx)
+#define GTZC_CFGR1_MSK                   0xFFFFFFFFU
+#define GTZC_CFGR2_MSK                   0xFF0FFF07U
+#define GTZC_CFGR3_MSK                   (0x05E6FF03U | GTZC_CRYP_CFG3_MSK)
+#define GTZC_CFGR4_MSK                   (0x3F1F0FDFU | GTZC_CRYP_CFG4_MSK)
+#elif defined(STM32H533xx) || defined(STM32H523xx)
+#define GTZC_CFGR1_MSK                   0xC33FFE7FU
+#define GTZC_CFGR2_MSK                   0x16089F07U
+#define GTZC_CFGR3_MSK                   (0x05A6F106U | GTZC_CRYP_CFG3_MSK)
+#define GTZC_CFGR4_MSK                   (0x3F1F0FDFU | GTZC_CRYP_CFG4_MSK)
+#elif defined(STM32H562xx)
+#define GTZC_CFGR1_MSK                   0xFFFFFFFFU
+#define GTZC_CFGR2_MSK                   0xFF0FFF05U
+#define GTZC_CFGR3_MSK                   0x05A6FF03U
+#define GTZC_CFGR4_MSK                   0x3F1F0FDFU
+#elif defined(STM32H503xx)
+#define GTZC_CFGR1_MSK                   0xC21E7E33U
+#define GTZC_CFGR2_MSK                   0x12080B19U
+#define GTZC_CFGR3_MSK                   0x04065104U
+#define GTZC_CFGR4_MSK                   0x00000000U
+#endif /* (STM32H533xx) || defined(STM32H523xx) */
 
 #if defined (GTZC_TZIC1)
-#define TZIC1_IER1_ALL           (0xFFFFFFFFUL)
-#define TZIC1_IER2_ALL           (0xFF0FFF07UL)
-#define TZIC1_IER3_ALL           (0x05FFFF03UL)
-#define TZIC1_IER4_ALL           (0x3F3F0FFFUL)
-
-#define TZIC1_FCR1_ALL           (0xFFFFFFFFUL)
-#define TZIC1_FCR2_ALL           (0xFF0FFF07UL)
-#define TZIC1_FCR3_ALL           (0x05FFFF03UL)
-#define TZIC1_FCR4_ALL           (0x3F3F0FFFUL)
+#define GTZC_SEC_PRIV_MSK       (GTZC_TZSC_PERIPH_PRIV | GTZC_TZSC_PERIPH_SEC)
+#else
+#define GTZC_SEC_PRIV_MSK       GTZC_TZSC_PERIPH_PRIV
 #endif /* defined (GTZC_TZIC1) */
 /**
   * @}
@@ -189,6 +198,15 @@
 #define GTZC_BASE_ADDRESS(mem)\
   ( mem ## _BASE )
 
+#if defined(GTZC_MPCBB_CR_INVSECSTATE_Pos)
+#define MPCBB_PARAMETERS_CHECK()                                                \
+  ((pMPCBB_desc->SecureRWIllegalMode != GTZC_MPCBB_SRWILADIS_ENABLE)            \
+   && (pMPCBB_desc->SecureRWIllegalMode != GTZC_MPCBB_SRWILADIS_DISABLE))       \
+  || ((pMPCBB_desc->InvertSecureState != GTZC_MPCBB_INVSECSTATE_NOT_INVERTED)   \
+      && (pMPCBB_desc->InvertSecureState != GTZC_MPCBB_INVSECSTATE_INVERTED))
+#else
+#define MPCBB_PARAMETERS_CHECK() (0U == 1U)
+#endif /* defined(GTZC_MPCBB_CR_INVSECSTATE_Pos) */
 /**
   * @}
   */
@@ -235,17 +253,10 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_ConfigPeriphAttributes(uint32_t PeriphId,
   uint32_t register_address;
 
   /* check entry parameters */
-#if defined (GTZC_TZIC1)
-  if ((PeriphAttributes > (GTZC_TZSC_PERIPH_SEC | GTZC_TZSC_PERIPH_PRIV))
+  if (((PeriphAttributes & ~(GTZC_SEC_PRIV_MSK)) != 0U)
       || (HAL_GTZC_GET_ARRAY_INDEX(PeriphId) >= GTZC_TZSC_PERIPH_NUMBER)
       || (((PeriphId & GTZC_PERIPH_ALL) != 0U)
           && (HAL_GTZC_GET_ARRAY_INDEX(PeriphId) != 0U)))
-#else
-  if ((PeriphAttributes > GTZC_TZSC_PERIPH_PRIV)
-      || (HAL_GTZC_GET_ARRAY_INDEX(PeriphId) >= GTZC_TZSC_PERIPH_NUMBER)
-      || (((PeriphId & GTZC_PERIPH_ALL) != 0U)
-          && (HAL_GTZC_GET_ARRAY_INDEX(PeriphId) != 0U)))
-#endif /* defined (GTZC_TZIC1) */
   {
     return HAL_ERROR;
   }
@@ -258,15 +269,15 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_ConfigPeriphAttributes(uint32_t PeriphId,
     /* secure configuration */
     if ((PeriphAttributes & GTZC_TZSC_PERIPH_SEC) == GTZC_TZSC_PERIPH_SEC)
     {
-      SET_BIT(GTZC_TZSC1->SECCFGR1, TZSC1_SECCFGR1_ALL);
-      SET_BIT(GTZC_TZSC1->SECCFGR2, TZSC1_SECCFGR2_ALL);
-      SET_BIT(GTZC_TZSC1->SECCFGR3, TZSC1_SECCFGR3_ALL);
+      SET_BIT(GTZC_TZSC1->SECCFGR1, GTZC_CFGR1_MSK);
+      SET_BIT(GTZC_TZSC1->SECCFGR2, GTZC_CFGR2_MSK);
+      SET_BIT(GTZC_TZSC1->SECCFGR3, GTZC_CFGR3_MSK);
     }
     else if ((PeriphAttributes & GTZC_TZSC_PERIPH_NSEC) == GTZC_TZSC_PERIPH_NSEC)
     {
-      CLEAR_BIT(GTZC_TZSC1->SECCFGR1, TZSC1_SECCFGR1_ALL);
-      CLEAR_BIT(GTZC_TZSC1->SECCFGR2, TZSC1_SECCFGR2_ALL);
-      CLEAR_BIT(GTZC_TZSC1->SECCFGR3, TZSC1_SECCFGR3_ALL);
+      CLEAR_BIT(GTZC_TZSC1->SECCFGR1, GTZC_CFGR1_MSK);
+      CLEAR_BIT(GTZC_TZSC1->SECCFGR2, GTZC_CFGR2_MSK);
+      CLEAR_BIT(GTZC_TZSC1->SECCFGR3, GTZC_CFGR3_MSK);
     }
     else
     {
@@ -277,15 +288,15 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_ConfigPeriphAttributes(uint32_t PeriphId,
     /* privilege configuration */
     if ((PeriphAttributes & GTZC_TZSC_PERIPH_PRIV) == GTZC_TZSC_PERIPH_PRIV)
     {
-      SET_BIT(GTZC_TZSC1->PRIVCFGR1, TZSC1_PRIVCFGR1_ALL);
-      SET_BIT(GTZC_TZSC1->PRIVCFGR2, TZSC1_PRIVCFGR2_ALL);
-      SET_BIT(GTZC_TZSC1->PRIVCFGR3, TZSC1_PRIVCFGR3_ALL);
+      SET_BIT(GTZC_TZSC1->PRIVCFGR1, GTZC_CFGR1_MSK);
+      SET_BIT(GTZC_TZSC1->PRIVCFGR2, GTZC_CFGR2_MSK);
+      SET_BIT(GTZC_TZSC1->PRIVCFGR3, GTZC_CFGR3_MSK);
     }
     else if ((PeriphAttributes & GTZC_TZSC_PERIPH_NPRIV) == GTZC_TZSC_PERIPH_NPRIV)
     {
-      CLEAR_BIT(GTZC_TZSC1->PRIVCFGR1, TZSC1_PRIVCFGR1_ALL);
-      CLEAR_BIT(GTZC_TZSC1->PRIVCFGR2, TZSC1_PRIVCFGR2_ALL);
-      CLEAR_BIT(GTZC_TZSC1->PRIVCFGR3, TZSC1_PRIVCFGR3_ALL);
+      CLEAR_BIT(GTZC_TZSC1->PRIVCFGR1, GTZC_CFGR1_MSK);
+      CLEAR_BIT(GTZC_TZSC1->PRIVCFGR2, GTZC_CFGR2_MSK);
+      CLEAR_BIT(GTZC_TZSC1->PRIVCFGR3, GTZC_CFGR3_MSK);
     }
     else
     {
@@ -363,6 +374,47 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_GetConfigPeriphAttributes(uint32_t PeriphId,
 
   if ((PeriphId & GTZC_PERIPH_ALL) != 0U)
   {
+    /* get privilege configuration: read each register and deploy each bit value
+     * of corresponding index in the destination array
+     */
+    reg_value = READ_REG(GTZC_TZSC1->PRIVCFGR1);
+    for (i = 0U; i < 32U; i++)
+    {
+      if (((reg_value & (1UL << i)) >> i) != 0U)
+      {
+        PeriphAttributes[i] = GTZC_TZSC_PERIPH_PRIV;
+      }
+      else
+      {
+        PeriphAttributes[i] = GTZC_TZSC_PERIPH_NPRIV;
+      }
+    }
+
+    reg_value = READ_REG(GTZC_TZSC1->PRIVCFGR2);
+    for (i = 32U; i < 64U; i++)
+    {
+      if (((reg_value & (1UL << (i - 32U))) >> (i - 32U)) != 0U)
+      {
+        PeriphAttributes[i] = GTZC_TZSC_PERIPH_PRIV;
+      }
+      else
+      {
+        PeriphAttributes[i] = GTZC_TZSC_PERIPH_NPRIV;
+      }
+    }
+
+    reg_value = READ_REG(GTZC_TZSC1->PRIVCFGR3);
+    for (i = 64U; i < GTZC_TZSC_PERIPH_NUMBER; i++)
+    {
+      if (((reg_value & (1UL << (i - 64U))) >> (i - 64U)) != 0U)
+      {
+        PeriphAttributes[i] = GTZC_TZSC_PERIPH_PRIV;
+      }
+      else
+      {
+        PeriphAttributes[i] = GTZC_TZSC_PERIPH_NPRIV;
+      }
+    }
 #if defined (GTZC_TZIC1)
     /* get secure configuration: read each register and deploy each bit value
      * of corresponding index in the destination array
@@ -372,11 +424,11 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_GetConfigPeriphAttributes(uint32_t PeriphId,
     {
       if (((reg_value & (1UL << i)) >> i) != 0U)
       {
-        PeriphAttributes[i] = GTZC_TZSC_PERIPH_SEC;
+        PeriphAttributes[i] |= GTZC_TZSC_PERIPH_SEC;
       }
       else
       {
-        PeriphAttributes[i] = GTZC_TZSC_PERIPH_NSEC;
+        PeriphAttributes[i] |= GTZC_TZSC_PERIPH_NSEC;
       }
     }
 
@@ -385,11 +437,11 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_GetConfigPeriphAttributes(uint32_t PeriphId,
     {
       if (((reg_value & (1UL << (i - 32U))) >> (i - 32U)) != 0U)
       {
-        PeriphAttributes[i] = GTZC_TZSC_PERIPH_SEC;
+        PeriphAttributes[i] |= GTZC_TZSC_PERIPH_SEC;
       }
       else
       {
-        PeriphAttributes[i] = GTZC_TZSC_PERIPH_NSEC;
+        PeriphAttributes[i] |= GTZC_TZSC_PERIPH_NSEC;
       }
     }
 
@@ -398,60 +450,34 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_GetConfigPeriphAttributes(uint32_t PeriphId,
     {
       if (((reg_value & (1UL << (i - 64U))) >> (i - 64U)) != 0U)
       {
-        PeriphAttributes[i] = GTZC_TZSC_PERIPH_SEC;
+        PeriphAttributes[i] |= GTZC_TZSC_PERIPH_SEC;
       }
       else
       {
-        PeriphAttributes[i] = GTZC_TZSC_PERIPH_NSEC;
+        PeriphAttributes[i] |= GTZC_TZSC_PERIPH_NSEC;
       }
     }
+
 #endif /* defined (GTZC_TZIC1) */
-
-    /* get privilege configuration: read each register and deploy each bit value
-     * of corresponding index in the destination array
-     */
-    reg_value = READ_REG(GTZC_TZSC1->PRIVCFGR1);
-    for (i = 0U; i < 32U; i++)
-    {
-      if (((reg_value & (1UL << i)) >> i) != 0U)
-      {
-        PeriphAttributes[i] |= GTZC_TZSC_PERIPH_PRIV;
-      }
-      else
-      {
-        PeriphAttributes[i] |= GTZC_TZSC_PERIPH_NPRIV;
-      }
-    }
-
-    reg_value = READ_REG(GTZC_TZSC1->PRIVCFGR2);
-    for (i = 32U; i < 64U; i++)
-    {
-      if (((reg_value & (1UL << (i - 32U))) >> (i - 32U)) != 0U)
-      {
-        PeriphAttributes[i] |= GTZC_TZSC_PERIPH_PRIV;
-      }
-      else
-      {
-        PeriphAttributes[i] |= GTZC_TZSC_PERIPH_NPRIV;
-      }
-    }
-
-    reg_value = READ_REG(GTZC_TZSC1->PRIVCFGR3);
-    for (i = 64U; i < GTZC_TZSC_PERIPH_NUMBER; i++)
-    {
-      if (((reg_value & (1UL << (i - 64U))) >> (i - 64U)) != 0U)
-      {
-        PeriphAttributes[i] |= GTZC_TZSC_PERIPH_PRIV;
-      }
-      else
-      {
-        PeriphAttributes[i] |= GTZC_TZSC_PERIPH_NPRIV;
-      }
-    }
   }
   else
   {
-    /* common case where only one peripheral is configured */
+    /* privilege configuration */
+    register_address = (uint32_t) &(GTZC_TZSC1->PRIVCFGR1)
+                        + (4U * GTZC_GET_REG_INDEX(PeriphId));
+
+    if (((READ_BIT(*(__IO uint32_t *)register_address,
+                    1UL << GTZC_GET_PERIPH_POS(PeriphId))) >> GTZC_GET_PERIPH_POS(PeriphId))
+        != 0U)
+    {
+      *PeriphAttributes = GTZC_TZSC_PERIPH_PRIV;
+    }
+    else
+    {
+      *PeriphAttributes = GTZC_TZSC_PERIPH_NPRIV;
+    }
+
+  /* common case where only one peripheral is configured */
 #if defined (GTZC_TZIC1)
     /* secure configuration */
     register_address = (uint32_t) &(GTZC_TZSC1->SECCFGR1)
@@ -461,28 +487,13 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_GetConfigPeriphAttributes(uint32_t PeriphId,
                    1UL << GTZC_GET_PERIPH_POS(PeriphId))) >> GTZC_GET_PERIPH_POS(PeriphId))
         != 0U)
     {
-      *PeriphAttributes = GTZC_TZSC_PERIPH_SEC;
+      *PeriphAttributes |= GTZC_TZSC_PERIPH_SEC;
     }
     else
     {
-      *PeriphAttributes = GTZC_TZSC_PERIPH_NSEC;
+      *PeriphAttributes |= GTZC_TZSC_PERIPH_NSEC;
     }
 #endif /* defined (GTZC_TZIC1) */
-
-    /* privilege configuration */
-    register_address = (uint32_t) &(GTZC_TZSC1->PRIVCFGR1)
-                       + (4U * GTZC_GET_REG_INDEX(PeriphId));
-
-    if (((READ_BIT(*(__IO uint32_t *)register_address,
-                   1UL << GTZC_GET_PERIPH_POS(PeriphId))) >> GTZC_GET_PERIPH_POS(PeriphId))
-        != 0U)
-    {
-      *PeriphAttributes |= GTZC_TZSC_PERIPH_PRIV;
-    }
-    else
-    {
-      *PeriphAttributes |= GTZC_TZSC_PERIPH_NPRIV;
-    }
   }
   return HAL_OK;
 }
@@ -834,17 +845,11 @@ HAL_StatusTypeDef HAL_GTZC_MPCBB_ConfigMem(uint32_t MemBaseAddress,
   if ((!(IS_GTZC_BASE_ADDRESS(SRAM1, MemBaseAddress))
        &&  !(IS_GTZC_BASE_ADDRESS(SRAM2, MemBaseAddress))
        &&  !(IS_GTZC_BASE_ADDRESS(SRAM3, MemBaseAddress)))
-      || ((pMPCBB_desc->SecureRWIllegalMode != GTZC_MPCBB_SRWILADIS_ENABLE)
-          && (pMPCBB_desc->SecureRWIllegalMode != GTZC_MPCBB_SRWILADIS_DISABLE))
-      || ((pMPCBB_desc->InvertSecureState != GTZC_MPCBB_INVSECSTATE_NOT_INVERTED)
-          && (pMPCBB_desc->InvertSecureState != GTZC_MPCBB_INVSECSTATE_INVERTED)))
+      ||  MPCBB_PARAMETERS_CHECK())
 #else
   if ((!(IS_GTZC_BASE_ADDRESS(SRAM1, MemBaseAddress))
        &&  !(IS_GTZC_BASE_ADDRESS(SRAM2, MemBaseAddress)))
-      || ((pMPCBB_desc->SecureRWIllegalMode != GTZC_MPCBB_SRWILADIS_ENABLE)
-          && (pMPCBB_desc->SecureRWIllegalMode != GTZC_MPCBB_SRWILADIS_DISABLE))
-      || ((pMPCBB_desc->InvertSecureState != GTZC_MPCBB_INVSECSTATE_NOT_INVERTED)
-          && (pMPCBB_desc->InvertSecureState != GTZC_MPCBB_INVSECSTATE_INVERTED)))
+      ||  MPCBB_PARAMETERS_CHECK())
 #endif /* defined (GTZC_MPCBB3) */
   {
     return HAL_ERROR;
@@ -1569,10 +1574,10 @@ HAL_StatusTypeDef HAL_GTZC_TZIC_EnableIT(uint32_t PeriphId)
   if ((PeriphId & GTZC_PERIPH_ALL) != 0U)
   {
     /* same configuration is applied to all peripherals */
-    WRITE_REG(GTZC_TZIC1->IER1, TZIC1_IER1_ALL);
-    WRITE_REG(GTZC_TZIC1->IER2, TZIC1_IER2_ALL);
-    WRITE_REG(GTZC_TZIC1->IER3, TZIC1_IER3_ALL);
-    WRITE_REG(GTZC_TZIC1->IER4, TZIC1_IER4_ALL);
+    WRITE_REG(GTZC_TZIC1->IER1, GTZC_CFGR1_MSK);
+    WRITE_REG(GTZC_TZIC1->IER2, GTZC_CFGR2_MSK);
+    WRITE_REG(GTZC_TZIC1->IER3, GTZC_CFGR3_MSK);
+    WRITE_REG(GTZC_TZIC1->IER4, GTZC_CFGR4_MSK);
   }
   else
   {
@@ -1634,7 +1639,7 @@ HAL_StatusTypeDef HAL_GTZC_TZIC_GetFlag(uint32_t PeriphId, uint32_t *pFlag)
     }
 
     reg_value = READ_REG(GTZC_TZIC1->SR4);
-    for (i = 96U; i < 128U; i++)
+    for (i = 96U; i < GTZC_TZIC_PERIPH_NUMBER; i++)
     {
       pFlag[i] = (reg_value & (1UL << (i - 96U))) >> (i - 96U);
     }
@@ -1673,10 +1678,10 @@ HAL_StatusTypeDef HAL_GTZC_TZIC_ClearFlag(uint32_t PeriphId)
   if ((PeriphId & GTZC_PERIPH_ALL) != 0U)
   {
     /* same configuration is applied to all peripherals */
-    WRITE_REG(GTZC_TZIC1->FCR1, TZIC1_FCR1_ALL);
-    WRITE_REG(GTZC_TZIC1->FCR2, TZIC1_FCR2_ALL);
-    WRITE_REG(GTZC_TZIC1->FCR3, TZIC1_FCR3_ALL);
-    WRITE_REG(GTZC_TZIC1->FCR4, TZIC1_FCR4_ALL);
+    WRITE_REG(GTZC_TZIC1->FCR1, GTZC_CFGR1_MSK);
+    WRITE_REG(GTZC_TZIC1->FCR2, GTZC_CFGR2_MSK);
+    WRITE_REG(GTZC_TZIC1->FCR3, GTZC_CFGR3_MSK);
+    WRITE_REG(GTZC_TZIC1->FCR4, GTZC_CFGR4_MSK);
   }
   else
   {

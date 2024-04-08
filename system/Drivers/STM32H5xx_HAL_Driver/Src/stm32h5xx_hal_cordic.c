@@ -164,12 +164,12 @@ static void CORDIC_ReadOutDataIncrementPtr(const CORDIC_HandleTypeDef *hcordic, 
 static void CORDIC_DMAInCplt(DMA_HandleTypeDef *hdma);
 static void CORDIC_DMAOutCplt(DMA_HandleTypeDef *hdma);
 static void CORDIC_DMAError(DMA_HandleTypeDef *hdma);
+
 /**
   * @}
   */
 
 /* Exported functions --------------------------------------------------------*/
-
 /** @defgroup CORDIC_Exported_Functions CORDIC Exported Functions
   * @{
   */
@@ -1141,7 +1141,7 @@ void HAL_CORDIC_IRQHandler(CORDIC_HandleTypeDef *hcordic)
         /*Call registered callback*/
         hcordic->CalculateCpltCallback(hcordic);
 #else
-        /*Call legacy weak (surcharged) callback*/
+        /*Call legacy weak callback*/
         HAL_CORDIC_CalculateCpltCallback(hcordic);
 #endif /* USE_HAL_CORDIC_REGISTER_CALLBACKS */
       }
@@ -1282,7 +1282,7 @@ static void CORDIC_DMAInCplt(DMA_HandleTypeDef *hdma)
     /*Call registered callback*/
     hcordic->CalculateCpltCallback(hcordic);
 #else
-    /*Call legacy weak (surcharged) callback*/
+    /*Call legacy weak callback*/
     HAL_CORDIC_CalculateCpltCallback(hcordic);
 #endif /* USE_HAL_CORDIC_REGISTER_CALLBACKS */
   }
@@ -1311,7 +1311,7 @@ static void CORDIC_DMAOutCplt(DMA_HandleTypeDef *hdma)
   /*Call registered callback*/
   hcordic->CalculateCpltCallback(hcordic);
 #else
-  /*Call legacy weak (surcharged) callback*/
+  /*Call legacy weak callback*/
   HAL_CORDIC_CalculateCpltCallback(hcordic);
 #endif /* USE_HAL_CORDIC_REGISTER_CALLBACKS */
 }
@@ -1336,7 +1336,7 @@ static void CORDIC_DMAError(DMA_HandleTypeDef *hdma)
   /*Call registered callback*/
   hcordic->ErrorCallback(hcordic);
 #else
-  /*Call legacy weak (surcharged) callback*/
+  /*Call legacy weak callback*/
   HAL_CORDIC_ErrorCallback(hcordic);
 #endif /* USE_HAL_CORDIC_REGISTER_CALLBACKS */
 }

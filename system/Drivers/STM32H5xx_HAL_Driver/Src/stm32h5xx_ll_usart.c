@@ -375,7 +375,7 @@ ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, const LL_USART_InitTypeDef *USA
 #if defined(UART9)
     else if (USARTx == UART9)
     {
-      periphclk = LL_RCC_GetUSARTClockFreq(LL_RCC_UART9_CLKSOURCE);
+      periphclk = LL_RCC_GetUARTClockFreq(LL_RCC_UART9_CLKSOURCE);
     }
 #endif /* UART9 */
 #if defined(USART10)

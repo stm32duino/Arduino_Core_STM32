@@ -115,6 +115,13 @@
 #define IS_LL_DMA_MODE(__VALUE__)                         (((__VALUE__) == LL_DMA_NORMAL) || \
                                                            ((__VALUE__) == LL_DMA_PFCTRL))
 
+#define IS_LL_DMA_PFREQ_INSTANCE(INSTANCE, Channel)       ((((INSTANCE) == GPDMA1)                && \
+                                                            (((Channel)  == LL_DMA_CHANNEL_0)     || \
+                                                             ((Channel)  == LL_DMA_CHANNEL_7)))   || \
+                                                           (((INSTANCE) == GPDMA2)                && \
+                                                            (((Channel)  == LL_DMA_CHANNEL_0)     || \
+                                                             ((Channel)  == LL_DMA_CHANNEL_7))))
+
 #define IS_LL_DMA_DIRECTION(__VALUE__)                    (((__VALUE__) == LL_DMA_DIRECTION_MEMORY_TO_MEMORY) || \
                                                            ((__VALUE__) == LL_DMA_DIRECTION_PERIPH_TO_MEMORY) || \
                                                            ((__VALUE__) == LL_DMA_DIRECTION_MEMORY_TO_PERIPH))
@@ -229,7 +236,8 @@
 
 #define IS_LL_DMA_CHANNEL_DEST_SEC(__VALUE__)             (((__VALUE__) == LL_DMA_CHANNEL_DEST_NSEC) || \
                                                            ((__VALUE__) == LL_DMA_CHANNEL_DEST_SEC))
-#endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+
+#endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 /**
   * @}
   */
@@ -346,7 +354,7 @@ uint32_t LL_DMA_DeInit(DMA_TypeDef *DMAx, uint32_t Channel)
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
     LL_DMA_DisableChannelSecure(DMAx, Channel);
-#endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
   }
 
   return (uint32_t)status;
@@ -405,6 +413,10 @@ uint32_t LL_DMA_Init(DMA_TypeDef *DMAx, uint32_t Channel, LL_DMA_InitTypeDef *DM
   assert_param(IS_LL_DMA_LINK_BASEADDR(DMA_InitStruct->LinkedListBaseAddr));
   assert_param(IS_LL_DMA_LINK_ADDR_OFFSET(DMA_InitStruct->LinkedListAddrOffset));
   assert_param(IS_LL_DMA_MODE(DMA_InitStruct->Mode));
+  if (DMA_InitStruct->Mode == LL_DMA_PFCTRL)
+  {
+    assert_param(IS_LL_DMA_PFREQ_INSTANCE(DMAx, Channel));
+  }
 
   /* Check DMA instance */
   if (IS_LL_GPDMA_CHANNEL_INSTANCE(DMAx, Channel) != 0U)
@@ -742,7 +754,7 @@ void LL_DMA_NodeStructInit(LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct)
   /* Set DMA_InitNodeStruct fields to default values */
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
   DMA_InitNodeStruct->DestSecure               = LL_DMA_CHANNEL_DEST_NSEC;
-#endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
   DMA_InitNodeStruct->DestAllocatedPort        = LL_DMA_DEST_ALLOCATED_PORT0;
   DMA_InitNodeStruct->DestHWordExchange        = LL_DMA_DEST_HALFWORD_PRESERVE;
   DMA_InitNodeStruct->DestByteExchange         = LL_DMA_DEST_BYTE_PRESERVE;
@@ -751,7 +763,7 @@ void LL_DMA_NodeStructInit(LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct)
   DMA_InitNodeStruct->DestDataWidth            = LL_DMA_DEST_DATAWIDTH_BYTE;
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
   DMA_InitNodeStruct->SrcSecure                = LL_DMA_CHANNEL_SRC_NSEC;
-#endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
   DMA_InitNodeStruct->SrcAllocatedPort         = LL_DMA_SRC_ALLOCATED_PORT0;
   DMA_InitNodeStruct->SrcByteExchange          = LL_DMA_SRC_BYTE_PRESERVE;
   DMA_InitNodeStruct->DataAlignment            = LL_DMA_DATA_ALIGN_ZEROPADD;
@@ -765,6 +777,7 @@ void LL_DMA_NodeStructInit(LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct)
   DMA_InitNodeStruct->BlkHWRequest             = LL_DMA_HWREQUEST_SINGLEBURST;
   DMA_InitNodeStruct->Direction                = LL_DMA_DIRECTION_MEMORY_TO_MEMORY;
   DMA_InitNodeStruct->Request                  = 0x00000000U;
+  DMA_InitNodeStruct->Mode                     = LL_DMA_NORMAL;
   DMA_InitNodeStruct->BlkRptDestAddrUpdateMode = LL_DMA_BLKRPT_DEST_ADDR_INCREMENT;
   DMA_InitNodeStruct->BlkRptSrcAddrUpdateMode  = LL_DMA_BLKRPT_SRC_ADDR_INCREMENT;
   DMA_InitNodeStruct->DestAddrUpdateMode       = LL_DMA_BURST_DEST_ADDR_INCREMENT;
@@ -825,7 +838,7 @@ uint32_t LL_DMA_CreateLinkNode(LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct, LL_DM
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
   assert_param(IS_LL_DMA_CHANNEL_SRC_SEC(DMA_InitNodeStruct->SrcSecure));
   assert_param(IS_LL_DMA_CHANNEL_DEST_SEC(DMA_InitNodeStruct->DestSecure));
-#endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 
   /* Check trigger polarity */
   if (DMA_InitNodeStruct->TriggerPolarity != LL_DMA_TRIG_POLARITY_MASKED)
@@ -888,7 +901,7 @@ uint32_t LL_DMA_CreateLinkNode(LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct, LL_DM
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
     pNode->LinkRegisters[reg_counter] |= (DMA_InitNodeStruct->DestSecure | \
                                           DMA_InitNodeStruct->SrcSecure);
-#endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 
     /* Update CTR1 register fields */
     pNode->LinkRegisters[reg_counter] |= (DMA_InitNodeStruct->DestAllocatedPort                              | \
@@ -1120,10 +1133,10 @@ void LL_DMA_DisconnectNextLinkNode(LL_DMA_LinkNodeTypeDef *pLinkNode, uint32_t L
   * @}
   */
 
-#endif /* defined (GPDMA1) */
+#endif /* GPDMA1 */
 
 /**
   * @}
   */
 
-#endif /* defined (USE_FULL_LL_DRIVER) */
+#endif /* USE_FULL_LL_DRIVER */

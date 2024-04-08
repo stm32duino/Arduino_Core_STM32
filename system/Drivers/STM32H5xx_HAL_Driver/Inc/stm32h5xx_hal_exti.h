@@ -105,48 +105,89 @@ typedef struct
 #define EXTI_LINE_15                        (EXTI_GPIO     | EXTI_REG1 | 0x0FU)
 #define EXTI_LINE_16                        (EXTI_CONFIG   | EXTI_REG1 | 0x10U)
 #define EXTI_LINE_17                        (EXTI_DIRECT   | EXTI_REG1 | 0x11U)
+#if defined(EXTI_IMR1_IM18)
 #define EXTI_LINE_18                        (EXTI_DIRECT   | EXTI_REG1 | 0x12U)
+#endif /* EXTI_IMR1_IM18 */
 #define EXTI_LINE_19                        (EXTI_DIRECT   | EXTI_REG1 | 0x13U)
+#if defined(EXTI_IMR1_IM20)
 #define EXTI_LINE_20                        (EXTI_DIRECT   | EXTI_REG1 | 0x14U)
+#endif /* EXTI_IMR1_IM20 */
 #define EXTI_LINE_21                        (EXTI_DIRECT   | EXTI_REG1 | 0x15U)
 #define EXTI_LINE_22                        (EXTI_DIRECT   | EXTI_REG1 | 0x16U)
+#if defined(EXTI_IMR1_IM23)
 #define EXTI_LINE_23                        (EXTI_DIRECT   | EXTI_REG1 | 0x17U)
+#endif /* EXTI_IMR1_IM23 */
 #define EXTI_LINE_24                        (EXTI_DIRECT   | EXTI_REG1 | 0x18U)
 #define EXTI_LINE_25                        (EXTI_DIRECT   | EXTI_REG1 | 0x19U)
 #define EXTI_LINE_26                        (EXTI_DIRECT   | EXTI_REG1 | 0x1AU)
 #define EXTI_LINE_27                        (EXTI_DIRECT   | EXTI_REG1 | 0x1BU)
 #define EXTI_LINE_28                        (EXTI_DIRECT   | EXTI_REG1 | 0x1CU)
 #define EXTI_LINE_29                        (EXTI_DIRECT   | EXTI_REG1 | 0x1DU)
+#if defined(EXTI_IMR1_IM30)
 #define EXTI_LINE_30                        (EXTI_DIRECT   | EXTI_REG1 | 0x1EU)
+#endif /* EXTI_IMR1_IM30 */
 #define EXTI_LINE_31                        (EXTI_DIRECT   | EXTI_REG1 | 0x1FU)
+#if defined(EXTI_IMR2_IM32)
 #define EXTI_LINE_32                        (EXTI_DIRECT   | EXTI_REG2 | 0x00U)
+#endif /* EXTI_IMR2_IM32 */
+#if defined(EXTI_IMR2_IM33)
 #define EXTI_LINE_33                        (EXTI_DIRECT   | EXTI_REG2 | 0x01U)
+#endif /* EXTI_IMR2_IM33 */
+#if defined(EXTI_IMR2_IM34)
 #define EXTI_LINE_34                        (EXTI_DIRECT   | EXTI_REG2 | 0x02U)
+#endif /* EXTI_IMR2_IM34 */
+#if defined(EXTI_IMR2_IM35)
 #define EXTI_LINE_35                        (EXTI_DIRECT   | EXTI_REG2 | 0x03U)
+#endif /* EXTI_IMR2_IM35 */
+#if defined(EXTI_IMR2_IM36)
 #define EXTI_LINE_36                        (EXTI_DIRECT   | EXTI_REG2 | 0x04U)
+#endif /* EXTI_IMR2_IM36 */
 #define EXTI_LINE_37                        (EXTI_DIRECT   | EXTI_REG2 | 0x05U)
 #define EXTI_LINE_38                        (EXTI_DIRECT   | EXTI_REG2 | 0x06U)
 #define EXTI_LINE_39                        (EXTI_DIRECT   | EXTI_REG2 | 0x07U)
 #define EXTI_LINE_40                        (EXTI_DIRECT   | EXTI_REG2 | 0x08U)
 #define EXTI_LINE_41                        (EXTI_DIRECT   | EXTI_REG2 | 0x09U)
 #define EXTI_LINE_42                        (EXTI_DIRECT   | EXTI_REG2 | 0x0AU)
+#if defined(EXTI_IMR2_IM43)
 #define EXTI_LINE_43                        (EXTI_DIRECT   | EXTI_REG2 | 0x0BU)
+#endif /* EXTI_IMR2_IM43 */
+#if defined(EXTI_IMR2_IM44)
 #define EXTI_LINE_44                        (EXTI_DIRECT   | EXTI_REG2 | 0x0CU)
+#endif /* EXTI_IMR2_IM44 */
+#if defined(EXTI_IMR2_IM45)
+#endif /* EXTI_IMR2_IM45 */
 #define EXTI_LINE_45                        (EXTI_DIRECT   | EXTI_REG2 | 0x0DU)
 #if defined(ETH)
 #define EXTI_LINE_46                        (EXTI_CONFIG   | EXTI_REG2 | 0x0EU)
 #endif /* ETH */
 #define EXTI_LINE_47                        (EXTI_DIRECT   | EXTI_REG2 | 0x0FU)
+#if defined(EXTI_IMR2_IM48)
 #define EXTI_LINE_48                        (EXTI_DIRECT   | EXTI_REG2 | 0x10U)
+#endif /* EXTI_IMR2_IM48 */
 #define EXTI_LINE_49                        (EXTI_DIRECT   | EXTI_REG2 | 0x11U)
 #define EXTI_LINE_50                        (EXTI_CONFIG   | EXTI_REG2 | 0x12U)
+#if defined(EXTI_IMR2_IM51)
 #define EXTI_LINE_51                        (EXTI_DIRECT   | EXTI_REG2 | 0x13U)
+#endif /* EXTI_IMR2_IM51 */
+#if defined(EXTI_IMR2_IM52)
 #define EXTI_LINE_52                        (EXTI_DIRECT   | EXTI_REG2 | 0x14U)
+#endif /* EXTI_IMR2_IM52 */
 #define EXTI_LINE_53                        (EXTI_CONFIG   | EXTI_REG2 | 0x15U)
+#if defined(EXTI_IMR2_IM54)
 #define EXTI_LINE_54                        (EXTI_DIRECT   | EXTI_REG2 | 0x16U)
+#endif /* EXTI_IMR2_IM54 */
+#if defined(EXTI_IMR2_IM55)
 #define EXTI_LINE_55                        (EXTI_DIRECT   | EXTI_REG2 | 0x17U)
+#endif /* EXTI_IMR2_IM55 */
+#if defined(EXTI_IMR2_IM56)
 #define EXTI_LINE_56                        (EXTI_DIRECT   | EXTI_REG2 | 0x18U)
+#endif /* EXTI_IMR2_IM56 */
+#if defined(EXTI_IMR2_IM57)
 #define EXTI_LINE_57                        (EXTI_DIRECT   | EXTI_REG2 | 0x19U)
+#endif /* EXTI_IMR2_IM57 */
+#if defined(EXTI_IMR2_IM58)
+#define EXTI_LINE_58                        (EXTI_DIRECT   | EXTI_REG2 | 0x1AU)
+#endif /* EXTI_IMR2_IM58 */
 
 /**
   * @}
@@ -181,11 +222,19 @@ typedef struct
 #define EXTI_GPIOB                          0x00000001U
 #define EXTI_GPIOC                          0x00000002U
 #define EXTI_GPIOD                          0x00000003U
+#if defined(GPIOE)
 #define EXTI_GPIOE                          0x00000004U
+#endif /* GPIOE */
+#if defined(GPIOF)
 #define EXTI_GPIOF                          0x00000005U
+#endif /* GPIOF */
+#if defined(GPIOG)
 #define EXTI_GPIOG                          0x00000006U
+#endif /* GPIOG */
 #define EXTI_GPIOH                          0x00000007U
+#if defined(GPIOI)
 #define EXTI_GPIOI                          0x00000008U
+#endif /* GPIOI */
 /**
   * @}
   */
@@ -271,7 +320,13 @@ typedef struct
 /**
   * @brief  EXTI Line number
   */
+#if defined(EXTI_IMR2_IM58)
+#define EXTI_LINE_NB                        59U
+#elif defined(EXTI_IMR2_IM57)
 #define EXTI_LINE_NB                        58U
+#else
+#define EXTI_LINE_NB                        54U
+#endif /* EXTI_IMR2_IM58 */
 
 /**
   * @brief  EXTI Mask for secure & privilege attributes
@@ -304,6 +359,7 @@ typedef struct
 
 #define IS_EXTI_CONFIG_LINE(__EXTI_LINE__)   (((__EXTI_LINE__) & EXTI_CONFIG) != 0x00U)
 
+#if defined(GPIOI)
 #define IS_EXTI_GPIO_PORT(__PORT__)     (((__PORT__) == EXTI_GPIOA) || \
                                          ((__PORT__) == EXTI_GPIOB) || \
                                          ((__PORT__) == EXTI_GPIOC) || \
@@ -313,6 +369,22 @@ typedef struct
                                          ((__PORT__) == EXTI_GPIOG) || \
                                          ((__PORT__) == EXTI_GPIOH) || \
                                          ((__PORT__) == EXTI_GPIOI))
+#elif defined(GPIOE)
+#define IS_EXTI_GPIO_PORT(__PORT__)     (((__PORT__) == EXTI_GPIOA) || \
+                                         ((__PORT__) == EXTI_GPIOB) || \
+                                         ((__PORT__) == EXTI_GPIOC) || \
+                                         ((__PORT__) == EXTI_GPIOD) || \
+                                         ((__PORT__) == EXTI_GPIOE) || \
+                                         ((__PORT__) == EXTI_GPIOF) || \
+                                         ((__PORT__) == EXTI_GPIOG) || \
+                                         ((__PORT__) == EXTI_GPIOH))
+#else
+#define IS_EXTI_GPIO_PORT(__PORT__)     (((__PORT__) == EXTI_GPIOA) || \
+                                         ((__PORT__) == EXTI_GPIOB) || \
+                                         ((__PORT__) == EXTI_GPIOC) || \
+                                         ((__PORT__) == EXTI_GPIOD) || \
+                                         ((__PORT__) == EXTI_GPIOH))
+#endif /* GPIOI */
 
 #define IS_EXTI_GPIO_PIN(__PIN__)        ((__PIN__) < 16U)
 

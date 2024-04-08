@@ -892,7 +892,11 @@ typedef struct
   * @{
   */
 #define RCC_I3C2CLKSOURCE_PCLK3        ((uint32_t)0x00000000U)
+#if defined(RCC_CR_PLL3ON)
+#define RCC_I3C2CLKSOURCE_PLL3R        RCC_CCIPR4_I3C2SEL_0
+#else
 #define RCC_I3C2CLKSOURCE_PLL2R        RCC_CCIPR4_I3C2SEL_0
+#endif /* RCC_CR_PLL3ON */
 #define RCC_I3C2CLKSOURCE_HSI          RCC_CCIPR4_I3C2SEL_1
 /**
   * @}
@@ -3137,11 +3141,11 @@ typedef struct
                                          RCC_PERIPHCLK_LPTIM6 | RCC_PERIPHCLK_SAI1 | RCC_PERIPHCLK_SAI2 | \
                                          RCC_PERIPHCLK_ADCDAC | RCC_PERIPHCLK_DAC_LP | RCC_PERIPHCLK_RNG | \
                                          RCC_PERIPHCLK_RTC | RCC_PERIPHCLK_SDMMC1 | RCC_PERIPHCLK_SDMMC2 | \
-                                         RCC_PERIPHCLK_I3C1 | RCC_PERIPHCLK_SPI1 |  RCC_PERIPHCLK_SPI2 | \
+                                         RCC_PERIPHCLK_SPI1 |  RCC_PERIPHCLK_SPI2 | \
                                          RCC_PERIPHCLK_SPI3 | RCC_PERIPHCLK_SPI4 | RCC_PERIPHCLK_SPI5 | \
                                          RCC_PERIPHCLK_SPI6 | RCC_PERIPHCLK_OSPI | RCC_PERIPHCLK_FDCAN | \
                                          RCC_PERIPHCLK_CEC | RCC_PERIPHCLK_USB | RCC_PERIPHCLK_CKPER)
-#elif defined(RCC_CR_PLL3ON)
+#elif defined(UART7)
 #define RCC_PERIPHCLOCK_ALL             (RCC_PERIPHCLK_USART1 | RCC_PERIPHCLK_USART2 | RCC_PERIPHCLK_USART3 | \
                                          RCC_PERIPHCLK_UART4 | RCC_PERIPHCLK_UART5 |  RCC_PERIPHCLK_USART6 | \
                                          RCC_PERIPHCLK_UART7 | RCC_PERIPHCLK_UART8 |  RCC_PERIPHCLK_UART9 | \
@@ -3152,9 +3156,20 @@ typedef struct
                                          RCC_PERIPHCLK_LPTIM3 | RCC_PERIPHCLK_LPTIM4 | RCC_PERIPHCLK_LPTIM5 | \
                                          RCC_PERIPHCLK_LPTIM6 | RCC_PERIPHCLK_SAI1 | RCC_PERIPHCLK_SAI2 | \
                                          RCC_PERIPHCLK_ADCDAC | RCC_PERIPHCLK_DAC_LP | RCC_PERIPHCLK_RNG | \
-                                         RCC_PERIPHCLK_RTC |  RCC_PERIPHCLK_SDMMC1 | RCC_PERIPHCLK_I3C1 | \
-                                         RCC_PERIPHCLK_SPI1 | RCC_PERIPHCLK_SPI2 | RCC_PERIPHCLK_SPI3 | \
-                                         RCC_PERIPHCLK_SPI4 | RCC_PERIPHCLK_SPI5 | RCC_PERIPHCLK_SPI6 | \
+                                         RCC_PERIPHCLK_RTC |  RCC_PERIPHCLK_SDMMC1 | RCC_PERIPHCLK_SPI1 | \
+                                         RCC_PERIPHCLK_SPI2 | RCC_PERIPHCLK_SPI3 | RCC_PERIPHCLK_SPI4 | \
+                                         RCC_PERIPHCLK_SPI5 | RCC_PERIPHCLK_SPI6 | RCC_PERIPHCLK_OSPI | \
+                                         RCC_PERIPHCLK_FDCAN | RCC_PERIPHCLK_CEC | RCC_PERIPHCLK_USB | \
+                                         RCC_PERIPHCLK_CKPER)
+#elif defined(USART6)
+#define RCC_PERIPHCLOCK_ALL             (RCC_PERIPHCLK_USART1 | RCC_PERIPHCLK_USART2 | RCC_PERIPHCLK_USART3 | \
+                                         RCC_PERIPHCLK_UART4 | RCC_PERIPHCLK_UART5 |  RCC_PERIPHCLK_USART6 | \
+                                         RCC_PERIPHCLK_LPUART1 | RCC_PERIPHCLK_I2C1 |  RCC_PERIPHCLK_I2C2 | \
+                                         RCC_PERIPHCLK_I2C3 | RCC_PERIPHCLK_I3C1 | RCC_PERIPHCLK_I3C2 | \
+                                         RCC_PERIPHCLK_TIM | RCC_PERIPHCLK_LPTIM1 | RCC_PERIPHCLK_LPTIM2 | \
+                                         RCC_PERIPHCLK_ADCDAC | RCC_PERIPHCLK_DAC_LP | RCC_PERIPHCLK_RNG | \
+                                         RCC_PERIPHCLK_RTC |  RCC_PERIPHCLK_SDMMC1 | RCC_PERIPHCLK_SPI1 | \
+                                         RCC_PERIPHCLK_SPI2 | RCC_PERIPHCLK_SPI3 | RCC_PERIPHCLK_SPI4 | \
                                          RCC_PERIPHCLK_OSPI | RCC_PERIPHCLK_FDCAN | RCC_PERIPHCLK_CEC | \
                                          RCC_PERIPHCLK_USB | RCC_PERIPHCLK_CKPER)
 #else
@@ -3163,9 +3178,8 @@ typedef struct
                                          RCC_PERIPHCLK_I3C1 | RCC_PERIPHCLK_I3C2 | RCC_PERIPHCLK_TIM | \
                                          RCC_PERIPHCLK_LPTIM1 | RCC_PERIPHCLK_LPTIM2 | RCC_PERIPHCLK_ADCDAC | \
                                          RCC_PERIPHCLK_DAC_LP | RCC_PERIPHCLK_RNG | RCC_PERIPHCLK_RTC | \
-                                         RCC_PERIPHCLK_I3C1 | RCC_PERIPHCLK_SPI1 | RCC_PERIPHCLK_SPI2 | \
-                                         RCC_PERIPHCLK_SPI3 |  RCC_PERIPHCLK_FDCAN |  RCC_PERIPHCLK_USB | \
-                                         RCC_PERIPHCLK_CKPER)
+                                         RCC_PERIPHCLK_SPI1 | RCC_PERIPHCLK_SPI2 | RCC_PERIPHCLK_SPI3 | \
+                                         RCC_PERIPHCLK_FDCAN |  RCC_PERIPHCLK_USB | RCC_PERIPHCLK_CKPER)
 #endif /*FDCAN2 && SDMMC2 */
 /**
   * @}
@@ -3448,10 +3462,17 @@ typedef struct
 #endif /* RCC_CR_PLL3ON */
 
 #if defined(I3C2)
+#if defined(RCC_CR_PLL3ON)
+#define IS_RCC_I3C2CLKSOURCE(__SOURCE__)   \
+  (((__SOURCE__) == RCC_I3C2CLKSOURCE_PCLK3) || \
+   ((__SOURCE__) == RCC_I3C2CLKSOURCE_PLL3R)  || \
+   ((__SOURCE__) == RCC_I3C2CLKSOURCE_HSI))
+#else
 #define IS_RCC_I3C2CLKSOURCE(__SOURCE__)   \
   (((__SOURCE__) == RCC_I3C2CLKSOURCE_PCLK3) || \
    ((__SOURCE__) == RCC_I3C2CLKSOURCE_PLL2R)  || \
    ((__SOURCE__) == RCC_I3C2CLKSOURCE_HSI))
+#endif /* PLL3 */
 #endif /* I3C2 */
 
 #if defined(SAI1)

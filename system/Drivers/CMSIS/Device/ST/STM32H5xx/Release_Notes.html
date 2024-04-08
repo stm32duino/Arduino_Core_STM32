@@ -30,9 +30,28 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history"><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section2" Checked aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true"><strong>V1.1.0 / 07-June-2023</strong></label>
+<input type="checkbox" id="collapse-section3" Checked aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true"><strong>V1.2.0 / 09-February-2024</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<ul>
+<li>First official release of STM32H5xx CMSIS drivers to support <strong>STM32H533xx and STM32H523xx</strong> devices</li>
+<li>Add bit definition for I3C_BCR register</li>
+<li>Add IS_DMA_PFREQ_INSTANCE macro</li>
+<li>Fix Ticket 163445: [FLASH][CMSIS] Wrong EDATA_STRT start sectors mask size</li>
+<li>Fix Ticket 163090: [FOSS-Audit] Licensing issues: Missing copyright from Arm Limited and original header not retained</li>
+<li>Update CubeIDE projects to be compliant with GCC12 diagnostics</li>
+<li>Fix Ticket 165407: [H5][GTZC][CMSIS]: wrong Flash illegal access bit definition</li>
+<li>Fix Ticket 147880: [STM32H5]|FLASH_HAL] Some option bytes are missing in stm32h5xx_hal_flash_ex.h</li>
+<li>Set FMC_SDCMR_MODE_2 bit field definition to 0x4</li>
+<li>Fix Ticket 162902: [GitHub] Wrong declaration of g_pfnVectors size in gcc/startup files</li>
+<li>Fix: Ticket 167776: [CMSIS] Missing TIM option register related definitions</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true"><strong>V1.1.0 / 07-June-2023</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <ul>
 <li>Add DUA addresses constants definitions for STM32H573xx devices only</li>
 <li>Fix wrong definition of IS_TIM_CLOCKSOURCE_TIX_INSTANCE &amp; IS_TIM_TISEL_INSTANCE macros</li>
@@ -43,7 +62,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" checked aria-hidden="true"><strong>V1.0.0 / 10-February-2023</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>First official release version of bits and registers definition aligned with RM0481 and RM0492 (STM32H5 reference manuals)</li>
 </ul>

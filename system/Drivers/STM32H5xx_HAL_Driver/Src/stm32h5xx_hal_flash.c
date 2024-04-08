@@ -362,6 +362,7 @@ void HAL_FLASH_IRQHandler(void)
   __IO uint32_t *reg_cr;
   __IO uint32_t *reg_ccr;
   const __IO uint32_t *reg_sr;
+  const __IO uint32_t *reg_ecccorr;
 
   /* Access to CR, CCR and SR registers depends on operation type */
 #if defined (FLASH_OPTSR2_TZEN)
@@ -373,6 +374,7 @@ void HAL_FLASH_IRQHandler(void)
   reg_ccr = &(FLASH_NS->NSCCR);
   reg_sr = &(FLASH_NS->NSSR);
 #endif /* FLASH_OPTSR2_TZEN */
+  reg_ecccorr = &(FLASH->ECCCORR);
 
   /* Save Flash errors */
   errorflag = (*reg_sr) & FLASH_FLAG_SR_ERRORS;
@@ -458,6 +460,16 @@ void HAL_FLASH_IRQHandler(void)
 
     /* FLASH EOP interrupt user callback */
     HAL_FLASH_EndOfOperationCallback(param);
+  }
+
+  /* Check FLASH ECC correction flag */
+  if ((*reg_ecccorr & FLASH_ECCR_ECCC) != 0U)
+  {
+    /* Call User callback */
+    HAL_FLASHEx_EccCorrectionCallback();
+
+    /* Clear ECC correction flag in order to allow new ECC error record */
+    FLASH->ECCCORR |= FLASH_ECCR_ECCC;
   }
 
   if (pFlash.ProcedureOnGoing == 0U)

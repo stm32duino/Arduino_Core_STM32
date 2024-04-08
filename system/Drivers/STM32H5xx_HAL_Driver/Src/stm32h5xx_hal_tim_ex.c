@@ -872,7 +872,7 @@ HAL_StatusTypeDef HAL_TIMEx_OCN_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Channe
 
     /* Disable the TIM Break interrupt (only if no more channel is active) */
     tmpccer = htim->Instance->CCER;
-    if ((tmpccer & (TIM_CCER_CC1NE | TIM_CCER_CC2NE | TIM_CCER_CC3NE  | TIM_CCER_CC4NE)) == (uint32_t)RESET)
+    if ((tmpccer & TIM_CCER_CCxNE_MASK) == (uint32_t)RESET)
     {
       __HAL_TIM_DISABLE_IT(htim, TIM_IT_BREAK);
     }
@@ -1149,17 +1149,6 @@ HAL_StatusTypeDef HAL_TIMEx_OCN_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Chann
     (+) Stop the Complementary PWM and disable interrupts.
     (+) Start the Complementary PWM and enable DMA transfers.
     (+) Stop the Complementary PWM and disable DMA transfers.
-    (+) Start the Complementary Input Capture measurement.
-    (+) Stop the Complementary Input Capture.
-    (+) Start the Complementary Input Capture and enable interrupts.
-    (+) Stop the Complementary Input Capture and disable interrupts.
-    (+) Start the Complementary Input Capture and enable DMA transfers.
-    (+) Stop the Complementary Input Capture and disable DMA transfers.
-    (+) Start the Complementary One Pulse generation.
-    (+) Stop the Complementary One Pulse.
-    (+) Start the Complementary One Pulse and enable interrupts.
-    (+) Stop the Complementary One Pulse and disable interrupts.
-
 @endverbatim
   * @{
   */
@@ -1403,7 +1392,7 @@ HAL_StatusTypeDef HAL_TIMEx_PWMN_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Chann
 
     /* Disable the TIM Break interrupt (only if no more channel is active) */
     tmpccer = htim->Instance->CCER;
-    if ((tmpccer & (TIM_CCER_CC1NE | TIM_CCER_CC2NE | TIM_CCER_CC3NE  | TIM_CCER_CC4NE)) == (uint32_t)RESET)
+    if ((tmpccer & TIM_CCER_CCxNE_MASK) == (uint32_t)RESET)
     {
       __HAL_TIM_DISABLE_IT(htim, TIM_IT_BREAK);
     }
@@ -2196,6 +2185,7 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakDeadTime(TIM_HandleTypeDef *htim,
   assert_param(IS_TIM_BREAK_POLARITY(sBreakDeadTimeConfig->BreakPolarity));
   assert_param(IS_TIM_BREAK_FILTER(sBreakDeadTimeConfig->BreakFilter));
   assert_param(IS_TIM_AUTOMATIC_OUTPUT_STATE(sBreakDeadTimeConfig->AutomaticOutput));
+  assert_param(IS_TIM_BREAK_AFMODE(sBreakDeadTimeConfig->BreakAFMode));
 
   /* Check input state */
   __HAL_LOCK(htim);
@@ -2212,15 +2202,7 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakDeadTime(TIM_HandleTypeDef *htim,
   MODIFY_REG(tmpbdtr, TIM_BDTR_BKP, sBreakDeadTimeConfig->BreakPolarity);
   MODIFY_REG(tmpbdtr, TIM_BDTR_AOE, sBreakDeadTimeConfig->AutomaticOutput);
   MODIFY_REG(tmpbdtr, TIM_BDTR_BKF, (sBreakDeadTimeConfig->BreakFilter << TIM_BDTR_BKF_Pos));
-
-  if (IS_TIM_ADVANCED_INSTANCE(htim->Instance))
-  {
-    /* Check the parameters */
-    assert_param(IS_TIM_BREAK_AFMODE(sBreakDeadTimeConfig->BreakAFMode));
-
-    /* Set BREAK AF mode */
-    MODIFY_REG(tmpbdtr, TIM_BDTR_BKBID, sBreakDeadTimeConfig->BreakAFMode);
-  }
+  MODIFY_REG(tmpbdtr, TIM_BDTR_BKBID, sBreakDeadTimeConfig->BreakAFMode);
 
   if (IS_TIM_BKIN2_INSTANCE(htim->Instance))
   {
@@ -2228,20 +2210,13 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakDeadTime(TIM_HandleTypeDef *htim,
     assert_param(IS_TIM_BREAK2_STATE(sBreakDeadTimeConfig->Break2State));
     assert_param(IS_TIM_BREAK2_POLARITY(sBreakDeadTimeConfig->Break2Polarity));
     assert_param(IS_TIM_BREAK_FILTER(sBreakDeadTimeConfig->Break2Filter));
+    assert_param(IS_TIM_BREAK2_AFMODE(sBreakDeadTimeConfig->Break2AFMode));
 
     /* Set the BREAK2 input related BDTR bits */
     MODIFY_REG(tmpbdtr, TIM_BDTR_BK2F, (sBreakDeadTimeConfig->Break2Filter << TIM_BDTR_BK2F_Pos));
     MODIFY_REG(tmpbdtr, TIM_BDTR_BK2E, sBreakDeadTimeConfig->Break2State);
     MODIFY_REG(tmpbdtr, TIM_BDTR_BK2P, sBreakDeadTimeConfig->Break2Polarity);
-
-    if (IS_TIM_ADVANCED_INSTANCE(htim->Instance))
-    {
-      /* Check the parameters */
-      assert_param(IS_TIM_BREAK2_AFMODE(sBreakDeadTimeConfig->Break2AFMode));
-
-      /* Set BREAK2 AF mode */
-      MODIFY_REG(tmpbdtr, TIM_BDTR_BK2BID, sBreakDeadTimeConfig->Break2AFMode);
-    }
+    MODIFY_REG(tmpbdtr, TIM_BDTR_BK2BID, sBreakDeadTimeConfig->Break2AFMode);
   }
 
   /* Set TIMx_BDTR */
@@ -2265,7 +2240,6 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakDeadTime(TIM_HandleTypeDef *htim,
 HAL_StatusTypeDef HAL_TIMEx_ConfigBreakInput(TIM_HandleTypeDef *htim,
                                              uint32_t BreakInput,
                                              const TIMEx_BreakInputConfigTypeDef *sBreakInputConfig)
-
 {
   HAL_StatusTypeDef status = HAL_OK;
   uint32_t tmporx;
@@ -2381,6 +2355,7 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakInput(TIM_HandleTypeDef *htim,
   *            @arg TIM_TIM2_ETR_TIM3_ETR        TIM2 ETR is connected to TIM3 ETR pin
   *            @arg TIM_TIM2_ETR_TIM4_ETR        TIM2 ETR is connected to TIM4 ETR pin  (*)
   *            @arg TIM_TIM2_ETR_TIM5_ETR        TIM2 ETR is connected to TIM5 ETR pin  (*)
+  *            @arg TIM_TIM2_ETR_USB_SOF         TIM2_ETR is connected to USB SOF       (*)
   *            @arg TIM_TIM2_ETR_ETH_PPS         TIM2 ETR is connected to ETH PPS       (*)
   *
   *         For TIM3, the parameter can take one of the following values:
@@ -2399,11 +2374,12 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakInput(TIM_HandleTypeDef *htim,
   *
   *         For TIM5, the parameter can take one of the following values: (**)
   *            @arg TIM_TIM5_ETR_GPIO              TIM5 ETR is connected to GPIO
-  *            @arg TIM_TIM2_ETR_SAI2_FSA        TIM2 ETR is connected to SAI2 FSA
-  *            @arg TIM_TIM2_ETR_SAI2_FSB        TIM2 ETR is connected to SAI2 FSB
+  *            @arg TIM_TIM5_ETR_SAI2_FSA          TIM5 ETR is connected to SAI2 FSA
+  *            @arg TIM_TIM5_ETR_SAI2_FSB          TIM5 ETR is connected to SAI2 FSB
   *            @arg TIM_TIM5_ETR_TIM2_ETR          TIM5 ETR is connected to TIM2 ETR pin
   *            @arg TIM_TIM5_ETR_TIM3_ETR          TIM5 ETR is connected to TIM3 ETR pin
   *            @arg TIM_TIM5_ETR_TIM4_ETR          TIM5 ETR is connected to TIM4 ETR pin
+  *            @arg TIM_TIM5_ETR_USB_SOF           TIM5_ETR is connected to USB SOF     (*)
   *
   *         For TIM8, the parameter can take one of the following values: (**)
   *            @arg TIM_TIM8_ETR_GPIO            TIM8 ETR is connected to GPIO
@@ -2548,6 +2524,18 @@ HAL_StatusTypeDef  HAL_TIMEx_TISelection(TIM_HandleTypeDef *htim, uint32_t TISel
   {
     case TIM_CHANNEL_1:
       MODIFY_REG(htim->Instance->TISEL, TIM_TISEL_TI1SEL, TISelection);
+
+#if defined(TIM17)
+      /* If required, set OR1 bit to request HSE 1MHz clock */
+      if ((IS_TIM_RTCPREEN_INSTANCE(htim->Instance)) && (IS_TIM_RTCPREEN_SELECTION(TISelection)))
+      {
+        SET_BIT(htim->Instance->OR1, TIM_OR1_RTCPREEN);
+      }
+      else
+      {
+        CLEAR_BIT(htim->Instance->OR1, TIM_OR1_RTCPREEN);
+      }
+#endif /* TIM17 */
       break;
     case TIM_CHANNEL_2:
       MODIFY_REG(htim->Instance->TISEL, TIM_TISEL_TI2SEL, TISelection);
@@ -2620,7 +2608,7 @@ HAL_StatusTypeDef HAL_TIMEx_DisarmBreakInput(TIM_HandleTypeDef *htim, uint32_t B
   uint32_t tmpbdtr;
 
   /* Check the parameters */
-  assert_param(IS_TIM_ADVANCED_INSTANCE(htim->Instance));
+  assert_param(IS_TIM_BREAK_INSTANCE(htim->Instance));
   assert_param(IS_TIM_BREAKINPUT(BreakInput));
 
   switch (BreakInput)
@@ -2637,7 +2625,6 @@ HAL_StatusTypeDef HAL_TIMEx_DisarmBreakInput(TIM_HandleTypeDef *htim, uint32_t B
       }
       break;
     }
-
     case TIM_BREAKINPUT_BRK2:
     {
       /* Check initial conditions */
@@ -2675,7 +2662,7 @@ HAL_StatusTypeDef HAL_TIMEx_ReArmBreakInput(const TIM_HandleTypeDef *htim, uint3
   uint32_t tickstart;
 
   /* Check the parameters */
-  assert_param(IS_TIM_ADVANCED_INSTANCE(htim->Instance));
+  assert_param(IS_TIM_BREAK_INSTANCE(htim->Instance));
   assert_param(IS_TIM_BREAKINPUT(BreakInput));
 
   switch (BreakInput)
@@ -3089,7 +3076,7 @@ HAL_StatusTypeDef HAL_TIMEx_DisableEncoderFirstIndex(TIM_HandleTypeDef *htim)
   */
 
 /**
-  * @brief  Hall commutation changed callback in non-blocking mode
+  * @brief  Commutation callback in non-blocking mode
   * @param  htim TIM handle
   * @retval None
   */
@@ -3103,7 +3090,7 @@ __weak void HAL_TIMEx_CommutCallback(TIM_HandleTypeDef *htim)
    */
 }
 /**
-  * @brief  Hall commutation changed half complete callback in non-blocking mode
+  * @brief  Commutation half complete callback in non-blocking mode
   * @param  htim TIM handle
   * @retval None
   */
@@ -3118,7 +3105,7 @@ __weak void HAL_TIMEx_CommutHalfCpltCallback(TIM_HandleTypeDef *htim)
 }
 
 /**
-  * @brief  Hall Break detection callback in non-blocking mode
+  * @brief  Break detection callback in non-blocking mode
   * @param  htim TIM handle
   * @retval None
   */
@@ -3133,7 +3120,7 @@ __weak void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim)
 }
 
 /**
-  * @brief  Hall Break2 detection callback in non blocking mode
+  * @brief  Break2 detection callback in non blocking mode
   * @param  htim: TIM handle
   * @retval None
   */
@@ -3322,38 +3309,18 @@ static void TIM_DMADelayPulseNCplt(DMA_HandleTypeDef *hdma)
   if (hdma == htim->hdma[TIM_DMA_ID_CC1])
   {
     htim->Channel = HAL_TIM_ACTIVE_CHANNEL_1;
-
-    if (hdma->Init.Mode == DMA_NORMAL)
-    {
-      TIM_CHANNEL_N_STATE_SET(htim, TIM_CHANNEL_1, HAL_TIM_CHANNEL_STATE_READY);
-    }
   }
   else if (hdma == htim->hdma[TIM_DMA_ID_CC2])
   {
     htim->Channel = HAL_TIM_ACTIVE_CHANNEL_2;
-
-    if (hdma->Init.Mode == DMA_NORMAL)
-    {
-      TIM_CHANNEL_N_STATE_SET(htim, TIM_CHANNEL_2, HAL_TIM_CHANNEL_STATE_READY);
-    }
   }
   else if (hdma == htim->hdma[TIM_DMA_ID_CC3])
   {
     htim->Channel = HAL_TIM_ACTIVE_CHANNEL_3;
-
-    if (hdma->Init.Mode == DMA_NORMAL)
-    {
-      TIM_CHANNEL_N_STATE_SET(htim, TIM_CHANNEL_3, HAL_TIM_CHANNEL_STATE_READY);
-    }
   }
   else if (hdma == htim->hdma[TIM_DMA_ID_CC4])
   {
     htim->Channel = HAL_TIM_ACTIVE_CHANNEL_4;
-
-    if (hdma->Init.Mode == DMA_NORMAL)
-    {
-      TIM_CHANNEL_N_STATE_SET(htim, TIM_CHANNEL_4, HAL_TIM_CHANNEL_STATE_READY);
-    }
   }
   else
   {
@@ -3393,6 +3360,11 @@ static void TIM_DMAErrorCCxN(DMA_HandleTypeDef *hdma)
     htim->Channel = HAL_TIM_ACTIVE_CHANNEL_3;
     TIM_CHANNEL_N_STATE_SET(htim, TIM_CHANNEL_3, HAL_TIM_CHANNEL_STATE_READY);
   }
+  else if (hdma == htim->hdma[TIM_DMA_ID_CC4])
+  {
+    htim->Channel = HAL_TIM_ACTIVE_CHANNEL_4;
+    TIM_CHANNEL_N_STATE_SET(htim, TIM_CHANNEL_4, HAL_TIM_CHANNEL_STATE_READY);
+  }
   else
   {
     /* nothing to do */
@@ -3424,13 +3396,13 @@ static void TIM_CCxNChannelCmd(TIM_TypeDef *TIMx, uint32_t Channel, uint32_t Cha
 {
   uint32_t tmp;
 
-  tmp = TIM_CCER_CC1NE << (Channel & 0x1FU); /* 0x1FU = 31 bits max shift */
+  tmp = TIM_CCER_CC1NE << (Channel & 0xFU); /* 0xFU = 15 bits max shift */
 
   /* Reset the CCxNE Bit */
   TIMx->CCER &=  ~tmp;
 
   /* Set or reset the CCxNE Bit */
-  TIMx->CCER |= (uint32_t)(ChannelNState << (Channel & 0x1FU)); /* 0x1FU = 31 bits max shift */
+  TIMx->CCER |= (uint32_t)(ChannelNState << (Channel & 0xFU)); /* 0xFU = 15 bits max shift */
 }
 /**
   * @}

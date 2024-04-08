@@ -1,4 +1,4 @@
-﻿/**
+/**
   ******************************************************************************
   * @file    stm32h562xx.h
   * @author  MCD Application Team
@@ -176,6 +176,7 @@ typedef enum
   DTS_IRQn                  = 113,    /*!< DTS global interrupt                                              */
   RNG_IRQn                  = 114,    /*!< RNG global interrupt                                              */
   HASH_IRQn                 = 117,    /*!< HASH global interrupt                                             */
+  PKA_IRQn                  = 118,    /*!< PKA global interrupt                                              */
   CEC_IRQn                  = 119,    /*!< CEC-HDMI global interrupt                                         */
   TIM12_IRQn                = 120,    /*!< TIM12 global interrupt                                            */
   TIM13_IRQn                = 121,    /*!< TIM13 global interrupt                                            */
@@ -773,7 +774,8 @@ typedef struct
   __IO uint32_t TISEL;       /*!< TIM Input Selection register,             Address offset: 0x5C */
   __IO uint32_t AF1;         /*!< TIM alternate function option register 1, Address offset: 0x60 */
   __IO uint32_t AF2;         /*!< TIM alternate function option register 2, Address offset: 0x64 */
-       uint32_t RESERVED0[221];/*!< Reserved,                               Address offset: 0x68 */
+  __IO uint32_t OR1 ;        /*!< TIM option register,                      Address offset: 0x68 */
+       uint32_t RESERVED0[220];/*!< Reserved,                               Address offset: 0x6C */
   __IO uint32_t DCR;         /*!< TIM DMA control register,                 Address offset: 0x3DC */
   __IO uint32_t DMAR;        /*!< TIM DMA address for full transfer,        Address offset: 0x3E0 */
 } TIM_TypeDef;
@@ -974,6 +976,18 @@ typedef struct
   __IO uint32_t SECCFGR;       /*!< RCC Secure mode configuration register                                   Address offset: 0x110 */
   __IO uint32_t PRIVCFGR;      /*!< RCC Privilege configuration register                                     Address offset: 0x114 */
 } RCC_TypeDef;
+
+/**
+  * @brief PKA
+  */
+typedef struct
+{
+  __IO uint32_t CR;            /*!< PKA control register,             Address offset: 0x00 */
+  __IO uint32_t SR;            /*!< PKA status register,              Address offset: 0x04 */
+  __IO uint32_t CLRFR;         /*!< PKA clear flag register,          Address offset: 0x08 */
+  uint32_t Reserved[253];      /*!< Reserved memory area              Address offset: 0x0C  -> 0x03FC */
+  __IO uint32_t RAM[1334];     /*!< PKA RAM                           Address offset: 0x400 -> 0x18D4 */
+} PKA_TypeDef;
 
 /*
 * @brief RTC Specific device feature definitions
@@ -1696,6 +1710,8 @@ typedef struct
 #define HASH_BASE_NS             (AHB2PERIPH_BASE_NS + 0xA0400UL)
 #define HASH_DIGEST_BASE_NS      (AHB2PERIPH_BASE_NS + 0xA0710UL)
 #define RNG_BASE_NS              (AHB2PERIPH_BASE_NS + 0xA0800UL)
+#define PKA_BASE_NS              (AHB2PERIPH_BASE_NS + 0xA2000UL)
+#define PKA_RAM_BASE_NS          (AHB2PERIPH_BASE_NS + 0xA2400UL)
 
 
 /*!< APB3 Non secure peripherals */
@@ -1734,9 +1750,9 @@ typedef struct
 
 /* Flash, Peripheral and internal SRAMs base addresses - Secure */
 #define FLASH_BASE_S            (0x0C000000UL) /*!< FLASH (up to 2 MB) secure base address */
-#define SRAM1_BASE_S            (0x30000000UL) /*!< SRAM1 (192 KB) secure base address     */
+#define SRAM1_BASE_S            (0x30000000UL) /*!< SRAM1 (256 KB) secure base address     */
 #define SRAM2_BASE_S            (0x30040000UL) /*!< SRAM2 (64 KB) secure base address      */
-#define SRAM3_BASE_S            (0x30050000UL) /*!< SRAM3 (512 KB) secure base address     */
+#define SRAM3_BASE_S            (0x30050000UL) /*!< SRAM3 (320 KB) secure base address     */
 #define PERIPH_BASE_S           (0x50000000UL) /*!< Peripheral secure base address         */
 
 /* Peripheral memory map - Secure */
@@ -1862,6 +1878,8 @@ typedef struct
 #define HASH_BASE_S             (AHB2PERIPH_BASE_S + 0xA0400UL)
 #define HASH_DIGEST_BASE_S      (AHB2PERIPH_BASE_S + 0xA0710UL)
 #define RNG_BASE_S              (AHB2PERIPH_BASE_S + 0xA0800UL)
+#define PKA_BASE_S              (AHB2PERIPH_BASE_S + 0xA2000UL)
+#define PKA_RAM_BASE_S          (AHB2PERIPH_BASE_S + 0xA2400UL)
 
 /*!< APB3 secure peripherals */
 #define SBS_BASE_S              (APB3PERIPH_BASE_S + 0x0400UL)
@@ -1947,9 +1965,6 @@ typedef struct
 #define FLASH_OBK_HDPL3NS_BASE_S  (FLASH_OBK_HDPL3_BASE_S + FLASH_OBK_HDPL3S_SIZE)  /*!< FLASH OBK HDPL3 secure base address             */
 #define FLASH_OBK_HDPL3NS_SIZE    (FLASH_OBK_HDPL3_SIZE - FLASH_OBK_HDPL3S_SIZE)    /*!< 2032 Bytes of non-secure HDPL3 option byte keys */
 #endif /* CMSE */
-
-/*!< USB PMA SIZE */
-#define USB_DRD_PMA_SIZE        (2048U)         /*!< USB PMA Size 2Kbyte */
 
 /*!< Root Secure Service Library */
 /************ RSSLIB SAU system Flash region definition constants *************/
@@ -2233,6 +2248,7 @@ typedef struct
 #define HASH_NS                ((HASH_TypeDef *) HASH_BASE_NS)
 #define HASH_DIGEST_NS         ((HASH_DIGEST_TypeDef *) HASH_DIGEST_BASE_NS)
 #define RNG_NS                 ((RNG_TypeDef *) RNG_BASE_NS)
+#define PKA_NS                 ((PKA_TypeDef *) PKA_BASE_NS)
 
 
 /*!< APB3 Non secure peripherals */
@@ -2378,6 +2394,7 @@ typedef struct
 #define HASH_S                 ((HASH_TypeDef *) HASH_BASE_S)
 #define HASH_DIGEST_S          ((HASH_DIGEST_TypeDef *) HASH_DIGEST_BASE_S)
 #define RNG_S                  ((RNG_TypeDef *) RNG_BASE_S)
+#define PKA_S                  ((PKA_TypeDef *) PKA_BASE_S)
 
 /*!< APB3 secure peripherals */
 #define SBS_S                  ((SBS_TypeDef *) SBS_BASE_S)
@@ -2791,6 +2808,10 @@ typedef struct
 #define RNG                            RNG_S
 #define RNG_BASE                       RNG_BASE_S
 
+#define PKA                            PKA_S
+#define PKA_BASE                       PKA_BASE_S
+#define PKA_RAM_BASE                   PKA_RAM_BASE_S
+
 
 
 #define SDMMC1                         SDMMC1_S
@@ -3196,6 +3217,10 @@ typedef struct
 
 #define RNG                            RNG_NS
 #define RNG_BASE                       RNG_BASE_NS
+
+#define PKA                            PKA_NS
+#define PKA_BASE                       PKA_BASE_NS
+#define PKA_RAM_BASE                   PKA_RAM_BASE_NS
 
 
 
@@ -6241,7 +6266,7 @@ typedef struct
 #define EXTI_PRIVENR1_PRIV31                EXTI_PRIVENR1_PRIV31_Msk                 /*!< Privilege enable on line 31 */
 
 /******************  Bit definition for EXTI_RTSR2 register  *******************/
-#define EXTI_RTSR2_TR_Pos                   (14U)
+#define EXTI_RTSR2_TR_Pos                   (12U)
 #define EXTI_RTSR2_TR_Msk                   (0x244UL << EXTI_RTSR2_TR_Pos)              /*!< 0x00244000 */
 #define EXTI_RTSR2_TR                       EXTI_RTSR2_TR_Msk                           /*!< Rising trigger event configuration bit */
 #define EXTI_RTSR2_TR46_Pos                 (14U)
@@ -6255,7 +6280,7 @@ typedef struct
 #define EXTI_RTSR2_TR53                     EXTI_RTSR2_TR53_Msk                         /*!< Rising trigger event configuration bit of line 53 */
 
 /******************  Bit definition for EXTI_FTSR2 register  *******************/
-#define EXTI_FTSR2_TR_Pos                   (14U)
+#define EXTI_FTSR2_TR_Pos                   (12U)
 #define EXTI_FTSR2_TR_Msk                   (0x244 << EXTI_FTSR2_TR_Pos)                /*!< 0x00244000 */
 #define EXTI_FTSR2_TR                       EXTI_FTSR2_TR_Msk                           /*!< Falling trigger event configuration bit */
 #define EXTI_FTSR2_TR46_Pos                 (14U)
@@ -6280,7 +6305,7 @@ typedef struct
 #define EXTI_SWIER2_SWIER53                EXTI_SWIER2_SWIER53_Msk                     /*!< Software Interrupt on line 53 */
 
 /******************  Bit definition for EXTI_RPR2 register  *******************/
-#define EXTI_RPR2_RPIF_Pos                   (14U)
+#define EXTI_RPR2_RPIF_Pos                   (12U)
 #define EXTI_RPR2_RPIF_Msk                   (0x244UL << EXTI_RPR2_RPIF_Pos)        /*!< 0x00244000 */
 #define EXTI_RPR2_RPIF                       EXTI_RPR2_RPIF_Msk                     /*!< Rising pending edge configuration bits */
 #define EXTI_RPR2_RPIF46_Pos                 (14U)
@@ -6294,7 +6319,7 @@ typedef struct
 #define EXTI_RPR2_RPIF53                     EXTI_RPR2_RPIF53_Msk                   /*!< Rising pending edge configuration bit of line 53 */
 
 /******************  Bit definition for EXTI_FPR2 register  *******************/
-#define EXTI_FPR2_FPIF_Pos                   (14U)
+#define EXTI_FPR2_FPIF_Pos                   (12U)
 #define EXTI_FPR2_FPIF_Msk                   (0x244UL << EXTI_FPR2_FPIF_Pos)        /*!< 0x00244000 */
 #define EXTI_FPR2_FPIF                       EXTI_FPR2_FPIF_Msk                     /*!< Rising falling edge configuration bits */
 #define EXTI_FPR2_FPIF46_Pos                 (14U)
@@ -6837,6 +6862,9 @@ typedef struct
 #define EXTI_IMR2_IM44_Pos                  (12U)
 #define EXTI_IMR2_IM44_Msk                  (0x1UL << EXTI_IMR2_IM44_Pos)           /*!< 0x00001000 */
 #define EXTI_IMR2_IM44                      EXTI_IMR2_IM44_Msk                      /*!< Interrupt Mask on line 44 */
+#define EXTI_IMR2_IM45_Pos                  (13U)
+#define EXTI_IMR2_IM45_Msk                  (0x1UL << EXTI_IMR2_IM45_Pos)           /*!< 0x00002000 */
+#define EXTI_IMR2_IM45                      EXTI_IMR2_IM45_Msk                      /*!< Interrupt Mask on line 45 */
 #define EXTI_IMR2_IM46_Pos                  (14U)
 #define EXTI_IMR2_IM46_Msk                  (0x1UL << EXTI_IMR2_IM46_Pos)           /*!< 0x00004000 */
 #define EXTI_IMR2_IM46                      EXTI_IMR2_IM46_Msk                      /*!< Interrupt Mask on line 46 */
@@ -6918,6 +6946,9 @@ typedef struct
 #define EXTI_EMR2_EM44_Pos                  (12U)
 #define EXTI_EMR2_EM44_Msk                  (0x1UL << EXTI_EMR2_EM44_Pos)           /*!< 0x00001000 */
 #define EXTI_EMR2_EM44                      EXTI_EMR2_EM44_Msk                      /*!< Event Mask on line 44 */
+#define EXTI_EMR2_EM45_Pos                  (13U)
+#define EXTI_EMR2_EM45_Msk                  (0x1UL << EXTI_EMR2_EM45_Pos)           /*!< 0x00002000 */
+#define EXTI_EMR2_EM45                      EXTI_EMR2_EM45_Msk                      /*!< Event Mask on line 45 */
 #define EXTI_EMR2_EM46_Pos                  (14U)
 #define EXTI_EMR2_EM46_Msk                  (0x1UL << EXTI_EMR2_EM46_Pos)           /*!< 0x00004000 */
 #define EXTI_EMR2_EM46                      EXTI_EMR2_EM46_Msk                      /*!< Event Mask on line 46 */
@@ -7676,7 +7707,7 @@ typedef struct
 /*                                    FLASH                                   */
 /*                                                                            */
 /******************************************************************************/
-#define FLASH_LATENCY_DEFAULT               FLASH_ACR_LATENCY_3WS                   /* FLASH Three Latency cycle */
+#define FLASH_LATENCY_DEFAULT               FLASH_ACR_LATENCY_3WS                   /*!< FLASH Three Latency cycle */
 #define FLASH_BLOCKBASED_NB_REG             (4U)                                    /*!< 4 Block-based registers for each Flash bank */
 #define FLASH_SIZE_DEFAULT                  (0x200000U)                             /*!< FLASH Size */
 #define FLASH_SECTOR_NB                     (128U)                                  /*!< Flash Sector number */
@@ -7970,6 +8001,9 @@ typedef struct
 #define FLASH_OPTSR2_SRAM2_ECC_Pos          (6U)
 #define FLASH_OPTSR2_SRAM2_ECC_Msk          (0x1UL << FLASH_OPTSR2_SRAM2_ECC_Pos)   /*!< 0x00000040 */
 #define FLASH_OPTSR2_SRAM2_ECC              FLASH_OPTSR2_SRAM2_ECC_Msk              /*!< SRAM2 ECC detection and correction disable */
+#define FLASH_OPTSR2_USBPD_DIS_Pos          (8U)
+#define FLASH_OPTSR2_USBPD_DIS_Msk          (0x1UL << FLASH_OPTSR2_USBPD_DIS_Pos)   /*!< 0x00000100 */
+#define FLASH_OPTSR2_USBPD_DIS              FLASH_OPTSR2_USBPD_DIS_Msk              /*!< USB power delivery configuration disable */
 #define FLASH_OPTSR2_TZEN_Pos               (24U)
 #define FLASH_OPTSR2_TZEN_Msk               (0xFFUL << FLASH_OPTSR2_TZEN_Pos)       /*!< 0xFF000000 */
 #define FLASH_OPTSR2_TZEN                   FLASH_OPTSR2_TZEN_Msk                   /*!< TrustZone enable */
@@ -8002,7 +8036,7 @@ typedef struct
 
 /*****************  Bits definition for FLASH_EDATA register  ********************/
 #define FLASH_EDATAR_EDATA_STRT_Pos         (0U)
-#define FLASH_EDATAR_EDATA_STRT_Msk         (0x3UL << FLASH_EDATAR_EDATA_STRT_Pos)  /*!< 0x00000003 */
+#define FLASH_EDATAR_EDATA_STRT_Msk         (0x7UL << FLASH_EDATAR_EDATA_STRT_Pos)  /*!< 0x00000007 */
 #define FLASH_EDATAR_EDATA_STRT             FLASH_EDATAR_EDATA_STRT_Msk             /*!< Flash high-cycle data start sector */
 #define FLASH_EDATAR_EDATA_EN_Pos           (15U)
 #define FLASH_EDATAR_EDATA_EN_Msk           (0x1UL << FLASH_EDATAR_EDATA_EN_Pos)    /*!< 0x00008000 */
@@ -8625,7 +8659,7 @@ typedef struct
 #define FMC_SDCMR_MODE             FMC_SDCMR_MODE_Msk                          /*!<MODE[2:0] bits (Command mode) */
 #define FMC_SDCMR_MODE_0           (0x1UL << FMC_SDCMR_MODE_Pos)                /*!< 0x00000001 */
 #define FMC_SDCMR_MODE_1           (0x2UL << FMC_SDCMR_MODE_Pos)                /*!< 0x00000002 */
-#define FMC_SDCMR_MODE_2           (0x3UL << FMC_SDCMR_MODE_Pos)                /*!< 0x00000003 */
+#define FMC_SDCMR_MODE_2           (0x4UL << FMC_SDCMR_MODE_Pos)                /*!< 0x00000004 */
 
 #define FMC_SDCMR_CTB2_Pos         (3U)
 #define FMC_SDCMR_CTB2_Msk         (0x1UL << FMC_SDCMR_CTB2_Pos)               /*!< 0x00000008 */
@@ -10565,6 +10599,11 @@ typedef struct
 #define TIM1_AF2_OCRSEL                     TIM1_AF2_OCRSEL_Msk                     /*!<OCREF_CLR source selection */
 #define TIM1_AF2_OCRSEL_0                   (0x1UL << TIM1_AF2_OCRSEL_Pos)          /*!< 0x00010000 */
 
+/*******************  Bit definition for TIM_OR1 register  *********************/
+#define TIM_OR1_RTCPREEN_Pos                 (1U)
+#define TIM_OR1_RTCPREEN_Msk                 (0x1UL << TIM_OR1_RTCPREEN_Pos)           /*!< 0x00000002 */
+#define TIM_OR1_RTCPREEN                     TIM_OR1_RTCPREEN_Msk                      /*!< RTCPRE HSE divider enable */
+
 /*******************  Bit definition for TIM_TISEL register  *********************/
 #define TIM_TISEL_TI1SEL_Pos                (0U)
 #define TIM_TISEL_TI1SEL_Msk                (0xFUL << TIM_TISEL_TI1SEL_Pos)         /*!< 0x0000000F */
@@ -12372,9 +12411,9 @@ typedef struct
 #define PWR_PMCR_AVD_READY_Pos               (13U)
 #define PWR_PMCR_AVD_READY_Msk               (0x1UL << PWR_PMCR_AVD_READY_Pos)
 #define PWR_PMCR_AVD_READY                   PWR_PMCR_AVD_READY_Msk
-#define PWR_PMCR_ETHERNETSO_Pos             (16U)
-#define PWR_PMCR_ETHERNETSO_Msk             (0x1UL << PWR_PMCR_ETHERNETSO_Pos)
-#define PWR_PMCR_ETHERNETSO                 PWR_PMCR_ETHERNETSO_Msk
+#define PWR_PMCR_ETHERNETSO_Pos              (16U)
+#define PWR_PMCR_ETHERNETSO_Msk              (0x1UL << PWR_PMCR_ETHERNETSO_Pos)
+#define PWR_PMCR_ETHERNETSO                  PWR_PMCR_ETHERNETSO_Msk
 #define PWR_PMCR_SRAM3SO_Pos                 (23U)
 #define PWR_PMCR_SRAM3SO_Msk                 (0x1UL << PWR_PMCR_SRAM3SO_Pos)
 #define PWR_PMCR_SRAM3SO                     PWR_PMCR_SRAM3SO_Msk
@@ -12472,9 +12511,9 @@ typedef struct
 #define PWR_SCCR_SMPSEN                      PWR_SCCR_SMPSEN_Msk
 
 /********************  Bit definition for PWR_VMCR register  ******************/
-#define PWR_VMCR_PVDEN_Pos                    (0U)
-#define PWR_VMCR_PVDEN_Msk                    (0x1UL << PWR_VMCR_PVDEN_Pos)
-#define PWR_VMCR_PVDEN                        PWR_VMCR_PVDEN_Msk
+#define PWR_VMCR_PVDEN_Pos                   (0U)
+#define PWR_VMCR_PVDEN_Msk                   (0x1UL << PWR_VMCR_PVDEN_Pos)
+#define PWR_VMCR_PVDEN                       PWR_VMCR_PVDEN_Msk
 #define PWR_VMCR_PLS_Pos                     (1U)
 #define PWR_VMCR_PLS_Msk                     (0x7UL << PWR_VMCR_PLS_Pos)
 #define PWR_VMCR_PLS                         PWR_VMCR_PLS_Msk
@@ -12491,12 +12530,12 @@ typedef struct
 #define PWR_VMCR_ALS_1                       (0x2UL << PWR_VMCR_ALS_Pos)
 
 /********************  Bit definition for PWR_USBSCR register  ******************/
-#define PWR_USBSCR_USB33DEN_Pos               (24U)
-#define PWR_USBSCR_USB33DEN_Msk               (0x1UL << PWR_USBSCR_USB33DEN_Pos)
-#define PWR_USBSCR_USB33DEN                   PWR_USBSCR_USB33DEN_Msk
-#define PWR_USBSCR_USB33SV_Pos                (25U)
-#define PWR_USBSCR_USB33SV_Msk                (0x1UL << PWR_USBSCR_USB33SV_Pos)
-#define PWR_USBSCR_USB33SV                    PWR_USBSCR_USB33SV_Msk
+#define PWR_USBSCR_USB33DEN_Pos              (24U)
+#define PWR_USBSCR_USB33DEN_Msk              (0x1UL << PWR_USBSCR_USB33DEN_Pos)
+#define PWR_USBSCR_USB33DEN                  PWR_USBSCR_USB33DEN_Msk
+#define PWR_USBSCR_USB33SV_Pos               (25U)
+#define PWR_USBSCR_USB33SV_Msk               (0x1UL << PWR_USBSCR_USB33SV_Pos)
+#define PWR_USBSCR_USB33SV                   PWR_USBSCR_USB33SV_Msk
 
 /********************  Bit definition for PWR_VMSR register  ******************/
 #define PWR_VMSR_AVDO_Pos                    (19U)
@@ -13702,6 +13741,9 @@ typedef struct
 #define RCC_AHB2RSTR_RNGRST_Pos             (18U)
 #define RCC_AHB2RSTR_RNGRST_Msk             (0x1UL << RCC_AHB2RSTR_RNGRST_Pos)      /*!< 0x00040000 */
 #define RCC_AHB2RSTR_RNGRST                 RCC_AHB2RSTR_RNGRST_Msk
+#define RCC_AHB2RSTR_PKARST_Pos             (19U)
+#define RCC_AHB2RSTR_PKARST_Msk             (0x1UL << RCC_AHB2RSTR_PKARST_Pos)      /*!< 0x00080000 */
+#define RCC_AHB2RSTR_PKARST                 RCC_AHB2RSTR_PKARST_Msk
 
 /********************  Bit definition for RCC_AHB4RSTR register  **************/
 #define RCC_AHB4RSTR_SDMMC1RST_Pos          (11U)
@@ -13968,6 +14010,9 @@ typedef struct
 #define RCC_AHB2ENR_RNGEN_Pos               (18U)
 #define RCC_AHB2ENR_RNGEN_Msk               (0x1UL << RCC_AHB2ENR_RNGEN_Pos)        /*!< 0x00040000 */
 #define RCC_AHB2ENR_RNGEN                   RCC_AHB2ENR_RNGEN_Msk
+#define RCC_AHB2ENR_PKAEN_Pos               (19U)
+#define RCC_AHB2ENR_PKAEN_Msk               (0x1UL << RCC_AHB2ENR_PKAEN_Pos)        /*!< 0x00080000 */
+#define RCC_AHB2ENR_PKAEN                   RCC_AHB2ENR_PKAEN_Msk
 #define RCC_AHB2ENR_SRAM2EN_Pos             (30U)
 #define RCC_AHB2ENR_SRAM2EN_Msk             (0x1UL << RCC_AHB2ENR_SRAM2EN_Pos)      /*!< 0x40000000 */
 #define RCC_AHB2ENR_SRAM2EN                 RCC_AHB2ENR_SRAM2EN_Msk
@@ -14252,6 +14297,9 @@ typedef struct
 #define RCC_AHB2LPENR_RNGLPEN_Pos           (18U)
 #define RCC_AHB2LPENR_RNGLPEN_Msk           (0x1UL << RCC_AHB2LPENR_RNGLPEN_Pos)    /*!< 0x00040000 */
 #define RCC_AHB2LPENR_RNGLPEN               RCC_AHB2LPENR_RNGLPEN_Msk
+#define RCC_AHB2LPENR_PKALPEN_Pos           (19U)
+#define RCC_AHB2LPENR_PKALPEN_Msk           (0x1UL << RCC_AHB2LPENR_PKALPEN_Pos)    /*!< 0x00080000 */
+#define RCC_AHB2LPENR_PKALPEN               RCC_AHB2LPENR_PKALPEN_Msk
 #define RCC_AHB2LPENR_SRAM2LPEN_Pos         (30U)
 #define RCC_AHB2LPENR_SRAM2LPEN_Msk         (0x1UL << RCC_AHB2LPENR_SRAM2LPEN_Pos)  /*!< 0x40000000 */
 #define RCC_AHB2LPENR_SRAM2LPEN             RCC_AHB2LPENR_SRAM2LPEN_Msk
@@ -16929,9 +16977,6 @@ typedef struct
 #define SBS_SECCFGR_FPUSEC_Pos           (3U)
 #define SBS_SECCFGR_FPUSEC_Msk           (0x1UL << SBS_SECCFGR_FPUSEC_Pos)    /*!< 0x00000008 */
 #define SBS_SECCFGR_FPUSEC               SBS_SECCFGR_FPUSEC_Msk               /*!< FPU SBS security enable */
-#define SBS_SECCFGR_SDCE_SEC_EN_Pos      (31U)
-#define SBS_SECCFGR_SDCE_SEC_EN_Msk      (0x1UL << SBS_SECCFGR_SDCE_SEC_EN_Pos) /*!< 0x80000000 */
-#define SBS_SECCFGR_SDCE_SEC_EN          SBS_SECCFGR_SDCE_SEC_EN_Msk            /*!< SMPS SBS security enable */
 
 /******************  Bit definition for SBS_CNSLCKR register  **************/
 #define SBS_CNSLCKR_LOCKNSVTOR_Pos       (0U)
@@ -16989,7 +17034,7 @@ typedef struct
 #define GTZC_TZSC_MPCWMR_SUBZ_LENGTH        GTZC_TZSC_MPCWMR_SUBZ_LENGTH_Msk
 
 /*******  Bits definition for TZSC _SECCFGRx/_PRIVCFGRx registers  *****/
-/*******  Bits definition for TZIC _IERx/_SRx/_IFCRx registers  ********/
+/*******  Bits definition for TZIC _IERx/_SRx/_IFCRx registers     *****/
 
 /***************  Bits definition for register x=1 (TZSC1) *************/
 #define GTZC_CFGR1_TIM2_Pos                 (0U)
@@ -17056,7 +17101,6 @@ typedef struct
 #define GTZC_CFGR1_DTS_Msk                  (0x01UL << GTZC_CFGR1_DTS_Pos)
 #define GTZC_CFGR1_LPTIM2_Pos               (31U)
 #define GTZC_CFGR1_LPTIM2_Msk               (0x01UL << GTZC_CFGR1_LPTIM2_Pos)
-
 
 /***************  Bits definition for register x=2 (TZSC1) *************/
 #define GTZC_CFGR2_FDCAN1_Pos               (0U)
@@ -17127,6 +17171,8 @@ typedef struct
 #define GTZC_CFGR3_HASH_Msk                 (0x01UL << GTZC_CFGR3_HASH_Pos)
 #define GTZC_CFGR3_RNG_Pos                  (18U)
 #define GTZC_CFGR3_RNG_Msk                  (0x01UL << GTZC_CFGR3_RNG_Pos)
+#define GTZC_CFGR3_PKA_Pos                  (20U)
+#define GTZC_CFGR3_PKA_Msk                  (0x01UL << GTZC_CFGR3_PKA_Pos)
 #define GTZC_CFGR3_SDMMC1_Pos               (21U)
 #define GTZC_CFGR3_SDMMC1_Msk               (0x01UL << GTZC_CFGR3_SDMMC1_Pos)
 #define GTZC_CFGR3_FMC_REG_Pos              (23U)
@@ -17145,6 +17191,7 @@ typedef struct
 #define GTZC_CFGR4_FLASH_Msk                (0x01UL << GTZC_CFGR4_FLASH_Pos)
 #define GTZC_CFGR4_FLASH_REG_Pos            (3U)
 #define GTZC_CFGR4_FLASH_REG_Msk            (0x01UL << GTZC_CFGR4_FLASH_REG_Pos)
+
 #define GTZC_CFGR4_SBS_Pos                  (6U)
 #define GTZC_CFGR4_SBS_Msk                  (0x01UL << GTZC_CFGR4_SBS_Pos)
 #define GTZC_CFGR4_RTC_Pos                  (7U)
@@ -17246,12 +17293,11 @@ typedef struct
 #define GTZC_TZSC1_SECCFGR1_LPTIM2_Pos          GTZC_CFGR1_LPTIM2_Pos
 #define GTZC_TZSC1_SECCFGR1_LPTIM2_Msk          GTZC_CFGR1_LPTIM2_Msk
 
-
 /*******************  Bits definition for GTZC_TZSC_SECCFGR2 register  ***************/
 #define GTZC_TZSC1_SECCFGR2_FDCAN1_Pos          GTZC_CFGR2_FDCAN1_Pos
 #define GTZC_TZSC1_SECCFGR2_FDCAN1_Msk          GTZC_CFGR2_FDCAN1_Msk
-#define GTZC_TZSC1_SECCFGR2_UCPD_Pos            GTZC_CFGR2_UCPD_Pos
-#define GTZC_TZSC1_SECCFGR2_UCPD_Msk            GTZC_CFGR2_UCPD_Msk
+#define GTZC_TZSC1_SECCFGR2_UCPD1_Pos           GTZC_CFGR2_UCPD1_Pos
+#define GTZC_TZSC1_SECCFGR2_UCPD1_Msk           GTZC_CFGR2_UCPD1_Msk
 #define GTZC_TZSC1_SECCFGR2_TIM1_Pos            GTZC_CFGR2_TIM1_Pos
 #define GTZC_TZSC1_SECCFGR2_TIM1_Msk            GTZC_CFGR2_TIM1_Msk
 #define GTZC_TZSC1_SECCFGR2_SPI1_Pos            GTZC_CFGR2_SPI1_Pos
@@ -17316,6 +17362,8 @@ typedef struct
 #define GTZC_TZSC1_SECCFGR3_HASH_Msk            GTZC_CFGR3_HASH_Msk
 #define GTZC_TZSC1_SECCFGR3_RNG_Pos             GTZC_CFGR3_RNG_Pos
 #define GTZC_TZSC1_SECCFGR3_RNG_Msk             GTZC_CFGR3_RNG_Msk
+#define GTZC_TZSC1_SECCFGR3_PKA_Pos             GTZC_CFGR3_PKA_Pos
+#define GTZC_TZSC1_SECCFGR3_PKA_Msk             GTZC_CFGR3_PKA_Msk
 #define GTZC_TZSC1_SECCFGR3_SDMMC1_Pos          GTZC_CFGR3_SDMMC1_Pos
 #define GTZC_TZSC1_SECCFGR3_SDMMC1_Msk          GTZC_CFGR3_SDMMC1_Msk
 #define GTZC_TZSC1_SECCFGR3_FMC_REG_Pos         GTZC_CFGR3_FMC_REG_Pos
@@ -17324,6 +17372,7 @@ typedef struct
 #define GTZC_TZSC1_SECCFGR3_OCTOSPI1_Msk        GTZC_CFGR3_OCTOSPI1_Msk
 #define GTZC_TZSC1_SECCFGR3_RAMCFG_Pos          GTZC_CFGR3_RAMCFG_Pos
 #define GTZC_TZSC1_SECCFGR3_RAMCFG_Msk          GTZC_CFGR3_RAMCFG_Msk
+
 
 /*******************  Bits definition for GTZC_TZSC_PRIVCFGR1 register  ***************/
 #define GTZC_TZSC1_PRIVCFGR1_TIM2_Pos           GTZC_CFGR1_TIM2_Pos
@@ -17394,8 +17443,8 @@ typedef struct
 /*******************  Bits definition for GTZC_TZSC_PRIVCFGR2 register  ***************/
 #define GTZC_TZSC1_PRIVCFGR2_FDCAN1_Pos         GTZC_CFGR2_FDCAN1_Pos
 #define GTZC_TZSC1_PRIVCFGR2_FDCAN1_Msk         GTZC_CFGR2_FDCAN1_Msk
-#define GTZC_TZSC1_PRIVCFGR2_UCPD_Pos           GTZC_CFGR2_UCPD_Pos
-#define GTZC_TZSC1_PRIVCFGR2_UCPD_Msk           GTZC_CFGR2_UCPD_Msk
+#define GTZC_TZSC1_PRIVCFGR2_UCPD1_Pos          GTZC_CFGR2_UCPD1_Pos
+#define GTZC_TZSC1_PRIVCFGR2_UCPD1_Msk          GTZC_CFGR2_UCPD1_Msk
 #define GTZC_TZSC1_PRIVCFGR2_TIM1_Pos           GTZC_CFGR2_TIM1_Pos
 #define GTZC_TZSC1_PRIVCFGR2_TIM1_Msk           GTZC_CFGR2_TIM1_Msk
 #define GTZC_TZSC1_PRIVCFGR2_SPI1_Pos           GTZC_CFGR2_SPI1_Pos
@@ -17460,6 +17509,8 @@ typedef struct
 #define GTZC_TZSC1_PRIVCFGR3_HASH_Msk           GTZC_CFGR3_HASH_Msk
 #define GTZC_TZSC1_PRIVCFGR3_RNG_Pos            GTZC_CFGR3_RNG_Pos
 #define GTZC_TZSC1_PRIVCFGR3_RNG_Msk            GTZC_CFGR3_RNG_Msk
+#define GTZC_TZSC1_PRIVCFGR3_PKA_Pos            GTZC_CFGR3_PKA_Pos
+#define GTZC_TZSC1_PRIVCFGR3_PKA_Msk            GTZC_CFGR3_PKA_Msk
 #define GTZC_TZSC1_PRIVCFGR3_SDMMC1_Pos         GTZC_CFGR3_SDMMC1_Pos
 #define GTZC_TZSC1_PRIVCFGR3_SDMMC1_Msk         GTZC_CFGR3_SDMMC1_Msk
 #define GTZC_TZSC1_PRIVCFGR3_FMC_REG_Pos        GTZC_CFGR3_FMC_REG_Pos
@@ -17538,8 +17589,8 @@ typedef struct
 /*******************  Bits definition for GTZC_TZIC_IER2 register  ***************/
 #define GTZC_TZIC1_IER2_FDCAN1_Pos          GTZC_CFGR2_FDCAN1_Pos
 #define GTZC_TZIC1_IER2_FDCAN1_Msk          GTZC_CFGR2_FDCAN1_Msk
-#define GTZC_TZIC1_IER2_UCPD_Pos            GTZC_CFGR2_UCPD_Pos
-#define GTZC_TZIC1_IER2_UCPD_Msk            GTZC_CFGR2_UCPD_Msk
+#define GTZC_TZIC1_IER2_UCPD1_Pos           GTZC_CFGR2_UCPD1_Pos
+#define GTZC_TZIC1_IER2_UCPD1_Msk           GTZC_CFGR2_UCPD1_Msk
 #define GTZC_TZIC1_IER2_TIM1_Pos            GTZC_CFGR2_TIM1_Pos
 #define GTZC_TZIC1_IER2_TIM1_Msk            GTZC_CFGR2_TIM1_Msk
 #define GTZC_TZIC1_IER2_SPI1_Pos            GTZC_CFGR2_SPI1_Pos
@@ -17581,7 +17632,6 @@ typedef struct
 #define GTZC_TZIC1_IER2_LPTIM5_Pos          GTZC_CFGR2_LPTIM5_Pos
 #define GTZC_TZIC1_IER2_LPTIM5_Msk          GTZC_CFGR2_LPTIM5_Msk
 
-
 /*******************  Bits definition for GTZC_TZIC_IER3 register  ***************/
 #define GTZC_TZIC1_IER3_LPTIM6_Pos          GTZC_CFGR3_LPTIM6_Pos
 #define GTZC_TZIC1_IER3_LPTIM6_Msk          GTZC_CFGR3_LPTIM6_Msk
@@ -17605,6 +17655,8 @@ typedef struct
 #define GTZC_TZIC1_IER3_HASH_Msk            GTZC_CFGR3_HASH_Msk
 #define GTZC_TZIC1_IER3_RNG_Pos             GTZC_CFGR3_RNG_Pos
 #define GTZC_TZIC1_IER3_RNG_Msk             GTZC_CFGR3_RNG_Msk
+#define GTZC_TZIC1_IER3_PKA_Pos             GTZC_CFGR3_PKA_Pos
+#define GTZC_TZIC1_IER3_PKA_Msk             GTZC_CFGR3_PKA_Msk
 #define GTZC_TZIC1_IER3_SDMMC1_Pos          GTZC_CFGR3_SDMMC1_Pos
 #define GTZC_TZIC1_IER3_SDMMC1_Msk          GTZC_CFGR3_SDMMC1_Msk
 #define GTZC_TZIC1_IER3_FMC_REG_Pos         GTZC_CFGR3_FMC_REG_Pos
@@ -17727,8 +17779,8 @@ typedef struct
 /*******************  Bits definition for GTZC_TZIC_SR2 register  **************/
 #define GTZC_TZIC1_SR2_FDCAN1_Pos           GTZC_CFGR2_FDCAN1_Pos
 #define GTZC_TZIC1_SR2_FDCAN1_Msk           GTZC_CFGR2_FDCAN1_Msk
-#define GTZC_TZIC1_SR2_UCPD_Pos             GTZC_CFGR2_UCPD_Pos
-#define GTZC_TZIC1_SR2_UCPD_Msk             GTZC_CFGR2_UCPD_Msk
+#define GTZC_TZIC1_SR2_UCPD1_Pos            GTZC_CFGR2_UCPD1_Pos
+#define GTZC_TZIC1_SR2_UCPD1_Msk            GTZC_CFGR2_UCPD1_Msk
 #define GTZC_TZIC1_SR2_TIM1_Pos             GTZC_CFGR2_TIM1_Pos
 #define GTZC_TZIC1_SR2_TIM1_Msk             GTZC_CFGR2_TIM1_Msk
 #define GTZC_TZIC1_SR2_SPI1_Pos             GTZC_CFGR2_SPI1_Pos
@@ -17793,6 +17845,8 @@ typedef struct
 #define GTZC_TZIC1_SR3_HASH_Msk             GTZC_CFGR3_HASH_Msk
 #define GTZC_TZIC1_SR3_RNG_Pos              GTZC_CFGR3_RNG_Pos
 #define GTZC_TZIC1_SR3_RNG_Msk              GTZC_CFGR3_RNG_Msk
+#define GTZC_TZIC1_SR3_PKA_Pos              GTZC_CFGR3_PKA_Pos
+#define GTZC_TZIC1_SR3_PKA_Msk              GTZC_CFGR3_PKA_Msk
 #define GTZC_TZIC1_SR3_SDMMC1_Pos           GTZC_CFGR3_SDMMC1_Pos
 #define GTZC_TZIC1_SR3_SDMMC1_Msk           GTZC_CFGR3_SDMMC1_Msk
 #define GTZC_TZIC1_SR3_FMC_REG_Pos          GTZC_CFGR3_FMC_REG_Pos
@@ -17915,8 +17969,8 @@ typedef struct
 /*******************  Bits definition for GTZC_TZIC_FCR2 register  **************/
 #define GTZC_TZIC1_FCR2_FDCAN1_Pos          GTZC_CFGR2_FDCAN1_Pos
 #define GTZC_TZIC1_FCR2_FDCAN1_Msk          GTZC_CFGR2_FDCAN1_Msk
-#define GTZC_TZIC1_FCR2_UCPD_Pos            GTZC_CFGR2_UCPD_Pos
-#define GTZC_TZIC1_FCR2_UCPD_Msk            GTZC_CFGR2_UCPD_Msk
+#define GTZC_TZIC1_FCR2_UCPD1_Pos           GTZC_CFGR2_UCPD1_Pos
+#define GTZC_TZIC1_FCR2_UCPD1_Msk           GTZC_CFGR2_UCPD1_Msk
 #define GTZC_TZIC1_FCR2_TIM1_Pos            GTZC_CFGR2_TIM1_Pos
 #define GTZC_TZIC1_FCR2_TIM1_Msk            GTZC_CFGR2_TIM1_Msk
 #define GTZC_TZIC1_FCR2_SPI1_Pos            GTZC_CFGR2_SPI1_Pos
@@ -17981,6 +18035,8 @@ typedef struct
 #define GTZC_TZIC1_FCR3_HASH_Msk            GTZC_CFGR3_HASH_Msk
 #define GTZC_TZIC1_FCR3_RNG_Pos             GTZC_CFGR3_RNG_Pos
 #define GTZC_TZIC1_FCR3_RNG_Msk             GTZC_CFGR3_RNG_Msk
+#define GTZC_TZIC1_FCR3_PKA_Pos             GTZC_CFGR3_PKA_Pos
+#define GTZC_TZIC1_FCR3_PKA_Msk             GTZC_CFGR3_PKA_Msk
 #define GTZC_TZIC1_FCR3_SDMMC1_Pos          GTZC_CFGR3_SDMMC1_Pos
 #define GTZC_TZIC1_FCR3_SDMMC1_Msk          GTZC_CFGR3_SDMMC1_Msk
 #define GTZC_TZIC1_FCR3_FMC_REG_Pos         GTZC_CFGR3_FMC_REG_Pos
@@ -19806,6 +19862,15 @@ typedef struct
 #define I3C_BCR_BCR2_Pos                    (2U)
 #define I3C_BCR_BCR2_Msk                    (0x1UL << I3C_BCR_BCR2_Pos)             /*!< 0x00000004 */
 #define I3C_BCR_BCR2                        I3C_BCR_BCR2_Msk                        /*!< IBI Payload additional Mandatory Data Byte */
+#define I3C_BCR_BCR3_Pos                    (3U)
+#define I3C_BCR_BCR3_Msk                    (0x1UL << I3C_BCR_BCR3_Pos)             /*!< 0x00000008 */
+#define I3C_BCR_BCR3                        I3C_BCR_BCR3_Msk                        /*!< Offline capable */
+#define I3C_BCR_BCR4_Pos                    (4U)
+#define I3C_BCR_BCR4_Msk                    (0x1UL << I3C_BCR_BCR4_Pos)             /*!< 0x00000010 */
+#define I3C_BCR_BCR4                        I3C_BCR_BCR4_Msk                        /*!< Virtual target support */
+#define I3C_BCR_BCR5_Pos                    (5U)
+#define I3C_BCR_BCR5_Msk                    (0x1UL << I3C_BCR_BCR5_Pos)             /*!< 0x00000020 */
+#define I3C_BCR_BCR5                        I3C_BCR_BCR5_Msk                        /*!< Advanced capabilities */
 #define I3C_BCR_BCR6_Pos                    (6U)
 #define I3C_BCR_BCR6_Msk                    (0x1UL << I3C_BCR_BCR6_Pos)             /*!< 0x00000040 */
 #define I3C_BCR_BCR6                        I3C_BCR_BCR6_Msk                        /*!< Device Role shared during Dynamic Address Assignment */
@@ -20678,6 +20743,327 @@ typedef struct
 #define USB_PMA_RXBD_ADDMSK                        (0xFFFF0000UL)
 #define USB_PMA_RXBD_COUNTMSK                      (0x03FFFFFFUL)
 
+/*!< USB PMA SIZE */
+#define USB_DRD_PMA_SIZE                                  (2048U)           /*!< USB PMA Size 2Kbyte */
+
+#define USB_DRD_FS_EP_NBR                                    (8U)           /*!< Number of USB Device endpoints */
+#define USB_DRD_FS_CH_NBR                                    (8U)           /*!< Number of USB Host channels */
+
+
+/******************************************************************************/
+/*                                                                            */
+/*                       Public Key Accelerator (PKA)                         */
+/*                                                                            */
+/******************************************************************************/
+
+/*******************  Bit definition for PKA_CR register  *********************/
+#define PKA_CR_EN_Pos                       (0U)
+#define PKA_CR_EN_Msk                       (0x1UL << PKA_CR_EN_Pos)                /*!< 0x00000001 */
+#define PKA_CR_EN                           PKA_CR_EN_Msk                           /*!< PKA enable */
+#define PKA_CR_START_Pos                    (1U)
+#define PKA_CR_START_Msk                    (0x1UL << PKA_CR_START_Pos)             /*!< 0x00000002 */
+#define PKA_CR_START                        PKA_CR_START_Msk                        /*!< Start operation */
+#define PKA_CR_MODE_Pos                     (8U)
+#define PKA_CR_MODE_Msk                     (0x3FUL << PKA_CR_MODE_Pos)             /*!< 0x00003F00 */
+#define PKA_CR_MODE                         PKA_CR_MODE_Msk                         /*!< MODE[5:0] PKA operation code */
+#define PKA_CR_MODE_0                       (0x01UL << PKA_CR_MODE_Pos)             /*!< 0x00000100 */
+#define PKA_CR_MODE_1                       (0x02UL << PKA_CR_MODE_Pos)             /*!< 0x00000200 */
+#define PKA_CR_MODE_2                       (0x04UL << PKA_CR_MODE_Pos)             /*!< 0x00000400 */
+#define PKA_CR_MODE_3                       (0x08UL << PKA_CR_MODE_Pos)             /*!< 0x00000800 */
+#define PKA_CR_MODE_4                       (0x10UL << PKA_CR_MODE_Pos)             /*!< 0x00001000 */
+#define PKA_CR_MODE_5                       (0x20UL << PKA_CR_MODE_Pos)             /*!< 0x00002000 */
+#define PKA_CR_PROCENDIE_Pos                (17U)
+#define PKA_CR_PROCENDIE_Msk                (0x1UL << PKA_CR_PROCENDIE_Pos)         /*!< 0x00020000 */
+#define PKA_CR_PROCENDIE                    PKA_CR_PROCENDIE_Msk                    /*!< End of operation interrupt enable */
+#define PKA_CR_RAMERRIE_Pos                 (19U)
+#define PKA_CR_RAMERRIE_Msk                 (0x1UL << PKA_CR_RAMERRIE_Pos)          /*!< 0x00080000 */
+#define PKA_CR_RAMERRIE                     PKA_CR_RAMERRIE_Msk                     /*!< RAM error interrupt enable */
+#define PKA_CR_ADDRERRIE_Pos                (20U)
+#define PKA_CR_ADDRERRIE_Msk                (0x1UL << PKA_CR_ADDRERRIE_Pos)         /*!< 0x00100000 */
+#define PKA_CR_ADDRERRIE                    PKA_CR_ADDRERRIE_Msk                    /*!< Address error interrupt enable */
+#define PKA_CR_OPERRIE_Pos                  (21U)
+#define PKA_CR_OPERRIE_Msk                  (0x1UL << PKA_CR_OPERRIE_Pos)           /*!< 0x00200000 */
+#define PKA_CR_OPERRIE                      PKA_CR_OPERRIE_Msk                      /*!< Operation Error interrupt enable */
+
+/*******************  Bit definition for PKA_SR register  *********************/
+#define PKA_SR_INITOK_Pos                   (0U)
+#define PKA_SR_INITOK_Msk                   (0x1UL << PKA_SR_INITOK_Pos)            /*!< 0x00000001 */
+#define PKA_SR_INITOK                       PKA_SR_INITOK_Msk                       /*!< PKA initialisation flag */
+#define PKA_SR_BUSY_Pos                     (16U)
+#define PKA_SR_BUSY_Msk                     (0x1UL << PKA_SR_BUSY_Pos)              /*!< 0x00010000 */
+#define PKA_SR_BUSY                         PKA_SR_BUSY_Msk                         /*!< PKA operation is in progress */
+#define PKA_SR_PROCENDF_Pos                 (17U)
+#define PKA_SR_PROCENDF_Msk                 (0x1UL << PKA_SR_PROCENDF_Pos)          /*!< 0x00020000 */
+#define PKA_SR_PROCENDF                     PKA_SR_PROCENDF_Msk                     /*!< PKA end of operation flag */
+#define PKA_SR_RAMERRF_Pos                  (19U)
+#define PKA_SR_RAMERRF_Msk                  (0x1UL << PKA_SR_RAMERRF_Pos)           /*!< 0x00080000 */
+#define PKA_SR_RAMERRF                      PKA_SR_RAMERRF_Msk                      /*!< PKA RAM error flag */
+#define PKA_SR_ADDRERRF_Pos                 (20U)
+#define PKA_SR_ADDRERRF_Msk                 (0x1UL << PKA_SR_ADDRERRF_Pos)          /*!< 0x00100000 */
+#define PKA_SR_ADDRERRF                     PKA_SR_ADDRERRF_Msk                     /*!< Address error flag */
+#define PKA_SR_OPERRF_Pos                   (21U)
+#define PKA_SR_OPERRF_Msk                   (0x1UL << PKA_SR_OPERRF_Pos)            /*!< 0x00200000 */
+#define PKA_SR_OPERRF                       PKA_SR_OPERRF_Msk                       /*!< PKA operation Error flag*/
+
+/*******************  Bit definition for PKA_CLRFR register  ******************/
+#define PKA_CLRFR_PROCENDFC_Pos             (17U)
+#define PKA_CLRFR_PROCENDFC_Msk             (0x1UL << PKA_CLRFR_PROCENDFC_Pos)      /*!< 0x00020000 */
+#define PKA_CLRFR_PROCENDFC                 PKA_CLRFR_PROCENDFC_Msk                 /*!< Clear PKA end of operation flag */
+#define PKA_CLRFR_RAMERRFC_Pos              (19U)
+#define PKA_CLRFR_RAMERRFC_Msk              (0x1UL << PKA_CLRFR_RAMERRFC_Pos)       /*!< 0x00080000 */
+#define PKA_CLRFR_RAMERRFC                  PKA_CLRFR_RAMERRFC_Msk                  /*!< Clear PKA RAM error flag */
+#define PKA_CLRFR_ADDRERRFC_Pos             (20U)
+#define PKA_CLRFR_ADDRERRFC_Msk             (0x1UL << PKA_CLRFR_ADDRERRFC_Pos)      /*!< 0x00100000 */
+#define PKA_CLRFR_ADDRERRFC                 PKA_CLRFR_ADDRERRFC_Msk                 /*!< Clear address error flag */
+#define PKA_CLRFR_OPERRFC_Pos               (21U)
+#define PKA_CLRFR_OPERRFC_Msk               (0x1UL << PKA_CLRFR_OPERRFC_Pos)        /*!< 0x00200000 */
+#define PKA_CLRFR_OPERRFC                   PKA_CLRFR_OPERRFC_Msk                   /*!< Clear PKA operation Error flag*/
+
+/*******************  Bits definition for PKA RAM  *************************/
+#define PKA_RAM_OFFSET                                 (0x0400UL)                          /*!< PKA RAM address offset */
+
+/* Compute Montgomery parameter input data */
+#define PKA_MONTGOMERY_PARAM_IN_MOD_NB_BITS            ((0x0408UL - PKA_RAM_OFFSET)>>2)    /*!< Input modulus number of bits */
+#define PKA_MONTGOMERY_PARAM_IN_MODULUS                ((0x1088UL - PKA_RAM_OFFSET)>>2)    /*!< Input modulus */
+
+/* Compute Montgomery parameter output data */
+#define PKA_MONTGOMERY_PARAM_OUT_PARAMETER             ((0x0620UL - PKA_RAM_OFFSET)>>2)    /*!< Output Montgomery parameter */
+
+/* Compute modular exponentiation input data */
+#define PKA_MODULAR_EXP_IN_EXP_NB_BITS                 ((0x0400UL - PKA_RAM_OFFSET)>>2)    /*!< Input exponent number of bits */
+#define PKA_MODULAR_EXP_IN_OP_NB_BITS                  ((0x0408UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand number of bits */
+#define PKA_MODULAR_EXP_IN_MONTGOMERY_PARAM            ((0x0620UL - PKA_RAM_OFFSET)>>2)    /*!< Input storage area for Montgomery parameter */
+#define PKA_MODULAR_EXP_IN_EXPONENT_BASE               ((0x0C68UL - PKA_RAM_OFFSET)>>2)    /*!< Input base of the exponentiation */
+#define PKA_MODULAR_EXP_IN_EXPONENT                    ((0x0E78UL - PKA_RAM_OFFSET)>>2)    /*!< Input exponent to process */
+#define PKA_MODULAR_EXP_IN_MODULUS                     ((0x1088UL - PKA_RAM_OFFSET)>>2)    /*!< Input modulus */
+#define PKA_MODULAR_EXP_PROTECT_IN_EXPONENT_BASE       ((0x16C8UL - PKA_RAM_OFFSET)>>2)    /*!< Input base of the protected exponentiation */
+#define PKA_MODULAR_EXP_PROTECT_IN_EXPONENT            ((0x14B8UL - PKA_RAM_OFFSET)>>2)    /*!< Input exponent to process protected exponentiation*/
+#define PKA_MODULAR_EXP_PROTECT_IN_MODULUS             ((0x0838UL - PKA_RAM_OFFSET)>>2)    /*!< Input modulus to process protected exponentiation */
+#define PKA_MODULAR_EXP_PROTECT_IN_PHI                 ((0x0C68UL - PKA_RAM_OFFSET)>>2)    /*!< Input phi to process protected exponentiation */
+
+/* Compute modular exponentiation output data */
+#define PKA_MODULAR_EXP_OUT_RESULT                     ((0x0838UL - PKA_RAM_OFFSET)>>2)    /*!< Output result of the exponentiation */
+#define PKA_MODULAR_EXP_OUT_ERROR                      ((0x1298UL - PKA_RAM_OFFSET)>>2)    /*!< Output error of the exponentiation */
+#define PKA_MODULAR_EXP_OUT_MONTGOMERY_PARAM           ((0x0620UL - PKA_RAM_OFFSET)>>2)    /*!< Output storage area for Montgomery parameter */
+#define PKA_MODULAR_EXP_OUT_EXPONENT_BASE              ((0x0C68UL - PKA_RAM_OFFSET)>>2)    /*!< Output base of the exponentiation */
+
+/* Compute ECC scalar multiplication input data */
+#define PKA_ECC_SCALAR_MUL_IN_EXP_NB_BITS              ((0x0400UL - PKA_RAM_OFFSET)>>2)    /*!< Input curve prime order n number of bits */
+#define PKA_ECC_SCALAR_MUL_IN_OP_NB_BITS               ((0x0408UL - PKA_RAM_OFFSET)>>2)    /*!< Input modulus number of bits */
+#define PKA_ECC_SCALAR_MUL_IN_A_COEFF_SIGN             ((0x0410UL - PKA_RAM_OFFSET)>>2)    /*!< Input sign of the 'a' coefficient */
+#define PKA_ECC_SCALAR_MUL_IN_A_COEFF                  ((0x0418UL - PKA_RAM_OFFSET)>>2)    /*!< Input ECC curve 'a' coefficient */
+#define PKA_ECC_SCALAR_MUL_IN_B_COEFF                  ((0x0520UL - PKA_RAM_OFFSET)>>2)    /*!< Input ECC curve 'b' coefficient */
+#define PKA_ECC_SCALAR_MUL_IN_MOD_GF                   ((0x1088UL - PKA_RAM_OFFSET)>>2)    /*!< Input modulus GF(p) */
+#define PKA_ECC_SCALAR_MUL_IN_K                        ((0x12A0UL - PKA_RAM_OFFSET)>>2)    /*!< Input 'k' of KP */
+#define PKA_ECC_SCALAR_MUL_IN_INITIAL_POINT_X          ((0x0578UL - PKA_RAM_OFFSET)>>2)    /*!< Input initial point P X coordinate */
+#define PKA_ECC_SCALAR_MUL_IN_INITIAL_POINT_Y          ((0x0470UL - PKA_RAM_OFFSET)>>2)    /*!< Input initial point P Y coordinate */
+#define PKA_ECC_SCALAR_MUL_IN_N_PRIME_ORDER            ((0x0F88UL - PKA_RAM_OFFSET)>>2)    /*!< Input prime order n */
+
+/* Compute ECC scalar multiplication output data */
+#define PKA_ECC_SCALAR_MUL_OUT_RESULT_X                ((0x0578UL - PKA_RAM_OFFSET)>>2)    /*!< Output result X coordinate */
+#define PKA_ECC_SCALAR_MUL_OUT_RESULT_Y                ((0x05D0UL - PKA_RAM_OFFSET)>>2)    /*!< Output result Y coordinate */
+#define PKA_ECC_SCALAR_MUL_OUT_ERROR                   ((0x0680UL - PKA_RAM_OFFSET)>>2)    /*!< Output result error */
+
+/* Point check input data */
+#define PKA_POINT_CHECK_IN_MOD_NB_BITS                 ((0x0408UL - PKA_RAM_OFFSET)>>2)    /*!< Input modulus number of bits */
+#define PKA_POINT_CHECK_IN_A_COEFF_SIGN                ((0x0410UL - PKA_RAM_OFFSET)>>2)    /*!< Input sign of the 'a' coefficient */
+#define PKA_POINT_CHECK_IN_A_COEFF                     ((0x0418UL - PKA_RAM_OFFSET)>>2)    /*!< Input ECC curve 'a' coefficient */
+#define PKA_POINT_CHECK_IN_B_COEFF                     ((0x0520UL - PKA_RAM_OFFSET)>>2)    /*!< Input ECC curve 'b' coefficient */
+#define PKA_POINT_CHECK_IN_MOD_GF                      ((0x0470UL - PKA_RAM_OFFSET)>>2)    /*!< Input modulus GF(p) */
+#define PKA_POINT_CHECK_IN_INITIAL_POINT_X             ((0x0578UL - PKA_RAM_OFFSET)>>2)    /*!< Input initial point P X coordinate */
+#define PKA_POINT_CHECK_IN_INITIAL_POINT_Y             ((0x05D0UL - PKA_RAM_OFFSET)>>2)    /*!< Input initial point P Y coordinate */
+#define PKA_POINT_CHECK_IN_MONTGOMERY_PARAM            ((0x04C8UL - PKA_RAM_OFFSET)>>2)    /*!< Input storage area for Montgomery parameter */
+
+/* Point check output data */
+#define PKA_POINT_CHECK_OUT_ERROR                      ((0x0680UL - PKA_RAM_OFFSET)>>2)    /*!< Output error */
+
+/* ECDSA signature input data */
+#define PKA_ECDSA_SIGN_IN_ORDER_NB_BITS                ((0x0400UL - PKA_RAM_OFFSET)>>2)    /*!< Input order number of bits */
+#define PKA_ECDSA_SIGN_IN_MOD_NB_BITS                  ((0x0408UL - PKA_RAM_OFFSET)>>2)    /*!< Input modulus number of bits */
+#define PKA_ECDSA_SIGN_IN_A_COEFF_SIGN                 ((0x0410UL - PKA_RAM_OFFSET)>>2)    /*!< Input sign of the 'a' coefficient */
+#define PKA_ECDSA_SIGN_IN_A_COEFF                      ((0x0418UL - PKA_RAM_OFFSET)>>2)    /*!< Input ECC curve 'a' coefficient */
+#define PKA_ECDSA_SIGN_IN_B_COEFF                      ((0x0520UL - PKA_RAM_OFFSET)>>2)    /*!< Input ECC curve 'b' coefficient */
+#define PKA_ECDSA_SIGN_IN_MOD_GF                       ((0x1088UL - PKA_RAM_OFFSET)>>2)    /*!< Input modulus GF(p) */
+#define PKA_ECDSA_SIGN_IN_K                            ((0x12A0UL - PKA_RAM_OFFSET)>>2)    /*!< Input k value of the ECDSA */
+#define PKA_ECDSA_SIGN_IN_INITIAL_POINT_X              ((0x0578UL - PKA_RAM_OFFSET)>>2)    /*!< Input initial point P X coordinate */
+#define PKA_ECDSA_SIGN_IN_INITIAL_POINT_Y              ((0x0470UL - PKA_RAM_OFFSET)>>2)    /*!< Input initial point P Y coordinate */
+#define PKA_ECDSA_SIGN_IN_HASH_E                       ((0x0FE8UL - PKA_RAM_OFFSET)>>2)    /*!< Input e, hash of the message */
+#define PKA_ECDSA_SIGN_IN_PRIVATE_KEY_D                ((0x0F28UL - PKA_RAM_OFFSET)>>2)    /*!< Input d, private key */
+#define PKA_ECDSA_SIGN_IN_ORDER_N                      ((0x0F88UL - PKA_RAM_OFFSET)>>2)    /*!< Input n, order of the curve */
+
+/* ECDSA signature output data */
+#define PKA_ECDSA_SIGN_OUT_ERROR                       ((0x0FE0UL - PKA_RAM_OFFSET)>>2)    /*!< Output error */
+#define PKA_ECDSA_SIGN_OUT_SIGNATURE_R                 ((0x0730UL - PKA_RAM_OFFSET)>>2)    /*!< Output signature r */
+#define PKA_ECDSA_SIGN_OUT_SIGNATURE_S                 ((0x0788UL - PKA_RAM_OFFSET)>>2)    /*!< Output signature s */
+#define PKA_ECDSA_SIGN_OUT_FINAL_POINT_X               ((0x1400UL - PKA_RAM_OFFSET)>>2)    /*!< Extended output result point X coordinate */
+#define PKA_ECDSA_SIGN_OUT_FINAL_POINT_Y               ((0x1458UL - PKA_RAM_OFFSET)>>2)    /*!< Extended output result point Y coordinate */
+
+
+/* ECDSA verification input data */
+#define PKA_ECDSA_VERIF_IN_ORDER_NB_BITS               ((0x0408UL - PKA_RAM_OFFSET)>>2)    /*!< Input order number of bits */
+#define PKA_ECDSA_VERIF_IN_MOD_NB_BITS                 ((0x04C8UL - PKA_RAM_OFFSET)>>2)    /*!< Input modulus number of bits */
+#define PKA_ECDSA_VERIF_IN_A_COEFF_SIGN                ((0x0468UL - PKA_RAM_OFFSET)>>2)    /*!< Input sign of the 'a' coefficient */
+#define PKA_ECDSA_VERIF_IN_A_COEFF                     ((0x0470UL - PKA_RAM_OFFSET)>>2)    /*!< Input ECC curve 'a' coefficient */
+#define PKA_ECDSA_VERIF_IN_MOD_GF                      ((0x04D0UL - PKA_RAM_OFFSET)>>2)    /*!< Input modulus GF(p) */
+#define PKA_ECDSA_VERIF_IN_INITIAL_POINT_X             ((0x0678UL - PKA_RAM_OFFSET)>>2)    /*!< Input initial point P X coordinate */
+#define PKA_ECDSA_VERIF_IN_INITIAL_POINT_Y             ((0x06D0UL - PKA_RAM_OFFSET)>>2)    /*!< Input initial point P Y coordinate */
+#define PKA_ECDSA_VERIF_IN_PUBLIC_KEY_POINT_X          ((0x12F8UL - PKA_RAM_OFFSET)>>2)    /*!< Input public key point X coordinate */
+#define PKA_ECDSA_VERIF_IN_PUBLIC_KEY_POINT_Y          ((0x1350UL - PKA_RAM_OFFSET)>>2)    /*!< Input public key point Y coordinate */
+#define PKA_ECDSA_VERIF_IN_SIGNATURE_R                 ((0x10E0UL - PKA_RAM_OFFSET)>>2)    /*!< Input r, part of the signature */
+#define PKA_ECDSA_VERIF_IN_SIGNATURE_S                 ((0x0C68UL - PKA_RAM_OFFSET)>>2)    /*!< Input s, part of the signature */
+#define PKA_ECDSA_VERIF_IN_HASH_E                      ((0x13A8UL - PKA_RAM_OFFSET)>>2)    /*!< Input e, hash of the message */
+#define PKA_ECDSA_VERIF_IN_ORDER_N                     ((0x1088UL - PKA_RAM_OFFSET)>>2)    /*!< Input n, order of the curve */
+
+/* ECDSA verification output data */
+#define PKA_ECDSA_VERIF_OUT_RESULT                     ((0x05D0UL - PKA_RAM_OFFSET)>>2)    /*!< Output result */
+
+/* RSA CRT exponentiation input data */
+#define PKA_RSA_CRT_EXP_IN_MOD_NB_BITS                 ((0x0408UL - PKA_RAM_OFFSET)>>2)    /*!< Input operands number of bits */
+#define PKA_RSA_CRT_EXP_IN_DP_CRT                      ((0x0730UL - PKA_RAM_OFFSET)>>2)    /*!< Input Dp CRT parameter */
+#define PKA_RSA_CRT_EXP_IN_DQ_CRT                      ((0x0E78UL - PKA_RAM_OFFSET)>>2)    /*!< Input Dq CRT parameter */
+#define PKA_RSA_CRT_EXP_IN_QINV_CRT                    ((0x0948UL - PKA_RAM_OFFSET)>>2)    /*!< Input qInv CRT parameter */
+#define PKA_RSA_CRT_EXP_IN_PRIME_P                     ((0x0B60UL - PKA_RAM_OFFSET)>>2)    /*!< Input Prime p */
+#define PKA_RSA_CRT_EXP_IN_PRIME_Q                     ((0x1088UL - PKA_RAM_OFFSET)>>2)    /*!< Input Prime q */
+#define PKA_RSA_CRT_EXP_IN_EXPONENT_BASE               ((0x12A0UL - PKA_RAM_OFFSET)>>2)    /*!< Input base of the exponentiation */
+
+/* RSA CRT exponentiation output data */
+#define PKA_RSA_CRT_EXP_OUT_RESULT                     ((0x0838UL - PKA_RAM_OFFSET)>>2)    /*!< Output result */
+
+/* Modular reduction input data */
+#define PKA_MODULAR_REDUC_IN_OP_LENGTH                 ((0x0400UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand length */
+#define PKA_MODULAR_REDUC_IN_MOD_LENGTH                ((0x0408UL - PKA_RAM_OFFSET)>>2)    /*!< Input modulus length */
+#define PKA_MODULAR_REDUC_IN_OPERAND                   ((0x0A50UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand */
+#define PKA_MODULAR_REDUC_IN_MODULUS                   ((0x0C68UL - PKA_RAM_OFFSET)>>2)    /*!< Input modulus */
+
+/* Modular reduction output data */
+#define PKA_MODULAR_REDUC_OUT_RESULT                   ((0xE78UL - PKA_RAM_OFFSET)>>2)    /*!< Output result */
+
+/* Arithmetic addition input data */
+#define PKA_ARITHMETIC_ADD_IN_OP_NB_BITS               ((0x0408UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand number of bits */
+#define PKA_ARITHMETIC_ADD_IN_OP1                      ((0x0A50UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand op1 */
+#define PKA_ARITHMETIC_ADD_IN_OP2                      ((0x0C68UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand op2 */
+
+/* Arithmetic addition output data */
+#define PKA_ARITHMETIC_ADD_OUT_RESULT                  ((0x0E78UL - PKA_RAM_OFFSET)>>2)    /*!< Output result */
+
+/* Arithmetic subtraction input data */
+#define PKA_ARITHMETIC_SUB_IN_OP_NB_BITS               ((0x0408UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand number of bits */
+#define PKA_ARITHMETIC_SUB_IN_OP1                      ((0x0A50UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand op1 */
+#define PKA_ARITHMETIC_SUB_IN_OP2                      ((0x0C68UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand op2 */
+
+/* Arithmetic subtraction output data */
+#define PKA_ARITHMETIC_SUB_OUT_RESULT                  ((0x0E78UL - PKA_RAM_OFFSET)>>2)    /*!< Output result */
+
+/* Arithmetic multiplication input data */
+#define PKA_ARITHMETIC_MUL_NB_BITS                     ((0x0408UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand number of bits */
+#define PKA_ARITHMETIC_MUL_IN_OP1                      ((0x0A50UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand op1 */
+#define PKA_ARITHMETIC_MUL_IN_OP2                      ((0x0C68UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand op2 */
+
+/* Arithmetic multiplication output data */
+#define PKA_ARITHMETIC_MUL_OUT_RESULT                  ((0x0E78UL - PKA_RAM_OFFSET)>>2)    /*!< Output result */
+
+/* Comparison input data */
+#define PKA_COMPARISON_IN_OP_NB_BITS                   ((0x0408UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand number of bits */
+#define PKA_COMPARISON_IN_OP1                          ((0x0A50UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand op1 */
+#define PKA_COMPARISON_IN_OP2                          ((0x0C68UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand op2 */
+
+/* Comparison output data */
+#define PKA_COMPARISON_OUT_RESULT                      ((0x0E78UL - PKA_RAM_OFFSET)>>2)    /*!< Output result */
+
+/* Modular addition input data */
+#define PKA_MODULAR_ADD_NB_BITS                        ((0x0408UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand number of bits */
+#define PKA_MODULAR_ADD_IN_OP1                         ((0x0A50UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand op1 */
+#define PKA_MODULAR_ADD_IN_OP2                         ((0x0C68UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand op2 */
+#define PKA_MODULAR_ADD_IN_OP3_MOD                     ((0x1088UL - PKA_RAM_OFFSET)>>2)   /*!< Input operand op3 (modulus) */
+
+/* Modular addition output data */
+#define PKA_MODULAR_ADD_OUT_RESULT                     ((0x0E78UL - PKA_RAM_OFFSET)>>2)    /*!< Output result */
+
+/* Modular inversion input data */
+#define PKA_MODULAR_INV_NB_BITS                        ((0x0408UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand number of bits */
+#define PKA_MODULAR_INV_IN_OP1                         ((0x0A50UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand op1 */
+#define PKA_MODULAR_INV_IN_OP2_MOD                     ((0x0C68UL - PKA_RAM_OFFSET)>>2)   /*!< Input operand op2 (modulus) */
+
+/* Modular inversion output data */
+#define PKA_MODULAR_INV_OUT_RESULT                     ((0x0E78UL - PKA_RAM_OFFSET)>>2)    /*!< Output result */
+
+/* Modular subtraction input data */
+#define PKA_MODULAR_SUB_IN_OP_NB_BITS                  ((0x0408UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand number of bits */
+#define PKA_MODULAR_SUB_IN_OP1                         ((0x0A50UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand op1 */
+#define PKA_MODULAR_SUB_IN_OP2                         ((0x0C68UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand op2 */
+#define PKA_MODULAR_SUB_IN_OP3_MOD                     ((0x1088UL - PKA_RAM_OFFSET)>>2)   /*!< Input operand op3 */
+
+/* Modular subtraction output data */
+#define PKA_MODULAR_SUB_OUT_RESULT                     ((0x0E78UL - PKA_RAM_OFFSET)>>2)    /*!< Output result */
+
+/* Montgomery multiplication input data */
+#define PKA_MONTGOMERY_MUL_IN_OP_NB_BITS               ((0x0408UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand number of bits */
+#define PKA_MONTGOMERY_MUL_IN_OP1                      ((0x0A50UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand op1 */
+#define PKA_MONTGOMERY_MUL_IN_OP2                      ((0x0C68UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand op2 */
+#define PKA_MONTGOMERY_MUL_IN_OP3_MOD                  ((0x1088UL - PKA_RAM_OFFSET)>>2)   /*!< Input modulus */
+
+/* Montgomery multiplication output data */
+#define PKA_MONTGOMERY_MUL_OUT_RESULT                  ((0x0E78UL - PKA_RAM_OFFSET)>>2)    /*!< Output result */
+
+/* Generic Arithmetic input data */
+#define PKA_ARITHMETIC_ALL_OPS_NB_BITS                 ((0x0408UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand number of bits */
+#define PKA_ARITHMETIC_ALL_OPS_IN_OP1                  ((0x0A50UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand op1 */
+#define PKA_ARITHMETIC_ALL_OPS_IN_OP2                  ((0x0C68UL - PKA_RAM_OFFSET)>>2)    /*!< Input operand op2 */
+#define PKA_ARITHMETIC_ALL_OPS_IN_OP3                  ((0x1088UL - PKA_RAM_OFFSET)>>2)   /*!< Input operand op2 */
+
+/* Generic Arithmetic output data */
+#define PKA_ARITHMETIC_ALL_OPS_OUT_RESULT              ((0x0E78UL - PKA_RAM_OFFSET)>>2)   /*!< Output result for arithmetic operations */
+
+/* Compute ECC complete addition input data */
+#define PKA_ECC_COMPLETE_ADD_IN_MOD_NB_BITS            ((0x0408UL - PKA_RAM_OFFSET)>>2)   /*!< Input Modulus number of bits */
+#define PKA_ECC_COMPLETE_ADD_IN_A_COEFF_SIGN           ((0x0410UL - PKA_RAM_OFFSET)>>2)   /*!< Input sign of the 'a' coefficient */
+#define PKA_ECC_COMPLETE_ADD_IN_A_COEFF                ((0x0418UL - PKA_RAM_OFFSET)>>2)   /*!< Input ECC curve '|a|' coefficient */
+#define PKA_ECC_COMPLETE_ADD_IN_MOD_P                  ((0x0470UL - PKA_RAM_OFFSET)>>2)   /*!< Input modulus GF(p) */
+#define PKA_ECC_COMPLETE_ADD_IN_POINT1_X               ((0x0628UL - PKA_RAM_OFFSET)>>2)   /*!< Input initial point P X coordinate */
+#define PKA_ECC_COMPLETE_ADD_IN_POINT1_Y               ((0x0680UL - PKA_RAM_OFFSET)>>2)   /*!< Input initial point P Y coordinate */
+#define PKA_ECC_COMPLETE_ADD_IN_POINT1_Z               ((0x06D8UL - PKA_RAM_OFFSET)>>2)   /*!< Input initial point P Z coordinate */
+#define PKA_ECC_COMPLETE_ADD_IN_POINT2_X               ((0x0730UL - PKA_RAM_OFFSET)>>2)   /*!< Input initial point Q X coordinate */
+#define PKA_ECC_COMPLETE_ADD_IN_POINT2_Y               ((0x0788UL - PKA_RAM_OFFSET)>>2)   /*!< Input initial point Q Y coordinate */
+#define PKA_ECC_COMPLETE_ADD_IN_POINT2_Z               ((0x07E0UL - PKA_RAM_OFFSET)>>2)   /*!< Input initial point Q Z coordinate */
+
+/* Compute ECC complete addition output data */
+#define PKA_ECC_COMPLETE_ADD_OUT_RESULT_X              ((0x0D60UL - PKA_RAM_OFFSET)>>2)   /*!< Output result X coordinate */
+#define PKA_ECC_COMPLETE_ADD_OUT_RESULT_Y              ((0x0DB8UL - PKA_RAM_OFFSET)>>2)   /*!< Output result Y coordinate */
+#define PKA_ECC_COMPLETE_ADD_OUT_RESULT_Z              ((0x0E10UL - PKA_RAM_OFFSET)>>2)   /*!< Output result Z coordinate */
+
+/* Compute ECC double base ladder input data */
+#define PKA_ECC_DOUBLE_LADDER_IN_PRIME_ORDER_NB_BITS  ((0x0400UL - PKA_RAM_OFFSET)>>2)    /*!< Input n, order of the curve */
+#define PKA_ECC_DOUBLE_LADDER_IN_MOD_NB_BITS          ((0x0408UL - PKA_RAM_OFFSET)>>2)    /*!< Input Modulus number of bits */
+#define PKA_ECC_DOUBLE_LADDER_IN_A_COEFF_SIGN         ((0x0410UL - PKA_RAM_OFFSET)>>2)    /*!< Input sign of the 'a' coefficient */
+#define PKA_ECC_DOUBLE_LADDER_IN_A_COEFF              ((0x0418UL - PKA_RAM_OFFSET)>>2)    /*!< Input ECC curve '|a|' coefficient */
+#define PKA_ECC_DOUBLE_LADDER_IN_MOD_P                ((0x0470UL - PKA_RAM_OFFSET)>>2)    /*!< Input modulus GF(p) */
+#define PKA_ECC_DOUBLE_LADDER_IN_K_INTEGER            ((0x0520UL - PKA_RAM_OFFSET)>>2)    /*!< Input 'k' integer coefficient */
+#define PKA_ECC_DOUBLE_LADDER_IN_M_INTEGER            ((0x0578UL - PKA_RAM_OFFSET)>>2)    /*!< Input 'm' integer coefficient */
+#define PKA_ECC_DOUBLE_LADDER_IN_POINT1_X             ((0x0628UL - PKA_RAM_OFFSET)>>2)    /*!< Input initial point P X coordinate */
+#define PKA_ECC_DOUBLE_LADDER_IN_POINT1_Y             ((0x0680UL - PKA_RAM_OFFSET)>>2)    /*!< Input initial point P Y coordinate */
+#define PKA_ECC_DOUBLE_LADDER_IN_POINT1_Z             ((0x06D8UL - PKA_RAM_OFFSET)>>2)    /*!< Input initial point P Z coordinate */
+#define PKA_ECC_DOUBLE_LADDER_IN_POINT2_X             ((0x0730UL - PKA_RAM_OFFSET)>>2)    /*!< Input initial point Q X coordinate */
+#define PKA_ECC_DOUBLE_LADDER_IN_POINT2_Y             ((0x0788UL - PKA_RAM_OFFSET)>>2)    /*!< Input initial point Q Y coordinate */
+#define PKA_ECC_DOUBLE_LADDER_IN_POINT2_Z             ((0x07E0UL - PKA_RAM_OFFSET)>>2)    /*!< Input initial point Q Z coordinate */
+
+/* Compute ECC double base ladder output data */
+#define PKA_ECC_DOUBLE_LADDER_OUT_RESULT_X          ((0x0578UL - PKA_RAM_OFFSET)>>2)      /*!< Output result X coordinate (affine coordinate) */
+#define PKA_ECC_DOUBLE_LADDER_OUT_RESULT_Y          ((0x05D0UL - PKA_RAM_OFFSET)>>2)      /*!< Output result Y coordinate (affine coordinate) */
+#define PKA_ECC_DOUBLE_LADDER_OUT_ERROR             ((0x0520UL - PKA_RAM_OFFSET)>>2)      /*!< Output result error */
+
+/* Compute ECC projective to affine conversion input data */
+#define PKA_ECC_PROJECTIVE_AFF_IN_MOD_NB_BITS           ((0x0408UL - PKA_RAM_OFFSET)>>2)  /*!< Input Modulus number of bits */
+#define PKA_ECC_PROJECTIVE_AFF_IN_MOD_P                 ((0x0470UL - PKA_RAM_OFFSET)>>2)  /*!< Input modulus GF(p) */
+#define PKA_ECC_PROJECTIVE_AFF_IN_POINT_X               ((0x0D60UL - PKA_RAM_OFFSET)>>2)  /*!< Input initial projective point P X coordinate */
+#define PKA_ECC_PROJECTIVE_AFF_IN_POINT_Y               ((0x0DB8UL - PKA_RAM_OFFSET)>>2)  /*!< Input initial projective point P Y coordinate */
+#define PKA_ECC_PROJECTIVE_AFF_IN_POINT_Z               ((0x0E10UL - PKA_RAM_OFFSET)>>2)  /*!< Input initial projective point P Z coordinate */
+#define PKA_ECC_PROJECTIVE_AFF_IN_MONTGOMERY_PARAM_R2   ((0x04C8UL - PKA_RAM_OFFSET)>>2)  /*!< Input storage area for Montgomery parameter */
+
+/* Compute ECC projective to affine conversion output data */
+#define PKA_ECC_PROJECTIVE_AFF_OUT_RESULT_X      ((0x0578UL - PKA_RAM_OFFSET)>>2)         /*!< Output result x affine coordinate */
+#define PKA_ECC_PROJECTIVE_AFF_OUT_RESULT_Y      ((0x05D0UL - PKA_RAM_OFFSET)>>2)         /*!< Output result y affine coordinate */
+#define PKA_ECC_PROJECTIVE_AFF_OUT_ERROR         ((0x0680UL - PKA_RAM_OFFSET)>>2)         /*!< Output result error */
+
 
 /** @addtogroup STM32H5xx_Peripheral_Exported_macros
   * @{
@@ -20695,6 +21081,9 @@ typedef struct
 
 #define IS_ADC_COMMON_INSTANCE(INSTANCE) (((INSTANCE) == ADC12_COMMON_NS) ||         \
                                           ((INSTANCE) == ADC12_COMMON_S))
+/******************************* PKA Instances ********************************/
+#define IS_PKA_ALL_INSTANCE(INSTANCE) (((INSTANCE) == PKA_NS) || ((INSTANCE) == PKA_S))
+
 
 /******************************* CORDIC Instances *****************************/
 #define IS_CORDIC_ALL_INSTANCE(INSTANCE) (((INSTANCE) == CORDIC_NS) || ((INSTANCE) == CORDIC_S))
@@ -20737,6 +21126,11 @@ typedef struct
                                                  ((INSTANCE) == GPDMA1_Channel7_NS)  || ((INSTANCE) == GPDMA1_Channel7_S)  || \
                                                  ((INSTANCE) == GPDMA2_Channel6_NS)  || ((INSTANCE) == GPDMA2_Channel6_S)  || \
                                                  ((INSTANCE) == GPDMA2_Channel7_NS)  || ((INSTANCE) == GPDMA2_Channel7_S))
+
+#define IS_DMA_PFREQ_INSTANCE(INSTANCE) (((INSTANCE) == GPDMA1_Channel0_NS)  || ((INSTANCE) == GPDMA1_Channel0_S)  || \
+                                         ((INSTANCE) == GPDMA1_Channel7_NS)  || ((INSTANCE) == GPDMA1_Channel7_S)  || \
+                                         ((INSTANCE) == GPDMA2_Channel0_NS)  || ((INSTANCE) == GPDMA2_Channel0_S)  || \
+                                         ((INSTANCE) == GPDMA2_Channel7_NS)  || ((INSTANCE) == GPDMA2_Channel7_S))
 
 /****************************** RAMCFG Instances ********************************/
 #define IS_RAMCFG_ALL_INSTANCE(INSTANCE) (((INSTANCE) == RAMCFG_SRAM1_NS)  || ((INSTANCE) == RAMCFG_SRAM1_S)  || \
@@ -21261,6 +21655,9 @@ typedef struct
                                          ((INSTANCE) == TIM16_NS) || ((INSTANCE) == TIM16_S)|| \
                                          ((INSTANCE) == TIM17_NS) || ((INSTANCE) == TIM17_S))
 
+/******************* TIM Instances : supporting bitfield RTCPREEN in OR1 register  ********************/
+#define IS_TIM_RTCPREEN_INSTANCE(INSTANCE) (((INSTANCE) == TIM17_NS)  || ((INSTANCE) == TIM17_S))
+
 /****************** TIM Instances : Advanced timer instances *******************/
 #define IS_TIM_ADVANCED_INSTANCE(INSTANCE)       (((INSTANCE) == TIM1_NS)  || ((INSTANCE) == TIM1_S) || \
                                                   ((INSTANCE) == TIM8_NS)  || ((INSTANCE) == TIM8_S))
@@ -21457,7 +21854,6 @@ typedef struct
 
 /******************************* USB DRD FS PCD Instances *************************/
 #define IS_PCD_ALL_INSTANCE(INSTANCE) (((INSTANCE) == USB_DRD_FS_NS) || ((INSTANCE) == USB_DRD_FS_S))
-
 
 /** @} */ /* End of group STM32H5xx_Peripheral_Exported_macros */
 

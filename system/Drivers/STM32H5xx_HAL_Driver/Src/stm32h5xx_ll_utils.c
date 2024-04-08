@@ -201,7 +201,8 @@ static ErrorStatus UTILS_PLL_IsBusy(void);
   */
 
 /**
-  * @brief  This function configures the Cortex-M SysTick source to have 1ms time base.
+  * @brief  This function configures the Cortex-M SysTick source to have 1ms time base with HCLK
+  *         as SysTick clock source.
   * @note   When a RTOS is used, it is recommended to avoid changing the Systick
   *         configuration by calling this function, for a delay use rather osDelay RTOS service.
   * @param  HCLKFrequency HCLK frequency in Hz
@@ -215,16 +216,59 @@ void LL_Init1msTick(uint32_t HCLKFrequency)
 }
 
 /**
-  * @brief  This function provides accurate delay (in milliseconds) based
+  * @brief  This function configures the Cortex-M SysTick source to have 1ms time base with HCLK/8
+  *         as SysTick clock source.
+  * @note   When a RTOS is used, it is recommended to avoid changing the Systick
+  *         configuration by calling this function, for a delay use rather osDelay RTOS service.
+  * @param  HCLKFrequency HCLK frequency in Hz
+  * @retval None
+  */
+void LL_Init1msTick_HCLK_Div8(uint32_t HCLKFrequency)
+{
+  /* Configure the SysTick to have 1ms time base with HCLK/8 as SysTick clock source */
+  SysTick->LOAD = (uint32_t)((HCLKFrequency / 8000U) - 1UL);
+  SysTick->VAL = 0UL;
+  SysTick->CTRL = SysTick_CTRL_ENABLE_Msk;
+}
+
+/**
+  * @brief  This function configures the Cortex-M SysTick source to have 1ms time base with LSE as SysTick clock source.
+  * @note   When a RTOS is used, it is recommended to avoid changing the Systick
+  *         configuration by calling this function, for a delay use rather osDelay RTOS service.
+  * @retval None
+  */
+void LL_Init1msTick_LSE(void)
+{
+  /* Configure the SysTick to have 1ms time base with LSE as SysTick clock source */
+  SysTick->LOAD = (uint32_t)((LSE_VALUE / 1000U) - 1UL);
+  SysTick->VAL = 0UL;
+  SysTick->CTRL = SysTick_CTRL_ENABLE_Msk;
+}
+
+/**
+  * @brief  This function configures the Cortex-M SysTick source to have 1ms time base with LSI as SysTick clock source.
+  * @note   When a RTOS is used, it is recommended to avoid changing the Systick
+  *         configuration by calling this function, for a delay use rather osDelay RTOS service.
+  * @retval None
+  */
+void LL_Init1msTick_LSI(void)
+{
+  /* Configure the SysTick to have 1ms time base with LSI as SysTick clock source */
+  SysTick->LOAD = (uint32_t)((LSI_VALUE / 1000U) - 1UL);
+  SysTick->VAL = 0UL;
+  SysTick->CTRL = SysTick_CTRL_ENABLE_Msk;
+}
+
+/**
+  * @brief  This function provides minimum delay (in milliseconds) based
   *         on SysTick counter flag
   * @note   When a RTOS is used, it is recommended to avoid using blocking delay
   *         and use rather osDelay service.
   * @note   To respect 1ms timebase, user should call @ref LL_Init1msTick function which
   *         will configure Systick to 1ms
-  * @param  Delay specifies the delay time length, in milliseconds.
+  * @param  Delay specifies the minimum delay time length, in milliseconds.
   * @retval None
   */
-
 void LL_mDelay(uint32_t Delay)
 {
   __IO uint32_t  tmp = SysTick->CTRL;  /* Clear the COUNTFLAG first */

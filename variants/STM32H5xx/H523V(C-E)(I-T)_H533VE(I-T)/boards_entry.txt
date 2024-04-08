@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic H523VCIx
+GenH5.menu.pnum.GENERIC_H523VCIX=Generic H523VCIx
+GenH5.menu.pnum.GENERIC_H523VCIX.upload.maximum_size=262144
+GenH5.menu.pnum.GENERIC_H523VCIX.upload.maximum_data_size=278528
+GenH5.menu.pnum.GENERIC_H523VCIX.build.board=GENERIC_H523VCIX
+GenH5.menu.pnum.GENERIC_H523VCIX.build.product_line=STM32H523xx
+GenH5.menu.pnum.GENERIC_H523VCIX.build.variant=STM32H5xx/H523V(C-E)(I-T)_H533VE(I-T)
+
+# Generic H523VCTx
+GenH5.menu.pnum.GENERIC_H523VCTX=Generic H523VCTx
+GenH5.menu.pnum.GENERIC_H523VCTX.upload.maximum_size=262144
+GenH5.menu.pnum.GENERIC_H523VCTX.upload.maximum_data_size=278528
+GenH5.menu.pnum.GENERIC_H523VCTX.build.board=GENERIC_H523VCTX
+GenH5.menu.pnum.GENERIC_H523VCTX.build.product_line=STM32H523xx
+GenH5.menu.pnum.GENERIC_H523VCTX.build.variant=STM32H5xx/H523V(C-E)(I-T)_H533VE(I-T)
+
+# Generic H523VEIx
+GenH5.menu.pnum.GENERIC_H523VEIX=Generic H523VEIx
+GenH5.menu.pnum.GENERIC_H523VEIX.upload.maximum_size=524288
+GenH5.menu.pnum.GENERIC_H523VEIX.upload.maximum_data_size=278528
+GenH5.menu.pnum.GENERIC_H523VEIX.build.board=GENERIC_H523VEIX
+GenH5.menu.pnum.GENERIC_H523VEIX.build.product_line=STM32H523xx
+GenH5.menu.pnum.GENERIC_H523VEIX.build.variant=STM32H5xx/H523V(C-E)(I-T)_H533VE(I-T)
+
+# Generic H523VETx
+GenH5.menu.pnum.GENERIC_H523VETX=Generic H523VETx
+GenH5.menu.pnum.GENERIC_H523VETX.upload.maximum_size=524288
+GenH5.menu.pnum.GENERIC_H523VETX.upload.maximum_data_size=278528
+GenH5.menu.pnum.GENERIC_H523VETX.build.board=GENERIC_H523VETX
+GenH5.menu.pnum.GENERIC_H523VETX.build.product_line=STM32H523xx
+GenH5.menu.pnum.GENERIC_H523VETX.build.variant=STM32H5xx/H523V(C-E)(I-T)_H533VE(I-T)
+
+# Generic H533VEIx
+GenH5.menu.pnum.GENERIC_H533VEIX=Generic H533VEIx
+GenH5.menu.pnum.GENERIC_H533VEIX.upload.maximum_size=524288
+GenH5.menu.pnum.GENERIC_H533VEIX.upload.maximum_data_size=278528
+GenH5.menu.pnum.GENERIC_H533VEIX.build.board=GENERIC_H533VEIX
+GenH5.menu.pnum.GENERIC_H533VEIX.build.product_line=STM32H533xx
+GenH5.menu.pnum.GENERIC_H533VEIX.build.variant=STM32H5xx/H523V(C-E)(I-T)_H533VE(I-T)
+
+# Generic H533VETx
+GenH5.menu.pnum.GENERIC_H533VETX=Generic H533VETx
+GenH5.menu.pnum.GENERIC_H533VETX.upload.maximum_size=524288
+GenH5.menu.pnum.GENERIC_H533VETX.upload.maximum_data_size=278528
+GenH5.menu.pnum.GENERIC_H533VETX.build.board=GENERIC_H533VETX
+GenH5.menu.pnum.GENERIC_H533VETX.build.product_line=STM32H533xx
+GenH5.menu.pnum.GENERIC_H533VETX.build.variant=STM32H5xx/H523V(C-E)(I-T)_H533VE(I-T)
+

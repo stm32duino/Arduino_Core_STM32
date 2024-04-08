@@ -1619,11 +1619,20 @@ HAL_StatusTypeDef HAL_PCD_EP_Abort(PCD_HandleTypeDef *hpcd, uint8_t ep_addr)
   * @param  ep_addr endpoint address
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_PCD_EP_Flush(PCD_HandleTypeDef const *hpcd, uint8_t ep_addr)
+HAL_StatusTypeDef HAL_PCD_EP_Flush(PCD_HandleTypeDef *hpcd, uint8_t ep_addr)
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(hpcd);
-  UNUSED(ep_addr);
+  __HAL_LOCK(hpcd);
+
+  if ((ep_addr & 0x80U) == 0x80U)
+  {
+    (void)USB_FlushTxFifo(hpcd->Instance, (uint32_t)ep_addr & EP_ADDR_MSK);
+  }
+  else
+  {
+    (void)USB_FlushRxFifo(hpcd->Instance);
+  }
+
+  __HAL_UNLOCK(hpcd);
 
   return HAL_OK;
 }

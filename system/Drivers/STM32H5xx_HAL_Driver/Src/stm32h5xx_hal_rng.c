@@ -233,7 +233,7 @@ HAL_StatusTypeDef HAL_RNG_Init(RNG_HandleTypeDef *hrng)
   /* Get tick */
   tickstart = HAL_GetTick();
   /* Check if data register contains valid random data */
-  while (__HAL_RNG_GET_FLAG(hrng, RNG_FLAG_SECS) != RESET)
+  while (__HAL_RNG_GET_FLAG(hrng, RNG_FLAG_DRDY) != SET)
   {
     if ((HAL_GetTick() - tickstart) > RNG_TIMEOUT_VALUE)
     {
@@ -674,8 +674,6 @@ HAL_StatusTypeDef HAL_RNG_GenerateRandomNumber(RNG_HandleTypeDef *hrng, uint32_t
       /* Update the error code and status */
       hrng->ErrorCode = HAL_RNG_ERROR_SEED;
       status = HAL_ERROR;
-      /* Clear bit DRDY */
-      CLEAR_BIT(hrng->Instance->SR, RNG_FLAG_DRDY);
     }
     else /* No seed error */
     {

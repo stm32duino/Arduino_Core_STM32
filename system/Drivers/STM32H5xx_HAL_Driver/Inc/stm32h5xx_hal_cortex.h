@@ -157,7 +157,7 @@ typedef struct
   * @{
   */
 #define  MPU_ACCESS_NOT_SHAREABLE        0U /*!< MPU region not shareable   */
-#define  MPU_ACCESS_OUTER_SHAREABLE      1U /*!< MPU region outer shareable */
+#define  MPU_ACCESS_OUTER_SHAREABLE      2U /*!< MPU region outer shareable */
 #define  MPU_ACCESS_INNER_SHAREABLE      3U /*!< MPU region inner shareable */
 /**
   * @}
@@ -282,6 +282,7 @@ uint32_t HAL_NVIC_GetActive(IRQn_Type IRQn);
 /* SYSTICK functions ***********************************************/
 uint32_t HAL_SYSTICK_Config(uint32_t TicksNumb);
 void HAL_SYSTICK_CLKSourceConfig(uint32_t CLKSource);
+uint32_t HAL_SYSTICK_GetCLKSourceConfig(void);
 void HAL_SYSTICK_IRQHandler(void);
 void HAL_SYSTICK_Callback(void);
 /**
@@ -295,12 +296,16 @@ void HAL_SYSTICK_Callback(void);
 /* MPU functions ***********************************************/
 void HAL_MPU_Enable(uint32_t MPU_Control);
 void HAL_MPU_Disable(void);
+void HAL_MPU_EnableRegion(uint32_t RegionNumber);
+void HAL_MPU_DisableRegion(uint32_t RegionNumber);
 void HAL_MPU_ConfigRegion(const MPU_Region_InitTypeDef *const pMPU_RegionInit);
 void HAL_MPU_ConfigMemoryAttributes(const MPU_Attributes_InitTypeDef *const pMPU_AttributesInit);
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 /* MPU_NS Control functions ***********************************************/
 void HAL_MPU_Enable_NS(uint32_t MPU_Control);
 void HAL_MPU_Disable_NS(void);
+void HAL_MPU_EnableRegion_NS(uint32_t RegionNumber);
+void HAL_MPU_DisableRegion_NS(uint32_t RegionNumber);
 void HAL_MPU_ConfigRegion_NS(const MPU_Region_InitTypeDef *const pMPU_RegionInit);
 void HAL_MPU_ConfigMemoryAttributes_NS(const MPU_Attributes_InitTypeDef *const pMPU_AttributesInit);
 #endif /* __ARM_FEATURE_CMSE */
@@ -368,6 +373,15 @@ void HAL_MPU_ConfigMemoryAttributes_NS(const MPU_Attributes_InitTypeDef *const p
                                          ((NUMBER) == MPU_REGION_NUMBER9) || \
                                          ((NUMBER) == MPU_REGION_NUMBER10)|| \
                                          ((NUMBER) == MPU_REGION_NUMBER11))
+
+#define IS_MPU_REGION_NUMBER_NS(NUMBER) (((NUMBER) == MPU_REGION_NUMBER0) || \
+                                         ((NUMBER) == MPU_REGION_NUMBER1) || \
+                                         ((NUMBER) == MPU_REGION_NUMBER2) || \
+                                         ((NUMBER) == MPU_REGION_NUMBER3) || \
+                                         ((NUMBER) == MPU_REGION_NUMBER4) || \
+                                         ((NUMBER) == MPU_REGION_NUMBER5) || \
+                                         ((NUMBER) == MPU_REGION_NUMBER6) || \
+                                         ((NUMBER) == MPU_REGION_NUMBER7))
 #else
 #define IS_MPU_REGION_NUMBER(NUMBER)    (((NUMBER) == MPU_REGION_NUMBER0) || \
                                          ((NUMBER) == MPU_REGION_NUMBER1) || \

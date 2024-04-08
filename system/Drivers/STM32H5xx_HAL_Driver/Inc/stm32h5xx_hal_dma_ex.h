@@ -150,7 +150,7 @@ typedef struct
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
   uint32_t                    SrcSecure;          /*!< Specifies the source security attribute                        */
   uint32_t                    DestSecure;         /*!< Specifies the destination security attribute                   */
-#endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 
 } DMA_NodeConfTypeDef;
 
@@ -235,11 +235,9 @@ typedef struct __DMA_QListTypeDef
                                                            => Left Aligned Right Truncated down to the
                                                               destination data width                             */
 #define DMA_DATA_PACK                  DMA_CTR1_PAM_1 /*!< If source data width < destination data width
-                                                           => Packed at the destination data width
-                                                              (Available only for GPDMA)                         */
+                                                           => Packed at the destination data width               */
 #define DMA_DATA_UNPACK                DMA_CTR1_PAM_1 /*!< If source data width > destination data width
-                                                           => Unpacked at the destination data width
-                                                              (Available only for GPDMA)                         */
+                                                           => Unpacked at the destination data width             */
 /**
   * @}
   */
@@ -345,9 +343,9 @@ typedef struct __DMA_QListTypeDef
 #if defined (COMP1)
 #define GPDMA1_TRIGGER_COMP1_OUT        44U      /*!< GPDMA1 HW Trigger signal is COMP1_OUT       */
 #endif /* COMP1 */
-#if defined (STM32H503xx)
-#define GPDMA1_TRIGGER_EVENTOUT         45U      /*!< GPDMA1 HW Trigger signal is COMP1_OUT       */
-#endif /* STM32H503xx */
+#if defined (STM32H503xx) || defined(STM32H523xx) || defined(STM32H533xx)
+#define GPDMA1_TRIGGER_EVENTOUT         45U      /*!< GPDMA1 HW Trigger signal is EVENTOUT        */
+#endif /* STM32H503xx || STM32H523xx || STM32H533xx */
 
 /* GPDMA2 triggers */
 #define GPDMA2_TRIGGER_EXTI_LINE0       0U       /*!< GPDMA2 HW Trigger signal is EXTI_LINE0      */
@@ -409,9 +407,9 @@ typedef struct __DMA_QListTypeDef
 #if defined (COMP1)
 #define GPDMA2_TRIGGER_COMP1_OUT        44U      /*!< GPDMA2 HW Trigger signal is COMP1_OUT       */
 #endif /* COMP1 */
-#if defined (STM32H503xx)
-#define GPDMA2_TRIGGER_EVENTOUT         45U      /*!< GPDMA2 HW Trigger signal is COMP1_OUT       */
-#endif /* STM32H503xx */
+#if defined (STM32H503xx) || defined(STM32H523xx) || defined(STM32H533xx)
+#define GPDMA2_TRIGGER_EVENTOUT         45U      /*!< GPDMA2 HW Trigger signal is EVENTOUT        */
+#endif /* STM32H503xx || STM32H523xx || STM32H533xx */
 /**
   * @}
   */

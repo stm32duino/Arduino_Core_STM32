@@ -13,17 +13,24 @@
   *           - Setup Interrupt Target
   *
   ******************************************************************************
-  * @attention
+  * Copyright (c) 2009-2019 Arm Limited. All rights reserved.
+  * Copyright (c) 2023 STMicroelectronics. All rights reserved.
   *
-  * Copyright (c) 2023 STMicroelectronics.
-  * All rights reserved.
+  * SPDX-License-Identifier: Apache-2.0
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * Licensed under the Apache License, Version 2.0 (the License); you may
+  * not use this file except in compliance with the License.
+  * You may obtain a copy of the License at
   *
+  * www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
   ******************************************************************************
- */
+  */
 
 #ifndef PARTITION_STM32H573XX_H
 #define PARTITION_STM32H573XX_H
@@ -472,7 +479,7 @@
 //   <o.7>  TIM15_IRQn            <0=> Secure state <1=> Non-Secure state
 //   <o.8>  TIM16_IRQn            <0=> Secure state <1=> Non-Secure state
 //   <o.9>  TIM17_IRQn            <0=> Secure state <1=> Non-Secure state
-//   <o.10> USB_DRD_FS_IRQn           <0=> Secure state <1=> Non-Secure state
+//   <o.10> USB_DRD_FS_IRQn       <0=> Secure state <1=> Non-Secure state
 //   <o.11> CRS_IRQn              <0=> Secure state <1=> Non-Secure state
 //   <o.12> UCPD1_IRQn            <0=> Secure state <1=> Non-Secure state
 //   <o.13> FMC_IRQn              <0=> Secure state <1=> Non-Secure state

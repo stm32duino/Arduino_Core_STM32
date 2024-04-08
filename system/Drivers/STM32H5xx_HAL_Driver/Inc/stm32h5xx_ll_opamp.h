@@ -70,7 +70,6 @@ extern "C" {
   * @}
   */
 
-
 /* Private macros ----------------------------------------------------------------------------------------------------*/
 /** @defgroup OPAMP_LL_Private_Macros OPAMP Private Macros
   * @{
@@ -87,12 +86,9 @@ extern "C" {
 #define __OPAMP_PTR_REG_OFFSET(__REG__, __REG_OFFSET__)                        \
   ((__IO uint32_t *)((uint32_t) ((uint32_t)(&(__REG__)) + ((__REG_OFFSET__) << 2U))))
 
-
-
 /**
   * @}
   */
-
 
 /* Exported types ----------------------------------------------------------------------------------------------------*/
 #if defined(USE_FULL_LL_DRIVER)
@@ -242,8 +238,6 @@ typedef struct
 /**
   * @}
   */
-
-
 
 /** @defgroup OPAMP_LL_EC_POWER_MODE OPAMP PowerMode
   * @{

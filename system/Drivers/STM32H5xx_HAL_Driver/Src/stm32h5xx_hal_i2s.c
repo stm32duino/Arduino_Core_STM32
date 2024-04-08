@@ -170,7 +170,7 @@
 
        When The compilation define USE_HAL_I2S_REGISTER_CALLBACKS is set to 0 or
        not defined, the callback registering feature is not available
-       and weak (surcharged) callbacks are used.
+       and weak callbacks are used.
 
 
   @endverbatim
@@ -540,6 +540,8 @@ __weak void HAL_I2S_MspDeInit(I2S_HandleTypeDef *hi2s)
   *                the configuration information for the specified I2S.
   * @param  CallbackID ID of the callback to be registered
   * @param  pCallback pointer to the Callback function
+  * @note   The HAL_I2S_RegisterCallback() may be called before HAL_I2S_Init() in HAL_I2S_STATE_RESET
+  *         to register callbacks for HAL_I2S_MSPINIT_CB_ID and HAL_I2S_MSPDEINIT_CB_ID
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_I2S_RegisterCallback(I2S_HandleTypeDef *hi2s, HAL_I2S_CallbackIDTypeDef CallbackID,
@@ -554,8 +556,6 @@ HAL_StatusTypeDef HAL_I2S_RegisterCallback(I2S_HandleTypeDef *hi2s, HAL_I2S_Call
 
     return HAL_ERROR;
   }
-  /* Process locked */
-  __HAL_LOCK(hi2s);
 
   if (HAL_I2S_STATE_READY == hi2s->State)
   {
@@ -637,8 +637,6 @@ HAL_StatusTypeDef HAL_I2S_RegisterCallback(I2S_HandleTypeDef *hi2s, HAL_I2S_Call
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hi2s);
   return status;
 }
 
@@ -648,14 +646,13 @@ HAL_StatusTypeDef HAL_I2S_RegisterCallback(I2S_HandleTypeDef *hi2s, HAL_I2S_Call
   * @param  hi2s Pointer to a I2S_HandleTypeDef structure that contains
   *                the configuration information for the specified I2S.
   * @param  CallbackID ID of the callback to be unregistered
+  * @note   The HAL_I2S_UnRegisterCallback() may be called before HAL_I2S_Init() in HAL_I2S_STATE_RESET
+  *         to un-register callbacks for HAL_I2S_MSPINIT_CB_ID and HAL_I2S_MSPDEINIT_CB_ID
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_I2S_UnRegisterCallback(I2S_HandleTypeDef *hi2s, HAL_I2S_CallbackIDTypeDef CallbackID)
 {
   HAL_StatusTypeDef status = HAL_OK;
-
-  /* Process locked */
-  __HAL_LOCK(hi2s);
 
   if (HAL_I2S_STATE_READY == hi2s->State)
   {
@@ -736,8 +733,6 @@ HAL_StatusTypeDef HAL_I2S_UnRegisterCallback(I2S_HandleTypeDef *hi2s, HAL_I2S_Ca
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hi2s);
   return status;
 }
 #endif /* USE_HAL_I2S_REGISTER_CALLBACKS */

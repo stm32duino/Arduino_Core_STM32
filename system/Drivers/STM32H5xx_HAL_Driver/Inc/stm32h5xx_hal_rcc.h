@@ -3000,7 +3000,6 @@ typedef struct
   */
 
 
-
 /** @defgroup RCC_APB1_Force_Release_Reset APB1 Peripheral Force Release Reset
   * @brief  Force or release APB1 peripheral reset.
   * @{

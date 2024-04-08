@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic H523RCTx
+GenH5.menu.pnum.GENERIC_H523RCTX=Generic H523RCTx
+GenH5.menu.pnum.GENERIC_H523RCTX.upload.maximum_size=262144
+GenH5.menu.pnum.GENERIC_H523RCTX.upload.maximum_data_size=278528
+GenH5.menu.pnum.GENERIC_H523RCTX.build.board=GENERIC_H523RCTX
+GenH5.menu.pnum.GENERIC_H523RCTX.build.product_line=STM32H523xx
+GenH5.menu.pnum.GENERIC_H523RCTX.build.variant=STM32H5xx/H523R(C-E)T_H533RET
+
+# Generic H523RETx
+GenH5.menu.pnum.GENERIC_H523RETX=Generic H523RETx
+GenH5.menu.pnum.GENERIC_H523RETX.upload.maximum_size=524288
+GenH5.menu.pnum.GENERIC_H523RETX.upload.maximum_data_size=278528
+GenH5.menu.pnum.GENERIC_H523RETX.build.board=GENERIC_H523RETX
+GenH5.menu.pnum.GENERIC_H523RETX.build.product_line=STM32H523xx
+GenH5.menu.pnum.GENERIC_H523RETX.build.variant=STM32H5xx/H523R(C-E)T_H533RET
+
+# Generic H533RETx
+GenH5.menu.pnum.GENERIC_H533RETX=Generic H533RETx
+GenH5.menu.pnum.GENERIC_H533RETX.upload.maximum_size=524288
+GenH5.menu.pnum.GENERIC_H533RETX.upload.maximum_data_size=278528
+GenH5.menu.pnum.GENERIC_H533RETX.build.board=GENERIC_H533RETX
+GenH5.menu.pnum.GENERIC_H533RETX.build.product_line=STM32H533xx
+GenH5.menu.pnum.GENERIC_H533RETX.build.variant=STM32H5xx/H523R(C-E)T_H533RET
+

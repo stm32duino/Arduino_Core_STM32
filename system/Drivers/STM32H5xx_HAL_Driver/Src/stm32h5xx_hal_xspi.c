@@ -2387,7 +2387,7 @@ HAL_StatusTypeDef HAL_XSPI_UnRegisterCallback(XSPI_HandleTypeDef *hxspi, HAL_XSP
   */
 
 /**
-  * @brief  Abort the current transmission.
+  * @brief  Abort the current operation, return to the indirect mode.
   * @param  hxspi : XSPI handle
   * @retval HAL status
   */
@@ -2440,12 +2440,18 @@ HAL_StatusTypeDef HAL_XSPI_Abort(XSPI_HandleTypeDef *hxspi)
 
         if (status == HAL_OK)
         {
+          /* Return to indirect mode */
+          CLEAR_BIT(hxspi->Instance->CR, XSPI_CR_FMODE);
+
           hxspi->State = HAL_XSPI_STATE_READY;
         }
       }
     }
     else
     {
+      /* Return to indirect mode */
+      CLEAR_BIT(hxspi->Instance->CR, XSPI_CR_FMODE);
+
       hxspi->State = HAL_XSPI_STATE_READY;
     }
   }
@@ -2459,7 +2465,7 @@ HAL_StatusTypeDef HAL_XSPI_Abort(XSPI_HandleTypeDef *hxspi)
 }
 
 /**
-  * @brief  Abort the current transmission (non-blocking function)
+  * @brief  Abort the current operation, return to the indirect mode. (non-blocking function)
   * @param  hxspi : XSPI handle
   * @retval HAL status
   */
@@ -2523,9 +2529,15 @@ HAL_StatusTypeDef HAL_XSPI_Abort_IT(XSPI_HandleTypeDef *hxspi)
 
         /* Perform an abort of the XSPI */
         SET_BIT(hxspi->Instance->CR, XSPI_CR_ABORT);
+
+        /* Return to indirect mode */
+        CLEAR_BIT(hxspi->Instance->CR, XSPI_CR_FMODE);
       }
       else
       {
+        /* Return to indirect mode */
+        CLEAR_BIT(hxspi->Instance->CR, XSPI_CR_FMODE);
+
         hxspi->State = HAL_XSPI_STATE_READY;
 
         /* Abort callback */
