@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic H523HEYx
+GenH5.menu.pnum.GENERIC_H523HEYX=Generic H523HEYx
+GenH5.menu.pnum.GENERIC_H523HEYX.upload.maximum_size=524288
+GenH5.menu.pnum.GENERIC_H523HEYX.upload.maximum_data_size=278528
+GenH5.menu.pnum.GENERIC_H523HEYX.build.board=GENERIC_H523HEYX
+GenH5.menu.pnum.GENERIC_H523HEYX.build.product_line=STM32H523xx
+GenH5.menu.pnum.GENERIC_H523HEYX.build.variant=STM32H5xx/H523HEY_H533HEY
+
+# Generic H533HEYx
+GenH5.menu.pnum.GENERIC_H533HEYX=Generic H533HEYx
+GenH5.menu.pnum.GENERIC_H533HEYX.upload.maximum_size=524288
+GenH5.menu.pnum.GENERIC_H533HEYX.upload.maximum_data_size=278528
+GenH5.menu.pnum.GENERIC_H533HEYX.build.board=GENERIC_H533HEYX
+GenH5.menu.pnum.GENERIC_H533HEYX.build.product_line=STM32H533xx
+GenH5.menu.pnum.GENERIC_H533HEYX.build.variant=STM32H5xx/H523HEY_H533HEY
+

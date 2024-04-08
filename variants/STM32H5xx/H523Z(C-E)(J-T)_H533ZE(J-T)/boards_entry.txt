@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic H523ZCJx
+GenH5.menu.pnum.GENERIC_H523ZCJX=Generic H523ZCJx
+GenH5.menu.pnum.GENERIC_H523ZCJX.upload.maximum_size=262144
+GenH5.menu.pnum.GENERIC_H523ZCJX.upload.maximum_data_size=278528
+GenH5.menu.pnum.GENERIC_H523ZCJX.build.board=GENERIC_H523ZCJX
+GenH5.menu.pnum.GENERIC_H523ZCJX.build.product_line=STM32H523xx
+GenH5.menu.pnum.GENERIC_H523ZCJX.build.variant=STM32H5xx/H523Z(C-E)(J-T)_H533ZE(J-T)
+
+# Generic H523ZCTx
+GenH5.menu.pnum.GENERIC_H523ZCTX=Generic H523ZCTx
+GenH5.menu.pnum.GENERIC_H523ZCTX.upload.maximum_size=262144
+GenH5.menu.pnum.GENERIC_H523ZCTX.upload.maximum_data_size=278528
+GenH5.menu.pnum.GENERIC_H523ZCTX.build.board=GENERIC_H523ZCTX
+GenH5.menu.pnum.GENERIC_H523ZCTX.build.product_line=STM32H523xx
+GenH5.menu.pnum.GENERIC_H523ZCTX.build.variant=STM32H5xx/H523Z(C-E)(J-T)_H533ZE(J-T)
+
+# Generic H523ZEJx
+GenH5.menu.pnum.GENERIC_H523ZEJX=Generic H523ZEJx
+GenH5.menu.pnum.GENERIC_H523ZEJX.upload.maximum_size=524288
+GenH5.menu.pnum.GENERIC_H523ZEJX.upload.maximum_data_size=278528
+GenH5.menu.pnum.GENERIC_H523ZEJX.build.board=GENERIC_H523ZEJX
+GenH5.menu.pnum.GENERIC_H523ZEJX.build.product_line=STM32H523xx
+GenH5.menu.pnum.GENERIC_H523ZEJX.build.variant=STM32H5xx/H523Z(C-E)(J-T)_H533ZE(J-T)
+
+# Generic H523ZETx
+GenH5.menu.pnum.GENERIC_H523ZETX=Generic H523ZETx
+GenH5.menu.pnum.GENERIC_H523ZETX.upload.maximum_size=524288
+GenH5.menu.pnum.GENERIC_H523ZETX.upload.maximum_data_size=278528
+GenH5.menu.pnum.GENERIC_H523ZETX.build.board=GENERIC_H523ZETX
+GenH5.menu.pnum.GENERIC_H523ZETX.build.product_line=STM32H523xx
+GenH5.menu.pnum.GENERIC_H523ZETX.build.variant=STM32H5xx/H523Z(C-E)(J-T)_H533ZE(J-T)
+
+# Generic H533ZEJx
+GenH5.menu.pnum.GENERIC_H533ZEJX=Generic H533ZEJx
+GenH5.menu.pnum.GENERIC_H533ZEJX.upload.maximum_size=524288
+GenH5.menu.pnum.GENERIC_H533ZEJX.upload.maximum_data_size=278528
+GenH5.menu.pnum.GENERIC_H533ZEJX.build.board=GENERIC_H533ZEJX
+GenH5.menu.pnum.GENERIC_H533ZEJX.build.product_line=STM32H533xx
+GenH5.menu.pnum.GENERIC_H533ZEJX.build.variant=STM32H5xx/H523Z(C-E)(J-T)_H533ZE(J-T)
+
+# Generic H533ZETx
+GenH5.menu.pnum.GENERIC_H533ZETX=Generic H533ZETx
+GenH5.menu.pnum.GENERIC_H533ZETX.upload.maximum_size=524288
+GenH5.menu.pnum.GENERIC_H533ZETX.upload.maximum_data_size=278528
+GenH5.menu.pnum.GENERIC_H533ZETX.build.board=GENERIC_H533ZETX
+GenH5.menu.pnum.GENERIC_H533ZETX.build.product_line=STM32H533xx
+GenH5.menu.pnum.GENERIC_H533ZETX.build.variant=STM32H5xx/H523Z(C-E)(J-T)_H533ZE(J-T)
+
