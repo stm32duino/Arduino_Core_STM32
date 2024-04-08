@@ -92,6 +92,8 @@ extern "C" {
   */
 #if defined(CORDIC)
 #define LL_AHB1_GRP1_PERIPH_ALL           0xF13AD103U
+#elif defined(DCACHE)
+#define LL_AHB1_GRP1_PERIPH_ALL           0xF1021103U
 #else
 #define LL_AHB1_GRP1_PERIPH_ALL           0x91021103U
 #endif /* CORDIC */
@@ -125,8 +127,10 @@ extern "C" {
 /** @defgroup BUS_LL_EC_AHB2_GRP1_PERIPH  AHB2 GRP1 PERIPH
   * @{
   */
-#if defined(GPIOE)
+#if defined(GPIOI)
 #define LL_AHB2_GRP1_PERIPH_ALL            0xC01F1DFFU
+#elif defined(GPIOE)
+#define LL_AHB2_GRP1_PERIPH_ALL            0xC01F1CFFU
 #else
 #define LL_AHB2_GRP1_PERIPH_ALL            0x40060C8FU
 #endif /* GPIOE */
@@ -193,8 +197,10 @@ extern "C" {
 /** @defgroup BUS_LL_EC_APB1_GRP1_PERIPH  APB1 GRP1 PERIPH
   * @{
   */
-#if defined(TIM4)
+#if defined(USART11)
 #define LL_APB1_GRP1_PERIPH_ALL           0xDFFEC9FFU
+#elif defined(USART6)
+#define LL_APB1_GRP1_PERIPH_ALL           0x13FEC87FU
 #else
 #define LL_APB1_GRP1_PERIPH_ALL           0x01E7E833U
 #endif /* TIM4 */
@@ -288,8 +294,10 @@ extern "C" {
 /** @defgroup BUS_LL_EC_APB2_GRP1_PERIPH  APB2 GRP1 PERIPH
   * @{
   */
-#if defined(TIM8)
+#if defined(TIM16)
 #define LL_APB2_GRP1_PERIPH_ALL            0x017F7800U
+#elif defined(TIM8)
+#define LL_APB2_GRP1_PERIPH_ALL            0x01097800U
 #else
 #define LL_APB2_GRP1_PERIPH_ALL            0x01005800U
 #endif /* TIM8 */
@@ -330,6 +338,8 @@ extern "C" {
   */
 #if defined(SPI5)
 #define LL_APB3_GRP1_PERIPH_ALL           0x0030F9E2U
+#elif defined(I2C4)
+#define LL_APB3_GRP1_PERIPH_ALL           0x00300AC2U
 #else
 #define LL_APB3_GRP1_PERIPH_ALL           0x00200A42U
 #endif /* SPI5 */

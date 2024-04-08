@@ -152,8 +152,6 @@ typedef struct
 /**
   * @}
   */
-
-
 /**
   * @}
   */
@@ -254,7 +252,6 @@ typedef struct
   * @}
   */
 
-
 /* Exported functions --------------------------------------------------------*/
 
 /** @defgroup RAMCFG_Exported_Functions RAMCFG Exported Functions
@@ -335,6 +332,7 @@ HAL_RAMCFG_StateTypeDef HAL_RAMCFG_GetState(const RAMCFG_HandleTypeDef *hramcfg)
   * @}
   */
 
+
 /**
   * @}
   */
@@ -361,7 +359,11 @@ HAL_RAMCFG_StateTypeDef HAL_RAMCFG_GetState(const RAMCFG_HandleTypeDef *hramcfg)
   (((INTERRUPT) != 0U) && (((INTERRUPT) & ~(RAMCFG_IT_SINGLEERR | RAMCFG_IT_DOUBLEERR | RAMCFG_IT_NMIERR)) == 0U))
 
 
+#if defined (RAMCFG_WPR3_P64WP)
+#define IS_RAMCFG_WRITEPROTECTION_PAGE(PAGE)   ((PAGE) <= 80U)
+#else
 #define IS_RAMCFG_WRITEPROTECTION_PAGE(PAGE)   ((PAGE) <= 64U)
+#endif /* RAMCFG_WPR3_P64WP*/
 
 
 /**

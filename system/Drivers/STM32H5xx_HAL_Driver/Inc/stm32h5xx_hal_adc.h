@@ -1755,6 +1755,30 @@ __LL_ADC_CALC_DATA_TO_VOLTAGE((__VREFANALOG_VOLTAGE__),\
                               (__ADC_RESOLUTION__))
 
 /**
+  * @brief  Helper macro to calculate the voltage (unit: mVolt)
+  *         corresponding to a ADC conversion data (unit: digital value)
+  *         in differential ended mode.
+  * @note   Analog reference voltage (Vref+) must be either known from
+  *         user board environment or can be calculated using ADC measurement
+  *         and ADC helper macro @ref __LL_ADC_CALC_VREFANALOG_VOLTAGE().
+  * @param  __VREFANALOG_VOLTAGE__ Analog reference voltage (unit: mV)
+  * @param  __ADC_DATA__ ADC conversion data (resolution 12 bits)
+  *                       (unit: digital value).
+  * @param  __ADC_RESOLUTION__ This parameter can be one of the following values:
+  *         @arg @ref ADC_RESOLUTION_12B
+  *         @arg @ref ADC_RESOLUTION_10B
+  *         @arg @ref ADC_RESOLUTION_8B
+  *         @arg @ref ADC_RESOLUTION_6B
+  * @retval ADC conversion data equivalent voltage value (unit: mVolt)
+  */
+#define __HAL_ADC_CALC_DIFF_DATA_TO_VOLTAGE(__VREFANALOG_VOLTAGE__,\
+                                            __ADC_DATA__,\
+                                            __ADC_RESOLUTION__) \
+__LL_ADC_CALC_DIFF_DATA_TO_VOLTAGE((__VREFANALOG_VOLTAGE__),\
+                                   (__ADC_DATA__),\
+                                   (__ADC_RESOLUTION__))
+
+/**
   * @brief  Helper macro to calculate analog reference voltage (Vref+)
   *         (unit: mVolt) from ADC conversion data of internal voltage
   *         reference VrefInt.

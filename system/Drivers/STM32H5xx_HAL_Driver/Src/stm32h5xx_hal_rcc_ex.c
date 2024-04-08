@@ -1152,9 +1152,15 @@ HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(const RCC_PeriphCLKInitTypeDef  *pPe
         /* I3C2 clock source config set later after clock selection check */
         break;
 
+#if defined(RCC_I3C2CLKSOURCE_PLL3R)
+      case RCC_I3C2CLKSOURCE_PLL3R:  /* PLL3 is used as clock source for I3C2*/
+        /* PLL3  input clock, parameters M, N & R configuration clock output (PLL3ClockOut) */
+        ret = RCCEx_PLL3_Config(&(pPeriphClkInit->PLL3));
+#else
       case RCC_I3C2CLKSOURCE_PLL2R:  /* PLL2 is used as clock source for I3C2*/
         /* PLL2  input clock, parameters M, N & R configuration clock output (PLL2ClockOut) */
         ret = RCCEx_PLL2_Config(&(pPeriphClkInit->PLL2));
+#endif /* RCC_I3C2CLKSOURCE_PLL3R */
         /* I3C2 clock source config set later after clock selection check */
         break;
 
@@ -2434,7 +2440,6 @@ HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(const RCC_PeriphCLKInitTypeDef  *pPe
 
   return status;
 }
-
 
 
 /**
@@ -4185,11 +4190,19 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint64_t PeriphClk)
         {
           frequency = HAL_RCC_GetPCLK3Freq();
         }
+#if defined(RCC_I3C1CLKSOURCE_PLL3R)
+        else if (srcclk ==  RCC_I3C2CLKSOURCE_PLL3R)
+        {
+          HAL_RCCEx_GetPLL3ClockFreq(&pll3_clocks);
+          frequency = pll3_clocks.PLL3_R_Frequency;
+        }
+#else
         else if (srcclk ==  RCC_I3C2CLKSOURCE_PLL2R)
         {
           HAL_RCCEx_GetPLL2ClockFreq(&pll2_clocks);
           frequency = pll2_clocks.PLL2_R_Frequency;
         }
+#endif /* RCC_I3C1CLKSOURCE_PLL3R */
         else if ((HAL_IS_BIT_SET(RCC->CR, RCC_CR_HSIRDY)) && (srcclk == RCC_I3C2CLKSOURCE_HSI))
         {
           frequency = (HSI_VALUE >> (__HAL_RCC_GET_HSI_DIVIDER() >> RCC_CR_HSIDIV_Pos));

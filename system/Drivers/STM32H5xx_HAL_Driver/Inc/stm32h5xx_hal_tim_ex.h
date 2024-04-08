@@ -118,20 +118,23 @@ typedef struct
 #if defined(COMP1)
 #define TIM_TIM2_ETR_COMP1          TIM1_AF1_ETRSEL_0                                           /*!< TIM2_ETR is connected to COMP1 output */
 #endif /* COMP1 */
-#define TIM_TIM2_ETR_LSE            (TIM1_AF1_ETRSEL_0 | TIM1_AF1_ETRSEL_1)                     /*!< TIM2_ETR is connected to LSE          */
+#define TIM_TIM2_ETR_LSE            (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0)                     /*!< TIM2_ETR is connected to LSE          */
 #if defined(SAI1)
 #define TIM_TIM2_ETR_SAI1_FSA       TIM1_AF1_ETRSEL_2                                           /*!< TIM2_ETR is connected to SAI1 FS_A    */
-#define TIM_TIM2_ETR_SAI1_FSB       (TIM1_AF1_ETRSEL_0 | TIM1_AF1_ETRSEL_2)                     /*!< TIM2_ETR is connected to SAI1         */
+#define TIM_TIM2_ETR_SAI1_FSB       (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                     /*!< TIM2_ETR is connected to SAI1         */
 #endif /* SAI1 */
-#define TIM_TIM2_ETR_TIM3_ETR       (TIM1_AF1_ETRSEL_0 | TIM1_AF1_ETRSEL_3)                     /*!< TIM2_ETR is connected to TIM3 ETR     */
+#define TIM_TIM2_ETR_TIM3_ETR       (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_0)                     /*!< TIM2_ETR is connected to TIM3 ETR     */
 #if defined(TIM4)
-#define TIM_TIM2_ETR_TIM4_ETR       (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_3)                     /*!< TIM2_ETR is connected to TIM4 ETR     */
+#define TIM_TIM2_ETR_TIM4_ETR       (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1)                     /*!< TIM2_ETR is connected to TIM4 ETR     */
 #endif /* TIM4 */
 #if defined(TIM5)
-#define TIM_TIM2_ETR_TIM5_ETR       (TIM1_AF1_ETRSEL_0 | TIM1_AF1_ETRSEL_1| TIM1_AF1_ETRSEL_3 ) /*!< TIM2_ETR is connected to TIM5 ETR     */
+#define TIM_TIM2_ETR_TIM5_ETR       (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /*!< TIM2_ETR is connected to TIM5 ETR     */
 #endif /* TIM5 */
+#if defined(USB_DRD_FS)
+#define TIM_TIM2_ETR_USB_SOF        (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0) /*!< TIM2_ETR is connected to USB SOF      */
+#endif /* USB_DRD_FS */
 #if defined(ETH_NS)
-#define TIM_TIM2_ETR_ETH_PPS        (TIM1_AF1_ETRSEL_1| TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_3 ) /*!< TIM2_ETR is connected to ETH PPS      */
+#define TIM_TIM2_ETR_ETH_PPS        (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1) /*!< TIM2_ETR is connected to ETH PPS      */
 #endif /* ETH_NS */
 
 #define TIM_TIM3_ETR_GPIO           0x00000000UL                                                /*!< TIM3_ETR is not connected to I/O      */
@@ -163,6 +166,9 @@ typedef struct
 #define TIM_TIM5_ETR_TIM2_ETR       TIM1_AF1_ETRSEL_3                                           /*!< TIM5_ETR is connected to TIM2 ETR     */
 #define TIM_TIM5_ETR_TIM3_ETR       (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_0)                     /*!< TIM5_ETR is connected to TIM3 ETR     */
 #define TIM_TIM5_ETR_TIM4_ETR       (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1)                     /*!< TIM5_ETR is connected to TIM4 ETR     */
+#if defined(USB_DRD_FS)
+#define TIM_TIM5_ETR_USB_SOF        (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0) /*!< TIM5_ETR is connected to USB SOF      */
+#endif /* USB_DRD_FS */
 #endif /* TIM5 */
 
 #if defined(TIM8)
@@ -716,7 +722,7 @@ typedef struct
      ((__CLOCK__) == TIM_CLOCKSOURCE_ITR9)      ||          \
      ((__CLOCK__) == TIM_CLOCKSOURCE_ITR10)     ||          \
      ((__CLOCK__) == TIM_CLOCKSOURCE_ITR11)))               \
-   ||                                        \
+   ||                                       \
    (((INSTANCE) == TIM12) &&                \
     (((__CLOCK__) == TIM_CLOCKSOURCE_INTERNAL)  ||          \
      ((__CLOCK__) == TIM_CLOCKSOURCE_ETRMODE1)  ||          \
@@ -1005,6 +1011,10 @@ typedef struct
      ((__SELECTION__) == TIM_TS_ITR10)||          \
      ((__SELECTION__) == TIM_TS_ITR11)||          \
      ((__SELECTION__) == TIM_TS_NONE))))
+
+#if defined(TIM17)
+#define IS_TIM_RTCPREEN_SELECTION(__SELECTION__) ((__SELECTION__) == TIM_TIM17_TI1_HSE_1MHZ)
+#endif /* TIM17 */
 #endif /* STM32H503xx */
 
 #define IS_TIM_OC_CHANNEL_MODE(__MODE__, __CHANNEL__)   \

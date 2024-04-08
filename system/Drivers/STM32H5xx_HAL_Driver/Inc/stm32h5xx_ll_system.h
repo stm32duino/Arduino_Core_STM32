@@ -149,8 +149,8 @@ extern "C" {
 /** @defgroup SYSTEM_LL_SBS_EPOCH_Selection  EPOCH Selection
   * @{
   */
-#define LL_SBS_EPOCH_SEL_SECURE         0x0UL                         /*!< EPOCH secure selected */
-#define LL_SBS_EPOCH_SEL_NONSECURE      SBS_EPOCHSELCR_EPOCH_SEL_0    /*!< EPOCH non secure selected */
+#define LL_SBS_EPOCH_SEL_NONSECURE      0x0UL                         /*!< EPOCH non secure selected */
+#define LL_SBS_EPOCH_SEL_SECURE         SBS_EPOCHSELCR_EPOCH_SEL_0    /*!< EPOCH secure selected */
 #define LL_SBS_EPOCH_SEL_PUFCHECK       SBS_EPOCHSELCR_EPOCH_SEL_1    /*!< EPOCH all zeros for PUF integrity check */
 
 /**
@@ -982,14 +982,12 @@ __STATIC_INLINE uint32_t LL_SBS_GetSecureLock(void)
   * @note Only available from secure state when system implements security (TZEN=1)
   * @rmtoll SECCFGR     SBSSEC        LL_SBS_ConfigSecure\n
   *         SECCFGR     CLASSBSEC     LL_SBS_ConfigSecure\n
-  *         SECCFGR     FPUSEC        LL_SBS_ConfigSecure\n
-  *         SECCFGR     SDCE_SEC_EN   LL_SBS_ConfigSecure
+  *         SECCFGR     FPUSEC        LL_SBS_ConfigSecure
   * @param  Configuration This parameter shall be the full combination
   *         of the following values:
   *         @arg @ref LL_SBS_CLOCK_SEC or LL_SBS_CLOCK_NSEC
   *         @arg @ref LL_SBS_CLASSB_SEC or LL_SBS_CLASSB_NSEC
   *         @arg @ref LL_SBS_FPU_SEC or LL_SBS_FPU_NSEC
-  *         @arg @ref LL_SBS_SMPS_SEC or LL_SBS_SMPS_NSEC
   * @retval None
   */
 __STATIC_INLINE void LL_SBS_ConfigSecure(uint32_t Configuration)
@@ -1002,17 +1000,15 @@ __STATIC_INLINE void LL_SBS_ConfigSecure(uint32_t Configuration)
   * @note Only available when system implements security (TZEN=1)
   * @rmtoll SECCFGR     SBSSEC        LL_SBS_ConfigSecure\n
   *         SECCFGR     CLASSBSEC     LL_SBS_ConfigSecure\n
-  *         SECCFGR     FPUSEC        LL_SBS_ConfigSecure\n
-  *         SECCFGR     SDCE_SEC_EN   LL_SBS_ConfigSecure
+  *         SECCFGR     FPUSEC        LL_SBS_ConfigSecure
   * @retval Returned value is the combination of the following values:
   *         @arg @ref LL_SBS_CLOCK_SEC or LL_SBS_CLOCK_NSEC
   *         @arg @ref LL_SBS_CLASSB_SEC or LL_SBS_CLASSB_NSEC
   *         @arg @ref LL_SBS_FPU_SEC or LL_SBS_FPU_NSEC
-  *         @arg @ref LL_SBS_SMPS_SEC or LL_SBS_SMPS_NSEC
   */
 __STATIC_INLINE uint32_t LL_SBS_GetConfigSecure(void)
 {
-  return (uint32_t)(READ_BIT(SBS->SECCFGR, LL_SBS_CLOCK_SEC | LL_SBS_CLASSB_SEC | LL_SBS_FPU_SEC | LL_SBS_SMPS_SEC));
+  return (uint32_t)(READ_BIT(SBS->SECCFGR, LL_SBS_CLOCK_SEC | LL_SBS_CLASSB_SEC | LL_SBS_FPU_SEC));
 }
 
 #endif /* __ARM_FEATURE_CMSE && __ARM_FEATURE_CMSE == 3U */

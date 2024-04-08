@@ -251,7 +251,7 @@ typedef struct
 #define FLASH_SECTOR_5             5U       /*!< Sector Number 5   */
 #define FLASH_SECTOR_6             6U       /*!< Sector Number 6   */
 #define FLASH_SECTOR_7             7U       /*!< Sector Number 7   */
-#if (FLASH_SECTOR_NB == 128)
+#if (FLASH_SECTOR_NB >= 32)
 #define FLASH_SECTOR_8             8U       /*!< Sector Number 8   */
 #define FLASH_SECTOR_9             9U       /*!< Sector Number 9   */
 #define FLASH_SECTOR_10            10U      /*!< Sector Number 10  */
@@ -276,6 +276,8 @@ typedef struct
 #define FLASH_SECTOR_29            29U      /*!< Sector Number 29  */
 #define FLASH_SECTOR_30            30U      /*!< Sector Number 30  */
 #define FLASH_SECTOR_31            31U      /*!< Sector Number 31  */
+#endif /* (FLASH_SECTOR_NB >= 32) */
+#if (FLASH_SECTOR_NB >= 128)
 #define FLASH_SECTOR_32            32U      /*!< Sector Number 32  */
 #define FLASH_SECTOR_33            33U      /*!< Sector Number 33  */
 #define FLASH_SECTOR_34            34U      /*!< Sector Number 34  */
@@ -372,7 +374,7 @@ typedef struct
 #define FLASH_SECTOR_125           125U     /*!< Sector Number 125 */
 #define FLASH_SECTOR_126           126U     /*!< Sector Number 126 */
 #define FLASH_SECTOR_127           127U     /*!< Sector Number 127 */
-#endif /* (FLASH_SECTOR_NB == 128) */
+#endif /* (FLASH_SECTOR_NB >= 128) */
 /**
   * @}
   */

@@ -1349,14 +1349,8 @@ void HAL_RTC_DST_SetStoreOperation(const RTC_HandleTypeDef *hrtc)
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hrtc);
 
-  /* Disable the write protection for RTC registers */
-  __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
-
   /* Set RTC_CR_BKP Bit */
   SET_BIT(RTC->CR, RTC_CR_BKP);
-
-  /* Enable the write protection for RTC registers */
-  __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
 }
 
 /**
@@ -1369,14 +1363,8 @@ void HAL_RTC_DST_ClearStoreOperation(const RTC_HandleTypeDef *hrtc)
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hrtc);
 
-  /* Disable the write protection for RTC registers */
-  __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
-
   /* Clear RTC_CR_BKP Bit */
   CLEAR_BIT(RTC->CR, RTC_CR_BKP);
-
-  /* Enable the write protection for RTC registers */
-  __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
 }
 
 /**
@@ -1539,9 +1527,6 @@ HAL_StatusTypeDef HAL_RTC_SetAlarm(RTC_HandleTypeDef *hrtc, RTC_AlarmTypeDef *sA
     }
   }
 
-  /* Disable the write protection for RTC registers */
-  __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
-
   /* Configure the Alarm register */
   if (sAlarm->Alarm == RTC_ALARM_A)
   {
@@ -1615,9 +1600,6 @@ HAL_StatusTypeDef HAL_RTC_SetAlarm(RTC_HandleTypeDef *hrtc, RTC_AlarmTypeDef *sA
     /* Configure the Alarm state: Enable Alarm */
     SET_BIT(RTC->CR, RTC_CR_ALRBE);
   }
-
-  /* Enable the write protection for RTC registers */
-  __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
 
   /* Change RTC state */
   hrtc->State = HAL_RTC_STATE_READY;
@@ -1758,9 +1740,6 @@ HAL_StatusTypeDef HAL_RTC_SetAlarm_IT(RTC_HandleTypeDef *hrtc, RTC_AlarmTypeDef 
     }
   }
 
-  /* Disable the write protection for RTC registers */
-  __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
-
   /* Configure the Alarm registers */
   if (sAlarm->Alarm == RTC_ALARM_A)
   {
@@ -1833,9 +1812,6 @@ HAL_StatusTypeDef HAL_RTC_SetAlarm_IT(RTC_HandleTypeDef *hrtc, RTC_AlarmTypeDef 
     SET_BIT(RTC->CR, RTC_CR_ALRBE | RTC_CR_ALRBIE);
   }
 
-  /* Enable the write protection for RTC registers */
-  __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
-
   /* Change RTC state */
   hrtc->State = HAL_RTC_STATE_READY;
 
@@ -1865,9 +1841,6 @@ HAL_StatusTypeDef HAL_RTC_DeactivateAlarm(RTC_HandleTypeDef *hrtc, uint32_t Alar
   /* Change RTC state */
   hrtc->State = HAL_RTC_STATE_BUSY;
 
-  /* Disable the write protection for RTC registers */
-  __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
-
   /* In case of interrupt mode is used, the interrupt source must disabled */
   if (Alarm == RTC_ALARM_A)
   {
@@ -1883,9 +1856,6 @@ HAL_StatusTypeDef HAL_RTC_DeactivateAlarm(RTC_HandleTypeDef *hrtc, uint32_t Alar
     /* AlarmB, Clear SSCLR */
     CLEAR_BIT(RTC->ALRMBSSR, RTC_ALRMBSSR_SSCLR);
   }
-
-  /* Enable the write protection for RTC registers */
-  __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
 
   /* Change RTC state */
   hrtc->State = HAL_RTC_STATE_READY;

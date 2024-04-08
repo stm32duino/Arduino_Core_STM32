@@ -83,6 +83,8 @@ ErrorStatus LL_EXTI_DeInit(void)
   LL_EXTI_WriteReg(IMR1,   0xFFFE0000U);
 #if (defined(STM32H573xx) || defined(STM32H563xx) || defined(STM32H562xx))
   LL_EXTI_WriteReg(IMR2,   0x03DBBFFFU);
+#elif defined(STM32H533xx)
+  LL_EXTI_WriteReg(IMR2,   0x07DBFFFFU);
 #else
   LL_EXTI_WriteReg(IMR2,   0x001BFFFFU);
 #endif /* defined(STM32H573xx) || defined(STM32H563xx) || defined(STM32H562xx) */

@@ -34,19 +34,19 @@ extern "C" {
 #if defined(RNG)
 #if defined(RNG_CR_CONDRST)
 
-/** @defgroup RNG_Ex RNG_Ex
+/** @defgroup RNGEx RNGEx
   * @brief RNG Extension HAL module driver
   * @{
   */
 
 /* Exported types ------------------------------------------------------------*/
-/** @defgroup RNG_Ex_Exported_Types RNG_Ex Exported Types
-  * @brief RNG_Ex Exported types
+/** @defgroup RNGEx_Exported_Types RNGEx Exported Types
+  * @brief RNGEx Exported types
   * @{
   */
 
 /**
-  * @brief RNG_Ex Configuration Structure definition
+  * @brief RNGEx Configuration Structure definition
   */
 
 typedef struct
@@ -55,11 +55,11 @@ typedef struct
   uint32_t        Config2;           /*!< Config2 must be a value between 0 and 0x7 */
   uint32_t        Config3;           /*!< Config3 must be a value between 0 and 0xF */
   uint32_t        ClockDivider;      /*!< Clock Divider factor.This parameter can
-                                          be a value of @ref RNG_Ex_Clock_Divider_Factor   */
+                                          be a value of @ref RNGEx_Clock_Divider_Factor   */
   uint32_t        NistCompliance;    /*!< NIST compliance.This parameter can be a
-                                          value of @ref RNG_Ex_NIST_Compliance   */
+                                          value of @ref RNGEx_NIST_Compliance   */
   uint32_t        AutoReset;         /*!< automatic reset When a noise source error occurs
-                                          value of @ref RNG_Ex_Auto_Reset   */
+                                          value of @ref RNGEx_Auto_Reset   */
   uint32_t        HealthTest;           /*!< RNG health test control must be a value
                                              between 0x0FFCABFF and 0x00005200 */
 } RNG_ConfigTypeDef;
@@ -69,11 +69,11 @@ typedef struct
   */
 
 /* Exported constants --------------------------------------------------------*/
-/** @defgroup RNG_Ex_Exported_Constants RNG_Ex Exported Constants
+/** @defgroup RNGEx_Exported_Constants RNGEx Exported Constants
   * @{
   */
 
-/** @defgroup RNG_Ex_Clock_Divider_Factor  Value used to configure an internal
+/** @defgroup RNGEx_Clock_Divider_Factor  Value used to configure an internal
   *            programmable divider acting on the incoming RNG clock
   * @{
   */
@@ -112,7 +112,7 @@ typedef struct
   * @}
   */
 
-/** @defgroup RNG_Ex_NIST_Compliance  NIST Compliance configuration
+/** @defgroup RNGEx_NIST_Compliance  NIST Compliance configuration
   * @{
   */
 #define RNG_NIST_COMPLIANT     (0x00000000UL) /*!< NIST compliant configuration*/
@@ -121,7 +121,7 @@ typedef struct
 /**
   * @}
   */
-/** @defgroup RNG_Ex_Auto_Reset  Auto Reset configuration
+/** @defgroup RNGEx_Auto_Reset  Auto Reset configuration
   * @{
   */
 #define RNG_ARDIS_ENABLE     (0x00000000UL) /*!< automatic reset after seed error*/
@@ -136,7 +136,7 @@ typedef struct
   */
 
 /* Private types -------------------------------------------------------------*/
-/** @defgroup RNG_Ex_Private_Types RNG_Ex Private Types
+/** @defgroup RNGEx_Private_Types RNGEx Private Types
   * @{
   */
 
@@ -145,7 +145,7 @@ typedef struct
   */
 
 /* Private variables ---------------------------------------------------------*/
-/** @defgroup RNG_Ex_Private_Variables RNG_Ex Private Variables
+/** @defgroup RNGEx_Private_Variables RNGEx Private Variables
   * @{
   */
 
@@ -154,7 +154,7 @@ typedef struct
   */
 
 /* Private constants ---------------------------------------------------------*/
-/** @defgroup RNG_Ex_Private_Constants RNG_Ex Private Constants
+/** @defgroup RNGEx_Private_Constants RNGEx Private Constants
   * @{
   */
 
@@ -163,7 +163,7 @@ typedef struct
   */
 
 /* Private macros ------------------------------------------------------------*/
-/** @defgroup RNG_Ex_Private_Macros RNG_Ex Private Macros
+/** @defgroup RNGEx_Private_Macros RNGEx Private Macros
   * @{
   */
 
@@ -202,7 +202,7 @@ typedef struct
   */
 
 /* Private functions ---------------------------------------------------------*/
-/** @defgroup RNG_Ex_Private_Functions RNG_Ex Private Functions
+/** @defgroup RNGEx_Private_Functions RNGEx Private Functions
   * @{
   */
 
@@ -211,11 +211,11 @@ typedef struct
   */
 
 /* Exported functions --------------------------------------------------------*/
-/** @addtogroup RNG_Ex_Exported_Functions
+/** @addtogroup RNGEx_Exported_Functions
   * @{
   */
 
-/** @addtogroup RNG_Ex_Exported_Functions_Group1
+/** @addtogroup RNGEx_Exported_Functions_Group1
   * @{
   */
 HAL_StatusTypeDef HAL_RNGEx_SetConfig(RNG_HandleTypeDef *hrng, const RNG_ConfigTypeDef *pConf);
@@ -226,7 +226,7 @@ HAL_StatusTypeDef HAL_RNGEx_LockConfig(RNG_HandleTypeDef *hrng);
   * @}
   */
 
-/** @addtogroup RNG_Ex_Exported_Functions_Group2
+/** @addtogroup RNGEx_Exported_Functions_Group2
   * @{
   */
 HAL_StatusTypeDef HAL_RNGEx_RecoverSeedError(RNG_HandleTypeDef *hrng);

@@ -278,6 +278,23 @@ typedef enum
 #define IS_GPIO_PIN(__PIN__)        ((((uint32_t)(__PIN__) & GPIO_PIN_MASK) != 0x00U) &&\
                                      (((uint32_t)(__PIN__) & ~GPIO_PIN_MASK) == 0x00U))
 
+#define IS_GPIO_SINGLE_PIN(__PIN__) (((__PIN__) == GPIO_PIN_0)   ||\
+                                     ((__PIN__) == GPIO_PIN_1)   ||\
+                                     ((__PIN__) == GPIO_PIN_2)   ||\
+                                     ((__PIN__) == GPIO_PIN_3)   ||\
+                                     ((__PIN__) == GPIO_PIN_4)   ||\
+                                     ((__PIN__) == GPIO_PIN_5)   ||\
+                                     ((__PIN__) == GPIO_PIN_6)   ||\
+                                     ((__PIN__) == GPIO_PIN_7)   ||\
+                                     ((__PIN__) == GPIO_PIN_8)   ||\
+                                     ((__PIN__) == GPIO_PIN_9)   ||\
+                                     ((__PIN__) == GPIO_PIN_10)  ||\
+                                     ((__PIN__) == GPIO_PIN_11)  ||\
+                                     ((__PIN__) == GPIO_PIN_12)  ||\
+                                     ((__PIN__) == GPIO_PIN_13)  ||\
+                                     ((__PIN__) == GPIO_PIN_14)  ||\
+                                     ((__PIN__) == GPIO_PIN_15))
+
 #define IS_GPIO_COMMON_PIN(__RESETMASK__, __SETMASK__)  \
   (((uint32_t)(__RESETMASK__) & (uint32_t)(__SETMASK__)) == 0x00u)
 

@@ -111,9 +111,8 @@
        using HAL_SPI_RegisterCallback() before calling HAL_SPI_DeInit()
        or HAL_SPI_Init() function.
 
-       When The compilation define USE_HAL_PPP_REGISTER_CALLBACKS is set to 0 or
-       not defined, the callback registering feature is not available
-       and weak (surcharged) callbacks are used.
+       When The compilation define USE_HAL_PPP_REGISTER_CALLBACKS is set to 0 or not defined,
+       the callback registering feature is not available and weak callbacks are used.
 
        SuspendCallback restriction:
            SuspendCallback is called only when MasterReceiverAutoSusp is enabled and
@@ -152,7 +151,6 @@
   * @{
   */
 #define SPI_DEFAULT_TIMEOUT 100UL
-#define MAX_FIFO_LENGTH     16UL
 /**
   * @}
   */
@@ -570,6 +568,8 @@ __weak void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
   *                the configuration information for the specified SPI.
   * @param  CallbackID ID of the callback to be registered
   * @param  pCallback pointer to the Callback function
+  * @note   The HAL_SPI_RegisterCallback() may be called before HAL_SPI_Init() in HAL_SPI_STATE_RESET
+  *         to register callbacks for HAL_SPI_MSPINIT_CB_ID and HAL_SPI_MSPDEINIT_CB_ID
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_SPI_RegisterCallback(SPI_HandleTypeDef *hspi, HAL_SPI_CallbackIDTypeDef CallbackID,
@@ -584,8 +584,6 @@ HAL_StatusTypeDef HAL_SPI_RegisterCallback(SPI_HandleTypeDef *hspi, HAL_SPI_Call
 
     return HAL_ERROR;
   }
-  /* Lock the process */
-  __HAL_LOCK(hspi);
 
   if (HAL_SPI_STATE_READY == hspi->State)
   {
@@ -674,8 +672,6 @@ HAL_StatusTypeDef HAL_SPI_RegisterCallback(SPI_HandleTypeDef *hspi, HAL_SPI_Call
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hspi);
   return status;
 }
 
@@ -685,14 +681,13 @@ HAL_StatusTypeDef HAL_SPI_RegisterCallback(SPI_HandleTypeDef *hspi, HAL_SPI_Call
   * @param  hspi Pointer to a SPI_HandleTypeDef structure that contains
   *                the configuration information for the specified SPI.
   * @param  CallbackID ID of the callback to be unregistered
+  * @note   The HAL_SPI_UnRegisterCallback() may be called before HAL_SPI_Init() in HAL_SPI_STATE_RESET
+  *         to un-register callbacks for HAL_SPI_MSPINIT_CB_ID and HAL_SPI_MSPDEINIT_CB_ID
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_SPI_UnRegisterCallback(SPI_HandleTypeDef *hspi, HAL_SPI_CallbackIDTypeDef CallbackID)
 {
   HAL_StatusTypeDef status = HAL_OK;
-
-  /* Lock the process */
-  __HAL_LOCK(hspi);
 
   if (HAL_SPI_STATE_READY == hspi->State)
   {
@@ -781,8 +776,6 @@ HAL_StatusTypeDef HAL_SPI_UnRegisterCallback(SPI_HandleTypeDef *hspi, HAL_SPI_Ca
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hspi);
   return status;
 }
 #endif /* USE_HAL_SPI_REGISTER_CALLBACKS */
@@ -839,30 +832,25 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, const uint8_t *pData
 #endif /* __GNUC__ */
 
   uint32_t tickstart;
-  HAL_StatusTypeDef errorcode = HAL_OK;
 
   /* Check Direction parameter */
   assert_param(IS_SPI_DIRECTION_2LINES_OR_1LINE_2LINES_TXONLY(hspi->Init.Direction));
-
-  /* Lock the process */
-  __HAL_LOCK(hspi);
 
   /* Init tickstart for timeout management*/
   tickstart = HAL_GetTick();
 
   if (hspi->State != HAL_SPI_STATE_READY)
   {
-    errorcode = HAL_BUSY;
-    __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_BUSY;
   }
 
   if ((pData == NULL) || (Size == 0UL))
   {
-    errorcode = HAL_ERROR;
-    __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_ERROR;
   }
+
+  /* Lock the process */
+  __HAL_LOCK(hspi);
 
   /* Set the transaction information */
   hspi->State       = HAL_SPI_STATE_BUSY_TX;
@@ -921,11 +909,12 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, const uint8_t *pData
           /* Call standard close procedure with error check */
           SPI_CloseTransfer(hspi);
 
+          SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_TIMEOUT);
+          hspi->State = HAL_SPI_STATE_READY;
+
           /* Unlock the process */
           __HAL_UNLOCK(hspi);
 
-          SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_TIMEOUT);
-          hspi->State = HAL_SPI_STATE_READY;
           return HAL_TIMEOUT;
         }
       }
@@ -965,11 +954,12 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, const uint8_t *pData
           /* Call standard close procedure with error check */
           SPI_CloseTransfer(hspi);
 
+          SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_TIMEOUT);
+          hspi->State = HAL_SPI_STATE_READY;
+
           /* Unlock the process */
           __HAL_UNLOCK(hspi);
 
-          SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_TIMEOUT);
-          hspi->State = HAL_SPI_STATE_READY;
           return HAL_TIMEOUT;
         }
       }
@@ -1014,11 +1004,12 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, const uint8_t *pData
           /* Call standard close procedure with error check */
           SPI_CloseTransfer(hspi);
 
+          SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_TIMEOUT);
+          hspi->State = HAL_SPI_STATE_READY;
+
           /* Unlock the process */
           __HAL_UNLOCK(hspi);
 
-          SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_TIMEOUT);
-          hspi->State = HAL_SPI_STATE_READY;
           return HAL_TIMEOUT;
         }
       }
@@ -1034,16 +1025,19 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, const uint8_t *pData
   /* Call standard close procedure with error check */
   SPI_CloseTransfer(hspi);
 
+  hspi->State = HAL_SPI_STATE_READY;
+
   /* Unlock the process */
   __HAL_UNLOCK(hspi);
-
-  hspi->State = HAL_SPI_STATE_READY;
 
   if (hspi->ErrorCode != HAL_SPI_ERROR_NONE)
   {
     return HAL_ERROR;
   }
-  return errorcode;
+  else
+  {
+    return HAL_OK;
+  }
 }
 
 /**
@@ -1058,7 +1052,6 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, const uint8_t *pData
 HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size, uint32_t Timeout)
 {
   uint32_t tickstart;
-  HAL_StatusTypeDef errorcode = HAL_OK;
 #if defined (__GNUC__)
   __IO uint16_t *prxdr_16bits = (__IO uint16_t *)(&(hspi->Instance->RXDR));
 #endif /* __GNUC__ */
@@ -1066,25 +1059,21 @@ HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint1
   /* Check Direction parameter */
   assert_param(IS_SPI_DIRECTION_2LINES_OR_1LINE_2LINES_RXONLY(hspi->Init.Direction));
 
-  /* Lock the process */
-  __HAL_LOCK(hspi);
-
   /* Init tickstart for timeout management*/
   tickstart = HAL_GetTick();
 
   if (hspi->State != HAL_SPI_STATE_READY)
   {
-    errorcode = HAL_BUSY;
-    __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_BUSY;
   }
 
   if ((pData == NULL) || (Size == 0UL))
   {
-    errorcode = HAL_ERROR;
-    __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_ERROR;
   }
+
+  /* Lock the process */
+  __HAL_LOCK(hspi);
 
   /* Set the transaction information */
   hspi->State       = HAL_SPI_STATE_BUSY_RX;
@@ -1143,11 +1132,12 @@ HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint1
           /* Call standard close procedure with error check */
           SPI_CloseTransfer(hspi);
 
+          SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_TIMEOUT);
+          hspi->State = HAL_SPI_STATE_READY;
+
           /* Unlock the process */
           __HAL_UNLOCK(hspi);
 
-          SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_TIMEOUT);
-          hspi->State = HAL_SPI_STATE_READY;
           return HAL_TIMEOUT;
         }
       }
@@ -1178,11 +1168,12 @@ HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint1
           /* Call standard close procedure with error check */
           SPI_CloseTransfer(hspi);
 
+          SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_TIMEOUT);
+          hspi->State = HAL_SPI_STATE_READY;
+
           /* Unlock the process */
           __HAL_UNLOCK(hspi);
 
-          SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_TIMEOUT);
-          hspi->State = HAL_SPI_STATE_READY;
           return HAL_TIMEOUT;
         }
       }
@@ -1209,11 +1200,12 @@ HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint1
           /* Call standard close procedure with error check */
           SPI_CloseTransfer(hspi);
 
+          SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_TIMEOUT);
+          hspi->State = HAL_SPI_STATE_READY;
+
           /* Unlock the process */
           __HAL_UNLOCK(hspi);
 
-          SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_TIMEOUT);
-          hspi->State = HAL_SPI_STATE_READY;
           return HAL_TIMEOUT;
         }
       }
@@ -1234,16 +1226,20 @@ HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint1
   /* Call standard close procedure with error check */
   SPI_CloseTransfer(hspi);
 
+  hspi->State = HAL_SPI_STATE_READY;
+
   /* Unlock the process */
   __HAL_UNLOCK(hspi);
 
-  hspi->State = HAL_SPI_STATE_READY;
 
   if (hspi->ErrorCode != HAL_SPI_ERROR_NONE)
   {
     return HAL_ERROR;
   }
-  return errorcode;
+  else
+  {
+    return HAL_OK;
+  }
 }
 
 /**
@@ -1259,21 +1255,18 @@ HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint1
 HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, const uint8_t *pTxData, uint8_t *pRxData,
                                           uint16_t Size, uint32_t Timeout)
 {
-  HAL_StatusTypeDef errorcode = HAL_OK;
 #if defined (__GNUC__)
   __IO uint16_t *ptxdr_16bits = (__IO uint16_t *)(&(hspi->Instance->TXDR));
   __IO uint16_t *prxdr_16bits = (__IO uint16_t *)(&(hspi->Instance->RXDR));
 #endif /* __GNUC__ */
 
   uint32_t   tickstart;
+  uint32_t   fifo_length;
   uint16_t   initial_TxXferCount;
   uint16_t   initial_RxXferCount;
 
   /* Check Direction parameter */
   assert_param(IS_SPI_DIRECTION_2LINES(hspi->Init.Direction));
-
-  /* Lock the process */
-  __HAL_LOCK(hspi);
 
   /* Init tickstart for timeout management*/
   tickstart = HAL_GetTick();
@@ -1283,17 +1276,16 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, const uint8_t
 
   if (hspi->State != HAL_SPI_STATE_READY)
   {
-    errorcode = HAL_BUSY;
-    __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_BUSY;
   }
 
   if ((pTxData == NULL) || (pRxData == NULL) || (Size == 0UL))
   {
-    errorcode = HAL_ERROR;
-    __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_ERROR;
   }
+
+  /* Lock the process */
+  __HAL_LOCK(hspi);
 
   /* Set the transaction information */
   hspi->State       = HAL_SPI_STATE_BUSY_TX_RX;
@@ -1312,6 +1304,16 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, const uint8_t
   /* Set Full-Duplex mode */
   SPI_2LINES(hspi);
 
+  /* Initialize FIFO length */
+  if (IS_SPI_FULL_INSTANCE(hspi->Instance))
+  {
+    fifo_length = SPI_HIGHEND_FIFO_SIZE;
+  }
+  else
+  {
+    fifo_length = SPI_LOWEND_FIFO_SIZE;
+  }
+
   /* Set the number of data at current transfer */
   MODIFY_REG(hspi->Instance->CR2, SPI_CR2_TSIZE, Size);
 
@@ -1326,10 +1328,14 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, const uint8_t
   /* Transmit and Receive data in 32 Bit mode */
   if ((hspi->Init.DataSize > SPI_DATASIZE_16BIT) && (IS_SPI_FULL_INSTANCE(hspi->Instance)))
   {
+    /* Adapt fifo length to 32bits data width */
+    fifo_length = (fifo_length / 4UL);
+
     while ((initial_TxXferCount > 0UL) || (initial_RxXferCount > 0UL))
     {
       /* Check TXP flag */
-      if ((__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_TXP)) && (initial_TxXferCount > 0UL))
+      if ((__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_TXP)) && (initial_TxXferCount > 0UL) &&
+          (initial_RxXferCount  < (initial_TxXferCount + fifo_length)))
       {
         *((__IO uint32_t *)&hspi->Instance->TXDR) = *((const uint32_t *)hspi->pTxBuffPtr);
         hspi->pTxBuffPtr += sizeof(uint32_t);
@@ -1352,11 +1358,12 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, const uint8_t
         /* Call standard close procedure with error check */
         SPI_CloseTransfer(hspi);
 
+        SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_TIMEOUT);
+        hspi->State = HAL_SPI_STATE_READY;
+
         /* Unlock the process */
         __HAL_UNLOCK(hspi);
 
-        SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_TIMEOUT);
-        hspi->State = HAL_SPI_STATE_READY;
         return HAL_TIMEOUT;
       }
     }
@@ -1364,10 +1371,14 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, const uint8_t
   /* Transmit and Receive data in 16 Bit mode */
   else if (hspi->Init.DataSize > SPI_DATASIZE_8BIT)
   {
+    /* Adapt fifo length to 16bits data width */
+    fifo_length = (fifo_length / 2UL);
+
     while ((initial_TxXferCount > 0UL) || (initial_RxXferCount > 0UL))
     {
       /* Check the TXP flag */
-      if (__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_TXP) && (initial_TxXferCount > 0UL))
+      if ((__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_TXP)) && (initial_TxXferCount > 0UL) &&
+          (initial_RxXferCount  < (initial_TxXferCount + fifo_length)))
       {
 #if defined (__GNUC__)
         *ptxdr_16bits = *((const uint16_t *)hspi->pTxBuffPtr);
@@ -1398,11 +1409,12 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, const uint8_t
         /* Call standard close procedure with error check */
         SPI_CloseTransfer(hspi);
 
+        SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_TIMEOUT);
+        hspi->State = HAL_SPI_STATE_READY;
+
         /* Unlock the process */
         __HAL_UNLOCK(hspi);
 
-        SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_TIMEOUT);
-        hspi->State = HAL_SPI_STATE_READY;
         return HAL_TIMEOUT;
       }
     }
@@ -1413,7 +1425,8 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, const uint8_t
     while ((initial_TxXferCount > 0UL) || (initial_RxXferCount > 0UL))
     {
       /* Check the TXP flag */
-      if ((__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_TXP)) && (initial_TxXferCount > 0UL))
+      if ((__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_TXP)) && (initial_TxXferCount > 0UL) &&
+          (initial_RxXferCount  < (initial_TxXferCount + fifo_length)))
       {
         *((__IO uint8_t *)&hspi->Instance->TXDR) = *((const uint8_t *)hspi->pTxBuffPtr);
         hspi->pTxBuffPtr += sizeof(uint8_t);
@@ -1436,11 +1449,12 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, const uint8_t
         /* Call standard close procedure with error check */
         SPI_CloseTransfer(hspi);
 
+        SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_TIMEOUT);
+        hspi->State = HAL_SPI_STATE_READY;
+
         /* Unlock the process */
         __HAL_UNLOCK(hspi);
 
-        SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_TIMEOUT);
-        hspi->State = HAL_SPI_STATE_READY;
         return HAL_TIMEOUT;
       }
     }
@@ -1455,16 +1469,19 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, const uint8_t
   /* Call standard close procedure with error check */
   SPI_CloseTransfer(hspi);
 
+  hspi->State = HAL_SPI_STATE_READY;
+
   /* Unlock the process */
   __HAL_UNLOCK(hspi);
-
-  hspi->State = HAL_SPI_STATE_READY;
 
   if (hspi->ErrorCode != HAL_SPI_ERROR_NONE)
   {
     return HAL_ERROR;
   }
-  return errorcode;
+  else
+  {
+    return HAL_OK;
+  }
 }
 
 /**
@@ -1477,27 +1494,21 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, const uint8_t
   */
 HAL_StatusTypeDef HAL_SPI_Transmit_IT(SPI_HandleTypeDef *hspi, const uint8_t *pData, uint16_t Size)
 {
-  HAL_StatusTypeDef errorcode = HAL_OK;
-
   /* Check Direction parameter */
   assert_param(IS_SPI_DIRECTION_2LINES_OR_1LINE_2LINES_TXONLY(hspi->Init.Direction));
 
-  /* Lock the process */
-  __HAL_LOCK(hspi);
-
   if ((pData == NULL) || (Size == 0UL))
   {
-    errorcode = HAL_ERROR;
-    __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_ERROR;
   }
 
   if (hspi->State != HAL_SPI_STATE_READY)
   {
-    errorcode = HAL_BUSY;
-    __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_BUSY;
   }
+
+  /* Lock the process */
+  __HAL_LOCK(hspi);
 
   /* Set the transaction information */
   hspi->State       = HAL_SPI_STATE_BUSY_TX;
@@ -1542,6 +1553,9 @@ HAL_StatusTypeDef HAL_SPI_Transmit_IT(SPI_HandleTypeDef *hspi, const uint8_t *pD
   /* Enable SPI peripheral */
   __HAL_SPI_ENABLE(hspi);
 
+  /* Unlock the process */
+  __HAL_UNLOCK(hspi);
+
   /* Enable EOT, TXP, FRE, MODF and UDR interrupts */
   __HAL_SPI_ENABLE_IT(hspi, (SPI_IT_EOT | SPI_IT_TXP | SPI_IT_UDR | SPI_IT_FRE | SPI_IT_MODF));
 
@@ -1551,8 +1565,7 @@ HAL_StatusTypeDef HAL_SPI_Transmit_IT(SPI_HandleTypeDef *hspi, const uint8_t *pD
     SET_BIT(hspi->Instance->CR1, SPI_CR1_CSTART);
   }
 
-  __HAL_UNLOCK(hspi);
-  return errorcode;
+  return HAL_OK;
 }
 
 /**
@@ -1565,27 +1578,21 @@ HAL_StatusTypeDef HAL_SPI_Transmit_IT(SPI_HandleTypeDef *hspi, const uint8_t *pD
   */
 HAL_StatusTypeDef HAL_SPI_Receive_IT(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size)
 {
-  HAL_StatusTypeDef errorcode = HAL_OK;
-
   /* Check Direction parameter */
   assert_param(IS_SPI_DIRECTION_2LINES_OR_1LINE_2LINES_RXONLY(hspi->Init.Direction));
 
-  /* Lock the process */
-  __HAL_LOCK(hspi);
-
   if (hspi->State != HAL_SPI_STATE_READY)
   {
-    errorcode = HAL_BUSY;
-    __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_BUSY;
   }
 
   if ((pData == NULL) || (Size == 0UL))
   {
-    errorcode = HAL_ERROR;
-    __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_ERROR;
   }
+
+  /* Lock the process */
+  __HAL_LOCK(hspi);
 
   /* Set the transaction information */
   hspi->State       = HAL_SPI_STATE_BUSY_RX;
@@ -1634,6 +1641,9 @@ HAL_StatusTypeDef HAL_SPI_Receive_IT(SPI_HandleTypeDef *hspi, uint8_t *pData, ui
   /* Enable SPI peripheral */
   __HAL_SPI_ENABLE(hspi);
 
+  /* Unlock the process */
+  __HAL_UNLOCK(hspi);
+
   /* Enable EOT, RXP, OVR, FRE and MODF interrupts */
   __HAL_SPI_ENABLE_IT(hspi, (SPI_IT_EOT | SPI_IT_RXP | SPI_IT_OVR | SPI_IT_FRE | SPI_IT_MODF));
 
@@ -1643,9 +1653,7 @@ HAL_StatusTypeDef HAL_SPI_Receive_IT(SPI_HandleTypeDef *hspi, uint8_t *pData, ui
     SET_BIT(hspi->Instance->CR1, SPI_CR1_CSTART);
   }
 
-  /* Unlock the process */
-  __HAL_UNLOCK(hspi);
-  return errorcode;
+  return HAL_OK;
 }
 
 /**
@@ -1660,9 +1668,7 @@ HAL_StatusTypeDef HAL_SPI_Receive_IT(SPI_HandleTypeDef *hspi, uint8_t *pData, ui
 HAL_StatusTypeDef HAL_SPI_TransmitReceive_IT(SPI_HandleTypeDef *hspi, const uint8_t *pTxData, uint8_t *pRxData,
                                              uint16_t Size)
 {
-  HAL_StatusTypeDef errorcode = HAL_OK;
   uint32_t tmp_TxXferCount;
-
 #if defined (__GNUC__)
   __IO uint16_t *ptxdr_16bits = (__IO uint16_t *)(&(hspi->Instance->TXDR));
 #endif /* __GNUC__ */
@@ -1670,22 +1676,18 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive_IT(SPI_HandleTypeDef *hspi, const uint
   /* Check Direction parameter */
   assert_param(IS_SPI_DIRECTION_2LINES(hspi->Init.Direction));
 
-  /* Lock the process */
-  __HAL_LOCK(hspi);
-
   if (hspi->State != HAL_SPI_STATE_READY)
   {
-    errorcode = HAL_BUSY;
-    __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_BUSY;
   }
 
   if ((pTxData == NULL) || (pRxData == NULL) || (Size == 0UL))
   {
-    errorcode = HAL_ERROR;
-    __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_ERROR;
   }
+
+  /* Lock the process */
+  __HAL_LOCK(hspi);
 
   /* Set the transaction information */
   hspi->State       = HAL_SPI_STATE_BUSY_TX_RX;
@@ -1757,6 +1759,9 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive_IT(SPI_HandleTypeDef *hspi, const uint
     }
   }
 
+  /* Unlock the process */
+  __HAL_UNLOCK(hspi);
+
   /* Enable EOT, DXP, UDR, OVR, FRE and MODF interrupts */
   __HAL_SPI_ENABLE_IT(hspi, (SPI_IT_EOT | SPI_IT_DXP | SPI_IT_UDR | SPI_IT_OVR | SPI_IT_FRE | SPI_IT_MODF));
 
@@ -1766,9 +1771,7 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive_IT(SPI_HandleTypeDef *hspi, const uint
     SET_BIT(hspi->Instance->CR1, SPI_CR1_CSTART);
   }
 
-  /* Unlock the process */
-  __HAL_UNLOCK(hspi);
-  return errorcode;
+  return HAL_OK;
 }
 
 
@@ -1785,27 +1788,23 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive_IT(SPI_HandleTypeDef *hspi, const uint
   */
 HAL_StatusTypeDef HAL_SPI_Transmit_DMA(SPI_HandleTypeDef *hspi, const uint8_t *pData, uint16_t Size)
 {
-  HAL_StatusTypeDef errorcode;
+  HAL_StatusTypeDef status;
 
   /* Check Direction parameter */
   assert_param(IS_SPI_DIRECTION_2LINES_OR_1LINE_2LINES_TXONLY(hspi->Init.Direction));
 
-  /* Lock the process */
-  __HAL_LOCK(hspi);
-
   if (hspi->State != HAL_SPI_STATE_READY)
   {
-    errorcode = HAL_BUSY;
-    __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_BUSY;
   }
 
   if ((pData == NULL) || (Size == 0UL))
   {
-    errorcode = HAL_ERROR;
-    __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_ERROR;
   }
+
+  /* Lock the process */
+  __HAL_LOCK(hspi);
 
   /* Set the transaction information */
   hspi->State       = HAL_SPI_STATE_BUSY_TX;
@@ -1837,9 +1836,8 @@ HAL_StatusTypeDef HAL_SPI_Transmit_DMA(SPI_HandleTypeDef *hspi, const uint8_t *p
       ((hspi->Init.DataSize > SPI_DATASIZE_8BIT)  && (hspi->hdmatx->Init.SrcDataWidth ==  DMA_SRC_DATAWIDTH_BYTE)))
   {
     /* Restriction the DMA data received is not allowed in this mode */
-    errorcode = HAL_ERROR;
     __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_ERROR;
   }
 
   /* Adjust XferCount according to DMA alignment / Data size */
@@ -1908,39 +1906,30 @@ HAL_StatusTypeDef HAL_SPI_Transmit_DMA(SPI_HandleTypeDef *hspi, const uint8_t *p
       /* Set DMA destination address */
       hspi->hdmatx->LinkedListQueue->Head->LinkRegisters[NODE_CDAR_DEFAULT_OFFSET] = (uint32_t)&hspi->Instance->TXDR;
 
-      errorcode = HAL_DMAEx_List_Start_IT(hspi->hdmatx);
+      status = HAL_DMAEx_List_Start_IT(hspi->hdmatx);
     }
     else
     {
-      /* Update SPI error code */
-      SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_DMA);
-
-      /* Unlock the process */
-      __HAL_UNLOCK(hspi);
-
-      hspi->State = HAL_SPI_STATE_READY;
-      errorcode = HAL_ERROR;
-      return errorcode;
+      status = HAL_ERROR;
     }
   }
   else
   {
-    errorcode = HAL_DMA_Start_IT(hspi->hdmatx, (uint32_t)hspi->pTxBuffPtr, (uint32_t)&hspi->Instance->TXDR,
-                                 hspi->TxXferCount);
+    status = HAL_DMA_Start_IT(hspi->hdmatx, (uint32_t)hspi->pTxBuffPtr, (uint32_t)&hspi->Instance->TXDR,
+                              hspi->TxXferCount);
   }
 
   /* Check status */
-  if (errorcode != HAL_OK)
+  if (status != HAL_OK)
   {
     /* Update SPI error code */
     SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_DMA);
+    hspi->State = HAL_SPI_STATE_READY;
 
     /* Unlock the process */
     __HAL_UNLOCK(hspi);
 
-    hspi->State = HAL_SPI_STATE_READY;
-    errorcode = HAL_ERROR;
-    return errorcode;
+    return HAL_ERROR;
   }
 
   /* Set the number of data at current transfer */
@@ -1970,7 +1959,8 @@ HAL_StatusTypeDef HAL_SPI_Transmit_DMA(SPI_HandleTypeDef *hspi, const uint8_t *p
 
   /* Unlock the process */
   __HAL_UNLOCK(hspi);
-  return errorcode;
+
+  return HAL_OK;
 }
 
 /**
@@ -1984,27 +1974,26 @@ HAL_StatusTypeDef HAL_SPI_Transmit_DMA(SPI_HandleTypeDef *hspi, const uint8_t *p
   */
 HAL_StatusTypeDef HAL_SPI_Receive_DMA(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size)
 {
-  HAL_StatusTypeDef errorcode;
+  HAL_StatusTypeDef status;
 
   /* Check Direction parameter */
   assert_param(IS_SPI_DIRECTION_2LINES_OR_1LINE_2LINES_RXONLY(hspi->Init.Direction));
 
-  /* Lock the process */
-  __HAL_LOCK(hspi);
 
   if (hspi->State != HAL_SPI_STATE_READY)
   {
-    errorcode = HAL_BUSY;
     __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_BUSY;
   }
 
   if ((pData == NULL) || (Size == 0UL))
   {
-    errorcode = HAL_ERROR;
     __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_ERROR;
   }
+
+  /* Lock the process */
+  __HAL_LOCK(hspi);
 
   /* Set the transaction information */
   hspi->State       = HAL_SPI_STATE_BUSY_RX;
@@ -2035,9 +2024,8 @@ HAL_StatusTypeDef HAL_SPI_Receive_DMA(SPI_HandleTypeDef *hspi, uint8_t *pData, u
       ((hspi->Init.DataSize > SPI_DATASIZE_8BIT)  && (hspi->hdmarx->Init.DestDataWidth == DMA_DEST_DATAWIDTH_BYTE)))
   {
     /* Restriction the DMA data received is not allowed in this mode */
-    errorcode = HAL_ERROR;
     __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_ERROR;
   }
 
   /* Clear RXDMAEN bit */
@@ -2106,39 +2094,30 @@ HAL_StatusTypeDef HAL_SPI_Receive_DMA(SPI_HandleTypeDef *hspi, uint8_t *pData, u
       /* Set DMA destination address */
       hspi->hdmarx->LinkedListQueue->Head->LinkRegisters[NODE_CDAR_DEFAULT_OFFSET] = (uint32_t)hspi->pRxBuffPtr;
 
-      errorcode = HAL_DMAEx_List_Start_IT(hspi->hdmarx);
+      status = HAL_DMAEx_List_Start_IT(hspi->hdmarx);
     }
     else
     {
-      /* Update SPI error code */
-      SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_DMA);
-
-      /* Unlock the process */
-      __HAL_UNLOCK(hspi);
-
-      hspi->State = HAL_SPI_STATE_READY;
-      errorcode = HAL_ERROR;
-      return errorcode;
+      status = HAL_ERROR;
     }
   }
   else
   {
-    errorcode = HAL_DMA_Start_IT(hspi->hdmarx, (uint32_t)&hspi->Instance->RXDR, (uint32_t)hspi->pRxBuffPtr,
-                                 hspi->RxXferCount);
+    status = HAL_DMA_Start_IT(hspi->hdmarx, (uint32_t)&hspi->Instance->RXDR, (uint32_t)hspi->pRxBuffPtr,
+                              hspi->RxXferCount);
   }
 
   /* Check status */
-  if (errorcode != HAL_OK)
+  if (status != HAL_OK)
   {
     /* Update SPI error code */
     SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_DMA);
+    hspi->State = HAL_SPI_STATE_READY;
 
     /* Unlock the process */
     __HAL_UNLOCK(hspi);
 
-    hspi->State = HAL_SPI_STATE_READY;
-    errorcode = HAL_ERROR;
-    return errorcode;
+    return HAL_ERROR;
   }
 
   /* Set the number of data at current transfer */
@@ -2168,7 +2147,8 @@ HAL_StatusTypeDef HAL_SPI_Receive_DMA(SPI_HandleTypeDef *hspi, uint8_t *pData, u
 
   /* Unlock the process */
   __HAL_UNLOCK(hspi);
-  return errorcode;
+
+  return HAL_OK;
 }
 
 /**
@@ -2184,27 +2164,23 @@ HAL_StatusTypeDef HAL_SPI_Receive_DMA(SPI_HandleTypeDef *hspi, uint8_t *pData, u
 HAL_StatusTypeDef HAL_SPI_TransmitReceive_DMA(SPI_HandleTypeDef *hspi, const uint8_t *pTxData, uint8_t *pRxData,
                                               uint16_t Size)
 {
-  HAL_StatusTypeDef errorcode;
+  HAL_StatusTypeDef status;
 
   /* Check Direction parameter */
   assert_param(IS_SPI_DIRECTION_2LINES(hspi->Init.Direction));
 
-  /* Lock the process */
-  __HAL_LOCK(hspi);
-
   if (hspi->State != HAL_SPI_STATE_READY)
   {
-    errorcode = HAL_BUSY;
-    __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_BUSY;
   }
 
   if ((pTxData == NULL) || (pRxData == NULL) || (Size == 0UL))
   {
-    errorcode = HAL_ERROR;
-    __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_ERROR;
   }
+
+  /* Lock the process */
+  __HAL_LOCK(hspi);
 
   /* Set the transaction information */
   hspi->State       = HAL_SPI_STATE_BUSY_TX_RX;
@@ -2232,10 +2208,9 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive_DMA(SPI_HandleTypeDef *hspi, const uin
       ((hspi->Init.DataSize > SPI_DATASIZE_8BIT)  && (hspi->hdmarx->Init.DestDataWidth == DMA_DEST_DATAWIDTH_BYTE)))
   {
     /* Restriction the DMA data received is not allowed in this mode */
-    errorcode = HAL_ERROR;
     /* Unlock the process */
     __HAL_UNLOCK(hspi);
-    return errorcode;
+    return HAL_ERROR;
   }
 
   /* Adjust XferCount according to DMA alignment / Data size */
@@ -2310,39 +2285,30 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive_DMA(SPI_HandleTypeDef *hspi, const uin
       /* Set DMA destination address */
       hspi->hdmarx->LinkedListQueue->Head->LinkRegisters[NODE_CDAR_DEFAULT_OFFSET] = (uint32_t)hspi->pRxBuffPtr;
 
-      errorcode = HAL_DMAEx_List_Start_IT(hspi->hdmarx);
+      status = HAL_DMAEx_List_Start_IT(hspi->hdmarx);
     }
     else
     {
-      /* Update SPI error code */
-      SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_DMA);
-
-      /* Unlock the process */
-      __HAL_UNLOCK(hspi);
-
-      hspi->State = HAL_SPI_STATE_READY;
-      errorcode = HAL_ERROR;
-      return errorcode;
+      status = HAL_ERROR;
     }
   }
   else
   {
-    errorcode = HAL_DMA_Start_IT(hspi->hdmarx, (uint32_t)&hspi->Instance->RXDR, (uint32_t)hspi->pRxBuffPtr,
-                                 hspi->RxXferCount);
+    status = HAL_DMA_Start_IT(hspi->hdmarx, (uint32_t)&hspi->Instance->RXDR, (uint32_t)hspi->pRxBuffPtr,
+                              hspi->RxXferCount);
   }
 
   /* Check status */
-  if (errorcode != HAL_OK)
+  if (status != HAL_OK)
   {
     /* Update SPI error code */
     SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_DMA);
+    hspi->State = HAL_SPI_STATE_READY;
 
     /* Unlock the process */
     __HAL_UNLOCK(hspi);
 
-    hspi->State = HAL_SPI_STATE_READY;
-    errorcode = HAL_ERROR;
-    return errorcode;
+    return HAL_ERROR;
   }
 
   /* Enable Rx DMA Request */
@@ -2384,39 +2350,33 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive_DMA(SPI_HandleTypeDef *hspi, const uin
       /* Set DMA destination address */
       hspi->hdmatx->LinkedListQueue->Head->LinkRegisters[NODE_CDAR_DEFAULT_OFFSET] = (uint32_t)&hspi->Instance->TXDR;
 
-      errorcode = HAL_DMAEx_List_Start_IT(hspi->hdmatx);
+      status = HAL_DMAEx_List_Start_IT(hspi->hdmatx);
     }
     else
     {
-      /* Update SPI error code */
-      SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_DMA);
-
-      /* Unlock the process */
-      __HAL_UNLOCK(hspi);
-
-      hspi->State = HAL_SPI_STATE_READY;
-      errorcode = HAL_ERROR;
-      return errorcode;
+      status = HAL_ERROR;
     }
   }
   else
   {
-    errorcode = HAL_DMA_Start_IT(hspi->hdmatx, (uint32_t)hspi->pTxBuffPtr, (uint32_t)&hspi->Instance->TXDR,
-                                 hspi->TxXferCount);
+    status = HAL_DMA_Start_IT(hspi->hdmatx, (uint32_t)hspi->pTxBuffPtr, (uint32_t)&hspi->Instance->TXDR,
+                              hspi->TxXferCount);
   }
 
   /* Check status */
-  if (errorcode != HAL_OK)
+  if (status != HAL_OK)
   {
+    /* Abort Rx DMA Channel already started */
+    (void)HAL_DMA_Abort(hspi->hdmarx);
+
     /* Update SPI error code */
     SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_DMA);
+    hspi->State = HAL_SPI_STATE_READY;
 
     /* Unlock the process */
     __HAL_UNLOCK(hspi);
 
-    hspi->State = HAL_SPI_STATE_READY;
-    errorcode = HAL_ERROR;
-    return errorcode;
+    return HAL_ERROR;
   }
 
   if ((hspi->hdmarx->Mode == DMA_LINKEDLIST_CIRCULAR) && (hspi->hdmatx->Mode == DMA_LINKEDLIST_CIRCULAR))
@@ -2445,7 +2405,8 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive_DMA(SPI_HandleTypeDef *hspi, const uin
 
   /* Unlock the process */
   __HAL_UNLOCK(hspi);
-  return errorcode;
+
+  return HAL_OK;
 }
 #endif /* HAL_DMA_MODULE_ENABLED */
 
@@ -2573,11 +2534,11 @@ HAL_StatusTypeDef HAL_SPI_Abort(SPI_HandleTypeDef *hspi)
     hspi->ErrorCode = HAL_SPI_ERROR_NONE;
   }
 
-  /* Unlock the process */
-  __HAL_UNLOCK(hspi);
-
   /* Restore hspi->state to ready */
   hspi->State = HAL_SPI_STATE_READY;
+
+  /* Unlock the process */
+  __HAL_UNLOCK(hspi);
 
   return errorcode;
 }
@@ -2847,7 +2808,6 @@ void HAL_SPI_IRQHandler(SPI_HandleTypeDef *hspi)
     hspi->TxISR(hspi);
     handled = 1UL;
   }
-
 
   if (handled != 0UL)
   {
@@ -3334,7 +3294,8 @@ static void SPI_DMATransmitReceiveCplt(DMA_HandleTypeDef *hdma)
   */
 static void SPI_DMAHalfTransmitCplt(DMA_HandleTypeDef *hdma) /* Derogation MISRAC2012-Rule-8.13 */
 {
-  SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)((DMA_HandleTypeDef *)hdma)->Parent; /* Derogation MISRAC2012-Rule-8.13 */
+  SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)
+                            ((DMA_HandleTypeDef *)hdma)->Parent; /* Derogation MISRAC2012-Rule-8.13 */
 
 #if (USE_HAL_SPI_REGISTER_CALLBACKS == 1UL)
   hspi->TxHalfCpltCallback(hspi);
@@ -3351,7 +3312,8 @@ static void SPI_DMAHalfTransmitCplt(DMA_HandleTypeDef *hdma) /* Derogation MISRA
   */
 static void SPI_DMAHalfReceiveCplt(DMA_HandleTypeDef *hdma) /* Derogation MISRAC2012-Rule-8.13 */
 {
-  SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)((DMA_HandleTypeDef *)hdma)->Parent; /* Derogation MISRAC2012-Rule-8.13 */
+  SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)
+                            ((DMA_HandleTypeDef *)hdma)->Parent; /* Derogation MISRAC2012-Rule-8.13 */
 
 #if (USE_HAL_SPI_REGISTER_CALLBACKS == 1UL)
   hspi->RxHalfCpltCallback(hspi);
@@ -3368,7 +3330,8 @@ static void SPI_DMAHalfReceiveCplt(DMA_HandleTypeDef *hdma) /* Derogation MISRAC
   */
 static void SPI_DMAHalfTransmitReceiveCplt(DMA_HandleTypeDef *hdma) /* Derogation MISRAC2012-Rule-8.13 */
 {
-  SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)((DMA_HandleTypeDef *)hdma)->Parent; /* Derogation MISRAC2012-Rule-8.13 */
+  SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)
+                            ((DMA_HandleTypeDef *)hdma)->Parent; /* Derogation MISRAC2012-Rule-8.13 */
 
 #if (USE_HAL_SPI_REGISTER_CALLBACKS == 1UL)
   hspi->TxRxHalfCpltCallback(hspi);

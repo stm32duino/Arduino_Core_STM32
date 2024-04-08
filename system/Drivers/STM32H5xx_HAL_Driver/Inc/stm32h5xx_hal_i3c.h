@@ -338,6 +338,56 @@ typedef struct
   * @}
   */
 
+/** @defgroup I3C_BCRTypeDef_Structure_definition I3C BCRTypeDef Structure definition
+  * @brief    I3C BCRTypeDef Structure definition
+  * @{
+  */
+typedef struct
+{
+  FunctionalState         MaxDataSpeedLimitation;  /*!< Max data speed limitation */
+  FunctionalState         IBIRequestCapable;       /*!< IBI request capable */
+  FunctionalState         IBIPayload;              /*!< IBI payload data */
+  FunctionalState         OfflineCapable;          /*!< Offline capable */
+  FunctionalState         VirtualTargetSupport;    /*!< Virtual target support */
+  FunctionalState         AdvancedCapabilities;    /*!< Advanced capabilities */
+  FunctionalState         DeviceRole;              /*!< Device role */
+
+} I3C_BCRTypeDef;
+/**
+  * @}
+  */
+
+/** @defgroup I3C_PIDTypeDef_Structure_definition I3C PIDTypeDef Structure definition
+  * @brief    I3C_PIDTypeDef Structure definition
+  * @{
+  */
+typedef struct
+{
+  uint16_t  MIPIMID;         /*!< MIPI Manufacturer ID */
+  uint8_t   IDTSEL;          /*!< Provisioned ID Type Selector */
+  uint16_t  PartID;          /*!< Part ID device vendor to define */
+  uint8_t   MIPIID;          /*!< Instance ID */
+
+} I3C_PIDTypeDef;
+/**
+  * @}
+  */
+
+/** @defgroup I3C_ENTDAAPayloadTypeDef_Structure_definition I3C ENTDAAPayloadTypeDef Structure definition
+  * @brief    I3C ENTDAAPayloadTypeDef Structure definition
+  * @{
+  */
+typedef struct
+{
+  I3C_BCRTypeDef   BCR;             /*!< Bus Characteristics Register */
+  uint32_t         DCR;             /*!< Device Characteristics Register */
+  I3C_PIDTypeDef   PID;             /*!< Provisioned ID */
+
+} I3C_ENTDAAPayloadTypeDef;
+/**
+  * @}
+  */
+
 /** @defgroup I3C_PrivateTypeDef_Structure_definition I3C PrivateTypeDef Structure definition
   * @brief    I3C PrivateTypeDef Structure definition
   * @{
@@ -419,8 +469,7 @@ typedef struct __I3C_HandleTypeDef
   __IO uint32_t              ErrorCode;                           /*!< I3C Error code                            */
 
   HAL_StatusTypeDef(*XferISR)(struct __I3C_HandleTypeDef *hi3c,
-                              uint32_t itFlags,
-                              uint32_t itSources);                /*!< I3C transfer IRQ handler function pointer */
+                              uint32_t itMasks);                  /*!< I3C transfer IRQ handler function pointer */
 
   void(*ptrTxFunc)(struct __I3C_HandleTypeDef *hi3c);             /*!< I3C transmit function pointer             */
 
@@ -914,7 +963,7 @@ typedef  void (*pI3C_TgtReqDynamicAddrCallbackTypeDef)(I3C_HandleTypeDef *hi3c, 
 /** @defgroup I3C_BCR_IN_PAYLOAD I3C BCR IN PAYLOAD
   * @{
   */
-#define HAL_I3C_BCR_IN_PAYLOAD_SHIFT    48  /*!< BCR field in target payload */
+#define HAL_I3C_BCR_IN_PAYLOAD_SHIFT             48                  /*!< BCR field in target payload */
 /**
   * @}
   */
@@ -1193,6 +1242,9 @@ uint32_t HAL_I3C_GetError(const I3C_HandleTypeDef *hi3c);
 HAL_StatusTypeDef HAL_I3C_GetCCCInfo(I3C_HandleTypeDef *hi3c,
                                      uint32_t notifyId,
                                      I3C_CCCInfoTypeDef *pCCCInfo);
+HAL_StatusTypeDef HAL_I3C_Get_ENTDAA_Payload_Info(I3C_HandleTypeDef *hi3c,
+                                                  uint64_t ENTDAA_payload,
+                                                  I3C_ENTDAAPayloadTypeDef *pENTDAA_payload);
 /**
   * @}
   */

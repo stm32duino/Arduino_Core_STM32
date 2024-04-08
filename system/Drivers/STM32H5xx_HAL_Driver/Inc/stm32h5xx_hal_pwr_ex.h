@@ -181,15 +181,23 @@ typedef struct
 /** @defgroup PWREx_Memory_Shut_Off Memory shut-off block selection
   * @{
   */
+#define PWR_RAM1_MEMORY_BLOCK          PWR_PMCR_SRAM1SO       /*!< RAM1 shut-off control in Stop mode                   */
 #if defined (PWR_PMCR_SRAM2_16SO)
-#define PWR_ETHERNET_MEMORY_BLOCK PWR_PMCR_ETHERNETSO   /*!< Ethernet shut-off control in Stop mode               */
-#define PWR_RAM3_MEMORY_BLOCK     PWR_PMCR_SRAM3SO      /*!< RAM3 shut-off control in Stop mode                   */
-#define PWR_RAM2_16_MEMORY_BLOCK  PWR_PMCR_SRAM2_16SO   /*!< RAM2 16k byte shut-off control in Stop mode          */
-#define PWR_RAM2_48_MEMORY_BLOCK  PWR_PMCR_SRAM2_48SO   /*!< RAM2 48k byte shut-off control in Stop mode          */
+#define PWR_RAM2_16_MEMORY_BLOCK       PWR_PMCR_SRAM2_16SO    /*!< RAM2 16k byte shut-off control in Stop mode          */
+#define PWR_RAM2_48_MEMORY_BLOCK       PWR_PMCR_SRAM2_48SO    /*!< RAM2 48k byte shut-off control in Stop mode          */
+#elif defined (PWR_PMCR_SRAM2_16LSO)
+#define PWR_RAM2_LOW_16_MEMORY_BLOCK   PWR_PMCR_SRAM2_16LSO   /*!< RAM2 low 16k byte shut-off control in Stop mode      */
+#define PWR_RAM2_HIGH_16_MEMORY_BLOCK  PWR_PMCR_SRAM2_16HSO   /*!< RAM2 High 16k byte shut-off control in Stop mode     */
+#define PWR_RAM2_48_MEMORY_BLOCK       PWR_PMCR_SRAM2_48SO    /*!< RAM2 48k byte shut-off control in Stop mode          */
 #else
-#define PWR_RAM2_MEMORY_BLOCK     PWR_PMCR_SRAM2SO      /*!< RAM2 48k byte shut-off control in Stop mode          */
+#define PWR_RAM2_MEMORY_BLOCK          PWR_PMCR_SRAM2SO       /*!< RAM2 shut-off control in Stop mode                   */
 #endif /* PWR_PMCR_SRAM2_16SO */
-#define PWR_RAM1_MEMORY_BLOCK     PWR_PMCR_SRAM1SO      /*!< RAM1 shut-off control in Stop mode                   */
+#if defined (PWR_PMCR_SRAM3SO)
+#define PWR_RAM3_MEMORY_BLOCK          PWR_PMCR_SRAM3SO       /*!< RAM3 shut-off control in Stop mode                   */
+#endif /* PWR_PMCR_SRAM3SO */
+#if defined (PWR_PMCR_ETHERNETSO)
+#define PWR_ETHERNET_MEMORY_BLOCK      PWR_PMCR_ETHERNETSO    /*!< Ethernet shut-off control in Stop mode               */
+#endif /* PWR_PMCR_ETHERNETSO */
 
 /**
   * @}
@@ -413,12 +421,18 @@ typedef struct
 #define IS_PWR_BATTERY_RESISTOR_SELECT(RESISTOR) (((RESISTOR) == PWR_BATTERY_CHARGING_RESISTOR_5) ||\
                                                   ((RESISTOR) == PWR_BATTERY_CHARGING_RESISTOR_1_5))
 
-#if defined (PWR_PMCR_SRAM2_16SO)
 /* Check memory block parameter */
+#if defined (PWR_PMCR_SRAM2_16SO)
 #define IS_PWR_MEMORY_BLOCK(BLOCK) (((BLOCK) == PWR_ETHERNET_MEMORY_BLOCK) || \
                                     ((BLOCK) == PWR_RAM3_MEMORY_BLOCK)     || \
                                     ((BLOCK) == PWR_RAM2_16_MEMORY_BLOCK)  || \
                                     ((BLOCK) == PWR_RAM2_48_MEMORY_BLOCK)  || \
+                                    ((BLOCK) == PWR_RAM1_MEMORY_BLOCK))
+#elif defined (PWR_PMCR_SRAM2_16LSO)
+#define IS_PWR_MEMORY_BLOCK(BLOCK) (((BLOCK) == PWR_RAM3_MEMORY_BLOCK)          || \
+                                    ((BLOCK) == PWR_RAM2_LOW_16_MEMORY_BLOCK)   || \
+                                    ((BLOCK) == PWR_RAM2_HIGH_16_MEMORY_BLOCK)  || \
+                                    ((BLOCK) == PWR_RAM2_48_MEMORY_BLOCK)       || \
                                     ((BLOCK) == PWR_RAM1_MEMORY_BLOCK))
 #else
 #define IS_PWR_MEMORY_BLOCK(BLOCK) (((BLOCK) == PWR_RAM2_MEMORY_BLOCK)  || \

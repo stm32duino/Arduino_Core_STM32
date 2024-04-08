@@ -1380,6 +1380,18 @@ static void FLASH_OB_UserConfig(uint32_t UserType, uint32_t UserConfig1, uint32_
   }
 #endif /* FLASH_OPTSR2_SRAM1_ECC */
 
+#if defined (FLASH_OPTSR2_USBPD_DIS)
+  if ((UserType & OB_USER_USBPD_DIS) != 0U)
+  {
+    /* USBPD_DIS option byte should be modified */
+    assert_param(IS_OB_USER_USBPD_DIS(UserConfig2 & FLASH_OPTSR2_USBPD_DIS));
+
+    /* Set value and mask for USBPD_DIS option byte */
+    optr_reg2_val |= (UserConfig2 & FLASH_OPTSR2_USBPD_DIS);
+    optr_reg2_mask |= FLASH_OPTSR2_USBPD_DIS;
+  }
+#endif /* FLASH_OPTSR2_USBPD_DIS */
+
 #if defined (FLASH_OPTSR2_TZEN)
   if ((UserType & OB_USER_TZEN) != 0U)
   {
@@ -1714,6 +1726,15 @@ static void FLASH_OB_GetHDP(uint32_t Bank, uint32_t *HDPStartSector, uint32_t *H
   *
   * @param  EDATASize specifies the size (in sectors) of the Flash high-cycle data area
   *         This parameter can be sectors number between 0 and 8
+  *         0: Disable all EDATA sectors.
+  *         1: The last sector is reserved for flash high-cycle data.
+  *         2: The two last sectors are reserved for flash high-cycle data.
+  *         3: The three last sectors are reserved for flash high-cycle data
+  *         4: The four last sectors is reserved for flash high-cycle data.
+  *         5: The five last sectors are reserved for flash high-cycle data.
+  *         6: The six last sectors are reserved for flash high-cycle data.
+  *         7: The seven last sectors are reserved for flash high-cycle data.
+  *         8: The eight last sectors are reserved for flash high-cycle data.
   *
   * @retval None
   */
@@ -1743,13 +1764,13 @@ static void FLASH_OB_EDATAConfig(uint32_t Banks, uint32_t EDATASize)
     /* Write EDATA registers */
     if ((Banks & FLASH_BANK_1) == FLASH_BANK_1)
     {
-      /* de-activate Flash high-cycle data for bank 1 */
+      /* Disable Flash high-cycle data for bank 1 */
       FLASH->EDATA1R_PRG = 0U;
     }
 
     if ((Banks & FLASH_BANK_2) == FLASH_BANK_2)
     {
-      /* de-activate Flash high-cycle data for bank 2 */
+      /* Disable Flash high-cycle data for bank 2 */
       FLASH->EDATA2R_PRG = 0U;
     }
   }
@@ -1783,7 +1804,17 @@ static void FLASH_OB_GetEDATA(uint32_t Bank, uint32_t *EDATASize)
   }
 
   /* Get configuration of secure area */
-  *EDATASize = (regvalue & FLASH_EDATAR_EDATA_STRT);
+  if ((regvalue & FLASH_EDATAR_EDATA_EN) != 0U)
+  {
+    /* Encoding of Edata Area size is register value + 1 */
+    *EDATASize = (regvalue & FLASH_EDATAR_EDATA_STRT) + 1U;
+  }
+  else
+  {
+    /* No defined Edata area */
+    *EDATASize = 0U;
+  }
+
 }
 #endif /* FLASH_EDATAR_EDATA_EN */
 
@@ -1791,6 +1822,193 @@ static void FLASH_OB_GetEDATA(uint32_t Bank, uint32_t *EDATASize)
   * @}
   */
 
+/** @defgroup FLASHEx_Exported_Functions_Group3 Extended ECC operation functions
+  *  @brief   Extended ECC operation functions
+  *
+@verbatim
+ ===============================================================================
+                  ##### Extended ECC operation functions #####
+ ===============================================================================
+    [..]
+    This subsection provides a set of functions allowing to manage the Extended FLASH
+    ECC Operations.
+
+@endverbatim
+  * @{
+  */
+/**
+  * @brief  Enable ECC correction interrupt
+  * @param  None
+  * @retval None
+  */
+void HAL_FLASHEx_EnableEccCorrectionInterrupt(void)
+{
+  __HAL_FLASH_ENABLE_IT(FLASH_IT_ECCC);
+}
+
+/**
+  * @brief  Disable ECC correction interrupt
+  * @param  None
+  * @retval None
+  */
+void HAL_FLASHEx_DisableEccCorrectionInterrupt(void)
+{
+  __HAL_FLASH_DISABLE_IT(FLASH_IT_ECCC);
+}
+
+/**
+  * @brief  Get the ECC error information.
+  * @param  pData Pointer to an FLASH_EccInfoTypeDef structure that contains the
+  *         ECC error information.
+  * @note   This function should be called before ECC bit is cleared
+  *         (in callback function)
+  * @retval None
+  */
+void HAL_FLASHEx_GetEccInfo(FLASH_EccInfoTypeDef *pData)
+{
+  uint32_t correction_reg = FLASH->ECCCORR;
+  uint32_t detection_reg = FLASH->ECCDETR;
+  uint32_t data_reg = FLASH->ECCDR;
+  uint32_t addr_reg = 0xFFFFFFFFU;
+
+  /* Check if the operation is a correction or a detection*/
+  if ((correction_reg & FLASH_ECCR_ECCC) != 0U)
+  {
+    /*  Get area and offset address values from ECCCORR register*/
+    pData->Area = correction_reg & (~(FLASH_ECCR_ECCIE | FLASH_ECCR_ADDR_ECC | FLASH_ECCR_ECCC));
+    addr_reg = (correction_reg & FLASH_ECCR_ADDR_ECC);
+  }
+  else if ((detection_reg & FLASH_ECCR_ECCD) != 0U)
+  {
+    /* Get area and offset address values from ECCDETR register */
+    pData->Area = detection_reg & (~(FLASH_ECCR_ADDR_ECC | FLASH_ECCR_ECCD));
+    addr_reg = (detection_reg & FLASH_ECCR_ADDR_ECC);
+  }
+  else
+  {
+    /* Do nothing */
+  }
+
+  /* Check that an ECC single or double error has occurred to continue the calculation of area address */
+  if (addr_reg != 0xFFFFFFFFU)
+  {
+    /* Get address value according to area value*/
+    switch (pData->Area)
+    {
+      case FLASH_ECC_AREA_USER_BANK1:
+        /*
+         * One error detection/correction or two error detections per 128-bit flash word
+         * Therefore, the address returned by ECC registers in bank1 represents 128-bit flash word,
+         * to get the correct address value, we must do a shift by 4 bits
+        */
+        addr_reg = addr_reg << 4U;
+        pData->Address = FLASH_BASE + addr_reg;
+        break;
+      case FLASH_ECC_AREA_USER_BANK2:
+        /*
+         * One error detection/correction or two error detections per 128-bit flash word
+         * Therefore, the address returned by ECC registers in bank2 represents 128-bit flash word,
+         * to get the correct address value, we must do a shift by 4 bits
+        */
+        addr_reg = addr_reg << 4U;
+        pData->Address = FLASH_BASE + FLASH_BANK_SIZE + addr_reg;
+        break;
+      case FLASH_ECC_AREA_SYSTEM:
+        /* check system flash bank */
+        if ((correction_reg & FLASH_ECCR_BK_ECC) == FLASH_ECCR_BK_ECC)
+        {
+          pData->Address = FLASH_SYSTEM_BASE + FLASH_SYSTEM_SIZE + addr_reg;
+        }
+        else
+        {
+          pData->Address = FLASH_SYSTEM_BASE + addr_reg;
+        }
+        break;
+#if defined (FLASH_SR_OBKERR)
+      case FLASH_ECC_AREA_OBK:
+        pData->Address = FLASH_OBK_BASE + addr_reg;
+        break;
+#endif /* FLASH_SR_OBKERR */
+#if defined (FLASH_EDATAR_EDATA_EN)
+      case FLASH_ECC_AREA_EDATA:
+        /* check flash high-cycle data bank */
+        if ((correction_reg & FLASH_ECCR_BK_ECC) == FLASH_ECCR_BK_ECC)
+        {
+          /*
+           * addr_reg is the address returned by the ECC register along with an offset value depends on area
+           * To calculate the exact address set by user while an ECC occurred, we must subtract the offset value,
+           * In addition, the address returned by ECC registers represents 128-bit flash word (multiply by 4),
+          */
+          pData->Address = FLASH_EDATA_BASE + FLASH_BANK_SIZE + ((addr_reg - FLASH_ADDRESS_OFFSET_EDATA) * 4U);
+        }
+        else
+        {
+          pData->Address = FLASH_EDATA_BASE + ((addr_reg - FLASH_ADDRESS_OFFSET_EDATA) * 4U);
+        }
+        break;
+#endif /* FLASH_EDATAR_EDATA_EN */
+      case FLASH_ECC_AREA_OTP:
+        /* Address returned by the ECC is an halfword, multiply by 4 to get the exact address*/
+        pData->Address = FLASH_OTP_BASE + ((addr_reg - FLASH_ADDRESS_OFFSET_OTP) * 4U);
+        break;
+
+      default:
+        /* Do nothing */
+        break;
+    }
+  }
+
+  pData->Data = data_reg & FLASH_ECCR_ADDR_ECC;
+}
+
+/**
+  * @brief Handle Flash ECC Detection interrupt request.
+  * @retval None
+  */
+void HAL_FLASHEx_ECCD_IRQHandler(void)
+{
+  /* Check if the ECC double error occurred*/
+  if (READ_BIT(FLASH->ECCDETR, FLASH_ECCR_ECCD) != 0U)
+  {
+    /* FLASH ECC detection user callback */
+    HAL_FLASHEx_EccDetectionCallback();
+
+    /* Clear ECCD flag
+    note : this step will clear all the information related to the flash ecc detection
+    */
+    SET_BIT(FLASH->ECCDETR, FLASH_ECCR_ECCD);
+  }
+}
+
+/**
+  * @brief  FLASH ECC Correction interrupt callback.
+  * @retval None
+  */
+__weak void HAL_FLASHEx_EccCorrectionCallback(void)
+{
+  /* NOTE : This function should not be modified, when the callback is needed,
+            the HAL_FLASHEx_EccCorrectionCallback could be implemented in the user file
+   */
+}
+
+/**
+  * @brief  FLASH ECC Detection interrupt callback.
+  * @retval None
+  */
+__weak void HAL_FLASHEx_EccDetectionCallback(void)
+{
+  /* NOTE : This function should not be modified, when the callback is needed,
+            the HAL_FLASHEx_EccDetectionCallback could be implemented in the user file
+   */
+}
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
 #endif /* HAL_FLASH_MODULE_ENABLED */
 
 /**

@@ -682,10 +682,10 @@ typedef struct
 /** @defgroup TIM_LL_EC_COUNTERMODE Counter Mode
   * @{
   */
-#define LL_TIM_COUNTERMODE_UP                  0x00000000U          /*!<Counter used as upcounter */
+#define LL_TIM_COUNTERMODE_UP                  0x00000000U          /*!< Counter used as upcounter */
 #define LL_TIM_COUNTERMODE_DOWN                TIM_CR1_DIR          /*!< Counter used as downcounter */
 #define LL_TIM_COUNTERMODE_CENTER_DOWN         TIM_CR1_CMS_0        /*!< The counter counts up and down alternatively. Output compare interrupt flags of output channels  are set only when the counter is counting down. */
-#define LL_TIM_COUNTERMODE_CENTER_UP           TIM_CR1_CMS_1        /*!<The counter counts up and down alternatively. Output compare interrupt flags of output channels  are set only when the counter is counting up */
+#define LL_TIM_COUNTERMODE_CENTER_UP           TIM_CR1_CMS_1        /*!< The counter counts up and down alternatively. Output compare interrupt flags of output channels  are set only when the counter is counting up */
 #define LL_TIM_COUNTERMODE_CENTER_UP_DOWN      TIM_CR1_CMS          /*!< The counter counts up and down alternatively. Output compare interrupt flags of output channels  are set only when the counter is counting up or down. */
 /**
   * @}
@@ -767,6 +767,15 @@ typedef struct
   */
 #endif /* USE_FULL_LL_DRIVER */
 
+/** Legacy definitions for compatibility purpose
+@cond 0
+  */
+#define LL_TIM_OCMODE_ASSYMETRIC_PWM1 LL_TIM_OCMODE_ASYMMETRIC_PWM1
+#define LL_TIM_OCMODE_ASSYMETRIC_PWM2 LL_TIM_OCMODE_ASYMMETRIC_PWM2
+/**
+@endcond
+  */
+
 /** @defgroup TIM_LL_EC_OCMODE Output Configuration Mode
   * @{
   */
@@ -782,8 +791,8 @@ typedef struct
 #define LL_TIM_OCMODE_RETRIG_OPM2              (TIM_CCMR1_OC1M_3 | TIM_CCMR1_OC1M_0)                    /*!<Retrigerrable OPM mode 2*/
 #define LL_TIM_OCMODE_COMBINED_PWM1            (TIM_CCMR1_OC1M_3 | TIM_CCMR1_OC1M_2)                    /*!<Combined PWM mode 1*/
 #define LL_TIM_OCMODE_COMBINED_PWM2            (TIM_CCMR1_OC1M_3 | TIM_CCMR1_OC1M_0 | TIM_CCMR1_OC1M_2) /*!<Combined PWM mode 2*/
-#define LL_TIM_OCMODE_ASSYMETRIC_PWM1          (TIM_CCMR1_OC1M_3 | TIM_CCMR1_OC1M_1 | TIM_CCMR1_OC1M_2) /*!<Asymmetric PWM mode 1*/
-#define LL_TIM_OCMODE_ASSYMETRIC_PWM2          (TIM_CCMR1_OC1M_3 | TIM_CCMR1_OC1M)                      /*!<Asymmetric PWM mode 2*/
+#define LL_TIM_OCMODE_ASYMMETRIC_PWM1          (TIM_CCMR1_OC1M_3 | TIM_CCMR1_OC1M_1 | TIM_CCMR1_OC1M_2) /*!<Asymmetric PWM mode 1*/
+#define LL_TIM_OCMODE_ASYMMETRIC_PWM2          (TIM_CCMR1_OC1M_3 | TIM_CCMR1_OC1M)                      /*!<Asymmetric PWM mode 2*/
 #define LL_TIM_OCMODE_PULSE_ON_COMPARE         (TIM_CCMR2_OC3M_3 | TIM_CCMR2_OC3M_1)                    /*!<Pulse on Compare mode */
 #define LL_TIM_OCMODE_DIRECTION_OUTPUT         (TIM_CCMR2_OC3M_3 | TIM_CCMR2_OC3M_1 | TIM_CCMR2_OC3M_0) /*!<Direction output mode */
 /**
@@ -1049,20 +1058,23 @@ typedef struct
 #if defined(COMP1)
 #define LL_TIM_TIM2_ETRSOURCE_COMP1       TIM1_AF1_ETRSEL_0                                           /*!< ETR input is connected to COMP1_OUT */
 #endif /* COMP1*/
-#define LL_TIM_TIM2_ETRSOURCE_LSE         (TIM1_AF1_ETRSEL_0 | TIM1_AF1_ETRSEL_1)                     /*!< ETR input is connected to LSE */
+#define LL_TIM_TIM2_ETRSOURCE_LSE         (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0)                     /*!< ETR input is connected to LSE */
 #if defined(SAI1)
 #define LL_TIM_TIM2_ETRSOURCE_SAI1_FSA    TIM1_AF1_ETRSEL_2                                           /*!< ETR input is connected to SAI1_FSA */
-#define LL_TIM_TIM2_ETRSOURCE_SAI1_FSB    (TIM1_AF1_ETRSEL_0 | TIM1_AF1_ETRSEL_2)                     /*!< ETR input is connected to SAI1_FSB */
+#define LL_TIM_TIM2_ETRSOURCE_SAI1_FSB    (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                     /*!< ETR input is connected to SAI1_FSB */
 #endif /* SAI1 */
-#define LL_TIM_TIM2_ETRSOURCE_TIM3_ETR    (TIM1_AF1_ETRSEL_0 | TIM1_AF1_ETRSEL_3)                     /*!< ETR input is connected to TIM3 ETR */
+#define LL_TIM_TIM2_ETRSOURCE_TIM3_ETR    (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_0)                     /*!< ETR input is connected to TIM3 ETR */
 #if defined(TIM4)
-#define LL_TIM_TIM2_ETRSOURCE_TIM4_ETR    (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_3)                     /*!< ETR input is connected to TIM4 ETR */
+#define LL_TIM_TIM2_ETRSOURCE_TIM4_ETR    (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1)                     /*!< ETR input is connected to TIM4 ETR */
 #endif /* TIM4 */
 #if defined(TIM5)
-#define LL_TIM_TIM2_ETRSOURCE_TIM5_ETR    (TIM1_AF1_ETRSEL_0 | TIM1_AF1_ETRSEL_1| TIM1_AF1_ETRSEL_3 ) /*!< ETR input is connected to TIM5 ETR */
+#define LL_TIM_TIM2_ETRSOURCE_TIM5_ETR    (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /*!< ETR input is connected to TIM5 ETR */
 #endif /* TIM5 */
+#if defined(USB_DRD_FS)
+#define LL_TIM_TIM2_ETRSOURCE_USB_SOF     (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0) /*!< ETR input is connected to USB SOF */
+#endif /* USB_DRD_FS */
 #if defined(ETH_NS)
-#define LL_TIM_TIM2_ETRSOURCE_ETH_PPS     (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_3 ) /*!< ETR input is connected to ETH PPS */
+#define LL_TIM_TIM2_ETRSOURCE_ETH_PPS     (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1) /*!< ETR input is connected to ETH PPS */
 #endif /* ETH_NS */
 /**
   * @}
@@ -1112,6 +1124,9 @@ typedef struct
 #define LL_TIM_TIM5_ETRSOURCE_TIM2_ETR    TIM1_AF1_ETRSEL_3                                           /*!< ETR input is connected to TIM2 ETR */
 #define LL_TIM_TIM5_ETRSOURCE_TIM3_ETR    (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_0)                     /*!< ETR input is connected to TIM3 ETR */
 #define LL_TIM_TIM5_ETRSOURCE_TIM4_ETR    (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1)                     /*!< ETR input is connected to TIM4 ETR */
+#if defined(USB_DRD_FS)
+#define LL_TIM_TIM5_ETRSOURCE_USB_SOF     (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0) /*!< ETR input is connected to USB SOF */
+#endif /* USB_DRD_FS */
 /**
   * @}
   */
@@ -1259,6 +1274,15 @@ typedef struct
   * @}
   */
 
+/** Legacy definitions for compatibility purpose
+@cond 0
+  */
+#define LL_TIM_ReArmBRK(_PARAM_)
+#define LL_TIM_ReArmBRK2(_PARAM_)
+/**
+@endcond
+  */
+
 /** @defgroup TIM_LL_EC_DMABURST_BASEADDR DMA Burst Base Address
   * @{
   */
@@ -1288,6 +1312,7 @@ typedef struct
 #define LL_TIM_DMABURST_BASEADDR_TISEL         (TIM_DCR_DBA_4 | TIM_DCR_DBA_2 | TIM_DCR_DBA_1 | TIM_DCR_DBA_0)  /*!< TIMx_TISEL register is the DMA base address for DMA burst */
 #define LL_TIM_DMABURST_BASEADDR_AF1           (TIM_DCR_DBA_4 | TIM_DCR_DBA_3)                                  /*!< TIMx_AF1 register is the DMA base address for DMA burst */
 #define LL_TIM_DMABURST_BASEADDR_AF2           (TIM_DCR_DBA_4 | TIM_DCR_DBA_3 | TIM_DCR_DBA_0)                  /*!< TIMx_AF2 register is the DMA base address for DMA burst */
+#define LL_TIM_DMABURST_BASEADDR_OR1           (TIM_DCR_DBA_4 | TIM_DCR_DBA_3 | TIM_DCR_DBA_1)                  /*!< TIMx_OR1 register is the DMA base address for DMA burst */
 /**
   * @}
   */
@@ -2229,6 +2254,17 @@ __STATIC_INLINE void LL_TIM_CC_DisablePreload(TIM_TypeDef *TIMx)
 }
 
 /**
+  * @brief  Indicates whether the capture/compare control bits (CCxE, CCxNE and OCxM) preload is enabled.
+  * @rmtoll CR2          CCPC          LL_TIM_CC_IsEnabledPreload
+  * @param  TIMx Timer instance
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_TIM_CC_IsEnabledPreload(const TIM_TypeDef *TIMx)
+{
+  return ((READ_BIT(TIMx->CR2, TIM_CR2_CCPC) == (TIM_CR2_CCPC)) ? 1UL : 0UL);
+}
+
+/**
   * @brief  Set the updated source of the capture/compare control bits (CCxE, CCxNE and OCxM).
   * @note Macro IS_TIM_COMMUTATION_EVENT_INSTANCE(TIMx) can be used to check
   *       whether or not a timer instance is able to generate a commutation event.
@@ -2464,8 +2500,8 @@ __STATIC_INLINE void LL_TIM_OC_ConfigOutput(TIM_TypeDef *TIMx, uint32_t Channel,
   *         @arg @ref LL_TIM_OCMODE_RETRIG_OPM2
   *         @arg @ref LL_TIM_OCMODE_COMBINED_PWM1
   *         @arg @ref LL_TIM_OCMODE_COMBINED_PWM2
-  *         @arg @ref LL_TIM_OCMODE_ASSYMETRIC_PWM1
-  *         @arg @ref LL_TIM_OCMODE_ASSYMETRIC_PWM2
+  *         @arg @ref LL_TIM_OCMODE_ASYMMETRIC_PWM1
+  *         @arg @ref LL_TIM_OCMODE_ASYMMETRIC_PWM2
   *         @arg @ref LL_TIM_OCMODE_PULSE_ON_COMPARE   (for channel 3 or channel 4 only)
   *         @arg @ref LL_TIM_OCMODE_DIRECTION_OUTPUT   (for channel 3 or channel 4 only)
   * @retval None
@@ -2506,8 +2542,8 @@ __STATIC_INLINE void LL_TIM_OC_SetMode(TIM_TypeDef *TIMx, uint32_t Channel, uint
   *         @arg @ref LL_TIM_OCMODE_RETRIG_OPM2
   *         @arg @ref LL_TIM_OCMODE_COMBINED_PWM1
   *         @arg @ref LL_TIM_OCMODE_COMBINED_PWM2
-  *         @arg @ref LL_TIM_OCMODE_ASSYMETRIC_PWM1
-  *         @arg @ref LL_TIM_OCMODE_ASSYMETRIC_PWM2
+  *         @arg @ref LL_TIM_OCMODE_ASYMMETRIC_PWM1
+  *         @arg @ref LL_TIM_OCMODE_ASYMMETRIC_PWM2
   *         @arg @ref LL_TIM_OCMODE_PULSE_ON_COMPARE   (for channel 3 or channel 4 only)
   *         @arg @ref LL_TIM_OCMODE_DIRECTION_OUTPUT   (for channel 3 or channel 4 only)
   */
@@ -3911,6 +3947,7 @@ __STATIC_INLINE void LL_TIM_ConfigETR(TIM_TypeDef *TIMx, uint32_t ETRPolarity, u
   *            @arg @ref LL_TIM_TIM2_ETRSOURCE_TIM3_ETR
   *            @arg @ref LL_TIM_TIM2_ETRSOURCE_TIM4_ETR   (*)
   *            @arg @ref LL_TIM_TIM2_ETRSOURCE_TIM5_ETR   (*)
+  *            @arg @ref LL_TIM_TIM2_ETRSOURCE_USB_SOF    (*)
   *            @arg @ref LL_TIM_TIM2_ETRSOURCE_ETH_PPS    (*)
 
   *
@@ -3938,6 +3975,7 @@ __STATIC_INLINE void LL_TIM_ConfigETR(TIM_TypeDef *TIMx, uint32_t ETRPolarity, u
   *            @arg @ref LL_TIM_TIM5_ETRSOURCE_TIM2_ETR
   *            @arg @ref LL_TIM_TIM5_ETRSOURCE_TIM3_ETR
   *            @arg @ref LL_TIM_TIM5_ETRSOURCE_TIM4_ETR
+  *            @arg @ref LL_TIM_TIM5_ETRSOURCE_USB_SOF    (*)
   *
   *         TIM8: any combination of ETR_RMP where  (**)
   *
@@ -4123,18 +4161,6 @@ __STATIC_INLINE void LL_TIM_DisarmBRK(TIM_TypeDef *TIMx)
 }
 
 /**
-  * @brief  Re-arm the break input (when it operates in bidirectional mode).
-  * @note  The Break input is automatically armed as soon as MOE bit is set.
-  * @rmtoll BDTR         BKDSRM        LL_TIM_ReArmBRK
-  * @param  TIMx Timer instance
-  * @retval None
-  */
-__STATIC_INLINE void LL_TIM_ReArmBRK(TIM_TypeDef *TIMx)
-{
-  CLEAR_BIT(TIMx->BDTR, TIM_BDTR_BKDSRM);
-}
-
-/**
   * @brief  Enable the break 2 function.
   * @note Macro IS_TIM_BKIN2_INSTANCE(TIMx) can be used to check whether or not
   *       a timer instance provides a second break input.
@@ -4221,18 +4247,6 @@ __STATIC_INLINE void LL_TIM_ConfigBRK2(TIM_TypeDef *TIMx, uint32_t Break2Polarit
 __STATIC_INLINE void LL_TIM_DisarmBRK2(TIM_TypeDef *TIMx)
 {
   SET_BIT(TIMx->BDTR, TIM_BDTR_BK2DSRM);
-}
-
-/**
-  * @brief  Re-arm the break 2 input (when it operates in bidirectional mode).
-  * @note  The Break 2 input is automatically armed as soon as MOE bit is set.
-  * @rmtoll BDTR         BK2DSRM       LL_TIM_ReArmBRK2
-  * @param  TIMx Timer instance
-  * @retval None
-  */
-__STATIC_INLINE void LL_TIM_ReArmBRK2(TIM_TypeDef *TIMx)
-{
-  CLEAR_BIT(TIMx->BDTR, TIM_BDTR_BK2DSRM);
 }
 
 /**
@@ -4568,6 +4582,7 @@ __STATIC_INLINE uint32_t LL_TIM_IsEnabledDeadTimePreload(const TIM_TypeDef *TIMx
   *         @arg @ref LL_TIM_DMABURST_BASEADDR_TISEL
   *         @arg @ref LL_TIM_DMABURST_BASEADDR_AF1
   *         @arg @ref LL_TIM_DMABURST_BASEADDR_AF2
+  *         @arg @ref LL_TIM_DMABURST_BASEADDR_OR1
   * @param  DMABurstLength This parameter can be one of the following values:
   *         @arg @ref LL_TIM_DMABURST_LENGTH_1TRANSFER
   *         @arg @ref LL_TIM_DMABURST_LENGTH_2TRANSFERS
@@ -4960,6 +4975,42 @@ __STATIC_INLINE void LL_TIM_ConfigIDX(TIM_TypeDef *TIMx, uint32_t Configuration)
 __STATIC_INLINE void LL_TIM_SetRemap(TIM_TypeDef *TIMx, uint32_t Remap)
 {
   MODIFY_REG(TIMx->TISEL, (TIM_TISEL_TI1SEL | TIM_TISEL_TI2SEL | TIM_TISEL_TI3SEL | TIM_TISEL_TI4SEL), Remap);
+}
+
+/**
+  * @brief  Enable request for HSE 1MHz clock used for TISEL remap.
+  * @note Only TIM17 support HSE 1MHz remap
+  * @rmtoll OR1         RTCPREEN           LL_TIM_EnableRTCPRE
+  * @param  TIMx Timer instance
+  * @retval None
+  */
+__STATIC_INLINE void LL_TIM_EnableRTCPRE(TIM_TypeDef *TIMx)
+{
+  SET_BIT(TIMx->OR1, TIM_OR1_RTCPREEN);
+}
+
+/**
+  * @brief  Disable request for HSE 1MHz clock used for TISEL remap.
+  * @note Only TIM17 support HSE 1MHz remap
+  * @rmtoll OR1         RTCPREEN           LL_TIM_DisableRTCPRE
+  * @param  TIMx Timer instance
+  * @retval None
+  */
+__STATIC_INLINE void LL_TIM_DisableRTCPRE(TIM_TypeDef *TIMx)
+{
+  CLEAR_BIT(TIMx->OR1, TIM_OR1_RTCPREEN);
+}
+
+/**
+  * @brief  Indicate whether request for HSE 1MHz clock is enabled.
+  * @note Only TIM17 support HSE 1MHz remap
+  * @rmtoll OR1         RTCPREEN           LL_TIM_IsEnabledRTCPRE
+  * @param  TIMx Timer instance
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_TIM_IsEnabledRTCPRE(const TIM_TypeDef *TIMx)
+{
+  return ((READ_BIT(TIMx->OR1, TIM_OR1_RTCPREEN) == (TIM_OR1_RTCPREEN)) ? 1UL : 0UL);
 }
 
 /**

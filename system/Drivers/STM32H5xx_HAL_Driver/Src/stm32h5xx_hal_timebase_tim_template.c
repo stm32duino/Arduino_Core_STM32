@@ -112,6 +112,14 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   TimHandle.Init.ClockDivision = 0;
   TimHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
   status = HAL_TIM_Base_Init(&TimHandle);
+
+#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1U)
+  if (status == HAL_OK)
+  {
+    status = HAL_TIM_RegisterCallback(&TimHandle, HAL_TIM_PERIOD_ELAPSED_CB_ID, TimeBase_TIM_PeriodElapsedCallback);
+  }
+#endif /* USE_HAL_TIM_REGISTER_CALLBACKS */
+
   if (status == HAL_OK)
   {
     /* Start the TIM time Base generation in interrupt mode */
@@ -130,9 +138,6 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
       }
     }
   }
-#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1U)
-  HAL_TIM_RegisterCallback(&TimHandle, HAL_TIM_PERIOD_ELAPSED_CB_ID, TimeBase_TIM_PeriodElapsedCallback);
-#endif /* USE_HAL_TIM_REGISTER_CALLBACKS */
 
   HAL_NVIC_EnableIRQ(TIM6_IRQn);
 

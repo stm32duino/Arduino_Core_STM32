@@ -106,50 +106,93 @@ typedef struct
 #define LL_EXTI_LINE_15                EXTI_IMR1_IM15          /*!< Extended line 15 */
 #define LL_EXTI_LINE_16                EXTI_IMR1_IM16          /*!< Extended line 16 */
 #define LL_EXTI_LINE_17                EXTI_IMR1_IM17          /*!< Extended line 17 */
+#if defined(EXTI_IMR1_IM18)
 #define LL_EXTI_LINE_18                EXTI_IMR1_IM18          /*!< Extended line 18 */
+#endif /* EXTI_IMR1_IM18 */
 #define LL_EXTI_LINE_19                EXTI_IMR1_IM19          /*!< Extended line 19 */
+#if defined(EXTI_IMR1_IM20)
 #define LL_EXTI_LINE_20                EXTI_IMR1_IM20          /*!< Extended line 20 */
+#endif /* EXTI_IMR1_IM20 */
 #define LL_EXTI_LINE_21                EXTI_IMR1_IM21          /*!< Extended line 21 */
 #define LL_EXTI_LINE_22                EXTI_IMR1_IM22          /*!< Extended line 22 */
+#if defined(EXTI_IMR1_IM23)
 #define LL_EXTI_LINE_23                EXTI_IMR1_IM23          /*!< Extended line 23 */
+#endif /* EXTI_IMR1_IM23 */
 #define LL_EXTI_LINE_24                EXTI_IMR1_IM24          /*!< Extended line 24 */
 #define LL_EXTI_LINE_25                EXTI_IMR1_IM25          /*!< Extended line 25 */
 #define LL_EXTI_LINE_26                EXTI_IMR1_IM26          /*!< Extended line 26 */
 #define LL_EXTI_LINE_27                EXTI_IMR1_IM27          /*!< Extended line 27 */
 #define LL_EXTI_LINE_28                EXTI_IMR1_IM28          /*!< Extended line 28 */
 #define LL_EXTI_LINE_29                EXTI_IMR1_IM29          /*!< Extended line 29 */
+#if defined(EXTI_IMR1_IM30)
 #define LL_EXTI_LINE_30                EXTI_IMR1_IM30          /*!< Extended line 30 */
+#endif /* EXTI_IMR1_IM30 */
+#if defined(EXTI_IMR1_IM31)
 #define LL_EXTI_LINE_31                EXTI_IMR1_IM31          /*!< Extended line 31 */
+#endif /* EXTI_IMR1_IM31 */
 #define LL_EXTI_LINE_ALL_0_31          EXTI_IMR1_IM            /*!< All Extended line not reserved */
 
+#if defined(EXTI_IMR2_IM32)
 #define LL_EXTI_LINE_32                EXTI_IMR2_IM32          /*!< Extended line 32 */
+#endif /* EXTI_IMR2_IM32 */
+#if defined(EXTI_IMR2_IM33)
 #define LL_EXTI_LINE_33                EXTI_IMR2_IM33          /*!< Extended line 33 */
+#endif /* EXTI_IMR2_IM33 */
+#if defined(EXTI_IMR2_IM34)
 #define LL_EXTI_LINE_34                EXTI_IMR2_IM34          /*!< Extended line 34 */
+#endif /* EXTI_IMR2_IM34 */
+#if defined(EXTI_IMR2_IM35)
 #define LL_EXTI_LINE_35                EXTI_IMR2_IM35          /*!< Extended line 35 */
+#endif /* EXTI_IMR2_IM35 */
+#if defined(EXTI_IMR2_IM36)
 #define LL_EXTI_LINE_36                EXTI_IMR2_IM36          /*!< Extended line 36 */
+#endif /* EXTI_IMR2_IM36 */
 #define LL_EXTI_LINE_37                EXTI_IMR2_IM37          /*!< Extended line 37 */
 #define LL_EXTI_LINE_38                EXTI_IMR2_IM38          /*!< Extended line 38 */
 #define LL_EXTI_LINE_39                EXTI_IMR2_IM39          /*!< Extended line 39 */
 #define LL_EXTI_LINE_40                EXTI_IMR2_IM40          /*!< Extended line 40 */
 #define LL_EXTI_LINE_41                EXTI_IMR2_IM41          /*!< Extended line 41 */
 #define LL_EXTI_LINE_42                EXTI_IMR2_IM42          /*!< Extended line 42 */
+#if defined(EXTI_IMR2_IM43)
 #define LL_EXTI_LINE_43                EXTI_IMR2_IM43          /*!< Extended line 43 */
+#endif /* EXTI_IMR2_IM43 */
+#if defined(EXTI_IMR2_IM44)
 #define LL_EXTI_LINE_44                EXTI_IMR2_IM44          /*!< Extended line 44 */
+#endif /* EXTI_IMR2_IM44 */
+#if defined(EXTI_IMR2_IM45)
 #define LL_EXTI_LINE_45                EXTI_IMR2_IM45          /*!< Extended line 45 */
+#endif /* EXTI_IMR2_IM45 */
 #if defined(ETH)
 #define LL_EXTI_LINE_46                EXTI_IMR2_IM46          /*!< Extended line 46 */
 #endif /* ETH */
 #define LL_EXTI_LINE_47                EXTI_IMR2_IM47          /*!< Extended line 47 */
+#if defined(EXTI_IMR2_IM48)
 #define LL_EXTI_LINE_48                EXTI_IMR2_IM48          /*!< Extended line 48 */
+#endif /* EXTI_IMR2_IM48 */
 #define LL_EXTI_LINE_49                EXTI_IMR2_IM49          /*!< Extended line 49 */
 #define LL_EXTI_LINE_50                EXTI_IMR2_IM50          /*!< Extended line 50 */
+#if defined(EXTI_IMR2_IM51)
 #define LL_EXTI_LINE_51                EXTI_IMR2_IM51          /*!< Extended line 51 */
+#endif /* EXTI_IMR2_IM51 */
+#if defined(EXTI_IMR2_IM52)
 #define LL_EXTI_LINE_52                EXTI_IMR2_IM52          /*!< Extended line 52 */
+#endif /* EXTI_IMR2_IM52 */
 #define LL_EXTI_LINE_53                EXTI_IMR2_IM53          /*!< Extended line 53 */
+#if defined(EXTI_IMR2_IM54)
 #define LL_EXTI_LINE_54                EXTI_IMR2_IM54          /*!< Extended line 54 */
+#endif /* EXTI_IMR2_IM54 */
+#if defined(EXTI_IMR2_IM55)
 #define LL_EXTI_LINE_55                EXTI_IMR2_IM55          /*!< Extended line 55 */
+#endif /* EXTI_IMR2_IM55 */
+#if defined(EXTI_IMR2_IM56)
 #define LL_EXTI_LINE_56                EXTI_IMR2_IM56          /*!< Extended line 56 */
+#endif /* EXTI_IMR2_IM56 */
+#if defined(EXTI_IMR2_IM57)
 #define LL_EXTI_LINE_57                EXTI_IMR2_IM57          /*!< Extended line 57 */
+#endif /* EXTI_IMR2_IM57 */
+#if defined(EXTI_IMR2_IM58)
+#define LL_EXTI_LINE_58                EXTI_IMR2_IM58          /*!< Extended line 58 */
+#endif /* EXTI_IMR2_IM58 */
 #define LL_EXTI_LINE_ALL_32_63         EXTI_IMR2_IM            /*!< ALL Extended line */
 
 #define LL_EXTI_LINE_ALL               (0xFFFFFFFFU)           /*!< All Extended line */
@@ -165,11 +208,19 @@ typedef struct
 #define LL_EXTI_EXTI_PORTB               EXTI_EXTICR1_EXTI0_0                        /*!< EXTI PORT B */
 #define LL_EXTI_EXTI_PORTC               EXTI_EXTICR1_EXTI0_1                        /*!< EXTI PORT C */
 #define LL_EXTI_EXTI_PORTD               (EXTI_EXTICR1_EXTI0_1|EXTI_EXTICR1_EXTI0_0) /*!< EXTI PORT D */
+#if defined(GPIOE)
 #define LL_EXTI_EXTI_PORTE               EXTI_EXTICR1_EXTI0_2                        /*!< EXTI PORT E */
+#endif /* GPIO E */
+#if defined(GPIOF)
 #define LL_EXTI_EXTI_PORTF               (EXTI_EXTICR1_EXTI0_2|EXTI_EXTICR1_EXTI0_0) /*!< EXTI PORT F */
+#endif /* GPIO F */
+#if defined(GPIOG)
 #define LL_EXTI_EXTI_PORTG               (EXTI_EXTICR1_EXTI0_2|EXTI_EXTICR1_EXTI0_1) /*!< EXTI PORT G */
+#endif /* GPIO G */
 #define LL_EXTI_EXTI_PORTH               (EXTI_EXTICR1_EXTI0_2|EXTI_EXTICR1_EXTI0_1|EXTI_EXTICR1_EXTI0_0) /*!< EXTI PORT H */
+#if defined(GPIOI)
 #define LL_EXTI_EXTI_PORTI               EXTI_EXTICR1_EXTI0_3 /*!< EXTI PORT I */
+#endif /* GPIO I */
 
 /**
   * @}
@@ -265,7 +316,6 @@ typedef struct
   */
 
 
-
 /* Exported functions --------------------------------------------------------*/
 /** @defgroup EXTI_LL_Exported_Functions EXTI Exported Functions
   * @{
@@ -339,6 +389,7 @@ __STATIC_INLINE void LL_EXTI_EnableIT_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_42
   *         @arg @ref LL_EXTI_LINE_43
   *         @arg @ref LL_EXTI_LINE_44
+  *         @arg @ref LL_EXTI_LINE_45
   *         @arg @ref LL_EXTI_LINE_46
   *         @arg @ref LL_EXTI_LINE_47
   *         @arg @ref LL_EXTI_LINE_48
@@ -350,10 +401,11 @@ __STATIC_INLINE void LL_EXTI_EnableIT_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_54
   *         @arg @ref LL_EXTI_LINE_55
   *         @arg @ref LL_EXTI_LINE_56
-  *         @arg @ref LL_EXTI_LINE_57 (*)
+  *         @arg @ref LL_EXTI_LINE_57
+  *         @arg @ref LL_EXTI_LINE_58
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
   *
-  *         (*) value not defined in all devices.
+  * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_EnableIT_32_63(uint32_t ExtiLine)
@@ -427,6 +479,7 @@ __STATIC_INLINE void LL_EXTI_DisableIT_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_42
   *         @arg @ref LL_EXTI_LINE_43
   *         @arg @ref LL_EXTI_LINE_44
+  *         @arg @ref LL_EXTI_LINE_45
   *         @arg @ref LL_EXTI_LINE_46
   *         @arg @ref LL_EXTI_LINE_47
   *         @arg @ref LL_EXTI_LINE_48
@@ -438,10 +491,10 @@ __STATIC_INLINE void LL_EXTI_DisableIT_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_54
   *         @arg @ref LL_EXTI_LINE_55
   *         @arg @ref LL_EXTI_LINE_56
-  *         @arg @ref LL_EXTI_LINE_57 (*)
+  *         @arg @ref LL_EXTI_LINE_57
+  *         @arg @ref LL_EXTI_LINE_58
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
-  *
-  *         (*) value not defined in all devices.
+  * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_DisableIT_32_63(uint32_t ExtiLine)
@@ -516,6 +569,7 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledIT_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_42
   *         @arg @ref LL_EXTI_LINE_43
   *         @arg @ref LL_EXTI_LINE_44
+  *         @arg @ref LL_EXTI_LINE_45
   *         @arg @ref LL_EXTI_LINE_46
   *         @arg @ref LL_EXTI_LINE_47
   *         @arg @ref LL_EXTI_LINE_48
@@ -527,10 +581,10 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledIT_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_54
   *         @arg @ref LL_EXTI_LINE_55
   *         @arg @ref LL_EXTI_LINE_56
-  *         @arg @ref LL_EXTI_LINE_57 (*)
+  *         @arg @ref LL_EXTI_LINE_57
+  *         @arg @ref LL_EXTI_LINE_58
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
-  *
-  *         (*) value not defined in all devices.
+  * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_EXTI_IsEnabledIT_32_63(uint32_t ExtiLine)
@@ -609,6 +663,7 @@ __STATIC_INLINE void LL_EXTI_EnableEvent_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_43
   *         @arg @ref LL_EXTI_LINE_44
   *         @arg @ref LL_EXTI_LINE_46
+  *         @arg @ref LL_EXTI_LINE_45
   *         @arg @ref LL_EXTI_LINE_47
   *         @arg @ref LL_EXTI_LINE_48
   *         @arg @ref LL_EXTI_LINE_49
@@ -619,10 +674,10 @@ __STATIC_INLINE void LL_EXTI_EnableEvent_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_54
   *         @arg @ref LL_EXTI_LINE_55
   *         @arg @ref LL_EXTI_LINE_56
-  *         @arg @ref LL_EXTI_LINE_57 (*)
+  *         @arg @ref LL_EXTI_LINE_57
+  *         @arg @ref LL_EXTI_LINE_58
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
-  *
-  *         (*) value not defined in all devices.
+  * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_EnableEvent_32_63(uint32_t ExtiLine)
@@ -691,8 +746,8 @@ __STATIC_INLINE void LL_EXTI_DisableEvent_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_41
   *         @arg @ref LL_EXTI_LINE_42
   *         @arg @ref LL_EXTI_LINE_43
-  *         @arg @ref LL_EXTI_LINE_44 (*)
-  *         @arg @ref LL_EXTI_LINE_46 (*)
+  *         @arg @ref LL_EXTI_LINE_44
+  *         @arg @ref LL_EXTI_LINE_46
   *         @arg @ref LL_EXTI_LINE_47
   *         @arg @ref LL_EXTI_LINE_48
   *         @arg @ref LL_EXTI_LINE_49
@@ -703,10 +758,10 @@ __STATIC_INLINE void LL_EXTI_DisableEvent_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_54
   *         @arg @ref LL_EXTI_LINE_55
   *         @arg @ref LL_EXTI_LINE_56
-  *         @arg @ref LL_EXTI_LINE_57 (*)
+  *         @arg @ref LL_EXTI_LINE_57
+  *         @arg @ref LL_EXTI_LINE_58
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
-  *
-  *         (*) value not defined in all devices.
+  * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_DisableEvent_32_63(uint32_t ExtiLine)
@@ -787,10 +842,10 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledEvent_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_54
   *         @arg @ref LL_EXTI_LINE_55
   *         @arg @ref LL_EXTI_LINE_56
-  *         @arg @ref LL_EXTI_LINE_57 (*)
+  *         @arg @ref LL_EXTI_LINE_57
+  *         @arg @ref LL_EXTI_LINE_58
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
-  *
-  *         (*) value not defined in all devices.
+  * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_EXTI_IsEnabledEvent_32_63(uint32_t ExtiLine)
@@ -834,6 +889,7 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledEvent_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
   *         @arg @ref LL_EXTI_LINE_16
+  * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_EnableRisingTrig_0_31(uint32_t ExtiLine)
@@ -854,7 +910,8 @@ __STATIC_INLINE void LL_EXTI_EnableRisingTrig_0_31(uint32_t ExtiLine)
   * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_46
   *         @arg @ref LL_EXTI_LINE_50
-  *         @arg @ref LL_EXTI_LINE_51
+  *         @arg @ref LL_EXTI_LINE_53
+  * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_EnableRisingTrig_32_63(uint32_t ExtiLine)
@@ -890,6 +947,7 @@ __STATIC_INLINE void LL_EXTI_EnableRisingTrig_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
   *         @arg @ref LL_EXTI_LINE_16
+  * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_DisableRisingTrig_0_31(uint32_t ExtiLine)
@@ -911,7 +969,8 @@ __STATIC_INLINE void LL_EXTI_DisableRisingTrig_0_31(uint32_t ExtiLine)
   * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_46
   *         @arg @ref LL_EXTI_LINE_50
-  *         @arg @ref LL_EXTI_LINE_51
+  *         @arg @ref LL_EXTI_LINE_53
+  * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_DisableRisingTrig_32_63(uint32_t ExtiLine)
@@ -940,6 +999,7 @@ __STATIC_INLINE void LL_EXTI_DisableRisingTrig_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
   *         @arg @ref LL_EXTI_LINE_16
+  * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_EXTI_IsEnabledRisingTrig_0_31(uint32_t ExtiLine)
@@ -954,7 +1014,8 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledRisingTrig_0_31(uint32_t ExtiLine)
   * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_46
   *         @arg @ref LL_EXTI_LINE_50
-  *         @arg @ref LL_EXTI_LINE_51
+  *         @arg @ref LL_EXTI_LINE_53
+  * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_EXTI_IsEnabledRisingTrig_32_63(uint32_t ExtiLine)
@@ -1020,7 +1081,8 @@ __STATIC_INLINE void LL_EXTI_EnableFallingTrig_0_31(uint32_t ExtiLine)
   * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_46
   *         @arg @ref LL_EXTI_LINE_50
-  *         @arg @ref LL_EXTI_LINE_51
+  *         @arg @ref LL_EXTI_LINE_53
+  * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_EnableFallingTrig_32_63(uint32_t ExtiLine)
@@ -1076,7 +1138,8 @@ __STATIC_INLINE void LL_EXTI_DisableFallingTrig_0_31(uint32_t ExtiLine)
   * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_46
   *         @arg @ref LL_EXTI_LINE_50
-  *         @arg @ref LL_EXTI_LINE_51
+  *         @arg @ref LL_EXTI_LINE_53
+  * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_DisableFallingTrig_32_63(uint32_t ExtiLine)
@@ -1120,7 +1183,8 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledFallingTrig_0_31(uint32_t ExtiLine)
   * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_46
   *         @arg @ref LL_EXTI_LINE_50
-  *         @arg @ref LL_EXTI_LINE_51
+  *         @arg @ref LL_EXTI_LINE_53
+  * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_EXTI_IsEnabledFallingTrig_32_63(uint32_t ExtiLine)
@@ -1182,7 +1246,8 @@ __STATIC_INLINE void LL_EXTI_GenerateSWI_0_31(uint32_t ExtiLine)
   * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_46
   *         @arg @ref LL_EXTI_LINE_50
-  *         @arg @ref LL_EXTI_LINE_51
+  *         @arg @ref LL_EXTI_LINE_53
+  * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
 __STATIC_INLINE void LL_EXTI_GenerateSWI_32_63(uint32_t ExtiLine)
@@ -1518,11 +1583,11 @@ __STATIC_INLINE void LL_EXTI_ClearRisingFlag_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_EXTI_PORTB
   *         @arg @ref LL_EXTI_EXTI_PORTC
   *         @arg @ref LL_EXTI_EXTI_PORTD
-  *         @arg @ref LL_EXTI_EXTI_PORTE
-  *         @arg @ref LL_EXTI_EXTI_PORTF
-  *         @arg @ref LL_EXTI_EXTI_PORTG
+  *         @arg @ref LL_EXTI_EXTI_PORTE (*)
+  *         @arg @ref LL_EXTI_EXTI_PORTF (*)
+  *         @arg @ref LL_EXTI_EXTI_PORTG (*)
   *         @arg @ref LL_EXTI_EXTI_PORTH
-  *         @arg @ref LL_EXTI_EXTI_PORTI
+  *         @arg @ref LL_EXTI_EXTI_PORTI (*)
   *
   *         (*) value not defined in all devices
   * @param  Line This parameter can be one of the following values:
@@ -1590,11 +1655,13 @@ __STATIC_INLINE void LL_EXTI_SetEXTISource(uint32_t Port, uint32_t Line)
   *         @arg @ref LL_EXTI_EXTI_PORTB
   *         @arg @ref LL_EXTI_EXTI_PORTC
   *         @arg @ref LL_EXTI_EXTI_PORTD
-  *         @arg @ref LL_EXTI_EXTI_PORTE
-  *         @arg @ref LL_EXTI_EXTI_PORTF
-  *         @arg @ref LL_EXTI_EXTI_PORTG
+  *         @arg @ref LL_EXTI_EXTI_PORTE (*)
+  *         @arg @ref LL_EXTI_EXTI_PORTF (*)
+  *         @arg @ref LL_EXTI_EXTI_PORTG (*)
   *         @arg @ref LL_EXTI_EXTI_PORTH
-  *         @arg @ref LL_EXTI_EXTI_PORTI
+  *         @arg @ref LL_EXTI_EXTI_PORTI (*)
+  *
+  *         (*) value not defined in all devices
   */
 __STATIC_INLINE uint32_t LL_EXTI_GetEXTISource(uint32_t Line)
 {
@@ -1685,7 +1752,8 @@ __STATIC_INLINE void LL_EXTI_EnableSecure_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_54
   *         @arg @ref LL_EXTI_LINE_55
   *         @arg @ref LL_EXTI_LINE_56
-  *         @arg @ref LL_EXTI_LINE_57 (*)
+  *         @arg @ref LL_EXTI_LINE_57
+  *         @arg @ref LL_EXTI_LINE_58
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
@@ -1768,7 +1836,8 @@ __STATIC_INLINE void LL_EXTI_DisableSecure_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_54
   *         @arg @ref LL_EXTI_LINE_55
   *         @arg @ref LL_EXTI_LINE_56
-  *         @arg @ref LL_EXTI_LINE_57 (*)
+  *         @arg @ref LL_EXTI_LINE_57
+  *         @arg @ref LL_EXTI_LINE_58
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
@@ -1780,6 +1849,7 @@ __STATIC_INLINE void LL_EXTI_DisableSecure_32_63(uint32_t ExtiLine)
 
 #endif /* __ARM_FEATURE_CMSE */
 
+#if defined(EXTI_SECENR1_SEC0)
 /**
   * @brief  Indicate if ExtiLine Secure attribute is enabled for Lines in range 0 to 31
   * @rmtoll SECCFGR1     SECx          LL_EXTI_IsEnabledSecure_0_31
@@ -1853,7 +1923,8 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledSecure_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_54
   *         @arg @ref LL_EXTI_LINE_55
   *         @arg @ref LL_EXTI_LINE_56
-  *         @arg @ref LL_EXTI_LINE_57 (*)
+  *         @arg @ref LL_EXTI_LINE_57
+  *         @arg @ref LL_EXTI_LINE_58
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
@@ -1862,6 +1933,7 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledSecure_32_63(uint32_t ExtiLine)
 {
   return ((READ_BIT(EXTI->SECCFGR2, ExtiLine) == (ExtiLine)) ? 1UL : 0UL);
 }
+#endif /* EXTI_SECENR1_SEC0 */
 
 /**
   * @}
@@ -1944,7 +2016,8 @@ __STATIC_INLINE void LL_EXTI_EnablePrivilege_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_54
   *         @arg @ref LL_EXTI_LINE_55
   *         @arg @ref LL_EXTI_LINE_56
-  *         @arg @ref LL_EXTI_LINE_57 (*)
+  *         @arg @ref LL_EXTI_LINE_57
+  *         @arg @ref LL_EXTI_LINE_58
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
@@ -2027,7 +2100,8 @@ __STATIC_INLINE void LL_EXTI_DisablePrivilege_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_54
   *         @arg @ref LL_EXTI_LINE_55
   *         @arg @ref LL_EXTI_LINE_56
-  *         @arg @ref LL_EXTI_LINE_57 (*)
+  *         @arg @ref LL_EXTI_LINE_57
+  *         @arg @ref LL_EXTI_LINE_58
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
@@ -2110,7 +2184,8 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledPrivilege_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_54
   *         @arg @ref LL_EXTI_LINE_55
   *         @arg @ref LL_EXTI_LINE_56
-  *         @arg @ref LL_EXTI_LINE_57 (*)
+  *         @arg @ref LL_EXTI_LINE_57
+  *         @arg @ref LL_EXTI_LINE_58
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).

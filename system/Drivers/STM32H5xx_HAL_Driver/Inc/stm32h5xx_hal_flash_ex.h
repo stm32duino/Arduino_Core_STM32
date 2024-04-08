@@ -89,7 +89,7 @@ typedef struct
                                 @ref FLASH_OB_USER_SRAM2_RST, @ref FLASH_OB_USER_BKPRAM_ECC,
                                 @ref FLASH_OB_USER_SRAM3_ECC, @ref FLASH_OB_USER_SRAM2_ECC,
                                 @ref FLASH_OB_USER_SRAM1_RST, @ref FLASH_OB_USER_SRAM1_ECC,
-                                @ref FLASH_OB_USER_TZEN */
+                                @ref FLASH_OB_USER_USBPD_DIS, @ref FLASH_OB_USER_TZEN */
 
   uint32_t Banks;          /*!< Select banks for WRP , HDP and secure area configuration.
                                 This parameter must be a value of @ref FLASH_Banks */
@@ -172,6 +172,19 @@ typedef struct
 } FLASH_HDPExtensionTypeDef;
 
 /**
+  * @brief  ECC Info Structure definition
+  */
+typedef struct
+{
+  uint32_t               Area;             /*!< Area from which an ECC was detected.
+                                                This parameter can be a value of @ref FLASHEx_ECC_Area  */
+
+  uint32_t               Address;          /*!< ECC error address */
+
+  uint32_t               Data;             /*!< ECC failing data */
+} FLASH_EccInfoTypeDef;
+
+/**
   * @}
   */
 /* Exported constants --------------------------------------------------------*/
@@ -206,6 +219,25 @@ typedef struct
                                                                                                   activation */
 #endif /* FLASH_SR_OBKERR */
 #endif /* __ARM_FEATURE_CMSE */
+
+/** @defgroup FLASH_ECC_Area FLASH ECC Area
+  * @brief    FLASH ECC Area
+  * @{
+  */
+#define FLASH_ECC_AREA_USER_BANK1         0x00000000U               /*!< FLASH bank 1 area                */
+#define FLASH_ECC_AREA_USER_BANK2         FLASH_ECCR_BK_ECC         /*!< FLASH bank 2 area                */
+#define FLASH_ECC_AREA_SYSTEM             FLASH_ECCR_SYSF_ECC       /*!< System FLASH area                */
+#if defined (FLASH_SR_OBKERR)
+#define FLASH_ECC_AREA_OBK                FLASH_ECCR_OBK_ECC        /*!< FLASH OBK area                   */
+#endif /* FLASH_SR_OBKERR */
+#define FLASH_ECC_AREA_OTP                FLASH_ECCR_OTP_ECC        /*!< FLASH OTP area                   */
+#if defined (FLASH_EDATAR_EDATA_EN)
+#define FLASH_ECC_AREA_EDATA              FLASH_ECCR_DATA_ECC       /*!< FLASH high-cycle data area       */
+#endif /* FLASH_EDATAR_EDATA_EN */
+/**
+  * @}
+  */
+
 /**
   * @}
   */
@@ -276,24 +308,28 @@ byte configuration */
 #define OB_USER_SRAM3_ECC         0x00008000U     /*!< SRAM3 ECC detection and correction enable */
 #define OB_USER_SRAM2_ECC         0x00010000U     /*!< SRAM2 ECC detection and correction enable */
 #define OB_USER_SRAM1_ECC         0x00020000U     /*!< SRAM1 ECC detection and correction enable */
+#if defined (FLASH_OPTSR2_USBPD_DIS)
+#define OB_USER_USBPD_DIS         0x00040000U     /*!< USB power delivery configuration enable */
+#endif /*FLASH_OPTSR2_USBPD_DIS*/
 #if defined (FLASH_OPTSR2_TZEN)
 #define OB_USER_TZEN              0x00080000U     /*!< Global TrustZone security enable */
 #endif /* FLASH_OPTSR2_TZEN */
 
-#if defined (FLASH_OPTSR2_SRAM1_3_RST) && defined (FLASH_OPTSR_BOOT_UBE)
+#if defined (FLASH_OPTSR2_SRAM1_3_RST) && defined (FLASH_OPTSR_BOOT_UBE) && defined (FLASH_OPTSR2_USBPD_DIS)
 #define OB_USER_ALL (OB_USER_BOR_LEV        | OB_USER_BORH_EN        | OB_USER_IWDG_SW     |\
                      OB_USER_WWDG_SW        | OB_USER_NRST_STOP      | OB_USER_NRST_STDBY  |\
                      OB_USER_IO_VDD_HSLV    | OB_USER_IO_VDDIO2_HSLV | OB_USER_IWDG_STOP   |\
                      OB_USER_IWDG_STDBY     | OB_USER_BOOT_UBE       | OB_USER_SWAP_BANK   |\
                      OB_USER_SRAM1_3_RST    | OB_USER_SRAM2_RST      | OB_USER_BKPRAM_ECC  |\
-                     OB_USER_SRAM3_ECC      | OB_USER_SRAM2_ECC      | OB_USER_TZEN)
+                     OB_USER_SRAM3_ECC      | OB_USER_SRAM2_ECC      | OB_USER_USBPD_DIS   |\
+                     OB_USER_TZEN)
 #else
 #define OB_USER_ALL (OB_USER_BOR_LEV        | OB_USER_BORH_EN        | OB_USER_IWDG_SW     |\
                      OB_USER_WWDG_SW        | OB_USER_NRST_STOP      | OB_USER_NRST_STDBY  |\
                      OB_USER_IO_VDD_HSLV    | OB_USER_IO_VDDIO2_HSLV | OB_USER_IWDG_STOP   |\
                      OB_USER_IWDG_STDBY     | OB_USER_SWAP_BANK      | OB_USER_SRAM1_RST   |\
                      OB_USER_SRAM2_RST      | OB_USER_BKPRAM_ECC     | OB_USER_SRAM3_ECC   |\
-                     OB_USER_SRAM2_ECC      |  OB_USER_SRAM1_ECC)
+                     OB_USER_SRAM2_ECC      | OB_USER_SRAM1_ECC)
 #endif /* FLASH_OPTSR2_SRAM1_3_RST && FLASH_OPTSR_BOOT_UBE */
 /**
   * @}
@@ -302,9 +338,9 @@ byte configuration */
 /** @defgroup FLASH_OB_USER_BOR_LEVEL FLASH BOR Reset Level
   * @{
   */
-#define OB_BOR_LEVEL_1        FLASH_OPTSR_BOR_LEV_0                            /*!< Reset level 1 threshold */
-#define OB_BOR_LEVEL_2        FLASH_OPTSR_BOR_LEV_1                            /*!< Reset level 2 threshold */
-#define OB_BOR_LEVEL_3        (FLASH_OPTSR_BOR_LEV_1 | FLASH_OPTSR_BOR_LEV_0)  /*!< Reset level 3 threshold */
+#define OB_BOR_LEVEL_1        0U                                               /*!< Reset level 1 threshold */
+#define OB_BOR_LEVEL_2        FLASH_OPTSR_BOR_LEV_0                            /*!< Reset level 2 threshold */
+#define OB_BOR_LEVEL_3        FLASH_OPTSR_BOR_LEV_1                            /*!< Reset level 3 threshold */
 /**
   * @}
   */
@@ -500,6 +536,16 @@ byte configuration */
   * @}
   */
 
+/** @defgroup OB_USER_USBPD_DIS FLASH Option Bytes USB power delivery configuration
+  * @{
+  */
+#if defined (FLASH_OPTSR2_USBPD_DIS)
+#define OB_USBPD_DIS_ENABLE       0x00000000U            /*!< USB power delivery check enable  */
+#define OB_USBPD_DIS_DISABLE      FLASH_OPTSR2_USBPD_DIS /*!< USB power delivery check disable */
+#endif /* FLASH_OPTSR2_USBPD_DIS */
+/**
+  * @}
+  */
 /** @defgroup FLASH_OB_USER_TZEN FLASH Option Bytes Global TrustZone
   * @{
   */
@@ -558,6 +604,16 @@ byte configuration */
 #define OB_WRP_SECTOR_120TO123   0x40000000U /*!< Write protection of Sector120 to Sector123 */
 #define OB_WRP_SECTOR_124TO127   0x80000000U /*!< Write protection of Sector124 to Sector127 */
 #define OB_WRP_SECTOR_ALL        0xFFFFFFFFU /*!< Write protection of all Sectors            */
+#elif (FLASH_SECTOR_NB == 32)
+#define OB_WRP_SECTOR_0TO3       0x00000001U /*!< Write protection of Sector0  to Sector3    */
+#define OB_WRP_SECTOR_4TO7       0x00000002U /*!< Write protection of Sector4  to Sector7    */
+#define OB_WRP_SECTOR_8TO11      0x00000004U /*!< Write protection of Sector8  to Sector11   */
+#define OB_WRP_SECTOR_12TO15     0x00000008U /*!< Write protection of Sector12 to Sector15   */
+#define OB_WRP_SECTOR_16TO19     0x00000010U /*!< Write protection of Sector16 to Sector19   */
+#define OB_WRP_SECTOR_20TO23     0x00000020U /*!< Write protection of Sector20 to Sector23   */
+#define OB_WRP_SECTOR_24TO27     0x00000040U /*!< Write protection of Sector24 to Sector27   */
+#define OB_WRP_SECTOR_28TO31     0x00000080U /*!< Write protection of Sector28 to Sector31   */
+#define OB_WRP_SECTOR_ALL        0x000000FFU /*!< Write protection of all Sectors            */
 #else
 #define OB_WRP_SECTOR_0          0x00000001U /*!< Write protection of Sector0                */
 #define OB_WRP_SECTOR_1          0x00000002U /*!< Write protection of Sector1                */
@@ -838,6 +894,19 @@ HAL_StatusTypeDef HAL_FLASHEx_ConfigHDPExtension(const FLASH_HDPExtensionTypeDef
 /**
   * @}
   */
+
+/** @addtogroup FLASHEx_Exported_Functions_Group3
+  * @{
+  */
+void              HAL_FLASHEx_EnableEccCorrectionInterrupt(void);
+void              HAL_FLASHEx_DisableEccCorrectionInterrupt(void);
+void              HAL_FLASHEx_GetEccInfo(FLASH_EccInfoTypeDef *pData);
+void              HAL_FLASHEx_ECCD_IRQHandler(void);
+__weak void       HAL_FLASHEx_EccDetectionCallback(void);
+__weak void       HAL_FLASHEx_EccCorrectionCallback(void);
+/**
+  * @}
+  */
 /* Private types -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private constants ---------------------------------------------------------*/
@@ -845,6 +914,8 @@ HAL_StatusTypeDef HAL_FLASHEx_ConfigHDPExtension(const FLASH_HDPExtensionTypeDef
   * @{
   */
 #define FLASH_TYPEPROGRAM_OB (0x00008000U | FLASH_NON_SECURE_MASK) /*!< Program Option Bytes operation type */
+#define FLASH_ADDRESS_OFFSET_OTP       (0x00000600U)               /*!< Flash address offset of OTP area */
+#define FLASH_ADDRESS_OFFSET_EDATA     (0x0000F000U)               /*!< Flash address offset of EDATA area */
 /**
   * @}
   */
@@ -937,6 +1008,9 @@ HAL_StatusTypeDef HAL_FLASHEx_ConfigHDPExtension(const FLASH_HDPExtensionTypeDef
 
 #define IS_OB_USER_SRAM2_ECC(VALUE)      (((VALUE) == OB_SRAM2_ECC_ENABLE) || ((VALUE) == OB_SRAM2_ECC_DISABLE))
 
+#if defined(FLASH_OPTSR2_USBPD_DIS)
+#define IS_OB_USER_USBPD_DIS(VALUE)      (((VALUE) == OB_USBPD_DIS_ENABLE) || ((VALUE) == OB_USBPD_DIS_DISABLE))
+#endif /* FLASH_OPTSR2_USBPD_DIS */
 #define IS_OB_USER_TZEN(VALUE)           (((VALUE) == OB_TZEN_DISABLE) || ((VALUE) == OB_TZEN_ENABLE))
 
 #define IS_OB_USER_TYPE(TYPE)           ((((TYPE) & OB_USER_ALL) != 0U) && \
