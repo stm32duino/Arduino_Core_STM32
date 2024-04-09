@@ -16,9 +16,9 @@
 
 #define CORE_VERSION_MAJOR 12
 #define CORE_VERSION_MINOR 7
-#define CORE_VERSION_PATCH 2
+#define CORE_VERSION_PATCH 3
 #define CORE_VERSION_BUILD 0
-#define CORE_VERSION_STRING "12.7.2-0"
+#define CORE_VERSION_STRING "12.7.3-0"
 
 /*----------------------------------------------------------------------------
  *        STM32 pins number

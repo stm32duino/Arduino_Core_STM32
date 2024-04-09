@@ -1,6 +1,6 @@
 # LEAT EchoStar Terminal BSP
 
-###### This document is applied to core version 12.7.2-0
+###### This document is applied to core version 12.7.3-0
 
 This reposistory contains the Arduino Core for LEAT EchoStar Terminals.
 
@@ -84,7 +84,7 @@ The variant in this core includes pre-define for MCU pins connected to on-boards
 |   3  |     CORE_VERSION_MINOR    |        7        |        7        |        7        |                   Core version (Minor part)                 |
 |   4  |     CORE_VERSION_PATCH    |        2        |        2        |        2        |                  Core version (Patch number)                |
 |   5  |     CORE_VERSION_BUILD    |        0        |        0        |        0        |                  Core version (Build number)                |
-|   6  |    CORE_VERSION_STRING    |    "12.7.2-0"   |    "12.7.2-0"   |    "12.7.2-0"   |                 Core version in string format               |
+|   6  |    CORE_VERSION_STRING    |    "12.7.3-0"   |    "12.7.3-0"   |    "12.7.3-0"   |                 Core version in string format               |
 |   7  |        LED_BUILTIN        |       PA13      |       PA15      |       PA15      |                      Integrated LED pin                     |
 |   8  |          USER_BTN         |       PC2       |       PA14      |       PA14      |                     Integrated button pin                   |
 |   9  |   SENSORS_BATERY_ADC_PIN  |       PA2       |       PB1       |       PB1       |     ADC pin that connected to resistor   voltage divider    |
