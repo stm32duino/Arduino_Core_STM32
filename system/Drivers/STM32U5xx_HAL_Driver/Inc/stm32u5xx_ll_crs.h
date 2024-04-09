@@ -290,7 +290,7 @@ __STATIC_INLINE uint32_t LL_CRS_IsEnabledAutoTrimming(void)
   * @brief  Set HSI48 oscillator smooth trimming
   * @note   When the AUTOTRIMEN bit is set, this field is controlled by hardware and is read-only
   * @rmtoll CR           TRIM          LL_CRS_SetHSI48SmoothTrimming
-  * @param  Value a number between Min_Data = 0 and Max_Data = 63
+  * @param  Value a number between Min_Data = 0 and Max_Data = 127
   * @note   Default value can be set thanks to @ref LL_CRS_HSI48CALIBRATION_DEFAULT
   * @retval None
   */
@@ -302,7 +302,7 @@ __STATIC_INLINE void LL_CRS_SetHSI48SmoothTrimming(uint32_t Value)
 /**
   * @brief  Get HSI48 oscillator smooth trimming
   * @rmtoll CR           TRIM          LL_CRS_GetHSI48SmoothTrimming
-  * @retval a number between Min_Data = 0 and Max_Data = 63
+  * @retval a number between Min_Data = 0 and Max_Data = 127
   */
 __STATIC_INLINE uint32_t LL_CRS_GetHSI48SmoothTrimming(void)
 {
@@ -451,7 +451,7 @@ __STATIC_INLINE uint32_t LL_CRS_GetSyncPolarity(void)
   *         CFGR         SYNCDIV       LL_CRS_ConfigSynchronization\n
   *         CFGR         SYNCSRC       LL_CRS_ConfigSynchronization\n
   *         CFGR         SYNCPOL       LL_CRS_ConfigSynchronization
-  * @param  HSI48CalibrationValue a number between Min_Data = 0 and Max_Data = 63
+  * @param  HSI48CalibrationValue a number between Min_Data = 0 and Max_Data = 127
   * @param  ErrorLimitValue a number between Min_Data = 0 and Max_Data = 0xFFFF
   * @param  ReloadValue a number between Min_Data = 0 and Max_Data = 255
   * @param  Settings This parameter can be a combination of the following values:

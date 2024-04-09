@@ -106,6 +106,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32u5xx_hal.h"
 
+#if  defined(FMC_BANK1)
 
 /** @addtogroup STM32U5xx_HAL_Driver
   * @{
@@ -1639,3 +1640,5 @@ HAL_NOR_StatusTypeDef HAL_NOR_GetStatus(NOR_HandleTypeDef *hnor, uint32_t Addres
 /**
   * @}
   */
+
+#endif /* FMC_BANK1 */

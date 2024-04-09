@@ -781,7 +781,8 @@ typedef struct
   */
 
 #if defined(OCTOSPIM)
-/** @defgroup XSPIM_IOPort XSPI IO Manager IO Port
+
+/** @defgroup XSPI_IO_Manger_IOPort XSPI IO Port
   * @{
   */
 #define HAL_XSPIM_IOPORT_NONE              (0x00000000U)                         /*!< IOs not used     */
@@ -936,12 +937,12 @@ typedef struct
   */
 
 /* Exported functions --------------------------------------------------------*/
-/** @addtogroup XSPI_Exported_Functions
+/** @addtogroup XSPI_Exported_Functions XSPI Exported Functions
   * @{
   */
 
 /* Initialization/de-initialization functions  ********************************/
-/** @addtogroup XSPI_Exported_Functions_Group1
+/** @addtogroup XSPI_Exported_Functions_Group1 Initialization/de-initialization functions
   * @{
   */
 HAL_StatusTypeDef     HAL_XSPI_Init(XSPI_HandleTypeDef *hxspi);
@@ -954,7 +955,7 @@ void                  HAL_XSPI_MspDeInit(XSPI_HandleTypeDef *hxspi);
   */
 
 /* IO operation functions *****************************************************/
-/** @addtogroup XSPI_Exported_Functions_Group2
+/** @addtogroup XSPI_Exported_Functions_Group2 Input and Output operation functions
   * @{
   */
 /* XSPI IRQ handler function */
@@ -1015,7 +1016,7 @@ HAL_StatusTypeDef     HAL_XSPI_UnRegisterCallback(XSPI_HandleTypeDef *hxspi, HAL
   */
 
 /* Peripheral Control and State functions  ************************************/
-/** @addtogroup XSPI_Exported_Functions_Group3
+/** @addtogroup XSPI_Exported_Functions_Group3 Peripheral Control and State functions
   * @{
   */
 HAL_StatusTypeDef     HAL_XSPI_Abort(XSPI_HandleTypeDef *hxspi);
@@ -1035,10 +1036,10 @@ uint32_t              HAL_XSPI_GetState(const XSPI_HandleTypeDef *hxspi);
 
 #if defined(OCTOSPIM)
 /* XSPI IO Manager configuration function  ************************************/
-/** @addtogroup XSPI_Exported_Functions_Group4
+/** @addtogroup XSPI_Exported_Functions_Group4  IO Manager configuration function
   * @{
   */
-HAL_StatusTypeDef     HAL_XSPIM_Config(XSPI_HandleTypeDef *hxspi, XSPIM_CfgTypeDef *const pCfg, uint32_t Timeout);
+HAL_StatusTypeDef     HAL_XSPIM_Config(XSPI_HandleTypeDef *const hxspi, XSPIM_CfgTypeDef *const pCfg, uint32_t Timeout);
 
 /**
   * @}
@@ -1046,11 +1047,9 @@ HAL_StatusTypeDef     HAL_XSPIM_Config(XSPI_HandleTypeDef *hxspi, XSPIM_CfgTypeD
 
 #endif /* OCTOSPIM */
 /* XSPI Delay Block functions  ************************************/
-#if defined(OCTOSPIM)
 /** @addtogroup XSPI_Exported_Functions_Group5 Delay Block function
   * @{
   */
-#endif /* OCTOSPIM */
 
 HAL_StatusTypeDef      HAL_XSPI_DLYB_SetConfig(XSPI_HandleTypeDef *hxspi, HAL_XSPI_DLYB_CfgTypeDef *const pdlyb_cfg);
 HAL_StatusTypeDef      HAL_XSPI_DLYB_GetConfig(XSPI_HandleTypeDef *hxspi, HAL_XSPI_DLYB_CfgTypeDef *const pdlyb_cfg);
@@ -1063,7 +1062,7 @@ HAL_StatusTypeDef      HAL_XSPI_DLYB_GetClockPeriod(XSPI_HandleTypeDef *hxspi,
 
 #if defined(HSPI_CALFCR_FINE)
 /* XSPI high-speed interface and calibration functions  ***********************/
-/** @addtogroup XSPI_Exported_Functions_Group6
+/** @addtogroup XSPI_Exported_Functions_Group6 High-speed interface and calibration functions
   * @{
   */
 HAL_StatusTypeDef     HAL_XSPI_GetDelayValue(XSPI_HandleTypeDef *hxspi, XSPI_HSCalTypeDef *const pCfg);

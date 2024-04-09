@@ -70,9 +70,9 @@ once the ADC is enabled */
 /* and CPU clock frequencies.                                                 */
 /* Example of profile low frequency : ADC frequency minimum 140kHz (cf        */
 /* datasheet for ADC4), CPU frequency 160MHz.                                 */
-/* Calibration time max = 25502 / fADC (refer to datasheet)                   */
-/*                      = 29M CPU cycles                                      */
-#define ADC_CALIBRATION_TIMEOUT         (29000000U)   /*!< ADC calibration time-out value */
+/* Calibration time max = 31849 / fADC (refer to datasheet)                   */
+/*                      = 36M CPU cycles                                      */
+#define ADC_CALIBRATION_TIMEOUT         (36400000U)   /*!< ADC calibration time-out value */
 
 /**
   * @}

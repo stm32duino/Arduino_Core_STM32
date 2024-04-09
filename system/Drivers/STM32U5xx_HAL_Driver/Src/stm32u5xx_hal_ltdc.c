@@ -916,11 +916,12 @@ HAL_StatusTypeDef HAL_LTDC_ConfigColorKeying(LTDC_HandleTypeDef *hltdc, uint32_t
   *                   LTDC_LAYER_1 (0) or LTDC_LAYER_2 (1)
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_LTDC_ConfigCLUT(LTDC_HandleTypeDef *hltdc, uint32_t *pCLUT, uint32_t CLUTSize, uint32_t LayerIdx)
+HAL_StatusTypeDef HAL_LTDC_ConfigCLUT(LTDC_HandleTypeDef *hltdc, const uint32_t *pCLUT, uint32_t CLUTSize,
+                                      uint32_t LayerIdx)
 {
   uint32_t tmp;
   uint32_t counter;
-  uint32_t *pcolorlut = pCLUT;
+  const uint32_t *pcolorlut = pCLUT;
   /* Check the parameters */
   assert_param(IS_LTDC_LAYER(LayerIdx));
 
@@ -2092,7 +2093,7 @@ HAL_StatusTypeDef HAL_LTDC_DisableCLUT_NoReload(LTDC_HandleTypeDef *hltdc, uint3
   *                the configuration information for the LTDC.
   * @retval HAL state
   */
-HAL_LTDC_StateTypeDef HAL_LTDC_GetState(LTDC_HandleTypeDef *hltdc)
+HAL_LTDC_StateTypeDef HAL_LTDC_GetState(const LTDC_HandleTypeDef *hltdc)
 {
   return hltdc->State;
 }
@@ -2103,7 +2104,7 @@ HAL_LTDC_StateTypeDef HAL_LTDC_GetState(LTDC_HandleTypeDef *hltdc)
   *               the configuration information for the LTDC.
   * @retval LTDC Error Code
   */
-uint32_t HAL_LTDC_GetError(LTDC_HandleTypeDef *hltdc)
+uint32_t HAL_LTDC_GetError(const LTDC_HandleTypeDef *hltdc)
 {
   return hltdc->ErrorCode;
 }
@@ -2154,9 +2155,7 @@ static void LTDC_SetConfig(LTDC_HandleTypeDef *hltdc, LTDC_LayerCfgTypeDef *pLay
   tmp = ((uint32_t)(pLayerCfg->Backcolor.Green) << 8U);
   tmp1 = ((uint32_t)(pLayerCfg->Backcolor.Red) << 16U);
   tmp2 = (pLayerCfg->Alpha0 << 24U);
-  LTDC_LAYER(hltdc, LayerIdx)->DCCR &= ~(LTDC_LxDCCR_DCBLUE | LTDC_LxDCCR_DCGREEN | LTDC_LxDCCR_DCRED |
-                                         LTDC_LxDCCR_DCALPHA);
-  LTDC_LAYER(hltdc, LayerIdx)->DCCR = (pLayerCfg->Backcolor.Blue | tmp | tmp1 | tmp2);
+  WRITE_REG(LTDC_LAYER(hltdc, LayerIdx)->DCCR, (pLayerCfg->Backcolor.Blue | tmp | tmp1 | tmp2));
 
   /* Specifies the constant alpha value */
   LTDC_LAYER(hltdc, LayerIdx)->CACR &= ~(LTDC_LxCACR_CONSTA);
@@ -2167,8 +2166,7 @@ static void LTDC_SetConfig(LTDC_HandleTypeDef *hltdc, LTDC_LayerCfgTypeDef *pLay
   LTDC_LAYER(hltdc, LayerIdx)->BFCR = (pLayerCfg->BlendingFactor1 | pLayerCfg->BlendingFactor2);
 
   /* Configure the color frame buffer start address */
-  LTDC_LAYER(hltdc, LayerIdx)->CFBAR &= ~(LTDC_LxCFBAR_CFBADD);
-  LTDC_LAYER(hltdc, LayerIdx)->CFBAR = (pLayerCfg->FBStartAdress);
+  WRITE_REG(LTDC_LAYER(hltdc, LayerIdx)->CFBAR, pLayerCfg->FBStartAdress);
 
   if (pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_ARGB8888)
   {

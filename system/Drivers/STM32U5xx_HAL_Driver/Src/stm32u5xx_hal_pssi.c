@@ -53,7 +53,6 @@
     (#) Initialize the PSSI registers by calling the @ref HAL_PSSI_Init(), configure also the low level Hardware
         (GPIO, CLOCK, NVIC...etc) by calling the customized @ref HAL_PSSI_MspInit(&hpssi) API.
 
-
     (#) For PSSI IO operations, two operation modes are available within this driver :
 
     *** Polling mode IO operation ***
@@ -651,8 +650,8 @@ HAL_StatusTypeDef HAL_PSSI_Transmit(PSSI_HandleTypeDef *hpssi, uint8_t *pData, u
     HAL_PSSI_DISABLE(hpssi);
 
     /* Configure transfer parameters */
-    hpssi->Instance->CR |= PSSI_CR_OUTEN_OUTPUT |
-                           ((hpssi->Init.ClockPolarity == HAL_PSSI_RISING_EDGE) ? 0U : PSSI_CR_CKPOL);
+    MODIFY_REG(hpssi->Instance->CR, (PSSI_CR_OUTEN | PSSI_CR_CKPOL),
+               (PSSI_CR_OUTEN_OUTPUT | ((hpssi->Init.ClockPolarity == HAL_PSSI_RISING_EDGE) ? 0U : PSSI_CR_CKPOL)));
 
 #if defined(HAL_DMA_MODULE_ENABLED)
     /* DMA Disable */
@@ -804,8 +803,8 @@ HAL_StatusTypeDef HAL_PSSI_Receive(PSSI_HandleTypeDef *hpssi, uint8_t *pData, ui
     /* Disable the selected PSSI peripheral */
     HAL_PSSI_DISABLE(hpssi);
     /* Configure transfer parameters */
-    hpssi->Instance->CR |= PSSI_CR_OUTEN_INPUT |
-                           ((hpssi->Init.ClockPolarity == HAL_PSSI_FALLING_EDGE) ? 0U : PSSI_CR_CKPOL);
+    MODIFY_REG(hpssi->Instance->CR, (PSSI_CR_OUTEN | PSSI_CR_CKPOL),
+               (PSSI_CR_OUTEN_INPUT | ((hpssi->Init.ClockPolarity == HAL_PSSI_FALLING_EDGE) ? 0U : PSSI_CR_CKPOL)));
 
 #if defined(HAL_DMA_MODULE_ENABLED)
     /* DMA Disable */
@@ -1122,7 +1121,7 @@ HAL_StatusTypeDef HAL_PSSI_Receive_DMA(PSSI_HandleTypeDef *hpssi, uint32_t *pDat
       if (hpssi->hdmarx != NULL)
       {
         /* Configure BusWidth */
-        if (hpssi->hdmatx->Init.SrcDataWidth == DMA_SRC_DATAWIDTH_BYTE)
+        if (hpssi->hdmarx->Init.SrcDataWidth == DMA_SRC_DATAWIDTH_BYTE)
         {
           MODIFY_REG(hpssi->Instance->CR, PSSI_CR_DMAEN | PSSI_CR_OUTEN | PSSI_CR_CKPOL, PSSI_CR_DMA_ENABLE |
                      ((hpssi->Init.ClockPolarity == HAL_PSSI_RISING_EDGE) ? PSSI_CR_CKPOL : 0U));

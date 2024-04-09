@@ -361,21 +361,6 @@ HAL_StatusTypeDef HAL_RCC_DeInit(void)
 {
   uint32_t tickstart;
 
-  /* Increasing the CPU frequency */
-  if (FLASH_LATENCY_DEFAULT  > __HAL_FLASH_GET_LATENCY())
-  {
-    /* Program the new number of wait states to the LATENCY bits in the FLASH_ACR register */
-    __HAL_FLASH_SET_LATENCY(FLASH_LATENCY_DEFAULT);
-
-    /* Check that the new number of wait states is taken into account to access the Flash
-    memory by reading the FLASH_ACR register */
-    if (__HAL_FLASH_GET_LATENCY() != FLASH_LATENCY_DEFAULT)
-    {
-      return HAL_ERROR;
-    }
-
-  }
-
   tickstart = HAL_GetTick();
 
   /* Set MSION bit */
@@ -507,17 +492,15 @@ HAL_StatusTypeDef HAL_RCC_DeInit(void)
   SystemCoreClock = MSI_VALUE;
 
   /* Decreasing the number of wait states because of lower CPU frequency */
-  if (FLASH_LATENCY_DEFAULT  < __HAL_FLASH_GET_LATENCY())
-  {
-    /* Program the new number of wait states to the LATENCY bits in the FLASH_ACR register */
-    __HAL_FLASH_SET_LATENCY(FLASH_LATENCY_DEFAULT);
 
-    /* Check that the new number of wait states is taken into account to access the Flash
-    memory by reading the FLASH_ACR register */
-    if (__HAL_FLASH_GET_LATENCY() != FLASH_LATENCY_DEFAULT)
-    {
-      return HAL_ERROR;
-    }
+  /* Program the new number of wait states to the LATENCY bits in the FLASH_ACR register */
+  __HAL_FLASH_SET_LATENCY(FLASH_LATENCY_DEFAULT);
+
+  /* Check that the new number of wait states is taken into account to access the Flash
+  memory by reading the FLASH_ACR register */
+  if (__HAL_FLASH_GET_LATENCY() != FLASH_LATENCY_DEFAULT)
+  {
+    return HAL_ERROR;
   }
 
   /* Adapt Systick interrupt period */
@@ -1242,9 +1225,6 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(const RCC_OscInitTypeDef  *pRCC_OscInitStruc
           __HAL_RCC_PWR_CLK_DISABLE();
         }
 
-        /* Enable PLL System Clock output */
-        __HAL_RCC_PLLCLKOUT_ENABLE(RCC_PLL1_DIVR);
-
         /* Enable the main PLL */
         __HAL_RCC_PLL_ENABLE();
 
@@ -1258,6 +1238,10 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(const RCC_OscInitTypeDef  *pRCC_OscInitStruc
             return HAL_TIMEOUT;
           }
         }
+
+        /* Enable PLL System Clock output */
+        __HAL_RCC_PLLCLKOUT_ENABLE(RCC_PLL1_DIVR);
+
       }
       else
       {
@@ -2043,11 +2027,11 @@ void HAL_RCC_NMI_IRQHandler(void)
   /* Check RCC CSSF interrupt flag  */
   if (__HAL_RCC_GET_IT(RCC_IT_CSS))
   {
-    /* RCC Clock Security System interrupt user callback */
-    HAL_RCC_CSSCallback();
-
     /* Clear RCC CSS pending bit */
     __HAL_RCC_CLEAR_IT(RCC_IT_CSS);
+
+    /* RCC Clock Security System interrupt user callback */
+    HAL_RCC_CSSCallback();
   }
 }
 

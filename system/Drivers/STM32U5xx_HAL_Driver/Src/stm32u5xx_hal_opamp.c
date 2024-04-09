@@ -408,7 +408,7 @@ HAL_StatusTypeDef HAL_OPAMP_Init(OPAMP_HandleTypeDef *hopamp)
     /* Set the power supply range to high for performance purpose    */
     /* The OPAMP_CSR_OPARANGE is common configuration for all OPAMPs */
     /* bit OPAMP_CSR_OPARANGE applies for both OPAMPs                */
-    MODIFY_REG(OPAMP1->CSR, OPAMP_CSR_OPARANGE, OPAMP_CSR_OPARANGE);
+    MODIFY_REG(OPAMP12_COMMON->CSR, OPAMP_CSR_OPARANGE, OPAMP_CSR_OPARANGE);
 
     /* Update the OPAMP state*/
     if (hopamp->State == HAL_OPAMP_STATE_RESET)

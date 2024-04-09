@@ -24,6 +24,7 @@
 extern "C" {
 #endif
 
+#if defined(FMC_BANK3)
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32u5xx_ll_fmc.h"
@@ -368,6 +369,7 @@ uint32_t              HAL_NAND_Read_Status(const NAND_HandleTypeDef *hnand);
   * @}
   */
 
+#endif /* FMC_BANK3 */
 
 #ifdef __cplusplus
 }

@@ -405,44 +405,44 @@ __STATIC_INLINE void LL_DCACHE_ResetMonitors(DCACHE_TypeDef *DCACHEx, uint32_t M
 
 /**
   * @brief  Get the Read Hit monitor Value
-  * @rmtoll RHMONR       LL_DCACHE_Monitor_GetReadHitValue
+  * @rmtoll RHMONR     RHITMON       LL_DCACHE_Monitor_GetReadHitValue
   * @param  DCACHEx DCACHE instance
   * @retval Value between Min_Data=0 and Max_Data=0xFFFFFFFF
   */
-__STATIC_INLINE uint32_t LL_DCACHE_Monitor_GetReadHitValue(DCACHE_TypeDef *DCACHEx)
+__STATIC_INLINE uint32_t LL_DCACHE_Monitor_GetReadHitValue(const DCACHE_TypeDef *DCACHEx)
 {
   return DCACHEx->RHMONR;
 }
 
 /**
   * @brief  Get the Read Miss monitor Value
-  * @rmtoll RMMONR       LL_DCACHE_Monitor_GetReadMissValue
+  * @rmtoll RMMONR     RMISSMON       LL_DCACHE_Monitor_GetReadMissValue
   * @param  DCACHEx DCACHE instance
   * @retval Value between Min_Data=0 and Max_Data=0xFFFF
   */
-__STATIC_INLINE uint32_t LL_DCACHE_Monitor_GetReadMissValue(DCACHE_TypeDef *DCACHEx)
+__STATIC_INLINE uint32_t LL_DCACHE_Monitor_GetReadMissValue(const DCACHE_TypeDef *DCACHEx)
 {
   return DCACHEx->RMMONR;
 }
 
 /**
   * @brief  Get the Write Hit monitor Value
-  * @rmtoll WHMONR       LL_DCACHE_Monitor_GetWriteHitValue
+  * @rmtoll WHMONR     WHITMON       LL_DCACHE_Monitor_GetWriteHitValue
   * @param  DCACHEx DCACHE instance
   * @retval Value between Min_Data=0 and Max_Data=0xFFFFFFFF
   */
-__STATIC_INLINE uint32_t LL_DCACHE_Monitor_GetWriteHitValue(DCACHE_TypeDef *DCACHEx)
+__STATIC_INLINE uint32_t LL_DCACHE_Monitor_GetWriteHitValue(const DCACHE_TypeDef *DCACHEx)
 {
   return DCACHEx->WHMONR;
 }
 
 /**
   * @brief  Get the Write Miss monitor Value
-  * @rmtoll WMMONR       LL_DCACHE_Monitor_GetWriteMissValue
+  * @rmtoll WMMONR     WMISSMON       LL_DCACHE_Monitor_GetWriteMissValue
   * @param  DCACHEx DCACHE instance
   * @retval Value between Min_Data=0 and Max_Data=0xFFFF
   */
-__STATIC_INLINE uint32_t LL_DCACHE_Monitor_GetWriteMissValue(DCACHE_TypeDef *DCACHEx)
+__STATIC_INLINE uint32_t LL_DCACHE_Monitor_GetWriteMissValue(const DCACHE_TypeDef *DCACHEx)
 {
   return DCACHEx->WMMONR;
 }

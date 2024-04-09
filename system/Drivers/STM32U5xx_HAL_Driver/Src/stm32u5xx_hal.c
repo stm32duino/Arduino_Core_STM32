@@ -52,10 +52,10 @@
   * @{
   */
 /**
-  * @brief STM32U5xx HAL Driver version number 1.4.0
+  * @brief STM32U5xx HAL Driver version number 1.5.0
    */
 #define __STM32U5xx_HAL_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32U5xx_HAL_VERSION_SUB1   (0x04U) /*!< [23:16] sub1 version */
+#define __STM32U5xx_HAL_VERSION_SUB1   (0x05U) /*!< [23:16] sub1 version */
 #define __STM32U5xx_HAL_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
 #define __STM32U5xx_HAL_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32U5xx_HAL_VERSION         ((__STM32U5xx_HAL_VERSION_MAIN << 24U)\
@@ -88,7 +88,7 @@ HAL_TickFreqTypeDef uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
   * @{
   */
 
-/** @defgroup HAL_Exported_Functions_Group1 Initialization and de-initialization Functions
+/** @defgroup HAL_Exported_Functions_Group1 HAL Initialization and de-initialization Functions
   *  @brief    Initialization and de-initialization functions
   *
 @verbatim
@@ -129,8 +129,8 @@ HAL_TickFreqTypeDef uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
   * @note   HAL_Init() function is called at the beginning of program after reset and before
   *         the clock configuration.
   *
-  * @note   In the default implementation the System Timer (Systick) is used as source of time base.
-  *         The Systick configuration is based on MSI clock, as MSI is the clock
+  * @note   In the default implementation the System Timer (SysTick) is used as source of time base.
+  *         The SysTick configuration is based on MSI clock, as MSI is the clock
   *         used after a system Reset and the NVIC configuration is set to Priority group 4.
   *         Once done, time base tick starts incrementing: the tick variable counter is incremented
   *         each 1ms in the SysTick_Handler() interrupt handler.
@@ -149,6 +149,9 @@ HAL_StatusTypeDef HAL_Init(void)
 
   /* Update the SystemCoreClock global variable */
   SystemCoreClock = HAL_RCC_GetSysClockFreq() >> AHBPrescTable[(RCC->CFGR2 & RCC_CFGR2_HPRE) >> RCC_CFGR2_HPRE_Pos];
+
+  /* Select HCLK as SysTick clock source */
+  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
   /* Use systick as time base source and configure 1ms tick (default clock after Reset is HSI) */
   if (HAL_InitTick(TICK_INT_PRIORITY) != HAL_OK)
@@ -233,28 +236,56 @@ __weak void HAL_MspDeInit(void)
   */
 __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 {
+  uint32_t ticknumber = 0U;
+  uint32_t systicksel;
+
   /* Check uwTickFreq for MisraC 2012 (even if uwTickFreq is a enum type that don't take the value zero)*/
   if ((uint32_t)uwTickFreq == 0UL)
   {
     return HAL_ERROR;
   }
 
+  /* Check Clock source to calculate the tickNumber */
+  if (READ_BIT(SysTick->CTRL, SysTick_CTRL_CLKSOURCE_Msk) == SysTick_CTRL_CLKSOURCE_Msk)
+  {
+    /* HCLK selected as SysTick clock source */
+    ticknumber = SystemCoreClock / (1000UL / (uint32_t)uwTickFreq);
+  }
+  else
+  {
+    systicksel = HAL_SYSTICK_GetCLKSourceConfig();
+    switch (systicksel)
+    {
+      /* HCLK_DIV8 selected as SysTick clock source */
+      case SYSTICK_CLKSOURCE_HCLK_DIV8:
+        /* Calculate tick value */
+        ticknumber = (SystemCoreClock / (8000UL / (uint32_t)uwTickFreq));
+        break;
+      /* LSI selected as SysTick clock source */
+      case SYSTICK_CLKSOURCE_LSI:
+        /* Calculate tick value */
+        ticknumber = (LSI_VALUE / (1000UL / (uint32_t)uwTickFreq));
+        break;
+      /* LSE selected as SysTick clock source */
+      case SYSTICK_CLKSOURCE_LSE:
+        /* Calculate tick value */
+        ticknumber = (LSE_VALUE / (1000UL / (uint32_t)uwTickFreq));
+        break;
+      default:
+        /* Nothing to do */
+        break;
+    }
+  }
+
   /* Configure the SysTick to have interrupt in 1ms time basis*/
-  if (HAL_SYSTICK_Config(SystemCoreClock / (1000UL / (uint32_t)uwTickFreq)) > 0U)
+  if (HAL_SYSTICK_Config(ticknumber) > 0U)
   {
     return HAL_ERROR;
   }
 
   /* Configure the SysTick IRQ priority */
-  if (TickPriority < (1UL << __NVIC_PRIO_BITS))
-  {
-    HAL_NVIC_SetPriority(SysTick_IRQn, TickPriority, 0U);
-    uwTickPrio = TickPriority;
-  }
-  else
-  {
-    return HAL_ERROR;
-  }
+  HAL_NVIC_SetPriority(SysTick_IRQn, TickPriority, 0U);
+  uwTickPrio = TickPriority;
 
   /* Return function status */
   return HAL_OK;
@@ -264,7 +295,7 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   * @}
   */
 
-/** @defgroup HAL_Group2 HAL Control functions
+/** @defgroup HAL_Exported_Functions_Group2 HAL Control functions
   *  @brief    HAL Control functions
   *
 @verbatim
@@ -291,7 +322,7 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   * @brief This function is called to increment a global variable "uwTick"
   *        used as application time base.
   * @note In the default implementation, this variable is incremented each 1ms
-  *       in Systick ISR.
+  *       in SysTick ISR.
   * @note This function is declared as __weak to be overwritten in case of other
   *      implementations in user file.
   * @retval None
@@ -646,6 +677,26 @@ void HAL_SYSCFG_EnableIOAnalogSwitchBooster(void)
 void HAL_SYSCFG_DisableIOAnalogSwitchBooster(void)
 {
   CLEAR_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_BOOSTEN);
+}
+
+/**
+  * @brief  Enable the I/O analog switch voltage selection
+  *
+  * @retval None
+  */
+void HAL_SYSCFG_EnableIOAnalogSwitchVoltageSelection(void)
+{
+  SET_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_ANASWVDD);
+}
+
+/**
+  * @brief  Disable the I/O analog switch voltage selection
+  *
+  * @retval None
+  */
+void HAL_SYSCFG_DisableIOAnalogSwitchVoltageSelection(void)
+{
+  CLEAR_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_ANASWVDD);
 }
 
 #if defined(SYSCFG_CFGR1_SRAMCACHED)

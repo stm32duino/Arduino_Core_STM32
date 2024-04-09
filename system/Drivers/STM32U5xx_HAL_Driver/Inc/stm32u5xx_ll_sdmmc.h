@@ -572,9 +572,11 @@ typedef struct
   * @{
   */
 #define SDMMC_TRANSFER_MODE_BLOCK             ((uint32_t)0x00000000U)
+#define SDMMC_TRANSFER_MODE_SDIO              SDMMC_DCTRL_DTMODE_0
 #define SDMMC_TRANSFER_MODE_STREAM            SDMMC_DCTRL_DTMODE_1
 
 #define IS_SDMMC_TRANSFER_MODE(MODE) (((MODE) == SDMMC_TRANSFER_MODE_BLOCK) || \
+                                      ((MODE) == SDMMC_TRANSFER_MODE_SDIO)  || \
                                       ((MODE) == SDMMC_TRANSFER_MODE_STREAM))
 /**
   * @}
@@ -1102,6 +1104,7 @@ uint32_t SDMMC_CmdVoltageSwitch(SDMMC_TypeDef *SDMMCx);
 uint32_t SDMMC_CmdOpCondition(SDMMC_TypeDef *SDMMCx, uint32_t Argument);
 uint32_t SDMMC_CmdSwitch(SDMMC_TypeDef *SDMMCx, uint32_t Argument);
 uint32_t SDMMC_CmdSendEXTCSD(SDMMC_TypeDef *SDMMCx, uint32_t Argument);
+uint32_t SDMMC_CmdBlockCount(SDMMC_TypeDef *SDMMCx, uint32_t BlockCount);
 /**
   * @}
   */

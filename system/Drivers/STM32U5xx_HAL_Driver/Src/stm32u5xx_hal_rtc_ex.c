@@ -656,7 +656,6 @@ HAL_StatusTypeDef HAL_RTCEx_SetWakeUpTimer_IT(RTC_HandleTypeDef *hrtc, uint32_t 
   */
 HAL_StatusTypeDef HAL_RTCEx_DeactivateWakeUpTimer(RTC_HandleTypeDef *hrtc)
 {
-  uint32_t tickstart;
 
   /* Process Locked */
   __HAL_LOCK(hrtc);
@@ -668,32 +667,6 @@ HAL_StatusTypeDef HAL_RTCEx_DeactivateWakeUpTimer(RTC_HandleTypeDef *hrtc)
   /* Disable the Wakeup Timer */
   /* In case of interrupt mode is used, the interrupt source must disabled */
   CLEAR_BIT(RTC->CR, (RTC_CR_WUTE | RTC_CR_WUTIE));
-
-  tickstart = HAL_GetTick();
-
-  /* Wait till RTC WUTWF flag is set and if Time out is reached exit */
-  while (READ_BIT(RTC->ICSR, RTC_ICSR_WUTWF) == 0U)
-  {
-    if ((HAL_GetTick() - tickstart) > RTC_TIMEOUT_VALUE)
-    {
-      /* New check to avoid false timeout detection in case of preemption */
-      if (READ_BIT(RTC->ICSR, RTC_ICSR_WUTWF) == 0U)
-      {
-
-        /* Change RTC state */
-        hrtc->State = HAL_RTC_STATE_TIMEOUT;
-
-        /* Process Unlocked */
-        __HAL_UNLOCK(hrtc);
-
-        return HAL_TIMEOUT;
-      }
-      else
-      {
-        break;
-      }
-    }
-  }
 
   /* Enable the write protection for RTC registers */
   __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);

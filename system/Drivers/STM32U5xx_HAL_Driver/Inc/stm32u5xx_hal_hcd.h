@@ -386,11 +386,14 @@ HAL_StatusTypeDef  HAL_HCD_PMAReset(HCD_HandleTypeDef *hhcd);
 /** @defgroup HCD_ENDP_Kind HCD Endpoint Kind
   * @{
   */
-#define HCD_SNG_BUF                            0U
-#define HCD_DBL_BUF                            1U
+#define HCD_SNG_BUF                              0U
+#define HCD_DBL_BUF                              1U
 /**
   * @}
   */
+
+/* Powerdown exit count */
+#define HCD_PDWN_EXIT_CNT                    0x100U
 
 /* Set Channel */
 #define HCD_SET_CHANNEL                        USB_DRD_SET_CHEP
@@ -522,13 +525,14 @@ HAL_StatusTypeDef  HAL_HCD_PMAReset(HCD_HandleTypeDef *hhcd);
 __STATIC_INLINE uint16_t HCD_GET_CH_RX_CNT(HCD_TypeDef *Instance, uint16_t bChNum)
 {
   uint32_t HostCoreSpeed;
+  uint32_t ep_reg = USB_DRD_GET_CHEP(Instance, bChNum);
   __IO uint32_t count = 10U;
 
   /* Get Host core Speed */
   HostCoreSpeed = USB_GetHostSpeed(Instance);
 
   /* Count depends on device LS */
-  if (HostCoreSpeed == USB_DRD_SPEED_LS)
+  if ((HostCoreSpeed == USB_DRD_SPEED_LS) || ((ep_reg & USB_CHEP_LSEP) == USB_CHEP_LSEP))
   {
     count = (70U * (HAL_RCC_GetHCLKFreq() / 1000000U)) / 100U;
   }

@@ -241,7 +241,6 @@ typedef struct
   */
 
 
-
 /* Exported functions --------------------------------------------------------*/
 /** @defgroup EXTI_LL_Exported_Functions EXTI Exported Functions
   * @{

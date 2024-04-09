@@ -940,8 +940,7 @@ __STATIC_INLINE uint32_t LL_DMA2D_GetOutputMemAddr(const DMA2D_TypeDef *DMA2Dx)
   */
 __STATIC_INLINE void LL_DMA2D_SetOutputColor(DMA2D_TypeDef *DMA2Dx, uint32_t OutputColor)
 {
-  MODIFY_REG(DMA2Dx->OCOLR, (DMA2D_OCOLR_BLUE_1 | DMA2D_OCOLR_GREEN_1 | DMA2D_OCOLR_RED_1 | DMA2D_OCOLR_ALPHA_1), \
-             OutputColor);
+  WRITE_REG(DMA2Dx->OCOLR, OutputColor);
 }
 
 /**
@@ -1448,7 +1447,7 @@ __STATIC_INLINE void LL_DMA2D_FGND_SetChrSubSampling(DMA2D_TypeDef *DMA2Dx, uint
   *         @arg @ref LL_DMA2D_CSS_422
   *         @arg @ref LL_DMA2D_CSS_420
   */
-__STATIC_INLINE uint32_t LL_DMA2D_FGND_GetChrSubSampling(DMA2D_TypeDef *DMA2Dx)
+__STATIC_INLINE uint32_t LL_DMA2D_FGND_GetChrSubSampling(const DMA2D_TypeDef *DMA2Dx)
 {
   return (uint32_t)(READ_BIT(DMA2Dx->FGPFCCR, DMA2D_FGPFCCR_CSS));
 }

@@ -376,7 +376,7 @@ typedef struct
   __IO uint32_t CR;  /*!< RNG control register, Address offset: 0x00 */
   __IO uint32_t SR;  /*!< RNG status register,  Address offset: 0x04 */
   __IO uint32_t DR;  /*!< RNG data register,    Address offset: 0x08 */
-  uint32_t RESERVED;
+  __IO uint32_t NSCR;  /*!< RNG noise source control register ,     Address offset: 0x0C */
   __IO uint32_t HTCR;  /*!< RNG health test configuration register, Address offset: 0x10 */
 } RNG_TypeDef;
 
@@ -626,11 +626,6 @@ typedef struct
   __IO uint32_t CRR1;           /*!< ICACHE region 1 configuration register, Address offset: 0x24 */
   __IO uint32_t CRR2;           /*!< ICACHE region 2 configuration register, Address offset: 0x28 */
   __IO uint32_t CRR3;           /*!< ICACHE region 3 configuration register, Address offset: 0x2C */
-       uint32_t RESERVED2[240]; /*!< Reserved,                               Address offset: 0x30-0x3EC */
-  __IO uint32_t HWCFGR;         /*!< ICACHE HW configuration register,       Address offset: 0x3F0 */
-  __IO uint32_t VERR;           /*!< ICACHE version register,                Address offset: 0x3F4 */
-  __IO uint32_t IPIDR;          /*!< ICACHE IP identification register,      Address offset: 0x3F8 */
-  __IO uint32_t SIDR;           /*!< ICACHE size identification register,    Address offset: 0x3FC */
 } ICACHE_TypeDef;
 
 /**
@@ -1174,19 +1169,18 @@ typedef struct
   */
 typedef struct
 {
-  __IO uint32_t SECCFGR;      /*!< SYSCFG secure configuration register,            Address offset: 0x00 */
-  __IO uint32_t CFGR1;        /*!< SYSCFG configuration register 1,                 Address offset: 0x04 */
-  __IO uint32_t FPUIMR;       /*!< SYSCFG FPU interrupt mask register,              Address offset: 0x08 */
-  __IO uint32_t CNSLCKR;      /*!< SYSCFG CPU non-secure lock register,             Address offset: 0x0C */
-  __IO uint32_t CSLCKR;       /*!< SYSCFG CPU secure lock register,                 Address offset: 0x10 */
-  __IO uint32_t CFGR2;        /*!< SYSCFG configuration register 2,                 Address offset: 0x14 */
-  __IO uint32_t MESR;         /*!< SYSCFG Memory Erase Status register,             Address offset: 0x18 */
-  __IO uint32_t CCCSR;        /*!< SYSCFG Conpensaion Cell Control&Status register, Address offset: 0x1C */
-  __IO uint32_t CCVR;         /*!< SYSCFG Conpensaion Cell value register,          Address offset: 0x20 */
-  __IO uint32_t CCCR;         /*!< SYSCFG Conpensaion Cell Code register,           Address offset: 0x24 */
-       uint32_t RESERVED1;    /*!< RESERVED1,                                       Address offset: 0x28 */
-  __IO uint32_t RSSCMDR;      /*!< SYSCFG RSS command mode register,                Address offset: 0x2C */
-       uint32_t RESERVED2[16];/*!< RESERVED2,                                       Address offset: 0x30 - 0x6C */
+  __IO uint32_t SECCFGR;        /*!< SYSCFG secure configuration register,            Address offset: 0x00 */
+  __IO uint32_t CFGR1;          /*!< SYSCFG configuration register 1,                 Address offset: 0x04 */
+  __IO uint32_t FPUIMR;         /*!< SYSCFG FPU interrupt mask register,              Address offset: 0x08 */
+  __IO uint32_t CNSLCKR;        /*!< SYSCFG CPU non-secure lock register,             Address offset: 0x0C */
+  __IO uint32_t CSLCKR;         /*!< SYSCFG CPU secure lock register,                 Address offset: 0x10 */
+  __IO uint32_t CFGR2;          /*!< SYSCFG configuration register 2,                 Address offset: 0x14 */
+  __IO uint32_t MESR;           /*!< SYSCFG Memory Erase Status register,             Address offset: 0x18 */
+  __IO uint32_t CCCSR;          /*!< SYSCFG Conpensaion Cell Control&Status register, Address offset: 0x1C */
+  __IO uint32_t CCVR;           /*!< SYSCFG Conpensaion Cell value register,          Address offset: 0x20 */
+  __IO uint32_t CCCR;           /*!< SYSCFG Conpensaion Cell Code register,           Address offset: 0x24 */
+       uint32_t RESERVED1;      /*!< RESERVED1,                                       Address offset: 0x28 */
+  __IO uint32_t RSSCMDR;        /*!< SYSCFG RSS command mode register,                Address offset: 0x2C */
 } SYSCFG_TypeDef;
 
 /**
@@ -4813,7 +4807,7 @@ typedef struct
 #define CRS_CR_SWSYNC_Msk                   (0x1UL << CRS_CR_SWSYNC_Pos)            /*!< 0x00000080 */
 #define CRS_CR_SWSYNC                       CRS_CR_SWSYNC_Msk                       /*!< Generate software SYNC event */
 #define CRS_CR_TRIM_Pos                     (8U)
-#define CRS_CR_TRIM_Msk                     (0x3FUL << CRS_CR_TRIM_Pos)             /*!< 0x00003F00 */
+#define CRS_CR_TRIM_Msk                     (0x7FUL << CRS_CR_TRIM_Pos)             /*!< 0x00007F00 */
 #define CRS_CR_TRIM                         CRS_CR_TRIM_Msk                         /*!< HSI48 oscillator smooth trimming */
 
 /*******************  Bit definition for CRS_CFGR register  *********************/
@@ -4941,6 +4935,26 @@ typedef struct
 #define RNG_SR_SEIS_Pos                     (6U)
 #define RNG_SR_SEIS_Msk                     (0x1UL << RNG_SR_SEIS_Pos)              /*!< 0x00000040 */
 #define RNG_SR_SEIS                         RNG_SR_SEIS_Msk
+
+/********************  Bits definition for RNG_NSCR register  *******************/
+#define RNG_NSCR_EN_OSC1_Pos                (0U)
+#define RNG_NSCR_EN_OSC1_Msk                (0x7UL << RNG_NSCR_EN_OSC1_Pos)         /*!< 0x00000007 */
+#define RNG_NSCR_EN_OSC1                    RNG_NSCR_EN_OSC1_Msk
+#define RNG_NSCR_EN_OSC2_Pos                (3U)
+#define RNG_NSCR_EN_OSC2_Msk                (0x7UL << RNG_NSCR_EN_OSC2_Pos)         /*!< 0x00000038 */
+#define RNG_NSCR_EN_OSC2                    RNG_NSCR_EN_OSC2_Msk
+#define RNG_NSCR_EN_OSC3_Pos                (6U)
+#define RNG_NSCR_EN_OSC3_Msk                (0x7UL << RNG_NSCR_EN_OSC3_Pos)         /*!< 0x000001C0 */
+#define RNG_NSCR_EN_OSC3                    RNG_NSCR_EN_OSC3_Msk
+#define RNG_NSCR_EN_OSC4_Pos                (9U)
+#define RNG_NSCR_EN_OSC4_Msk                (0x7UL << RNG_NSCR_EN_OSC4_Pos)         /*!< 0x00000E00 */
+#define RNG_NSCR_EN_OSC4                    RNG_NSCR_EN_OSC4_Msk
+#define RNG_NSCR_EN_OSC5_Pos                (12U)
+#define RNG_NSCR_EN_OSC5_Msk                (0x7UL << RNG_NSCR_EN_OSC5_Pos)         /*!< 0x00007000 */
+#define RNG_NSCR_EN_OSC5                    RNG_NSCR_EN_OSC5_Msk
+#define RNG_NSCR_EN_OSC6_Pos                (15U)
+#define RNG_NSCR_EN_OSC6_Msk                (0x7UL << RNG_NSCR_EN_OSC6_Pos)         /*!< 0x00038000 */
+#define RNG_NSCR_EN_OSC6                    RNG_NSCR_EN_OSC6_Msk
 
 /********************  Bits definition for RNG_HTCR register  *******************/
 #define RNG_HTCR_HTCFG_Pos                  (0U)
@@ -7850,7 +7864,7 @@ typedef struct
 /*                                    FLASH                                   */
 /*                                                                            */
 /******************************************************************************/
-#define FLASH_LATENCY_DEFAULT               FLASH_ACR_LATENCY_3WS   /*!< FLASH Three Latency cycles   */
+#define FLASH_LATENCY_DEFAULT               FLASH_ACR_LATENCY_0WS   /*!< FLASH Zero Latency cycles   */
 
 #define FLASH_SIZE_DEFAULT                  0x80000U                /*!< Flash memory default size */
 #define FLASH_BLOCKBASED_NB_REG             (1U)                    /*!< 1 Block-based register for each Flash bank  */
@@ -10800,27 +10814,27 @@ typedef struct
 
 /*******************  Bit definition for TIM_CCR1 register  *******************/
 #define TIM_CCR1_CCR1_Pos                   (0U)
-#define TIM_CCR1_CCR1_Msk                   (0xFFFFUL << TIM_CCR1_CCR1_Pos)         /*!< 0x0000FFFF */
+#define TIM_CCR1_CCR1_Msk                   (0xFFFFFFFFUL << TIM_CCR1_CCR1_Pos)     /*!< 0xFFFFFFFF */
 #define TIM_CCR1_CCR1                       TIM_CCR1_CCR1_Msk                       /*!<Capture/Compare 1 Value */
 
 /*******************  Bit definition for TIM_CCR2 register  *******************/
 #define TIM_CCR2_CCR2_Pos                   (0U)
-#define TIM_CCR2_CCR2_Msk                   (0xFFFFUL << TIM_CCR2_CCR2_Pos)         /*!< 0x0000FFFF */
+#define TIM_CCR2_CCR2_Msk                   (0xFFFFFFFFUL << TIM_CCR2_CCR2_Pos)     /*!< 0xFFFFFFFF */
 #define TIM_CCR2_CCR2                       TIM_CCR2_CCR2_Msk                       /*!<Capture/Compare 2 Value */
 
 /*******************  Bit definition for TIM_CCR3 register  *******************/
 #define TIM_CCR3_CCR3_Pos                   (0U)
-#define TIM_CCR3_CCR3_Msk                   (0xFFFFUL << TIM_CCR3_CCR3_Pos)         /*!< 0x0000FFFF */
+#define TIM_CCR3_CCR3_Msk                   (0xFFFFFFFFUL << TIM_CCR3_CCR3_Pos)     /*!< 0xFFFFFFFF */
 #define TIM_CCR3_CCR3                       TIM_CCR3_CCR3_Msk                       /*!<Capture/Compare 3 Value */
 
 /*******************  Bit definition for TIM_CCR4 register  *******************/
 #define TIM_CCR4_CCR4_Pos                   (0U)
-#define TIM_CCR4_CCR4_Msk                   (0xFFFFUL << TIM_CCR4_CCR4_Pos)         /*!< 0x0000FFFF */
+#define TIM_CCR4_CCR4_Msk                   (0xFFFFFFFFUL << TIM_CCR4_CCR4_Pos)     /*!< 0xFFFFFFFF */
 #define TIM_CCR4_CCR4                       TIM_CCR4_CCR4_Msk                       /*!<Capture/Compare 4 Value */
 
 /*******************  Bit definition for TIM_CCR5 register  *******************/
 #define TIM_CCR5_CCR5_Pos                   (0U)
-#define TIM_CCR5_CCR5_Msk                   (0xFFFFFFFFUL << TIM_CCR5_CCR5_Pos)     /*!< 0xFFFFFFFF */
+#define TIM_CCR5_CCR5_Msk                   (0xFFFFFUL << TIM_CCR5_CCR5_Pos)        /*!< 0x000FFFFF */
 #define TIM_CCR5_CCR5                       TIM_CCR5_CCR5_Msk                       /*!<Capture/Compare 5 Value */
 #define TIM_CCR5_GC5C1_Pos                  (29U)
 #define TIM_CCR5_GC5C1_Msk                  (0x1UL << TIM_CCR5_GC5C1_Pos)           /*!< 0x20000000 */
@@ -10834,7 +10848,7 @@ typedef struct
 
 /*******************  Bit definition for TIM_CCR6 register  *******************/
 #define TIM_CCR6_CCR6_Pos                   (0U)
-#define TIM_CCR6_CCR6_Msk                   (0xFFFFUL << TIM_CCR6_CCR6_Pos)         /*!< 0x0000FFFF */
+#define TIM_CCR6_CCR6_Msk                   (0xFFFFFUL << TIM_CCR6_CCR6_Pos)        /*!< 0x000FFFFF */
 #define TIM_CCR6_CCR6                       TIM_CCR6_CCR6_Msk                       /*!<Capture/Compare 6 Value */
 
 /*******************  Bit definition for TIM_BDTR register  *******************/
@@ -10929,9 +10943,6 @@ typedef struct
 #define TIM1_AF1_BKCMP1E_Pos                (1U)
 #define TIM1_AF1_BKCMP1E_Msk                (0x1UL << TIM1_AF1_BKCMP1E_Pos)         /*!< 0x00000002 */
 #define TIM1_AF1_BKCMP1E                    TIM1_AF1_BKCMP1E_Msk                    /*!<BRK COMP1 enable */
-#define TIM1_AF1_BKCMP2E_Pos                (2U)
-#define TIM1_AF1_BKCMP2E_Msk                (0x1UL << TIM1_AF1_BKCMP2E_Pos)         /*!< 0x00000004 */
-#define TIM1_AF1_BKCMP2E                    TIM1_AF1_BKCMP2E_Msk                    /*!<BRK COMP2 enable */
 #define TIM1_AF1_BKDF1BK0E_Pos              (8U)
 #define TIM1_AF1_BKDF1BK0E_Msk              (0x1UL << TIM1_AF1_BKDF1BK0E_Pos)       /*!< 0x00000100 */
 #define TIM1_AF1_BKDF1BK0E                  TIM1_AF1_BKDF1BK0E_Msk                  /*!<BRK mdf1_break[0](TIM1) or mdf1_break[2](TIM2) enable */
@@ -10941,9 +10952,6 @@ typedef struct
 #define TIM1_AF1_BKCMP1P_Pos                (10U)
 #define TIM1_AF1_BKCMP1P_Msk                (0x1UL << TIM1_AF1_BKCMP1P_Pos)         /*!< 0x00000400 */
 #define TIM1_AF1_BKCMP1P                    TIM1_AF1_BKCMP1P_Msk                    /*!<BRK COMP1 input polarity */
-#define TIM1_AF1_BKCMP2P_Pos                (11U)
-#define TIM1_AF1_BKCMP2P_Msk                (0x1UL << TIM1_AF1_BKCMP2P_Pos)         /*!< 0x00000800 */
-#define TIM1_AF1_BKCMP2P                    TIM1_AF1_BKCMP2P_Msk                    /*!<BRK COMP2 input polarity */
 #define TIM1_AF1_ETRSEL_Pos                 (14U)
 #define TIM1_AF1_ETRSEL_Msk                 (0xFUL << TIM1_AF1_ETRSEL_Pos)          /*!< 0x0003C000 */
 #define TIM1_AF1_ETRSEL                     TIM1_AF1_ETRSEL_Msk                     /*!<ETRSEL[3:0] bits (TIM1 ETR source selection) */
@@ -10959,9 +10967,6 @@ typedef struct
 #define TIM1_AF2_BK2CMP1E_Pos               (1U)
 #define TIM1_AF2_BK2CMP1E_Msk               (0x1UL << TIM1_AF2_BK2CMP1E_Pos)        /*!< 0x00000002 */
 #define TIM1_AF2_BK2CMP1E                   TIM1_AF2_BK2CMP1E_Msk                   /*!<BRK2 COMP1 enable */
-#define TIM1_AF2_BK2CMP2E_Pos               (2U)
-#define TIM1_AF2_BK2CMP2E_Msk               (0x1UL << TIM1_AF2_BK2CMP2E_Pos)        /*!< 0x00000004 */
-#define TIM1_AF2_BK2CMP2E                   TIM1_AF2_BK2CMP2E_Msk                   /*!<BRK2 COMP2 enable */
 #define TIM1_AF2_BK2DF1BK1E_Pos             (8U)
 #define TIM1_AF2_BK2DF1BK1E_Msk             (0x1UL << TIM1_AF2_BK2DF1BK1E_Pos)      /*!< 0x00000100 */
 #define TIM1_AF2_BK2DF1BK1E                 TIM1_AF2_BK2DF1BK1E_Msk                 /*!<BRK2 mdf1_break[1](TIM1) or mdf1_break[3](TIM8) enable */
@@ -10971,9 +10976,6 @@ typedef struct
 #define TIM1_AF2_BK2CMP1P_Pos               (10U)
 #define TIM1_AF2_BK2CMP1P_Msk               (0x1UL << TIM1_AF2_BK2CMP1P_Pos)        /*!< 0x00000400 */
 #define TIM1_AF2_BK2CMP1P                   TIM1_AF2_BK2CMP1P_Msk                   /*!<BRK2 COMP1 input polarity */
-#define TIM1_AF2_BK2CMP2P_Pos               (11U)
-#define TIM1_AF2_BK2CMP2P_Msk               (0x1UL << TIM1_AF2_BK2CMP2P_Pos)        /*!< 0x00000800 */
-#define TIM1_AF2_BK2CMP2P                   TIM1_AF2_BK2CMP2P_Msk                   /*!<BRK2 COMP2 input polarity */
 #define TIM1_AF2_OCRSEL_Pos                 (16U)
 #define TIM1_AF2_OCRSEL_Msk                 (0x1UL << TIM1_AF2_OCRSEL_Pos)          /*!< 0x00010000 */
 #define TIM1_AF2_OCRSEL                     TIM1_AF2_OCRSEL_Msk                     /*!<OCREF_CLR source selection */
@@ -13883,31 +13885,6 @@ typedef struct
 #define PWR_PDCRH_PD3                       PWR_PDCRH_PD3_Msk                       /*!< Apply pull-down for PH3  */
 
 
-/********************  Bit definition for PWR_PDCRI register  *****************/
-#define PWR_PDCRI_PD0_Pos                   (0U)
-#define PWR_PDCRI_PD0_Msk                   (0x1UL << PWR_PDCRI_PD0_Pos)            /*!< 0x00000001 */
-#define PWR_PDCRI_PD0                       PWR_PDCRI_PD0_Msk                       /*!< Apply pull-down for PI0  */
-#define PWR_PDCRI_PD1_Pos                   (1U)
-#define PWR_PDCRI_PD1_Msk                   (0x1UL << PWR_PDCRI_PD1_Pos)            /*!< 0x00000002 */
-#define PWR_PDCRI_PD1                       PWR_PDCRI_PD1_Msk                       /*!< Apply pull-down for PI1  */
-#define PWR_PDCRI_PD2_Pos                   (2U)
-#define PWR_PDCRI_PD2_Msk                   (0x1UL << PWR_PDCRI_PD2_Pos)            /*!< 0x00000004 */
-#define PWR_PDCRI_PD2                       PWR_PDCRI_PD2_Msk                       /*!< Apply pull-down for PI2  */
-#define PWR_PDCRI_PD3_Pos                   (3U)
-#define PWR_PDCRI_PD3_Msk                   (0x1UL << PWR_PDCRI_PD3_Pos)            /*!< 0x00000008 */
-#define PWR_PDCRI_PD3                       PWR_PDCRI_PD3_Msk                       /*!< Apply pull-down for PI3  */
-#define PWR_PDCRI_PD4_Pos                   (4U)
-#define PWR_PDCRI_PD4_Msk                   (0x1UL << PWR_PDCRI_PD4_Pos)            /*!< 0x00000010 */
-#define PWR_PDCRI_PD4                       PWR_PDCRI_PD4_Msk                       /*!< Apply pull-down for PI4  */
-#define PWR_PDCRI_PD5_Pos                   (5U)
-#define PWR_PDCRI_PD5_Msk                   (0x1UL << PWR_PDCRI_PD5_Pos)            /*!< 0x00000020 */
-#define PWR_PDCRI_PD5                       PWR_PDCRI_PD5_Msk                       /*!< Apply pull-down for PI5  */
-#define PWR_PDCRI_PD6_Pos                   (6U)
-#define PWR_PDCRI_PD6_Msk                   (0x1UL << PWR_PDCRI_PD6_Pos)            /*!< 0x00000040 */
-#define PWR_PDCRI_PD6                       PWR_PDCRI_PD6_Msk                       /*!< Apply pull-down for PI6  */
-#define PWR_PDCRI_PD7_Pos                   (7U)
-#define PWR_PDCRI_PD7_Msk                   (0x1UL << PWR_PDCRI_PD7_Pos)            /*!< 0x00000080 */
-#define PWR_PDCRI_PD7                       PWR_PDCRI_PD7_Msk                       /*!< Apply pull-down for PI7  */
 
 /******************************************************************************/
 /*                                                                            */
@@ -14142,25 +14119,25 @@ typedef struct
 #define RAMCFG_WPR2_P55WP_Pos               (23U)
 #define RAMCFG_WPR2_P55WP_Msk               (0x1UL << RAMCFG_WPR2_P55WP_Pos)        /*!< 0x00800000 */
 #define RAMCFG_WPR2_P55WP                   RAMCFG_WPR2_P55WP_Msk                   /*!< Write Protection Page 55 */
-#define RAMCFG_WPR2_P56WP_Pos               (25U)
+#define RAMCFG_WPR2_P56WP_Pos               (24U)
 #define RAMCFG_WPR2_P56WP_Msk               (0x1UL << RAMCFG_WPR2_P56WP_Pos)        /*!< 0x01000000 */
 #define RAMCFG_WPR2_P56WP                   RAMCFG_WPR2_P56WP_Msk                   /*!< Write Protection Page 56 */
-#define RAMCFG_WPR2_P57WP_Pos               (26U)
+#define RAMCFG_WPR2_P57WP_Pos               (25U)
 #define RAMCFG_WPR2_P57WP_Msk               (0x1UL << RAMCFG_WPR2_P57WP_Pos)        /*!< 0x02000000 */
 #define RAMCFG_WPR2_P57WP                   RAMCFG_WPR2_P57WP_Msk                   /*!< Write Protection Page 57 */
-#define RAMCFG_WPR2_P58WP_Pos               (27U)
+#define RAMCFG_WPR2_P58WP_Pos               (26U)
 #define RAMCFG_WPR2_P58WP_Msk               (0x1UL << RAMCFG_WPR2_P58WP_Pos)        /*!< 0x04000000 */
 #define RAMCFG_WPR2_P58WP                   RAMCFG_WPR2_P58WP_Msk                   /*!< Write Protection Page 58 */
-#define RAMCFG_WPR2_P59WP_Pos               (28U)
+#define RAMCFG_WPR2_P59WP_Pos               (27U)
 #define RAMCFG_WPR2_P59WP_Msk               (0x1UL << RAMCFG_WPR2_P59WP_Pos)        /*!< 0x08000000 */
 #define RAMCFG_WPR2_P59WP                   RAMCFG_WPR2_P59WP_Msk                   /*!< Write Protection Page 59 */
-#define RAMCFG_WPR2_P60WP_Pos               (29U)
+#define RAMCFG_WPR2_P60WP_Pos               (28U)
 #define RAMCFG_WPR2_P60WP_Msk               (0x1UL << RAMCFG_WPR2_P60WP_Pos)        /*!< 0x10000000 */
 #define RAMCFG_WPR2_P60WP                   RAMCFG_WPR2_P60WP_Msk                   /*!< Write Protection Page 60 */
-#define RAMCFG_WPR2_P61WP_Pos               (30U)
+#define RAMCFG_WPR2_P61WP_Pos               (29U)
 #define RAMCFG_WPR2_P61WP_Msk               (0x1UL << RAMCFG_WPR2_P61WP_Pos)        /*!< 0x20000000 */
 #define RAMCFG_WPR2_P61WP                   RAMCFG_WPR2_P61WP_Msk                   /*!< Write Protection Page 61 */
-#define RAMCFG_WPR2_P62WP_Pos               (31U)
+#define RAMCFG_WPR2_P62WP_Pos               (30U)
 #define RAMCFG_WPR2_P62WP_Msk               (0x1UL << RAMCFG_WPR2_P62WP_Pos)        /*!< 0x40000000 */
 #define RAMCFG_WPR2_P62WP                   RAMCFG_WPR2_P62WP_Msk                   /*!< Write Protection Page 62 */
 #define RAMCFG_WPR2_P63WP_Pos               (31U)
@@ -16146,12 +16123,12 @@ typedef struct
 #define RTC_CR_TAMPOE_Pos                   (26U)
 #define RTC_CR_TAMPOE_Msk                   (0x1UL << RTC_CR_TAMPOE_Pos)            /*!< 0x04000000 */
 #define RTC_CR_TAMPOE                       RTC_CR_TAMPOE_Msk                       /*!<Tamper detection output enable on TAMPALARM  */
-#define RTC_CR_ALRAOCLR_Pos                 (27U)
-#define RTC_CR_ALRAOCLR_Msk                 (0x1UL << RTC_CR_ALRAOCLR_Pos)          /*!< 0x8000000 */
-#define RTC_CR_ALRAOCLR                     RTC_CR_ALRAOCLR_Msk                     /*!<Alarm A mask */
-#define RTC_CR_ALRBOCLR_Pos                 (28U)
-#define RTC_CR_ALRBOCLR_Msk                 (0x1UL << RTC_CR_ALRBOCLR_Pos)          /*!< 0x10000000 */
-#define RTC_CR_ALRBOCLR                     RTC_CR_ALRBOCLR_Msk                     /*!<Alarm B mask */
+#define RTC_CR_ALRAFCLR_Pos                 (27U)
+#define RTC_CR_ALRAFCLR_Msk                 (0x1UL << RTC_CR_ALRAFCLR_Pos)          /*!< 0x8000000 */
+#define RTC_CR_ALRAFCLR                     RTC_CR_ALRAFCLR_Msk                     /*!<Alarm A mask */
+#define RTC_CR_ALRBFCLR_Pos                 (28U)
+#define RTC_CR_ALRBFCLR_Msk                 (0x1UL << RTC_CR_ALRBFCLR_Pos)          /*!< 0x10000000 */
+#define RTC_CR_ALRBFCLR                     RTC_CR_ALRBFCLR_Msk                     /*!<Alarm B mask */
 #define RTC_CR_TAMPALRM_PU_Pos              (29U)
 #define RTC_CR_TAMPALRM_PU_Msk              (0x1UL << RTC_CR_TAMPALRM_PU_Pos)       /*!< 0x20000000 */
 #define RTC_CR_TAMPALRM_PU                  RTC_CR_TAMPALRM_PU_Msk                  /*!<TAMPALARM output pull-up config */
@@ -18357,8 +18334,7 @@ typedef struct
 /******************  Bit definition for SYSCFG_RSSCMDR register  *************/
 #define SYSCFG_RSSCMDR_RSSCMD_Pos           (0U)
 #define SYSCFG_RSSCMDR_RSSCMD_Msk           (0xFFFFUL << SYSCFG_RSSCMDR_RSSCMD_Pos) /*!< 0x0000FFFF */
-#define SYSCFG_RSSCMDR_RSSCMD               SYSCFG_RSSCMDR_RSSCMD_Msk                /*!< RSS command */
-
+#define SYSCFG_RSSCMDR_RSSCMD               SYSCFG_RSSCMDR_RSSCMD_Msk               /*!< RSS command */
 
 /*****************************************************************************/
 /*                                                                           */
@@ -21602,17 +21578,6 @@ typedef struct
 #define IS_TIM_CC6_INSTANCE(INSTANCE)   (((INSTANCE) == TIM1_NS)  || ((INSTANCE) == TIM1_S)  || \
                                          ((INSTANCE) == TIM8_NS)  || ((INSTANCE) == TIM8_S))
 
-/************ TIM Instances : DMA requests generation (TIMx_DIER.COMDE) *******/
-#define IS_TIM_CCDMA_INSTANCE(INSTANCE)    (((INSTANCE) == TIM1_NS)  || ((INSTANCE) == TIM1_S)  || \
-                                            ((INSTANCE) == TIM2_NS)  || ((INSTANCE) == TIM2_S)  || \
-                                            ((INSTANCE) == TIM3_NS)  || ((INSTANCE) == TIM3_S)  || \
-                                            ((INSTANCE) == TIM4_NS)  || ((INSTANCE) == TIM4_S)  || \
-                                            ((INSTANCE) == TIM5_NS)  || ((INSTANCE) == TIM5_S)  || \
-                                            ((INSTANCE) == TIM8_NS)  || ((INSTANCE) == TIM8_S)  || \
-                                            ((INSTANCE) == TIM15_NS) || ((INSTANCE) == TIM15_S) || \
-                                            ((INSTANCE) == TIM16_NS) || ((INSTANCE) == TIM16_S) || \
-                                            ((INSTANCE) == TIM17_NS) || ((INSTANCE) == TIM17_S))
-
 /****************** TIM Instances : DMA requests generation (TIMx_DIER.UDE) ***/
 #define IS_TIM_DMA_INSTANCE(INSTANCE)      (((INSTANCE) == TIM1_NS)  || ((INSTANCE) == TIM1_S)  || \
                                             ((INSTANCE) == TIM2_NS)  || ((INSTANCE) == TIM2_S)  || \
@@ -21810,12 +21775,6 @@ typedef struct
                                             ((INSTANCE) == TIM4_NS)  || ((INSTANCE) == TIM4_S)  || \
                                             ((INSTANCE) == TIM5_NS)  || ((INSTANCE) == TIM5_S)  || \
                                             ((INSTANCE) == TIM8_NS)  || ((INSTANCE) == TIM8_S))
-
-/************* TIM Instances : supporting ETR source selection ***************/
-#define IS_TIM_ETRSEL_INSTANCE(INSTANCE)    (((INSTANCE) == TIM1_NS)  || ((INSTANCE) == TIM1_S)  || \
-                                             ((INSTANCE) == TIM2_NS)  || ((INSTANCE) == TIM2_S)  || \
-                                             ((INSTANCE) == TIM3_NS)  || ((INSTANCE) == TIM3_S)  || \
-                                             ((INSTANCE) == TIM8_NS)  || ((INSTANCE) == TIM8_S))
 
 /****** TIM Instances : Master mode available (TIMx_CR2.MMS available )********/
 #define IS_TIM_MASTER_INSTANCE(INSTANCE)   (((INSTANCE) == TIM1_NS)  || ((INSTANCE) == TIM1_S)  || \

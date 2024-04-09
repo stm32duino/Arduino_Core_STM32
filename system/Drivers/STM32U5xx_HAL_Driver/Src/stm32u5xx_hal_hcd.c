@@ -110,9 +110,9 @@ static void HCD_Port_IRQHandler(HCD_HandleTypeDef *hhcd);
   */
 HAL_StatusTypeDef HAL_HCD_Init(HCD_HandleTypeDef *hhcd)
 {
-#if defined (STM32U575xx) || defined (STM32U585xx)
-  USB_OTG_GlobalTypeDef *USBx;
-#endif /* defined (STM32U575xx) || defined (STM32U585xx) */
+#if defined (USB_OTG_FS)
+  const USB_OTG_GlobalTypeDef *USBx;
+#endif /* defined (USB_OTG_FS) */
 
   /* Check the HCD handle allocation */
   if (hhcd == NULL)
@@ -123,9 +123,9 @@ HAL_StatusTypeDef HAL_HCD_Init(HCD_HandleTypeDef *hhcd)
   /* Check the parameters */
   assert_param(IS_HCD_ALL_INSTANCE(hhcd->Instance));
 
-#if defined (STM32U575xx) || defined (STM32U585xx)
+#if defined (USB_OTG_FS)
   USBx = hhcd->Instance;
-#endif /* defined (STM32U575xx) || defined (STM32U585xx) */
+#endif /* defined (USB_OTG_FS) */
 
   if (hhcd->State == HAL_HCD_STATE_RESET)
   {
@@ -154,24 +154,38 @@ HAL_StatusTypeDef HAL_HCD_Init(HCD_HandleTypeDef *hhcd)
   }
 
   hhcd->State = HAL_HCD_STATE_BUSY;
-#if defined (STM32U575xx) || defined (STM32U585xx)
+
+#if defined (USB_OTG_FS)
   /* Disable DMA mode for FS instance */
-  if ((USBx->CID & (0x1U << 14)) == 0U)
+  if (USBx == USB_OTG_FS)
   {
     hhcd->Init.dma_enable = 0U;
   }
-#endif /* defined (STM32U575xx) || defined (STM32U585xx) */
+#endif /* defined (USB_OTG_FS) */
+
   /* Disable the Interrupts */
   __HAL_HCD_DISABLE(hhcd);
 
   /* Init the Core (common init.) */
-  (void)USB_CoreInit(hhcd->Instance, hhcd->Init);
+  if (USB_CoreInit(hhcd->Instance, hhcd->Init) != HAL_OK)
+  {
+    hhcd->State = HAL_HCD_STATE_ERROR;
+    return HAL_ERROR;
+  }
 
-  /* Force Host Mode*/
-  (void)USB_SetCurrentMode(hhcd->Instance, USB_HOST_MODE);
+  /* Force Host Mode */
+  if (USB_SetCurrentMode(hhcd->Instance, USB_HOST_MODE) != HAL_OK)
+  {
+    hhcd->State = HAL_HCD_STATE_ERROR;
+    return HAL_ERROR;
+  }
 
   /* Init Host */
-  (void)USB_HostInit(hhcd->Instance, hhcd->Init);
+  if (USB_HostInit(hhcd->Instance, hhcd->Init) != HAL_OK)
+  {
+    hhcd->State = HAL_HCD_STATE_ERROR;
+    return HAL_ERROR;
+  }
 
   hhcd->State = HAL_HCD_STATE_READY;
 
@@ -1255,7 +1269,7 @@ HAL_StatusTypeDef HAL_HCD_HC_ClearHubInfo(HCD_HandleTypeDef *hhcd, uint8_t ch_nu
   */
 static void HCD_HC_IN_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
 {
-  USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;
+  const USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t tmpreg;
 
@@ -1574,7 +1588,7 @@ static void HCD_HC_IN_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
   */
 static void HCD_HC_OUT_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
 {
-  USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;
+  const USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t tmpreg;
   uint32_t num_packets;
@@ -1809,7 +1823,7 @@ static void HCD_HC_OUT_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
   */
 static void HCD_RXQLVL_IRQHandler(HCD_HandleTypeDef *hhcd)
 {
-  USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;
+  const USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t pktsts;
   uint32_t pktcnt;
@@ -1875,7 +1889,7 @@ static void HCD_RXQLVL_IRQHandler(HCD_HandleTypeDef *hhcd)
   */
 static void HCD_Port_IRQHandler(HCD_HandleTypeDef *hhcd)
 {
-  USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;
+  const USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;
   uint32_t USBx_BASE = (uint32_t)USBx;
   __IO uint32_t hprt0;
   __IO uint32_t hprt0_dup;
@@ -2073,9 +2087,6 @@ HAL_StatusTypeDef HAL_HCD_Init(HCD_HandleTypeDef *hhcd)
   /* Init Host */
   (void)USB_HostInit(hhcd->Instance, hhcd->Init);
 
-  /* Deactivate the power down */
-  hhcd->Instance->CNTR &= ~USB_CNTR_PDWN;
-
   hhcd->State = HAL_HCD_STATE_READY;
 
   /* Host Port State */
@@ -2123,6 +2134,27 @@ HAL_StatusTypeDef HAL_HCD_HC_Init(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
 
   __HAL_LOCK(hhcd);
 
+  if (ch_num > 16U)
+  {
+    __HAL_UNLOCK(hhcd);
+    return HAL_ERROR;
+  }
+
+  if (((epnum & 0xFU)== 0U) && ((hhcd->ep0_PmaAllocState & 0xF000U) != 0U))
+  {
+    hhcd->hc[ch_num & 0xFU].pmaadress = hhcd->hc[0U].pmaadress;
+    hhcd->hc[ch_num & 0xFU].pmaaddr0 = hhcd->hc[0U].pmaaddr0;
+    hhcd->hc[ch_num & 0xFU].pmaaddr1 = hhcd->hc[0U].pmaaddr1;
+
+    hhcd->phy_chin_state[0U] = (((uint16_t)ch_num + 1U) << 4U) |
+                               ((uint16_t)ep_type + 1U) |
+                               (((uint16_t)epnum & 0x0FU) << 8U);
+
+    hhcd->phy_chout_state[0U] = (((uint16_t)ch_num + 1U) << 4U) |
+                                ((uint16_t)ep_type + 1U) |
+                                (((uint16_t)epnum & 0x0FU) << 8U);
+  }
+
   /* Check if the logical channel are already allocated */
   used_channel = HAL_HCD_Check_usedChannel(hhcd, ch_num);
 
@@ -2135,6 +2167,7 @@ HAL_StatusTypeDef HAL_HCD_HC_Init(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
     /* No free Channel available, return error */
     if (hhcd->hc[ch_num & 0xFU].phy_ch_num == HCD_FREE_CH_NOT_FOUND)
     {
+      __HAL_UNLOCK(hhcd);
       return HAL_ERROR;
     }
   }
@@ -2171,6 +2204,7 @@ HAL_StatusTypeDef HAL_HCD_HC_Init(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
 
       if (status == HAL_ERROR)
       {
+        __HAL_UNLOCK(hhcd);
         return HAL_ERROR;
       }
 
@@ -2189,6 +2223,7 @@ HAL_StatusTypeDef HAL_HCD_HC_Init(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
 
         if (status == HAL_ERROR)
         {
+          __HAL_UNLOCK(hhcd);
           return HAL_ERROR;
         }
       }
@@ -2206,22 +2241,28 @@ HAL_StatusTypeDef HAL_HCD_HC_Init(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
 
               if (status == HAL_ERROR)
               {
+                __HAL_UNLOCK(hhcd);
                 return HAL_ERROR;
               }
             }
             else
             {
+              __HAL_UNLOCK(hhcd);
               return HAL_ERROR;
             }
           }
           else
           {
+            /* This is a dual EP0 PMA allocation */
+            hhcd->ep0_PmaAllocState |= (0x1U << 12);
+
             /* PMA Dynamic Allocation for EP0 OUT direction */
             hhcd->hc[ch_num & 0xFU].ch_dir = CH_OUT_DIR;
             status = HAL_HCD_PMAlloc(hhcd, ch_num, HCD_SNG_BUF, 64U);
 
             if (status == HAL_ERROR)
             {
+              __HAL_UNLOCK(hhcd);
               return HAL_ERROR;
             }
 
@@ -2231,6 +2272,7 @@ HAL_StatusTypeDef HAL_HCD_HC_Init(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
 
             if (status == HAL_ERROR)
             {
+              __HAL_UNLOCK(hhcd);
               return HAL_ERROR;
             }
           }
@@ -2256,6 +2298,7 @@ HAL_StatusTypeDef HAL_HCD_HC_Init(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
 
             if (status == HAL_ERROR)
             {
+              __HAL_UNLOCK(hhcd);
               return HAL_ERROR;
             }
           }
@@ -2634,8 +2677,7 @@ HAL_StatusTypeDef HAL_HCD_HC_SubmitRequest(HCD_HandleTypeDef *hhcd, uint8_t ch_n
 void HAL_HCD_IRQHandler(HCD_HandleTypeDef *hhcd)
 {
   uint8_t phy_chnum;
-  uint8_t chnum;
-  uint32_t epch_reg;
+  uint8_t ch_dir;
   uint32_t wIstr = USB_ReadInterrupts(hhcd->Instance);
 
   /* Port Change Detected (Connection/Disconnection) */
@@ -2653,50 +2695,21 @@ void HAL_HCD_IRQHandler(HCD_HandleTypeDef *hhcd)
   /* Correct Transaction Detected -------*/
   if ((wIstr & USB_ISTR_CTR) == USB_ISTR_CTR)
   {
-    /* Handle Host channel Interrupt */
-    for (phy_chnum = 0U; phy_chnum < hhcd->Init.Host_channels; phy_chnum++)
+    /* Get Physical channel */
+    phy_chnum = (uint8_t)__HAL_HCD_GET_CHNUM(hhcd);
+
+    /* Get channel direction */
+    ch_dir = (uint8_t)__HAL_HCD_GET_CHDIR(hhcd);
+
+    if (ch_dir == CH_OUT_DIR)
     {
-      if ((HCD_GET_CHANNEL(hhcd->Instance, phy_chnum) & USB_CH_VTRX) != 0U)
-      {
-        /* Get Logical channel to check if the channel is already opened */
-        chnum = HAL_HCD_GetLogical_Channel(hhcd, phy_chnum, 1U);
-
-        if (chnum != HCD_LOGICAL_CH_NOT_OPENED)
-        {
-          /* Call Channel_IN_IRQ() */
-          HCD_HC_IN_IRQHandler(hhcd, chnum);
-        }
-        else
-        {
-          /*Channel was not closed correctly still have interrupt */
-          epch_reg = HCD_GET_CHANNEL(hhcd->Instance, phy_chnum);
-          epch_reg = (epch_reg & (USB_CHEP_REG_MASK & (~USB_CH_ERRRX) & (~USB_CH_VTRX))) |
-                     (USB_CH_VTTX | USB_CH_ERRTX);
-
-          HCD_SET_CHANNEL(hhcd->Instance, phy_chnum, epch_reg);
-        }
-      }
-
-      if ((HCD_GET_CHANNEL(hhcd->Instance, phy_chnum) & USB_CH_VTTX) != 0U)
-      {
-        /* Get Logical channel to check if the channel is already opened */
-        chnum = HAL_HCD_GetLogical_Channel(hhcd, phy_chnum, 0U);
-
-        if (chnum != HCD_LOGICAL_CH_NOT_OPENED)
-        {
-          /*Call Channel_OUT_IRQ()*/
-          HCD_HC_OUT_IRQHandler(hhcd, chnum);
-        }
-        else
-        {
-          /* Clear Error & unwanted VTTX or Channel was not closed correctly */
-          epch_reg = HCD_GET_CHANNEL(hhcd->Instance, phy_chnum);
-          epch_reg = (epch_reg & (USB_CHEP_REG_MASK & (~USB_CH_ERRTX) & (~USB_CH_VTTX))) |
-                     (USB_CH_VTRX | USB_CH_ERRRX);
-
-          HCD_SET_CHANNEL(hhcd->Instance, phy_chnum, epch_reg);
-        }
-      }
+      /* Call Channel_OUT_IRQ() */
+      HCD_HC_OUT_IRQHandler(hhcd, phy_chnum);
+    }
+    else
+    {
+      /* Call Channel_IN_IRQ() */
+      HCD_HC_IN_IRQHandler(hhcd, phy_chnum);
     }
 
     return;
@@ -3196,16 +3209,21 @@ transfers.
   */
 HAL_StatusTypeDef HAL_HCD_Start(HCD_HandleTypeDef *hhcd)
 {
+  __IO uint32_t count = HCD_PDWN_EXIT_CNT;
+
   __HAL_LOCK(hhcd);
 
-  /*Set the PullDown on the PHY */
-  hhcd->Instance->BCDR |= USB_BCDR_DPPD;
-
-  /* Clear Reset  */
-  hhcd->Instance->CNTR &= ~USB_CNTR_USBRST;
-
-  /*Remove PowerDown */
+  /* Remove PowerDown */
   hhcd->Instance->CNTR &= ~USB_CNTR_PDWN;
+
+  /* Few cycles to ensure exit from powerdown */
+  while (count > 0U)
+  {
+    count--;
+  }
+
+  /* Clear Reset */
+  hhcd->Instance->CNTR &= ~USB_CNTR_USBRST;
 
   __HAL_UNLOCK(hhcd);
 
@@ -3251,7 +3269,7 @@ HAL_StatusTypeDef HAL_HCD_Suspend(HCD_HandleTypeDef *hhcd)
   /* wait for Suspend Ready */
   while ((hhcd->Instance->CNTR & USB_CNTR_SUSPRDY) == 0U)
   {
-    if (++count > 0xFFFFFFU)
+    if (++count > HAL_USB_TIMEOUT)
     {
       return HAL_TIMEOUT;
     }
@@ -3486,7 +3504,7 @@ static void HCD_HC_OUT_BulkDb(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
     if (hhcd->hc[ch_num & 0xFU].xfer_len != 0U)
     {
       /* manage multiple Xfer */
-      hhcd->hc[ch_num & 0xFU].xfer_count  += data_xfr;
+      hhcd->hc[ch_num & 0xFU].xfer_count += data_xfr;
 
       /* check if we need to free user buffer */
       if ((regvalue & USB_CH_DTOG_RX) != 0U)
@@ -3525,7 +3543,7 @@ static void HCD_HC_OUT_BulkDb(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
     else
     {
       /* Transfer complete state */
-      hhcd->hc[ch_num & 0xFU].xfer_count  += data_xfr;
+      hhcd->hc[ch_num & 0xFU].xfer_count += data_xfr;
       hhcd->hc[ch_num & 0xFU].state = HC_XFRC;
       hhcd->hc[ch_num & 0xFU].urb_state  = URB_DONE;
       hhcd->hc[ch_num & 0xFU].toggle_out ^= 1U;
@@ -3547,7 +3565,7 @@ static void HCD_HC_OUT_BulkDb(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
     if (hhcd->hc[ch_num & 0xFU].xfer_len != 0U)
     {
       /* manage multiple Xfer */
-      hhcd->hc[ch_num & 0xFU].xfer_count  += data_xfr;
+      hhcd->hc[ch_num & 0xFU].xfer_count += data_xfr;
 
       /* check if we need to free user buffer */
       if ((regvalue & USB_CH_DTOG_RX) == 0U)
@@ -3588,7 +3606,7 @@ static void HCD_HC_OUT_BulkDb(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
     else
     {
       /* Transfer complete state */
-      hhcd->hc[ch_num & 0xFU].xfer_count  += data_xfr;
+      hhcd->hc[ch_num & 0xFU].xfer_count += data_xfr;
       hhcd->hc[ch_num & 0xFU].state = HC_XFRC;
       hhcd->hc[ch_num & 0xFU].urb_state  = URB_DONE;
       hhcd->hc[ch_num & 0xFU].toggle_out ^= 1U;
@@ -3762,16 +3780,17 @@ static void inline HCD_HC_IN_ISO(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
 /**
   * @brief  Handle Host Channel IN interrupt requests.
   * @param  hhcd HCD handle
-  * @param  ch_num Channel number
-  *         This parameter can be a value from 1 to 15
+  * @param  chnum Channel number
+  *         This parameter can be a value from 1 to 8
   * @retval none
   */
-static void HCD_HC_IN_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t ch_num)
+static void HCD_HC_IN_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
 {
   uint16_t received_bytes;
-  uint8_t phy_chnum = (uint8_t)__HAL_HCD_GET_CHNUM(hhcd);
+  uint8_t phy_chnum = chnum;
+  uint8_t ch_num = HAL_HCD_GetLogical_Channel(hhcd, phy_chnum, 1U);
 
-  /*Take a Flag snapshot from the CHEP register, due to STRX bits are used for both control and status */
+  /* Take a Flag snapshot from the CHEP register, due to STRX bits are used for both control and status */
   uint32_t ch_reg =  HCD_GET_CHANNEL(hhcd->Instance, phy_chnum);
 
   /* Manage Correct Transaction */
@@ -3837,6 +3856,12 @@ static void HCD_HC_IN_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t ch_num)
         hhcd->hc[ch_num & 0xFU].urb_state = URB_NOTREADY;
         hhcd->hc[ch_num & 0xFU].ErrCnt = 0U;
         hhcd->hc[ch_num & 0xFU].state = HC_NAK;
+
+        if (hhcd->hc[ch_num & 0xFU].ep_type == EP_TYPE_INTR)
+        {
+          /* Close the channel */
+          HCD_SET_CH_RX_STATUS(hhcd->Instance, phy_chnum, USB_CH_RX_DIS);
+        }
       }
       /* manage STALL Response */
       else if ((ch_reg & USB_CH_RX_STRX) == USB_CH_RX_STALL)
@@ -3906,16 +3931,17 @@ static void HCD_HC_IN_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t ch_num)
   * @brief  Handle Host Channel OUT interrupt requests.
   * @param  hhcd  HCD handle
   * @param  chnum Channel number
-  *         This parameter can be a value from 1 to 15
+  *         This parameter can be a value from 1 to 8
   * @retval none
   */
 static void HCD_HC_OUT_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
 {
-  uint16_t data_xfr;
   __IO uint32_t WregCh;
+  uint16_t data_xfr;
+  uint8_t phy_chnum = chnum;
 
-  /* Get Physical Channel number */
-  uint32_t phy_chnum = (uint8_t)__HAL_HCD_GET_CHNUM(hhcd);
+  /* Get Virtual Channel number */
+  uint8_t ch_num = HAL_HCD_GetLogical_Channel(hhcd, phy_chnum, 0U);
 
   /* Take a Flag snapshot from the CHEP register, due to STRX bits are used for both control &status */
   uint32_t ch_reg =  *(__IO uint32_t *)(&(hhcd->Instance->CHEP0R) + phy_chnum);
@@ -3953,8 +3979,8 @@ static void HCD_HC_OUT_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
 #endif /* (USE_USB_DOUBLE_BUFFER == 1U) */
 
         /* Transfer complete state */
-        hhcd->hc[chnum & 0xFU].state = HC_XFRC;
-        hhcd->hc[chnum & 0xFU].urb_state = URB_DONE;
+        hhcd->hc[ch_num & 0xFU].state = HC_XFRC;
+        hhcd->hc[ch_num & 0xFU].urb_state = URB_DONE;
       }
 
       /*Clear Correct Transfer */
@@ -3962,9 +3988,9 @@ static void HCD_HC_OUT_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
 
       /*TX COMPLETE*/
 #if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
-      hhcd->HC_NotifyURBChangeCallback(hhcd, (uint8_t)chnum, hhcd->hc[chnum & 0xFU].urb_state);
+      hhcd->HC_NotifyURBChangeCallback(hhcd, (uint8_t)ch_num, hhcd->hc[ch_num & 0xFU].urb_state);
 #else
-      HAL_HCD_HC_NotifyURBChange_Callback(hhcd, (uint8_t)chnum, hhcd->hc[chnum & 0xFU].urb_state);
+      HAL_HCD_HC_NotifyURBChange_Callback(hhcd, (uint8_t)ch_num, hhcd->hc[ch_num & 0xFU].urb_state);
 #endif /* USE_HAL_HCD_REGISTER_CALLBACKS */
 
     }
@@ -3975,36 +4001,36 @@ static void HCD_HC_OUT_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
       {
         data_xfr = (uint16_t)(((USB_DRD_PMA_BUFF + phy_chnum)->TXBD & 0x03FF0000U) >> 16U);
 
-        if (hhcd->hc[chnum & 0xFU].xfer_len >= data_xfr)
+        if (hhcd->hc[ch_num & 0xFU].xfer_len >= data_xfr)
         {
-          hhcd->hc[chnum & 0xFU].xfer_len -= data_xfr;
+          hhcd->hc[ch_num & 0xFU].xfer_len -= data_xfr;
         }
         else
         {
-          hhcd->hc[chnum & 0xFU].xfer_len = 0U;
+          hhcd->hc[ch_num & 0xFU].xfer_len = 0U;
         }
 
         /* Transfer no yet finished only one packet of mps is transferred and ACKed from device */
-        if (hhcd->hc[chnum & 0xFU].xfer_len != 0U)
+        if (hhcd->hc[ch_num & 0xFU].xfer_len != 0U)
         {
           /* manage multiple Xfer */
-          hhcd->hc[chnum & 0xFU].xfer_buff += data_xfr;
-          hhcd->hc[chnum & 0xFU].xfer_count  += data_xfr;
+          hhcd->hc[ch_num & 0xFU].xfer_buff += data_xfr;
+          hhcd->hc[ch_num & 0xFU].xfer_count += data_xfr;
 
           /* start a new transfer */
-          (void) USB_HC_StartXfer(hhcd->Instance, &hhcd->hc[chnum & 0xFU]);
+          (void) USB_HC_StartXfer(hhcd->Instance, &hhcd->hc[ch_num & 0xFU]);
         }
         else
         {
           /* Transfer complete */
-          hhcd->hc[chnum & 0xFU].xfer_count += data_xfr;
-          hhcd->hc[chnum & 0xFU].state = HC_XFRC;
-          hhcd->hc[chnum & 0xFU].urb_state = URB_DONE;
+          hhcd->hc[ch_num & 0xFU].xfer_count += data_xfr;
+          hhcd->hc[ch_num & 0xFU].state = HC_XFRC;
+          hhcd->hc[ch_num & 0xFU].urb_state = URB_DONE;
 
-          if ((hhcd->hc[chnum & 0xFU].ep_type == EP_TYPE_BULK) ||
-              (hhcd->hc[chnum & 0xFU].ep_type == EP_TYPE_INTR))
+          if ((hhcd->hc[ch_num & 0xFU].ep_type == EP_TYPE_BULK) ||
+              (hhcd->hc[ch_num & 0xFU].ep_type == EP_TYPE_INTR))
           {
-            hhcd->hc[chnum & 0xFU].toggle_out ^= 1U;
+            hhcd->hc[ch_num & 0xFU].toggle_out ^= 1U;
           }
         }
       }
@@ -4013,9 +4039,9 @@ static void HCD_HC_OUT_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
                ((ch_reg & USB_CH_TX_STTX) == USB_CH_TX_NAK))
       {
         /* Update Channel status */
-        hhcd->hc[chnum & 0xFU].state = HC_NAK;
-        hhcd->hc[chnum & 0xFU].urb_state = URB_NOTREADY;
-        hhcd->hc[chnum & 0xFU].ErrCnt = 0U;
+        hhcd->hc[ch_num & 0xFU].state = HC_NAK;
+        hhcd->hc[ch_num & 0xFU].urb_state = URB_NOTREADY;
+        hhcd->hc[ch_num & 0xFU].ErrCnt = 0U;
 
         /* Get Channel register value */
         WregCh = *(__IO uint32_t *)(&(hhcd->Instance->CHEP0R) + phy_chnum);
@@ -4026,28 +4052,28 @@ static void HCD_HC_OUT_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
         /* Update channel register Value */
         HCD_SET_CHANNEL(hhcd->Instance, phy_chnum, WregCh);
 
-        if (hhcd->hc[chnum & 0xFU].doublebuffer == 0U)
+        if (hhcd->hc[ch_num & 0xFU].doublebuffer == 0U)
         {
 #if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
-          hhcd->HC_NotifyURBChangeCallback(hhcd, (uint8_t)chnum, hhcd->hc[chnum & 0xFU].urb_state);
+          hhcd->HC_NotifyURBChangeCallback(hhcd, (uint8_t)ch_num, hhcd->hc[ch_num & 0xFU].urb_state);
 #else
-          HAL_HCD_HC_NotifyURBChange_Callback(hhcd, (uint8_t)chnum, hhcd->hc[chnum & 0xFU].urb_state);
+          HAL_HCD_HC_NotifyURBChange_Callback(hhcd, (uint8_t)ch_num, hhcd->hc[ch_num & 0xFU].urb_state);
 #endif /* USE_HAL_HCD_REGISTER_CALLBACKS */
         }
       }
       /* Check STALL Response */
       else if ((ch_reg & USB_CH_TX_STTX) == USB_CH_TX_STALL)
       {
-        (void) HAL_HCD_HC_Halt(hhcd, (uint8_t)chnum);
-        hhcd->hc[chnum & 0xFU].state = HC_STALL;
-        hhcd->hc[chnum & 0xFU].urb_state = URB_STALL;
+        (void) HAL_HCD_HC_Halt(hhcd, (uint8_t)ch_num);
+        hhcd->hc[ch_num & 0xFU].state = HC_STALL;
+        hhcd->hc[ch_num & 0xFU].urb_state = URB_STALL;
       }
 #if (USE_USB_DOUBLE_BUFFER == 1U)
       /* Check double buffer ACK in case of bulk transaction */
       else if ((ch_reg & USB_CH_TX_STTX) == USB_CH_TX_ACK_DBUF)
       {
         /* Double buffer management Bulk Out */
-        (void) HCD_HC_OUT_BulkDb(hhcd, chnum, (uint8_t)phy_chnum, ch_reg);
+        (void) HCD_HC_OUT_BulkDb(hhcd, ch_num, (uint8_t)phy_chnum, ch_reg);
       }
 #endif /* (USE_USB_DOUBLE_BUFFER == 1U) */
       else
@@ -4058,38 +4084,38 @@ static void HCD_HC_OUT_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
       if ((ch_reg & USB_CH_TX_STTX) != USB_CH_TX_NAK)
       {
 #if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
-        hhcd->HC_NotifyURBChangeCallback(hhcd, (uint8_t)chnum, hhcd->hc[chnum & 0xFU].urb_state);
+        hhcd->HC_NotifyURBChangeCallback(hhcd, (uint8_t)ch_num, hhcd->hc[ch_num & 0xFU].urb_state);
 #else
-        HAL_HCD_HC_NotifyURBChange_Callback(hhcd, (uint8_t)chnum, hhcd->hc[chnum & 0xFU].urb_state);
+        HAL_HCD_HC_NotifyURBChange_Callback(hhcd, (uint8_t)ch_num, hhcd->hc[ch_num & 0xFU].urb_state);
 #endif /* USE_HAL_HCD_REGISTER_CALLBACKS */
       }
 
       HCD_CLEAR_TX_CH_CTR(hhcd->Instance, phy_chnum);
-    }  /* end no isochronous */
+    }  /* End no isochronous */
   }
   /*------ Manage Transaction Error------*/
   else
   {
-    hhcd->hc[chnum & 0xFU].ErrCnt++;
-    if (hhcd->hc[chnum & 0xFU].ErrCnt > 3U)
+    hhcd->hc[ch_num & 0xFU].ErrCnt++;
+    if (hhcd->hc[ch_num & 0xFU].ErrCnt > 3U)
     {
       HCD_SET_CH_TX_STATUS(hhcd->Instance, phy_chnum, USB_CH_TX_DIS);
-      hhcd->hc[chnum & 0xFU].urb_state = URB_ERROR;
+      hhcd->hc[ch_num & 0xFU].urb_state = URB_ERROR;
     }
     else
     {
-      hhcd->hc[chnum & 0xFU].urb_state = URB_NOTREADY;
+      hhcd->hc[ch_num & 0xFU].urb_state = URB_NOTREADY;
     }
 
-    hhcd->hc[chnum & 0xFU].state = HC_XACTERR;
+    hhcd->hc[ch_num & 0xFU].state = HC_XACTERR;
 
-    /*Clear ERR_TX*/
+    /* Clear ERR_TX */
     HCD_CLEAR_TX_CH_ERR(hhcd->Instance, phy_chnum);
 
 #if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
-    hhcd->HC_NotifyURBChangeCallback(hhcd, (uint8_t)chnum, hhcd->hc[chnum & 0xFU].urb_state);
+    hhcd->HC_NotifyURBChangeCallback(hhcd, (uint8_t)ch_num, hhcd->hc[ch_num & 0xFU].urb_state);
 #else
-    HAL_HCD_HC_NotifyURBChange_Callback(hhcd, (uint8_t)chnum, hhcd->hc[chnum & 0xFU].urb_state);
+    HAL_HCD_HC_NotifyURBChange_Callback(hhcd, (uint8_t)ch_num, hhcd->hc[ch_num & 0xFU].urb_state);
 #endif /* USE_HAL_HCD_REGISTER_CALLBACKS */
   }
 }
@@ -4525,7 +4551,7 @@ HAL_StatusTypeDef  HAL_HCD_PMAlloc(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
   /* Get a FreePMA Address */
   pma_addr0 = HAL_HCD_GetFreePMA(hhcd, mps);
 
-  /* if there is no free space to allocate */
+  /* If there is no free space to allocate */
   if (pma_addr0 == 0xFFFFU)
   {
     return HAL_ERROR;
@@ -4540,7 +4566,8 @@ HAL_StatusTypeDef  HAL_HCD_PMAlloc(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
 
       if (hc->ep_num == 0U)
       {
-        hhcd->ep0_PmaAllocState = ch_num;
+        hhcd->ep0_PmaAllocState &= 0xFFF0U;
+        hhcd->ep0_PmaAllocState |= ch_num;
         hhcd->ep0_PmaAllocState |= (1U << 8);
       }
 

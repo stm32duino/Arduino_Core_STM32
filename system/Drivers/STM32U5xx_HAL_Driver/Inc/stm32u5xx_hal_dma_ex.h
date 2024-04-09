@@ -150,7 +150,7 @@ typedef struct
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
   uint32_t                    SrcSecure;          /*!< Specifies the source security attribute                        */
   uint32_t                    DestSecure;         /*!< Specifies the destination security attribute                   */
-#endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 
 } DMA_NodeConfTypeDef;
 
@@ -236,10 +236,10 @@ typedef struct __DMA_QListTypeDef
                                                               destination data width                             */
 #define DMA_DATA_PACK                  DMA_CTR1_PAM_1 /*!< If source data width < destination data width
                                                            => Packed at the destination data width
-                                                              (Available only for GPDMA)                         */
+                                                              (Not available on LPDMA)                           */
 #define DMA_DATA_UNPACK                DMA_CTR1_PAM_1 /*!< If source data width > destination data width
                                                            => Unpacked at the destination data width
-                                                              (Available only for GPDMA)                         */
+                                                              (Not available on LPDMA)                           */
 /**
   * @}
   */
@@ -284,129 +284,129 @@ typedef struct __DMA_QListTypeDef
   * @{
   */
 /* GPDMA1 triggers */
-#define GPDMA1_TRIGGER_EXTI_LINE0      (0U)  /*!< GPDMA1 HW Trigger signal is EXTI_LINE0      */
-#define GPDMA1_TRIGGER_EXTI_LINE1      (1U)  /*!< GPDMA1 HW Trigger signal is EXTI_LINE1      */
-#define GPDMA1_TRIGGER_EXTI_LINE2      (2U)  /*!< GPDMA1 HW Trigger signal is EXTI_LINE2      */
-#define GPDMA1_TRIGGER_EXTI_LINE3      (3U)  /*!< GPDMA1 HW Trigger signal is EXTI_LINE3      */
-#define GPDMA1_TRIGGER_EXTI_LINE4      (4U)  /*!< GPDMA1 HW Trigger signal is EXTI_LINE4      */
-#define GPDMA1_TRIGGER_EXTI_LINE5      (5U)  /*!< GPDMA1 HW Trigger signal is EXTI_LINE5      */
-#define GPDMA1_TRIGGER_EXTI_LINE6      (6U)  /*!< GPDMA1 HW Trigger signal is EXTI_LINE6      */
-#define GPDMA1_TRIGGER_EXTI_LINE7      (7U)  /*!< GPDMA1 HW Trigger signal is EXTI_LINE7      */
-#define GPDMA1_TRIGGER_TAMP_TRG1       (8U)  /*!< GPDMA1 HW Trigger signal is TAMP_TRG1       */
-#define GPDMA1_TRIGGER_TAMP_TRG2       (9U)  /*!< GPDMA1 HW Trigger signal is TAMP_TRG2       */
-#define GPDMA1_TRIGGER_TAMP_TRG3       (10U) /*!< GPDMA1 HW Trigger signal is TAMP_TRG3       */
-#define GPDMA1_TRIGGER_LPTIM1_CH1      (11U) /*!< GPDMA1 HW Trigger signal is LPTIM1_CH1      */
-#define GPDMA1_TRIGGER_LPTIM1_CH2      (12U) /*!< GPDMA1 HW Trigger signal is LPTIM1_CH2      */
-#define GPDMA1_TRIGGER_LPTIM2_CH1      (13U) /*!< GPDMA1 HW Trigger signal is LPTIM2_CH1      */
-#define GPDMA1_TRIGGER_LPTIM2_CH2      (14U) /*!< GPDMA1 HW Trigger signal is LPTIM2_CH2      */
-#define GPDMA1_TRIGGER_LPTIM4_OUT      (15U) /*!< GPDMA1 HW Trigger signal is LPTIM4_OUT      */
-#define GPDMA1_TRIGGER_COMP1_OUT       (16U) /*!< GPDMA1 HW Trigger signal is COMP1_OUT       */
+#define GPDMA1_TRIGGER_EXTI_LINE0         0U    /*!< GPDMA1 HW Trigger signal is EXTI_LINE0      */
+#define GPDMA1_TRIGGER_EXTI_LINE1         1U    /*!< GPDMA1 HW Trigger signal is EXTI_LINE1      */
+#define GPDMA1_TRIGGER_EXTI_LINE2         2U    /*!< GPDMA1 HW Trigger signal is EXTI_LINE2      */
+#define GPDMA1_TRIGGER_EXTI_LINE3         3U    /*!< GPDMA1 HW Trigger signal is EXTI_LINE3      */
+#define GPDMA1_TRIGGER_EXTI_LINE4         4U    /*!< GPDMA1 HW Trigger signal is EXTI_LINE4      */
+#define GPDMA1_TRIGGER_EXTI_LINE5         5U    /*!< GPDMA1 HW Trigger signal is EXTI_LINE5      */
+#define GPDMA1_TRIGGER_EXTI_LINE6         6U    /*!< GPDMA1 HW Trigger signal is EXTI_LINE6      */
+#define GPDMA1_TRIGGER_EXTI_LINE7         7U    /*!< GPDMA1 HW Trigger signal is EXTI_LINE7      */
+#define GPDMA1_TRIGGER_TAMP_TRG1          8U    /*!< GPDMA1 HW Trigger signal is TAMP_TRG1       */
+#define GPDMA1_TRIGGER_TAMP_TRG2          9U    /*!< GPDMA1 HW Trigger signal is TAMP_TRG2       */
+#define GPDMA1_TRIGGER_TAMP_TRG3          10U   /*!< GPDMA1 HW Trigger signal is TAMP_TRG3       */
+#define GPDMA1_TRIGGER_LPTIM1_CH1         11U   /*!< GPDMA1 HW Trigger signal is LPTIM1_CH1      */
+#define GPDMA1_TRIGGER_LPTIM1_CH2         12U   /*!< GPDMA1 HW Trigger signal is LPTIM1_CH2      */
+#define GPDMA1_TRIGGER_LPTIM2_CH1         13U   /*!< GPDMA1 HW Trigger signal is LPTIM2_CH1      */
+#define GPDMA1_TRIGGER_LPTIM2_CH2         14U   /*!< GPDMA1 HW Trigger signal is LPTIM2_CH2      */
+#define GPDMA1_TRIGGER_LPTIM4_OUT         15U   /*!< GPDMA1 HW Trigger signal is LPTIM4_OUT      */
+#define GPDMA1_TRIGGER_COMP1_OUT          16U   /*!< GPDMA1 HW Trigger signal is COMP1_OUT       */
 #if defined(COMP2)
-#define GPDMA1_TRIGGER_COMP2_OUT       (17U) /*!< GPDMA1 HW Trigger signal is COMP2_OUT       */
+#define GPDMA1_TRIGGER_COMP2_OUT          17U   /*!< GPDMA1 HW Trigger signal is COMP2_OUT       */
 #endif /* COMP2 */
-#define GPDMA1_TRIGGER_RTC_ALRA_TRG    (18U) /*!< GPDMA1 HW Trigger signal is RTC_ALRA_TRG    */
-#define GPDMA1_TRIGGER_RTC_ALRB_TRG    (19U) /*!< GPDMA1 HW Trigger signal is RTC_ALRB_TRG    */
-#define GPDMA1_TRIGGER_RTC_WUT_TRG     (20U) /*!< GPDMA1 HW Trigger signal is RTC_WUT_TRG     */
-#define GPDMA1_TRIGGER_GPDMA1_CH0_TCF  (22U) /*!< GPDMA1 HW Trigger signal is GPDMA1_CH0_TCF  */
-#define GPDMA1_TRIGGER_GPDMA1_CH1_TCF  (23U) /*!< GPDMA1 HW Trigger signal is GPDMA1_CH1_TCF  */
-#define GPDMA1_TRIGGER_GPDMA1_CH2_TCF  (24U) /*!< GPDMA1 HW Trigger signal is GPDMA1_CH2_TCF  */
-#define GPDMA1_TRIGGER_GPDMA1_CH3_TCF  (25U) /*!< GPDMA1 HW Trigger signal is GPDMA1_CH3_TCF  */
-#define GPDMA1_TRIGGER_GPDMA1_CH4_TCF  (26U) /*!< GPDMA1 HW Trigger signal is GPDMA1_CH4_TCF  */
-#define GPDMA1_TRIGGER_GPDMA1_CH5_TCF  (27U) /*!< GPDMA1 HW Trigger signal is GPDMA1_CH5_TCF  */
-#define GPDMA1_TRIGGER_GPDMA1_CH6_TCF  (28U) /*!< GPDMA1 HW Trigger signal is GPDMA1_CH6_TCF  */
-#define GPDMA1_TRIGGER_GPDMA1_CH7_TCF  (29U) /*!< GPDMA1 HW Trigger signal is GPDMA1_CH7_TCF  */
-#define GPDMA1_TRIGGER_GPDMA1_CH8_TCF  (30U) /*!< GPDMA1 HW Trigger signal is GPDMA1_CH8_TCF  */
-#define GPDMA1_TRIGGER_GPDMA1_CH9_TCF  (31U) /*!< GPDMA1 HW Trigger signal is GPDMA1_CH9_TCF  */
-#define GPDMA1_TRIGGER_GPDMA1_CH10_TCF (32U) /*!< GPDMA1 HW Trigger signal is GPDMA1_CH10_TCF */
-#define GPDMA1_TRIGGER_GPDMA1_CH11_TCF (33U) /*!< GPDMA1 HW Trigger signal is GPDMA1_CH11_TCF */
-#define GPDMA1_TRIGGER_GPDMA1_CH12_TCF (34U) /*!< GPDMA1 HW Trigger signal is GPDMA1_CH12_TCF */
-#define GPDMA1_TRIGGER_GPDMA1_CH13_TCF (35U) /*!< GPDMA1 HW Trigger signal is GPDMA1_CH13_TCF */
-#define GPDMA1_TRIGGER_GPDMA1_CH14_TCF (36U) /*!< GPDMA1 HW Trigger signal is GPDMA1_CH14_TCF */
-#define GPDMA1_TRIGGER_GPDMA1_CH15_TCF (37U) /*!< GPDMA1 HW Trigger signal is GPDMA1_CH15_TCF */
-#define GPDMA1_TRIGGER_LPDMA1_CH0_TCF  (38U) /*!< GPDMA1 HW Trigger signal is LPDMA1_CH0_TCF  */
-#define GPDMA1_TRIGGER_LPDMA1_CH1_TCF  (39U) /*!< GPDMA1 HW Trigger signal is LPDMA1_CH1_TCF  */
-#define GPDMA1_TRIGGER_LPDMA1_CH2_TCF  (40U) /*!< GPDMA1 HW Trigger signal is LPDMA1_CH2_TCF  */
-#define GPDMA1_TRIGGER_LPDMA1_CH3_TCF  (41U) /*!< GPDMA1 HW Trigger signal is LPDMA1_CH3_TCF  */
-#define GPDMA1_TRIGGER_TIM2_TRGO       (42U) /*!< GPDMA1 HW Trigger signal is TIM2_TRGO       */
-#define GPDMA1_TRIGGER_TIM15_TRGO      (43U) /*!< GPDMA1 HW Trigger signal is TIM15_TRGO      */
+#define GPDMA1_TRIGGER_RTC_ALRA_TRG       18U   /*!< GPDMA1 HW Trigger signal is RTC_ALRA_TRG    */
+#define GPDMA1_TRIGGER_RTC_ALRB_TRG       19U   /*!< GPDMA1 HW Trigger signal is RTC_ALRB_TRG    */
+#define GPDMA1_TRIGGER_RTC_WUT_TRG        20U   /*!< GPDMA1 HW Trigger signal is RTC_WUT_TRG     */
+#define GPDMA1_TRIGGER_GPDMA1_CH0_TCF     22U   /*!< GPDMA1 HW Trigger signal is GPDMA1_CH0_TCF  */
+#define GPDMA1_TRIGGER_GPDMA1_CH1_TCF     23U   /*!< GPDMA1 HW Trigger signal is GPDMA1_CH1_TCF  */
+#define GPDMA1_TRIGGER_GPDMA1_CH2_TCF     24U   /*!< GPDMA1 HW Trigger signal is GPDMA1_CH2_TCF  */
+#define GPDMA1_TRIGGER_GPDMA1_CH3_TCF     25U   /*!< GPDMA1 HW Trigger signal is GPDMA1_CH3_TCF  */
+#define GPDMA1_TRIGGER_GPDMA1_CH4_TCF     26U   /*!< GPDMA1 HW Trigger signal is GPDMA1_CH4_TCF  */
+#define GPDMA1_TRIGGER_GPDMA1_CH5_TCF     27U   /*!< GPDMA1 HW Trigger signal is GPDMA1_CH5_TCF  */
+#define GPDMA1_TRIGGER_GPDMA1_CH6_TCF     28U   /*!< GPDMA1 HW Trigger signal is GPDMA1_CH6_TCF  */
+#define GPDMA1_TRIGGER_GPDMA1_CH7_TCF     29U   /*!< GPDMA1 HW Trigger signal is GPDMA1_CH7_TCF  */
+#define GPDMA1_TRIGGER_GPDMA1_CH8_TCF     30U   /*!< GPDMA1 HW Trigger signal is GPDMA1_CH8_TCF  */
+#define GPDMA1_TRIGGER_GPDMA1_CH9_TCF     31U   /*!< GPDMA1 HW Trigger signal is GPDMA1_CH9_TCF  */
+#define GPDMA1_TRIGGER_GPDMA1_CH10_TCF    32U   /*!< GPDMA1 HW Trigger signal is GPDMA1_CH10_TCF */
+#define GPDMA1_TRIGGER_GPDMA1_CH11_TCF    33U   /*!< GPDMA1 HW Trigger signal is GPDMA1_CH11_TCF */
+#define GPDMA1_TRIGGER_GPDMA1_CH12_TCF    34U   /*!< GPDMA1 HW Trigger signal is GPDMA1_CH12_TCF */
+#define GPDMA1_TRIGGER_GPDMA1_CH13_TCF    35U   /*!< GPDMA1 HW Trigger signal is GPDMA1_CH13_TCF */
+#define GPDMA1_TRIGGER_GPDMA1_CH14_TCF    36U   /*!< GPDMA1 HW Trigger signal is GPDMA1_CH14_TCF */
+#define GPDMA1_TRIGGER_GPDMA1_CH15_TCF    37U   /*!< GPDMA1 HW Trigger signal is GPDMA1_CH15_TCF */
+#define GPDMA1_TRIGGER_LPDMA1_CH0_TCF     38U   /*!< GPDMA1 HW Trigger signal is LPDMA1_CH0_TCF  */
+#define GPDMA1_TRIGGER_LPDMA1_CH1_TCF     39U   /*!< GPDMA1 HW Trigger signal is LPDMA1_CH1_TCF  */
+#define GPDMA1_TRIGGER_LPDMA1_CH2_TCF     40U   /*!< GPDMA1 HW Trigger signal is LPDMA1_CH2_TCF  */
+#define GPDMA1_TRIGGER_LPDMA1_CH3_TCF     41U   /*!< GPDMA1 HW Trigger signal is LPDMA1_CH3_TCF  */
+#define GPDMA1_TRIGGER_TIM2_TRGO          42U   /*!< GPDMA1 HW Trigger signal is TIM2_TRGO       */
+#define GPDMA1_TRIGGER_TIM15_TRGO         43U   /*!< GPDMA1 HW Trigger signal is TIM15_TRGO      */
 #if defined (TIM3_TRGO_TRIGGER_SUPPORT)
-#define GPDMA1_TRIGGER_TIM3_TRGO       (44U) /*!< GPDMA1 HW Trigger signal is TIM3_TRGO       */
-#endif /* defined (TRIGGER_TIM3_TRGO_SUPPORT) */
+#define GPDMA1_TRIGGER_TIM3_TRGO          44U   /*!< GPDMA1 HW Trigger signal is TIM3_TRGO       */
+#endif /* TIM3_TRGO_TRIGGER_SUPPORT */
 #if defined (TIM4_TRGO_TRIGGER_SUPPORT)
-#define GPDMA1_TRIGGER_TIM4_TRGO       (45U) /*!< GPDMA1 HW Trigger signal is TIM4_TRGO       */
-#endif /* defined (TRIGGER_TIM4_TRGO_SUPPORT) */
+#define GPDMA1_TRIGGER_TIM4_TRGO          45U   /*!< GPDMA1 HW Trigger signal is TIM4_TRGO       */
+#endif /* TIM4_TRGO_TRIGGER_SUPPORT */
 #if defined (TIM5_TRGO_TRIGGER_SUPPORT)
-#define GPDMA1_TRIGGER_TIM5_TRGO       (46U) /*!< GPDMA1 HW Trigger signal is TIM5_TRGO       */
-#endif /* defined (TRIGGER_TIM5_TRGO_SUPPORT) */
+#define GPDMA1_TRIGGER_TIM5_TRGO          46U   /*!< GPDMA1 HW Trigger signal is TIM5_TRGO       */
+#endif /* TIM5_TRGO_TRIGGER_SUPPORT */
 #if defined (LTDC)
-#define GPDMA1_TRIGGER_LTDC_LI         (47U) /*!< GPDMA1 HW Trigger signal is LTDC_LI         */
-#endif /* defined (LTDC) */
+#define GPDMA1_TRIGGER_LTDC_LI            47U   /*!< GPDMA1 HW Trigger signal is LTDC_LI         */
+#endif /* LTDC */
 #if defined (DSI)
-#define GPDMA1_TRIGGER_DSI_TE          (48U) /*!< GPDMA1 HW Trigger signal is DSI_TE          */
-#define GPDMA1_TRIGGER_DSI_ER          (49U) /*!< GPDMA1 HW Trigger signal is DSI_ER          */
-#endif /* defined (DSI) */
+#define GPDMA1_TRIGGER_DSI_TE             48U   /*!< GPDMA1 HW Trigger signal is DSI_TE          */
+#define GPDMA1_TRIGGER_DSI_ER             49U   /*!< GPDMA1 HW Trigger signal is DSI_ER          */
+#endif /* DSI */
 #if defined (DMA2D_TRIGGER_SUPPORT)
-#define GPDMA1_TRIGGER_DMA2D_TC        (50U) /*!< GPDMA1 HW Trigger signal is DMA2D_TC        */
-#define GPDMA1_TRIGGER_DMA2D_CTC       (51U) /*!< GPDMA1 HW Trigger signal is DMA2D_CTC       */
-#define GPDMA1_TRIGGER_DMA2D_TW        (52U) /*!< GPDMA1 HW Trigger signal is DMA2D_TW        */
-#endif /* defined (DMA2D_TRIGGER_SUPPORT) */
+#define GPDMA1_TRIGGER_DMA2D_TC           50U   /*!< GPDMA1 HW Trigger signal is DMA2D_TC        */
+#define GPDMA1_TRIGGER_DMA2D_CTC          51U   /*!< GPDMA1 HW Trigger signal is DMA2D_CTC       */
+#define GPDMA1_TRIGGER_DMA2D_TW           52U   /*!< GPDMA1 HW Trigger signal is DMA2D_TW        */
+#endif /* DMA2D_TRIGGER_SUPPORT */
 #if defined (GPU2D)
-#define GPDMA1_TRIGGER_GPU2D_FLAG0     (53U) /*!< GPDMA1 HW Trigger signal is GPU2D_FLAG0     */
-#define GPDMA1_TRIGGER_GPU2D_FLAG1     (54U) /*!< GPDMA1 HW Trigger signal is GPU2D_FLAG1     */
-#define GPDMA1_TRIGGER_GPU2D_FLAG2     (55U) /*!< GPDMA1 HW Trigger signal is GPU2D_FLAG2     */
-#define GPDMA1_TRIGGER_GPU2D_FLAG3     (56U) /*!< GPDMA1 HW Trigger signal is GPU2D_FLAG3     */
-#endif /* defined (GPU2D) */
-#define GPDMA1_TRIGGER_ADC4_AWD1       (57U) /*!< GPDMA1 HW Trigger signal is ADC4_AWD1       */
-#define GPDMA1_TRIGGER_ADC1_AWD1       (58U) /*!< GPDMA1 HW Trigger signal is ADC1_AWD1       */
+#define GPDMA1_TRIGGER_GPU2D_FLAG0        53U   /*!< GPDMA1 HW Trigger signal is GPU2D_FLAG0     */
+#define GPDMA1_TRIGGER_GPU2D_FLAG1        54U   /*!< GPDMA1 HW Trigger signal is GPU2D_FLAG1     */
+#define GPDMA1_TRIGGER_GPU2D_FLAG2        55U   /*!< GPDMA1 HW Trigger signal is GPU2D_FLAG2     */
+#define GPDMA1_TRIGGER_GPU2D_FLAG3        56U   /*!< GPDMA1 HW Trigger signal is GPU2D_FLAG3     */
+#endif /* GPU2D */
+#define GPDMA1_TRIGGER_ADC4_AWD1          57U   /*!< GPDMA1 HW Trigger signal is ADC4_AWD1       */
+#define GPDMA1_TRIGGER_ADC1_AWD1          58U   /*!< GPDMA1 HW Trigger signal is ADC1_AWD1       */
 #if defined (GFXTIM)
-#define GPDMA1_TRIGGER_GFXTIM_EVT3     (59U) /*!< GPDMA1 HW Trigger signal is GFXTIM_EVT3     */
-#define GPDMA1_TRIGGER_GFXTIM_EVT2     (60U) /*!< GPDMA1 HW Trigger signal is GFXTIM_EVT2     */
-#define GPDMA1_TRIGGER_GFXTIM_EVT1     (61U) /*!< GPDMA1 HW Trigger signal is GFXTIM_EVT1     */
-#define GPDMA1_TRIGGER_GFXTIM_EVT0     (62U) /*!< GPDMA1 HW Trigger signal is GFXTIM_EVT0     */
-#endif /* defined (GFXTIM) */
+#define GPDMA1_TRIGGER_GFXTIM_EVT3        59U   /*!< GPDMA1 HW Trigger signal is GFXTIM_EVT3     */
+#define GPDMA1_TRIGGER_GFXTIM_EVT2        60U   /*!< GPDMA1 HW Trigger signal is GFXTIM_EVT2     */
+#define GPDMA1_TRIGGER_GFXTIM_EVT1        61U   /*!< GPDMA1 HW Trigger signal is GFXTIM_EVT1     */
+#define GPDMA1_TRIGGER_GFXTIM_EVT0        62U   /*!< GPDMA1 HW Trigger signal is GFXTIM_EVT0     */
+#endif /* GFXTIM */
 #if defined (JPEG)
-#define GPDMA1_TRIGGER_JPEG_EOC        (63U) /*!< GPDMA1 HW Trigger signal is JPEG_EOC        */
-#define GPDMA1_TRIGGER_JPEG_IFNF       (64U) /*!< GPDMA1 HW Trigger signal is JPEG_IFNF       */
-#define GPDMA1_TRIGGER_JPEG_IFT        (65U) /*!< GPDMA1 HW Trigger signal is JPEG_IFT        */
-#define GPDMA1_TRIGGER_JPEG_OFNE       (66U) /*!< GPDMA1 HW Trigger signal is JPEG_OFNE       */
-#define GPDMA1_TRIGGER_JPEG_OFT        (67U) /*!< GPDMA1 HW Trigger signal is JPEG_OFT        */
-#endif /* defined (JPEG) */
+#define GPDMA1_TRIGGER_JPEG_EOC           63U   /*!< GPDMA1 HW Trigger signal is JPEG_EOC        */
+#define GPDMA1_TRIGGER_JPEG_IFNF          64U   /*!< GPDMA1 HW Trigger signal is JPEG_IFNF       */
+#define GPDMA1_TRIGGER_JPEG_IFT           65U   /*!< GPDMA1 HW Trigger signal is JPEG_IFT        */
+#define GPDMA1_TRIGGER_JPEG_OFNE          66U   /*!< GPDMA1 HW Trigger signal is JPEG_OFNE       */
+#define GPDMA1_TRIGGER_JPEG_OFT           67U   /*!< GPDMA1 HW Trigger signal is JPEG_OFT        */
+#endif /* JPEG */
 
 /* LPDMA1 triggers */
-#define LPDMA1_TRIGGER_EXTI_LINE0      (0U)  /*!< LPDMA1 HW Trigger signal is EXTI_LINE0      */
-#define LPDMA1_TRIGGER_EXTI_LINE1      (1U)  /*!< LPDMA1 HW Trigger signal is EXTI_LINE1      */
-#define LPDMA1_TRIGGER_EXTI_LINE2      (2U)  /*!< LPDMA1 HW Trigger signal is EXTI_LINE2      */
-#define LPDMA1_TRIGGER_EXTI_LINE3      (3U)  /*!< LPDMA1 HW Trigger signal is EXTI_LINE3      */
-#define LPDMA1_TRIGGER_EXTI_LINE4      (4U)  /*!< LPDMA1 HW Trigger signal is EXTI_LINE4      */
-#define LPDMA1_TRIGGER_TAMP_TRG1       (5U)  /*!< LPDMA1 HW Trigger signal is TAMP_TRG1       */
-#define LPDMA1_TRIGGER_TAMP_TRG2       (6U)  /*!< LPDMA1 HW Trigger signal is TAMP_TRG2       */
-#define LPDMA1_TRIGGER_TAMP_TRG3       (7U)  /*!< LPDMA1 HW Trigger signal is TAMP_TRG3       */
-#define LPDMA1_TRIGGER_LPTIM1_CH1      (8U)  /*!< LPDMA1 HW Trigger signal is LPTIM1_CH1      */
-#define LPDMA1_TRIGGER_LPTIM1_CH2      (9U)  /*!< LPDMA1 HW Trigger signal is LPTIM1_CH2      */
-#define LPDMA1_TRIGGER_LPTIM3_CH1      (10U) /*!< LPDMA1 HW Trigger signal is LPTIM3_CH1      */
-#define LPDMA1_TRIGGER_LPTIM4_OUT      (11U) /*!< LPDMA1 HW Trigger signal is LPTIM4_OUT      */
-#define LPDMA1_TRIGGER_COMP1_OUT       (12U) /*!< LPDMA1 HW Trigger signal is COMP1_OUT       */
+#define LPDMA1_TRIGGER_EXTI_LINE0         0U    /*!< LPDMA1 HW Trigger signal is EXTI_LINE0      */
+#define LPDMA1_TRIGGER_EXTI_LINE1         1U    /*!< LPDMA1 HW Trigger signal is EXTI_LINE1      */
+#define LPDMA1_TRIGGER_EXTI_LINE2         2U    /*!< LPDMA1 HW Trigger signal is EXTI_LINE2      */
+#define LPDMA1_TRIGGER_EXTI_LINE3         3U    /*!< LPDMA1 HW Trigger signal is EXTI_LINE3      */
+#define LPDMA1_TRIGGER_EXTI_LINE4         4U    /*!< LPDMA1 HW Trigger signal is EXTI_LINE4      */
+#define LPDMA1_TRIGGER_TAMP_TRG1          5U    /*!< LPDMA1 HW Trigger signal is TAMP_TRG1       */
+#define LPDMA1_TRIGGER_TAMP_TRG2          6U    /*!< LPDMA1 HW Trigger signal is TAMP_TRG2       */
+#define LPDMA1_TRIGGER_TAMP_TRG3          7U    /*!< LPDMA1 HW Trigger signal is TAMP_TRG3       */
+#define LPDMA1_TRIGGER_LPTIM1_CH1         8U    /*!< LPDMA1 HW Trigger signal is LPTIM1_CH1      */
+#define LPDMA1_TRIGGER_LPTIM1_CH2         9U    /*!< LPDMA1 HW Trigger signal is LPTIM1_CH2      */
+#define LPDMA1_TRIGGER_LPTIM3_CH1         10U   /*!< LPDMA1 HW Trigger signal is LPTIM3_CH1      */
+#define LPDMA1_TRIGGER_LPTIM4_OUT         11U   /*!< LPDMA1 HW Trigger signal is LPTIM4_OUT      */
+#define LPDMA1_TRIGGER_COMP1_OUT          12U   /*!< LPDMA1 HW Trigger signal is COMP1_OUT       */
 #if defined(COMP2)
-#define LPDMA1_TRIGGER_COMP2_OUT       (13U) /*!< LPDMA1 HW Trigger signal is COMP2_OUT       */
+#define LPDMA1_TRIGGER_COMP2_OUT          13U   /*!< LPDMA1 HW Trigger signal is COMP2_OUT       */
 #endif /* COMP2 */
-#define LPDMA1_TRIGGER_RTC_ALRA_TRG    (14U) /*!< LPDMA1 HW Trigger signal is RTC_ALRA_TRG    */
-#define LPDMA1_TRIGGER_RTC_ALRB_TRG    (15U) /*!< LPDMA1 HW Trigger signal is RTC_ALRB_TRG    */
-#define LPDMA1_TRIGGER_RTC_WUT_TRG     (16U) /*!< LPDMA1 HW Trigger signal is RTC_WUT_TRG     */
-#define LPDMA1_TRIGGER_ADC4_AWD1       (17U) /*!< LPDMA1 HW Trigger signal is ADC4_AWD1       */
-#define LPDMA1_TRIGGER_LPDMA1_CH0_TCF  (18U) /*!< LPDMA1 HW Trigger signal is LPDMA1_CH0_TCF  */
-#define LPDMA1_TRIGGER_LPDMA1_CH1_TCF  (19U) /*!< LPDMA1 HW Trigger signal is LPDMA1_CH1_TCF  */
-#define LPDMA1_TRIGGER_LPDMA1_CH2_TCF  (20U) /*!< LPDMA1 HW Trigger signal is LPDMA1_CH2_TCF  */
-#define LPDMA1_TRIGGER_LPDMA1_CH3_TCF  (21U) /*!< LPDMA1 HW Trigger signal is LPDMA1_CH3_TCF  */
-#define LPDMA1_TRIGGER_GPDMA1_CH0_TCF  (22U) /*!< LPDMA1 HW Trigger signal is GPDMA1_CH0_TCF  */
-#define LPDMA1_TRIGGER_GPDMA1_CH1_TCF  (23U) /*!< LPDMA1 HW Trigger signal is GPDMA1_CH1_TCF  */
-#define LPDMA1_TRIGGER_GPDMA1_CH4_TCF  (24U) /*!< LPDMA1 HW Trigger signal is GPDMA1_CH4_TCF  */
-#define LPDMA1_TRIGGER_GPDMA1_CH5_TCF  (25U) /*!< LPDMA1 HW Trigger signal is GPDMA1_CH5_TCF  */
-#define LPDMA1_TRIGGER_GPDMA1_CH6_TCF  (26U) /*!< LPDMA1 HW Trigger signal is GPDMA1_CH6_TCF  */
-#define LPDMA1_TRIGGER_GPDMA1_CH7_TCF  (27U) /*!< LPDMA1 HW Trigger signal is GPDMA1_CH7_TCF  */
-#define LPDMA1_TRIGGER_GPDMA1_CH12_TCF (28U) /*!< LPDMA1 HW Trigger signal is GPDMA1_CH12_TCF */
-#define LPDMA1_TRIGGER_GPDMA1_CH13_TCF (29U) /*!< LPDMA1 HW Trigger signal is GPDMA1_CH13_TCF */
-#define LPDMA1_TRIGGER_TIM2_TRGO       (30U) /*!< LPDMA1 HW Trigger signal is TIM2_TRGO       */
-#define LPDMA1_TRIGGER_TIM15_TRGO      (31U) /*!< LPDMA1 HW Trigger signal is TIM15_TRGO      */
+#define LPDMA1_TRIGGER_RTC_ALRA_TRG       14U   /*!< LPDMA1 HW Trigger signal is RTC_ALRA_TRG    */
+#define LPDMA1_TRIGGER_RTC_ALRB_TRG       15U   /*!< LPDMA1 HW Trigger signal is RTC_ALRB_TRG    */
+#define LPDMA1_TRIGGER_RTC_WUT_TRG        16U   /*!< LPDMA1 HW Trigger signal is RTC_WUT_TRG     */
+#define LPDMA1_TRIGGER_ADC4_AWD1          17U   /*!< LPDMA1 HW Trigger signal is ADC4_AWD1       */
+#define LPDMA1_TRIGGER_LPDMA1_CH0_TCF     18U   /*!< LPDMA1 HW Trigger signal is LPDMA1_CH0_TCF  */
+#define LPDMA1_TRIGGER_LPDMA1_CH1_TCF     19U   /*!< LPDMA1 HW Trigger signal is LPDMA1_CH1_TCF  */
+#define LPDMA1_TRIGGER_LPDMA1_CH2_TCF     20U   /*!< LPDMA1 HW Trigger signal is LPDMA1_CH2_TCF  */
+#define LPDMA1_TRIGGER_LPDMA1_CH3_TCF     21U   /*!< LPDMA1 HW Trigger signal is LPDMA1_CH3_TCF  */
+#define LPDMA1_TRIGGER_GPDMA1_CH0_TCF     22U   /*!< LPDMA1 HW Trigger signal is GPDMA1_CH0_TCF  */
+#define LPDMA1_TRIGGER_GPDMA1_CH1_TCF     23U   /*!< LPDMA1 HW Trigger signal is GPDMA1_CH1_TCF  */
+#define LPDMA1_TRIGGER_GPDMA1_CH4_TCF     24U   /*!< LPDMA1 HW Trigger signal is GPDMA1_CH4_TCF  */
+#define LPDMA1_TRIGGER_GPDMA1_CH5_TCF     25U   /*!< LPDMA1 HW Trigger signal is GPDMA1_CH5_TCF  */
+#define LPDMA1_TRIGGER_GPDMA1_CH6_TCF     26U   /*!< LPDMA1 HW Trigger signal is GPDMA1_CH6_TCF  */
+#define LPDMA1_TRIGGER_GPDMA1_CH7_TCF     27U   /*!< LPDMA1 HW Trigger signal is GPDMA1_CH7_TCF  */
+#define LPDMA1_TRIGGER_GPDMA1_CH12_TCF    28U   /*!< LPDMA1 HW Trigger signal is GPDMA1_CH12_TCF */
+#define LPDMA1_TRIGGER_GPDMA1_CH13_TCF    29U   /*!< LPDMA1 HW Trigger signal is GPDMA1_CH13_TCF */
+#define LPDMA1_TRIGGER_TIM2_TRGO          30U   /*!< LPDMA1 HW Trigger signal is TIM2_TRGO       */
+#define LPDMA1_TRIGGER_TIM15_TRGO         31U   /*!< LPDMA1 HW Trigger signal is TIM15_TRGO      */
 /**
   * @}
   */

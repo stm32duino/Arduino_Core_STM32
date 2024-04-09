@@ -82,26 +82,26 @@ SECTIONS
     *(.rodata*)        /* .rodata* sections (constants, strings, etc.) */
   } >FLASH
 
-  .ARM.extab :
+  .ARM.extab (READONLY) : /* The READONLY keyword is only supported in GCC11 and later, remove it if using GCC10 or earlier. */
   {
     *(.ARM.extab* .gnu.linkonce.armextab.*)
   } >FLASH
 
-  .ARM :
+  .ARM (READONLY) : /* The READONLY keyword is only supported in GCC11 and later, remove it if using GCC10 or earlier. */
   {
     __exidx_start = .;
     *(.ARM.exidx*)
     __exidx_end = .;
   } >FLASH
 
-  .preinit_array :
+  .preinit_array (READONLY) : /* The READONLY keyword is only supported in GCC11 and later, remove it if using GCC10 or earlier. */
   {
     PROVIDE_HIDDEN (__preinit_array_start = .);
     KEEP (*(.preinit_array*))
     PROVIDE_HIDDEN (__preinit_array_end = .);
   } >FLASH
 
-  .init_array :
+  .init_array (READONLY) : /* The READONLY keyword is only supported in GCC11 and later, remove it if using GCC10 or earlier. */
   {
     PROVIDE_HIDDEN (__init_array_start = .);
     KEEP (*(SORT(.init_array.*)))
@@ -109,7 +109,7 @@ SECTIONS
     PROVIDE_HIDDEN (__init_array_end = .);
   } >FLASH
 
-  .fini_array :
+  .fini_array (READONLY) : /* The READONLY keyword is only supported in GCC11 and later, remove it if using GCC10 or earlier. */
   {
     PROVIDE_HIDDEN (__fini_array_start = .);
     KEEP (*(SORT(.fini_array.*)))

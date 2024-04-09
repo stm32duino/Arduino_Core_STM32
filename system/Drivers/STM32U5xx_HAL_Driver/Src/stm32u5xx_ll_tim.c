@@ -77,8 +77,8 @@
                                      || ((__VALUE__) == LL_TIM_OCMODE_RETRIG_OPM2) \
                                      || ((__VALUE__) == LL_TIM_OCMODE_COMBINED_PWM1) \
                                      || ((__VALUE__) == LL_TIM_OCMODE_COMBINED_PWM2) \
-                                     || ((__VALUE__) == LL_TIM_OCMODE_ASSYMETRIC_PWM1) \
-                                     || ((__VALUE__) == LL_TIM_OCMODE_ASSYMETRIC_PWM2) \
+                                     || ((__VALUE__) == LL_TIM_OCMODE_ASYMMETRIC_PWM1) \
+                                     || ((__VALUE__) == LL_TIM_OCMODE_ASYMMETRIC_PWM2) \
                                      || ((__VALUE__) == LL_TIM_OCMODE_PULSE_ON_COMPARE) \
                                      || ((__VALUE__) == LL_TIM_OCMODE_DIRECTION_OUTPUT))
 

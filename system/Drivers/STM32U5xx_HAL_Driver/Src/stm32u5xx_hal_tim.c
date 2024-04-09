@@ -5583,7 +5583,9 @@ HAL_StatusTypeDef HAL_TIM_ConfigOCrefClear(TIM_HandleTypeDef *htim,
     }
 
     case TIM_CLEARINPUTSOURCE_COMP1:
+#if defined(COMP2)
     case TIM_CLEARINPUTSOURCE_COMP2:
+#endif /* COMP2 */
     {
       /* Clear the OCREF clear selection bit */
       CLEAR_BIT(htim->Instance->SMCR, TIM_SMCR_OCCS);
@@ -7295,6 +7297,13 @@ void TIM_Base_SetConfig(TIM_TypeDef *TIMx, const TIM_Base_InitTypeDef *Structure
   /* Generate an update event to reload the Prescaler
      and the repetition counter (only for advanced timer) value immediately */
   TIMx->EGR = TIM_EGR_UG;
+
+  /* Check if the update flag is set after the Update Generation, if so clear the UIF flag */
+  if (HAL_IS_BIT_SET(TIMx->SR, TIM_FLAG_UPDATE))
+  {
+    /* Clear the update flag */
+    CLEAR_BIT(TIMx->SR, TIM_FLAG_UPDATE);
+  }
 }
 
 /**
