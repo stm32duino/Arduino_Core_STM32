@@ -1836,8 +1836,11 @@ static HAL_StatusTypeDef HASH_WriteData(HASH_HandleTypeDef *hhash, uint8_t *pInB
 {
   uint32_t buffercounter;
   __IO uint32_t inputaddr = (uint32_t) pInBuffer;
+  uint8_t tmp1;
+  uint8_t tmp2;
+  uint8_t tmp3;
 
-  for (buffercounter = 0U; buffercounter < Size; buffercounter += 4U)
+  for (buffercounter = 0U; buffercounter < (Size / 4U); buffercounter++)
   {
     /* Write input data 4 bytes at a time */
     HASH->DIN = *(uint32_t *)inputaddr;
@@ -1845,10 +1848,10 @@ static HAL_StatusTypeDef HASH_WriteData(HASH_HandleTypeDef *hhash, uint8_t *pInB
 
     /* If the suspension flag has been raised and if the processing is not about
     to end, suspend processing */
-    if ((hhash->SuspendRequest == HAL_HASH_SUSPEND) && ((buffercounter + 4U) < Size))
+    if ((hhash->SuspendRequest == HAL_HASH_SUSPEND) && (((buffercounter * 4U) + 4U) < Size))
     {
       /* wait for flag BUSY not set before  Wait for DINIS = 1*/
-      if (buffercounter >= 64U)
+      if ((buffercounter * 4U) >= 64U)
       {
         if (HASH_WaitOnFlagUntilTimeout(hhash, HASH_FLAG_BUSY, SET, HASH_TIMEOUTVALUE) != HAL_OK)
         {
@@ -1869,14 +1872,14 @@ static HAL_StatusTypeDef HASH_WriteData(HASH_HandleTypeDef *hhash, uint8_t *pInB
           /* Save current reading and writing locations of Input and Output buffers */
           hhash->pHashInBuffPtr = (uint8_t *)inputaddr;
           /* Save the number of bytes that remain to be processed at this point */
-          hhash->HashInCount    =  Size - (buffercounter + 4U);
+          hhash->HashInCount    =  Size - ((buffercounter * 4U) + 4U);
         }
         else if ((hhash->Phase == HAL_HASH_PHASE_HMAC_STEP_1) || (hhash->Phase == HAL_HASH_PHASE_HMAC_STEP_3))
         {
           /* Save current reading and writing locations of Input and Output buffers */
           hhash->pHashKeyBuffPtr  = (uint8_t *)inputaddr;
           /* Save the number of bytes that remain to be processed at this point */
-          hhash->HashKeyCount  =  Size - (buffercounter + 4U);
+          hhash->HashKeyCount  =  Size - ((buffercounter * 4U) + 4U);
         }
         else
         {
@@ -1895,6 +1898,50 @@ static HAL_StatusTypeDef HASH_WriteData(HASH_HandleTypeDef *hhash, uint8_t *pInB
   }   /* for(buffercounter = 0; buffercounter < Size; buffercounter+=4)                 */
 
   /* At this point, all the data have been entered to the Peripheral: exit */
+
+  if ((Size % 4U) != 0U)
+  {
+    if (hhash->Init.DataType == HASH_DATATYPE_16B)
+    {
+      /* Write remaining input data */
+
+      if ((Size % 4U) <= 2U)
+      {
+        HASH->DIN = (uint32_t) * (uint16_t *)inputaddr;
+      }
+      if ((Size % 4U) == 3U)
+      {
+        HASH->DIN = *(uint32_t *)inputaddr;
+      }
+
+    }
+    else if ((hhash->Init.DataType == HASH_DATATYPE_8B)
+             || (hhash->Init.DataType == HASH_DATATYPE_1B))  /* byte swap or bit swap or */
+    {
+      /* Write remaining input data */
+      if ((Size % 4U) == 1U)
+      {
+        HASH->DIN = (uint32_t) * (uint8_t *)inputaddr;
+      }
+      if ((Size % 4U) == 2U)
+      {
+        HASH->DIN = (uint32_t) * (uint16_t *)inputaddr;
+      }
+      if ((Size % 4U) == 3U)
+      {
+        tmp1 = *(uint8_t *)inputaddr;
+        tmp2 = *(((uint8_t *)inputaddr) + 1U);
+        tmp3 = *(((uint8_t *)inputaddr) + 2U);
+        HASH->DIN = ((uint32_t)tmp1) | ((uint32_t)tmp2 << 8U) | ((uint32_t)tmp3 << 16U);
+      }
+    }
+    else
+    {
+      HASH->DIN = *(uint32_t *)inputaddr;
+    }
+  }
+
+
   return  HAL_OK;
 }
 
@@ -2942,13 +2989,13 @@ HAL_StatusTypeDef HASH_Start_IT(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, u
       }
     } /*  if (polling_step == 1) */
     else
-	{
+    {
       /* otherwise, carry on in interrupt-mode */
       hhash->HashInCount = SizeVar;                   /* Counter used to keep track of number of data
                                                          to be fed to the Peripheral */
       hhash->pHashInBuffPtr = (uint8_t *)inputaddr;   /* Points at data which will be fed to the Peripheral at
                                                          the next interruption */
-	}
+    }
 
 
     /* Process Unlock */

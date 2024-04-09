@@ -153,8 +153,8 @@ typedef struct
   * @{
   */
 #define LL_OPAMP_POWERMODE_NORMALPOWER_NORMALSPEED        0x00000000U                        /*!< OPAMP power mode normal speed normal    */
-#define LL_OPAMP_POWERMODE_NORMALPOWER_HIGHSPEED          OPAMP_CSR_HSM                      /*!< OPAMP power mode normal speed high      */
 #define LL_OPAMP_POWERMODE_LOWPOWER_NORMALSPEED           OPAMP_CSR_OPALPM                   /*!< OPAMP power mode low-power speed normal */
+#define LL_OPAMP_POWERMODE_NORMALPOWER_HIGHSPEED          OPAMP_CSR_HSM                      /*!< OPAMP power mode normal speed high      */
 #define LL_OPAMP_POWERMODE_LOWPOWER_HIGHSPEED            (OPAMP_CSR_OPALPM | OPAMP_CSR_HSM)  /*!< OPAMP power mode low-power speed high   */
 /**
   * @}
@@ -363,12 +363,9 @@ typedef struct
   *         @arg @ref LL_OPAMP_POWERSUPPLY_RANGE_HIGH
   * @retval None
   */
-__STATIC_INLINE void LL_OPAMP_SetCommonPowerRange(const OPAMP_Common_TypeDef *OPAMPxy_COMMON, uint32_t PowerRange)
+__STATIC_INLINE void LL_OPAMP_SetCommonPowerRange(OPAMP_Common_TypeDef *OPAMPxy_COMMON, uint32_t PowerRange)
 {
-  /* Prevent unused parameter warning */
-  (void)(*OPAMPxy_COMMON);
-
-  MODIFY_REG(OPAMP1->CSR, OPAMP_CSR_OPARANGE, PowerRange);
+  MODIFY_REG(OPAMPxy_COMMON->CSR, OPAMP_CSR_OPARANGE, PowerRange);
 }
 
 /**
@@ -383,10 +380,7 @@ __STATIC_INLINE void LL_OPAMP_SetCommonPowerRange(const OPAMP_Common_TypeDef *OP
   */
 __STATIC_INLINE uint32_t LL_OPAMP_GetCommonPowerRange(const OPAMP_Common_TypeDef *OPAMPxy_COMMON)
 {
-  /* Prevent unused parameter warning */
-  (void)(*OPAMPxy_COMMON);
-
-  return (uint32_t)(READ_BIT(OPAMP1->CSR, OPAMP_CSR_OPARANGE));
+  return (uint32_t)(READ_BIT(OPAMPxy_COMMON->CSR, OPAMP_CSR_OPARANGE));
 }
 
 /**
@@ -404,8 +398,8 @@ __STATIC_INLINE uint32_t LL_OPAMP_GetCommonPowerRange(const OPAMP_Common_TypeDef
   * @param  OPAMPx OPAMP instance
   * @param  PowerMode This parameter can be one of the following values:
   *         @arg @ref LL_OPAMP_POWERMODE_NORMALPOWER_NORMALSPEED
-  *         @arg @ref LL_OPAMP_POWERMODE_NORMALPOWER_HIGHSPEED
   *         @arg @ref LL_OPAMP_POWERMODE_LOWPOWER_NORMALSPEED
+  *         @arg @ref LL_OPAMP_POWERMODE_NORMALPOWER_HIGHSPEED
   *         @arg @ref LL_OPAMP_POWERMODE_LOWPOWER_HIGHSPEED
   * @retval None
   */
@@ -416,12 +410,12 @@ __STATIC_INLINE void LL_OPAMP_SetPowerMode(OPAMP_TypeDef *OPAMPx, uint32_t Power
 
 /**
   * @brief  Get OPAMP power mode.
-  * @rmtoll CSR      OPALPM & HSM      LL_OPAMP_GetPowerMode
+  * @rmtoll CSR OPALPM & HSM      LL_OPAMP_GetPowerMode
   * @param  OPAMPx OPAMP instance
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_OPAMP_POWERMODE_NORMALPOWER_NORMALSPEED
-  *         @arg @ref LL_OPAMP_POWERMODE_NORMALPOWER_HIGHSPEED
   *         @arg @ref LL_OPAMP_POWERMODE_LOWPOWER_NORMALSPEED
+  *         @arg @ref LL_OPAMP_POWERMODE_NORMALPOWER_HIGHSPEED
   *         @arg @ref LL_OPAMP_POWERMODE_LOWPOWER_HIGHSPEED
   */
 __STATIC_INLINE uint32_t LL_OPAMP_GetPowerMode(const OPAMP_TypeDef *OPAMPx)
@@ -725,14 +719,14 @@ __STATIC_INLINE uint32_t LL_OPAMP_IsCalibrationOutputSet(const OPAMP_TypeDef *OP
   *         differential pair NMOS or PMOS, corresponding to the selected
   *         power mode.
   * @rmtoll OTR      TRIMOFFSETN    LL_OPAMP_SetTrimmingValue
-  *         OTR      TRIMOFFSETP    LL_OPAMP_SetTrimmingValue
-  *         LPOTR    TRIMLPOFFSETN  LL_OPAMP_SetTrimmingValue
-  *         LPOTR    TRIMLPOFFSETP  LL_OPAMP_SetTrimmingValue
+  * @rmtoll OTR      TRIMOFFSETP    LL_OPAMP_SetTrimmingValue
+  * @rmtoll LPOTR    TRIMLPOFFSETN  LL_OPAMP_SetTrimmingValue
+  * @rmtoll LPOTR    TRIMLPOFFSETP  LL_OPAMP_SetTrimmingValue
   * @param  OPAMPx OPAMP instance
   * @param  PowerMode This parameter can be one of the following values:
   *         @arg @ref LL_OPAMP_POWERMODE_NORMALPOWER_NORMALSPEED
-  *         @arg @ref LL_OPAMP_POWERMODE_NORMALPOWER_HIGHSPEED
   *         @arg @ref LL_OPAMP_POWERMODE_LOWPOWER_NORMALSPEED
+  *         @arg @ref LL_OPAMP_POWERMODE_NORMALPOWER_HIGHSPEED
   *         @arg @ref LL_OPAMP_POWERMODE_LOWPOWER_HIGHSPEED
   * @param  TransistorsDiffPair This parameter can be one of the following values:
   *         @arg @ref LL_OPAMP_TRIMMING_NMOS
@@ -761,14 +755,14 @@ __STATIC_INLINE void LL_OPAMP_SetTrimmingValue(OPAMP_TypeDef *OPAMPx, uint32_t P
   *         differential pair NMOS or PMOS, corresponding to the selected
   *         power mode.
   * @rmtoll OTR      TRIMOFFSETN    LL_OPAMP_GetTrimmingValue
-  *         OTR      TRIMOFFSETP    LL_OPAMP_GetTrimmingValue
-  *         LPOTR    TRIMLPOFFSETN  LL_OPAMP_GetTrimmingValue
-  *         LPOTR    TRIMLPOFFSETP  LL_OPAMP_GetTrimmingValue
+  * @rmtoll OTR      TRIMOFFSETP    LL_OPAMP_GetTrimmingValue
+  * @rmtoll LPOTR    TRIMLPOFFSETN  LL_OPAMP_GetTrimmingValue
+  * @rmtoll LPOTR    TRIMLPOFFSETP  LL_OPAMP_GetTrimmingValue
   * @param  OPAMPx OPAMP instance
   * @param  PowerMode This parameter can be one of the following values:
   *         @arg @ref LL_OPAMP_POWERMODE_NORMALPOWER_NORMALSPEED
-  *         @arg @ref LL_OPAMP_POWERMODE_NORMALPOWER_HIGHSPEED
   *         @arg @ref LL_OPAMP_POWERMODE_LOWPOWER_NORMALSPEED
+  *         @arg @ref LL_OPAMP_POWERMODE_NORMALPOWER_HIGHSPEED
   *         @arg @ref LL_OPAMP_POWERMODE_LOWPOWER_HIGHSPEED
   * @param  TransistorsDiffPair This parameter can be one of the following values:
   *         @arg @ref LL_OPAMP_TRIMMING_NMOS

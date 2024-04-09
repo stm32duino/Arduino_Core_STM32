@@ -625,7 +625,7 @@ HAL_StatusTypeDef HAL_GFXTIM_ClockGenerator_Config(GFXTIM_HandleTypeDef *hgfxtim
                  pClockGeneratorConfig->LineClockSrc | pClockGeneratorConfig->FCCHwReloadSrc |
                  pClockGeneratorConfig->FCCClockSrc | pClockGeneratorConfig->FrameClockSrc);
 
-      /* Set Tearing Effect (TE) , synchronization signals sources (HSYNC and VSYNC) and debug output config */
+      /* Set debug output config for Line and frame clocks */
       MODIFY_REG(hgfxtim->Instance->CR,
                  GFXTIM_CR_LCCOE | GFXTIM_CR_FCCOE,
                  pClockGeneratorConfig->LineClockCalib | pClockGeneratorConfig->FrameClockCalib);
@@ -892,7 +892,7 @@ HAL_StatusTypeDef HAL_GFXTIM_AbsoluteTimer_Reset(GFXTIM_HandleTypeDef *hgfxtim)
   * @param  pValue Absolute time value
   * @retval HAL status.
   */
-HAL_StatusTypeDef HAL_GFXTIM_AbsoluteTimer_GetCounter(GFXTIM_HandleTypeDef *hgfxtim, uint32_t AbsoluteTime,
+HAL_StatusTypeDef HAL_GFXTIM_AbsoluteTimer_GetCounter(const GFXTIM_HandleTypeDef *hgfxtim, uint32_t AbsoluteTime,
                                                       uint32_t *pValue)
 {
   HAL_StatusTypeDef status = HAL_OK;
@@ -911,16 +911,16 @@ HAL_StatusTypeDef HAL_GFXTIM_AbsoluteTimer_GetCounter(GFXTIM_HandleTypeDef *hgfx
     {
       switch (AbsoluteTime)
       {
-      case GFXTIM_ABSOLUTE_GLOBAL_TIME:
-        *pValue = READ_REG(hgfxtim->Instance->ATR);
-        break;
-      case GFXTIM_ABSOLUTE_FRAME_TIME:
-        *pValue = READ_REG(hgfxtim->Instance->AFCR);
-        break;
-      default:
-        /* GFXTIM_ABSOLUTE_LINE_TIME */
-        *pValue = READ_REG(hgfxtim->Instance->ALCR);
-        break;
+        case GFXTIM_ABSOLUTE_GLOBAL_TIME:
+          *pValue = READ_REG(hgfxtim->Instance->ATR);
+          break;
+        case GFXTIM_ABSOLUTE_FRAME_TIME:
+          *pValue = READ_REG(hgfxtim->Instance->AFCR);
+          break;
+        default:
+          /* GFXTIM_ABSOLUTE_LINE_TIME */
+          *pValue = READ_REG(hgfxtim->Instance->ALCR);
+          break;
       }
     }
     else
@@ -995,13 +995,13 @@ HAL_StatusTypeDef HAL_GFXTIM_AbsoluteTimer_SetLineCompare(GFXTIM_HandleTypeDef *
     {
       switch (AbsoluteLineComparator)
       {
-      case GFXTIM_ABSOLUTE_LINE_COMPARE1:
-        WRITE_REG(hgfxtim->Instance->ALCC1R, Value);
-        break;
+        case GFXTIM_ABSOLUTE_LINE_COMPARE1:
+          WRITE_REG(hgfxtim->Instance->ALCC1R, Value);
+          break;
         default:
-        /* GFXTIM_ABSOLUTE_LINE_COMPARE2 */
-        WRITE_REG(hgfxtim->Instance->ALCC2R, Value);
-        break;
+          /* GFXTIM_ABSOLUTE_LINE_COMPARE2 */
+          WRITE_REG(hgfxtim->Instance->ALCC2R, Value);
+          break;
       }
     }
     else
@@ -1354,7 +1354,7 @@ HAL_StatusTypeDef HAL_GFXTIM_RelativeTimer_SetReload(GFXTIM_HandleTypeDef *hgfxt
   * @param  pValue pointer to a relative frame counter value
   * @retval HAL status.
   */
-HAL_StatusTypeDef HAL_GFXTIM_RelativeTimer_GetCounter(GFXTIM_HandleTypeDef *hgfxtim, uint32_t RelativeTimer,
+HAL_StatusTypeDef HAL_GFXTIM_RelativeTimer_GetCounter(const GFXTIM_HandleTypeDef *hgfxtim, uint32_t RelativeTimer,
                                                       uint32_t *pValue)
 {
   HAL_StatusTypeDef status = HAL_OK;

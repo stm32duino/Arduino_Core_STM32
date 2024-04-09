@@ -53,12 +53,18 @@ extern "C" {
   */
 typedef struct
 {
-  uint32_t  DataWidth;          /* !< Configures the parallel bus width 8 lines or 16 lines */
-  uint32_t  BusWidth;           /* !< Configures the parallel bus width 8 lines or 16 lines */
-  uint32_t  ControlSignal;      /* !< Configures Data enable and Data ready */
-  uint32_t  ClockPolarity;      /* !< Configures the PSSI Input Clock polarity */
-  uint32_t  DataEnablePolarity; /* !< Configures the PSSI Data Enable polarity */
-  uint32_t  ReadyPolarity;      /* !< Configures the PSSI Ready polarity */
+  uint32_t  DataWidth;          /* !< Configures the data width.
+                                      This parameter can be a value of @ref PSSI_DATA_WIDTH. */
+  uint32_t  BusWidth;           /* !< Configures the parallel bus width.
+                                      This parameter can be a value of @ref PSSI_BUS_WIDTH. */
+  uint32_t  ControlSignal;      /* !< Configures Data enable and Data ready.
+                                      This parameter can be a value of @ref ControlSignal_Configuration. */
+  uint32_t  ClockPolarity;      /* !< Configures the PSSI Input Clock polarity.
+                                      This parameter can be a value of @ref Clock_Polarity. */
+  uint32_t  DataEnablePolarity; /* !< Configures the PSSI Data Enable polarity.
+                                      This parameter can be a value of @ref Data_Enable_Polarity. */
+  uint32_t  ReadyPolarity;      /* !< Configures the PSSI Ready polarity.
+                                      This parameter can be a value of @ref Ready_Polarity. */
 
 } PSSI_InitTypeDef;
 
@@ -216,7 +222,7 @@ typedef enum
 /**
   * @}
   */
-/** @defgroup Reday_Polarity Reday Polarity
+/** @defgroup Ready_Polarity Ready Polarity
   * @{
   */
 #define HAL_PSSI_RDYPOL_ACTIVE_LOW        0x0U            /*!< Active Low */
@@ -230,8 +236,6 @@ typedef enum
   */
 #define HAL_PSSI_FALLING_EDGE             0x0U            /*!< Fallling Edge */
 #define HAL_PSSI_RISING_EDGE              0x1U            /*!< Rising Edge */
-
-
 /**
   * @}
   */
@@ -432,6 +436,7 @@ typedef enum
 
 #define IS_PSSI_RDY_POLARITY(__RDYPOL__) (((__RDYPOL__) == HAL_PSSI_RDYPOL_ACTIVE_LOW   ) || \
                                           ((__RDYPOL__) == HAL_PSSI_RDYPOL_ACTIVE_HIGH   ))
+
 /**
   * @}
   */
@@ -486,7 +491,7 @@ HAL_StatusTypeDef HAL_PSSI_Abort_DMA(PSSI_HandleTypeDef *hpssi);
 
 /* Peripheral State functions ***************************************************/
 HAL_PSSI_StateTypeDef HAL_PSSI_GetState(const PSSI_HandleTypeDef *hpssi);
-uint32_t               HAL_PSSI_GetError(const PSSI_HandleTypeDef *hpssi);
+uint32_t              HAL_PSSI_GetError(const PSSI_HandleTypeDef *hpssi);
 
 /**
   * @}

@@ -531,6 +531,30 @@ uint32_t SDMMC_CmdBlockLength(SDMMC_TypeDef *SDMMCx, uint32_t BlockSize)
 }
 
 /**
+  * @brief  Send the Data Block number command and check the response
+  * @param  SDMMCx: Pointer to SDMMC register base
+  * @retval HAL status
+  */
+uint32_t SDMMC_CmdBlockCount(SDMMC_TypeDef *SDMMCx, uint32_t BlockCount)
+{
+  SDMMC_CmdInitTypeDef  sdmmc_cmdinit;
+  uint32_t errorstate;
+
+  /* Set Block Size for Card */
+  sdmmc_cmdinit.Argument         = (uint32_t)BlockCount;
+  sdmmc_cmdinit.CmdIndex         = SDMMC_CMD_SET_BLOCK_COUNT;
+  sdmmc_cmdinit.Response         = SDMMC_RESPONSE_SHORT;
+  sdmmc_cmdinit.WaitForInterrupt = SDMMC_WAIT_NO;
+  sdmmc_cmdinit.CPSM             = SDMMC_CPSM_ENABLE;
+  (void)SDMMC_SendCommand(SDMMCx, &sdmmc_cmdinit);
+
+  /* Check for error conditions */
+  errorstate = SDMMC_GetCmdResp1(SDMMCx, SDMMC_CMD_SET_BLOCK_COUNT, SDMMC_CMDTIMEOUT);
+
+  return errorstate;
+}
+
+/**
   * @brief  Send the Read Single Block command and check the response
   * @param  SDMMCx: Pointer to SDMMC register base
   * @retval HAL status

@@ -54,7 +54,6 @@
                                                    ((__POWER_MODE__) == LL_OPAMP_POWERMODE_LOWPOWER_HIGHSPEED))
 
 
-
 #define IS_LL_OPAMP_FUNCTIONAL_MODE(__FUNCTIONAL_MODE__)     (((__FUNCTIONAL_MODE__) == LL_OPAMP_MODE_STANDALONE) ||\
                                                               ((__FUNCTIONAL_MODE__) == LL_OPAMP_MODE_FOLLOWER)   ||\
                                                               ((__FUNCTIONAL_MODE__) == LL_OPAMP_MODE_PGA))

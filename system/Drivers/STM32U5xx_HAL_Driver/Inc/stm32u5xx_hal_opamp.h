@@ -213,8 +213,8 @@ typedef void (*pOPAMP_CallbackTypeDef)(OPAMP_HandleTypeDef *hopamp);
   * @{
   */
 #define OPAMP_POWERMODE_NORMALPOWER_NORMALSPEED        0x00000000U                         /*!< OPAMP power mode normal speed normal    */
-#define OPAMP_POWERMODE_NORMALPOWER_HIGHSPEED          OPAMP_CSR_HSM                       /*!< OPAMP power mode normal speed high      */
 #define OPAMP_POWERMODE_LOWPOWER_NORMALSPEED           OPAMP_CSR_OPALPM                    /*!< OPAMP power mode low-power speed normal */
+#define OPAMP_POWERMODE_NORMALPOWER_HIGHSPEED          OPAMP_CSR_HSM                       /*!< OPAMP power mode normal speed high      */
 #define OPAMP_POWERMODE_LOWPOWER_HIGHSPEED            (OPAMP_CSR_OPALPM | OPAMP_CSR_HSM)   /*!< OPAMP power mode low-power speed high   */
 
 /**
@@ -293,7 +293,6 @@ typedef void (*pOPAMP_CallbackTypeDef)(OPAMP_HandleTypeDef *hopamp);
 #else
 #define __HAL_OPAMP_RESET_HANDLE_STATE(__HANDLE__) ((__HANDLE__)->State = HAL_OPAMP_STATE_RESET)
 #endif /* USE_HAL_OPAMP_REGISTER_CALLBACKS */
-
 
 
 /**

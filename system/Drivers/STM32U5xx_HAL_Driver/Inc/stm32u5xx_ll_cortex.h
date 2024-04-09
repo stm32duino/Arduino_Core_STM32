@@ -21,8 +21,9 @@
     [..]
     The LL CORTEX driver contains a set of generic APIs that can be
     used by user:
-      (+) SYSTICK configuration used by @ref LL_mDelay and @ref LL_Init1msTick
-          functions
+      (+) SYSTICK configuration used by @ref LL_mDelay and @ref LL_Init1msTick with
+           HCLK source or @ref LL_Init1msTick_HCLK_Div8, @ref LL_Init1msTick_LSI or
+           @ref LL_Init1msTick_LSE with external source
       (+) Low power mode configuration (SCB register of Cortex-MCU)
       (+) API to access to MCU info (CPUID register)
       (+) API to enable fault handler (SHCSR accesses)
@@ -74,10 +75,15 @@ extern "C" {
 /** @defgroup CORTEX_LL_EC_CLKSOURCE_HCLK SYSTICK Clock Source
   * @{
   */
-#define LL_SYSTICK_CLKSOURCE_HCLK_DIV8     0x00000000U                 /*!< AHB clock divided by 8 selected as SysTick
+#define LL_SYSTICK_CLKSOURCE_EXTERNAL      0x00000000U                 /*!< External clock source selected as SysTick
                                                                             clock source */
 #define LL_SYSTICK_CLKSOURCE_HCLK          SysTick_CTRL_CLKSOURCE_Msk  /*!< AHB clock selected as SysTick
                                                                             clock source */
+/** Legacy definitions for backward compatibility purpose
+  */
+#define LL_SYSTICK_CLKSOURCE_HCLK_DIV8    LL_SYSTICK_CLKSOURCE_EXTERNAL
+/**
+  */
 /**
   * @}
   */
@@ -149,7 +155,7 @@ extern "C" {
   * @{
   */
 #define LL_MPU_ACCESS_NOT_SHAREABLE        (0U << MPU_RBAR_SH_Pos)
-#define LL_MPU_ACCESS_OUTER_SHAREABLE      (1U << MPU_RBAR_SH_Pos)
+#define LL_MPU_ACCESS_OUTER_SHAREABLE      (2U << MPU_RBAR_SH_Pos)
 #define LL_MPU_ACCESS_INNER_SHAREABLE      (3U << MPU_RBAR_SH_Pos)
 /**
   * @}
@@ -227,7 +233,7 @@ __STATIC_INLINE uint32_t LL_SYSTICK_IsActiveCounterFlag(void)
   * @brief  Configures the SysTick clock source
   * @rmtoll STK_CTRL     CLKSOURCE     LL_SYSTICK_SetClkSource
   * @param  Source This parameter can be one of the following values:
-  *         @arg @ref LL_SYSTICK_CLKSOURCE_HCLK_DIV8
+  *         @arg @ref LL_SYSTICK_CLKSOURCE_EXTERNAL
   *         @arg @ref LL_SYSTICK_CLKSOURCE_HCLK
   * @retval None
   */
@@ -247,7 +253,7 @@ __STATIC_INLINE void LL_SYSTICK_SetClkSource(uint32_t Source)
   * @brief  Get the SysTick clock source
   * @rmtoll STK_CTRL     CLKSOURCE     LL_SYSTICK_GetClkSource
   * @retval Returned value can be one of the following values:
-  *         @arg @ref LL_SYSTICK_CLKSOURCE_HCLK_DIV8
+  *         @arg @ref LL_SYSTICK_CLKSOURCE_EXTERNAL
   *         @arg @ref LL_SYSTICK_CLKSOURCE_HCLK
   */
 __STATIC_INLINE uint32_t LL_SYSTICK_GetClkSource(void)
@@ -782,9 +788,6 @@ __STATIC_INLINE void LL_MPU_ConfigRegion(uint32_t Region, uint32_t Attributes, u
 {
   /* Set region index */
   WRITE_REG(MPU->RNR, Region);
-
-  /* Set base address */
-  MPU->RBAR |=  Attributes;
 
   /* Set region base address and region access attributes */
   WRITE_REG(MPU->RBAR, ((BaseAddress & MPU_RBAR_BASE_Msk) | Attributes));

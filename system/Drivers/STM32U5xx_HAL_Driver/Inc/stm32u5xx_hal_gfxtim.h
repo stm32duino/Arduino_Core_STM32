@@ -27,6 +27,8 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "stm32u5xx_hal_def.h"
 
+#if defined (GFXTIM)
+
 /** @addtogroup STM32U5xx_HAL_Driver
   * @{
   */
@@ -827,7 +829,7 @@ HAL_StatusTypeDef HAL_GFXTIM_AbsoluteTimer_Config(GFXTIM_HandleTypeDef *hgfxtim,
 HAL_StatusTypeDef HAL_GFXTIM_AbsoluteTimer_Start(GFXTIM_HandleTypeDef *hgfxtim);
 HAL_StatusTypeDef HAL_GFXTIM_AbsoluteTimer_Stop(GFXTIM_HandleTypeDef *hgfxtim);
 HAL_StatusTypeDef HAL_GFXTIM_AbsoluteTimer_Reset(GFXTIM_HandleTypeDef *hgfxtim);
-HAL_StatusTypeDef HAL_GFXTIM_AbsoluteTimer_GetCounter(GFXTIM_HandleTypeDef *hgfxtim, uint32_t AbsoluteTime,
+HAL_StatusTypeDef HAL_GFXTIM_AbsoluteTimer_GetCounter(const GFXTIM_HandleTypeDef *hgfxtim, uint32_t AbsoluteTime,
                                                       uint32_t *pValue);
 HAL_StatusTypeDef HAL_GFXTIM_AbsoluteTimer_SetFrameCompare(GFXTIM_HandleTypeDef *hgfxtim, uint32_t Value);
 HAL_StatusTypeDef HAL_GFXTIM_AbsoluteTimer_SetLineCompare(GFXTIM_HandleTypeDef *hgfxtim,
@@ -854,7 +856,7 @@ HAL_StatusTypeDef HAL_GFXTIM_RelativeTimer_Stop(GFXTIM_HandleTypeDef *hgfxtim, u
 HAL_StatusTypeDef HAL_GFXTIM_RelativeTimer_ForceReload(GFXTIM_HandleTypeDef *hgfxtim, uint32_t RelativeTimer);
 HAL_StatusTypeDef HAL_GFXTIM_RelativeTimer_SetReload(GFXTIM_HandleTypeDef *hgfxtim, uint32_t RelativeTimer,
                                                      uint32_t Value);
-HAL_StatusTypeDef HAL_GFXTIM_RelativeTimer_GetCounter(GFXTIM_HandleTypeDef *hgfxtim, uint32_t RelativeTimer,
+HAL_StatusTypeDef HAL_GFXTIM_RelativeTimer_GetCounter(const GFXTIM_HandleTypeDef *hgfxtim, uint32_t RelativeTimer,
                                                       uint32_t *pValue);
 void HAL_GFXTIM_RelativeTimer_RFC1RCallback(GFXTIM_HandleTypeDef *hgfxtim);
 void HAL_GFXTIM_RelativeTimer_RFC2RCallback(GFXTIM_HandleTypeDef *hgfxtim);
@@ -917,6 +919,8 @@ HAL_GFXTIM_StateTypeDef HAL_GFXTIM_GetState(const GFXTIM_HandleTypeDef *hgfxtim)
 /**
   * @}
   */
+
+#endif /* GFXTIM */
 
 #ifdef __cplusplus
 }

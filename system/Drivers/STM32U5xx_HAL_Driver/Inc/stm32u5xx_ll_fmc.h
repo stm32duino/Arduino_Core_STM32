@@ -38,6 +38,7 @@ extern "C" {
 /** @addtogroup FMC_LL_Private_Macros
   * @{
   */
+#if defined(FMC_BANK1)
 
 #define IS_FMC_NORSRAM_BANK(__BANK__) (((__BANK__) == FMC_NORSRAM_BANK1) || \
                                        ((__BANK__) == FMC_NORSRAM_BANK2) || \
@@ -95,6 +96,8 @@ extern "C" {
 #define IS_FMC_NORSRAM_EXTENDED_DEVICE(__INSTANCE__) ((__INSTANCE__) == FMC_NORSRAM_EXTENDED_DEVICE)
 #define IS_FMC_MAX_CHIP_SELECT_PULSE_TIME(__TIME__) (((__TIME__) >= 1U) && ((__TIME__) <= 65535U))
 
+#endif /* FMC_BANK1 */
+#if  defined(FMC_BANK3)
 
 #define IS_FMC_NAND_BANK(__BANK__) ((__BANK__) == FMC_NAND_BANK3)
 #define IS_FMC_WAIT_FEATURE(__FEATURE__) (((__FEATURE__) == FMC_NAND_WAIT_FEATURE_DISABLE) || \
@@ -118,6 +121,7 @@ extern "C" {
 #define IS_FMC_HIZ_TIME(__TIME__) ((__TIME__) <= 254U)
 #define IS_FMC_NAND_DEVICE(__INSTANCE__) ((__INSTANCE__) == FMC_NAND_DEVICE)
 
+#endif /* FMC_BANK3 */
 
 /**
   * @}
@@ -129,14 +133,23 @@ extern "C" {
   * @{
   */
 
+#if defined(FMC_BANK1)
 #define FMC_NORSRAM_TypeDef            FMC_Bank1_TypeDef
 #define FMC_NORSRAM_EXTENDED_TypeDef   FMC_Bank1E_TypeDef
+#endif /* FMC_BANK1 */
+#if defined(FMC_BANK3)
 #define FMC_NAND_TypeDef               FMC_Bank3_TypeDef
+#endif /* FMC_BANK3 */
 
+#if defined(FMC_BANK1)
 #define FMC_NORSRAM_DEVICE             FMC_Bank1_R
 #define FMC_NORSRAM_EXTENDED_DEVICE    FMC_Bank1E_R
+#endif /* FMC_BANK1 */
+#if defined(FMC_BANK3)
 #define FMC_NAND_DEVICE                FMC_Bank3_R
+#endif /* FMC_BANK3 */
 
+#if defined(FMC_BANK1)
 /**
   * @brief  FMC NORSRAM Configuration Structure definition
   */
@@ -261,7 +274,9 @@ typedef struct
   uint32_t AccessMode;                   /*!< Specifies the asynchronous access mode.
                                               This parameter can be a value of @ref FMC_Access_Mode                   */
 } FMC_NORSRAM_TimingTypeDef;
+#endif /* FMC_BANK1 */
 
+#if defined(FMC_BANK3)
 /**
   * @brief  FMC NAND Configuration Structure definition
   */
@@ -290,7 +305,9 @@ typedef struct
                                         delay between ALE low and RE low.
                                         This parameter can be a number between Min_Data = 0 and Max_Data = 255 */
 } FMC_NAND_InitTypeDef;
+#endif /* FMC_BANK3 */
 
+#if defined(FMC_BANK3)
 /**
   * @brief  FMC NAND Timing parameters structure definition
   */
@@ -321,6 +338,7 @@ typedef struct
                                       on the memory space timing to be configured).
                                       This parameter can be a number between Min_Data = 0 and Max_Data = 254   */
 } FMC_NAND_PCC_TimingTypeDef;
+#endif /* FMC_BANK3 */
 
 
 /**
@@ -331,6 +349,7 @@ typedef struct
 /** @addtogroup FMC_LL_Exported_Constants FMC Low Layer Exported Constants
   * @{
   */
+#if defined(FMC_BANK1)
 
 /** @defgroup FMC_LL_NOR_SRAM_Controller FMC NOR/SRAM Controller
   * @{
@@ -515,7 +534,9 @@ typedef struct
 /**
   * @}
   */
+#endif /* FMC_BANK1 */
 
+#if defined(FMC_BANK3)
 
 /** @defgroup FMC_LL_NAND_Controller FMC NAND Controller
   * @{
@@ -579,14 +600,17 @@ typedef struct
 /**
   * @}
   */
+#endif /* FMC_BANK3 */
 
 
 /** @defgroup FMC_LL_Interrupt_definition FMC Low Layer Interrupt definition
   * @{
   */
+#if defined(FMC_BANK3)
 #define FMC_IT_RISING_EDGE                      (0x00000008U)
 #define FMC_IT_LEVEL                            (0x00000010U)
 #define FMC_IT_FALLING_EDGE                     (0x00000020U)
+#endif /* FMC_BANK3 */
 /**
   * @}
   */
@@ -594,10 +618,12 @@ typedef struct
 /** @defgroup FMC_LL_Flag_definition FMC Low Layer Flag definition
   * @{
   */
+#if defined(FMC_BANK3)
 #define FMC_FLAG_RISING_EDGE                    (0x00000001U)
 #define FMC_FLAG_LEVEL                          (0x00000002U)
 #define FMC_FLAG_FALLING_EDGE                   (0x00000004U)
 #define FMC_FLAG_FEMPT                          (0x00000040U)
+#endif /* FMC_BANK3 */
 /**
   * @}
   */
@@ -625,6 +651,7 @@ typedef struct
   * @retval None
   */
 #define __FMC_DISABLE()  (FMC_Bank1_R->BTCR[0] &= ~FMC_BCR1_FMCEN)
+#if defined(FMC_BANK1)
 /** @defgroup FMC_LL_NOR_Macros FMC NOR/SRAM Macros
   * @brief macros to handle NOR device enable/disable and read/write operations
   * @{
@@ -651,7 +678,9 @@ typedef struct
 /**
   * @}
   */
+#endif /* FMC_BANK1 */
 
+#if defined(FMC_BANK3)
 /** @defgroup FMC_LL_NAND_Macros FMC NAND Macros
   *  @brief macros to handle NAND device enable/disable
   *  @{
@@ -675,7 +704,9 @@ typedef struct
 /**
   * @}
   */
+#endif /* FMC_BANK3 */
 
+#if defined(FMC_BANK3)
 /** @defgroup FMC_LL_NAND_Interrupt FMC NAND Interrupt
   * @brief macros to handle NAND interrupts
   * @{
@@ -735,6 +766,7 @@ typedef struct
 /**
   * @}
   */
+#endif /* FMC_BANK3 */
 
 
 /**
@@ -750,6 +782,7 @@ typedef struct
   *  @{
   */
 
+#if defined(FMC_BANK1)
 /** @defgroup FMC_LL_NORSRAM  NOR SRAM
   *  @{
   */
@@ -780,7 +813,9 @@ HAL_StatusTypeDef  FMC_NORSRAM_WriteOperation_Disable(FMC_NORSRAM_TypeDef *Devic
 /**
   * @}
   */
+#endif /* FMC_BANK1 */
 
+#if defined(FMC_BANK3)
 /** @defgroup FMC_LL_NAND NAND
   *  @{
   */
@@ -810,6 +845,7 @@ HAL_StatusTypeDef  FMC_NAND_GetECC(FMC_NAND_TypeDef *Device, uint32_t *ECCval, u
 /**
   * @}
   */
+#endif /* FMC_BANK3 */
 
 
 

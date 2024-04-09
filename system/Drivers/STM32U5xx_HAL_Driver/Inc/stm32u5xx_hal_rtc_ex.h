@@ -997,7 +997,7 @@ typedef struct
   *            @arg @ref RTC_FLAG_WUTF
   * @retval None
   */
-#define __HAL_RTC_WAKEUPTIMER_CLEAR_FLAG(__HANDLE__, __FLAG__)  (SET_BIT(RTC->SCR, RTC_SCR_CWUTF))
+#define __HAL_RTC_WAKEUPTIMER_CLEAR_FLAG(__HANDLE__, __FLAG__)  (WRITE_REG(RTC->SCR, RTC_SCR_CWUTF))
 
 /**
   * @}
@@ -1086,8 +1086,8 @@ typedef struct
   * @retval None
   */
 #define __HAL_RTC_TIMESTAMP_CLEAR_FLAG(__HANDLE__, __FLAG__)( \
-                                ((__FLAG__) == RTC_FLAG_TSF)   ? (SET_BIT(RTC->SCR, RTC_SCR_CTSF)):\
-                                ((__FLAG__) == RTC_FLAG_TSOVF) ? (SET_BIT(RTC->SCR, RTC_SCR_CTSOVF)):\
+                                ((__FLAG__) == RTC_FLAG_TSF)   ? (WRITE_REG(RTC->SCR, RTC_SCR_CTSF)):\
+                                ((__FLAG__) == RTC_FLAG_TSOVF) ? (WRITE_REG(RTC->SCR, RTC_SCR_CTSOVF)):\
                                 (0U)) /* Dummy action because is an invalid parameter value */
 
 /**
@@ -1445,9 +1445,9 @@ typedef struct
   */
 #define __HAL_RTC_SSRU_GET_IT(__HANDLE__, __INTERRUPT__)       ((((RTC->MISR) & (RTC_MISR_SSRUMF)) != 0U) ? 1U : 0U)
 /**
-  * @brief  Check whether the specified RTC Wake Up timer interrupt has been enabled or not.
+  * @brief  Check whether the specified RTC SSRU interrupt has been enabled or not.
   * @param  __HANDLE__ specifies the RTC handle.
-  * @param  __INTERRUPT__ specifies the RTC Wake Up timer interrupt sources to check.
+  * @param  __INTERRUPT__ specifies the RTC SSRU interrupt sources to check.
   *         This parameter can be:
   *            @arg @ref RTC_IT_SSRU  SSRU interrupt
   * @retval The state of __INTERRUPT__ (TRUE or FALSE)
@@ -1465,14 +1465,14 @@ typedef struct
 #define __HAL_RTC_SSRU_GET_FLAG(__HANDLE__, __FLAG__)       ((READ_BIT(RTC->SR, RTC_SR_SSRUF) == RTC_SR_SSRUF))
 
 /**
-  * @brief  Clear the RTC Wake Up timer's pending flags.
+  * @brief  Clear the RTC SSRU's pending flags.
   * @param  __HANDLE__ specifies the RTC handle.
   * @param  __FLAG__ specifies the RTC SSRU Flag to clear.
   *         This parameter can be:
   *            @arg @ref RTC_FLAG_SSRUF
   * @retval None
   */
-#define __HAL_RTC_SSRU_CLEAR_FLAG(__HANDLE__, __FLAG__)     (SET_BIT(RTC->SCR, RTC_SCR_CSSRUF))
+#define __HAL_RTC_SSRU_CLEAR_FLAG(__HANDLE__, __FLAG__)     (WRITE_REG(RTC->SCR, RTC_SCR_CSSRUF))
 /**
   * @}
   */
@@ -1656,7 +1656,6 @@ HAL_StatusTypeDef HAL_RTCEx_PrivilegeModeGet(RTC_HandleTypeDef *hrtc, RTC_Privil
 
 
 #define IS_RTC_TIMESTAMP_PIN(PIN)  (((PIN) == RTC_TIMESTAMPPIN_DEFAULT))
-
 
 
 #define IS_RTC_TIMESTAMPONTAMPER_DETECTION(DETECTION) (((DETECTION) == RTC_TIMESTAMPONTAMPERDETECTION_ENABLE) || \

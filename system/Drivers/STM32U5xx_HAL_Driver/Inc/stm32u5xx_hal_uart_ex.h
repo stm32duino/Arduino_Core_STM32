@@ -66,7 +66,7 @@ typedef struct
 
   uint32_t TriggerSelection;     /*!< Specifies which trigger will activate the Transmission automatically.
                                       This parameter can be a value of @ref UARTEx_Autonomous_Trigger_selection
-                                      or @ref LPUARTEx_Autonomous_Trigger_selection.*/
+                                      or @ref UARTEx_Low_Power_Autonomous_Trigger_selection.*/
 
   uint32_t TriggerPolarity;      /*!< Specifies the autonomous mode trigger signal polarity.
                                       This parameter can be a value of @ref UARTEx_Autonomous_Trigger_Polarity */
@@ -193,7 +193,7 @@ typedef struct
   * @}
   */
 
-/** @defgroup LPUARTEx_Autonomous_Trigger_selection LPUARTEx Autonomous trigger selection
+/** @defgroup UARTEx_Low_Power_Autonomous_Trigger_selection UARTEx Low Power Autonomous trigger selection
   * @brief    LPUART Autonomous Trigger selection
   * @{
   */

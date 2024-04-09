@@ -153,7 +153,7 @@ typedef struct
   * @{
   */
 #define  MPU_ACCESS_NOT_SHAREABLE        0U
-#define  MPU_ACCESS_OUTER_SHAREABLE      1U
+#define  MPU_ACCESS_OUTER_SHAREABLE      2U
 #define  MPU_ACCESS_INNER_SHAREABLE      3U
 /**
   * @}
@@ -272,17 +272,22 @@ void HAL_NVIC_SetPendingIRQ(IRQn_Type IRQn);
 void HAL_NVIC_ClearPendingIRQ(IRQn_Type IRQn);
 uint32_t HAL_NVIC_GetActive(IRQn_Type IRQn);
 void HAL_SYSTICK_CLKSourceConfig(uint32_t CLKSource);
+uint32_t HAL_SYSTICK_GetCLKSourceConfig(void);
 void HAL_SYSTICK_IRQHandler(void);
 void HAL_SYSTICK_Callback(void);
 
 void HAL_MPU_Enable(uint32_t MPU_Control);
 void HAL_MPU_Disable(void);
+void HAL_MPU_EnableRegion(uint32_t RegionNumber);
+void HAL_MPU_DisableRegion(uint32_t RegionNumber);
 void HAL_MPU_ConfigRegion(const MPU_Region_InitTypeDef *const pMPU_RegionInit);
 void HAL_MPU_ConfigMemoryAttributes(const MPU_Attributes_InitTypeDef *const pMPU_AttributesInit);
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 /* MPU_NS Control functions ***********************************************/
 void HAL_MPU_Enable_NS(uint32_t MPU_Control);
 void HAL_MPU_Disable_NS(void);
+void HAL_MPU_EnableRegion_NS(uint32_t RegionNumber);
+void HAL_MPU_DisableRegion_NS(uint32_t RegionNumber);
 void HAL_MPU_ConfigRegion_NS(const MPU_Region_InitTypeDef *const pMPU_RegionInit);
 void HAL_MPU_ConfigMemoryAttributes_NS(const MPU_Attributes_InitTypeDef *const pMPU_AttributesInit);
 #endif /* __ARM_FEATURE_CMSE */

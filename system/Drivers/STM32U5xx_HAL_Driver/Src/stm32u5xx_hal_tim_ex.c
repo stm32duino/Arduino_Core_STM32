@@ -2308,6 +2308,7 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakInput(TIM_HandleTypeDef *htim,
       bkin_polarity_bitpos = TIM1_AF1_BKCMP1P_Pos;
       break;
     }
+#if defined(COMP2)
     case TIM_BREAKINPUTSOURCE_COMP2:
     {
       bkin_enable_mask = TIM1_AF1_BKCMP2E;
@@ -2316,6 +2317,7 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakInput(TIM_HandleTypeDef *htim,
       bkin_polarity_bitpos = TIM1_AF1_BKCMP2P_Pos;
       break;
     }
+#endif /* COMP2 */
     case TIM_BREAKINPUTSOURCE_MDF1:
     {
       bkin_enable_mask = TIM1_AF1_BKDF1BK0E;
@@ -2387,25 +2389,25 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakInput(TIM_HandleTypeDef *htim,
   * @param  htim TIM handle.
   * @param  Remap specifies the TIM remapping source.
   *         For TIM1, the parameter can take one of the following values:
-  *            @arg TIM_TIM1_ETR_GPIO           TIM1 ETR is connected to GPIO
-  *            @arg TIM_TIM1_ETR_COMP1          TIM1 ETR is connected to COMP1 output
-  *            @arg TIM_TIM1_ETR_COMP2          TIM1 ETR is connected to COMP2 output
-  *            @arg TIM_TIM1_ETR_HSI            TIM1 ETR is connected to HSI
-  *            @arg TIM_TIM1_ETR_MSIS           TIM1_ETR is connected to MSIS
-  *            @arg TIM_TIM1_ETR_ADC2_AWD2      TIM1_ETR is connected to ADC2 AWD2      (*)
-  *            @arg TIM_TIM1_ETR_ADC2_AWD3      TIM1_ETR is connected to ADC2 AWD3      (*)
-  *            @arg TIM_TIM1_ETR_ADC1_AWD1      TIM1 ETR is connected to ADC1 AWD1
-  *            @arg TIM_TIM1_ETR_ADC1_AWD2      TIM1 ETR is connected to ADC1 AWD2
-  *            @arg TIM_TIM1_ETR_ADC1_AWD3      TIM1 ETR is connected to ADC1 AWD3
-  *            @arg TIM_TIM1_ETR_ADC4_AWD1      TIM1 ETR is connected to ADC4 AWD1
-  *            @arg TIM_TIM1_ETR_ADC4_AWD2      TIM1 ETR is connected to ADC4 AWD2
-  *            @arg TIM_TIM1_ETR_ADC4_AWD3      TIM1 ETR is connected to ADC4 AWD3
-  *            @arg TIM_TIM1_ETR_ADC2_AWD1      TIM1_ETR is connected to ADC2 AWD1      (*)
+  *            @arg TIM_TIM1_ETR_GPIO            TIM1 ETR is connected to GPIO
+  *            @arg TIM_TIM1_ETR_COMP1           TIM1 ETR is connected to COMP1 output
+  *            @arg TIM_TIM1_ETR_COMP2           TIM1 ETR is connected to COMP2 output  (*)
+  *            @arg TIM_TIM1_ETR_HSI             TIM1 ETR is connected to HSI
+  *            @arg TIM_TIM1_ETR_MSIS            TIM1_ETR is connected to MSIS
+  *            @arg TIM_TIM1_ETR_ADC2_AWD2       TIM1_ETR is connected to ADC2 AWD2     (*)
+  *            @arg TIM_TIM1_ETR_ADC2_AWD3       TIM1_ETR is connected to ADC2 AWD3     (*)
+  *            @arg TIM_TIM1_ETR_ADC1_AWD1       TIM1 ETR is connected to ADC1 AWD1
+  *            @arg TIM_TIM1_ETR_ADC1_AWD2       TIM1 ETR is connected to ADC1 AWD2
+  *            @arg TIM_TIM1_ETR_ADC1_AWD3       TIM1 ETR is connected to ADC1 AWD3
+  *            @arg TIM_TIM1_ETR_ADC4_AWD1       TIM1 ETR is connected to ADC4 AWD1
+  *            @arg TIM_TIM1_ETR_ADC4_AWD2       TIM1 ETR is connected to ADC4 AWD2
+  *            @arg TIM_TIM1_ETR_ADC4_AWD3       TIM1 ETR is connected to ADC4 AWD3
+  *            @arg TIM_TIM1_ETR_ADC2_AWD1       TIM1_ETR is connected to ADC2 AWD1     (*)
   *
   *         For TIM2, the parameter can take one of the following values:
   *            @arg TIM_TIM2_ETR_GPIO            TIM2 ETR is connected to GPIO
   *            @arg TIM_TIM2_ETR_COMP1           TIM2 ETR is connected to COMP1 output
-  *            @arg TIM_TIM2_ETR_COMP2           TIM2 ETR is connected to COMP2 output
+  *            @arg TIM_TIM2_ETR_COMP2           TIM2 ETR is connected to COMP2 output  (*)
   *            @arg TIM_TIM2_ETR_MSIK            TIM2 ETR is connected to MSIK
   *            @arg TIM_TIM2_ETR_HSI             TIM2 ETR is connected to HSI
   *            @arg TIM_TIM2_ETR_MSIS            TIM2_ETR is connected to MSIS
@@ -2422,7 +2424,7 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakInput(TIM_HandleTypeDef *htim,
   *         For TIM3, the parameter can take one of the following values:
   *            @arg TIM_TIM3_ETR_GPIO            TIM3 ETR is connected to GPIO
   *            @arg TIM_TIM3_ETR_COMP1           TIM3 ETR is connected to COMP1 output
-  *            @arg TIM_TIM3_ETR_COMP2           TIM3 ETR is connected to COMP2 output
+  *            @arg TIM_TIM3_ETR_COMP2           TIM3 ETR is connected to COMP2 output  (*)
   *            @arg TIM_TIM3_ETR_MSIK            TIM3 ETR is connected to MSIK
   *            @arg TIM_TIM3_ETR_HSI             TIM3 ETR is connected to HSI
   *            @arg TIM_TIM3_ETR_MSIS            TIM3_ETR is connected to MSIS
@@ -2438,42 +2440,42 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakInput(TIM_HandleTypeDef *htim,
   *            @arg TIM_TIM3_ETR_LTDC_HSYNC      TIM3_ETR is connected to LTDC HSYNC    (*)
   *
   *         For TIM4, the parameter can take one of the following values:
-  *            @arg TIM_TIM4_ETR_GPIO              TIM4 ETR is connected to GPIO
-  *            @arg TIM_TIM4_ETR_COMP1             TIM4 ETR is connected to COMP1 output
-  *            @arg TIM_TIM4_ETR_COMP2             TIM4 ETR is connected to COMP2 output
-  *            @arg TIM_TIM4_ETR_MSIK              TIM4 ETR is connected to MSIK
-  *            @arg TIM_TIM4_ETR_HSI               TIM4 ETR is connected to HSI
-  *            @arg TIM_TIM4_ETR_MSIS              TIM4_ETR is connected to MSIS
-  *            @arg TIM_TIM4_ETR_DCMI_VSYNC        TIM4_ETR is connected to DCMI VSYNC  (*)
-  *            @arg TIM_TIM4_ETR_LTDC_VSYNC        TIM4_ETR is connected to LTDC_VSYNC  (*)
-  *            @arg TIM_TIM4_ETR_TIM3_ETR          TIM4 ETR is connected to TIM3 ETR pin
-  *            @arg TIM_TIM4_ETR_TIM5_ETR          TIM4 ETR is connected to TIM5 ETR pin
-  *            @arg TIM_TIM4_ETR_DSI_TE            TIM2_ETR is connected to DSI_TE      (*)
-  *            @arg TIM_TIM4_ETR_ADC2_AWD1         TIM4_ETR is connected to ADC2 AWD1   (*)
-  *            @arg TIM_TIM4_ETR_ADC2_AWD2         TIM4_ETR is connected to ADC2 AWD2   (*)
-  *            @arg TIM_TIM4_ETR_ADC2_AWD3         TIM4_ETR is connected to ADC2 AWD3   (*)
-  *            @arg TIM_TIM4_ETR_DCMI_HSYNC        TIM4_ETR is connected to DCMI HSYNC  (*)
-  *            @arg TIM_TIM4_ETR_LTDC_HSYNC        TIM4_ETR is connected to LTDC HSYNC  (*)
+  *            @arg TIM_TIM4_ETR_GPIO            TIM4 ETR is connected to GPIO
+  *            @arg TIM_TIM4_ETR_COMP1           TIM4 ETR is connected to COMP1 output
+  *            @arg TIM_TIM4_ETR_COMP2           TIM4 ETR is connected to COMP2 output  (*)
+  *            @arg TIM_TIM4_ETR_MSIK            TIM4 ETR is connected to MSIK
+  *            @arg TIM_TIM4_ETR_HSI             TIM4 ETR is connected to HSI
+  *            @arg TIM_TIM4_ETR_MSIS            TIM4_ETR is connected to MSIS
+  *            @arg TIM_TIM4_ETR_DCMI_VSYNC      TIM4_ETR is connected to DCMI VSYNC    (*)
+  *            @arg TIM_TIM4_ETR_LTDC_VSYNC      TIM4_ETR is connected to LTDC_VSYNC    (*)
+  *            @arg TIM_TIM4_ETR_TIM3_ETR        TIM4 ETR is connected to TIM3 ETR pin
+  *            @arg TIM_TIM4_ETR_TIM5_ETR        TIM4 ETR is connected to TIM5 ETR pin
+  *            @arg TIM_TIM4_ETR_DSI_TE          TIM2_ETR is connected to DSI_TE        (*)
+  *            @arg TIM_TIM4_ETR_ADC2_AWD1       TIM4_ETR is connected to ADC2 AWD1     (*)
+  *            @arg TIM_TIM4_ETR_ADC2_AWD2       TIM4_ETR is connected to ADC2 AWD2     (*)
+  *            @arg TIM_TIM4_ETR_ADC2_AWD3       TIM4_ETR is connected to ADC2 AWD3     (*)
+  *            @arg TIM_TIM4_ETR_DCMI_HSYNC      TIM4_ETR is connected to DCMI HSYNC    (*)
+  *            @arg TIM_TIM4_ETR_LTDC_HSYNC      TIM4_ETR is connected to LTDC HSYNC    (*)
   *
   *         For TIM5, the parameter can take one of the following values:
-  *            @arg TIM_TIM5_ETR_GPIO              TIM5 ETR is connected to GPIO
-  *            @arg TIM_TIM5_ETR_COMP1             TIM5 ETR is connected to COMP1 output
-  *            @arg TIM_TIM5_ETR_COMP2             TIM5 ETR is connected to COMP2 output
-  *            @arg TIM_TIM5_ETR_MSIK              TIM5 ETR is connected to MSIK
-  *            @arg TIM_TIM5_ETR_HSI               TIM5 ETR is connected to HSI
-  *            @arg TIM_TIM5_ETR_MSIS              TIM5_ETR is connected to MSIS
-  *            @arg TIM_TIM5_ETR_DCMI_VSYNC        TIM5_ETR is connected to DCMI VSYNC  (*)
-  *            @arg TIM_TIM5_ETR_LTDC_VSYNC        TIM5_ETR is connected to LTDC_VSYNC  (*)
-  *            @arg TIM_TIM5_ETR_TIM2_ETR          TIM5 ETR is connected to TIM2 ETR pin
-  *            @arg TIM_TIM5_ETR_TIM3_ETR          TIM5 ETR is connected to TIM3 ETR pin
-  *            @arg TIM_TIM5_ETR_DSI_TE            TIM5_ETR is connected to DSI_TE      (*)
-  *            @arg TIM_TIM5_ETR_DCMI_HSYNC        TIM5_ETR is connected to DCMI HSYNC  (*)
-  *            @arg TIM_TIM5_ETR_LTDC_HSYNC        TIM5_ETR is connected to LTDC HSYNC  (*)
+  *            @arg TIM_TIM5_ETR_GPIO            TIM5 ETR is connected to GPIO
+  *            @arg TIM_TIM5_ETR_COMP1           TIM5 ETR is connected to COMP1 output
+  *            @arg TIM_TIM5_ETR_COMP2           TIM5 ETR is connected to COMP2 output  (*)
+  *            @arg TIM_TIM5_ETR_MSIK            TIM5 ETR is connected to MSIK
+  *            @arg TIM_TIM5_ETR_HSI             TIM5 ETR is connected to HSI
+  *            @arg TIM_TIM5_ETR_MSIS            TIM5_ETR is connected to MSIS
+  *            @arg TIM_TIM5_ETR_DCMI_VSYNC      TIM5_ETR is connected to DCMI VSYNC    (*)
+  *            @arg TIM_TIM5_ETR_LTDC_VSYNC      TIM5_ETR is connected to LTDC_VSYNC    (*)
+  *            @arg TIM_TIM5_ETR_TIM2_ETR        TIM5 ETR is connected to TIM2 ETR pin
+  *            @arg TIM_TIM5_ETR_TIM3_ETR        TIM5 ETR is connected to TIM3 ETR pin
+  *            @arg TIM_TIM5_ETR_DSI_TE          TIM5_ETR is connected to DSI_TE        (*)
+  *            @arg TIM_TIM5_ETR_DCMI_HSYNC      TIM5_ETR is connected to DCMI HSYNC    (*)
+  *            @arg TIM_TIM5_ETR_LTDC_HSYNC      TIM5_ETR is connected to LTDC HSYNC    (*)
   *
   *         For TIM8, the parameter can take one of the following values:
   *            @arg TIM_TIM8_ETR_GPIO            TIM8 ETR is connected to GPIO
   *            @arg TIM_TIM8_ETR_COMP1           TIM8 ETR is connected to COMP1 output
-  *            @arg TIM_TIM8_ETR_COMP2           TIM8 ETR is connected to COMP2 output
+  *            @arg TIM_TIM8_ETR_COMP2           TIM8 ETR is connected to COMP2 output  (*)
   *            @arg TIM_TIM8_ETR_MSIK            TIM8 ETR is connected to MSIK
   *            @arg TIM_TIM8_ETR_HSI             TIM8 ETR is connected to HSI
   *            @arg TIM_TIM8_ETR_MSIS            TIM8_ETR is connected to MSIS
@@ -2516,62 +2518,62 @@ HAL_StatusTypeDef HAL_TIMEx_RemapConfig(TIM_HandleTypeDef *htim, uint32_t Remap)
   *            @arg TIM_CHANNEL_4: TIM Channel 4
   * @param  TISelection parameter of the TIM_TISelectionStruct structure is detailed as follows:
   *         For TIM1, the parameter is one of the following values:
-  *            @arg TIM_TIM1_TI1_GPIO:                TIM1 TI1 is connected to GPIO
-  *            @arg TIM_TIM1_TI1_COMP1:               TIM1 TI1 is connected to COMP1 output
-  *            @arg TIM_TIM1_TI1_COMP2:               TIM1 TI1 is connected to COMP2 output
+  *            @arg TIM_TIM1_TI1_GPIO:               TIM1 TI1 is connected to GPIO
+  *            @arg TIM_TIM1_TI1_COMP1:              TIM1 TI1 is connected to COMP1 output
+  *            @arg TIM_TIM1_TI1_COMP2:              TIM1 TI1 is connected to COMP2 output (*)
   *
   *         For TIM2, the parameter is one of the following values:
-  *            @arg TIM_TIM2_TI1_GPIO:                TIM2 TI1 is connected to GPIO
-  *            @arg TIM_TIM2_TI1_COMP1:               TIM2 TI1 is connected to COMP1 output
-  *            @arg TIM_TIM2_TI1_COMP2:               TIM2 TI1 is connected to COMP1 output
-  *            @arg TIM_TIM2_TI2_GPIO:                TIM2 TI2 is connected to GPIO
-  *            @arg TIM_TIM2_TI2_COMP1:               TIM2 TI2 is connected to COMP1 output
-  *            @arg TIM_TIM2_TI2_COMP2:               TIM2 TI2 is connected to COMP1 output
-  *            @arg TIM_TIM2_TI4_GPIO:                TIM2 TI4 is connected to GPIO
-  *            @arg TIM_TIM2_TI4_COMP1:               TIM2 TI4 is connected to COMP1 output
-  *            @arg TIM_TIM2_TI4_COMP2:               TIM2 TI4 is connected to COMP2 output
+  *            @arg TIM_TIM2_TI1_GPIO:               TIM2 TI1 is connected to GPIO
+  *            @arg TIM_TIM2_TI1_COMP1:              TIM2 TI1 is connected to COMP1 output
+  *            @arg TIM_TIM2_TI1_COMP2:              TIM2 TI1 is connected to COMP2 output (*)
+  *            @arg TIM_TIM2_TI2_GPIO:               TIM2 TI2 is connected to GPIO
+  *            @arg TIM_TIM2_TI2_COMP1:              TIM2 TI2 is connected to COMP1 output
+  *            @arg TIM_TIM2_TI2_COMP2:              TIM2 TI2 is connected to COMP2 output (*)
+  *            @arg TIM_TIM2_TI4_GPIO:               TIM2 TI4 is connected to GPIO
+  *            @arg TIM_TIM2_TI4_COMP1:              TIM2 TI4 is connected to COMP1 output
+  *            @arg TIM_TIM2_TI4_COMP2:              TIM2 TI4 is connected to COMP2 output (*)
   *
   *         For TIM3, the parameter is one of the following values:
-  *            @arg TIM_TIM3_TI1_GPIO:                TIM3 TI1 is connected to GPIO
-  *            @arg TIM_TIM3_TI1_COMP1:               TIM3 TI1 is connected to COMP1 output
-  *            @arg TIM_TIM3_TI1_COMP2:               TIM3 TI1 is connected to COMP2 output
-  *            @arg TIM_TIM3_TI2_GPIO:                TIM3 TI2 is connected to GPIO
-  *            @arg TIM_TIM3_TI2_COMP1:               TIM3 TI2 is connected to COMP1 output
-  *            @arg TIM_TIM3_TI2_COMP2:               TIM3 TI2 is connected to COMP1 output
+  *            @arg TIM_TIM3_TI1_GPIO:               TIM3 TI1 is connected to GPIO
+  *            @arg TIM_TIM3_TI1_COMP1:              TIM3 TI1 is connected to COMP1 output
+  *            @arg TIM_TIM3_TI1_COMP2:              TIM3 TI1 is connected to COMP2 output (*)
+  *            @arg TIM_TIM3_TI2_GPIO:               TIM3 TI2 is connected to GPIO
+  *            @arg TIM_TIM3_TI2_COMP1:              TIM3 TI2 is connected to COMP1 output
+  *            @arg TIM_TIM3_TI2_COMP2:              TIM3 TI2 is connected to COMP2 output (*)
   *
   *         For TIM4, the parameter is one of the following values:
-  *            @arg TIM_TIM4_TI1_GPIO:                TIM4 TI1 is connected to GPIO
-  *            @arg TIM_TIM4_TI1_COMP1:               TIM4 TI1 is connected to COMP1 output
-  *            @arg TIM_TIM4_TI1_COMP2:               TIM4 TI1 is connected to COMP2 output
-  *            @arg TIM_TIM4_TI2_GPIO:                TIM4 TI2 is connected to GPIO
-  *            @arg TIM_TIM4_TI2_COMP1:               TIM4 TI2 is connected to COMP1 output
-  *            @arg TIM_TIM4_TI2_COMP2:               TIM4 TI2 is connected to COMP2 output
+  *            @arg TIM_TIM4_TI1_GPIO:               TIM4 TI1 is connected to GPIO
+  *            @arg TIM_TIM4_TI1_COMP1:              TIM4 TI1 is connected to COMP1 output
+  *            @arg TIM_TIM4_TI1_COMP2:              TIM4 TI1 is connected to COMP2 output (*)
+  *            @arg TIM_TIM4_TI2_GPIO:               TIM4 TI2 is connected to GPIO
+  *            @arg TIM_TIM4_TI2_COMP1:              TIM4 TI2 is connected to COMP1 output
+  *            @arg TIM_TIM4_TI2_COMP2:              TIM4 TI2 is connected to COMP2 output (*)
   *
   *         For TIM5, the parameter is one of the following values:
-  *            @arg TIM_TIM5_TI1_GPIO:                TIM5 TI1 is connected to GPIO
-  *            @arg TIM_TIM5_TI1_LSI:                 TIM5 TI1 is connected to LSI
-  *            @arg TIM_TIM5_TI1_LSE:                 TIM5 TI1 is connected to LSE
-  *            @arg TIM_TIM5_TI1_RTC_WKUP:            TIM5 TI1 is connected to RTC wakeup interrupt
-  *            @arg TIM_TIM5_TI1_COMP1:               TIM5 TI1 is connected to COMP1 output
-  *            @arg TIM_TIM5_TI1_COMP2:               TIM5 TI1 is connected to COMP2 output
-  *            @arg TIM_TIM5_TI2_GPIO:                TIM5 TI2 is connected to GPIO
-  *            @arg TIM_TIM5_TI2_COMP1:               TIM5 TI2 is connected to COMP1 output
-  *            @arg TIM_TIM5_TI2_COMP2:               TIM5 TI2 is connected to COMP2 output
+  *            @arg TIM_TIM5_TI1_GPIO:               TIM5 TI1 is connected to GPIO
+  *            @arg TIM_TIM5_TI1_LSI:                TIM5 TI1 is connected to LSI
+  *            @arg TIM_TIM5_TI1_LSE:                TIM5 TI1 is connected to LSE
+  *            @arg TIM_TIM5_TI1_RTC_WKUP:           TIM5 TI1 is connected to RTC wakeup interrupt
+  *            @arg TIM_TIM5_TI1_COMP1:              TIM5 TI1 is connected to COMP1 output
+  *            @arg TIM_TIM5_TI1_COMP2:              TIM5 TI1 is connected to COMP2 output (*)
+  *            @arg TIM_TIM5_TI2_GPIO:               TIM5 TI2 is connected to GPIO
+  *            @arg TIM_TIM5_TI2_COMP1:              TIM5 TI2 is connected to COMP1 output
+  *            @arg TIM_TIM5_TI2_COMP2:              TIM5 TI2 is connected to COMP2 output (*)
   *
   *         For TIM8, the parameter is one of the following values:
-  *            @arg TIM_TIM8_TI1_GPIO:                TIM8 TI1 is connected to GPIO
-  *            @arg TIM_TIM8_TI1_COMP1:               TIM8 TI1 is connected to COMP1 output
-  *            @arg TIM_TIM8_TI1_COMP2:               TIM8 TI1 is connected to COMP2 output
+  *            @arg TIM_TIM8_TI1_GPIO:               TIM8 TI1 is connected to GPIO
+  *            @arg TIM_TIM8_TI1_COMP1:              TIM8 TI1 is connected to COMP1 output
+  *            @arg TIM_TIM8_TI1_COMP2:              TIM8 TI1 is connected to COMP2 output (*)
   *
   *         For TIM15, the parameter is one of the following values:
   *            @arg TIM_TIM15_TI1_GPIO:              TIM15 TI1 is connected to GPIO
   *            @arg TIM_TIM15_TI1_LSE:               TIM15 TI1 is connected to LSE
-  *            @arg TIM_TIM15_TI1_COMP1:             TIM8 TI1 is connected to COMP1 output
-  *            @arg TIM_TIM15_TI1_COMP2:             TIM8 TI1 is connected to COMP2 output
+  *            @arg TIM_TIM15_TI1_COMP1:             TIM15 TI1 is connected to COMP1 output
+  *            @arg TIM_TIM15_TI1_COMP2:             TIM15 TI1 is connected to COMP2 output (*)
   *            @arg TIM_TIM15_TI2_GPIO:              TIM15 TI2 is connected to GPIO
   *            @arg TIM_TIM15_TI2_TIM2:              TIM15 TI2 is connected to TIM2 CH2
   *            @arg TIM_TIM15_TI2_TIM3:              TIM15 TI2 is connected to TIM3 CH2
-  *            @arg TIM_TIM15_TI2_COMP2:             TIM8 TI1 is connected to COMP2 output
+  *            @arg TIM_TIM15_TI2_COMP2:             TIM15 TI2 is connected to COMP2 output (*)
   *
   *         For TIM16, the parameter can have the following values:
   *            @arg TIM_TIM16_TI1_GPIO:              TIM16 TI1 is connected to GPIO

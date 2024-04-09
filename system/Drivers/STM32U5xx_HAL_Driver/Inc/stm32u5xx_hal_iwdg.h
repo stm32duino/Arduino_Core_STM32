@@ -154,7 +154,7 @@ typedef void (*pIWDG_CallbackTypeDef)(IWDG_HandleTypeDef *hppp);  /*!< pointer t
 
 /**
   * @brief  Reload IWDG counter with value defined in the reload register
-  *         (write access to IWDG_PR, IWDG_RLR, IWDG_WINR and EWCR registers disabled).
+  *         (write access to IWDG_PR, IWDG_RLR, IWDG_WINR, IWDG_EWCR registers disabled).
   * @param  __HANDLE__  IWDG handle
   * @retval None
   */
@@ -223,14 +223,14 @@ void                  HAL_IWDG_EarlyWakeupCallback(IWDG_HandleTypeDef *hiwdg);
   */
 
 /**
-  * @brief  Enable write access to IWDG_PR, IWDG_RLR, IWDG_WINR and EWCR registers.
+  * @brief  Enable write access to IWDG_PR, IWDG_RLR, IWDG_WINR, IWDG_EWCR registers.
   * @param  __HANDLE__  IWDG handle
   * @retval None
   */
 #define IWDG_ENABLE_WRITE_ACCESS(__HANDLE__)  WRITE_REG((__HANDLE__)->Instance->KR, IWDG_KEY_WRITE_ACCESS_ENABLE)
 
 /**
-  * @brief  Disable write access to IWDG_PR, IWDG_RLR, IWDG_WINR and EWCR registers.
+  * @brief  Disable write access to IWDG_PR, IWDG_RLR, IWDG_WINR, IWDG_EWCR registers.
   * @param  __HANDLE__  IWDG handle
   * @retval None
   */

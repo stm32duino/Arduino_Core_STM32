@@ -78,7 +78,7 @@
       (++) Enable instance by writing Start keyword in IWDG_KEY register. LSI
            clock is forced ON and IWDG counter starts counting down.
       (++) Enable write access to configuration registers:
-          IWDG_PR, IWDG_RLR, IWDG_WINR and EWCR.
+          IWDG_PR, IWDG_RLR, IWDG_WINR, IWDG_EWCR.
       (++) Configure the IWDG prescaler and counter reload value. This reload
            value will be loaded in the IWDG counter each time the watchdog is
            reloaded, then the IWDG will start counting down from this value.
@@ -216,7 +216,7 @@ HAL_StatusTypeDef HAL_IWDG_Init(IWDG_HandleTypeDef *hiwdg)
   /* Enable IWDG. LSI is turned on automatically */
   __HAL_IWDG_START(hiwdg);
 
-  /* Enable write access to IWDG_PR, IWDG_RLR, IWDG_WINR and EWCR registers by writing
+  /* Enable write access to IWDG_PR, IWDG_RLR, IWDG_WINR, IWDG_EWCR registers by writing
   0x5555 in KR */
   IWDG_ENABLE_WRITE_ACCESS(hiwdg);
 

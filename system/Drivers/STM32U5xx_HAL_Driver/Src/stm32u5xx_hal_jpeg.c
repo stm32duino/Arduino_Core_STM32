@@ -452,12 +452,12 @@ static HAL_StatusTypeDef JPEG_DCHuff_BitsVals_To_SizeCodes(JPEG_DCHuffTableTypeD
                                                            JPEG_DC_HuffCodeTableTypeDef *DC_SizeCodesTable);
 static HAL_StatusTypeDef JPEG_ACHuff_BitsVals_To_SizeCodes(JPEG_ACHuffTableTypeDef *AC_BitsValsTable,
                                                            JPEG_AC_HuffCodeTableTypeDef *AC_SizeCodesTable);
-static HAL_StatusTypeDef JPEG_Set_HuffDC_Mem(JPEG_HandleTypeDef *hjpeg, JPEG_DCHuffTableTypeDef *HuffTableDC,
+static HAL_StatusTypeDef JPEG_Set_HuffDC_Mem(const JPEG_HandleTypeDef *hjpeg, JPEG_DCHuffTableTypeDef *HuffTableDC,
                                              const __IO uint32_t *DCTableAddress);
-static HAL_StatusTypeDef JPEG_Set_HuffAC_Mem(JPEG_HandleTypeDef *hjpeg, JPEG_ACHuffTableTypeDef *HuffTableAC,
+static HAL_StatusTypeDef JPEG_Set_HuffAC_Mem(const JPEG_HandleTypeDef *hjpeg, JPEG_ACHuffTableTypeDef *HuffTableAC,
                                              const __IO uint32_t *ACTableAddress);
 static HAL_StatusTypeDef JPEG_Set_HuffEnc_Mem(JPEG_HandleTypeDef *hjpeg);
-static void JPEG_Set_Huff_DHTMem(JPEG_HandleTypeDef *hjpeg);
+static void JPEG_Set_Huff_DHTMem(const JPEG_HandleTypeDef *hjpeg);
 static uint32_t  JPEG_Set_Quantization_Mem(const JPEG_HandleTypeDef *hjpeg, const uint8_t *QTable,
                                            __IO uint32_t *QTableAddress);
 static void JPEG_SetColorYCBCR(JPEG_HandleTypeDef *hjpeg);
@@ -1126,7 +1126,7 @@ HAL_StatusTypeDef HAL_JPEG_UnRegisterDataReadyCallback(JPEG_HandleTypeDef *hjpeg
   *         the encoding configuration
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_JPEG_ConfigEncoding(JPEG_HandleTypeDef *hjpeg, JPEG_ConfTypeDef *pConf)
+HAL_StatusTypeDef HAL_JPEG_ConfigEncoding(JPEG_HandleTypeDef *hjpeg, const JPEG_ConfTypeDef *pConf)
 {
   uint32_t error;
   uint32_t numberMCU;
@@ -2713,7 +2713,7 @@ static HAL_StatusTypeDef JPEG_DCHuff_BitsVals_To_SizeCodes(JPEG_DCHuffTableTypeD
   * @param  DCTableAddress Encoder DC huffman table address it could be HUFFENC_DC0 or HUFFENC_DC1.
   * @retval HAL status
   */
-static HAL_StatusTypeDef JPEG_Set_HuffDC_Mem(JPEG_HandleTypeDef *hjpeg, JPEG_DCHuffTableTypeDef *HuffTableDC,
+static HAL_StatusTypeDef JPEG_Set_HuffDC_Mem(const JPEG_HandleTypeDef *hjpeg, JPEG_DCHuffTableTypeDef *HuffTableDC,
                                              const __IO uint32_t *DCTableAddress)
 {
   HAL_StatusTypeDef error;
@@ -2776,7 +2776,7 @@ static HAL_StatusTypeDef JPEG_Set_HuffDC_Mem(JPEG_HandleTypeDef *hjpeg, JPEG_DCH
   * @param  ACTableAddress Encoder AC huffman table address it could be HUFFENC_AC0 or HUFFENC_AC1.
   * @retval HAL status
   */
-static HAL_StatusTypeDef JPEG_Set_HuffAC_Mem(JPEG_HandleTypeDef *hjpeg, JPEG_ACHuffTableTypeDef *HuffTableAC,
+static HAL_StatusTypeDef JPEG_Set_HuffAC_Mem(const JPEG_HandleTypeDef *hjpeg, JPEG_ACHuffTableTypeDef *HuffTableAC,
                                              const __IO uint32_t *ACTableAddress)
 {
   HAL_StatusTypeDef error;
@@ -2895,12 +2895,12 @@ static HAL_StatusTypeDef JPEG_Set_HuffEnc_Mem(JPEG_HandleTypeDef *hjpeg)
   *         the configuration information for JPEG module
   * @retval None
   */
-static void JPEG_Set_Huff_DHTMem(JPEG_HandleTypeDef *hjpeg)
+static void JPEG_Set_Huff_DHTMem(const JPEG_HandleTypeDef *hjpeg)
 {
-  JPEG_ACHuffTableTypeDef *HuffTableAC0 = (JPEG_ACHuffTableTypeDef *)(uint32_t)&JPEG_ACLUM_HuffTable;
-  JPEG_ACHuffTableTypeDef *HuffTableAC1 = (JPEG_ACHuffTableTypeDef *)(uint32_t)&JPEG_ACCHROM_HuffTable;
-  JPEG_DCHuffTableTypeDef *HuffTableDC0 = (JPEG_DCHuffTableTypeDef *)(uint32_t)&JPEG_DCLUM_HuffTable;
-  JPEG_DCHuffTableTypeDef *HuffTableDC1 = (JPEG_DCHuffTableTypeDef *)(uint32_t)&JPEG_DCCHROM_HuffTable;
+  const JPEG_ACHuffTableTypeDef *HuffTableAC0 = (JPEG_ACHuffTableTypeDef *)(uint32_t)&JPEG_ACLUM_HuffTable;
+  const JPEG_ACHuffTableTypeDef *HuffTableAC1 = (JPEG_ACHuffTableTypeDef *)(uint32_t)&JPEG_ACCHROM_HuffTable;
+  const JPEG_DCHuffTableTypeDef *HuffTableDC0 = (JPEG_DCHuffTableTypeDef *)(uint32_t)&JPEG_DCLUM_HuffTable;
+  const JPEG_DCHuffTableTypeDef *HuffTableDC1 = (JPEG_DCHuffTableTypeDef *)(uint32_t)&JPEG_DCCHROM_HuffTable;
   uint32_t value;
   uint32_t index;
   __IO uint32_t *address;

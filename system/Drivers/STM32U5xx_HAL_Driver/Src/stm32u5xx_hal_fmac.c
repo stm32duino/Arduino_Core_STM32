@@ -166,7 +166,7 @@
 
     [..]
       Use function HAL_FMAC_UnRegisterCallback() to reset a callback to the default
-      weak (surcharged) function.
+      weak function.
       HAL_FMAC_UnRegisterCallback() takes as parameters the HAL peripheral handle
       and the Callback ID.
       This function allows to reset following callbacks:
@@ -182,10 +182,10 @@
 
     [..]
       By default, after the HAL_FMAC_Init() and when the state is HAL_FMAC_STATE_RESET
-      all callbacks are set to the corresponding weak (surcharged) functions:
+      all callbacks are set to the corresponding weak functions:
       examples GetDataCallback(), OutputDataReadyCallback().
       Exception done for MspInit and MspDeInit functions that are respectively
-      reset to the legacy weak (surcharged) functions in the HAL_FMAC_Init()
+      reset to the legacy weak functions in the HAL_FMAC_Init()
       and HAL_FMAC_DeInit() only when these callbacks are null (not registered beforehand).
       If not, MspInit or MspDeInit are not null, the HAL_FMAC_Init() and HAL_FMAC_DeInit()
       keep and use the user MspInit/MspDeInit callbacks (registered beforehand).
@@ -202,7 +202,7 @@
     [..]
       When the compilation define USE_HAL_FMAC_REGISTER_CALLBACKS is set to 0 or
       not defined, the callback registration feature is not available
-      and weak (surcharged) callbacks are used.
+      and weak callbacks are used.
 
 
   @endverbatim

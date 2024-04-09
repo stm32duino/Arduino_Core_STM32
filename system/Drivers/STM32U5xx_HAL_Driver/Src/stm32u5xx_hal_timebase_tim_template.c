@@ -114,6 +114,11 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   Status = HAL_TIM_Base_Init(&TimHandle);
   if (Status == HAL_OK)
   {
+#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1U)
+    /* Register callback */
+    HAL_TIM_RegisterCallback(&TimHandle, HAL_TIM_PERIOD_ELAPSED_CB_ID, TimeBase_TIM_PeriodElapsedCallback);
+#endif /* USE_HAL_TIM_REGISTER_CALLBACKS */
+
     /* Start the TIM time Base generation in interrupt mode */
     Status = HAL_TIM_Base_Start_IT(&TimHandle);
     if (Status == HAL_OK)
@@ -134,9 +139,6 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
       }
     }
   }
-#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1U)
-  HAL_TIM_RegisterCallback(&TimHandle, HAL_TIM_PERIOD_ELAPSED_CB_ID, TimeBase_TIM_PeriodElapsedCallback);
-#endif /* USE_HAL_TIM_REGISTER_CALLBACKS */
 
   /* Return function Status */
   return Status;

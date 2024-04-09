@@ -297,8 +297,11 @@ void HAL_PWR_DisableBkUpAccess(void)
           The Sleep mode is entered by using the HAL_PWR_EnterSLEEPMode()
           function.
 
-          (++) PWR_SLEEPENTRY_WFI: enter Sleep mode with WFI instruction.
-          (++) PWR_SLEEPENTRY_WFE: enter Sleep mode with WFE instruction.
+          (++) PWR_SLEEPENTRY_WFI             : Enter SLEEP mode with WFI instruction.
+          (++) PWR_SLEEPENTRY_WFE             : Enter SLEEP mode with WFE instruction and
+                                                clear of pending events before.
+          (++) PWR_SLEEPENTRY_WFE_NO_EVT_CLEAR: Enter SLEEP mode with WFE instruction and
+                                                no clear of pending event before.
 
       -@@- The Regulator parameter is not used for the STM32U5 family and is
            kept as parameter just to maintain compatibility with other families.
@@ -326,8 +329,11 @@ void HAL_PWR_DisableBkUpAccess(void)
           with :
 
          (++) StopEntry:
-          (+++) PWR_STOPENTRY_WFI: enter Stop mode with WFI instruction.
-          (+++) PWR_STOPENTRY_WFE: enter Stop mode with WFE instruction.
+          (+++) PWR_STOPENTRY_WFI             : Enter STOP mode with WFI instruction.
+          (+++) PWR_STOPENTRY_WFE             : Enter STOP mode with WFE instruction and
+                                                clear of pending events before.
+          (+++) PWR_STOPENTRY_WFE_NO_EVT_CLEAR: Enter STOP mode with WFE instruction and
+                                                no clear of pending event before.
 
       -@@- The Regulator parameter is not used for the STM32U5 family and is
            kept as parameter just to maintain compatibility with other families.
@@ -522,13 +528,11 @@ void HAL_PWR_DisableWakeUpPin(uint32_t WakeUpPin)
   *         products.
   * @param  SleepEntry : Specifies if Sleep mode is entered with WFI or WFE
   *                      instruction.
-  *                      This parameter can be one of the following values :
-  *                      @arg @ref PWR_SLEEPENTRY_WFI enter Sleep mode with Wait
-  *                                For Interrupt request.
-  *                      @arg @ref PWR_SLEEPENTRY_WFE enter Sleep mode with Wait
-  *                                For Event request.
-  * @note   When WFI entry is used, ticks interrupt must be disabled to avoid
-  *         unexpected CPU wake up.
+  *            @arg PWR_SLEEPENTRY_WFI              : Enter SLEEP mode with WFI instruction.
+  *            @arg PWR_SLEEPENTRY_WFE              : Enter SLEEP mode with WFE instruction and
+  *                                                   clear of pending events before.
+  *            @arg PWR_SLEEPENTRY_WFE_NO_EVT_CLEAR : Enter SLEEP mode with WFE instruction and
+  *                                                   no clear of pending event before.
   * @retval None.
   */
 void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SleepEntry)
@@ -549,9 +553,14 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SleepEntry)
   }
   else
   {
-    /* Wait For Event Request */
-    __SEV();
-    __WFE();
+    if (SleepEntry != PWR_SLEEPENTRY_WFE_NO_EVT_CLEAR)
+    {
+      /* Clear all pending event */
+      __SEV();
+      __WFE();
+    }
+
+    /* Request Wait For Event */
     __WFE();
   }
 }
@@ -580,10 +589,12 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SleepEntry)
   * @param  StopEntry : Specifies if Stop mode is entered with WFI or WFE
   *                     instruction.
   *                     This parameter can be one of the following values :
-  *                     @arg @ref PWR_STOPENTRY_WFI enter Stop mode with Wait
-  *                               For Interrupt request.
-  *                     @arg @ref PWR_STOPENTRY_WFE enter Stop mode with Wait
-  *                               For Event request.
+  *            @arg PWR_STOPENTRY_WFI              : Enter STOP mode with WFI instruction.
+  *            @arg PWR_STOPENTRY_WFE              : Enter STOP mode with WFE instruction and
+  *                                                  clear of pending events before.
+  *            @arg PWR_STOPENTRY_WFE_NO_EVT_CLEAR : Enter STOP mode with WFE instruction and
+  *                                                  no clear of pending event before.
+  * @note   In System STOP mode, all I/O pins keep the same state as in Run mode.
   * @retval None.
   */
 void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t StopEntry)
@@ -607,9 +618,14 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t StopEntry)
   }
   else
   {
-    /* Wait For Event Request */
-    __SEV();
-    __WFE();
+    if (StopEntry != PWR_STOPENTRY_WFE_NO_EVT_CLEAR)
+    {
+      /* Clear all pending event */
+      __SEV();
+      __WFE();
+    }
+
+    /* Request Wait For Event */
     __WFE();
   }
 

@@ -311,7 +311,7 @@ typedef struct
                                        @ref RCCEx_CRS_ErrorLimitDefault */
 
   uint32_t HSI48CalibrationValue; /*!< Specifies a user-programmable trimming value to the HSI48 oscillator.
-                                       This parameter must be a number between 0 and 0x3F or a value of
+                                       This parameter must be a number between 0 and 0x7F or a value of
                                        @ref RCCEx_CRS_HSI48CalibrationDefault */
 
 } RCC_CRSInitTypeDef;
@@ -1029,7 +1029,7 @@ typedef struct
 /** @defgroup RCCEx_CRS_HSI48CalibrationDefault RCCEx CRS HSI48CalibrationDefault
   * @{
   */
-#define RCC_CRS_HSI48CALIBRATION_DEFAULT 0x00000020U       /*!< The default value is 32, which corresponds to
+#define RCC_CRS_HSI48CALIBRATION_DEFAULT 0x00000040U       /*!< The default value is 64, which corresponds to
                                                                 the middle of the trimming interval.
                                                                 The trimming step is around 67 kHz between two
                                                                 consecutive TRIM steps. A higher TRIM value

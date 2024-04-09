@@ -115,6 +115,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32u5xx_hal.h"
 
+#if defined(FMC_BANK1)
 
 /** @addtogroup STM32U5xx_HAL_Driver
   * @{
@@ -1233,3 +1234,5 @@ static void SRAM_DMAError(DMA_HandleTypeDef *hdma)
 /**
   * @}
   */
+
+#endif /* FMC_BANK1 */

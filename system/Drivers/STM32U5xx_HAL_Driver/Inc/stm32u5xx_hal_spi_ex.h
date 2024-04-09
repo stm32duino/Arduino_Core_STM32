@@ -168,8 +168,8 @@ typedef struct
 
 #if defined(SPI_TRIG_GRP2)
 #define IS_SPI_TRIG_SOURCE(__INSTANCE__, __SOURCE__)  ((IS_SPI_GRP2_INSTANCE(__INSTANCE__)) ? \
-                                                        IS_SPI_GRP2_TRIG_SOURCE(__SOURCE__) : \
-                                                        IS_SPI_GRP1_TRIG_SOURCE(__SOURCE__))
+                                                       IS_SPI_GRP2_TRIG_SOURCE(__SOURCE__) : \
+                                                       IS_SPI_GRP1_TRIG_SOURCE(__SOURCE__))
 #endif /* SPI_TRIG_GRP2 */
 
 #define IS_SPI_GRP1_TRIG_SOURCE(__SOURCE__)  (((__SOURCE__) == SPI_GRP1_GPDMA_CH0_TCF_TRG  ) || \

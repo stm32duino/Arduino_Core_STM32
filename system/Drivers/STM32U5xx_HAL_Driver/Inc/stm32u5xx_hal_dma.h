@@ -251,174 +251,174 @@ typedef struct __DMA_HandleTypeDef
   * @{
   */
 /* GPDMA1 requests */
-#define GPDMA1_REQUEST_ADC1         (0U)   /*!< GPDMA1 HW request is ADC1         */
-#define GPDMA1_REQUEST_ADC4         (1U)   /*!< GPDMA1 HW request is ADC4         */
-#define GPDMA1_REQUEST_DAC1_CH1     (2U)   /*!< GPDMA1 HW request is DAC1_CH1     */
-#define GPDMA1_REQUEST_DAC1_CH2     (3U)   /*!< GPDMA1 HW request is DAC1_CH2     */
-#define GPDMA1_REQUEST_TIM6_UP      (4U)   /*!< GPDMA1 HW request is TIM6_UP      */
-#define GPDMA1_REQUEST_TIM7_UP      (5U)   /*!< GPDMA1 HW request is TIM7_UP      */
-#define GPDMA1_REQUEST_SPI1_RX      (6U)   /*!< GPDMA1 HW request is SPI1_RX      */
-#define GPDMA1_REQUEST_SPI1_TX      (7U)   /*!< GPDMA1 HW request is SPI1_TX      */
-#define GPDMA1_REQUEST_SPI2_RX      (8U)   /*!< GPDMA1 HW request is SPI2_RX      */
-#define GPDMA1_REQUEST_SPI2_TX      (9U)   /*!< GPDMA1 HW request is SPI2_TX      */
-#define GPDMA1_REQUEST_SPI3_RX      (10U)  /*!< GPDMA1 HW request is SPI3_RX      */
-#define GPDMA1_REQUEST_SPI3_TX      (11U)  /*!< GPDMA1 HW request is SPI3_TX      */
-#define GPDMA1_REQUEST_I2C1_RX      (12U)  /*!< GPDMA1 HW request is I2C1_RX      */
-#define GPDMA1_REQUEST_I2C1_TX      (13U)  /*!< GPDMA1 HW request is I2C1_TX      */
-#define GPDMA1_REQUEST_I2C1_EVC     (14U)  /*!< GPDMA1 HW request is I2C1_EVC     */
-#define GPDMA1_REQUEST_I2C2_RX      (15U)  /*!< GPDMA1 HW request is I2C2_RX      */
-#define GPDMA1_REQUEST_I2C2_TX      (16U)  /*!< GPDMA1 HW request is I2C2_TX      */
-#define GPDMA1_REQUEST_I2C2_EVC     (17U)  /*!< GPDMA1 HW request is I2C2_EVC     */
-#define GPDMA1_REQUEST_I2C3_RX      (18U)  /*!< GPDMA1 HW request is I2C3_RX      */
-#define GPDMA1_REQUEST_I2C3_TX      (19U)  /*!< GPDMA1 HW request is I2C3_TX      */
-#define GPDMA1_REQUEST_I2C3_EVC     (20U)  /*!< GPDMA1 HW request is I2C3_EVC     */
-#define GPDMA1_REQUEST_I2C4_RX      (21U)  /*!< GPDMA1 HW request is I2C4_RX      */
-#define GPDMA1_REQUEST_I2C4_TX      (22U)  /*!< GPDMA1 HW request is I2C4_TX      */
-#define GPDMA1_REQUEST_I2C4_EVC     (23U)  /*!< GPDMA1 HW request is I2C4_EVC     */
-#define GPDMA1_REQUEST_USART1_RX    (24U)  /*!< GPDMA1 HW request is USART1_RX    */
-#define GPDMA1_REQUEST_USART1_TX    (25U)  /*!< GPDMA1 HW request is USART1_TX    */
+#define GPDMA1_REQUEST_ADC1          0U     /*!< GPDMA1 HW request is ADC1         */
+#define GPDMA1_REQUEST_ADC4          1U     /*!< GPDMA1 HW request is ADC4         */
+#define GPDMA1_REQUEST_DAC1_CH1      2U     /*!< GPDMA1 HW request is DAC1_CH1     */
+#define GPDMA1_REQUEST_DAC1_CH2      3U     /*!< GPDMA1 HW request is DAC1_CH2     */
+#define GPDMA1_REQUEST_TIM6_UP       4U     /*!< GPDMA1 HW request is TIM6_UP      */
+#define GPDMA1_REQUEST_TIM7_UP       5U     /*!< GPDMA1 HW request is TIM7_UP      */
+#define GPDMA1_REQUEST_SPI1_RX       6U     /*!< GPDMA1 HW request is SPI1_RX      */
+#define GPDMA1_REQUEST_SPI1_TX       7U     /*!< GPDMA1 HW request is SPI1_TX      */
+#define GPDMA1_REQUEST_SPI2_RX       8U     /*!< GPDMA1 HW request is SPI2_RX      */
+#define GPDMA1_REQUEST_SPI2_TX       9U     /*!< GPDMA1 HW request is SPI2_TX      */
+#define GPDMA1_REQUEST_SPI3_RX       10U    /*!< GPDMA1 HW request is SPI3_RX      */
+#define GPDMA1_REQUEST_SPI3_TX       11U    /*!< GPDMA1 HW request is SPI3_TX      */
+#define GPDMA1_REQUEST_I2C1_RX       12U    /*!< GPDMA1 HW request is I2C1_RX      */
+#define GPDMA1_REQUEST_I2C1_TX       13U    /*!< GPDMA1 HW request is I2C1_TX      */
+#define GPDMA1_REQUEST_I2C1_EVC      14U    /*!< GPDMA1 HW request is I2C1_EVC     */
+#define GPDMA1_REQUEST_I2C2_RX       15U    /*!< GPDMA1 HW request is I2C2_RX      */
+#define GPDMA1_REQUEST_I2C2_TX       16U    /*!< GPDMA1 HW request is I2C2_TX      */
+#define GPDMA1_REQUEST_I2C2_EVC      17U    /*!< GPDMA1 HW request is I2C2_EVC     */
+#define GPDMA1_REQUEST_I2C3_RX       18U    /*!< GPDMA1 HW request is I2C3_RX      */
+#define GPDMA1_REQUEST_I2C3_TX       19U    /*!< GPDMA1 HW request is I2C3_TX      */
+#define GPDMA1_REQUEST_I2C3_EVC      20U    /*!< GPDMA1 HW request is I2C3_EVC     */
+#define GPDMA1_REQUEST_I2C4_RX       21U    /*!< GPDMA1 HW request is I2C4_RX      */
+#define GPDMA1_REQUEST_I2C4_TX       22U    /*!< GPDMA1 HW request is I2C4_TX      */
+#define GPDMA1_REQUEST_I2C4_EVC      23U    /*!< GPDMA1 HW request is I2C4_EVC     */
+#define GPDMA1_REQUEST_USART1_RX     24U    /*!< GPDMA1 HW request is USART1_RX    */
+#define GPDMA1_REQUEST_USART1_TX     25U    /*!< GPDMA1 HW request is USART1_TX    */
 #if defined(USART2)
-#define GPDMA1_REQUEST_USART2_RX    (26U)  /*!< GPDMA1 HW request is USART2_RX    */
-#define GPDMA1_REQUEST_USART2_TX    (27U)  /*!< GPDMA1 HW request is USART2_TX    */
+#define GPDMA1_REQUEST_USART2_RX     26U    /*!< GPDMA1 HW request is USART2_RX    */
+#define GPDMA1_REQUEST_USART2_TX     27U    /*!< GPDMA1 HW request is USART2_TX    */
 #endif /* USART2 */
-#define GPDMA1_REQUEST_USART3_RX    (28U)  /*!< GPDMA1 HW request is USART3_RX    */
-#define GPDMA1_REQUEST_USART3_TX    (29U)  /*!< GPDMA1 HW request is USART3_TX    */
-#define GPDMA1_REQUEST_UART4_RX     (30U)  /*!< GPDMA1 HW request is UART4_RX     */
-#define GPDMA1_REQUEST_UART4_TX     (31U)  /*!< GPDMA1 HW request is UART4_TX     */
-#define GPDMA1_REQUEST_UART5_RX     (32U)  /*!< GPDMA1 HW request is UART5_RX     */
-#define GPDMA1_REQUEST_UART5_TX     (33U)  /*!< GPDMA1 HW request is UART5_TX     */
-#define GPDMA1_REQUEST_LPUART1_RX   (34U)  /*!< GPDMA1 HW request is LPUART1_RX   */
-#define GPDMA1_REQUEST_LPUART1_TX   (35U)  /*!< GPDMA1 HW request is LPUART1_TX   */
-#define GPDMA1_REQUEST_SAI1_A       (36U)  /*!< GPDMA1 HW request is SAI1_A       */
-#define GPDMA1_REQUEST_SAI1_B       (37U)  /*!< GPDMA1 HW request is SAI1_B       */
+#define GPDMA1_REQUEST_USART3_RX     28U    /*!< GPDMA1 HW request is USART3_RX    */
+#define GPDMA1_REQUEST_USART3_TX     29U    /*!< GPDMA1 HW request is USART3_TX    */
+#define GPDMA1_REQUEST_UART4_RX      30U    /*!< GPDMA1 HW request is UART4_RX     */
+#define GPDMA1_REQUEST_UART4_TX      31U    /*!< GPDMA1 HW request is UART4_TX     */
+#define GPDMA1_REQUEST_UART5_RX      32U    /*!< GPDMA1 HW request is UART5_RX     */
+#define GPDMA1_REQUEST_UART5_TX      33U    /*!< GPDMA1 HW request is UART5_TX     */
+#define GPDMA1_REQUEST_LPUART1_RX    34U    /*!< GPDMA1 HW request is LPUART1_RX   */
+#define GPDMA1_REQUEST_LPUART1_TX    35U    /*!< GPDMA1 HW request is LPUART1_TX   */
+#define GPDMA1_REQUEST_SAI1_A        36U    /*!< GPDMA1 HW request is SAI1_A       */
+#define GPDMA1_REQUEST_SAI1_B        37U    /*!< GPDMA1 HW request is SAI1_B       */
 #if defined(SAI2)
-#define GPDMA1_REQUEST_SAI2_A       (38U)  /*!< GPDMA1 HW request is SAI2_A       */
-#define GPDMA1_REQUEST_SAI2_B       (39U)  /*!< GPDMA1 HW request is SAI2_B       */
+#define GPDMA1_REQUEST_SAI2_A        38U    /*!< GPDMA1 HW request is SAI2_A       */
+#define GPDMA1_REQUEST_SAI2_B        39U    /*!< GPDMA1 HW request is SAI2_B       */
 #endif /* SAI2 */
-#define GPDMA1_REQUEST_OCTOSPI1     (40U)  /*!< GPDMA1 HW request is OCTOSPI1     */
+#define GPDMA1_REQUEST_OCTOSPI1      40U    /*!< GPDMA1 HW request is OCTOSPI1     */
 #if defined(OCTOSPI2)
-#define GPDMA1_REQUEST_OCTOSPI2     (41U)  /*!< GPDMA1 HW request is OCTOSPI2     */
+#define GPDMA1_REQUEST_OCTOSPI2      41U    /*!< GPDMA1 HW request is OCTOSPI2     */
 #endif /* OCTOSPI2 */
-#define GPDMA1_REQUEST_TIM1_CH1     (42U)  /*!< GPDMA1 HW request is TIM1_CH1     */
-#define GPDMA1_REQUEST_TIM1_CH2     (43U)  /*!< GPDMA1 HW request is TIM1_CH2     */
-#define GPDMA1_REQUEST_TIM1_CH3     (44U)  /*!< GPDMA1 HW request is TIM1_CH3     */
-#define GPDMA1_REQUEST_TIM1_CH4     (45U)  /*!< GPDMA1 HW request is TIM1_CH4     */
-#define GPDMA1_REQUEST_TIM1_UP      (46U)  /*!< GPDMA1 HW request is TIM1_UP      */
-#define GPDMA1_REQUEST_TIM1_TRIG    (47U)  /*!< GPDMA1 HW request is TIM1_TRIG    */
-#define GPDMA1_REQUEST_TIM1_COM     (48U)  /*!< GPDMA1 HW request is TIM1_COM     */
-#define GPDMA1_REQUEST_TIM8_CH1     (49U)  /*!< GPDMA1 HW request is TIM8_CH1     */
-#define GPDMA1_REQUEST_TIM8_CH2     (50U)  /*!< GPDMA1 HW request is TIM8_CH2     */
-#define GPDMA1_REQUEST_TIM8_CH3     (51U)  /*!< GPDMA1 HW request is TIM8_CH3     */
-#define GPDMA1_REQUEST_TIM8_CH4     (52U)  /*!< GPDMA1 HW request is TIM8_CH4     */
-#define GPDMA1_REQUEST_TIM8_UP      (53U)  /*!< GPDMA1 HW request is TIM8_UP      */
-#define GPDMA1_REQUEST_TIM8_TRIG    (54U)  /*!< GPDMA1 HW request is TIM8_TRIG    */
-#define GPDMA1_REQUEST_TIM8_COM     (55U)  /*!< GPDMA1 HW request is TIM8_COM     */
-#define GPDMA1_REQUEST_TIM2_CH1     (56U)  /*!< GPDMA1 HW request is TIM2_CH1     */
-#define GPDMA1_REQUEST_TIM2_CH2     (57U)  /*!< GPDMA1 HW request is TIM2_CH2     */
-#define GPDMA1_REQUEST_TIM2_CH3     (58U)  /*!< GPDMA1 HW request is TIM2_CH3     */
-#define GPDMA1_REQUEST_TIM2_CH4     (59U)  /*!< GPDMA1 HW request is TIM2_CH4     */
-#define GPDMA1_REQUEST_TIM2_UP      (60U)  /*!< GPDMA1 HW request is TIM2_UP      */
-#define GPDMA1_REQUEST_TIM3_CH1     (61U)  /*!< GPDMA1 HW request is TIM3_CH1     */
-#define GPDMA1_REQUEST_TIM3_CH2     (62U)  /*!< GPDMA1 HW request is TIM3_CH2     */
-#define GPDMA1_REQUEST_TIM3_CH3     (63U)  /*!< GPDMA1 HW request is TIM3_CH3     */
-#define GPDMA1_REQUEST_TIM3_CH4     (64U)  /*!< GPDMA1 HW request is TIM3_CH4     */
-#define GPDMA1_REQUEST_TIM3_UP      (65U)  /*!< GPDMA1 HW request is TIM3_UP      */
-#define GPDMA1_REQUEST_TIM3_TRIG    (66U)  /*!< GPDMA1 HW request is TIM3_TRIG    */
-#define GPDMA1_REQUEST_TIM4_CH1     (67U)  /*!< GPDMA1 HW request is TIM4_CH1     */
-#define GPDMA1_REQUEST_TIM4_CH2     (68U)  /*!< GPDMA1 HW request is TIM4_CH2     */
-#define GPDMA1_REQUEST_TIM4_CH3     (69U)  /*!< GPDMA1 HW request is TIM4_CH3     */
-#define GPDMA1_REQUEST_TIM4_CH4     (70U)  /*!< GPDMA1 HW request is TIM4_CH4     */
-#define GPDMA1_REQUEST_TIM4_UP      (71U)  /*!< GPDMA1 HW request is TIM4_UP      */
-#define GPDMA1_REQUEST_TIM5_CH1     (72U)  /*!< GPDMA1 HW request is TIM5_CH1     */
-#define GPDMA1_REQUEST_TIM5_CH2     (73U)  /*!< GPDMA1 HW request is TIM5_CH2     */
-#define GPDMA1_REQUEST_TIM5_CH3     (74U)  /*!< GPDMA1 HW request is TIM5_CH3     */
-#define GPDMA1_REQUEST_TIM5_CH4     (75U)  /*!< GPDMA1 HW request is TIM5_CH4     */
-#define GPDMA1_REQUEST_TIM5_UP      (76U)  /*!< GPDMA1 HW request is TIM5_UP      */
-#define GPDMA1_REQUEST_TIM5_TRIG    (77U)  /*!< GPDMA1 HW request is TIM5_TRIG    */
-#define GPDMA1_REQUEST_TIM15_CH1    (78U)  /*!< GPDMA1 HW request is TIM15_CH1    */
-#define GPDMA1_REQUEST_TIM15_UP     (79U)  /*!< GPDMA1 HW request is TIM15_UP     */
-#define GPDMA1_REQUEST_TIM15_TRIG   (80U)  /*!< GPDMA1 HW request is TIM15_TRIG   */
-#define GPDMA1_REQUEST_TIM15_COM    (81U)  /*!< GPDMA1 HW request is TIM15_COM    */
-#define GPDMA1_REQUEST_TIM16_CH1    (82U)  /*!< GPDMA1 HW request is TIM16_CH1    */
-#define GPDMA1_REQUEST_TIM16_UP     (83U)  /*!< GPDMA1 HW request is TIM16_UP     */
-#define GPDMA1_REQUEST_TIM17_CH1    (84U)  /*!< GPDMA1 HW request is TIM17_CH1    */
-#define GPDMA1_REQUEST_TIM17_UP     (85U)  /*!< GPDMA1 HW request is TIM17_UP     */
-#define GPDMA1_REQUEST_DCMI_PSSI    (86U)  /*!< GPDMA1 HW request is DCMI_PSSI    */
-#define GPDMA1_REQUEST_AES_IN       (87U)  /*!< GPDMA1 HW request is AES_IN       */
-#define GPDMA1_REQUEST_AES_OUT      (88U)  /*!< GPDMA1 HW request is AES_OUT      */
-#define GPDMA1_REQUEST_HASH_IN      (89U)  /*!< GPDMA1 HW request is HASH_IN      */
+#define GPDMA1_REQUEST_TIM1_CH1      42U    /*!< GPDMA1 HW request is TIM1_CH1     */
+#define GPDMA1_REQUEST_TIM1_CH2      43U    /*!< GPDMA1 HW request is TIM1_CH2     */
+#define GPDMA1_REQUEST_TIM1_CH3      44U    /*!< GPDMA1 HW request is TIM1_CH3     */
+#define GPDMA1_REQUEST_TIM1_CH4      45U    /*!< GPDMA1 HW request is TIM1_CH4     */
+#define GPDMA1_REQUEST_TIM1_UP       46U    /*!< GPDMA1 HW request is TIM1_UP      */
+#define GPDMA1_REQUEST_TIM1_TRIG     47U    /*!< GPDMA1 HW request is TIM1_TRIG    */
+#define GPDMA1_REQUEST_TIM1_COM      48U    /*!< GPDMA1 HW request is TIM1_COM     */
+#define GPDMA1_REQUEST_TIM8_CH1      49U    /*!< GPDMA1 HW request is TIM8_CH1     */
+#define GPDMA1_REQUEST_TIM8_CH2      50U    /*!< GPDMA1 HW request is TIM8_CH2     */
+#define GPDMA1_REQUEST_TIM8_CH3      51U    /*!< GPDMA1 HW request is TIM8_CH3     */
+#define GPDMA1_REQUEST_TIM8_CH4      52U    /*!< GPDMA1 HW request is TIM8_CH4     */
+#define GPDMA1_REQUEST_TIM8_UP       53U    /*!< GPDMA1 HW request is TIM8_UP      */
+#define GPDMA1_REQUEST_TIM8_TRIG     54U    /*!< GPDMA1 HW request is TIM8_TRIG    */
+#define GPDMA1_REQUEST_TIM8_COM      55U    /*!< GPDMA1 HW request is TIM8_COM     */
+#define GPDMA1_REQUEST_TIM2_CH1      56U    /*!< GPDMA1 HW request is TIM2_CH1     */
+#define GPDMA1_REQUEST_TIM2_CH2      57U    /*!< GPDMA1 HW request is TIM2_CH2     */
+#define GPDMA1_REQUEST_TIM2_CH3      58U    /*!< GPDMA1 HW request is TIM2_CH3     */
+#define GPDMA1_REQUEST_TIM2_CH4      59U    /*!< GPDMA1 HW request is TIM2_CH4     */
+#define GPDMA1_REQUEST_TIM2_UP       60U    /*!< GPDMA1 HW request is TIM2_UP      */
+#define GPDMA1_REQUEST_TIM3_CH1      61U    /*!< GPDMA1 HW request is TIM3_CH1     */
+#define GPDMA1_REQUEST_TIM3_CH2      62U    /*!< GPDMA1 HW request is TIM3_CH2     */
+#define GPDMA1_REQUEST_TIM3_CH3      63U    /*!< GPDMA1 HW request is TIM3_CH3     */
+#define GPDMA1_REQUEST_TIM3_CH4      64U    /*!< GPDMA1 HW request is TIM3_CH4     */
+#define GPDMA1_REQUEST_TIM3_UP       65U    /*!< GPDMA1 HW request is TIM3_UP      */
+#define GPDMA1_REQUEST_TIM3_TRIG     66U    /*!< GPDMA1 HW request is TIM3_TRIG    */
+#define GPDMA1_REQUEST_TIM4_CH1      67U    /*!< GPDMA1 HW request is TIM4_CH1     */
+#define GPDMA1_REQUEST_TIM4_CH2      68U    /*!< GPDMA1 HW request is TIM4_CH2     */
+#define GPDMA1_REQUEST_TIM4_CH3      69U    /*!< GPDMA1 HW request is TIM4_CH3     */
+#define GPDMA1_REQUEST_TIM4_CH4      70U    /*!< GPDMA1 HW request is TIM4_CH4     */
+#define GPDMA1_REQUEST_TIM4_UP       71U    /*!< GPDMA1 HW request is TIM4_UP      */
+#define GPDMA1_REQUEST_TIM5_CH1      72U    /*!< GPDMA1 HW request is TIM5_CH1     */
+#define GPDMA1_REQUEST_TIM5_CH2      73U    /*!< GPDMA1 HW request is TIM5_CH2     */
+#define GPDMA1_REQUEST_TIM5_CH3      74U    /*!< GPDMA1 HW request is TIM5_CH3     */
+#define GPDMA1_REQUEST_TIM5_CH4      75U    /*!< GPDMA1 HW request is TIM5_CH4     */
+#define GPDMA1_REQUEST_TIM5_UP       76U    /*!< GPDMA1 HW request is TIM5_UP      */
+#define GPDMA1_REQUEST_TIM5_TRIG     77U    /*!< GPDMA1 HW request is TIM5_TRIG    */
+#define GPDMA1_REQUEST_TIM15_CH1     78U    /*!< GPDMA1 HW request is TIM15_CH1    */
+#define GPDMA1_REQUEST_TIM15_UP      79U    /*!< GPDMA1 HW request is TIM15_UP     */
+#define GPDMA1_REQUEST_TIM15_TRIG    80U    /*!< GPDMA1 HW request is TIM15_TRIG   */
+#define GPDMA1_REQUEST_TIM15_COM     81U    /*!< GPDMA1 HW request is TIM15_COM    */
+#define GPDMA1_REQUEST_TIM16_CH1     82U    /*!< GPDMA1 HW request is TIM16_CH1    */
+#define GPDMA1_REQUEST_TIM16_UP      83U    /*!< GPDMA1 HW request is TIM16_UP     */
+#define GPDMA1_REQUEST_TIM17_CH1     84U    /*!< GPDMA1 HW request is TIM17_CH1    */
+#define GPDMA1_REQUEST_TIM17_UP      85U    /*!< GPDMA1 HW request is TIM17_UP     */
+#define GPDMA1_REQUEST_DCMI_PSSI     86U    /*!< GPDMA1 HW request is DCMI_PSSI    */
+#define GPDMA1_REQUEST_AES_IN        87U    /*!< GPDMA1 HW request is AES_IN       */
+#define GPDMA1_REQUEST_AES_OUT       88U    /*!< GPDMA1 HW request is AES_OUT      */
+#define GPDMA1_REQUEST_HASH_IN       89U    /*!< GPDMA1 HW request is HASH_IN      */
 #if defined(UCPD1)
-#define GPDMA1_REQUEST_UCPD1_TX     (90U)  /*!< GPDMA1 HW request is UCPD1_TX     */
-#define GPDMA1_REQUEST_UCPD1_RX     (91U)  /*!< GPDMA1 HW request is UCPD1_RX     */
+#define GPDMA1_REQUEST_UCPD1_TX      90U    /*!< GPDMA1 HW request is UCPD1_TX     */
+#define GPDMA1_REQUEST_UCPD1_RX      91U    /*!< GPDMA1 HW request is UCPD1_RX     */
 #endif /* UCPD1 */
-#define GPDMA1_REQUEST_MDF1_FLT0    (92U)  /*!< GPDMA1 HW request is MDF1_FLT0    */
-#define GPDMA1_REQUEST_MDF1_FLT1    (93U)  /*!< GPDMA1 HW request is MDF1_FLT1    */
-#define GPDMA1_REQUEST_MDF1_FLT2    (94U)  /*!< GPDMA1 HW request is MDF1_FLT2    */
-#define GPDMA1_REQUEST_MDF1_FLT3    (95U)  /*!< GPDMA1 HW request is MDF1_FLT3    */
-#define GPDMA1_REQUEST_MDF1_FLT4    (96U)  /*!< GPDMA1 HW request is MDF1_FLT4    */
-#define GPDMA1_REQUEST_MDF1_FLT5    (97U)  /*!< GPDMA1 HW request is MDF1_FLT5    */
-#define GPDMA1_REQUEST_ADF1_FLT0    (98U)  /*!< GPDMA1 HW request is ADF1_FLT0    */
-#define GPDMA1_REQUEST_FMAC_READ    (99U)  /*!< GPDMA1 HW request is FMAC_READ    */
-#define GPDMA1_REQUEST_FMAC_WRITE   (100U) /*!< GPDMA1 HW request is FMAC_WRITE   */
-#define GPDMA1_REQUEST_CORDIC_READ  (101U) /*!< GPDMA1 HW request is CORDIC_READ  */
-#define GPDMA1_REQUEST_CORDIC_WRITE (102U) /*!< GPDMA1 HW request is CORDIC_WRITE */
-#define GPDMA1_REQUEST_SAES_IN      (103U) /*!< GPDMA1 HW request is SAES_IN      */
-#define GPDMA1_REQUEST_SAES_OUT     (104U) /*!< GPDMA1 HW request is SAES_OUT     */
-#define GPDMA1_REQUEST_LPTIM1_IC1   (105U) /*!< GPDMA1 HW request is LPTIM1_IC1   */
-#define GPDMA1_REQUEST_LPTIM1_IC2   (106U) /*!< GPDMA1 HW request is LPTIM1_IC2   */
-#define GPDMA1_REQUEST_LPTIM1_UE    (107U) /*!< GPDMA1 HW request is LPTIM1_UE    */
-#define GPDMA1_REQUEST_LPTIM2_IC1   (108U) /*!< GPDMA1 HW request is LPTIM2_IC1   */
-#define GPDMA1_REQUEST_LPTIM2_IC2   (109U) /*!< GPDMA1 HW request is LPTIM2_IC2   */
-#define GPDMA1_REQUEST_LPTIM2_UE    (110U) /*!< GPDMA1 HW request is LPTIM2_UE    */
-#define GPDMA1_REQUEST_LPTIM3_IC1   (111U) /*!< GPDMA1 HW request is LPTIM3_IC1   */
-#define GPDMA1_REQUEST_LPTIM3_IC2   (112U) /*!< GPDMA1 HW request is LPTIM3_IC2   */
-#define GPDMA1_REQUEST_LPTIM3_UE    (113U) /*!< GPDMA1 HW request is LPTIM3_UE    */
+#define GPDMA1_REQUEST_MDF1_FLT0     92U    /*!< GPDMA1 HW request is MDF1_FLT0    */
+#define GPDMA1_REQUEST_MDF1_FLT1     93U    /*!< GPDMA1 HW request is MDF1_FLT1    */
+#define GPDMA1_REQUEST_MDF1_FLT2     94U    /*!< GPDMA1 HW request is MDF1_FLT2    */
+#define GPDMA1_REQUEST_MDF1_FLT3     95U    /*!< GPDMA1 HW request is MDF1_FLT3    */
+#define GPDMA1_REQUEST_MDF1_FLT4     96U    /*!< GPDMA1 HW request is MDF1_FLT4    */
+#define GPDMA1_REQUEST_MDF1_FLT5     97U    /*!< GPDMA1 HW request is MDF1_FLT5    */
+#define GPDMA1_REQUEST_ADF1_FLT0     98U    /*!< GPDMA1 HW request is ADF1_FLT0    */
+#define GPDMA1_REQUEST_FMAC_READ     99U    /*!< GPDMA1 HW request is FMAC_READ    */
+#define GPDMA1_REQUEST_FMAC_WRITE    100U   /*!< GPDMA1 HW request is FMAC_WRITE   */
+#define GPDMA1_REQUEST_CORDIC_READ   101U   /*!< GPDMA1 HW request is CORDIC_READ  */
+#define GPDMA1_REQUEST_CORDIC_WRITE  102U   /*!< GPDMA1 HW request is CORDIC_WRITE */
+#define GPDMA1_REQUEST_SAES_IN       103U   /*!< GPDMA1 HW request is SAES_IN      */
+#define GPDMA1_REQUEST_SAES_OUT      104U   /*!< GPDMA1 HW request is SAES_OUT     */
+#define GPDMA1_REQUEST_LPTIM1_IC1    105U   /*!< GPDMA1 HW request is LPTIM1_IC1   */
+#define GPDMA1_REQUEST_LPTIM1_IC2    106U   /*!< GPDMA1 HW request is LPTIM1_IC2   */
+#define GPDMA1_REQUEST_LPTIM1_UE     107U   /*!< GPDMA1 HW request is LPTIM1_UE    */
+#define GPDMA1_REQUEST_LPTIM2_IC1    108U   /*!< GPDMA1 HW request is LPTIM2_IC1   */
+#define GPDMA1_REQUEST_LPTIM2_IC2    109U   /*!< GPDMA1 HW request is LPTIM2_IC2   */
+#define GPDMA1_REQUEST_LPTIM2_UE     110U   /*!< GPDMA1 HW request is LPTIM2_UE    */
+#define GPDMA1_REQUEST_LPTIM3_IC1    111U   /*!< GPDMA1 HW request is LPTIM3_IC1   */
+#define GPDMA1_REQUEST_LPTIM3_IC2    112U   /*!< GPDMA1 HW request is LPTIM3_IC2   */
+#define GPDMA1_REQUEST_LPTIM3_UE     113U   /*!< GPDMA1 HW request is LPTIM3_UE    */
 #if defined (HSPI1_BASE)
-#define GPDMA1_REQUEST_HSPI1        (114U) /*!< GPDMA1 HW request is HSPI1        */
-#endif /* defined (HSPI1_BASE) */
+#define GPDMA1_REQUEST_HSPI1         114U   /*!< GPDMA1 HW request is HSPI1        */
+#endif /* HSPI1_BASE */
 #if defined (I2C5)
-#define GPDMA1_REQUEST_I2C5_RX      (115U) /*!< GPDMA1 HW request is I2C5_RX      */
-#define GPDMA1_REQUEST_I2C5_TX      (116U) /*!< GPDMA1 HW request is I2C5_TX      */
-#define GPDMA1_REQUEST_I2C5_EVC     (117U) /*!< GPDMA1 HW request is I2C5_EVC     */
-#endif /* defined (I2C5) */
+#define GPDMA1_REQUEST_I2C5_RX       115U   /*!< GPDMA1 HW request is I2C5_RX      */
+#define GPDMA1_REQUEST_I2C5_TX       116U   /*!< GPDMA1 HW request is I2C5_TX      */
+#define GPDMA1_REQUEST_I2C5_EVC      117U   /*!< GPDMA1 HW request is I2C5_EVC     */
+#endif /* I2C5 */
 #if defined (I2C6)
-#define GPDMA1_REQUEST_I2C6_RX      (118U) /*!< GPDMA1 HW request is I2C6_RX      */
-#define GPDMA1_REQUEST_I2C6_TX      (119U) /*!< GPDMA1 HW request is I2C6_TX      */
-#define GPDMA1_REQUEST_I2C6_EVC     (120U) /*!< GPDMA1 HW request is I2C6_EVC     */
-#endif /* defined (I2C6) */
+#define GPDMA1_REQUEST_I2C6_RX       118U   /*!< GPDMA1 HW request is I2C6_RX      */
+#define GPDMA1_REQUEST_I2C6_TX       119U   /*!< GPDMA1 HW request is I2C6_TX      */
+#define GPDMA1_REQUEST_I2C6_EVC      120U   /*!< GPDMA1 HW request is I2C6_EVC     */
+#endif /* I2C6 */
 #if defined (USART6)
-#define GPDMA1_REQUEST_USART6_RX    (121U) /*!< GPDMA1 HW request is USART6_RX    */
-#define GPDMA1_REQUEST_USART6_TX    (122U) /*!< GPDMA1 HW request is USART6_TX    */
-#endif /* defined (USART6) */
+#define GPDMA1_REQUEST_USART6_RX     121U   /*!< GPDMA1 HW request is USART6_RX    */
+#define GPDMA1_REQUEST_USART6_TX     122U   /*!< GPDMA1 HW request is USART6_TX    */
+#endif /* USART6 */
 #if defined (ADC2)
-#define GPDMA1_REQUEST_ADC2         (123U) /*!< GPDMA1 HW request is ADC2         */
-#endif /* defined (ADC2) */
+#define GPDMA1_REQUEST_ADC2          123U   /*!< GPDMA1 HW request is ADC2         */
+#endif /* ADC2 */
 #if defined (JPEG)
-#define GPDMA1_REQUEST_JPEG_RX      (124U) /*!< GPDMA1 HW request is JPEG_TX      */
-#define GPDMA1_REQUEST_JPEG_TX      (125U) /*!< GPDMA1 HW request is JPEG_RX      */
-#endif /* defined (JPEG) */
+#define GPDMA1_REQUEST_JPEG_RX       124U   /*!< GPDMA1 HW request is JPEG_TX      */
+#define GPDMA1_REQUEST_JPEG_TX       125U   /*!< GPDMA1 HW request is JPEG_RX      */
+#endif /* JPEG */
 
 /* LPDMA1 requests */
-#define LPDMA1_REQUEST_LPUART1_RX (0U)  /*!< LPDMA1 HW request is LPUART1_RX */
-#define LPDMA1_REQUEST_LPUART1_TX (1U)  /*!< LPDMA1 HW request is LPUART1_TX */
-#define LPDMA1_REQUEST_SPI3_RX    (2U)  /*!< LPDMA1 HW request is SPI3_RX    */
-#define LPDMA1_REQUEST_SPI3_TX    (3U)  /*!< LPDMA1 HW request is SPI3_TX    */
-#define LPDMA1_REQUEST_I2C3_RX    (4U)  /*!< LPDMA1 HW request is I2C3_RX    */
-#define LPDMA1_REQUEST_I2C3_TX    (5U)  /*!< LPDMA1 HW request is I2C3_TX    */
-#define LPDMA1_REQUEST_I2C3_EVC   (6U)  /*!< LPDMA1 HW request is I2C3_EVC   */
-#define LPDMA1_REQUEST_ADC4       (7U)  /*!< LPDMA1 HW request is ADC4       */
-#define LPDMA1_REQUEST_DAC1_CH1   (8U)  /*!< LPDMA1 HW request is DAC1_CH1   */
-#define LPDMA1_REQUEST_DAC1_CH2   (9U)  /*!< LPDMA1 HW request is DAC1_CH2   */
-#define LPDMA1_REQUEST_ADF1_FLT0  (10U) /*!< LPDMA1 HW request is ADF1_FLT0  */
-#define LPDMA1_REQUEST_LPTIM1_IC1 (11U) /*!< LPDMA1 HW request is LPTIM1_IC1 */
-#define LPDMA1_REQUEST_LPTIM1_IC2 (12U) /*!< LPDMA1 HW request is LPTIM1_IC2 */
-#define LPDMA1_REQUEST_LPTIM1_UE  (13U) /*!< LPDMA1 HW request is LPTIM1_UE  */
-#define LPDMA1_REQUEST_LPTIM3_IC1 (14U) /*!< LPDMA1 HW request is LPTIM3_IC1 */
-#define LPDMA1_REQUEST_LPTIM3_IC2 (15U) /*!< LPDMA1 HW request is LPTIM3_IC2 */
-#define LPDMA1_REQUEST_LPTIM3_UE  (16U) /*!< LPDMA1 HW request is LPTIM3_UE  */
+#define LPDMA1_REQUEST_LPUART1_RX    0U     /*!< LPDMA1 HW request is LPUART1_RX   */
+#define LPDMA1_REQUEST_LPUART1_TX    1U     /*!< LPDMA1 HW request is LPUART1_TX   */
+#define LPDMA1_REQUEST_SPI3_RX       2U     /*!< LPDMA1 HW request is SPI3_RX      */
+#define LPDMA1_REQUEST_SPI3_TX       3U     /*!< LPDMA1 HW request is SPI3_TX      */
+#define LPDMA1_REQUEST_I2C3_RX       4U     /*!< LPDMA1 HW request is I2C3_RX      */
+#define LPDMA1_REQUEST_I2C3_TX       5U     /*!< LPDMA1 HW request is I2C3_TX      */
+#define LPDMA1_REQUEST_I2C3_EVC      6U     /*!< LPDMA1 HW request is I2C3_EVC     */
+#define LPDMA1_REQUEST_ADC4          7U     /*!< LPDMA1 HW request is ADC4         */
+#define LPDMA1_REQUEST_DAC1_CH1      8U     /*!< LPDMA1 HW request is DAC1_CH1     */
+#define LPDMA1_REQUEST_DAC1_CH2      9U     /*!< LPDMA1 HW request is DAC1_CH2     */
+#define LPDMA1_REQUEST_ADF1_FLT0     10U    /*!< LPDMA1 HW request is ADF1_FLT0    */
+#define LPDMA1_REQUEST_LPTIM1_IC1    11U    /*!< LPDMA1 HW request is LPTIM1_IC1   */
+#define LPDMA1_REQUEST_LPTIM1_IC2    12U    /*!< LPDMA1 HW request is LPTIM1_IC2   */
+#define LPDMA1_REQUEST_LPTIM1_UE     13U    /*!< LPDMA1 HW request is LPTIM1_UE    */
+#define LPDMA1_REQUEST_LPTIM3_IC1    14U    /*!< LPDMA1 HW request is LPTIM3_IC1   */
+#define LPDMA1_REQUEST_LPTIM3_IC2    15U    /*!< LPDMA1 HW request is LPTIM3_IC2   */
+#define LPDMA1_REQUEST_LPTIM3_UE     16U    /*!< LPDMA1 HW request is LPTIM3_UE    */
 
 /* Software request */
-#define DMA_REQUEST_SW DMA_CTR2_SWREQ /*!< DMA SW request */
+#define DMA_REQUEST_SW              DMA_CTR2_SWREQ /*!< DMA SW request             */
 /**
   * @}
   */
@@ -770,7 +770,7 @@ HAL_StatusTypeDef HAL_DMA_GetConfigChannelAttributes(DMA_HandleTypeDef const *co
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 HAL_StatusTypeDef HAL_DMA_LockChannelAttributes(DMA_HandleTypeDef const *const hdma);
-#endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 HAL_StatusTypeDef HAL_DMA_GetLockChannelAttributes(DMA_HandleTypeDef const *const hdma,
                                                    uint32_t *const pLockState);
 
@@ -890,12 +890,12 @@ HAL_StatusTypeDef HAL_DMA_GetLockChannelAttributes(DMA_HandleTypeDef const *cons
 #define IS_DMA_ATTRIBUTES(ATTRIBUTE)    \
   (((ATTRIBUTE) == DMA_CHANNEL_PRIV) || \
    ((ATTRIBUTE) == DMA_CHANNEL_NPRIV))
-#endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 #define IS_DMA_GLOBAL_ACTIVE_FLAG_S(INSTANCE, GLOBAL_FLAG) \
   (((INSTANCE)->SMISR & (GLOBAL_FLAG)))
-#endif /* defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 #define IS_DMA_GLOBAL_ACTIVE_FLAG_NS(INSTANCE, GLOBAL_FLAG) \
   (((INSTANCE)->MISR & (GLOBAL_FLAG)))
 
