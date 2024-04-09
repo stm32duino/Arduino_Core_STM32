@@ -52,6 +52,7 @@ extern "C" {
 #define HAL_DTS_MODULE_ENABLED
 #define HAL_DSI_MODULE_ENABLED
 #define HAL_ETH_MODULE_ENABLED
+/* #define HAL_ETH_LEGACY_MODULE_ENABLED */
 #define HAL_EXTI_MODULE_ENABLED
 #define HAL_FDCAN_MODULE_ENABLED
 #define HAL_FLASH_MODULE_ENABLED
@@ -176,11 +177,15 @@ in voltage and temperature.*/
 #define  USE_RTOS                     0
 #endif
 #if !defined (USE_SD_TRANSCEIVER)
-#define  USE_SD_TRANSCEIVER           0U               /*!< use uSD Transceiver */
+#define  USE_SD_TRANSCEIVER           0U       /*!< use uSD Transceiver */
 #endif
 #if !defined (USE_SPI_CRC)
-#define  USE_SPI_CRC                  0U               /*!< use CRC in SPI */
+#define  USE_SPI_CRC                  0U       /*!< use CRC in SPI */
 #endif
+#if !defined (USE_FLASH_ECC)
+#define  USE_FLASH_ECC                0U       /*!< use ECC error management in FLASH */
+#endif
+
 
 #if !defined(USE_HAL_ADC_REGISTER_CALLBACKS)
 #define  USE_HAL_ADC_REGISTER_CALLBACKS     0U /* ADC register callback disabled     */
@@ -393,6 +398,10 @@ in voltage and temperature.*/
 #ifdef HAL_ETH_MODULE_ENABLED
 #include "stm32h7xx_hal_eth.h"
 #endif /* HAL_ETH_MODULE_ENABLED */
+
+#ifdef HAL_ETH_LEGACY_MODULE_ENABLED
+#include "stm32h7xx_hal_eth_legacy.h"
+#endif /* HAL_ETH_LEGACY_MODULE_ENABLED */
 
 #ifdef HAL_EXTI_MODULE_ENABLED
 #include "stm32h7xx_hal_exti.h"

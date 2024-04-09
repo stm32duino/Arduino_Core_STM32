@@ -886,8 +886,6 @@ HAL_StatusTypeDef HAL_CORDIC_Calculate_DMA(CORDIC_HandleTypeDef *hcordic, const 
 {
   uint32_t sizeinbuff;
   uint32_t sizeoutbuff;
-  uint32_t inputaddr;
-  uint32_t outputaddr;
 
   /* Check the parameters */
   assert_param(IS_CORDIC_DMA_DIRECTION(DMADirection));
@@ -960,10 +958,9 @@ HAL_StatusTypeDef HAL_CORDIC_Calculate_DMA(CORDIC_HandleTypeDef *hcordic, const 
         sizeoutbuff = NbCalc;
       }
 
-      outputaddr = (uint32_t)pOutBuff;
-
       /* Enable the DMA stream managing CORDIC output data read */
-      if (HAL_DMA_Start_IT(hcordic->hdmaOut, (uint32_t)&hcordic->Instance->RDATA, outputaddr, sizeoutbuff) != HAL_OK)
+      if (HAL_DMA_Start_IT(hcordic->hdmaOut, (uint32_t)&hcordic->Instance->RDATA, (uint32_t) pOutBuff, sizeoutbuff)
+          != HAL_OK)
       {
         /* Update the error code */
         hcordic->ErrorCode |= HAL_CORDIC_ERROR_DMA;
@@ -995,10 +992,9 @@ HAL_StatusTypeDef HAL_CORDIC_Calculate_DMA(CORDIC_HandleTypeDef *hcordic, const 
         sizeinbuff = NbCalc;
       }
 
-      inputaddr  = (uint32_t)pInBuff;
-
       /* Enable the DMA stream managing CORDIC input data write */
-      if (HAL_DMA_Start_IT(hcordic->hdmaIn, inputaddr, (uint32_t)&hcordic->Instance->WDATA, sizeinbuff) != HAL_OK)
+      if (HAL_DMA_Start_IT(hcordic->hdmaIn, (uint32_t) pInBuff, (uint32_t)&hcordic->Instance->WDATA, sizeinbuff)
+          != HAL_OK)
       {
         /* Update the error code */
         hcordic->ErrorCode |= HAL_CORDIC_ERROR_DMA;
@@ -1137,7 +1133,7 @@ void HAL_CORDIC_IRQHandler(CORDIC_HandleTypeDef *hcordic)
         /*Call registered callback*/
         hcordic->CalculateCpltCallback(hcordic);
 #else
-        /*Call legacy weak (surcharged) callback*/
+        /*Call legacy weak callback*/
         HAL_CORDIC_CalculateCpltCallback(hcordic);
 #endif /* USE_HAL_CORDIC_REGISTER_CALLBACKS */
       }
@@ -1278,7 +1274,7 @@ static void CORDIC_DMAInCplt(DMA_HandleTypeDef *hdma)
     /*Call registered callback*/
     hcordic->CalculateCpltCallback(hcordic);
 #else
-    /*Call legacy weak (surcharged) callback*/
+    /*Call legacy weak callback*/
     HAL_CORDIC_CalculateCpltCallback(hcordic);
 #endif /* USE_HAL_CORDIC_REGISTER_CALLBACKS */
   }
@@ -1307,7 +1303,7 @@ static void CORDIC_DMAOutCplt(DMA_HandleTypeDef *hdma)
   /*Call registered callback*/
   hcordic->CalculateCpltCallback(hcordic);
 #else
-  /*Call legacy weak (surcharged) callback*/
+  /*Call legacy weak callback*/
   HAL_CORDIC_CalculateCpltCallback(hcordic);
 #endif /* USE_HAL_CORDIC_REGISTER_CALLBACKS */
 }
@@ -1332,7 +1328,7 @@ static void CORDIC_DMAError(DMA_HandleTypeDef *hdma)
   /*Call registered callback*/
   hcordic->ErrorCallback(hcordic);
 #else
-  /*Call legacy weak (surcharged) callback*/
+  /*Call legacy weak callback*/
   HAL_CORDIC_ErrorCallback(hcordic);
 #endif /* USE_HAL_CORDIC_REGISTER_CALLBACKS */
 }

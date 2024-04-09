@@ -250,6 +250,7 @@
 static uint32_t    UTILS_GetPLLOutputFrequency(uint32_t PLL_InputFrequency, LL_UTILS_PLLInitTypeDef *UTILS_PLLInitStruct);
 static ErrorStatus UTILS_EnablePLLAndSwitchSystem(uint32_t SYSCLK_Frequency, LL_UTILS_ClkInitTypeDef *UTILS_ClkInitStruct);
 static ErrorStatus UTILS_IsPLLsReady(void);
+static uint32_t    UTILS_CalcPLLClockFreq(uint32_t PLLInputFreq, uint32_t M, uint32_t N, uint32_t FRACN, uint32_t PQR);
 /**
   * @}
   */
@@ -522,7 +523,7 @@ ErrorStatus LL_PLL_ConfigSystemClock_HSI(LL_UTILS_PLLInitTypeDef *UTILS_PLLInitS
 
   /* Check VCO Output frequency */
 #ifdef  USE_FULL_ASSERT
-  vcooutput_freq = LL_RCC_CalcPLLClockFreq(hsi_clk, UTILS_PLLInitStruct->PLLM, UTILS_PLLInitStruct->PLLN, UTILS_PLLInitStruct->FRACN, 1UL);
+  vcooutput_freq = UTILS_CalcPLLClockFreq(hsi_clk, UTILS_PLLInitStruct->PLLM, UTILS_PLLInitStruct->PLLN, UTILS_PLLInitStruct->FRACN, 1UL);
 #endif
   assert_param(IS_LL_UTILS_PLLVCO_OUTPUT(vcooutput_freq, UTILS_PLLInitStruct->VCO_Output));
 
@@ -618,7 +619,7 @@ ErrorStatus LL_PLL_ConfigSystemClock_HSE(uint32_t HSEFrequency, uint32_t HSEBypa
 
   /* Check VCO output frequency */
 #ifdef  USE_FULL_ASSERT
-  vcooutput_freq = LL_RCC_CalcPLLClockFreq(HSEFrequency, UTILS_PLLInitStruct->PLLM, UTILS_PLLInitStruct->PLLN, UTILS_PLLInitStruct->FRACN, 1U);
+  vcooutput_freq = UTILS_CalcPLLClockFreq(HSEFrequency, UTILS_PLLInitStruct->PLLM, UTILS_PLLInitStruct->PLLN, UTILS_PLLInitStruct->FRACN, 1U);
 #endif
   assert_param(IS_LL_UTILS_PLLVCO_OUTPUT(vcooutput_freq, UTILS_PLLInitStruct->VCO_Output));
 
@@ -926,7 +927,7 @@ static uint32_t UTILS_GetPLLOutputFrequency(uint32_t PLL_InputFrequency, LL_UTIL
   assert_param(IS_LL_UTILS_PLLP_VALUE(UTILS_PLLInitStruct->PLLP));
   assert_param(IS_LL_UTILS_FRACN_VALUE(UTILS_PLLInitStruct->FRACN));
 
-  pllfreq = LL_RCC_CalcPLLClockFreq(PLL_InputFrequency, UTILS_PLLInitStruct->PLLM, UTILS_PLLInitStruct->PLLN, UTILS_PLLInitStruct->FRACN, UTILS_PLLInitStruct->PLLP);
+  pllfreq = UTILS_CalcPLLClockFreq(PLL_InputFrequency, UTILS_PLLInitStruct->PLLM, UTILS_PLLInitStruct->PLLN, UTILS_PLLInitStruct->FRACN, UTILS_PLLInitStruct->PLLP);
 
   return pllfreq;
 }
@@ -963,6 +964,27 @@ static ErrorStatus UTILS_IsPLLsReady(void)
   }
 
   return status;
+}
+
+/**
+  * @brief  Helper function to calculate the PLL frequency output
+  * @param  PLLInputFreq PLL Input frequency (based on HSE/(HSI/HSIDIV)/CSI)
+  * @param  M      Between 1 and 63
+  * @param  N      Between 4 and 512
+  * @param  FRACN  Between 0 and 0x1FFF
+  * @param  PQR    VCO output divider (P, Q or R)
+  *                Between 1 and 128, except for PLL1P Odd value not allowed
+  * @retval PLL1 clock frequency (in Hz)
+  */
+static uint32_t UTILS_CalcPLLClockFreq(uint32_t PLLInputFreq, uint32_t M, uint32_t N, uint32_t FRACN, uint32_t PQR)
+{
+  float_t freq;
+
+  freq = ((float_t)PLLInputFreq / (float_t)M) * ((float_t)N + ((float_t)FRACN / (float_t)0x2000));
+
+  freq = freq / (float_t)PQR;
+
+  return (uint32_t)freq;
 }
 
 /**

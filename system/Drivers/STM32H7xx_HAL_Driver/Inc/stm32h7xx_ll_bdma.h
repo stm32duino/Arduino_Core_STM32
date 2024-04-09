@@ -77,70 +77,79 @@ static const uint8_t LL_BDMA_CH_OFFSET_TAB[] =
   */
 typedef struct
 {
-  uint32_t PeriphOrM2MSrcAddress;  /*!< Specifies the peripheral base address for BDMA transfer
-                                        or as Source base address in case of memory to memory transfer direction.
+  uint32_t PeriphOrM2MSrcAddress;       /*!< Specifies the peripheral base address for BDMA transfer
+                                             or as Source base address in case of memory to memory transfer direction.
 
-                                        This parameter must be a value between Min_Data = 0 and Max_Data = 0xFFFFFFFF. */
+                                             This parameter must be a value between Min_Data = 0 and Max_Data = 0xFFFFFFFF. */
 
-  uint32_t MemoryOrM2MDstAddress;  /*!< Specifies the memory base address for DMA transfer
-                                        or as Destination base address in case of memory to memory transfer direction.
+  uint32_t MemoryOrM2MDstAddress;       /*!< Specifies the memory base address for DMA transfer
+                                             or as Destination base address in case of memory to memory transfer direction.
 
-                                        This parameter must be a value between Min_Data = 0 and Max_Data = 0xFFFFFFFF. */
+                                             This parameter must be a value between Min_Data = 0 and Max_Data = 0xFFFFFFFF. */
 
-  uint32_t Direction;              /*!< Specifies if the data will be transferred from memory to peripheral,
-                                        from memory to memory or from peripheral to memory.
-                                        This parameter can be a value of @ref BDMA_LL_EC_DIRECTION
+  uint32_t Direction;                   /*!< Specifies if the data will be transferred from memory to peripheral,
+                                             from memory to memory or from peripheral to memory.
+                                             This parameter can be a value of @ref BDMA_LL_EC_DIRECTION
 
-                                        This feature can be modified afterwards using unitary function @ref LL_BDMA_SetDataTransferDirection(). */
+                                             This feature can be modified afterwards using unitary function @ref LL_BDMA_SetDataTransferDirection(). */
 
-  uint32_t Mode;                   /*!< Specifies the normal or circular operation mode.
-                                        This parameter can be a value of @ref BDMA_LL_EC_MODE
-                                        @note: The circular buffer mode cannot be used if the memory to memory
-                                               data transfer direction is configured on the selected Channel
+  uint32_t Mode;                        /*!< Specifies the normal or circular operation mode.
+                                             This parameter can be a value of @ref BDMA_LL_EC_MODE
+                                             @note: The circular buffer mode cannot be used if the memory to memory
+                                                    data transfer direction is configured on the selected Channel
 
-                                        This feature can be modified afterwards using unitary function @ref LL_BDMA_SetMode(). */
+                                             This feature can be modified afterwards using unitary function @ref LL_BDMA_SetMode(). */
 
-  uint32_t PeriphOrM2MSrcIncMode;  /*!< Specifies whether the Peripheral address or Source address in case of memory to memory transfer direction
-                                        is incremented or not.
-                                        This parameter can be a value of @ref BDMA_LL_EC_PERIPH
+  uint32_t PeriphOrM2MSrcIncMode;       /*!< Specifies whether the Peripheral address or Source address in case of memory to memory transfer direction
+                                             is incremented or not.
+                                             This parameter can be a value of @ref BDMA_LL_EC_PERIPH
 
-                                        This feature can be modified afterwards using unitary function @ref LL_BDMA_SetPeriphIncMode(). */
+                                             This feature can be modified afterwards using unitary function @ref LL_BDMA_SetPeriphIncMode(). */
 
-  uint32_t MemoryOrM2MDstIncMode;  /*!< Specifies whether the Memory address or Destination address in case of memory to memory transfer direction
-                                        is incremented or not.
-                                        This parameter can be a value of @ref BDMA_LL_EC_MEMORY
+  uint32_t MemoryOrM2MDstIncMode;       /*!< Specifies whether the Memory address or Destination address in case of memory to memory transfer direction
+                                             is incremented or not.
+                                             This parameter can be a value of @ref BDMA_LL_EC_MEMORY
 
-                                        This feature can be modified afterwards using unitary function @ref LL_BDMA_SetMemoryIncMode(). */
+                                             This feature can be modified afterwards using unitary function @ref LL_BDMA_SetMemoryIncMode(). */
 
-  uint32_t PeriphOrM2MSrcDataSize; /*!< Specifies the Peripheral data size alignment or Source data size alignment (byte, half word, word)
-                                        in case of memory to memory transfer direction.
-                                        This parameter can be a value of @ref BDMA_LL_EC_PDATAALIGN
+  uint32_t PeriphOrM2MSrcDataSize;      /*!< Specifies the Peripheral data size alignment or Source data size alignment (byte, half word, word)
+                                             in case of memory to memory transfer direction.
+                                             This parameter can be a value of @ref BDMA_LL_EC_PDATAALIGN
 
-                                        This feature can be modified afterwards using unitary function @ref LL_BDMA_SetPeriphSize(). */
+                                             This feature can be modified afterwards using unitary function @ref LL_BDMA_SetPeriphSize(). */
 
-  uint32_t MemoryOrM2MDstDataSize; /*!< Specifies the Memory data size alignment or Destination data size alignment (byte, half word, word)
-                                        in case of memory to memory transfer direction.
-                                        This parameter can be a value of @ref BDMA_LL_EC_MDATAALIGN
+  uint32_t MemoryOrM2MDstDataSize;      /*!< Specifies the Memory data size alignment or Destination data size alignment (byte, half word, word)
+                                             in case of memory to memory transfer direction.
+                                             This parameter can be a value of @ref BDMA_LL_EC_MDATAALIGN
 
-                                        This feature can be modified afterwards using unitary function @ref LL_BDMA_SetMemorySize(). */
+                                             This feature can be modified afterwards using unitary function @ref LL_BDMA_SetMemorySize(). */
 
-  uint32_t NbData;                 /*!< Specifies the number of data to transfer, in data unit.
-                                        The data unit is equal to the source buffer configuration set in PeripheralSize
-                                        or MemorySize parameters depending in the transfer direction.
-                                        This parameter must be a value between Min_Data = 0 and Max_Data = 0x0000FFFF
+  uint32_t NbData;                      /*!< Specifies the number of data to transfer, in data unit.
+                                             The data unit is equal to the source buffer configuration set in PeripheralSize
+                                             or MemorySize parameters depending in the transfer direction.
+                                             This parameter must be a value between Min_Data = 0 and Max_Data = 0x0000FFFF
 
-                                        This feature can be modified afterwards using unitary function @ref LL_BDMA_SetDataLength(). */
+                                             This feature can be modified afterwards using unitary function @ref LL_BDMA_SetDataLength(). */
 
-  uint32_t PeriphRequest;          /*!< Specifies the peripheral request.
-                                        This parameter can be a value of @ref DMAMUX2_Request_selection
+  uint32_t PeriphRequest;               /*!< Specifies the peripheral request.
+                                             This parameter can be a value of @ref DMAMUX2_Request_selection
 
-                                        This feature can be modified afterwards using unitary function @ref LL_BDMA_SetPeriphRequest(). */
+                                             This feature can be modified afterwards using unitary function @ref LL_BDMA_SetPeriphRequest(). */
 
-  uint32_t Priority;               /*!< Specifies the channel priority level.
-                                        This parameter can be a value of @ref BDMA_LL_EC_PRIORITY
+  uint32_t Priority;                    /*!< Specifies the channel priority level.
+                                             This parameter can be a value of @ref BDMA_LL_EC_PRIORITY
 
-                                        This feature can be modified afterwards using unitary function @ref LL_BDMA_SetChannelPriorityLevel(). */
+                                             This feature can be modified afterwards using unitary function @ref LL_BDMA_SetChannelPriorityLevel(). */
 
+  uint32_t DoubleBufferMode;            /*!< Specifies the double buffer mode.
+                                             This parameter can be a value of @ref BDMA_LL_EC_DOUBLEBUFFER_MODE
+
+                                             This feature can be modified afterwards using unitary function @ref LL_BDMA_EnableDoubleBufferMode() & LL_BDMA_DisableDoubleBufferMode(). */
+
+  uint32_t TargetMemInDoubleBufferMode; /*!< Specifies the target memory in double buffer mode.
+                                             This parameter can be a value of @ref BDMA_LL_EC_CURRENTTARGETMEM
+
+                                             This feature can be modified afterwards using unitary function @ref LL_BDMA_SetCurrentTargetMem(). */
 } LL_BDMA_InitTypeDef;
 /**
   * @}
@@ -275,11 +284,20 @@ typedef struct
   * @}
   */
 
-/** @defgroup DMA_LL_EC_DOUBLEBUFFER_MODE DOUBLE BUFFER MODE
+/** @defgroup BDMA_LL_EC_DOUBLEBUFFER_MODE DOUBLE BUFFER MODE
   * @{
   */
 #define LL_BDMA_DOUBLEBUFFER_MODE_DISABLE  0x00000000U              /*!< Disable double buffering mode        */
 #define LL_BDMA_DOUBLEBUFFER_MODE_ENABLE   BDMA_CCR_DBM             /*!< Enable double buffering mode         */
+/**
+  * @}
+  */
+
+/** @defgroup BDMA_LL_EC_CURRENTTARGETMEM CURRENTTARGETMEM
+  * @{
+  */
+#define LL_BDMA_CURRENTTARGETMEM0          0x00000000U              /*!< Set CurrentTarget Memory to Memory 0 */
+#define LL_BDMA_CURRENTTARGETMEM1          BDMA_CCR_CT              /*!< Set CurrentTarget Memory to Memory 1 */
 /**
   * @}
   */
@@ -333,14 +351,6 @@ typedef struct
   * @}
   */
 
-/** @defgroup DMA_LL_EC_CURRENTTARGETMEM CURRENTTARGETMEM
-  * @{
-  */
-#define LL_BDMA_CURRENTTARGETMEM0          0x00000000U              /*!< Set CurrentTarget Memory to Memory 0 */
-#define LL_BDMA_CURRENTTARGETMEM1          BDMA_CCR_CT              /*!< Set CurrentTarget Memory to Memory 1 */
-/**
-  * @}
-  */
 
 /**
   * @}
@@ -549,7 +559,9 @@ __STATIC_INLINE uint32_t LL_BDMA_IsEnabledChannel(BDMA_TypeDef *BDMAx, uint32_t 
   *         CCR          MINC          LL_BDMA_ConfigTransfer\n
   *         CCR          PSIZE         LL_BDMA_ConfigTransfer\n
   *         CCR          MSIZE         LL_BDMA_ConfigTransfer\n
-  *         CCR          PL            LL_BDMA_ConfigTransfer
+  *         CCR          PL            LL_BDMA_ConfigTransfer\n
+  *         CCR          DBM           LL_BDMA_ConfigTransfer\n
+  *         CCR          CT            LL_BDMA_ConfigTransfer
   * @param  BDMAx BDMA Instance
   * @param  Channel This parameter can be one of the following values:
   *         @arg @ref LL_BDMA_CHANNEL_0
@@ -568,6 +580,8 @@ __STATIC_INLINE uint32_t LL_BDMA_IsEnabledChannel(BDMA_TypeDef *BDMAx, uint32_t 
   *         @arg @ref LL_BDMA_PDATAALIGN_BYTE or @ref LL_BDMA_PDATAALIGN_HALFWORD or @ref LL_BDMA_PDATAALIGN_WORD
   *         @arg @ref LL_BDMA_MDATAALIGN_BYTE or @ref LL_BDMA_MDATAALIGN_HALFWORD or @ref LL_BDMA_MDATAALIGN_WORD
   *         @arg @ref LL_BDMA_PRIORITY_LOW or @ref LL_BDMA_PRIORITY_MEDIUM or @ref LL_BDMA_PRIORITY_HIGH or @ref LL_BDMA_PRIORITY_VERYHIGH
+  *         @arg @ref LL_BDMA_DOUBLEBUFFER_MODE_DISABLE or @ref LL_BDMA_DOUBLEBUFFER_MODE_ENABLE
+  *         @arg @ref LL_BDMA_CURRENTTARGETMEM0 or @ref LL_BDMA_CURRENTTARGETMEM1
   * @retval None
   */
 __STATIC_INLINE void LL_BDMA_ConfigTransfer(BDMA_TypeDef *BDMAx, uint32_t Channel, uint32_t Configuration)
@@ -575,8 +589,8 @@ __STATIC_INLINE void LL_BDMA_ConfigTransfer(BDMA_TypeDef *BDMAx, uint32_t Channe
   uint32_t bdma_base_addr = (uint32_t)BDMAx;
 
   MODIFY_REG(((BDMA_Channel_TypeDef *)(bdma_base_addr + LL_BDMA_CH_OFFSET_TAB[Channel]))->CCR,
-             BDMA_CCR_DIR | BDMA_CCR_MEM2MEM | BDMA_CCR_CIRC | BDMA_CCR_PINC | BDMA_CCR_MINC | BDMA_CCR_PSIZE | BDMA_CCR_MSIZE | BDMA_CCR_PL,
-             Configuration);
+             BDMA_CCR_DIR | BDMA_CCR_MEM2MEM | BDMA_CCR_CIRC | BDMA_CCR_PINC | BDMA_CCR_MINC | BDMA_CCR_PSIZE | BDMA_CCR_MSIZE | BDMA_CCR_PL | \
+             BDMA_CCR_DBM | BDMA_CCR_CT, Configuration);
 }
 
 /**
@@ -1092,6 +1106,28 @@ __STATIC_INLINE void LL_BDMA_DisableDoubleBufferMode(BDMA_TypeDef *BDMAx, uint32
   uint32_t bdma_base_addr = (uint32_t)BDMAx;
 
   CLEAR_BIT(((BDMA_Channel_TypeDef *)(bdma_base_addr + LL_BDMA_CH_OFFSET_TAB[Channel]))->CCR, BDMA_CCR_DBM);
+}
+
+/**
+  * @brief  Check if double buffer mode is enabled or not.
+  * @rmtoll CCR          DBM           LL_BDMA_IsEnabledDoubleBufferMode
+  * @param  BDMAx BDMAx Instance
+  * @param  Channel This parameter can be one of the following values:
+  *         @arg @ref LL_BDMA_CHANNEL_0
+  *         @arg @ref LL_BDMA_CHANNEL_1
+  *         @arg @ref LL_BDMA_CHANNEL_2
+  *         @arg @ref LL_BDMA_CHANNEL_3
+  *         @arg @ref LL_BDMA_CHANNEL_4
+  *         @arg @ref LL_BDMA_CHANNEL_5
+  *         @arg @ref LL_BDMA_CHANNEL_6
+  *         @arg @ref LL_BDMA_CHANNEL_7
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_BDMA_IsEnabledDoubleBufferMode(BDMA_TypeDef *BDMAx, uint32_t Channel)
+{
+  register uint32_t bdma_base_addr = (uint32_t)BDMAx;
+
+  return ((READ_BIT(((BDMA_Channel_TypeDef *)(bdma_base_addr + LL_BDMA_CH_OFFSET_TAB[Channel]))->CCR, BDMA_CCR_DBM) == (BDMA_CCR_DBM)) ? 1UL : 0UL);
 }
 
 /**

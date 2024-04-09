@@ -49,6 +49,7 @@
 #define HAL_DTS_MODULE_ENABLED
 #define HAL_DSI_MODULE_ENABLED
 #define HAL_ETH_MODULE_ENABLED
+/* #define HAL_ETH_LEGACY_MODULE_ENABLED */
 #define HAL_EXTI_MODULE_ENABLED
 #define HAL_FDCAN_MODULE_ENABLED
 #define HAL_FLASH_MODULE_ENABLED
@@ -165,8 +166,9 @@
 #define  VDD_VALUE                    (3300UL) /*!< Value of VDD in mv */
 #define  TICK_INT_PRIORITY            (0x0FUL) /*!< tick interrupt priority */
 #define  USE_RTOS                     0
-#define  USE_SD_TRANSCEIVER           0U               /*!< use uSD Transceiver */
-#define  USE_SPI_CRC                  1U               /*!< use CRC in SPI */
+#define  USE_SD_TRANSCEIVER           0U       /*!< use uSD Transceiver */
+#define  USE_SPI_CRC                  1U       /*!< use CRC in SPI */
+#define  USE_FLASH_ECC                0U       /*!< use ECC error management in FLASH */
 
 #define  USE_HAL_ADC_REGISTER_CALLBACKS     0U /* ADC register callback disabled     */
 #define  USE_HAL_CEC_REGISTER_CALLBACKS     0U /* CEC register callback disabled     */
@@ -284,6 +286,10 @@
 #ifdef HAL_ETH_MODULE_ENABLED
   #include "stm32h7xx_hal_eth.h"
 #endif /* HAL_ETH_MODULE_ENABLED */
+
+#ifdef HAL_ETH_LEGACY_MODULE_ENABLED
+  #include "stm32h7xx_hal_eth_legacy.h"
+#endif /* HAL_ETH_LEGACY_MODULE_ENABLED */
 
 #ifdef HAL_EXTI_MODULE_ENABLED
   #include "stm32h7xx_hal_exti.h"

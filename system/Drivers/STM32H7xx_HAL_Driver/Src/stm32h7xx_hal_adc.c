@@ -2888,17 +2888,19 @@ HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef *hadc, ADC_ChannelConf
   /*  - Channel rank                                                          */
   if (LL_ADC_REG_IsConversionOngoing(hadc->Instance) == 0UL)
   {
-
-#if defined(ADC_VER_V5_V90)
-    if (hadc->Instance != ADC3)
+    if (!(__LL_ADC_IS_CHANNEL_INTERNAL(sConfig->Channel)))
     {
-      /* ADC channels preselection */
-      hadc->Instance->PCSEL_RES0 |= (1UL << (__LL_ADC_CHANNEL_TO_DECIMAL_NB((uint32_t)sConfig->Channel) & 0x1FUL));
-    }
+#if defined(ADC_VER_V5_V90)
+      if (hadc->Instance != ADC3)
+      {
+        /* ADC channels preselection */
+        hadc->Instance->PCSEL_RES0 |= (1UL << (__LL_ADC_CHANNEL_TO_DECIMAL_NB((uint32_t)sConfig->Channel) & 0x1FUL));
+      }
 #else
-    /* ADC channels preselection */
-    hadc->Instance->PCSEL |= (1UL << (__LL_ADC_CHANNEL_TO_DECIMAL_NB((uint32_t)sConfig->Channel) & 0x1FUL));
+      /* ADC channels preselection */
+      hadc->Instance->PCSEL |= (1UL << (__LL_ADC_CHANNEL_TO_DECIMAL_NB((uint32_t)sConfig->Channel) & 0x1FUL));
 #endif /* ADC_VER_V5_V90 */
+    }
 
     /* Set ADC group regular sequence: channel on the selected scan sequence rank */
     LL_ADC_REG_SetSequencerRanks(hadc->Instance, sConfig->Rank, sConfig->Channel);

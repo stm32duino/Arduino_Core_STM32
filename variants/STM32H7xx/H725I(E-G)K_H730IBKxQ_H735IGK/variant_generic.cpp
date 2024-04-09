@@ -133,7 +133,7 @@ const PinName digitalPin[] = {
   PH_2,   // D114/A28
   PH_3,   // D115/A29
   PH_4,   // D116/A30
-  PH_5,   // D117/A31
+  PH_5,   // D117
   PH_6,   // D118
   PH_7,   // D119
   PH_8,   // D120
@@ -144,10 +144,10 @@ const PinName digitalPin[] = {
   PH_13,  // D125
   PH_14,  // D126
   PH_15,  // D127
-  PA_0_C, // D128/A32
-  PA_1_C, // D129/A33
-  PC_2_C, // D130/A34
-  PC_3_C  // D131/A35
+  PA_0_C, // D128/A31
+  PA_1_C, // D129/A32
+  PC_2_C, // D130/A33
+  PC_3_C  // D131/A34
 };
 
 // Analog (Ax) pin number array
@@ -183,11 +183,10 @@ const uint32_t analogInputPin[] = {
   114, // A28, PH2
   115, // A29, PH3
   116, // A30, PH4
-  117, // A31, PH5
-  128, // A32, PA0_C
-  129, // A33, PA1_C
-  130, // A34, PC2_C
-  131 // A35, PC3_C
+  128, // A31, PA0_C
+  129, // A32, PA1_C
+  130, // A33, PC2_C
+  131 // A34, PC3_C
 };
 
 #endif /* ARDUINO_GENERIC_* */

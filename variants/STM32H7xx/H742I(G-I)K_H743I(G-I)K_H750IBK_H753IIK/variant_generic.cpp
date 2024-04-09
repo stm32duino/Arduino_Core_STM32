@@ -10,12 +10,9 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_H742IGKX) || defined(ARDUINO_GENERIC_H742IGTX) ||\
-    defined(ARDUINO_GENERIC_H742IIKX) || defined(ARDUINO_GENERIC_H742IITX) ||\
-    defined(ARDUINO_GENERIC_H743IGKX) || defined(ARDUINO_GENERIC_H743IGTX) ||\
-    defined(ARDUINO_GENERIC_H743IIKX) || defined(ARDUINO_GENERIC_H743IITX) ||\
-    defined(ARDUINO_GENERIC_H750IBKX) || defined(ARDUINO_GENERIC_H750IBTX) ||\
-    defined(ARDUINO_GENERIC_H753IIKX) || defined(ARDUINO_GENERIC_H753IITX)
+#if defined(ARDUINO_GENERIC_H742IGKX) || defined(ARDUINO_GENERIC_H742IIKX) ||\
+    defined(ARDUINO_GENERIC_H743IGKX) || defined(ARDUINO_GENERIC_H743IIKX) ||\
+    defined(ARDUINO_GENERIC_H750IBKX) || defined(ARDUINO_GENERIC_H753IIKX)
 #include "pins_arduino.h"
 
 // Digital PinName array

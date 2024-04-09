@@ -314,32 +314,32 @@ void              HAL_ETHEx_SetARPAddressMatch(ETH_HandleTypeDef *heth, uint32_t
 /* MAC L3 L4 Filtering APIs ***************************************************/
 void              HAL_ETHEx_EnableL3L4Filtering(ETH_HandleTypeDef *heth);
 void              HAL_ETHEx_DisableL3L4Filtering(ETH_HandleTypeDef *heth);
-HAL_StatusTypeDef HAL_ETHEx_GetL3FilterConfig(ETH_HandleTypeDef *heth, uint32_t Filter,
+HAL_StatusTypeDef HAL_ETHEx_GetL3FilterConfig(const ETH_HandleTypeDef *heth, uint32_t Filter,
                                               ETH_L3FilterConfigTypeDef *pL3FilterConfig);
-HAL_StatusTypeDef HAL_ETHEx_GetL4FilterConfig(ETH_HandleTypeDef *heth, uint32_t Filter,
+HAL_StatusTypeDef HAL_ETHEx_GetL4FilterConfig(const ETH_HandleTypeDef *heth, uint32_t Filter,
                                               ETH_L4FilterConfigTypeDef *pL4FilterConfig);
 HAL_StatusTypeDef HAL_ETHEx_SetL3FilterConfig(ETH_HandleTypeDef *heth, uint32_t Filter,
-                                              ETH_L3FilterConfigTypeDef *pL3FilterConfig);
+                                              const ETH_L3FilterConfigTypeDef *pL3FilterConfig);
 HAL_StatusTypeDef HAL_ETHEx_SetL4FilterConfig(ETH_HandleTypeDef *heth, uint32_t Filter,
-                                              ETH_L4FilterConfigTypeDef *pL4FilterConfig);
+                                              const ETH_L4FilterConfigTypeDef *pL4FilterConfig);
 
 /* MAC VLAN Processing APIs    ************************************************/
 void              HAL_ETHEx_EnableVLANProcessing(ETH_HandleTypeDef *heth);
 void              HAL_ETHEx_DisableVLANProcessing(ETH_HandleTypeDef *heth);
-HAL_StatusTypeDef HAL_ETHEx_GetRxVLANConfig(ETH_HandleTypeDef *heth, ETH_RxVLANConfigTypeDef *pVlanConfig);
+HAL_StatusTypeDef HAL_ETHEx_GetRxVLANConfig(const ETH_HandleTypeDef *heth, ETH_RxVLANConfigTypeDef *pVlanConfig);
 HAL_StatusTypeDef HAL_ETHEx_SetRxVLANConfig(ETH_HandleTypeDef *heth, ETH_RxVLANConfigTypeDef *pVlanConfig);
 void              HAL_ETHEx_SetVLANHashTable(ETH_HandleTypeDef *heth, uint32_t VLANHashTable);
-HAL_StatusTypeDef HAL_ETHEx_GetTxVLANConfig(ETH_HandleTypeDef *heth, uint32_t VLANTag,
+HAL_StatusTypeDef HAL_ETHEx_GetTxVLANConfig(const ETH_HandleTypeDef *heth, uint32_t VLANTag,
                                             ETH_TxVLANConfigTypeDef *pVlanConfig);
 HAL_StatusTypeDef HAL_ETHEx_SetTxVLANConfig(ETH_HandleTypeDef *heth, uint32_t VLANTag,
-                                            ETH_TxVLANConfigTypeDef *pVlanConfig);
+                                            const ETH_TxVLANConfigTypeDef *pVlanConfig);
 void              HAL_ETHEx_SetTxVLANIdentifier(ETH_HandleTypeDef *heth, uint32_t VLANTag, uint32_t VLANIdentifier);
 
 /* Energy Efficient Ethernet APIs *********************************************/
 void              HAL_ETHEx_EnterLPIMode(ETH_HandleTypeDef *heth, FunctionalState TxAutomate,
                                          FunctionalState TxClockStop);
 void              HAL_ETHEx_ExitLPIMode(ETH_HandleTypeDef *heth);
-uint32_t          HAL_ETHEx_GetMACLPIEvent(ETH_HandleTypeDef *heth);
+uint32_t          HAL_ETHEx_GetMACLPIEvent(const ETH_HandleTypeDef *heth);
 
 /**
   * @}
@@ -364,4 +364,3 @@ uint32_t          HAL_ETHEx_GetMACLPIEvent(ETH_HandleTypeDef *heth);
 #endif
 
 #endif /* STM32H7xx_HAL_ETH_EX_H */
-
