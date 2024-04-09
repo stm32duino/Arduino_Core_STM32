@@ -77,45 +77,45 @@ There are external libraries used in these example. They could be found & instal
 
 The variant in this core includes pre-define for MCU pins connected to on-boards peripherals / modules. Details are listed as follows:
 
-|  No.  |         Define          |  Term 6 Pin   |  Term 7 Pin   | Description                                              |
-| :---: | :---------------------: | :-----------: | :-----------: | -------------------------------------------------------- |
-|   1   |   LEAT_BOARD_VERSION    |       6       |       7       | Board version                                            |
-|   2   |   CORE_VERSION_MAJOR    |      12       |      12       | Core version (Major part)                                |
-|   3   |   CORE_VERSION_MINOR    |       7       |       7       | Core version (Minor part)                                |
-|   4   |   CORE_VERSION_PATCH    |       2       |       2       | Core version (Patch number)                              |
-|   5   |   CORE_VERSION_BUILD    |       0       |       0       | Core version (Build number)                              |
-|   6   |   CORE_VERSION_STRING   |  "12.7.2-0"   |  "12.7.2-0"   | Core version in string format                            |
-|   7   |       LED_BUILTIN       |     PA13      |     PA15      | Integrated LED pin                                       |
-|   8   |        USER_BTN         |      PC2      |     PA14      | Integrated button pin                                    |
-|   9   | SENSORS_BATERY_ADC_PIN  |      PA2      |      PB1      | ADC pin that connected to resistor voltage divider       |
-|  10   | ECHOSTAR_PWR_ENABLE_PIN | Not available |      PH1      | EchoStar EM2050 LDO enable pin                           |
-|  11   |    ECHOSTAR_TXD_PIN     |      PC0      |     PA10      | EchoStar EM2050 Serial TxD pin (assigned to MCU RxD pin) |
-|  12   |    ECHOSTAR_RXD_PIN     |      PC1      |      PA9      | EchoStar EM2050 Serial RxD pin (assigned to MCU TxD pin) |
-|  13   |   ECHOSTAR_SWCTRL_PIN   |      PB4      |      PB0      | EchoStar EM2050 SWCTRL pin (MCU should read only)        |
-|  14   |    ECHOSTAR_RTS_PIN     |     PC12      |     PB15      | EchoStar EM2050 RTS pin                                  |
-|  15   |    ECHOSTAR_BOOT_PIN    |     PC11      |      PA5      | EchoStar EM2050 Bootloader enable pin                    |
-|  16   |    ECHOSTAR_nRST_PIN    |     PC10      |      PA6      | EchoStar EM2050 nRST pin                                 |
-|  17   |   DPDT_PWR_ENABLE_PIN   | Not available |      PA7      | Sband RF Switch power supply pin                         |
-|  18   |      DPDT_CTRL_PIN      |      PB8      |      PA4      | Sband RF Switch control pin                              |
-|  19   |      GNSS_TXD_PIN       |      PB7      |      PA1      | GNSS Serial TxD pin (assigned to MCU RxD pin)            |
-|  20   |      GNSS_RXD_PIN       |      PA9      |      PA0      | GNSS Serial RxD pin (assigned to MCU TxD pin)            |
-|  21   |     GNSS_WAKEUP_PIN     |      PB5      | Not available | GNSS Wakeup pin                                          |
-|  22   |   GNSS_PWR_ENABLE_PIN   |      PA1      |     PC13      | GNSS LDO enable pin                                      |
-|  23   |      GNSS_1PPS_PIN      |      PA0      | Not available | GNSS 1PPS pin                                            |
-|  24   |     GNSS_V_BCKP_PIN     |      PC3      |      PH0      | GNSS V_BCKP pin                                          |
-|  25   | SENSORS_PWR_ENABLE_PIN  |     PA14      |     PA13      | Sensors LDO enable pin                                   |
-|  26   |   SENSORS_I2C_SDA_PIN   |     PA10      |      PB7      | I2C SDA pin for sensor communication                     |
-|  27   |   SENSORS_I2C_SCL_PIN   |      PB6      |      PB8      | I2C SCL pin for sensor communication                     |
-|  28   |  SENSORS_ACC_INT_1_PIN  |     PB11      |      PA8      | KX023 INT1 pin                                           |
-|  29   |  SENSORS_ACC_INT_2_PIN  |     PB10      | Not available | KX023 INT2 pin                                           |
-|  30   |  SENSORS_ACC_TRIG_PIN   |     PB12      | Not available | KX023 TRIG pin                                           |
-|  31   |       USB_SERIAL        |    Serial     |    Serial     | Serial instance for USB communication                    |
-|  32   |       GNSS_SERIAL       |    Serial1    |    Serial4    | Serial instance for the GNSS module                      |
-|  33   |     ECHOSTAR_SERIAL     |   SerialLP1   |    Serial1    | Serial instance for the EM2050 module                    |
-|  34   |      HEADER_SERIAL      | Not available |    Serial2    | Serial instance for Header Pins                          |
-|  35   | SENSORS_BME280_ADDRESS  |     0x76      |     0x76      | I2C Address of BME280                                    |
-|  36   | SENSORS_BME680_ADDRESS  | Not available |     0x77      | I2C Address of BME680/688                                |
-|  37   |  SENSORS_KX023_ADDRESS  |     0x1F      |     0x1F      | I2C Address of KX023                                     |
+| No.  |           Define          |     Term   6    |     Term   7    |    Term   7.1   |                          Description                        |
+|:----:|:-------------------------:|:---------------:|:---------------:|:---------------:|:-----------------------------------------------------------:|
+|   1  |     LEAT_BOARD_VERSION    |        6        |        7        |       7001      |                         Board version                       |
+|   2  |     CORE_VERSION_MAJOR    |        12       |        12       |        12       |                   Core version (Major part)                 |
+|   3  |     CORE_VERSION_MINOR    |        7        |        7        |        7        |                   Core version (Minor part)                 |
+|   4  |     CORE_VERSION_PATCH    |        2        |        2        |        2        |                  Core version (Patch number)                |
+|   5  |     CORE_VERSION_BUILD    |        0        |        0        |        0        |                  Core version (Build number)                |
+|   6  |    CORE_VERSION_STRING    |    "12.7.2-0"   |    "12.7.2-0"   |    "12.7.2-0"   |                 Core version in string format               |
+|   7  |        LED_BUILTIN        |       PA13      |       PA15      |       PA15      |                      Integrated LED pin                     |
+|   8  |          USER_BTN         |       PC2       |       PA14      |       PA14      |                     Integrated button pin                   |
+|   9  |   SENSORS_BATERY_ADC_PIN  |       PA2       |       PB1       |       PB1       |     ADC pin that connected to resistor   voltage divider    |
+|  10  |  ECHOSTAR_PWR_ENABLE_PIN  |  Not available  |       PH1       |       PH1       |                EchoStar EM2050 LDO enable pin               |
+|  11  |      ECHOSTAR_TXD_PIN     |       PC0       |       PA10      |       PA10      |  EchoStar EM2050 Serial TxD pin   (assigned to MCU RxD pin) |
+|  12  |      ECHOSTAR_RXD_PIN     |       PC1       |       PA9       |       PA9       |  EchoStar EM2050 Serial RxD pin   (assigned to MCU TxD pin) |
+|  13  |    ECHOSTAR_SWCTRL_PIN    |       PB4       |       PB0       |       PA7       |      EchoStar EM2050 SWCTRL pin (MCU   should read only)    |
+|  14  |      ECHOSTAR_RTS_PIN     |       PC12      |       PB15      |       PH3       |                    EchoStar EM2050 RTS pin                  |
+|  15  |     ECHOSTAR_BOOT_PIN     |       PC11      |       PA5       |       PA5       |            EchoStar EM2050 Bootloader enable   pin          |
+|  16  |     ECHOSTAR_nRST_PIN     |       PC10      |       PA6       |       PA6       |                   EchoStar EM2050 nRST pin                  |
+|  17  |    DPDT_PWR_ENABLE_PIN    |  Not available  |       PA7       |  Not available  |               Sband RF Switch power supply pin              |
+|  18  |       DPDT_CTRL_PIN       |       PB8       |       PA4       |       PA4       |                  Sband RF Switch control pin                |
+|  19  |        GNSS_TXD_PIN       |       PB7       |       PA1       |       PA1       |        GNSS Serial TxD pin (assigned to   MCU RxD pin)      |
+|  20  |        GNSS_RXD_PIN       |       PA9       |       PA0       |       PA0       |        GNSS Serial RxD pin (assigned to   MCU TxD pin)      |
+|  21  |      GNSS_WAKEUP_PIN      |       PB5       |  Not available  |  Not available  |                        GNSS Wakeup pin                      |
+|  22  |    GNSS_PWR_ENABLE_PIN    |       PA1       |       PC13      |       PC13      |                      GNSS LDO enable pin                    |
+|  23  |       GNSS_1PPS_PIN       |       PA0       |  Not available  |  Not available  |                         GNSS 1PPS pin                       |
+|  24  |      GNSS_V_BCKP_PIN      |       PC3       |       PH0       |       PH0       |                        GNSS V_BCKP pin                      |
+|  25  |   SENSORS_PWR_ENABLE_PIN  |       PA14      |       PA13      |       PA13      |                    Sensors LDO enable pin                   |
+|  26  |    SENSORS_I2C_SDA_PIN    |       PA10      |       PB7       |       PB7       |            I2C SDA pin for sensor   communication           |
+|  27  |    SENSORS_I2C_SCL_PIN    |       PB6       |       PB8       |       PB8       |            I2C SCL pin for sensor   communication           |
+|  28  |   SENSORS_ACC_INT_1_PIN   |       PB11      |       PA8       |       PA8       |                        KX023 INT1 pin                       |
+|  29  |   SENSORS_ACC_INT_2_PIN   |       PB10      |  Not available  |  Not available  |                        KX023 INT2 pin                       |
+|  30  |    SENSORS_ACC_TRIG_PIN   |       PB12      |  Not available  |  Not available  |                        KX023 TRIG pin                       |
+|  31  |         USB_SERIAL        |      Serial     |      Serial     |      Serial     |            Serial instance for USB   communication          |
+|  32  |        GNSS_SERIAL        |     Serial1     |     Serial4     |     Serial4     |             Serial instance for the GNSS   module           |
+|  33  |      ECHOSTAR_SERIAL      |    SerialLP1    |     Serial1     |     Serial1     |            Serial instance for the EM2050   module          |
+|  34  |       HEADER_SERIAL       |  Not available  |     Serial2     |     Serial2     |                Serial instance for Header Pins              |
+|  35  |   SENSORS_BME280_ADDRESS  |       0x76      |       0x76      |       0x76      |                     I2C Address of BME280                   |
+|  36  |   SENSORS_BME680_ADDRESS  |  Not available  |       0x77      |       0x77      |                   I2C Address of BME680/688                 |
+|  37  |   SENSORS_KX023_ADDRESS   |       0x1F      |       0x1F      |       0x1F      |                     I2C Address of KX023                    |
 
 # To-do
 
