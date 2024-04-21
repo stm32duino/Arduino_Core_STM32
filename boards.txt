@@ -75,6 +75,21 @@ Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.board=NUCLEO_F429ZI
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.series=STM32F4xx
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.product_line=STM32F429xx
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.variant_h=variant_NUCLEO_F4x9ZI.h
+
+# NUCLEO_F439ZI board
+Nucleo_144.menu.pnum.NUCLEO_F439ZI=Nucleo F439ZI
+Nucleo_144.menu.pnum.NUCLEO_F439ZI.node=NODE_F439ZI
+Nucleo_144.menu.pnum.NUCLEO_F439ZI.upload.maximum_size=2097152
+Nucleo_144.menu.pnum.NUCLEO_F439ZI.upload.maximum_data_size=196608
+Nucleo_144.menu.pnum.NUCLEO_F439ZI.build.mcu=cortex-m4
+Nucleo_144.menu.pnum.NUCLEO_F439ZI.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_F439ZI.build.float-abi=-mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_F439ZI.build.board=NUCLEO_F439ZI
+Nucleo_144.menu.pnum.NUCLEO_F439ZI.build.series=STM32F4xx
+Nucleo_144.menu.pnum.NUCLEO_F439ZI.build.product_line=STM32F439xx
+Nucleo_144.menu.pnum.NUCLEO_F439ZI.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+Nucleo_144.menu.pnum.NUCLEO_F439ZI.build.variant_h=variant_NUCLEO_F4x9ZI.h
 
 # NUCLEO_F446RE board
 Nucleo_144.menu.pnum.NUCLEO_F446ZE=Nucleo F446ZE
