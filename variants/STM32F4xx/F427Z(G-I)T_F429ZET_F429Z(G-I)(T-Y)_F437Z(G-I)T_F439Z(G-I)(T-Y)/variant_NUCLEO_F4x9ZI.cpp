@@ -10,11 +10,11 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_NUCLEO_F429ZI)
+#if defined(ARDUINO_NUCLEO_F429ZI) || defined(ARDUINO_NUCLEO_F439ZI)
 #include "pins_arduino.h"
 
 // Pin number
-// Match Table 17. NUCLEO-F429ZI pin assignments
+// Match Table 17. NUCLEO-F429ZI and NUCLEO-F439ZI pin assignments
 // from UM1974 STM32 Nucleo-144 board
 const PinName digitalPin[] = {
   PG_9,  //D0
@@ -234,4 +234,4 @@ WEAK void SystemClock_Config(void)
 }
 #endif
 
-#endif /* ARDUINO_NUCLEO_F429ZI */
+#endif /* ARDUINO_NUCLEO_F429ZI ||  ARDUINO_NUCLEO_F439ZI */
