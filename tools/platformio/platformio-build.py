@@ -258,11 +258,12 @@ env.Append(
     CPPPATH=[
         join(FRAMEWORK_DIR, "cores", "arduino", "avr"),
         join(FRAMEWORK_DIR, "cores", "arduino", "stm32"),
-        join(FRAMEWORK_DIR, "cores", "arduino", "stm32", "LL"),
         join(FRAMEWORK_DIR, "cores", "arduino", "stm32", "usb"),
         join(FRAMEWORK_DIR, "cores", "arduino", "stm32", "OpenAMP"),
         join(FRAMEWORK_DIR, "cores", "arduino", "stm32", "usb", "hid"),
         join(FRAMEWORK_DIR, "cores", "arduino", "stm32", "usb", "cdc"),
+        join(FRAMEWORK_DIR, "libraries", "SrcWrapper", "inc"),
+        join(FRAMEWORK_DIR, "libraries", "SrcWrapper", "inc", "LL"),
         join(FRAMEWORK_DIR, "system", "Drivers", series + "_HAL_Driver", "Inc"),
         join(FRAMEWORK_DIR, "system", "Drivers", series + "_HAL_Driver", "Src"),
         join(FRAMEWORK_DIR, "system", series),

@@ -123,9 +123,8 @@ def checkConfig():
             stm32_def = (
                 repo_local_path
                 / repo_core_name
-                / "cores"
-                / "arduino"
-                / "stm32"
+                / "libraries"
+                / "SrcWrapper"
                 / stm32_def
             )
         except IOError:
