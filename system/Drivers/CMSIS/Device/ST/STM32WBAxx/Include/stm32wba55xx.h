@@ -15069,8 +15069,7 @@ typedef struct
                                          ((INSTANCE) == TIM17_NS) || ((INSTANCE) == TIM17_S))
 
 /****************** TIM Instances : supporting 32 bits counter ****************/
-#define IS_TIM_32B_COUNTER_INSTANCE(INSTANCE) ((((INSTANCE) == TIM2_NS) || ((INSTANCE) == TIM2_S)) || \
-                                                ((INSTANCE) == TIM3_NS) || ((INSTANCE) == TIM3_S))
+#define IS_TIM_32B_COUNTER_INSTANCE(INSTANCE) (((INSTANCE) == TIM2_NS) || ((INSTANCE) == TIM2_S))
 
 /****************** TIM Instances : supporting the break function *************/
 #define IS_TIM_BREAK_INSTANCE(INSTANCE)    (((INSTANCE) == TIM1_NS)  || ((INSTANCE) == TIM1_S)  || \
@@ -15256,6 +15255,11 @@ typedef struct
                                                  ((INSTANCE) == TIM2_NS)  || ((INSTANCE) == TIM2_S)  || \
                                                  ((INSTANCE) == TIM3_NS)  || ((INSTANCE) == TIM3_S))
 
+/****************** TIM Instances : supporting bitfield OCCS in SMCR register *******************/
+#define IS_TIM_OCCS_INSTANCE(INSTANCE)  (((INSTANCE) == TIM1_NS)  || ((INSTANCE) == TIM1_S)  || \
+                                         ((INSTANCE) == TIM2_NS)  || ((INSTANCE) == TIM2_S)  || \
+                                         ((INSTANCE) == TIM3_NS)  || ((INSTANCE) == TIM3_S))
+
 /****************** TIM Instances : remapping capability **********************/
 #define IS_TIM_REMAP_INSTANCE(INSTANCE)    (((INSTANCE) == TIM1_NS)  || ((INSTANCE) == TIM1_S)  || \
                                             ((INSTANCE) == TIM2_NS)  || ((INSTANCE) == TIM2_S)  || \
@@ -15289,9 +15293,9 @@ typedef struct
 #define IS_TIM_ADVANCED_INSTANCE(INSTANCE)       (((INSTANCE) == TIM1_NS)  || ((INSTANCE) == TIM1_S))
 
 /****************** TIM Instances : supporting synchronization ****************/
-#define IS_TIM_SYNCHRO_INSTANCE(__INSTANCE__)  (((__INSTANCE__) == TIM1_NS)  || ((__INSTANCE__) == TIM1_S) || \
-                                                ((__INSTANCE__) == TIM2_NS)  || ((__INSTANCE__) == TIM2_S) || \
-                                                ((__INSTANCE__) == TIM3_NS)  || ((__INSTANCE__) == TIM3_S))
+#define IS_TIM_SYNCHRO_INSTANCE(INSTANCE)  (((INSTANCE) == TIM1_NS)  || ((INSTANCE) == TIM1_S) || \
+                                            ((INSTANCE) == TIM2_NS)  || ((INSTANCE) == TIM2_S) || \
+                                            ((INSTANCE) == TIM3_NS)  || ((INSTANCE) == TIM3_S))
 
 /****************************** TSC Instances *********************************/
 #define IS_TSC_ALL_INSTANCE(INSTANCE) (((INSTANCE) == TSC_NS) || ((INSTANCE) == TSC_S))
@@ -15517,8 +15521,7 @@ typedef struct
                                          ((INSTANCE) == TIM17_NS))
 
 /****************** TIM Instances : supporting 32 bits counter ****************/
-#define IS_TIM_32B_COUNTER_INSTANCE(INSTANCE) (((INSTANCE) == TIM2_NS) || \
-                                               ((INSTANCE) == TIM3_NS))
+#define IS_TIM_32B_COUNTER_INSTANCE(INSTANCE) ((INSTANCE) == TIM2_NS)
 
 /****************** TIM Instances : supporting the break function *************/
 #define IS_TIM_BREAK_INSTANCE(INSTANCE)    (((INSTANCE) == TIM1_NS)  || \
@@ -15700,9 +15703,16 @@ typedef struct
                                             ((INSTANCE) == TIM3_NS))
 
 /****************** TIM Instances : supporting OCxREF clear *******************/
-#define IS_TIM_OCXREF_CLEAR_INSTANCE(INSTANCE)  (((INSTANCE) == TIM1_NS)  || \
-                                                 ((INSTANCE) == TIM2_NS)  || \
-                                                 ((INSTANCE) == TIM3_NS))
+#define IS_TIM_OCXREF_CLEAR_INSTANCE(INSTANCE)  (((INSTANCE) == TIM1_NS)   || \
+                                                 ((INSTANCE) == TIM2_NS)   || \
+                                                 ((INSTANCE) == TIM3_NS)   || \
+                                                 ((INSTANCE) == TIM16_NS)  || \
+                                                 ((INSTANCE) == TIM17_NS))
+
+/****************** TIM Instances : supporting bitfield OCCS in SMCR register *******************/
+#define IS_TIM_OCCS_INSTANCE(INSTANCE)       (((INSTANCE) == TIM1_NS)  || \
+                                              ((INSTANCE) == TIM2_NS)  || \
+                                              ((INSTANCE) == TIM3_NS))
 
 /****************** TIM Instances : remapping capability **********************/
 #define IS_TIM_REMAP_INSTANCE(INSTANCE)    (((INSTANCE) == TIM1_NS)  || \
@@ -15736,9 +15746,9 @@ typedef struct
 #define IS_TIM_ADVANCED_INSTANCE(INSTANCE)       ((INSTANCE) == TIM1_NS)
 
 /****************** TIM Instances : supporting synchronization ****************/
-#define IS_TIM_SYNCHRO_INSTANCE(__INSTANCE__)  (((__INSTANCE__) == TIM1_NS)  || \
-                                                ((__INSTANCE__) == TIM2_NS)  || \
-                                                ((__INSTANCE__) == TIM3_NS))
+#define IS_TIM_SYNCHRO_INSTANCE(INSTANCE)  (((INSTANCE) == TIM1_NS)  || \
+                                            ((INSTANCE) == TIM2_NS)  || \
+                                            ((INSTANCE) == TIM3_NS))
 
 /****************************** TSC Instances *********************************/
 #define IS_TSC_ALL_INSTANCE(INSTANCE) ((INSTANCE) == TSC_NS)

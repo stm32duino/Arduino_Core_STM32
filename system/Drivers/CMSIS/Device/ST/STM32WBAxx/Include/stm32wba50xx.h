@@ -10295,6 +10295,10 @@ typedef struct
 #define IS_TIM_OCXREF_CLEAR_INSTANCE(INSTANCE)  (((INSTANCE) == TIM1_NS)  || \
                                                  ((INSTANCE) == TIM2_NS))
 
+/********* TIM Instances : supporting bitfield OCCS in SMCR register **********/
+#define IS_TIM_OCCS_INSTANCE(INSTANCE)       (((INSTANCE) == TIM1_NS)  || \
+                                              ((INSTANCE) == TIM2_NS))
+
 /****************** TIM Instances : remapping capability **********************/
 #define IS_TIM_REMAP_INSTANCE(INSTANCE)    (((INSTANCE) == TIM1_NS)  || \
                                             ((INSTANCE) == TIM2_NS))
