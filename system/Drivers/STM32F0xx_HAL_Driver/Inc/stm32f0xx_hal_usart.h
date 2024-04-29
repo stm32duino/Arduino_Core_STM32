@@ -463,7 +463,6 @@ typedef  void (*pUSART_CallbackTypeDef)(USART_HandleTypeDef *husart);  /*!< poin
 #define __HAL_USART_CLEAR_IDLEFLAG(__HANDLE__)   __HAL_USART_CLEAR_FLAG((__HANDLE__), USART_CLEAR_IDLEF)
 
 
-
 /** @brief  Enable the specified USART interrupt.
   * @param  __HANDLE__ specifies the USART Handle.
   * @param  __INTERRUPT__ specifies the USART interrupt source to enable.

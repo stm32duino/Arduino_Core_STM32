@@ -236,8 +236,8 @@ typedef enum
   */
 #define IS_GPIO_PIN_ACTION(ACTION)  (((ACTION) == GPIO_PIN_RESET) || ((ACTION) == GPIO_PIN_SET))
 
-#define IS_GPIO_PIN(__PIN__)        (((((uint32_t)__PIN__) & GPIO_PIN_MASK) != 0x00U) &&\
-                                     ((((uint32_t)__PIN__) & ~GPIO_PIN_MASK) == 0x00U))
+#define IS_GPIO_PIN(__PIN__)        (((((uint32_t)(__PIN__)) & GPIO_PIN_MASK) != 0x00U) &&\
+                                     ((((uint32_t)(__PIN__)) & ~GPIO_PIN_MASK) == 0x00U))
 
 #define IS_GPIO_MODE(__MODE__)      (((__MODE__) == GPIO_MODE_INPUT)              ||\
                                      ((__MODE__) == GPIO_MODE_OUTPUT_PP)          ||\

@@ -208,11 +208,6 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *ADCx)
   /* Disable ADC instance if not already disabled.                            */
   if(LL_ADC_IsEnabled(ADCx) == 1U)
   {
-    /* Set ADC group regular trigger source to SW start to ensure to not      */
-    /* have an external trigger event occurring during the conversion stop    */
-    /* ADC disable process.                                                   */
-    LL_ADC_REG_SetTriggerSource(ADCx, LL_ADC_REG_TRIG_SOFTWARE);
-    
     /* Stop potential ADC conversion on going on ADC group regular.           */
     if(LL_ADC_REG_IsConversionOngoing(ADCx) != 0U)
     {
@@ -224,27 +219,29 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *ADCx)
     
     /* Wait for ADC conversions are effectively stopped                       */
     timeout_cpu_cycles = ADC_TIMEOUT_STOP_CONVERSION_CPU_CYCLES;
-    while (LL_ADC_REG_IsStopConversionOngoing(ADCx) == 1U)
+    while (LL_ADC_REG_IsStopConversionOngoing(ADCx) == 1UL)
     {
-      if(timeout_cpu_cycles-- == 0U)
+      timeout_cpu_cycles--;
+      if (timeout_cpu_cycles == 0UL)
       {
         /* Time-out error */
         status = ERROR;
+        break;
       }
     }
+  }
     
-    /* Disable the ADC instance */
-    LL_ADC_Disable(ADCx);
-    
-    /* Wait for ADC instance is effectively disabled */
-    timeout_cpu_cycles = ADC_TIMEOUT_DISABLE_CPU_CYCLES;
-    while (LL_ADC_IsDisableOngoing(ADCx) == 1U)
+  /* Disable the ADC instance */
+  LL_ADC_Disable(ADCx);
+
+  /* Wait for ADC instance is effectively disabled */
+  timeout_cpu_cycles = ADC_TIMEOUT_DISABLE_CPU_CYCLES;
+  while (LL_ADC_IsDisableOngoing(ADCx) == 1U)
+  {
+    if(timeout_cpu_cycles-- == 0U)
     {
-      if(timeout_cpu_cycles-- == 0U)
-      {
-        /* Time-out error */
-        status = ERROR;
-      }
+      /* Time-out error */
+      status = ERROR;
     }
   }
   
