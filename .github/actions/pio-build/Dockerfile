@@ -5,10 +5,8 @@ ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
 # Install prerequisites
-RUN apt-get --quiet=2 update && apt-get install --quiet=2 --assume-yes git python3 python3-pip wget
+RUN apt-get --quiet=2 update && apt-get install --quiet=2 --assume-yes git python3 python3-pip  python3-venv wget
 
-# Install PlatformIO
-RUN pip3 install --quiet --upgrade platformio
 CMD /bin/bash
 
 # Copies your code file from your action repository to the filesystem path `/` of the container
