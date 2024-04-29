@@ -713,8 +713,8 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
   * @retval None
   */
 #define __HAL_RTC_ALARM_CLEAR_FLAG(__HANDLE__, __FLAG__)( \
-                                ((__FLAG__) == RTC_FLAG_ALRAF) ? (SET_BIT(RTC->SCR, RTC_SCR_CALRAF)):\
-                                ((__FLAG__) == RTC_FLAG_ALRBF) ? (SET_BIT(RTC->SCR, RTC_SCR_CALRBF)):\
+                                ((__FLAG__) == RTC_FLAG_ALRAF) ? (WRITE_REG(RTC->SCR, RTC_SCR_CALRAF)):\
+                                ((__FLAG__) == RTC_FLAG_ALRBF) ? (WRITE_REG(RTC->SCR, RTC_SCR_CALRBF)):\
                                 (0U)) /* Dummy action because is an invalid parameter value */
 
 /**

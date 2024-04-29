@@ -25,8 +25,8 @@
     used by the PPP peripheral drivers and the user to start using the HAL.
     [..]
     The HAL contains two APIs' categories:
-         (+) Common HAL APIs
-         (+) Services HAL APIs
+         (+) Common HAL APIs (Version, Init, Tick)
+         (+) Services HAL APIs (DBGMCU, SYSCFG)
 
   @endverbatim
   ******************************************************************************
@@ -50,19 +50,20 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macros ------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+/* Private function prototypes -----------------------------------------------*/
+
 /* Exported variables --------------------------------------------------------*/
 
 /** @defgroup HAL_Exported_Variables HAL Exported Variables
   * @{
   */
 __IO uint32_t uwTick;
-uint32_t uwTickPrio   = (1UL << __NVIC_PRIO_BITS); /* Invalid PRIO */
+uint32_t uwTickPrio            = (1UL << __NVIC_PRIO_BITS); /* Invalid priority */
 HAL_TickFreqTypeDef uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
 /**
   * @}
   */
 
-/* Private function prototypes -----------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
 
 /** @defgroup HAL_Exported_Functions HAL Exported Functions
@@ -77,11 +78,10 @@ HAL_TickFreqTypeDef uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
               ##### Initialization and de-initialization functions #####
  ===============================================================================
     [..]  This section provides functions allowing to:
-      (+) Initializes the Flash interface the NVIC allocation and initial clock
-          configuration. It initializes the systick also when timeout is needed
-          and the backup domain when enabled.
-      (+) De-Initializes common part of the HAL.
-      (+) Configure The time base source to have 1ms time base with a dedicated
+      (+) Initialize the Flash interface the NVIC allocation and initial time base
+          clock configuration.
+      (+) De-initialize common part of the HAL.
+      (+) Configure the time base source to have 1ms time base with a dedicated
           Tick interrupt priority.
         (++) SysTick timer is used by default as source of time base, but user
              can eventually implement his proper time base source (a general purpose
@@ -148,8 +148,8 @@ HAL_StatusTypeDef HAL_Init(void)
 }
 
 /**
-  * @brief  This function de-Initializes common part of the HAL and stops the systick.
-  *         This function is optional.
+  * @brief De-initialize common part of the HAL and stop the source of time base.
+  * @note This function is optional.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_DeInit(void)
@@ -184,29 +184,29 @@ HAL_StatusTypeDef HAL_DeInit(void)
 }
 
 /**
-  * @brief  Initializes the MSP.
+  * @brief  Initialize the MSP.
   * @retval None
   */
 __weak void HAL_MspInit(void)
 {
-  /* NOTE : This function Should not be modified, when the callback is needed,
+  /* NOTE : This function should not be modified, when the callback is needed,
             the HAL_MspInit could be implemented in the user file
    */
 }
 
 /**
-  * @brief  DeInitializes the MSP.
+  * @brief  DeInitialize the MSP.
   * @retval None
   */
 __weak void HAL_MspDeInit(void)
 {
-  /* NOTE : This function Should not be modified, when the callback is needed,
+  /* NOTE : This function should not be modified, when the callback is needed,
             the HAL_MspDeInit could be implemented in the user file
    */
 }
 
 /**
-  * @brief This function configures the source of the time base.
+  * @brief This function configures the source of the time base:
   *        The time source is configured to have 1ms time base with a dedicated
   *        Tick interrupt priority.
   * @note This function is called  automatically at the beginning of program after
@@ -218,7 +218,7 @@ __weak void HAL_MspDeInit(void)
   *       than the peripheral interrupt. Otherwise the caller ISR process will be blocked.
   *       The function is declared as __weak  to be overwritten  in case of other
   *       implementation  in user file.
-  * @param TickPriority: Tick interrupt priority.
+  * @param TickPriority  Tick interrupt priority.
   * @retval HAL status
   */
 __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
@@ -285,7 +285,7 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   * @}
   */
 
-/** @defgroup HAL_Group2 HAL Control functions
+/** @defgroup HAL_Exported_Functions_Group2 HAL Control functions
   *  @brief    HAL Control functions
   *
 @verbatim
@@ -300,9 +300,6 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
       (+) Get the HAL API driver version
       (+) Get the device identifier
       (+) Get the device revision identifier
-      (+) Enable/Disable Debug module during SLEEP mode
-      (+) Enable/Disable Debug module during STOP mode
-      (+) Enable/Disable Debug module during STANDBY mode
 
 @endverbatim
   * @{
@@ -323,7 +320,7 @@ __weak void HAL_IncTick(void)
 }
 
 /**
-  * @brief Provides a tick value in millisecond.
+  * @brief Provide a tick value in millisecond.
   * @note This function is declared as __weak to be overwritten in case of other
   *       implementations in user file.
   * @retval tick value
@@ -343,22 +340,29 @@ uint32_t HAL_GetTickPrio(void)
 }
 
 /**
-  * @brief Set new tick Freq.
-  * @retval Status
+  * @brief Set new tick frequency.
+  * @param Freq tick frequency
+  * @retval HAL status
   */
 HAL_StatusTypeDef HAL_SetTickFreq(HAL_TickFreqTypeDef Freq)
 {
   HAL_StatusTypeDef status  = HAL_OK;
-  assert_param(IS_TICKFREQ(Freq));
+  HAL_TickFreqTypeDef prevTickFreq;
 
   if (uwTickFreq != Freq)
   {
+    /* Back up uwTickFreq frequency */
+    prevTickFreq = uwTickFreq;
+
+    /* Update uwTickFreq global variable used by HAL_InitTick() */
+    uwTickFreq = Freq;
+
     /* Apply the new tick Freq  */
     status = HAL_InitTick(uwTickPrio);
-
-    if (status == HAL_OK)
+    if (status != HAL_OK)
     {
-      uwTickFreq = Freq;
+      /* Restore previous tick frequency */
+      uwTickFreq = prevTickFreq;
     }
   }
 
@@ -435,7 +439,7 @@ __weak void HAL_ResumeTick(void)
 }
 
 /**
-  * @brief  Returns the HAL revision
+  * @brief  Return the HAL revision.
   * @retval version : 0xXYZR (8bits for each decimal, R for RC)
   */
 uint32_t HAL_GetHalVersion(void)
@@ -444,16 +448,16 @@ uint32_t HAL_GetHalVersion(void)
 }
 
 /**
-  * @brief  Returns the device revision identifier.
+  * @brief  Return the device revision identifier.
   * @retval Device revision identifier
   */
 uint32_t HAL_GetREVID(void)
 {
-  return ((DBGMCU->IDCODE & DBGMCU_IDCODE_REV_ID) >> 16);
+  return ((DBGMCU->IDCODE & DBGMCU_IDCODE_REV_ID) >> DBGMCU_IDCODE_REV_ID_Pos);
 }
 
 /**
-  * @brief  Returns the device identifier.
+  * @brief  Return the device identifier.
   * @retval Device identifier
   */
 uint32_t HAL_GetDEVID(void)
@@ -490,7 +494,6 @@ uint32_t HAL_GetUIDw2(void)
 /**
   * @}
   */
-
 
 /** @defgroup HAL_Exported_Functions_Group3 HAL Debug functions
   *  @brief    HAL Debug functions
@@ -747,6 +750,7 @@ HAL_StatusTypeDef HAL_SYSCFG_GetConfigAttributes(uint32_t Item, uint32_t *pAttri
   */
 
 #endif /* HAL_MODULE_ENABLED */
+
 /**
   * @}
   */

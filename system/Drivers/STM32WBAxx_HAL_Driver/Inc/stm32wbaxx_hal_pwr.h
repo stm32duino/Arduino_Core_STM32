@@ -375,7 +375,7 @@ typedef struct
   * (*) Feature not available on all devices of the family
   * @retval The state of __FLAG__ (TRUE or FALSE).
   */
-#if defined(PWR_FLAG_REGPARDYV11)
+#if defined(PWR_WUCR1_WUPEN2) && defined(PWR_WUCR1_WUPEN5)
 #if defined(PWR_FLAG_REGS)
 #define __HAL_PWR_GET_FLAG(__FLAG__)( \
                                       ((__FLAG__) == PWR_FLAG_VOSRDY)           ? (READ_BIT(PWR->VOSR, PWR_VOSR_VOSRDY)== \
@@ -423,8 +423,6 @@ typedef struct
                                           PWR_SVMSR_PVDO)     : \
                                       ((__FLAG__) == PWR_FLAG_REGPARDYVDDRFPA)  ?(READ_BIT(PWR->RADIOSCR, PWR_RADIOSCR_REGPARDYVDDRFPA)== \
                                           PWR_RADIOSCR_REGPARDYVDDRFPA)     : \
-                                      ((__FLAG__) == PWR_FLAG_REGPARDYV11)      ?(READ_BIT(PWR->RADIOSCR, PWR_RADIOSCR_REGPARDYV11)== \
-                                          PWR_RADIOSCR_REGPARDYV11)     : \
                                       ((__FLAG__) == PWR_WAKEUP_FLAG1)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF1)  == \
                                           PWR_WUSR_WUF1)      : \
                                       ((__FLAG__) == PWR_WAKEUP_FLAG2)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF2)  == \
@@ -466,7 +464,7 @@ typedef struct
                                       ((__FLAG__) == PWR_WAKEUP_FLAG7)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF7)  == \
                                           PWR_WUSR_WUF7)      : \
                                       (READ_BIT(PWR->WUSR, PWR_WUSR_WUF8)       == PWR_WUSR_WUF8))
-#endif /* defined(PWR_FLAG_REGPARDYV11) */
+#endif /*defined(PWR_WUCR1_WUPEN2) && defined(PWR_WUCR1_WUPEN5) */
 
 /** @brief  Clear PWR flags.
   * @param  __FLAG__ : Specifies the flag to clear.

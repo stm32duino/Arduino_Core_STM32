@@ -1017,7 +1017,7 @@ HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout);
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 #define IS_OB_BOOT_LOCK(VALUE)             (((VALUE) == OB_BOOT_LOCK_DISABLE) || ((VALUE) == OB_BOOT_LOCK_ENABLE))
 
-#define IS_OB_WMSEC_CONFIG(CFG)            ((((CFG) & 0x7F1U) != 0U) && (((CFG) & 0x1U) != 0U) && (((CFG) & 0xFFFFF80EU) == 0U))
+#define IS_OB_WMSEC_CONFIG(CFG)            ((((CFG) & 0x1B4U) != 0U) && (((CFG) & 0x4U) != 0U) && (((CFG) & 0xFFFFFE4BU) == 0U))
 
 #define IS_OB_WMSEC_AREA_EXCLUSIVE(WMSEC)  (((WMSEC) & OB_WMSEC_AREA1) != 0U)
 #endif /* __ARM_FEATURE_CMSE */

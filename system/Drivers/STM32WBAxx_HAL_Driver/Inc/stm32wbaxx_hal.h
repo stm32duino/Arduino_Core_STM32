@@ -79,7 +79,7 @@ extern HAL_TickFreqTypeDef      uwTickFreq;
   * @brief STM32WBAxx HAL Driver version number
   */
 #define __STM32WBAxx_HAL_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32WBAxx_HAL_VERSION_SUB1   (0x02U) /*!< [23:16] sub1 version */
+#define __STM32WBAxx_HAL_VERSION_SUB1   (0x03U) /*!< [23:16] sub1 version */
 #define __STM32WBAxx_HAL_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
 #define __STM32WBAxx_HAL_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32WBAxx_HAL_VERSION    ((__STM32WBAxx_HAL_VERSION_MAIN << 24U)\
@@ -423,15 +423,6 @@ extern HAL_TickFreqTypeDef      uwTickFreq;
   * @}
   */
 
-/** @defgroup HAL_Private_Macros HAL Private Macros
-  * @{
-  */
-#define IS_TICKFREQ(FREQ) (((FREQ) == HAL_TICK_FREQ_10HZ)  || \
-                           ((FREQ) == HAL_TICK_FREQ_100HZ) || \
-                           ((FREQ) == HAL_TICK_FREQ_1KHZ))
-/**
-  * @}
-  */
 /* Exported functions --------------------------------------------------------*/
 
 /** @addtogroup HAL_Exported_Functions
@@ -516,7 +507,6 @@ HAL_StatusTypeDef HAL_SYSCFG_GetLock(uint32_t *pItem);
   * @}
   */
 
-
 /** @addtogroup HAL_Exported_Functions_Group6
   * @{
   */
@@ -532,6 +522,7 @@ HAL_StatusTypeDef HAL_SYSCFG_GetConfigAttributes(uint32_t Item, uint32_t *pAttri
 /**
   * @}
   */
+
 
 /**
   * @}

@@ -1336,7 +1336,7 @@ static void FLASH_OB_WMSECConfig(uint32_t WMSecConfig, uint32_t WMSecStartPage, 
 
   /* Check the parameters */
   assert_param(IS_OB_WMSEC_CONFIG(WMSecConfig));
-  assert_param(IS_OB_WMSEC_AREA_EXCLUSIVE(WMSecConfig & 0x3U));
+  assert_param(IS_OB_WMSEC_AREA_EXCLUSIVE(WMSecConfig & FLASH_BANK_1));
   assert_param(IS_FLASH_PAGE(WMSecStartPage));
   assert_param(IS_FLASH_PAGE(WMSecEndPage));
   assert_param(IS_FLASH_PAGE(WMHDPEndPage));
@@ -1558,7 +1558,7 @@ static void FLASH_OB_GetWMSEC(uint32_t *WMSecConfig, uint32_t *WMSecStartPage, u
 
   /* Check the parameters */
   assert_param(IS_OB_WMSEC_CONFIG(*WMSecConfig));
-  assert_param(IS_FLASH_BANK_EXCLUSIVE((*WMSecConfig) & 0x3U));
+  assert_param(IS_FLASH_BANK_EXCLUSIVE((*WMSecConfig) & FLASH_BANK_1));
 
   /* Read SECWM registers */
   if (((*WMSecConfig) & OB_WMSEC_AREA1) != 0U)

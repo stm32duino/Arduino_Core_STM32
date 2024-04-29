@@ -161,9 +161,9 @@ ErrorStatus LL_RTC_DeInit(RTC_TypeDef *RTCx)
 #if defined (RTC_PRIVCFGR_PRIV)
     WRITE_REG(RTCx->PRIVCFGR, 0U);
 #endif /* RTC_PRIVCFGR_PRIV */
-#if defined (RTC_SECCFGR_SEC)
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
     WRITE_REG(RTCx->SECCFGR,  0U);
-#endif /* RTC_SECCFGR_SEC */
+#endif /* #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 
     /* Clear some bits of RTC_ICSR and exit Initialization mode */
     CLEAR_BIT(RTCx->ICSR, RTC_ICSR_BCDU_Msk | RTC_ICSR_BIN_Msk | RTC_ICSR_INIT);
@@ -179,9 +179,9 @@ ErrorStatus LL_RTC_DeInit(RTC_TypeDef *RTCx)
   WRITE_REG(TAMP->CR1,        0U);
   WRITE_REG(TAMP->CR2,        0U);
   WRITE_REG(TAMP->CR3,        0U);
-#if defined (TAMP_SECCFGR_TAMPSEC)
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
   WRITE_REG(TAMP->SECCFGR,    0U);
-#endif /* TAMP_SECCFGR_TAMPSEC */
+#endif /* #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 #if defined (TAMP_PRIVCFGR_TAMPPRIV)
   WRITE_REG(TAMP->PRIVCFGR,   0U);
 #endif /* TAMP_PRIVCFGR_TAMPPRIV */

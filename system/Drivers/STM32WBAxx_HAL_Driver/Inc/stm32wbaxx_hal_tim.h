@@ -831,14 +831,11 @@ typedef  void (*pTIM_CallbackTypeDef)(TIM_HandleTypeDef *htim);  /*!< pointer to
 #define TIM_CLOCKSOURCE_ITR0        TIM_TS_ITR0          /*!< External clock source mode 1 (ITR0)                   */
 #define TIM_CLOCKSOURCE_ITR1        TIM_TS_ITR1          /*!< External clock source mode 1 (ITR1)                   */
 #define TIM_CLOCKSOURCE_ITR2        TIM_TS_ITR2          /*!< External clock source mode 1 (ITR2)                   */
-#define TIM_CLOCKSOURCE_ITR3        TIM_TS_ITR3          /*!< External clock source mode 1 (ITR3)                   */
 #define TIM_CLOCKSOURCE_ITR4        TIM_TS_ITR4          /*!< External clock source mode 1 (ITR4)                   */
 #define TIM_CLOCKSOURCE_ITR5        TIM_TS_ITR5          /*!< External clock source mode 1 (ITR5)                   */
 #define TIM_CLOCKSOURCE_ITR6        TIM_TS_ITR6          /*!< External clock source mode 1 (ITR6)                   */
 #define TIM_CLOCKSOURCE_ITR7        TIM_TS_ITR7          /*!< External clock source mode 1 (ITR7)                   */
 #define TIM_CLOCKSOURCE_ITR8        TIM_TS_ITR8          /*!< External clock source mode 1 (ITR8)                   */
-#define TIM_CLOCKSOURCE_ITR9        TIM_TS_ITR9          /*!< External clock source mode 1 (ITR9)                   */
-#define TIM_CLOCKSOURCE_ITR10       TIM_TS_ITR10         /*!< External clock source mode 1 (ITR10)                  */
 /**
   * @}
   */
@@ -1065,8 +1062,8 @@ typedef  void (*pTIM_CallbackTypeDef)(TIM_HandleTypeDef *htim);  /*!< pointer to
 #define TIM_OCMODE_RETRIGERRABLE_OPM2      (TIM_CCMR1_OC1M_3 | TIM_CCMR1_OC1M_0)                     /*!< Retrigerrable OPM mode 2               */
 #define TIM_OCMODE_COMBINED_PWM1           (TIM_CCMR1_OC1M_3 | TIM_CCMR1_OC1M_2)                     /*!< Combined PWM mode 1                    */
 #define TIM_OCMODE_COMBINED_PWM2           (TIM_CCMR1_OC1M_3 | TIM_CCMR1_OC1M_0 | TIM_CCMR1_OC1M_2)  /*!< Combined PWM mode 2                    */
-#define TIM_OCMODE_ASSYMETRIC_PWM1         (TIM_CCMR1_OC1M_3 | TIM_CCMR1_OC1M_1 | TIM_CCMR1_OC1M_2)  /*!< Asymmetric PWM mode 1                  */
-#define TIM_OCMODE_ASSYMETRIC_PWM2         TIM_CCMR1_OC1M                                            /*!< Asymmetric PWM mode 2                  */
+#define TIM_OCMODE_ASYMMETRIC_PWM1         (TIM_CCMR1_OC1M_3 | TIM_CCMR1_OC1M_1 | TIM_CCMR1_OC1M_2)  /*!< Asymmetric PWM mode 1                  */
+#define TIM_OCMODE_ASYMMETRIC_PWM2         TIM_CCMR1_OC1M                                            /*!< Asymmetric PWM mode 2                  */
 #define TIM_OCMODE_PULSE_ON_COMPARE        (TIM_CCMR2_OC3M_3 | TIM_CCMR2_OC3M_1)                     /*!< Pulse on compare (CH3&CH4 only)        */
 #define TIM_OCMODE_DIRECTION_OUTPUT        (TIM_CCMR2_OC3M_3 | TIM_CCMR2_OC3M_1 | TIM_CCMR2_OC3M_0)  /*!< Direction output (CH3&CH4 only)        */
 /**
@@ -2076,8 +2073,8 @@ mode.
                                    ((__MODE__) == TIM_OCMODE_PWM2)               || \
                                    ((__MODE__) == TIM_OCMODE_COMBINED_PWM1)      || \
                                    ((__MODE__) == TIM_OCMODE_COMBINED_PWM2)      || \
-                                   ((__MODE__) == TIM_OCMODE_ASSYMETRIC_PWM1)    || \
-                                   ((__MODE__) == TIM_OCMODE_ASSYMETRIC_PWM2))
+                                   ((__MODE__) == TIM_OCMODE_ASYMMETRIC_PWM1)    || \
+                                   ((__MODE__) == TIM_OCMODE_ASYMMETRIC_PWM2))
 
 #define IS_TIM_OC_MODE(__MODE__)  (((__MODE__) == TIM_OCMODE_TIMING)             || \
                                    ((__MODE__) == TIM_OCMODE_ACTIVE)             || \

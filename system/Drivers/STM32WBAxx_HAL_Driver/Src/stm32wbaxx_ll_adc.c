@@ -389,6 +389,14 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *ADCx)
     /* Reset register SMPR */
     CLEAR_BIT(ADCx->SMPR, ADC_SMPR_SMP1 | ADC_SMPR_SMP2 | ADC_SMPR_SMPSEL);
 
+    /* Reset register CHSELR */
+    CLEAR_BIT(ADCx->CHSELR,
+              (ADC_CHSELR_CHSEL13 | ADC_CHSELR_CHSEL12
+               | ADC_CHSELR_CHSEL11 | ADC_CHSELR_CHSEL10 | ADC_CHSELR_CHSEL9  | ADC_CHSELR_CHSEL8
+               | ADC_CHSELR_CHSEL7  | ADC_CHSELR_CHSEL6  | ADC_CHSELR_CHSEL5  | ADC_CHSELR_CHSEL4
+               | ADC_CHSELR_CHSEL3  | ADC_CHSELR_CHSEL2  | ADC_CHSELR_CHSEL1  | ADC_CHSELR_CHSEL0)
+             );
+
     /* Reset register AWD1TR */
     MODIFY_REG(ADCx->AWD1TR, ADC_AWD1TR_LT1 | ADC_AWD1TR_HT1, ADC_AWD1TR_HT1);
 
@@ -397,14 +405,6 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *ADCx)
 
     /* Reset register AWD3TR */
     MODIFY_REG(ADCx->AWD3TR, ADC_AWD3TR_LT3 | ADC_AWD3TR_HT3, ADC_AWD3TR_HT3);
-
-    /* Reset register CHSELR */
-    CLEAR_BIT(ADCx->CHSELR,
-              (ADC_CHSELR_CHSEL13 | ADC_CHSELR_CHSEL12
-               | ADC_CHSELR_CHSEL11 | ADC_CHSELR_CHSEL10 | ADC_CHSELR_CHSEL9  | ADC_CHSELR_CHSEL8
-               | ADC_CHSELR_CHSEL7  | ADC_CHSELR_CHSEL6  | ADC_CHSELR_CHSEL5  | ADC_CHSELR_CHSEL4
-               | ADC_CHSELR_CHSEL3  | ADC_CHSELR_CHSEL2  | ADC_CHSELR_CHSEL1  | ADC_CHSELR_CHSEL0)
-             );
 
     /* Reset register DR */
     /* bits in access mode read only, no direct reset applicable */

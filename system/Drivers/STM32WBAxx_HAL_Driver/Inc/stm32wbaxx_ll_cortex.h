@@ -88,6 +88,10 @@ extern "C" {
 @endcond
 */
 
+/**
+  * @}
+  */
+
 /** @defgroup CORTEX_LL_EC_FAULT Handler Fault type
   * @{
   */

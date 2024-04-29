@@ -2539,6 +2539,21 @@ __STATIC_INLINE void LL_LPUART_RequestRxDataFlush(USART_TypeDef *LPUARTx)
 }
 
 /**
+  * @brief  Request a Transmit data FIFO flush
+  * @note   TXFRQ bit is set to flush the whole FIFO when FIFO mode is enabled. This
+  *         also sets the flag TXFE (TXFIFO empty bit in the LPUART_ISR register).
+  * @note   Macro IS_UART_FIFO_INSTANCE(USARTx) can be used to check whether or not
+  *         FIFO mode feature is supported by the USARTx instance.
+  * @rmtoll RQR          TXFRQ         LL_LPUART_RequestTxDataFlush
+  * @param  LPUARTx LPUART Instance
+  * @retval None
+  */
+__STATIC_INLINE void LL_LPUART_RequestTxDataFlush(USART_TypeDef *LPUARTx)
+{
+  SET_BIT(LPUARTx->RQR, (uint16_t)USART_RQR_TXFRQ);
+}
+
+/**
   * @}
   */
 
@@ -2674,8 +2689,8 @@ __STATIC_INLINE uint32_t LL_LPUART_GetTriggerPolarity(const USART_TypeDef *LPUAR
   *         @arg @ref  LL_LPUART_EXTI_LINE6_TRG
   *         @arg @ref  LL_LPUART_EXTI_LINE8_TRG
   *         @arg @ref  LL_LPUART_LPTIM1_OUT_TRG
-  *         @arg @ref  LL_LPUART_COMP1_OUT_TRG (only available of STM32WBA54xx and STM32WBA55xx)
-  *         @arg @ref  LL_LPUART_COMP2_OUT_TRG (only available of STM32WBA54xx and STM32WBA55xx)
+  *         @arg @ref  LL_LPUART_COMP1_OUT_TRG (not available on all devices)
+  *         @arg @ref  LL_LPUART_COMP2_OUT_TRG (not available on all devices)
   *         @arg @ref  LL_LPUART_RTC_ALRA_TRG
   *         @arg @ref  LL_LPUART_RTC_WUT_TRG
   * @retval None
@@ -2697,8 +2712,8 @@ __STATIC_INLINE void LL_LPUART_SetSelectedTrigger(USART_TypeDef *LPUARTx, uint32
   *         @arg @ref  LL_LPUART_EXTI_LINE6_TRG
   *         @arg @ref  LL_LPUART_EXTI_LINE8_TRG
   *         @arg @ref  LL_LPUART_LPTIM1_OUT_TRG
-  *         @arg @ref  LL_LPUART_COMP1_OUT_TRG (only available of STM32WBA54xx and STM32WBA55xx)
-  *         @arg @ref  LL_LPUART_COMP2_OUT_TRG (only available of STM32WBA54xx and STM32WBA55xx)
+  *         @arg @ref  LL_LPUART_COMP1_OUT_TRG (not available on all devices)
+  *         @arg @ref  LL_LPUART_COMP2_OUT_TRG (not available on all devices)
   *         @arg @ref  LL_LPUART_RTC_ALRA_TRG
   *         @arg @ref  LL_LPUART_RTC_WUT_TRG
   */

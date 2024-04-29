@@ -403,6 +403,34 @@ typedef struct
   * @}
   */
 
+#if defined(RCC_CCIPR2_ASSEL)
+/** @defgroup RCC_Interrupt Interrupts
+  *        Elements values convention: XXXYYYYYb
+  *           - YYYYY  : Flag position in the register
+  *           - XXX  : Register index
+  *                 - 000: CIFR register
+  *                 - 001: ASSR register
+  * @{
+  */
+/* Flags in the CIFR register */
+#define RCC_IT_LSI1RDY                  ((CIFR_REG_INDEX << 5U) | RCC_CIFR_LSI1RDYF_Pos)    /*!< LSI1 Ready Interrupt flag */
+#define RCC_IT_LSERDY                   ((CIFR_REG_INDEX << 5U) | RCC_CIFR_LSERDYF_Pos)     /*!< LSE Ready Interrupt flag */
+#define RCC_IT_HSIRDY                   ((CIFR_REG_INDEX << 5U) | RCC_CIFR_HSIRDYF_Pos)     /*!< HSI16 Ready Interrupt flag */
+#define RCC_IT_HSERDY                   ((CIFR_REG_INDEX << 5U) | RCC_CIFR_HSERDYF_Pos)     /*!< HSE Ready Interrupt flag */
+#define RCC_IT_PLL1RDY                  ((CIFR_REG_INDEX << 5U) | RCC_CIFR_PLL1RDYF_Pos)    /*!< PLL1 Ready Interrupt flag */
+#define RCC_IT_CSS                      ((CIFR_REG_INDEX << 5U) | RCC_CIFR_HSECSSF_Pos)     /*!< HSE32 Clock Security System Interrupt flag */
+#if defined(RCC_LSI2_SUPPORT)
+#define RCC_IT_LSI2RDY                  ((CIFR_REG_INDEX << 5U) | RCC_CIFR_LSI2RDYF_Pos)    /*!< LSI2 Ready Interrupt flag */
+#endif /* RCC_BDCR1_LSI2ON */
+
+/* Flags in the ASSR register */
+#define RCC_IT_CAPTURE_ERROR            ((ASSR_REG_INDEX << 5U) | RCC_ASSR_CAEF_Pos)        /*!< Capture Error Interrupt flag */
+#define RCC_IT_COMPARER                 ((ASSR_REG_INDEX << 5U) | RCC_ASSR_COF_Pos)         /*!< Comparer Interrupt flag */
+#define RCC_IT_CAPTURE_TRIGGER          ((ASSR_REG_INDEX << 5U) | RCC_ASSR_CAF_Pos)         /*!< Capture Trigger Interrupt flag */
+/**
+  * @}
+  */
+#else
 /** @defgroup RCC_Interrupt Interrupts
   * @{
   */
@@ -418,6 +446,7 @@ typedef struct
 /**
   * @}
   */
+ #endif /* RCC_CCIPR2_ASSEL */
 
 /** @defgroup RCC_Flag Flags
   *        Elements values convention: XXXYYYYYb
@@ -2078,64 +2107,106 @@ typedef struct
   *         the selected interrupts).
   * @param  __INTERRUPT__: specifies the RCC interrupt sources to be enabled.
   *         This parameter can be any combination of the following values:
-  *            @arg @ref RCC_IT_LSI1RDY  LSI1 ready interrupt
-  *            @arg @ref RCC_IT_LSERDY   LSE ready interrupt
-  *            @arg @ref RCC_IT_HSIRDY   HSI ready interrupt
-  *            @arg @ref RCC_IT_HSERDY   HSE ready interrupt
-  *            @arg @ref RCC_IT_PLL1RDY  PLL1 ready interrupt
-  *            @arg @ref RCC_IT_LSI2RDY  LSI2 ready interrupt(*)
+  *            @arg @ref RCC_IT_LSI1RDY         LSI1 ready interrupt
+  *            @arg @ref RCC_IT_LSERDY          LSE ready interrupt
+  *            @arg @ref RCC_IT_HSIRDY          HSI ready interrupt
+  *            @arg @ref RCC_IT_HSERDY          HSE ready interrupt
+  *            @arg @ref RCC_IT_PLL1RDY         PLL1 ready interrupt
+  *            @arg @ref RCC_IT_LSI2RDY         LSI2 ready interrupt(*)
+#if defined(RCC_CCIPR2_ASSEL)
+  *            @arg @ref RCC_IT_CAPTURE_ERROR   Capture Error Interrupt flag(*)
+  *            @arg @ref RCC_IT_COMPARER        Comparer Interrupt flag(*)
+  *            @arg @ref RCC_IT_CAPTURE_TRIGGER Capture Trigger Interrupt flag(*)
+#endif
   * (*) Feature not available on all devices of the family
   * @retval None
   */
+#if defined(RCC_CCIPR2_ASSEL)
+#define __HAL_RCC_ENABLE_IT(__INTERRUPT__) ((((__INTERRUPT__) >> 5U) == 0U) ? \
+                                             SET_BIT(RCC->CIER,1U << ((__INTERRUPT__) & RCC_FLAG_MASK)) : \
+                                             SET_BIT(RCC->ASIER,1U << ((__INTERRUPT__) & RCC_FLAG_MASK)))
+#else
 #define __HAL_RCC_ENABLE_IT(__INTERRUPT__) SET_BIT(RCC->CIER, (__INTERRUPT__))
+#endif /* RCC_CCIPR2_ASSEL */
 
 /**
   * @brief Disable RCC interrupt (Perform Byte access to RCC_CIR[14:8] bits to disable
   *        the selected interrupts).
   * @param  __INTERRUPT__: specifies the RCC interrupt sources to be disabled.
   *         This parameter can be any combination of the following values:
-  *            @arg @ref RCC_IT_LSI1RDY   LSI1 ready interrupt
-  *            @arg @ref RCC_IT_LSERDY    LSE ready interrupt
-  *            @arg @ref RCC_IT_HSIRDY    HSI ready interrupt
-  *            @arg @ref RCC_IT_HSERDY    HSE ready interrupt
-  *            @arg @ref RCC_IT_PLL1RDY   PLL1 ready interrupt
-  *            @arg @ref RCC_IT_LSI2RDY   LSI2 ready interrupt(*)
+  *            @arg @ref RCC_IT_LSI1RDY         LSI1 ready interrupt
+  *            @arg @ref RCC_IT_LSERDY          LSE ready interrupt
+  *            @arg @ref RCC_IT_HSIRDY          HSI ready interrupt
+  *            @arg @ref RCC_IT_HSERDY          HSE ready interrupt
+  *            @arg @ref RCC_IT_PLL1RDY         PLL1 ready interrupt
+  *            @arg @ref RCC_IT_LSI2RDY         LSI2 ready interrupt(*)
+#if defined(RCC_CCIPR2_ASSEL)
+  *            @arg @ref RCC_IT_CAPTURE_ERROR   Capture Error Interrupt flag(*)
+  *            @arg @ref RCC_IT_COMPARER        Comparer Interrupt flag(*)
+  *            @arg @ref RCC_IT_CAPTURE_TRIGGER Capture Trigger Interrupt flag(*)
+#endif
   * (*) Feature not available on all devices of the family
   * @retval None
   */
+#if defined(RCC_CCIPR2_ASSEL)
+#define __HAL_RCC_DISABLE_IT(__INTERRUPT__) ((((__INTERRUPT__) >> 5U) == 0U) ? \
+                                              CLEAR_BIT(RCC->CIER,1U << ((__INTERRUPT__) & RCC_FLAG_MASK)) : \
+                                              CLEAR_BIT(RCC->ASIER,1U << ((__INTERRUPT__) & RCC_FLAG_MASK)))
+#else
 #define __HAL_RCC_DISABLE_IT(__INTERRUPT__) CLEAR_BIT(RCC->CIER, (__INTERRUPT__))
+#endif /* RCC_CCIPR2_ASSEL */
 
 /**
   * @brief  Clear the RCC's interrupt pending bits (Perform Byte access to RCC_CIR[23:16]
   *         bits to clear the selected interrupt pending bits.
   * @param  __INTERRUPT__: specifies the interrupt pending bit to clear.
   *         This parameter can be any combination of the following values:
-  *            @arg @ref RCC_IT_LSI1RDY  LSI1 ready interrupt
-  *            @arg @ref RCC_IT_LSERDY   LSE ready interrupt
-  *            @arg @ref RCC_IT_HSIRDY   HSI ready interrupt
-  *            @arg @ref RCC_IT_HSERDY   HSE ready interrupt
-  *            @arg @ref RCC_IT_PLL1RDY  PLL1 ready interrupt
-  *            @arg @ref RCC_IT_CSS      High speed external clock security system interrupt
-  *            @arg @ref RCC_IT_LSI2RDY  LSI2 ready interrupt(*)
+  *            @arg @ref RCC_IT_LSI1RDY         LSI1 ready interrupt
+  *            @arg @ref RCC_IT_LSERDY          LSE ready interrupt
+  *            @arg @ref RCC_IT_HSIRDY          HSI ready interrupt
+  *            @arg @ref RCC_IT_HSERDY          HSE ready interrupt
+  *            @arg @ref RCC_IT_PLL1RDY         PLL1 ready interrupt
+  *            @arg @ref RCC_IT_LSI2RDY         LSI2 ready interrupt(*)
+#if defined(RCC_CCIPR2_ASSEL)
+  *            @arg @ref RCC_IT_CAPTURE_ERROR   Capture Error Interrupt flag(*)
+  *            @arg @ref RCC_IT_COMPARER        Comparer Interrupt flag(*)
+  *            @arg @ref RCC_IT_CAPTURE_TRIGGER Capture Trigger Interrupt flag(*)
+#endif
   * (*) Feature not available on all devices of the family
   * @retval None
   */
+#if defined(RCC_CCIPR2_ASSEL)
+#define __HAL_RCC_CLEAR_IT(__INTERRUPT__) ((((__INTERRUPT__) >> 5U) == 0U) ? \
+                                           WRITE_REG(RCC->CICR,1U << ((__INTERRUPT__) & RCC_FLAG_MASK)) : \
+                                           CLEAR_BIT(RCC->ASSR,1U << ((__INTERRUPT__) & RCC_FLAG_MASK)))
+#else
 #define __HAL_RCC_CLEAR_IT(__INTERRUPT__) WRITE_REG(RCC->CICR, (__INTERRUPT__))
+#endif /* RCC_CCIPR2_ASSEL */
 
 /** @brief  Check whether the RCC interrupt has occurred or not.
   * @param  __INTERRUPT__: specifies the RCC interrupt source to check.
   *         This parameter can be one of the following values:
-  *            @arg @ref RCC_IT_LSI1RDY  LSI1 ready interrupt
-  *            @arg @ref RCC_IT_LSERDY   LSE ready interrupt
-  *            @arg @ref RCC_IT_HSIRDY   HSI ready interrupt
-  *            @arg @ref RCC_IT_HSERDY   HSE ready interrupt
-  *            @arg @ref RCC_IT_PLL1RDY  PLL1 ready interrupt
-  *            @arg @ref RCC_IT_CSS      High speed external clock security system interrupt
-  *            @arg @ref RCC_IT_LSI2RDY  LSI2 ready interrupt(*)
+  *            @arg @ref RCC_IT_LSI1RDY         LSI1 ready interrupt
+  *            @arg @ref RCC_IT_LSERDY          LSE ready interrupt
+  *            @arg @ref RCC_IT_HSIRDY          HSI ready interrupt
+  *            @arg @ref RCC_IT_HSERDY          HSE ready interrupt
+  *            @arg @ref RCC_IT_PLL1RDY         PLL1 ready interrupt
+  *            @arg @ref RCC_IT_LSI2RDY         LSI2 ready interrupt(*)
+#if defined(RCC_CCIPR2_ASSEL)
+  *            @arg @ref RCC_IT_CAPTURE_ERROR   Capture Error Interrupt flag(*)
+  *            @arg @ref RCC_IT_COMPARER        Comparer Interrupt flag(*)
+  *            @arg @ref RCC_IT_CAPTURE_TRIGGER Capture Trigger Interrupt flag(*)
+#endif
   * (*) Feature not available on all devices of the family
   * @retval The new state of __INTERRUPT__ (TRUE or FALSE).
   */
+#if defined(RCC_CCIPR2_ASSEL)
+#define __HAL_RCC_GET_IT(__INTERRUPT__) ((((__INTERRUPT__) >> 5U) == 0U) ? \
+                                         ((RCC->CIFR & (1U << ((__INTERRUPT__) & RCC_FLAG_MASK))) == (1U << ((__INTERRUPT__) & RCC_FLAG_MASK))) : \
+                                         ((RCC->ASSR & (1U << ((__INTERRUPT__) & RCC_FLAG_MASK))) == (1U << ((__INTERRUPT__) & RCC_FLAG_MASK))))
+#else
 #define __HAL_RCC_GET_IT(__INTERRUPT__)  ((RCC->CIFR & (__INTERRUPT__)) == (__INTERRUPT__))
+#endif /* RCC_CCIPR2_ASSEL */
 
 /** @brief Set RMVF bit to clear the reset flags.
   *        The reset flags are: RCC_FLAG_FWRRST, RCC_FLAG_OBLRST, RCC_FLAG_PINRST, RCC_FLAG_BORRST,
@@ -2191,6 +2262,11 @@ typedef struct
 #define CR_REG_INDEX                    (1U)
 #define BDCR1_REG_INDEX                 (2U)
 #define CSR_REG_INDEX                   (3U)
+#if defined(RCC_CCIPR2_ASSEL)
+/* Defines used for Interrupt Flags */
+#define CIFR_REG_INDEX                  (0U)
+#define ASSR_REG_INDEX                  (1U)
+#endif /* RCC_CCIPR2_ASSEL */
 
 #define RCC_FLAG_MASK                   (0x1FU)
 
