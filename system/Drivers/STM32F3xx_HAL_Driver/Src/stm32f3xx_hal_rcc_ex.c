@@ -1247,12 +1247,12 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
         if (HAL_IS_BIT_SET(RCC->CR, RCC_CR_PLLRDY))
         {
           /* Frequency is the PLL frequency divided by ADC prescaler (1U/2U/4U/6U/8U/10U/12U/16U/32U/64U/128U/256U) */
-          frequency = RCC_GetPLLCLKFreq() / adc_pll_prediv_table[(srcclk >> POSITION_VAL(RCC_CFGR2_ADC1PRES)) & 0xFU];
+          frequency = RCC_GetPLLCLKFreq() / adc_pll_prediv_table[(srcclk >> RCC_CFGR2_ADC1PRES_Pos) & 0xFU];
         }
       }
 #else /* RCC_CFGR_ADCPRE */
       /* ADC1 is set to PLCK2 frequency divided by 2U/4U/6U/8U */
-      frequency = HAL_RCC_GetPCLK2Freq() / (((srcclk  >> POSITION_VAL(RCC_CFGR_ADCPRE)) + 1U) * 2U);
+      frequency = HAL_RCC_GetPCLK2Freq() / (((srcclk  >> RCC_CFGR_ADCPRE_Pos) + 1U) * 2U);
 #endif /* RCC_CFGR2_ADC1PRES */
       break;
     }
@@ -1274,7 +1274,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
         if (HAL_IS_BIT_SET(RCC->CR, RCC_CR_PLLRDY))
         {
           /* Frequency is the PLL frequency divided by ADC prescaler (1U/2U/4U/6/8U/10U/12U/16U/32U/64U/128U/256U) */
-          frequency = RCC_GetPLLCLKFreq() / adc_pll_prediv_table[(srcclk >> POSITION_VAL(RCC_CFGR2_ADCPRE12)) & 0xF];
+          frequency = RCC_GetPLLCLKFreq() / adc_pll_prediv_table[(srcclk >> RCC_CFGR2_ADCPRE12_Pos) & 0xF];
         }
       }
       break;
@@ -1297,7 +1297,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
         if (HAL_IS_BIT_SET(RCC->CR, RCC_CR_PLLRDY))
         {
           /* Frequency is the PLL frequency divided by ADC prescaler (1U/2U/4U/6U/8U/10U/12U/16U/32U/64U/128U/256U) */
-          frequency = RCC_GetPLLCLKFreq() / adc_pll_prediv_table[(srcclk >> POSITION_VAL(RCC_CFGR2_ADCPRE34)) & 0xF];
+          frequency = RCC_GetPLLCLKFreq() / adc_pll_prediv_table[(srcclk >> RCC_CFGR2_ADCPRE34_Pos) & 0xF];
         }
       }
       break;
@@ -1480,7 +1480,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
       /* Get the current SDADC source */
       srcclk = __HAL_RCC_GET_SDADC_SOURCE();
       /* Frequency is the system frequency divided by SDADC prescaler (2U/4U/6U/8U/10U/12U/14U/16U/20U/24U/28U/32U/36U/40U/44U/48U) */
-      frequency = SystemCoreClock / sdadc_prescaler_table[(srcclk >> POSITION_VAL(RCC_CFGR_SDPRE)) & 0xF];
+      frequency = SystemCoreClock / sdadc_prescaler_table[(srcclk >> RCC_CFGR_SDPRE_Pos) & 0xF];
       break;
     }
 #endif /* RCC_CFGR_SDPRE */

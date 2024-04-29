@@ -271,6 +271,8 @@ uint32_t HAL_SYSTICK_Config(uint32_t TicksNumb);
  */
 /* Peripheral Control functions ***********************************************/
 #if (__MPU_PRESENT == 1U)
+void HAL_MPU_EnableRegion(uint32_t RegionNumber);
+void HAL_MPU_DisableRegion(uint32_t RegionNumber);
 void HAL_MPU_ConfigRegion(MPU_Region_InitTypeDef *MPU_Init);
 #endif /* __MPU_PRESENT */
 uint32_t HAL_NVIC_GetPriorityGrouping(void);

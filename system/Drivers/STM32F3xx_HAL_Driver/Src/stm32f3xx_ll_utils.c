@@ -266,24 +266,21 @@ ErrorStatus LL_SetFlashLatency(uint32_t Frequency)
       }
     }
 
-    if (status != ERROR)
-    {
-      LL_FLASH_SetLatency(latency);
+    LL_FLASH_SetLatency(latency);
 
-      /* Check that the new number of wait states is taken into account to access the Flash
-           memory by reading the FLASH_ACR register */
-      timeout = 2;
-      do
-      {
+    /* Check that the new number of wait states is taken into account to access the Flash
+         memory by reading the FLASH_ACR register */
+    timeout = 2;
+    do
+    {
       /* Wait for Flash latency to be updated */
       getlatency = LL_FLASH_GetLatency();
       timeout--;
-      } while ((getlatency != latency) && (timeout > 0));
+    } while ((getlatency != latency) && (timeout > 0));
 
-      if(getlatency != latency)
-      {
-        status = ERROR;
-      }
+    if(getlatency != latency)
+    {
+      status = ERROR;
     }
   }
 

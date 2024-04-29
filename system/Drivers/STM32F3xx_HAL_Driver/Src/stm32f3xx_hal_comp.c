@@ -301,6 +301,20 @@
   */
 #define COMP_LOCK_DISABLE                      (0x00000000U)
 #define COMP_LOCK_ENABLE                       COMP_CSR_COMPxLOCK
+
+/* Delay for COMP startup time.                                               */
+/* Note: Delay required to reach propagation delay specification.             */
+/* Literal set to maximum value (refer to device datasheet,                   */
+/* parameter "tSTART").                                                       */
+/* Unit: us                                                                   */
+#define COMP_DELAY_STARTUP_US          (80UL)      /*!< Delay for COMP startup time */
+
+/* Delay for COMP voltage scaler stabilization time.                          */
+/* Literal set to maximum value (refer to device datasheet,                   */
+/* parameter "tSTART_SCALER").                                                */
+/* Unit: us                                                                   */
+#define COMP_DELAY_VOLTAGE_SCALER_STAB_US (200UL)  /*!< Delay for COMP voltage scaler stabilization time */
+
 /**
   * @}
   */
@@ -337,6 +351,8 @@
   */
 HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp)
 {
+  uint32_t comp_voltage_scaler_initialized; /* Value "0" if comparator voltage scaler is not initialized */
+  __IO uint32_t wait_loop_index = 0UL;
   HAL_StatusTypeDef status = HAL_OK;
 
   /* Check the COMP handle allocation and lock status */
@@ -385,6 +401,9 @@ HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp)
       HAL_COMP_MspInit(hcomp);
 #endif /* USE_HAL_COMP_REGISTER_CALLBACKS */
 
+    /* Memorize voltage scaler state before initialization */
+    comp_voltage_scaler_initialized = READ_BIT(hcomp->Instance->CSR, (COMP_CSR_COMPxINSEL_1 | COMP_CSR_COMPxINSEL_0));
+
     if (hcomp->State == HAL_COMP_STATE_RESET)
     {
       /* Allocate lock resource and initialize it */
@@ -404,6 +423,22 @@ HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp)
     /*     Set COMPxHYST bits according to hcomp->Init.Hysteresis value             */
     /*     Set COMPxMODE bits according to hcomp->Init.Mode value                   */
     COMP_INIT(hcomp);
+
+    /* Delay for COMP scaler bridge voltage stabilization */
+    /* Apply the delay if voltage scaler bridge is required and not already enabled */
+    if ((READ_BIT(hcomp->Instance->CSR, (COMP_CSR_COMPxINSEL_1 | COMP_CSR_COMPxINSEL_0)) != 0UL) &&
+        (comp_voltage_scaler_initialized == 0UL))
+    {
+      /* Wait loop initialization and execution */
+      /* Note: Variable divided by 2 to compensate partially              */
+      /*       CPU processing cycles, scaling in us split to not          */
+      /*       exceed 32 bits register capacity and handle low frequency. */
+      wait_loop_index = ((COMP_DELAY_VOLTAGE_SCALER_STAB_US / 10UL) * ((SystemCoreClock / (100000UL * 2UL)) + 1UL));
+      while (wait_loop_index != 0UL)
+      {
+        wait_loop_index--;
+      }
+    }
 
     /* Initialize the COMP state*/
     hcomp->State = HAL_COMP_STATE_READY;
@@ -677,6 +712,7 @@ HAL_StatusTypeDef HAL_COMP_UnRegisterCallback(COMP_HandleTypeDef *hcomp, HAL_COM
   */
 HAL_StatusTypeDef HAL_COMP_Start(COMP_HandleTypeDef *hcomp)
 {
+  __IO uint32_t wait_loop_index = 0UL;
   HAL_StatusTypeDef status = HAL_OK;
   uint32_t extiline = 0U;
 
@@ -729,6 +765,17 @@ HAL_StatusTypeDef HAL_COMP_Start(COMP_HandleTypeDef *hcomp)
       __HAL_COMP_ENABLE(hcomp);
 
       hcomp->State = HAL_COMP_STATE_BUSY;
+
+      /* Delay for COMP startup time */
+      /* Wait loop initialization and execution */
+      /* Note: Variable divided by 2 to compensate partially              */
+      /*       CPU processing cycles, scaling in us split to not          */
+      /*       exceed 32 bits register capacity and handle low frequency. */
+      wait_loop_index = ((COMP_DELAY_STARTUP_US / 10UL) * ((SystemCoreClock / (100000UL * 2UL)) + 1UL));
+      while (wait_loop_index != 0UL)
+      {
+        wait_loop_index--;
+      }
     }
     else
     {
