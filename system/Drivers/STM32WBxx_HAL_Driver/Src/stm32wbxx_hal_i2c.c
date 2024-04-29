@@ -1385,6 +1385,8 @@ HAL_StatusTypeDef HAL_I2C_Slave_Transmit(I2C_HandleTypeDef *hi2c, uint8_t *pData
                                          uint32_t Timeout)
 {
   uint32_t tickstart;
+  uint16_t tmpXferCount;
+  HAL_StatusTypeDef error;
 
   if (hi2c->State == HAL_I2C_STATE_READY)
   {
@@ -1478,30 +1480,47 @@ HAL_StatusTypeDef HAL_I2C_Slave_Transmit(I2C_HandleTypeDef *hi2c, uint8_t *pData
     }
 
     /* Wait until AF flag is set */
-    if (I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_AF, RESET, Timeout, tickstart) != HAL_OK)
+    error = I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_AF, RESET, Timeout, tickstart);
+
+    if (error != HAL_OK)
     {
-      /* Disable Address Acknowledge */
-      hi2c->Instance->CR2 |= I2C_CR2_NACK;
-      return HAL_ERROR;
+      /* Check that I2C transfer finished */
+      /* if yes, normal use case, a NACK is sent by the MASTER when Transfer is finished */
+      /* Mean XferCount == 0 */
+
+      tmpXferCount = hi2c->XferCount;
+      if ((hi2c->ErrorCode == HAL_I2C_ERROR_AF) && (tmpXferCount == 0U))
+      {
+        /* Reset ErrorCode to NONE */
+        hi2c->ErrorCode = HAL_I2C_ERROR_NONE;
+      }
+      else
+      {
+        /* Disable Address Acknowledge */
+        hi2c->Instance->CR2 |= I2C_CR2_NACK;
+        return HAL_ERROR;
+      }
     }
-
-    /* Flush TX register */
-    I2C_Flush_TXDR(hi2c);
-
-    /* Clear AF flag */
-    __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_AF);
-
-    /* Wait until STOP flag is set */
-    if (I2C_WaitOnSTOPFlagUntilTimeout(hi2c, Timeout, tickstart) != HAL_OK)
+    else
     {
-      /* Disable Address Acknowledge */
-      hi2c->Instance->CR2 |= I2C_CR2_NACK;
+      /* Flush TX register */
+      I2C_Flush_TXDR(hi2c);
 
-      return HAL_ERROR;
+      /* Clear AF flag */
+      __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_AF);
+
+      /* Wait until STOP flag is set */
+      if (I2C_WaitOnSTOPFlagUntilTimeout(hi2c, Timeout, tickstart) != HAL_OK)
+      {
+        /* Disable Address Acknowledge */
+        hi2c->Instance->CR2 |= I2C_CR2_NACK;
+
+        return HAL_ERROR;
+      }
+
+      /* Clear STOP flag */
+      __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
     }
-
-    /* Clear STOP flag */
-    __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
 
     /* Wait until BUSY flag is reset */
     if (I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_BUSY, SET, Timeout, tickstart) != HAL_OK)

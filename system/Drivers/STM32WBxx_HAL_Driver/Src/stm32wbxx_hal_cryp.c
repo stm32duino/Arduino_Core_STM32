@@ -30,7 +30,8 @@
       The CRYP HAL driver can be used in CRYP or TinyAES peripheral as follows:
 
       (#)Initialize the CRYP low level resources by implementing the HAL_CRYP_MspInit():
-         (##) Enable the CRYP interface clock using __HAL_RCC_CRYP_CLK_ENABLE()or __HAL_RCC_AES_CLK_ENABLE for TinyAES peripheral
+         (##) Enable the CRYP interface clock using __HAL_RCC_CRYP_CLK_ENABLE()
+              or __HAL_RCC_AES_CLK_ENABLE for TinyAES peripheral
          (##) In case of using interrupts (e.g. HAL_CRYP_Encrypt_IT())
              (+++) Configure the CRYP interrupt priority using HAL_NVIC_SetPriority()
              (+++) Enable the CRYP IRQ handler using HAL_NVIC_EnableIRQ()
@@ -58,8 +59,10 @@
          (##) The DataWidthUnit field. It specifies whether the data length (or the payload length for authentication
                algorithms) is in words or bytes.
          (##) The Header used only in AES GCM and CCM Algorithm for authentication.
-         (##) The HeaderSize providing the size of the header buffer in words or bytes, depending upon HeaderWidthUnit field.
-         (##) The HeaderWidthUnit field. It specifies whether the header length (for authentication algorithms) is in words or bytes.
+         (##) The HeaderSize providing the size of the header buffer in words or bytes,
+              depending upon HeaderWidthUnit field.
+         (##) The HeaderWidthUnit field. It specifies whether the header length (for authentication algorithms)
+              is in words or bytes.
          (##) The B0 block is the first authentication block used only in AES CCM mode.
          (##) The KeyIVConfigSkip used to process several messages in a row (please see more information below).
 
@@ -316,7 +319,8 @@
   * @{
   */
 #define CRYP_TIMEOUT_KEYPREPARATION      82U         /* The latency of key preparation operation is 82 clock cycles.*/
-#define CRYP_TIMEOUT_GCMCCMINITPHASE     299U        /* The latency of  GCM/CCM init phase to prepare hash subkey is 299 clock cycles.*/
+#define CRYP_TIMEOUT_GCMCCMINITPHASE     299U        /* The latency of  GCM/CCM init phase to prepare hash subkey
+                                                        is 299 clock cycles.*/
 #define CRYP_TIMEOUT_GCMCCMHEADERPHASE   290U        /* The latency of  GCM/CCM header phase is 290 clock cycles.*/
 
 #define CRYP_PHASE_READY                 0x00000001U /*!< CRYP peripheral is ready for initialization. */
@@ -350,7 +354,8 @@
   * @{
   */
 
-#define CRYP_SET_PHASE(__HANDLE__, __PHASE__)   MODIFY_REG((__HANDLE__)->Instance->CR, AES_CR_GCMPH, (uint32_t)(__PHASE__))
+#define CRYP_SET_PHASE(__HANDLE__, __PHASE__)   MODIFY_REG((__HANDLE__)->Instance->CR,\
+                                                           AES_CR_GCMPH, (uint32_t)(__PHASE__))
 
 /**
   * @}
@@ -923,8 +928,6 @@ void HAL_CRYP_ProcessSuspend(CRYP_HandleTypeDef *hcryp)
   hcryp->SuspendRequest = HAL_CRYP_SUSPEND;
 }
 
-
-
 /**
   * @brief  CRYP processing suspension and peripheral internal parameters storage.
   * @param  hcryp pointer to a CRYP_HandleTypeDef structure that contains
@@ -977,7 +980,8 @@ HAL_StatusTypeDef HAL_CRYP_Suspend(CRYP_HandleTypeDef *hcryp)
     hcryp->CrypOutCount_saved      = hcryp->CrypOutCount;
     hcryp->Phase_saved             = hcryp->Phase;
     hcryp->State_saved             = hcryp->State;
-    hcryp->Size_saved              = ((hcryp->Init.DataWidthUnit == CRYP_DATAWIDTHUNIT_WORD) ? (hcryp->Size / 4U) : hcryp->Size);
+    hcryp->Size_saved              = ((hcryp->Init.DataWidthUnit == CRYP_DATAWIDTHUNIT_WORD) ? \
+                                      (hcryp->Size / 4U) : hcryp->Size);
     hcryp->SizesSum_saved          = hcryp->SizesSum;
     hcryp->AutoKeyDerivation_saved = hcryp->AutoKeyDerivation;
     hcryp->CrypHeaderCount_saved   = hcryp->CrypHeaderCount;
@@ -1068,14 +1072,16 @@ HAL_StatusTypeDef HAL_CRYP_Resume(CRYP_HandleTypeDef *hcryp)
     hcryp->ResumingFlag = 1U;
     if (READ_BIT(hcryp->CR_saved, AES_CR_MODE) == CRYP_OPERATINGMODE_ENCRYPT)
     {
-      if (HAL_CRYP_Encrypt_IT(hcryp, hcryp->pCrypInBuffPtr_saved, hcryp->Size_saved, hcryp->pCrypOutBuffPtr_saved) != HAL_OK)
+      if (HAL_CRYP_Encrypt_IT(hcryp, hcryp->pCrypInBuffPtr_saved, hcryp->Size_saved, \
+                              hcryp->pCrypOutBuffPtr_saved) != HAL_OK)
       {
         return HAL_ERROR;
       }
     }
     else
     {
-      if (HAL_CRYP_Decrypt_IT(hcryp, hcryp->pCrypInBuffPtr_saved, hcryp->Size_saved, hcryp->pCrypOutBuffPtr_saved) != HAL_OK)
+      if (HAL_CRYP_Decrypt_IT(hcryp, hcryp->pCrypInBuffPtr_saved, hcryp->Size_saved, \
+                              hcryp->pCrypOutBuffPtr_saved) != HAL_OK)
       {
         return HAL_ERROR;
       }
@@ -1708,7 +1714,8 @@ HAL_StatusTypeDef HAL_CRYP_Encrypt_DMA(CRYP_HandleTypeDef *hcryp, uint32_t *Inpu
         hcryp->Phase = CRYP_PHASE_PROCESS;
 
         /* Start DMA process transfer for AES */
-        CRYP_SetDMAConfig(hcryp, (uint32_t)(hcryp->pCrypInBuffPtr), (hcryp->Size / 4U), (uint32_t)(hcryp->pCrypOutBuffPtr));
+        CRYP_SetDMAConfig(hcryp, (uint32_t)(hcryp->pCrypInBuffPtr), (hcryp->Size / 4U), \
+                          (uint32_t)(hcryp->pCrypOutBuffPtr));
         status = HAL_OK;
         break;
 
@@ -1861,25 +1868,27 @@ HAL_StatusTypeDef HAL_CRYP_Decrypt_DMA(CRYP_HandleTypeDef *hcryp, uint32_t *Inpu
   */
 void HAL_CRYP_IRQHandler(CRYP_HandleTypeDef *hcryp)
 {
+  uint32_t itsource = hcryp->Instance->CR;
+  uint32_t itflag   = hcryp->Instance->SR;
 
   /* Check if error occurred */
-  if (__HAL_CRYP_GET_IT_SOURCE(hcryp, CRYP_IT_ERRIE) != RESET)
+  if ((itsource & CRYP_IT_ERRIE) == CRYP_IT_ERRIE)
   {
     /* If write Error occurred */
-    if (__HAL_CRYP_GET_FLAG(hcryp, CRYP_IT_WRERR) != RESET)
+    if ((itflag & CRYP_IT_WRERR) == CRYP_IT_WRERR)
     {
       hcryp->ErrorCode |= HAL_CRYP_ERROR_WRITE;
     }
     /* If read Error occurred */
-    if (__HAL_CRYP_GET_FLAG(hcryp, CRYP_IT_RDERR) != RESET)
+    if ((itflag & CRYP_IT_RDERR) == CRYP_IT_RDERR)
     {
       hcryp->ErrorCode |= HAL_CRYP_ERROR_READ;
     }
   }
 
-  if (__HAL_CRYP_GET_FLAG(hcryp, CRYP_IT_CCF) != RESET)
+  if ((itflag & CRYP_IT_CCF) == CRYP_IT_CCF)
   {
-    if (__HAL_CRYP_GET_IT_SOURCE(hcryp, CRYP_IT_CCFIE) != RESET)
+    if ((itsource & CRYP_IT_CCFIE) == CRYP_IT_CCFIE)
     {
       /* Clear computation complete flag */
       __HAL_CRYP_CLEAR_FLAG(hcryp, CRYP_CCF_CLEAR);
@@ -2685,7 +2694,8 @@ static void CRYP_DMAOutCplt(DMA_HandleTypeDef *hdma)
     /*Read the output block from the output FIFO */
     for (count = 0U; count < 4U; count++)
     {
-      /* Read the output block from the output FIFO and put them in temporary buffer then get CrypOutBuff from temporary buffer */
+      /* Read the output block from the output FIFO and put them in temporary buffer
+         then get CrypOutBuff from temporary buffer */
       temp[count] = hcryp->Instance->DOUTR;
     }
 
@@ -2896,7 +2906,8 @@ static void CRYP_AES_ProcessData(CRYP_HandleTypeDef *hcryp, uint32_t Timeout)
   /* Clear CCF Flag */
   __HAL_CRYP_CLEAR_FLAG(hcryp, CRYP_CCF_CLEAR);
 
-  /* Read the output block from the output FIFO and put them in temporary buffer then get CrypOutBuff from temporary buffer*/
+  /* Read the output block from the output FIFO and put them in temporary buffer
+     then get CrypOutBuff from temporary buffer*/
   for (i = 0U; i < 4U; i++)
   {
     temp[i] = hcryp->Instance->DOUTR;
@@ -2925,7 +2936,8 @@ static void CRYP_AES_IT(CRYP_HandleTypeDef *hcryp)
 
   if (hcryp->State == HAL_CRYP_STATE_BUSY)
   {
-    /* Read the output block from the output FIFO and put them in temporary buffer then get CrypOutBuff from temporary buffer*/
+    /* Read the output block from the output FIFO and put them in temporary buffer
+       then get CrypOutBuff from temporary buffer*/
     for (i = 0U; i < 4U; i++)
     {
       temp[i] = hcryp->Instance->DOUTR;
@@ -3251,7 +3263,8 @@ static HAL_StatusTypeDef CRYP_AESGCM_Process(CRYP_HandleTypeDef *hcryp, uint32_t
     /*Read the output block from the output FIFO */
     for (index = 0U; index < 4U; index++)
     {
-      /* Read the output block from the output FIFO and put them in temporary buffer then get CrypOutBuff from temporary buffer */
+      /* Read the output block from the output FIFO and put them in temporary buffer
+         then get CrypOutBuff from temporary buffer */
       temp[index] = hcryp->Instance->DOUTR;
     }
     for (index = 0U; index < lastwordsize; index++)
@@ -3535,10 +3548,6 @@ static HAL_StatusTypeDef CRYP_AESGCM_Process_IT(CRYP_HandleTypeDef *hcryp)
           header has already been processed;
           only process here message payload */
   {
-
-    /* Enable computation complete flag and error interrupts */
-    __HAL_CRYP_ENABLE_IT(hcryp, CRYP_IT_CCFIE | CRYP_IT_ERRIE);
-
     /* Set to 0 the number of non-valid bytes using NPBLB register*/
     MODIFY_REG(hcryp->Instance->CR, AES_CR_NPBLB, 0U);
 
@@ -3575,6 +3584,9 @@ static HAL_StatusTypeDef CRYP_AESGCM_Process_IT(CRYP_HandleTypeDef *hcryp)
         HAL_CRYP_InCpltCallback(hcryp);
 #endif /* USE_HAL_CRYP_REGISTER_CALLBACKS */
       }
+
+      /* Enable computation complete flag and error interrupts */
+      __HAL_CRYP_ENABLE_IT(hcryp, CRYP_IT_CCFIE | CRYP_IT_ERRIE);
     }
     else /* Size < 16Bytes  : first block is the last block*/
     {
@@ -3623,6 +3635,9 @@ static HAL_StatusTypeDef CRYP_AESGCM_Process_IT(CRYP_HandleTypeDef *hcryp)
       /*Call legacy weak Input complete callback*/
       HAL_CRYP_InCpltCallback(hcryp);
 #endif /* USE_HAL_CRYP_REGISTER_CALLBACKS */
+
+      /* Enable computation complete flag and error interrupts */
+      __HAL_CRYP_ENABLE_IT(hcryp, CRYP_IT_CCFIE | CRYP_IT_ERRIE);
     }
   }
 
@@ -3918,7 +3933,8 @@ static HAL_StatusTypeDef CRYP_AESCCM_Process(CRYP_HandleTypeDef *hcryp, uint32_t
 
     for (loopcounter = 0U; loopcounter < 4U; loopcounter++)
     {
-      /* Read the output block from the output FIFO and put them in temporary buffer then get CrypOutBuff from temporary buffer */
+      /* Read the output block from the output FIFO and put them in temporary buffer
+         then get CrypOutBuff from temporary buffer */
       temp[loopcounter] = hcryp->Instance->DOUTR;
     }
     for (loopcounter = 0U; loopcounter < lastwordsize; loopcounter++)
@@ -4078,14 +4094,14 @@ static HAL_StatusTypeDef CRYP_AESCCM_Process_IT(CRYP_HandleTypeDef *hcryp)
       }
       else if (hcryp->Size >= 16U)
       {
-        hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
         hcryp->CrypInCount++;
-        hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+        hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
         hcryp->CrypInCount++;
-        hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+        hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
         hcryp->CrypInCount++;
-        hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+        hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
         hcryp->CrypInCount++;
+        hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
 
         if ((hcryp->CrypInCount == (hcryp->Size / 4U)) && ((hcryp->Size % 16U) == 0U))
         {
@@ -4191,14 +4207,14 @@ static HAL_StatusTypeDef CRYP_AESCCM_Process_IT(CRYP_HandleTypeDef *hcryp)
     {
       /* Write the first input header block in the Input FIFO,
          the following header data will be fed after interrupt occurrence */
-      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->Init.Header + hcryp->CrypHeaderCount);
       hcryp->CrypHeaderCount++;
-      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->Init.Header + hcryp->CrypHeaderCount);
+      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->Init.Header + hcryp->CrypHeaderCount - 1U);
       hcryp->CrypHeaderCount++;
-      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->Init.Header + hcryp->CrypHeaderCount);
+      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->Init.Header + hcryp->CrypHeaderCount - 1U);
       hcryp->CrypHeaderCount++;
-      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->Init.Header + hcryp->CrypHeaderCount);
+      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->Init.Header + hcryp->CrypHeaderCount - 1U);
       hcryp->CrypHeaderCount++;
+      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->Init.Header + hcryp->CrypHeaderCount - 1U);
     }/* if (hcryp->Init.HeaderSize == 0U) */ /* Header phase is  skipped*/
   } /* end of if (dokeyivconfig == 1U) */
   else  /* Key and IV have already been configured,
@@ -4219,14 +4235,14 @@ static HAL_StatusTypeDef CRYP_AESCCM_Process_IT(CRYP_HandleTypeDef *hcryp)
     }
     else if (hcryp->Size >= 16U)
     {
-      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
       hcryp->CrypInCount++;
-      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
       hcryp->CrypInCount++;
-      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
       hcryp->CrypInCount++;
-      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
       hcryp->CrypInCount++;
+      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
 
       if ((hcryp->CrypInCount == (hcryp->Size / 4U)) && ((hcryp->Size % 16U) == 0U))
       {
@@ -4412,7 +4428,8 @@ static void CRYP_GCMCCM_SetPayloadPhase_IT(CRYP_HandleTypeDef *hcryp)
 
   /***************************** Payload phase *******************************/
 
-  /* Read the output block from the output FIFO and put them in temporary buffer then get CrypOutBuff from temporary buffer*/
+  /* Read the output block from the output FIFO and put them in temporary buffer
+     then get CrypOutBuff from temporary buffer*/
   for (i = 0U; i < 4U; i++)
   {
     temp[i] = hcryp->Instance->DOUTR;
@@ -4651,7 +4668,8 @@ static HAL_StatusTypeDef CRYP_GCMCCM_SetPayloadPhase_DMA(CRYP_HandleTypeDef *hcr
     /*Read the output block from the output FIFO */
     for (index = 0U; index < 4U; index++)
     {
-      /* Read the output block from the output FIFO and put them in temporary buffer then get CrypOutBuff from temporary buffer */
+      /* Read the output block from the output FIFO and put them in temporary buffer
+         then get CrypOutBuff from temporary buffer */
       temp[index] = hcryp->Instance->DOUTR;
     }
     for (index = 0U; index < lastwordsize; index++)

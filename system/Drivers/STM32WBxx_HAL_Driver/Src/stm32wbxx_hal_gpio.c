@@ -420,9 +420,9 @@ void HAL_GPIO_WritePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, GPIO_PinState Pin
   *         accesses.
   * @param  GPIOx where x can be (A..F) to select the GPIO peripheral for STM32WLxx family
   * @param  PinReset specifies the port bits to be reset
-  *         This parameter can be any combination of GPIO_Pin_x where x can be (0..15) or zero.
+  *         This parameter can be any combination of GPIO_PIN_x where x can be (0..15) or zero.
   * @param  PinSet specifies the port bits to be set
-  *         This parameter can be any combination of GPIO_Pin_x where x can be (0..15) or zero.
+  *         This parameter can be any combination of GPIO_PIN_x where x can be (0..15) or zero.
   * @note   Both PinReset and PinSet combinations shall not get any common bit, else
   *         assert would be triggered.
   * @note   At least one of the two parameters used to set or reset shall be different from zero.
@@ -469,7 +469,7 @@ void HAL_GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
   *         until the next reset.
   * @param GPIOx where x can be (A..H) to select the GPIO peripheral for STM32WBxx family
   * @param GPIO_Pin specifies the port bits to be locked.
-  *         This parameter can be any combination of GPIO_Pin_x where x can be (0..15).
+  *         This parameter can be any combination of GPIO_PIN_x where x can be (0..15).
   * @retval None
   */
 HAL_StatusTypeDef HAL_GPIO_LockPin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
