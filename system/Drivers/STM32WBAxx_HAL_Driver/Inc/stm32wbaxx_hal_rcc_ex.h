@@ -129,10 +129,26 @@ typedef struct
   uint32_t RadioSlpTimClockSelection; /*!< Specifies Radio Sleep Timer clock source.
                                            This parameter can be a value of @ref RCC_RadioSleepTimer_Clock_Source */
 } RCC_PeriphCLKInitTypeDef;
+
+#if defined(RCC_CCIPR2_ASSEL)
+/**
+  * @brief  RCC extended clocks structure definition
+  */
+typedef struct
+{
+uint32_t CapturePrescaler;            /*!< Capture Prescaler.
+                                           This parameter can ba a value between 0 and 0x7F */
+uint32_t ClockPrescaler;              /*!< Clock Prescaler.
+                                           This parameter can ba a value between 0 and 0x7F */
+uint32_t AutoReloadValue;             /*!< Auto-reload value.
+                                           This parameter can be a value between 0 and 0xFFFFF*/
+uint32_t CompareValue;                /*!< Compare value.
+                                           This parameter can be a value between 0 and 0xFFFFF*/
+} RCC_AudioSyncConfigTypeDef;
+#endif /* RCC_CCIPR2_ASSEL */
 /**
   * @}
   */
-
 
 /* Exported constants --------------------------------------------------------*/
 /** @defgroup RCCEx_Exported_Constants RCCEx Exported Constants
@@ -255,7 +271,7 @@ typedef struct
   */
 #define RCC_TIMICCLKSOURCE_HSI              0x00000000U             /*!< HSI selected for Timer16/17 and LPTimer2 */
 #define RCC_TIMICCLKSOURCE_HSI_DIV256       RCC_CCIPR1_TIMICSEL     /*!< HSI/256 selected for Timer16/17 and LPTimer2 */
-/*
+/**
   * @}
   */
 
@@ -760,11 +776,11 @@ typedef struct
   */
 
 /* Exported functions --------------------------------------------------------*/
-/** @addtogroup RCCEx_Exported_Functions
+/** @defgroup RCCEx_Exported_Functions RCCEx Exported Functions
   * @{
   */
 
-/** @addtogroup RCCEx_Exported_Functions_Group1
+/** @defgroup RCCEx_Exported_Functions_Group1 Extended Peripheral Control functions
   * @{
   */
 HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(const RCC_PeriphCLKInitTypeDef *PeriphClkInit);
@@ -774,7 +790,7 @@ uint32_t          HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk);
   * @}
   */
 
-/** @addtogroup RCCEx_Exported_Functions_Group2
+/** @defgroup RCCEx_Exported_Functions_Group2 Extended Clock management functions
   * @{
   */
 void              HAL_RCCEx_EnableLSECSS(void);
@@ -793,7 +809,7 @@ void              HAL_RCCEx_LSI2GetConfig(RCC_LSIConfigTypeDef *pConfig);
   * @}
   */
 
-/** @addtogroup RCCEx_Exported_Functions_Group3
+/** @defgroup RCCEx_Exported_Functions_Group3 Radio Clock management functions
   * @{
   */
 void              HAL_RCCEx_EnableRadioBBClock(void);
@@ -805,10 +821,26 @@ uint32_t          HAL_RCCEx_GetRadioBusClockReadiness(void);
   * @}
   */
 
+#if defined(RCC_CCIPR2_ASSEL)
+/** @defgroup RCCEx_Exported_Functions_Group4 Audio Synchronization management functions
+  * @{
+  */
+void              HAL_RCCEx_EnableAudioSyncClock(void);
+void              HAL_RCCEx_DisableAudioSyncClock(void);
+HAL_StatusTypeDef HAL_RCCEx_SetConfigAudioSync(const RCC_AudioSyncConfigTypeDef *pConf);
+void              HAL_RCCEx_GetConfigAudioSync(RCC_AudioSyncConfigTypeDef *pConf);
+uint32_t          HAL_RCCEx_GetAudioSyncCounterValue(void);
+uint32_t          HAL_RCCEx_GetAudioSyncCaptureValue(void);
 /**
   * @}
   */
-/** @addtogroup RCCEx_Private_Constants
+#endif /* RCC_CCIPR2_ASSEL */
+
+/**
+  * @}
+  */
+
+/** @defgroup RCCEx_Private_Constants Private Constants
   * @{
   */
 /* Define used for IS_RCC_* macros below */
@@ -848,7 +880,7 @@ uint32_t          HAL_RCCEx_GetRadioBusClockReadiness(void);
   */
 
 /* Private macros ------------------------------------------------------------*/
-/** @addtogroup RCCEx_Private_Macros
+/** @defgroup RCCEx_Private_Macros Private Macros
   * @{
   */
 #define IS_RCC_PERIPHCLOCK(__SELECTION__)         ((((__SELECTION__) & RCC_PERIPHCLOCK_ALL) != 0x00u) && \
@@ -964,9 +996,15 @@ uint32_t          HAL_RCCEx_GetRadioBusClockReadiness(void);
                                                    ((__MODE__) == RCC_LSI2_MODE_ULP))
 #endif /* RCC_BDCR1_LSI2ON */
 
-/**
-  * @}
-  */
+#if defined(RCC_CCIPR2_ASSEL)
+#define IS_RCC_AUDIOSYNC_CAPTUREPRESCALER(__PRESCALER__)  ((__PRESCALER__) <= (RCC_ASCR_CPS >> RCC_ASCR_CPS_Pos))
+
+#define IS_RCC_AUDIOSYNC_CLOCKPRESCALER(__PRESCALER__)    ((__PRESCALER__) <= (RCC_ASCR_PSC >> RCC_ASCR_PSC_Pos))
+
+#define IS_RCC_AUDIOSYNC_AUTORELOAD(__VALUE__)  ((__VALUE__) <= (RCC_ASARR_AR >> RCC_ASARR_AR_Pos))
+
+#define IS_RCC_AUDIOSYNC_COMPARE(__VALUE__)     ((__VALUE__) <= (RCC_ASCOR_CO >> RCC_ASCOR_CO_Pos))
+#endif /* RCC_CCIPR2_ASSEL */
 
 /**
   * @}
@@ -977,8 +1015,8 @@ uint32_t          HAL_RCCEx_GetRadioBusClockReadiness(void);
   */
 
 /**
-* @}
-*/
+  * @}
+  */
 
 #ifdef __cplusplus
 }

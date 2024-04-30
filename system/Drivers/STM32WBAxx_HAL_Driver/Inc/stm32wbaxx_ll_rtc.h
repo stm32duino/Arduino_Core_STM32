@@ -348,8 +348,8 @@ typedef struct
 /** @defgroup RTC_LL_EC_ALARM_OUTPUTTYPE  ALARM OUTPUT TYPE
   * @{
   */
-#define LL_RTC_ALARM_OUTPUTTYPE_OPENDRAIN  RTC_CR_TAMPALRM_TYPE  /*!< RTC_ALARM is open-drain output */
-#define LL_RTC_ALARM_OUTPUTTYPE_PUSHPULL   0U                    /*!< RTC_ALARM is push-pull output  */
+#define LL_RTC_ALARM_OUTPUTTYPE_PUSHPULL   0U                      /*!< RTC_ALARM is push-pull output  */
+#define LL_RTC_ALARM_OUTPUTTYPE_OPENDRAIN  RTC_CR_TAMPALRM_TYPE    /*!< RTC_ALARM is open-drain output */
 /**
   * @}
   */
@@ -1216,7 +1216,6 @@ __STATIC_INLINE uint32_t LL_RTC_GetBinMixBCDU(const RTC_TypeDef *RTCx)
   return (uint32_t)(READ_BIT(RTCx->ICSR, RTC_ICSR_BCDU));
 }
 
-
 #ifdef RTC_CR_POL
 /**
   * @brief  Set Output polarity (pin is low when ALRAF/ALRBF/WUTF is asserted)
@@ -1450,13 +1449,12 @@ __STATIC_INLINE uint32_t LL_RTC_IsAlarmPullUpEnabled(const RTC_TypeDef *RTCx)
 }
 #endif /* RTC_CR_TAMPALRM_PU */
 
-
 #if defined(RTC_CR_OUT2EN)
 /**
   * @brief  Enable RTC_OUT2 output
   * @note RTC_OUT2 mapping depends on both OSEL (@ref LL_RTC_SetAlarmOutEvent)
   *       and COE (@ref LL_RTC_CAL_SetOutputFreq) settings.
-  * @note RTC_OUT2 is not available ins VBAT mode.
+  * @note RTC_OUT2 is not available in VBAT mode.
   * @rmtoll RTC_CR           OUT2EN       LL_RTC_EnableOutput2
   * @param  RTCx RTC Instance
   * @retval None
@@ -1488,7 +1486,6 @@ __STATIC_INLINE uint32_t LL_RTC_IsOutput2Enabled(const RTC_TypeDef *RTCx)
   return ((READ_BIT(RTCx->CR, RTC_CR_OUT2EN) == (RTC_CR_OUT2EN)) ? 1U : 0U);
 }
 #endif /* RTC_CR_OUT2EN */
-
 /**
   * @}
   */
@@ -4321,7 +4318,6 @@ __STATIC_INLINE uint32_t LL_RTC_IsActiveFlag_ITAMP3(const RTC_TypeDef *RTCx)
   UNUSED(RTCx);
   return ((READ_BIT(TAMP->SR, TAMP_SR_ITAMP3F) == (TAMP_SR_ITAMP3F)) ? 1U : 0U);
 }
-
 
 /**
   * @brief  Get internal tamper 5 detection flag.

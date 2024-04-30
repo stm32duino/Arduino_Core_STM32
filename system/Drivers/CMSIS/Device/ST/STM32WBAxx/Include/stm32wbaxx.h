@@ -61,7 +61,7 @@
   /* #define STM32WBA52xx */   /*!< STM32WBA52xx Devices */
   /* #define STM32WBA54xx */   /*!< STM32WBA54xx Devices */
   /* #define STM32WBA55xx */   /*!< STM32WBA55xx Devices */
-#endif /* !STM32WBA55xx && !STM32WBA52xx ...*/
+#endif /* !STM32WBA50xx && !STM32WBA52xx ...*/
 
 /*  Tip: To avoid modifying this file each time you need to switch between these
         devices, you can define the device in your toolchain compiler preprocessor.
@@ -79,7 +79,7 @@
   * @brief CMSIS Device version number
   */
 #define __STM32WBA_CMSIS_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32WBA_CMSIS_VERSION_SUB1   (0x02U) /*!< [23:16] sub1 version */
+#define __STM32WBA_CMSIS_VERSION_SUB1   (0x03U) /*!< [23:16] sub1 version */
 #define __STM32WBA_CMSIS_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
 #define __STM32WBA_CMSIS_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32WBA_CMSIS_VERSION       ((__STM32WBA_CMSIS_VERSION_MAIN << 24U)\

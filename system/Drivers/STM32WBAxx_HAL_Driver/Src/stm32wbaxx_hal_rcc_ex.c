@@ -43,11 +43,11 @@
 /* Private function prototypes -----------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
 
-/** @defgroup RCCEx_Exported_Functions RCCEx Exported Functions
+/** @addtogroup RCCEx_Exported_Functions
   * @{
   */
 
-/** @defgroup RCCEx_Exported_Functions_Group1 Extended Peripheral Control functions
+/** @addtogroup RCCEx_Exported_Functions_Group1
   *  @brief  Extended Peripheral Control functions
   *
 @verbatim
@@ -88,7 +88,9 @@
   *            @arg @ref RCC_PERIPHCLK_LPTIM1 LPTIM1 peripheral clock
   *            @arg @ref RCC_PERIPHCLK_ADC ADC4 peripheral clock
   *            @arg @ref RCC_PERIPHCLK_RTC RTC peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_RADIOST RADIO sleep timer clock (**)
   * @note   (*) Peripherals are not available on all devices
+  * @note   (**) This requires the Backup domain access to be enabled
   * @note   Care must be taken when HAL_RCCEx_PeriphCLKConfig() is used to select
   *         the RTC clock source: in this case the access to Backup domain is enabled.
   * @retval HAL status
@@ -391,6 +393,12 @@ HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(const RCC_PeriphCLKInitTypeDef *Peri
 
     /* Configure the RADIO Sleep Timer clock source */
     __HAL_RCC_RADIOSLPTIM_CONFIG(PeriphClkInit->RadioSlpTimClockSelection);
+
+    /* Check configuration validity as under Backup domain access control */
+    if (__HAL_RCC_GET_RADIOSLPTIM_SOURCE() != PeriphClkInit->RadioSlpTimClockSelection)
+    {
+      return HAL_ERROR;
+    }
   }
 
   return HAL_OK;
@@ -517,6 +525,7 @@ void HAL_RCCEx_GetPeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *PeriphClkInit)
   *            @arg @ref RCC_PERIPHCLK_LPTIM1 LPTIM1 peripheral clock
   *            @arg @ref RCC_PERIPHCLK_ADC ADC4 peripheral clock
   *            @arg @ref RCC_PERIPHCLK_RTC RTC peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_RADIOST RADIO sleep timer clock
   * @note   (*) Peripherals are not available on all devices
   * @retval Frequency in Hz
   */
@@ -1124,7 +1133,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
   * @}
   */
 
-/** @defgroup RCCEx_Exported_Functions_Group2 Extended Clock management functions
+/** @addtogroup RCCEx_Exported_Functions_Group2
   *  @brief  Extended Clock management functions
   *
 @verbatim
@@ -1190,7 +1199,7 @@ void HAL_RCCEx_DisableLSCO(void)
 
 /**
   * @brief  Set HSE trimming value
-  * @param  Trimming  specifies the HSE trimmign value.
+  * @param  Trimming  specifies the HSE trimming value.
   *          This parameter should be below 0x3F.
   * @retval None
   */
@@ -1204,7 +1213,7 @@ void HAL_RCCEx_HSESetTrimming(uint32_t Trimming)
 
 /**
   * @brief  Get HSE trimming value
-  * @retval The programmed HSE trimmign value
+  * @retval The programmed HSE trimming value
   */
 uint32_t HAL_RCCEx_HSEGetTrimming(void)
 {
@@ -1231,7 +1240,7 @@ void HAL_RCCEx_LSESetTrimming(uint32_t Trimming)
 
 /**
   * @brief  Get LSE trimming value
-  * @retval The programmed LSE trimmign value
+  * @retval The programmed LSE trimming value
   */
 uint32_t HAL_RCCEx_LSEGetTrimming(void)
 {
@@ -1281,7 +1290,7 @@ void HAL_RCCEx_LSI2GetConfig(RCC_LSIConfigTypeDef *pConfig)
   * @}
   */
 
-/** @defgroup RCCEx_Exported_Functions_Group3 Radio clock management functions
+/** @addtogroup RCCEx_Exported_Functions_Group3
   *  @brief  Radio clock management functions
   *
 @verbatim
@@ -1346,6 +1355,120 @@ uint32_t HAL_RCCEx_GetRadioBusClockReadiness(void)
 /**
   * @}
   */
+
+#if defined(RCC_CCIPR2_ASSEL)
+/** @addtogroup RCCEx_Exported_Functions_Group4
+  *  @brief  Radio clock management functions
+  *
+@verbatim
+ ===============================================================================
+                ##### Extended radio clock management functions  #####
+ ===============================================================================
+    [..]
+    This subsection provides a set of functions allowing to control the
+    audio-synchronization-related parameters.
+@endverbatim
+  * @{
+  */
+
+/**
+  * @brief  Enable the Audio Synchronization counter and kernel clock
+  * @retval None
+  */
+void HAL_RCCEx_EnableAudioSyncClock(void)
+{
+  SET_BIT(RCC->ASCR, RCC_ASCR_CEN);
+}
+
+/**
+  * @brief  Disable the Audio Synchronization counter and kernel clock
+  * @retval None
+  */
+void HAL_RCCEx_DisableAudioSyncClock(void)
+{
+  CLEAR_BIT(RCC->ASCR, RCC_ASCR_CEN);
+}
+
+/**
+  * @brief  Set Audio Synchronization Configuration
+  * @param  pConf pointer to an RCC_AudioSyncConfigTypeDef structure that
+  *         contains the configuration information for the Audio Synchronization
+  * @retval None
+  */
+HAL_StatusTypeDef HAL_RCCEx_SetConfigAudioSync(const RCC_AudioSyncConfigTypeDef *pConf)
+{
+  /* Check the parameters */
+  assert_param(pConf != (void *)NULL);
+  assert_param(IS_RCC_AUDIOSYNC_CAPTUREPRESCALER(pConf->CapturePrescaler));
+  assert_param(IS_RCC_AUDIOSYNC_CLOCKPRESCALER(pConf->ClockPrescaler));
+  assert_param(IS_RCC_AUDIOSYNC_AUTORELOAD(pConf->AutoReloadValue));
+  assert_param(IS_RCC_AUDIOSYNC_COMPARE(pConf->CompareValue));
+
+  /* Set ASCR register value */
+  RCC->ASCR = (((pConf->CapturePrescaler) << RCC_ASCR_CPS_Pos) & \
+               ((pConf->ClockPrescaler) << RCC_ASCR_PSC_Pos));
+
+  /* Set Auto Reload value */
+  RCC->ASARR = ((pConf->AutoReloadValue) << RCC_ASARR_AR_Pos);
+
+  /* Set Compare value */
+  RCC->ASCOR = ((pConf->CompareValue) << RCC_ASCOR_CO_Pos);
+
+  return HAL_OK;
+}
+
+/**
+  * @brief  Configure the pConf according to the internal
+  *         RCC configuration registers.
+  * @param  pConf pointer to an RCC_AudioSyncConfigTypeDef
+  *         structure that will be configured.
+  * @retval None
+  */
+void HAL_RCCEx_GetConfigAudioSync(RCC_AudioSyncConfigTypeDef *pConf)
+{
+  uint32_t regvalue;
+
+  /* Check the parameters */
+  assert_param(pConf != (void *)NULL);
+
+  /* Get Audio ASCR register */
+  regvalue = RCC->ASCR;
+
+  /* Get Capture prescaler value */
+  pConf->CapturePrescaler = ((regvalue & RCC_ASCR_CPS) >> RCC_ASCR_CPS_Pos);
+
+  /* Get Clock prescaler value */
+  pConf->ClockPrescaler = ((regvalue & RCC_ASCR_PSC) >> RCC_ASCR_PSC_Pos);
+
+  /* Get Auto Reload value */
+  pConf->AutoReloadValue = ((RCC->ASARR & RCC_ASCAR_CA) >> RCC_ASCAR_CA_Pos);
+
+  /* Get Compare value */
+  pConf->CompareValue = ((RCC->ASCOR & RCC_ASCOR_CO) >> RCC_ASCOR_CO_Pos);
+}
+
+/**
+  * @brief  Get AudioSync Counter value
+  * @retval The Counter value
+  */
+uint32_t HAL_RCCEx_GetAudioSyncCounterValue(void)
+{
+  return ((RCC->ASCNTR & RCC_ASCNTR_CNT) >> RCC_ASCNTR_CNT_Pos);
+}
+
+/**
+  * @brief  Get AudioSync Capture value
+  * @retval The programmed Capture value
+  */
+uint32_t HAL_RCCEx_GetAudioSyncCaptureValue(void)
+{
+  return ((RCC->ASCAR & RCC_ASCAR_CA) >> RCC_ASCAR_CA_Pos);
+}
+
+/**
+  * @}
+  */
+#endif /* RCC_CCIPR2_ASSEL */
 
 /**
   * @}

@@ -4630,7 +4630,7 @@ HAL_StatusTypeDef HAL_TIM_OnePulse_ConfigChannel(TIM_HandleTypeDef *htim,  TIM_O
   *            @arg TIM_DMA_TRIGGER: TIM Trigger DMA source
   * @param  BurstBuffer The Buffer address.
   * @param  BurstLength DMA Burst length. This parameter can be one value
-  *         between: TIM_DMABURSTLENGTH_1TRANSFER and TIM_DMABURSTLENGTH_26TRANSFER.
+  *         between: TIM_DMABURSTLENGTH_1TRANSFER and TIM_DMABURSTLENGTH_26TRANSFERS.
   * @note   This function should be used only when BurstLength is equal to DMA data transfer length.
   * @retval HAL status
   */
@@ -4776,7 +4776,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStart(TIM_HandleTypeDef *htim, uint32_t 
   *            @arg TIM_DMA_TRIGGER: TIM Trigger DMA source
   * @param  BurstBuffer The Buffer address.
   * @param  BurstLength DMA Burst length. This parameter can be one value
-  *         between: TIM_DMABURSTLENGTH_1TRANSFER and TIM_DMABURSTLENGTH_26TRANSFER.
+  *         between: TIM_DMABURSTLENGTH_1TRANSFER and TIM_DMABURSTLENGTH_26TRANSFERS.
   * @param  DataLength Data length. This parameter can be one value
   *         between 1 and 0xFFFF.
   * @retval HAL status
@@ -5086,7 +5086,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStop(TIM_HandleTypeDef *htim, uint32_t B
   *            @arg TIM_DMA_TRIGGER: TIM Trigger DMA source
   * @param  BurstBuffer The Buffer address.
   * @param  BurstLength DMA Burst length. This parameter can be one value
-  *         between: TIM_DMABURSTLENGTH_1TRANSFER and TIM_DMABURSTLENGTH_26TRANSFER.
+  *         between: TIM_DMABURSTLENGTH_1TRANSFER and TIM_DMABURSTLENGTH_26TRANSFERS.
   * @note   This function should be used only when BurstLength is equal to DMA data transfer length.
   * @retval HAL status
   */
@@ -5231,7 +5231,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_ReadStart(TIM_HandleTypeDef *htim, uint32_t B
   *            @arg TIM_DMA_TRIGGER: TIM Trigger DMA source
   * @param  BurstBuffer The Buffer address.
   * @param  BurstLength DMA Burst length. This parameter can be one value
-  *         between: TIM_DMABURSTLENGTH_1TRANSFER and TIM_DMABURSTLENGTH_26TRANSFER.
+  *         between: TIM_DMABURSTLENGTH_1TRANSFER and TIM_DMABURSTLENGTH_26TRANSFERS.
   * @param  DataLength Data length. This parameter can be one value
   *         between 1 and 0xFFFF.
   * @retval HAL status
@@ -5578,15 +5578,28 @@ HAL_StatusTypeDef HAL_TIM_ConfigOCrefClear(TIM_HandleTypeDef *htim,
     case TIM_CLEARINPUTSOURCE_NONE:
     {
       /* Clear the OCREF clear selection bit and the the ETR Bits */
-      CLEAR_BIT(htim->Instance->SMCR, (TIM_SMCR_OCCS | TIM_SMCR_ETF | TIM_SMCR_ETPS | TIM_SMCR_ECE | TIM_SMCR_ETP));
+      if (IS_TIM_OCCS_INSTANCE(htim->Instance))
+      {
+        CLEAR_BIT(htim->Instance->SMCR, (TIM_SMCR_OCCS | TIM_SMCR_ETF | TIM_SMCR_ETPS | TIM_SMCR_ECE | TIM_SMCR_ETP));
+
+        /* Clear TIMx_AF2_OCRSEL (reset value) */
+        CLEAR_BIT(htim->Instance->AF2, TIMx_AF2_OCRSEL);
+      }
+      else
+      {
+        CLEAR_BIT(htim->Instance->SMCR, (TIM_SMCR_ETF | TIM_SMCR_ETPS | TIM_SMCR_ECE | TIM_SMCR_ETP));
+      }
       break;
     }
 
     case TIM_CLEARINPUTSOURCE_COMP1:
     case TIM_CLEARINPUTSOURCE_COMP2:
     {
-      /* Clear the OCREF clear selection bit */
-      CLEAR_BIT(htim->Instance->SMCR, TIM_SMCR_OCCS);
+      if (IS_TIM_OCCS_INSTANCE(htim->Instance))
+      {
+        /* Clear the OCREF clear selection bit */
+        CLEAR_BIT(htim->Instance->SMCR, TIM_SMCR_OCCS);
+      }
 
       /* Set the clear input source */
       MODIFY_REG(htim->Instance->AF2, TIMx_AF2_OCRSEL, sClearInputConfig->ClearInputSource);
@@ -5613,8 +5626,14 @@ HAL_StatusTypeDef HAL_TIM_ConfigOCrefClear(TIM_HandleTypeDef *htim,
                         sClearInputConfig->ClearInputPolarity,
                         sClearInputConfig->ClearInputFilter);
 
-      /* Set the OCREF clear selection bit */
-      SET_BIT(htim->Instance->SMCR, TIM_SMCR_OCCS);
+      if (IS_TIM_OCCS_INSTANCE(htim->Instance))
+      {
+        /* Set the OCREF clear selection bit */
+        SET_BIT(htim->Instance->SMCR, TIM_SMCR_OCCS);
+
+        /* Clear TIMx_AF2_OCRSEL (reset value) */
+        CLEAR_BIT(htim->Instance->AF2, TIMx_AF2_OCRSEL);
+      }
       break;
     }
 

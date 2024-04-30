@@ -505,6 +505,22 @@ void HAL_MPU_Enable(uint32_t MPU_Control)
   __ISB(); /* Flush and refill pipeline with updated MPU configuration settings */
 }
 
+/**
+  * @brief  Enable the MPU Region.
+  * @retval None
+  */
+void HAL_MPU_EnableRegion(uint32_t RegionNumber)
+{
+  /* Check the parameters */
+  assert_param(IS_MPU_REGION_NUMBER(RegionNumber));
+
+  /* Set the Region number */
+  MPU->RNR = RegionNumber;
+
+  /* Enable the Region */
+  SET_BIT(MPU->RLAR, MPU_RLAR_EN_Msk);
+}
+
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 /**
   * @brief  Enable the non-secure MPU.
@@ -532,6 +548,21 @@ void HAL_MPU_Enable_NS(uint32_t MPU_Control)
   __DSB(); /* Ensure that the subsequent instruction is executed only after the write to memory */
   __ISB(); /* Flush and refill pipeline with updated MPU configuration settings */
 }
+
+/**
+  * @brief  Enable the non-secure MPU Region.
+  * @retval None
+  */
+void HAL_MPU_EnableRegion_NS(uint32_t RegionNumber)
+{
+  assert_param(IS_MPU_REGION_NUMBER(RegionNumber));
+
+  /* Set the Region number */
+  MPU_NS->RNR = RegionNumber;
+
+  /* Enable the Region */
+  SET_BIT(MPU_NS->RLAR, MPU_RLAR_EN_Msk);
+}
 #endif /* __ARM_FEATURE_CMSE */
 
 /**
@@ -554,6 +585,22 @@ void HAL_MPU_Disable(void)
   __ISB(); /* Flush and refill pipeline with updated MPU configuration settings */
 }
 
+/**
+  * @brief  Disable the MPU Region.
+  * @retval None
+  */
+void HAL_MPU_DisableRegion(uint32_t RegionNumber)
+{
+  /* Check the parameters */
+  assert_param(IS_MPU_REGION_NUMBER(RegionNumber));
+
+  /* Set the Region number */
+  MPU->RNR = RegionNumber;
+
+  /* Disable the Region */
+  CLEAR_BIT(MPU->RLAR, MPU_RLAR_EN_Msk);
+}
+
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 void HAL_MPU_Disable_NS(void)
 {
@@ -570,7 +617,24 @@ void HAL_MPU_Disable_NS(void)
   __DSB(); /* Ensure that the subsequent instruction is executed only after the write to memory */
   __ISB(); /* Flush and refill pipeline with updated MPU configuration settings */
 }
+
+/**
+  * @brief  Disable the non-secure MPU Region.
+  * @retval None
+  */
+void HAL_MPU_DisableRegion_NS(uint32_t RegionNumber)
+{
+  /* Check the parameters */
+  assert_param(IS_MPU_REGION_NUMBER(RegionNumber));
+
+  /* Set the Region number */
+  MPU_NS->RNR = RegionNumber;
+
+  /* Disable the Region */
+  CLEAR_BIT(MPU_NS->RLAR, MPU_RLAR_EN_Msk);
+}
 #endif /* __ARM_FEATURE_CMSE */
+
 /**
   * @brief  Initialize and configure the Region and the memory to be protected.
   * @param  MPU_RegionInit: Pointer to a MPU_Region_InitTypeDef structure that contains
@@ -600,6 +664,10 @@ static void MPU_ConfigRegion(MPU_Type *MPUx, MPU_Region_InitTypeDef *MPU_RegionI
   /* Check the parameters */
   assert_param(IS_MPU_REGION_NUMBER(MPU_RegionInit->Number));
   assert_param(IS_MPU_REGION_ENABLE(MPU_RegionInit->Enable));
+  assert_param(IS_MPU_INSTRUCTION_ACCESS(MPU_RegionInit->DisableExec));
+  assert_param(IS_MPU_REGION_PERMISSION_ATTRIBUTE(MPU_RegionInit->AccessPermission));
+  assert_param(IS_MPU_ACCESS_SHAREABLE(MPU_RegionInit->IsShareable));
+  assert_param(IS_MPU_ATTRIBUTES_NUMBER(MPU_RegionInit->AttributesIndex));
 
   /* Follow ARM recommendation with Data Memory Barrier prior to MPU configuration */
   __DMB();
@@ -607,27 +675,17 @@ static void MPU_ConfigRegion(MPU_Type *MPUx, MPU_Region_InitTypeDef *MPU_RegionI
   /* Set the Region number */
   MPUx->RNR = MPU_RegionInit->Number;
 
-  if (MPU_RegionInit->Enable != MPU_REGION_DISABLE)
-  {
-    /* Check the parameters */
-    assert_param(IS_MPU_INSTRUCTION_ACCESS(MPU_RegionInit->DisableExec));
-    assert_param(IS_MPU_REGION_PERMISSION_ATTRIBUTE(MPU_RegionInit->AccessPermission));
-    assert_param(IS_MPU_ACCESS_SHAREABLE(MPU_RegionInit->IsShareable));
+   /* Disable the Region */
+  CLEAR_BIT(MPUx->RLAR, MPU_RLAR_EN_Msk);
 
-    MPUx->RBAR = (((uint32_t)MPU_RegionInit->BaseAddress               & 0xFFFFFFE0U)  |
-                  ((uint32_t)MPU_RegionInit->IsShareable           << MPU_RBAR_SH_Pos)  |
-                  ((uint32_t)MPU_RegionInit->AccessPermission      << MPU_RBAR_AP_Pos)  |
-                  ((uint32_t)MPU_RegionInit->DisableExec           << MPU_RBAR_XN_Pos));
+  MPUx->RBAR = (((uint32_t)MPU_RegionInit->BaseAddress & 0xFFFFFFE0U)  |
+                ((uint32_t)MPU_RegionInit->IsShareable      << MPU_RBAR_SH_Pos)  |
+                ((uint32_t)MPU_RegionInit->AccessPermission << MPU_RBAR_AP_Pos)  |
+                ((uint32_t)MPU_RegionInit->DisableExec      << MPU_RBAR_XN_Pos));
 
-    MPUx->RLAR = (((uint32_t)MPU_RegionInit->LimitAddress                    & 0xFFFFFFE0U) |
-                  ((uint32_t)MPU_RegionInit->AttributesIndex       << MPU_RLAR_AttrIndx_Pos) |
-                  ((uint32_t)MPU_RegionInit->Enable                << MPU_RLAR_EN_Pos));
-  }
-  else
-  {
-    MPUx->RBAR = 0U;
-    MPUx->RLAR = 0U;
-  }
+  MPUx->RLAR = (((uint32_t)MPU_RegionInit->LimitAddress & 0xFFFFFFE0U) |
+                ((uint32_t)MPU_RegionInit->AttributesIndex << MPU_RLAR_AttrIndx_Pos) |
+                ((uint32_t)MPU_RegionInit->Enable          << MPU_RLAR_EN_Pos));
 }
 /**
   * @brief  Initialize and configure the memory attributes.

@@ -411,7 +411,7 @@ typedef struct
 #define IS_TIM_TISEL_TIX_INSTANCE(INSTANCE, CHANNEL) \
   (IS_TIM_CCX_INSTANCE(INSTANCE, CHANNEL) && ((CHANNEL) < TIM_CHANNEL_5))
 
-#if defined(TIM3)
+#if   defined(TIM3)
 #define IS_TIM_CLOCKSOURCE_INSTANCE(INSTANCE, __CLOCK__) \
   ((((INSTANCE) == TIM1) &&                  \
     (((__CLOCK__) == TIM_CLOCKSOURCE_INTERNAL)  ||          \
@@ -475,7 +475,7 @@ typedef struct
      ((__CLOCK__) == TIM_CLOCKSOURCE_ITR8))))
 #endif /* TIM3 */
 
-#if defined(TIM3)
+#if   defined(TIM3)
 #define IS_TIM_TRIGGER_INSTANCE(INSTANCE, __SELECTION__) \
   ((((INSTANCE) == TIM1) &&                  \
     (((__SELECTION__) == TIM_TS_ITR1)    ||          \

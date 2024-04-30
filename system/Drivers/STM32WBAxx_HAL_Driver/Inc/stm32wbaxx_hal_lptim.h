@@ -220,6 +220,7 @@ typedef struct
   __IO  HAL_LPTIM_StateTypeDef   State;            /*!< LPTIM peripheral state    */
 
   __IO  HAL_LPTIM_ChannelStateTypeDef   ChannelState[2];  /*!< LPTIM channel operation state                       */
+
 #if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
   void (* MspInitCallback)(struct __LPTIM_HandleTypeDef *hlptim);            /*!< LPTIM Base Msp Init Callback                 */
   void (* MspDeInitCallback)(struct __LPTIM_HandleTypeDef *hlptim);          /*!< LPTIM Base Msp DeInit Callback               */

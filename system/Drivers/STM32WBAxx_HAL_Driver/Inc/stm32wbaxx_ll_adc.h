@@ -705,14 +705,6 @@ typedef struct
                                             | ADC_CHANNEL_12_BITFIELD) /*!< ADC channel ADCx_IN12 */
 #define LL_ADC_CHANNEL_13                  (ADC_CHANNEL_13_NUMBER \
                                             | ADC_CHANNEL_13_BITFIELD) /*!< ADC channel ADCx_IN13 */
-#define LL_ADC_CHANNEL_14                  (ADC_CHANNEL_14_NUMBER \
-                                            | ADC_CHANNEL_14_BITFIELD) /*!< ADC channel ADCx_IN14 */
-#define LL_ADC_CHANNEL_15                  (ADC_CHANNEL_15_NUMBER \
-                                            | ADC_CHANNEL_15_BITFIELD) /*!< ADC channel ADCx_IN15 */
-#define LL_ADC_CHANNEL_16                  (ADC_CHANNEL_16_NUMBER  \
-                                            | ADC_CHANNEL_16_BITFIELD) /*!< ADC channel ADCx_IN16 */
-#define LL_ADC_CHANNEL_17                  (ADC_CHANNEL_17_NUMBER  \
-                                            | ADC_CHANNEL_17_BITFIELD) /*!< ADC channel ADCx_IN17 */
 #define LL_ADC_CHANNEL_VREFINT             (LL_ADC_CHANNEL_0  | ADC_CHANNEL_ID_INTERNAL_CH)  /*!< ADC internal channel
                                            connected to VrefInt: Internal voltage reference. */
 #define LL_ADC_CHANNEL_TEMPSENSOR          (LL_ADC_CHANNEL_13 | ADC_CHANNEL_ID_INTERNAL_CH)  /*!< ADC internal channel
@@ -969,18 +961,6 @@ typedef struct
 #define LL_ADC_AWD_CHANNEL_13_REG          ((LL_ADC_CHANNEL_13 & ADC_CHANNEL_ID_MASK) \
                                             | ADC_CFGR1_AWD1EN | ADC_CFGR1_AWD1SGL)  /*!< ADC analog watchdog monitoring
                                            of ADC channel ADCx_IN13, converted by group regular only */
-#define LL_ADC_AWD_CHANNEL_14_REG          ((LL_ADC_CHANNEL_14 & ADC_CHANNEL_ID_MASK) \
-                                            | ADC_CFGR1_AWD1EN | ADC_CFGR1_AWD1SGL)  /*!< ADC analog watchdog monitoring
-                                           of ADC channel ADCx_IN14, converted by group regular only */
-#define LL_ADC_AWD_CHANNEL_15_REG          ((LL_ADC_CHANNEL_15 & ADC_CHANNEL_ID_MASK) \
-                                            | ADC_CFGR1_AWD1EN | ADC_CFGR1_AWD1SGL)  /*!< ADC analog watchdog monitoring
-                                           of ADC channel ADCx_IN15, converted by group regular only */
-#define LL_ADC_AWD_CHANNEL_16_REG          ((LL_ADC_CHANNEL_16 & ADC_CHANNEL_ID_MASK) \
-                                            | ADC_CFGR1_AWD1EN | ADC_CFGR1_AWD1SGL) /*!< ADC analog watchdog monitoring
-                                           of ADC channel ADCx_IN16, converted by group regular only */
-#define LL_ADC_AWD_CHANNEL_17_REG          ((LL_ADC_CHANNEL_17 & ADC_CHANNEL_ID_MASK) \
-                                            | ADC_CFGR1_AWD1EN | ADC_CFGR1_AWD1SGL) /*!< ADC analog watchdog monitoring
-                                           of ADC channel ADCx_IN17, converted by group regular only */
 #define LL_ADC_AWD_CH_VREFINT_REG          ((LL_ADC_CHANNEL_VREFINT    & ADC_CHANNEL_ID_MASK) \
                                             | ADC_CFGR1_AWD1EN | ADC_CFGR1_AWD1SGL) /*!< ADC analog watchdog monitoring
                                            of ADC internal channel connected to VrefInt: Internal
@@ -1754,7 +1734,7 @@ typedef struct
   *                                       On this STM32 series, refer to datasheet parameter "V30" (corresponding
   *                                       to TS_CAL1).
   * @param  __TEMPSENSOR_CALX_TEMP__      Device datasheet data: Temperature at which temperature sensor voltage
-                                          (see parameter above) is corresponding (unit: mV)
+                                          (see parameter above) is corresponding (unit: degree Celsius)
   * @param  __VREFANALOG_VOLTAGE__        Analog voltage reference (Vref+) value (unit: mV)
   * @param  __TEMPSENSOR_ADC_DATA__       ADC conversion data of internal temperature sensor (unit: digital value).
   * @param  __ADC_RESOLUTION__            ADC resolution at which internal temperature sensor voltage has been measured.
@@ -1834,7 +1814,7 @@ __STATIC_INLINE uint32_t LL_ADC_DMA_GetRegAddr(const ADC_TypeDef *ADCx, uint32_t
   (void)(Register);
 
   /* Retrieve address of register DR */
-  return (uint32_t) &(ADCx->DR);
+  return (uint32_t) & (ADCx->DR);
 }
 
 /**

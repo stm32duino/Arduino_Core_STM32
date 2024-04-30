@@ -4417,9 +4417,9 @@ __STATIC_INLINE uint32_t LL_USART_GetTriggerPolarity(const USART_TypeDef *USARTx
   *         @arg @ref  LL_USART_EXTI_LINE6_TRG
   *         @arg @ref  LL_USART_EXTI_LINE9_TRG
   *         @arg @ref  LL_USART_LPTIM1_OUT_TRG
-  *         @arg @ref  LL_USART_LPTIM2_OUT_TRG (only available of STM32WBA52xx, STM32WBA54xx and STM32WBA55xx)
-  *         @arg @ref  LL_USART_COMP1_OUT_TRG (only available of STM32WBA54xx and STM32WBA55xx)
-  *         @arg @ref  LL_USART_COMP2_OUT_TRG (only available of STM32WBA54xx and STM32WBA55xx)
+  *         @arg @ref  LL_USART_LPTIM2_OUT_TRG (not available on all devices)
+  *         @arg @ref  LL_USART_COMP1_OUT_TRG (not available on all devices)
+  *         @arg @ref  LL_USART_COMP2_OUT_TRG (not available on all devices)
   *         @arg @ref  LL_USART_RTC_ALRA_TRG
   *         @arg @ref  LL_USART_RTC_WUT_TRG
   * @retval None
@@ -4441,9 +4441,9 @@ __STATIC_INLINE void LL_USART_SetSelectedTrigger(USART_TypeDef *USARTx, uint32_t
   *         @arg @ref  LL_USART_EXTI_LINE6_TRG
   *         @arg @ref  LL_USART_EXTI_LINE9_TRG
   *         @arg @ref  LL_USART_LPTIM1_OUT_TRG
-  *         @arg @ref  LL_USART_LPTIM2_OUT_TRG (only available of STM32WBA52xx, STM32WBA54xx and STM32WBA55xx)
-  *         @arg @ref  LL_USART_COMP1_OUT_TRG (only available of STM32WBA54xx and STM32WBA55xx)
-  *         @arg @ref  LL_USART_COMP2_OUT_TRG (only available of STM32WBA54xx and STM32WBA55xx)
+  *         @arg @ref  LL_USART_LPTIM2_OUT_TRG (not available on all devices)
+  *         @arg @ref  LL_USART_COMP1_OUT_TRG (not available on all devices)
+  *         @arg @ref  LL_USART_COMP2_OUT_TRG (not available on all devices)
   *         @arg @ref  LL_USART_RTC_ALRA_TRG
   *         @arg @ref  LL_USART_RTC_WUT_TRG
   */

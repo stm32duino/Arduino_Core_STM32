@@ -1633,6 +1633,7 @@ __STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_CC2O(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->ISR, LPTIM_ISR_CC2OF) == LPTIM_ISR_CC2OF) ? 1UL : 0UL));
 }
+
 /**
   * @brief  Clear the autoreload match flag (ARRMCF)
   * @rmtoll ICR          ARRMCF        LL_LPTIM_ClearFlag_ARRM

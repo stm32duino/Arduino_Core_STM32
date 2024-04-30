@@ -1902,7 +1902,8 @@ HAL_StatusTypeDef HAL_TIMEx_OnePulseN_Stop_IT(TIM_HandleTypeDef *htim, uint32_t 
   *            @arg TIM_TS_ITR0: Internal trigger 0 selected
   *            @arg TIM_TS_ITR1: Internal trigger 1 selected
   *            @arg TIM_TS_ITR2: Internal trigger 2 selected
-  *            @arg TIM_TS_ITR3: Internal trigger 3 selected
+  *            @arg TIM_TS_ITR7: Internal trigger 7 selected
+  *            @arg TIM_TS_ITR8: Internal trigger 8 selected
   *            @arg TIM_TS_NONE: No trigger is needed
   * @param  CommutationSource the Commutation Event source
   *          This parameter can be one of the following values:
@@ -1919,6 +1920,9 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent(TIM_HandleTypeDef *htim, uint32_t 
 
   __HAL_LOCK(htim);
 
+  if ((InputTrigger == TIM_TS_ITR0) || (InputTrigger == TIM_TS_ITR1) ||
+      (InputTrigger == TIM_TS_ITR2) || (InputTrigger == TIM_TS_ITR7) ||
+      (InputTrigger == TIM_TS_ITR8))
   {
     /* Select the Input trigger */
     htim->Instance->SMCR &= ~TIM_SMCR_TS;
@@ -1956,7 +1960,8 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent(TIM_HandleTypeDef *htim, uint32_t 
   *            @arg TIM_TS_ITR0: Internal trigger 0 selected
   *            @arg TIM_TS_ITR1: Internal trigger 1 selected
   *            @arg TIM_TS_ITR2: Internal trigger 2 selected
-  *            @arg TIM_TS_ITR3: Internal trigger 3 selected
+  *            @arg TIM_TS_ITR7: Internal trigger 7 selected
+  *            @arg TIM_TS_ITR8: Internal trigger 8 selected
   *            @arg TIM_TS_NONE: No trigger is needed
   * @param  CommutationSource the Commutation Event source
   *          This parameter can be one of the following values:
@@ -1973,6 +1978,9 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_IT(TIM_HandleTypeDef *htim, uint32
 
   __HAL_LOCK(htim);
 
+  if ((InputTrigger == TIM_TS_ITR0) || (InputTrigger == TIM_TS_ITR1) ||
+      (InputTrigger == TIM_TS_ITR2) || (InputTrigger == TIM_TS_ITR7) ||
+      (InputTrigger == TIM_TS_ITR8))
   {
     /* Select the Input trigger */
     htim->Instance->SMCR &= ~TIM_SMCR_TS;
@@ -2011,7 +2019,8 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_IT(TIM_HandleTypeDef *htim, uint32
   *            @arg TIM_TS_ITR0: Internal trigger 0 selected
   *            @arg TIM_TS_ITR1: Internal trigger 1 selected
   *            @arg TIM_TS_ITR2: Internal trigger 2 selected
-  *            @arg TIM_TS_ITR3: Internal trigger 3 selected
+  *            @arg TIM_TS_ITR7: Internal trigger 7 selected
+  *            @arg TIM_TS_ITR8: Internal trigger 8 selected
   *            @arg TIM_TS_NONE: No trigger is needed
   * @param  CommutationSource the Commutation Event source
   *          This parameter can be one of the following values:
@@ -2028,6 +2037,9 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_DMA(TIM_HandleTypeDef *htim, uint3
 
   __HAL_LOCK(htim);
 
+  if ((InputTrigger == TIM_TS_ITR0) || (InputTrigger == TIM_TS_ITR1) ||
+      (InputTrigger == TIM_TS_ITR2) || (InputTrigger == TIM_TS_ITR7) ||
+      (InputTrigger == TIM_TS_ITR8))
   {
     /* Select the Input trigger */
     htim->Instance->SMCR &= ~TIM_SMCR_TS;
