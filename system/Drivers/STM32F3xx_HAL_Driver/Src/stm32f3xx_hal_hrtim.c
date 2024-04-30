@@ -84,7 +84,6 @@
        any restriction. HRTIM waveform modes are managed through the set of
        functions named HAL_HRTIM_Waveform<Function>
 
-==============================================================================
                       ##### How to use this driver #####
 ==============================================================================
     [..]
@@ -8384,7 +8383,7 @@ static uint32_t HRTIM_GetITFromOCMode(const HRTIM_HandleTypeDef * hhrtim,
   case HRTIM_OUTPUT_TD1:
   case HRTIM_OUTPUT_TE1:
     {
-      /* Retrieves actual OC mode and set interrupt accordingly */
+      /* Retreives actual OC mode and set interrupt accordingly */
       hrtim_set = hhrtim->Instance->sTimerxRegs[TimerIdx].SETx1R;
       hrtim_reset = hhrtim->Instance->sTimerxRegs[TimerIdx].RSTx1R;
 
@@ -8419,7 +8418,7 @@ static uint32_t HRTIM_GetITFromOCMode(const HRTIM_HandleTypeDef * hhrtim,
   case HRTIM_OUTPUT_TD2:
   case HRTIM_OUTPUT_TE2:
     {
-      /* Retrieves actual OC mode and set interrupt accordingly */
+      /* Retreives actual OC mode and set interrupt accordingly */
       hrtim_set = hhrtim->Instance->sTimerxRegs[TimerIdx].SETx2R;
       hrtim_reset = hhrtim->Instance->sTimerxRegs[TimerIdx].RSTx2R;
 
@@ -8490,7 +8489,7 @@ static uint32_t HRTIM_GetDMAFromOCMode(const HRTIM_HandleTypeDef * hhrtim,
   case HRTIM_OUTPUT_TD1:
   case HRTIM_OUTPUT_TE1:
     {
-      /* Retrieves actual OC mode and set dma_request accordingly */
+      /* Retreives actual OC mode and set dma_request accordingly */
       hrtim_set = hhrtim->Instance->sTimerxRegs[TimerIdx].SETx1R;
       hrtim_reset = hhrtim->Instance->sTimerxRegs[TimerIdx].RSTx1R;
 
@@ -8525,7 +8524,7 @@ static uint32_t HRTIM_GetDMAFromOCMode(const HRTIM_HandleTypeDef * hhrtim,
   case HRTIM_OUTPUT_TD2:
   case HRTIM_OUTPUT_TE2:
     {
-      /* Retrieves actual OC mode and set dma_request accordingly */
+      /* Retreives actual OC mode and set dma_request accordingly */
       hrtim_set = hhrtim->Instance->sTimerxRegs[TimerIdx].SETx2R;
       hrtim_reset = hhrtim->Instance->sTimerxRegs[TimerIdx].RSTx2R;
 

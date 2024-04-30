@@ -4853,7 +4853,10 @@ uint32_t HAL_ADCEx_MultiModeGetValue(ADC_HandleTypeDef* hadc)
   
   /* Check the parameters */
   assert_param(IS_ADC_MULTIMODE_MASTER_INSTANCE(hadc->Instance));
-  
+
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hadc);
+
   /* Pointer to the common control register to which is belonging hadc        */
   /* (Depending on STM32F3 product, there may be up to 4 ADC and 2 common     */
   /* control registers)                                                       */

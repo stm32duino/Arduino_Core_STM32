@@ -59,7 +59,8 @@
 /** @addtogroup STM32F3xx_HAL_Driver
   * @{
   */
-#if defined(HAL_NOR_MODULE_ENABLED) || defined(HAL_SRAM_MODULE_ENABLED) || defined(HAL_NAND_MODULE_ENABLED) || defined(HAL_PCCARD_MODULE_ENABLED)
+#if defined(HAL_NOR_MODULE_ENABLED) || defined(HAL_NAND_MODULE_ENABLED) || defined(HAL_PCCARD_MODULE_ENABLED) \
+ || defined(HAL_SRAM_MODULE_ENABLED)
 
 /** @defgroup FMC_LL  FMC Low Layer
   * @brief FMC driver modules
@@ -339,13 +340,14 @@ HAL_StatusTypeDef FMC_NORSRAM_Timing_Init(FMC_NORSRAM_TypeDef *Device,
   assert_param(IS_FMC_NORSRAM_BANK(Bank));
 
   /* Set FMC_NORSRAM device timing parameters */
-  MODIFY_REG(Device->BTCR[Bank + 1U], BTR_CLEAR_MASK, (Timing->AddressSetupTime                                  |
-                                                       ((Timing->AddressHoldTime)        << FMC_BTRx_ADDHLD_Pos)  |
-                                                       ((Timing->DataSetupTime)          << FMC_BTRx_DATAST_Pos)  |
-                                                       ((Timing->BusTurnAroundDuration)  << FMC_BTRx_BUSTURN_Pos) |
-                                                       (((Timing->CLKDivision) - 1U)     << FMC_BTRx_CLKDIV_Pos)  |
-                                                       (((Timing->DataLatency) - 2U)     << FMC_BTRx_DATLAT_Pos)  |
-                                                       (Timing->AccessMode)));
+  Device->BTCR[Bank + 1U] =
+    (Timing->AddressSetupTime << FMC_BTRx_ADDSET_Pos) |
+    (Timing->AddressHoldTime << FMC_BTRx_ADDHLD_Pos) |
+    (Timing->DataSetupTime << FMC_BTRx_DATAST_Pos) |
+    (Timing->BusTurnAroundDuration << FMC_BTRx_BUSTURN_Pos) |
+    ((Timing->CLKDivision - 1U) << FMC_BTRx_CLKDIV_Pos) |
+    ((Timing->DataLatency - 2U) << FMC_BTRx_DATLAT_Pos) |
+    Timing->AccessMode;
 
   /* Configure Clock division value (in NORSRAM bank 1) when continuous clock is enabled */
   if (HAL_IS_BIT_SET(Device->BTCR[FMC_NORSRAM_BANK1], FMC_BCR1_CCLKEN))

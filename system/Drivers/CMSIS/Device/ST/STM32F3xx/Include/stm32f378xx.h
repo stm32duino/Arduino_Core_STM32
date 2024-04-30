@@ -7304,9 +7304,13 @@ typedef struct
 #define CEC_TXDR_TXD             CEC_TXDR_TXD_Msk                              /*!< CEC Tx Data                              */
 
 /*******************  Bit definition for CEC_RXDR register  *******************/
-#define CEC_TXDR_RXD_Pos         (0U)                                          
-#define CEC_TXDR_RXD_Msk         (0xFFUL << CEC_TXDR_RXD_Pos)                   /*!< 0x000000FF */
-#define CEC_TXDR_RXD             CEC_TXDR_RXD_Msk                              /*!< CEC Rx Data                              */
+#define CEC_RXDR_RXD_Pos         (0U)
+#define CEC_RXDR_RXD_Msk         (0xFFUL << CEC_RXDR_RXD_Pos)                   /*!< 0x000000FF */
+#define CEC_RXDR_RXD             CEC_RXDR_RXD_Msk                              /*!< CEC Rx Data                              */
+/* Legacy aliases */
+#define CEC_TXDR_RXD_Pos         CEC_RXDR_RXD_Pos
+#define CEC_TXDR_RXD_Msk         CEC_RXDR_RXD_Msk
+#define CEC_TXDR_RXD             CEC_RXDR_RXD
 
 /*******************  Bit definition for CEC_ISR register  ********************/
 #define CEC_ISR_RXBR_Pos         (0U)                                          

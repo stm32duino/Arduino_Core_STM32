@@ -8072,8 +8072,9 @@ typedef struct
 #define LL_ADC_DELAY_TEMPSENSOR_STAB_US    ((uint32_t)  10U)  /*!< Delay for internal voltage reference stabilization time */
 
 /* Delay required between ADC disable and ADC calibration start.              */
-/* Note: On this STM32 series, before starting a calibration,                  */
-/*       ADC must be disabled.                                                */
+/* Note: On this STM32 series, before starting a calibration,                 */
+/*       ADC must be enabled on STM32F37x and disabled on                     */
+/*       other STM32F3 devices.                                               */
 /*       A minimum number of ADC clock cycles are required                    */
 /*       between ADC disable state and calibration start.                     */
 /*       Refer to literal @ref LL_ADC_DELAY_CALIB_ENABLE_ADC_CYCLES.          */
