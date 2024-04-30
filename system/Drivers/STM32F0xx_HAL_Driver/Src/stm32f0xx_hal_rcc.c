@@ -1021,7 +1021,10 @@ void HAL_RCC_MCOConfig(uint32_t RCC_MCOx, uint32_t RCC_MCOSource, uint32_t RCC_M
   assert_param(IS_RCC_MCO(RCC_MCOx));
   assert_param(IS_RCC_MCODIV(RCC_MCODiv));
   assert_param(IS_RCC_MCO1SOURCE(RCC_MCOSource));
-  
+
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(RCC_MCOx);
+
   /* Configure the MCO1 pin in alternate function mode */
   gpio.Mode      = GPIO_MODE_AF_PP;
   gpio.Speed     = GPIO_SPEED_FREQ_HIGH;

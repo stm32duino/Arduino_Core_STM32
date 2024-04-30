@@ -624,19 +624,6 @@ typedef struct
 #define __HAL_RTC_TAMPER_DISABLE_IT(__HANDLE__, __INTERRUPT__)       ((__HANDLE__)->Instance->TAFCR &= ~(__INTERRUPT__))
 
 /**
-  * @brief  Check whether the specified RTC Tamper interrupt has occurred or not.
-  * @param  __HANDLE__ specifies the RTC handle.
-  * @param  __INTERRUPT__ specifies the RTC Tamper interrupt to check.
-  *         This parameter can be:
-  *            @arg RTC_IT_TAMP1: Tamper 1 interrupt
-  *            @arg RTC_IT_TAMP2: Tamper 2 interrupt
-  *            @arg RTC_IT_TAMP3: Tamper 3 interrupt
-  * @note   RTC_IT_TAMP3 is not applicable to all devices.
-  * @retval None
-  */
-#define __HAL_RTC_TAMPER_GET_IT(__HANDLE__, __INTERRUPT__)       (((((__HANDLE__)->Instance->ISR) & ((__INTERRUPT__) >> 4U)) != 0U) ? 1U : 0U)
-
-/**
   * @brief  Check whether the specified RTC Tamper interrupt has been enabled or not.
   * @param  __HANDLE__ specifies the RTC handle.
   * @param  __INTERRUPT__ specifies the RTC Tamper interrupt source to check.
@@ -653,8 +640,9 @@ typedef struct
   *          This parameter can be:
   *             @arg RTC_FLAG_TAMP1F: Tamper 1 interrupt flag
   *             @arg RTC_FLAG_TAMP2F: Tamper 2 interrupt flag
-  *             @arg RTC_FLAG_TAMP3F: Tamper 3 interrupt flag
-  * @note   RTC_FLAG_TAMP3F is not applicable to all devices.
+  *             @arg RTC_FLAG_TAMP3F: Tamper 3 interrupt flag (*)
+  *
+  *         (*) value not applicable to all devices.
   * @retval None
   */
 #define __HAL_RTC_TAMPER_GET_FLAG(__HANDLE__, __FLAG__)               (((((__HANDLE__)->Instance->ISR) & (__FLAG__)) != 0U)? 1U : 0U)
@@ -666,8 +654,9 @@ typedef struct
   *          This parameter can be:
   *             @arg RTC_FLAG_TAMP1F: Tamper 1 interrupt flag
   *             @arg RTC_FLAG_TAMP2F: Tamper 2 interrupt flag
-  *             @arg RTC_FLAG_TAMP3F: Tamper 3 interrupt flag
-  * @note   RTC_FLAG_TAMP3F is not applicable to all devices.
+  *             @arg RTC_FLAG_TAMP3F: Tamper 3 interrupt flag (*)
+  *
+  *         (*) value not applicable to all devices.
   * @retval None
   */
 #define __HAL_RTC_TAMPER_CLEAR_FLAG(__HANDLE__, __FLAG__)         ((__HANDLE__)->Instance->ISR) = (~((__FLAG__) | RTC_ISR_INIT)|((__HANDLE__)->Instance->ISR & RTC_ISR_INIT))
@@ -696,13 +685,13 @@ typedef struct
   * @brief  Enable event on the RTC Tamper and Timestamp associated EXTI line.
   * @retval None.
   */
-#define __HAL_RTC_TAMPER_TIMESTAMP_EXTI_ENABLE_EVENT()    (EXTI->EMR |= RTC_EXTI_LINE_TAMPER_TIMESTAMP_EVENT)
+#define __HAL_RTC_TAMPER_TIMESTAMP_EXTI_ENABLE_EVENT()     (EXTI->EMR |= RTC_EXTI_LINE_TAMPER_TIMESTAMP_EVENT)
 
 /**
   * @brief  Disable event on the RTC Tamper and Timestamp associated EXTI line.
   * @retval None.
   */
-#define __HAL_RTC_TAMPER_TIMESTAMP_EXTI_DISABLE_EVENT()   (EXTI->EMR &= ~RTC_EXTI_LINE_TAMPER_TIMESTAMP_EVENT)
+#define __HAL_RTC_TAMPER_TIMESTAMP_EXTI_DISABLE_EVENT()    (EXTI->EMR &= ~RTC_EXTI_LINE_TAMPER_TIMESTAMP_EVENT)
 
 /**
   * @brief  Enable falling edge trigger on the RTC Tamper and Timestamp associated EXTI line.

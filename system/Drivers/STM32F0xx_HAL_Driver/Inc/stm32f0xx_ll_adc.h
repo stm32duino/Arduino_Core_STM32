@@ -2928,8 +2928,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_IsStopConversionOngoing(ADC_TypeDef *ADCx)
 /**
   * @brief  Get ADC group regular conversion data, range fit for
   *         all ADC configurations: all ADC resolutions and
-  *         all oversampling increased data width (for devices
-  *         with feature oversampling).
+  *         features extending data width (oversampling, data shift,...).
   * @rmtoll DR       DATA           LL_ADC_REG_ReadConversionData32
   * @param  ADCx ADC instance
   * @retval Value between Min_Data=0x00000000 and Max_Data=0xFFFFFFFF

@@ -339,7 +339,7 @@ HAL_StatusTypeDef HAL_PCD_EP_Flush(PCD_HandleTypeDef *hpcd, uint8_t ep_addr);
 HAL_StatusTypeDef HAL_PCD_EP_Abort(PCD_HandleTypeDef *hpcd, uint8_t ep_addr);
 HAL_StatusTypeDef HAL_PCD_ActivateRemoteWakeup(PCD_HandleTypeDef *hpcd);
 HAL_StatusTypeDef HAL_PCD_DeActivateRemoteWakeup(PCD_HandleTypeDef *hpcd);
-uint32_t          HAL_PCD_EP_GetRxCount(PCD_HandleTypeDef *hpcd, uint8_t ep_addr);
+uint32_t          HAL_PCD_EP_GetRxCount(PCD_HandleTypeDef const *hpcd, uint8_t ep_addr);
 /**
   * @}
   */
@@ -348,7 +348,7 @@ uint32_t          HAL_PCD_EP_GetRxCount(PCD_HandleTypeDef *hpcd, uint8_t ep_addr
 /** @addtogroup PCD_Exported_Functions_Group4 Peripheral State functions
   * @{
   */
-PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
+PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef const *hpcd);
 /**
   * @}
   */
@@ -806,20 +806,17 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
     \
     *(pdwReg) &= 0x3FFU; \
     \
-    if ((wCount) > 62U) \
+    if ((wCount) == 0U) \
     { \
-      PCD_CALC_BLK32((pdwReg), (wCount), wNBlocks); \
+      *(pdwReg) |= USB_CNTRX_BLSIZE; \
+    } \
+    else if ((wCount) <= 62U) \
+    { \
+      PCD_CALC_BLK2((pdwReg), (wCount), wNBlocks); \
     } \
     else \
     { \
-      if ((wCount) == 0U) \
-      { \
-        *(pdwReg) |= USB_CNTRX_BLSIZE; \
-      } \
-      else \
-      { \
-        PCD_CALC_BLK2((pdwReg), (wCount), wNBlocks); \
-      } \
+      PCD_CALC_BLK32((pdwReg), (wCount), wNBlocks); \
     } \
   } while(0) /* PCD_SET_EP_CNT_RX_REG */
 

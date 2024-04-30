@@ -33,7 +33,7 @@
          (++) Enable the CAN interface clock using __HAL_RCC_CANx_CLK_ENABLE()
          (++) Configure CAN pins
              (+++) Enable the clock for the CAN GPIOs
-             (+++) Configure CAN pins as alternate function open-drain
+             (+++) Configure CAN pins as alternate function
          (++) In case of using interrupts (e.g. HAL_CAN_ActivateNotification())
              (+++) Configure the CAN interrupt priority using
                    HAL_NVIC_SetPriority()
@@ -235,6 +235,7 @@
   * @{
   */
 #define CAN_TIMEOUT_VALUE 10U
+#define CAN_WAKEUP_TIMEOUT_COUNTER 1000000U
 /**
   * @}
   */
@@ -248,8 +249,8 @@
   */
 
 /** @defgroup CAN_Exported_Functions_Group1 Initialization and de-initialization functions
- *  @brief    Initialization and Configuration functions
- *
+  * @brief    Initialization and Configuration functions
+  *
 @verbatim
   ==============================================================================
               ##### Initialization and de-initialization functions #####
@@ -328,7 +329,7 @@ HAL_StatusTypeDef HAL_CAN_Init(CAN_HandleTypeDef *hcan)
     /* Init the low level hardware: CLOCK, NVIC */
     HAL_CAN_MspInit(hcan);
   }
-#endif /* (USE_HAL_CAN_REGISTER_CALLBACKS) */
+#endif /* USE_HAL_CAN_REGISTER_CALLBACKS */
 
   /* Request initialisation */
   SET_BIT(hcan->Instance->MCR, CAN_MCR_INRQ);
@@ -482,7 +483,7 @@ HAL_StatusTypeDef HAL_CAN_DeInit(CAN_HandleTypeDef *hcan)
 #else
   /* DeInit the low level hardware: CLOCK, NVIC */
   HAL_CAN_MspDeInit(hcan);
-#endif /* (USE_HAL_CAN_REGISTER_CALLBACKS) */
+#endif /* USE_HAL_CAN_REGISTER_CALLBACKS */
 
   /* Reset the CAN peripheral */
   SET_BIT(hcan->Instance->MCR, CAN_MCR_RESET);
@@ -814,8 +815,8 @@ HAL_StatusTypeDef HAL_CAN_UnRegisterCallback(CAN_HandleTypeDef *hcan, HAL_CAN_Ca
   */
 
 /** @defgroup CAN_Exported_Functions_Group2 Configuration functions
- *  @brief    Configuration functions.
- *
+  * @brief    Configuration functions.
+  *
 @verbatim
   ==============================================================================
               ##### Configuration functions #####
@@ -954,8 +955,8 @@ HAL_StatusTypeDef HAL_CAN_ConfigFilter(CAN_HandleTypeDef *hcan, const CAN_Filter
   */
 
 /** @defgroup CAN_Exported_Functions_Group3 Control functions
- *  @brief    Control functions
- *
+  * @brief    Control functions
+  *
 @verbatim
   ==============================================================================
                       ##### Control functions #####
@@ -1127,7 +1128,6 @@ HAL_StatusTypeDef HAL_CAN_RequestSleep(CAN_HandleTypeDef *hcan)
 HAL_StatusTypeDef HAL_CAN_WakeUp(CAN_HandleTypeDef *hcan)
 {
   __IO uint32_t count = 0;
-  uint32_t timeout = 1000000U;
   HAL_CAN_StateTypeDef state = hcan->State;
 
   if ((state == HAL_CAN_STATE_READY) ||
@@ -1143,15 +1143,14 @@ HAL_StatusTypeDef HAL_CAN_WakeUp(CAN_HandleTypeDef *hcan)
       count++;
 
       /* Check if timeout is reached */
-      if (count > timeout)
+      if (count > CAN_WAKEUP_TIMEOUT_COUNTER)
       {
         /* Update error code */
         hcan->ErrorCode |= HAL_CAN_ERROR_TIMEOUT;
 
         return HAL_ERROR;
       }
-    }
-    while ((hcan->Instance->MSR & CAN_MSR_SLAK) != 0U);
+    } while ((hcan->Instance->MSR & CAN_MSR_SLAK) != 0U);
 
     /* Return function status */
     return HAL_OK;
@@ -1604,8 +1603,8 @@ uint32_t HAL_CAN_GetRxFifoFillLevel(const CAN_HandleTypeDef *hcan, uint32_t RxFi
   */
 
 /** @defgroup CAN_Exported_Functions_Group4 Interrupts management
- *  @brief    Interrupts management
- *
+  * @brief    Interrupts management
+  *
 @verbatim
   ==============================================================================
                        ##### Interrupts management #####
@@ -2070,8 +2069,8 @@ void HAL_CAN_IRQHandler(CAN_HandleTypeDef *hcan)
   */
 
 /** @defgroup CAN_Exported_Functions_Group5 Callback functions
- *  @brief   CAN Callback functions
- *
+  * @brief   CAN Callback functions
+  *
 @verbatim
   ==============================================================================
                           ##### Callback functions #####
@@ -2320,8 +2319,8 @@ __weak void HAL_CAN_ErrorCallback(CAN_HandleTypeDef *hcan)
   */
 
 /** @defgroup CAN_Exported_Functions_Group6 Peripheral State and Error functions
- *  @brief   CAN Peripheral State functions
- *
+  * @brief   CAN Peripheral State functions
+  *
 @verbatim
   ==============================================================================
             ##### Peripheral State and Error functions #####
