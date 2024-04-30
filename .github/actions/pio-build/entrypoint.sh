@@ -5,6 +5,7 @@ readonly CMSIS_ARCHIVE="CMSIS-${CMSIS_VERSION}.tar.bz2"
 
 # Use python venv
 python3 -m venv "$HOME/venv"
+# shellcheck disable=SC1091
 . "$HOME/venv/bin/activate"
 # Install PlatformIO
 python3 -m pip install --quiet --upgrade platformio
