@@ -1268,6 +1268,22 @@ GenC0.menu.pnum.GENERIC_C011F6UX.build.board=GENERIC_C011F6UX
 GenC0.menu.pnum.GENERIC_C011F6UX.build.product_line=STM32C011xx
 GenC0.menu.pnum.GENERIC_C011F6UX.build.variant=STM32C0xx/C011D6Y_C011F(4-6)(P-U)_C031F(4-6)P
 
+# Generic C011J4Mx
+GenC0.menu.pnum.GENERIC_C011J4MX=Generic C011J4Mx
+GenC0.menu.pnum.GENERIC_C011J4MX.upload.maximum_size=16384
+GenC0.menu.pnum.GENERIC_C011J4MX.upload.maximum_data_size=6144
+GenC0.menu.pnum.GENERIC_C011J4MX.build.board=GENERIC_C011J4MX
+GenC0.menu.pnum.GENERIC_C011J4MX.build.product_line=STM32C011xx
+GenC0.menu.pnum.GENERIC_C011J4MX.build.variant=STM32C0xx/C011J(4-6)M
+
+# Generic C011J6Mx
+GenC0.menu.pnum.GENERIC_C011J6MX=Generic C011J6Mx
+GenC0.menu.pnum.GENERIC_C011J6MX.upload.maximum_size=32768
+GenC0.menu.pnum.GENERIC_C011J6MX.upload.maximum_data_size=6144
+GenC0.menu.pnum.GENERIC_C011J6MX.build.board=GENERIC_C011J6MX
+GenC0.menu.pnum.GENERIC_C011J6MX.build.product_line=STM32C011xx
+GenC0.menu.pnum.GENERIC_C011J6MX.build.variant=STM32C0xx/C011J(4-6)M
+
 # Generic C031C4Tx
 GenC0.menu.pnum.GENERIC_C031C4TX=Generic C031C4Tx
 GenC0.menu.pnum.GENERIC_C031C4TX.upload.maximum_size=16384
