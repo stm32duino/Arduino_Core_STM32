@@ -84,6 +84,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [LoRa boards](#lora-boards)
  - [Midatronics boards](#midatronics-boards)
  - [SparkFun boards](#sparkfun-boards)
+ - [ELV Boards](#elv-boards)
 
 **Note about Status**:
   - :green_heart: board support is available since the specified release version.
@@ -830,6 +831,12 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart: | STM32F405RG | [SparkFun MicroMod Processor Board - STM32F405](https://www.sparkfun.com/products/21326) | *2.6.0* |  |
 | :green_heart: | STM32WB5MMG | [SparkFun MicroMod Processor Board - STM32WB5MMG](https://www.sparkfun.com/products/21438) | *2.6.0* |  |
+
+### [ELV Boards](https://de.elv.com/lorawan)
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart:  | STM32WLE5JB | ELV-BM-TRX1 | **2.8.0** |  |
 
 ## Next release
 
