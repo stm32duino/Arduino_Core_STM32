@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from pathlib import Path
+
 SOURCEFILE_EXTS = (
     ".c",
     ".cpp",
@@ -20,7 +22,7 @@ def get_default_config():
     )
 
 
-def parse_configfile(file):
+def parse_configfile(file: Path):
     rawcfg = dict()
 
     for line in open(file):
@@ -42,7 +44,7 @@ def parse_configfile(file):
     return cfg
 
 
-def get_sources(dir, recursive=False, relative_to=None):
+def get_sources(dir: Path, recursive: bool = False, relative_to: Path = None):
     if relative_to is None:
         relative_to = dir
     if recursive:
@@ -57,12 +59,12 @@ def get_sources(dir, recursive=False, relative_to=None):
     }
 
 
-def render(dir, template, config):
+def render(dir: Path, template, config):
     with open(dir / "CMakeLists.txt", "w") as outfile:
         outfile.write(template.render(**config))
 
 
-def get_static_libs(dir):
+def get_static_libs(dir: Path):
     result = dict()
     cpu = ""
     fpconf = "-"  # format: f"{fpu}-{float_abi}"; this makes "-" by default
@@ -80,7 +82,7 @@ def get_static_libs(dir):
     return result
 
 
-def config_for_bareflat(dir, force_recurse=False):
+def config_for_bareflat(dir: Path, force_recurse: bool = False):
     # no library.properties
     config = get_default_config()
 
@@ -98,7 +100,7 @@ def config_for_bareflat(dir, force_recurse=False):
     return config
 
 
-def config_for_modern(dir):
+def config_for_modern(dir: Path):
     # library.properties present, src/ present
     config = get_default_config()
     config.update(parse_configfile(dir / "library.properties"))
@@ -111,7 +113,7 @@ def config_for_modern(dir):
     return config
 
 
-def autoconfig(libdir):
+def autoconfig(libdir: Path):
     conf_file = libdir / "library.properties"
     srcdir = libdir / "src"
     if (

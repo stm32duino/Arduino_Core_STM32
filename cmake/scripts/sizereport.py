@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import pathlib
+from pathlib import Path
 import re
 import subprocess
 import argparse
@@ -9,14 +9,14 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "-x",
     "--tool",
-    type=pathlib.Path,
+    type=Path,
     required=True,
     help="path to `arm-none-eabi-size`",
 )
 parser.add_argument(
     "-f",
     "--binfile",
-    type=pathlib.Path,
+    type=Path,
     required=True,
     help="path to the binary to analyze",
 )

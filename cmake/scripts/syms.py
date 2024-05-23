@@ -1,19 +1,17 @@
 #!/usr/bin/env python3
 
-import pathlib
+from pathlib import Path
 import argparse
 
 import graphviz
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "-m", "--mapfile", type=pathlib.Path, required=True, help="path to ld's map file"
+    "-m", "--mapfile", type=Path, required=True, help="path to ld's map file"
 )
+parser.add_argument("-f", "--fullgv", type=Path, help="file to write the full graph to")
 parser.add_argument(
-    "-f", "--fullgv", type=pathlib.Path, help="file to write the full graph to"
-)
-parser.add_argument(
-    "-s", "--summarygv", type=pathlib.Path, help="file to write the summarized graph to"
+    "-s", "--summarygv", type=Path, help="file to write the summarized graph to"
 )
 
 shargs = parser.parse_args()

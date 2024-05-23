@@ -1,15 +1,11 @@
 #!/usr/bin/env python3
 
 import argparse
-import pathlib
+from pathlib import Path
 
 parser = argparse.ArgumentParser()
-parser.add_argument(
-    "--source", "-i", type=pathlib.Path, required=True, help="ctags's output"
-)
-parser.add_argument(
-    "--out", "-o", type=pathlib.Path, required=True, help="header to generate"
-)
+parser.add_argument("--source", "-i", type=Path, required=True, help="ctags's output")
+parser.add_argument("--out", "-o", type=Path, required=True, help="header to generate")
 
 shargs = parser.parse_args()
 

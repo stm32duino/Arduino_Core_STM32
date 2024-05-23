@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
 
-import pathlib
+from pathlib import Path
 import argparse
 
 import graphviz
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-o", type=pathlib.Path, help="file to write the full graph to")
-parser.add_argument(
-    "-t", type=pathlib.Path, help="file to write the transitive graph to"
-)
+parser.add_argument("-o", type=Path, help="file to write the full graph to")
+parser.add_argument("-t", type=Path, help="file to write the transitive graph to")
 parser.add_argument(
     "logs",
-    type=pathlib.Path,
+    type=Path,
     nargs="*",
     action="extend",
     help="list of log files to parse",
@@ -39,7 +37,7 @@ def parse_output(log):
     for line in log:
         d, h = line.rstrip().split(" ", 1)
         d = d.count(".")
-        h = pathlib.Path(h)
+        h = Path(h)
 
         if d == 0:
             rootcause = h

@@ -5,7 +5,7 @@ import subprocess
 import shutil
 import tempfile
 import os
-import pathlib
+from pathlib import Path
 import json
 from jinja2 import Environment, FileSystemLoader
 import difflib
@@ -16,7 +16,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "--cli",
     "-x",
-    type=pathlib.Path,
+    type=Path,
     required=False,
     default=shutil.which("arduino-cli"),
     help="path to arduino-cli",
@@ -30,12 +30,12 @@ parser.add_argument(
 )
 output_args = parser.add_mutually_exclusive_group(required=True)
 output_args.add_argument(
-    "--output", "-o", type=pathlib.Path, help="output file (CMake) with placeholders"
+    "--output", "-o", type=Path, help="output file (CMake) with placeholders"
 )
 output_args.add_argument(
     "--sketch",
     "-s",
-    type=pathlib.Path,
+    type=Path,
     help="output file (CMake) filled given a sketch folder",
 )
 
@@ -62,6 +62,13 @@ if shargs.cli is None:
     exit(-1)
 
 
+# Path management
+scriptname = Path(__file__).resolve()
+corepath = scriptname.parent.parent.parent.resolve()
+boards_txt = corepath / "boards.txt"
+userhome = Path.home()
+
+
 def arduino(*args):
     # return (out.stdout, logfile)
     # raises an exception if the command fails
@@ -76,16 +83,23 @@ def arduino(*args):
     return (out, logfile)
 
 
+def userhome_process(path):
+    lpath = str(path)
+    if path.is_relative_to(userhome):
+        lpath = f"~/{str(path.relative_to(userhome))}"
+    return lpath
+
+
 def get_log(fname):
     with open(fname) as file:
         for line in file:
             yield json.loads(line)
 
 
-def get_boards(boardstxt):
+def get_boards():
 
-    # we "reject" everything because we don't care about the values, only the keys
-    families = parse_file(boardstxt, lambda x: True)
+    # "reject" everything because we don't care about the values, only the keys
+    families = parse_file(boards_txt, lambda x: True)
     del families["menu"]
 
     boards = set()
@@ -97,7 +111,7 @@ def get_boards(boardstxt):
 
 _, logf = arduino("lib", "list")
 
-allboards = get_boards(pathlib.Path(__file__).parent.parent.parent / "boards.txt")
+allboards = get_boards()
 
 
 if shargs.board and shargs.board not in allboards:
@@ -119,11 +133,11 @@ if shargs.board and shargs.board not in allboards:
 libpaths = dict()
 for line in get_log(logf):
     if line["msg"] == "Adding libraries dir":
-        libpaths[line["location"]] = pathlib.Path(line["dir"])
+        libpaths[line["location"]] = Path(line["dir"])
 
 # platform lib path is already known, obviously, since that's where this script resides
 if "user" in libpaths.keys():
-    userlibs = pathlib.Path(libpaths["user"])
+    userlibs = Path(libpaths["user"])
     if userlibs.exists():
         userlibs = userlibs.resolve()
         libs = [u.name for u in userlibs.iterdir() if u.is_dir()]
@@ -137,7 +151,7 @@ if "user" in libpaths.keys():
         )
         libs = list()
 else:
-    userlibs = pathlib.Path.home() / "Arduino/libraries"
+    userlibs = Path.home() / "Arduino/libraries"
     print(
         f"""No user library path found through arduino-cli (falling back to {userlibs}).
     This has likely to do with your arduino-cli configuration.
@@ -147,21 +161,12 @@ else:
     )
     libs = list()
 
-corepath = pathlib.Path(__file__).parent.parent.parent.resolve()
-
 j2_env = Environment(
     loader=FileSystemLoader(str(corepath / "cmake" / "templates")),
     trim_blocks=True,
     lstrip_blocks=True,
 )
 cmake_template = j2_env.get_template("easy_cmake.cmake")
-
-
-userhome = pathlib.Path.home()
-if userlibs.is_relative_to(userhome):
-    userlibs = "~/" + str(userlibs.relative_to(userhome))
-if corepath.is_relative_to(userhome):
-    corepath = "~/" + str(corepath.relative_to(userhome))
 
 if shargs.sketch:
     SOURCEFILE_EXTS = (".c", ".cpp", ".S", ".ino")
@@ -180,19 +185,15 @@ else:
     tgtname = ""
     sources = set()
 
-scriptname = pathlib.Path(__file__)
-if scriptname.is_relative_to(userhome):
-    scriptname = "~/" + str(scriptname.relative_to(userhome))
-
 with open(shargs.output or shargs.sketch / "CMakeLists.txt", "w") as out:
     out.write(
         cmake_template.render(
-            corepath=str(corepath).replace(
+            corepath=userhome_process(corepath).replace(
                 "\\", "\\\\"
             ),  # escape backslashes for CMake
-            userlibs=str(userlibs).replace("\\", "\\\\"),
+            userlibs=userhome_process(userlibs).replace("\\", "\\\\"),
             libs=libs,
-            scriptfile=scriptname,
+            scriptfile=userhome_process(scriptname),
             tgtname=tgtname,
             scrcfiles=sources,
             boardname=shargs.board,

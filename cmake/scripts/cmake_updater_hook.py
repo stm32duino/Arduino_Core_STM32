@@ -8,7 +8,7 @@ Hint: it would be a good practice to run it before committing...
 
 import argparse
 import subprocess
-import pathlib
+from pathlib import Path
 import sys
 
 parser = argparse.ArgumentParser(
@@ -16,7 +16,7 @@ parser = argparse.ArgumentParser(
 )
 shargs = parser.parse_args()
 
-script_dir = pathlib.Path(__file__).parent  # Arduino_Core_STM32/cmake/scripts
+script_dir = Path(__file__).parent.resolve()  # Arduino_Core_STM32/cmake/scripts
 base_dir = script_dir.parent.parent  # Arduino_Core_STM32
 templates_dir = base_dir / "cmake" / "templates"
 
