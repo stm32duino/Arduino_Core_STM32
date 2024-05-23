@@ -100347,7 +100347,7 @@ target_compile_definitions(NUCLEO_F429ZI INTERFACE
 	"ARDUINO_NUCLEO_F429ZI"
 	"BOARD_NAME=\"NUCLEO_F429ZI\""
 	"BOARD_ID=NUCLEO_F429ZI"
-	"VARIANT_H=\"variant_NUCLEO_F429ZI.h\""
+	"VARIANT_H=\"variant_NUCLEO_F4x9ZI.h\""
 )
 target_include_directories(NUCLEO_F429ZI INTERFACE
   ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F4xx
@@ -100405,6 +100405,88 @@ target_compile_options(NUCLEO_F429ZI_xusb_HS INTERFACE
 )
 add_library(NUCLEO_F429ZI_xusb_HSFS INTERFACE)
 target_compile_options(NUCLEO_F429ZI_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
+# NUCLEO_F439ZI
+# -----------------------------------------------------------------------------
+
+set(NUCLEO_F439ZI_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)")
+set(NUCLEO_F439ZI_MAXSIZE 2097152)
+set(NUCLEO_F439ZI_MAXDATASIZE 196608)
+set(NUCLEO_F439ZI_MCU cortex-m4)
+set(NUCLEO_F439ZI_FPCONF "fpv4-sp-d16-hard")
+add_library(NUCLEO_F439ZI INTERFACE)
+target_compile_options(NUCLEO_F439ZI INTERFACE
+  "SHELL:-DSTM32F439xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${NUCLEO_F439ZI_MCU}
+)
+target_compile_definitions(NUCLEO_F439ZI INTERFACE
+  "STM32F4xx"
+	"ARDUINO_NUCLEO_F439ZI"
+	"BOARD_NAME=\"NUCLEO_F439ZI\""
+	"BOARD_ID=NUCLEO_F439ZI"
+	"VARIANT_H=\"variant_NUCLEO_F4x9ZI.h\""
+)
+target_include_directories(NUCLEO_F439ZI INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/
+  ${NUCLEO_F439ZI_VARIANT_PATH}
+)
+
+target_link_options(NUCLEO_F439ZI INTERFACE
+  "LINKER:--default-script=${NUCLEO_F439ZI_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=2097152"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${NUCLEO_F439ZI_MCU}
+)
+
+add_library(NUCLEO_F439ZI_serial_disabled INTERFACE)
+target_compile_options(NUCLEO_F439ZI_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_F439ZI_serial_generic INTERFACE)
+target_compile_options(NUCLEO_F439ZI_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(NUCLEO_F439ZI_serial_none INTERFACE)
+target_compile_options(NUCLEO_F439ZI_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(NUCLEO_F439ZI_usb_CDC INTERFACE)
+target_compile_options(NUCLEO_F439ZI_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=-1 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(NUCLEO_F439ZI_usb_CDCgen INTERFACE)
+target_compile_options(NUCLEO_F439ZI_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=-1 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(NUCLEO_F439ZI_usb_HID INTERFACE)
+target_compile_options(NUCLEO_F439ZI_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=-1 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(NUCLEO_F439ZI_usb_none INTERFACE)
+target_compile_options(NUCLEO_F439ZI_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_F439ZI_xusb_FS INTERFACE)
+target_compile_options(NUCLEO_F439ZI_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(NUCLEO_F439ZI_xusb_HS INTERFACE)
+target_compile_options(NUCLEO_F439ZI_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(NUCLEO_F439ZI_xusb_HSFS INTERFACE)
+target_compile_options(NUCLEO_F439ZI_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 

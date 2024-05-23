@@ -22,7 +22,7 @@ add_library(variant_bin STATIC EXCLUDE_FROM_ALL
   generic_clock.c
   PeripheralPins.c
   variant_generic.cpp
-  variant_NUCLEO_F429ZI.cpp
+  variant_NUCLEO_F4x9ZI.cpp
 )
 target_link_libraries(variant_bin PUBLIC variant_usage)
 
