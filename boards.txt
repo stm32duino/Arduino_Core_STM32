@@ -11278,6 +11278,40 @@ SparkFun.menu.upload_method.dfuMethod.upload.options=
 SparkFun.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
+# ELV Modular System boards
+
+ELV_Modular_System.name=ELV Modular System boards
+ELV_Modular_System.build.core=arduino
+ELV_Modular_System.build.board=ELV_Modular_System
+ELV_Modular_System.build.variant_h=variant_{build.board}.h
+ELV_Modular_System.upload.maximum_size=0
+ELV_Modular_System.upload.maximum_data_size=0
+
+# ELV-BM-TRX1 board
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1=ELV-LW-Base ELV_BM_TRX1
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.upload.maximum_size=129024
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.upload.maximum_data_size=49152
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.mcu=cortex-m4
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.board=ELV_BM_TRX1
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.series=STM32WLxx
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.product_line=STM32WLE5xx
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.flash_offset=0x800
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.st_extra_flags=-D{build.product_line} -DUSE_CM4_STARTUP_FILE {build.xSerial}
+
+# Upload menu
+ELV_Modular_System.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD) with Bootloader
+ELV_Modular_System.menu.upload_method.swdMethod.upload.protocol=0
+ELV_Modular_System.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+
+ELV_Modular_System.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial) with Bootloader
+ELV_Modular_System.menu.upload_method.serialMethod.upload.protocol=1
+ELV_Modular_System.menu.upload_method.serialMethod.upload.options={serial.port.file}
+ELV_Modular_System.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+################################################################################
 # Serialx activation
 Nucleo_144.menu.xserial.generic=Enabled (generic 'Serial')
 Nucleo_144.menu.xserial.none=Enabled (no generic 'Serial')
@@ -11496,6 +11530,12 @@ SparkFun.menu.xserial.none=Enabled (no generic 'Serial')
 SparkFun.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 SparkFun.menu.xserial.disabled=Disabled (no Serial support)
 SparkFun.menu.xserial.disabled.build.xSerial=
+
+ELV_Modular_System.menu.xserial.generic=Enabled (generic 'Serial')
+ELV_Modular_System.menu.xserial.none=Enabled (no generic 'Serial')
+ELV_Modular_System.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+ELV_Modular_System.menu.xserial.disabled=Disabled (no Serial support)
+ELV_Modular_System.menu.xserial.disabled.build.xSerial=
 
 # USB connectivity
 Nucleo_144.menu.usb.none=None
@@ -12547,6 +12587,26 @@ SparkFun.menu.opt.ogstd.build.flags.optimize=-Og
 SparkFun.menu.opt.o0std=No Optimization (-O0)
 SparkFun.menu.opt.o0std.build.flags.optimize=-O0
 
+ELV_Modular_System.menu.opt.osstd=Smallest (-Os default)
+ELV_Modular_System.menu.opt.oslto=Smallest (-Os) with LTO
+ELV_Modular_System.menu.opt.oslto.build.flags.optimize=-Os -flto
+ELV_Modular_System.menu.opt.o1std=Fast (-O1)
+ELV_Modular_System.menu.opt.o1std.build.flags.optimize=-O1
+ELV_Modular_System.menu.opt.o1lto=Fast (-O1) with LTO
+ELV_Modular_System.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+ELV_Modular_System.menu.opt.o2std=Faster (-O2)
+ELV_Modular_System.menu.opt.o2std.build.flags.optimize=-O2
+ELV_Modular_System.menu.opt.o2lto=Faster (-O2) with LTO
+ELV_Modular_System.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+ELV_Modular_System.menu.opt.o3std=Fastest (-O3)
+ELV_Modular_System.menu.opt.o3std.build.flags.optimize=-O3
+ELV_Modular_System.menu.opt.o3lto=Fastest (-O3) with LTO
+ELV_Modular_System.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+ELV_Modular_System.menu.opt.ogstd=Debug (-Og)
+ELV_Modular_System.menu.opt.ogstd.build.flags.optimize=-Og
+ELV_Modular_System.menu.opt.o0std=No Optimization (-O0)
+ELV_Modular_System.menu.opt.o0std.build.flags.optimize=-O0
+
 # Debug information
 Nucleo_144.menu.dbg.none=None
 Nucleo_144.menu.dbg.enable_sym=Symbols Enabled (-g)
@@ -12815,6 +12875,14 @@ SparkFun.menu.dbg.enable_log=Core logs Enabled
 SparkFun.menu.dbg.enable_log.build.flags.debug=
 SparkFun.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 SparkFun.menu.dbg.enable_all.build.flags.debug=-g
+
+ELV_Modular_System.menu.dbg.none=None
+ELV_Modular_System.menu.dbg.enable_sym=Symbols Enabled (-g)
+ELV_Modular_System.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+ELV_Modular_System.menu.dbg.enable_log=Core logs Enabled
+ELV_Modular_System.menu.dbg.enable_log.build.flags.debug=
+ELV_Modular_System.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+ELV_Modular_System.menu.dbg.enable_all.build.flags.debug=-g
 
 # C Runtime Library
 Nucleo_144.menu.rtlib.nano=Newlib Nano (default)
@@ -13166,3 +13234,13 @@ SparkFun.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 SparkFun.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 SparkFun.menu.rtlib.full=Newlib Standard
 SparkFun.menu.rtlib.full.build.flags.ldspecs=
+
+ELV_Modular_System.menu.rtlib.nano=Newlib Nano (default)
+ELV_Modular_System.menu.rtlib.nanofp=Newlib Nano + Float Printf
+ELV_Modular_System.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+ELV_Modular_System.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+ELV_Modular_System.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+ELV_Modular_System.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+ELV_Modular_System.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+ELV_Modular_System.menu.rtlib.full=Newlib Standard
+ELV_Modular_System.menu.rtlib.full.build.flags.ldspecs=

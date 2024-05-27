@@ -5884,6 +5884,60 @@ target_compile_options(ELEKTOR_F072CB_serial_none INTERFACE
   "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
 )
 
+# ELV_BM_TRX1
+# -----------------------------------------------------------------------------
+
+set(ELV_BM_TRX1_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I")
+set(ELV_BM_TRX1_MAXSIZE 124927)
+set(ELV_BM_TRX1_MAXDATASIZE 16383)
+set(ELV_BM_TRX1_MCU cortex-m4)
+set(ELV_BM_TRX1_FPCONF "-")
+add_library(ELV_BM_TRX1 INTERFACE)
+target_compile_options(ELV_BM_TRX1 INTERFACE
+  "SHELL:-DSTM32WLE5xx -DUSE_CM4_STARTUP_FILE "
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${ELV_BM_TRX1_MCU}
+)
+target_compile_definitions(ELV_BM_TRX1 INTERFACE
+  "STM32WLxx"
+	"ARDUINO_ELV_BM_TRX1"
+	"BOARD_NAME=\"ELV_BM_TRX1\""
+	"BOARD_ID=ELV_BM_TRX1"
+	"VARIANT_H=\"variant_ELV_BM_TRX1.h\""
+)
+target_include_directories(ELV_BM_TRX1 INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32WLxx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32WLxx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32WLxx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32WLxx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32WLxx/Source/Templates/gcc/
+  ${ELV_BM_TRX1_VARIANT_PATH}
+)
+
+target_link_options(ELV_BM_TRX1 INTERFACE
+  "LINKER:--default-script=${ELV_BM_TRX1_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0800"
+	"LINKER:--defsym=LD_MAX_SIZE=124927"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=16383"
+  "SHELL: "
+  -mcpu=${ELV_BM_TRX1_MCU}
+)
+
+add_library(ELV_BM_TRX1_serial_disabled INTERFACE)
+target_compile_options(ELV_BM_TRX1_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(ELV_BM_TRX1_serial_generic INTERFACE)
+target_compile_options(ELV_BM_TRX1_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(ELV_BM_TRX1_serial_none INTERFACE)
+target_compile_options(ELV_BM_TRX1_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+
 # ETHERCAT_DUINO
 # -----------------------------------------------------------------------------
 
