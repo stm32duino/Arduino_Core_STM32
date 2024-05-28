@@ -133,6 +133,8 @@ void SystemClock_Config(void);
 #if !defined(_Error_Handler)
 #define _Error_Handler(str, value) \
   while (1) {\
+    (void)str;\
+    (void)value;\
   }
 #endif
 #if !defined(Error_Handler)
