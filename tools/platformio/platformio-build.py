@@ -243,6 +243,7 @@ env.Append(
         "ARDUINO_%s" % board_id,
         ("BOARD_NAME", '\\"%s\\"' % board_id),
         "HAL_UART_MODULE_ENABLED",
+        "USE_HAL_DRIVER",
         "USE_FULL_LL_DRIVER",
         (
             "VARIANT_H",

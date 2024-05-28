@@ -58,7 +58,7 @@ compiler.objcopy.cmd=arm-none-eabi-objcopy
 compiler.elf2hex.cmd=arm-none-eabi-objcopy
 compiler.libraries.ldflags=
 
-compiler.extra_flags=-mcpu={build.mcu} {build.fpu} {build.float-abi} -DVECT_TAB_OFFSET={build.flash_offset} -DUSE_FULL_LL_DRIVER -mthumb "@{build.opt.path}"
+compiler.extra_flags=-mcpu={build.mcu} {build.fpu} {build.float-abi} -DVECT_TAB_OFFSET={build.flash_offset} -DUSE_HAL_DRIVER -DUSE_FULL_LL_DRIVER -mthumb "@{build.opt.path}"
 
 compiler.S.flags={compiler.extra_flags} -c -x assembler-with-cpp {compiler.stm.extra_include}
 

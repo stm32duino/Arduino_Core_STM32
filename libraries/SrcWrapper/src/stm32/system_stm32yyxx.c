@@ -1,5 +1,3 @@
-#define USE_HAL_DRIVER
-
 #ifdef STM32C0xx
   #include "system_stm32c0xx.c"
 #elif STM32F0xx
