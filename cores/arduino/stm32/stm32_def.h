@@ -20,8 +20,6 @@
                                         |(STM32_CORE_VERSION_PATCH << 8U )\
                                         |(STM32_CORE_VERSION_EXTRA))
 
-#define USE_HAL_DRIVER
-
 #if defined(STM32C0xx)
   #include "stm32c0xx.h"
 #elif defined(STM32F0xx)

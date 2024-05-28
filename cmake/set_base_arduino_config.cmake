@@ -22,6 +22,7 @@ target_link_libraries(base_config INTERFACE
 	gcc
 )
 target_compile_definitions(base_config INTERFACE
+	USE_HAL_DRIVER
 	USE_FULL_LL_DRIVER
 	ARDUINO_ARCH_STM32
 )
