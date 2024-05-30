@@ -10806,6 +10806,21 @@ Blues.menu.pnum.SWAN_R5.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Blues.menu.pnum.SWAN_R5.build.vid=0x30A4
 Blues.menu.pnum.SWAN_R5.build.pid=0x0002
 
+# Cygnet board
+Blues.menu.pnum.CYGNET=Cygnet
+Blues.menu.pnum.CYGNET.upload.maximum_size=262144
+Blues.menu.pnum.CYGNET.upload.maximum_data_size=65536
+Blues.menu.pnum.CYGNET.build.mcu=cortex-m4
+Blues.menu.pnum.CYGNET.build.fpu=-mfpu=fpv4-sp-d16
+Blues.menu.pnum.CYGNET.build.float-abi=-mfloat-abi=hard
+Blues.menu.pnum.CYGNET.build.board=CYGNET
+Blues.menu.pnum.CYGNET.build.series=STM32L4xx
+Blues.menu.pnum.CYGNET.build.product_line=STM32L433xx
+Blues.menu.pnum.CYGNET.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
+Blues.menu.pnum.CYGNET.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Blues.menu.pnum.CYGNET_L4.build.vid=0x30A4
+Blues.menu.pnum.CYGNET_L4.build.pid=0x0003
+
 # Upload menu
 Blues.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Blues.menu.upload_method.swdMethod.upload.protocol=0
