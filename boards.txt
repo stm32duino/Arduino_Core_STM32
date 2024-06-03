@@ -8002,7 +8002,7 @@ GenH7.menu.pnum.GENERIC_H7A3VITX.build.variant=STM32H7xx/H7A3V(G-I)(H-T)_H7B0VBT
 # Generic H7B0VBTx
 GenH7.menu.pnum.GENERIC_H7B0VBTX=Generic H7B0VBTx
 GenH7.menu.pnum.GENERIC_H7B0VBTX.upload.maximum_size=131072
-GenH7.menu.pnum.GENERIC_H7B0VBTX.upload.maximum_data_size=1458176
+GenH7.menu.pnum.GENERIC_H7B0VBTX.upload.maximum_data_size=1048576
 GenH7.menu.pnum.GENERIC_H7B0VBTX.build.board=GENERIC_H7B0VBTX
 GenH7.menu.pnum.GENERIC_H7B0VBTX.build.product_line=STM32H7B0xx
 GenH7.menu.pnum.GENERIC_H7B0VBTX.build.variant=STM32H7xx/H7A3V(G-I)(H-T)_H7B0VBT_H7B3VI(H-T)
