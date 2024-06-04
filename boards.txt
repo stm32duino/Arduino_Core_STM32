@@ -7978,7 +7978,7 @@ GenH7.menu.pnum.GENERIC_H7A3VGHX.build.variant=STM32H7xx/H7A3V(G-I)(H-T)_H7B0VBT
 # Generic H7A3VIHx
 GenH7.menu.pnum.GENERIC_H7A3VIHX=Generic H7A3VIHx
 GenH7.menu.pnum.GENERIC_H7A3VIHX.upload.maximum_size=2097152
-GenH7.menu.pnum.GENERIC_H7A3VIHX.upload.maximum_data_size=1458176
+GenH7.menu.pnum.GENERIC_H7A3VIHX.upload.maximum_data_size=1048576
 GenH7.menu.pnum.GENERIC_H7A3VIHX.build.board=GENERIC_H7A3VIHX
 GenH7.menu.pnum.GENERIC_H7A3VIHX.build.product_line=STM32H7A3xx
 GenH7.menu.pnum.GENERIC_H7A3VIHX.build.variant=STM32H7xx/H7A3V(G-I)(H-T)_H7B0VBT_H7B3VI(H-T)
