@@ -59,6 +59,13 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 typedef struct serial_s serial_t;
 
+typedef enum {
+  SERIAL_EVENT_TX,
+  SERIAL_EVENT_RX
+} SerialEvent_t;
+
+typedef void (*SerialCallback_t)(SerialEvent_t event);
+
 struct serial_s {
   /*  The 1st 2 members USART_TypeDef *uart
    *  and UART_HandleTypeDef handle should
@@ -69,6 +76,7 @@ struct serial_s {
   UART_HandleTypeDef handle;
   void (*rx_callback)(serial_t *);
   int (*tx_callback)(serial_t *);
+  SerialCallback_t event_callback;
   PinName pin_tx;
   PinName pin_rx;
   PinName pin_rts;

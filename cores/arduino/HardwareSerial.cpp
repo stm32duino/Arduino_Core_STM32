@@ -347,6 +347,12 @@ void HardwareSerial::_rx_complete_irq(serial_t *obj)
       obj->rx_head = i;
     }
   }
+
+  // Raise user event callback if registered
+  if (obj->event_callback)
+  {
+    obj->event_callback(SERIAL_EVENT_RX);
+  }
 }
 
 // Actual interrupt handlers //////////////////////////////////////////////////
@@ -368,7 +374,11 @@ int HardwareSerial::_tx_complete_irq(serial_t *obj)
     uart_attach_tx_callback(obj, _tx_complete_irq, obj->tx_size);
     return -1;
   }
-
+  // Raise user event callback if registered
+  if (obj->event_callback)
+  {
+    obj->event_callback(SERIAL_EVENT_TX);
+  }
   return 0;
 }
 
@@ -652,6 +662,14 @@ void HardwareSerial::enableHalfDuplexRx(void)
       _rx_enabled = true;
       uart_enable_rx(&_serial);
     }
+  }
+}
+
+void HardwareSerial::onEvent(SerialCallback_t callback)
+{
+  if (callback)
+  {
+    _serial.event_callback = callback;
   }
 }
 

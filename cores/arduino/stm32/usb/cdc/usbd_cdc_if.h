@@ -37,6 +37,13 @@ extern "C" {
 #define CDC_POLLING_INTERVAL             2 /* in ms. The max is 65 and the min is 1 */
 
 /* Exported types ------------------------------------------------------------*/
+typedef enum {
+  USB_SERIAL_EVENT_TX,
+  USB_SERIAL_EVENT_RX
+} USBSerialEvent_t;
+
+typedef void (*USBSerialCallback_t)(USBSerialEvent_t);
+
 /* Exported constants --------------------------------------------------------*/
 
 extern USBD_CDC_ItfTypeDef  USBD_CDC_fops;
@@ -52,6 +59,7 @@ void CDC_init(void);
 void CDC_deInit(void);
 bool CDC_connected(void);
 void CDC_enableDTR(bool enable);
+int8_t CDC_register_cb(USBSerialCallback_t callback);
 
 #ifdef __cplusplus
 }

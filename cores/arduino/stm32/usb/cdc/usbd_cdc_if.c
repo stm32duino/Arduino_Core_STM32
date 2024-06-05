@@ -59,6 +59,7 @@ __IO bool dtrState = false; /* lineState */
 __IO bool rtsState = false;
 __IO bool receivePended = true;
 static uint32_t transmitStart = 0;
+static USBSerialCallback_t eventCallback;
 
 #ifdef DTR_TOGGLING_SEQ
   /* DTR toggling sequence management */
@@ -244,6 +245,10 @@ static int8_t USBD_CDC_Receive(uint8_t *Buf, uint32_t *Len)
   if (!CDC_resume_receive()) {
     USBD_CDC_ClearBuffer(&hUSBD_Device_CDC);
   }
+  // Raise user event callback if registered
+  if (eventCallback) {
+    eventCallback(USB_SERIAL_EVENT_RX);
+  }
   return ((int8_t)USBD_OK);
 }
 
@@ -268,6 +273,10 @@ static int8_t USBD_CDC_TransmitCplt(uint8_t *Buf, uint32_t *Len, uint8_t epnum)
   transmitStart = 0;
   CDC_TransmitQueue_CommitRead(&TransmitQueue);
   CDC_continue_transmit();
+  // Raise user event callback if registered
+  if (eventCallback) {
+    eventCallback(USB_SERIAL_EVENT_TX);
+  }
   return ((int8_t)USBD_OK);
 }
 
@@ -377,6 +386,21 @@ bool CDC_resume_receive(void)
 void CDC_enableDTR(bool enable)
 {
   CDC_DTR_enabled = enable;
+}
+
+/**
+  * @brief  CDC_register_cb
+  *         Register USBCDC event callback
+  * @param  callback: Pointer to user callback function
+  * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
+  */
+int8_t CDC_register_cb(USBSerialCallback_t callback)
+{
+  if (callback) {
+    eventCallback = callback;
+    return ((int8_t)USBD_OK);
+  }
+  return ((int8_t)USBD_FAIL);
 }
 
 #endif /* USBD_USE_CDC */

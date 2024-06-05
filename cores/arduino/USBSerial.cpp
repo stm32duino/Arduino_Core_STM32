@@ -197,4 +197,12 @@ USBSerial::operator bool()
   return dtrState;
 }
 
+void USBSerial::onEvent(USBSerialCallback_t callback)
+{
+  if (callback)
+  {
+    CDC_register_cb(callback);
+  }
+}
+
 #endif // USBCON && USBD_USE_CDC

@@ -169,6 +169,7 @@ class HardwareSerial : public Stream {
     void setHalfDuplex(void);
     bool isHalfDuplex(void) const;
     void enableHalfDuplexRx(void);
+    void onEvent(SerialCallback_t event_callback);
 
     friend class STM32LowPower;
 
