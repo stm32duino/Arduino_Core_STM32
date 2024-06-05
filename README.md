@@ -583,6 +583,10 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32H757AI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H757II | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H757XI | Generic Board | *2.7.0* |  |
+| :yellow_heart: | STM32H7A3VGHX<br>STM32H7A3VGTX | Generic Board | **2.8.0** |  |
+| :yellow_heart: | STM32H7A3VIHX<br>STM32H7A3VITX | Generic Board | **2.8.0** |  |
+| :yellow_heart: | STM32H7B0VBTX | Generic Board | **2.8.0** |  |
+| :yellow_heart: | STM32H7B3VIHX<br>STM32H7B3VITX | Generic Board | **2.8.0** |  |
 
 ### Generic STM32L0 boards
 
