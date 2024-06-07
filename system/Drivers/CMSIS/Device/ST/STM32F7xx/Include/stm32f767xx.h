@@ -6929,7 +6929,7 @@ typedef struct
 /*                                                                            */
 /******************************************************************************/
 /*
- * @brief Specific device feature definitions (not present on all devices in the STM32F7 serie)
+ * @brief Specific device feature definitions (not present on all devices in the STM32F7 series)
  */
 #define DMA2D_ALPHA_INV_RB_SWAP_SUPPORT
 /********************  Bit definition for DMA2D_CR register  ******************/
@@ -7986,7 +7986,7 @@ typedef struct
 #define FMC_BCR1_CBURSTRW          FMC_BCR1_CBURSTRW_Msk                       /*!<Write burst enable         */
 #define FMC_BCR1_CCLKEN_Pos        (20U)
 #define FMC_BCR1_CCLKEN_Msk        (0x1UL << FMC_BCR1_CCLKEN_Pos)               /*!< 0x00100000 */
-#define FMC_BCR1_CCLKEN            FMC_BCR1_CCLKEN_Msk                         /*!<Continous clock enable     */
+#define FMC_BCR1_CCLKEN            FMC_BCR1_CCLKEN_Msk                         /*!<Continuous clock enable     */
 #define FMC_BCR1_WFDIS_Pos         (21U)
 #define FMC_BCR1_WFDIS_Msk         (0x1UL << FMC_BCR1_WFDIS_Pos)                /*!< 0x00200000 */
 #define FMC_BCR1_WFDIS             FMC_BCR1_WFDIS_Msk                          /*!<Write FIFO Disable         */
@@ -8889,7 +8889,7 @@ typedef struct
 #define FMC_SDRTR_COUNT            FMC_SDRTR_COUNT_Msk                         /*!<COUNT[12:0] bits (Refresh timer count) */
 #define FMC_SDRTR_REIE_Pos         (14U)
 #define FMC_SDRTR_REIE_Msk         (0x1UL << FMC_SDRTR_REIE_Pos)                /*!< 0x00004000 */
-#define FMC_SDRTR_REIE             FMC_SDRTR_REIE_Msk                          /*!<RES interupt enable */
+#define FMC_SDRTR_REIE             FMC_SDRTR_REIE_Msk                          /*!<RES interrupt enable */
 
 /******************  Bit definition for FMC_SDSR register  ******************/
 #define FMC_SDSR_RE_Pos            (0U)
@@ -10091,7 +10091,7 @@ typedef struct
 
 #define LTDC_AWCR_AAH_Pos            (0U)
 #define LTDC_AWCR_AAH_Msk            (0x7FFUL << LTDC_AWCR_AAH_Pos)             /*!< 0x000007FF */
-#define LTDC_AWCR_AAH                LTDC_AWCR_AAH_Msk                         /*!< Accumulated Active heigh */
+#define LTDC_AWCR_AAH                LTDC_AWCR_AAH_Msk                         /*!< Accumulated Active height */
 #define LTDC_AWCR_AAW_Pos            (16U)
 #define LTDC_AWCR_AAW_Msk            (0xFFFUL << LTDC_AWCR_AAW_Pos)             /*!< 0x0FFF0000 */
 #define LTDC_AWCR_AAW                LTDC_AWCR_AAW_Msk                         /*!< Accumulated Active Width */
@@ -11976,7 +11976,7 @@ typedef struct
 #define RCC_DCKCFGR1_PLLSAIDIVR_1          (0x2UL << RCC_DCKCFGR1_PLLSAIDIVR_Pos) /*!< 0x00020000 */
 
 /*
- * @brief Specific device feature definitions (not present on all devices in the STM32F7 serie)
+ * @brief Specific device feature definitions (not present on all devices in the STM32F7 series)
  */
 #define  RCC_SAI1SEL_PLLSRC_SUPPORT
 #define RCC_DCKCFGR1_SAI1SEL_Pos           (20U)
@@ -11986,7 +11986,7 @@ typedef struct
 #define RCC_DCKCFGR1_SAI1SEL_1             (0x2UL << RCC_DCKCFGR1_SAI1SEL_Pos)  /*!< 0x00200000 */
 
 /*
- * @brief Specific device feature definitions (not present on all devices in the STM32F7 serie)
+ * @brief Specific device feature definitions (not present on all devices in the STM32F7 series)
  */
 #define  RCC_SAI2SEL_PLLSRC_SUPPORT
 #define RCC_DCKCFGR1_SAI2SEL_Pos           (22U)
@@ -13471,7 +13471,7 @@ typedef struct
 #define SDMMC_DCOUNT_DATACOUNT_Msk      (0x1FFFFFFUL << SDMMC_DCOUNT_DATACOUNT_Pos) /*!< 0x01FFFFFF */
 #define SDMMC_DCOUNT_DATACOUNT          SDMMC_DCOUNT_DATACOUNT_Msk             /*!<Data count value */
 
-/******************  Bit definition for SDMMC_STA registe  ********************/
+/******************  Bit definition for SDMMC_STA register  ********************/
 #define SDMMC_STA_CCRCFAIL_Pos          (0U)
 #define SDMMC_STA_CCRCFAIL_Msk          (0x1UL << SDMMC_STA_CCRCFAIL_Pos)       /*!< 0x00000001 */
 #define SDMMC_STA_CCRCFAIL              SDMMC_STA_CCRCFAIL_Msk                 /*!<Command response received (CRC check failed)  */
@@ -14223,7 +14223,7 @@ typedef struct
 /*                                                                            */
 /******************************************************************************/
 /*
- * @brief Specific device feature definitions (not present on all devices in the STM32F7 serie)
+ * @brief Specific device feature definitions (not present on all devices in the STM32F7 series)
  */
 #define TIM_BREAK_INPUT_SUPPORT                                 /*!<TIM Break input feature available on specific devices */
 /*******************  Bit definition for TIM_CR1 register  ********************/
@@ -14828,7 +14828,7 @@ typedef struct
 #define TIM_DMAR_DMAB_Msk         (0xFFFFUL << TIM_DMAR_DMAB_Pos)               /*!< 0x0000FFFF */
 #define TIM_DMAR_DMAB             TIM_DMAR_DMAB_Msk                            /*!<DMA register for burst accesses                    */
 
-/*******************  Bit definition for TIM_OR regiter  *********************/
+/*******************  Bit definition for TIM_OR register  *********************/
 #define TIM_OR_TI4_RMP_Pos        (6U)
 #define TIM_OR_TI4_RMP_Msk        (0x3UL << TIM_OR_TI4_RMP_Pos)                 /*!< 0x000000C0 */
 #define TIM_OR_TI4_RMP            TIM_OR_TI4_RMP_Msk                           /*!<TI4_RMP[1:0] bits (TIM5 Input 4 remap)             */
@@ -15660,6 +15660,9 @@ typedef struct
 /*                                                                            */
 /******************************************************************************/
 /* Bit definition for Ethernet MAC Control Register register */
+#define ETH_MACCR_CSTF_Pos                            (25U)
+#define ETH_MACCR_CSTF_Msk                            (0x1UL << ETH_MACCR_CSTF_Pos) /*!< 0x02000000 */
+#define ETH_MACCR_CSTF                                ETH_MACCR_CSTF_Msk       /* CRC stripping for Type frames */
 #define ETH_MACCR_WD_Pos                              (23U)
 #define ETH_MACCR_WD_Msk                              (0x1UL << ETH_MACCR_WD_Pos) /*!< 0x00800000 */
 #define ETH_MACCR_WD                                  ETH_MACCR_WD_Msk         /* Watchdog disable */
@@ -16082,7 +16085,7 @@ typedef struct
 /*                Ethernet MMC Registers bits definition                      */
 /******************************************************************************/
 
-/* Bit definition for Ethernet MMC Contol Register */
+/* Bit definition for Ethernet MMC Control Register */
 #define ETH_MMCCR_MCFHP_Pos                           (5U)
 #define ETH_MMCCR_MCFHP_Msk                           (0x1UL << ETH_MMCCR_MCFHP_Pos) /*!< 0x00000020 */
 #define ETH_MMCCR_MCFHP                               ETH_MMCCR_MCFHP_Msk      /* MMC counter Full-Half preset */
@@ -16166,7 +16169,7 @@ typedef struct
 #define ETH_MMCRFCECR_RFCEC_Msk                       (0xFFFFFFFFUL << ETH_MMCRFCECR_RFCEC_Pos) /*!< 0xFFFFFFFF */
 #define ETH_MMCRFCECR_RFCEC                           ETH_MMCRFCECR_RFCEC_Msk  /* Number of frames received with CRC error. */
 
-/* Bit definition for Ethernet MMC Received Frames with Alignement Error Counter Register */
+/* Bit definition for Ethernet MMC Received Frames with Alignment Error Counter Register */
 #define ETH_MMCRFAECR_RFAEC_Pos                       (0U)
 #define ETH_MMCRFAECR_RFAEC_Msk                       (0xFFFFFFFFUL << ETH_MMCRFAECR_RFAEC_Pos) /*!< 0xFFFFFFFF */
 #define ETH_MMCRFAECR_RFAEC                           ETH_MMCRFAECR_RFAEC_Msk  /* Number of frames received with alignment (dribble) error */
@@ -16180,7 +16183,7 @@ typedef struct
 /*               Ethernet PTP Registers bits definition                       */
 /******************************************************************************/
 
-/* Bit definition for Ethernet PTP Time Stamp Contol Register */
+/* Bit definition for Ethernet PTP Time Stamp Control Register */
 #define ETH_PTPTSCR_TSPFFMAE_Pos                      (18U)
 #define ETH_PTPTSCR_TSPFFMAE_Msk                      (0x1UL << ETH_PTPTSCR_TSPFFMAE_Pos) /*!< 0x00008000 */
 #define ETH_PTPTSCR_TSPFFMAE                          ETH_PTPTSCR_TSPFFMAE_Msk  /* Time stamp PTP frame filtering MAC address enable */
@@ -16440,7 +16443,7 @@ typedef struct
 #define ETH_DMASR_RPS_Closing                         ETH_DMASR_RPS_Closing_Msk /* Running - closing descriptor */
 #define ETH_DMASR_RPS_Queuing_Pos                     (17U)
 #define ETH_DMASR_RPS_Queuing_Msk                     (0x7UL << ETH_DMASR_RPS_Queuing_Pos) /*!< 0x000E0000 */
-#define ETH_DMASR_RPS_Queuing                         ETH_DMASR_RPS_Queuing_Msk /* Running - queuing the recieve frame into host memory */
+#define ETH_DMASR_RPS_Queuing                         ETH_DMASR_RPS_Queuing_Msk /* Running - queuing the receive frame into host memory */
 #define ETH_DMASR_NIS_Pos                             (16U)
 #define ETH_DMASR_NIS_Msk                             (0x1UL << ETH_DMASR_NIS_Pos) /*!< 0x00010000 */
 #define ETH_DMASR_NIS                                 ETH_DMASR_NIS_Msk        /* Normal interrupt summary */
@@ -18211,7 +18214,7 @@ typedef struct
 /********************  Bit definition for SR register  *******************/
 #define JPEG_SR_IFTF_Pos                (1U)
 #define JPEG_SR_IFTF_Msk                (0x1UL << JPEG_SR_IFTF_Pos)             /*!< 0x00000002 */
-#define JPEG_SR_IFTF                    JPEG_SR_IFTF_Msk                       /*!<Input FIFO is not full and is bellow its threshold flag */
+#define JPEG_SR_IFTF                    JPEG_SR_IFTF_Msk                       /*!<Input FIFO is not full and is below its threshold flag */
 #define JPEG_SR_IFNFF_Pos               (2U)
 #define JPEG_SR_IFNFF_Msk               (0x1UL << JPEG_SR_IFNFF_Pos)            /*!< 0x00000004 */
 #define JPEG_SR_IFNFF                   JPEG_SR_IFNFF_Msk                      /*!<Input FIFO Not Full Flag, a data can be written */
