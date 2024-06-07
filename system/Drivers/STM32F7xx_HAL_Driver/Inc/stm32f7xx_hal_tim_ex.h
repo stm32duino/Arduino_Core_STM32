@@ -117,8 +117,8 @@ typedef struct
 /** @defgroup TIMEx_Break_Input_Source TIM Extended Break input source
   * @{
   */
-#define TIM_BREAKINPUTSOURCE_BKIN     (0x00000001U)                  /* !< An external source (GPIO) is connected to the BKIN pin  */
-#define TIM_BREAKINPUTSOURCE_DFSDM1   (0x00000008U)                  /* !< The analog watchdog output of the DFSDM1 peripheral is connected to the break input */
+#define TIM_BREAKINPUTSOURCE_BKIN     (0x00000001U)                  /*!< An external source (GPIO) is connected to the BKIN pin  */
+#define TIM_BREAKINPUTSOURCE_DFSDM1   (0x00000008U)                  /*!< The analog watchdog output of the DFSDM1 peripheral is connected to the break input */
 /**
   * @}
   */

@@ -163,7 +163,7 @@
 
     [..]
     Use function HAL_SAI_UnRegisterCallback() to reset a callback to the default
-    weak (surcharged) function.
+    weak function.
     HAL_SAI_UnRegisterCallback() takes as parameters the HAL peripheral handle,
     and the callback ID.
     [..]
@@ -178,10 +178,10 @@
 
     [..]
     By default, after the HAL_SAI_Init and if the state is HAL_SAI_STATE_RESET
-    all callbacks are reset to the corresponding legacy weak (surcharged) functions:
+    all callbacks are reset to the corresponding legacy weak functions:
     examples HAL_SAI_RxCpltCallback(), HAL_SAI_ErrorCallback().
     Exception done for MspInit and MspDeInit callbacks that are respectively
-    reset to the legacy weak (surcharged) functions in the HAL_SAI_Init
+    reset to the legacy weak functions in the HAL_SAI_Init
     and HAL_SAI_DeInit only when these callbacks are null (not registered beforehand).
     If not, MspInit or MspDeInit are not null, the HAL_SAI_Init and HAL_SAI_DeInit
     keep and use the user MspInit/MspDeInit callbacks (registered beforehand).
@@ -198,7 +198,7 @@
     [..]
     When the compilation define USE_HAL_SAI_REGISTER_CALLBACKS is set to 0 or
     not defined, the callback registering feature is not available
-    and weak (surcharged) callbacks are used.
+    and weak callbacks are used.
 
   @endverbatim
   */
@@ -1264,6 +1264,9 @@ HAL_StatusTypeDef HAL_SAI_DMAStop(SAI_HandleTypeDef *hsai)
   /* Process Locked */
   __HAL_LOCK(hsai);
 
+  /* Disable SAI peripheral */
+  SAI_Disable(hsai);
+
   /* Disable the SAI DMA request */
   hsai->Instance->CR1 &= ~SAI_xCR1_DMAEN;
 
@@ -1295,9 +1298,6 @@ HAL_StatusTypeDef HAL_SAI_DMAStop(SAI_HandleTypeDef *hsai)
     }
   }
 
-  /* Disable SAI peripheral */
-  SAI_Disable(hsai);
-
   /* Flush the fifo */
   SET_BIT(hsai->Instance->CR2, SAI_xCR2_FFLUSH);
 
@@ -1322,6 +1322,9 @@ HAL_StatusTypeDef HAL_SAI_Abort(SAI_HandleTypeDef *hsai)
 
   /* Process Locked */
   __HAL_LOCK(hsai);
+
+  /* Disable SAI peripheral */
+  SAI_Disable(hsai);
 
   /* Check SAI DMA is enabled or not */
   if ((hsai->Instance->CR1 & SAI_xCR1_DMAEN) == SAI_xCR1_DMAEN)
@@ -1360,9 +1363,6 @@ HAL_StatusTypeDef HAL_SAI_Abort(SAI_HandleTypeDef *hsai)
   /* Disabled All interrupt and clear all the flag */
   hsai->Instance->IMR = 0;
   hsai->Instance->CLRFR = 0xFFFFFFFFU;
-
-  /* Disable SAI peripheral */
-  SAI_Disable(hsai);
 
   /* Flush the fifo */
   SET_BIT(hsai->Instance->CR2, SAI_xCR2_FFLUSH);

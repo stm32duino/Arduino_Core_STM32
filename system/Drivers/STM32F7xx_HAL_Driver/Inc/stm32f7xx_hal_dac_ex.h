@@ -81,6 +81,7 @@ extern "C" {
   * @}
   */
 
+
 /**
   * @}
   */
@@ -149,7 +150,7 @@ HAL_StatusTypeDef HAL_DACEx_NoiseWaveGenerate(DAC_HandleTypeDef *hdac, uint32_t 
 HAL_StatusTypeDef HAL_DACEx_DualStart(DAC_HandleTypeDef *hdac);
 HAL_StatusTypeDef HAL_DACEx_DualStop(DAC_HandleTypeDef *hdac);
 HAL_StatusTypeDef HAL_DACEx_DualSetValue(DAC_HandleTypeDef *hdac, uint32_t Alignment, uint32_t Data1, uint32_t Data2);
-uint32_t HAL_DACEx_DualGetValue(DAC_HandleTypeDef *hdac);
+uint32_t HAL_DACEx_DualGetValue(const DAC_HandleTypeDef *hdac);
 
 void HAL_DACEx_ConvCpltCallbackCh2(DAC_HandleTypeDef *hdac);
 void HAL_DACEx_ConvHalfCpltCallbackCh2(DAC_HandleTypeDef *hdac);
@@ -198,4 +199,3 @@ void DAC_DMAHalfConvCpltCh2(DMA_HandleTypeDef *hdma);
 #endif
 
 #endif /* STM32F7xx_HAL_DAC_EX_H */
-

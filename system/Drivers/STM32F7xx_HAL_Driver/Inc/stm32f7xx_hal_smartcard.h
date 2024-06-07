@@ -606,6 +606,7 @@ typedef enum
   * @param  __FLAG__ specifies the flag to check.
   *        This parameter can be one of the following values:
   *            @arg @ref SMARTCARD_FLAG_TCBGT Transmission complete before guard time flag (when flag available)
+  *            @arg @ref SMARTCARD_FLAG_REACK Receive enable acknowledge flag
   *            @arg @ref SMARTCARD_FLAG_TEACK Transmit enable acknowledge flag
   *            @arg @ref SMARTCARD_FLAG_BUSY  Busy flag
   *            @arg @ref SMARTCARD_FLAG_EOBF  End of block flag

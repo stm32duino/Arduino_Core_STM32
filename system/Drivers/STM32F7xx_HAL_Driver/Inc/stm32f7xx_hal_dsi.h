@@ -976,7 +976,7 @@ typedef  void (*pDSI_CallbackTypeDef)(DSI_HandleTypeDef *hdsi);  /*!< pointer to
 #define __HAL_DSI_WRAPPER_ENABLE(__HANDLE__) do { \
                                                   __IO uint32_t tmpreg = 0x00U; \
                                                   SET_BIT((__HANDLE__)->Instance->WCR, DSI_WCR_DSIEN);\
-                                                  /* Delay after an DSI warpper enabling */ \
+                                                  /* Delay after an DSI wrapper enabling */ \
                                                   tmpreg = READ_BIT((__HANDLE__)->Instance->WCR, DSI_WCR_DSIEN);\
                                                   UNUSED(tmpreg); \
                                                 } while(0U)
@@ -989,7 +989,7 @@ typedef  void (*pDSI_CallbackTypeDef)(DSI_HandleTypeDef *hdsi);  /*!< pointer to
 #define __HAL_DSI_WRAPPER_DISABLE(__HANDLE__) do { \
                                                    __IO uint32_t tmpreg = 0x00U; \
                                                    CLEAR_BIT((__HANDLE__)->Instance->WCR, DSI_WCR_DSIEN);\
-                                                   /* Delay after an DSI warpper disabling*/ \
+                                                   /* Delay after an DSI wrapper disabling*/ \
                                                    tmpreg = READ_BIT((__HANDLE__)->Instance->WCR, DSI_WCR_DSIEN);\
                                                    UNUSED(tmpreg); \
                                                  } while(0U)
@@ -1184,7 +1184,7 @@ HAL_StatusTypeDef HAL_DSI_LongWrite(DSI_HandleTypeDef *hdsi,
                                     uint32_t Mode,
                                     uint32_t NbParams,
                                     uint32_t Param1,
-                                    uint8_t *ParametersTable);
+                                    const uint8_t *ParametersTable);
 HAL_StatusTypeDef HAL_DSI_Read(DSI_HandleTypeDef *hdsi,
                                uint32_t ChannelNbr,
                                uint8_t *Array,
@@ -1222,8 +1222,8 @@ HAL_StatusTypeDef HAL_DSI_SetContentionDetectionOff(DSI_HandleTypeDef *hdsi, Fun
   *  @brief    Peripheral State and Errors functions
   * @{
   */
-uint32_t HAL_DSI_GetError(DSI_HandleTypeDef *hdsi);
-HAL_DSI_StateTypeDef HAL_DSI_GetState(DSI_HandleTypeDef *hdsi);
+uint32_t HAL_DSI_GetError(const DSI_HandleTypeDef *hdsi);
+HAL_DSI_StateTypeDef HAL_DSI_GetState(const DSI_HandleTypeDef *hdsi);
 
 /**
   * @}
@@ -1271,10 +1271,10 @@ HAL_DSI_StateTypeDef HAL_DSI_GetState(DSI_HandleTypeDef *hdsi);
                                                      || ((LooselyPacked) == DSI_LOOSELY_PACKED_DISABLE))
 #define IS_DSI_DE_POLARITY(DataEnable)              (((DataEnable) == DSI_DATA_ENABLE_ACTIVE_HIGH)\
                                                      || ((DataEnable) == DSI_DATA_ENABLE_ACTIVE_LOW))
-#define IS_DSI_VSYNC_POLARITY(VSYNC)                (((VSYNC) == DSI_VSYNC_ACTIVE_HIGH)\
-                                                     || ((VSYNC) == DSI_VSYNC_ACTIVE_LOW))
-#define IS_DSI_HSYNC_POLARITY(HSYNC)                (((HSYNC) == DSI_HSYNC_ACTIVE_HIGH)\
-                                                     || ((HSYNC) == DSI_HSYNC_ACTIVE_LOW))
+#define IS_DSI_VSYNC_POLARITY(Vsync)                (((Vsync) == DSI_VSYNC_ACTIVE_HIGH)\
+                                                     || ((Vsync) == DSI_VSYNC_ACTIVE_LOW))
+#define IS_DSI_HSYNC_POLARITY(Hsync)                (((Hsync) == DSI_HSYNC_ACTIVE_HIGH)\
+                                                     || ((Hsync) == DSI_HSYNC_ACTIVE_LOW))
 #define IS_DSI_VIDEO_MODE_TYPE(VideoModeType)       (((VideoModeType) == DSI_VID_MODE_NB_PULSES) || \
                                                      ((VideoModeType) == DSI_VID_MODE_NB_EVENTS) || \
                                                      ((VideoModeType) == DSI_VID_MODE_BURST))

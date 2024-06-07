@@ -542,7 +542,7 @@ HAL_StatusTypeDef HAL_RTC_RegisterCallback(RTC_HandleTypeDef *hrtc, HAL_RTC_Call
 
 /**
   * @brief  Unregisters an RTC Callback
-  *         RTC callabck is redirected to the weak predefined callback
+  *         RTC callback is redirected to the weak predefined callback
   * @param  hrtc pointer to a RTC_HandleTypeDef structure that contains
   *                the configuration information for RTC.
   * @param  CallbackID ID of the callback to be unregistered
@@ -1315,7 +1315,8 @@ HAL_StatusTypeDef HAL_RTC_SetAlarm_IT(RTC_HandleTypeDef *hrtc, RTC_AlarmTypeDef 
     /* Wait till RTC ALRAWF flag is set and if timeout is reached exit */
     do
     {
-      if (count-- == 0U)
+      count = count - 1U;
+      if (count == 0U)
       {
         /* Enable the write protection for RTC registers */
         __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
@@ -1351,7 +1352,8 @@ HAL_StatusTypeDef HAL_RTC_SetAlarm_IT(RTC_HandleTypeDef *hrtc, RTC_AlarmTypeDef 
     /* Wait till RTC ALRBWF flag is set and if timeout is reached exit */
     do
     {
-      if (count-- == 0U)
+      count = count - 1U;
+      if (count == 0U)
       {
         /* Enable the write protection for RTC registers */
         __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
@@ -1685,8 +1687,8 @@ HAL_StatusTypeDef HAL_RTC_WaitForSynchro(RTC_HandleTypeDef *hrtc)
 {
   uint32_t tickstart = 0U;
 
-  /* Clear RSF flag */
-  hrtc->Instance->ISR &= (uint32_t)RTC_RSF_MASK;
+  /* Clear RSF flag, keep reserved bits at reset values (setting other flags has no effect) */
+  hrtc->Instance->ISR = ((uint32_t)(RTC_RSF_MASK & RTC_ISR_RESERVED_MASK));
 
   /* Get tick */
   tickstart = HAL_GetTick();

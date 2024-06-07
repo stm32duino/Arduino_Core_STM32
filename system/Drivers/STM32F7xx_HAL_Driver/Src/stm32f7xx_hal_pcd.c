@@ -122,7 +122,9 @@ static HAL_StatusTypeDef PCD_EP_OutSetupPacket_int(PCD_HandleTypeDef *hpcd, uint
   */
 HAL_StatusTypeDef HAL_PCD_Init(PCD_HandleTypeDef *hpcd)
 {
-  USB_OTG_GlobalTypeDef *USBx;
+#if defined (USB_OTG_FS)
+  const USB_OTG_GlobalTypeDef *USBx;
+#endif /* defined (USB_OTG_FS) */
   uint8_t i;
 
   /* Check the PCD handle allocation */
@@ -134,7 +136,9 @@ HAL_StatusTypeDef HAL_PCD_Init(PCD_HandleTypeDef *hpcd)
   /* Check the parameters */
   assert_param(IS_PCD_ALL_INSTANCE(hpcd->Instance));
 
+#if defined (USB_OTG_FS)
   USBx = hpcd->Instance;
+#endif /* defined (USB_OTG_FS) */
 
   if (hpcd->State == HAL_PCD_STATE_RESET)
   {
@@ -169,11 +173,13 @@ HAL_StatusTypeDef HAL_PCD_Init(PCD_HandleTypeDef *hpcd)
 
   hpcd->State = HAL_PCD_STATE_BUSY;
 
+#if defined (USB_OTG_FS)
   /* Disable DMA mode for FS instance */
-  if ((USBx->CID & (0x1U << 8)) == 0U)
+  if (USBx == USB_OTG_FS)
   {
     hpcd->Init.dma_enable = 0U;
   }
+#endif /* defined (USB_OTG_FS) */
 
   /* Disable the Interrupts */
   __HAL_PCD_DISABLE(hpcd);
@@ -185,8 +191,12 @@ HAL_StatusTypeDef HAL_PCD_Init(PCD_HandleTypeDef *hpcd)
     return HAL_ERROR;
   }
 
-  /* Force Device Mode*/
-  (void)USB_SetCurrentMode(hpcd->Instance, USB_DEVICE_MODE);
+  /* Force Device Mode */
+  if (USB_SetCurrentMode(hpcd->Instance, USB_DEVICE_MODE) != HAL_OK)
+  {
+    hpcd->State = HAL_PCD_STATE_ERROR;
+    return HAL_ERROR;
+  }
 
   /* Init endpoints structures */
   for (i = 0U; i < hpcd->Init.dev_endpoints; i++)
@@ -316,7 +326,7 @@ __weak void HAL_PCD_MspDeInit(PCD_HandleTypeDef *hpcd)
   *          @arg @ref HAL_PCD_SUSPEND_CB_ID USB PCD Suspend callback ID
   *          @arg @ref HAL_PCD_RESUME_CB_ID USB PCD Resume callback ID
   *          @arg @ref HAL_PCD_CONNECT_CB_ID USB PCD Connect callback ID
-  *          @arg @ref HAL_PCD_DISCONNECT_CB_ID OTG PCD Disconnect callback ID
+  *          @arg @ref HAL_PCD_DISCONNECT_CB_ID USB PCD Disconnect callback ID
   *          @arg @ref HAL_PCD_MSPINIT_CB_ID MspDeInit callback ID
   *          @arg @ref HAL_PCD_MSPDEINIT_CB_ID MspDeInit callback ID
   * @param  pCallback pointer to the Callback function
@@ -430,7 +440,7 @@ HAL_StatusTypeDef HAL_PCD_RegisterCallback(PCD_HandleTypeDef *hpcd,
   *          @arg @ref HAL_PCD_SUSPEND_CB_ID USB PCD Suspend callback ID
   *          @arg @ref HAL_PCD_RESUME_CB_ID USB PCD Resume callback ID
   *          @arg @ref HAL_PCD_CONNECT_CB_ID USB PCD Connect callback ID
-  *          @arg @ref HAL_PCD_DISCONNECT_CB_ID OTG PCD Disconnect callback ID
+  *          @arg @ref HAL_PCD_DISCONNECT_CB_ID USB PCD Disconnect callback ID
   *          @arg @ref HAL_PCD_MSPINIT_CB_ID MspDeInit callback ID
   *          @arg @ref HAL_PCD_MSPDEINIT_CB_ID MspDeInit callback ID
   * @retval HAL status
@@ -1419,16 +1429,17 @@ void HAL_PCD_IRQHandler(PCD_HandleTypeDef *hpcd)
   */
 void HAL_PCD_WKUP_IRQHandler(PCD_HandleTypeDef *hpcd)
 {
+#if defined (USB_OTG_FS)
   USB_OTG_GlobalTypeDef *USBx;
-
   USBx = hpcd->Instance;
 
-  if ((USBx->CID & (0x1U << 8)) == 0U)
+  if (USBx == USB_OTG_FS)
   {
     /* Clear EXTI pending Bit */
     __HAL_USB_OTG_FS_WAKEUP_EXTI_CLEAR_FLAG();
   }
   else
+#endif /* defined (USB_OTG_FS) */
   {
     /* Clear EXTI pending Bit */
     __HAL_USB_OTG_HS_WAKEUP_EXTI_CLEAR_FLAG();
@@ -1705,6 +1716,7 @@ HAL_StatusTypeDef HAL_PCD_EP_Open(PCD_HandleTypeDef *hpcd, uint8_t ep_addr,
     /* Assign a Tx FIFO */
     ep->tx_fifo_num = ep->num;
   }
+
   /* Set initial data PID. */
   if (ep_type == EP_TYPE_BULK)
   {
@@ -1738,7 +1750,7 @@ HAL_StatusTypeDef HAL_PCD_EP_Close(PCD_HandleTypeDef *hpcd, uint8_t ep_addr)
     ep = &hpcd->OUT_ep[ep_addr & EP_ADDR_MSK];
     ep->is_in = 0U;
   }
-  ep->num   = ep_addr & EP_ADDR_MSK;
+  ep->num = ep_addr & EP_ADDR_MSK;
 
   __HAL_LOCK(hpcd);
   (void)USB_DeactivateEndpoint(hpcd->Instance, ep);
@@ -1773,14 +1785,7 @@ HAL_StatusTypeDef HAL_PCD_EP_Receive(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, u
     ep->dma_addr = (uint32_t)pBuf;
   }
 
-  if ((ep_addr & EP_ADDR_MSK) == 0U)
-  {
-    (void)USB_EP0StartXfer(hpcd->Instance, ep, (uint8_t)hpcd->Init.dma_enable);
-  }
-  else
-  {
-    (void)USB_EPStartXfer(hpcd->Instance, ep, (uint8_t)hpcd->Init.dma_enable);
-  }
+  (void)USB_EPStartXfer(hpcd->Instance, ep, (uint8_t)hpcd->Init.dma_enable);
 
   return HAL_OK;
 }
@@ -1791,7 +1796,7 @@ HAL_StatusTypeDef HAL_PCD_EP_Receive(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, u
   * @param  ep_addr endpoint address
   * @retval Data Size
   */
-uint32_t HAL_PCD_EP_GetRxCount(PCD_HandleTypeDef *hpcd, uint8_t ep_addr)
+uint32_t HAL_PCD_EP_GetRxCount(PCD_HandleTypeDef const *hpcd, uint8_t ep_addr)
 {
   return hpcd->OUT_ep[ep_addr & EP_ADDR_MSK].xfer_count;
 }
@@ -1821,14 +1826,7 @@ HAL_StatusTypeDef HAL_PCD_EP_Transmit(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, 
     ep->dma_addr = (uint32_t)pBuf;
   }
 
-  if ((ep_addr & EP_ADDR_MSK) == 0U)
-  {
-    (void)USB_EP0StartXfer(hpcd->Instance, ep, (uint8_t)hpcd->Init.dma_enable);
-  }
-  else
-  {
-    (void)USB_EPStartXfer(hpcd->Instance, ep, (uint8_t)hpcd->Init.dma_enable);
-  }
+  (void)USB_EPStartXfer(hpcd->Instance, ep, (uint8_t)hpcd->Init.dma_enable);
 
   return HAL_OK;
 }
@@ -2006,20 +2004,21 @@ HAL_StatusTypeDef HAL_PCD_DeActivateRemoteWakeup(PCD_HandleTypeDef *hpcd)
   * @param  hpcd PCD handle
   * @retval HAL state
   */
-PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd)
+PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef const *hpcd)
 {
   return hpcd->State;
 }
 
+#if defined (USB_OTG_FS) || defined (USB_OTG_HS)
 /**
   * @brief  Set the USB Device high speed test mode.
   * @param  hpcd PCD handle
   * @param  testmode USB Device high speed test mode
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_PCD_SetTestMode(PCD_HandleTypeDef *hpcd, uint8_t testmode)
+HAL_StatusTypeDef HAL_PCD_SetTestMode(const PCD_HandleTypeDef *hpcd, uint8_t testmode)
 {
-  USB_OTG_GlobalTypeDef *USBx = hpcd->Instance;
+  const USB_OTG_GlobalTypeDef *USBx = hpcd->Instance;
   uint32_t USBx_BASE = (uint32_t)USBx;
 
   switch (testmode)
@@ -2038,6 +2037,7 @@ HAL_StatusTypeDef HAL_PCD_SetTestMode(PCD_HandleTypeDef *hpcd, uint8_t testmode)
 
   return HAL_OK;
 }
+#endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 /**
   * @}
   */
@@ -2120,9 +2120,9 @@ static HAL_StatusTypeDef PCD_WriteEmptyTxFifo(PCD_HandleTypeDef *hpcd, uint32_t 
 static HAL_StatusTypeDef PCD_EP_OutXfrComplete_int(PCD_HandleTypeDef *hpcd, uint32_t epnum)
 {
   USB_OTG_EPTypeDef *ep;
-  USB_OTG_GlobalTypeDef *USBx = hpcd->Instance;
+  const USB_OTG_GlobalTypeDef *USBx = hpcd->Instance;
   uint32_t USBx_BASE = (uint32_t)USBx;
-  uint32_t gSNPSiD = *(__IO uint32_t *)(&USBx->CID + 0x1U);
+  uint32_t gSNPSiD = *(__IO const uint32_t *)(&USBx->CID + 0x1U);
   uint32_t DoepintReg = USBx_OUTEP(epnum)->DOEPINT;
 
   if (hpcd->Init.dma_enable == 1U)
@@ -2231,9 +2231,9 @@ static HAL_StatusTypeDef PCD_EP_OutXfrComplete_int(PCD_HandleTypeDef *hpcd, uint
   */
 static HAL_StatusTypeDef PCD_EP_OutSetupPacket_int(PCD_HandleTypeDef *hpcd, uint32_t epnum)
 {
-  USB_OTG_GlobalTypeDef *USBx = hpcd->Instance;
+  const USB_OTG_GlobalTypeDef *USBx = hpcd->Instance;
   uint32_t USBx_BASE = (uint32_t)USBx;
-  uint32_t gSNPSiD = *(__IO uint32_t *)(&USBx->CID + 0x1U);
+  uint32_t gSNPSiD = *(__IO const uint32_t *)(&USBx->CID + 0x1U);
   uint32_t DoepintReg = USBx_OUTEP(epnum)->DOEPINT;
 
   if ((gSNPSiD > USB_OTG_CORE_ID_300A) &&

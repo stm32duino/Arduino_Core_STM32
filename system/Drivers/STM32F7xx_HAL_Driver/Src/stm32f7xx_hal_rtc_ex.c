@@ -1243,7 +1243,8 @@ HAL_StatusTypeDef HAL_RTCEx_SetWakeUpTimer_IT(RTC_HandleTypeDef *hrtc, uint32_t 
     /* Wait till RTC WUTWF flag is reset and if timeout is reached exit */
     do
     {
-      if (count-- == 0U)
+      count = count - 1U;
+      if (count == 0U)
       {
         /* Enable the write protection for RTC registers */
         __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
@@ -1270,7 +1271,8 @@ HAL_StatusTypeDef HAL_RTCEx_SetWakeUpTimer_IT(RTC_HandleTypeDef *hrtc, uint32_t 
   /* Wait till RTC WUTWF flag is set and if timeout is reached exit */
   do
   {
-    if (count-- == 0U)
+    count = count - 1U;
+    if (count == 0U)
     {
       /* Enable the write protection for RTC registers */
       __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);

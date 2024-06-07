@@ -276,7 +276,7 @@ HAL_StatusTypeDef HAL_DMA_Init(DMA_HandleTypeDef *hdma)
         hdma->ErrorCode = HAL_DMA_ERROR_PARAM;
 
         /* Change the DMA state */
-        hdma->State = HAL_DMA_STATE_READY;
+        hdma->State = HAL_DMA_STATE_RESET;
 
         return HAL_ERROR;
       }
