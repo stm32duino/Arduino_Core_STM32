@@ -658,6 +658,11 @@ uint32_t LL_RCC_GetI2CClockFreq(uint32_t I2CxSource)
       }
     }
   }
+#else
+  else
+  {
+    /* Nothing to do */
+  }
 #endif /* I2C4 */
 
   return i2c_frequency;

@@ -123,7 +123,7 @@
       (#) HAL in interruption mode (interruptions driven)
 
         (##)Due to HASH peripheral hardware design, the peripheral interruption is triggered every 64 bytes.
-        This is why, for driver implementation simplicity’s sake, user is requested to enter a message the
+        This is why, for driver implementation simplicity s sake, user is requested to enter a message the
         length of which is a multiple of 4 bytes.
 
         (##) When the message length (in bytes) is not a multiple of words, a specific field exists in HASH_STR
@@ -1650,7 +1650,7 @@ static void HASH_DMAXferCplt(DMA_HandleTypeDef *hdma)
   HASH_HandleTypeDef *hhash = (HASH_HandleTypeDef *)((DMA_HandleTypeDef *)hdma)->Parent;
   uint32_t inputaddr;
   uint32_t buffersize;
-  HAL_StatusTypeDef status = HAL_OK;
+  HAL_StatusTypeDef status;
 
   if (hhash->State != HAL_HASH_STATE_SUSPENDED)
   {
@@ -1825,8 +1825,9 @@ static HAL_StatusTypeDef HASH_WriteData(HASH_HandleTypeDef *hhash, uint8_t *pInB
 {
   uint32_t buffercounter;
   __IO uint32_t inputaddr = (uint32_t) pInBuffer;
+  uint32_t tmp;
 
-  for (buffercounter = 0U; buffercounter < Size; buffercounter += 4U)
+  for (buffercounter = 0U; buffercounter < Size / 4U; buffercounter++)
   {
     /* Write input data 4 bytes at a time */
     HASH->DIN = *(uint32_t *)inputaddr;
@@ -1834,8 +1835,16 @@ static HAL_StatusTypeDef HASH_WriteData(HASH_HandleTypeDef *hhash, uint8_t *pInB
 
     /* If the suspension flag has been raised and if the processing is not about
     to end, suspend processing */
-    if ((hhash->SuspendRequest == HAL_HASH_SUSPEND) && ((buffercounter + 4U) < Size))
+    if ((hhash->SuspendRequest == HAL_HASH_SUSPEND) && ((buffercounter * 4 + 4U) < Size))
     {
+      /* wait for flag BUSY not set before  Wait for DINIS = 1*/
+      if (buffercounter * 4 >= 64U)
+      {
+        if (HASH_WaitOnFlagUntilTimeout(hhash, HASH_FLAG_BUSY, SET, HASH_TIMEOUTVALUE) != HAL_OK)
+        {
+          return HAL_TIMEOUT;
+        }
+      }
       /* Wait for DINIS = 1, which occurs when 16 32-bit locations are free
       in the input buffer */
       if (__HAL_HASH_GET_FLAG(HASH_FLAG_DINIS))
@@ -1850,14 +1859,14 @@ static HAL_StatusTypeDef HASH_WriteData(HASH_HandleTypeDef *hhash, uint8_t *pInB
           /* Save current reading and writing locations of Input and Output buffers */
           hhash->pHashInBuffPtr = (uint8_t *)inputaddr;
           /* Save the number of bytes that remain to be processed at this point */
-          hhash->HashInCount    =  Size - (buffercounter + 4U);
+          hhash->HashInCount    =  Size - (buffercounter * 4 + 4U);
         }
         else if ((hhash->Phase == HAL_HASH_PHASE_HMAC_STEP_1) || (hhash->Phase == HAL_HASH_PHASE_HMAC_STEP_3))
         {
           /* Save current reading and writing locations of Input and Output buffers */
           hhash->pHashKeyBuffPtr  = (uint8_t *)inputaddr;
           /* Save the number of bytes that remain to be processed at this point */
-          hhash->HashKeyCount  =  Size - (buffercounter + 4U);
+          hhash->HashKeyCount  =  Size - (buffercounter * 4 + 4U);
         }
         else
         {
@@ -1876,6 +1885,52 @@ static HAL_StatusTypeDef HASH_WriteData(HASH_HandleTypeDef *hhash, uint8_t *pInB
   }   /* for(buffercounter = 0; buffercounter < Size; buffercounter+=4)                 */
 
   /* At this point, all the data have been entered to the Peripheral: exit */
+
+  if (Size % 4U != 0U)
+  {
+    if (hhash->Init.DataType == HASH_DATATYPE_16B)
+    {
+      /* Write remaining input data */
+
+      if (Size % 4U <= 2)
+      {
+        HASH->DIN = (uint32_t) * (uint16_t *)inputaddr;
+      }
+      if (Size % 4U == 3)
+      {
+        HASH->DIN = *(uint32_t *)inputaddr;
+      }
+
+    }
+    else if ((hhash->Init.DataType == HASH_DATATYPE_8B)
+             || (hhash->Init.DataType == HASH_DATATYPE_1B))  /* byte swap or bit swap or */
+    {
+      /* Write remaining input data */
+      if (Size % 4U == 1)
+      {
+        HASH->DIN = (uint32_t) * (uint8_t *)inputaddr;
+      }
+      if (Size % 4U == 2)
+      {
+        HASH->DIN = (uint32_t) * (uint16_t *)inputaddr;
+      }
+      if (Size % 4U == 3)
+      {
+        tmp  = *(uint8_t *)inputaddr;
+        tmp |= *(uint8_t *)(inputaddr + 1U) << 8U ;
+        tmp |= *(uint8_t *)(inputaddr + 2U) << 16U;
+        HASH->DIN = tmp;
+      }
+
+    }
+    else
+    {
+      HASH->DIN = *(uint32_t *)inputaddr;
+    }
+    /*hhash->HashInCount += 4U;*/
+  }
+
+
   return  HAL_OK;
 }
 
@@ -3446,7 +3501,7 @@ HAL_StatusTypeDef HMAC_Start_DMA(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, 
     /* Enable the DMA In DMA stream */
     status = HAL_DMA_Start_IT(hhash->hdmain, inputaddr, (uint32_t)&HASH->DIN,  \
                               (((inputSize % 4U) != 0U) ? ((inputSize + (4U - (inputSize % 4U))) / 4U) \
-                              : (inputSize / 4U)));
+                               : (inputSize / 4U)));
 
     /* Enable DMA requests */
     SET_BIT(HASH->CR, HASH_CR_DMAE);

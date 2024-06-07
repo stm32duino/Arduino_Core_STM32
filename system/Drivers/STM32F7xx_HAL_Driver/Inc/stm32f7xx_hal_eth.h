@@ -24,7 +24,6 @@
 extern "C" {
 #endif
 
-
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f7xx_hal_def.h"
 
@@ -153,7 +152,7 @@ typedef struct
 
   void *pData;                     /*!< Specifies Application packet pointer to save   */
 
-} ETH_TxPacketConfig;
+} ETH_TxPacketConfigTypeDef;
 /**
   *
   */
@@ -171,6 +170,7 @@ typedef struct
   *
   */
 
+#ifdef HAL_ETH_USE_PTP
 /**
   * @brief  ETH Timeupdate structure definition
   */
@@ -182,6 +182,7 @@ typedef struct
 /**
   *
   */
+#endif  /* HAL_ETH_USE_PTP */
 
 /**
   * @brief  DMA Receive Descriptors Wrapper structure definition
@@ -347,7 +348,6 @@ typedef struct
 
   uint32_t        BurstMode;               /*!< Sets the AHB Master interface burst transfers.
                                                      This parameter can be a value of @ref ETH_Burst_Mode */
-
   FunctionalState      DropTCPIPChecksumErrorFrame; /*!< Selects or not the Dropping of TCP/IP Checksum Error Frames */
 
   FunctionalState      ReceiveStoreForward;         /*!< Enables or disables the Receive store and forward mode */
@@ -407,6 +407,7 @@ typedef enum
   *
   */
 
+#ifdef HAL_ETH_USE_PTP
 /**
   * @brief  HAL ETH PTP Update type enum definition
   */
@@ -418,13 +419,13 @@ typedef enum
 /**
   *
   */
+#endif  /* HAL_ETH_USE_PTP */
 
 /**
   * @brief  ETH Init Structure definition
   */
 typedef struct
 {
-
   uint8_t
   *MACAddr;                  /*!< MAC Address of used Hardware: must be pointer on an array of 6 bytes */
 
@@ -443,6 +444,7 @@ typedef struct
   *
   */
 
+#ifdef HAL_ETH_USE_PTP
 /**
   * @brief  ETH PTP Init Structure definition
   */
@@ -470,6 +472,7 @@ typedef struct
 /**
   *
   */
+#endif  /* HAL_ETH_USE_PTP */
 
 /**
   * @brief  HAL State structures definition
@@ -538,7 +541,7 @@ typedef struct
 
   __IO HAL_ETH_StateTypeDef  gState;                   /*!< ETH state information related to global Handle management
                                                               and also related to Tx operations. This parameter can
-                                                              be a value of @ref HAL_ETH_StateTypeDef */
+                                                              be a value of @ref ETH_State_Codes */
 
   __IO uint32_t              ErrorCode;                 /*!< Holds the global Error code of the ETH HAL status machine
                                                              This parameter can be a value of @ref ETH_Error_Code.*/
@@ -595,13 +598,11 @@ typedef enum
 {
   HAL_ETH_MSPINIT_CB_ID            = 0x00U,    /*!< ETH MspInit callback ID           */
   HAL_ETH_MSPDEINIT_CB_ID          = 0x01U,    /*!< ETH MspDeInit callback ID         */
-
   HAL_ETH_TX_COMPLETE_CB_ID        = 0x02U,    /*!< ETH Tx Complete Callback ID       */
   HAL_ETH_RX_COMPLETE_CB_ID        = 0x03U,    /*!< ETH Rx Complete Callback ID       */
   HAL_ETH_ERROR_CB_ID              = 0x04U,    /*!< ETH Error Callback ID             */
   HAL_ETH_PMT_CB_ID                = 0x06U,    /*!< ETH Power Management Callback ID  */
   HAL_ETH_WAKEUP_CB_ID             = 0x08U     /*!< ETH Wake UP Callback ID           */
-
 
 } HAL_ETH_CallbackIDTypeDef;
 
@@ -752,7 +753,6 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
 /**
   * @}
   */
-
 
 /** @defgroup ETH_DMA_Rx_Descriptor_Bit_Definition ETH DMA Rx Descriptor Bit Definition
   * @{
@@ -913,15 +913,6 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
   * @}
   */
 
-/** @defgroup ETH_Tx_Packet_Source_Addr_Control ETH Tx Packet Source Addr Control
-  * @{
-  */
-#define ETH_SRC_ADDR_CONTROL_DISABLE          ETH_DMATXNDESCRF_SAIC_DISABLE
-#define ETH_SRC_ADDR_INSERT                   ETH_DMATXNDESCRF_SAIC_INSERT
-#define ETH_SRC_ADDR_REPLACE                  ETH_DMATXNDESCRF_SAIC_REPLACE
-/**
-  * @}
-  */
 
 /** @defgroup ETH_Tx_Packet_CRC_Pad_Control ETH Tx Packet CRC Pad Control
   * @{
@@ -940,28 +931,6 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
 #define ETH_CHECKSUM_IPHDR_INSERT                    ETH_DMATXDESC_CIC_IPV4HEADER
 #define ETH_CHECKSUM_IPHDR_PAYLOAD_INSERT            ETH_DMATXDESC_CIC_TCPUDPICMP_SEGMENT
 #define ETH_CHECKSUM_IPHDR_PAYLOAD_INSERT_PHDR_CALC  ETH_DMATXDESC_CIC_TCPUDPICMP_FULL
-/**
-  * @}
-  */
-
-/** @defgroup ETH_Tx_Packet_VLAN_Control ETH Tx Packet VLAN Control
-  * @{
-  */
-#define ETH_VLAN_DISABLE  ETH_DMATXNDESCRF_VTIR_DISABLE
-#define ETH_VLAN_REMOVE   ETH_DMATXNDESCRF_VTIR_REMOVE
-#define ETH_VLAN_INSERT   ETH_DMATXNDESCRF_VTIR_INSERT
-#define ETH_VLAN_REPLACE  ETH_DMATXNDESCRF_VTIR_REPLACE
-/**
-  * @}
-  */
-
-/** @defgroup ETH_Tx_Packet_Inner_VLAN_Control ETH Tx Packet Inner VLAN Control
-  * @{
-  */
-#define ETH_INNER_VLAN_DISABLE  ETH_DMATXCDESC_IVTIR_DISABLE
-#define ETH_INNER_VLAN_REMOVE   ETH_DMATXCDESC_IVTIR_REMOVE
-#define ETH_INNER_VLAN_INSERT   ETH_DMATXCDESC_IVTIR_INSERT
-#define ETH_INNER_VLAN_REPLACE  ETH_DMATXCDESC_IVTIR_REPLACE
 /**
   * @}
   */
@@ -993,15 +962,11 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
 /** @defgroup ETH_DMA_Arbitration ETH DMA Arbitration
   * @{
   */
-#define ETH_DMAARBITRATION_RX        ETH_DMAMR_DA
+#define ETH_DMAARBITRATION_RX        ETH_DMABMR_DA
 #define ETH_DMAARBITRATION_RX1_TX1   0x00000000U
-#define ETH_DMAARBITRATION_RX2_TX1   ETH_DMAMR_PR_2_1
-#define ETH_DMAARBITRATION_RX3_TX1   ETH_DMAMR_PR_3_1
-#define ETH_DMAARBITRATION_RX4_TX1   ETH_DMAMR_PR_4_1
-#define ETH_DMAARBITRATION_RX5_TX1   ETH_DMAMR_PR_5_1
-#define ETH_DMAARBITRATION_RX6_TX1   ETH_DMAMR_PR_6_1
-#define ETH_DMAARBITRATION_RX7_TX1   ETH_DMAMR_PR_7_1
-#define ETH_DMAARBITRATION_RX8_TX1   ETH_DMAMR_PR_8_1
+#define ETH_DMAARBITRATION_RX2_TX1   ETH_DMABMR_RTPR_2_1
+#define ETH_DMAARBITRATION_RX3_TX1   ETH_DMABMR_RTPR_3_1
+#define ETH_DMAARBITRATION_RX4_TX1   ETH_DMABMR_RTPR_4_1
 #define ETH_DMAARBITRATION_TX        (ETH_DMAMR_TXPR | ETH_DMAMR_DA)
 #define ETH_DMAARBITRATION_TX1_RX1   0x00000000U
 #define ETH_DMAARBITRATION_TX2_RX1   (ETH_DMAMR_TXPR | ETH_DMAMR_PR_2_1)
@@ -1066,19 +1031,18 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
 /** @defgroup ETH_DMA_Interrupts ETH DMA Interrupts
   * @{
   */
-#define ETH_DMA_NORMAL_IT                 ETH_DMACIER_NIE
-#define ETH_DMA_ABNORMAL_IT               ETH_DMACIER_AIE
-#define ETH_DMA_CONTEXT_DESC_ERROR_IT     ETH_DMACIER_CDEE
-#define ETH_DMA_FATAL_BUS_ERROR_IT        ETH_DMACIER_FBEE
-#define ETH_DMA_EARLY_RX_IT               ETH_DMACIER_ERIE
-#define ETH_DMA_EARLY_TX_IT               ETH_DMACIER_ETIE
-#define ETH_DMA_RX_WATCHDOG_TIMEOUT_IT    ETH_DMACIER_RWTE
-#define ETH_DMA_RX_PROCESS_STOPPED_IT     ETH_DMACIER_RSE
-#define ETH_DMA_RX_BUFFER_UNAVAILABLE_IT  ETH_DMACIER_RBUE
-#define ETH_DMA_RX_IT                     ETH_DMACIER_RIE
-#define ETH_DMA_TX_BUFFER_UNAVAILABLE_IT  ETH_DMACIER_TBUE
-#define ETH_DMA_TX_PROCESS_STOPPED_IT     ETH_DMACIER_TXSE
-#define ETH_DMA_TX_IT                     ETH_DMACIER_TIE
+#define ETH_DMA_NORMAL_IT                 ETH_DMAIER_NISE
+#define ETH_DMA_ABNORMAL_IT               ETH_DMAIER_AISE
+#define ETH_DMA_FATAL_BUS_ERROR_IT        ETH_DMAIER_FBEIE
+#define ETH_DMA_EARLY_RX_IT               ETH_DMAIER_ERIE
+#define ETH_DMA_EARLY_TX_IT               ETH_DMAIER_ETIE
+#define ETH_DMA_RX_WATCHDOG_TIMEOUT_IT    ETH_DMAIER_RWTIE
+#define ETH_DMA_RX_PROCESS_STOPPED_IT     ETH_DMAIER_RPSIE
+#define ETH_DMA_RX_BUFFER_UNAVAILABLE_IT  ETH_DMAIER_RBUIE
+#define ETH_DMA_RX_IT                     ETH_DMAIER_RIE
+#define ETH_DMA_TX_BUFFER_UNAVAILABLE_IT  ETH_DMAIER_TBUIE
+#define ETH_DMA_TX_PROCESS_STOPPED_IT     ETH_DMAIER_TPSIE
+#define ETH_DMA_TX_IT                     ETH_DMAIER_TIE
 /**
   * @}
   */
@@ -1086,23 +1050,19 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
 /** @defgroup ETH_DMA_Status_Flags ETH DMA Status Flags
   * @{
   */
-#define ETH_DMA_RX_NO_ERROR_FLAG                 0x00000000U
-#define ETH_DMA_RX_DESC_READ_ERROR_FLAG          (ETH_DMACSR_REB_BIT_2 | ETH_DMACSR_REB_BIT_1 | ETH_DMACSR_REB_BIT_0)
-#define ETH_DMA_RX_DESC_WRITE_ERROR_FLAG         (ETH_DMACSR_REB_BIT_2 | ETH_DMACSR_REB_BIT_1)
-#define ETH_DMA_RX_BUFFER_READ_ERROR_FLAG        (ETH_DMACSR_REB_BIT_2 | ETH_DMACSR_REB_BIT_0)
-#define ETH_DMA_RX_BUFFER_WRITE_ERROR_FLAG        ETH_DMACSR_REB_BIT_2
-#define ETH_DMA_TX_NO_ERROR_FLAG                 0x00000000U
-#define ETH_DMA_TX_DESC_READ_ERROR_FLAG          (ETH_DMACSR_TEB_BIT_2 | ETH_DMACSR_TEB_BIT_1 | ETH_DMACSR_TEB_BIT_0)
-#define ETH_DMA_TX_DESC_WRITE_ERROR_FLAG         (ETH_DMACSR_TEB_BIT_2 | ETH_DMACSR_TEB_BIT_1)
-#define ETH_DMA_TX_BUFFER_READ_ERROR_FLAG        (ETH_DMACSR_TEB_BIT_2 | ETH_DMACSR_TEB_BIT_0)
-#define ETH_DMA_TX_BUFFER_WRITE_ERROR_FLAG        ETH_DMACSR_TEB_BIT_2
-#define ETH_DMA_CONTEXT_DESC_ERROR_FLAG           ETH_DMACSR_CDE
-#define ETH_DMA_FATAL_BUS_ERROR_FLAG              ETH_DMACSR_FBE
-#define ETH_DMA_EARLY_TX_IT_FLAG                  ETH_DMACSR_ERI
-#define ETH_DMA_RX_WATCHDOG_TIMEOUT_FLAG          ETH_DMACSR_RWT
-#define ETH_DMA_RX_PROCESS_STOPPED_FLAG           ETH_DMACSR_RPS
-#define ETH_DMA_RX_BUFFER_UNAVAILABLE_FLAG        ETH_DMACSR_RBU
-#define ETH_DMA_TX_PROCESS_STOPPED_FLAG           ETH_DMACSR_TPS
+#define ETH_DMA_NO_ERROR_FLAG                     0x00000000U
+#define ETH_DMA_TX_DATA_TRANS_ERROR_FLAG          ETH_DMASR_EBS_DataTransfTx
+#define ETH_DMA_RX_DATA_TRANS_ERROR_FLAG          0x00000000U
+#define ETH_DMA_READ_TRANS_ERROR_FLAG             ETH_DMASR_EBS_ReadTransf
+#define ETH_DMA_WRITE_TRANS_ERROR_FLAG            0x00000000U
+#define ETH_DMA_DESC_ACCESS_ERROR_FLAG            ETH_DMASR_EBS_DescAccess
+#define ETH_DMA_DATA_BUFF_ACCESS_ERROR_FLAG       0x00000000U
+#define ETH_DMA_FATAL_BUS_ERROR_FLAG              ETH_DMASR_FBES
+#define ETH_DMA_EARLY_TX_IT_FLAG                  ETH_DMASR_ETS
+#define ETH_DMA_RX_WATCHDOG_TIMEOUT_FLAG          ETH_DMASR_RWTS
+#define ETH_DMA_RX_PROCESS_STOPPED_FLAG           ETH_DMASR_RPSS
+#define ETH_DMA_RX_BUFFER_UNAVAILABLE_FLAG        ETH_DMASR_RBUS
+#define ETH_DMA_TX_PROCESS_STOPPED_FLAG           ETH_DMASR_TPS
 /**
   * @}
   */
@@ -1110,15 +1070,15 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
 /** @defgroup ETH_Transmit_Mode ETH Transmit Mode
   * @{
   */
-#define ETH_TRANSMITSTOREFORWARD       ETH_MTLTQOMR_TSF
-#define ETH_TRANSMITTHRESHOLD_32       ETH_MTLTQOMR_TTC_32BITS
-#define ETH_TRANSMITTHRESHOLD_64       ETH_MTLTQOMR_TTC_64BITS
-#define ETH_TRANSMITTHRESHOLD_96       ETH_MTLTQOMR_TTC_96BITS
-#define ETH_TRANSMITTHRESHOLD_128      ETH_MTLTQOMR_TTC_128BITS
-#define ETH_TRANSMITTHRESHOLD_192      ETH_MTLTQOMR_TTC_192BITS
-#define ETH_TRANSMITTHRESHOLD_256      ETH_MTLTQOMR_TTC_256BITS
-#define ETH_TRANSMITTHRESHOLD_384      ETH_MTLTQOMR_TTC_384BITS
-#define ETH_TRANSMITTHRESHOLD_512      ETH_MTLTQOMR_TTC_512BITS
+#define ETH_TRANSMITSTOREFORWARD       ETH_DMAOMR_TSF
+#define ETH_TRANSMITTHRESHOLD_16       ETH_DMAOMR_TTC_16Bytes
+#define ETH_TRANSMITTHRESHOLD_24       ETH_DMAOMR_TTC_24Bytes
+#define ETH_TRANSMITTHRESHOLD_32       ETH_DMAOMR_TTC_32Bytes
+#define ETH_TRANSMITTHRESHOLD_40       ETH_DMAOMR_TTC_40Bytes
+#define ETH_TRANSMITTHRESHOLD_64       ETH_DMAOMR_TTC_64Bytes
+#define ETH_TRANSMITTHRESHOLD_128      ETH_DMAOMR_TTC_128Bytes
+#define ETH_TRANSMITTHRESHOLD_192      ETH_DMAOMR_TTC_192Bytes
+#define ETH_TRANSMITTHRESHOLD_256      ETH_DMAOMR_TTC_256Bytes
 /**
   * @}
   */
@@ -1126,11 +1086,11 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
 /** @defgroup ETH_Receive_Mode ETH Receive Mode
   * @{
   */
-#define ETH_RECEIVESTOREFORWARD        ETH_MTLRQOMR_RSF
-#define ETH_RECEIVETHRESHOLD8_64       ETH_MTLRQOMR_RTC_64BITS
-#define ETH_RECEIVETHRESHOLD8_32       ETH_MTLRQOMR_RTC_32BITS
-#define ETH_RECEIVETHRESHOLD8_96       ETH_MTLRQOMR_RTC_96BITS
-#define ETH_RECEIVETHRESHOLD8_128      ETH_MTLRQOMR_RTC_128BITS
+#define ETH_RECEIVESTOREFORWARD        ETH_DMAOMR_RSF
+#define ETH_RECEIVETHRESHOLD8_64       ETH_DMAOMR_RTC_64Bytes
+#define ETH_RECEIVETHRESHOLD8_32       ETH_DMAOMR_RTC_32Bytes
+#define ETH_RECEIVETHRESHOLD8_96       ETH_DMAOMR_RTC_96Bytes
+#define ETH_RECEIVETHRESHOLD8_128      ETH_DMAOMR_RTC_128Bytes
 /**
   * @}
   */
@@ -1138,52 +1098,14 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
 /** @defgroup ETH_Pause_Low_Threshold  ETH Pause Low Threshold
   * @{
   */
-#define ETH_PAUSELOWTHRESHOLD_MINUS_4        ETH_MACTFCR_PLT_MINUS4
-#define ETH_PAUSELOWTHRESHOLD_MINUS_28       ETH_MACTFCR_PLT_MINUS28
-#define ETH_PAUSELOWTHRESHOLD_MINUS_36       ETH_MACTFCR_PLT_MINUS36
-#define ETH_PAUSELOWTHRESHOLD_MINUS_144      ETH_MACTFCR_PLT_MINUS144
-#define ETH_PAUSELOWTHRESHOLD_MINUS_256      ETH_MACTFCR_PLT_MINUS256
-#define ETH_PAUSELOWTHRESHOLD_MINUS_512      ETH_MACTFCR_PLT_MINUS512
+#define ETH_PAUSELOWTHRESHOLD_MINUS_4        ETH_MACFCR_PLT_Minus4
+#define ETH_PAUSELOWTHRESHOLD_MINUS_28       ETH_MACFCR_PLT_Minus28
+#define ETH_PAUSELOWTHRESHOLD_MINUS_144      ETH_MACFCR_PLT_Minus144
+#define ETH_PAUSELOWTHRESHOLD_MINUS_256      ETH_MACFCR_PLT_Minus256
 /**
   * @}
   */
 
-/** @defgroup ETH_Watchdog_Timeout ETH Watchdog Timeout
-  * @{
-  */
-#define ETH_WATCHDOGTIMEOUT_2KB      ETH_MACWTR_WTO_2KB
-#define ETH_WATCHDOGTIMEOUT_3KB      ETH_MACWTR_WTO_3KB
-#define ETH_WATCHDOGTIMEOUT_4KB      ETH_MACWTR_WTO_4KB
-#define ETH_WATCHDOGTIMEOUT_5KB      ETH_MACWTR_WTO_5KB
-#define ETH_WATCHDOGTIMEOUT_6KB      ETH_MACWTR_WTO_6KB
-#define ETH_WATCHDOGTIMEOUT_7KB      ETH_MACWTR_WTO_7KB
-#define ETH_WATCHDOGTIMEOUT_8KB      ETH_MACWTR_WTO_8KB
-#define ETH_WATCHDOGTIMEOUT_9KB      ETH_MACWTR_WTO_9KB
-#define ETH_WATCHDOGTIMEOUT_10KB     ETH_MACWTR_WTO_10KB
-#define ETH_WATCHDOGTIMEOUT_11KB     ETH_MACWTR_WTO_12KB
-#define ETH_WATCHDOGTIMEOUT_12KB     ETH_MACWTR_WTO_12KB
-#define ETH_WATCHDOGTIMEOUT_13KB     ETH_MACWTR_WTO_13KB
-#define ETH_WATCHDOGTIMEOUT_14KB     ETH_MACWTR_WTO_14KB
-#define ETH_WATCHDOGTIMEOUT_15KB     ETH_MACWTR_WTO_15KB
-#define ETH_WATCHDOGTIMEOUT_16KB     ETH_MACWTR_WTO_16KB
-/**
-  * @}
-  */
-
-/** @defgroup ETH_Inter_Packet_Gap ETH Inter Packet Gap
-  * @{
-  */
-#define ETH_INTERPACKETGAP_96BIT   ETH_MACCR_IPG_96BIT
-#define ETH_INTERPACKETGAP_88BIT   ETH_MACCR_IPG_88BIT
-#define ETH_INTERPACKETGAP_80BIT   ETH_MACCR_IPG_80BIT
-#define ETH_INTERPACKETGAP_72BIT   ETH_MACCR_IPG_72BIT
-#define ETH_INTERPACKETGAP_64BIT   ETH_MACCR_IPG_64BIT
-#define ETH_INTERPACKETGAP_56BIT   ETH_MACCR_IPG_56BIT
-#define ETH_INTERPACKETGAP_48BIT   ETH_MACCR_IPG_48BIT
-#define ETH_INTERPACKETGAP_40BIT   ETH_MACCR_IPG_40BIT
-/**
-  * @}
-  */
 
 /** @defgroup ETH_Speed  ETH Speed
   * @{
@@ -1214,15 +1136,6 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
   * @}
   */
 
-/** @defgroup ETH_Preamble_Length ETH Preamble Length
-  * @{
-  */
-#define ETH_PREAMBLELENGTH_7      ETH_MACCR_PRELEN_7
-#define ETH_PREAMBLELENGTH_5      ETH_MACCR_PRELEN_5
-#define ETH_PREAMBLELENGTH_3      ETH_MACCR_PRELEN_3
-/**
-  * @}
-  */
 
 /** @defgroup ETH_Source_Addr_Control ETH Source Addr Control
   * @{
@@ -1236,16 +1149,6 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
   * @}
   */
 
-/** @defgroup ETH_Control_Packets_Filter ETH Control Packets Filter
-  * @{
-  */
-#define ETH_CTRLPACKETS_BLOCK_ALL                      ETH_MACPFR_PCF_BLOCKALL
-#define ETH_CTRLPACKETS_FORWARD_ALL_EXCEPT_PA          ETH_MACPFR_PCF_FORWARDALLEXCEPTPA
-#define ETH_CTRLPACKETS_FORWARD_ALL                    ETH_MACPFR_PCF_FORWARDALL
-#define ETH_CTRLPACKETS_FORWARD_PASSED_ADDR_FILTER     ETH_MACPFR_PCF_FORWARDPASSEDADDRFILTER
-/**
-  * @}
-  */
 
 /** @defgroup ETH_VLAN_Tag_Comparison ETH VLAN Tag Comparison
   * @{
@@ -1278,27 +1181,14 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
 /** @defgroup ETH_MAC_Wake_Up_Event ETH MAC Wake Up Event
   * @{
   */
-#define ETH_WAKEUP_PACKET_RECIEVED    ETH_MACPCSR_RWKPRCVD
-#define ETH_MAGIC_PACKET_RECIEVED     ETH_MACPCSR_MGKPRCVD
+#define ETH_WAKEUP_FRAME_RECIEVED     ETH_MACPMTCSR_WFR
+#define ETH_MAGIC_PACKET_RECIEVED     ETH_MACPMTCSR_MPR
 /**
   * @}
   */
 
-/** @defgroup ETH_MAC_Rx_Tx_Status ETH MAC Rx Tx Status
-  * @{
-  */
-#define ETH_RECEIVE_WATCHDOG_TIMEOUT        ETH_MACRXTXSR_RWT
-#define ETH_EXECESSIVE_COLLISIONS           ETH_MACRXTXSR_EXCOL
-#define ETH_LATE_COLLISIONS                 ETH_MACRXTXSR_LCOL
-#define ETH_EXECESSIVE_DEFERRAL             ETH_MACRXTXSR_EXDEF
-#define ETH_LOSS_OF_CARRIER                 ETH_MACRXTXSR_LCARR
-#define ETH_NO_CARRIER                      ETH_MACRXTXSR_NCARR
-#define ETH_TRANSMIT_JABBR_TIMEOUT          ETH_MACRXTXSR_TJT
-/**
-  * @}
-  */
 
-/** @defgroup HAL_ETH_StateTypeDef ETH States
+/** @defgroup ETH_State_Codes ETH States
   * @{
   */
 #define HAL_ETH_STATE_RESET       0x00000000U    /*!< Peripheral not yet Initialized or disabled */
@@ -1802,11 +1692,12 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
 /** @defgroup ETH_PTP_Config_Status ETH PTP Config Status
   * @{
   */
-#define HAL_ETH_PTP_NOT_CONFIGURATED        0x00000000U    /*!< ETH PTP Configuration not done */
-#define HAL_ETH_PTP_CONFIGURATED            0x00000001U    /*!< ETH PTP Configuration done     */
+#define HAL_ETH_PTP_NOT_CONFIGURED        0x00000000U    /*!< ETH PTP Configuration not done */
+#define HAL_ETH_PTP_CONFIGURED            0x00000001U    /*!< ETH PTP Configuration done     */
 /**
   * @}
   */
+
 /**
   * @}
   */
@@ -1884,7 +1775,7 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
   * @param  __FLAG__: specifies the flag to check. @ref ETH_DMA_Status_Flags
   * @retval The state of ETH DMA FLAG (SET or RESET).
   */
-#define __HAL_ETH_DMA_GET_FLAG(__HANDLE__, __FLAG__)                   (((__HANDLE__)->Instance->DMACSR &\
+#define __HAL_ETH_DMA_GET_FLAG(__HANDLE__, __FLAG__)                   (((__HANDLE__)->Instance->DMASR &\
                                                                          ( __FLAG__)) == ( __FLAG__))
 
 /**
@@ -1893,27 +1784,9 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
   * @param  __FLAG__: specifies the flag to check. @ref ETH_DMA_Status_Flags
   * @retval The state of ETH DMA FLAG (SET or RESET).
   */
-#define __HAL_ETH_DMA_CLEAR_FLAG(__HANDLE__, __FLAG__)                   ((__HANDLE__)->Instance->DMACSR = ( __FLAG__))
+#define __HAL_ETH_DMA_CLEAR_FLAG(__HANDLE__, __FLAG__)                   ((__HANDLE__)->Instance->DMASR = ( __FLAG__))
 
-/**
-  * @brief  Enables the specified ETHERNET MAC interrupts.
-  * @param  __HANDLE__   : ETH Handle
-  * @param  __INTERRUPT__: specifies the ETHERNET MAC interrupt sources to be
-  *   enabled @ref ETH_MAC_Interrupts
-  * @retval None
-  */
-#define __HAL_ETH_MAC_ENABLE_IT(__HANDLE__, __INTERRUPT__)                 ((__HANDLE__)->Instance->MACIER \
-                                                                            |= (__INTERRUPT__))
 
-/**
-  * @brief  Disables the specified ETHERNET MAC interrupts.
-  * @param  __HANDLE__   : ETH Handle
-  * @param  __INTERRUPT__: specifies the ETHERNET MAC interrupt sources to be
-  *   enabled @ref ETH_MAC_Interrupts
-  * @retval None
-  */
-#define __HAL_ETH_MAC_DISABLE_IT(__HANDLE__, __INTERRUPT__)                 ((__HANDLE__)->Instance->MACIER \
-                                                                             &= ~(__INTERRUPT__))
 
 /**
   * @brief  Checks whether the specified ETHERNET MAC flag is set or not.
@@ -1921,8 +1794,8 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
   * @param  __INTERRUPT__: specifies the flag to check. @ref ETH_MAC_Interrupts
   * @retval The state of ETH MAC IT (SET or RESET).
   */
-#define __HAL_ETH_MAC_GET_IT(__HANDLE__, __INTERRUPT__)                   (((__HANDLE__)->Instance->MACSR &\
-                                                                            ( __INTERRUPT__)) == ( __INTERRUPT__))
+#define __HAL_ETH_MAC_GET_IT(__HANDLE__, __INTERRUPT__)                     (((__HANDLE__)->Instance->MACSR &\
+                                                                              ( __INTERRUPT__)) == ( __INTERRUPT__))
 
 /*!< External interrupt line 19 Connected to the ETH wakeup EXTI Line */
 #define ETH_WAKEUP_EXTI_LINE  0x00080000U
@@ -1950,7 +1823,6 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
   * @retval None.
   */
 #define __HAL_ETH_WAKEUP_EXTI_CLEAR_FLAG(__EXTI_LINE__) (EXTI->PR = (__EXTI_LINE__))
-
 
 /**
   * @brief  enable rising edge interrupt on selected EXTI line.
@@ -1991,6 +1863,7 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
                                                            (__FLAG__)) == (__FLAG__)) ? SET : RESET)
 
 #define __HAL_ETH_SET_PTP_CONTROL(__HANDLE__, __FLAG__)   ((__HANDLE__)->Instance->PTPTSCR |= (__FLAG__))
+
 /**
   * @}
   */
@@ -2037,7 +1910,7 @@ HAL_StatusTypeDef HAL_ETH_RegisterRxAllocateCallback(ETH_HandleTypeDef *heth,
 HAL_StatusTypeDef HAL_ETH_UnRegisterRxAllocateCallback(ETH_HandleTypeDef *heth);
 HAL_StatusTypeDef HAL_ETH_RegisterRxLinkCallback(ETH_HandleTypeDef *heth, pETH_rxLinkCallbackTypeDef rxLinkCallback);
 HAL_StatusTypeDef HAL_ETH_UnRegisterRxLinkCallback(ETH_HandleTypeDef *heth);
-HAL_StatusTypeDef HAL_ETH_GetRxDataErrorCode(ETH_HandleTypeDef *heth, uint32_t *pErrorCode);
+HAL_StatusTypeDef HAL_ETH_GetRxDataErrorCode(const ETH_HandleTypeDef *heth, uint32_t *pErrorCode);
 HAL_StatusTypeDef HAL_ETH_RegisterTxFreeCallback(ETH_HandleTypeDef *heth, pETH_txFreeCallbackTypeDef txFreeCallback);
 HAL_StatusTypeDef HAL_ETH_UnRegisterTxFreeCallback(ETH_HandleTypeDef *heth);
 HAL_StatusTypeDef HAL_ETH_ReleaseTxPacket(ETH_HandleTypeDef *heth);
@@ -2056,10 +1929,10 @@ HAL_StatusTypeDef HAL_ETH_RegisterTxPtpCallback(ETH_HandleTypeDef *heth, pETH_tx
 HAL_StatusTypeDef HAL_ETH_UnRegisterTxPtpCallback(ETH_HandleTypeDef *heth);
 #endif /* HAL_ETH_USE_PTP */
 
-HAL_StatusTypeDef HAL_ETH_Transmit(ETH_HandleTypeDef *heth, ETH_TxPacketConfig *pTxConfig, uint32_t Timeout);
-HAL_StatusTypeDef HAL_ETH_Transmit_IT(ETH_HandleTypeDef *heth, ETH_TxPacketConfig *pTxConfig);
+HAL_StatusTypeDef HAL_ETH_Transmit(ETH_HandleTypeDef *heth, ETH_TxPacketConfigTypeDef *pTxConfig, uint32_t Timeout);
+HAL_StatusTypeDef HAL_ETH_Transmit_IT(ETH_HandleTypeDef *heth, ETH_TxPacketConfigTypeDef *pTxConfig);
 
-HAL_StatusTypeDef HAL_ETH_WritePHYRegister(ETH_HandleTypeDef *heth, uint32_t PHYAddr, uint32_t PHYReg,
+HAL_StatusTypeDef HAL_ETH_WritePHYRegister(const ETH_HandleTypeDef *heth, uint32_t PHYAddr, uint32_t PHYReg,
                                            uint32_t RegValue);
 HAL_StatusTypeDef HAL_ETH_ReadPHYRegister(ETH_HandleTypeDef *heth, uint32_t PHYAddr, uint32_t PHYReg,
                                           uint32_t *pRegValue);
@@ -2083,8 +1956,8 @@ void              HAL_ETH_TxPtpCallback(uint32_t *buff, ETH_TimeStampTypeDef *ti
   */
 /* Peripheral Control functions  **********************************************/
 /* MAC & DMA Configuration APIs  **********************************************/
-HAL_StatusTypeDef HAL_ETH_GetMACConfig(ETH_HandleTypeDef *heth, ETH_MACConfigTypeDef *macconf);
-HAL_StatusTypeDef HAL_ETH_GetDMAConfig(ETH_HandleTypeDef *heth, ETH_DMAConfigTypeDef *dmaconf);
+HAL_StatusTypeDef HAL_ETH_GetMACConfig(const ETH_HandleTypeDef *heth, ETH_MACConfigTypeDef *macconf);
+HAL_StatusTypeDef HAL_ETH_GetDMAConfig(const ETH_HandleTypeDef *heth, ETH_DMAConfigTypeDef *dmaconf);
 HAL_StatusTypeDef HAL_ETH_SetMACConfig(ETH_HandleTypeDef *heth, ETH_MACConfigTypeDef *macconf);
 HAL_StatusTypeDef HAL_ETH_SetDMAConfig(ETH_HandleTypeDef *heth, ETH_DMAConfigTypeDef *dmaconf);
 void              HAL_ETH_SetMDIOClockRange(ETH_HandleTypeDef *heth);
@@ -2094,13 +1967,15 @@ void              HAL_ETH_SetRxVLANIdentifier(ETH_HandleTypeDef *heth, uint32_t 
                                               uint32_t VLANIdentifier);
 
 /* MAC L2 Packet Filtering APIs  **********************************************/
-HAL_StatusTypeDef HAL_ETH_GetMACFilterConfig(ETH_HandleTypeDef *heth, ETH_MACFilterConfigTypeDef *pFilterConfig);
-HAL_StatusTypeDef HAL_ETH_SetMACFilterConfig(ETH_HandleTypeDef *heth, ETH_MACFilterConfigTypeDef *pFilterConfig);
+HAL_StatusTypeDef HAL_ETH_GetMACFilterConfig(const ETH_HandleTypeDef *heth, ETH_MACFilterConfigTypeDef *pFilterConfig);
+HAL_StatusTypeDef HAL_ETH_SetMACFilterConfig(ETH_HandleTypeDef *heth, const ETH_MACFilterConfigTypeDef *pFilterConfig);
 HAL_StatusTypeDef HAL_ETH_SetHashTable(ETH_HandleTypeDef *heth, uint32_t *pHashTable);
-HAL_StatusTypeDef HAL_ETH_SetSourceMACAddrMatch(ETH_HandleTypeDef *heth, uint32_t AddrNbr, uint8_t *pMACAddr);
+HAL_StatusTypeDef HAL_ETH_SetSourceMACAddrMatch(const ETH_HandleTypeDef *heth, uint32_t AddrNbr,
+                                                const uint8_t *pMACAddr);
 
 /* MAC Power Down APIs    *****************************************************/
-void              HAL_ETH_EnterPowerDownMode(ETH_HandleTypeDef *heth, ETH_PowerDownConfigTypeDef *pPowerDownConfig);
+void              HAL_ETH_EnterPowerDownMode(ETH_HandleTypeDef *heth,
+                                             const ETH_PowerDownConfigTypeDef *pPowerDownConfig);
 void              HAL_ETH_ExitPowerDownMode(ETH_HandleTypeDef *heth);
 HAL_StatusTypeDef HAL_ETH_SetWakeUpFilter(ETH_HandleTypeDef *heth, uint32_t *pFilter, uint32_t Count);
 
@@ -2112,11 +1987,11 @@ HAL_StatusTypeDef HAL_ETH_SetWakeUpFilter(ETH_HandleTypeDef *heth, uint32_t *pFi
   * @{
   */
 /* Peripheral State functions  **************************************************/
-HAL_ETH_StateTypeDef HAL_ETH_GetState(ETH_HandleTypeDef *heth);
-uint32_t             HAL_ETH_GetError(ETH_HandleTypeDef *heth);
-uint32_t             HAL_ETH_GetDMAError(ETH_HandleTypeDef *heth);
-uint32_t             HAL_ETH_GetMACError(ETH_HandleTypeDef *heth);
-uint32_t             HAL_ETH_GetMACWakeUpSource(ETH_HandleTypeDef *heth);
+HAL_ETH_StateTypeDef HAL_ETH_GetState(const ETH_HandleTypeDef *heth);
+uint32_t             HAL_ETH_GetError(const ETH_HandleTypeDef *heth);
+uint32_t             HAL_ETH_GetDMAError(const ETH_HandleTypeDef *heth);
+uint32_t             HAL_ETH_GetMACError(const ETH_HandleTypeDef *heth);
+uint32_t             HAL_ETH_GetMACWakeUpSource(const ETH_HandleTypeDef *heth);
 /**
   * @}
   */
@@ -2140,5 +2015,3 @@ uint32_t             HAL_ETH_GetMACWakeUpSource(ETH_HandleTypeDef *heth);
 #endif
 
 #endif /* STM32F7xx_HAL_ETH_H */
-
-

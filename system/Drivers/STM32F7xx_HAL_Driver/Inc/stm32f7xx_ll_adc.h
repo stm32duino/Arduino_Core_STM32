@@ -3970,7 +3970,7 @@ __STATIC_INLINE uint16_t LL_ADC_REG_ReadConversionData10(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE uint8_t LL_ADC_REG_ReadConversionData8(ADC_TypeDef *ADCx)
 {
-  return (uint16_t)(READ_BIT(ADCx->DR, ADC_DR_DATA));
+  return (uint8_t)(READ_BIT(ADCx->DR, ADC_DR_DATA) & 0x000000FFUL);
 }
 
 /**
@@ -3985,7 +3985,7 @@ __STATIC_INLINE uint8_t LL_ADC_REG_ReadConversionData8(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE uint8_t LL_ADC_REG_ReadConversionData6(ADC_TypeDef *ADCx)
 {
-  return (uint16_t)(READ_BIT(ADCx->DR, ADC_DR_DATA));
+  return (uint8_t)(READ_BIT(ADCx->DR, ADC_DR_DATA) & 0x000000FFUL);
 }
 
 /**
@@ -4188,7 +4188,7 @@ __STATIC_INLINE uint8_t LL_ADC_INJ_ReadConversionData8(ADC_TypeDef *ADCx, uint32
   __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JDR1, __ADC_MASK_SHIFT(Rank, ADC_INJ_JDRX_REGOFFSET_MASK));
 
   return (uint8_t)(READ_BIT(*preg,
-                            ADC_JDR1_JDATA)
+                            ADC_JDR1_JDATA) & 0x000000FFUL
                   );
 }
 
@@ -4215,7 +4215,7 @@ __STATIC_INLINE uint8_t LL_ADC_INJ_ReadConversionData6(ADC_TypeDef *ADCx, uint32
   __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JDR1, __ADC_MASK_SHIFT(Rank, ADC_INJ_JDRX_REGOFFSET_MASK));
 
   return (uint8_t)(READ_BIT(*preg,
-                            ADC_JDR1_JDATA)
+                            ADC_JDR1_JDATA) & 0x000000FFUL
                   );
 }
 

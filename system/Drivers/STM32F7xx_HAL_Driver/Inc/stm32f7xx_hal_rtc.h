@@ -777,6 +777,7 @@ HAL_RTCStateTypeDef HAL_RTC_GetState(RTC_HandleTypeDef *hrtc);
                                             RTC_DR_MT | RTC_DR_MU | \
                                             RTC_DR_DT | RTC_DR_DU | \
                                             RTC_DR_WDU))
+#define RTC_ISR_RESERVED_MASK   ((uint32_t)(RTC_FLAGS_MASK | RTC_ISR_INIT))
 #define RTC_INIT_MASK           0xFFFFFFFFU
 #define RTC_RSF_MASK            ((uint32_t)~(RTC_ISR_INIT | RTC_ISR_RSF))
 #define RTC_FLAGS_MASK          ((uint32_t)(RTC_FLAG_INITF   | RTC_FLAG_INITS  | \

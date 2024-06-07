@@ -59,7 +59,7 @@
   *          - SUCCESS: RNG registers are de-initialized
   *          - ERROR: not applicable
   */
-ErrorStatus LL_RNG_DeInit(RNG_TypeDef *RNGx)
+ErrorStatus LL_RNG_DeInit(const RNG_TypeDef *RNGx)
 {
   ErrorStatus status = SUCCESS;
 

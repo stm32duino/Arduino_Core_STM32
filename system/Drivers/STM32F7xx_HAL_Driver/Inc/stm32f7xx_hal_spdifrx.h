@@ -56,7 +56,8 @@ typedef struct
   uint32_t WaitForActivity;          /*!< Specifies the wait for activity on SPDIF selected input.
                                           This parameter can be a value of @ref SPDIFRX_Wait_For_Activity. */
 
-  uint32_t ChannelSelection;         /*!< Specifies whether the control flow will take the channel status from channel A or B.
+  uint32_t ChannelSelection;         /*!< Specifies whether the control flow will take the channel status
+                                          from channel A or B.
                                           This parameter can be a value of @ref SPDIFRX_Channel_Selection */
 
   uint32_t DataFormat;               /*!< Specifies the Data samples format (LSB, MSB, ...).
@@ -65,16 +66,19 @@ typedef struct
   uint32_t StereoMode;               /*!< Specifies whether the peripheral is in stereo or mono mode.
                                           This parameter can be a value of @ref SPDIFRX_Stereo_Mode */
 
-  uint32_t PreambleTypeMask;          /*!< Specifies whether The preamble type bits are copied or not into the received frame.
-                                           This parameter can be a value of @ref SPDIFRX_PT_Mask */
+  uint32_t PreambleTypeMask;         /*!< Specifies whether The preamble type bits are copied or not
+                                          into the received frame.
+                                          This parameter can be a value of @ref SPDIFRX_PT_Mask */
 
-  uint32_t ChannelStatusMask;        /*!< Specifies whether the channel status and user bits are copied or not into the received frame.
+  uint32_t ChannelStatusMask;        /*!< Specifies whether the channel status and user bits are copied or not
+                                          into the received frame.
                                           This parameter can be a value of @ref SPDIFRX_ChannelStatus_Mask */
 
   uint32_t ValidityBitMask;          /*!< Specifies whether the validity bit is copied or not into the received frame.
                                           This parameter can be a value of @ref SPDIFRX_V_Mask */
 
-  uint32_t ParityErrorMask;          /*!< Specifies whether the parity error bit is copied or not into the received frame.
+  uint32_t ParityErrorMask;          /*!< Specifies whether the parity error bit is copied or not
+                                          into the received frame.
                                           This parameter can be a value of @ref SPDIFRX_PE_Mask */
 } SPDIFRX_InitTypeDef;
 
@@ -89,17 +93,20 @@ typedef struct
   uint32_t StereoMode;               /*!< Specifies whether the peripheral is in stereo or mono mode.
                                           This parameter can be a value of @ref SPDIFRX_Stereo_Mode */
 
-  uint32_t PreambleTypeMask;          /*!< Specifies whether The preamble type bits are copied or not into the received frame.
-                                                                                   This parameter can be a value of @ref SPDIFRX_PT_Mask */
+  uint32_t PreambleTypeMask;         /*!< Specifies whether The preamble type bits are copied or not
+                                          into the received frame.
+                                          This parameter can be a value of @ref SPDIFRX_PT_Mask */
 
-  uint32_t ChannelStatusMask;        /*!< Specifies whether the channel status and user bits are copied or not into the received frame.
-                                                                                  This parameter can be a value of @ref SPDIFRX_ChannelStatus_Mask */
+  uint32_t ChannelStatusMask;        /*!< Specifies whether the channel status and user bits are copied or not
+                                          into the received frame.
+                                          This parameter can be a value of @ref SPDIFRX_ChannelStatus_Mask */
 
   uint32_t ValidityBitMask;          /*!< Specifies whether the validity bit is copied or not into the received frame.
-                                                                                  This parameter can be a value of @ref SPDIFRX_V_Mask */
+                                          This parameter can be a value of @ref SPDIFRX_V_Mask */
 
-  uint32_t ParityErrorMask;          /*!< Specifies whether the parity error bit is copied or not into the received frame.
-                                                                                  This parameter can be a value of @ref SPDIFRX_PE_Mask */
+  uint32_t ParityErrorMask;          /*!< Specifies whether the parity error bit is copied or not
+                                          into the received frame.
+                                          This parameter can be a value of @ref SPDIFRX_PE_Mask */
 
 } SPDIFRX_SetDataFormatTypeDef;
 
@@ -151,7 +158,8 @@ typedef struct
                                                decremented when a sample is received.
                                                NbSamplesReceived = RxBufferSize-RxBufferCount) */
 
-  DMA_HandleTypeDef          *hdmaCsRx;    /* SPDIFRX EC60958_channel_status and user_information DMA handle parameters */
+  DMA_HandleTypeDef          *hdmaCsRx;    /* SPDIFRX EC60958_channel_status and user_information
+                                              DMA handle parameters */
 
   DMA_HandleTypeDef          *hdmaDrRx;    /* SPDIFRX Rx DMA handle parameters */
 
@@ -162,9 +170,11 @@ typedef struct
   __IO uint32_t  ErrorCode;                /* SPDIFRX Error code */
 
 #if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
-  void (*RxHalfCpltCallback)(struct __SPDIFRX_HandleTypeDef *hspdif);   /*!< SPDIFRX Data flow half completed callback */
+  void (*RxHalfCpltCallback)(struct __SPDIFRX_HandleTypeDef *hspdif);   /*!< SPDIFRX Data flow half completed
+                                                                             callback */
   void (*RxCpltCallback)(struct __SPDIFRX_HandleTypeDef *hspdif);       /*!< SPDIFRX Data flow completed callback */
-  void (*CxHalfCpltCallback)(struct __SPDIFRX_HandleTypeDef *hspdif);   /*!< SPDIFRX Control flow half completed callback */
+  void (*CxHalfCpltCallback)(struct __SPDIFRX_HandleTypeDef *hspdif);   /*!< SPDIFRX Control flow half completed
+                                                                             callback */
   void (*CxCpltCallback)(struct __SPDIFRX_HandleTypeDef *hspdif);       /*!< SPDIFRX Control flow completed callback */
   void (*ErrorCallback)(struct __SPDIFRX_HandleTypeDef *hspdif);        /*!< SPDIFRX error callback */
   void (* MspInitCallback)(struct __SPDIFRX_HandleTypeDef *hspdif);     /*!< SPDIFRX Msp Init callback  */
@@ -172,9 +182,6 @@ typedef struct
 #endif /* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
 
 } SPDIFRX_HandleTypeDef;
-/**
-  * @}
-  */
 
 #if (USE_HAL_SPDIFRX_REGISTER_CALLBACKS == 1)
 /**
@@ -194,9 +201,12 @@ typedef enum
 /**
   * @brief  HAL SPDIFRX Callback pointer definition
   */
-typedef  void (*pSPDIFRX_CallbackTypeDef)(SPDIFRX_HandleTypeDef *hspdif);  /*!< pointer to an SPDIFRX callback function */
+typedef  void (*pSPDIFRX_CallbackTypeDef)(SPDIFRX_HandleTypeDef *hspdif);  /*!< pointer to an SPDIFRX callback
+                                                                                function */
 #endif /* USE_HAL_SPDIFRX_REGISTER_CALLBACKS */
-
+/**
+  * @}
+  */
 /* Exported constants --------------------------------------------------------*/
 /** @defgroup SPDIFRX_Exported_Constants SPDIFRX Exported Constants
   * @{
@@ -260,8 +270,10 @@ typedef  void (*pSPDIFRX_CallbackTypeDef)(SPDIFRX_HandleTypeDef *hspdif);  /*!< 
 /** @defgroup SPDIFRX_ChannelStatus_Mask  SPDIFRX Channel Status Mask
   * @{
   */
-#define SPDIFRX_CHANNELSTATUS_OFF   ((uint32_t)0x00000000U)        /* The channel status and user bits are copied into the SPDIF_DR */
-#define SPDIFRX_CHANNELSTATUS_ON    ((uint32_t)SPDIFRX_CR_CUMSK)  /* The channel status and user bits are not copied into the SPDIF_DR, zeros are written instead*/
+#define SPDIFRX_CHANNELSTATUS_OFF   ((uint32_t)0x00000000U)       /* The channel status and user bits are copied
+                                                                     into the SPDIF_DR */
+#define SPDIFRX_CHANNELSTATUS_ON    ((uint32_t)SPDIFRX_CR_CUMSK)  /* The channel status and user bits are not copied
+                                                                     into the SPDIF_DR, zeros are written instead*/
 /**
   * @}
   */

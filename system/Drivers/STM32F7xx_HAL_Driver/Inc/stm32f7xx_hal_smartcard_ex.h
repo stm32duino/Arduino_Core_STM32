@@ -79,6 +79,9 @@ extern "C" {
 #if defined(USART_TCBGT_SUPPORT)
 #define SMARTCARD_FLAG_TCBGT          USART_ISR_TCBGT         /*!< SMARTCARD transmission complete before guard time completion */
 #endif /* USART_TCBGT_SUPPORT */
+#if defined(USART_ISR_REACK)
+#define SMARTCARD_FLAG_REACK          USART_ISR_REACK         /*!< SMARTCARD receive enable acknowledge flag  */
+#endif /* USART_ISR_REACK */
 #define SMARTCARD_FLAG_TEACK          USART_ISR_TEACK         /*!< SMARTCARD transmit enable acknowledge flag */
 #define SMARTCARD_FLAG_BUSY           USART_ISR_BUSY          /*!< SMARTCARD busy flag                        */
 #define SMARTCARD_FLAG_EOBF           USART_ISR_EOBF          /*!< SMARTCARD end of block flag                */

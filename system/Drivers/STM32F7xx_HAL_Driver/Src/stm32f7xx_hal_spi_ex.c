@@ -76,7 +76,7 @@
   *               the configuration information for the specified SPI module.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SPIEx_FlushRxFifo(SPI_HandleTypeDef *hspi)
+HAL_StatusTypeDef HAL_SPIEx_FlushRxFifo(const SPI_HandleTypeDef *hspi)
 {
   __IO uint32_t tmpreg;
   uint8_t  count = 0U;
