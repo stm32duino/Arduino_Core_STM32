@@ -66,7 +66,7 @@ include(external_library)
 # Please write them in using the DEPENDS ... clause
 # The same directives apply as for `build_sketch()` just below.
 {% for libdir in libs | sort %}
-external_library(PATH "{{"${USER_LIBS}"}}/{{libdir}}")
+# external_library(PATH "{{"${USER_LIBS}"}}/{{libdir}}")
 {% endfor %}
 
 include(build_sketch)
