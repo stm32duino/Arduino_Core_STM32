@@ -20,9 +20,9 @@ list(APPEND CMAKE_MODULE_PATH {{"${CORE_PATH}"}}/cmake)
 set(CMAKE_TOOLCHAIN_FILE toolchain)
 
 
-# You may remove this block when using this file as the sketch's CMakeLists.txt
+# This block can be removed when using this file as the sketch's CMakeLists.txt
 if (NOT ${CMAKE_PARENT_LIST_FILE} STREQUAL ${CMAKE_CURRENT_LIST_FILE})
-    # When we are imported from the main CMakeLists.txt, we should stop here
+    # When imported from the main CMakeLists.txt, it should stop here
     # not to interfere with the true build config.
     return()
 endif()
@@ -62,7 +62,7 @@ overall_settings(
 # STEP 3: configure your sketch
 # -----------------------------------------------------------------------------
 include(external_library)
-# I cannot tell the dependencies of the library ahead-of-time
+# Cannot tell the dependencies of the library ahead-of-time
 # Please write them in using the DEPENDS ... clause
 # The same directives apply as for `build_sketch()` just below.
 {% for libdir in libs | sort %}
