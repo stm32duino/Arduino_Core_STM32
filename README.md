@@ -75,7 +75,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [Generic STM32WBA boards](#generic-stm32wba-boards)
  - [Generic STM32WL boards](#generic-stm32wl-boards)
  - [3D printer boards](#3d-printer-boards)
- - [Blues Wireless boards](#blues-wireless-boards)
+ - [Blues boards](#blues-boards)
  - [Elecgator boards](#elecgator-boards)
  - [Electronic Speed Controller boards](#electronic-speed-controller-boards)
  - [Garatronic/McHobby boards](#garatronicmchobby-boards)
@@ -772,11 +772,12 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F446VE | [FYSETC_S6](https://wiki.fysetc.com/FYSETC_S6/) | *1.9.0* | |
 | :green_heart:  | STM32G0B1CB | [BTT EBB42 CAN V1.1](https://github.com/bigtreetech/EBB/tree/master/EBB%20CAN%20V1.1%20(STM32G0B1)/EBB42%20CAN%20V1.1) | *2.4.0* |  |
 
-### [Blues Wireless](https://blues.io/) boards
+### [Blues](https://blues.com/) boards
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :green_heart:  | STM32L4R5ZIYx | [Swan R5](https://blues.io/products/swan) | *2.1.0* |  |
+| :green_heart:  | STM32L4R5ZIYx | [Swan R5](https://blues.com/products/swan)  |  *2.1.0*  | |
+| :yellow_heart: | STM32L433CC   | [Cygnet](https://blues.com/products) | **2.8.0** | |
 
 ### [Elecgator](https://www.elecgator.com/) boards
 

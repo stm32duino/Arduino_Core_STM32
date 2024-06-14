@@ -106100,6 +106100,88 @@ target_compile_options(SWAN_R5_xusb_HSFS INTERFACE
   "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
 )
 
+# CYGNET
+# -----------------------------------------------------------------------------
+
+set(CYGNET_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)")
+set(CYGNET_MAXSIZE 262144)
+set(CYGNET_MAXDATASIZE 65536)
+set(CYGNET_MCU cortex-m4)
+set(CYGNET_FPCONF "fpv4-sp-d16-hard")
+add_library(CYGNET INTERFACE)
+target_compile_options(CYGNET INTERFACE
+  "SHELL:-DSTM32L4xx  "
+  "SHELL:-DCUSTOM_PERIPHERAL_PINS"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${CYGNET_MCU}
+)
+target_compile_definitions(CYGNET INTERFACE
+  "STM32L4xx"
+	"ARDUINO_CYGNET"
+	"BOARD_NAME=\"CYGNET\""
+	"BOARD_ID=CYGNET"
+	"VARIANT_H=\"variant_CYGNET.h\""
+)
+target_include_directories(CYGNET INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc/
+  ${CYGNET_VARIANT_PATH}
+)
+
+target_link_options(CYGNET INTERFACE
+  "LINKER:--default-script=${CYGNET_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0x0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${CYGNET_MCU}
+)
+
+add_library(CYGNET_serial_disabled INTERFACE)
+target_compile_options(CYGNET_serial_disabled INTERFACE
+  "SHELL:"
+)
+add_library(CYGNET_serial_generic INTERFACE)
+target_compile_options(CYGNET_serial_generic INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED"
+)
+add_library(CYGNET_serial_none INTERFACE)
+target_compile_options(CYGNET_serial_none INTERFACE
+  "SHELL:-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE"
+)
+add_library(CYGNET_usb_CDC INTERFACE)
+target_compile_options(CYGNET_usb_CDC INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=-1 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB"
+)
+add_library(CYGNET_usb_CDCgen INTERFACE)
+target_compile_options(CYGNET_usb_CDCgen INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=-1 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_CDC"
+)
+add_library(CYGNET_usb_HID INTERFACE)
+target_compile_options(CYGNET_usb_HID INTERFACE
+  "SHELL:-DUSBCON  -DUSBD_VID=0 -DUSBD_PID=-1 -DHAL_PCD_MODULE_ENABLED -DUSBD_USE_HID_COMPOSITE"
+)
+add_library(CYGNET_usb_none INTERFACE)
+target_compile_options(CYGNET_usb_none INTERFACE
+  "SHELL:"
+)
+add_library(CYGNET_xusb_FS INTERFACE)
+target_compile_options(CYGNET_xusb_FS INTERFACE
+  "SHELL:"
+)
+add_library(CYGNET_xusb_HS INTERFACE)
+target_compile_options(CYGNET_xusb_HS INTERFACE
+  "SHELL:-DUSE_USB_HS"
+)
+add_library(CYGNET_xusb_HSFS INTERFACE)
+target_compile_options(CYGNET_xusb_HSFS INTERFACE
+  "SHELL:-DUSE_USB_HS -DUSE_USB_HS_IN_FS"
+)
+
 # THUNDERPACK_F411
 # -----------------------------------------------------------------------------
 

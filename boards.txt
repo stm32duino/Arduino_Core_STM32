@@ -10779,46 +10779,63 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
-# Blues Wireless boards
+# Blues boards
 
-BluesW.name=Blues Wireless boards
+Blues.name=Blues boards
 
-BluesW.build.core=arduino
-BluesW.build.board=BluesWireless
-BluesW.build.variant_h=variant_{build.board}.h
-BluesW.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
-BluesW.build.flash_offset=0x0
-BluesW.upload.maximum_size=0
-BluesW.upload.maximum_data_size=0
+Blues.build.core=arduino
+Blues.build.board=Blues
+Blues.build.variant_h=variant_{build.board}.h
+Blues.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Blues.build.flash_offset=0x0
+Blues.upload.maximum_size=0
+Blues.upload.maximum_data_size=0
 
 # Swan R5 board
-BluesW.menu.pnum.SWAN_R5=Swan R5
-BluesW.menu.pnum.SWAN_R5.upload.maximum_size=2097152
-BluesW.menu.pnum.SWAN_R5.upload.maximum_data_size=655360
-BluesW.menu.pnum.SWAN_R5.build.mcu=cortex-m4
-BluesW.menu.pnum.SWAN_R5.build.fpu=-mfpu=fpv4-sp-d16
-BluesW.menu.pnum.SWAN_R5.build.float-abi=-mfloat-abi=hard
-BluesW.menu.pnum.SWAN_R5.build.board=SWAN_R5
-BluesW.menu.pnum.SWAN_R5.build.series=STM32L4xx
-BluesW.menu.pnum.SWAN_R5.build.product_line=STM32L4R5xx
-BluesW.menu.pnum.SWAN_R5.build.variant=STM32L4xx/L4R5Z(G-I)Y_L4R9Z(G-I)Y_L4S5ZIY_L4S9ZIY
-BluesW.menu.pnum.SWAN_R5.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Blues.menu.pnum.SWAN_R5=Swan R5
+Blues.menu.pnum.SWAN_R5.upload.maximum_size=2097152
+Blues.menu.pnum.SWAN_R5.upload.maximum_data_size=655360
+Blues.menu.pnum.SWAN_R5.build.mcu=cortex-m4
+Blues.menu.pnum.SWAN_R5.build.fpu=-mfpu=fpv4-sp-d16
+Blues.menu.pnum.SWAN_R5.build.float-abi=-mfloat-abi=hard
+Blues.menu.pnum.SWAN_R5.build.board=SWAN_R5
+Blues.menu.pnum.SWAN_R5.build.series=STM32L4xx
+Blues.menu.pnum.SWAN_R5.build.product_line=STM32L4R5xx
+Blues.menu.pnum.SWAN_R5.build.variant=STM32L4xx/L4R5Z(G-I)Y_L4R9Z(G-I)Y_L4S5ZIY_L4S9ZIY
+Blues.menu.pnum.SWAN_R5.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Blues.menu.pnum.SWAN_R5.build.vid=0x30A4
+Blues.menu.pnum.SWAN_R5.build.pid=0x0002
+
+# Cygnet board
+Blues.menu.pnum.CYGNET=Cygnet
+Blues.menu.pnum.CYGNET.upload.maximum_size=262144
+Blues.menu.pnum.CYGNET.upload.maximum_data_size=65536
+Blues.menu.pnum.CYGNET.build.mcu=cortex-m4
+Blues.menu.pnum.CYGNET.build.fpu=-mfpu=fpv4-sp-d16
+Blues.menu.pnum.CYGNET.build.float-abi=-mfloat-abi=hard
+Blues.menu.pnum.CYGNET.build.board=CYGNET
+Blues.menu.pnum.CYGNET.build.series=STM32L4xx
+Blues.menu.pnum.CYGNET.build.product_line=STM32L433xx
+Blues.menu.pnum.CYGNET.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
+Blues.menu.pnum.CYGNET.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Blues.menu.pnum.CYGNET_L4.build.vid=0x30A4
+Blues.menu.pnum.CYGNET_L4.build.pid=0x0003
 
 # Upload menu
-BluesW.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
-BluesW.menu.upload_method.swdMethod.upload.protocol=0
-BluesW.menu.upload_method.swdMethod.upload.options=
-BluesW.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+Blues.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+Blues.menu.upload_method.swdMethod.upload.protocol=0
+Blues.menu.upload_method.swdMethod.upload.options=
+Blues.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
-BluesW.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
-BluesW.menu.upload_method.serialMethod.upload.protocol=1
-BluesW.menu.upload_method.serialMethod.upload.options={serial.port.file}
-BluesW.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+Blues.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+Blues.menu.upload_method.serialMethod.upload.protocol=1
+Blues.menu.upload_method.serialMethod.upload.options={serial.port.file}
+Blues.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
-BluesW.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
-BluesW.menu.upload_method.dfuMethod.upload.protocol=2
-BluesW.menu.upload_method.dfuMethod.upload.options=
-BluesW.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+Blues.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+Blues.menu.upload_method.dfuMethod.upload.protocol=2
+Blues.menu.upload_method.dfuMethod.upload.options=
+Blues.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
 # Elecgator boards
@@ -11549,11 +11566,11 @@ GenWL.menu.xserial.disabled.build.xSerial=
 3dprinter.menu.xserial.disabled=Disabled (no Serial support)
 3dprinter.menu.xserial.disabled.build.xSerial=
 
-BluesW.menu.xserial.generic=Enabled (generic 'Serial')
-BluesW.menu.xserial.none=Enabled (no generic 'Serial')
-BluesW.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-BluesW.menu.xserial.disabled=Disabled (no Serial support)
-BluesW.menu.xserial.disabled.build.xSerial=
+Blues.menu.xserial.generic=Enabled (generic 'Serial')
+Blues.menu.xserial.none=Enabled (no generic 'Serial')
+Blues.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+Blues.menu.xserial.disabled=Disabled (no Serial support)
+Blues.menu.xserial.disabled.build.xSerial=
 
 Elecgator.menu.xserial.generic=Enabled (generic 'Serial')
 Elecgator.menu.xserial.none=Enabled (no generic 'Serial')
@@ -11874,18 +11891,18 @@ GenWB.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 3dprinter.menu.xusb.HSFS=High Speed in Full Speed mode
 3dprinter.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
-BluesW.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
-BluesW.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
-BluesW.menu.usb.CDC=CDC (no generic 'Serial')
-BluesW.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
-BluesW.menu.usb.HID=HID (keyboard and mouse)
-BluesW.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-BluesW.menu.usb.none=None
-BluesW.menu.xusb.FS=Low/Full Speed
-BluesW.menu.xusb.HS=High Speed
-BluesW.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
-BluesW.menu.xusb.HSFS=High Speed in Full Speed mode
-BluesW.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+Blues.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+Blues.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Blues.menu.usb.CDC=CDC (no generic 'Serial')
+Blues.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+Blues.menu.usb.HID=HID (keyboard and mouse)
+Blues.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Blues.menu.usb.none=None
+Blues.menu.xusb.FS=Low/Full Speed
+Blues.menu.xusb.HS=High Speed
+Blues.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+Blues.menu.xusb.HSFS=High Speed in Full Speed mode
+Blues.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 Elecgator.menu.usb.none=None
 Elecgator.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
@@ -12479,25 +12496,25 @@ GenWL.menu.opt.o0std.build.flags.optimize=-O0
 3dprinter.menu.opt.o0std=No Optimization (-O0)
 3dprinter.menu.opt.o0std.build.flags.optimize=-O0
 
-BluesW.menu.opt.osstd=Smallest (-Os default)
-BluesW.menu.opt.oslto=Smallest (-Os) with LTO
-BluesW.menu.opt.oslto.build.flags.optimize=-Os -flto
-BluesW.menu.opt.o1std=Fast (-O1)
-BluesW.menu.opt.o1std.build.flags.optimize=-O1
-BluesW.menu.opt.o1lto=Fast (-O1) with LTO
-BluesW.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-BluesW.menu.opt.o2std=Faster (-O2)
-BluesW.menu.opt.o2std.build.flags.optimize=-O2
-BluesW.menu.opt.o2lto=Faster (-O2) with LTO
-BluesW.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-BluesW.menu.opt.o3std=Fastest (-O3)
-BluesW.menu.opt.o3std.build.flags.optimize=-O3
-BluesW.menu.opt.o3lto=Fastest (-O3) with LTO
-BluesW.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-BluesW.menu.opt.ogstd=Debug (-Og)
-BluesW.menu.opt.ogstd.build.flags.optimize=-Og
-BluesW.menu.opt.o0std=No Optimization (-O0)
-BluesW.menu.opt.o0std.build.flags.optimize=-O0
+Blues.menu.opt.osstd=Smallest (-Os default)
+Blues.menu.opt.oslto=Smallest (-Os) with LTO
+Blues.menu.opt.oslto.build.flags.optimize=-Os -flto
+Blues.menu.opt.o1std=Fast (-O1)
+Blues.menu.opt.o1std.build.flags.optimize=-O1
+Blues.menu.opt.o1lto=Fast (-O1) with LTO
+Blues.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+Blues.menu.opt.o2std=Faster (-O2)
+Blues.menu.opt.o2std.build.flags.optimize=-O2
+Blues.menu.opt.o2lto=Faster (-O2) with LTO
+Blues.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+Blues.menu.opt.o3std=Fastest (-O3)
+Blues.menu.opt.o3std.build.flags.optimize=-O3
+Blues.menu.opt.o3lto=Fastest (-O3) with LTO
+Blues.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+Blues.menu.opt.ogstd=Debug (-Og)
+Blues.menu.opt.ogstd.build.flags.optimize=-Og
+Blues.menu.opt.o0std=No Optimization (-O0)
+Blues.menu.opt.o0std.build.flags.optimize=-O0
 
 Elecgator.menu.opt.osstd=Smallest (-Os default)
 Elecgator.menu.opt.oslto=Smallest (-Os) with LTO
@@ -12876,13 +12893,13 @@ GenWL.menu.dbg.enable_all.build.flags.debug=-g
 3dprinter.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 3dprinter.menu.dbg.enable_all.build.flags.debug=-g
 
-BluesW.menu.dbg.none=None
-BluesW.menu.dbg.enable_sym=Symbols Enabled (-g)
-BluesW.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
-BluesW.menu.dbg.enable_log=Core logs Enabled
-BluesW.menu.dbg.enable_log.build.flags.debug=
-BluesW.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
-BluesW.menu.dbg.enable_all.build.flags.debug=-g
+Blues.menu.dbg.none=None
+Blues.menu.dbg.enable_sym=Symbols Enabled (-g)
+Blues.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+Blues.menu.dbg.enable_log=Core logs Enabled
+Blues.menu.dbg.enable_log.build.flags.debug=
+Blues.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+Blues.menu.dbg.enable_all.build.flags.debug=-g
 
 Elecgator.menu.dbg.none=None
 Elecgator.menu.dbg.enable_sym=Symbols Enabled (-g)
@@ -13217,15 +13234,15 @@ GenWL.menu.rtlib.full.build.flags.ldspecs=
 3dprinter.menu.rtlib.full=Newlib Standard
 3dprinter.menu.rtlib.full.build.flags.ldspecs=
 
-BluesW.menu.rtlib.nano=Newlib Nano (default)
-BluesW.menu.rtlib.nanofp=Newlib Nano + Float Printf
-BluesW.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
-BluesW.menu.rtlib.nanofs=Newlib Nano + Float Scanf
-BluesW.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
-BluesW.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
-BluesW.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
-BluesW.menu.rtlib.full=Newlib Standard
-BluesW.menu.rtlib.full.build.flags.ldspecs=
+Blues.menu.rtlib.nano=Newlib Nano (default)
+Blues.menu.rtlib.nanofp=Newlib Nano + Float Printf
+Blues.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+Blues.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+Blues.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+Blues.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+Blues.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+Blues.menu.rtlib.full=Newlib Standard
+Blues.menu.rtlib.full.build.flags.ldspecs=
 
 Elecgator.menu.rtlib.nano=Newlib Nano (default)
 Elecgator.menu.rtlib.nanofp=Newlib Nano + Float Printf
