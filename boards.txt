@@ -23,6 +23,23 @@ Nucleo_144.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build
 Nucleo_144.build.flash_offset=0x0
 Nucleo_144.upload.maximum_size=0
 Nucleo_144.upload.maximum_data_size=0
+Nucleo_144.vid.0=0x0483
+Nucleo_144.pid.0=0x5740
+Nucleo_144.vid.1=0x0483
+# STlink V1/V2.1/V3
+Nucleo_144.pid.1=0x3744
+Nucleo_144.vid.2=0x0483
+Nucleo_144.pid.2=0x3748
+Nucleo_144.vid.3=0x0483
+Nucleo_144.pid.3=0x374b
+Nucleo_144.vid.4=0x0483
+Nucleo_144.pid.4=0x374e
+Nucleo_144.vid.5=0x0483
+Nucleo_144.pid.5=0x374f
+Nucleo_144.vid.6=0x0483
+Nucleo_144.pid.6=0x3752
+Nucleo_144.vid.7=0x0483
+Nucleo_144.pid.7=0x3753
 
 # NUCLEO_F207ZG board
 Nucleo_144.menu.pnum.NUCLEO_F207ZG=Nucleo F207ZG
@@ -335,6 +352,22 @@ Nucleo_64.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.
 Nucleo_64.build.flash_offset=0x0
 Nucleo_64.upload.maximum_size=0
 Nucleo_64.upload.maximum_data_size=0
+Nucleo_64.vid.0=0x0483
+Nucleo_64.pid.0=0x5740
+# STlink V1/V2.1/V3
+Nucleo_64.pid.1=0x3744
+Nucleo_64.vid.2=0x0483
+Nucleo_64.pid.2=0x3748
+Nucleo_64.vid.3=0x0483
+Nucleo_64.pid.3=0x374b
+Nucleo_64.vid.4=0x0483
+Nucleo_64.pid.4=0x374e
+Nucleo_64.vid.5=0x0483
+Nucleo_64.pid.5=0x374f
+Nucleo_64.vid.6=0x0483
+Nucleo_64.pid.6=0x3752
+Nucleo_64.vid.7=0x0483
+Nucleo_64.pid.7=0x3753
 
 # NUCLEO_C031C6 board
 Nucleo_64.menu.pnum.NUCLEO_C031C6=Nucleo C031C6
@@ -738,6 +771,22 @@ Nucleo_32.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.
 Nucleo_32.build.flash_offset=0x0
 Nucleo_32.upload.maximum_size=0
 Nucleo_32.upload.maximum_data_size=0
+Nucleo_32.vid.0=0x0483
+Nucleo_32.pid.0=0x5740
+# STlink V1/V2.1/V3
+Nucleo_32.pid.1=0x3744
+Nucleo_32.vid.2=0x0483
+Nucleo_32.pid.2=0x3748
+Nucleo_32.vid.3=0x0483
+Nucleo_32.pid.3=0x374b
+Nucleo_32.vid.4=0x0483
+Nucleo_32.pid.4=0x374e
+Nucleo_32.vid.5=0x0483
+Nucleo_32.pid.5=0x374f
+Nucleo_32.vid.6=0x0483
+Nucleo_32.pid.6=0x3752
+Nucleo_32.vid.7=0x0483
+Nucleo_32.pid.7=0x3753
 
 # NUCLEO_F031K6 board
 Nucleo_32.menu.pnum.NUCLEO_F031K6=Nucleo F031K6
@@ -868,6 +917,22 @@ Disco.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 Disco.build.flash_offset=0x0
 Disco.upload.maximum_size=0
 Disco.upload.maximum_data_size=0
+Disco.vid.0=0x0483
+Disco.pid.0=0x5740
+# STlink V1/V2.1/V3
+Disco.pid.1=0x3744
+Disco.vid.2=0x0483
+Disco.pid.2=0x3748
+Disco.vid.3=0x0483
+Disco.pid.3=0x374b
+Disco.vid.4=0x0483
+Disco.pid.4=0x374e
+Disco.vid.5=0x0483
+Disco.pid.5=0x374f
+Disco.vid.6=0x0483
+Disco.pid.6=0x3752
+Disco.vid.7=0x0483
+Disco.pid.7=0x3753
 
 # B_G431B_ESC1 board
 Disco.menu.pnum.B_G431B_ESC1=B-G431B-ESC1
@@ -1136,6 +1201,22 @@ Eval.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSeri
 Eval.build.flash_offset=0x0
 Eval.upload.maximum_size=0
 Eval.upload.maximum_data_size=0
+Eval.vid.0=0x0483
+Eval.pid.0=0x5740
+# STlink V1/V2.1/V3
+Eval.pid.1=0x3744
+Eval.vid.2=0x0483
+Eval.pid.2=0x3748
+Eval.vid.3=0x0483
+Eval.pid.3=0x374b
+Eval.vid.4=0x0483
+Eval.pid.4=0x374e
+Eval.vid.5=0x0483
+Eval.pid.5=0x374f
+Eval.vid.6=0x0483
+Eval.pid.6=0x3752
+Eval.vid.7=0x0483
+Eval.pid.7=0x3753
 
 # STEVAL_MKSBOX1V1 board
 Eval.menu.pnum.STEVAL_MKSBOX1V1=SensorTile.box
@@ -1181,6 +1262,8 @@ STM32MP1.name=STM32MP1 series coprocessor
 STM32MP1.build.flash_offset=0x0
 STM32MP1.upload.maximum_size=0
 STM32MP1.upload.maximum_data_size=0
+STM32MP1.vid.0=0x0483
+STM32MP1.pid.0=0x5740
 
 STM32MP1.build.core=arduino
 STM32MP1.build.board=STM32MP1
@@ -1227,6 +1310,8 @@ GenC0.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=
 GenC0.build.flash_offset=0x0
 GenC0.upload.maximum_size=0
 GenC0.upload.maximum_data_size=0
+GenC0.vid.0=0x0483
+GenC0.pid.0=0x5740
 
 # Generic C011D6Yx
 GenC0.menu.pnum.GENERIC_C011D6YX=Generic C011D6Yx
@@ -1355,6 +1440,8 @@ GenF0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 GenF0.build.flash_offset=0x0
 GenF0.upload.maximum_size=0
 GenF0.upload.maximum_data_size=0
+GenF0.vid.0=0x0483
+GenF0.pid.0=0x5740
 
 # DEMO_F030F4 board
 GenF0.menu.pnum.DEMO_F030F4=STM32F030F4 Demo board (HSE 8Mhz)
@@ -2163,6 +2250,11 @@ GenF1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 GenF1.build.flash_offset=0x0
 GenF1.upload.maximum_size=0
 GenF1.upload.maximum_data_size=0
+GenF1.vid.0=0x0483
+GenF1.pid.0=0x5740
+# DFU mode on built-in bootloader not available, assuming using STM32duino-bootloader
+GenF1.upload.vid.0=0xleaf
+GenF1.upload.pid.0=0x0003
 
 # BLUEPILL_F103C6 board
 GenF1.menu.pnum.BLUEPILL_F103C6=BluePill F103C6 (32K)
@@ -2892,7 +2984,6 @@ GenF1.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID
 GenF1.menu.upload_method.dfu2Method=Maple DFU Bootloader 2.0
 GenF1.menu.upload_method.dfu2Method.upload.protocol=maple
 GenF1.menu.upload_method.dfu2Method.upload.tool=maple_upload
-GenF1.menu.upload_method.dfu2Method.upload.usbID=1EAF:0003
 GenF1.menu.upload_method.dfu2Method.upload.altID=2
 GenF1.menu.upload_method.dfu2Method.build.flash_offset=0x2000
 GenF1.menu.upload_method.dfu2Method.build.bootloader_flags=-DBL_LEGACY_LEAF
@@ -2900,7 +2991,6 @@ GenF1.menu.upload_method.dfu2Method.build.bootloader_flags=-DBL_LEGACY_LEAF
 GenF1.menu.upload_method.dfuoMethod=Maple DFU Bootloader original
 GenF1.menu.upload_method.dfuoMethod.upload.protocol=maple
 GenF1.menu.upload_method.dfuoMethod.upload.tool=maple_upload
-GenF1.menu.upload_method.dfuoMethod.upload.usbID=1EAF:0003
 GenF1.menu.upload_method.dfuoMethod.upload.altID=1
 GenF1.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
 GenF1.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF
@@ -2917,6 +3007,8 @@ GenF2.build.series=STM32F2xx
 GenF2.build.flash_offset=0x0
 GenF2.upload.maximum_size=0
 GenF2.upload.maximum_data_size=0
+GenF2.vid.0=0x0483
+GenF2.pid.0=0x5740
 
 # Generic F205RBTx
 GenF2.menu.pnum.GENERIC_F205RBTX=Generic F205RBTx
@@ -3325,6 +3417,8 @@ GenF3.build.series=STM32F3xx
 GenF3.build.flash_offset=0x0
 GenF3.upload.maximum_size=0
 GenF3.upload.maximum_data_size=0
+GenF3.vid.0=0x0483
+GenF3.pid.0=0x5740
 
 # BLACKPILL_F303CC
 GenF3.menu.pnum.BLACKPILL_F303CC=RobotDyn BlackPill F303CC
@@ -3731,6 +3825,8 @@ GenF4.build.series=STM32F4xx
 GenF4.build.flash_offset=0x0
 GenF4.upload.maximum_size=0
 GenF4.upload.maximum_data_size=0
+GenF4.vid.0=0x0483
+GenF4.pid.0=0x5740
 
 # Black F407VE
 # https://github.com/mcauser/BLACK_F407VEZ
@@ -4639,6 +4735,8 @@ GenF7.build.series=STM32F7xx
 GenF7.build.flash_offset=0x0
 GenF7.upload.maximum_size=0
 GenF7.upload.maximum_data_size=0
+GenF7.vid.0=0x0483
+GenF7.pid.0=0x5740
 
 # Generic F722RCTx
 GenF7.menu.pnum.GENERIC_F722RCTX=Generic F722RCTx
@@ -5108,6 +5206,8 @@ GenG0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 GenG0.build.flash_offset=0x0
 GenG0.upload.maximum_size=0
 GenG0.upload.maximum_data_size=0
+GenG0.vid.0=0x0483
+GenG0.pid.0=0x5740
 
 # AGAFIA SG0
 GenG0.menu.pnum.AGAFIA_SG0=AGAFIA SG0
@@ -6365,6 +6465,8 @@ GenG4.build.series=STM32G4xx
 GenG4.build.flash_offset=0x0
 GenG4.upload.maximum_size=0
 GenG4.upload.maximum_data_size=0
+GenG4.vid.0=0x0483
+GenG4.pid.0=0x5740
 
 # Generic G431C6Tx
 GenG4.menu.pnum.GENERIC_G431C6TX=Generic G431C6Tx
@@ -7374,8 +7476,6 @@ GenG4.menu.pnum.GENERIC_G4A1VETX.build.board=GENERIC_G4A1VETX
 GenG4.menu.pnum.GENERIC_G4A1VETX.build.product_line=STM32G4A1xx
 GenG4.menu.pnum.GENERIC_G4A1VETX.build.variant=STM32G4xx/G491V(C-E)T_G4A1VET
 
-
-
 # Upload menu
 GenG4.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenG4.menu.upload_method.swdMethod.upload.protocol=0
@@ -7406,6 +7506,8 @@ GenH5.build.series=STM32H5xx
 GenH5.build.flash_offset=0x0
 GenH5.upload.maximum_size=0
 GenH5.upload.maximum_data_size=0
+GenH5.vid.0=0x0483
+GenH5.pid.0=0x5740
 
 # Generic H503RBTx
 GenH5.menu.pnum.GENERIC_H503RBTX=Generic H503RBTx
@@ -7485,6 +7587,8 @@ GenH7.build.mcu=cortex-m7
 GenH7.build.flash_offset=0x0
 GenH7.upload.maximum_size=0
 GenH7.upload.maximum_data_size=0
+GenH7.vid.0=0x0483
+GenH7.pid.0=0x5740
 
 # Daisy Seed board
 GenH7.menu.pnum.DAISY_SEED=Daisy Seed
@@ -8051,6 +8155,8 @@ GenL0.build.series=STM32L0xx
 GenL0.build.flash_offset=0x0
 GenL0.upload.maximum_size=0
 GenL0.upload.maximum_data_size=0
+GenL0.vid.0=0x0483
+GenL0.pid.0=0x5740
 
 # ThunderPack
 GenL0.menu.pnum.THUNDERPACK_L072=ThunderPack v1.0
@@ -9160,6 +9266,8 @@ GenL1.build.series=STM32L1xx
 GenL1.build.flash_offset=0x0
 GenL1.upload.maximum_size=0
 GenL1.upload.maximum_data_size=0
+GenL1.vid.0=0x0483
+GenL1.pid.0=0x5740
 
 # Generic L100C6Ux
 GenL1.menu.pnum.GENERIC_L100C6UX=Generic L100C6Ux
@@ -9447,6 +9555,8 @@ GenL4.build.series=STM32L4xx
 GenL4.build.flash_offset=0x0
 GenL4.upload.maximum_size=0
 GenL4.upload.maximum_data_size=0
+GenL4.vid.0=0x0483
+GenL4.pid.0=0x5740
 
 # Leafony AP03
 GenL4.menu.pnum.LEAFONY_AP03=Leafony AP03
@@ -10127,6 +10237,8 @@ GenL5.build.series=STM32L5xx
 GenL5.build.flash_offset=0x0
 GenL5.upload.maximum_size=0
 GenL5.upload.maximum_data_size=0
+GenL5.vid.0=0x0483
+GenL5.pid.0=0x5740
 
 # Generic L552ZCTxQ
 GenL5.menu.pnum.GENERIC_L552ZCTXQ=Generic L552ZCTxQ
@@ -10182,6 +10294,8 @@ GenU5.build.series=STM32U5xx
 GenU5.build.flash_offset=0x0
 GenU5.upload.maximum_size=0
 GenU5.upload.maximum_data_size=0
+GenU5.vid.0=0x0483
+GenU5.pid.0=0x5740
 
 # Generic U575AGIxQ
 GenU5.menu.pnum.GENERIC_U575AGIXQ=Generic U575AGIxQ
@@ -10293,6 +10407,8 @@ GenWB.build.series=STM32WBxx
 GenWB.build.flash_offset=0x0
 GenWB.upload.maximum_size=0
 GenWB.upload.maximum_data_size=0
+GenWB.vid.0=0x0483
+GenWB.pid.0=0x5740
 
 # Generic WB15CCUx
 GenWB.menu.pnum.GENERIC_WB15CCUX=Generic WB15CCUx
@@ -10388,6 +10504,8 @@ GenWBA.build.series=STM32WBAxx
 GenWBA.build.flash_offset=0x0
 GenWBA.upload.maximum_size=0
 GenWBA.upload.maximum_data_size=0
+GenWBA.vid.0=0x0483
+GenWBA.pid.0=0x5740
 
 # Generic WBA55CEUx
 GenWBA.menu.pnum.GENERIC_WBA55CEUX=Generic WBA55CEUx
@@ -10430,6 +10548,8 @@ GenWL.build.series=STM32WLxx
 GenWL.build.flash_offset=0x0
 GenWL.upload.maximum_size=0
 GenWL.upload.maximum_data_size=0
+GenWL.vid.0=0x0483
+GenWL.pid.0=0x5740
 
 # Generic WL54CCUx
 GenWL.menu.pnum.GENERIC_WL54CCUX=Generic WL54CCUx
@@ -10587,6 +10707,8 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.build.flash_offset=0x0
 3dprinter.upload.maximum_size=0
 3dprinter.upload.maximum_data_size=0
+3dprinter.vid.0=0x0483
+3dprinter.pid.0=0x5740
 
 # ARMED_V1 board
 3dprinter.menu.pnum.ARMED_V1=Armed V1
@@ -10790,6 +10912,7 @@ Blues.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 Blues.build.flash_offset=0x0
 Blues.upload.maximum_size=0
 Blues.upload.maximum_data_size=0
+Blues.vid.0=0x30A4
 
 # Swan R5 board
 Blues.menu.pnum.SWAN_R5=Swan R5
@@ -10803,8 +10926,7 @@ Blues.menu.pnum.SWAN_R5.build.series=STM32L4xx
 Blues.menu.pnum.SWAN_R5.build.product_line=STM32L4R5xx
 Blues.menu.pnum.SWAN_R5.build.variant=STM32L4xx/L4R5Z(G-I)Y_L4R9Z(G-I)Y_L4S5ZIY_L4S9ZIY
 Blues.menu.pnum.SWAN_R5.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Blues.menu.pnum.SWAN_R5.build.vid=0x30A4
-Blues.menu.pnum.SWAN_R5.build.pid=0x0002
+Blues.menu.pnum.SWAN_R5.pid.0=0x0002
 
 # Cygnet board
 Blues.menu.pnum.CYGNET=Cygnet
@@ -10818,7 +10940,6 @@ Blues.menu.pnum.CYGNET.build.series=STM32L4xx
 Blues.menu.pnum.CYGNET.build.product_line=STM32L433xx
 Blues.menu.pnum.CYGNET.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
 Blues.menu.pnum.CYGNET.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Blues.menu.pnum.CYGNET.build.vid=0x30A4
 Blues.menu.pnum.CYGNET.build.pid=0x0003
 
 # Upload menu
@@ -10849,6 +10970,8 @@ Elecgator.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.
 Elecgator.build.flash_offset=0x0
 Elecgator.upload.maximum_size=0
 Elecgator.upload.maximum_data_size=0
+Elecgator.vid.0=0x0483
+Elecgator.pid.0=0x5740
 
 # EtherCATduino board
 Elecgator.menu.pnum.ETHERCAT_DUINO=EtherCATduino
@@ -10886,6 +11009,8 @@ ESC_board.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.
 ESC_board.build.flash_offset=0x0
 ESC_board.upload.maximum_size=0
 ESC_board.upload.maximum_data_size=0
+ESC_board.vid.0=0x0483
+ESC_board.pid.0=0x5740
 
 # WRAITH32_V1 board
 ESC_board.menu.pnum.WRAITH32_V1=Wraith V1 ESC
@@ -10937,6 +11062,8 @@ Garatronic.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build
 Garatronic.build.flash_offset=0x0
 Garatronic.upload.maximum_size=0
 Garatronic.upload.maximum_data_size=0
+Garatronic.vid.0=0x0483
+Garatronic.pid.0=0x5740
 
 # PYBSTICK26(DUINO) board with F072RB
 Garatronic.menu.pnum.PYBSTICK26_DUINO=PYBSTICK26 Duino
@@ -11006,6 +11133,8 @@ GenFlight.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.
 GenFlight.build.flash_offset=0x0
 GenFlight.upload.maximum_size=0
 GenFlight.upload.maximum_data_size=0
+GenFlight.vid.0=0x0483
+GenFlight.pid.0=0x5740
 
 # AfroFlight Rev5
 GenFlight.menu.pnum.AFROFLIGHT_F103CB=Afro Flight Rev5 (8MHz)
@@ -11017,6 +11146,8 @@ GenFlight.menu.pnum.AFROFLIGHT_F103CB.build.board=AFROFLIGHT_F103CB
 GenFlight.menu.pnum.AFROFLIGHT_F103CB.build.product_line=STM32F103xB
 GenFlight.menu.pnum.AFROFLIGHT_F103CB.build.variant=STM32F1xx/F103C8T_F103CB(T-U)
 GenFlight.menu.pnum.AFROFLIGHT_F103CB.build.variant_h=variant_AFROFLIGHT_F103CB_XX.h
+GenFlight.menu.pnum.AFROFLIGHT_F103CB.upload.vid.0=0xleaf
+GenFlight.menu.pnum.AFROFLIGHT_F103CB.upload.pid.0=0x0003
 
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M=Afro Flight Rev5 (12MHz)
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.upload.maximum_size=131072
@@ -11027,6 +11158,8 @@ GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.build.board=AFROFLIGHT_F103CB_12M
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.build.product_line=STM32F103xB
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.build.variant=STM32F1xx/F103C8T_F103CB(T-U)
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.build.variant_h=variant_AFROFLIGHT_F103CB_XX.h
+GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.upload.vid.0=0xleaf
+GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.upload.pid.0=0x0003
 
 # Sparky_V1 board
 GenFlight.menu.pnum.Sparky_V1=Sparky V1 F303 FC
@@ -11070,7 +11203,6 @@ GenFlight.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID
 GenFlight.menu.upload_method.dfu2Method=Maple DFU Bootloader 2.0
 GenFlight.menu.upload_method.dfu2Method.upload.protocol=maple
 GenFlight.menu.upload_method.dfu2Method.upload.tool=maple_upload
-GenFlight.menu.upload_method.dfu2Method.upload.usbID=1EAF:0003
 GenFlight.menu.upload_method.dfu2Method.upload.altID=2
 GenFlight.menu.upload_method.dfu2Method.build.flash_offset=0x2000
 GenFlight.menu.upload_method.dfu2Method.build.bootloader_flags=-DBL_LEGACY_LEAF
@@ -11078,7 +11210,6 @@ GenFlight.menu.upload_method.dfu2Method.build.bootloader_flags=-DBL_LEGACY_LEAF
 GenFlight.menu.upload_method.dfuoMethod=Maple DFU Bootloader original
 GenFlight.menu.upload_method.dfuoMethod.upload.protocol=maple
 GenFlight.menu.upload_method.dfuoMethod.upload.tool=maple_upload
-GenFlight.menu.upload_method.dfuoMethod.upload.usbID=1EAF:0003
 GenFlight.menu.upload_method.dfuoMethod.upload.altID=1
 GenFlight.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
 GenFlight.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF
@@ -11095,6 +11226,8 @@ IotContinuum.build.st_extra_flags=-D{build.product_line} {build.xSerial}
 IotContinuum.build.flash_offset=0x0
 IotContinuum.upload.maximum_size=0
 IotContinuum.upload.maximum_data_size=0
+IotContinuum.vid.0=0x0483
+IotContinuum.pid.0=0x5740
 
 # IoT continuum Dev Kit Board
 IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM=IoT continuum Dev Kit
@@ -11136,6 +11269,8 @@ LoRa.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSeri
 LoRa.build.flash_offset=0x0
 LoRa.upload.maximum_size=0
 LoRa.upload.maximum_data_size=0
+LoRa.vid.0=0x0483
+LoRa.pid.0=0x5740
 
 # ACSIP S76S board
 LoRa.menu.pnum.ACSIP_S76S=ACSIP S76S
@@ -11272,6 +11407,8 @@ Midatronics.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {buil
 Midatronics.build.flash_offset=0x0
 Midatronics.upload.maximum_size=0
 Midatronics.upload.maximum_data_size=0
+Midatronics.vid.0=0x0483
+Midatronics.pid.0=0x5740
 
 # MKR_SHARKY board
 Midatronics.menu.pnum.MKR_SHARKY=MKR Sharky
@@ -11318,6 +11455,8 @@ SparkFun.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.x
 SparkFun.build.flash_offset=0x0
 SparkFun.upload.maximum_size=0
 SparkFun.upload.maximum_data_size=0
+SparkFun.vid.0=0x0483
+SparkFun.pid.0=0x5740
 
 # SFE_MMPB_STM32WB5MMG board
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG=SparkFun MicroMod STM32WB5MMG
@@ -11331,8 +11470,8 @@ SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.series=STM32WBxx
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.product_line=STM32WB5Mxx
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.variant=STM32WBxx/WB5MMGH
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.vid=0x1B4F
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.pid=0x0034
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.vid.0=0x1B4F
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.pid.0=0x0034
 
 # SparkFun MicroMod STM32F405 Board
 SparkFun.menu.pnum.MICROMOD_F405=SparkFun MicroMod STM32F405
@@ -11347,8 +11486,8 @@ SparkFun.menu.pnum.MICROMOD_F405.build.product_line=STM32F405xx
 SparkFun.menu.pnum.MICROMOD_F405.build.variant_h=variant_{build.board}.h
 SparkFun.menu.pnum.MICROMOD_F405.build.variant=STM32F4xx/F405RGT_F415RGT
 SparkFun.menu.pnum.MICROMOD_F405.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-SparkFun.menu.pnum.MICROMOD_F405.build.vid=0x1B4F
-SparkFun.menu.pnum.MICROMOD_F405.build.pid=0x0029
+SparkFun.menu.pnum.MICROMOD_F405.vid.0=0x1B4F
+SparkFun.menu.pnum.MICROMOD_F405.pid.0=0x0029
 
 # Upload menu
 SparkFun.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
@@ -11375,6 +11514,8 @@ ELV_Modular_System.build.board=ELV_Modular_System
 ELV_Modular_System.build.variant_h=variant_{build.board}.h
 ELV_Modular_System.upload.maximum_size=0
 ELV_Modular_System.upload.maximum_data_size=0
+ELV_Modular_System.vid.0=0x0483
+ELV_Modular_System.pid.0=0x5740
 
 # ELV-BM-TRX1 board
 ELV_Modular_System.menu.pnum.ELV_BM_TRX1=ELV-LW-Base ELV_BM_TRX1
@@ -11393,7 +11534,6 @@ ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.st_extra_flags=-D{build.product_l
 ELV_Modular_System.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD) with Bootloader
 ELV_Modular_System.menu.upload_method.swdMethod.upload.protocol=0
 ELV_Modular_System.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
-
 
 ELV_Modular_System.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial) with Bootloader
 ELV_Modular_System.menu.upload_method.serialMethod.upload.protocol=1
