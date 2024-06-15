@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 
-import pathlib
 import argparse
-
+from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
-
 from parse_boards import parse_file
 
 
@@ -76,26 +74,26 @@ def regenerate_template(config, infile, outfile):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-b", "--boards", type=pathlib.Path, required=True, help="path to boards.txt"
+        "-b", "--boards", type=Path, required=True, help="path to boards.txt"
     )
     parser.add_argument(
         "-p",
         "--platform",
-        type=pathlib.Path,
+        type=Path,
         required=True,
         help="path to platform.txt",
     )
     parser.add_argument(
         "-t",
         "--template",
-        type=pathlib.Path,
+        type=Path,
         required=True,
         help="path to the jinja template",
     )
     parser.add_argument(
         "-o",
         "--outfile",
-        type=pathlib.Path,
+        type=Path,
         required=True,
         help="path to the cmake database to generate",
     )
