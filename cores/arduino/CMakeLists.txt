@@ -31,29 +31,6 @@ add_library(core_bin STATIC EXCLUDE_FROM_ALL
   pins_arduino.c
   Print.cpp
   RingBuffer.cpp
-  stm32/OpenAMP/libmetal/device.c
-  stm32/OpenAMP/libmetal/generic/condition.c
-  stm32/OpenAMP/libmetal/generic/cortexm/sys.c
-  stm32/OpenAMP/libmetal/generic/generic_device.c
-  stm32/OpenAMP/libmetal/generic/generic_init.c
-  stm32/OpenAMP/libmetal/generic/generic_io.c
-  stm32/OpenAMP/libmetal/generic/generic_shmem.c
-  stm32/OpenAMP/libmetal/generic/time.c
-  stm32/OpenAMP/libmetal/init.c
-  stm32/OpenAMP/libmetal/io.c
-  stm32/OpenAMP/libmetal/log.c
-  stm32/OpenAMP/libmetal/shmem.c
-  stm32/OpenAMP/mbox_ipcc.c
-  stm32/OpenAMP/open-amp/remoteproc/remoteproc_virtio.c
-  stm32/OpenAMP/open-amp/rpmsg/rpmsg.c
-  stm32/OpenAMP/open-amp/rpmsg/rpmsg_virtio.c
-  stm32/OpenAMP/openamp.c
-  stm32/OpenAMP/rsc_table.c
-  stm32/OpenAMP/virt_uart.c
-  stm32/OpenAMP/virtio/virtio.c
-  stm32/OpenAMP/virtio/virtqueue.c
-  stm32/OpenAMP/virtio_buffer.c
-  stm32/OpenAMP/virtio_log.c
   stm32/startup_stm32yyxx.S
   stm32/usb/cdc/cdc_queue.c
   stm32/usb/cdc/usbd_cdc.c
@@ -70,7 +47,6 @@ add_library(core_bin STATIC EXCLUDE_FROM_ALL
   Stream.cpp
   Tone.cpp
   USBSerial.cpp
-  VirtIOSerial.cpp
   WInterrupts.cpp
   wiring_analog.c
   wiring_digital.c

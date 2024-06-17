@@ -91,6 +91,7 @@ build_sketch(TARGET "{{tgtname or "@binary_name_here@"}}"
   # SD
   # Wire
   # SPI
+  # VirtIO
 )
 
 # STEP 4: optional features

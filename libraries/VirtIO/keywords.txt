@@ -1,0 +1,30 @@
+#######################################
+# Syntax Coloring Map For VirtIO
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+VirtIOSerial	KEYWORD1
+VIRT_UART_HandleTypeDef	KEYWORD1
+VirtIOSerialObj_t	KEYWORD1
+virtio_buffer_t	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+SerialVirtIO	KEYWORD2
+begin	KEYWORD2
+available	KEYWORD2
+availableForWrite	KEYWORD2
+peek	KEYWORD2
+read	KEYWORD2
+readBytes	KEYWORD2
+write	KEYWORD2
+flush	KEYWORD2
+rxGenericCallback	KEYWORD2
+rxCallback	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################

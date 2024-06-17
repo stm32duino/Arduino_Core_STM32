@@ -103,9 +103,9 @@ See [OpenAMP] and [Linux RPMsg] to learn more.
 
 To increase the performance of SerialVirtIO you can resize the related buffer configurations. There are three definitions you can use:
 
-* [`VRING_NUM_BUFFS`](/cores/arduino/stm32/OpenAMP/virtio_config.h)
-* [`RPMSG_BUFFER_SIZE`](/cores/arduino/stm32/OpenAMP/virtio_config.h)
-* [`VIRTIO_BUFFER_SIZE`](/cores/arduino/stm32/OpenAMP/virtio_buffer.h)
+* [`VRING_NUM_BUFFS`](/libraries/VirtIO/inc/virtio_config.h)
+* [`RPMSG_BUFFER_SIZE`](/libraries/VirtIO/inc/virtio_config.h)
+* [`VIRTIO_BUFFER_SIZE`](/libraries/VirtIO/inc/virtio_buffer.h)
 
 The recommended option is to resize `VRING_NUM_BUFFS`. Be very cautious when resizing `RPMSG_BUFFER_SIZE`, which must be matched with the Linux kernel definition. Also `VIRTIO_BUFFER_SIZE` has the minimum required size depending on the other two. See their links above for further descriptions.
 
@@ -122,7 +122,7 @@ Here is a basic echo example:
 int available;
 char buffer[1024];
 
-unsigned long time = 0;
+unsigned long start_time = 0;
 
 void setup() {
   // You can SerialVirtIO.begin() and use SerialVirtIO later instead.
@@ -140,8 +140,8 @@ void loop() {
   }
 
   // Heartbeat. If Arduino stops the LED won't flash anymore.
-  if ((millis() - time) > 1000) {
-    time = millis();
+  if ((millis() - start_time) > 1000) {
+    start_time = millis();
     digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
   }
 }
@@ -308,11 +308,11 @@ And then the Device Tree should enable TIM1 for the coprocessor, although this d
 
 [OpenAMP]: https://github.com/OpenAMP/open-amp/wiki/OpenAMP-Overview
 [Linux RPMsg]: https://wiki.st.com/stm32mpu/wiki/Linux_RPMsg_framework_overview
-[a hard restriction of the write size]: /cores/arduino/VirtIOSerial.cpp#L148
+[a hard restriction of the write size]: /libraries/VirtIO/src/VirtIOSerial.cpp#L148
 
 [build_opt.h]: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Customize-build-options-using-build_opt.h
 [build_opt.h description in wiki]: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Customize-build-options-using-build_opt.h
-[virtio_log.h]: /cores/arduino/stm32/OpenAMP/virtio_log.h
+[virtio_log.h]: /libraries/VirtIO/inc/virtio_log.h
 
 [`variant_STM32MP157_DK.h` of the board]: /variants/STM32MP1xx/MP153AAC_MP153CAC_MP153DAC_MP153FAC_MP157AAC_MP157CAC_MP157DAC_MP157FAC/variant_STM32MP157_DK.h
 
