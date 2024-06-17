@@ -37,7 +37,10 @@ const PinName digitalPin[] = {
   PA_5,  // D18/A4 - SB3 ON also connected to PB7
   PA_6,  // D19/A5 - SB2 ON also connected to PA15
   PA_7,  // D20/A6
-  PA_2   // D21/A7 - SB1 ON VCP TX
+  PA_2,  // D21/A7 - SB1 ON VCP TX
+  PB_3,  // D22 - D13 if SB7 OFF SB6 ON
+  PA_13, // D23 - SWDIO
+  PA_15  // D24 - SWCLK
 };
 
 // Analog (Ax) pin number array
