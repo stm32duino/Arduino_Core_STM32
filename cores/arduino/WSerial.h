@@ -3,7 +3,9 @@
 
 #include "variant.h"
 #include "HardwareSerial.h"
-#include "USBSerial.h"
+#if defined (USBCON) && defined(USBD_USE_CDC)
+  #include "USBSerial.h"
+#endif /* USBCON && USBD_USE_CDC */
 #if defined(VIRTIOCON)
   #include "VirtIOSerial.h"
 #endif /* VIRTIOCON */

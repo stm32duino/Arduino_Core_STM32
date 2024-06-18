@@ -32,21 +32,8 @@ add_library(core_bin STATIC EXCLUDE_FROM_ALL
   Print.cpp
   RingBuffer.cpp
   stm32/startup_stm32yyxx.S
-  stm32/usb/cdc/cdc_queue.c
-  stm32/usb/cdc/usbd_cdc.c
-  stm32/usb/cdc/usbd_cdc_if.c
-  stm32/usb/hid/usbd_hid_composite.c
-  stm32/usb/hid/usbd_hid_composite_if.c
-  stm32/usb/usb_device_core.c
-  stm32/usb/usb_device_ctlreq.c
-  stm32/usb/usb_device_ioreq.c
-  stm32/usb/usbd_conf.c
-  stm32/usb/usbd_desc.c
-  stm32/usb/usbd_ep_conf.c
-  stm32/usb/usbd_if.c
   Stream.cpp
   Tone.cpp
-  USBSerial.cpp
   WInterrupts.cpp
   wiring_analog.c
   wiring_digital.c

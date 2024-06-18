@@ -9,14 +9,14 @@ Note: most license information is available on top of each source file
 
 [BSD 3-Clause License](#bsd-3-clause-license) is used for:
 
-* cores/arduino/stm32/ mainly contains source from STMicroelectronics.
 * system/Drivers/STM32*xx_HAL_Driver folders include the STMicroelectronics HAL Drivers
 * system/Middlewares/OpenAMP
 * libraries/VirtIO - except virtio implementation (see [MIT License](#mit-license))
 * libraries/SrcWrapper/inc/PinName*.h
 
 [Ultimate Liberty License](#Ultimate-Liberty-License) is used for:
-* system/Middlewares/STM32_USB_*_Library/ folders
+* system/Middlewares/STM32_USB_*_Library folders
+* libraries/USBDevice (see header)
 
 [Apache License](#apache-license) is used for:
 * system/Drivers/CMSIS folder includes the STMicroelectronics CMSIS device
