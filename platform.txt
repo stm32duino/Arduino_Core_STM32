@@ -225,7 +225,7 @@ tools.maple_upload.script=maple_upload.sh
 tools.maple_upload.path={runtime.tools.STM32Tools.path}
 tools.maple_upload.upload.params.verbose=-d
 tools.maple_upload.upload.params.quiet=n
-tools.maple_upload.upload.pattern="{busybox}" sh "{path}/{script}" {serial.port.file} {upload.altID} {upload.vid} {upload.pid} "{build.path}/{build.project_name}.dfu"
+tools.maple_upload.upload.pattern="{busybox}" sh "{path}/{script}" {serial.port.file} {upload.altID} {upload.vid} {upload.pid} "{build.path}/{build.project_name}.bin"
 
 # STM32MP1 self-contained shell script
 tools.remoteproc_gen.path={runtime.tools.STM32Tools.path}
