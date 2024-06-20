@@ -24,15 +24,18 @@ tools_bin_path.macosx={runtime.tools.STM32Tools.path}/macosx
 tools_bin_path.linux={runtime.tools.STM32Tools.path}/linux
 
 core_stm32_dir={build.core.path}/stm32
-core_usb_dir={core_stm32_dir}/usb
 hal_dir={build.system.path}/Drivers/{build.series}_HAL_Driver
 cmsis_dir={runtime.tools.CMSIS-5.9.0.path}/CMSIS
 cmsis_dev_dir={build.system.path}/Drivers/CMSIS/Device/ST/{build.series}
 usbd_core_dir={build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core
+SrcWrapper_include_dir={runtime.platform.path}/libraries/SrcWrapper/inc
+VirtIO_include_dir={runtime.platform.path}/libraries/VirtIO/inc
+USBDevice_include_dir={runtime.platform.path}/libraries/USBDevice/inc
+
 
 # STM compile variables
 # ----------------------
-compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{core_stm32_dir}" "-I{core_stm32_dir}/LL" "-I{core_usb_dir}" "-I{core_stm32_dir}/OpenAMP" "-I{core_usb_dir}/hid" "-I{core_usb_dir}/cdc" "-I{hal_dir}/Inc" "-I{hal_dir}/Src" "-I{build.system.path}/{build.series}" "-I{usbd_core_dir}/Inc" "-I{usbd_core_dir}/Src" {build.virtio_extra_include}
+compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{core_stm32_dir}" "-I{SrcWrapper_include_dir}" "-I{SrcWrapper_include_dir}/LL" "-I{hal_dir}/Inc" "-I{hal_dir}/Src" "-I{build.system.path}/{build.series}" "-I{USBDevice_include_dir}" "-I{usbd_core_dir}/Inc" "-I{usbd_core_dir}/Src" "-I{VirtIO_include_dir}" {build.virtio_extra_include}
 compiler.arm.cmsis.c.flags="-I{cmsis_dir}/Core/Include/" "-I{cmsis_dev_dir}/Include/" "-I{cmsis_dev_dir}/Source/Templates/gcc/" "-I{cmsis_dir}/DSP/Include" "-I{cmsis_dir}/DSP/PrivateInclude"
 
 compiler.warning_flags=-w
@@ -144,7 +147,7 @@ build.opt.path={build.path}/sketch/{build.opt.name}
 extras.path={build.system.path}/extras
 
 # Create {build.opt} if not exists in the output sketch dir and force include of SrcWrapper library
-recipe.hooks.prebuild.1.pattern="{busybox}" sh "{extras.path}/prebuild.sh" "{build.path}" "{build.source.path}" "{runtime.platform.path}"
+recipe.hooks.prebuild.1.pattern="{busybox}" sh "{extras.path}/prebuild.sh" "{build.path}" "{build.source.path}" "{runtime.platform.path}" "usb={build.enable_usb}" "virtio={build.enable_virtio}"
 recipe.hooks.postbuild.1.pattern="{busybox}" sh "{extras.path}/postbuild.sh" "{build.path}" "{build.series}" "{runtime.platform.path}"
 
 # compile patterns

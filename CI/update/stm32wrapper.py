@@ -97,7 +97,7 @@ def checkConfig(arg_core, arg_cmsis):
 
     HALoutSrc_path = SrcWrapper_path / "src" / "HAL"
     LLoutSrc_path = SrcWrapper_path / "src" / "LL"
-    LLoutInc_path = core_path / "cores" / "arduino" / "stm32" / "LL"
+    LLoutInc_path = SrcWrapper_path / "inc" / "LL"
 
     if arg_cmsis is not None:
         CMSIS_path = Path(arg_cmsis).resolve()

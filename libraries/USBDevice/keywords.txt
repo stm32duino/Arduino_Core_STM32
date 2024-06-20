@@ -1,0 +1,44 @@
+#######################################
+# Syntax Coloring Map For USBDevice
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+USBSerial	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+SerialUSB	KEYWORD2
+begin	KEYWORD2
+available	KEYWORD2
+availableForWrite	KEYWORD2
+peek	KEYWORD2
+read	KEYWORD2
+readBytes	KEYWORD2
+readBytesUntil
+write	KEYWORD2
+flush	KEYWORD2
+baud	KEYWORD2
+stopbits	KEYWORD2
+paritytype	KEYWORD2
+numbits	KEYWORD2
+dtr	KEYWORD2
+dtr	KEYWORD2
+rts	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+USBD_VID	LITERAL1
+USBD_PID	LITERAL1
+USBD_MANUFACTURER_STRING	LITERAL1
+ONE_STOP_BIT	LITERAL1
+ONE_AND_HALF_STOP_BIT	LITERAL1
+TWO_STOP_BITS	LITERAL1
+NO_PARITY	LITERAL1
+ODD_PARITY	LITERAL1
+EVEN_PARITY	LITERAL1
+MARK_PARITY	LITERAL1
+SPACE_PARITY	LITERAL1

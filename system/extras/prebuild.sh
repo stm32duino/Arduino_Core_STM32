@@ -3,6 +3,8 @@
 BUILD_PATH="$1"
 BUILD_SOURCE_PATH="$2"
 BOARD_PLATFORM_PATH="$3"
+BUILD_USB="$4"
+BUILD_VIRTIO="$5"
 
 # Create sketch dir if not exists
 if [ ! -f "$BUILD_PATH/sketch" ]; then
@@ -43,4 +45,12 @@ esac
 printf '\n-fmacro-prefix-map="%s"=.' "${prefix}" >>"$BUILD_PATH/sketch/build.opt"
 
 # Force include of SrcWrapper library
-echo "#include <SrcWrapper.h>" >"$BUILD_PATH/sketch/SrcWrapper.cpp"
+echo "#include <SrcWrapper.h>" >"$BUILD_PATH/sketch/requiredLibraries.cpp"
+# Force include of USBDevice library if required
+if [ -n "${BUILD_USB#*=}" ]; then
+  echo "#include <USBDevice.h>" >>"$BUILD_PATH/sketch/requiredLibraries.cpp"
+fi
+# Force include of VirtIO library if required
+if [ -n "${BUILD_VIRTIO#*=}" ]; then
+  echo "#include <VirtIO.h>" >>"$BUILD_PATH/sketch/requiredLibraries.cpp"
+fi

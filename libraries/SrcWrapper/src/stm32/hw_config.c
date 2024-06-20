@@ -13,7 +13,9 @@
 #include "dwt.h"
 #include "hw_config.h"
 #include "clock.h"
-#include "usbd_if.h"
+#if defined (USBCON) && defined(USBD_USE_CDC)
+  #include "usbd_if.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {
