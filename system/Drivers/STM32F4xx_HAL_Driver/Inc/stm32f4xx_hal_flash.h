@@ -20,7 +20,7 @@
 #define __STM32F4xx_HAL_FLASH_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -71,7 +71,7 @@ typedef struct
 
   __IO uint32_t               ErrorCode;          /* FLASH error code                    */
 
-}FLASH_ProcessTypeDef;
+} FLASH_ProcessTypeDef;
 
 /**
   * @}
@@ -224,7 +224,7 @@ typedef struct
   * @retval None
   */
 #define __HAL_FLASH_INSTRUCTION_CACHE_RESET() do {FLASH->ACR |= FLASH_ACR_ICRST;  \
-                                                  FLASH->ACR &= ~FLASH_ACR_ICRST; \
+                                                   FLASH->ACR &= ~FLASH_ACR_ICRST; \
                                                  }while(0U)
 
 /**
@@ -233,7 +233,7 @@ typedef struct
   * @retval None
   */
 #define __HAL_FLASH_DATA_CACHE_RESET() do {FLASH->ACR |= FLASH_ACR_DCRST;  \
-                                           FLASH->ACR &= ~FLASH_ACR_DCRST; \
+                                            FLASH->ACR &= ~FLASH_ACR_DCRST; \
                                           }while(0U)
 /**
   * @brief  Enable the specified FLASH interrupt.

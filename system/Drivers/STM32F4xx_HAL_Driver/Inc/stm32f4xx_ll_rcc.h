@@ -622,7 +622,7 @@ typedef struct
 #define LL_RCC_SDIO_CLKSOURCE            RCC_DCKCFGR2_SDIOSEL  /*!< SDIO Clock source selection */
 #else
 #define LL_RCC_SDIO_CLKSOURCE            RCC_PLLCFGR_PLLQ      /*!< SDIO Clock source selection */
-#endif
+#endif /* RCC_DCKCFGR_SDIOSEL */
 /**
   * @}
   */
@@ -1572,7 +1572,7 @@ typedef struct
   * @retval PLL clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_PLLCLK_FREQ(__INPUTFREQ__, __PLLM__, __PLLN__, __PLLP__) ((__INPUTFREQ__) / (__PLLM__) * (__PLLN__) / \
-                   ((((__PLLP__) >> RCC_PLLCFGR_PLLP_Pos ) + 1U) * 2U))
+                                                                                ((((__PLLP__) >> RCC_PLLCFGR_PLLP_Pos ) + 1U) * 2U))
 
 #if defined(RCC_PLLR_SYSCLK_SUPPORT)
 /**
@@ -1654,7 +1654,7 @@ typedef struct
   * @retval PLL clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_PLLRCLK_FREQ(__INPUTFREQ__, __PLLM__, __PLLN__, __PLLR__) ((__INPUTFREQ__) / (__PLLM__) * (__PLLN__) / \
-                   ((__PLLR__) >> RCC_PLLCFGR_PLLR_Pos ))
+    ((__PLLR__) >> RCC_PLLCFGR_PLLR_Pos ))
 
 #endif /* RCC_PLLR_SYSCLK_SUPPORT */
 
@@ -1747,7 +1747,7 @@ typedef struct
   * @retval PLL clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_PLLCLK_48M_FREQ(__INPUTFREQ__, __PLLM__, __PLLN__, __PLLQ__) ((__INPUTFREQ__) / (__PLLM__) * (__PLLN__) / \
-                   ((__PLLQ__) >> RCC_PLLCFGR_PLLQ_Pos ))
+    ((__PLLQ__) >> RCC_PLLCFGR_PLLQ_Pos ))
 
 #if defined(DSI)
 /**
@@ -1829,7 +1829,7 @@ typedef struct
   * @retval PLL clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_PLLCLK_DSI_FREQ(__INPUTFREQ__, __PLLM__, __PLLN__, __PLLR__) ((__INPUTFREQ__) / (__PLLM__) * (__PLLN__) / \
-                   ((__PLLR__) >> RCC_PLLCFGR_PLLR_Pos ))
+    ((__PLLR__) >> RCC_PLLCFGR_PLLR_Pos ))
 #endif /* DSI */
 
 #if defined(RCC_PLLR_I2S_CLKSOURCE_SUPPORT)
@@ -1912,7 +1912,7 @@ typedef struct
   * @retval PLL clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_PLLCLK_I2S_FREQ(__INPUTFREQ__, __PLLM__, __PLLN__, __PLLR__) ((__INPUTFREQ__) / (__PLLM__) * (__PLLN__) / \
-                   ((__PLLR__) >> RCC_PLLCFGR_PLLR_Pos ))
+    ((__PLLR__) >> RCC_PLLCFGR_PLLR_Pos ))
 #endif /* RCC_PLLR_I2S_CLKSOURCE_SUPPORT */
 
 #if defined(SPDIFRX)
@@ -1995,7 +1995,7 @@ typedef struct
   * @retval PLL clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_PLLCLK_SPDIFRX_FREQ(__INPUTFREQ__, __PLLM__, __PLLN__, __PLLR__) ((__INPUTFREQ__) / (__PLLM__) * (__PLLN__) / \
-                   ((__PLLR__) >> RCC_PLLCFGR_PLLR_Pos ))
+    ((__PLLR__) >> RCC_PLLCFGR_PLLR_Pos ))
 #endif /* SPDIFRX */
 
 #if defined(RCC_PLLCFGR_PLLR)
@@ -2114,10 +2114,10 @@ typedef struct
   */
 #if defined(RCC_DCKCFGR_PLLDIVR)
 #define __LL_RCC_CALC_PLLCLK_SAI_FREQ(__INPUTFREQ__, __PLLM__, __PLLN__, __PLLR__, __PLLDIVR__) (((__INPUTFREQ__) / (__PLLM__) * (__PLLN__) / \
-                   ((__PLLR__) >> RCC_PLLCFGR_PLLR_Pos )) / ((__PLLDIVR__) >> RCC_DCKCFGR_PLLDIVR_Pos ))
+    ((__PLLR__) >> RCC_PLLCFGR_PLLR_Pos )) / ((__PLLDIVR__) >> RCC_DCKCFGR_PLLDIVR_Pos ))
 #else
 #define __LL_RCC_CALC_PLLCLK_SAI_FREQ(__INPUTFREQ__, __PLLM__, __PLLN__, __PLLR__) ((__INPUTFREQ__) / (__PLLM__) * (__PLLN__) / \
-                   ((__PLLR__) >> RCC_PLLCFGR_PLLR_Pos ))
+    ((__PLLR__) >> RCC_PLLCFGR_PLLR_Pos ))
 #endif /* RCC_DCKCFGR_PLLDIVR */
 #endif /* SAI1 */
 #endif /* RCC_PLLCFGR_PLLR */
@@ -2245,7 +2245,7 @@ typedef struct
   * @retval PLLSAI clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_PLLSAI_SAI_FREQ(__INPUTFREQ__, __PLLM__, __PLLSAIN__, __PLLSAIQ__, __PLLSAIDIVQ__) (((__INPUTFREQ__) / (__PLLM__)) * (__PLLSAIN__) / \
-                   (((__PLLSAIQ__) >> RCC_PLLSAICFGR_PLLSAIQ_Pos) * (((__PLLSAIDIVQ__) >> RCC_DCKCFGR_PLLSAIDIVQ_Pos) + 1U)))
+    (((__PLLSAIQ__) >> RCC_PLLSAICFGR_PLLSAIQ_Pos) * (((__PLLSAIDIVQ__) >> RCC_DCKCFGR_PLLSAIDIVQ_Pos) + 1U)))
 
 #if defined(RCC_PLLSAICFGR_PLLSAIP)
 /**
@@ -2325,7 +2325,7 @@ typedef struct
   * @retval PLLSAI clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_PLLSAI_48M_FREQ(__INPUTFREQ__, __PLLM__, __PLLSAIN__, __PLLSAIP__) (((__INPUTFREQ__) / (__PLLM__)) * (__PLLSAIN__) / \
-                   ((((__PLLSAIP__) >> RCC_PLLSAICFGR_PLLSAIP_Pos) + 1U) * 2U))
+    ((((__PLLSAIP__) >> RCC_PLLSAICFGR_PLLSAIP_Pos) + 1U) * 2U))
 #endif /* RCC_PLLSAICFGR_PLLSAIP */
 
 #if defined(LTDC)
@@ -2415,7 +2415,7 @@ typedef struct
   * @retval PLLSAI clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_PLLSAI_LTDC_FREQ(__INPUTFREQ__, __PLLM__, __PLLSAIN__, __PLLSAIR__, __PLLSAIDIVR__) (((__INPUTFREQ__) / (__PLLM__)) * (__PLLSAIN__) / \
-                   (((__PLLSAIR__) >> RCC_PLLSAICFGR_PLLSAIR_Pos) * (aRCC_PLLSAIDIVRPrescTable[(__PLLSAIDIVR__) >> RCC_DCKCFGR_PLLSAIDIVR_Pos])))
+    (((__PLLSAIR__) >> RCC_PLLSAICFGR_PLLSAIR_Pos) * (aRCC_PLLSAIDIVRPrescTable[(__PLLSAIDIVR__) >> RCC_DCKCFGR_PLLSAIDIVR_Pos])))
 #endif /* LTDC */
 #endif /* RCC_PLLSAI_SUPPORT */
 
@@ -2585,10 +2585,10 @@ typedef struct
   */
 #if defined(RCC_DCKCFGR_PLLI2SDIVQ)
 #define __LL_RCC_CALC_PLLI2S_SAI_FREQ(__INPUTFREQ__, __PLLM__, __PLLI2SN__, __PLLI2SQ_R__, __PLLI2SDIVQ_R__) (((__INPUTFREQ__) / (__PLLM__)) * (__PLLI2SN__) / \
-                   (((__PLLI2SQ_R__) >> RCC_PLLI2SCFGR_PLLI2SQ_Pos) * (((__PLLI2SDIVQ_R__) >> RCC_DCKCFGR_PLLI2SDIVQ_Pos) + 1U)))
+    (((__PLLI2SQ_R__) >> RCC_PLLI2SCFGR_PLLI2SQ_Pos) * (((__PLLI2SDIVQ_R__) >> RCC_DCKCFGR_PLLI2SDIVQ_Pos) + 1U)))
 #else
 #define __LL_RCC_CALC_PLLI2S_SAI_FREQ(__INPUTFREQ__, __PLLM__, __PLLI2SN__, __PLLI2SQ_R__, __PLLI2SDIVQ_R__) (((__INPUTFREQ__) / (__PLLM__)) * (__PLLI2SN__) / \
-                   (((__PLLI2SQ_R__) >> RCC_PLLI2SCFGR_PLLI2SR_Pos) * ((__PLLI2SDIVQ_R__) >> RCC_DCKCFGR_PLLI2SDIVR_Pos)))
+    (((__PLLI2SQ_R__) >> RCC_PLLI2SCFGR_PLLI2SR_Pos) * ((__PLLI2SDIVQ_R__) >> RCC_DCKCFGR_PLLI2SDIVR_Pos)))
 
 #endif /* RCC_DCKCFGR_PLLI2SDIVQ */
 #endif /* RCC_DCKCFGR_PLLI2SDIVQ || RCC_DCKCFGR_PLLI2SDIVR */
@@ -2671,7 +2671,7 @@ typedef struct
   * @retval PLLI2S clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_PLLI2S_SPDIFRX_FREQ(__INPUTFREQ__, __PLLM__, __PLLI2SN__, __PLLI2SP__) (((__INPUTFREQ__) / (__PLLM__)) * (__PLLI2SN__) / \
-                   ((((__PLLI2SP__) >> RCC_PLLI2SCFGR_PLLI2SP_Pos) + 1U) * 2U))
+    ((((__PLLI2SP__) >> RCC_PLLI2SCFGR_PLLI2SP_Pos) + 1U) * 2U))
 
 #endif /* SPDIFRX */
 
@@ -2756,7 +2756,7 @@ typedef struct
   * @retval PLLI2S clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_PLLI2S_I2S_FREQ(__INPUTFREQ__, __PLLM__, __PLLI2SN__, __PLLI2SR__) (((__INPUTFREQ__) / (__PLLM__)) * (__PLLI2SN__) / \
-                   ((__PLLI2SR__) >> RCC_PLLI2SCFGR_PLLI2SR_Pos))
+    ((__PLLI2SR__) >> RCC_PLLI2SCFGR_PLLI2SR_Pos))
 
 #if defined(RCC_PLLI2SCFGR_PLLI2SQ) && !defined(RCC_DCKCFGR_PLLI2SDIVQ)
 /**
@@ -2846,7 +2846,7 @@ typedef struct
   * @retval PLLI2S clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_PLLI2S_48M_FREQ(__INPUTFREQ__, __PLLM__, __PLLI2SN__, __PLLI2SQ__) (((__INPUTFREQ__) / (__PLLM__)) * (__PLLI2SN__) / \
-                   ((__PLLI2SQ__) >> RCC_PLLI2SCFGR_PLLI2SQ_Pos))
+    ((__PLLI2SQ__) >> RCC_PLLI2SCFGR_PLLI2SQ_Pos))
 
 #endif /* RCC_PLLI2SCFGR_PLLI2SQ && !RCC_DCKCFGR_PLLI2SDIVQ */
 #endif /* RCC_PLLI2S_SUPPORT */
@@ -2866,7 +2866,8 @@ typedef struct
   *         @arg @ref LL_RCC_SYSCLK_DIV_512
   * @retval HCLK clock frequency (in Hz)
   */
-#define __LL_RCC_CALC_HCLK_FREQ(__SYSCLKFREQ__, __AHBPRESCALER__) ((__SYSCLKFREQ__) >> AHBPrescTable[((__AHBPRESCALER__) & RCC_CFGR_HPRE) >>  RCC_CFGR_HPRE_Pos])
+#define __LL_RCC_CALC_HCLK_FREQ(__SYSCLKFREQ__, __AHBPRESCALER__) ((__SYSCLKFREQ__) >> AHBPrescTable[((__AHBPRESCALER__) &\
+                                                                   RCC_CFGR_HPRE) >>  RCC_CFGR_HPRE_Pos])
 
 /**
   * @brief  Helper macro to calculate the PCLK1 frequency (ABP1)
@@ -3389,7 +3390,7 @@ __STATIC_INLINE void LL_RCC_MCO2_Disable(void)
   */
 __STATIC_INLINE void LL_RCC_ConfigMCO(uint32_t MCOxSource, uint32_t MCOxPrescaler)
 {
-  MODIFY_REG(RCC->CFGR, (MCOxSource & 0xFFFF0000U) | (MCOxPrescaler & 0xFFFF0000U),  (MCOxSource << 16U) | (MCOxPrescaler << 16U));
+  MODIFY_REG(RCC->CFGR, (MCOxSource & 0xFFFF0000U) | (MCOxPrescaler & 0xFFFF0000U), (MCOxSource << 16U) | (MCOxPrescaler << 16U));
 }
 
 /**
@@ -4819,7 +4820,8 @@ __STATIC_INLINE void LL_RCC_PLL_ConfigDomain_SPDIFRX(uint32_t Source, uint32_t P
   * @retval None
   */
 #if defined(RCC_DCKCFGR_PLLDIVR)
-__STATIC_INLINE void LL_RCC_PLL_ConfigDomain_SAI(uint32_t Source, uint32_t PLLM, uint32_t PLLN, uint32_t PLLR, uint32_t PLLDIVR)
+__STATIC_INLINE void LL_RCC_PLL_ConfigDomain_SAI(uint32_t Source, uint32_t PLLM, uint32_t PLLN, uint32_t PLLR,
+                                                 uint32_t PLLDIVR)
 #else
 __STATIC_INLINE void LL_RCC_PLL_ConfigDomain_SAI(uint32_t Source, uint32_t PLLM, uint32_t PLLN, uint32_t PLLR)
 #endif /* RCC_DCKCFGR_PLLDIVR */
@@ -5334,7 +5336,8 @@ __STATIC_INLINE uint32_t LL_RCC_PLLI2S_IsReady(void)
   *         (*) value not defined in all devices.
   * @retval None
   */
-__STATIC_INLINE void LL_RCC_PLLI2S_ConfigDomain_SAI(uint32_t Source, uint32_t PLLM, uint32_t PLLN, uint32_t PLLQ_R, uint32_t PLLDIVQ_R)
+__STATIC_INLINE void LL_RCC_PLLI2S_ConfigDomain_SAI(uint32_t Source, uint32_t PLLM, uint32_t PLLN, uint32_t PLLQ_R,
+                                                    uint32_t PLLDIVQ_R)
 {
   __IO uint32_t *pReg = (__IO uint32_t *)((uint32_t)((uint32_t)(&RCC->PLLCFGR) + (Source & 0x80U)));
   MODIFY_REG(*pReg, RCC_PLLCFGR_PLLSRC, (Source & (~0x80U)));
@@ -6102,7 +6105,8 @@ __STATIC_INLINE uint32_t LL_RCC_PLLSAI_IsReady(void)
   *         @arg @ref LL_RCC_PLLSAIDIVQ_DIV_32
   * @retval None
   */
-__STATIC_INLINE void LL_RCC_PLLSAI_ConfigDomain_SAI(uint32_t Source, uint32_t PLLM, uint32_t PLLN, uint32_t PLLQ, uint32_t PLLDIVQ)
+__STATIC_INLINE void LL_RCC_PLLSAI_ConfigDomain_SAI(uint32_t Source, uint32_t PLLM, uint32_t PLLN, uint32_t PLLQ,
+                                                    uint32_t PLLDIVQ)
 {
   MODIFY_REG(RCC->PLLCFGR, RCC_PLLCFGR_PLLSRC, Source);
 #if defined(RCC_PLLSAICFGR_PLLSAIM)
@@ -6307,7 +6311,8 @@ __STATIC_INLINE void LL_RCC_PLLSAI_ConfigDomain_48M(uint32_t Source, uint32_t PL
   *         @arg @ref LL_RCC_PLLSAIDIVR_DIV_16
   * @retval None
   */
-__STATIC_INLINE void LL_RCC_PLLSAI_ConfigDomain_LTDC(uint32_t Source, uint32_t PLLM, uint32_t PLLN, uint32_t PLLR, uint32_t PLLDIVR)
+__STATIC_INLINE void LL_RCC_PLLSAI_ConfigDomain_LTDC(uint32_t Source, uint32_t PLLM, uint32_t PLLN, uint32_t PLLR,
+                                                     uint32_t PLLDIVR)
 {
   MODIFY_REG(RCC->PLLCFGR, RCC_PLLCFGR_PLLSRC | RCC_PLLCFGR_PLLM, Source | PLLM);
   MODIFY_REG(RCC->PLLSAICFGR, RCC_PLLSAICFGR_PLLSAIN | RCC_PLLSAICFGR_PLLSAIR, PLLN << RCC_PLLSAICFGR_PLLSAIN_Pos | PLLR);

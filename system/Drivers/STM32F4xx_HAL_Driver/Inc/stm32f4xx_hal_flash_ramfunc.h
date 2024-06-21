@@ -20,7 +20,7 @@
 #define __STM32F4xx_FLASH_RAMFUNC_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 #if defined(STM32F410Tx) || defined(STM32F410Cx) || defined(STM32F410Rx) || defined(STM32F411xE) || defined(STM32F446xx) || defined(STM32F412Zx) ||\
     defined(STM32F412Vx) || defined(STM32F412Rx) || defined(STM32F412Cx)
