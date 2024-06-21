@@ -1171,7 +1171,7 @@ __STATIC_INLINE void LL_DMA_SetCurrentTargetMem(DMA_TypeDef *DMAx, uint32_t Stre
 }
 
 /**
-  * @brief Set Current target (only in double buffer mode) to Memory 1 or Memory 0.
+  * @brief Get Current target (only in double buffer mode).
   * @rmtoll CR          CT           LL_DMA_GetCurrentTargetMem
   * @param  DMAx DMAx Instance
   * @param  Stream This parameter can be one of the following values:
