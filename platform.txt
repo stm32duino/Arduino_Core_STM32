@@ -240,7 +240,7 @@ tools.remoteproc_gen.upload.pattern="{busybox}" sh "{path}/{script}" generate "{
 # - this is alpha and may be subject to change without notice
 debug.executable={build.path}/{build.project_name}.elf
 debug.toolchain=gcc
-debug.toolchain.path={toolchain_dir.path}/bin
+debug.toolchain.path={toolchain_dir}/bin
 debug.toolchain.prefix=arm-none-eabi-
 debug.server=openocd
 debug.server.openocd.path={openocd_dir}/bin/openocd
