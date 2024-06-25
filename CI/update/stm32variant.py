@@ -14,7 +14,7 @@ from xml.dom.minidom import parse, Node
 
 script_path = Path(__file__).parent.resolve()
 sys.path.append(str(script_path.parent))
-from utils import execute_cmd, getRepoBranchName
+from utils import deleteFolder, execute_cmd, getRepoBranchName
 
 mcu_list = []  # 'name'
 io_list = []  # 'PIN','name'
@@ -128,16 +128,6 @@ tim_inst_order = [
     "TIM8",
     "TIM20",
 ]
-
-
-def rm_tree(pth: Path):
-    if pth.exists():
-        for child in pth.iterdir():
-            if child.is_file():
-                child.unlink()
-            else:
-                rm_tree(child)
-        pth.rmdir()
 
 
 def update_file(filePath, compile_pattern, subs):
@@ -2625,7 +2615,7 @@ j2_env = Environment(
 )
 
 # Clean temporary dir
-rm_tree(tmp_dir)
+deleteFolder(tmp_dir)
 
 package_regex = re.compile(r"[\w][\w]([ANPQX])?$")
 flash_group_regex = re.compile(r"(.*)\((.*)\)(.*)")
@@ -2710,4 +2700,4 @@ mcu_PE_regex = re.compile(r"([\w])([\w])([ANPQSX])?$")
 aggregate_dir()
 
 # Clean temporary dir
-rm_tree(tmp_dir)
+deleteFolder(tmp_dir)
