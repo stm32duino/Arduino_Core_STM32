@@ -234,15 +234,16 @@ tools.remoteproc_gen.upload.params.verbose=
 tools.remoteproc_gen.upload.params.quiet=
 tools.remoteproc_gen.upload.pattern="{busybox}" sh "{path}/{script}" generate "{build.path}/{build.project_name}.elf" "{build.path}/run_arduino_{build.project_name}.sh"
 
-# Debugger configuration (general options)
-# ----------------------------------------
-# EXPERIMENTAL feature:
-# - this is alpha and may be subject to change without notice
+#
+# Debugger
+#
 debug.executable={build.path}/{build.project_name}.elf
 debug.toolchain=gcc
 debug.toolchain.path={toolchain_dir}/bin
-debug.toolchain.prefix=arm-none-eabi-
+debug.toolchain.prefix=arm-none-eabi
 debug.server=openocd
 debug.server.openocd.path={openocd_dir}/bin/openocd
 debug.server.openocd.scripts_dir={openocd_dir}/openocd/scripts
-debug.server.openocd.script={build.path}/openocd.cfg
+# Common config
+debug.server.openocd.scripts.0=interface/{programmer.protocol}.cfg
+debug.server.openocd.scripts.1={programmer.transport_script}
