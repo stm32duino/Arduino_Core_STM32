@@ -14,7 +14,7 @@ from xml.dom.minidom import parse, Node
 
 script_path = Path(__file__).parent.resolve()
 sys.path.append(str(script_path.parent))
-from utils import deleteFolder, execute_cmd, getRepoBranchName
+from utils import defaultConfig, deleteFolder, execute_cmd, getRepoBranchName
 
 mcu_list = []  # 'name'
 io_list = []  # 'PIN','name'
@@ -1274,9 +1274,9 @@ def print_pinamevar():
 
 # Variant files generation
 def spi_pins_variant():
-    ss_pin = (
-        ss1_pin
-    ) = ss2_pin = ss3_pin = mosi_pin = miso_pin = sck_pin = "PNUM_NOT_DEFINED"
+    ss_pin = ss1_pin = ss2_pin = ss3_pin = mosi_pin = miso_pin = sck_pin = (
+        "PNUM_NOT_DEFINED"
+    )
 
     # Iterate to find match instance if any
     for mosi in spimosi_list:
@@ -2385,27 +2385,7 @@ def default_cubemxdir():
 
 
 # Config management
-def create_config():
-    # Create a Json file for a better path management
-    try:
-        print(f"Please set your configuration in '{config_filename}' file")
-        config_file = open(config_filename, "w", newline="\n")
-        config_file.write(
-            json.dumps(
-                {
-                    "CUBEMX_DIRECTORY": str(cubemxdir),
-                    "REPO_LOCAL_PATH": str(repo_local_path),
-                },
-                indent=2,
-            )
-        )
-        config_file.close()
-    except IOError:
-        print(f"Failed to open {config_filename}")
-    exit(1)
-
-
-def check_config():
+def checkConfig():
     global cubemxdir
     global repo_local_path
     global repo_path
@@ -2413,23 +2393,33 @@ def check_config():
     if config_filename.is_file():
         try:
             config_file = open(config_filename, "r")
-            config = json.load(config_file)
+            path_config = json.load(config_file)
             config_file.close()
 
-            if "REPO_LOCAL_PATH" in config:
-                conf = config["REPO_LOCAL_PATH"]
-                if conf:
-                    if conf != "":
-                        repo_local_path = Path(conf)
-                        repo_path = repo_local_path / repo_name
-            if "CUBEMX_DIRECTORY" in config:
-                conf = config["CUBEMX_DIRECTORY"]
-                if conf:
-                    cubemxdir = Path(conf)
+            if "REPO_LOCAL_PATH" not in path_config:
+                path_config["REPO_LOCAL_PATH"] = str(repo_local_path)
+                defaultConfig(config_filename, path_config)
+            else:
+                conf = path_config["REPO_LOCAL_PATH"]
+                if conf != "":
+                    repo_local_path = Path(conf)
+                    repo_path = repo_local_path / repo_name
+
+            if "CUBEMX_DIRECTORY" not in path_config:
+                path_config["CUBEMX_DIRECTORY"] = str(cubemxdir)
+                defaultConfig(config_filename, path_config)
+            else:
+                cubemxdir = Path(path_config["CUBEMX_DIRECTORY"])
         except IOError:
             print(f"Failed to open {config_filename}")
     else:
-        create_config()
+        defaultConfig(
+            config_filename,
+            {
+                "CUBEMX_DIRECTORY": str(cubemxdir),
+                "REPO_LOCAL_PATH": str(repo_local_path),
+            },
+        )
 
 
 def manage_repo():
@@ -2487,7 +2477,7 @@ filtered_family = ""
 refname_filter = ["STM32MP13", "STM32H7R", "STM32H7S"]
 periph_c_filename = "PeripheralPins.c"
 pinvar_h_filename = "PinNamesVar.h"
-config_filename = script_path / "variant_config.json"
+config_filename = script_path / "update_config.json"
 variant_h_filename = "variant_generic.h"
 variant_cpp_filename = "variant_generic.cpp"
 boards_entry_filename = "boards_entry.txt"
@@ -2499,7 +2489,7 @@ repo_name = gh_url.rsplit("/", 1)[-1]
 repo_path = repo_local_path / repo_name
 db_release = "Unknown"
 
-check_config()
+checkConfig()
 
 # By default, generate for all mcu xml files description
 parser = argparse.ArgumentParser(
