@@ -1,7 +1,3 @@
-/* Remap pin name */
-PA_9_R     = PA_9  | PREMAP,
-PA_10_R    = PA_10 | PREMAP,
-
 /* Alternate pin name */
 PA_0_ALT1  = PA_0  | ALT1,
 PA_1_ALT1  = PA_1  | ALT1,
