@@ -11,5 +11,8 @@
 {{gen_entry}}.menu.pnum.GENERIC_{{generic.board}}.build.board=GENERIC_{{generic.board}}
 {{gen_entry}}.menu.pnum.GENERIC_{{generic.board}}.build.product_line={{product_line}}
 {{gen_entry}}.menu.pnum.GENERIC_{{generic.board}}.build.variant={{mcu_family_dir}}/{{mcu_dir}}
+{% if generic.svd %}
+{{gen_entry}}.menu.pnum.GENERIC_{{generic.board}}.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/{{mcu_family_dir}}/{{generic.svd}}
+{% endif %}
 
 {% endfor %}

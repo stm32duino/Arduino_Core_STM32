@@ -82,6 +82,7 @@ legacy_hal = {
 }
 # Cube information
 product_line_dict = {}
+svd_dict = {}  # 'name':'svd file'
 
 # format
 # Peripheral
@@ -1606,6 +1607,27 @@ def search_product_line(valueline):
     return product_line
 
 
+def parse_stm32targets():
+    global svd_dict
+    xml_stm32targets = parse(str(stm32targets_file))
+    mcu_nodes = xml_stm32targets.getElementsByTagName("mcu")
+    for mcu_node in mcu_nodes:
+        mcu_node_name = mcu_node.getElementsByTagName("name")[0].firstChild.data
+        cpus_node_name = mcu_node.getElementsByTagName("cpus")
+        cpu_node_name = cpus_node_name[0].getElementsByTagName("cpu")
+        svd_node = cpu_node_name[0].getElementsByTagName("svd")
+        svd_file = svd_node[0].getElementsByTagName("name")[0].firstChild.data
+        svd_dict[mcu_node_name] = svd_file
+    xml_stm32targets.unlink()
+
+
+def search_svdfile(mcu_name):
+    svd_file = ""
+    if mcu_name in svd_dict:
+        svd_file = svd_dict[mcu_name]
+    return svd_file
+
+
 def print_boards_entry():
     boards_entry_template = j2_env.get_template(boards_entry_filename)
 
@@ -1651,6 +1673,7 @@ def print_boards_entry():
                     "board": gen_name.upper(),
                     "flash": mcu_flash[index],
                     "ram": mcu_ram[index],
+                    "svd": search_svdfile(f"STM32{gen_name}"),
                 }
             )
         # Search product line for last flash size
@@ -1668,6 +1691,7 @@ def print_boards_entry():
                 "board": mcu_refname.replace("STM32", "").upper(),
                 "flash": mcu_flash[0],
                 "ram": mcu_ram[0],
+                "svd": search_svdfile(mcu_refname),
             }
         )
         product_line = search_product_line(package_regex.sub(r"", valueline))
@@ -2389,6 +2413,7 @@ def checkConfig():
     global cubemxdir
     global repo_local_path
     global repo_path
+    global cubeclt_mcu_path
     default_cubemxdir()
     if config_filename.is_file():
         try:
@@ -2410,6 +2435,21 @@ def checkConfig():
                 defaultConfig(config_filename, path_config)
             else:
                 cubemxdir = Path(path_config["CUBEMX_DIRECTORY"])
+            if "STM32CUBECLT_PATH" not in path_config:
+                path_config["STM32CUBECLT_PATH"] = str(
+                    "Path to STM32CubeCLT installation directory"
+                )
+                defaultConfig(config_filename, path_config)
+            else:
+                cubeclt_path = Path(path_config["STM32CUBECLT_PATH"])
+            if not cubeclt_path.is_dir():
+                print(f"{cubeclt_path} does not exist!")
+                exit(1)
+            else:
+                cubeclt_mcu_path = cubeclt_path / "STM32target-mcu"
+                if not cubeclt_mcu_path.is_dir():
+                    print(f"{cubeclt_mcu_path} does not exist!")
+                    exit(1)
         except IOError:
             print(f"Failed to open {config_filename}")
     else:
@@ -2484,6 +2524,7 @@ boards_entry_filename = "boards_entry.txt"
 generic_clock_filename = "generic_clock.c"
 repo_local_path = script_path / "repo"
 cubemxdir = Path()
+cubeclt_mcu_path = Path()
 gh_url = "https://github.com/STMicroelectronics/STM32_open_pin_data"
 repo_name = gh_url.rsplit("/", 1)[-1]
 repo_path = repo_local_path / repo_name
@@ -2580,6 +2621,7 @@ Please check the value set for 'CUBEMX_DIRECTORY' in '{config_filename}' file.""
         PackDescription_item = xml_file.getElementsByTagName("PackDescription")
         for item in PackDescription_item:
             db_release = item.attributes["Release"].value
+        xml_file.unlink()
 
 # Process DB release
 release_regex = r".*(\d+\.\d+\.\d+)$"
@@ -2587,6 +2629,14 @@ release_match = re.match(release_regex, db_release)
 if release_match:
     db_release = release_match.group(1)
 print(f"CubeMX DB release {db_release}\n")
+
+# Open stm32targets.xml to get svd file
+stm32targets_file = cubeclt_mcu_path / "stm32targets.xml"
+if stm32targets_file.is_file():
+    parse_stm32targets()
+else:
+    print(f"{stm32targets_file} does not exits!")
+    exit(1)
 
 if args.family:
     filtered_family = args.family.upper()
