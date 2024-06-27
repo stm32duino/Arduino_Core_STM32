@@ -10,6 +10,7 @@ GenL0.menu.pnum.GENERIC_L051R6HX.upload.maximum_data_size=8192
 GenL0.menu.pnum.GENERIC_L051R6HX.build.board=GENERIC_L051R6HX
 GenL0.menu.pnum.GENERIC_L051R6HX.build.product_line=STM32L051xx
 GenL0.menu.pnum.GENERIC_L051R6HX.build.variant=STM32L0xx/L051R(6-8)H
+GenL0.menu.pnum.GENERIC_L051R6HX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 
 # Generic L051R8Hx
 GenL0.menu.pnum.GENERIC_L051R8HX=Generic L051R8Hx
@@ -18,4 +19,5 @@ GenL0.menu.pnum.GENERIC_L051R8HX.upload.maximum_data_size=8192
 GenL0.menu.pnum.GENERIC_L051R8HX.build.board=GENERIC_L051R8HX
 GenL0.menu.pnum.GENERIC_L051R8HX.build.product_line=STM32L051xx
 GenL0.menu.pnum.GENERIC_L051R8HX.build.variant=STM32L0xx/L051R(6-8)H
+GenL0.menu.pnum.GENERIC_L051R8HX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 

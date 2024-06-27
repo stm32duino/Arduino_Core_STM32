@@ -10,6 +10,7 @@ GenF4.menu.pnum.GENERIC_F410T8YX.upload.maximum_data_size=32768
 GenF4.menu.pnum.GENERIC_F410T8YX.build.board=GENERIC_F410T8YX
 GenF4.menu.pnum.GENERIC_F410T8YX.build.product_line=STM32F410Tx
 GenF4.menu.pnum.GENERIC_F410T8YX.build.variant=STM32F4xx/F410T(8-B)Y
+GenF4.menu.pnum.GENERIC_F410T8YX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F410.svd
 
 # Generic F410TBYx
 GenF4.menu.pnum.GENERIC_F410TBYX=Generic F410TBYx
@@ -18,4 +19,5 @@ GenF4.menu.pnum.GENERIC_F410TBYX.upload.maximum_data_size=32768
 GenF4.menu.pnum.GENERIC_F410TBYX.build.board=GENERIC_F410TBYX
 GenF4.menu.pnum.GENERIC_F410TBYX.build.product_line=STM32F410Tx
 GenF4.menu.pnum.GENERIC_F410TBYX.build.variant=STM32F4xx/F410T(8-B)Y
+GenF4.menu.pnum.GENERIC_F410TBYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F410.svd
 

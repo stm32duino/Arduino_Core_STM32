@@ -10,6 +10,7 @@ GenL0.menu.pnum.GENERIC_L072RBHX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L072RBHX.build.board=GENERIC_L072RBHX
 GenL0.menu.pnum.GENERIC_L072RBHX.build.product_line=STM32L072xx
 GenL0.menu.pnum.GENERIC_L072RBHX.build.variant=STM32L0xx/L072R(B-Z)(H-I)_L073RBH_L073RZ(H-I)_L083R(B-Z)H
+GenL0.menu.pnum.GENERIC_L072RBHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x2.svd
 
 # Generic L072RZHx
 GenL0.menu.pnum.GENERIC_L072RZHX=Generic L072RZHx
@@ -18,6 +19,7 @@ GenL0.menu.pnum.GENERIC_L072RZHX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L072RZHX.build.board=GENERIC_L072RZHX
 GenL0.menu.pnum.GENERIC_L072RZHX.build.product_line=STM32L072xx
 GenL0.menu.pnum.GENERIC_L072RZHX.build.variant=STM32L0xx/L072R(B-Z)(H-I)_L073RBH_L073RZ(H-I)_L083R(B-Z)H
+GenL0.menu.pnum.GENERIC_L072RZHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x2.svd
 
 # Generic L072RBIx
 GenL0.menu.pnum.GENERIC_L072RBIX=Generic L072RBIx
@@ -26,6 +28,7 @@ GenL0.menu.pnum.GENERIC_L072RBIX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L072RBIX.build.board=GENERIC_L072RBIX
 GenL0.menu.pnum.GENERIC_L072RBIX.build.product_line=STM32L072xx
 GenL0.menu.pnum.GENERIC_L072RBIX.build.variant=STM32L0xx/L072R(B-Z)(H-I)_L073RBH_L073RZ(H-I)_L083R(B-Z)H
+GenL0.menu.pnum.GENERIC_L072RBIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x2.svd
 
 # Generic L072RZIx
 GenL0.menu.pnum.GENERIC_L072RZIX=Generic L072RZIx
@@ -34,6 +37,7 @@ GenL0.menu.pnum.GENERIC_L072RZIX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L072RZIX.build.board=GENERIC_L072RZIX
 GenL0.menu.pnum.GENERIC_L072RZIX.build.product_line=STM32L072xx
 GenL0.menu.pnum.GENERIC_L072RZIX.build.variant=STM32L0xx/L072R(B-Z)(H-I)_L073RBH_L073RZ(H-I)_L083R(B-Z)H
+GenL0.menu.pnum.GENERIC_L072RZIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x2.svd
 
 # Generic L073RBHx
 GenL0.menu.pnum.GENERIC_L073RBHX=Generic L073RBHx
@@ -42,6 +46,7 @@ GenL0.menu.pnum.GENERIC_L073RBHX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L073RBHX.build.board=GENERIC_L073RBHX
 GenL0.menu.pnum.GENERIC_L073RBHX.build.product_line=STM32L073xx
 GenL0.menu.pnum.GENERIC_L073RBHX.build.variant=STM32L0xx/L072R(B-Z)(H-I)_L073RBH_L073RZ(H-I)_L083R(B-Z)H
+GenL0.menu.pnum.GENERIC_L073RBHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x3.svd
 
 # Generic L073RZHx
 GenL0.menu.pnum.GENERIC_L073RZHX=Generic L073RZHx
@@ -50,6 +55,7 @@ GenL0.menu.pnum.GENERIC_L073RZHX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L073RZHX.build.board=GENERIC_L073RZHX
 GenL0.menu.pnum.GENERIC_L073RZHX.build.product_line=STM32L073xx
 GenL0.menu.pnum.GENERIC_L073RZHX.build.variant=STM32L0xx/L072R(B-Z)(H-I)_L073RBH_L073RZ(H-I)_L083R(B-Z)H
+GenL0.menu.pnum.GENERIC_L073RZHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x3.svd
 
 # Generic L073RZIx
 GenL0.menu.pnum.GENERIC_L073RZIX=Generic L073RZIx
@@ -58,6 +64,7 @@ GenL0.menu.pnum.GENERIC_L073RZIX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L073RZIX.build.board=GENERIC_L073RZIX
 GenL0.menu.pnum.GENERIC_L073RZIX.build.product_line=STM32L073xx
 GenL0.menu.pnum.GENERIC_L073RZIX.build.variant=STM32L0xx/L072R(B-Z)(H-I)_L073RBH_L073RZ(H-I)_L083R(B-Z)H
+GenL0.menu.pnum.GENERIC_L073RZIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x3.svd
 
 # Generic L083RBHx
 GenL0.menu.pnum.GENERIC_L083RBHX=Generic L083RBHx
@@ -66,6 +73,7 @@ GenL0.menu.pnum.GENERIC_L083RBHX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L083RBHX.build.board=GENERIC_L083RBHX
 GenL0.menu.pnum.GENERIC_L083RBHX.build.product_line=STM32L083xx
 GenL0.menu.pnum.GENERIC_L083RBHX.build.variant=STM32L0xx/L072R(B-Z)(H-I)_L073RBH_L073RZ(H-I)_L083R(B-Z)H
+GenL0.menu.pnum.GENERIC_L083RBHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x3.svd
 
 # Generic L083RZHx
 GenL0.menu.pnum.GENERIC_L083RZHX=Generic L083RZHx
@@ -74,4 +82,5 @@ GenL0.menu.pnum.GENERIC_L083RZHX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L083RZHX.build.board=GENERIC_L083RZHX
 GenL0.menu.pnum.GENERIC_L083RZHX.build.product_line=STM32L083xx
 GenL0.menu.pnum.GENERIC_L083RZHX.build.variant=STM32L0xx/L072R(B-Z)(H-I)_L073RBH_L073RZ(H-I)_L083R(B-Z)H
+GenL0.menu.pnum.GENERIC_L083RZHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x3.svd
 

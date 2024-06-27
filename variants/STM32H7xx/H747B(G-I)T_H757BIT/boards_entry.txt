@@ -10,6 +10,7 @@ GenH7.menu.pnum.GENERIC_H747BGTX.upload.maximum_data_size=884736
 GenH7.menu.pnum.GENERIC_H747BGTX.build.board=GENERIC_H747BGTX
 GenH7.menu.pnum.GENERIC_H747BGTX.build.product_line=STM32H747xG
 GenH7.menu.pnum.GENERIC_H747BGTX.build.variant=STM32H7xx/H747B(G-I)T_H757BIT
+GenH7.menu.pnum.GENERIC_H747BGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H747_CM7.svd
 
 # Generic H747BITx
 GenH7.menu.pnum.GENERIC_H747BITX=Generic H747BITx
@@ -18,6 +19,7 @@ GenH7.menu.pnum.GENERIC_H747BITX.upload.maximum_data_size=884736
 GenH7.menu.pnum.GENERIC_H747BITX.build.board=GENERIC_H747BITX
 GenH7.menu.pnum.GENERIC_H747BITX.build.product_line=STM32H747xx
 GenH7.menu.pnum.GENERIC_H747BITX.build.variant=STM32H7xx/H747B(G-I)T_H757BIT
+GenH7.menu.pnum.GENERIC_H747BITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H747_CM7.svd
 
 # Generic H757BITx
 GenH7.menu.pnum.GENERIC_H757BITX=Generic H757BITx
@@ -26,4 +28,5 @@ GenH7.menu.pnum.GENERIC_H757BITX.upload.maximum_data_size=884736
 GenH7.menu.pnum.GENERIC_H757BITX.build.board=GENERIC_H757BITX
 GenH7.menu.pnum.GENERIC_H757BITX.build.product_line=STM32H757xx
 GenH7.menu.pnum.GENERIC_H757BITX.build.variant=STM32H7xx/H747B(G-I)T_H757BIT
+GenH7.menu.pnum.GENERIC_H757BITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H757_CM7.svd
 

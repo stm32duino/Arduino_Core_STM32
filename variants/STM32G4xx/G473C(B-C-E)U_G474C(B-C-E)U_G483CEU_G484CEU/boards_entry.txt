@@ -10,6 +10,7 @@ GenG4.menu.pnum.GENERIC_G473CBUX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G473CBUX.build.board=GENERIC_G473CBUX
 GenG4.menu.pnum.GENERIC_G473CBUX.build.product_line=STM32G473xx
 GenG4.menu.pnum.GENERIC_G473CBUX.build.variant=STM32G4xx/G473C(B-C-E)U_G474C(B-C-E)U_G483CEU_G484CEU
+GenG4.menu.pnum.GENERIC_G473CBUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G473.svd
 
 # Generic G473CCUx
 GenG4.menu.pnum.GENERIC_G473CCUX=Generic G473CCUx
@@ -18,6 +19,7 @@ GenG4.menu.pnum.GENERIC_G473CCUX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G473CCUX.build.board=GENERIC_G473CCUX
 GenG4.menu.pnum.GENERIC_G473CCUX.build.product_line=STM32G473xx
 GenG4.menu.pnum.GENERIC_G473CCUX.build.variant=STM32G4xx/G473C(B-C-E)U_G474C(B-C-E)U_G483CEU_G484CEU
+GenG4.menu.pnum.GENERIC_G473CCUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G473.svd
 
 # Generic G473CEUx
 GenG4.menu.pnum.GENERIC_G473CEUX=Generic G473CEUx
@@ -26,6 +28,7 @@ GenG4.menu.pnum.GENERIC_G473CEUX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G473CEUX.build.board=GENERIC_G473CEUX
 GenG4.menu.pnum.GENERIC_G473CEUX.build.product_line=STM32G473xx
 GenG4.menu.pnum.GENERIC_G473CEUX.build.variant=STM32G4xx/G473C(B-C-E)U_G474C(B-C-E)U_G483CEU_G484CEU
+GenG4.menu.pnum.GENERIC_G473CEUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G473.svd
 
 # Generic G474CBUx
 GenG4.menu.pnum.GENERIC_G474CBUX=Generic G474CBUx
@@ -34,6 +37,7 @@ GenG4.menu.pnum.GENERIC_G474CBUX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G474CBUX.build.board=GENERIC_G474CBUX
 GenG4.menu.pnum.GENERIC_G474CBUX.build.product_line=STM32G474xx
 GenG4.menu.pnum.GENERIC_G474CBUX.build.variant=STM32G4xx/G473C(B-C-E)U_G474C(B-C-E)U_G483CEU_G484CEU
+GenG4.menu.pnum.GENERIC_G474CBUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G474.svd
 
 # Generic G474CCUx
 GenG4.menu.pnum.GENERIC_G474CCUX=Generic G474CCUx
@@ -42,6 +46,7 @@ GenG4.menu.pnum.GENERIC_G474CCUX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G474CCUX.build.board=GENERIC_G474CCUX
 GenG4.menu.pnum.GENERIC_G474CCUX.build.product_line=STM32G474xx
 GenG4.menu.pnum.GENERIC_G474CCUX.build.variant=STM32G4xx/G473C(B-C-E)U_G474C(B-C-E)U_G483CEU_G484CEU
+GenG4.menu.pnum.GENERIC_G474CCUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G474.svd
 
 # Generic G474CEUx
 GenG4.menu.pnum.GENERIC_G474CEUX=Generic G474CEUx
@@ -50,6 +55,7 @@ GenG4.menu.pnum.GENERIC_G474CEUX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G474CEUX.build.board=GENERIC_G474CEUX
 GenG4.menu.pnum.GENERIC_G474CEUX.build.product_line=STM32G474xx
 GenG4.menu.pnum.GENERIC_G474CEUX.build.variant=STM32G4xx/G473C(B-C-E)U_G474C(B-C-E)U_G483CEU_G484CEU
+GenG4.menu.pnum.GENERIC_G474CEUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G474.svd
 
 # Generic G483CEUx
 GenG4.menu.pnum.GENERIC_G483CEUX=Generic G483CEUx
@@ -58,6 +64,7 @@ GenG4.menu.pnum.GENERIC_G483CEUX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G483CEUX.build.board=GENERIC_G483CEUX
 GenG4.menu.pnum.GENERIC_G483CEUX.build.product_line=STM32G483xx
 GenG4.menu.pnum.GENERIC_G483CEUX.build.variant=STM32G4xx/G473C(B-C-E)U_G474C(B-C-E)U_G483CEU_G484CEU
+GenG4.menu.pnum.GENERIC_G483CEUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G483.svd
 
 # Generic G484CEUx
 GenG4.menu.pnum.GENERIC_G484CEUX=Generic G484CEUx
@@ -66,4 +73,5 @@ GenG4.menu.pnum.GENERIC_G484CEUX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G484CEUX.build.board=GENERIC_G484CEUX
 GenG4.menu.pnum.GENERIC_G484CEUX.build.product_line=STM32G484xx
 GenG4.menu.pnum.GENERIC_G484CEUX.build.variant=STM32G4xx/G473C(B-C-E)U_G474C(B-C-E)U_G483CEU_G484CEU
+GenG4.menu.pnum.GENERIC_G484CEUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G484.svd
 

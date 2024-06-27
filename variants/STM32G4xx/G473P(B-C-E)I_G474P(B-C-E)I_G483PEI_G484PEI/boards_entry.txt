@@ -10,6 +10,7 @@ GenG4.menu.pnum.GENERIC_G473PBIX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G473PBIX.build.board=GENERIC_G473PBIX
 GenG4.menu.pnum.GENERIC_G473PBIX.build.product_line=STM32G473xx
 GenG4.menu.pnum.GENERIC_G473PBIX.build.variant=STM32G4xx/G473P(B-C-E)I_G474P(B-C-E)I_G483PEI_G484PEI
+GenG4.menu.pnum.GENERIC_G473PBIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G473.svd
 
 # Generic G473PCIx
 GenG4.menu.pnum.GENERIC_G473PCIX=Generic G473PCIx
@@ -18,6 +19,7 @@ GenG4.menu.pnum.GENERIC_G473PCIX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G473PCIX.build.board=GENERIC_G473PCIX
 GenG4.menu.pnum.GENERIC_G473PCIX.build.product_line=STM32G473xx
 GenG4.menu.pnum.GENERIC_G473PCIX.build.variant=STM32G4xx/G473P(B-C-E)I_G474P(B-C-E)I_G483PEI_G484PEI
+GenG4.menu.pnum.GENERIC_G473PCIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G473.svd
 
 # Generic G473PEIx
 GenG4.menu.pnum.GENERIC_G473PEIX=Generic G473PEIx
@@ -26,6 +28,7 @@ GenG4.menu.pnum.GENERIC_G473PEIX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G473PEIX.build.board=GENERIC_G473PEIX
 GenG4.menu.pnum.GENERIC_G473PEIX.build.product_line=STM32G473xx
 GenG4.menu.pnum.GENERIC_G473PEIX.build.variant=STM32G4xx/G473P(B-C-E)I_G474P(B-C-E)I_G483PEI_G484PEI
+GenG4.menu.pnum.GENERIC_G473PEIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G473.svd
 
 # Generic G474PBIx
 GenG4.menu.pnum.GENERIC_G474PBIX=Generic G474PBIx
@@ -34,6 +37,7 @@ GenG4.menu.pnum.GENERIC_G474PBIX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G474PBIX.build.board=GENERIC_G474PBIX
 GenG4.menu.pnum.GENERIC_G474PBIX.build.product_line=STM32G474xx
 GenG4.menu.pnum.GENERIC_G474PBIX.build.variant=STM32G4xx/G473P(B-C-E)I_G474P(B-C-E)I_G483PEI_G484PEI
+GenG4.menu.pnum.GENERIC_G474PBIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G474.svd
 
 # Generic G474PCIx
 GenG4.menu.pnum.GENERIC_G474PCIX=Generic G474PCIx
@@ -42,6 +46,7 @@ GenG4.menu.pnum.GENERIC_G474PCIX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G474PCIX.build.board=GENERIC_G474PCIX
 GenG4.menu.pnum.GENERIC_G474PCIX.build.product_line=STM32G474xx
 GenG4.menu.pnum.GENERIC_G474PCIX.build.variant=STM32G4xx/G473P(B-C-E)I_G474P(B-C-E)I_G483PEI_G484PEI
+GenG4.menu.pnum.GENERIC_G474PCIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G474.svd
 
 # Generic G474PEIx
 GenG4.menu.pnum.GENERIC_G474PEIX=Generic G474PEIx
@@ -50,6 +55,7 @@ GenG4.menu.pnum.GENERIC_G474PEIX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G474PEIX.build.board=GENERIC_G474PEIX
 GenG4.menu.pnum.GENERIC_G474PEIX.build.product_line=STM32G474xx
 GenG4.menu.pnum.GENERIC_G474PEIX.build.variant=STM32G4xx/G473P(B-C-E)I_G474P(B-C-E)I_G483PEI_G484PEI
+GenG4.menu.pnum.GENERIC_G474PEIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G474.svd
 
 # Generic G483PEIx
 GenG4.menu.pnum.GENERIC_G483PEIX=Generic G483PEIx
@@ -58,6 +64,7 @@ GenG4.menu.pnum.GENERIC_G483PEIX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G483PEIX.build.board=GENERIC_G483PEIX
 GenG4.menu.pnum.GENERIC_G483PEIX.build.product_line=STM32G483xx
 GenG4.menu.pnum.GENERIC_G483PEIX.build.variant=STM32G4xx/G473P(B-C-E)I_G474P(B-C-E)I_G483PEI_G484PEI
+GenG4.menu.pnum.GENERIC_G483PEIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G483.svd
 
 # Generic G484PEIx
 GenG4.menu.pnum.GENERIC_G484PEIX=Generic G484PEIx
@@ -66,4 +73,5 @@ GenG4.menu.pnum.GENERIC_G484PEIX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G484PEIX.build.board=GENERIC_G484PEIX
 GenG4.menu.pnum.GENERIC_G484PEIX.build.product_line=STM32G484xx
 GenG4.menu.pnum.GENERIC_G484PEIX.build.variant=STM32G4xx/G473P(B-C-E)I_G474P(B-C-E)I_G483PEI_G484PEI
+GenG4.menu.pnum.GENERIC_G484PEIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G484.svd
 

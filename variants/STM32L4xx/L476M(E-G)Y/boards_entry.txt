@@ -10,6 +10,7 @@ GenL4.menu.pnum.GENERIC_L476MEYX.upload.maximum_data_size=131072
 GenL4.menu.pnum.GENERIC_L476MEYX.build.board=GENERIC_L476MEYX
 GenL4.menu.pnum.GENERIC_L476MEYX.build.product_line=STM32L476xx
 GenL4.menu.pnum.GENERIC_L476MEYX.build.variant=STM32L4xx/L476M(E-G)Y
+GenL4.menu.pnum.GENERIC_L476MEYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L476.svd
 
 # Generic L476MGYx
 GenL4.menu.pnum.GENERIC_L476MGYX=Generic L476MGYx
@@ -18,4 +19,5 @@ GenL4.menu.pnum.GENERIC_L476MGYX.upload.maximum_data_size=131072
 GenL4.menu.pnum.GENERIC_L476MGYX.build.board=GENERIC_L476MGYX
 GenL4.menu.pnum.GENERIC_L476MGYX.build.product_line=STM32L476xx
 GenL4.menu.pnum.GENERIC_L476MGYX.build.variant=STM32L4xx/L476M(E-G)Y
+GenL4.menu.pnum.GENERIC_L476MGYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L476.svd
 

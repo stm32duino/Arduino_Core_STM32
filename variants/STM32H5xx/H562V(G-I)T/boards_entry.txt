@@ -10,6 +10,7 @@ GenH5.menu.pnum.GENERIC_H562VGTX.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H562VGTX.build.board=GENERIC_H562VGTX
 GenH5.menu.pnum.GENERIC_H562VGTX.build.product_line=STM32H562xx
 GenH5.menu.pnum.GENERIC_H562VGTX.build.variant=STM32H5xx/H562V(G-I)T
+GenH5.menu.pnum.GENERIC_H562VGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H562.svd
 
 # Generic H562VITx
 GenH5.menu.pnum.GENERIC_H562VITX=Generic H562VITx
@@ -18,4 +19,5 @@ GenH5.menu.pnum.GENERIC_H562VITX.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H562VITX.build.board=GENERIC_H562VITX
 GenH5.menu.pnum.GENERIC_H562VITX.build.product_line=STM32H562xx
 GenH5.menu.pnum.GENERIC_H562VITX.build.variant=STM32H5xx/H562V(G-I)T
+GenH5.menu.pnum.GENERIC_H562VITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H562.svd
 

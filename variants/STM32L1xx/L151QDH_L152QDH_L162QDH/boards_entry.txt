@@ -10,6 +10,7 @@ GenL1.menu.pnum.GENERIC_L151QDHX.upload.maximum_data_size=49152
 GenL1.menu.pnum.GENERIC_L151QDHX.build.board=GENERIC_L151QDHX
 GenL1.menu.pnum.GENERIC_L151QDHX.build.product_line=STM32L151xD
 GenL1.menu.pnum.GENERIC_L151QDHX.build.variant=STM32L1xx/L151QDH_L152QDH_L162QDH
+GenL1.menu.pnum.GENERIC_L151QDHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L1xx/STM32L151.svd
 
 # Generic L152QDHx
 GenL1.menu.pnum.GENERIC_L152QDHX=Generic L152QDHx
@@ -18,6 +19,7 @@ GenL1.menu.pnum.GENERIC_L152QDHX.upload.maximum_data_size=49152
 GenL1.menu.pnum.GENERIC_L152QDHX.build.board=GENERIC_L152QDHX
 GenL1.menu.pnum.GENERIC_L152QDHX.build.product_line=STM32L152xD
 GenL1.menu.pnum.GENERIC_L152QDHX.build.variant=STM32L1xx/L151QDH_L152QDH_L162QDH
+GenL1.menu.pnum.GENERIC_L152QDHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L1xx/STM32L152.svd
 
 # Generic L162QDHx
 GenL1.menu.pnum.GENERIC_L162QDHX=Generic L162QDHx
@@ -26,4 +28,5 @@ GenL1.menu.pnum.GENERIC_L162QDHX.upload.maximum_data_size=49152
 GenL1.menu.pnum.GENERIC_L162QDHX.build.board=GENERIC_L162QDHX
 GenL1.menu.pnum.GENERIC_L162QDHX.build.product_line=STM32L162xD
 GenL1.menu.pnum.GENERIC_L162QDHX.build.variant=STM32L1xx/L151QDH_L152QDH_L162QDH
+GenL1.menu.pnum.GENERIC_L162QDHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L1xx/STM32L162.svd
 

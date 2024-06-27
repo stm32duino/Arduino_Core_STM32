@@ -10,6 +10,7 @@ GenL4.menu.pnum.GENERIC_L451RCIX.upload.maximum_data_size=163840
 GenL4.menu.pnum.GENERIC_L451RCIX.build.board=GENERIC_L451RCIX
 GenL4.menu.pnum.GENERIC_L451RCIX.build.product_line=STM32L451xx
 GenL4.menu.pnum.GENERIC_L451RCIX.build.variant=STM32L4xx/L451R(C-E)(I-T-Y)
+GenL4.menu.pnum.GENERIC_L451RCIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x1.svd
 
 # Generic L451REIx
 GenL4.menu.pnum.GENERIC_L451REIX=Generic L451REIx
@@ -18,6 +19,7 @@ GenL4.menu.pnum.GENERIC_L451REIX.upload.maximum_data_size=163840
 GenL4.menu.pnum.GENERIC_L451REIX.build.board=GENERIC_L451REIX
 GenL4.menu.pnum.GENERIC_L451REIX.build.product_line=STM32L451xx
 GenL4.menu.pnum.GENERIC_L451REIX.build.variant=STM32L4xx/L451R(C-E)(I-T-Y)
+GenL4.menu.pnum.GENERIC_L451REIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x1.svd
 
 # Generic L451RCTx
 GenL4.menu.pnum.GENERIC_L451RCTX=Generic L451RCTx
@@ -26,6 +28,7 @@ GenL4.menu.pnum.GENERIC_L451RCTX.upload.maximum_data_size=163840
 GenL4.menu.pnum.GENERIC_L451RCTX.build.board=GENERIC_L451RCTX
 GenL4.menu.pnum.GENERIC_L451RCTX.build.product_line=STM32L451xx
 GenL4.menu.pnum.GENERIC_L451RCTX.build.variant=STM32L4xx/L451R(C-E)(I-T-Y)
+GenL4.menu.pnum.GENERIC_L451RCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x1.svd
 
 # Generic L451RETx
 GenL4.menu.pnum.GENERIC_L451RETX=Generic L451RETx
@@ -34,6 +37,7 @@ GenL4.menu.pnum.GENERIC_L451RETX.upload.maximum_data_size=163840
 GenL4.menu.pnum.GENERIC_L451RETX.build.board=GENERIC_L451RETX
 GenL4.menu.pnum.GENERIC_L451RETX.build.product_line=STM32L451xx
 GenL4.menu.pnum.GENERIC_L451RETX.build.variant=STM32L4xx/L451R(C-E)(I-T-Y)
+GenL4.menu.pnum.GENERIC_L451RETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x1.svd
 
 # Generic L451RCYx
 GenL4.menu.pnum.GENERIC_L451RCYX=Generic L451RCYx
@@ -42,6 +46,7 @@ GenL4.menu.pnum.GENERIC_L451RCYX.upload.maximum_data_size=163840
 GenL4.menu.pnum.GENERIC_L451RCYX.build.board=GENERIC_L451RCYX
 GenL4.menu.pnum.GENERIC_L451RCYX.build.product_line=STM32L451xx
 GenL4.menu.pnum.GENERIC_L451RCYX.build.variant=STM32L4xx/L451R(C-E)(I-T-Y)
+GenL4.menu.pnum.GENERIC_L451RCYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x1.svd
 
 # Generic L451REYx
 GenL4.menu.pnum.GENERIC_L451REYX=Generic L451REYx
@@ -50,4 +55,5 @@ GenL4.menu.pnum.GENERIC_L451REYX.upload.maximum_data_size=163840
 GenL4.menu.pnum.GENERIC_L451REYX.build.board=GENERIC_L451REYX
 GenL4.menu.pnum.GENERIC_L451REYX.build.product_line=STM32L451xx
 GenL4.menu.pnum.GENERIC_L451REYX.build.variant=STM32L4xx/L451R(C-E)(I-T-Y)
+GenL4.menu.pnum.GENERIC_L451REYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x1.svd
 

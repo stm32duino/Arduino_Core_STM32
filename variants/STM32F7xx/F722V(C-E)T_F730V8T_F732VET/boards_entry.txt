@@ -10,6 +10,7 @@ GenF7.menu.pnum.GENERIC_F722VCTX.upload.maximum_data_size=196608
 GenF7.menu.pnum.GENERIC_F722VCTX.build.board=GENERIC_F722VCTX
 GenF7.menu.pnum.GENERIC_F722VCTX.build.product_line=STM32F722xx
 GenF7.menu.pnum.GENERIC_F722VCTX.build.variant=STM32F7xx/F722V(C-E)T_F730V8T_F732VET
+GenF7.menu.pnum.GENERIC_F722VCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F722.svd
 
 # Generic F722VETx
 GenF7.menu.pnum.GENERIC_F722VETX=Generic F722VETx
@@ -18,6 +19,7 @@ GenF7.menu.pnum.GENERIC_F722VETX.upload.maximum_data_size=196608
 GenF7.menu.pnum.GENERIC_F722VETX.build.board=GENERIC_F722VETX
 GenF7.menu.pnum.GENERIC_F722VETX.build.product_line=STM32F722xx
 GenF7.menu.pnum.GENERIC_F722VETX.build.variant=STM32F7xx/F722V(C-E)T_F730V8T_F732VET
+GenF7.menu.pnum.GENERIC_F722VETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F722.svd
 
 # Generic F730V8Tx
 GenF7.menu.pnum.GENERIC_F730V8TX=Generic F730V8Tx
@@ -26,6 +28,7 @@ GenF7.menu.pnum.GENERIC_F730V8TX.upload.maximum_data_size=196608
 GenF7.menu.pnum.GENERIC_F730V8TX.build.board=GENERIC_F730V8TX
 GenF7.menu.pnum.GENERIC_F730V8TX.build.product_line=STM32F730xx
 GenF7.menu.pnum.GENERIC_F730V8TX.build.variant=STM32F7xx/F722V(C-E)T_F730V8T_F732VET
+GenF7.menu.pnum.GENERIC_F730V8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F730.svd
 
 # Generic F732VETx
 GenF7.menu.pnum.GENERIC_F732VETX=Generic F732VETx
@@ -34,4 +37,5 @@ GenF7.menu.pnum.GENERIC_F732VETX.upload.maximum_data_size=196608
 GenF7.menu.pnum.GENERIC_F732VETX.build.board=GENERIC_F732VETX
 GenF7.menu.pnum.GENERIC_F732VETX.build.product_line=STM32F732xx
 GenF7.menu.pnum.GENERIC_F732VETX.build.variant=STM32F7xx/F722V(C-E)T_F730V8T_F732VET
+GenF7.menu.pnum.GENERIC_F732VETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F732.svd
 

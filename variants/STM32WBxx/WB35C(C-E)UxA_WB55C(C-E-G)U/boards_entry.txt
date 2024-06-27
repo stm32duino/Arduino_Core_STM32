@@ -10,6 +10,7 @@ GenWB.menu.pnum.GENERIC_WB35CCUXA.upload.maximum_data_size=98304
 GenWB.menu.pnum.GENERIC_WB35CCUXA.build.board=GENERIC_WB35CCUXA
 GenWB.menu.pnum.GENERIC_WB35CCUXA.build.product_line=STM32WB35xx
 GenWB.menu.pnum.GENERIC_WB35CCUXA.build.variant=STM32WBxx/WB35C(C-E)UxA_WB55C(C-E-G)U
+GenWB.menu.pnum.GENERIC_WB35CCUXA.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB35_CM4.svd
 
 # Generic WB35CEUxA
 GenWB.menu.pnum.GENERIC_WB35CEUXA=Generic WB35CEUxA
@@ -18,6 +19,7 @@ GenWB.menu.pnum.GENERIC_WB35CEUXA.upload.maximum_data_size=98304
 GenWB.menu.pnum.GENERIC_WB35CEUXA.build.board=GENERIC_WB35CEUXA
 GenWB.menu.pnum.GENERIC_WB35CEUXA.build.product_line=STM32WB35xx
 GenWB.menu.pnum.GENERIC_WB35CEUXA.build.variant=STM32WBxx/WB35C(C-E)UxA_WB55C(C-E-G)U
+GenWB.menu.pnum.GENERIC_WB35CEUXA.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB35_CM4.svd
 
 # Generic WB55CCUx
 GenWB.menu.pnum.GENERIC_WB55CCUX=Generic WB55CCUx
@@ -26,6 +28,7 @@ GenWB.menu.pnum.GENERIC_WB55CCUX.upload.maximum_data_size=131072
 GenWB.menu.pnum.GENERIC_WB55CCUX.build.board=GENERIC_WB55CCUX
 GenWB.menu.pnum.GENERIC_WB55CCUX.build.product_line=STM32WB55xx
 GenWB.menu.pnum.GENERIC_WB55CCUX.build.variant=STM32WBxx/WB35C(C-E)UxA_WB55C(C-E-G)U
+GenWB.menu.pnum.GENERIC_WB55CCUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB55_CM4.svd
 
 # Generic WB55CEUx
 GenWB.menu.pnum.GENERIC_WB55CEUX=Generic WB55CEUx
@@ -34,6 +37,7 @@ GenWB.menu.pnum.GENERIC_WB55CEUX.upload.maximum_data_size=262144
 GenWB.menu.pnum.GENERIC_WB55CEUX.build.board=GENERIC_WB55CEUX
 GenWB.menu.pnum.GENERIC_WB55CEUX.build.product_line=STM32WB55xx
 GenWB.menu.pnum.GENERIC_WB55CEUX.build.variant=STM32WBxx/WB35C(C-E)UxA_WB55C(C-E-G)U
+GenWB.menu.pnum.GENERIC_WB55CEUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB55_CM4.svd
 
 # Generic WB55CGUx
 GenWB.menu.pnum.GENERIC_WB55CGUX=Generic WB55CGUx
@@ -42,4 +46,5 @@ GenWB.menu.pnum.GENERIC_WB55CGUX.upload.maximum_data_size=262144
 GenWB.menu.pnum.GENERIC_WB55CGUX.build.board=GENERIC_WB55CGUX
 GenWB.menu.pnum.GENERIC_WB55CGUX.build.product_line=STM32WB55xx
 GenWB.menu.pnum.GENERIC_WB55CGUX.build.variant=STM32WBxx/WB35C(C-E)UxA_WB55C(C-E-G)U
+GenWB.menu.pnum.GENERIC_WB55CGUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB55_CM4.svd
 

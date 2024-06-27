@@ -10,6 +10,7 @@ GenL5.menu.pnum.GENERIC_L552VCTXQ.upload.maximum_data_size=262144
 GenL5.menu.pnum.GENERIC_L552VCTXQ.build.board=GENERIC_L552VCTXQ
 GenL5.menu.pnum.GENERIC_L552VCTXQ.build.product_line=STM32L552xx
 GenL5.menu.pnum.GENERIC_L552VCTXQ.build.variant=STM32L5xx/L552V(C-E)TxQ_L562VETxQ
+GenL5.menu.pnum.GENERIC_L552VCTXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L552.svd
 
 # Generic L552VETxQ
 GenL5.menu.pnum.GENERIC_L552VETXQ=Generic L552VETxQ
@@ -18,6 +19,7 @@ GenL5.menu.pnum.GENERIC_L552VETXQ.upload.maximum_data_size=262144
 GenL5.menu.pnum.GENERIC_L552VETXQ.build.board=GENERIC_L552VETXQ
 GenL5.menu.pnum.GENERIC_L552VETXQ.build.product_line=STM32L552xx
 GenL5.menu.pnum.GENERIC_L552VETXQ.build.variant=STM32L5xx/L552V(C-E)TxQ_L562VETxQ
+GenL5.menu.pnum.GENERIC_L552VETXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L552.svd
 
 # Generic L562VETxQ
 GenL5.menu.pnum.GENERIC_L562VETXQ=Generic L562VETxQ
@@ -26,4 +28,5 @@ GenL5.menu.pnum.GENERIC_L562VETXQ.upload.maximum_data_size=262144
 GenL5.menu.pnum.GENERIC_L562VETXQ.build.board=GENERIC_L562VETXQ
 GenL5.menu.pnum.GENERIC_L562VETXQ.build.product_line=STM32L562xx
 GenL5.menu.pnum.GENERIC_L562VETXQ.build.variant=STM32L5xx/L552V(C-E)TxQ_L562VETxQ
+GenL5.menu.pnum.GENERIC_L562VETXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L562.svd
 

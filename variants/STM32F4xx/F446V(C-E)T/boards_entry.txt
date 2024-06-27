@@ -10,6 +10,7 @@ GenF4.menu.pnum.GENERIC_F446VCTX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F446VCTX.build.board=GENERIC_F446VCTX
 GenF4.menu.pnum.GENERIC_F446VCTX.build.product_line=STM32F446xx
 GenF4.menu.pnum.GENERIC_F446VCTX.build.variant=STM32F4xx/F446V(C-E)T
+GenF4.menu.pnum.GENERIC_F446VCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F446.svd
 
 # Generic F446VETx
 GenF4.menu.pnum.GENERIC_F446VETX=Generic F446VETx
@@ -18,4 +19,5 @@ GenF4.menu.pnum.GENERIC_F446VETX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F446VETX.build.board=GENERIC_F446VETX
 GenF4.menu.pnum.GENERIC_F446VETX.build.product_line=STM32F446xx
 GenF4.menu.pnum.GENERIC_F446VETX.build.variant=STM32F4xx/F446V(C-E)T
+GenF4.menu.pnum.GENERIC_F446VETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F446.svd
 

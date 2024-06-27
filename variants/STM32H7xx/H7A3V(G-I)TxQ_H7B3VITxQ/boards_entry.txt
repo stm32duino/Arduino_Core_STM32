@@ -10,6 +10,7 @@ GenH7.menu.pnum.GENERIC_H7A3VGTXQ.upload.maximum_data_size=1458176
 GenH7.menu.pnum.GENERIC_H7A3VGTXQ.build.board=GENERIC_H7A3VGTXQ
 GenH7.menu.pnum.GENERIC_H7A3VGTXQ.build.product_line=STM32H7A3xx
 GenH7.menu.pnum.GENERIC_H7A3VGTXQ.build.variant=STM32H7xx/H7A3V(G-I)TxQ_H7B3VITxQ
+GenH7.menu.pnum.GENERIC_H7A3VGTXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H7A3.svd
 
 # Generic H7A3VITxQ
 GenH7.menu.pnum.GENERIC_H7A3VITXQ=Generic H7A3VITxQ
@@ -18,6 +19,7 @@ GenH7.menu.pnum.GENERIC_H7A3VITXQ.upload.maximum_data_size=1458176
 GenH7.menu.pnum.GENERIC_H7A3VITXQ.build.board=GENERIC_H7A3VITXQ
 GenH7.menu.pnum.GENERIC_H7A3VITXQ.build.product_line=STM32H7A3xx
 GenH7.menu.pnum.GENERIC_H7A3VITXQ.build.variant=STM32H7xx/H7A3V(G-I)TxQ_H7B3VITxQ
+GenH7.menu.pnum.GENERIC_H7A3VITXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H7A3.svd
 
 # Generic H7B3VITxQ
 GenH7.menu.pnum.GENERIC_H7B3VITXQ=Generic H7B3VITxQ
@@ -26,4 +28,5 @@ GenH7.menu.pnum.GENERIC_H7B3VITXQ.upload.maximum_data_size=1458176
 GenH7.menu.pnum.GENERIC_H7B3VITXQ.build.board=GENERIC_H7B3VITXQ
 GenH7.menu.pnum.GENERIC_H7B3VITXQ.build.product_line=STM32H7B3xx
 GenH7.menu.pnum.GENERIC_H7B3VITXQ.build.variant=STM32H7xx/H7A3V(G-I)TxQ_H7B3VITxQ
+GenH7.menu.pnum.GENERIC_H7B3VITXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H7B3.svd
 

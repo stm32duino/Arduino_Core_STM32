@@ -10,6 +10,7 @@ GenF4.menu.pnum.GENERIC_F412VEHX.upload.maximum_data_size=262144
 GenF4.menu.pnum.GENERIC_F412VEHX.build.board=GENERIC_F412VEHX
 GenF4.menu.pnum.GENERIC_F412VEHX.build.product_line=STM32F412Vx
 GenF4.menu.pnum.GENERIC_F412VEHX.build.variant=STM32F4xx/F412V(E-G)H
+GenF4.menu.pnum.GENERIC_F412VEHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F412.svd
 
 # Generic F412VGHx
 GenF4.menu.pnum.GENERIC_F412VGHX=Generic F412VGHx
@@ -18,4 +19,5 @@ GenF4.menu.pnum.GENERIC_F412VGHX.upload.maximum_data_size=262144
 GenF4.menu.pnum.GENERIC_F412VGHX.build.board=GENERIC_F412VGHX
 GenF4.menu.pnum.GENERIC_F412VGHX.build.product_line=STM32F412Vx
 GenF4.menu.pnum.GENERIC_F412VGHX.build.variant=STM32F4xx/F412V(E-G)H
+GenF4.menu.pnum.GENERIC_F412VGHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F412.svd
 

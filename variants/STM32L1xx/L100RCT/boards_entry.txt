@@ -10,4 +10,5 @@ GenL1.menu.pnum.GENERIC_L100RCTX.upload.maximum_data_size=16384
 GenL1.menu.pnum.GENERIC_L100RCTX.build.board=GENERIC_L100RCTX
 GenL1.menu.pnum.GENERIC_L100RCTX.build.product_line=STM32L100xC
 GenL1.menu.pnum.GENERIC_L100RCTX.build.variant=STM32L1xx/L100RCT
+GenL1.menu.pnum.GENERIC_L100RCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L1xx/STM32L100.svd
 

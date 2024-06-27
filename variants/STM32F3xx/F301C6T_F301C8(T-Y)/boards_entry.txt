@@ -10,6 +10,7 @@ GenF3.menu.pnum.GENERIC_F301C6TX.upload.maximum_data_size=16384
 GenF3.menu.pnum.GENERIC_F301C6TX.build.board=GENERIC_F301C6TX
 GenF3.menu.pnum.GENERIC_F301C6TX.build.product_line=STM32F301x8
 GenF3.menu.pnum.GENERIC_F301C6TX.build.variant=STM32F3xx/F301C6T_F301C8(T-Y)
+GenF3.menu.pnum.GENERIC_F301C6TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F301.svd
 
 # Generic F301C8Tx
 GenF3.menu.pnum.GENERIC_F301C8TX=Generic F301C8Tx
@@ -18,6 +19,7 @@ GenF3.menu.pnum.GENERIC_F301C8TX.upload.maximum_data_size=16384
 GenF3.menu.pnum.GENERIC_F301C8TX.build.board=GENERIC_F301C8TX
 GenF3.menu.pnum.GENERIC_F301C8TX.build.product_line=STM32F301x8
 GenF3.menu.pnum.GENERIC_F301C8TX.build.variant=STM32F3xx/F301C6T_F301C8(T-Y)
+GenF3.menu.pnum.GENERIC_F301C8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F301.svd
 
 # Generic F301C8Yx
 GenF3.menu.pnum.GENERIC_F301C8YX=Generic F301C8Yx
@@ -26,4 +28,5 @@ GenF3.menu.pnum.GENERIC_F301C8YX.upload.maximum_data_size=16384
 GenF3.menu.pnum.GENERIC_F301C8YX.build.board=GENERIC_F301C8YX
 GenF3.menu.pnum.GENERIC_F301C8YX.build.product_line=STM32F301x8
 GenF3.menu.pnum.GENERIC_F301C8YX.build.variant=STM32F3xx/F301C6T_F301C8(T-Y)
+GenF3.menu.pnum.GENERIC_F301C8YX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F301.svd
 

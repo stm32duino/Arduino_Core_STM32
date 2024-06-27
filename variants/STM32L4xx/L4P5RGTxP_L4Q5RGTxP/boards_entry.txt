@@ -10,6 +10,7 @@ GenL4.menu.pnum.GENERIC_L4P5RGTXP.upload.maximum_data_size=327680
 GenL4.menu.pnum.GENERIC_L4P5RGTXP.build.board=GENERIC_L4P5RGTXP
 GenL4.menu.pnum.GENERIC_L4P5RGTXP.build.product_line=STM32L4P5xx
 GenL4.menu.pnum.GENERIC_L4P5RGTXP.build.variant=STM32L4xx/L4P5RGTxP_L4Q5RGTxP
+GenL4.menu.pnum.GENERIC_L4P5RGTXP.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4P5.svd
 
 # Generic L4Q5RGTxP
 GenL4.menu.pnum.GENERIC_L4Q5RGTXP=Generic L4Q5RGTxP
@@ -18,4 +19,5 @@ GenL4.menu.pnum.GENERIC_L4Q5RGTXP.upload.maximum_data_size=327680
 GenL4.menu.pnum.GENERIC_L4Q5RGTXP.build.board=GENERIC_L4Q5RGTXP
 GenL4.menu.pnum.GENERIC_L4Q5RGTXP.build.product_line=STM32L4Q5xx
 GenL4.menu.pnum.GENERIC_L4Q5RGTXP.build.variant=STM32L4xx/L4P5RGTxP_L4Q5RGTxP
+GenL4.menu.pnum.GENERIC_L4Q5RGTXP.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4Q5.svd
 

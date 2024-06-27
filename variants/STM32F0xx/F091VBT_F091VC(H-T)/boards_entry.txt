@@ -10,6 +10,7 @@ GenF0.menu.pnum.GENERIC_F091VBTX.upload.maximum_data_size=32768
 GenF0.menu.pnum.GENERIC_F091VBTX.build.board=GENERIC_F091VBTX
 GenF0.menu.pnum.GENERIC_F091VBTX.build.product_line=STM32F091xC
 GenF0.menu.pnum.GENERIC_F091VBTX.build.variant=STM32F0xx/F091VBT_F091VC(H-T)
+GenF0.menu.pnum.GENERIC_F091VBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x1.svd
 
 # Generic F091VCTx
 GenF0.menu.pnum.GENERIC_F091VCTX=Generic F091VCTx
@@ -18,6 +19,7 @@ GenF0.menu.pnum.GENERIC_F091VCTX.upload.maximum_data_size=32768
 GenF0.menu.pnum.GENERIC_F091VCTX.build.board=GENERIC_F091VCTX
 GenF0.menu.pnum.GENERIC_F091VCTX.build.product_line=STM32F091xC
 GenF0.menu.pnum.GENERIC_F091VCTX.build.variant=STM32F0xx/F091VBT_F091VC(H-T)
+GenF0.menu.pnum.GENERIC_F091VCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x1.svd
 
 # Generic F091VCHx
 GenF0.menu.pnum.GENERIC_F091VCHX=Generic F091VCHx
@@ -26,4 +28,5 @@ GenF0.menu.pnum.GENERIC_F091VCHX.upload.maximum_data_size=32768
 GenF0.menu.pnum.GENERIC_F091VCHX.build.board=GENERIC_F091VCHX
 GenF0.menu.pnum.GENERIC_F091VCHX.build.product_line=STM32F091xC
 GenF0.menu.pnum.GENERIC_F091VCHX.build.variant=STM32F0xx/F091VBT_F091VC(H-T)
+GenF0.menu.pnum.GENERIC_F091VCHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x1.svd
 

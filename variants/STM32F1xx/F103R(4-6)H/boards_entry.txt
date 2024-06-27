@@ -10,6 +10,7 @@ GenF1.menu.pnum.GENERIC_F103R4HX.upload.maximum_data_size=6144
 GenF1.menu.pnum.GENERIC_F103R4HX.build.board=GENERIC_F103R4HX
 GenF1.menu.pnum.GENERIC_F103R4HX.build.product_line=STM32F103x6
 GenF1.menu.pnum.GENERIC_F103R4HX.build.variant=STM32F1xx/F103R(4-6)H
+GenF1.menu.pnum.GENERIC_F103R4HX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 
 # Generic F103R6Hx
 GenF1.menu.pnum.GENERIC_F103R6HX=Generic F103R6Hx
@@ -18,4 +19,5 @@ GenF1.menu.pnum.GENERIC_F103R6HX.upload.maximum_data_size=10240
 GenF1.menu.pnum.GENERIC_F103R6HX.build.board=GENERIC_F103R6HX
 GenF1.menu.pnum.GENERIC_F103R6HX.build.product_line=STM32F103x6
 GenF1.menu.pnum.GENERIC_F103R6HX.build.variant=STM32F1xx/F103R(4-6)H
+GenF1.menu.pnum.GENERIC_F103R6HX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 

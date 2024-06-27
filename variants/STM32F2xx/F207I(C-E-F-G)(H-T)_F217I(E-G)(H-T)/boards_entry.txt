@@ -10,6 +10,7 @@ GenF2.menu.pnum.GENERIC_F207ICHX.upload.maximum_data_size=131072
 GenF2.menu.pnum.GENERIC_F207ICHX.build.board=GENERIC_F207ICHX
 GenF2.menu.pnum.GENERIC_F207ICHX.build.product_line=STM32F207xx
 GenF2.menu.pnum.GENERIC_F207ICHX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+GenF2.menu.pnum.GENERIC_F207ICHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F217.svd
 
 # Generic F207IEHx
 GenF2.menu.pnum.GENERIC_F207IEHX=Generic F207IEHx
@@ -18,6 +19,7 @@ GenF2.menu.pnum.GENERIC_F207IEHX.upload.maximum_data_size=131072
 GenF2.menu.pnum.GENERIC_F207IEHX.build.board=GENERIC_F207IEHX
 GenF2.menu.pnum.GENERIC_F207IEHX.build.product_line=STM32F207xx
 GenF2.menu.pnum.GENERIC_F207IEHX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+GenF2.menu.pnum.GENERIC_F207IEHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F217.svd
 
 # Generic F207IFHx
 GenF2.menu.pnum.GENERIC_F207IFHX=Generic F207IFHx
@@ -26,6 +28,7 @@ GenF2.menu.pnum.GENERIC_F207IFHX.upload.maximum_data_size=131072
 GenF2.menu.pnum.GENERIC_F207IFHX.build.board=GENERIC_F207IFHX
 GenF2.menu.pnum.GENERIC_F207IFHX.build.product_line=STM32F207xx
 GenF2.menu.pnum.GENERIC_F207IFHX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+GenF2.menu.pnum.GENERIC_F207IFHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F217.svd
 
 # Generic F207IGHx
 GenF2.menu.pnum.GENERIC_F207IGHX=Generic F207IGHx
@@ -34,6 +37,7 @@ GenF2.menu.pnum.GENERIC_F207IGHX.upload.maximum_data_size=131072
 GenF2.menu.pnum.GENERIC_F207IGHX.build.board=GENERIC_F207IGHX
 GenF2.menu.pnum.GENERIC_F207IGHX.build.product_line=STM32F207xx
 GenF2.menu.pnum.GENERIC_F207IGHX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+GenF2.menu.pnum.GENERIC_F207IGHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F217.svd
 
 # Generic F207ICTx
 GenF2.menu.pnum.GENERIC_F207ICTX=Generic F207ICTx
@@ -42,6 +46,7 @@ GenF2.menu.pnum.GENERIC_F207ICTX.upload.maximum_data_size=131072
 GenF2.menu.pnum.GENERIC_F207ICTX.build.board=GENERIC_F207ICTX
 GenF2.menu.pnum.GENERIC_F207ICTX.build.product_line=STM32F207xx
 GenF2.menu.pnum.GENERIC_F207ICTX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+GenF2.menu.pnum.GENERIC_F207ICTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F217.svd
 
 # Generic F207IETx
 GenF2.menu.pnum.GENERIC_F207IETX=Generic F207IETx
@@ -50,6 +55,7 @@ GenF2.menu.pnum.GENERIC_F207IETX.upload.maximum_data_size=131072
 GenF2.menu.pnum.GENERIC_F207IETX.build.board=GENERIC_F207IETX
 GenF2.menu.pnum.GENERIC_F207IETX.build.product_line=STM32F207xx
 GenF2.menu.pnum.GENERIC_F207IETX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+GenF2.menu.pnum.GENERIC_F207IETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F217.svd
 
 # Generic F207IFTx
 GenF2.menu.pnum.GENERIC_F207IFTX=Generic F207IFTx
@@ -58,6 +64,7 @@ GenF2.menu.pnum.GENERIC_F207IFTX.upload.maximum_data_size=131072
 GenF2.menu.pnum.GENERIC_F207IFTX.build.board=GENERIC_F207IFTX
 GenF2.menu.pnum.GENERIC_F207IFTX.build.product_line=STM32F207xx
 GenF2.menu.pnum.GENERIC_F207IFTX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+GenF2.menu.pnum.GENERIC_F207IFTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F217.svd
 
 # Generic F207IGTx
 GenF2.menu.pnum.GENERIC_F207IGTX=Generic F207IGTx
@@ -66,6 +73,7 @@ GenF2.menu.pnum.GENERIC_F207IGTX.upload.maximum_data_size=131072
 GenF2.menu.pnum.GENERIC_F207IGTX.build.board=GENERIC_F207IGTX
 GenF2.menu.pnum.GENERIC_F207IGTX.build.product_line=STM32F207xx
 GenF2.menu.pnum.GENERIC_F207IGTX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+GenF2.menu.pnum.GENERIC_F207IGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F217.svd
 
 # Generic F217IEHx
 GenF2.menu.pnum.GENERIC_F217IEHX=Generic F217IEHx
@@ -74,6 +82,7 @@ GenF2.menu.pnum.GENERIC_F217IEHX.upload.maximum_data_size=131072
 GenF2.menu.pnum.GENERIC_F217IEHX.build.board=GENERIC_F217IEHX
 GenF2.menu.pnum.GENERIC_F217IEHX.build.product_line=STM32F217xx
 GenF2.menu.pnum.GENERIC_F217IEHX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+GenF2.menu.pnum.GENERIC_F217IEHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F217.svd
 
 # Generic F217IGHx
 GenF2.menu.pnum.GENERIC_F217IGHX=Generic F217IGHx
@@ -82,6 +91,7 @@ GenF2.menu.pnum.GENERIC_F217IGHX.upload.maximum_data_size=131072
 GenF2.menu.pnum.GENERIC_F217IGHX.build.board=GENERIC_F217IGHX
 GenF2.menu.pnum.GENERIC_F217IGHX.build.product_line=STM32F217xx
 GenF2.menu.pnum.GENERIC_F217IGHX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+GenF2.menu.pnum.GENERIC_F217IGHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F217.svd
 
 # Generic F217IETx
 GenF2.menu.pnum.GENERIC_F217IETX=Generic F217IETx
@@ -90,6 +100,7 @@ GenF2.menu.pnum.GENERIC_F217IETX.upload.maximum_data_size=131072
 GenF2.menu.pnum.GENERIC_F217IETX.build.board=GENERIC_F217IETX
 GenF2.menu.pnum.GENERIC_F217IETX.build.product_line=STM32F217xx
 GenF2.menu.pnum.GENERIC_F217IETX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+GenF2.menu.pnum.GENERIC_F217IETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F217.svd
 
 # Generic F217IGTx
 GenF2.menu.pnum.GENERIC_F217IGTX=Generic F217IGTx
@@ -98,4 +109,5 @@ GenF2.menu.pnum.GENERIC_F217IGTX.upload.maximum_data_size=131072
 GenF2.menu.pnum.GENERIC_F217IGTX.build.board=GENERIC_F217IGTX
 GenF2.menu.pnum.GENERIC_F217IGTX.build.product_line=STM32F217xx
 GenF2.menu.pnum.GENERIC_F217IGTX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+GenF2.menu.pnum.GENERIC_F217IGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F217.svd
 

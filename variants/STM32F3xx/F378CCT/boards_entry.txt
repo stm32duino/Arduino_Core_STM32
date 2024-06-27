@@ -10,4 +10,5 @@ GenF3.menu.pnum.GENERIC_F378CCTX.upload.maximum_data_size=32768
 GenF3.menu.pnum.GENERIC_F378CCTX.build.board=GENERIC_F378CCTX
 GenF3.menu.pnum.GENERIC_F378CCTX.build.product_line=STM32F378xx
 GenF3.menu.pnum.GENERIC_F378CCTX.build.variant=STM32F3xx/F378CCT
+GenF3.menu.pnum.GENERIC_F378CCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F3x8.svd
 

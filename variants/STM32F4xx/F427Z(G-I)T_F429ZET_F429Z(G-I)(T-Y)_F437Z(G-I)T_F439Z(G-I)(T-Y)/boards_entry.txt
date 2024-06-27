@@ -10,6 +10,7 @@ GenF4.menu.pnum.GENERIC_F427ZGTX.upload.maximum_data_size=196608
 GenF4.menu.pnum.GENERIC_F427ZGTX.build.board=GENERIC_F427ZGTX
 GenF4.menu.pnum.GENERIC_F427ZGTX.build.product_line=STM32F427xx
 GenF4.menu.pnum.GENERIC_F427ZGTX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+GenF4.menu.pnum.GENERIC_F427ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F427.svd
 
 # Generic F427ZITx
 GenF4.menu.pnum.GENERIC_F427ZITX=Generic F427ZITx
@@ -18,6 +19,7 @@ GenF4.menu.pnum.GENERIC_F427ZITX.upload.maximum_data_size=196608
 GenF4.menu.pnum.GENERIC_F427ZITX.build.board=GENERIC_F427ZITX
 GenF4.menu.pnum.GENERIC_F427ZITX.build.product_line=STM32F427xx
 GenF4.menu.pnum.GENERIC_F427ZITX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+GenF4.menu.pnum.GENERIC_F427ZITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F427.svd
 
 # Generic F429ZETx
 GenF4.menu.pnum.GENERIC_F429ZETX=Generic F429ZETx
@@ -26,6 +28,7 @@ GenF4.menu.pnum.GENERIC_F429ZETX.upload.maximum_data_size=196608
 GenF4.menu.pnum.GENERIC_F429ZETX.build.board=GENERIC_F429ZETX
 GenF4.menu.pnum.GENERIC_F429ZETX.build.product_line=STM32F429xx
 GenF4.menu.pnum.GENERIC_F429ZETX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+GenF4.menu.pnum.GENERIC_F429ZETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F429.svd
 
 # Generic F429ZGTx
 GenF4.menu.pnum.GENERIC_F429ZGTX=Generic F429ZGTx
@@ -34,6 +37,7 @@ GenF4.menu.pnum.GENERIC_F429ZGTX.upload.maximum_data_size=196608
 GenF4.menu.pnum.GENERIC_F429ZGTX.build.board=GENERIC_F429ZGTX
 GenF4.menu.pnum.GENERIC_F429ZGTX.build.product_line=STM32F429xx
 GenF4.menu.pnum.GENERIC_F429ZGTX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+GenF4.menu.pnum.GENERIC_F429ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F429.svd
 
 # Generic F429ZGYx
 GenF4.menu.pnum.GENERIC_F429ZGYX=Generic F429ZGYx
@@ -42,6 +46,7 @@ GenF4.menu.pnum.GENERIC_F429ZGYX.upload.maximum_data_size=196608
 GenF4.menu.pnum.GENERIC_F429ZGYX.build.board=GENERIC_F429ZGYX
 GenF4.menu.pnum.GENERIC_F429ZGYX.build.product_line=STM32F429xx
 GenF4.menu.pnum.GENERIC_F429ZGYX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+GenF4.menu.pnum.GENERIC_F429ZGYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F429.svd
 
 # Generic F429ZITx
 GenF4.menu.pnum.GENERIC_F429ZITX=Generic F429ZITx
@@ -50,6 +55,7 @@ GenF4.menu.pnum.GENERIC_F429ZITX.upload.maximum_data_size=196608
 GenF4.menu.pnum.GENERIC_F429ZITX.build.board=GENERIC_F429ZITX
 GenF4.menu.pnum.GENERIC_F429ZITX.build.product_line=STM32F429xx
 GenF4.menu.pnum.GENERIC_F429ZITX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+GenF4.menu.pnum.GENERIC_F429ZITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F429.svd
 
 # Generic F429ZIYx
 GenF4.menu.pnum.GENERIC_F429ZIYX=Generic F429ZIYx
@@ -58,6 +64,7 @@ GenF4.menu.pnum.GENERIC_F429ZIYX.upload.maximum_data_size=196608
 GenF4.menu.pnum.GENERIC_F429ZIYX.build.board=GENERIC_F429ZIYX
 GenF4.menu.pnum.GENERIC_F429ZIYX.build.product_line=STM32F429xx
 GenF4.menu.pnum.GENERIC_F429ZIYX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+GenF4.menu.pnum.GENERIC_F429ZIYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F429.svd
 
 # Generic F437ZGTx
 GenF4.menu.pnum.GENERIC_F437ZGTX=Generic F437ZGTx
@@ -66,6 +73,7 @@ GenF4.menu.pnum.GENERIC_F437ZGTX.upload.maximum_data_size=196608
 GenF4.menu.pnum.GENERIC_F437ZGTX.build.board=GENERIC_F437ZGTX
 GenF4.menu.pnum.GENERIC_F437ZGTX.build.product_line=STM32F437xx
 GenF4.menu.pnum.GENERIC_F437ZGTX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+GenF4.menu.pnum.GENERIC_F437ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F437.svd
 
 # Generic F437ZITx
 GenF4.menu.pnum.GENERIC_F437ZITX=Generic F437ZITx
@@ -74,6 +82,7 @@ GenF4.menu.pnum.GENERIC_F437ZITX.upload.maximum_data_size=196608
 GenF4.menu.pnum.GENERIC_F437ZITX.build.board=GENERIC_F437ZITX
 GenF4.menu.pnum.GENERIC_F437ZITX.build.product_line=STM32F437xx
 GenF4.menu.pnum.GENERIC_F437ZITX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+GenF4.menu.pnum.GENERIC_F437ZITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F437.svd
 
 # Generic F439ZGTx
 GenF4.menu.pnum.GENERIC_F439ZGTX=Generic F439ZGTx
@@ -82,6 +91,7 @@ GenF4.menu.pnum.GENERIC_F439ZGTX.upload.maximum_data_size=196608
 GenF4.menu.pnum.GENERIC_F439ZGTX.build.board=GENERIC_F439ZGTX
 GenF4.menu.pnum.GENERIC_F439ZGTX.build.product_line=STM32F439xx
 GenF4.menu.pnum.GENERIC_F439ZGTX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+GenF4.menu.pnum.GENERIC_F439ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F439.svd
 
 # Generic F439ZITx
 GenF4.menu.pnum.GENERIC_F439ZITX=Generic F439ZITx
@@ -90,6 +100,7 @@ GenF4.menu.pnum.GENERIC_F439ZITX.upload.maximum_data_size=196608
 GenF4.menu.pnum.GENERIC_F439ZITX.build.board=GENERIC_F439ZITX
 GenF4.menu.pnum.GENERIC_F439ZITX.build.product_line=STM32F439xx
 GenF4.menu.pnum.GENERIC_F439ZITX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+GenF4.menu.pnum.GENERIC_F439ZITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F439.svd
 
 # Generic F439ZGYx
 GenF4.menu.pnum.GENERIC_F439ZGYX=Generic F439ZGYx
@@ -98,6 +109,7 @@ GenF4.menu.pnum.GENERIC_F439ZGYX.upload.maximum_data_size=196608
 GenF4.menu.pnum.GENERIC_F439ZGYX.build.board=GENERIC_F439ZGYX
 GenF4.menu.pnum.GENERIC_F439ZGYX.build.product_line=STM32F439xx
 GenF4.menu.pnum.GENERIC_F439ZGYX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+GenF4.menu.pnum.GENERIC_F439ZGYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F439.svd
 
 # Generic F439ZIYx
 GenF4.menu.pnum.GENERIC_F439ZIYX=Generic F439ZIYx
@@ -106,4 +118,5 @@ GenF4.menu.pnum.GENERIC_F439ZIYX.upload.maximum_data_size=196608
 GenF4.menu.pnum.GENERIC_F439ZIYX.build.board=GENERIC_F439ZIYX
 GenF4.menu.pnum.GENERIC_F439ZIYX.build.product_line=STM32F439xx
 GenF4.menu.pnum.GENERIC_F439ZIYX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+GenF4.menu.pnum.GENERIC_F439ZIYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F439.svd
 

@@ -10,4 +10,5 @@ GenF0.menu.pnum.GENERIC_F058T8YX.upload.maximum_data_size=8192
 GenF0.menu.pnum.GENERIC_F058T8YX.build.board=GENERIC_F058T8YX
 GenF0.menu.pnum.GENERIC_F058T8YX.build.product_line=STM32F058xx
 GenF0.menu.pnum.GENERIC_F058T8YX.build.variant=STM32F0xx/F058T8Y
+GenF0.menu.pnum.GENERIC_F058T8YX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x8.svd
 

@@ -10,6 +10,7 @@ GenL4.menu.pnum.GENERIC_L496VETX.upload.maximum_data_size=327680
 GenL4.menu.pnum.GENERIC_L496VETX.build.board=GENERIC_L496VETX
 GenL4.menu.pnum.GENERIC_L496VETX.build.product_line=STM32L496xx
 GenL4.menu.pnum.GENERIC_L496VETX.build.variant=STM32L4xx/L496V(E-G)T_L4A6VGT
+GenL4.menu.pnum.GENERIC_L496VETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L496.svd
 
 # Generic L496VGTx
 GenL4.menu.pnum.GENERIC_L496VGTX=Generic L496VGTx
@@ -18,6 +19,7 @@ GenL4.menu.pnum.GENERIC_L496VGTX.upload.maximum_data_size=327680
 GenL4.menu.pnum.GENERIC_L496VGTX.build.board=GENERIC_L496VGTX
 GenL4.menu.pnum.GENERIC_L496VGTX.build.product_line=STM32L496xx
 GenL4.menu.pnum.GENERIC_L496VGTX.build.variant=STM32L4xx/L496V(E-G)T_L4A6VGT
+GenL4.menu.pnum.GENERIC_L496VGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L496.svd
 
 # Generic L4A6VGTx
 GenL4.menu.pnum.GENERIC_L4A6VGTX=Generic L4A6VGTx
@@ -26,4 +28,5 @@ GenL4.menu.pnum.GENERIC_L4A6VGTX.upload.maximum_data_size=327680
 GenL4.menu.pnum.GENERIC_L4A6VGTX.build.board=GENERIC_L4A6VGTX
 GenL4.menu.pnum.GENERIC_L4A6VGTX.build.product_line=STM32L4A6xx
 GenL4.menu.pnum.GENERIC_L4A6VGTX.build.variant=STM32L4xx/L496V(E-G)T_L4A6VGT
+GenL4.menu.pnum.GENERIC_L4A6VGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x6.svd
 

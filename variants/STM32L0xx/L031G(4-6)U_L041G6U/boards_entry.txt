@@ -10,6 +10,7 @@ GenL0.menu.pnum.GENERIC_L031G4UX.upload.maximum_data_size=8192
 GenL0.menu.pnum.GENERIC_L031G4UX.build.board=GENERIC_L031G4UX
 GenL0.menu.pnum.GENERIC_L031G4UX.build.product_line=STM32L031xx
 GenL0.menu.pnum.GENERIC_L031G4UX.build.variant=STM32L0xx/L031G(4-6)U_L041G6U
+GenL0.menu.pnum.GENERIC_L031G4UX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 
 # Generic L031G6Ux
 GenL0.menu.pnum.GENERIC_L031G6UX=Generic L031G6Ux
@@ -18,6 +19,7 @@ GenL0.menu.pnum.GENERIC_L031G6UX.upload.maximum_data_size=8192
 GenL0.menu.pnum.GENERIC_L031G6UX.build.board=GENERIC_L031G6UX
 GenL0.menu.pnum.GENERIC_L031G6UX.build.product_line=STM32L031xx
 GenL0.menu.pnum.GENERIC_L031G6UX.build.variant=STM32L0xx/L031G(4-6)U_L041G6U
+GenL0.menu.pnum.GENERIC_L031G6UX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 
 # Generic L041G6Ux
 GenL0.menu.pnum.GENERIC_L041G6UX=Generic L041G6Ux
@@ -26,4 +28,5 @@ GenL0.menu.pnum.GENERIC_L041G6UX.upload.maximum_data_size=8192
 GenL0.menu.pnum.GENERIC_L041G6UX.build.board=GENERIC_L041G6UX
 GenL0.menu.pnum.GENERIC_L041G6UX.build.product_line=STM32L041xx
 GenL0.menu.pnum.GENERIC_L041G6UX.build.variant=STM32L0xx/L031G(4-6)U_L041G6U
+GenL0.menu.pnum.GENERIC_L041G6UX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 

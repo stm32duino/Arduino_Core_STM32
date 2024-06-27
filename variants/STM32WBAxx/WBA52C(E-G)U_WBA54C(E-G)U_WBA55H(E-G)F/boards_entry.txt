@@ -10,6 +10,7 @@ GenWBA.menu.pnum.GENERIC_WBA52CEUX.upload.maximum_data_size=98304
 GenWBA.menu.pnum.GENERIC_WBA52CEUX.build.board=GENERIC_WBA52CEUX
 GenWBA.menu.pnum.GENERIC_WBA52CEUX.build.product_line=STM32WBA52xx
 GenWBA.menu.pnum.GENERIC_WBA52CEUX.build.variant=STM32WBAxx/WBA52C(E-G)U_WBA54C(E-G)U_WBA55H(E-G)F
+GenWBA.menu.pnum.GENERIC_WBA52CEUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA52.svd
 
 # Generic WBA52CGUx
 GenWBA.menu.pnum.GENERIC_WBA52CGUX=Generic WBA52CGUx
@@ -18,6 +19,7 @@ GenWBA.menu.pnum.GENERIC_WBA52CGUX.upload.maximum_data_size=131072
 GenWBA.menu.pnum.GENERIC_WBA52CGUX.build.board=GENERIC_WBA52CGUX
 GenWBA.menu.pnum.GENERIC_WBA52CGUX.build.product_line=STM32WBA52xx
 GenWBA.menu.pnum.GENERIC_WBA52CGUX.build.variant=STM32WBAxx/WBA52C(E-G)U_WBA54C(E-G)U_WBA55H(E-G)F
+GenWBA.menu.pnum.GENERIC_WBA52CGUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA52.svd
 
 # Generic WBA54CEUx
 GenWBA.menu.pnum.GENERIC_WBA54CEUX=Generic WBA54CEUx
@@ -26,6 +28,7 @@ GenWBA.menu.pnum.GENERIC_WBA54CEUX.upload.maximum_data_size=98304
 GenWBA.menu.pnum.GENERIC_WBA54CEUX.build.board=GENERIC_WBA54CEUX
 GenWBA.menu.pnum.GENERIC_WBA54CEUX.build.product_line=STM32WBA54xx
 GenWBA.menu.pnum.GENERIC_WBA54CEUX.build.variant=STM32WBAxx/WBA52C(E-G)U_WBA54C(E-G)U_WBA55H(E-G)F
+GenWBA.menu.pnum.GENERIC_WBA54CEUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA54.svd
 
 # Generic WBA54CGUx
 GenWBA.menu.pnum.GENERIC_WBA54CGUX=Generic WBA54CGUx
@@ -34,6 +37,7 @@ GenWBA.menu.pnum.GENERIC_WBA54CGUX.upload.maximum_data_size=131072
 GenWBA.menu.pnum.GENERIC_WBA54CGUX.build.board=GENERIC_WBA54CGUX
 GenWBA.menu.pnum.GENERIC_WBA54CGUX.build.product_line=STM32WBA54xx
 GenWBA.menu.pnum.GENERIC_WBA54CGUX.build.variant=STM32WBAxx/WBA52C(E-G)U_WBA54C(E-G)U_WBA55H(E-G)F
+GenWBA.menu.pnum.GENERIC_WBA54CGUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA54.svd
 
 # Generic WBA55HEFx
 GenWBA.menu.pnum.GENERIC_WBA55HEFX=Generic WBA55HEFx
@@ -42,6 +46,7 @@ GenWBA.menu.pnum.GENERIC_WBA55HEFX.upload.maximum_data_size=98304
 GenWBA.menu.pnum.GENERIC_WBA55HEFX.build.board=GENERIC_WBA55HEFX
 GenWBA.menu.pnum.GENERIC_WBA55HEFX.build.product_line=STM32WBA55xx
 GenWBA.menu.pnum.GENERIC_WBA55HEFX.build.variant=STM32WBAxx/WBA52C(E-G)U_WBA54C(E-G)U_WBA55H(E-G)F
+GenWBA.menu.pnum.GENERIC_WBA55HEFX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA55.svd
 
 # Generic WBA55HGFx
 GenWBA.menu.pnum.GENERIC_WBA55HGFX=Generic WBA55HGFx
@@ -50,4 +55,5 @@ GenWBA.menu.pnum.GENERIC_WBA55HGFX.upload.maximum_data_size=131072
 GenWBA.menu.pnum.GENERIC_WBA55HGFX.build.board=GENERIC_WBA55HGFX
 GenWBA.menu.pnum.GENERIC_WBA55HGFX.build.product_line=STM32WBA55xx
 GenWBA.menu.pnum.GENERIC_WBA55HGFX.build.variant=STM32WBAxx/WBA52C(E-G)U_WBA54C(E-G)U_WBA55H(E-G)F
+GenWBA.menu.pnum.GENERIC_WBA55HGFX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA55.svd
 

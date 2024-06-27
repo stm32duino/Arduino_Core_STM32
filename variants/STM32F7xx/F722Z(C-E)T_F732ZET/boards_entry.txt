@@ -10,6 +10,7 @@ GenF7.menu.pnum.GENERIC_F722ZCTX.upload.maximum_data_size=196608
 GenF7.menu.pnum.GENERIC_F722ZCTX.build.board=GENERIC_F722ZCTX
 GenF7.menu.pnum.GENERIC_F722ZCTX.build.product_line=STM32F722xx
 GenF7.menu.pnum.GENERIC_F722ZCTX.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
+GenF7.menu.pnum.GENERIC_F722ZCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F722.svd
 
 # Generic F722ZETx
 GenF7.menu.pnum.GENERIC_F722ZETX=Generic F722ZETx
@@ -18,6 +19,7 @@ GenF7.menu.pnum.GENERIC_F722ZETX.upload.maximum_data_size=196608
 GenF7.menu.pnum.GENERIC_F722ZETX.build.board=GENERIC_F722ZETX
 GenF7.menu.pnum.GENERIC_F722ZETX.build.product_line=STM32F722xx
 GenF7.menu.pnum.GENERIC_F722ZETX.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
+GenF7.menu.pnum.GENERIC_F722ZETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F722.svd
 
 # Generic F732ZETx
 GenF7.menu.pnum.GENERIC_F732ZETX=Generic F732ZETx
@@ -26,4 +28,5 @@ GenF7.menu.pnum.GENERIC_F732ZETX.upload.maximum_data_size=196608
 GenF7.menu.pnum.GENERIC_F732ZETX.build.board=GENERIC_F732ZETX
 GenF7.menu.pnum.GENERIC_F732ZETX.build.product_line=STM32F732xx
 GenF7.menu.pnum.GENERIC_F732ZETX.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
+GenF7.menu.pnum.GENERIC_F732ZETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F732.svd
 

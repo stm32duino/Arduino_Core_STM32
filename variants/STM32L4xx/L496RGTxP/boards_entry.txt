@@ -10,4 +10,5 @@ GenL4.menu.pnum.GENERIC_L496RGTXP.upload.maximum_data_size=327680
 GenL4.menu.pnum.GENERIC_L496RGTXP.build.board=GENERIC_L496RGTXP
 GenL4.menu.pnum.GENERIC_L496RGTXP.build.product_line=STM32L496xx
 GenL4.menu.pnum.GENERIC_L496RGTXP.build.variant=STM32L4xx/L496RGTxP
+GenL4.menu.pnum.GENERIC_L496RGTXP.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L496.svd
 

@@ -10,6 +10,7 @@ GenU5.menu.pnum.GENERIC_U575VGTXQ.upload.maximum_data_size=804864
 GenU5.menu.pnum.GENERIC_U575VGTXQ.build.board=GENERIC_U575VGTXQ
 GenU5.menu.pnum.GENERIC_U575VGTXQ.build.product_line=STM32U575xx
 GenU5.menu.pnum.GENERIC_U575VGTXQ.build.variant=STM32U5xx/U575V(G-I)TxQ_U585VITxQ
+GenU5.menu.pnum.GENERIC_U575VGTXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U575.svd
 
 # Generic U575VITxQ
 GenU5.menu.pnum.GENERIC_U575VITXQ=Generic U575VITxQ
@@ -18,6 +19,7 @@ GenU5.menu.pnum.GENERIC_U575VITXQ.upload.maximum_data_size=804864
 GenU5.menu.pnum.GENERIC_U575VITXQ.build.board=GENERIC_U575VITXQ
 GenU5.menu.pnum.GENERIC_U575VITXQ.build.product_line=STM32U575xx
 GenU5.menu.pnum.GENERIC_U575VITXQ.build.variant=STM32U5xx/U575V(G-I)TxQ_U585VITxQ
+GenU5.menu.pnum.GENERIC_U575VITXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U575.svd
 
 # Generic U585VITxQ
 GenU5.menu.pnum.GENERIC_U585VITXQ=Generic U585VITxQ
@@ -26,4 +28,5 @@ GenU5.menu.pnum.GENERIC_U585VITXQ.upload.maximum_data_size=804864
 GenU5.menu.pnum.GENERIC_U585VITXQ.build.board=GENERIC_U585VITXQ
 GenU5.menu.pnum.GENERIC_U585VITXQ.build.product_line=STM32U585xx
 GenU5.menu.pnum.GENERIC_U585VITXQ.build.variant=STM32U5xx/U575V(G-I)TxQ_U585VITxQ
+GenU5.menu.pnum.GENERIC_U585VITXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U585.svd
 

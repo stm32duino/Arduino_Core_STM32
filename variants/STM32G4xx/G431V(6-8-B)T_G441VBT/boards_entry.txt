@@ -10,6 +10,7 @@ GenG4.menu.pnum.GENERIC_G431V6TX.upload.maximum_data_size=32768
 GenG4.menu.pnum.GENERIC_G431V6TX.build.board=GENERIC_G431V6TX
 GenG4.menu.pnum.GENERIC_G431V6TX.build.product_line=STM32G431xx
 GenG4.menu.pnum.GENERIC_G431V6TX.build.variant=STM32G4xx/G431V(6-8-B)T_G441VBT
+GenG4.menu.pnum.GENERIC_G431V6TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G431.svd
 
 # Generic G431V8Tx
 GenG4.menu.pnum.GENERIC_G431V8TX=Generic G431V8Tx
@@ -18,6 +19,7 @@ GenG4.menu.pnum.GENERIC_G431V8TX.upload.maximum_data_size=32768
 GenG4.menu.pnum.GENERIC_G431V8TX.build.board=GENERIC_G431V8TX
 GenG4.menu.pnum.GENERIC_G431V8TX.build.product_line=STM32G431xx
 GenG4.menu.pnum.GENERIC_G431V8TX.build.variant=STM32G4xx/G431V(6-8-B)T_G441VBT
+GenG4.menu.pnum.GENERIC_G431V8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G431.svd
 
 # Generic G431VBTx
 GenG4.menu.pnum.GENERIC_G431VBTX=Generic G431VBTx
@@ -26,6 +28,7 @@ GenG4.menu.pnum.GENERIC_G431VBTX.upload.maximum_data_size=32768
 GenG4.menu.pnum.GENERIC_G431VBTX.build.board=GENERIC_G431VBTX
 GenG4.menu.pnum.GENERIC_G431VBTX.build.product_line=STM32G431xx
 GenG4.menu.pnum.GENERIC_G431VBTX.build.variant=STM32G4xx/G431V(6-8-B)T_G441VBT
+GenG4.menu.pnum.GENERIC_G431VBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G431.svd
 
 # Generic G441VBTx
 GenG4.menu.pnum.GENERIC_G441VBTX=Generic G441VBTx
@@ -34,4 +37,5 @@ GenG4.menu.pnum.GENERIC_G441VBTX.upload.maximum_data_size=32768
 GenG4.menu.pnum.GENERIC_G441VBTX.build.board=GENERIC_G441VBTX
 GenG4.menu.pnum.GENERIC_G441VBTX.build.product_line=STM32G441xx
 GenG4.menu.pnum.GENERIC_G441VBTX.build.variant=STM32G4xx/G431V(6-8-B)T_G441VBT
+GenG4.menu.pnum.GENERIC_G441VBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G441.svd
 

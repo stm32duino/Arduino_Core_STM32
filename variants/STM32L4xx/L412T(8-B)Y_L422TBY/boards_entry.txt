@@ -10,6 +10,7 @@ GenL4.menu.pnum.GENERIC_L412T8YX.upload.maximum_data_size=40960
 GenL4.menu.pnum.GENERIC_L412T8YX.build.board=GENERIC_L412T8YX
 GenL4.menu.pnum.GENERIC_L412T8YX.build.product_line=STM32L412xx
 GenL4.menu.pnum.GENERIC_L412T8YX.build.variant=STM32L4xx/L412T(8-B)Y_L422TBY
+GenL4.menu.pnum.GENERIC_L412T8YX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L412.svd
 
 # Generic L412TBYx
 GenL4.menu.pnum.GENERIC_L412TBYX=Generic L412TBYx
@@ -18,6 +19,7 @@ GenL4.menu.pnum.GENERIC_L412TBYX.upload.maximum_data_size=40960
 GenL4.menu.pnum.GENERIC_L412TBYX.build.board=GENERIC_L412TBYX
 GenL4.menu.pnum.GENERIC_L412TBYX.build.product_line=STM32L412xx
 GenL4.menu.pnum.GENERIC_L412TBYX.build.variant=STM32L4xx/L412T(8-B)Y_L422TBY
+GenL4.menu.pnum.GENERIC_L412TBYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L412.svd
 
 # Generic L422TBYx
 GenL4.menu.pnum.GENERIC_L422TBYX=Generic L422TBYx
@@ -26,4 +28,5 @@ GenL4.menu.pnum.GENERIC_L422TBYX.upload.maximum_data_size=40960
 GenL4.menu.pnum.GENERIC_L422TBYX.build.board=GENERIC_L422TBYX
 GenL4.menu.pnum.GENERIC_L422TBYX.build.product_line=STM32L422xx
 GenL4.menu.pnum.GENERIC_L422TBYX.build.variant=STM32L4xx/L412T(8-B)Y_L422TBY
+GenL4.menu.pnum.GENERIC_L422TBYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x2.svd
 

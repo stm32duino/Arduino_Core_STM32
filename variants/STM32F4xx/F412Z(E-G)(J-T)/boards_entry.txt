@@ -10,6 +10,7 @@ GenF4.menu.pnum.GENERIC_F412ZEJX.upload.maximum_data_size=262144
 GenF4.menu.pnum.GENERIC_F412ZEJX.build.board=GENERIC_F412ZEJX
 GenF4.menu.pnum.GENERIC_F412ZEJX.build.product_line=STM32F412Zx
 GenF4.menu.pnum.GENERIC_F412ZEJX.build.variant=STM32F4xx/F412Z(E-G)(J-T)
+GenF4.menu.pnum.GENERIC_F412ZEJX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F412.svd
 
 # Generic F412ZGJx
 GenF4.menu.pnum.GENERIC_F412ZGJX=Generic F412ZGJx
@@ -18,6 +19,7 @@ GenF4.menu.pnum.GENERIC_F412ZGJX.upload.maximum_data_size=262144
 GenF4.menu.pnum.GENERIC_F412ZGJX.build.board=GENERIC_F412ZGJX
 GenF4.menu.pnum.GENERIC_F412ZGJX.build.product_line=STM32F412Zx
 GenF4.menu.pnum.GENERIC_F412ZGJX.build.variant=STM32F4xx/F412Z(E-G)(J-T)
+GenF4.menu.pnum.GENERIC_F412ZGJX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F412.svd
 
 # Generic F412ZETx
 GenF4.menu.pnum.GENERIC_F412ZETX=Generic F412ZETx
@@ -26,6 +28,7 @@ GenF4.menu.pnum.GENERIC_F412ZETX.upload.maximum_data_size=262144
 GenF4.menu.pnum.GENERIC_F412ZETX.build.board=GENERIC_F412ZETX
 GenF4.menu.pnum.GENERIC_F412ZETX.build.product_line=STM32F412Zx
 GenF4.menu.pnum.GENERIC_F412ZETX.build.variant=STM32F4xx/F412Z(E-G)(J-T)
+GenF4.menu.pnum.GENERIC_F412ZETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F412.svd
 
 # Generic F412ZGTx
 GenF4.menu.pnum.GENERIC_F412ZGTX=Generic F412ZGTx
@@ -34,4 +37,5 @@ GenF4.menu.pnum.GENERIC_F412ZGTX.upload.maximum_data_size=262144
 GenF4.menu.pnum.GENERIC_F412ZGTX.build.board=GENERIC_F412ZGTX
 GenF4.menu.pnum.GENERIC_F412ZGTX.build.product_line=STM32F412Zx
 GenF4.menu.pnum.GENERIC_F412ZGTX.build.variant=STM32F4xx/F412Z(E-G)(J-T)
+GenF4.menu.pnum.GENERIC_F412ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F412.svd
 

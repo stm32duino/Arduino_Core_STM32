@@ -10,6 +10,7 @@ GenH7.menu.pnum.GENERIC_H725IEKX.upload.maximum_data_size=577536
 GenH7.menu.pnum.GENERIC_H725IEKX.build.board=GENERIC_H725IEKX
 GenH7.menu.pnum.GENERIC_H725IEKX.build.product_line=STM32H725xx
 GenH7.menu.pnum.GENERIC_H725IEKX.build.variant=STM32H7xx/H725I(E-G)K_H730IBKxQ_H735IGK
+GenH7.menu.pnum.GENERIC_H725IEKX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H725.svd
 
 # Generic H725IGKx
 GenH7.menu.pnum.GENERIC_H725IGKX=Generic H725IGKx
@@ -18,6 +19,7 @@ GenH7.menu.pnum.GENERIC_H725IGKX.upload.maximum_data_size=577536
 GenH7.menu.pnum.GENERIC_H725IGKX.build.board=GENERIC_H725IGKX
 GenH7.menu.pnum.GENERIC_H725IGKX.build.product_line=STM32H725xx
 GenH7.menu.pnum.GENERIC_H725IGKX.build.variant=STM32H7xx/H725I(E-G)K_H730IBKxQ_H735IGK
+GenH7.menu.pnum.GENERIC_H725IGKX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H725.svd
 
 # Generic H730IBKxQ
 GenH7.menu.pnum.GENERIC_H730IBKXQ=Generic H730IBKxQ
@@ -26,6 +28,7 @@ GenH7.menu.pnum.GENERIC_H730IBKXQ.upload.maximum_data_size=577536
 GenH7.menu.pnum.GENERIC_H730IBKXQ.build.board=GENERIC_H730IBKXQ
 GenH7.menu.pnum.GENERIC_H730IBKXQ.build.product_line=STM32H730xx
 GenH7.menu.pnum.GENERIC_H730IBKXQ.build.variant=STM32H7xx/H725I(E-G)K_H730IBKxQ_H735IGK
+GenH7.menu.pnum.GENERIC_H730IBKXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H730.svd
 
 # Generic H735IGKx
 GenH7.menu.pnum.GENERIC_H735IGKX=Generic H735IGKx
@@ -34,4 +37,5 @@ GenH7.menu.pnum.GENERIC_H735IGKX.upload.maximum_data_size=577536
 GenH7.menu.pnum.GENERIC_H735IGKX.build.board=GENERIC_H735IGKX
 GenH7.menu.pnum.GENERIC_H735IGKX.build.product_line=STM32H735xx
 GenH7.menu.pnum.GENERIC_H735IGKX.build.variant=STM32H7xx/H725I(E-G)K_H730IBKxQ_H735IGK
+GenH7.menu.pnum.GENERIC_H735IGKX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H735.svd
 

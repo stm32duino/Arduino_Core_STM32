@@ -10,6 +10,7 @@ GenF4.menu.pnum.GENERIC_F469ZETX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F469ZETX.build.board=GENERIC_F469ZETX
 GenF4.menu.pnum.GENERIC_F469ZETX.build.product_line=STM32F469xx
 GenF4.menu.pnum.GENERIC_F469ZETX.build.variant=STM32F4xx/F469Z(E-G-I)T_F479Z(G-I)T
+GenF4.menu.pnum.GENERIC_F469ZETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F469.svd
 
 # Generic F469ZGTx
 GenF4.menu.pnum.GENERIC_F469ZGTX=Generic F469ZGTx
@@ -18,6 +19,7 @@ GenF4.menu.pnum.GENERIC_F469ZGTX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F469ZGTX.build.board=GENERIC_F469ZGTX
 GenF4.menu.pnum.GENERIC_F469ZGTX.build.product_line=STM32F469xx
 GenF4.menu.pnum.GENERIC_F469ZGTX.build.variant=STM32F4xx/F469Z(E-G-I)T_F479Z(G-I)T
+GenF4.menu.pnum.GENERIC_F469ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F469.svd
 
 # Generic F469ZITx
 GenF4.menu.pnum.GENERIC_F469ZITX=Generic F469ZITx
@@ -26,6 +28,7 @@ GenF4.menu.pnum.GENERIC_F469ZITX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F469ZITX.build.board=GENERIC_F469ZITX
 GenF4.menu.pnum.GENERIC_F469ZITX.build.product_line=STM32F469xx
 GenF4.menu.pnum.GENERIC_F469ZITX.build.variant=STM32F4xx/F469Z(E-G-I)T_F479Z(G-I)T
+GenF4.menu.pnum.GENERIC_F469ZITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F469.svd
 
 # Generic F479ZGTx
 GenF4.menu.pnum.GENERIC_F479ZGTX=Generic F479ZGTx
@@ -34,6 +37,7 @@ GenF4.menu.pnum.GENERIC_F479ZGTX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F479ZGTX.build.board=GENERIC_F479ZGTX
 GenF4.menu.pnum.GENERIC_F479ZGTX.build.product_line=STM32F479xx
 GenF4.menu.pnum.GENERIC_F479ZGTX.build.variant=STM32F4xx/F469Z(E-G-I)T_F479Z(G-I)T
+GenF4.menu.pnum.GENERIC_F479ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F479.svd
 
 # Generic F479ZITx
 GenF4.menu.pnum.GENERIC_F479ZITX=Generic F479ZITx
@@ -42,4 +46,5 @@ GenF4.menu.pnum.GENERIC_F479ZITX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F479ZITX.build.board=GENERIC_F479ZITX
 GenF4.menu.pnum.GENERIC_F479ZITX.build.product_line=STM32F479xx
 GenF4.menu.pnum.GENERIC_F479ZITX.build.variant=STM32F4xx/F469Z(E-G-I)T_F479Z(G-I)T
+GenF4.menu.pnum.GENERIC_F479ZITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F479.svd
 

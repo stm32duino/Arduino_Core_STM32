@@ -10,6 +10,7 @@ GenL0.menu.pnum.GENERIC_L071KBTX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L071KBTX.build.board=GENERIC_L071KBTX
 GenL0.menu.pnum.GENERIC_L071KBTX.build.product_line=STM32L071xx
 GenL0.menu.pnum.GENERIC_L071KBTX.build.variant=STM32L0xx/L071K(B-Z)T_L081KZT
+GenL0.menu.pnum.GENERIC_L071KBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 
 # Generic L071KZTx
 GenL0.menu.pnum.GENERIC_L071KZTX=Generic L071KZTx
@@ -18,6 +19,7 @@ GenL0.menu.pnum.GENERIC_L071KZTX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L071KZTX.build.board=GENERIC_L071KZTX
 GenL0.menu.pnum.GENERIC_L071KZTX.build.product_line=STM32L071xx
 GenL0.menu.pnum.GENERIC_L071KZTX.build.variant=STM32L0xx/L071K(B-Z)T_L081KZT
+GenL0.menu.pnum.GENERIC_L071KZTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 
 # Generic L081KZTx
 GenL0.menu.pnum.GENERIC_L081KZTX=Generic L081KZTx
@@ -26,4 +28,5 @@ GenL0.menu.pnum.GENERIC_L081KZTX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L081KZTX.build.board=GENERIC_L081KZTX
 GenL0.menu.pnum.GENERIC_L081KZTX.build.product_line=STM32L081xx
 GenL0.menu.pnum.GENERIC_L081KZTX.build.variant=STM32L0xx/L071K(B-Z)T_L081KZT
+GenL0.menu.pnum.GENERIC_L081KZTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 

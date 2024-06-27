@@ -10,6 +10,7 @@ GenF1.menu.pnum.GENERIC_F101C8TX.upload.maximum_data_size=10240
 GenF1.menu.pnum.GENERIC_F101C8TX.build.board=GENERIC_F101C8TX
 GenF1.menu.pnum.GENERIC_F101C8TX.build.product_line=STM32F101xB
 GenF1.menu.pnum.GENERIC_F101C8TX.build.variant=STM32F1xx/F101C(8-B)(T-U)
+GenF1.menu.pnum.GENERIC_F101C8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F101.svd
 
 # Generic F101CBTx
 GenF1.menu.pnum.GENERIC_F101CBTX=Generic F101CBTx
@@ -18,6 +19,7 @@ GenF1.menu.pnum.GENERIC_F101CBTX.upload.maximum_data_size=16384
 GenF1.menu.pnum.GENERIC_F101CBTX.build.board=GENERIC_F101CBTX
 GenF1.menu.pnum.GENERIC_F101CBTX.build.product_line=STM32F101xB
 GenF1.menu.pnum.GENERIC_F101CBTX.build.variant=STM32F1xx/F101C(8-B)(T-U)
+GenF1.menu.pnum.GENERIC_F101CBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F101.svd
 
 # Generic F101C8Ux
 GenF1.menu.pnum.GENERIC_F101C8UX=Generic F101C8Ux
@@ -26,6 +28,7 @@ GenF1.menu.pnum.GENERIC_F101C8UX.upload.maximum_data_size=10240
 GenF1.menu.pnum.GENERIC_F101C8UX.build.board=GENERIC_F101C8UX
 GenF1.menu.pnum.GENERIC_F101C8UX.build.product_line=STM32F101xB
 GenF1.menu.pnum.GENERIC_F101C8UX.build.variant=STM32F1xx/F101C(8-B)(T-U)
+GenF1.menu.pnum.GENERIC_F101C8UX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F101.svd
 
 # Generic F101CBUx
 GenF1.menu.pnum.GENERIC_F101CBUX=Generic F101CBUx
@@ -34,4 +37,5 @@ GenF1.menu.pnum.GENERIC_F101CBUX.upload.maximum_data_size=16384
 GenF1.menu.pnum.GENERIC_F101CBUX.build.board=GENERIC_F101CBUX
 GenF1.menu.pnum.GENERIC_F101CBUX.build.product_line=STM32F101xB
 GenF1.menu.pnum.GENERIC_F101CBUX.build.variant=STM32F1xx/F101C(8-B)(T-U)
+GenF1.menu.pnum.GENERIC_F101CBUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F101.svd
 

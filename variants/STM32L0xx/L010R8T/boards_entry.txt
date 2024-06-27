@@ -10,4 +10,5 @@ GenL0.menu.pnum.GENERIC_L010R8TX.upload.maximum_data_size=8192
 GenL0.menu.pnum.GENERIC_L010R8TX.build.board=GENERIC_L010R8TX
 GenL0.menu.pnum.GENERIC_L010R8TX.build.product_line=STM32L010x8
 GenL0.menu.pnum.GENERIC_L010R8TX.build.variant=STM32L0xx/L010R8T
+GenL0.menu.pnum.GENERIC_L010R8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x0.svd
 

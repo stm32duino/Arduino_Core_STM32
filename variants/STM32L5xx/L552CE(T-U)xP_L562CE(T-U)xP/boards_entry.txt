@@ -10,6 +10,7 @@ GenL5.menu.pnum.GENERIC_L552CETXP.upload.maximum_data_size=262144
 GenL5.menu.pnum.GENERIC_L552CETXP.build.board=GENERIC_L552CETXP
 GenL5.menu.pnum.GENERIC_L552CETXP.build.product_line=STM32L552xx
 GenL5.menu.pnum.GENERIC_L552CETXP.build.variant=STM32L5xx/L552CE(T-U)xP_L562CE(T-U)xP
+GenL5.menu.pnum.GENERIC_L552CETXP.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L552.svd
 
 # Generic L552CEUxP
 GenL5.menu.pnum.GENERIC_L552CEUXP=Generic L552CEUxP
@@ -18,6 +19,7 @@ GenL5.menu.pnum.GENERIC_L552CEUXP.upload.maximum_data_size=262144
 GenL5.menu.pnum.GENERIC_L552CEUXP.build.board=GENERIC_L552CEUXP
 GenL5.menu.pnum.GENERIC_L552CEUXP.build.product_line=STM32L552xx
 GenL5.menu.pnum.GENERIC_L552CEUXP.build.variant=STM32L5xx/L552CE(T-U)xP_L562CE(T-U)xP
+GenL5.menu.pnum.GENERIC_L552CEUXP.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L552.svd
 
 # Generic L562CETxP
 GenL5.menu.pnum.GENERIC_L562CETXP=Generic L562CETxP
@@ -26,6 +28,7 @@ GenL5.menu.pnum.GENERIC_L562CETXP.upload.maximum_data_size=262144
 GenL5.menu.pnum.GENERIC_L562CETXP.build.board=GENERIC_L562CETXP
 GenL5.menu.pnum.GENERIC_L562CETXP.build.product_line=STM32L562xx
 GenL5.menu.pnum.GENERIC_L562CETXP.build.variant=STM32L5xx/L552CE(T-U)xP_L562CE(T-U)xP
+GenL5.menu.pnum.GENERIC_L562CETXP.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L562.svd
 
 # Generic L562CEUxP
 GenL5.menu.pnum.GENERIC_L562CEUXP=Generic L562CEUxP
@@ -34,4 +37,5 @@ GenL5.menu.pnum.GENERIC_L562CEUXP.upload.maximum_data_size=262144
 GenL5.menu.pnum.GENERIC_L562CEUXP.build.board=GENERIC_L562CEUXP
 GenL5.menu.pnum.GENERIC_L562CEUXP.build.product_line=STM32L562xx
 GenL5.menu.pnum.GENERIC_L562CEUXP.build.variant=STM32L5xx/L552CE(T-U)xP_L562CE(T-U)xP
+GenL5.menu.pnum.GENERIC_L562CEUXP.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L562.svd
 

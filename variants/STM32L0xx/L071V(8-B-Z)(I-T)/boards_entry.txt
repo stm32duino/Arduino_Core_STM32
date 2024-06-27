@@ -10,6 +10,7 @@ GenL0.menu.pnum.GENERIC_L071VBIX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L071VBIX.build.board=GENERIC_L071VBIX
 GenL0.menu.pnum.GENERIC_L071VBIX.build.product_line=STM32L071xx
 GenL0.menu.pnum.GENERIC_L071VBIX.build.variant=STM32L0xx/L071V(8-B-Z)(I-T)
+GenL0.menu.pnum.GENERIC_L071VBIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 
 # Generic L071VZIx
 GenL0.menu.pnum.GENERIC_L071VZIX=Generic L071VZIx
@@ -18,6 +19,7 @@ GenL0.menu.pnum.GENERIC_L071VZIX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L071VZIX.build.board=GENERIC_L071VZIX
 GenL0.menu.pnum.GENERIC_L071VZIX.build.product_line=STM32L071xx
 GenL0.menu.pnum.GENERIC_L071VZIX.build.variant=STM32L0xx/L071V(8-B-Z)(I-T)
+GenL0.menu.pnum.GENERIC_L071VZIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 
 # Generic L071VBTx
 GenL0.menu.pnum.GENERIC_L071VBTX=Generic L071VBTx
@@ -26,6 +28,7 @@ GenL0.menu.pnum.GENERIC_L071VBTX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L071VBTX.build.board=GENERIC_L071VBTX
 GenL0.menu.pnum.GENERIC_L071VBTX.build.product_line=STM32L071xx
 GenL0.menu.pnum.GENERIC_L071VBTX.build.variant=STM32L0xx/L071V(8-B-Z)(I-T)
+GenL0.menu.pnum.GENERIC_L071VBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 
 # Generic L071VZTx
 GenL0.menu.pnum.GENERIC_L071VZTX=Generic L071VZTx
@@ -34,6 +37,7 @@ GenL0.menu.pnum.GENERIC_L071VZTX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L071VZTX.build.board=GENERIC_L071VZTX
 GenL0.menu.pnum.GENERIC_L071VZTX.build.product_line=STM32L071xx
 GenL0.menu.pnum.GENERIC_L071VZTX.build.variant=STM32L0xx/L071V(8-B-Z)(I-T)
+GenL0.menu.pnum.GENERIC_L071VZTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 
 # Generic L071V8Ix
 GenL0.menu.pnum.GENERIC_L071V8IX=Generic L071V8Ix
@@ -42,6 +46,7 @@ GenL0.menu.pnum.GENERIC_L071V8IX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L071V8IX.build.board=GENERIC_L071V8IX
 GenL0.menu.pnum.GENERIC_L071V8IX.build.product_line=STM32L071xx
 GenL0.menu.pnum.GENERIC_L071V8IX.build.variant=STM32L0xx/L071V(8-B-Z)(I-T)
+GenL0.menu.pnum.GENERIC_L071V8IX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 
 # Generic L071V8Tx
 GenL0.menu.pnum.GENERIC_L071V8TX=Generic L071V8Tx
@@ -50,4 +55,5 @@ GenL0.menu.pnum.GENERIC_L071V8TX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L071V8TX.build.board=GENERIC_L071V8TX
 GenL0.menu.pnum.GENERIC_L071V8TX.build.product_line=STM32L071xx
 GenL0.menu.pnum.GENERIC_L071V8TX.build.variant=STM32L0xx/L071V(8-B-Z)(I-T)
+GenL0.menu.pnum.GENERIC_L071V8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 

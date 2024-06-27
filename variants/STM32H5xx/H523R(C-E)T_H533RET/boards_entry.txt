@@ -10,6 +10,7 @@ GenH5.menu.pnum.GENERIC_H523RCTX.upload.maximum_data_size=278528
 GenH5.menu.pnum.GENERIC_H523RCTX.build.board=GENERIC_H523RCTX
 GenH5.menu.pnum.GENERIC_H523RCTX.build.product_line=STM32H523xx
 GenH5.menu.pnum.GENERIC_H523RCTX.build.variant=STM32H5xx/H523R(C-E)T_H533RET
+GenH5.menu.pnum.GENERIC_H523RCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H523.svd
 
 # Generic H523RETx
 GenH5.menu.pnum.GENERIC_H523RETX=Generic H523RETx
@@ -18,6 +19,7 @@ GenH5.menu.pnum.GENERIC_H523RETX.upload.maximum_data_size=278528
 GenH5.menu.pnum.GENERIC_H523RETX.build.board=GENERIC_H523RETX
 GenH5.menu.pnum.GENERIC_H523RETX.build.product_line=STM32H523xx
 GenH5.menu.pnum.GENERIC_H523RETX.build.variant=STM32H5xx/H523R(C-E)T_H533RET
+GenH5.menu.pnum.GENERIC_H523RETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H523.svd
 
 # Generic H533RETx
 GenH5.menu.pnum.GENERIC_H533RETX=Generic H533RETx
@@ -26,4 +28,5 @@ GenH5.menu.pnum.GENERIC_H533RETX.upload.maximum_data_size=278528
 GenH5.menu.pnum.GENERIC_H533RETX.build.board=GENERIC_H533RETX
 GenH5.menu.pnum.GENERIC_H533RETX.build.product_line=STM32H533xx
 GenH5.menu.pnum.GENERIC_H533RETX.build.variant=STM32H5xx/H523R(C-E)T_H533RET
+GenH5.menu.pnum.GENERIC_H533RETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H533.svd
 

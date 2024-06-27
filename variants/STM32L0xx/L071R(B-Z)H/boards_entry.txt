@@ -10,6 +10,7 @@ GenL0.menu.pnum.GENERIC_L071RBHX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L071RBHX.build.board=GENERIC_L071RBHX
 GenL0.menu.pnum.GENERIC_L071RBHX.build.product_line=STM32L071xx
 GenL0.menu.pnum.GENERIC_L071RBHX.build.variant=STM32L0xx/L071R(B-Z)H
+GenL0.menu.pnum.GENERIC_L071RBHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 
 # Generic L071RZHx
 GenL0.menu.pnum.GENERIC_L071RZHX=Generic L071RZHx
@@ -18,4 +19,5 @@ GenL0.menu.pnum.GENERIC_L071RZHX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L071RZHX.build.board=GENERIC_L071RZHX
 GenL0.menu.pnum.GENERIC_L071RZHX.build.product_line=STM32L071xx
 GenL0.menu.pnum.GENERIC_L071RZHX.build.variant=STM32L0xx/L071R(B-Z)H
+GenL0.menu.pnum.GENERIC_L071RZHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 

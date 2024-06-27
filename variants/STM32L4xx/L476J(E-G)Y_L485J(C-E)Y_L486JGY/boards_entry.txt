@@ -10,6 +10,7 @@ GenL4.menu.pnum.GENERIC_L476JEYX.upload.maximum_data_size=131072
 GenL4.menu.pnum.GENERIC_L476JEYX.build.board=GENERIC_L476JEYX
 GenL4.menu.pnum.GENERIC_L476JEYX.build.product_line=STM32L476xx
 GenL4.menu.pnum.GENERIC_L476JEYX.build.variant=STM32L4xx/L476J(E-G)Y_L485J(C-E)Y_L486JGY
+GenL4.menu.pnum.GENERIC_L476JEYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L476.svd
 
 # Generic L476JGYx
 GenL4.menu.pnum.GENERIC_L476JGYX=Generic L476JGYx
@@ -18,6 +19,7 @@ GenL4.menu.pnum.GENERIC_L476JGYX.upload.maximum_data_size=131072
 GenL4.menu.pnum.GENERIC_L476JGYX.build.board=GENERIC_L476JGYX
 GenL4.menu.pnum.GENERIC_L476JGYX.build.product_line=STM32L476xx
 GenL4.menu.pnum.GENERIC_L476JGYX.build.variant=STM32L4xx/L476J(E-G)Y_L485J(C-E)Y_L486JGY
+GenL4.menu.pnum.GENERIC_L476JGYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L476.svd
 
 # Generic L485JCYx
 GenL4.menu.pnum.GENERIC_L485JCYX=Generic L485JCYx
@@ -26,6 +28,7 @@ GenL4.menu.pnum.GENERIC_L485JCYX.upload.maximum_data_size=131072
 GenL4.menu.pnum.GENERIC_L485JCYX.build.board=GENERIC_L485JCYX
 GenL4.menu.pnum.GENERIC_L485JCYX.build.product_line=STM32L485xx
 GenL4.menu.pnum.GENERIC_L485JCYX.build.variant=STM32L4xx/L476J(E-G)Y_L485J(C-E)Y_L486JGY
+GenL4.menu.pnum.GENERIC_L485JCYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x5.svd
 
 # Generic L485JEYx
 GenL4.menu.pnum.GENERIC_L485JEYX=Generic L485JEYx
@@ -34,6 +37,7 @@ GenL4.menu.pnum.GENERIC_L485JEYX.upload.maximum_data_size=131072
 GenL4.menu.pnum.GENERIC_L485JEYX.build.board=GENERIC_L485JEYX
 GenL4.menu.pnum.GENERIC_L485JEYX.build.product_line=STM32L485xx
 GenL4.menu.pnum.GENERIC_L485JEYX.build.variant=STM32L4xx/L476J(E-G)Y_L485J(C-E)Y_L486JGY
+GenL4.menu.pnum.GENERIC_L485JEYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x5.svd
 
 # Generic L486JGYx
 GenL4.menu.pnum.GENERIC_L486JGYX=Generic L486JGYx
@@ -42,4 +46,5 @@ GenL4.menu.pnum.GENERIC_L486JGYX.upload.maximum_data_size=131072
 GenL4.menu.pnum.GENERIC_L486JGYX.build.board=GENERIC_L486JGYX
 GenL4.menu.pnum.GENERIC_L486JGYX.build.product_line=STM32L486xx
 GenL4.menu.pnum.GENERIC_L486JGYX.build.variant=STM32L4xx/L476J(E-G)Y_L485J(C-E)Y_L486JGY
+GenL4.menu.pnum.GENERIC_L486JGYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x6.svd
 

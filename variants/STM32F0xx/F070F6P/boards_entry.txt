@@ -10,4 +10,5 @@ GenF0.menu.pnum.GENERIC_F070F6PX.upload.maximum_data_size=6144
 GenF0.menu.pnum.GENERIC_F070F6PX.build.board=GENERIC_F070F6PX
 GenF0.menu.pnum.GENERIC_F070F6PX.build.product_line=STM32F070x6
 GenF0.menu.pnum.GENERIC_F070F6PX.build.variant=STM32F0xx/F070F6P
+GenF0.menu.pnum.GENERIC_F070F6PX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x0.svd
 

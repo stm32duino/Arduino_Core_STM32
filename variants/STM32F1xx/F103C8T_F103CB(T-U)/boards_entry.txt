@@ -10,6 +10,7 @@ GenF1.menu.pnum.GENERIC_F103C8TX.upload.maximum_data_size=20480
 GenF1.menu.pnum.GENERIC_F103C8TX.build.board=GENERIC_F103C8TX
 GenF1.menu.pnum.GENERIC_F103C8TX.build.product_line=STM32F103xB
 GenF1.menu.pnum.GENERIC_F103C8TX.build.variant=STM32F1xx/F103C8T_F103CB(T-U)
+GenF1.menu.pnum.GENERIC_F103C8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 
 # Generic F103CBTx
 GenF1.menu.pnum.GENERIC_F103CBTX=Generic F103CBTx
@@ -18,6 +19,7 @@ GenF1.menu.pnum.GENERIC_F103CBTX.upload.maximum_data_size=20480
 GenF1.menu.pnum.GENERIC_F103CBTX.build.board=GENERIC_F103CBTX
 GenF1.menu.pnum.GENERIC_F103CBTX.build.product_line=STM32F103xB
 GenF1.menu.pnum.GENERIC_F103CBTX.build.variant=STM32F1xx/F103C8T_F103CB(T-U)
+GenF1.menu.pnum.GENERIC_F103CBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 
 # Generic F103CBUx
 GenF1.menu.pnum.GENERIC_F103CBUX=Generic F103CBUx
@@ -26,4 +28,5 @@ GenF1.menu.pnum.GENERIC_F103CBUX.upload.maximum_data_size=20480
 GenF1.menu.pnum.GENERIC_F103CBUX.build.board=GENERIC_F103CBUX
 GenF1.menu.pnum.GENERIC_F103CBUX.build.product_line=STM32F103xB
 GenF1.menu.pnum.GENERIC_F103CBUX.build.variant=STM32F1xx/F103C8T_F103CB(T-U)
+GenF1.menu.pnum.GENERIC_F103CBUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 

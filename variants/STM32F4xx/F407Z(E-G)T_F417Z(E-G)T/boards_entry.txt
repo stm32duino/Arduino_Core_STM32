@@ -10,6 +10,7 @@ GenF4.menu.pnum.GENERIC_F407ZETX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F407ZETX.build.board=GENERIC_F407ZETX
 GenF4.menu.pnum.GENERIC_F407ZETX.build.product_line=STM32F407xx
 GenF4.menu.pnum.GENERIC_F407ZETX.build.variant=STM32F4xx/F407Z(E-G)T_F417Z(E-G)T
+GenF4.menu.pnum.GENERIC_F407ZETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F407.svd
 
 # Generic F407ZGTx
 GenF4.menu.pnum.GENERIC_F407ZGTX=Generic F407ZGTx
@@ -18,6 +19,7 @@ GenF4.menu.pnum.GENERIC_F407ZGTX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F407ZGTX.build.board=GENERIC_F407ZGTX
 GenF4.menu.pnum.GENERIC_F407ZGTX.build.product_line=STM32F407xx
 GenF4.menu.pnum.GENERIC_F407ZGTX.build.variant=STM32F4xx/F407Z(E-G)T_F417Z(E-G)T
+GenF4.menu.pnum.GENERIC_F407ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F407.svd
 
 # Generic F417ZETx
 GenF4.menu.pnum.GENERIC_F417ZETX=Generic F417ZETx
@@ -26,6 +28,7 @@ GenF4.menu.pnum.GENERIC_F417ZETX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F417ZETX.build.board=GENERIC_F417ZETX
 GenF4.menu.pnum.GENERIC_F417ZETX.build.product_line=STM32F417xx
 GenF4.menu.pnum.GENERIC_F417ZETX.build.variant=STM32F4xx/F407Z(E-G)T_F417Z(E-G)T
+GenF4.menu.pnum.GENERIC_F417ZETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F417.svd
 
 # Generic F417ZGTx
 GenF4.menu.pnum.GENERIC_F417ZGTX=Generic F417ZGTx
@@ -34,4 +37,5 @@ GenF4.menu.pnum.GENERIC_F417ZGTX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F417ZGTX.build.board=GENERIC_F417ZGTX
 GenF4.menu.pnum.GENERIC_F417ZGTX.build.product_line=STM32F417xx
 GenF4.menu.pnum.GENERIC_F417ZGTX.build.variant=STM32F4xx/F407Z(E-G)T_F417Z(E-G)T
+GenF4.menu.pnum.GENERIC_F417ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F417.svd
 

@@ -10,6 +10,7 @@ GenL4.menu.pnum.GENERIC_L412R8IX.upload.maximum_data_size=40960
 GenL4.menu.pnum.GENERIC_L412R8IX.build.board=GENERIC_L412R8IX
 GenL4.menu.pnum.GENERIC_L412R8IX.build.product_line=STM32L412xx
 GenL4.menu.pnum.GENERIC_L412R8IX.build.variant=STM32L4xx/L412R(8-B)(I-T)_L422RB(I-T)
+GenL4.menu.pnum.GENERIC_L412R8IX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L412.svd
 
 # Generic L412R8Tx
 GenL4.menu.pnum.GENERIC_L412R8TX=Generic L412R8Tx
@@ -18,6 +19,7 @@ GenL4.menu.pnum.GENERIC_L412R8TX.upload.maximum_data_size=40960
 GenL4.menu.pnum.GENERIC_L412R8TX.build.board=GENERIC_L412R8TX
 GenL4.menu.pnum.GENERIC_L412R8TX.build.product_line=STM32L412xx
 GenL4.menu.pnum.GENERIC_L412R8TX.build.variant=STM32L4xx/L412R(8-B)(I-T)_L422RB(I-T)
+GenL4.menu.pnum.GENERIC_L412R8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L412.svd
 
 # Generic L412RBIx
 GenL4.menu.pnum.GENERIC_L412RBIX=Generic L412RBIx
@@ -26,6 +28,7 @@ GenL4.menu.pnum.GENERIC_L412RBIX.upload.maximum_data_size=40960
 GenL4.menu.pnum.GENERIC_L412RBIX.build.board=GENERIC_L412RBIX
 GenL4.menu.pnum.GENERIC_L412RBIX.build.product_line=STM32L412xx
 GenL4.menu.pnum.GENERIC_L412RBIX.build.variant=STM32L4xx/L412R(8-B)(I-T)_L422RB(I-T)
+GenL4.menu.pnum.GENERIC_L412RBIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L412.svd
 
 # Generic L412RBTx
 GenL4.menu.pnum.GENERIC_L412RBTX=Generic L412RBTx
@@ -34,6 +37,7 @@ GenL4.menu.pnum.GENERIC_L412RBTX.upload.maximum_data_size=40960
 GenL4.menu.pnum.GENERIC_L412RBTX.build.board=GENERIC_L412RBTX
 GenL4.menu.pnum.GENERIC_L412RBTX.build.product_line=STM32L412xx
 GenL4.menu.pnum.GENERIC_L412RBTX.build.variant=STM32L4xx/L412R(8-B)(I-T)_L422RB(I-T)
+GenL4.menu.pnum.GENERIC_L412RBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L412.svd
 
 # Generic L422RBIx
 GenL4.menu.pnum.GENERIC_L422RBIX=Generic L422RBIx
@@ -42,6 +46,7 @@ GenL4.menu.pnum.GENERIC_L422RBIX.upload.maximum_data_size=40960
 GenL4.menu.pnum.GENERIC_L422RBIX.build.board=GENERIC_L422RBIX
 GenL4.menu.pnum.GENERIC_L422RBIX.build.product_line=STM32L422xx
 GenL4.menu.pnum.GENERIC_L422RBIX.build.variant=STM32L4xx/L412R(8-B)(I-T)_L422RB(I-T)
+GenL4.menu.pnum.GENERIC_L422RBIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x2.svd
 
 # Generic L422RBTx
 GenL4.menu.pnum.GENERIC_L422RBTX=Generic L422RBTx
@@ -50,4 +55,5 @@ GenL4.menu.pnum.GENERIC_L422RBTX.upload.maximum_data_size=40960
 GenL4.menu.pnum.GENERIC_L422RBTX.build.board=GENERIC_L422RBTX
 GenL4.menu.pnum.GENERIC_L422RBTX.build.product_line=STM32L422xx
 GenL4.menu.pnum.GENERIC_L422RBTX.build.variant=STM32L4xx/L412R(8-B)(I-T)_L422RB(I-T)
+GenL4.menu.pnum.GENERIC_L422RBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x2.svd
 

@@ -10,6 +10,7 @@ GenF0.menu.pnum.GENERIC_F072R8TX.upload.maximum_data_size=16384
 GenF0.menu.pnum.GENERIC_F072R8TX.build.board=GENERIC_F072R8TX
 GenF0.menu.pnum.GENERIC_F072R8TX.build.product_line=STM32F072xB
 GenF0.menu.pnum.GENERIC_F072R8TX.build.variant=STM32F0xx/F072R8T_F072RB(H-I-T)
+GenF0.menu.pnum.GENERIC_F072R8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x2.svd
 
 # Generic F072RBTx
 GenF0.menu.pnum.GENERIC_F072RBTX=Generic F072RBTx
@@ -18,6 +19,7 @@ GenF0.menu.pnum.GENERIC_F072RBTX.upload.maximum_data_size=16384
 GenF0.menu.pnum.GENERIC_F072RBTX.build.board=GENERIC_F072RBTX
 GenF0.menu.pnum.GENERIC_F072RBTX.build.product_line=STM32F072xB
 GenF0.menu.pnum.GENERIC_F072RBTX.build.variant=STM32F0xx/F072R8T_F072RB(H-I-T)
+GenF0.menu.pnum.GENERIC_F072RBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x2.svd
 
 # Generic F072RBHx
 GenF0.menu.pnum.GENERIC_F072RBHX=Generic F072RBHx
@@ -26,6 +28,7 @@ GenF0.menu.pnum.GENERIC_F072RBHX.upload.maximum_data_size=16384
 GenF0.menu.pnum.GENERIC_F072RBHX.build.board=GENERIC_F072RBHX
 GenF0.menu.pnum.GENERIC_F072RBHX.build.product_line=STM32F072xB
 GenF0.menu.pnum.GENERIC_F072RBHX.build.variant=STM32F0xx/F072R8T_F072RB(H-I-T)
+GenF0.menu.pnum.GENERIC_F072RBHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x2.svd
 
 # Generic F072RBIx
 GenF0.menu.pnum.GENERIC_F072RBIX=Generic F072RBIx
@@ -34,4 +37,5 @@ GenF0.menu.pnum.GENERIC_F072RBIX.upload.maximum_data_size=16384
 GenF0.menu.pnum.GENERIC_F072RBIX.build.board=GENERIC_F072RBIX
 GenF0.menu.pnum.GENERIC_F072RBIX.build.product_line=STM32F072xB
 GenF0.menu.pnum.GENERIC_F072RBIX.build.variant=STM32F0xx/F072R8T_F072RB(H-I-T)
+GenF0.menu.pnum.GENERIC_F072RBIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x2.svd
 

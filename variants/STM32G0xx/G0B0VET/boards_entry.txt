@@ -10,4 +10,5 @@ GenG0.menu.pnum.GENERIC_G0B0VETX.upload.maximum_data_size=147456
 GenG0.menu.pnum.GENERIC_G0B0VETX.build.board=GENERIC_G0B0VETX
 GenG0.menu.pnum.GENERIC_G0B0VETX.build.product_line=STM32G0B0xx
 GenG0.menu.pnum.GENERIC_G0B0VETX.build.variant=STM32G0xx/G0B0VET
+GenG0.menu.pnum.GENERIC_G0B0VETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G0B0.svd
 

@@ -10,4 +10,5 @@ GenWL.menu.pnum.GENERIC_WL5MOCHX.upload.maximum_data_size=65536
 GenWL.menu.pnum.GENERIC_WL5MOCHX.build.board=GENERIC_WL5MOCHX
 GenWL.menu.pnum.GENERIC_WL5MOCHX.build.product_line=STM32WL5Mxx
 GenWL.menu.pnum.GENERIC_WL5MOCHX.build.variant=STM32WLxx/WL5MOCH
+GenWL.menu.pnum.GENERIC_WL5MOCHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WLxx/STM32WL5x_CM4.svd
 

@@ -10,6 +10,7 @@ GenG0.menu.pnum.GENERIC_G050C6TX.upload.maximum_data_size=18432
 GenG0.menu.pnum.GENERIC_G050C6TX.build.board=GENERIC_G050C6TX
 GenG0.menu.pnum.GENERIC_G050C6TX.build.product_line=STM32G050xx
 GenG0.menu.pnum.GENERIC_G050C6TX.build.variant=STM32G0xx/G050C(6-8)T
+GenG0.menu.pnum.GENERIC_G050C6TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G050.svd
 
 # Generic G050C8Tx
 GenG0.menu.pnum.GENERIC_G050C8TX=Generic G050C8Tx
@@ -18,4 +19,5 @@ GenG0.menu.pnum.GENERIC_G050C8TX.upload.maximum_data_size=18432
 GenG0.menu.pnum.GENERIC_G050C8TX.build.board=GENERIC_G050C8TX
 GenG0.menu.pnum.GENERIC_G050C8TX.build.product_line=STM32G050xx
 GenG0.menu.pnum.GENERIC_G050C8TX.build.variant=STM32G0xx/G050C(6-8)T
+GenG0.menu.pnum.GENERIC_G050C8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G050.svd
 

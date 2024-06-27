@@ -10,6 +10,7 @@ GenF1.menu.pnum.GENERIC_F103RFTX.upload.maximum_data_size=98304
 GenF1.menu.pnum.GENERIC_F103RFTX.build.board=GENERIC_F103RFTX
 GenF1.menu.pnum.GENERIC_F103RFTX.build.product_line=STM32F103xG
 GenF1.menu.pnum.GENERIC_F103RFTX.build.variant=STM32F1xx/F103R(F-G)T
+GenF1.menu.pnum.GENERIC_F103RFTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 
 # Generic F103RGTx
 GenF1.menu.pnum.GENERIC_F103RGTX=Generic F103RGTx
@@ -18,4 +19,5 @@ GenF1.menu.pnum.GENERIC_F103RGTX.upload.maximum_data_size=98304
 GenF1.menu.pnum.GENERIC_F103RGTX.build.board=GENERIC_F103RGTX
 GenF1.menu.pnum.GENERIC_F103RGTX.build.product_line=STM32F103xG
 GenF1.menu.pnum.GENERIC_F103RGTX.build.variant=STM32F1xx/F103R(F-G)T
+GenF1.menu.pnum.GENERIC_F103RGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 

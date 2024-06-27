@@ -10,6 +10,7 @@ GenL4.menu.pnum.GENERIC_L431CBYX.upload.maximum_data_size=65536
 GenL4.menu.pnum.GENERIC_L431CBYX.build.board=GENERIC_L431CBYX
 GenL4.menu.pnum.GENERIC_L431CBYX.build.product_line=STM32L431xx
 GenL4.menu.pnum.GENERIC_L431CBYX.build.variant=STM32L4xx/L431C(B-C)Y
+GenL4.menu.pnum.GENERIC_L431CBYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x1.svd
 
 # Generic L431CCYx
 GenL4.menu.pnum.GENERIC_L431CCYX=Generic L431CCYx
@@ -18,4 +19,5 @@ GenL4.menu.pnum.GENERIC_L431CCYX.upload.maximum_data_size=65536
 GenL4.menu.pnum.GENERIC_L431CCYX.build.board=GENERIC_L431CCYX
 GenL4.menu.pnum.GENERIC_L431CCYX.build.product_line=STM32L431xx
 GenL4.menu.pnum.GENERIC_L431CCYX.build.variant=STM32L4xx/L431C(B-C)Y
+GenL4.menu.pnum.GENERIC_L431CCYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x1.svd
 

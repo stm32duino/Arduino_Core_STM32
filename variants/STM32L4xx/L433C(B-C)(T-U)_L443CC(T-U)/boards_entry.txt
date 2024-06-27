@@ -10,6 +10,7 @@ GenL4.menu.pnum.GENERIC_L433CBTX.upload.maximum_data_size=65536
 GenL4.menu.pnum.GENERIC_L433CBTX.build.board=GENERIC_L433CBTX
 GenL4.menu.pnum.GENERIC_L433CBTX.build.product_line=STM32L433xx
 GenL4.menu.pnum.GENERIC_L433CBTX.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
+GenL4.menu.pnum.GENERIC_L433CBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x3.svd
 
 # Generic L433CCTx
 GenL4.menu.pnum.GENERIC_L433CCTX=Generic L433CCTx
@@ -18,6 +19,7 @@ GenL4.menu.pnum.GENERIC_L433CCTX.upload.maximum_data_size=65536
 GenL4.menu.pnum.GENERIC_L433CCTX.build.board=GENERIC_L433CCTX
 GenL4.menu.pnum.GENERIC_L433CCTX.build.product_line=STM32L433xx
 GenL4.menu.pnum.GENERIC_L433CCTX.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
+GenL4.menu.pnum.GENERIC_L433CCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x3.svd
 
 # Generic L433CBUx
 GenL4.menu.pnum.GENERIC_L433CBUX=Generic L433CBUx
@@ -26,6 +28,7 @@ GenL4.menu.pnum.GENERIC_L433CBUX.upload.maximum_data_size=65536
 GenL4.menu.pnum.GENERIC_L433CBUX.build.board=GENERIC_L433CBUX
 GenL4.menu.pnum.GENERIC_L433CBUX.build.product_line=STM32L433xx
 GenL4.menu.pnum.GENERIC_L433CBUX.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
+GenL4.menu.pnum.GENERIC_L433CBUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x3.svd
 
 # Generic L433CCUx
 GenL4.menu.pnum.GENERIC_L433CCUX=Generic L433CCUx
@@ -34,6 +37,7 @@ GenL4.menu.pnum.GENERIC_L433CCUX.upload.maximum_data_size=65536
 GenL4.menu.pnum.GENERIC_L433CCUX.build.board=GENERIC_L433CCUX
 GenL4.menu.pnum.GENERIC_L433CCUX.build.product_line=STM32L433xx
 GenL4.menu.pnum.GENERIC_L433CCUX.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
+GenL4.menu.pnum.GENERIC_L433CCUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x3.svd
 
 # Generic L443CCTx
 GenL4.menu.pnum.GENERIC_L443CCTX=Generic L443CCTx
@@ -42,6 +46,7 @@ GenL4.menu.pnum.GENERIC_L443CCTX.upload.maximum_data_size=65536
 GenL4.menu.pnum.GENERIC_L443CCTX.build.board=GENERIC_L443CCTX
 GenL4.menu.pnum.GENERIC_L443CCTX.build.product_line=STM32L443xx
 GenL4.menu.pnum.GENERIC_L443CCTX.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
+GenL4.menu.pnum.GENERIC_L443CCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x3.svd
 
 # Generic L443CCUx
 GenL4.menu.pnum.GENERIC_L443CCUX=Generic L443CCUx
@@ -50,4 +55,5 @@ GenL4.menu.pnum.GENERIC_L443CCUX.upload.maximum_data_size=65536
 GenL4.menu.pnum.GENERIC_L443CCUX.build.board=GENERIC_L443CCUX
 GenL4.menu.pnum.GENERIC_L443CCUX.build.product_line=STM32L443xx
 GenL4.menu.pnum.GENERIC_L443CCUX.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
+GenL4.menu.pnum.GENERIC_L443CCUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x3.svd
 

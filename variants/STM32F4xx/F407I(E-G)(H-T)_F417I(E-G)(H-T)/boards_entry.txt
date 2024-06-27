@@ -10,6 +10,7 @@ GenF4.menu.pnum.GENERIC_F407IEHX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F407IEHX.build.board=GENERIC_F407IEHX
 GenF4.menu.pnum.GENERIC_F407IEHX.build.product_line=STM32F407xx
 GenF4.menu.pnum.GENERIC_F407IEHX.build.variant=STM32F4xx/F407I(E-G)(H-T)_F417I(E-G)(H-T)
+GenF4.menu.pnum.GENERIC_F407IEHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F407.svd
 
 # Generic F407IGHx
 GenF4.menu.pnum.GENERIC_F407IGHX=Generic F407IGHx
@@ -18,6 +19,7 @@ GenF4.menu.pnum.GENERIC_F407IGHX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F407IGHX.build.board=GENERIC_F407IGHX
 GenF4.menu.pnum.GENERIC_F407IGHX.build.product_line=STM32F407xx
 GenF4.menu.pnum.GENERIC_F407IGHX.build.variant=STM32F4xx/F407I(E-G)(H-T)_F417I(E-G)(H-T)
+GenF4.menu.pnum.GENERIC_F407IGHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F407.svd
 
 # Generic F407IETx
 GenF4.menu.pnum.GENERIC_F407IETX=Generic F407IETx
@@ -26,6 +28,7 @@ GenF4.menu.pnum.GENERIC_F407IETX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F407IETX.build.board=GENERIC_F407IETX
 GenF4.menu.pnum.GENERIC_F407IETX.build.product_line=STM32F407xx
 GenF4.menu.pnum.GENERIC_F407IETX.build.variant=STM32F4xx/F407I(E-G)(H-T)_F417I(E-G)(H-T)
+GenF4.menu.pnum.GENERIC_F407IETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F407.svd
 
 # Generic F407IGTx
 GenF4.menu.pnum.GENERIC_F407IGTX=Generic F407IGTx
@@ -34,6 +37,7 @@ GenF4.menu.pnum.GENERIC_F407IGTX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F407IGTX.build.board=GENERIC_F407IGTX
 GenF4.menu.pnum.GENERIC_F407IGTX.build.product_line=STM32F407xx
 GenF4.menu.pnum.GENERIC_F407IGTX.build.variant=STM32F4xx/F407I(E-G)(H-T)_F417I(E-G)(H-T)
+GenF4.menu.pnum.GENERIC_F407IGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F407.svd
 
 # Generic F417IEHx
 GenF4.menu.pnum.GENERIC_F417IEHX=Generic F417IEHx
@@ -42,6 +46,7 @@ GenF4.menu.pnum.GENERIC_F417IEHX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F417IEHX.build.board=GENERIC_F417IEHX
 GenF4.menu.pnum.GENERIC_F417IEHX.build.product_line=STM32F417xx
 GenF4.menu.pnum.GENERIC_F417IEHX.build.variant=STM32F4xx/F407I(E-G)(H-T)_F417I(E-G)(H-T)
+GenF4.menu.pnum.GENERIC_F417IEHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F417.svd
 
 # Generic F417IGHx
 GenF4.menu.pnum.GENERIC_F417IGHX=Generic F417IGHx
@@ -50,6 +55,7 @@ GenF4.menu.pnum.GENERIC_F417IGHX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F417IGHX.build.board=GENERIC_F417IGHX
 GenF4.menu.pnum.GENERIC_F417IGHX.build.product_line=STM32F417xx
 GenF4.menu.pnum.GENERIC_F417IGHX.build.variant=STM32F4xx/F407I(E-G)(H-T)_F417I(E-G)(H-T)
+GenF4.menu.pnum.GENERIC_F417IGHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F417.svd
 
 # Generic F417IETx
 GenF4.menu.pnum.GENERIC_F417IETX=Generic F417IETx
@@ -58,6 +64,7 @@ GenF4.menu.pnum.GENERIC_F417IETX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F417IETX.build.board=GENERIC_F417IETX
 GenF4.menu.pnum.GENERIC_F417IETX.build.product_line=STM32F417xx
 GenF4.menu.pnum.GENERIC_F417IETX.build.variant=STM32F4xx/F407I(E-G)(H-T)_F417I(E-G)(H-T)
+GenF4.menu.pnum.GENERIC_F417IETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F417.svd
 
 # Generic F417IGTx
 GenF4.menu.pnum.GENERIC_F417IGTX=Generic F417IGTx
@@ -66,4 +73,5 @@ GenF4.menu.pnum.GENERIC_F417IGTX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F417IGTX.build.board=GENERIC_F417IGTX
 GenF4.menu.pnum.GENERIC_F417IGTX.build.product_line=STM32F417xx
 GenF4.menu.pnum.GENERIC_F417IGTX.build.variant=STM32F4xx/F407I(E-G)(H-T)_F417I(E-G)(H-T)
+GenF4.menu.pnum.GENERIC_F417IGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F417.svd
 

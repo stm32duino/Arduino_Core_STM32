@@ -10,4 +10,5 @@ GenWB.menu.pnum.GENERIC_WB5MMGHX.upload.maximum_data_size=262144
 GenWB.menu.pnum.GENERIC_WB5MMGHX.build.board=GENERIC_WB5MMGHX
 GenWB.menu.pnum.GENERIC_WB5MMGHX.build.product_line=STM32WB5Mxx
 GenWB.menu.pnum.GENERIC_WB5MMGHX.build.variant=STM32WBxx/WB5MMGH
+GenWB.menu.pnum.GENERIC_WB5MMGHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB55_CM4.svd
 

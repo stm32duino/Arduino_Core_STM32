@@ -10,6 +10,7 @@ GenL4.menu.pnum.GENERIC_L471RETX.upload.maximum_data_size=131072
 GenL4.menu.pnum.GENERIC_L471RETX.build.board=GENERIC_L471RETX
 GenL4.menu.pnum.GENERIC_L471RETX.build.product_line=STM32L471xx
 GenL4.menu.pnum.GENERIC_L471RETX.build.variant=STM32L4xx/L471R(E-G)T
+GenL4.menu.pnum.GENERIC_L471RETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x1.svd
 
 # Generic L471RGTx
 GenL4.menu.pnum.GENERIC_L471RGTX=Generic L471RGTx
@@ -18,4 +19,5 @@ GenL4.menu.pnum.GENERIC_L471RGTX.upload.maximum_data_size=131072
 GenL4.menu.pnum.GENERIC_L471RGTX.build.board=GENERIC_L471RGTX
 GenL4.menu.pnum.GENERIC_L471RGTX.build.product_line=STM32L471xx
 GenL4.menu.pnum.GENERIC_L471RGTX.build.variant=STM32L4xx/L471R(E-G)T
+GenL4.menu.pnum.GENERIC_L471RGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x1.svd
 

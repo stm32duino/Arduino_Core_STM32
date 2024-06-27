@@ -10,4 +10,5 @@ GenH5.menu.pnum.GENERIC_H503EBYX.upload.maximum_data_size=32768
 GenH5.menu.pnum.GENERIC_H503EBYX.build.board=GENERIC_H503EBYX
 GenH5.menu.pnum.GENERIC_H503EBYX.build.product_line=STM32H503xx
 GenH5.menu.pnum.GENERIC_H503EBYX.build.variant=STM32H5xx/H503EBY
+GenH5.menu.pnum.GENERIC_H503EBYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H503.svd
 

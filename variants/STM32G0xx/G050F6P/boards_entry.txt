@@ -10,4 +10,5 @@ GenG0.menu.pnum.GENERIC_G050F6PX.upload.maximum_data_size=18432
 GenG0.menu.pnum.GENERIC_G050F6PX.build.board=GENERIC_G050F6PX
 GenG0.menu.pnum.GENERIC_G050F6PX.build.product_line=STM32G050xx
 GenG0.menu.pnum.GENERIC_G050F6PX.build.variant=STM32G0xx/G050F6P
+GenG0.menu.pnum.GENERIC_G050F6PX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G050.svd
 

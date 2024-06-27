@@ -10,6 +10,7 @@ GenF4.menu.pnum.GENERIC_F405OEYX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F405OEYX.build.board=GENERIC_F405OEYX
 GenF4.menu.pnum.GENERIC_F405OEYX.build.product_line=STM32F405xx
 GenF4.menu.pnum.GENERIC_F405OEYX.build.variant=STM32F4xx/F405O(E-G)Y_F415OGY
+GenF4.menu.pnum.GENERIC_F405OEYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F405.svd
 
 # Generic F405OGYx
 GenF4.menu.pnum.GENERIC_F405OGYX=Generic F405OGYx
@@ -18,6 +19,7 @@ GenF4.menu.pnum.GENERIC_F405OGYX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F405OGYX.build.board=GENERIC_F405OGYX
 GenF4.menu.pnum.GENERIC_F405OGYX.build.product_line=STM32F405xx
 GenF4.menu.pnum.GENERIC_F405OGYX.build.variant=STM32F4xx/F405O(E-G)Y_F415OGY
+GenF4.menu.pnum.GENERIC_F405OGYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F405.svd
 
 # Generic F415OGYx
 GenF4.menu.pnum.GENERIC_F415OGYX=Generic F415OGYx
@@ -26,4 +28,5 @@ GenF4.menu.pnum.GENERIC_F415OGYX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F415OGYX.build.board=GENERIC_F415OGYX
 GenF4.menu.pnum.GENERIC_F415OGYX.build.product_line=STM32F415xx
 GenF4.menu.pnum.GENERIC_F415OGYX.build.variant=STM32F4xx/F405O(E-G)Y_F415OGY
+GenF4.menu.pnum.GENERIC_F415OGYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F415.svd
 
