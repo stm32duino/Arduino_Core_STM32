@@ -10,4 +10,5 @@ GenWB.menu.pnum.GENERIC_WB1MMCHX.upload.maximum_data_size=49152
 GenWB.menu.pnum.GENERIC_WB1MMCHX.build.board=GENERIC_WB1MMCHX
 GenWB.menu.pnum.GENERIC_WB1MMCHX.build.product_line=STM32WB1Mxx
 GenWB.menu.pnum.GENERIC_WB1MMCHX.build.variant=STM32WBxx/WB1MMCH
+GenWB.menu.pnum.GENERIC_WB1MMCHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB15_CM4.svd
 

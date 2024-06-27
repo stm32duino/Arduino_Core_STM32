@@ -10,6 +10,7 @@ GenL0.menu.pnum.GENERIC_L072RBTX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L072RBTX.build.board=GENERIC_L072RBTX
 GenL0.menu.pnum.GENERIC_L072RBTX.build.product_line=STM32L072xx
 GenL0.menu.pnum.GENERIC_L072RBTX.build.variant=STM32L0xx/L072R(B-Z)T_L073R(B-Z)T_L083R(B-Z)T
+GenL0.menu.pnum.GENERIC_L072RBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x2.svd
 
 # Generic L072RZTx
 GenL0.menu.pnum.GENERIC_L072RZTX=Generic L072RZTx
@@ -18,6 +19,7 @@ GenL0.menu.pnum.GENERIC_L072RZTX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L072RZTX.build.board=GENERIC_L072RZTX
 GenL0.menu.pnum.GENERIC_L072RZTX.build.product_line=STM32L072xx
 GenL0.menu.pnum.GENERIC_L072RZTX.build.variant=STM32L0xx/L072R(B-Z)T_L073R(B-Z)T_L083R(B-Z)T
+GenL0.menu.pnum.GENERIC_L072RZTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x2.svd
 
 # Generic L073RBTx
 GenL0.menu.pnum.GENERIC_L073RBTX=Generic L073RBTx
@@ -26,6 +28,7 @@ GenL0.menu.pnum.GENERIC_L073RBTX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L073RBTX.build.board=GENERIC_L073RBTX
 GenL0.menu.pnum.GENERIC_L073RBTX.build.product_line=STM32L073xx
 GenL0.menu.pnum.GENERIC_L073RBTX.build.variant=STM32L0xx/L072R(B-Z)T_L073R(B-Z)T_L083R(B-Z)T
+GenL0.menu.pnum.GENERIC_L073RBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x3.svd
 
 # Generic L073RZTx
 GenL0.menu.pnum.GENERIC_L073RZTX=Generic L073RZTx
@@ -34,6 +37,7 @@ GenL0.menu.pnum.GENERIC_L073RZTX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L073RZTX.build.board=GENERIC_L073RZTX
 GenL0.menu.pnum.GENERIC_L073RZTX.build.product_line=STM32L073xx
 GenL0.menu.pnum.GENERIC_L073RZTX.build.variant=STM32L0xx/L072R(B-Z)T_L073R(B-Z)T_L083R(B-Z)T
+GenL0.menu.pnum.GENERIC_L073RZTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x3.svd
 
 # Generic L083RBTx
 GenL0.menu.pnum.GENERIC_L083RBTX=Generic L083RBTx
@@ -42,6 +46,7 @@ GenL0.menu.pnum.GENERIC_L083RBTX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L083RBTX.build.board=GENERIC_L083RBTX
 GenL0.menu.pnum.GENERIC_L083RBTX.build.product_line=STM32L083xx
 GenL0.menu.pnum.GENERIC_L083RBTX.build.variant=STM32L0xx/L072R(B-Z)T_L073R(B-Z)T_L083R(B-Z)T
+GenL0.menu.pnum.GENERIC_L083RBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x3.svd
 
 # Generic L083RZTx
 GenL0.menu.pnum.GENERIC_L083RZTX=Generic L083RZTx
@@ -50,4 +55,5 @@ GenL0.menu.pnum.GENERIC_L083RZTX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L083RZTX.build.board=GENERIC_L083RZTX
 GenL0.menu.pnum.GENERIC_L083RZTX.build.product_line=STM32L083xx
 GenL0.menu.pnum.GENERIC_L083RZTX.build.variant=STM32L0xx/L072R(B-Z)T_L073R(B-Z)T_L083R(B-Z)T
+GenL0.menu.pnum.GENERIC_L083RZTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x3.svd
 

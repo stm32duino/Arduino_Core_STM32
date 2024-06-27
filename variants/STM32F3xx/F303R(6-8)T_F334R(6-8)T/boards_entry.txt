@@ -10,6 +10,7 @@ GenF3.menu.pnum.GENERIC_F303R6TX.upload.maximum_data_size=12288
 GenF3.menu.pnum.GENERIC_F303R6TX.build.board=GENERIC_F303R6TX
 GenF3.menu.pnum.GENERIC_F303R6TX.build.product_line=STM32F303x8
 GenF3.menu.pnum.GENERIC_F303R6TX.build.variant=STM32F3xx/F303R(6-8)T_F334R(6-8)T
+GenF3.menu.pnum.GENERIC_F303R6TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F303.svd
 
 # Generic F303R8Tx
 GenF3.menu.pnum.GENERIC_F303R8TX=Generic F303R8Tx
@@ -18,6 +19,7 @@ GenF3.menu.pnum.GENERIC_F303R8TX.upload.maximum_data_size=12288
 GenF3.menu.pnum.GENERIC_F303R8TX.build.board=GENERIC_F303R8TX
 GenF3.menu.pnum.GENERIC_F303R8TX.build.product_line=STM32F303x8
 GenF3.menu.pnum.GENERIC_F303R8TX.build.variant=STM32F3xx/F303R(6-8)T_F334R(6-8)T
+GenF3.menu.pnum.GENERIC_F303R8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F303.svd
 
 # Generic F334R6Tx
 GenF3.menu.pnum.GENERIC_F334R6TX=Generic F334R6Tx
@@ -26,6 +28,7 @@ GenF3.menu.pnum.GENERIC_F334R6TX.upload.maximum_data_size=12288
 GenF3.menu.pnum.GENERIC_F334R6TX.build.board=GENERIC_F334R6TX
 GenF3.menu.pnum.GENERIC_F334R6TX.build.product_line=STM32F334x8
 GenF3.menu.pnum.GENERIC_F334R6TX.build.variant=STM32F3xx/F303R(6-8)T_F334R(6-8)T
+GenF3.menu.pnum.GENERIC_F334R6TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F3x4.svd
 
 # Generic F334R8Tx
 GenF3.menu.pnum.GENERIC_F334R8TX=Generic F334R8Tx
@@ -34,4 +37,5 @@ GenF3.menu.pnum.GENERIC_F334R8TX.upload.maximum_data_size=12288
 GenF3.menu.pnum.GENERIC_F334R8TX.build.board=GENERIC_F334R8TX
 GenF3.menu.pnum.GENERIC_F334R8TX.build.product_line=STM32F334x8
 GenF3.menu.pnum.GENERIC_F334R8TX.build.variant=STM32F3xx/F303R(6-8)T_F334R(6-8)T
+GenF3.menu.pnum.GENERIC_F334R8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F3x4.svd
 

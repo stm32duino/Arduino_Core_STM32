@@ -10,6 +10,7 @@ GenG0.menu.pnum.GENERIC_G0B1CBTXN.upload.maximum_data_size=147456
 GenG0.menu.pnum.GENERIC_G0B1CBTXN.build.board=GENERIC_G0B1CBTXN
 GenG0.menu.pnum.GENERIC_G0B1CBTXN.build.product_line=STM32G0B1xx
 GenG0.menu.pnum.GENERIC_G0B1CBTXN.build.variant=STM32G0xx/G0B1C(B-C-E)(T-U)xN_G0C1C(C-E)(T-U)xN
+GenG0.menu.pnum.GENERIC_G0B1CBTXN.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G0B1.svd
 
 # Generic G0B1CCTxN
 GenG0.menu.pnum.GENERIC_G0B1CCTXN=Generic G0B1CCTxN
@@ -18,6 +19,7 @@ GenG0.menu.pnum.GENERIC_G0B1CCTXN.upload.maximum_data_size=147456
 GenG0.menu.pnum.GENERIC_G0B1CCTXN.build.board=GENERIC_G0B1CCTXN
 GenG0.menu.pnum.GENERIC_G0B1CCTXN.build.product_line=STM32G0B1xx
 GenG0.menu.pnum.GENERIC_G0B1CCTXN.build.variant=STM32G0xx/G0B1C(B-C-E)(T-U)xN_G0C1C(C-E)(T-U)xN
+GenG0.menu.pnum.GENERIC_G0B1CCTXN.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G0B1.svd
 
 # Generic G0B1CETxN
 GenG0.menu.pnum.GENERIC_G0B1CETXN=Generic G0B1CETxN
@@ -26,6 +28,7 @@ GenG0.menu.pnum.GENERIC_G0B1CETXN.upload.maximum_data_size=147456
 GenG0.menu.pnum.GENERIC_G0B1CETXN.build.board=GENERIC_G0B1CETXN
 GenG0.menu.pnum.GENERIC_G0B1CETXN.build.product_line=STM32G0B1xx
 GenG0.menu.pnum.GENERIC_G0B1CETXN.build.variant=STM32G0xx/G0B1C(B-C-E)(T-U)xN_G0C1C(C-E)(T-U)xN
+GenG0.menu.pnum.GENERIC_G0B1CETXN.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G0B1.svd
 
 # Generic G0B1CBUxN
 GenG0.menu.pnum.GENERIC_G0B1CBUXN=Generic G0B1CBUxN
@@ -34,6 +37,7 @@ GenG0.menu.pnum.GENERIC_G0B1CBUXN.upload.maximum_data_size=147456
 GenG0.menu.pnum.GENERIC_G0B1CBUXN.build.board=GENERIC_G0B1CBUXN
 GenG0.menu.pnum.GENERIC_G0B1CBUXN.build.product_line=STM32G0B1xx
 GenG0.menu.pnum.GENERIC_G0B1CBUXN.build.variant=STM32G0xx/G0B1C(B-C-E)(T-U)xN_G0C1C(C-E)(T-U)xN
+GenG0.menu.pnum.GENERIC_G0B1CBUXN.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G0B1.svd
 
 # Generic G0B1CCUxN
 GenG0.menu.pnum.GENERIC_G0B1CCUXN=Generic G0B1CCUxN
@@ -42,6 +46,7 @@ GenG0.menu.pnum.GENERIC_G0B1CCUXN.upload.maximum_data_size=147456
 GenG0.menu.pnum.GENERIC_G0B1CCUXN.build.board=GENERIC_G0B1CCUXN
 GenG0.menu.pnum.GENERIC_G0B1CCUXN.build.product_line=STM32G0B1xx
 GenG0.menu.pnum.GENERIC_G0B1CCUXN.build.variant=STM32G0xx/G0B1C(B-C-E)(T-U)xN_G0C1C(C-E)(T-U)xN
+GenG0.menu.pnum.GENERIC_G0B1CCUXN.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G0B1.svd
 
 # Generic G0B1CEUxN
 GenG0.menu.pnum.GENERIC_G0B1CEUXN=Generic G0B1CEUxN
@@ -50,6 +55,7 @@ GenG0.menu.pnum.GENERIC_G0B1CEUXN.upload.maximum_data_size=147456
 GenG0.menu.pnum.GENERIC_G0B1CEUXN.build.board=GENERIC_G0B1CEUXN
 GenG0.menu.pnum.GENERIC_G0B1CEUXN.build.product_line=STM32G0B1xx
 GenG0.menu.pnum.GENERIC_G0B1CEUXN.build.variant=STM32G0xx/G0B1C(B-C-E)(T-U)xN_G0C1C(C-E)(T-U)xN
+GenG0.menu.pnum.GENERIC_G0B1CEUXN.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G0B1.svd
 
 # Generic G0C1CCTxN
 GenG0.menu.pnum.GENERIC_G0C1CCTXN=Generic G0C1CCTxN
@@ -58,6 +64,7 @@ GenG0.menu.pnum.GENERIC_G0C1CCTXN.upload.maximum_data_size=147456
 GenG0.menu.pnum.GENERIC_G0C1CCTXN.build.board=GENERIC_G0C1CCTXN
 GenG0.menu.pnum.GENERIC_G0C1CCTXN.build.product_line=STM32G0C1xx
 GenG0.menu.pnum.GENERIC_G0C1CCTXN.build.variant=STM32G0xx/G0B1C(B-C-E)(T-U)xN_G0C1C(C-E)(T-U)xN
+GenG0.menu.pnum.GENERIC_G0C1CCTXN.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G0C1.svd
 
 # Generic G0C1CETxN
 GenG0.menu.pnum.GENERIC_G0C1CETXN=Generic G0C1CETxN
@@ -66,6 +73,7 @@ GenG0.menu.pnum.GENERIC_G0C1CETXN.upload.maximum_data_size=147456
 GenG0.menu.pnum.GENERIC_G0C1CETXN.build.board=GENERIC_G0C1CETXN
 GenG0.menu.pnum.GENERIC_G0C1CETXN.build.product_line=STM32G0C1xx
 GenG0.menu.pnum.GENERIC_G0C1CETXN.build.variant=STM32G0xx/G0B1C(B-C-E)(T-U)xN_G0C1C(C-E)(T-U)xN
+GenG0.menu.pnum.GENERIC_G0C1CETXN.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G0C1.svd
 
 # Generic G0C1CCUxN
 GenG0.menu.pnum.GENERIC_G0C1CCUXN=Generic G0C1CCUxN
@@ -74,6 +82,7 @@ GenG0.menu.pnum.GENERIC_G0C1CCUXN.upload.maximum_data_size=147456
 GenG0.menu.pnum.GENERIC_G0C1CCUXN.build.board=GENERIC_G0C1CCUXN
 GenG0.menu.pnum.GENERIC_G0C1CCUXN.build.product_line=STM32G0C1xx
 GenG0.menu.pnum.GENERIC_G0C1CCUXN.build.variant=STM32G0xx/G0B1C(B-C-E)(T-U)xN_G0C1C(C-E)(T-U)xN
+GenG0.menu.pnum.GENERIC_G0C1CCUXN.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G0C1.svd
 
 # Generic G0C1CEUxN
 GenG0.menu.pnum.GENERIC_G0C1CEUXN=Generic G0C1CEUxN
@@ -82,4 +91,5 @@ GenG0.menu.pnum.GENERIC_G0C1CEUXN.upload.maximum_data_size=147456
 GenG0.menu.pnum.GENERIC_G0C1CEUXN.build.board=GENERIC_G0C1CEUXN
 GenG0.menu.pnum.GENERIC_G0C1CEUXN.build.product_line=STM32G0C1xx
 GenG0.menu.pnum.GENERIC_G0C1CEUXN.build.variant=STM32G0xx/G0B1C(B-C-E)(T-U)xN_G0C1C(C-E)(T-U)xN
+GenG0.menu.pnum.GENERIC_G0C1CEUXN.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G0C1.svd
 

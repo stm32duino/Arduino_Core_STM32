@@ -10,6 +10,7 @@ GenF7.menu.pnum.GENERIC_F769IGTX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F769IGTX.build.board=GENERIC_F769IGTX
 GenF7.menu.pnum.GENERIC_F769IGTX.build.product_line=STM32F769xx
 GenF7.menu.pnum.GENERIC_F769IGTX.build.variant=STM32F7xx/F769I(G-I)T_F779IIT
+GenF7.menu.pnum.GENERIC_F769IGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F769.svd
 
 # Generic F769IITx
 GenF7.menu.pnum.GENERIC_F769IITX=Generic F769IITx
@@ -18,6 +19,7 @@ GenF7.menu.pnum.GENERIC_F769IITX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F769IITX.build.board=GENERIC_F769IITX
 GenF7.menu.pnum.GENERIC_F769IITX.build.product_line=STM32F769xx
 GenF7.menu.pnum.GENERIC_F769IITX.build.variant=STM32F7xx/F769I(G-I)T_F779IIT
+GenF7.menu.pnum.GENERIC_F769IITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F769.svd
 
 # Generic F779IITx
 GenF7.menu.pnum.GENERIC_F779IITX=Generic F779IITx
@@ -26,4 +28,5 @@ GenF7.menu.pnum.GENERIC_F779IITX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F779IITX.build.board=GENERIC_F779IITX
 GenF7.menu.pnum.GENERIC_F779IITX.build.product_line=STM32F779xx
 GenF7.menu.pnum.GENERIC_F779IITX.build.variant=STM32F7xx/F769I(G-I)T_F779IIT
+GenF7.menu.pnum.GENERIC_F779IITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F779.svd
 

@@ -10,6 +10,7 @@ GenF7.menu.pnum.GENERIC_F765IGKX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F765IGKX.build.board=GENERIC_F765IGKX
 GenF7.menu.pnum.GENERIC_F765IGKX.build.product_line=STM32F765xx
 GenF7.menu.pnum.GENERIC_F765IGKX.build.variant=STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)
+GenF7.menu.pnum.GENERIC_F765IGKX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F765.svd
 
 # Generic F765IIKx
 GenF7.menu.pnum.GENERIC_F765IIKX=Generic F765IIKx
@@ -18,6 +19,7 @@ GenF7.menu.pnum.GENERIC_F765IIKX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F765IIKX.build.board=GENERIC_F765IIKX
 GenF7.menu.pnum.GENERIC_F765IIKX.build.product_line=STM32F765xx
 GenF7.menu.pnum.GENERIC_F765IIKX.build.variant=STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)
+GenF7.menu.pnum.GENERIC_F765IIKX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F765.svd
 
 # Generic F765IGTx
 GenF7.menu.pnum.GENERIC_F765IGTX=Generic F765IGTx
@@ -26,6 +28,7 @@ GenF7.menu.pnum.GENERIC_F765IGTX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F765IGTX.build.board=GENERIC_F765IGTX
 GenF7.menu.pnum.GENERIC_F765IGTX.build.product_line=STM32F765xx
 GenF7.menu.pnum.GENERIC_F765IGTX.build.variant=STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)
+GenF7.menu.pnum.GENERIC_F765IGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F765.svd
 
 # Generic F765IITx
 GenF7.menu.pnum.GENERIC_F765IITX=Generic F765IITx
@@ -34,6 +37,7 @@ GenF7.menu.pnum.GENERIC_F765IITX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F765IITX.build.board=GENERIC_F765IITX
 GenF7.menu.pnum.GENERIC_F765IITX.build.product_line=STM32F765xx
 GenF7.menu.pnum.GENERIC_F765IITX.build.variant=STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)
+GenF7.menu.pnum.GENERIC_F765IITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F765.svd
 
 # Generic F767IGKx
 GenF7.menu.pnum.GENERIC_F767IGKX=Generic F767IGKx
@@ -42,6 +46,7 @@ GenF7.menu.pnum.GENERIC_F767IGKX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F767IGKX.build.board=GENERIC_F767IGKX
 GenF7.menu.pnum.GENERIC_F767IGKX.build.product_line=STM32F767xx
 GenF7.menu.pnum.GENERIC_F767IGKX.build.variant=STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)
+GenF7.menu.pnum.GENERIC_F767IGKX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F767.svd
 
 # Generic F767IIKx
 GenF7.menu.pnum.GENERIC_F767IIKX=Generic F767IIKx
@@ -50,6 +55,7 @@ GenF7.menu.pnum.GENERIC_F767IIKX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F767IIKX.build.board=GENERIC_F767IIKX
 GenF7.menu.pnum.GENERIC_F767IIKX.build.product_line=STM32F767xx
 GenF7.menu.pnum.GENERIC_F767IIKX.build.variant=STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)
+GenF7.menu.pnum.GENERIC_F767IIKX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F767.svd
 
 # Generic F767IGTx
 GenF7.menu.pnum.GENERIC_F767IGTX=Generic F767IGTx
@@ -58,6 +64,7 @@ GenF7.menu.pnum.GENERIC_F767IGTX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F767IGTX.build.board=GENERIC_F767IGTX
 GenF7.menu.pnum.GENERIC_F767IGTX.build.product_line=STM32F767xx
 GenF7.menu.pnum.GENERIC_F767IGTX.build.variant=STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)
+GenF7.menu.pnum.GENERIC_F767IGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F767.svd
 
 # Generic F767IITx
 GenF7.menu.pnum.GENERIC_F767IITX=Generic F767IITx
@@ -66,6 +73,7 @@ GenF7.menu.pnum.GENERIC_F767IITX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F767IITX.build.board=GENERIC_F767IITX
 GenF7.menu.pnum.GENERIC_F767IITX.build.product_line=STM32F767xx
 GenF7.menu.pnum.GENERIC_F767IITX.build.variant=STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)
+GenF7.menu.pnum.GENERIC_F767IITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F767.svd
 
 # Generic F777IIKx
 GenF7.menu.pnum.GENERIC_F777IIKX=Generic F777IIKx
@@ -74,6 +82,7 @@ GenF7.menu.pnum.GENERIC_F777IIKX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F777IIKX.build.board=GENERIC_F777IIKX
 GenF7.menu.pnum.GENERIC_F777IIKX.build.product_line=STM32F777xx
 GenF7.menu.pnum.GENERIC_F777IIKX.build.variant=STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)
+GenF7.menu.pnum.GENERIC_F777IIKX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F777.svd
 
 # Generic F777IITx
 GenF7.menu.pnum.GENERIC_F777IITX=Generic F777IITx
@@ -82,4 +91,5 @@ GenF7.menu.pnum.GENERIC_F777IITX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F777IITX.build.board=GENERIC_F777IITX
 GenF7.menu.pnum.GENERIC_F777IITX.build.product_line=STM32F777xx
 GenF7.menu.pnum.GENERIC_F777IITX.build.variant=STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)
+GenF7.menu.pnum.GENERIC_F777IITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F777.svd
 

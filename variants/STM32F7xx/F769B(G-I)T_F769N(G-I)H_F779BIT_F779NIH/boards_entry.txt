@@ -10,6 +10,7 @@ GenF7.menu.pnum.GENERIC_F769BGTX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F769BGTX.build.board=GENERIC_F769BGTX
 GenF7.menu.pnum.GENERIC_F769BGTX.build.product_line=STM32F769xx
 GenF7.menu.pnum.GENERIC_F769BGTX.build.variant=STM32F7xx/F769B(G-I)T_F769N(G-I)H_F779BIT_F779NIH
+GenF7.menu.pnum.GENERIC_F769BGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F769.svd
 
 # Generic F769BITx
 GenF7.menu.pnum.GENERIC_F769BITX=Generic F769BITx
@@ -18,6 +19,7 @@ GenF7.menu.pnum.GENERIC_F769BITX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F769BITX.build.board=GENERIC_F769BITX
 GenF7.menu.pnum.GENERIC_F769BITX.build.product_line=STM32F769xx
 GenF7.menu.pnum.GENERIC_F769BITX.build.variant=STM32F7xx/F769B(G-I)T_F769N(G-I)H_F779BIT_F779NIH
+GenF7.menu.pnum.GENERIC_F769BITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F769.svd
 
 # Generic F769NGHx
 GenF7.menu.pnum.GENERIC_F769NGHX=Generic F769NGHx
@@ -26,6 +28,7 @@ GenF7.menu.pnum.GENERIC_F769NGHX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F769NGHX.build.board=GENERIC_F769NGHX
 GenF7.menu.pnum.GENERIC_F769NGHX.build.product_line=STM32F769xx
 GenF7.menu.pnum.GENERIC_F769NGHX.build.variant=STM32F7xx/F769B(G-I)T_F769N(G-I)H_F779BIT_F779NIH
+GenF7.menu.pnum.GENERIC_F769NGHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F769.svd
 
 # Generic F769NIHx
 GenF7.menu.pnum.GENERIC_F769NIHX=Generic F769NIHx
@@ -34,6 +37,7 @@ GenF7.menu.pnum.GENERIC_F769NIHX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F769NIHX.build.board=GENERIC_F769NIHX
 GenF7.menu.pnum.GENERIC_F769NIHX.build.product_line=STM32F769xx
 GenF7.menu.pnum.GENERIC_F769NIHX.build.variant=STM32F7xx/F769B(G-I)T_F769N(G-I)H_F779BIT_F779NIH
+GenF7.menu.pnum.GENERIC_F769NIHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F769.svd
 
 # Generic F779BITx
 GenF7.menu.pnum.GENERIC_F779BITX=Generic F779BITx
@@ -42,6 +46,7 @@ GenF7.menu.pnum.GENERIC_F779BITX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F779BITX.build.board=GENERIC_F779BITX
 GenF7.menu.pnum.GENERIC_F779BITX.build.product_line=STM32F779xx
 GenF7.menu.pnum.GENERIC_F779BITX.build.variant=STM32F7xx/F769B(G-I)T_F769N(G-I)H_F779BIT_F779NIH
+GenF7.menu.pnum.GENERIC_F779BITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F779.svd
 
 # Generic F779NIHx
 GenF7.menu.pnum.GENERIC_F779NIHX=Generic F779NIHx
@@ -50,4 +55,5 @@ GenF7.menu.pnum.GENERIC_F779NIHX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F779NIHX.build.board=GENERIC_F779NIHX
 GenF7.menu.pnum.GENERIC_F779NIHX.build.product_line=STM32F779xx
 GenF7.menu.pnum.GENERIC_F779NIHX.build.variant=STM32F7xx/F769B(G-I)T_F769N(G-I)H_F779BIT_F779NIH
+GenF7.menu.pnum.GENERIC_F779NIHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F779.svd
 

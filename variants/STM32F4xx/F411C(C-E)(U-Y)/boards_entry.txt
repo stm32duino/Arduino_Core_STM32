@@ -10,6 +10,7 @@ GenF4.menu.pnum.GENERIC_F411CCUX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F411CCUX.build.board=GENERIC_F411CCUX
 GenF4.menu.pnum.GENERIC_F411CCUX.build.product_line=STM32F411xE
 GenF4.menu.pnum.GENERIC_F411CCUX.build.variant=STM32F4xx/F411C(C-E)(U-Y)
+GenF4.menu.pnum.GENERIC_F411CCUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F411.svd
 
 # Generic F411CEUx
 GenF4.menu.pnum.GENERIC_F411CEUX=Generic F411CEUx
@@ -18,6 +19,7 @@ GenF4.menu.pnum.GENERIC_F411CEUX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F411CEUX.build.board=GENERIC_F411CEUX
 GenF4.menu.pnum.GENERIC_F411CEUX.build.product_line=STM32F411xE
 GenF4.menu.pnum.GENERIC_F411CEUX.build.variant=STM32F4xx/F411C(C-E)(U-Y)
+GenF4.menu.pnum.GENERIC_F411CEUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F411.svd
 
 # Generic F411CCYx
 GenF4.menu.pnum.GENERIC_F411CCYX=Generic F411CCYx
@@ -26,6 +28,7 @@ GenF4.menu.pnum.GENERIC_F411CCYX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F411CCYX.build.board=GENERIC_F411CCYX
 GenF4.menu.pnum.GENERIC_F411CCYX.build.product_line=STM32F411xE
 GenF4.menu.pnum.GENERIC_F411CCYX.build.variant=STM32F4xx/F411C(C-E)(U-Y)
+GenF4.menu.pnum.GENERIC_F411CCYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F411.svd
 
 # Generic F411CEYx
 GenF4.menu.pnum.GENERIC_F411CEYX=Generic F411CEYx
@@ -34,4 +37,5 @@ GenF4.menu.pnum.GENERIC_F411CEYX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F411CEYX.build.board=GENERIC_F411CEYX
 GenF4.menu.pnum.GENERIC_F411CEYX.build.product_line=STM32F411xE
 GenF4.menu.pnum.GENERIC_F411CEYX.build.variant=STM32F4xx/F411C(C-E)(U-Y)
+GenF4.menu.pnum.GENERIC_F411CEYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F411.svd
 

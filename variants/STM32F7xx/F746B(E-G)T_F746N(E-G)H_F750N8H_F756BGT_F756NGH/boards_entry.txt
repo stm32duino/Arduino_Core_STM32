@@ -10,6 +10,7 @@ GenF7.menu.pnum.GENERIC_F746BETX.upload.maximum_data_size=327680
 GenF7.menu.pnum.GENERIC_F746BETX.build.board=GENERIC_F746BETX
 GenF7.menu.pnum.GENERIC_F746BETX.build.product_line=STM32F746xx
 GenF7.menu.pnum.GENERIC_F746BETX.build.variant=STM32F7xx/F746B(E-G)T_F746N(E-G)H_F750N8H_F756BGT_F756NGH
+GenF7.menu.pnum.GENERIC_F746BETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F746.svd
 
 # Generic F746BGTx
 GenF7.menu.pnum.GENERIC_F746BGTX=Generic F746BGTx
@@ -18,6 +19,7 @@ GenF7.menu.pnum.GENERIC_F746BGTX.upload.maximum_data_size=327680
 GenF7.menu.pnum.GENERIC_F746BGTX.build.board=GENERIC_F746BGTX
 GenF7.menu.pnum.GENERIC_F746BGTX.build.product_line=STM32F746xx
 GenF7.menu.pnum.GENERIC_F746BGTX.build.variant=STM32F7xx/F746B(E-G)T_F746N(E-G)H_F750N8H_F756BGT_F756NGH
+GenF7.menu.pnum.GENERIC_F746BGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F746.svd
 
 # Generic F746NEHx
 GenF7.menu.pnum.GENERIC_F746NEHX=Generic F746NEHx
@@ -26,6 +28,7 @@ GenF7.menu.pnum.GENERIC_F746NEHX.upload.maximum_data_size=327680
 GenF7.menu.pnum.GENERIC_F746NEHX.build.board=GENERIC_F746NEHX
 GenF7.menu.pnum.GENERIC_F746NEHX.build.product_line=STM32F746xx
 GenF7.menu.pnum.GENERIC_F746NEHX.build.variant=STM32F7xx/F746B(E-G)T_F746N(E-G)H_F750N8H_F756BGT_F756NGH
+GenF7.menu.pnum.GENERIC_F746NEHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F746.svd
 
 # Generic F746NGHx
 GenF7.menu.pnum.GENERIC_F746NGHX=Generic F746NGHx
@@ -34,6 +37,7 @@ GenF7.menu.pnum.GENERIC_F746NGHX.upload.maximum_data_size=327680
 GenF7.menu.pnum.GENERIC_F746NGHX.build.board=GENERIC_F746NGHX
 GenF7.menu.pnum.GENERIC_F746NGHX.build.product_line=STM32F746xx
 GenF7.menu.pnum.GENERIC_F746NGHX.build.variant=STM32F7xx/F746B(E-G)T_F746N(E-G)H_F750N8H_F756BGT_F756NGH
+GenF7.menu.pnum.GENERIC_F746NGHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F746.svd
 
 # Generic F750N8Hx
 GenF7.menu.pnum.GENERIC_F750N8HX=Generic F750N8Hx
@@ -42,6 +46,7 @@ GenF7.menu.pnum.GENERIC_F750N8HX.upload.maximum_data_size=327680
 GenF7.menu.pnum.GENERIC_F750N8HX.build.board=GENERIC_F750N8HX
 GenF7.menu.pnum.GENERIC_F750N8HX.build.product_line=STM32F750xx
 GenF7.menu.pnum.GENERIC_F750N8HX.build.variant=STM32F7xx/F746B(E-G)T_F746N(E-G)H_F750N8H_F756BGT_F756NGH
+GenF7.menu.pnum.GENERIC_F750N8HX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F750.svd
 
 # Generic F756BGTx
 GenF7.menu.pnum.GENERIC_F756BGTX=Generic F756BGTx
@@ -50,6 +55,7 @@ GenF7.menu.pnum.GENERIC_F756BGTX.upload.maximum_data_size=327680
 GenF7.menu.pnum.GENERIC_F756BGTX.build.board=GENERIC_F756BGTX
 GenF7.menu.pnum.GENERIC_F756BGTX.build.product_line=STM32F756xx
 GenF7.menu.pnum.GENERIC_F756BGTX.build.variant=STM32F7xx/F746B(E-G)T_F746N(E-G)H_F750N8H_F756BGT_F756NGH
+GenF7.menu.pnum.GENERIC_F756BGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F756.svd
 
 # Generic F756NGHx
 GenF7.menu.pnum.GENERIC_F756NGHX=Generic F756NGHx
@@ -58,4 +64,5 @@ GenF7.menu.pnum.GENERIC_F756NGHX.upload.maximum_data_size=327680
 GenF7.menu.pnum.GENERIC_F756NGHX.build.board=GENERIC_F756NGHX
 GenF7.menu.pnum.GENERIC_F756NGHX.build.product_line=STM32F756xx
 GenF7.menu.pnum.GENERIC_F756NGHX.build.variant=STM32F7xx/F746B(E-G)T_F746N(E-G)H_F750N8H_F756BGT_F756NGH
+GenF7.menu.pnum.GENERIC_F756NGHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F756.svd
 

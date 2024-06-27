@@ -10,6 +10,7 @@ GenG4.menu.pnum.GENERIC_G471MCTX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G471MCTX.build.board=GENERIC_G471MCTX
 GenG4.menu.pnum.GENERIC_G471MCTX.build.product_line=STM32G471xx
 GenG4.menu.pnum.GENERIC_G471MCTX.build.variant=STM32G4xx/G471M(C-E)T
+GenG4.menu.pnum.GENERIC_G471MCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G471.svd
 
 # Generic G471METx
 GenG4.menu.pnum.GENERIC_G471METX=Generic G471METx
@@ -18,4 +19,5 @@ GenG4.menu.pnum.GENERIC_G471METX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G471METX.build.board=GENERIC_G471METX
 GenG4.menu.pnum.GENERIC_G471METX.build.product_line=STM32G471xx
 GenG4.menu.pnum.GENERIC_G471METX.build.variant=STM32G4xx/G471M(C-E)T
+GenG4.menu.pnum.GENERIC_G471METX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G471.svd
 

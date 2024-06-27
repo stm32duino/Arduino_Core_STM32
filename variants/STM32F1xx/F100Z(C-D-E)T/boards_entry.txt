@@ -10,6 +10,7 @@ GenF1.menu.pnum.GENERIC_F100ZCTX.upload.maximum_data_size=24576
 GenF1.menu.pnum.GENERIC_F100ZCTX.build.board=GENERIC_F100ZCTX
 GenF1.menu.pnum.GENERIC_F100ZCTX.build.product_line=STM32F100xE
 GenF1.menu.pnum.GENERIC_F100ZCTX.build.variant=STM32F1xx/F100Z(C-D-E)T
+GenF1.menu.pnum.GENERIC_F100ZCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F100.svd
 
 # Generic F100ZDTx
 GenF1.menu.pnum.GENERIC_F100ZDTX=Generic F100ZDTx
@@ -18,6 +19,7 @@ GenF1.menu.pnum.GENERIC_F100ZDTX.upload.maximum_data_size=32768
 GenF1.menu.pnum.GENERIC_F100ZDTX.build.board=GENERIC_F100ZDTX
 GenF1.menu.pnum.GENERIC_F100ZDTX.build.product_line=STM32F100xE
 GenF1.menu.pnum.GENERIC_F100ZDTX.build.variant=STM32F1xx/F100Z(C-D-E)T
+GenF1.menu.pnum.GENERIC_F100ZDTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F100.svd
 
 # Generic F100ZETx
 GenF1.menu.pnum.GENERIC_F100ZETX=Generic F100ZETx
@@ -26,4 +28,5 @@ GenF1.menu.pnum.GENERIC_F100ZETX.upload.maximum_data_size=32768
 GenF1.menu.pnum.GENERIC_F100ZETX.build.board=GENERIC_F100ZETX
 GenF1.menu.pnum.GENERIC_F100ZETX.build.product_line=STM32F100xE
 GenF1.menu.pnum.GENERIC_F100ZETX.build.variant=STM32F1xx/F100Z(C-D-E)T
+GenF1.menu.pnum.GENERIC_F100ZETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F100.svd
 

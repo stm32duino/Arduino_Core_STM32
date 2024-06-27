@@ -10,6 +10,7 @@ GenH5.menu.pnum.GENERIC_H562RGTX.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H562RGTX.build.board=GENERIC_H562RGTX
 GenH5.menu.pnum.GENERIC_H562RGTX.build.product_line=STM32H562xx
 GenH5.menu.pnum.GENERIC_H562RGTX.build.variant=STM32H5xx/H562R(G-I)T
+GenH5.menu.pnum.GENERIC_H562RGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H562.svd
 
 # Generic H562RITx
 GenH5.menu.pnum.GENERIC_H562RITX=Generic H562RITx
@@ -18,4 +19,5 @@ GenH5.menu.pnum.GENERIC_H562RITX.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H562RITX.build.board=GENERIC_H562RITX
 GenH5.menu.pnum.GENERIC_H562RITX.build.product_line=STM32H562xx
 GenH5.menu.pnum.GENERIC_H562RITX.build.variant=STM32H5xx/H562R(G-I)T
+GenH5.menu.pnum.GENERIC_H562RITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H562.svd
 

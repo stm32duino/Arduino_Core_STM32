@@ -10,6 +10,7 @@ GenF0.menu.pnum.GENERIC_F091RBTX.upload.maximum_data_size=32768
 GenF0.menu.pnum.GENERIC_F091RBTX.build.board=GENERIC_F091RBTX
 GenF0.menu.pnum.GENERIC_F091RBTX.build.product_line=STM32F091xC
 GenF0.menu.pnum.GENERIC_F091RBTX.build.variant=STM32F0xx/F091RBT_F091RC(H-T-Y)
+GenF0.menu.pnum.GENERIC_F091RBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x1.svd
 
 # Generic F091RCTx
 GenF0.menu.pnum.GENERIC_F091RCTX=Generic F091RCTx
@@ -18,6 +19,7 @@ GenF0.menu.pnum.GENERIC_F091RCTX.upload.maximum_data_size=32768
 GenF0.menu.pnum.GENERIC_F091RCTX.build.board=GENERIC_F091RCTX
 GenF0.menu.pnum.GENERIC_F091RCTX.build.product_line=STM32F091xC
 GenF0.menu.pnum.GENERIC_F091RCTX.build.variant=STM32F0xx/F091RBT_F091RC(H-T-Y)
+GenF0.menu.pnum.GENERIC_F091RCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x1.svd
 
 # Generic F091RCHx
 GenF0.menu.pnum.GENERIC_F091RCHX=Generic F091RCHx
@@ -26,6 +28,7 @@ GenF0.menu.pnum.GENERIC_F091RCHX.upload.maximum_data_size=32768
 GenF0.menu.pnum.GENERIC_F091RCHX.build.board=GENERIC_F091RCHX
 GenF0.menu.pnum.GENERIC_F091RCHX.build.product_line=STM32F091xC
 GenF0.menu.pnum.GENERIC_F091RCHX.build.variant=STM32F0xx/F091RBT_F091RC(H-T-Y)
+GenF0.menu.pnum.GENERIC_F091RCHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x1.svd
 
 # Generic F091RCYx
 GenF0.menu.pnum.GENERIC_F091RCYX=Generic F091RCYx
@@ -34,4 +37,5 @@ GenF0.menu.pnum.GENERIC_F091RCYX.upload.maximum_data_size=32768
 GenF0.menu.pnum.GENERIC_F091RCYX.build.board=GENERIC_F091RCYX
 GenF0.menu.pnum.GENERIC_F091RCYX.build.product_line=STM32F091xC
 GenF0.menu.pnum.GENERIC_F091RCYX.build.variant=STM32F0xx/F091RBT_F091RC(H-T-Y)
+GenF0.menu.pnum.GENERIC_F091RCYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x1.svd
 

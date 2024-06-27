@@ -10,6 +10,7 @@ GenH5.menu.pnum.GENERIC_H563ZITXQ.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H563ZITXQ.build.board=GENERIC_H563ZITXQ
 GenH5.menu.pnum.GENERIC_H563ZITXQ.build.product_line=STM32H563xx
 GenH5.menu.pnum.GENERIC_H563ZITXQ.build.variant=STM32H5xx/H563ZITxQ_H573ZITxQ
+GenH5.menu.pnum.GENERIC_H563ZITXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H563.svd
 
 # Generic H573ZITxQ
 GenH5.menu.pnum.GENERIC_H573ZITXQ=Generic H573ZITxQ
@@ -18,4 +19,5 @@ GenH5.menu.pnum.GENERIC_H573ZITXQ.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H573ZITXQ.build.board=GENERIC_H573ZITXQ
 GenH5.menu.pnum.GENERIC_H573ZITXQ.build.product_line=STM32H573xx
 GenH5.menu.pnum.GENERIC_H573ZITXQ.build.variant=STM32H5xx/H563ZITxQ_H573ZITxQ
+GenH5.menu.pnum.GENERIC_H573ZITXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H573.svd
 

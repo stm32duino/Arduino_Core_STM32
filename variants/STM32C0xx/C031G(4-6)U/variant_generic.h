@@ -41,8 +41,6 @@
 #define PC14                    23
 #define PC15                    24
 #define PF2                     25
-#define PA9_R                   26
-#define PA10_R                  27
 
 // Alternate pins number
 #define PA0_ALT1                (PA0  | ALT1)
@@ -79,8 +77,7 @@
 #define PB8_ALT1                (PB8  | ALT1)
 #define PC14_ALT1               (PC14 | ALT1)
 
-#define NUM_DIGITAL_PINS        28
-#define NUM_REMAP_PINS          2
+#define NUM_DIGITAL_PINS        26
 #define NUM_ANALOG_INPUTS       15
 
 // On-board LED pin number
@@ -118,10 +115,10 @@
 
 // I2C definitions
 #ifndef PIN_WIRE_SDA
-  #define PIN_WIRE_SDA          PA10_R
+  #define PIN_WIRE_SDA          PB7
 #endif
 #ifndef PIN_WIRE_SCL
-  #define PIN_WIRE_SCL          PA9_R
+  #define PIN_WIRE_SCL          PB6
 #endif
 
 // Timer Definitions

@@ -10,6 +10,7 @@ GenF0.menu.pnum.GENERIC_F071C8TX.upload.maximum_data_size=16384
 GenF0.menu.pnum.GENERIC_F071C8TX.build.board=GENERIC_F071C8TX
 GenF0.menu.pnum.GENERIC_F071C8TX.build.product_line=STM32F071xB
 GenF0.menu.pnum.GENERIC_F071C8TX.build.variant=STM32F0xx/F071C8(T-U)_F071CB(T-U-Y)
+GenF0.menu.pnum.GENERIC_F071C8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x1.svd
 
 # Generic F071CBTx
 GenF0.menu.pnum.GENERIC_F071CBTX=Generic F071CBTx
@@ -18,6 +19,7 @@ GenF0.menu.pnum.GENERIC_F071CBTX.upload.maximum_data_size=16384
 GenF0.menu.pnum.GENERIC_F071CBTX.build.board=GENERIC_F071CBTX
 GenF0.menu.pnum.GENERIC_F071CBTX.build.product_line=STM32F071xB
 GenF0.menu.pnum.GENERIC_F071CBTX.build.variant=STM32F0xx/F071C8(T-U)_F071CB(T-U-Y)
+GenF0.menu.pnum.GENERIC_F071CBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x1.svd
 
 # Generic F071C8Ux
 GenF0.menu.pnum.GENERIC_F071C8UX=Generic F071C8Ux
@@ -26,6 +28,7 @@ GenF0.menu.pnum.GENERIC_F071C8UX.upload.maximum_data_size=16384
 GenF0.menu.pnum.GENERIC_F071C8UX.build.board=GENERIC_F071C8UX
 GenF0.menu.pnum.GENERIC_F071C8UX.build.product_line=STM32F071xB
 GenF0.menu.pnum.GENERIC_F071C8UX.build.variant=STM32F0xx/F071C8(T-U)_F071CB(T-U-Y)
+GenF0.menu.pnum.GENERIC_F071C8UX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x1.svd
 
 # Generic F071CBUx
 GenF0.menu.pnum.GENERIC_F071CBUX=Generic F071CBUx
@@ -34,6 +37,7 @@ GenF0.menu.pnum.GENERIC_F071CBUX.upload.maximum_data_size=16384
 GenF0.menu.pnum.GENERIC_F071CBUX.build.board=GENERIC_F071CBUX
 GenF0.menu.pnum.GENERIC_F071CBUX.build.product_line=STM32F071xB
 GenF0.menu.pnum.GENERIC_F071CBUX.build.variant=STM32F0xx/F071C8(T-U)_F071CB(T-U-Y)
+GenF0.menu.pnum.GENERIC_F071CBUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x1.svd
 
 # Generic F071CBYx
 GenF0.menu.pnum.GENERIC_F071CBYX=Generic F071CBYx
@@ -42,4 +46,5 @@ GenF0.menu.pnum.GENERIC_F071CBYX.upload.maximum_data_size=16384
 GenF0.menu.pnum.GENERIC_F071CBYX.build.board=GENERIC_F071CBYX
 GenF0.menu.pnum.GENERIC_F071CBYX.build.product_line=STM32F071xB
 GenF0.menu.pnum.GENERIC_F071CBYX.build.variant=STM32F0xx/F071C8(T-U)_F071CB(T-U-Y)
+GenF0.menu.pnum.GENERIC_F071CBYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x1.svd
 

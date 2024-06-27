@@ -10,4 +10,5 @@ GenF3.menu.pnum.GENERIC_F303VCYX.upload.maximum_data_size=40960
 GenF3.menu.pnum.GENERIC_F303VCYX.build.board=GENERIC_F303VCYX
 GenF3.menu.pnum.GENERIC_F303VCYX.build.product_line=STM32F303xC
 GenF3.menu.pnum.GENERIC_F303VCYX.build.variant=STM32F3xx/F303VCY
+GenF3.menu.pnum.GENERIC_F303VCYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F303.svd
 

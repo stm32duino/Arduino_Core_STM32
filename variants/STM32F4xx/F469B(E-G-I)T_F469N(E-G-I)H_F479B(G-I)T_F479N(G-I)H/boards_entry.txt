@@ -10,6 +10,7 @@ GenF4.menu.pnum.GENERIC_F469BETX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F469BETX.build.board=GENERIC_F469BETX
 GenF4.menu.pnum.GENERIC_F469BETX.build.product_line=STM32F469xx
 GenF4.menu.pnum.GENERIC_F469BETX.build.variant=STM32F4xx/F469B(E-G-I)T_F469N(E-G-I)H_F479B(G-I)T_F479N(G-I)H
+GenF4.menu.pnum.GENERIC_F469BETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F469.svd
 
 # Generic F469BGTx
 GenF4.menu.pnum.GENERIC_F469BGTX=Generic F469BGTx
@@ -18,6 +19,7 @@ GenF4.menu.pnum.GENERIC_F469BGTX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F469BGTX.build.board=GENERIC_F469BGTX
 GenF4.menu.pnum.GENERIC_F469BGTX.build.product_line=STM32F469xx
 GenF4.menu.pnum.GENERIC_F469BGTX.build.variant=STM32F4xx/F469B(E-G-I)T_F469N(E-G-I)H_F479B(G-I)T_F479N(G-I)H
+GenF4.menu.pnum.GENERIC_F469BGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F469.svd
 
 # Generic F469BITx
 GenF4.menu.pnum.GENERIC_F469BITX=Generic F469BITx
@@ -26,6 +28,7 @@ GenF4.menu.pnum.GENERIC_F469BITX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F469BITX.build.board=GENERIC_F469BITX
 GenF4.menu.pnum.GENERIC_F469BITX.build.product_line=STM32F469xx
 GenF4.menu.pnum.GENERIC_F469BITX.build.variant=STM32F4xx/F469B(E-G-I)T_F469N(E-G-I)H_F479B(G-I)T_F479N(G-I)H
+GenF4.menu.pnum.GENERIC_F469BITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F469.svd
 
 # Generic F469NEHx
 GenF4.menu.pnum.GENERIC_F469NEHX=Generic F469NEHx
@@ -34,6 +37,7 @@ GenF4.menu.pnum.GENERIC_F469NEHX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F469NEHX.build.board=GENERIC_F469NEHX
 GenF4.menu.pnum.GENERIC_F469NEHX.build.product_line=STM32F469xx
 GenF4.menu.pnum.GENERIC_F469NEHX.build.variant=STM32F4xx/F469B(E-G-I)T_F469N(E-G-I)H_F479B(G-I)T_F479N(G-I)H
+GenF4.menu.pnum.GENERIC_F469NEHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F469.svd
 
 # Generic F469NGHx
 GenF4.menu.pnum.GENERIC_F469NGHX=Generic F469NGHx
@@ -42,6 +46,7 @@ GenF4.menu.pnum.GENERIC_F469NGHX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F469NGHX.build.board=GENERIC_F469NGHX
 GenF4.menu.pnum.GENERIC_F469NGHX.build.product_line=STM32F469xx
 GenF4.menu.pnum.GENERIC_F469NGHX.build.variant=STM32F4xx/F469B(E-G-I)T_F469N(E-G-I)H_F479B(G-I)T_F479N(G-I)H
+GenF4.menu.pnum.GENERIC_F469NGHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F469.svd
 
 # Generic F469NIHx
 GenF4.menu.pnum.GENERIC_F469NIHX=Generic F469NIHx
@@ -50,6 +55,7 @@ GenF4.menu.pnum.GENERIC_F469NIHX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F469NIHX.build.board=GENERIC_F469NIHX
 GenF4.menu.pnum.GENERIC_F469NIHX.build.product_line=STM32F469xx
 GenF4.menu.pnum.GENERIC_F469NIHX.build.variant=STM32F4xx/F469B(E-G-I)T_F469N(E-G-I)H_F479B(G-I)T_F479N(G-I)H
+GenF4.menu.pnum.GENERIC_F469NIHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F469.svd
 
 # Generic F479BGTx
 GenF4.menu.pnum.GENERIC_F479BGTX=Generic F479BGTx
@@ -58,6 +64,7 @@ GenF4.menu.pnum.GENERIC_F479BGTX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F479BGTX.build.board=GENERIC_F479BGTX
 GenF4.menu.pnum.GENERIC_F479BGTX.build.product_line=STM32F479xx
 GenF4.menu.pnum.GENERIC_F479BGTX.build.variant=STM32F4xx/F469B(E-G-I)T_F469N(E-G-I)H_F479B(G-I)T_F479N(G-I)H
+GenF4.menu.pnum.GENERIC_F479BGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F479.svd
 
 # Generic F479BITx
 GenF4.menu.pnum.GENERIC_F479BITX=Generic F479BITx
@@ -66,6 +73,7 @@ GenF4.menu.pnum.GENERIC_F479BITX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F479BITX.build.board=GENERIC_F479BITX
 GenF4.menu.pnum.GENERIC_F479BITX.build.product_line=STM32F479xx
 GenF4.menu.pnum.GENERIC_F479BITX.build.variant=STM32F4xx/F469B(E-G-I)T_F469N(E-G-I)H_F479B(G-I)T_F479N(G-I)H
+GenF4.menu.pnum.GENERIC_F479BITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F479.svd
 
 # Generic F479NGHx
 GenF4.menu.pnum.GENERIC_F479NGHX=Generic F479NGHx
@@ -74,6 +82,7 @@ GenF4.menu.pnum.GENERIC_F479NGHX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F479NGHX.build.board=GENERIC_F479NGHX
 GenF4.menu.pnum.GENERIC_F479NGHX.build.product_line=STM32F479xx
 GenF4.menu.pnum.GENERIC_F479NGHX.build.variant=STM32F4xx/F469B(E-G-I)T_F469N(E-G-I)H_F479B(G-I)T_F479N(G-I)H
+GenF4.menu.pnum.GENERIC_F479NGHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F479.svd
 
 # Generic F479NIHx
 GenF4.menu.pnum.GENERIC_F479NIHX=Generic F479NIHx
@@ -82,4 +91,5 @@ GenF4.menu.pnum.GENERIC_F479NIHX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F479NIHX.build.board=GENERIC_F479NIHX
 GenF4.menu.pnum.GENERIC_F479NIHX.build.product_line=STM32F479xx
 GenF4.menu.pnum.GENERIC_F479NIHX.build.variant=STM32F4xx/F469B(E-G-I)T_F469N(E-G-I)H_F479B(G-I)T_F479N(G-I)H
+GenF4.menu.pnum.GENERIC_F479NIHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F479.svd
 

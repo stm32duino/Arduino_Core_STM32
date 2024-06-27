@@ -10,6 +10,7 @@ GenF3.menu.pnum.GENERIC_F378RCTX.upload.maximum_data_size=32768
 GenF3.menu.pnum.GENERIC_F378RCTX.build.board=GENERIC_F378RCTX
 GenF3.menu.pnum.GENERIC_F378RCTX.build.product_line=STM32F378xx
 GenF3.menu.pnum.GENERIC_F378RCTX.build.variant=STM32F3xx/F378RC(T-Y)
+GenF3.menu.pnum.GENERIC_F378RCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F3x8.svd
 
 # Generic F378RCYx
 GenF3.menu.pnum.GENERIC_F378RCYX=Generic F378RCYx
@@ -18,4 +19,5 @@ GenF3.menu.pnum.GENERIC_F378RCYX.upload.maximum_data_size=32768
 GenF3.menu.pnum.GENERIC_F378RCYX.build.board=GENERIC_F378RCYX
 GenF3.menu.pnum.GENERIC_F378RCYX.build.product_line=STM32F378xx
 GenF3.menu.pnum.GENERIC_F378RCYX.build.variant=STM32F3xx/F378RC(T-Y)
+GenF3.menu.pnum.GENERIC_F378RCYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F3x8.svd
 

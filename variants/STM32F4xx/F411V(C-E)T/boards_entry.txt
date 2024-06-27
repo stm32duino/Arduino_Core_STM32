@@ -10,6 +10,7 @@ GenF4.menu.pnum.GENERIC_F411VCTX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F411VCTX.build.board=GENERIC_F411VCTX
 GenF4.menu.pnum.GENERIC_F411VCTX.build.product_line=STM32F411xE
 GenF4.menu.pnum.GENERIC_F411VCTX.build.variant=STM32F4xx/F411V(C-E)T
+GenF4.menu.pnum.GENERIC_F411VCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F411.svd
 
 # Generic F411VETx
 GenF4.menu.pnum.GENERIC_F411VETX=Generic F411VETx
@@ -18,4 +19,5 @@ GenF4.menu.pnum.GENERIC_F411VETX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F411VETX.build.board=GENERIC_F411VETX
 GenF4.menu.pnum.GENERIC_F411VETX.build.product_line=STM32F411xE
 GenF4.menu.pnum.GENERIC_F411VETX.build.variant=STM32F4xx/F411V(C-E)T
+GenF4.menu.pnum.GENERIC_F411VETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F411.svd
 

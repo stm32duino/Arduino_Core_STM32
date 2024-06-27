@@ -10,6 +10,7 @@ GenH7.menu.pnum.GENERIC_H723ZETX.upload.maximum_data_size=577536
 GenH7.menu.pnum.GENERIC_H723ZETX.build.board=GENERIC_H723ZETX
 GenH7.menu.pnum.GENERIC_H723ZETX.build.product_line=STM32H723xx
 GenH7.menu.pnum.GENERIC_H723ZETX.build.variant=STM32H7xx/H723Z(E-G)T_H730ZBT_H733ZGT
+GenH7.menu.pnum.GENERIC_H723ZETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H723.svd
 
 # Generic H723ZGTx
 GenH7.menu.pnum.GENERIC_H723ZGTX=Generic H723ZGTx
@@ -18,6 +19,7 @@ GenH7.menu.pnum.GENERIC_H723ZGTX.upload.maximum_data_size=577536
 GenH7.menu.pnum.GENERIC_H723ZGTX.build.board=GENERIC_H723ZGTX
 GenH7.menu.pnum.GENERIC_H723ZGTX.build.product_line=STM32H723xx
 GenH7.menu.pnum.GENERIC_H723ZGTX.build.variant=STM32H7xx/H723Z(E-G)T_H730ZBT_H733ZGT
+GenH7.menu.pnum.GENERIC_H723ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H723.svd
 
 # Generic H730ZBTx
 GenH7.menu.pnum.GENERIC_H730ZBTX=Generic H730ZBTx
@@ -26,6 +28,7 @@ GenH7.menu.pnum.GENERIC_H730ZBTX.upload.maximum_data_size=577536
 GenH7.menu.pnum.GENERIC_H730ZBTX.build.board=GENERIC_H730ZBTX
 GenH7.menu.pnum.GENERIC_H730ZBTX.build.product_line=STM32H730xx
 GenH7.menu.pnum.GENERIC_H730ZBTX.build.variant=STM32H7xx/H723Z(E-G)T_H730ZBT_H733ZGT
+GenH7.menu.pnum.GENERIC_H730ZBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H730.svd
 
 # Generic H733ZGTx
 GenH7.menu.pnum.GENERIC_H733ZGTX=Generic H733ZGTx
@@ -34,4 +37,5 @@ GenH7.menu.pnum.GENERIC_H733ZGTX.upload.maximum_data_size=577536
 GenH7.menu.pnum.GENERIC_H733ZGTX.build.board=GENERIC_H733ZGTX
 GenH7.menu.pnum.GENERIC_H733ZGTX.build.product_line=STM32H733xx
 GenH7.menu.pnum.GENERIC_H733ZGTX.build.variant=STM32H7xx/H723Z(E-G)T_H730ZBT_H733ZGT
+GenH7.menu.pnum.GENERIC_H733ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H733.svd
 

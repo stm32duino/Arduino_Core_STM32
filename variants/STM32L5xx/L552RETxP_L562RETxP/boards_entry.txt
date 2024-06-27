@@ -10,6 +10,7 @@ GenL5.menu.pnum.GENERIC_L552RETXP.upload.maximum_data_size=262144
 GenL5.menu.pnum.GENERIC_L552RETXP.build.board=GENERIC_L552RETXP
 GenL5.menu.pnum.GENERIC_L552RETXP.build.product_line=STM32L552xx
 GenL5.menu.pnum.GENERIC_L552RETXP.build.variant=STM32L5xx/L552RETxP_L562RETxP
+GenL5.menu.pnum.GENERIC_L552RETXP.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L552.svd
 
 # Generic L562RETxP
 GenL5.menu.pnum.GENERIC_L562RETXP=Generic L562RETxP
@@ -18,4 +19,5 @@ GenL5.menu.pnum.GENERIC_L562RETXP.upload.maximum_data_size=262144
 GenL5.menu.pnum.GENERIC_L562RETXP.build.board=GENERIC_L562RETXP
 GenL5.menu.pnum.GENERIC_L562RETXP.build.product_line=STM32L562xx
 GenL5.menu.pnum.GENERIC_L562RETXP.build.variant=STM32L5xx/L552RETxP_L562RETxP
+GenL5.menu.pnum.GENERIC_L562RETXP.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L562.svd
 

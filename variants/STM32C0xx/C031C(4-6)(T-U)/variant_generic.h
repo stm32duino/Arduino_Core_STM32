@@ -60,8 +60,6 @@
 #define PF1                     42
 #define PF2                     43
 #define PF3                     44
-#define PA9_R                   45
-#define PA10_R                  46
 
 // Alternate pins number
 #define PA0_ALT1                (PA0  | ALT1)
@@ -99,8 +97,7 @@
 #define PB9_ALT1                (PB9  | ALT1)
 #define PC14_ALT1               (PC14 | ALT1)
 
-#define NUM_DIGITAL_PINS        47
-#define NUM_REMAP_PINS          2
+#define NUM_DIGITAL_PINS        45
 #define NUM_ANALOG_INPUTS       19
 
 // On-board LED pin number

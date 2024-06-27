@@ -10,4 +10,5 @@ GenL4.menu.pnum.GENERIC_L433RCTXP.upload.maximum_data_size=65536
 GenL4.menu.pnum.GENERIC_L433RCTXP.build.board=GENERIC_L433RCTXP
 GenL4.menu.pnum.GENERIC_L433RCTXP.build.product_line=STM32L433xx
 GenL4.menu.pnum.GENERIC_L433RCTXP.build.variant=STM32L4xx/L433RCTxP
+GenL4.menu.pnum.GENERIC_L433RCTXP.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x3.svd
 

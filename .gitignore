@@ -5,7 +5,6 @@ boards.local.txt
 platform.local.txt
 path_config.json
 update_config.json
-variant_config.json
 
 # Backup
 *.bak

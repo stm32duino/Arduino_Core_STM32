@@ -10,6 +10,7 @@ GenWB.menu.pnum.GENERIC_WB30CEUXA.upload.maximum_data_size=98304
 GenWB.menu.pnum.GENERIC_WB30CEUXA.build.board=GENERIC_WB30CEUXA
 GenWB.menu.pnum.GENERIC_WB30CEUXA.build.product_line=STM32WB30xx
 GenWB.menu.pnum.GENERIC_WB30CEUXA.build.variant=STM32WBxx/WB30CEUxA_WB50CGU
+GenWB.menu.pnum.GENERIC_WB30CEUXA.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB30_CM4.svd
 
 # Generic WB50CGUx
 GenWB.menu.pnum.GENERIC_WB50CGUX=Generic WB50CGUx
@@ -18,4 +19,5 @@ GenWB.menu.pnum.GENERIC_WB50CGUX.upload.maximum_data_size=131072
 GenWB.menu.pnum.GENERIC_WB50CGUX.build.board=GENERIC_WB50CGUX
 GenWB.menu.pnum.GENERIC_WB50CGUX.build.product_line=STM32WB50xx
 GenWB.menu.pnum.GENERIC_WB50CGUX.build.variant=STM32WBxx/WB30CEUxA_WB50CGU
+GenWB.menu.pnum.GENERIC_WB50CGUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB50_CM4.svd
 

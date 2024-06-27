@@ -10,6 +10,7 @@ GenL4.menu.pnum.GENERIC_L471ZEJX.upload.maximum_data_size=131072
 GenL4.menu.pnum.GENERIC_L471ZEJX.build.board=GENERIC_L471ZEJX
 GenL4.menu.pnum.GENERIC_L471ZEJX.build.product_line=STM32L471xx
 GenL4.menu.pnum.GENERIC_L471ZEJX.build.variant=STM32L4xx/L471Z(E-G)(J-T)
+GenL4.menu.pnum.GENERIC_L471ZEJX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x1.svd
 
 # Generic L471ZGJx
 GenL4.menu.pnum.GENERIC_L471ZGJX=Generic L471ZGJx
@@ -18,6 +19,7 @@ GenL4.menu.pnum.GENERIC_L471ZGJX.upload.maximum_data_size=131072
 GenL4.menu.pnum.GENERIC_L471ZGJX.build.board=GENERIC_L471ZGJX
 GenL4.menu.pnum.GENERIC_L471ZGJX.build.product_line=STM32L471xx
 GenL4.menu.pnum.GENERIC_L471ZGJX.build.variant=STM32L4xx/L471Z(E-G)(J-T)
+GenL4.menu.pnum.GENERIC_L471ZGJX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x1.svd
 
 # Generic L471ZETx
 GenL4.menu.pnum.GENERIC_L471ZETX=Generic L471ZETx
@@ -26,6 +28,7 @@ GenL4.menu.pnum.GENERIC_L471ZETX.upload.maximum_data_size=131072
 GenL4.menu.pnum.GENERIC_L471ZETX.build.board=GENERIC_L471ZETX
 GenL4.menu.pnum.GENERIC_L471ZETX.build.product_line=STM32L471xx
 GenL4.menu.pnum.GENERIC_L471ZETX.build.variant=STM32L4xx/L471Z(E-G)(J-T)
+GenL4.menu.pnum.GENERIC_L471ZETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x1.svd
 
 # Generic L471ZGTx
 GenL4.menu.pnum.GENERIC_L471ZGTX=Generic L471ZGTx
@@ -34,4 +37,5 @@ GenL4.menu.pnum.GENERIC_L471ZGTX.upload.maximum_data_size=131072
 GenL4.menu.pnum.GENERIC_L471ZGTX.build.board=GENERIC_L471ZGTX
 GenL4.menu.pnum.GENERIC_L471ZGTX.build.product_line=STM32L471xx
 GenL4.menu.pnum.GENERIC_L471ZGTX.build.variant=STM32L4xx/L471Z(E-G)(J-T)
+GenL4.menu.pnum.GENERIC_L471ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x1.svd
 

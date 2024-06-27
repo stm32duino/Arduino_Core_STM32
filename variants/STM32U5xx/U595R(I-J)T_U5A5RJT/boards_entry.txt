@@ -10,6 +10,7 @@ GenU5.menu.pnum.GENERIC_U595RITX.upload.maximum_data_size=2574336
 GenU5.menu.pnum.GENERIC_U595RITX.build.board=GENERIC_U595RITX
 GenU5.menu.pnum.GENERIC_U595RITX.build.product_line=STM32U595xx
 GenU5.menu.pnum.GENERIC_U595RITX.build.variant=STM32U5xx/U595R(I-J)T_U5A5RJT
+GenU5.menu.pnum.GENERIC_U595RITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U595.svd
 
 # Generic U595RJTx
 GenU5.menu.pnum.GENERIC_U595RJTX=Generic U595RJTx
@@ -18,6 +19,7 @@ GenU5.menu.pnum.GENERIC_U595RJTX.upload.maximum_data_size=2574336
 GenU5.menu.pnum.GENERIC_U595RJTX.build.board=GENERIC_U595RJTX
 GenU5.menu.pnum.GENERIC_U595RJTX.build.product_line=STM32U595xx
 GenU5.menu.pnum.GENERIC_U595RJTX.build.variant=STM32U5xx/U595R(I-J)T_U5A5RJT
+GenU5.menu.pnum.GENERIC_U595RJTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U595.svd
 
 # Generic U5A5RJTx
 GenU5.menu.pnum.GENERIC_U5A5RJTX=Generic U5A5RJTx
@@ -26,4 +28,5 @@ GenU5.menu.pnum.GENERIC_U5A5RJTX.upload.maximum_data_size=2574336
 GenU5.menu.pnum.GENERIC_U5A5RJTX.build.board=GENERIC_U5A5RJTX
 GenU5.menu.pnum.GENERIC_U5A5RJTX.build.product_line=STM32U5A5xx
 GenU5.menu.pnum.GENERIC_U5A5RJTX.build.variant=STM32U5xx/U595R(I-J)T_U5A5RJT
+GenU5.menu.pnum.GENERIC_U5A5RJTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U5A5.svd
 

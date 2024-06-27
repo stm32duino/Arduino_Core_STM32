@@ -10,4 +10,5 @@ GenWB.menu.pnum.GENERIC_WB10CCUX.upload.maximum_data_size=49152
 GenWB.menu.pnum.GENERIC_WB10CCUX.build.board=GENERIC_WB10CCUX
 GenWB.menu.pnum.GENERIC_WB10CCUX.build.product_line=STM32WB10xx
 GenWB.menu.pnum.GENERIC_WB10CCUX.build.variant=STM32WBxx/WB10CCU
+GenWB.menu.pnum.GENERIC_WB10CCUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB10_CM4.svd
 

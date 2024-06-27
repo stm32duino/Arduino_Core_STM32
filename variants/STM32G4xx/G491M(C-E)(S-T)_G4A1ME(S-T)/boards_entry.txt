@@ -10,6 +10,7 @@ GenG4.menu.pnum.GENERIC_G491MCSX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G491MCSX.build.board=GENERIC_G491MCSX
 GenG4.menu.pnum.GENERIC_G491MCSX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491MCSX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
+GenG4.menu.pnum.GENERIC_G491MCSX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G491.svd
 
 # Generic G491MESx
 GenG4.menu.pnum.GENERIC_G491MESX=Generic G491MESx
@@ -18,6 +19,7 @@ GenG4.menu.pnum.GENERIC_G491MESX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G491MESX.build.board=GENERIC_G491MESX
 GenG4.menu.pnum.GENERIC_G491MESX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491MESX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
+GenG4.menu.pnum.GENERIC_G491MESX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G491.svd
 
 # Generic G491MCTx
 GenG4.menu.pnum.GENERIC_G491MCTX=Generic G491MCTx
@@ -26,6 +28,7 @@ GenG4.menu.pnum.GENERIC_G491MCTX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G491MCTX.build.board=GENERIC_G491MCTX
 GenG4.menu.pnum.GENERIC_G491MCTX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491MCTX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
+GenG4.menu.pnum.GENERIC_G491MCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G491.svd
 
 # Generic G491METx
 GenG4.menu.pnum.GENERIC_G491METX=Generic G491METx
@@ -34,6 +37,7 @@ GenG4.menu.pnum.GENERIC_G491METX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G491METX.build.board=GENERIC_G491METX
 GenG4.menu.pnum.GENERIC_G491METX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491METX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
+GenG4.menu.pnum.GENERIC_G491METX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G491.svd
 
 # Generic G4A1MESx
 GenG4.menu.pnum.GENERIC_G4A1MESX=Generic G4A1MESx
@@ -42,6 +46,7 @@ GenG4.menu.pnum.GENERIC_G4A1MESX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G4A1MESX.build.board=GENERIC_G4A1MESX
 GenG4.menu.pnum.GENERIC_G4A1MESX.build.product_line=STM32G4A1xx
 GenG4.menu.pnum.GENERIC_G4A1MESX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
+GenG4.menu.pnum.GENERIC_G4A1MESX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G4A1.svd
 
 # Generic G4A1METx
 GenG4.menu.pnum.GENERIC_G4A1METX=Generic G4A1METx
@@ -50,4 +55,5 @@ GenG4.menu.pnum.GENERIC_G4A1METX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G4A1METX.build.board=GENERIC_G4A1METX
 GenG4.menu.pnum.GENERIC_G4A1METX.build.product_line=STM32G4A1xx
 GenG4.menu.pnum.GENERIC_G4A1METX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
+GenG4.menu.pnum.GENERIC_G4A1METX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G4A1.svd
 

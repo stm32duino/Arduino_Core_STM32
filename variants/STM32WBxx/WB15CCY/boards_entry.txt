@@ -10,4 +10,5 @@ GenWB.menu.pnum.GENERIC_WB15CCYX.upload.maximum_data_size=49152
 GenWB.menu.pnum.GENERIC_WB15CCYX.build.board=GENERIC_WB15CCYX
 GenWB.menu.pnum.GENERIC_WB15CCYX.build.product_line=STM32WB15xx
 GenWB.menu.pnum.GENERIC_WB15CCYX.build.variant=STM32WBxx/WB15CCY
+GenWB.menu.pnum.GENERIC_WB15CCYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB15_CM4.svd
 

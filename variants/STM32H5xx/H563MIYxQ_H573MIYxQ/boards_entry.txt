@@ -10,6 +10,7 @@ GenH5.menu.pnum.GENERIC_H563MIYXQ.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H563MIYXQ.build.board=GENERIC_H563MIYXQ
 GenH5.menu.pnum.GENERIC_H563MIYXQ.build.product_line=STM32H563xx
 GenH5.menu.pnum.GENERIC_H563MIYXQ.build.variant=STM32H5xx/H563MIYxQ_H573MIYxQ
+GenH5.menu.pnum.GENERIC_H563MIYXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H563.svd
 
 # Generic H573MIYxQ
 GenH5.menu.pnum.GENERIC_H573MIYXQ=Generic H573MIYxQ
@@ -18,4 +19,5 @@ GenH5.menu.pnum.GENERIC_H573MIYXQ.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H573MIYXQ.build.board=GENERIC_H573MIYXQ
 GenH5.menu.pnum.GENERIC_H573MIYXQ.build.product_line=STM32H573xx
 GenH5.menu.pnum.GENERIC_H573MIYXQ.build.variant=STM32H5xx/H563MIYxQ_H573MIYxQ
+GenH5.menu.pnum.GENERIC_H573MIYXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H573.svd
 

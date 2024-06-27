@@ -10,6 +10,7 @@ GenG0.menu.pnum.GENERIC_G0B1MBTX.upload.maximum_data_size=147456
 GenG0.menu.pnum.GENERIC_G0B1MBTX.build.board=GENERIC_G0B1MBTX
 GenG0.menu.pnum.GENERIC_G0B1MBTX.build.product_line=STM32G0B1xx
 GenG0.menu.pnum.GENERIC_G0B1MBTX.build.variant=STM32G0xx/G0B1M(B-C-E)T_G0C1M(C-E)T
+GenG0.menu.pnum.GENERIC_G0B1MBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G0B1.svd
 
 # Generic G0B1MCTx
 GenG0.menu.pnum.GENERIC_G0B1MCTX=Generic G0B1MCTx
@@ -18,6 +19,7 @@ GenG0.menu.pnum.GENERIC_G0B1MCTX.upload.maximum_data_size=147456
 GenG0.menu.pnum.GENERIC_G0B1MCTX.build.board=GENERIC_G0B1MCTX
 GenG0.menu.pnum.GENERIC_G0B1MCTX.build.product_line=STM32G0B1xx
 GenG0.menu.pnum.GENERIC_G0B1MCTX.build.variant=STM32G0xx/G0B1M(B-C-E)T_G0C1M(C-E)T
+GenG0.menu.pnum.GENERIC_G0B1MCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G0B1.svd
 
 # Generic G0B1METx
 GenG0.menu.pnum.GENERIC_G0B1METX=Generic G0B1METx
@@ -26,6 +28,7 @@ GenG0.menu.pnum.GENERIC_G0B1METX.upload.maximum_data_size=147456
 GenG0.menu.pnum.GENERIC_G0B1METX.build.board=GENERIC_G0B1METX
 GenG0.menu.pnum.GENERIC_G0B1METX.build.product_line=STM32G0B1xx
 GenG0.menu.pnum.GENERIC_G0B1METX.build.variant=STM32G0xx/G0B1M(B-C-E)T_G0C1M(C-E)T
+GenG0.menu.pnum.GENERIC_G0B1METX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G0B1.svd
 
 # Generic G0C1MCTx
 GenG0.menu.pnum.GENERIC_G0C1MCTX=Generic G0C1MCTx
@@ -34,6 +37,7 @@ GenG0.menu.pnum.GENERIC_G0C1MCTX.upload.maximum_data_size=147456
 GenG0.menu.pnum.GENERIC_G0C1MCTX.build.board=GENERIC_G0C1MCTX
 GenG0.menu.pnum.GENERIC_G0C1MCTX.build.product_line=STM32G0C1xx
 GenG0.menu.pnum.GENERIC_G0C1MCTX.build.variant=STM32G0xx/G0B1M(B-C-E)T_G0C1M(C-E)T
+GenG0.menu.pnum.GENERIC_G0C1MCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G0C1.svd
 
 # Generic G0C1METx
 GenG0.menu.pnum.GENERIC_G0C1METX=Generic G0C1METx
@@ -42,4 +46,5 @@ GenG0.menu.pnum.GENERIC_G0C1METX.upload.maximum_data_size=147456
 GenG0.menu.pnum.GENERIC_G0C1METX.build.board=GENERIC_G0C1METX
 GenG0.menu.pnum.GENERIC_G0C1METX.build.product_line=STM32G0C1xx
 GenG0.menu.pnum.GENERIC_G0C1METX.build.variant=STM32G0xx/G0B1M(B-C-E)T_G0C1M(C-E)T
+GenG0.menu.pnum.GENERIC_G0C1METX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G0C1.svd
 

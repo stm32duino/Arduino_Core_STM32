@@ -10,6 +10,7 @@ GenF4.menu.pnum.GENERIC_F446MCYX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F446MCYX.build.board=GENERIC_F446MCYX
 GenF4.menu.pnum.GENERIC_F446MCYX.build.product_line=STM32F446xx
 GenF4.menu.pnum.GENERIC_F446MCYX.build.variant=STM32F4xx/F446M(C-E)Y
+GenF4.menu.pnum.GENERIC_F446MCYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F446.svd
 
 # Generic F446MEYx
 GenF4.menu.pnum.GENERIC_F446MEYX=Generic F446MEYx
@@ -18,4 +19,5 @@ GenF4.menu.pnum.GENERIC_F446MEYX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F446MEYX.build.board=GENERIC_F446MEYX
 GenF4.menu.pnum.GENERIC_F446MEYX.build.product_line=STM32F446xx
 GenF4.menu.pnum.GENERIC_F446MEYX.build.variant=STM32F4xx/F446M(C-E)Y
+GenF4.menu.pnum.GENERIC_F446MEYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F446.svd
 

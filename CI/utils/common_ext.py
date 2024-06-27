@@ -1,7 +1,17 @@
+import json
 import re
 import subprocess
 import shutil
 import sys
+
+
+# Add default key/value pair to config file
+def defaultConfig(config_file_path, data):
+    print(f"Please check the default configuration '{config_file_path}'.")
+    config_file = open(config_file_path, "w")
+    config_file.write(json.dumps(data, indent=2))
+    config_file.close()
+    exit(1)
 
 
 # Create a folder if not exists

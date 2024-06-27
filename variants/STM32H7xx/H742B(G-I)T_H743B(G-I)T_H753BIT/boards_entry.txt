@@ -10,6 +10,7 @@ GenH7.menu.pnum.GENERIC_H742BGTX.upload.maximum_data_size=884736
 GenH7.menu.pnum.GENERIC_H742BGTX.build.board=GENERIC_H742BGTX
 GenH7.menu.pnum.GENERIC_H742BGTX.build.product_line=STM32H742xx
 GenH7.menu.pnum.GENERIC_H742BGTX.build.variant=STM32H7xx/H742B(G-I)T_H743B(G-I)T_H753BIT
+GenH7.menu.pnum.GENERIC_H742BGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H742.svd
 
 # Generic H742BITx
 GenH7.menu.pnum.GENERIC_H742BITX=Generic H742BITx
@@ -18,6 +19,7 @@ GenH7.menu.pnum.GENERIC_H742BITX.upload.maximum_data_size=884736
 GenH7.menu.pnum.GENERIC_H742BITX.build.board=GENERIC_H742BITX
 GenH7.menu.pnum.GENERIC_H742BITX.build.product_line=STM32H742xx
 GenH7.menu.pnum.GENERIC_H742BITX.build.variant=STM32H7xx/H742B(G-I)T_H743B(G-I)T_H753BIT
+GenH7.menu.pnum.GENERIC_H742BITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H742.svd
 
 # Generic H743BGTx
 GenH7.menu.pnum.GENERIC_H743BGTX=Generic H743BGTx
@@ -26,6 +28,7 @@ GenH7.menu.pnum.GENERIC_H743BGTX.upload.maximum_data_size=884736
 GenH7.menu.pnum.GENERIC_H743BGTX.build.board=GENERIC_H743BGTX
 GenH7.menu.pnum.GENERIC_H743BGTX.build.product_line=STM32H743xx
 GenH7.menu.pnum.GENERIC_H743BGTX.build.variant=STM32H7xx/H742B(G-I)T_H743B(G-I)T_H753BIT
+GenH7.menu.pnum.GENERIC_H743BGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H743.svd
 
 # Generic H743BITx
 GenH7.menu.pnum.GENERIC_H743BITX=Generic H743BITx
@@ -34,6 +37,7 @@ GenH7.menu.pnum.GENERIC_H743BITX.upload.maximum_data_size=884736
 GenH7.menu.pnum.GENERIC_H743BITX.build.board=GENERIC_H743BITX
 GenH7.menu.pnum.GENERIC_H743BITX.build.product_line=STM32H743xx
 GenH7.menu.pnum.GENERIC_H743BITX.build.variant=STM32H7xx/H742B(G-I)T_H743B(G-I)T_H753BIT
+GenH7.menu.pnum.GENERIC_H743BITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H743.svd
 
 # Generic H753BITx
 GenH7.menu.pnum.GENERIC_H753BITX=Generic H753BITx
@@ -42,4 +46,5 @@ GenH7.menu.pnum.GENERIC_H753BITX.upload.maximum_data_size=884736
 GenH7.menu.pnum.GENERIC_H753BITX.build.board=GENERIC_H753BITX
 GenH7.menu.pnum.GENERIC_H753BITX.build.product_line=STM32H753xx
 GenH7.menu.pnum.GENERIC_H753BITX.build.variant=STM32H7xx/H742B(G-I)T_H743B(G-I)T_H753BIT
+GenH7.menu.pnum.GENERIC_H753BITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H753.svd
 

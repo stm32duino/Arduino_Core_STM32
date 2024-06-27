@@ -10,4 +10,5 @@ GenF0.menu.pnum.GENERIC_F031K6TX.upload.maximum_data_size=4096
 GenF0.menu.pnum.GENERIC_F031K6TX.build.board=GENERIC_F031K6TX
 GenF0.menu.pnum.GENERIC_F031K6TX.build.product_line=STM32F031x6
 GenF0.menu.pnum.GENERIC_F031K6TX.build.variant=STM32F0xx/F031K6T
+GenF0.menu.pnum.GENERIC_F031K6TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x1.svd
 

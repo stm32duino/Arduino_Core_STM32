@@ -10,6 +10,7 @@ GenF4.menu.pnum.GENERIC_F413VGTX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F413VGTX.build.board=GENERIC_F413VGTX
 GenF4.menu.pnum.GENERIC_F413VGTX.build.product_line=STM32F413xx
 GenF4.menu.pnum.GENERIC_F413VGTX.build.variant=STM32F4xx/F413V(G-H)T_F423VHT
+GenF4.menu.pnum.GENERIC_F413VGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F413.svd
 
 # Generic F413VHTx
 GenF4.menu.pnum.GENERIC_F413VHTX=Generic F413VHTx
@@ -18,6 +19,7 @@ GenF4.menu.pnum.GENERIC_F413VHTX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F413VHTX.build.board=GENERIC_F413VHTX
 GenF4.menu.pnum.GENERIC_F413VHTX.build.product_line=STM32F413xx
 GenF4.menu.pnum.GENERIC_F413VHTX.build.variant=STM32F4xx/F413V(G-H)T_F423VHT
+GenF4.menu.pnum.GENERIC_F413VHTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F413.svd
 
 # Generic F423VHTx
 GenF4.menu.pnum.GENERIC_F423VHTX=Generic F423VHTx
@@ -26,4 +28,5 @@ GenF4.menu.pnum.GENERIC_F423VHTX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F423VHTX.build.board=GENERIC_F423VHTX
 GenF4.menu.pnum.GENERIC_F423VHTX.build.product_line=STM32F423xx
 GenF4.menu.pnum.GENERIC_F423VHTX.build.variant=STM32F4xx/F413V(G-H)T_F423VHT
+GenF4.menu.pnum.GENERIC_F423VHTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F423.svd
 

@@ -15,7 +15,7 @@ from xml.dom.minidom import parse
 script_path = Path(__file__).parent.resolve()
 sys.path.append(str(script_path.parent))
 from utils import copyFile, copyFolder, createFolder, deleteFolder, genSTM32List
-from utils import execute_cmd, getRepoBranchName
+from utils import defaultConfig, execute_cmd, getRepoBranchName
 
 if sys.platform.startswith("win32"):
     from colorama import init
@@ -23,7 +23,6 @@ if sys.platform.startswith("win32"):
     init(autoreset=True)
 
 home = Path.home()
-path_config_filename = "update_config.json"
 
 # GitHub
 gh_st = "https://github.com/STMicroelectronics/"
@@ -85,19 +84,6 @@ out_format = "| {:^12} | {:^7} | {:^8} | {:^8} | {:^1} | {:^8} | {:^8} | {:^1} |
 out_separator = "-" * 70
 
 
-def create_config(config_file_path):
-    global repo_local_path
-
-    # Create a Json file for a better path management
-    print(f"'{config_file_path}' file created. Please check the configuration.")
-    path_config_file = open(config_file_path, "w")
-    path_config_file.write(
-        json.dumps({"REPO_LOCAL_PATH": str(repo_local_path)}, indent=2)
-    )
-    path_config_file.close()
-    exit(1)
-
-
 def checkConfig():
     global repo_local_path
     global hal_dest_path
@@ -107,14 +93,18 @@ def checkConfig():
     global md_CMSIS_path
     global stm32_def
 
-    config_file_path = script_path / path_config_filename
+    config_file_path = script_path / "update_config.json"
     if config_file_path.is_file():
         try:
             config_file = open(config_file_path, "r")
             path_config = json.load(config_file)
-            # Common path
-            repo_local_path = Path(path_config["REPO_LOCAL_PATH"])
             config_file.close()
+            # Common path
+            if "REPO_LOCAL_PATH" not in path_config:
+                path_config["REPO_LOCAL_PATH"] = str(repo_local_path)
+                defaultConfig(config_file_path, path_config)
+            else:
+                repo_local_path = Path(path_config["REPO_LOCAL_PATH"])
             hal_dest_path = repo_local_path / repo_core_name / hal_dest_path
             md_HAL_path = hal_dest_path / md_HAL_path
             cmsis_dest_path = repo_local_path / repo_core_name / cmsis_dest_path
@@ -130,7 +120,7 @@ def checkConfig():
         except IOError:
             print(f"Failed to open {config_file}!")
     else:
-        create_config(config_file_path)
+        defaultConfig(config_file_path, {"REPO_LOCAL_PATH": str(repo_local_path)})
     createFolder(repo_local_path)
 
 

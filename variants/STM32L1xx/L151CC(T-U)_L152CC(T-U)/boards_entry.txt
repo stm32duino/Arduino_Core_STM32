@@ -10,6 +10,7 @@ GenL1.menu.pnum.GENERIC_L151CCTX.upload.maximum_data_size=32768
 GenL1.menu.pnum.GENERIC_L151CCTX.build.board=GENERIC_L151CCTX
 GenL1.menu.pnum.GENERIC_L151CCTX.build.product_line=STM32L151xC
 GenL1.menu.pnum.GENERIC_L151CCTX.build.variant=STM32L1xx/L151CC(T-U)_L152CC(T-U)
+GenL1.menu.pnum.GENERIC_L151CCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L1xx/STM32L151.svd
 
 # Generic L151CCUx
 GenL1.menu.pnum.GENERIC_L151CCUX=Generic L151CCUx
@@ -18,6 +19,7 @@ GenL1.menu.pnum.GENERIC_L151CCUX.upload.maximum_data_size=32768
 GenL1.menu.pnum.GENERIC_L151CCUX.build.board=GENERIC_L151CCUX
 GenL1.menu.pnum.GENERIC_L151CCUX.build.product_line=STM32L151xC
 GenL1.menu.pnum.GENERIC_L151CCUX.build.variant=STM32L1xx/L151CC(T-U)_L152CC(T-U)
+GenL1.menu.pnum.GENERIC_L151CCUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L1xx/STM32L151.svd
 
 # Generic L152CCTx
 GenL1.menu.pnum.GENERIC_L152CCTX=Generic L152CCTx
@@ -26,6 +28,7 @@ GenL1.menu.pnum.GENERIC_L152CCTX.upload.maximum_data_size=32768
 GenL1.menu.pnum.GENERIC_L152CCTX.build.board=GENERIC_L152CCTX
 GenL1.menu.pnum.GENERIC_L152CCTX.build.product_line=STM32L152xC
 GenL1.menu.pnum.GENERIC_L152CCTX.build.variant=STM32L1xx/L151CC(T-U)_L152CC(T-U)
+GenL1.menu.pnum.GENERIC_L152CCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L1xx/STM32L152.svd
 
 # Generic L152CCUx
 GenL1.menu.pnum.GENERIC_L152CCUX=Generic L152CCUx
@@ -34,4 +37,5 @@ GenL1.menu.pnum.GENERIC_L152CCUX.upload.maximum_data_size=32768
 GenL1.menu.pnum.GENERIC_L152CCUX.build.board=GENERIC_L152CCUX
 GenL1.menu.pnum.GENERIC_L152CCUX.build.product_line=STM32L152xC
 GenL1.menu.pnum.GENERIC_L152CCUX.build.variant=STM32L1xx/L151CC(T-U)_L152CC(T-U)
+GenL1.menu.pnum.GENERIC_L152CCUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L1xx/STM32L152.svd
 

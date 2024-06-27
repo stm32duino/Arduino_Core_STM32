@@ -10,6 +10,7 @@ GenF1.menu.pnum.GENERIC_F100C4TX.upload.maximum_data_size=4096
 GenF1.menu.pnum.GENERIC_F100C4TX.build.board=GENERIC_F100C4TX
 GenF1.menu.pnum.GENERIC_F100C4TX.build.product_line=STM32F100xB
 GenF1.menu.pnum.GENERIC_F100C4TX.build.variant=STM32F1xx/F100C(4-6)T
+GenF1.menu.pnum.GENERIC_F100C4TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F100.svd
 
 # Generic F100C6Tx
 GenF1.menu.pnum.GENERIC_F100C6TX=Generic F100C6Tx
@@ -18,4 +19,5 @@ GenF1.menu.pnum.GENERIC_F100C6TX.upload.maximum_data_size=4096
 GenF1.menu.pnum.GENERIC_F100C6TX.build.board=GENERIC_F100C6TX
 GenF1.menu.pnum.GENERIC_F100C6TX.build.product_line=STM32F100xB
 GenF1.menu.pnum.GENERIC_F100C6TX.build.variant=STM32F1xx/F100C(4-6)T
+GenF1.menu.pnum.GENERIC_F100C6TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F100.svd
 

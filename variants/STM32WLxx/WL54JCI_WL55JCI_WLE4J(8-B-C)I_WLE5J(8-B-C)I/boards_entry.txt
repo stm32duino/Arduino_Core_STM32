@@ -10,6 +10,7 @@ GenWL.menu.pnum.GENERIC_WL54JCIX.upload.maximum_data_size=65536
 GenWL.menu.pnum.GENERIC_WL54JCIX.build.board=GENERIC_WL54JCIX
 GenWL.menu.pnum.GENERIC_WL54JCIX.build.product_line=STM32WL54xx
 GenWL.menu.pnum.GENERIC_WL54JCIX.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I
+GenWL.menu.pnum.GENERIC_WL54JCIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WLxx/STM32WL5x_CM4.svd
 
 # Generic WL55JCIx
 GenWL.menu.pnum.GENERIC_WL55JCIX=Generic WL55JCIx
@@ -18,6 +19,7 @@ GenWL.menu.pnum.GENERIC_WL55JCIX.upload.maximum_data_size=65536
 GenWL.menu.pnum.GENERIC_WL55JCIX.build.board=GENERIC_WL55JCIX
 GenWL.menu.pnum.GENERIC_WL55JCIX.build.product_line=STM32WL55xx
 GenWL.menu.pnum.GENERIC_WL55JCIX.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I
+GenWL.menu.pnum.GENERIC_WL55JCIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WLxx/STM32WL5x_CM4.svd
 
 # Generic WLE4J8Ix
 GenWL.menu.pnum.GENERIC_WLE4J8IX=Generic WLE4J8Ix
@@ -26,6 +28,7 @@ GenWL.menu.pnum.GENERIC_WLE4J8IX.upload.maximum_data_size=20480
 GenWL.menu.pnum.GENERIC_WLE4J8IX.build.board=GENERIC_WLE4J8IX
 GenWL.menu.pnum.GENERIC_WLE4J8IX.build.product_line=STM32WLE4xx
 GenWL.menu.pnum.GENERIC_WLE4J8IX.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I
+GenWL.menu.pnum.GENERIC_WLE4J8IX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WLxx/STM32WLE5_CM4.svd
 
 # Generic WLE4JBIx
 GenWL.menu.pnum.GENERIC_WLE4JBIX=Generic WLE4JBIx
@@ -34,6 +37,7 @@ GenWL.menu.pnum.GENERIC_WLE4JBIX.upload.maximum_data_size=49152
 GenWL.menu.pnum.GENERIC_WLE4JBIX.build.board=GENERIC_WLE4JBIX
 GenWL.menu.pnum.GENERIC_WLE4JBIX.build.product_line=STM32WLE4xx
 GenWL.menu.pnum.GENERIC_WLE4JBIX.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I
+GenWL.menu.pnum.GENERIC_WLE4JBIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WLxx/STM32WLE5_CM4.svd
 
 # Generic WLE4JCIx
 GenWL.menu.pnum.GENERIC_WLE4JCIX=Generic WLE4JCIx
@@ -42,6 +46,7 @@ GenWL.menu.pnum.GENERIC_WLE4JCIX.upload.maximum_data_size=65536
 GenWL.menu.pnum.GENERIC_WLE4JCIX.build.board=GENERIC_WLE4JCIX
 GenWL.menu.pnum.GENERIC_WLE4JCIX.build.product_line=STM32WLE4xx
 GenWL.menu.pnum.GENERIC_WLE4JCIX.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I
+GenWL.menu.pnum.GENERIC_WLE4JCIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WLxx/STM32WLE5_CM4.svd
 
 # Generic WLE5J8Ix
 GenWL.menu.pnum.GENERIC_WLE5J8IX=Generic WLE5J8Ix
@@ -50,6 +55,7 @@ GenWL.menu.pnum.GENERIC_WLE5J8IX.upload.maximum_data_size=20480
 GenWL.menu.pnum.GENERIC_WLE5J8IX.build.board=GENERIC_WLE5J8IX
 GenWL.menu.pnum.GENERIC_WLE5J8IX.build.product_line=STM32WLE5xx
 GenWL.menu.pnum.GENERIC_WLE5J8IX.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I
+GenWL.menu.pnum.GENERIC_WLE5J8IX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WLxx/STM32WLE5_CM4.svd
 
 # Generic WLE5JBIx
 GenWL.menu.pnum.GENERIC_WLE5JBIX=Generic WLE5JBIx
@@ -58,6 +64,7 @@ GenWL.menu.pnum.GENERIC_WLE5JBIX.upload.maximum_data_size=49152
 GenWL.menu.pnum.GENERIC_WLE5JBIX.build.board=GENERIC_WLE5JBIX
 GenWL.menu.pnum.GENERIC_WLE5JBIX.build.product_line=STM32WLE5xx
 GenWL.menu.pnum.GENERIC_WLE5JBIX.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I
+GenWL.menu.pnum.GENERIC_WLE5JBIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WLxx/STM32WLE5_CM4.svd
 
 # Generic WLE5JCIx
 GenWL.menu.pnum.GENERIC_WLE5JCIX=Generic WLE5JCIx
@@ -66,4 +73,5 @@ GenWL.menu.pnum.GENERIC_WLE5JCIX.upload.maximum_data_size=65536
 GenWL.menu.pnum.GENERIC_WLE5JCIX.build.board=GENERIC_WLE5JCIX
 GenWL.menu.pnum.GENERIC_WLE5JCIX.build.product_line=STM32WLE5xx
 GenWL.menu.pnum.GENERIC_WLE5JCIX.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I
+GenWL.menu.pnum.GENERIC_WLE5JCIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WLxx/STM32WLE5_CM4.svd
 

@@ -10,6 +10,7 @@ GenF3.menu.pnum.GENERIC_F303ZDTX.upload.maximum_data_size=65536
 GenF3.menu.pnum.GENERIC_F303ZDTX.build.board=GENERIC_F303ZDTX
 GenF3.menu.pnum.GENERIC_F303ZDTX.build.product_line=STM32F303xE
 GenF3.menu.pnum.GENERIC_F303ZDTX.build.variant=STM32F3xx/F303Z(D-E)T
+GenF3.menu.pnum.GENERIC_F303ZDTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F303.svd
 
 # Generic F303ZETx
 GenF3.menu.pnum.GENERIC_F303ZETX=Generic F303ZETx
@@ -18,4 +19,5 @@ GenF3.menu.pnum.GENERIC_F303ZETX.upload.maximum_data_size=65536
 GenF3.menu.pnum.GENERIC_F303ZETX.build.board=GENERIC_F303ZETX
 GenF3.menu.pnum.GENERIC_F303ZETX.build.product_line=STM32F303xE
 GenF3.menu.pnum.GENERIC_F303ZETX.build.variant=STM32F3xx/F303Z(D-E)T
+GenF3.menu.pnum.GENERIC_F303ZETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F303.svd
 

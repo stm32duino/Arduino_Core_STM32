@@ -10,4 +10,5 @@ GenF0.menu.pnum.GENERIC_F042T6YX.upload.maximum_data_size=6144
 GenF0.menu.pnum.GENERIC_F042T6YX.build.board=GENERIC_F042T6YX
 GenF0.menu.pnum.GENERIC_F042T6YX.build.product_line=STM32F042x6
 GenF0.menu.pnum.GENERIC_F042T6YX.build.variant=STM32F0xx/F042T6Y
+GenF0.menu.pnum.GENERIC_F042T6YX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x2.svd
 

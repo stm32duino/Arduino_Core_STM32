@@ -10,6 +10,7 @@ GenL4.menu.pnum.GENERIC_L4P5QGIX.upload.maximum_data_size=327680
 GenL4.menu.pnum.GENERIC_L4P5QGIX.build.board=GENERIC_L4P5QGIX
 GenL4.menu.pnum.GENERIC_L4P5QGIX.build.product_line=STM32L4P5xx
 GenL4.menu.pnum.GENERIC_L4P5QGIX.build.variant=STM32L4xx/L4P5Q(G-E)I_L4Q5QGI
+GenL4.menu.pnum.GENERIC_L4P5QGIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4P5.svd
 
 # Generic L4P5QEIx
 GenL4.menu.pnum.GENERIC_L4P5QEIX=Generic L4P5QEIx
@@ -18,6 +19,7 @@ GenL4.menu.pnum.GENERIC_L4P5QEIX.upload.maximum_data_size=327680
 GenL4.menu.pnum.GENERIC_L4P5QEIX.build.board=GENERIC_L4P5QEIX
 GenL4.menu.pnum.GENERIC_L4P5QEIX.build.product_line=STM32L4P5xx
 GenL4.menu.pnum.GENERIC_L4P5QEIX.build.variant=STM32L4xx/L4P5Q(G-E)I_L4Q5QGI
+GenL4.menu.pnum.GENERIC_L4P5QEIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4P5.svd
 
 # Generic L4Q5QGIx
 GenL4.menu.pnum.GENERIC_L4Q5QGIX=Generic L4Q5QGIx
@@ -26,4 +28,5 @@ GenL4.menu.pnum.GENERIC_L4Q5QGIX.upload.maximum_data_size=327680
 GenL4.menu.pnum.GENERIC_L4Q5QGIX.build.board=GENERIC_L4Q5QGIX
 GenL4.menu.pnum.GENERIC_L4Q5QGIX.build.product_line=STM32L4Q5xx
 GenL4.menu.pnum.GENERIC_L4Q5QGIX.build.variant=STM32L4xx/L4P5Q(G-E)I_L4Q5QGI
+GenL4.menu.pnum.GENERIC_L4Q5QGIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4Q5.svd
 

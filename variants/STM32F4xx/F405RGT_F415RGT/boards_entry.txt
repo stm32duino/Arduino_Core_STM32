@@ -10,6 +10,7 @@ GenF4.menu.pnum.GENERIC_F405RGTX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F405RGTX.build.board=GENERIC_F405RGTX
 GenF4.menu.pnum.GENERIC_F405RGTX.build.product_line=STM32F405xx
 GenF4.menu.pnum.GENERIC_F405RGTX.build.variant=STM32F4xx/F405RGT_F415RGT
+GenF4.menu.pnum.GENERIC_F405RGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F405.svd
 
 # Generic F415RGTx
 GenF4.menu.pnum.GENERIC_F415RGTX=Generic F415RGTx
@@ -18,4 +19,5 @@ GenF4.menu.pnum.GENERIC_F415RGTX.upload.maximum_data_size=131072
 GenF4.menu.pnum.GENERIC_F415RGTX.build.board=GENERIC_F415RGTX
 GenF4.menu.pnum.GENERIC_F415RGTX.build.product_line=STM32F415xx
 GenF4.menu.pnum.GENERIC_F415RGTX.build.variant=STM32F4xx/F405RGT_F415RGT
+GenF4.menu.pnum.GENERIC_F415RGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F415.svd
 

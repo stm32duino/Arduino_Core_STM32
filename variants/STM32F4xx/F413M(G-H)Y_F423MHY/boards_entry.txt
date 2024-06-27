@@ -10,6 +10,7 @@ GenF4.menu.pnum.GENERIC_F413MGYX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F413MGYX.build.board=GENERIC_F413MGYX
 GenF4.menu.pnum.GENERIC_F413MGYX.build.product_line=STM32F413xx
 GenF4.menu.pnum.GENERIC_F413MGYX.build.variant=STM32F4xx/F413M(G-H)Y_F423MHY
+GenF4.menu.pnum.GENERIC_F413MGYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F413.svd
 
 # Generic F413MHYx
 GenF4.menu.pnum.GENERIC_F413MHYX=Generic F413MHYx
@@ -18,6 +19,7 @@ GenF4.menu.pnum.GENERIC_F413MHYX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F413MHYX.build.board=GENERIC_F413MHYX
 GenF4.menu.pnum.GENERIC_F413MHYX.build.product_line=STM32F413xx
 GenF4.menu.pnum.GENERIC_F413MHYX.build.variant=STM32F4xx/F413M(G-H)Y_F423MHY
+GenF4.menu.pnum.GENERIC_F413MHYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F413.svd
 
 # Generic F423MHYx
 GenF4.menu.pnum.GENERIC_F423MHYX=Generic F423MHYx
@@ -26,4 +28,5 @@ GenF4.menu.pnum.GENERIC_F423MHYX.upload.maximum_data_size=327680
 GenF4.menu.pnum.GENERIC_F423MHYX.build.board=GENERIC_F423MHYX
 GenF4.menu.pnum.GENERIC_F423MHYX.build.product_line=STM32F423xx
 GenF4.menu.pnum.GENERIC_F423MHYX.build.variant=STM32F4xx/F413M(G-H)Y_F423MHY
+GenF4.menu.pnum.GENERIC_F423MHYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F423.svd
 

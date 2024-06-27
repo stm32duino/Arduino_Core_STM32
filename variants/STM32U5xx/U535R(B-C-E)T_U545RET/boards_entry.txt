@@ -10,6 +10,7 @@ GenU5.menu.pnum.GENERIC_U535RBTX.upload.maximum_data_size=280576
 GenU5.menu.pnum.GENERIC_U535RBTX.build.board=GENERIC_U535RBTX
 GenU5.menu.pnum.GENERIC_U535RBTX.build.product_line=STM32U535xx
 GenU5.menu.pnum.GENERIC_U535RBTX.build.variant=STM32U5xx/U535R(B-C-E)T_U545RET
+GenU5.menu.pnum.GENERIC_U535RBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U535.svd
 
 # Generic U535RCTx
 GenU5.menu.pnum.GENERIC_U535RCTX=Generic U535RCTx
@@ -18,6 +19,7 @@ GenU5.menu.pnum.GENERIC_U535RCTX.upload.maximum_data_size=280576
 GenU5.menu.pnum.GENERIC_U535RCTX.build.board=GENERIC_U535RCTX
 GenU5.menu.pnum.GENERIC_U535RCTX.build.product_line=STM32U535xx
 GenU5.menu.pnum.GENERIC_U535RCTX.build.variant=STM32U5xx/U535R(B-C-E)T_U545RET
+GenU5.menu.pnum.GENERIC_U535RCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U535.svd
 
 # Generic U535RETx
 GenU5.menu.pnum.GENERIC_U535RETX=Generic U535RETx
@@ -26,6 +28,7 @@ GenU5.menu.pnum.GENERIC_U535RETX.upload.maximum_data_size=280576
 GenU5.menu.pnum.GENERIC_U535RETX.build.board=GENERIC_U535RETX
 GenU5.menu.pnum.GENERIC_U535RETX.build.product_line=STM32U535xx
 GenU5.menu.pnum.GENERIC_U535RETX.build.variant=STM32U5xx/U535R(B-C-E)T_U545RET
+GenU5.menu.pnum.GENERIC_U535RETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U535.svd
 
 # Generic U545RETx
 GenU5.menu.pnum.GENERIC_U545RETX=Generic U545RETx
@@ -34,4 +37,5 @@ GenU5.menu.pnum.GENERIC_U545RETX.upload.maximum_data_size=280576
 GenU5.menu.pnum.GENERIC_U545RETX.build.board=GENERIC_U545RETX
 GenU5.menu.pnum.GENERIC_U545RETX.build.product_line=STM32U545xx
 GenU5.menu.pnum.GENERIC_U545RETX.build.variant=STM32U5xx/U535R(B-C-E)T_U545RET
+GenU5.menu.pnum.GENERIC_U545RETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U545.svd
 

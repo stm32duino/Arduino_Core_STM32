@@ -10,6 +10,7 @@ GenH7.menu.pnum.GENERIC_H745ZGTX.upload.maximum_data_size=884736
 GenH7.menu.pnum.GENERIC_H745ZGTX.build.board=GENERIC_H745ZGTX
 GenH7.menu.pnum.GENERIC_H745ZGTX.build.product_line=STM32H745xG
 GenH7.menu.pnum.GENERIC_H745ZGTX.build.variant=STM32H7xx/H745Z(G-I)T_H755ZIT
+GenH7.menu.pnum.GENERIC_H745ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H745_CM7.svd
 
 # Generic H745ZITx
 GenH7.menu.pnum.GENERIC_H745ZITX=Generic H745ZITx
@@ -18,6 +19,7 @@ GenH7.menu.pnum.GENERIC_H745ZITX.upload.maximum_data_size=884736
 GenH7.menu.pnum.GENERIC_H745ZITX.build.board=GENERIC_H745ZITX
 GenH7.menu.pnum.GENERIC_H745ZITX.build.product_line=STM32H745xx
 GenH7.menu.pnum.GENERIC_H745ZITX.build.variant=STM32H7xx/H745Z(G-I)T_H755ZIT
+GenH7.menu.pnum.GENERIC_H745ZITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H745_CM7.svd
 
 # Generic H755ZITx
 GenH7.menu.pnum.GENERIC_H755ZITX=Generic H755ZITx
@@ -26,4 +28,5 @@ GenH7.menu.pnum.GENERIC_H755ZITX.upload.maximum_data_size=884736
 GenH7.menu.pnum.GENERIC_H755ZITX.build.board=GENERIC_H755ZITX
 GenH7.menu.pnum.GENERIC_H755ZITX.build.product_line=STM32H755xx
 GenH7.menu.pnum.GENERIC_H755ZITX.build.variant=STM32H7xx/H745Z(G-I)T_H755ZIT
+GenH7.menu.pnum.GENERIC_H755ZITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H755_CM7.svd
 

@@ -10,6 +10,7 @@ GenG0.menu.pnum.GENERIC_G030K6TX.upload.maximum_data_size=8192
 GenG0.menu.pnum.GENERIC_G030K6TX.build.board=GENERIC_G030K6TX
 GenG0.menu.pnum.GENERIC_G030K6TX.build.product_line=STM32G030xx
 GenG0.menu.pnum.GENERIC_G030K6TX.build.variant=STM32G0xx/G030K(6-8)T
+GenG0.menu.pnum.GENERIC_G030K6TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G030.svd
 
 # Generic G030K8Tx
 GenG0.menu.pnum.GENERIC_G030K8TX=Generic G030K8Tx
@@ -18,4 +19,5 @@ GenG0.menu.pnum.GENERIC_G030K8TX.upload.maximum_data_size=8192
 GenG0.menu.pnum.GENERIC_G030K8TX.build.board=GENERIC_G030K8TX
 GenG0.menu.pnum.GENERIC_G030K8TX.build.product_line=STM32G030xx
 GenG0.menu.pnum.GENERIC_G030K8TX.build.variant=STM32G0xx/G030K(6-8)T
+GenG0.menu.pnum.GENERIC_G030K8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G030.svd
 

@@ -10,6 +10,7 @@ GenL0.menu.pnum.GENERIC_L052K6TX.upload.maximum_data_size=8192
 GenL0.menu.pnum.GENERIC_L052K6TX.build.board=GENERIC_L052K6TX
 GenL0.menu.pnum.GENERIC_L052K6TX.build.product_line=STM32L052xx
 GenL0.menu.pnum.GENERIC_L052K6TX.build.variant=STM32L0xx/L052K(6-8)T_L062K8T
+GenL0.menu.pnum.GENERIC_L052K6TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L052.svd
 
 # Generic L052K8Tx
 GenL0.menu.pnum.GENERIC_L052K8TX=Generic L052K8Tx
@@ -18,6 +19,7 @@ GenL0.menu.pnum.GENERIC_L052K8TX.upload.maximum_data_size=8192
 GenL0.menu.pnum.GENERIC_L052K8TX.build.board=GENERIC_L052K8TX
 GenL0.menu.pnum.GENERIC_L052K8TX.build.product_line=STM32L052xx
 GenL0.menu.pnum.GENERIC_L052K8TX.build.variant=STM32L0xx/L052K(6-8)T_L062K8T
+GenL0.menu.pnum.GENERIC_L052K8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L052.svd
 
 # Generic L062K8Tx
 GenL0.menu.pnum.GENERIC_L062K8TX=Generic L062K8Tx
@@ -26,4 +28,5 @@ GenL0.menu.pnum.GENERIC_L062K8TX.upload.maximum_data_size=8192
 GenL0.menu.pnum.GENERIC_L062K8TX.build.board=GENERIC_L062K8TX
 GenL0.menu.pnum.GENERIC_L062K8TX.build.product_line=STM32L062xx
 GenL0.menu.pnum.GENERIC_L062K8TX.build.variant=STM32L0xx/L052K(6-8)T_L062K8T
+GenL0.menu.pnum.GENERIC_L062K8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L062.svd
 

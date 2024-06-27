@@ -10,6 +10,7 @@ GenF7.menu.pnum.GENERIC_F765ZGTX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F765ZGTX.build.board=GENERIC_F765ZGTX
 GenF7.menu.pnum.GENERIC_F765ZGTX.build.product_line=STM32F765xx
 GenF7.menu.pnum.GENERIC_F765ZGTX.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
+GenF7.menu.pnum.GENERIC_F765ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F765.svd
 
 # Generic F765ZITx
 GenF7.menu.pnum.GENERIC_F765ZITX=Generic F765ZITx
@@ -18,6 +19,7 @@ GenF7.menu.pnum.GENERIC_F765ZITX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F765ZITX.build.board=GENERIC_F765ZITX
 GenF7.menu.pnum.GENERIC_F765ZITX.build.product_line=STM32F765xx
 GenF7.menu.pnum.GENERIC_F765ZITX.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
+GenF7.menu.pnum.GENERIC_F765ZITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F765.svd
 
 # Generic F767ZGTx
 GenF7.menu.pnum.GENERIC_F767ZGTX=Generic F767ZGTx
@@ -26,6 +28,7 @@ GenF7.menu.pnum.GENERIC_F767ZGTX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F767ZGTX.build.board=GENERIC_F767ZGTX
 GenF7.menu.pnum.GENERIC_F767ZGTX.build.product_line=STM32F767xx
 GenF7.menu.pnum.GENERIC_F767ZGTX.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
+GenF7.menu.pnum.GENERIC_F767ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F767.svd
 
 # Generic F767ZITx
 GenF7.menu.pnum.GENERIC_F767ZITX=Generic F767ZITx
@@ -34,6 +37,7 @@ GenF7.menu.pnum.GENERIC_F767ZITX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F767ZITX.build.board=GENERIC_F767ZITX
 GenF7.menu.pnum.GENERIC_F767ZITX.build.product_line=STM32F767xx
 GenF7.menu.pnum.GENERIC_F767ZITX.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
+GenF7.menu.pnum.GENERIC_F767ZITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F767.svd
 
 # Generic F777ZITx
 GenF7.menu.pnum.GENERIC_F777ZITX=Generic F777ZITx
@@ -42,4 +46,5 @@ GenF7.menu.pnum.GENERIC_F777ZITX.upload.maximum_data_size=393216
 GenF7.menu.pnum.GENERIC_F777ZITX.build.board=GENERIC_F777ZITX
 GenF7.menu.pnum.GENERIC_F777ZITX.build.product_line=STM32F777xx
 GenF7.menu.pnum.GENERIC_F777ZITX.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
+GenF7.menu.pnum.GENERIC_F777ZITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F777.svd
 

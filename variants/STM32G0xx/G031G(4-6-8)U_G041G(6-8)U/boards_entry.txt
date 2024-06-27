@@ -10,6 +10,7 @@ GenG0.menu.pnum.GENERIC_G031G4UX.upload.maximum_data_size=8192
 GenG0.menu.pnum.GENERIC_G031G4UX.build.board=GENERIC_G031G4UX
 GenG0.menu.pnum.GENERIC_G031G4UX.build.product_line=STM32G031xx
 GenG0.menu.pnum.GENERIC_G031G4UX.build.variant=STM32G0xx/G031G(4-6-8)U_G041G(6-8)U
+GenG0.menu.pnum.GENERIC_G031G4UX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G031.svd
 
 # Generic G031G6Ux
 GenG0.menu.pnum.GENERIC_G031G6UX=Generic G031G6Ux
@@ -18,6 +19,7 @@ GenG0.menu.pnum.GENERIC_G031G6UX.upload.maximum_data_size=8192
 GenG0.menu.pnum.GENERIC_G031G6UX.build.board=GENERIC_G031G6UX
 GenG0.menu.pnum.GENERIC_G031G6UX.build.product_line=STM32G031xx
 GenG0.menu.pnum.GENERIC_G031G6UX.build.variant=STM32G0xx/G031G(4-6-8)U_G041G(6-8)U
+GenG0.menu.pnum.GENERIC_G031G6UX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G031.svd
 
 # Generic G031G8Ux
 GenG0.menu.pnum.GENERIC_G031G8UX=Generic G031G8Ux
@@ -26,6 +28,7 @@ GenG0.menu.pnum.GENERIC_G031G8UX.upload.maximum_data_size=8192
 GenG0.menu.pnum.GENERIC_G031G8UX.build.board=GENERIC_G031G8UX
 GenG0.menu.pnum.GENERIC_G031G8UX.build.product_line=STM32G031xx
 GenG0.menu.pnum.GENERIC_G031G8UX.build.variant=STM32G0xx/G031G(4-6-8)U_G041G(6-8)U
+GenG0.menu.pnum.GENERIC_G031G8UX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G031.svd
 
 # Generic G041G6Ux
 GenG0.menu.pnum.GENERIC_G041G6UX=Generic G041G6Ux
@@ -34,6 +37,7 @@ GenG0.menu.pnum.GENERIC_G041G6UX.upload.maximum_data_size=8192
 GenG0.menu.pnum.GENERIC_G041G6UX.build.board=GENERIC_G041G6UX
 GenG0.menu.pnum.GENERIC_G041G6UX.build.product_line=STM32G041xx
 GenG0.menu.pnum.GENERIC_G041G6UX.build.variant=STM32G0xx/G031G(4-6-8)U_G041G(6-8)U
+GenG0.menu.pnum.GENERIC_G041G6UX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G041.svd
 
 # Generic G041G8Ux
 GenG0.menu.pnum.GENERIC_G041G8UX=Generic G041G8Ux
@@ -42,4 +46,5 @@ GenG0.menu.pnum.GENERIC_G041G8UX.upload.maximum_data_size=8192
 GenG0.menu.pnum.GENERIC_G041G8UX.build.board=GENERIC_G041G8UX
 GenG0.menu.pnum.GENERIC_G041G8UX.build.product_line=STM32G041xx
 GenG0.menu.pnum.GENERIC_G041G8UX.build.variant=STM32G0xx/G031G(4-6-8)U_G041G(6-8)U
+GenG0.menu.pnum.GENERIC_G041G8UX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G041.svd
 

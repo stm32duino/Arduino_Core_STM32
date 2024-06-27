@@ -10,6 +10,7 @@ GenH7.menu.pnum.GENERIC_H725ZETX.upload.maximum_data_size=577536
 GenH7.menu.pnum.GENERIC_H725ZETX.build.board=GENERIC_H725ZETX
 GenH7.menu.pnum.GENERIC_H725ZETX.build.product_line=STM32H725xx
 GenH7.menu.pnum.GENERIC_H725ZETX.build.variant=STM32H7xx/H725Z(E-G)T_H735ZGT
+GenH7.menu.pnum.GENERIC_H725ZETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H725.svd
 
 # Generic H725ZGTx
 GenH7.menu.pnum.GENERIC_H725ZGTX=Generic H725ZGTx
@@ -18,6 +19,7 @@ GenH7.menu.pnum.GENERIC_H725ZGTX.upload.maximum_data_size=577536
 GenH7.menu.pnum.GENERIC_H725ZGTX.build.board=GENERIC_H725ZGTX
 GenH7.menu.pnum.GENERIC_H725ZGTX.build.product_line=STM32H725xx
 GenH7.menu.pnum.GENERIC_H725ZGTX.build.variant=STM32H7xx/H725Z(E-G)T_H735ZGT
+GenH7.menu.pnum.GENERIC_H725ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H725.svd
 
 # Generic H735ZGTx
 GenH7.menu.pnum.GENERIC_H735ZGTX=Generic H735ZGTx
@@ -26,4 +28,5 @@ GenH7.menu.pnum.GENERIC_H735ZGTX.upload.maximum_data_size=577536
 GenH7.menu.pnum.GENERIC_H735ZGTX.build.board=GENERIC_H735ZGTX
 GenH7.menu.pnum.GENERIC_H735ZGTX.build.product_line=STM32H735xx
 GenH7.menu.pnum.GENERIC_H735ZGTX.build.variant=STM32H7xx/H725Z(E-G)T_H735ZGT
+GenH7.menu.pnum.GENERIC_H735ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H735.svd
 

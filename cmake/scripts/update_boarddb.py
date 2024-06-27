@@ -20,6 +20,9 @@ def boardstxt_filter(key):
     # a string ("Nucleo F207ZG")
     # and a dict (.build.variant_h=..., .upload.maximum_size=...)
 
+    if key[-1] == "svd_file":
+        return True
+
     if key[0] == "menu":
         # menu.xserial=U(S)ART support
         return True
@@ -107,12 +110,7 @@ if __name__ == "__main__":
     del boardstxt_cfg["menu"]  # blacklist what we don't need
 
     # these are optional features to be picked out by the user
-    BOARD_FEATURES = [
-        "enable_virtio",
-        "enable_usb",
-        "usb_speed",
-        "xSerial",
-    ]
+    BOARD_FEATURES = ["enable_virtio", "enable_usb", "usb_speed", "xSerial"]
 
     allboards = dict()
 

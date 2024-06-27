@@ -10,6 +10,7 @@ GenL4.menu.pnum.GENERIC_L433VCIX.upload.maximum_data_size=65536
 GenL4.menu.pnum.GENERIC_L433VCIX.build.board=GENERIC_L433VCIX
 GenL4.menu.pnum.GENERIC_L433VCIX.build.product_line=STM32L433xx
 GenL4.menu.pnum.GENERIC_L433VCIX.build.variant=STM32L4xx/L433VC(I-T)_L443VC(I-T)
+GenL4.menu.pnum.GENERIC_L433VCIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x3.svd
 
 # Generic L433VCTx
 GenL4.menu.pnum.GENERIC_L433VCTX=Generic L433VCTx
@@ -18,6 +19,7 @@ GenL4.menu.pnum.GENERIC_L433VCTX.upload.maximum_data_size=65536
 GenL4.menu.pnum.GENERIC_L433VCTX.build.board=GENERIC_L433VCTX
 GenL4.menu.pnum.GENERIC_L433VCTX.build.product_line=STM32L433xx
 GenL4.menu.pnum.GENERIC_L433VCTX.build.variant=STM32L4xx/L433VC(I-T)_L443VC(I-T)
+GenL4.menu.pnum.GENERIC_L433VCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x3.svd
 
 # Generic L443VCIx
 GenL4.menu.pnum.GENERIC_L443VCIX=Generic L443VCIx
@@ -26,6 +28,7 @@ GenL4.menu.pnum.GENERIC_L443VCIX.upload.maximum_data_size=65536
 GenL4.menu.pnum.GENERIC_L443VCIX.build.board=GENERIC_L443VCIX
 GenL4.menu.pnum.GENERIC_L443VCIX.build.product_line=STM32L443xx
 GenL4.menu.pnum.GENERIC_L443VCIX.build.variant=STM32L4xx/L433VC(I-T)_L443VC(I-T)
+GenL4.menu.pnum.GENERIC_L443VCIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x3.svd
 
 # Generic L443VCTx
 GenL4.menu.pnum.GENERIC_L443VCTX=Generic L443VCTx
@@ -34,4 +37,5 @@ GenL4.menu.pnum.GENERIC_L443VCTX.upload.maximum_data_size=65536
 GenL4.menu.pnum.GENERIC_L443VCTX.build.board=GENERIC_L443VCTX
 GenL4.menu.pnum.GENERIC_L443VCTX.build.product_line=STM32L443xx
 GenL4.menu.pnum.GENERIC_L443VCTX.build.variant=STM32L4xx/L433VC(I-T)_L443VC(I-T)
+GenL4.menu.pnum.GENERIC_L443VCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x3.svd
 

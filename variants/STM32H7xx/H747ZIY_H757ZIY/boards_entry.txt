@@ -10,6 +10,7 @@ GenH7.menu.pnum.GENERIC_H747ZIYX.upload.maximum_data_size=884736
 GenH7.menu.pnum.GENERIC_H747ZIYX.build.board=GENERIC_H747ZIYX
 GenH7.menu.pnum.GENERIC_H747ZIYX.build.product_line=STM32H747xx
 GenH7.menu.pnum.GENERIC_H747ZIYX.build.variant=STM32H7xx/H747ZIY_H757ZIY
+GenH7.menu.pnum.GENERIC_H747ZIYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H747_CM7.svd
 
 # Generic H757ZIYx
 GenH7.menu.pnum.GENERIC_H757ZIYX=Generic H757ZIYx
@@ -18,4 +19,5 @@ GenH7.menu.pnum.GENERIC_H757ZIYX.upload.maximum_data_size=884736
 GenH7.menu.pnum.GENERIC_H757ZIYX.build.board=GENERIC_H757ZIYX
 GenH7.menu.pnum.GENERIC_H757ZIYX.build.product_line=STM32H757xx
 GenH7.menu.pnum.GENERIC_H757ZIYX.build.variant=STM32H7xx/H747ZIY_H757ZIY
+GenH7.menu.pnum.GENERIC_H757ZIYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H757_CM7.svd
 

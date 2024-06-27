@@ -10,6 +10,7 @@ GenG4.menu.pnum.GENERIC_G491KCUX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G491KCUX.build.board=GENERIC_G491KCUX
 GenG4.menu.pnum.GENERIC_G491KCUX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491KCUX.build.variant=STM32G4xx/G491K(C-E)U_G4A1KEU
+GenG4.menu.pnum.GENERIC_G491KCUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G491.svd
 
 # Generic G491KEUx
 GenG4.menu.pnum.GENERIC_G491KEUX=Generic G491KEUx
@@ -18,6 +19,7 @@ GenG4.menu.pnum.GENERIC_G491KEUX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G491KEUX.build.board=GENERIC_G491KEUX
 GenG4.menu.pnum.GENERIC_G491KEUX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491KEUX.build.variant=STM32G4xx/G491K(C-E)U_G4A1KEU
+GenG4.menu.pnum.GENERIC_G491KEUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G491.svd
 
 # Generic G4A1KEUx
 GenG4.menu.pnum.GENERIC_G4A1KEUX=Generic G4A1KEUx
@@ -26,4 +28,5 @@ GenG4.menu.pnum.GENERIC_G4A1KEUX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G4A1KEUX.build.board=GENERIC_G4A1KEUX
 GenG4.menu.pnum.GENERIC_G4A1KEUX.build.product_line=STM32G4A1xx
 GenG4.menu.pnum.GENERIC_G4A1KEUX.build.variant=STM32G4xx/G491K(C-E)U_G4A1KEU
+GenG4.menu.pnum.GENERIC_G4A1KEUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G4A1.svd
 

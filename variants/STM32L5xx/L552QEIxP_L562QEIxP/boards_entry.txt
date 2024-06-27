@@ -10,6 +10,7 @@ GenL5.menu.pnum.GENERIC_L552QEIXP.upload.maximum_data_size=262144
 GenL5.menu.pnum.GENERIC_L552QEIXP.build.board=GENERIC_L552QEIXP
 GenL5.menu.pnum.GENERIC_L552QEIXP.build.product_line=STM32L552xx
 GenL5.menu.pnum.GENERIC_L552QEIXP.build.variant=STM32L5xx/L552QEIxP_L562QEIxP
+GenL5.menu.pnum.GENERIC_L552QEIXP.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L552.svd
 
 # Generic L562QEIxP
 GenL5.menu.pnum.GENERIC_L562QEIXP=Generic L562QEIxP
@@ -18,4 +19,5 @@ GenL5.menu.pnum.GENERIC_L562QEIXP.upload.maximum_data_size=262144
 GenL5.menu.pnum.GENERIC_L562QEIXP.build.board=GENERIC_L562QEIXP
 GenL5.menu.pnum.GENERIC_L562QEIXP.build.product_line=STM32L562xx
 GenL5.menu.pnum.GENERIC_L562QEIXP.build.variant=STM32L5xx/L552QEIxP_L562QEIxP
+GenL5.menu.pnum.GENERIC_L562QEIXP.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L562.svd
 

@@ -10,6 +10,7 @@ GenL0.menu.pnum.GENERIC_L072KBUX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L072KBUX.build.board=GENERIC_L072KBUX
 GenL0.menu.pnum.GENERIC_L072KBUX.build.product_line=STM32L072xx
 GenL0.menu.pnum.GENERIC_L072KBUX.build.variant=STM32L0xx/L072K(B-Z)U_L082K(B-Z)U
+GenL0.menu.pnum.GENERIC_L072KBUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x2.svd
 
 # Generic L072KZUx
 GenL0.menu.pnum.GENERIC_L072KZUX=Generic L072KZUx
@@ -18,6 +19,7 @@ GenL0.menu.pnum.GENERIC_L072KZUX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L072KZUX.build.board=GENERIC_L072KZUX
 GenL0.menu.pnum.GENERIC_L072KZUX.build.product_line=STM32L072xx
 GenL0.menu.pnum.GENERIC_L072KZUX.build.variant=STM32L0xx/L072K(B-Z)U_L082K(B-Z)U
+GenL0.menu.pnum.GENERIC_L072KZUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x2.svd
 
 # Generic L082KBUx
 GenL0.menu.pnum.GENERIC_L082KBUX=Generic L082KBUx
@@ -26,6 +28,7 @@ GenL0.menu.pnum.GENERIC_L082KBUX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L082KBUX.build.board=GENERIC_L082KBUX
 GenL0.menu.pnum.GENERIC_L082KBUX.build.product_line=STM32L082xx
 GenL0.menu.pnum.GENERIC_L082KBUX.build.variant=STM32L0xx/L072K(B-Z)U_L082K(B-Z)U
+GenL0.menu.pnum.GENERIC_L082KBUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x2.svd
 
 # Generic L082KZUx
 GenL0.menu.pnum.GENERIC_L082KZUX=Generic L082KZUx
@@ -34,4 +37,5 @@ GenL0.menu.pnum.GENERIC_L082KZUX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L082KZUX.build.board=GENERIC_L082KZUX
 GenL0.menu.pnum.GENERIC_L082KZUX.build.product_line=STM32L082xx
 GenL0.menu.pnum.GENERIC_L082KZUX.build.variant=STM32L0xx/L072K(B-Z)U_L082K(B-Z)U
+GenL0.menu.pnum.GENERIC_L082KZUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x2.svd
 

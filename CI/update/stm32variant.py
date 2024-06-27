@@ -14,7 +14,7 @@ from xml.dom.minidom import parse, Node
 
 script_path = Path(__file__).parent.resolve()
 sys.path.append(str(script_path.parent))
-from utils import execute_cmd, getRepoBranchName
+from utils import defaultConfig, deleteFolder, execute_cmd, getRepoBranchName
 
 mcu_list = []  # 'name'
 io_list = []  # 'PIN','name'
@@ -82,6 +82,7 @@ legacy_hal = {
 }
 # Cube information
 product_line_dict = {}
+svd_dict = {}  # 'name':'svd file'
 
 # format
 # Peripheral
@@ -128,16 +129,6 @@ tim_inst_order = [
     "TIM8",
     "TIM20",
 ]
-
-
-def rm_tree(pth: Path):
-    if pth.exists():
-        for child in pth.iterdir():
-            if child.is_file():
-                child.unlink()
-            else:
-                rm_tree(child)
-        pth.rmdir()
 
 
 def update_file(filePath, compile_pattern, subs):
@@ -1284,9 +1275,9 @@ def print_pinamevar():
 
 # Variant files generation
 def spi_pins_variant():
-    ss_pin = (
-        ss1_pin
-    ) = ss2_pin = ss3_pin = mosi_pin = miso_pin = sck_pin = "PNUM_NOT_DEFINED"
+    ss_pin = ss1_pin = ss2_pin = ss3_pin = mosi_pin = miso_pin = sck_pin = (
+        "PNUM_NOT_DEFINED"
+    )
 
     # Iterate to find match instance if any
     for mosi in spimosi_list:
@@ -1616,6 +1607,27 @@ def search_product_line(valueline):
     return product_line
 
 
+def parse_stm32targets():
+    global svd_dict
+    xml_stm32targets = parse(str(stm32targets_file))
+    mcu_nodes = xml_stm32targets.getElementsByTagName("mcu")
+    for mcu_node in mcu_nodes:
+        mcu_node_name = mcu_node.getElementsByTagName("name")[0].firstChild.data
+        cpus_node_name = mcu_node.getElementsByTagName("cpus")
+        cpu_node_name = cpus_node_name[0].getElementsByTagName("cpu")
+        svd_node = cpu_node_name[0].getElementsByTagName("svd")
+        svd_file = svd_node[0].getElementsByTagName("name")[0].firstChild.data
+        svd_dict[mcu_node_name] = svd_file
+    xml_stm32targets.unlink()
+
+
+def search_svdfile(mcu_name):
+    svd_file = ""
+    if mcu_name in svd_dict:
+        svd_file = svd_dict[mcu_name]
+    return svd_file
+
+
 def print_boards_entry():
     boards_entry_template = j2_env.get_template(boards_entry_filename)
 
@@ -1661,6 +1673,7 @@ def print_boards_entry():
                     "board": gen_name.upper(),
                     "flash": mcu_flash[index],
                     "ram": mcu_ram[index],
+                    "svd": search_svdfile(f"STM32{gen_name}"),
                 }
             )
         # Search product line for last flash size
@@ -1678,6 +1691,7 @@ def print_boards_entry():
                 "board": mcu_refname.replace("STM32", "").upper(),
                 "flash": mcu_flash[0],
                 "ram": mcu_ram[0],
+                "svd": search_svdfile(mcu_refname),
             }
         )
         product_line = search_product_line(package_regex.sub(r"", valueline))
@@ -2395,51 +2409,57 @@ def default_cubemxdir():
 
 
 # Config management
-def create_config():
-    # Create a Json file for a better path management
-    try:
-        print(f"Please set your configuration in '{config_filename}' file")
-        config_file = open(config_filename, "w", newline="\n")
-        config_file.write(
-            json.dumps(
-                {
-                    "CUBEMX_DIRECTORY": str(cubemxdir),
-                    "REPO_LOCAL_PATH": str(repo_local_path),
-                },
-                indent=2,
-            )
-        )
-        config_file.close()
-    except IOError:
-        print(f"Failed to open {config_filename}")
-    exit(1)
-
-
-def check_config():
+def checkConfig():
     global cubemxdir
     global repo_local_path
     global repo_path
+    global cubeclt_mcu_path
     default_cubemxdir()
     if config_filename.is_file():
         try:
             config_file = open(config_filename, "r")
-            config = json.load(config_file)
+            path_config = json.load(config_file)
             config_file.close()
 
-            if "REPO_LOCAL_PATH" in config:
-                conf = config["REPO_LOCAL_PATH"]
-                if conf:
-                    if conf != "":
-                        repo_local_path = Path(conf)
-                        repo_path = repo_local_path / repo_name
-            if "CUBEMX_DIRECTORY" in config:
-                conf = config["CUBEMX_DIRECTORY"]
-                if conf:
-                    cubemxdir = Path(conf)
+            if "REPO_LOCAL_PATH" not in path_config:
+                path_config["REPO_LOCAL_PATH"] = str(repo_local_path)
+                defaultConfig(config_filename, path_config)
+            else:
+                conf = path_config["REPO_LOCAL_PATH"]
+                if conf != "":
+                    repo_local_path = Path(conf)
+                    repo_path = repo_local_path / repo_name
+
+            if "CUBEMX_DIRECTORY" not in path_config:
+                path_config["CUBEMX_DIRECTORY"] = str(cubemxdir)
+                defaultConfig(config_filename, path_config)
+            else:
+                cubemxdir = Path(path_config["CUBEMX_DIRECTORY"])
+            if "STM32CUBECLT_PATH" not in path_config:
+                path_config["STM32CUBECLT_PATH"] = str(
+                    "Path to STM32CubeCLT installation directory"
+                )
+                defaultConfig(config_filename, path_config)
+            else:
+                cubeclt_path = Path(path_config["STM32CUBECLT_PATH"])
+            if not cubeclt_path.is_dir():
+                print(f"{cubeclt_path} does not exist!")
+                exit(1)
+            else:
+                cubeclt_mcu_path = cubeclt_path / "STM32target-mcu"
+                if not cubeclt_mcu_path.is_dir():
+                    print(f"{cubeclt_mcu_path} does not exist!")
+                    exit(1)
         except IOError:
             print(f"Failed to open {config_filename}")
     else:
-        create_config()
+        defaultConfig(
+            config_filename,
+            {
+                "CUBEMX_DIRECTORY": str(cubemxdir),
+                "REPO_LOCAL_PATH": str(repo_local_path),
+            },
+        )
 
 
 def manage_repo():
@@ -2497,19 +2517,20 @@ filtered_family = ""
 refname_filter = ["STM32MP13", "STM32H7R", "STM32H7S"]
 periph_c_filename = "PeripheralPins.c"
 pinvar_h_filename = "PinNamesVar.h"
-config_filename = script_path / "variant_config.json"
+config_filename = script_path / "update_config.json"
 variant_h_filename = "variant_generic.h"
 variant_cpp_filename = "variant_generic.cpp"
 boards_entry_filename = "boards_entry.txt"
 generic_clock_filename = "generic_clock.c"
 repo_local_path = script_path / "repo"
 cubemxdir = Path()
+cubeclt_mcu_path = Path()
 gh_url = "https://github.com/STMicroelectronics/STM32_open_pin_data"
 repo_name = gh_url.rsplit("/", 1)[-1]
 repo_path = repo_local_path / repo_name
 db_release = "Unknown"
 
-check_config()
+checkConfig()
 
 # By default, generate for all mcu xml files description
 parser = argparse.ArgumentParser(
@@ -2600,6 +2621,7 @@ Please check the value set for 'CUBEMX_DIRECTORY' in '{config_filename}' file.""
         PackDescription_item = xml_file.getElementsByTagName("PackDescription")
         for item in PackDescription_item:
             db_release = item.attributes["Release"].value
+        xml_file.unlink()
 
 # Process DB release
 release_regex = r".*(\d+\.\d+\.\d+)$"
@@ -2607,6 +2629,14 @@ release_match = re.match(release_regex, db_release)
 if release_match:
     db_release = release_match.group(1)
 print(f"CubeMX DB release {db_release}\n")
+
+# Open stm32targets.xml to get svd file
+stm32targets_file = cubeclt_mcu_path / "stm32targets.xml"
+if stm32targets_file.is_file():
+    parse_stm32targets()
+else:
+    print(f"{stm32targets_file} does not exits!")
+    exit(1)
 
 if args.family:
     filtered_family = args.family.upper()
@@ -2625,7 +2655,7 @@ j2_env = Environment(
 )
 
 # Clean temporary dir
-rm_tree(tmp_dir)
+deleteFolder(tmp_dir)
 
 package_regex = re.compile(r"[\w][\w]([ANPQX])?$")
 flash_group_regex = re.compile(r"(.*)\((.*)\)(.*)")
@@ -2710,4 +2740,4 @@ mcu_PE_regex = re.compile(r"([\w])([\w])([ANPQSX])?$")
 aggregate_dir()
 
 # Clean temporary dir
-rm_tree(tmp_dir)
+deleteFolder(tmp_dir)

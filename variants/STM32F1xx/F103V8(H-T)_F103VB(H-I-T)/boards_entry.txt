@@ -10,6 +10,7 @@ GenF1.menu.pnum.GENERIC_F103V8HX.upload.maximum_data_size=20480
 GenF1.menu.pnum.GENERIC_F103V8HX.build.board=GENERIC_F103V8HX
 GenF1.menu.pnum.GENERIC_F103V8HX.build.product_line=STM32F103xB
 GenF1.menu.pnum.GENERIC_F103V8HX.build.variant=STM32F1xx/F103V8(H-T)_F103VB(H-I-T)
+GenF1.menu.pnum.GENERIC_F103V8HX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 
 # Generic F103VBHx
 GenF1.menu.pnum.GENERIC_F103VBHX=Generic F103VBHx
@@ -18,6 +19,7 @@ GenF1.menu.pnum.GENERIC_F103VBHX.upload.maximum_data_size=20480
 GenF1.menu.pnum.GENERIC_F103VBHX.build.board=GENERIC_F103VBHX
 GenF1.menu.pnum.GENERIC_F103VBHX.build.product_line=STM32F103xB
 GenF1.menu.pnum.GENERIC_F103VBHX.build.variant=STM32F1xx/F103V8(H-T)_F103VB(H-I-T)
+GenF1.menu.pnum.GENERIC_F103VBHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 
 # Generic F103V8Tx
 GenF1.menu.pnum.GENERIC_F103V8TX=Generic F103V8Tx
@@ -26,6 +28,7 @@ GenF1.menu.pnum.GENERIC_F103V8TX.upload.maximum_data_size=20480
 GenF1.menu.pnum.GENERIC_F103V8TX.build.board=GENERIC_F103V8TX
 GenF1.menu.pnum.GENERIC_F103V8TX.build.product_line=STM32F103xB
 GenF1.menu.pnum.GENERIC_F103V8TX.build.variant=STM32F1xx/F103V8(H-T)_F103VB(H-I-T)
+GenF1.menu.pnum.GENERIC_F103V8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 
 # Generic F103VBTx
 GenF1.menu.pnum.GENERIC_F103VBTX=Generic F103VBTx
@@ -34,6 +37,7 @@ GenF1.menu.pnum.GENERIC_F103VBTX.upload.maximum_data_size=20480
 GenF1.menu.pnum.GENERIC_F103VBTX.build.board=GENERIC_F103VBTX
 GenF1.menu.pnum.GENERIC_F103VBTX.build.product_line=STM32F103xB
 GenF1.menu.pnum.GENERIC_F103VBTX.build.variant=STM32F1xx/F103V8(H-T)_F103VB(H-I-T)
+GenF1.menu.pnum.GENERIC_F103VBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 
 # Generic F103VBIx
 GenF1.menu.pnum.GENERIC_F103VBIX=Generic F103VBIx
@@ -42,4 +46,5 @@ GenF1.menu.pnum.GENERIC_F103VBIX.upload.maximum_data_size=20480
 GenF1.menu.pnum.GENERIC_F103VBIX.build.board=GENERIC_F103VBIX
 GenF1.menu.pnum.GENERIC_F103VBIX.build.product_line=STM32F103xB
 GenF1.menu.pnum.GENERIC_F103VBIX.build.variant=STM32F1xx/F103V8(H-T)_F103VB(H-I-T)
+GenF1.menu.pnum.GENERIC_F103VBIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 

@@ -10,6 +10,7 @@ GenF3.menu.pnum.GENERIC_F302VBTX.upload.maximum_data_size=32768
 GenF3.menu.pnum.GENERIC_F302VBTX.build.board=GENERIC_F302VBTX
 GenF3.menu.pnum.GENERIC_F302VBTX.build.product_line=STM32F302xC
 GenF3.menu.pnum.GENERIC_F302VBTX.build.variant=STM32F3xx/F302V(B-C)T
+GenF3.menu.pnum.GENERIC_F302VBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F302.svd
 
 # Generic F302VCTx
 GenF3.menu.pnum.GENERIC_F302VCTX=Generic F302VCTx
@@ -18,4 +19,5 @@ GenF3.menu.pnum.GENERIC_F302VCTX.upload.maximum_data_size=40960
 GenF3.menu.pnum.GENERIC_F302VCTX.build.board=GENERIC_F302VCTX
 GenF3.menu.pnum.GENERIC_F302VCTX.build.product_line=STM32F302xC
 GenF3.menu.pnum.GENERIC_F302VCTX.build.variant=STM32F3xx/F302V(B-C)T
+GenF3.menu.pnum.GENERIC_F302VCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F302.svd
 

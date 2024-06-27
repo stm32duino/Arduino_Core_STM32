@@ -10,6 +10,7 @@ GenU5.menu.pnum.GENERIC_U595ZIYXQ.upload.maximum_data_size=2574336
 GenU5.menu.pnum.GENERIC_U595ZIYXQ.build.board=GENERIC_U595ZIYXQ
 GenU5.menu.pnum.GENERIC_U595ZIYXQ.build.product_line=STM32U595xx
 GenU5.menu.pnum.GENERIC_U595ZIYXQ.build.variant=STM32U5xx/U595Z(I-J)YxQ_U5A5ZJYxQ
+GenU5.menu.pnum.GENERIC_U595ZIYXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U595.svd
 
 # Generic U595ZJYxQ
 GenU5.menu.pnum.GENERIC_U595ZJYXQ=Generic U595ZJYxQ
@@ -18,6 +19,7 @@ GenU5.menu.pnum.GENERIC_U595ZJYXQ.upload.maximum_data_size=2574336
 GenU5.menu.pnum.GENERIC_U595ZJYXQ.build.board=GENERIC_U595ZJYXQ
 GenU5.menu.pnum.GENERIC_U595ZJYXQ.build.product_line=STM32U595xx
 GenU5.menu.pnum.GENERIC_U595ZJYXQ.build.variant=STM32U5xx/U595Z(I-J)YxQ_U5A5ZJYxQ
+GenU5.menu.pnum.GENERIC_U595ZJYXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U595.svd
 
 # Generic U5A5ZJYxQ
 GenU5.menu.pnum.GENERIC_U5A5ZJYXQ=Generic U5A5ZJYxQ
@@ -26,4 +28,5 @@ GenU5.menu.pnum.GENERIC_U5A5ZJYXQ.upload.maximum_data_size=2574336
 GenU5.menu.pnum.GENERIC_U5A5ZJYXQ.build.board=GENERIC_U5A5ZJYXQ
 GenU5.menu.pnum.GENERIC_U5A5ZJYXQ.build.product_line=STM32U5A5xx
 GenU5.menu.pnum.GENERIC_U5A5ZJYXQ.build.variant=STM32U5xx/U595Z(I-J)YxQ_U5A5ZJYxQ
+GenU5.menu.pnum.GENERIC_U5A5ZJYXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U5A5.svd
 

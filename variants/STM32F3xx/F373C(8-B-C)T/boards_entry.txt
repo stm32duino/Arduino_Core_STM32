@@ -10,6 +10,7 @@ GenF3.menu.pnum.GENERIC_F373C8TX.upload.maximum_data_size=16384
 GenF3.menu.pnum.GENERIC_F373C8TX.build.board=GENERIC_F373C8TX
 GenF3.menu.pnum.GENERIC_F373C8TX.build.product_line=STM32F373xC
 GenF3.menu.pnum.GENERIC_F373C8TX.build.variant=STM32F3xx/F373C(8-B-C)T
+GenF3.menu.pnum.GENERIC_F373C8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F373.svd
 
 # Generic F373CBTx
 GenF3.menu.pnum.GENERIC_F373CBTX=Generic F373CBTx
@@ -18,6 +19,7 @@ GenF3.menu.pnum.GENERIC_F373CBTX.upload.maximum_data_size=24576
 GenF3.menu.pnum.GENERIC_F373CBTX.build.board=GENERIC_F373CBTX
 GenF3.menu.pnum.GENERIC_F373CBTX.build.product_line=STM32F373xC
 GenF3.menu.pnum.GENERIC_F373CBTX.build.variant=STM32F3xx/F373C(8-B-C)T
+GenF3.menu.pnum.GENERIC_F373CBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F373.svd
 
 # Generic F373CCTx
 GenF3.menu.pnum.GENERIC_F373CCTX=Generic F373CCTx
@@ -26,4 +28,5 @@ GenF3.menu.pnum.GENERIC_F373CCTX.upload.maximum_data_size=32768
 GenF3.menu.pnum.GENERIC_F373CCTX.build.board=GENERIC_F373CCTX
 GenF3.menu.pnum.GENERIC_F373CCTX.build.product_line=STM32F373xC
 GenF3.menu.pnum.GENERIC_F373CCTX.build.variant=STM32F3xx/F373C(8-B-C)T
+GenF3.menu.pnum.GENERIC_F373CCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F373.svd
 

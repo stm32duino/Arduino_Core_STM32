@@ -10,4 +10,5 @@ GenG0.menu.pnum.GENERIC_G070CBTX.upload.maximum_data_size=36864
 GenG0.menu.pnum.GENERIC_G070CBTX.build.board=GENERIC_G070CBTX
 GenG0.menu.pnum.GENERIC_G070CBTX.build.product_line=STM32G070xx
 GenG0.menu.pnum.GENERIC_G070CBTX.build.variant=STM32G0xx/G070CBT
+GenG0.menu.pnum.GENERIC_G070CBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G070.svd
 

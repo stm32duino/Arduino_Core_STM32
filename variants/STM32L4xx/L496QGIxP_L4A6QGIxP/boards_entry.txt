@@ -10,6 +10,7 @@ GenL4.menu.pnum.GENERIC_L496QGIXP.upload.maximum_data_size=327680
 GenL4.menu.pnum.GENERIC_L496QGIXP.build.board=GENERIC_L496QGIXP
 GenL4.menu.pnum.GENERIC_L496QGIXP.build.product_line=STM32L496xx
 GenL4.menu.pnum.GENERIC_L496QGIXP.build.variant=STM32L4xx/L496QGIxP_L4A6QGIxP
+GenL4.menu.pnum.GENERIC_L496QGIXP.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L496.svd
 
 # Generic L4A6QGIxP
 GenL4.menu.pnum.GENERIC_L4A6QGIXP=Generic L4A6QGIxP
@@ -18,4 +19,5 @@ GenL4.menu.pnum.GENERIC_L4A6QGIXP.upload.maximum_data_size=327680
 GenL4.menu.pnum.GENERIC_L4A6QGIXP.build.board=GENERIC_L4A6QGIXP
 GenL4.menu.pnum.GENERIC_L4A6QGIXP.build.product_line=STM32L4A6xx
 GenL4.menu.pnum.GENERIC_L4A6QGIXP.build.variant=STM32L4xx/L496QGIxP_L4A6QGIxP
+GenL4.menu.pnum.GENERIC_L4A6QGIXP.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x6.svd
 

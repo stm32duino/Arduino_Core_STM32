@@ -10,6 +10,7 @@ GenF3.menu.pnum.GENERIC_F303RBTX.upload.maximum_data_size=32768
 GenF3.menu.pnum.GENERIC_F303RBTX.build.board=GENERIC_F303RBTX
 GenF3.menu.pnum.GENERIC_F303RBTX.build.product_line=STM32F303xC
 GenF3.menu.pnum.GENERIC_F303RBTX.build.variant=STM32F3xx/F303R(B-C)T
+GenF3.menu.pnum.GENERIC_F303RBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F303.svd
 
 # Generic F303RCTx
 GenF3.menu.pnum.GENERIC_F303RCTX=Generic F303RCTx
@@ -18,4 +19,5 @@ GenF3.menu.pnum.GENERIC_F303RCTX.upload.maximum_data_size=40960
 GenF3.menu.pnum.GENERIC_F303RCTX.build.board=GENERIC_F303RCTX
 GenF3.menu.pnum.GENERIC_F303RCTX.build.product_line=STM32F303xC
 GenF3.menu.pnum.GENERIC_F303RCTX.build.variant=STM32F3xx/F303R(B-C)T
+GenF3.menu.pnum.GENERIC_F303RCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F303.svd
 

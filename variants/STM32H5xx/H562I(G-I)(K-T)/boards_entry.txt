@@ -10,6 +10,7 @@ GenH5.menu.pnum.GENERIC_H562IGKX.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H562IGKX.build.board=GENERIC_H562IGKX
 GenH5.menu.pnum.GENERIC_H562IGKX.build.product_line=STM32H562xx
 GenH5.menu.pnum.GENERIC_H562IGKX.build.variant=STM32H5xx/H562I(G-I)(K-T)
+GenH5.menu.pnum.GENERIC_H562IGKX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H562.svd
 
 # Generic H562IGTx
 GenH5.menu.pnum.GENERIC_H562IGTX=Generic H562IGTx
@@ -18,6 +19,7 @@ GenH5.menu.pnum.GENERIC_H562IGTX.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H562IGTX.build.board=GENERIC_H562IGTX
 GenH5.menu.pnum.GENERIC_H562IGTX.build.product_line=STM32H562xx
 GenH5.menu.pnum.GENERIC_H562IGTX.build.variant=STM32H5xx/H562I(G-I)(K-T)
+GenH5.menu.pnum.GENERIC_H562IGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H562.svd
 
 # Generic H562IIKx
 GenH5.menu.pnum.GENERIC_H562IIKX=Generic H562IIKx
@@ -26,6 +28,7 @@ GenH5.menu.pnum.GENERIC_H562IIKX.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H562IIKX.build.board=GENERIC_H562IIKX
 GenH5.menu.pnum.GENERIC_H562IIKX.build.product_line=STM32H562xx
 GenH5.menu.pnum.GENERIC_H562IIKX.build.variant=STM32H5xx/H562I(G-I)(K-T)
+GenH5.menu.pnum.GENERIC_H562IIKX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H562.svd
 
 # Generic H562IITx
 GenH5.menu.pnum.GENERIC_H562IITX=Generic H562IITx
@@ -34,4 +37,5 @@ GenH5.menu.pnum.GENERIC_H562IITX.upload.maximum_data_size=655360
 GenH5.menu.pnum.GENERIC_H562IITX.build.board=GENERIC_H562IITX
 GenH5.menu.pnum.GENERIC_H562IITX.build.product_line=STM32H562xx
 GenH5.menu.pnum.GENERIC_H562IITX.build.variant=STM32H5xx/H562I(G-I)(K-T)
+GenH5.menu.pnum.GENERIC_H562IITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H562.svd
 

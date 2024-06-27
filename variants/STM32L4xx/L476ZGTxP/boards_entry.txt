@@ -10,4 +10,5 @@ GenL4.menu.pnum.GENERIC_L476ZGTXP.upload.maximum_data_size=131072
 GenL4.menu.pnum.GENERIC_L476ZGTXP.build.board=GENERIC_L476ZGTXP
 GenL4.menu.pnum.GENERIC_L476ZGTXP.build.product_line=STM32L476xx
 GenL4.menu.pnum.GENERIC_L476ZGTXP.build.variant=STM32L4xx/L476ZGTxP
+GenL4.menu.pnum.GENERIC_L476ZGTXP.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L476.svd
 

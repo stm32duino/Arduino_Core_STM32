@@ -10,6 +10,7 @@ GenF1.menu.pnum.GENERIC_F103T4UX.upload.maximum_data_size=6144
 GenF1.menu.pnum.GENERIC_F103T4UX.build.board=GENERIC_F103T4UX
 GenF1.menu.pnum.GENERIC_F103T4UX.build.product_line=STM32F103x6
 GenF1.menu.pnum.GENERIC_F103T4UX.build.variant=STM32F1xx/F103T(4-6)U
+GenF1.menu.pnum.GENERIC_F103T4UX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 
 # Generic F103T6Ux
 GenF1.menu.pnum.GENERIC_F103T6UX=Generic F103T6Ux
@@ -18,4 +19,5 @@ GenF1.menu.pnum.GENERIC_F103T6UX.upload.maximum_data_size=10240
 GenF1.menu.pnum.GENERIC_F103T6UX.build.board=GENERIC_F103T6UX
 GenF1.menu.pnum.GENERIC_F103T6UX.build.product_line=STM32F103x6
 GenF1.menu.pnum.GENERIC_F103T6UX.build.variant=STM32F1xx/F103T(4-6)U
+GenF1.menu.pnum.GENERIC_F103T6UX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 

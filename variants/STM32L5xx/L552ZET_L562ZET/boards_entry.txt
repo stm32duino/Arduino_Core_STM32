@@ -10,6 +10,7 @@ GenL5.menu.pnum.GENERIC_L552ZETX.upload.maximum_data_size=262144
 GenL5.menu.pnum.GENERIC_L552ZETX.build.board=GENERIC_L552ZETX
 GenL5.menu.pnum.GENERIC_L552ZETX.build.product_line=STM32L552xx
 GenL5.menu.pnum.GENERIC_L552ZETX.build.variant=STM32L5xx/L552ZET_L562ZET
+GenL5.menu.pnum.GENERIC_L552ZETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L552.svd
 
 # Generic L562ZETx
 GenL5.menu.pnum.GENERIC_L562ZETX=Generic L562ZETx
@@ -18,4 +19,5 @@ GenL5.menu.pnum.GENERIC_L562ZETX.upload.maximum_data_size=262144
 GenL5.menu.pnum.GENERIC_L562ZETX.build.board=GENERIC_L562ZETX
 GenL5.menu.pnum.GENERIC_L562ZETX.build.product_line=STM32L562xx
 GenL5.menu.pnum.GENERIC_L562ZETX.build.variant=STM32L5xx/L552ZET_L562ZET
+GenL5.menu.pnum.GENERIC_L562ZETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L562.svd
 
