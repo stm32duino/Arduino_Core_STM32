@@ -9,7 +9,7 @@
 
 [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
 ![GitHub All Releases](https://img.shields.io/github/downloads/stm32duino/Arduino_Core_STM32/total.svg?label=downloads%20since%201.4.0)
-[![GitHub commits since latest release](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/latest/main)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2.7.1...main)
+[![GitHub commits since latest release](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/latest/main)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2.8.0...main)
 
 
 * [Introduction](https://github.com/stm32duino/Arduino_Core_STM32#Introduction)<br>
@@ -98,7 +98,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F412ZG | [Nucleo F412ZG](http://www.st.com/en/evaluation-tools/nucleo-f412zg.html) | *2.6.0* |  |
 | :green_heart:  | STM32F413ZH | [Nucleo F413ZH](http://www.st.com/en/evaluation-tools/nucleo-f413zh.html) | *2.4.0* |  |
 | :green_heart:  | STM32F429ZI | [Nucleo F429ZI](http://www.st.com/en/evaluation-tools/nucleo-f429zi.html) | *0.1.0* |  |
-| :yellow_heart:  | STM32F439ZI | [Nucleo F439ZI](http://www.st.com/en/evaluation-tools/nucleo-f439zi.html) | **2.8.0** |  |
+| :green_heart:  | STM32F439ZI | [Nucleo F439ZI](http://www.st.com/en/evaluation-tools/nucleo-f439zi.html) | *2.8.0* |  |
 | :green_heart:  | STM32F446ZE | [Nucleo F446ZE](http://www.st.com/en/evaluation-tools/nucleo-f446ze.html) | *2.7.0* |  |
 | :green_heart:  | STM32F722ZE | [Nucleo F722ZE](http://www.st.com/en/evaluation-tools/nucleo-f722ze.html) | *2.4.0* |  |
 | :green_heart:  | STM32F767ZI | [Nucleo F767ZI](http://www.st.com/en/evaluation-tools/nucleo-f767zi.html) | *1.4.0* |  |
@@ -145,7 +145,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L452RE-P | [Nucleo L452RE-P](http://www.st.com/en/evaluation-tools/nucleo-l452re-p.html) | *1.8.0* |  |
 | :green_heart:  | STM32L476RG | [Nucleo L476RG](http://www.st.com/en/evaluation-tools/nucleo-l476rg.html) | *0.1.0* |  |
 | :green_heart:  | STM32WB15CCU | [Nucleo-WB15CC](https://www.st.com/en/evaluation-tools/nucleo-wb15cc.html) | *2.5.0* |  |
-| :yellow_heart: | STM32WBA55CGU | Nucleo-WBA55CG | **2.8.0** |  |
+| :green_heart: | STM32WBA55CGU | Nucleo-WBA55CG | *2.8.0* |  |
 | :green_heart:  | STM32WB55RG | [P-Nucleo-WB55RG](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html) | *1.6.0* | BLE support with [STM32duinoBLE](https://github.com/stm32duino/STM32duinoBLE) |
 | :green_heart:  | STM32WB55CG | [P-Nucleo-WB55 USB Dongle](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html) | *2.5.0* | BLE support with [STM32duinoBLE](https://github.com/stm32duino/STM32duinoBLE) |
 | :green_heart:  | STM32WL55JC | [Nucleo WL55JC1](https://www.st.com/en/evaluation-tools/nucleo-wl55jc.html) | *2.1.0* | LoRa support not available |
@@ -205,7 +205,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart: | STM32C011D6 | Generic Board | *2.6.0* |  |
 | :green_heart: | STM32C011F4<br>STM32C011F6 | Generic Board | *2.6.0* |  |
-| :yellow_heart: | STM32C011J4<br>STM32C011J6 | Generic Board | **2.8.0** |  |
+| :green_heart: | STM32C011J4<br>STM32C011J6 | Generic Board | *2.8.0* |  |
 | :green_heart: | STM32C031C4<br>STM32C031C6 | Generic Board | *2.5.0* |  |
 | :green_heart: | STM32C031F4<br>STM32C031F6 | Generic Board | *2.6.0* |  |
 
@@ -583,10 +583,10 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32H757AI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H757II | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H757XI | Generic Board | *2.7.0* |  |
-| :yellow_heart: | STM32H7A3VGHX<br>STM32H7A3VGTX | Generic Board | **2.8.0** |  |
-| :yellow_heart: | STM32H7A3VIHX<br>STM32H7A3VITX | Generic Board | **2.8.0** |  |
-| :yellow_heart: | STM32H7B0VBTX | Generic Board | **2.8.0** |  |
-| :yellow_heart: | STM32H7B3VIHX<br>STM32H7B3VITX | Generic Board | **2.8.0** |  |
+| :green_heart: | STM32H7A3VGHX<br>STM32H7A3VGTX | Generic Board | *2.8.0* |  |
+| :green_heart: | STM32H7A3VIHX<br>STM32H7A3VITX | Generic Board | *2.8.0* |  |
+| :green_heart: | STM32H7B0VBTX | Generic Board | *2.8.0* |  |
+| :green_heart: | STM32H7B3VIHX<br>STM32H7B3VITX | Generic Board | *2.8.0* |  |
 
 ### Generic STM32L0 boards
 
@@ -617,7 +617,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L041G6 | Generic Board | *2.4.0* |  |
 | :green_heart: | STM32L041K6T | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32L051C6<br>STM32L051C8 | Generic Board | *2.0.0* |  |
-| :yellow_heart: | STM32L051K6<br>STM32L051K8 | Generic Board | **2.8.0** |  |
+| :green_heart: | STM32L051K6<br>STM32L051K8 | Generic Board | *2.8.0* |  |
 | :green_heart:  | STM32L052C6<br>STM32L052C8 | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32L052K6<br>STM32L052K8 | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32L052R6<br>STM32L052R8 | Generic Board | *2.4.0* |  |
@@ -741,7 +741,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :yellow_heart: | STM32WBA55CEU<br>STM32WBA55CGU | Generic Board | **2.8.0** |  |
+| :green_heart: | STM32WBA55CEU<br>STM32WBA55CGU | Generic Board | *2.8.0* |  |
 
 ### Generic STM32WL boards
 
@@ -778,7 +778,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32L4R5ZIYx | [Swan R5](https://blues.com/products/swan)  |  *2.1.0*  | |
-| :yellow_heart: | STM32L433CC   | [Cygnet](https://blues.com/products) | **2.8.0** | |
+| :green_heart: | STM32L433CC   | [Cygnet](https://blues.com/products) | *2.8.0* | |
 
 ### [Elecgator](https://www.elecgator.com/) boards
 
@@ -843,7 +843,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :yellow_heart:  | STM32WLE5JB | ELV-BM-TRX1 | **2.8.0** |  |
+| :green_heart:  | STM32WLE5JB | ELV-BM-TRX1 | *2.8.0* |  |
 
 ## Next release
 
