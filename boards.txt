@@ -12904,7 +12904,7 @@ SparkFun.menu.upload_method.swdMethod.upload.options=
 SparkFun.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 SparkFun.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
-SparkFun.menu.upload_method.serialMethod.upload.protocol={serial.port.file}
+SparkFun.menu.upload_method.serialMethod.upload.protocol=serial
 SparkFun.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
 SparkFun.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
@@ -12943,12 +12943,13 @@ ELV_Modular_System.menu.pnum.ELV_BM_TRX1.debug.svd_file={runtime.tools.STM32_SVD
 
 # Upload menu
 ELV_Modular_System.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD) with Bootloader
-ELV_Modular_System.menu.upload_method.swdMethod.upload.protocol=0
+ELV_Modular_System.menu.upload_method.swdMethod.upload.protocol=swd
+ELV_Modular_System.menu.upload_method.swdMethod.upload.options=
 ELV_Modular_System.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 ELV_Modular_System.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial) with Bootloader
-ELV_Modular_System.menu.upload_method.serialMethod.upload.protocol=1
-ELV_Modular_System.menu.upload_method.serialMethod.upload.options={serial.port.file}
+ELV_Modular_System.menu.upload_method.serialMethod.upload.protocol=serial
+ELV_Modular_System.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
 ELV_Modular_System.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 ################################################################################
