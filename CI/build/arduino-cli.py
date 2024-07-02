@@ -297,16 +297,27 @@ def check_config():
         else:
             cli_config = json.loads(output)
             if cli_config is not None:
-                if cli_config["directories"]["data"] is not None:
-                    sketches_path_list.append(Path(cli_config["directories"]["data"]))
+                # Since arduino-cli 1.x new level "config"
+                if "config" in cli_config.keys():
+                    cli_config = cli_config["config"]
+                # Since arduino-cli 1.x config init does not create full config
+                if "directories" in cli_config.keys():
+                    if "data" in cli_config["directories"].key():
+                        if cli_config["directories"]["data"] is not None:
+                            sketches_path_list.append(
+                                Path(cli_config["directories"]["data"])
+                            )
+                    else:
+                        print("No data directory")
+                    if "user" in cli_config["directories"].key():
+                        if cli_config["directories"]["user"] is not None:
+                            sketches_path_list.append(
+                                Path(cli_config["directories"]["user"])
+                            )
+                    else:
+                        print("No user directory!")
                 else:
-                    print("No data directory")
-                    quit(1)
-                if cli_config["directories"]["user"] is not None:
-                    sketches_path_list.append(Path(cli_config["directories"]["user"]))
-                else:
-                    print("No user directory!")
-                    quit(1)
+                    print("No directories in config!")
                 # Fill search_path_list to avoid search on the same path
                 sorted_spl = sorted(set(sketches_path_list))
                 search_path_list = []
@@ -526,7 +537,11 @@ def find_board():
         print(e.stdout.decode("utf-8"))
         quit(e.returncode)
     else:
-        fqbn_list_tmp = [board["fqbn"] for board in json.loads(output)]
+        boards = json.loads(output)
+        # Since arduino-cli 1.x new level "boards" and is a dict
+        if type(boards) is dict:
+            boards = boards["boards"]
+        fqbn_list_tmp = [board["fqbn"] for board in boards]
         if not len(fqbn_list_tmp):
             print(f"No boards found for {arduino_platform}")
             quit(1)
