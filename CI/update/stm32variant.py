@@ -2669,7 +2669,7 @@ j2_env = Environment(
 # Clean temporary dir
 deleteFolder(tmp_dir)
 
-package_regex = re.compile(r"[\w][\w]([ANPQX])?$")
+package_regex = re.compile(r"[\w][\w]([ANPQSXZ])?$")
 flash_group_regex = re.compile(r"(.*)\((.*)\)(.*)")
 
 for mcu_file in mcu_list:
@@ -2755,7 +2755,7 @@ variant_regex = re.compile(r"defined\(ARDUINO_GENERIC_[^\s&|]*\)")
 update_regex = re.compile(r"defined\(ARDUINO_GENERIC_.+\)")
 board_entry_regex = re.compile(r"(Gen.+\..+variant=STM32.+xx/)\S+")
 #                              P     T      E
-mcu_PE_regex = re.compile(r"([\w])([\w])([ANPQSX])?$")
+mcu_PE_regex = re.compile(r"([\w])([\w])([ANPQSXZ])?$")
 aggregate_dir()
 
 # Clean temporary dir
