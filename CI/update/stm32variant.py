@@ -2514,7 +2514,14 @@ system_path = root_dir / "system"
 templates_dir = script_path / "templates"
 mcu_family_dir = ""
 filtered_family = ""
-refname_filter = ["STM32MP13", "STM32H7R", "STM32H7S"]
+refname_filter = [
+    "STM32H7R",
+    "STM32H7S",
+    "STM32MP13",
+    "STM32MP2",
+    "STM32U0",
+    "STM32WB0",
+]
 periph_c_filename = "PeripheralPins.c"
 pinvar_h_filename = "PinNamesVar.h"
 config_filename = script_path / "update_config.json"
