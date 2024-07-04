@@ -231,7 +231,7 @@
 /** @addtogroup STM32G4xx_HAL_Driver
   * @{
   */
-
+#if defined (OPAMP1) || defined (OPAMP2) || defined (OPAMP3) || defined (OPAMP4) || defined (OPAMP5) || defined (OPAMP6)
 #ifdef HAL_OPAMP_MODULE_ENABLED
 
 /** @defgroup OPAMP OPAMP
@@ -1194,9 +1194,8 @@ HAL_StatusTypeDef HAL_OPAMP_UnRegisterCallback(OPAMP_HandleTypeDef *hopamp, HAL_
   */
 
 #endif /* HAL_OPAMP_MODULE_ENABLED */
+#endif /* OPAMP1 || OPAMP2 || OPAMP3 || OPAMP4  || OPAMP5 || OPAMP6 */
+
 /**
   * @}
   */
-
-
-

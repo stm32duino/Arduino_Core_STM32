@@ -766,7 +766,7 @@ HAL_LPTIM_StateTypeDef HAL_LPTIM_GetState(const LPTIM_HandleTypeDef *hlptim);
                                                  ((__POLARITY__) == LPTIM_CLOCKPOLARITY_FALLING) || \
                                                  ((__POLARITY__) == LPTIM_CLOCKPOLARITY_RISING_FALLING))
 
-#if defined(STM32G473xx) || defined(STM32G483xx) || defined(STM32G474xx) || defined(STM32G484xx)
+#if defined(STM32G414xx) || defined(STM32G473xx) || defined(STM32G483xx) || defined(STM32G474xx) || defined(STM32G484xx)
 #define IS_LPTIM_TRG_SOURCE(__TRIG__)           (((__TRIG__) == LPTIM_TRIGSOURCE_SOFTWARE) || \
                                                  ((__TRIG__) == LPTIM_TRIGSOURCE_0) || \
                                                  ((__TRIG__) == LPTIM_TRIGSOURCE_1) || \
@@ -793,7 +793,7 @@ HAL_LPTIM_StateTypeDef HAL_LPTIM_GetState(const LPTIM_HandleTypeDef *hlptim);
                                                  ((__TRIG__) == LPTIM_TRIGSOURCE_7) || \
                                                  ((__TRIG__) == LPTIM_TRIGSOURCE_8) || \
                                                  ((__TRIG__) == LPTIM_TRIGSOURCE_9))
-#endif /* STM32G473xx || STM32G483xx || STM32G474xx || STM32G484xx */
+#endif /* STM32G414xx || STM32G473xx || STM32G483xx || STM32G474xx || STM32G484xx */
 
 #define IS_LPTIM_EXT_TRG_POLARITY(__POLARITY__) (((__POLARITY__) == LPTIM_ACTIVEEDGE_RISING         ) || \
                                                  ((__POLARITY__) == LPTIM_ACTIVEEDGE_FALLING        ) || \

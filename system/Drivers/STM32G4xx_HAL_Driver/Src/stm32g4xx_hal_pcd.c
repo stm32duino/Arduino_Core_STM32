@@ -1389,7 +1389,7 @@ HAL_StatusTypeDef HAL_PCD_SetAddress(PCD_HandleTypeDef *hpcd, uint8_t address)
 HAL_StatusTypeDef HAL_PCD_EP_Open(PCD_HandleTypeDef *hpcd, uint8_t ep_addr,
                                   uint16_t ep_mps, uint8_t ep_type)
 {
-  HAL_StatusTypeDef  ret = HAL_OK;
+  HAL_StatusTypeDef ret = HAL_OK;
   PCD_EPTypeDef *ep;
 
   if ((ep_addr & 0x80U) == 0x80U)
@@ -1404,7 +1404,7 @@ HAL_StatusTypeDef HAL_PCD_EP_Open(PCD_HandleTypeDef *hpcd, uint8_t ep_addr,
   }
 
   ep->num = ep_addr & EP_ADDR_MSK;
-  ep->maxpacket = ep_mps;
+  ep->maxpacket = (uint32_t)ep_mps & 0x7FFU;
   ep->type = ep_type;
 
   /* Set initial data PID. */
@@ -2227,13 +2227,11 @@ static HAL_StatusTypeDef HAL_PCD_EP_DB_Transmit(PCD_HandleTypeDef *hpcd,
 #endif /* (USE_USB_DOUBLE_BUFFER == 1U) */
 
 
-
 /**
   * @}
   */
 #endif /* defined (USB) */
 #endif /* HAL_PCD_MODULE_ENABLED */
-
 /**
   * @}
   */

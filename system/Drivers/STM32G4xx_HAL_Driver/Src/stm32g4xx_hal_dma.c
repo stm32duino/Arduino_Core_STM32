@@ -1057,7 +1057,7 @@ static void DMA_CalcDMAMUXChannelBaseAndMask(DMA_HandleTypeDef *hdma)
   else
   {
     /* DMA2 */
-#if defined (STM32G471xx) || defined (STM32G473xx) || defined (STM32G474xx) || defined (STM32G483xx) || defined (STM32G484xx) || defined (STM32G491xx) || defined (STM32G4A1xx)
+#if defined (STM32G471xx) || defined (STM32G473xx) || defined (STM32G474xx) || defined (STM32G414xx) || defined (STM32G483xx) || defined (STM32G484xx) || defined (STM32G491xx) || defined (STM32G4A1xx)
     DMAMUX1_ChannelBase = DMAMUX1_Channel8;
 #elif defined (STM32G431xx) || defined (STM32G441xx) || defined (STM32GBK1CB)
     DMAMUX1_ChannelBase = DMAMUX1_Channel6;

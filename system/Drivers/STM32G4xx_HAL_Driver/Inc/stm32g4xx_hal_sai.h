@@ -31,6 +31,8 @@ extern "C" {
   * @{
   */
 
+#if defined(SAI1)
+
 /** @addtogroup SAI
   * @{
   */
@@ -942,6 +944,8 @@ uint32_t HAL_SAI_GetError(const SAI_HandleTypeDef *hsai);
 /**
   * @}
   */
+
+#endif /* SAI1 */
 
 /**
   * @}

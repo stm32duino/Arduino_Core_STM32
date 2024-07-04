@@ -31,6 +31,8 @@ extern "C" {
   * @{
   */
 
+#if defined (OPAMP1) || defined (OPAMP2) || defined (OPAMP3) || defined (OPAMP4) || defined (OPAMP5) || defined (OPAMP6)
+
 /** @addtogroup OPAMPEx OPAMPEx
   * @{
   */
@@ -71,10 +73,11 @@ HAL_StatusTypeDef HAL_OPAMPEx_SelfCalibrateAll(OPAMP_HandleTypeDef *hopamp1, OPA
   * @}
   */
 
+#endif /* OPAMP1 || OPAMP2 || OPAMP3 || OPAMP4  || OPAMP5 || OPAMP6 */
+
 /**
   * @}
   */
-
 
 #ifdef __cplusplus
 }
@@ -82,4 +85,3 @@ HAL_StatusTypeDef HAL_OPAMPEx_SelfCalibrateAll(OPAMP_HandleTypeDef *hopamp1, OPA
 
 
 #endif /* STM32G4xx_HAL_OPAMP_EX_H */
-

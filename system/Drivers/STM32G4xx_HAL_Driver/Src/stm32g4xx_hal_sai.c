@@ -217,12 +217,13 @@
   * @{
   */
 
+#if defined(SAI1)
+#ifdef HAL_SAI_MODULE_ENABLED
+
 /** @defgroup SAI SAI
   * @brief SAI HAL module driver
   * @{
   */
-
-#ifdef HAL_SAI_MODULE_ENABLED
 
 /* Private typedef -----------------------------------------------------------*/
 /** @defgroup SAI_Private_Typedefs  SAI Private Typedefs
@@ -2731,12 +2732,13 @@ static void SAI_DMAAbort(DMA_HandleTypeDef *hdma)
   * @}
   */
 
+/**
+  * @}
+  */
+
 #endif /* HAL_SAI_MODULE_ENABLED */
-/**
-  * @}
-  */
+#endif /* SAI1 */
 
 /**
   * @}
   */
-
