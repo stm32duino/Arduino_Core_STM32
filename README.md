@@ -771,7 +771,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F401VE | [STEVAL-3DP001V1](https://www.st.com/en/evaluation-tools/steval-3dp001v1.html) | *1.6.0* |  |
 | :green_heart:  | STM32F446RE | [VAkE v1.0](https://www.facebook.com/pages/category/Product-Service/VAkE-Board-2290066274575218/) | *1.6.0* |  |
 | :green_heart:  | STM32F446VE | [FYSETC_S6](https://wiki.fysetc.com/FYSETC_S6/) | *1.9.0* | |
-| :green_heart:  | STM32G0B1CB | [BTT EBB42 CAN V1.1](https://github.com/bigtreetech/EBB/tree/master/EBB%20CAN%20V1.1%20(STM32G0B1)/EBB42%20CAN%20V1.1) | *2.4.0* |  |
+| :green_heart:  | STM32G0B1CB | [BTT EBB42 CAN V1.1](https://github.com/bigtreetech/EBB/tree/master) | *2.4.0* |  |
 
 ### [Blues](https://blues.com/) boards
 
