@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file    stm32c0xx_hal_spi_ex.h
+  * @file    stm32c0xx_hal_pcd_ex.h
   * @author  MCD Application Team
-  * @brief   Header file of SPI HAL Extended module.
+  * @brief   Header file of PCD HAL Extension module.
   ******************************************************************************
   * @attention
   *
@@ -17,41 +17,50 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef STM32C0xx_HAL_SPI_EX_H
-#define STM32C0xx_HAL_SPI_EX_H
+#ifndef STM32C0xx_HAL_PCD_EX_H
+#define STM32C0xx_HAL_PCD_EX_H
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif /* __cplusplus */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32c0xx_hal_def.h"
 
+#if defined (USB_DRD_FS)
 /** @addtogroup STM32C0xx_HAL_Driver
   * @{
   */
 
-/** @addtogroup SPIEx
+/** @addtogroup PCDEx
   * @{
   */
-
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macros -----------------------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
-/** @addtogroup SPIEx_Exported_Functions
+/** @addtogroup PCDEx_Exported_Functions PCDEx Exported Functions
+  * @{
+  */
+/** @addtogroup PCDEx_Exported_Functions_Group1 Peripheral Control functions
   * @{
   */
 
-/* Initialization and de-initialization functions  ****************************/
-/* IO operation functions *****************************************************/
-/** @addtogroup SPIEx_Exported_Functions_Group1
-  * @{
-  */
-HAL_StatusTypeDef HAL_SPIEx_FlushRxFifo(const SPI_HandleTypeDef *hspi);
-/**
-  * @}
-  */
+
+HAL_StatusTypeDef  HAL_PCDEx_PMAConfig(PCD_HandleTypeDef *hpcd, uint16_t ep_addr,
+                                       uint16_t ep_kind, uint32_t pmaadress);
+
+
+HAL_StatusTypeDef HAL_PCDEx_ActivateLPM(PCD_HandleTypeDef *hpcd);
+HAL_StatusTypeDef HAL_PCDEx_DeActivateLPM(PCD_HandleTypeDef *hpcd);
+
+
+HAL_StatusTypeDef HAL_PCDEx_ActivateBCD(PCD_HandleTypeDef *hpcd);
+HAL_StatusTypeDef HAL_PCDEx_DeActivateBCD(PCD_HandleTypeDef *hpcd);
+void HAL_PCDEx_BCD_VBUSDetect(PCD_HandleTypeDef *hpcd);
+
+void HAL_PCDEx_LPM_Callback(PCD_HandleTypeDef *hpcd, PCD_LPM_MsgTypeDef msg);
+void HAL_PCDEx_BCD_Callback(PCD_HandleTypeDef *hpcd, PCD_BCD_MsgTypeDef msg);
 
 /**
   * @}
@@ -64,9 +73,15 @@ HAL_StatusTypeDef HAL_SPIEx_FlushRxFifo(const SPI_HandleTypeDef *hspi);
 /**
   * @}
   */
+
+/**
+  * @}
+  */
+#endif /* defined (USB_DRD_FS) */
 
 #ifdef __cplusplus
 }
-#endif
+#endif /* __cplusplus */
 
-#endif /* STM32C0xx_HAL_SPI_EX_H */
+
+#endif /* STM32C0xx_HAL_PCD_EX_H */

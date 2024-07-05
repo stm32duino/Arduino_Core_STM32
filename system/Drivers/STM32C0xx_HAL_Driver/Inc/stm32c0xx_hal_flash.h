@@ -280,18 +280,32 @@ typedef struct
 #define OB_USER_IWDG_STDBY              FLASH_OPTR_IWDG_STDBY                       /*!< Independent watchdog counter
                                                                                          freeze in standby mode */
 #define OB_USER_WWDG_SW                 FLASH_OPTR_WWDG_SW                          /*!< Window watchdog selection */
+#if defined(FLASH_OPTR_HSE_NOT_REMAPPED)
+#define OB_USER_HSE_NOT_REMAPPED        FLASH_OPTR_HSE_NOT_REMAPPED                 /*!< Remap HSE source from PF to PC */
+#endif /* FLASH_OPTR_HSE_NOT_REMAPPED */
 #define OB_USER_RAM_PARITY_CHECK        FLASH_OPTR_RAM_PARITY_CHECK                 /*!< Sram parity check control */
+#define OB_USER_SECURE_MUXING_EN        FLASH_OPTR_SECURE_MUXING_EN                 /*!< Multiple-bonding security enable */
 #define OB_USER_NBOOT_SEL               FLASH_OPTR_nBOOT_SEL                        /*!< Boot Selection */
 #define OB_USER_NBOOT1                  FLASH_OPTR_nBOOT1                           /*!< nBoot1 configuration */
 #define OB_USER_NBOOT0                  FLASH_OPTR_nBOOT0                           /*!< nBoot0 configuration */
 #define OB_USER_NRST_MODE               FLASH_OPTR_NRST_MODE                        /*!< Reset pin configuration */
 #define OB_USER_INPUT_RESET_HOLDER      FLASH_OPTR_IRHEN                            /*!< Internal reset holder enable */
 
+#if defined(FLASH_OPTR_HSE_NOT_REMAPPED)
 #define OB_USER_ALL                     (OB_USER_BOR_EN           | OB_USER_BOR_LEV    | OB_USER_NRST_STOP | \
                                          OB_USER_NRST_STDBY       | OB_USER_NRST_SHDW  | OB_USER_IWDG_SW   | \
                                          OB_USER_IWDG_STOP        | OB_USER_IWDG_STDBY | OB_USER_WWDG_SW   | \
-                                         OB_USER_RAM_PARITY_CHECK | OB_USER_NBOOT_SEL  | OB_USER_NBOOT1    | \
+                                         OB_USER_HSE_NOT_REMAPPED | OB_USER_RAM_PARITY_CHECK |               \
+                                         OB_USER_SECURE_MUXING_EN | OB_USER_NBOOT_SEL  | OB_USER_NBOOT1    | \
                                          OB_USER_NBOOT0           | OB_USER_NRST_MODE  | OB_USER_INPUT_RESET_HOLDER) /*!< all option bits */
+#else
+#define OB_USER_ALL                     (OB_USER_BOR_EN           | OB_USER_BOR_LEV    | OB_USER_NRST_STOP | \
+                                         OB_USER_NRST_STDBY       | OB_USER_NRST_SHDW  | OB_USER_IWDG_SW   | \
+                                         OB_USER_IWDG_STOP        | OB_USER_IWDG_STDBY | OB_USER_WWDG_SW   | \
+                                         OB_USER_RAM_PARITY_CHECK | OB_USER_SECURE_MUXING_EN |               \
+                                         OB_USER_NBOOT_SEL        | OB_USER_NBOOT1     |                     \
+                                         OB_USER_NBOOT0           | OB_USER_NRST_MODE  | OB_USER_INPUT_RESET_HOLDER) /*!< all option bits */
+#endif /* FLASH_OPTR_HSE_NOT_REMAPPED */
 /**
   * @}
   */
@@ -395,11 +409,31 @@ typedef struct
   * @}
   */
 
+#if defined(FLASH_OPTR_HSE_NOT_REMAPPED)
+/** @defgroup FLASH_OB_USER_HSE_REMAP FLASH Option Bytes User HSE REMAP
+  * @{
+  */
+#define OB_HSE_NOT_REMAPPED_ENABLE           0x00000000U                  /*!< HSE Remap enable */
+#define OB_HSE_NOT_REMAPPED_DISABLE          FLASH_OPTR_HSE_NOT_REMAPPED  /*!< HSE Remap disable */
+/**
+  * @}
+  */
+#endif /* FLASH_OPTR_HSE_NOT_REMAPPED */
+
 /** @defgroup FLASH_OB_USER_SRAM_PARITY FLASH Option Bytes User SRAM parity
   * @{
   */
 #define OB_SRAM_PARITY_ENABLE           0x00000000U                  /*!< Sram parity enable */
 #define OB_SRAM_PARITY_DISABLE          FLASH_OPTR_RAM_PARITY_CHECK  /*!< Sram parity disable */
+/**
+  * @}
+  */
+
+/** @defgroup FLASH_OB_USER_SECURE_MUXING_EN FLASH Option Bytes User Multiple-bonding security
+  * @{
+  */
+#define OB_SECURE_MUXING_ENABLE           FLASH_OPTR_SECURE_MUXING_EN  /*!< Multiple-bonding security enable */
+#define OB_SECURE_MUXING_DISABLE          0x00000000U                  /*!< Multiple-bonding security disable */
 /**
   * @}
   */
@@ -692,17 +726,11 @@ HAL_StatusTypeDef  FLASH_WaitForLastOperation(uint32_t Timeout);
   */
 #define FLASH_SIZE_DATA_REGISTER        FLASHSIZE_BASE
 
-#define FLASH_SIZE                      ((((*((uint16_t *)FLASH_SIZE_DATA_REGISTER)) == 0xFFFFU)) ? 0x8000U : \
-                                         ((((*((uint16_t *)FLASH_SIZE_DATA_REGISTER)) == 0x0000U)) ? 0x8000U : \
-                                          (((uint32_t)(*((uint16_t *)FLASH_SIZE_DATA_REGISTER)) & (0x00FFU)) << 10U)))
-
 #define FLASH_BANK_SIZE                 (FLASH_SIZE)   /*!< FLASH Bank Size */
 
 #define FLASH_PAGE_SIZE                 0x00000800U    /*!< FLASH Page Size, 2 KBytes */
 
-
-#define FLASH_PAGE_NB                   16U
-
+#define FLASH_PAGE_NB                   (FLASH_BANK_SIZE / FLASH_PAGE_SIZE) /*!< Number of pages per bank */
 
 #define FLASH_TIMEOUT_VALUE             1000U          /*!< FLASH Execution Timeout, 1 s */
 

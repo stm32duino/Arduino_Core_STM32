@@ -175,19 +175,19 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc)
     LL_ADC_Enable(hadc->Instance);
 
     /* Case of ADC clocked at low frequency: Delay required between ADC enable and disable actions */
-    if(LL_ADC_GetClock(hadc->Instance) == LL_ADC_CLOCK_ASYNC)
+    if (LL_ADC_GetClock(hadc->Instance) == LL_ADC_CLOCK_ASYNC)
     {
       adc_clk_async_presc = LL_ADC_GetCommonClock(__LL_ADC_COMMON_INSTANCE(hadc->Instance));
 
-      if(adc_clk_async_presc >= LL_ADC_CLOCK_ASYNC_DIV16)
+      if (adc_clk_async_presc >= LL_ADC_CLOCK_ASYNC_DIV16)
       {
         /* Delay loop initialization and execution */
         /* Delay depends on ADC clock prescaler: Compute ADC clock asynchronous prescaler to decimal format */
-        delay_cpu_cycles = (1U << ((adc_clk_async_presc >> ADC_CCR_PRESC_Pos) - 3U));
+        delay_cpu_cycles = (1UL << ((adc_clk_async_presc >> ADC_CCR_PRESC_Pos) - 3UL));
         /* Divide variable by 2 to compensate partially CPU processing cycles */
-        delay_cpu_cycles >>= 1U;
+        delay_cpu_cycles >>= 1UL;
 
-        while(delay_cpu_cycles != 0)
+        while (delay_cpu_cycles != 0UL)
         {
           delay_cpu_cycles--;
         }

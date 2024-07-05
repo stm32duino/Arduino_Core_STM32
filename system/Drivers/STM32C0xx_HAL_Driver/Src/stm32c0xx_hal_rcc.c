@@ -68,6 +68,9 @@
 #define RCC_HSE_TIMEOUT_VALUE          HSE_STARTUP_TIMEOUT
 #define RCC_HSI_TIMEOUT_VALUE          (2U)    /* 2 ms (minimum Tick + 1) */
 #define RCC_LSI_TIMEOUT_VALUE          (2U)    /* 2 ms (minimum Tick + 1) */
+#if defined(RCC_CR_HSIUSB48ON)
+#define HSI48_TIMEOUT_VALUE            (2U)    /* 2 ms (minimum Tick + 1) */
+#endif /* RCC_CR_HSIUSB48ON */
 #define RCC_CLOCKSWITCH_TIMEOUT_VALUE  (5000U) /* 5 s    */
 
 /**
@@ -185,7 +188,7 @@
   * @note   The default reset state of the clock configuration is given below:
   *            - HSI ON and used as system clock source
   *            - HSE OFF
-  *            - AHB and APB prescaler set to 1.
+  *            - SYSDIV, AHB and APB prescaler set to 1.
   *            - CSS, MCO1, MCO2 OFF
   *            - All interrupts disabled
   * @note   This function does not modify the configuration of the
@@ -545,6 +548,50 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(const RCC_OscInitTypeDef  *RCC_OscInitStruct
       }
     }
   }
+#if defined(RCC_CR_HSIUSB48ON)
+  /*------------------------------ HSI48 Configuration -----------------------*/
+  if (((RCC_OscInitStruct->OscillatorType) & RCC_OSCILLATORTYPE_HSI48) == RCC_OSCILLATORTYPE_HSI48)
+  {
+    /* Check the parameters */
+    assert_param(IS_RCC_HSI48(RCC_OscInitStruct->HSI48State));
+
+    /* Check the LSI State */
+    if (RCC_OscInitStruct->HSI48State != RCC_HSI48_OFF)
+    {
+      /* Enable the Internal Low Speed oscillator (HSI48). */
+      __HAL_RCC_HSI48_ENABLE();
+
+      /* Get Start Tick*/
+      tickstart = HAL_GetTick();
+
+      /* Wait till HSI48 is ready */
+      while (READ_BIT(RCC->CR, RCC_CR_HSIUSB48RDY) == 0U)
+      {
+        if ((HAL_GetTick() - tickstart) > HSI48_TIMEOUT_VALUE)
+        {
+          return HAL_TIMEOUT;
+        }
+      }
+    }
+    else
+    {
+      /* Disable the Internal Low Speed oscillator (HSI48). */
+      __HAL_RCC_HSI48_DISABLE();
+
+      /* Get Start Tick*/
+      tickstart = HAL_GetTick();
+
+      /* Wait till HSI48 is disabled */
+      while (READ_BIT(RCC->CR, RCC_CR_HSIUSB48RDY) != 0U)
+      {
+        if ((HAL_GetTick() - tickstart) > HSI48_TIMEOUT_VALUE)
+        {
+          return HAL_TIMEOUT;
+        }
+      }
+    }
+  }
+#endif /* RCC_CR_HSIUSB48ON */
   return HAL_OK;
 }
 
@@ -643,7 +690,10 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef  *RCC_ClkInitStru
   {
     assert_param(IS_RCC_SYSCLK(RCC_ClkInitStruct->SYSCLKDivider));
     assert_param(IS_RCC_SYSCLKSOURCE(RCC_ClkInitStruct->SYSCLKSource));
+
+#if defined(RCC_CR_SYSDIV)
     MODIFY_REG(RCC->CR, RCC_CR_SYSDIV, RCC_ClkInitStruct->SYSCLKDivider);
+#endif /* RCC_CR_SYSDIV */
 
     /* HSE is selected as System Clock Source */
     if (RCC_ClkInitStruct->SYSCLKSource == RCC_SYSCLKSOURCE_HSE)
@@ -663,6 +713,17 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef  *RCC_ClkInitStru
         return HAL_ERROR;
       }
     }
+#if defined(RCC_HSI48_SUPPORT)
+    /* HSIUSB48 is selected as System Clock Source */
+    else if (RCC_ClkInitStruct->SYSCLKSource == RCC_SYSCLKSOURCE_HSIUSB48)
+    {
+      /* Check the HSIUSB48 ready flag */
+      if (READ_BIT(RCC->CR, RCC_CR_HSIUSB48RDY) == 0U)
+      {
+        return HAL_ERROR;
+      }
+    }
+#endif /* RCC_HSI48_SUPPORT */
     /* LSI is selected as System Clock Source */
     else if (RCC_ClkInitStruct->SYSCLKSource == RCC_SYSCLKSOURCE_LSI)
     {
@@ -722,7 +783,8 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef  *RCC_ClkInitStru
   }
 
   /* Update the SystemCoreClock global variable */
-  SystemCoreClock = (HAL_RCC_GetSysClockFreq() >> ((AHBPrescTable[(RCC->CFGR & RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos]) & 0x1FU));
+  SystemCoreClock = (HAL_RCC_GetSysClockFreq() >> ((AHBPrescTable[(RCC->CFGR & RCC_CFGR_HPRE) \
+                                                                  >> RCC_CFGR_HPRE_Pos]) & 0x1FU));
 
   /* Configure the source of time base considering new system clocks settings*/
   return HAL_InitTick(uwTickPrio);
@@ -761,12 +823,14 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef  *RCC_ClkInitStru
   *            @arg @ref RCC_MCO1SOURCE_NOCLOCK  MCO1 output disabled, no clock on MCO1
   *            @arg @ref RCC_MCO1SOURCE_SYSCLK  system  clock selected as MCO1 source
   *            @arg @ref RCC_MCO1SOURCE_HSI  HSI clock selected as MCO1 source
+  *            @arg @ref RCC_MCO1SOURCE_HSI48  HSI48 clock selected as MCO1 source (*)
   *            @arg @ref RCC_MCO1SOURCE_HSE  HSE clock selected as MCO1 source
   *            @arg @ref RCC_MCO1SOURCE_LSI  LSI clock selected as MCO1 source
   *            @arg @ref RCC_MCO1SOURCE_LSE  LSE clock selected as MCO1 source
   *            @arg @ref RCC_MCO2SOURCE_NOCLOCK  MCO2 output disabled, no clock on MCO2
   *            @arg @ref RCC_MCO2SOURCE_SYSCLK  system  clock selected as MCO2 source
   *            @arg @ref RCC_MCO2SOURCE_HSI  HSI clock selected as MCO2 source
+  *            @arg @ref RCC_MCO2SOURCE_HSI48  HSI48 clock selected as MCO2 source (*)
   *            @arg @ref RCC_MCO2SOURCE_HSE  HSE clock selected as MCO2 source
   *            @arg @ref RCC_MCO2SOURCE_LSI  LSI clock selected as MCO2 source
   *            @arg @ref RCC_MCO2SOURCE_LSE  LSE clock selected as MCO2 source
@@ -780,6 +844,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef  *RCC_ClkInitStru
   *            @arg @ref RCC_MCODIV_32  division by 32 applied to MCO clock
   *            @arg @ref RCC_MCODIV_64  division by 64 applied to MCO clock
   *            @arg @ref RCC_MCODIV_128  division by 128 applied to MCO clock
+  * @note (*) peripheral not available on all devices
   * @retval None
   */
 void HAL_RCC_MCOConfig(uint32_t RCC_MCOx, uint32_t RCC_MCOSource, uint32_t RCC_MCODiv)
@@ -827,7 +892,9 @@ void HAL_RCC_MCOConfig(uint32_t RCC_MCOx, uint32_t RCC_MCOSource, uint32_t RCC_M
     LL_RCC_ConfigMCO2(RCC_MCOSource, RCC_MCODiv);
   }
   else
-  {}
+  {
+    /* unexpected case: added to resolve MISRA 15.7 rule */
+  }
 }
 
 /**
@@ -868,6 +935,9 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
 {
   uint32_t hsidiv;
   uint32_t sysclockfreq;
+#if defined(RCC_CR_SYSDIV)
+  uint32_t sysclockdiv = (uint32_t)(((RCC->CR & RCC_CR_SYSDIV) >> RCC_CR_SYSDIV_Pos) + 1U);
+#endif /* RCC_CR_SYSDIV */
 
   if (__HAL_RCC_GET_SYSCLK_SOURCE() == RCC_CFGR_SWS_HSI)
   {
@@ -892,11 +962,20 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
     /* LSI used as system clock source */
     sysclockfreq = LSI_VALUE;
   }
+#if defined(RCC_HSI48_SUPPORT)
+  else if (__HAL_RCC_GET_SYSCLK_SOURCE() == RCC_CFGR_SWS_HSI48)
+  {
+    /* HSI48 used as system clock source */
+    sysclockfreq = HSI48_VALUE;
+  }
+#endif /* RCC_HSI48_SUPPORT */
   else
   {
     sysclockfreq = 0U;
   }
-
+#if defined(RCC_CR_SYSDIV)
+  sysclockfreq = sysclockfreq / sysclockdiv;
+#endif /* RCC_CR_SYSDIV */
   return sysclockfreq;
 }
 
@@ -910,6 +989,8 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
   */
 uint32_t HAL_RCC_GetHCLKFreq(void)
 {
+  SystemCoreClock = (HAL_RCC_GetSysClockFreq() >> ((AHBPrescTable[(RCC->CFGR & RCC_CFGR_HPRE) \
+                                                                  >> RCC_CFGR_HPRE_Pos]) & 0x1FU));
   return SystemCoreClock;
 }
 
@@ -940,9 +1021,13 @@ void HAL_RCC_GetOscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
   assert_param(RCC_OscInitStruct != (void *)NULL);
 
   /* Set all possible values for the Oscillator type parameter ---------------*/
+#if defined(RCC_HSI48_SUPPORT)
+  RCC_OscInitStruct->OscillatorType = RCC_OSCILLATORTYPE_HSE | RCC_OSCILLATORTYPE_HSI | \
+                                      RCC_OSCILLATORTYPE_LSE | RCC_OSCILLATORTYPE_LSI | RCC_OSCILLATORTYPE_HSI48;
+#else
   RCC_OscInitStruct->OscillatorType = RCC_OSCILLATORTYPE_HSE | RCC_OSCILLATORTYPE_HSI | \
                                       RCC_OSCILLATORTYPE_LSE | RCC_OSCILLATORTYPE_LSI;
-
+#endif /* RCC_HSI48_SUPPORT */
   /* Get Control register */
   regval = RCC->CR;
 
@@ -966,6 +1051,18 @@ void HAL_RCC_GetOscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
   /* Get the LSI configuration -----------------------------------------------*/
   RCC_OscInitStruct->LSIState = regval & RCC_CSR2_LSION;
 
+#if defined(RCC_HSI48_SUPPORT)
+  /* Get the HSI48 configuration ---------------------------------------------*/
+  if (READ_BIT(RCC->CR, RCC_CR_HSIUSB48ON) == RCC_CR_HSIUSB48ON)
+  {
+    RCC_OscInitStruct->HSI48State = RCC_HSI48_ON;
+  }
+  else
+  {
+    RCC_OscInitStruct->HSI48State = RCC_HSI48_OFF;
+  }
+#endif /* RCC_HSI48_SUPPORT */
+
 }
 
 /**
@@ -987,6 +1084,11 @@ void HAL_RCC_GetClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, uint32_t *pF
 
   /* Get the SYSCLK configuration --------------------------------------------*/
   RCC_ClkInitStruct->SYSCLKSource = (uint32_t)(RCC->CFGR & RCC_CFGR_SW);
+
+#if defined(RCC_CR_SYSDIV)
+  /* Get the SYSCLK configuration ----------------------------------------------*/
+  RCC_ClkInitStruct->SYSCLKDivider = (uint32_t)(RCC->CR & RCC_CR_SYSDIV);
+#endif /* RCC_CR_SYSDIV */
 
   /* Get the HCLK configuration ----------------------------------------------*/
   RCC_ClkInitStruct->AHBCLKDivider = (uint32_t)(RCC->CFGR & RCC_CFGR_HPRE);

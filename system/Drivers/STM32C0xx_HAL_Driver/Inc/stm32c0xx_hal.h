@@ -95,6 +95,21 @@ typedef enum
 #define HAL_BIND_WLCSP14_PING1_PA12    LL_PINMUX_WLCSP14_PING1_PA12   /*!< STM32C031 WLCSP14 package, PinG1 assigned to GPIO PA12 */
 #define HAL_BIND_WLCSP14_PINJ3_PA3     LL_PINMUX_WLCSP14_PINJ3_PA3    /*!< STM32C031 WLCSP14 package, PinJ3 assigned to GPIO PA3 */
 #define HAL_BIND_WLCSP14_PINJ3_PA4     LL_PINMUX_WLCSP14_PINJ3_PA4    /*!< STM32C031 WLCSP14 package, PinJ3 assigned to GPIO PA4 */
+#elif (DEV_ID == 0x493UL)
+#define HAL_BIND_WLCSP19_PINH3_PF2     LL_PINMUX_WLCSP19_PINH3_PF2    /*!< STM32C071 WLCSP19 package, PinH3 assigned to GPIO PF2 */
+#define HAL_BIND_WLCSP19_PINH3_PA0     LL_PINMUX_WLCSP19_PINH3_PA0    /*!< STM32C071 WLCSP19 package, PinH3 assigned to GPIO PA0 */
+#define HAL_BIND_WLCSP19_PINB1_PA14    LL_PINMUX_WLCSP19_PINB1_PA14   /*!< STM32C071 WLCSP19 package, PinB1 assigned to GPIO PA14 */
+#define HAL_BIND_WLCSP19_PINB1_PA15    LL_PINMUX_WLCSP19_PINB1_PA15   /*!< STM32C071 WLCSP19 package, PinB1 assigned to GPIO PA15 */
+#define HAL_BIND_TSSOP20_PIN19_PA14    LL_PINMUX_TSSOP20_PIN19_PA14
+#define HAL_BIND_TSSOP20_PIN19_PA15    LL_PINMUX_TSSOP20_PIN19_PA15
+#define HAL_BIND_TSSOP20_PIN20_PB6     LL_PINMUX_TSSOP20_PIN20_PB6    /*!< STM32C071 TSSOP20 package, Pin20 assigned to GPIO PB6 */
+#define HAL_BIND_TSSOP20_PIN20_PB3     LL_PINMUX_TSSOP20_PIN20_PB3    /*!< STM32C071 TSSOP20 package, Pin20 assigned to GPIO PB3 */
+#define HAL_BIND_TSSOP20_PIN20_PB4     LL_PINMUX_TSSOP20_PIN20_PB4    /*!< STM32C071 TSSOP20 package, Pin20 assigned to GPIO PB4 */
+#define HAL_BIND_TSSOP20_PIN20_PB5     LL_PINMUX_TSSOP20_PIN20_PB5    /*!< STM32C071 TSSOP20 package, Pin20 assigned to GPIO PB5 */
+#define HAL_BIND_WLCSP19_PINB3_PB      LL_PINMUX_WLCSP19_PINB3_PB7    /*!< STM32C071 WLCSP19 package, PinH2 assigned to GPIO PB7 */
+#define HAL_BIND_WLCSP19_PINB3_PB8     LL_PINMUX_WLCSP19_PINB3_PB8    /*!< STM32C071 WLCSP19 package, PinH2 assigned to GPIO PB8 */
+#define HAL_BIND_TSSOP20_PIN1_PB7      LL_PINMUX_TSSOP20_PIN1_PB7     /*!< STM32C071 TSSOP20 package, Pin1 assigned to GPIO PB7 */
+#define HAL_BIND_TSSOP20_PIN1_PB8      LL_PINMUX_TSSOP20_PIN1_PB8     /*!< STM32C071 TSSOP20 package, Pin1 assigned to GPIO PB8 */
 #endif /* DEV_ID == 0x443UL */
 
 /**
@@ -110,7 +125,7 @@ typedef enum
 #define HAL_BIND_SO8_PIN5                LL_PINMUX_SO8_PIN5          /*!< STM32C011 SO8 package, GPIO Pin5 multiplexer */
 #define HAL_BIND_SO8_PIN8                LL_PINMUX_SO8_PIN8          /*!< STM32C011 SO8 package, GPIO Pin8 multiplexer */
 #define HAL_BIND_WLCSP12_PINE2           LL_PINMUX_WLCSP12_PINE2     /*!< STM32C011 WLCSP12 package, GPIO PinE2 multiplexer */
-#define HAL_BIND_WLCSP12_PINF1           LL_PINMUX_WLCSP12_PINF1     /*!< STM32C011 WLCSP12 package, GPIO PinF1 multiplexer*/
+#define HAL_BIND_WLCSP12_PINF1           LL_PINMUX_WLCSP12_PINF1     /*!< STM32C011 WLCSP12 package, GPIO PinF1 multiplexer */
 #elif (DEV_ID == 0x453UL)
 #define HAL_BIND_WLCSP14_PINF2           LL_PINMUX_WLCSP14_PINF2     /*!< STM32C031 WLCSP14 package, GPIO PinF2 multiplexer */
 #define HAL_BIND_WLCSP14_PING3           LL_PINMUX_WLCSP14_PING3     /*!< STM32C031 WLCSP14 package, GPIO PinG3 multiplexer */
@@ -118,11 +133,17 @@ typedef enum
 #define HAL_BIND_WLCSP14_PINH2           LL_PINMUX_WLCSP14_PINH2     /*!< STM32C031 WLCSP14 package, GPIO PinH2 multiplexer */
 #define HAL_BIND_WLCSP14_PING1           LL_PINMUX_WLCSP14_PING1     /*!< STM32C031 WLCSP14 package, GPIO PinG1 multiplexer */
 #define HAL_BIND_WLCSP14_PINJ3           LL_PINMUX_WLCSP14_PINJ3     /*!< STM32C031 WLCSP14 package, GPIO PinJ3 multiplexer */
+#elif (DEV_ID == 0x493UL)
+#define  HAL_BIND_WLCSP19_PINH3          LL_PINMUX_WLCSP19_PINH3     /*!< STM32C071 WLCSP19 package, GPIO PinH3 multiplexer  */
+#define  HAL_BIND_WLCSP19_PINB1          LL_PINMUX_WLCSP19_PINB1     /*!< STM32C071 WLCSP19 package, GPIO PinB1 multiplexer  */
+#define  HAL_BIND_TSSOP20_PIN19          LL_PINMUX_TSSOP20_PIN19     /*!< STM32C071 TSSOP20 package, GPIO Pin19 multiplexer  */
+#define  HAL_BIND_TSSOP20_PIN20          LL_PINMUX_TSSOP20_PIN20     /*!< STM32C071 TSSOP20 package, GPIO Pin20 multiplexer  */
+#define  HAL_BIND_WLCSP19_PINB3          LL_PINMUX_WLCSP19_PINB3     /*!< STM32C071 WLCSP19 package, GPIO PinB3 multiplexer  */
+#define  HAL_BIND_TSSOP20_PIN1           LL_PINMUX_TSSOP20_PIN1      /*!< STM32C071 TSSOP20 package, GPIO Pin1 multiplexer   */
 #endif /* DEV_ID == 0x443UL */
- /**
+/**
   * @}
-  */
-
+ */
 
 /**
   * @}
@@ -204,7 +225,9 @@ typedef enum
 /** @brief  Fast mode Plus driving capability on a specific GPIO
   */
 #define SYSCFG_FASTMODEPLUS_I2C1       SYSCFG_CFGR1_I2C1_FMP /*!< Enable Fast mode Plus on I2C1 */
-
+#if defined(I2C2)
+#define SYSCFG_FASTMODEPLUS_I2C2       SYSCFG_CFGR1_I2C2_FMP /*!< Enable Fast mode Plus on I2C2 */
+#endif /* I2C2 */
 /**
   * @}
   */
@@ -220,18 +243,30 @@ typedef enum
 #define HAL_SYSCFG_ITLINE5                           0x00000005U /*!< Internal define for macro handling */
 #define HAL_SYSCFG_ITLINE6                           0x00000006U /*!< Internal define for macro handling */
 #define HAL_SYSCFG_ITLINE7                           0x00000007U /*!< Internal define for macro handling */
+#if defined(USB)
+#define HAL_SYSCFG_ITLINE8                           0x00000008U /*!< Internal define for macro handling */
+#endif /* USB */
 #define HAL_SYSCFG_ITLINE9                           0x00000009U /*!< Internal define for macro handling */
 #define HAL_SYSCFG_ITLINE10                          0x0000000AU /*!< Internal define for macro handling */
 #define HAL_SYSCFG_ITLINE11                          0x0000000BU /*!< Internal define for macro handling */
 #define HAL_SYSCFG_ITLINE12                          0x0000000CU /*!< Internal define for macro handling */
 #define HAL_SYSCFG_ITLINE13                          0x0000000DU /*!< Internal define for macro handling */
 #define HAL_SYSCFG_ITLINE14                          0x0000000EU /*!< Internal define for macro handling */
+#if defined(TIM2)
+#define HAL_SYSCFG_ITLINE15                          0x0000000FU /*!< Internal define for macro handling */
+#endif /* TIM2 */
 #define HAL_SYSCFG_ITLINE16                          0x00000010U /*!< Internal define for macro handling */
 #define HAL_SYSCFG_ITLINE19                          0x00000013U /*!< Internal define for macro handling */
 #define HAL_SYSCFG_ITLINE21                          0x00000015U /*!< Internal define for macro handling */
 #define HAL_SYSCFG_ITLINE22                          0x00000016U /*!< Internal define for macro handling */
 #define HAL_SYSCFG_ITLINE23                          0x00000017U /*!< Internal define for macro handling */
+#if defined(I2C2)
+#define HAL_SYSCFG_ITLINE24                          0x00000018U /*!< Internal define for macro handling */
+#endif /* I2C2 */
 #define HAL_SYSCFG_ITLINE25                          0x00000019U /*!< Internal define for macro handling */
+#if defined(SPI2)
+#define HAL_SYSCFG_ITLINE26                          0x0000001AU /*!< Internal define for macro handling */
+#endif /* SPI2 */
 #define HAL_SYSCFG_ITLINE27                          0x0000001BU /*!< Internal define for macro handling */
 #define HAL_SYSCFG_ITLINE28                          0x0000001CU /*!< Internal define for macro handling */
 
@@ -239,6 +274,9 @@ typedef enum
 #define HAL_ITLINE_RTC            ((HAL_SYSCFG_ITLINE2 << 0x18U) | SYSCFG_ITLINE2_SR_RTC)           /*!< RTC  Interrupt */
 #define HAL_ITLINE_FLASH_ITF      ((HAL_SYSCFG_ITLINE3 << 0x18U) | SYSCFG_ITLINE3_SR_FLASH_ITF)     /*!< Flash ITF Interrupt */
 #define HAL_ITLINE_CLK_CTRL       ((HAL_SYSCFG_ITLINE4 << 0x18U) | SYSCFG_ITLINE4_SR_CLK_CTRL)      /*!< CLK Control Interrupt */
+#if defined(CRS)
+#define HAL_ITLINE_CRS            ((HAL_SYSCFG_ITLINE4 << 0x18U) | SYSCFG_ITLINE4_SR_CRS)           /*!< CRS Interrupt */
+#endif /* CRS */
 #define HAL_ITLINE_EXTI0          ((HAL_SYSCFG_ITLINE5 << 0x18U) | SYSCFG_ITLINE5_SR_EXTI0)         /*!< External Interrupt 0 */
 #define HAL_ITLINE_EXTI1          ((HAL_SYSCFG_ITLINE5 << 0x18U) | SYSCFG_ITLINE5_SR_EXTI1)         /*!< External Interrupt 1 */
 #define HAL_ITLINE_EXTI2          ((HAL_SYSCFG_ITLINE6 << 0x18U) | SYSCFG_ITLINE6_SR_EXTI2)         /*!< External Interrupt 2 */
@@ -255,21 +293,40 @@ typedef enum
 #define HAL_ITLINE_EXTI13         ((HAL_SYSCFG_ITLINE7 << 0x18U) | SYSCFG_ITLINE7_SR_EXTI13)        /*!< EXTI13 Interrupt */
 #define HAL_ITLINE_EXTI14         ((HAL_SYSCFG_ITLINE7 << 0x18U) | SYSCFG_ITLINE7_SR_EXTI14)        /*!< EXTI14 Interrupt */
 #define HAL_ITLINE_EXTI15         ((HAL_SYSCFG_ITLINE7 << 0x18U) | SYSCFG_ITLINE7_SR_EXTI15)        /*!< EXTI15 Interrupt */
+#if defined(USB)
+#define HAL_ITLINE_USB            ((HAL_SYSCFG_ITLINE8 << 0x18U) | SYSCFG_ITLINE8_SR_USB)           /*!< USB Interrupt */
+#endif /* USB */
 #define HAL_ITLINE_DMA1_CH1       ((HAL_SYSCFG_ITLINE9 << 0x18U) | SYSCFG_ITLINE9_SR_DMA1_CH1)      /*!< DMA1 Channel 1 Interrupt */
 #define HAL_ITLINE_DMA1_CH2       ((HAL_SYSCFG_ITLINE10 << 0x18U) | SYSCFG_ITLINE10_SR_DMA1_CH2)    /*!< DMA1 Channel 2 Interrupt */
 #define HAL_ITLINE_DMA1_CH3       ((HAL_SYSCFG_ITLINE10 << 0x18U) | SYSCFG_ITLINE10_SR_DMA1_CH3)    /*!< DMA1 Channel 3 Interrupt */
 #define HAL_ITLINE_DMAMUX         ((HAL_SYSCFG_ITLINE11 << 0x18U) | SYSCFG_ITLINE11_SR_DMAMUX)      /*!< DMAMUX Interrupt */
+#if defined(SYSCFG_ITLINE11_SR_DMA1_CH4)
+#define HAL_ITLINE_DMA1_CH4       ((HAL_SYSCFG_ITLINE11 << 0x18U) | SYSCFG_ITLINE11_SR_DMA1_CH4)    /*!< DMA1 Channel 4 Interrupt */
+#endif /* SYSCFG_ITLINE11_SR_DMA1_CH4 */
+#if defined(SYSCFG_ITLINE11_SR_DMA1_CH5)
+#define HAL_ITLINE_DMA1_CH5       ((HAL_SYSCFG_ITLINE11 << 0x18U) | SYSCFG_ITLINE11_SR_DMA1_CH5)    /*!< DMA1 Channel 5 Interrupt */
+#endif /* SYSCFG_ITLINE11_SR_DMA1_CH5 */
 #define HAL_ITLINE_ADC            ((HAL_SYSCFG_ITLINE12 << 0x18U) | SYSCFG_ITLINE12_SR_ADC)         /*!< ADC Interrupt */
 #define HAL_ITLINE_TIM1_BRK       ((HAL_SYSCFG_ITLINE13 << 0x18U) | SYSCFG_ITLINE13_SR_TIM1_BRK)    /*!< TIM1 BRK Interrupt */
 #define HAL_ITLINE_TIM1_UPD       ((HAL_SYSCFG_ITLINE13 << 0x18U) | SYSCFG_ITLINE13_SR_TIM1_UPD)    /*!< TIM1 UPD Interrupt */
 #define HAL_ITLINE_TIM1_TRG       ((HAL_SYSCFG_ITLINE13 << 0x18U) | SYSCFG_ITLINE13_SR_TIM1_TRG)    /*!< TIM1 TRG Interrupt */
 #define HAL_ITLINE_TIM1_CCU       ((HAL_SYSCFG_ITLINE13 << 0x18U) | SYSCFG_ITLINE13_SR_TIM1_CCU)    /*!< TIM1 CCU Interrupt */
+#define HAL_ITLINE_TIM1_CC        ((HAL_SYSCFG_ITLINE14 << 0x18U) | SYSCFG_ITLINE14_SR_TIM1_CC)     /*!< TIM1 CC Interrupt */
+#if defined(TIM2)
+#define HAL_ITLINE_TIM2           ((HAL_SYSCFG_ITLINE15 << 0x18U) | SYSCFG_ITLINE15_SR_TIM2)        /*!< TIM2 Interrupt */
+#endif /* TIM2 */
 #define HAL_ITLINE_TIM3           ((HAL_SYSCFG_ITLINE16 << 0x18U) | SYSCFG_ITLINE16_SR_TIM3_GLB)    /*!< TIM3 Interrupt */
 #define HAL_ITLINE_TIM14          ((HAL_SYSCFG_ITLINE19 << 0x18U) | SYSCFG_ITLINE19_SR_TIM14_GLB)   /*!< TIM14 Interrupt */
 #define HAL_ITLINE_TIM16          ((HAL_SYSCFG_ITLINE21 << 0x18U) | SYSCFG_ITLINE21_SR_TIM16_GLB)   /*!< TIM16 Interrupt */
 #define HAL_ITLINE_TIM17          ((HAL_SYSCFG_ITLINE22 << 0x18U) | SYSCFG_ITLINE22_SR_TIM17_GLB)   /*!< TIM17 Interrupt */
 #define HAL_ITLINE_I2C1           ((HAL_SYSCFG_ITLINE23 << 0x18U) | SYSCFG_ITLINE23_SR_I2C1_GLB)    /*!< I2C1 Interrupt */
+#if defined(I2C2)
+#define HAL_ITLINE_I2C2           ((HAL_SYSCFG_ITLINE24 << 0x18U) | SYSCFG_ITLINE24_SR_I2C2_GLB)    /*!< I2C1 Interrupt */
+#endif /* I2C2 */
 #define HAL_ITLINE_SPI1           ((HAL_SYSCFG_ITLINE25 << 0x18U) | SYSCFG_ITLINE25_SR_SPI1)        /*!< SPI1 Interrupt */
+#if defined(SPI2)
+#define HAL_ITLINE_SPI2           ((HAL_SYSCFG_ITLINE26 << 0x18U) | SYSCFG_ITLINE25_SR_SPI2)        /*!< SPI1 Interrupt */
+#endif /* SPI2 */
 #define HAL_ITLINE_USART1         ((HAL_SYSCFG_ITLINE27 << 0x18U) | SYSCFG_ITLINE27_SR_USART1_GLB)  /*!< USART1 GLB Interrupt */
 #define HAL_ITLINE_USART2         ((HAL_SYSCFG_ITLINE28 << 0x18U) | SYSCFG_ITLINE28_SR_USART2_GLB)  /*!< USART2 GLB Interrupt */
 
@@ -293,50 +350,55 @@ typedef enum
 /** @brief  Freeze and Unfreeze Peripherals in Debug mode
   */
 
+#if defined(DBG_APB_FZ1_DBG_TIM2_STOP)
+#define __HAL_DBGMCU_FREEZE_TIM2()           SET_BIT(DBG->APBFZ1, DBG_APB_FZ1_DBG_TIM2_STOP)
+#define __HAL_DBGMCU_UNFREEZE_TIM2()         CLEAR_BIT(DBG->APBFZ1, DBG_APB_FZ1_DBG_TIM2_STOP)
+#endif /* DBG_APB_FZ1_DBG_TIM2_STOP */
+
 #if defined(DBG_APB_FZ1_DBG_TIM3_STOP)
 #define __HAL_DBGMCU_FREEZE_TIM3()           SET_BIT(DBG->APBFZ1, DBG_APB_FZ1_DBG_TIM3_STOP)
 #define __HAL_DBGMCU_UNFREEZE_TIM3()         CLEAR_BIT(DBG->APBFZ1, DBG_APB_FZ1_DBG_TIM3_STOP)
-#endif
+#endif /* DBG_APB_FZ1_DBG_TIM3_STOP */
 
 #if defined(DBG_APB_FZ1_DBG_RTC_STOP)
 #define __HAL_DBGMCU_FREEZE_RTC()            SET_BIT(DBG->APBFZ1, DBG_APB_FZ1_DBG_RTC_STOP)
 #define __HAL_DBGMCU_UNFREEZE_RTC()          CLEAR_BIT(DBG->APBFZ1, DBG_APB_FZ1_DBG_RTC_STOP)
-#endif
+#endif /* DBG_APB_FZ1_DBG_RTC_STOP */
 
 #if defined(DBG_APB_FZ1_DBG_WWDG_STOP)
 #define __HAL_DBGMCU_FREEZE_WWDG()           SET_BIT(DBG->APBFZ1, DBG_APB_FZ1_DBG_WWDG_STOP)
 #define __HAL_DBGMCU_UNFREEZE_WWDG()         CLEAR_BIT(DBG->APBFZ1, DBG_APB_FZ1_DBG_WWDG_STOP)
-#endif
+#endif /* DBG_APB_FZ1_DBG_RTC_STOP */
 
 #if defined(DBG_APB_FZ1_DBG_IWDG_STOP)
 #define __HAL_DBGMCU_FREEZE_IWDG()           SET_BIT(DBG->APBFZ1, DBG_APB_FZ1_DBG_IWDG_STOP)
 #define __HAL_DBGMCU_UNFREEZE_IWDG()         CLEAR_BIT(DBG->APBFZ1, DBG_APB_FZ1_DBG_IWDG_STOP)
-#endif
+#endif /* DBG_APB_FZ1_DBG_IWDG_STOP */
 
 #if defined(DBG_APB_FZ1_DBG_I2C1_SMBUS_TIMEOUT_STOP)
 #define __HAL_DBGMCU_FREEZE_I2C1_TIMEOUT()   SET_BIT(DBG->APBFZ1, DBG_APB_FZ1_DBG_I2C1_SMBUS_TIMEOUT_STOP)
 #define __HAL_DBGMCU_UNFREEZE_I2C1_TIMEOUT() CLEAR_BIT(DBG->APBFZ1, DBG_APB_FZ1_DBG_I2C1_SMBUS_TIMEOUT_STOP)
-#endif
+#endif /* DBG_APB_FZ1_DBG_I2C1_SMBUS_TIMEOUT_STOP */
 
 #if defined(DBG_APB_FZ2_DBG_TIM1_STOP)
 #define __HAL_DBGMCU_FREEZE_TIM1()           SET_BIT(DBG->APBFZ2, DBG_APB_FZ2_DBG_TIM1_STOP)
 #define __HAL_DBGMCU_UNFREEZE_TIM1()         CLEAR_BIT(DBG->APBFZ2, DBG_APB_FZ2_DBG_TIM1_STOP)
-#endif
+#endif /* DBG_APB_FZ2_DBG_TIM1_STOP */
 
 #if defined(DBG_APB_FZ2_DBG_TIM14_STOP)
 #define __HAL_DBGMCU_FREEZE_TIM14()          SET_BIT(DBG->APBFZ2, DBG_APB_FZ2_DBG_TIM14_STOP)
 #define __HAL_DBGMCU_UNFREEZE_TIM14()        CLEAR_BIT(DBG->APBFZ2, DBG_APB_FZ2_DBG_TIM14_STOP)
-#endif
+#endif /* DBG_APB_FZ2_DBG_TIM14_STOP */
 
 #if defined(DBG_APB_FZ2_DBG_TIM16_STOP)
 #define __HAL_DBGMCU_FREEZE_TIM16()          SET_BIT(DBG->APBFZ2, DBG_APB_FZ2_DBG_TIM16_STOP)
 #define __HAL_DBGMCU_UNFREEZE_TIM16()        CLEAR_BIT(DBG->APBFZ2, DBG_APB_FZ2_DBG_TIM16_STOP)
-#endif
+#endif /* DBG_APB_FZ2_DBG_TIM16_STOP */
 
 #if defined(DBG_APB_FZ2_DBG_TIM17_STOP)
 #define __HAL_DBGMCU_FREEZE_TIM17()          SET_BIT(DBG->APBFZ2, DBG_APB_FZ2_DBG_TIM17_STOP)
 #define __HAL_DBGMCU_UNFREEZE_TIM17()        CLEAR_BIT(DBG->APBFZ2, DBG_APB_FZ2_DBG_TIM17_STOP)
-#endif
+#endif /* DBG_APB_FZ2_DBG_TIM17_STOP */
 
 /**
   * @}
@@ -363,7 +425,7 @@ typedef enum
 /** @brief  Embedded SRAM mapped at 0x00000000
   */
 #define __HAL_SYSCFG_REMAPMEMORY_SRAM() \
-  MODIFY_REG(SYSCFG->CFGR1, SYSCFG_CFGR1_MEM_MODE, (SYSCFG_CFGR1_MEM_MODE_1|SYSCFG_CFGR1_MEM_MODE_0))
+  MODIFY_REG(SYSCFG->CFGR1, SYSCFG_CFGR1_MEM_MODE, (SYSCFG_CFGR1_MEM_MODE_1 | SYSCFG_CFGR1_MEM_MODE_0))
 
 /**
   * @brief  Return the boot mode as configured by user.
@@ -381,13 +443,17 @@ typedef enum
 /** @brief  Fast-mode Plus driving capability enable/disable macros
   * @param __FASTMODEPLUS__ This parameter can be a value of @ref SYSCFG_FastModePlus_GPIO
   */
-#define __HAL_SYSCFG_FASTMODEPLUS_ENABLE(__FASTMODEPLUS__)  do {assert_param(IS_SYSCFG_FASTMODEPLUS((__FASTMODEPLUS__)));\
-                                                                 SET_BIT(SYSCFG->CFGR1, (__FASTMODEPLUS__));\
-                                                               }while(0U)
+#define __HAL_SYSCFG_FASTMODEPLUS_ENABLE(__FASTMODEPLUS__)  \
+  do { \
+    assert_param(IS_SYSCFG_FASTMODEPLUS((__FASTMODEPLUS__)));\
+    SET_BIT(SYSCFG->CFGR1, (__FASTMODEPLUS__));\
+  }while(0U)
 
-#define __HAL_SYSCFG_FASTMODEPLUS_DISABLE(__FASTMODEPLUS__) do {assert_param(IS_SYSCFG_FASTMODEPLUS((__FASTMODEPLUS__)));\
-                                                                 CLEAR_BIT(SYSCFG->CFGR1, (__FASTMODEPLUS__));\
-                                                               }while(0U)
+#define __HAL_SYSCFG_FASTMODEPLUS_DISABLE(__FASTMODEPLUS__) \
+  do { \
+    assert_param(IS_SYSCFG_FASTMODEPLUS((__FASTMODEPLUS__)));\
+    CLEAR_BIT(SYSCFG->CFGR1, (__FASTMODEPLUS__));\
+  }while(0U)
 
 
 /** @brief  selection of the modulation envelope signal macro, using bits [7:6] of SYSCFG_CFGR1 register
@@ -486,7 +552,18 @@ typedef enum
                                        ((PIN) == HAL_BIND_WLCSP14_PING1_PA12)|| \
                                        ((PIN) == HAL_BIND_WLCSP14_PINJ3_PA3) || \
                                        ((PIN) == HAL_BIND_WLCSP14_PINJ3_PA4))
-#endif
+#elif (DEV_ID == 0x493UL)
+#define IS_HAL_SYSCFG_PINBINDING(PIN) (((PIN) == LL_PINMUX_WLCSP19_PINH3_PF2) || \
+                                       ((PIN) == LL_PINMUX_WLCSP19_PINH3_PA0) || \
+                                       ((PIN) == LL_PINMUX_WLCSP19_PINB1_PA14) || \
+                                       ((PIN) == LL_PINMUX_WLCSP19_PINB1_PA15) || \
+                                       ((PIN) == LL_PINMUX_TSSOP20_PIN20_PB6) || \
+                                       ((PIN) == LL_PINMUX_TSSOP20_PIN20_PB3) || \
+                                       ((PIN) == LL_PINMUX_TSSOP20_PIN20_PB4) || \
+                                       ((PIN) == LL_PINMUX_TSSOP20_PIN20_PB5) || \
+                                       ((PIN) == LL_PINMUX_WLCSP19_PINB3_PB7) || \
+                                       ((PIN) == LL_PINMUX_WLCSP19_PINB3_PB8))
+#endif /* DEV_ID == 0x443UL | DEV_ID == 0x453UL | DEV_ID == 0x493UL */
 /**
   * @}
   */
@@ -575,9 +652,6 @@ extern HAL_TickFreqTypeDef  uwTickFreq;
   */
 
 /* SYSCFG Control functions  ****************************************************/
-
-void HAL_SYSCFG_EnableIOAnalogSwitchBooster(void);
-void HAL_SYSCFG_DisableIOAnalogSwitchBooster(void);
 void HAL_SYSCFG_EnableRemap(uint32_t PinRemap);
 void HAL_SYSCFG_DisableRemap(uint32_t PinRemap);
 void HAL_SYSCFG_SetPinBinding(uint32_t pin_binding);

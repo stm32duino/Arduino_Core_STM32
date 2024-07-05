@@ -263,7 +263,7 @@ typedef enum
 #define IS_GPIO_PIN_ACTION(ACTION)  (((ACTION) == GPIO_PIN_RESET) || ((ACTION) == GPIO_PIN_SET))
 
 #define IS_GPIO_COMMON_PIN(__RESETMASK__, __SETMASK__)  \
-                                    (((uint32_t)(__RESETMASK__) & (uint32_t)(__SETMASK__)) == 0x00u)
+  (((uint32_t)(__RESETMASK__) & (uint32_t)(__SETMASK__)) == 0x00u)
 
 #define IS_GPIO_PIN(__PIN__)        ((((uint32_t)(__PIN__) & GPIO_PIN_MASK) != 0x00u) &&\
                                      (((uint32_t)(__PIN__) & ~GPIO_PIN_MASK) == 0x00u))

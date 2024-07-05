@@ -65,7 +65,17 @@ extern "C" {
 #define I2C_FASTMODEPLUS_PB8            (uint32_t)(0x00000010U | I2C_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus PB8 not supported   */
 #define I2C_FASTMODEPLUS_PB9            (uint32_t)(0x00000012U | I2C_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus PB9 not supported   */
 #endif /* SYSCFG_CFGR1_I2C_PB8_FMP */
+#if defined(SYSCFG_CFGR1_I2C_PC14_FMP)
+#define I2C_FASTMODEPLUS_PC14            SYSCFG_CFGR1_I2C_PC14_FMP                        /*!< Enable Fast Mode Plus on PC14       */
+#else
+#define I2C_FASTMODEPLUS_PC14            (uint32_t)(0x00000014U | I2C_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus PC14 not supported   */
+#endif /* SYSCFG_CFGR1_I2C_PC14_FMP */
 #define I2C_FASTMODEPLUS_I2C1           SYSCFG_CFGR1_I2C1_FMP                           /*!< Enable Fast Mode Plus on I2C1 pins */
+#if defined(SYSCFG_CFGR1_I2C2_FMP)
+#define I2C_FASTMODEPLUS_I2C2           SYSCFG_CFGR1_I2C2_FMP                           /*!< Enable Fast Mode Plus on I2C2 pins */
+#else
+#define I2C_FASTMODEPLUS_I2C2           (uint32_t)(0x00000200U | I2C_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus I2C2 not supported  */
+#endif /* SYSCFG_CFGR1_I2C2_FMP */
 /**
   * @}
   */
@@ -97,6 +107,7 @@ HAL_StatusTypeDef HAL_I2CEx_ConfigDigitalFilter(I2C_HandleTypeDef *hi2c, uint32_
 /**
   * @}
   */
+#if defined(I2C_CR1_WUPEN)
 
 /** @addtogroup I2CEx_Exported_Functions_Group2 WakeUp Mode Functions
   * @{
@@ -106,6 +117,7 @@ HAL_StatusTypeDef HAL_I2CEx_DisableWakeUp(I2C_HandleTypeDef *hi2c);
 /**
   * @}
   */
+#endif /* I2C_CR1_WUPEN */
 
 /** @addtogroup I2CEx_Exported_Functions_Group3 Fast Mode Plus Functions
   * @{
@@ -144,7 +156,9 @@ void HAL_I2CEx_DisableFastModePlus(uint32_t ConfigFastModePlus);
                                          (((__CONFIG__) & (I2C_FASTMODEPLUS_PB7))  == I2C_FASTMODEPLUS_PB7)     || \
                                          (((__CONFIG__) & (I2C_FASTMODEPLUS_PB8))  == I2C_FASTMODEPLUS_PB8)     || \
                                          (((__CONFIG__) & (I2C_FASTMODEPLUS_PB9))  == I2C_FASTMODEPLUS_PB9)     || \
-                                         (((__CONFIG__) & (I2C_FASTMODEPLUS_I2C1)) == I2C_FASTMODEPLUS_I2C1))
+                                         (((__CONFIG__) & (I2C_FASTMODEPLUS_PC14)) == I2C_FASTMODEPLUS_PC14)    || \
+                                         (((__CONFIG__) & (I2C_FASTMODEPLUS_I2C1)) == I2C_FASTMODEPLUS_I2C1)    || \
+                                         (((__CONFIG__) & (I2C_FASTMODEPLUS_I2C2)) == I2C_FASTMODEPLUS_I2C2))
 /**
   * @}
   */

@@ -31,7 +31,7 @@ extern "C" {
   * @{
   */
 
-#if defined (I2C1)
+#if defined (I2C1) || defined(I2C2)
 
 /** @defgroup I2C_LL I2C
   * @{
@@ -702,6 +702,7 @@ __STATIC_INLINE uint32_t LL_I2C_IsEnabledSlaveByteControl(const I2C_TypeDef *I2C
   return ((READ_BIT(I2Cx->CR1, I2C_CR1_SBC) == (I2C_CR1_SBC)) ? 1UL : 0UL);
 }
 
+#if defined(I2C_CR1_WUPEN)
 /**
   * @brief  Enable Wakeup from STOP.
   * @note   The macro IS_I2C_WAKEUP_FROMSTOP_INSTANCE(I2Cx) can be used to check whether or not
@@ -742,6 +743,7 @@ __STATIC_INLINE uint32_t LL_I2C_IsEnabledWakeUpFromStop(const I2C_TypeDef *I2Cx)
   return ((READ_BIT(I2Cx->CR1, I2C_CR1_WUPEN) == (I2C_CR1_WUPEN)) ? 1UL : 0UL);
 }
 
+#endif /* I2C_CR1_WUPEN */
 /**
   * @brief  Enable General Call.
   * @note   When enabled the Address 0x00 is ACKed.
@@ -2133,11 +2135,18 @@ __STATIC_INLINE uint32_t LL_I2C_GetSlaveAddr(const I2C_TypeDef *I2Cx)
 __STATIC_INLINE void LL_I2C_HandleTransfer(I2C_TypeDef *I2Cx, uint32_t SlaveAddr, uint32_t SlaveAddrSize,
                                            uint32_t TransferSize, uint32_t EndMode, uint32_t Request)
 {
+  /* Declaration of tmp to prevent undefined behavior of volatile usage */
+  uint32_t tmp = ((uint32_t)(((uint32_t)SlaveAddr & I2C_CR2_SADD) | \
+                             ((uint32_t)SlaveAddrSize & I2C_CR2_ADD10) | \
+                             (((uint32_t)TransferSize << I2C_CR2_NBYTES_Pos) & I2C_CR2_NBYTES) | \
+                             (uint32_t)EndMode | (uint32_t)Request) & (~0x80000000U));
+
+  /* update CR2 register */
   MODIFY_REG(I2Cx->CR2, I2C_CR2_SADD | I2C_CR2_ADD10 |
              (I2C_CR2_RD_WRN & (uint32_t)(Request >> (31U - I2C_CR2_RD_WRN_Pos))) |
              I2C_CR2_START | I2C_CR2_STOP | I2C_CR2_RELOAD |
              I2C_CR2_NBYTES | I2C_CR2_AUTOEND | I2C_CR2_HEAD10R,
-             SlaveAddr | SlaveAddrSize | (TransferSize << I2C_CR2_NBYTES_Pos) | EndMode | Request);
+             tmp);
 }
 
 /**
@@ -2259,7 +2268,7 @@ void LL_I2C_StructInit(LL_I2C_InitTypeDef *I2C_InitStruct);
   * @}
   */
 
-#endif /* I2C1 */
+#endif /* I2C1 || I2C2 */
 
 /**
   * @}

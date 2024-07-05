@@ -199,15 +199,15 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, const GPIO_InitTypeDef *pGPIO_Init)
 
         /* Configure Alternate function mapped with the current IO */
         tmp = GPIOx->AFR[position >> 3U];
-        tmp &= ~(0xFUL << ((position & 0x07U) * 4U)) ;
-        tmp |= ((pGPIO_Init->Alternate & 0x0FUL) << ((position & 0x07U) * 4U));
+        tmp &= ~(0xFUL << ((position & 0x07U) * GPIO_AFRL_AFSEL1_Pos)) ;
+        tmp |= ((pGPIO_Init->Alternate & 0x0FUL) << ((position & 0x07U) * GPIO_AFRL_AFSEL1_Pos));
         GPIOx->AFR[position >> 3U] = tmp;
       }
 
       /* Configure IO Direction mode (Input, Output, Alternate or Analog) */
       tmp = GPIOx->MODER;
-      tmp &= ~(GPIO_MODER_MODE0 << (position * 2U));
-      tmp |= ((pGPIO_Init->Mode & GPIO_MODE) << (position * 2U));
+      tmp &= ~(GPIO_MODER_MODE0 << (position * GPIO_MODER_MODE1_Pos));
+      tmp |= ((pGPIO_Init->Mode & GPIO_MODE) << (position * GPIO_MODER_MODE1_Pos));
       GPIOx->MODER = tmp;
 
       /* In case of Output or Alternate function mode selection */
@@ -219,8 +219,8 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, const GPIO_InitTypeDef *pGPIO_Init)
 
         /* Configure the IO Speed */
         tmp = GPIOx->OSPEEDR;
-        tmp &= ~(GPIO_OSPEEDR_OSPEED0 << (position * 2U));
-        tmp |= (pGPIO_Init->Speed << (position * 2U));
+        tmp &= ~(GPIO_OSPEEDR_OSPEED0 << (position * GPIO_OSPEEDR_OSPEED1_Pos));
+        tmp |= (pGPIO_Init->Speed << (position * GPIO_OSPEEDR_OSPEED1_Pos));
         GPIOx->OSPEEDR = tmp;
 
         /* Configure the IO Output Type */
@@ -237,8 +237,8 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, const GPIO_InitTypeDef *pGPIO_Init)
 
         /* Activate the Pull-up or Pull down resistor for the current IO */
         tmp = GPIOx->PUPDR;
-        tmp &= ~(GPIO_PUPDR_PUPD0 << (position * 2U));
-        tmp |= ((pGPIO_Init->Pull) << (position * 2U));
+        tmp &= ~(GPIO_PUPDR_PUPD0 << (position * GPIO_PUPDR_PUPD1_Pos));
+        tmp |= ((pGPIO_Init->Pull) << (position * GPIO_PUPDR_PUPD1_Pos));
         GPIOx->PUPDR = tmp;
       }
 
@@ -247,8 +247,8 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, const GPIO_InitTypeDef *pGPIO_Init)
       if ((pGPIO_Init->Mode & EXTI_MODE) == EXTI_MODE)
       {
         tmp = EXTI->EXTICR[position >> 2U];
-        tmp &= ~((0x0FUL) << (8U * (position & 0x03U)));
-        tmp |= (GPIO_GET_INDEX(GPIOx) << (8U * (position & 0x03U)));
+        tmp &= ~((0x0FUL) << ((position & 0x03U) * EXTI_EXTICR1_EXTI1_Pos));
+        tmp |= (GPIO_GET_INDEX(GPIOx) << ((position & 0x03U) * EXTI_EXTICR1_EXTI1_Pos));
         EXTI->EXTICR[position >> 2U] = tmp;
 
         /* Clear EXTI line configuration */
@@ -319,8 +319,8 @@ void HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
       /*------------------------- EXTI Mode Configuration --------------------*/
       /* Clear the External Interrupt or Event for the current IO */
       tmp = EXTI->EXTICR[position >> 2U];
-      tmp &= ((0x0FUL) << (8U * (position & 0x03U)));
-      if (tmp == (GPIO_GET_INDEX(GPIOx) << (8U * (position & 0x03U))))
+      tmp &= ((0x0FUL) << ((position & 0x03U) * EXTI_EXTICR1_EXTI1_Pos));
+      if (tmp == (GPIO_GET_INDEX(GPIOx) << ((position & 0x03U) * EXTI_EXTICR1_EXTI1_Pos)))
       {
         /* Clear EXTI line configuration */
         EXTI->IMR1 &= ~(iocurrent);
@@ -336,19 +336,19 @@ void HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
 
       /*------------------------- GPIO Mode Configuration --------------------*/
       /* Configure IO in Analog Mode */
-      GPIOx->MODER |= (GPIO_MODER_MODE0 << (position * 2U));
+      GPIOx->MODER |= (GPIO_MODER_MODE0 << (position * GPIO_MODER_MODE1_Pos));
 
       /* Configure the default Alternate Function in current IO */
-      GPIOx->AFR[position >> 3U] &= ~(0x0FUL << ((position & 0x07U) * 4U)) ;
+      GPIOx->AFR[position >> 3U] &= ~(0x0FUL << ((position & 0x07U) * GPIO_AFRL_AFSEL1_Pos)) ;
 
       /* Configure the default value for IO Speed */
-      GPIOx->OSPEEDR &= ~(GPIO_OSPEEDR_OSPEED0 << (position * 2U));
+      GPIOx->OSPEEDR &= ~(GPIO_OSPEEDR_OSPEED0 << (position * GPIO_OSPEEDR_OSPEED1_Pos));
 
       /* Configure the default value IO Output Type */
       GPIOx->OTYPER  &= ~(GPIO_OTYPER_OT0 << position);
 
       /* Deactivate the Pull-up and Pull-down resistor for the current IO */
-      GPIOx->PUPDR &= ~(GPIO_PUPDR_PUPD0 << (position * 2U));
+      GPIOx->PUPDR &= ~(GPIO_PUPDR_PUPD0 << (position * GPIO_PUPDR_PUPD1_Pos));
     }
 
     position++;

@@ -185,22 +185,23 @@ void HAL_PWR_DeInit(void)
   * @{
   */
 
-
 /**
   * @brief  Enable the WakeUp PINx functionality.
   * @param  WakeUpPinPolarity Specifies which Wake-Up pin to enable.
   *         This parameter can be one of the following legacy values which set
   *         the default polarity i.e. detection on high level (rising edge):
   *           @arg @ref PWR_WAKEUP_PIN1, PWR_WAKEUP_PIN2, PWR_WAKEUP_PIN3,
-  *                PWR_WAKEUP_PIN4, PWR_WAKEUP_PIN6
+  *                PWR_WAKEUP_PIN4, PWR_WAKEUP_PIN5 (Only on STM32C071xx), PWR_WAKEUP_PIN6
   *         or one of the following value where the user can explicitly specify
   *         the enabled pin and the chosen polarity:
   *           @arg @ref PWR_WAKEUP_PIN1_HIGH or PWR_WAKEUP_PIN1_LOW
   *           @arg @ref PWR_WAKEUP_PIN2_HIGH or PWR_WAKEUP_PIN2_LOW
   *           @arg @ref PWR_WAKEUP_PIN3_HIGH or PWR_WAKEUP_PIN3_LOW
   *           @arg @ref PWR_WAKEUP_PIN4_HIGH or PWR_WAKEUP_PIN4_LOW
+  *           @arg @ref PWR_WAKEUP_PIN5_HIGH or PWR_WAKEUP_PIN5_LOW (*)
   *           @arg @ref PWR_WAKEUP_PIN6_HIGH or PWR_WAKEUP_PIN6_LOW
   * @note  PWR_WAKEUP_PINx and PWR_WAKEUP_PINx_HIGH are equivalent.
+  * @note  (*) Availability depends on devices
   * @retval None
   */
 void HAL_PWR_EnableWakeUpPin(uint32_t WakeUpPinPolarity)
@@ -215,13 +216,13 @@ void HAL_PWR_EnableWakeUpPin(uint32_t WakeUpPinPolarity)
   SET_BIT(PWR->CR3, (PWR_CR3_EWUP & WakeUpPinPolarity));
 }
 
-
 /**
   * @brief  Disable the WakeUp PINx functionality.
   * @param  WakeUpPinx Specifies the Power Wake-Up pin to disable.
   *         This parameter can be one of the following values:
-  *           @arg @ref PWR_WAKEUP_PIN1, PWR_WAKEUP_PIN2, PWR_WAKEUP_PIN4,
-  *                PWR_WAKEUP_PIN6
+  *           @arg @ref PWR_WAKEUP_PIN1, PWR_WAKEUP_PIN2, PWR_WAKEUP_PIN3,
+  *                PWR_WAKEUP_PIN4, PWR_WAKEUP_PIN5 (*), PWR_WAKEUP_PIN6
+  * @note   (*) Availability depends on devices
   * @retval None
   */
 void HAL_PWR_DisableWakeUpPin(uint32_t WakeUpPinx)
@@ -230,7 +231,6 @@ void HAL_PWR_DisableWakeUpPin(uint32_t WakeUpPinx)
 
   CLEAR_BIT(PWR->CR3, (PWR_CR3_EWUP & WakeUpPinx));
 }
-
 
 /**
   * @brief  Enter Sleep mode.
@@ -272,7 +272,6 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
     __WFE();
   }
 }
-
 
 /**
   * @brief  Enter Stop mode
@@ -327,7 +326,6 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
   CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
 }
 
-
 /**
   * @brief  Enter Standby mode.
   * @note   In Standby mode,the HSI and the HSE oscillators are
@@ -354,7 +352,6 @@ void HAL_PWR_EnterSTANDBYMode(void)
   __WFI();
 }
 
-
 /**
   * @brief  Enable Sleep-On-Exit Cortex feature
   * @note   Set SLEEPONEXIT bit of SCR register. When this bit is set, the
@@ -370,7 +367,6 @@ void HAL_PWR_EnableSleepOnExit(void)
   SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPONEXIT_Msk));
 }
 
-
 /**
   * @brief  Disable Sleep-On-Exit Cortex feature
   * @note   Clear SLEEPONEXIT bit of SCR register. When this bit is set, the
@@ -384,7 +380,6 @@ void HAL_PWR_DisableSleepOnExit(void)
   CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPONEXIT_Msk));
 }
 
-
 /**
   * @brief  Enable Cortex Sev On Pending feature.
   * @note   Set SEVONPEND bit of SCR register. When this bit is set, enabled
@@ -397,7 +392,6 @@ void HAL_PWR_EnableSEVOnPend(void)
   /* Set SEVONPEND bit of Cortex System Control Register */
   SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SEVONPEND_Msk));
 }
-
 
 /**
   * @brief  Disable Cortex Sev On Pending feature.

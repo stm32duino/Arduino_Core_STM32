@@ -23,7 +23,7 @@
 #include "stm32_assert.h"
 #else
 #define assert_param(expr) ((void)0U)
-#endif
+#endif /* USE_FULL_ASSERT */
 /** @addtogroup STM32C0xx_LL_Driver
   * @{
   */
@@ -43,9 +43,12 @@
   */
 
 #define IS_LL_RCC_USART_CLKSOURCE(__VALUE__)  ((__VALUE__) == LL_RCC_USART1_CLKSOURCE)
-#define IS_LL_RCC_I2C_CLKSOURCE(__VALUE__)     ((__VALUE__) == LL_RCC_I2C1_CLKSOURCE)
-#define IS_LL_RCC_ADC_CLKSOURCE(__VALUE__)    (((__VALUE__) == LL_RCC_ADC_CLKSOURCE))
-#define IS_LL_RCC_I2S_CLKSOURCE(__VALUE__)    (((__VALUE__) == LL_RCC_I2S1_CLKSOURCE))
+#define IS_LL_RCC_I2C_CLKSOURCE(__VALUE__)    ((__VALUE__) == LL_RCC_I2C1_CLKSOURCE)
+#define IS_LL_RCC_ADC_CLKSOURCE(__VALUE__)    ((__VALUE__) == LL_RCC_ADC_CLKSOURCE)
+#define IS_LL_RCC_I2S_CLKSOURCE(__VALUE__)    ((__VALUE__) == LL_RCC_I2S1_CLKSOURCE)
+#if defined (USB_DRD_FS)
+#define IS_LL_RCC_USB_CLKSOURCE(__VALUE__)    ((__VALUE__) == LL_RCC_USB_CLKSOURCE)
+#endif /* USB_DRD_FS */
 
 /**
   * @}
@@ -58,9 +61,6 @@
 uint32_t RCC_GetSystemClockFreq(void);
 uint32_t RCC_GetHCLKClockFreq(uint32_t SYSCLK_Frequency);
 uint32_t RCC_GetPCLK1ClockFreq(uint32_t HCLK_Frequency);
-uint32_t RCC_PLL_GetFreqDomain_SYS(void);
-uint32_t RCC_PLL_GetFreqDomain_ADC(void);
-uint32_t RCC_PLL_GetFreqDomain_I2S1(void);
 /**
   * @}
   */
@@ -214,8 +214,10 @@ uint32_t LL_RCC_GetUSARTClockFreq(uint32_t USARTxSource)
   * @brief  Return I2Cx clock frequency
   * @param  I2CxSource This parameter can be one of the following values:
   *         @arg @ref LL_RCC_I2C1_CLKSOURCE
+  *         @arg @ref LL_RCC_I2C2_CLKSOURCE (*)
   * @retval I2C clock frequency (in Hz)
   *         - @ref  LL_RCC_PERIPH_FREQUENCY_NO indicates that HSI oscillator is not ready
+  * @note (*) peripheral not available on all devices
   */
 uint32_t LL_RCC_GetI2CClockFreq(uint32_t I2CxSource)
 {
@@ -246,9 +248,30 @@ uint32_t LL_RCC_GetI2CClockFreq(uint32_t I2CxSource)
         break;
     }
   }
-  else
+#if defined(I2C2)
+  else if (I2CxSource == LL_RCC_I2C2_CLKSOURCE)
   {
+    /* I2C2 CLK clock frequency */
+    switch (LL_RCC_GetI2CClockSource(I2CxSource))
+    {
+      case LL_RCC_I2C2_CLKSOURCE_SYSCLK: /* I2C2 Clock is System Clock */
+        i2c_frequency = RCC_GetSystemClockFreq();
+        break;
+
+      case LL_RCC_I2C2_CLKSOURCE_HSIKER:    /* I2C2 Clock is HSI Kernel */
+        if (LL_RCC_HSI_IsReady() == 1U)
+        {
+          i2c_frequency = (HSI_VALUE / ((LL_RCC_HSIKER_GetDivider() >> RCC_CR_HSIKERDIV_Pos) + 1U));
+        }
+        break;
+
+      case LL_RCC_I2C2_CLKSOURCE_PCLK1:  /* I2C2 Clock is PCLK1 */
+      default:
+        i2c_frequency = RCC_GetPCLK1ClockFreq(RCC_GetHCLKClockFreq(RCC_GetSystemClockFreq()));
+        break;
+    }
   }
+#endif /* I2C2 */
 
   return i2c_frequency;
 }
@@ -273,7 +296,10 @@ uint32_t LL_RCC_GetI2SClockFreq(uint32_t I2SxSource)
     switch (LL_RCC_GetI2SClockSource(I2SxSource))
     {
       case LL_RCC_I2S1_CLKSOURCE_HSIKER:    /* I2S1 Clock is HSI Kernel */
-        i2s_frequency = (HSI_VALUE / ((LL_RCC_HSIKER_GetDivider() >> RCC_CR_HSIKERDIV_Pos) + 1U));
+        if (LL_RCC_HSI_IsReady() == 1U)
+        {
+          i2s_frequency = (HSI_VALUE / ((LL_RCC_HSIKER_GetDivider() >> RCC_CR_HSIKERDIV_Pos) + 1U));
+        }
         break;
 
       case LL_RCC_I2S1_CLKSOURCE_PIN:          /* I2S1 Clock is External clock */
@@ -312,7 +338,10 @@ uint32_t LL_RCC_GetADCClockFreq(uint32_t ADCxSource)
       adc_frequency = RCC_GetSystemClockFreq();
       break;
     case LL_RCC_ADC_CLKSOURCE_HSIKER  :        /* HSI clock Kernel used as ADC clock source */
-      adc_frequency = (HSI_VALUE / ((LL_RCC_HSIKER_GetDivider() >> RCC_CR_HSIKERDIV_Pos) + 1U));
+      if (LL_RCC_HSI_IsReady() == 1U)
+      {
+        adc_frequency = (HSI_VALUE / ((LL_RCC_HSIKER_GetDivider() >> RCC_CR_HSIKERDIV_Pos) + 1U));
+      }
       break;
     default:
       adc_frequency = LL_RCC_PERIPH_FREQUENCY_NA;
@@ -362,6 +391,50 @@ uint32_t LL_RCC_GetRTCClockFreq(void)
   return rtc_frequency;
 }
 
+#if defined(USB_DRD_FS)
+/**
+  * @brief  Return USBx clock frequency
+  * @param  USBxSource This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_USB_CLKSOURCE
+  * @retval USB clock frequency (in Hz)
+  *         - @ref  LL_RCC_PERIPH_FREQUENCY_NO indicates that oscillator (HSI48) is not ready
+  *         - @ref  LL_RCC_PERIPH_FREQUENCY_NA indicates that no clock source selected
+  */
+uint32_t LL_RCC_GetUSBClockFreq(uint32_t USBxSource)
+{
+  uint32_t usb_frequency = LL_RCC_PERIPH_FREQUENCY_NO;
+
+  /* Check parameter */
+  assert_param(IS_LL_RCC_USB_CLKSOURCE(USBxSource));
+
+  /* USBCLK clock frequency */
+  switch (LL_RCC_GetUSBClockSource(USBxSource))
+  {
+#if defined(RCC_HSI48_SUPPORT)
+    case LL_RCC_USB_CLKSOURCE_HSI48:         /* HSI48 used as USB clock source */
+      if (LL_RCC_HSI48_IsReady() != 0U)
+      {
+        usb_frequency = HSI48_VALUE;
+      }
+      break;
+#endif /* RCC_HSI48_SUPPORT */
+
+    case LL_RCC_USB_CLKSOURCE_HSE:         /* HSE used as USB clock source */
+      if (LL_RCC_HSE_IsReady() != 0U)
+      {
+        usb_frequency = HSE_VALUE;
+      }
+      break;
+
+    default:
+      usb_frequency = LL_RCC_PERIPH_FREQUENCY_NA;
+      break;
+  }
+
+  return usb_frequency;
+}
+#endif /* USB_DRD_FS */
+
 /**
   * @}
   */
@@ -382,6 +455,9 @@ uint32_t RCC_GetSystemClockFreq(void)
 {
   uint32_t frequency;
   uint32_t hsidiv;
+#if defined(RCC_CR_SYSDIV)
+  uint32_t sysdiv = (uint32_t)(((RCC->CR & RCC_CR_SYSDIV) >> RCC_CR_SYSDIV_Pos) + 1U);
+#endif /* RCC_CR_SYSDIV */
 
   /* Get SYSCLK source -------------------------------------------------------*/
   switch (LL_RCC_GetSysClkSource())
@@ -389,12 +465,34 @@ uint32_t RCC_GetSystemClockFreq(void)
     case LL_RCC_SYS_CLKSOURCE_STATUS_HSE:  /* HSE used as system clock  source */
       frequency = HSE_VALUE;
       break;
+
     case LL_RCC_SYS_CLKSOURCE_STATUS_HSI:  /* HSI used as system clock  source */
+      hsidiv = (1UL << ((READ_BIT(RCC->CR, RCC_CR_HSIDIV)) >> RCC_CR_HSIDIV_Pos));
+      frequency = (HSI_VALUE / hsidiv);
+      break;
+
+    case LL_RCC_SYS_CLKSOURCE_STATUS_LSE:  /* LSE used as system clock  source */
+      frequency = LSE_VALUE;
+      break;
+
+    case LL_RCC_SYS_CLKSOURCE_STATUS_LSI:  /* LSI used as system clock  source */
+      frequency = LSI_VALUE;
+      break;
+
+#if defined(RCC_HSI48_SUPPORT)
+    case LL_RCC_SYS_CLKSOURCE_STATUS_HSIUSB48:  /* HSIUSB48 used as system clock  source */
+      frequency = HSI48_VALUE;
+      break;
+#endif /* RCC_HSI48_SUPPORT */
+
     default:
       hsidiv = (1UL << ((READ_BIT(RCC->CR, RCC_CR_HSIDIV)) >> RCC_CR_HSIDIV_Pos));
       frequency = (HSI_VALUE / hsidiv);
       break;
   }
+#if defined(RCC_CR_SYSDIV)
+  frequency = frequency / sysdiv;
+#endif /* RCC_CR_SYSDIV */
 
   return frequency;
 }

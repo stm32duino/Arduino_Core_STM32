@@ -56,7 +56,7 @@
   * @brief STM32C0xx HAL Driver version number
    */
 #define __STM32C0xx_HAL_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32C0xx_HAL_VERSION_SUB1   (0x01U) /*!< [23:16] sub1 version */
+#define __STM32C0xx_HAL_VERSION_SUB1   (0x02U) /*!< [23:16] sub1 version */
 #define __STM32C0xx_HAL_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
 #define __STM32C0xx_HAL_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32C0xx_HAL_VERSION         ((__STM32C0xx_HAL_VERSION_MAIN << 24U)\
@@ -176,11 +176,11 @@ HAL_StatusTypeDef HAL_Init(void)
 HAL_StatusTypeDef HAL_DeInit(void)
 {
   /* Reset of all peripherals */
-  __HAL_RCC_APB1_FORCE_RESET();
-  __HAL_RCC_APB1_RELEASE_RESET();
+  __HAL_RCC_APB1_GRP1_FORCE_RESET();
+  __HAL_RCC_APB1_GRP1_RELEASE_RESET();
 
-  __HAL_RCC_APB2_FORCE_RESET();
-  __HAL_RCC_APB2_RELEASE_RESET();
+  __HAL_RCC_APB1_GRP2_FORCE_RESET();
+  __HAL_RCC_APB1_GRP2_RELEASE_RESET();
 
   __HAL_RCC_AHB_FORCE_RESET();
   __HAL_RCC_AHB_RELEASE_RESET();
@@ -540,30 +540,9 @@ void HAL_DBGMCU_DisableDBGStandbyMode(void)
  ===============================================================================
     [..]  This section provides functions allowing to:
       (+) Enable/Disable Pin remap
-      (+) Enable/Disable the I/O analog switch voltage booster
 @endverbatim
   * @{
   */
-
-
-/**
-  * @brief  Enable the I/O analog switch voltage booster
-  * @retval None
-  */
-void HAL_SYSCFG_EnableIOAnalogSwitchBooster(void)
-{
-  SET_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_BOOSTEN);
-}
-
-/**
-  * @brief  Disable the I/O analog switch voltage booster
-  * @retval None
-  */
-void HAL_SYSCFG_DisableIOAnalogSwitchBooster(void)
-{
-  CLEAR_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_BOOSTEN);
-}
-
 /**
   * @brief  Enable the remap on PA11_PA12
   * @param  PinRemap specifies which pins have to be remapped

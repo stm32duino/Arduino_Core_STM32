@@ -65,7 +65,6 @@ typedef struct
   uint32_t RequestNumber; /*!< Specifies the number of DMA request that will be authorized after a sync event
                                This parameter must be a number between Min_Data = 1 and Max_Data = 32 */
 
-
 } HAL_DMA_MuxSyncConfigTypeDef;
 
 
@@ -116,6 +115,9 @@ typedef struct
 #define HAL_DMAMUX1_SYNC_DMAMUX1_CH0_EVT           16U     /*!<  Synchronization Signal is DMAMUX1 Channel0 Event  */
 #define HAL_DMAMUX1_SYNC_DMAMUX1_CH1_EVT           17U     /*!<  Synchronization Signal is DMAMUX1 Channel1 Event  */
 #define HAL_DMAMUX1_SYNC_DMAMUX1_CH2_EVT           18U     /*!<  Synchronization Signal is DMAMUX1 Channel2 Event  */
+#if defined(STM32C071xx)
+#define HAL_DMAMUX1_SYNC_DMAMUX1_CH3_EVT           19U     /*!<  Synchronization Signal is DMAMUX1 Channel3 Event  */
+#endif /* STM32C071xx */
 #define HAL_DMAMUX1_SYNC_TIM14_OC                  22U     /*!<  Synchronization Signal is TIM14 OC */
 
 /**
@@ -129,7 +131,6 @@ typedef struct
 #define HAL_DMAMUX_SYNC_RISING                     DMAMUX_CxCR_SPOL_0          /*!< synchronize with rising edge events */
 #define HAL_DMAMUX_SYNC_FALLING                    DMAMUX_CxCR_SPOL_1          /*!< synchronize with falling edge events */
 #define HAL_DMAMUX_SYNC_RISING_FALLING             DMAMUX_CxCR_SPOL            /*!< synchronize with rising and falling edge events */
-
 /**
   * @}
   */
@@ -156,8 +157,10 @@ typedef struct
 #define HAL_DMAMUX1_REQ_GEN_DMAMUX1_CH0_EVT    16U     /*!< Request generator Signal is DMAMUX1 Channel0 Event */
 #define HAL_DMAMUX1_REQ_GEN_DMAMUX1_CH1_EVT    17U     /*!< Request generator Signal is DMAMUX1 Channel1 Event */
 #define HAL_DMAMUX1_REQ_GEN_DMAMUX1_CH2_EVT    18U     /*!< Request generator Signal is DMAMUX1 Channel2 Event */
+#if defined(STM32C071xx)
+#define HAL_DMAMUX1_REQ_GEN_DMAMUX1_CH3_EVT    19U     /*!< Request generator Signal is DMAMUX1 Channel3 Event */
+#endif /* STM32C071xx */
 #define HAL_DMAMUX1_REQ_GEN_TIM14_OC           22U     /*!< Request generator Signal is TIM14 OC */
-
 /**
   * @}
   */
@@ -169,7 +172,6 @@ typedef struct
 #define HAL_DMAMUX_REQ_GEN_RISING              DMAMUX_RGxCR_GPOL_0         /*!< generate request on rising edge events */
 #define HAL_DMAMUX_REQ_GEN_FALLING             DMAMUX_RGxCR_GPOL_1         /*!< generate request on falling edge events */
 #define HAL_DMAMUX_REQ_GEN_RISING_FALLING      DMAMUX_RGxCR_GPOL           /*!< generate request on rising and falling edge events */
-
 /**
   * @}
   */

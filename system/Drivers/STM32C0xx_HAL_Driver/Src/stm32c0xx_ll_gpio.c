@@ -100,7 +100,7 @@
   *          - SUCCESS: GPIO registers are de-initialized
   *          - ERROR:   Wrong GPIO Port
   */
-ErrorStatus LL_GPIO_DeInit(GPIO_TypeDef *GPIOx)
+ErrorStatus LL_GPIO_DeInit(const GPIO_TypeDef *GPIOx)
 {
   ErrorStatus status = SUCCESS;
 
@@ -165,19 +165,16 @@ ErrorStatus LL_GPIO_Init(GPIO_TypeDef *GPIOx, LL_GPIO_InitTypeDef *GPIO_InitStru
 
   /* ------------------------- Configure the port pins ---------------- */
   /* Initialize  pinpos on first pin set */
-  pinpos = POSITION_VAL(GPIO_InitStruct->Pin);
+  pinpos = 0;
 
   /* Configure the port pins */
-  while (((GPIO_InitStruct->Pin) >> pinpos) != 0U)
+  while (((GPIO_InitStruct->Pin) >> pinpos) != 0x00u)
   {
     /* Get current io position */
-    currentpin = (GPIO_InitStruct->Pin) & (1UL << pinpos);
+    currentpin = (GPIO_InitStruct->Pin) & (0x00000001uL << pinpos);
 
-    if (currentpin != 0U)
+    if (currentpin != 0x00u)
     {
-      /* Pin Mode configuration */
-      LL_GPIO_SetPinMode(GPIOx, currentpin, GPIO_InitStruct->Mode);
-
       if ((GPIO_InitStruct->Mode == LL_GPIO_MODE_OUTPUT) || (GPIO_InitStruct->Mode == LL_GPIO_MODE_ALTERNATE))
       {
         /* Check Speed mode parameters */
@@ -185,6 +182,12 @@ ErrorStatus LL_GPIO_Init(GPIO_TypeDef *GPIOx, LL_GPIO_InitTypeDef *GPIO_InitStru
 
         /* Speed mode configuration */
         LL_GPIO_SetPinSpeed(GPIOx, currentpin, GPIO_InitStruct->Speed);
+
+        /* Check Output mode parameters */
+        assert_param(IS_LL_GPIO_OUTPUT_TYPE(GPIO_InitStruct->OutputType));
+
+        /* Output mode configuration*/
+        LL_GPIO_SetPinOutputType(GPIOx, currentpin, GPIO_InitStruct->OutputType);
       }
 
       /* Pull-up Pull down resistor configuration*/
@@ -196,7 +199,7 @@ ErrorStatus LL_GPIO_Init(GPIO_TypeDef *GPIOx, LL_GPIO_InitTypeDef *GPIO_InitStru
         assert_param(IS_LL_GPIO_ALTERNATE(GPIO_InitStruct->Alternate));
 
         /* Speed mode configuration */
-        if (POSITION_VAL(currentpin) < 8U)
+        if (currentpin < LL_GPIO_PIN_8)
         {
           LL_GPIO_SetAFPin_0_7(GPIOx, currentpin, GPIO_InitStruct->Alternate);
         }
@@ -205,19 +208,13 @@ ErrorStatus LL_GPIO_Init(GPIO_TypeDef *GPIOx, LL_GPIO_InitTypeDef *GPIO_InitStru
           LL_GPIO_SetAFPin_8_15(GPIOx, currentpin, GPIO_InitStruct->Alternate);
         }
       }
+
+      /* Pin Mode configuration */
+      LL_GPIO_SetPinMode(GPIOx, currentpin, GPIO_InitStruct->Mode);
     }
     pinpos++;
   }
 
-  if ((GPIO_InitStruct->Mode == LL_GPIO_MODE_OUTPUT) || (GPIO_InitStruct->Mode == LL_GPIO_MODE_ALTERNATE))
-  {
-    /* Check Output mode parameters */
-    assert_param(IS_LL_GPIO_OUTPUT_TYPE(GPIO_InitStruct->OutputType));
-
-    /* Output mode configuration*/
-    LL_GPIO_SetPinOutputType(GPIOx, GPIO_InitStruct->Pin, GPIO_InitStruct->OutputType);
-
-  }
   return (SUCCESS);
 }
 

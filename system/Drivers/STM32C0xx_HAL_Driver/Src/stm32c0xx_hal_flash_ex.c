@@ -136,7 +136,7 @@ static void            FLASH_OB_GetSecMem(uint32_t *BootEntry, uint32_t *SecSize
   *         the pages have been correctly erased)
   * @retval HAL Status
   */
-HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t *PageError)
+HAL_StatusTypeDef HAL_FLASHEx_Erase(const FLASH_EraseInitTypeDef *pEraseInit, uint32_t *PageError)
 {
   HAL_StatusTypeDef status;
   uint32_t index;
@@ -566,26 +566,30 @@ static void FLASH_OB_WRPConfig(uint32_t WRPArea, uint32_t WRPStartOffset, uint32
   *         This parameter can be a combination of @ref FLASH_OB_USER_Type
   * @param  UserConfig  The FLASH User Option Bytes values.
   *         This parameter can be a combination of:
-  *         @arg @ref FLASH_OB_USER_BOR_ENABLE,
-  *         @arg @ref FLASH_OB_USER_BOR_LEVEL,
-  *         @arg @ref FLASH_OB_USER_nRST_STOP,
-  *         @arg @ref FLASH_OB_USER_nRST_STANDBY,
-  *         @arg @ref FLASH_OB_USER_nRST_SHUTDOWN,
-  *         @arg @ref FLASH_OB_USER_IWDG_SW,
-  *         @arg @ref FLASH_OB_USER_IWDG_STOP,
-  *         @arg @ref FLASH_OB_USER_IWDG_STANDBY,
-  *         @arg @ref FLASH_OB_USER_WWDG_SW,
-  *         @arg @ref FLASH_OB_USER_SRAM_PARITY,
-  *         @arg @ref FLASH_OB_USER_nBOOT_SEL,
-  *         @arg @ref FLASH_OB_USER_nBOOT1,
-  *         @arg @ref FLASH_OB_USER_nBOOT0,
-  *         @arg @ref FLASH_OB_USER_INPUT_RESET_HOLDER
+  *         @arg @ref OB_USER_BOR_ENABLE,
+  *         @arg @ref OB_USER_BOR_LEVEL,
+  *         @arg @ref OB_USER_nRST_STOP,
+  *         @arg @ref OB_USER_nRST_STANDBY,
+  *         @arg @ref OB_USER_nRST_SHUTDOWN,
+  *         @arg @ref OB_USER_IWDG_SW,
+  *         @arg @ref OB_USER_IWDG_STOP,
+  *         @arg @ref OB_USER_IWDG_STANDBY,
+  *         @arg @ref OB_USER_WWDG_SW,
+  *         @arg @ref OB_USER_SRAM_PARITY,
+  *         @arg @ref OB_USER_nBOOT_SEL,
+  *         @arg @ref OB_USER_nBOOT1,
+  *         @arg @ref OB_USER_nBOOT0,
+  *         @arg @ref OB_USER_INPUT_RESET_HOLDER
+  *         @arg @ref OB_USER_SECURE_MUXING_EN
+  *         @arg @ref OB_USER_HSE_NOT_REMAPPED (*)
   * @param  RDPLevel  specifies the read protection level.
   *         This parameter can be one of the following values:
   *            @arg @ref OB_RDP_LEVEL_0 No protection
   *            @arg @ref OB_RDP_LEVEL_1 Memory Read protection
   *            @arg @ref OB_RDP_LEVEL_2 Full chip protection
   * @retval None
+  *
+  * @note   (*) available only on STM32C071xx devices.
   */
 static void FLASH_OB_OptrConfig(uint32_t UserType, uint32_t UserConfig, uint32_t RDPLevel)
 {
@@ -766,20 +770,24 @@ static uint32_t FLASH_OB_GetRDP(void)
 /**
   * @brief  Return the FLASH User Option Byte value.
   * @retval The FLASH User Option Bytes values. It will be a combination of all the following values:
-  *         @arg @ref FLASH_OB_USER_BOR_ENABLE,
-  *         @ref FLASH_OB_USER_BOR_LEVEL,
-  *         @ref FLASH_OB_USER_nRST_STOP,
-  *         @ref FLASH_OB_USER_nRST_STANDBY,
-  *         @ref FLASH_OB_USER_nRST_SHUTDOWN,
-  *         @ref FLASH_OB_USER_IWDG_SW,
-  *         @ref FLASH_OB_USER_IWDG_STOP,
-  *         @ref FLASH_OB_USER_IWDG_STANDBY,
-  *         @ref FLASH_OB_USER_WWDG_SW,
-  *         @ref FLASH_OB_USER_SRAM_PARITY,
-  *         @ref FLASH_OB_USER_nBOOT_SEL,
-  *         @ref FLASH_OB_USER_nBOOT1,
-  *         @ref FLASH_OB_USER_nBOOT0,
-  *         @ref FLASH_OB_USER_INPUT_RESET_HOLDER
+  *         @arg @ref OB_USER_BOR_ENABLE,
+  *         @ref OB_USER_BOR_LEVEL,
+  *         @ref OB_USER_nRST_STOP,
+  *         @ref OB_USER_nRST_STANDBY,
+  *         @ref OB_USER_nRST_SHUTDOWN,
+  *         @ref OB_USER_IWDG_SW,
+  *         @ref OB_USER_IWDG_STOP,
+  *         @ref OB_USER_IWDG_STANDBY,
+  *         @ref OB_USER_WWDG_SW,
+  *         @ref OB_USER_SRAM_PARITY,
+  *         @ref OB_USER_nBOOT_SEL,
+  *         @ref OB_USER_nBOOT1,
+  *         @ref OB_USER_nBOOT0,
+  *         @ref OB_USER_INPUT_RESET_HOLDER
+  *         @ref OB_USER_SECURE_MUXING_EN
+  *         @ref OB_USER_HSE_NOT_REMAPPED (*)
+  *
+  * @note   (*) available only on STM32C071xx devices.
   */
 static uint32_t FLASH_OB_GetUser(void)
 {

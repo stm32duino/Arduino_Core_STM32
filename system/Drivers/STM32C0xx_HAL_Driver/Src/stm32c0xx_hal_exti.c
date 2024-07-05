@@ -248,7 +248,6 @@ HAL_StatusTypeDef HAL_EXTI_SetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigT
   return HAL_OK;
 }
 
-
 /**
   * @brief  Get configuration of a dedicated Exti line.
   * @param  hexti Exti handle.
@@ -257,7 +256,7 @@ HAL_StatusTypeDef HAL_EXTI_SetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigT
   */
 HAL_StatusTypeDef HAL_EXTI_GetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigTypeDef *pExtiConfig)
 {
-  __IO uint32_t *regaddr;
+  const __IO uint32_t *regaddr;
   uint32_t regval;
   uint32_t linepos;
   uint32_t maskline;
@@ -343,7 +342,6 @@ HAL_StatusTypeDef HAL_EXTI_GetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigT
   return HAL_OK;
 }
 
-
 /**
   * @brief  Clear whole configuration of a dedicated Exti line.
   * @param  hexti Exti handle.
@@ -406,7 +404,6 @@ HAL_StatusTypeDef HAL_EXTI_ClearConfigLine(const EXTI_HandleTypeDef *hexti)
   return HAL_OK;
 }
 
-
 /**
   * @brief  Register callback for a dedicaated Exti line.
   * @param  hexti Exti handle.
@@ -443,7 +440,6 @@ HAL_StatusTypeDef HAL_EXTI_RegisterCallback(EXTI_HandleTypeDef *hexti, EXTI_Call
   return status;
 }
 
-
 /**
   * @brief  Store line number as handle private field.
   * @param  hexti Exti handle.
@@ -469,7 +465,6 @@ HAL_StatusTypeDef HAL_EXTI_GetHandle(EXTI_HandleTypeDef *hexti, uint32_t ExtiLin
     return HAL_OK;
   }
 }
-
 
 /**
   * @}
@@ -548,7 +543,7 @@ void HAL_EXTI_IRQHandler(const EXTI_HandleTypeDef *hexti)
   */
 uint32_t HAL_EXTI_GetPending(const EXTI_HandleTypeDef *hexti, uint32_t Edge)
 {
-  __IO uint32_t *regaddr;
+  const __IO uint32_t *regaddr;
   uint32_t regval;
   uint32_t linepos;
   uint32_t maskline;

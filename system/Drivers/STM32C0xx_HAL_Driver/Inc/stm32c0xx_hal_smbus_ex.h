@@ -57,6 +57,11 @@ extern "C" {
 #define SMBUS_FASTMODEPLUS_PB9            (uint32_t)(0x00000012U | SMBUS_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus PB9 not supported   */
 #endif /* SYSCFG_CFGR1_I2C_PB8_FMP */
 #define SMBUS_FASTMODEPLUS_I2C1           SYSCFG_CFGR1_I2C1_FMP                           /*!< Enable Fast Mode Plus on I2C1 pins */
+#if defined(SYSCFG_CFGR1_I2C2_FMP)
+#define SMBUS_FASTMODEPLUS_I2C2           SYSCFG_CFGR1_I2C2_FMP                           /*!< Enable Fast Mode Plus on I2C2 pins */
+#else
+#define SMBUS_FASTMODEPLUS_I2C2           (uint32_t)(0x00000200U | SMBUS_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus I2C2 not supported  */
+#endif /* SYSCFG_CFGR1_I2C2_FMP */
 /**
   * @}
   */
@@ -83,8 +88,10 @@ extern "C" {
   * @{
   */
 /* Peripheral Control functions  ************************************************/
+#if defined(I2C_CR1_WUPEN)
 HAL_StatusTypeDef HAL_SMBUSEx_EnableWakeUp(SMBUS_HandleTypeDef *hsmbus);
 HAL_StatusTypeDef HAL_SMBUSEx_DisableWakeUp(SMBUS_HandleTypeDef *hsmbus);
+#endif /* I2C_CR1_WUPEN */
 /**
   * @}
   */

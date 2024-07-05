@@ -130,7 +130,7 @@
   *          - SUCCESS: SPI registers are de-initialized
   *          - ERROR: SPI registers are not de-initialized
   */
-ErrorStatus LL_SPI_DeInit(SPI_TypeDef *SPIx)
+ErrorStatus LL_SPI_DeInit(const SPI_TypeDef *SPIx)
 {
   ErrorStatus status = ERROR;
 
@@ -149,6 +149,18 @@ ErrorStatus LL_SPI_DeInit(SPI_TypeDef *SPIx)
     status = SUCCESS;
   }
 #endif /* SPI1 */
+#if defined(SPI2)
+  if (SPIx == SPI2)
+  {
+    /* Force reset of SPI clock */
+    LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_SPI2);
+
+    /* Release reset of SPI clock */
+    LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_SPI2);
+
+    status = SUCCESS;
+  }
+#endif /* SPI2 */
 
   return status;
 }
@@ -343,7 +355,7 @@ void LL_SPI_StructInit(LL_SPI_InitTypeDef *SPI_InitStruct)
   *          - SUCCESS: SPI registers are de-initialized
   *          - ERROR: SPI registers are not de-initialized
   */
-ErrorStatus LL_I2S_DeInit(SPI_TypeDef *SPIx)
+ErrorStatus LL_I2S_DeInit(const SPI_TypeDef *SPIx)
 {
   return LL_SPI_DeInit(SPIx);
 }

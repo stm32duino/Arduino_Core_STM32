@@ -73,6 +73,89 @@
   * @{
   */
 
+#if defined (PWR_PVM_SUPPORT)
+/**
+  * @brief Enable the Power Voltage Monitoring for USB peripheral (power domain Vddio2)
+  * @retval None
+  */
+void HAL_PWREx_EnablePVMUSB(void)
+{
+  SET_BIT(PWR->CR2, PWR_CR2_PVM_VDDIO2_0);
+}
+
+/**
+  * @brief Disable the Power Voltage Monitoring for USB peripheral (power domain Vddio2)
+  * @retval None
+  */
+void HAL_PWREx_DisablePVMUSB(void)
+{
+  CLEAR_BIT(PWR->CR2, PWR_CR2_PVM_VDDIO2_0);
+}
+
+/**
+  * @brief Configure the Peripheral Voltage Monitoring (PVM).
+  * @param sConfigPVM: pointer to a PWR_PVMTypeDef structure that contains the
+  *        PVM configuration information.
+  * @note The API configures a single PVM according to the information contained
+  *       in the input structure. To configure several PVMs, the API must be singly
+  *       called for each PVM used.
+  * @note Refer to the electrical characteristics of your device datasheet for
+  *         more details about the voltage thresholds corresponding to each
+  *         detection level and to each monitored supply.
+  * @retval HAL status
+  */
+HAL_StatusTypeDef HAL_PWREx_ConfigPVM(PWR_PVMTypeDef *sConfigPVM)
+{
+  HAL_StatusTypeDef status = HAL_OK;
+
+  /* Check the parameters */
+  assert_param(IS_PWR_PVM_TYPE(sConfigPVM->PVMType));
+  assert_param(IS_PWR_PVM_MODE(sConfigPVM->Mode));
+
+  /* Configure EXTI 34 interrupts if so required:
+     scan through PVMType to detect which PVMx is set and
+     configure the corresponding EXTI line accordingly. */
+  switch (sConfigPVM->PVMType)
+  {
+    case PWR_PVM_USB:
+      /* Clear any previous config. Keep it clear if no event or IT mode is selected */
+      __HAL_PWR_PVM_EXTI_DISABLE_EVENT();
+      __HAL_PWR_PVM_EXTI_DISABLE_IT();
+      __HAL_PWR_PVM_EXTI_DISABLE_FALLING_EDGE();
+      __HAL_PWR_PVM_EXTI_DISABLE_RISING_EDGE();
+
+      /* Configure interrupt mode */
+      if ((sConfigPVM->Mode & PVM_MODE_IT) == PVM_MODE_IT)
+      {
+        __HAL_PWR_PVM_EXTI_ENABLE_IT();
+      }
+
+      /* Configure event mode */
+      if ((sConfigPVM->Mode & PVM_MODE_EVT) == PVM_MODE_EVT)
+      {
+        __HAL_PWR_PVM_EXTI_ENABLE_EVENT();
+      }
+
+      /* Configure the edge */
+      if ((sConfigPVM->Mode & PVM_RISING_EDGE) == PVM_RISING_EDGE)
+      {
+        __HAL_PWR_PVM_EXTI_ENABLE_RISING_EDGE();
+      }
+
+      if ((sConfigPVM->Mode & PVM_FALLING_EDGE) == PVM_FALLING_EDGE)
+      {
+        __HAL_PWR_PVM_EXTI_ENABLE_FALLING_EDGE();
+      }
+      break;
+
+    default:
+      status = HAL_ERROR;
+      break;
+  }
+
+  return status;
+}
+#endif /* PWR_PVM_SUPPORT */
 /**
   * @brief  Enable Internal Wake-up Line.
   * @retval None
@@ -135,12 +218,12 @@ HAL_StatusTypeDef HAL_PWREx_EnableGPIOPullUp(uint32_t GPIO, uint32_t GPIONumber)
       SET_BIT(PWR->PUCRC, GPIONumber);
       CLEAR_BIT(PWR->PDCRC, GPIONumber);
       break;
-#if defined (STM32C031xx)
+#if defined (GPIOD)
     case PWR_GPIO_D:
       SET_BIT(PWR->PUCRD, GPIONumber);
       CLEAR_BIT(PWR->PDCRD, GPIONumber);
       break;
-#endif /* STM32C031xx */
+#endif /* GPIOD */
     case PWR_GPIO_F:
       SET_BIT(PWR->PUCRF, GPIONumber);
       CLEAR_BIT(PWR->PDCRF, GPIONumber);
@@ -188,11 +271,11 @@ HAL_StatusTypeDef HAL_PWREx_DisableGPIOPullUp(uint32_t GPIO, uint32_t GPIONumber
     case PWR_GPIO_C:
       CLEAR_BIT(PWR->PUCRC, GPIONumber);
       break;
-#if defined (STM32C031xx)
+#if defined (GPIOD)
     case PWR_GPIO_D:
       CLEAR_BIT(PWR->PUCRD, GPIONumber);
       break;
-#endif /* STM32C031xx */
+#endif /* GPIOD */
     case PWR_GPIO_F:
       CLEAR_BIT(PWR->PUCRF, GPIONumber);
       break;
@@ -248,12 +331,12 @@ HAL_StatusTypeDef HAL_PWREx_EnableGPIOPullDown(uint32_t GPIO, uint32_t GPIONumbe
       SET_BIT(PWR->PDCRC, GPIONumber);
       CLEAR_BIT(PWR->PUCRC, GPIONumber);
       break;
-#if defined (STM32C031xx)
+#if defined (GPIOD)
     case PWR_GPIO_D:
       SET_BIT(PWR->PDCRD, GPIONumber);
       CLEAR_BIT(PWR->PUCRD, GPIONumber);
       break;
-#endif /* STM32C031xx */
+#endif /* GPIOD */
     case PWR_GPIO_F:
       SET_BIT(PWR->PDCRF, GPIONumber);
       CLEAR_BIT(PWR->PUCRF, GPIONumber);
@@ -301,11 +384,11 @@ HAL_StatusTypeDef HAL_PWREx_DisableGPIOPullDown(uint32_t GPIO, uint32_t GPIONumb
     case PWR_GPIO_C:
       CLEAR_BIT(PWR->PDCRC, GPIONumber);
       break;
-#if defined (STM32C031xx)
+#if defined (GPIOD)
     case PWR_GPIO_D:
       CLEAR_BIT(PWR->PDCRD, GPIONumber);
       break;
-#endif /* STM32C031xx */
+#endif /* GPIOD */
     case PWR_GPIO_F:
       CLEAR_BIT(PWR->PDCRF, GPIONumber);
       break;
