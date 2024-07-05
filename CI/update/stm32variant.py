@@ -2647,6 +2647,11 @@ else:
 
 if args.family:
     filtered_family = args.family.upper()
+    filtered_family = filtered_family.removeprefix("STM32")
+    while filtered_family.endswith("X"):
+        filtered_family = filtered_family.rstrip("X")
+    filtered_family = f"STM32{filtered_family}"
+
 # Get all xml files
 mcu_list = sorted(dirMCU.glob("STM32*.xml"))
 
@@ -2678,6 +2683,13 @@ for mcu_file in mcu_list:
         and filtered_family not in mcu_family
         or any(skp in mcu_refname for skp in refname_filter)
     ):
+        # Add a warning if filtered family is requested
+        if filtered_family and filtered_family not in refname_filter:
+            for skp in refname_filter:
+                if skp == filtered_family:
+                    print(f"Requested family {filtered_family} is filtered!")
+                    print("Please update the refname_filter list.")
+                    quit()
         xml_mcu.unlink()
         continue
 
