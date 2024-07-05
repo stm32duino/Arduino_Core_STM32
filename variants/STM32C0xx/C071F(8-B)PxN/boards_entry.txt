@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic C071F8PxN
+GenC0.menu.pnum.GENERIC_C071F8PXN=Generic C071F8PxN
+GenC0.menu.pnum.GENERIC_C071F8PXN.upload.maximum_size=65536
+GenC0.menu.pnum.GENERIC_C071F8PXN.upload.maximum_data_size=24576
+GenC0.menu.pnum.GENERIC_C071F8PXN.build.board=GENERIC_C071F8PXN
+GenC0.menu.pnum.GENERIC_C071F8PXN.build.product_line=STM32C071xx
+GenC0.menu.pnum.GENERIC_C071F8PXN.build.variant=STM32C0xx/C071F(8-B)PxN
+
+# Generic C071FBPxN
+GenC0.menu.pnum.GENERIC_C071FBPXN=Generic C071FBPxN
+GenC0.menu.pnum.GENERIC_C071FBPXN.upload.maximum_size=131072
+GenC0.menu.pnum.GENERIC_C071FBPXN.upload.maximum_data_size=24576
+GenC0.menu.pnum.GENERIC_C071FBPXN.build.board=GENERIC_C071FBPXN
+GenC0.menu.pnum.GENERIC_C071FBPXN.build.product_line=STM32C071xx
+GenC0.menu.pnum.GENERIC_C071FBPXN.build.variant=STM32C0xx/C071F(8-B)PxN
+

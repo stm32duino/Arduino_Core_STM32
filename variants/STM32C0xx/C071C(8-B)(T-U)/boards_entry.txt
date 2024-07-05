@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic C071C8Tx
+GenC0.menu.pnum.GENERIC_C071C8TX=Generic C071C8Tx
+GenC0.menu.pnum.GENERIC_C071C8TX.upload.maximum_size=65536
+GenC0.menu.pnum.GENERIC_C071C8TX.upload.maximum_data_size=24576
+GenC0.menu.pnum.GENERIC_C071C8TX.build.board=GENERIC_C071C8TX
+GenC0.menu.pnum.GENERIC_C071C8TX.build.product_line=STM32C071xx
+GenC0.menu.pnum.GENERIC_C071C8TX.build.variant=STM32C0xx/C071C(8-B)(T-U)
+
+# Generic C071C8Ux
+GenC0.menu.pnum.GENERIC_C071C8UX=Generic C071C8Ux
+GenC0.menu.pnum.GENERIC_C071C8UX.upload.maximum_size=65536
+GenC0.menu.pnum.GENERIC_C071C8UX.upload.maximum_data_size=24576
+GenC0.menu.pnum.GENERIC_C071C8UX.build.board=GENERIC_C071C8UX
+GenC0.menu.pnum.GENERIC_C071C8UX.build.product_line=STM32C071xx
+GenC0.menu.pnum.GENERIC_C071C8UX.build.variant=STM32C0xx/C071C(8-B)(T-U)
+
+# Generic C071CBTx
+GenC0.menu.pnum.GENERIC_C071CBTX=Generic C071CBTx
+GenC0.menu.pnum.GENERIC_C071CBTX.upload.maximum_size=131072
+GenC0.menu.pnum.GENERIC_C071CBTX.upload.maximum_data_size=24576
+GenC0.menu.pnum.GENERIC_C071CBTX.build.board=GENERIC_C071CBTX
+GenC0.menu.pnum.GENERIC_C071CBTX.build.product_line=STM32C071xx
+GenC0.menu.pnum.GENERIC_C071CBTX.build.variant=STM32C0xx/C071C(8-B)(T-U)
+
+# Generic C071CBUx
+GenC0.menu.pnum.GENERIC_C071CBUX=Generic C071CBUx
+GenC0.menu.pnum.GENERIC_C071CBUX.upload.maximum_size=131072
+GenC0.menu.pnum.GENERIC_C071CBUX.upload.maximum_data_size=24576
+GenC0.menu.pnum.GENERIC_C071CBUX.build.board=GENERIC_C071CBUX
+GenC0.menu.pnum.GENERIC_C071CBUX.build.product_line=STM32C071xx
+GenC0.menu.pnum.GENERIC_C071CBUX.build.variant=STM32C0xx/C071C(8-B)(T-U)
+
