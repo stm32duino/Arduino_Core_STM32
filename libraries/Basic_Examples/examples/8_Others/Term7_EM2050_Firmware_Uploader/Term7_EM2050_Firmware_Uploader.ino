@@ -14,7 +14,7 @@
  * @version 1.1.0
  */
 
-#if ((LEAT_BOARD_VERSION != 7) || (LEAT_BOARD_VERSION != 7001))
+#if ((LEAT_BOARD_VERSION != 7) && (LEAT_BOARD_VERSION != 7001))
 #error This sketch supports only EchoStar-Term-7 Board.
 #endif
 
@@ -71,6 +71,7 @@ void loop()
       digitalWrite(LED_BUILTIN, LOW);
     }
   }
+  button_press_counter = 0;
 
   if (Serial2.available())
   {
