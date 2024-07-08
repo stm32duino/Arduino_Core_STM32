@@ -40,12 +40,14 @@ This reposistory contains the Arduino Core for LEAT EchoStar Terminals.
 5. Copy & Add the following JSON URL to your "**Additional Board Manager URL**"
 ```
 https://fabienferrero.github.io/ArduinoBoardManagerJSON/package_leat-echostar-terminal_index.json
+https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json
 ``` 
 5. Open the Boards Manager from the **Tools** -> **Board menu** and install "_LEAT EchoStar Terminals_"
-6. Select your board from the **Tools** -> **Board menu**
-7. Config the appropriate settings in **Tools** menu (we use DFU to upload the code)
-8. Reset the Echostar terminal in boot mode (press the boot and reset buttons at the same time, and release the reset button first)
-9. Upload your source code.
+6. Install [STM32CubeProg](https://www.st.com/en/development-tools/stm32cubeprog.html)
+7. In ArduinoIDE, Select your board from the **Tools** -> **Board menu**
+8. Config the appropriate settings in **Tools** menu (we use DFU to upload the code)
+9. Reset the Echostar terminal in boot mode (press the boot and reset buttons at the same time, and release the reset button first)
+10. Upload your source code.
 
 # Integrated example
 
