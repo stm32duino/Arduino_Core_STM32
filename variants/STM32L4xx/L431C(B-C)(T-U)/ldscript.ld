@@ -46,7 +46,7 @@ _Min_Stack_Size = 0x400; /* required amount of stack */
 MEMORY
 {
   RAM    (xrw)    : ORIGIN = 0x20000000,   LENGTH = LD_MAX_DATA_SIZE
-  RAM2    (xrw)    : ORIGIN = 0x10000000,   LENGTH = 16K
+  RAM2    (xrw)    : ORIGIN = 0x2001C000,   LENGTH = 16K
   FLASH    (rx)    : ORIGIN = 0x8000000 + LD_FLASH_OFFSET, LENGTH = LD_MAX_SIZE - LD_FLASH_OFFSET
 }
 
