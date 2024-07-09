@@ -8405,6 +8405,15 @@ GenH5.upload.maximum_data_size=0
 GenH5.vid.0=0x0483
 GenH5.pid.0=0x5740
 
+# Generic H503KBUx
+GenH5.menu.pnum.GENERIC_H503KBUX=Generic H503KBUx
+GenH5.menu.pnum.GENERIC_H503KBUX.upload.maximum_size=131072
+GenH5.menu.pnum.GENERIC_H503KBUX.upload.maximum_data_size=32768
+GenH5.menu.pnum.GENERIC_H503KBUX.build.board=GENERIC_H503KBUX
+GenH5.menu.pnum.GENERIC_H503KBUX.build.product_line=STM32H503xx
+GenH5.menu.pnum.GENERIC_H503KBUX.build.variant=STM32H5xx/H503KBU
+GenH5.menu.pnum.GENERIC_H503KBUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H503.svd
+
 # Generic H503RBTx
 GenH5.menu.pnum.GENERIC_H503RBTX=Generic H503RBTx
 GenH5.menu.pnum.GENERIC_H503RBTX.upload.maximum_size=131072
