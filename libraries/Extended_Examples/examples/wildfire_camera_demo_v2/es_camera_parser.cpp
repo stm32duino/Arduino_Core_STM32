@@ -131,7 +131,7 @@ bool CameraParser_t::is_all_frame_data_ready_flag(void)
     bool res = true;
     for (int i = 0; i < NUM_OF_CAM_FRAME; i++)
     {
-        res &= frame_data_ready[i];
+        res = res && frame_data_ready[i];
     }
 
     return res;

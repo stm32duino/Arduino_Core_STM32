@@ -28,7 +28,7 @@ void setup(void)
 
   HEADER_SERIAL.begin(115200);
   USB_SERIAL.begin(115200);
-  while (!USB_SERIAL)
+  while ((!USB_SERIAL) && (millis() < 5000))
     ;
 
   USB_SERIAL.println("===== Sketch: wildfire_camera_demo_v2.ino =====");
@@ -45,12 +45,24 @@ void setup(void)
 
 void loop(void)
 {
-  get_gnss_data();
-  get_sensor_data();
-  get_camera_data();
+  USB_SERIAL.println("INFO: Device wake up !");
 
+  USB_SERIAL.println("INFO: Gathering GNSS Data");
+  get_gnss_data();
+  
+  USB_SERIAL.println("INFO: Gathering Sensors Data");
+  get_sensor_data();
+  
+  USB_SERIAL.println("INFO: Gathering Camera Data");
+  get_camera_data();
+  delay(100);
+
+  USB_SERIAL.println("INFO: Sending data to network");
   send_data();
 
+  delay(1000);
+
+  USB_SERIAL.println("INFO: Going to sleep mode");
   mcu_sleep(LORA_SENDING_PERIOD_S);
 }
 
@@ -59,7 +71,7 @@ void get_camera_data(void)
   CAMERA_DATA_PARSER.clear_frame_data();
 
   uint32_t camera_start_reading_timestamp_ms = millis();
-  while ((millis() - camera_start_reading_timestamp_ms <= 60000) && (CAMERA_DATA_PARSER.is_all_frame_data_ready_flag()))
+  while ((millis() - camera_start_reading_timestamp_ms <= 60000) && (!CAMERA_DATA_PARSER.is_all_frame_data_ready_flag()))
   {
     if (HEADER_SERIAL.available())
     {
@@ -117,6 +129,7 @@ void led_blink(unsigned int num_of_blink, unsigned int on_period_ms, unsigned in
 
 void sensor_init(void)
 {
+  // TODO: EchoV7 rev003 has different sensors
 }
 
 void em2050_init(void)
