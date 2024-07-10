@@ -144,7 +144,12 @@
 #endif
 
 // LoRaWAN definitions
-#define LORAWAN_BOARD_HAS_TCXO          0U
+
+#if defined(ARDUINO_RAK3172T_MODULE)
+  #define LORAWAN_BOARD_HAS_TCXO        1U
+#else
+  #define LORAWAN_BOARD_HAS_TCXO        0U
+#endif
 #define LORAWAN_BOARD_HAS_DCDC          1U
 #define LORAWAN_TX_CONFIG               RBI_CONF_RFO_HP
 
