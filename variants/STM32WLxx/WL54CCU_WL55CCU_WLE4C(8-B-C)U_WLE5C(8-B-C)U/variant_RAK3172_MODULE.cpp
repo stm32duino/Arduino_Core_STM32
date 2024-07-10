@@ -10,7 +10,7 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_RAK3172_MODULE)
+#if defined(ARDUINO_RAK3172_MODULE) || defined(ARDUINO_RAK3172T_MODULE)
 #include "pins_arduino.h"
 
 // Digital PinName array
@@ -104,4 +104,4 @@ WEAK void SystemClock_Config(void)
 }
 #endif
 
-#endif /* ARDUINO_RAK3172_MODULE */
+#endif /* ARDUINO_RAK3172_MODULE || ARDUINO_RAK3172T_MODULE */
