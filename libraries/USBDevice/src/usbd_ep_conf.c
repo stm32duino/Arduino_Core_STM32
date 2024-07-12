@@ -37,7 +37,11 @@ const ep_desc_t ep_def[] = {
 #else
   {0x00,       PMA_EP0_OUT_ADDR, PCD_SNG_BUF},
   {0x80,       PMA_EP0_IN_ADDR,  PCD_SNG_BUF},
+#ifndef USBD_CDC_USE_SINGLE_BUFFER
   {CDC_OUT_EP, PMA_CDC_OUT_ADDR, PCD_DBL_BUF},
+#else
+  {CDC_OUT_EP, PMA_CDC_OUT_ADDR, PCD_SNG_BUF},
+#endif
   {CDC_IN_EP,  PMA_CDC_IN_ADDR,  PCD_SNG_BUF},
   {CDC_CMD_EP, PMA_CDC_CMD_ADDR, PCD_SNG_BUF}
 #endif
