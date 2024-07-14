@@ -198,6 +198,8 @@ tools.massStorageCopy.upload.params.quiet=
 tools.massStorageCopy.upload.pattern="{tools_bin_path}/{cmd}" {upload.verbose} -I "{build.path}/{build.project_name}.bin" -O "{node}"
 
 # STM32CubeProgrammer upload
+tools.stm32CubeProg.busybox=
+tools.stm32CubeProg.busybox.windows={path}/win/busybox.exe
 tools.stm32CubeProg.path={runtime.tools.STM32Tools.path}
 tools.stm32CubeProg.cmd=stm32CubeProg.sh
 tools.stm32CubeProg.upload.params.verbose=
