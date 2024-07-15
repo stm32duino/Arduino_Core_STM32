@@ -56,6 +56,9 @@ void setup(void)
   gnss_init();
   em2050_init();
 
+  // Force to MSS Satellite mode
+  ECHOSTAR_SERIAL.println("AT+REGION=MSS-S");
+
   delay(1000);
   digitalWrite(LED_BUILTIN, LOW); // Done initialization
 }
