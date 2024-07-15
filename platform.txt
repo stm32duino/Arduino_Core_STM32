@@ -110,8 +110,10 @@ build.usb_flags=-DUSBCON {build.usb_speed} -DUSBD_VID={build.vid} -DUSBD_PID={bu
 # Boards should specify either both, or neither of these.
 build.vid={vid.0}
 build.pid={pid.0}
-upload.vid=0x0483
-upload.pid=0xdf11
+upload.vid.0=0x0483
+upload.pid.0=0xdf11
+upload.vid={upload.vid.0}
+upload.pid={upload.pid.0}
 
 # To customize the USB manufacturer or product string, must add defines
 # for them, e.g.:
