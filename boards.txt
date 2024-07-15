@@ -2524,7 +2524,7 @@ GenF1.debug.server.openocd.scripts.2=target/stm32f1x.cfg
 GenF1.vid.0=0x0483
 GenF1.pid.0=0x5740
 # DFU mode on built-in bootloader not available, assuming using STM32duino-bootloader
-GenF1.upload.vid.0=0xleaf
+GenF1.upload.vid.0=0x1eaf
 GenF1.upload.pid.0=0x0003
 
 # BLUEPILL_F103C6 board
@@ -12560,7 +12560,7 @@ GenFlight.menu.pnum.AFROFLIGHT_F103CB.build.board=AFROFLIGHT_F103CB
 GenFlight.menu.pnum.AFROFLIGHT_F103CB.build.product_line=STM32F103xB
 GenFlight.menu.pnum.AFROFLIGHT_F103CB.build.variant=STM32F1xx/F103C8T_F103CB(T-U)
 GenFlight.menu.pnum.AFROFLIGHT_F103CB.build.variant_h=variant_AFROFLIGHT_F103CB_XX.h
-GenFlight.menu.pnum.AFROFLIGHT_F103CB.upload.vid.0=0xleaf
+GenFlight.menu.pnum.AFROFLIGHT_F103CB.upload.vid.0=0x1eaf
 GenFlight.menu.pnum.AFROFLIGHT_F103CB.upload.pid.0=0x0003
 GenFlight.menu.pnum.AFROFLIGHT_F103CB.debug.server.openocd.scripts.2=target/stm32f1x.cfg
 GenFlight.menu.pnum.AFROFLIGHT_F103CB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
@@ -12574,7 +12574,7 @@ GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.build.board=AFROFLIGHT_F103CB_12M
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.build.product_line=STM32F103xB
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.build.variant=STM32F1xx/F103C8T_F103CB(T-U)
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.build.variant_h=variant_AFROFLIGHT_F103CB_XX.h
-GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.upload.vid.0=0xleaf
+GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.upload.vid.0=0x1eaf
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.upload.pid.0=0x0003
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.debug.server.openocd.scripts.2=target/stm32f1x.cfg
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
