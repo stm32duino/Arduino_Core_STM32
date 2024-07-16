@@ -38,6 +38,11 @@ TwoWire::TwoWire()
   memset((void *)&_i2c, 0, sizeof(_i2c));
   _i2c.sda = digitalPinToPinName(SDA);
   _i2c.scl = digitalPinToPinName(SCL);
+
+  txBuffer = nullptr;
+  txBufferAllocated = 0;
+  rxBuffer = nullptr;
+  rxBufferAllocated = 0;
 }
 
 TwoWire::TwoWire(uint32_t sda, uint32_t scl)
@@ -45,6 +50,11 @@ TwoWire::TwoWire(uint32_t sda, uint32_t scl)
   memset((void *)&_i2c, 0, sizeof(_i2c));
   _i2c.sda = digitalPinToPinName(sda);
   _i2c.scl = digitalPinToPinName(scl);
+
+  txBuffer = nullptr;
+  txBufferAllocated = 0;
+  rxBuffer = nullptr;
+  rxBufferAllocated = 0;
 }
 
 /**
@@ -74,14 +84,10 @@ void TwoWire::begin(uint8_t address, bool generalCall, bool NoStretchMode)
 {
   rxBufferIndex = 0;
   rxBufferLength = 0;
-  rxBuffer = nullptr;
-  rxBufferAllocated = 0;
   resetRxBuffer();
 
   txDataSize = 0;
   txAddress = 0;
-  txBuffer = nullptr;
-  txBufferAllocated = 0;
   resetTxBuffer();
 
   _i2c.__this = (void *)this;
