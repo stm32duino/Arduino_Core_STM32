@@ -55,6 +55,8 @@ def platformtxt_filter(key):
 
     if key[0] == "build" and key[1] != "info":
         return False
+    if key[0] == "vid" or key[0] == "pid":
+        return False
     return True
 
 
@@ -104,7 +106,12 @@ if __name__ == "__main__":
     shargs = parser.parse_args()
 
     platformtxt_cfg = parse_file(shargs.platform, reject=platformtxt_filter)
-    platformtxt_cfg = {"build": platformtxt_cfg["build"]}  # whitelist what we need
+    # whitelist what we need
+    platformtxt_cfg = {
+        "build": platformtxt_cfg["build"],
+        "vid": platformtxt_cfg["vid"],
+        "pid": platformtxt_cfg["pid"],
+    }
 
     boardstxt_cfg = parse_file(shargs.boards, reject=boardstxt_filter)
     del boardstxt_cfg["menu"]  # blacklist what we don't need
