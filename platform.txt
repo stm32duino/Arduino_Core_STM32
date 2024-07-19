@@ -153,7 +153,6 @@ extras.path={build.system.path}/extras
 
 # Create {build.opt} if not exists in the output sketch dir and force include of SrcWrapper library
 recipe.hooks.prebuild.1.pattern="{busybox}" sh "{extras.path}/prebuild.sh" "{build.path}" "{build.source.path}" "{runtime.platform.path}" "usb={build.enable_usb}" "virtio={build.enable_virtio}"
-recipe.hooks.postbuild.1.pattern="{busybox}" sh "{extras.path}/postbuild.sh" "{build.path}" "{build.series}" "{runtime.platform.path}"
 
 # compile patterns
 # ---------------------
