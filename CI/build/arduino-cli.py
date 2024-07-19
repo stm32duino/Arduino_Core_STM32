@@ -302,14 +302,14 @@ def check_config():
                     cli_config = cli_config["config"]
                 # Since arduino-cli 1.x config init does not create full config
                 if "directories" in cli_config.keys():
-                    if "data" in cli_config["directories"].key():
+                    if "data" in cli_config["directories"].keys():
                         if cli_config["directories"]["data"] is not None:
                             sketches_path_list.append(
                                 Path(cli_config["directories"]["data"])
                             )
                     else:
                         print("No data directory")
-                    if "user" in cli_config["directories"].key():
+                    if "user" in cli_config["directories"].keys():
                         if cli_config["directories"]["user"] is not None:
                             sketches_path_list.append(
                                 Path(cli_config["directories"]["user"])
