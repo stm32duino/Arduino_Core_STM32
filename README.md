@@ -9,7 +9,7 @@
 
 [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
 ![GitHub All Releases](https://img.shields.io/github/downloads/stm32duino/Arduino_Core_STM32/total.svg?label=downloads%20since%201.4.0)
-[![GitHub commits since latest release](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/latest/main)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2.8.0...main)
+[![GitHub commits since latest release](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/latest/main)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2.8.1...main)
 
 
 * [Introduction](https://github.com/stm32duino/Arduino_Core_STM32#Introduction)<br>
@@ -20,7 +20,7 @@
 
 ## Introduction
 
-This repo adds the support of STM32 MCU in Arduino IDE.<br>
+This repo adds the support of STM32 MCU in Arduino IDE 2.x.<br>
 
 This porting is based on:
 * [STM32Cube MCU Packages](https://www.st.com/en/embedded-software/stm32cube-mcu-packages.html) including:
@@ -29,17 +29,17 @@ This porting is based on:
     * CMSIS device definition for STM32
 * [CMSIS](https://developer.arm.com/embedded/cmsis): Cortex Microcontroller Software Interface Standard (CMSIS) is a vendor-independent hardware abstraction layer for the Cortex®-M processor series and defines generic tool interfaces. It has been packaged as a module for Arduino IDE: https://github.com/stm32duino/ArduinoModule-CMSIS
 * [GNU Arm Embedded Toolchain](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm): Arm Embedded GCC compiler, libraries and other GNU tools necessary for bare-metal software development on devices based on the Arm Cortex-M. Packages are provided thanks [The xPack GNU Arm Embedded GCC](https://xpack.github.io/arm-none-eabi-gcc/): https://github.com/xpack-dev-tools/arm-none-eabi-gcc-xpack
+
 ## Getting Started
 
-This repo is available as a package usable with [Arduino Boards Manager](https://www.arduino.cc/en/guide/cores).
+This repo is available as a package usable with [Arduino Boards Manager](https://docs.arduino.cc/learn/starting-guide/cores/).
 
 Add this link in the "*Additional Boards Managers URLs*" field:
 
 https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json
 
-**Warning**:
-* Default branch has changed to *main*.
-* Since core release 2.0.0 this link has changed.
+> [!WARNING]
+> Since core release 2.8.0, only Arduino IDE 2 is supported.
 
 For full instructions on using the "**Boards Manager**", see the [Getting Started](https://github.com/stm32duino/Arduino_Core_STM32/wiki/Getting-Started) page.
 
@@ -86,9 +86,10 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [SparkFun boards](#sparkfun-boards)
  - [ELV Boards](#elv-boards)
 
-**Note about Status**:
-  - :green_heart: board support is available since the specified release version.
-  - :yellow_heart: board support is available in the main branch and will be available in the specified release version.
+> [!Note]
+> - :green_heart: board support is available since the specified release version.
+> - :yellow_heart: board support is available in the main branch and will be available in the specified release version.
+
 
 ### [Nucleo 144](https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-eval-tools/stm32-mcu-eval-tools/stm32-nucleo-boards.html) boards
 
@@ -540,13 +541,13 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :yellow_heart:  | STM32H503KB | Generic Board | **2.8.1** |  |
+| :green_heart:  | STM32H503KB | Generic Board | *2.8.1* |  |
 | :green_heart:  | STM32H503RB | Generic Board | *2.7.0* |  |
 | :green_heart:  | STM32H563IIKxQ | Generic Board | *2.6.0* |  |
-| :yellow_heart:  | STM32H563RG<br>STM32H563RI | Generic Board | **2.8.1** |  |
+| :green_heart:  | STM32H563RG<br>STM32H563RI | Generic Board | *2.8.1* |  |
 | :green_heart:  | STM32H563ZG<br>STM32H563ZI | Generic Board | *2.6.0* |  |
 | :green_heart:  | STM32H573IIKxQ | Generic Board | *2.6.0* |  |
-| :yellow_heart:  | STM32H573RI | Generic Board | **2.8.1** |  |
+| :green_heart:  | STM32H573RI | Generic Board | *2.8.1* |  |
 | :green_heart:  | STM32H573ZI | Generic Board | *2.6.0* |  |
 
 ### Generic STM32H7 boards
@@ -679,7 +680,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32L412K8<br>STM32L412KB<br>STM32L422KB | Generic Board | *2.0.0* |  |
-| :yellow_heart:  | STM32L431CB<br>STM32L431CC | Generic Board | **2.8.1** |  |
+| :green_heart:  | STM32L431CB<br>STM32L431CC | Generic Board | *2.8.1* |  |
 | :green_heart:  | STM32L431RB<br>STM32L431RC | Generic Board | *2.3.0* |  |
 | :green_heart:  | STM32L432KB<br>STM32L432KC<br>STM32L442KC | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L433CBT<br>STM32L433CCT | Generic Board | *2.1.0* |  |
@@ -827,7 +828,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F072C8<br>STM32F072CB | [Elektor LoRa Node](https://github.com/ElektorLabs/180516-Elektor_LoRa_Node) | *1.8.0* | [More info](https://www.elektormagazine.com/labs/lorawan-node-experimental-platform) |
 | :green_heart:  | STM32WLE5JC | [LoRa-E5 mini](https://wiki.seeedstudio.com/LoRa_E5_mini/) | *2.6.0* |  |
 | :green_heart:  | STM32WLE5CC | [RAK3172 Module](https://github.com/RAKWireless/rakwireless-docs/tree/master/docs/Product-Categories/WisDuo/RAK3172-Module) | *2.6.0* |  |
-| :yellow_heart:  | STM32WLE5CC | [RAK3172T Module](https://github.com/RAKWireless/rakwireless-docs/tree/master/docs/Product-Categories/WisDuo/RAK3172-Module) | **2.8.1** | RAK3172 Module with TCXO |
+| :green_heart:  | STM32WLE5CC | [RAK3172T Module](https://github.com/RAKWireless/rakwireless-docs/tree/master/docs/Product-Categories/WisDuo/RAK3172-Module) | *2.8.1* | RAK3172 Module with TCXO |
 | :green_heart:  | STM32L151CB | [RAK811 LoRa Tracker](https://www.rakwireless.com/en/) | *1.4.0* | [Wiki](https://github.com/stm32duino/Arduino_Core_STM32/wiki/Connectivities#lora) |
 | :green_heart:  | STM32L051C8 | [RHF76-052](https://lora-alliance.org/lora_products/rhf76-052/) | *1.7.0* | Basic support |
 
