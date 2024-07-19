@@ -25,8 +25,8 @@ Nucleo_144.upload.maximum_size=0
 Nucleo_144.upload.maximum_data_size=0
 Nucleo_144.vid.0=0x0483
 Nucleo_144.pid.0=0x5740
-Nucleo_144.vid.1=0x0483
 # STlink V1/V2.1/V3
+Nucleo_144.vid.1=0x0483
 Nucleo_144.pid.1=0x3744
 Nucleo_144.vid.2=0x0483
 Nucleo_144.pid.2=0x3748
@@ -397,6 +397,7 @@ Nucleo_64.upload.maximum_data_size=0
 Nucleo_64.vid.0=0x0483
 Nucleo_64.pid.0=0x5740
 # STlink V1/V2.1/V3
+Nucleo_64.vid.1=0x0483
 Nucleo_64.pid.1=0x3744
 Nucleo_64.vid.2=0x0483
 Nucleo_64.pid.2=0x3748
@@ -876,6 +877,7 @@ Nucleo_32.upload.maximum_data_size=0
 Nucleo_32.vid.0=0x0483
 Nucleo_32.pid.0=0x5740
 # STlink V1/V2.1/V3
+Nucleo_32.vid.1=0x0483
 Nucleo_32.pid.1=0x3744
 Nucleo_32.vid.2=0x0483
 Nucleo_32.pid.2=0x3748
@@ -1038,6 +1040,7 @@ Disco.upload.maximum_data_size=0
 Disco.vid.0=0x0483
 Disco.pid.0=0x5740
 # STlink V1/V2.1/V3
+Disco.vid.1=0x0483
 Disco.pid.1=0x3744
 Disco.vid.2=0x0483
 Disco.pid.2=0x3748
@@ -1358,6 +1361,7 @@ Eval.upload.maximum_data_size=0
 Eval.vid.0=0x0483
 Eval.pid.0=0x5740
 # STlink V1/V2.1/V3
+Eval.vid.1=0x0483
 Eval.pid.1=0x3744
 Eval.vid.2=0x0483
 Eval.pid.2=0x3748
@@ -1420,8 +1424,6 @@ STM32MP1.name=STM32MP1 series coprocessor
 STM32MP1.build.flash_offset=0x0
 STM32MP1.upload.maximum_size=0
 STM32MP1.upload.maximum_data_size=0
-STM32MP1.vid.0=0x0483
-STM32MP1.pid.0=0x5740
 
 STM32MP1.build.core=arduino
 STM32MP1.build.board=STM32MP1
@@ -1469,8 +1471,6 @@ GenC0.build.flash_offset=0x0
 GenC0.upload.maximum_size=0
 GenC0.upload.maximum_data_size=0
 GenC0.debug.server.openocd.scripts.2=target/stm32c0x.cfg
-GenC0.vid.0=0x0483
-GenC0.pid.0=0x5740
 
 # Generic C011D6Yx
 GenC0.menu.pnum.GENERIC_C011D6YX=Generic C011D6Yx
@@ -11855,8 +11855,6 @@ GenWBA.build.flash_offset=0x0
 GenWBA.upload.maximum_size=0
 GenWBA.upload.maximum_data_size=0
 GenWBA.debug.server.openocd.scripts.2=target/stm32wbax.cfg
-GenWBA.vid.0=0x0483
-GenWBA.pid.0=0x5740
 
 # Generic WBA55CEUx
 GenWBA.menu.pnum.GENERIC_WBA55CEUX=Generic WBA55CEUx
@@ -11902,8 +11900,6 @@ GenWL.build.flash_offset=0x0
 GenWL.upload.maximum_size=0
 GenWL.upload.maximum_data_size=0
 GenWL.debug.server.openocd.scripts.2=target/stm32wlx.cfg
-GenWL.vid.0=0x0483
-GenWL.pid.0=0x5740
 
 # Generic WL54CCUx
 GenWL.menu.pnum.GENERIC_WL54CCUX=Generic WL54CCUx
@@ -12646,8 +12642,6 @@ IotContinuum.build.st_extra_flags=-D{build.product_line} {build.xSerial}
 IotContinuum.build.flash_offset=0x0
 IotContinuum.upload.maximum_size=0
 IotContinuum.upload.maximum_data_size=0
-IotContinuum.vid.0=0x0483
-IotContinuum.pid.0=0x5740
 
 # IoT continuum Dev Kit Board
 IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM=IoT continuum Dev Kit
@@ -12972,8 +12966,6 @@ ELV_Modular_System.build.board=ELV_Modular_System
 ELV_Modular_System.build.variant_h=variant_{build.board}.h
 ELV_Modular_System.upload.maximum_size=0
 ELV_Modular_System.upload.maximum_data_size=0
-ELV_Modular_System.vid.0=0x0483
-ELV_Modular_System.pid.0=0x5740
 
 # ELV-BM-TRX1 board
 ELV_Modular_System.menu.pnum.ELV_BM_TRX1=ELV-LW-Base ELV_BM_TRX1

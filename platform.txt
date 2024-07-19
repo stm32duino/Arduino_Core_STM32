@@ -109,6 +109,8 @@ build.usb_flags=-DUSBCON {build.usb_speed} -DUSBD_VID={build.vid} -DUSBD_PID={bu
 
 # Specify defaults for vid/pid
 # Boards should specify either both, or neither of these.
+vid.0=0x0483
+pid.0=0x5740
 build.vid={vid.0}
 build.pid={pid.0}
 upload.vid.0=0x0483
