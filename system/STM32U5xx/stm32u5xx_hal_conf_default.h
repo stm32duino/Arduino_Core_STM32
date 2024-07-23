@@ -86,6 +86,7 @@ extern "C" {
 #define HAL_RTC_MODULE_ENABLED
 #define HAL_SAI_MODULE_ENABLED
 #define HAL_SD_MODULE_ENABLED
+#define HAL_SDIO_MODULE_ENABLED
 #define HAL_SMARTCARD_MODULE_ENABLED
 #define HAL_SMBUS_MODULE_ENABLED
 #define HAL_SPI_MODULE_ENABLED
@@ -308,6 +309,9 @@ vary depending on the variations in voltage and temperature.*/
 #if !defined(USE_HAL_SD_REGISTER_CALLBACKS)
 #define  USE_HAL_SD_REGISTER_CALLBACKS         0U /* SD register callback disabled        */
 #endif
+#if !defined(USE_HAL_SDIO_REGISTER_CALLBACKS)
+#define  USE_HAL_SDIO_REGISTER_CALLBACKS       0U /* SDIO register callback disabled      */
+#endif
 #if !defined(USE_HAL_SDRAM_REGISTER_CALLBACKS)
 #define  USE_HAL_SDRAM_REGISTER_CALLBACKS      0U /* SDRAM register callback disabled     */
 #endif
@@ -355,6 +359,14 @@ vary depending on the variations in voltage and temperature.*/
 /* ################## SDMMC peripheral configuration ######################### */
 #if !defined (USE_SD_TRANSCEIVER)
 #define USE_SD_TRANSCEIVER            0U
+#endif
+
+/* ################## SDIO peripheral configuration ########################## */
+#if !defined (USE_SDIO_TRANSCEIVER)
+#define USE_SDIO_TRANSCEIVER          0U
+#endif
+#if !defined (SDIO_MAX_IO_NUMBER)
+#define SDIO_MAX_IO_NUMBER            7U /*!< SDIO device support maximum IO number */
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -501,6 +513,10 @@ vary depending on the variations in voltage and temperature.*/
 #ifdef HAL_SD_MODULE_ENABLED
 #include "stm32u5xx_hal_sd.h"
 #endif /* HAL_SD_MODULE_ENABLED */
+
+#ifdef HAL_SDIO_MODULE_ENABLED
+#include "stm32u5xx_hal_sdio.h"
+#endif /* HAL_SDIO_MODULE_ENABLED */
 
 #ifdef HAL_SMBUS_MODULE_ENABLED
 #include "stm32u5xx_hal_smbus.h"
