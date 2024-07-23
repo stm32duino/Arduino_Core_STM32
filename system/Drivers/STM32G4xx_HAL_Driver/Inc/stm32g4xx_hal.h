@@ -601,7 +601,9 @@ void HAL_SYSCFG_DisableIOSwitchBooster(void);
 void HAL_SYSCFG_EnableIOSwitchVDD(void);
 void HAL_SYSCFG_DisableIOSwitchVDD(void);
 
+#if defined(CCMSRAM_BASE)
 void HAL_SYSCFG_CCMSRAM_WriteProtectionEnable(uint32_t Page);
+#endif /* CCMSRAM_BASE */
 
 /**
   * @}

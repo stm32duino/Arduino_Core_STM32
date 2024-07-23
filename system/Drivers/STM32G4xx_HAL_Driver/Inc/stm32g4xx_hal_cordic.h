@@ -149,7 +149,6 @@ typedef  void (*pCORDIC_CallbackTypeDef)(CORDIC_HandleTypeDef *hcordic);  /*!< p
   * @}
   */
 
-
 /* Exported constants --------------------------------------------------------*/
 /** @defgroup CORDIC_Exported_Constants CORDIC Exported Constants
   * @{
@@ -166,6 +165,7 @@ typedef  void (*pCORDIC_CallbackTypeDef)(CORDIC_HandleTypeDef *hcordic);  /*!< p
 #if USE_HAL_CORDIC_REGISTER_CALLBACKS == 1
 #define HAL_CORDIC_ERROR_INVALID_CALLBACK  ((uint32_t)0x00000010U)   /*!< Invalid Callback error  */
 #endif /* USE_HAL_CORDIC_REGISTER_CALLBACKS */
+
 /**
   * @}
   */
@@ -183,6 +183,7 @@ typedef  void (*pCORDIC_CallbackTypeDef)(CORDIC_HandleTypeDef *hcordic);  /*!< p
 #define CORDIC_FUNCTION_HARCTANGENT ((uint32_t)(CORDIC_CSR_FUNC_2 | CORDIC_CSR_FUNC_1 | CORDIC_CSR_FUNC_0))/*!< Hyperbolic Arctangent */
 #define CORDIC_FUNCTION_NATURALLOG  ((uint32_t)(CORDIC_CSR_FUNC_3))                                        /*!< Natural Logarithm */
 #define CORDIC_FUNCTION_SQUAREROOT  ((uint32_t)(CORDIC_CSR_FUNC_3 | CORDIC_CSR_FUNC_0))                    /*!< Square Root */
+
 /**
   * @}
   */
@@ -212,6 +213,7 @@ typedef  void (*pCORDIC_CallbackTypeDef)(CORDIC_HandleTypeDef *hcordic);  /*!< p
 #define CORDIC_PRECISION_15CYCLES   ((uint32_t)(CORDIC_CSR_PRECISION_3\
                                                 | CORDIC_CSR_PRECISION_2 | CORDIC_CSR_PRECISION_1\
                                                 |CORDIC_CSR_PRECISION_0))
+
 /**
   * @}
   */
@@ -229,6 +231,7 @@ typedef  void (*pCORDIC_CallbackTypeDef)(CORDIC_HandleTypeDef *hcordic);  /*!< p
 #define CORDIC_SCALE_5              ((uint32_t)(CORDIC_CSR_SCALE_2 | CORDIC_CSR_SCALE_0))
 #define CORDIC_SCALE_6              ((uint32_t)(CORDIC_CSR_SCALE_2 | CORDIC_CSR_SCALE_1))
 #define CORDIC_SCALE_7              ((uint32_t)(CORDIC_CSR_SCALE_2 | CORDIC_CSR_SCALE_1 | CORDIC_CSR_SCALE_0))
+
 /**
   * @}
   */
@@ -237,6 +240,7 @@ typedef  void (*pCORDIC_CallbackTypeDef)(CORDIC_HandleTypeDef *hcordic);  /*!< p
   * @{
   */
 #define CORDIC_IT_IEN              CORDIC_CSR_IEN            /*!< Result ready interrupt enable */
+
 /**
   * @}
   */
@@ -245,6 +249,7 @@ typedef  void (*pCORDIC_CallbackTypeDef)(CORDIC_HandleTypeDef *hcordic);  /*!< p
   * @{
   */
 #define CORDIC_DMA_REN             CORDIC_CSR_DMAREN         /*!< DMA Read requests enable */
+
 /**
   * @}
   */
@@ -253,6 +258,7 @@ typedef  void (*pCORDIC_CallbackTypeDef)(CORDIC_HandleTypeDef *hcordic);  /*!< p
   * @{
   */
 #define CORDIC_DMA_WEN             CORDIC_CSR_DMAWEN         /*!< DMA Write channel enable */
+
 /**
   * @}
   */
@@ -288,6 +294,7 @@ typedef  void (*pCORDIC_CallbackTypeDef)(CORDIC_HandleTypeDef *hcordic);  /*!< p
   */
 #define CORDIC_INSIZE_32BITS       (0x00000000U)             /*!< 32 bits input data size (Q1.31 format) */
 #define CORDIC_INSIZE_16BITS       CORDIC_CSR_ARGSIZE        /*!< 16 bits input data size (Q1.15 format) */
+
 /**
   * @}
   */
@@ -297,6 +304,7 @@ typedef  void (*pCORDIC_CallbackTypeDef)(CORDIC_HandleTypeDef *hcordic);  /*!< p
   */
 #define CORDIC_OUTSIZE_32BITS      (0x00000000U)             /*!< 32 bits output data size (Q1.31 format) */
 #define CORDIC_OUTSIZE_16BITS      CORDIC_CSR_RESSIZE        /*!< 16 bits output data size (Q1.15 format) */
+
 /**
   * @}
   */
@@ -305,6 +313,7 @@ typedef  void (*pCORDIC_CallbackTypeDef)(CORDIC_HandleTypeDef *hcordic);  /*!< p
   * @{
   */
 #define CORDIC_FLAG_RRDY           CORDIC_CSR_RRDY           /*!< Result Ready Flag */
+
 /**
   * @}
   */
@@ -316,6 +325,7 @@ typedef  void (*pCORDIC_CallbackTypeDef)(CORDIC_HandleTypeDef *hcordic);  /*!< p
 #define CORDIC_DMA_DIR_IN          ((uint32_t)0x00000001U)   /*!< DMA direction : Input of CORDIC */
 #define CORDIC_DMA_DIR_OUT         ((uint32_t)0x00000002U)   /*!< DMA direction : Output of CORDIC */
 #define CORDIC_DMA_DIR_IN_OUT      ((uint32_t)0x00000003U)   /*!< DMA direction : Input and Output of CORDIC */
+
 /**
   * @}
   */
@@ -336,9 +346,9 @@ typedef  void (*pCORDIC_CallbackTypeDef)(CORDIC_HandleTypeDef *hcordic);  /*!< p
   */
 #if USE_HAL_CORDIC_REGISTER_CALLBACKS == 1
 #define __HAL_CORDIC_RESET_HANDLE_STATE(__HANDLE__) do{                                                \
-                                                        (__HANDLE__)->State = HAL_CORDIC_STATE_RESET;   \
-                                                        (__HANDLE__)->MspInitCallback = NULL;           \
-                                                        (__HANDLE__)->MspDeInitCallback = NULL;         \
+                                                        (__HANDLE__)->State = HAL_CORDIC_STATE_RESET;  \
+                                                        (__HANDLE__)->MspInitCallback = NULL;          \
+                                                        (__HANDLE__)->MspDeInitCallback = NULL;        \
                                                       } while(0)
 #else
 #define __HAL_CORDIC_RESET_HANDLE_STATE(__HANDLE__) ((__HANDLE__)->State = HAL_CORDIC_STATE_RESET)
@@ -416,7 +426,7 @@ typedef  void (*pCORDIC_CallbackTypeDef)(CORDIC_HandleTypeDef *hcordic);  /*!< p
   * @}
   */
 
-/* Private macros --------------------------------------------------------*/
+/* Private macros ------------------------------------------------------------*/
 /** @defgroup  CORDIC_Private_Macros   CORDIC Private Macros
   * @{
   */
@@ -584,6 +594,7 @@ void HAL_CORDIC_IRQHandler(CORDIC_HandleTypeDef *hcordic);
 /* Peripheral State functions *************************************************/
 HAL_CORDIC_StateTypeDef HAL_CORDIC_GetState(const CORDIC_HandleTypeDef *hcordic);
 uint32_t HAL_CORDIC_GetError(const CORDIC_HandleTypeDef *hcordic);
+
 /**
   * @}
   */

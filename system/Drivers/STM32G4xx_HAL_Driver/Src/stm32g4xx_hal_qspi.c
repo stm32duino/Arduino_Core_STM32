@@ -2680,6 +2680,9 @@ static void QSPI_Config(QSPI_HandleTypeDef *hqspi, QSPI_CommandTypeDef *cmd, uin
                                          cmd->AlternateBytesSize | cmd->AlternateByteMode |
                                          cmd->AddressMode | cmd->InstructionMode |
                                          cmd->Instruction | FunctionalMode));
+
+        /* Clear AR register */
+        CLEAR_REG(hqspi->Instance->AR);
       }
     }
     else
@@ -2707,6 +2710,9 @@ static void QSPI_Config(QSPI_HandleTypeDef *hqspi, QSPI_CommandTypeDef *cmd, uin
                                          cmd->DataMode | (cmd->DummyCycles << QUADSPI_CCR_DCYC_Pos) |
                                          cmd->AlternateByteMode | cmd->AddressMode |
                                          cmd->InstructionMode | cmd->Instruction | FunctionalMode));
+
+        /* Clear AR register */
+        CLEAR_REG(hqspi->Instance->AR);
       }
     }
   }
@@ -2741,6 +2747,9 @@ static void QSPI_Config(QSPI_HandleTypeDef *hqspi, QSPI_CommandTypeDef *cmd, uin
                                          cmd->DataMode | (cmd->DummyCycles << QUADSPI_CCR_DCYC_Pos) |
                                          cmd->AlternateBytesSize | cmd->AlternateByteMode |
                                          cmd->AddressMode | cmd->InstructionMode | FunctionalMode));
+
+        /* Clear AR register */
+        CLEAR_REG(hqspi->Instance->AR);
       }
     }
     else
@@ -2770,6 +2779,9 @@ static void QSPI_Config(QSPI_HandleTypeDef *hqspi, QSPI_CommandTypeDef *cmd, uin
                                            cmd->DataMode | (cmd->DummyCycles << QUADSPI_CCR_DCYC_Pos) |
                                            cmd->AlternateByteMode | cmd->AddressMode |
                                            cmd->InstructionMode | FunctionalMode));
+
+          /* Clear AR register */
+          CLEAR_REG(hqspi->Instance->AR);
         }
       }
     }

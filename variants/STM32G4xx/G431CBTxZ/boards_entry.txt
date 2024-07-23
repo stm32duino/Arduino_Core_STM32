@@ -1,0 +1,13 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic G431CBTxZ
+GenG4.menu.pnum.GENERIC_G431CBTXZ=Generic G431CBTxZ
+GenG4.menu.pnum.GENERIC_G431CBTXZ.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G431CBTXZ.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431CBTXZ.build.board=GENERIC_G431CBTXZ
+GenG4.menu.pnum.GENERIC_G431CBTXZ.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431CBTXZ.build.variant=STM32G4xx/G431CBTxZ
+

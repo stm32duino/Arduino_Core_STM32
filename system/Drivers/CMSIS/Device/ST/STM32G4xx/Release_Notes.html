@@ -5,11 +5,14 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Release Notes for STM32G4xx CMSIS</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <link rel="stylesheet" href="_htmresc/mini-st_2020.css" />
   <!--[if lt IE 9]>
@@ -31,7 +34,7 @@
 <ul>
 <li><p>STM32G431/41xx</p></li>
 <li><p>STM32G471xx</p></li>
-<li><p>STM32G473/83xx</p></li>
+<li><p>STM32G414/73/83xx</p></li>
 <li><p>STM32G474/84xx</p></li>
 </ul>
 <p>This driver is composed of the descriptions of the registers under “Include” directory.</p>
@@ -42,17 +45,56 @@
 <li>Linker files are provided as example for IAR©, KEIL© and STM32CubeIDE©.</li>
 </ul>
 </div>
-<div class="col-sm-12 col-lg-8">
-<h1 id="update-history">Update History</h1>
+<section id="update-history" class="col-sm-12 col-lg-8">
+<h1>Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section1_2_3" checked aria-hidden="true"> <label for="collapse-section1_2_3" aria-hidden="true">V1.2.3 / 15-December-2023</label>
+<input type="checkbox" id="collapse-section1_2_4" checked aria-hidden="true"> <label for="collapse-section1_2_4" aria-hidden="true">V1.2.4 / 05-June-2024</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <h3 id="maintenance-release">Maintenance release</h3>
 <ul>
-<li>General updates to fix known defects and enhancements implementation.</li>
+<li>Add support of <strong>stm32g414xx</strong> devices.</li>
 </ul>
 <h2 id="contents">Contents</h2>
+<ul>
+<li>Add support of <strong>stm32g414xx</strong> devices:
+<ul>
+<li>Add new cmsis device stm32g414xx.h file</li>
+<li>Add startup files “startup_stm32g414xx.s” for EWARM , MDK-ARM and GCC toolchains</li>
+<li>Add part numbers list to stm32g4xx.h header file:
+<ul>
+<li>STM32G414xx: STM32G414CB, STM32G414MB, STM32G414RB, STM32G414VB, STM32G414CC, STM32G414MC, STM32G414RC, STM32G414VC Devices</li>
+</ul></li>
+<li>Add EWARM STM32g414xx devices linker files (<strong>Subset flash</strong>) for EWARM toolchain</li>
+</ul></li>
+<li>Update STM32G483xx MDKARM startup file to add missing FDCAN1 IRQ handler in vector table</li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<h2 id="development-toolchains-and-compilers">Development Toolchains and Compilers</h2>
+<ul>
+<li>IAR Embedded Workbench for ARM (EWARM) toolchain <strong>V8.50.9</strong> + ST-Link</li>
+<li>RealView Microcontroller Development Kit (MDK-ARM) toolchain <strong>V5.38</strong> + ST-Link</li>
+<li>CubeIDE toolchain <strong>V1.14.0</strong></li>
+</ul>
+<h2 id="supported-devices-and-boards">Supported Devices and boards</h2>
+<ul>
+<li>STM32G431xx, STM32G441xx devices</li>
+<li>STM32G471xx devices</li>
+<li>STM32G473xx, STM32G483xx devices</li>
+<li>STM32G414xx, STM32G474xx, STM32G484xx devices</li>
+<li>STM32G491xx, STM32G4A1xx devices</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1_2_3" aria-hidden="true"> <label for="collapse-section1_2_3" aria-hidden="true">V1.2.3 / 15-December-2023</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<h3 id="maintenance-release-1">Maintenance release</h3>
+<ul>
+<li>General updates to fix known defects and enhancements implementation.</li>
+</ul>
+<h2 id="contents-1">Contents</h2>
 <table>
 <caption>Fixed bugs list<br />
 </caption>
@@ -79,14 +121,14 @@
 </tr>
 </tbody>
 </table>
-<h2 id="known-limitations">Known Limitations</h2>
-<h2 id="development-toolchains-and-compilers">Development Toolchains and Compilers</h2>
+<h2 id="known-limitations-1">Known Limitations</h2>
+<h2 id="development-toolchains-and-compilers-1">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain <strong>V8.50.9</strong> + ST-Link</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain <strong>V5.38</strong> + ST-Link</li>
 <li>CubeIDE toolchain <strong>V1.14.0</strong></li>
 </ul>
-<h2 id="supported-devices-and-boards">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-1">Supported Devices and boards</h2>
 <ul>
 <li>STM32G431xx, STM32G441xx devices</li>
 <li>STM32G471xx devices</li>
@@ -100,12 +142,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_2_2" aria-hidden="true"> <label for="collapse-section1_2_2" aria-hidden="true">V1.2.2 / 10-November-2021</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
-<h3 id="maintenance-release-1">Maintenance release</h3>
+<h2 id="main-changes-2">Main Changes</h2>
+<h3 id="maintenance-release-2">Maintenance release</h3>
 <ul>
 <li>General updates to fix known defects and enhancements implementation.</li>
 </ul>
-<h2 id="contents-1">Contents</h2>
+<h2 id="contents-2">Contents</h2>
 <table>
 <caption>Additional features<br />
 </caption>
@@ -138,14 +180,14 @@
 </tr>
 </tbody>
 </table>
-<h2 id="known-limitations-1">Known Limitations</h2>
-<h2 id="development-toolchains-and-compilers-1">Development Toolchains and Compilers</h2>
+<h2 id="known-limitations-2">Known Limitations</h2>
+<h2 id="development-toolchains-and-compilers-2">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.50.4 + ST-Link</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.31 + ST-Link</li>
 <li>CubeIDE toolchain V1.6.0</li>
 </ul>
-<h2 id="supported-devices-and-boards-1">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-2">Supported Devices and boards</h2>
 <ul>
 <li>STM32G431xx, STM32G441xx devices</li>
 <li>STM32G471xx devices</li>
@@ -159,12 +201,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_2_1" aria-hidden="true"> <label for="collapse-section1_2_1" aria-hidden="true">V1.2.1 / 11-January-2021</label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
-<h3 id="maintenance-release-2">Maintenance release</h3>
+<h2 id="main-changes-3">Main Changes</h2>
+<h3 id="maintenance-release-3">Maintenance release</h3>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 </ul>
-<h2 id="contents-2">Contents</h2>
+<h2 id="contents-3">Contents</h2>
 <table>
 <caption>Additional features<br />
 </caption>
@@ -182,14 +224,14 @@
 </tr>
 </tbody>
 </table>
-<h2 id="known-limitations-2">Known Limitations</h2>
-<h2 id="development-toolchains-and-compilers-2">Development Toolchains and Compilers</h2>
+<h2 id="known-limitations-3">Known Limitations</h2>
+<h2 id="development-toolchains-and-compilers-3">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain <strong>V8.50.4</strong> + ST-Link</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain <strong>V5.31</strong> + ST-Link</li>
 <li>CubeIDE toolchain <strong>V1.6.0</strong></li>
 </ul>
-<h2 id="supported-devices-and-boards-2">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-3">Supported Devices and boards</h2>
 <ul>
 <li>STM32G431xx, STM32G441xx devices</li>
 <li>STM32G471xx devices</li>
@@ -203,13 +245,13 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_2_0" aria-hidden="true"> <label for="collapse-section1_2_0" aria-hidden="true">V1.2.0 / 26-June-2020</label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
-<h3 id="maintenance-release-3">Maintenance release</h3>
+<h2 id="main-changes-4">Main Changes</h2>
+<h3 id="maintenance-release-4">Maintenance release</h3>
 <ul>
 <li>Add support for STM32G491xx and STM32G4A1 devices</li>
 <li>General updates to fix known defects and enhancements implementation</li>
 </ul>
-<h2 id="contents-3">Contents</h2>
+<h2 id="contents-4">Contents</h2>
 <table>
 <caption>Additional features<br />
 </caption>
@@ -233,14 +275,14 @@
 </tr>
 </tbody>
 </table>
-<h2 id="known-limitations-3">Known Limitations</h2>
-<h2 id="development-toolchains-and-compilers-3">Development Toolchains and Compilers</h2>
+<h2 id="known-limitations-4">Known Limitations</h2>
+<h2 id="development-toolchains-and-compilers-4">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain <strong>V8.40.1</strong></li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.27.1</li>
 <li>STM32CubeIDE toolchain V1.3.0</li>
 </ul>
-<h2 id="supported-devices-and-boards-3">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-4">Supported Devices and boards</h2>
 <ul>
 <li>STM32G431xx, STM32G441xx devices</li>
 <li>STM32G471xx devices</li>
@@ -254,10 +296,10 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_1_1" aria-hidden="true"> <label for="collapse-section1_1_1" aria-hidden="true">V1.1.1 / 14-February-2020</label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
-<h3 id="maintenance-release-4">Maintenance release</h3>
+<h2 id="main-changes-5">Main Changes</h2>
+<h3 id="maintenance-release-5">Maintenance release</h3>
 <p>General updates to fix known defects and enhancements implementation</p>
-<h2 id="contents-4">Contents</h2>
+<h2 id="contents-5">Contents</h2>
 <table>
 <caption>Additional features<br />
 </caption>
@@ -289,14 +331,14 @@
 </tr>
 </tbody>
 </table>
-<h2 id="known-limitations-4">Known Limitations</h2>
-<h2 id="development-toolchains-and-compilers-4">Development Toolchains and Compilers</h2>
+<h2 id="known-limitations-5">Known Limitations</h2>
+<h2 id="development-toolchains-and-compilers-5">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.32.3</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.27.1</li>
 <li>STM32CubeIDE toolchain V1.3.0</li>
 </ul>
-<h2 id="supported-devices-and-boards-4">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-5">Supported Devices and boards</h2>
 <ul>
 <li>STM32G431xx, STM32G441xx devices</li>
 <li>STM32G471xx devices</li>
@@ -309,10 +351,10 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_1_0" aria-hidden="true"> <label for="collapse-section1_1_0" aria-hidden="true">V1.1.0 / 28-June-2019</label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
-<h3 id="maintenance-release-5">Maintenance release</h3>
+<h2 id="main-changes-6">Main Changes</h2>
+<h3 id="maintenance-release-6">Maintenance release</h3>
 <p>Maintenance release of CMSIS Devices drivers supporting STM32G431xx, STM32G441xx, STM32G471xx, STM32G473xx, <strong>STM32G483xx</strong>, STM32G474xx and STM32G484xx devices</p>
-<h2 id="contents-5">Contents</h2>
+<h2 id="contents-6">Contents</h2>
 <table>
 <caption>Additional features<br />
 </caption>
@@ -353,14 +395,14 @@
 </tr>
 </tbody>
 </table>
-<h2 id="known-limitations-5">Known Limitations</h2>
-<h2 id="development-toolchains-and-compilers-5">Development Toolchains and Compilers</h2>
+<h2 id="known-limitations-6">Known Limitations</h2>
+<h2 id="development-toolchains-and-compilers-6">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.20.2</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.25</li>
 <li>System Workbench STM32 (SW4STM32) toolchain V2.7.2</li>
 </ul>
-<h2 id="supported-devices-and-boards-5">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-6">Supported Devices and boards</h2>
 <ul>
 <li>STM32G431xx, STM32G441xx devices</li>
 <li>STM32G471xx devices</li>
@@ -373,12 +415,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_0_0" aria-hidden="true"> <label for="collapse-section1_0_0" aria-hidden="true">V1.0.0 / 12-April-2019</label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <h3 id="first-release">First release</h3>
 <p>First official release for STM32G4xx devices</p>
-<h2 id="contents-6">Contents</h2>
+<h2 id="contents-7">Contents</h2>
 <p>CMSIS devices files for STM32G431xx, STM32G441xx, STM32G471xx, STM32G473xx, STM32G474xx and STM32G484xx.</p>
-<h2 id="known-limitations-6">Known Limitations</h2>
+<h2 id="known-limitations-7">Known Limitations</h2>
 <table>
 <thead>
 <tr class="header">
@@ -391,13 +433,13 @@
 </tr>
 </tbody>
 </table>
-<h2 id="development-toolchains-and-compilers-6">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-7">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.20.2</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.25</li>
 <li>System Workbench STM32 (SW4STM32) toolchain V2.7.2</li>
 </ul>
-<h2 id="supported-devices-and-boards-6">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-7">Supported Devices and boards</h2>
 <ul>
 <li>STM32G431xx, STM32G441xx devices</li>
 <li>STM32G471xx devices</li>
@@ -406,7 +448,7 @@
 </ul>
 </div>
 </div>
-</div>
+</section>
 </div>
 <footer class="sticky">
 <p>For complete documentation on STM32G4xx, visit: [<a href="http://www.st.com/stm32g4">www.st.com/stm32g4</a>]</p>

@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic G411M6Tx
+GenG4.menu.pnum.GENERIC_G411M6TX=Generic G411M6Tx
+GenG4.menu.pnum.GENERIC_G411M6TX.upload.maximum_size=32768
+GenG4.menu.pnum.GENERIC_G411M6TX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G411M6TX.build.board=GENERIC_G411M6TX
+GenG4.menu.pnum.GENERIC_G411M6TX.build.product_line=STM32G414xx
+GenG4.menu.pnum.GENERIC_G411M6TX.build.variant=STM32G4xx/G411M(6-8-B)T
+
+# Generic G411M8Tx
+GenG4.menu.pnum.GENERIC_G411M8TX=Generic G411M8Tx
+GenG4.menu.pnum.GENERIC_G411M8TX.upload.maximum_size=65536
+GenG4.menu.pnum.GENERIC_G411M8TX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G411M8TX.build.board=GENERIC_G411M8TX
+GenG4.menu.pnum.GENERIC_G411M8TX.build.product_line=STM32G414xx
+GenG4.menu.pnum.GENERIC_G411M8TX.build.variant=STM32G4xx/G411M(6-8-B)T
+
+# Generic G411MBTx
+GenG4.menu.pnum.GENERIC_G411MBTX=Generic G411MBTx
+GenG4.menu.pnum.GENERIC_G411MBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G411MBTX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G411MBTX.build.board=GENERIC_G411MBTX
+GenG4.menu.pnum.GENERIC_G411MBTX.build.product_line=STM32G414xx
+GenG4.menu.pnum.GENERIC_G411MBTX.build.variant=STM32G4xx/G411M(6-8-B)T
+

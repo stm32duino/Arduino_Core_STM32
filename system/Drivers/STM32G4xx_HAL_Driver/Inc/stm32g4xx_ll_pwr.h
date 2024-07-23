@@ -783,6 +783,7 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledPUPDCfg(void)
   return ((temp == (PWR_CR3_APC))?1U:0U);
 }
 
+#if defined(SRAM2_BASE)
 /**
   * @brief  Enable SRAM2 content retention in Standby mode
   * @rmtoll CR3          RRS           LL_PWR_EnableSRAM2Retention
@@ -816,6 +817,7 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledSRAM2Retention(void)
   return ((temp == (PWR_CR3_RRS))?1U:0U);
 }
 
+#endif /* SRAM2_BASE */
 /**
   * @brief  Enable the WakeUp PINx functionality
   * @rmtoll CR3          EWUP1         LL_PWR_EnableWakeUpPin\n

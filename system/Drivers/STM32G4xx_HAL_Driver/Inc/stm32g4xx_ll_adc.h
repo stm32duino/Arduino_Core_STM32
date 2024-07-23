@@ -2873,7 +2873,7 @@ Refer to device datasheet for ADC5 & OPAMP5 availability */
       )                                                                        \
    )                                                                           \
   )
-#elif defined(STM32GBK1CB) || defined(STM32G431xx) || defined(STM32G441xx)
+#elif defined(STM32G414xx) || defined(STM32GBK1CB) || defined(STM32G431xx) || defined(STM32G441xx)
 #define __LL_ADC_IS_CHANNEL_INTERNAL_AVAILABLE(__ADC_INSTANCE__, __CHANNEL__)  \
   ((((__ADC_INSTANCE__) == ADC1)                                               \
     &&(                                                                        \

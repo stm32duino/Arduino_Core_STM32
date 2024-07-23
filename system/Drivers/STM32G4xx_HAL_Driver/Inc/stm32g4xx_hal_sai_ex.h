@@ -31,6 +31,8 @@ extern "C" {
   * @{
   */
 
+#if defined(SAI1)
+
 /** @addtogroup SAIEx
   * @{
   */
@@ -91,6 +93,8 @@ HAL_StatusTypeDef HAL_SAIEx_ConfigPdmMicDelay(const SAI_HandleTypeDef *hsai,
 /**
   * @}
   */
+
+#endif /* SAI1 */
 
 /**
   * @}

@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic G414VBTx
+GenG4.menu.pnum.GENERIC_G414VBTX=Generic G414VBTx
+GenG4.menu.pnum.GENERIC_G414VBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G414VBTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G414VBTX.build.board=GENERIC_G414VBTX
+GenG4.menu.pnum.GENERIC_G414VBTX.build.product_line=STM32G414xx
+GenG4.menu.pnum.GENERIC_G414VBTX.build.variant=STM32G4xx/G414V(B-C)T
+
+# Generic G414VCTx
+GenG4.menu.pnum.GENERIC_G414VCTX=Generic G414VCTx
+GenG4.menu.pnum.GENERIC_G414VCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G414VCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G414VCTX.build.board=GENERIC_G414VCTX
+GenG4.menu.pnum.GENERIC_G414VCTX.build.product_line=STM32G414xx
+GenG4.menu.pnum.GENERIC_G414VCTX.build.variant=STM32G4xx/G414V(B-C)T
+

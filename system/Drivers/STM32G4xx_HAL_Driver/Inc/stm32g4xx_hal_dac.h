@@ -499,7 +499,7 @@ typedef void (*pDAC_CallbackTypeDef)(DAC_HandleTypeDef *hdac);
 #define IS_DAC_OUTPUT_BUFFER_STATE(STATE) (((STATE) == DAC_OUTPUTBUFFER_ENABLE) || \
                                            ((STATE) == DAC_OUTPUTBUFFER_DISABLE))
 
-#if defined(STM32G474xx) || defined(STM32G484xx) || defined(STM32G473xx)
+#if defined(STM32G414xx) || defined(STM32G474xx) || defined(STM32G484xx) || defined(STM32G473xx)
 #define IS_DAC_CHANNEL(DACX, CHANNEL)        \
   (((DACX) == DAC2) ?                  \
    ((CHANNEL) == DAC_CHANNEL_1)        \
@@ -510,7 +510,7 @@ typedef void (*pDAC_CallbackTypeDef)(DAC_HandleTypeDef *hdac);
 #define IS_DAC_CHANNEL(DACX, CHANNEL)        \
   (((CHANNEL) == DAC_CHANNEL_1)     || \
    ((CHANNEL) == DAC_CHANNEL_2))
-#endif /* STM32G474xx || STM32G484xx || STM32G473xx */
+#endif /* STM32G414xx || STM32G474xx || STM32G484xx || STM32G473xx */
 
 #define IS_DAC_ALIGN(ALIGN) (((ALIGN) == DAC_ALIGN_12B_R) || \
                              ((ALIGN) == DAC_ALIGN_12B_L) || \

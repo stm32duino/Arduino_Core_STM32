@@ -48,11 +48,11 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /**
-  * @brief STM32G4xx HAL Driver version number V1.2.3
+  * @brief STM32G4xx HAL Driver version number V1.2.4
   */
 #define __STM32G4xx_HAL_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
 #define __STM32G4xx_HAL_VERSION_SUB1   (0x02U) /*!< [23:16] sub1 version */
-#define __STM32G4xx_HAL_VERSION_SUB2   (0x03U) /*!< [15:8]  sub2 version */
+#define __STM32G4xx_HAL_VERSION_SUB2   (0x04U) /*!< [15:8]  sub2 version */
 #define __STM32G4xx_HAL_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32G4xx_HAL_VERSION         ((__STM32G4xx_HAL_VERSION_MAIN << 24U)\
                                          |(__STM32G4xx_HAL_VERSION_SUB1 << 16U)\
@@ -594,7 +594,7 @@ void HAL_DBGMCU_DisableDBGStandbyMode(void)
 @endverbatim
   * @{
   */
-
+#if defined (CCMSRAM_BASE)
 /**
   * @brief  Start a hardware CCMSRAM erase operation.
   * @note   As long as CCMSRAM is not erased the CCMER bit will be set.
@@ -609,6 +609,7 @@ void HAL_SYSCFG_CCMSRAMErase(void)
   /* Starts a hardware CCMSRAM erase operation*/
   SET_BIT(SYSCFG->SCSR, SYSCFG_SCSR_CCMER);
 }
+#endif /* CCMSRAM_BASE */
 
 /**
   * @brief  Enable the Internal FLASH Bank Swapping.
@@ -767,7 +768,7 @@ void HAL_SYSCFG_DisableIOSwitchVDD(void)
   CLEAR_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_ANASWVDD);
 }
 
-
+#if defined(CCMSRAM_BASE)
 /** @brief  CCMSRAM page write protection enable
   * @param Page: This parameter is a long 32bit value and can be a value of @ref SYSCFG_CCMSRAMWRP
   * @note   write protection can only be disabled by a system reset
@@ -779,7 +780,7 @@ void HAL_SYSCFG_CCMSRAM_WriteProtectionEnable(uint32_t Page)
 
   SET_BIT(SYSCFG->SWPR, (uint32_t)(Page));
 }
-
+#endif /* CCMSRAM_BASE */
 
 /**
   * @}

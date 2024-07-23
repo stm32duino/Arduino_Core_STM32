@@ -51,7 +51,11 @@ extern "C" {
 #define SMBUS_FASTMODEPLUS_PB9            SYSCFG_CFGR1_I2C_PB9_FMP                        /*!< Enable Fast Mode Plus on PB9       */
 #define SMBUS_FASTMODEPLUS_I2C1           SYSCFG_CFGR1_I2C1_FMP                           /*!< Enable Fast Mode Plus on I2C1 pins */
 #define SMBUS_FASTMODEPLUS_I2C2           SYSCFG_CFGR1_I2C2_FMP                           /*!< Enable Fast Mode Plus on I2C2 pins */
+#if defined(SYSCFG_CFGR1_I2C3_FMP)
 #define SMBUS_FASTMODEPLUS_I2C3           SYSCFG_CFGR1_I2C3_FMP                           /*!< Enable Fast Mode Plus on I2C3 pins */
+#else
+#define SMBUS_FASTMODEPLUS_I2C3           (uint32_t)(0x00000400U | SMBUS_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus I2C3 not supported  */
+#endif /* SYSCFG_CFGR1_I2C3_FMP */
 #if defined(SYSCFG_CFGR1_I2C4_FMP)
 #define SMBUS_FASTMODEPLUS_I2C4           SYSCFG_CFGR1_I2C4_FMP                           /*!< Enable Fast Mode Plus on I2C4 pins */
 #else

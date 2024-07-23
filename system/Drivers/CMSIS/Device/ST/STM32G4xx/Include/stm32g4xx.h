@@ -58,7 +58,9 @@
 
 #if !defined (STM32G431xx) && !defined (STM32G441xx) && !defined (STM32G471xx) && \
     !defined (STM32G473xx) && !defined (STM32G474xx) && !defined (STM32G484xx) && \
-    !defined (STM32GBK1CB) && !defined (STM32G491xx) && !defined (STM32G4A1xx)
+    !defined (STM32GBK1CB) && !defined (STM32G491xx) && !defined (STM32G4A1xx) && \
+    !defined (STM32G414xx)
+  /* #define STM32G414xx */   /*!< STM32G414xx Devices */
   /* #define STM32G431xx */   /*!< STM32G431xx Devices */
   /* #define STM32G441xx */   /*!< STM32G441xx Devices */
   /* #define STM32G471xx */   /*!< STM32G471xx Devices */
@@ -84,11 +86,11 @@
 #endif /* USE_HAL_DRIVER */
 
 /**
-  * @brief CMSIS Device version number V1.2.3
+  * @brief CMSIS Device version number V1.2.4
   */
 #define __STM32G4_CMSIS_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
 #define __STM32G4_CMSIS_VERSION_SUB1   (0x02U) /*!< [23:16] sub1 version */
-#define __STM32G4_CMSIS_VERSION_SUB2   (0x03U) /*!< [15:8]  sub2 version */
+#define __STM32G4_CMSIS_VERSION_SUB2   (0x04U) /*!< [15:8]  sub2 version */
 #define __STM32G4_CMSIS_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32G4_CMSIS_VERSION        ((__STM32G4_CMSIS_VERSION_MAIN << 24)\
                                        |(__STM32G4_CMSIS_VERSION_SUB1 << 16)\
@@ -123,6 +125,8 @@
   #include "stm32g4a1xx.h"
 #elif defined(STM32GBK1CB)
   #include "stm32gbk1cb.h"
+#elif defined(STM32G414xx)
+  #include "stm32g414xx.h"
 #else
   #error "Please select first the target STM32G4xx device used in your application (in stm32g4xx.h file)"
 #endif

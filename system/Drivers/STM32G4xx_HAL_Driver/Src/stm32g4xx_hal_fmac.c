@@ -204,7 +204,6 @@
       not defined, the callback registration feature is not available
       and weak callbacks are used.
 
-
   @endverbatim
   *
   */
@@ -229,7 +228,6 @@
 /** @defgroup  FMAC_Private_Constants   FMAC Private Constants
   * @{
   */
-
 #define MAX_FILTER_DATA_SIZE_TO_HANDLE ((uint16_t) 0xFFU)
 #define MAX_PRELOAD_INDEX      0xFFU
 #define PRELOAD_ACCESS_DMA     0x00U
@@ -322,7 +320,6 @@
 /* Private variables ---------------------------------------------------------*/
 /* Global variables ----------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
-
 static HAL_StatusTypeDef FMAC_Reset(FMAC_HandleTypeDef *hfmac);
 static void FMAC_ResetDataPointers(FMAC_HandleTypeDef *hfmac);
 static void FMAC_ResetOutputStateAndDataPointers(FMAC_HandleTypeDef *hfmac);
@@ -348,7 +345,6 @@ static void FMAC_DMAFilterPreload(DMA_HandleTypeDef *hdma);
 static void FMAC_DMAError(DMA_HandleTypeDef *hdma);
 
 /* Functions Definition ------------------------------------------------------*/
-
 /** @defgroup FMAC_Exported_Functions FMAC Exported Functions
   * @{
   */
@@ -2410,7 +2406,6 @@ static void FMAC_DMAFilterConfig(DMA_HandleTypeDef *hdma)
 #else
   HAL_FMAC_ErrorCallback(hfmac);
 #endif /* USE_HAL_FMAC_REGISTER_CALLBACKS */
-
 }
 
 /**
@@ -2516,10 +2511,10 @@ static void FMAC_DMAError(DMA_HandleTypeDef *hdma)
   HAL_FMAC_ErrorCallback(hfmac);
 #endif /* USE_HAL_FMAC_REGISTER_CALLBACKS */
 }
+
 /**
   * @}
   */
-
 
 /**
   * @}

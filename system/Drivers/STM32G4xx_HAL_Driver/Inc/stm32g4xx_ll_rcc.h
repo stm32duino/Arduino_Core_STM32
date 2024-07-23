@@ -319,10 +319,12 @@ typedef struct
 #define LL_RCC_USART2_CLKSOURCE_SYSCLK     ((RCC_CCIPR_USART2SEL << 16U) | RCC_CCIPR_USART2SEL_0) /*!< SYSCLK clock used as USART2 clock source */
 #define LL_RCC_USART2_CLKSOURCE_HSI        ((RCC_CCIPR_USART2SEL << 16U) | RCC_CCIPR_USART2SEL_1) /*!< HSI clock used as USART2 clock source */
 #define LL_RCC_USART2_CLKSOURCE_LSE        ((RCC_CCIPR_USART2SEL << 16U) | RCC_CCIPR_USART2SEL)   /*!< LSE clock used as USART2 clock source */
+#if defined(RCC_CCIPR_USART3SEL)
 #define LL_RCC_USART3_CLKSOURCE_PCLK1      (RCC_CCIPR_USART3SEL << 16U)                           /*!< PCLK1 clock used as USART3 clock source */
 #define LL_RCC_USART3_CLKSOURCE_SYSCLK     ((RCC_CCIPR_USART3SEL << 16U) | RCC_CCIPR_USART3SEL_0) /*!< SYSCLK clock used as USART3 clock source */
 #define LL_RCC_USART3_CLKSOURCE_HSI        ((RCC_CCIPR_USART3SEL << 16U) | RCC_CCIPR_USART3SEL_1) /*!< HSI clock used as USART3 clock source */
 #define LL_RCC_USART3_CLKSOURCE_LSE        ((RCC_CCIPR_USART3SEL << 16U) | RCC_CCIPR_USART3SEL)   /*!< LSE clock used as USART3 clock source */
+#endif /* RCC_CCIPR_USART3SEL */
 /**
   * @}
   */
@@ -472,7 +474,9 @@ typedef struct
   */
 #define LL_RCC_USART1_CLKSOURCE            RCC_CCIPR_USART1SEL /*!< USART1 Clock source selection */
 #define LL_RCC_USART2_CLKSOURCE            RCC_CCIPR_USART2SEL /*!< USART2 Clock source selection */
+#if defined(RCC_CCIPR_USART3SEL)
 #define LL_RCC_USART3_CLKSOURCE            RCC_CCIPR_USART3SEL /*!< USART3 Clock source selection */
+#endif /* RCC_CCIPR_USART3SEL */
 /**
   * @}
   */
@@ -503,7 +507,9 @@ typedef struct
   */
 #define LL_RCC_I2C1_CLKSOURCE              (((uint32_t)RCC_OFFSET_CCIPR << 24U) | ((uint32_t)RCC_CCIPR_I2C1SEL_Pos << 16U) | (RCC_CCIPR_I2C1SEL >> RCC_CCIPR_I2C1SEL_Pos)) /*!< I2C1 Clock source selection */
 #define LL_RCC_I2C2_CLKSOURCE              (((uint32_t)RCC_OFFSET_CCIPR << 24U) | ((uint32_t)RCC_CCIPR_I2C2SEL_Pos << 16U) | (RCC_CCIPR_I2C2SEL >> RCC_CCIPR_I2C2SEL_Pos)) /*!< I2C2 Clock source selection */
+#if defined(RCC_CCIPR_I2C3SEL)
 #define LL_RCC_I2C3_CLKSOURCE              (((uint32_t)RCC_OFFSET_CCIPR << 24U) | ((uint32_t)RCC_CCIPR_I2C3SEL_Pos << 16U) | (RCC_CCIPR_I2C3SEL >> RCC_CCIPR_I2C3SEL_Pos)) /*!< I2C3 Clock source selection */
+#endif /* RCC_CCIPR_I2C3SEL */
 #if defined(RCC_CCIPR2_I2C4SEL)
 #define LL_RCC_I2C4_CLKSOURCE              (((uint32_t)RCC_OFFSET_CCIPR2 << 24U) | ((uint32_t)RCC_CCIPR2_I2C4SEL_Pos << 16U) | (RCC_CCIPR2_I2C4SEL >> RCC_CCIPR2_I2C4SEL_Pos)) /*!< I2C4 Clock source selection */
 #endif /* RCC_CCIPR2_I2C4SEL */
@@ -1602,6 +1608,7 @@ __STATIC_INLINE void LL_RCC_SetLPTIMClockSource(uint32_t LPTIMxSource)
   MODIFY_REG(RCC->CCIPR, RCC_CCIPR_LPTIM1SEL, LPTIMxSource);
 }
 
+#if defined(SAI1)
 /**
   * @brief  Configure SAIx clock source
   * @rmtoll CCIPR        SAI1SEL       LL_RCC_SetSAIClockSource
@@ -1618,7 +1625,9 @@ __STATIC_INLINE void LL_RCC_SetSAIClockSource(uint32_t SAIxSource)
 {
   MODIFY_REG(RCC->CCIPR, RCC_CCIPR_SAI1SEL, SAIxSource);
 }
+#endif /* SAI1 */
 
+#if defined(SPI_I2S_SUPPORT)
 /**
   * @brief  Configure I2S clock source
   * @rmtoll CCIPR        I2S23SEL      LL_RCC_SetI2SClockSource
@@ -1633,6 +1642,7 @@ __STATIC_INLINE void LL_RCC_SetI2SClockSource(uint32_t I2SxSource)
 {
   MODIFY_REG(RCC->CCIPR, RCC_CCIPR_I2S23SEL, I2SxSource);
 }
+#endif /* SPI_I2S_SUPPORT */
 
 #if defined(FDCAN1)
 /**

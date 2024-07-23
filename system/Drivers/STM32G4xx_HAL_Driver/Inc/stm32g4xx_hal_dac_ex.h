@@ -103,7 +103,7 @@ extern "C" {
 /** @defgroup DACEx_Private_Macros DACEx Private Macros
   * @{
   */
-#if defined(STM32G474xx) || defined(STM32G484xx)
+#if defined(STM32G414xx) || defined(STM32G474xx) || defined(STM32G484xx)
 #define IS_DAC_TRIGGER(DACX, TRIGGER) \
   (((TRIGGER) == DAC_TRIGGER_NONE)           || \
    ((TRIGGER) == DAC_TRIGGER_SOFTWARE)       || \
@@ -153,9 +153,9 @@ extern "C" {
     : ((TRIGGER) == DAC_TRIGGER_T8_TRGO)        \
    )                                            \
   )
-#endif /* STM32G474xx || STM32G484xx */
+#endif /* STM32G414xx || STM32G474xx || STM32G484xx */
 
-#if defined(STM32G474xx) || defined(STM32G484xx)
+#if defined(STM32G414xx) || defined(STM32G474xx) || defined(STM32G484xx)
 #define IS_DAC_TRIGGER2(DACX, TRIGGER) \
   (((TRIGGER) == DAC_TRIGGER_NONE)            || \
    ((TRIGGER) == DAC_TRIGGER_SOFTWARE)        || \
@@ -201,7 +201,7 @@ extern "C" {
     :((TRIGGER) == DAC_TRIGGER_T8_TRGO)          \
    )                                             \
   )
-#endif /* STM32G474xx || STM32G484xx */
+#endif /* STM32G414xx || STM32G474xx || STM32G484xx */
 #define  IS_DAC_HIGH_FREQUENCY_MODE(MODE) (((MODE) == DAC_HIGH_FREQUENCY_INTERFACE_MODE_DISABLE)         || \
                                            ((MODE) == DAC_HIGH_FREQUENCY_INTERFACE_MODE_ABOVE_80MHZ)     || \
                                            ((MODE) == DAC_HIGH_FREQUENCY_INTERFACE_MODE_ABOVE_160MHZ)    || \

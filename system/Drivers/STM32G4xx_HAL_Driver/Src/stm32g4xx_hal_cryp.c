@@ -928,8 +928,6 @@ void HAL_CRYP_ProcessSuspend(CRYP_HandleTypeDef *hcryp)
   hcryp->SuspendRequest = HAL_CRYP_SUSPEND;
 }
 
-
-
 /**
   * @brief  CRYP processing suspension and peripheral internal parameters storage.
   * @param  hcryp pointer to a CRYP_HandleTypeDef structure that contains
@@ -1874,23 +1872,23 @@ void HAL_CRYP_IRQHandler(CRYP_HandleTypeDef *hcryp)
   uint32_t itflag   = hcryp->Instance->SR;
 
   /* Check if error occurred */
-  if ((itsource & CRYP_IT_ERRIE) != RESET)
+  if ((itsource & CRYP_IT_ERRIE) == CRYP_IT_ERRIE)
   {
     /* If write Error occurred */
-    if ((itflag & CRYP_IT_WRERR) != RESET)
+    if ((itflag & CRYP_IT_WRERR) == CRYP_IT_WRERR)
     {
       hcryp->ErrorCode |= HAL_CRYP_ERROR_WRITE;
     }
     /* If read Error occurred */
-    if ((itflag & CRYP_IT_RDERR) != RESET)
+    if ((itflag & CRYP_IT_RDERR) == CRYP_IT_RDERR)
     {
       hcryp->ErrorCode |= HAL_CRYP_ERROR_READ;
     }
   }
 
-  if ((itflag & CRYP_IT_CCF) != RESET)
+  if ((itflag & CRYP_IT_CCF) == CRYP_IT_CCF)
   {
-    if ((itsource & CRYP_IT_CCFIE) != RESET)
+    if ((itsource & CRYP_IT_CCFIE) == CRYP_IT_CCFIE)
     {
       /* Clear computation complete flag */
       __HAL_CRYP_CLEAR_FLAG(hcryp, CRYP_CCF_CLEAR);

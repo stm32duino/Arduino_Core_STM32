@@ -26,6 +26,8 @@
 /** @addtogroup STM32G4xx_HAL_Driver
   * @{
   */
+
+#if defined(SAI1)
 #ifdef HAL_SAI_MODULE_ENABLED
 
 /** @defgroup SAIEx SAIEx
@@ -124,7 +126,8 @@ HAL_StatusTypeDef HAL_SAIEx_ConfigPdmMicDelay(const SAI_HandleTypeDef *hsai,
   */
 
 #endif /* HAL_SAI_MODULE_ENABLED */
+#endif /* SAI1 */
+
 /**
   * @}
   */
-

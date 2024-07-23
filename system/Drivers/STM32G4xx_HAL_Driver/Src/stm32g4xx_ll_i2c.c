@@ -107,6 +107,7 @@ ErrorStatus LL_I2C_DeInit(const I2C_TypeDef *I2Cx)
     LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_I2C2);
 
   }
+#if defined(I2C3)
   else if (I2Cx == I2C3)
   {
     /* Force reset of I2C clock */
@@ -115,6 +116,7 @@ ErrorStatus LL_I2C_DeInit(const I2C_TypeDef *I2Cx)
     /* Release reset of I2C clock */
     LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_I2C3);
   }
+#endif /* I2C3 */
 #if defined(I2C4)
   else if (I2Cx == I2C4)
   {
