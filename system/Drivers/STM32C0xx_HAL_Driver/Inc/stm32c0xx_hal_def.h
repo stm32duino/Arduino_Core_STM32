@@ -118,7 +118,7 @@ typedef enum
 #endif /* __GNUC__ */
 
 
-/* Macro to get variable aligned on 4-bytes, for __ICCARM__ the directive "#pragma data_alignment=4" must be used instead */
+/* Macro to align variable on 4-bytes, for __ICCARM__ the directive "#pragma data_alignment=4" must be used instead */
 /* GNU Compiler */
 #if defined   (__GNUC__)
 #ifndef __ALIGN_END
@@ -172,7 +172,7 @@ typedef enum
 */
 #define __RAM_FUNC __attribute__((section(".RamFunc")))
 
-#endif
+#endif /* __CC_ARM */
 
 /**
   * @brief  __NOINLINE definition
@@ -189,7 +189,7 @@ typedef enum
 */
 #define __NOINLINE _Pragma("optimize = no_inline")
 
-#endif
+#endif /* __CC_ARM | __GNUC__ */
 
 
 #ifdef __cplusplus

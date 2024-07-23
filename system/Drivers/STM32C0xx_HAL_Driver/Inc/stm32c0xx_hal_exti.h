@@ -119,6 +119,13 @@ typedef struct
 #define EXTI_LINE_29                        (EXTI_RESERVED | EXTI_REG1 | 0x1DU)
 #define EXTI_LINE_30                        (EXTI_RESERVED | EXTI_REG1 | 0x1EU)
 #define EXTI_LINE_31                        (EXTI_DIRECT   | EXTI_REG1 | 0x1FU)
+#if defined(EXTI_IMR2_IM36)
+#define EXTI_LINE_32                        (EXTI_RESERVED | EXTI_REG2 | 0x00U)
+#define EXTI_LINE_33                        (EXTI_RESERVED | EXTI_REG2 | 0x01U)
+#define EXTI_LINE_34                        (EXTI_CONFIG   | EXTI_REG2 | 0x02U)
+#define EXTI_LINE_35                        (EXTI_RESERVED | EXTI_REG2 | 0x03U)
+#define EXTI_LINE_36                        (EXTI_DIRECT   | EXTI_REG2 | 0x04U)
+#endif /* EXTI_IMR2_IM36 */
 /**
   * @}
   */
@@ -151,9 +158,9 @@ typedef struct
 #define EXTI_GPIOA                          0x00000000u
 #define EXTI_GPIOB                          0x00000001u
 #define EXTI_GPIOC                          0x00000002u
-#if defined(STM32C031xx)
+#if defined(GPIOD)
 #define EXTI_GPIOD                          0x00000003u
-#endif /* STM32C031xx */
+#endif /* GPIOD */
 #define EXTI_GPIOF                          0x00000005u
 /**
   * @}
@@ -208,9 +215,11 @@ typedef struct
 /**
   * @brief  EXTI Line number
   */
-
+#if defined(EXTI_IMR2_IM36)
+#define EXTI_LINE_NB                        37uL
+#else
 #define EXTI_LINE_NB                        32uL
-
+#endif /* EXTI_IMR2_IM36 */
 /**
   * @}
   */
@@ -236,18 +245,18 @@ typedef struct
                                               ((__EXTI_LINE__) == EXTI_TRIGGER_FALLING))
 
 #define IS_EXTI_CONFIG_LINE(__EXTI_LINE__)   (((__EXTI_LINE__) & EXTI_CONFIG) != 0x00U)
-#if defined(STM32C031xx)
+#if defined(GPIOD)
 #define IS_EXTI_GPIO_PORT(__PORT__)     (((__PORT__) == EXTI_GPIOA) || \
                                          ((__PORT__) == EXTI_GPIOB) || \
                                          ((__PORT__) == EXTI_GPIOC) || \
                                          ((__PORT__) == EXTI_GPIOD) || \
                                          ((__PORT__) == EXTI_GPIOF))
-#elif defined(STM32C011xx)
+#else
 #define IS_EXTI_GPIO_PORT(__PORT__)     (((__PORT__) == EXTI_GPIOA) || \
                                          ((__PORT__) == EXTI_GPIOB) || \
                                          ((__PORT__) == EXTI_GPIOC) || \
                                          ((__PORT__) == EXTI_GPIOF))
-#endif /* STM32C031xx */
+#endif /* GPIOD */
 #define IS_EXTI_GPIO_PIN(__PIN__)       ((__PIN__) < 16u)
 
 /**

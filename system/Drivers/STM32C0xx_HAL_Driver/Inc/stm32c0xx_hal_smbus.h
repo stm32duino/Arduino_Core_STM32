@@ -100,8 +100,6 @@ typedef struct
 #define HAL_SMBUS_STATE_MASTER_BUSY_RX  (0x00000022U)  /*!< Master Data Reception process is ongoing      */
 #define HAL_SMBUS_STATE_SLAVE_BUSY_TX   (0x00000032U)  /*!< Slave Data Transmission process is ongoing    */
 #define HAL_SMBUS_STATE_SLAVE_BUSY_RX   (0x00000042U)  /*!< Slave Data Reception process is ongoing       */
-#define HAL_SMBUS_STATE_TIMEOUT         (0x00000003U)  /*!< Timeout state                                 */
-#define HAL_SMBUS_STATE_ERROR           (0x00000004U)  /*!< Reception process is ongoing                  */
 #define HAL_SMBUS_STATE_LISTEN          (0x00000008U)  /*!< Address Listen Mode is ongoing                */
 /**
   * @}

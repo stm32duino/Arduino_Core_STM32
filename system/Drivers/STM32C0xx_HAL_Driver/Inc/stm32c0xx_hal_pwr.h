@@ -57,16 +57,25 @@ extern "C" {
 #define PWR_WAKEUP_PIN2                     PWR_CR3_EWUP2  /*!< Wakeup pin 2 (with high level detection) */
 #define PWR_WAKEUP_PIN3                     PWR_CR3_EWUP3  /*!< Wakeup pin 3 (with high level detection) */
 #define PWR_WAKEUP_PIN4                     PWR_CR3_EWUP4  /*!< Wakeup pin 4 (with high level detection) */
+#if defined(PWR_CR3_EWUP5)
+#define PWR_WAKEUP_PIN5                     PWR_CR3_EWUP5  /*!< Wakeup pin 5 (with high level detection) */
+#endif /* PWR_CR3_EWUP5 */
 #define PWR_WAKEUP_PIN6                     PWR_CR3_EWUP6  /*!< Wakeup pin 6 (with high level detection) */
 #define PWR_WAKEUP_PIN1_HIGH                PWR_CR3_EWUP1  /*!< Wakeup pin 1 (with high level detection) */
 #define PWR_WAKEUP_PIN2_HIGH                PWR_CR3_EWUP2  /*!< Wakeup pin 2 (with high level detection) */
 #define PWR_WAKEUP_PIN3_HIGH                PWR_CR3_EWUP3  /*!< Wakeup pin 3 (with high level detection) */
 #define PWR_WAKEUP_PIN4_HIGH                PWR_CR3_EWUP4  /*!< Wakeup pin 4 (with high level detection) */
+#if defined(PWR_CR3_EWUP5)
+#define PWR_WAKEUP_PIN5_HIGH                PWR_CR3_EWUP5  /*!< Wakeup pin 5 (with high level detection) */
+#endif /* PWR_CR3_EWUP5*/
 #define PWR_WAKEUP_PIN6_HIGH                PWR_CR3_EWUP6  /*!< Wakeup pin 6 (with high level detection) */
 #define PWR_WAKEUP_PIN1_LOW                 ((PWR_CR4_WP1 << PWR_WUP_POLARITY_SHIFT) | PWR_CR3_EWUP1) /*!< Wakeup pin 1 (with low level detection) */
 #define PWR_WAKEUP_PIN2_LOW                 ((PWR_CR4_WP2 << PWR_WUP_POLARITY_SHIFT) | PWR_CR3_EWUP2) /*!< Wakeup pin 2 (with low level detection) */
 #define PWR_WAKEUP_PIN3_LOW                 ((PWR_CR4_WP3 << PWR_WUP_POLARITY_SHIFT) | PWR_CR3_EWUP3) /*!< Wakeup pin 3 (with low level detection) */
 #define PWR_WAKEUP_PIN4_LOW                 ((PWR_CR4_WP4 << PWR_WUP_POLARITY_SHIFT) | PWR_CR3_EWUP4) /*!< Wakeup pin 4 (with low level detection) */
+#if defined(PWR_CR3_EWUP5)
+#define PWR_WAKEUP_PIN5_LOW                 ((PWR_CR4_WP5 << PWR_WUP_POLARITY_SHIFT) | PWR_CR3_EWUP5) /*!< Wakeup pin 5 (with low level detection) */
+#endif /* PWR_CR3_EWUP5 */
 #define PWR_WAKEUP_PIN6_LOW                 ((PWR_CR4_WP6 << PWR_WUP_POLARITY_SHIFT) | PWR_CR3_EWUP6) /*!< Wakeup pin 6 (with low level detection) */
 /**
   * @}
@@ -124,11 +133,17 @@ extern "C" {
 #define PWR_FLAG_WUF2                       (0x00010000u | PWR_SR1_WUF2)      /*!< Wakeup event on wakeup pin 2 */
 #define PWR_FLAG_WUF3                       (0x00010000u | PWR_SR1_WUF3)      /*!< Wakeup event on wakeup pin 3 */
 #define PWR_FLAG_WUF4                       (0x00010000u | PWR_SR1_WUF4)      /*!< Wakeup event on wakeup pin 4 */
+#if defined(PWR_CR3_EWUP5)
+#define PWR_FLAG_WUF5                       (0x00010000u | PWR_SR1_WUF5)      /*!< Wakeup event on wakeup pin 5 */
+#endif /* PWR_CR3_EWUP5 */
 #define PWR_FLAG_WUF6                       (0x00010000u | PWR_SR1_WUF6)      /*!< Wakeup event on wakeup pin 6 */
 #define PWR_FLAG_WUF                        (0x00010000u | PWR_SR1_WUF)       /*!< Wakeup event on all wakeup pin  */
 #define PWR_FLAG_SB                         (0x00010000u | PWR_SR1_SBF)       /*!< Standby flag */
 #define PWR_FLAG_WUFI                       (0x00010000u | PWR_SR1_WUFI)      /*!< Wakeup on internal wakeup line */
 #define PWR_FLAG_FLASH_READY                (0x00020000u | PWR_SR2_FLASH_RDY) /*!< Flash ready */
+#if defined(PWR_PVM_SUPPORT)
+#define PWR_FLAG_PVMO_USB                   (0x00020000u | PWR_SR2_PVMO_VDDIO2)  /*!< Power Voltage Monitoring output */
+#endif /* PWR_PVM_SUPPORT */
 /**
   * @}
   */
@@ -148,8 +163,12 @@ extern "C" {
   *                  was received from the WKUP pin 1.
   *            @arg PWR_FLAG_WUF2: Wake Up Flag 2. Indicates that a wakeup event
   *                  was received from the WKUP pin 2.
+  *            @arg PWR_FLAG_WUF3: Wake Up Flag 3. Indicates that a wakeup event
+  *                  was received from the WKUP pin 3.
   *            @arg PWR_FLAG_WUF4: Wake Up Flag 4. Indicates that a wakeup event
   *                  was received from the WKUP pin 4.
+  *            @arg PWR_FLAG_WUF5: Wake Up Flag 5. Indicates that a wakeup event
+  *                  was received from the WKUP pin 5. (*)
   *            @arg PWR_FLAG_WUF6: Wake Up Flag 6. Indicates that a wakeup event
   *                  was received from the WKUP pin 6.
   *            @arg PWR_FLAG_SB: StandBy Flag. Indicates that the system
@@ -159,6 +178,9 @@ extern "C" {
   *         OR a combination of following values:
   *            @arg PWR_FLAG_FLASH_READY: Flash is ready. Indicates whether flash
   *                 can be used or not
+  *            @arg PWR_FLAG_PVMO_USB: Peripheral Voltage Monitoring Output. Indicates whether VDDUSB voltage
+  *                  is below or above PVM threshold. (*)
+  * @note (*) Availability depends on devices
   * @retval The new state of __FLAG__ (TRUE or FALSE).
   */
 #define __HAL_PWR_GET_FLAG(__FLAG__)        (((__FLAG__) & 0x00010000u) ?\
@@ -174,12 +196,17 @@ extern "C" {
   *                  was received from the WKUP pin 1.
   *            @arg PWR_FLAG_WUF2: Wake Up Flag 2. Indicates that a wakeup event
   *                  was received from the WKUP pin 2.
+  *            @arg PWR_FLAG_WUF3: Wake Up Flag 3. Indicates that a wakeup event
+  *                  was received from the WKUP pin 3.
   *            @arg PWR_FLAG_WUF4: Wake Up Flag 4. Indicates that a wakeup event
   *                  was received from the WKUP pin 4.
+  *            @arg PWR_FLAG_WUF5: Wake Up Flag 5. Indicates that a wakeup event
+  *                  was received from the WKUP pin 5. (*)
   *            @arg PWR_FLAG_WUF6: Wake Up Flag 6. Indicates that a wakeup event
   *                  was received from the WKUP pin 6.
   *            @arg PWR_FLAG_SB: Standby Flag. Indicates that the system
   *                  entered Standby mode.
+  * @note (*) Availability depends on devices
   * @retval None
   */
 #define __HAL_PWR_CLEAR_FLAG(__FLAG__)      (PWR->SCR = (__FLAG__))

@@ -272,6 +272,8 @@ void HAL_SYSTICK_Callback(void);
 #if (__MPU_PRESENT == 1U)
 void HAL_MPU_Enable(uint32_t MPU_Control);
 void HAL_MPU_Disable(void);
+void HAL_MPU_EnableRegion(uint32_t RegionNumber);
+void HAL_MPU_DisableRegion(uint32_t RegionNumber);
 void HAL_MPU_ConfigRegion(MPU_Region_InitTypeDef *MPU_Init);
 #endif /* __MPU_PRESENT */
 /**
@@ -332,6 +334,18 @@ void HAL_MPU_ConfigRegion(MPU_Region_InitTypeDef *MPU_Init);
                                                    ((NUMBER) == MPU_REGION_NUMBER6) || \
                                                    ((NUMBER) == MPU_REGION_NUMBER7))
 
+#if defined(STM32C071xx)
+#define IS_MPU_REGION_SIZE(SIZE)                  (((SIZE) == MPU_REGION_SIZE_256B)  || \
+                                                   ((SIZE) == MPU_REGION_SIZE_512B)  || \
+                                                   ((SIZE) == MPU_REGION_SIZE_1KB)   || \
+                                                   ((SIZE) == MPU_REGION_SIZE_2KB)   || \
+                                                   ((SIZE) == MPU_REGION_SIZE_4KB)   || \
+                                                   ((SIZE) == MPU_REGION_SIZE_8KB)   || \
+                                                   ((SIZE) == MPU_REGION_SIZE_16KB)  || \
+                                                   ((SIZE) == MPU_REGION_SIZE_32KB)  || \
+                                                   ((SIZE) == MPU_REGION_SIZE_64KB)  || \
+                                                   ((SIZE) == MPU_REGION_SIZE_128KB))
+#else
 #define IS_MPU_REGION_SIZE(SIZE)                  (((SIZE) == MPU_REGION_SIZE_256B)  || \
                                                    ((SIZE) == MPU_REGION_SIZE_512B)  || \
                                                    ((SIZE) == MPU_REGION_SIZE_1KB)   || \
@@ -340,7 +354,7 @@ void HAL_MPU_ConfigRegion(MPU_Region_InitTypeDef *MPU_Init);
                                                    ((SIZE) == MPU_REGION_SIZE_8KB)   || \
                                                    ((SIZE) == MPU_REGION_SIZE_16KB)  || \
                                                    ((SIZE) == MPU_REGION_SIZE_32KB))
-
+#endif /* STM32C071xx */
 #define IS_MPU_SUB_REGION_DISABLE(SUBREGION)      ((SUBREGION) < (uint16_t)0x00FFU)
 #endif /* __MPU_PRESENT */
 

@@ -238,7 +238,7 @@ ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, const LL_USART_InitTypeDef *USA
     }
     else if (USARTx == USART2)
     {
-      /* USART2 clock is PCLK */
+      /* USART2 clock is PCLK1 */
       LL_RCC_GetSystemClocksFreq(&RCC_Clocks);
       periphclk = RCC_Clocks.PCLK1_Frequency;
     }

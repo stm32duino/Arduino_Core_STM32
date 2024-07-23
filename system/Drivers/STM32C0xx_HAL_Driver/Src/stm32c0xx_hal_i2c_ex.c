@@ -184,6 +184,7 @@ HAL_StatusTypeDef HAL_I2CEx_ConfigDigitalFilter(I2C_HandleTypeDef *hi2c, uint32_
 /**
   * @}
   */
+#if defined(I2C_CR1_WUPEN)
 
 /** @defgroup I2CEx_Exported_Functions_Group2 WakeUp Mode Functions
   * @brief    WakeUp Mode Functions
@@ -279,6 +280,7 @@ HAL_StatusTypeDef HAL_I2CEx_DisableWakeUp(I2C_HandleTypeDef *hi2c)
 /**
   * @}
   */
+#endif /* I2C_CR1_WUPEN */
 
 /** @defgroup I2CEx_Exported_Functions_Group3 Fast Mode Plus Functions
   * @brief    Fast Mode Plus Functions
@@ -303,6 +305,8 @@ HAL_StatusTypeDef HAL_I2CEx_DisableWakeUp(I2C_HandleTypeDef *hi2c)
   *        on each one of the following pins PB6, PB7, PB8 and PB9.
   * @note  For remaining I2C1 pins (PA14, PA15...) fast mode plus driving capability
   *        can be enabled only by using I2C_FASTMODEPLUS_I2C1 parameter.
+  * @note  For all I2C2 pins fast mode plus driving capability can be enabled
+  *        only by using I2C_FASTMODEPLUS_I2C2 parameter.
   * @retval None
   */
 void HAL_I2CEx_EnableFastModePlus(uint32_t ConfigFastModePlus)
@@ -326,6 +330,8 @@ void HAL_I2CEx_EnableFastModePlus(uint32_t ConfigFastModePlus)
   *        on each one of the following pins PB6, PB7, PB8 and PB9.
   * @note  For remaining I2C1 pins (PA14, PA15...) fast mode plus driving capability
   *        can be disabled only by using I2C_FASTMODEPLUS_I2C1 parameter.
+  * @note  For all I2C2 pins fast mode plus driving capability can be disabled
+  *        only by using I2C_FASTMODEPLUS_I2C2 parameter.
   * @retval None
   */
 void HAL_I2CEx_DisableFastModePlus(uint32_t ConfigFastModePlus)

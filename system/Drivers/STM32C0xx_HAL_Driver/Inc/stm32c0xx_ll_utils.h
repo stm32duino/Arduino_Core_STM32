@@ -84,55 +84,40 @@ extern "C" {
   * @}
   */
 /* Exported types ------------------------------------------------------------*/
-/** @defgroup UTILS_LL_ES_INIT UTILS Exported structures
-  * @{
-  */
-
-/**
-  * @brief  UTILS System, AHB and APB buses clock configuration structure definition
-  */
-typedef struct
-{
-  uint32_t AHBCLKDivider;         /*!< The AHB clock (HCLK) divider. This clock is derived from the system clock (SYSCLK).
-                                       This parameter can be a value of @ref RCC_HCLK_Clock_Source
-
-                                       This feature can be modified afterwards using unitary function
-                                       @ref LL_RCC_SetAHBPrescaler(). */
-
-  uint32_t APB1CLKDivider;        /*!< The APB1 clock (PCLK1) divider. This clock is derived from the AHB clock (HCLK).
-                                       This parameter can be a value of @ref RCC_LL_EC_APB1_DIV
-
-                                       This feature can be modified afterwards using unitary function
-                                       @ref LL_RCC_SetAPB1Prescaler(). */
-} LL_UTILS_ClkInitTypeDef;
-
-/**
-  * @}
-  */
-
 /* Exported constants --------------------------------------------------------*/
 /** @defgroup UTILS_LL_Exported_Constants UTILS Exported Constants
   * @{
   */
 
-/** @defgroup UTILS_EC_HSE_BYPASS HSE Bypass activation
-  * @{
-  */
-#define LL_UTILS_HSEBYPASS_OFF        0x00000000U       /*!< HSE Bypass is not enabled                */
-#define LL_UTILS_HSEBYPASS_ON         0x00000001U       /*!< HSE Bypass is enabled                    */
-/**
-  * @}
-  */
-
 /** @defgroup UTILS_EC_PACKAGETYPE PACKAGE TYPE
   * @{
   */
-#define LL_UTILS_PACKAGETYPE_QFN28_GP       0x00000000U /*!< UFQFPN28 general purpose (GP) package type          */
-#define LL_UTILS_PACKAGETYPE_QFN28_PD       0x00000001U /*!< UFQFPN28 Power Delivery (PD)                        */
-#define LL_UTILS_PACKAGETYPE_QFN32_GP       0x00000004U /*!< UFQFPN32 / LQFP32 general purpose (GP) package type */
-#define LL_UTILS_PACKAGETYPE_QFN32_PD       0x00000005U /*!< UFQFPN32 / LQFP32 Power Delivery (PD) package type  */
-#define LL_UTILS_PACKAGETYPE_QFN48          0x00000008U /*!< UFQFPN48 / LQFP488 package type                     */
-#define LL_UTILS_PACKAGETYPE_QFP48          0x0000000CU /*!< LQPF48 package type                                */
+#if defined(STM32C011xx)
+#define LL_UTILS_PACKAGETYPE_SO8           0x0001U /*!< SO8 package type      */
+#define LL_UTILS_PACKAGETYPE_WLCSP12       0x0002U /*!< WLCSP12 package type  */
+#define LL_UTILS_PACKAGETYPE_UFQFPN20      0x0003U /*!< UFQFPN20 package type */
+#define LL_UTILS_PACKAGETYPE_TSSOP20       0x0004U /*!< TSSOP20 package type  */
+#elif defined(STM32C031xx)
+#define LL_UTILS_PACKAGETYPE_TSSOP20        0x0002U /*!< TSSOP20 package type             */
+#define LL_UTILS_PACKAGETYPE_UFQFPN28       0x0003U /*!< UFQFPN28 package type            */
+#define LL_UTILS_PACKAGETYPE_QFN32          0x0004U /*!< UFQFPN32 / LQFP32  package type  */
+#define LL_UTILS_PACKAGETYPE_QFN48          0x0005U /*!< UFQFPN48 / LQFP48  package type  */
+#elif defined(STM32C071xx)
+#define LL_UTILS_PACKAGETYPE_WLCSP19_GP     0x0001U /*!< WLCSP19 (GP) package type                           */
+#define LL_UTILS_PACKAGETYPE_WLCSP19_N      0x0002U /*!< WLCSP19 (N) package type                            */
+#define LL_UTILS_PACKAGETYPE_TSSOP20_GP     0x0003U /*!< TSSOP20 (GP) package type                           */
+#define LL_UTILS_PACKAGETYPE_TSSOP20_N      0x0004U /*!< TSSOP20 (N) package type                            */
+#define LL_UTILS_PACKAGETYPE_UFQFPN28_GP    0x0005U /*!< UFQFPN28 (GP) package type                          */
+#define LL_UTILS_PACKAGETYPE_UFQFPN28_N     0x0006U /*!< UFQFPN28 (GP) package type                          */
+#define LL_UTILS_PACKAGETYPE_QFN32_GP       0x0007U /*!< UFQFPN32 / LQFP32 general purpose (GP) package type */
+#define LL_UTILS_PACKAGETYPE_QFN32_N        0x0008U /*!< UFQFPN32 / LQFP32 general purpose (N) package type  */
+#define LL_UTILS_PACKAGETYPE_QFN48_GP       0x0009U /*!< UFQFPN48 / LQFP48 general purpose (GP) package type */
+#define LL_UTILS_PACKAGETYPE_QFN48_N        0x000AU /*!< UFQFPN32 / LQFP48 general purpose (N) package type  */
+#define LL_UTILS_PACKAGETYPE_LQFP64_GP      0x000BU /*!< UFQFPN64 / LQFP64 general purpose (GP) package type */
+#define LL_UTILS_PACKAGETYPE_LQFP64_N       0x0008U /*!< UFQFPN64 / LQFP64 general purpose (N) package type  */
+#define LL_UTILS_PACKAGETYPE_UFBGA64_GP     0x000DU /*!< UFBGA64 (GP) package type                           */
+#define LL_UTILS_PACKAGETYPE_UFBGA64_N      0x000EU /*!< UFBGA64 (N) package type                            */
+#endif /* STM32C0xx */
 /**
   * @}
   */
@@ -193,12 +178,20 @@ __STATIC_INLINE uint32_t LL_GetFlashSize(void)
 /**
   * @brief  Get Package type
   * @retval Returned value can be one of the following values:
-  *         @arg @ref LL_UTILS_PACKAGETYPE_QFN28_GP
-  *         @arg @ref LL_UTILS_PACKAGETYPE_QFN28_PD
-  *         @arg @ref LL_UTILS_PACKAGETYPE_QFN32_GP
-  *         @arg @ref LL_UTILS_PACKAGETYPE_QFN32_PD
-  *         @arg @ref LL_UTILS_PACKAGETYPE_QFN48
-  *         @arg @ref LL_UTILS_PACKAGETYPE_QFP48
+  *         @arg @ref LL_UTILS_PACKAGETYPE_SO8 (*)
+  *         @arg @ref LL_UTILS_PACKAGETYPE_WLCSP12 (*)
+  *         @arg @ref LL_UTILS_PACKAGETYPE_UFQFPN20 (*)
+  *         @arg @ref LL_UTILS_PACKAGETYPE_TSSOP20 (*)
+  *         @arg @ref LL_UTILS_PACKAGETYPE_UFQFPN28 (*)
+  *         @arg @ref LL_UTILS_PACKAGETYPE_QFN32 (*)
+  *         @arg @ref LL_UTILS_PACKAGETYPE_QFN48 (*)
+  *         @arg @ref LL_UTILS_PACKAGETYPE_WLCSP19 (*)
+  *         @arg @ref LL_UTILS_PACKAGETYPE_WLCSP15 (*)
+  *         @arg @ref LL_UTILS_PACKAGETYPE_UFBGA64 (*)
+  *         @arg @ref LL_UTILS_PACKAGETYPE_LQFP64 (*)
+  *
+  * @note  (*) Availability depends on devices.
+  *
   */
 __STATIC_INLINE uint32_t LL_GetPackageType(void)
 {

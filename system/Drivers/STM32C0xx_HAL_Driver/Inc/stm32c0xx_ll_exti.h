@@ -61,7 +61,10 @@ typedef struct
 
   uint32_t Line_0_31;           /*!< Specifies the EXTI lines to be enabled or disabled for Lines in range 0 to 31
                                      This parameter can be any combination of @ref EXTI_LL_EC_LINE */
-
+#if defined(EXTI_IMR2_IM36)
+  uint32_t Line_32_63;           /*!< Specifies the EXTI lines to be enabled or disabled for Lines in range 32 to 63
+                                     This parameter can be any combination of @ref EXTI_LL_EC_LINE */
+#endif /* LL_EXTI_LINE_36 */
   FunctionalState LineCommand;  /*!< Specifies the new state of the selected EXTI lines.
                                      This parameter can be set either to ENABLE or DISABLE */
 
@@ -106,7 +109,13 @@ typedef struct
 #define LL_EXTI_LINE_25                EXTI_IMR1_IM25          /*!< Extended line 25 */
 #define LL_EXTI_LINE_31                EXTI_IMR1_IM31          /*!< Extended line 31 */
 #define LL_EXTI_LINE_ALL_0_31          0xFFFFFFFFU             /*!< All Extended line */
-
+#if defined(EXTI_IMR2_IM34)
+#define LL_EXTI_LINE_34                EXTI_IMR2_IM34          /*!< Extended line 34 */
+#endif /* EXTI_IMR2_IM34 */
+#if defined(EXTI_IMR2_IM36)
+#define LL_EXTI_LINE_36                EXTI_IMR2_IM36          /*!< Extended line 36 */
+#endif /* EXTI_IMR2_IM36 */
+#define LL_EXTI_LINE_ALL_32_63         0x00000014U             /*!< only line 34 & line 36 */
 #if defined(USE_FULL_LL_DRIVER)
 #define LL_EXTI_LINE_NONE              0x00000000U             /*!< None Extended line */
 #endif /*USE_FULL_LL_DRIVER*/
@@ -128,22 +137,22 @@ typedef struct
 /** @defgroup EXTI_LL_EC_CONFIG_LINE EXTI CONFIG LINE
   * @{
   */
-#define LL_EXTI_CONFIG_LINE0               ((0uL << LL_EXTI_REGISTER_PINPOS_SHFT)  | 0U)  /*!< EXTI_POSITION_0  | EXTICR[0] */
-#define LL_EXTI_CONFIG_LINE1               ((8uL << LL_EXTI_REGISTER_PINPOS_SHFT)  | 0U)  /*!< EXTI_POSITION_8  | EXTICR[0] */
-#define LL_EXTI_CONFIG_LINE2               ((16uL << LL_EXTI_REGISTER_PINPOS_SHFT) | 0U)  /*!< EXTI_POSITION_16 | EXTICR[0] */
-#define LL_EXTI_CONFIG_LINE3               ((24uL << LL_EXTI_REGISTER_PINPOS_SHFT) | 0U)  /*!< EXTI_POSITION_24 | EXTICR[0] */
-#define LL_EXTI_CONFIG_LINE4               ((0uL << LL_EXTI_REGISTER_PINPOS_SHFT)  | 1U)  /*!< EXTI_POSITION_0  | EXTICR[1] */
-#define LL_EXTI_CONFIG_LINE5               ((8uL << LL_EXTI_REGISTER_PINPOS_SHFT)  | 1U)  /*!< EXTI_POSITION_8  | EXTICR[1] */
-#define LL_EXTI_CONFIG_LINE6               ((16uL << LL_EXTI_REGISTER_PINPOS_SHFT) | 1U)  /*!< EXTI_POSITION_16 | EXTICR[1] */
-#define LL_EXTI_CONFIG_LINE7               ((24uL << LL_EXTI_REGISTER_PINPOS_SHFT) | 1U)  /*!< EXTI_POSITION_24 | EXTICR[1] */
-#define LL_EXTI_CONFIG_LINE8               ((0uL << LL_EXTI_REGISTER_PINPOS_SHFT)  | 2U)  /*!< EXTI_POSITION_0  | EXTICR[2] */
-#define LL_EXTI_CONFIG_LINE9               ((8uL << LL_EXTI_REGISTER_PINPOS_SHFT)  | 2U)  /*!< EXTI_POSITION_8  | EXTICR[2] */
-#define LL_EXTI_CONFIG_LINE10              ((16uL << LL_EXTI_REGISTER_PINPOS_SHFT) | 2U)  /*!< EXTI_POSITION_16 | EXTICR[2] */
-#define LL_EXTI_CONFIG_LINE11              ((24uL << LL_EXTI_REGISTER_PINPOS_SHFT) | 2U)  /*!< EXTI_POSITION_24 | EXTICR[2] */
-#define LL_EXTI_CONFIG_LINE12              ((0uL << LL_EXTI_REGISTER_PINPOS_SHFT)  | 3U)  /*!< EXTI_POSITION_0  | EXTICR[3] */
-#define LL_EXTI_CONFIG_LINE13              ((8uL << LL_EXTI_REGISTER_PINPOS_SHFT)  | 3U)  /*!< EXTI_POSITION_8  | EXTICR[3] */
-#define LL_EXTI_CONFIG_LINE14              ((16uL << LL_EXTI_REGISTER_PINPOS_SHFT) | 3U)  /*!< EXTI_POSITION_16 | EXTICR[3] */
-#define LL_EXTI_CONFIG_LINE15              ((24uL << LL_EXTI_REGISTER_PINPOS_SHFT) | 3U)  /*!< EXTI_POSITION_24 | EXTICR[3] */
+#define LL_EXTI_CONFIG_LINE0         ((0uL << LL_EXTI_REGISTER_PINPOS_SHFT)  | 0U)  /*!< EXTI_POSITION_0  | EXTICR[0] */
+#define LL_EXTI_CONFIG_LINE1         ((8uL << LL_EXTI_REGISTER_PINPOS_SHFT)  | 0U)  /*!< EXTI_POSITION_8  | EXTICR[0] */
+#define LL_EXTI_CONFIG_LINE2         ((16uL << LL_EXTI_REGISTER_PINPOS_SHFT) | 0U)  /*!< EXTI_POSITION_16 | EXTICR[0] */
+#define LL_EXTI_CONFIG_LINE3         ((24uL << LL_EXTI_REGISTER_PINPOS_SHFT) | 0U)  /*!< EXTI_POSITION_24 | EXTICR[0] */
+#define LL_EXTI_CONFIG_LINE4         ((0uL << LL_EXTI_REGISTER_PINPOS_SHFT)  | 1U)  /*!< EXTI_POSITION_0  | EXTICR[1] */
+#define LL_EXTI_CONFIG_LINE5         ((8uL << LL_EXTI_REGISTER_PINPOS_SHFT)  | 1U)  /*!< EXTI_POSITION_8  | EXTICR[1] */
+#define LL_EXTI_CONFIG_LINE6         ((16uL << LL_EXTI_REGISTER_PINPOS_SHFT) | 1U)  /*!< EXTI_POSITION_16 | EXTICR[1] */
+#define LL_EXTI_CONFIG_LINE7         ((24uL << LL_EXTI_REGISTER_PINPOS_SHFT) | 1U)  /*!< EXTI_POSITION_24 | EXTICR[1] */
+#define LL_EXTI_CONFIG_LINE8         ((0uL << LL_EXTI_REGISTER_PINPOS_SHFT)  | 2U)  /*!< EXTI_POSITION_0  | EXTICR[2] */
+#define LL_EXTI_CONFIG_LINE9         ((8uL << LL_EXTI_REGISTER_PINPOS_SHFT)  | 2U)  /*!< EXTI_POSITION_8  | EXTICR[2] */
+#define LL_EXTI_CONFIG_LINE10        ((16uL << LL_EXTI_REGISTER_PINPOS_SHFT) | 2U)  /*!< EXTI_POSITION_16 | EXTICR[2] */
+#define LL_EXTI_CONFIG_LINE11        ((24uL << LL_EXTI_REGISTER_PINPOS_SHFT) | 2U)  /*!< EXTI_POSITION_24 | EXTICR[2] */
+#define LL_EXTI_CONFIG_LINE12        ((0uL << LL_EXTI_REGISTER_PINPOS_SHFT)  | 3U)  /*!< EXTI_POSITION_0  | EXTICR[3] */
+#define LL_EXTI_CONFIG_LINE13        ((8uL << LL_EXTI_REGISTER_PINPOS_SHFT)  | 3U)  /*!< EXTI_POSITION_8  | EXTICR[3] */
+#define LL_EXTI_CONFIG_LINE14        ((16uL << LL_EXTI_REGISTER_PINPOS_SHFT) | 3U)  /*!< EXTI_POSITION_16 | EXTICR[3] */
+#define LL_EXTI_CONFIG_LINE15        ((24uL << LL_EXTI_REGISTER_PINPOS_SHFT) | 3U)  /*!< EXTI_POSITION_24 | EXTICR[3] */
 /**
   * @}
   */
@@ -215,7 +224,6 @@ typedef struct
   */
 
 
-
 /* Exported functions --------------------------------------------------------*/
 /** @defgroup EXTI_LL_Exported_Functions EXTI Exported Functions
   * @{
@@ -259,6 +267,25 @@ __STATIC_INLINE void LL_EXTI_EnableIT_0_31(uint32_t ExtiLine)
   SET_BIT(EXTI->IMR1, ExtiLine);
 }
 
+#if defined(LL_EXTI_LINE_36)
+/**
+  * @brief  Enable ExtiLine Interrupt request for Lines in range 32 to 63
+  * @note The reset value for the direct lines (lines from 32 to 34, line
+  *       39) is set to 1 in order to enable the interrupt by default.
+  *       Bits are set automatically at Power on.
+  * @rmtoll IMR2         IMx           LL_EXTI_EnableIT_32_63
+  * @param  ExtiLine This parameter can be one of the following values:
+  *         @arg @ref LL_EXTI_LINE_34
+  *         @arg @ref LL_EXTI_LINE_36
+  *         @arg @ref LL_EXTI_LINE_ALL_32_63
+  * @retval None
+  */
+__STATIC_INLINE void LL_EXTI_EnableIT_32_63(uint32_t ExtiLine)
+{
+  SET_BIT(EXTI->IMR2, ExtiLine);
+}
+#endif /* LL_EXTI_LINE_36 */
+
 /**
   * @brief  Disable ExtiLine Interrupt request for Lines in range 0 to 31
   * @note The reset value for the direct or internal lines (see RM)
@@ -293,6 +320,25 @@ __STATIC_INLINE void LL_EXTI_DisableIT_0_31(uint32_t ExtiLine)
 {
   CLEAR_BIT(EXTI->IMR1, ExtiLine);
 }
+
+#if defined(LL_EXTI_LINE_36)
+/**
+  * @brief  Disable ExtiLine Interrupt request for Lines in range 32 to 63
+  * @note The reset value for the direct lines (lines from 32 to 34, line
+  *       39) is set to 1 in order to enable the interrupt by default.
+  *       Bits are set automatically at Power on.
+  * @rmtoll IMR2         IMx           LL_EXTI_DisableIT_32_63
+  * @param  ExtiLine This parameter can be one of the following values:
+  *         @arg @ref LL_EXTI_LINE_34
+  *         @arg @ref LL_EXTI_LINE_36
+  *         @arg @ref LL_EXTI_LINE_ALL_32_63
+  * @retval None
+  */
+__STATIC_INLINE void LL_EXTI_DisableIT_32_63(uint32_t ExtiLine)
+{
+  CLEAR_BIT(EXTI->IMR2, ExtiLine);
+}
+#endif /* LL_EXTI_LINE_36 */
 
 /**
   * @brief  Disable ExtiLine Interrupt request for Lines in range 0 to 31
@@ -329,6 +375,24 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledIT_0_31(uint32_t ExtiLine)
   return ((READ_BIT(EXTI->IMR1, ExtiLine) == (ExtiLine)) ? 1UL : 0UL);
 }
 
+#if defined(LL_EXTI_LINE_36)
+/**
+  * @brief  Indicate if ExtiLine Interrupt request is enabled for Lines in range 32 to 63
+  * @note The reset value for the direct lines (lines from 32 to 34, line
+  *       39) is set to 1 in order to enable the interrupt by default.
+  *       Bits are set automatically at Power on.
+  * @rmtoll IMR2         IMx           LL_EXTI_IsEnabledIT_32_63
+  * @param  ExtiLine This parameter can be one of the following values:
+  *         @arg @ref LL_EXTI_LINE_34
+  *         @arg @ref LL_EXTI_LINE_36
+  *         @arg @ref LL_EXTI_LINE_ALL_32_63
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_EXTI_IsEnabledIT_32_63(uint32_t ExtiLine)
+{
+  return ((READ_BIT(EXTI->IMR2, ExtiLine) == (ExtiLine)) ? 1UL : 0UL);
+}
+#endif /* LL_EXTI_LINE_36 */
 /**
   * @}
   */
@@ -370,6 +434,22 @@ __STATIC_INLINE void LL_EXTI_EnableEvent_0_31(uint32_t ExtiLine)
 
 }
 
+#if defined(LL_EXTI_LINE_36)
+/**
+  * @brief  Enable ExtiLine Event request for Lines in range 32 to 63
+  * @rmtoll EMR2         EMx           LL_EXTI_EnableEvent_32_63
+  * @param  ExtiLine This parameter can be a combination of the following values:
+  *         @arg @ref LL_EXTI_LINE_34
+  *         @arg @ref LL_EXTI_LINE_36
+  *         @arg @ref LL_EXTI_LINE_ALL_32_63
+  * @retval None
+  */
+__STATIC_INLINE void LL_EXTI_EnableEvent_32_63(uint32_t ExtiLine)
+{
+  SET_BIT(EXTI->EMR2, ExtiLine);
+}
+#endif /* LL_EXTI_LINE_36 */
+
 /**
   * @brief  Disable ExtiLine Event request for Lines in range 0 to 31
   * @rmtoll EMR1         EMx           LL_EXTI_DisableEvent_0_31
@@ -401,6 +481,22 @@ __STATIC_INLINE void LL_EXTI_DisableEvent_0_31(uint32_t ExtiLine)
 {
   CLEAR_BIT(EXTI->EMR1, ExtiLine);
 }
+
+#if defined(LL_EXTI_LINE_36)
+/**
+  * @brief  Disable ExtiLine Event request for Lines in range 32 to 63
+  * @rmtoll EMR2         EMx           LL_EXTI_DisableEvent_32_63
+  * @param  ExtiLine This parameter can be a combination of the following values:
+  *         @arg @ref LL_EXTI_LINE_34
+  *         @arg @ref LL_EXTI_LINE_36
+  *         @arg @ref LL_EXTI_LINE_ALL_32_63
+  * @retval None
+  */
+__STATIC_INLINE void LL_EXTI_DisableEvent_32_63(uint32_t ExtiLine)
+{
+  CLEAR_BIT(EXTI->EMR2, ExtiLine);
+}
+#endif /* LL_EXTI_LINE_36 */
 
 /**
   * @brief  Indicate if ExtiLine Event request is enabled for Lines in range 0 to 31
@@ -434,6 +530,21 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledEvent_0_31(uint32_t ExtiLine)
   return ((READ_BIT(EXTI->EMR1, ExtiLine) == (ExtiLine)) ? 1UL : 0UL);
 }
 
+#if defined(LL_EXTI_LINE_36)
+/**
+  * @brief  Indicate if ExtiLine Event request is enabled for Lines in range 32 to 63
+  * @rmtoll EMR2         EMx           LL_EXTI_IsEnabledEvent_32_63
+  * @param  ExtiLine This parameter can be a combination of the following values
+  *         @arg @ref LL_EXTI_LINE_34
+  *         @arg @ref LL_EXTI_LINE_36
+  *         @arg @ref LL_EXTI_LINE_ALL_32_63
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_EXTI_IsEnabledEvent_32_63(uint32_t ExtiLine)
+{
+  return ((READ_BIT(EXTI->EMR2, ExtiLine) == (ExtiLine)) ? 1UL : 0UL);
+}
+#endif /* LL_EXTI_LINE_36 */
 
 /**
   * @}
@@ -470,10 +581,6 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledEvent_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_13
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
-  *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_23
-  *         @arg @ref LL_EXTI_LINE_25
-  *         @arg @ref LL_EXTI_LINE_31
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
@@ -481,6 +588,28 @@ __STATIC_INLINE void LL_EXTI_EnableRisingTrig_0_31(uint32_t ExtiLine)
 {
   SET_BIT(EXTI->RTSR1, ExtiLine);
 }
+
+#if defined(LL_EXTI_LINE_34)
+/**
+  * @brief  Enable ExtiLine Rising Edge Trigger for Lines in range 32 to 63
+  * @note The configurable wakeup lines are edge-triggered. No glitch must be
+  *       generated on these lines. If a rising edge on a configurable interrupt
+  *       line occurs during a write operation in the EXTI_RTSR register, the
+  *       pending bit is not set.
+  *       Rising and falling edge triggers can be set for
+  *       the same interrupt line. In this case, both generate a trigger
+  *       condition.
+  * @rmtoll RTSR2        RTx           LL_EXTI_EnableRisingTrig_32_63
+  * @param  ExtiLine This parameter can be a combination of the following values:
+  *         @arg @ref LL_EXTI_LINE_34
+  * @note   Please check each device line mapping for EXTI Line availability
+  * @retval None
+  */
+__STATIC_INLINE void LL_EXTI_EnableRisingTrig_32_63(uint32_t ExtiLine)
+{
+  SET_BIT(EXTI->RTSR2, ExtiLine);
+}
+#endif /* LL_EXTI_LINE_34 */
 
 /**
   * @brief  Disable ExtiLine Rising Edge Trigger for Lines in range 0 to 31
@@ -509,10 +638,6 @@ __STATIC_INLINE void LL_EXTI_EnableRisingTrig_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_13
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
-  *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_23
-  *         @arg @ref LL_EXTI_LINE_25
-  *         @arg @ref LL_EXTI_LINE_31
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
@@ -521,6 +646,28 @@ __STATIC_INLINE void LL_EXTI_DisableRisingTrig_0_31(uint32_t ExtiLine)
   CLEAR_BIT(EXTI->RTSR1, ExtiLine);
 
 }
+
+#if defined(LL_EXTI_LINE_34)
+/**
+  * @brief  Disable ExtiLine Rising Edge Trigger for Lines in range 32 to 63
+  * @note The configurable wakeup lines are edge-triggered. No glitch must be
+  *       generated on these lines. If a rising edge on a configurable interrupt
+  *       line occurs during a write operation in the EXTI_RTSR register, the
+  *       pending bit is not set.
+  *       Rising and falling edge triggers can be set for
+  *       the same interrupt line. In this case, both generate a trigger
+  *       condition.
+  * @rmtoll RTSR2        RTx           LL_EXTI_DisableRisingTrig_32_63
+  * @param  ExtiLine This parameter can be a combination of the following values:
+  *         @arg @ref LL_EXTI_LINE_34
+  * @note   Please check each device line mapping for EXTI Line availability
+  * @retval None
+  */
+__STATIC_INLINE void LL_EXTI_DisableRisingTrig_32_63(uint32_t ExtiLine)
+{
+  CLEAR_BIT(EXTI->RTSR2, ExtiLine);
+}
+#endif /* LL_EXTI_LINE_34 */
 
 /**
   * @brief  Check if rising edge trigger is enabled for Lines in range 0 to 31
@@ -542,10 +689,6 @@ __STATIC_INLINE void LL_EXTI_DisableRisingTrig_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_13
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
-  *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_23
-  *         @arg @ref LL_EXTI_LINE_25
-  *         @arg @ref LL_EXTI_LINE_31
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
@@ -553,6 +696,21 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledRisingTrig_0_31(uint32_t ExtiLine)
 {
   return ((READ_BIT(EXTI->RTSR1, ExtiLine) == (ExtiLine)) ? 1UL : 0UL);
 }
+
+#if defined(LL_EXTI_LINE_34)
+/**
+  * @brief  Check if rising edge trigger is enabled for Lines in range 32 to 63
+  * @rmtoll RTSR2        RTx           LL_EXTI_IsEnabledRisingTrig_32_63
+  * @param  ExtiLine This parameter can be a combination of the following values:
+  *         @arg @ref LL_EXTI_LINE_34
+  * @note   Please check each device line mapping for EXTI Line availability
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_EXTI_IsEnabledRisingTrig_32_63(uint32_t ExtiLine)
+{
+  return ((READ_BIT(EXTI->RTSR2, ExtiLine) == (ExtiLine)) ? 1UL : 0UL);
+}
+#endif /* LL_EXTI_LINE_34 */
 
 /**
   * @}
@@ -589,10 +747,6 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledRisingTrig_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_13
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
-  *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_23
-  *         @arg @ref LL_EXTI_LINE_25
-  *         @arg @ref LL_EXTI_LINE_31
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
@@ -600,6 +754,28 @@ __STATIC_INLINE void LL_EXTI_EnableFallingTrig_0_31(uint32_t ExtiLine)
 {
   SET_BIT(EXTI->FTSR1, ExtiLine);
 }
+
+#if defined(LL_EXTI_LINE_34)
+/**
+  * @brief  Enable ExtiLine Falling Edge Trigger for Lines in range 32 to 63
+  * @note The configurable wakeup lines are edge-triggered. No glitch must be
+  *       generated on these lines. If a falling edge on a configurable interrupt
+  *       line occurs during a write operation in the EXTI_FTSR register, the
+  *       pending bit is not set.
+  *       Rising and falling edge triggers can be set for
+  *       the same interrupt line. In this case, both generate a trigger
+  *       condition.
+  * @rmtoll FTSR2        FTx           LL_EXTI_EnableFallingTrig_32_63
+  * @param  ExtiLine This parameter can be a combination of the following values:
+  *         @arg @ref LL_EXTI_LINE_34
+  * @note   Please check each device line mapping for EXTI Line availability
+  * @retval None
+  */
+__STATIC_INLINE void LL_EXTI_EnableFallingTrig_32_63(uint32_t ExtiLine)
+{
+  SET_BIT(EXTI->FTSR2, ExtiLine);
+}
+#endif /* LL_EXTI_LINE_34 */
 
 /**
   * @brief  Disable ExtiLine Falling Edge Trigger for Lines in range 0 to 31
@@ -627,10 +803,6 @@ __STATIC_INLINE void LL_EXTI_EnableFallingTrig_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_13
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
-  *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_23
-  *         @arg @ref LL_EXTI_LINE_25
-  *         @arg @ref LL_EXTI_LINE_31
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
@@ -638,6 +810,27 @@ __STATIC_INLINE void LL_EXTI_DisableFallingTrig_0_31(uint32_t ExtiLine)
 {
   CLEAR_BIT(EXTI->FTSR1, ExtiLine);
 }
+
+#if defined(LL_EXTI_LINE_34)
+/**
+  * @brief  Disable ExtiLine Falling Edge Trigger for Lines in range 32 to 63
+  * @note The configurable wakeup lines are edge-triggered. No glitch must be
+  *       generated on these lines. If a Falling edge on a configurable interrupt
+  *       line occurs during a write operation in the EXTI_FTSR register, the
+  *       pending bit is not set.
+  *       Rising and falling edge triggers can be set for the same interrupt line.
+  *       In this case, both generate a trigger condition.
+  * @rmtoll FTSR2        FTx           LL_EXTI_DisableFallingTrig_32_63
+  * @param  ExtiLine This parameter can be a combination of the following values:
+  *         @arg @ref LL_EXTI_LINE_34
+  * @note   Please check each device line mapping for EXTI Line availability
+  * @retval None
+  */
+__STATIC_INLINE void LL_EXTI_DisableFallingTrig_32_63(uint32_t ExtiLine)
+{
+  CLEAR_BIT(EXTI->FTSR2, ExtiLine);
+}
+#endif /* LL_EXTI_LINE_34 */
 
 /**
   * @brief  Check if falling edge trigger is enabled for Lines in range 0 to 31
@@ -659,10 +852,6 @@ __STATIC_INLINE void LL_EXTI_DisableFallingTrig_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_13
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
-  *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_23
-  *         @arg @ref LL_EXTI_LINE_25
-  *         @arg @ref LL_EXTI_LINE_31
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
@@ -670,6 +859,21 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledFallingTrig_0_31(uint32_t ExtiLine)
 {
   return ((READ_BIT(EXTI->FTSR1, ExtiLine) == (ExtiLine)) ? 1UL : 0UL);
 }
+
+#if defined(LL_EXTI_LINE_34)
+/**
+  * @brief  Check if falling edge trigger is enabled for Lines in range 32 to 63
+  * @rmtoll FTSR2        FTx           LL_EXTI_IsEnabledFallingTrig_32_63
+  * @param  ExtiLine This parameter can be a combination of the following values:
+  *         @arg @ref LL_EXTI_LINE_34
+  * @note   Please check each device line mapping for EXTI Line availability
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_EXTI_IsEnabledFallingTrig_32_63(uint32_t ExtiLine)
+{
+  return ((READ_BIT(EXTI->FTSR2, ExtiLine) == (ExtiLine)) ? 1UL : 0UL);
+}
+#endif /* LL_EXTI_LINE_34 */
 
 /**
   * @}
@@ -704,10 +908,6 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledFallingTrig_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_13
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
-  *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_23
-  *         @arg @ref LL_EXTI_LINE_25
-  *         @arg @ref LL_EXTI_LINE_31
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
@@ -715,6 +915,26 @@ __STATIC_INLINE void LL_EXTI_GenerateSWI_0_31(uint32_t ExtiLine)
 {
   SET_BIT(EXTI->SWIER1, ExtiLine);
 }
+
+#if defined(LL_EXTI_LINE_34)
+/**
+  * @brief  Generate a software Interrupt Event for Lines in range 32 to 63
+  * @note If the interrupt is enabled on this line in the EXTI_IMR, writing a 1 to
+  *       this bit when it is at '0' sets the corresponding pending bit in EXTI_PR
+  *       resulting in an interrupt request generation.
+  *       This bit is cleared by clearing the corresponding bit in the EXTI_PR
+  *       register (by writing a 1 into the bit)
+  * @rmtoll SWIER2       SWIx          LL_EXTI_GenerateSWI_32_63
+  * @param  ExtiLine This parameter can be a combination of the following values:
+  *         @arg @ref LL_EXTI_LINE_34
+  * @note   Please check each device line mapping for EXTI Line availability
+  * @retval None
+  */
+__STATIC_INLINE void LL_EXTI_GenerateSWI_32_63(uint32_t ExtiLine)
+{
+  SET_BIT(EXTI->SWIER2, ExtiLine);
+}
+#endif /* LL_EXTI_LINE_34 */
 
 /**
   * @}
@@ -758,6 +978,23 @@ __STATIC_INLINE uint32_t LL_EXTI_IsActiveFallingFlag_0_31(uint32_t ExtiLine)
   return ((READ_BIT(EXTI->FPR1, ExtiLine) == (ExtiLine)) ? 1UL : 0UL);
 }
 
+#if defined(LL_EXTI_LINE_34)
+/**
+  * @brief  Check if the ExtLine Falling Flag is set or not for Lines in range 32 to 63
+  * @note This bit is set when the falling edge event arrives on the interrupt
+  *       line. This bit is cleared by writing a 1 to the bit.
+  * @rmtoll FPR2          FPIFx           LL_EXTI_IsActiveFallingFlag_32_63
+  * @param  ExtiLine This parameter can be a combination of the following values:
+  *         @arg @ref LL_EXTI_LINE_34
+  * @note   Please check each device line mapping for EXTI Line availability
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_EXTI_IsActiveFallingFlag_32_63(uint32_t ExtiLine)
+{
+  return ((READ_BIT(EXTI->FPR2, ExtiLine) == (ExtiLine)) ? 1UL : 0UL);
+}
+#endif /* LL_EXTI_LINE_34 */
+
 /**
   * @brief  Read ExtLine Combination Falling Flag for Lines in range 0 to 31
   * @note This bit is set when the falling edge event arrives on the interrupt
@@ -792,6 +1029,23 @@ __STATIC_INLINE uint32_t LL_EXTI_ReadFallingFlag_0_31(uint32_t ExtiLine)
   return (READ_BIT(EXTI->FPR1, ExtiLine));
 }
 
+#if defined(LL_EXTI_LINE_34)
+/**
+  * @brief  Read ExtLine Combination Falling Flag for Lines in range 32 to 63
+  * @note This bit is set when the falling edge event arrives on the interrupt
+  *       line. This bit is cleared by writing a 1 to the bit.
+  * @rmtoll FPR2          FPIFx           LL_EXTI_ReadFallingFlag_32_63
+  * @param  ExtiLine This parameter can be a combination of the following values:
+  *         @arg @ref LL_EXTI_LINE_34
+  * @note   Please check each device line mapping for EXTI Line availability
+  * @retval @note This bit is set when the selected edge event arrives on the interrupt
+  */
+__STATIC_INLINE uint32_t LL_EXTI_ReadFallingFlag_32_63(uint32_t ExtiLine)
+{
+  return (uint32_t)(READ_BIT(EXTI->FPR2, ExtiLine));
+}
+#endif /* LL_EXTI_LINE_34 */
+
 /**
   * @brief  Clear ExtLine Falling Flags  for Lines in range 0 to 31
   * @note This bit is set when the falling edge event arrives on the interrupt
@@ -814,10 +1068,6 @@ __STATIC_INLINE uint32_t LL_EXTI_ReadFallingFlag_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_13
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
-  *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_23
-  *         @arg @ref LL_EXTI_LINE_25
-  *         @arg @ref LL_EXTI_LINE_31
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
@@ -825,6 +1075,23 @@ __STATIC_INLINE void LL_EXTI_ClearFallingFlag_0_31(uint32_t ExtiLine)
 {
   WRITE_REG(EXTI->FPR1, ExtiLine);
 }
+
+#if defined(LL_EXTI_LINE_34)
+/**
+  * @brief  Clear ExtLine Falling Flags  for Lines in range 32 to 63
+  * @note This bit is set when the falling edge event arrives on the interrupt
+  *       line. This bit is cleared by writing a 1 to the bit.
+  * @rmtoll FPR2          FPIFx           LL_EXTI_ClearFallingFlag_32_63
+  * @param  ExtiLine This parameter can be a combination of the following values:
+  *         @arg @ref LL_EXTI_LINE_34
+  * @note   Please check each device line mapping for EXTI Line availability
+  * @retval None
+  */
+__STATIC_INLINE void LL_EXTI_ClearFallingFlag_32_63(uint32_t ExtiLine)
+{
+  WRITE_REG(EXTI->FPR2, ExtiLine);
+}
+#endif /* LL_EXTI_LINE_34 */
 
 /**
   * @brief  Check if the ExtLine Rising Flag is set or not for Lines in range 0 to 31
@@ -848,10 +1115,6 @@ __STATIC_INLINE void LL_EXTI_ClearFallingFlag_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_13
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
-  *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_23
-  *         @arg @ref LL_EXTI_LINE_25
-  *         @arg @ref LL_EXTI_LINE_31
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
@@ -859,6 +1122,23 @@ __STATIC_INLINE uint32_t LL_EXTI_IsActiveRisingFlag_0_31(uint32_t ExtiLine)
 {
   return ((READ_BIT(EXTI->RPR1, ExtiLine) == (ExtiLine)) ? 1UL : 0UL);
 }
+
+#if defined(LL_EXTI_LINE_34)
+/**
+  * @brief  Check if the ExtLine Rising Flag is set or not for Lines in range 32 to 63
+  * @note This bit is set when the Rising edge event arrives on the interrupt
+  *       line. This bit is cleared by writing a 1 to the bit.
+  * @rmtoll RPR2          RPIFx           LL_EXTI_IsActiveRisingFlag_32_63
+  * @param  ExtiLine This parameter can be a combination of the following values:
+  *         @arg @ref LL_EXTI_LINE_34
+  * @note   Please check each device line mapping for EXTI Line availability
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_EXTI_IsActiveRisingFlag_32_63(uint32_t ExtiLine)
+{
+  return ((READ_BIT(EXTI->RPR2, ExtiLine) == (ExtiLine)) ? 1UL : 0UL);
+}
+#endif /* LL_EXTI_LINE_34 */
 
 /**
   * @brief  Read ExtLine Combination Rising Flag for Lines in range 0 to 31
@@ -882,10 +1162,6 @@ __STATIC_INLINE uint32_t LL_EXTI_IsActiveRisingFlag_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_13
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
-  *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_23
-  *         @arg @ref LL_EXTI_LINE_25
-  *         @arg @ref LL_EXTI_LINE_31
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval @note This bit is set when the selected edge event arrives on the interrupt
   */
@@ -893,6 +1169,23 @@ __STATIC_INLINE uint32_t LL_EXTI_ReadRisingFlag_0_31(uint32_t ExtiLine)
 {
   return (READ_BIT(EXTI->RPR1, ExtiLine));
 }
+
+#if defined(LL_EXTI_LINE_34)
+/**
+  * @brief  Read ExtLine Combination Rising Flag for Lines in range 32 to 63
+  * @note This bit is set when the Rising edge event arrives on the interrupt
+  *       line. This bit is cleared by writing a 1 to the bit.
+  * @rmtoll RPR2          RPIFx           LL_EXTI_ReadRisingFlag_32_63
+  * @param  ExtiLine This parameter can be a combination of the following values:
+  *         @arg @ref LL_EXTI_LINE_34
+  * @note   Please check each device line mapping for EXTI Line availability
+  * @retval @note This bit is set when the selected edge event arrives on the interrupt
+  */
+__STATIC_INLINE uint32_t LL_EXTI_ReadRisingFlag_32_63(uint32_t ExtiLine)
+{
+  return (READ_BIT(EXTI->RPR2, ExtiLine));
+}
+#endif /* LL_EXTI_LINE_34 */
 
 /**
   * @brief  Clear ExtLine Rising Flags  for Lines in range 0 to 31
@@ -916,10 +1209,6 @@ __STATIC_INLINE uint32_t LL_EXTI_ReadRisingFlag_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_13
   *         @arg @ref LL_EXTI_LINE_14
   *         @arg @ref LL_EXTI_LINE_15
-  *         @arg @ref LL_EXTI_LINE_19
-  *         @arg @ref LL_EXTI_LINE_23
-  *         @arg @ref LL_EXTI_LINE_25
-  *         @arg @ref LL_EXTI_LINE_31
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
@@ -928,6 +1217,22 @@ __STATIC_INLINE void LL_EXTI_ClearRisingFlag_0_31(uint32_t ExtiLine)
   WRITE_REG(EXTI->RPR1, ExtiLine);
 }
 
+#if defined(LL_EXTI_LINE_34)
+/**
+  * @brief  Clear ExtLine Rising Flags  for Lines in range 32 to 63
+  * @note This bit is set when the Rising edge event arrives on the interrupt
+  *       line. This bit is cleared by writing a 1 to the bit.
+  * @rmtoll RPR2          RPIFx           LL_EXTI_ClearRisingFlag_32_63
+  * @param  ExtiLine This parameter can be a combination of the following values:
+  *         @arg @ref LL_EXTI_LINE_34
+  * @note   Please check each device line mapping for EXTI Line availability
+  * @retval None
+  */
+__STATIC_INLINE void LL_EXTI_ClearRisingFlag_32_63(uint32_t ExtiLine)
+{
+  WRITE_REG(EXTI->RPR2, ExtiLine);
+}
+#endif /* LL_EXTI_LINE_34 */
 /**
   * @}
   */
@@ -956,7 +1261,6 @@ __STATIC_INLINE void LL_EXTI_ClearRisingFlag_0_31(uint32_t ExtiLine)
   * @param  Port This parameter can be one of the following values:
   *         @arg @ref EXTI_LL_EC_CONFIG_PORT
   *
-  *         (*) value not defined in all devices
   * @param  Line This parameter can be one of the following values:
   *         @arg @ref LL_EXTI_CONFIG_LINE0
   *         @arg @ref LL_EXTI_CONFIG_LINE1
@@ -1020,7 +1324,6 @@ __STATIC_INLINE void LL_EXTI_SetEXTISource(uint32_t Port, uint32_t Line)
   * @retval Returned value can be one of the following values:
   *         @arg @ref EXTI_LL_EC_CONFIG_PORT
   *
-  *         (*) value not defined in all devices
   */
 __STATIC_INLINE uint32_t LL_EXTI_GetEXTISource(uint32_t Line)
 {
@@ -1064,4 +1367,4 @@ void LL_EXTI_StructInit(LL_EXTI_InitTypeDef *EXTI_InitStruct);
 }
 #endif
 
-#endif /* STM32U5xx_LL_EXTI_H */
+#endif /* STM32C0xx_LL_EXTI_H */

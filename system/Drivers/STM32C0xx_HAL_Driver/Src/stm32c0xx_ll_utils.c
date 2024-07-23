@@ -42,10 +42,6 @@
   */
 #define UTILS_MAX_FREQUENCY          48000000U     /*!< Maximum frequency for system clock, in Hz */
 
-/* Defines used for HSE range */
-#define UTILS_HSE_FREQUENCY_MIN      4000000U      /*!< Frequency min for HSE frequency, in Hz   */
-#define UTILS_HSE_FREQUENCY_MAX      48000000U     /*!< Frequency max for HSE frequency, in Hz   */
-
 /* Defines used for FLASH latency according to HCLK Frequency */
 #define UTILS_SCALE1_LATENCY1_FREQ  24000000U       /*!< HCLK frequency to set FLASH latency 1 in power scale 1  */
 #define UTILS_SCALE1_LATENCY2_FREQ  48000000U       /*!< HCLK frequency to set FLASH latency 2 in power scale 1  */
@@ -54,51 +50,6 @@
   */
 
 /* Private macros ------------------------------------------------------------*/
-/** @addtogroup UTILS_LL_Private_Macros
-  * @{
-  */
-#define IS_LL_UTILS_SYSCLK_DIV(__VALUE__) (((__VALUE__) == LL_RCC_HCLK_DIV_1)    \
-                                           || ((__VALUE__) == LL_RCC_HCLK_DIV_2)   \
-                                           || ((__VALUE__) == LL_RCC_HCLK_DIV_4)   \
-                                           || ((__VALUE__) == LL_RCC_HCLK_DIV_8)   \
-                                           || ((__VALUE__) == LL_RCC_HCLK_DIV_16)  \
-                                           || ((__VALUE__) == LL_RCC_HCLK_DIV_64)  \
-                                           || ((__VALUE__) == LL_RCC_HCLK_DIV_128) \
-                                           || ((__VALUE__) == LL_RCC_HCLK_DIV_256) \
-                                           || ((__VALUE__) == LL_RCC_HCLK_DIV_512))
-
-#define IS_LL_UTILS_APB1_DIV(__VALUE__) (((__VALUE__) == LL_RCC_APB1_DIV_1) \
-                                         || ((__VALUE__) == LL_RCC_APB1_DIV_2) \
-                                         || ((__VALUE__) == LL_RCC_APB1_DIV_4) \
-                                         || ((__VALUE__) == LL_RCC_APB1_DIV_8) \
-                                         || ((__VALUE__) == LL_RCC_APB1_DIV_16))
-
-#define IS_LL_UTILS_HSI_DIV(__VALUE__)  (((__VALUE__) == LL_RCC_HSI_DIV_1)  \
-                                         || ((__VALUE__) == LL_RCC_HSI_DIV_2)  \
-                                         || ((__VALUE__) == LL_RCC_HSI_DIV_4)  \
-                                         || ((__VALUE__) == LL_RCC_HSI_DIV_8)  \
-                                         || ((__VALUE__) == LL_RCC_HSI_DIV_16) \
-                                         || ((__VALUE__) == LL_RCC_HSI_DIV_32) \
-                                         || ((__VALUE__) == LL_RCC_HSI_DIV_64) \
-                                         || ((__VALUE__) == LL_RCC_HSI_DIV_128))
-
-#define IS_LL_UTILS_HSIKER_DIV(__VALUE__)  (((__VALUE__) == LL_RCC_HSIKER_DIV_1)  \
-                                            || ((__VALUE__) == LL_RCC_HSIKER_DIV_2)  \
-                                            || ((__VALUE__) == LL_RCC_HSIKER_DIV_3)  \
-                                            || ((__VALUE__) == LL_RCC_HSIKER_DIV_4)  \
-                                            || ((__VALUE__) == LL_RCC_HSIKER_DIV_5) \
-                                            || ((__VALUE__) == LL_RCC_HSIKER_DIV_6) \
-                                            || ((__VALUE__) == LL_RCC_HSIKER_DIV_7) \
-                                            || ((__VALUE__) == LL_RCC_HSIKER_DIV_8))
-
-#define IS_LL_UTILS_HSE_BYPASS(__STATE__) (((__STATE__) == LL_UTILS_HSEBYPASS_ON) \
-                                           || ((__STATE__) == LL_UTILS_HSEBYPASS_OFF))
-
-#define IS_LL_UTILS_HSE_FREQUENCY(__FREQUENCY__) (((__FREQUENCY__) >= UTILS_HSE_FREQUENCY_MIN)\
-                                                  && ((__FREQUENCY__) <= UTILS_HSE_FREQUENCY_MAX))
-/**
-  * @}
-  */
 /* Private function prototypes -----------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
 /** @addtogroup UTILS_LL_Exported_Functions
@@ -205,8 +156,6 @@ void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
   SystemCoreClock = HCLKFrequency;
 }
 
-
-
 /**
   * @}
   */
@@ -263,7 +212,7 @@ ErrorStatus LL_SetFlashLatency(uint32_t HCLK_Frequency)
       timeout--;
     } while ((getlatency != latency) && (timeout > 0U));
 
-    if(getlatency != latency)
+    if (getlatency != latency)
     {
       status = ERROR;
     }
@@ -274,7 +223,6 @@ ErrorStatus LL_SetFlashLatency(uint32_t HCLK_Frequency)
   }
   return status;
 }
-
 
 /**
   * @}

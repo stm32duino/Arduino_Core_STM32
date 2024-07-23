@@ -44,7 +44,9 @@
   */
 
 #define IS_LL_EXTI_LINE_0_31(__VALUE__)              (((__VALUE__) & ~LL_EXTI_LINE_ALL_0_31) == 0x00000000U)
-
+#if defined(EXTI_IMR2_IM36)
+#define IS_LL_EXTI_LINE_32_63(__VALUE__)             (((__VALUE__) & ~LL_EXTI_LINE_ALL_32_63) == 0x00000000U)
+#endif /* EXTI_IMR2_IM36 */
 #define IS_LL_EXTI_MODE(__VALUE__)                   (((__VALUE__) == LL_EXTI_MODE_IT)            \
                                                       || ((__VALUE__) == LL_EXTI_MODE_EVENT)         \
                                                       || ((__VALUE__) == LL_EXTI_MODE_IT_EVENT))
@@ -91,6 +93,22 @@ ErrorStatus LL_EXTI_DeInit(void)
   /* Pending register set to default reset values */
   LL_EXTI_WriteReg(RPR1,    0x0007FFFFU);
   LL_EXTI_WriteReg(FPR1,    0x0007FFFFU);
+#if defined(EXTI_IMR2_IM36)
+  /* Interrupt mask register set to default reset values */
+  LL_EXTI_WriteReg(IMR2,   0x00000010U);
+  /* Event mask register set to default reset values */
+  LL_EXTI_WriteReg(EMR2,   0x00000000U);
+  /* Rising Trigger selection register set to default reset values */
+  LL_EXTI_WriteReg(RTSR2,  0x00000000U);
+  /* Falling Trigger selection register set to default reset values */
+  LL_EXTI_WriteReg(FTSR2,  0x00000000U);
+  /* Software interrupt event register set to default reset values */
+  LL_EXTI_WriteReg(SWIER2, 0x00000000U);
+  /* Pending register set to default reset values */
+  LL_EXTI_WriteReg(RPR2,    0x00000004U);
+  LL_EXTI_WriteReg(FPR2,    0x00000004U);
+#endif /* EXTI_IMR2_IM36*/
+
   return SUCCESS;
 }
 
@@ -106,6 +124,9 @@ ErrorStatus LL_EXTI_Init(LL_EXTI_InitTypeDef *EXTI_InitStruct)
   ErrorStatus status = SUCCESS;
   /* Check the parameters */
   assert_param(IS_LL_EXTI_LINE_0_31(EXTI_InitStruct->Line_0_31));
+#if defined(EXTI_IMR2_IM36)
+  assert_param(IS_LL_EXTI_LINE_32_63(EXTI_InitStruct->Line_32_63));
+#endif /* EXTI_IMR2_IM36 */
   assert_param(IS_FUNCTIONAL_STATE(EXTI_InitStruct->LineCommand));
   assert_param(IS_LL_EXTI_MODE(EXTI_InitStruct->Mode));
 
@@ -140,6 +161,7 @@ ErrorStatus LL_EXTI_Init(LL_EXTI_InitTypeDef *EXTI_InitStruct)
           status = ERROR;
           break;
       }
+
       if (EXTI_InitStruct->Trigger != LL_EXTI_TRIGGER_NONE)
       {
         switch (EXTI_InitStruct->Trigger)
@@ -166,7 +188,60 @@ ErrorStatus LL_EXTI_Init(LL_EXTI_InitTypeDef *EXTI_InitStruct)
         }
       }
     }
-
+#if defined(EXTI_IMR2_IM36)
+    /* Configure EXTI Lines in range from 32 to 63 */
+    if (EXTI_InitStruct->Line_32_63 != LL_EXTI_LINE_NONE)
+    {
+      switch (EXTI_InitStruct->Mode)
+      {
+        case LL_EXTI_MODE_IT:
+          /* First Disable Event on provided Lines */
+          LL_EXTI_DisableEvent_32_63(EXTI_InitStruct->Line_32_63);
+          /* Then Enable IT on provided Lines */
+          LL_EXTI_EnableIT_32_63(EXTI_InitStruct->Line_32_63);
+          break;
+        case LL_EXTI_MODE_EVENT:
+          /* First Disable IT on provided Lines */
+          LL_EXTI_DisableIT_32_63(EXTI_InitStruct->Line_32_63);
+          /* Then Enable Event on provided Lines */
+          LL_EXTI_EnableEvent_32_63(EXTI_InitStruct->Line_32_63);
+          break;
+        case LL_EXTI_MODE_IT_EVENT:
+          /* Directly Enable IT & Event on provided Lines */
+          LL_EXTI_EnableIT_32_63(EXTI_InitStruct->Line_32_63);
+          LL_EXTI_EnableEvent_32_63(EXTI_InitStruct->Line_32_63);
+          break;
+        default:
+          status = ERROR;
+          break;
+      }
+      if (EXTI_InitStruct->Trigger != LL_EXTI_TRIGGER_NONE)
+      {
+        switch (EXTI_InitStruct->Trigger)
+        {
+          case LL_EXTI_TRIGGER_RISING:
+            /* First Disable Falling Trigger on provided Lines */
+            LL_EXTI_DisableFallingTrig_32_63(EXTI_InitStruct->Line_32_63);
+            /* Then Enable Rising Trigger on provided Lines */
+            LL_EXTI_EnableRisingTrig_32_63(EXTI_InitStruct->Line_32_63);
+            break;
+          case LL_EXTI_TRIGGER_FALLING:
+            /* First Disable Rising Trigger on provided Lines */
+            LL_EXTI_DisableRisingTrig_32_63(EXTI_InitStruct->Line_32_63);
+            /* Then Enable Falling Trigger on provided Lines */
+            LL_EXTI_EnableFallingTrig_32_63(EXTI_InitStruct->Line_32_63);
+            break;
+          case LL_EXTI_TRIGGER_RISING_FALLING:
+            LL_EXTI_EnableRisingTrig_32_63(EXTI_InitStruct->Line_32_63);
+            LL_EXTI_EnableFallingTrig_32_63(EXTI_InitStruct->Line_32_63);
+            break;
+          default:
+            status = ERROR;
+            break;
+        }
+      }
+    }
+#endif /* EXTI_IMR2_IM36 */
   }
   /* DISABLE LineCommand */
   else
@@ -174,9 +249,15 @@ ErrorStatus LL_EXTI_Init(LL_EXTI_InitTypeDef *EXTI_InitStruct)
     /* De-configure EXTI Lines in range from 0 to 31 */
     LL_EXTI_DisableIT_0_31(EXTI_InitStruct->Line_0_31);
     LL_EXTI_DisableEvent_0_31(EXTI_InitStruct->Line_0_31);
+#if defined(EXTI_IMR2_IM36)
+    /* De-configure EXTI Lines in range from 32 to 63 */
+    LL_EXTI_DisableIT_32_63(EXTI_InitStruct->Line_32_63);
+    LL_EXTI_DisableEvent_32_63(EXTI_InitStruct->Line_32_63);
+#endif /* EXTI_IMR2_IM36 */
   }
   return status;
 }
+
 /**
   * @brief  Set each @ref LL_EXTI_InitTypeDef field to default value.
   * @param  EXTI_InitStruct Pointer to a @ref LL_EXTI_InitTypeDef structure.
@@ -185,7 +266,9 @@ ErrorStatus LL_EXTI_Init(LL_EXTI_InitTypeDef *EXTI_InitStruct)
 void LL_EXTI_StructInit(LL_EXTI_InitTypeDef *EXTI_InitStruct)
 {
   EXTI_InitStruct->Line_0_31      = LL_EXTI_LINE_NONE;
-
+#if defined(EXTI_IMR2_IM36)
+  EXTI_InitStruct->Line_32_63     = LL_EXTI_LINE_NONE;
+#endif /* EXTI_IMR2_IM36 */
   EXTI_InitStruct->LineCommand    = DISABLE;
   EXTI_InitStruct->Mode           = LL_EXTI_MODE_IT;
   EXTI_InitStruct->Trigger        = LL_EXTI_TRIGGER_FALLING;

@@ -11,8 +11,11 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
@@ -20,10 +23,10 @@
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <link rel="stylesheet" href="_htmresc/mini-st_2020.css" />
+  <link rel="icon" type="image/x-icon" href="_htmresc/favicon.png" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
-  <link rel="icon" type="image/x-icon" href="_htmresc/favicon.png" />
 </head>
 <body>
 <div class="row">
@@ -33,27 +36,94 @@
 <mark> STM32C0xx CMSIS </mark></h1>
 <p>Copyright © 2022 STMicroelectronics<br />
 </p>
-<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
+<a href="https://www.st.com" class="logo"><img
+src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
 </center>
 </div>
-<div class="col-sm-12 col-lg-8">
-<h1 id="update-history">Update History</h1>
+<section id="update-history" class="col-sm-12 col-lg-8">
+<h1><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section2" checked aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true"><strong>V1.1.0 / 07-June-2023</strong></label>
+<input type="checkbox" id="collapse-section3" checked aria-hidden="true">
+<label for="collapse-section3" checked aria-hidden="true"><strong>V1.2.0
+/ 05-June-2024</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
-<p>Align flash register address with STM32C0 reference manual</p>
+<ul>
+<li>First official release of STM32C0xx CMSIS drivers to support
+<strong>STM32C071xx</strong> devices</li>
+<li>General updates to fix known defects and enhance implementation</li>
+<li>Align version of bit and registers definition with the STM32C0
+reference manual</li>
+</ul>
+<h2 id="contents">Contents</h2>
+<ul>
+<li><strong>Support of STM32C071xx devices</strong>:
+<ul>
+<li>Add “stm32c071xx.h” file</li>
+<li>Add startup files “startup_stm32c071xx.s” for EWARM, STM32CubeIDE
+and MDK-ARM toolchains</li>
+<li>Add STM32C071xx devices linker files for EWARM and STM32CubeIDE
+toolchains</li>
+</ul></li>
+<li><strong>Registers and bit field definitions updates</strong> :
+<ul>
+<li>Add DMAMUX1_RequestGenerator3_BASE and DMAMUX1_RequestGenerator3
+definitions</li>
+<li>Remove DMA_IFCR_CGIF4, DMA_IFCR_CTCIF4, DMA_IFCR_CHTIF4 and
+DMA_IFCR_CTEIF4 definitions</li>
+<li>Add ADC_AWD2CR_AWD2CH_19, ADC_AWD2CR_AWD2CH_20, ADC_AWD2CR_AWD2CH_21
+and ADC_AWD2CR_AWD2CH_22 bits definitions</li>
+<li>Add ADC_AWD3CR_AWD3CH_19, ADC_AWD3CR_AWD3CH_20,
+ADC_AWD3CR_AWD3CH_21, ADC_AWD3CR_AWD3CH_22 bits definitions</li>
+<li>Add FLASH_OPTR_SECURE_MUXING_EN bit definition</li>
+<li>Correct Flash page number section mask (FLASH_CR_PNB_Msk)</li>
+<li>Remove extra FLASH_ECCR register bits definitions</li>
+<li>Correct masks values of FLASH_PCROP1ASR, FLASH_WRP1AR, FLASH_WRP1BR,
+FLASH_WRP1BR, FLASH_PCROP1BER registers</li>
+<li>Add FLASH_SIZE macro to compute Flash size value</li>
+<li>Fix correct FLASH_OPTR_BORF_LEV and FLASH_OPTR_BORR_LEV
+positions</li>
+<li>Remove SYSCFG_CFGR1_BOOSTEN bit definition</li>
+<li>Correct SYSCFG_CFGR3 register bits masks values</li>
+<li>Change SYSCFG_ITLINE0_SR_EWDG bit definition naming by
+SYSCFG_ITLINE0_SR_WWDG to be aligned with the reference manual</li>
+<li>Change SYSCFG_ITLINE4_SR_CLK_CTRL bit definition naming by
+SYSCFG_ITLINE4_SR_RCC to be aligned with the reference manual</li>
+<li>Update IS_TIM_REMAP_INSTANCE and IS_TIM_ETRSEL_INSTANCE macros</li>
+<li>Update TIM Capture/Compare masks values</li>
+<li>Remove extra EXTI interrupts and events Masks</li>
+<li>Remove extra PWR_SR2_REGLPF bits definition</li>
+<li>Update some RCC_CFGR bit definitions
+<ul>
+<li>Remove RCC_CFGR_MCO2PRE_3 and RCC_CFGR_MCOPRE_3 bits definitions as
+reserved</li>
+<li>Update RCC_CFGR_MCO2PRE_Msk and RCC_CFGR_MCOPRE_Msk masks
+values</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="supported-devices">Supported Devices</h2>
+<ul>
+<li>STM32C011xx, STM32C031xx and STM32C071xx devices</li>
+</ul>
 </div>
 </div>
 <div class="collapse">
-<input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true"><strong>V1.0.0 / 09-February-2022</strong></label>
-<div>
+<input type="checkbox" id="collapse-section2" aria-hidden="true">
+<label for="collapse-section2" aria-hidden="true"><strong>V1.1.0 /
+07-June-2023</strong></label>
 <h2 id="main-changes-1">Main Changes</h2>
-<p>First official release version of bits and registers definition aligned with STM32C0 reference manual</p>
+<p>Align flash register address with STM32C0 reference manual</p>
 </div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1" aria-hidden="true">
+<label for="collapse-section1" aria-hidden="true"><strong>V1.0.0 /
+09-February-2022</strong></label>
+<h2 id="main-changes-2">Main Changes</h2>
+<p>First official release version of bits and registers definition
+aligned with STM32C0 reference manual</p>
 </div>
-</div>
-
+</section>
 </div>
 <footer class="sticky">
 This release note uses up to date web standards and, for this reason,

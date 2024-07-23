@@ -61,6 +61,12 @@
   #define LSE_VALUE  (32768UL)      /*!< Value of LSE in Hz*/
 #endif /* LSE_VALUE */
 
+#if defined(RCC_HSI48_SUPPORT)
+#if !defined  (HSI48_VALUE)
+#define HSI48_VALUE  48000000U  /*!< Value of the HSI48 oscillator in Hz */
+#endif /* HSI48_VALUE */
+#endif /* RCC_HSI48_SUPPORT */
+
 /**
   * @}
   */
@@ -107,7 +113,7 @@
                is no need to call the 2 first functions listed above, since SystemCoreClock
                variable is updated automatically.
   */
-  uint32_t SystemCoreClock = 48000000UL;
+  uint32_t SystemCoreClock = 12000000UL;
 
   const uint32_t AHBPrescTable[16UL] = {0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 0UL, 1UL, 2UL, 3UL, 4UL, 6UL, 7UL, 8UL, 9UL};
   const uint32_t APBPrescTable[8UL] =  {0UL, 0UL, 0UL, 0UL, 1UL, 2UL, 3UL, 4UL};
@@ -185,26 +191,38 @@ void SystemCoreClockUpdate(void)
 {
   uint32_t tmp;
   uint32_t hsidiv;
+  uint32_t sysdiv;
+#if defined(RCC_CR_SYSDIV)
+  sysdiv = (uint32_t)(((RCC->CR & RCC_CR_SYSDIV) >> RCC_CR_SYSDIV_Pos) + 1U);
+#else
+  sysdiv = 1U;
+#endif /* RCC_CR_SYSDIV */
 
   /* Get SYSCLK source -------------------------------------------------------*/
   switch (RCC->CFGR & RCC_CFGR_SWS)
   {
     case RCC_CFGR_SWS_0:                /* HSE used as system clock */
-      SystemCoreClock = HSE_VALUE;
+      SystemCoreClock = (HSE_VALUE / sysdiv);
       break;
 
+#if defined(RCC_HSI48_SUPPORT)
+    case RCC_CFGR_SW_1:                 /* HSI48 used as system clock */
+      SystemCoreClock = (HSI48_VALUE / sysdiv);
+      break;
+#endif /* RCC_HSI48_SUPPORT */
+
     case (RCC_CFGR_SWS_1 | RCC_CFGR_SWS_0):  /* LSI used as system clock */
-      SystemCoreClock = LSI_VALUE;
+      SystemCoreClock = (LSI_VALUE / sysdiv);
       break;
 
     case RCC_CFGR_SWS_2:                /* LSE used as system clock */
-      SystemCoreClock = LSE_VALUE;
+      SystemCoreClock = (LSE_VALUE / sysdiv);
       break;
 
     case 0x00000000U:                   /* HSI used as system clock */
     default:                            /* HSI used as system clock */
       hsidiv = (1UL << ((READ_BIT(RCC->CR, RCC_CR_HSIDIV))>> RCC_CR_HSIDIV_Pos));
-      SystemCoreClock = (HSI_VALUE/hsidiv);
+      SystemCoreClock = ((HSI_VALUE / sysdiv) / hsidiv);
       break;
   }
   /* Compute HCLK clock frequency --------------------------------------------*/

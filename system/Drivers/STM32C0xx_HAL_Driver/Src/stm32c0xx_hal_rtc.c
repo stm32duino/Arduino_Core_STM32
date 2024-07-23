@@ -205,8 +205,8 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
 
 
 #if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
-      hrtc->AlarmAEventCallback          =  HAL_RTC_AlarmAEventCallback;        /* Legacy weak AlarmAEventCallback      */
-      hrtc->TimeStampEventCallback       =  HAL_RTCEx_TimeStampEventCallback;   /* Legacy weak TimeStampEventCallback   */
+      hrtc->AlarmAEventCallback          =  HAL_RTC_AlarmAEventCallback;        /* Legacy weak AlarmAEventCallback   */
+      hrtc->TimeStampEventCallback       =  HAL_RTCEx_TimeStampEventCallback;   /* Legacy weak TimeStampEventCallback */
 
       if (hrtc->MspInitCallback == NULL)
       {
@@ -239,13 +239,13 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
       if (status == HAL_OK)
       {
         /* Clear RTC_CR FMT, OSEL and POL Bits */
-        hrtc->Instance->CR &= ~(RTC_CR_FMT | RTC_CR_POL | RTC_CR_OSEL);
+        CLEAR_BIT(RTC->CR, (RTC_CR_FMT | RTC_CR_POL | RTC_CR_OSEL));
+
         /* Set RTC_CR register */
-        hrtc->Instance->CR |= (hrtc->Init.HourFormat | hrtc->Init.OutPut | hrtc->Init.OutPutPolarity);
+        SET_BIT(RTC->CR, (hrtc->Init.HourFormat | hrtc->Init.OutPut | hrtc->Init.OutPutPolarity));
 
         /* Configure the RTC PRER */
-        hrtc->Instance->PRER = (hrtc->Init.SynchPrediv);
-        hrtc->Instance->PRER |= (hrtc->Init.AsynchPrediv << RTC_PRER_PREDIV_A_Pos);
+        WRITE_REG(RTC->PRER, ((hrtc->Init.SynchPrediv) | (hrtc->Init.AsynchPrediv << RTC_PRER_PREDIV_A_Pos)));
 
         /* Exit Initialization mode */
         status = RTC_ExitInitMode(hrtc);
@@ -253,12 +253,13 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
 
       if (status == HAL_OK)
       {
-        hrtc->Instance->CR &= ~(RTC_CR_TAMPALRM_PU | RTC_CR_TAMPALRM_TYPE | RTC_CR_OUT2EN);
-        hrtc->Instance->CR |= (hrtc->Init.OutPutPullUp | hrtc->Init.OutPutType | hrtc->Init.OutPutRemap);
+        MODIFY_REG(RTC->CR, \
+                   RTC_CR_TAMPALRM_PU | RTC_CR_TAMPALRM_TYPE | RTC_CR_OUT2EN, \
+                   hrtc->Init.OutPutPullUp | hrtc->Init.OutPutType | hrtc->Init.OutPutRemap);
       }
 
-    /* Enable the write protection for RTC registers */
-    __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
+      /* Enable the write protection for RTC registers */
+      __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
     }
     else
     {
@@ -294,21 +295,25 @@ HAL_StatusTypeDef HAL_RTC_DeInit(RTC_HandleTypeDef *hrtc)
   /* Disable the write protection for RTC registers */
   __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
 
-  /* Enter Initialization mode */
   status = RTC_EnterInitMode(hrtc);
-  if (status == HAL_OK)
-  {
-    /* Reset TR, DR and CR registers */
-    hrtc->Instance->TR = 0x00000000U;
-    hrtc->Instance->DR = ((uint32_t)(RTC_DR_WDU_0 | RTC_DR_MU_0 | RTC_DR_DU_0));
 
+  /* Set Initialization mode */
+  if (status != HAL_OK)
+  {
+    /* Set RTC state */
+    hrtc->State = HAL_RTC_STATE_ERROR;
+  }
+  else
+  {
     /* Reset all RTC CR register bits */
-    hrtc->Instance->CR &= 0x00000000U;
-    hrtc->Instance->PRER = ((uint32_t)(RTC_PRER_PREDIV_A | 0x000000FFU));
-    hrtc->Instance->ALRMAR = 0x00000000U;
-    hrtc->Instance->SHIFTR = 0x00000000U;
-    hrtc->Instance->CALR = 0x00000000U;
-    hrtc->Instance->ALRMASSR = 0x00000000U;
+    CLEAR_REG(RTC->CR);
+    WRITE_REG(RTC->DR, (uint32_t)(RTC_DR_WDU_0 | RTC_DR_MU_0 | RTC_DR_DU_0));
+    CLEAR_REG(RTC->TR);
+    WRITE_REG(RTC->PRER, ((uint32_t)(RTC_PRER_PREDIV_A | 0xFFU)));
+    CLEAR_REG(RTC->ALRMAR);
+    CLEAR_REG(RTC->SHIFTR);
+    CLEAR_REG(RTC->CALR);
+    WRITE_REG(RTC->SCR, RTC_SCR_CTSOVF | RTC_SCR_CTSF | RTC_SCR_CALRAF);
 
     /* Exit initialization mode */
     status = RTC_ExitInitMode(hrtc);
@@ -797,7 +802,7 @@ HAL_StatusTypeDef HAL_RTC_SetDate(RTC_HandleTypeDef *hrtc, RTC_DateTypeDef *sDat
   *            @arg RTC_FORMAT_BCD:  BCD data format
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_RTC_GetDate(RTC_HandleTypeDef *hrtc, RTC_DateTypeDef *sDate, uint32_t Format)
+HAL_StatusTypeDef HAL_RTC_GetDate(const RTC_HandleTypeDef *hrtc, RTC_DateTypeDef *sDate, uint32_t Format)
 {
   uint32_t datetmpreg;
 
@@ -1215,7 +1220,8 @@ HAL_StatusTypeDef HAL_RTC_DeactivateAlarm(RTC_HandleTypeDef *hrtc, uint32_t Alar
   *             @arg RTC_FORMAT_BCD: BCD data format
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_RTC_GetAlarm(RTC_HandleTypeDef *hrtc, RTC_AlarmTypeDef *sAlarm, uint32_t Alarm, uint32_t Format)
+HAL_StatusTypeDef HAL_RTC_GetAlarm(const RTC_HandleTypeDef *hrtc, RTC_AlarmTypeDef *sAlarm, uint32_t Alarm,
+                                   uint32_t Format)
 {
   uint32_t tmpreg;
   uint32_t subsecondtmpreg;
@@ -1372,17 +1378,17 @@ HAL_StatusTypeDef HAL_RTC_WaitForSynchro(RTC_HandleTypeDef *hrtc)
   uint32_t tickstart;
 
   /* Clear RSF flag */
-  hrtc->Instance->ICSR &= (uint32_t)RTC_RSF_MASK;
+  CLEAR_BIT(RTC->ICSR, RTC_ICSR_RSF);
 
   tickstart = HAL_GetTick();
 
   /* Wait the registers to be synchronised */
-  while ((hrtc->Instance->ICSR & RTC_ICSR_RSF) == 0U)
+  while (READ_BIT(RTC->ICSR, RTC_ICSR_RSF) == 0U)
   {
     if ((HAL_GetTick() - tickstart) > RTC_TIMEOUT_VALUE)
     {
       /* New check to avoid false timeout detection in case of preemption */
-      if ((hrtc->Instance->ICSR & RTC_ICSR_RSF) == 0U)
+      if (READ_BIT(RTC->ICSR, RTC_ICSR_RSF) == 0U)
       {
         /* Change RTC state */
         hrtc->State = HAL_RTC_STATE_TIMEOUT;
@@ -1421,7 +1427,7 @@ HAL_StatusTypeDef HAL_RTC_WaitForSynchro(RTC_HandleTypeDef *hrtc)
   * @param  hrtc RTC handle
   * @retval HAL state
   */
-HAL_RTCStateTypeDef HAL_RTC_GetState(RTC_HandleTypeDef *hrtc)
+HAL_RTCStateTypeDef HAL_RTC_GetState(const RTC_HandleTypeDef *hrtc)
 {
   /* Return RTC handle state */
   return hrtc->State;
@@ -1450,19 +1456,19 @@ HAL_StatusTypeDef RTC_EnterInitMode(RTC_HandleTypeDef *hrtc)
   HAL_StatusTypeDef status = HAL_OK;
 
   /* Check if the Initialization mode is set */
-  if ((hrtc->Instance->ICSR & RTC_ICSR_INITF) == 0U)
+  if (READ_BIT(RTC->ICSR, RTC_ICSR_INITF) == 0U)
   {
     /* Set the Initialization mode */
-    SET_BIT(hrtc->Instance->ICSR, RTC_ICSR_INIT);
+    SET_BIT(RTC->ICSR, RTC_ICSR_INIT);
 
     tickstart = HAL_GetTick();
     /* Wait till RTC is in INIT state and if Time out is reached exit */
-    while (((hrtc->Instance->ICSR & RTC_ICSR_INITF) == 0U) && (status != HAL_TIMEOUT))
+    while ((READ_BIT(RTC->ICSR, RTC_ICSR_INITF) == 0U) && (status != HAL_TIMEOUT))
     {
       if ((HAL_GetTick()  - tickstart) > RTC_TIMEOUT_VALUE)
       {
         /* New check to avoid false timeout detection in case of preemption */
-        if ((hrtc->Instance->ICSR & RTC_ICSR_INITF) == 0U)
+        if (READ_BIT(RTC->ICSR, RTC_ICSR_INITF) == 0U)
         {
           status = HAL_TIMEOUT;
 

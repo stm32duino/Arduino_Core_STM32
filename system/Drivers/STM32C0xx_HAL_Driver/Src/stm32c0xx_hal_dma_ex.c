@@ -95,9 +95,7 @@ HAL_StatusTypeDef HAL_DMAEx_ConfigMuxSync(DMA_HandleTypeDef *hdma, HAL_DMA_MuxSy
 {
   /* Check the parameters */
   assert_param(IS_DMA_ALL_INSTANCE(hdma->Instance));
-
   assert_param(IS_DMAMUX_SYNC_SIGNAL_ID(pSyncConfig->SyncSignalID));
-
   assert_param(IS_DMAMUX_SYNC_POLARITY(pSyncConfig-> SyncPolarity));
   assert_param(IS_DMAMUX_SYNC_STATE(pSyncConfig->SyncEnable));
   assert_param(IS_DMAMUX_SYNC_EVENT(pSyncConfig->EventEnable));
@@ -190,7 +188,6 @@ HAL_StatusTypeDef HAL_DMAEx_EnableMuxRequestGenerator(DMA_HandleTypeDef *hdma)
   */
   if ((hdma->State != HAL_DMA_STATE_RESET) && (hdma->DMAmuxRequestGen != 0))
   {
-
     /* Enable the request generator*/
     hdma->DMAmuxRequestGen->RGCR |= DMAMUX_RGxCR_GE;
 

@@ -67,7 +67,8 @@ void TIM3_IRQHandler(void);
 HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 {
   RCC_ClkInitTypeDef    clkconfig;
-  uint32_t              uwTimclock, uwAPB1Prescaler;
+  uint32_t              uwTimclock;
+  uint32_t              uwAPB1Prescaler;
   uint32_t              uwPrescalerValue;
   uint32_t              pFLatency;
 
@@ -87,7 +88,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   uwAPB1Prescaler = clkconfig.APB1CLKDivider;
 
   /* Compute TIM3 clock */
-  if (uwAPB1Prescaler == RCC_HCLK_DIV1)
+  if (uwAPB1Prescaler == RCC_APB1_DIV1)
   {
     uwTimclock = HAL_RCC_GetPCLK1Freq();
   }
