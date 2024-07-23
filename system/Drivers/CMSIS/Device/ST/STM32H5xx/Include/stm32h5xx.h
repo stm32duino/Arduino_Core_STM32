@@ -57,10 +57,10 @@
    application
   */
 
-#if !defined (STM32H573xx)  && !defined (STM32H563xx) \
+#if !defined (STM32H573xx) && !defined (STM32H563xx)    \
     && !defined (STM32H562xx) && !defined (STM32H503xx) \
     && !defined (STM32H533xx) && !defined (STM32H523xx)
-  /* #define STM32H573xx  */   /*!< STM32H5753xx Devices  */
+  /* #define STM32H573xx  */   /*!< STM32H573xx Devices   */
   /* #define STM32H563xx  */   /*!< STM32H563xx Devices   */
   /* #define STM32H562xx  */   /*!< STM32H562xx Devices   */
   /* #define STM32H503xx  */   /*!< STM32H503xx Devices   */
@@ -81,12 +81,12 @@
 #endif /* USE_HAL_DRIVER */
 
 /**
-  * @brief CMSIS Device version number 1.2.0
+  * @brief CMSIS Device version number 1.3.0
   */
-#define __STM32H5_CMSIS_VERSION_MAIN   (0x01) /*!< [31:24] main version */
-#define __STM32H5_CMSIS_VERSION_SUB1   (0x02) /*!< [23:16] sub1 version */
-#define __STM32H5_CMSIS_VERSION_SUB2   (0x00) /*!< [15:8]  sub2 version */
-#define __STM32H5_CMSIS_VERSION_RC     (0x00) /*!< [7:0]  release candidate */
+#define __STM32H5_CMSIS_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
+#define __STM32H5_CMSIS_VERSION_SUB1   (0x03U) /*!< [23:16] sub1 version */
+#define __STM32H5_CMSIS_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
+#define __STM32H5_CMSIS_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32H5_CMSIS_VERSION        ((__STM32H5_CMSIS_VERSION_MAIN << 24U)\
                                        |(__STM32H5_CMSIS_VERSION_SUB1 << 16U)\
                                        |(__STM32H5_CMSIS_VERSION_SUB2 << 8U )\
@@ -99,7 +99,6 @@
 /** @addtogroup Device_Included
   * @{
   */
-
 #if defined(STM32H573xx)
   #include "stm32h573xx.h"
 #elif defined(STM32H563xx)

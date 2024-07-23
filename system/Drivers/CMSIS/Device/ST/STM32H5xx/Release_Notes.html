@@ -30,9 +30,27 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history"><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section3" Checked aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true"><strong>V1.2.0 / 09-February-2024</strong></label>
+<input type="checkbox" id="collapse-section4" Checked aria-hidden="true"> <label for="collapse-section4" checked aria-hidden="true"><strong>V1.3.0 / 05-June-2024</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<p>CMSIS Device Maintenance Release version of bits and registers definition aligned with <strong>RM0481</strong> (STM32H5 reference manual)</p>
+<ul>
+<li>Add RNG_CR_NIST_VALUE, RNG_NSCR_NIST_VALUE and RNG_HTCR_NIST_VALUE defines</li>
+<li>Add Bits definition for RNG_NSCR register : Add RNG_NSCR_EN_OSC1, RNG_NSCR_EN_OSC2, RNG_NSCR_EN_OSC3, RNG_NSCR_EN_OSC4, RNG_NSCR_EN_OSC5 and RNG_NSCR_EN_OSC6 defines</li>
+<li>Add USART_DMAREQUESTS_SW_WA define</li>
+<li>Rename EXTI_RTSR2_TR to EXTI_RTSR2_RT define</li>
+<li>Rename EXTI_FTSR2_TR to EXTI_FTSR2_FT define</li>
+<li>Remove unused ADC common status and ADC common group regular data registers for STM32H503xx devices</li>
+<li>Fix __SAUREGION_PRESENT value to 0 for STM32H503xx devices</li>
+<li>Fix incorrect character in the definition of OCTOSPI_CR register</li>
+<li>Correct TIM_CCRx_CCRx constants</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true"><strong>V1.2.0 / 09-February-2024</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <ul>
 <li>First official release of STM32H5xx CMSIS drivers to support <strong>STM32H533xx and STM32H523xx</strong> devices</li>
 <li>Add bit definition for I3C_BCR register</li>
@@ -51,7 +69,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true"><strong>V1.1.0 / 07-June-2023</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>Add DUA addresses constants definitions for STM32H573xx devices only</li>
 <li>Fix wrong definition of IS_TIM_CLOCKSOURCE_TIX_INSTANCE &amp; IS_TIM_TISEL_INSTANCE macros</li>
@@ -62,7 +80,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" checked aria-hidden="true"><strong>V1.0.0 / 10-February-2023</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li>First official release version of bits and registers definition aligned with RM0481 and RM0492 (STM32H5 reference manuals)</li>
 </ul>
