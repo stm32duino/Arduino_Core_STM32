@@ -28,9 +28,7 @@
   [..]
       The STM32WBxx device family integrates two analog comparators instances:
       COMP1, COMP2 except for the STM32WB15xx, STM32WB10xx products featuring only
-      one instance: COMP1.
-      In the rest of the file, all comments related to a pair of comparators are not
-      applicable to STM32WB15xx, STM32WB10xx.
+      one instance: COMP1 (in this case, all comments related to pair of comparators are not applicable)
       (#) Comparators input minus (inverting input) and input plus (non inverting input)
           can be set to internal references or to GPIO pins
           (refer to GPIO list in reference manual).
@@ -260,7 +258,7 @@ HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp)
 
 #if defined(COMP2)
     assert_param(IS_COMP_WINDOWMODE(hcomp->Init.WindowMode));
-#endif
+#endif /* COMP2 */
 
 
     if (hcomp->State == HAL_COMP_STATE_RESET)
@@ -318,7 +316,7 @@ HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp)
 #else
     MODIFY_REG(hcomp->Instance->CSR,
                COMP_CSR_PWRMODE  | COMP_CSR_INMSEL   | COMP_CSR_INPSEL  |
-               COMP_CSR_POLARITY | COMP_CSR_HYST    |
+               COMP_CSR_POLARITY | COMP_CSR_HYST     |
                COMP_CSR_BLANKING | COMP_CSR_BRGEN    | COMP_CSR_SCALEN  | COMP_CSR_INMESEL,
                tmp_csr
               );
