@@ -824,12 +824,12 @@ typedef void (*pXSPI_CallbackTypeDef)(XSPI_HandleTypeDef *hxspi);
   */
 
 /* Exported functions --------------------------------------------------------*/
-/** @addtogroup XSPI_Exported_Functions
+/** @addtogroup XSPI_Exported_Functions XSPI Exported Functions
   * @{
   */
 
 /* Initialization/de-initialization functions  ********************************/
-/** @addtogroup XSPI_Exported_Functions_Group1
+/** @addtogroup XSPI_Exported_Functions_Group1 Initialization/de-initialization functions
   * @{
   */
 HAL_StatusTypeDef     HAL_XSPI_Init(XSPI_HandleTypeDef *hxspi);
@@ -842,7 +842,7 @@ void                  HAL_XSPI_MspDeInit(XSPI_HandleTypeDef *hxspi);
   */
 
 /* IO operation functions *****************************************************/
-/** @addtogroup XSPI_Exported_Functions_Group2
+/** @addtogroup XSPI_Exported_Functions_Group2 Input and Output operation functions
   * @{
   */
 /* XSPI IRQ handler function */
@@ -858,11 +858,11 @@ HAL_StatusTypeDef     HAL_XSPI_HyperbusCmd(XSPI_HandleTypeDef *hxspi, XSPI_Hyper
                                            uint32_t Timeout);
 
 /* XSPI indirect mode functions */
-HAL_StatusTypeDef     HAL_XSPI_Transmit(XSPI_HandleTypeDef *hxspi, uint8_t *const pData, uint32_t Timeout);
+HAL_StatusTypeDef     HAL_XSPI_Transmit(XSPI_HandleTypeDef *hxspi, const uint8_t *pData, uint32_t Timeout);
 HAL_StatusTypeDef     HAL_XSPI_Receive(XSPI_HandleTypeDef *hxspi, uint8_t *const pData, uint32_t Timeout);
-HAL_StatusTypeDef     HAL_XSPI_Transmit_IT(XSPI_HandleTypeDef *hxspi, uint8_t *const pData);
+HAL_StatusTypeDef     HAL_XSPI_Transmit_IT(XSPI_HandleTypeDef *hxspi, const uint8_t *pData);
 HAL_StatusTypeDef     HAL_XSPI_Receive_IT(XSPI_HandleTypeDef *hxspi, uint8_t *const pData);
-HAL_StatusTypeDef     HAL_XSPI_Transmit_DMA(XSPI_HandleTypeDef *hxspi, uint8_t *const pData);
+HAL_StatusTypeDef     HAL_XSPI_Transmit_DMA(XSPI_HandleTypeDef *hxspi, const uint8_t *pData);
 HAL_StatusTypeDef     HAL_XSPI_Receive_DMA(XSPI_HandleTypeDef *hxspi, uint8_t *const pData);
 
 /* XSPI status flag polling mode functions */
@@ -903,7 +903,7 @@ HAL_StatusTypeDef     HAL_XSPI_UnRegisterCallback(XSPI_HandleTypeDef *hxspi, HAL
   */
 
 /* Peripheral Control and State functions  ************************************/
-/** @addtogroup XSPI_Exported_Functions_Group3
+/** @addtogroup XSPI_Exported_Functions_Group3 Peripheral Control and State functions
   * @{
   */
 HAL_StatusTypeDef     HAL_XSPI_Abort(XSPI_HandleTypeDef *hxspi);
@@ -1046,7 +1046,6 @@ HAL_StatusTypeDef      HAL_XSPI_DLYB_GetClockPeriod(XSPI_HandleTypeDef *hxspi,
 
 #define IS_XSPI_DLYB_BYPASS(DLYB)                 (((DLYB) == HAL_XSPI_DELAY_BLOCK_ON) || \
                                                    ((DLYB) == HAL_XSPI_DELAY_BLOCK_BYPASS))
-
 
 
 #define IS_XSPI_OPERATION_TYPE(TYPE)              (((TYPE) == HAL_XSPI_OPTYPE_COMMON_CFG) || \

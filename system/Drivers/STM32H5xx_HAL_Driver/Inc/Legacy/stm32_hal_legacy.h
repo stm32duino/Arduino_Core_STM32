@@ -1817,7 +1817,7 @@ extern "C" {
 #define HAL_FMPI2CEx_AnalogFilter_Config      HAL_FMPI2CEx_ConfigAnalogFilter
 #define HAL_FMPI2CEx_DigitalFilter_Config     HAL_FMPI2CEx_ConfigDigitalFilter
 
-#define HAL_I2CFastModePlusConfig(SYSCFG_I2CFastModePlus, cmd) ((cmd == ENABLE)? \
+#define HAL_I2CFastModePlusConfig(SYSCFG_I2CFastModePlus, cmd) (((cmd) == ENABLE)? \
                                                                 HAL_I2CEx_EnableFastModePlus(SYSCFG_I2CFastModePlus): \
                                                                 HAL_I2CEx_DisableFastModePlus(SYSCFG_I2CFastModePlus))
 
@@ -2731,6 +2731,12 @@ extern "C" {
 #define __APB1_RELEASE_RESET __HAL_RCC_APB1_RELEASE_RESET
 #define __APB2_FORCE_RESET __HAL_RCC_APB2_FORCE_RESET
 #define __APB2_RELEASE_RESET __HAL_RCC_APB2_RELEASE_RESET
+#if defined(STM32C0)
+#define __HAL_RCC_APB1_FORCE_RESET    __HAL_RCC_APB1_GRP1_FORCE_RESET
+#define __HAL_RCC_APB1_RELEASE_RESET  __HAL_RCC_APB1_GRP1_RELEASE_RESET
+#define __HAL_RCC_APB2_FORCE_RESET    __HAL_RCC_APB1_GRP2_FORCE_RESET
+#define __HAL_RCC_APB2_RELEASE_RESET  __HAL_RCC_APB1_GRP2_RELEASE_RESET
+#endif /* STM32C0 */
 #define __BKP_CLK_DISABLE __HAL_RCC_BKP_CLK_DISABLE
 #define __BKP_CLK_ENABLE __HAL_RCC_BKP_CLK_ENABLE
 #define __BKP_FORCE_RESET __HAL_RCC_BKP_FORCE_RESET
@@ -3659,7 +3665,7 @@ extern "C" {
 #endif
 
 #if defined(STM32L4) || defined(STM32WB) || defined(STM32G0) || defined(STM32G4) || defined(STM32L5) || \
-    defined(STM32WL) || defined(STM32C0) || defined(STM32H7RS) || defined(STM32U0)
+      defined(STM32WL) || defined(STM32C0) || defined(STM32H7RS) || defined(STM32U0)
 #define RCC_RTCCLKSOURCE_NO_CLK     RCC_RTCCLKSOURCE_NONE
 #else
 #define RCC_RTCCLKSOURCE_NONE       RCC_RTCCLKSOURCE_NO_CLK
@@ -3910,7 +3916,8 @@ extern "C" {
   */
 #if defined (STM32G0) || defined (STM32L5) || defined (STM32L412xx) || defined (STM32L422xx) || \
     defined (STM32L4P5xx)|| defined (STM32L4Q5xx) || defined (STM32G4) || defined (STM32WL) || defined (STM32U5) || \
-    defined (STM32WBA) || defined (STM32H5) || defined (STM32C0) || defined (STM32H7RS) ||  defined (STM32U0)
+    defined (STM32WBA) || defined (STM32H5) || \
+    defined (STM32C0) || defined (STM32H7RS) ||  defined (STM32U0)
 #else
 #define __HAL_RTC_CLEAR_FLAG                      __HAL_RTC_EXTI_CLEAR_FLAG
 #endif

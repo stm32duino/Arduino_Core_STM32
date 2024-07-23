@@ -3116,43 +3116,20 @@ static HAL_StatusTypeDef HASH_WaitOnFlagUntilTimeout(HASH_HandleTypeDef *hhash, 
 {
   uint32_t tickstart = HAL_GetTick();
 
-  /* Wait until flag is set */
-  if (Status == RESET)
+  while (__HAL_HASH_GET_FLAG(hhash, Flag) == Status)
   {
-    while (__HAL_HASH_GET_FLAG(hhash, Flag) == RESET)
+    /* Check for the Timeout */
+    if (Timeout != HAL_MAX_DELAY)
     {
-      /* Check for the Timeout */
-      if (Timeout != HAL_MAX_DELAY)
+      if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
       {
-        if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
-        {
-          /* Set State to Ready to be able to restart later on */
-          hhash->State  = HAL_HASH_STATE_READY;
-          hhash->ErrorCode |= HAL_HASH_ERROR_TIMEOUT;
-          /* Process Unlocked */
-          __HAL_UNLOCK(hhash);
-          return HAL_ERROR;
-        }
-      }
-    }
-  }
-  else
-  {
-    while (__HAL_HASH_GET_FLAG(hhash, Flag) != RESET)
-    {
-      /* Check for the Timeout */
-      if (Timeout != HAL_MAX_DELAY)
-      {
-        if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
-        {
-          /* Set State to Ready to be able to restart later on */
-          hhash->State  = HAL_HASH_STATE_READY;
-          hhash->ErrorCode |= HAL_HASH_ERROR_TIMEOUT;
-          /* Process Unlocked */
-          __HAL_UNLOCK(hhash);
+        /* Set State to Ready to be able to restart later on */
+        hhash->State  = HAL_HASH_STATE_READY;
+        hhash->ErrorCode |= HAL_HASH_ERROR_TIMEOUT;
+        /* Process Unlocked */
+        __HAL_UNLOCK(hhash);
 
-          return HAL_ERROR;
-        }
+        return HAL_ERROR;
       }
     }
   }

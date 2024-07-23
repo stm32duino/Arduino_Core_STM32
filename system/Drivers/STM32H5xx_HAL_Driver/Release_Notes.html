@@ -11,7 +11,7 @@
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <link rel="stylesheet" href="_htmresc/mini-st.css" />
+  <link rel="stylesheet" href="_htmresc/mini-st_2020.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -24,7 +24,7 @@
 <h1 id="release-notes-for-stm32cubeh5-hal-and-ll-drivers">Release Notes for <mark>STM32CubeH5 HAL and LL drivers</mark></h1>
 <p>Copyright ©  2023 STMicroelectronics<br />
 </p>
-<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo.png" alt="ST logo" /></a>
+<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
 </center>
 <h1 id="purpose">Purpose</h1>
 <p>The STM32Cube HAL and LL, an STM32 abstraction layer embedded software, ensure maximized portability across STM32 portfolio.</p>
@@ -40,9 +40,54 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section3" checked aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true"><strong>V1.2.0 / 07-February-2024</strong></label>
+<input type="checkbox" id="collapse-section4" checked aria-hidden="true"> <label for="collapse-section4" checked aria-hidden="true"><strong>V1.3.0 / 05-June-2024</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<ul>
+<li>Maintenance release V1.3.0 of <strong>HAL and LL drivers</strong> for <strong>STM32H573xx / STM32H563xx / STM32H562xx / STM32H503xx / STM32H523xx/ STM32H533xx</strong> devices</li>
+<li>The HAL and LL drivers provided within this package are <strong>MISRA-C, MCU ASTYLE and Coverity compliant</strong>, and have been reviewed with a static analysis tool to eliminate possible run-time errors</li>
+<li><p>General updates to fix known defects and implementation enhancements</p>
+<ul>
+<li><strong>HAL drivers</strong> :
+<ul>
+<li>HAL I3C driver:
+<ul>
+<li>Add HAL_I3C_TARGET_RESET_PATTERN, HAL_I3C_HDR_EXIT_PATTERN, HAL_I3C_RESET_PATTERN_DISABLE, HAL_I3C_RESET_PATTERN_ENABLE and IS_I3C_RESET_PATTERN defines</li>
+<li>Add HAL_I3C_Ctrl_SetConfigResetPattern, HAL_I3C_Ctrl_GetConfigResetPattern and HAL_I3C_Ctrl_GenerateArbitration functions</li>
+</ul></li>
+</ul></li>
+<li><strong>LL drivers</strong> :
+<ul>
+<li>LL RNG driver:
+<ul>
+<li>Add LL_RNG_SetNoiseConfig and LL_RNG_GetNoiseConfig functions</li>
+</ul></li>
+<li>LL SYSTEM driver:
+<ul>
+<li>Remove LL_SBS_SMPS_SEC and LL_SBS_SMPS_NSEC defines</li>
+</ul></li>
+<li>LL TIM driver:
+<ul>
+<li>Remove irrelevant LL_TIM_OCREF_CLR_INT_OCREF_CLR and TIM_CLEARINPUTSOURCE_OCREFCLR constants</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Note: HAL/LL Backward compatibility ensured by legacy defines.</p>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="backward-compatibility">Backward compatibility</h2>
+<ul>
+<li>No compatibility break</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true"><strong>V1.2.0 / 07-February-2024</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <ul>
 <li><p>First offiicial release of HAL and LL drivers to support <strong>STM32H533xx and STM32H523xx</strong> devices</p>
 <ul>
@@ -151,7 +196,7 @@
 <ul>
 <li>Add HSE divider control capability for TIM17 (Ticket 164073).</li>
 <li>Remove irrelevant state management in DMA callbacks (Ticket 167896).</li>
-<li>Fix typo in some macros (ASYMMETRIC instead of ASSYMETRIC) (Ticket 165438).</li>
+<li>Fix typo in some macros (ASYMMETRIC instead of ASYMMETRIC) (Ticket 165438).</li>
 <li>Add USB related ETR defines.</li>
 </ul></li>
 <li>HAL UART driver:
@@ -206,17 +251,17 @@
 <li>LL TIM driver:
 <ul>
 <li>Add HSE divider control capability for TIM17 (Ticket 164073).</li>
-<li>Fix typo in some macros (ASYMMETRIC instead of ASSYMETRIC) (Ticket 165438).</li>
+<li>Fix typo in some macros (ASYMMETRIC instead of ASYMMETRIC) (Ticket 165438).</li>
 </ul></li>
 </ul></li>
 </ul></li>
 </ul>
 <p>Note: HAL/LL Backward compatibility ensured by legacy defines.</p>
-<h2 id="known-limitations">Known Limitations</h2>
+<h2 id="known-limitations-1">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility">Backward compatibility</h2>
+<h2 id="backward-compatibility-1">Backward compatibility</h2>
 <ul>
 <li>No compatibility break</li>
 </ul>
@@ -225,7 +270,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true"><strong>V1.1.0 / 07-June-2023</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li><p>Maintenance Release of <strong>HAL and LL drivers</strong> for <strong>STM32H573xx / STM32H563xx / STM32H562xx / STM32H503xx</strong> devices</p>
 <ul>
@@ -297,11 +342,11 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-1">Known Limitations</h2>
+<h2 id="known-limitations-2">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility-1">Backward compatibility</h2>
+<h2 id="backward-compatibility-2">Backward compatibility</h2>
 <ul>
 <li>No compatibility break</li>
 </ul>
@@ -310,15 +355,15 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" checked aria-hidden="true"><strong>V1.0.0 / 10-February-2023</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li>First official release of <strong>HAL and LL drivers</strong> for <strong>STM32H573xx / STM32H563xx / STM32H562xx / STM32H503xx</strong> devices</li>
 </ul>
-<h2 id="known-limitations-2">Known Limitations</h2>
+<h2 id="known-limitations-3">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility-2">Backward compatibility</h2>
+<h2 id="backward-compatibility-3">Backward compatibility</h2>
 <ul>
 <li>Not Applicable</li>
 </ul>

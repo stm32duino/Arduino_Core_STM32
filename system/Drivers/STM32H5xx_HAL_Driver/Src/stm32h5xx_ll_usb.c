@@ -1151,7 +1151,14 @@ HAL_StatusTypeDef USB_HC_Init(USB_DRD_TypeDef *USBx, uint8_t phy_ch_num,
   }
 
   /* Clear device address, Endpoint number and Low Speed Endpoint fields */
-  wChRegVal &= ~(USB_CHEP_DEVADDR | USB_CHEP_ADDR | USB_CHEP_LSEP);
+  wChRegVal &= ~(USB_CHEP_DEVADDR |
+                 USB_CHEP_ADDR |
+                 USB_CHEP_LSEP |
+                 USB_CHEP_NAK |
+                 USB_CHEP_KIND |
+                 USB_CHEP_ERRTX |
+                 USB_CHEP_ERRRX |
+                 (0xFU << 27));
 
   /* Set device address and Endpoint number associated to the channel */
   wChRegVal |= (((uint32_t)dev_address << USB_CHEP_DEVADDR_Pos) |
@@ -1200,6 +1207,18 @@ HAL_StatusTypeDef USB_HC_StartXfer(USB_DRD_TypeDef *USBx, USB_DRD_HCTypeDef *hc)
 
     if (hc->doublebuffer == 0U)
     {
+      if ((hc->ep_type == EP_TYPE_BULK) ||
+          (hc->ep_type == EP_TYPE_INTR))
+      {
+        USB_DRD_CLEAR_RX_DTOG(USBx, phy_ch_num);
+
+        /* Set Data PID */
+        if (hc->data_pid == HC_PID_DATA1)
+        {
+          USB_DRD_RX_DTOG(USBx, phy_ch_num);
+        }
+      }
+
       /* Set RX buffer count */
       USB_DRD_SET_CHEP_RX_CNT(USBx, phy_ch_num, len);
     }
@@ -1256,6 +1275,18 @@ HAL_StatusTypeDef USB_HC_StartXfer(USB_DRD_TypeDef *USBx, USB_DRD_HCTypeDef *hc)
       if ((hc->data_pid) == HC_PID_SETUP)
       {
         USB_DRD_CHEP_TX_SETUP(USBx,  phy_ch_num);
+      }
+
+      if ((hc->ep_type == EP_TYPE_BULK) ||
+          (hc->ep_type == EP_TYPE_INTR))
+      {
+        USB_DRD_CLEAR_TX_DTOG(USBx, phy_ch_num);
+
+        /* Set Data PID */
+        if (hc->data_pid == HC_PID_DATA1)
+        {
+          USB_DRD_TX_DTOG(USBx, phy_ch_num);
+        }
       }
     }
 #if (USE_USB_DOUBLE_BUFFER == 1U)

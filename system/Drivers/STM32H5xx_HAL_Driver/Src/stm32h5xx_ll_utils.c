@@ -41,9 +41,9 @@
   * @{
   */
 #define UTILS_MAX_FREQUENCY_SCALE0  250000000U         /*!< Maximum frequency for system clock at power scale0, in Hz */
-#define UTILS_MAX_FREQUENCY_SCALE1  180000000U         /*!< Maximum frequency for system clock at power scale1, in Hz */
-#define UTILS_MAX_FREQUENCY_SCALE2  130000000U         /*!< Maximum frequency for system clock at power scale2, in Hz */
-#define UTILS_MAX_FREQUENCY_SCALE3   80000000U         /*!< Maximum frequency for system clock at power scale3, in Hz */
+#define UTILS_MAX_FREQUENCY_SCALE1  200000000U         /*!< Maximum frequency for system clock at power scale1, in Hz */
+#define UTILS_MAX_FREQUENCY_SCALE2  150000000U         /*!< Maximum frequency for system clock at power scale2, in Hz */
+#define UTILS_MAX_FREQUENCY_SCALE3  100000000U         /*!< Maximum frequency for system clock at power scale3, in Hz */
 
 /* Defines used for PLL range */
 #define UTILS_PLLVCO_INPUT_MIN1       1000000U      /*!< Frequency min for the low range PLLVCO input, in Hz    */
@@ -64,31 +64,31 @@
 #define UTILS_HSE_FREQUENCY_MAX            50000000U      /*!< Frequency max for HSE frequency, in Hz   */
 
 /* Defines used for FLASH latency according to HCLK Frequency */
-#define UTILS_SCALE0_LATENCY0_FREQ     38000000U       /*!< HCLK frequency to set FLASH latency 0 in power scale 0 */
-#define UTILS_SCALE0_LATENCY1_FREQ     76000000U       /*!< HCLK frequency to set FLASH latency 1 in power scale 0 */
-#define UTILS_SCALE0_LATENCY2_FREQ    114000000U       /*!< HCLK frequency to set FLASH latency 2 in power scale 0 */
-#define UTILS_SCALE0_LATENCY3_FREQ    152000000U       /*!< HCLK frequency to set FLASH latency 3 in power scale 0 */
-#define UTILS_SCALE0_LATENCY4_FREQ    190000000U       /*!< HCLK frequency to set FLASH latency 4 in power scale 0 */
+#define UTILS_SCALE0_LATENCY0_FREQ     42000000U       /*!< HCLK frequency to set FLASH latency 0 in power scale 0 */
+#define UTILS_SCALE0_LATENCY1_FREQ     84000000U       /*!< HCLK frequency to set FLASH latency 1 in power scale 0 */
+#define UTILS_SCALE0_LATENCY2_FREQ    126000000U       /*!< HCLK frequency to set FLASH latency 2 in power scale 0 */
+#define UTILS_SCALE0_LATENCY3_FREQ    168000000U       /*!< HCLK frequency to set FLASH latency 3 in power scale 0 */
+#define UTILS_SCALE0_LATENCY4_FREQ    210000000U       /*!< HCLK frequency to set FLASH latency 4 in power scale 0 */
 #define UTILS_SCALE0_LATENCY5_FREQ    250000000U       /*!< HCLK frequency to set FLASH latency 5 in power scale 0 */
 
-#define UTILS_SCALE1_LATENCY0_FREQ     32000000U       /*!< HCLK frequency to set FLASH latency 0 in power scale 1 */
-#define UTILS_SCALE1_LATENCY1_FREQ     64000000U       /*!< HCLK frequency to set FLASH latency 1 in power scale 1 */
-#define UTILS_SCALE1_LATENCY2_FREQ     96000000U       /*!< HCLK frequency to set FLASH latency 2 in power scale 1 */
-#define UTILS_SCALE1_LATENCY3_FREQ    128000000U       /*!< HCLK frequency to set FLASH latency 3 in power scale 1 */
-#define UTILS_SCALE1_LATENCY4_FREQ    160000000U       /*!< HCLK frequency to set FLASH latency 4 in power scale 1 */
-#define UTILS_SCALE1_LATENCY5_FREQ    180000000U       /*!< HCLK frequency to set FLASH latency 5 in power scale 1 */
+#define UTILS_SCALE1_LATENCY0_FREQ     34000000U       /*!< HCLK frequency to set FLASH latency 0 in power scale 1 */
+#define UTILS_SCALE1_LATENCY1_FREQ     68000000U       /*!< HCLK frequency to set FLASH latency 1 in power scale 1 */
+#define UTILS_SCALE1_LATENCY2_FREQ    102000000U       /*!< HCLK frequency to set FLASH latency 2 in power scale 1 */
+#define UTILS_SCALE1_LATENCY3_FREQ    136000000U       /*!< HCLK frequency to set FLASH latency 3 in power scale 1 */
+#define UTILS_SCALE1_LATENCY4_FREQ    170000000U       /*!< HCLK frequency to set FLASH latency 4 in power scale 1 */
+#define UTILS_SCALE1_LATENCY5_FREQ    200000000U       /*!< HCLK frequency to set FLASH latency 5 in power scale 1 */
 
-#define UTILS_SCALE2_LATENCY0_FREQ     26000000U       /*!< HCLK frequency to set FLASH latency 0 in power scale 2 */
-#define UTILS_SCALE2_LATENCY1_FREQ     50000000U       /*!< HCLK frequency to set FLASH latency 1 in power scale 2 */
-#define UTILS_SCALE2_LATENCY2_FREQ     80000000U       /*!< HCLK frequency to set FLASH latency 2 in power scale 2 */
-#define UTILS_SCALE2_LATENCY3_FREQ    106000000U       /*!< HCLK frequency to set FLASH latency 3 in power scale 2 */
-#define UTILS_SCALE2_LATENCY4_FREQ    130000000U       /*!< HCLK frequency to set FLASH latency 4 in power scale 2 */
+#define UTILS_SCALE2_LATENCY0_FREQ     30000000U       /*!< HCLK frequency to set FLASH latency 0 in power scale 2 */
+#define UTILS_SCALE2_LATENCY1_FREQ     60000000U       /*!< HCLK frequency to set FLASH latency 1 in power scale 2 */
+#define UTILS_SCALE2_LATENCY2_FREQ     90000000U       /*!< HCLK frequency to set FLASH latency 2 in power scale 2 */
+#define UTILS_SCALE2_LATENCY3_FREQ    120000000U       /*!< HCLK frequency to set FLASH latency 3 in power scale 2 */
+#define UTILS_SCALE2_LATENCY4_FREQ    150000000U       /*!< HCLK frequency to set FLASH latency 4 in power scale 2 */
 
-#define UTILS_SCALE3_LATENCY0_FREQ     16000000U       /*!< HCLK frequency to set FLASH latency 0 in power scale 3 */
-#define UTILS_SCALE3_LATENCY1_FREQ     32000000U       /*!< HCLK frequency to set FLASH latency 1 in power scale 3 */
-#define UTILS_SCALE3_LATENCY2_FREQ     50000000U       /*!< HCLK frequency to set FLASH latency 2 in power scale 3 */
-#define UTILS_SCALE3_LATENCY3_FREQ     65000000U       /*!< HCLK frequency to set FLASH latency 3 in power scale 3 */
-#define UTILS_SCALE3_LATENCY4_FREQ     80000000U       /*!< HCLK frequency to set FLASH latency 4 in power scale 3 */
+#define UTILS_SCALE3_LATENCY0_FREQ     20000000U       /*!< HCLK frequency to set FLASH latency 0 in power scale 3 */
+#define UTILS_SCALE3_LATENCY1_FREQ     40000000U       /*!< HCLK frequency to set FLASH latency 1 in power scale 3 */
+#define UTILS_SCALE3_LATENCY2_FREQ     60000000U       /*!< HCLK frequency to set FLASH latency 2 in power scale 3 */
+#define UTILS_SCALE3_LATENCY3_FREQ     80000000U       /*!< HCLK frequency to set FLASH latency 3 in power scale 3 */
+#define UTILS_SCALE3_LATENCY4_FREQ    100000000U       /*!< HCLK frequency to set FLASH latency 4 in power scale 3 */
 /**
   * @}
   */
@@ -318,19 +318,19 @@ void LL_mDelay(uint32_t Delay)
              (++) | Latency         |                          HCLK clock frequency (MHz)                         |
              (++) |                 |-----------------------------------------------------------------------------|
              (++) |                 |  voltage range 0  |  voltage range 1 | voltage range 2  | voltage range 3   |
-             (++) |                 |    1.26 - 1.35V   |   1.15 - 1.26V   |   1.05 - 1.15V   |   0,95 - 1,05V    |
+             (++) |                 |    1.30 - 1.40V   |   1.15 - 1.26V   |   1.05 - 1.15V   |   0,95 - 1,05V    |
              (++) |-----------------|-------------------|------------------|------------------|-------------------|
-             (++) |0WS(1 CPU cycles)|   0 < HCLK <= 38  |  0 < HCLK <= 32  |  0 < HCLK <= 26  | 0 < HCLK <= 16    |
+             (++) |0WS(1 CPU cycles)|   0 < HCLK <= 42  |  0 < HCLK <= 34  |  0 < HCLK <= 30  | 0 < HCLK <= 20    |
              (++) |-----------------|-------------------|------------------|------------------|-------------------|
-             (++) |1WS(2 CPU cycles)|  38 < HCLK <= 76  | 32 < HCLK <= 64  | 26 < HCLK <= 50  | 16 < HCLK <= 32   |
+             (++) |1WS(2 CPU cycles)|  42 < HCLK <= 84  | 34 < HCLK <= 68  | 30 < HCLK <= 60  | 20 < HCLK <= 40   |
              (++) |-----------------|-------------------|------------------|------------------|-------------------|
-             (++) |2WS(3 CPU cycles)|  76 < HCLK <= 114 | 64 < HCLK <= 96  | 50 < HCLK <= 80  | 32 < HCLK <= 50   |
+             (++) |2WS(3 CPU cycles)|  84 < HCLK <= 126 | 68 < HCLK <= 102 | 60 < HCLK <= 90  | 40 < HCLK <= 60   |
              (++) |-----------------|-------------------|------------------|------------------|-------------------|
-             (++) |3WS(4 CPU cycles)| 114 < HCLK <= 152 | 96 < HCLK <= 128 | 80 < HCLK <= 106 | 50 < HCLK <= 65   |
+             (++) |3WS(4 CPU cycles)| 126 < HCLK <= 168 | 102 < HCLK <= 136| 90 < HCLK <= 120 | 60 < HCLK <= 80   |
              (++) |-----------------|-------------------|------------------|------------------|-------------------|
-             (++) |4WS(5 CPU cycles)|  152 < HCLK <= 190| 128 < HCLK <= 160| 106 < HCLK <= 130| 65 < HCLK <= 80   |
+             (++) |4WS(5 CPU cycles)|  168 < HCLK <= 210| 136 < HCLK <= 170| 120 < HCLK <= 150| 80 < HCLK <= 100  |
              (++) |-----------------|-------------------|------------------|------------------|-------------------|
-             (++) |5WS(6 CPU cycles)|  190 < HCLK <= 250| 160 < HCLK <= 180|        NA        |         NA        |
+             (++) |5WS(6 CPU cycles)|  210 < HCLK <= 250| 170 < HCLK <= 200|        NA        |         NA        |
              (++) +-----------------+-------------------+------------------+------------------+-------------------+
 
   @endinternal
@@ -674,31 +674,31 @@ ErrorStatus LL_SetFlashLatency(uint32_t HCLK_Frequency)
     {
       if (HCLK_Frequency <= UTILS_SCALE0_LATENCY0_FREQ)
       {
-        /* 0 < HCLK <= 38 => 0WS (1 CPU cycles) : Do nothing, keep latency to default  LL_FLASH_LATENCY_0 */
+        /* 0 < HCLK <= 42 => 0WS (1 CPU cycles) : Do nothing, keep latency to default  LL_FLASH_LATENCY_0 */
       }
       else if ((HCLK_Frequency <= UTILS_SCALE0_LATENCY1_FREQ))
       {
-        /* 38 < HCLK <=76  => 1WS (2 CPU cycles) */
+        /* 42 < HCLK <=84  => 1WS (2 CPU cycles) */
         latency = LL_FLASH_LATENCY_1;
       }
       else if (HCLK_Frequency <= UTILS_SCALE0_LATENCY2_FREQ)
       {
-        /* 76 < HCLK <= 114 => 2WS (3 CPU cycles) */
+        /* 84 < HCLK <= 126 => 2WS (3 CPU cycles) */
         latency = LL_FLASH_LATENCY_2;
       }
       else if (HCLK_Frequency <= UTILS_SCALE0_LATENCY3_FREQ)
       {
-        /* 114 < HCLK <= 152 => 3WS (4 CPU cycles) */
+        /* 126 < HCLK <= 168 => 3WS (4 CPU cycles) */
         latency = LL_FLASH_LATENCY_3;
       }
       else if (HCLK_Frequency <= UTILS_SCALE0_LATENCY4_FREQ)
       {
-        /* 152 < HCLK <= 190 => 4WS (5 CPU cycles) */
+        /* 168 < HCLK <= 210 => 4WS (5 CPU cycles) */
         latency = LL_FLASH_LATENCY_4;
       }
       else if (HCLK_Frequency <= UTILS_SCALE0_LATENCY5_FREQ)
       {
-        /* 190 < HCLK <= 250 => 5WS (6 CPU cycles) */
+        /* 210 < HCLK <= 250 => 5WS (6 CPU cycles) */
         latency = LL_FLASH_LATENCY_5;
       }
       else
@@ -710,31 +710,31 @@ ErrorStatus LL_SetFlashLatency(uint32_t HCLK_Frequency)
     {
       if (HCLK_Frequency <= UTILS_SCALE1_LATENCY0_FREQ)
       {
-        /* 0 < HCLK <= 32 => 0WS (1 CPU cycles) : Do nothing, keep latency to default  LL_FLASH_LATENCY_0 */
+        /* 0 < HCLK <= 34 => 0WS (1 CPU cycles) : Do nothing, keep latency to default  LL_FLASH_LATENCY_0 */
       }
       else if (HCLK_Frequency <= UTILS_SCALE1_LATENCY1_FREQ)
       {
-        /* 32 < HCLK <=64  => 1WS (2 CPU cycles) */
+        /* 34 < HCLK <=68  => 1WS (2 CPU cycles) */
         latency = LL_FLASH_LATENCY_1;
       }
       else if (HCLK_Frequency <= UTILS_SCALE1_LATENCY2_FREQ)
       {
-        /* 64 < HCLK <= 96 => 2WS (3 CPU cycles) */
+        /* 68 < HCLK <= 102 => 2WS (3 CPU cycles) */
         latency = LL_FLASH_LATENCY_2;
       }
       else if (HCLK_Frequency <= UTILS_SCALE1_LATENCY3_FREQ)
       {
-        /* 96 < HCLK <= 128 => 3WS (4 CPU cycles) */
+        /* 102 < HCLK <= 136 => 3WS (4 CPU cycles) */
         latency = LL_FLASH_LATENCY_3;
       }
       else if (HCLK_Frequency <= UTILS_SCALE1_LATENCY4_FREQ)
       {
-        /* 128 < HCLK <= 160 => 4WS (5 CPU cycles) */
+        /* 136 < HCLK <= 170 => 4WS (5 CPU cycles) */
         latency = LL_FLASH_LATENCY_4;
       }
       else if (HCLK_Frequency <= UTILS_SCALE1_LATENCY5_FREQ)
       {
-        /* 160 < HCLK <= 150 => 5WS (6 CPU cycles) */
+        /* 170 < HCLK <= 200 => 5WS (6 CPU cycles) */
         latency = LL_FLASH_LATENCY_5;
       }
       else
@@ -746,26 +746,26 @@ ErrorStatus LL_SetFlashLatency(uint32_t HCLK_Frequency)
     {
       if (HCLK_Frequency <= UTILS_SCALE2_LATENCY0_FREQ)
       {
-        /* 0 < HCLK <= 26 => 0WS (1 CPU cycles) : Do nothing, keep latency to default  LL_FLASH_LATENCY_0 */
+        /* 0 < HCLK <= 30 => 0WS (1 CPU cycles) : Do nothing, keep latency to default  LL_FLASH_LATENCY_0 */
       }
       else if (HCLK_Frequency <= UTILS_SCALE2_LATENCY1_FREQ)
       {
-        /* 26 < HCLK <= 50 => 1WS (2 CPU cycles) */
+        /* 30 < HCLK <= 60 => 1WS (2 CPU cycles) */
         latency = LL_FLASH_LATENCY_1;
       }
       else if (HCLK_Frequency <= UTILS_SCALE2_LATENCY2_FREQ)
       {
-        /* 50 < HCLK <= 80 => 2WS (3 CPU cycles) */
+        /* 60 < HCLK <= 90 => 2WS (3 CPU cycles) */
         latency = LL_FLASH_LATENCY_2;
       }
       else if (HCLK_Frequency <= UTILS_SCALE2_LATENCY3_FREQ)
       {
-        /* 80 < HCLK <= 106 => 3WS (4 CPU cycles) */
+        /* 90 < HCLK <= 120 => 3WS (4 CPU cycles) */
         latency = LL_FLASH_LATENCY_3;
       }
       else if (HCLK_Frequency <= UTILS_SCALE2_LATENCY4_FREQ)
       {
-        /* 106 < HCLK <= 130 => 4WS (5 CPU cycles) */
+        /* 120 < HCLK <= 150 => 4WS (5 CPU cycles) */
         latency = LL_FLASH_LATENCY_4;
       }
       else
@@ -777,26 +777,26 @@ ErrorStatus LL_SetFlashLatency(uint32_t HCLK_Frequency)
     {
       if (HCLK_Frequency  <= UTILS_SCALE3_LATENCY0_FREQ)
       {
-        /* 0 < HCLK <= 16 => 0WS (1 CPU cycles) : Do nothing, keep latency to default  LL_FLASH_LATENCY_0 */
+        /* 0 < HCLK <= 20 => 0WS (1 CPU cycles) : Do nothing, keep latency to default  LL_FLASH_LATENCY_0 */
       }
       else if (HCLK_Frequency <= UTILS_SCALE3_LATENCY1_FREQ)
       {
-        /* 16 < HCLK <= 32 => 1WS (2 CPU cycles) */
+        /* 20 < HCLK <= 40 => 1WS (2 CPU cycles) */
         latency = LL_FLASH_LATENCY_1;
       }
       else if (HCLK_Frequency <= UTILS_SCALE3_LATENCY2_FREQ)
       {
-        /* 32 < HCLK <= 50 => 2WS (3 CPU cycles) */
+        /* 40 < HCLK <= 60 => 2WS (3 CPU cycles) */
         latency = LL_FLASH_LATENCY_2;
       }
       else if (HCLK_Frequency <= UTILS_SCALE3_LATENCY3_FREQ)
       {
-        /* 50 < HCLK <= 65 => 3WS (4 CPU cycles) */
+        /* 60 < HCLK <= 80 => 3WS (4 CPU cycles) */
         latency = LL_FLASH_LATENCY_3;
       }
       else if (HCLK_Frequency <= UTILS_SCALE3_LATENCY4_FREQ)
       {
-        /* 65 < HCLK <= 80 => 4WS (5 CPU cycles) */
+        /* 80 < HCLK <= 100 => 4WS (5 CPU cycles) */
         latency = LL_FLASH_LATENCY_4;
       }
       else

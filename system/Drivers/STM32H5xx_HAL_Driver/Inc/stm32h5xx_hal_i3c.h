@@ -968,6 +968,26 @@ typedef  void (*pI3C_TgtReqDynamicAddrCallbackTypeDef)(I3C_HandleTypeDef *hi3c, 
   * @}
   */
 
+/** @defgroup I3C_PATTERN_CONFIGURATION I3C PATTERN CONFIGURATION
+  * @{
+  */
+#define HAL_I3C_TARGET_RESET_PATTERN             0x00000001U        /*!< Target reset pattern */
+#define HAL_I3C_HDR_EXIT_PATTERN                 0x00000002U        /*!< HDR exit pattern */
+/**
+  * @}
+  */
+
+/** @defgroup I3C_RESET_PATTERN RESET PATTERN
+  * @{
+  */
+#define HAL_I3C_RESET_PATTERN_DISABLE            0x00000000U
+/*!< Standard STOP condition emitted at the end of a frame */
+#define HAL_I3C_RESET_PATTERN_ENABLE             I3C_CFGR_RSTPTRN
+/*!< Reset pattern is inserted before the STOP condition of any emitted frame */
+/**
+  * @}
+  */
+
 /**
   * @}
   */
@@ -1129,6 +1149,8 @@ HAL_StatusTypeDef HAL_I3C_AddDescToFrame(I3C_HandleTypeDef         *hi3c,
                                          I3C_XferTypeDef           *pXferData,
                                          uint8_t                   nbFrame,
                                          uint32_t                  option);
+HAL_StatusTypeDef HAL_I3C_Ctrl_SetConfigResetPattern(I3C_HandleTypeDef *hi3c, uint32_t resetPattern);
+HAL_StatusTypeDef HAL_I3C_Ctrl_GetConfigResetPattern(I3C_HandleTypeDef *hi3c, uint32_t *pResetPattern);
 /**
   * @}
   */
@@ -1208,6 +1230,9 @@ HAL_StatusTypeDef HAL_I3C_Ctrl_IsDeviceI2C_Ready(I3C_HandleTypeDef *hi3c,
                                                  uint8_t            devAddress,
                                                  uint32_t           trials,
                                                  uint32_t           timeout);
+/* Controller arbitration APIs */
+HAL_StatusTypeDef HAL_I3C_Ctrl_GenerateArbitration(I3C_HandleTypeDef *hi3c, uint32_t timeout);
+
 /**
   * @}
   */
@@ -1342,7 +1367,8 @@ HAL_StatusTypeDef HAL_I3C_Get_ENTDAA_Payload_Info(I3C_HandleTypeDef *hi3c,
 #define IS_I3C_DMADESTINATIONWORD_VALUE(__VALUE__) ((__VALUE__) == DMA_DEST_DATAWIDTH_WORD)
 
 #define I3C_GET_DMA_REMAIN_DATA(__HANDLE__) (__HAL_DMA_GET_COUNTER(__HANDLE__) + HAL_DMAEx_GetFifoLevel(__HANDLE__))
-
+#define IS_I3C_RESET_PATTERN(__RSTPTRN__) (((__RSTPTRN__) == HAL_I3C_RESET_PATTERN_ENABLE)   || \
+                                           ((__RSTPTRN__) == HAL_I3C_RESET_PATTERN_DISABLE))
 /**
   * @}
   */

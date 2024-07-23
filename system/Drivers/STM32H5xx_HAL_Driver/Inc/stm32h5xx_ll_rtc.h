@@ -3507,7 +3507,7 @@ __STATIC_INLINE void LL_RTC_TAMPER_ITAMP_Disable(const RTC_TypeDef *RTCx, uint32
 /**
   * @brief  Enable backup register erase after internal tamper event detection
   * @rmtoll TAMP_CR3       ITAMP1NOER     LL_RTC_TAMPER_ITAMP_EnableEraseBKP
-  *         TAMP_CR3       ITAMP2NOER...  LL_RTC_TAMPER_ITAMP_EnableEraseBKP
+  * @rmtoll TAMP_CR3       ITAMP2NOER     LL_RTC_TAMPER_ITAMP_EnableEraseBKP
   * @param  RTCx RTC Instance
   * @param  InternalTamper This parameter can be a combination of the following values:
   *         @arg @ref RTC_LL_EC_ITAMPER_NOERASE
@@ -3523,7 +3523,7 @@ __STATIC_INLINE void LL_RTC_TAMPER_ITAMP_EnableEraseBKP(const RTC_TypeDef *RTCx,
 /**
   * @brief  Disable backup register erase after internal tamper event detection
   * @rmtoll TAMP_CR3       ITAMP1NOER     LL_RTC_TAMPER_ITAMP_DisableEraseBKP
-  *         TAMP_CR3       ITAMP2NOER...  LL_RTC_TAMPER_ITAMP_DisableEraseBKP
+  * @rmtoll TAMP_CR3       ITAMP2NOER     LL_RTC_TAMPER_ITAMP_DisableEraseBKP
   * @param  RTCx RTC Instance
   * @param  InternalTamper This parameter can be a combination of the following values:
   *         @arg @ref RTC_LL_EC_ITAMPER_NOERASE

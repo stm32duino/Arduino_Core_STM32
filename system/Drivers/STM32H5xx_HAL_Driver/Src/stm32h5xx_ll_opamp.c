@@ -65,8 +65,6 @@
    || ((__INPUT_NONINVERTING__) == LL_OPAMP_INPUT_NONINVERT_DAC)            \
   )
 
-
-
 #define IS_LL_OPAMP_INPUT_INVERTING(__INPUT_INVERTING__)                    \
   (((__INPUT_INVERTING__) == LL_OPAMP_INPUT_INVERT_IO0)                     \
    || ((__INPUT_INVERTING__) == LL_OPAMP_INPUT_INVERT_IO1)                  \

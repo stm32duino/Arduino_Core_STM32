@@ -213,8 +213,6 @@ extern "C" {
 #define LL_SBS_CLASSB_NSEC              0U                      /*!< Class B configuration secure/non-secure access */
 #define LL_SBS_FPU_SEC                  SBS_SECCFGR_FPUSEC      /*!< FPU configuration secure-only access */
 #define LL_SBS_FPU_NSEC                 0U                      /*!< FPU configuration secure/non-secure access */
-#define LL_SBS_SMPS_SEC                 SBS_SECCFGR_SDCE_SEC_EN /*!< SMPS configuration secure-only access */
-#define LL_SBS_SMPS_NSEC                0U                      /*!< SMPS configuration secure/non-secure access */
 /**
   * @}
   */
@@ -822,7 +820,6 @@ __STATIC_INLINE uint32_t LL_SBS_GetAuthDbgSec(void)
 {
   return ((SBS->DBGCR & SBS_DBGCR_DBG_AUTH_SEC) >> SBS_DBGCR_DBG_AUTH_SEC_Pos);
 }
-
 #endif /* SBS_DBGCR_DBG_AUTH_SEC */
 
 /**
@@ -976,7 +973,6 @@ __STATIC_INLINE uint32_t LL_SBS_GetSecureLock(void)
   */
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
-
 /**
   * @brief  Configure Secure mode
   * @note Only available from secure state when system implements security (TZEN=1)
@@ -1010,7 +1006,6 @@ __STATIC_INLINE uint32_t LL_SBS_GetConfigSecure(void)
 {
   return (uint32_t)(READ_BIT(SBS->SECCFGR, LL_SBS_CLOCK_SEC | LL_SBS_CLASSB_SEC | LL_SBS_FPU_SEC));
 }
-
 #endif /* __ARM_FEATURE_CMSE && __ARM_FEATURE_CMSE == 3U */
 
 /**
@@ -1027,7 +1022,7 @@ __STATIC_INLINE uint32_t LL_SBS_GetConfigSecure(void)
 
 /**
   * @brief  Get the compensation cell value of the GPIO PMOS transistor supplied by VDD
-  * @rmtoll CCVALR    PCV1   LL_SBS_GetPMOSVddCompensationValue
+  * @rmtoll CCVALR    APSRC1   LL_SBS_GetPMOSVddCompensationValue
   * @retval Returned value is the PMOS compensation cell
   */
 __STATIC_INLINE uint32_t LL_SBS_GetPMOSVddCompensationValue(void)
@@ -1037,7 +1032,7 @@ __STATIC_INLINE uint32_t LL_SBS_GetPMOSVddCompensationValue(void)
 
 /**
   * @brief  Get the compensation cell value of the GPIO NMOS transistor supplied by VDD
-  * @rmtoll CCVALR    NCV1   LL_SBS_GetNMOSVddCompensationValue
+  * @rmtoll CCVALR    ANSRC1   LL_SBS_GetNMOSVddCompensationValue
   * @retval Returned value is the NMOS compensation cell
   */
 __STATIC_INLINE uint32_t LL_SBS_GetNMOSVddCompensationValue(void)
@@ -1047,7 +1042,7 @@ __STATIC_INLINE uint32_t LL_SBS_GetNMOSVddCompensationValue(void)
 
 /**
   * @brief  Get the compensation cell value of the GPIO PMOS transistor supplied by VDDIO2
-  * @rmtoll CCVALR    PCV2   LL_SBS_GetPMOSVddIO2CompensationValue
+  * @rmtoll CCVALR    APSRC2   LL_SBS_GetPMOSVddIO2CompensationValue
   * @retval Returned value is the PMOS compensation cell
   */
 __STATIC_INLINE uint32_t LL_SBS_GetPMOSVddIO2CompensationValue(void)
@@ -1057,7 +1052,7 @@ __STATIC_INLINE uint32_t LL_SBS_GetPMOSVddIO2CompensationValue(void)
 
 /**
   * @brief  Get the compensation cell value of the GPIO NMOS transistor supplied by VDDIO2
-  * @rmtoll CCVALR    NCV2   LL_SBS_GetNMOSVddIO2CompensationValue
+  * @rmtoll CCVALR    ANSRC2   LL_SBS_GetNMOSVddIO2CompensationValue
   * @retval Returned value is the NMOS compensation cell
   */
 __STATIC_INLINE uint32_t LL_SBS_GetNMOSVddIO2CompensationValue(void)
@@ -1067,7 +1062,7 @@ __STATIC_INLINE uint32_t LL_SBS_GetNMOSVddIO2CompensationValue(void)
 
 /**
   * @brief  Set the compensation cell code of the GPIO PMOS transistor supplied by VDD
-  * @rmtoll CCSWCR    PCC1  LL_SBS_SetPMOSVddCompensationCode
+  * @rmtoll CCSWCR    SW_APSRC1  LL_SBS_SetPMOSVddCompensationCode
   * @param  PMOSCode PMOS compensation code
   *         This code is applied to the PMOS compensation cell when the CS1 bit of the
   *         SBS_CCCSR is set
@@ -1080,7 +1075,7 @@ __STATIC_INLINE void LL_SBS_SetPMOSVddCompensationCode(uint32_t PMOSCode)
 
 /**
   * @brief  Get the compensation cell code of the GPIO PMOS transistor supplied by VDD
-  * @rmtoll CCSWCR    PCC1   LL_SBS_GetPMOSVddCompensationCode
+  * @rmtoll CCSWCR    SW_APSRC1   LL_SBS_GetPMOSVddCompensationCode
   * @retval Returned value is the PMOS compensation cell
   */
 __STATIC_INLINE uint32_t LL_SBS_GetPMOSVddCompensationCode(void)
@@ -1090,7 +1085,7 @@ __STATIC_INLINE uint32_t LL_SBS_GetPMOSVddCompensationCode(void)
 
 /**
   * @brief  Set the compensation cell code of the GPIO PMOS transistor supplied by VDDIO
-  * @rmtoll CCSWCR    PCC2  LL_SBS_SetPMOSVddIOCompensationCode
+  * @rmtoll CCSWCR    SW_APSRC2  LL_SBS_SetPMOSVddIOCompensationCode
   * @param  PMOSCode PMOS compensation code
   *         This code is applied to the PMOS compensation cell when the CS2 bit of the
   *         SBS_CCCSR is set
@@ -1101,10 +1096,9 @@ __STATIC_INLINE void LL_SBS_SetPMOSVddIOCompensationCode(uint32_t PMOSCode)
   MODIFY_REG(SBS->CCSWCR, SBS_CCSWCR_SW_APSRC2, PMOSCode << SBS_CCSWCR_SW_APSRC2_Pos);
 }
 
-
 /**
   * @brief  Get the compensation cell code of the GPIO PMOS transistor supplied by VDDIO
-  * @rmtoll CCSWCR    PCC2   LL_SBS_GetPMOSVddIOCompensationCode
+  * @rmtoll CCSWCR    SW_APSRC2   LL_SBS_GetPMOSVddIOCompensationCode
   * @retval Returned value is the PMOS compensation
   */
 __STATIC_INLINE uint32_t LL_SBS_GetPMOSVddIOCompensationCode(void)
@@ -1239,7 +1233,7 @@ __STATIC_INLINE uint32_t LL_SBS_IsActiveFlag_VddCMPCR(void)
 
 /**
   * @brief  Get Compensation Cell ready Flag of GPIO supplied by VDDIO
-  * @rmtoll CCCSR   RDY1   LL_SBS_IsActiveFlag_VddIOCMPCR
+  * @rmtoll CCCSR   RDY2   LL_SBS_IsActiveFlag_VddIOCMPCR
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_SBS_IsActiveFlag_VddIOCMPCR(void)
@@ -1816,4 +1810,4 @@ __STATIC_INLINE uint32_t LL_SBS_GetEraseAfterResetStatus(void)
 }
 #endif
 
-#endif /* STM32h5xx_LL_SYSTEM_H */
+#endif /* STM32H5xx_LL_SYSTEM_H */

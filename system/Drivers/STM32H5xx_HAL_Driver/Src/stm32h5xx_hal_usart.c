@@ -144,7 +144,7 @@
   */
 
 /** @defgroup USART USART
-  * @brief HAL USART Synchronous module driver
+  * @brief HAL USART Synchronous SPI module driver
   * @{
   */
 
@@ -227,8 +227,8 @@ static void USART_RxISR_16BIT_FIFOEN(USART_HandleTypeDef *husart);
  ===============================================================================
     [..]
     This subsection provides a set of functions allowing to initialize the USART
-    in asynchronous and in synchronous modes.
-      (+) For the asynchronous mode only these parameters can be configured:
+    in synchronous SPI master/slave mode.
+      (+) For the synchronous SPI mode only these parameters can be configured:
         (++) Baud Rate
         (++) Word Length
         (++) Stop Bit
@@ -240,7 +240,7 @@ static void USART_RxISR_16BIT_FIFOEN(USART_HandleTypeDef *husart);
         (++) Receiver/transmitter modes
 
     [..]
-    The HAL_USART_Init() function follows the USART  synchronous configuration
+    The HAL_USART_Init() function follows the USART synchronous SPI configuration
     procedure (details for the procedure are available in reference manual).
 
 @endverbatim
@@ -318,7 +318,7 @@ HAL_StatusTypeDef HAL_USART_Init(USART_HandleTypeDef *husart)
     return HAL_ERROR;
   }
 
-  /* In Synchronous mode, the following bits must be kept cleared:
+  /* In Synchronous SPI mode, the following bits must be kept cleared:
   - LINEN bit in the USART_CR2 register
   - HDSEL, SCEN and IREN bits in the USART_CR3 register.
   */
@@ -659,11 +659,10 @@ HAL_StatusTypeDef HAL_USART_UnRegisterCallback(USART_HandleTypeDef *husart, HAL_
  ===============================================================================
                       ##### IO operation functions #####
  ===============================================================================
-    [..] This subsection provides a set of functions allowing to manage the USART synchronous
+    [..] This subsection provides a set of functions allowing to manage the USART synchronous SPI
     data transfers.
 
-    [..] The USART supports master mode only: it cannot receive or send data related to an input
-         clock (SCLK is always an output).
+    [..] The USART Synchronous SPI supports master and slave modes (SCLK as output or input).
 
     [..]
 
@@ -760,12 +759,14 @@ HAL_StatusTypeDef HAL_USART_Transmit(USART_HandleTypeDef *husart, const uint8_t 
     /* Process Locked */
     __HAL_LOCK(husart);
 
+#if defined(USART_DMAREQUESTS_SW_WA)
     /* Disable the USART DMA Tx request if enabled */
     if (HAL_IS_BIT_SET(husart->Instance->CR3, USART_CR3_DMAT))
     {
       CLEAR_BIT(husart->Instance->CR3, USART_CR3_DMAT);
     }
 
+#endif /* USART_DMAREQUESTS_SW_WA */
     husart->ErrorCode = HAL_USART_ERROR_NONE;
     husart->State = HAL_USART_STATE_BUSY_TX;
 
@@ -864,12 +865,14 @@ HAL_StatusTypeDef HAL_USART_Receive(USART_HandleTypeDef *husart, uint8_t *pRxDat
     /* Process Locked */
     __HAL_LOCK(husart);
 
+#if defined(USART_DMAREQUESTS_SW_WA)
     /* Disable the USART DMA Rx request if enabled */
     if (HAL_IS_BIT_SET(husart->Instance->CR3, USART_CR3_DMAR))
     {
       CLEAR_BIT(husart->Instance->CR3, USART_CR3_DMAR);
     }
 
+#endif /* USART_DMAREQUESTS_SW_WA */
     husart->ErrorCode = HAL_USART_ERROR_NONE;
     husart->State = HAL_USART_STATE_BUSY_RX;
 
@@ -986,6 +989,7 @@ HAL_StatusTypeDef HAL_USART_TransmitReceive(USART_HandleTypeDef *husart, const u
     /* Process Locked */
     __HAL_LOCK(husart);
 
+#if defined(USART_DMAREQUESTS_SW_WA)
     /* Disable the USART DMA Tx request if enabled */
     if (HAL_IS_BIT_SET(husart->Instance->CR3, USART_CR3_DMAT))
     {
@@ -998,6 +1002,7 @@ HAL_StatusTypeDef HAL_USART_TransmitReceive(USART_HandleTypeDef *husart, const u
       CLEAR_BIT(husart->Instance->CR3, USART_CR3_DMAR);
     }
 
+#endif /* USART_DMAREQUESTS_SW_WA */
     husart->ErrorCode = HAL_USART_ERROR_NONE;
     husart->State = HAL_USART_STATE_BUSY_RX;
 
@@ -1136,12 +1141,14 @@ HAL_StatusTypeDef HAL_USART_Transmit_IT(USART_HandleTypeDef *husart, const uint8
     /* Process Locked */
     __HAL_LOCK(husart);
 
+#if defined(USART_DMAREQUESTS_SW_WA)
     /* Disable the USART DMA Tx request if enabled */
     if (HAL_IS_BIT_SET(husart->Instance->CR3, USART_CR3_DMAT))
     {
       CLEAR_BIT(husart->Instance->CR3, USART_CR3_DMAT);
     }
 
+#endif /* USART_DMAREQUESTS_SW_WA */
     husart->pTxBuffPtr  = pTxData;
     husart->TxXferSize  = Size;
     husart->TxXferCount = Size;
@@ -1227,12 +1234,14 @@ HAL_StatusTypeDef HAL_USART_Receive_IT(USART_HandleTypeDef *husart, uint8_t *pRx
     /* Process Locked */
     __HAL_LOCK(husart);
 
+#if defined(USART_DMAREQUESTS_SW_WA)
     /* Disable the USART DMA Rx request if enabled */
     if (HAL_IS_BIT_SET(husart->Instance->CR3, USART_CR3_DMAR))
     {
       CLEAR_BIT(husart->Instance->CR3, USART_CR3_DMAR);
     }
 
+#endif /* USART_DMAREQUESTS_SW_WA */
     husart->pRxBuffPtr  = pRxData;
     husart->RxXferSize  = Size;
     husart->RxXferCount = Size;
@@ -1347,6 +1356,7 @@ HAL_StatusTypeDef HAL_USART_TransmitReceive_IT(USART_HandleTypeDef *husart, cons
     /* Process Locked */
     __HAL_LOCK(husart);
 
+#if defined(USART_DMAREQUESTS_SW_WA)
     /* Disable the USART DMA Tx request if enabled */
     if (HAL_IS_BIT_SET(husart->Instance->CR3, USART_CR3_DMAT))
     {
@@ -1359,6 +1369,7 @@ HAL_StatusTypeDef HAL_USART_TransmitReceive_IT(USART_HandleTypeDef *husart, cons
       CLEAR_BIT(husart->Instance->CR3, USART_CR3_DMAR);
     }
 
+#endif /* USART_DMAREQUESTS_SW_WA */
     husart->pRxBuffPtr = pRxData;
     husart->RxXferSize = Size;
     husart->RxXferCount = Size;
@@ -2175,6 +2186,11 @@ HAL_StatusTypeDef HAL_USART_Abort(USART_HandleTypeDef *husart)
   /* Abort the USART DMA Tx channel if enabled */
   if (HAL_IS_BIT_SET(husart->Instance->CR3, USART_CR3_DMAT))
   {
+#if !defined(USART_DMAREQUESTS_SW_WA)
+    /* Disable the USART DMA Tx request if enabled */
+    CLEAR_BIT(husart->Instance->CR3, USART_CR3_DMAT);
+
+#endif /* !USART_DMAREQUESTS_SW_WA */
     /* Abort the USART DMA Tx channel : use blocking DMA Abort API (no callback) */
     if (husart->hdmatx != NULL)
     {
@@ -2198,6 +2214,11 @@ HAL_StatusTypeDef HAL_USART_Abort(USART_HandleTypeDef *husart)
   /* Abort the USART DMA Rx channel if enabled */
   if (HAL_IS_BIT_SET(husart->Instance->CR3, USART_CR3_DMAR))
   {
+#if !defined(USART_DMAREQUESTS_SW_WA)
+    /* Disable the USART DMA Rx request if enabled */
+    CLEAR_BIT(husart->Instance->CR3, USART_CR3_DMAR);
+
+#endif /* !USART_DMAREQUESTS_SW_WA */
     /* Abort the USART DMA Rx channel : use blocking DMA Abort API (no callback) */
     if (husart->hdmarx != NULL)
     {
@@ -2302,6 +2323,11 @@ HAL_StatusTypeDef HAL_USART_Abort_IT(USART_HandleTypeDef *husart)
   /* Abort the USART DMA Tx channel if enabled */
   if (HAL_IS_BIT_SET(husart->Instance->CR3, USART_CR3_DMAT))
   {
+#if !defined(USART_DMAREQUESTS_SW_WA)
+    /* Disable DMA Tx at USART level */
+    CLEAR_BIT(husart->Instance->CR3, USART_CR3_DMAT);
+
+#endif /* !USART_DMAREQUESTS_SW_WA */
     /* Abort the USART DMA Tx channel : use non blocking DMA Abort API (callback) */
     if (husart->hdmatx != NULL)
     {
@@ -2323,6 +2349,11 @@ HAL_StatusTypeDef HAL_USART_Abort_IT(USART_HandleTypeDef *husart)
   /* Abort the USART DMA Rx channel if enabled */
   if (HAL_IS_BIT_SET(husart->Instance->CR3, USART_CR3_DMAR))
   {
+#if !defined(USART_DMAREQUESTS_SW_WA)
+    /* Disable the USART DMA Rx request if enabled */
+    CLEAR_BIT(husart->Instance->CR3, USART_CR3_DMAR);
+
+#endif /* !USART_DMAREQUESTS_SW_WA */
     /* Abort the USART DMA Rx channel : use non blocking DMA Abort API (callback) */
     if (husart->hdmarx != NULL)
     {
@@ -2505,6 +2536,11 @@ void HAL_USART_IRQHandler(USART_HandleTypeDef *husart)
         /* Abort the USART DMA Rx channel if enabled */
         if (HAL_IS_BIT_SET(husart->Instance->CR3, USART_CR3_DMAR))
         {
+#if !defined(USART_DMAREQUESTS_SW_WA)
+          /* Disable the USART DMA Rx request if enabled */
+          CLEAR_BIT(husart->Instance->CR3, USART_CR3_DMAR | USART_CR3_DMAR);
+
+#endif /* !USART_DMAREQUESTS_SW_WA */
           /* Abort the USART DMA Tx channel */
           if (husart->hdmatx != NULL)
           {
@@ -2834,6 +2870,12 @@ static void USART_DMATransmitCplt(DMA_HandleTypeDef *hdma)
 
     if (husart->State == HAL_USART_STATE_BUSY_TX)
     {
+#if !defined(USART_DMAREQUESTS_SW_WA)
+      /* Disable the DMA transfer for transmit request by resetting the DMAT bit
+         in the USART CR3 register */
+      CLEAR_BIT(husart->Instance->CR3, USART_CR3_DMAT);
+
+#endif /* !USART_DMAREQUESTS_SW_WA */
       /* Enable the USART Transmit Complete Interrupt */
       __HAL_USART_ENABLE_IT(husart, USART_IT_TC);
     }
@@ -2890,6 +2932,15 @@ static void USART_DMAReceiveCplt(DMA_HandleTypeDef *hdma)
     CLEAR_BIT(husart->Instance->CR1, USART_CR1_PEIE);
     CLEAR_BIT(husart->Instance->CR3, USART_CR3_EIE);
 
+#if !defined(USART_DMAREQUESTS_SW_WA)
+    /* Disable the DMA RX transfer for the receiver request by resetting the DMAR bit
+       in USART CR3 register */
+    CLEAR_BIT(husart->Instance->CR3, USART_CR3_DMAR);
+    /* similarly, disable the DMA TX transfer that was started to provide the
+       clock to the slave device */
+    CLEAR_BIT(husart->Instance->CR3, USART_CR3_DMAT);
+
+#endif /* !USART_DMAREQUESTS_SW_WA */
     if (husart->State == HAL_USART_STATE_BUSY_RX)
     {
 #if (USE_HAL_USART_REGISTER_CALLBACKS == 1)
@@ -3176,7 +3227,7 @@ static HAL_StatusTypeDef USART_SetConfig(USART_HandleTypeDef *husart)
   /* Clear and configure the USART Clock, CPOL, CPHA, LBCL STOP and SLVEN bits:
    * set CPOL bit according to husart->Init.CLKPolarity value
    * set CPHA bit according to husart->Init.CLKPhase value
-   * set LBCL bit according to husart->Init.CLKLastBit value (used in SPI master mode only)
+   * set LBCL bit according to husart->Init.CLKLastBit value (used in USART Synchronous SPI master mode only)
    * set STOP[13:12] bits according to husart->Init.StopBits value */
   tmpreg = (uint32_t)(USART_CLOCK_ENABLE);
   tmpreg |= (uint32_t)husart->Init.CLKLastBit;

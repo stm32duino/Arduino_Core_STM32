@@ -470,9 +470,12 @@ typedef  void (*pTIM_CallbackTypeDef)(TIM_HandleTypeDef *htim);  /*!< pointer to
 /** @defgroup TIM_ClearInput_Source TIM Clear Input Source
   * @{
   */
-#define TIM_CLEARINPUTSOURCE_NONE           0x00000000U   /*!< OCREF_CLR is disabled */
-#define TIM_CLEARINPUTSOURCE_ETR            0x00000001U   /*!< OCREF_CLR is connected to ETRF input */
-#define TIM_CLEARINPUTSOURCE_OCREFCLR       0x00000002U   /*!< OCREF_CLR is connected to OCREF_CLR_INT */
+#define TIM_CLEARINPUTSOURCE_NONE     0xFFFFFFFFU                               /*!< OCREF_CLR is disabled */
+#define TIM_CLEARINPUTSOURCE_ETR      0x00000001U                               /*!< OCREF_CLR is connected to ETRF input */
+#if defined(COMP1) && defined(COMP2)
+#define TIM_CLEARINPUTSOURCE_COMP1    0x00000000U                               /*!< OCREF_CLR_INT is connected to COMP1 output */
+#define TIM_CLEARINPUTSOURCE_COMP2    TIM1_AF2_OCRSEL_0                         /*!< OCREF_CLR_INT is connected to COMP2 output */
+#endif /* COMP1 && COMP2 */
 /**
   * @}
   */
@@ -1848,9 +1851,15 @@ mode.
 /** @defgroup TIM_Private_Macros TIM Private Macros
   * @{
   */
-#define IS_TIM_CLEARINPUT_SOURCE(__MODE__)  (((__MODE__) == TIM_CLEARINPUTSOURCE_NONE)      || \
-                                             ((__MODE__) == TIM_CLEARINPUTSOURCE_ETR)       || \
-                                             ((__MODE__) == TIM_CLEARINPUTSOURCE_OCREFCLR))
+#if defined(COMP1) && defined(COMP2)
+#define IS_TIM_CLEARINPUT_SOURCE(__MODE__)  (((__MODE__) == TIM_CLEARINPUTSOURCE_ETR)      || \
+                                             ((__MODE__) == TIM_CLEARINPUTSOURCE_COMP1)    || \
+                                             ((__MODE__) == TIM_CLEARINPUTSOURCE_COMP2)    || \
+                                             ((__MODE__) == TIM_CLEARINPUTSOURCE_NONE))
+#else
+#define IS_TIM_CLEARINPUT_SOURCE(__MODE__)  (((__MODE__) == TIM_CLEARINPUTSOURCE_ETR)      || \
+                                             ((__MODE__) == TIM_CLEARINPUTSOURCE_NONE))
+#endif /* COMP1 && COMP2 */
 
 #define IS_TIM_DMA_BASE(__BASE__) (((__BASE__) == TIM_DMABASE_CR1)   || \
                                    ((__BASE__) == TIM_DMABASE_CR2)   || \
