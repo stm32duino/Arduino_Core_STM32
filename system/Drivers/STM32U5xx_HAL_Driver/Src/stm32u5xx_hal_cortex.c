@@ -771,7 +771,7 @@ static void MPU_ConfigRegion(MPU_Type *MPUx, const MPU_Region_InitTypeDef *const
   MPUx->RNR = pMPU_RegionInit->Number;
 
   /* Disable the Region */
-  CLEAR_BIT(MPU->RLAR, MPU_RLAR_EN_Msk);
+  CLEAR_BIT(MPUx->RLAR, MPU_RLAR_EN_Msk);
 
   MPUx->RBAR = (((uint32_t)pMPU_RegionInit->BaseAddress               & 0xFFFFFFE0UL)  |
                 ((uint32_t)pMPU_RegionInit->IsShareable           << MPU_RBAR_SH_Pos)  |
