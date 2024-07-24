@@ -53,13 +53,13 @@
           (DAC_TRIGGER_T1_TRGO, DAC_TRIGGER_T2_TRGO...)
 
       (#) Low Power Timers TRGO: LPTIM1 and LPTIM3
-          (DAC_TRIGGER_LPTIM1_OUT, DAC_TRIGGER_LPTIM3_OUT)
+          (DAC_TRIGGER_LPTIM1_CH1, DAC_TRIGGER_LPTIM3_CH1)
 
       (#) Software using DAC_TRIGGER_SOFTWARE
     [..]
   The trigger selection depends on the PWR mode:
   in stop0, stop1 and stop2 we should select DAC_TRIGGER_EXT_IT9,
-    DAC_TRIGGER_LPTIM1_OUT or DAC_TRIGGER_LPTIM3_OUT.The other triggers
+    DAC_TRIGGER_LPTIM1_CH1 or DAC_TRIGGER_LPTIM3_CH1.The other triggers
   are not functional.
 
       *** DAC Buffer mode feature ***

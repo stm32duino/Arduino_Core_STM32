@@ -60,7 +60,6 @@
   */
 
 
-
 /** @addtogroup MMCEx_Exported_Functions_Group1
   *  @brief   Linked List management functions
   *
@@ -425,7 +424,6 @@ HAL_StatusTypeDef HAL_MMCEx_DMALinkedList_WriteBlocks(MMC_HandleTypeDef *hmmc, M
     return HAL_BUSY;
   }
 }
-
 
 
 /**

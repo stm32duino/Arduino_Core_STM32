@@ -463,6 +463,9 @@ HAL_StatusTypeDef HAL_DSI_Init(DSI_HandleTypeDef *hdsi, DSI_PLLInitTypeDef *PLLI
                             ((PLLInit->PLLIDF) << DSI_WRPCR_PLL_IDF_Pos) | \
                             ((PLLInit->PLLODF) << DSI_WRPCR_PLL_ODF_Pos));
 
+  /* Set PLL Tuning */
+  DSI_SetWrapperPLLTuning(hdsi, PLLInit);
+
   /* Enable the DSI PLL */
   __HAL_DSI_PLL_ENABLE(hdsi);
 
@@ -497,9 +500,6 @@ HAL_StatusTypeDef HAL_DSI_Init(DSI_HandleTypeDef *hdsi, DSI_PLLInitTypeDef *PLLI
   /************************ Set D-PHY Band Control registers ******************************/
   /* Set Band Control Frequency and LPX Offset */
   DSI_ConfigBandControl(hdsi);
-
-  /* Set PLL Tuning */
-  DSI_SetWrapperPLLTuning(hdsi, PLLInit);
 
   hdsi->Instance->PCTLR |= DSI_PCTLR_CKE;
 

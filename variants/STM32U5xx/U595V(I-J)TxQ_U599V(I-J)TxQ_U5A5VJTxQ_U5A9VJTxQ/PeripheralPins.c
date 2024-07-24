@@ -14,7 +14,7 @@
  * Automatically generated from STM32U595VITxQ.xml, STM32U595VJTxQ.xml
  * STM32U599VITxQ.xml, STM32U599VJTxQ.xml
  * STM32U5A5VJTxQ.xml, STM32U5A9VJTxQ.xml
- * CubeMX DB release 6.0.110
+ * CubeMX DB release 6.0.120
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
