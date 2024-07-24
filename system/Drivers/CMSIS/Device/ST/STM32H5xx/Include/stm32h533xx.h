@@ -7,7 +7,7 @@
   *          This file contains:
   *           - Data structures and the address mapping for all peripherals
   *           - Peripheral's registers declarations and bits definition
-  *           - Macros to access peripheral’s registers hardware
+  *           - Macros to access peripheral's registers hardware
   *
   ******************************************************************************
   * @attention
@@ -415,7 +415,6 @@ typedef struct
   __IO uint32_t CR;  /*!< RNG control register, Address offset: 0x00 */
   __IO uint32_t SR;  /*!< RNG status register,  Address offset: 0x04 */
   __IO uint32_t DR;  /*!< RNG data register,    Address offset: 0x08 */
-  uint32_t RESERVED;
   __IO uint32_t HTCR;  /*!< RNG health test configuration register, Address offset: 0x10 */
 } RNG_TypeDef;
 
@@ -1664,7 +1663,6 @@ typedef struct
 #define DAC1_BASE_NS             (AHB2PERIPH_BASE_NS + 0x08400UL)
 #define DCMI_BASE_NS             (AHB2PERIPH_BASE_NS + 0x0C000UL)
 #define PSSI_BASE_NS             (AHB2PERIPH_BASE_NS + 0x0C400UL)
-
 #define AES_BASE_NS              (AHB2PERIPH_BASE_NS + 0xA0000UL)
 #define HASH_BASE_NS             (AHB2PERIPH_BASE_NS + 0xA0400UL)
 #define HASH_DIGEST_BASE_NS      (AHB2PERIPH_BASE_NS + 0xA0710UL)
@@ -1672,7 +1670,6 @@ typedef struct
 #define SAES_BASE_NS             (AHB2PERIPH_BASE_NS + 0xA0C00UL)
 #define PKA_BASE_NS              (AHB2PERIPH_BASE_NS + 0xA2000UL)
 #define PKA_RAM_BASE_NS          (AHB2PERIPH_BASE_NS + 0xA2400UL)
-
 
 /*!< APB3 Non secure peripherals */
 #define SBS_BASE_NS              (APB3PERIPH_BASE_NS + 0x0400UL)
@@ -1689,6 +1686,7 @@ typedef struct
 #define RCC_BASE_NS              (AHB3PERIPH_BASE_NS + 0x0C00UL)
 #define EXTI_BASE_NS             (AHB3PERIPH_BASE_NS + 0x2000UL)
 #define DEBUG_BASE_NS            (AHB3PERIPH_BASE_NS + 0x4000UL)
+
 /*!< AHB4 Non secure peripherals */
 #define OTFDEC1_BASE_NS          (AHB4PERIPH_BASE_NS + 0x5000UL)
 #define OTFDEC1_REGION1_BASE_NS  (OTFDEC1_BASE_NS + 0x20UL)
@@ -1697,7 +1695,6 @@ typedef struct
 #define OTFDEC1_REGION4_BASE_NS  (OTFDEC1_BASE_NS + 0xB0UL)
 #define SDMMC1_BASE_NS           (AHB4PERIPH_BASE_NS + 0x8000UL)
 #define DLYB_SDMMC1_BASE_NS      (AHB4PERIPH_BASE_NS + 0x8400UL)
-
 #define FMC_R_BASE_NS            (AHB4PERIPH_BASE_NS + 0x1000400UL) /*!< FMC control registers base address              */
 #define OCTOSPI1_R_BASE_NS       (AHB4PERIPH_BASE_NS + 0x1001400UL) /*!< OCTOSPI1 control registers base address         */
 #define DLYB_OCTOSPI1_BASE_NS    (AHB4PERIPH_BASE_NS + 0x0F000UL)
@@ -1777,7 +1774,6 @@ typedef struct
 #define GTZC_MPCBB2_BASE_S      (AHB1PERIPH_BASE_S + 0x13000UL)
 #define GTZC_MPCBB3_BASE_S      (AHB1PERIPH_BASE_S + 0x13400UL)
 #define BKPSRAM_BASE_S          (AHB1PERIPH_BASE_S + 0x16400UL)
-
 #define GPDMA1_Channel0_BASE_S   (GPDMA1_BASE_S + 0x0050UL)
 #define GPDMA1_Channel1_BASE_S   (GPDMA1_BASE_S + 0x00D0UL)
 #define GPDMA1_Channel2_BASE_S   (GPDMA1_BASE_S + 0x0150UL)
@@ -1794,7 +1790,6 @@ typedef struct
 #define GPDMA2_Channel5_BASE_S   (GPDMA2_BASE_S + 0x02D0UL)
 #define GPDMA2_Channel6_BASE_S   (GPDMA2_BASE_S + 0x0350UL)
 #define GPDMA2_Channel7_BASE_S   (GPDMA2_BASE_S + 0x03D0UL)
-
 #define RAMCFG_SRAM1_BASE_S     (RAMCFG_BASE_S)
 #define RAMCFG_SRAM2_BASE_S     (RAMCFG_BASE_S + 0x0040UL)
 #define RAMCFG_SRAM3_BASE_S     (RAMCFG_BASE_S + 0x0080UL)
@@ -1847,7 +1842,6 @@ typedef struct
 #define OTFDEC1_REGION4_BASE_S  (OTFDEC1_BASE_S + 0xB0UL)
 #define SDMMC1_BASE_S           (AHB4PERIPH_BASE_S + 0x8000UL)
 #define DLYB_SDMMC1_BASE_S      (AHB4PERIPH_BASE_S + 0x8400UL)
-
 #define FMC_R_BASE_S            (AHB4PERIPH_BASE_S + 0x1000400UL) /*!< FMC control registers base address              */
 #define OCTOSPI1_R_BASE_S       (AHB4PERIPH_BASE_S + 0x1001400UL) /*!< OCTOSPI1 control registers base address         */
 #define DLYB_OCTOSPI1_BASE_S    (AHB4PERIPH_BASE_S + 0x0F000UL)
@@ -1859,11 +1853,9 @@ typedef struct
 
 /* Debug MCU registers base address */
 #define DBGMCU_BASE             (0x44024000UL)
-
 #define PACKAGE_BASE            (0x08FFF80EUL) /*!< Package data register base address     */
 #define UID_BASE                (0x08FFF800UL) /*!< Unique device ID register base address */
 #define FLASHSIZE_BASE          (0x08FFF80CUL) /*!< Flash size data register base address  */
-
 
 /* Internal Flash OTP Area */
 #define FLASH_OTP_BASE          (0x08FFF000UL) /*!< FLASH OTP (one-time programmable) base address */
@@ -4265,10 +4257,15 @@ typedef struct
 #define RNG_SR_SEIS_Msk                     (0x1UL << RNG_SR_SEIS_Pos)              /*!< 0x00000040 */
 #define RNG_SR_SEIS                         RNG_SR_SEIS_Msk
 
+
 /********************  Bits definition for RNG_HTCR register  *******************/
 #define RNG_HTCR_HTCFG_Pos                  (0U)
 #define RNG_HTCR_HTCFG_Msk                  (0xFFFFFFFFUL << RNG_HTCR_HTCFG_Pos)    /*!< 0xFFFFFFFF */
 #define RNG_HTCR_HTCFG                      RNG_HTCR_HTCFG_Msk
+
+/********************  RNG Nist Compliance Values  ******************************/
+#define RNG_CR_NIST_VALUE                   (0x00F00D00U)
+#define RNG_HTCR_NIST_VALUE                 (0xAAC7U)
 
 /******************************************************************************/
 /*                                                                            */
@@ -6247,26 +6244,26 @@ typedef struct
 #define EXTI_PRIVENR1_PRIV30                EXTI_PRIVENR1_PRIV30_Msk                 /*!< Privilege enable on line 30 */
 
 /******************  Bit definition for EXTI_RTSR2 register  *******************/
-#define EXTI_RTSR2_TR_Pos                   (16U)
-#define EXTI_RTSR2_TR_Msk                   (0x24UL << EXTI_RTSR2_TR_Pos)               /*!< 0x00240000 */
-#define EXTI_RTSR2_TR                       EXTI_RTSR2_TR_Msk                           /*!< Rising trigger event configuration bit */
-#define EXTI_RTSR2_TR50_Pos                 (18U)
-#define EXTI_RTSR2_TR50_Msk                 (0x1UL << EXTI_RTSR2_TR50_Pos)              /*!< 0x00040000 */
-#define EXTI_RTSR2_TR50                     EXTI_RTSR2_TR50_Msk                         /*!< Rising trigger event configuration bit of line 50 */
-#define EXTI_RTSR2_TR53_Pos                 (21U)
-#define EXTI_RTSR2_TR53_Msk                 (0x1UL << EXTI_RTSR2_TR53_Pos)              /*!< 0x00200000 */
-#define EXTI_RTSR2_TR53                     EXTI_RTSR2_TR53_Msk                         /*!< Rising trigger event configuration bit of line 53 */
+#define EXTI_RTSR2_RT_Pos                   (16U)
+#define EXTI_RTSR2_RT_Msk                   (0x24UL << EXTI_RTSR2_RT_Pos)               /*!< 0x00240000 */
+#define EXTI_RTSR2_RT                       EXTI_RTSR2_RT_Msk                           /*!< Rising trigger event configuration bit */
+#define EXTI_RTSR2_RT50_Pos                 (18U)
+#define EXTI_RTSR2_RT50_Msk                 (0x1UL << EXTI_RTSR2_RT50_Pos)              /*!< 0x00040000 */
+#define EXTI_RTSR2_RT50                     EXTI_RTSR2_RT50_Msk                         /*!< Rising trigger event configuration bit of line 50 */
+#define EXTI_RTSR2_RT53_Pos                 (21U)
+#define EXTI_RTSR2_RT53_Msk                 (0x1UL << EXTI_RTSR2_RT53_Pos)              /*!< 0x00200000 */
+#define EXTI_RTSR2_RT53                     EXTI_RTSR2_RT53_Msk                         /*!< Rising trigger event configuration bit of line 53 */
 
 /******************  Bit definition for EXTI_FTSR2 register  *******************/
-#define EXTI_FTSR2_TR_Pos                   (16U)
-#define EXTI_FTSR2_TR_Msk                   (0x24 << EXTI_FTSR2_TR_Pos)                 /*!< 0x00240000 */
-#define EXTI_FTSR2_TR                       EXTI_FTSR2_TR_Msk                           /*!< Falling trigger event configuration bit */
-#define EXTI_FTSR2_TR50_Pos                 (18U)
-#define EXTI_FTSR2_TR50_Msk                 (0x1UL << EXTI_FTSR2_TR50_Pos)              /*!< 0x00040000 */
-#define EXTI_FTSR2_TR50                     EXTI_FTSR2_TR50_Msk                         /*!< Falling trigger event configuration bit of line 50 */
-#define EXTI_FTSR2_TR53_Pos                 (21U)
-#define EXTI_FTSR2_TR53_Msk                 (0x1UL << EXTI_FTSR2_TR53_Pos)              /*!< 0x00200000 */
-#define EXTI_FTSR2_TR53                     EXTI_FTSR2_TR53_Msk                         /*!< Falling trigger event configuration bit of line 53 */
+#define EXTI_FTSR2_FT_Pos                   (16U)
+#define EXTI_FTSR2_FT_Msk                   (0x24 << EXTI_FTSR2_FT_Pos)                 /*!< 0x00240000 */
+#define EXTI_FTSR2_FT                       EXTI_FTSR2_FT_Msk                           /*!< Falling trigger event configuration bit */
+#define EXTI_FTSR2_FT50_Pos                 (18U)
+#define EXTI_FTSR2_FT50_Msk                 (0x1UL << EXTI_FTSR2_FT50_Pos)              /*!< 0x00040000 */
+#define EXTI_FTSR2_FT50                     EXTI_FTSR2_FT50_Msk                         /*!< Falling trigger event configuration bit of line 50 */
+#define EXTI_FTSR2_FT53_Pos                 (21U)
+#define EXTI_FTSR2_FT53_Msk                 (0x1UL << EXTI_FTSR2_FT53_Pos)              /*!< 0x00200000 */
+#define EXTI_FTSR2_FT53                     EXTI_FTSR2_FT53_Msk                         /*!< Falling trigger event configuration bit of line 53 */
 
 /******************  Bit definition for EXTI_SWIER2 register  ******************/
 #define EXTI_SWIER2_SWIER50_Pos            (18U)
@@ -7753,10 +7750,10 @@ typedef struct
 
 /******************  Bits definition for FLASH_HDPEXTR register  *****************/
 #define FLASH_HDPEXTR_HDP1_EXT_Pos          (0U)
-#define FLASH_HDPEXTR_HDP1_EXT_Msk          (0x1FUL << FLASH_HDPEXTR_HDP1_EXT_Pos)  /*!< 0x0000007F */
+#define FLASH_HDPEXTR_HDP1_EXT_Msk          (0x1FUL << FLASH_HDPEXTR_HDP1_EXT_Pos)  /*!< 0x0000001F */
 #define FLASH_HDPEXTR_HDP1_EXT              FLASH_HDPEXTR_HDP1_EXT_Msk              /*!< HDP area extension in 8kB sectors in bank 1 */
 #define FLASH_HDPEXTR_HDP2_EXT_Pos          (16U)
-#define FLASH_HDPEXTR_HDP2_EXT_Msk          (0x1FUL << FLASH_HDPEXTR_HDP2_EXT_Pos)  /*!< 0x007F0000 */
+#define FLASH_HDPEXTR_HDP2_EXT_Msk          (0x1FUL << FLASH_HDPEXTR_HDP2_EXT_Pos)  /*!< 0x001F0000 */
 #define FLASH_HDPEXTR_HDP2_EXT              FLASH_HDPEXTR_HDP2_EXT_Msk              /*!< HDP area extension in 8kB sectors in bank 2 */
 
 /*******************  Bits definition for FLASH_OPTSR register  ***************/
@@ -10122,27 +10119,27 @@ typedef struct
 
 /*******************  Bit definition for TIM_CCR1 register  *******************/
 #define TIM_CCR1_CCR1_Pos                   (0U)
-#define TIM_CCR1_CCR1_Msk                   (0xFFFFUL << TIM_CCR1_CCR1_Pos)         /*!< 0x0000FFFF */
+#define TIM_CCR1_CCR1_Msk                   (0xFFFFFFFFUL << TIM_CCR1_CCR1_Pos)     /*!< 0xFFFFFFFF */
 #define TIM_CCR1_CCR1                       TIM_CCR1_CCR1_Msk                       /*!<Capture/Compare 1 Value */
 
 /*******************  Bit definition for TIM_CCR2 register  *******************/
 #define TIM_CCR2_CCR2_Pos                   (0U)
-#define TIM_CCR2_CCR2_Msk                   (0xFFFFUL << TIM_CCR2_CCR2_Pos)         /*!< 0x0000FFFF */
+#define TIM_CCR2_CCR2_Msk                   (0xFFFFFFFFUL << TIM_CCR2_CCR2_Pos)     /*!< 0xFFFFFFFF */
 #define TIM_CCR2_CCR2                       TIM_CCR2_CCR2_Msk                       /*!<Capture/Compare 2 Value */
 
 /*******************  Bit definition for TIM_CCR3 register  *******************/
 #define TIM_CCR3_CCR3_Pos                   (0U)
-#define TIM_CCR3_CCR3_Msk                   (0xFFFFUL << TIM_CCR3_CCR3_Pos)         /*!< 0x0000FFFF */
+#define TIM_CCR3_CCR3_Msk                   (0xFFFFFFFFUL << TIM_CCR3_CCR3_Pos)     /*!< 0xFFFFFFFF */
 #define TIM_CCR3_CCR3                       TIM_CCR3_CCR3_Msk                       /*!<Capture/Compare 3 Value */
 
 /*******************  Bit definition for TIM_CCR4 register  *******************/
 #define TIM_CCR4_CCR4_Pos                   (0U)
-#define TIM_CCR4_CCR4_Msk                   (0xFFFFUL << TIM_CCR4_CCR4_Pos)         /*!< 0x0000FFFF */
+#define TIM_CCR4_CCR4_Msk                   (0xFFFFFFFFUL << TIM_CCR4_CCR4_Pos)     /*!< 0xFFFFFFFF */
 #define TIM_CCR4_CCR4                       TIM_CCR4_CCR4_Msk                       /*!<Capture/Compare 4 Value */
 
 /*******************  Bit definition for TIM_CCR5 register  *******************/
 #define TIM_CCR5_CCR5_Pos                   (0U)
-#define TIM_CCR5_CCR5_Msk                   (0xFFFFFFFFUL << TIM_CCR5_CCR5_Pos)     /*!< 0xFFFFFFFF */
+#define TIM_CCR5_CCR5_Msk                   (0xFFFFFUL << TIM_CCR5_CCR5_Pos)        /*!< 0x000FFFFF */
 #define TIM_CCR5_CCR5                       TIM_CCR5_CCR5_Msk                       /*!<Capture/Compare 5 Value */
 #define TIM_CCR5_GC5C1_Pos                  (29U)
 #define TIM_CCR5_GC5C1_Msk                  (0x1UL << TIM_CCR5_GC5C1_Pos)           /*!< 0x20000000 */
@@ -10156,7 +10153,7 @@ typedef struct
 
 /*******************  Bit definition for TIM_CCR6 register  *******************/
 #define TIM_CCR6_CCR6_Pos                   (0U)
-#define TIM_CCR6_CCR6_Msk                   (0xFFFFUL << TIM_CCR6_CCR6_Pos)         /*!< 0x0000FFFF */
+#define TIM_CCR6_CCR6_Msk                   (0xFFFFFUL << TIM_CCR6_CCR6_Pos)        /*!< 0x000FFFFF */
 #define TIM_CCR6_CCR6                       TIM_CCR6_CCR6_Msk                       /*!<Capture/Compare 6 Value */
 
 /*******************  Bit definition for TIM_BDTR register  *******************/
@@ -11656,7 +11653,7 @@ typedef struct
 #define OCTOSPI_CR_TCIE_Msk                 XSPI_CR_TCIE_Msk                              /*!< 0x00020000 */
 #define OCTOSPI_CR_TCIE                     XSPI_CR_TCIE                                  /*!< Transfer Complete Interrupt Enable */
 #define OCTOSPI_CR_FTIE_Pos                 XSPI_CR_FTIE_Pos
-#define OCTOSPI_CR_FTIE_Msk                 XSPI_CR_FTIE_Msk)                             /*!< 0x00040000 */
+#define OCTOSPI_CR_FTIE_Msk                 XSPI_CR_FTIE_Msk                              /*!< 0x00040000 */
 #define OCTOSPI_CR_FTIE                     XSPI_CR_FTIE                                  /*!< FIFO Threshold Interrupt Enable */
 #define OCTOSPI_CR_SMIE_Pos                 XSPI_CR_SMIE_Pos
 #define OCTOSPI_CR_SMIE_Msk                 XSPI_CR_SMIE_Msk                              /*!< 0x00080000 */
@@ -17591,6 +17588,7 @@ typedef struct
 /*      Universal Synchronous Asynchronous Receiver Transmitter (USART)       */
 /*                                                                            */
 /******************************************************************************/
+#define USART_DMAREQUESTS_SW_WA
 /******************  Bit definition for USART_CR1 register  *******************/
 #define USART_CR1_UE_Pos                    (0U)
 #define USART_CR1_UE_Msk                    (0x1UL << USART_CR1_UE_Pos)             /*!< 0x00000001 */

@@ -1134,7 +1134,7 @@ HAL_StatusTypeDef HAL_XSPI_HyperbusCmd(XSPI_HandleTypeDef *hxspi, XSPI_HyperbusC
   * @note   This function is used only in Indirect Write Mode
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_XSPI_Transmit(XSPI_HandleTypeDef *hxspi, uint8_t *const pData, uint32_t Timeout)
+HAL_StatusTypeDef HAL_XSPI_Transmit(XSPI_HandleTypeDef *hxspi, const uint8_t *pData, uint32_t Timeout)
 {
   HAL_StatusTypeDef status;
   uint32_t tickstart = HAL_GetTick();
@@ -1154,7 +1154,7 @@ HAL_StatusTypeDef HAL_XSPI_Transmit(XSPI_HandleTypeDef *hxspi, uint8_t *const pD
       /* Configure counters and size */
       hxspi->XferCount = READ_REG(hxspi->Instance->DLR) + 1U;
       hxspi->XferSize  = hxspi->XferCount;
-      hxspi->pBuffPtr  = pData;
+      hxspi->pBuffPtr  = (uint8_t *)pData;
 
       /* Configure CR register with functional mode as indirect write */
       MODIFY_REG(hxspi->Instance->CR, XSPI_CR_FMODE, XSPI_FUNCTIONAL_MODE_INDIRECT_WRITE);
@@ -1296,7 +1296,7 @@ HAL_StatusTypeDef HAL_XSPI_Receive(XSPI_HandleTypeDef *hxspi, uint8_t *const pDa
   * @note   This function is used only in Indirect Write Mode
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_XSPI_Transmit_IT(XSPI_HandleTypeDef *hxspi, uint8_t *const pData)
+HAL_StatusTypeDef HAL_XSPI_Transmit_IT(XSPI_HandleTypeDef *hxspi, const uint8_t *pData)
 {
   HAL_StatusTypeDef status = HAL_OK;
 
@@ -1314,7 +1314,7 @@ HAL_StatusTypeDef HAL_XSPI_Transmit_IT(XSPI_HandleTypeDef *hxspi, uint8_t *const
       /* Configure counters and size */
       hxspi->XferCount = READ_REG(hxspi->Instance->DLR) + 1U;
       hxspi->XferSize  = hxspi->XferCount;
-      hxspi->pBuffPtr  = pData;
+      hxspi->pBuffPtr  = (uint8_t *)pData;
 
       /* Configure CR register with functional mode as indirect write */
       MODIFY_REG(hxspi->Instance->CR, XSPI_CR_FMODE, XSPI_FUNCTIONAL_MODE_INDIRECT_WRITE);
@@ -1417,7 +1417,7 @@ HAL_StatusTypeDef HAL_XSPI_Receive_IT(XSPI_HandleTypeDef *hxspi, uint8_t *const 
   *         of data and the fifo threshold should be aligned on word
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_XSPI_Transmit_DMA(XSPI_HandleTypeDef *hxspi, uint8_t *const pData)
+HAL_StatusTypeDef HAL_XSPI_Transmit_DMA(XSPI_HandleTypeDef *hxspi, const uint8_t *pData)
 {
   HAL_StatusTypeDef status = HAL_OK;
   uint32_t data_size = hxspi->Instance->DLR + 1U;
@@ -1496,7 +1496,7 @@ HAL_StatusTypeDef HAL_XSPI_Transmit_DMA(XSPI_HandleTypeDef *hxspi, uint8_t *cons
       if (status == HAL_OK)
       {
         hxspi->XferSize = hxspi->XferCount;
-        hxspi->pBuffPtr = pData;
+        hxspi->pBuffPtr = (uint8_t *)pData;
 
         /* Configure CR register with functional mode as indirect write */
         MODIFY_REG(hxspi->Instance->CR, XSPI_CR_FMODE, XSPI_FUNCTIONAL_MODE_INDIRECT_WRITE);
@@ -2858,9 +2858,6 @@ static void XSPI_DMACplt(DMA_HandleTypeDef *hdma)
   /* Disable the DMA transfer on the XSPI side */
   CLEAR_BIT(hxspi->Instance->CR, XSPI_CR_DMAEN);
 
-  /* Disable the DMA channel */
-  __HAL_DMA_DISABLE(hdma);
-
   /* Enable the XSPI transfer complete Interrupt */
   HAL_XSPI_ENABLE_IT(hxspi, HAL_XSPI_IT_TC);
 }
@@ -2995,7 +2992,7 @@ static HAL_StatusTypeDef XSPI_WaitFlagStateUntilTimeout(XSPI_HandleTypeDef *hxsp
     {
       if (((HAL_GetTick() - Tickstart) > Timeout) || (Timeout == 0U))
       {
-        hxspi->State     = HAL_XSPI_STATE_ERROR;
+        hxspi->State     = HAL_XSPI_STATE_READY;
         hxspi->ErrorCode |= HAL_XSPI_ERROR_TIMEOUT;
 
         return HAL_TIMEOUT;

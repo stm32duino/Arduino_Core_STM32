@@ -138,7 +138,9 @@
 
 #define IS_LL_RCC_RNG_CLKSOURCE(__VALUE__)      (((__VALUE__) == LL_RCC_RNG_CLKSOURCE))
 
+#if defined(USB_DRD_FS)
 #define IS_LL_RCC_USB_CLKSOURCE(__VALUE__)      (((__VALUE__) == LL_RCC_USB_CLKSOURCE))
+#endif /* USB_DRD_FS */
 
 #define IS_LL_RCC_ADCDAC_CLKSOURCE(__VALUE__)   (((__VALUE__) == LL_RCC_ADCDAC_CLKSOURCE))
 
@@ -2837,6 +2839,7 @@ uint32_t LL_RCC_GetRNGClockFreq(uint32_t RNGxSource)
   return rng_frequency;
 }
 
+#if defined(USB_DRD_FS)
 /**
   * @brief  Return USBx clock frequency
   * @param  USBxSource This parameter can be one of the following values:
@@ -2897,6 +2900,7 @@ uint32_t LL_RCC_GetUSBClockFreq(uint32_t USBxSource)
 
   return usb_frequency;
 }
+#endif /* USB_DRD_FS */
 
 /**
   * @brief  Return ADCxDAC clock frequency

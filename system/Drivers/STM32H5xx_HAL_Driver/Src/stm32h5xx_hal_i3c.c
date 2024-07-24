@@ -134,6 +134,18 @@
 
     (#) To check if I2C target device is ready for communication, use the function HAL_I3C_Ctrl_IsDeviceI2C_Ready()
 
+    (#) To send a message header {S + 0x7E + W + STOP}, use the function HAL_I3C_Ctrl_GenerateArbitration().
+    (#) To insert a target reset pattern before the STOP of a transmitted frame containing a RSTACT CCC command,
+        the application must enable the reset pattern configuration using HAL_I3C_Ctrl_SetConfigResetPattern()
+        before calling HAL_I3C_Ctrl_TransmitCCC() or HAL_I3C_Ctrl_ReceiveCCC() interfaces.
+
+        To have a standard STOP emitted at the end of a frame containing a RSTACT CCC command, the application must
+        disable the reset pattern configuration using HAL_I3C_Ctrl_SetConfigResetPattern() before calling
+        HAL_I3C_Ctrl_TransmitCCC() or HAL_I3C_Ctrl_ReceiveCCC() interfaces.
+
+        Use HAL_I3C_Ctrl_SetConfigResetPattern() function to configure the insertion of the reset pattern at
+        the end of a Frame, and HAL_I3C_Ctrl_GetConfigResetPattern() to retrieve reset pattern configuration.
+
     (#) For I3C IO operations, three operation modes are available within this driver :
 
     *** Polling mode IO operation ***
@@ -1652,6 +1664,10 @@ void HAL_I3C_EV_IRQHandler(I3C_HandleTypeDef *hi3c) /* Derogation MISRAC2012-Rul
          (+) Call the function HAL_I3C_AddDescToFrame() to prepare the full transfer usecase in a transfer descriptor
              which contained different buffer pointers and their associated size through I3C_XferTypeDef.
              This function must be called before initiate any communication transfer.
+         (+) Call the function HAL_I3C_Ctrl_SetConfigResetPattern() to configure the insertion of the reset pattern
+             at the end of a Frame.
+         (+) Call the function HAL_I3C_Ctrl_GetConfigResetPattern() to get the current reset pattern configuration
+
      [..]
        (@) Users must call all above functions after I3C initialization.
 
@@ -2223,6 +2239,110 @@ HAL_StatusTypeDef HAL_I3C_AddDescToFrame(I3C_HandleTypeDef         *hi3c,
 }
 
 /**
+  * @brief Set the configuration of the inserted reset pattern at the end of a Frame.
+  * @note  When the transfer descriptor contains multiple frames with RESTART option, the reset pattern at the end of
+  *        RSTACT CCC frame is not possible.
+  * @param  hi3c         : [IN] Pointer to an I3C_HandleTypeDef structure that contains
+  *                             the configuration information for the specified I3C.
+  * @param  resetPattern : [IN] Specifies the reset pattern configuration.
+  *                             It can be a value of @ref I3C_RESET_PATTERN
+  * @retval HAL Status   :      Value from HAL_StatusTypeDef enumeration.
+  */
+HAL_StatusTypeDef HAL_I3C_Ctrl_SetConfigResetPattern(I3C_HandleTypeDef *hi3c, uint32_t resetPattern)
+{
+  HAL_StatusTypeDef status = HAL_OK;
+  HAL_I3C_StateTypeDef handle_state;
+
+  /* check on the handle */
+  if (hi3c == NULL)
+  {
+    status = HAL_ERROR;
+  }
+  else
+  {
+    /* Check the instance and the mode parameters */
+    assert_param(IS_I3C_ALL_INSTANCE(hi3c->Instance));
+    assert_param(IS_I3C_MODE(hi3c->Mode));
+    assert_param(IS_I3C_RESET_PATTERN(resetPattern));
+
+    /* Get I3C handle state */
+    handle_state = hi3c->State;
+
+    /* check on the Mode */
+    if (hi3c->Mode != HAL_I3C_MODE_CONTROLLER)
+    {
+      hi3c->ErrorCode = HAL_I3C_ERROR_NOT_ALLOWED;
+      status = HAL_ERROR;
+    }
+    /* check on the State */
+    else if ((handle_state != HAL_I3C_STATE_READY) && (handle_state != HAL_I3C_STATE_LISTEN))
+    {
+      status = HAL_BUSY;
+    }
+    else
+    {
+      hi3c->State = HAL_I3C_STATE_BUSY;
+
+      if (resetPattern == HAL_I3C_RESET_PATTERN_ENABLE)
+      {
+        LL_I3C_EnableResetPattern(hi3c->Instance);
+      }
+      else
+      {
+        LL_I3C_DisableResetPattern(hi3c->Instance);
+      }
+
+      /* At the end of process update state to Previous state */
+      I3C_StateUpdate(hi3c);
+    }
+  }
+
+  return status;
+}
+
+/**
+  * @brief Get the configuration of the inserted reset pattern at the end of a Frame.
+  * @param  hi3c          : [IN] Pointer to an I3C_HandleTypeDef structure that contains
+  *                              the configuration information for the specified I3C.
+  * @param  pResetPattern : [OUT] Pointer to the current reset pattern configuration.
+  *                               It can be a value of @ref I3C_RESET_PATTERN
+  * @retval HAL Status    :       Value from HAL_StatusTypeDef enumeration.
+  */
+HAL_StatusTypeDef HAL_I3C_Ctrl_GetConfigResetPattern(I3C_HandleTypeDef *hi3c, uint32_t *pResetPattern)
+{
+  HAL_StatusTypeDef status = HAL_OK;
+
+  /* check on the handle */
+  if (hi3c == NULL)
+  {
+    status = HAL_ERROR;
+  }
+  /* Check on user parameters */
+  else if (pResetPattern == NULL)
+  {
+    status = HAL_ERROR;
+  }
+  else
+  {
+    /* Check the instance and the mode parameters */
+    assert_param(IS_I3C_ALL_INSTANCE(hi3c->Instance));
+    assert_param(IS_I3C_MODE(hi3c->Mode));
+
+    /* Check if the reset pattern configuration is enabled */
+    if (LL_I3C_IsEnabledResetPattern(hi3c->Instance) == 1U)
+    {
+      *pResetPattern     = HAL_I3C_RESET_PATTERN_ENABLE;
+    }
+    else
+    {
+      *pResetPattern     = HAL_I3C_RESET_PATTERN_DISABLE;
+    }
+  }
+
+  return status;
+}
+
+/**
   * @}
   */
 
@@ -2596,6 +2716,8 @@ HAL_StatusTypeDef HAL_I3C_GetConfigFifo(I3C_HandleTypeDef *hi3c, I3C_FifoConfTyp
              during the Dynamic Address Assignment processus.
          (+) Call the function HAL_I3C_Ctrl_IsDeviceI3C_Ready() to check if I3C target device is ready.
          (+) Call the function HAL_I3C_Ctrl_IsDeviceI2C_Ready() to check if I2C target device is ready.
+         (+) Call the function HAL_I3C_Ctrl_GenerateArbitration to send arbitration
+            (message header {S + 0x7E + W + STOP}) in polling mode
 
          (+) Those functions are called only when mode is Controller.
 
@@ -3082,7 +3204,6 @@ HAL_StatusTypeDef HAL_I3C_Ctrl_ReceiveCCC(I3C_HandleTypeDef *hi3c,
   }
   else
   {
-
     /* Check the instance and the mode parameters */
     assert_param(IS_I3C_ALL_INSTANCE(hi3c->Instance));
     assert_param(IS_I3C_MODE(hi3c->Mode));
@@ -3265,7 +3386,6 @@ HAL_StatusTypeDef HAL_I3C_Ctrl_ReceiveCCC_IT(I3C_HandleTypeDef *hi3c,
   }
   else
   {
-
     /* Check the instance and the mode parameters */
     assert_param(IS_I3C_ALL_INSTANCE(hi3c->Instance));
     assert_param(IS_I3C_MODE(hi3c->Mode));
@@ -5232,6 +5352,109 @@ HAL_StatusTypeDef HAL_I3C_Ctrl_IsDeviceI2C_Ready(I3C_HandleTypeDef *hi3c,
 
   return status;
 }
+
+/**
+  * @brief Controller generates arbitration (message header {S/Sr + 0x7E addr + W}) in polling mode.
+  * @param  hi3c       : [IN] Pointer to an I3C_HandleTypeDef structure that contains
+  *                           the configuration information for the specified I3C.
+  * @param  timeout    : [IN] Timeout duration
+  * @retval HAL Status :      Value from HAL_StatusTypeDef enumeration.
+  */
+HAL_StatusTypeDef HAL_I3C_Ctrl_GenerateArbitration(I3C_HandleTypeDef *hi3c, uint32_t timeout)
+{
+  HAL_StatusTypeDef status = HAL_OK;
+  HAL_I3C_StateTypeDef handle_state;
+  __IO uint32_t exit_condition;
+  uint32_t tickstart;
+
+  /* check on the handle */
+  if (hi3c == NULL)
+  {
+    status = HAL_ERROR;
+  }
+  else
+  {
+    /* Check the instance and the mode parameters */
+    assert_param(IS_I3C_ALL_INSTANCE(hi3c->Instance));
+    assert_param(IS_I3C_MODE(hi3c->Mode));
+
+    /* Get I3C handle state */
+    handle_state = hi3c->State;
+
+    /* check on the Mode */
+    if (hi3c->Mode != HAL_I3C_MODE_CONTROLLER)
+    {
+      hi3c->ErrorCode = HAL_I3C_ERROR_NOT_ALLOWED;
+      status = HAL_ERROR;
+    }
+    /* check on the State */
+    else if ((handle_state != HAL_I3C_STATE_READY) && (handle_state != HAL_I3C_STATE_LISTEN))
+    {
+      status = HAL_BUSY;
+    }
+    else
+    {
+      hi3c->State = HAL_I3C_STATE_BUSY;
+
+      /* Disable exit pattern */
+      LL_I3C_DisableExitPattern(hi3c->Instance);
+      /* Disable reset pattern */
+      LL_I3C_DisableResetPattern(hi3c->Instance);
+
+      /* Write message control register */
+      WRITE_REG(hi3c->Instance->CR, LL_I3C_CONTROLLER_MTYPE_HEADER | LL_I3C_GENERATE_STOP);
+
+      /* Calculate exit_condition value based on Frame complete and error flags */
+      exit_condition = (READ_REG(hi3c->Instance->EVR) & (I3C_EVR_FCF | I3C_EVR_ERRF));
+
+      tickstart = HAL_GetTick();
+
+      while (exit_condition == 0U)
+      {
+        if (timeout != HAL_MAX_DELAY)
+        {
+          if (((HAL_GetTick() - tickstart) > timeout) || (timeout == 0U))
+          {
+            /* Update I3C error code */
+            hi3c->ErrorCode |= HAL_I3C_ERROR_TIMEOUT;
+            status = HAL_TIMEOUT;
+
+            break;
+          }
+        }
+        /* Calculate exit_condition value based on Frame complete and error flags */
+        exit_condition = (READ_REG(hi3c->Instance->EVR) & (I3C_EVR_FCF | I3C_EVR_ERRF));
+      }
+
+      if (status == HAL_OK)
+      {
+        /* Check if the FCF flag has been set */
+        if (__HAL_I3C_GET_FLAG(hi3c, I3C_EVR_FCF) == SET)
+        {
+          /* Clear frame complete flag */
+          LL_I3C_ClearFlag_FC(hi3c->Instance);
+        }
+        else
+        {
+          /* Clear error flag */
+          LL_I3C_ClearFlag_ERR(hi3c->Instance);
+
+          /* Update handle error code parameter */
+          I3C_GetErrorSources(hi3c);
+
+          /* Update returned status value */
+          status = HAL_ERROR;
+        }
+      }
+
+      /* At the end of Rx process update state to Previous state */
+      I3C_StateUpdate(hi3c);
+    }
+  }
+
+  return status;
+}
+
 /**
   * @}
   */
@@ -6659,6 +6882,7 @@ HAL_StatusTypeDef HAL_I3C_Tgt_IBIReq_IT(I3C_HandleTypeDef *hi3c, const uint8_t *
          (+) Call the function HAL_I3C_GetState() to get the I3C handle state.
          (+) Call the function HAL_I3C_GetMode() to get the I3C handle mode.
          (+) Call the function HAL_I3C_GetError() to get the error code.
+         (+) Call the function HAL_I3C_Get_ENTDAA_Payload_Info() to get BCR, DCR and PID information after ENTDAA.
 
 @endverbatim
   * @{
@@ -8728,7 +8952,7 @@ static HAL_StatusTypeDef I3C_Xfer_PriorPreparation(I3C_HandleTypeDef *hi3c, uint
   uint32_t current_tx_index = 0U;
   uint32_t global_tx_size   = 0U;
   uint32_t global_rx_size   = 0U;
-  uint32_t nb_tx_frame     = 0U;
+  uint32_t nb_tx_frame      = 0U;
   uint32_t direction;
 
   for (uint32_t descr_index = 0U; descr_index < counter; descr_index++)

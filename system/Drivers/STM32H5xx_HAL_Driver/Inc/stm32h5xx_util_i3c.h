@@ -37,11 +37,11 @@ extern "C" {
   * @{
   */
 
-/** @addtogroup I3C
+/** @defgroup UTILITY_I3C I3C Utility
   * @{
   */
 /* Exported types ----------------------------------------------------------------------------------------------------*/
-/** @defgroup I3C_Exported_Types I3C Exported Types
+/** @defgroup I3C_UTIL_Exported_Types I3C Utility Exported Types
   * @{
   */
 

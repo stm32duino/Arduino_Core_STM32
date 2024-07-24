@@ -186,9 +186,10 @@ typedef struct
 #define EXTI_LINE_57                        (EXTI_DIRECT   | EXTI_REG2 | 0x19U)
 #endif /* EXTI_IMR2_IM57 */
 #if defined(EXTI_IMR2_IM58)
+#if defined(I3C2)
 #define EXTI_LINE_58                        (EXTI_DIRECT   | EXTI_REG2 | 0x1AU)
+#endif /* I3C2 */
 #endif /* EXTI_IMR2_IM58 */
-
 /**
   * @}
   */

@@ -506,7 +506,7 @@
 #define NVIC_INIT_ITNS3    1
 
 /*
-// Interrupts 96..127
+// Interrupts 96..124
 //   <o.0>  GPDMA2_Channel6_IRQn  <0=> Secure state <1=> Non-Secure state
 //   <o.1>  GPDMA2_Channel7_IRQn  <0=> Secure state <1=> Non-Secure state
 //   <o.7>  FPU_IRQn              <0=> Secure state <1=> Non-Secure state

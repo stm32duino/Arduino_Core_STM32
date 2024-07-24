@@ -5581,12 +5581,22 @@ HAL_StatusTypeDef HAL_TIM_ConfigOCrefClear(TIM_HandleTypeDef *htim,
       CLEAR_BIT(htim->Instance->SMCR, (TIM_SMCR_OCCS | TIM_SMCR_ETF | TIM_SMCR_ETPS | TIM_SMCR_ECE | TIM_SMCR_ETP));
       break;
     }
-    case TIM_CLEARINPUTSOURCE_OCREFCLR:
+
+#if defined(COMP1) && defined(COMP2)
+    case TIM_CLEARINPUTSOURCE_COMP1:
+    case TIM_CLEARINPUTSOURCE_COMP2:
     {
+      /* Check the parameters */
+      assert_param(IS_TIM_OCXREF_COMP_CLEARINPUT_INSTANCE(htim->Instance));
+
       /* Clear the OCREF clear selection bit */
       CLEAR_BIT(htim->Instance->SMCR, TIM_SMCR_OCCS);
+
+      /* Set the clear input source */
+      MODIFY_REG(htim->Instance->AF2, TIMx_AF2_OCRSEL, sClearInputConfig->ClearInputSource);
       break;
     }
+#endif /* COMP1 && COMP2 */
 
     case TIM_CLEARINPUTSOURCE_ETR:
     {
