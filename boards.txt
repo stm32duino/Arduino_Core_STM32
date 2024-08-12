@@ -8428,6 +8428,24 @@ GenH5.upload.maximum_data_size=0
 GenH5.vid.0=0x0483
 GenH5.pid.0=0x5740
 
+# Generic H503CBTx
+GenH5.menu.pnum.GENERIC_H503CBTX=Generic H503CBTx
+GenH5.menu.pnum.GENERIC_H503CBTX.upload.maximum_size=131072
+GenH5.menu.pnum.GENERIC_H503CBTX.upload.maximum_data_size=32768
+GenH5.menu.pnum.GENERIC_H503CBTX.build.board=GENERIC_H503CBTX
+GenH5.menu.pnum.GENERIC_H503CBTX.build.product_line=STM32H503xx
+GenH5.menu.pnum.GENERIC_H503CBTX.build.variant=STM32H5xx/H503CB(T-U)
+GenH5.menu.pnum.GENERIC_H503CBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H503.svd
+
+# Generic H503CBUx
+GenH5.menu.pnum.GENERIC_H503CBUX=Generic H503CBUx
+GenH5.menu.pnum.GENERIC_H503CBUX.upload.maximum_size=131072
+GenH5.menu.pnum.GENERIC_H503CBUX.upload.maximum_data_size=32768
+GenH5.menu.pnum.GENERIC_H503CBUX.build.board=GENERIC_H503CBUX
+GenH5.menu.pnum.GENERIC_H503CBUX.build.product_line=STM32H503xx
+GenH5.menu.pnum.GENERIC_H503CBUX.build.variant=STM32H5xx/H503CB(T-U)
+GenH5.menu.pnum.GENERIC_H503CBUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H503.svd
+
 # Generic H503KBUx
 GenH5.menu.pnum.GENERIC_H503KBUX=Generic H503KBUx
 GenH5.menu.pnum.GENERIC_H503KBUX.upload.maximum_size=131072
