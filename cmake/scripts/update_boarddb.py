@@ -41,9 +41,10 @@ def boardstxt_filter(key):
 
 
 def platformtxt_filter(key):
-    # reject everything but build.**
-    # and also build.info (that's specific to the build system, we'll hard-code it)
-    # we don't need anything else from platform.txt
+    # reject everything except build.**, vid.** and pid.**
+    # Note that build.info is also rejected
+    # (it is specific to the build system, it will be hard-coded)
+    # nothing else is needed from platform.txt
     # +additional stuff might confuse later parts of the script
     # e.g.:
 
