@@ -664,7 +664,7 @@ Nucleo_64.menu.pnum.NUCLEO_L010RB.build.series=STM32L0xx
 Nucleo_64.menu.pnum.NUCLEO_L010RB.build.product_line=STM32L010xB
 Nucleo_64.menu.pnum.NUCLEO_L010RB.build.variant=STM32L0xx/L010RBT
 Nucleo_64.menu.pnum.NUCLEO_L010RB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-Nucleo_64.menu.pnum.NUCLEO_L010RB.debug.server.openocd.scripts.2=target/stm32l0x.cfg
+Nucleo_64.menu.pnum.NUCLEO_L010RB.debug.server.openocd.scripts.2=target/stm32l0.cfg
 Nucleo_64.menu.pnum.NUCLEO_L010RB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x0.svd
 
 # NUCLEO_L053R8 board
@@ -678,7 +678,7 @@ Nucleo_64.menu.pnum.NUCLEO_L053R8.build.series=STM32L0xx
 Nucleo_64.menu.pnum.NUCLEO_L053R8.build.product_line=STM32L053xx
 Nucleo_64.menu.pnum.NUCLEO_L053R8.build.variant=STM32L0xx/L052R(6-8)T_L053R(6-8)T_L063R8T
 Nucleo_64.menu.pnum.NUCLEO_L053R8.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-Nucleo_64.menu.pnum.NUCLEO_L053R8.debug.server.openocd.scripts.2=target/stm32l0x.cfg
+Nucleo_64.menu.pnum.NUCLEO_L053R8.debug.server.openocd.scripts.2=target/stm32l0.cfg
 Nucleo_64.menu.pnum.NUCLEO_L053R8.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L053.svd
 
 # NUCLEO_L073RZ board
@@ -692,7 +692,7 @@ Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.series=STM32L0xx
 Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.product_line=STM32L073xx
 Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.variant=STM32L0xx/L072R(B-Z)T_L073R(B-Z)T_L083R(B-Z)T
 Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-Nucleo_64.menu.pnum.NUCLEO_L073RZ.debug.server.openocd.scripts.2=target/stm32l0x.cfg
+Nucleo_64.menu.pnum.NUCLEO_L073RZ.debug.server.openocd.scripts.2=target/stm32l0.cfg
 Nucleo_64.menu.pnum.NUCLEO_L073RZ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x3.svd
 
 # NUCLEO_L152RE board
@@ -705,7 +705,7 @@ Nucleo_64.menu.pnum.NUCLEO_L152RE.build.board=NUCLEO_L152RE
 Nucleo_64.menu.pnum.NUCLEO_L152RE.build.series=STM32L1xx
 Nucleo_64.menu.pnum.NUCLEO_L152RE.build.product_line=STM32L152xE
 Nucleo_64.menu.pnum.NUCLEO_L152RE.build.variant=STM32L1xx/L151RET_L152RET_L162RET
-Nucleo_64.menu.pnum.NUCLEO_L152RE.debug.server.openocd.scripts.2=target/stm32l1x.cfg
+Nucleo_64.menu.pnum.NUCLEO_L152RE.debug.server.openocd.scripts.2=target/stm32l1.cfg
 Nucleo_64.menu.pnum.NUCLEO_L152RE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L1xx/STM32L152.svd
 
 # NUCLEO_L433RC_P board
@@ -972,7 +972,7 @@ Nucleo_32.menu.pnum.NUCLEO_L031K6.build.board=NUCLEO_L031K6
 Nucleo_32.menu.pnum.NUCLEO_L031K6.build.series=STM32L0xx
 Nucleo_32.menu.pnum.NUCLEO_L031K6.build.product_line=STM32L031xx
 Nucleo_32.menu.pnum.NUCLEO_L031K6.build.variant=STM32L0xx/L031K(4-6)T_L041K6T
-Nucleo_32.menu.pnum.NUCLEO_L031K6.debug.server.openocd.scripts.2=target/stm32l0x.cfg
+Nucleo_32.menu.pnum.NUCLEO_L031K6.debug.server.openocd.scripts.2=target/stm32l0.cfg
 Nucleo_32.menu.pnum.NUCLEO_L031K6.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 
 # NUCLEO_L412KB board
@@ -1083,7 +1083,7 @@ Disco.menu.pnum.B_L072Z_LRWAN1.build.product_line=STM32L072xx
 Disco.menu.pnum.B_L072Z_LRWAN1.build.variant=STM32L0xx/L072CBY_L072CZ(E-Y)_L073CZY_L082CZY
 Disco.menu.pnum.B_L072Z_LRWAN1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Disco.menu.pnum.B_L072Z_LRWAN1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-Disco.menu.pnum.B_L072Z_LRWAN1.debug.server.openocd.scripts.2=target/stm32l0x.cfg
+Disco.menu.pnum.B_L072Z_LRWAN1.debug.server.openocd.scripts.2=target/stm32l0.cfg
 Disco.menu.pnum.B_L072Z_LRWAN1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x2.svd
 
 # B-L475E-IOT01A board
@@ -9182,7 +9182,7 @@ GenL0.build.series=STM32L0xx
 GenL0.build.flash_offset=0x0
 GenL0.upload.maximum_size=0
 GenL0.upload.maximum_data_size=0
-GenL0.debug.server.openocd.scripts.2=target/stm32l0x.cfg
+GenL0.debug.server.openocd.scripts.2=target/stm32l0.cfg
 GenL0.vid.0=0x0483
 GenL0.pid.0=0x5740
 
@@ -10464,7 +10464,7 @@ GenL1.build.series=STM32L1xx
 GenL1.build.flash_offset=0x0
 GenL1.upload.maximum_size=0
 GenL1.upload.maximum_data_size=0
-GenL1.debug.server.openocd.scripts.2=target/stm32l1x.cfg
+GenL1.debug.server.openocd.scripts.2=target/stm32l1.cfg
 GenL1.vid.0=0x0483
 GenL1.pid.0=0x5740
 
@@ -12722,7 +12722,7 @@ LoRa.menu.pnum.ACSIP_S76S.build.product_line=STM32L073xx
 LoRa.menu.pnum.ACSIP_S76S.build.variant=STM32L0xx/L072R(B-Z)T_L073R(B-Z)T_L083R(B-Z)T
 LoRa.menu.pnum.ACSIP_S76S.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 LoRa.menu.pnum.ACSIP_S76S.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-LoRa.menu.pnum.ACSIP_S76S.debug.server.openocd.scripts.2=target/stm32l0x.cfg
+LoRa.menu.pnum.ACSIP_S76S.debug.server.openocd.scripts.2=target/stm32l0.cfg
 LoRa.menu.pnum.ACSIP_S76S.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x3.svd
 
 # Generic node SE by The Things Industries
@@ -12789,7 +12789,7 @@ LoRa.menu.pnum.RAK811_TRACKER.build.series=STM32L1xx
 LoRa.menu.pnum.RAK811_TRACKER.build.product_line=STM32L151xB
 LoRa.menu.pnum.RAK811_TRACKER.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
 LoRa.menu.pnum.RAK811_TRACKER.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-LoRa.menu.pnum.RAK811_TRACKER.debug.server.openocd.scripts.2=target/stm32l1x.cfg
+LoRa.menu.pnum.RAK811_TRACKER.debug.server.openocd.scripts.2=target/stm32l1.cfg
 LoRa.menu.pnum.RAK811_TRACKER.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L1xx/STM32L151.svd
 
 LoRa.menu.pnum.RAK811_TRACKERA=RAK811 LoRa Tracker (32kb RAM)
@@ -12802,7 +12802,7 @@ LoRa.menu.pnum.RAK811_TRACKERA.build.product_line=STM32L151xBA
 LoRa.menu.pnum.RAK811_TRACKERA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
 LoRa.menu.pnum.RAK811_TRACKERA.build.variant_h=variant_RAK811_TRACKER.h
 LoRa.menu.pnum.RAK811_TRACKERA.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-LoRa.menu.pnum.RAK811_TRACKERA.debug.server.openocd.scripts.2=target/stm32l1x.cfg
+LoRa.menu.pnum.RAK811_TRACKERA.debug.server.openocd.scripts.2=target/stm32l1.cfg
 
 # RHF76_052 board
 LoRa.menu.pnum.RHF76_052=RHF76 052
@@ -12815,7 +12815,7 @@ LoRa.menu.pnum.RHF76_052.build.product_line=STM32L051xx
 LoRa.menu.pnum.RHF76_052.build.variant=STM32L0xx/L051C(6-8)(T-U)
 LoRa.menu.pnum.RHF76_052.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 LoRa.menu.pnum.RHF76_052.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-LoRa.menu.pnum.RHF76_052.debug.server.openocd.scripts.2=target/stm32l0x.cfg
+LoRa.menu.pnum.RHF76_052.debug.server.openocd.scripts.2=target/stm32l0.cfg
 LoRa.menu.pnum.RHF76_052.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 
 # ELEKTOR_F072C8
