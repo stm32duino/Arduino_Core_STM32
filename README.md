@@ -541,6 +541,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart:  | STM32H503CB | Generic Board | **2.9.0** |  |
 | :green_heart:  | STM32H503KB | Generic Board | *2.8.1* |  |
 | :green_heart:  | STM32H503RB | Generic Board | *2.7.0* |  |
 | :green_heart:  | STM32H563IIKxQ | Generic Board | *2.6.0* |  |
