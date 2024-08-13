@@ -368,10 +368,10 @@ if not board_config.get("build.ldscript", ""):
         LINKFLAGS=[
             (
                 "-Wl,--default-script",
-                join(
+                ('"'+join(
                     inc_variant_dir,
                     board_config.get("build.arduino.ldscript", "ldscript.ld"),
-                ),
+                )+'"'),
             )
         ]
     )
