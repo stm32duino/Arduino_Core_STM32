@@ -1,18 +1,18 @@
 /**
  * @brief This sketch is a demonstration of Smart Vision IoT for Wild fire detection.
- * 
+ *
  * The device gathers & sends information of the integrated AI Camera, GNSS position & sensors
- * to EchoStar satellite network for every LORA_SENDING_PERIOD_S.
- * 
+ * to EchoStar satellite network for every NO_FIRE_PACKET_SENDING_PERIOD_S.
+ *
  * Connect Camera TX to PA2 & Camera RX to PA3 to get started.
- * 
- * Parameters relating to Data sending period (LORA_SENDING_PERIOD_S), GNSS configurations, etc. are defined & modified in project_configuration.h
- * 
+ *
+ * Parameters relating to Data sending period (NO_FIRE_PACKET_SENDING_PERIOD_S), GNSS configurations, etc. are defined & modified in project_configuration.h
+ *
  * NOTE: Sensors data is not available in this version due to the diversity of sensors type implementation on different batch.
- * 
+ *
  * @author mtnguyen, fferrero
  * @version 1.0.0 for Echo 7 board version
- * 
+ *
  */
 
 #include "project_configuration.h"
@@ -21,10 +21,14 @@
 #include <STM32RTC.h>
 #include <MicroNMEA.h> // https://github.com/stevemarple/MicroNMEA
 
-#include "es_camera_parser.h"
+#include "es_camera_parser_v2.h"
+#include "es_sensors.h"
+#include "es_log.h"
+#include "es_em2050.h"
+#include "es_led.h"
 
-extern CameraParser_t CAMERA_DATA_PARSER;
-uint8_t camera_payload[6]; // 24-frame
+uint8_t camera_payload_event[6];        // 24-frame
+uint8_t camera_payload_probability[24]; // 24-frame
 
 STM32RTC &rtc = STM32RTC::getInstance();
 static uint32_t atime = 600;
@@ -34,88 +38,138 @@ uint32_t last_packet_send_timestamp = 0;
 char nmeaBuffer[100];
 MicroNMEA nmea(nmeaBuffer, sizeof(nmeaBuffer));
 
-struct DLresults {
-  int8_t SNR, RSSI, freq_error;
-};
+float gnss_lat;
+float gnss_lon;
+long alt;
+uint8_t num_of_satellite_in_view;
+
+bool fire_detected_flag;
+uint32_t next_uplink_packet_timestamp_s = 0;
+uint32_t next_gps_update_timestamp_s = 0;
 
 void setup(void)
 {
-  pinMode(LED_BUILTIN, OUTPUT);
-  digitalWrite(LED_BUILTIN, HIGH);
+  LED.init();
+  LED.long_blink(3);
 
   HEADER_SERIAL.begin(115200);
-  USB_SERIAL.begin(115200);
-  while ((!USB_SERIAL) && (millis() < 5000))
-    ;
+  LOG.init();
 
-  USB_SERIAL.println("===== Sketch: wildfire_camera_demo_v2.ino =====");
+  LOG.println("[INFO] main::setup() | ===== Sketch: wildfire_camera_demo_v2.ino =====");
   HEADER_SERIAL.flush();
 
   mcu_sleep_init();
   sensor_init();
+#ifndef DEBUGGING_OPTION_GNSS_DISABLE
   gnss_init();
-  em2050_init();
-
-  // Force to MSS Satellite mode
-  ECHOSTAR_SERIAL.println("AT+REGION=MSS-S");
+#endif /* DEBUGGING_OPTION_GNSS_DISABLE */
+  EM2050.init();
+  EM2050.get_device_info_on_log();
 
   delay(1000);
-  digitalWrite(LED_BUILTIN, LOW); // Done initialization
+  LED.long_blink(2);
+
+  fire_detected_flag = false;
+  next_uplink_packet_timestamp_s = 0; // Send first status
+  next_gps_update_timestamp_s = rtc.getEpoch() + GNSS_UPDATING_PERIOD_S;
+
+  LOG.println("[INFO] main::setup() | Setup DONE");
+#ifdef DISABLE_BUILTIN_LED_AFTER_INIT
+  LED.disable();
+  LOG.println("[INFO] main::setup() | Disable LED");
+#endif /* DISABLE_BUILTIN_LED_AFTER_INIT */
 }
 
 void loop(void)
 {
-  USB_SERIAL.println("INFO: Device wake up !");
+  LOG.println("[INFO] main::loop() | Device wake up !");
 
-  USB_SERIAL.println("INFO: Gathering GNSS Data");
-  get_gnss_data();
-  
-  USB_SERIAL.println("INFO: Gathering Sensors Data");
-  get_sensor_data();
-  
-  USB_SERIAL.println("INFO: Gathering Camera Data");
+  if (rtc.getEpoch() >= next_gps_update_timestamp_s)
+  {
+    LOG.println("[INFO] main::loop() | Updating GNSS Data");
+
+#ifndef DEBUGGING_OPTION_GNSS_DISABLE
+    get_gnss_data(false);
+#endif /* DEBUGGING_OPTION_GNSS_DISABLE */
+
+    next_gps_update_timestamp_s = rtc.getEpoch() + GNSS_UPDATING_PERIOD_S;
+    LOG.print("[INFO] main::loop() | Scheduling next GNSS Update on ");
+    LOG.println((unsigned int)next_gps_update_timestamp_s);
+  }
+
+  LOG.println("[INFO] main::loop() | Gathering Camera Data");
   get_camera_data();
-  delay(100);
+  bool current_read_fire_detected = CAMERA_DATA_PARSER.is_fire_detected();
+  if (current_read_fire_detected ^ fire_detected_flag) // If fire_detected state changed?
+  {
+    fire_detected_flag = current_read_fire_detected;
+    if (fire_detected_flag)
+    {
+      next_uplink_packet_timestamp_s = rtc.getEpoch(); // Send immidiately if there is a new detection of fire
 
-  USB_SERIAL.println("INFO: Sending data to network");
-  send_data();
+      LOG.println("[INFO] main::loop() | Fire detected, switched to faster uplink mode");
+      LOG.println("[INFO] main::loop() | Next uplink packet is NOW");
+    }
+    else
+    {
+      LOG.println("[INFO] main::loop() | Fire put out, switched to slow uplink mode");
+    }
+  }
 
   delay(1000);
 
-  USB_SERIAL.println("INFO: Going to sleep mode");
-  mcu_sleep(LORA_SENDING_PERIOD_S);
+  if (rtc.getEpoch() >= next_uplink_packet_timestamp_s)
+  {
+    LOG.println("[INFO] main::loop() | Sending data to network");
+    send_data();
+
+    if (fire_detected_flag)
+    {
+      next_uplink_packet_timestamp_s = rtc.getEpoch() + FIRE_DETECTED_PACKET_SENDING_PERIOD_S;
+    }
+    else
+    {
+      next_uplink_packet_timestamp_s = rtc.getEpoch() + NO_FIRE_PACKET_SENDING_PERIOD_S;
+    }
+    LOG.print("[INFO] main::loop() | Next uplink is scheduled at ");
+    LOG.println((unsigned int)next_uplink_packet_timestamp_s);
+  }
+
+  delay(1000);
+
+  LOG.print("[INFO] main::loop() | Going to sleep mode for ");
+  LOG.print(TIME_BETWEEN_CAMERA_READ_S);
+  LOG.println(" seconds.");
+  mcu_sleep(TIME_BETWEEN_CAMERA_READ_S);
 }
 
 void get_camera_data(void)
 {
+  LOG.println("[DEBUG] main::get_camera_data() | Clearing previous camera frame data");
   CAMERA_DATA_PARSER.clear_frame_data();
 
-  uint32_t camera_start_reading_timestamp_ms = millis();
-  while ((millis() - camera_start_reading_timestamp_ms <= 60000) && (!CAMERA_DATA_PARSER.is_all_frame_data_ready_flag()))
+  uint32_t camera_start_reading_timestamp_s = rtc.getEpoch();
+  LOG.print("[DEBUG] main::get_camera_data() | Start reading now, timeout (seconds) is ");
+  LOG.println((int)CAMERA_MAX_READING_TIME_S);
+  while (!CAMERA_DATA_PARSER.is_all_frame_data_ready_flag())
   {
     if (HEADER_SERIAL.available())
     {
       char c = HEADER_SERIAL.read();
-      USB_SERIAL.write(c);
-
       CAMERA_DATA_PARSER.process_char(c);
+    }
+
+    if (rtc.getEpoch() - camera_start_reading_timestamp_s > (CAMERA_MAX_READING_TIME_S))
+    {
+      LOG.println("[DEBUG] main::get_camera_data() | Camera reading TIMEOUT");
+      break;
     }
   }
 
-  CAMERA_DATA_PARSER.get_frame_data_u2(camera_payload, 6);
-}
+  LOG.println("[DEBUG] main::get_camera_data() | Camera DONE");
 
-void EM2050_soft_sleep_enable(void)
-{
-  pinMode(ECHOSTAR_RTS_PIN, OUTPUT);
-  digitalWrite(ECHOSTAR_RTS_PIN, HIGH);
-  delay(50);
-}
-
-void EM2050_soft_sleep_disable(void)
-{
-  pinMode(ECHOSTAR_RTS_PIN, INPUT);
-  delay(50);
+  CAMERA_DATA_PARSER.get_frame_data_u2(camera_payload_event, 6);
+  CAMERA_DATA_PARSER.get_frame_data_probability_u8(camera_payload_probability, 24);
 }
 
 void mcu_sleep_init(void)
@@ -128,40 +182,21 @@ void mcu_sleep_init(void)
 
 void mcu_sleep(uint32_t sleep_duration_s)
 {
+#ifndef USING_SLEEP_MODE
+  delay(sleep_duration_s * 1000); // DEBUG
+#else
   rtc.setAlarmEpoch(rtc.getEpoch() + sleep_duration_s);
   LowPower.deepSleep();
+#endif
 }
 
 void alarmMatch(void *data)
 {
 }
 
-void led_blink(unsigned int num_of_blink, unsigned int on_period_ms, unsigned int off_period_ms)
-{
-  while (num_of_blink > 0)
-  {
-    digitalWrite(LED_BUILTIN, HIGH);
-    delay(on_period_ms);
-    digitalWrite(LED_BUILTIN, LOW);
-    delay(off_period_ms);
-  }
-}
-
 void sensor_init(void)
 {
-  // TODO: EchoV7 rev003 has different sensors
-}
-
-void em2050_init(void)
-{
-  pinMode(ECHOSTAR_PWR_ENABLE_PIN, OUTPUT);
-  digitalWrite(ECHOSTAR_PWR_ENABLE_PIN, HIGH);
-
-  pinMode(ECHOSTAR_BOOT_PIN, OUTPUT);
-  digitalWrite(ECHOSTAR_BOOT_PIN, HIGH);
-
-  pinMode(ECHOSTAR_RTS_PIN, OUTPUT);
-  digitalWrite(ECHOSTAR_RTS_PIN, HIGH);
+  SENSORS.init();
 }
 
 void gnss_on(void)
@@ -178,37 +213,102 @@ void gnss_off(void)
 
 void gnss_init(void)
 {
+  gnss_lat = 0;
+  gnss_lon = 0;
+  alt = 0;
+  num_of_satellite_in_view = 0;
+
   pinMode(GNSS_PWR_ENABLE_PIN, OUTPUT);
   pinMode(GNSS_V_BCKP_PIN, OUTPUT);
 
   gnss_on();
   GNSS_SERIAL.begin(115200); // UART GNSS
+
+  delay(100);
+
+  get_gnss_data(true); // This will not exit if GNSS is not fix
 }
 
-void get_sensor_data(void)
+/**
+ * @brief Read GNSS data
+ * @param force_fix_reading if set to TRUE, the GNSS reading is running until a fix condition met or NO timeout in another word.
+ */
+void get_gnss_data(bool force_fix_reading)
 {
-  // Battery voltage
-
-  // Accelerometer
-
-  // Humidity / Temperature
-}
-
-void get_gnss_data(void)
-{
+  LOG.println("[DEBUG] main::get_gnss_data() | Set GNSS Power ON");
   nmea.clear();
   gnss_on();
 
-  mcu_sleep(GNSS_WAITING_TIME_S);
-
-  uint32_t gnss_reading_start_timestamp = millis();
-  while ((millis() - gnss_reading_start_timestamp <= (GNSS_MIN_READING_TIME_S * 1000)) && ((nmea.getNumSatellites() < 8) || (nmea.getLatitude() == 0)))
+  LOG.print("[DEBUG] main::get_gnss_data() | CPU Sleep, leaving GNSS running for stablizing for ");
+  LOG.print(GNSS_WAITING_TIME_S);
+  LOG.print(" seconds.");
+  uint32_t gnss_waiting_start_timestamp_s = rtc.getEpoch();
+  while (rtc.getEpoch() - gnss_waiting_start_timestamp_s <= (GNSS_WAITING_TIME_S))
   {
-    if (GNSS_SERIAL.available())
+    LED.short_blink(1);
+    LOG.print(".");
+    mcu_sleep(5);
+  }
+  LOG.println();
+
+  LOG.println("[DEBUG] main::get_gnss_data() | Start to read GNSS data");
+  uint32_t led_blink_timestamp_s = rtc.getEpoch();
+  uint32_t gnss_reading_start_timestamp_s = rtc.getEpoch();
+  bool gnss_fix = false;
+  while (force_fix_reading ||
+         (rtc.getEpoch() - gnss_reading_start_timestamp_s <= (GNSS_MAX_READING_TIME_S * 1000)))
+  {
+    for (int i = 0; ((i < 64) && (GNSS_SERIAL.available())); i++) // Read maximum 64 character
     {
       char c = GNSS_SERIAL.read();
       nmea.process(c);
     }
+
+    if ((nmea.isValid()) &&
+        (nmea.getNumSatellites() >= 8) &&
+        (nmea.getLatitude() != 0) &&
+        (nmea.getLongitude() != 0))
+    {
+      LOG.println("\n[DEBUG] main::get_gnss_data() | GNSS Fixed");
+      gnss_fix = true;
+      break; // Exit the reading loop
+    }
+
+    if (rtc.getEpoch() - led_blink_timestamp_s >= 5) // Blink every 5 seconds
+    {
+      LOG.print(".");
+      led_blink_timestamp_s = rtc.getEpoch();
+      LED.short_blink(2);
+    }
+  }
+
+  if (gnss_fix)
+  {
+    LOG.println("[INFO] main::get_gnss_data() | GNSS fixed. Updating data.");
+
+    long lat = nmea.getLatitude();  // Latitude : 0.0001 ° Signed MSB
+    long lon = nmea.getLongitude(); // Longitude : 0.0001 ° Signed MSB
+    gnss_lat = (float)(lat / 1.0E6);
+    gnss_lon = (float)(lon / 1.0E6);
+
+    nmea.getAltitude(alt);
+
+    num_of_satellite_in_view = nmea.getNumSatellites();
+
+    // ---
+    LOG.print("[INFO] main::get_gnss_data() | GNSS Latitude: ");
+    LOG.println(gnss_lat);
+    LOG.print("[INFO] main::get_gnss_data() | GNSS Longitude: ");
+    LOG.println(gnss_lon);
+    LOG.print("[INFO] main::get_gnss_data() | GNSS Altitude: ");
+    LOG.println(alt / 1.0e3);
+    LOG.print("[INFO] main::get_gnss_data() | GNSS num_of_satellite_in_view: ");
+    LOG.println(num_of_satellite_in_view);
+  }
+  else
+  {
+    LOG.println("[WARNING] main::get_gnss_data() | GNSS reading timeout & does not fixed. Using previous data. Set num_of_satellite_in_view to 0.");
+    num_of_satellite_in_view = 0;
   }
 
   gnss_off();
@@ -223,50 +323,51 @@ uint16_t read_bat(void)
 
 void send_data(void)
 {
-  int16_t t = 0; // TODO: Read temperature
-  uint8_t h = 0; // TODO: Read humidity
-  uint16_t p = 0; // TODO: Read pressure
-  int8_t x = 0; // TODO: Read accelerometer
-  int8_t y = 0; // TODO: Read accelerometer
-  int8_t z = 0; // TODO: Read accelerometer
-  long lat = nmea.getLatitude();  // Latitude : 0.0001 ° Signed MSB
-  long lon = nmea.getLongitude(); // Longitude : 0.0001 ° Signed MSB
-  int8_t speed = (int8_t)(nmea.getSpeed() / 1000);
-  int8_t pwr = (int8_t)em2050_readpwr();
-  float gnss_lat = (float)lat / 1E6;
-  float gnss_lon = (float)lon / 1E6;
-  long alt;
-  nmea.getAltitude(alt);
-  int32_t AltitudeBinary = alt / 100;  // Altitude : 0.01 meter Signed MSB
-  uint8_t s = nmea.getNumSatellites(); // nb of satellite in view with GNSS
-  // uint16_t bat = measure_bat();
-  uint16_t bat = read_bat();
-  DLresults dl = em2050_readDL();
+  EM2050.soft_sleep_disable();
+
+  SENSORS.power_on();
+  delay(1000);
+
+  int16_t t = (int16_t)(SENSORS.read_temperature() * 100.0); // TODO: Read temperature
+  uint8_t h = (uint8_t)(SENSORS.read_humidity());            // TODO: Read humidity
+  uint16_t p = (uint16_t)(SENSORS.read_pressure() / 10.0);   // TODO: Read pressure
+
+  SENSORS.power_off();
+
+  LOG.print("[DEBUG] main::send_data() | Temp = ");
+  LOG.print(t);
+  LOG.print("  Hum = ");
+  LOG.print(h);
+  LOG.print("  Pressure = ");
+  LOG.println(p);
 
   uint32_t LatitudeBinary = ((gnss_lat + 90) / 180) * 16777215;
   uint32_t LongitudeBinary = ((gnss_lon + 180) / 360) * 16777215;
-  int16_t altitudeGps = alt;
+  int32_t AltitudeBinary = alt / 100; // Altitude : 0.01 meter Signed MSB
 
-  USB_SERIAL.print("  Temp = ");
-  USB_SERIAL.print(t);
-  USB_SERIAL.print("  Hum = ");
-  USB_SERIAL.print(h);
-  USB_SERIAL.print("  Pressure = ");
-  USB_SERIAL.print(p);
-  USB_SERIAL.print("  x = ");
-  USB_SERIAL.print(x);
-  USB_SERIAL.print(", y = ");
-  USB_SERIAL.print(y);
-  USB_SERIAL.print(", z = ");
-  USB_SERIAL.println(z);
-  USB_SERIAL.print("Lat = ");
-  USB_SERIAL.print(gnss_lat, 4);
-  USB_SERIAL.print(", Lon = ");
-  USB_SERIAL.print(gnss_lon, 4);
-  USB_SERIAL.print(", alt = ");
-  USB_SERIAL.print(alt / 1e3);
-  USB_SERIAL.print(", Bat = ");
-  USB_SERIAL.println(bat);
+  LOG.print("[DEBUG] main::send_data() | Lat = ");
+  LOG.print(gnss_lat);
+  LOG.print(", Lon = ");
+  LOG.print(gnss_lon);
+  LOG.print(", alt = ");
+  LOG.println(alt / 1.0e3);
+
+  uint16_t bat = read_bat();
+
+  LOG.print("[DEBUG] main::send_data() | Bat = ");
+  LOG.println(bat);
+
+  int8_t pwr = (int8_t)EM2050.readpwr();
+
+  LOG.print("[DEBUG] main::send_data() | pwr = ");
+  LOG.println(pwr);
+
+  DLresults dl = EM2050.readDL();
+
+  LOG.print("[DEBUG] main::send_data() | SNR = ");
+  LOG.println(dl.SNR / 4);
+  LOG.print("[DEBUG] main::send_data() | RSSI = ");
+  LOG.println(dl.RSSI);
 
   // int blocks=7;
   int i = 0;
@@ -276,9 +377,6 @@ void send_data(void)
   mydata[i++] = h;
   mydata[i++] = p >> 8;
   mydata[i++] = p & 0xFF;
-  mydata[i++] = x;
-  mydata[i++] = y;
-  mydata[i++] = z;
   mydata[i++] = (LatitudeBinary >> 16) & 0xFF;
   mydata[i++] = (LatitudeBinary >> 8) & 0xFF;
   mydata[i++] = LatitudeBinary & 0xFF;
@@ -288,71 +386,33 @@ void send_data(void)
   mydata[i++] = (AltitudeBinary >> 16) & 0xFF;
   mydata[i++] = (AltitudeBinary >> 8) & 0xFF;
   mydata[i++] = AltitudeBinary & 0xFF;
-  mydata[i++] = s;
+  mydata[i++] = num_of_satellite_in_view;
   mydata[i++] = bat >> 8;
   mydata[i++] = bat & 0xFF;
-  mydata[i++] = 0;
-  mydata[i++] = speed;
   mydata[i++] = pwr;
   mydata[i++] = (int8_t)dl.SNR / 4;
   mydata[i++] = (int8_t)-dl.RSSI;
 
   // Camera data
-  mydata[i++] = camera_payload[0];
-  mydata[i++] = camera_payload[1];
-  mydata[i++] = camera_payload[2];
-  mydata[i++] = camera_payload[3];
-  mydata[i++] = camera_payload[4];
-  mydata[i++] = camera_payload[5];
-
-  char str[32];
-  array_to_string(mydata, i, str);
-
-  ECHOSTAR_SERIAL.print("AT+SENDB=1,0,1,0,");
-  ECHOSTAR_SERIAL.println(str);
-}
-
-void array_to_string(byte array[], unsigned int len, char buffer[])
-{
-  for (unsigned int i = 0; i < len; i++)
+  for (int j = 0; j < 6; j++)
   {
-    byte nib1 = (array[i] >> 4) & 0x0F;
-    byte nib2 = (array[i] >> 0) & 0x0F;
-    buffer[i * 2 + 0] = nib1  < 0xA ? '0' + nib1  : 'A' + nib1  - 0xA;
-    buffer[i * 2 + 1] = nib2  < 0xA ? '0' + nib2  : 'A' + nib2  - 0xA;
-  }
-  buffer[len * 2] = '\0';
-}
-
-int em2050_readpwr(void)
-{
-  while (ECHOSTAR_SERIAL.available())
-  {
-    ECHOSTAR_SERIAL.read();
+    mydata[i++] = camera_payload_event[j];
   }
 
-  ECHOSTAR_SERIAL.println("AT+CTP?");
-  String temp = ECHOSTAR_SERIAL.readStringUntil('\n');
-  temp = ECHOSTAR_SERIAL.readStringUntil(':');
-  temp = ECHOSTAR_SERIAL.readStringUntil('\n');
-  return temp.toInt();
-}
-
-// Read Downlink RSSI from EM2050
-DLresults em2050_readDL(void) {
-  DLresults read;
-  while (ECHOSTAR_SERIAL.available())
+  for (int j = 0; j < 24; j++)
   {
-    ECHOSTAR_SERIAL.read();
+    mydata[i++] = camera_payload_probability[j];
   }
-  ECHOSTAR_SERIAL.println("AT+PKTST?");
-  String temp = ECHOSTAR_SERIAL.readStringUntil('\n');
-  temp = ECHOSTAR_SERIAL.readStringUntil(':');
-  temp = ECHOSTAR_SERIAL.readStringUntil(',');
-  read.SNR = temp.toInt();
-  temp = ECHOSTAR_SERIAL.readStringUntil(',');
-  read.RSSI = temp.toInt();
-  temp = ECHOSTAR_SERIAL.readStringUntil('\n');
-  read.freq_error = temp.toInt();
-  return read;
+
+  if (EM2050.schedule_uplink(mydata, i) == 0)
+  {
+    LOG.println("[INFO] main::send_data() | Uplink SUCCESS");
+  }
+  else
+  {
+    LOG.println("[ERROR] main::send_data() | Uplink FAILED");
+  }
+
+  LED.short_blink(2);
+  EM2050.soft_sleep_enable();
 }

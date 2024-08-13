@@ -1,5 +1,5 @@
 #include "es_camera_parser.h"
-#include "es_camera_config.h"
+#include "project_configuration.h"
 
 CameraParser_t::CameraParser_t(void)
 {
