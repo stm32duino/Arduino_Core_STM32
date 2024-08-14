@@ -46,15 +46,13 @@ variant = board_config.get(
 )
 series = mcu_type[:7].upper() + "xx"
 variants_dir = (
-    join("$PROJECT_DIR", board_config.get("build.variants_dir"))
+    join(env.subst("$PROJECT_DIR"), board_config.get("build.variants_dir"))
     if board_config.get("build.variants_dir", "")
     else join(FRAMEWORK_DIR, "variants")
 )
 variant_dir = join(variants_dir, variant)
 inc_variant_dir = variant_dir
-if not IS_WINDOWS and not (
-    set(["_idedata", "idedata"]) & set(COMMAND_LINE_TARGETS) and " " not in variant_dir
-):
+if not IS_WINDOWS and not (env.IsIntegrationDump() and " " not in variant_dir):
     inc_variant_dir = variant_dir.replace("(", r"\(").replace(")", r"\)")
 
 upload_protocol = env.subst("$UPLOAD_PROTOCOL")
