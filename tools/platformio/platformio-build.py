@@ -109,6 +109,18 @@ def process_usb_configuration(cpp_defines):
             ]
         )
 
+    if any(
+        d in env.Flatten(env.get("CPPDEFINES", []))
+        for d in (
+            "USBD_USE_CDC",
+            "USBD_USE_HID_COMPOSITE",
+        )
+    ):
+        env.BuildSources(
+            join("$BUILD_DIR", "USBDevice"),
+            join(FRAMEWORK_DIR, "libraries", "USBDevice")
+        )
+
     if any(f in env["CPPDEFINES"] for f in ("USBD_USE_CDC", "USBD_USE_HID_COMPOSITE")):
         env.Append(CPPDEFINES=["HAL_PCD_MODULE_ENABLED"])
 
