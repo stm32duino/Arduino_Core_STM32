@@ -34,6 +34,7 @@ public:
     bool is_network_joined(void);
 
     void log_console(uint32_t time_duration_ms);
+    int read_time(uint32_t *unix_time);
     int readpwr(void);
     DLresults readDL(void);
 

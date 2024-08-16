@@ -1,4 +1,5 @@
 #include "es_log.h"
+#include "es_delay.h"
 #include "project_configuration.h"
 
 #if defined(USING_LOG)
@@ -17,7 +18,7 @@ void es_log::init(void)
     while ((!USB_SERIAL) && (millis() < 5000))
         ;
 
-    delay(100);
+    DELAY_MANAGER.delay_ms(100);
 }
 
 void es_log::println(void)

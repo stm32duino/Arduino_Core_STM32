@@ -1,6 +1,7 @@
 #include "es_sensors.h"
 #include "es_sensors_address.h"
 #include "es_log.h"
+#include "es_delay.h"
 #include "project_configuration.h"
 
 #include <Adafruit_Sensor.h>
@@ -25,7 +26,7 @@ void es_sensors::power_on(void)
 {
     digitalWrite(SENSORS_PWR_ENABLE_PIN, HIGH);
 
-    delay(100);
+    DELAY_MANAGER.delay_ms(100);
 
     // TODO: Only do init if the previous power state is OFF
     if (lis3dhtr_available)
@@ -54,13 +55,13 @@ void es_sensors::init(void)
     pinMode(SENSORS_PWR_ENABLE_PIN, OUTPUT);
     power_on();
 
-    delay(100);
+    DELAY_MANAGER.delay_ms(100);
 
     Wire.setSDA(SENSORS_I2C_SDA_PIN);
     Wire.setSCL(SENSORS_I2C_SCL_PIN);
     Wire.begin();
 
-    delay(100);
+    DELAY_MANAGER.delay_ms(100);
 
     for (int i = 1; i <= 3; i++) // 3 try
     {
@@ -79,7 +80,7 @@ void es_sensors::init(void)
             LOG.println("FAIL");
         }
 
-        delay(100);
+        DELAY_MANAGER.delay_ms(100);
     }
 
     for (int i = 1; i <= 3; i++) // 3 try
@@ -107,7 +108,7 @@ void es_sensors::init(void)
             LOG.println("FAIL");
         }
 
-        delay(100);
+        DELAY_MANAGER.delay_ms(100);
     }
 
     power_off();

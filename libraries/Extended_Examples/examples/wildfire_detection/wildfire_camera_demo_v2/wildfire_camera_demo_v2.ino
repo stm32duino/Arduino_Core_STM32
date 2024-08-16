@@ -11,13 +11,12 @@
  * NOTE: Sensors data is not available in this version due to the diversity of sensors type implementation on different batch.
  *
  * @author mtnguyen, fferrero
- * @version 1.0.0 for Echo 7 board version
+ * @version 2.0.0 for Echo 7 board version
  *
  */
 
 #include "project_configuration.h"
 
-#include "STM32LowPower.h"
 #include <STM32RTC.h>
 #include <MicroNMEA.h> // https://github.com/stevemarple/MicroNMEA
 
@@ -26,12 +25,13 @@
 #include "es_log.h"
 #include "es_em2050.h"
 #include "es_led.h"
+#include "es_watchdog.h"
+#include "es_delay.h"
 
 uint8_t camera_payload_event[6];        // 24-frame
 uint8_t camera_payload_probability[24]; // 24-frame
 
 STM32RTC &rtc = STM32RTC::getInstance();
-static uint32_t atime = 600;
 
 uint32_t last_packet_send_timestamp = 0;
 
@@ -44,21 +44,34 @@ long alt;
 uint8_t num_of_satellite_in_view;
 
 bool fire_detected_flag;
-uint32_t next_uplink_packet_timestamp_s = 0;
-uint32_t next_gps_update_timestamp_s = 0;
+struct
+{
+  uint32_t next_uplink_packet;
+  uint32_t next_gps_update;
+  uint32_t next_camera_read;
+} event_timestamp_s;
 
 void setup(void)
 {
+  analogReadResolution(12);
+
+  DELAY_MANAGER.init();
   LED.init();
   LED.long_blink(3);
 
   HEADER_SERIAL.begin(115200);
   LOG.init();
 
+  LOG.println("\n\n");
   LOG.println("[INFO] main::setup() | ===== Sketch: wildfire_camera_demo_v2.ino =====");
   HEADER_SERIAL.flush();
 
-  mcu_sleep_init();
+  WATCHDOG.init();
+  if (WATCHDOG.isResetByWatchdog())
+  {
+    LOG.println("[ERROR] main::setup() | The reset was caused by WATCHDOG timeout");
+  }
+
   sensor_init();
 #ifndef DEBUGGING_OPTION_GNSS_DISABLE
   gnss_init();
@@ -66,81 +79,101 @@ void setup(void)
   EM2050.init();
   EM2050.get_device_info_on_log();
 
-  delay(1000);
+  update_system_time();
+
+  DELAY_MANAGER.delay_ms(1000);
   LED.long_blink(2);
 
   fire_detected_flag = false;
-  next_uplink_packet_timestamp_s = 0; // Send first status
-  next_gps_update_timestamp_s = rtc.getEpoch() + GNSS_UPDATING_PERIOD_S;
+  event_timestamp_s.next_camera_read = 0;   // Read first camera data
+  event_timestamp_s.next_uplink_packet = 0; // Send first status
+  event_timestamp_s.next_gps_update = rtc.getEpoch() + GNSS_UPDATING_PERIOD_S;
 
   LOG.println("[INFO] main::setup() | Setup DONE");
 #ifdef DISABLE_BUILTIN_LED_AFTER_INIT
   LED.disable();
   LOG.println("[INFO] main::setup() | Disable LED");
 #endif /* DISABLE_BUILTIN_LED_AFTER_INIT */
+
+  WATCHDOG.reload();
 }
 
 void loop(void)
 {
   LOG.println("[INFO] main::loop() | Device wake up !");
 
-  if (rtc.getEpoch() >= next_gps_update_timestamp_s)
+  // Update GNSS
+  if (rtc.getEpoch() >= event_timestamp_s.next_gps_update)
   {
+    event_timestamp_s.next_gps_update = rtc.getEpoch() + GNSS_UPDATING_PERIOD_S;
     LOG.println("[INFO] main::loop() | Updating GNSS Data");
 
 #ifndef DEBUGGING_OPTION_GNSS_DISABLE
     get_gnss_data(false);
 #endif /* DEBUGGING_OPTION_GNSS_DISABLE */
 
-    next_gps_update_timestamp_s = rtc.getEpoch() + GNSS_UPDATING_PERIOD_S;
+    update_system_time();
+
     LOG.print("[INFO] main::loop() | Scheduling next GNSS Update on ");
-    LOG.println((unsigned int)next_gps_update_timestamp_s);
+    LOG.println((unsigned int)event_timestamp_s.next_gps_update);
   }
 
-  LOG.println("[INFO] main::loop() | Gathering Camera Data");
-  get_camera_data();
-  bool current_read_fire_detected = CAMERA_DATA_PARSER.is_fire_detected();
-  if (current_read_fire_detected ^ fire_detected_flag) // If fire_detected state changed?
+  // Read Camera Data
+  if ((rtc.getEpoch() >= event_timestamp_s.next_camera_read) && camera_active_time_check())
   {
-    fire_detected_flag = current_read_fire_detected;
-    if (fire_detected_flag)
+    event_timestamp_s.next_camera_read = rtc.getEpoch() + TIME_BETWEEN_CAMERA_READ_S;
+    LOG.println("[INFO] main::loop() | Gathering Camera Data");
+#ifndef DEBUGGING_OPTION_I_HAVE_NO_CAMERA
+    get_camera_data();
+    bool current_read_fire_detected = CAMERA_DATA_PARSER.is_fire_detected();
+    if (current_read_fire_detected ^ fire_detected_flag) // If fire_detected state changed?
     {
-      next_uplink_packet_timestamp_s = rtc.getEpoch(); // Send immidiately if there is a new detection of fire
+      fire_detected_flag = current_read_fire_detected;
+      if (fire_detected_flag)
+      {
+        event_timestamp_s.next_uplink_packet = rtc.getEpoch(); // Send immidiately if there is a new detection of fire
 
-      LOG.println("[INFO] main::loop() | Fire detected, switched to faster uplink mode");
-      LOG.println("[INFO] main::loop() | Next uplink packet is NOW");
+        LOG.println("[INFO] main::loop() | Fire detected, switched to faster uplink mode");
+        LOG.println("[INFO] main::loop() | Next uplink packet is NOW");
+      }
+      else
+      {
+        LOG.println("[INFO] main::loop() | Fire put out, switched to slow uplink mode");
+      }
     }
-    else
-    {
-      LOG.println("[INFO] main::loop() | Fire put out, switched to slow uplink mode");
-    }
+#else
+    LOG.println("[INFO] main::loop() | DEBUGGING_OPTION_I_HAVE_NO_CAMERA :)");
+#endif
   }
 
-  delay(1000);
-
-  if (rtc.getEpoch() >= next_uplink_packet_timestamp_s)
+  // Sent radio uplink
+  if (rtc.getEpoch() >= event_timestamp_s.next_uplink_packet)
   {
     LOG.println("[INFO] main::loop() | Sending data to network");
-    send_data();
 
     if (fire_detected_flag)
     {
-      next_uplink_packet_timestamp_s = rtc.getEpoch() + FIRE_DETECTED_PACKET_SENDING_PERIOD_S;
+      event_timestamp_s.next_uplink_packet = rtc.getEpoch() + FIRE_DETECTED_PACKET_SENDING_PERIOD_S;
     }
     else
     {
-      next_uplink_packet_timestamp_s = rtc.getEpoch() + NO_FIRE_PACKET_SENDING_PERIOD_S;
+      event_timestamp_s.next_uplink_packet = rtc.getEpoch() + NO_FIRE_PACKET_SENDING_PERIOD_S;
     }
+
+    send_data();
+
     LOG.print("[INFO] main::loop() | Next uplink is scheduled at ");
-    LOG.println((unsigned int)next_uplink_packet_timestamp_s);
+    LOG.println((unsigned int)event_timestamp_s.next_uplink_packet);
   }
 
-  delay(1000);
+  // Reload WATCHDOG
+  WATCHDOG.reload();
 
+  // Sleep
   LOG.print("[INFO] main::loop() | Going to sleep mode for ");
-  LOG.print(TIME_BETWEEN_CAMERA_READ_S);
+  LOG.print(10);
   LOG.println(" seconds.");
-  mcu_sleep(TIME_BETWEEN_CAMERA_READ_S);
+  DELAY_MANAGER.delay_s(10);
 }
 
 void get_camera_data(void)
@@ -149,6 +182,7 @@ void get_camera_data(void)
   CAMERA_DATA_PARSER.clear_frame_data();
 
   uint32_t camera_start_reading_timestamp_s = rtc.getEpoch();
+  uint32_t watchdog_reload_timestamp_s = rtc.getEpoch();
   LOG.print("[DEBUG] main::get_camera_data() | Start reading now, timeout (seconds) is ");
   LOG.println((int)CAMERA_MAX_READING_TIME_S);
   while (!CAMERA_DATA_PARSER.is_all_frame_data_ready_flag())
@@ -164,34 +198,18 @@ void get_camera_data(void)
       LOG.println("[DEBUG] main::get_camera_data() | Camera reading TIMEOUT");
       break;
     }
+
+    if (rtc.getEpoch() - watchdog_reload_timestamp_s >= 5)
+    {
+      watchdog_reload_timestamp_s = rtc.getEpoch();
+      WATCHDOG.reload();
+    }
   }
 
   LOG.println("[DEBUG] main::get_camera_data() | Camera DONE");
 
   CAMERA_DATA_PARSER.get_frame_data_u2(camera_payload_event, 6);
   CAMERA_DATA_PARSER.get_frame_data_probability_u8(camera_payload_probability, 24);
-}
-
-void mcu_sleep_init(void)
-{
-  // Low-power library initialization
-  rtc.begin();
-  LowPower.begin();
-  LowPower.enableWakeupFrom(&rtc, alarmMatch, &atime);
-}
-
-void mcu_sleep(uint32_t sleep_duration_s)
-{
-#ifndef USING_SLEEP_MODE
-  delay(sleep_duration_s * 1000); // DEBUG
-#else
-  rtc.setAlarmEpoch(rtc.getEpoch() + sleep_duration_s);
-  LowPower.deepSleep();
-#endif
-}
-
-void alarmMatch(void *data)
-{
 }
 
 void sensor_init(void)
@@ -208,7 +226,7 @@ void gnss_on(void)
 void gnss_off(void)
 {
   digitalWrite(GNSS_PWR_ENABLE_PIN, LOW);
-  digitalWrite(GNSS_V_BCKP_PIN, HIGH);
+  digitalWrite(GNSS_V_BCKP_PIN, LOW);
 }
 
 void gnss_init(void)
@@ -224,9 +242,20 @@ void gnss_init(void)
   gnss_on();
   GNSS_SERIAL.begin(115200); // UART GNSS
 
-  delay(100);
+  DELAY_MANAGER.delay_ms(100);
 
   get_gnss_data(true); // This will not exit if GNSS is not fix
+}
+
+inline bool gnss_fix_condition(void)
+{
+  return ((nmea.isValid()) &&
+          (nmea.getNumSatellites() >= 8) &&
+          (nmea.getLatitude() != 0) &&
+          (nmea.getLongitude() != 0) &&
+          (nmea.getYear() != 0) &&
+          (nmea.getMonth() != 0) &&
+          (nmea.getDay() != 0));
 }
 
 /**
@@ -245,9 +274,10 @@ void get_gnss_data(bool force_fix_reading)
   uint32_t gnss_waiting_start_timestamp_s = rtc.getEpoch();
   while (rtc.getEpoch() - gnss_waiting_start_timestamp_s <= (GNSS_WAITING_TIME_S))
   {
+    WATCHDOG.reload();
     LED.short_blink(1);
     LOG.print(".");
-    mcu_sleep(5);
+    DELAY_MANAGER.delay_s(5);
   }
   LOG.println();
 
@@ -264,10 +294,7 @@ void get_gnss_data(bool force_fix_reading)
       nmea.process(c);
     }
 
-    if ((nmea.isValid()) &&
-        (nmea.getNumSatellites() >= 8) &&
-        (nmea.getLatitude() != 0) &&
-        (nmea.getLongitude() != 0))
+    if (gnss_fix_condition())
     {
       LOG.println("\n[DEBUG] main::get_gnss_data() | GNSS Fixed");
       gnss_fix = true;
@@ -276,6 +303,7 @@ void get_gnss_data(bool force_fix_reading)
 
     if (rtc.getEpoch() - led_blink_timestamp_s >= 5) // Blink every 5 seconds
     {
+      WATCHDOG.reload();
       LOG.print(".");
       led_blink_timestamp_s = rtc.getEpoch();
       LED.short_blink(2);
@@ -304,6 +332,19 @@ void get_gnss_data(bool force_fix_reading)
     LOG.println(alt / 1.0e3);
     LOG.print("[INFO] main::get_gnss_data() | GNSS num_of_satellite_in_view: ");
     LOG.println(num_of_satellite_in_view);
+
+    LOG.print("[INFO] main::get_gnss_data() | Year = ");
+    LOG.println(nmea.getYear());
+    LOG.print("[INFO] main::get_gnss_data() | Month = ");
+    LOG.println(nmea.getMonth());
+    LOG.print("[INFO] main::get_gnss_data() | Day = ");
+    LOG.println(nmea.getDay());
+    LOG.print("[INFO] main::get_gnss_data() | Hour = ");
+    LOG.println(nmea.getHour());
+    LOG.print("[INFO] main::get_gnss_data() | Minute = ");
+    LOG.println(nmea.getMinute());
+    LOG.print("[INFO] main::get_gnss_data() | Second = ");
+    LOG.println(nmea.getSecond());
   }
   else
   {
@@ -317,7 +358,7 @@ void get_gnss_data(bool force_fix_reading)
 uint16_t read_bat(void)
 {
   uint16_t voltage_adc = (uint16_t)analogRead(SENSORS_BATERY_ADC_PIN);
-  uint16_t voltage = (uint16_t)((ADC_AREF / 1.024) * (BATVOLT_R1 + BATVOLT_R2) / BATVOLT_R2 * (float)voltage_adc);
+  uint16_t voltage = (uint16_t)((ADC_AREF / 4.096) * (BATVOLT_R1 + BATVOLT_R2) / BATVOLT_R2 * (float)voltage_adc);
   return voltage;
 }
 
@@ -326,11 +367,13 @@ void send_data(void)
   EM2050.soft_sleep_disable();
 
   SENSORS.power_on();
-  delay(1000);
+  DELAY_MANAGER.delay_ms(1000);
+  WATCHDOG.reload();
 
   int16_t t = (int16_t)(SENSORS.read_temperature() * 100.0); // TODO: Read temperature
   uint8_t h = (uint8_t)(SENSORS.read_humidity());            // TODO: Read humidity
   uint16_t p = (uint16_t)(SENSORS.read_pressure() / 10.0);   // TODO: Read pressure
+  WATCHDOG.reload();
 
   SENSORS.power_off();
 
@@ -353,16 +396,19 @@ void send_data(void)
   LOG.println(alt / 1.0e3);
 
   uint16_t bat = read_bat();
+  WATCHDOG.reload();
 
   LOG.print("[DEBUG] main::send_data() | Bat = ");
   LOG.println(bat);
 
   int8_t pwr = (int8_t)EM2050.readpwr();
+  WATCHDOG.reload();
 
   LOG.print("[DEBUG] main::send_data() | pwr = ");
   LOG.println(pwr);
 
   DLresults dl = EM2050.readDL();
+  WATCHDOG.reload();
 
   LOG.print("[DEBUG] main::send_data() | SNR = ");
   LOG.println(dl.SNR / 4);
@@ -415,4 +461,121 @@ void send_data(void)
 
   LED.short_blink(2);
   EM2050.soft_sleep_enable();
+}
+
+unsigned long unixTimestamp(int year, int month, int day, int hour, int min, int sec)
+{
+  const short days_since_beginning_of_year[12] = {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334};
+  int leap_years = ((year - 1) - 1968) / 4 - ((year - 1) - 1900) / 100 + ((year - 1) - 1600) / 400;
+  long days_since_1970 = (year - 1970) * 365 + leap_years + days_since_beginning_of_year[month - 1] + day - 1;
+  if ((month > 2) && (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)))
+    days_since_1970 += 1; /* +leap day, if year is a leap year */
+  return sec + 60 * (min + 60 * (hour + 24 * days_since_1970));
+}
+
+void update_system_time(void)
+{
+  uint32_t unix_time = 0;
+
+#if 1
+  EM2050.soft_sleep_disable();
+  LOG.println("[INFO] main::update_system_time() | Start updating time from network");
+
+  for (int i = 0; i < 5; i++)
+  {
+    LOG.print("[INFO] main::update_system_time() | #");
+    LOG.print(i + 1);
+    LOG.print(": ");
+    if ((EM2050.read_time(&unix_time) == 1) && (unix_time > 1704067200)) // 2024/01/01 00:00:00 GMT
+    {
+      LOG.println("DONE");
+      update_rtc_time_n_events(unix_time);
+
+      EM2050.soft_sleep_enable();
+      return;
+    }
+    else
+    {
+      LOG.println("FAIL, retry after 10 seconds");
+      WATCHDOG.reload();
+      DELAY_MANAGER.delay_s(10);
+    }
+  }
+  EM2050.soft_sleep_enable();
+
+#endif
+
+  WATCHDOG.reload();
+
+#ifndef DEBUGGING_OPTION_GNSS_DISABLE
+  LOG.println("[INFO] main::update_system_time() | Getting time from network FAILED");
+  LOG.println("[INFO] main::update_system_time() | Start getting time from GNSS");
+
+  if (gnss_fix_condition())
+  {
+    LOG.print("[INFO] main::update_system_time() | Year = ");
+    LOG.println(nmea.getYear());
+    LOG.print("[INFO] main::update_system_time() | Month = ");
+    LOG.println(nmea.getMonth());
+    LOG.print("[INFO] main::update_system_time() | Day = ");
+    LOG.println(nmea.getDay());
+    LOG.print("[INFO] main::update_system_time() | Hour = ");
+    LOG.println(nmea.getHour());
+    LOG.print("[INFO] main::update_system_time() | Minute = ");
+    LOG.println(nmea.getMinute());
+    LOG.print("[INFO] main::update_system_time() | Second = ");
+    LOG.println(nmea.getSecond());
+
+    unix_time = unixTimestamp(nmea.getYear(), nmea.getMonth(), nmea.getDay(), nmea.getHour(), nmea.getMinute(), nmea.getSecond());
+    update_rtc_time_n_events(unix_time);
+
+    return;
+  }
+  else
+  {
+    LOG.println("[INFO] main::update_system_time() | Last GNSS data is not valid");
+  }
+#endif
+
+  LOG.println("[ERROR] main::update_system_time() | Failed to update system time");
+}
+
+inline void update_rtc_time_n_events(uint32_t new_unix_time)
+{
+  uint32_t current_time = rtc.getEpoch();
+  int32_t offset = new_unix_time - current_time;
+
+  LOG.print("[INFO] main::update_rtc_time_n_events() | Current time = ");
+  LOG.print((unsigned int)current_time);
+
+  LOG.print(" | New time = ");
+  LOG.print((unsigned int)new_unix_time);
+
+  LOG.print(" | Offset = ");
+  LOG.println((int)offset);
+
+  LOG.println("[INFO] main::update_rtc_time_n_events() | Updating the system time");
+  rtc.setEpoch(new_unix_time);
+
+  LOG.println("[INFO] main::update_rtc_time_n_events() | Updating event timestamps");
+  event_timestamp_s.next_uplink_packet += offset;
+  LOG.print("[INFO] main::update_rtc_time_n_events() | New scheduled next_uplink_packet = ");
+  LOG.println((unsigned int)event_timestamp_s.next_uplink_packet);
+
+  event_timestamp_s.next_gps_update += offset;
+  LOG.print("[INFO] main::update_rtc_time_n_events() | New scheduled next_gps_update = ");
+  LOG.println((unsigned int)event_timestamp_s.next_gps_update);
+
+  event_timestamp_s.next_camera_read += offset;
+  LOG.print("[INFO] main::update_rtc_time_n_events() | New scheduled next_camera_read = ");
+  LOG.println((unsigned int)event_timestamp_s.next_camera_read);
+}
+
+bool camera_active_time_check(void)
+{
+  uint8_t current_hour = rtc.getHours();
+  uint8_t current_minute = rtc.getMinutes();
+  int current_time_hh_mm = (current_hour * 100) + current_minute;
+
+  return ((CAMERA_ACTIVE_TIME_START_HH_MM <= current_time_hh_mm) && (current_time_hh_mm <= CAMERA_ACTIVE_TIME_STOP_HH_MM));
 }
