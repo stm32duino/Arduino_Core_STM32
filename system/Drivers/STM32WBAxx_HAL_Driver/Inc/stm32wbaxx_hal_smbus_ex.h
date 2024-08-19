@@ -92,9 +92,9 @@ typedef struct
   * @{
   */
 #if defined(I2C1)
-#define SMBUS_TRIG_GRP1                   (0x10000000U)         /*!< Trigger Group for I2C1, I2C2 */
-#endif /* I2C1, I2C2 */
-#define SMBUS_TRIG_GRP2                   (0x20000000U)         /*!< Trigger Group for I2C3, I2C4 */
+#define SMBUS_TRIG_GRP1                   (0x10000000U)         /*!< Trigger Group for I2C1 */
+#endif /* I2C1 */
+#define SMBUS_TRIG_GRP2                   (0x20000000U)         /*!< Trigger Group for I2C3 */
 
 #if defined(SMBUS_TRIG_GRP1)
 #define SMBUS_GRP1_GPDMA_CH0_TCF_TRG      (uint32_t)(SMBUS_TRIG_GRP1 | (0x00000000U))

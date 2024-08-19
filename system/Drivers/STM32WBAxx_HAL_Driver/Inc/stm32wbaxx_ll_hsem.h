@@ -92,23 +92,7 @@ extern "C" {
 #define LL_HSEM_SEMAPHORE_13               HSEM_IER_ISE13
 #define LL_HSEM_SEMAPHORE_14               HSEM_IER_ISE14
 #define LL_HSEM_SEMAPHORE_15               HSEM_IER_ISE15
-#define LL_HSEM_SEMAPHORE_16               HSEM_IER_ISE16
-#define LL_HSEM_SEMAPHORE_17               HSEM_IER_ISE17
-#define LL_HSEM_SEMAPHORE_18               HSEM_IER_ISE18
-#define LL_HSEM_SEMAPHORE_19               HSEM_IER_ISE19
-#define LL_HSEM_SEMAPHORE_20               HSEM_IER_ISE20
-#define LL_HSEM_SEMAPHORE_21               HSEM_IER_ISE21
-#define LL_HSEM_SEMAPHORE_22               HSEM_IER_ISE22
-#define LL_HSEM_SEMAPHORE_23               HSEM_IER_ISE23
-#define LL_HSEM_SEMAPHORE_24               HSEM_IER_ISE24
-#define LL_HSEM_SEMAPHORE_25               HSEM_IER_ISE25
-#define LL_HSEM_SEMAPHORE_26               HSEM_IER_ISE26
-#define LL_HSEM_SEMAPHORE_27               HSEM_IER_ISE27
-#define LL_HSEM_SEMAPHORE_28               HSEM_IER_ISE28
-#define LL_HSEM_SEMAPHORE_29               HSEM_IER_ISE29
-#define LL_HSEM_SEMAPHORE_30               HSEM_IER_ISE30
-#define LL_HSEM_SEMAPHORE_31               HSEM_IER_ISE31
-#define LL_HSEM_SEMAPHORE_ALL              0xFFFFFFFFU
+#define LL_HSEM_SEMAPHORE_ALL              0x0000FFFFU
 /**
   * @}
   */
@@ -361,7 +345,6 @@ __STATIC_INLINE void LL_HSEM_ResetAllLock(HSEM_TypeDef *HSEMx, uint32_t key, uin
   *         @arg @ref LL_HSEM_SEMAPHORE_13
   *         @arg @ref LL_HSEM_SEMAPHORE_14
   *         @arg @ref LL_HSEM_SEMAPHORE_15
-  *         @arg @ref LL_HSEM_SEMAPHORE_16
   *         @arg @ref LL_HSEM_SEMAPHORE_ALL
   * @retval None
   */
@@ -391,7 +374,6 @@ __STATIC_INLINE void LL_HSEM_SetSemaphoreSecure(HSEM_TypeDef *HSEMx, uint32_t Se
   *         @arg @ref LL_HSEM_SEMAPHORE_13
   *         @arg @ref LL_HSEM_SEMAPHORE_14
   *         @arg @ref LL_HSEM_SEMAPHORE_15
-  *         @arg @ref LL_HSEM_SEMAPHORE_16
   *         @arg @ref LL_HSEM_SEMAPHORE_ALL
   * @retval None
   */
@@ -432,7 +414,6 @@ __STATIC_INLINE uint32_t LL_HSEM_GetSemaphoreSecure(const HSEM_TypeDef *HSEMx)
   *         @arg @ref LL_HSEM_SEMAPHORE_13
   *         @arg @ref LL_HSEM_SEMAPHORE_14
   *         @arg @ref LL_HSEM_SEMAPHORE_15
-  *         @arg @ref LL_HSEM_SEMAPHORE_16
   *         @arg @ref LL_HSEM_SEMAPHORE_ALL
   * @retval None
   */
@@ -462,7 +443,6 @@ __STATIC_INLINE void LL_HSEM_SetSemaphorePrivilege(HSEM_TypeDef *HSEMx, uint32_t
   *         @arg @ref LL_HSEM_SEMAPHORE_13
   *         @arg @ref LL_HSEM_SEMAPHORE_14
   *         @arg @ref LL_HSEM_SEMAPHORE_15
-  *         @arg @ref LL_HSEM_SEMAPHORE_16
   *         @arg @ref LL_HSEM_SEMAPHORE_ALL
   * @retval None
   */
@@ -512,22 +492,6 @@ __STATIC_INLINE uint32_t LL_HSEM_GetSemaphorePrivilege(const HSEM_TypeDef *HSEMx
   *         @arg @ref LL_HSEM_SEMAPHORE_13
   *         @arg @ref LL_HSEM_SEMAPHORE_14
   *         @arg @ref LL_HSEM_SEMAPHORE_15
-  *         @arg @ref LL_HSEM_SEMAPHORE_16
-  *         @arg @ref LL_HSEM_SEMAPHORE_17
-  *         @arg @ref LL_HSEM_SEMAPHORE_18
-  *         @arg @ref LL_HSEM_SEMAPHORE_19
-  *         @arg @ref LL_HSEM_SEMAPHORE_20
-  *         @arg @ref LL_HSEM_SEMAPHORE_21
-  *         @arg @ref LL_HSEM_SEMAPHORE_22
-  *         @arg @ref LL_HSEM_SEMAPHORE_23
-  *         @arg @ref LL_HSEM_SEMAPHORE_24
-  *         @arg @ref LL_HSEM_SEMAPHORE_25
-  *         @arg @ref LL_HSEM_SEMAPHORE_26
-  *         @arg @ref LL_HSEM_SEMAPHORE_27
-  *         @arg @ref LL_HSEM_SEMAPHORE_28
-  *         @arg @ref LL_HSEM_SEMAPHORE_29
-  *         @arg @ref LL_HSEM_SEMAPHORE_30
-  *         @arg @ref LL_HSEM_SEMAPHORE_31
   *         @arg @ref LL_HSEM_SEMAPHORE_ALL
   * @retval None
   */
@@ -561,22 +525,6 @@ __STATIC_INLINE void LL_HSEM_EnableIT_IER(HSEM_TypeDef *HSEMx, uint32_t Semaphor
   *         @arg @ref LL_HSEM_SEMAPHORE_13
   *         @arg @ref LL_HSEM_SEMAPHORE_14
   *         @arg @ref LL_HSEM_SEMAPHORE_15
-  *         @arg @ref LL_HSEM_SEMAPHORE_16
-  *         @arg @ref LL_HSEM_SEMAPHORE_17
-  *         @arg @ref LL_HSEM_SEMAPHORE_18
-  *         @arg @ref LL_HSEM_SEMAPHORE_19
-  *         @arg @ref LL_HSEM_SEMAPHORE_20
-  *         @arg @ref LL_HSEM_SEMAPHORE_21
-  *         @arg @ref LL_HSEM_SEMAPHORE_22
-  *         @arg @ref LL_HSEM_SEMAPHORE_23
-  *         @arg @ref LL_HSEM_SEMAPHORE_24
-  *         @arg @ref LL_HSEM_SEMAPHORE_25
-  *         @arg @ref LL_HSEM_SEMAPHORE_26
-  *         @arg @ref LL_HSEM_SEMAPHORE_27
-  *         @arg @ref LL_HSEM_SEMAPHORE_28
-  *         @arg @ref LL_HSEM_SEMAPHORE_29
-  *         @arg @ref LL_HSEM_SEMAPHORE_30
-  *         @arg @ref LL_HSEM_SEMAPHORE_31
   *         @arg @ref LL_HSEM_SEMAPHORE_ALL
   * @retval None
   */
@@ -610,22 +558,6 @@ __STATIC_INLINE void LL_HSEM_DisableIT_IER(HSEM_TypeDef *HSEMx, uint32_t Semapho
   *         @arg @ref LL_HSEM_SEMAPHORE_13
   *         @arg @ref LL_HSEM_SEMAPHORE_14
   *         @arg @ref LL_HSEM_SEMAPHORE_15
-  *         @arg @ref LL_HSEM_SEMAPHORE_16
-  *         @arg @ref LL_HSEM_SEMAPHORE_17
-  *         @arg @ref LL_HSEM_SEMAPHORE_18
-  *         @arg @ref LL_HSEM_SEMAPHORE_19
-  *         @arg @ref LL_HSEM_SEMAPHORE_20
-  *         @arg @ref LL_HSEM_SEMAPHORE_21
-  *         @arg @ref LL_HSEM_SEMAPHORE_22
-  *         @arg @ref LL_HSEM_SEMAPHORE_23
-  *         @arg @ref LL_HSEM_SEMAPHORE_24
-  *         @arg @ref LL_HSEM_SEMAPHORE_25
-  *         @arg @ref LL_HSEM_SEMAPHORE_26
-  *         @arg @ref LL_HSEM_SEMAPHORE_27
-  *         @arg @ref LL_HSEM_SEMAPHORE_28
-  *         @arg @ref LL_HSEM_SEMAPHORE_29
-  *         @arg @ref LL_HSEM_SEMAPHORE_30
-  *         @arg @ref LL_HSEM_SEMAPHORE_31
   *         @arg @ref LL_HSEM_SEMAPHORE_ALL
   * @retval State of bit (1 or 0).
   */
@@ -668,22 +600,6 @@ __STATIC_INLINE uint32_t LL_HSEM_IsEnabledIT_IER(const HSEM_TypeDef *HSEMx, uint
   *         @arg @ref LL_HSEM_SEMAPHORE_13
   *         @arg @ref LL_HSEM_SEMAPHORE_14
   *         @arg @ref LL_HSEM_SEMAPHORE_15
-  *         @arg @ref LL_HSEM_SEMAPHORE_16
-  *         @arg @ref LL_HSEM_SEMAPHORE_17
-  *         @arg @ref LL_HSEM_SEMAPHORE_18
-  *         @arg @ref LL_HSEM_SEMAPHORE_19
-  *         @arg @ref LL_HSEM_SEMAPHORE_20
-  *         @arg @ref LL_HSEM_SEMAPHORE_21
-  *         @arg @ref LL_HSEM_SEMAPHORE_22
-  *         @arg @ref LL_HSEM_SEMAPHORE_23
-  *         @arg @ref LL_HSEM_SEMAPHORE_24
-  *         @arg @ref LL_HSEM_SEMAPHORE_25
-  *         @arg @ref LL_HSEM_SEMAPHORE_26
-  *         @arg @ref LL_HSEM_SEMAPHORE_27
-  *         @arg @ref LL_HSEM_SEMAPHORE_28
-  *         @arg @ref LL_HSEM_SEMAPHORE_29
-  *         @arg @ref LL_HSEM_SEMAPHORE_30
-  *         @arg @ref LL_HSEM_SEMAPHORE_31
   *         @arg @ref LL_HSEM_SEMAPHORE_ALL
   * @retval None
   */
@@ -717,22 +633,6 @@ __STATIC_INLINE void LL_HSEM_ClearFlag_ICR(HSEM_TypeDef *HSEMx, uint32_t Semapho
   *         @arg @ref LL_HSEM_SEMAPHORE_13
   *         @arg @ref LL_HSEM_SEMAPHORE_14
   *         @arg @ref LL_HSEM_SEMAPHORE_15
-  *         @arg @ref LL_HSEM_SEMAPHORE_16
-  *         @arg @ref LL_HSEM_SEMAPHORE_17
-  *         @arg @ref LL_HSEM_SEMAPHORE_18
-  *         @arg @ref LL_HSEM_SEMAPHORE_19
-  *         @arg @ref LL_HSEM_SEMAPHORE_20
-  *         @arg @ref LL_HSEM_SEMAPHORE_21
-  *         @arg @ref LL_HSEM_SEMAPHORE_22
-  *         @arg @ref LL_HSEM_SEMAPHORE_23
-  *         @arg @ref LL_HSEM_SEMAPHORE_24
-  *         @arg @ref LL_HSEM_SEMAPHORE_25
-  *         @arg @ref LL_HSEM_SEMAPHORE_26
-  *         @arg @ref LL_HSEM_SEMAPHORE_27
-  *         @arg @ref LL_HSEM_SEMAPHORE_28
-  *         @arg @ref LL_HSEM_SEMAPHORE_29
-  *         @arg @ref LL_HSEM_SEMAPHORE_30
-  *         @arg @ref LL_HSEM_SEMAPHORE_31
   *         @arg @ref LL_HSEM_SEMAPHORE_ALL
   * @retval State of bit (1 or 0).
   */
@@ -766,22 +666,6 @@ __STATIC_INLINE uint32_t LL_HSEM_IsActiveFlag_ISR(const HSEM_TypeDef *HSEMx, uin
   *         @arg @ref LL_HSEM_SEMAPHORE_13
   *         @arg @ref LL_HSEM_SEMAPHORE_14
   *         @arg @ref LL_HSEM_SEMAPHORE_15
-  *         @arg @ref LL_HSEM_SEMAPHORE_16
-  *         @arg @ref LL_HSEM_SEMAPHORE_17
-  *         @arg @ref LL_HSEM_SEMAPHORE_18
-  *         @arg @ref LL_HSEM_SEMAPHORE_19
-  *         @arg @ref LL_HSEM_SEMAPHORE_20
-  *         @arg @ref LL_HSEM_SEMAPHORE_21
-  *         @arg @ref LL_HSEM_SEMAPHORE_22
-  *         @arg @ref LL_HSEM_SEMAPHORE_23
-  *         @arg @ref LL_HSEM_SEMAPHORE_24
-  *         @arg @ref LL_HSEM_SEMAPHORE_25
-  *         @arg @ref LL_HSEM_SEMAPHORE_26
-  *         @arg @ref LL_HSEM_SEMAPHORE_27
-  *         @arg @ref LL_HSEM_SEMAPHORE_28
-  *         @arg @ref LL_HSEM_SEMAPHORE_29
-  *         @arg @ref LL_HSEM_SEMAPHORE_30
-  *         @arg @ref LL_HSEM_SEMAPHORE_31
   *         @arg @ref LL_HSEM_SEMAPHORE_ALL
   * @retval State of bit (1 or 0).
   */

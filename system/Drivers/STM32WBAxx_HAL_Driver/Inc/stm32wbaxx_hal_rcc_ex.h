@@ -844,7 +844,7 @@ uint32_t          HAL_RCCEx_GetAudioSyncCaptureValue(void);
   * @{
   */
 /* Define used for IS_RCC_* macros below */
-#if defined (STM32WBA54xx) || defined (STM32WBA55xx)
+#if   defined (STM32WBA54xx) || defined (STM32WBA55xx)
 #if !defined (STM32WBAXX_SI_CUT1_0)
 #define RCC_PERIPHCLOCK_ALL             (RCC_PERIPHCLK_USART1  | RCC_PERIPHCLK_USART2 | RCC_PERIPHCLK_I2C1    | \
                                          RCC_PERIPHCLK_LPTIM2  | RCC_PERIPHCLK_SPI1   | RCC_PERIPHCLK_SYSTICK | \

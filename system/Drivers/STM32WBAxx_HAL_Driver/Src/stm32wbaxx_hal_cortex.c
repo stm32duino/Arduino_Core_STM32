@@ -48,25 +48,44 @@
     [..]
     Setup SysTick Timer for time base.
 
-   (+) The SysTick clock source shall be configured with HAL_SYSTICK_CLKSourceConfig().
+    (+) The SysTick clock source shall be configured with HAL_SYSTICK_CLKSourceConfig().
 
-   (+) The SysTick IRQ priority shall be configured with HAL_NVIC_SetPriority(SysTick_IRQn,...).
-       The HAL_NVIC_SetPriority() calls the CMSIS NVIC_SetPriority() function.
+    (+) The SysTick IRQ priority shall be configured with HAL_NVIC_SetPriority(SysTick_IRQn,...).
+        The HAL_NVIC_SetPriority() calls the CMSIS NVIC_SetPriority() function.
 
-   (+) The HAL_SYSTICK_Config() function:
+    (+) The HAL_SYSTICK_Config() function:
         (++) Configures the SysTick Reload register with the value passed as function parameter.
         (++) Resets the SysTick Counter register.
         (++) Enables the SysTick Interrupt.
         (++) Starts the SysTick Counter.
 
-   (+) To adjust the SysTick time base, use the following formula:
+    (+) To adjust the SysTick time base, use the following formula:
 
-       Reload Value = SysTick Counter Clock (Hz) x  Desired Time base (s)
-       (++) Reload Value is the parameter to be passed for HAL_SYSTICK_Config() function
-       (++) Reload Value should not exceed 0xFFFFFF
+        Reload Value = SysTick Counter Clock (Hz) x  Desired Time base (s)
+        (++) Reload Value is the parameter to be passed for HAL_SYSTICK_Config() function
+        (++) Reload Value should not exceed 0xFFFFFF
 
-   (+) In case the HAL time base is the SysTick Timer, the HAL time base configuration must be completed
-       by calling the HAL_InitTick() function.
+    (+) In case the HAL time base is the SysTick Timer, the HAL time base configuration must be completed
+        by calling the HAL_InitTick() function.
+
+    [..]
+    *** How to configure MPU regions using CORTEX HAL driver ***
+    ============================================================
+    [..]
+    This section provides functions allowing to configure the Memory Protection Unit (MPU).
+
+    (#) Disable the MPU using HAL_MPU_Disable().
+    (#) Configure the necessary MPU memory attributes using HAL_MPU_ConfigMemoryAttributes().
+    (#) Configure the necessary MPU regions using HAL_MPU_ConfigRegion() ennsuring that the MPU region configuration link to
+        the right MPU attributes number.
+    (#) Enable the MPU using HAL_MPU_Enable() function.
+
+     -@- The memory management fault exception is enabled in HAL_MPU_Enable() function and the system will enter the memory
+         management fault handler MemManage_Handler() when an illegal memory access is performed.
+     -@- If the MPU has previously been programmed, disable the unused regions to prevent any previous region configuration
+         from affecting the new MPU configuration.
+     -@- MPU APIs ending with '_NS' allow to control the non-secure Memory Protection Unit (MPU_NS) from the secure context
+         and the same sequence as above applies to configure the non-secure MPU.
 
   @endverbatim
   ******************************************************************************

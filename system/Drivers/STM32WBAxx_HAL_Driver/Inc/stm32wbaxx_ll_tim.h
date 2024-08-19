@@ -6098,7 +6098,7 @@ ErrorStatus LL_TIM_BDTR_Init(TIM_TypeDef *TIMx, const LL_TIM_BDTR_InitTypeDef *T
   * @}
   */
 
-#endif /* TIM1 || TIM2 || TIM3 || TIM6 || TIM7 */
+#endif /* TIM1 || TIM2 || TIM3 || TIM16 || TIM17 */
 
 /**
   * @}

@@ -157,12 +157,11 @@ typedef struct
 /** @defgroup UTILS_EC_PACKAGETYPE PACKAGE TYPE
   * @{
   */
-#define LL_UTILS_PACKAGETYPE_UQFN32           0x00000000U /*!< UQFN32 package type                                 */
-#define LL_UTILS_PACKAGETYPE_UQFN48           0x00000001U /*!< UQFN48 package type                                 */
-#define LL_UTILS_PACKAGETYPE_BGA59            0x00000002U /*!< BGA59 package type                                  */
-#define LL_UTILS_PACKAGETYPE_UQFN32_SMPS      0x00000003U /*!< UQFN32 with internal SMPS package type              */
-#define LL_UTILS_PACKAGETYPE_UQFN48_SMPS      0x00000004U /*!< UQFN48 with internal SMPS package type              */
-#define LL_UTILS_PACKAGETYPE_BGA59_SMPS       0x00000005U /*!< BGA59 with internal SMPS package type               */
+#define LL_UTILS_PACKAGETYPE_UFQFPN32           0x00000000U /*!< UFQFPN32 package type                               */
+#define LL_UTILS_PACKAGETYPE_UFQFPN48           0x00000002U /*!< UFQFPN48 package type                               */
+#define LL_UTILS_PACKAGETYPE_WLCSP41_SMPS       0x00000009U /*!< WLCSP41 with internal SMPS package type             */
+#define LL_UTILS_PACKAGETYPE_UFQFPN48_SMPS      0x0000000AU /*!< UFQFPN48 with internal SMPS package type            */
+#define LL_UTILS_PACKAGETYPE_UFBGA59            0x0000000BU /*!< UFBGA59 package type                                */
 /**
   * @}
   */
@@ -223,12 +222,11 @@ __STATIC_INLINE uint32_t LL_GetFlashSize(void)
 /**
   * @brief  Get Package type
   * @retval Returned value can be one of the following values:
-  *         @arg @ref LL_UTILS_PACKAGETYPE_UQFN32
-  *         @arg @ref LL_UTILS_PACKAGETYPE_UQFN48
-  *         @arg @ref LL_UTILS_PACKAGETYPE_BGA59
-  *         @arg @ref LL_UTILS_PACKAGETYPE_UQFN32_SMPS
-  *         @arg @ref LL_UTILS_PACKAGETYPE_UQFN48_SMPS
-  *         @arg @ref LL_UTILS_PACKAGETYPE_BGA59_SMPS
+  *         @arg @ref LL_UTILS_PACKAGETYPE_UFQFPN32
+  *         @arg @ref LL_UTILS_PACKAGETYPE_UFQFPN48
+  *         @arg @ref LL_UTILS_PACKAGETYPE_WLCSP41_SMPS
+  *         @arg @ref LL_UTILS_PACKAGETYPE_UFQFPN48_SMPS
+  *         @arg @ref LL_UTILS_PACKAGETYPE_UFBGA59
   */
 __STATIC_INLINE uint32_t LL_GetPackageType(void)
 {

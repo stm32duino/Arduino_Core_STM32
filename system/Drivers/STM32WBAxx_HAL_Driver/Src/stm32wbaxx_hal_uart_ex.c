@@ -555,7 +555,7 @@ HAL_StatusTypeDef HAL_UARTEx_DisableFifoMode(UART_HandleTypeDef *huart)
   /* Disable UART */
   __HAL_UART_DISABLE(huart);
 
-  /* Enable FIFO mode */
+  /* Disable FIFO mode */
   CLEAR_BIT(tmpcr1, USART_CR1_FIFOEN);
   huart->FifoMode = UART_FIFOMODE_DISABLE;
 

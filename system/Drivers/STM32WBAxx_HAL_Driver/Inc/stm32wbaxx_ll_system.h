@@ -84,6 +84,17 @@ extern "C" {
   * @}
   */
 
+#ifdef SYSCFG_CCCSR_EN2
+/** @defgroup SYSTEM_LL_EC_CS2 SYSCFG SYSCFG VddIO2 compensation cell Code selection
+  * @{
+  */
+#define LL_SYSCFG_VDDIO2_CELL_CODE               0U               /*VDDIO2 I/Os code from the cell (available in the SYSCFG_CCVR)*/
+#define LL_SYSCFG_VDDIO2_REGISTER_CODE           SYSCFG_CCCSR_CS2 /*VDDIO2 I/Os code from the SYSCFG compensation cell code register (SYSCFG_CCCR)*/
+/**
+  * @}
+  */
+#endif /* SYSCFG_CCCSR_EN2 */
+
 /** @defgroup SYSTEM_LL_EC_ERASE_MEMORIES_STATUS SYSCFG MEMORIES ERASE
   * @{
   */
@@ -634,7 +645,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetNMOSVddCompensationValue(void)
   * @rmtoll CCCR    PCC1  LL_SYSCFG_SetPMOSVddCompensationCode
   * @param  PMOSCode PMOS compensation code
   *         This code is applied to the PMOS compensation cell when the CS1 bit of the
-  *         SYSCFG_CMPCR is set
+  *         SYSCFG_CCCSR is set
   * @retval None
   */
 __STATIC_INLINE void LL_SYSCFG_SetPMOSVddCompensationCode(uint32_t PMOSCode)
@@ -654,10 +665,10 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetPMOSVddCompensationCode(void)
 
 /**
   * @brief  Set the compensation cell code of the GPIO NMOS transistor supplied by VDD
-  * @rmtoll CCCR    PCC2  LL_SYSCFG_SetNMOSVddCompensationCode
+  * @rmtoll CCCR    NCC1  LL_SYSCFG_SetNMOSVddCompensationCode
   * @param  NMOSCode NMOS compensation code
-  *         This code is applied to the NMOS compensation cell when the CS2 bit of the
-  *         SYSCFG_CMPCR is set
+  *         This code is applied to the NMOS compensation cell when the CS1 bit of the
+  *         SYSCFG_CCCSR is set
   * @retval None
   */
 __STATIC_INLINE void LL_SYSCFG_SetNMOSVddCompensationCode(uint32_t NMOSCode)
@@ -730,7 +741,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_VddCMPCR(void)
   */
 __STATIC_INLINE void LL_SYSCFG_SetVddCellCompensationCode(uint32_t CompCode)
 {
-  SET_BIT(SYSCFG->CCCSR, CompCode);
+  MODIFY_REG(SYSCFG->CCCSR, SYSCFG_CCCSR_CS1, CompCode);
 }
 
 /**
@@ -744,6 +755,145 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetVddCellCompensationCode(void)
 {
   return (uint32_t)(READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_CS1));
 }
+
+#ifdef SYSCFG_CCCSR_EN2
+/**
+  * @brief  Get the compensation cell value of the GPIO PMOS transistor supplied by VDDIO2
+  * @rmtoll CCVR    PCV2   LL_SYSCFG_GetPMOSVddIO2CompensationValue
+  * @retval Returned value is the PMOS compensation cell
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetPMOSVddIO2CompensationValue(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCVR, SYSCFG_CCVR_PCV2));
+}
+
+/**
+  * @brief  Get the compensation cell value of the GPIO NMOS transistor supplied by VDDIO2
+  * @rmtoll CCVR    NCV2   LL_SYSCFG_GetNMOSVddIO2CompensationValue
+  * @retval Returned value is the NMOS compensation cell
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetNMOSVddIO2CompensationValue(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCVR, SYSCFG_CCVR_NCV2));
+}
+
+
+/**
+  * @brief  Set the compensation cell code of the GPIO PMOS transistor supplied by VDDIO2
+  * @rmtoll CCCR    PCC2  LL_SYSCFG_SetPMOSVddIO2CompensationCode
+  * @param  PMOSCode PMOS compensation code
+  *         This code is applied to the PMOS compensation cell when the CS2 bit of the
+  *         SYSCFG_CCCSR is set
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_SetPMOSVddIO2CompensationCode(uint32_t PMOSCode)
+{
+  MODIFY_REG(SYSCFG->CCCR, SYSCFG_CCCR_PCC2, PMOSCode << SYSCFG_CCCR_PCC2_Pos);
+}
+
+/**
+  * @brief  Get the compensation cell code of the GPIO PMOS transistor supplied by VDDIO2
+  * @rmtoll CCCR    PCC2   LL_SYSCFG_GetPMOSVddIO2CompensationCode
+  * @retval Returned value is the PMOS compensation cell
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetPMOSVddIO2CompensationCode(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCCR, SYSCFG_CCCR_PCC2));
+}
+
+/**
+  * @brief  Set the compensation cell code of the GPIO NMOS transistor supplied by VDDIO2
+  * @rmtoll CCCR    NCC2  LL_SYSCFG_SetNMOSVddIO2CompensationCode
+  * @param  NMOSCode NMOS compensation code
+  *         This code is applied to the NMOS compensation cell when the CS2 bit of the
+  *         SYSCFG_CCCSR is set
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_SetNMOSVddIO2CompensationCode(uint32_t NMOSCode)
+{
+  MODIFY_REG(SYSCFG->CCCR, SYSCFG_CCCR_NCC2, NMOSCode << SYSCFG_CCCR_NCC2_Pos);
+}
+
+/**
+  * @brief  Get the compensation cell code of the GPIO NMOS transistor supplied by VDDIO2
+  * @rmtoll CCCR    NCC2   LL_SYSCFG_GetNMOSVddIO2CompensationCode
+  * @retval Returned value is the VddIO2 compensation cell code for NMOS transistors
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetNMOSVddIO2CompensationCode(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCCR, SYSCFG_CCCR_NCC2));
+}
+
+/**
+  * @brief  Enable the Compensation Cell of GPIO supplied by VDDIO2
+  * @rmtoll CCCSR   EN2    LL_SYSCFG_EnableVddIO2CompensationCell
+  * @note   The VddIO2 compensation cell can be used only when the device supply
+  *         voltage ranges from 1.71 to 3.6 V
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_EnableVddIO2CompensationCell(void)
+{
+  SET_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN2);
+}
+
+/**
+  * @brief  Disable the Compensation Cell of GPIO supplied by VDDIO2
+  * @rmtoll CCCSR   EN2    LL_SYSCFG_EnableVddIO2CompensationCell
+  * @note   The VddIO2 compensation cell can be used only when the device supply
+  *         voltage ranges from 1.71 to 3.6 V
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_DisableVddIO2CompensationCell(void)
+{
+  CLEAR_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN2);
+}
+
+/**
+  * @brief  Check if the Compensation Cell of GPIO supplied by VDDIO2 is enable
+  * @rmtoll CCCSR   EN2    LL_SYSCFG_IsEnabled_VddIO2CompensationCell
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsEnabled_VddIO2CompensationCell(void)
+{
+  return ((READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN2) == SYSCFG_CCCSR_EN2) ? 1UL : 0UL);
+}
+
+/**
+  * @brief  Get Compensation Cell ready Flag of GPIO supplied by VDDIO2
+  * @rmtoll CCCSR   RDY2   LL_SYSCFG_IsActiveFlag_VddIO2CMPCR
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_VddIO2CMPCR(void)
+{
+  return ((READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_RDY2) == (SYSCFG_CCCSR_RDY2)) ? 1UL : 0UL);
+}
+
+/**
+  * @brief  Set the compensation cell code selection of GPIO supplied by VDDIO2
+  * @rmtoll CCCSR   CS2    LL_SYSCFG_SetVddIO2CellCompensationCode
+  * @param  CompCode: Selects the code to be applied for the VddIO2 compensation cell
+  *   This parameter can be one of the following values:
+  *   @arg LL_SYSCFG_VDDIO2_CELL_CODE : Select Code from the cell (available in the SYSCFG_CCVR)
+  *   @arg LL_SYSCFG_VDDIO2_REGISTER_CODE: Select Code from the SYSCFG compensation cell code register (SYSCFG_CCCR)
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_SetVddIO2CellCompensationCode(uint32_t CompCode)
+{
+  MODIFY_REG(SYSCFG->CCCSR, SYSCFG_CCCSR_CS2, CompCode);
+}
+
+/**
+  * @brief  Get the compensation cell code selection of GPIO supplied by VDDIO2
+  * @rmtoll CCCSR   CS2    LL_SYSCFG_GetVddIO2CellCompensationCode
+  * @retval Returned value can be one of the following values:
+  *   @arg LL_SYSCFG_VDDIO2_CELL_CODE : Selected Code is from the cell (available in the SYSCFG_CCVR)
+  *   @arg LL_SYSCFG_VDDIO2_REGISTER_CODE: Selected Code is from the SYSCFG compensation cell code register (SYSCFG_CCCR)
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetVddIO2CellCompensationCode(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_CS2));
+}
+#endif /* SYSCFG_CCCSR_EN2 */
 
 /**
   * @}

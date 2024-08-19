@@ -48,6 +48,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+
 /* Private macros ------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
@@ -559,6 +560,16 @@ void HAL_DBGMCU_DisableDBGStandbyMode(void)
  ===============================================================================
     [..]  This section provides functions allowing to:
       (+) Enable/Disable the I/O analog switch voltage booster
+      (+) Configure the Voltage reference buffer
+      (+) Enable/Disable the Voltage reference buffer
+      (+) Enable/Disbale the OTG PHY
+      (+) Configure the OTG PHY power down
+      (+) Select the OTG PHY reference clock
+      (+) Configure the OTG PHY disconnect/squelch threshold
+      (+) Configure the OTG PHY transmitter pre-emphasis current
+      (+) Enable/Disable the compensation cell
+      (+) Get the compensation cell ready status
+      (+) Configure/Get the code selection for the compensation cell
 
 @endverbatim
   * @{
@@ -571,7 +582,7 @@ void HAL_DBGMCU_DisableDBGStandbyMode(void)
   */
 void HAL_SYSCFG_EnableIOAnalogSwitchBooster(void)
 {
-  SET_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_BOOSTEN);
+  MODIFY_REG(SYSCFG->CFGR1, (SYSCFG_CFGR1_BOOSTEN | SYSCFG_CFGR1_ANASWVDD), SYSCFG_CFGR1_BOOSTEN);
 }
 
 /**
@@ -582,6 +593,237 @@ void HAL_SYSCFG_EnableIOAnalogSwitchBooster(void)
 void HAL_SYSCFG_DisableIOAnalogSwitchBooster(void)
 {
   CLEAR_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_BOOSTEN);
+}
+
+/**
+  * @brief  Enable the I/O analog switch supplied by VDD
+  * @note   To be used when I/O analog switch voltage booster is not enabled
+  * @retval None
+  */
+void HAL_SYSCFG_EnableIOAnalogSwitchVdd(void)
+{
+  MODIFY_REG(SYSCFG->CFGR1, (SYSCFG_CFGR1_BOOSTEN | SYSCFG_CFGR1_ANASWVDD), SYSCFG_CFGR1_ANASWVDD);
+}
+
+/**
+  * @brief  Disable the I/O analog switch supplied by VDD
+  * @retval None
+  */
+void HAL_SYSCFG_DisableIOAnalogSwitchVdd(void)
+{
+  CLEAR_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_ANASWVDD);
+}
+
+
+#ifdef SYSCFG_OTGHSPHYCR_EN
+/**
+  * @brief  Enable the OTG PHY .
+  * @param  OTGPHYConfig Defines the OTG PHY configuration.
+            This parameter can be one of @ref SYSCFG_OTG_PHY_Enable
+  * @retval None
+  */
+void HAL_SYSCFG_EnableOTGPHY(uint32_t OTGPHYConfig)
+{
+  /* Check the parameter */
+  assert_param(IS_SYSCFG_OTGPHY_CONFIG(OTGPHYConfig));
+
+  MODIFY_REG(SYSCFG->OTGHSPHYCR, SYSCFG_OTGHSPHYCR_EN, OTGPHYConfig);
+}
+
+/**
+  * @brief  Set the OTG PHY Power Down config.
+  * @param  PowerDownConfig Defines the OTG PHY Power down configuration.
+            This parameter can be one of @ref SYSCFG_OTG_PHY_PowerDown
+  * @retval None
+  */
+void HAL_SYSCFG_SetOTGPHYPowerDownConfig(uint32_t PowerDownConfig)
+{
+  /* Check the parameter */
+  assert_param(IS_SYSCFG_OTGPHY_POWERDOWN_CONFIG(PowerDownConfig));
+
+  MODIFY_REG(SYSCFG->OTGHSPHYCR, SYSCFG_OTGHSPHYCR_PDCTRL, PowerDownConfig);
+}
+
+/**
+  * @brief  Set the OTG PHY reference clock selection.
+  * @param  RefClkSelection Defines the OTG PHY reference clock selection.
+            This parameter can be one of the @ref SYSCFG_OTG_PHY_RefenceClockSelection
+  * @retval None
+  */
+void HAL_SYSCFG_SetOTGPHYReferenceClockSelection(uint32_t RefClkSelection)
+{
+  /* Check the parameter */
+  assert_param(IS_SYSCFG_OTGPHY_REFERENCE_CLOCK(RefClkSelection));
+
+  MODIFY_REG(SYSCFG->OTGHSPHYCR, SYSCFG_OTGHSPHYCR_CLKSEL, RefClkSelection);
+}
+
+/**
+  * @brief  Set the OTG PHY Disconnect Threshold.
+  * @param  DisconnectThreshold Defines the voltage level for the threshold used to detect a disconnect event.
+            This parameter can be one of the @ref SYSCFG_OTG_PHYTUNER_DisconnectThreshold
+  * @retval None
+  */
+void HAL_SYSCFG_SetOTGPHYDisconnectThreshold(uint32_t DisconnectThreshold)
+{
+  /* Check the parameter */
+  assert_param(IS_SYSCFG_OTGPHY_DISCONNECT(DisconnectThreshold));
+
+  MODIFY_REG(SYSCFG->OTGHSPHYTUNER2, SYSCFG_OTGHSPHYTUNER2_COMPDISTUNE, DisconnectThreshold);
+}
+
+/**
+  * @brief  Set the OTG PHY Squelch Threshold.
+  * @param  SquelchThreshold Defines the voltage level.
+            This parameter can be onez of the @ref SYSCFG_OTG_PHYTUNER_SquelchThreshold
+
+  * @retval None
+  */
+void HAL_SYSCFG_SetOTGPHYSquelchThreshold(uint32_t SquelchThreshold)
+{
+  /* Check the parameter */
+  assert_param(IS_SYSCFG_OTGPHY_SQUELCH(SquelchThreshold));
+
+  MODIFY_REG(SYSCFG->OTGHSPHYTUNER2, SYSCFG_OTGHSPHYTUNER2_SQRXTUNE, SquelchThreshold);
+}
+
+/**
+  * @brief  Set the OTG PHY transmitter pre-emphasis current.
+  * @param  PreemphasisCurrent Defines the current configuration.
+            This parameter can be one of the @ref SYSCFG_OTG_PHYTUNER_PreemphasisCurrent
+
+  * @retval None
+  */
+void HAL_SYSCFG_SetOTGPHYPreemphasisCurrent(uint32_t PreemphasisCurrent)
+{
+  /* Check the parameter */
+  assert_param(IS_SYSCFG_OTGPHY_PREEMPHASIS(PreemphasisCurrent));
+
+  MODIFY_REG(SYSCFG->OTGHSPHYTUNER2, SYSCFG_OTGHSPHYTUNER2_TXPREEMPAMPTUNE, PreemphasisCurrent);
+}
+#endif /* SYSCFG_OTGHSPHYCR_EN */
+
+/**
+  * @brief  Enable the compensation cell
+  * @param  Selection specifies the concerned compensation cell
+  *         This parameter can the combination of the following values:
+  *            @arg SYSCFG_IO_CELL Compensation cell for the VDD I/O power rail
+  *            @arg SYSCFG_IO2_CELL Compensation cell for the VDDIO2 I/O power rail
+  * @retval None
+  */
+void HAL_SYSCFG_EnableCompensationCell(uint32_t Selection)
+{
+  /* Check the parameter */
+  assert_param(IS_SYSCFG_COMPENSATION_CELL(Selection));
+
+  SET_BIT(SYSCFG->CCCSR, Selection);
+}
+
+/**
+  * @brief  Disable the compensation cell
+  * @param  Selection specifies the concerned compensation cell
+  *         This parameter can the combination of the following values:
+  *            @arg SYSCFG_IO_CELL Compensation cell for the VDD I/O power rail
+  *            @arg SYSCFG_IO2_CELL Compensation cell for the VDDIO2 I/O power rail
+  * @retval None
+  */
+void HAL_SYSCFG_DisableCompensationCell(uint32_t Selection)
+{
+  /* Check the parameter */
+  assert_param(IS_SYSCFG_COMPENSATION_CELL(Selection));
+
+  MODIFY_REG(SYSCFG->CCCSR, Selection, 0U);
+}
+
+/**
+  * @brief  Get the compensation cell ready status
+  * @param  Selection specifies the concerned compensation cell
+  *         This parameter can one of the following values:
+  *            @arg SYSCFG_IO_CELL_READY Compensation cell for the VDD I/O power rail
+  *            @arg SYSCFG_IO2_CELL_READY Compensation cell for the VDDIO2 I/O power rail
+  * @retval Ready status (1 or 0)
+  */
+uint32_t HAL_SYSCFG_GetCompensationCellReadyStatus(uint32_t Selection)
+{
+  /* Check the parameter */
+  assert_param(IS_SYSCFG_COMPENSATION_CELL_READY(Selection));
+
+  return (((SYSCFG->CCCSR & Selection) == 0U) ? 0UL : 1UL);
+}
+
+/**
+  * @brief  Configure the code selection for the compensation cell
+  * @param  Selection specifies the concerned compensation cell
+  *         This parameter can one of the following values:
+  *            @arg SYSCFG_IO_CELL Compensation cell for the VDD I/O power rail
+  *            @arg SYSCFG_IO2_CELL Compensation cell for the VDDIO2 I/O power rail
+  * @param  Code code selection to be applied for the I/O compensation cell
+  *         This parameter can be one of the following values:
+  *            @arg SYSCFG_IO_CELL_CODE  Code from the cell (available in the SYSCFG_CCVR)
+  *            @arg SYSCFG_IO_REGISTER_CODE Code from the compensation cell code register (SYSCFG_CCCR)
+  * @param  NmosValue In case SYSCFG_IO_REGISTER_CODE is selected, it  provides the Nmos value
+  *                   to apply in range 0 to 15 else this parameter is not used
+  * @param  PmosValue In case SYSCFG_IO_REGISTER_CODE is selected, it  provides the Pmos value
+  *                   to apply in range 0 to 15 else this parameter is not used
+  * @retval None
+  */
+void HAL_SYSCFG_ConfigCompensationCell(uint32_t Selection, uint32_t Code, uint32_t NmosValue, uint32_t PmosValue)
+{
+  uint32_t offset;
+
+  /* Check the parameters */
+  assert_param(IS_SYSCFG_COMPENSATION_CELL(Selection));
+  assert_param(IS_SYSCFG_COMPENSATION_CELL_CODE(Code));
+
+  if (Code == SYSCFG_IO_REGISTER_CODE)
+  {
+    /* Check the parameters */
+    assert_param(IS_SYSCFG_COMPENSATION_CELL_NMOS_VALUE(NmosValue));
+    assert_param(IS_SYSCFG_COMPENSATION_CELL_PMOS_VALUE(PmosValue));
+
+    offset = ((Selection == SYSCFG_IO_CELL) ? 0U : 8U);
+
+    MODIFY_REG(SYSCFG->CCCR, (0xFFU << offset), ((NmosValue << offset) | (PmosValue << (offset + 4U))));
+  }
+
+  MODIFY_REG(SYSCFG->CCCSR, (Selection << 1U), (Code << (POSITION_VAL(Selection) + 1U)));
+}
+
+/**
+  * @brief  Get the code selection for the compensation cell
+  * @param  Selection specifies the concerned compensation cell
+  *         This parameter can one of the following values:
+  *            @arg SYSCFG_IO_CELL Compensation cell for the VDD I/O power rail
+  *            @arg SYSCFG_IO2_CELL Compensation cell for the VDDIO2 I/O power rail
+  * @param  pCode pointer code selection
+  *         This parameter can be one of the following values:
+  *            @arg SYSCFG_IO_CELL_CODE  Code from the cell (available in the SYSCFG_CCVR)
+  *            @arg SYSCFG_IO_REGISTER_CODE Code from the compensation cell code register (SYSCFG_CCCR)
+  * @param  pNmosValue pointer to the Nmos value in range 0 to 15
+  * @param  pPmosValue pointer to the Pmos value in range 0 to 15
+  * @retval  HAL_OK (all values available) or HAL_ERROR (check parameters)
+  */
+HAL_StatusTypeDef HAL_SYSCFG_GetCompensationCell(uint32_t Selection, uint32_t *pCode, uint32_t *pNmosValue,
+                                              uint32_t *pPmosValue)
+{
+  uint32_t reg;
+  uint32_t offset;
+  HAL_StatusTypeDef status = HAL_ERROR;
+
+  /* Check parameters */
+  if ((pCode != NULL) && (pNmosValue != NULL) && (pPmosValue != NULL))
+  {
+    *pCode = ((SYSCFG->CCCSR & (Selection << 1U)) == 0U) ? SYSCFG_IO_CELL_CODE : SYSCFG_IO_REGISTER_CODE;
+
+    reg = (*pCode == SYSCFG_IO_CELL_CODE) ? (SYSCFG->CCVR) : (SYSCFG->CCCR);
+    offset = ((Selection == SYSCFG_IO_CELL) ? 0U : 8U);
+
+    *pNmosValue = ((reg >> offset) & 0xFU);
+    *pPmosValue = ((reg >> (offset + 4U)) & 0xFU);
+
+    status = HAL_OK;
+  }
+  return status;
 }
 
 /**
