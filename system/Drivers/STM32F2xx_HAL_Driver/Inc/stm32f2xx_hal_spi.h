@@ -107,7 +107,7 @@ typedef struct __SPI_HandleTypeDef
 
   SPI_InitTypeDef            Init;           /*!< SPI communication parameters             */
 
-  uint8_t                    *pTxBuffPtr;    /*!< Pointer to SPI Tx transfer Buffer        */
+  const uint8_t              *pTxBuffPtr;    /*!< Pointer to SPI Tx transfer Buffer        */
 
   uint16_t                   TxXferSize;     /*!< SPI Tx Transfer size                     */
 
@@ -339,11 +339,12 @@ typedef  void (*pSPI_CallbackTypeDef)(SPI_HandleTypeDef *hspi); /*!< pointer to 
   * @retval None
   */
 #if (USE_HAL_SPI_REGISTER_CALLBACKS == 1U)
-#define __HAL_SPI_RESET_HANDLE_STATE(__HANDLE__)                do{                                                  \
-                                                                    (__HANDLE__)->State = HAL_SPI_STATE_RESET;       \
-                                                                    (__HANDLE__)->MspInitCallback = NULL;            \
-                                                                    (__HANDLE__)->MspDeInitCallback = NULL;          \
-                                                                  } while(0)
+#define __HAL_SPI_RESET_HANDLE_STATE(__HANDLE__)      \
+  do{                                                 \
+    (__HANDLE__)->State = HAL_SPI_STATE_RESET;        \
+    (__HANDLE__)->MspInitCallback = NULL;             \
+    (__HANDLE__)->MspDeInitCallback = NULL;           \
+  } while(0)
 #else
 #define __HAL_SPI_RESET_HANDLE_STATE(__HANDLE__) ((__HANDLE__)->State = HAL_SPI_STATE_RESET)
 #endif /* USE_HAL_SPI_REGISTER_CALLBACKS */
@@ -444,7 +445,7 @@ typedef  void (*pSPI_CallbackTypeDef)(SPI_HandleTypeDef *hspi); /*!< pointer to 
     __IO uint32_t tmpreg_fre = 0x00U;              \
     tmpreg_fre = (__HANDLE__)->Instance->SR;       \
     UNUSED(tmpreg_fre);                            \
-  }while(0U)
+  } while(0U)
 
 /** @brief  Enable the SPI peripheral.
   * @param  __HANDLE__ specifies the SPI Handle.
@@ -488,8 +489,11 @@ typedef  void (*pSPI_CallbackTypeDef)(SPI_HandleTypeDef *hspi); /*!< pointer to 
   *         This parameter can be SPI where x: 1, 2, or 3 to select the SPI peripheral.
   * @retval None
   */
-#define SPI_RESET_CRC(__HANDLE__) do{CLEAR_BIT((__HANDLE__)->Instance->CR1, SPI_CR1_CRCEN);\
-                                       SET_BIT((__HANDLE__)->Instance->CR1, SPI_CR1_CRCEN);}while(0U)
+#define SPI_RESET_CRC(__HANDLE__)                           \
+  do{                                                       \
+    CLEAR_BIT((__HANDLE__)->Instance->CR1, SPI_CR1_CRCEN);  \
+    SET_BIT((__HANDLE__)->Instance->CR1, SPI_CR1_CRCEN);    \
+  } while(0U)
 
 /** @brief  Check whether the specified SPI flag is set or not.
   * @param  __SR__  copy of SPI SR register.
@@ -505,7 +509,7 @@ typedef  void (*pSPI_CallbackTypeDef)(SPI_HandleTypeDef *hspi); /*!< pointer to 
   * @retval SET or RESET.
   */
 #define SPI_CHECK_FLAG(__SR__, __FLAG__) ((((__SR__) & ((__FLAG__) & SPI_FLAG_MASK)) == \
-                                          ((__FLAG__) & SPI_FLAG_MASK)) ? SET : RESET)
+                                           ((__FLAG__) & SPI_FLAG_MASK)) ? SET : RESET)
 
 /** @brief  Check whether the specified SPI Interrupt is set or not.
   * @param  __CR2__  copy of SPI CR2 register.
@@ -517,7 +521,7 @@ typedef  void (*pSPI_CallbackTypeDef)(SPI_HandleTypeDef *hspi); /*!< pointer to 
   * @retval SET or RESET.
   */
 #define SPI_CHECK_IT_SOURCE(__CR2__, __INTERRUPT__) ((((__CR2__) & (__INTERRUPT__)) == \
-                                                     (__INTERRUPT__)) ? SET : RESET)
+                                                      (__INTERRUPT__)) ? SET : RESET)
 
 /** @brief  Checks if SPI Mode parameter is in allowed range.
   * @param  __MODE__ specifies the SPI Mode.
@@ -627,7 +631,7 @@ typedef  void (*pSPI_CallbackTypeDef)(SPI_HandleTypeDef *hspi); /*!< pointer to 
   */
 #define IS_SPI_CRC_POLYNOMIAL(__POLYNOMIAL__) (((__POLYNOMIAL__) >= 0x1U)    && \
                                                ((__POLYNOMIAL__) <= 0xFFFFU) && \
-                                              (((__POLYNOMIAL__)&0x1U) != 0U))
+                                               (((__POLYNOMIAL__)&0x1U) != 0U))
 
 /** @brief  Checks if DMA handle is valid.
   * @param  __HANDLE__ specifies a DMA Handle.
@@ -667,17 +671,17 @@ HAL_StatusTypeDef HAL_SPI_UnRegisterCallback(SPI_HandleTypeDef *hspi, HAL_SPI_Ca
   * @{
   */
 /* I/O operation functions  ***************************************************/
-HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size, uint32_t Timeout);
+HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
 HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size, uint32_t Timeout);
-HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxData, uint8_t *pRxData, uint16_t Size,
-                                          uint32_t Timeout);
-HAL_StatusTypeDef HAL_SPI_Transmit_IT(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size);
+HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, const uint8_t *pTxData, uint8_t *pRxData,
+                                          uint16_t Size, uint32_t Timeout);
+HAL_StatusTypeDef HAL_SPI_Transmit_IT(SPI_HandleTypeDef *hspi, const uint8_t *pData, uint16_t Size);
 HAL_StatusTypeDef HAL_SPI_Receive_IT(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size);
-HAL_StatusTypeDef HAL_SPI_TransmitReceive_IT(SPI_HandleTypeDef *hspi, uint8_t *pTxData, uint8_t *pRxData,
+HAL_StatusTypeDef HAL_SPI_TransmitReceive_IT(SPI_HandleTypeDef *hspi, const uint8_t *pTxData, uint8_t *pRxData,
                                              uint16_t Size);
-HAL_StatusTypeDef HAL_SPI_Transmit_DMA(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size);
+HAL_StatusTypeDef HAL_SPI_Transmit_DMA(SPI_HandleTypeDef *hspi, const uint8_t *pData, uint16_t Size);
 HAL_StatusTypeDef HAL_SPI_Receive_DMA(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size);
-HAL_StatusTypeDef HAL_SPI_TransmitReceive_DMA(SPI_HandleTypeDef *hspi, uint8_t *pTxData, uint8_t *pRxData,
+HAL_StatusTypeDef HAL_SPI_TransmitReceive_DMA(SPI_HandleTypeDef *hspi, const uint8_t *pTxData, uint8_t *pRxData,
                                               uint16_t Size);
 HAL_StatusTypeDef HAL_SPI_DMAPause(SPI_HandleTypeDef *hspi);
 HAL_StatusTypeDef HAL_SPI_DMAResume(SPI_HandleTypeDef *hspi);
@@ -703,8 +707,8 @@ void HAL_SPI_AbortCpltCallback(SPI_HandleTypeDef *hspi);
   * @{
   */
 /* Peripheral State and Error functions ***************************************/
-HAL_SPI_StateTypeDef HAL_SPI_GetState(SPI_HandleTypeDef *hspi);
-uint32_t             HAL_SPI_GetError(SPI_HandleTypeDef *hspi);
+HAL_SPI_StateTypeDef HAL_SPI_GetState(const SPI_HandleTypeDef *hspi);
+uint32_t             HAL_SPI_GetError(const SPI_HandleTypeDef *hspi);
 /**
   * @}
   */

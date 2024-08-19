@@ -184,7 +184,7 @@ extern HAL_TickFreqTypeDef uwTickFreq;
   */
 /* Peripheral Control functions  ************************************************/
 void HAL_IncTick(void);
-void HAL_Delay(__IO uint32_t Delay);
+void HAL_Delay(uint32_t Delay);
 uint32_t HAL_GetTick(void);
 uint32_t HAL_GetTickPrio(void);
 HAL_StatusTypeDef HAL_SetTickFreq(HAL_TickFreqTypeDef Freq);

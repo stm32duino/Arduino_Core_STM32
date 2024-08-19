@@ -835,7 +835,7 @@ HAL_StatusTypeDef HAL_TIMEx_OCN_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Channe
 
     /* Disable the TIM Break interrupt (only if no more channel is active) */
     tmpccer = htim->Instance->CCER;
-    if ((tmpccer & (TIM_CCER_CC1NE | TIM_CCER_CC2NE | TIM_CCER_CC3NE)) == (uint32_t)RESET)
+    if ((tmpccer & TIM_CCER_CCxNE_MASK) == (uint32_t)RESET)
     {
       __HAL_TIM_DISABLE_IT(htim, TIM_IT_BREAK);
     }
@@ -1081,17 +1081,6 @@ HAL_StatusTypeDef HAL_TIMEx_OCN_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Chann
     (+) Stop the Complementary PWM and disable interrupts.
     (+) Start the Complementary PWM and enable DMA transfers.
     (+) Stop the Complementary PWM and disable DMA transfers.
-    (+) Start the Complementary Input Capture measurement.
-    (+) Stop the Complementary Input Capture.
-    (+) Start the Complementary Input Capture and enable interrupts.
-    (+) Stop the Complementary Input Capture and disable interrupts.
-    (+) Start the Complementary Input Capture and enable DMA transfers.
-    (+) Stop the Complementary Input Capture and disable DMA transfers.
-    (+) Start the Complementary One Pulse generation.
-    (+) Stop the Complementary One Pulse.
-    (+) Start the Complementary One Pulse and enable interrupts.
-    (+) Stop the Complementary One Pulse and disable interrupts.
-
 @endverbatim
   * @{
   */
@@ -1317,7 +1306,7 @@ HAL_StatusTypeDef HAL_TIMEx_PWMN_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Chann
 
     /* Disable the TIM Break interrupt (only if no more channel is active) */
     tmpccer = htim->Instance->CCER;
-    if ((tmpccer & (TIM_CCER_CC1NE | TIM_CCER_CC2NE | TIM_CCER_CC3NE)) == (uint32_t)RESET)
+    if ((tmpccer & TIM_CCER_CCxNE_MASK) == (uint32_t)RESET)
     {
       __HAL_TIM_DISABLE_IT(htim, TIM_IT_BREAK);
     }
@@ -2122,7 +2111,7 @@ HAL_StatusTypeDef HAL_TIMEx_RemapConfig(TIM_HandleTypeDef *htim, uint32_t Remap)
   */
 
 /**
-  * @brief  Hall commutation changed callback in non-blocking mode
+  * @brief  Commutation callback in non-blocking mode
   * @param  htim TIM handle
   * @retval None
   */
@@ -2136,7 +2125,7 @@ __weak void HAL_TIMEx_CommutCallback(TIM_HandleTypeDef *htim)
    */
 }
 /**
-  * @brief  Hall commutation changed half complete callback in non-blocking mode
+  * @brief  Commutation half complete callback in non-blocking mode
   * @param  htim TIM handle
   * @retval None
   */
@@ -2151,7 +2140,7 @@ __weak void HAL_TIMEx_CommutHalfCpltCallback(TIM_HandleTypeDef *htim)
 }
 
 /**
-  * @brief  Hall Break detection callback in non-blocking mode
+  * @brief  Break detection callback in non-blocking mode
   * @param  htim TIM handle
   * @retval None
   */
@@ -2302,15 +2291,6 @@ static void TIM_DMADelayPulseNCplt(DMA_HandleTypeDef *hdma)
       TIM_CHANNEL_N_STATE_SET(htim, TIM_CHANNEL_3, HAL_TIM_CHANNEL_STATE_READY);
     }
   }
-  else if (hdma == htim->hdma[TIM_DMA_ID_CC4])
-  {
-    htim->Channel = HAL_TIM_ACTIVE_CHANNEL_4;
-
-    if (hdma->Init.Mode == DMA_NORMAL)
-    {
-      TIM_CHANNEL_N_STATE_SET(htim, TIM_CHANNEL_4, HAL_TIM_CHANNEL_STATE_READY);
-    }
-  }
   else
   {
     /* nothing to do */
@@ -2379,13 +2359,13 @@ static void TIM_CCxNChannelCmd(TIM_TypeDef *TIMx, uint32_t Channel, uint32_t Cha
 {
   uint32_t tmp;
 
-  tmp = TIM_CCER_CC1NE << (Channel & 0x1FU); /* 0x1FU = 31 bits max shift */
+  tmp = TIM_CCER_CC1NE << (Channel & 0xFU); /* 0xFU = 15 bits max shift */
 
   /* Reset the CCxNE Bit */
   TIMx->CCER &=  ~tmp;
 
   /* Set or reset the CCxNE Bit */
-  TIMx->CCER |= (uint32_t)(ChannelNState << (Channel & 0x1FU)); /* 0x1FU = 31 bits max shift */
+  TIMx->CCER |= (uint32_t)(ChannelNState << (Channel & 0xFU)); /* 0xFU = 15 bits max shift */
 }
 /**
   * @}

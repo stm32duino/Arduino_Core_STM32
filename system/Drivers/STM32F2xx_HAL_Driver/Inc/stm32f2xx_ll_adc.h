@@ -1656,18 +1656,17 @@ typedef struct
                                              __TEMPSENSOR_CALX_TEMP__,\
                                              __VREFANALOG_VOLTAGE__,\
                                              __TEMPSENSOR_ADC_DATA__,\
-                                             __ADC_RESOLUTION__)               \
-  ((( (                                                                        \
-       (int32_t)(((__TEMPSENSOR_TYP_CALX_V__))                                 \
-                 * 1000)                                                       \
-       -                                                                       \
-       (int32_t)((((__TEMPSENSOR_ADC_DATA__) * (__VREFANALOG_VOLTAGE__))       \
-                  / __LL_ADC_DIGITAL_SCALE(__ADC_RESOLUTION__))                \
-                 * 1000)                                                       \
-      )                                                                        \
-    ) / (__TEMPSENSOR_TYP_AVGSLOPE__)                                          \
-   ) + (__TEMPSENSOR_CALX_TEMP__)                                              \
-  )
+                                             __ADC_RESOLUTION__)            \
+(((((int32_t)((((__TEMPSENSOR_ADC_DATA__) * (__VREFANALOG_VOLTAGE__))       \
+               / __LL_ADC_DIGITAL_SCALE(__ADC_RESOLUTION__))                \
+              * 1000UL)                                                     \
+    -                                                                       \
+    (int32_t)(((__TEMPSENSOR_TYP_CALX_V__))                                 \
+              * 1000UL)                                                     \
+   )                                                                        \
+  ) / (int32_t)(__TEMPSENSOR_TYP_AVGSLOPE__)                                \
+ ) + (int32_t)(__TEMPSENSOR_CALX_TEMP__)                                    \
+)
 
 /**
   * @}

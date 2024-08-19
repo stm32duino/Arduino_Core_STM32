@@ -345,7 +345,7 @@ typedef struct
   * @}
   */
 
-/** @defgroup USART_LL_EM_Exported_Macros_Helper Exported_Macros_Helper
+/** @defgroup USART_LL_EM_Exported_Macros_Helper Exported Macros Helper
   * @{
   */
 
@@ -632,7 +632,7 @@ __STATIC_INLINE uint32_t LL_USART_GetOverSampling(const USART_TypeDef *USARTx)
 
 /**
   * @brief  Configure if Clock pulse of the last data bit is output to the SCLK pin or not
-  * @note   Macro @ref IS_USART_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_USART_INSTANCE(USARTx) can be used to check whether or not
   *         Synchronous mode is supported by the USARTx instance.
   * @rmtoll CR2          LBCL          LL_USART_SetLastClkPulseOutput
   * @param  USARTx USART Instance
@@ -649,7 +649,7 @@ __STATIC_INLINE void LL_USART_SetLastClkPulseOutput(USART_TypeDef *USARTx, uint3
 /**
   * @brief  Retrieve Clock pulse of the last data bit output configuration
   *         (Last bit Clock pulse output to the SCLK pin or not)
-  * @note   Macro @ref IS_USART_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_USART_INSTANCE(USARTx) can be used to check whether or not
   *         Synchronous mode is supported by the USARTx instance.
   * @rmtoll CR2          LBCL          LL_USART_GetLastClkPulseOutput
   * @param  USARTx USART Instance
@@ -664,7 +664,7 @@ __STATIC_INLINE uint32_t LL_USART_GetLastClkPulseOutput(const USART_TypeDef *USA
 
 /**
   * @brief  Select the phase of the clock output on the SCLK pin in synchronous mode
-  * @note   Macro @ref IS_USART_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_USART_INSTANCE(USARTx) can be used to check whether or not
   *         Synchronous mode is supported by the USARTx instance.
   * @rmtoll CR2          CPHA          LL_USART_SetClockPhase
   * @param  USARTx USART Instance
@@ -680,7 +680,7 @@ __STATIC_INLINE void LL_USART_SetClockPhase(USART_TypeDef *USARTx, uint32_t Cloc
 
 /**
   * @brief  Return phase of the clock output on the SCLK pin in synchronous mode
-  * @note   Macro @ref IS_USART_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_USART_INSTANCE(USARTx) can be used to check whether or not
   *         Synchronous mode is supported by the USARTx instance.
   * @rmtoll CR2          CPHA          LL_USART_GetClockPhase
   * @param  USARTx USART Instance
@@ -695,7 +695,7 @@ __STATIC_INLINE uint32_t LL_USART_GetClockPhase(const USART_TypeDef *USARTx)
 
 /**
   * @brief  Select the polarity of the clock output on the SCLK pin in synchronous mode
-  * @note   Macro @ref IS_USART_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_USART_INSTANCE(USARTx) can be used to check whether or not
   *         Synchronous mode is supported by the USARTx instance.
   * @rmtoll CR2          CPOL          LL_USART_SetClockPolarity
   * @param  USARTx USART Instance
@@ -711,7 +711,7 @@ __STATIC_INLINE void LL_USART_SetClockPolarity(USART_TypeDef *USARTx, uint32_t C
 
 /**
   * @brief  Return polarity of the clock output on the SCLK pin in synchronous mode
-  * @note   Macro @ref IS_USART_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_USART_INSTANCE(USARTx) can be used to check whether or not
   *         Synchronous mode is supported by the USARTx instance.
   * @rmtoll CR2          CPOL          LL_USART_GetClockPolarity
   * @param  USARTx USART Instance
@@ -726,7 +726,7 @@ __STATIC_INLINE uint32_t LL_USART_GetClockPolarity(const USART_TypeDef *USARTx)
 
 /**
   * @brief  Configure Clock signal format (Phase Polarity and choice about output of last bit clock pulse)
-  * @note   Macro @ref IS_USART_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_USART_INSTANCE(USARTx) can be used to check whether or not
   *         Synchronous mode is supported by the USARTx instance.
   * @note   Call of this function is equivalent to following function call sequence :
   *         - Clock Phase configuration using @ref LL_USART_SetClockPhase() function
@@ -754,7 +754,7 @@ __STATIC_INLINE void LL_USART_ConfigClock(USART_TypeDef *USARTx, uint32_t Phase,
 
 /**
   * @brief  Enable Clock output on SCLK pin
-  * @note   Macro @ref IS_USART_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_USART_INSTANCE(USARTx) can be used to check whether or not
   *         Synchronous mode is supported by the USARTx instance.
   * @rmtoll CR2          CLKEN         LL_USART_EnableSCLKOutput
   * @param  USARTx USART Instance
@@ -767,7 +767,7 @@ __STATIC_INLINE void LL_USART_EnableSCLKOutput(USART_TypeDef *USARTx)
 
 /**
   * @brief  Disable Clock output on SCLK pin
-  * @note   Macro @ref IS_USART_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_USART_INSTANCE(USARTx) can be used to check whether or not
   *         Synchronous mode is supported by the USARTx instance.
   * @rmtoll CR2          CLKEN         LL_USART_DisableSCLKOutput
   * @param  USARTx USART Instance
@@ -780,7 +780,7 @@ __STATIC_INLINE void LL_USART_DisableSCLKOutput(USART_TypeDef *USARTx)
 
 /**
   * @brief  Indicate if Clock output on SCLK pin is enabled
-  * @note   Macro @ref IS_USART_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_USART_INSTANCE(USARTx) can be used to check whether or not
   *         Synchronous mode is supported by the USARTx instance.
   * @rmtoll CR2          CLKEN         LL_USART_IsEnabledSCLKOutput
   * @param  USARTx USART Instance
@@ -882,7 +882,7 @@ __STATIC_INLINE uint32_t LL_USART_GetNodeAddress(const USART_TypeDef *USARTx)
 
 /**
   * @brief  Enable RTS HW Flow Control
-  * @note   Macro @ref IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
   *         Hardware Flow control feature is supported by the USARTx instance.
   * @rmtoll CR3          RTSE          LL_USART_EnableRTSHWFlowCtrl
   * @param  USARTx USART Instance
@@ -895,7 +895,7 @@ __STATIC_INLINE void LL_USART_EnableRTSHWFlowCtrl(USART_TypeDef *USARTx)
 
 /**
   * @brief  Disable RTS HW Flow Control
-  * @note   Macro @ref IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
   *         Hardware Flow control feature is supported by the USARTx instance.
   * @rmtoll CR3          RTSE          LL_USART_DisableRTSHWFlowCtrl
   * @param  USARTx USART Instance
@@ -908,7 +908,7 @@ __STATIC_INLINE void LL_USART_DisableRTSHWFlowCtrl(USART_TypeDef *USARTx)
 
 /**
   * @brief  Enable CTS HW Flow Control
-  * @note   Macro @ref IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
   *         Hardware Flow control feature is supported by the USARTx instance.
   * @rmtoll CR3          CTSE          LL_USART_EnableCTSHWFlowCtrl
   * @param  USARTx USART Instance
@@ -921,7 +921,7 @@ __STATIC_INLINE void LL_USART_EnableCTSHWFlowCtrl(USART_TypeDef *USARTx)
 
 /**
   * @brief  Disable CTS HW Flow Control
-  * @note   Macro @ref IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
   *         Hardware Flow control feature is supported by the USARTx instance.
   * @rmtoll CR3          CTSE          LL_USART_DisableCTSHWFlowCtrl
   * @param  USARTx USART Instance
@@ -934,7 +934,7 @@ __STATIC_INLINE void LL_USART_DisableCTSHWFlowCtrl(USART_TypeDef *USARTx)
 
 /**
   * @brief  Configure HW Flow Control mode (both CTS and RTS)
-  * @note   Macro @ref IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
   *         Hardware Flow control feature is supported by the USARTx instance.
   * @rmtoll CR3          RTSE          LL_USART_SetHWFlowCtrl\n
   *         CR3          CTSE          LL_USART_SetHWFlowCtrl
@@ -953,7 +953,7 @@ __STATIC_INLINE void LL_USART_SetHWFlowCtrl(USART_TypeDef *USARTx, uint32_t Hard
 
 /**
   * @brief  Return HW Flow Control configuration (both CTS and RTS)
-  * @note   Macro @ref IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
   *         Hardware Flow control feature is supported by the USARTx instance.
   * @rmtoll CR3          RTSE          LL_USART_GetHWFlowCtrl\n
   *         CR3          CTSE          LL_USART_GetHWFlowCtrl
@@ -1077,7 +1077,7 @@ __STATIC_INLINE uint32_t LL_USART_GetBaudRate(const USART_TypeDef *USARTx, uint3
 
 /**
   * @brief  Enable IrDA mode
-  * @note   Macro @ref IS_IRDA_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_IRDA_INSTANCE(USARTx) can be used to check whether or not
   *         IrDA feature is supported by the USARTx instance.
   * @rmtoll CR3          IREN          LL_USART_EnableIrda
   * @param  USARTx USART Instance
@@ -1090,7 +1090,7 @@ __STATIC_INLINE void LL_USART_EnableIrda(USART_TypeDef *USARTx)
 
 /**
   * @brief  Disable IrDA mode
-  * @note   Macro @ref IS_IRDA_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_IRDA_INSTANCE(USARTx) can be used to check whether or not
   *         IrDA feature is supported by the USARTx instance.
   * @rmtoll CR3          IREN          LL_USART_DisableIrda
   * @param  USARTx USART Instance
@@ -1103,7 +1103,7 @@ __STATIC_INLINE void LL_USART_DisableIrda(USART_TypeDef *USARTx)
 
 /**
   * @brief  Indicate if IrDA mode is enabled
-  * @note   Macro @ref IS_IRDA_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_IRDA_INSTANCE(USARTx) can be used to check whether or not
   *         IrDA feature is supported by the USARTx instance.
   * @rmtoll CR3          IREN          LL_USART_IsEnabledIrda
   * @param  USARTx USART Instance
@@ -1116,7 +1116,7 @@ __STATIC_INLINE uint32_t LL_USART_IsEnabledIrda(const USART_TypeDef *USARTx)
 
 /**
   * @brief  Configure IrDA Power Mode (Normal or Low Power)
-  * @note   Macro @ref IS_IRDA_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_IRDA_INSTANCE(USARTx) can be used to check whether or not
   *         IrDA feature is supported by the USARTx instance.
   * @rmtoll CR3          IRLP          LL_USART_SetIrdaPowerMode
   * @param  USARTx USART Instance
@@ -1132,7 +1132,7 @@ __STATIC_INLINE void LL_USART_SetIrdaPowerMode(USART_TypeDef *USARTx, uint32_t P
 
 /**
   * @brief  Retrieve IrDA Power Mode configuration (Normal or Low Power)
-  * @note   Macro @ref IS_IRDA_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_IRDA_INSTANCE(USARTx) can be used to check whether or not
   *         IrDA feature is supported by the USARTx instance.
   * @rmtoll CR3          IRLP          LL_USART_GetIrdaPowerMode
   * @param  USARTx USART Instance
@@ -1148,7 +1148,7 @@ __STATIC_INLINE uint32_t LL_USART_GetIrdaPowerMode(const USART_TypeDef *USARTx)
 /**
   * @brief  Set Irda prescaler value, used for dividing the USART clock source
   *         to achieve the Irda Low Power frequency (8 bits value)
-  * @note   Macro @ref IS_IRDA_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_IRDA_INSTANCE(USARTx) can be used to check whether or not
   *         IrDA feature is supported by the USARTx instance.
   * @rmtoll GTPR         PSC           LL_USART_SetIrdaPrescaler
   * @param  USARTx USART Instance
@@ -1163,7 +1163,7 @@ __STATIC_INLINE void LL_USART_SetIrdaPrescaler(USART_TypeDef *USARTx, uint32_t P
 /**
   * @brief  Return Irda prescaler value, used for dividing the USART clock source
   *         to achieve the Irda Low Power frequency (8 bits value)
-  * @note   Macro @ref IS_IRDA_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_IRDA_INSTANCE(USARTx) can be used to check whether or not
   *         IrDA feature is supported by the USARTx instance.
   * @rmtoll GTPR         PSC           LL_USART_GetIrdaPrescaler
   * @param  USARTx USART Instance
@@ -1184,7 +1184,7 @@ __STATIC_INLINE uint32_t LL_USART_GetIrdaPrescaler(const USART_TypeDef *USARTx)
 
 /**
   * @brief  Enable Smartcard NACK transmission
-  * @note   Macro @ref IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
   *         Smartcard feature is supported by the USARTx instance.
   * @rmtoll CR3          NACK          LL_USART_EnableSmartcardNACK
   * @param  USARTx USART Instance
@@ -1197,7 +1197,7 @@ __STATIC_INLINE void LL_USART_EnableSmartcardNACK(USART_TypeDef *USARTx)
 
 /**
   * @brief  Disable Smartcard NACK transmission
-  * @note   Macro @ref IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
   *         Smartcard feature is supported by the USARTx instance.
   * @rmtoll CR3          NACK          LL_USART_DisableSmartcardNACK
   * @param  USARTx USART Instance
@@ -1210,7 +1210,7 @@ __STATIC_INLINE void LL_USART_DisableSmartcardNACK(USART_TypeDef *USARTx)
 
 /**
   * @brief  Indicate if Smartcard NACK transmission is enabled
-  * @note   Macro @ref IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
   *         Smartcard feature is supported by the USARTx instance.
   * @rmtoll CR3          NACK          LL_USART_IsEnabledSmartcardNACK
   * @param  USARTx USART Instance
@@ -1223,7 +1223,7 @@ __STATIC_INLINE uint32_t LL_USART_IsEnabledSmartcardNACK(const USART_TypeDef *US
 
 /**
   * @brief  Enable Smartcard mode
-  * @note   Macro @ref IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
   *         Smartcard feature is supported by the USARTx instance.
   * @rmtoll CR3          SCEN          LL_USART_EnableSmartcard
   * @param  USARTx USART Instance
@@ -1236,7 +1236,7 @@ __STATIC_INLINE void LL_USART_EnableSmartcard(USART_TypeDef *USARTx)
 
 /**
   * @brief  Disable Smartcard mode
-  * @note   Macro @ref IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
   *         Smartcard feature is supported by the USARTx instance.
   * @rmtoll CR3          SCEN          LL_USART_DisableSmartcard
   * @param  USARTx USART Instance
@@ -1249,7 +1249,7 @@ __STATIC_INLINE void LL_USART_DisableSmartcard(USART_TypeDef *USARTx)
 
 /**
   * @brief  Indicate if Smartcard mode is enabled
-  * @note   Macro @ref IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
   *         Smartcard feature is supported by the USARTx instance.
   * @rmtoll CR3          SCEN          LL_USART_IsEnabledSmartcard
   * @param  USARTx USART Instance
@@ -1263,7 +1263,7 @@ __STATIC_INLINE uint32_t LL_USART_IsEnabledSmartcard(const USART_TypeDef *USARTx
 /**
   * @brief  Set Smartcard prescaler value, used for dividing the USART clock
   *         source to provide the SMARTCARD Clock (5 bits value)
-  * @note   Macro @ref IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
   *         Smartcard feature is supported by the USARTx instance.
   * @rmtoll GTPR         PSC           LL_USART_SetSmartcardPrescaler
   * @param  USARTx USART Instance
@@ -1278,7 +1278,7 @@ __STATIC_INLINE void LL_USART_SetSmartcardPrescaler(USART_TypeDef *USARTx, uint3
 /**
   * @brief  Return Smartcard prescaler value, used for dividing the USART clock
   *         source to provide the SMARTCARD Clock (5 bits value)
-  * @note   Macro @ref IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
   *         Smartcard feature is supported by the USARTx instance.
   * @rmtoll GTPR         PSC           LL_USART_GetSmartcardPrescaler
   * @param  USARTx USART Instance
@@ -1292,7 +1292,7 @@ __STATIC_INLINE uint32_t LL_USART_GetSmartcardPrescaler(const USART_TypeDef *USA
 /**
   * @brief  Set Smartcard Guard time value, expressed in nb of baud clocks periods
   *         (GT[7:0] bits : Guard time value)
-  * @note   Macro @ref IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
   *         Smartcard feature is supported by the USARTx instance.
   * @rmtoll GTPR         GT            LL_USART_SetSmartcardGuardTime
   * @param  USARTx USART Instance
@@ -1307,7 +1307,7 @@ __STATIC_INLINE void LL_USART_SetSmartcardGuardTime(USART_TypeDef *USARTx, uint3
 /**
   * @brief  Return Smartcard Guard time value, expressed in nb of baud clocks periods
   *         (GT[7:0] bits : Guard time value)
-  * @note   Macro @ref IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
   *         Smartcard feature is supported by the USARTx instance.
   * @rmtoll GTPR         GT            LL_USART_GetSmartcardGuardTime
   * @param  USARTx USART Instance
@@ -1328,7 +1328,7 @@ __STATIC_INLINE uint32_t LL_USART_GetSmartcardGuardTime(const USART_TypeDef *USA
 
 /**
   * @brief  Enable Single Wire Half-Duplex mode
-  * @note   Macro @ref IS_UART_HALFDUPLEX_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_HALFDUPLEX_INSTANCE(USARTx) can be used to check whether or not
   *         Half-Duplex mode is supported by the USARTx instance.
   * @rmtoll CR3          HDSEL         LL_USART_EnableHalfDuplex
   * @param  USARTx USART Instance
@@ -1341,7 +1341,7 @@ __STATIC_INLINE void LL_USART_EnableHalfDuplex(USART_TypeDef *USARTx)
 
 /**
   * @brief  Disable Single Wire Half-Duplex mode
-  * @note   Macro @ref IS_UART_HALFDUPLEX_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_HALFDUPLEX_INSTANCE(USARTx) can be used to check whether or not
   *         Half-Duplex mode is supported by the USARTx instance.
   * @rmtoll CR3          HDSEL         LL_USART_DisableHalfDuplex
   * @param  USARTx USART Instance
@@ -1354,7 +1354,7 @@ __STATIC_INLINE void LL_USART_DisableHalfDuplex(USART_TypeDef *USARTx)
 
 /**
   * @brief  Indicate if Single Wire Half-Duplex mode is enabled
-  * @note   Macro @ref IS_UART_HALFDUPLEX_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_HALFDUPLEX_INSTANCE(USARTx) can be used to check whether or not
   *         Half-Duplex mode is supported by the USARTx instance.
   * @rmtoll CR3          HDSEL         LL_USART_IsEnabledHalfDuplex
   * @param  USARTx USART Instance
@@ -1375,7 +1375,7 @@ __STATIC_INLINE uint32_t LL_USART_IsEnabledHalfDuplex(const USART_TypeDef *USART
 
 /**
   * @brief  Set LIN Break Detection Length
-  * @note   Macro @ref IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
   *         LIN feature is supported by the USARTx instance.
   * @rmtoll CR2          LBDL          LL_USART_SetLINBrkDetectionLen
   * @param  USARTx USART Instance
@@ -1391,7 +1391,7 @@ __STATIC_INLINE void LL_USART_SetLINBrkDetectionLen(USART_TypeDef *USARTx, uint3
 
 /**
   * @brief  Return LIN Break Detection Length
-  * @note   Macro @ref IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
   *         LIN feature is supported by the USARTx instance.
   * @rmtoll CR2          LBDL          LL_USART_GetLINBrkDetectionLen
   * @param  USARTx USART Instance
@@ -1406,7 +1406,7 @@ __STATIC_INLINE uint32_t LL_USART_GetLINBrkDetectionLen(const USART_TypeDef *USA
 
 /**
   * @brief  Enable LIN mode
-  * @note   Macro @ref IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
   *         LIN feature is supported by the USARTx instance.
   * @rmtoll CR2          LINEN         LL_USART_EnableLIN
   * @param  USARTx USART Instance
@@ -1419,7 +1419,7 @@ __STATIC_INLINE void LL_USART_EnableLIN(USART_TypeDef *USARTx)
 
 /**
   * @brief  Disable LIN mode
-  * @note   Macro @ref IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
   *         LIN feature is supported by the USARTx instance.
   * @rmtoll CR2          LINEN         LL_USART_DisableLIN
   * @param  USARTx USART Instance
@@ -1432,7 +1432,7 @@ __STATIC_INLINE void LL_USART_DisableLIN(USART_TypeDef *USARTx)
 
 /**
   * @brief  Indicate if LIN mode is enabled
-  * @note   Macro @ref IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
   *         LIN feature is supported by the USARTx instance.
   * @rmtoll CR2          LINEN         LL_USART_IsEnabledLIN
   * @param  USARTx USART Instance
@@ -1493,7 +1493,7 @@ __STATIC_INLINE void LL_USART_ConfigAsyncMode(USART_TypeDef *USARTx)
   *           - IREN bit in the USART_CR3 register,
   *           - HDSEL bit in the USART_CR3 register.
   *         This function also sets the USART in Synchronous mode.
-  * @note   Macro @ref IS_USART_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_USART_INSTANCE(USARTx) can be used to check whether or not
   *         Synchronous mode is supported by the USARTx instance.
   * @note   Call of this function is equivalent to following function call sequence :
   *         - Clear LINEN in CR2 using @ref LL_USART_DisableLIN() function
@@ -1531,7 +1531,7 @@ __STATIC_INLINE void LL_USART_ConfigSyncMode(USART_TypeDef *USARTx)
   *           - IREN bit in the USART_CR3 register,
   *           - HDSEL bit in the USART_CR3 register.
   *         This function also set the UART/USART in LIN mode.
-  * @note   Macro @ref IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
   *         LIN feature is supported by the USARTx instance.
   * @note   Call of this function is equivalent to following function call sequence :
   *         - Clear CLKEN in CR2 using @ref LL_USART_DisableSCLKOutput() function
@@ -1571,7 +1571,7 @@ __STATIC_INLINE void LL_USART_ConfigLINMode(USART_TypeDef *USARTx)
   *           - SCEN bit in the USART_CR3 register,
   *           - IREN bit in the USART_CR3 register,
   *         This function also sets the UART/USART in Half Duplex mode.
-  * @note   Macro @ref IS_UART_HALFDUPLEX_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_HALFDUPLEX_INSTANCE(USARTx) can be used to check whether or not
   *         Half-Duplex mode is supported by the USARTx instance.
   * @note   Call of this function is equivalent to following function call sequence :
   *         - Clear LINEN in CR2 using @ref LL_USART_DisableLIN() function
@@ -1610,7 +1610,7 @@ __STATIC_INLINE void LL_USART_ConfigHalfDuplexMode(USART_TypeDef *USARTx)
   *         This function also configures Stop bits to 1.5 bits and
   *         sets the USART in Smartcard mode (SCEN bit).
   *         Clock Output is also enabled (CLKEN).
-  * @note   Macro @ref IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_SMARTCARD_INSTANCE(USARTx) can be used to check whether or not
   *         Smartcard feature is supported by the USARTx instance.
   * @note   Call of this function is equivalent to following function call sequence :
   *         - Clear LINEN in CR2 using @ref LL_USART_DisableLIN() function
@@ -1652,7 +1652,7 @@ __STATIC_INLINE void LL_USART_ConfigSmartcardMode(USART_TypeDef *USARTx)
   *           - SCEN bit in the USART_CR3 register,
   *           - HDSEL bit in the USART_CR3 register.
   *         This function also sets the UART/USART in IRDA mode (IREN bit).
-  * @note   Macro @ref IS_IRDA_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_IRDA_INSTANCE(USARTx) can be used to check whether or not
   *         IrDA feature is supported by the USARTx instance.
   * @note   Call of this function is equivalent to following function call sequence :
   *         - Clear LINEN in CR2 using @ref LL_USART_DisableLIN() function
@@ -1818,7 +1818,7 @@ __STATIC_INLINE uint32_t LL_USART_IsActiveFlag_TXE(const USART_TypeDef *USARTx)
 
 /**
   * @brief  Check if the USART LIN Break Detection Flag is set or not
-  * @note   Macro @ref IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
   *         LIN feature is supported by the USARTx instance.
   * @rmtoll SR           LBD           LL_USART_IsActiveFlag_LBD
   * @param  USARTx USART Instance
@@ -1831,7 +1831,7 @@ __STATIC_INLINE uint32_t LL_USART_IsActiveFlag_LBD(const USART_TypeDef *USARTx)
 
 /**
   * @brief  Check if the USART CTS Flag is set or not
-  * @note   Macro @ref IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
   *         Hardware Flow control feature is supported by the USARTx instance.
   * @rmtoll SR           CTS           LL_USART_IsActiveFlag_nCTS
   * @param  USARTx USART Instance
@@ -1983,7 +1983,7 @@ __STATIC_INLINE void LL_USART_ClearFlag_RXNE(USART_TypeDef *USARTx)
 
 /**
   * @brief  Clear LIN Break Detection Flag
-  * @note   Macro @ref IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
   *         LIN feature is supported by the USARTx instance.
   * @rmtoll SR           LBD           LL_USART_ClearFlag_LBD
   * @param  USARTx USART Instance
@@ -1996,7 +1996,7 @@ __STATIC_INLINE void LL_USART_ClearFlag_LBD(USART_TypeDef *USARTx)
 
 /**
   * @brief  Clear CTS Interrupt Flag
-  * @note   Macro @ref IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
   *         Hardware Flow control feature is supported by the USARTx instance.
   * @rmtoll SR           CTS           LL_USART_ClearFlag_nCTS
   * @param  USARTx USART Instance
@@ -2072,7 +2072,7 @@ __STATIC_INLINE void LL_USART_EnableIT_PE(USART_TypeDef *USARTx)
 
 /**
   * @brief  Enable LIN Break Detection Interrupt
-  * @note   Macro @ref IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
   *         LIN feature is supported by the USARTx instance.
   * @rmtoll CR2          LBDIE         LL_USART_EnableIT_LBD
   * @param  USARTx USART Instance
@@ -2100,7 +2100,7 @@ __STATIC_INLINE void LL_USART_EnableIT_ERROR(USART_TypeDef *USARTx)
 
 /**
   * @brief  Enable CTS Interrupt
-  * @note   Macro @ref IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
   *         Hardware Flow control feature is supported by the USARTx instance.
   * @rmtoll CR3          CTSIE         LL_USART_EnableIT_CTS
   * @param  USARTx USART Instance
@@ -2168,7 +2168,7 @@ __STATIC_INLINE void LL_USART_DisableIT_PE(USART_TypeDef *USARTx)
 
 /**
   * @brief  Disable LIN Break Detection Interrupt
-  * @note   Macro @ref IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
   *         LIN feature is supported by the USARTx instance.
   * @rmtoll CR2          LBDIE         LL_USART_DisableIT_LBD
   * @param  USARTx USART Instance
@@ -2196,7 +2196,7 @@ __STATIC_INLINE void LL_USART_DisableIT_ERROR(USART_TypeDef *USARTx)
 
 /**
   * @brief  Disable CTS Interrupt
-  * @note   Macro @ref IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
   *         Hardware Flow control feature is supported by the USARTx instance.
   * @rmtoll CR3          CTSIE         LL_USART_DisableIT_CTS
   * @param  USARTx USART Instance
@@ -2264,7 +2264,7 @@ __STATIC_INLINE uint32_t LL_USART_IsEnabledIT_PE(const USART_TypeDef *USARTx)
 
 /**
   * @brief  Check if the USART LIN Break Detection Interrupt is enabled or disabled.
-  * @note   Macro @ref IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_LIN_INSTANCE(USARTx) can be used to check whether or not
   *         LIN feature is supported by the USARTx instance.
   * @rmtoll CR2          LBDIE         LL_USART_IsEnabledIT_LBD
   * @param  USARTx USART Instance
@@ -2288,7 +2288,7 @@ __STATIC_INLINE uint32_t LL_USART_IsEnabledIT_ERROR(const USART_TypeDef *USARTx)
 
 /**
   * @brief  Check if the USART CTS Interrupt is enabled or disabled.
-  * @note   Macro @ref IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
+  * @note   Macro IS_UART_HWFLOW_INSTANCE(USARTx) can be used to check whether or not
   *         Hardware Flow control feature is supported by the USARTx instance.
   * @rmtoll CR3          CTSIE         LL_USART_IsEnabledIT_CTS
   * @param  USARTx USART Instance
