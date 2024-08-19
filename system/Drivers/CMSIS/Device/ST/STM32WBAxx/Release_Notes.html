@@ -30,7 +30,9 @@
 <h1 id="purpose">Purpose</h1>
 <p>This driver provides the CMSIS device for the STM32WBAxx products. This covers</p>
 <ul>
+<li>STM32WBA50xx devices</li>
 <li>STM32WBA52xx devices</li>
+<li>STM32WBA54xx devices</li>
 <li>STM32WBA55xx devices</li>
 </ul>
 <p>This driver is composed of the description of the registers under “Include” directory.</p>
@@ -44,18 +46,18 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section7" checked aria-hidden="true"> <label for="collapse-section7" aria-hidden="true"><strong>V1.3.0 / 07-February-2024</strong></label>
+<input type="checkbox" id="collapse-section8" checked aria-hidden="true"> <label for="collapse-section8" aria-hidden="true"><strong>V1.4.0 / 05-June-2024</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
-<h3 id="official-release-of-stm32cubewba-firmware-package-supporting-stm32wba52xx-and-stm32wba55xx-devices">Official Release of <strong>STM32CubeWBA</strong> Firmware package supporting <strong>STM32WBA52xx</strong> and <strong>STM32WBA55xx</strong> devices</h3>
+<h3 id="official-release-of-stm32cubewba-firmware-package-supporting-stm32wba50xx-stm32wba52xx-stm32wba54xx-and-stm32wba55xx-devices">Official Release of <strong>STM32CubeWBA</strong> Firmware package supporting <strong>STM32WBA50xx</strong>, <strong>STM32WBA52xx</strong>, <strong>STM32WBA54xx</strong> and <strong>STM32WBA55xx</strong> devices</h3>
 <h2 id="contents">Contents</h2>
-<h3 id="official-release-of-cmsis-devices-drivers-supporting-stm32wba52xx-and-stm32wba55xx-devices">Official Release of <strong>CMSIS devices</strong> drivers supporting <strong>STM32WBA52xx</strong> and <strong>STM32WBA55xx</strong> devices</h3>
+<h3 id="official-release-of-cmsis-devices-drivers-supporting-stm32wba50xx-stm32wba52xx-stm32wba54xx-and-stm32wba55xx-devices">Official Release of <strong>CMSIS devices</strong> drivers supporting <strong>STM32WBA50xx</strong>, <strong>STM32WBA52xx</strong>, <strong>STM32WBA54xx</strong> and <strong>STM32WBA55xx</strong> devices</h3>
 <ul>
 <li>Update CMSIS devices to include latest corrections
 <ul>
-<li>Update IS_TIM_32B_COUNTER_INSTANCE macro to remove 16-bit counter TIM3</li>
-<li>Update IS_TIM_OCXREF_CLEAR_INSTANCE macro as feature is supported by TIM16 and TIM17</li>
-<li>Add IS_TIM_OCCS_INSTANCE macro for Secure context</li>
+<li>Properly mark sections readonly for GCC</li>
+<li>Add RNG (CR, HTCR) Nist Compliance Values</li>
+<li>Update IS_TIM_OCXREF_CLEAR_INSTANCE macro to support of TIM16/TIM17</li>
 </ul></li>
 </ul>
 <p><br />
@@ -75,18 +77,18 @@
 </div>
 </div>
 <div class="collapse">
-<input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true"><strong>V1.2.0 / 02-November-2023</strong></label>
+<input type="checkbox" id="collapse-section7" aria-hidden="true"> <label for="collapse-section7" aria-hidden="true"><strong>V1.3.0 / 07-February-2024</strong></label>
 <div>
 <h2 id="main-changes-1">Main Changes</h2>
-<h3 id="official-release-of-stm32cubewba-firmware-package-supporting-stm32wba52xx-and-stm32wba55xx-devices-1">Official Release of <strong>STM32CubeWBA</strong> Firmware package supporting <strong>STM32WBA52xx</strong> and <strong>STM32WBA55xx</strong> devices</h3>
+<h3 id="official-release-of-stm32cubewba-firmware-package-supporting-stm32wba52xx-and-stm32wba55xx-devices">Official Release of <strong>STM32CubeWBA</strong> Firmware package supporting <strong>STM32WBA52xx</strong> and <strong>STM32WBA55xx</strong> devices</h3>
 <h2 id="contents-1">Contents</h2>
-<h3 id="official-release-of-cmsis-devices-drivers-supporting-stm32wba52xx-and-stm32wba55xx-devices-1">Official Release of <strong>CMSIS devices</strong> drivers supporting <strong>STM32WBA52xx</strong> and <strong>STM32WBA55xx</strong> devices</h3>
+<h3 id="official-release-of-cmsis-devices-drivers-supporting-stm32wba52xx-and-stm32wba55xx-devices">Official Release of <strong>CMSIS devices</strong> drivers supporting <strong>STM32WBA52xx</strong> and <strong>STM32WBA55xx</strong> devices</h3>
 <ul>
 <li>Update CMSIS devices to include latest corrections
 <ul>
-<li>Add support of WKUP_S_IRQn and RCC_AUDIOSYNC_IRQn interrupts in CMSIS devices, startup_stm32wba5xxx.s and partition_stmwba5xxx.h files</li>
-<li>Update Licensing header in partition_stm325xxx.h files based on partition_ARMCM33.h</li>
-<li>Update declaration of g_pfnVectors size in gcc/startup_stm32wba5xxx.s files</li>
+<li>Update IS_TIM_32B_COUNTER_INSTANCE macro to remove 16-bit counter TIM3</li>
+<li>Update IS_TIM_OCXREF_CLEAR_INSTANCE macro as feature is supported by TIM16 and TIM17</li>
+<li>Add IS_TIM_OCCS_INSTANCE macro for Secure context</li>
 </ul></li>
 </ul>
 <p><br />
@@ -106,16 +108,18 @@
 </div>
 </div>
 <div class="collapse">
-<input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true"><strong>V1.1.0 / 06-June-2023</strong></label>
+<input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true"><strong>V1.2.0 / 02-November-2023</strong></label>
 <div>
 <h2 id="main-changes-2">Main Changes</h2>
-<h3 id="official-release-of-stm32cubewba-firmware-package-supporting-stm32wba52xx-devices">Official Release of <strong>STM32CubeWBA</strong> Firmware package supporting <strong>STM32WBA52xx</strong> devices</h3>
+<h3 id="official-release-of-stm32cubewba-firmware-package-supporting-stm32wba52xx-and-stm32wba55xx-devices-1">Official Release of <strong>STM32CubeWBA</strong> Firmware package supporting <strong>STM32WBA52xx</strong> and <strong>STM32WBA55xx</strong> devices</h3>
 <h2 id="contents-2">Contents</h2>
-<h3 id="official-release-of-cmsis-devices-drivers-supporting-stm32wba52xx-devices">Official Release of <strong>CMSIS devices</strong> drivers supporting <strong>STM32WBA52xx</strong> devices</h3>
+<h3 id="official-release-of-cmsis-devices-drivers-supporting-stm32wba52xx-and-stm32wba55xx-devices-1">Official Release of <strong>CMSIS devices</strong> drivers supporting <strong>STM32WBA52xx</strong> and <strong>STM32WBA55xx</strong> devices</h3>
 <ul>
 <li>Update CMSIS devices to include latest corrections
 <ul>
-<li>Align SAU region end address on Flash end address</li>
+<li>Add support of WKUP_S_IRQn and RCC_AUDIOSYNC_IRQn interrupts in CMSIS devices, startup_stm32wba5xxx.s and partition_stmwba5xxx.h files</li>
+<li>Update Licensing header in partition_stm325xxx.h files based on partition_ARMCM33.h</li>
+<li>Update declaration of g_pfnVectors size in gcc/startup_stm32wba5xxx.s files</li>
 </ul></li>
 </ul>
 <p><br />
@@ -135,17 +139,20 @@
 </div>
 </div>
 <div class="collapse">
-<input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.0.0 / 08-February-2023</strong></label>
+<input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true"><strong>V1.1.0 / 06-June-2023</strong></label>
 <div>
 <h2 id="main-changes-3">Main Changes</h2>
-<h3 id="first-official-release-of-stm32cubewba-firmware-package-supporting-stm32wba52xx-devices">First Official Release of <strong>STM32CubeWBA</strong> Firmware package supporting <strong>STM32WBA52xx</strong> devices</h3>
+<h3 id="official-release-of-stm32cubewba-firmware-package-supporting-stm32wba52xx-devices">Official Release of <strong>STM32CubeWBA</strong> Firmware package supporting <strong>STM32WBA52xx</strong> devices</h3>
 <h2 id="contents-3">Contents</h2>
+<h3 id="official-release-of-cmsis-devices-drivers-supporting-stm32wba52xx-devices">Official Release of <strong>CMSIS devices</strong> drivers supporting <strong>STM32WBA52xx</strong> devices</h3>
 <ul>
-<li>First official release of CMSIS devices drivers
+<li>Update CMSIS devices to include latest corrections
 <ul>
-<li>Support of STM32WBA52xx devices</li>
+<li>Align SAU region end address on Flash end address</li>
 </ul></li>
 </ul>
+<p><br />
+</p>
 <h2 id="known-limitations-3">Known Limitations</h2>
 <ul>
 <li>None</li>
@@ -155,6 +162,32 @@
 <li>None</li>
 </ul>
 <h2 id="notes-3">Notes</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.0.0 / 08-February-2023</strong></label>
+<div>
+<h2 id="main-changes-4">Main Changes</h2>
+<h3 id="first-official-release-of-stm32cubewba-firmware-package-supporting-stm32wba52xx-devices">First Official Release of <strong>STM32CubeWBA</strong> Firmware package supporting <strong>STM32WBA52xx</strong> devices</h3>
+<h2 id="contents-4">Contents</h2>
+<ul>
+<li>First official release of CMSIS devices drivers
+<ul>
+<li>Support of STM32WBA52xx devices</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-4">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies-4">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="notes-4">Notes</h2>
 <ul>
 <li>None</li>
 </ul>
