@@ -465,11 +465,6 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *ADCx)
   /* Disable ADC instance if not already disabled.                            */
   if (LL_ADC_IsEnabled(ADCx) == 1UL)
   {
-    /* Set ADC group regular trigger source to SW start to ensure to not      */
-    /* have an external trigger event occurring during the conversion stop    */
-    /* ADC disable process.                                                   */
-    LL_ADC_REG_SetTriggerSource(ADCx, LL_ADC_REG_TRIG_SOFTWARE);
-
     /* Stop potential ADC conversion on going on ADC group regular.           */
     if (LL_ADC_REG_IsConversionOngoing(ADCx) != 0UL)
     {
@@ -478,11 +473,6 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *ADCx)
         LL_ADC_REG_StopConversion(ADCx);
       }
     }
-
-    /* Set ADC group injected trigger source to SW start to ensure to not     */
-    /* have an external trigger event occurring during the conversion stop    */
-    /* ADC disable process.                                                   */
-    LL_ADC_INJ_SetTriggerSource(ADCx, LL_ADC_INJ_TRIG_SOFTWARE);
 
     /* Stop potential ADC conversion on going on ADC group injected.          */
     if (LL_ADC_INJ_IsConversionOngoing(ADCx) != 0UL)

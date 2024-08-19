@@ -75,7 +75,7 @@
     SDMMC Peripheral (STM32 side) and the MMC Card, and put it into StandBy State (Ready for data transfer).
     This function provide the following operations:
 
-    (#) Initialize the SDMMC peripheral interface with defaullt configuration.
+    (#) Initialize the SDMMC peripheral interface with default configuration.
         The initialization process is done at 400KHz. You can change or adapt
         this frequency by adjusting the "ClockDiv" field.
         The MMC Card frequency (SDMMC_CK) is computed as follows:
@@ -305,7 +305,7 @@
 #define MMC_EXT_CSD_S_A_TIMEOUT_POS               8
 
 /* Frequencies used in the driver for clock divider calculation */
-#define MMC_INIT_FREQ                   400000U   /* Initalization phase : 400 kHz max */
+#define MMC_INIT_FREQ                   400000U   /* Initialization phase : 400 kHz max */
 #define MMC_HIGH_SPEED_FREQ             52000000U /* High speed phase : 52 MHz max */
 /**
   * @}
@@ -4365,7 +4365,14 @@ static uint32_t MMC_HighSpeed(MMC_HandleTypeDef *hmmc, FunctionalState state)
           }
           else
           {
-            Init.ClockDiv = sdmmc_clk/(2U*MMC_HIGH_SPEED_FREQ);
+            if (sdmmc_clk <= MMC_HIGH_SPEED_FREQ)
+            {
+              Init.ClockDiv = 0;
+            }
+            else
+            {
+              Init.ClockDiv = (sdmmc_clk / (2U * MMC_HIGH_SPEED_FREQ)) + 1U;
+            }
             (void)SDMMC_Init(hmmc->Instance, Init);
 
             SET_BIT(hmmc->Instance->CLKCR, SDMMC_CLKCR_BUSSPEED);

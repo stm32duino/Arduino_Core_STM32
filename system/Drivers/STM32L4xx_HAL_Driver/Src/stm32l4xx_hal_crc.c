@@ -205,7 +205,7 @@ HAL_StatusTypeDef HAL_CRC_DeInit(CRC_HandleTypeDef *hcrc)
 
 #else
   /* Reset IDR register content */
-  CLEAR_BIT(hcrc->Instance->IDR, CRC_IDR_IDR);
+  CLEAR_REG(hcrc->Instance->IDR);
 
 #endif /* CRC_IDR32BITSLENGTH_SUPPORT */
   /* DeInit the low level hardware */

@@ -223,7 +223,7 @@ __STATIC_INLINE void LL_PKA_Disable(PKA_TypeDef *PKAx)
   * @param  PKAx PKA Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_PKA_IsEnabled(PKA_TypeDef *PKAx)
+__STATIC_INLINE uint32_t LL_PKA_IsEnabled(const PKA_TypeDef *PKAx)
 {
   return ((READ_BIT(PKAx->CR, PKA_CR_EN) == (PKA_CR_EN)) ? 1UL : 0UL);
 }
@@ -282,7 +282,7 @@ __STATIC_INLINE void LL_PKA_SetMode(PKA_TypeDef *PKAx, uint32_t Mode)
   *         @arg @ref LL_PKA_MODE_MODULAR_SUB
   *         @arg @ref LL_PKA_MODE_MONTGOMERY_MUL
   */
-__STATIC_INLINE uint32_t LL_PKA_GetMode(PKA_TypeDef *PKAx)
+__STATIC_INLINE uint32_t LL_PKA_GetMode(const PKA_TypeDef *PKAx)
 {
   return (uint32_t)(READ_BIT(PKAx->CR, PKA_CR_MODE) >> PKA_CR_MODE_Pos);
 }
@@ -379,7 +379,7 @@ __STATIC_INLINE void LL_PKA_DisableIT_PROCEND(PKA_TypeDef *PKAx)
   * @param  PKAx PKA Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_PKA_IsEnabledIT_ADDRERR(PKA_TypeDef *PKAx)
+__STATIC_INLINE uint32_t LL_PKA_IsEnabledIT_ADDRERR(const PKA_TypeDef *PKAx)
 {
   return ((READ_BIT(PKAx->CR, PKA_CR_ADDRERRIE) == (PKA_CR_ADDRERRIE)) ? 1UL : 0UL);
 }
@@ -390,7 +390,7 @@ __STATIC_INLINE uint32_t LL_PKA_IsEnabledIT_ADDRERR(PKA_TypeDef *PKAx)
   * @param  PKAx PKA Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_PKA_IsEnabledIT_RAMERR(PKA_TypeDef *PKAx)
+__STATIC_INLINE uint32_t LL_PKA_IsEnabledIT_RAMERR(const PKA_TypeDef *PKAx)
 {
   return ((READ_BIT(PKAx->CR, PKA_CR_RAMERRIE) == (PKA_CR_RAMERRIE)) ? 1UL : 0UL);
 }
@@ -402,7 +402,7 @@ __STATIC_INLINE uint32_t LL_PKA_IsEnabledIT_RAMERR(PKA_TypeDef *PKAx)
   * @param  PKAx PKA Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_PKA_IsEnabledIT_PROCEND(PKA_TypeDef *PKAx)
+__STATIC_INLINE uint32_t LL_PKA_IsEnabledIT_PROCEND(const PKA_TypeDef *PKAx)
 {
   return ((READ_BIT(PKAx->CR, PKA_CR_PROCENDIE) == (PKA_CR_PROCENDIE)) ? 1UL : 0UL);
 }
@@ -421,7 +421,7 @@ __STATIC_INLINE uint32_t LL_PKA_IsEnabledIT_PROCEND(PKA_TypeDef *PKAx)
   * @param  PKAx PKA Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_PKA_IsActiveFlag_ADDRERR(PKA_TypeDef *PKAx)
+__STATIC_INLINE uint32_t LL_PKA_IsActiveFlag_ADDRERR(const PKA_TypeDef *PKAx)
 {
   return ((READ_BIT(PKAx->SR, PKA_SR_ADDRERRF) == (PKA_SR_ADDRERRF)) ? 1UL : 0UL);
 }
@@ -432,7 +432,7 @@ __STATIC_INLINE uint32_t LL_PKA_IsActiveFlag_ADDRERR(PKA_TypeDef *PKAx)
   * @param  PKAx PKA Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_PKA_IsActiveFlag_RAMERR(PKA_TypeDef *PKAx)
+__STATIC_INLINE uint32_t LL_PKA_IsActiveFlag_RAMERR(const PKA_TypeDef *PKAx)
 {
   return ((READ_BIT(PKAx->SR, PKA_SR_RAMERRF) == (PKA_SR_RAMERRF)) ? 1UL : 0UL);
 }
@@ -444,7 +444,7 @@ __STATIC_INLINE uint32_t LL_PKA_IsActiveFlag_RAMERR(PKA_TypeDef *PKAx)
   * @param  PKAx PKA Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_PKA_IsActiveFlag_PROCEND(PKA_TypeDef *PKAx)
+__STATIC_INLINE uint32_t LL_PKA_IsActiveFlag_PROCEND(const PKA_TypeDef *PKAx)
 {
   return ((READ_BIT(PKAx->SR, PKA_SR_PROCENDF) == (PKA_SR_PROCENDF)) ? 1UL : 0UL);
 }
@@ -455,7 +455,7 @@ __STATIC_INLINE uint32_t LL_PKA_IsActiveFlag_PROCEND(PKA_TypeDef *PKAx)
   * @param  PKAx PKA Instance.
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_PKA_IsActiveFlag_BUSY(PKA_TypeDef *PKAx)
+__STATIC_INLINE uint32_t LL_PKA_IsActiveFlag_BUSY(const PKA_TypeDef *PKAx)
 {
   return ((READ_BIT(PKAx->SR, PKA_SR_BUSY) == (PKA_SR_BUSY)) ? 1UL : 0UL);
 }
@@ -504,7 +504,7 @@ __STATIC_INLINE void LL_PKA_ClearFlag_PROCEND(PKA_TypeDef *PKAx)
   * @{
   */
 
-ErrorStatus LL_PKA_DeInit(PKA_TypeDef *PKAx);
+ErrorStatus LL_PKA_DeInit(const PKA_TypeDef *PKAx);
 ErrorStatus LL_PKA_Init(PKA_TypeDef *PKAx, LL_PKA_InitTypeDef *PKA_InitStruct);
 void LL_PKA_StructInit(LL_PKA_InitTypeDef *PKA_InitStruct);
 

@@ -106,8 +106,6 @@ static void HCD_Port_IRQHandler(HCD_HandleTypeDef *hhcd);
   */
 HAL_StatusTypeDef HAL_HCD_Init(HCD_HandleTypeDef *hhcd)
 {
-  USB_OTG_GlobalTypeDef *USBx;
-
   /* Check the HCD handle allocation */
   if (hhcd == NULL)
   {
@@ -116,8 +114,6 @@ HAL_StatusTypeDef HAL_HCD_Init(HCD_HandleTypeDef *hhcd)
 
   /* Check the parameters */
   assert_param(IS_HCD_ALL_INSTANCE(hhcd->Instance));
-
-  USBx = hhcd->Instance;
 
   if (hhcd->State == HAL_HCD_STATE_RESET)
   {
@@ -148,22 +144,31 @@ HAL_StatusTypeDef HAL_HCD_Init(HCD_HandleTypeDef *hhcd)
   hhcd->State = HAL_HCD_STATE_BUSY;
 
   /* Disable DMA mode for FS instance */
-  if ((USBx->CID & (0x1U << 8)) == 0U)
-  {
-    hhcd->Init.dma_enable = 0U;
-  }
+  hhcd->Init.dma_enable = 0U;
 
   /* Disable the Interrupts */
   __HAL_HCD_DISABLE(hhcd);
 
   /* Init the Core (common init.) */
-  (void)USB_CoreInit(hhcd->Instance, hhcd->Init);
+  if (USB_CoreInit(hhcd->Instance, hhcd->Init) != HAL_OK)
+  {
+    hhcd->State = HAL_HCD_STATE_ERROR;
+    return HAL_ERROR;
+  }
 
-  /* Force Host Mode*/
-  (void)USB_SetCurrentMode(hhcd->Instance, USB_HOST_MODE);
+  /* Force Host Mode */
+  if (USB_SetCurrentMode(hhcd->Instance, USB_HOST_MODE) != HAL_OK)
+  {
+    hhcd->State = HAL_HCD_STATE_ERROR;
+    return HAL_ERROR;
+  }
 
   /* Init Host */
-  (void)USB_HostInit(hhcd->Instance, hhcd->Init);
+  if (USB_HostInit(hhcd->Instance, hhcd->Init) != HAL_OK)
+  {
+    hhcd->State = HAL_HCD_STATE_ERROR;
+    return HAL_ERROR;
+  }
 
   hhcd->State = HAL_HCD_STATE_READY;
 
@@ -1201,7 +1206,7 @@ HAL_StatusTypeDef HAL_HCD_HC_ClearHubInfo(HCD_HandleTypeDef *hhcd, uint8_t ch_nu
   */
 static void HCD_HC_IN_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
 {
-  USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;
+  const USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t tmpreg;
 
@@ -1417,7 +1422,7 @@ static void HCD_HC_IN_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
   */
 static void HCD_HC_OUT_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
 {
-  USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;
+  const USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t tmpreg;
   uint32_t num_packets;
@@ -1558,7 +1563,7 @@ static void HCD_HC_OUT_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
   */
 static void HCD_RXQLVL_IRQHandler(HCD_HandleTypeDef *hhcd)
 {
-  USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;
+  const USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t pktsts;
   uint32_t pktcnt;
@@ -1624,7 +1629,7 @@ static void HCD_RXQLVL_IRQHandler(HCD_HandleTypeDef *hhcd)
   */
 static void HCD_Port_IRQHandler(HCD_HandleTypeDef *hhcd)
 {
-  USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;
+  const USB_OTG_GlobalTypeDef *USBx = hhcd->Instance;
   uint32_t USBx_BASE = (uint32_t)USBx;
   __IO uint32_t hprt0;
   __IO uint32_t hprt0_dup;

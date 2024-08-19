@@ -229,9 +229,9 @@ HAL_StatusTypeDef USB_SetCurrentMode(USB_OTG_GlobalTypeDef *USBx, USB_ModeTypeDe
 
     do
     {
-      HAL_Delay(1U);
-      ms++;
-    } while ((USB_GetMode(USBx) != (uint32_t)USB_HOST_MODE) && (ms < 50U));
+      HAL_Delay(10U);
+      ms += 10U;
+    } while ((USB_GetMode(USBx) != (uint32_t)USB_HOST_MODE) && (ms < HAL_USB_CURRENT_MODE_MAX_DELAY_MS));
   }
   else if (mode == USB_DEVICE_MODE)
   {
@@ -239,16 +239,16 @@ HAL_StatusTypeDef USB_SetCurrentMode(USB_OTG_GlobalTypeDef *USBx, USB_ModeTypeDe
 
     do
     {
-      HAL_Delay(1U);
-      ms++;
-    } while ((USB_GetMode(USBx) != (uint32_t)USB_DEVICE_MODE) && (ms < 50U));
+      HAL_Delay(10U);
+      ms += 10U;
+    } while ((USB_GetMode(USBx) != (uint32_t)USB_DEVICE_MODE) && (ms < HAL_USB_CURRENT_MODE_MAX_DELAY_MS));
   }
   else
   {
     return HAL_ERROR;
   }
 
-  if (ms == 50U)
+  if (ms == HAL_USB_CURRENT_MODE_MAX_DELAY_MS)
   {
     return HAL_ERROR;
   }
@@ -406,7 +406,7 @@ HAL_StatusTypeDef USB_FlushTxFifo(USB_OTG_GlobalTypeDef *USBx, uint32_t num)
   {
     count++;
 
-    if (count > 200000U)
+    if (count > HAL_USB_TIMEOUT)
     {
       return HAL_TIMEOUT;
     }
@@ -420,7 +420,7 @@ HAL_StatusTypeDef USB_FlushTxFifo(USB_OTG_GlobalTypeDef *USBx, uint32_t num)
   {
     count++;
 
-    if (count > 200000U)
+    if (count > HAL_USB_TIMEOUT)
     {
       return HAL_TIMEOUT;
     }
@@ -443,7 +443,7 @@ HAL_StatusTypeDef USB_FlushRxFifo(USB_OTG_GlobalTypeDef *USBx)
   {
     count++;
 
-    if (count > 200000U)
+    if (count > HAL_USB_TIMEOUT)
     {
       return HAL_TIMEOUT;
     }
@@ -457,7 +457,7 @@ HAL_StatusTypeDef USB_FlushRxFifo(USB_OTG_GlobalTypeDef *USBx)
   {
     count++;
 
-    if (count > 200000U)
+    if (count > HAL_USB_TIMEOUT)
     {
       return HAL_TIMEOUT;
     }
@@ -475,7 +475,7 @@ HAL_StatusTypeDef USB_FlushRxFifo(USB_OTG_GlobalTypeDef *USBx)
   *            @arg USB_OTG_SPEED_FULL: Full speed mode
   * @retval  Hal status
   */
-HAL_StatusTypeDef USB_SetDevSpeed(USB_OTG_GlobalTypeDef *USBx, uint8_t speed)
+HAL_StatusTypeDef USB_SetDevSpeed(const USB_OTG_GlobalTypeDef *USBx, uint8_t speed)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
 
@@ -490,7 +490,7 @@ HAL_StatusTypeDef USB_SetDevSpeed(USB_OTG_GlobalTypeDef *USBx, uint8_t speed)
   *          This parameter can be one of these values:
   *            @arg USBD_FS_SPEED: Full speed mode
   */
-uint8_t USB_GetDevSpeed(USB_OTG_GlobalTypeDef *USBx)
+uint8_t USB_GetDevSpeed(const USB_OTG_GlobalTypeDef *USBx)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint8_t speed;
@@ -515,7 +515,7 @@ uint8_t USB_GetDevSpeed(USB_OTG_GlobalTypeDef *USBx)
   * @param  ep pointer to endpoint structure
   * @retval HAL status
   */
-HAL_StatusTypeDef USB_ActivateEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
+HAL_StatusTypeDef USB_ActivateEndpoint(const USB_OTG_GlobalTypeDef *USBx, const USB_OTG_EPTypeDef *ep)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t epnum = (uint32_t)ep->num;
@@ -553,7 +553,7 @@ HAL_StatusTypeDef USB_ActivateEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTy
   * @param  ep pointer to endpoint structure
   * @retval HAL status
   */
-HAL_StatusTypeDef USB_ActivateDedicatedEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
+HAL_StatusTypeDef USB_ActivateDedicatedEndpoint(const USB_OTG_GlobalTypeDef *USBx, const USB_OTG_EPTypeDef *ep)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t epnum = (uint32_t)ep->num;
@@ -592,7 +592,7 @@ HAL_StatusTypeDef USB_ActivateDedicatedEndpoint(USB_OTG_GlobalTypeDef *USBx, USB
   * @param  ep pointer to endpoint structure
   * @retval HAL status
   */
-HAL_StatusTypeDef USB_DeactivateEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
+HAL_StatusTypeDef USB_DeactivateEndpoint(const USB_OTG_GlobalTypeDef *USBx, const USB_OTG_EPTypeDef *ep)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t epnum = (uint32_t)ep->num;
@@ -639,7 +639,7 @@ HAL_StatusTypeDef USB_DeactivateEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EP
   * @param  ep pointer to endpoint structure
   * @retval HAL status
   */
-HAL_StatusTypeDef USB_DeactivateDedicatedEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
+HAL_StatusTypeDef USB_DeactivateDedicatedEndpoint(const USB_OTG_GlobalTypeDef *USBx, const USB_OTG_EPTypeDef *ep)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t epnum = (uint32_t)ep->num;
@@ -714,17 +714,17 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef
       }
       else
       {
-        USBx_INEP(epnum)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_PKTCNT &
-                                       (((ep->xfer_len + ep->maxpacket - 1U) / ep->maxpacket) << 19));
+        pktcnt = (uint16_t)((ep->xfer_len + ep->maxpacket - 1U) / ep->maxpacket);
+        USBx_INEP(epnum)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_PKTCNT & (pktcnt << 19));
+
+        if (ep->type == EP_TYPE_ISOC)
+        {
+          USBx_INEP(epnum)->DIEPTSIZ &= ~(USB_OTG_DIEPTSIZ_MULCNT);
+          USBx_INEP(epnum)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_MULCNT & (pktcnt << 29));
+        }
       }
 
       USBx_INEP(epnum)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_XFRSIZ & ep->xfer_len);
-
-      if (ep->type == EP_TYPE_ISOC)
-      {
-        USBx_INEP(epnum)->DIEPTSIZ &= ~(USB_OTG_DIEPTSIZ_MULCNT);
-        USBx_INEP(epnum)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_MULCNT & (1U << 29));
-      }
     }
     /* EP enable, IN data in FIFO */
     USBx_INEP(epnum)->DIEPCTL |= (USB_OTG_DIEPCTL_CNAK | USB_OTG_DIEPCTL_EPENA);
@@ -815,7 +815,7 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef
    * @param  ep pointer to endpoint structure
    * @retval HAL status
    */
-HAL_StatusTypeDef USB_EPStopXfer(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
+HAL_StatusTypeDef USB_EPStopXfer(const USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
 {
   __IO uint32_t count = 0U;
   HAL_StatusTypeDef ret = HAL_OK;
@@ -875,7 +875,7 @@ HAL_StatusTypeDef USB_EPStopXfer(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef 
   * @param  len  Number of bytes to write
   * @retval HAL status
   */
-HAL_StatusTypeDef USB_WritePacket(USB_OTG_GlobalTypeDef *USBx, uint8_t *src,
+HAL_StatusTypeDef USB_WritePacket(const USB_OTG_GlobalTypeDef *USBx, uint8_t *src,
                                   uint8_t ch_ep_num, uint16_t len)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
@@ -903,7 +903,7 @@ HAL_StatusTypeDef USB_WritePacket(USB_OTG_GlobalTypeDef *USBx, uint8_t *src,
   * @param  len  Number of bytes to read
   * @retval pointer to destination buffer
   */
-void *USB_ReadPacket(USB_OTG_GlobalTypeDef *USBx, uint8_t *dest, uint16_t len)
+void *USB_ReadPacket(const USB_OTG_GlobalTypeDef *USBx, uint8_t *dest, uint16_t len)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint8_t *pDest = dest;
@@ -945,7 +945,7 @@ void *USB_ReadPacket(USB_OTG_GlobalTypeDef *USBx, uint8_t *dest, uint16_t len)
   * @param  ep pointer to endpoint structure
   * @retval HAL status
   */
-HAL_StatusTypeDef USB_EPSetStall(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
+HAL_StatusTypeDef USB_EPSetStall(const USB_OTG_GlobalTypeDef *USBx, const USB_OTG_EPTypeDef *ep)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t epnum = (uint32_t)ep->num;
@@ -976,7 +976,7 @@ HAL_StatusTypeDef USB_EPSetStall(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef 
   * @param  ep pointer to endpoint structure
   * @retval HAL status
   */
-HAL_StatusTypeDef USB_EPClearStall(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
+HAL_StatusTypeDef USB_EPClearStall(const USB_OTG_GlobalTypeDef *USBx, const USB_OTG_EPTypeDef *ep)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t epnum = (uint32_t)ep->num;
@@ -1046,7 +1046,7 @@ HAL_StatusTypeDef USB_StopDevice(USB_OTG_GlobalTypeDef *USBx)
   *          This parameter can be a value from 0 to 255
   * @retval HAL status
   */
-HAL_StatusTypeDef USB_SetDevAddress(USB_OTG_GlobalTypeDef *USBx, uint8_t address)
+HAL_StatusTypeDef USB_SetDevAddress(const USB_OTG_GlobalTypeDef *USBx, uint8_t address)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
 
@@ -1061,7 +1061,7 @@ HAL_StatusTypeDef USB_SetDevAddress(USB_OTG_GlobalTypeDef *USBx, uint8_t address
   * @param  USBx  Selected device
   * @retval HAL status
   */
-HAL_StatusTypeDef USB_DevConnect(USB_OTG_GlobalTypeDef *USBx)
+HAL_StatusTypeDef USB_DevConnect(const USB_OTG_GlobalTypeDef *USBx)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
 
@@ -1078,7 +1078,7 @@ HAL_StatusTypeDef USB_DevConnect(USB_OTG_GlobalTypeDef *USBx)
   * @param  USBx  Selected device
   * @retval HAL status
   */
-HAL_StatusTypeDef USB_DevDisconnect(USB_OTG_GlobalTypeDef *USBx)
+HAL_StatusTypeDef USB_DevDisconnect(const USB_OTG_GlobalTypeDef *USBx)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
 
@@ -1111,7 +1111,7 @@ uint32_t USB_ReadInterrupts(USB_OTG_GlobalTypeDef const *USBx)
   * @param  chnum Channel number
   * @retval USB Channel Interrupt status
   */
-uint32_t USB_ReadChInterrupts(USB_OTG_GlobalTypeDef *USBx, uint8_t chnum)
+uint32_t USB_ReadChInterrupts(const USB_OTG_GlobalTypeDef *USBx, uint8_t chnum)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t tmpreg;
@@ -1127,7 +1127,7 @@ uint32_t USB_ReadChInterrupts(USB_OTG_GlobalTypeDef *USBx, uint8_t chnum)
   * @param  USBx  Selected device
   * @retval USB Device OUT EP interrupt status
   */
-uint32_t USB_ReadDevAllOutEpInterrupt(USB_OTG_GlobalTypeDef *USBx)
+uint32_t USB_ReadDevAllOutEpInterrupt(const USB_OTG_GlobalTypeDef *USBx)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t tmpreg;
@@ -1143,7 +1143,7 @@ uint32_t USB_ReadDevAllOutEpInterrupt(USB_OTG_GlobalTypeDef *USBx)
   * @param  USBx  Selected device
   * @retval USB Device IN EP interrupt status
   */
-uint32_t USB_ReadDevAllInEpInterrupt(USB_OTG_GlobalTypeDef *USBx)
+uint32_t USB_ReadDevAllInEpInterrupt(const USB_OTG_GlobalTypeDef *USBx)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t tmpreg;
@@ -1161,7 +1161,7 @@ uint32_t USB_ReadDevAllInEpInterrupt(USB_OTG_GlobalTypeDef *USBx)
   *          This parameter can be a value from 0 to 15
   * @retval Device OUT EP Interrupt register
   */
-uint32_t USB_ReadDevOutEPInterrupt(USB_OTG_GlobalTypeDef *USBx, uint8_t epnum)
+uint32_t USB_ReadDevOutEPInterrupt(const USB_OTG_GlobalTypeDef *USBx, uint8_t epnum)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t tmpreg;
@@ -1179,7 +1179,7 @@ uint32_t USB_ReadDevOutEPInterrupt(USB_OTG_GlobalTypeDef *USBx, uint8_t epnum)
   *          This parameter can be a value from 0 to 15
   * @retval Device IN EP Interrupt register
   */
-uint32_t USB_ReadDevInEPInterrupt(USB_OTG_GlobalTypeDef *USBx, uint8_t epnum)
+uint32_t USB_ReadDevInEPInterrupt(const USB_OTG_GlobalTypeDef *USBx, uint8_t epnum)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t tmpreg;
@@ -1213,7 +1213,7 @@ void  USB_ClearInterrupts(USB_OTG_GlobalTypeDef *USBx, uint32_t interrupt)
   *           0 : Host
   *           1 : Device
   */
-uint32_t USB_GetMode(USB_OTG_GlobalTypeDef *USBx)
+uint32_t USB_GetMode(const USB_OTG_GlobalTypeDef *USBx)
 {
   return ((USBx->GINTSTS) & 0x1U);
 }
@@ -1223,7 +1223,7 @@ uint32_t USB_GetMode(USB_OTG_GlobalTypeDef *USBx)
   * @param  USBx  Selected device
   * @retval HAL status
   */
-HAL_StatusTypeDef USB_ActivateSetup(USB_OTG_GlobalTypeDef *USBx)
+HAL_StatusTypeDef USB_ActivateSetup(const USB_OTG_GlobalTypeDef *USBx)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
 
@@ -1241,10 +1241,10 @@ HAL_StatusTypeDef USB_ActivateSetup(USB_OTG_GlobalTypeDef *USBx)
   * @param  psetup  pointer to setup packet
   * @retval HAL status
   */
-HAL_StatusTypeDef USB_EP0_OutStart(USB_OTG_GlobalTypeDef *USBx, uint8_t *psetup)
+HAL_StatusTypeDef USB_EP0_OutStart(const USB_OTG_GlobalTypeDef *USBx, const uint8_t *psetup)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
-  uint32_t gSNPSiD = *(__IO uint32_t *)(&USBx->CID + 0x1U);
+  uint32_t gSNPSiD = *(__IO const uint32_t *)(&USBx->CID + 0x1U);
   UNUSED(psetup);
 
   if (gSNPSiD > USB_OTG_CORE_ID_300A)
@@ -1277,7 +1277,7 @@ static HAL_StatusTypeDef USB_CoreReset(USB_OTG_GlobalTypeDef *USBx)
   {
     count++;
 
-    if (count > 200000U)
+    if (count > HAL_USB_TIMEOUT)
     {
       return HAL_TIMEOUT;
     }
@@ -1291,7 +1291,7 @@ static HAL_StatusTypeDef USB_CoreReset(USB_OTG_GlobalTypeDef *USBx)
   {
     count++;
 
-    if (count > 200000U)
+    if (count > HAL_USB_TIMEOUT)
     {
       return HAL_TIMEOUT;
     }
@@ -1375,7 +1375,7 @@ HAL_StatusTypeDef USB_HostInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef c
   *           HCFG_6_MHZ : Low Speed 6 MHz Clock
   * @retval HAL status
   */
-HAL_StatusTypeDef USB_InitFSLSPClkSel(USB_OTG_GlobalTypeDef *USBx, uint8_t freq)
+HAL_StatusTypeDef USB_InitFSLSPClkSel(const USB_OTG_GlobalTypeDef *USBx, uint8_t freq)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
 
@@ -1405,7 +1405,7 @@ HAL_StatusTypeDef USB_InitFSLSPClkSel(USB_OTG_GlobalTypeDef *USBx, uint8_t freq)
   * @note (1)The application must wait at least 10 ms
   *   before clearing the reset bit.
   */
-HAL_StatusTypeDef USB_ResetPort(USB_OTG_GlobalTypeDef *USBx)
+HAL_StatusTypeDef USB_ResetPort(const USB_OTG_GlobalTypeDef *USBx)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
 
@@ -1432,7 +1432,7 @@ HAL_StatusTypeDef USB_ResetPort(USB_OTG_GlobalTypeDef *USBx)
   *           1 : Activate VBUS
   * @retval HAL status
   */
-HAL_StatusTypeDef USB_DriveVbus(USB_OTG_GlobalTypeDef *USBx, uint8_t state)
+HAL_StatusTypeDef USB_DriveVbus(const USB_OTG_GlobalTypeDef *USBx, uint8_t state)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
   __IO uint32_t hprt0 = 0U;
@@ -1730,7 +1730,7 @@ HAL_StatusTypeDef USB_HC_StartXfer(USB_OTG_GlobalTypeDef *USBx, USB_OTG_HCTypeDe
   * @param  USBx  Selected device
   * @retval HAL state
   */
-uint32_t USB_HC_ReadInterrupt(USB_OTG_GlobalTypeDef *USBx)
+uint32_t USB_HC_ReadInterrupt(const USB_OTG_GlobalTypeDef *USBx)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
 
@@ -1744,7 +1744,7 @@ uint32_t USB_HC_ReadInterrupt(USB_OTG_GlobalTypeDef *USBx)
   *         This parameter can be a value from 1 to 15
   * @retval HAL state
   */
-HAL_StatusTypeDef USB_HC_Halt(USB_OTG_GlobalTypeDef *USBx, uint8_t hc_num)
+HAL_StatusTypeDef USB_HC_Halt(const USB_OTG_GlobalTypeDef *USBx, uint8_t hc_num)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t hcnum = (uint32_t)hc_num;
@@ -1828,7 +1828,7 @@ HAL_StatusTypeDef USB_HC_Halt(USB_OTG_GlobalTypeDef *USBx, uint8_t hc_num)
   *         This parameter can be a value from 1 to 15
   * @retval HAL state
   */
-HAL_StatusTypeDef USB_DoPing(USB_OTG_GlobalTypeDef *USBx, uint8_t ch_num)
+HAL_StatusTypeDef USB_DoPing(const USB_OTG_GlobalTypeDef *USBx, uint8_t ch_num)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
   uint32_t chnum = (uint32_t)ch_num;
@@ -1917,7 +1917,7 @@ HAL_StatusTypeDef USB_StopHost(USB_OTG_GlobalTypeDef *USBx)
   * @param  USBx Selected device
   * @retval HAL status
   */
-HAL_StatusTypeDef USB_ActivateRemoteWakeup(USB_OTG_GlobalTypeDef *USBx)
+HAL_StatusTypeDef USB_ActivateRemoteWakeup(const USB_OTG_GlobalTypeDef *USBx)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
 
@@ -1935,7 +1935,7 @@ HAL_StatusTypeDef USB_ActivateRemoteWakeup(USB_OTG_GlobalTypeDef *USBx)
   * @param  USBx Selected device
   * @retval HAL status
   */
-HAL_StatusTypeDef USB_DeActivateRemoteWakeup(USB_OTG_GlobalTypeDef *USBx)
+HAL_StatusTypeDef USB_DeActivateRemoteWakeup(const USB_OTG_GlobalTypeDef *USBx)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
 
@@ -2212,6 +2212,10 @@ HAL_StatusTypeDef USB_ActivateEndpoint(USB_TypeDef *USBx, USB_EPTypeDef *ep)
       PCD_CLEAR_RX_DTOG(USBx, ep->num);
       PCD_CLEAR_TX_DTOG(USBx, ep->num);
 
+      /* Set endpoint RX count */
+      PCD_SET_EP_DBUF_CNT(USBx, ep->num, ep->is_in, ep->maxpacket);
+
+      /* Set endpoint RX to valid state */
       PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_VALID);
       PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_DIS);
     }
@@ -2316,7 +2320,7 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx, USB_EPTypeDef *ep)
   /* IN endpoint */
   if (ep->is_in == 1U)
   {
-    /*Multi packet transfer*/
+    /* Multi packet transfer */
     if (ep->xfer_len > ep->maxpacket)
     {
       len = ep->maxpacket;
@@ -2418,9 +2422,9 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx, USB_EPTypeDef *ep)
           USB_WritePMA(USBx, ep->xfer_buff, pmabuffer, (uint16_t)len);
         }
       }
-      else /* manage isochronous double buffer IN mode */
+      else /* Manage isochronous double buffer IN mode */
       {
-        /* each Time to write in PMA xfer_len_db will */
+        /* Each Time to write in PMA xfer_len_db will */
         ep->xfer_len_db -= len;
 
         /* Fill the data buffer */
@@ -2452,19 +2456,25 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx, USB_EPTypeDef *ep)
   {
     if (ep->doublebuffer == 0U)
     {
-      /* Multi packet transfer */
-      if (ep->xfer_len > ep->maxpacket)
+      if ((ep->xfer_len == 0U) && (ep->type == EP_TYPE_CTRL))
       {
-        len = ep->maxpacket;
-        ep->xfer_len -= len;
+        /* This is a status out stage set the OUT_STATUS */
+        PCD_SET_OUT_STATUS(USBx, ep->num);
       }
       else
       {
-        len = ep->xfer_len;
+        PCD_CLEAR_OUT_STATUS(USBx, ep->num);
+      }
+
+      /* Multi packet transfer */
+      if (ep->xfer_len > ep->maxpacket)
+      {
+        ep->xfer_len -= ep->maxpacket;
+      }
+      else
+      {
         ep->xfer_len = 0U;
       }
-      /* configure and validate Rx endpoint */
-      PCD_SET_EP_RX_CNT(USBx, ep->num, len);
     }
 #if (USE_USB_DOUBLE_BUFFER == 1U)
     else
@@ -2473,15 +2483,13 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx, USB_EPTypeDef *ep)
       /* Set the Double buffer counter */
       if (ep->type == EP_TYPE_BULK)
       {
-        PCD_SET_EP_DBUF_CNT(USBx, ep->num, ep->is_in, ep->maxpacket);
-
         /* Coming from ISR */
         if (ep->xfer_count != 0U)
         {
-          /* update last value to check if there is blocking state */
+          /* Update last value to check if there is blocking state */
           wEPVal = PCD_GET_ENDPOINT(USBx, ep->num);
 
-          /*Blocking State */
+          /* Blocking State */
           if ((((wEPVal & USB_EP_DTOG_RX) != 0U) && ((wEPVal & USB_EP_DTOG_TX) != 0U)) ||
               (((wEPVal & USB_EP_DTOG_RX) == 0U) && ((wEPVal & USB_EP_DTOG_TX) == 0U)))
           {
@@ -2492,18 +2500,8 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx, USB_EPTypeDef *ep)
       /* iso out double */
       else if (ep->type == EP_TYPE_ISOC)
       {
-        /* Multi packet transfer */
-        if (ep->xfer_len > ep->maxpacket)
-        {
-          len = ep->maxpacket;
-          ep->xfer_len -= len;
-        }
-        else
-        {
-          len = ep->xfer_len;
-          ep->xfer_len = 0U;
-        }
-        PCD_SET_EP_DBUF_CNT(USBx, ep->num, ep->is_in, len);
+        /* Only single packet transfer supported in FS */
+        ep->xfer_len = 0U;
       }
       else
       {
@@ -2547,25 +2545,22 @@ HAL_StatusTypeDef USB_EPSetStall(USB_TypeDef *USBx, USB_EPTypeDef *ep)
   */
 HAL_StatusTypeDef USB_EPClearStall(USB_TypeDef *USBx, USB_EPTypeDef *ep)
 {
-  if (ep->doublebuffer == 0U)
+  if (ep->is_in != 0U)
   {
-    if (ep->is_in != 0U)
-    {
-      PCD_CLEAR_TX_DTOG(USBx, ep->num);
+    PCD_CLEAR_TX_DTOG(USBx, ep->num);
 
-      if (ep->type != EP_TYPE_ISOC)
-      {
-        /* Configure NAK status for the Endpoint */
-        PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_NAK);
-      }
-    }
-    else
+    if (ep->type != EP_TYPE_ISOC)
     {
-      PCD_CLEAR_RX_DTOG(USBx, ep->num);
-
-      /* Configure VALID status for the Endpoint */
-      PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_VALID);
+      /* Configure NAK status for the Endpoint */
+      PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_NAK);
     }
+  }
+  else
+  {
+    PCD_CLEAR_RX_DTOG(USBx, ep->num);
+
+    /* Configure VALID status for the Endpoint */
+    PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_VALID);
   }
 
   return HAL_OK;

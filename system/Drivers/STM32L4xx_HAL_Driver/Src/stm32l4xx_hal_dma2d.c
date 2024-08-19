@@ -118,7 +118,7 @@
           and a pointer to the user callback function.
 
       (#) Use function @ref HAL_DMA2D_UnRegisterCallback() to reset a callback to the default
-          weak (overridden) function.
+          weak (surcharged) function.
           @ref HAL_DMA2D_UnRegisterCallback() takes as parameters the HAL peripheral handle,
           and the Callback ID.
           This function allows to reset following callbacks:
@@ -130,16 +130,16 @@
             (+) MspDeInitCallback  : DMA2D MspDeInit.
 
       (#) By default, after the @ref HAL_DMA2D_Init and if the state is HAL_DMA2D_STATE_RESET
-          all callbacks are reset to the corresponding legacy weak (overridden) functions:
+          all callbacks are reset to the corresponding legacy weak (surcharged) functions:
           examples @ref HAL_DMA2D_LineEventCallback(), @ref HAL_DMA2D_CLUTLoadingCpltCallback()
           Exception done for MspInit and MspDeInit callbacks that are respectively
-          reset to the legacy weak (overridden) functions in the @ref HAL_DMA2D_Init
+          reset to the legacy weak (surcharged) functions in the @ref HAL_DMA2D_Init
           and @ref HAL_DMA2D_DeInit only when these callbacks are null (not registered beforehand)
           If not, MspInit or MspDeInit are not null, the @ref HAL_DMA2D_Init and @ref HAL_DMA2D_DeInit
           keep and use the user MspInit/MspDeInit callbacks (registered beforehand).
 
           Exception as well for Transfer Completion and Transfer Error callbacks that are not defined
-          as weak (overridden) functions. They must be defined by the user to be resorted to.
+          as weak (surcharged) functions. They must be defined by the user to be resorted to.
 
           Callbacks can be registered/unregistered in READY state only.
           Exception done for MspInit/MspDeInit callbacks that can be registered/unregistered
@@ -151,7 +151,7 @@
 
           When The compilation define USE_HAL_DMA2D_REGISTER_CALLBACKS is set to 0 or
           not defined, the callback registering feature is not available
-          and weak (overridden) callbacks are used.
+          and weak (surcharged) callbacks are used.
 
      [..]
       (@) You can refer to the DMA2D HAL driver header file for more useful macros
@@ -335,7 +335,7 @@ HAL_StatusTypeDef HAL_DMA2D_DeInit(DMA2D_HandleTypeDef *hdma2d)
 
   /* Before aborting any DMA2D transfer or CLUT loading, check
      first whether or not DMA2D clock is enabled */
-  if (__HAL_RCC_DMA2D_IS_CLK_ENABLED())
+  if (__HAL_RCC_DMA2D_IS_CLK_ENABLED() == 1U)
   {
     /* Abort DMA2D transfer if any */
     if ((hdma2d->Instance->CR & DMA2D_CR_START) == DMA2D_CR_START)
@@ -443,7 +443,7 @@ __weak void HAL_DMA2D_MspDeInit(DMA2D_HandleTypeDef *hdma2d)
 #if (USE_HAL_DMA2D_REGISTER_CALLBACKS == 1)
 /**
   * @brief  Register a User DMA2D Callback
-  *         To be used instead of the weak (overridden) predefined callback
+  *         To be used instead of the weak (surcharged) predefined callback
   * @param hdma2d DMA2D handle
   * @param CallbackID ID of the callback to be registered
   *        This parameter can be one of the following values:
@@ -542,7 +542,7 @@ HAL_StatusTypeDef HAL_DMA2D_RegisterCallback(DMA2D_HandleTypeDef *hdma2d, HAL_DM
 
 /**
   * @brief  Unregister a DMA2D Callback
-  *         DMA2D Callback is redirected to the weak (overridden) predefined callback
+  *         DMA2D Callback is redirected to the weak (surcharged) predefined callback
   * @param hdma2d DMA2D handle
   * @param CallbackID ID of the callback to be unregistered
   *        This parameter can be one of the following values:
@@ -583,11 +583,11 @@ HAL_StatusTypeDef HAL_DMA2D_UnRegisterCallback(DMA2D_HandleTypeDef *hdma2d, HAL_
         break;
 
       case HAL_DMA2D_MSPINIT_CB_ID :
-        hdma2d->MspInitCallback = HAL_DMA2D_MspInit; /* Legacy weak (overridden) Msp Init */
+        hdma2d->MspInitCallback = HAL_DMA2D_MspInit; /* Legacy weak (surcharged) Msp Init */
         break;
 
       case HAL_DMA2D_MSPDEINIT_CB_ID :
-        hdma2d->MspDeInitCallback = HAL_DMA2D_MspDeInit; /* Legacy weak (overridden) Msp DeInit */
+        hdma2d->MspDeInitCallback = HAL_DMA2D_MspDeInit; /* Legacy weak (surcharged) Msp DeInit */
         break;
 
       default :
@@ -603,11 +603,11 @@ HAL_StatusTypeDef HAL_DMA2D_UnRegisterCallback(DMA2D_HandleTypeDef *hdma2d, HAL_
     switch (CallbackID)
     {
       case HAL_DMA2D_MSPINIT_CB_ID :
-        hdma2d->MspInitCallback = HAL_DMA2D_MspInit;   /* Legacy weak (overridden) Msp Init */
+        hdma2d->MspInitCallback = HAL_DMA2D_MspInit;   /* Legacy weak (surcharged) Msp Init */
         break;
 
       case HAL_DMA2D_MSPDEINIT_CB_ID :
-        hdma2d->MspDeInitCallback = HAL_DMA2D_MspDeInit;  /* Legacy weak (overridden) Msp DeInit */
+        hdma2d->MspDeInitCallback = HAL_DMA2D_MspDeInit;  /* Legacy weak (surcharged) Msp DeInit */
         break;
 
       default :
@@ -1043,7 +1043,8 @@ HAL_StatusTypeDef HAL_DMA2D_EnableCLUT(DMA2D_HandleTypeDef *hdma2d, uint32_t Lay
   *                   DMA2D_BACKGROUND_LAYER(0) / DMA2D_FOREGROUND_LAYER(1)
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_DMA2D_CLUTStartLoad(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef *CLUTCfg, uint32_t LayerIdx)
+HAL_StatusTypeDef HAL_DMA2D_CLUTStartLoad(DMA2D_HandleTypeDef *hdma2d, const DMA2D_CLUTCfgTypeDef *CLUTCfg,
+                                          uint32_t LayerIdx)
 {
   /* Check the parameters */
   assert_param(IS_DMA2D_LAYER(LayerIdx));
@@ -1097,7 +1098,7 @@ HAL_StatusTypeDef HAL_DMA2D_CLUTStartLoad(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLU
   *                   DMA2D_BACKGROUND_LAYER(0) / DMA2D_FOREGROUND_LAYER(1)
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_DMA2D_CLUTStartLoad_IT(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef *CLUTCfg,
+HAL_StatusTypeDef HAL_DMA2D_CLUTStartLoad_IT(DMA2D_HandleTypeDef *hdma2d, const DMA2D_CLUTCfgTypeDef *CLUTCfg,
                                              uint32_t LayerIdx)
 {
   /* Check the parameters */
@@ -1800,7 +1801,7 @@ __weak void HAL_DMA2D_CLUTLoadingCpltCallback(DMA2D_HandleTypeDef *hdma2d)
   */
 HAL_StatusTypeDef HAL_DMA2D_ConfigLayer(DMA2D_HandleTypeDef *hdma2d, uint32_t LayerIdx)
 {
-  DMA2D_LayerCfgTypeDef *pLayerCfg;
+  const DMA2D_LayerCfgTypeDef *pLayerCfg;
   uint32_t regMask;
   uint32_t regValue;
 
@@ -2082,7 +2083,7 @@ HAL_StatusTypeDef HAL_DMA2D_ConfigDeadTime(DMA2D_HandleTypeDef *hdma2d, uint8_t 
   *                 the configuration information for the DMA2D.
   * @retval HAL state
   */
-HAL_DMA2D_StateTypeDef HAL_DMA2D_GetState(DMA2D_HandleTypeDef *hdma2d)
+HAL_DMA2D_StateTypeDef HAL_DMA2D_GetState(const DMA2D_HandleTypeDef *hdma2d)
 {
   return hdma2d->State;
 }
@@ -2093,7 +2094,7 @@ HAL_DMA2D_StateTypeDef HAL_DMA2D_GetState(DMA2D_HandleTypeDef *hdma2d)
   *               the configuration information for DMA2D.
   * @retval DMA2D Error Code
   */
-uint32_t HAL_DMA2D_GetError(DMA2D_HandleTypeDef *hdma2d)
+uint32_t HAL_DMA2D_GetError(const DMA2D_HandleTypeDef *hdma2d)
 {
   return hdma2d->ErrorCode;
 }

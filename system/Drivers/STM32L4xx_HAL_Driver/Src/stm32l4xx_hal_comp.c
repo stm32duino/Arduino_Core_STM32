@@ -351,7 +351,7 @@ HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp)
 #else
     MODIFY_REG(hcomp->Instance->CSR,
                COMP_CSR_PWRMODE  | COMP_CSR_INMSEL   | COMP_CSR_INPSEL  |
-               COMP_CSR_POLARITY | COMP_CSR_HYST    |
+               COMP_CSR_POLARITY | COMP_CSR_HYST     |
                COMP_CSR_BLANKING | COMP_CSR_BRGEN    | COMP_CSR_SCALEN  | COMP_CSR_INMESEL,
                tmp_csr
               );

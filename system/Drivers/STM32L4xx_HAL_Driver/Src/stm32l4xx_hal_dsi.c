@@ -130,7 +130,7 @@
     all callbacks are set to the corresponding weak functions:
     examples HAL_DSI_TearingEffectCallback(), HAL_DSI_EndOfRefreshCallback().
     Exception done for MspInit and MspDeInit functions that are respectively
-    reset to the legacy weak (surcharged) functions in the HAL_DSI_Init()
+    reset to the legacy weak (overridden) functions in the HAL_DSI_Init()
     and HAL_DSI_DeInit() only when these callbacks are null (not registered beforehand).
     If not, MspInit or MspDeInit are not null, the HAL_DSI_Init() and HAL_DSI_DeInit()
     keep and use the user MspInit/MspDeInit callbacks (registered beforehand).
@@ -395,24 +395,53 @@ HAL_StatusTypeDef HAL_DSI_Init(DSI_HandleTypeDef *hdsi, DSI_PLLInitTypeDef *PLLI
     }
   }
 
+  __HAL_DSI_ENABLE(hdsi);
+
+  /************************ Set the DSI clock parameters ************************/
+  /* Set the TX escape clock division factor */
+  hdsi->Instance->CCR &= ~DSI_CCR_TXECKDIV;
+  hdsi->Instance->CCR |= hdsi->Init.TXEscapeCkdiv;
+
   /*************************** Set the PHY parameters ***************************/
-
   /* D-PHY clock and digital enable*/
-  hdsi->Instance->PCTLR |= (DSI_PCTLR_CKE | DSI_PCTLR_DEN);
+  hdsi->Instance->PCTLR |= DSI_PCTLR_DEN;
 
-  /* Clock lane configuration */
-  hdsi->Instance->CLCR &= ~(DSI_CLCR_DPCC | DSI_CLCR_ACR);
-  hdsi->Instance->CLCR |= (DSI_CLCR_DPCC | hdsi->Init.AutomaticClockLaneControl);
+  hdsi->Instance->PCTLR |= DSI_PCTLR_CKE;
+
 
   /* Configure the number of active data lanes */
   hdsi->Instance->PCONFR &= ~DSI_PCONFR_NL;
   hdsi->Instance->PCONFR |= hdsi->Init.NumberOfLanes;
 
-  /************************ Set the DSI clock parameters ************************/
+  /* Get tick */
+  tickstart = HAL_GetTick();
+  if ((hdsi->Instance->PCONFR & DSI_PCONFR_NL) == DSI_ONE_DATA_LANE)
+  {
+    while ((hdsi->Instance->PSR & (DSI_PSR_PSS0 | DSI_PSR_PSSC)) != (DSI_PSR_PSS0 | DSI_PSR_PSSC))
+    {
+      if ((HAL_GetTick() - tickstart) > DSI_TIMEOUT_VALUE)
+      {
+        /* Process Unlocked */
+        __HAL_UNLOCK(hdsi);
 
-  /* Set the TX escape clock division factor */
-  hdsi->Instance->CCR &= ~DSI_CCR_TXECKDIV;
-  hdsi->Instance->CCR |= hdsi->Init.TXEscapeCkdiv;
+        return HAL_TIMEOUT;
+      }
+    }
+  }
+  else
+  {
+    while ((hdsi->Instance->PSR & (DSI_PSR_PSS0 | DSI_PSR_PSS1 | DSI_PSR_PSSC)) != (DSI_PSR_PSS0 | \
+                                                                                    DSI_PSR_PSS1 | DSI_PSR_PSSC))
+    {
+      if ((HAL_GetTick() - tickstart) > DSI_TIMEOUT_VALUE)
+      {
+        /* Process Unlocked */
+        __HAL_UNLOCK(hdsi);
+
+        return HAL_TIMEOUT;
+      }
+    }
+  }
 
   /* Calculate the bit period in high-speed mode in unit of 0.25 ns (UIX4) */
   /* The equation is : UIX4 = IntegerPart( (1000/F_PHY_Mhz) * 4 )          */
@@ -430,6 +459,12 @@ HAL_StatusTypeDef HAL_DSI_Init(DSI_HandleTypeDef *hdsi, DSI_PLLInitTypeDef *PLLI
   hdsi->Instance->IER[0U] = 0U;
   hdsi->Instance->IER[1U] = 0U;
   hdsi->ErrorMsk = 0U;
+
+  __HAL_DSI_DISABLE(hdsi);
+
+  /* Clock lane configuration */
+  hdsi->Instance->CLCR &= ~(DSI_CLCR_DPCC | DSI_CLCR_ACR);
+  hdsi->Instance->CLCR |= (DSI_CLCR_DPCC | hdsi->Init.AutomaticClockLaneControl);
 
   /* Initialize the error code */
   hdsi->ErrorCode = HAL_DSI_ERROR_NONE;
@@ -1628,14 +1663,14 @@ HAL_StatusTypeDef HAL_DSI_LongWrite(DSI_HandleTypeDef *hdsi,
                                     uint32_t Mode,
                                     uint32_t NbParams,
                                     uint32_t Param1,
-                                    uint8_t *ParametersTable)
+                                    const uint8_t *ParametersTable)
 {
   uint32_t uicounter;
   uint32_t nbBytes;
   uint32_t count;
   uint32_t tickstart;
   uint32_t fifoword;
-  uint8_t *pparams = ParametersTable;
+  const uint8_t *pparams = ParametersTable;
 
   /* Process locked */
   __HAL_LOCK(hdsi);
@@ -3099,7 +3134,7 @@ HAL_StatusTypeDef HAL_DSI_SetContentionDetectionOff(DSI_HandleTypeDef *hdsi, Fun
   *               the configuration information for the DSI.
   * @retval HAL state
   */
-HAL_DSI_StateTypeDef HAL_DSI_GetState(DSI_HandleTypeDef *hdsi)
+HAL_DSI_StateTypeDef HAL_DSI_GetState(const DSI_HandleTypeDef *hdsi)
 {
   return hdsi->State;
 }
@@ -3110,7 +3145,7 @@ HAL_DSI_StateTypeDef HAL_DSI_GetState(DSI_HandleTypeDef *hdsi)
   *               the configuration information for the DSI.
   * @retval DSI Error Code
   */
-uint32_t HAL_DSI_GetError(DSI_HandleTypeDef *hdsi)
+uint32_t HAL_DSI_GetError(const DSI_HandleTypeDef *hdsi)
 {
   /* Get the error code */
   return hdsi->ErrorCode;

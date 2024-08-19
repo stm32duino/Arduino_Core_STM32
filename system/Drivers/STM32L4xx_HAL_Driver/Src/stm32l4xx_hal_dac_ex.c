@@ -425,10 +425,15 @@ HAL_StatusTypeDef HAL_DACEx_SelfCalibrate(DAC_HandleTypeDef *hdac, DAC_ChannelCo
 
     if ((hdac->Instance->SR & (DAC_SR_CAL_FLAG1 << (Channel & 0x10UL))) == 0UL)
     {
-      /* OPAMP_CSR_OUTCAL is actually one value more */
-      trimmingvalue++;
-      /* Set right trimming */
-      MODIFY_REG(hdac->Instance->CCR, (DAC_CCR_OTRIM1 << (Channel & 0x10UL)), (trimmingvalue << (Channel & 0x10UL)));
+      /* Check trimming value below maximum */
+      if (trimmingvalue < 0x1FU)
+      {
+        /* Trimming is actually one value more */
+        trimmingvalue++;
+
+        /* Set right trimming */
+        MODIFY_REG(hdac->Instance->CCR, (DAC_CCR_OTRIM1 << (Channel & 0x10UL)), (trimmingvalue << (Channel & 0x10UL)));
+      }
     }
 
     /* Disable the selected DAC channel calibration */
