@@ -74,12 +74,11 @@ board_options = {}  # key: board name, value: options
 sketch_options = {}  # key: sketch pattern, value: options
 na_sketch_pattern = {}  # key: board name, value: sketch pattern list
 
-all_warnings = False
-
 # Counter
 nb_build_passed = 0
 nb_build_failed = 0
 nb_build_skipped = 0
+nb_warnings = 0
 
 # Timing
 full_buildTime = time.time()
@@ -95,7 +94,7 @@ ld_pattern = re.compile(r"arm-none-eabi/bin/ld\.?e?x?e?:")
 overflow_pattern = re.compile(
     r"(will not fit in |section .+ is not within )?region( .+ overflowed by [\d]+ bytes)?"
 )
-
+warning_pattern = re.compile(r"warning: .+LOAD segment with RWX permissions")
 # format
 build_format_header = "| {:^8} | {:42} | {:^10} | {:^7} |"
 build_format_result = "| {:^8} | {:42} | {:^19} | {:^6.2f}s |"
@@ -590,11 +589,18 @@ def find_board():
 def check_status(status, build_conf, boardKo, nb_build_conf):
     global nb_build_passed
     global nb_build_failed
+    global nb_warnings
     sketch_name = build_conf[idx_cmd][-1].name
 
     if status[1] == 0:
         result = fsucc
         nb_build_passed += 1
+        # Check warnings
+        logFile = build_conf[idx_log] / f"{sketch_name}.log"
+        for i, line in enumerate(open(logFile)):
+            if warning_pattern.search(line):
+                nb_warnings += 1
+                print(f"Warning: {line}")
     elif status[1] == 1:
         # Check if failed due to a region overflowed
         logFile = build_conf[idx_log] / f"{sketch_name}.log"
@@ -608,7 +614,11 @@ def check_status(status, build_conf, boardKo, nb_build_conf):
             elif ld_pattern.search(line):
                 # If one ld line is not for region overflowed --> failed
                 if overflow_pattern.search(line) is None:
-                    error_found = True
+                    if warning_pattern.search(line):
+                        nb_warnings += 1
+                        print(f"Warning: {line}")
+                    else:
+                        error_found = True
                 else:
                     overflow_found = True
             if error_found:
@@ -692,6 +702,8 @@ def log_final_result():
         sfail = f"{nb_build_failed} failed ({stat_failed}%)"
         sskip = f"{nb_build_skipped} skipped)"
         f.write(f"{ssucc}, {sfail}  of {nb_build_total} builds ({sskip})\n")
+        if nb_warnings:
+            f.write(f"Total warning to remove: {nb_warnings}\n")
         f.write(f"Ends {time.strftime('%A %d %B %Y %H:%M:%S')}\n")
         f.write(f"Duration: {duration}\n")
         f.write(f"Logs are available here:\n{output_dir}\n")
@@ -702,6 +714,8 @@ def log_final_result():
     sfail = f"{nb_build_failed} {ffail} ({stat_failed}%)"
     sskip = f"{nb_build_skipped} {fskip}"
     print(f"Builds Summary: {ssucc}, {sfail} of {nb_build_total} builds ({sskip})")
+    if nb_warnings:
+        print(f"Total warning to remove: {nb_warnings}")
     print(f"Duration: {duration}")
     print("Logs are available here:")
     print(output_dir)
