@@ -388,10 +388,10 @@ HAL_StatusTypeDef HAL_LPTIM_Init(LPTIM_HandleTypeDef *hlptim)
   }
   else
   {
-    /* Check LPTIM2 Input1 source */
+    /* Check LPTIM Input1 source */
     assert_param(IS_LPTIM_INPUT1_SOURCE(hlptim->Instance, hlptim->Init.Input1Source));
 
-    /* Configure LPTIM2 Input1 source */
+    /* Configure LPTIM Input1 source */
     hlptim->Instance->OR = hlptim->Init.Input1Source;
   }
 

@@ -58,7 +58,7 @@
 /* Note: On this STM32 series, comparator input plus parameters are           */
 /*       the same on all COMP instances.                                      */
 /*       However, comparator instance kept as macro parameter for             */
-/*       compatibility with other STM32 families.                             */
+/*       compatibility with other STM32 series.                               */
 #if defined(COMP_CSR_INPSEL_1)
 #define IS_LL_COMP_INPUT_PLUS(__COMP_INSTANCE__, __INPUT_PLUS__)               \
   (((__INPUT_PLUS__) == LL_COMP_INPUT_PLUS_IO1)                                \
@@ -75,7 +75,7 @@
 /* Note: On this STM32 series, comparator input minus parameters are          */
 /*       the same on all COMP instances.                                      */
 /*       However, comparator instance kept as macro parameter for             */
-/*       compatibility with other STM32 families.                             */
+/*       compatibility with other STM32 series.                               */
 #if defined(COMP_CSR_INMESEL_1)
 #define IS_LL_COMP_INPUT_MINUS(__COMP_INSTANCE__, __INPUT_MINUS__)             \
   (((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_1_4VREFINT)                       \
@@ -92,7 +92,7 @@
   )
 #else
 #define IS_LL_COMP_INPUT_MINUS(__COMP_INSTANCE__, __INPUT_MINUS__)             \
-  (((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_1_4VREFINT)                    \
+  (((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_1_4VREFINT)                       \
    || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_1_2VREFINT)                    \
    || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_3_4VREFINT)                    \
    || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_VREFINT)                       \

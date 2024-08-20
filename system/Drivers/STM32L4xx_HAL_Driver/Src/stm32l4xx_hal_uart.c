@@ -999,10 +999,7 @@ HAL_StatusTypeDef HAL_UART_RegisterRxEventCallback(UART_HandleTypeDef *huart, pU
     return HAL_ERROR;
   }
 
-  /* Process locked */
-  __HAL_LOCK(huart);
-
-  if (huart->gState == HAL_UART_STATE_READY)
+  if (huart->RxState == HAL_UART_STATE_READY)
   {
     huart->RxEventCallback = pCallback;
   }
@@ -1012,9 +1009,6 @@ HAL_StatusTypeDef HAL_UART_RegisterRxEventCallback(UART_HandleTypeDef *huart, pU
 
     status =  HAL_ERROR;
   }
-
-  /* Release Lock */
-  __HAL_UNLOCK(huart);
 
   return status;
 }
@@ -1029,10 +1023,7 @@ HAL_StatusTypeDef HAL_UART_UnRegisterRxEventCallback(UART_HandleTypeDef *huart)
 {
   HAL_StatusTypeDef status = HAL_OK;
 
-  /* Process locked */
-  __HAL_LOCK(huart);
-
-  if (huart->gState == HAL_UART_STATE_READY)
+  if (huart->RxState == HAL_UART_STATE_READY)
   {
     huart->RxEventCallback = HAL_UARTEx_RxEventCallback; /* Legacy weak UART Rx Event Callback  */
   }
@@ -1043,8 +1034,6 @@ HAL_StatusTypeDef HAL_UART_UnRegisterRxEventCallback(UART_HandleTypeDef *huart)
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(huart);
   return status;
 }
 
@@ -2540,6 +2529,28 @@ void HAL_UART_IRQHandler(UART_HandleTypeDef *huart)
         HAL_UARTEx_RxEventCallback(huart, (huart->RxXferSize - huart->RxXferCount));
 #endif /* (USE_HAL_UART_REGISTER_CALLBACKS) */
       }
+      else
+      {
+        /* If DMA is in Circular mode, Idle event is to be reported to user
+           even if occurring after a Transfer Complete event from DMA */
+        if (nb_remaining_rx_data == huart->RxXferSize)
+        {
+          if (HAL_IS_BIT_SET(huart->hdmarx->Instance->CCR, DMA_CCR_CIRC))
+          {
+            /* Initialize type of RxEvent that correspond to RxEvent callback execution;
+               In this case, Rx Event type is Idle Event */
+            huart->RxEventType = HAL_UART_RXEVENT_IDLE;
+
+#if (USE_HAL_UART_REGISTER_CALLBACKS == 1)
+            /*Call registered Rx Event callback*/
+            huart->RxEventCallback(huart, huart->RxXferSize);
+#else
+            /*Call legacy weak Rx Event callback*/
+            HAL_UARTEx_RxEventCallback(huart, huart->RxXferSize);
+#endif /* (USE_HAL_UART_REGISTER_CALLBACKS) */
+          }
+        }
+      }
       return;
     }
     else
@@ -3554,7 +3565,7 @@ HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef *huart, uint32_
         return HAL_TIMEOUT;
       }
 
-      if (READ_BIT(huart->Instance->CR1, USART_CR1_RE) != 0U)
+      if ((READ_BIT(huart->Instance->CR1, USART_CR1_RE) != 0U) && (Flag != UART_FLAG_TXE) && (Flag != UART_FLAG_TC))
       {
         if (__HAL_UART_GET_FLAG(huart, UART_FLAG_ORE) == SET)
         {
@@ -4699,6 +4710,7 @@ static void UART_RxISR_8BIT_FIFOEN(UART_HandleTypeDef *huart)
           HAL_UART_RxCpltCallback(huart);
 #endif /* USE_HAL_UART_REGISTER_CALLBACKS */
         }
+        break;
       }
     }
 
@@ -4863,6 +4875,7 @@ static void UART_RxISR_16BIT_FIFOEN(UART_HandleTypeDef *huart)
           HAL_UART_RxCpltCallback(huart);
 #endif /* USE_HAL_UART_REGISTER_CALLBACKS */
         }
+        break;
       }
     }
 

@@ -116,9 +116,9 @@
 /*  Health test control register information to use in CCM algorithm */
 #define RNG_HTCFG_1   0x17590ABCU /*!< Magic number */
 #if defined(RNG_VER_3_1) || defined(RNG_VER_3_0)
-#define RNG_HTCFG     0x000CAA74U /*!< For best latency and to be compliant with NIST */
+#define RNG_HTCFG     0x000CAA74U /*!< Recommended value for NIST compliance, refer to application note AN4230 */
 #else /* RNG_VER_3_2 */
-#define RNG_HTCFG     0x00007274U /*!< For best latency and to be compliant with NIST */
+#define RNG_HTCFG     0x00007274U /*!< Recommended value for NIST compliance, refer to application note AN4230 */
 #endif /* RNG_VER_3_1 || RNG_VER_3_0 */
 /**
   * @}
@@ -229,7 +229,7 @@ HAL_StatusTypeDef HAL_RNG_Init(RNG_HandleTypeDef *hrng)
 #if defined(RNG_VER_3_2) || defined(RNG_VER_3_1) || defined(RNG_VER_3_0)
   /*!< magic number must be written immediately before to RNG_HTCRG */
   WRITE_REG(hrng->Instance->HTCR, RNG_HTCFG_1);
-  /* for best latency and to be compliant with NIST */
+  /* Recommended value for NIST compliance, refer to application note AN4230 */
   WRITE_REG(hrng->Instance->HTCR, RNG_HTCFG);
 #endif /* RNG_VER_3_2 || RNG_VER_3_1 || RNG_VER_3_0 */
 
@@ -272,12 +272,12 @@ HAL_StatusTypeDef HAL_RNG_Init(RNG_HandleTypeDef *hrng)
   /* Get tick */
   tickstart = HAL_GetTick();
   /* Check if data register contains valid random data */
-  while (__HAL_RNG_GET_FLAG(hrng, RNG_FLAG_SECS) != RESET)
+  while (__HAL_RNG_GET_FLAG(hrng, RNG_FLAG_DRDY) != SET)
   {
     if ((HAL_GetTick() - tickstart) > RNG_TIMEOUT_VALUE)
     {
       /* New check to avoid false timeout detection in case of preemption */
-      if (__HAL_RNG_GET_FLAG(hrng, RNG_FLAG_SECS) != RESET)
+      if (__HAL_RNG_GET_FLAG(hrng, RNG_FLAG_DRDY) != SET)
       {
         hrng->State = HAL_RNG_STATE_ERROR;
         hrng->ErrorCode = HAL_RNG_ERROR_TIMEOUT;

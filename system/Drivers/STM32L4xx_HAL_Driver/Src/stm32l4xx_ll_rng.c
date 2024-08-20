@@ -115,7 +115,7 @@ ErrorStatus LL_RNG_DeInit(const RNG_TypeDef *RNGx)
   *          - SUCCESS: RNG registers are initialized according to RNG_InitStruct content
   *          - ERROR: not applicable
   */
-ErrorStatus LL_RNG_Init(RNG_TypeDef *RNGx, LL_RNG_InitTypeDef *RNG_InitStruct)
+ErrorStatus LL_RNG_Init(RNG_TypeDef *RNGx, const LL_RNG_InitTypeDef *RNG_InitStruct)
 {
   /* Check the parameters */
   assert_param(IS_RNG_ALL_INSTANCE(RNGx));

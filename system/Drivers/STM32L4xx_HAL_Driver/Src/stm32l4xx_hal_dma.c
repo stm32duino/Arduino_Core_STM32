@@ -895,7 +895,7 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)
   *                               the configuration information for the specified DMA Channel.
   * @param  CallbackID           User Callback identifier
   *                               a HAL_DMA_CallbackIDTypeDef ENUM as parameter.
-  * @param  pCallback            pointer to private callbacsk function which has pointer to
+  * @param  pCallback            pointer to private callback function which has pointer to
   *                               a DMA_HandleTypeDef structure as parameter.
   * @retval HAL status
   */

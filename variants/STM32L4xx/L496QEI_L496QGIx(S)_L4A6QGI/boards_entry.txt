@@ -26,7 +26,7 @@ GenL4.menu.pnum.GENERIC_L496QGIXS=Generic L496QGIxS
 GenL4.menu.pnum.GENERIC_L496QGIXS.upload.maximum_size=1048576
 GenL4.menu.pnum.GENERIC_L496QGIXS.upload.maximum_data_size=327680
 GenL4.menu.pnum.GENERIC_L496QGIXS.build.board=GENERIC_L496QGIXS
-GenL4.menu.pnum.GENERIC_L496QGIXS.build.product_line=STM32L4A6xx
+GenL4.menu.pnum.GENERIC_L496QGIXS.build.product_line=STM32L496xx
 GenL4.menu.pnum.GENERIC_L496QGIXS.build.variant=STM32L4xx/L496QEI_L496QGIx(S)_L4A6QGI
 GenL4.menu.pnum.GENERIC_L496QGIXS.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L496.svd
 

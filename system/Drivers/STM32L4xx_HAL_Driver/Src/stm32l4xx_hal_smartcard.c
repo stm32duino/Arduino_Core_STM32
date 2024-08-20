@@ -2524,7 +2524,7 @@ static HAL_StatusTypeDef SMARTCARD_SetConfig(SMARTCARD_HandleTypeDef *hsmartcard
     assert_param(IS_SMARTCARD_TIMEOUT_VALUE(hsmartcard->Init.TimeOutValue));
     tmpreg |= (uint32_t) hsmartcard->Init.TimeOutValue;
   }
-  MODIFY_REG(hsmartcard->Instance->RTOR, (USART_RTOR_RTO | USART_RTOR_BLEN), tmpreg);
+  WRITE_REG(hsmartcard->Instance->RTOR, tmpreg);
 
   /*-------------------------- USART BRR Configuration -----------------------*/
   SMARTCARD_GETCLOCKSOURCE(hsmartcard, clocksource);

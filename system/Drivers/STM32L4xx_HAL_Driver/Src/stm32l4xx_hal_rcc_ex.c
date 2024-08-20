@@ -675,6 +675,10 @@ HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *PeriphClk
         status = ret;
       }
     }
+    else
+    {
+      /* nothing to do */
+    }
 
 #endif /* STM32L471xx || STM32L475xx || STM32L476xx || STM32L485xx || STM32L486xx || STM32L496xx || STM32L4A6xx */
 
@@ -2542,7 +2546,7 @@ void HAL_RCCEx_OCTOSPIDelayConfig(uint32_t Delay1, uint32_t Delay2)
               (+++) Default values can be set for frequency Error Measurement (reload and error limit)
                         and also HSI48 oscillator smooth trimming.
               (+++) Macro __HAL_RCC_CRS_RELOADVALUE_CALCULATE can be also used to calculate
-                        directly reload value with target and sychronization frequencies values
+                        directly reload value with target and synchronization frequencies values
           (##) Call function HAL_RCCEx_CRSConfig which
               (+++) Resets CRS registers to their default values.
               (+++) Configures CRS registers with synchronization configuration

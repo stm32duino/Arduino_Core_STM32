@@ -1284,7 +1284,7 @@ uint32_t LL_RCC_GetSWPMIClockFreq(uint32_t SWPMIxSource)
   switch (LL_RCC_GetSWPMIClockSource(SWPMIxSource))
   {
     case LL_RCC_SWPMI1_CLKSOURCE_HSI:        /* SWPMI1 Clock is HSI Osc. */
-      if (LL_RCC_HSI_IsReady())
+      if (LL_RCC_HSI_IsReady() != 0UL)
       {
         swpmi_frequency = HSI_VALUE;
       }

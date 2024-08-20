@@ -461,6 +461,12 @@ HAL_StatusTypeDef HAL_SD_Init(SD_HandleTypeDef *hsd)
   }
 #endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 
+  /* Configure the bus wide with the specified value in the SD_HandleTypeDef */
+  if(HAL_SD_ConfigWideBusOperation(hsd, hsd->Init.BusWide) != HAL_OK)
+  {
+    return HAL_ERROR;
+  }
+
   /* Initialize the error code */
   hsd->ErrorCode = HAL_SD_ERROR_NONE;
 
@@ -3467,11 +3473,6 @@ static uint32_t SD_InitCard(SD_HandleTypeDef *hsd)
   {
     return errorstate;
   }
-
-#if !defined(STM32L4P5xx) && !defined(STM32L4Q5xx) && !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
-  /* Configure SDMMC peripheral interface */
-  (void)SDMMC_Init(hsd->Instance, hsd->Init);
-#endif /* !STM32L4P5xx && !STM32L4Q5xx && !STM32L4R5xx && !STM32L4R7xx && !STM32L4R9xx && !STM32L4S5xx && !STM32L4S7xx && !STM32L4S9xx */
 
   /* All cards are initialized */
   return HAL_SD_ERROR_NONE;

@@ -567,7 +567,7 @@ typedef struct
   uint32_t      RESERVED7[7];   /*!< Reserved, 0x11C - 0x137                                                              */
   __IO uint32_t VMCCR;          /*!< DSI Host Video Mode Current Configuration Register,        Address offset: 0x138     */
   __IO uint32_t VPCCR;          /*!< DSI Host Video Packet Current Configuration Register,      Address offset: 0x13C     */
-  __IO uint32_t VCCCR;          /*!< DSI Host Video ChunksCurrent Configuration Register,     Address offset: 0x140     */
+  __IO uint32_t VCCCR;          /*!< DSI Host Video Chunks Current Configuration Register,     Address offset: 0x140     */
   __IO uint32_t VNPCCR;         /*!< DSI Host Video Null Packet Current Configuration Register, Address offset: 0x144     */
   __IO uint32_t VHSACCR;        /*!< DSI Host Video HSA Current Configuration Register,         Address offset: 0x148     */
   __IO uint32_t VHBPCCR;        /*!< DSI Host Video HBP Current Configuration Register,         Address offset: 0x14C     */
@@ -1406,7 +1406,7 @@ typedef struct
 #define SRAM2_SIZE            (0x00010000UL) /*!< SRAM2 size (64 KBytes) */
 #define SRAM3_SIZE            (0x00060000UL) /*!< SRAM3 size (384 KBytes) */
 
-#define FLASH_SIZE_DATA_REGISTER ((uint32_t)0x1FFF75E0)
+#define FLASH_SIZE_DATA_REGISTER (0x1FFF75E0UL)
 
 #define FLASH_SIZE               (((((*((uint32_t *)FLASH_SIZE_DATA_REGISTER)) & (0x0000FFFFU)) == 0x0000FFFFU)) ? (0x800U << 10U) : \
                                   (((*((uint32_t *)FLASH_SIZE_DATA_REGISTER)) & (0x0000FFFFU)) << 10U))

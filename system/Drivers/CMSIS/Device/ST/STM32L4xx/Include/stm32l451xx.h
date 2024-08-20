@@ -954,7 +954,7 @@ typedef struct
 #define SRAM1_SIZE_MAX        (0x00020000UL) /*!< maximum SRAM1 size (up to 128 KBytes) */
 #define SRAM2_SIZE            (0x00008000UL) /*!< SRAM2 size (32 KBytes) */
 
-#define FLASH_SIZE_DATA_REGISTER ((uint32_t)0x1FFF75E0)
+#define FLASH_SIZE_DATA_REGISTER (0x1FFF75E0UL)
 
 #define FLASH_SIZE               (((((*((uint32_t *)FLASH_SIZE_DATA_REGISTER)) & (0x0000FFFFU)) == 0x0000FFFFU)) ? (0x200U << 10U) : \
                                   (((*((uint32_t *)FLASH_SIZE_DATA_REGISTER)) & (0x0000FFFFU)) << 10U))
