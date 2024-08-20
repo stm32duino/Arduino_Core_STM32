@@ -689,15 +689,16 @@ uint32_t HAL_RNG_GetRandomNumber_IT(RNG_HandleTypeDef *hrng)
 void HAL_RNG_IRQHandler(RNG_HandleTypeDef *hrng)
 {
   uint32_t rngclockerror = 0U;
+  uint32_t itflag   = hrng->Instance->SR;
 
   /* RNG clock error interrupt occurred */
-  if (__HAL_RNG_GET_IT(hrng, RNG_IT_CEI) != RESET)
+  if ((itflag & RNG_IT_CEI) == RNG_IT_CEI)
   {
     /* Update the error code */
     hrng->ErrorCode = HAL_RNG_ERROR_CLOCK;
     rngclockerror = 1U;
   }
-  else if (__HAL_RNG_GET_IT(hrng, RNG_IT_SEI) != RESET)
+  else if ((itflag & RNG_IT_SEI) == RNG_IT_SEI)
   {
     /* Update the error code */
     hrng->ErrorCode = HAL_RNG_ERROR_SEED;
@@ -728,7 +729,7 @@ void HAL_RNG_IRQHandler(RNG_HandleTypeDef *hrng)
   }
 
   /* Check RNG data ready interrupt occurred */
-  if (__HAL_RNG_GET_IT(hrng, RNG_IT_DRDY) != RESET)
+  if ((itflag & RNG_IT_DRDY) == RNG_IT_DRDY)
   {
     /* Generate random number once, so disable the IT */
     __HAL_RNG_DISABLE_IT(hrng);

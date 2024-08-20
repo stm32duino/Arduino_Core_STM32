@@ -938,10 +938,7 @@ uint32_t HAL_DAC_GetValue(const DAC_HandleTypeDef *hdac, uint32_t Channel)
   uint32_t result;
 
   /* Check the DAC peripheral handle */
-  if (hdac == NULL)
-  {
-    return HAL_ERROR;
-  }
+  assert_param(hdac != NULL);
 
   /* Check the parameters */
   assert_param(IS_DAC_CHANNEL(Channel));

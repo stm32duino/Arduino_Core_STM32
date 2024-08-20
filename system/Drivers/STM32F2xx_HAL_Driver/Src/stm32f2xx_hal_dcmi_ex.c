@@ -30,4 +30,3 @@
 /* Exported functions --------------------------------------------------------*/
 
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

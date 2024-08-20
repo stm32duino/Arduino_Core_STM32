@@ -2083,6 +2083,9 @@ uint32_t HAL_USART_GetError(const USART_HandleTypeDef *husart)
 /**
   * @}
   */
+/**
+  * @}
+  */
 
 /** @defgroup USART_Private_Functions USART Private Functions
  * @{
@@ -2793,10 +2796,6 @@ static void USART_SetConfig(USART_HandleTypeDef *husart)
     husart->Instance->BRR = USART_BRR(pclk, husart->Init.BaudRate);
   }
 }
-
-/**
-  * @}
-  */
 
 /**
   * @}

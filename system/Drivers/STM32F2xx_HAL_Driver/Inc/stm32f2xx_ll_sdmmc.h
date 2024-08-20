@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2018 STMicroelectronics.
+  * Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -300,9 +300,13 @@ typedef struct
 #define SDMMC_SINGLE_BUS_SUPPORT                      0x00010000U
 #define SDMMC_CARD_LOCKED                             0x02000000U
 
-#ifndef SDMMC_DATATIMEOUT
-#define SDMMC_DATATIMEOUT                             0xFFFFFFFFU
+#ifndef SDMMC_DATATIMEOUT /*Hardware Data Timeout (ms) */
+#define SDMMC_DATATIMEOUT                  ((uint32_t)0xFFFFFFFFU)
 #endif /* SDMMC_DATATIMEOUT */
+
+#ifndef SDMMC_SWDATATIMEOUT /*Software Data Timeout (ms) */
+#define SDMMC_SWDATATIMEOUT                SDMMC_DATATIMEOUT
+#endif /* SDMMC_SWDATATIMEOUT */
 
 #define SDMMC_0TO7BITS                                0x000000FFU
 #define SDMMC_8TO15BITS                               0x0000FF00U

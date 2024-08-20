@@ -506,7 +506,7 @@ HAL_StatusTypeDef HAL_NAND_Reset(NAND_HandleTypeDef *hnand)
   * @param  pDeviceConfig  pointer to NAND_DeviceConfigTypeDef structure
   * @retval HAL status
   */
-HAL_StatusTypeDef  HAL_NAND_ConfigDevice(NAND_HandleTypeDef *hnand, NAND_DeviceConfigTypeDef *pDeviceConfig)
+HAL_StatusTypeDef  HAL_NAND_ConfigDevice(NAND_HandleTypeDef *hnand, const NAND_DeviceConfigTypeDef *pDeviceConfig)
 {
   hnand->Config.PageSize           = pDeviceConfig->PageSize;
   hnand->Config.SpareAreaSize      = pDeviceConfig->SpareAreaSize;
@@ -2036,6 +2036,7 @@ HAL_StatusTypeDef HAL_NAND_RegisterCallback(NAND_HandleTypeDef *hnand, HAL_NAND_
     status =  HAL_ERROR;
   }
 
+  return status;
 }
 
 /**
@@ -2094,6 +2095,7 @@ HAL_StatusTypeDef HAL_NAND_UnRegisterCallback(NAND_HandleTypeDef *hnand, HAL_NAN
     status =  HAL_ERROR;
   }
 
+  return status;
 }
 #endif /* USE_HAL_NAND_REGISTER_CALLBACKS */
 
