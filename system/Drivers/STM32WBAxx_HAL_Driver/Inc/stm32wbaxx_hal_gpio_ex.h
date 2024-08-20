@@ -44,9 +44,7 @@ extern "C" {
   * @{
   */
 
-/** @defgroup GPIOEx_Alternate_function_selection GPIOEx Alternate function selection
-  * @{
-  */
+
 
 #if defined(STM32WBA54xx) || defined(STM32WBA55xx)
 /**
@@ -117,18 +115,7 @@ extern "C" {
 /**
   * @brief   AF 11 selection
   */
-#define GPIO_AF11_RF_ANTSW0    ((uint8_t)0x0B)  /*!< RF_ANTSW0 Alternate Function mapping */
-#define GPIO_AF11_RF_ANTSW1    ((uint8_t)0x0B)  /*!< RF_ANTSW1 Alternate Function mapping */
-#define GPIO_AF11_RF_ANTSW2    ((uint8_t)0x0B)  /*!< RF_ANTSW2 Alternate Function mapping */
-#define GPIO_AF11_RF_IO1       ((uint8_t)0x0B)  /*!< RF_IO1 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO2       ((uint8_t)0x0B)  /*!< RF_IO2 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO3       ((uint8_t)0x0B)  /*!< RF_IO3 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO4       ((uint8_t)0x0B)  /*!< RF_IO4 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO5       ((uint8_t)0x0B)  /*!< RF_IO5 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO6       ((uint8_t)0x0B)  /*!< RF_IO6 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO7       ((uint8_t)0x0B)  /*!< RF_IO7 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO8       ((uint8_t)0x0B)  /*!< RF_IO8 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO9       ((uint8_t)0x0B)  /*!< RF_IO9 Alternate Function mapping    */
+#define GPIO_AF11_RF          ((uint8_t)0x0B)  /*!< RF_ANTSW0 Alternate Function mapping */
 
 /**
   * @brief   AF 12 selection
@@ -228,18 +215,7 @@ extern "C" {
 /**
   * @brief   AF 11 selection
   */
-#define GPIO_AF11_RF_ANTSW0    ((uint8_t)0x0B)  /*!< RF_ANTSW0 Alternate Function mapping */
-#define GPIO_AF11_RF_ANTSW1    ((uint8_t)0x0B)  /*!< RF_ANTSW1 Alternate Function mapping */
-#define GPIO_AF11_RF_ANTSW2    ((uint8_t)0x0B)  /*!< RF_ANTSW2 Alternate Function mapping */
-#define GPIO_AF11_RF_IO1       ((uint8_t)0x0B)  /*!< RF_IO1 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO2       ((uint8_t)0x0B)  /*!< RF_IO2 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO3       ((uint8_t)0x0B)  /*!< RF_IO3 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO4       ((uint8_t)0x0B)  /*!< RF_IO4 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO5       ((uint8_t)0x0B)  /*!< RF_IO5 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO6       ((uint8_t)0x0B)  /*!< RF_IO6 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO7       ((uint8_t)0x0B)  /*!< RF_IO7 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO8       ((uint8_t)0x0B)  /*!< RF_IO8 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO9       ((uint8_t)0x0B)  /*!< RF_IO9 Alternate Function mapping    */
+#define GPIO_AF11_RF          ((uint8_t)0x0B)  /*!< RF_ANTSW0 Alternate Function mapping */
 
 /**
   * @brief   AF 13 selection
@@ -316,18 +292,7 @@ extern "C" {
 /**
   * @brief   AF 11 selection
   */
-#define GPIO_AF11_RF_ANTSW0    ((uint8_t)0x0B)  /*!< RF_ANTSW0 Alternate Function mapping */
-#define GPIO_AF11_RF_ANTSW1    ((uint8_t)0x0B)  /*!< RF_ANTSW1 Alternate Function mapping */
-#define GPIO_AF11_RF_ANTSW2    ((uint8_t)0x0B)  /*!< RF_ANTSW2 Alternate Function mapping */
-#define GPIO_AF11_RF_IO1       ((uint8_t)0x0B)  /*!< RF_IO1 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO2       ((uint8_t)0x0B)  /*!< RF_IO2 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO3       ((uint8_t)0x0B)  /*!< RF_IO3 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO4       ((uint8_t)0x0B)  /*!< RF_IO4 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO5       ((uint8_t)0x0B)  /*!< RF_IO5 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO6       ((uint8_t)0x0B)  /*!< RF_IO6 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO7       ((uint8_t)0x0B)  /*!< RF_IO7 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO8       ((uint8_t)0x0B)  /*!< RF_IO8 Alternate Function mapping    */
-#define GPIO_AF11_RF_IO9       ((uint8_t)0x0B)  /*!< RF_IO9 Alternate Function mapping    */
+#define GPIO_AF11_RF          ((uint8_t)0x0B)  /*!< RF_ANTSW0 Alternate Function mapping */
 
 /**
   * @brief   AF 14 selection
@@ -356,10 +321,6 @@ extern "C" {
   * @}
   */
 
-/**
-  * @}
-  */
-
 /* Exported macro ------------------------------------------------------------*/
 /** @defgroup GPIOEx_Exported_Macros GPIOEx Exported Macros
   * @{
@@ -369,6 +330,10 @@ extern "C" {
   * @{
   */
 #define GPIO_GET_INDEX(__GPIOx__)           (((uint32_t )(__GPIOx__) & (~GPIOA_BASE)) >> 10)
+
+/**
+  * @}
+  */
 
 /**
   * @}

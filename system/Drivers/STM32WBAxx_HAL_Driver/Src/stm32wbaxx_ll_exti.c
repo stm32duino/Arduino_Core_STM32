@@ -91,14 +91,6 @@ ErrorStatus LL_EXTI_DeInit(void)
   /* Pending register set to default reset values */
   LL_EXTI_WriteReg(RPR1,   0xFFFFFFFFU);
   LL_EXTI_WriteReg(FPR1,   0xFFFFFFFFU);
-#if defined(EXTI_PRIVCFGR1_PRIV0)
-  /* Privilege register set to default reset values */
-  LL_EXTI_WriteReg(PRIVCFGR1,  0x00000000U);
-#endif /* EXTI_PRIVCFGR1_PRIV0 */
-#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
-  /* Secure register set to default reset values */
-  LL_EXTI_WriteReg(SECCFGR1,  0x00000000U);
-#endif /* __ARM_FEATURE_CMSE */
   return SUCCESS;
 }
 

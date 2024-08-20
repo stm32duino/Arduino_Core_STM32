@@ -3,21 +3,12 @@
 # and changed if needed.
 # See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
 
-# Generic WBA50KEUx
-GenWBA.menu.pnum.GENERIC_WBA50KEUX=Generic WBA50KEUx
-GenWBA.menu.pnum.GENERIC_WBA50KEUX.upload.maximum_size=524288
-GenWBA.menu.pnum.GENERIC_WBA50KEUX.upload.maximum_data_size=65536
-GenWBA.menu.pnum.GENERIC_WBA50KEUX.build.board=GENERIC_WBA50KEUX
-GenWBA.menu.pnum.GENERIC_WBA50KEUX.build.product_line=STM32WBA50xx
-GenWBA.menu.pnum.GENERIC_WBA50KEUX.build.variant=STM32WBAxx/WBA50K(E-G)U
-GenWBA.menu.pnum.GENERIC_WBA50KEUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA50.svd
-
 # Generic WBA50KGUx
 GenWBA.menu.pnum.GENERIC_WBA50KGUX=Generic WBA50KGUx
 GenWBA.menu.pnum.GENERIC_WBA50KGUX.upload.maximum_size=1048576
 GenWBA.menu.pnum.GENERIC_WBA50KGUX.upload.maximum_data_size=65536
 GenWBA.menu.pnum.GENERIC_WBA50KGUX.build.board=GENERIC_WBA50KGUX
 GenWBA.menu.pnum.GENERIC_WBA50KGUX.build.product_line=STM32WBA50xx
-GenWBA.menu.pnum.GENERIC_WBA50KGUX.build.variant=STM32WBAxx/WBA50K(E-G)U
+GenWBA.menu.pnum.GENERIC_WBA50KGUX.build.variant=STM32WBAxx/WBA50KGU
 GenWBA.menu.pnum.GENERIC_WBA50KGUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA50.svd
 

@@ -139,6 +139,9 @@ enum
 #if defined(TSC_IOCCR_G7_IO1)
   TSC_GROUP7_IDX,
 #endif /* TSC_IOCCR_G7_IO1 */
+#if defined(TSC_IOCCR_G8_IO1)
+  TSC_GROUP8_IDX,
+#endif /* TSC_IOCCR_G8_IO1 */
   TSC_NB_OF_GROUPS
 };
 
@@ -360,6 +363,9 @@ when the selected signal is detected on the SYNC input pin) */
 #if defined(TSC_IOCCR_G7_IO1)
 #define TSC_GROUP7              (0x1UL << TSC_GROUP7_IDX)
 #endif /* TSC_IOCCR_G7_IO1 */
+#if defined(TSC_IOCCR_G8_IO1)
+#define TSC_GROUP8              (0x1UL << TSC_GROUP8_IDX)
+#endif /* TSC_IOCCR_G8_IO1 */
 
 #define TSC_GROUPX_NOT_SUPPORTED        0xFF000000UL    /*!< TSC GroupX not supported       */
 
@@ -390,6 +396,13 @@ when the selected signal is detected on the SYNC input pin) */
 
 #define TSC_GROUP6_IO1          TSC_IOCCR_G6_IO1 /*!< TSC Group6 IO1 */
 #define TSC_GROUP6_IO2          TSC_IOCCR_G6_IO2 /*!< TSC Group6 IO2 */
+#if defined(TSC_IOCCR_G6_IO3)
+#define TSC_GROUP6_IO3          TSC_IOCCR_G6_IO3 /*!< TSC Group6 IO3 */
+#define TSC_GROUP6_IO4          TSC_IOCCR_G6_IO4 /*!< TSC Group6 IO4 */
+#else
+#define TSC_GROUP6_IO3          TSC_GROUPX_NOT_SUPPORTED /*!< TSC Group6 IO3 not supported */
+#define TSC_GROUP6_IO4          TSC_GROUPX_NOT_SUPPORTED /*!< TSC Group6 IO4 not supported */
+#endif /* TSC_IOCCR_G6_IO3 */
 #if defined(TSC_IOCCR_G7_IO1)
 
 #define TSC_GROUP7_IO1          TSC_IOCCR_G7_IO1 /*!< TSC Group7 IO1 */
@@ -403,6 +416,19 @@ when the selected signal is detected on the SYNC input pin) */
 #define TSC_GROUP7_IO3          TSC_GROUP7_IO1                                          /*!< TSC Group7 IO3 not supported   */
 #define TSC_GROUP7_IO4          TSC_GROUP7_IO1                                          /*!< TSC Group7 IO4 not supported   */
 #endif /* TSC_IOCCR_G7_IO1 */
+#if defined(TSC_IOCCR_G8_IO1)
+
+#define TSC_GROUP8_IO1          TSC_IOCCR_G8_IO1 /*!< TSC Group8 IO1 */
+#define TSC_GROUP8_IO2          TSC_IOCCR_G8_IO2 /*!< TSC Group8 IO2 */
+#define TSC_GROUP8_IO3          TSC_IOCCR_G8_IO3 /*!< TSC Group8 IO3 */
+#define TSC_GROUP8_IO4          TSC_IOCCR_G8_IO4 /*!< TSC Group8 IO4 */
+#else
+
+#define TSC_GROUP8_IO1          (uint32_t)(0x00000080UL | TSC_GROUPX_NOT_SUPPORTED)     /*!< TSC Group8 IO1 not supported   */
+#define TSC_GROUP8_IO2          TSC_GROUP8_IO1                                          /*!< TSC Group8 IO2 not supported   */
+#define TSC_GROUP8_IO3          TSC_GROUP8_IO1                                          /*!< TSC Group8 IO3 not supported   */
+#define TSC_GROUP8_IO4          TSC_GROUP8_IO1                                          /*!< TSC Group8 IO4 not supported   */
+#endif /* TSC_IOCCR_G8_IO1 */
 /**
   * @}
   */
@@ -711,7 +737,9 @@ when the selected signal is detected on the SYNC input pin) */
 #define IS_TSC_GROUP_INDEX(__VALUE__)   (((__VALUE__) == 0UL)\
                                          || (((__VALUE__) > 0UL) && ((__VALUE__) < (uint32_t)TSC_NB_OF_GROUPS)))
 
-#define IS_TSC_GROUP(__VALUE__)         (((__VALUE__) == 0UL)                               ||\
+
+#define IS_TSC_GROUP(__VALUE__)        ((((__VALUE__) & TSC_GROUPX_NOT_SUPPORTED) != TSC_GROUPX_NOT_SUPPORTED) && \
+                                        (((__VALUE__) == 0UL)                               ||\
                                          (((__VALUE__) & TSC_GROUP1_IO1) == TSC_GROUP1_IO1) ||\
                                          (((__VALUE__) & TSC_GROUP1_IO2) == TSC_GROUP1_IO2) ||\
                                          (((__VALUE__) & TSC_GROUP1_IO3) == TSC_GROUP1_IO3) ||\
@@ -734,10 +762,17 @@ when the selected signal is detected on the SYNC input pin) */
                                          (((__VALUE__) & TSC_GROUP5_IO4) == TSC_GROUP5_IO4) ||\
                                          (((__VALUE__) & TSC_GROUP6_IO1) == TSC_GROUP6_IO1) ||\
                                          (((__VALUE__) & TSC_GROUP6_IO2) == TSC_GROUP6_IO2) ||\
+                                         (((__VALUE__) & TSC_GROUP6_IO3) == TSC_GROUP6_IO3) ||\
+                                         (((__VALUE__) & TSC_GROUP6_IO4) == TSC_GROUP6_IO4) ||\
                                          (((__VALUE__) & TSC_GROUP7_IO1) == TSC_GROUP7_IO1) ||\
                                          (((__VALUE__) & TSC_GROUP7_IO2) == TSC_GROUP7_IO2) ||\
                                          (((__VALUE__) & TSC_GROUP7_IO3) == TSC_GROUP7_IO3) ||\
-                                         (((__VALUE__) & TSC_GROUP7_IO4) == TSC_GROUP7_IO4))
+                                         (((__VALUE__) & TSC_GROUP7_IO4) == TSC_GROUP7_IO4) ||\
+                                         (((__VALUE__) & TSC_GROUP8_IO1) == TSC_GROUP8_IO1) ||\
+                                         (((__VALUE__) & TSC_GROUP8_IO2) == TSC_GROUP8_IO2) ||\
+                                         (((__VALUE__) & TSC_GROUP8_IO3) == TSC_GROUP8_IO3) ||\
+                                         (((__VALUE__) & TSC_GROUP8_IO4) == TSC_GROUP8_IO4)))
+
 /**
   * @}
   */

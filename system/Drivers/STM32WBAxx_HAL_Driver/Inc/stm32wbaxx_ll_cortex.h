@@ -106,10 +106,10 @@ extern "C" {
 /** @defgroup CORTEX_LL_MPU_HFNMI_PRIVDEF_Control CORTEX LL MPU HFNMI and PRIVILEGED Access control
   * @{
   */
-#define LL_MPU_CTRL_HFNMI_PRIVDEF_NONE          0U
-#define LL_MPU_CTRL_HARDFAULT_NMI               2U
-#define LL_MPU_CTRL_PRIVILEGED_DEFAULT          4U
-#define LL_MPU_CTRL_HFNMI_PRIVDEF               6U
+#define LL_MPU_CTRL_HFNMI_PRIVDEF_NONE 0U /*!< Background region access not allowed, MPU disabled for Hardfaults, NMIs, and exception handlers when FAULTMASK=1 */
+#define LL_MPU_CTRL_HARDFAULT_NMI      2U /*!< Background region access not allowed, MPU enabled for Hardfaults, NMIs, and exception handlers when FAULTMASK=1 */
+#define LL_MPU_CTRL_PRIVILEGED_DEFAULT 4U /*!< Background region privileged-only access allowed, MPU disabled for Hardfaults, NMIs, and exception handlers when FAULTMASK=1 */
+#define LL_MPU_CTRL_HFNMI_PRIVDEF      6U /*!< Background region privileged-only access allowed, MPU enabled for Hardfaults, NMIs, and exception handlers when FAULTMASK=1 */
 /**
   * @}
   */
@@ -117,22 +117,28 @@ extern "C" {
 /** @defgroup CORTEX_LL_MPU_Attributes CORTEX LL MPU Attributes
   * @{
   */
-#define  LL_MPU_DEVICE_nGnRnE          0x0U  /* Device, noGather, noReorder, noEarly acknowledge. */
-#define  LL_MPU_DEVICE_nGnRE           0x4U  /* Device, noGather, noReorder, Early acknowledge.   */
-#define  LL_MPU_DEVICE_nGRE            0x8U  /* Device, noGather, Reorder, Early acknowledge.     */
-#define  LL_MPU_DEVICE_GRE             0xCU  /* Device, Gather, Reorder, Early acknowledge.       */
+/* Device memory attributes */
+#define  LL_MPU_DEVICE_nGnRnE          0x0U  /*!< Device non-Gathering, non-Reordering, no Early write acknowledgement */
+#define  LL_MPU_DEVICE_nGnRE           0x4U  /*!< Device non-Gathering, non-Reordering, Early write acknowledgement */
+#define  LL_MPU_DEVICE_nGRE            0x8U  /*!< Device non-Gathering, Reordering, Early write acknowledgement */
+#define  LL_MPU_DEVICE_GRE             0xCU  /*!< Device Gathering, Reordering, Early write acknowledgement */
 
-#define  LL_MPU_WRITE_THROUGH          0x0U  /* Normal memory, write-through. */
-#define  LL_MPU_NOT_CACHEABLE          0x4U  /* Normal memory, non-cacheable. */
-#define  LL_MPU_WRITE_BACK             0x4U  /* Normal memory, write-back.    */
+/* Normal memory attributes */
+/* Non-cacheable memory attribute */
+#define  LL_MPU_NOT_CACHEABLE          0x4U  /*!<  Normal memory, non-cacheable */
 
-#define  LL_MPU_TRANSIENT              0x0U  /* Normal memory, transient.     */
-#define  LL_MPU_NON_TRANSIENT          0x8U  /* Normal memory, non-transient. */
-
-#define  LL_MPU_NO_ALLOCATE            0x0U  /* Normal memory, no allocate.         */
-#define  LL_MPU_W_ALLOCATE             0x1U  /* Normal memory, write allocate.      */
-#define  LL_MPU_R_ALLOCATE             0x2U  /* Normal memory, read allocate.       */
-#define  LL_MPU_RW_ALLOCATE            0x3U  /* Normal memory, read/write allocate. */
+/* Cacheable memory attributes: combination of cache write policy, transient and allocation */
+/* - cache write policy */
+#define  LL_MPU_WRITE_THROUGH          0x0U  /*!<  Normal memory, write-through */
+#define  LL_MPU_WRITE_BACK             0x4U  /*!<  Normal memory, write-back    */
+/* - transient mode attribute */
+#define  LL_MPU_TRANSIENT              0x0U  /*!<  Normal memory, transient */
+#define  LL_MPU_NON_TRANSIENT          0x8U  /*!<  Normal memory, non-transient */
+/* - allocation attribute */
+#define  LL_MPU_NO_ALLOCATE            0x0U  /*!<  Normal memory, no allocate */
+#define  LL_MPU_W_ALLOCATE             0x1U  /*!<  Normal memory, write allocate */
+#define  LL_MPU_R_ALLOCATE             0x2U  /*!<  Normal memory, read allocate */
+#define  LL_MPU_RW_ALLOCATE            0x3U  /*!<  Normal memory, read/write allocate */
 /**
   * @}
   */
@@ -149,8 +155,8 @@ extern "C" {
 /** @defgroup CORTEX_LL_MPU_Instruction_Access CORTEX LL MPU Instruction Access
   * @{
   */
-#define LL_MPU_INSTRUCTION_ACCESS_ENABLE   (0U << MPU_RBAR_XN_Pos)
-#define LL_MPU_INSTRUCTION_ACCESS_DISABLE  (1U << MPU_RBAR_XN_Pos)
+#define LL_MPU_INSTRUCTION_ACCESS_ENABLE   (0U << MPU_RBAR_XN_Pos) /*!< Execute attribute */
+#define LL_MPU_INSTRUCTION_ACCESS_DISABLE  (1U << MPU_RBAR_XN_Pos) /*!< Execute never attribute */
 /**
   * @}
   */
@@ -158,9 +164,9 @@ extern "C" {
 /** @defgroup CORTEX_LL_MPU_Access_Shareable CORTEX LL MPU Instruction Access Shareable
   * @{
   */
-#define LL_MPU_ACCESS_NOT_SHAREABLE        (0U << MPU_RBAR_SH_Pos)
-#define LL_MPU_ACCESS_OUTER_SHAREABLE      (2U << MPU_RBAR_SH_Pos)
-#define LL_MPU_ACCESS_INNER_SHAREABLE      (3U << MPU_RBAR_SH_Pos)
+#define LL_MPU_ACCESS_NOT_SHAREABLE        (0U << MPU_RBAR_SH_Pos) /*!< Not shareable attribute */
+#define LL_MPU_ACCESS_OUTER_SHAREABLE      (2U << MPU_RBAR_SH_Pos) /*!< Outer shareable attribute */
+#define LL_MPU_ACCESS_INNER_SHAREABLE      (3U << MPU_RBAR_SH_Pos) /*!< Inner shareable attribute */
 /**
   * @}
   */
@@ -168,10 +174,10 @@ extern "C" {
 /** @defgroup CORTEX_LL_MPU_Region_Permission_Attributes CORTEX LL MPU Region Permission Attributes
   * @{
   */
-#define LL_MPU_REGION_PRIV_RW              (0U << MPU_RBAR_AP_Pos)
-#define LL_MPU_REGION_ALL_RW               (1U << MPU_RBAR_AP_Pos)
-#define LL_MPU_REGION_PRIV_RO              (2U << MPU_RBAR_AP_Pos)
-#define LL_MPU_REGION_ALL_RO               (3U << MPU_RBAR_AP_Pos)
+#define LL_MPU_REGION_PRIV_RW              (0U << MPU_RBAR_AP_Pos) /*!< Read/write privileged-only attribute */
+#define LL_MPU_REGION_ALL_RW               (1U << MPU_RBAR_AP_Pos) /*!< Read/write privileged/unprivileged attribute */
+#define LL_MPU_REGION_PRIV_RO              (2U << MPU_RBAR_AP_Pos) /*!< Read-only privileged-only attribute */
+#define LL_MPU_REGION_ALL_RO               (3U << MPU_RBAR_AP_Pos) /*!< Read-only privileged/unprivileged attribute */
 /**
   * @}
   */
@@ -792,9 +798,6 @@ __STATIC_INLINE void LL_MPU_ConfigRegion(uint32_t Region, uint32_t Attributes, u
 {
   /* Set region index */
   WRITE_REG(MPU->RNR, Region);
-
-  /* Set base address */
-  MPU->RBAR |=  Attributes;
 
   /* Set region base address and region access attributes */
   WRITE_REG(MPU->RBAR, ((BaseAddress & MPU_RBAR_BASE_Msk) | Attributes));

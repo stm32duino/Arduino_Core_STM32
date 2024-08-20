@@ -114,6 +114,7 @@ add_library(SrcWrapper_bin OBJECT EXCLUDE_FROM_ALL
   src/HAL/stm32yyxx_hal_sd.c
   src/HAL/stm32yyxx_hal_sd_ex.c
   src/HAL/stm32yyxx_hal_sdadc.c
+  src/HAL/stm32yyxx_hal_sdio.c
   src/HAL/stm32yyxx_hal_sdram.c
   src/HAL/stm32yyxx_hal_smartcard.c
   src/HAL/stm32yyxx_hal_smartcard_ex.c

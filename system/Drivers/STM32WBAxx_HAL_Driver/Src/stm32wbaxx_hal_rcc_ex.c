@@ -239,6 +239,20 @@ HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(const RCC_PeriphCLKInitTypeDef *Peri
 
     /* Configure the AS clock source */
     __HAL_RCC_AUDIOSYNC_CONFIG(PeriphClkInit->AudioSyncClockSelection);
+
+    if (PeriphClkInit->AudioSyncClockSelection == RCC_ASCLKSOURCE_PLL1P)
+    {
+      /* Enable PLL1 PCLK output */
+      __HAL_RCC_PLL1CLKOUT_ENABLE(RCC_PLL1_PCLK);
+    }
+    else if (PeriphClkInit->AudioSyncClockSelection == RCC_ASCLKSOURCE_PLL1Q)
+    {
+      __HAL_RCC_PLL1CLKOUT_ENABLE(RCC_PLL1_QCLK);
+    }
+    else
+    {
+      /* Do nothing ; for misra 15.7 error only */
+    }
   }
 #endif
 
@@ -340,15 +354,17 @@ HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(const RCC_PeriphCLKInitTypeDef *Peri
       /* Check if a backup domain reset is required */
       if (tmpreg2 != RCC_RTCCLKSOURCE_DISABLE)
       {
+#if defined(RCC_LSI2_SUPPORT)
         /* Save BDCR2 content */
         tmpreg2 = RCC->BDCR2;
-
+#endif /* RCC_LSI2_SUPPORT */
         /* RTC Clock selection can be changed only if the Backup Domain is reset */
         __HAL_RCC_BACKUPRESET_FORCE();
         __HAL_RCC_BACKUPRESET_RELEASE();
-
+#if defined(RCC_LSI2_SUPPORT)
         /* Restore previously saved BDCR2 */
         RCC->BDCR2 = tmpreg2;
+#endif /* RCC_LSI2_SUPPORT */
       }
 
       /* Apply new RTC clock source selection */
@@ -624,6 +640,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
       }
       break;
 #endif
+
 
 
 

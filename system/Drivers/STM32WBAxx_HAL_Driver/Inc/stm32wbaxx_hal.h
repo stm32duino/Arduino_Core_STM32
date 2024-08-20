@@ -79,7 +79,7 @@ extern HAL_TickFreqTypeDef      uwTickFreq;
   * @brief STM32WBAxx HAL Driver version number
   */
 #define __STM32WBAxx_HAL_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32WBAxx_HAL_VERSION_SUB1   (0x03U) /*!< [23:16] sub1 version */
+#define __STM32WBAxx_HAL_VERSION_SUB1   (0x04U) /*!< [23:16] sub1 version */
 #define __STM32WBAxx_HAL_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
 #define __STM32WBAxx_HAL_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32WBAxx_HAL_VERSION    ((__STM32WBAxx_HAL_VERSION_MAIN << 24U)\
@@ -118,6 +118,38 @@ extern HAL_TickFreqTypeDef      uwTickFreq;
 /**
   * @}
   */
+
+/** @defgroup SYSCFG_Compensation_Cell_Selection Compensation Cell Selection
+  * @{
+  */
+#define SYSCFG_IO_CELL    SYSCFG_CCCSR_EN1   /*!< Compensation cell for the VDD I/O power rail */
+#ifdef SYSCFG_CCCSR_EN2
+#define SYSCFG_IO2_CELL   SYSCFG_CCCSR_EN2   /*!< Compensation cell for the VDDIO2 I/O power rail */
+#endif /* SYSCFG_CCCSR_EN2 */
+/**
+  * @}
+  */
+
+/** @defgroup SYSCFG_Compensation_Cell_Ready_Selection Compensation Cell Ready Selection
+  * @{
+  */
+#define SYSCFG_IO_CELL_READY    SYSCFG_CCCSR_RDY1  /*!< Ready flag of compensation cell for the VDD I/O power rail */
+#ifdef SYSCFG_CCCSR_EN2
+#define SYSCFG_IO2_CELL_READY   SYSCFG_CCCSR_RDY2  /*!< Ready flag of compensation cell for the VDDIO2 I/O power rail */
+#endif /* SYSCFG_CCCSR_EN2 */
+/**
+  * @}
+  */
+
+/** @defgroup SYSCFG_IO_Compensation_Code_Config IO Compensation Code config
+  * @{
+  */
+#define SYSCFG_IO_CELL_CODE       0UL   /*!< Code from the cell */
+#define SYSCFG_IO_REGISTER_CODE   1UL   /*!< Code from the values in the cell code register */
+/**
+  * @}
+  */
+
 
 /** @defgroup SYSCFG_Flags_Definition Flags
   * @{
@@ -187,6 +219,83 @@ extern HAL_TickFreqTypeDef      uwTickFreq;
 /**
   * @}
   */
+
+#ifdef SYSCFG_OTGHSPHYCR_EN
+/** @defgroup SYSCFG_OTG_PHY_RefenceClockSelection  OTG PHY Reference Clock Selection
+  * @{
+  */
+
+/** @brief  OTG HS PHY reference clock frequency selection
+  */
+#define SYSCFG_OTG_HS_PHY_CLK_SELECT_1 (SYSCFG_OTGHSPHYCR_CLKSEL_0 | SYSCFG_OTGHSPHYCR_CLKSEL_1)                              /*!< 16Mhz */
+#define SYSCFG_OTG_HS_PHY_CLK_SELECT_2 SYSCFG_OTGHSPHYCR_CLKSEL_3                                                             /*!< 19.2Mhz */
+#define SYSCFG_OTG_HS_PHY_CLK_SELECT_3 (SYSCFG_OTGHSPHYCR_CLKSEL_0 | SYSCFG_OTGHSPHYCR_CLKSEL_3)                              /*!< 20Mhz */
+#define SYSCFG_OTG_HS_PHY_CLK_SELECT_4 (SYSCFG_OTGHSPHYCR_CLKSEL_1 | SYSCFG_OTGHSPHYCR_CLKSEL_3)                              /*!< 24Mhz */
+#define SYSCFG_OTG_HS_PHY_CLK_SELECT_5 (SYSCFG_OTGHSPHYCR_CLKSEL_1 | SYSCFG_OTGHSPHYCR_CLKSEL_2 | SYSCFG_OTGHSPHYCR_CLKSEL_3) /*!< 26Mhz */
+#define SYSCFG_OTG_HS_PHY_CLK_SELECT_6 (SYSCFG_OTGHSPHYCR_CLKSEL_0 | SYSCFG_OTGHSPHYCR_CLKSEL_1 | SYSCFG_OTGHSPHYCR_CLKSEL_3) /*!< 32Mhz */
+/**
+  * @}
+  */
+
+/** @defgroup SYSCFG_OTG_PHY_PowerDown  OTG PHY Power Down
+  * @{
+  */
+
+/** @brief  OTG HS PHY Power Down config
+  */
+#define SYSCFG_OTG_HS_PHY_POWER_ON   0x00000000U              /*!< PHY state machine, bias and OTG PHY PLL are powered down */
+#define SYSCFG_OTG_HS_PHY_POWER_DOWN SYSCFG_OTGHSPHYCR_PDCTRL /*!< PHY state machine, bias and OTG PHY PLL remain powered */
+/**
+  * @}
+  */
+
+/** @defgroup SYSCFG_OTG_PHY_Enable  OTG PHY Enable
+  * @{
+  */
+#define SYSCFG_OTG_HS_PHY_UNDERRESET 0x00000000U          /*!< PHY under reset */
+#define SYSCFG_OTG_HS_PHY_ENABLE     SYSCFG_OTGHSPHYCR_EN /*!< PHY enabled */
+/**
+  * @}
+  */
+
+/** @defgroup SYSCFG_OTG_PHYTUNER_PreemphasisCurrent  OTG PHYTUNER Preemphasis Current
+  * @{
+  */
+
+/** @brief  High-speed (HS) transmitter preemphasis current control
+  */
+#define SYSCFG_OTG_HS_PHY_PREEMP_DISABLED 0x00000000U                                                                         /*!< HS transmitter preemphasis circuit disabled */
+#define SYSCFG_OTG_HS_PHY_PREEMP_1X       SYSCFG_OTGHSPHYTUNER2_TXPREEMPAMPTUNE_0                                             /*!< HS transmitter preemphasis circuit sources 1x preemphasis current */
+#define SYSCFG_OTG_HS_PHY_PREEMP_2X       SYSCFG_OTGHSPHYTUNER2_TXPREEMPAMPTUNE_1                                             /*!< HS transmitter preemphasis circuit sources 2x preemphasis current */
+#define SYSCFG_OTG_HS_PHY_PREEMP_3X       (SYSCFG_OTGHSPHYTUNER2_TXPREEMPAMPTUNE_0 | SYSCFG_OTGHSPHYTUNER2_TXPREEMPAMPTUNE_1) /*!< HS transmitter preemphasis circuit sources 3x preemphasis current */
+/**
+  * @}
+  */
+
+/** @defgroup SYSCFG_OTG_PHYTUNER_SquelchThreshold  OTG PHYTUNER Squelch Threshold
+  * @{
+  */
+
+/** @brief Squelch threshold adjustment
+  */
+#define SYSCFG_OTG_HS_PHY_SQUELCH_15PERCENT 0x00000000U                                                           /*!< +15% (recommended value) */
+#define SYSCFG_OTG_HS_PHY_SQUELCH_0PERCENT  (SYSCFG_OTGHSPHYTUNER2_SQRXTUNE_0 | SYSCFG_OTGHSPHYTUNER2_SQRXTUNE_1) /*!< 0% (default value) */
+/**
+  * @}
+  */
+
+/** @defgroup SYSCFG_OTG_PHYTUNER_DisconnectThreshold  OTG PHYTUNER Disconnect Threshold
+  * @{
+  */
+
+/** @brief Disconnect threshold adjustment
+  */
+#define SYSCFG_OTG_HS_PHY_DISCONNECT_5_9PERCENT SYSCFG_OTGHSPHYTUNER2_COMPDISTUNE_1 /*!< +5.9% (recommended value) */
+#define SYSCFG_OTG_HS_PHY_DISCONNECT_0PERCENT   SYSCFG_OTGHSPHYTUNER2_COMPDISTUNE_0 /*!< 0% (default value) */
+/**
+  * @}
+  */
+#endif /* SYSCFG_OTGHSPHYCR_EN */
 
 /**
   * @}
@@ -391,10 +500,30 @@ extern HAL_TickFreqTypeDef      uwTickFreq;
 #define IS_SYSCFG_FPU_INTERRUPT(__INTERRUPT__) ((((__INTERRUPT__) & SYSCFG_IT_FPU_ALL) != 0x00U) && \
                                                 (((__INTERRUPT__) & ~SYSCFG_IT_FPU_ALL) == 0x00U))
 
+#ifdef SYSCFG_CCCSR_EN2
+#define IS_SYSCFG_COMPENSATION_CELL(__CELL__) (((__CELL__) == SYSCFG_IO_CELL) || \
+                                               ((__CELL__) == SYSCFG_IO2_CELL))
+
+#define IS_SYSCFG_COMPENSATION_CELL_READY(__CELL__) (((__CELL__) == SYSCFG_IO_CELL_READY) || \
+                                                     ((__CELL__) == SYSCFG_IO2_CELL_READY))
+#else
+#define IS_SYSCFG_COMPENSATION_CELL(__CELL__) (((__CELL__) == SYSCFG_IO_CELL))
+
+#define IS_SYSCFG_COMPENSATION_CELL_READY(__CELL__) (((__CELL__) == SYSCFG_IO_CELL_READY))
+#endif /* SYSCFG_CCCSR_EN2 */
+
+#define IS_SYSCFG_COMPENSATION_CELL_CODE(__VALUE__) (((__VALUE__) == SYSCFG_IO_CELL_CODE) || \
+                                                     ((__VALUE__) == SYSCFG_IO_REGISTER_CODE))
+
+#define IS_SYSCFG_COMPENSATION_CELL_PMOS_VALUE(__VALUE__) (((__VALUE__) < 16U))
+
+#define IS_SYSCFG_COMPENSATION_CELL_NMOS_VALUE(__VALUE__) (((__VALUE__) < 16U))
+
 #define IS_SYSCFG_BREAK_CONFIG(__CONFIG__) (((__CONFIG__) == SYSCFG_BREAK_ECC)           || \
                                             ((__CONFIG__) == SYSCFG_BREAK_PVD)           || \
                                             ((__CONFIG__) == SYSCFG_BREAK_SRAM2_PARITY)  || \
                                             ((__CONFIG__) == SYSCFG_BREAK_LOCKUP))
+
 
 #define IS_SYSCFG_FASTMODEPLUS(__PIN__) ((((__PIN__) & SYSCFG_FASTMODEPLUS_ALL) != 0x00U) && \
                                          (((__PIN__) & ~SYSCFG_FASTMODEPLUS_ALL) == 0x00U))
@@ -418,6 +547,31 @@ extern HAL_TickFreqTypeDef      uwTickFreq;
 #define IS_SYSCFG_LOCK_ITEMS(__ITEM__) ((((__ITEM__) & SYSCFG_LOCK_ALL) != 0x00U) && \
                                         (((__ITEM__) & ~SYSCFG_LOCK_ALL) == 0x00U))
 
+#ifdef SYSCFG_OTGHSPHYCR_EN
+#define IS_SYSCFG_OTGPHY_REFERENCE_CLOCK(__VALUE__) (((__VALUE__) == SYSCFG_OTG_HS_PHY_CLK_SELECT_1) || \
+                                                     ((__VALUE__) == SYSCFG_OTG_HS_PHY_CLK_SELECT_2) || \
+                                                     ((__VALUE__) == SYSCFG_OTG_HS_PHY_CLK_SELECT_3) || \
+                                                     ((__VALUE__) == SYSCFG_OTG_HS_PHY_CLK_SELECT_4) || \
+                                                     ((__VALUE__) == SYSCFG_OTG_HS_PHY_CLK_SELECT_5) || \
+                                                     ((__VALUE__) == SYSCFG_OTG_HS_PHY_CLK_SELECT_6))
+
+#define IS_SYSCFG_OTGPHY_POWERDOWN_CONFIG(__VALUE__) (((__VALUE__) == SYSCFG_OTG_HS_PHY_POWER_DOWN) || \
+                                                      ((__VALUE__) == SYSCFG_OTG_HS_PHY_POWER_ON))
+
+#define IS_SYSCFG_OTGPHY_CONFIG(__VALUE__) (((__VALUE__) == SYSCFG_OTG_HS_PHY_UNDERRESET) || \
+                                            ((__VALUE__) == SYSCFG_OTG_HS_PHY_ENABLE))
+
+#define IS_SYSCFG_OTGPHY_DISCONNECT(__VALUE__) (((__VALUE__) == SYSCFG_OTG_HS_PHY_DISCONNECT_5_9PERCENT) || \
+                                                ((__VALUE__) == SYSCFG_OTG_HS_PHY_DISCONNECT_0PERCENT))
+
+#define IS_SYSCFG_OTGPHY_SQUELCH(__VALUE__) (((__VALUE__) == SYSCFG_OTG_HS_PHY_SQUELCH_0PERCENT) || \
+                                             ((__VALUE__) == SYSCFG_OTG_HS_PHY_SQUELCH_15PERCENT))
+
+#define IS_SYSCFG_OTGPHY_PREEMPHASIS(__VALUE__) (((__VALUE__) == SYSCFG_OTG_HS_PHY_PREEMP_DISABLED) || \
+                                                 ((__VALUE__) == SYSCFG_OTG_HS_PHY_PREEMP_1X)       || \
+                                                 ((__VALUE__) == SYSCFG_OTG_HS_PHY_PREEMP_2X)       || \
+                                                 ((__VALUE__) == SYSCFG_OTG_HS_PHY_PREEMP_3X))
+#endif /* SYSCFG_OTGHSPHYCR_EN */
 
 /**
   * @}
@@ -487,10 +641,28 @@ void HAL_DBGMCU_DisableDBGStandbyMode(void);
   */
 
 /* SYSCFG Control functions  ****************************************************/
-void HAL_SYSCFG_SRAM2Erase(void);
 void HAL_SYSCFG_EnableIOAnalogSwitchBooster(void);
 void HAL_SYSCFG_DisableIOAnalogSwitchBooster(void);
+void HAL_SYSCFG_EnableIOAnalogSwitchVdd(void);
+void HAL_SYSCFG_DisableIOAnalogSwitchVdd(void);
 
+
+#ifdef SYSCFG_OTGHSPHYCR_EN
+void HAL_SYSCFG_SetOTGPHYReferenceClockSelection(uint32_t RefClockSelection);
+void HAL_SYSCFG_SetOTGPHYPowerDownConfig(uint32_t PowerDownConfig);
+void HAL_SYSCFG_EnableOTGPHY(uint32_t OTGPHYConfig);
+void HAL_SYSCFG_SetOTGPHYDisconnectThreshold(uint32_t DisconnectThreshold);
+void HAL_SYSCFG_SetOTGPHYSquelchThreshold(uint32_t SquelchThreshold);
+void HAL_SYSCFG_SetOTGPHYPreemphasisCurrent(uint32_t PreemphasisCurrent);
+#endif /* SYSCFG_OTGHSPHYCR_EN */
+
+void HAL_SYSCFG_EnableCompensationCell(uint32_t Selection);
+void HAL_SYSCFG_DisableCompensationCell(uint32_t Selection);
+uint32_t HAL_SYSCFG_GetCompensationCellReadyStatus(uint32_t Selection);
+void HAL_SYSCFG_ConfigCompensationCell(uint32_t Selection, uint32_t Code, uint32_t NmosValue,
+                                       uint32_t PmosValue);
+HAL_StatusTypeDef HAL_SYSCFG_GetCompensationCell(uint32_t Selection, uint32_t *pCode, uint32_t *pNmosValue,
+                                                 uint32_t *pPmosValue);
 /**
   * @}
   */
@@ -500,7 +672,7 @@ void HAL_SYSCFG_DisableIOAnalogSwitchBooster(void);
   */
 
 /* SYSCFG Lock functions ********************************************/
-void              HAL_SYSCFG_Lock(uint32_t Item);
+void HAL_SYSCFG_Lock(uint32_t Item);
 HAL_StatusTypeDef HAL_SYSCFG_GetLock(uint32_t *pItem);
 
 /**
@@ -514,7 +686,7 @@ HAL_StatusTypeDef HAL_SYSCFG_GetLock(uint32_t *pItem);
 #if defined (SYSCFG_SECCFGR_SYSCFGSEC)
 /* SYSCFG Attributes functions ********************************************/
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
-void              HAL_SYSCFG_ConfigAttributes(uint32_t Item, uint32_t Attributes);
+void HAL_SYSCFG_ConfigAttributes(uint32_t Item, uint32_t Attributes);
 #endif /* __ARM_FEATURE_CMSE */
 HAL_StatusTypeDef HAL_SYSCFG_GetConfigAttributes(uint32_t Item, uint32_t *pAttributes);
 #endif /* SYSCFG_SECCFGR_SYSCFGSEC */

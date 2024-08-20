@@ -159,7 +159,9 @@ typedef struct
 #define LL_RCC_CSR_BORRSTF                 RCC_CSR_BORRSTF      /*!< BOR reset flag */
 #define LL_RCC_CSR_SFTRSTF                 RCC_CSR_SFTRSTF      /*!< Software reset flag */
 #define LL_RCC_CSR_IWDGRSTF                RCC_CSR_IWDGRSTF     /*!< Independent watchdog reset flag */
+#if defined(WWDG)
 #define LL_RCC_CSR_WWDGRSTF                RCC_CSR_WWDGRSTF     /*!< Window watchdog reset flag */
+#endif /* defined(WWDG) */
 #define LL_RCC_CSR_LPWRRSTF                RCC_CSR_LPWRRSTF     /*!< Low-power reset flag */
 /**
   * @}
@@ -2927,6 +2929,7 @@ __STATIC_INLINE uint32_t LL_RCC_IsActiveFlag_SFTRST(void)
   return ((READ_BIT(RCC->CSR, RCC_CSR_SFTRSTF) == RCC_CSR_SFTRSTF) ? 1UL : 0UL);
 }
 
+#if defined(WWDG)
 /**
   * @brief  Check if RCC flag Window Watchdog reset is set or not.
   * @rmtoll CSR          WWDGRSTF      LL_RCC_IsActiveFlag_WWDGRST
@@ -2936,6 +2939,7 @@ __STATIC_INLINE uint32_t LL_RCC_IsActiveFlag_WWDGRST(void)
 {
   return ((READ_BIT(RCC->CSR, RCC_CSR_WWDGRSTF) == RCC_CSR_WWDGRSTF) ? 1UL : 0UL);
 }
+#endif /* WWDG */
 
 /**
   * @brief  Check if RCC flag BOR reset is set or not.

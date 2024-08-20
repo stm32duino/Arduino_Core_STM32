@@ -1337,7 +1337,7 @@ static ErrorStatus IC4Config(TIM_TypeDef *TIMx, const LL_TIM_IC_InitTypeDef *TIM
   * @}
   */
 
-#endif /* TIM1 || TIM2 || TIM3 || TIM6 || TIM7 */
+#endif /* TIM1 || TIM2 || TIM3 || TIM16 || TIM17 */
 
 /**
   * @}

@@ -529,7 +529,7 @@ typedef struct
      ((__SELECTION__) == TIM_TS_ITR8))))
 #endif /* TIM3 */
 
-#if defined(TIM3)
+#if   defined(TIM3)
 #define IS_TIM_INTERNAL_TRIGGEREVENT_INSTANCE(INSTANCE, __SELECTION__) \
   ((((INSTANCE) == TIM1) &&                  \
     (((__SELECTION__) == TIM_TS_ITR1) ||          \

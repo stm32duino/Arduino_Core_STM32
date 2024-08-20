@@ -121,10 +121,10 @@ typedef struct
 /** @defgroup CORTEX_MPU_HFNMI_PRIVDEF_Control CORTEX MPU HFNMI and PRIVILEGED Access control
   * @{
   */
-#define  MPU_HFNMI_PRIVDEF_NONE          0U
-#define  MPU_HARDFAULT_NMI               2U
-#define  MPU_PRIVILEGED_DEFAULT          4U
-#define  MPU_HFNMI_PRIVDEF               6U
+#define  MPU_HFNMI_PRIVDEF_NONE          0U /*!< Background region access not allowed, MPU disabled for Hardfaults, NMIs, and exception handlers when FAULTMASK=1 */
+#define  MPU_HARDFAULT_NMI               2U /*!< Background region access not allowed, MPU enabled for Hardfaults, NMIs, and exception handlers when FAULTMASK=1 */
+#define  MPU_PRIVILEGED_DEFAULT          4U /*!< Background region privileged-only access allowed, MPU disabled for Hardfaults, NMIs, and exception handlers when FAULTMASK=1 */
+#define  MPU_HFNMI_PRIVDEF               6U /*!< Background region privileged-only access allowed, MPU enabled for Hardfaults, NMIs, and exception handlers when FAULTMASK=1 */
 /**
   * @}
   */
@@ -132,8 +132,8 @@ typedef struct
 /** @defgroup CORTEX_MPU_Region_Enable CORTEX MPU Region Enable
   * @{
   */
-#define  MPU_REGION_ENABLE               1U
-#define  MPU_REGION_DISABLE              0U
+#define  MPU_REGION_ENABLE               1U /*!< Enable region */
+#define  MPU_REGION_DISABLE              0U /*!< Disable region */
 /**
   * @}
   */
@@ -141,8 +141,8 @@ typedef struct
 /** @defgroup CORTEX_MPU_Instruction_Access CORTEX MPU Instruction Access
   * @{
   */
-#define  MPU_INSTRUCTION_ACCESS_ENABLE   0U
-#define  MPU_INSTRUCTION_ACCESS_DISABLE  1U
+#define  MPU_INSTRUCTION_ACCESS_ENABLE   0U /*!< Execute attribute */
+#define  MPU_INSTRUCTION_ACCESS_DISABLE  1U /*!< Execute never attribute */
 /**
   * @}
   */
@@ -150,9 +150,9 @@ typedef struct
 /** @defgroup CORTEX_MPU_Access_Shareable CORTEX MPU Instruction Access Shareable
   * @{
   */
-#define  MPU_ACCESS_NOT_SHAREABLE        0U
-#define  MPU_ACCESS_OUTER_SHAREABLE      2U
-#define  MPU_ACCESS_INNER_SHAREABLE      3U
+#define  MPU_ACCESS_NOT_SHAREABLE        0U /*!< Not shareable attribute */
+#define  MPU_ACCESS_OUTER_SHAREABLE      2U /*!< Outer shareable attribute */
+#define  MPU_ACCESS_INNER_SHAREABLE      3U /*!< Inner shareable attribute */
 /**
   * @}
   */
@@ -160,10 +160,10 @@ typedef struct
 /** @defgroup CORTEX_MPU_Region_Permission_Attributes CORTEX MPU Region Permission Attributes
   * @{
   */
-#define  MPU_REGION_PRIV_RW              0U
-#define  MPU_REGION_ALL_RW               1U
-#define  MPU_REGION_PRIV_RO              2U
-#define  MPU_REGION_ALL_RO               3U
+#define  MPU_REGION_PRIV_RW              0U /*!< Read/write privileged-only attribute */
+#define  MPU_REGION_ALL_RW               1U /*!< Read/write privileged/unprivileged attribute */
+#define  MPU_REGION_PRIV_RO              2U /*!< Read-only privileged-only attribute */
+#define  MPU_REGION_ALL_RO               3U /*!< Read-only privileged/unprivileged attribute */
 /**
   * @}
   */
@@ -201,22 +201,30 @@ typedef struct
 /** @defgroup CORTEX_MPU_Attributes CORTEX MPU Attributes
   * @{
   */
-#define  MPU_DEVICE_nGnRnE          0x0U  /* Device, noGather, noReorder, noEarly acknowledge. */
-#define  MPU_DEVICE_nGnRE           0x4U  /* Device, noGather, noReorder, Early acknowledge.   */
-#define  MPU_DEVICE_nGRE            0x8U  /* Device, noGather, Reorder, Early acknowledge.     */
-#define  MPU_DEVICE_GRE             0xCU  /* Device, Gather, Reorder, Early acknowledge.       */
+/* Device memory attributes */
+#define  MPU_DEVICE_nGnRnE          0x0U  /*!< Device non-Gathering, non-Reordering, no Early write acknowledgement */
+#define  MPU_DEVICE_nGnRE           0x4U  /*!< Device non-Gathering, non-Reordering, Early write acknowledgement */
+#define  MPU_DEVICE_nGRE            0x8U  /*!< Device non-Gathering, Reordering, Early write acknowledgement */
+#define  MPU_DEVICE_GRE             0xCU  /*!< Device Gathering, Reordering, Early write acknowledgement */
 
-#define  MPU_WRITE_THROUGH          0x0U  /* Normal memory, write-through. */
-#define  MPU_NOT_CACHEABLE          0x4U  /* Normal memory, non-cacheable. */
-#define  MPU_WRITE_BACK             0x4U  /* Normal memory, write-back.    */
+/* Normal memory attributes */
+/* To set with INNER_OUTER() macro for both inner/outer cache attributes */
 
-#define  MPU_TRANSIENT              0x0U  /* Normal memory, transient.     */
-#define  MPU_NON_TRANSIENT          0x8U  /* Normal memory, non-transient. */
+/* Non-cacheable memory attribute */
+#define  MPU_NOT_CACHEABLE          0x4U  /*!< Normal memory, non-cacheable */
 
-#define  MPU_NO_ALLOCATE            0x0U  /* Normal memory, no allocate.         */
-#define  MPU_W_ALLOCATE             0x1U  /* Normal memory, write allocate.      */
-#define  MPU_R_ALLOCATE             0x2U  /* Normal memory, read allocate.       */
-#define  MPU_RW_ALLOCATE            0x3U  /* Normal memory, read/write allocate. */
+/* Cacheable memory attributes: combination of cache write policy, transient and allocation */
+/* - cache write policy */
+#define  MPU_WRITE_THROUGH          0x0U  /*!< Normal memory, write-through */
+#define  MPU_WRITE_BACK             0x4U  /*!< Normal memory, write-back */
+/* - transient mode attribute */
+#define  MPU_TRANSIENT              0x0U  /*!< Normal memory, transient */
+#define  MPU_NON_TRANSIENT          0x8U  /*!< Normal memory, non-transient */
+/* - allocation attribute */
+#define  MPU_NO_ALLOCATE            0x0U  /*!< Normal memory, no allocate */
+#define  MPU_W_ALLOCATE             0x1U  /*!< Normal memory, write allocate */
+#define  MPU_R_ALLOCATE             0x2U  /*!< Normal memory, read allocate */
+#define  MPU_RW_ALLOCATE            0x3U  /*!< Normal memory, read/write allocate */
 /**
   * @}
   */

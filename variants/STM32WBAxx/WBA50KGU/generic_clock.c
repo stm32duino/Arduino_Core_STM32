@@ -10,7 +10,7 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_WBA50KEUX) || defined(ARDUINO_GENERIC_WBA50KGUX)
+#if defined(ARDUINO_GENERIC_WBA50KGUX)
 #include "pins_arduino.h"
 
 /**

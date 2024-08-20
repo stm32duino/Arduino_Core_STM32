@@ -557,7 +557,7 @@ uint32_t LL_RCC_GetLPTIMClockFreq(uint32_t LPTIMxSource)
     {
       case LL_RCC_LPTIM1_CLKSOURCE_LSI:    /* LPTIM1 Clock is LSI Osc. */
 #if defined(RCC_LSI2_SUPPORT)
-      if ((RCC->BDCR1& (RCC_BDCR1_LSI1ON | RCC_BDCR1_LSI2ON)) != 0U)
+        if ((RCC->BDCR1& (RCC_BDCR1_LSI1ON | RCC_BDCR1_LSI2ON)) != 0U)
 #else
         if (LL_RCC_LSI1_IsReady() != 0U)
 #endif
@@ -597,7 +597,7 @@ uint32_t LL_RCC_GetLPTIMClockFreq(uint32_t LPTIMxSource)
     {
       case LL_RCC_LPTIM2_CLKSOURCE_LSI:    /* LPTIM2 Clock is LSI Osc. */
 #if defined(RCC_LSI2_SUPPORT)
-      if ((RCC->BDCR1& (RCC_BDCR1_LSI1ON | RCC_BDCR1_LSI2ON)) != 0U)
+        if ((RCC->BDCR1& (RCC_BDCR1_LSI1ON | RCC_BDCR1_LSI2ON)) != 0U)
 #else
         if (LL_RCC_LSI1_IsReady() != 0U)
 #endif
@@ -733,7 +733,7 @@ uint32_t LL_RCC_GetRNGClockFreq(uint32_t RNGxSource)
 
     case LL_RCC_RNG_CLKSOURCE_LSI:            /* LSI clock used as RNG clock source */
 #if defined(RCC_LSI2_SUPPORT)
-    if ((RCC->BDCR1& (RCC_BDCR1_LSI1ON | RCC_BDCR1_LSI2ON)) != 0U)
+      if ((RCC->BDCR1& (RCC_BDCR1_LSI1ON | RCC_BDCR1_LSI2ON)) != 0U)
 #else
       if (LL_RCC_LSI1_IsReady() != 0U)
 #endif
