@@ -15,7 +15,7 @@
  * STM32L452R(C-E)Yx.xml, STM32L452REYxP.xml
  * STM32L462REIx.xml, STM32L462RETx.xml
  * STM32L462REYx.xml
- * CubeMX DB release 6.0.110
+ * CubeMX DB release 6.0.120
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

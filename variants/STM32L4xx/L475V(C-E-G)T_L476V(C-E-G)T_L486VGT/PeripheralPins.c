@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32L475V(C-E-G)Tx.xml, STM32L476V(C-E-G)Tx.xml
  * STM32L486VGTx.xml
- * CubeMX DB release 6.0.110
+ * CubeMX DB release 6.0.120
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
