@@ -675,8 +675,12 @@ def log_sketch_build_result(sketch, boardKo, boardSkipped):
 def log_final_result():
     # Also equal to len(board_fqbn) * len(sketch_list)
     nb_build_total = nb_build_passed + nb_build_failed
-    stat_passed = round(nb_build_passed * 100.0 / nb_build_total, 2)
-    stat_failed = round(nb_build_failed * 100.0 / nb_build_total, 2)
+    if nb_build_total != 0:
+        stat_passed = round(nb_build_passed * 100.0 / nb_build_total, 2)
+        stat_failed = round(nb_build_failed * 100.0 / nb_build_total, 2)
+    else:
+        stat_passed = 0
+        stat_failed = 0
     duration = str(timedelta(seconds=time.time() - full_buildTime))
 
     # Log file
