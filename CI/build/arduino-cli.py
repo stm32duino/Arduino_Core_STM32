@@ -441,10 +441,10 @@ def manage_inos():
         ino_file = Path(args.ino)
         if ino_file.exists():
             # Store only the path
-            if ino_file.is_file(args.ino):
+            if ino_file.is_file():
                 sketch_list.append(ino_file.parent)
             else:
-                sketch_list.append(args.ino)
+                sketch_list.append(ino_file)
         else:
             for path in sketches_path_list:
                 fp = path / ino_file
