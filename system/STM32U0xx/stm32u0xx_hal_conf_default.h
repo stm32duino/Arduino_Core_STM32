@@ -152,11 +152,21 @@ The real value may vary depending on the variations in voltage and temperature.*
 /**
   * @brief This is the HAL system configuration section
   */
+#if !defined  (VDD_VALUE)
 #define  VDD_VALUE                    3300U                            /*!< Value of VDD in mv */
+#endif /* VDD_VALUE */
+#if !defined  (TICK_INT_PRIORITY)
 #define  TICK_INT_PRIORITY            ((1U<<__NVIC_PRIO_BITS) - 1U)    /*!< tick interrupt priority */
+#endif /* TICK_INT_PRIORITY */
+#if !defined  (USE_RTOS)
 #define  USE_RTOS                     0U
+#endif /* USE_RTOS */
+#if !defined  (PREFETCH_ENABLE)
 #define  PREFETCH_ENABLE              0U
+#endif /* PREFETCH_ENABLE */
+#if !defined  (INSTRUCTION_CACHE_ENABLE)
 #define  INSTRUCTION_CACHE_ENABLE     1U
+#endif /* INSTRUCTION_CACHE_ENABLE */
 
 /* ########################## Assert Selection ############################## */
 /**
@@ -175,23 +185,57 @@ The real value may vary depending on the variations in voltage and temperature.*
   *        for possible callback identifiers defined in HAL_PPP_CallbackIDTypeDef
   *        for each PPP peripheral).
   */
+#if !defined (USE_HAL_ADC_REGISTER_CALLBACKS)
 #define  USE_HAL_ADC_REGISTER_CALLBACKS       0U /* ADC register callback disabled       */
+#endif /* USE_HAL_ADC_REGISTER_CALLBACKS */
+#if !defined (USE_HAL_CRYP_REGISTER_CALLBACKS)
 #define  USE_HAL_CRYP_REGISTER_CALLBACKS      0U /* CRYP register callback disabled      */
+#endif /* USE_HAL_CRYP_REGISTER_CALLBACKS */
+#if !defined (USE_HAL_DAC_REGISTER_CALLBACKS)
 #define  USE_HAL_DAC_REGISTER_CALLBACKS       0U /* DAC register callback disabled       */
+#endif /* USE_HAL_DAC_REGISTER_CALLBACKS */
+#if !defined (USE_HAL_I2C_REGISTER_CALLBACKS)
 #define  USE_HAL_I2C_REGISTER_CALLBACKS       0U /* I2C register callback disabled       */
+#endif /* USE_HAL_I2C_REGISTER_CALLBACKS */
+#if !defined (USE_HAL_IWDG_REGISTER_CALLBACKS)
 #define  USE_HAL_IWDG_REGISTER_CALLBACKS      0U /* IWDG register callback disabled      */
+#endif /* USE_HAL_IWDG_REGISTER_CALLBACKS */
+#if !defined (USE_HAL_IRDA_REGISTER_CALLBACKS)
 #define  USE_HAL_IRDA_REGISTER_CALLBACKS      0U /* IRDA register callback disabled      */
+#endif /* USE_HAL_IRDA_REGISTER_CALLBACKS */
+#if !defined (USE_HAL_LPTIM_REGISTER_CALLBACKS)
 #define  USE_HAL_LPTIM_REGISTER_CALLBACKS     0U /* LPTIM register callback disabled     */
+#endif /* USE_HAL_LPTIM_REGISTER_CALLBACKS */
+#if !defined (USE_HAL_LCD_REGISTER_CALLBACKS)
 #define  USE_HAL_LCD_REGISTER_CALLBACKS       0U /* LCD register callback disabled       */
+#endif /* USE_HAL_LCD_REGISTER_CALLBACKS */
+#if !defined (USE_HAL_PCD_REGISTER_CALLBACKS)
 #define  USE_HAL_PCD_REGISTER_CALLBACKS       0U /* PCD register callback disabled       */
+#endif /* USE_HAL_PCD_REGISTER_CALLBACKS */
+#if !defined (USE_HAL_RNG_REGISTER_CALLBACKS)
 #define  USE_HAL_RNG_REGISTER_CALLBACKS       0U /* RNG register callback disabled       */
+#endif /* USE_HAL_RNG_REGISTER_CALLBACKS */
+#if !defined (USE_HAL_RTC_REGISTER_CALLBACKS)
 #define  USE_HAL_RTC_REGISTER_CALLBACKS       0U /* RTC register callback disabled       */
+#endif /* USE_HAL_RTC_REGISTER_CALLBACKS */
+#if !defined (USE_HAL_SMARTCARD_REGISTER_CALLBACKS)
 #define  USE_HAL_SMARTCARD_REGISTER_CALLBACKS 0U /* SMARTCARD register callback disabled */
+#endif /* USE_HAL_SMARTCARD_REGISTER_CALLBACKS */
+#if !defined (USE_HAL_SPI_REGISTER_CALLBACKS)
 #define  USE_HAL_SPI_REGISTER_CALLBACKS       0U /* SPI register callback disabled       */
+#endif /* USE_HAL_SPI_REGISTER_CALLBACKS */
+#if !defined (USE_HAL_TIM_REGISTER_CALLBACKS)
 #define  USE_HAL_TIM_REGISTER_CALLBACKS       0U /* TIM register callback disabled       */
+#endif /* USE_HAL_TIM_REGISTER_CALLBACKS */
+#if !defined (USE_HAL_UART_REGISTER_CALLBACKS)
 #define  USE_HAL_UART_REGISTER_CALLBACKS      0U /* UART register callback disabled      */
+#endif /* USE_HAL_UART_REGISTER_CALLBACKS */
+#if !defined (USE_HAL_USART_REGISTER_CALLBACKS)
 #define  USE_HAL_USART_REGISTER_CALLBACKS     0U /* USART register callback disabled     */
+#endif /* USE_HAL_USART_REGISTER_CALLBACKS */
+#if !defined (USE_HAL_WWDG_REGISTER_CALLBACKS)
 #define  USE_HAL_WWDG_REGISTER_CALLBACKS      0U /* WWDG register callback disabled      */
+#endif /* USE_HAL_WWDG_REGISTER_CALLBACKS */
 
 /* Includes ------------------------------------------------------------------*/
 /**
