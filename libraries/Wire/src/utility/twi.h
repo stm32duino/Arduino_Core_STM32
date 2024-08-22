@@ -67,24 +67,34 @@ extern "C" {
 #error I2C buffer size cannot exceed 255
 #endif
 
-/* Redefinition of IRQ for C0/F0/G0/L0 families */
-#if defined(STM32C0xx) || defined(STM32F0xx) || defined(STM32G0xx) || defined(STM32L0xx)
+/* Redefinition of IRQ for C0/F0/G0/L0/U0 families */
+#if defined(STM32C0xx) || defined(STM32F0xx) || defined(STM32G0xx) ||\
+    defined(STM32L0xx) || defined(STM32U0xx)
 #if defined(I2C1_BASE)
 #define I2C1_EV_IRQn        I2C1_IRQn
 #define I2C1_EV_IRQHandler  I2C1_IRQHandler
 #endif // defined(I2C1_BASE)
 #if defined(I2C2_BASE)
-#if defined(STM32G0xx) && defined(I2C3_BASE)
+#if (defined(STM32G0xx) || defined(STM32U0xx)) && defined(I2C3_BASE)
+#if defined(I2C4_BASE)
+#define I2C2_EV_IRQn        I2C2_3_4_IRQn
+#define I2C2_EV_IRQHandler  I2C2_3_4_IRQHandler
+#else
 #define I2C2_EV_IRQn        I2C2_3_IRQn
 #define I2C2_EV_IRQHandler  I2C2_3_IRQHandler
+#endif // defined(I2C4_BASE)
 #else
 #define I2C2_EV_IRQn        I2C2_IRQn
 #define I2C2_EV_IRQHandler  I2C2_IRQHandler
 #endif
 #endif // defined(I2C2_BASE)
 #if defined(I2C3_BASE)
-#if defined(STM32G0xx)
+#if defined(STM32G0xx) || defined(STM32U0xx)
+#if defined(I2C4_BASE)
+#define I2C3_EV_IRQn        I2C2_3_4_IRQn
+#else
 #define I2C3_EV_IRQn        I2C2_3_IRQn
+#endif
 #else
 #define I2C3_EV_IRQn        I2C3_IRQn
 #define I2C3_EV_IRQHandler  I2C3_IRQHandler
@@ -92,10 +102,14 @@ extern "C" {
 #endif // defined(I2C3_BASE)
 /* Defined but no one has it */
 #if defined(I2C4_BASE)
+#if defined(STM32U0xx)
+#define I2C4_EV_IRQn        I2C2_3_4_IRQn
+#else
 #define I2C4_EV_IRQn        I2C4_IRQn
 #define I2C4_EV_IRQHandler  I2C4_IRQHandler
+#endif
 #endif // defined(I2C4_BASE)
-#endif /* STM32C0xx || STM32F0xx || STM32G0xx || STM32L0xx */
+#endif /* STM32C0xx || STM32F0xx || STM32G0xx || STM32L0xx || STM32U0xx */
 
 typedef struct i2c_s i2c_t;
 
