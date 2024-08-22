@@ -978,7 +978,7 @@ void USART2_IRQHandler(void)
   if (uart_handlers[UART2_INDEX] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[UART2_INDEX]);
   }
-#if defined(STM32G0xx) && defined(LPUART2_BASE)
+#if (defined(STM32G0xx) || defined(STM32U0xx)) && defined(LPUART2_BASE)
   if (uart_handlers[LPUART2_INDEX] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[LPUART2_INDEX]);
   }
@@ -1018,7 +1018,7 @@ void USART3_IRQHandler(void)
   if (uart_handlers[UART3_INDEX] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[UART3_INDEX]);
   }
-#if defined(STM32F0xx) || defined(STM32G0xx)
+#if defined(STM32F0xx) || defined(STM32G0xx) || defined(STM32U0xx)
   /* USART3_4_IRQn */
   if (uart_handlers[UART4_INDEX] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[UART4_INDEX]);
@@ -1031,12 +1031,12 @@ void USART3_IRQHandler(void)
     HAL_UART_IRQHandler(uart_handlers[UART6_INDEX]);
   }
 #endif /* STM32F030xC */
-#if defined(STM32G0xx) && defined(LPUART1_BASE)
+#if (defined(STM32G0xx) || STM32U0xx) && defined(LPUART1_BASE)
   if (uart_handlers[LPUART1_INDEX] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[LPUART1_INDEX]);
   }
-#endif /* STM32G0xx && LPUART1_BASE */
-#endif /* STM32F0xx || STM32G0xx */
+#endif /* (STM32G0xx || STM32U0xx) && LPUART1_BASE */
+#endif /* STM32F0xx || STM32G0xx || STM32U0xx */
 #endif /* STM32F091xC || STM32F098xx */
 }
 #endif

@@ -100,7 +100,7 @@ struct serial_s {
 #endif
 
 #if defined(USART2_BASE) && !defined(USART2_IRQn)
-#if defined(STM32G0xx)
+#if defined(STM32G0xx) || defined(STM32U0xx)
 #if defined(LPUART2_BASE)
 #define USART2_IRQn USART2_LPUART2_IRQn
 #define USART2_IRQHandler USART2_LPUART2_IRQHandler
@@ -134,6 +134,9 @@ struct serial_s {
 #define USART3_IRQn USART3_4_IRQn
 #define USART3_IRQHandler USART3_4_IRQHandler
 #endif
+#elif defined(STM32U0xx)
+#define USART3_IRQn USART3_LPUART1_IRQn
+#define USART3_IRQHandler USART3_LPUART1_IRQHandler
 #endif /* STM32F0xx */
 #endif
 
@@ -159,6 +162,11 @@ struct serial_s {
 #else
 #define USART4_IRQn USART3_4_IRQn
 #endif
+#elif defined(STM32U0xx)
+#if defined(LPUART3_BASE)
+#define USART4_IRQn USART4_LPUART3_IRQn
+#define USART4_IRQHandler USART4_LPUART3_IRQHandler
+#endif /* LPUART3_BASE */
 #endif /* STM32G0xx */
 #endif
 
@@ -222,6 +230,9 @@ struct serial_s {
 #define LPUART1_IRQn USART3_4_LPUART1_IRQn
 #endif
 #endif /* STM32G0xx */
+#if defined(STM32U0xx)
+#define LPUART1_IRQn USART3_LPUART1_IRQn
+#endif /* STM32U0xx */
 #endif
 
 #if defined(LPUART2_BASE) && !defined(LPUART2_IRQn)
@@ -230,6 +241,9 @@ struct serial_s {
 #define LPUART2_IRQn USART2_LPUART2_IRQn
 #endif
 #endif /* STM32G0xx */
+#if defined(STM32U0xx)
+#define LPUART2_IRQn USART2_LPUART2_IRQn
+#endif /* STM32U0xx */
 #endif
 
 /* Exported macro ------------------------------------------------------------*/
