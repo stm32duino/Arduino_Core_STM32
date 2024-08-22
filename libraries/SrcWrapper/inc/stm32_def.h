@@ -90,6 +90,10 @@
   #endif
 #endif
 
+#if defined(STM32U0xx)
+  #define RCC_CR_HSIDY_Pos RCC_CR_HSIRDY_Pos
+#endif
+
 /* STM32G0xx and some STM32U5xx defined USB_DRD_FS */
 #if !defined(USB) && defined(USB_DRD_FS)
   #define USB USB_DRD_FS
