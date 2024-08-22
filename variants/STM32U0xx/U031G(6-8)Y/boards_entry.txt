@@ -1,0 +1,23 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic U031G6Yx
+GenU0.menu.pnum.GENERIC_U031G6YX=Generic U031G6Yx
+GenU0.menu.pnum.GENERIC_U031G6YX.upload.maximum_size=32768
+GenU0.menu.pnum.GENERIC_U031G6YX.upload.maximum_data_size=12288
+GenU0.menu.pnum.GENERIC_U031G6YX.build.board=GENERIC_U031G6YX
+GenU0.menu.pnum.GENERIC_U031G6YX.build.product_line=STM32U031xx
+GenU0.menu.pnum.GENERIC_U031G6YX.build.variant=STM32U0xx/U031G(6-8)Y
+GenU0.menu.pnum.GENERIC_U031G6YX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U0xx/STM32U031.svd
+
+# Generic U031G8Yx
+GenU0.menu.pnum.GENERIC_U031G8YX=Generic U031G8Yx
+GenU0.menu.pnum.GENERIC_U031G8YX.upload.maximum_size=65536
+GenU0.menu.pnum.GENERIC_U031G8YX.upload.maximum_data_size=12288
+GenU0.menu.pnum.GENERIC_U031G8YX.build.board=GENERIC_U031G8YX
+GenU0.menu.pnum.GENERIC_U031G8YX.build.product_line=STM32U031xx
+GenU0.menu.pnum.GENERIC_U031G8YX.build.variant=STM32U0xx/U031G(6-8)Y
+GenU0.menu.pnum.GENERIC_U031G8YX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U0xx/STM32U031.svd
+

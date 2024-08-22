@@ -1,0 +1,41 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic U073H8Yx
+GenU0.menu.pnum.GENERIC_U073H8YX=Generic U073H8Yx
+GenU0.menu.pnum.GENERIC_U073H8YX.upload.maximum_size=65536
+GenU0.menu.pnum.GENERIC_U073H8YX.upload.maximum_data_size=40960
+GenU0.menu.pnum.GENERIC_U073H8YX.build.board=GENERIC_U073H8YX
+GenU0.menu.pnum.GENERIC_U073H8YX.build.product_line=STM32U073xx
+GenU0.menu.pnum.GENERIC_U073H8YX.build.variant=STM32U0xx/U073H(8-B-C)Y_U083HCY
+GenU0.menu.pnum.GENERIC_U073H8YX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U0xx/STM32U073.svd
+
+# Generic U073HBYx
+GenU0.menu.pnum.GENERIC_U073HBYX=Generic U073HBYx
+GenU0.menu.pnum.GENERIC_U073HBYX.upload.maximum_size=131072
+GenU0.menu.pnum.GENERIC_U073HBYX.upload.maximum_data_size=40960
+GenU0.menu.pnum.GENERIC_U073HBYX.build.board=GENERIC_U073HBYX
+GenU0.menu.pnum.GENERIC_U073HBYX.build.product_line=STM32U073xx
+GenU0.menu.pnum.GENERIC_U073HBYX.build.variant=STM32U0xx/U073H(8-B-C)Y_U083HCY
+GenU0.menu.pnum.GENERIC_U073HBYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U0xx/STM32U073.svd
+
+# Generic U073HCYx
+GenU0.menu.pnum.GENERIC_U073HCYX=Generic U073HCYx
+GenU0.menu.pnum.GENERIC_U073HCYX.upload.maximum_size=262144
+GenU0.menu.pnum.GENERIC_U073HCYX.upload.maximum_data_size=40960
+GenU0.menu.pnum.GENERIC_U073HCYX.build.board=GENERIC_U073HCYX
+GenU0.menu.pnum.GENERIC_U073HCYX.build.product_line=STM32U073xx
+GenU0.menu.pnum.GENERIC_U073HCYX.build.variant=STM32U0xx/U073H(8-B-C)Y_U083HCY
+GenU0.menu.pnum.GENERIC_U073HCYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U0xx/STM32U073.svd
+
+# Generic U083HCYx
+GenU0.menu.pnum.GENERIC_U083HCYX=Generic U083HCYx
+GenU0.menu.pnum.GENERIC_U083HCYX.upload.maximum_size=262144
+GenU0.menu.pnum.GENERIC_U083HCYX.upload.maximum_data_size=40960
+GenU0.menu.pnum.GENERIC_U083HCYX.build.board=GENERIC_U083HCYX
+GenU0.menu.pnum.GENERIC_U083HCYX.build.product_line=STM32U083xx
+GenU0.menu.pnum.GENERIC_U083HCYX.build.variant=STM32U0xx/U073H(8-B-C)Y_U083HCY
+GenU0.menu.pnum.GENERIC_U083HCYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U0xx/STM32U083.svd
+
