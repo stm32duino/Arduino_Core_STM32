@@ -77,26 +77,6 @@
 
 #include "stm32u0xx.h"
 
-#if !defined  (HSE_VALUE)
-#define HSE_VALUE    (32000000U)     /*!< Value of the External oscillator in Hz */
-#endif /* HSE_VALUE */
-
-#if !defined  (HSI_VALUE)
-#define HSI_VALUE    (16000000UL)    /*!< Value of the Internal oscillator in Hz*/
-#endif /* HSI_VALUE */
-
-#if !defined  (MSI_VALUE)
-#define MSI_VALUE    (4000000UL)     /*!< Value of the Internal oscillator in Hz*/
-#endif /* MSI_VALUE */
-
-#if !defined  (LSI_VALUE)
-#define LSI_VALUE    (32000UL)       /*!< Value of the Internal oscillator in Hz */
-#endif /* LSI_VALUE */
-
-#if !defined  (LSE_VALUE)
-#define LSE_VALUE    (32768UL)       /*!< Value of the External oscillator in Hz */
-#endif /* LSE_VALUE */
-
 /**
   * @}
   */
@@ -117,9 +97,11 @@
 /*!< Uncomment the following line if you need to relocate your vector Table in
      Internal SRAM. */
 //#define VECT_TAB_SRAM
+#ifndef VECT_TAB_OFFSET
 #define VECT_TAB_OFFSET  0x0U /*!< Vector Table base offset field.
                                    This value must be a multiple of 0x200. */
 
+#endif /* VECT_TAB_OFFSET */
 /*!< Comment the following line if you would like to disable the software
      workaround related to debug access in case RDP=1 and Boot_Lock=1      */
 #define ENABLE_DBG_SWEN /*!< Enable the debugger read access. */
