@@ -115,6 +115,7 @@ def checkConfig():
                 / repo_core_name
                 / "libraries"
                 / "SrcWrapper"
+                / "inc"
                 / stm32_def
             )
         except IOError:
