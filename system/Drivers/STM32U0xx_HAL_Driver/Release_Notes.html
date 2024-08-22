@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Release Notes for STM32CubeU0 HAL and LL drivers</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="_htmresc/mini-st_2020.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="icon" type="image/x-icon" href="_htmresc/favicon.png" />
+</head>
+<body>
+<div class="row">
+<div class="col-sm-12 col-lg-4">
+<center>
+<h1 id="release-notes-for-stm32cubeu0-hal-and-ll-drivers">Release Notes for <mark>STM32CubeU0 HAL and LL drivers</mark></h1>
+<p>Copyright ©  2024 STMicroelectronics<br />
+</p>
+<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
+</center>
+<h1 id="purpose">Purpose</h1>
+<p>The STM32Cube HAL and LL, an STM32 abstraction layer embedded software, ensure maximized portability across STM32 portfolio.</p>
+<p>The portable APIs layer provides a generic, multi instanced and simple set of APIs to interact with the upper layer (application, libraries and stacks). It is composed of native and extended APIs set. It is directly built around a generic architecture and allows the build-upon layers, like the middleware layer, to implement its functions without knowing in-depth the used STM32 device. This improves the library code reusability and guarantees an easy portability on other devices and STM32 families.</p>
+<p>The Low Layer (LL) drivers are part of the STM32Cube firmware HAL that provides a basic set of optimized and one-shot services. The Low layer drivers, contrary to the HAL ones are not fully portable across the STM32 families; the availability of some functions depends on the physical availability of the relative features on the product. The Low Layer (LL) drivers are designed to offer the following features:</p>
+<ul>
+<li>New set of inline functions for direct and atomic register access</li>
+<li>One-shot operations that can be used by the HAL drivers or from application level</li>
+<li>Full independence from HAL and standalone usage (without HAL drivers)</li>
+<li>Full features coverage of all the supported peripherals</li>
+</ul>
+</div>
+<div class="col-sm-12 col-lg-8">
+<h1 id="update-history">Update History</h1>
+<div class="collapse">
+<input type="checkbox" id="collapse-section2" checked aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true">V1.1.0 / 05-June-2024</label>
+<div>
+<h2 id="main-changes">Main Changes</h2>
+<p>Maintenance release of <strong>HAL</strong> and <strong>LL</strong> drivers for <strong>STM32U083 / STM32U073 / STM32U031</strong> devices</p>
+<h2 id="contents">Contents</h2>
+<p>HAL and LL driver maintenance release</p>
+<ul>
+<li><strong>HAL</strong> drivers:
+<ul>
+<li>HAL UART driver:
+<ul>
+<li>Minors implementation enhancements.</li>
+</ul></li>
+<li>HAL RNG driver:
+<ul>
+<li>Minors implementation enhancements.</li>
+</ul></li>
+<li>HAL LPTIM driver:
+<ul>
+<li>Remove the redundant private macro IS_LPTIM_AUTORELOAD (redundant with IS_LPTIM_PERIOD macro).</li>
+</ul></li>
+<li>LL RCC driver:
+<ul>
+<li>Minors implementation enhancements.</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="backward-compatibility">Backward Compatibility</h2>
+<ul>
+<li>Not applicable</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" checked aria-hidden="true">V1.0.0 / 12-February-2024</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<p>First official release of <strong>HAL</strong> and <strong>LL</strong> drivers for <strong>STM32U083 / STM32U073 / STM32U031</strong> devices</p>
+<h2 id="contents-1">Contents</h2>
+<p>HAL and LL driver beta version for all peripherals</p>
+<ul>
+<li><p><strong>HAL</strong>: ADC, CORTEX, COMP, CRC, CRYP, DAC, DMA, EXTI, GPIO, I2C, I2S, IRDA, IWDG, LPTIM, OPAMP, LTDC, PCD, PWR, RCC, RNG, RTC, SMARTCARD, SPI, TIM, UART, USART, WWDG</p></li>
+<li><p><strong>LL</strong>: ADC, COMP, CRC, CRS, DAC, DMA, EXTI, GPIO, I2C, LPTIM, LPUART, OPAMP, PWR, RCC, RNG, RTC, SPI, TIM, USART, USB, UTILS</p></li>
+</ul>
+<h2 id="known-limitations-1">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="backward-compatibility-1">Backward Compatibility</h2>
+<ul>
+<li>Not applicable</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<footer class="sticky">
+<p>For complete documentation on STM32 Microcontrollers </mark> , visit: <span style="font-color: blue;"><a href="http://www.st.com/stm32">www.st.com/stm32</a></span></p>
+This release note uses up to date web standards and, for this reason, should not be opened with Internet Explorer but preferably with popular browsers such as Google Chrome, Mozilla Firefox, Opera or Microsoft Edge.
+</footer>
+</body>
+</html>
