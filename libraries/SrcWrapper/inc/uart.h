@@ -246,6 +246,12 @@ struct serial_s {
 #endif /* STM32U0xx */
 #endif
 
+#if defined(LPUART3_BASE) && !defined(LPUART3_IRQn)
+#if defined(STM32U0xx)
+#define LPUART3_IRQn USART4_LPUART3_IRQn
+#endif /* STM32U0xx */
+#endif
+
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t parity, uint32_t stopbits);

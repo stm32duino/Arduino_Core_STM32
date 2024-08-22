@@ -30,7 +30,8 @@
 #if defined(HAVE_HWSERIAL1) || defined(HAVE_HWSERIAL2) || defined(HAVE_HWSERIAL3) ||\
   defined(HAVE_HWSERIAL4) || defined(HAVE_HWSERIAL5) || defined(HAVE_HWSERIAL6) ||\
   defined(HAVE_HWSERIAL7) || defined(HAVE_HWSERIAL8) || defined(HAVE_HWSERIAL9) ||\
-  defined(HAVE_HWSERIAL10) || defined(HAVE_HWSERIALLP1) || defined(HAVE_HWSERIALLP2)
+  defined(HAVE_HWSERIAL10) || defined(HAVE_HWSERIALLP1) || defined(HAVE_HWSERIALLP2) ||\
+  defined(HAVE_HWSERIALLP3)
   // SerialEvent functions are weak, so when the user doesn't define them,
   // the linker just sets their address to 0 (which is checked below).
   #if defined(HAVE_HWSERIAL1)
@@ -111,6 +112,10 @@
   #if defined(HAVE_HWSERIALLP2)
     HardwareSerial SerialLP2(LPUART2);
     void serialEventLP2() __attribute__((weak));
+  #endif
+  #if defined(HAVE_HWSERIALLP3)
+    HardwareSerial SerialLP2(LPUART3);
+    void serialEventLP3() __attribute__((weak));
   #endif
 #endif // HAVE_HWSERIALx
 
@@ -267,22 +272,30 @@ HardwareSerial::HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex)
                             setTx(PIN_SERIALLP2_TX);
                           } else
 #endif
-#if defined(PIN_SERIAL_TX)
-                            // If PIN_SERIAL_TX is defined but Serial is mapped on other peripheral
-                            // (usually SerialUSB) use the pins defined for specified peripheral
-                            // instead of the first one found
-                            if ((pinmap_peripheral(digitalPinToPinName(PIN_SERIAL_TX), PinMap_UART_TX) == peripheral)) {
-#if defined(PIN_SERIAL_RX)
-                              setRx(PIN_SERIAL_RX);
+#if defined(PIN_SERIALLP3_TX) && defined(LPUART3_BASE)
+                            if (peripheral == LPUART2) {
+#if defined(PIN_SERIALLP3_RX)
+                              setRx(PIN_SERIALLP3_RX);
 #endif
-                              setTx(PIN_SERIAL_TX);
+                              setTx(PIN_SERIALLP3_TX);
                             } else
 #endif
-                            {
-                              // else get the pins of the first peripheral occurrence in PinMap
-                              _serial.pin_rx = pinmap_pin(peripheral, PinMap_UART_RX);
-                              _serial.pin_tx = pinmap_pin(peripheral, PinMap_UART_TX);
-                            }
+#if defined(PIN_SERIAL_TX)
+                              // If PIN_SERIAL_TX is defined but Serial is mapped on other peripheral
+                              // (usually SerialUSB) use the pins defined for specified peripheral
+                              // instead of the first one found
+                              if ((pinmap_peripheral(digitalPinToPinName(PIN_SERIAL_TX), PinMap_UART_TX) == peripheral)) {
+#if defined(PIN_SERIAL_RX)
+                                setRx(PIN_SERIAL_RX);
+#endif
+                                setTx(PIN_SERIAL_TX);
+                              } else
+#endif
+                              {
+                                // else get the pins of the first peripheral occurrence in PinMap
+                                _serial.pin_rx = pinmap_pin(peripheral, PinMap_UART_RX);
+                                _serial.pin_tx = pinmap_pin(peripheral, PinMap_UART_TX);
+                              }
   if (halfDuplex == HALF_DUPLEX_ENABLED) {
     _serial.pin_rx = NC;
   }
