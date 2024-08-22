@@ -638,24 +638,13 @@ static uint32_t i2c_getTiming(i2c_t *obj, uint32_t frequency)
 }
 
 /**
-  * @brief  Default init and setup GPIO and I2C peripheral
-  * @param  obj : pointer to i2c_t structure
-  * @retval none
-  */
-void i2c_init(i2c_t *obj)
-{
-  i2c_custom_init(obj, 100000, I2C_ADDRESSINGMODE_7BIT, 0x33);
-}
-
-/**
   * @brief  Initialize and setup GPIO and I2C peripheral
   * @param  obj : pointer to i2c_t structure
   * @param  timing : one of the i2c_timing_e
-  * @param  addressingMode : I2C_ADDRESSINGMODE_7BIT or I2C_ADDRESSINGMODE_10BIT
   * @param  ownAddress : device address
   * @retval none
   */
-void i2c_custom_init(i2c_t *obj, uint32_t timing, uint32_t addressingMode, uint32_t ownAddress)
+void i2c_init(i2c_t *obj, uint32_t timing, uint32_t ownAddress)
 {
   if (obj != NULL) {
 
@@ -771,7 +760,7 @@ void i2c_custom_init(i2c_t *obj, uint32_t timing, uint32_t addressingMode, uint3
 #endif
         handle->Init.OwnAddress1     = ownAddress;
         handle->Init.OwnAddress2     = 0;
-        handle->Init.AddressingMode  = addressingMode;
+        handle->Init.AddressingMode  = I2C_ADDRESSINGMODE_7BIT;
         handle->Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
         handle->Init.GeneralCallMode = (obj->generalCall == 0) ? I2C_GENERALCALL_DISABLE : I2C_GENERALCALL_ENABLE;
         handle->Init.NoStretchMode   = (obj->NoStretchMode == 0) ? I2C_NOSTRETCH_DISABLE : I2C_NOSTRETCH_ENABLE;

@@ -137,9 +137,7 @@ typedef enum {
 } i2c_status_e;
 
 /* Exported functions ------------------------------------------------------- */
-void i2c_init(i2c_t *obj);
-void i2c_custom_init(i2c_t *obj, uint32_t timing, uint32_t addressingMode,
-                     uint32_t ownAddress);
+void i2c_init(i2c_t *obj, uint32_t timing, uint32_t ownAddress);
 void i2c_deinit(i2c_t *obj);
 void i2c_setTiming(i2c_t *obj, uint32_t frequency);
 i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address, uint8_t *data, uint16_t size);
