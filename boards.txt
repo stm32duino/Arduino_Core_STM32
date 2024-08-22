@@ -14495,6 +14495,14 @@ GenL5.menu.dbg.enable_log.build.flags.debug=
 GenL5.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 GenL5.menu.dbg.enable_all.build.flags.debug=-g
 
+GenU5.menu.dbg.none=None
+GenU5.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenU5.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenU5.menu.dbg.enable_log=Core logs Enabled
+GenU5.menu.dbg.enable_log.build.flags.debug=
+GenU5.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenU5.menu.dbg.enable_all.build.flags.debug=-g
+
 GenWB.menu.dbg.none=None
 GenWB.menu.dbg.enable_sym=Symbols Enabled (-g)
 GenWB.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
