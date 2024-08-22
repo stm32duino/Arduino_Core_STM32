@@ -16,6 +16,8 @@
   #include "stm32l4xx_hal_opamp_ex.c"
 #elif STM32L5xx
   #include "stm32l5xx_hal_opamp_ex.c"
+#elif STM32U0xx
+  #include "stm32u0xx_hal_opamp_ex.c"
 #elif STM32U5xx
   #include "stm32u5xx_hal_opamp_ex.c"
 #endif

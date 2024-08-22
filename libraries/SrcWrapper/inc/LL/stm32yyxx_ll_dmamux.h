@@ -22,6 +22,8 @@
   #include "stm32l5xx_ll_dmamux.h"
 #elif STM32MP1xx
   #include "stm32mp1xx_ll_dmamux.h"
+#elif STM32U0xx
+  #include "stm32u0xx_ll_dmamux.h"
 #elif STM32WBxx
   #include "stm32wbxx_ll_dmamux.h"
 #elif STM32WLxx
