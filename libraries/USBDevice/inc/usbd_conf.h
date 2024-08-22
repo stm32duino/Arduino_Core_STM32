@@ -74,7 +74,7 @@ extern "C" {
 #elif defined(STM32G0xx)
 #define USB_IRQn USB_UCPD1_2_IRQn
 #define USB_IRQHandler USB_UCPD1_2_IRQHandler
-#elif defined(STM32H5xx)
+#elif defined(STM32H5xx) || defined(STM32U0xx)
 #define USB_IRQn USB_DRD_FS_IRQn
 #define USB_IRQHandler USB_DRD_FS_IRQHandler
 #elif defined(STM32U5xx) && !defined(USB_DRD_FS)
