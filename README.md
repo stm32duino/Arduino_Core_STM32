@@ -70,6 +70,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [Generic STM32L1 boards](#generic-stm32l1-boards)
  - [Generic STM32L4 boards](#generic-stm32l4-boards)
  - [Generic STM32L5 boards](#generic-stm32l5-boards)
+ - [Generic STM32U0 boards](#generic-stm32u0-boards)
  - [Generic STM32U5 boards](#generic-stm32u5-boards)
  - [Generic STM32WB boards](#generic-stm32wb-boards)
  - [Generic STM32WBA boards](#generic-stm32wba-boards)
@@ -722,6 +723,13 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32L552ZC-Q<br>STM32L552ZE-Q | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L562ZE-Q | Generic Board | *2.0.0* |  |
+
+### Generic STM32U0 boards
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart:  | STM32U073R8<br>STSTM32U073RB<br>STM32U073RC | Generic Board | **2.9.0** |  |
+| :yellow_heart:  | STM32U083RC | Generic Board | **2.9.0** |  |
 
 ### Generic STM32U5 boards
 
