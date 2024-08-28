@@ -768,6 +768,20 @@ Nucleo_64.menu.pnum.NUCLEO_L476RG.build.variant=STM32L4xx/L475R(C-E-G)T_L476R(C-
 Nucleo_64.menu.pnum.NUCLEO_L476RG.debug.server.openocd.scripts.2=target/stm32l4x.cfg
 Nucleo_64.menu.pnum.NUCLEO_L476RG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L476.svd
 
+# NUCLEO_U083RC board
+Nucleo_64.menu.pnum.NUCLEO_U083RC=Nucleo U083RC
+Nucleo_64.menu.pnum.NUCLEO_U083RC.node=NOD_U083RC
+Nucleo_64.menu.pnum.NUCLEO_U083RC.upload.maximum_size=262144
+Nucleo_64.menu.pnum.NUCLEO_U083RC.upload.maximum_data_size=40960
+Nucleo_64.menu.pnum.NUCLEO_U083RC.build.mcu=cortex-m0plus
+Nucleo_64.menu.pnum.NUCLEO_U083RC.build.board=NUCLEO_U083RC
+Nucleo_64.menu.pnum.NUCLEO_U083RC.build.series=STM32U0xx
+Nucleo_64.menu.pnum.NUCLEO_U083RC.build.product_line=STM32U083xx
+Nucleo_64.menu.pnum.NUCLEO_U083RC.build.variant=STM32U0xx/U073R(8-B-C)(I-T)_U083RC(I-T)
+Nucleo_64.menu.pnum.NUCLEO_U083RC.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+Nucleo_64.menu.pnum.NUCLEO_U083RC.debug.server.openocd.scripts.2=target/stm32u0x.cfg
+Nucleo_64.menu.pnum.NUCLEO_U083RC.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U0xx/STM32U083.svd
+
 # NUCLEO_WB15CC
 Nucleo_64.menu.pnum.NUCLEO_WB15CC=Nucleo WB15CC
 Nucleo_64.menu.pnum.NUCLEO_WB15CC.node="NOD_WB15CC"
