@@ -3,7 +3,7 @@
 Please, Make sure that your PR is not a duplicate.
 Search among the [Pull request](https://github.com/stm32duino/Arduino_Core_STM32/pulls) before creating one.
 
-IMPORTANT: Please review the [CONTRIBUTING.md](../CONTRIBUTING.md) file for detailed contributing guidelines.
+IMPORTANT: Please review the [CONTRIBUTING.md](https://github.com/stm32duino/Arduino_Core_STM32/blob/main/CONTRIBUTING.md) file for detailed contributing guidelines.
 
 Thanks for submitting a pull request.
 Please provide enough information so that others can review your pull request:
