@@ -119,6 +119,16 @@ The variant in this core includes pre-define for MCU pins connected to on-boards
 |  36  |   SENSORS_BME680_ADDRESS  |  Not available  |       0x77      |       0x77      |                   I2C Address of BME680/688                 |
 |  37  |   SENSORS_KX023_ADDRESS   |       0x1F      |       0x1F      |       0x1F      |                     I2C Address of KX023                    |
 
+# I2C Addresses
+
+| **No.** | **Sensors** | **Address** |
+|:-------:|:-----------:|:-----------:|
+|    1    |    BME280   |     0x76    |
+|    2    |    BME680   |     0x77    |
+|    3    |    BME688   |     0x77    |
+|    4    |    KX023    |     0x1F    |
+|    5    |   LIS3DHTR  |     0x19    |
+
 # To-do
 
 - [ ] Verify the installation & functionalites on different environments
