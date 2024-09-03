@@ -418,10 +418,28 @@ void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
     dacChannelConf.DAC_OutputSwitch = DAC_OUTPUTSWITCH_ENABLE;
 #endif
     /*##-2- Configure DAC channel1 #############################################*/
+#if defined(STM32H5xx) && !defined(TIM8) && !defined(HAL_ICACHE_MODULE_DISABLED)
+    bool icache_enabled = false;
+    if (HAL_ICACHE_IsEnabled() == 1) {
+      icache_enabled = true;
+      /* Disable instruction cache prior to internal cacheable memory update */
+      if (HAL_ICACHE_Disable() != HAL_OK) {
+        Error_Handler();
+      }
+    }
+#endif /* STM32H5xx && !defined(TIM8) &&!HAL_ICACHE_MODULE_DISABLED */
     if (HAL_DAC_ConfigChannel(&DacHandle, &dacChannelConf, dacChannel) != HAL_OK) {
       /* Channel configuration Error */
       return;
     }
+#if defined(STM32H5xx) && !defined(TIM8) && !defined(HAL_ICACHE_MODULE_DISABLED)
+    if (icache_enabled) {
+      /* Re-enable instruction cache */
+      if (HAL_ICACHE_Enable() != HAL_OK) {
+        Error_Handler();
+      }
+    }
+#endif /* STM32H5xx && !defined(TIM8) && !HAL_ICACHE_MODULE_DISABLED */
   }
 
   /*##-3- Set DAC Channel1 DHR register ######################################*/
