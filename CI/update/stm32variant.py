@@ -2519,7 +2519,6 @@ refname_filter = [
     "STM32H7S",
     "STM32MP13",
     "STM32MP2",
-    "STM32U0",
     "STM32WB0",
 ]
 periph_c_filename = "PeripheralPins.c"

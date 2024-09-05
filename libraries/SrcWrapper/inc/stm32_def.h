@@ -52,6 +52,8 @@
   #include "stm32l5xx.h"
 #elif defined(STM32MP1xx)
   #include "stm32mp1xx.h"
+#elif defined(STM32U0xx)
+  #include "stm32u0xx.h"
 #elif defined(STM32U5xx)
   #include "stm32u5xx.h"
 #elif defined(STM32WBxx)
@@ -88,11 +90,103 @@
   #endif
 #endif
 
-/* STM32G0xx and some STM32U5xx defined USB_DRD_FS */
+#if defined(STM32U0xx)
+#define RCC_CR_HSIDY_Pos RCC_CR_HSIRDY_Pos
+#include "stm32yyxx_ll_rtc.h"
+#if !defined(LL_RTC_BINARY_NONE)
+  #define LL_RTC_BINARY_NONE RTC_BINARY_NONE
+#endif
+#if !defined(LL_RTC_BINARY_ONLY)
+  #define LL_RTC_BINARY_ONLY RTC_BINARY_ONLY
+#endif
+#if !defined(LL_RTC_BINARY_MIX)
+  #define LL_RTC_BINARY_MIX RTC_BINARY_MIX
+#endif
+#if !defined(LL_RTC_BINARY_MIX_BCDU_0)
+  #define LL_RTC_BINARY_MIX_BCDU_0 RTC_BINARY_MIX_BCDU_0
+#endif
+#if !defined(LL_RTC_BINARY_MIX_BCDU_1)
+  #define LL_RTC_BINARY_MIX_BCDU_1 RTC_BINARY_MIX_BCDU_1
+#endif
+#if !defined(LL_RTC_BINARY_MIX_BCDU_2)
+  #define LL_RTC_BINARY_MIX_BCDU_2 RTC_BINARY_MIX_BCDU_2
+#endif
+#if !defined(LL_RTC_BINARY_MIX_BCDU_3)
+  #define LL_RTC_BINARY_MIX_BCDU_3 RTC_BINARY_MIX_BCDU_3
+#endif
+#if !defined(LL_RTC_BINARY_MIX_BCDU_4)
+  #define LL_RTC_BINARY_MIX_BCDU_4 RTC_BINARY_MIX_BCDU_4
+#endif
+#if !defined(LL_RTC_BINARY_MIX_BCDU_5)
+  #define LL_RTC_BINARY_MIX_BCDU_5 RTC_BINARY_MIX_BCDU_5
+#endif
+#if !defined(LL_RTC_BINARY_MIX_BCDU_6)
+  #define LL_RTC_BINARY_MIX_BCDU_6 RTC_BINARY_MIX_BCDU_6
+#endif
+#if !defined(LL_RTC_BINARY_MIX_BCDU_7)
+  #define LL_RTC_BINARY_MIX_BCDU_7 RTC_BINARY_MIX_BCDU_7
+#endif
+
+/**
+  * @brief  Get Binary mode (Sub Second Register)
+  * @rmtoll RTC_ICSR           BIN           LL_RTC_GetBinaryMode
+  * @param  RTCx RTC Instance
+  * @retval This parameter can be one of the following values:
+  *         @arg @ref LL_RTC_BINARY_NONE
+  *         @arg @ref LL_RTC_BINARY_ONLY
+  *         @arg @ref LL_RTC_BINARY_MIX
+  * @retval None
+  */
+__STATIC_INLINE uint32_t LL_RTC_GetBinaryMode(const RTC_TypeDef *RTCx)
+{
+  return (uint32_t)(READ_BIT(RTCx->ICSR, RTC_ICSR_BIN));
+}
+
+/**
+  * @brief  Set Binary mode (Sub Second Register)
+  * @note   Bit is write-protected. @ref LL_RTC_DisableWriteProtection function should be called before.
+  * @note   It can be written in initialization mode only (@ref LL_RTC_EnableInitMode function).
+  * @rmtoll RTC_ICSR           BIN           LL_RTC_SetBinaryMode
+  * @param  RTCx RTC Instance
+  * @param  BinaryMode can be one of the following values:
+  *         @arg @ref LL_RTC_BINARY_NONE
+  *         @arg @ref LL_RTC_BINARY_ONLY
+  *         @arg @ref LL_RTC_BINARY_MIX
+  * @retval None
+  */
+__STATIC_INLINE void LL_RTC_SetBinaryMode(RTC_TypeDef *RTCx, uint32_t BinaryMode)
+{
+  MODIFY_REG(RTCx->ICSR, RTC_ICSR_BIN, BinaryMode);
+}
+
+/**
+  * @brief  Set Binary Mix mode BCDU
+  * @note   Bit is write-protected. @ref LL_RTC_DisableWriteProtection function should be called before.
+  * @note   It can be written in initialization mode only (@ref LL_RTC_EnableInitMode function).
+  * @rmtoll RTC_ICSR           BCDU          LL_RTC_SetBinMixBCDU
+  * @param  RTCx RTC Instance
+  * @param  BinMixBcdU can be one of the following values:
+  *         @arg @ref LL_RTC_BINARY_MIX_BCDU_0
+  *         @arg @ref LL_RTC_BINARY_MIX_BCDU_1
+  *         @arg @ref LL_RTC_BINARY_MIX_BCDU_2
+  *         @arg @ref LL_RTC_BINARY_MIX_BCDU_3
+  *         @arg @ref LL_RTC_BINARY_MIX_BCDU_4
+  *         @arg @ref LL_RTC_BINARY_MIX_BCDU_5
+  *         @arg @ref LL_RTC_BINARY_MIX_BCDU_6
+  *         @arg @ref LL_RTC_BINARY_MIX_BCDU_7
+  * @retval None
+  */
+__STATIC_INLINE void LL_RTC_SetBinMixBCDU(RTC_TypeDef *RTCx, uint32_t BinMixBcdU)
+{
+  MODIFY_REG(RTCx->ICSR, RTC_ICSR_BCDU, BinMixBcdU);
+}
+#endif // STM32U0xx
+
+/* STM32G0xx, STM32U0xx and some STM32U5xx defined USB_DRD_FS */
 #if !defined(USB) && defined(USB_DRD_FS)
   #define USB USB_DRD_FS
   #define PinMap_USB PinMap_USB_DRD_FS
-  #if defined(STM32H5xx) || defined(STM32U5xx)
+  #if defined(STM32H5xx) || defined(STM32U0xx) || defined(STM32U5xx)
     #define USB_BASE USB_DRD_BASE
     #if !defined(__HAL_RCC_USB_CLK_ENABLE)
       #define __HAL_RCC_USB_CLK_ENABLE __HAL_RCC_USB_FS_CLK_ENABLE

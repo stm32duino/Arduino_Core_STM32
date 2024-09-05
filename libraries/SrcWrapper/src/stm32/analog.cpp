@@ -909,8 +909,8 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #endif
   AdcHandle.Init.DiscontinuousConvMode = DISABLE;                       /* Parameter discarded because sequencer is disabled */
 #if !defined(STM32C0xx) && !defined(STM32F0xx) && !defined(STM32G0xx) && \
-    !defined(STM32L0xx) && !defined(STM32WBAxx) && !defined(STM32WLxx) && \
-    !defined(ADC_SUPPORT_2_5_MSPS)
+    !defined(STM32L0xx) && !defined(STM32U0xx) && !defined(STM32WBAxx) && \
+    !defined(STM32WLxx) && !defined(ADC_SUPPORT_2_5_MSPS)
   AdcHandle.Init.NbrOfDiscConversion   = 0;                             /* Parameter discarded because sequencer is disabled */
 #endif
   AdcHandle.Init.ExternalTrigConv      = ADC_SOFTWARE_START;            /* Software start to trig the 1st conversion manually, without external event */
@@ -934,7 +934,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #if defined(STM32F0xx)
   AdcHandle.Init.SamplingTimeCommon    = samplingTime;
 #endif
-#if defined(STM32C0xx) || defined(STM32G0xx) || defined(STM32U5xx) || \
+#if defined(STM32C0xx) || defined(STM32G0xx) || defined(STM32U0xx) || defined(STM32U5xx) || \
     defined(STM32WBAxx) || defined(STM32WLxx) || defined(ADC_SUPPORT_2_5_MSPS)
   AdcHandle.Init.SamplingTimeCommon1   = samplingTime;              /* Set sampling time common to a group of channels. */
   AdcHandle.Init.SamplingTimeCommon2   = samplingTime;              /* Set sampling time common to a group of channels, second common setting possible.*/
@@ -999,8 +999,8 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #endif
 #if !defined(STM32C0xx) && !defined(STM32F0xx) && !defined(STM32F1xx) && \
     !defined(STM32F2xx) && !defined(STM32G0xx) && !defined(STM32L0xx) && \
-    !defined(STM32L1xx) && !defined(STM32WBAxx) && !defined(STM32WBxx) && \
-    !defined(STM32WLxx) && !defined(ADC1_V2_5)
+    !defined(STM32L1xx) && !defined(STM32U0xx) && !defined(STM32WBAxx) && \
+    !defined(STM32WBxx) && !defined(STM32WLxx) && !defined(ADC1_V2_5)
   AdcChannelConf.Offset = 0;                                      /* Parameter discarded because offset correction is disabled */
 #endif
 #if defined (STM32H7xx) || defined(STM32MP1xx)

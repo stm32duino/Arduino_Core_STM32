@@ -70,6 +70,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [Generic STM32L1 boards](#generic-stm32l1-boards)
  - [Generic STM32L4 boards](#generic-stm32l4-boards)
  - [Generic STM32L5 boards](#generic-stm32l5-boards)
+ - [Generic STM32U0 boards](#generic-stm32u0-boards)
  - [Generic STM32U5 boards](#generic-stm32u5-boards)
  - [Generic STM32WB boards](#generic-stm32wb-boards)
  - [Generic STM32WBA boards](#generic-stm32wba-boards)
@@ -145,6 +146,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L452RE | [Nucleo L452RE](http://www.st.com/en/evaluation-tools/nucleo-l452re.html) | *1.5.0* |  |
 | :green_heart:  | STM32L452RE-P | [Nucleo L452RE-P](http://www.st.com/en/evaluation-tools/nucleo-l452re-p.html) | *1.8.0* |  |
 | :green_heart:  | STM32L476RG | [Nucleo L476RG](http://www.st.com/en/evaluation-tools/nucleo-l476rg.html) | *0.1.0* |  |
+| :yellow_heart:  | STM32U083RC | [Nucleo U083RC](http://www.st.com/en/evaluation-tools/nucleo-u083rc.html) | **2.9.0** |  |
 | :green_heart:  | STM32WB15CCU | [Nucleo-WB15CC](https://www.st.com/en/evaluation-tools/nucleo-wb15cc.html) | *2.5.0* |  |
 | :green_heart: | STM32WBA55CGU | Nucleo-WBA55CG | *2.8.0* |  |
 | :green_heart:  | STM32WB55RG | [P-Nucleo-WB55RG](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html) | *1.6.0* | BLE support with [STM32duinoBLE](https://github.com/stm32duino/STM32duinoBLE) |
@@ -722,6 +724,13 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32L552ZC-Q<br>STM32L552ZE-Q | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L562ZE-Q | Generic Board | *2.0.0* |  |
+
+### Generic STM32U0 boards
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart:  | STM32U073R8<br>STSTM32U073RB<br>STM32U073RC | Generic Board | **2.9.0** |  |
+| :yellow_heart:  | STM32U083RC | Generic Board | **2.9.0** |  |
 
 ### Generic STM32U5 boards
 

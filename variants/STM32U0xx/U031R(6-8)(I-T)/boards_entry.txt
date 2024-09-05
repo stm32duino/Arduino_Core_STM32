@@ -1,0 +1,41 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic U031R6Ix
+GenU0.menu.pnum.GENERIC_U031R6IX=Generic U031R6Ix
+GenU0.menu.pnum.GENERIC_U031R6IX.upload.maximum_size=32768
+GenU0.menu.pnum.GENERIC_U031R6IX.upload.maximum_data_size=12288
+GenU0.menu.pnum.GENERIC_U031R6IX.build.board=GENERIC_U031R6IX
+GenU0.menu.pnum.GENERIC_U031R6IX.build.product_line=STM32U031xx
+GenU0.menu.pnum.GENERIC_U031R6IX.build.variant=STM32U0xx/U031R(6-8)(I-T)
+GenU0.menu.pnum.GENERIC_U031R6IX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U0xx/STM32U031.svd
+
+# Generic U031R6Tx
+GenU0.menu.pnum.GENERIC_U031R6TX=Generic U031R6Tx
+GenU0.menu.pnum.GENERIC_U031R6TX.upload.maximum_size=32768
+GenU0.menu.pnum.GENERIC_U031R6TX.upload.maximum_data_size=12288
+GenU0.menu.pnum.GENERIC_U031R6TX.build.board=GENERIC_U031R6TX
+GenU0.menu.pnum.GENERIC_U031R6TX.build.product_line=STM32U031xx
+GenU0.menu.pnum.GENERIC_U031R6TX.build.variant=STM32U0xx/U031R(6-8)(I-T)
+GenU0.menu.pnum.GENERIC_U031R6TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U0xx/STM32U031.svd
+
+# Generic U031R8Ix
+GenU0.menu.pnum.GENERIC_U031R8IX=Generic U031R8Ix
+GenU0.menu.pnum.GENERIC_U031R8IX.upload.maximum_size=65536
+GenU0.menu.pnum.GENERIC_U031R8IX.upload.maximum_data_size=12288
+GenU0.menu.pnum.GENERIC_U031R8IX.build.board=GENERIC_U031R8IX
+GenU0.menu.pnum.GENERIC_U031R8IX.build.product_line=STM32U031xx
+GenU0.menu.pnum.GENERIC_U031R8IX.build.variant=STM32U0xx/U031R(6-8)(I-T)
+GenU0.menu.pnum.GENERIC_U031R8IX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U0xx/STM32U031.svd
+
+# Generic U031R8Tx
+GenU0.menu.pnum.GENERIC_U031R8TX=Generic U031R8Tx
+GenU0.menu.pnum.GENERIC_U031R8TX.upload.maximum_size=65536
+GenU0.menu.pnum.GENERIC_U031R8TX.upload.maximum_data_size=12288
+GenU0.menu.pnum.GENERIC_U031R8TX.build.board=GENERIC_U031R8TX
+GenU0.menu.pnum.GENERIC_U031R8TX.build.product_line=STM32U031xx
+GenU0.menu.pnum.GENERIC_U031R8TX.build.variant=STM32U0xx/U031R(6-8)(I-T)
+GenU0.menu.pnum.GENERIC_U031R8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U0xx/STM32U031.svd
+
