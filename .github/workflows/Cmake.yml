@@ -45,6 +45,7 @@ jobs:
           - NUCLEO_L152RE
           - NUCLEO_L476RG
           - NUCLEO_L552ZE_Q
+          - NUCLEO_U083RC
           - NUCLEO_U575ZI_Q
           - P_NUCLEO_WB55RG
           - NUCLEO_WBA55CG
