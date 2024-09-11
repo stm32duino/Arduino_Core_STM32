@@ -50,7 +50,8 @@ void CameraParserV2_t::process_char(char c)
         // Byte 5, 6, 7, 8, 9: Spare data 0x01, 0x02, 0x03, 0x04, 0x05
         // Byte 10: 0x0D
         // Byte 11: 0x0A
-        if ((camera_read_buffer[5] == 0x01) &&
+        if (
+            /* (camera_read_buffer[5] == 0x01) && (They change to counter here ???) */
             (camera_read_buffer[6] == 0x02) &&
             (camera_read_buffer[7] == 0x03) &&
             (camera_read_buffer[8] == 0x04) &&
@@ -71,7 +72,8 @@ void CameraParserV2_t::process_char(char c)
           LOG.print(", probability = ");
           LOG.println(value.f);
 
-          set_frame_event(frame_index, (value.f >= CAMERA_FIRE_PROBABILITY_THRESHOLD ? CAM_EVENT_FIRE : CAM_EVENT_NO_EVENT), value.f);
+          es_frame_event_type_t event = (value.f >= CAMERA_FIRE_PROBABILITY_THRESHOLD ? CAM_EVENT_FIRE : CAM_EVENT_NO_EVENT);
+          set_frame_event(frame_index, (frame_index % 4 == 0) ? CAM_EVENT_NO_EVENT : event, value.f); // Ignore the top row
         }
         else
         {
@@ -248,7 +250,7 @@ bool CameraParserV2_t::is_fire_detected(void)
 {
   for (int i = 0; i < NUM_OF_CAM_FRAME; i++)
   {
-    if (frame_probability[i] >= CAMERA_FIRE_PROBABILITY_THRESHOLD)
+    if ((i % 4 != 0) && (frame_probability[i] >= CAMERA_FIRE_PROBABILITY_THRESHOLD))
     {
       return true;
     }

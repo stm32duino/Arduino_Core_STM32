@@ -18,8 +18,8 @@
  * Uncomment either following defines to force the terminal to use Satellite / Terrestrial LoRaWAN network and skipping the other.
  * Note: Do not uncomment both at the same time.
  */
-// #define FORCE_USING_SATELLITE_NETWORK
-#define FORCE_USING_TERRESTRIAL_NETWORK
+#define FORCE_USING_SATELLITE_NETWORK
+// #define FORCE_USING_TERRESTRIAL_NETWORK
 
 /**
  * This is the time (not including camera reading) between data uplink when fire DO detected on camera.
@@ -38,8 +38,8 @@
  *
  * Format: HHMM
  */
-#define CAMERA_ACTIVE_TIME_START_HH_MM (0530) // 05H30
-#define CAMERA_ACTIVE_TIME_STOP_HH_MM (2200)  // 22H00
+#define CAMERA_ACTIVE_TIME_START_HH_MM (0700) // 07H00
+#define CAMERA_ACTIVE_TIME_STOP_HH_MM (2000)  // 20H00
 
 /**
  * This is the time to update GNSS data.
@@ -48,7 +48,7 @@
  *
  * Unit: Seconds
  */
-#define GNSS_UPDATING_PERIOD_S (12 * 60 * 60)
+#define GNSS_UPDATING_PERIOD_S (24 * 60 * 60)
 
 /**
  * This is the that the terminal waiting (without reading data) after power on the GNSS.
@@ -108,7 +108,7 @@
  *
  * Unit: Seconds
  */
-#define TIME_BETWEEN_CAMERA_READ_S (60)
+#define TIME_BETWEEN_CAMERA_READ_S (2.5 * 60)
 
 /**
  * This is the maximum time to read camera data.
@@ -146,7 +146,7 @@
 
 #define ADC_AREF 3.3f
 #define BATVOLT_R1 1.0f
-#define BATVOLT_R2 2.0f
+#define BATVOLT_R2 1.0f
 
 /*********************************************************/
 

@@ -1,19 +1,19 @@
 /**
- * @brief This sketch is a demonstration of Smart Vision IoT for Wild fire detection.
- *
- * The device gathers & sends information of the integrated AI Camera, GNSS position & sensors
- * to EchoStar satellite network for every NO_FIRE_PACKET_SENDING_PERIOD_S.
- *
- * Connect Camera TX to PA2 & Camera RX to PA3 to get started.
- *
- * Parameters relating to Data sending period (NO_FIRE_PACKET_SENDING_PERIOD_S), GNSS configurations, etc. are defined & modified in project_configuration.h
- *
- * NOTE: Sensors data is not available in this version due to the diversity of sensors type implementation on different batch.
- *
- * @author mtnguyen, fferrero
- * @version 2.0.0 for Echo 7 board version
- *
- */
+   @brief This sketch is a demonstration of Smart Vision IoT for Wild fire detection.
+
+   The device gathers & sends information of the integrated AI Camera, GNSS position & sensors
+   to EchoStar satellite network for every NO_FIRE_PACKET_SENDING_PERIOD_S.
+
+   Connect Camera TX to PA2 & Camera RX to PA3 to get started.
+
+   Parameters relating to Data sending period (NO_FIRE_PACKET_SENDING_PERIOD_S), GNSS configurations, etc. are defined & modified in project_configuration.h
+
+   NOTE: Sensors data is not available in this version due to the diversity of sensors type implementation on different batch.
+
+   @author mtnguyen, fferrero
+   @version 2.0.0 for Echo 7 board version
+
+*/
 
 #include "project_configuration.h"
 
@@ -53,6 +53,9 @@ struct
 
 void setup(void)
 {
+  pinMode(PB15, OUTPUT);
+  digitalWrite(PB15, LOW);
+
   analogReadResolution(12);
 
   DELAY_MANAGER.init();
@@ -110,9 +113,8 @@ void loop(void)
 
 #ifndef DEBUGGING_OPTION_GNSS_DISABLE
     get_gnss_data(false);
-#endif /* DEBUGGING_OPTION_GNSS_DISABLE */
-
     update_system_time();
+#endif /* DEBUGGING_OPTION_GNSS_DISABLE */
 
     LOG.print("[INFO] main::loop() | Scheduling next GNSS Update on ");
     LOG.println((unsigned int)event_timestamp_s.next_gps_update);
@@ -124,7 +126,10 @@ void loop(void)
     event_timestamp_s.next_camera_read = rtc.getEpoch() + TIME_BETWEEN_CAMERA_READ_S;
     LOG.println("[INFO] main::loop() | Gathering Camera Data");
 #ifndef DEBUGGING_OPTION_I_HAVE_NO_CAMERA
+    digitalWrite(PB15, HIGH);
     get_camera_data();
+    digitalWrite(PB15, LOW);
+
     bool current_read_fire_detected = CAMERA_DATA_PARSER.is_fire_detected();
     if (current_read_fire_detected ^ fire_detected_flag) // If fire_detected state changed?
     {
@@ -259,9 +264,9 @@ inline bool gnss_fix_condition(void)
 }
 
 /**
- * @brief Read GNSS data
- * @param force_fix_reading if set to TRUE, the GNSS reading is running until a fix condition met or NO timeout in another word.
- */
+   @brief Read GNSS data
+   @param force_fix_reading if set to TRUE, the GNSS reading is running until a fix condition met or NO timeout in another word.
+*/
 void get_gnss_data(bool force_fix_reading)
 {
   LOG.println("[DEBUG] main::get_gnss_data() | Set GNSS Power ON");
@@ -357,7 +362,8 @@ void get_gnss_data(bool force_fix_reading)
 
 uint16_t read_bat(void)
 {
-  uint16_t voltage_adc = (uint16_t)analogRead(SENSORS_BATERY_ADC_PIN);
+  // uint16_t voltage_adc = (uint16_t)analogRead(SENSORS_BATERY_ADC_PIN);
+  uint16_t voltage_adc = (uint16_t)analogRead(PA7);
   uint16_t voltage = (uint16_t)((ADC_AREF / 4.096) * (BATVOLT_R1 + BATVOLT_R2) / BATVOLT_R2 * (float)voltage_adc);
   return voltage;
 }
@@ -437,7 +443,7 @@ void send_data(void)
   mydata[i++] = bat & 0xFF;
   mydata[i++] = pwr;
   mydata[i++] = (int8_t)dl.SNR / 4;
-  mydata[i++] = (int8_t)-dl.RSSI;
+  mydata[i++] = (int8_t) - dl.RSSI;
 
   // Camera data
   for (int j = 0; j < 6; j++)
