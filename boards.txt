@@ -12493,7 +12493,7 @@ Blues.menu.pnum.CYGNET.build.series=STM32L4xx
 Blues.menu.pnum.CYGNET.build.product_line=STM32L433xx
 Blues.menu.pnum.CYGNET.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
 Blues.menu.pnum.CYGNET.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Blues.menu.pnum.CYGNET.build.pid=0x0003
+Blues.menu.pnum.CYGNET.pid.0=0x0003
 Blues.menu.pnum.CYGNET.debug.server.openocd.scripts.2=target/stm32l4x.cfg
 Blues.menu.pnum.CYGNET.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x3.svd
 
