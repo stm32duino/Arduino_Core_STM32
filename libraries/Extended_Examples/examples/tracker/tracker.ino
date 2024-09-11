@@ -13,7 +13,7 @@
    @author mtnguyen, fferrero
    @version 2.0.0 for Echo 7 board version
 
-*/
+ */
 
 #include "project_configuration.h"
 
@@ -53,9 +53,6 @@ struct
 
 void setup(void)
 {
-  pinMode(PB15, OUTPUT);
-  digitalWrite(PB15, LOW);
-
   analogReadResolution(12);
 
   DELAY_MANAGER.init();
@@ -112,8 +109,8 @@ void loop(void)
     LOG.println("[INFO] main::loop() | Updating GNSS Data");
 
 #ifndef DEBUGGING_OPTION_GNSS_DISABLE
-    get_gnss_data(false);
-    update_system_time();
+    get_gnss_data(false, true);
+    // update_system_time();
 #endif /* DEBUGGING_OPTION_GNSS_DISABLE */
 
     LOG.print("[INFO] main::loop() | Scheduling next GNSS Update on ");
@@ -126,10 +123,7 @@ void loop(void)
     event_timestamp_s.next_camera_read = rtc.getEpoch() + TIME_BETWEEN_CAMERA_READ_S;
     LOG.println("[INFO] main::loop() | Gathering Camera Data");
 #ifndef DEBUGGING_OPTION_I_HAVE_NO_CAMERA
-    digitalWrite(PB15, HIGH);
     get_camera_data();
-    digitalWrite(PB15, LOW);
-
     bool current_read_fire_detected = CAMERA_DATA_PARSER.is_fire_detected();
     if (current_read_fire_detected ^ fire_detected_flag) // If fire_detected state changed?
     {
@@ -231,7 +225,7 @@ void gnss_on(void)
 void gnss_off(void)
 {
   digitalWrite(GNSS_PWR_ENABLE_PIN, LOW);
-  digitalWrite(GNSS_V_BCKP_PIN, LOW);
+  digitalWrite(GNSS_V_BCKP_PIN, HIGH);
 }
 
 void gnss_init(void)
@@ -249,7 +243,7 @@ void gnss_init(void)
 
   DELAY_MANAGER.delay_ms(100);
 
-  get_gnss_data(true); // This will not exit if GNSS is not fix
+  get_gnss_data(true, false); // This will not exit if GNSS is not fix
 }
 
 inline bool gnss_fix_condition(void)
@@ -264,10 +258,10 @@ inline bool gnss_fix_condition(void)
 }
 
 /**
-   @brief Read GNSS data
-   @param force_fix_reading if set to TRUE, the GNSS reading is running until a fix condition met or NO timeout in another word.
-*/
-void get_gnss_data(bool force_fix_reading)
+ * @brief Read GNSS data
+ * @param force_fix_reading if set to TRUE, the GNSS reading is running until a fix condition met or NO timeout in another word.
+ */
+void get_gnss_data(bool force_fix_reading, bool skip_waiting_time)
 {
   LOG.println("[DEBUG] main::get_gnss_data() | Set GNSS Power ON");
   nmea.clear();
@@ -276,15 +270,18 @@ void get_gnss_data(bool force_fix_reading)
   LOG.print("[DEBUG] main::get_gnss_data() | CPU Sleep, leaving GNSS running for stablizing for ");
   LOG.print(GNSS_WAITING_TIME_S);
   LOG.print(" seconds.");
-  uint32_t gnss_waiting_start_timestamp_s = rtc.getEpoch();
-  while (rtc.getEpoch() - gnss_waiting_start_timestamp_s <= (GNSS_WAITING_TIME_S))
+  if (!skip_waiting_time)
   {
-    WATCHDOG.reload();
-    LED.short_blink(1);
-    LOG.print(".");
-    DELAY_MANAGER.delay_s(5);
+    uint32_t gnss_waiting_start_timestamp_s = rtc.getEpoch();
+    while (rtc.getEpoch() - gnss_waiting_start_timestamp_s <= (GNSS_WAITING_TIME_S))
+    {
+      WATCHDOG.reload();
+      LED.short_blink(1);
+      LOG.print(".");
+      DELAY_MANAGER.delay_s(5);
+    }
+    LOG.println();
   }
-  LOG.println();
 
   LOG.println("[DEBUG] main::get_gnss_data() | Start to read GNSS data");
   uint32_t led_blink_timestamp_s = rtc.getEpoch();
@@ -362,8 +359,7 @@ void get_gnss_data(bool force_fix_reading)
 
 uint16_t read_bat(void)
 {
-  // uint16_t voltage_adc = (uint16_t)analogRead(SENSORS_BATERY_ADC_PIN);
-  uint16_t voltage_adc = (uint16_t)analogRead(PA7);
+  uint16_t voltage_adc = (uint16_t)analogRead(SENSORS_BATERY_ADC_PIN);
   uint16_t voltage = (uint16_t)((ADC_AREF / 4.096) * (BATVOLT_R1 + BATVOLT_R2) / BATVOLT_R2 * (float)voltage_adc);
   return voltage;
 }

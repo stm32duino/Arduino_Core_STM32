@@ -25,21 +25,21 @@
  * This is the time (not including camera reading) between data uplink when fire DO detected on camera.
  * Unit: Seconds
  */
-#define FIRE_DETECTED_PACKET_SENDING_PERIOD_S (5 * 60)
+#define FIRE_DETECTED_PACKET_SENDING_PERIOD_S (3 * 60)
 
 /**
  * This is the time (not including camera reading) between data uplink when fire DO NOT detected on camera.
  * Unit: Seconds
  */
-#define NO_FIRE_PACKET_SENDING_PERIOD_S (30 * 60)
+#define NO_FIRE_PACKET_SENDING_PERIOD_S (3 * 60)
 
 /**
  * These are the start & stop time for the camera to be active in a day.
  *
  * Format: HHMM
  */
-#define CAMERA_ACTIVE_TIME_START_HH_MM (0700) // 07H00
-#define CAMERA_ACTIVE_TIME_STOP_HH_MM (2000)  // 20H00
+#define CAMERA_ACTIVE_TIME_START_HH_MM (0530) // 05H30
+#define CAMERA_ACTIVE_TIME_STOP_HH_MM (2200)  // 22H00
 
 /**
  * This is the time to update GNSS data.
@@ -48,7 +48,7 @@
  *
  * Unit: Seconds
  */
-#define GNSS_UPDATING_PERIOD_S (24 * 60 * 60)
+#define GNSS_UPDATING_PERIOD_S (3 * 60)
 
 /**
  * This is the that the terminal waiting (without reading data) after power on the GNSS.
@@ -66,7 +66,7 @@
  *
  * Unit: Seconds
  */
-#define GNSS_MAX_READING_TIME_S (3 * 60)
+#define GNSS_MAX_READING_TIME_S (2 * 60)
 
 /**
  * This is time maximum time to schedule an uplink packet.
@@ -108,7 +108,7 @@
  *
  * Unit: Seconds
  */
-#define TIME_BETWEEN_CAMERA_READ_S (2.5 * 60)
+#define TIME_BETWEEN_CAMERA_READ_S (60)
 
 /**
  * This is the maximum time to read camera data.
@@ -137,7 +137,7 @@
 
 // #define DEBUGGING_OPTION_GNSS_DISABLE
 // #define DEBUGGING_OPTION_NO_WAITING_FOR_NETWORK_TO_JOIN
-// #define DEBUGGING_OPTION_I_HAVE_NO_CAMERA
+#define DEBUGGING_OPTION_I_HAVE_NO_CAMERA
 
 /*************************************************************/
 
@@ -146,7 +146,7 @@
 
 #define ADC_AREF 3.3f
 #define BATVOLT_R1 1.0f
-#define BATVOLT_R2 1.0f
+#define BATVOLT_R2 2.0f
 
 /*********************************************************/
 

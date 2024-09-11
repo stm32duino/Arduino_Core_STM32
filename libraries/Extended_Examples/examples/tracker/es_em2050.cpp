@@ -98,7 +98,7 @@ void es_em2050::init(void)
         LED.short_blink(2);
 
 #ifndef FORCE_USING_SATELLITE_NETWORK
-        if (counter == 30) // Not joinning after 1 minute
+        if (counter == 45) // Not joinning after 1.5 minute
         {
             LOG.println();
             LOG.println("[INFO] main::em2050_init() | Waited for satellite network join Failed");
@@ -108,7 +108,7 @@ void es_em2050::init(void)
         }
 #endif /* FORCE_USING_SATELLITE_NETWORK */
 
-        if ((counter % 10) == 0) // Manual re-join the network
+        if ((counter % 45) == 0) // Manual re-join the network
         {
             LOG.println();
             LOG.println("[INFO] main::em2050_init() | Sending AT+JOIN for manual rejoin the network");
