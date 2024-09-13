@@ -121,34 +121,42 @@ void loop(void)
   }
 
   // Read Camera Data
-  if ((rtc.getEpoch() >= event_timestamp_s.next_camera_read) && camera_active_time_check())
+  if (camera_active_time_check())
   {
-    event_timestamp_s.next_camera_read = rtc.getEpoch() + TIME_BETWEEN_CAMERA_READ_S;
-    LOG.println("[INFO] main::loop() | Gathering Camera Data");
-#ifndef DEBUGGING_OPTION_I_HAVE_NO_CAMERA
-    digitalWrite(PB15, HIGH);
-    get_camera_data();
-    digitalWrite(PB15, LOW);
-
-    bool current_read_fire_detected = CAMERA_DATA_PARSER.is_fire_detected();
-    if (current_read_fire_detected ^ fire_detected_flag) // If fire_detected state changed?
+    if (rtc.getEpoch() >= event_timestamp_s.next_camera_read)
     {
-      fire_detected_flag = current_read_fire_detected;
-      if (fire_detected_flag)
-      {
-        event_timestamp_s.next_uplink_packet = rtc.getEpoch(); // Send immidiately if there is a new detection of fire
+      event_timestamp_s.next_camera_read = rtc.getEpoch() + TIME_BETWEEN_CAMERA_READ_S;
+      LOG.println("[INFO] main::loop() | Gathering Camera Data");
+#ifndef DEBUGGING_OPTION_I_HAVE_NO_CAMERA
+      digitalWrite(PB15, HIGH);
+      get_camera_data();
+      digitalWrite(PB15, LOW);
 
-        LOG.println("[INFO] main::loop() | Fire detected, switched to faster uplink mode");
-        LOG.println("[INFO] main::loop() | Next uplink packet is NOW");
-      }
-      else
+      bool current_read_fire_detected = CAMERA_DATA_PARSER.is_fire_detected();
+      if (current_read_fire_detected ^ fire_detected_flag) // If fire_detected state changed?
       {
-        LOG.println("[INFO] main::loop() | Fire put out, switched to slow uplink mode");
+        fire_detected_flag = current_read_fire_detected;
+        if (fire_detected_flag)
+        {
+          event_timestamp_s.next_uplink_packet = rtc.getEpoch(); // Send immidiately if there is a new detection of fire
+
+          LOG.println("[INFO] main::loop() | Fire detected, switched to faster uplink mode");
+          LOG.println("[INFO] main::loop() | Next uplink packet is NOW");
+        }
+        else
+        {
+          LOG.println("[INFO] main::loop() | Fire put out, switched to slow uplink mode");
+        }
       }
-    }
 #else
-    LOG.println("[INFO] main::loop() | DEBUGGING_OPTION_I_HAVE_NO_CAMERA :)");
+      LOG.println("[INFO] main::loop() | DEBUGGING_OPTION_I_HAVE_NO_CAMERA :)");
 #endif
+    }
+  }
+  else
+  {
+    LOG.println("[INFO] main::loop() | It not the time for camera reading, clear previous data, send NO_EVENT");
+    CAMERA_DATA_PARSER.clear_frame_data();
   }
 
   // Sent radio uplink

@@ -98,17 +98,18 @@ void es_em2050::init(void)
         LED.short_blink(2);
 
 #ifndef FORCE_USING_SATELLITE_NETWORK
-        if (counter == 30) // Not joinning after 1 minute
+        if (counter == 9) // Not joinning after 1,5 minute
         {
             LOG.println();
             LOG.println("[INFO] main::em2050_init() | Waited for satellite network join Failed");
             LOG.println("[INFO] main::em2050_init() | Switch EM2050 to use Terrestrial Network");
             LOG.print("[INFO] main::em2050_init() | Waiting EM2050 to join the network:");
             ECHOSTAR_SERIAL.println("AT+REGION=EU868");
+            DELAY_MANAGER.delay_ms(2000);
         }
 #endif /* FORCE_USING_SATELLITE_NETWORK */
 
-        if ((counter % 10) == 0) // Manual re-join the network
+        if ((counter % 9) == 0) // Manual re-join the network every 1,5 minute
         {
             LOG.println();
             LOG.println("[INFO] main::em2050_init() | Sending AT+JOIN for manual rejoin the network");
@@ -116,8 +117,14 @@ void es_em2050::init(void)
             ECHOSTAR_SERIAL.println("AT+JOIN");
         }
 
+        if (counter >= 30) { // Reset the device after 3 minutes
+          while (1) {
+            DELAY_MANAGER.delay_ms(10*1000); // Causing a Watchdog reset here
+          }
+        }
+
         counter++;
-        DELAY_MANAGER.delay_ms(1600);
+        DELAY_MANAGER.delay_ms(9600); // This goes along with LED.short_blink(2) create a 10 seconds delay
         WATCHDOG.reload();
     }
 #endif
