@@ -12463,7 +12463,7 @@ Blues.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 Blues.build.flash_offset=0x0
 Blues.upload.maximum_size=0
 Blues.upload.maximum_data_size=0
-Blues.vid.0=0x30A4
+Blues.upload_port.0.vid=0x30A4
 
 # Swan R5 board
 Blues.menu.pnum.SWAN_R5=Swan R5
