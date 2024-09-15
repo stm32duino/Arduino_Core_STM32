@@ -1,0 +1,26 @@
+name: Check misspelled words with codespell
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  codespell:
+    name: Check for spelling errors
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      # See: https://github.com/codespell-project/actions-codespell/blob/master/README.md
+      - name: Spell check
+        uses: codespell-project/actions-codespell@master
+        with:
+          check_filenames: true
+          check_hidden: true
+          # In the event of a false positive, add the word in all lower case to this file:
+          # ignore_words_file: ./CI/codespell/.codespellignore

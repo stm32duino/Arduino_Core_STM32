@@ -1,0 +1,35 @@
+name: Check code formatting with astyle
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '*'
+      - '**.md'
+      - '**.txt'
+  pull_request:
+    paths-ignore:
+      - '*'
+      - '**.md'
+      - '**.txt'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  astyle_check:
+    runs-on: ubuntu-latest
+    name: Check for astyle errors
+    steps:
+    # First of all, clone the repo using the checkout action.
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - name: Astyle check
+      id: Astyle
+      uses: stm32duino/actions/astyle-check@main
+
+    # Use the output from the `Astyle` step
+    - name: Astyle Errors
+      if: failure()
+      run: |
+        cat ${{ steps.Astyle.outputs.astyle-result }}
+        exit 1

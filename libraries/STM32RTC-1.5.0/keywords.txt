@@ -1,0 +1,112 @@
+#######################################
+# Syntax Coloring Map For RTC
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+STM32RTC	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+getInstance	KEYWORD2
+getHandle	KEYWORD2
+
+getBinaryMode	KEYWORD2
+setBinaryMode	KEYWORD2
+
+getWeekDay	KEYWORD2
+getDay	KEYWORD2
+getMonth	KEYWORD2
+getYear	KEYWORD2
+getHours	KEYWORD2
+getMinutes	KEYWORD2
+getSeconds	KEYWORD2
+getSubSeconds	KEYWORD2
+getTime	KEYWORD2
+getDate	KEYWORD2
+
+setWeekDay	KEYWORD2
+setDay	KEYWORD2
+setMonth	KEYWORD2
+setYear	KEYWORD2
+setHours	KEYWORD2
+setMinutes	KEYWORD2
+setSeconds	KEYWORD2
+setSubSeconds	KEYWORD2
+setDate	KEYWORD2
+setTime	KEYWORD2
+
+getEpoch	KEYWORD2
+getY2kEpoch	KEYWORD2
+getAlarmEpoch	KEYWORD2
+setEpoch	KEYWORD2
+setY2kEpoch	KEYWORD2
+setAlarmEpoch	KEYWORD2
+
+getAlarmDay	KEYWORD2
+getAlarmHours 	KEYWORD2
+getAlarmMinutes	KEYWORD2
+getAlarmSeconds	KEYWORD2
+getAlarmSubSeconds	KEYWORD2
+
+setAlarmSubSeconds  KEYWORD2
+setAlarmSeconds	KEYWORD2
+setAlarmMinutes	KEYWORD2
+setAlarmHours	KEYWORD2
+setAlarmHours	KEYWORD2
+setAlarmTime	KEYWORD2
+setAlarmTime	KEYWORD2
+setAlarmDay	KEYWORD2
+setAlarmMonth	KEYWORD2
+setAlarmYear	KEYWORD2
+setAlarmDate	KEYWORD2
+
+enableAlarm 	KEYWORD2
+disableAlarm 	KEYWORD2
+
+attachInterrupt	KEYWORD2
+detachInterrupt	KEYWORD2
+attachSecondsInterrupt	KEYWORD2
+detachSecondsInterrupt	KEYWORD2
+attachSubSecondsUnderflowInterrupt	KEYWORD2
+detachSubSecondsUnderflowInterrupt	KEYWORD2
+
+getClockSource	KEYWORD2
+setClockSource	KEYWORD2
+isAlarmEnabled	KEYWORD2
+isConfigured	KEYWORD2
+isTimeSet	KEYWORD2
+
+getPrediv	KEYWORD2
+setPrediv	KEYWORD2
+
+IS_CLOCK_SOURCE	KEYWORD2
+IS_HOUR_FORMAT	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+MATCH_OFF	LITERAL1
+MATCH_SUBSEC	LITERAL1
+MATCH_SS	LITERAL1
+MATCH_MMSS	LITERAL1
+MATCH_HHMMSS	LITERAL1
+MATCH_DHHMMSS	LITERAL1
+MATCH_MMDDHHMMSS	LITERAL1
+MATCH_YYMMDDHHMMSS	LITERAL1
+HOUR_12	LITERAL1
+HOUR_24	LITERAL1
+AM	LITERAL1
+PM	LITERAL1
+LSE_CLOCK	LITERAL1
+LSI_CLOCK	LITERAL1
+HSE_CLOCK	LITERAL1
+ALARM_A	LITERAL1
+ALARM_B	LITERAL1
+MODE_BCD	LITERAL1
+MODE_BIN	LITERAL1
+MODE_MIX	LITERAL1

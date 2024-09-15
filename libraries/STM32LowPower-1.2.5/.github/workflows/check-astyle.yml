@@ -1,0 +1,18 @@
+name: Check code formatting with astyle
+
+on:
+  push:
+  pull_request:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  check:
+    name: Check for astyle errors
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: sudo apt install astyle
+      - uses: actions/checkout@v3
+      - run: astyle --project=extras/.astylerc --recursive '*.c*' '*.h'
+      # If anything changed, this will fail and show the needed changes
+      - run: git diff --exit-code

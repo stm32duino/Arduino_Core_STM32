@@ -1,0 +1,37 @@
+name: STM32RTC Continuous Integration
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '*'
+      - '**.md'
+      - '**.txt'
+  pull_request:
+    paths-ignore:
+      - '*'
+      - '**.md'
+      - '**.txt'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  lib_build:
+    runs-on: ubuntu-latest
+    name: Library compilation
+    steps:
+    # First of all, clone the repo using the checkout action.
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - name: Compilation
+      id: Compile
+      uses: stm32duino/actions/compile-examples@main
+      with:
+        custom-config: "./extras/rtc_cores_config.json"
+
+    # Use the output from the `Compile` step
+    - name: Compilation Errors
+      if: failure()
+      run: |
+        cat ${{ steps.Compile.outputs.compile-result }}
+        exit 1

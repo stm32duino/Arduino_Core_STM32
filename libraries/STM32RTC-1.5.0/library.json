@@ -1,0 +1,16 @@
+{
+  "name": "STM32duino RTC",
+  "keywords": "Timing",
+  "description": "Arduino library to support RTC functionalities of STM32 based boards.",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/stm32duino/STM32RTC"
+  },
+  "version": "1.5.0",
+  "frameworks": "arduino",
+  "platforms": "ststm32",
+  "build": {
+    "libArchive": false
+  }
+}

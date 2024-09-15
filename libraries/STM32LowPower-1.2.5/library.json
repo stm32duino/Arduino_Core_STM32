@@ -1,0 +1,16 @@
+{
+  "name": "STM32duino Low Power",
+  "keywords": "Device Control",
+  "description": "Arduino library to support low power save primitives features of STM32 based boards.",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/stm32duino/STM32LowPower"
+  },
+  "version": "1.2.5",
+  "frameworks": "arduino",
+  "platforms": "ststm32",
+  "build": {
+    "libArchive": false
+  }
+}
