@@ -9,10 +9,12 @@ class es_sensors
 {
 private:
     bool lis3dhtr_available;
+    bool kx023_available;
     bool bme680_available;
     bool bme688_available;
 
     bool ping_lis3dhtr(void);
+    bool ping_kx023(void);
     bool ping_bme68x(void);
 
     bool is_bme688(void);

@@ -7,11 +7,13 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME680.h> // https://github.com/adafruit/Adafruit_BME680
 #include <LIS3DHTR.h>
+#include <Kionix_KX023.h> // https://github.com/nguyenmanhthao996tn/Kionix_KX023
 
 es_sensors SENSORS;
 
 static Adafruit_BME680 bme;
 static LIS3DHTR<TwoWire> lis;
+static KX023 kx(Wire, SENSORS_KX023_ADDRESS);
 
 es_sensors::es_sensors(void)
 {
@@ -38,6 +40,16 @@ void es_sensors::power_on(void)
         lis.setFullScaleRange(LIS3DHTR_RANGE_16G);
         lis.setOutputDataRate(LIS3DHTR_DATARATE_50HZ);
         lis.setHighSolution(true); // High solution enable
+    }
+
+    if (kx023_available)
+    {
+        KX023_Status_t status = kx.begin();
+        if (status == KX023_STATUS_OK)
+        {
+            kx.configAsynchronousReadBackAccelerationData(KX023_ACCLERATION_RANGE_8G, KX023_ODR_25HZ);
+            kx.setOperatingMode();
+        }
     }
 
     if (bme688_available || bme680_available)
@@ -71,14 +83,20 @@ void es_sensors::init(void)
 
     for (int i = 1; i <= 3; i++) // 3 try
     {
-        LOG.print("[INFO] es_sensors::init() | Pinging LIS3DHTR try #");
+        LOG.print("[INFO] es_sensors::init() | Pinging accelerometers try #");
         LOG.print(i);
         LOG.print(": ");
 
         if (ping_lis3dhtr())
         {
-            LOG.println("OK");
+            LOG.println("LIS3DHTR OK");
             lis3dhtr_available = true;
+            break;
+        }
+        else if (ping_kx023())
+        {
+            LOG.println("KX023 OK");
+            kx023_available = true;
             break;
         }
         else
@@ -128,6 +146,13 @@ void es_sensors::deinit(void)
 bool es_sensors::ping_lis3dhtr(void)
 {
     Wire.beginTransmission(SENSORS_LIS3DHTR_ADDRESS);
+    uint8_t error = Wire.endTransmission();
+    return (error == 0);
+}
+
+bool es_sensors::ping_kx023(void)
+{
+    Wire.beginTransmission(SENSORS_KX023_ADDRESS);
     uint8_t error = Wire.endTransmission();
     return (error == 0);
 }
@@ -202,6 +227,10 @@ void es_sensors::get_accel(float *x, float *y, float *z)
     {
         lis.getAcceleration(x, y, z);
     }
+    else if (kx023_available)
+    {
+        kx.readAsynchronousReadBackAccelerationData(x, y, z);
+    }
     else
     {
         return;
@@ -213,6 +242,12 @@ float es_sensors::get_accel_x(void)
     if (lis3dhtr_available)
     {
         return lis.getAccelerationX();
+    }
+    else if (kx023_available)
+    {
+        float x, y, z;
+        kx.readAsynchronousReadBackAccelerationData(&x, &y, &z);
+        return x;
     }
     else
     {
@@ -226,6 +261,12 @@ float es_sensors::get_accel_y(void)
     {
         return lis.getAccelerationY();
     }
+    else if (kx023_available)
+    {
+        float x, y, z;
+        kx.readAsynchronousReadBackAccelerationData(&x, &y, &z);
+        return y;
+    }
     else
     {
         return 0;
@@ -237,6 +278,12 @@ float es_sensors::get_accel_z(void)
     if (lis3dhtr_available)
     {
         return lis.getAccelerationZ();
+    }
+    else if (kx023_available)
+    {
+        float x, y, z;
+        kx.readAsynchronousReadBackAccelerationData(&x, &y, &z);
+        return z;
     }
     else
     {
