@@ -1,0 +1,21 @@
+LIS3DHTR	KEYWORD1
+
+isConnection	KEYWORD2
+begin	KEYWORD2
+setPowerMode	KEYWORD2
+setFullScaleRange	KEYWORD2
+setOutputDataRate	KEYWORD2
+setHighSolution	KEYWORD2
+getAcceleration	KEYWORD2
+getAccelerationX	KEYWORD2
+getAccelerationY	KEYWORD2
+getAccelerationZ	KEYWORD2
+click	KEYWORD2
+openTemp	KEYWORD2
+closeTemp	KEYWORD2
+readbitADC1	KEYWORD2
+readbitADC2	KEYWORD2
+readbitADC3	KEYWORD2
+getTemperature	KEYWORD2
+getDeviceID	KEYWORD2
+reset	KEYWORD2
