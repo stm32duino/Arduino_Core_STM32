@@ -4,20 +4,24 @@
 #include "es_delay.h"
 #include "project_configuration.h"
 
-#include <Adafruit_Sensor.h>
+#include <Adafruit_Sensor.h> // https://github.com/adafruit/Adafruit_BME280_Library
+#include <Adafruit_BME280.h> // https://github.com/adafruit/Adafruit_Sensor
 #include <Adafruit_BME680.h> // https://github.com/adafruit/Adafruit_BME680
 #include <LIS3DHTR.h>
 #include <Kionix_KX023.h> // https://github.com/nguyenmanhthao996tn/Kionix_KX023
 
 es_sensors SENSORS;
 
-static Adafruit_BME680 bme;
+static Adafruit_BME280 bme280;
+static Adafruit_BME680 bme68x;
 static LIS3DHTR<TwoWire> lis;
 static KX023 kx(Wire, SENSORS_KX023_ADDRESS);
 
 es_sensors::es_sensors(void)
 {
     lis3dhtr_available = false;
+    kx023_available = false;
+    bme280_available = false;
     bme680_available = false;
     bme688_available = false;
 }
@@ -54,12 +58,17 @@ void es_sensors::power_on(void)
 
     if (bme688_available || bme680_available)
     {
-        if (bme.begin())
+        if (bme68x.begin())
         {
-            bme.setTemperatureOversampling(BME680_OS_8X);
-            bme.setHumidityOversampling(BME680_OS_2X);
-            bme.setPressureOversampling(BME680_OS_4X);
+            bme68x.setTemperatureOversampling(BME680_OS_8X);
+            bme68x.setHumidityOversampling(BME680_OS_2X);
+            bme68x.setPressureOversampling(BME680_OS_4X);
         }
+    }
+
+    if (bme280_available)
+    {
+        bme280.begin(SENSORS_BME280_ADDRESS, &Wire);
     }
 }
 
@@ -109,22 +118,29 @@ void es_sensors::init(void)
 
     for (int i = 1; i <= 3; i++) // 3 try
     {
-        LOG.print("[INFO] es_sensors::init() | Pinging BME68x try #");
+        LOG.print("[INFO] es_sensors::init() | Pinging Environmental Sensor try #");
         LOG.print(i);
         LOG.print(": ");
 
         if (ping_bme68x())
         {
-            LOG.println("OK");
             if (is_bme688())
             {
+                LOG.println("BME688 OK");
                 bme688_available = true;
             }
             else
             {
+                LOG.println("BME680 OK");
                 bme680_available = true;
             }
 
+            break;
+        }
+        else if (ping_bme280())
+        {
+            LOG.println("BME280 OK");
+            bme280_available = true;
             break;
         }
         else
@@ -157,6 +173,13 @@ bool es_sensors::ping_kx023(void)
     return (error == 0);
 }
 
+bool es_sensors::ping_bme280(void)
+{
+    Wire.beginTransmission(SENSORS_BME280_ADDRESS);
+    uint8_t error = Wire.endTransmission();
+    return (error == 0);
+}
+
 bool es_sensors::ping_bme68x(void)
 {
     Wire.beginTransmission(SENSORS_BME68X_ADDRESS);
@@ -182,7 +205,11 @@ float es_sensors::read_temperature(void)
 {
     if (bme688_available || bme680_available)
     {
-        return bme.readTemperature();
+        return bme68x.readTemperature();
+    }
+    else if (bme280_available)
+    {
+        return bme280.readTemperature();
     }
     else
     {
@@ -194,7 +221,11 @@ float es_sensors::read_humidity(void)
 {
     if (bme688_available || bme680_available)
     {
-        return bme.readHumidity();
+        return bme68x.readHumidity();
+    }
+    else if (bme280_available)
+    {
+        return bme280.readHumidity();
     }
     else
     {
@@ -206,7 +237,11 @@ float es_sensors::read_pressure(void)
 {
     if (bme688_available || bme680_available)
     {
-        return bme.readPressure();
+        return bme68x.readPressure();
+    }
+    else if (bme280_available)
+    {
+        return bme280.readPressure();
     }
     else
     {
