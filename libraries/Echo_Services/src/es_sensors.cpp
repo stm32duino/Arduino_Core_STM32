@@ -5,7 +5,8 @@
 #include "project_configuration.h"
 
 #include <Adafruit_Sensor.h>
-#include "Adafruit_BME680.h" // https://github.com/adafruit/Adafruit_BME680
+#include <Adafruit_BME680.h> // https://github.com/adafruit/Adafruit_BME680
+#include <LIS3DHTR.h>
 
 es_sensors SENSORS;
 
