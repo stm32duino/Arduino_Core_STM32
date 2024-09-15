@@ -1,0 +1,25 @@
+#######################################
+# Syntax Coloring Map For CMSIS_DSP
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+es_sensors	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+power_on	KEYWORD2
+power_off	KEYWORD2
+init	KEYWORD2
+deinit	KEYWORD2
+read_temperature	KEYWORD2
+read_humidity	KEYWORD2
+read_pressure	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################

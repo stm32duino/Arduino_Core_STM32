@@ -30,6 +30,11 @@ public:
     float read_temperature(void);
     float read_humidity(void);
     float read_pressure(void);
+
+    void get_accel(float *x, float *y, float *z);
+    float get_accel_x(void);
+    float get_accel_y(void);
+    float get_accel_z(void);
 };
 
 extern es_sensors SENSORS;
