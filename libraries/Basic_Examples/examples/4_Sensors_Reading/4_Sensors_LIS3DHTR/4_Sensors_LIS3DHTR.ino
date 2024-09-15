@@ -1,9 +1,9 @@
 /**
- * @brief This example demonstrates how to read data from KX023.
- *
- * @author mtnguyen
- * @version 1.1.0
- */
+   @brief This example demonstrates how to read data from LIS3DHTR.
+
+   @author mtnguyen
+   @version 1.1.0
+*/
 
 #ifndef SENSORS_LIS3DHTR_ADDRESS
 #error This board version do not has LIS3DHTR, please check again your parameters!
@@ -46,6 +46,8 @@ void setup(void)
 }
 void loop(void)
 {
+    float x, y, z;
+
     if (!lis)
     {
         while (1)
@@ -55,14 +57,15 @@ void loop(void)
         }
     }
 
+    lis.getAcceleration(&x, &y, &z);
     Serial.print("x:");
-    Serial.print(lis.getAccelerationX());
+    Serial.print(x);
     Serial.print("  ");
     Serial.print("y:");
-    Serial.print(lis.getAccelerationY());
+    Serial.print(y);
     Serial.print("  ");
     Serial.print("z:");
-    Serial.println(lis.getAccelerationZ());
+    Serial.println(z);
 
     delay(500);
 }
