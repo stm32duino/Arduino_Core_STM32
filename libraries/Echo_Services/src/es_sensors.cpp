@@ -10,6 +10,7 @@
 es_sensors SENSORS;
 
 static Adafruit_BME680 bme;
+static LIS3DHTR<TwoWire> lis;
 
 es_sensors::es_sensors(void)
 {
@@ -31,7 +32,11 @@ void es_sensors::power_on(void)
     // TODO: Only do init if the previous power state is OFF
     if (lis3dhtr_available)
     {
-        // Nothing to do here
+        lis.begin(Wire, SENSORS_LIS3DHTR_ADDRESS);
+        delay(100);
+        lis.setFullScaleRange(LIS3DHTR_RANGE_16G);
+        lis.setOutputDataRate(LIS3DHTR_DATARATE_50HZ);
+        lis.setHighSolution(true); // High solution enable
     }
 
     if (bme688_available || bme680_available)
@@ -176,6 +181,61 @@ float es_sensors::read_pressure(void)
     if (bme688_available || bme680_available)
     {
         return bme.readPressure();
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+void es_sensors::get_accel(float *x, float *y, float *z)
+{
+    if ((x == NULL) ||
+        (y == NULL) ||
+        (z == NULL))
+    {
+        return;
+    }
+
+    if (lis3dhtr_available)
+    {
+        lis.getAcceleration(x, y, z);
+    }
+    else
+    {
+        return;
+    }
+}
+
+float es_sensors::get_accel_x(void)
+{
+    if (lis3dhtr_available)
+    {
+        return lis.getAccelerationX();
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+float es_sensors::get_accel_y(void)
+{
+    if (lis3dhtr_available)
+    {
+        return lis.getAccelerationY();
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+float es_sensors::get_accel_z(void)
+{
+    if (lis3dhtr_available)
+    {
+        return lis.getAccelerationZ();
     }
     else
     {
