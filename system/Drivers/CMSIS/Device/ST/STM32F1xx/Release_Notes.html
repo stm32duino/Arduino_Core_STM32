@@ -30,9 +30,18 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history"><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section4_3_4" checked aria-hidden="true"> <label for="collapse-section4_3_4" aria-hidden="true"><strong>V4.3.4 / 07-April-2023</strong></label>
+<input type="checkbox" id="collapse-section4_3_5" checked aria-hidden="true"> <label for="collapse-section4_3_5" aria-hidden="true"><strong>V4.3.5 / 22-July-2024</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<ul>
+<li>Update defined value of SystemCoreClock to be aligned with HSI value.</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section4_3_4" aria-hidden="true"> <label for="collapse-section4_3_4" aria-hidden="true"><strong>V4.3.4 / 07-April-2023</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <ul>
 <li>Define SPI2_IRQHandler weak alias instead of a duplication of the definition of SPI1_IRQHandler weak alias.</li>
 <li>Update the GCC startup file to be aligned to IAR/Keil IDE.</li>
@@ -43,7 +52,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4_3_3" aria-hidden="true"> <label for="collapse-section4_3_3" aria-hidden="true"><strong>V4.3.3 / 21-May-2021</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>Improve GCC startup files robustness.</li>
 <li>Add LSI maximum startup time datasheet value: LSI_STARTUP_TIME.</li>
@@ -55,7 +64,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4_3_2" aria-hidden="true"> <label for="collapse-section4_3_2" aria-hidden="true"><strong>V4.3.2 / 07-September-2020</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li>Protect Vector table modification following SRAM or FLASH preprocessor directive by a generic preprocessor directive : USER_VECT_TAB_ADDRESS</li>
 <li>SystemInit(): update to don’t reset RCC registers to its reset values.</li>
@@ -73,7 +82,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4_3_1" aria-hidden="true"> <label for="collapse-section4_3_1" aria-hidden="true"><strong>V4.3.1 / 26-June-2019</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li>Fix MISRA C 2012 Compilation errors: update to use “UL” postfix for bits mask definitions(_Msk) and memory/peripheral base addresses</li>
 <li>Fix wrong initialization value for “SystemCoreClock” in System_stm32f1xx.c file</li>
@@ -108,7 +117,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4_3_0" aria-hidden="true"> <label for="collapse-section4_3_0" aria-hidden="true"><strong>V4.3.0 / 09-October-2018</strong></label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <ul>
 <li>Add missing IS_TIM_SYNCHRO_INSTANCE macro definition to check TIM SYNCHRO feature instance support.</li>
 </ul>
@@ -117,7 +126,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4_2_0" aria-hidden="true"> <label for="collapse-section4_2_0" aria-hidden="true"><strong>V4.2.0 / 31-March-2017</strong></label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <ul>
 <li>Use _Pos and _Mask macros for all Bit Definitions</li>
 <li>Remove Core-CM3 bit definitions from CMSIS devices drivers: duplicated with bit definitions in core_cm3.h.</li>
@@ -157,7 +166,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4_1_0" aria-hidden="true"> <label for="collapse-section4_1_0" aria-hidden="true"><strong>V4.1.0 / 29-April-2016</strong></label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <ul>
 <li>Add _Pos and _Msk defines to be used with _VAL2FLD(field, value) and _FLD2VAL(field, value).
 <ul>
@@ -176,7 +185,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4_0_2" aria-hidden="true"> <label for="collapse-section4_0_2" aria-hidden="true"><strong>V4.0.2 / 18-December-2016</strong></label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
+<h2 id="main-changes-8">Main Changes</h2>
 <ul>
 <li>FLASH: Add FLASH_OBR_DATA0 and FLASH_OBR_DATA1 for FLASH_OBR register.</li>
 <li>WWDG: Align bit name across all STM32 families.
@@ -206,7 +215,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4_0_1" aria-hidden="true"> <label for="collapse-section4_0_1" aria-hidden="true"><strong>V4.0.1 / 31-July-2015</strong></label>
 <div>
-<h2 id="main-changes-8">Main Changes</h2>
+<h2 id="main-changes-9">Main Changes</h2>
 <ul>
 <li>Remove __IO or __I on constant table declaration (AHBPrescTable in system_stm32f1xx.c) due to issue with mbed C++ code. The table content was filled with random value at initialization phase.</li>
 <li>uint8_t alignment done on CMSIS CRC registers structure.</li>
@@ -217,7 +226,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4_0_0" aria-hidden="true"> <label for="collapse-section4_0_0" aria-hidden="true"><strong>V4.0.0 / 16-December-2014</strong></label>
 <div>
-<h2 id="main-changes-9">Main Changes</h2>
+<h2 id="main-changes-10">Main Changes</h2>
 <ul>
 <li>Update based on STM32Cube specification</li>
 <li><strong>This version has to be used only with STM32CubeF1 based development</strong></li>
@@ -227,7 +236,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3_6_3" aria-hidden="true"> <label for="collapse-section3_6_3" aria-hidden="true"><strong>V3.6.3 / 10-April-2014</strong></label>
 <div>
-<h2 id="main-changes-10">Main Changes</h2>
+<h2 id="main-changes-11">Main Changes</h2>
 <ul>
 <li>Update startup files for EWARM toolchain to cope with compiler enhancement of the V7.10 version.</li>
 </ul>
@@ -236,7 +245,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3_6_2" aria-hidden="true"> <label for="collapse-section3_6_2" aria-hidden="true"><strong>V3.6.2 / 28-February-2013</strong></label>
 <div>
-<h2 id="main-changes-11">Main Changes</h2>
+<h2 id="main-changes-12">Main Changes</h2>
 <ul>
 <li>stm32f10x.h
 <ul>
@@ -249,7 +258,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3_6_1" aria-hidden="true"> <label for="collapse-section3_6_1" aria-hidden="true"><strong>V3.6.1 / 09-March-2012</strong></label>
 <div>
-<h2 id="main-changes-12">Main Changes</h2>
+<h2 id="main-changes-13">Main Changes</h2>
 <ul>
 <li>All source files: license disclaimer text update and add link to the License file on ST Internet.</li>
 </ul>
@@ -258,7 +267,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3_6_0" aria-hidden="true"> <label for="collapse-section3_6_0" aria-hidden="true"><strong>V3.6.0 / 27-January-2012</strong></label>
 <div>
-<h2 id="main-changes-13">Main Changes</h2>
+<h2 id="main-changes-14">Main Changes</h2>
 <ul>
 <li>Update directory structure to be compliant with CMSIS V2.1</li>
 <li>All source files: update disclaimer to add reference to the new license agreement</li>
@@ -287,7 +296,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3_5_0" aria-hidden="true"> <label for="collapse-section3_5_0" aria-hidden="true"><strong>V3.5.0 / 11-March-2011</strong></label>
 <div>
-<h2 id="main-changes-14">Main Changes</h2>
+<h2 id="main-changes-15">Main Changes</h2>
 <ul>
 <li><em>stm32f10x.h</em> and <em>startup_stm32f10x_hd_vl.s</em> files: remove the FSMC interrupt definition for STM32F10x High-density Value line devices.</li>
 <li>system_stm32f10x.c file provided within the CMSIS folder.</li>
@@ -297,7 +306,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3_4_0" aria-hidden="true"> <label for="collapse-section3_4_0" aria-hidden="true"><strong>V3.4.0 / 15-October-2010</strong></label>
 <div>
-<h2 id="main-changes-15">Main Changes</h2>
+<h2 id="main-changes-16">Main Changes</h2>
 <ul>
 <li>General
 <ul>
@@ -333,7 +342,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3_3_0" aria-hidden="true"> <label for="collapse-section3_3_0" aria-hidden="true"><strong>V3.3.0 / 16-April-2010</strong></label>
 <div>
-<h2 id="main-changes-16">Main Changes</h2>
+<h2 id="main-changes-17">Main Changes</h2>
 <ul>
 <li>General
 <ul>
@@ -372,7 +381,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3_2_0" aria-hidden="true"> <label for="collapse-section3_2_0" aria-hidden="true"><strong>V3.2.0 / 01-March-2010</strong></label>
 <div>
-<h2 id="main-changes-17">Main Changes</h2>
+<h2 id="main-changes-18">Main Changes</h2>
 <ul>
 <li>General
 <ul>

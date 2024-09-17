@@ -15249,5 +15249,3 @@ typedef struct
 
 #endif /* __STM32F107xC_H */
 
-
-

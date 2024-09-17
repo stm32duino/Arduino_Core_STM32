@@ -5442,5 +5442,3 @@ typedef struct
 
 #endif /* __STM32F101xB_H */
 
-
-

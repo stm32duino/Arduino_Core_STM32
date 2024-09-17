@@ -6444,5 +6444,3 @@ typedef struct
 
 #endif /* __STM32F102x6_H */
 
-
-
