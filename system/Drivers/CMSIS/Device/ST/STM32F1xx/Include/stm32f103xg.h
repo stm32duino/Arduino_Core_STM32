@@ -11947,5 +11947,3 @@ typedef struct
 
 #endif /* __STM32F103xG_H */
 
-
-

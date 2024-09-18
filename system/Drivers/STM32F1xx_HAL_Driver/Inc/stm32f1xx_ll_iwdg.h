@@ -207,7 +207,7 @@ __STATIC_INLINE void LL_IWDG_SetPrescaler(IWDG_TypeDef *IWDGx, uint32_t Prescale
   *         @arg @ref LL_IWDG_PRESCALER_128
   *         @arg @ref LL_IWDG_PRESCALER_256
   */
-__STATIC_INLINE uint32_t LL_IWDG_GetPrescaler(IWDG_TypeDef *IWDGx)
+__STATIC_INLINE uint32_t LL_IWDG_GetPrescaler(const IWDG_TypeDef *IWDGx)
 {
   return (READ_REG(IWDGx->PR));
 }
@@ -230,7 +230,7 @@ __STATIC_INLINE void LL_IWDG_SetReloadCounter(IWDG_TypeDef *IWDGx, uint32_t Coun
   * @param  IWDGx IWDG Instance
   * @retval Value between Min_Data=0 and Max_Data=0x0FFF
   */
-__STATIC_INLINE uint32_t LL_IWDG_GetReloadCounter(IWDG_TypeDef *IWDGx)
+__STATIC_INLINE uint32_t LL_IWDG_GetReloadCounter(const IWDG_TypeDef *IWDGx)
 {
   return (READ_REG(IWDGx->RLR));
 }
@@ -249,7 +249,7 @@ __STATIC_INLINE uint32_t LL_IWDG_GetReloadCounter(IWDG_TypeDef *IWDGx)
   * @param  IWDGx IWDG Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_IWDG_IsActiveFlag_PVU(IWDG_TypeDef *IWDGx)
+__STATIC_INLINE uint32_t LL_IWDG_IsActiveFlag_PVU(const IWDG_TypeDef *IWDGx)
 {
   return ((READ_BIT(IWDGx->SR, IWDG_SR_PVU) == (IWDG_SR_PVU)) ? 1UL : 0UL);
 }
@@ -260,7 +260,7 @@ __STATIC_INLINE uint32_t LL_IWDG_IsActiveFlag_PVU(IWDG_TypeDef *IWDGx)
   * @param  IWDGx IWDG Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_IWDG_IsActiveFlag_RVU(IWDG_TypeDef *IWDGx)
+__STATIC_INLINE uint32_t LL_IWDG_IsActiveFlag_RVU(const IWDG_TypeDef *IWDGx)
 {
   return ((READ_BIT(IWDGx->SR, IWDG_SR_RVU) == (IWDG_SR_RVU)) ? 1UL : 0UL);
 }
@@ -272,7 +272,7 @@ __STATIC_INLINE uint32_t LL_IWDG_IsActiveFlag_RVU(IWDG_TypeDef *IWDGx)
   * @param  IWDGx IWDG Instance
   * @retval State of bits (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_IWDG_IsReady(IWDG_TypeDef *IWDGx)
+__STATIC_INLINE uint32_t LL_IWDG_IsReady(const IWDG_TypeDef *IWDGx)
 {
   return ((READ_BIT(IWDGx->SR, IWDG_SR_PVU | IWDG_SR_RVU) == 0U) ? 1UL : 0UL);
 }

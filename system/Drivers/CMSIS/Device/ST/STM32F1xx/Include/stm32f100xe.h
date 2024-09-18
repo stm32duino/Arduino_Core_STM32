@@ -6583,5 +6583,3 @@ typedef struct
 
 #endif /* __STM32F100xE_H */
 
-
-

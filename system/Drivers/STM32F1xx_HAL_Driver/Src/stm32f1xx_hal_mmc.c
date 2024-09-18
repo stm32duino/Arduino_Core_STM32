@@ -2328,7 +2328,7 @@ HAL_StatusTypeDef HAL_MMC_ConfigWideBusOperation(MMC_HandleTypeDef *hmmc, uint32
   if(errorstate != HAL_MMC_ERROR_NONE)
   {
     /* Clear all the static flags */
-    __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_STATIC_FLAGS);
+    __HAL_MMC_CLEAR_FLAG(hmmc, SDIO_STATIC_FLAGS);
     hmmc->ErrorCode |= errorstate;
     return HAL_ERROR;
   }

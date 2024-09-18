@@ -10105,5 +10105,3 @@ typedef struct
 
 #endif /* __STM32F103x6_H */
 
-
-

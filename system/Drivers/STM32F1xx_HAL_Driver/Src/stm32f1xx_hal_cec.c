@@ -924,7 +924,7 @@ static HAL_StatusTypeDef CEC_Transmit_IT(CEC_HandleTypeDef *hcec)
       hcec->TxXferCount--;
 
       /* Write data to TX buffer*/
-      hcec->Instance->TXD = (uint8_t)*hcec->pTxBuffPtr++;
+      hcec->Instance->TXD = (uint8_t) * hcec->pTxBuffPtr++;
 
       /* If this is the last byte of the ongoing transmission */
       if (hcec->TxXferCount == 0U)
