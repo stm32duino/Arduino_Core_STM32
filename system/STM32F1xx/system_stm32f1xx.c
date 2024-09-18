@@ -131,7 +131,7 @@
                is no need to call the 2 first functions listed above, since SystemCoreClock
                variable is updated automatically.
   */
-uint32_t SystemCoreClock = 16000000;
+uint32_t SystemCoreClock = 8000000;
 
 const uint8_t AHBPrescTable[16U] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
 const uint8_t APBPrescTable[8U] =  {0, 0, 0, 0, 1, 2, 3, 4};
@@ -202,7 +202,7 @@ void SystemInit (void)
   RCC->CIR = 0x009F0000U;
 
   /* Reset CFGR2 register */
-  RCC->CFGR2 = 0x00000000U;      
+  RCC->CFGR2 = 0x00000000U;
 #else
   /* Disable all interrupts and clear pending bits  */
   RCC->CIR = 0x009F0000U;
@@ -317,7 +317,7 @@ void SystemCoreClockUpdate (void)
       }
       else
       { /* PLL multiplication factor = PLL input clock * 6.5 */
-        pllmull = 13U / 2U; 
+        pllmull = 13U / 2U;
       }
 
       if (pllsource == 0x00U)
@@ -342,7 +342,7 @@ void SystemCoreClockUpdate (void)
 
           /* Get PREDIV2 division factor and PLL2 multiplication factor */
           prediv2factor = ((RCC->CFGR2 & RCC_CFGR2_PREDIV2) >> 4U) + 1U;
-          pll2mull = ((RCC->CFGR2 & RCC_CFGR2_PLL2MUL) >> 8U) + 2U; 
+          pll2mull = ((RCC->CFGR2 & RCC_CFGR2_PLL2MUL) >> 8U) + 2U;
           SystemCoreClock = (((HSE_VALUE / prediv2factor) * pll2mull) / prediv1factor) * pllmull;
         }
       }
@@ -404,16 +404,16 @@ void SystemInit_ExtMemCtl(void)
 /*----------------  NE3 configuration ----------------------------------------*/
 /*----------------  NBL0, NBL1 configuration ---------------------------------*/
 
-  GPIOD->CRL = 0x44BB44BBU;  
+  GPIOD->CRL = 0x44BB44BBU;
   GPIOD->CRH = 0xBBBBBBBBU;
 
-  GPIOE->CRL = 0xB44444BBU;  
+  GPIOE->CRL = 0xB44444BBU;
   GPIOE->CRH = 0xBBBBBBBBU;
 
-  GPIOF->CRL = 0x44BBBBBBU;  
+  GPIOF->CRL = 0x44BBBBBBU;
   GPIOF->CRH = 0xBBBB4444U;
 
-  GPIOG->CRL = 0x44BBBBBBU;  
+  GPIOG->CRL = 0x44BBBBBBU;
   GPIOG->CRH = 0x444B4B44U;
 
 /*----------------  FSMC Configuration ---------------------------------------*/
