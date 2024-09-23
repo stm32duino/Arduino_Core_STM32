@@ -85,6 +85,7 @@ typedef enum {
 void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb);
 void spi_deinit(spi_t *obj);
 spi_status_e spi_transfer(spi_t *obj, const uint8_t *tx_buffer, uint8_t *rx_buffer, uint16_t len);
+spi_status_e spi_transfer16(spi_t *obj, const uint16_t *tx_buffer, uint16_t *rx_buffer);
 uint32_t spi_getClkFreq(spi_t *obj);
 
 #ifdef __cplusplus
