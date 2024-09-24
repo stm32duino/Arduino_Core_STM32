@@ -12492,7 +12492,6 @@ Blues.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 Blues.build.flash_offset=0x0
 Blues.upload.maximum_size=0
 Blues.upload.maximum_data_size=0
-Blues.vid.0=0x30A4
 
 # Swan R5 board
 Blues.menu.pnum.SWAN_R5=Swan R5
@@ -12506,6 +12505,7 @@ Blues.menu.pnum.SWAN_R5.build.series=STM32L4xx
 Blues.menu.pnum.SWAN_R5.build.product_line=STM32L4R5xx
 Blues.menu.pnum.SWAN_R5.build.variant=STM32L4xx/L4R5Z(G-I)Y_L4R9Z(G-I)Y_L4S5ZIY_L4S9ZIY
 Blues.menu.pnum.SWAN_R5.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Blues.menu.pnum.SWAN_R5.vid.0=0x30A4
 Blues.menu.pnum.SWAN_R5.pid.0=0x0002
 Blues.menu.pnum.SWAN_R5.debug.server.openocd.scripts.2=target/stm32l4x.cfg
 Blues.menu.pnum.SWAN_R5.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4R5.svd
@@ -12522,6 +12522,7 @@ Blues.menu.pnum.CYGNET.build.series=STM32L4xx
 Blues.menu.pnum.CYGNET.build.product_line=STM32L433xx
 Blues.menu.pnum.CYGNET.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
 Blues.menu.pnum.CYGNET.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Blues.menu.pnum.CYGNET.vid.0=0x30A4
 Blues.menu.pnum.CYGNET.pid.0=0x0003
 Blues.menu.pnum.CYGNET.debug.server.openocd.scripts.2=target/stm32l4x.cfg
 Blues.menu.pnum.CYGNET.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x3.svd
