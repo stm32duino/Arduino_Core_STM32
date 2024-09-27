@@ -802,6 +802,7 @@ Nucleo_64.menu.pnum.P_NUCLEO_WB55RG=P-Nucleo WB55RG
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.node="NODE_WB55RG,NOD_WB55RG"
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.upload.maximum_size=524288
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.upload.maximum_data_size=196608
+Nucleo_64.menu.upload_method.OpenOCD.upload.target=stm32wbx
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.mcu=cortex-m4
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.fpu=-mfpu=fpv4-sp-d16
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.float-abi=-mfloat-abi=hard
@@ -817,6 +818,7 @@ Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE=P-Nucleo WB55 USB Dongle
 Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.node="No_mass_storage_for_this_board_Use_STLink_upload_method"
 Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.upload.maximum_size=524288
 Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.upload.maximum_data_size=196608
+Nucleo_64.menu.upload_method.OpenOCD.upload.target=stm32wbx
 Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.mcu=cortex-m4
 Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.fpu=-mfpu=fpv4-sp-d16
 Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.float-abi=-mfloat-abi=hard
@@ -875,6 +877,16 @@ Nucleo_64.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Nucleo_64.menu.upload_method.dfuMethod.upload.protocol=dfu
 Nucleo_64.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Nucleo_64.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Nucleo_64.menu.upload_method.OpenOCD=OpenOCD STLink (SWD)
+Nucleo_64.menu.upload_method.OpenOCD.upload.protocol=stlink
+Nucleo_64.menu.upload_method.OpenOCD.upload.setup_command=transport select hla_swd;
+Nucleo_64.menu.upload_method.OpenOCD.upload.tool=openocd_upload
+
+Nucleo_64.menu.upload_method.OpenOCD=OpenOCD DapLink (SWD)
+Nucleo_64.menu.upload_method.OpenOCD.upload.protocol=cmsis-dap
+Nucleo_64.menu.upload_method.OpenOCD.upload.setup_command=transport select swd;
+Nucleo_64.menu.upload_method.OpenOCD.upload.tool=openocd_upload
 
 ################################################################################
 # Nucleo 32 boards
