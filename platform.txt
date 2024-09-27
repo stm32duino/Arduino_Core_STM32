@@ -244,7 +244,7 @@ tools.openocd_upload.cmd=bin/openocd
 tools.openocd_upload.cmd.windows=bin/openocd.exe
 tools.openocd_upload.upload.params.verbose=-d2
 tools.openocd_upload.upload.params.quiet=-d0
-tools.openocd_upload.upload.pattern="{path}/{cmd}" {upload.verbose} -f interface/{upload.protocol}.cfg -c "{upload.setup_command}" -f target/{upload.target}.cfg -c "program {{build.path}/{build.project_name}.bin} verify reset; shutdown;"
+tools.openocd_upload.upload.pattern="{path}/{cmd}" {upload.verbose} -f interface/{upload.protocol}.cfg -c "{upload.setup_command}" -f target/{openocd.target}.cfg -c "program {{build.path}/{build.project_name}.bin} verify reset; shutdown;"
 
 #
 # Debugger
@@ -259,3 +259,4 @@ debug.server.openocd.scripts_dir={openocd_dir}/openocd/scripts
 # Common config
 debug.server.openocd.scripts.0=interface/stlink.cfg
 debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_hla.cfg
+debug.server.openocd.scripts.2=target/{openocd.target}.cfg
