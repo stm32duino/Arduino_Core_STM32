@@ -878,12 +878,10 @@ Nucleo_64.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 Nucleo_64.menu.upload_method.OpenOCD=OpenOCD STLink (SWD)
 Nucleo_64.menu.upload_method.OpenOCD.upload.protocol=stlink
-Nucleo_64.menu.upload_method.OpenOCD.upload.setup_command=transport select hla_swd;
 Nucleo_64.menu.upload_method.OpenOCD.upload.tool=openocd_upload
 
 Nucleo_64.menu.upload_method.OpenOCDDap=OpenOCD DapLink (SWD)
 Nucleo_64.menu.upload_method.OpenOCDDap.upload.protocol=cmsis-dap
-Nucleo_64.menu.upload_method.OpenOCDDap.upload.setup_command=transport select swd;
 Nucleo_64.menu.upload_method.OpenOCDDap.upload.tool=openocd_upload
 
 ################################################################################
