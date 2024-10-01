@@ -52,7 +52,7 @@ Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.series=STM32F2xx
 Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.product_line=STM32F207xx
 Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.variant=STM32F2xx/F207Z(C-E-F-G)T_F217Z(E-G)T
 Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Nucleo_144.menu.pnum.NUCLEO_F207ZG.debug.server.openocd.scripts.2=target/stm32f2x.cfg
+Nucleo_144.menu.pnum.NUCLEO_F207ZG.openocd.target=stm32f2x
 Nucleo_144.menu.pnum.NUCLEO_F207ZG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F217.svd
 
 # NUCLEO_F412ZG board
@@ -67,7 +67,7 @@ Nucleo_144.menu.pnum.NUCLEO_F412ZG.build.board=NUCLEO_F412ZG
 Nucleo_144.menu.pnum.NUCLEO_F412ZG.build.series=STM32F4xx
 Nucleo_144.menu.pnum.NUCLEO_F412ZG.build.product_line=STM32F412Zx
 Nucleo_144.menu.pnum.NUCLEO_F412ZG.build.variant=STM32F4xx/F412Z(E-G)(J-T)
-Nucleo_144.menu.pnum.NUCLEO_F412ZG.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+Nucleo_144.menu.pnum.NUCLEO_F412ZG.openocd.target=stm32f4x
 Nucleo_144.menu.pnum.NUCLEO_F412ZG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F412.svd
 
 # NUCLEO_F413ZH board
@@ -82,7 +82,7 @@ Nucleo_144.menu.pnum.NUCLEO_F413ZH.build.board=NUCLEO_F413ZH
 Nucleo_144.menu.pnum.NUCLEO_F413ZH.build.series=STM32F4xx
 Nucleo_144.menu.pnum.NUCLEO_F413ZH.build.product_line=STM32F413xx
 Nucleo_144.menu.pnum.NUCLEO_F413ZH.build.variant=STM32F4xx/F413Z(G-H)(J-T)_F423ZH(J-T)
-Nucleo_144.menu.pnum.NUCLEO_F413ZH.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+Nucleo_144.menu.pnum.NUCLEO_F413ZH.openocd.target=stm32f4x
 Nucleo_144.menu.pnum.NUCLEO_F413ZH.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F413.svd
 
 # NUCLEO_F429ZI board
@@ -99,7 +99,7 @@ Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.series=STM32F4xx
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.product_line=STM32F429xx
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.variant_h=variant_NUCLEO_F4x9ZI.h
-Nucleo_144.menu.pnum.NUCLEO_F429ZI.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+Nucleo_144.menu.pnum.NUCLEO_F429ZI.openocd.target=stm32f4x
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F429.svd
 
 # NUCLEO_F439ZI board
@@ -115,7 +115,7 @@ Nucleo_144.menu.pnum.NUCLEO_F439ZI.build.series=STM32F4xx
 Nucleo_144.menu.pnum.NUCLEO_F439ZI.build.product_line=STM32F439xx
 Nucleo_144.menu.pnum.NUCLEO_F439ZI.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
 Nucleo_144.menu.pnum.NUCLEO_F439ZI.build.variant_h=variant_NUCLEO_F4x9ZI.h
-Nucleo_144.menu.pnum.NUCLEO_F439ZI.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+Nucleo_144.menu.pnum.NUCLEO_F439ZI.openocd.target=stm32f4x
 Nucleo_144.menu.pnum.NUCLEO_F439ZI.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F439.svd
 
 # NUCLEO_F446RE board
@@ -130,7 +130,7 @@ Nucleo_144.menu.pnum.NUCLEO_F446ZE.build.board=NUCLEO_F446ZE
 Nucleo_144.menu.pnum.NUCLEO_F446ZE.build.series=STM32F4xx
 Nucleo_144.menu.pnum.NUCLEO_F446ZE.build.product_line=STM32F446xx
 Nucleo_144.menu.pnum.NUCLEO_F446ZE.build.variant=STM32F4xx/F446Z(C-E)(H-J-T)
-Nucleo_144.menu.pnum.NUCLEO_F446ZE.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+Nucleo_144.menu.pnum.NUCLEO_F446ZE.openocd.target=stm32f4x
 Nucleo_144.menu.pnum.NUCLEO_F446ZE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F446.svd
 
 # NUCLEO_F722ZE board
@@ -145,7 +145,7 @@ Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.series=STM32F7xx
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.product_line=STM32F722xx
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.variant_h=variant_NUCLEO_F722ZE.h
-Nucleo_144.menu.pnum.NUCLEO_F722ZE.debug.server.openocd.scripts.2=target/stm32f7x.cfg
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.openocd.target=stm32f7x
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F722.svd
 
 # NUCLEO_F746ZG board
@@ -161,7 +161,7 @@ Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.series=STM32F7xx
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.product_line=STM32F746xx
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.variant_h=variant_NUCLEO_F7x6ZG.h
-Nucleo_144.menu.pnum.NUCLEO_F746ZG.debug.server.openocd.scripts.2=target/stm32f7x.cfg
+Nucleo_144.menu.pnum.NUCLEO_F746ZG.openocd.target=stm32f7x
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F746.svd
 
 # NUCLEO_F756ZG board
@@ -177,7 +177,7 @@ Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.series=STM32F7xx
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.product_line=STM32F756xx
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.variant_h=variant_NUCLEO_F7x6ZG.h
-Nucleo_144.menu.pnum.NUCLEO_F756ZG.debug.server.openocd.scripts.2=target/stm32f7x.cfg
+Nucleo_144.menu.pnum.NUCLEO_F756ZG.openocd.target=stm32f7x
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F756.svd
 
 # NUCLEO_F767ZI board
@@ -192,7 +192,7 @@ Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.board=NUCLEO_F767ZI
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.series=STM32F7xx
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.product_line=STM32F767xx
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
-Nucleo_144.menu.pnum.NUCLEO_F767ZI.debug.server.openocd.scripts.2=target/stm32f7x.cfg
+Nucleo_144.menu.pnum.NUCLEO_F767ZI.openocd.target=stm32f7x
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F767.svd
 
 # NUCLEO H563ZI
@@ -207,7 +207,7 @@ Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.board=NUCLEO_H563ZI
 Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.series=STM32H5xx
 Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.product_line=STM32H563xx
 Nucleo_144.menu.pnum.NUCLEO_H563ZI.build.variant=STM32H5xx/H563Z(G-I)T_H573ZIT
-Nucleo_144.menu.pnum.NUCLEO_H563ZI.debug.server.openocd.scripts.2=target/stm32h5x.cfg
+Nucleo_144.menu.pnum.NUCLEO_H563ZI.openocd.target=stm32h5x
 Nucleo_144.menu.pnum.NUCLEO_H563ZI.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H563.svd
 
 # NUCLEO H723ZG board
@@ -222,7 +222,7 @@ Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.board=NUCLEO_H723ZG
 Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.series=STM32H7xx
 Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.product_line=STM32H723xx
 Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.variant=STM32H7xx/H723Z(E-G)T_H730ZBT_H733ZGT
-Nucleo_144.menu.pnum.NUCLEO_H723ZG.debug.server.openocd.scripts.2=target/stm32h7x.cfg
+Nucleo_144.menu.pnum.NUCLEO_H723ZG.openocd.target=stm32h7x
 Nucleo_144.menu.pnum.NUCLEO_H723ZG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H723.svd
 
 # NUCLEO_H743ZI board
@@ -237,7 +237,7 @@ Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.board=NUCLEO_H743ZI
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.series=STM32H7xx
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.product_line=STM32H743xx
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.variant=STM32H7xx/H742Z(G-I)T_H743Z(G-I)T_H747A(G-I)I_H747I(G-I)T_H750ZBT_H753ZIT_H757AII_H757IIT
-Nucleo_144.menu.pnum.NUCLEO_H743ZI.debug.server.openocd.scripts.2=target/stm32h7x.cfg
+Nucleo_144.menu.pnum.NUCLEO_H743ZI.openocd.target=stm32h7x
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H743.svd
 
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2=Nucleo H743ZI2
@@ -252,7 +252,7 @@ Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.series=STM32H7xx
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.product_line=STM32H743xx
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.variant=STM32H7xx/H742Z(G-I)T_H743Z(G-I)T_H747A(G-I)I_H747I(G-I)T_H750ZBT_H753ZIT_H757AII_H757IIT
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.variant_h=variant_NUCLEO_H743ZI.h
-Nucleo_144.menu.pnum.NUCLEO_H743ZI2.debug.server.openocd.scripts.2=target/stm32h7x.cfg
+Nucleo_144.menu.pnum.NUCLEO_H743ZI2.openocd.target=stm32h7x
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H743.svd
 
 # NUCLEO_H753ZI board
@@ -268,7 +268,7 @@ Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.series=STM32H7xx
 Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.product_line=STM32H753xx
 Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.variant=STM32H7xx/H742Z(G-I)T_H743Z(G-I)T_H747A(G-I)I_H747I(G-I)T_H750ZBT_H753ZIT_H757AII_H757IIT
 Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.variant_h=variant_NUCLEO_H753ZI.h
-Nucleo_144.menu.pnum.NUCLEO_H753ZI.debug.server.openocd.scripts.2=target/stm32h7x.cfg
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.openocd.target=stm32h7x
 Nucleo_144.menu.pnum.NUCLEO_H753ZI.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H753.svd
 
 # NUCLEO_L496ZG board
@@ -283,7 +283,7 @@ Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.board=NUCLEO_L496ZG
 Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.series=STM32L4xx
 Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.product_line=STM32L496xx
 Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.variant=STM32L4xx/L496Z(E-G)T_L4A6ZGT
-Nucleo_144.menu.pnum.NUCLEO_L496ZG.debug.server.openocd.scripts.2=target/stm32l4x.cfg
+Nucleo_144.menu.pnum.NUCLEO_L496ZG.openocd.target=stm32l4x
 Nucleo_144.menu.pnum.NUCLEO_L496ZG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L496.svd
 
 # NUCLEO_L496ZG-P board
@@ -298,7 +298,7 @@ Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.board=NUCLEO_L496ZG_P
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.series=STM32L4xx
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.product_line=STM32L496xx
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.variant=STM32L4xx/L496ZGTxP_L4A6ZGTxP
-Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.debug.server.openocd.scripts.2=target/stm32l4x.cfg
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.openocd.target=stm32l4x
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L496.svd
 
 # NUCLEO_L4R5ZI board
@@ -313,7 +313,7 @@ Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.board=NUCLEO_L4R5ZI
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.series=STM32L4xx
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.product_line=STM32L4R5xx
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.variant=STM32L4xx/L4R5Z(G-I)T_L4R7ZIT_L4S5ZIT_L4S7ZIT
-Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.debug.server.openocd.scripts.2=target/stm32l4x.cfg
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.openocd.target=stm32l4x
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4R5.svd
 
 # NUCLEO_L4R5ZI-P board
@@ -328,7 +328,7 @@ Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.build.board=NUCLEO_L4R5ZI_P
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.build.series=STM32L4xx
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.build.product_line=STM32L4R5xx
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.build.variant=STM32L4xx/L4R5ZITxP
-Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.debug.server.openocd.scripts.2=target/stm32l4x.cfg
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.openocd.target=stm32l4x
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4R5.svd
 
 # NUCLEO_L552ZE-Q board
@@ -343,7 +343,7 @@ Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.board=NUCLEO_L552ZE_Q
 Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.series=STM32L5xx
 Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.product_line=STM32L552xx
 Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.variant=STM32L5xx/L552Z(C-E)TxQ_L562ZETxQ
-Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.debug.server.openocd.scripts.2=target/stm32l5x.cfg
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.openocd.target=stm32l5x
 Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L552.svd
 
 # NUCLEO_U575ZI_Q board
@@ -359,7 +359,7 @@ Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.series=STM32U5xx
 Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.product_line=STM32U575xx
 Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.variant=STM32U5xx/U575Z(G-I)TxQ_U585ZITxQ
 Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.debug.server.openocd.scripts.2=target/stm32u5x.cfg
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.openocd.target=stm32u5x
 Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U575.svd
 
 # Upload menu
@@ -381,6 +381,14 @@ Nucleo_144.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Nucleo_144.menu.upload_method.dfuMethod.upload.protocol=dfu
 Nucleo_144.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Nucleo_144.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Nucleo_144.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+Nucleo_144.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+Nucleo_144.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+Nucleo_144.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+Nucleo_144.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+Nucleo_144.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # Nucleo 64 boards
@@ -423,7 +431,7 @@ Nucleo_64.menu.pnum.NUCLEO_C031C6.build.series=STM32C0xx
 Nucleo_64.menu.pnum.NUCLEO_C031C6.build.product_line=STM32C031xx
 Nucleo_64.menu.pnum.NUCLEO_C031C6.build.variant=STM32C0xx/C031C(4-6)(T-U)
 Nucleo_64.menu.pnum.NUCLEO_C031C6.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
-Nucleo_64.menu.pnum.NUCLEO_C031C6.debug.server.openocd.scripts.2=target/stm32c0x.cfg
+Nucleo_64.menu.pnum.NUCLEO_C031C6.openocd.target=stm32c0x
 Nucleo_64.menu.pnum.NUCLEO_C031C6.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C031.svd
 
 # NUCLEO_F030R8 board
@@ -436,7 +444,7 @@ Nucleo_64.menu.pnum.NUCLEO_F030R8.build.board=NUCLEO_F030R8
 Nucleo_64.menu.pnum.NUCLEO_F030R8.build.series=STM32F0xx
 Nucleo_64.menu.pnum.NUCLEO_F030R8.build.product_line=STM32F030x8
 Nucleo_64.menu.pnum.NUCLEO_F030R8.build.variant=STM32F0xx/F030R8T
-Nucleo_64.menu.pnum.NUCLEO_F030R8.debug.server.openocd.scripts.2=target/stm32f0x.cfg
+Nucleo_64.menu.pnum.NUCLEO_F030R8.openocd.target=stm32f0x
 Nucleo_64.menu.pnum.NUCLEO_F030R8.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x0.svd
 
 # NUCLEO_F070RB board
@@ -449,7 +457,7 @@ Nucleo_64.menu.pnum.NUCLEO_F070RB.build.board=NUCLEO_F070RB
 Nucleo_64.menu.pnum.NUCLEO_F070RB.build.series=STM32F0xx
 Nucleo_64.menu.pnum.NUCLEO_F070RB.build.product_line=STM32F070xB
 Nucleo_64.menu.pnum.NUCLEO_F070RB.build.variant=STM32F0xx/F070RBT
-Nucleo_64.menu.pnum.NUCLEO_F070RB.debug.server.openocd.scripts.2=target/stm32f0x.cfg
+Nucleo_64.menu.pnum.NUCLEO_F070RB.openocd.target=stm32f0x
 Nucleo_64.menu.pnum.NUCLEO_F070RB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x0.svd
 
 # NUCLEO_F072RB board
@@ -462,7 +470,7 @@ Nucleo_64.menu.pnum.NUCLEO_F072RB.build.board=NUCLEO_F072RB
 Nucleo_64.menu.pnum.NUCLEO_F072RB.build.series=STM32F0xx
 Nucleo_64.menu.pnum.NUCLEO_F072RB.build.product_line=STM32F072xB
 Nucleo_64.menu.pnum.NUCLEO_F072RB.build.variant=STM32F0xx/F072R8T_F072RB(H-I-T)
-Nucleo_64.menu.pnum.NUCLEO_F072RB.debug.server.openocd.scripts.2=target/stm32f0x.cfg
+Nucleo_64.menu.pnum.NUCLEO_F072RB.openocd.target=stm32f0x
 Nucleo_64.menu.pnum.NUCLEO_F072RB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x2.svd
 
 # NUCLEO_F091RC board
@@ -475,7 +483,7 @@ Nucleo_64.menu.pnum.NUCLEO_F091RC.build.board=NUCLEO_F091RC
 Nucleo_64.menu.pnum.NUCLEO_F091RC.build.series=STM32F0xx
 Nucleo_64.menu.pnum.NUCLEO_F091RC.build.product_line=STM32F091xC
 Nucleo_64.menu.pnum.NUCLEO_F091RC.build.variant=STM32F0xx/F091RBT_F091RC(H-T-Y)
-Nucleo_64.menu.pnum.NUCLEO_F091RC.debug.server.openocd.scripts.2=target/stm32f0x.cfg
+Nucleo_64.menu.pnum.NUCLEO_F091RC.openocd.target=stm32f0x
 Nucleo_64.menu.pnum.NUCLEO_F091RC.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x1.svd
 
 # NUCLEO_F103RB board
@@ -488,7 +496,7 @@ Nucleo_64.menu.pnum.NUCLEO_F103RB.build.board=NUCLEO_F103RB
 Nucleo_64.menu.pnum.NUCLEO_F103RB.build.series=STM32F1xx
 Nucleo_64.menu.pnum.NUCLEO_F103RB.build.product_line=STM32F103xB
 Nucleo_64.menu.pnum.NUCLEO_F103RB.build.variant=STM32F1xx/F103R(8-B)T
-Nucleo_64.menu.pnum.NUCLEO_F103RB.debug.server.openocd.scripts.2=target/stm32f1x.cfg
+Nucleo_64.menu.pnum.NUCLEO_F103RB.openocd.target=stm32f1x
 Nucleo_64.menu.pnum.NUCLEO_F103RB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 
 # NUCLEO_F302R8 board
@@ -503,7 +511,7 @@ Nucleo_64.menu.pnum.NUCLEO_F302R8.build.board=NUCLEO_F302R8
 Nucleo_64.menu.pnum.NUCLEO_F302R8.build.series=STM32F3xx
 Nucleo_64.menu.pnum.NUCLEO_F302R8.build.product_line=STM32F302x8
 Nucleo_64.menu.pnum.NUCLEO_F302R8.build.variant=STM32F3xx/F302R(6-8)T
-Nucleo_64.menu.pnum.NUCLEO_F302R8.debug.server.openocd.scripts.2=target/stm32f3x.cfg
+Nucleo_64.menu.pnum.NUCLEO_F302R8.openocd.target=stm32f3x
 Nucleo_64.menu.pnum.NUCLEO_F302R8.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F302.svd
 
 # NUCLEO_F303RE board
@@ -518,7 +526,7 @@ Nucleo_64.menu.pnum.NUCLEO_F303RE.build.board=NUCLEO_F303RE
 Nucleo_64.menu.pnum.NUCLEO_F303RE.build.series=STM32F3xx
 Nucleo_64.menu.pnum.NUCLEO_F303RE.build.product_line=STM32F303xE
 Nucleo_64.menu.pnum.NUCLEO_F303RE.build.variant=STM32F3xx/F303R(D-E)T
-Nucleo_64.menu.pnum.NUCLEO_F303RE.debug.server.openocd.scripts.2=target/stm32f3x.cfg
+Nucleo_64.menu.pnum.NUCLEO_F303RE.openocd.target=stm32f3x
 Nucleo_64.menu.pnum.NUCLEO_F303RE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F303.svd
 
 # NUCLEO_F401RE board
@@ -533,7 +541,7 @@ Nucleo_64.menu.pnum.NUCLEO_F401RE.build.board=NUCLEO_F401RE
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.series=STM32F4xx
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.product_line=STM32F401xE
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.variant=STM32F4xx/F401R(B-C-D-E)T
-Nucleo_64.menu.pnum.NUCLEO_F401RE.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+Nucleo_64.menu.pnum.NUCLEO_F401RE.openocd.target=stm32f4x
 Nucleo_64.menu.pnum.NUCLEO_F401RE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F401.svd
 
 # NUCLEO_F411RE board
@@ -548,7 +556,7 @@ Nucleo_64.menu.pnum.NUCLEO_F411RE.build.board=NUCLEO_F411RE
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.series=STM32F4xx
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.product_line=STM32F411xE
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.variant=STM32F4xx/F411R(C-E)T
-Nucleo_64.menu.pnum.NUCLEO_F411RE.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+Nucleo_64.menu.pnum.NUCLEO_F411RE.openocd.target=stm32f4x
 Nucleo_64.menu.pnum.NUCLEO_F411RE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F411.svd
 
 # NUCLEO_F446RE board
@@ -563,7 +571,7 @@ Nucleo_64.menu.pnum.NUCLEO_F446RE.build.board=NUCLEO_F446RE
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.series=STM32F4xx
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.product_line=STM32F446xx
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.variant=STM32F4xx/F446R(C-E)T
-Nucleo_64.menu.pnum.NUCLEO_F446RE.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+Nucleo_64.menu.pnum.NUCLEO_F446RE.openocd.target=stm32f4x
 Nucleo_64.menu.pnum.NUCLEO_F446RE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F446.svd
 
 # NUCLEO_G070RB board
@@ -577,7 +585,7 @@ Nucleo_64.menu.pnum.NUCLEO_G070RB.build.series=STM32G0xx
 Nucleo_64.menu.pnum.NUCLEO_G070RB.build.product_line=STM32G070xx
 Nucleo_64.menu.pnum.NUCLEO_G070RB.build.variant=STM32G0xx/G070RBT
 Nucleo_64.menu.pnum.NUCLEO_G070RB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-Nucleo_64.menu.pnum.NUCLEO_G070RB.debug.server.openocd.scripts.2=target/stm32g0x.cfg
+Nucleo_64.menu.pnum.NUCLEO_G070RB.openocd.target=stm32g0x
 Nucleo_64.menu.pnum.NUCLEO_G070RB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G070.svd
 
 # NUCLEO_G071RB board
@@ -591,7 +599,7 @@ Nucleo_64.menu.pnum.NUCLEO_G071RB.build.series=STM32G0xx
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.product_line=STM32G071xx
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.variant=STM32G0xx/G071R(6-8)T_G071RB(I-T)_G081RB(I-T)
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-Nucleo_64.menu.pnum.NUCLEO_G071RB.debug.server.openocd.scripts.2=target/stm32g0x.cfg
+Nucleo_64.menu.pnum.NUCLEO_G071RB.openocd.target=stm32g0x
 Nucleo_64.menu.pnum.NUCLEO_G071RB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G071.svd
 
 # NUCLEO_G0B1RE board
@@ -605,7 +613,7 @@ Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.series=STM32G0xx
 Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.product_line=STM32G0B1xx
 Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.variant=STM32G0xx/G0B1R(B-C-E)T_G0C1R(C-E)T
 Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-Nucleo_64.menu.pnum.NUCLEO_G0B1RE.debug.server.openocd.scripts.2=target/stm32g0x.cfg
+Nucleo_64.menu.pnum.NUCLEO_G0B1RE.openocd.target=stm32g0x
 Nucleo_64.menu.pnum.NUCLEO_G0B1RE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G0B1.svd
 
 # NUCLEO_G431RB board
@@ -620,7 +628,7 @@ Nucleo_64.menu.pnum.NUCLEO_G431RB.build.board=NUCLEO_G431RB
 Nucleo_64.menu.pnum.NUCLEO_G431RB.build.series=STM32G4xx
 Nucleo_64.menu.pnum.NUCLEO_G431RB.build.product_line=STM32G431xx
 Nucleo_64.menu.pnum.NUCLEO_G431RB.build.variant=STM32G4xx/G431R(6-8)(I-T)_G431RB(I-T)x(Z)_G441RB(I-T)
-Nucleo_64.menu.pnum.NUCLEO_G431RB.debug.server.openocd.scripts.2=target/stm32g4x.cfg
+Nucleo_64.menu.pnum.NUCLEO_G431RB.openocd.target=stm32g4x
 Nucleo_64.menu.pnum.NUCLEO_G431RB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G431.svd
 
 # NUCLEO_G474RE board
@@ -635,7 +643,7 @@ Nucleo_64.menu.pnum.NUCLEO_G474RE.build.board=NUCLEO_G474RE
 Nucleo_64.menu.pnum.NUCLEO_G474RE.build.series=STM32G4xx
 Nucleo_64.menu.pnum.NUCLEO_G474RE.build.product_line=STM32G474xx
 Nucleo_64.menu.pnum.NUCLEO_G474RE.build.variant=STM32G4xx/G473R(B-C)T_G473RETx(Z)_G474R(B-C-E)T_G483RET_G484RET
-Nucleo_64.menu.pnum.NUCLEO_G474RE.debug.server.openocd.scripts.2=target/stm32g4x.cfg
+Nucleo_64.menu.pnum.NUCLEO_G474RE.openocd.target=stm32g4x
 Nucleo_64.menu.pnum.NUCLEO_G474RE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G474.svd
 
 # NUCLEO H503RB
@@ -650,7 +658,7 @@ Nucleo_64.menu.pnum.NUCLEO_H503RB.build.board=NUCLEO_H503RB
 Nucleo_64.menu.pnum.NUCLEO_H503RB.build.series=STM32H5xx
 Nucleo_64.menu.pnum.NUCLEO_H503RB.build.product_line=STM32H503xx
 Nucleo_64.menu.pnum.NUCLEO_H503RB.build.variant=STM32H5xx/H503RBT
-Nucleo_64.menu.pnum.NUCLEO_H503RB.debug.server.openocd.scripts.2=target/stm32h5x.cfg
+Nucleo_64.menu.pnum.NUCLEO_H503RB.openocd.target=stm32h5x
 Nucleo_64.menu.pnum.NUCLEO_H503RB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H503.svd
 
 # NUCLEO_L010RB board
@@ -664,7 +672,7 @@ Nucleo_64.menu.pnum.NUCLEO_L010RB.build.series=STM32L0xx
 Nucleo_64.menu.pnum.NUCLEO_L010RB.build.product_line=STM32L010xB
 Nucleo_64.menu.pnum.NUCLEO_L010RB.build.variant=STM32L0xx/L010RBT
 Nucleo_64.menu.pnum.NUCLEO_L010RB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-Nucleo_64.menu.pnum.NUCLEO_L010RB.debug.server.openocd.scripts.2=target/stm32l0.cfg
+Nucleo_64.menu.pnum.NUCLEO_L010RB.openocd.target=stm32l0
 Nucleo_64.menu.pnum.NUCLEO_L010RB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x0.svd
 
 # NUCLEO_L053R8 board
@@ -678,7 +686,7 @@ Nucleo_64.menu.pnum.NUCLEO_L053R8.build.series=STM32L0xx
 Nucleo_64.menu.pnum.NUCLEO_L053R8.build.product_line=STM32L053xx
 Nucleo_64.menu.pnum.NUCLEO_L053R8.build.variant=STM32L0xx/L052R(6-8)T_L053R(6-8)T_L063R8T
 Nucleo_64.menu.pnum.NUCLEO_L053R8.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-Nucleo_64.menu.pnum.NUCLEO_L053R8.debug.server.openocd.scripts.2=target/stm32l0.cfg
+Nucleo_64.menu.pnum.NUCLEO_L053R8.openocd.target=stm32l0
 Nucleo_64.menu.pnum.NUCLEO_L053R8.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L053.svd
 
 # NUCLEO_L073RZ board
@@ -692,7 +700,7 @@ Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.series=STM32L0xx
 Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.product_line=STM32L073xx
 Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.variant=STM32L0xx/L072R(B-Z)T_L073R(B-Z)T_L083R(B-Z)T
 Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-Nucleo_64.menu.pnum.NUCLEO_L073RZ.debug.server.openocd.scripts.2=target/stm32l0.cfg
+Nucleo_64.menu.pnum.NUCLEO_L073RZ.openocd.target=stm32l0
 Nucleo_64.menu.pnum.NUCLEO_L073RZ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x3.svd
 
 # NUCLEO_L152RE board
@@ -705,7 +713,7 @@ Nucleo_64.menu.pnum.NUCLEO_L152RE.build.board=NUCLEO_L152RE
 Nucleo_64.menu.pnum.NUCLEO_L152RE.build.series=STM32L1xx
 Nucleo_64.menu.pnum.NUCLEO_L152RE.build.product_line=STM32L152xE
 Nucleo_64.menu.pnum.NUCLEO_L152RE.build.variant=STM32L1xx/L151RET_L152RET_L162RET
-Nucleo_64.menu.pnum.NUCLEO_L152RE.debug.server.openocd.scripts.2=target/stm32l1.cfg
+Nucleo_64.menu.pnum.NUCLEO_L152RE.openocd.target=stm32l1
 Nucleo_64.menu.pnum.NUCLEO_L152RE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L1xx/STM32L152.svd
 
 # NUCLEO_L433RC_P board
@@ -720,7 +728,7 @@ Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.board=NUCLEO_L433RC_P
 Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.series=STM32L4xx
 Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.product_line=STM32L433xx
 Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.variant=STM32L4xx/L433RCTxP
-Nucleo_64.menu.pnum.NUCLEO_L433RC_P.debug.server.openocd.scripts.2=target/stm32l4x.cfg
+Nucleo_64.menu.pnum.NUCLEO_L433RC_P.openocd.target=stm32l4x
 Nucleo_64.menu.pnum.NUCLEO_L433RC_P.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x3.svd
 
 # NUCLEO_L452RE board
@@ -735,7 +743,7 @@ Nucleo_64.menu.pnum.NUCLEO_L452RE.build.board=NUCLEO_L452RE
 Nucleo_64.menu.pnum.NUCLEO_L452RE.build.series=STM32L4xx
 Nucleo_64.menu.pnum.NUCLEO_L452RE.build.product_line=STM32L452xx
 Nucleo_64.menu.pnum.NUCLEO_L452RE.build.variant=STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)
-Nucleo_64.menu.pnum.NUCLEO_L452RE.debug.server.openocd.scripts.2=target/stm32l4x.cfg
+Nucleo_64.menu.pnum.NUCLEO_L452RE.openocd.target=stm32l4x
 Nucleo_64.menu.pnum.NUCLEO_L452RE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x2.svd
 
 # NUCLEO_L452RE-P board
@@ -750,7 +758,7 @@ Nucleo_64.menu.pnum.NUCLEO_L452REP.build.board=NUCLEO_L452RE_P
 Nucleo_64.menu.pnum.NUCLEO_L452REP.build.series=STM32L4xx
 Nucleo_64.menu.pnum.NUCLEO_L452REP.build.product_line=STM32L452xx
 Nucleo_64.menu.pnum.NUCLEO_L452REP.build.variant=STM32L4xx/L452RETxP
-Nucleo_64.menu.pnum.NUCLEO_L452REP.debug.server.openocd.scripts.2=target/stm32l4x.cfg
+Nucleo_64.menu.pnum.NUCLEO_L452REP.openocd.target=stm32l4x
 Nucleo_64.menu.pnum.NUCLEO_L452REP.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x2.svd
 
 # NUCLEO_L476RG board
@@ -765,7 +773,7 @@ Nucleo_64.menu.pnum.NUCLEO_L476RG.build.board=NUCLEO_L476RG
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.series=STM32L4xx
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.product_line=STM32L476xx
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.variant=STM32L4xx/L475R(C-E-G)T_L476R(C-E-G)T_L486RGT
-Nucleo_64.menu.pnum.NUCLEO_L476RG.debug.server.openocd.scripts.2=target/stm32l4x.cfg
+Nucleo_64.menu.pnum.NUCLEO_L476RG.openocd.target=stm32l4x
 Nucleo_64.menu.pnum.NUCLEO_L476RG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L476.svd
 
 # NUCLEO_U083RC board
@@ -779,7 +787,7 @@ Nucleo_64.menu.pnum.NUCLEO_U083RC.build.series=STM32U0xx
 Nucleo_64.menu.pnum.NUCLEO_U083RC.build.product_line=STM32U083xx
 Nucleo_64.menu.pnum.NUCLEO_U083RC.build.variant=STM32U0xx/U073R(8-B-C)(I-T)_U083RC(I-T)
 Nucleo_64.menu.pnum.NUCLEO_U083RC.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-Nucleo_64.menu.pnum.NUCLEO_U083RC.debug.server.openocd.scripts.2=target/stm32u0x.cfg
+Nucleo_64.menu.pnum.NUCLEO_U083RC.openocd.target=stm32u0x
 Nucleo_64.menu.pnum.NUCLEO_U083RC.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U0xx/STM32U083.svd
 
 # NUCLEO_WB15CC
@@ -794,7 +802,7 @@ Nucleo_64.menu.pnum.NUCLEO_WB15CC.build.board=NUCLEO_WB15CC
 Nucleo_64.menu.pnum.NUCLEO_WB15CC.build.series=STM32WBxx
 Nucleo_64.menu.pnum.NUCLEO_WB15CC.build.product_line=STM32WB15xx
 Nucleo_64.menu.pnum.NUCLEO_WB15CC.build.variant=STM32WBxx/WB15CCU
-Nucleo_64.menu.pnum.NUCLEO_WB15CC.debug.server.openocd.scripts.2=target/stm32wbx.cfg
+Nucleo_64.menu.pnum.NUCLEO_WB15CC.openocd.target=stm32wbx
 Nucleo_64.menu.pnum.NUCLEO_WB15CC.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB15_CM4.svd
 
 # P_NUCLEO_WB55RG board
@@ -809,7 +817,7 @@ Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.board=P_NUCLEO_WB55RG
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.series=STM32WBxx
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.product_line=STM32WB55xx
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.variant=STM32WBxx/WB55R(C-E-G)V
-Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.debug.server.openocd.scripts.2=target/stm32wbx.cfg
+Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.openocd.target=stm32wbx
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB55_CM4.svd
 
 # P_NUCLEO_WB55 USB Dongle
@@ -824,7 +832,7 @@ Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.board=P_NUCLEO_WB55_USB_DONGL
 Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.series=STM32WBxx
 Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.product_line=STM32WB55xx
 Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.build.variant=STM32WBxx/WB35C(C-E)UxA_WB55C(C-E-G)U
-Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.debug.server.openocd.scripts.2=target/stm32wbx.cfg
+Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.openocd.target=stm32wbx
 Nucleo_64.menu.pnum.P_NUCLEO_WB55_USB_DONGLE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB55_CM4.svd
 
 # NUCLEO WBA55CG
@@ -839,7 +847,7 @@ Nucleo_64.menu.pnum.NUCLEO_WBA55CG.build.board=NUCLEO_WBA55CG
 Nucleo_64.menu.pnum.NUCLEO_WBA55CG.build.series=STM32WBAxx
 Nucleo_64.menu.pnum.NUCLEO_WBA55CG.build.product_line=STM32WBA55xx
 Nucleo_64.menu.pnum.NUCLEO_WBA55CG.build.variant=STM32WBAxx/WBA55C(E-G)U
-Nucleo_64.menu.pnum.NUCLEO_WBA55CG.debug.server.openocd.scripts.2=target/stm32wbax.cfg
+Nucleo_64.menu.pnum.NUCLEO_WBA55CG.openocd.target=stm32wbax
 Nucleo_64.menu.pnum.NUCLEO_WBA55CG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA55.svd
 
 # NUCLEO_WL55JC1 board
@@ -853,7 +861,7 @@ Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.series=STM32WLxx
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.product_line=STM32WLE5xx
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.st_extra_flags=-D{build.product_line} -DUSE_CM4_STARTUP_FILE {build.xSerial}
-Nucleo_64.menu.pnum.NUCLEO_WL55JC1.debug.server.openocd.scripts.2=target/stm32wlx.cfg
+Nucleo_64.menu.pnum.NUCLEO_WL55JC1.openocd.target=stm32wlx
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WLxx/STM32WLE5_CM4.svd
 
 # Upload menu
@@ -875,6 +883,14 @@ Nucleo_64.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Nucleo_64.menu.upload_method.dfuMethod.upload.protocol=dfu
 Nucleo_64.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Nucleo_64.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Nucleo_64.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+Nucleo_64.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+Nucleo_64.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+Nucleo_64.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+Nucleo_64.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+Nucleo_64.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # Nucleo 32 boards
@@ -916,7 +932,7 @@ Nucleo_32.menu.pnum.NUCLEO_F031K6.build.board=NUCLEO_F031K6
 Nucleo_32.menu.pnum.NUCLEO_F031K6.build.series=STM32F0xx
 Nucleo_32.menu.pnum.NUCLEO_F031K6.build.product_line=STM32F031x6
 Nucleo_32.menu.pnum.NUCLEO_F031K6.build.variant=STM32F0xx/F031K6T
-Nucleo_32.menu.pnum.NUCLEO_F031K6.debug.server.openocd.scripts.2=target/stm32f0x.cfg
+Nucleo_32.menu.pnum.NUCLEO_F031K6.openocd.target=stm32f0x
 Nucleo_32.menu.pnum.NUCLEO_F031K6.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x1.svd
 
 # NUCLEO_F042K6 board
@@ -929,7 +945,7 @@ Nucleo_32.menu.pnum.NUCLEO_F042K6.build.board=NUCLEO_F042K6
 Nucleo_32.menu.pnum.NUCLEO_F042K6.build.series=STM32F0xx
 Nucleo_32.menu.pnum.NUCLEO_F042K6.build.product_line=STM32F042x6
 Nucleo_32.menu.pnum.NUCLEO_F042K6.build.variant=STM32F0xx/F042K(4-6)T
-Nucleo_32.menu.pnum.NUCLEO_F042K6.debug.server.openocd.scripts.2=target/stm32f0x.cfg
+Nucleo_32.menu.pnum.NUCLEO_F042K6.openocd.target=stm32f0x
 Nucleo_32.menu.pnum.NUCLEO_F042K6.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x2.svd
 
 # NUCLEO_F303K8 board
@@ -944,7 +960,7 @@ Nucleo_32.menu.pnum.NUCLEO_F303K8.build.board=NUCLEO_F303K8
 Nucleo_32.menu.pnum.NUCLEO_F303K8.build.series=STM32F3xx
 Nucleo_32.menu.pnum.NUCLEO_F303K8.build.product_line=STM32F303x8
 Nucleo_32.menu.pnum.NUCLEO_F303K8.build.variant=STM32F3xx/F303K(6-8)T_F334K(4-6-8)T
-Nucleo_32.menu.pnum.NUCLEO_F303K8.debug.server.openocd.scripts.2=target/stm32f3x.cfg
+Nucleo_32.menu.pnum.NUCLEO_F303K8.openocd.target=stm32f3x
 Nucleo_32.menu.pnum.NUCLEO_F303K8.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F303.svd
 
 # NUCLEO_G031K8 board
@@ -958,7 +974,7 @@ Nucleo_32.menu.pnum.NUCLEO_G031K8.build.series=STM32G0xx
 Nucleo_32.menu.pnum.NUCLEO_G031K8.build.product_line=STM32G031xx
 Nucleo_32.menu.pnum.NUCLEO_G031K8.build.variant=STM32G0xx/G031K(4-6-8)(T-U)_G041K(6-8)(T-U)
 Nucleo_32.menu.pnum.NUCLEO_G031K8.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-Nucleo_32.menu.pnum.NUCLEO_G031K8.debug.server.openocd.scripts.2=target/stm32g0x.cfg
+Nucleo_32.menu.pnum.NUCLEO_G031K8.openocd.target=stm32g0x
 Nucleo_32.menu.pnum.NUCLEO_G031K8.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G031.svd
 
 # NUCLEO_G431KB board
@@ -973,7 +989,7 @@ Nucleo_32.menu.pnum.NUCLEO_G431KB.build.board=NUCLEO_G431KB
 Nucleo_32.menu.pnum.NUCLEO_G431KB.build.series=STM32G4xx
 Nucleo_32.menu.pnum.NUCLEO_G431KB.build.product_line=STM32G431xx
 Nucleo_32.menu.pnum.NUCLEO_G431KB.build.variant=STM32G4xx/G431K(6-8-B)(T-U)_G441KB(T-U)
-Nucleo_32.menu.pnum.NUCLEO_G431KB.debug.server.openocd.scripts.2=target/stm32g4x.cfg
+Nucleo_32.menu.pnum.NUCLEO_G431KB.openocd.target=stm32g4x
 Nucleo_32.menu.pnum.NUCLEO_G431KB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G431.svd
 
 # NUCLEO_L031K6 board
@@ -986,7 +1002,7 @@ Nucleo_32.menu.pnum.NUCLEO_L031K6.build.board=NUCLEO_L031K6
 Nucleo_32.menu.pnum.NUCLEO_L031K6.build.series=STM32L0xx
 Nucleo_32.menu.pnum.NUCLEO_L031K6.build.product_line=STM32L031xx
 Nucleo_32.menu.pnum.NUCLEO_L031K6.build.variant=STM32L0xx/L031K(4-6)T_L041K6T
-Nucleo_32.menu.pnum.NUCLEO_L031K6.debug.server.openocd.scripts.2=target/stm32l0.cfg
+Nucleo_32.menu.pnum.NUCLEO_L031K6.openocd.target=stm32l0
 Nucleo_32.menu.pnum.NUCLEO_L031K6.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 
 # NUCLEO_L412KB board
@@ -1001,7 +1017,7 @@ Nucleo_32.menu.pnum.NUCLEO_L412KB.build.board=NUCLEO_L412KB
 Nucleo_32.menu.pnum.NUCLEO_L412KB.build.series=STM32L4xx
 Nucleo_32.menu.pnum.NUCLEO_L412KB.build.product_line=STM32L412xx
 Nucleo_32.menu.pnum.NUCLEO_L412KB.build.variant=STM32L4xx/L412K(8-B)(T-U)_L422KB(T-U)
-Nucleo_32.menu.pnum.NUCLEO_L412KB.debug.server.openocd.scripts.2=target/stm32l4x.cfg
+Nucleo_32.menu.pnum.NUCLEO_L412KB.openocd.target=stm32l4x
 Nucleo_32.menu.pnum.NUCLEO_L412KB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L412.svd
 
 # NUCLEO_L432KC board
@@ -1016,7 +1032,7 @@ Nucleo_32.menu.pnum.NUCLEO_L432KC.build.board=NUCLEO_L432KC
 Nucleo_32.menu.pnum.NUCLEO_L432KC.build.series=STM32L4xx
 Nucleo_32.menu.pnum.NUCLEO_L432KC.build.product_line=STM32L432xx
 Nucleo_32.menu.pnum.NUCLEO_L432KC.build.variant=STM32L4xx/L432K(B-C)U_L442KCU
-Nucleo_32.menu.pnum.NUCLEO_L432KC.debug.server.openocd.scripts.2=target/stm32l4x.cfg
+Nucleo_32.menu.pnum.NUCLEO_L432KC.openocd.target=stm32l4x
 Nucleo_32.menu.pnum.NUCLEO_L432KC.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x2.svd
 
 # Upload menu
@@ -1038,6 +1054,14 @@ Nucleo_32.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Nucleo_32.menu.upload_method.dfuMethod.upload.protocol=dfu
 Nucleo_32.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Nucleo_32.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Nucleo_32.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+Nucleo_32.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+Nucleo_32.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+Nucleo_32.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+Nucleo_32.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+Nucleo_32.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # Discovery boards
@@ -1082,7 +1106,7 @@ Disco.menu.pnum.B_G431B_ESC1.build.series=STM32G4xx
 Disco.menu.pnum.B_G431B_ESC1.build.product_line=STM32G431xx
 Disco.menu.pnum.B_G431B_ESC1.build.variant=STM32G4xx/G431C(6-8-B)U_G441CBU
 Disco.menu.pnum.B_G431B_ESC1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.B_G431B_ESC1.debug.server.openocd.scripts.2=target/stm32g4x.cfg
+Disco.menu.pnum.B_G431B_ESC1.openocd.target=stm32g4x
 Disco.menu.pnum.B_G431B_ESC1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G431.svd
 
 # B-L072Z-LRWAN1 board
@@ -1097,7 +1121,7 @@ Disco.menu.pnum.B_L072Z_LRWAN1.build.product_line=STM32L072xx
 Disco.menu.pnum.B_L072Z_LRWAN1.build.variant=STM32L0xx/L072CBY_L072CZ(E-Y)_L073CZY_L082CZY
 Disco.menu.pnum.B_L072Z_LRWAN1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Disco.menu.pnum.B_L072Z_LRWAN1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-Disco.menu.pnum.B_L072Z_LRWAN1.debug.server.openocd.scripts.2=target/stm32l0.cfg
+Disco.menu.pnum.B_L072Z_LRWAN1.openocd.target=stm32l0
 Disco.menu.pnum.B_L072Z_LRWAN1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x2.svd
 
 # B-L475E-IOT01A board
@@ -1113,7 +1137,7 @@ Disco.menu.pnum.B_L475E_IOT01A.build.series=STM32L4xx
 Disco.menu.pnum.B_L475E_IOT01A.build.product_line=STM32L475xx
 Disco.menu.pnum.B_L475E_IOT01A.build.variant=STM32L4xx/L475V(C-E-G)T_L476V(C-E-G)T_L486VGT
 Disco.menu.pnum.B_L475E_IOT01A.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.B_L475E_IOT01A.debug.server.openocd.scripts.2=target/stm32l4x.cfg
+Disco.menu.pnum.B_L475E_IOT01A.openocd.target=stm32l4x
 Disco.menu.pnum.B_L475E_IOT01A.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x5.svd
 
 # B_L4S5I_IOT01A board
@@ -1129,7 +1153,7 @@ Disco.menu.pnum.B_L4S5I_IOT01A.build.series=STM32L4xx
 Disco.menu.pnum.B_L4S5I_IOT01A.build.product_line=STM32L4S5xx
 Disco.menu.pnum.B_L4S5I_IOT01A.build.variant=STM32L4xx/L4R5V(G-I)T_L4R7VIT_L4S5VIT_L4S7VIT
 Disco.menu.pnum.B_L4S5I_IOT01A.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.B_L4S5I_IOT01A.debug.server.openocd.scripts.2=target/stm32l4x.cfg
+Disco.menu.pnum.B_L4S5I_IOT01A.openocd.target=stm32l4x
 Disco.menu.pnum.B_L4S5I_IOT01A.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4S5.svd
 
 # B_U585I_IOT02A board
@@ -1145,7 +1169,7 @@ Disco.menu.pnum.B_U585I_IOT02A.build.series=STM32U5xx
 Disco.menu.pnum.B_U585I_IOT02A.build.product_line=STM32U585xx
 Disco.menu.pnum.B_U585I_IOT02A.build.variant=STM32U5xx/U575A(G-I)IxQ_U585AIIxQ
 Disco.menu.pnum.B_U585I_IOT02A.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.B_U585I_IOT02A.debug.server.openocd.scripts.2=target/stm32u5x.cfg
+Disco.menu.pnum.B_U585I_IOT02A.openocd.target=stm32u5x
 Disco.menu.pnum.B_U585I_IOT02A.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U585.svd
 
 # STM32C0316-DK board
@@ -1159,7 +1183,7 @@ Disco.menu.pnum.STM32C0116_DK.build.series=STM32C0xx
 Disco.menu.pnum.STM32C0116_DK.build.product_line=STM32C011xx
 Disco.menu.pnum.STM32C0116_DK.build.variant=STM32C0xx/C011D6Y_C011F(4-6)(P-U)_C031F(4-6)P
 Disco.menu.pnum.STM32C0116_DK.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
-Disco.menu.pnum.STM32C0116_DK.debug.server.openocd.scripts.2=target/stm32c0x.cfg
+Disco.menu.pnum.STM32C0116_DK.openocd.target=stm32c0x
 Disco.menu.pnum.STM32C0116_DK.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C011.svd
 
 # STM32C0316-DK board
@@ -1173,7 +1197,7 @@ Disco.menu.pnum.STM32C0316_DK.build.series=STM32C0xx
 Disco.menu.pnum.STM32C0316_DK.build.product_line=STM32C031xx
 Disco.menu.pnum.STM32C0316_DK.build.variant=STM32C0xx/C031C(4-6)(T-U)
 Disco.menu.pnum.STM32C0316_DK.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
-Disco.menu.pnum.STM32C0316_DK.debug.server.openocd.scripts.2=target/stm32c0x.cfg
+Disco.menu.pnum.STM32C0316_DK.openocd.target=stm32c0x
 Disco.menu.pnum.STM32C0316_DK.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C031.svd
 
 # DISCO_F030R8 board
@@ -1186,7 +1210,7 @@ Disco.menu.pnum.DISCO_F030R8.build.board=DISCO_F030R8
 Disco.menu.pnum.DISCO_F030R8.build.series=STM32F0xx
 Disco.menu.pnum.DISCO_F030R8.build.product_line=STM32F030x8
 Disco.menu.pnum.DISCO_F030R8.build.variant=STM32F0xx/F030R8T
-Disco.menu.pnum.DISCO_F030R8.debug.server.openocd.scripts.2=target/stm32f0x.cfg
+Disco.menu.pnum.DISCO_F030R8.openocd.target=stm32f0x
 Disco.menu.pnum.DISCO_F030R8.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x0.svd
 
 # DISCO_F072RB board
@@ -1199,7 +1223,7 @@ Disco.menu.pnum.DISCO_F072RB.build.board=DISCO_F072RB
 Disco.menu.pnum.DISCO_F072RB.build.series=STM32F0xx
 Disco.menu.pnum.DISCO_F072RB.build.product_line=STM32F072xB
 Disco.menu.pnum.DISCO_F072RB.build.variant=STM32F0xx/F072R8T_F072RB(H-I-T)
-Disco.menu.pnum.DISCO_F072RB.debug.server.openocd.scripts.2=target/stm32f0x.cfg
+Disco.menu.pnum.DISCO_F072RB.openocd.target=stm32f0x
 Disco.menu.pnum.DISCO_F072RB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x2.svd
 
 # DISCO_F100RB board
@@ -1212,7 +1236,7 @@ Disco.menu.pnum.DISCO_F100RB.build.board=DISCO_F100RB
 Disco.menu.pnum.DISCO_F100RB.build.series=STM32F1xx
 Disco.menu.pnum.DISCO_F100RB.build.product_line=STM32F100xB
 Disco.menu.pnum.DISCO_F100RB.build.variant=STM32F1xx/F100R(8-B)T
-Disco.menu.pnum.DISCO_F100RB.debug.server.openocd.scripts.2=target/stm32f1x.cfg
+Disco.menu.pnum.DISCO_F100RB.openocd.target=stm32f1x
 Disco.menu.pnum.DISCO_F100RB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F100.svd
 
 # DISCO_F303VC board
@@ -1227,7 +1251,7 @@ Disco.menu.pnum.DISCO_F303VC.build.board=DISCO_F303VC
 Disco.menu.pnum.DISCO_F303VC.build.series=STM32F3xx
 Disco.menu.pnum.DISCO_F303VC.build.product_line=STM32F303xC
 Disco.menu.pnum.DISCO_F303VC.build.variant=STM32F3xx/F303V(B-C)T
-Disco.menu.pnum.DISCO_F303VC.debug.server.openocd.scripts.2=target/stm32f3x.cfg
+Disco.menu.pnum.DISCO_F303VC.openocd.target=stm32f3x
 Disco.menu.pnum.DISCO_F303VC.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F303.svd
 
 # DISCO_F407VG board
@@ -1242,7 +1266,7 @@ Disco.menu.pnum.DISCO_F407VG.build.board=DISCO_F407VG
 Disco.menu.pnum.DISCO_F407VG.build.series=STM32F4xx
 Disco.menu.pnum.DISCO_F407VG.build.product_line=STM32F407xx
 Disco.menu.pnum.DISCO_F407VG.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
-Disco.menu.pnum.DISCO_F407VG.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+Disco.menu.pnum.DISCO_F407VG.openocd.target=stm32f4x
 Disco.menu.pnum.DISCO_F407VG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F407.svd
 
 # DISCO_F413ZH board
@@ -1258,7 +1282,7 @@ Disco.menu.pnum.DISCO_F413ZH.build.series=STM32F4xx
 Disco.menu.pnum.DISCO_F413ZH.build.product_line=STM32F413xx
 Disco.menu.pnum.DISCO_F413ZH.build.variant=STM32F4xx/F413Z(G-H)(J-T)_F423ZH(J-T)
 Disco.menu.pnum.DISCO_F413ZH.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.DISCO_F413ZH.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+Disco.menu.pnum.DISCO_F413ZH.openocd.target=stm32f4x
 Disco.menu.pnum.DISCO_F413ZH.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F413.svd
 
 # DISCO_F746NG board
@@ -1274,7 +1298,7 @@ Disco.menu.pnum.DISCO_F746NG.build.series=STM32F7xx
 Disco.menu.pnum.DISCO_F746NG.build.product_line=STM32F746xx
 Disco.menu.pnum.DISCO_F746NG.build.variant=STM32F7xx/F746B(E-G)T_F746N(E-G)H_F750N8H_F756BGT_F756NGH
 Disco.menu.pnum.DISCO_F746NG.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.DISCO_F746NG.debug.server.openocd.scripts.2=target/stm32f7x.cfg
+Disco.menu.pnum.DISCO_F746NG.openocd.target=stm32f7x
 Disco.menu.pnum.DISCO_F746NG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F746.svd
 
 # DISCO_G0316 board
@@ -1288,7 +1312,7 @@ Disco.menu.pnum.DISCO_G0316.build.series=STM32G0xx
 Disco.menu.pnum.DISCO_G0316.build.product_line=STM32G031xx
 Disco.menu.pnum.DISCO_G0316.build.variant=STM32G0xx/G031J(4-6)M_G041J6M
 Disco.menu.pnum.DISCO_G0316.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
-Disco.menu.pnum.DISCO_G0316.debug.server.openocd.scripts.2=target/stm32g0x.cfg
+Disco.menu.pnum.DISCO_G0316.openocd.target=stm32g0x
 Disco.menu.pnum.DISCO_G0316.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G031.svd
 
 # STM32H573I-DK
@@ -1304,7 +1328,7 @@ Disco.menu.pnum.STM32H573I_DK.build.series=STM32H5xx
 Disco.menu.pnum.STM32H573I_DK.build.product_line=STM32H573xx
 Disco.menu.pnum.STM32H573I_DK.build.variant=STM32H5xx/H563IIKxQ_H573IIKxQ
 Disco.menu.pnum.STM32H573I_DK.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.STM32H573I_DK.debug.server.openocd.scripts.2=target/stm32h5x.cfg
+Disco.menu.pnum.STM32H573I_DK.openocd.target=stm32h5x
 Disco.menu.pnum.STM32H573I_DK.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H573.svd
 
 # STM32H747I-DISCO
@@ -1321,7 +1345,7 @@ Disco.menu.pnum.STM32H747I_DISCO.build.product_line=STM32H747xx
 Disco.menu.pnum.STM32H747I_DISCO.build.variant=STM32H7xx/H742X(G-I)H_H743X(G-I)H_H745X(G-I)H_H747X(G-I)H_H750XBH_H753XIH_H755XIH_H757XIH
 Disco.menu.pnum.STM32H747I_DISCO.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DCORE_CM7
 Disco.menu.pnum.STM32H747I_DISCO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.STM32H747I_DISCO.debug.server.openocd.scripts.2=target/stm32h7x.cfg
+Disco.menu.pnum.STM32H747I_DISCO.openocd.target=stm32h7x
 Disco.menu.pnum.STM32H747I_DISCO.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H747_CM7.svd
 
 # STM32WB5MM-DK board
@@ -1337,7 +1361,7 @@ Disco.menu.pnum.STM32WB5MM_DK.build.series=STM32WBxx
 Disco.menu.pnum.STM32WB5MM_DK.build.product_line=STM32WB5Mxx
 Disco.menu.pnum.STM32WB5MM_DK.build.variant=STM32WBxx/WB5MMGH
 Disco.menu.pnum.STM32WB5MM_DK.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.STM32WB5MM_DK.debug.server.openocd.scripts.2=target/stm32wbx.cfg
+Disco.menu.pnum.STM32WB5MM_DK.openocd.target=stm32wbx
 Disco.menu.pnum.STM32WB5MM_DK.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB55_CM4.svd
 
 # Upload menu
@@ -1359,6 +1383,14 @@ Disco.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Disco.menu.upload_method.dfuMethod.upload.protocol=dfu
 Disco.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Disco.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Disco.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+Disco.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+Disco.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+Disco.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+Disco.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+Disco.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # Eval boards
@@ -1402,7 +1434,7 @@ Eval.menu.pnum.STEVAL_MKSBOX1V1.build.series=STM32L4xx
 Eval.menu.pnum.STEVAL_MKSBOX1V1.build.product_line=STM32L4R9xx
 Eval.menu.pnum.STEVAL_MKSBOX1V1.build.variant=STM32L4xx/L4R9Z(G-I)J_L4S9ZIJ
 Eval.menu.pnum.STEVAL_MKSBOX1V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Eval.menu.pnum.STEVAL_MKSBOX1V1.debug.server.openocd.scripts.2=target/stm32l4x.cfg
+Eval.menu.pnum.STEVAL_MKSBOX1V1.openocd.target=stm32l4x
 Eval.menu.pnum.STEVAL_MKSBOX1V1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4R9.svd
 
 # STEVAL_MKBOXPRO board
@@ -1417,7 +1449,7 @@ Eval.menu.pnum.STEVAL_MKBOXPRO.build.series=STM32U5xx
 Eval.menu.pnum.STEVAL_MKBOXPRO.build.product_line=STM32U585xx
 Eval.menu.pnum.STEVAL_MKBOXPRO.build.variant=STM32U5xx/U575A(G-I)IxQ_U585AIIxQ
 Eval.menu.pnum.STEVAL_MKBOXPRO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Eval.menu.pnum.STEVAL_MKBOXPRO.debug.server.openocd.scripts.2=target/stm32u5x.cfg
+Eval.menu.pnum.STEVAL_MKBOXPRO.openocd.target=stm32u5x
 Eval.menu.pnum.STEVAL_MKBOXPRO.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U585.svd
 
 # Upload menu
@@ -1430,6 +1462,14 @@ Eval.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Eval.menu.upload_method.dfuMethod.upload.protocol=dfu
 Eval.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Eval.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Eval.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+Eval.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+Eval.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+Eval.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+Eval.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+Eval.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # STM32MP1 microprocessor series (MPU + MCU)
@@ -1484,7 +1524,7 @@ GenC0.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=
 GenC0.build.flash_offset=0x0
 GenC0.upload.maximum_size=0
 GenC0.upload.maximum_data_size=0
-GenC0.debug.server.openocd.scripts.2=target/stm32c0x.cfg
+GenC0.openocd.target=stm32c0x
 
 # Generic C011D6Yx
 GenC0.menu.pnum.GENERIC_C011D6YX=Generic C011D6Yx
@@ -1614,6 +1654,14 @@ GenC0.menu.upload_method.serialMethod.upload.protocol=serial
 GenC0.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
 GenC0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
+GenC0.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenC0.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenC0.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenC0.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenC0.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenC0.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ###############################
 # Generic F0
 GenF0.name=Generic STM32F0 series
@@ -1626,7 +1674,7 @@ GenF0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 GenF0.build.flash_offset=0x0
 GenF0.upload.maximum_size=0
 GenF0.upload.maximum_data_size=0
-GenF0.debug.server.openocd.scripts.2=target/stm32f0x.cfg
+GenF0.openocd.target=stm32f0x
 GenF0.vid.0=0x0483
 GenF0.pid.0=0x5740
 
@@ -2522,6 +2570,14 @@ GenF0.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenF0.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenF0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenF0.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenF0.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenF0.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenF0.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenF0.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenF0.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic F1
 GenF1.name=Generic STM32F1 series
@@ -2534,7 +2590,7 @@ GenF1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 GenF1.build.flash_offset=0x0
 GenF1.upload.maximum_size=0
 GenF1.upload.maximum_data_size=0
-GenF1.debug.server.openocd.scripts.2=target/stm32f1x.cfg
+GenF1.openocd.target=stm32f1x
 GenF1.vid.0=0x0483
 GenF1.pid.0=0x5740
 # DFU mode on built-in bootloader not available, assuming using STM32duino-bootloader
@@ -3366,6 +3422,14 @@ GenF1.menu.upload_method.dfuoMethod.upload.altID=1
 GenF1.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
 GenF1.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF
 
+GenF1.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenF1.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenF1.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenF1.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenF1.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenF1.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic F2
 GenF2.name=Generic STM32F2 series
@@ -3378,7 +3442,7 @@ GenF2.build.series=STM32F2xx
 GenF2.build.flash_offset=0x0
 GenF2.upload.maximum_size=0
 GenF2.upload.maximum_data_size=0
-GenF2.debug.server.openocd.scripts.2=target/stm32f2x.cfg
+GenF2.openocd.target=stm32f2x
 GenF2.vid.0=0x0483
 GenF2.pid.0=0x5740
 
@@ -3821,6 +3885,14 @@ GenF2.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenF2.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenF2.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenF2.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenF2.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenF2.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenF2.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenF2.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenF2.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic F3
 
@@ -3836,7 +3908,7 @@ GenF3.build.series=STM32F3xx
 GenF3.build.flash_offset=0x0
 GenF3.upload.maximum_size=0
 GenF3.upload.maximum_data_size=0
-GenF3.debug.server.openocd.scripts.2=target/stm32f3x.cfg
+GenF3.openocd.target=stm32f3x
 GenF3.vid.0=0x0483
 GenF3.pid.0=0x5740
 
@@ -4276,6 +4348,14 @@ GenF3.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
 GenF3.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
 GenF3.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
+GenF3.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenF3.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenF3.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenF3.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenF3.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenF3.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic F4
 
@@ -4291,7 +4371,7 @@ GenF4.build.series=STM32F4xx
 GenF4.build.flash_offset=0x0
 GenF4.upload.maximum_size=0
 GenF4.upload.maximum_data_size=0
-GenF4.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+GenF4.openocd.target=stm32f4x
 GenF4.vid.0=0x0483
 GenF4.pid.0=0x5740
 
@@ -5291,6 +5371,14 @@ GenF4.menu.upload_method.hidMethod.upload.tool=hid_upload
 GenF4.menu.upload_method.hidMethod.build.flash_offset=0x4000
 GenF4.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID
 
+GenF4.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenF4.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenF4.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenF4.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenF4.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenF4.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic F7
 
@@ -5306,7 +5394,7 @@ GenF7.build.series=STM32F7xx
 GenF7.build.flash_offset=0x0
 GenF7.upload.maximum_size=0
 GenF7.upload.maximum_data_size=0
-GenF7.debug.server.openocd.scripts.2=target/stm32f7x.cfg
+GenF7.openocd.target=stm32f7x
 GenF7.vid.0=0x0483
 GenF7.pid.0=0x5740
 
@@ -5821,6 +5909,14 @@ GenF7.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenF7.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenF7.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenF7.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenF7.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenF7.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenF7.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenF7.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenF7.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ###############################
 # Generic G0
 GenG0.name=Generic STM32G0 series
@@ -5833,7 +5929,7 @@ GenG0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 GenG0.build.flash_offset=0x0
 GenG0.upload.maximum_size=0
 GenG0.upload.maximum_data_size=0
-GenG0.debug.server.openocd.scripts.2=target/stm32g0x.cfg
+GenG0.openocd.target=stm32g0x
 GenG0.vid.0=0x0483
 GenG0.pid.0=0x5740
 
@@ -7232,6 +7328,14 @@ GenG0.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenG0.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenG0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenG0.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenG0.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenG0.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenG0.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenG0.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenG0.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ###############################
 # Generic G4
 GenG4.name=Generic STM32G4 series
@@ -7246,7 +7350,7 @@ GenG4.build.series=STM32G4xx
 GenG4.build.flash_offset=0x0
 GenG4.upload.maximum_size=0
 GenG4.upload.maximum_data_size=0
-GenG4.debug.server.openocd.scripts.2=target/stm32g4x.cfg
+GenG4.openocd.target=stm32g4x
 GenG4.vid.0=0x0483
 GenG4.pid.0=0x5740
 
@@ -8423,6 +8527,14 @@ GenG4.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenG4.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenG4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenG4.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenG4.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenG4.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenG4.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenG4.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenG4.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic H5
 GenH5.name=Generic STM32H5 series
@@ -8438,7 +8550,7 @@ GenH5.build.flash_offset=0x0
 GenH5.upload.maximum_size=0
 GenH5.upload.maximum_data_size=0
 # Current openocd version does not support H5
-# GenH5.debug.server.openocd.scripts.2=target/stm32h5x.cfg
+# GenH5.openocd.target=stm32h5x
 GenH5.vid.0=0x0483
 GenH5.pid.0=0x5740
 
@@ -8595,6 +8707,14 @@ GenH5.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenH5.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenH5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+#GenH5.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+#GenH5.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+#GenH5.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+#GenH5.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+#GenH5.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+#GenH5.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic H7
 GenH7.name=Generic STM32H7 Series
@@ -8609,7 +8729,7 @@ GenH7.build.mcu=cortex-m7
 GenH7.build.flash_offset=0x0
 GenH7.upload.maximum_size=0
 GenH7.upload.maximum_data_size=0
-GenH7.debug.server.openocd.scripts.2=target/stm32h7x.cfg
+GenH7.openocd.target=stm32h7x
 GenH7.vid.0=0x0483
 GenH7.pid.0=0x5740
 
@@ -9231,6 +9351,14 @@ GenH7.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenH7.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenH7.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenH7.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenH7.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenH7.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenH7.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenH7.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenH7.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic L0
 GenL0.name=Generic STM32L0 series
@@ -9243,7 +9371,7 @@ GenL0.build.series=STM32L0xx
 GenL0.build.flash_offset=0x0
 GenL0.upload.maximum_size=0
 GenL0.upload.maximum_data_size=0
-GenL0.debug.server.openocd.scripts.2=target/stm32l0.cfg
+GenL0.openocd.target=stm32l0
 GenL0.vid.0=0x0483
 GenL0.pid.0=0x5740
 
@@ -10513,6 +10641,14 @@ GenL0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
 GenL0.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
 GenL0.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
+GenL0.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenL0.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenL0.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenL0.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenL0.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenL0.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic L1
 GenL1.name=Generic STM32L1 series
@@ -10525,7 +10661,7 @@ GenL1.build.series=STM32L1xx
 GenL1.build.flash_offset=0x0
 GenL1.upload.maximum_size=0
 GenL1.upload.maximum_data_size=0
-GenL1.debug.server.openocd.scripts.2=target/stm32l1.cfg
+GenL1.openocd.target=stm32l1
 GenL1.vid.0=0x0483
 GenL1.pid.0=0x5740
 
@@ -10833,6 +10969,14 @@ GenL1.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenL1.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenL1.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenL1.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenL1.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenL1.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenL1.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenL1.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenL1.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic L4
 GenL4.name=Generic STM32L4 series
@@ -10847,7 +10991,7 @@ GenL4.build.series=STM32L4xx
 GenL4.build.flash_offset=0x0
 GenL4.upload.maximum_size=0
 GenL4.upload.maximum_data_size=0
-GenL4.debug.server.openocd.scripts.2=target/stm32l4x.cfg
+GenL4.openocd.target=stm32l4x
 GenL4.vid.0=0x0483
 GenL4.pid.0=0x5740
 
@@ -11633,6 +11777,14 @@ GenL4.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenL4.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenL4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenL4.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenL4.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenL4.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenL4.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenL4.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenL4.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic L5
 GenL5.name=Generic STM32L5 series
@@ -11647,7 +11799,7 @@ GenL5.build.series=STM32L5xx
 GenL5.build.flash_offset=0x0
 GenL5.upload.maximum_size=0
 GenL5.upload.maximum_data_size=0
-GenL5.debug.server.openocd.scripts.2=target/stm32l5x.cfg
+GenL5.openocd.target=stm32l5x
 GenL5.vid.0=0x0483
 GenL5.pid.0=0x5740
 
@@ -11694,6 +11846,14 @@ GenL5.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenL5.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenL5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenL5.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenL5.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenL5.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenL5.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenL5.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenL5.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ###############################
 # Generic U0
 GenU0.name=Generic STM32U0 series
@@ -11706,7 +11866,8 @@ GenU0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 GenU0.build.flash_offset=0x0
 GenU0.upload.maximum_size=0
 GenU0.upload.maximum_data_size=0
-GenU0.debug.server.openocd.scripts.2=target/stm32u0x.cfg
+# Current openocd version does not support U0
+# GenU0.openocd.target=stm32u0x
 GenU0.vid.0=0x0483
 GenU0.pid.0=0x5740
 
@@ -11798,6 +11959,14 @@ GenU0.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenU0.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenU0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+#GenU0.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+#GenU0.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+#GenU0.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+#GenU0.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+#GenU0.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+#GenU0.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic U5
 GenU5.name=Generic STM32U5 series
@@ -11812,7 +11981,7 @@ GenU5.build.series=STM32U5xx
 GenU5.build.flash_offset=0x0
 GenU5.upload.maximum_size=0
 GenU5.upload.maximum_data_size=0
-GenU5.debug.server.openocd.scripts.2=target/stm32u5x.cfg
+GenU5.openocd.target=stm32u5x
 GenU5.vid.0=0x0483
 GenU5.pid.0=0x5740
 
@@ -11922,6 +12091,14 @@ GenU5.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenU5.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenU5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenU5.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenU5.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenU5.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenU5.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenU5.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenU5.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic WB
 GenWB.name=Generic STM32WB series
@@ -11936,7 +12113,7 @@ GenWB.build.series=STM32WBxx
 GenWB.build.flash_offset=0x0
 GenWB.upload.maximum_size=0
 GenWB.upload.maximum_data_size=0
-GenWB.debug.server.openocd.scripts.2=target/stm32wbx.cfg
+GenWB.openocd.target=stm32wbx
 GenWB.vid.0=0x0483
 GenWB.pid.0=0x5740
 
@@ -12028,6 +12205,14 @@ GenWB.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenWB.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenWB.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenWB.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenWB.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenWB.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenWB.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenWB.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenWB.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic WBA
 GenWBA.name=Generic STM32WBA series
@@ -12042,7 +12227,7 @@ GenWBA.build.series=STM32WBAxx
 GenWBA.build.flash_offset=0x0
 GenWBA.upload.maximum_size=0
 GenWBA.upload.maximum_data_size=0
-GenWBA.debug.server.openocd.scripts.2=target/stm32wbax.cfg
+GenWBA.openocd.target=stm32wbax
 
 # Generic WBA55CEUx
 GenWBA.menu.pnum.GENERIC_WBA55CEUX=Generic WBA55CEUx
@@ -12073,6 +12258,14 @@ GenWBA.menu.upload_method.serialMethod.upload.protocol=serial
 GenWBA.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
 GenWBA.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
+GenWBA.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenWBA.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenWBA.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenWBA.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenWBA.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenWBA.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic WL
 GenWL.name=Generic STM32WL series
@@ -12087,7 +12280,7 @@ GenWL.build.series=STM32WLxx
 GenWL.build.flash_offset=0x0
 GenWL.upload.maximum_size=0
 GenWL.upload.maximum_data_size=0
-GenWL.debug.server.openocd.scripts.2=target/stm32wlx.cfg
+GenWL.openocd.target=stm32wlx
 
 # Generic WL54CCUx
 GenWL.menu.pnum.GENERIC_WL54CCUX=Generic WL54CCUx
@@ -12249,6 +12442,14 @@ GenWL.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenWL.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenWL.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenWL.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenWL.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenWL.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenWL.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenWL.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # 3D printer boards
 
@@ -12276,7 +12477,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.ARMED_V1.build.product_line=STM32F407xx
 3dprinter.menu.pnum.ARMED_V1.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
 3dprinter.menu.pnum.ARMED_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-3dprinter.menu.pnum.ARMED_V1.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+3dprinter.menu.pnum.ARMED_V1.openocd.target=stm32f4x
 3dprinter.menu.pnum.ARMED_V1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F407.svd
 
 # Big Tree Tech EBB42_V1_1 board
@@ -12289,7 +12490,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.EBB42_V1_1.build.product_line=STM32G0B1xx
 3dprinter.menu.pnum.EBB42_V1_1.build.variant=STM32G0xx/G0B1C(B-C-E)(T-U)_G0C1C(C-E)(T-U)
 3dprinter.menu.pnum.EBB42_V1_1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-3dprinter.menu.pnum.EBB42_V1_1.debug.server.openocd.scripts.2=target/stm32g0x.cfg
+3dprinter.menu.pnum.EBB42_V1_1.openocd.target=stm32g0x
 3dprinter.menu.pnum.EBB42_V1_1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G0xx/STM32G0B1.svd
 
 # REMRAM_V1 board
@@ -12304,7 +12505,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.REMRAM_V1.build.product_line=STM32F765xx
 3dprinter.menu.pnum.REMRAM_V1.build.variant=STM32F7xx/F765V(G-I)(H-T)_F767V(G-I)(H-T)_F777VI(H-T)
 3dprinter.menu.pnum.REMRAM_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-3dprinter.menu.pnum.REMRAM_V1.debug.server.openocd.scripts.2=target/stm32f7x.cfg
+3dprinter.menu.pnum.REMRAM_V1.openocd.target=stm32f7x
 3dprinter.menu.pnum.REMRAM_V1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F765.svd
 
 # RUMBA32 board
@@ -12319,7 +12520,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.RUMBA32.build.product_line=STM32F446xx
 3dprinter.menu.pnum.RUMBA32.build.variant=STM32F4xx/F446V(C-E)T
 3dprinter.menu.pnum.RUMBA32.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-3dprinter.menu.pnum.RUMBA32.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+3dprinter.menu.pnum.RUMBA32.openocd.target=stm32f4x
 3dprinter.menu.pnum.RUMBA32.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F446.svd
 
 # STEVAL-3DP001V1 board
@@ -12334,7 +12535,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.ST3DP001_EVAL.build.product_line=STM32F401xE
 3dprinter.menu.pnum.ST3DP001_EVAL.build.variant=STM32F4xx/F401V(B-C-D-E)T
 3dprinter.menu.pnum.ST3DP001_EVAL.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-3dprinter.menu.pnum.ST3DP001_EVAL.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+3dprinter.menu.pnum.ST3DP001_EVAL.openocd.target=stm32f4x
 3dprinter.menu.pnum.ST3DP001_EVAL.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F401.svd
 
 # PRNTR_V1 board
@@ -12349,7 +12550,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.PRNTR_V1.build.product_line=STM32F407xx
 3dprinter.menu.pnum.PRNTR_V1.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
 3dprinter.menu.pnum.PRNTR_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-3dprinter.menu.pnum.PRNTR_V1.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+3dprinter.menu.pnum.PRNTR_V1.openocd.target=stm32f4x
 3dprinter.menu.pnum.PRNTR_V1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F407.svd
 
 # PRNTR_V2 board
@@ -12366,7 +12567,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.PRNTR_V2.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 3dprinter.menu.pnum.PRNTR_V2.build.flash_offset=0x8000
 3dprinter.menu.pnum.PRNTR_V2.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
-3dprinter.menu.pnum.PRNTR_V2.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+3dprinter.menu.pnum.PRNTR_V2.openocd.target=stm32f4x
 3dprinter.menu.pnum.PRNTR_V2.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F407.svd
 
 # EEXTR_F030_V1 board
@@ -12379,7 +12580,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.EEXTR_F030_V1.build.product_line=STM32F030x8
 3dprinter.menu.pnum.EEXTR_F030_V1.build.variant=STM32F0xx/F030C8T
 3dprinter.menu.pnum.EEXTR_F030_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-3dprinter.menu.pnum.EEXTR_F030_V1.debug.server.openocd.scripts.2=target/stm32f0x.cfg
+3dprinter.menu.pnum.EEXTR_F030_V1.openocd.target=stm32f0x
 3dprinter.menu.pnum.EEXTR_F030_V1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x0.svd
 
 # MALYANM200_F103CB board
@@ -12395,7 +12596,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM200_F103CB.build.startup_file=-DCUSTOM_STARTUP_FILE
 3dprinter.menu.pnum.MALYANM200_F103CB.build.flash_offset=0x2000
 3dprinter.menu.pnum.MALYANM200_F103CB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
-3dprinter.menu.pnum.MALYANM200_F103CB.debug.server.openocd.scripts.2=target/stm32f1x.cfg
+3dprinter.menu.pnum.MALYANM200_F103CB.openocd.target=stm32f1x
 3dprinter.menu.pnum.MALYANM200_F103CB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 
 # MALYANM200_F070CB board
@@ -12412,7 +12613,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM200_F070CB.build.ldscript=MALYANMx00_F070CB.ld
 3dprinter.menu.pnum.MALYANM200_F070CB.build.flash_offset=0x2000
 3dprinter.menu.pnum.MALYANM200_F070CB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
-3dprinter.menu.pnum.MALYANM200_F070CB.debug.server.openocd.scripts.2=target/stm32f0x.cfg
+3dprinter.menu.pnum.MALYANM200_F070CB.openocd.target=stm32f0x
 3dprinter.menu.pnum.MALYANM200_F070CB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x0.svd
 
 # MALYANM300_F070CB board
@@ -12429,7 +12630,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM200_F070CB.build.ldscript=MALYANMx00_F070CB.ld
 3dprinter.menu.pnum.MALYANM300_F070CB.build.flash_offset=0x2000
 3dprinter.menu.pnum.MALYANM300_F070CB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
-3dprinter.menu.pnum.MALYANM300_F070CB.debug.server.openocd.scripts.2=target/stm32f0x.cfg
+3dprinter.menu.pnum.MALYANM300_F070CB.openocd.target=stm32f0x
 3dprinter.menu.pnum.MALYANM300_F070CB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x0.svd
 
 # VAkE v1.0
@@ -12444,7 +12645,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.VAKE_V1.build.product_line=STM32F446xx
 3dprinter.menu.pnum.VAKE_V1.build.variant=STM32F4xx/F446V(C-E)T
 3dprinter.menu.pnum.VAKE_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-3dprinter.menu.pnum.VAKE_V1.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+3dprinter.menu.pnum.VAKE_V1.openocd.target=stm32f4x
 3dprinter.menu.pnum.VAKE_V1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F446.svd
 
 # FYSETC_S6 board
@@ -12461,7 +12662,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.FYSETC_S6.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 3dprinter.menu.pnum.FYSETC_S6.build.flash_offset=0x10000
 3dprinter.menu.pnum.FYSETC_S6.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
-3dprinter.menu.pnum.FYSETC_S6.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+3dprinter.menu.pnum.FYSETC_S6.openocd.target=stm32f4x
 3dprinter.menu.pnum.FYSETC_S6.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F446.svd
 
 # Upload menu
@@ -12479,6 +12680,14 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.upload_method.dfuMethod.upload.protocol=dfu
 3dprinter.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 3dprinter.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+3dprinter.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+3dprinter.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+3dprinter.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+3dprinter.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+3dprinter.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+3dprinter.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # Blues boards
@@ -12507,7 +12716,7 @@ Blues.menu.pnum.SWAN_R5.build.variant=STM32L4xx/L4R5Z(G-I)Y_L4R9Z(G-I)Y_L4S5ZIY_
 Blues.menu.pnum.SWAN_R5.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Blues.menu.pnum.SWAN_R5.vid.0=0x30A4
 Blues.menu.pnum.SWAN_R5.pid.0=0x0002
-Blues.menu.pnum.SWAN_R5.debug.server.openocd.scripts.2=target/stm32l4x.cfg
+Blues.menu.pnum.SWAN_R5.openocd.target=stm32l4x
 Blues.menu.pnum.SWAN_R5.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4R5.svd
 
 # Cygnet board
@@ -12524,7 +12733,7 @@ Blues.menu.pnum.CYGNET.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
 Blues.menu.pnum.CYGNET.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Blues.menu.pnum.CYGNET.vid.0=0x30A4
 Blues.menu.pnum.CYGNET.pid.0=0x0003
-Blues.menu.pnum.CYGNET.debug.server.openocd.scripts.2=target/stm32l4x.cfg
+Blues.menu.pnum.CYGNET.openocd.target=stm32l4x
 Blues.menu.pnum.CYGNET.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x3.svd
 
 # Upload menu
@@ -12542,6 +12751,14 @@ Blues.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Blues.menu.upload_method.dfuMethod.upload.protocol=dfu
 Blues.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Blues.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Blues.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+Blues.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+Blues.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+Blues.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+Blues.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+Blues.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # Elecgator boards
@@ -12570,7 +12787,7 @@ Elecgator.menu.pnum.ETHERCAT_DUINO.build.series=STM32F7xx
 Elecgator.menu.pnum.ETHERCAT_DUINO.build.product_line=STM32F746xx
 Elecgator.menu.pnum.ETHERCAT_DUINO.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
 Elecgator.menu.pnum.ETHERCAT_DUINO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Elecgator.menu.pnum.ETHERCAT_DUINO.debug.server.openocd.scripts.2=target/stm32f7x.cfg
+Elecgator.menu.pnum.ETHERCAT_DUINO.openocd.target=stm32f7x
 Elecgator.menu.pnum.ETHERCAT_DUINO.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F746.svd
 
 # Upload menu
@@ -12583,6 +12800,14 @@ Elecgator.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Elecgator.menu.upload_method.dfuMethod.upload.protocol=dfu
 Elecgator.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Elecgator.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Elecgator.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+Elecgator.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+Elecgator.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+Elecgator.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+Elecgator.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+Elecgator.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # Electronic Speed Controller boards
@@ -12609,7 +12834,7 @@ ESC_board.menu.pnum.WRAITH32_V1.build.series=STM32F0xx
 ESC_board.menu.pnum.WRAITH32_V1.build.product_line=STM32F051x8
 ESC_board.menu.pnum.WRAITH32_V1.build.variant=STM32F0xx/F051K(6-8)U
 ESC_board.menu.pnum.WRAITH32_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-ESC_board.menu.pnum.WRAITH32_V1.debug.server.openocd.scripts.2=target/stm32f0x.cfg
+ESC_board.menu.pnum.WRAITH32_V1.openocd.target=stm32f0x
 ESC_board.menu.pnum.WRAITH32_V1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x1.svd
 
 # STORM32_V1_RC board
@@ -12622,7 +12847,7 @@ ESC_board.menu.pnum.STORM32_V1_31_RC.build.series=STM32F1xx
 ESC_board.menu.pnum.STORM32_V1_31_RC.build.product_line=STM32F103xE
 ESC_board.menu.pnum.STORM32_V1_31_RC.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 ESC_board.menu.pnum.STORM32_V1_31_RC.build.variant=STM32F1xx/F103R(C-D-E)T
-ESC_board.menu.pnum.STORM32_V1_31_RC.debug.server.openocd.scripts.2=target/stm32f1x.cfg
+ESC_board.menu.pnum.STORM32_V1_31_RC.openocd.target=stm32f1x
 ESC_board.menu.pnum.STORM32_V1_31_RC.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 
 # Upload menu
@@ -12640,6 +12865,14 @@ ESC_board.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 ESC_board.menu.upload_method.dfuMethod.upload.protocol=dfu
 ESC_board.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 ESC_board.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+ESC_board.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+ESC_board.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+ESC_board.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+ESC_board.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+ESC_board.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+ESC_board.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # Garatronic-McHobby STM32 boards
@@ -12666,7 +12899,7 @@ Garatronic.menu.pnum.PYBSTICK26_DUINO.build.series=STM32F0xx
 Garatronic.menu.pnum.PYBSTICK26_DUINO.build.product_line=STM32F072xB
 Garatronic.menu.pnum.PYBSTICK26_DUINO.build.variant=STM32F0xx/F072R8T_F072RB(H-I-T)
 Garatronic.menu.pnum.PYBSTICK26_DUINO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Garatronic.menu.pnum.PYBSTICK26_DUINO.debug.server.openocd.scripts.2=target/stm32f0x.cfg
+Garatronic.menu.pnum.PYBSTICK26_DUINO.openocd.target=stm32f0x
 Garatronic.menu.pnum.PYBSTICK26_DUINO.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x2.svd
 
 # PYBSTICK26(LITE) board with F401CE
@@ -12681,7 +12914,7 @@ Garatronic.menu.pnum.PYBSTICK26_LITE.build.variant=STM32F4xx/F401CC(F-U-Y)_F401C
 Garatronic.menu.pnum.PYBSTICK26_LITE.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Garatronic.menu.pnum.PYBSTICK26_LITE.build.fpu=-mfpu=fpv4-sp-d16
 Garatronic.menu.pnum.PYBSTICK26_LITE.build.float-abi=-mfloat-abi=hard
-Garatronic.menu.pnum.PYBSTICK26_LITE.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+Garatronic.menu.pnum.PYBSTICK26_LITE.openocd.target=stm32f4x
 Garatronic.menu.pnum.PYBSTICK26_LITE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F401.svd
 
 # PYBSTICK26(STD/Programmez!) board with F411RE
@@ -12696,7 +12929,7 @@ Garatronic.menu.pnum.PYBSTICK26_STD.build.variant=STM32F4xx/F411R(C-E)T
 Garatronic.menu.pnum.PYBSTICK26_STD.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Garatronic.menu.pnum.PYBSTICK26_STD.build.fpu=-mfpu=fpv4-sp-d16
 Garatronic.menu.pnum.PYBSTICK26_STD.build.float-abi=-mfloat-abi=hard
-Garatronic.menu.pnum.PYBSTICK26_STD.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+Garatronic.menu.pnum.PYBSTICK26_STD.openocd.target=stm32f4x
 Garatronic.menu.pnum.PYBSTICK26_STD.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F411.svd
 
 # PYBSTICK26(PRO) board with F412RE
@@ -12711,7 +12944,7 @@ Garatronic.menu.pnum.PYBSTICK26_PRO.build.variant=STM32F4xx/F412R(E-G)(T-Y)x(P)
 Garatronic.menu.pnum.PYBSTICK26_PRO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Garatronic.menu.pnum.PYBSTICK26_PRO.build.fpu=-mfpu=fpv4-sp-d16
 Garatronic.menu.pnum.PYBSTICK26_PRO.build.float-abi=-mfloat-abi=hard
-Garatronic.menu.pnum.PYBSTICK26_PRO.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+Garatronic.menu.pnum.PYBSTICK26_PRO.openocd.target=stm32f4x
 Garatronic.menu.pnum.PYBSTICK26_PRO.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F412.svd
 
 # PYBSTICK26 boards upload method
@@ -12747,7 +12980,7 @@ GenFlight.menu.pnum.AFROFLIGHT_F103CB.build.variant=STM32F1xx/F103C8T_F103CB(T-U
 GenFlight.menu.pnum.AFROFLIGHT_F103CB.build.variant_h=variant_AFROFLIGHT_F103CB_XX.h
 GenFlight.menu.pnum.AFROFLIGHT_F103CB.upload.vid.0=0x1eaf
 GenFlight.menu.pnum.AFROFLIGHT_F103CB.upload.pid.0=0x0003
-GenFlight.menu.pnum.AFROFLIGHT_F103CB.debug.server.openocd.scripts.2=target/stm32f1x.cfg
+GenFlight.menu.pnum.AFROFLIGHT_F103CB.openocd.target=stm32f1x
 GenFlight.menu.pnum.AFROFLIGHT_F103CB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M=Afro Flight Rev5 (12MHz)
@@ -12761,7 +12994,7 @@ GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.build.variant=STM32F1xx/F103C8T_F103CB
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.build.variant_h=variant_AFROFLIGHT_F103CB_XX.h
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.upload.vid.0=0x1eaf
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.upload.pid.0=0x0003
-GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.debug.server.openocd.scripts.2=target/stm32f1x.cfg
+GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.openocd.target=stm32f1x
 GenFlight.menu.pnum.AFROFLIGHT_F103CB_12M.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 
 # Sparky_V1 board
@@ -12776,7 +13009,7 @@ GenFlight.menu.pnum.Sparky_V1.build.fpu=-mfpu=fpv4-sp-d16
 GenFlight.menu.pnum.Sparky_V1.build.float-abi=-mfloat-abi=hard
 GenFlight.menu.pnum.Sparky_V1.build.variant=STM32F3xx/F303C(B-C)T
 GenFlight.menu.pnum.Sparky_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-GenFlight.menu.pnum.Sparky_V1.debug.server.openocd.scripts.2=target/stm32f3x.cfg
+GenFlight.menu.pnum.Sparky_V1.openocd.target=stm32f3x
 GenFlight.menu.pnum.Sparky_V1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F303.svd
 
 # Upload menu
@@ -12819,6 +13052,14 @@ GenFlight.menu.upload_method.dfuoMethod.upload.altID=1
 GenFlight.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
 GenFlight.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF
 
+GenFlight.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenFlight.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenFlight.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenFlight.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenFlight.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenFlight.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # IoT continuum Boards
 
@@ -12844,7 +13085,7 @@ IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.series=STM32U5xx
 IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.product_line=STM32U585xx
 IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.variant=STM32U5xx/U575C(G-I)(T-U)_U585CI(T-U)
 IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.debug.server.openocd.scripts.2=target/stm32u5x.cfg
+IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.openocd.target=stm32u5x
 IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U585.svd
 
 # Upload menu
@@ -12862,6 +13103,14 @@ IotContinuum.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 IotContinuum.menu.upload_method.dfuMethod.upload.protocol=dfu
 IotContinuum.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 IotContinuum.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+IotContinuum.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+IotContinuum.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+IotContinuum.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+IotContinuum.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+IotContinuum.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+IotContinuum.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # LoRa boards
@@ -12888,7 +13137,7 @@ LoRa.menu.pnum.ACSIP_S76S.build.product_line=STM32L073xx
 LoRa.menu.pnum.ACSIP_S76S.build.variant=STM32L0xx/L072R(B-Z)T_L073R(B-Z)T_L083R(B-Z)T
 LoRa.menu.pnum.ACSIP_S76S.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 LoRa.menu.pnum.ACSIP_S76S.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-LoRa.menu.pnum.ACSIP_S76S.debug.server.openocd.scripts.2=target/stm32l0.cfg
+LoRa.menu.pnum.ACSIP_S76S.openocd.target=stm32l0
 LoRa.menu.pnum.ACSIP_S76S.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x3.svd
 
 # Generic node SE by The Things Industries
@@ -12902,7 +13151,7 @@ LoRa.menu.pnum.GENERIC_NODE_SE_TTI.build.product_line=STM32WL55xx
 LoRa.menu.pnum.GENERIC_NODE_SE_TTI.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
 LoRa.menu.pnum.GENERIC_NODE_SE_TTI.build.variant_h=variant_GENERIC_NODE_SE_TTI.h
 LoRa.menu.pnum.GENERIC_NODE_SE_TTI.build.st_extra_flags=-D{build.product_line} -DUSE_CM4_STARTUP_FILE {build.xSerial}
-LoRa.menu.pnum.GENERIC_NODE_SE_TTI.debug.server.openocd.scripts.2=target/stm32wlx.cfg
+LoRa.menu.pnum.GENERIC_NODE_SE_TTI.openocd.target=stm32wlx
 LoRa.menu.pnum.GENERIC_NODE_SE_TTI.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WLxx/STM32WL5x_CM4.svd
 
 # LORA_E5_MINI board
@@ -12916,7 +13165,7 @@ LoRa.menu.pnum.LORA_E5_MINI.build.product_line=STM32WLE5xx
 LoRa.menu.pnum.LORA_E5_MINI.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I
 LoRa.menu.pnum.LORA_E5_MINI.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 LoRa.menu.pnum.LORA_E5_MINI.build.variant_h=variant_LORA_E5_MINI.h
-LoRa.menu.pnum.LORA_E5_MINI.debug.server.openocd.scripts.2=target/stm32wlx.cfg
+LoRa.menu.pnum.LORA_E5_MINI.openocd.target=stm32wlx
 LoRa.menu.pnum.LORA_E5_MINI.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WLxx/STM32WLE5_CM4.svd
 
 # RAK3172 module
@@ -12929,7 +13178,7 @@ LoRa.menu.pnum.RAK3172_MODULE.build.series=STM32WLxx
 LoRa.menu.pnum.RAK3172_MODULE.build.product_line=STM32WLE5xx
 LoRa.menu.pnum.RAK3172_MODULE.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
 LoRa.menu.pnum.RAK3172_MODULE.build.variant_h=variant_RAK3172_MODULE.h
-LoRa.menu.pnum.RAK3172_MODULE.debug.server.openocd.scripts.2=target/stm32wlx.cfg
+LoRa.menu.pnum.RAK3172_MODULE.openocd.target=stm32wlx
 LoRa.menu.pnum.RAK3172_MODULE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WLxx/STM32WLE5_CM4.svd
 
 # RAK3172T module
@@ -12942,7 +13191,7 @@ LoRa.menu.pnum.RAK3172T_MODULE.build.series=STM32WLxx
 LoRa.menu.pnum.RAK3172T_MODULE.build.product_line=STM32WLE5xx
 LoRa.menu.pnum.RAK3172T_MODULE.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
 LoRa.menu.pnum.RAK3172T_MODULE.build.variant_h=variant_RAK3172_MODULE.h
-LoRa.menu.pnum.RAK3172T_MODULE.debug.server.openocd.scripts.2=target/stm32wlx.cfg
+LoRa.menu.pnum.RAK3172T_MODULE.openocd.target=stm32wlx
 LoRa.menu.pnum.RAK3172T_MODULE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WLxx/STM32WLE5_CM4.svd
 
 # RAK811_TRACKER board
@@ -12955,7 +13204,7 @@ LoRa.menu.pnum.RAK811_TRACKER.build.series=STM32L1xx
 LoRa.menu.pnum.RAK811_TRACKER.build.product_line=STM32L151xB
 LoRa.menu.pnum.RAK811_TRACKER.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
 LoRa.menu.pnum.RAK811_TRACKER.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-LoRa.menu.pnum.RAK811_TRACKER.debug.server.openocd.scripts.2=target/stm32l1.cfg
+LoRa.menu.pnum.RAK811_TRACKER.openocd.target=stm32l1
 LoRa.menu.pnum.RAK811_TRACKER.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L1xx/STM32L151.svd
 
 LoRa.menu.pnum.RAK811_TRACKERA=RAK811 LoRa Tracker (32kb RAM)
@@ -12968,7 +13217,7 @@ LoRa.menu.pnum.RAK811_TRACKERA.build.product_line=STM32L151xBA
 LoRa.menu.pnum.RAK811_TRACKERA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
 LoRa.menu.pnum.RAK811_TRACKERA.build.variant_h=variant_RAK811_TRACKER.h
 LoRa.menu.pnum.RAK811_TRACKERA.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-LoRa.menu.pnum.RAK811_TRACKERA.debug.server.openocd.scripts.2=target/stm32l1.cfg
+LoRa.menu.pnum.RAK811_TRACKERA.openocd.target=stm32l1
 
 # RHF76_052 board
 LoRa.menu.pnum.RHF76_052=RHF76 052
@@ -12981,7 +13230,7 @@ LoRa.menu.pnum.RHF76_052.build.product_line=STM32L051xx
 LoRa.menu.pnum.RHF76_052.build.variant=STM32L0xx/L051C(6-8)(T-U)
 LoRa.menu.pnum.RHF76_052.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 LoRa.menu.pnum.RHF76_052.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-LoRa.menu.pnum.RHF76_052.debug.server.openocd.scripts.2=target/stm32l0.cfg
+LoRa.menu.pnum.RHF76_052.openocd.target=stm32l0
 LoRa.menu.pnum.RHF76_052.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L0xx/STM32L0x1.svd
 
 # ELEKTOR_F072C8
@@ -12996,7 +13245,7 @@ LoRa.menu.pnum.ELEKTOR_F072C8.build.variant=STM32F0xx/F072C8(T-U)_F072CB(T-U-Y)
 LoRa.menu.pnum.ELEKTOR_F072C8.build.variant_h=variant_ELEKTOR_F072Cx.h
 LoRa.menu.pnum.ELEKTOR_F072C8.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 LoRa.menu.pnum.ELEKTOR_F072C8.build.st_extra_flags=-D{build.product_line} {build.xSerial}
-LoRa.menu.pnum.ELEKTOR_F072C8.debug.server.openocd.scripts.2=target/stm32f0x.cfg
+LoRa.menu.pnum.ELEKTOR_F072C8.openocd.target=stm32f0x
 LoRa.menu.pnum.ELEKTOR_F072C8.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x2.svd
 
 # ELEKTOR_F072CB
@@ -13011,7 +13260,7 @@ LoRa.menu.pnum.ELEKTOR_F072CB.build.variant=STM32F0xx/F072C8(T-U)_F072CB(T-U-Y)
 LoRa.menu.pnum.ELEKTOR_F072CB.build.variant_h=variant_ELEKTOR_F072Cx.h
 LoRa.menu.pnum.ELEKTOR_F072CB.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 LoRa.menu.pnum.ELEKTOR_F072CB.build.st_extra_flags=-D{build.product_line} {build.xSerial}
-LoRa.menu.pnum.ELEKTOR_F072CB.debug.server.openocd.scripts.2=target/stm32f0x.cfg
+LoRa.menu.pnum.ELEKTOR_F072CB.openocd.target=stm32f0x
 LoRa.menu.pnum.ELEKTOR_F072CB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x2.svd
 
 # Upload menu
@@ -13029,6 +13278,14 @@ LoRa.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 LoRa.menu.upload_method.dfuMethod.upload.protocol=dfu
 LoRa.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+LoRa.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+LoRa.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+LoRa.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+LoRa.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+LoRa.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+LoRa.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # Midatronics boards
@@ -13057,7 +13314,7 @@ Midatronics.menu.pnum.MKR_SHARKY.build.board=MKR_SHARKY
 Midatronics.menu.pnum.MKR_SHARKY.build.series=STM32WBxx
 Midatronics.menu.pnum.MKR_SHARKY.build.product_line=STM32WB55xx
 Midatronics.menu.pnum.MKR_SHARKY.build.variant=STM32WBxx/WB35C(C-E)UxA_WB55C(C-E-G)U
-Midatronics.menu.pnum.MKR_SHARKY.debug.server.openocd.scripts.2=target/stm32wbx.cfg
+Midatronics.menu.pnum.MKR_SHARKY.openocd.target=stm32wbx
 Midatronics.menu.pnum.MKR_SHARKY.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB55_CM4.svd
 
 # Upload menu
@@ -13079,6 +13336,14 @@ Midatronics.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Midatronics.menu.upload_method.dfuMethod.upload.protocol=dfu
 Midatronics.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Midatronics.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Midatronics.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+Midatronics.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+Midatronics.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+Midatronics.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+Midatronics.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+Midatronics.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # SparkFun Boards
@@ -13109,7 +13374,7 @@ SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.variant=STM32WBxx/WB5MMGH
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.vid.0=0x1B4F
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.pid.0=0x0034
-SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.debug.server.openocd.scripts.2=target/stm32wbx.cfg
+SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.openocd.target=stm32wbx
 SparkFun.menu.pnum.SFE_MMPB_STM32WB5MMG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB55_CM4.svd
 
 # SparkFun MicroMod STM32F405 Board
@@ -13127,7 +13392,7 @@ SparkFun.menu.pnum.MICROMOD_F405.build.variant=STM32F4xx/F405RGT_F415RGT
 SparkFun.menu.pnum.MICROMOD_F405.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 SparkFun.menu.pnum.MICROMOD_F405.vid.0=0x1B4F
 SparkFun.menu.pnum.MICROMOD_F405.pid.0=0x0029
-SparkFun.menu.pnum.MICROMOD_F405.debug.server.openocd.scripts.2=target/stm32f4x.cfg
+SparkFun.menu.pnum.MICROMOD_F405.openocd.target=stm32f4x
 SparkFun.menu.pnum.MICROMOD_F405.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F405.svd
 
 # Upload menu
@@ -13145,6 +13410,14 @@ SparkFun.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 SparkFun.menu.upload_method.dfuMethod.upload.protocol=dfu
 SparkFun.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 SparkFun.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+SparkFun.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+SparkFun.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+SparkFun.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+SparkFun.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+SparkFun.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+SparkFun.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # ELV Modular System boards
@@ -13168,7 +13441,7 @@ ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.variant=STM32WLxx/WL54JCI_WL55JCI
 ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.flash_offset=0x800
 ELV_Modular_System.menu.pnum.ELV_BM_TRX1.build.st_extra_flags=-D{build.product_line} -DUSE_CM4_STARTUP_FILE {build.xSerial}
-ELV_Modular_System.menu.pnum.ELV_BM_TRX1.debug.server.openocd.scripts.2=target/stm32wlx.cfg
+ELV_Modular_System.menu.pnum.ELV_BM_TRX1.openocd.target=stm32wlx
 ELV_Modular_System.menu.pnum.ELV_BM_TRX1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WLxx/STM32WLE5_CM4.svd
 
 # Upload menu
