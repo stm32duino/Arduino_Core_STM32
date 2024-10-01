@@ -382,6 +382,14 @@ Nucleo_144.menu.upload_method.dfuMethod.upload.protocol=dfu
 Nucleo_144.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Nucleo_144.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+Nucleo_144.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+Nucleo_144.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+Nucleo_144.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+Nucleo_144.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+Nucleo_144.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+Nucleo_144.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Nucleo 64 boards
 
@@ -876,13 +884,13 @@ Nucleo_64.menu.upload_method.dfuMethod.upload.protocol=dfu
 Nucleo_64.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Nucleo_64.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
-Nucleo_64.menu.upload_method.OpenOCD=OpenOCD STLink (SWD)
-Nucleo_64.menu.upload_method.OpenOCD.upload.protocol=stlink
-Nucleo_64.menu.upload_method.OpenOCD.upload.tool=openocd_upload
+Nucleo_64.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+Nucleo_64.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+Nucleo_64.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 
-Nucleo_64.menu.upload_method.OpenOCDDap=OpenOCD DapLink (SWD)
-Nucleo_64.menu.upload_method.OpenOCDDap.upload.protocol=cmsis-dap
-Nucleo_64.menu.upload_method.OpenOCDDap.upload.tool=openocd_upload
+Nucleo_64.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+Nucleo_64.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+Nucleo_64.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # Nucleo 32 boards
@@ -1046,6 +1054,14 @@ Nucleo_32.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Nucleo_32.menu.upload_method.dfuMethod.upload.protocol=dfu
 Nucleo_32.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Nucleo_32.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Nucleo_32.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+Nucleo_32.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+Nucleo_32.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+Nucleo_32.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+Nucleo_32.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+Nucleo_32.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # Discovery boards
@@ -1368,6 +1384,14 @@ Disco.menu.upload_method.dfuMethod.upload.protocol=dfu
 Disco.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Disco.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+Disco.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+Disco.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+Disco.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+Disco.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+Disco.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+Disco.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Eval boards
 
@@ -1438,6 +1462,14 @@ Eval.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Eval.menu.upload_method.dfuMethod.upload.protocol=dfu
 Eval.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Eval.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Eval.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+Eval.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+Eval.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+Eval.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+Eval.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+Eval.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # STM32MP1 microprocessor series (MPU + MCU)
@@ -1621,6 +1653,14 @@ GenC0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenC0.menu.upload_method.serialMethod.upload.protocol=serial
 GenC0.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
 GenC0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenC0.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenC0.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenC0.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenC0.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenC0.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenC0.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ###############################
 # Generic F0
@@ -2530,6 +2570,14 @@ GenF0.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenF0.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenF0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenF0.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenF0.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenF0.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenF0.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenF0.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenF0.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic F1
 GenF1.name=Generic STM32F1 series
@@ -3374,6 +3422,14 @@ GenF1.menu.upload_method.dfuoMethod.upload.altID=1
 GenF1.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
 GenF1.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF
 
+GenF1.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenF1.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenF1.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenF1.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenF1.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenF1.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic F2
 GenF2.name=Generic STM32F2 series
@@ -3829,6 +3885,14 @@ GenF2.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenF2.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenF2.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenF2.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenF2.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenF2.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenF2.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenF2.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenF2.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic F3
 
@@ -4283,6 +4347,14 @@ GenF3.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 GenF3.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
 GenF3.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
 GenF3.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
+GenF3.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenF3.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenF3.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenF3.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenF3.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenF3.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # Generic F4
@@ -5299,6 +5371,14 @@ GenF4.menu.upload_method.hidMethod.upload.tool=hid_upload
 GenF4.menu.upload_method.hidMethod.build.flash_offset=0x4000
 GenF4.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID
 
+GenF4.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenF4.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenF4.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenF4.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenF4.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenF4.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic F7
 
@@ -5828,6 +5908,14 @@ GenF7.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF7.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenF7.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenF7.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+GenF7.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenF7.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenF7.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenF7.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenF7.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenF7.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ###############################
 # Generic G0
@@ -7240,6 +7328,14 @@ GenG0.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenG0.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenG0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenG0.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenG0.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenG0.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenG0.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenG0.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenG0.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ###############################
 # Generic G4
 GenG4.name=Generic STM32G4 series
@@ -8431,6 +8527,14 @@ GenG4.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenG4.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenG4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenG4.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenG4.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenG4.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenG4.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenG4.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenG4.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic H5
 GenH5.name=Generic STM32H5 series
@@ -8602,6 +8706,14 @@ GenH5.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenH5.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenH5.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenH5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+#GenH5.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+#GenH5.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+#GenH5.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+#GenH5.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+#GenH5.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+#GenH5.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # Generic H7
@@ -9238,6 +9350,14 @@ GenH7.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenH7.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenH7.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenH7.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+GenH7.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenH7.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenH7.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenH7.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenH7.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenH7.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # Generic L0
@@ -10521,6 +10641,14 @@ GenL0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
 GenL0.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
 GenL0.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
+GenL0.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenL0.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenL0.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenL0.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenL0.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenL0.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic L1
 GenL1.name=Generic STM32L1 series
@@ -10840,6 +10968,14 @@ GenL1.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenL1.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenL1.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenL1.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+GenL1.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenL1.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenL1.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenL1.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenL1.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenL1.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # Generic L4
@@ -11641,6 +11777,14 @@ GenL4.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenL4.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenL4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenL4.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenL4.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenL4.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenL4.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenL4.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenL4.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic L5
 GenL5.name=Generic STM32L5 series
@@ -11702,6 +11846,14 @@ GenL5.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenL5.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenL5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenL5.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenL5.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenL5.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenL5.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenL5.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenL5.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ###############################
 # Generic U0
 GenU0.name=Generic STM32U0 series
@@ -11714,7 +11866,8 @@ GenU0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 GenU0.build.flash_offset=0x0
 GenU0.upload.maximum_size=0
 GenU0.upload.maximum_data_size=0
-GenU0.openocd.target=stm32u0x
+# Current openocd version does not support U0
+# GenU0.openocd.target=stm32u0x
 GenU0.vid.0=0x0483
 GenU0.pid.0=0x5740
 
@@ -11805,6 +11958,14 @@ GenU0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenU0.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenU0.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenU0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+#GenU0.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+#GenU0.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+#GenU0.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+#GenU0.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+#GenU0.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+#GenU0.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # Generic U5
@@ -11930,6 +12091,14 @@ GenU5.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenU5.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenU5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenU5.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenU5.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenU5.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenU5.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenU5.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenU5.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic WB
 GenWB.name=Generic STM32WB series
@@ -12036,6 +12205,14 @@ GenWB.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenWB.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenWB.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenWB.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenWB.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenWB.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenWB.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenWB.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenWB.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Generic WBA
 GenWBA.name=Generic STM32WBA series
@@ -12080,6 +12257,14 @@ GenWBA.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenWBA.menu.upload_method.serialMethod.upload.protocol=serial
 GenWBA.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
 GenWBA.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenWBA.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenWBA.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenWBA.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenWBA.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenWBA.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenWBA.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # Generic WL
@@ -12256,6 +12441,14 @@ GenWL.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenWL.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenWL.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+GenWL.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenWL.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenWL.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenWL.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenWL.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenWL.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # 3D printer boards
@@ -12488,6 +12681,14 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 3dprinter.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+3dprinter.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+3dprinter.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+3dprinter.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+3dprinter.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+3dprinter.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+3dprinter.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Blues boards
 
@@ -12551,6 +12752,14 @@ Blues.menu.upload_method.dfuMethod.upload.protocol=dfu
 Blues.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Blues.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+Blues.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+Blues.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+Blues.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+Blues.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+Blues.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+Blues.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Elecgator boards
 
@@ -12591,6 +12800,14 @@ Elecgator.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Elecgator.menu.upload_method.dfuMethod.upload.protocol=dfu
 Elecgator.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Elecgator.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Elecgator.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+Elecgator.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+Elecgator.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+Elecgator.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+Elecgator.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+Elecgator.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # Electronic Speed Controller boards
@@ -12648,6 +12865,14 @@ ESC_board.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 ESC_board.menu.upload_method.dfuMethod.upload.protocol=dfu
 ESC_board.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 ESC_board.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+ESC_board.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+ESC_board.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+ESC_board.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+ESC_board.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+ESC_board.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+ESC_board.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # Garatronic-McHobby STM32 boards
@@ -12827,6 +13052,14 @@ GenFlight.menu.upload_method.dfuoMethod.upload.altID=1
 GenFlight.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
 GenFlight.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF
 
+GenFlight.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+GenFlight.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+GenFlight.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+GenFlight.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+GenFlight.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+GenFlight.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # IoT continuum Boards
 
@@ -12870,6 +13103,14 @@ IotContinuum.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 IotContinuum.menu.upload_method.dfuMethod.upload.protocol=dfu
 IotContinuum.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 IotContinuum.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+IotContinuum.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+IotContinuum.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+IotContinuum.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+IotContinuum.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+IotContinuum.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+IotContinuum.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # LoRa boards
@@ -13038,6 +13279,14 @@ LoRa.menu.upload_method.dfuMethod.upload.protocol=dfu
 LoRa.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+LoRa.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+LoRa.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+LoRa.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+LoRa.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+LoRa.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+LoRa.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
 ################################################################################
 # Midatronics boards
 
@@ -13087,6 +13336,14 @@ Midatronics.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Midatronics.menu.upload_method.dfuMethod.upload.protocol=dfu
 Midatronics.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Midatronics.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Midatronics.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+Midatronics.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+Midatronics.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+Midatronics.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+Midatronics.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+Midatronics.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # SparkFun Boards
@@ -13153,6 +13410,14 @@ SparkFun.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 SparkFun.menu.upload_method.dfuMethod.upload.protocol=dfu
 SparkFun.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 SparkFun.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+SparkFun.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+SparkFun.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+SparkFun.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+SparkFun.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+SparkFun.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+SparkFun.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
 # ELV Modular System boards
