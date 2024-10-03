@@ -23,6 +23,7 @@ add_library(variant_bin STATIC EXCLUDE_FROM_ALL
   PeripheralPins.c
   variant_generic.cpp
   variant_P_NUCLEO_WB55RG.cpp
+  variant_STEAM32_WB55RG.cpp
 )
 target_link_libraries(variant_bin PUBLIC variant_usage)
 
