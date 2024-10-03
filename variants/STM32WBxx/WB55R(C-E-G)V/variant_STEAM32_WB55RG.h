@@ -70,16 +70,16 @@
 // GPIO expander
 // Not used by Arduino only here for documentation purpose
 // Upper pad
-#define GPIO1                   44 // P28
-#define GPIO2                   45 // P29
-#define GPIO3                   46 // P24
-#define GPIO4                   47 // P25
+// GPIO1 --> P28
+// GPIO2 --> P29
+// GPIO3 --> P24
+// GPIO4 --> P25
 
 // 4 directions switches
-#define GPIO5                   48
-#define GPIO6                   49
-#define GPIO7                   50
-#define GPIO8                   51
+// GPIO5
+// GPIO6
+// GPIO7
+// GPIO8
 
 // STeaMi's PinName
 #define ACTIVATE_3V3_STLINK     PB2
@@ -157,11 +157,12 @@
 // On-board user button
 #define A_BUTTON                PA7
 #define B_BUTTON                PA8
-#define DOWN_BUTTON             GPIO6
-#define LEFT_BUTTON             GPIO7
 #define MENU_BUTTON             PA0
-#define RIGHT_BUTTON            GPIO5
-#define UP_BUTTON               GPIO8
+
+// DOWN_BUTTON  --> GPIO6
+// LEFT_BUTTON  --> GPIO7
+// RIGHT_BUTTON --> GPIO5
+// UP_BUTTON    --> GPIO8
 
 #ifndef USER_BTN
   #define USER_BTN              MENU_BUTTON
