@@ -40,13 +40,13 @@ const PinName digitalPin[] = {
   PA_13,  // 21 - SWDIO
   PA_14,  // 22 - SWCLK
   PA_15,  // 23 - CHARGE_DETECT
-  PB_3,   // 24 - USER_BTN
+  PB_3,   // 24 - USB_DETECT
   PB_5,   // 25 - MO
   PB_6,   // 26 - SCL
   PB_7,   // 27 - SDA
   PB_10,  // 28 - LPUART1_VCP_RX
   PB_11,  // 29 - LPUART1_VCP_TX
-  PC_13,  // 30 - USB_DETECT
+  PC_13,  // 30 - USER_BTN
   PC_14,  // 31 - OSC32_IN
   PC_15,  // 32 - OSC32_OUT
   PH_0,   // 33 - ENABLE_3V3
@@ -85,8 +85,8 @@ WEAK void initVariant(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Pin = GPIO_PIN_1;
   HAL_GPIO_Init(GPIOH, &GPIO_InitStruct); /* PH1 DISCHARGE_3V3 */
-  GPIO_InitStruct.Pin = GPIO_PIN_13;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct); /* PC13 is USB_DETECT */
+  GPIO_InitStruct.Pin = GPIO_PIN_3;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct); /* PB3 is USB_DETECT */
   GPIO_InitStruct.Pin = GPIO_PIN_15;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); /* PA15 is CHARGE_DETECT */
   GPIO_InitStruct.Pin = GPIO_PIN_4;
