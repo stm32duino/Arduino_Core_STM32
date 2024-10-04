@@ -45,13 +45,13 @@
 #define PA13                    21      // SWDIO
 #define PA14                    22      // SWCLK
 #define PA15                    23      // CHARGE_DETECT
-#define PB3                     24      // USER_BTN
+#define PB3                     24      // USB_DETECT
 #define PB5                     25      // MO
 #define PB6                     26      // SCL
 #define PB7                     27      // SDA
 #define PB10                    28      // LPUART1_VCP_RX
 #define PB11                    29      // LPUART1_VCP_TX
-#define PC13                    30      // USB_DETECT
+#define PC13                    30      // USER_BTN
 #define PC14                    31      // OSC32_IN
 #define PC15                    32      // OSC32_OUT
 #define PH0                     33      // ENABLE_3V3
@@ -83,7 +83,7 @@
 
 // On-board user button
 #ifndef USER_BTN
-  #define USER_BTN              PB3
+  #define USER_BTN              PC13
 #endif
 
 // Power switch ENABLE and DISCHARGE pins
