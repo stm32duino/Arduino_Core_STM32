@@ -176,7 +176,7 @@ uint8_t SPIClass::transfer(uint8_t data, bool skipReceive)
   *         Optional, default: SPI_TRANSMITRECEIVE.
   * @return bytes received from the slave in 16 bits format.
   */
-uint16_t SPIClass::transfer16(uint16_t data, bool skipReceive)
+uint16_t SPIClass::transfer16_obsoleted(uint16_t data, bool skipReceive)
 {
   uint16_t tmp;
 
@@ -192,6 +192,26 @@ uint16_t SPIClass::transfer16(uint16_t data, bool skipReceive)
   }
 
   return data;
+}
+
+uint16_t SPIClass::transfer16(uint16_t data, bool skipReceive)
+{
+  uint16_t tmp;
+  uint16_t out;
+
+  if (_spiSettings.bitOrder) {
+    tmp = ((data & 0xff00) >> 8) | ((data & 0xff) << 8);
+    data = tmp;
+  }
+  
+  spi_transfer16(&_spi, (uint16_t *)&data, (!skipReceive) ? (uint16_t *)&out : NULL);
+
+  if (_spiSettings.bitOrder) {
+    tmp = ((out & 0xff00) >> 8) | ((out & 0xff) << 8);
+    out = tmp;
+  }
+
+  return out;
 }
 
 /**
