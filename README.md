@@ -88,6 +88,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [Midatronics boards](#midatronics-boards)
  - [SparkFun boards](#sparkfun-boards)
  - [ELV Boards](#elv-boards)
+ - [STeaMi board](#steami-board)
 
 > [!Note]
 > - :green_heart: board support is available since the specified release version.
@@ -865,6 +866,11 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32WLE5JB | ELV-BM-TRX1 | *2.8.0* |  |
 
+### [STeaMi Board](https://www.steami.cc/)
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart:  | STM32WB55RGV | [STeaMi](https://www.steami.cc/) | **2.9.0** |  |
 ## Next release
 
 See [milestones](https://github.com/stm32duino/Arduino_Core_STM32/milestones) to have an overview of the next release content.
