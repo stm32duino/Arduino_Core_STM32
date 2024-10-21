@@ -420,7 +420,49 @@ static uint32_t i2c_getClkFreq(I2C_TypeDef *i2c)
 #else
     clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C35);
 #endif
+    if (clkSrcFreq == 0)
 #endif
+    {
+#ifdef __HAL_RCC_GET_I2C5_SOURCE
+      switch (__HAL_RCC_GET_I2C5_SOURCE()) {
+#ifdef RCC_I2C5CLKSOURCE_HSI
+        case RCC_I2C5CLKSOURCE_HSI:
+          clkSrcFreq = HSI_VALUE;
+          break;
+#endif
+#ifdef RCC_I2C5CLKSOURCE_SYSCLK
+        case RCC_I2C5CLKSOURCE_SYSCLK:
+          clkSrcFreq = SystemCoreClock;
+          break;
+#endif
+#if defined(RCC_I2C5CLKSOURCE_PCLK1) || defined(RCC_I2C5CLKSOURCE_D2PCLK1)
+#ifdef RCC_I2C5CLKSOURCE_PCLK1
+        case RCC_I2C5CLKSOURCE_PCLK1:
+#endif
+#ifdef RCC_I2C5CLKSOURCE_D2PCLK1
+        case RCC_I2C5CLKSOURCE_D2PCLK1:
+#endif
+          clkSrcFreq = HAL_RCC_GetPCLK1Freq();
+          break;
+#endif
+#ifdef RCC_I2C5CLKSOURCE_CSI
+        case RCC_I2C5CLKSOURCE_CSI:
+          clkSrcFreq = CSI_VALUE;
+          break;
+#endif
+#ifdef RCC_I2C5CLKSOURCE_PLL3
+        case RCC_I2C5CLKSOURCE_PLL3:
+          HAL_RCCEx_GetPLL3ClockFreq(&PLL3_Clocks);
+          clkSrcFreq = PLL3_Clocks.PLL3_R_Frequency;
+          break;
+#endif
+        default:
+          Error_Handler();
+      }
+#else
+      Error_Handler();
+#endif
+    }
   }
 #endif // I2C5_BASE
 #if defined(I2C6_BASE)
@@ -431,7 +473,38 @@ static uint32_t i2c_getClkFreq(I2C_TypeDef *i2c)
 #else
     clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C46);
 #endif
+    if (clkSrcFreq == 0)
 #endif
+    {
+#ifdef __HAL_RCC_GET_I2C6_SOURCE
+      switch (__HAL_RCC_GET_I2C6_SOURCE()) {
+#ifdef RCC_I2C6CLKSOURCE_HSI
+        case RCC_I2C6CLKSOURCE_HSI:
+          clkSrcFreq = HSI_VALUE;
+          break;
+#endif
+#ifdef RCC_I2C6CLKSOURCE_SYSCLK
+        case RCC_I2C6CLKSOURCE_SYSCLK:
+          clkSrcFreq = SystemCoreClock;
+          break;
+#endif
+#ifdef RCC_I2C6CLKSOURCE_PCLK1
+        case RCC_I2C6CLKSOURCE_PCLK1:
+          clkSrcFreq = HAL_RCC_GetPCLK1Freq();
+          break;
+#endif
+#ifdef RCC_I2C6CLKSOURCE_MSIK
+        case RCC_I2C6CLKSOURCE_MSIK:
+          clkSrcFreq = MSI_VALUE;
+          break;
+#endif
+        default:
+          Error_Handler();
+      }
+#else
+      Error_Handler();
+#endif
+    }
   }
 #endif // I2C6_BASE
   return clkSrcFreq;
