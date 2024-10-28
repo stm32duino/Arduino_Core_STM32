@@ -13631,6 +13631,47 @@ ELV_Modular_System.menu.upload_method.serialMethod.upload.options=-c {serial.por
 ELV_Modular_System.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 ################################################################################
+# STeaMi board
+STeaMi.name=STeaMi Board
+STeaMi.build.core=arduino
+STeaMi.build.variant_h=variant_{build.board}.h
+STeaMi.build.st_extra_flags=-D{build.product_line} {build.xSerial}
+STeaMi.build.flash_offset=0x0
+STeaMi.upload.maximum_size=0
+STeaMi.upload.maximum_data_size=0
+STeaMi.vid.0=0x0d28
+STeaMi.pid.0=0x0204
+
+STeaMi.menu.pnum.STEAM32_WB55RG=STeaMi
+STeaMi.menu.pnum.STEAM32_WB55RG.node="STeaMi,DAPLINK"
+STeaMi.menu.pnum.STEAM32_WB55RG.upload.maximum_size=524288
+STeaMi.menu.pnum.STEAM32_WB55RG.upload.maximum_data_size=196608
+STeaMi.menu.pnum.STEAM32_WB55RG.build.mcu=cortex-m4
+STeaMi.menu.pnum.STEAM32_WB55RG.build.fpu=-mfpu=fpv4-sp-d16
+STeaMi.menu.pnum.STEAM32_WB55RG.build.float-abi=-mfloat-abi=hard
+STeaMi.menu.pnum.STEAM32_WB55RG.build.board=STEAM32_WB55RG
+STeaMi.menu.pnum.STEAM32_WB55RG.build.series=STM32WBxx
+STeaMi.menu.pnum.STEAM32_WB55RG.build.product_line=STM32WB55xx
+STeaMi.menu.pnum.STEAM32_WB55RG.build.variant=STM32WBxx/WB55R(C-E-G)V
+STeaMi.menu.pnum.STEAM32_WB55RG.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+STeaMi.menu.pnum.STEAM32_WB55RG.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
+STeaMi.menu.pnum.STEAM32_WB55RG.openocd.target=stm32wbx
+STeaMi.menu.pnum.STEAM32_WB55RG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBxx/STM32WB55_CM4.svd
+
+# Upload menu
+STeaMi.menu.upload_method.MassStorage=Mass Storage
+STeaMi.menu.upload_method.MassStorage.upload.protocol=
+STeaMi.menu.upload_method.MassStorage.upload.tool=massStorageCopy
+
+STeaMi.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+STeaMi.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+STeaMi.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
+STeaMi.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+STeaMi.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+STeaMi.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+################################################################################
 # Serialx activation
 Nucleo_144.menu.xserial.generic=Enabled (generic 'Serial')
 Nucleo_144.menu.xserial.none=Enabled (no generic 'Serial')
@@ -13861,6 +13902,12 @@ ELV_Modular_System.menu.xserial.none=Enabled (no generic 'Serial')
 ELV_Modular_System.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 ELV_Modular_System.menu.xserial.disabled=Disabled (no Serial support)
 ELV_Modular_System.menu.xserial.disabled.build.xSerial=
+
+STeaMi.menu.xserial.generic=Enabled (generic 'Serial')
+STeaMi.menu.xserial.none=Enabled (no generic 'Serial')
+STeaMi.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+STeaMi.menu.xserial.disabled=Disabled (no Serial support)
+STeaMi.menu.xserial.disabled.build.xSerial=
 
 # USB connectivity
 Nucleo_144.menu.usb.none=None
@@ -14961,6 +15008,26 @@ ELV_Modular_System.menu.opt.ogstd.build.flags.optimize=-Og
 ELV_Modular_System.menu.opt.o0std=No Optimization (-O0)
 ELV_Modular_System.menu.opt.o0std.build.flags.optimize=-O0
 
+STeaMi.menu.opt.osstd=Smallest (-Os default)
+STeaMi.menu.opt.oslto=Smallest (-Os) with LTO
+STeaMi.menu.opt.oslto.build.flags.optimize=-Os -flto
+STeaMi.menu.opt.o1std=Fast (-O1)
+STeaMi.menu.opt.o1std.build.flags.optimize=-O1
+STeaMi.menu.opt.o1lto=Fast (-O1) with LTO
+STeaMi.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+STeaMi.menu.opt.o2std=Faster (-O2)
+STeaMi.menu.opt.o2std.build.flags.optimize=-O2
+STeaMi.menu.opt.o2lto=Faster (-O2) with LTO
+STeaMi.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+STeaMi.menu.opt.o3std=Fastest (-O3)
+STeaMi.menu.opt.o3std.build.flags.optimize=-O3
+STeaMi.menu.opt.o3lto=Fastest (-O3) with LTO
+STeaMi.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+STeaMi.menu.opt.ogstd=Debug (-Og)
+STeaMi.menu.opt.ogstd.build.flags.optimize=-Og
+STeaMi.menu.opt.o0std=No Optimization (-O0)
+STeaMi.menu.opt.o0std.build.flags.optimize=-O0
+
 # Debug information
 Nucleo_144.menu.dbg.none=None
 Nucleo_144.menu.dbg.enable_sym=Symbols Enabled (-g)
@@ -15253,6 +15320,14 @@ ELV_Modular_System.menu.dbg.enable_log=Core logs Enabled
 ELV_Modular_System.menu.dbg.enable_log.build.flags.debug=
 ELV_Modular_System.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 ELV_Modular_System.menu.dbg.enable_all.build.flags.debug=-g
+
+STeaMi.menu.dbg.none=None
+STeaMi.menu.dbg.enable_sym=Symbols Enabled (-g)
+STeaMi.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+STeaMi.menu.dbg.enable_log=Core logs Enabled
+STeaMi.menu.dbg.enable_log.build.flags.debug=
+STeaMi.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+STeaMi.menu.dbg.enable_all.build.flags.debug=-g
 
 # C Runtime Library
 Nucleo_144.menu.rtlib.nano=Newlib Nano (default)
@@ -15624,3 +15699,13 @@ ELV_Modular_System.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 ELV_Modular_System.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 ELV_Modular_System.menu.rtlib.full=Newlib Standard
 ELV_Modular_System.menu.rtlib.full.build.flags.ldspecs=
+
+STeaMi.menu.rtlib.nano=Newlib Nano (default)
+STeaMi.menu.rtlib.nanofp=Newlib Nano + Float Printf
+STeaMi.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+STeaMi.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+STeaMi.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+STeaMi.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+STeaMi.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+STeaMi.menu.rtlib.full=Newlib Standard
+STeaMi.menu.rtlib.full.build.flags.ldspecs=

@@ -13,7 +13,7 @@ def get_fpconf(config):
 
 
 def boardstxt_filter(key):
-    # Remove menu entry labels
+    # Remove menu entry labels and oopenocd config if any
     # In our data model, they conflict with the actual configuration
     # they are associated to
     # i.e. Nucleo_144.menu.pnum.NUCLEO_F207ZG would be both
@@ -22,7 +22,8 @@ def boardstxt_filter(key):
 
     if key[-1] == "svd_file":
         return True
-
+    if len(key) >= 5 and key[-2] == "scripts" and key[-3] == "openocd":
+        return True
     if key[0] == "menu":
         # menu.xserial=U(S)ART support
         return True
