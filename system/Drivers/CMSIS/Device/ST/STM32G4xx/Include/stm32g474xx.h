@@ -13544,15 +13544,15 @@ typedef struct {
 #define TAMP_CR2_TAMP3NOERASE_Pos    (2U)
 #define TAMP_CR2_TAMP3NOERASE_Msk    (0x1UL << TAMP_CR2_TAMP3NOERASE_Pos)      /*!< 0x00000004 */
 #define TAMP_CR2_TAMP3NOERASE        TAMP_CR2_TAMP3NOERASE_Msk
-#define TAMP_CR2_TAMP1MF_Pos         (16U)
-#define TAMP_CR2_TAMP1MF_Msk         (0x1UL << TAMP_CR2_TAMP1MF_Pos)           /*!< 0x00010000 */
-#define TAMP_CR2_TAMP1MF             TAMP_CR2_TAMP1MF_Msk
-#define TAMP_CR2_TAMP2MF_Pos         (17U)
-#define TAMP_CR2_TAMP2MF_Msk         (0x1UL << TAMP_CR2_TAMP2MF_Pos)           /*!< 0x00020000 */
-#define TAMP_CR2_TAMP2MF             TAMP_CR2_TAMP2MF_Msk
-#define TAMP_CR2_TAMP3MF_Pos         (18U)
-#define TAMP_CR2_TAMP3MF_Msk         (0x1UL << TAMP_CR2_TAMP3MF_Pos)           /*!< 0x00040000 */
-#define TAMP_CR2_TAMP3MF             TAMP_CR2_TAMP3MF_Msk
+#define TAMP_CR2_TAMP1MSK_Pos         (16U)
+#define TAMP_CR2_TAMP1MSK_Msk         (0x1UL << TAMP_CR2_TAMP1MSK_Pos)           /*!< 0x00010000 */
+#define TAMP_CR2_TAMP1MSK             TAMP_CR2_TAMP1MSK_Msk
+#define TAMP_CR2_TAMP2MSK_Pos         (17U)
+#define TAMP_CR2_TAMP2MSK_Msk         (0x1UL << TAMP_CR2_TAMP2MSK_Pos)           /*!< 0x00020000 */
+#define TAMP_CR2_TAMP2MSK             TAMP_CR2_TAMP2MSK_Msk
+#define TAMP_CR2_TAMP3MSK_Pos         (18U)
+#define TAMP_CR2_TAMP3MSK_Msk         (0x1UL << TAMP_CR2_TAMP3MSK_Pos)           /*!< 0x00040000 */
+#define TAMP_CR2_TAMP3MSK             TAMP_CR2_TAMP3MSK_Msk
 #define TAMP_CR2_TAMP1TRG_Pos        (24U)
 #define TAMP_CR2_TAMP1TRG_Msk        (0x1UL << TAMP_CR2_TAMP1TRG_Pos)          /*!< 0x01000000 */
 #define TAMP_CR2_TAMP1TRG            TAMP_CR2_TAMP1TRG_Msk
@@ -13562,6 +13562,17 @@ typedef struct {
 #define TAMP_CR2_TAMP3TRG_Pos        (26U)
 #define TAMP_CR2_TAMP3TRG_Msk        (0x1UL << TAMP_CR2_TAMP3TRG_Pos)          /*!< 0x04000000 */
 #define TAMP_CR2_TAMP3TRG            TAMP_CR2_TAMP3TRG_Msk
+
+/* Legacy aliases */
+#define TAMP_CR2_TAMP1MF_Pos            TAMP_CR2_TAMP1MSK_Pos
+#define TAMP_CR2_TAMP1MF_Msk            TAMP_CR2_TAMP1MSK_Msk
+#define TAMP_CR2_TAMP1MF                TAMP_CR2_TAMP1MSK
+#define TAMP_CR2_TAMP2MF_Pos            TAMP_CR2_TAMP2MSK_Pos
+#define TAMP_CR2_TAMP2MF_Msk            TAMP_CR2_TAMP2MSK_Msk
+#define TAMP_CR2_TAMP2MF                TAMP_CR2_TAMP2MSK
+#define TAMP_CR2_TAMP3MF_Pos            TAMP_CR2_TAMP3MSK_Pos
+#define TAMP_CR2_TAMP3MF_Msk            TAMP_CR2_TAMP3MSK_Msk
+#define TAMP_CR2_TAMP3MF                TAMP_CR2_TAMP3MSK
 
 /********************  Bits definition for TAMP_FLTCR register  ***************/
 #define TAMP_FLTCR_TAMPFREQ_0        (0x00000001UL)
