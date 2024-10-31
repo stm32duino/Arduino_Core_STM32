@@ -445,17 +445,17 @@ typedef struct
 /** @defgroup RTC_LL_EC_TAMPER_MASK  TAMPER MASK
   * @{
   */
-#define LL_RTC_TAMPER_MASK_TAMPER1         TAMP_CR2_TAMP1MF /*!< Tamper 1 event generates a trigger event. TAMP1F is masked and internally cleared by hardware.The backup registers are not erased */
-#define LL_RTC_TAMPER_MASK_TAMPER2         TAMP_CR2_TAMP2MF /*!< Tamper 2 event generates a trigger event. TAMP2F is masked and internally cleared by hardware. The backup registers are not erased. */
+#define LL_RTC_TAMPER_MASK_TAMPER1         TAMP_CR2_TAMP1MSK /*!< Tamper 1 event generates a trigger event. TAMP1F is masked and internally cleared by hardware.The backup registers are not erased */
+#define LL_RTC_TAMPER_MASK_TAMPER2         TAMP_CR2_TAMP2MSK /*!< Tamper 2 event generates a trigger event. TAMP2F is masked and internally cleared by hardware. The backup registers are not erased. */
 #if (RTC_TAMP_NB == 3)
-#define LL_RTC_TAMPER_MASK_TAMPER3         TAMP_CR2_TAMP3MF /*!< Tamper 3 event generates a trigger event. TAMP2F is masked and internally cleared by hardware. The backup registers are not erased. */
+#define LL_RTC_TAMPER_MASK_TAMPER3         TAMP_CR2_TAMP3MSK /*!< Tamper 3 event generates a trigger event. TAMP2F is masked and internally cleared by hardware. The backup registers are not erased. */
 #elif (RTC_TAMP_NB == 8)
-#define LL_RTC_TAMPER_MASK_TAMPER3         TAMP_CR2_TAMP3MF /*!< Tamper 3 event generates a trigger event. TAMP2F is masked and internally cleared by hardware. The backup registers are not erased. */
-#define LL_RTC_TAMPER_MASK_TAMPER4         TAMP_CR2_TAMP4MF /*!< Tamper 4 event generates a trigger event. TAMP1F is masked and internally cleared by hardware.The backup registers are not erased */
-#define LL_RTC_TAMPER_MASK_TAMPER5         TAMP_CR2_TAMP5MF /*!< Tamper 5 event generates a trigger event. TAMP2F is masked and internally cleared by hardware. The backup registers are not erased. */
-#define LL_RTC_TAMPER_MASK_TAMPER6         TAMP_CR2_TAMP6MF /*!< Tamper 6 event generates a trigger event. TAMP1F is masked and internally cleared by hardware.The backup registers are not erased */
-#define LL_RTC_TAMPER_MASK_TAMPER7         TAMP_CR2_TAMP7MF /*!< Tamper 7 event generates a trigger event. TAMP2F is masked and internally cleared by hardware. The backup registers are not erased. */
-#define LL_RTC_TAMPER_MASK_TAMPER8         TAMP_CR2_TAMP8MF /*!< Tamper 8 event generates a trigger event. TAMP2F is masked and internally cleared by hardware. The backup registers are not erased. */
+#define LL_RTC_TAMPER_MASK_TAMPER3         TAMP_CR2_TAMP3MSK /*!< Tamper 3 event generates a trigger event. TAMP2F is masked and internally cleared by hardware. The backup registers are not erased. */
+#define LL_RTC_TAMPER_MASK_TAMPER4         TAMP_CR2_TAMP4MSK /*!< Tamper 4 event generates a trigger event. TAMP1F is masked and internally cleared by hardware.The backup registers are not erased */
+#define LL_RTC_TAMPER_MASK_TAMPER5         TAMP_CR2_TAMP5MSK /*!< Tamper 5 event generates a trigger event. TAMP2F is masked and internally cleared by hardware. The backup registers are not erased. */
+#define LL_RTC_TAMPER_MASK_TAMPER6         TAMP_CR2_TAMP6MSK /*!< Tamper 6 event generates a trigger event. TAMP1F is masked and internally cleared by hardware.The backup registers are not erased */
+#define LL_RTC_TAMPER_MASK_TAMPER7         TAMP_CR2_TAMP7MSK /*!< Tamper 7 event generates a trigger event. TAMP2F is masked and internally cleared by hardware. The backup registers are not erased. */
+#define LL_RTC_TAMPER_MASK_TAMPER8         TAMP_CR2_TAMP8MSK /*!< Tamper 8 event generates a trigger event. TAMP2F is masked and internally cleared by hardware. The backup registers are not erased. */
 #else
 #warning "RTC_TAMP_NB is not correct"
 #endif /* (RTC_TAMP_NB) */
