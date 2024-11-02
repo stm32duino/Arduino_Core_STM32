@@ -107,8 +107,8 @@ int USBSerial::read(void)
 
 size_t USBSerial::readBytes(char *buffer, size_t length)
 {
-  uint16_t read;
-  auto rest = static_cast<uint16_t>(length);
+  size_t read;
+  size_t rest = length;
   _startMillis = millis();
   do {
     read = CDC_ReceiveQueue_Read(&ReceiveQueue, reinterpret_cast<uint8_t *>(buffer), rest);
@@ -124,8 +124,8 @@ size_t USBSerial::readBytes(char *buffer, size_t length)
 
 size_t USBSerial::readBytesUntil(char terminator, char *buffer, size_t length)
 {
-  uint16_t read;
-  auto rest = static_cast<uint16_t>(length);
+  size_t read;
+  size_t rest = length;
   _startMillis = millis();
   do {
     bool found = CDC_ReceiveQueue_ReadUntil(&ReceiveQueue, static_cast<uint8_t>(terminator),

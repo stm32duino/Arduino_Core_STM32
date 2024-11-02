@@ -375,6 +375,12 @@ size_t Print::printULLNumber(unsigned long long n64, uint8_t base)
   uint8_t i = 0;
   uint8_t innerLoops = 0;
 
+  // Special case workaround https://github.com/arduino/ArduinoCore-API/issues/178
+  if (n64 == 0) {
+    write('0');
+    return 1;
+  }
+
   // prevent crash if called with base == 1
   if (base < 2) {
     base = 10;
