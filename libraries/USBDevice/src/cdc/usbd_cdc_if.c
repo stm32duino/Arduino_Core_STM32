@@ -238,7 +238,7 @@ static int8_t USBD_CDC_Receive(uint8_t *Buf, uint32_t *Len)
   UNUSED(Buf);
 #endif
   /* It always contains required amount of free space for writing */
-  CDC_ReceiveQueue_CommitBlock(&ReceiveQueue, (uint16_t)(*Len));
+  CDC_ReceiveQueue_CommitBlock(&ReceiveQueue, *Len);
   receivePended = false;
   /* If enough space in the queue for a full buffer then continue receive */
   if (!CDC_resume_receive()) {
@@ -330,7 +330,7 @@ bool CDC_connected()
 
 void CDC_continue_transmit(void)
 {
-  uint16_t size;
+  uint32_t size;
   uint8_t *buffer;
   USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef *) hUSBD_Device_CDC.pClassData;
   /*
