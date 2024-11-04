@@ -1,7 +1,7 @@
 ## SPI
 
 STM32 SPI library has been modified with the possibility to manage hardware CS pin linked to the SPI peripheral.
-_We do not describe here the [SPI Arduino API](https://www.arduino.cc/en/Reference/SPI) but the functionalities added._
+_We do not describe here the [SPI Arduino API](https://docs.arduino.cc/language-reference/en/functions/communication/SPI/) but the functionalities added._
 
 User have 2 possibilities about the management of the CS pin:
 * the CS pin is managed directly by the user code before to transfer the data (like the Arduino SPI library)
