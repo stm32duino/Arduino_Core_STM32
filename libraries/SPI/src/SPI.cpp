@@ -37,6 +37,7 @@ SPIClass SPI;
   */
 SPIClass::SPIClass(uint32_t mosi, uint32_t miso, uint32_t sclk, uint32_t ssel)
 {
+  memset((void *)&_spi, 0, sizeof(_spi));
   _spi.pin_miso = digitalPinToPinName(miso);
   _spi.pin_mosi = digitalPinToPinName(mosi);
   _spi.pin_sclk = digitalPinToPinName(sclk);
