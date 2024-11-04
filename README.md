@@ -789,7 +789,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F765VI | [RemRam v1](https://github.com/hasenbanck/remram) | *1.4.0* |  |
 | :green_heart:  | STM32F446VE | [RUMBA32](https://github.com/Aus3D/RUMBA32) | *1.5.0* |  |
 | :green_heart:  | STM32F401VE | [STEVAL-3DP001V1](https://www.st.com/en/evaluation-tools/steval-3dp001v1.html) | *1.6.0* |  |
-| :green_heart:  | STM32F446RE | [VAkE v1.0](https://www.facebook.com/pages/category/Product-Service/VAkE-Board-2290066274575218/) | *1.6.0* |  |
+| :green_heart:  | STM32F446RE | VAkE v1.0 | *1.6.0* |  |
 | :green_heart:  | STM32F446VE | [FYSETC_S6](https://wiki.fysetc.com/FYSETC_S6/) | *1.9.0* | |
 | :green_heart:  | STM32G0B1CB | [BTT EBB42 CAN V1.1](https://github.com/bigtreetech/EBB/tree/master) | *2.4.0* |  |
 
@@ -860,7 +860,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32F405RG | [SparkFun MicroMod Processor Board - STM32F405](https://www.sparkfun.com/products/21326) | *2.6.0* |  |
 | :green_heart: | STM32WB5MMG | [SparkFun MicroMod Processor Board - STM32WB5MMG](https://www.sparkfun.com/products/21438) | *2.6.0* |  |
 
-### [ELV Boards](https://de.elv.com/lorawan)
+### [ELV Boards](https://de.elv.com/)
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
