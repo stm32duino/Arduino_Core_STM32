@@ -3,12 +3,12 @@
 **
 **  File        : LinkerScript.ld
 **
-**  Author      : STM32CubeIDE & Mathieu CHOPLAIN
+**  Author      : STM32CubeIDE
 **
 **  Abstract    : Linker script for STM32H7XIHx series
 **                      2048Kbytes FLASH
 **                       512Kbytes RAM_D1
-**                       288Kbytes RAM_D2  (stack)
+**                       288Kbytes RAM_D2  (unused)
 **                        64Kbytes RAM_D3  (unused)
 **                       128Kbytes ITCMRAM (unused)
 **                        64Kbytes DTCMRAM (unused)
@@ -21,7 +21,7 @@
 **
 **  Target      : STMicroelectronics STM32
 **
-**  Distribution: The file is distributed as is without any warranty
+**  Distribution: The file is distributed as is, without any warranty
 **                of any kind.
 **
 *****************************************************************************
@@ -42,31 +42,20 @@
 ENTRY(Reset_Handler)
 
 /* Highest address of the user mode stack */
-_estack = ORIGIN(RAM_D2) + LENGTH(RAM_D2); /* Use the otherwise wasted RAM_D2 region for stack */
+_estack = ORIGIN(RAM_D1) + LENGTH(RAM_D1);    /* end of RAM_D1 */
+/* Generate a link error if heap and stack don't fit into RAM_D1 */
+_Min_Heap_Size = 0x200;      /* required amount of heap  */
+_Min_Stack_Size = 0x400; /* required amount of stack */
 
-/* Special value for CRT to prevent heap overflow into address space hole:
-  _sbrk assumes the RAM between _end and _estack is contiguous and prevents
-  heap overflowing into the stack by checking that the heap end pointer is
-  never going past (_estack - _Min_Stack_Size).
-
-  By setting _Min_Stack_Size to this value, we ensure that _sbrk considers the
-  end of RAM_D1 as the heap's upper limit, preventing reserved memory space from
-  being used as heap memory improperly.
-*/
-_Min_Stack_Size = _estack - (ORIGIN(RAM_D1) + LENGTH(RAM_D1));
-_Min_Heap_Size = 0x200; /* required amount of heap  */
-
-
-/* Memories definition */
+/* Specify the memory areas */
 MEMORY
 {
-  FLASH   (rx)   : ORIGIN = 0x08000000 + LD_FLASH_OFFSET, LENGTH = LD_MAX_SIZE - LD_FLASH_OFFSET
-  ITCMRAM (xrw)  : ORIGIN = 0x00000000, LENGTH = 64K
+  FLASH (rx)     : ORIGIN = 0x08000000 + LD_FLASH_OFFSET, LENGTH = LD_MAX_SIZE - LD_FLASH_OFFSET
   DTCMRAM (xrw)  : ORIGIN = 0x20000000, LENGTH = 128K
   RAM_D1 (xrw)   : ORIGIN = 0x24000000, LENGTH = LD_MAX_DATA_SIZE
   RAM_D2 (xrw)   : ORIGIN = 0x30000000, LENGTH = 288K
   RAM_D3 (xrw)   : ORIGIN = 0x38000000, LENGTH = 64K
-
+  ITCMRAM (xrw)  : ORIGIN = 0x00000000, LENGTH = 64K
 }
 
 /* Sections */
@@ -189,7 +178,7 @@ SECTIONS
     PROVIDE ( end = . );
     PROVIDE ( _end = . );
     . = . + _Min_Heap_Size;
-/*  . = . + _Min_Stack_Size; - stack is in a separate SRAM region, no need to check its size */
+    . = . + _Min_Stack_Size;
     . = ALIGN(8);
   } >RAM_D1
 
@@ -203,3 +192,4 @@ SECTIONS
 
   .ARM.attributes 0 : { *(.ARM.attributes) }
 }
+
