@@ -121,16 +121,25 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
   USART_TypeDef *uart_rx = pinmap_peripheral(obj->pin_rx, PinMap_UART_RX);
   USART_TypeDef *uart_rts = pinmap_peripheral(obj->pin_rts, PinMap_UART_RTS);
   USART_TypeDef *uart_cts = pinmap_peripheral(obj->pin_cts, PinMap_UART_CTS);
+  /* Check if pins are swapped */
+#if defined(UART_ADVFEATURE_SWAP_INIT)
+  USART_TypeDef *uart_tx_swap = pinmap_peripheral(obj->pin_tx, PinMap_UART_RX);
+  USART_TypeDef *uart_rx_swap = pinmap_peripheral(obj->pin_rx, PinMap_UART_TX);
+#else
+  /* Pin swap not supported */
+  USART_TypeDef *uart_tx_swap = NP;
+  USART_TypeDef *uart_rx_swap = NP;
+#endif
 
   /* Pin Tx must not be NP */
-  if (uart_tx == NP) {
+  if ((uart_tx == NP) && (uart_tx_swap == NP)) {
     if (obj != &serial_debug) {
       core_debug("ERROR: [U(S)ART] Tx pin has no peripheral!\n");
     }
     return;
   }
   /* Pin Rx must not be NP if not half-duplex */
-  if ((obj->pin_rx != NC) && (uart_rx == NP)) {
+  if ((obj->pin_rx != NC) && (uart_rx == NP) && (uart_rx_swap == NP)) {
     if (obj != &serial_debug) {
       core_debug("ERROR: [U(S)ART] Rx pin has no peripheral!\n");
     }
@@ -156,6 +165,10 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
    * and assign it to the object
    */
   obj->uart = pinmap_merge_peripheral(uart_tx, uart_rx);
+  if (obj->uart == NP) {
+    /* Regular pins not matched, check if they can be swapped */
+    obj->uart = pinmap_merge_peripheral(uart_tx_swap, uart_rx_swap);
+  }
   /* We also merge RTS/CTS and assert all pins belong to the same instance */
   obj->uart = pinmap_merge_peripheral(obj->uart, uart_rts);
   obj->uart = pinmap_merge_peripheral(obj->uart, uart_cts);
@@ -328,10 +341,26 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
 #endif
 
   /* Configure UART GPIO pins */
-  pinmap_pinout(obj->pin_tx, PinMap_UART_TX);
-  if (uart_rx != NP) {
-    pinmap_pinout(obj->pin_rx, PinMap_UART_RX);
+#if defined(UART_ADVFEATURE_SWAP_INIT)
+  uint32_t pin_swap = UART_ADVFEATURE_SWAP_DISABLE;
+#endif
+  if (uart_tx != NP) {
+    /* Regular GPIO */
+    pinmap_pinout(obj->pin_tx, PinMap_UART_TX);
+    if (uart_rx != NP) {
+      pinmap_pinout(obj->pin_rx, PinMap_UART_RX);
+    }
   }
+#if defined(UART_ADVFEATURE_SWAP_INIT)
+  else if (uart_tx_swap != NP) {
+    /* Swapped GPIO */
+    pinmap_pinout(obj->pin_tx, PinMap_UART_RX);
+    if (uart_rx_swap != NP) {
+      pinmap_pinout(obj->pin_rx, PinMap_UART_TX);
+    }
+    pin_swap = UART_ADVFEATURE_SWAP_ENABLE;
+  }
+#endif
 
   /* Configure flow control */
   uint32_t flow_control = UART_HWCONTROL_NONE;
@@ -354,8 +383,10 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
   huart->Init.Mode         = UART_MODE_TX_RX;
   huart->Init.HwFlowCtl    = flow_control;
   huart->Init.OverSampling = UART_OVERSAMPLING_16;
-#if !defined(STM32F1xx) && !defined(STM32F2xx) && !defined(STM32F4xx)\
- && !defined(STM32L1xx)
+#if defined(UART_ADVFEATURE_SWAP_INIT)
+  huart->AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_SWAP_INIT;
+  huart->AdvancedInit.Swap = pin_swap;
+#elif defined(UART_ADVFEATURE_NO_INIT)
   huart->AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
 #endif
 #ifdef UART_ONE_BIT_SAMPLE_DISABLE
@@ -391,7 +422,7 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
       HAL_UARTEx_DisableStopMode(huart);
     }
     /* Trying default LPUART clock source */
-    if (uart_rx == NP) {
+    if ((uart_rx == NP) && (uart_rx_swap == NP)) {
       if (HAL_HalfDuplex_Init(huart) == HAL_OK) {
         return;
       }
@@ -416,7 +447,7 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
         __HAL_RCC_LPUART3_CONFIG(RCC_LPUART3CLKSOURCE_LSE);
       }
 #endif
-      if (uart_rx == NP) {
+      if ((uart_rx == NP) && (uart_rx_swap == NP)) {
         if (HAL_HalfDuplex_Init(huart) == HAL_OK) {
           return;
         }
@@ -438,7 +469,7 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
         __HAL_RCC_LPUART3_CONFIG(RCC_LPUART3CLKSOURCE_HSI);
       }
 #endif
-      if (uart_rx == NP) {
+      if ((uart_rx == NP) && (uart_rx_swap == NP)) {
         if (HAL_HalfDuplex_Init(huart) == HAL_OK) {
           return;
         }
@@ -465,7 +496,7 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
       __HAL_RCC_LPUART3_CONFIG(RCC_LPUART3CLKSOURCE_PCLK1);
     }
 #endif
-    if (uart_rx == NP) {
+    if ((uart_rx == NP) && (uart_rx_swap == NP)) {
       if (HAL_HalfDuplex_Init(huart) == HAL_OK) {
         return;
       }
@@ -490,7 +521,7 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
   }
 #endif
 
-  if (uart_rx == NP) {
+  if ((uart_rx == NP) && (uart_rx_swap == NP)) {
     if (HAL_HalfDuplex_Init(huart) != HAL_OK) {
       return;
     }
