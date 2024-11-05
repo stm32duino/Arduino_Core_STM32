@@ -160,13 +160,13 @@ typedef struct
   */
 #define LL_UTILS_PACKAGETYPE_LQFP64             0x00000000U /*!< LQFP64 package type                      */
 #define LL_UTILS_PACKAGETYPE_WLCSP64            0x00000001U /*!< WLCSP64 package type                     */
-#if defined (STM32G431xx) || defined (STM32G414xx) || defined (STM32G441xx) || defined (STM32G471xx) || \
-    defined (STM32G473xx) || defined (STM32G483xx) || defined (STM32G474xx) || defined (STM32G484xx)
+#if defined (STM32G411xB) || defined (STM32G411xC) || defined (STM32G431xx) || defined (STM32G414xx) || defined (STM32G441xx) || \
+    defined (STM32G471xx) || defined (STM32G473xx) || defined (STM32G483xx) || defined (STM32G474xx) || defined (STM32G484xx)
 #define LL_UTILS_PACKAGETYPE_LQFP100_LQFP80     0x00000002U /*!< LQFP100 \ LQFP80 package type             */
 #define LL_UTILS_PACKAGETYPE_LQFP100 LL_UTILS_PACKAGETYPE_LQFP100_LQFP80  /*!< For backward compatibility  */
 #else
 #define LL_UTILS_PACKAGETYPE_LQFP100            0x00000002U /*!< LQFP100 package type                      */
-#endif /* STM32G431xx || STM32G414xx || STM32G441xx || STM32G471xx || STM32G473xx || STM32G483xx || STM32G474xx || STM32G484xx */
+#endif /* STM32G411xB || STM32G411xC || STM32G431xx || STM32G414xx || STM32G441xx || STM32G471xx || STM32G473xx || STM32G483xx || STM32G474xx || STM32G484xx */
 #define LL_UTILS_PACKAGETYPE_WLCSP81            0x00000005U /*!< WLCSP81 package type                      */
 #define LL_UTILS_PACKAGETYPE_LQFP128_UFBGA121   0x00000007U /*!< LQFP128 \ UFBGA121 package type           */
 #define LL_UTILS_PACKAGETYPE_LQFP128 LL_UTILS_PACKAGETYPE_LQFP128_UFBGA121 /*!< For backward compatibility */

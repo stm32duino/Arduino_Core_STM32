@@ -1297,8 +1297,8 @@ __STATIC_INLINE void LL_DAC_SetWaveSawtoothResetTriggerSource(DAC_TypeDef *DACx,
 {
   MODIFY_REG(DACx->STMODR,
              DAC_STMODR_STRSTTRIGSEL1 << (DAC_Channel & DAC_CR_CHX_BITOFFSET_MASK),
-             (((TriggerSource >> DAC_CR_TSEL1_Pos) << DAC_STMODR_STRSTTRIGSEL1_Pos)
-              << (DAC_Channel & DAC_CR_CHX_BITOFFSET_MASK)));
+             (   ((TriggerSource >> DAC_CR_TSEL1_Pos) << DAC_STMODR_STRSTTRIGSEL1_Pos)
+              << (DAC_Channel & DAC_CR_CHX_BITOFFSET_MASK) ));
 }
 
 /**
@@ -1396,7 +1396,7 @@ __STATIC_INLINE void LL_DAC_SetWaveSawtoothStepTriggerSource(DAC_TypeDef *DACx, 
 {
   MODIFY_REG(DACx->STMODR,
              DAC_STMODR_STINCTRIGSEL1 << (DAC_Channel & DAC_CR_CHX_BITOFFSET_MASK),
-             (((TriggerSource >> DAC_CR_TSEL1_Pos) << DAC_STMODR_STINCTRIGSEL1_Pos)
+             (   ((TriggerSource >> DAC_CR_TSEL1_Pos) << DAC_STMODR_STINCTRIGSEL1_Pos)
               << (DAC_Channel & DAC_CR_CHX_BITOFFSET_MASK)
              ));
 }

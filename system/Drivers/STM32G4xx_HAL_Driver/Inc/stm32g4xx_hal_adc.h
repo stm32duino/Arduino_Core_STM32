@@ -1305,7 +1305,7 @@ out-of-window sample to raise flag or interrupt */
                                                    ((__REGTRIG__) == ADC_EXTERNALTRIG_T8_CC1)        || \
                                                    ((__REGTRIG__) == ADC_EXTERNALTRIG_EXT_IT2)))     || \
                                                  ((__REGTRIG__) == ADC_SOFTWARE_START)           )
-#elif defined(STM32G414xx) || defined(STM32GBK1CB) || defined(STM32G431xx) || defined(STM32G441xx)
+#elif defined(STM32G411xB) || defined(STM32G414xx) || defined(STM32GBK1CB) || defined(STM32G431xx) || defined(STM32G441xx)
 #define IS_ADC_EXTTRIG(__HANDLE__, __REGTRIG__) (((__REGTRIG__) == ADC_EXTERNALTRIG_T1_TRGO)         || \
                                                  ((__REGTRIG__) == ADC_EXTERNALTRIG_T1_TRGO2)        || \
                                                  ((__REGTRIG__) == ADC_EXTERNALTRIG_T1_CC1)          || \
@@ -1325,7 +1325,7 @@ out-of-window sample to raise flag or interrupt */
                                                  ((__REGTRIG__) == ADC_EXTERNALTRIG_LPTIM_OUT)       || \
                                                  ((__REGTRIG__) == ADC_EXTERNALTRIG_EXT_IT11)        || \
                                                  ((__REGTRIG__) == ADC_SOFTWARE_START)           )
-#elif defined(STM32G491xx) || defined(STM32G4A1xx)
+#elif defined(STM32G491xx) || defined(STM32G4A1xx) || defined(STM32G411xC)
 #define IS_ADC_EXTTRIG(__HANDLE__, __REGTRIG__) (((__REGTRIG__) == ADC_EXTERNALTRIG_T1_TRGO)         || \
                                                  ((__REGTRIG__) == ADC_EXTERNALTRIG_T1_TRGO2)        || \
                                                  ((__REGTRIG__) == ADC_EXTERNALTRIG_T1_CC3)          || \

@@ -41,7 +41,7 @@
 #if defined(RCC_CCIPR_USART3SEL)
 #define IS_LL_RCC_USART_CLKSOURCE(__VALUE__)   (((__VALUE__) == LL_RCC_USART1_CLKSOURCE) \
                                              || ((__VALUE__) == LL_RCC_USART2_CLKSOURCE) \
-                                             ||  (__VALUE__) == LL_RCC_USART3_CLKSOURCE)
+                                             || ((__VALUE__) == LL_RCC_USART3_CLKSOURCE))
 #else
 #define IS_LL_RCC_USART_CLKSOURCE(__VALUE__)   (((__VALUE__) == LL_RCC_USART1_CLKSOURCE) \
                                              || ((__VALUE__) == LL_RCC_USART2_CLKSOURCE))

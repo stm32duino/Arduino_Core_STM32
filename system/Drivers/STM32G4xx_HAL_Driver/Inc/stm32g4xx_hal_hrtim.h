@@ -21,7 +21,7 @@
 #define STM32G4xx_HAL_HRTIM_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -60,7 +60,7 @@
   */
 typedef struct
 {
-  uint32_t HRTIMInterruptResquests;  /*!< Specifies which interrupts requests must enabled for the HRTIM instance.
+  uint32_t HRTIMInterruptRequests;  /*!< Specifies which interrupts requests must enabled for the HRTIM instance.
                                           This parameter can be any combination of  @ref HRTIM_Common_Interrupt_Enable */
   uint32_t SyncOptions;              /*!< Specifies how the HRTIM instance handles the external synchronization signals.
                                           The HRTIM instance can be configured to act as a slave (waiting for a trigger
@@ -119,7 +119,7 @@ typedef struct __HRTIM_HandleTypeDef
 typedef struct
 #endif /* USE_HAL_HRTIM_REGISTER_CALLBACKS */
 {
-  HRTIM_TypeDef *              Instance;                     /*!< Register base address */
+  HRTIM_TypeDef               *Instance;                     /*!< Register base address */
 
   HRTIM_InitTypeDef            Init;                         /*!< HRTIM required parameters */
 
@@ -129,13 +129,13 @@ typedef struct
 
   __IO HAL_HRTIM_StateTypeDef  State;                        /*!< HRTIM communication state */
 
-  DMA_HandleTypeDef *          hdmaMaster;                   /*!< Master timer DMA handle parameters */
-  DMA_HandleTypeDef *          hdmaTimerA;                   /*!< Timer A DMA handle parameters */
-  DMA_HandleTypeDef *          hdmaTimerB;                   /*!< Timer B DMA handle parameters */
-  DMA_HandleTypeDef *          hdmaTimerC;                   /*!< Timer C DMA handle parameters */
-  DMA_HandleTypeDef *          hdmaTimerD;                   /*!< Timer D DMA handle parameters */
-  DMA_HandleTypeDef *          hdmaTimerE;                   /*!< Timer E DMA handle parameters */
-  DMA_HandleTypeDef *          hdmaTimerF;                   /*!< Timer F DMA handle parameters */
+  DMA_HandleTypeDef           *hdmaMaster;                   /*!< Master timer DMA handle parameters */
+  DMA_HandleTypeDef           *hdmaTimerA;                   /*!< Timer A DMA handle parameters */
+  DMA_HandleTypeDef           *hdmaTimerB;                   /*!< Timer B DMA handle parameters */
+  DMA_HandleTypeDef           *hdmaTimerC;                   /*!< Timer C DMA handle parameters */
+  DMA_HandleTypeDef           *hdmaTimerD;                   /*!< Timer D DMA handle parameters */
+  DMA_HandleTypeDef           *hdmaTimerE;                   /*!< Timer E DMA handle parameters */
+  DMA_HandleTypeDef           *hdmaTimerF;                   /*!< Timer F DMA handle parameters */
 
 #if (USE_HAL_HRTIM_REGISTER_CALLBACKS == 1)
   void (* Fault1Callback)(struct __HRTIM_HandleTypeDef *hhrtim);                               /*!< Fault 1 interrupt callback function pointer                         */
@@ -555,7 +555,8 @@ typedef struct
 /**
   * @brief  HAL HRTIM Callback ID enumeration definition
   */
-typedef enum {
+typedef enum
+{
   HAL_HRTIM_FAULT1CALLBACK_CB_ID               = 0x00U, /*!< Fault 1 interrupt callback ID                         */
   HAL_HRTIM_FAULT2CALLBACK_CB_ID               = 0x01U, /*!< Fault 2 interrupt callback ID                         */
   HAL_HRTIM_FAULT3CALLBACK_CB_ID               = 0x02U, /*!< Fault 3 interrupt callback ID                         */
@@ -586,7 +587,7 @@ typedef enum {
   HAL_HRTIM_MSPINIT_CB_ID                      = 0x20U, /*!< HRTIM MspInit callback ID                             */
   HAL_HRTIM_MSPDEINIT_CB_ID                    = 0x21U, /*!< HRTIM MspInit callback ID                             */
   HAL_HRTIM_FAULT6CALLBACK_CB_ID               = 0x22U, /*!< Fault 6 interrupt callback ID                         */
-}HAL_HRTIM_CallbackIDTypeDef;
+} HAL_HRTIM_CallbackIDTypeDef;
 
 /**
   * @brief  HAL HRTIM Callback function pointer definitions
@@ -634,8 +635,8 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
 #define HRTIM_TIMERID_TIMER_E (HRTIM_MCR_TECEN)  /*!< Timer E identifier */
 #define HRTIM_TIMERID_TIMER_F (HRTIM_MCR_TFCEN)  /*!< Timer F identifier */
 /**
- * @}
- */
+  * @}
+  */
 
 /** @defgroup HRTIM_Compare_Unit HRTIM Compare Unit
   * @{
@@ -645,9 +646,9 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
 #define HRTIM_COMPAREUNIT_2 0x00000002U  /*!< Compare unit 2 identifier */
 #define HRTIM_COMPAREUNIT_3 0x00000004U  /*!< Compare unit 3 identifier */
 #define HRTIM_COMPAREUNIT_4 0x00000008U  /*!< Compare unit 4 identifier */
- /**
+/**
   * @}
-  */
+ */
 
 /** @defgroup HRTIM_Capture_Unit HRTIM Capture Unit
   * @{
@@ -703,23 +704,23 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
 #define HRTIM_ADCTRIGGER_10 0x00000200U  /*!< ADC trigger 10 identifier */
 
 #define IS_HRTIM_ADCTRIGGER(ADCTRIGGER)\
-    (((ADCTRIGGER) == HRTIM_ADCTRIGGER_1)   || \
-     ((ADCTRIGGER) == HRTIM_ADCTRIGGER_2)   || \
-     ((ADCTRIGGER) == HRTIM_ADCTRIGGER_3)   || \
-     ((ADCTRIGGER) == HRTIM_ADCTRIGGER_4)   || \
-     ((ADCTRIGGER) == HRTIM_ADCTRIGGER_5)   || \
-     ((ADCTRIGGER) == HRTIM_ADCTRIGGER_6)   || \
-     ((ADCTRIGGER) == HRTIM_ADCTRIGGER_7)   || \
-     ((ADCTRIGGER) == HRTIM_ADCTRIGGER_8)   || \
-     ((ADCTRIGGER) == HRTIM_ADCTRIGGER_9)   || \
-     ((ADCTRIGGER) == HRTIM_ADCTRIGGER_10))
+  (((ADCTRIGGER) == HRTIM_ADCTRIGGER_1)   || \
+   ((ADCTRIGGER) == HRTIM_ADCTRIGGER_2)   || \
+   ((ADCTRIGGER) == HRTIM_ADCTRIGGER_3)   || \
+   ((ADCTRIGGER) == HRTIM_ADCTRIGGER_4)   || \
+   ((ADCTRIGGER) == HRTIM_ADCTRIGGER_5)   || \
+   ((ADCTRIGGER) == HRTIM_ADCTRIGGER_6)   || \
+   ((ADCTRIGGER) == HRTIM_ADCTRIGGER_7)   || \
+   ((ADCTRIGGER) == HRTIM_ADCTRIGGER_8)   || \
+   ((ADCTRIGGER) == HRTIM_ADCTRIGGER_9)   || \
+   ((ADCTRIGGER) == HRTIM_ADCTRIGGER_10))
 #define IS_HRTIM_ADCEXTTRIGGER(ADCTRIGGER)\
-    (((ADCTRIGGER) == HRTIM_ADCTRIGGER_5)   || \
-     ((ADCTRIGGER) == HRTIM_ADCTRIGGER_6)   || \
-     ((ADCTRIGGER) == HRTIM_ADCTRIGGER_7)   || \
-     ((ADCTRIGGER) == HRTIM_ADCTRIGGER_8)   || \
-     ((ADCTRIGGER) == HRTIM_ADCTRIGGER_9)   || \
-     ((ADCTRIGGER) == HRTIM_ADCTRIGGER_10))
+  (((ADCTRIGGER) == HRTIM_ADCTRIGGER_5)   || \
+   ((ADCTRIGGER) == HRTIM_ADCTRIGGER_6)   || \
+   ((ADCTRIGGER) == HRTIM_ADCTRIGGER_7)   || \
+   ((ADCTRIGGER) == HRTIM_ADCTRIGGER_8)   || \
+   ((ADCTRIGGER) == HRTIM_ADCTRIGGER_9)   || \
+   ((ADCTRIGGER) == HRTIM_ADCTRIGGER_10))
 /**
   * @}
   */
@@ -758,10 +759,10 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
   */
 
 
- /** @defgroup HRTIM_Prescaler_Ratio HRTIM Prescaler Ratio
+/** @defgroup HRTIM_Prescaler_Ratio HRTIM Prescaler Ratio
   * @{
   * @brief Constants defining timer high-resolution clock prescaler ratio.
-  */
+ */
 #define HRTIM_PRESCALERRATIO_MUL32    (0x00000000U)  /*!< fHRCK: fHRTIM x 32U = 4.608 GHz - Resolution: 217 ps - Min PWM frequency: 70.3 kHz (fHRTIM=144MHz) */
 #define HRTIM_PRESCALERRATIO_MUL16    (0x00000001U)  /*!< fHRCK: fHRTIM x 16U = 2.304 GHz - Resolution: 434 ps - Min PWM frequency: 35.1 KHz (fHRTIM=144MHz) */
 #define HRTIM_PRESCALERRATIO_MUL8     (0x00000002U)  /*!< fHRCK: fHRTIM x 8U = 1.152 GHz - Resolution: 868 ps - Min PWM frequency: 17.6 kHz (fHRTIM=144MHz)  */
@@ -1144,11 +1145,11 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
 #define HRTIM_TIM_ROM_VALLEY      (HRTIM_TIMCR2_ROM_0)     /*!< repetition counter decrement and External Event filtering */
 
 #define IS_HRTIM_ROLLOVERMODE(ROLLOVER)\
-              ((((ROLLOVER) == HRTIM_TIM_FEROM_BOTH)  || ((ROLLOVER) == HRTIM_TIM_FEROM_CREST)  || ((ROLLOVER) == HRTIM_TIM_FEROM_VALLEY))  ||\
-               (((ROLLOVER) == HRTIM_TIM_ADROM_BOTH)  || ((ROLLOVER) == HRTIM_TIM_ADROM_CREST)  || ((ROLLOVER) == HRTIM_TIM_ADROM_VALLEY))  ||\
-               (((ROLLOVER) == HRTIM_TIM_BMROM_BOTH)  || ((ROLLOVER) == HRTIM_TIM_BMROM_CREST)  || ((ROLLOVER) == HRTIM_TIM_BMROM_VALLEY))  ||\
-               (((ROLLOVER) == HRTIM_TIM_OUTROM_BOTH) || ((ROLLOVER) == HRTIM_TIM_OUTROM_CREST) || ((ROLLOVER) == HRTIM_TIM_OUTROM_VALLEY)) ||\
-               (((ROLLOVER) == HRTIM_TIM_ROM_BOTH)    || ((ROLLOVER) == HRTIM_TIM_ROM_CREST)    || ((ROLLOVER) == HRTIM_TIM_ROM_VALLEY)))
+  ((((ROLLOVER) == HRTIM_TIM_FEROM_BOTH)  || ((ROLLOVER) == HRTIM_TIM_FEROM_CREST)  || ((ROLLOVER) == HRTIM_TIM_FEROM_VALLEY))  ||\
+   (((ROLLOVER) == HRTIM_TIM_ADROM_BOTH)  || ((ROLLOVER) == HRTIM_TIM_ADROM_CREST)  || ((ROLLOVER) == HRTIM_TIM_ADROM_VALLEY))  ||\
+   (((ROLLOVER) == HRTIM_TIM_BMROM_BOTH)  || ((ROLLOVER) == HRTIM_TIM_BMROM_CREST)  || ((ROLLOVER) == HRTIM_TIM_BMROM_VALLEY))  ||\
+   (((ROLLOVER) == HRTIM_TIM_OUTROM_BOTH) || ((ROLLOVER) == HRTIM_TIM_OUTROM_CREST) || ((ROLLOVER) == HRTIM_TIM_OUTROM_VALLEY)) ||\
+   (((ROLLOVER) == HRTIM_TIM_ROM_BOTH)    || ((ROLLOVER) == HRTIM_TIM_ROM_CREST)    || ((ROLLOVER) == HRTIM_TIM_ROM_VALLEY)))
 /**
   * @}
   */
@@ -1177,9 +1178,9 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
 #define HRTIM_BASICOCMODE_ACTIVE    (0x00000003U)  /*!< Output forced to inactive level when the timer counter reaches the compare value */
 
 #define IS_HRTIM_BASICOCMODE(BASICOCMODE)\
-              (((BASICOCMODE) == HRTIM_BASICOCMODE_TOGGLE)   || \
-               ((BASICOCMODE) == HRTIM_BASICOCMODE_INACTIVE) || \
-               ((BASICOCMODE) == HRTIM_BASICOCMODE_ACTIVE))
+  (((BASICOCMODE) == HRTIM_BASICOCMODE_TOGGLE)   || \
+   ((BASICOCMODE) == HRTIM_BASICOCMODE_INACTIVE) || \
+   ((BASICOCMODE) == HRTIM_BASICOCMODE_ACTIVE))
 /**
   * @}
   */
@@ -1385,9 +1386,9 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
   */
 #define HRTIM_OUTPUTIDLEMODE_NONE     0x00000000U           /*!< The output is not affected by the burst mode operation */
 #define HRTIM_OUTPUTIDLEMODE_IDLE     (HRTIM_OUTR_IDLM1)    /*!< The output is in idle state when requested by the burst mode controller */
- /**
+/**
   * @}
-  */
+ */
 
 /** @defgroup HRTIM_Output_IDLE_Level HRTIM Output IDLE Level
   * @{
@@ -1566,7 +1567,7 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
 #define HRTIM_TIMEEVFLT_WINDOWINGCMP2                   (HRTIM_EEFR1_EE1FLTR_3 | HRTIM_EEFR1_EE1FLTR_2 | HRTIM_EEFR1_EE1FLTR_0)   /*!< Windowing from counter reset/roll-over to Compare 2U */
 #define HRTIM_TIMEEVFLT_WINDOWINGCMP3                   (HRTIM_EEFR1_EE1FLTR_3 | HRTIM_EEFR1_EE1FLTR_2 | HRTIM_EEFR1_EE1FLTR_1)   /*!< Windowing from counter reset/roll-over to Compare 3U */
 #define HRTIM_TIMEEVFLT_WINDOWINGTIM                    (HRTIM_EEFR1_EE1FLTR_3 | HRTIM_EEFR1_EE1FLTR_2 | HRTIM_EEFR1_EE1FLTR_1\
-                                                                                                       | HRTIM_EEFR1_EE1FLTR_0)   /*!< Windowing from another timing unit: TIMWIN source */
+                                                         | HRTIM_EEFR1_EE1FLTR_0)   /*!< Windowing from another timing unit: TIMWIN source */
 /**
   * @}
   */
@@ -1717,9 +1718,9 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
 #define HRTIM_CHOPPER_PRESCALERRATIO_DIV224 (HRTIM_CHPR_CARFRQ_3 | HRTIM_CHPR_CARFRQ_2 | HRTIM_CHPR_CARFRQ_0)                        /*!< fCHPFRQ = fHRTIM / 224  */
 #define HRTIM_CHOPPER_PRESCALERRATIO_DIV240 (HRTIM_CHPR_CARFRQ_3 | HRTIM_CHPR_CARFRQ_2 | HRTIM_CHPR_CARFRQ_1)                        /*!< fCHPFRQ = fHRTIM / 240  */
 #define HRTIM_CHOPPER_PRESCALERRATIO_DIV256 (HRTIM_CHPR_CARFRQ_3 | HRTIM_CHPR_CARFRQ_2 | HRTIM_CHPR_CARFRQ_1 | HRTIM_CHPR_CARFRQ_0)  /*!< fCHPFRQ = fHRTIM / 256  */
- /**
+/**
   * @}
-  */
+ */
 
 /** @defgroup HRTIM_Chopper_Duty_Cycle HRTIM Chopper Duty Cycle
   * @{
@@ -2446,8 +2447,8 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
 #define HRTIM_OUTPUTLEVEL_INACTIVE   (0x00000002U) /*!< Force the output to its inactive state */
 
 #define IS_HRTIM_OUTPUTLEVEL(OUTPUTLEVEL)\
-    (((OUTPUTLEVEL) == HRTIM_OUTPUTLEVEL_ACTIVE)  || \
-     ((OUTPUTLEVEL) == HRTIM_OUTPUTLEVEL_INACTIVE))
+  (((OUTPUTLEVEL) == HRTIM_OUTPUTLEVEL_ACTIVE)  || \
+   ((OUTPUTLEVEL) == HRTIM_OUTPUTLEVEL_INACTIVE))
 /**
   * @}
   */
@@ -2654,236 +2655,236 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
 #define HRTIM_CAPTUREFTRIGGER_TF1_RESET    (HRTIM_CPT1CR_TF1RST)        /*!< 32bit value Capture is triggered by TF1 output active to inactive transition */
 #define HRTIM_CAPTUREFTRIGGER_TIMERF_CMP1  (HRTIM_CPT1CR_TIMFCMP1)      /*!< 32bit value Timer F Compare 1 triggers Capture */
 #define HRTIM_CAPTUREFTRIGGER_TIMERF_CMP2  (HRTIM_CPT1CR_TIMFCMP2)      /*!< 32bit value Timer F Compare 2 triggers Capture */
- /**
+/**
   * @}
-  */
+ */
 
-  /* Private macros --------------------------------------------------------*/
+/* Private macros --------------------------------------------------------*/
 /** @addtogroup HRTIM_Private_Macros
   * @{
   */
 #define IS_HRTIM_TIMERINDEX(TIMERINDEX)\
-    (((TIMERINDEX) == HRTIM_TIMERINDEX_MASTER)   || \
-     ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_A)  || \
-     ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_B)  || \
-     ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_C)  || \
-     ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_D)  || \
-     ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_E)  || \
-     ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_F))
+  (((TIMERINDEX) == HRTIM_TIMERINDEX_MASTER)   || \
+   ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_A)  || \
+   ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_B)  || \
+   ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_C)  || \
+   ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_D)  || \
+   ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_E)  || \
+   ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_F))
 
 #define IS_HRTIM_TIMING_UNIT(TIMERINDEX)\
-     (((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_A)  || \
-      ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_B)  || \
-      ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_C)  || \
-      ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_D)  || \
-      ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_E)  || \
-      ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_F))
+  (((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_A)  || \
+   ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_B)  || \
+   ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_C)  || \
+   ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_D)  || \
+   ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_E)  || \
+   ((TIMERINDEX) == HRTIM_TIMERINDEX_TIMER_F))
 
 #define IS_HRTIM_TIMERID(TIMERID) (((TIMERID) & 0xFF80FFFFU) == 0x00000000U)
 
 #define IS_HRTIM_COMPAREUNIT(COMPAREUNIT)\
-    (((COMPAREUNIT) == HRTIM_COMPAREUNIT_1)  || \
-     ((COMPAREUNIT) == HRTIM_COMPAREUNIT_2)  || \
-     ((COMPAREUNIT) == HRTIM_COMPAREUNIT_3)  || \
-     ((COMPAREUNIT) == HRTIM_COMPAREUNIT_4))
+  (((COMPAREUNIT) == HRTIM_COMPAREUNIT_1)  || \
+   ((COMPAREUNIT) == HRTIM_COMPAREUNIT_2)  || \
+   ((COMPAREUNIT) == HRTIM_COMPAREUNIT_3)  || \
+   ((COMPAREUNIT) == HRTIM_COMPAREUNIT_4))
 
 #define IS_HRTIM_CAPTUREUNIT(CAPTUREUNIT)\
-    (((CAPTUREUNIT) == HRTIM_CAPTUREUNIT_1)   || \
-     ((CAPTUREUNIT) == HRTIM_CAPTUREUNIT_2))
+  (((CAPTUREUNIT) == HRTIM_CAPTUREUNIT_1)   || \
+   ((CAPTUREUNIT) == HRTIM_CAPTUREUNIT_2))
 
 #define IS_HRTIM_OUTPUT(OUTPUT) (((OUTPUT) & 0xFFFFF000U) == 0x00000000U)
 
 #define IS_HRTIM_TIMER_OUTPUT(TIMER, OUTPUT)\
-    ((((TIMER) == HRTIM_TIMERINDEX_TIMER_A) &&   \
-     (((OUTPUT) == HRTIM_OUTPUT_TA1) ||          \
-      ((OUTPUT) == HRTIM_OUTPUT_TA2)))           \
-    ||                                           \
-    (((TIMER) == HRTIM_TIMERINDEX_TIMER_B) &&    \
-     (((OUTPUT) == HRTIM_OUTPUT_TB1) ||          \
-      ((OUTPUT) == HRTIM_OUTPUT_TB2)))           \
-    ||                                           \
-    (((TIMER) == HRTIM_TIMERINDEX_TIMER_C) &&    \
-     (((OUTPUT) == HRTIM_OUTPUT_TC1) ||          \
-      ((OUTPUT) == HRTIM_OUTPUT_TC2)))           \
-    ||                                           \
-    (((TIMER) == HRTIM_TIMERINDEX_TIMER_D) &&    \
-     (((OUTPUT) == HRTIM_OUTPUT_TD1) ||          \
-      ((OUTPUT) == HRTIM_OUTPUT_TD2)))           \
-    ||                                           \
-    (((TIMER) == HRTIM_TIMERINDEX_TIMER_E) &&    \
-     (((OUTPUT) == HRTIM_OUTPUT_TE1) ||          \
-      ((OUTPUT) == HRTIM_OUTPUT_TE2)))           \
-    ||                                           \
-    (((TIMER) == HRTIM_TIMERINDEX_TIMER_F) &&    \
-     (((OUTPUT) == HRTIM_OUTPUT_TF1) ||          \
-      ((OUTPUT) == HRTIM_OUTPUT_TF2))))
+  ((((TIMER) == HRTIM_TIMERINDEX_TIMER_A) &&   \
+    (((OUTPUT) == HRTIM_OUTPUT_TA1) ||          \
+     ((OUTPUT) == HRTIM_OUTPUT_TA2)))           \
+   ||                                           \
+   (((TIMER) == HRTIM_TIMERINDEX_TIMER_B) &&    \
+    (((OUTPUT) == HRTIM_OUTPUT_TB1) ||          \
+     ((OUTPUT) == HRTIM_OUTPUT_TB2)))           \
+   ||                                           \
+   (((TIMER) == HRTIM_TIMERINDEX_TIMER_C) &&    \
+    (((OUTPUT) == HRTIM_OUTPUT_TC1) ||          \
+     ((OUTPUT) == HRTIM_OUTPUT_TC2)))           \
+   ||                                           \
+   (((TIMER) == HRTIM_TIMERINDEX_TIMER_D) &&    \
+    (((OUTPUT) == HRTIM_OUTPUT_TD1) ||          \
+     ((OUTPUT) == HRTIM_OUTPUT_TD2)))           \
+   ||                                           \
+   (((TIMER) == HRTIM_TIMERINDEX_TIMER_E) &&    \
+    (((OUTPUT) == HRTIM_OUTPUT_TE1) ||          \
+     ((OUTPUT) == HRTIM_OUTPUT_TE2)))           \
+   ||                                           \
+   (((TIMER) == HRTIM_TIMERINDEX_TIMER_F) &&    \
+    (((OUTPUT) == HRTIM_OUTPUT_TF1) ||          \
+     ((OUTPUT) == HRTIM_OUTPUT_TF2))))
 
 #define IS_HRTIM_TIMEEVENT(EVENT)\
-      (((EVENT) == HRTIM_EVENTCOUNTER_A)   || \
-       ((EVENT) == HRTIM_EVENTCOUNTER_B))
+  (((EVENT) == HRTIM_EVENTCOUNTER_A)   || \
+   ((EVENT) == HRTIM_EVENTCOUNTER_B))
 
 #define IS_HRTIM_TIMEEVENT_RESETMODE(EVENT)\
-      (((EVENT) == HRTIM_EVENTCOUNTER_RSTMODE_UNCONDITIONAL)   || \
-       ((EVENT) == HRTIM_EVENTCOUNTER_RSTMODE_CONDITIONAL))
+  (((EVENT) == HRTIM_EVENTCOUNTER_RSTMODE_UNCONDITIONAL)   || \
+   ((EVENT) == HRTIM_EVENTCOUNTER_RSTMODE_CONDITIONAL))
 
 #define IS_HRTIM_TIMSYNCUPDATE(EVENT)\
-      (((EVENT) == HRTIM_TIMERESYNC_UPDATE_UNCONDITIONAL)   || \
-       ((EVENT) == HRTIM_TIMERESYNC_UPDATE_CONDITIONAL))
+  (((EVENT) == HRTIM_TIMERESYNC_UPDATE_UNCONDITIONAL)   || \
+   ((EVENT) == HRTIM_TIMERESYNC_UPDATE_CONDITIONAL))
 
 #define IS_HRTIM_TIMEEVENT_COUNTER(COUNTER)\
-       ((((COUNTER) > (uint32_t)0x00U) && ((COUNTER) <= (uint32_t)0x3FU)) ||\
-         ((COUNTER) == (uint32_t)0x00U))
+  ((((COUNTER) > (uint32_t)0x00U) && ((COUNTER) <= (uint32_t)0x3FU)) ||\
+   ((COUNTER) == (uint32_t)0x00U))
 
 #define IS_HRTIM_TIMEEVENT_SOURCE(SOURCE)\
-       (((SOURCE) >= (uint32_t)0x00U) && ((SOURCE) <= (uint32_t)0x9U))
+  (((SOURCE) >= (uint32_t)0x00U) && ((SOURCE) <= (uint32_t)0x9U))
 
 #define IS_HRTIM_EVENT(EVENT)\
-      (((EVENT) == HRTIM_EVENT_NONE)|| \
-       ((EVENT) == HRTIM_EVENT_1)   || \
-       ((EVENT) == HRTIM_EVENT_2)   || \
-       ((EVENT) == HRTIM_EVENT_3)   || \
-       ((EVENT) == HRTIM_EVENT_4)   || \
-       ((EVENT) == HRTIM_EVENT_5)   || \
-       ((EVENT) == HRTIM_EVENT_6)   || \
-       ((EVENT) == HRTIM_EVENT_7)   || \
-       ((EVENT) == HRTIM_EVENT_8)   || \
-       ((EVENT) == HRTIM_EVENT_9)   || \
-       ((EVENT) == HRTIM_EVENT_10))
+  (((EVENT) == HRTIM_EVENT_NONE)|| \
+   ((EVENT) == HRTIM_EVENT_1)   || \
+   ((EVENT) == HRTIM_EVENT_2)   || \
+   ((EVENT) == HRTIM_EVENT_3)   || \
+   ((EVENT) == HRTIM_EVENT_4)   || \
+   ((EVENT) == HRTIM_EVENT_5)   || \
+   ((EVENT) == HRTIM_EVENT_6)   || \
+   ((EVENT) == HRTIM_EVENT_7)   || \
+   ((EVENT) == HRTIM_EVENT_8)   || \
+   ((EVENT) == HRTIM_EVENT_9)   || \
+   ((EVENT) == HRTIM_EVENT_10))
 
 #define IS_HRTIM_FAULT(FAULT)\
-      (((FAULT) == HRTIM_FAULT_1)   || \
-       ((FAULT) == HRTIM_FAULT_2)   || \
-       ((FAULT) == HRTIM_FAULT_3)   || \
-       ((FAULT) == HRTIM_FAULT_4)   || \
-       ((FAULT) == HRTIM_FAULT_5)   || \
-       ((FAULT) == HRTIM_FAULT_6))
+  (((FAULT) == HRTIM_FAULT_1)   || \
+   ((FAULT) == HRTIM_FAULT_2)   || \
+   ((FAULT) == HRTIM_FAULT_3)   || \
+   ((FAULT) == HRTIM_FAULT_4)   || \
+   ((FAULT) == HRTIM_FAULT_5)   || \
+   ((FAULT) == HRTIM_FAULT_6))
 
 #define IS_HRTIM_PRESCALERRATIO(PRESCALERRATIO)\
-        (((PRESCALERRATIO) == HRTIM_PRESCALERRATIO_MUL32) || \
-         ((PRESCALERRATIO) == HRTIM_PRESCALERRATIO_MUL16) || \
-         ((PRESCALERRATIO) == HRTIM_PRESCALERRATIO_MUL8)  || \
-         ((PRESCALERRATIO) == HRTIM_PRESCALERRATIO_MUL4)  || \
-         ((PRESCALERRATIO) == HRTIM_PRESCALERRATIO_MUL2)  || \
-         ((PRESCALERRATIO) == HRTIM_PRESCALERRATIO_DIV1)  || \
-         ((PRESCALERRATIO) == HRTIM_PRESCALERRATIO_DIV2)  || \
-         ((PRESCALERRATIO) == HRTIM_PRESCALERRATIO_DIV4))
+  (((PRESCALERRATIO) == HRTIM_PRESCALERRATIO_MUL32) || \
+   ((PRESCALERRATIO) == HRTIM_PRESCALERRATIO_MUL16) || \
+   ((PRESCALERRATIO) == HRTIM_PRESCALERRATIO_MUL8)  || \
+   ((PRESCALERRATIO) == HRTIM_PRESCALERRATIO_MUL4)  || \
+   ((PRESCALERRATIO) == HRTIM_PRESCALERRATIO_MUL2)  || \
+   ((PRESCALERRATIO) == HRTIM_PRESCALERRATIO_DIV1)  || \
+   ((PRESCALERRATIO) == HRTIM_PRESCALERRATIO_DIV2)  || \
+   ((PRESCALERRATIO) == HRTIM_PRESCALERRATIO_DIV4))
 
 #define IS_HRTIM_MODE(MODE)\
-          (((MODE) == HRTIM_MODE_CONTINUOUS)  ||  \
-           ((MODE) == HRTIM_MODE_SINGLESHOT) || \
-           ((MODE) == HRTIM_MODE_SINGLESHOT_RETRIGGERABLE))
+  (((MODE) == HRTIM_MODE_CONTINUOUS)  ||  \
+   ((MODE) == HRTIM_MODE_SINGLESHOT) || \
+   ((MODE) == HRTIM_MODE_SINGLESHOT_RETRIGGERABLE))
 
 #define IS_HRTIM_MODE_ONEPULSE(MODE)\
-          (((MODE) == HRTIM_MODE_SINGLESHOT) || \
-           ((MODE) == HRTIM_MODE_SINGLESHOT_RETRIGGERABLE))
+  (((MODE) == HRTIM_MODE_SINGLESHOT) || \
+   ((MODE) == HRTIM_MODE_SINGLESHOT_RETRIGGERABLE))
 
 
 #define IS_HRTIM_HALFMODE(HALFMODE)\
-            (((HALFMODE) == HRTIM_HALFMODE_DISABLED)  ||  \
-             ((HALFMODE) == HRTIM_HALFMODE_ENABLED))
+  (((HALFMODE) == HRTIM_HALFMODE_DISABLED)  ||  \
+   ((HALFMODE) == HRTIM_HALFMODE_ENABLED))
 
 #define IS_HRTIM_INTERLEAVEDMODE(INTLVDMODE)\
-            (((INTLVDMODE) == HRTIM_INTERLEAVED_MODE_DISABLED)  ||  \
-             ((INTLVDMODE) == HRTIM_INTERLEAVED_MODE_DUAL)   ||  \
-             ((INTLVDMODE) == HRTIM_INTERLEAVED_MODE_DISABLED)   ||  \
-             ((INTLVDMODE) == HRTIM_INTERLEAVED_MODE_TRIPLE)   ||  \
-             ((INTLVDMODE) == HRTIM_INTERLEAVED_MODE_DISABLED)   ||  \
-             ((INTLVDMODE) == HRTIM_INTERLEAVED_MODE_QUAD))
+  (((INTLVDMODE) == HRTIM_INTERLEAVED_MODE_DISABLED)  ||  \
+   ((INTLVDMODE) == HRTIM_INTERLEAVED_MODE_DUAL)   ||  \
+   ((INTLVDMODE) == HRTIM_INTERLEAVED_MODE_DISABLED)   ||  \
+   ((INTLVDMODE) == HRTIM_INTERLEAVED_MODE_TRIPLE)   ||  \
+   ((INTLVDMODE) == HRTIM_INTERLEAVED_MODE_DISABLED)   ||  \
+   ((INTLVDMODE) == HRTIM_INTERLEAVED_MODE_QUAD))
 
 #define IS_HRTIM_SYNCSTART(SYNCSTART)\
-              (((SYNCSTART) == HRTIM_SYNCSTART_DISABLED)  ||  \
-               ((SYNCSTART) == HRTIM_SYNCSTART_ENABLED))
+  (((SYNCSTART) == HRTIM_SYNCSTART_DISABLED)  ||  \
+   ((SYNCSTART) == HRTIM_SYNCSTART_ENABLED))
 
 #define IS_HRTIM_SYNCRESET(SYNCRESET)\
-                (((SYNCRESET) == HRTIM_SYNCRESET_DISABLED)  ||  \
-                 ((SYNCRESET) == HRTIM_SYNCRESET_ENABLED))
+  (((SYNCRESET) == HRTIM_SYNCRESET_DISABLED)  ||  \
+   ((SYNCRESET) == HRTIM_SYNCRESET_ENABLED))
 
 #define IS_HRTIM_DACSYNC(DACSYNC)\
-                (((DACSYNC) == HRTIM_DACSYNC_NONE)          ||  \
-                 ((DACSYNC) == HRTIM_DACSYNC_DACTRIGOUT_1)  ||  \
-                 ((DACSYNC) == HRTIM_DACSYNC_DACTRIGOUT_2)  ||  \
-                 ((DACSYNC) == HRTIM_DACSYNC_DACTRIGOUT_3))
+  (((DACSYNC) == HRTIM_DACSYNC_NONE)          ||  \
+   ((DACSYNC) == HRTIM_DACSYNC_DACTRIGOUT_1)  ||  \
+   ((DACSYNC) == HRTIM_DACSYNC_DACTRIGOUT_2)  ||  \
+   ((DACSYNC) == HRTIM_DACSYNC_DACTRIGOUT_3))
 
 #define IS_HRTIM_PRELOAD(PRELOAD)\
-                (((PRELOAD) == HRTIM_PRELOAD_DISABLED)  ||  \
-                 ((PRELOAD) == HRTIM_PRELOAD_ENABLED))
+  (((PRELOAD) == HRTIM_PRELOAD_DISABLED)  ||  \
+   ((PRELOAD) == HRTIM_PRELOAD_ENABLED))
 
 #define IS_HRTIM_UPDATEGATING_MASTER(UPDATEGATING)\
-                (((UPDATEGATING) == HRTIM_UPDATEGATING_INDEPENDENT)      ||  \
-                 ((UPDATEGATING) == HRTIM_UPDATEGATING_DMABURST)         ||  \
-                 ((UPDATEGATING) == HRTIM_UPDATEGATING_DMABURST_UPDATE))
+  (((UPDATEGATING) == HRTIM_UPDATEGATING_INDEPENDENT)      ||  \
+   ((UPDATEGATING) == HRTIM_UPDATEGATING_DMABURST)         ||  \
+   ((UPDATEGATING) == HRTIM_UPDATEGATING_DMABURST_UPDATE))
 
 #define IS_HRTIM_UPDATEGATING_TIM(UPDATEGATING)\
-                (((UPDATEGATING) == HRTIM_UPDATEGATING_INDEPENDENT)      ||  \
-                 ((UPDATEGATING) == HRTIM_UPDATEGATING_DMABURST)         ||  \
-                 ((UPDATEGATING) == HRTIM_UPDATEGATING_DMABURST_UPDATE)  ||  \
-                 ((UPDATEGATING) == HRTIM_UPDATEGATING_UPDEN1)           ||  \
-                 ((UPDATEGATING) == HRTIM_UPDATEGATING_UPDEN2)           ||  \
-                 ((UPDATEGATING) == HRTIM_UPDATEGATING_UPDEN3)           ||  \
-                 ((UPDATEGATING) == HRTIM_UPDATEGATING_UPDEN1_UPDATE)    ||  \
-                 ((UPDATEGATING) == HRTIM_UPDATEGATING_UPDEN2_UPDATE)    ||  \
-                 ((UPDATEGATING) == HRTIM_UPDATEGATING_UPDEN3_UPDATE))
+  (((UPDATEGATING) == HRTIM_UPDATEGATING_INDEPENDENT)      ||  \
+   ((UPDATEGATING) == HRTIM_UPDATEGATING_DMABURST)         ||  \
+   ((UPDATEGATING) == HRTIM_UPDATEGATING_DMABURST_UPDATE)  ||  \
+   ((UPDATEGATING) == HRTIM_UPDATEGATING_UPDEN1)           ||  \
+   ((UPDATEGATING) == HRTIM_UPDATEGATING_UPDEN2)           ||  \
+   ((UPDATEGATING) == HRTIM_UPDATEGATING_UPDEN3)           ||  \
+   ((UPDATEGATING) == HRTIM_UPDATEGATING_UPDEN1_UPDATE)    ||  \
+   ((UPDATEGATING) == HRTIM_UPDATEGATING_UPDEN2_UPDATE)    ||  \
+   ((UPDATEGATING) == HRTIM_UPDATEGATING_UPDEN3_UPDATE))
 
 #define IS_HRTIM_TIMERBURSTMODE(MODE)                               \
-                (((MODE) == HRTIM_TIMERBURSTMODE_MAINTAINCLOCK)  || \
-                 ((MODE) == HRTIM_TIMERBURSTMODE_RESETCOUNTER))
+  (((MODE) == HRTIM_TIMERBURSTMODE_MAINTAINCLOCK)  || \
+   ((MODE) == HRTIM_TIMERBURSTMODE_RESETCOUNTER))
 #define IS_HRTIM_TIMERUPDOWNMODE(MODE)                               \
-                (((MODE) == HRTIM_TIMERUPDOWNMODE_UP)  || \
-                 ((MODE) == HRTIM_TIMERUPDOWNMODE_UPDOWN))
+  (((MODE) == HRTIM_TIMERUPDOWNMODE_UP)  || \
+   ((MODE) == HRTIM_TIMERUPDOWNMODE_UPDOWN))
 
 #define IS_HRTIM_TIMERTRGHLFMODE(MODE)                               \
-                (((MODE) == HRTIM_TIMERTRIGHALF_DISABLED)  || \
-                 ((MODE) == HRTIM_TIMERTRIGHALF_ENABLED))
+  (((MODE) == HRTIM_TIMERTRIGHALF_DISABLED)  || \
+   ((MODE) == HRTIM_TIMERTRIGHALF_ENABLED))
 
 #define IS_HRTIM_TIMERGTCMP3(MODE)                               \
-                (((MODE) == HRTIM_TIMERGTCMP3_EQUAL)  || \
-                 ((MODE) == HRTIM_TIMERGTCMP3_GREATER))
+  (((MODE) == HRTIM_TIMERGTCMP3_EQUAL)  || \
+   ((MODE) == HRTIM_TIMERGTCMP3_GREATER))
 
 #define IS_HRTIM_TIMERGTCMP1(MODE)                               \
-                (((MODE) == HRTIM_TIMERGTCMP1_EQUAL)  || \
-                 ((MODE) == HRTIM_TIMERGTCMP1_GREATER))
+  (((MODE) == HRTIM_TIMERGTCMP1_EQUAL)  || \
+   ((MODE) == HRTIM_TIMERGTCMP1_GREATER))
 
 #define IS_HRTIM_DUALDAC_RESET(DUALCHANNELDAC)                               \
-                (((DUALCHANNELDAC) == HRTIM_TIMER_DCDR_COUNTER)  || \
-                 ((DUALCHANNELDAC) == HRTIM_TIMER_DCDR_OUT1SET))
+  (((DUALCHANNELDAC) == HRTIM_TIMER_DCDR_COUNTER)  || \
+   ((DUALCHANNELDAC) == HRTIM_TIMER_DCDR_OUT1SET))
 
 #define IS_HRTIM_DUALDAC_STEP(DUALCHANNELDAC)                               \
-                (((DUALCHANNELDAC) == HRTIM_TIMER_DCDS_CMP2)  || \
-                 ((DUALCHANNELDAC) == HRTIM_TIMER_DCDS_OUT1RST))
+  (((DUALCHANNELDAC) == HRTIM_TIMER_DCDS_CMP2)  || \
+   ((DUALCHANNELDAC) == HRTIM_TIMER_DCDS_OUT1RST))
 
 #define IS_HRTIM_DUALDAC_ENABLE(DUALCHANNELDAC)                               \
-                (((DUALCHANNELDAC) == HRTIM_TIMER_DCDE_DISABLED)  || \
-                 ((DUALCHANNELDAC) == HRTIM_TIMER_DCDE_ENABLED ))
+  (((DUALCHANNELDAC) == HRTIM_TIMER_DCDE_DISABLED)  || \
+   ((DUALCHANNELDAC) == HRTIM_TIMER_DCDE_ENABLED ))
 
 #define IS_HRTIM_UPDATEONREPETITION(UPDATEONREPETITION)                               \
-                (((UPDATEONREPETITION) == HRTIM_UPDATEONREPETITION_DISABLED)  || \
-                 ((UPDATEONREPETITION) == HRTIM_UPDATEONREPETITION_ENABLED))
+  (((UPDATEONREPETITION) == HRTIM_UPDATEONREPETITION_DISABLED)  || \
+   ((UPDATEONREPETITION) == HRTIM_UPDATEONREPETITION_ENABLED))
 
 #define IS_HRTIM_TIMPUSHPULLMODE(TIMPUSHPULLMODE)\
-                  (((TIMPUSHPULLMODE) == HRTIM_TIMPUSHPULLMODE_DISABLED) || \
-                   ((TIMPUSHPULLMODE) == HRTIM_TIMPUSHPULLMODE_ENABLED))
+  (((TIMPUSHPULLMODE) == HRTIM_TIMPUSHPULLMODE_DISABLED) || \
+   ((TIMPUSHPULLMODE) == HRTIM_TIMPUSHPULLMODE_ENABLED))
 #define IS_HRTIM_TIMFAULTENABLE(TIMFAULTENABLE) (((TIMFAULTENABLE) & 0xFFFFFFC0U) == 0x00000000U)
 
 #define IS_HRTIM_TIMFAULTLOCK(TIMFAULTLOCK)\
-      (((TIMFAULTLOCK) == HRTIM_TIMFAULTLOCK_READWRITE) || \
-       ((TIMFAULTLOCK) == HRTIM_TIMFAULTLOCK_READONLY))
+  (((TIMFAULTLOCK) == HRTIM_TIMFAULTLOCK_READWRITE) || \
+   ((TIMFAULTLOCK) == HRTIM_TIMFAULTLOCK_READONLY))
 
 #define IS_HRTIM_TIMDEADTIMEINSERTION(TIMPUSHPULLMODE, TIMDEADTIMEINSERTION)\
-    (((TIMDEADTIMEINSERTION) == HRTIM_TIMDEADTIMEINSERTION_DISABLED) || \
-          ((TIMDEADTIMEINSERTION) == HRTIM_TIMDEADTIMEINSERTION_ENABLED))
+  (((TIMDEADTIMEINSERTION) == HRTIM_TIMDEADTIMEINSERTION_DISABLED) || \
+   ((TIMDEADTIMEINSERTION) == HRTIM_TIMDEADTIMEINSERTION_ENABLED))
 
 #define IS_HRTIM_TIMDELAYEDPROTECTION(TIMPUSHPULLMODE, TIMDELAYEDPROTECTION)\
-          ((((TIMDELAYEDPROTECTION) == HRTIM_TIMER_A_B_C_DELAYEDPROTECTION_DISABLED)          || \
-            ((TIMDELAYEDPROTECTION) == HRTIM_TIMER_A_B_C_DELAYEDPROTECTION_DELAYEDOUT1_EEV6)  || \
-            ((TIMDELAYEDPROTECTION) == HRTIM_TIMER_A_B_C_DELAYEDPROTECTION_DELAYEDOUT2_EEV6)  || \
-            ((TIMDELAYEDPROTECTION) == HRTIM_TIMER_A_B_C_DELAYEDPROTECTION_DELAYEDBOTH_EEV6)  || \
-            ((TIMDELAYEDPROTECTION) == HRTIM_TIMER_A_B_C_DELAYEDPROTECTION_DELAYEDOUT1_DEEV7) || \
-            ((TIMDELAYEDPROTECTION) == HRTIM_TIMER_A_B_C_DELAYEDPROTECTION_DELAYEDOUT2_DEEV7) || \
-            ((TIMDELAYEDPROTECTION) == HRTIM_TIMER_A_B_C_DELAYEDPROTECTION_DELAYEDBOTH_EEV7))    \
-            ||                                                                           \
-            (((TIMPUSHPULLMODE) ==  HRTIM_TIMPUSHPULLMODE_ENABLED) &&                    \
-             (((TIMDELAYEDPROTECTION) == HRTIM_TIMER_A_B_C_DELAYEDPROTECTION_BALANCED_EEV6)     || \
-             ((TIMDELAYEDPROTECTION) == HRTIM_TIMER_A_B_C_DELAYEDPROTECTION_BALANCED_EEV7))))
+  ((((TIMDELAYEDPROTECTION) == HRTIM_TIMER_A_B_C_DELAYEDPROTECTION_DISABLED)          || \
+    ((TIMDELAYEDPROTECTION) == HRTIM_TIMER_A_B_C_DELAYEDPROTECTION_DELAYEDOUT1_EEV6)  || \
+    ((TIMDELAYEDPROTECTION) == HRTIM_TIMER_A_B_C_DELAYEDPROTECTION_DELAYEDOUT2_EEV6)  || \
+    ((TIMDELAYEDPROTECTION) == HRTIM_TIMER_A_B_C_DELAYEDPROTECTION_DELAYEDBOTH_EEV6)  || \
+    ((TIMDELAYEDPROTECTION) == HRTIM_TIMER_A_B_C_DELAYEDPROTECTION_DELAYEDOUT1_DEEV7) || \
+    ((TIMDELAYEDPROTECTION) == HRTIM_TIMER_A_B_C_DELAYEDPROTECTION_DELAYEDOUT2_DEEV7) || \
+    ((TIMDELAYEDPROTECTION) == HRTIM_TIMER_A_B_C_DELAYEDPROTECTION_DELAYEDBOTH_EEV7))    \
+   ||                                                                           \
+   (((TIMPUSHPULLMODE) ==  HRTIM_TIMPUSHPULLMODE_ENABLED) &&                    \
+    (((TIMDELAYEDPROTECTION) == HRTIM_TIMER_A_B_C_DELAYEDPROTECTION_BALANCED_EEV6)     || \
+     ((TIMDELAYEDPROTECTION) == HRTIM_TIMER_A_B_C_DELAYEDPROTECTION_BALANCED_EEV7))))
 
 #define IS_HRTIM_TIMUPDATETRIGGER(TIMUPDATETRIGGER) (((TIMUPDATETRIGGER) & 0xFE06FFFFU) == 0x00000000U)
 
@@ -2891,131 +2892,131 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
 
 
 #define IS_HRTIM_TIMUPDATEONRESET(TIMUPDATEONRESET)                       \
-              (((TIMUPDATEONRESET) == HRTIM_TIMUPDATEONRESET_DISABLED) || \
-               ((TIMUPDATEONRESET) == HRTIM_TIMUPDATEONRESET_ENABLED))
+  (((TIMUPDATEONRESET) == HRTIM_TIMUPDATEONRESET_DISABLED) || \
+   ((TIMUPDATEONRESET) == HRTIM_TIMUPDATEONRESET_ENABLED))
 
 #define IS_HRTIM_AUTODELAYEDMODE(AUTODELAYEDMODE)\
-              (((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_REGULAR)                  || \
-               ((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_AUTODELAYED_NOTIMEOUT)    || \
-               ((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_AUTODELAYED_TIMEOUTCMP1)  || \
-               ((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_AUTODELAYED_TIMEOUTCMP3))
+  (((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_REGULAR)                  || \
+   ((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_AUTODELAYED_NOTIMEOUT)    || \
+   ((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_AUTODELAYED_TIMEOUTCMP1)  || \
+   ((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_AUTODELAYED_TIMEOUTCMP3))
 
 /* Auto delayed mode is only available for compare units 2 and 4U */
 #define IS_HRTIM_COMPAREUNIT_AUTODELAYEDMODE(COMPAREUNIT, AUTODELAYEDMODE)     \
-    ((((COMPAREUNIT) == HRTIM_COMPAREUNIT_2) &&                                 \
-     (((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_REGULAR)                 ||  \
-      ((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_AUTODELAYED_NOTIMEOUT)   ||  \
-      ((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_AUTODELAYED_TIMEOUTCMP1) ||  \
-      ((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_AUTODELAYED_TIMEOUTCMP3)))   \
-    ||                                                                         \
-    (((COMPAREUNIT) == HRTIM_COMPAREUNIT_4) &&                                 \
-     (((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_REGULAR)                 ||  \
-      ((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_AUTODELAYED_NOTIMEOUT)   ||  \
-      ((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_AUTODELAYED_TIMEOUTCMP1) ||  \
-      ((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_AUTODELAYED_TIMEOUTCMP3))))
+  ((((COMPAREUNIT) == HRTIM_COMPAREUNIT_2) &&                                 \
+    (((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_REGULAR)                 ||  \
+     ((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_AUTODELAYED_NOTIMEOUT)   ||  \
+     ((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_AUTODELAYED_TIMEOUTCMP1) ||  \
+     ((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_AUTODELAYED_TIMEOUTCMP3)))   \
+   ||                                                                         \
+   (((COMPAREUNIT) == HRTIM_COMPAREUNIT_4) &&                                 \
+    (((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_REGULAR)                 ||  \
+     ((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_AUTODELAYED_NOTIMEOUT)   ||  \
+     ((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_AUTODELAYED_TIMEOUTCMP1) ||  \
+     ((AUTODELAYEDMODE) == HRTIM_AUTODELAYEDMODE_AUTODELAYED_TIMEOUTCMP3))))
 
 #define IS_HRTIM_OUTPUTPOLARITY(OUTPUTPOLARITY)\
-              (((OUTPUTPOLARITY) == HRTIM_OUTPUTPOLARITY_HIGH) || \
-               ((OUTPUTPOLARITY) == HRTIM_OUTPUTPOLARITY_LOW))
+  (((OUTPUTPOLARITY) == HRTIM_OUTPUTPOLARITY_HIGH) || \
+   ((OUTPUTPOLARITY) == HRTIM_OUTPUTPOLARITY_LOW))
 
 #define IS_HRTIM_OUTPUTPULSE(OUTPUTPULSE) ((OUTPUTPULSE) <= 0x0000FFFFU)
 
 #define IS_HRTIM_OUTPUTSET(OUTPUTSET)\
-              (((OUTPUTSET) == HRTIM_OUTPUTSET_NONE)             || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_RESYNC)           || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMPER)           || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMCMP1)          || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMCMP2)          || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMCMP3)          || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMCMP4)          || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_MASTERPER)        || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_MASTERCMP1)       || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_MASTERCMP2)       || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_MASTERCMP3)       || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_MASTERCMP4)       || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMAEV1_TIMBCMP1) || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMAEV2_TIMBCMP2) || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMAEV3_TIMCCMP2) || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMAEV4_TIMCCMP3) || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMAEV5_TIMDCMP1) || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMAEV6_TIMDCMP2) || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMAEV7_TIMECMP3) || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMAEV8_TIMECMP4) || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMAEV9_TIMFCMP4) || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_1)            || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_2)            || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_3)            || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_4)            || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_5)            || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_6)            || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_7)            || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_8)            || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_9)            || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_10)           || \
-               ((OUTPUTSET) == HRTIM_OUTPUTSET_UPDATE))
+  (((OUTPUTSET) == HRTIM_OUTPUTSET_NONE)             || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_RESYNC)           || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMPER)           || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMCMP1)          || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMCMP2)          || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMCMP3)          || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMCMP4)          || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_MASTERPER)        || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_MASTERCMP1)       || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_MASTERCMP2)       || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_MASTERCMP3)       || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_MASTERCMP4)       || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMAEV1_TIMBCMP1) || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMAEV2_TIMBCMP2) || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMAEV3_TIMCCMP2) || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMAEV4_TIMCCMP3) || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMAEV5_TIMDCMP1) || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMAEV6_TIMDCMP2) || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMAEV7_TIMECMP3) || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMAEV8_TIMECMP4) || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_TIMAEV9_TIMFCMP4) || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_1)            || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_2)            || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_3)            || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_4)            || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_5)            || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_6)            || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_7)            || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_8)            || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_9)            || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_EEV_10)           || \
+   ((OUTPUTSET) == HRTIM_OUTPUTSET_UPDATE))
 
 #define IS_HRTIM_OUTPUTRESET(OUTPUTRESET)\
-              (((OUTPUTRESET) == HRTIM_OUTPUTRESET_NONE)             || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_RESYNC)           || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMPER)           || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMCMP1)          || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMCMP2)          || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMCMP3)          || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMCMP4)          || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_MASTERPER)        || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_MASTERCMP1)       || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_MASTERCMP2)       || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_MASTERCMP3)       || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_MASTERCMP4)       || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMAEV1_TIMBCMP1) || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMAEV2_TIMBCMP2) || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMAEV3_TIMCCMP2) || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMAEV4_TIMCCMP3) || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMAEV5_TIMDCMP1) || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMAEV6_TIMDCMP2) || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMAEV7_TIMECMP3) || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMAEV8_TIMECMP4) || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMAEV9_TIMFCMP4) || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_1)            || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_2)            || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_3)            || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_4)            || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_5)            || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_6)            || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_7)            || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_8)            || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_9)            || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_10)           || \
-               ((OUTPUTRESET) == HRTIM_OUTPUTRESET_UPDATE))
+  (((OUTPUTRESET) == HRTIM_OUTPUTRESET_NONE)             || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_RESYNC)           || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMPER)           || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMCMP1)          || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMCMP2)          || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMCMP3)          || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMCMP4)          || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_MASTERPER)        || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_MASTERCMP1)       || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_MASTERCMP2)       || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_MASTERCMP3)       || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_MASTERCMP4)       || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMAEV1_TIMBCMP1) || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMAEV2_TIMBCMP2) || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMAEV3_TIMCCMP2) || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMAEV4_TIMCCMP3) || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMAEV5_TIMDCMP1) || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMAEV6_TIMDCMP2) || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMAEV7_TIMECMP3) || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMAEV8_TIMECMP4) || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_TIMAEV9_TIMFCMP4) || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_1)            || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_2)            || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_3)            || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_4)            || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_5)            || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_6)            || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_7)            || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_8)            || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_9)            || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_EEV_10)           || \
+   ((OUTPUTRESET) == HRTIM_OUTPUTRESET_UPDATE))
 
 #define IS_HRTIM_OUTPUTIDLEMODE(OUTPUTIDLEMODE)\
-              (((OUTPUTIDLEMODE) == HRTIM_OUTPUTIDLEMODE_NONE) || \
-               ((OUTPUTIDLEMODE) == HRTIM_OUTPUTIDLEMODE_IDLE))
+  (((OUTPUTIDLEMODE) == HRTIM_OUTPUTIDLEMODE_NONE) || \
+   ((OUTPUTIDLEMODE) == HRTIM_OUTPUTIDLEMODE_IDLE))
 
 #define IS_HRTIM_OUTPUTIDLELEVEL(OUTPUTIDLELEVEL)\
-              (((OUTPUTIDLELEVEL) == HRTIM_OUTPUTIDLELEVEL_INACTIVE) || \
-               ((OUTPUTIDLELEVEL) == HRTIM_OUTPUTIDLELEVEL_ACTIVE))
+  (((OUTPUTIDLELEVEL) == HRTIM_OUTPUTIDLELEVEL_INACTIVE) || \
+   ((OUTPUTIDLELEVEL) == HRTIM_OUTPUTIDLELEVEL_ACTIVE))
 
 #define IS_HRTIM_OUTPUTFAULTLEVEL(OUTPUTFAULTLEVEL)\
-              (((OUTPUTFAULTLEVEL) == HRTIM_OUTPUTFAULTLEVEL_NONE)     || \
-               ((OUTPUTFAULTLEVEL) == HRTIM_OUTPUTFAULTLEVEL_ACTIVE)   || \
-               ((OUTPUTFAULTLEVEL) == HRTIM_OUTPUTFAULTLEVEL_INACTIVE) || \
-               ((OUTPUTFAULTLEVEL) == HRTIM_OUTPUTFAULTLEVEL_HIGHZ))
+  (((OUTPUTFAULTLEVEL) == HRTIM_OUTPUTFAULTLEVEL_NONE)     || \
+   ((OUTPUTFAULTLEVEL) == HRTIM_OUTPUTFAULTLEVEL_ACTIVE)   || \
+   ((OUTPUTFAULTLEVEL) == HRTIM_OUTPUTFAULTLEVEL_INACTIVE) || \
+   ((OUTPUTFAULTLEVEL) == HRTIM_OUTPUTFAULTLEVEL_HIGHZ))
 
 #define IS_HRTIM_OUTPUTCHOPPERMODE(OUTPUTCHOPPERMODE)\
-              (((OUTPUTCHOPPERMODE) == HRTIM_OUTPUTCHOPPERMODE_DISABLED)  || \
-               ((OUTPUTCHOPPERMODE) == HRTIM_OUTPUTCHOPPERMODE_ENABLED))
+  (((OUTPUTCHOPPERMODE) == HRTIM_OUTPUTCHOPPERMODE_DISABLED)  || \
+   ((OUTPUTCHOPPERMODE) == HRTIM_OUTPUTCHOPPERMODE_ENABLED))
 
 #define IS_HRTIM_OUTPUTBURSTMODEENTRY(OUTPUTBURSTMODEENTRY)\
-              (((OUTPUTBURSTMODEENTRY) == HRTIM_OUTPUTBURSTMODEENTRY_REGULAR)  || \
-               ((OUTPUTBURSTMODEENTRY) == HRTIM_OUTPUTBURSTMODEENTRY_DELAYED))
+  (((OUTPUTBURSTMODEENTRY) == HRTIM_OUTPUTBURSTMODEENTRY_REGULAR)  || \
+   ((OUTPUTBURSTMODEENTRY) == HRTIM_OUTPUTBURSTMODEENTRY_DELAYED))
 
 #define IS_HRTIM_OUTPUTBALANCEDIDLE(OUTPUTBIAR)\
-              (((OUTPUTBIAR) == HRTIM_OUTPUTBIAR_DISABLED)  || \
-               ((OUTPUTBIAR) == HRTIM_OUTPUTBIAR_ENABLED))
+  (((OUTPUTBIAR) == HRTIM_OUTPUTBIAR_DISABLED)  || \
+   ((OUTPUTBIAR) == HRTIM_OUTPUTBIAR_ENABLED))
 
 #define IS_HRTIM_TIMER_CAPTURETRIGGER(TIMER, CAPTURETRIGGER)    \
-   (((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_NONE)          || \
+  (((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_NONE)          || \
    ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_UPDATE)         || \
    ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_EEV_1)          || \
    ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_EEV_2)          || \
@@ -3029,597 +3030,597 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
    ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_EEV_10)            \
    ||                                                           \
    (((TIMER) == HRTIM_TIMERINDEX_TIMER_A) &&                    \
-     (((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP2) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP2) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP2) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP2)))  \
-    ||                                                          \
+    (((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP2) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP2) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP2) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP2)))  \
+   ||                                                          \
    (((TIMER) == HRTIM_TIMERINDEX_TIMER_B) &&                    \
-     (((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP2) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP2) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP2) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP2)))  \
-    ||                                                          \
+    (((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP2) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP2) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP2) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP2)))  \
+   ||                                                          \
    (((TIMER) == HRTIM_TIMERINDEX_TIMER_C) &&                    \
-     (((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP2) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP2) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP2) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP2)))  \
-    ||                                                          \
+    (((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP2) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP2) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP2) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP2)))  \
+   ||                                                          \
    (((TIMER) == HRTIM_TIMERINDEX_TIMER_D) &&                    \
-     (((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP2) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP2) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP2) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP2)))  \
-    ||                                                          \
+    (((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP2) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP2) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP2) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP2)))  \
+   ||                                                          \
    (((TIMER) == HRTIM_TIMERINDEX_TIMER_E) &&                    \
-     (((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP2) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP2) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP2) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP2)))  \
-    ||                                                          \
+    (((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP2) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP2) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP2) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP2)))  \
+   ||                                                          \
    (((TIMER) == HRTIM_TIMERINDEX_TIMER_F) &&                    \
-     (((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP2) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP2) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP2) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP2) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_SET)     || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_RESET)   || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP1) || \
-      ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP2))))
+    (((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TA1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERA_CMP2) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TB1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERB_CMP2) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TC1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERC_CMP2) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TD1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERD_CMP2) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_SET)     || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TE1_RESET)   || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP1) || \
+     ((CAPTURETRIGGER) == HRTIM_CAPTURETRIGGER_TIMERE_CMP2))))
 
 #define IS_HRTIM_TIMER_CAPTUREFTRIGGER(TIMER, CAPTUREFTRIGGER)    \
-   (  ((CAPTUREFTRIGGER) == HRTIM_CAPTUREFTRIGGER_NONE)        || \
-      ((CAPTUREFTRIGGER) == HRTIM_CAPTUREFTRIGGER_TF1_SET)     || \
-      ((CAPTUREFTRIGGER) == HRTIM_CAPTUREFTRIGGER_TF1_RESET)   || \
-      ((CAPTUREFTRIGGER) == HRTIM_CAPTUREFTRIGGER_TIMERF_CMP1) || \
-      ((CAPTUREFTRIGGER) == HRTIM_CAPTUREFTRIGGER_TIMERF_CMP2))
+  (  ((CAPTUREFTRIGGER) == HRTIM_CAPTUREFTRIGGER_NONE)        || \
+     ((CAPTUREFTRIGGER) == HRTIM_CAPTUREFTRIGGER_TF1_SET)     || \
+     ((CAPTUREFTRIGGER) == HRTIM_CAPTUREFTRIGGER_TF1_RESET)   || \
+     ((CAPTUREFTRIGGER) == HRTIM_CAPTUREFTRIGGER_TIMERF_CMP1) || \
+     ((CAPTUREFTRIGGER) == HRTIM_CAPTUREFTRIGGER_TIMERF_CMP2))
 
 #define IS_HRTIM_TIMEVENTFILTER(TIMER,TIMEVENTFILTER)\
-   (((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_NONE)           || \
-    ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKINGCMP1)   || \
-    ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKINGCMP2)   || \
-    ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKINGCMP3)   || \
-    ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKINGCMP4)   || \
-    ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_WINDOWINGCMP2)  || \
-    ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_WINDOWINGCMP3)  || \
-    ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_WINDOWINGTIM)      \
-  ||                                                             \
+  (((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_NONE)           || \
+   ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKINGCMP1)   || \
+   ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKINGCMP2)   || \
+   ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKINGCMP3)   || \
+   ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKINGCMP4)   || \
+   ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_WINDOWINGCMP2)  || \
+   ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_WINDOWINGCMP3)  || \
+   ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_WINDOWINGTIM)      \
+   ||                                                             \
    (((TIMER) == HRTIM_TIMERINDEX_TIMER_A) &&                     \
-     (((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMAEEF1_TIMBCMP1)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMAEEF2_TIMBCMP4)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMAEEF3_TIMBOUT2)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMAEEF4_TIMCCMP1)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMAEEF5_TIMCCMP4)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMAEEF6_TIMFCMP1)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMAEEF7_TIMDCMP1)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMAEEF8_TIMECMP2)))   \
-    ||                                                           \
+    (((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMAEEF1_TIMBCMP1)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMAEEF2_TIMBCMP4)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMAEEF3_TIMBOUT2)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMAEEF4_TIMCCMP1)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMAEEF5_TIMCCMP4)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMAEEF6_TIMFCMP1)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMAEEF7_TIMDCMP1)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMAEEF8_TIMECMP2)))   \
+   ||                                                           \
    (((TIMER) == HRTIM_TIMERINDEX_TIMER_B) &&                     \
-     (((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMBEEF1_TIMACMP1)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMBEEF2_TIMACMP4)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMBEEF3_TIMAOUT2)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMBEEF4_TIMCCMP1)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMBEEF5_TIMCCMP2)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMBEEF6_TIMFCMP2)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMBEEF7_TIMDCMP2)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMBEEF8_TIMECMP1)))   \
-    ||                                                           \
+    (((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMBEEF1_TIMACMP1)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMBEEF2_TIMACMP4)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMBEEF3_TIMAOUT2)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMBEEF4_TIMCCMP1)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMBEEF5_TIMCCMP2)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMBEEF6_TIMFCMP2)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMBEEF7_TIMDCMP2)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMBEEF8_TIMECMP1)))   \
+   ||                                                           \
    (((TIMER) == HRTIM_TIMERINDEX_TIMER_C) &&                     \
-     (((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMCEEF1_TIMACMP2)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMCEEF2_TIMBCMP1)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMCEEF3_TIMBCMP4)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMCEEF4_TIMFCMP1)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMCEEF5_TIMDCMP1)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMCEEF6_TIMDCMP4)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMCEEF7_TIMDOUT2)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMCEEF8_TIMECMP4)))   \
-    ||                                                           \
+    (((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMCEEF1_TIMACMP2)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMCEEF2_TIMBCMP1)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMCEEF3_TIMBCMP4)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMCEEF4_TIMFCMP1)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMCEEF5_TIMDCMP1)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMCEEF6_TIMDCMP4)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMCEEF7_TIMDOUT2)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMCEEF8_TIMECMP4)))   \
+   ||                                                           \
    (((TIMER) == HRTIM_TIMERINDEX_TIMER_D) &&                     \
-     (((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMDEEF1_TIMACMP1)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMDEEF2_TIMBCMP2)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMDEEF3_TIMCCMP1)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMDEEF4_TIMCCMP2)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMDEEF5_TIMCOUT2)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMDEEF6_TIMECMP1)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMDEEF7_TIMECMP4)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMDEEF8_TIMFCMP4)))   \
-    ||                                                           \
+    (((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMDEEF1_TIMACMP1)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMDEEF2_TIMBCMP2)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMDEEF3_TIMCCMP1)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMDEEF4_TIMCCMP2)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMDEEF5_TIMCOUT2)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMDEEF6_TIMECMP1)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMDEEF7_TIMECMP4)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMDEEF8_TIMFCMP4)))   \
+   ||                                                           \
    (((TIMER) == HRTIM_TIMERINDEX_TIMER_E) &&                     \
-     (((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMEEEF1_TIMACMP2)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMEEEF2_TIMBCMP1)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMEEEF3_TIMCCMP1)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMEEEF4_TIMFCMP4)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMEEEF5_TIMFOUT2)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMEEEF6_TIMDCMP1)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMEEEF7_TIMDCMP4)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMEEEF8_TIMDOUT2)))   \
-    ||                                                           \
+    (((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMEEEF1_TIMACMP2)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMEEEF2_TIMBCMP1)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMEEEF3_TIMCCMP1)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMEEEF4_TIMFCMP4)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMEEEF5_TIMFOUT2)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMEEEF6_TIMDCMP1)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMEEEF7_TIMDCMP4)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMEEEF8_TIMDOUT2)))   \
+   ||                                                           \
    (((TIMER) == HRTIM_TIMERINDEX_TIMER_F) &&                     \
-     (((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMFEEF1_TIMACMP4)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMFEEF2_TIMBCMP2)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMFEEF3_TIMCCMP4)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMFEEF4_TIMDCMP2)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMFEEF5_TIMDCMP4)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMFEEF6_TIMECMP1)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMFEEF7_TIMECMP4)  || \
-      ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMFEEF8_TIMEOUT2))))
+    (((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMFEEF1_TIMACMP4)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMFEEF2_TIMBCMP2)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMFEEF3_TIMCCMP4)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMFEEF4_TIMDCMP2)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMFEEF5_TIMDCMP4)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMFEEF6_TIMECMP1)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMFEEF7_TIMECMP4)  || \
+     ((TIMEVENTFILTER) == HRTIM_TIMEEVFLT_BLANKING_TIMFEEF8_TIMEOUT2))))
 
 #define IS_HRTIM_TIMEVENTLATCH(TIMEVENTLATCH)\
-              (((TIMEVENTLATCH) == HRTIM_TIMEVENTLATCH_DISABLED) || \
-               ((TIMEVENTLATCH) == HRTIM_TIMEVENTLATCH_ENABLED))
+  (((TIMEVENTLATCH) == HRTIM_TIMEVENTLATCH_DISABLED) || \
+   ((TIMEVENTLATCH) == HRTIM_TIMEVENTLATCH_ENABLED))
 
 #define IS_HRTIM_TIMDEADTIME_PRESCALERRATIO(PRESCALERRATIO)\
-                (((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_MUL8) || \
-                 ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_MUL4) || \
-                 ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_MUL2) || \
-                 ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV1) || \
-                 ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV2) || \
-                 ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV4) || \
-                 ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV8) || \
-                 ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV16))
+  (((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_MUL8) || \
+   ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_MUL4) || \
+   ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_MUL2) || \
+   ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV1) || \
+   ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV2) || \
+   ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV4) || \
+   ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV8) || \
+   ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV16))
 
 #define IS_HRTIM_TIMDEADTIME_RISINGSIGN(RISINGSIGN)\
-                (((RISINGSIGN) == HRTIM_TIMDEADTIME_RISINGSIGN_POSITIVE)    || \
-                 ((RISINGSIGN) == HRTIM_TIMDEADTIME_RISINGSIGN_NEGATIVE))
+  (((RISINGSIGN) == HRTIM_TIMDEADTIME_RISINGSIGN_POSITIVE)    || \
+   ((RISINGSIGN) == HRTIM_TIMDEADTIME_RISINGSIGN_NEGATIVE))
 
 #define IS_HRTIM_TIMDEADTIME_RISINGLOCK(RISINGLOCK)\
-                    (((RISINGLOCK) == HRTIM_TIMDEADTIME_RISINGLOCK_WRITE)    || \
-                     ((RISINGLOCK) == HRTIM_TIMDEADTIME_RISINGLOCK_READONLY))
+  (((RISINGLOCK) == HRTIM_TIMDEADTIME_RISINGLOCK_WRITE)    || \
+   ((RISINGLOCK) == HRTIM_TIMDEADTIME_RISINGLOCK_READONLY))
 
 #define IS_HRTIM_TIMDEADTIME_RISINGSIGNLOCK(RISINGSIGNLOCK)\
-                  (((RISINGSIGNLOCK) == HRTIM_TIMDEADTIME_RISINGSIGNLOCK_WRITE)    || \
-                   ((RISINGSIGNLOCK) == HRTIM_TIMDEADTIME_RISINGSIGNLOCK_READONLY))
+  (((RISINGSIGNLOCK) == HRTIM_TIMDEADTIME_RISINGSIGNLOCK_WRITE)    || \
+   ((RISINGSIGNLOCK) == HRTIM_TIMDEADTIME_RISINGSIGNLOCK_READONLY))
 
 #define IS_HRTIM_TIMDEADTIME_FALLINGSIGN(FALLINGSIGN)\
-                      (((FALLINGSIGN) == HRTIM_TIMDEADTIME_FALLINGSIGN_POSITIVE)    || \
-                       ((FALLINGSIGN) == HRTIM_TIMDEADTIME_FALLINGSIGN_NEGATIVE))
+  (((FALLINGSIGN) == HRTIM_TIMDEADTIME_FALLINGSIGN_POSITIVE)    || \
+   ((FALLINGSIGN) == HRTIM_TIMDEADTIME_FALLINGSIGN_NEGATIVE))
 
 #define IS_HRTIM_TIMDEADTIME_FALLINGLOCK(FALLINGLOCK)\
-                          (((FALLINGLOCK) == HRTIM_TIMDEADTIME_FALLINGLOCK_WRITE)    || \
-                           ((FALLINGLOCK) == HRTIM_TIMDEADTIME_FALLINGLOCK_READONLY))
+  (((FALLINGLOCK) == HRTIM_TIMDEADTIME_FALLINGLOCK_WRITE)    || \
+   ((FALLINGLOCK) == HRTIM_TIMDEADTIME_FALLINGLOCK_READONLY))
 
 #define IS_HRTIM_TIMDEADTIME_FALLINGSIGNLOCK(FALLINGSIGNLOCK)\
-                        (((FALLINGSIGNLOCK) == HRTIM_TIMDEADTIME_FALLINGSIGNLOCK_WRITE)    || \
-                         ((FALLINGSIGNLOCK) == HRTIM_TIMDEADTIME_FALLINGSIGNLOCK_READONLY))
+  (((FALLINGSIGNLOCK) == HRTIM_TIMDEADTIME_FALLINGSIGNLOCK_WRITE)    || \
+   ((FALLINGSIGNLOCK) == HRTIM_TIMDEADTIME_FALLINGSIGNLOCK_READONLY))
 
 #define IS_HRTIM_CHOPPER_PRESCALERRATIO(PRESCALERRATIO)\
-                        (((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV16)    || \
-                         ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV32)    || \
-                         ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV48)    || \
-                         ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV64)    || \
-                         ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV80)    || \
-                         ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV96)    || \
-                         ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV112)   || \
-                         ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV128)   || \
-                         ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV144)   || \
-                         ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV160)   || \
-                         ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV176)   || \
-                         ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV192)   || \
-                         ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV208)   || \
-                         ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV224)   || \
-                         ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV240)   || \
-                         ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV256))
+  (((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV16)    || \
+   ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV32)    || \
+   ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV48)    || \
+   ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV64)    || \
+   ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV80)    || \
+   ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV96)    || \
+   ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV112)   || \
+   ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV128)   || \
+   ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV144)   || \
+   ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV160)   || \
+   ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV176)   || \
+   ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV192)   || \
+   ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV208)   || \
+   ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV224)   || \
+   ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV240)   || \
+   ((PRESCALERRATIO) == HRTIM_CHOPPER_PRESCALERRATIO_DIV256))
 
 #define IS_HRTIM_CHOPPER_DUTYCYCLE(DUTYCYCLE)\
-                        (((DUTYCYCLE) == HRTIM_CHOPPER_DUTYCYCLE_0)    || \
-                         ((DUTYCYCLE) == HRTIM_CHOPPER_DUTYCYCLE_125)  || \
-                         ((DUTYCYCLE) == HRTIM_CHOPPER_DUTYCYCLE_250)  || \
-                         ((DUTYCYCLE) == HRTIM_CHOPPER_DUTYCYCLE_375)  || \
-                         ((DUTYCYCLE) == HRTIM_CHOPPER_DUTYCYCLE_500)  || \
-                         ((DUTYCYCLE) == HRTIM_CHOPPER_DUTYCYCLE_625)  || \
-                         ((DUTYCYCLE) == HRTIM_CHOPPER_DUTYCYCLE_750)  || \
-                         ((DUTYCYCLE) == HRTIM_CHOPPER_DUTYCYCLE_875))
+  (((DUTYCYCLE) == HRTIM_CHOPPER_DUTYCYCLE_0)    || \
+   ((DUTYCYCLE) == HRTIM_CHOPPER_DUTYCYCLE_125)  || \
+   ((DUTYCYCLE) == HRTIM_CHOPPER_DUTYCYCLE_250)  || \
+   ((DUTYCYCLE) == HRTIM_CHOPPER_DUTYCYCLE_375)  || \
+   ((DUTYCYCLE) == HRTIM_CHOPPER_DUTYCYCLE_500)  || \
+   ((DUTYCYCLE) == HRTIM_CHOPPER_DUTYCYCLE_625)  || \
+   ((DUTYCYCLE) == HRTIM_CHOPPER_DUTYCYCLE_750)  || \
+   ((DUTYCYCLE) == HRTIM_CHOPPER_DUTYCYCLE_875))
 
 #define IS_HRTIM_CHOPPER_PULSEWIDTH(PULSEWIDTH)\
-                        (((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_16)   || \
-                         ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_32)   || \
-                         ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_48)   || \
-                         ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_64)   || \
-                         ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_80)   || \
-                         ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_96)   || \
-                         ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_112)  || \
-                         ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_128)  || \
-                         ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_144)  || \
-                         ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_160)  || \
-                         ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_176)  || \
-                         ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_192)  || \
-                         ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_208)  || \
-                         ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_224)  || \
-                         ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_240)  || \
-                         ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_256))
+  (((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_16)   || \
+   ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_32)   || \
+   ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_48)   || \
+   ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_64)   || \
+   ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_80)   || \
+   ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_96)   || \
+   ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_112)  || \
+   ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_128)  || \
+   ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_144)  || \
+   ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_160)  || \
+   ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_176)  || \
+   ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_192)  || \
+   ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_208)  || \
+   ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_224)  || \
+   ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_240)  || \
+   ((PULSEWIDTH) == HRTIM_CHOPPER_PULSEWIDTH_256))
 
 #define IS_HRTIM_SYNCINPUTSOURCE(SYNCINPUTSOURCE)\
-              (((SYNCINPUTSOURCE) == HRTIM_SYNCINPUTSOURCE_NONE)             || \
-               ((SYNCINPUTSOURCE) == HRTIM_SYNCINPUTSOURCE_INTERNALEVENT)    || \
-               ((SYNCINPUTSOURCE) == HRTIM_SYNCINPUTSOURCE_EXTERNALEVENT))
+  (((SYNCINPUTSOURCE) == HRTIM_SYNCINPUTSOURCE_NONE)             || \
+   ((SYNCINPUTSOURCE) == HRTIM_SYNCINPUTSOURCE_INTERNALEVENT)    || \
+   ((SYNCINPUTSOURCE) == HRTIM_SYNCINPUTSOURCE_EXTERNALEVENT))
 
 #define IS_HRTIM_SYNCOUTPUTSOURCE(SYNCOUTPUTSOURCE)\
-              (((SYNCOUTPUTSOURCE) == HRTIM_SYNCOUTPUTSOURCE_MASTER_START)  || \
-               ((SYNCOUTPUTSOURCE) == HRTIM_SYNCOUTPUTSOURCE_MASTER_CMP1)   || \
-               ((SYNCOUTPUTSOURCE) == HRTIM_SYNCOUTPUTSOURCE_TIMA_START)    || \
-               ((SYNCOUTPUTSOURCE) == HRTIM_SYNCOUTPUTSOURCE_TIMA_CMP1))
+  (((SYNCOUTPUTSOURCE) == HRTIM_SYNCOUTPUTSOURCE_MASTER_START)  || \
+   ((SYNCOUTPUTSOURCE) == HRTIM_SYNCOUTPUTSOURCE_MASTER_CMP1)   || \
+   ((SYNCOUTPUTSOURCE) == HRTIM_SYNCOUTPUTSOURCE_TIMA_START)    || \
+   ((SYNCOUTPUTSOURCE) == HRTIM_SYNCOUTPUTSOURCE_TIMA_CMP1))
 
 #define IS_HRTIM_SYNCOUTPUTPOLARITY(SYNCOUTPUTPOLARITY)\
-              (((SYNCOUTPUTPOLARITY) == HRTIM_SYNCOUTPUTPOLARITY_NONE)  || \
-               ((SYNCOUTPUTPOLARITY) == HRTIM_SYNCOUTPUTPOLARITY_POSITIVE)  || \
-               ((SYNCOUTPUTPOLARITY) == HRTIM_SYNCOUTPUTPOLARITY_NEGATIVE))
+  (((SYNCOUTPUTPOLARITY) == HRTIM_SYNCOUTPUTPOLARITY_NONE)  || \
+   ((SYNCOUTPUTPOLARITY) == HRTIM_SYNCOUTPUTPOLARITY_POSITIVE)  || \
+   ((SYNCOUTPUTPOLARITY) == HRTIM_SYNCOUTPUTPOLARITY_NEGATIVE))
 
 #define IS_HRTIM_EVENTSRC(EVENT, EVENTSRC)                      \
-    ((((EVENT) == HRTIM_EVENT_1) &&                             \
-                 (((EVENTSRC) == HRTIM_EEV1SRC_GPIO      )   || \
-                  ((EVENTSRC) == HRTIM_EEV1SRC_COMP2_OUT )   || \
-                  ((EVENTSRC) == HRTIM_EEV1SRC_TIM1_TRGO )   || \
-                  ((EVENTSRC) == HRTIM_EEV1SRC_ADC1_AWD1 )))    \
-    ||                                                          \
-     (((EVENT) == HRTIM_EVENT_2) &&                             \
-                 (((EVENTSRC) == HRTIM_EEV2SRC_GPIO      )   || \
-                  ((EVENTSRC) == HRTIM_EEV2SRC_COMP4_OUT )   || \
-                  ((EVENTSRC) == HRTIM_EEV2SRC_TIM2_TRGO )   || \
-                  ((EVENTSRC) == HRTIM_EEV2SRC_ADC1_AWD2 )))    \
-    ||                                                          \
-     (((EVENT) == HRTIM_EVENT_3) &&                             \
-                 (((EVENTSRC) == HRTIM_EEV3SRC_GPIO      )   || \
-                  ((EVENTSRC) == HRTIM_EEV3SRC_COMP6_OUT )   || \
-                  ((EVENTSRC) == HRTIM_EEV3SRC_TIM3_TRGO )   || \
-                  ((EVENTSRC) == HRTIM_EEV3SRC_ADC1_AWD3 )))    \
-    ||                                                          \
-     (((EVENT) == HRTIM_EVENT_4) &&                             \
-                 (((EVENTSRC) == HRTIM_EEV4SRC_GPIO      )   || \
-                  ((EVENTSRC) == HRTIM_EEV4SRC_COMP1_OUT )   || \
-                  ((EVENTSRC) == HRTIM_EEV4SRC_COMP5_OUT )   || \
-                  ((EVENTSRC) == HRTIM_EEV4SRC_ADC2_AWD1 )))    \
-    ||                                                          \
-     (((EVENT) == HRTIM_EVENT_5) &&                             \
-                 (((EVENTSRC) == HRTIM_EEV5SRC_GPIO      )   || \
-                  ((EVENTSRC) == HRTIM_EEV5SRC_COMP3_OUT )   || \
-                  ((EVENTSRC) == HRTIM_EEV5SRC_COMP7_OUT )   || \
-                  ((EVENTSRC) == HRTIM_EEV5SRC_ADC2_AWD2 )))    \
-    ||                                                          \
-     (((EVENT) == HRTIM_EVENT_6) &&                             \
-                 (((EVENTSRC) == HRTIM_EEV6SRC_GPIO      )   || \
-                  ((EVENTSRC) == HRTIM_EEV6SRC_COMP2_OUT )   || \
-                  ((EVENTSRC) == HRTIM_EEV6SRC_COMP1_OUT )   || \
-                  ((EVENTSRC) == HRTIM_EEV6SRC_ADC2_AWD3 )))    \
-    ||                                                          \
-     (((EVENT) == HRTIM_EVENT_7) &&                             \
-                 (((EVENTSRC) == HRTIM_EEV7SRC_GPIO      )   || \
-                  ((EVENTSRC) == HRTIM_EEV7SRC_COMP4_OUT )   || \
-                  ((EVENTSRC) == HRTIM_EEV7SRC_TIM7_TRGO )   || \
-                  ((EVENTSRC) == HRTIM_EEV7SRC_ADC3_AWD1 )))    \
-    ||                                                          \
-     (((EVENT) == HRTIM_EVENT_8) &&                             \
-                 (((EVENTSRC) == HRTIM_EEV8SRC_GPIO      )   || \
-                  ((EVENTSRC) == HRTIM_EEV8SRC_COMP6_OUT )   || \
-                  ((EVENTSRC) == HRTIM_EEV8SRC_COMP3_OUT )   || \
-                  ((EVENTSRC) == HRTIM_EEV8SRC_ADC4_AWD1 )))    \
-    ||                                                          \
-     (((EVENT) == HRTIM_EVENT_9) &&                             \
-                 (((EVENTSRC) == HRTIM_EEV9SRC_GPIO      )   || \
-                  ((EVENTSRC) == HRTIM_EEV9SRC_COMP5_OUT )   || \
-                  ((EVENTSRC) == HRTIM_EEV9SRC_TIM15_TRGO)   || \
-                  ((EVENTSRC) == HRTIM_EEV9SRC_COMP4_OUT )))    \
-    ||                                                          \
-     (((EVENT) == HRTIM_EVENT_10) &&                            \
-                 (((EVENTSRC) == HRTIM_EEV10SRC_GPIO     )   || \
-                  ((EVENTSRC) == HRTIM_EEV10SRC_COMP7_OUT)   || \
-                  ((EVENTSRC) == HRTIM_EEV10SRC_TIM6_TRGO)   || \
-                  ((EVENTSRC) == HRTIM_EEV10SRC_ADC5_AWD1))))
+  ((((EVENT) == HRTIM_EVENT_1) &&                             \
+    (((EVENTSRC) == HRTIM_EEV1SRC_GPIO      )   || \
+     ((EVENTSRC) == HRTIM_EEV1SRC_COMP2_OUT )   || \
+     ((EVENTSRC) == HRTIM_EEV1SRC_TIM1_TRGO )   || \
+     ((EVENTSRC) == HRTIM_EEV1SRC_ADC1_AWD1 )))    \
+   ||                                                          \
+   (((EVENT) == HRTIM_EVENT_2) &&                             \
+    (((EVENTSRC) == HRTIM_EEV2SRC_GPIO      )   || \
+     ((EVENTSRC) == HRTIM_EEV2SRC_COMP4_OUT )   || \
+     ((EVENTSRC) == HRTIM_EEV2SRC_TIM2_TRGO )   || \
+     ((EVENTSRC) == HRTIM_EEV2SRC_ADC1_AWD2 )))    \
+   ||                                                          \
+   (((EVENT) == HRTIM_EVENT_3) &&                             \
+    (((EVENTSRC) == HRTIM_EEV3SRC_GPIO      )   || \
+     ((EVENTSRC) == HRTIM_EEV3SRC_COMP6_OUT )   || \
+     ((EVENTSRC) == HRTIM_EEV3SRC_TIM3_TRGO )   || \
+     ((EVENTSRC) == HRTIM_EEV3SRC_ADC1_AWD3 )))    \
+   ||                                                          \
+   (((EVENT) == HRTIM_EVENT_4) &&                             \
+    (((EVENTSRC) == HRTIM_EEV4SRC_GPIO      )   || \
+     ((EVENTSRC) == HRTIM_EEV4SRC_COMP1_OUT )   || \
+     ((EVENTSRC) == HRTIM_EEV4SRC_COMP5_OUT )   || \
+     ((EVENTSRC) == HRTIM_EEV4SRC_ADC2_AWD1 )))    \
+   ||                                                          \
+   (((EVENT) == HRTIM_EVENT_5) &&                             \
+    (((EVENTSRC) == HRTIM_EEV5SRC_GPIO      )   || \
+     ((EVENTSRC) == HRTIM_EEV5SRC_COMP3_OUT )   || \
+     ((EVENTSRC) == HRTIM_EEV5SRC_COMP7_OUT )   || \
+     ((EVENTSRC) == HRTIM_EEV5SRC_ADC2_AWD2 )))    \
+   ||                                                          \
+   (((EVENT) == HRTIM_EVENT_6) &&                             \
+    (((EVENTSRC) == HRTIM_EEV6SRC_GPIO      )   || \
+     ((EVENTSRC) == HRTIM_EEV6SRC_COMP2_OUT )   || \
+     ((EVENTSRC) == HRTIM_EEV6SRC_COMP1_OUT )   || \
+     ((EVENTSRC) == HRTIM_EEV6SRC_ADC2_AWD3 )))    \
+   ||                                                          \
+   (((EVENT) == HRTIM_EVENT_7) &&                             \
+    (((EVENTSRC) == HRTIM_EEV7SRC_GPIO      )   || \
+     ((EVENTSRC) == HRTIM_EEV7SRC_COMP4_OUT )   || \
+     ((EVENTSRC) == HRTIM_EEV7SRC_TIM7_TRGO )   || \
+     ((EVENTSRC) == HRTIM_EEV7SRC_ADC3_AWD1 )))    \
+   ||                                                          \
+   (((EVENT) == HRTIM_EVENT_8) &&                             \
+    (((EVENTSRC) == HRTIM_EEV8SRC_GPIO      )   || \
+     ((EVENTSRC) == HRTIM_EEV8SRC_COMP6_OUT )   || \
+     ((EVENTSRC) == HRTIM_EEV8SRC_COMP3_OUT )   || \
+     ((EVENTSRC) == HRTIM_EEV8SRC_ADC4_AWD1 )))    \
+   ||                                                          \
+   (((EVENT) == HRTIM_EVENT_9) &&                             \
+    (((EVENTSRC) == HRTIM_EEV9SRC_GPIO      )   || \
+     ((EVENTSRC) == HRTIM_EEV9SRC_COMP5_OUT )   || \
+     ((EVENTSRC) == HRTIM_EEV9SRC_TIM15_TRGO)   || \
+     ((EVENTSRC) == HRTIM_EEV9SRC_COMP4_OUT )))    \
+   ||                                                          \
+   (((EVENT) == HRTIM_EVENT_10) &&                            \
+    (((EVENTSRC) == HRTIM_EEV10SRC_GPIO     )   || \
+     ((EVENTSRC) == HRTIM_EEV10SRC_COMP7_OUT)   || \
+     ((EVENTSRC) == HRTIM_EEV10SRC_TIM6_TRGO)   || \
+     ((EVENTSRC) == HRTIM_EEV10SRC_ADC5_AWD1))))
 
 #define IS_HRTIM_EVENTPOLARITY(EVENTSENSITIVITY, EVENTPOLARITY)\
-    ((((EVENTSENSITIVITY) == HRTIM_EVENTSENSITIVITY_LEVEL)  &&      \
-       (((EVENTPOLARITY) == HRTIM_EVENTPOLARITY_HIGH)  ||           \
-        ((EVENTPOLARITY) == HRTIM_EVENTPOLARITY_LOW)))              \
-      ||                                                            \
-      (((EVENTSENSITIVITY) == HRTIM_EVENTSENSITIVITY_RISINGEDGE) || \
-       ((EVENTSENSITIVITY) == HRTIM_EVENTSENSITIVITY_FALLINGEDGE)|| \
-       ((EVENTSENSITIVITY) == HRTIM_EVENTSENSITIVITY_BOTHEDGES)))
+  ((((EVENTSENSITIVITY) == HRTIM_EVENTSENSITIVITY_LEVEL)  &&      \
+    (((EVENTPOLARITY) == HRTIM_EVENTPOLARITY_HIGH)  ||           \
+     ((EVENTPOLARITY) == HRTIM_EVENTPOLARITY_LOW)))              \
+   ||                                                            \
+   (((EVENTSENSITIVITY) == HRTIM_EVENTSENSITIVITY_RISINGEDGE) || \
+    ((EVENTSENSITIVITY) == HRTIM_EVENTSENSITIVITY_FALLINGEDGE)|| \
+    ((EVENTSENSITIVITY) == HRTIM_EVENTSENSITIVITY_BOTHEDGES)))
 
 #define IS_HRTIM_EVENTSENSITIVITY(EVENTSENSITIVITY)\
-                    (((EVENTSENSITIVITY) == HRTIM_EVENTSENSITIVITY_LEVEL)       || \
-                     ((EVENTSENSITIVITY) == HRTIM_EVENTSENSITIVITY_RISINGEDGE)  || \
-                     ((EVENTSENSITIVITY) == HRTIM_EVENTSENSITIVITY_FALLINGEDGE) || \
-                     ((EVENTSENSITIVITY) == HRTIM_EVENTSENSITIVITY_BOTHEDGES))
+  (((EVENTSENSITIVITY) == HRTIM_EVENTSENSITIVITY_LEVEL)       || \
+   ((EVENTSENSITIVITY) == HRTIM_EVENTSENSITIVITY_RISINGEDGE)  || \
+   ((EVENTSENSITIVITY) == HRTIM_EVENTSENSITIVITY_FALLINGEDGE) || \
+   ((EVENTSENSITIVITY) == HRTIM_EVENTSENSITIVITY_BOTHEDGES))
 
 #define IS_HRTIM_EVENTFASTMODE(EVENT, FASTMODE)\
-    (((((EVENT) == HRTIM_EVENT_1) ||                 \
-       ((EVENT) == HRTIM_EVENT_2) ||                 \
-       ((EVENT) == HRTIM_EVENT_3) ||                 \
-       ((EVENT) == HRTIM_EVENT_4) ||                 \
-       ((EVENT) == HRTIM_EVENT_5)) &&                \
-      (((FASTMODE) == HRTIM_EVENTFASTMODE_ENABLE) || \
-       ((FASTMODE) == HRTIM_EVENTFASTMODE_DISABLE))) \
-    ||                                               \
-    (((EVENT) == HRTIM_EVENT_6) ||                   \
-     ((EVENT) == HRTIM_EVENT_7) ||                   \
-     ((EVENT) == HRTIM_EVENT_8) ||                   \
-     ((EVENT) == HRTIM_EVENT_9) ||                   \
-     ((EVENT) == HRTIM_EVENT_10)))
+  (((((EVENT) == HRTIM_EVENT_1) ||                 \
+     ((EVENT) == HRTIM_EVENT_2) ||                 \
+     ((EVENT) == HRTIM_EVENT_3) ||                 \
+     ((EVENT) == HRTIM_EVENT_4) ||                 \
+     ((EVENT) == HRTIM_EVENT_5)) &&                \
+    (((FASTMODE) == HRTIM_EVENTFASTMODE_ENABLE) || \
+     ((FASTMODE) == HRTIM_EVENTFASTMODE_DISABLE))) \
+   ||                                               \
+   (((EVENT) == HRTIM_EVENT_6) ||                   \
+    ((EVENT) == HRTIM_EVENT_7) ||                   \
+    ((EVENT) == HRTIM_EVENT_8) ||                   \
+    ((EVENT) == HRTIM_EVENT_9) ||                   \
+    ((EVENT) == HRTIM_EVENT_10)))
 
 
 #define IS_HRTIM_EVENTFILTER(EVENT, FILTER)\
-      ((((EVENT) == HRTIM_EVENT_1) ||            \
-        ((EVENT) == HRTIM_EVENT_2) ||            \
-        ((EVENT) == HRTIM_EVENT_3) ||            \
-        ((EVENT) == HRTIM_EVENT_4) ||            \
-        ((EVENT) == HRTIM_EVENT_5))              \
-       ||                                        \
-      ((((EVENT) == HRTIM_EVENT_6) ||            \
-        ((EVENT) == HRTIM_EVENT_7) ||            \
-        ((EVENT) == HRTIM_EVENT_8) ||            \
-        ((EVENT) == HRTIM_EVENT_9) ||            \
-        ((EVENT) == HRTIM_EVENT_10)) &&          \
-        (((FILTER) == HRTIM_EVENTFILTER_NONE) || \
-        ((FILTER) == HRTIM_EVENTFILTER_1)     || \
-        ((FILTER) == HRTIM_EVENTFILTER_2)     || \
-        ((FILTER) == HRTIM_EVENTFILTER_3)     || \
-        ((FILTER) == HRTIM_EVENTFILTER_4)     || \
-        ((FILTER) == HRTIM_EVENTFILTER_5)     || \
-        ((FILTER) == HRTIM_EVENTFILTER_6)     || \
-        ((FILTER) == HRTIM_EVENTFILTER_7)     || \
-        ((FILTER) == HRTIM_EVENTFILTER_8)     || \
-        ((FILTER) == HRTIM_EVENTFILTER_9)     || \
-        ((FILTER) == HRTIM_EVENTFILTER_10)    || \
-        ((FILTER) == HRTIM_EVENTFILTER_11)    || \
-        ((FILTER) == HRTIM_EVENTFILTER_12)    || \
-        ((FILTER) == HRTIM_EVENTFILTER_13)    || \
-        ((FILTER) == HRTIM_EVENTFILTER_14)    || \
-        ((FILTER) == HRTIM_EVENTFILTER_15))))
+  ((((EVENT) == HRTIM_EVENT_1) ||            \
+    ((EVENT) == HRTIM_EVENT_2) ||            \
+    ((EVENT) == HRTIM_EVENT_3) ||            \
+    ((EVENT) == HRTIM_EVENT_4) ||            \
+    ((EVENT) == HRTIM_EVENT_5))              \
+   ||                                        \
+   ((((EVENT) == HRTIM_EVENT_6) ||            \
+     ((EVENT) == HRTIM_EVENT_7) ||            \
+     ((EVENT) == HRTIM_EVENT_8) ||            \
+     ((EVENT) == HRTIM_EVENT_9) ||            \
+     ((EVENT) == HRTIM_EVENT_10)) &&          \
+    (((FILTER) == HRTIM_EVENTFILTER_NONE) || \
+     ((FILTER) == HRTIM_EVENTFILTER_1)     || \
+     ((FILTER) == HRTIM_EVENTFILTER_2)     || \
+     ((FILTER) == HRTIM_EVENTFILTER_3)     || \
+     ((FILTER) == HRTIM_EVENTFILTER_4)     || \
+     ((FILTER) == HRTIM_EVENTFILTER_5)     || \
+     ((FILTER) == HRTIM_EVENTFILTER_6)     || \
+     ((FILTER) == HRTIM_EVENTFILTER_7)     || \
+     ((FILTER) == HRTIM_EVENTFILTER_8)     || \
+     ((FILTER) == HRTIM_EVENTFILTER_9)     || \
+     ((FILTER) == HRTIM_EVENTFILTER_10)    || \
+     ((FILTER) == HRTIM_EVENTFILTER_11)    || \
+     ((FILTER) == HRTIM_EVENTFILTER_12)    || \
+     ((FILTER) == HRTIM_EVENTFILTER_13)    || \
+     ((FILTER) == HRTIM_EVENTFILTER_14)    || \
+     ((FILTER) == HRTIM_EVENTFILTER_15))))
 
 #define IS_HRTIM_EVENTPRESCALER(EVENTPRESCALER)\
-             (((EVENTPRESCALER) == HRTIM_EVENTPRESCALER_DIV1)  || \
-              ((EVENTPRESCALER) == HRTIM_EVENTPRESCALER_DIV2)   || \
-              ((EVENTPRESCALER) == HRTIM_EVENTPRESCALER_DIV4)   || \
-              ((EVENTPRESCALER) == HRTIM_EVENTPRESCALER_DIV8))
+  (((EVENTPRESCALER) == HRTIM_EVENTPRESCALER_DIV1)  || \
+   ((EVENTPRESCALER) == HRTIM_EVENTPRESCALER_DIV2)   || \
+   ((EVENTPRESCALER) == HRTIM_EVENTPRESCALER_DIV4)   || \
+   ((EVENTPRESCALER) == HRTIM_EVENTPRESCALER_DIV8))
 
 #define IS_HRTIM_FAULTSOURCE(FAULTSOURCE)\
-              (((FAULTSOURCE) == HRTIM_FAULTSOURCE_DIGITALINPUT) || \
-               ((FAULTSOURCE) == HRTIM_FAULTSOURCE_INTERNAL) || \
-               ((FAULTSOURCE) == HRTIM_FAULTSOURCE_EEVINPUT))
+  (((FAULTSOURCE) == HRTIM_FAULTSOURCE_DIGITALINPUT) || \
+   ((FAULTSOURCE) == HRTIM_FAULTSOURCE_INTERNAL) || \
+   ((FAULTSOURCE) == HRTIM_FAULTSOURCE_EEVINPUT))
 
 #define IS_HRTIM_FAULTPOLARITY(HRTIM_FAULTPOLARITY)\
-              (((HRTIM_FAULTPOLARITY) == HRTIM_FAULTPOLARITY_LOW) || \
-               ((HRTIM_FAULTPOLARITY) == HRTIM_FAULTPOLARITY_HIGH))
+  (((HRTIM_FAULTPOLARITY) == HRTIM_FAULTPOLARITY_LOW) || \
+   ((HRTIM_FAULTPOLARITY) == HRTIM_FAULTPOLARITY_HIGH))
 
 #define IS_HRTIM_FAULTMODECTL(FAULTMODECTL)\
-    (((FAULTMODECTL) == HRTIM_FAULTMODECTL_DISABLED)  || \
-     ((FAULTMODECTL) == HRTIM_FAULTMODECTL_ENABLED))
+  (((FAULTMODECTL) == HRTIM_FAULTMODECTL_DISABLED)  || \
+   ((FAULTMODECTL) == HRTIM_FAULTMODECTL_ENABLED))
 
 #define IS_HRTIM_FAULTBLANKNGMODE(FAULTBLANKINGMODE)\
-              (((FAULTBLANKINGMODE) == HRTIM_FAULTBLANKINGMODE_RSTALIGNED) || \
-               ((FAULTBLANKINGMODE) == HRTIM_FAULTBLANKINGMODE_MOVING))
+  (((FAULTBLANKINGMODE) == HRTIM_FAULTBLANKINGMODE_RSTALIGNED) || \
+   ((FAULTBLANKINGMODE) == HRTIM_FAULTBLANKINGMODE_MOVING))
 
 #define IS_HRTIM_FAULTBLANKING(FAULTBLANKINGCTL)\
-    (((FAULTBLANKINGCTL) == HRTIM_FAULTBLANKING_DISABLED)  || \
-     ((FAULTBLANKINGCTL) == HRTIM_FAULTBLANKING_ENABLED))
+  (((FAULTBLANKINGCTL) == HRTIM_FAULTBLANKING_DISABLED)  || \
+   ((FAULTBLANKINGCTL) == HRTIM_FAULTBLANKING_ENABLED))
 
 #define IS_HRTIM_FAULTCOUNTERRST(HRTIM_FAULTCOUNTERRST)\
-              (((HRTIM_FAULTCOUNTERRST) == HRTIM_FAULTCOUNTERRST_UNCONDITIONAL) || \
-               ((HRTIM_FAULTCOUNTERRST) == HRTIM_FAULTCOUNTERRST_CONDITIONAL))
+  (((HRTIM_FAULTCOUNTERRST) == HRTIM_FAULTCOUNTERRST_UNCONDITIONAL) || \
+   ((HRTIM_FAULTCOUNTERRST) == HRTIM_FAULTCOUNTERRST_CONDITIONAL))
 
 #define IS_HRTIM_FAULTBLANKINGCTL(FAULTBLANKINGCTL)\
-    (((FAULTBLANKINGCTL) == HRTIM_FAULTBLANKINGCTL_DISABLED)  || \
-     ((FAULTBLANKINGCTL) == HRTIM_FAULTBLANKINGCTL_ENABLED))
+  (((FAULTBLANKINGCTL) == HRTIM_FAULTBLANKINGCTL_DISABLED)  || \
+   ((FAULTBLANKINGCTL) == HRTIM_FAULTBLANKINGCTL_ENABLED))
 
 #define IS_HRTIM_FAULTCOUNTER(FAULTCOUNTER)\
-                (((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_NONE) || \
-                 ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_1)    || \
-                 ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_2)    || \
-                 ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_3)    || \
-                 ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_4)    || \
-                 ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_5)    || \
-                 ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_6)    || \
-                 ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_7)    || \
-                 ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_8)    || \
-                 ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_9)    || \
-                 ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_10)   || \
-                 ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_11)   || \
-                 ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_12)   || \
-                 ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_13)   || \
-                 ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_14)   || \
-                 ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_15))
+  (((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_NONE) || \
+   ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_1)    || \
+   ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_2)    || \
+   ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_3)    || \
+   ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_4)    || \
+   ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_5)    || \
+   ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_6)    || \
+   ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_7)    || \
+   ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_8)    || \
+   ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_9)    || \
+   ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_10)   || \
+   ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_11)   || \
+   ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_12)   || \
+   ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_13)   || \
+   ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_14)   || \
+   ((FAULTCOUNTER) == HRTIM_FAULTCOUNTER_15))
 
 #define IS_HRTIM_FAULTFILTER(FAULTFILTER)\
-                (((FAULTFILTER) == HRTIM_FAULTFILTER_NONE) || \
-                 ((FAULTFILTER) == HRTIM_FAULTFILTER_1)    || \
-                 ((FAULTFILTER) == HRTIM_FAULTFILTER_2)    || \
-                 ((FAULTFILTER) == HRTIM_FAULTFILTER_3)    || \
-                 ((FAULTFILTER) == HRTIM_FAULTFILTER_4)    || \
-                 ((FAULTFILTER) == HRTIM_FAULTFILTER_5)    || \
-                 ((FAULTFILTER) == HRTIM_FAULTFILTER_6)    || \
-                 ((FAULTFILTER) == HRTIM_FAULTFILTER_7)    || \
-                 ((FAULTFILTER) == HRTIM_FAULTFILTER_8)    || \
-                 ((FAULTFILTER) == HRTIM_FAULTFILTER_9)    || \
-                 ((FAULTFILTER) == HRTIM_FAULTFILTER_10)   || \
-                 ((FAULTFILTER) == HRTIM_FAULTFILTER_11)   || \
-                 ((FAULTFILTER) == HRTIM_FAULTFILTER_12)   || \
-                 ((FAULTFILTER) == HRTIM_FAULTFILTER_13)   || \
-                 ((FAULTFILTER) == HRTIM_FAULTFILTER_14)   || \
-                 ((FAULTFILTER) == HRTIM_FAULTFILTER_15))
+  (((FAULTFILTER) == HRTIM_FAULTFILTER_NONE) || \
+   ((FAULTFILTER) == HRTIM_FAULTFILTER_1)    || \
+   ((FAULTFILTER) == HRTIM_FAULTFILTER_2)    || \
+   ((FAULTFILTER) == HRTIM_FAULTFILTER_3)    || \
+   ((FAULTFILTER) == HRTIM_FAULTFILTER_4)    || \
+   ((FAULTFILTER) == HRTIM_FAULTFILTER_5)    || \
+   ((FAULTFILTER) == HRTIM_FAULTFILTER_6)    || \
+   ((FAULTFILTER) == HRTIM_FAULTFILTER_7)    || \
+   ((FAULTFILTER) == HRTIM_FAULTFILTER_8)    || \
+   ((FAULTFILTER) == HRTIM_FAULTFILTER_9)    || \
+   ((FAULTFILTER) == HRTIM_FAULTFILTER_10)   || \
+   ((FAULTFILTER) == HRTIM_FAULTFILTER_11)   || \
+   ((FAULTFILTER) == HRTIM_FAULTFILTER_12)   || \
+   ((FAULTFILTER) == HRTIM_FAULTFILTER_13)   || \
+   ((FAULTFILTER) == HRTIM_FAULTFILTER_14)   || \
+   ((FAULTFILTER) == HRTIM_FAULTFILTER_15))
 
 #define IS_HRTIM_FAULTLOCK(FAULTLOCK)\
-              (((FAULTLOCK) == HRTIM_FAULTLOCK_READWRITE) || \
-               ((FAULTLOCK) == HRTIM_FAULTLOCK_READONLY))
+  (((FAULTLOCK) == HRTIM_FAULTLOCK_READWRITE) || \
+   ((FAULTLOCK) == HRTIM_FAULTLOCK_READONLY))
 
 #define IS_HRTIM_FAULTPRESCALER(FAULTPRESCALER)\
-             (((FAULTPRESCALER) == HRTIM_FAULTPRESCALER_DIV1)  || \
-              ((FAULTPRESCALER) == HRTIM_FAULTPRESCALER_DIV2)   || \
-              ((FAULTPRESCALER) == HRTIM_FAULTPRESCALER_DIV4)   || \
-              ((FAULTPRESCALER) == HRTIM_FAULTPRESCALER_DIV8))
+  (((FAULTPRESCALER) == HRTIM_FAULTPRESCALER_DIV1)  || \
+   ((FAULTPRESCALER) == HRTIM_FAULTPRESCALER_DIV2)   || \
+   ((FAULTPRESCALER) == HRTIM_FAULTPRESCALER_DIV4)   || \
+   ((FAULTPRESCALER) == HRTIM_FAULTPRESCALER_DIV8))
 
 #define IS_HRTIM_BURSTMODE(BURSTMODE)\
-              (((BURSTMODE) == HRTIM_BURSTMODE_SINGLESHOT)  || \
-               ((BURSTMODE) == HRTIM_BURSTMODE_CONTINOUS))
+  (((BURSTMODE) == HRTIM_BURSTMODE_SINGLESHOT)  || \
+   ((BURSTMODE) == HRTIM_BURSTMODE_CONTINOUS))
 
 #define IS_HRTIM_BURSTMODECLOCKSOURCE(BURSTMODECLOCKSOURCE)\
-              (((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_MASTER)      || \
-               ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_TIMER_A)     || \
-               ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_TIMER_B)     || \
-               ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_TIMER_C)     || \
-               ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_TIMER_D)     || \
-               ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_TIMER_E)     || \
-               ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_TIMER_F)     || \
-               ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_TIM16_OC)    || \
-               ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_TIM17_OC)    || \
-               ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_TIM7_TRGO)   || \
-               ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_FHRTIM))
+  (((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_MASTER)      || \
+   ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_TIMER_A)     || \
+   ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_TIMER_B)     || \
+   ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_TIMER_C)     || \
+   ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_TIMER_D)     || \
+   ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_TIMER_E)     || \
+   ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_TIMER_F)     || \
+   ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_TIM16_OC)    || \
+   ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_TIM17_OC)    || \
+   ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_TIM7_TRGO)   || \
+   ((BURSTMODECLOCKSOURCE) == HRTIM_BURSTMODECLOCKSOURCE_FHRTIM))
 
 #define IS_HRTIM_HRTIM_BURSTMODEPRESCALER(BURSTMODEPRESCALER)\
-              (((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV1)     || \
-               ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV2)     || \
-               ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV4)     || \
-               ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV8)     || \
-               ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV16)    || \
-               ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV32)    || \
-               ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV64)    || \
-               ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV128)   || \
-               ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV256)   || \
-               ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV512)   || \
-               ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV1024)  || \
-               ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV2048)  || \
-               ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV4096)  || \
-               ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV8192)  || \
-               ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV16384) || \
-               ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV32768))
+  (((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV1)     || \
+   ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV2)     || \
+   ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV4)     || \
+   ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV8)     || \
+   ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV16)    || \
+   ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV32)    || \
+   ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV64)    || \
+   ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV128)   || \
+   ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV256)   || \
+   ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV512)   || \
+   ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV1024)  || \
+   ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV2048)  || \
+   ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV4096)  || \
+   ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV8192)  || \
+   ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV16384) || \
+   ((BURSTMODEPRESCALER) == HRTIM_BURSTMODEPRESCALER_DIV32768))
 
 #define IS_HRTIM_BURSTMODEPRELOAD(BURSTMODEPRELOAD)\
-              (((BURSTMODEPRELOAD) == HRIM_BURSTMODEPRELOAD_DISABLED)  || \
-               ((BURSTMODEPRELOAD) == HRIM_BURSTMODEPRELOAD_ENABLED))
+  (((BURSTMODEPRELOAD) == HRIM_BURSTMODEPRELOAD_DISABLED)  || \
+   ((BURSTMODEPRELOAD) == HRIM_BURSTMODEPRELOAD_ENABLED))
 
 #define IS_HRTIM_BURSTMODETRIGGER(BURSTMODETRIGGER)\
-              (((BURSTMODETRIGGER) == HRTIM_BURSTMODETRIGGER_NONE)               || \
-               ((BURSTMODETRIGGER) == HRTIM_BURSTMODETRIGGER_MASTER_RESET)       || \
-               ((BURSTMODETRIGGER) == HRTIM_BURSTMODETRIGGER_MASTER_REPETITION)  || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_MASTER_CMP1)       || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_MASTER_CMP2)       || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_MASTER_CMP3)       || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_MASTER_CMP4)       || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERA_RESET)      || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERA_REPETITION) || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERA_CMP1)       || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERA_CMP2)       || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERB_RESET)      || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERB_REPETITION) || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERB_CMP1)       || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERB_CMP2)       || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERC_RESET)      || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERC_REPETITION) || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERC_CMP1)       || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERF_RESET)       || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERD_RESET)      || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERD_REPETITION) || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERF_REPETITION) || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERD_CMP2)       || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERF_CMP1)       || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERE_REPETITION) || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERE_CMP1)       || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERE_CMP2)       || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERA_EVENT7)     || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERD_EVENT8)     || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_EVENT_7)           || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_EVENT_8)           || \
-               ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_EVENT_ONCHIP))
+  (((BURSTMODETRIGGER) == HRTIM_BURSTMODETRIGGER_NONE)               || \
+   ((BURSTMODETRIGGER) == HRTIM_BURSTMODETRIGGER_MASTER_RESET)       || \
+   ((BURSTMODETRIGGER) == HRTIM_BURSTMODETRIGGER_MASTER_REPETITION)  || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_MASTER_CMP1)       || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_MASTER_CMP2)       || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_MASTER_CMP3)       || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_MASTER_CMP4)       || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERA_RESET)      || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERA_REPETITION) || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERA_CMP1)       || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERA_CMP2)       || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERB_RESET)      || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERB_REPETITION) || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERB_CMP1)       || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERB_CMP2)       || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERC_RESET)      || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERC_REPETITION) || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERC_CMP1)       || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERF_RESET)       || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERD_RESET)      || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERD_REPETITION) || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERF_REPETITION) || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERD_CMP2)       || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERF_CMP1)       || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERE_REPETITION) || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERE_CMP1)       || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERE_CMP2)       || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERA_EVENT7)     || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_TIMERD_EVENT8)     || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_EVENT_7)           || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_EVENT_8)           || \
+   ((BURSTMODETRIGGER) ==  HRTIM_BURSTMODETRIGGER_EVENT_ONCHIP))
 
 #define IS_HRTIM_ADCTRIGGERUPDATE(ADCTRIGGERUPDATE)\
-             (((ADCTRIGGERUPDATE) == HRTIM_ADCTRIGGERUPDATE_MASTER)   || \
-              ((ADCTRIGGERUPDATE) == HRTIM_ADCTRIGGERUPDATE_TIMER_A)  || \
-              ((ADCTRIGGERUPDATE) == HRTIM_ADCTRIGGERUPDATE_TIMER_B)  || \
-              ((ADCTRIGGERUPDATE) == HRTIM_ADCTRIGGERUPDATE_TIMER_C)  || \
-              ((ADCTRIGGERUPDATE) == HRTIM_ADCTRIGGERUPDATE_TIMER_D)  || \
-              ((ADCTRIGGERUPDATE) == HRTIM_ADCTRIGGERUPDATE_TIMER_E)  || \
-              ((ADCTRIGGERUPDATE) == HRTIM_ADCTRIGGERUPDATE_TIMER_F))
+  (((ADCTRIGGERUPDATE) == HRTIM_ADCTRIGGERUPDATE_MASTER)   || \
+   ((ADCTRIGGERUPDATE) == HRTIM_ADCTRIGGERUPDATE_TIMER_A)  || \
+   ((ADCTRIGGERUPDATE) == HRTIM_ADCTRIGGERUPDATE_TIMER_B)  || \
+   ((ADCTRIGGERUPDATE) == HRTIM_ADCTRIGGERUPDATE_TIMER_C)  || \
+   ((ADCTRIGGERUPDATE) == HRTIM_ADCTRIGGERUPDATE_TIMER_D)  || \
+   ((ADCTRIGGERUPDATE) == HRTIM_ADCTRIGGERUPDATE_TIMER_E)  || \
+   ((ADCTRIGGERUPDATE) == HRTIM_ADCTRIGGERUPDATE_TIMER_F))
 
 #define IS_HRTIM_CALIBRATIONRATE(CALIBRATIONRATE)\
-    (((CALIBRATIONRATE) == HRTIM_SINGLE_CALIBRATION) || \
-     ((CALIBRATIONRATE) == HRTIM_CALIBRATIONRATE_0)  || \
-     ((CALIBRATIONRATE) == HRTIM_CALIBRATIONRATE_1)  || \
-     ((CALIBRATIONRATE) == HRTIM_CALIBRATIONRATE_2)  || \
-     ((CALIBRATIONRATE) == HRTIM_CALIBRATIONRATE_3))
+  (((CALIBRATIONRATE) == HRTIM_SINGLE_CALIBRATION) || \
+   ((CALIBRATIONRATE) == HRTIM_CALIBRATIONRATE_0)  || \
+   ((CALIBRATIONRATE) == HRTIM_CALIBRATIONRATE_1)  || \
+   ((CALIBRATIONRATE) == HRTIM_CALIBRATIONRATE_2)  || \
+   ((CALIBRATIONRATE) == HRTIM_CALIBRATIONRATE_3))
 
 #define IS_HRTIM_TIMER_BURSTDMA(TIMER, BURSTDMA)                                            \
-    ((((TIMER) == HRTIM_TIMERINDEX_MASTER)  && (((BURSTDMA) & 0xFFFFC000U) == 0x00000000U)) \
-  || (((TIMER) == HRTIM_TIMERINDEX_TIMER_A) && (((BURSTDMA) & 0xFF800000U) == 0x00000000U)) \
-  || (((TIMER) == HRTIM_TIMERINDEX_TIMER_B) && (((BURSTDMA) & 0xFF800000U) == 0x00000000U)) \
-  || (((TIMER) == HRTIM_TIMERINDEX_TIMER_C) && (((BURSTDMA) & 0xFF800000U) == 0x00000000U)) \
-  || (((TIMER) == HRTIM_TIMERINDEX_TIMER_D) && (((BURSTDMA) & 0xFF800000U) == 0x00000000U)) \
-  || (((TIMER) == HRTIM_TIMERINDEX_TIMER_E) && (((BURSTDMA) & 0xFF800000U) == 0x00000000U)) \
-  || (((TIMER) == HRTIM_TIMERINDEX_TIMER_F) && (((BURSTDMA) & 0xFF800000U) == 0x00000000U)))
+  ((((TIMER) == HRTIM_TIMERINDEX_MASTER)  && (((BURSTDMA) & 0xFFFFC000U) == 0x00000000U)) \
+   || (((TIMER) == HRTIM_TIMERINDEX_TIMER_A) && (((BURSTDMA) & 0xFF800000U) == 0x00000000U)) \
+   || (((TIMER) == HRTIM_TIMERINDEX_TIMER_B) && (((BURSTDMA) & 0xFF800000U) == 0x00000000U)) \
+   || (((TIMER) == HRTIM_TIMERINDEX_TIMER_C) && (((BURSTDMA) & 0xFF800000U) == 0x00000000U)) \
+   || (((TIMER) == HRTIM_TIMERINDEX_TIMER_D) && (((BURSTDMA) & 0xFF800000U) == 0x00000000U)) \
+   || (((TIMER) == HRTIM_TIMERINDEX_TIMER_E) && (((BURSTDMA) & 0xFF800000U) == 0x00000000U)) \
+   || (((TIMER) == HRTIM_TIMERINDEX_TIMER_F) && (((BURSTDMA) & 0xFF800000U) == 0x00000000U)))
 
 #define IS_HRTIM_BURSTMODECTL(BURSTMODECTL)\
-    (((BURSTMODECTL) == HRTIM_BURSTMODECTL_DISABLED)  || \
-     ((BURSTMODECTL) == HRTIM_BURSTMODECTL_ENABLED))
+  (((BURSTMODECTL) == HRTIM_BURSTMODECTL_DISABLED)  || \
+   ((BURSTMODECTL) == HRTIM_BURSTMODECTL_ENABLED))
 
 #define IS_HRTIM_TIMERUPDATE(TIMERUPDATE) (((TIMERUPDATE) & 0xFFFFFF80U) == 0x00000000U)
 
@@ -3663,29 +3664,29 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
 #define __HAL_HRTIM_COUNTER_MODE_UP(__HANDLE__, __TIMERS__)\
   do {\
     if (((__TIMERS__) & HRTIM_TIMERINDEX_TIMER_A) == HRTIM_TIMERINDEX_TIMER_A)\
-      {\
-        CLEAR_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_A)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
-      }\
+    {\
+      CLEAR_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_A)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERINDEX_TIMER_B) == HRTIM_TIMERINDEX_TIMER_B)\
-      {\
-        CLEAR_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_B)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
-      }\
+    {\
+      CLEAR_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_B)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERINDEX_TIMER_C) == HRTIM_TIMERINDEX_TIMER_C)\
-      {\
-         CLEAR_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_C)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
-      }\
+    {\
+      CLEAR_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_C)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERINDEX_TIMER_D) == HRTIM_TIMERINDEX_TIMER_D)\
-      {\
-        CLEAR_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_D)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
-      }\
+    {\
+      CLEAR_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_D)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERINDEX_TIMER_E) == HRTIM_TIMERINDEX_TIMER_E)\
-      {\
-        CLEAR_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_E)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
-     }\
+    {\
+      CLEAR_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_E)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERINDEX_TIMER_F) == HRTIM_TIMERINDEX_TIMER_F)\
-      {\
-        CLEAR_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_F)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
-      }\
+    {\
+      CLEAR_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_F)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
+    }\
   } while(0U)
 
 /**
@@ -3704,32 +3705,32 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
 #define __HAL_HRTIM_COUNTER_MODE_UPDOWN(__HANDLE__, __TIMERS__)\
   do {\
     if (((__TIMERS__) & HRTIM_TIMERINDEX_TIMER_A) == HRTIM_TIMERINDEX_TIMER_A)\
-      {\
-        SET_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_A)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
-      }\
+    {\
+      SET_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_A)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERINDEX_TIMER_B) == HRTIM_TIMERINDEX_TIMER_B)\
-      {\
-        SET_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_B)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
-      }\
+    {\
+      SET_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_B)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERINDEX_TIMER_C) == HRTIM_TIMERINDEX_TIMER_C)\
-      {\
-         SET_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_C)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
-      }\
+    {\
+      SET_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_C)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERINDEX_TIMER_D) == HRTIM_TIMERINDEX_TIMER_D)\
-      {\
-        SET_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_D)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
-      }\
+    {\
+      SET_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_D)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERINDEX_TIMER_E) == HRTIM_TIMERINDEX_TIMER_E)\
-      {\
-        SET_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_E)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
-     }\
+    {\
+      SET_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_E)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERINDEX_TIMER_F) == HRTIM_TIMERINDEX_TIMER_F)\
-      {\
-        SET_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_F)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
-      }\
+    {\
+      SET_BIT((__HANDLE__)->Instance->sTimerxRegs[(HRTIM_TIMERINDEX_TIMER_F)].TIMxCR2 , (HRTIM_TIMCR2_UDM)); \
+    }\
   } while(0U)
 
- /**
+/**
   * @brief  swap the output of the timer
   *         HRTIM_SETA1R and HRTIM_RSTA1R are coding for the output A2,
   *         HRTIM_SETA2R and HRTIM_RSTA2R are coding for the output A1
@@ -3743,33 +3744,33 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
   *                   @arg HRTIM_TIMERINDEX_TIMER_E for timer E
   *                   @arg HRTIM_TIMERINDEX_TIMER_F for timer F
   * @retval none
-  */
+ */
 #define __HAL_HRTIM_TIMER_OUTPUT_SWAP(__HANDLE__, __TIMERS__)\
   do {\
     if (((__TIMERS__) & HRTIM_TIMERID_TIMER_A) == HRTIM_TIMERID_TIMER_A)\
-      {\
-        SET_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPA)); \
-      }\
+    {\
+      SET_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPA)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERID_TIMER_B) == HRTIM_TIMERID_TIMER_B)\
-      {\
-        SET_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPB)); \
-      }\
+    {\
+      SET_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPB)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERID_TIMER_C) == HRTIM_TIMERID_TIMER_C)\
-      {\
-        SET_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPC)); \
-      }\
+    {\
+      SET_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPC)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERID_TIMER_D) == HRTIM_TIMERID_TIMER_D)\
-      {\
-        SET_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPD)); \
-      }\
+    {\
+      SET_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPD)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERID_TIMER_E) == HRTIM_TIMERID_TIMER_E)\
-      {\
-        SET_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPE)); \
-     }\
+    {\
+      SET_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPE)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERID_TIMER_F) == HRTIM_TIMERID_TIMER_F)\
-      {\
-        SET_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPF)); \
-      }\
+    {\
+      SET_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPF)); \
+    }\
   } while(0U)
 
 /**
@@ -3791,29 +3792,29 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
 #define __HAL_HRTIM_TIMER_OUTPUT_NOSWAP(__HANDLE__, __TIMERS__)\
   do {\
     if (((__TIMERS__) & HRTIM_TIMERID_TIMER_A) == HRTIM_TIMERID_TIMER_A)\
-      {\
-        CLEAR_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPA)); \
-      }\
+    {\
+      CLEAR_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPA)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERID_TIMER_B) == HRTIM_TIMERID_TIMER_B)\
-      {\
-        CLEAR_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPB)); \
-      }\
+    {\
+      CLEAR_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPB)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERID_TIMER_C) == HRTIM_TIMERID_TIMER_C)\
-      {\
-        CLEAR_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPC)); \
-      }\
+    {\
+      CLEAR_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPC)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERID_TIMER_D) == HRTIM_TIMERID_TIMER_D)\
-      {\
-        CLEAR_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPD)); \
-      }\
+    {\
+      CLEAR_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPD)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERID_TIMER_E) == HRTIM_TIMERID_TIMER_E)\
-      {\
-        CLEAR_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPE)); \
-     }\
+    {\
+      CLEAR_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPE)); \
+    }\
     if (((__TIMERS__) & HRTIM_TIMERID_TIMER_F) == HRTIM_TIMERID_TIMER_F)\
-      {\
-        CLEAR_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPF)); \
-      }\
+    {\
+      CLEAR_BIT((__HANDLE__)->Instance->sCommonRegs.CR2 , (HRTIM_CR2_SWPF)); \
+    }\
   } while(0U)
 
 /** @brief Reset HRTIM handle state
@@ -3822,10 +3823,10 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
   */
 #if (USE_HAL_HRTIM_REGISTER_CALLBACKS == 1)
 #define __HAL_HRTIM_RESET_HANDLE_STATE(__HANDLE__)                do{                                                       \
-                                                                    (__HANDLE__)->State             = HAL_HRTIM_STATE_RESET; \
-                                                                    (__HANDLE__)->MspInitCallback   = NULL;                  \
-                                                                    (__HANDLE__)->MspDeInitCallback = NULL;                 \
-                                                                  } while(0)
+                                                                      (__HANDLE__)->State             = HAL_HRTIM_STATE_RESET; \
+                                                                      (__HANDLE__)->MspInitCallback   = NULL;                  \
+                                                                      (__HANDLE__)->MspDeInitCallback = NULL;                 \
+                                                                    } while(0)
 #else
 #define __HAL_HRTIM_RESET_HANDLE_STATE(__HANDLE__)                ((__HANDLE__)->State = HAL_HRTIM_STATE_RESET)
 #endif
@@ -3856,51 +3857,51 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
 #define __HAL_HRTIM_DISABLE(__HANDLE__, __TIMERS__)\
   do {\
     if (((__TIMERS__) & HRTIM_TIMERID_MASTER) == HRTIM_TIMERID_MASTER)\
-      {\
-        ((__HANDLE__)->Instance->sMasterRegs.MCR &= ~HRTIM_TIMERID_MASTER);\
-      }\
+    {\
+      ((__HANDLE__)->Instance->sMasterRegs.MCR &= ~HRTIM_TIMERID_MASTER);\
+    }\
     if (((__TIMERS__) & HRTIM_TIMERID_TIMER_A) == HRTIM_TIMERID_TIMER_A)\
+    {\
+      if (((__HANDLE__)->Instance->sCommonRegs.OENR & HRTIM_TAOEN_MASK) == (uint32_t)RESET)\
       {\
-        if (((__HANDLE__)->Instance->sCommonRegs.OENR & HRTIM_TAOEN_MASK) == (uint32_t)RESET)\
-          {\
-            ((__HANDLE__)->Instance->sMasterRegs.MCR &= ~HRTIM_TIMERID_TIMER_A);\
-          }\
+        ((__HANDLE__)->Instance->sMasterRegs.MCR &= ~HRTIM_TIMERID_TIMER_A);\
       }\
+    }\
     if (((__TIMERS__) & HRTIM_TIMERID_TIMER_B) == HRTIM_TIMERID_TIMER_B)\
+    {\
+      if (((__HANDLE__)->Instance->sCommonRegs.OENR & HRTIM_TBOEN_MASK) == (uint32_t)RESET)\
       {\
-        if (((__HANDLE__)->Instance->sCommonRegs.OENR & HRTIM_TBOEN_MASK) == (uint32_t)RESET)\
-          {\
-            ((__HANDLE__)->Instance->sMasterRegs.MCR &= ~HRTIM_TIMERID_TIMER_B);\
-          }\
+        ((__HANDLE__)->Instance->sMasterRegs.MCR &= ~HRTIM_TIMERID_TIMER_B);\
       }\
+    }\
     if (((__TIMERS__) & HRTIM_TIMERID_TIMER_C) == HRTIM_TIMERID_TIMER_C)\
+    {\
+      if (((__HANDLE__)->Instance->sCommonRegs.OENR & HRTIM_TCOEN_MASK) == (uint32_t)RESET)\
       {\
-        if (((__HANDLE__)->Instance->sCommonRegs.OENR & HRTIM_TCOEN_MASK) == (uint32_t)RESET)\
-          {\
-            ((__HANDLE__)->Instance->sMasterRegs.MCR &= ~HRTIM_TIMERID_TIMER_C);\
-          }\
+        ((__HANDLE__)->Instance->sMasterRegs.MCR &= ~HRTIM_TIMERID_TIMER_C);\
       }\
+    }\
     if (((__TIMERS__) & HRTIM_TIMERID_TIMER_D) == HRTIM_TIMERID_TIMER_D)\
+    {\
+      if (((__HANDLE__)->Instance->sCommonRegs.OENR & HRTIM_TDOEN_MASK) == (uint32_t)RESET)\
       {\
-        if (((__HANDLE__)->Instance->sCommonRegs.OENR & HRTIM_TDOEN_MASK) == (uint32_t)RESET)\
-          {\
-            ((__HANDLE__)->Instance->sMasterRegs.MCR &= ~HRTIM_TIMERID_TIMER_D);\
-          }\
+        ((__HANDLE__)->Instance->sMasterRegs.MCR &= ~HRTIM_TIMERID_TIMER_D);\
       }\
+    }\
     if (((__TIMERS__) & HRTIM_TIMERID_TIMER_E) == HRTIM_TIMERID_TIMER_E)\
+    {\
+      if (((__HANDLE__)->Instance->sCommonRegs.OENR & HRTIM_TEOEN_MASK) == (uint32_t)RESET)\
       {\
-        if (((__HANDLE__)->Instance->sCommonRegs.OENR & HRTIM_TEOEN_MASK) == (uint32_t)RESET)\
-          {\
-            ((__HANDLE__)->Instance->sMasterRegs.MCR &= ~HRTIM_TIMERID_TIMER_E);\
-          }\
+        ((__HANDLE__)->Instance->sMasterRegs.MCR &= ~HRTIM_TIMERID_TIMER_E);\
       }\
+    }\
     if (((__TIMERS__) & HRTIM_TIMERID_TIMER_F) == HRTIM_TIMERID_TIMER_F)\
+    {\
+      if (((__HANDLE__)->Instance->sCommonRegs.OENR & HRTIM_TFOEN_MASK) == (uint32_t)RESET)\
       {\
-        if (((__HANDLE__)->Instance->sCommonRegs.OENR & HRTIM_TFOEN_MASK) == (uint32_t)RESET)\
-          {\
-            ((__HANDLE__)->Instance->sMasterRegs.MCR &= ~HRTIM_TIMERID_TIMER_F);\
-          }\
+        ((__HANDLE__)->Instance->sMasterRegs.MCR &= ~HRTIM_TIMERID_TIMER_F);\
       }\
+    }\
   } while(0U)
 
 /** @brief  Enables the External Event counter
@@ -3924,68 +3925,68 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
     if (((__TIMER__) & HRTIM_TIMERINDEX_TIMER_A) == HRTIM_TIMERINDEX_TIMER_A)\
     {\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_A) == HRTIM_EVENTCOUNTER_A)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].EEFxR3) |= HRTIM_EEFR3_EEVACE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].EEFxR3) |= HRTIM_EEFR3_EEVACE;\
+      }\
       if (((__EVENT__) & HRTIM_TIMERINDEX_TIMER_B) == HRTIM_TIMERINDEX_TIMER_B)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].EEFxR3) |= HRTIM_EEFR3_EEVBCE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].EEFxR3) |= HRTIM_EEFR3_EEVBCE;\
+      }\
     }\
     if (((__TIMER__) & HRTIM_TIMERINDEX_TIMER_B) == HRTIM_TIMERINDEX_TIMER_B)\
     {\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_A) == HRTIM_EVENTCOUNTER_A)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].EEFxR3) |= HRTIM_EEFR3_EEVACE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].EEFxR3) |= HRTIM_EEFR3_EEVACE;\
+      }\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_B) == HRTIM_EVENTCOUNTER_B)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].EEFxR3) |= HRTIM_EEFR3_EEVBCE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].EEFxR3) |= HRTIM_EEFR3_EEVBCE;\
+      }\
     }\
     if (((__TIMER__) & HRTIM_TIMERINDEX_TIMER_C) == HRTIM_TIMERINDEX_TIMER_C)\
     {\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_A) == HRTIM_EVENTCOUNTER_A)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].EEFxR3) |= HRTIM_EEFR3_EEVACE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].EEFxR3) |= HRTIM_EEFR3_EEVACE;\
+      }\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_B) == HRTIM_EVENTCOUNTER_B)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].EEFxR3) |= HRTIM_EEFR3_EEVBCE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].EEFxR3) |= HRTIM_EEFR3_EEVBCE;\
+      }\
     }\
     if (((__TIMER__) & HRTIM_TIMERINDEX_TIMER_D) == HRTIM_TIMERINDEX_TIMER_D)\
     {\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_A) == HRTIM_EVENTCOUNTER_A)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_D].EEFxR3) |= HRTIM_EEFR3_EEVACE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_D].EEFxR3) |= HRTIM_EEFR3_EEVACE;\
+      }\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_B) == HRTIM_EVENTCOUNTER_B)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_D].EEFxR3) |= HRTIM_EEFR3_EEVBCE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_D].EEFxR3) |= HRTIM_EEFR3_EEVBCE;\
+      }\
     }\
     if (((__TIMER__) & HRTIM_TIMERINDEX_TIMER_E) == HRTIM_TIMERINDEX_TIMER_E)\
     {\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_A) == HRTIM_EVENTCOUNTER_A)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_E].EEFxR3) |= HRTIM_EEFR3_EEVACE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_E].EEFxR3) |= HRTIM_EEFR3_EEVACE;\
+      }\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_B) == HRTIM_EVENTCOUNTER_B)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_E].EEFxR3) |= HRTIM_EEFR3_EEVBCE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_E].EEFxR3) |= HRTIM_EEFR3_EEVBCE;\
+      }\
     }\
     if (((__TIMER__) & HRTIM_TIMERINDEX_TIMER_F) == HRTIM_TIMERINDEX_TIMER_F)\
     {\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_A) == HRTIM_EVENTCOUNTER_A)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_F].EEFxR3) |= HRTIM_EEFR3_EEVACE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_F].EEFxR3) |= HRTIM_EEFR3_EEVACE;\
+      }\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_B) == HRTIM_EVENTCOUNTER_B)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_F].EEFxR3) |= HRTIM_EEFR3_EEVBCE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_F].EEFxR3) |= HRTIM_EEFR3_EEVBCE;\
+      }\
     }\
   } while(0U)
 
@@ -4010,68 +4011,68 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
     if (((__TIMER__) & HRTIM_TIMERINDEX_TIMER_A) == HRTIM_TIMERINDEX_TIMER_A)\
     {\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_A) == HRTIM_EVENTCOUNTER_A)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].EEFxR3) &= ~HRTIM_EEFR3_EEVACE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].EEFxR3) &= ~HRTIM_EEFR3_EEVACE;\
+      }\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_B) == HRTIM_EVENTCOUNTER_B)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].EEFxR3) &= ~HRTIM_EEFR3_EEVBCE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].EEFxR3) &= ~HRTIM_EEFR3_EEVBCE;\
+      }\
     }\
     if (((__TIMER__) & HRTIM_TIMERINDEX_TIMER_B) == HRTIM_TIMERINDEX_TIMER_B)\
     {\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_A) == HRTIM_EVENTCOUNTER_A)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].EEFxR3) &= ~HRTIM_EEFR3_EEVACE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].EEFxR3) &= ~HRTIM_EEFR3_EEVACE;\
+      }\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_B) == HRTIM_EVENTCOUNTER_B)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].EEFxR3) &= ~HRTIM_EEFR3_EEVBCE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].EEFxR3) &= ~HRTIM_EEFR3_EEVBCE;\
+      }\
     }\
     if (((__TIMER__) & HRTIM_TIMERINDEX_TIMER_C) == HRTIM_TIMERINDEX_TIMER_C)\
     {\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_A) == HRTIM_EVENTCOUNTER_A)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].EEFxR3) &= ~HRTIM_EEFR3_EEVACE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].EEFxR3) &= ~HRTIM_EEFR3_EEVACE;\
+      }\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_B) == HRTIM_EVENTCOUNTER_B)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].EEFxR3) &= ~HRTIM_EEFR3_EEVBCE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].EEFxR3) &= ~HRTIM_EEFR3_EEVBCE;\
+      }\
     }\
     if (((__TIMER__) & HRTIM_TIMERINDEX_TIMER_D) == HRTIM_TIMERINDEX_TIMER_D)\
     {\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_A) == HRTIM_EVENTCOUNTER_A)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_D].EEFxR3) &= ~HRTIM_EEFR3_EEVACE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_D].EEFxR3) &= ~HRTIM_EEFR3_EEVACE;\
+      }\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_B) == HRTIM_EVENTCOUNTER_B)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_D].EEFxR3) &= ~HRTIM_EEFR3_EEVBCE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_D].EEFxR3) &= ~HRTIM_EEFR3_EEVBCE;\
+      }\
     }\
     if (((__TIMER__) & HRTIM_TIMERINDEX_TIMER_E) == HRTIM_TIMERINDEX_TIMER_E)\
     {\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_A) == HRTIM_EVENTCOUNTER_A)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_E].EEFxR3) &= ~HRTIM_EEFR3_EEVACE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_E].EEFxR3) &= ~HRTIM_EEFR3_EEVACE;\
+      }\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_B) == HRTIM_EVENTCOUNTER_B)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_E].EEFxR3) &= ~HRTIM_EEFR3_EEVBCE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_E].EEFxR3) &= ~HRTIM_EEFR3_EEVBCE;\
+      }\
     }\
     if (((__TIMER__) & HRTIM_TIMERINDEX_TIMER_F) == HRTIM_TIMERINDEX_TIMER_F)\
     {\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_A) == HRTIM_EVENTCOUNTER_A)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_F].EEFxR3) &= ~HRTIM_EEFR3_EEVACE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_F].EEFxR3) &= ~HRTIM_EEFR3_EEVACE;\
+      }\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_B) == HRTIM_EVENTCOUNTER_B)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_F].EEFxR3) &= ~HRTIM_EEFR3_EEVBCE;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_F].EEFxR3) &= ~HRTIM_EEFR3_EEVBCE;\
+      }\
     }\
   } while(0U)
 
@@ -4096,68 +4097,68 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
     if (((__TIMER__) & HRTIM_TIMERINDEX_TIMER_A) == HRTIM_TIMERINDEX_TIMER_A)\
     {\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_A) == HRTIM_EVENTCOUNTER_A)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].EEFxR3) |= HRTIM_EEFR3_EEVACRES;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].EEFxR3) |= HRTIM_EEFR3_EEVACRES;\
+      }\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_B) == HRTIM_EVENTCOUNTER_B)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].EEFxR3) |= HRTIM_EEFR3_EEVBCRES;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].EEFxR3) |= HRTIM_EEFR3_EEVBCRES;\
+      }\
     }\
     if (((__TIMER__) & HRTIM_TIMERINDEX_TIMER_B) == HRTIM_TIMERINDEX_TIMER_B)\
     {\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_A) == HRTIM_EVENTCOUNTER_A)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].EEFxR3) |= HRTIM_EEFR3_EEVACRES;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].EEFxR3) |= HRTIM_EEFR3_EEVACRES;\
+      }\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_B) == HRTIM_EVENTCOUNTER_B)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].EEFxR3) |= HRTIM_EEFR3_EEVBCRES;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].EEFxR3) |= HRTIM_EEFR3_EEVBCRES;\
+      }\
     }\
     if (((__TIMER__) & HRTIM_TIMERINDEX_TIMER_C) == HRTIM_TIMERINDEX_TIMER_C)\
     {\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_A) == HRTIM_EVENTCOUNTER_A)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].EEFxR3) |= HRTIM_EEFR3_EEVACRES;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].EEFxR3) |= HRTIM_EEFR3_EEVACRES;\
+      }\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_B) == HRTIM_EVENTCOUNTER_B)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].EEFxR3) |= HRTIM_EEFR3_EEVBCRES;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].EEFxR3) |= HRTIM_EEFR3_EEVBCRES;\
+      }\
     }\
     if (((__TIMER__) & HRTIM_TIMERINDEX_TIMER_D) == HRTIM_TIMERINDEX_TIMER_D)\
     {\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_A) == HRTIM_EVENTCOUNTER_A)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_D].EEFxR3) |= HRTIM_EEFR3_EEVACRES;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_D].EEFxR3) |= HRTIM_EEFR3_EEVACRES;\
+      }\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_B) == HRTIM_EVENTCOUNTER_B)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_D].EEFxR3) |= HRTIM_EEFR3_EEVBCRES;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_D].EEFxR3) |= HRTIM_EEFR3_EEVBCRES;\
+      }\
     }\
     if (((__TIMER__) & HRTIM_TIMERINDEX_TIMER_E) == HRTIM_TIMERINDEX_TIMER_E)\
     {\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_A) == HRTIM_EVENTCOUNTER_A)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_E].EEFxR3) |= HRTIM_EEFR3_EEVACRES;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_E].EEFxR3) |= HRTIM_EEFR3_EEVACRES;\
+      }\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_B) == HRTIM_EVENTCOUNTER_B)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_E].EEFxR3) |= HRTIM_EEFR3_EEVBCRES;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_E].EEFxR3) |= HRTIM_EEFR3_EEVBCRES;\
+      }\
     }\
     if (((__TIMER__) & HRTIM_TIMERINDEX_TIMER_F) == HRTIM_TIMERINDEX_TIMER_F)\
     {\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_A) == HRTIM_EVENTCOUNTER_A)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_F].EEFxR3) |= HRTIM_EEFR3_EEVACRES;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_F].EEFxR3) |= HRTIM_EEFR3_EEVACRES;\
+      }\
       if (((__EVENT__) & HRTIM_EVENTCOUNTER_B) == HRTIM_EVENTCOUNTER_B)\
-        {\
-              ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_F].EEFxR3) |= HRTIM_EEFR3_EEVBCRES;\
-        }\
+      {\
+        ((__HANDLE__)->Instance->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_F].EEFxR3) |= HRTIM_EEFR3_EEVBCRES;\
+      }\
     }\
   } while(0U)
 
@@ -4193,8 +4194,10 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
   *            @arg HRTIM_MASTER_IT_MUPD: Master update interrupt enable
   * @retval None
   */
-#define __HAL_HRTIM_MASTER_ENABLE_IT(__HANDLE__, __INTERRUPT__)   ((__HANDLE__)->Instance->sMasterRegs.MDIER |= (__INTERRUPT__))
-#define __HAL_HRTIM_MASTER_DISABLE_IT(__HANDLE__, __INTERRUPT__) ((__HANDLE__)->Instance->sMasterRegs.MDIER &= ~(__INTERRUPT__))
+#define __HAL_HRTIM_MASTER_ENABLE_IT(__HANDLE__, __INTERRUPT__)   ((__HANDLE__)->Instance->sMasterRegs.MDIER \
+                                                                   |= (__INTERRUPT__))
+#define __HAL_HRTIM_MASTER_DISABLE_IT(__HANDLE__, __INTERRUPT__) ((__HANDLE__)->Instance->sMasterRegs.MDIER \
+                                                                  &= ~(__INTERRUPT__))
 
 /** @brief  Enables or disables the specified HRTIM Timerx interrupts.
   * @param  __HANDLE__ specifies the HRTIM Handle.
@@ -4235,7 +4238,8 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
   *            @arg HRTIM_IT_BMPER: Burst mode period interrupt enable
   * @retval The new state of __INTERRUPT__ (TRUE or FALSE).
   */
-#define __HAL_HRTIM_GET_ITSTATUS(__HANDLE__, __INTERRUPT__)     ((((__HANDLE__)->Instance->sCommonRegs.IER & (__INTERRUPT__)) == (__INTERRUPT__)) ? SET : RESET)
+#define __HAL_HRTIM_GET_ITSTATUS(__HANDLE__, __INTERRUPT__)     ((((__HANDLE__)->Instance->sCommonRegs.IER &\
+                                                                   (__INTERRUPT__)) == (__INTERRUPT__)) ? SET : RESET)
 
 /** @brief  Checks if the specified HRTIM Master interrupt source  is enabled or disabled.
   * @param  __HANDLE__ specifies the HRTIM Handle.
@@ -4250,7 +4254,8 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
   *            @arg HRTIM_MASTER_IT_MUPD: Master update interrupt enable
   * @retval The new state of __INTERRUPT__ (TRUE or FALSE).
   */
-#define __HAL_HRTIM_MASTER_GET_ITSTATUS(__HANDLE__, __INTERRUPT__)     ((((__HANDLE__)->Instance->sMasterRegs.MDIER & (__INTERRUPT__)) == (__INTERRUPT__)) ? SET : RESET)
+#define __HAL_HRTIM_MASTER_GET_ITSTATUS(__HANDLE__, __INTERRUPT__)     ((((__HANDLE__)->Instance->sMasterRegs.MDIER &\
+                                                                          (__INTERRUPT__)) == (__INTERRUPT__)) ? SET : RESET)
 
 /** @brief  Checks if the specified HRTIM Timerx interrupt source  is enabled or disabled.
   * @param  __HANDLE__ specifies the HRTIM Handle.
@@ -4280,7 +4285,8 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
   *            @arg HRTIM_TIM_IT_DLYPRT: Timer delay protection interrupt enable
   * @retval The new state of __INTERRUPT__ (TRUE or FALSE).
   */
-#define __HAL_HRTIM_TIMER_GET_ITSTATUS(__HANDLE__, __TIMER__, __INTERRUPT__)     ((((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].TIMxDIER & (__INTERRUPT__)) == (__INTERRUPT__)) ? SET : RESET)
+#define __HAL_HRTIM_TIMER_GET_ITSTATUS(__HANDLE__, __TIMER__, __INTERRUPT__)     ((((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].TIMxDIER &\
+    (__INTERRUPT__)) == (__INTERRUPT__)) ? SET : RESET)
 
 /** @brief  Clears the specified HRTIM common pending flag.
   * @param  __HANDLE__ specifies the HRTIM Handle.
@@ -4312,7 +4318,8 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
   *            @arg HRTIM_MASTER_IT_MUPD: Master update interrupt clear flag
   * @retval None
   */
-#define __HAL_HRTIM_MASTER_CLEAR_IT(__HANDLE__, __INTERRUPT__)   ((__HANDLE__)->Instance->sMasterRegs.MICR = (__INTERRUPT__))
+#define __HAL_HRTIM_MASTER_CLEAR_IT(__HANDLE__, __INTERRUPT__)   ((__HANDLE__)->Instance->sMasterRegs.MICR\
+                                                                  = (__INTERRUPT__))
 
 /** @brief  Clears the specified HRTIM Timerx pending flag.
   * @param  __HANDLE__ specifies the HRTIM Handle.
@@ -4335,7 +4342,8 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
   *            @arg HRTIM_TIM_IT_DLYPRT: Timer output 1 delay protection interrupt clear flag
   * @retval None
   */
-#define __HAL_HRTIM_TIMER_CLEAR_IT(__HANDLE__, __TIMER__, __INTERRUPT__)   ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].TIMxICR = (__INTERRUPT__))
+#define __HAL_HRTIM_TIMER_CLEAR_IT(__HANDLE__, __TIMER__, __INTERRUPT__)   ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].TIMxICR\
+                                                                            = (__INTERRUPT__))
 
 /* DMA HANDLING */
 /** @brief  Enables or disables the specified HRTIM Master timer DMA requests.
@@ -4378,14 +4386,18 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
 #define __HAL_HRTIM_TIMER_ENABLE_DMA(__HANDLE__, __TIMER__, __DMA__)   ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].TIMxDIER |= (__DMA__))
 #define __HAL_HRTIM_TIMER_DISABLE_DMA(__HANDLE__, __TIMER__, __DMA__) ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].TIMxDIER &= ~(__DMA__))
 
-#define __HAL_HRTIM_GET_FLAG(__HANDLE__, __FLAG__)        (((__HANDLE__)->Instance->sCommonRegs.ISR & (__FLAG__)) == (__FLAG__))
+#define __HAL_HRTIM_GET_FLAG(__HANDLE__, __FLAG__)        (((__HANDLE__)->Instance->sCommonRegs.ISR &\
+                                                            (__FLAG__)) == (__FLAG__))
 #define __HAL_HRTIM_CLEAR_FLAG(__HANDLE__, __FLAG__)      ((__HANDLE__)->Instance->sCommonRegs.ICR = (__FLAG__))
 
-#define __HAL_HRTIM_MASTER_GET_FLAG(__HANDLE__, __FLAG__)        (((__HANDLE__)->Instance->sMasterRegs.MISR & (__FLAG__)) == (__FLAG__))
+#define __HAL_HRTIM_MASTER_GET_FLAG(__HANDLE__, __FLAG__)        (((__HANDLE__)->Instance->sMasterRegs.MISR &\
+                                                                   (__FLAG__)) == (__FLAG__))
 #define __HAL_HRTIM_MASTER_CLEAR_FLAG(__HANDLE__, __FLAG__)      ((__HANDLE__)->Instance->sMasterRegs.MICR = (__FLAG__))
 
-#define __HAL_HRTIM_TIMER_GET_FLAG(__HANDLE__,  __TIMER__, __FLAG__)        (((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].TIMxISR & (__FLAG__)) == (__FLAG__))
-#define __HAL_HRTIM_TIMER_CLEAR_FLAG(__HANDLE__,  __TIMER__, __FLAG__)      ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].TIMxICR = (__FLAG__))
+#define __HAL_HRTIM_TIMER_GET_FLAG(__HANDLE__,  __TIMER__, __FLAG__)        (((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].TIMxISR &\
+                                                                              (__FLAG__)) == (__FLAG__))
+#define __HAL_HRTIM_TIMER_CLEAR_FLAG(__HANDLE__,  __TIMER__, __FLAG__)      ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].TIMxICR\
+                                                                             = (__FLAG__))
 
 /** @brief  Sets the HRTIM timer Counter Register value on runtime
   * @param  __HANDLE__ HRTIM Handle.
@@ -4486,16 +4498,16 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
   * @retval None
   */
 #define __HAL_HRTIM_SETCOMPARE(__HANDLE__, __TIMER__, __COMPAREUNIT__, __COMPARE__) \
-      (((__TIMER__) == HRTIM_TIMERINDEX_MASTER) ? \
-        (((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_1) ? ((__HANDLE__)->Instance->sMasterRegs.MCMP1R = (__COMPARE__)) :\
-         ((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_2) ? ((__HANDLE__)->Instance->sMasterRegs.MCMP2R = (__COMPARE__)) :\
-         ((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_3) ? ((__HANDLE__)->Instance->sMasterRegs.MCMP3R = (__COMPARE__)) :\
-         ((__HANDLE__)->Instance->sMasterRegs.MCMP4R = (__COMPARE__))) \
-         : \
-        (((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_1) ? ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].CMP1xR = (__COMPARE__)) :\
-         ((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_2) ? ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].CMP2xR = (__COMPARE__)) :\
-         ((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_3) ? ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].CMP3xR = (__COMPARE__)) :\
-         ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].CMP4xR = (__COMPARE__))))
+  (((__TIMER__) == HRTIM_TIMERINDEX_MASTER) ? \
+   (((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_1) ? ((__HANDLE__)->Instance->sMasterRegs.MCMP1R = (__COMPARE__)) :\
+    ((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_2) ? ((__HANDLE__)->Instance->sMasterRegs.MCMP2R = (__COMPARE__)) :\
+    ((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_3) ? ((__HANDLE__)->Instance->sMasterRegs.MCMP3R = (__COMPARE__)) :\
+    ((__HANDLE__)->Instance->sMasterRegs.MCMP4R = (__COMPARE__))) \
+   : \
+   (((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_1) ? ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].CMP1xR = (__COMPARE__)) :\
+    ((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_2) ? ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].CMP2xR = (__COMPARE__)) :\
+    ((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_3) ? ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].CMP3xR = (__COMPARE__)) :\
+    ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].CMP4xR = (__COMPARE__))))
 
 /** @brief  Gets the HRTIM timer Compare Register value on runtime
   * @param  __HANDLE__ HRTIM Handle.
@@ -4511,16 +4523,16 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
   * @retval Compare value
   */
 #define __HAL_HRTIM_GETCOMPARE(__HANDLE__, __TIMER__, __COMPAREUNIT__) \
-      (((__TIMER__) == HRTIM_TIMERINDEX_MASTER) ? \
-        (((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_1) ? ((__HANDLE__)->Instance->sMasterRegs.MCMP1R) :\
-         ((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_2) ? ((__HANDLE__)->Instance->sMasterRegs.MCMP2R) :\
-         ((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_3) ? ((__HANDLE__)->Instance->sMasterRegs.MCMP3R) :\
-         ((__HANDLE__)->Instance->sMasterRegs.MCMP4R)) \
-         : \
-        (((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_1) ? ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].CMP1xR) :\
-         ((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_2) ? ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].CMP2xR) :\
-         ((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_3) ? ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].CMP3xR) :\
-         ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].CMP4xR)))
+  (((__TIMER__) == HRTIM_TIMERINDEX_MASTER) ? \
+   (((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_1) ? ((__HANDLE__)->Instance->sMasterRegs.MCMP1R) :\
+    ((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_2) ? ((__HANDLE__)->Instance->sMasterRegs.MCMP2R) :\
+    ((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_3) ? ((__HANDLE__)->Instance->sMasterRegs.MCMP3R) :\
+    ((__HANDLE__)->Instance->sMasterRegs.MCMP4R)) \
+   : \
+   (((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_1) ? ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].CMP1xR) :\
+    ((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_2) ? ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].CMP2xR) :\
+    ((__COMPAREUNIT__) == HRTIM_COMPAREUNIT_3) ? ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].CMP3xR) :\
+    ((__HANDLE__)->Instance->sTimerxRegs[(__TIMER__)].CMP4xR)))
 
 /**
   * @brief  Enables the Fault Counter
@@ -4540,27 +4552,27 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
   do {\
     if (((__FAULT__) & HRTIM_FAULT_1) == HRTIM_FAULT_1)\
     {\
-              ((__HANDLE__)->Instance->sCommonRegs.FLTINR3) |= HRTIM_FLTINR3_FLT1BLKE;\
+      ((__HANDLE__)->Instance->sCommonRegs.FLTINR3) |= HRTIM_FLTINR3_FLT1BLKE;\
     }\
     if (((__FAULT__) & HRTIM_FAULT_2) == HRTIM_FAULT_2)\
     {\
-              ((__HANDLE__)->Instance->sCommonRegs.FLTINR3) |= HRTIM_FLTINR3_FLT2BLKE;\
+      ((__HANDLE__)->Instance->sCommonRegs.FLTINR3) |= HRTIM_FLTINR3_FLT2BLKE;\
     }\
     if (((__FAULT__) & HRTIM_FAULT_3) == HRTIM_FAULT_3)\
     {\
-              ((__HANDLE__)->Instance->sCommonRegs.FLTINR3) |= HRTIM_FLTINR3_FLT3BLKE;\
+      ((__HANDLE__)->Instance->sCommonRegs.FLTINR3) |= HRTIM_FLTINR3_FLT3BLKE;\
     }\
     if (((__FAULT__) & HRTIM_FAULT_4) == HRTIM_FAULT_4)\
     {\
-              ((__HANDLE__)->Instance->sCommonRegs.FLTINR3) |= HRTIM_FLTINR3_FLT4BLKE;\
+      ((__HANDLE__)->Instance->sCommonRegs.FLTINR3) |= HRTIM_FLTINR3_FLT4BLKE;\
     }\
     if (((__FAULT__) & HRTIM_FAULT_5) == HRTIM_FAULT_5)\
     {\
-              ((__HANDLE__)->Instance->sCommonRegs.FLTINR4) |= HRTIM_FLTINR4_FLT5BLKE;\
+      ((__HANDLE__)->Instance->sCommonRegs.FLTINR4) |= HRTIM_FLTINR4_FLT5BLKE;\
     }\
     if (((__FAULT__) & HRTIM_FAULT_6) == HRTIM_FAULT_6)\
     {\
-              ((__HANDLE__)->Instance->sCommonRegs.FLTINR4) |= HRTIM_FLTINR4_FLT6BLKE;\
+      ((__HANDLE__)->Instance->sCommonRegs.FLTINR4) |= HRTIM_FLTINR4_FLT6BLKE;\
     }\
   } while(0U)
 
@@ -4581,27 +4593,27 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
   do {\
     if (((__FAULT__) & HRTIM_FAULT_1) == HRTIM_FAULT_1)\
     {\
-              ((__HANDLE__)->Instance->sCommonRegs.FLTINR3) &= ~HRTIM_FLTINR3_FLT1BLKE;\
+      ((__HANDLE__)->Instance->sCommonRegs.FLTINR3) &= ~HRTIM_FLTINR3_FLT1BLKE;\
     }\
     if (((__FAULT__) & HRTIM_FAULT_2) == HRTIM_FAULT_2)\
     {\
-              ((__HANDLE__)->Instance->sCommonRegs.FLTINR3) &= ~HRTIM_FLTINR3_FLT2BLKE;\
+      ((__HANDLE__)->Instance->sCommonRegs.FLTINR3) &= ~HRTIM_FLTINR3_FLT2BLKE;\
     }\
     if (((__FAULT__) & HRTIM_FAULT_3) == HRTIM_FAULT_3)\
     {\
-              ((__HANDLE__)->Instance->sCommonRegs.FLTINR3) &= ~HRTIM_FLTINR3_FLT3BLKE;\
+      ((__HANDLE__)->Instance->sCommonRegs.FLTINR3) &= ~HRTIM_FLTINR3_FLT3BLKE;\
     }\
     if (((__FAULT__) & HRTIM_FAULT_4) == HRTIM_FAULT_4)\
     {\
-              ((__HANDLE__)->Instance->sCommonRegs.FLTINR3) &= ~HRTIM_FLTINR3_FLT4BLKE;\
+      ((__HANDLE__)->Instance->sCommonRegs.FLTINR3) &= ~HRTIM_FLTINR3_FLT4BLKE;\
     }\
     if (((__FAULT__) & HRTIM_FAULT_5) == HRTIM_FAULT_5)\
     {\
-              ((__HANDLE__)->Instance->sCommonRegs.FLTINR4) &= ~HRTIM_FLTINR4_FLT5BLKE;\
+      ((__HANDLE__)->Instance->sCommonRegs.FLTINR4) &= ~HRTIM_FLTINR4_FLT5BLKE;\
     }\
     if (((__FAULT__) & HRTIM_FAULT_6) == HRTIM_FAULT_6)\
     {\
-              ((__HANDLE__)->Instance->sCommonRegs.FLTINR4) &= ~HRTIM_FLTINR4_FLT6BLKE;\
+      ((__HANDLE__)->Instance->sCommonRegs.FLTINR4) &= ~HRTIM_FLTINR4_FLT6BLKE;\
     }\
   } while(0U)
 
@@ -4611,17 +4623,17 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
 
 /* Exported functions --------------------------------------------------------*/
 /** @addtogroup HRTIM_Exported_Functions
-* @{
-*/
+  * @{
+  */
 
 /** @addtogroup HRTIM_Exported_Functions_Group1
-* @{
-*/
+  * @{
+  */
 
 /* Initialization and Configuration functions  ********************************/
 HAL_StatusTypeDef HAL_HRTIM_Init(HRTIM_HandleTypeDef *hhrtim);
 
-HAL_StatusTypeDef HAL_HRTIM_DeInit (HRTIM_HandleTypeDef *hhrtim);
+HAL_StatusTypeDef HAL_HRTIM_DeInit(HRTIM_HandleTypeDef *hhrtim);
 
 void HAL_HRTIM_MspInit(HRTIM_HandleTypeDef *hhrtim);
 
@@ -4629,7 +4641,7 @@ void HAL_HRTIM_MspDeInit(HRTIM_HandleTypeDef *hhrtim);
 
 HAL_StatusTypeDef HAL_HRTIM_TimeBaseConfig(HRTIM_HandleTypeDef *hhrtim,
                                            uint32_t TimerIdx,
-                                           const HRTIM_TimeBaseCfgTypeDef * pTimeBaseCfg);
+                                           const HRTIM_TimeBaseCfgTypeDef *pTimeBaseCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_DLLCalibrationStart(HRTIM_HandleTypeDef *hhrtim,
                                                 uint32_t CalibrationRate);
@@ -4645,272 +4657,272 @@ HAL_StatusTypeDef HAL_HRTIM_PollForDLLCalibration(HRTIM_HandleTypeDef *hhrtim,
   */
 
 /** @addtogroup HRTIM_Exported_Functions_Group2
-* @{
-*/
+  * @{
+  */
 
 /* Simple time base related functions  *****************************************/
 HAL_StatusTypeDef HAL_HRTIM_SimpleBaseStart(HRTIM_HandleTypeDef *hhrtim,
-                                           uint32_t TimerIdx);
+                                            uint32_t TimerIdx);
 
 HAL_StatusTypeDef HAL_HRTIM_SimpleBaseStop(HRTIM_HandleTypeDef *hhrtim,
-                                          uint32_t TimerIdx);
+                                           uint32_t TimerIdx);
 
 HAL_StatusTypeDef HAL_HRTIM_SimpleBaseStart_IT(HRTIM_HandleTypeDef *hhrtim,
-                                              uint32_t TimerIdx);
+                                               uint32_t TimerIdx);
 
 HAL_StatusTypeDef HAL_HRTIM_SimpleBaseStop_IT(HRTIM_HandleTypeDef *hhrtim,
-                                             uint32_t TimerIdx);
+                                              uint32_t TimerIdx);
 
 HAL_StatusTypeDef HAL_HRTIM_SimpleBaseStart_DMA(HRTIM_HandleTypeDef *hhrtim,
-                                               uint32_t TimerIdx,
-                                               uint32_t SrcAddr,
-                                               uint32_t DestAddr,
-                                               uint32_t Length);
+                                                uint32_t TimerIdx,
+                                                uint32_t SrcAddr,
+                                                uint32_t DestAddr,
+                                                uint32_t Length);
 
 HAL_StatusTypeDef HAL_HRTIM_SimpleBaseStop_DMA(HRTIM_HandleTypeDef *hhrtim,
-                                              uint32_t TimerIdx);
+                                               uint32_t TimerIdx);
 
 /**
   * @}
   */
 
 /** @addtogroup HRTIM_Exported_Functions_Group3
-* @{
-*/
+  * @{
+  */
 /* Simple output compare related functions  ************************************/
 HAL_StatusTypeDef HAL_HRTIM_SimpleOCChannelConfig(HRTIM_HandleTypeDef *hhrtim,
-                                                 uint32_t TimerIdx,
-                                                 uint32_t OCChannel,
-                                                 const HRTIM_SimpleOCChannelCfgTypeDef* pSimpleOCChannelCfg);
+                                                  uint32_t TimerIdx,
+                                                  uint32_t OCChannel,
+                                                  const HRTIM_SimpleOCChannelCfgTypeDef *pSimpleOCChannelCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_SimpleOCStart(HRTIM_HandleTypeDef *hhrtim,
+                                          uint32_t TimerIdx,
+                                          uint32_t OCChannel);
+
+HAL_StatusTypeDef HAL_HRTIM_SimpleOCStop(HRTIM_HandleTypeDef *hhrtim,
                                          uint32_t TimerIdx,
                                          uint32_t OCChannel);
 
-HAL_StatusTypeDef HAL_HRTIM_SimpleOCStop(HRTIM_HandleTypeDef *hhrtim,
-                                        uint32_t TimerIdx,
-                                        uint32_t OCChannel);
-
 HAL_StatusTypeDef HAL_HRTIM_SimpleOCStart_IT(HRTIM_HandleTypeDef *hhrtim,
-                                            uint32_t TimerIdx,
-                                            uint32_t OCChannel);
+                                             uint32_t TimerIdx,
+                                             uint32_t OCChannel);
 
 HAL_StatusTypeDef HAL_HRTIM_SimpleOCStop_IT(HRTIM_HandleTypeDef *hhrtim,
-                                           uint32_t TimerIdx,
-                                           uint32_t OCChannel);
-
-HAL_StatusTypeDef HAL_HRTIM_SimpleOCStart_DMA(HRTIM_HandleTypeDef *hhrtim,
-                                             uint32_t TimerIdx,
-                                             uint32_t OCChannel,
-                                             uint32_t SrcAddr,
-                                             uint32_t DestAddr,
-                                             uint32_t Length);
-
-HAL_StatusTypeDef HAL_HRTIM_SimpleOCStop_DMA(HRTIM_HandleTypeDef *hhrtim,
                                             uint32_t TimerIdx,
                                             uint32_t OCChannel);
+
+HAL_StatusTypeDef HAL_HRTIM_SimpleOCStart_DMA(HRTIM_HandleTypeDef *hhrtim,
+                                              uint32_t TimerIdx,
+                                              uint32_t OCChannel,
+                                              uint32_t SrcAddr,
+                                              uint32_t DestAddr,
+                                              uint32_t Length);
+
+HAL_StatusTypeDef HAL_HRTIM_SimpleOCStop_DMA(HRTIM_HandleTypeDef *hhrtim,
+                                             uint32_t TimerIdx,
+                                             uint32_t OCChannel);
 
 /**
   * @}
   */
 
 /** @addtogroup HRTIM_Exported_Functions_Group4
-* @{
-*/
+  * @{
+  */
 /* Simple PWM output related functions  ****************************************/
 HAL_StatusTypeDef HAL_HRTIM_SimplePWMChannelConfig(HRTIM_HandleTypeDef *hhrtim,
-                                                  uint32_t TimerIdx,
-                                                  uint32_t PWMChannel,
-                                                  const HRTIM_SimplePWMChannelCfgTypeDef* pSimplePWMChannelCfg);
+                                                   uint32_t TimerIdx,
+                                                   uint32_t PWMChannel,
+                                                   const HRTIM_SimplePWMChannelCfgTypeDef *pSimplePWMChannelCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_SimplePWMStart(HRTIM_HandleTypeDef *hhrtim,
+                                           uint32_t TimerIdx,
+                                           uint32_t PWMChannel);
+
+HAL_StatusTypeDef HAL_HRTIM_SimplePWMStop(HRTIM_HandleTypeDef *hhrtim,
                                           uint32_t TimerIdx,
                                           uint32_t PWMChannel);
 
-HAL_StatusTypeDef HAL_HRTIM_SimplePWMStop(HRTIM_HandleTypeDef *hhrtim,
-                                         uint32_t TimerIdx,
-                                         uint32_t PWMChannel);
-
 HAL_StatusTypeDef HAL_HRTIM_SimplePWMStart_IT(HRTIM_HandleTypeDef *hhrtim,
-                                             uint32_t TimerIdx,
-                                             uint32_t PWMChannel);
+                                              uint32_t TimerIdx,
+                                              uint32_t PWMChannel);
 
 HAL_StatusTypeDef HAL_HRTIM_SimplePWMStop_IT(HRTIM_HandleTypeDef *hhrtim,
-                                            uint32_t TimerIdx,
-                                            uint32_t PWMChannel);
-
-HAL_StatusTypeDef HAL_HRTIM_SimplePWMStart_DMA(HRTIM_HandleTypeDef *hhrtim,
-                                              uint32_t TimerIdx,
-                                              uint32_t PWMChannel,
-                                              uint32_t SrcAddr,
-                                              uint32_t DestAddr,
-                                              uint32_t Length);
-
-HAL_StatusTypeDef HAL_HRTIM_SimplePWMStop_DMA(HRTIM_HandleTypeDef *hhrtim,
                                              uint32_t TimerIdx,
                                              uint32_t PWMChannel);
+
+HAL_StatusTypeDef HAL_HRTIM_SimplePWMStart_DMA(HRTIM_HandleTypeDef *hhrtim,
+                                               uint32_t TimerIdx,
+                                               uint32_t PWMChannel,
+                                               uint32_t SrcAddr,
+                                               uint32_t DestAddr,
+                                               uint32_t Length);
+
+HAL_StatusTypeDef HAL_HRTIM_SimplePWMStop_DMA(HRTIM_HandleTypeDef *hhrtim,
+                                              uint32_t TimerIdx,
+                                              uint32_t PWMChannel);
 
 /**
   * @}
   */
 
 /** @addtogroup HRTIM_Exported_Functions_Group5
-* @{
-*/
+  * @{
+  */
 /* Simple capture related functions  *******************************************/
 HAL_StatusTypeDef HAL_HRTIM_SimpleCaptureChannelConfig(HRTIM_HandleTypeDef *hhrtim,
-                                                      uint32_t TimerIdx,
-                                                      uint32_t CaptureChannel,
-                                                      const HRTIM_SimpleCaptureChannelCfgTypeDef* pSimpleCaptureChannelCfg);
+                                                       uint32_t TimerIdx,
+                                                       uint32_t CaptureChannel,
+                                                       const HRTIM_SimpleCaptureChannelCfgTypeDef *pSimpleCaptureChannelCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_SimpleCaptureStart(HRTIM_HandleTypeDef *hhrtim,
+                                               uint32_t TimerIdx,
+                                               uint32_t CaptureChannel);
+
+HAL_StatusTypeDef HAL_HRTIM_SimpleCaptureStop(HRTIM_HandleTypeDef *hhrtim,
                                               uint32_t TimerIdx,
                                               uint32_t CaptureChannel);
 
-HAL_StatusTypeDef HAL_HRTIM_SimpleCaptureStop(HRTIM_HandleTypeDef *hhrtim,
-                                             uint32_t TimerIdx,
-                                             uint32_t CaptureChannel);
-
 HAL_StatusTypeDef HAL_HRTIM_SimpleCaptureStart_IT(HRTIM_HandleTypeDef *hhrtim,
-                                                 uint32_t TimerIdx,
-                                                 uint32_t CaptureChannel);
+                                                  uint32_t TimerIdx,
+                                                  uint32_t CaptureChannel);
 
 HAL_StatusTypeDef HAL_HRTIM_SimpleCaptureStop_IT(HRTIM_HandleTypeDef *hhrtim,
-                                                uint32_t TimerIdx,
-                                                uint32_t CaptureChannel);
-
-HAL_StatusTypeDef HAL_HRTIM_SimpleCaptureStart_DMA(HRTIM_HandleTypeDef *hhrtim,
-                                                  uint32_t TimerIdx,
-                                                  uint32_t CaptureChannel,
-                                                  uint32_t SrcAddr,
-                                                  uint32_t DestAddr,
-                                                  uint32_t Length);
-
-HAL_StatusTypeDef HAL_HRTIM_SimpleCaptureStop_DMA(HRTIM_HandleTypeDef *hhrtim,
                                                  uint32_t TimerIdx,
                                                  uint32_t CaptureChannel);
+
+HAL_StatusTypeDef HAL_HRTIM_SimpleCaptureStart_DMA(HRTIM_HandleTypeDef *hhrtim,
+                                                   uint32_t TimerIdx,
+                                                   uint32_t CaptureChannel,
+                                                   uint32_t SrcAddr,
+                                                   uint32_t DestAddr,
+                                                   uint32_t Length);
+
+HAL_StatusTypeDef HAL_HRTIM_SimpleCaptureStop_DMA(HRTIM_HandleTypeDef *hhrtim,
+                                                  uint32_t TimerIdx,
+                                                  uint32_t CaptureChannel);
 
 /**
   * @}
   */
 
 /** @addtogroup HRTIM_Exported_Functions_Group6
-* @{
-*/
+  * @{
+  */
 /* Simple one pulse related functions  *****************************************/
 HAL_StatusTypeDef HAL_HRTIM_SimpleOnePulseChannelConfig(HRTIM_HandleTypeDef *hhrtim,
-                                                       uint32_t TimerIdx,
-                                                       uint32_t OnePulseChannel,
-                                                       const HRTIM_SimpleOnePulseChannelCfgTypeDef* pSimpleOnePulseChannelCfg);
+                                                        uint32_t TimerIdx,
+                                                        uint32_t OnePulseChannel,
+                                                        const HRTIM_SimpleOnePulseChannelCfgTypeDef *pSimpleOnePulseChannelCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_SimpleOnePulseStart(HRTIM_HandleTypeDef *hhrtim,
+                                                uint32_t TimerIdx,
+                                                uint32_t OnePulseChannel);
+
+HAL_StatusTypeDef HAL_HRTIM_SimpleOnePulseStop(HRTIM_HandleTypeDef *hhrtim,
                                                uint32_t TimerIdx,
                                                uint32_t OnePulseChannel);
 
-HAL_StatusTypeDef HAL_HRTIM_SimpleOnePulseStop(HRTIM_HandleTypeDef *hhrtim,
-                                              uint32_t TimerIdx,
-                                             uint32_t OnePulseChannel);
-
 HAL_StatusTypeDef HAL_HRTIM_SimpleOnePulseStart_IT(HRTIM_HandleTypeDef *hhrtim,
-                                                  uint32_t TimerIdx,
-                                                  uint32_t OnePulseChannel);
+                                                   uint32_t TimerIdx,
+                                                   uint32_t OnePulseChannel);
 
 HAL_StatusTypeDef HAL_HRTIM_SimpleOnePulseStop_IT(HRTIM_HandleTypeDef *hhrtim,
-                                                 uint32_t TimerIdx,
-                                                 uint32_t OnePulseChannel);
+                                                  uint32_t TimerIdx,
+                                                  uint32_t OnePulseChannel);
 
 /**
   * @}
   */
 
 /** @addtogroup HRTIM_Exported_Functions_Group7
-* @{
-*/
+  * @{
+  */
 HAL_StatusTypeDef HAL_HRTIM_BurstModeConfig(HRTIM_HandleTypeDef *hhrtim,
-                                            const HRTIM_BurstModeCfgTypeDef* pBurstModeCfg);
+                                            const HRTIM_BurstModeCfgTypeDef *pBurstModeCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_EventConfig(HRTIM_HandleTypeDef *hhrtim,
                                         uint32_t Event,
-                                        const HRTIM_EventCfgTypeDef* pEventCfg);
+                                        const HRTIM_EventCfgTypeDef *pEventCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_EventPrescalerConfig(HRTIM_HandleTypeDef *hhrtim,
                                                  uint32_t Prescaler);
 
 HAL_StatusTypeDef HAL_HRTIM_FaultConfig(HRTIM_HandleTypeDef *hhrtim,
                                         uint32_t Fault,
-                                        const HRTIM_FaultCfgTypeDef* pFaultCfg);
+                                        const HRTIM_FaultCfgTypeDef *pFaultCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_FaultPrescalerConfig(HRTIM_HandleTypeDef *hhrtim,
                                                  uint32_t Prescaler);
 
-HAL_StatusTypeDef HAL_HRTIM_FaultBlankingConfigAndEnable(HRTIM_HandleTypeDef * hhrtim,
-                                               uint32_t Fault,
-                                               const HRTIM_FaultBlankingCfgTypeDef* pFaultBlkCfg);
+HAL_StatusTypeDef HAL_HRTIM_FaultBlankingConfigAndEnable(HRTIM_HandleTypeDef *hhrtim,
+                                                         uint32_t Fault,
+                                                         const HRTIM_FaultBlankingCfgTypeDef *pFaultBlkCfg);
 
-HAL_StatusTypeDef HAL_HRTIM_FaultCounterConfig(HRTIM_HandleTypeDef * hhrtim,
+HAL_StatusTypeDef HAL_HRTIM_FaultCounterConfig(HRTIM_HandleTypeDef *hhrtim,
                                                uint32_t Fault,
-                                               const HRTIM_FaultBlankingCfgTypeDef* pFaultBlkCfg);
+                                               const HRTIM_FaultBlankingCfgTypeDef *pFaultBlkCfg);
 
-HAL_StatusTypeDef HAL_HRTIM_FaultCounterReset(HRTIM_HandleTypeDef * hhrtim,
+HAL_StatusTypeDef HAL_HRTIM_FaultCounterReset(HRTIM_HandleTypeDef *hhrtim,
                                               uint32_t Fault);
 
-HAL_StatusTypeDef HAL_HRTIM_SwapTimerOutput(HRTIM_HandleTypeDef * hhrtim,
-                                           uint32_t Timers);
-void HAL_HRTIM_FaultModeCtl(HRTIM_HandleTypeDef * hhrtim,
+HAL_StatusTypeDef HAL_HRTIM_SwapTimerOutput(HRTIM_HandleTypeDef *hhrtim,
+                                            uint32_t Timers);
+void HAL_HRTIM_FaultModeCtl(HRTIM_HandleTypeDef *hhrtim,
                             uint32_t Faults,
                             uint32_t Enable);
 
 HAL_StatusTypeDef HAL_HRTIM_ADCTriggerConfig(HRTIM_HandleTypeDef *hhrtim,
                                              uint32_t ADCTrigger,
-                                             const HRTIM_ADCTriggerCfgTypeDef* pADCTriggerCfg);
+                                             const HRTIM_ADCTriggerCfgTypeDef *pADCTriggerCfg);
 
-HAL_StatusTypeDef HAL_HRTIM_ADCPostScalerConfig(HRTIM_HandleTypeDef * hhrtim,
-                                             uint32_t ADCTrigger,
-                                             uint32_t Postscaler);
+HAL_StatusTypeDef HAL_HRTIM_ADCPostScalerConfig(HRTIM_HandleTypeDef *hhrtim,
+                                                uint32_t ADCTrigger,
+                                                uint32_t Postscaler);
 
-HAL_StatusTypeDef HAL_HRTIM_RollOverModeConfig(HRTIM_HandleTypeDef * hhrtim,
-                                             uint32_t TimerIdx,
-                                             uint32_t RollOverCfg);
+HAL_StatusTypeDef HAL_HRTIM_RollOverModeConfig(HRTIM_HandleTypeDef *hhrtim,
+                                               uint32_t TimerIdx,
+                                               uint32_t RollOverCfg);
 
-HAL_StatusTypeDef HAL_HRTIM_OutputSwapEnable(HRTIM_HandleTypeDef * hhrtim,
-                                          uint32_t Timers);
+HAL_StatusTypeDef HAL_HRTIM_OutputSwapEnable(HRTIM_HandleTypeDef *hhrtim,
+                                             uint32_t Timers);
 
-HAL_StatusTypeDef HAL_HRTIM_OutputSwapDisable(HRTIM_HandleTypeDef * hhrtim,
-                                          uint32_t Timers);
+HAL_StatusTypeDef HAL_HRTIM_OutputSwapDisable(HRTIM_HandleTypeDef *hhrtim,
+                                              uint32_t Timers);
 /**
   * @}
   */
 
 /** @addtogroup HRTIM_Exported_Functions_Group8
-* @{
-*/
+  * @{
+  */
 /* Waveform related functions *************************************************/
 HAL_StatusTypeDef HAL_HRTIM_WaveformTimerConfig(HRTIM_HandleTypeDef *hhrtim,
                                                 uint32_t TimerIdx,
-                                                const HRTIM_TimerCfgTypeDef * pTimerCfg);
+                                                const HRTIM_TimerCfgTypeDef *pTimerCfg);
 
-HAL_StatusTypeDef HAL_HRTIM_WaveformTimerControl(HRTIM_HandleTypeDef * hhrtim,
-                                                uint32_t TimerIdx,
-                                                const HRTIM_TimerCtlTypeDef * pTimerCtl);
+HAL_StatusTypeDef HAL_HRTIM_WaveformTimerControl(HRTIM_HandleTypeDef *hhrtim,
+                                                 uint32_t TimerIdx,
+                                                 const HRTIM_TimerCtlTypeDef *pTimerCtl);
 
-HAL_StatusTypeDef HAL_HRTIM_TimerDualChannelDacConfig(HRTIM_HandleTypeDef * hhrtim,
-                                                uint32_t TimerIdx,
-                                                const HRTIM_TimerCtlTypeDef * pTimerCtl);
+HAL_StatusTypeDef HAL_HRTIM_TimerDualChannelDacConfig(HRTIM_HandleTypeDef *hhrtim,
+                                                      uint32_t TimerIdx,
+                                                      const HRTIM_TimerCtlTypeDef *pTimerCtl);
 
 HAL_StatusTypeDef HAL_HRTIM_WaveformCompareConfig(HRTIM_HandleTypeDef *hhrtim,
                                                   uint32_t TimerIdx,
                                                   uint32_t CompareUnit,
-                                                  const HRTIM_CompareCfgTypeDef* pCompareCfg);
+                                                  const HRTIM_CompareCfgTypeDef *pCompareCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_WaveformCaptureConfig(HRTIM_HandleTypeDef *hhrtim,
                                                   uint32_t TimerIdx,
                                                   uint32_t CaptureUnit,
-                                                  const HRTIM_CaptureCfgTypeDef* pCaptureCfg);
+                                                  const HRTIM_CaptureCfgTypeDef *pCaptureCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_WaveformOutputConfig(HRTIM_HandleTypeDef *hhrtim,
                                                  uint32_t TimerIdx,
                                                  uint32_t Output,
-                                                 const HRTIM_OutputCfgTypeDef * pOutputCfg);
+                                                 const HRTIM_OutputCfgTypeDef *pOutputCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_WaveformSetOutputLevel(HRTIM_HandleTypeDef *hhrtim,
                                                    uint32_t TimerIdx,
@@ -4920,32 +4932,32 @@ HAL_StatusTypeDef HAL_HRTIM_WaveformSetOutputLevel(HRTIM_HandleTypeDef *hhrtim,
 HAL_StatusTypeDef HAL_HRTIM_TimerEventFilteringConfig(HRTIM_HandleTypeDef *hhrtim,
                                                       uint32_t TimerIdx,
                                                       uint32_t Event,
-                                                      const HRTIM_TimerEventFilteringCfgTypeDef * pTimerEventFilteringCfg);
+                                                      const HRTIM_TimerEventFilteringCfgTypeDef *pTimerEventFilteringCfg);
 
-HAL_StatusTypeDef HAL_HRTIM_ExtEventCounterConfig(HRTIM_HandleTypeDef * hhrtim,
-                                                     uint32_t TimerIdx,
-                                                     uint32_t EventCounter,
-                                                     const HRTIM_ExternalEventCfgTypeDef* pTimerExternalEventCfg);
+HAL_StatusTypeDef HAL_HRTIM_ExtEventCounterConfig(HRTIM_HandleTypeDef *hhrtim,
+                                                  uint32_t TimerIdx,
+                                                  uint32_t EventCounter,
+                                                  const HRTIM_ExternalEventCfgTypeDef *pTimerExternalEventCfg);
 
-HAL_StatusTypeDef HAL_HRTIM_ExtEventCounterEnable(HRTIM_HandleTypeDef * hhrtim,
-                                                      uint32_t TimerIdx,
-                                                      uint32_t EventCounter);
+HAL_StatusTypeDef HAL_HRTIM_ExtEventCounterEnable(HRTIM_HandleTypeDef *hhrtim,
+                                                  uint32_t TimerIdx,
+                                                  uint32_t EventCounter);
 
-HAL_StatusTypeDef HAL_HRTIM_ExtEventCounterDisable(HRTIM_HandleTypeDef * hhrtim,
-                                                      uint32_t TimerIdx,
-                                                      uint32_t EventCounter);
+HAL_StatusTypeDef HAL_HRTIM_ExtEventCounterDisable(HRTIM_HandleTypeDef *hhrtim,
+                                                   uint32_t TimerIdx,
+                                                   uint32_t EventCounter);
 
-HAL_StatusTypeDef HAL_HRTIM_ExtEventCounterReset(HRTIM_HandleTypeDef * hhrtim,
-                                                           uint32_t TimerIdx,
-                                                           uint32_t EventCounter);
+HAL_StatusTypeDef HAL_HRTIM_ExtEventCounterReset(HRTIM_HandleTypeDef *hhrtim,
+                                                 uint32_t TimerIdx,
+                                                 uint32_t EventCounter);
 
 HAL_StatusTypeDef HAL_HRTIM_DeadTimeConfig(HRTIM_HandleTypeDef *hhrtim,
                                            uint32_t TimerIdx,
-                                           const HRTIM_DeadTimeCfgTypeDef* pDeadTimeCfg);
+                                           const HRTIM_DeadTimeCfgTypeDef *pDeadTimeCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_ChopperModeConfig(HRTIM_HandleTypeDef *hhrtim,
                                               uint32_t TimerIdx,
-                                              const HRTIM_ChopperModeCfgTypeDef* pChopperModeCfg);
+                                              const HRTIM_ChopperModeCfgTypeDef *pChopperModeCfg);
 
 HAL_StatusTypeDef HAL_HRTIM_BurstDMAConfig(HRTIM_HandleTypeDef *hhrtim,
                                            uint32_t TimerIdx,
@@ -4953,22 +4965,22 @@ HAL_StatusTypeDef HAL_HRTIM_BurstDMAConfig(HRTIM_HandleTypeDef *hhrtim,
 
 
 HAL_StatusTypeDef HAL_HRTIM_WaveformCountStart(HRTIM_HandleTypeDef *hhrtim,
-                                                 uint32_t Timers);
+                                               uint32_t Timers);
 
 HAL_StatusTypeDef HAL_HRTIM_WaveformCountStop(HRTIM_HandleTypeDef *hhrtim,
-                                                 uint32_t Timers);
+                                              uint32_t Timers);
 
 HAL_StatusTypeDef HAL_HRTIM_WaveformCountStart_IT(HRTIM_HandleTypeDef *hhrtim,
-                                                 uint32_t Timers);
+                                                  uint32_t Timers);
 
 HAL_StatusTypeDef HAL_HRTIM_WaveformCountStop_IT(HRTIM_HandleTypeDef *hhrtim,
                                                  uint32_t Timers);
 
 HAL_StatusTypeDef HAL_HRTIM_WaveformCountStart_DMA(HRTIM_HandleTypeDef *hhrtim,
-                                                     uint32_t Timers);
+                                                   uint32_t Timers);
 
 HAL_StatusTypeDef HAL_HRTIM_WaveformCountStop_DMA(HRTIM_HandleTypeDef *hhrtim,
-                                                    uint32_t Timers);
+                                                  uint32_t Timers);
 
 HAL_StatusTypeDef HAL_HRTIM_WaveformOutputStart(HRTIM_HandleTypeDef *hhrtim,
                                                 uint32_t OutputsToStart);
@@ -4997,7 +5009,7 @@ HAL_StatusTypeDef HAL_HRTIM_BurstDMATransfer(HRTIM_HandleTypeDef *hhrtim,
                                              uint32_t BurstBufferLength);
 
 HAL_StatusTypeDef HAL_HRTIM_UpdateEnable(HRTIM_HandleTypeDef *hhrtim,
-                                          uint32_t Timers);
+                                         uint32_t Timers);
 
 HAL_StatusTypeDef HAL_HRTIM_UpdateDisable(HRTIM_HandleTypeDef *hhrtim,
                                           uint32_t Timers);
@@ -5007,28 +5019,28 @@ HAL_StatusTypeDef HAL_HRTIM_UpdateDisable(HRTIM_HandleTypeDef *hhrtim,
   */
 
 /** @addtogroup HRTIM_Exported_Functions_Group9
-* @{
-*/
+  * @{
+  */
 /* HRTIM peripheral state functions */
-HAL_HRTIM_StateTypeDef HAL_HRTIM_GetState(const HRTIM_HandleTypeDef* hhrtim);
+HAL_HRTIM_StateTypeDef HAL_HRTIM_GetState(const HRTIM_HandleTypeDef *hhrtim);
 
-uint32_t HAL_HRTIM_GetCapturedValue(const HRTIM_HandleTypeDef * hhrtim,
+uint32_t HAL_HRTIM_GetCapturedValue(const HRTIM_HandleTypeDef *hhrtim,
                                     uint32_t TimerIdx,
                                     uint32_t CaptureUnit);
 
-uint32_t HAL_HRTIM_GetCapturedDir(const HRTIM_HandleTypeDef * hhrtim,
-                                    uint32_t TimerIdx,
-                                    uint32_t CaptureUnit);
+uint32_t HAL_HRTIM_GetCapturedDir(const HRTIM_HandleTypeDef *hhrtim,
+                                  uint32_t TimerIdx,
+                                  uint32_t CaptureUnit);
 
-HRTIM_CaptureValueTypeDef HAL_HRTIM_GetCaptured(const HRTIM_HandleTypeDef * hhrtim,
-                                    uint32_t TimerIdx,
-                                    uint32_t CaptureUnit);
+HRTIM_CaptureValueTypeDef HAL_HRTIM_GetCaptured(const HRTIM_HandleTypeDef *hhrtim,
+                                                uint32_t TimerIdx,
+                                                uint32_t CaptureUnit);
 
 uint32_t HAL_HRTIM_WaveformGetOutputLevel(const HRTIM_HandleTypeDef *hhrtim,
                                           uint32_t TimerIdx,
                                           uint32_t Output);
 
-uint32_t HAL_HRTIM_WaveformGetOutputState(const HRTIM_HandleTypeDef * hhrtim,
+uint32_t HAL_HRTIM_WaveformGetOutputState(const HRTIM_HandleTypeDef *hhrtim,
                                           uint32_t TimerIdx,
                                           uint32_t Output);
 
@@ -5049,8 +5061,8 @@ uint32_t HAL_HRTIM_GetIdlePushPullStatus(const HRTIM_HandleTypeDef *hhrtim,
   */
 
 /** @addtogroup HRTIM_Exported_Functions_Group10
-* @{
-*/
+  * @{
+  */
 /* IRQ handler */
 void HAL_HRTIM_IRQHandler(HRTIM_HandleTypeDef *hhrtim,
                           uint32_t TimerIdx);
@@ -5069,50 +5081,50 @@ void HAL_HRTIM_SynchronizationEventCallback(HRTIM_HandleTypeDef *hhrtim);
 
 /* Timer events related callback functions */
 void HAL_HRTIM_RegistersUpdateCallback(HRTIM_HandleTypeDef *hhrtim,
-                                              uint32_t TimerIdx);
+                                       uint32_t TimerIdx);
 void HAL_HRTIM_RepetitionEventCallback(HRTIM_HandleTypeDef *hhrtim,
-                                              uint32_t TimerIdx);
+                                       uint32_t TimerIdx);
 void HAL_HRTIM_Compare1EventCallback(HRTIM_HandleTypeDef *hhrtim,
-                                            uint32_t TimerIdx);
+                                     uint32_t TimerIdx);
 void HAL_HRTIM_Compare2EventCallback(HRTIM_HandleTypeDef *hhrtim,
-                                            uint32_t TimerIdx);
+                                     uint32_t TimerIdx);
 void HAL_HRTIM_Compare3EventCallback(HRTIM_HandleTypeDef *hhrtim,
-                                            uint32_t TimerIdx);
+                                     uint32_t TimerIdx);
 void HAL_HRTIM_Compare4EventCallback(HRTIM_HandleTypeDef *hhrtim,
-                                            uint32_t TimerIdx);
+                                     uint32_t TimerIdx);
 void HAL_HRTIM_Capture1EventCallback(HRTIM_HandleTypeDef *hhrtim,
-                                            uint32_t TimerIdx);
+                                     uint32_t TimerIdx);
 void HAL_HRTIM_Capture2EventCallback(HRTIM_HandleTypeDef *hhrtim,
-                                            uint32_t TimerIdx);
+                                     uint32_t TimerIdx);
 void HAL_HRTIM_DelayedProtectionCallback(HRTIM_HandleTypeDef *hhrtim,
-                                                uint32_t TimerIdx);
+                                         uint32_t TimerIdx);
 void HAL_HRTIM_CounterResetCallback(HRTIM_HandleTypeDef *hhrtim,
-                                           uint32_t TimerIdx);
+                                    uint32_t TimerIdx);
 void HAL_HRTIM_Output1SetCallback(HRTIM_HandleTypeDef *hhrtim,
-                                         uint32_t TimerIdx);
+                                  uint32_t TimerIdx);
 void HAL_HRTIM_Output1ResetCallback(HRTIM_HandleTypeDef *hhrtim,
-                                           uint32_t TimerIdx);
+                                    uint32_t TimerIdx);
 void HAL_HRTIM_Output2SetCallback(HRTIM_HandleTypeDef *hhrtim,
-                                         uint32_t TimerIdx);
+                                  uint32_t TimerIdx);
 void HAL_HRTIM_Output2ResetCallback(HRTIM_HandleTypeDef *hhrtim,
-                                           uint32_t TimerIdx);
+                                    uint32_t TimerIdx);
 void HAL_HRTIM_BurstDMATransferCallback(HRTIM_HandleTypeDef *hhrtim,
-                                               uint32_t TimerIdx);
+                                        uint32_t TimerIdx);
 void HAL_HRTIM_ErrorCallback(HRTIM_HandleTypeDef *hhrtim);
 
 #if (USE_HAL_HRTIM_REGISTER_CALLBACKS == 1)
-HAL_StatusTypeDef HAL_HRTIM_RegisterCallback(HRTIM_HandleTypeDef *       hhrtim,
+HAL_StatusTypeDef HAL_HRTIM_RegisterCallback(HRTIM_HandleTypeDef        *hhrtim,
                                              HAL_HRTIM_CallbackIDTypeDef CallbackID,
                                              pHRTIM_CallbackTypeDef      pCallback);
 
-HAL_StatusTypeDef HAL_HRTIM_UnRegisterCallback(HRTIM_HandleTypeDef *       hhrtim,
+HAL_StatusTypeDef HAL_HRTIM_UnRegisterCallback(HRTIM_HandleTypeDef        *hhrtim,
                                                HAL_HRTIM_CallbackIDTypeDef CallbackID);
 
-HAL_StatusTypeDef HAL_HRTIM_TIMxRegisterCallback(HRTIM_HandleTypeDef *        hhrtim,
+HAL_StatusTypeDef HAL_HRTIM_TIMxRegisterCallback(HRTIM_HandleTypeDef         *hhrtim,
                                                  HAL_HRTIM_CallbackIDTypeDef  CallbackID,
                                                  pHRTIM_TIMxCallbackTypeDef   pCallback);
 
-HAL_StatusTypeDef HAL_HRTIM_TIMxUnRegisterCallback(HRTIM_HandleTypeDef *       hhrtim,
+HAL_StatusTypeDef HAL_HRTIM_TIMxUnRegisterCallback(HRTIM_HandleTypeDef        *hhrtim,
                                                    HAL_HRTIM_CallbackIDTypeDef CallbackID);
 #endif /* USE_HAL_HRTIM_REGISTER_CALLBACKS */
 

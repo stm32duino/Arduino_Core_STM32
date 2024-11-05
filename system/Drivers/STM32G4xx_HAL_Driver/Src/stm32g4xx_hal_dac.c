@@ -103,7 +103,8 @@
       To connect, use
       sConfig.DAC_ConnectOnChipPeripheral = DAC_CHIPCONNECT_INTERNAL;
       or
-      sConfig.DAC_ConnectOnChipPeripheral = DAC_CHIPCONNECT_BOTH;
+      sConfig.DAC_ConnectOnChipPeripheral = DAC_CHIPCONNECT_BOTH; (caution: dependence to other parameters,
+      refer to literal description).
 
       *** GPIO configurations guidelines ***
       =====================
@@ -1174,6 +1175,14 @@ HAL_StatusTypeDef HAL_DAC_ConfigChannel(DAC_HandleTypeDef *hdac,
     assert_param(IS_DAC_SAMPLETIME(sConfig->DAC_SampleAndHoldConfig.DAC_SampleTime));
     assert_param(IS_DAC_HOLDTIME(sConfig->DAC_SampleAndHoldConfig.DAC_HoldTime));
     assert_param(IS_DAC_REFRESHTIME(sConfig->DAC_SampleAndHoldConfig.DAC_RefreshTime));
+  }
+  else
+  {
+    /* In case of mode normal and buffer disabled, connection to both on chip periph and external pin is not possible */
+    if (sConfig->DAC_OutputBuffer == DAC_OUTPUTBUFFER_DISABLE)
+    {
+      assert_param(sConfig->DAC_ConnectOnChipPeripheral != DAC_CHIPCONNECT_BOTH);
+    }
   }
   assert_param(IS_DAC_CHANNEL(hdac->Instance, Channel));
   assert_param(IS_FUNCTIONAL_STATE(sConfig->DAC_DMADoubleDataMode));

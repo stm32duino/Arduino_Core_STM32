@@ -900,7 +900,7 @@ void HAL_COMP_IRQHandler(COMP_HandleTypeDef *hcomp)
 
   if (tmp_comp_exti_flag_set != 0UL)
   {
-      /* Clear COMP EXTI line pending bit */
+    /* Clear COMP EXTI line pending bit */
 #if defined(COMP7)
     if (tmp_comp_exti_flag_set == 2UL)
     {
