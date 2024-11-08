@@ -1668,6 +1668,22 @@ GenC0.menu.pnum.GENERIC_C031F6PX.build.product_line=STM32C031xx
 GenC0.menu.pnum.GENERIC_C031F6PX.build.variant=STM32C0xx/C011D6Y_C011F(4-6)(P-U)_C031F(4-6)P
 GenC0.menu.pnum.GENERIC_C031F6PX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C031.svd
 
+# Generic C071R8Tx
+GenC0.menu.pnum.GENERIC_C071R8TX=Generic C071R8Tx
+GenC0.menu.pnum.GENERIC_C071R8TX.upload.maximum_size=65536
+GenC0.menu.pnum.GENERIC_C071R8TX.upload.maximum_data_size=24576
+GenC0.menu.pnum.GENERIC_C071R8TX.build.board=GENERIC_C071R8TX
+GenC0.menu.pnum.GENERIC_C071R8TX.build.product_line=STM32C071xx
+GenC0.menu.pnum.GENERIC_C071R8TX.build.variant=STM32C0xx/C071R(8-B)T
+
+# Generic C071RBTx
+GenC0.menu.pnum.GENERIC_C071RBTX=Generic C071RBTx
+GenC0.menu.pnum.GENERIC_C071RBTX.upload.maximum_size=131072
+GenC0.menu.pnum.GENERIC_C071RBTX.upload.maximum_data_size=24576
+GenC0.menu.pnum.GENERIC_C071RBTX.build.board=GENERIC_C071RBTX
+GenC0.menu.pnum.GENERIC_C071RBTX.build.product_line=STM32C071xx
+GenC0.menu.pnum.GENERIC_C071RBTX.build.variant=STM32C0xx/C071R(8-B)T
+
 # Upload menu
 GenC0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenC0.menu.upload_method.swdMethod.upload.protocol=swd
