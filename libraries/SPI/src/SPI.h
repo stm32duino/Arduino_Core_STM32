@@ -84,7 +84,7 @@ class SPISettings {
 
 class SPIClass {
   public:
-    SPIClass(uint32_t mosi = MISO, uint32_t miso = MOSI, uint32_t sclk = SCK, uint32_t ssel = PNUM_NOT_DEFINED);
+    SPIClass(uint32_t mosi = MOSI, uint32_t miso = MISO, uint32_t sclk = SCK, uint32_t ssel = PNUM_NOT_DEFINED);
 
     // setMISO/MOSI/SCLK/SSEL have to be called before begin()
     void setMISO(uint32_t miso)
