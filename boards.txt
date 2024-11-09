@@ -439,6 +439,20 @@ Nucleo_64.menu.pnum.NUCLEO_C031C6.build.st_extra_flags=-D{build.product_line} {b
 Nucleo_64.menu.pnum.NUCLEO_C031C6.openocd.target=stm32c0x
 Nucleo_64.menu.pnum.NUCLEO_C031C6.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C031.svd
 
+# NUCLEO_C071RB board
+Nucleo_64.menu.pnum.NUCLEO_C071RB=Nucleo C071RB
+Nucleo_64.menu.pnum.NUCLEO_C071RB.node="NOD_C071RB"
+Nucleo_64.menu.pnum.NUCLEO_C071RB.upload.maximum_size=131072
+Nucleo_64.menu.pnum.NUCLEO_C071RB.upload.maximum_data_size=24576
+Nucleo_64.menu.pnum.NUCLEO_C071RB.build.mcu=cortex-m0plus
+Nucleo_64.menu.pnum.NUCLEO_C071RB.build.board=NUCLEO_C071RB
+Nucleo_64.menu.pnum.NUCLEO_C071RB.build.series=STM32C0xx
+Nucleo_64.menu.pnum.NUCLEO_C071RB.build.product_line=STM32C071xx
+Nucleo_64.menu.pnum.NUCLEO_C071RB.build.variant=STM32C0xx/C071R(8-B)T
+Nucleo_64.menu.pnum.NUCLEO_C071RB.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Nucleo_64.menu.pnum.NUCLEO_C071RB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+Nucleo_64.menu.pnum.NUCLEO_C071RB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C071.svd
+
 # NUCLEO_F030R8 board
 Nucleo_64.menu.pnum.NUCLEO_F030R8=Nucleo F030R8
 Nucleo_64.menu.pnum.NUCLEO_F030R8.node="NODE_F030R8,NUCLEO"
