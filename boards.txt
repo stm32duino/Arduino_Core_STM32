@@ -1675,6 +1675,7 @@ GenC0.menu.pnum.GENERIC_C071R8TX.upload.maximum_data_size=24576
 GenC0.menu.pnum.GENERIC_C071R8TX.build.board=GENERIC_C071R8TX
 GenC0.menu.pnum.GENERIC_C071R8TX.build.product_line=STM32C071xx
 GenC0.menu.pnum.GENERIC_C071R8TX.build.variant=STM32C0xx/C071R(8-B)T
+GenC0.menu.pnum.GENERIC_C071R8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C071.svd
 
 # Generic C071RBTx
 GenC0.menu.pnum.GENERIC_C071RBTX=Generic C071RBTx
@@ -1683,6 +1684,7 @@ GenC0.menu.pnum.GENERIC_C071RBTX.upload.maximum_data_size=24576
 GenC0.menu.pnum.GENERIC_C071RBTX.build.board=GENERIC_C071RBTX
 GenC0.menu.pnum.GENERIC_C071RBTX.build.product_line=STM32C071xx
 GenC0.menu.pnum.GENERIC_C071RBTX.build.variant=STM32C0xx/C071R(8-B)T
+GenC0.menu.pnum.GENERIC_C071RBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C071.svd
 
 # Upload menu
 GenC0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
@@ -7631,6 +7633,7 @@ GenG4.menu.pnum.GENERIC_G431RBTXZ.upload.maximum_data_size=32768
 GenG4.menu.pnum.GENERIC_G431RBTXZ.build.board=GENERIC_G431RBTXZ
 GenG4.menu.pnum.GENERIC_G431RBTXZ.build.product_line=STM32G431xx
 GenG4.menu.pnum.GENERIC_G431RBTXZ.build.variant=STM32G4xx/G431R(6-8)(I-T)_G431RB(I-T)x(Z)_G441RB(I-T)
+GenG4.menu.pnum.GENERIC_G431RBTXZ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G431.svd
 
 # Generic G431V6Tx
 GenG4.menu.pnum.GENERIC_G431V6TX=Generic G431V6Tx
@@ -7999,6 +8002,7 @@ GenG4.menu.pnum.GENERIC_G473QETXZ.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G473QETXZ.build.board=GENERIC_G473QETXZ
 GenG4.menu.pnum.GENERIC_G473QETXZ.build.product_line=STM32G473xx
 GenG4.menu.pnum.GENERIC_G473QETXZ.build.variant=STM32G4xx/G473Q(B-C)T_G473QETx(Z)_G474Q(B-C-E)T_G483QET_G484QET
+GenG4.menu.pnum.GENERIC_G473QETXZ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G473.svd
 
 # Generic G473VBHx
 GenG4.menu.pnum.GENERIC_G473VBHX=Generic G473VBHx
@@ -8169,6 +8173,7 @@ GenG4.menu.pnum.GENERIC_G473RETXZ.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G473RETXZ.build.board=GENERIC_G473RETXZ
 GenG4.menu.pnum.GENERIC_G473RETXZ.build.product_line=STM32G473xx
 GenG4.menu.pnum.GENERIC_G473RETXZ.build.variant=STM32G4xx/G473R(B-C)T_G473RETx(Z)_G474R(B-C-E)T_G483RET_G484RET
+GenG4.menu.pnum.GENERIC_G473RETXZ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G473.svd
 
 # Generic G474QBTx
 GenG4.menu.pnum.GENERIC_G474QBTX=Generic G474QBTx
