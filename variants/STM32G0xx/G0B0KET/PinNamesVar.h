@@ -51,4 +51,17 @@ PB_9_ALT1    = PB_9    | ALT1,
   SYS_WKUP8 = NC,
 #endif
 
-/* No USB */
+/* USB */
+#ifdef USBCON
+  USB_DM  = PA_11,
+  USB_DP  = PA_12,
+  #ifdef USB_NOE_PA_4
+    USB_NOE = PA_4,
+  #endif
+  #ifdef USB_NOE_PA_13
+    USB_NOE = PA_13,
+  #endif
+  #ifdef USB_NOE_PA_15
+    USB_NOE = PA_15,
+  #endif
+#endif

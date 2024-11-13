@@ -10,6 +10,7 @@ GenG4.menu.pnum.GENERIC_G414CBTX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G414CBTX.build.board=GENERIC_G414CBTX
 GenG4.menu.pnum.GENERIC_G414CBTX.build.product_line=STM32G414xx
 GenG4.menu.pnum.GENERIC_G414CBTX.build.variant=STM32G4xx/G414C(B-C)T
+GenG4.menu.pnum.GENERIC_G414CBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G474.svd
 
 # Generic G414CCTx
 GenG4.menu.pnum.GENERIC_G414CCTX=Generic G414CCTx
@@ -18,4 +19,5 @@ GenG4.menu.pnum.GENERIC_G414CCTX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G414CCTX.build.board=GENERIC_G414CCTX
 GenG4.menu.pnum.GENERIC_G414CCTX.build.product_line=STM32G414xx
 GenG4.menu.pnum.GENERIC_G414CCTX.build.variant=STM32G4xx/G414C(B-C)T
+GenG4.menu.pnum.GENERIC_G414CCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G474.svd
 

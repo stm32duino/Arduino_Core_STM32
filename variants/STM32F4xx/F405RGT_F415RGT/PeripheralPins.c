@@ -12,7 +12,7 @@
  */
 /*
  * Automatically generated from STM32F405RGTx.xml, STM32F415RGTx.xml
- * CubeMX DB release 6.0.110
+ * CubeMX DB release 6.0.120
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

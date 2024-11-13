@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32F091R(B-C)Tx.xml, STM32F091RCHx.xml
  * STM32F091RCYx.xml
- * CubeMX DB release 6.0.110
+ * CubeMX DB release 6.0.120
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
