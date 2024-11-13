@@ -763,8 +763,8 @@ void i2c_init(i2c_t *obj, uint32_t timing, uint32_t ownAddress)
           __HAL_RCC_I2C2_FORCE_RESET();
           __HAL_RCC_I2C2_RELEASE_RESET();
           obj->irq = I2C2_EV_IRQn;
-#if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx) && \
-    !defined(STM32U0xx)
+#if !defined(STM32C0xx) && !defined(STM32F0xx) && !defined(STM32G0xx) && \
+    !defined(STM32L0xx) && !defined(STM32U0xx)
           obj->irqER = I2C2_ER_IRQn;
 #endif /* !STM32F0xx && !STM32G0xx && !STM32L0xx && !STM32U0xx */
           i2c_handles[I2C2_INDEX] = handle;
