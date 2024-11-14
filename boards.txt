@@ -99,6 +99,7 @@ Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.series=STM32F4xx
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.product_line=STM32F429xx
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.variant_h=variant_NUCLEO_F4x9ZI.h
+Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.openocd.target=stm32f4x
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F429.svd
 
@@ -115,6 +116,7 @@ Nucleo_144.menu.pnum.NUCLEO_F439ZI.build.series=STM32F4xx
 Nucleo_144.menu.pnum.NUCLEO_F439ZI.build.product_line=STM32F439xx
 Nucleo_144.menu.pnum.NUCLEO_F439ZI.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
 Nucleo_144.menu.pnum.NUCLEO_F439ZI.build.variant_h=variant_NUCLEO_F4x9ZI.h
+Nucleo_144.menu.pnum.NUCLEO_F439ZI.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Nucleo_144.menu.pnum.NUCLEO_F439ZI.openocd.target=stm32f4x
 Nucleo_144.menu.pnum.NUCLEO_F439ZI.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F439.svd
 
