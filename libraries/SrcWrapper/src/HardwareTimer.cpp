@@ -217,20 +217,23 @@ void HardwareTimer::pauseChannel(uint32_t channel)
   */
 void HardwareTimer::resume(void)
 {
+  bool baseStart = true;
+  for (uint8_t i = 1; i <= TIMER_CHANNELS; i++) {
+    if (_ChannelMode[i - 1] != TIMER_OUTPUT_DISABLED) {
+      resumeChannel(i);
+      baseStart = false;
+    }
+  }
   // Clear flag and enable IT
   if (callbacks[0]) {
     __HAL_TIM_CLEAR_FLAG(&(_timerObj.handle), TIM_FLAG_UPDATE);
     __HAL_TIM_ENABLE_IT(&(_timerObj.handle), TIM_IT_UPDATE);
-
-    // Start timer in Time base mode. Required when there is no channel used but only update interrupt.
-    HAL_TIM_Base_Start(&(_timerObj.handle));
   }
 
-  // Resume all channels
-  resumeChannel(1);
-  resumeChannel(2);
-  resumeChannel(3);
-  resumeChannel(4);
+  // Start timer in Time base mode. Required when there is no channel used but only update interrupt.
+  if (baseStart && (!LL_TIM_IsEnabledCounter(_timerObj.handle.Instance))) {
+    HAL_TIM_Base_Start(&(_timerObj.handle));
+  }
 }
 
 /**
