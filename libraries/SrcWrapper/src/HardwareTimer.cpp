@@ -123,7 +123,7 @@ void HardwareTimer::setup(TIM_TypeDef *instance)
   // Initialize channel mode and complementary
   for (int i = 0; i < TIMER_CHANNELS; i++) {
     __ChannelsUsed[i] = 0x00;
-    _ChannelMode[i] = TIMER_DISABLED;
+    _ChannelMode[i] = TIMER_OUTPUT_DISABLED;
   }
 
   /* Configure timer with some default values */
@@ -438,8 +438,7 @@ void HardwareTimer::resumeChannel(uint32_t channel)
         HAL_TIM_IC_Start(&(_timerObj.handle), timChannel);
       }
       break;
-    case TIMER_OUTPUT_COMPARE:
-    case TIMER_DISABLED:
+    case TIMER_OUTPUT_DISABLED:
       if (!LL_TIM_IsEnabledCounter(_timerObj.handle.Instance)) {
         HAL_TIM_Base_Start(&(_timerObj.handle));
       }
@@ -657,21 +656,10 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin, Ch
   channelIC.ICFilter = filter;
 
   switch (mode) {
-    case TIMER_DISABLED:
+    case TIMER_OUTPUT_DISABLED:
       channelOC.OCMode = TIM_OCMODE_TIMING;
       HAL_TIM_OC_ConfigChannel(&(_timerObj.handle), &channelOC, timChannel);
       break;
-    case TIMER_OUTPUT_COMPARE:
-      /* In case of TIMER_OUTPUT_COMPARE, there is no output and thus no pin to
-       * configure, and no channel. So nothing to do. For compatibility reason
-       * restore TIMER_DISABLED if necessary.
-       */
-      if (_ChannelMode[channel - 1] != TIMER_DISABLED) {
-        _ChannelMode[channel - 1] = TIMER_DISABLED;
-        channelOC.OCMode = TIM_OCMODE_TIMING;
-        HAL_TIM_OC_ConfigChannel(&(_timerObj.handle), &channelOC, timChannel);
-      }
-      return;
     case TIMER_OUTPUT_COMPARE_ACTIVE:
       channelOC.OCMode = TIM_OCMODE_ACTIVE;
       HAL_TIM_OC_ConfigChannel(&(_timerObj.handle), &channelOC, timChannel);
@@ -738,24 +726,25 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin, Ch
 
   // Save channel selected mode to object attribute
   _ChannelMode[channel - 1] = mode;
-
-  if (pin != NC) {
-    if (getTimerChannel(pin) == timChannel) {
-      /* Configure PWM GPIO pins */
-      pinmap_pinout(pin, PinMap_TIM);
+  if (mode != TIMER_OUTPUT_DISABLED) {
+    if (pin != NC) {
+      if (getTimerChannel(pin) == timChannel) {
+        /* Configure PWM GPIO pins */
+        pinmap_pinout(pin, PinMap_TIM);
 #if defined(STM32F1xx)
-      if ((mode == TIMER_INPUT_CAPTURE_RISING) || (mode == TIMER_INPUT_CAPTURE_FALLING) \
-          || (mode == TIMER_INPUT_CAPTURE_BOTHEDGE) || (mode == TIMER_INPUT_FREQ_DUTY_MEASUREMENT)) {
-        // on F1 family, input alternate function must configure GPIO in input mode
-        pinMode(pinNametoDigitalPin(pin), INPUT);
-      }
+        if ((mode == TIMER_INPUT_CAPTURE_RISING) || (mode == TIMER_INPUT_CAPTURE_FALLING) \
+            || (mode == TIMER_INPUT_CAPTURE_BOTHEDGE) || (mode == TIMER_INPUT_FREQ_DUTY_MEASUREMENT)) {
+          // on F1 family, input alternate function must configure GPIO in input mode
+          pinMode(pinNametoDigitalPin(pin), INPUT);
+        }
 #endif
-    } else {
-      // Pin doesn't match with timer output channels
-      Error_Handler();
-    }
+      } else {
+        // Pin doesn't match with timer output channels
+        Error_Handler();
+      }
 
-    __ChannelsUsed[channel - 1] |= (STM_PIN_INVERTED(pinmap_function(pin, PinMap_TIM))) ? COMPLEMENTARY_CHAN_MASK : REGULAR_CHAN_MASK;
+      __ChannelsUsed[channel - 1] |= (STM_PIN_INVERTED(pinmap_function(pin, PinMap_TIM))) ? COMPLEMENTARY_CHAN_MASK : REGULAR_CHAN_MASK;
+    }
   }
 }
 
@@ -766,11 +755,7 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin, Ch
   */
 TimerModes_t HardwareTimer::getMode(uint32_t channel)
 {
-  if ((1 <= channel) && (channel <= TIMER_CHANNELS)) {
-    return _ChannelMode[channel - 1];
-  } else {
-    return TIMER_DISABLED;
-  }
+  return ((1 <= channel) && (channel <= TIMER_CHANNELS)) ? _ChannelMode[channel - 1] : TIMER_OUTPUT_DISABLED;
 }
 
 /**
