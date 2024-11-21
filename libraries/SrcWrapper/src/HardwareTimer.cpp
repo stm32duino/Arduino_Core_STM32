@@ -937,7 +937,7 @@ void HardwareTimer::setPWM(uint32_t channel, PinName pin, uint32_t frequency, ui
   if (CompareCallback) {
     attachInterrupt(channel, CompareCallback);
   }
-  if (previousMode != TIMER_OUTPUT_COMPARE_PWM1) {
+  if (!isRunning() || !isRunningChannel(channel) || (previousMode != TIMER_OUTPUT_COMPARE_PWM1)) {
     resume();
   }
 }
