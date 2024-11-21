@@ -925,7 +925,10 @@ void HardwareTimer::setPWM(uint32_t channel, uint32_t pin, uint32_t frequency, u
   */
 void HardwareTimer::setPWM(uint32_t channel, PinName pin, uint32_t frequency, uint32_t dutycycle, callback_function_t PeriodCallback, callback_function_t CompareCallback)
 {
-  setMode(channel, TIMER_OUTPUT_COMPARE_PWM1, pin);
+  TimerModes_t previousMode = getMode(channel);
+  if (previousMode != TIMER_OUTPUT_COMPARE_PWM1) {
+    setMode(channel, TIMER_OUTPUT_COMPARE_PWM1, pin);
+  }
   setOverflow(frequency, HERTZ_FORMAT);
   setCaptureCompare(channel, dutycycle, PERCENT_COMPARE_FORMAT);
   if (PeriodCallback) {
@@ -934,7 +937,9 @@ void HardwareTimer::setPWM(uint32_t channel, PinName pin, uint32_t frequency, ui
   if (CompareCallback) {
     attachInterrupt(channel, CompareCallback);
   }
-  resume();
+  if (previousMode != TIMER_OUTPUT_COMPARE_PWM1) {
+    resume();
+  }
 }
 
 /**
