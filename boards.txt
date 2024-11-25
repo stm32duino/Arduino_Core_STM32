@@ -13671,6 +13671,7 @@ ELV_Modular_System.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 # STeaMi board
 STeaMi.name=STeaMi Board
 STeaMi.build.core=arduino
+STeaMi.build.board=STeaMi
 STeaMi.build.variant_h=variant_{build.board}.h
 STeaMi.build.st_extra_flags=-D{build.product_line} {build.xSerial}
 STeaMi.build.flash_offset=0x0
