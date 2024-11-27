@@ -14013,6 +14013,14 @@ Eval.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 Eval.menu.xusb.HSFS=High Speed in Full Speed mode
 Eval.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
+GenC0.menu.usb.none=None
+GenC0.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenC0.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenC0.menu.usb.CDC=CDC (no generic 'Serial')
+GenC0.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenC0.menu.usb.HID=HID (keyboard and mouse)
+GenC0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+
 GenF0.menu.usb.none=None
 GenF0.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenF0.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
@@ -14086,6 +14094,14 @@ GenF7.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 GenF7.menu.xusb.HSFS=High Speed in Full Speed mode
 GenF7.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
+GenG0.menu.usb.none=None
+GenG0.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenG0.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenG0.menu.usb.CDC=CDC (no generic 'Serial')
+GenG0.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenG0.menu.usb.HID=HID (keyboard and mouse)
+GenG0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+
 GenG4.menu.usb.none=None
 GenG4.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenG4.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
@@ -14098,14 +14114,6 @@ GenG4.menu.xusb.HS=High Speed
 GenG4.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 GenG4.menu.xusb.HSFS=High Speed in Full Speed mode
 GenG4.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
-
-GenG0.menu.usb.none=None
-GenG0.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
-GenG0.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
-GenG0.menu.usb.CDC=CDC (no generic 'Serial')
-GenG0.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
-GenG0.menu.usb.HID=HID (keyboard and mouse)
-GenG0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 
 GenH5.menu.usb.none=None
 GenH5.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
