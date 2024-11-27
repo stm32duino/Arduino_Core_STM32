@@ -27,6 +27,9 @@ WEAK void SystemClock_Config(void)
   LL_RCC_HSI_Enable();
   while (LL_RCC_HSI_IsReady() != 1) {
   }
+  LL_RCC_HSI48_Enable();
+  while (LL_RCC_HSI48_IsReady() != 1) {
+  }
 
   LL_RCC_HSI_SetCalibTrimming(64);
   LL_RCC_SetHSIDiv(LL_RCC_HSI_DIV_1);
