@@ -186,7 +186,7 @@ typedef enum
 /** @} */ /* End of group Configuration_of_CMSIS */
 
 
-#include <core_cm33.h>                       /*!< ARM Cortex-M33 processor and core peripherals */
+#include "core_cm33.h"                       /*!< ARM Cortex-M33 processor and core peripherals */
 #include "system_stm32h5xx.h"                /*!< STM32H5xx System */
 
 
@@ -13300,7 +13300,7 @@ typedef struct
 /******************************** SPI Instances *******************************/
 #define IS_SPI_ALL_INSTANCE(INSTANCE) (((INSTANCE) == SPI1_NS) || ((INSTANCE) == SPI2_NS) || ((INSTANCE) == SPI3_NS))
 
-#define IS_SPI_LIMITED_INSTANCE(INSTANCE) ((INSTANCE) == NULL)
+#define IS_SPI_LIMITED_INSTANCE(INSTANCE) ((INSTANCE) ==  ((SPI_TypeDef *) 0xDEADDEADUL))
 
 #define IS_SPI_FULL_INSTANCE(INSTANCE) (((INSTANCE) == SPI1_NS) || ((INSTANCE) == SPI2_NS) || ((INSTANCE) == SPI3_NS))
 
