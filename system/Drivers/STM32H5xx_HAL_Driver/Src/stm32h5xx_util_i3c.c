@@ -27,6 +27,8 @@
   * @{
   */
 
+#if (defined(USE_HAL_DRIVER) && defined(HAL_I3C_MODULE_ENABLED)) || defined(USE_FULL_LL_DRIVER)
+
 /* Private typedef ---------------------------------------------------------------------------------------------------*/
 /* Private define ----------------------------------------------------------------------------------------------------*/
 /** @defgroup I3C_UTIL_Private_Define I3C Utility Private Define
@@ -412,6 +414,8 @@ ErrorStatus I3C_TgtTimingComputation(const I3C_TgtTimingTypeDef *pInputTiming,
   */
 
 /* Private functions ---------------------------------------------------------*/
+
+#endif /* (defined(USE_HAL_DRIVER) && defined(HAL_I3C_MODULE_ENABLED)) || defined(USE_FULL_LL_DRIVER) */
 /**
   * @}
   */

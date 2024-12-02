@@ -865,9 +865,10 @@ HAL_StatusTypeDef HAL_XSPI_Command(XSPI_HandleTypeDef *hxspi, XSPI_RegularCmdTyp
         if (pCmd->DataMode == HAL_XSPI_DATA_NONE)
         {
           /* When there is no data phase, the transfer start as soon as the configuration is done
-             so wait until TC flag is set to go back in idle state */
-          status = XSPI_WaitFlagStateUntilTimeout(hxspi, HAL_XSPI_FLAG_TC, SET, tickstart, Timeout);
+             so wait until BUSY flag is reset to go back in idle state */
+          status = XSPI_WaitFlagStateUntilTimeout(hxspi, HAL_XSPI_FLAG_BUSY, RESET, tickstart, Timeout);
 
+          /* Clear TC flag */
           HAL_XSPI_CLEAR_FLAG(hxspi, HAL_XSPI_FLAG_TC);
         }
         else
@@ -2394,12 +2395,10 @@ HAL_StatusTypeDef HAL_XSPI_UnRegisterCallback(XSPI_HandleTypeDef *hxspi, HAL_XSP
 HAL_StatusTypeDef HAL_XSPI_Abort(XSPI_HandleTypeDef *hxspi)
 {
   HAL_StatusTypeDef status = HAL_OK;
-  uint32_t state;
   uint32_t tickstart = HAL_GetTick();
 
-  /* Check if the state is in one of the busy or configured states */
-  state = hxspi->State;
-  if (((state & XSPI_BUSY_STATE_MASK) != 0U) || ((state & XSPI_CFG_STATE_MASK) != 0U))
+  /* Check if the state is not in reset state */
+  if (hxspi->State != HAL_XSPI_STATE_RESET)
   {
     /* Check if the DMA is enabled */
     if ((hxspi->Instance->CR & XSPI_CR_DMAEN) != 0U)
@@ -2472,11 +2471,9 @@ HAL_StatusTypeDef HAL_XSPI_Abort(XSPI_HandleTypeDef *hxspi)
 HAL_StatusTypeDef HAL_XSPI_Abort_IT(XSPI_HandleTypeDef *hxspi)
 {
   HAL_StatusTypeDef status = HAL_OK;
-  uint32_t state;
 
-  /* Check if the state is in one of the busy or configured states */
-  state = hxspi->State;
-  if (((state & XSPI_BUSY_STATE_MASK) != 0U) || ((state & XSPI_CFG_STATE_MASK) != 0U))
+  /* Check if the state is not in reset state */
+  if (hxspi->State != HAL_XSPI_STATE_RESET)
   {
     /* Disable all interrupts */
     HAL_XSPI_DISABLE_IT(hxspi, (HAL_XSPI_IT_TO | HAL_XSPI_IT_SM | HAL_XSPI_IT_FT | HAL_XSPI_IT_TC | HAL_XSPI_IT_TE));
@@ -3050,6 +3047,14 @@ static HAL_StatusTypeDef XSPI_ConfigCmd(XSPI_HandleTypeDef *hxspi, XSPI_RegularC
   /* Configure the CCR register with DQS and SIOO modes */
   *ccr_reg = (pCmd->DQSMode | pCmd->SIOOMode);
 
+  /* Workaround for Erratasheet: Memory-mapped write error response when DQS output is disabled */
+  if (pCmd->OperationType == HAL_XSPI_OPTYPE_WRITE_CFG)
+  {
+    /* When doing memory-mapped writes, set the DQSE bit of the OCTOSPI_WCCR register,
+       even for memories that have no DQS pin. */
+    SET_BIT((*ccr_reg), XSPI_CCR_DQSE);
+  }
+
   if (pCmd->AlternateBytesMode != HAL_XSPI_ALT_BYTES_NONE)
   {
     /* Configure the ABR register with alternate bytes value */
@@ -3069,6 +3074,25 @@ static HAL_StatusTypeDef XSPI_ConfigCmd(XSPI_HandleTypeDef *hxspi, XSPI_RegularC
     {
       /* Configure the DLR register with the number of data */
       hxspi->Instance->DLR = (pCmd->DataLength - 1U);
+    }
+  }
+
+  /* Configure SSHIFT register to handle SDR/DTR data transfer */
+  if (pCmd->DataMode != HAL_XSPI_DATA_NONE)
+  {
+    if (pCmd->DataDTRMode == HAL_XSPI_DATA_DTR_ENABLE)
+    {
+      /* Deactivate sample shifting when receiving data in DTR mode (DDTR=1) */
+      CLEAR_BIT(hxspi->Instance->TCR, XSPI_TCR_SSHIFT);
+    }
+    else if (hxspi->Init.SampleShifting == HAL_XSPI_SAMPLE_SHIFT_HALFCYCLE)
+    {
+      /* Configure sample shifting */
+      SET_BIT(hxspi->Instance->TCR, XSPI_TCR_SSHIFT);
+    }
+    else
+    {
+      /* Do nothing */
     }
   }
 

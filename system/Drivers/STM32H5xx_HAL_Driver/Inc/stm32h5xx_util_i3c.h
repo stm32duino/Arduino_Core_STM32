@@ -33,7 +33,8 @@ extern "C" {
 #include "stm32h5xx_ll_i3c.h"
 #endif /* USE_FULL_LL_DRIVER */
 
-/** @addtogroup STM32H5xx_UTIL_Driver
+#if (defined(USE_HAL_DRIVER) && defined(HAL_I3C_MODULE_ENABLED)) || defined(USE_FULL_LL_DRIVER)
+/** @addtogroup STM32H7RSxx_UTIL_Driver
   * @{
   */
 
@@ -128,6 +129,7 @@ ErrorStatus I3C_TgtTimingComputation(const I3C_TgtTimingTypeDef *pInputTiming,
   * @}
   */
 
+#endif /* (defined(USE_HAL_DRIVER) && defined(HAL_I3C_MODULE_ENABLED)) || defined(USE_FULL_LL_DRIVER) */
 #ifdef __cplusplus
 }
 #endif

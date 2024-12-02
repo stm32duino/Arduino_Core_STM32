@@ -107,9 +107,9 @@ extern "C" {
 /** @defgroup CRS_LL_EC_SYNC_SOURCE Synchronization Signal Source
   * @{
   */
-#define LL_CRS_SYNC_SOURCE_GPIO            0x00000000U             /*!< Synchro Signal source GPIO */
-#define LL_CRS_SYNC_SOURCE_LSE             CRS_CFGR_SYNCSRC_0      /*!< Synchro Signal source LSE */
-#define LL_CRS_SYNC_SOURCE_USB             CRS_CFGR_SYNCSRC_1      /*!< Synchro Signal source USB SOF (default)*/
+#define LL_CRS_SYNC_SOURCE_GPIO            0x00000000U                                   /*!< Synchro Signal source GPIO */
+#define LL_CRS_SYNC_SOURCE_LSE             CRS_CFGR_SYNCSRC_0                            /*!< Synchro Signal source LSE */
+#define LL_CRS_SYNC_SOURCE_USB             CRS_CFGR_SYNCSRC_1                            /*!< Synchro Signal source USB SOF (default)*/
 /**
   * @}
   */

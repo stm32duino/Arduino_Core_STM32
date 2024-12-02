@@ -124,6 +124,9 @@ static void          FLASH_Program_QuadWord(uint32_t FlashAddress, uint32_t Data
 static void          FLASH_Program_QuadWord_OBK(uint32_t FlashAddress, uint32_t DataAddress);
 #endif /* FLASH_SR_OBKERR */
 static void          FLASH_Program_HalfWord(uint32_t FlashAddress, uint32_t DataAddress);
+#if defined(FLASH_EDATAR_EDATA_EN)
+static void          FLASH_Program_Word(uint32_t FlashAddress, uint32_t DataAddress);
+#endif /* FLASH_EDATAR_EDATA_EN */
 
 /**
   * @}
@@ -170,9 +173,6 @@ HAL_StatusTypeDef HAL_FLASH_Program(uint32_t TypeProgram, uint32_t FlashAddress,
   /* Check the parameters */
   assert_param(IS_FLASH_TYPEPROGRAM(TypeProgram));
 
-  /* Process Locked */
-  __HAL_LOCK(&pFlash);
-
   /* Reset error code */
   pFlash.ErrorCode = HAL_FLASH_ERROR_NONE;
 
@@ -218,6 +218,14 @@ HAL_StatusTypeDef HAL_FLASH_Program(uint32_t TypeProgram, uint32_t FlashAddress,
       /* Program a Flash high-cycle data half-word at a specified address */
       FLASH_Program_HalfWord(FlashAddress, DataAddress);
     }
+    else if ((TypeProgram & (~FLASH_NON_SECURE_MASK)) == FLASH_TYPEPROGRAM_WORD_EDATA)
+    {
+      /* Check the parameters */
+      assert_param(IS_FLASH_EDATA_ADDRESS(FlashAddress));
+
+      /* Program a Flash high-cycle data half-word at a specified address */
+      FLASH_Program_Word(FlashAddress, DataAddress);
+    }
 #endif /* FLASH_EDATAR_EDATA_EN */
     else
     {
@@ -246,9 +254,6 @@ HAL_StatusTypeDef HAL_FLASH_Program(uint32_t TypeProgram, uint32_t FlashAddress,
     CLEAR_BIT((*reg_cr), (TypeProgram & ~(FLASH_NON_SECURE_MASK |  FLASH_OTP)));
 #endif /* FLASH_SR_OBKERR */
   }
-  /* Process Unlocked */
-  __HAL_UNLOCK(&pFlash);
-
   /* return status */
   return status;
 }
@@ -270,9 +275,6 @@ HAL_StatusTypeDef HAL_FLASH_Program_IT(uint32_t TypeProgram, uint32_t FlashAddre
 
   /* Check the parameters */
   assert_param(IS_FLASH_TYPEPROGRAM(TypeProgram));
-
-  /* Process Locked */
-  __HAL_LOCK(&pFlash);
 
   /* Reset error code */
   pFlash.ErrorCode = HAL_FLASH_ERROR_NONE;
@@ -335,6 +337,14 @@ HAL_StatusTypeDef HAL_FLASH_Program_IT(uint32_t TypeProgram, uint32_t FlashAddre
 
       /* Program a Flash high-cycle data half-word at a specified address */
       FLASH_Program_HalfWord(FlashAddress, DataAddress);
+    }
+     else if ((TypeProgram & (~FLASH_NON_SECURE_MASK)) == FLASH_TYPEPROGRAM_WORD_EDATA)
+    {
+      /* Check the parameters */
+      assert_param(IS_FLASH_EDATA_ADDRESS(FlashAddress));
+
+      /* Program a Flash high-cycle data word at a specified address */
+      FLASH_Program_Word(FlashAddress, DataAddress);
     }
 #endif /* FLASH_EDATAR_EDATA_EN */
     else
@@ -483,8 +493,6 @@ void HAL_FLASH_IRQHandler(void)
     (*reg_cr) &= ~(FLASH_IT_EOP     | FLASH_IT_WRPERR | FLASH_IT_PGSERR | \
                    FLASH_IT_STRBERR | FLASH_IT_INCERR | FLASH_IT_OPTCHANGEERR);
 #endif /* FLASH_SR_OBKERR */
-    /* Process Unlocked */
-    __HAL_UNLOCK(&pFlash);
   }
 }
 
@@ -915,6 +923,31 @@ static void FLASH_Program_HalfWord(uint32_t FlashAddress, uint32_t DataAddress)
   /* Program a halfword word (16 bits) */
   *(__IO uint16_t *)FlashAddress = *(__IO uint16_t *)DataAddress;
 }
+
+#if defined(FLASH_EDATAR_EDATA_EN)
+/**
+  * @brief  Program a word (32-bit) at a specified address.
+  * @param  FlashAddress specifies the address to be programmed.
+  * @param  DataAddress specifies the address of data to be programmed.
+  * @retval None
+  */
+static void FLASH_Program_Word(uint32_t FlashAddress, uint32_t DataAddress)
+{
+  __IO uint32_t *reg_cr;
+
+  /* Access to SECCR or NSCR registers depends on operation type */
+#if defined (FLASH_OPTSR2_TZEN)
+  reg_cr = IS_FLASH_SECURE_OPERATION() ? &(FLASH->SECCR) : &(FLASH_NS->NSCR);
+#else
+  reg_cr = &(FLASH_NS->NSCR);
+#endif /* FLASH_OPTSR2_TZEN */
+
+  /* Set PG bit */
+  SET_BIT((*reg_cr), FLASH_CR_PG);
+
+    *(__IO uint32_t *)FlashAddress = *(__IO uint32_t *)DataAddress;
+}
+#endif /* FLASH_EDATAR_EDATA_EN */
 
 /**
   * @}

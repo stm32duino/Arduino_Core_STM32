@@ -81,20 +81,17 @@ ErrorStatus LL_EXTI_DeInit(void)
 {
   /* Interrupt mask register set to default reset values */
   LL_EXTI_WriteReg(IMR1,   0xFFFE0000U);
-#if defined(STM32H533xx) || defined(STM32H523xx)
-  LL_EXTI_WriteReg(IMR2,   0x07DBFFFFU);
-#elif defined(STM32H503xx)
-  LL_EXTI_WriteReg(IMR2,   0x001BFFFFU);
-#else
+#if (defined(STM32H573xx) || defined(STM32H563xx) || defined(STM32H562xx))
   LL_EXTI_WriteReg(IMR2,   0x03DBBFFFU);
-#endif /* defined(STM32H533xx) || defined(STM32H523xx) */
+#elif defined(STM32H533xx)
+  LL_EXTI_WriteReg(IMR2,   0x07DBFFFFU);
+#else
+  LL_EXTI_WriteReg(IMR2,   0x001BFFFFU);
+#endif /* defined(STM32H573xx) || defined(STM32H563xx) || defined(STM32H562xx) */
 
   /* Event mask register set to default reset values */
   LL_EXTI_WriteReg(EMR1,   0x00000000U);
   LL_EXTI_WriteReg(EMR2,   0x00000000U);
-#if defined(EXTI_EMR3_EM)
-  LL_EXTI_WriteReg(EMR3,   0x00000000U);
-#endif /* EXTI_EMR3_EM */
 
   /* Rising Trigger selection register set to default reset values */
   LL_EXTI_WriteReg(RTSR1,  0x00000000U);
@@ -262,7 +259,6 @@ ErrorStatus LL_EXTI_Init(LL_EXTI_InitTypeDef *EXTI_InitStruct)
     /* De-configure EXTI Lines in range from 32 to 63 */
     LL_EXTI_DisableIT_32_63(EXTI_InitStruct->Line_32_63);
     LL_EXTI_DisableEvent_32_63(EXTI_InitStruct->Line_32_63);
-
   }
   return status;
 }

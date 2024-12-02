@@ -261,9 +261,6 @@ HAL_StatusTypeDef HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit)
   /* Check the parameters */
   assert_param(IS_FLASH_TYPEERASE(pEraseInit->TypeErase));
 
-  /* Process Locked */
-  __HAL_LOCK(&pFlash);
-
   /* Reset error code */
   pFlash.ErrorCode = HAL_FLASH_ERROR_NONE;
 
@@ -272,8 +269,7 @@ HAL_StatusTypeDef HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit)
 
   if (status != HAL_OK)
   {
-    /* Process Unlocked */
-    __HAL_UNLOCK(&pFlash);
+    return status;
   }
   else
   {
@@ -593,6 +589,38 @@ HAL_StatusTypeDef HAL_FLASHEx_OBK_Swap(uint32_t SwapOffset)
 
     /* Wait for last operation to be completed */
     status = FLASH_WaitForLastOperation(FLASH_TIMEOUT_VALUE);
+  }
+
+  return status;
+}
+/**
+  * @brief  Swap the FLASH Option Bytes Keys (OBK) with interrupt enabled
+  * @param  SwapOffset Specifies the number of keys to be swapped.
+  *         This parameter can be a value between 0 (no OBK data swapped) and 511 (all OBK data swapped).
+  *         Typical value are available in @ref FLASH_OBK_SWAP_Offset
+  * @retval HAL Status
+  */
+HAL_StatusTypeDef HAL_FLASHEx_OBK_Swap_IT(uint32_t SwapOffset)
+{
+  HAL_StatusTypeDef status;
+  __IO uint32_t *reg_obkcfgr;
+
+  /* Wait for last operation to be completed */
+  status = FLASH_WaitForLastOperation(FLASH_TIMEOUT_VALUE);
+
+  if (status == HAL_OK)
+  {
+    /* Access to SECOBKCFGR or NSOBKCFGR registers depends on operation type */
+    reg_obkcfgr = IS_FLASH_SECURE_OPERATION() ? &(FLASH->SECOBKCFGR) : &(FLASH_NS->NSOBKCFGR);
+
+  /* Enable End of Operation and Error interrupts */
+  (*reg_obkcfgr) |= (FLASH_IT_EOP | FLASH_IT_WRPERR | FLASH_IT_PGSERR | FLASH_IT_STRBERR | FLASH_IT_INCERR);
+
+    /* Set OBK swap offset */
+    MODIFY_REG((*reg_obkcfgr), FLASH_OBKCFGR_SWAP_OFFSET, (SwapOffset << FLASH_OBKCFGR_SWAP_OFFSET_Pos));
+
+    /* Set OBK swap request */
+    SET_BIT((*reg_obkcfgr), FLASH_OBKCFGR_SWAP_SECT_REQ);
   }
 
   return status;

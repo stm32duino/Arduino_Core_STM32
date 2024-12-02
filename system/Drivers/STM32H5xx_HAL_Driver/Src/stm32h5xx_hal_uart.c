@@ -1452,6 +1452,11 @@ HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, const uint8_t
     huart->ErrorCode = HAL_UART_ERROR_NONE;
     huart->gState = HAL_UART_STATE_BUSY_TX;
 
+#if defined(USART_DMAREQUESTS_SW_WA)
+    /* Clear the TC flag in the ICR register */
+    __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_TCF);
+
+#endif /* USART_DMAREQUESTS_SW_WA */
     if (huart->hdmatx != NULL)
     {
       /* Set the UART DMA transfer complete callback */
@@ -1514,9 +1519,11 @@ HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, const uint8_t
         return HAL_ERROR;
       }
     }
+#if !defined(USART_DMAREQUESTS_SW_WA)
     /* Clear the TC flag in the ICR register */
     __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_TCF);
 
+#endif /* USART_DMAREQUESTS_SW_WA */
     /* Enable the DMA transfer for transmit request by setting the DMAT bit
     in the UART CR3 register */
     ATOMIC_SET_BIT(huart->Instance->CR3, USART_CR3_DMAT);
@@ -3968,7 +3975,6 @@ static void UART_DMAAbortOnError(DMA_HandleTypeDef *hdma)
 {
   UART_HandleTypeDef *huart = (UART_HandleTypeDef *)(hdma->Parent);
   huart->RxXferCount = 0U;
-  huart->TxXferCount = 0U;
 
 #if (USE_HAL_UART_REGISTER_CALLBACKS == 1)
   /*Call registered error callback*/
