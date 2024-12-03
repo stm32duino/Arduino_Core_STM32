@@ -570,6 +570,11 @@ typedef struct
 #define UID_BASE              (0x1FFF7550UL)        /*!< Unique device ID register base address */
 #define FLASHSIZE_BASE        (0x1FFF75A0UL)        /*!< Flash size data register base address  */
 
+/*!< Bootloader Firmware */
+
+/************ Bootloader Exit Secure Memory Firmware *************/
+#define BL_EXIT_SEC_MEM_BASE    (0x1FFF1600UL)
+
 /**
   * @}
   */
@@ -3797,12 +3802,6 @@ typedef struct
 /******************************************************************************/
 
 /********************  Bit definition for RCC_CR register  *****************/
-#define RCC_CR_SYSDIV_Pos                (2U)
-#define RCC_CR_SYSDIV_Msk                (0x7UL << RCC_CR_SYSDIV_Pos)          /*!< 0x0000001C */
-#define RCC_CR_SYSDIV                    RCC_CR_SYSDIV_Msk                     /*!< Clock division factor for system clock */
-#define RCC_CR_SYSDIV_0                  (0x1UL << RCC_CR_SYSDIV_Pos)          /*!< 0x00000004 */
-#define RCC_CR_SYSDIV_1                  (0x2UL << RCC_CR_SYSDIV_Pos)          /*!< 0x00000008 */
-#define RCC_CR_SYSDIV_2                  (0x4UL << RCC_CR_SYSDIV_Pos)          /*!< 0x00000010 */
 #define RCC_CR_HSIKERDIV_Pos             (5U)
 #define RCC_CR_HSIKERDIV_Msk             (0x7UL << RCC_CR_HSIKERDIV_Pos)       /*!< 0x000000E0 */
 #define RCC_CR_HSIKERDIV                 RCC_CR_HSIKERDIV_Msk                  /*!< HSI48 clock division factor for HSI kernel clocks inputs */
