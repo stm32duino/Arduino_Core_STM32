@@ -53,14 +53,14 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-extern TIM_HandleTypeDef TimHandle;
-TIM_HandleTypeDef        TimHandle;
+static TIM_HandleTypeDef        TimHandle;
+
 /* Private function prototypes -----------------------------------------------*/
-void TIM6_DAC_LPTIM1_IRQHandler(void);
+void TIM16_IRQHandler(void);
 /* Private functions ---------------------------------------------------------*/
 
 /**
-  * @brief  This function configures the TIM6 as a time base source.
+  * @brief  This function configures the TIM16 as a time base source.
   *         The time source is configured to have 1ms time base with a dedicated
   *         Tick interrupt priority.
   * @note   This function is called  automatically at the beginning of program after
@@ -75,15 +75,10 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   uint32_t              uwAPB1Prescaler;
   uint32_t              uwPrescalerValue;
   uint32_t              pFLatency;
+  HAL_StatusTypeDef     status;
 
-  /*Configure the TIM6 IRQ priority */
-  HAL_NVIC_SetPriority(TIM6_DAC_LPTIM1_IRQn, TickPriority, 0U);
-
-  /* Enable the TIM6 global Interrupt */
-  HAL_NVIC_EnableIRQ(TIM6_DAC_LPTIM1_IRQn);
-
-  /* Enable TIM6 clock */
-  __HAL_RCC_TIM6_CLK_ENABLE();
+  /* Enable TIM16 clock */
+  __HAL_RCC_TIM16_CLK_ENABLE();
 
   /* Get clock configuration */
   HAL_RCC_GetClockConfig(&clkconfig, &pFLatency);
@@ -91,7 +86,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   /* Get APB1 prescaler */
   uwAPB1Prescaler = clkconfig.APB1CLKDivider;
 
-  /* Compute TIM6 clock */
+  /* Compute TIM16 clock */
   if (uwAPB1Prescaler == RCC_HCLK_DIV1)
   {
     uwTimclock = HAL_RCC_GetPCLK1Freq();
@@ -101,14 +96,14 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
     uwTimclock = 2U * HAL_RCC_GetPCLK1Freq();
   }
 
-  /* Compute the prescaler value to have TIM6 counter clock equal to 1MHz */
+  /* Compute the prescaler value to have TIM16 counter clock equal to 1MHz */
   uwPrescalerValue = (uint32_t)((uwTimclock / 1000000U) - 1U);
 
-  /* Initialize TIM6 */
-  TimHandle.Instance = TIM6;
+  /* Initialize TIM16 */
+  TimHandle.Instance = TIM16;
 
   /* Initialize TIMx peripheral as follow:
-  + Period = [(TIM6CLK/1000) - 1]. to have a (1/1000) s time base.
+  + Period = [(TIM16CLK/1000) - 1]. to have a (1/1000) s time base.
   + Prescaler = (uwTimclock/1000000 - 1) to have a 1MHz counter clock.
   + ClockDivision = 0
   + Counter direction = Up
@@ -117,42 +112,59 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   TimHandle.Init.Prescaler = uwPrescalerValue;
   TimHandle.Init.ClockDivision = 0U;
   TimHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
-  TimHandle.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_Base_Init(&TimHandle) == HAL_OK)
+
+  status = HAL_TIM_Base_Init(&TimHandle);
+  if (status == HAL_OK)
   {
     /* Start the TIM time Base generation in interrupt mode */
-    return HAL_TIM_Base_Start_IT(&TimHandle);
+    status = HAL_TIM_Base_Start_IT(&TimHandle);
+    if (status == HAL_OK)
+    {
+      if (TickPriority < (1UL << __NVIC_PRIO_BITS))
+      {
+        /* Enable the TIM16 global Interrupt */
+        HAL_NVIC_SetPriority(TIM16_IRQn, TickPriority, 0U);
+        uwTickPrio = TickPriority;
+      }
+      else
+      {
+        status = HAL_ERROR;
+      }
+    }
   }
 
-  /* Return function status */
-  return HAL_ERROR;
+  /* Enable the TIM16 global Interrupt */
+  HAL_NVIC_EnableIRQ(TIM16_IRQn);
+
+ /* Return function status */
+  return status;
 }
 
 /**
   * @brief  Suspend Tick increment.
-  * @note   Disable the tick increment by disabling TIM6 update interrupt.
+  * @note   Disable the tick increment by disabling TIM16 update interrupt.
   * @retval None
   */
 void HAL_SuspendTick(void)
 {
-  /* Disable TIM6 update interrupt */
+  /* Disable TIM16 update interrupt */
   __HAL_TIM_DISABLE_IT(&TimHandle, TIM_IT_UPDATE);
 }
 
 /**
   * @brief  Resume Tick increment.
-  * @note   Enable the tick increment by enabling TIM6 update interrupt.
+  * @note   Enable the tick increment by enabling TIM16 update interrupt.
   * @retval None
   */
 void HAL_ResumeTick(void)
 {
-  /* Enable TIM6 update interrupt */
+  /* Enable TIM16 update interrupt */
   __HAL_TIM_ENABLE_IT(&TimHandle, TIM_IT_UPDATE);
 }
 
 /**
   * @brief  Period elapsed callback in non blocking mode
-  * @note   This function is called  when TIM6 interrupt took place, inside
+  * @note   This function is called  when TIM16 interrupt took place, inside
   * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
   * a global variable "uwTick" used as application time base.
   * @param  htim TIM handle
@@ -165,9 +177,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 /**
   * @brief  This function handles TIM interrupt request.
+  * @param  None
   * @retval None
   */
-void TIM6_DAC_LPTIM1_IRQHandler(void)
+void TIM16_IRQHandler(void)
 {
   HAL_TIM_IRQHandler(&TimHandle);
 }

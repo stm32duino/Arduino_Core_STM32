@@ -619,7 +619,7 @@ typedef struct
   */
 /* Flags in the CR register */
 #define RCC_FLAG_MSIRDY           ((uint32_t)((CR_REG_INDEX << 5U) | RCC_CR_MSIRDY_Pos))        /*!< MSI Ready flag */
-#define RCC_FLAG_HSIRDY           ((uint32_t)((CR_REG_INDEX << 5U) | RCC_CR_HSIDY_Pos))         /*!< HSI Ready flag */
+#define RCC_FLAG_HSIRDY           ((uint32_t)((CR_REG_INDEX << 5U) | RCC_CR_HSIRDY_Pos))        /*!< HSI Ready flag */
 #define RCC_FLAG_HSERDY           ((uint32_t)((CR_REG_INDEX << 5U) | RCC_CR_HSERDY_Pos))        /*!< HSE Ready flag */
 #define RCC_FLAG_PLLRDY           ((uint32_t)((CR_REG_INDEX << 5U) | RCC_CR_PLLRDY_Pos))        /*!< PLL Ready flag */
 
