@@ -1,0 +1,41 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic C092CBTx
+GenC0.menu.pnum.GENERIC_C092CBTX=Generic C092CBTx
+GenC0.menu.pnum.GENERIC_C092CBTX.upload.maximum_size=131072
+GenC0.menu.pnum.GENERIC_C092CBTX.upload.maximum_data_size=30720
+GenC0.menu.pnum.GENERIC_C092CBTX.build.board=GENERIC_C092CBTX
+GenC0.menu.pnum.GENERIC_C092CBTX.build.product_line=STM32C092xx
+GenC0.menu.pnum.GENERIC_C092CBTX.build.variant=STM32C0xx/C092CBT_C092RBT_C092RC(I-T)
+GenC0.menu.pnum.GENERIC_C092CBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C092.svd
+
+# Generic C092RBTx
+GenC0.menu.pnum.GENERIC_C092RBTX=Generic C092RBTx
+GenC0.menu.pnum.GENERIC_C092RBTX.upload.maximum_size=131072
+GenC0.menu.pnum.GENERIC_C092RBTX.upload.maximum_data_size=30720
+GenC0.menu.pnum.GENERIC_C092RBTX.build.board=GENERIC_C092RBTX
+GenC0.menu.pnum.GENERIC_C092RBTX.build.product_line=STM32C092xx
+GenC0.menu.pnum.GENERIC_C092RBTX.build.variant=STM32C0xx/C092CBT_C092RBT_C092RC(I-T)
+GenC0.menu.pnum.GENERIC_C092RBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C092.svd
+
+# Generic C092RCIx
+GenC0.menu.pnum.GENERIC_C092RCIX=Generic C092RCIx
+GenC0.menu.pnum.GENERIC_C092RCIX.upload.maximum_size=262144
+GenC0.menu.pnum.GENERIC_C092RCIX.upload.maximum_data_size=30720
+GenC0.menu.pnum.GENERIC_C092RCIX.build.board=GENERIC_C092RCIX
+GenC0.menu.pnum.GENERIC_C092RCIX.build.product_line=STM32C092xx
+GenC0.menu.pnum.GENERIC_C092RCIX.build.variant=STM32C0xx/C092CBT_C092RBT_C092RC(I-T)
+GenC0.menu.pnum.GENERIC_C092RCIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C092.svd
+
+# Generic C092RCTx
+GenC0.menu.pnum.GENERIC_C092RCTX=Generic C092RCTx
+GenC0.menu.pnum.GENERIC_C092RCTX.upload.maximum_size=262144
+GenC0.menu.pnum.GENERIC_C092RCTX.upload.maximum_data_size=30720
+GenC0.menu.pnum.GENERIC_C092RCTX.build.board=GENERIC_C092RCTX
+GenC0.menu.pnum.GENERIC_C092RCTX.build.product_line=STM32C092xx
+GenC0.menu.pnum.GENERIC_C092RCTX.build.variant=STM32C0xx/C092CBT_C092RBT_C092RC(I-T)
+GenC0.menu.pnum.GENERIC_C092RCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C092.svd
+

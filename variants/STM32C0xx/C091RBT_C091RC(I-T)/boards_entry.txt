@@ -1,0 +1,32 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic C091RBTx
+GenC0.menu.pnum.GENERIC_C091RBTX=Generic C091RBTx
+GenC0.menu.pnum.GENERIC_C091RBTX.upload.maximum_size=131072
+GenC0.menu.pnum.GENERIC_C091RBTX.upload.maximum_data_size=36864
+GenC0.menu.pnum.GENERIC_C091RBTX.build.board=GENERIC_C091RBTX
+GenC0.menu.pnum.GENERIC_C091RBTX.build.product_line=STM32C091xx
+GenC0.menu.pnum.GENERIC_C091RBTX.build.variant=STM32C0xx/C091RBT_C091RC(I-T)
+GenC0.menu.pnum.GENERIC_C091RBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C091.svd
+
+# Generic C091RCIx
+GenC0.menu.pnum.GENERIC_C091RCIX=Generic C091RCIx
+GenC0.menu.pnum.GENERIC_C091RCIX.upload.maximum_size=262144
+GenC0.menu.pnum.GENERIC_C091RCIX.upload.maximum_data_size=36864
+GenC0.menu.pnum.GENERIC_C091RCIX.build.board=GENERIC_C091RCIX
+GenC0.menu.pnum.GENERIC_C091RCIX.build.product_line=STM32C091xx
+GenC0.menu.pnum.GENERIC_C091RCIX.build.variant=STM32C0xx/C091RBT_C091RC(I-T)
+GenC0.menu.pnum.GENERIC_C091RCIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C091.svd
+
+# Generic C091RCTx
+GenC0.menu.pnum.GENERIC_C091RCTX=Generic C091RCTx
+GenC0.menu.pnum.GENERIC_C091RCTX.upload.maximum_size=262144
+GenC0.menu.pnum.GENERIC_C091RCTX.upload.maximum_data_size=36864
+GenC0.menu.pnum.GENERIC_C091RCTX.build.board=GENERIC_C091RCTX
+GenC0.menu.pnum.GENERIC_C091RCTX.build.product_line=STM32C091xx
+GenC0.menu.pnum.GENERIC_C091RCTX.build.variant=STM32C0xx/C091RBT_C091RC(I-T)
+GenC0.menu.pnum.GENERIC_C091RCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C091.svd
+
