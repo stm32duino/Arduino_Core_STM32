@@ -31,7 +31,7 @@ extern "C" {
   * @{
   */
 
-#if defined(USART1) || defined(USART2)
+#if defined(USART1) || defined(USART2) || defined(USART3) || defined(USART4)
 
 /** @defgroup USART_LL USART
   * @{
@@ -4385,7 +4385,7 @@ void        LL_USART_ClockStructInit(LL_USART_ClockInitTypeDef *USART_ClockInitS
   * @}
   */
 
-#endif /* USART1 || USART2 */
+#endif /* USART1 || USART2 || USART3 || USART4 */
 
 /**
   * @}

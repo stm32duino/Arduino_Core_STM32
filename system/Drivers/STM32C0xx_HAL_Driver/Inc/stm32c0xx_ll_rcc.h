@@ -495,6 +495,26 @@ typedef struct
   * @}
   */
 #endif /* USB_DRD_FS */
+
+#if defined(FDCAN1)
+/** @defgroup RCC_LL_EC_FDCAN1_CLKSOURCE  Peripheral FDCAN1 clock source selection
+  * @{
+  */
+#define LL_RCC_FDCAN1_CLKSOURCE_PCLK1         0x00000000U            /*!< PCLK1 clock used as FDCAN1 clock source */
+#define LL_RCC_FDCAN1_CLKSOURCE_HSIKER        RCC_CCIPR_FDCAN1SEL_0  /*!< HSIKER clock used as FDCAN1 clock source */
+#define LL_RCC_FDCAN1_CLKSOURCE_HSE           RCC_CCIPR_FDCAN1SEL_1  /*!< HSE clock used as FDCAN1 clock source */
+/** @defgroup RCC_LL_EC_FDCAN1  Peripheral FDCAN1 get clock source
+  * @{
+  */
+#define LL_RCC_FDCAN1_CLKSOURCE               RCC_CCIPR_FDCAN1SEL /*!< FDCAN1 Clock source selection */
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
+#endif /* FDCAN1 */
 /**
   * @}
   */
@@ -1468,6 +1488,22 @@ __STATIC_INLINE void LL_RCC_SetUSBClockSource(uint32_t USBxSource)
 }
 #endif /* USB_DRD_FS */
 
+#if defined(FDCAN1)
+/**
+  * @brief  Configure FDCANx clock source
+  * @rmtoll CCIPR        FDCAN1SEL       LL_RCC_SetFDCANClockSource
+  * @param  FDCANxSource This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_FDCAN1_CLKSOURCE_PCLK1
+  *         @arg @ref LL_RCC_FDCAN1_CLKSOURCE_HSE
+  *         @arg @ref LL_RCC_FDCAN1_CLKSOURCE_HSIKER
+  * @retval None
+  */
+__STATIC_INLINE void LL_RCC_SetFDCANClockSource(uint32_t FDCANxSource)
+{
+  MODIFY_REG(RCC->CCIPR, RCC_CCIPR_FDCAN1SEL, FDCANxSource);
+}
+#endif /* FDCAN1 */
+
 /**
   * @brief  Get USARTx clock source
   * @rmtoll CCIPR        USART1SEL     LL_RCC_GetUSARTClockSource
@@ -1543,6 +1579,22 @@ __STATIC_INLINE uint32_t LL_RCC_GetUSBClockSource(uint32_t USBx)
 }
 #endif /* USB_DRD_FS */
 
+#if defined(FDCAN1)
+/**
+  * @brief  Get FDCANx clock source
+  * @rmtoll CCIPR        FDCAN        LL_RCC_GetFDCANClockSource
+  * @param  FDCANx This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_FDCAN1_CLKSOURCE
+  * @retval Returned value can be one of the following values:
+  *         @arg @ref LL_RCC_FDCAN1_CLKSOURCE_PCLK1
+  *         @arg @ref LL_RCC_FDCAN1_CLKSOURCE_HSE
+  *         @arg @ref LL_RCC_FDCAN1_CLKSOURCE_HSIKER
+  */
+__STATIC_INLINE uint32_t LL_RCC_GetFDCANClockSource(uint32_t FDCANx)
+{
+  return (uint32_t)(READ_BIT(RCC->CCIPR, FDCANx));
+}
+#endif /* FDCAN1 */
 /**
   * @}
   */
@@ -2055,6 +2107,9 @@ uint32_t    LL_RCC_GetRTCClockFreq(void);
 #if defined(USB_DRD_FS)
 uint32_t    LL_RCC_GetUSBClockFreq(uint32_t USBxSource);
 #endif /* USB_DRD_FS */
+#if defined(FDCAN1)
+uint32_t    LL_RCC_GetFDCANClockFreq(uint32_t FDCANxSource);
+#endif /* FDCAN1 */
 /**
   * @}
   */

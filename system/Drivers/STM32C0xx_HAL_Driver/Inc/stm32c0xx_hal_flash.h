@@ -480,8 +480,8 @@ typedef struct
 /** @defgroup FLASH_OB_USER_INPUT_RESET_HOLDER FLASH Option Bytes User input reset holder bit
   * @{
   */
-#define OB_IRH_ENABLE                   0x00000000U           /*!< Internal Reset handler enable */
-#define OB_IRH_DISABLE                  FLASH_OPTR_IRHEN      /*!< Internal Reset handler disable */
+#define OB_IRH_ENABLE                   FLASH_OPTR_IRHEN /*!< Internal Reset handler enable */
+#define OB_IRH_DISABLE                  0x00000000U      /*!< Internal Reset handler disable */
 /**
   * @}
   */

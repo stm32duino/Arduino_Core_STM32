@@ -31,7 +31,7 @@ extern "C" {
   * @{
   */
 
-#if defined (TIM1) || defined (TIM2) || defined (TIM3) || defined (TIM14) || defined (TIM16) || defined (TIM17)
+#if defined (TIM1) || defined (TIM2) || defined (TIM3) || defined (TIM14) || defined (TIM15) || defined (TIM16) || defined (TIM17)
 
 /** @defgroup TIM_LL TIM
   * @{
@@ -929,6 +929,9 @@ typedef struct
 #define LL_TIM_TS_ITR1                         TIM_SMCR_TS_0                                                   /*!< Internal Trigger 1 (ITR1) is used as trigger input */
 #define LL_TIM_TS_ITR2                         TIM_SMCR_TS_1                                                   /*!< Internal Trigger 2 (ITR2) is used as trigger input */
 #define LL_TIM_TS_ITR3                         (TIM_SMCR_TS_0 | TIM_SMCR_TS_1)                                 /*!< Internal Trigger 3 (ITR3) is used as trigger input */
+#if defined(USB_BASE)
+#define LL_TIM_TS_ITR7                         (TIM_SMCR_TS_3 | TIM_SMCR_TS_1 | TIM_SMCR_TS_0)                 /*!< Internal Trigger 7 (ITR7) is used as trigger input */
+#endif /* USB_BASE */
 #define LL_TIM_TS_TI1F_ED                      TIM_SMCR_TS_2                                                   /*!< TI1 Edge Detector (TI1F_ED) is used as trigger input */
 #define LL_TIM_TS_TI1FP1                       (TIM_SMCR_TS_2 | TIM_SMCR_TS_0)                                 /*!< Filtered Timer Input 1 (TI1FP1) is used as trigger input */
 #define LL_TIM_TS_TI2FP2                       (TIM_SMCR_TS_2 | TIM_SMCR_TS_1)                                 /*!< Filtered Timer Input 2 (TI12P2) is used as trigger input */
@@ -1193,8 +1196,32 @@ typedef struct
 #define LL_TIM_TIM14_TI1_RMP_GPIO     0x00000000U                                    /*!< TIM14 input 1 is connected to GPIO */
 #define LL_TIM_TIM14_TI1_RMP_RTC_CLK  TIM_TISEL_TI1SEL_0                             /*!< TIM14 input 1 is connected to RTC clock */
 #define LL_TIM_TIM14_TI1_RMP_HSE_32   TIM_TISEL_TI1SEL_1                             /*!< TIM14 input 1 is connected to HSE/32 clock */
-#define LL_TIM_TIM14_TI1_RMP_MCO     (TIM_TISEL_TI1SEL_0  | TIM_TISEL_TI1SEL_1)      /*!< TIM14 input 1 is connected to MCO */
-#define LL_TIM_TIM14_TI1_RMP_MCO2    TIM_TISEL_TI1SEL_2                              /*!< TIM14 input 1 is connected to MCO2 */
+#define LL_TIM_TIM14_TI1_RMP_MCO      (TIM_TISEL_TI1SEL_0  | TIM_TISEL_TI1SEL_1)     /*!< TIM14 input 1 is connected to MCO */
+#define LL_TIM_TIM14_TI1_RMP_MCO2     TIM_TISEL_TI1SEL_2                             /*!< TIM14 input 1 is connected to MCO2 */
+/**
+  * @}
+  */
+
+/** @defgroup TIM_LL_EC_TIM15_TI1_RMP  TIM15 Timer Input Ch1 Remap
+  * @{
+  */
+#if defined(TIM15)
+#define LL_TIM_TIM15_TI1_RMP_GPIO     0x00000000U                                    /*!< TIM15 input 1 is connected to GPIO */
+#define LL_TIM_TIM15_TI1_RMP_TIM2_IC1 TIM_TISEL_TI1SEL_0                             /*!< TIM15 input 1 is connected to TIM2 input 1 */
+#define LL_TIM_TIM15_TI1_RMP_TIM3_IC1 TIM_TISEL_TI1SEL_1                             /*!< TIM15 input 1 is connected to TIM3 input 1 */
+#endif /* TIM15 */
+/**
+  * @}
+  */
+
+/** @defgroup TIM_LL_EC_TIM15_TI2_RMP  TIM15 Timer Input Ch2 Remap
+  * @{
+  */
+#if defined(TIM15)
+#define LL_TIM_TIM15_TI2_RMP_GPIO     0x00000000U                                    /*!< TIM15 input 2 is connected to GPIO */
+#define LL_TIM_TIM15_TI2_RMP_TIM2_IC2 TIM_TISEL_TI2SEL_0                             /*!< TIM15 input 2 is connected to TIM2 input 2 */
+#define LL_TIM_TIM15_TI2_RMP_TIM3_IC2 TIM_TISEL_TI1SEL_1                             /*!< TIM15 input 2 is connected to TIM3 input 2 */
+#endif /* TIM15 */
 /**
   * @}
   */
@@ -1202,10 +1229,10 @@ typedef struct
 /** @defgroup TIM_LL_EC_TIM16_TI1_RMP  TIM16 Timer Input Ch1 Remap
   * @{
   */
-#define LL_TIM_TIM16_TI1_RMP_GPIO    0x00000000U                                     /*!< TIM16 input 1 is connected to GPIO */
-#define LL_TIM_TIM16_TI1_RMP_LSI     TIM_TISEL_TI1SEL_0                              /*!< TIM16 input 1 is connected to LSI */
-#define LL_TIM_TIM16_TI1_RMP_LSE     TIM_TISEL_TI1SEL_1                              /*!< TIM16 input 1 is connected to LSE */
-#define LL_TIM_TIM16_TI1_RMP_MCO2    TIM_TISEL_TI1SEL_2                              /*!< TIM16 input 1 is connected to MCO2 */
+#define LL_TIM_TIM16_TI1_RMP_GPIO     0x00000000U                                    /*!< TIM16 input 1 is connected to GPIO */
+#define LL_TIM_TIM16_TI1_RMP_LSI      TIM_TISEL_TI1SEL_0                             /*!< TIM16 input 1 is connected to LSI */
+#define LL_TIM_TIM16_TI1_RMP_LSE      TIM_TISEL_TI1SEL_1                             /*!< TIM16 input 1 is connected to LSE */
+#define LL_TIM_TIM16_TI1_RMP_MCO2     TIM_TISEL_TI1SEL_2                             /*!< TIM16 input 1 is connected to MCO2 */
 /**
   * @}
   */
@@ -1213,10 +1240,10 @@ typedef struct
 /** @defgroup TIM_LL_EC_TIM17_TI1_RMP  TIM17 Timer Input Ch1 Remap
   * @{
   */
-#define LL_TIM_TIM17_TI1_RMP_GPIO    0x00000000U                                     /*!< TIM17 input 1 is connected to GPIO */
-#define LL_TIM_TIM17_TI1_RMP_HSE_32  TIM_TISEL_TI1SEL_1                              /*!< TIM17 input 1 is connected to HSE/32 clock */
-#define LL_TIM_TIM17_TI1_RMP_MCO    (TIM_TISEL_TI1SEL_0 | TIM_TISEL_TI1SEL_1)        /*!< TIM17 input 1 is connected to MCO */
-#define LL_TIM_TIM17_TI1_RMP_MCO2    TIM_TISEL_TI1SEL_2                              /*!< TIM17 input 1 is connected to MCO2 */
+#define LL_TIM_TIM17_TI1_RMP_GPIO     0x00000000U                                    /*!< TIM17 input 1 is connected to GPIO */
+#define LL_TIM_TIM17_TI1_RMP_HSE_32   TIM_TISEL_TI1SEL_1                             /*!< TIM17 input 1 is connected to HSE/32 clock */
+#define LL_TIM_TIM17_TI1_RMP_MCO      (TIM_TISEL_TI1SEL_0 | TIM_TISEL_TI1SEL_1)      /*!< TIM17 input 1 is connected to MCO */
+#define LL_TIM_TIM17_TI1_RMP_MCO2     TIM_TISEL_TI1SEL_2                             /*!< TIM17 input 1 is connected to MCO2 */
 /**
   * @}
   */
@@ -3272,7 +3299,7 @@ __STATIC_INLINE void LL_TIM_SetSlaveMode(TIM_TypeDef *TIMx, uint32_t SlaveMode)
   * @param  TIMx Timer instance
   * @param  TriggerInput This parameter can be one of the following values:
   *         @arg @ref LL_TIM_TS_ITR0
-  *         @arg @ref LL_TIM_TS_ITR1
+  *         @arg @ref LL_TIM_TS_ITR1 (*)
   *         @arg @ref LL_TIM_TS_ITR2
   *         @arg @ref LL_TIM_TS_ITR3
   *         @arg @ref LL_TIM_TS_ITR7 (*)
@@ -3839,6 +3866,8 @@ __STATIC_INLINE void LL_TIM_ConfigDMABurst(TIM_TypeDef *TIMx, uint32_t DMABurstB
   *         TIM3_TISEL    TI3SEL      LL_TIM_SetRemap\n
   *         TIM3_TISEL    TI4SEL      LL_TIM_SetRemap\n
   *         TIM14_TISEL   TI1SEL      LL_TIM_SetRemap\n
+  *         TIM15_TISEL   TI1SEL      LL_TIM_SetRemap\n
+  *         TIM15_TISEL   TI2SEL      LL_TIM_SetRemap\n
   *         TIM16_TISEL   TI1SEL      LL_TIM_SetRemap\n
   *         TIM17_TISEL   TI1SEL      LL_TIM_SetRemap
   * @param  TIMx Timer instance
@@ -3856,6 +3885,15 @@ __STATIC_INLINE void LL_TIM_ConfigDMABurst(TIM_TypeDef *TIMx, uint32_t DMABurstB
   *            @arg @ref LL_TIM_TIM14_TI1_RMP_MCO
   *            @arg @ref LL_TIM_TIM14_TI1_RMP_MCO2
   *
+  *         TIM15: one of the following values (*)
+  *
+  *            @arg @ref LL_TIM_TIM15_TI1_RMP_GPIO
+  *            @arg @ref LL_TIM_TIM15_TI1_RMP_TIM2_IC1
+  *            @arg @ref LL_TIM_TIM15_TI1_RMP_TIM3_IC1
+  *            @arg @ref LL_TIM_TIM15_TI2_RMP_GPIO
+  *            @arg @ref LL_TIM_TIM15_TI2_RMP_TIM2_IC2
+  *            @arg @ref LL_TIM_TIM15_TI2_RMP_TIM3_IC2
+  *
   *         TIM16: one of the following values
   *
   *            @arg @ref LL_TIM_TIM16_TI1_RMP_GPIO
@@ -3869,6 +3907,9 @@ __STATIC_INLINE void LL_TIM_ConfigDMABurst(TIM_TypeDef *TIMx, uint32_t DMABurstB
   *            @arg @ref LL_TIM_TIM17_TI1_RMP_HSE_32
   *            @arg @ref LL_TIM_TIM17_TI1_RMP_MCO
   *            @arg @ref LL_TIM_TIM17_TI1_RMP_MCO2
+  *
+  *  (*) Timer instance not available on all devices \n
+  *
   * @retval None
   */
 __STATIC_INLINE void LL_TIM_SetRemap(TIM_TypeDef *TIMx, uint32_t Remap)
@@ -4911,7 +4952,7 @@ ErrorStatus LL_TIM_BDTR_Init(TIM_TypeDef *TIMx, const LL_TIM_BDTR_InitTypeDef *T
   * @}
   */
 
-#endif /* TIM1 || TIM2 || TIM3 || TIM14 || TIM16 || TIM17 */
+#endif /* TIM1 || TIM2 || TIM3 || TIM14 || TIM15 || TIM16 || TIM17 */
 
 /**
   * @}

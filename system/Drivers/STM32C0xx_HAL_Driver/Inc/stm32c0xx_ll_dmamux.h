@@ -159,6 +159,12 @@ extern "C" {
 #define LL_DMAMUX_REQ_TIM3_CH4            0x00000023U  /*!< DMAMUX TIM3 CH4 request       */
 #define LL_DMAMUX_REQ_TIM3_TRIG           0x00000024U  /*!< DMAMUX TIM3 TRIG request      */
 #define LL_DMAMUX_REQ_TIM3_UP             0x00000025U  /*!< DMAMUX TIM3 UP request        */
+#if defined(TIM15)
+#define LL_DMAMUX_REQ_TIM15_CH1           0x00000028U  /*!< DMAMUX TIM15 CH1 request      */
+#define LL_DMAMUX_REQ_TIM15_CH2           0x00000029U  /*!< DMAMUX TIM15 CH2 request      */
+#define LL_DMAMUX_REQ_TIM15_TRIG_COM      0x0000002AU  /*!< DMAMUX TIM15 TRIG COM request */
+#define LL_DMAMUX_REQ_TIM15_UP            0x0000002BU  /*!< DMAMUX TIM15 UP request       */
+#endif /* TIM15 */
 #define LL_DMAMUX_REQ_TIM16_CH1           0x0000002CU  /*!< DMAMUX TIM16 CH1 request      */
 #define LL_DMAMUX_REQ_TIM16_TRIG_COM      0x0000002DU  /*!< DMAMUX TIM16 TRIG COM request */
 #define LL_DMAMUX_REQ_TIM16_UP            0x0000002EU  /*!< DMAMUX TIM16 UP request       */
@@ -169,6 +175,14 @@ extern "C" {
 #define LL_DMAMUX_REQ_USART1_TX           0x00000033U  /*!< DMAMUX USART1 TX request      */
 #define LL_DMAMUX_REQ_USART2_RX           0x00000034U  /*!< DMAMUX USART2 RX request      */
 #define LL_DMAMUX_REQ_USART2_TX           0x00000035U  /*!< DMAMUX USART2 TX request      */
+#if defined(USART3)
+#define LL_DMAMUX_REQ_USART3_RX           0x00000036U  /*!< DMAMUX USART3 RX request      */
+#define LL_DMAMUX_REQ_USART3_TX           0x00000037U  /*!< DMAMUX USART3 TX request      */
+#endif /* USART3 */
+#if defined(USART4)
+#define LL_DMAMUX_REQ_USART4_RX           0x00000038U  /*!< DMAMUX USART4 RX request      */
+#define LL_DMAMUX_REQ_USART4_TX           0x00000039U  /*!< DMAMUX USART4 TX request      */
+#endif /* USART4 */
 /**
   * @}
   */
@@ -185,6 +199,13 @@ extern "C" {
 #if defined(DMAMUX1_Channel4)
 #define LL_DMAMUX_CHANNEL_4               0x00000004U             /*!< DMAMUX Channel 4 connected to DMA1 Channel 5  */
 #endif /* DMAMUX1_Channel4 */
+#if defined(DMAMUX1_Channel5)
+#define LL_DMAMUX_CHANNEL_5               0x00000005U             /*!< DMAMUX Channel 5 connected to DMA1 Channel 6  */
+#endif /* DMAMUX1_Channel5 */
+#if defined(DMAMUX1_Channel6)
+#define LL_DMAMUX_CHANNEL_6               0x00000006U             /*!< DMAMUX Channel 6 connected to DMA1 Channel 7  */
+#endif /* DMAMUX1_Channel6 */
+
 /**
   * @}
   */
@@ -334,7 +355,7 @@ extern "C" {
   */
 /**
   * @brief  Set DMAMUX request ID for DMAMUX Channel x.
-  * @note   DMAMUX channel 0 to 4 are mapped to DMA1 channel 1 to 5.
+  * @note   DMAMUX channel 0 to 6 are mapped to DMA1 channel 1 to 7.
   * @rmtoll CxCR         DMAREQ_ID     LL_DMAMUX_SetRequestID
   * @param  DMAMUXx DMAMUXx Instance
   * @param  Channel This parameter can be one of the following values:
@@ -343,6 +364,8 @@ extern "C" {
   *         @arg @ref LL_DMAMUX_CHANNEL_2
   *         @arg @ref LL_DMAMUX_CHANNEL_3 (*)
   *         @arg @ref LL_DMAMUX_CHANNEL_4 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_5 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_6 (*)
   * @param  Request This parameter can be one of the following values:
   *         @arg @ref LL_DMAMUX_REQ_MEM2MEM
   *         @arg @ref LL_DMAMUX_REQ_GENERATOR0
@@ -386,6 +409,10 @@ extern "C" {
   *         @arg @ref LL_DMAMUX_REQ_USART1_TX
   *         @arg @ref LL_DMAMUX_REQ_USART2_RX
   *         @arg @ref LL_DMAMUX_REQ_USART2_TX
+  *         @arg @ref LL_DMAMUX_REQ_USART3_RX (*)
+  *         @arg @ref LL_DMAMUX_REQ_USART3_TX (*)
+  *         @arg @ref LL_DMAMUX_REQ_USART4_RX (*)
+  *         @arg @ref LL_DMAMUX_REQ_USART4_TX (*)
   * @note (*) Availability depends on devices
   * @retval None
   */
@@ -397,7 +424,7 @@ __STATIC_INLINE void LL_DMAMUX_SetRequestID(const DMAMUX_Channel_TypeDef *DMAMUX
 
 /**
   * @brief  Get DMAMUX request ID for DMAMUX Channel x.
-  * @note   DMAMUX channel 0 to 4 are mapped to DMA1 channel 1 to 5.
+  * @note   DMAMUX channel 0 to 6 are mapped to DMA1 channel 1 to 7.
   * @rmtoll CxCR         DMAREQ_ID     LL_DMAMUX_GetRequestID
   * @param  DMAMUXx DMAMUXx Instance
   * @param  Channel This parameter can be one of the following values:
@@ -406,6 +433,8 @@ __STATIC_INLINE void LL_DMAMUX_SetRequestID(const DMAMUX_Channel_TypeDef *DMAMUX
   *         @arg @ref LL_DMAMUX_CHANNEL_2
   *         @arg @ref LL_DMAMUX_CHANNEL_3 (*)
   *         @arg @ref LL_DMAMUX_CHANNEL_4 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_5 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_6 (*)
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_DMAMUX_REQ_MEM2MEM
   *         @arg @ref LL_DMAMUX_REQ_GENERATOR0
@@ -449,6 +478,10 @@ __STATIC_INLINE void LL_DMAMUX_SetRequestID(const DMAMUX_Channel_TypeDef *DMAMUX
   *         @arg @ref LL_DMAMUX_REQ_USART1_TX
   *         @arg @ref LL_DMAMUX_REQ_USART2_RX
   *         @arg @ref LL_DMAMUX_REQ_USART2_TX
+  *         @arg @ref LL_DMAMUX_REQ_USART3_RX (*)
+  *         @arg @ref LL_DMAMUX_REQ_USART3_TX (*)
+  *         @arg @ref LL_DMAMUX_REQ_USART4_RX (*)
+  *         @arg @ref LL_DMAMUX_REQ_USART4_TX (*)
   * @note (*) Availability depends on devices
   */
 __STATIC_INLINE uint32_t LL_DMAMUX_GetRequestID(const DMAMUX_Channel_TypeDef *DMAMUXx, uint32_t Channel)
@@ -468,6 +501,8 @@ __STATIC_INLINE uint32_t LL_DMAMUX_GetRequestID(const DMAMUX_Channel_TypeDef *DM
   *         @arg @ref LL_DMAMUX_CHANNEL_2
   *         @arg @ref LL_DMAMUX_CHANNEL_3 (*)
   *         @arg @ref LL_DMAMUX_CHANNEL_4 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_5 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_6 (*)
   * @note (*) Availability depends on devices
   * @param  RequestNb This parameter must be a value between Min_Data = 1 and Max_Data = 32.
   * @retval None
@@ -490,6 +525,8 @@ __STATIC_INLINE void LL_DMAMUX_SetSyncRequestNb(const DMAMUX_Channel_TypeDef *DM
   *         @arg @ref LL_DMAMUX_CHANNEL_2
   *         @arg @ref LL_DMAMUX_CHANNEL_3 (*)
   *         @arg @ref LL_DMAMUX_CHANNEL_4 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_5 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_6 (*)
   * @note (*) Availability depends on devices
   * @retval Between Min_Data = 1 and Max_Data = 32
   */
@@ -509,6 +546,8 @@ __STATIC_INLINE uint32_t LL_DMAMUX_GetSyncRequestNb(const DMAMUX_Channel_TypeDef
   *         @arg @ref LL_DMAMUX_CHANNEL_2
   *         @arg @ref LL_DMAMUX_CHANNEL_3 (*)
   *         @arg @ref LL_DMAMUX_CHANNEL_4 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_5 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_6 (*)
   * @note (*) Availability depends on devices
   * @param  Polarity This parameter can be one of the following values:
   *         @arg @ref LL_DMAMUX_SYNC_NO_EVENT
@@ -534,6 +573,8 @@ __STATIC_INLINE void LL_DMAMUX_SetSyncPolarity(const DMAMUX_Channel_TypeDef *DMA
   *         @arg @ref LL_DMAMUX_CHANNEL_2
   *         @arg @ref LL_DMAMUX_CHANNEL_3 (*)
   *         @arg @ref LL_DMAMUX_CHANNEL_4 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_5 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_6 (*)
   * @note (*) Availability depends on devices
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_DMAMUX_SYNC_NO_EVENT
@@ -557,6 +598,8 @@ __STATIC_INLINE uint32_t LL_DMAMUX_GetSyncPolarity(const DMAMUX_Channel_TypeDef 
   *         @arg @ref LL_DMAMUX_CHANNEL_2
   *         @arg @ref LL_DMAMUX_CHANNEL_3 (*)
   *         @arg @ref LL_DMAMUX_CHANNEL_4 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_5 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_6 (*)
   * @note (*) Availability depends on devices
   * @retval None
   */
@@ -576,6 +619,8 @@ __STATIC_INLINE void LL_DMAMUX_EnableEventGeneration(const DMAMUX_Channel_TypeDe
   *         @arg @ref LL_DMAMUX_CHANNEL_2
   *         @arg @ref LL_DMAMUX_CHANNEL_3 (*)
   *         @arg @ref LL_DMAMUX_CHANNEL_4 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_5 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_6 (*)
   * @note (*) Availability depends on devices
   * @retval None
   */
@@ -595,6 +640,8 @@ __STATIC_INLINE void LL_DMAMUX_DisableEventGeneration(const DMAMUX_Channel_TypeD
   *         @arg @ref LL_DMAMUX_CHANNEL_2
   *         @arg @ref LL_DMAMUX_CHANNEL_3 (*)
   *         @arg @ref LL_DMAMUX_CHANNEL_4 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_5 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_6 (*)
   * @note (*) Availability depends on devices
   * @retval State of bit (1 or 0).
   */
@@ -614,6 +661,8 @@ __STATIC_INLINE uint32_t LL_DMAMUX_IsEnabledEventGeneration(const DMAMUX_Channel
   *         @arg @ref LL_DMAMUX_CHANNEL_2
   *         @arg @ref LL_DMAMUX_CHANNEL_3 (*)
   *         @arg @ref LL_DMAMUX_CHANNEL_4 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_5 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_6 (*)
   * @note (*) Availability depends on devices
   * @retval None
   */
@@ -633,6 +682,8 @@ __STATIC_INLINE void LL_DMAMUX_EnableSync(const DMAMUX_Channel_TypeDef *DMAMUXx,
   *         @arg @ref LL_DMAMUX_CHANNEL_2
   *         @arg @ref LL_DMAMUX_CHANNEL_3 (*)
   *         @arg @ref LL_DMAMUX_CHANNEL_4 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_5 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_6 (*)
   * @note (*) Availability depends on devices
   * @retval None
   */
@@ -652,6 +703,8 @@ __STATIC_INLINE void LL_DMAMUX_DisableSync(const DMAMUX_Channel_TypeDef *DMAMUXx
   *         @arg @ref LL_DMAMUX_CHANNEL_2
   *         @arg @ref LL_DMAMUX_CHANNEL_3 (*)
   *         @arg @ref LL_DMAMUX_CHANNEL_4 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_5 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_6 (*)
   * @note (*) Availability depends on devices
   * @retval State of bit (1 or 0).
   */
@@ -671,6 +724,8 @@ __STATIC_INLINE uint32_t LL_DMAMUX_IsEnabledSync(const DMAMUX_Channel_TypeDef *D
   *         @arg @ref LL_DMAMUX_CHANNEL_2
   *         @arg @ref LL_DMAMUX_CHANNEL_3 (*)
   *         @arg @ref LL_DMAMUX_CHANNEL_4 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_5 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_6 (*)
   * @param  SyncID This parameter can be one of the following values:
   *         @arg @ref LL_DMAMUX_SYNC_EXTI_LINE0
   *         @arg @ref LL_DMAMUX_SYNC_EXTI_LINE1
@@ -712,6 +767,8 @@ __STATIC_INLINE void LL_DMAMUX_SetSyncID(const DMAMUX_Channel_TypeDef *DMAMUXx, 
   *         @arg @ref LL_DMAMUX_CHANNEL_2
   *         @arg @ref LL_DMAMUX_CHANNEL_3 (*)
   *         @arg @ref LL_DMAMUX_CHANNEL_4 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_5 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_6 (*)
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_DMAMUX_SYNC_EXTI_LINE0
   *         @arg @ref LL_DMAMUX_SYNC_EXTI_LINE1
@@ -1224,6 +1281,8 @@ __STATIC_INLINE void LL_DMAMUX_ClearFlag_RGO3(const DMAMUX_Channel_TypeDef *DMAM
   *         @arg @ref LL_DMAMUX_CHANNEL_2
   *         @arg @ref LL_DMAMUX_CHANNEL_3 (*)
   *         @arg @ref LL_DMAMUX_CHANNEL_4 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_5 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_6 (*)
   * @note (*) Availability depends on devices
   * @retval None
   */
@@ -1243,6 +1302,8 @@ __STATIC_INLINE void LL_DMAMUX_EnableIT_SO(const DMAMUX_Channel_TypeDef *DMAMUXx
   *         @arg @ref LL_DMAMUX_CHANNEL_2
   *         @arg @ref LL_DMAMUX_CHANNEL_3 (*)
   *         @arg @ref LL_DMAMUX_CHANNEL_4 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_5 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_6 (*)
   * @note (*) Availability depends on devices
   * @retval None
   */
@@ -1262,6 +1323,8 @@ __STATIC_INLINE void LL_DMAMUX_DisableIT_SO(const DMAMUX_Channel_TypeDef *DMAMUX
   *         @arg @ref LL_DMAMUX_CHANNEL_2
   *         @arg @ref LL_DMAMUX_CHANNEL_3 (*)
   *         @arg @ref LL_DMAMUX_CHANNEL_4 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_5 (*)
+  *         @arg @ref LL_DMAMUX_CHANNEL_6 (*)
   * @note (*) Availability depends on devices
   * @retval State of bit (1 or 0).
   */

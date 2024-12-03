@@ -1950,7 +1950,7 @@ static HAL_StatusTypeDef SMBUS_Master_ISR(SMBUS_HandleTypeDef *hsmbus, uint32_t 
         /* Increment Buffer pointer */
         hsmbus->pBuffPtr++;
 
-        if ((hsmbus->XferSize > 0U))
+        if (hsmbus->XferSize > 0U)
         {
           hsmbus->XferSize--;
           hsmbus->XferCount--;
@@ -2378,7 +2378,7 @@ static HAL_StatusTypeDef SMBUS_Slave_ISR(SMBUS_HandleTypeDef *hsmbus, uint32_t S
         /* Increment Buffer pointer */
         hsmbus->pBuffPtr++;
 
-        if ((hsmbus->XferSize > 0U))
+        if (hsmbus->XferSize > 0U)
         {
           hsmbus->XferSize--;
           hsmbus->XferCount--;

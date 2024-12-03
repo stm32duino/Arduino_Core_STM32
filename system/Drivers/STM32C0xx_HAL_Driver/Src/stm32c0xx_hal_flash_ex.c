@@ -589,7 +589,7 @@ static void FLASH_OB_WRPConfig(uint32_t WRPArea, uint32_t WRPStartOffset, uint32
   *            @arg @ref OB_RDP_LEVEL_2 Full chip protection
   * @retval None
   *
-  * @note   (*) available only on STM32C071xx devices.
+  * @note   (*) available only on STM32C071xx, STM32C051xx and STM32C091/92xx devices.
   */
 static void FLASH_OB_OptrConfig(uint32_t UserType, uint32_t UserConfig, uint32_t RDPLevel)
 {
@@ -787,7 +787,7 @@ static uint32_t FLASH_OB_GetRDP(void)
   *         @ref OB_USER_SECURE_MUXING_EN
   *         @ref OB_USER_HSE_NOT_REMAPPED (*)
   *
-  * @note   (*) available only on STM32C071xx devices.
+  * @note   (*) available only on STM32C071xx, STM32C051xx and STM32C091/92xx devices.
   */
 static uint32_t FLASH_OB_GetUser(void)
 {

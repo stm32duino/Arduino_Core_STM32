@@ -49,6 +49,9 @@
 #if defined (USB_DRD_FS)
 #define IS_LL_RCC_USB_CLKSOURCE(__VALUE__)    ((__VALUE__) == LL_RCC_USB_CLKSOURCE)
 #endif /* USB_DRD_FS */
+#if defined (FDCAN1)
+#define IS_LL_RCC_FDCAN1_CLKSOURCE(__VALUE__) ((__VALUE__) == LL_RCC_FDCAN1_CLKSOURCE)
+#endif /* FDCAN1 */
 
 /**
   * @}
@@ -435,6 +438,50 @@ uint32_t LL_RCC_GetUSBClockFreq(uint32_t USBxSource)
 }
 #endif /* USB_DRD_FS */
 
+#if defined(FDCAN1)
+/**
+  * @brief  Return FDCANx clock frequency
+  * @param  FDCANxSource This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_FDCAN1_CLKSOURCE
+  * @retval FDCAN clock frequency (in Hz)
+  *         @arg @ref  LL_RCC_PERIPH_FREQUENCY_NO indicates that oscillator is not ready
+  */
+uint32_t LL_RCC_GetFDCANClockFreq(uint32_t FDCANxSource)
+{
+  uint32_t fdcan1_frequency = LL_RCC_PERIPH_FREQUENCY_NO;
+
+  /* Check parameter */
+  assert_param(IS_LL_RCC_FDCAN1_CLKSOURCE(FDCANxSource));
+
+  if (FDCANxSource == LL_RCC_FDCAN1_CLKSOURCE)
+  {
+    /* FDCAN1 CLK clock frequency */
+    switch (LL_RCC_GetFDCANClockSource(FDCANxSource))
+    {
+      case LL_RCC_FDCAN1_CLKSOURCE_HSIKER:       /* FDCAN1 Clock is HSI Kernel */
+        if (LL_RCC_HSI_IsReady() == 1U)
+        {
+          fdcan1_frequency = (HSI_VALUE / ((LL_RCC_HSIKER_GetDivider() >> RCC_CR_HSIKERDIV_Pos) + 1U));
+        }
+        break;
+
+      case LL_RCC_FDCAN1_CLKSOURCE_HSE:          /* FDCAN1 Clock is External clock */
+        if (LL_RCC_HSE_IsReady() != 0U)
+        {
+          fdcan1_frequency = HSE_VALUE;
+        }
+        break;
+
+      case LL_RCC_FDCAN1_CLKSOURCE_PCLK1:          /* FDCAN1 Clock is System Clock */
+      default:
+        fdcan1_frequency = RCC_GetPCLK1ClockFreq(RCC_GetHCLKClockFreq(RCC_GetSystemClockFreq()));
+        break;
+    }
+  }
+
+  return fdcan1_frequency;
+}
+#endif /* FDCAN1 */
 /**
   * @}
   */

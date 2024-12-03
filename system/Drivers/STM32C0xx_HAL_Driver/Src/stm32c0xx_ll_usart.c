@@ -31,7 +31,7 @@
   * @{
   */
 
-#if defined(USART1) || defined(USART2)
+#if defined(USART1) || defined(USART2) || defined(USART3) || defined(USART4)
 
 /** @addtogroup USART_LL
   * @{
@@ -159,6 +159,26 @@ ErrorStatus LL_USART_DeInit(const USART_TypeDef *USARTx)
     /* Release reset of USART clock */
     LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_USART2);
   }
+#if defined(USART3)
+  else if (USARTx == USART3)
+  {
+    /* Force reset of USART clock */
+    LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_USART3);
+
+    /* Release reset of USART clock */
+    LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_USART3);
+  }
+#endif /* USART3 */
+#if defined(USART4)
+  else if (USARTx == USART4)
+  {
+    /* Force reset of USART clock */
+    LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_USART4);
+
+    /* Release reset of USART clock */
+    LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_USART4);
+  }
+#endif /* USART4 */
   else
   {
     status = ERROR;
@@ -242,6 +262,22 @@ ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, const LL_USART_InitTypeDef *USA
       LL_RCC_GetSystemClocksFreq(&RCC_Clocks);
       periphclk = RCC_Clocks.PCLK1_Frequency;
     }
+#if defined(USART3)
+    else if (USARTx == USART3)
+    {
+      /* USART3 clock is PCLK1 */
+      LL_RCC_GetSystemClocksFreq(&RCC_Clocks);
+      periphclk = RCC_Clocks.PCLK1_Frequency;
+    }
+#endif /* USART3 */
+#if defined(USART4)
+    else if (USARTx == USART4)
+    {
+      /* USART4 clock is PCLK1 */
+      LL_RCC_GetSystemClocksFreq(&RCC_Clocks);
+      periphclk = RCC_Clocks.PCLK1_Frequency;
+    }
+#endif /* USART4 */
     else
     {
       /* Nothing to do, as error code is already assigned to ERROR value */
@@ -382,7 +418,7 @@ void LL_USART_ClockStructInit(LL_USART_ClockInitTypeDef *USART_ClockInitStruct)
   * @}
   */
 
-#endif /* USART1 || USART2 */
+#endif /* USART1 || USART2 || USART3 || USART4 */
 
 /**
   * @}

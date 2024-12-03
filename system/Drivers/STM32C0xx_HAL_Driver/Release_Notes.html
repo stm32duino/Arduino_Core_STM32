@@ -70,17 +70,100 @@ drivers)</li>
 <h1>Update History</h1>
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" checked aria-hidden="true">
-<label for="collapse-section5" checked aria-hidden="true">V1.2.0 /
-05-June-2024</label>
+<label for="collapse-section5" checked aria-hidden="true">V1.3.0 /
+30-October-2024</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<ul>
+<li>Official Release of STM32CubeC0 Firmware package supporting
+<strong>STM32C051xx</strong> and <strong>STM32C091/92xx</strong>
+devices</li>
+<li>General updates to fix known defects and implementation
+enhancements</li>
+</ul>
+<h3 id="hal-drivers-updates"><strong>HAL Drivers updates</strong></h3>
+<ul>
+<li>HAL generic driver:
+<ul>
+<li>Update HAL configuration template file</li>
+</ul></li>
+<li>HAL ADC driver:
+<ul>
+<li>Add missing callbacks in ADC_HandleTypeDef</li>
+<li>Rework of const qualifier to be compliant with MISRA rule 8.13</li>
+</ul></li>
+<li>HAL DMA driver:
+<ul>
+<li>Rework of const qualifier to be compliant with MISRA rule 8.13</li>
+</ul></li>
+<li>HAL FLASH driver:
+<ul>
+<li>Fix inverted OB_IRH_ENABLE and OB_IRH_DISABLE definitions</li>
+</ul></li>
+<li>HAL I2C driver:
+<ul>
+<li>Update function HAL_I2C_IsDeviceReady() to take into account the
+number of trials</li>
+<li>Move the prefetch process in function HAL_I2C_Slave_Transmit</li>
+</ul></li>
+<li>HAL PCD driver:
+<ul>
+<li>Support bulk transfer in double buffer mode</li>
+</ul></li>
+<li>HAL RCC driver:
+<ul>
+<li>Update function HAL_RCC_GetClockConfig() to take into account the
+RCC_CR_SYSDIV</li>
+</ul></li>
+<li>HAL SPI driver:
+<ul>
+<li>Rework of const qualifier to be compliant with MISRA rule 8.13</li>
+</ul></li>
+<li>HAL UART driver:
+<ul>
+<li>Correct DMA Rx abort procedure impact on ongoing Tx transfer in
+polling mode</li>
+</ul></li>
+</ul>
+<h3 id="ll-drivers-updates"><strong>LL Drivers updates</strong></h3>
+<ul>
+<li>LL ADC driver:
+<ul>
+<li>Rework of const qualifier to be compliant with MISRA rule 8.13</li>
+</ul></li>
+<li>LL DMA driver:
+<ul>
+<li>Rework of const qualifier to be compliant with MISRA rule 8.13</li>
+</ul></li>
+<li>LL USB driver:
+<ul>
+<li>Support bulk transfer in double buffer mode</li>
+</ul></li>
+</ul>
+<p>Note: HAL/LL Backward compatibility ensured by legacy defines.</p>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="backward-compatibility">Backward Compatibility</h2>
+<ul>
+<li>Not applicable</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section4" aria-hidden="true">
+<label for="collapse-section4" aria-hidden="true">V1.2.0 /
+05-June-2024</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <ul>
 <li>Official Release of STM32CubeC0 Firmware package supporting
 <strong>STM32C071xx</strong> devices</li>
 <li>General updates to fix known defects and implementation
 enhancements</li>
 </ul>
-<h3 id="hal-drivers-updates"><strong>HAL Drivers updates</strong></h3>
+<h3 id="hal-drivers-updates-1"><strong>HAL Drivers updates</strong></h3>
 <ul>
 <li>HAL generic driver:
 <ul>
@@ -199,7 +282,7 @@ in polling mode</li>
 FIFO reception in Interrupt mode</li>
 </ul></li>
 </ul>
-<h3 id="ll-drivers-updates"><strong>LL Drivers updates</strong></h3>
+<h3 id="ll-drivers-updates-1"><strong>LL Drivers updates</strong></h3>
 <ul>
 <li>LL ADC driver:
 <ul>
@@ -253,11 +336,11 @@ definitions</li>
 </ul></li>
 </ul>
 <p>Note: HAL/LL Backward compatibility ensured by legacy defines.</p>
-<h2 id="known-limitations">Known Limitations</h2>
+<h2 id="known-limitations-1">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility">Backward Compatibility</h2>
+<h2 id="backward-compatibility-1">Backward Compatibility</h2>
 <ul>
 <li>Not applicable</li>
 </ul>
@@ -268,7 +351,7 @@ definitions</li>
 <label for="collapse-section3" aria-hidden="true">V1.1.0 /
 07-June-2023</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>Maintenance Release of STM32CubeC0 Firmware Package</li>
 </ul>
@@ -339,9 +422,9 @@ pin binding (w/o overwriting existing pins biding settings).</li>
 setting.</li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-1">Known Limitations</h2>
+<h2 id="known-limitations-2">Known Limitations</h2>
 <p>N/A</p>
-<h2 id="backward-compatibility-1">Backward Compatibility</h2>
+<h2 id="backward-compatibility-2">Backward Compatibility</h2>
 <ul>
 <li>HAL_SYSCFG_GetPinBinding() and LL_SYSCFG_GetConfigPinMux() are
 updated.</li>
@@ -353,7 +436,7 @@ updated.</li>
 <label for="collapse-section2" checked aria-hidden="true">V1.0.1 /
 12-January-2023</label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li><p>Patch Release of STM32CubeC0 Firmware Package</p></li>
 <li><p>Update ADC HAL driver with proper internal sensor calibration
@@ -364,7 +447,7 @@ macro “__LL_ADC_CALC_TEMPERATURE_TYP_PARAMS()” must be used.</li>
 </ul></li>
 <li><p>Update RCC LL driver by adding missing AHB Prescaler.</p></li>
 </ul>
-<h2 id="known-limitations-2">Known Limitations</h2>
+<h2 id="known-limitations-3">Known Limitations</h2>
 <p>N/A</p>
 </div>
 </div>
@@ -373,10 +456,10 @@ macro “__LL_ADC_CALC_TEMPERATURE_TYP_PARAMS()” must be used.</li>
 <label for="collapse-section1" checked aria-hidden="true">V1.0.0 /
 09-February-2022</label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <p>First official release of HAL and LL drivers for STM32C031xx /
 STM32C011xx devices</p>
-<h2 id="known-limitations-3">Known Limitations</h2>
+<h2 id="known-limitations-4">Known Limitations</h2>
 <p>N/A</p>
 </div>
 </div>

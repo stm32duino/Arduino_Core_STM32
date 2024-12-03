@@ -754,6 +754,12 @@ typedef  void (*pSPI_CallbackTypeDef)(SPI_HandleTypeDef *hspi); /*!< pointer to 
   */
 #define IS_SPI_DMA_HANDLE(__HANDLE__) ((__HANDLE__) != NULL)
 
+/** @brief  Checks if a data address is 16bit aligned.
+  * @param  __DATA__ specifies a data address.
+  * @retval None
+  */
+#define IS_SPI_16BIT_ALIGNED_ADDRESS(__DATA__) (((uint32_t)(__DATA__) % 2U) == 0U)
+
 /**
   * @}
   */
