@@ -518,6 +518,13 @@ __weak void HAL_PWR_PVDCallback(void)
   *         privileged access.
   * @note   Privilege attribute for nsecure items can be managed  by a secure
   *         privileged access or by a nsecure privileged access.
+  * @note   As the privileged attributes concern either all secure or all non-secure
+  *         PWR resources accesses and not each PWR individual items access attribute,
+  *         the application must ensure that the privilege access attribute configurations
+  *         are coherent amongst the security level set on PWR individual items so not to
+  *         overwrite a previous more restricted access rule (consider either all secure
+  *         and/or all non-secure PWR resources accesses by privileged-only transactions
+  *         or privileged and unprivileged transactions).
   * @param  Item       : Specifies the item(s) to set attributes on.
   *                      This parameter can be a combination of @ref PWR_Items.
   * @param  Attributes : Specifies the available attribute(s).

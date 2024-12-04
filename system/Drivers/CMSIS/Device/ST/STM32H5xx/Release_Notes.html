@@ -30,9 +30,20 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history"><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section4" Checked aria-hidden="true"> <label for="collapse-section4" checked aria-hidden="true"><strong>V1.3.0 / 05-June-2024</strong></label>
+<input type="checkbox" id="collapse-section5" Checked aria-hidden="true"> <label for="collapse-section5" checked aria-hidden="true"><strong>V1.3.1 / 30-October-2024</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<p>CMSIS Device Maintenance Release version of bits and registers definition aligned with <strong>RM0481</strong> (STM32H5 reference manual)</p>
+<ul>
+<li>Update to use #include "core_cm33.h" instead of #include &lt;core_cm33.h&gt; to force the first searches for the core_cm33.h file in the same directory as the file that contains the #include directive (Drivers\CMSIS\Core\Include)</li>
+<li>Update IS_SPI_LIMITED macro to return an essential boolean</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" checked aria-hidden="true"><strong>V1.3.0 / 05-June-2024</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <p>CMSIS Device Maintenance Release version of bits and registers definition aligned with <strong>RM0481</strong> (STM32H5 reference manual)</p>
 <ul>
 <li>Add RNG_CR_NIST_VALUE, RNG_NSCR_NIST_VALUE and RNG_HTCR_NIST_VALUE defines</li>
@@ -50,7 +61,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true"><strong>V1.2.0 / 09-February-2024</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>First official release of STM32H5xx CMSIS drivers to support <strong>STM32H533xx and STM32H523xx</strong> devices</li>
 <li>Add bit definition for I3C_BCR register</li>
@@ -69,7 +80,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true"><strong>V1.1.0 / 07-June-2023</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li>Add DUA addresses constants definitions for STM32H573xx devices only</li>
 <li>Fix wrong definition of IS_TIM_CLOCKSOURCE_TIX_INSTANCE &amp; IS_TIM_TISEL_INSTANCE macros</li>
@@ -80,7 +91,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" checked aria-hidden="true"><strong>V1.0.0 / 10-February-2023</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li>First official release version of bits and registers definition aligned with RM0481 and RM0492 (STM32H5 reference manuals)</li>
 </ul>

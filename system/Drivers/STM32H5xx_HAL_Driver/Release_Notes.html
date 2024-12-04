@@ -40,9 +40,122 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section4" checked aria-hidden="true"> <label for="collapse-section4" checked aria-hidden="true"><strong>V1.3.0 / 05-June-2024</strong></label>
+<input type="checkbox" id="collapse-section5" checked aria-hidden="true"> <label for="collapse-section5" checked aria-hidden="true"><strong>V1.4.0 / 30-October-2024</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<ul>
+<li>Maintenance Release V1.4.0 of <strong>HAL and LL drivers</strong> for <strong>STM32H573xx / STM32H563xx / STM32H562xx / STM32H503xx / STM32H523xx/ STM32H533xx</strong> devices</li>
+<li>The HAL and LL drivers provided within this package are <strong>MISRA-C, MCU ASTYLE and Coverity compliant</strong>, and have been reviewed with a static analysis tool to eliminate possible run-time errors</li>
+<li><p>General updates to fix known defects and implementation enhancements</p>
+<ul>
+<li><strong>HAL drivers</strong> :
+<ul>
+<li><strong>HAL CRYP</strong> driver
+<ul>
+<li>Code quality enhancement MISRAC 2012 Rule-10.4</li>
+</ul></li>
+<li><strong>HAL DAC</strong> driver
+<ul>
+<li>HAL DAC calibration procedure (function HAL_DACEx_SelfCalibrate() ) fix to manage case of calibration factor equal to range maximum value (previously, in this case calibration factor was reset, leading to voltage accuracy not optimal)</li>
+</ul></li>
+<li><strong>HAL DMA_EX</strong> driver
+<ul>
+<li>Update CLLR register value</li>
+<li>Remove duplicated assert checking</li>
+</ul></li>
+<li><strong>HAL FLASH</strong> driver
+<ul>
+<li>Update Flash driver to support 32 bits write operation in the EDATA area</li>
+</ul></li>
+<li><strong>HAL FLASH_EX</strong> driver
+<ul>
+<li>Add of HAL_FLASHEx_OBK_Swap_IT() function</li>
+</ul></li>
+<li><strong>HAL FMAC</strong> driver
+<ul>
+<li>Add action to abort, if configured, the DMAIn and/or the DMAOut in HAL_FMAC_FilterStop. This allows to reset the DMA State to READY</li>
+</ul></li>
+<li><strong>HAL GTZC</strong> driver
+<ul>
+<li>Updated HAL_GTZC_TZSC_MPCWM_ConfigMemAttributes() and HAL_GTZC_TZSC_MPCWM_GetConfigMemAttributes() for MPCWM3 and MPCWM4 to be aligned with the hardware specification</li>
+</ul></li>
+<li><strong>HAL LPTIM</strong> driver
+<ul>
+<li>Remove redundant IS_LPTIM_AUTORELOAD macro</li>
+</ul></li>
+<li><strong>HAL PKA</strong> driver
+<ul>
+<li>add check for MontgomeryParam not equal to null</li>
+</ul></li>
+<li><strong>HAL PWR</strong> driver
+<ul>
+<li>Add guidance for HAL_PWR_ConfigAttributes() API calls</li>
+</ul></li>
+<li><strong>HAL RCC driver</strong>
+<ul>
+<li>Fix incorrect HAL_RCCEx_GetPLLxClockFreq() when fractional part is enabled</li>
+<li>Add g for HAL_RCC_ConfigAttributes() API calls</li>
+</ul></li>
+<li><strong>HAL RNG driver</strong>
+<ul>
+<li>Add HAL_RNG_ERROR_RECOVERSEED define</li>
+</ul></li>
+<li><strong>HAL RTC_EX driver</strong>
+<ul>
+<li>Add HAL_RTCEx_EnableRemapRtcOut2 and HAL_RTCEx_DisableRemapRtcOut2 defines<br />
+</li>
+</ul></li>
+<li><strong>HAL SPI</strong> driver
+<ul>
+<li>Fix issue with HAL_SPI_Abort_IT in DMA mode to ensure DMA RX aborts after DMA TX</li>
+<li>HAL code quality enhancement for MISRA-C2012 Rule-8.13</li>
+</ul></li>
+<li><strong>HAL UART</strong> driver
+<ul>
+<li>Fix DMA Rx abort procedure impact on ongoing Tx transfer in polling</li>
+</ul></li>
+<li><strong>HAL XSPI</strong> driver
+<ul>
+<li>Check BUSY flag instead of TC flag in indirect mode to be sure that command is well completed (FIFO flush)</li>
+</ul></li>
+</ul></li>
+<li><strong>LL drivers</strong> :
+<ul>
+<li><strong>LL DMA</strong> driver
+<ul>
+<li>Fix in linked list node initialization</li>
+<li>Add missing assert checking in some LL linked-list case</li>
+</ul></li>
+<li><strong>LL RCC</strong> driver
+<ul>
+<li>Add missing definition and processing of LL_RCC_USB_CLKSOURCE_PLL2Q</li>
+</ul></li>
+<li><strong>LL RTC</strong> driver
+<ul>
+<li>Add LL_RTC_EnableRemapRtcOut2 define</li>
+</ul></li>
+<li><strong>LL USB</strong> driver
+<ul>
+<li>Fix added to support bulk transfer in double buffer mode</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Note: HAL/LL Backward compatibility ensured by legacy defines.</p>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="backward-compatibility">Backward compatibility</h2>
+<ul>
+<li>No compatibility break</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" checked aria-hidden="true"><strong>V1.3.0 / 05-June-2024</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <ul>
 <li>Maintenance release V1.3.0 of <strong>HAL and LL drivers</strong> for <strong>STM32H573xx / STM32H563xx / STM32H562xx / STM32H503xx / STM32H523xx/ STM32H533xx</strong> devices</li>
 <li>The HAL and LL drivers provided within this package are <strong>MISRA-C, MCU ASTYLE and Coverity compliant</strong>, and have been reviewed with a static analysis tool to eliminate possible run-time errors</li>
@@ -74,11 +187,11 @@
 </ul></li>
 </ul>
 <p>Note: HAL/LL Backward compatibility ensured by legacy defines.</p>
-<h2 id="known-limitations">Known Limitations</h2>
+<h2 id="known-limitations-1">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility">Backward compatibility</h2>
+<h2 id="backward-compatibility-1">Backward compatibility</h2>
 <ul>
 <li>No compatibility break</li>
 </ul>
@@ -87,7 +200,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true"><strong>V1.2.0 / 07-February-2024</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li><p>First offiicial release of HAL and LL drivers to support <strong>STM32H533xx and STM32H523xx</strong> devices</p>
 <ul>
@@ -257,11 +370,11 @@
 </ul></li>
 </ul>
 <p>Note: HAL/LL Backward compatibility ensured by legacy defines.</p>
-<h2 id="known-limitations-1">Known Limitations</h2>
+<h2 id="known-limitations-2">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility-1">Backward compatibility</h2>
+<h2 id="backward-compatibility-2">Backward compatibility</h2>
 <ul>
 <li>No compatibility break</li>
 </ul>
@@ -270,7 +383,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true"><strong>V1.1.0 / 07-June-2023</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li><p>Maintenance Release of <strong>HAL and LL drivers</strong> for <strong>STM32H573xx / STM32H563xx / STM32H562xx / STM32H503xx</strong> devices</p>
 <ul>
@@ -342,11 +455,11 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-2">Known Limitations</h2>
+<h2 id="known-limitations-3">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility-2">Backward compatibility</h2>
+<h2 id="backward-compatibility-3">Backward compatibility</h2>
 <ul>
 <li>No compatibility break</li>
 </ul>
@@ -355,15 +468,15 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" checked aria-hidden="true"><strong>V1.0.0 / 10-February-2023</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li>First official release of <strong>HAL and LL drivers</strong> for <strong>STM32H573xx / STM32H563xx / STM32H562xx / STM32H503xx</strong> devices</li>
 </ul>
-<h2 id="known-limitations-3">Known Limitations</h2>
+<h2 id="known-limitations-4">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility-3">Backward compatibility</h2>
+<h2 id="backward-compatibility-4">Backward compatibility</h2>
 <ul>
 <li>Not Applicable</li>
 </ul>

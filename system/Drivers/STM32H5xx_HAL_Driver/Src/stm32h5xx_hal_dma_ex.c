@@ -1091,10 +1091,6 @@ HAL_StatusTypeDef HAL_DMAEx_List_BuildNode(DMA_NodeConfTypeDef const *const pNod
     assert_param(IS_DMA_BURST_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.DestAddrOffset));
     assert_param(IS_DMA_BLOCK_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.BlkSrcAddrOffset));
     assert_param(IS_DMA_BLOCK_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.BlkDestAddrOffset));
-    assert_param(IS_DMA_BURST_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.SrcAddrOffset));
-    assert_param(IS_DMA_BURST_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.DestAddrOffset));
-    assert_param(IS_DMA_BLOCK_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.BlkSrcAddrOffset));
-    assert_param(IS_DMA_BLOCK_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.BlkDestAddrOffset));
   }
 
   /* Check DMA channel security and privilege attributes parameters */
@@ -3903,8 +3899,19 @@ static void DMA_List_BuildNode(DMA_NodeConfTypeDef const *const pNodeConfig,
         (((uint32_t)pNodeConfig->RepeatBlockConfig.BlkDestAddrOffset << DMA_CBR2_BRDAO_Pos) & DMA_CBR2_BRDAO);
     }
     /********************************************************************************* CBR2 register value is updated */
-  }
 
+    /* Update CLLR register value *************************************************************************************/
+    /* Reset CLLR Register value : channel linked-list address register offset */
+    pNode->LinkRegisters[NODE_CLLR_2D_DEFAULT_OFFSET] = 0U;
+    /********************************************************************************* CLLR register value is cleared */
+  }
+  else
+  {
+    /* Update CLLR register value *************************************************************************************/
+    /* Reset CLLR Register value : channel linked-list address register offset */
+    pNode->LinkRegisters[NODE_CLLR_LINEAR_DEFAULT_OFFSET] = 0U;
+    /********************************************************************************* CLLR register value is cleared */
+  }
 
   /* Update node information value ************************************************************************************/
   /* Set node information */

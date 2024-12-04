@@ -429,6 +429,16 @@ typedef struct
   * @}
   */
 
+#if defined(PWR_USBSCR_OTGHSEN)
+/** @defgroup OTGHS_CLK48_VALUE OTG_HS output clock
+  * @{
+  */
+#define OTGHS_CLK48_VALUE        48000000U    /*!< Value of the OTGHS_CLK48 in Hz*/
+/**
+  * @}
+  */
+#endif /* PWR_USBSCR_OTGHSEN */
+
 /** @defgroup RCCEx_Periph_Clock_Selection  RCCEx Periph Clock Selection
   * @{
   */
@@ -531,6 +541,7 @@ typedef struct
 #if defined(I3C2)
 #define RCC_PERIPHCLK_I3C2             ((uint64_t)0x100000000000U)
 #endif /* I3C2 */
+
 /**
   * @}
   */
@@ -1371,6 +1382,7 @@ typedef struct
   */
 #define __HAL_RCC_TIMIC_ENABLE()  SET_BIT(RCC->CCIPR1, RCC_CCIPR1_TIMICSEL)     /*!< HSI/1024, CSI/128 and HSI/8 generation for Timers 12,15 and LPTimer2 Input capture */
 #define __HAL_RCC_TIMIC_DISABLE() CLEAR_BIT(RCC->CCIPR1, RCC_CCIPR1_TIMICSEL)   /*!< No clock available for Timers Input capture */
+
 
 /** @brief  Macro to configure the PLL2 clock source.
   * @note   This function must be used only when all PLL2 is disabled.

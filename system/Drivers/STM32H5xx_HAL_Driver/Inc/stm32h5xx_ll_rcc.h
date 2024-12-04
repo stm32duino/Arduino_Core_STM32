@@ -920,6 +920,8 @@ typedef struct
 #define LL_RCC_USB_CLKSOURCE_PLL1Q       RCC_CCIPR4_USBSEL_0       /*!< PLL1 Q clock used as USB clock source */
 #if defined(RCC_CR_PLL3ON)
 #define LL_RCC_USB_CLKSOURCE_PLL3Q       RCC_CCIPR4_USBSEL_1       /*!< PLL3 Q clock used as USB clock source */
+#else
+#define LL_RCC_USB_CLKSOURCE_PLL2Q       RCC_CCIPR4_USBSEL_1       /*!< PLL2 Q clock used as USB clock source */
 #endif /* PLL3 */
 #define LL_RCC_USB_CLKSOURCE_HSI48       RCC_CCIPR4_USBSEL         /*!< HSI48 clock used as USB clock source */
 /**
@@ -2821,8 +2823,9 @@ __STATIC_INLINE void LL_RCC_SetI2CClockSource(uint32_t I2CxSource)
   *         @arg @ref LL_RCC_I3C2_CLKSOURCE_NONE  (**)
   * @retval None
   *
-  *  (*)  : For stm32h56xxx and stm32h57xxx family lines.
+  *  (*)  : For stm32h56xxx, stm32h57xxx, stm32h5exxx and stm32h5fxxx family lines.
   *  (**) : For stm32h503xx family line.
+  *  (***)  : For stm32h5exxx and stm32h5fxxx family lines.
   */
 __STATIC_INLINE void LL_RCC_SetI3CClockSource(uint32_t I3CxSource)
 {
@@ -3013,10 +3016,11 @@ __STATIC_INLINE void LL_RCC_SetRNGClockSource(uint32_t RNGxSource)
   * @param  USBxSource This parameter can be one of the following values:
   *         @arg @ref LL_RCC_USB_CLKSOURCE_NONE
   *         @arg @ref LL_RCC_USB_CLKSOURCE_PLL1Q
+  *         @arg @ref LL_RCC_USB_CLKSOURCE_PLL2Q (*)
   *         @arg @ref LL_RCC_USB_CLKSOURCE_PLL3Q (*)
   *         @arg @ref LL_RCC_USB_CLKSOURCE_HSI48
   *
-  *  (*)  : For stm32h56xxx and stm32h57xxx family lines.
+  * (*) : Available in some STM32H5 lines only.
   * @retval None
   */
 __STATIC_INLINE void LL_RCC_SetUSBClockSource(uint32_t USBxSource)
@@ -3776,10 +3780,11 @@ __STATIC_INLINE uint32_t LL_RCC_GetRNGClockSource(uint32_t RNGx)
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_RCC_USB_CLKSOURCE_NONE
   *         @arg @ref LL_RCC_USB_CLKSOURCE_PLL1Q
+  *         @arg @ref LL_RCC_USB_CLKSOURCE_PLL2Q (*)
   *         @arg @ref LL_RCC_USB_CLKSOURCE_PLL3Q (*)
   *         @arg @ref LL_RCC_USB_CLKSOURCE_HSI48
   *
-  *  (*)  : For stm32h56xxx and stm32h57xxx family lines.
+  * (*) : Available in some STM32H5 lines only.
   */
 __STATIC_INLINE uint32_t LL_RCC_GetUSBClockSource(uint32_t USBx)
 {

@@ -2448,7 +2448,7 @@ HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(const RCC_PeriphCLKInitTypeDef  *pPe
   *         clocks (ADC12, DAC, SDMMC1, SDMMC2, OCTOSPI1, TIM, LPTIM1, LPTIM2, LPTIM3, LPTIM4, LPTIM5, LPTIM6,
   *         SPI1, SPI2, SPI3, SPI4, SPI5, SPI6, USART1, USART2, USART3, UART4, UART5, USART6, UART7, UART8,
   *         UART9, USART10, USART11, UART12, LPUART1, I2C1, I2C2, I2C3, I2C4, I3C1, I3C2, CEC, FDCAN, SAI1,
-  *         SAI2, USB, PLAY1), PLL2 and PLL3.
+  *         SAI2, USB), PLL2 and PLL3.
   * @retval None
   */
 void HAL_RCCEx_GetPeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *pPeriphClkInit)
@@ -2758,61 +2758,6 @@ void HAL_RCCEx_GetPeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *pPeriphClkInit)
   {
     pPeriphClkInit->TimPresSelection = RCC_TIMPRES_ACTIVATED;
   }
-
-#if defined(PLAY1)
-  /* Get the PLAY1 clock source ------------------------------------------------*/
-  pPeriphClkInit->PLAY1ClockSelection = __HAL_RCC_GET_PLAY1_SOURCE();
-#endif /* PLAY1 */
-
-#if defined(USB_OTG_FS)
-  /* Get the USB_OTG_FS clock source ------------------------------------------------*/
-  pPeriphClkInit->OtgfsClockSelection = __HAL_RCC_GET_OTGFS_SOURCE();
-#endif /* USB_OTG_FS */
-
-#if defined(USB_OTG_HS)
-  /* Get the USB_OTG_HS clock source ------------------------------------------------*/
-  pPeriphClkInit->OtghsClockSelection = __HAL_RCC_GET_OTGHS_SOURCE();
-#endif /* USB_OTG_HS */
-
-#if defined(OCTOSPI2)
-  /* Get the OSPI2 clock source -----------------------------------------------*/
-  pPeriphClkInit->Ospi2ClockSelection = __HAL_RCC_GET_OSPI2_SOURCE();
-#endif /* OCTOSPI2 */
-
-#if defined(LTDC)
-  /* Get the LTDC clock source ------------------------------------------------*/
-  pPeriphClkInit->LtdcClockSelection = __HAL_RCC_GET_LTDC_SOURCE();
-#endif /* LTDC */
-
-#if defined(ADF1)
-  /* Get the ADF1 clock source ------------------------------------------------*/
-  pPeriphClkInit->Adf1ClockSelection = __HAL_RCC_GET_ADF1_SOURCE();
-#endif /* ADF1 */
-
-#if defined(MDF1)
-  /* Get the MDF1 clock source ------------------------------------------------*/
-  pPeriphClkInit->Mdf1ClockSelection = __HAL_RCC_GET_MDF1_SOURCE();
-#endif /* MDF1 */
-
-#if defined(RCC_CCIPR4_ETHCLKSEL)
-  /* Get the ETH clock source ------------------------------------------------*/
-  pPeriphClkInit->EthClockSelection = __HAL_RCC_GET_ETH_SOURCE();
-#endif /* RCC_CCIPR4_ETHCLKSEL */
-
-#if defined(RCC_CCIPR5_ETHPTPCLKSEL)
-  /* Get the ETHPTP clock source ------------------------------------------------*/
-  pPeriphClkInit->EthptpClockSelection = __HAL_RCC_GET_ETHPTP_SOURCE();
-#endif /* RCC_CCIPR5_ETHPTPCLKSEL */
-
-#if defined(RCC_CCIPR5_ETHT1SCLKSEL)
-  /* Get the ETHT1S clock source ------------------------------------------------*/
-  pPeriphClkInit->Etht1sClockSelection = __HAL_RCC_GET_ETHT1S_SOURCE();
-#endif /* RCC_CCIPR5_ETHT1SCLKSEL */
-
-#if defined(RCC_CCIPR5_ETHREFCLKSEL)
-  /* Get the ETHREF clock source ------------------------------------------------*/
-  pPeriphClkInit->EthrefClockSelection = __HAL_RCC_GET_ETHREF_SOURCE();
-#endif /* RCC_CCIPR5_ETHREFCLKSEL */
 }
 
 /**
@@ -2847,7 +2792,7 @@ void HAL_RCCEx_GetPLL1ClockFreq(PLL1_ClocksTypeDef *pPLL1_Clocks)
   pll1n = (RCC->PLL1DIVR & RCC_PLL1DIVR_PLL1N);
   pll1source = (RCC->PLL1CFGR & RCC_PLL1CFGR_PLL1SRC);
   pll1m = ((RCC->PLL1CFGR & RCC_PLL1CFGR_PLL1M) >> RCC_PLL1CFGR_PLL1M_Pos);
-  pll1fracen = RCC->PLL1CFGR & RCC_PLL1CFGR_PLL1FRACEN;
+  pll1fracen = ((RCC->PLL1CFGR & RCC_PLL1CFGR_PLL1FRACEN) >> RCC_PLL1CFGR_PLL1FRACEN_Pos);
   fracn1 = (float_t)(uint32_t)(pll1fracen * ((RCC->PLL1FRACR & RCC_PLL1FRACR_PLL1FRACN) >> \
                                              RCC_PLL1FRACR_PLL1FRACN_Pos));
 
@@ -2983,7 +2928,7 @@ void HAL_RCCEx_GetPLL2ClockFreq(PLL2_ClocksTypeDef *pPLL2_Clocks)
   pll2n = (RCC->PLL2DIVR & RCC_PLL2DIVR_PLL2N);
   pll2source = (RCC->PLL2CFGR & RCC_PLL2CFGR_PLL2SRC);
   pll2m = ((RCC->PLL2CFGR & RCC_PLL2CFGR_PLL2M) >> RCC_PLL2CFGR_PLL2M_Pos);
-  pll2fracen = RCC->PLL2CFGR & RCC_PLL2CFGR_PLL2FRACEN;
+  pll2fracen = ((RCC->PLL2CFGR & RCC_PLL2CFGR_PLL2FRACEN) >> RCC_PLL2CFGR_PLL2FRACEN_Pos);
   fracn2 = (float_t)(uint32_t)(pll2fracen * ((RCC->PLL2FRACR & RCC_PLL2FRACR_PLL2FRACN) >> \
                                              RCC_PLL2FRACR_PLL2FRACN_Pos));
 
@@ -3117,7 +3062,7 @@ void HAL_RCCEx_GetPLL3ClockFreq(PLL3_ClocksTypeDef *pPLL3_Clocks)
   pll3n = (RCC->PLL3DIVR & RCC_PLL3DIVR_PLL3N);
   pll3source = (RCC->PLL3CFGR & RCC_PLL3CFGR_PLL3SRC);
   pll3m = ((RCC->PLL3CFGR & RCC_PLL3CFGR_PLL3M) >> RCC_PLL3CFGR_PLL3M_Pos);
-  pll3fracen = RCC->PLL3CFGR & RCC_PLL3CFGR_PLL3FRACEN;
+  pll3fracen = ((RCC->PLL3CFGR & RCC_PLL3CFGR_PLL3FRACEN) >> RCC_PLL3CFGR_PLL3FRACEN_Pos);
   fracn3 = (float_t)(uint32_t)(pll3fracen * ((RCC->PLL3FRACR & RCC_PLL3FRACR_PLL3FRACN) >> \
                                              RCC_PLL3FRACR_PLL3FRACN_Pos));
 
@@ -5308,33 +5253,6 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint64_t PeriphClk)
         frequency = 0U;
         break;
 #endif /* USB_DRD_FS */
-
-#if defined(RCC_CCIPR4_ETHCLKSEL)
-      case RCC_PERIPHCLK_ETH:
-
-        /* Get the current ETH kernel source */
-        srcclk = __HAL_RCC_GET_ETH_SOURCE();
-        switch (srcclk)
-        {
-          case RCC_ETHCLKSOURCE_PLL1Q:
-          {
-            HAL_RCCEx_GetPLL1ClockFreq(&pll1_clocks);
-            frequency = pll1_clocks.PLL1_Q_Frequency;
-            break;
-          }
-          case RCC_ETHCLKSOURCE_HSE:
-          {
-            frequency = HSE_VALUE;
-            break;
-          }
-          default:
-          {
-            frequency = 0U;
-            break;
-          }
-        }
-        break;
-#endif /* RCC_CCIPR4_ETHCLKSEL */
     }
   }
   return (frequency);

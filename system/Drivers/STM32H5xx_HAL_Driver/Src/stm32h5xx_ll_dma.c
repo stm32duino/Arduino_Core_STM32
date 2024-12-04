@@ -847,8 +847,7 @@ uint32_t LL_DMA_CreateLinkNode(LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct, LL_DM
     assert_param(IS_LL_DMA_TRIGGER_SELECTION(DMA_InitNodeStruct->TriggerSelection));
   }
 
-  /* Check node type */
-  if (DMA_InitNodeStruct->NodeType == LL_DMA_GPDMA_LINEAR_NODE)
+  /* Check non 2D addressing settings */
   {
     assert_param(IS_LL_DMA_BURST_LENGTH(DMA_InitNodeStruct->SrcBurstLength));
     assert_param(IS_LL_DMA_BURST_LENGTH(DMA_InitNodeStruct->DestBurstLength));
@@ -1087,7 +1086,11 @@ uint32_t LL_DMA_CreateLinkNode(LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct, LL_DM
       pNode->LinkRegisters[reg_counter] |= (DMA_InitNodeStruct->UpdateRegisters & (DMA_CLLR_UT3 | DMA_CLLR_UB2));
     }
   }
-
+  else
+  {
+    /* Reset of the CLLR of the node being created */
+    pNode->LinkRegisters[reg_counter] = 0U;
+  }
   return (uint32_t)SUCCESS;
 }
 

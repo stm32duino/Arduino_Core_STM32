@@ -2236,7 +2236,6 @@ __STATIC_INLINE void LL_APB2_GRP1_EnableClock(uint32_t Periphs)
   *         APB2ENR      SAI1EN        LL_APB2_GRP1_IsEnabledClock\n
   *         APB2ENR      SAI2EN        LL_APB2_GRP1_IsEnabledClock\n
   *         APB2ENR      USBEN         LL_APB2_GRP1_IsEnabledClock
-
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB2_GRP1_PERIPH_ALL
   *         @arg @ref LL_APB2_GRP1_PERIPH_TIM1
@@ -2325,7 +2324,6 @@ __STATIC_INLINE void LL_APB2_GRP1_DisableClock(uint32_t Periphs)
   *         @arg @ref LL_APB2_GRP1_PERIPH_SAI1 (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_SAI2 (*)
   *         @arg @ref LL_APB2_GRP1_PERIPH_USB
-
   *
   *  (*)  : Not available for all stm32h5xxxx family lines.
   * @retval None

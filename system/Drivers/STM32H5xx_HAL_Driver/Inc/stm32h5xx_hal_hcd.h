@@ -27,7 +27,7 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "stm32h5xx_ll_usb.h"
 
-#if defined (USB_DRD_FS)
+#if defined (USB_OTG_FS) || defined (USB_OTG_HS) || defined (USB_DRD_FS)
 /** @addtogroup STM32H5xx_HAL_Driver
   * @{
   */
@@ -53,12 +53,20 @@ typedef enum
   HAL_HCD_STATE_TIMEOUT  = 0x04
 } HCD_StateTypeDef;
 
+#if defined (USB_DRD_FS)
 typedef USB_DRD_TypeDef         HCD_TypeDef;
 typedef USB_DRD_CfgTypeDef      HCD_InitTypeDef;
 typedef USB_DRD_HCTypeDef       HCD_HCTypeDef;
 typedef USB_DRD_URBStateTypeDef HCD_URBStateTypeDef;
 typedef USB_DRD_HCStateTypeDef  HCD_HCStateTypeDef;
-
+#else
+typedef USB_OTG_GlobalTypeDef   HCD_TypeDef;
+typedef USB_OTG_CfgTypeDef      HCD_InitTypeDef;
+typedef USB_OTG_HCTypeDef       HCD_HCTypeDef;
+typedef USB_OTG_URBStateTypeDef HCD_URBStateTypeDef;
+typedef USB_OTG_HCStateTypeDef  HCD_HCStateTypeDef;
+#endif /* defined (USB_DRD_FS) */
+#if defined (USB_DRD_FS)
 typedef enum
 {
   HCD_HCD_STATE_DISCONNECTED = 0x00U,
@@ -73,7 +81,7 @@ typedef enum
  * 8Bytes each Block 32Bit in each word
  */
 #define PMA_BLOCKS        ((USB_DRD_PMA_SIZE) / (8U * 32U))
-
+#endif /* defined (USB_DRD_FS) */
 /**
   * @}
   */
@@ -90,13 +98,13 @@ typedef struct
   HCD_TypeDef               *Instance;  /*!< Register base address    */
   HCD_InitTypeDef           Init;       /*!< HCD required parameters  */
   HCD_HCTypeDef             hc[16];     /*!< Host channels parameters */
-
+#if defined (USB_DRD_FS)
   uint32_t                  ep0_PmaAllocState;  /*!< EP0 PMA allocation State (allocated, virtual Ch, EP0 direction) */
   uint16_t                  phy_chin_state[8];  /*!< Physical Channel in State (Used/Free) */
   uint16_t                  phy_chout_state[8]; /*!< Physical Channel out State (Used/Free)*/
   uint32_t                  PMALookupTable[PMA_BLOCKS]; /*PMA LookUp Table */
   HCD_HostStateTypeDef      HostState; /*!< USB current state DICONNECT/CONNECT/RUN/SUSPEND/RESUME */
-
+#endif /* defined (USB_DRD_FS) */
   HAL_LockTypeDef           Lock;       /*!< HCD peripheral status    */
   __IO HCD_StateTypeDef     State;      /*!< HCD communication state  */
   __IO  uint32_t            ErrorCode;  /*!< HCD Error code           */
@@ -130,6 +138,7 @@ typedef struct
 /** @defgroup HCD_Speed HCD Speed
   * @{
   */
+#define HCD_SPEED_HIGH               USBH_HS_SPEED
 #define HCD_SPEED_FULL               USBH_FSLS_SPEED
 #define HCD_SPEED_LOW                USBH_FSLS_SPEED
 /**
@@ -181,11 +190,29 @@ typedef struct
 
 #define __HAL_HCD_GET_FLAG(__HANDLE__, __INTERRUPT__)      ((USB_ReadInterrupts((__HANDLE__)->Instance)\
                                                              & (__INTERRUPT__)) == (__INTERRUPT__))
+#if defined (USB_DRD_FS)
 #define __HAL_HCD_CLEAR_FLAG(__HANDLE__, __INTERRUPT__)    (((__HANDLE__)->Instance->ISTR) &= ~(__INTERRUPT__))
+#else
+#define __HAL_HCD_GET_CH_FLAG(__HANDLE__, __chnum__, __INTERRUPT__) \
+  ((USB_ReadChInterrupts((__HANDLE__)->Instance, (__chnum__)) & (__INTERRUPT__)) == (__INTERRUPT__))
+
+#define __HAL_HCD_CLEAR_FLAG(__HANDLE__, __INTERRUPT__)    (((__HANDLE__)->Instance->GINTSTS) = (__INTERRUPT__))
+#endif /* defined (USB_DRD_FS) */
 #define __HAL_HCD_IS_INVALID_INTERRUPT(__HANDLE__)         (USB_ReadInterrupts((__HANDLE__)->Instance) == 0U)
 
+#if defined (USB_DRD_FS)
 #define __HAL_HCD_GET_CHNUM(__HANDLE__)                    (((__HANDLE__)->Instance->ISTR) & USB_ISTR_IDN)
 #define __HAL_HCD_GET_CHDIR(__HANDLE__)                    (((__HANDLE__)->Instance->ISTR) & USB_ISTR_DIR)
+#else
+#define __HAL_HCD_CLEAR_HC_INT(chnum, __INTERRUPT__)  (USBx_HC(chnum)->HCINT = (__INTERRUPT__))
+#define __HAL_HCD_MASK_HALT_HC_INT(chnum)             (USBx_HC(chnum)->HCINTMSK &= ~USB_OTG_HCINTMSK_CHHM)
+#define __HAL_HCD_UNMASK_HALT_HC_INT(chnum)           (USBx_HC(chnum)->HCINTMSK |= USB_OTG_HCINTMSK_CHHM)
+#define __HAL_HCD_MASK_ACK_HC_INT(chnum)              (USBx_HC(chnum)->HCINTMSK &= ~USB_OTG_HCINTMSK_ACKM)
+#define __HAL_HCD_UNMASK_ACK_HC_INT(chnum)            (USBx_HC(chnum)->HCINTMSK |= USB_OTG_HCINTMSK_ACKM)
+#define __HAL_HCD_SET_HC_CSPLT(chnum)                 (USBx_HC(chnum)->HCSPLT   |= USB_OTG_HCSPLT_COMPLSPLT)
+#define __HAL_HCD_CLEAR_HC_CSPLT(chnum)               (USBx_HC(chnum)->HCSPLT   &= ~USB_OTG_HCSPLT_COMPLSPLT)
+#define __HAL_HCD_CLEAR_HC_SSPLT(chnum)               (USBx_HC(chnum)->HCSPLT   &= ~USB_OTG_HCSPLT_SPLITEN)
+#endif /* defined (USB_DRD_FS) */
 /**
   * @}
   */
@@ -205,9 +232,9 @@ HAL_StatusTypeDef HAL_HCD_HC_Init(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
                                   uint8_t speed, uint8_t ep_type, uint16_t mps);
 
 HAL_StatusTypeDef HAL_HCD_HC_Halt(HCD_HandleTypeDef *hhcd, uint8_t ch_num);
-
+#if defined (USB_DRD_FS)
 HAL_StatusTypeDef HAL_HCD_HC_Close(HCD_HandleTypeDef *hhcd, uint8_t ch_num);
-
+#endif /* defined (USB_DRD_FS) */
 void              HAL_HCD_MspInit(HCD_HandleTypeDef *hhcd);
 void              HAL_HCD_MspDeInit(HCD_HandleTypeDef *hhcd);
 
@@ -282,10 +309,10 @@ void HAL_HCD_Connect_Callback(HCD_HandleTypeDef *hhcd);
 void HAL_HCD_Disconnect_Callback(HCD_HandleTypeDef *hhcd);
 void HAL_HCD_PortEnabled_Callback(HCD_HandleTypeDef *hhcd);
 void HAL_HCD_PortDisabled_Callback(HCD_HandleTypeDef *hhcd);
-
+#if defined (USB_DRD_FS)
 void HAL_HCD_SuspendCallback(HCD_HandleTypeDef *hhcd);
 void HAL_HCD_ResumeCallback(HCD_HandleTypeDef *hhcd);
-
+#endif /* defined (USB_DRD_FS) */
 void HAL_HCD_HC_NotifyURBChange_Callback(HCD_HandleTypeDef *hhcd, uint8_t chnum,
                                          HCD_URBStateTypeDef urb_state);
 /**
@@ -299,11 +326,11 @@ void HAL_HCD_HC_NotifyURBChange_Callback(HCD_HandleTypeDef *hhcd, uint8_t chnum,
 HAL_StatusTypeDef HAL_HCD_ResetPort(HCD_HandleTypeDef *hhcd);
 HAL_StatusTypeDef HAL_HCD_Start(HCD_HandleTypeDef *hhcd);
 HAL_StatusTypeDef HAL_HCD_Stop(HCD_HandleTypeDef *hhcd);
-
+#if defined (USB_DRD_FS)
 HAL_StatusTypeDef HAL_HCD_Suspend(HCD_HandleTypeDef *hhcd);
 HAL_StatusTypeDef HAL_HCD_Resume(HCD_HandleTypeDef *hhcd);
 HAL_StatusTypeDef HAL_HCD_ResumePort(HCD_HandleTypeDef *hhcd);
-
+#endif /* defined (USB_DRD_FS) */
 /**
   * @}
   */
@@ -319,7 +346,7 @@ uint32_t                HAL_HCD_HC_GetXferCount(HCD_HandleTypeDef const *hhcd, u
 uint32_t                HAL_HCD_GetCurrentFrame(HCD_HandleTypeDef *hhcd);
 uint32_t                HAL_HCD_GetCurrentSpeed(HCD_HandleTypeDef *hhcd);
 
-
+#if defined (USB_DRD_FS)
 /* PMA Allocation functions  **********************************************/
 /** @addtogroup PMA Allocation
   * @{
@@ -333,7 +360,7 @@ HAL_StatusTypeDef  HAL_HCD_PMAReset(HCD_HandleTypeDef *hhcd);
 /**
   * @}
   */
-
+#endif /* defined (USB_DRD_FS) */
 
 /**
   * @}
@@ -343,7 +370,7 @@ HAL_StatusTypeDef  HAL_HCD_PMAReset(HCD_HandleTypeDef *hhcd);
 /** @defgroup HCD_Private_Macros HCD Private Macros
   * @{
   */
-
+#if defined (USB_DRD_FS)
 #define HCD_MIN(a, b)  (((a) < (b)) ? (a) : (b))
 #define HCD_MAX(a, b)  (((a) > (b)) ? (a) : (b))
 
@@ -577,7 +604,7 @@ __STATIC_INLINE uint16_t HCD_GET_CH_DBUF1_CNT(const HCD_TypeDef *Instance, uint1
 
   return (uint16_t)USB_DRD_GET_CHEP_DBUF1_CNT((Instance), (bChNum));
 }
-
+#endif /* defined (USB_DRD_FS) */
 
 /**
   * @}
@@ -593,7 +620,7 @@ __STATIC_INLINE uint16_t HCD_GET_CH_DBUF1_CNT(const HCD_TypeDef *Instance, uint1
 /**
   * @}
   */
-#endif /* defined (USB_DRD_FS) */
+#endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) || defined (USB_DRD_FS) */
 
 #ifdef __cplusplus
 }

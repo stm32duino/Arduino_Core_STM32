@@ -599,7 +599,7 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_MPCWM_ConfigMemAttributes(uint32_t MemBaseAddres
        * (Parameter already checked)
        */
       size = GTZC_TZSC_MPCWM3_MEM_SIZE;
-      register_address = (uint32_t) &(GTZC_TZSC1->MPCWM3AR);
+      register_address = (uint32_t) &(GTZC_TZSC1->MPCWM3BR);
       break;
 #endif /* (FMC_SDRAM_BANK_1) */
 #if defined(BKPSRAM_BASE)
@@ -617,7 +617,7 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_MPCWM_ConfigMemAttributes(uint32_t MemBaseAddres
        * (Parameter already checked)
        */
       size = GTZC_TZSC_MPCWM4_SDRAM_MEM_SIZE ;
-      register_address = (uint32_t) &(GTZC_TZSC1->MPCWM4AR);
+      register_address = (uint32_t) &(GTZC_TZSC1->MPCWM4BR);
       break;
 #endif /* (FMC_SDRAM_BANK_2) */
     default:
@@ -697,7 +697,7 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_MPCWM_GetConfigMemAttributes(uint32_t MemBaseAdd
 #endif /* defined(FMC_BANK3) */
 #if defined(FMC_SDRAM_BANK_1)
     case FMC_SDRAM_BANK_1:
-      register_address = (uint32_t) &(GTZC_TZSC1->MPCWM3AR);
+      register_address = (uint32_t) &(GTZC_TZSC1->MPCWM3BR);
       break;
 #endif /* (FMC_SDRAM_BANK_1) */
 #if defined(BKPSRAM_BASE)
@@ -707,7 +707,7 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_MPCWM_GetConfigMemAttributes(uint32_t MemBaseAdd
 #endif /* (BKPSRAM_BASE) */
 #if defined(FMC_SDRAM_BANK_2)
     case FMC_SDRAM_BANK_2:
-      register_address = (uint32_t) &(GTZC_TZSC1->MPCWM4AR);
+      register_address = (uint32_t) &(GTZC_TZSC1->MPCWM4BR);
       break;
 #endif /* (FMC_SDRAM_BANK_2) */
     default:

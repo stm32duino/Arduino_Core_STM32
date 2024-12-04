@@ -867,6 +867,7 @@ void              HAL_FLASHEx_OBGetConfig(FLASH_OBProgramInitTypeDef *pOBInit);
 HAL_StatusTypeDef HAL_FLASHEx_OBK_Unlock(void);
 HAL_StatusTypeDef HAL_FLASHEx_OBK_Lock(void);
 HAL_StatusTypeDef HAL_FLASHEx_OBK_Swap(uint32_t SwapOffset);
+HAL_StatusTypeDef HAL_FLASHEx_OBK_Swap_IT(uint32_t SwapOffset);
 #endif /* FLASH_SR_OBKERR */
 void              HAL_FLASHEx_GetOperation(FLASH_OperationTypeDef *pFlashOperation);
 /**

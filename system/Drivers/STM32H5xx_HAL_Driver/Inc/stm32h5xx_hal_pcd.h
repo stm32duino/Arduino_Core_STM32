@@ -27,7 +27,7 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "stm32h5xx_ll_usb.h"
 
-#if defined (USB_DRD_FS)
+#if defined (USB_OTG_FS) || defined (USB_OTG_HS) || defined (USB_DRD_FS)
 
 /** @addtogroup STM32H5xx_HAL_Driver
   * @{
@@ -80,9 +80,16 @@ typedef enum
 
 } PCD_BCD_MsgTypeDef;
 
+#if defined (USB_OTG_FS) || defined (USB_OTG_HS)
+typedef USB_OTG_GlobalTypeDef  PCD_TypeDef;
+typedef USB_OTG_CfgTypeDef     PCD_InitTypeDef;
+typedef USB_OTG_EPTypeDef      PCD_EPTypeDef;
+#endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
+#if defined (USB_DRD_FS)
 typedef USB_DRD_TypeDef        PCD_TypeDef;
 typedef USB_DRD_CfgTypeDef     PCD_InitTypeDef;
 typedef USB_DRD_EPTypeDef      PCD_EPTypeDef;
+#endif /* defined (USB_DRD_FS) */
 
 /**
   * @brief  PCD Handle Structure definition
@@ -96,14 +103,21 @@ typedef struct
   PCD_TypeDef             *Instance;   /*!< Register base address             */
   PCD_InitTypeDef         Init;        /*!< PCD required parameters           */
   __IO uint8_t            USB_Address; /*!< USB Address                       */
+#if defined (USB_OTG_FS) || defined (USB_OTG_HS)
+  PCD_EPTypeDef           IN_ep[16];   /*!< IN endpoint parameters            */
+  PCD_EPTypeDef           OUT_ep[16];  /*!< OUT endpoint parameters           */
+#endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
+#if defined (USB_DRD_FS)
   PCD_EPTypeDef           IN_ep[8];    /*!< IN endpoint parameters            */
   PCD_EPTypeDef           OUT_ep[8];   /*!< OUT endpoint parameters           */
+#endif /* defined (USB_DRD_FS) */
   HAL_LockTypeDef         Lock;        /*!< PCD peripheral status             */
   __IO PCD_StateTypeDef   State;       /*!< PCD communication state           */
   __IO  uint32_t          ErrorCode;   /*!< PCD Error code                    */
   uint32_t                Setup[12];   /*!< Setup packet buffer               */
   PCD_LPM_StateTypeDef    LPM_State;   /*!< LPM State                         */
   uint32_t                BESL;
+  uint32_t                FrameNumber; /*!< Store Current Frame number        */
 
 
   uint32_t lpm_active;                 /*!< Enable or disable the Link Power Management .
@@ -149,6 +163,8 @@ typedef struct
 /** @defgroup PCD_Speed PCD Speed
   * @{
   */
+#define PCD_SPEED_HIGH               USBD_HS_SPEED
+#define PCD_SPEED_HIGH_IN_FULL       USBD_HSINFS_SPEED
 #define PCD_SPEED_FULL               USBD_FS_SPEED
 /**
   * @}
@@ -191,13 +207,25 @@ typedef struct
 #define __HAL_PCD_GET_FLAG(__HANDLE__, __INTERRUPT__) \
   ((USB_ReadInterrupts((__HANDLE__)->Instance) & (__INTERRUPT__)) == (__INTERRUPT__))
 
+#if defined (USB_OTG_FS) || defined (USB_OTG_HS)
+#define __HAL_PCD_CLEAR_FLAG(__HANDLE__, __INTERRUPT__)    (((__HANDLE__)->Instance->GINTSTS) &= (__INTERRUPT__))
+#define __HAL_PCD_IS_INVALID_INTERRUPT(__HANDLE__)         (USB_ReadInterrupts((__HANDLE__)->Instance) == 0U)
 
+#define __HAL_PCD_UNGATE_PHYCLOCK(__HANDLE__) \
+  *(__IO uint32_t *)((uint32_t)((__HANDLE__)->Instance) + USB_OTG_PCGCCTL_BASE) &= ~(USB_OTG_PCGCCTL_STOPCLK)
+
+#define __HAL_PCD_GATE_PHYCLOCK(__HANDLE__) \
+  *(__IO uint32_t *)((uint32_t)((__HANDLE__)->Instance) + USB_OTG_PCGCCTL_BASE) |= USB_OTG_PCGCCTL_STOPCLK
+
+#define __HAL_PCD_IS_PHY_SUSPENDED(__HANDLE__) \
+  ((*(__IO uint32_t *)((uint32_t)((__HANDLE__)->Instance) + USB_OTG_PCGCCTL_BASE)) & 0x10U)
+
+#endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
+
+#if defined (USB_DRD_FS)
 #define __HAL_PCD_CLEAR_FLAG(__HANDLE__, __INTERRUPT__)           (((__HANDLE__)->Instance->ISTR)\
                                                                    &= (uint16_t)(~(__INTERRUPT__)))
-
-#define __HAL_USB_WAKEUP_EXTI_ENABLE_IT()                         EXTI->IMR2 |= USB_WAKEUP_EXTI_LINE
-#define __HAL_USB_WAKEUP_EXTI_DISABLE_IT()                        EXTI->IMR2 &= ~(USB_WAKEUP_EXTI_LINE)
-
+#endif /* defined (USB_DRD_FS) */
 
 /**
   * @}
@@ -334,6 +362,10 @@ HAL_StatusTypeDef HAL_PCD_EP_Flush(PCD_HandleTypeDef *hpcd, uint8_t ep_addr);
 HAL_StatusTypeDef HAL_PCD_EP_Abort(PCD_HandleTypeDef *hpcd, uint8_t ep_addr);
 HAL_StatusTypeDef HAL_PCD_ActivateRemoteWakeup(PCD_HandleTypeDef *hpcd);
 HAL_StatusTypeDef HAL_PCD_DeActivateRemoteWakeup(PCD_HandleTypeDef *hpcd);
+#if defined (USB_OTG_FS) || defined (USB_OTG_HS)
+HAL_StatusTypeDef HAL_PCD_SetTestMode(const PCD_HandleTypeDef *hpcd, uint8_t testmode);
+#endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
+
 uint32_t          HAL_PCD_EP_GetRxCount(PCD_HandleTypeDef const *hpcd, uint8_t ep_addr);
 /**
   * @}
@@ -359,15 +391,19 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef const *hpcd);
 /** @defgroup USB_EXTI_Line_Interrupt USB EXTI line interrupt
   * @{
   */
+#if defined (USB_OTG_FS) || defined (USB_OTG_HS)
+#define USB_OTG_FS_WAKEUP_EXTI_LINE                                   (0x1U << 15)  /*!< USB FS EXTI Line WakeUp Interrupt */
+#define USB_OTG_HS_WAKEUP_EXTI_LINE                                   (0x1U << 28)  /*!< USB HS EXTI Line WakeUp Interrupt */
+#endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 
-
+#if defined (USB_DRD_FS)
 #define USB_WAKEUP_EXTI_LINE                                          (0x1U << 15)  /*!< USB FS EXTI Line WakeUp Interrupt */
-
+#endif /* defined (USB_DRD_FS) */
 
 /**
   * @}
   */
-
+#if defined (USB_DRD_FS)
 /** @defgroup PCD_EP0_MPS PCD EP0 MPS
   * @{
   */
@@ -402,16 +438,42 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef const *hpcd);
 /**
   * @}
   */
-
+#endif /* defined (USB_DRD_FS) */
 /**
   * @}
   */
+
+#if defined (USB_OTG_FS) || defined (USB_OTG_HS)
+#ifndef USB_OTG_DOEPINT_OTEPSPR
+#define USB_OTG_DOEPINT_OTEPSPR                (0x1UL << 5)      /*!< Status Phase Received interrupt */
+#endif /* defined USB_OTG_DOEPINT_OTEPSPR */
+
+#ifndef USB_OTG_DOEPMSK_OTEPSPRM
+#define USB_OTG_DOEPMSK_OTEPSPRM               (0x1UL << 5)      /*!< Setup Packet Received interrupt mask */
+#endif /* defined USB_OTG_DOEPMSK_OTEPSPRM */
+
+#ifndef USB_OTG_DOEPINT_NAK
+#define USB_OTG_DOEPINT_NAK                    (0x1UL << 13)      /*!< NAK interrupt */
+#endif /* defined USB_OTG_DOEPINT_NAK */
+
+#ifndef USB_OTG_DOEPMSK_NAKM
+#define USB_OTG_DOEPMSK_NAKM                   (0x1UL << 13)      /*!< OUT Packet NAK interrupt mask */
+#endif /* defined USB_OTG_DOEPMSK_NAKM */
+
+#ifndef USB_OTG_DOEPINT_STPKTRX
+#define USB_OTG_DOEPINT_STPKTRX                (0x1UL << 15)      /*!< Setup Packet Received interrupt */
+#endif /* defined USB_OTG_DOEPINT_STPKTRX */
+
+#ifndef USB_OTG_DOEPMSK_NYETM
+#define USB_OTG_DOEPMSK_NYETM                  (0x1UL << 14)      /*!< Setup Packet Received interrupt mask */
+#endif /* defined USB_OTG_DOEPMSK_NYETM */
+#endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 
 /* Private macros ------------------------------------------------------------*/
 /** @defgroup PCD_Private_Macros PCD Private Macros
   * @{
   */
-
+#if defined (USB_DRD_FS)
 /* PMA RX counter */
 #ifndef PCD_RX_PMA_CNT
 #define PCD_RX_PMA_CNT                                               10U
@@ -607,20 +669,20 @@ __STATIC_INLINE uint16_t PCD_GET_EP_DBUF1_CNT(const PCD_TypeDef *Instance, uint1
 
   return (uint16_t)USB_DRD_GET_CHEP_DBUF1_CNT((Instance), (bEpNum));
 }
-
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
 #endif /* defined (USB_DRD_FS) */
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
+#endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) || defined (USB_DRD_FS) */
 
 #ifdef __cplusplus
 }

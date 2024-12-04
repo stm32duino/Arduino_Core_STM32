@@ -193,21 +193,6 @@ typedef struct
 #if defined(EXTI_IMR2_IM58)
 #define LL_EXTI_LINE_58                EXTI_IMR2_IM58          /*!< Extended line 58 */
 #endif /* EXTI_IMR2_IM58 */
-#if defined(EXTI_IMR2_IM59)
-#define LL_EXTI_LINE_59                EXTI_IMR2_IM59          /*!< Extended line 59 */
-#endif /* EXTI_IMR2_IM59 */
-#if defined(EXTI_IMR2_IM60)
-#define LL_EXTI_LINE_60                EXTI_IMR2_IM60          /*!< Extended line 60 */
-#endif /* EXTI_IMR2_IM60 */
-#if defined(EXTI_IMR2_IM61)
-#define LL_EXTI_LINE_61                EXTI_IMR2_IM61          /*!< Extended line 61 */
-#endif /* EXTI_IMR2_IM61 */
-#if defined(EXTI_IMR2_IM62)
-#define LL_EXTI_LINE_62                EXTI_IMR2_IM62          /*!< Extended line 62 */
-#endif /* EXTI_IMR2_IM62 */
-#if defined(EXTI_IMR2_IM63)
-#define LL_EXTI_LINE_63                EXTI_IMR2_IM63          /*!< Extended line 63 */
-#endif /* EXTI_IMR2_IM63 */
 #define LL_EXTI_LINE_ALL_32_63         EXTI_IMR2_IM            /*!< ALL Extended lines */
 
 #define LL_EXTI_LINE_ALL               (0xFFFFFFFFU)           /*!< All Extended line */
@@ -928,7 +913,6 @@ __STATIC_INLINE void LL_EXTI_EnableRisingTrig_0_31(uint32_t ExtiLine)
   * @rmtoll RTSR2        RTx           LL_EXTI_EnableRisingTrig_32_63
   * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_46
-  *         @arg @ref LL_EXTI_LINE_49
   *         @arg @ref LL_EXTI_LINE_50
   *         @arg @ref LL_EXTI_LINE_53
   * @note   Please check each device line mapping for EXTI Line availability
@@ -988,7 +972,6 @@ __STATIC_INLINE void LL_EXTI_DisableRisingTrig_0_31(uint32_t ExtiLine)
   * @rmtoll RTSR2        RTx           LL_EXTI_DisableRisingTrig_32_63
   * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_46
-  *         @arg @ref LL_EXTI_LINE_49
   *         @arg @ref LL_EXTI_LINE_50
   *         @arg @ref LL_EXTI_LINE_53
   *
@@ -1036,7 +1019,6 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledRisingTrig_0_31(uint32_t ExtiLine)
   * @rmtoll RTSR2        RTx           LL_EXTI_IsEnabledRisingTrig_32_63
   * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_46
-  *         @arg @ref LL_EXTI_LINE_49
   *         @arg @ref LL_EXTI_LINE_50
   *         @arg @ref LL_EXTI_LINE_53
   *
@@ -1211,6 +1193,7 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledFallingTrig_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_50
   *         @arg @ref LL_EXTI_LINE_53
   *
+  * (*)  : Not available for all stm32h5xxxx family lines.
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
@@ -1429,6 +1412,7 @@ __STATIC_INLINE void LL_EXTI_ClearFallingFlag_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_50
   *         @arg @ref LL_EXTI_LINE_53
   *
+  * (*)  : Not available for all stm32h5xxxx family lines.
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
@@ -1478,6 +1462,7 @@ __STATIC_INLINE uint32_t LL_EXTI_IsActiveRisingFlag_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_50
   *         @arg @ref LL_EXTI_LINE_53
   *
+  * (*)  : Not available for all stm32h5xxxx family lines.
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
@@ -1619,8 +1604,6 @@ __STATIC_INLINE void LL_EXTI_ClearRisingFlag_32_63(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_EXTI_PORTG (*)
   *         @arg @ref LL_EXTI_EXTI_PORTH
   *         @arg @ref LL_EXTI_EXTI_PORTI (*)
-  *         @arg @ref LL_EXTI_EXTI_PORTJ (*)
-  *         @arg @ref LL_EXTI_EXTI_PORTK (*)
   *
   *         (*) value not defined in all devices
   * @param  Line This parameter can be one of the following values:
@@ -1693,8 +1676,6 @@ __STATIC_INLINE void LL_EXTI_SetEXTISource(uint32_t Port, uint32_t Line)
   *         @arg @ref LL_EXTI_EXTI_PORTG (*)
   *         @arg @ref LL_EXTI_EXTI_PORTH
   *         @arg @ref LL_EXTI_EXTI_PORTI (*)
-  *         @arg @ref LL_EXTI_EXTI_PORTJ (*)
-  *         @arg @ref LL_EXTI_EXTI_PORTK (*)
   *
   *         (*) value not defined in all devices
   */
@@ -2053,6 +2034,7 @@ __STATIC_INLINE void LL_EXTI_EnablePrivilege_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_56
   *         @arg @ref LL_EXTI_LINE_57
   *         @arg @ref LL_EXTI_LINE_58
+  *         @arg @ref LL_EXTI_LINE_63
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None

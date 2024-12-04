@@ -234,7 +234,7 @@ typedef enum
 /** @} */ /* End of group Configuration_of_CMSIS */
 
 
-#include <core_cm33.h>                       /*!< ARM Cortex-M33 processor and core peripherals */
+#include "core_cm33.h"                       /*!< ARM Cortex-M33 processor and core peripherals */
 #include "system_stm32h5xx.h"                /*!< STM32H5xx System */
 
 

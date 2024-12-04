@@ -505,6 +505,11 @@ HAL_StatusTypeDef HAL_I2S_DMAPause(I2S_HandleTypeDef *hi2s);
 HAL_StatusTypeDef HAL_I2S_DMAResume(I2S_HandleTypeDef *hi2s);
 HAL_StatusTypeDef HAL_I2S_DMAStop(I2S_HandleTypeDef *hi2s);
 
+/* IO Swap feature */
+HAL_StatusTypeDef HAL_I2S_EnableIOSwap(I2S_HandleTypeDef *hi2s);
+HAL_StatusTypeDef HAL_I2S_DisableIOSwap(I2S_HandleTypeDef *hi2s);
+uint32_t          HAL_I2S_IsEnabledIOSwap(const I2S_HandleTypeDef *hi2s);
+
 /* Callbacks used in non blocking modes (Interrupt and DMA) *******************/
 void HAL_I2S_TxHalfCpltCallback(I2S_HandleTypeDef *hi2s);
 void HAL_I2S_TxCpltCallback(I2S_HandleTypeDef *hi2s);
