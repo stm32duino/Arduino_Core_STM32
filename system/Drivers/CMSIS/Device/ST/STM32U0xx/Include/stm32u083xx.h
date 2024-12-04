@@ -809,6 +809,10 @@ typedef struct
 #define UID_BASE              (0x1FFF6E50UL)        /*!< Unique device ID register base address */
 #define FLASHSIZE_BASE        (0x1FFF6EA0UL)        /*!< Flash size data register base address  */
 
+/*!< Bootloader Firmware */
+/************ Bootloader Exit Secure Memory Firmware *************/
+#define BL_EXIT_SEC_MEM_BASE    (0x1FFF6000UL)
+
 /**
   * @}
   */

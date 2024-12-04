@@ -40,11 +40,45 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section2" checked aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true">V1.1.0 / 05-June-2024</label>
+<input type="checkbox" id="collapse-section3" checked aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true">V1.2.0 / 30-October-2024</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
-<p>Maintenance release of <strong>HAL</strong> and <strong>LL</strong> drivers for <strong>STM32U083 / STM32U073 / STM32U031</strong> devices</p>
+<p>Second maintenance release of <strong>HAL</strong> and <strong>LL</strong> drivers for <strong>STM32U083 / STM32U073 / STM32U031</strong> devices</p>
 <h2 id="contents">Contents</h2>
+<p>HAL and LL driver second maintenance release</p>
+<ul>
+<li><strong>HAL</strong> drivers:
+<ul>
+<li>HAL UART driver:
+<ul>
+<li>Fix DMA Rx abort procedure impact on ongoing UART Tx transfer in polling mode.</li>
+</ul></li>
+<li>HAL RCC driver:
+<ul>
+<li>Minors implementation enhancements.</li>
+</ul></li>
+<li>LL UTILS driver:
+<ul>
+<li>Add LL_SetFlashLatency API based on a call of UTILS_SetFlashLatency.</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="backward-compatibility">Backward Compatibility</h2>
+<ul>
+<li>Not applicable</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true">V1.1.0 / 05-June-2024</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<p>Maintenance release of <strong>HAL</strong> and <strong>LL</strong> drivers for <strong>STM32U083 / STM32U073 / STM32U031</strong> devices</p>
+<h2 id="contents-1">Contents</h2>
 <p>HAL and LL driver maintenance release</p>
 <ul>
 <li><strong>HAL</strong> drivers:
@@ -67,11 +101,11 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations">Known Limitations</h2>
+<h2 id="known-limitations-1">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility">Backward Compatibility</h2>
+<h2 id="backward-compatibility-1">Backward Compatibility</h2>
 <ul>
 <li>Not applicable</li>
 </ul>
@@ -80,19 +114,19 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" checked aria-hidden="true">V1.0.0 / 12-February-2024</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <p>First official release of <strong>HAL</strong> and <strong>LL</strong> drivers for <strong>STM32U083 / STM32U073 / STM32U031</strong> devices</p>
-<h2 id="contents-1">Contents</h2>
+<h2 id="contents-2">Contents</h2>
 <p>HAL and LL driver beta version for all peripherals</p>
 <ul>
 <li><p><strong>HAL</strong>: ADC, CORTEX, COMP, CRC, CRYP, DAC, DMA, EXTI, GPIO, I2C, I2S, IRDA, IWDG, LPTIM, OPAMP, LTDC, PCD, PWR, RCC, RNG, RTC, SMARTCARD, SPI, TIM, UART, USART, WWDG</p></li>
 <li><p><strong>LL</strong>: ADC, COMP, CRC, CRS, DAC, DMA, EXTI, GPIO, I2C, LPTIM, LPUART, OPAMP, PWR, RCC, RNG, RTC, SPI, TIM, USART, USB, UTILS</p></li>
 </ul>
-<h2 id="known-limitations-1">Known Limitations</h2>
+<h2 id="known-limitations-2">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility-1">Backward Compatibility</h2>
+<h2 id="backward-compatibility-2">Backward Compatibility</h2>
 <ul>
 <li>Not applicable</li>
 </ul>

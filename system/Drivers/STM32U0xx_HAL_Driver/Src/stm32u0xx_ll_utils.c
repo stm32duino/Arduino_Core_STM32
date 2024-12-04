@@ -558,6 +558,11 @@ static ErrorStatus UTILS_SetFlashLatency(uint32_t HCLK_Frequency)
   return status;
 }
 
+ErrorStatus LL_SetFlashLatency(uint32_t HCLK_Frequency)
+{
+  return UTILS_SetFlashLatency(HCLK_Frequency);
+}
+
 /**
   * @brief  Function to check that PLL can be modified
   * @param  PLL_InputFrequency  PLL input frequency (in Hz)

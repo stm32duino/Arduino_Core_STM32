@@ -53,26 +53,26 @@ typedef enum
   */
 typedef struct
 {
-  uint32_t dev_endpoints;           /*!< Device Endpoints number.
+  uint8_t dev_endpoints;            /*!< Device Endpoints number.
                                          This parameter depends on the used USB core.
                                          This parameter must be a number between Min_Data = 1 and Max_Data = 15 */
 
-  uint32_t speed;                   /*!< USB Core speed.
-                                         This parameter can be any value of @ref PCD_Speed/HCD_Speed
-                                                                                 (HCD_SPEED_xxx, HCD_SPEED_xxx) */
+  uint8_t speed;                   /*!< USB Core speed.
+                                        This parameter can be any value of @ref PCD_Speed/HCD_Speed
+                                                                                (HCD_SPEED_xxx, HCD_SPEED_xxx) */
 
-  uint32_t ep0_mps;                 /*!< Set the Endpoint 0 Max Packet size.                                    */
+  uint8_t ep0_mps;                 /*!< Set the Endpoint 0 Max Packet size.                                    */
 
-  uint32_t phy_itface;              /*!< Select the used PHY interface.
-                                         This parameter can be any value of @ref PCD_PHY_Module/HCD_PHY_Module  */
+  uint8_t phy_itface;              /*!< Select the used PHY interface.
+                                        This parameter can be any value of @ref PCD_PHY_Module/HCD_PHY_Module  */
 
-  uint32_t Sof_enable;              /*!< Enable or disable the output of the SOF signal.                        */
+  uint8_t Sof_enable;              /*!< Enable or disable the output of the SOF signal.                        */
 
-  uint32_t low_power_enable;        /*!< Enable or disable the low Power Mode.                                  */
+  uint8_t low_power_enable;        /*!< Enable or disable the low Power Mode.                                  */
 
-  uint32_t lpm_enable;              /*!< Enable or disable Link Power Management.                               */
+  uint8_t lpm_enable;              /*!< Enable or disable Link Power Management.                               */
 
-  uint32_t battery_charging_enable; /*!< Enable or disable Battery charging.                                    */
+  uint8_t battery_charging_enable; /*!< Enable or disable Battery charging.                                    */
 } USB_CfgTypeDef;
 
 typedef struct
@@ -526,20 +526,17 @@ typedef USB_EPTypeDef      USB_DRD_EPTypeDef;
     \
     (pdwReg) &= ~(USB_CNTRX_BLSIZE | USB_CNTRX_NBLK_MSK); \
     \
-    if ((wCount) > 62U) \
+    if ((wCount) == 0U) \
     { \
-      USB_DRD_CALC_BLK32((pdwReg), (wCount), wNBlocks); \
+      (pdwReg) |= USB_CNTRX_BLSIZE; \
+    } \
+    else if ((wCount) <= 62U) \
+    { \
+      USB_DRD_CALC_BLK2((pdwReg), (wCount), wNBlocks); \
     } \
     else \
     { \
-      if ((wCount) == 0U) \
-      { \
-        (pdwReg) |= USB_CNTRX_BLSIZE; \
-      } \
-      else \
-      { \
-        USB_DRD_CALC_BLK2((pdwReg), (wCount), wNBlocks); \
-      } \
+      USB_DRD_CALC_BLK32((pdwReg), (wCount), wNBlocks); \
     } \
   } while(0) /* USB_DRD_SET_CHEP_CNT_RX_REG */
 
