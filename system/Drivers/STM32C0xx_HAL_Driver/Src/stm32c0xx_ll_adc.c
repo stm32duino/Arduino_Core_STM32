@@ -248,7 +248,7 @@ ErrorStatus LL_ADC_CommonDeInit(const ADC_Common_TypeDef *ADCxy_COMMON)
   *          - SUCCESS: ADC common registers are initialized
   *          - ERROR: ADC common registers are not initialized
   */
-ErrorStatus LL_ADC_CommonInit(ADC_Common_TypeDef *ADCxy_COMMON, LL_ADC_CommonInitTypeDef *ADC_CommonInitStruct)
+ErrorStatus LL_ADC_CommonInit(ADC_Common_TypeDef *ADCxy_COMMON, const LL_ADC_CommonInitTypeDef *ADC_CommonInitStruct)
 {
   ErrorStatus status = SUCCESS;
 
@@ -519,7 +519,7 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *ADCx)
   *          - SUCCESS: ADC registers are initialized
   *          - ERROR: ADC registers are not initialized
   */
-ErrorStatus LL_ADC_Init(ADC_TypeDef *ADCx, LL_ADC_InitTypeDef *ADC_InitStruct)
+ErrorStatus LL_ADC_Init(ADC_TypeDef *ADCx, const LL_ADC_InitTypeDef *ADC_InitStruct)
 {
   ErrorStatus status = SUCCESS;
 
@@ -623,7 +623,7 @@ void LL_ADC_StructInit(LL_ADC_InitTypeDef *ADC_InitStruct)
   *          - SUCCESS: ADC registers are initialized
   *          - ERROR: ADC registers are not initialized
   */
-ErrorStatus LL_ADC_REG_Init(ADC_TypeDef *ADCx, LL_ADC_REG_InitTypeDef *ADC_REG_InitStruct)
+ErrorStatus LL_ADC_REG_Init(ADC_TypeDef *ADCx, const LL_ADC_REG_InitTypeDef *ADC_REG_InitStruct)
 {
   ErrorStatus status = SUCCESS;
 

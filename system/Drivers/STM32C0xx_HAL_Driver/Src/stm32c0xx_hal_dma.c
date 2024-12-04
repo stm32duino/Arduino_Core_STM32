@@ -943,7 +943,7 @@ HAL_StatusTypeDef HAL_DMA_UnRegisterCallback(DMA_HandleTypeDef *hdma, HAL_DMA_Ca
   *               the configuration information for the specified DMA Channel.
   * @retval HAL state
   */
-HAL_DMA_StateTypeDef HAL_DMA_GetState(DMA_HandleTypeDef *hdma)
+HAL_DMA_StateTypeDef HAL_DMA_GetState(const DMA_HandleTypeDef *hdma)
 {
   /* Return DMA handle state */
   return hdma->State;
@@ -955,7 +955,7 @@ HAL_DMA_StateTypeDef HAL_DMA_GetState(DMA_HandleTypeDef *hdma)
   *              the configuration information for the specified DMA Channel.
   * @retval DMA Error Code
   */
-uint32_t HAL_DMA_GetError(DMA_HandleTypeDef *hdma)
+uint32_t HAL_DMA_GetError(const DMA_HandleTypeDef *hdma)
 {
   return hdma->ErrorCode;
 }

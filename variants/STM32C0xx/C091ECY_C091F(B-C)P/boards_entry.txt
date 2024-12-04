@@ -1,0 +1,32 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic C091ECYx
+GenC0.menu.pnum.GENERIC_C091ECYX=Generic C091ECYx
+GenC0.menu.pnum.GENERIC_C091ECYX.upload.maximum_size=262144
+GenC0.menu.pnum.GENERIC_C091ECYX.upload.maximum_data_size=36864
+GenC0.menu.pnum.GENERIC_C091ECYX.build.board=GENERIC_C091ECYX
+GenC0.menu.pnum.GENERIC_C091ECYX.build.product_line=STM32C091xx
+GenC0.menu.pnum.GENERIC_C091ECYX.build.variant=STM32C0xx/C091ECY_C091F(B-C)P
+GenC0.menu.pnum.GENERIC_C091ECYX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C091.svd
+
+# Generic C091FBPx
+GenC0.menu.pnum.GENERIC_C091FBPX=Generic C091FBPx
+GenC0.menu.pnum.GENERIC_C091FBPX.upload.maximum_size=131072
+GenC0.menu.pnum.GENERIC_C091FBPX.upload.maximum_data_size=36864
+GenC0.menu.pnum.GENERIC_C091FBPX.build.board=GENERIC_C091FBPX
+GenC0.menu.pnum.GENERIC_C091FBPX.build.product_line=STM32C091xx
+GenC0.menu.pnum.GENERIC_C091FBPX.build.variant=STM32C0xx/C091ECY_C091F(B-C)P
+GenC0.menu.pnum.GENERIC_C091FBPX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C091.svd
+
+# Generic C091FCPx
+GenC0.menu.pnum.GENERIC_C091FCPX=Generic C091FCPx
+GenC0.menu.pnum.GENERIC_C091FCPX.upload.maximum_size=262144
+GenC0.menu.pnum.GENERIC_C091FCPX.upload.maximum_data_size=36864
+GenC0.menu.pnum.GENERIC_C091FCPX.build.board=GENERIC_C091FCPX
+GenC0.menu.pnum.GENERIC_C091FCPX.build.product_line=STM32C091xx
+GenC0.menu.pnum.GENERIC_C091FCPX.build.variant=STM32C0xx/C091ECY_C091F(B-C)P
+GenC0.menu.pnum.GENERIC_C091FCPX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C091.svd
+

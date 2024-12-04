@@ -43,11 +43,52 @@ src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
 <section id="update-history" class="col-sm-12 col-lg-8">
 <h1><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section3" checked aria-hidden="true">
-<label for="collapse-section3" checked aria-hidden="true"><strong>V1.2.0
-/ 05-June-2024</strong></label>
+<input type="checkbox" id="collapse-section4" checked aria-hidden="true">
+<label for="collapse-section4" checked aria-hidden="true"><strong>V1.3.0
+/ 30-October-2024</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<ul>
+<li>Official release of STM32C0xx CMSIS drivers to support
+<strong>STM32C051xx</strong> and <strong>STM32C091/92xx</strong>
+devices</li>
+<li>General updates to fix known defects and enhance implementation</li>
+<li>Align version of bit and registers definition with the STM32C0
+reference manual</li>
+</ul>
+<h2 id="contents">Contents</h2>
+<ul>
+<li><strong>Support of STM32C051xx and STM32C091/92xx devices</strong>:
+<ul>
+<li>Add “stm32c051xx.h” , “stm32c091xx.h”, and “stm32c092xx.h”
+files</li>
+<li>Add startup files “startup_stm32c051xx.s”, “startup_stm32c091xx.s”
+and “startup_stm32c092xx.s” for EWARM, STM32CubeIDE and MDK-ARM
+toolchains</li>
+<li>Add STM32C051xx and STM32C091/92xx devices linker files for EWARM
+and STM32CubeIDE toolchains</li>
+</ul></li>
+<li><strong>Registers and bit field definitions updates</strong> :
+<ul>
+<li>Add BL_EXIT_SEC_MEM_BASE Bootloader Exit Secure Memory Firmware
+addresses</li>
+<li>Remove RCC_CR_SYSDIV bit definition from C031xx and C011xx CMSIS
+files as undefined</li>
+</ul></li>
+</ul>
+<h2 id="supported-devices">Supported Devices</h2>
+<ul>
+<li>STM32C011xx, STM32C031xx, <strong>STM32C051xx</strong>, STM32C071xx
+and <strong>STM32C091/92xx</strong> devices</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section3" aria-hidden="true">
+<label for="collapse-section3" aria-hidden="true"><strong>V1.2.0 /
+05-June-2024</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <ul>
 <li>First official release of STM32C0xx CMSIS drivers to support
 <strong>STM32C071xx</strong> devices</li>
@@ -55,7 +96,7 @@ src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
 <li>Align version of bit and registers definition with the STM32C0
 reference manual</li>
 </ul>
-<h2 id="contents">Contents</h2>
+<h2 id="contents-1">Contents</h2>
 <ul>
 <li><strong>Support of STM32C071xx devices</strong>:
 <ul>
@@ -102,7 +143,7 @@ values</li>
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="supported-devices">Supported Devices</h2>
+<h2 id="supported-devices-1">Supported Devices</h2>
 <ul>
 <li>STM32C011xx, STM32C031xx and STM32C071xx devices</li>
 </ul>
@@ -112,14 +153,14 @@ values</li>
 <input type="checkbox" id="collapse-section2" aria-hidden="true">
 <label for="collapse-section2" aria-hidden="true"><strong>V1.1.0 /
 07-June-2023</strong></label>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <p>Align flash register address with STM32C0 reference manual</p>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true">
 <label for="collapse-section1" aria-hidden="true"><strong>V1.0.0 /
 09-February-2022</strong></label>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <p>First official release version of bits and registers definition
 aligned with STM32C0 reference manual</p>
 </div>

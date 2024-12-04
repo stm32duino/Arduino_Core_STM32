@@ -103,7 +103,6 @@ typedef enum
   HAL_DMA_XFER_ERROR_CB_ID         = 0x02U,  /*!< Error            */
   HAL_DMA_XFER_ABORT_CB_ID         = 0x03U,  /*!< Abort            */
   HAL_DMA_XFER_ALL_CB_ID           = 0x04U   /*!< All              */
-
 } HAL_DMA_CallbackIDTypeDef;
 
 /**
@@ -212,6 +211,12 @@ typedef struct __DMA_HandleTypeDef
 #define DMA_REQUEST_TIM3_CH4         35U               /*!< DMAMUX TIM3 CH4 request       */
 #define DMA_REQUEST_TIM3_TRIG        36U               /*!< DMAMUX TIM3 TRIG request      */
 #define DMA_REQUEST_TIM3_UP          37U               /*!< DMAMUX TIM3 UP request        */
+#if defined(TIM15)
+#define DMA_REQUEST_TIM15_CH1        40U               /*!< DMAMUX TIM15 CH1 request      */
+#define DMA_REQUEST_TIM15_CH2        41U               /*!< DMAMUX TIM15 CH2 request      */
+#define DMA_REQUEST_TIM15_TRIG_COM   42U               /*!< DMAMUX TIM15 TRIG COM request */
+#define DMA_REQUEST_TIM15_UP         43U               /*!< DMAMUX TIM15 UP request       */
+#endif /* TIM15 */
 #define DMA_REQUEST_TIM16_CH1        44U               /*!< DMAMUX TIM16 CH1 request      */
 #define DMA_REQUEST_TIM16_TRIG_COM   45U               /*!< DMAMUX TIM16 TRIG COM request */
 #define DMA_REQUEST_TIM16_UP         46U               /*!< DMAMUX TIM16 UP request       */
@@ -222,6 +227,14 @@ typedef struct __DMA_HandleTypeDef
 #define DMA_REQUEST_USART1_TX        51U               /*!< DMAMUX USART1 TX request      */
 #define DMA_REQUEST_USART2_RX        52U               /*!< DMAMUX USART2 RX request      */
 #define DMA_REQUEST_USART2_TX        53U               /*!< DMAMUX USART2 TX request      */
+#if defined(USART3)
+#define DMA_REQUEST_USART3_RX        54U               /*!< DMAMUX USART3 RX request      */
+#define DMA_REQUEST_USART3_TX        55U               /*!< DMAMUX USART3 TX request      */
+#endif /* USART3 */
+#if defined(USART4)
+#define DMA_REQUEST_USART4_RX        56U               /*!< DMAMUX USART4 RX request      */
+#define DMA_REQUEST_USART4_TX        57U               /*!< DMAMUX USART4 TX request      */
+#endif /* USART4 */
 /**
   * @}
   */
@@ -333,7 +346,18 @@ typedef struct __DMA_HandleTypeDef
 #define DMA_FLAG_HT5                 DMA_ISR_HTIF5
 #define DMA_FLAG_TE5                 DMA_ISR_TEIF5
 #endif  /* DMA1_Channel5 */
-
+#if defined(DMA1_Channel6)
+#define DMA_FLAG_GI6                 DMA_ISR_GIF6
+#define DMA_FLAG_TC6                 DMA_ISR_TCIF6
+#define DMA_FLAG_HT6                 DMA_ISR_HTIF6
+#define DMA_FLAG_TE6                 DMA_ISR_TEIF6
+#endif  /* DMA1_Channel6 */
+#if defined(DMA1_Channel7)
+#define DMA_FLAG_GI7                 DMA_ISR_GIF7
+#define DMA_FLAG_TC7                 DMA_ISR_TCIF7
+#define DMA_FLAG_HT7                 DMA_ISR_HTIF7
+#define DMA_FLAG_TE7                 DMA_ISR_TEIF7
+#endif  /* DMA1_Channel7 */
 /**
   * @}
   */
@@ -374,7 +398,16 @@ typedef struct __DMA_HandleTypeDef
   * @param __HANDLE__ DMA handle
   * @retval The specified transfer complete flag index.
   */
-#if defined(DMA1_Channel5)
+#if defined(DMA1_Channel7)
+#define __HAL_DMA_GET_TC_FLAG_INDEX(__HANDLE__) \
+  (((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel1))? DMA_FLAG_TC1 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel2))? DMA_FLAG_TC2 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel3))? DMA_FLAG_TC3 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel4))? DMA_FLAG_TC4 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel5))? DMA_FLAG_TC5 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel6))? DMA_FLAG_TC6 :\
+   DMA_FLAG_TC7)
+#elif defined(DMA1_Channel5)
 #define __HAL_DMA_GET_TC_FLAG_INDEX(__HANDLE__) \
   (((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel1))? DMA_FLAG_TC1 :\
    ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel2))? DMA_FLAG_TC2 :\
@@ -386,14 +419,23 @@ typedef struct __DMA_HandleTypeDef
   (((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel1))? DMA_FLAG_TC1 :\
    ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel2))? DMA_FLAG_TC2 :\
    DMA_FLAG_TC3)
-#endif  /* DMA1_Channel5 */
+#endif  /* DMA1_Channel7 */
 
 /**
   * @brief  Return the current DMA Channel half transfer complete flag.
   * @param __HANDLE__ DMA handle
   * @retval The specified half transfer complete flag index.
   */
-#if defined(DMA1_Channel5)
+#if defined(DMA1_Channel7)
+#define __HAL_DMA_GET_HT_FLAG_INDEX(__HANDLE__)\
+  (((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel1))? DMA_FLAG_HT1 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel2))? DMA_FLAG_HT2 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel3))? DMA_FLAG_HT3 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel4))? DMA_FLAG_HT4 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel5))? DMA_FLAG_HT5 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel6))? DMA_FLAG_HT6 :\
+   DMA_FLAG_HT7)
+#elif defined(DMA1_Channel5)
 #define __HAL_DMA_GET_HT_FLAG_INDEX(__HANDLE__)\
   (((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel1))? DMA_FLAG_HT1 :\
    ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel2))? DMA_FLAG_HT2 :\
@@ -405,14 +447,23 @@ typedef struct __DMA_HandleTypeDef
   (((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel1))? DMA_FLAG_HT1 :\
    ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel2))? DMA_FLAG_HT2 :\
    DMA_FLAG_HT3)
-#endif  /* DMA1_Channel5 */
+#endif  /* DMA1_Channel7 */
 
 /**
   * @brief  Return the current DMA Channel transfer error flag.
   * @param  __HANDLE__ DMA handle
   * @retval The specified transfer error flag index.
   */
-#if defined(DMA1_Channel5)
+#if defined(DMA1_Channel7)
+#define __HAL_DMA_GET_TE_FLAG_INDEX(__HANDLE__)\
+  (((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel1))? DMA_FLAG_TE1 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel2))? DMA_FLAG_TE2 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel3))? DMA_FLAG_TE3 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel4))? DMA_FLAG_TE4 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel5))? DMA_FLAG_TE5 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel6))? DMA_FLAG_TE6 :\
+   DMA_FLAG_TE7)
+#elif defined(DMA1_Channel5)
 #define __HAL_DMA_GET_TE_FLAG_INDEX(__HANDLE__)\
   (((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel1))? DMA_FLAG_TE1 :\
    ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel2))? DMA_FLAG_TE2 :\
@@ -424,14 +475,23 @@ typedef struct __DMA_HandleTypeDef
   (((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel1))? DMA_FLAG_TE1 :\
    ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel2))? DMA_FLAG_TE2 :\
    DMA_FLAG_TE3)
-#endif  /* DMA1_Channel5 */
+#endif  /* DMA1_Channel7 */
 
 /**
   * @brief  Return the current DMA Channel Global interrupt flag.
   * @param  __HANDLE__ DMA handle
   * @retval The specified transfer error flag index.
   */
-#if defined(DMA1_Channel5)
+#if defined(DMA1_Channel7)
+#define __HAL_DMA_GET_GI_FLAG_INDEX(__HANDLE__)\
+  (((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel1))? DMA_FLAG_GI1 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel2))? DMA_FLAG_GI2 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel3))? DMA_FLAG_GI3 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel4))? DMA_FLAG_GI4 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel5))? DMA_FLAG_GI5 :\
+   ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel6))? DMA_FLAG_GI6 :\
+   DMA_FLAG_GI7)
+#elif defined(DMA1_Channel5)
 #define __HAL_DMA_GET_GI_FLAG_INDEX(__HANDLE__)\
   (((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel1))? DMA_FLAG_GI1 :\
    ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel2))? DMA_FLAG_GI2 :\
@@ -443,7 +503,7 @@ typedef struct __DMA_HandleTypeDef
   (((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel1))? DMA_FLAG_GI1 :\
    ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA1_Channel2))? DMA_FLAG_GI2 :\
    DMA_FLAG_GI3)
-#endif  /* DMA1_Channel5 */
+#endif  /* DMA1_Channel7 */
 
 /**
   * @brief  Get the DMA Channel pending flags.
@@ -454,7 +514,7 @@ typedef struct __DMA_HandleTypeDef
   *            @arg DMA_FLAG_HTIFx:  Half transfer complete flag
   *            @arg DMA_FLAG_TEIFx:  Transfer error flag
   *            @arg DMA_FLAG_GIFx: Global interrupt flag
-  *         Where x can be 1_5 to select the DMA Channel flag.
+  *         Where x can be 1_7 to select the DMA Channel flag.
   * @retval The state of FLAG (SET or RESET).
   */
 #define __HAL_DMA_GET_FLAG(__HANDLE__, __FLAG__)  (DMA1->ISR & (__FLAG__))
@@ -468,7 +528,7 @@ typedef struct __DMA_HandleTypeDef
   *            @arg DMA_FLAG_HTIFx:  Half transfer complete flag
   *            @arg DMA_FLAG_TEIFx:  Transfer error flag
   *            @arg DMA_FLAG_GIFx: Global interrupt flag
-  *         Where x can be 1_5 to select the DMA Channel flag.
+  *         Where x can be 1_7 to select the DMA Channel flag.
   * @retval None
   */
 #define __HAL_DMA_CLEAR_FLAG(__HANDLE__, __FLAG__) (DMA1->IFCR |= (__FLAG__))
@@ -563,8 +623,8 @@ HAL_StatusTypeDef HAL_DMA_UnRegisterCallback(DMA_HandleTypeDef *hdma, HAL_DMA_Ca
   * @{
   */
 /* Peripheral State and Error functions ***************************************/
-HAL_DMA_StateTypeDef HAL_DMA_GetState(DMA_HandleTypeDef *hdma);
-uint32_t             HAL_DMA_GetError(DMA_HandleTypeDef *hdma);
+HAL_DMA_StateTypeDef HAL_DMA_GetState(const DMA_HandleTypeDef *hdma);
+uint32_t             HAL_DMA_GetError(const DMA_HandleTypeDef *hdma);
 /**
   * @}
   */
@@ -589,8 +649,11 @@ uint32_t             HAL_DMA_GetError(DMA_HandleTypeDef *hdma);
 
 #define IS_DMA_MEMORY_INC_STATE(STATE) (((STATE) == DMA_MINC_ENABLE)  || \
                                         ((STATE) == DMA_MINC_DISABLE))
-
+#if defined(USART4)
+#define IS_DMA_ALL_REQUEST(REQUEST) ((REQUEST) <= DMA_REQUEST_USART4_TX)
+#else
 #define IS_DMA_ALL_REQUEST(REQUEST) ((REQUEST) <= DMA_REQUEST_USART2_TX)
+#endif /* USART4 */
 
 #define IS_DMA_PERIPHERAL_DATA_SIZE(SIZE) (((SIZE) == DMA_PDATAALIGN_BYTE)     || \
                                            ((SIZE) == DMA_PDATAALIGN_HALFWORD) || \

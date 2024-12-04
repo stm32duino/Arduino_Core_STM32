@@ -56,10 +56,15 @@
    application
   */
 
-#if !defined (STM32C011xx) && !defined (STM32C031xx) && !defined (STM32C071xx)
+#if !defined (STM32C011xx) && !defined (STM32C031xx) \
+    && !defined (STM32C051xx) && !defined (STM32C071xx) \
+    && !defined (STM32C091xx) && !defined (STM32C092xx)
   /* #define STM32C011xx */   /*!< STM32C011xx Devices */
   /* #define STM32C031xx */   /*!< STM32C031xx Devices */
+  /* #define STM32C051xx */   /*!< STM32C051xx Devices */
   /* #define STM32C071xx */   /*!< STM32C071xx Devices */
+  /* #define STM32C091xx */   /*!< STM32C091xx Devices */
+  /* #define STM32C092xx */   /*!< STM32C092xx Devices */
 #endif
 
 /*  Tip: To avoid modifying this file each time you need to switch between these
@@ -78,7 +83,7 @@
   * @brief CMSIS Device version number V1.0.0
   */
 #define __STM32C0_CMSIS_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32C0_CMSIS_VERSION_SUB1   (0x02U) /*!< [23:16] sub1 version */
+#define __STM32C0_CMSIS_VERSION_SUB1   (0x03U) /*!< [23:16] sub1 version */
 #define __STM32C0_CMSIS_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
 #define __STM32C0_CMSIS_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32C0_CMSIS_VERSION        ((__STM32C0_CMSIS_VERSION_MAIN << 24)\
@@ -98,8 +103,14 @@
   #include "stm32c011xx.h"
 #elif defined(STM32C031xx)
   #include "stm32c031xx.h"
+#elif defined(STM32C051xx)
+  #include "stm32c051xx.h"
 #elif defined(STM32C071xx)
   #include "stm32c071xx.h"
+#elif defined(STM32C091xx)
+  #include "stm32c091xx.h"
+#elif defined(STM32C092xx)
+  #include "stm32c092xx.h"
 #else
  #error "Please select first the target STM32C0xx device used in your application (in stm32c0xx.h file)"
 #endif

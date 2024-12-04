@@ -237,9 +237,9 @@ extern "C" {
   * @retval None
   */
 #define __HAL_RTC_TIMESTAMP_CLEAR_FLAG(__HANDLE__, __FLAG__)     \
-           (((__FLAG__) == RTC_FLAG_TSF) ?                       \
-            (__HAL_RTC_CLEAR_FLAG((__HANDLE__), RTC_CLEAR_TSF)) : \
-            (__HAL_RTC_CLEAR_FLAG((__HANDLE__), RTC_CLEAR_TSOVF)))
+  (((__FLAG__) == RTC_FLAG_TSF) ?                       \
+   (__HAL_RTC_CLEAR_FLAG((__HANDLE__), RTC_CLEAR_TSF)) : \
+   (__HAL_RTC_CLEAR_FLAG((__HANDLE__), RTC_CLEAR_TSOVF)))
 
 /**
   * @brief  Enable interrupt on the RTC Timestamp associated Exti line.

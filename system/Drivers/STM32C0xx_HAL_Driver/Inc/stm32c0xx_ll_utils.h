@@ -117,6 +117,19 @@ extern "C" {
 #define LL_UTILS_PACKAGETYPE_LQFP64_N       0x0008U /*!< UFQFPN64 / LQFP64 general purpose (N) package type  */
 #define LL_UTILS_PACKAGETYPE_UFBGA64_GP     0x000DU /*!< UFBGA64 (GP) package type                           */
 #define LL_UTILS_PACKAGETYPE_UFBGA64_N      0x000EU /*!< UFBGA64 (N) package type                            */
+#elif defined(STM32C051xx)
+#define LL_UTILS_PACKAGETYPE_WLCSP15        0x0001U /*!< WLCSP15 package type           */
+#define LL_UTILS_PACKAGETYPE_TSSOP20        0x0002U /*!< TSSOP20 package type           */
+#define LL_UTILS_PACKAGETYPE_UFQFPN28       0x0003U /*!< UFQFPN28 package type          */
+#define LL_UTILS_PACKAGETYPE_QFN32          0x0004U /*!< UFQFPN32 / LQFP32 package type */
+#define LL_UTILS_PACKAGETYPE_QFN48          0x0005U /*!< UFQFPN48 / LQFP48 package type */
+#elif defined(STM32C091xx) || defined(STM32C092xx)
+#define LL_UTILS_PACKAGETYPE_TSSOP20        0x0001U /*!< TSSOP20 package type           */
+#define LL_UTILS_PACKAGETYPE_WLCSP24        0x0002U /*!< WLCSP24 package type           */
+#define LL_UTILS_PACKAGETYPE_UFQFPN28       0x0003U /*!< UFQFPN28 package type          */
+#define LL_UTILS_PACKAGETYPE_QFN32          0x0004U /*!< UFQFPN32 / LQFP32 package type */
+#define LL_UTILS_PACKAGETYPE_QFN48          0x0005U /*!< UFQFPN48 / LQFP48 package type */
+#define LL_UTILS_PACKAGETYPE_QFN64          0x0006U /*!< UFQFPN64 / LQFP64 package type */
 #endif /* STM32C0xx */
 /**
   * @}
@@ -187,6 +200,7 @@ __STATIC_INLINE uint32_t LL_GetFlashSize(void)
   *         @arg @ref LL_UTILS_PACKAGETYPE_QFN48 (*)
   *         @arg @ref LL_UTILS_PACKAGETYPE_WLCSP19 (*)
   *         @arg @ref LL_UTILS_PACKAGETYPE_WLCSP15 (*)
+  *         @arg @ref LL_UTILS_PACKAGETYPE_WLCSP24 (*)
   *         @arg @ref LL_UTILS_PACKAGETYPE_UFBGA64 (*)
   *         @arg @ref LL_UTILS_PACKAGETYPE_LQFP64 (*)
   *

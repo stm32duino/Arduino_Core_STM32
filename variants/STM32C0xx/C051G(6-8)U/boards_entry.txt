@@ -1,0 +1,23 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic C051G6Ux
+GenC0.menu.pnum.GENERIC_C051G6UX=Generic C051G6Ux
+GenC0.menu.pnum.GENERIC_C051G6UX.upload.maximum_size=32768
+GenC0.menu.pnum.GENERIC_C051G6UX.upload.maximum_data_size=12288
+GenC0.menu.pnum.GENERIC_C051G6UX.build.board=GENERIC_C051G6UX
+GenC0.menu.pnum.GENERIC_C051G6UX.build.product_line=STM32C051xx
+GenC0.menu.pnum.GENERIC_C051G6UX.build.variant=STM32C0xx/C051G(6-8)U
+GenC0.menu.pnum.GENERIC_C051G6UX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C051.svd
+
+# Generic C051G8Ux
+GenC0.menu.pnum.GENERIC_C051G8UX=Generic C051G8Ux
+GenC0.menu.pnum.GENERIC_C051G8UX.upload.maximum_size=65536
+GenC0.menu.pnum.GENERIC_C051G8UX.upload.maximum_data_size=12288
+GenC0.menu.pnum.GENERIC_C051G8UX.build.board=GENERIC_C051G8UX
+GenC0.menu.pnum.GENERIC_C051G8UX.build.product_line=STM32C051xx
+GenC0.menu.pnum.GENERIC_C051G8UX.build.variant=STM32C0xx/C051G(6-8)U
+GenC0.menu.pnum.GENERIC_C051G8UX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C051.svd
+

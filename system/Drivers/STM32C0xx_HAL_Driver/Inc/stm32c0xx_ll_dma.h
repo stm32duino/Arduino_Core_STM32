@@ -55,6 +55,12 @@ static const uint8_t CHANNEL_OFFSET_TAB[] =
 #if defined(DMA1_Channel5_BASE)
   (uint8_t)(DMA1_Channel5_BASE - DMA1_BASE),
 #endif /* DMA1_Channel5_BASE */
+#if defined(DMA1_Channel6_BASE)
+  (uint8_t)(DMA1_Channel6_BASE - DMA1_BASE),
+#endif /* DMA1_Channel6_BASE */
+#if defined(DMA1_Channel7_BASE)
+  (uint8_t)(DMA1_Channel7_BASE - DMA1_BASE),
+#endif /* DMA1_Channel7_BASE */
 };
 /**
   * @}
@@ -187,6 +193,18 @@ typedef struct
 #define LL_DMA_IFCR_CHTIF5                DMA_IFCR_CHTIF5       /*!< Channel 5 half transfer flag     */
 #define LL_DMA_IFCR_CTEIF5                DMA_IFCR_CTEIF5       /*!< Channel 5 transfer error flag    */
 #endif /* DMA1_Channel5 */
+#if defined(DMA1_Channel6)
+#define LL_DMA_IFCR_CGIF6                 DMA_IFCR_CGIF6        /*!< Channel 6 global flag            */
+#define LL_DMA_IFCR_CTCIF6                DMA_IFCR_CTCIF6       /*!< Channel 6 transfer complete flag */
+#define LL_DMA_IFCR_CHTIF6                DMA_IFCR_CHTIF6       /*!< Channel 6 half transfer flag     */
+#define LL_DMA_IFCR_CTEIF6                DMA_IFCR_CTEIF6       /*!< Channel 6 transfer error flag    */
+#endif /* DMA1_Channel6 */
+#if defined(DMA1_Channel7)
+#define LL_DMA_IFCR_CGIF7                 DMA_IFCR_CGIF7        /*!< Channel 7 global flag            */
+#define LL_DMA_IFCR_CTCIF7                DMA_IFCR_CTCIF7       /*!< Channel 7 transfer complete flag */
+#define LL_DMA_IFCR_CHTIF7                DMA_IFCR_CHTIF7       /*!< Channel 7 half transfer flag     */
+#define LL_DMA_IFCR_CTEIF7                DMA_IFCR_CTEIF7       /*!< Channel 7 transfer error flag    */
+#endif /* DMA1_Channel7 */
 
 /**
   * @}
@@ -220,6 +238,18 @@ typedef struct
 #define LL_DMA_ISR_HTIF5                  DMA_ISR_HTIF5         /*!< Channel 5 half transfer flag     */
 #define LL_DMA_ISR_TEIF5                  DMA_ISR_TEIF5         /*!< Channel 5 transfer error flag    */
 #endif /* DMA1_Channel5 */
+#if defined(DMA1_Channel6)
+#define LL_DMA_ISR_GIF6                   DMA_ISR_GIF6          /*!< Channel 6 global flag            */
+#define LL_DMA_ISR_TCIF6                  DMA_ISR_TCIF6         /*!< Channel 6 transfer complete flag */
+#define LL_DMA_ISR_HTIF6                  DMA_ISR_HTIF6         /*!< Channel 6 half transfer flag     */
+#define LL_DMA_ISR_TEIF6                  DMA_ISR_TEIF6         /*!< Channel 6 transfer error flag    */
+#endif /* DMA1_Channel6 */
+#if defined(DMA1_Channel7)
+#define LL_DMA_ISR_GIF7                   DMA_ISR_GIF7          /*!< Channel 7 global flag            */
+#define LL_DMA_ISR_TCIF7                  DMA_ISR_TCIF7         /*!< Channel 7 transfer complete flag */
+#define LL_DMA_ISR_HTIF7                  DMA_ISR_HTIF7         /*!< Channel 7 half transfer flag     */
+#define LL_DMA_ISR_TEIF7                  DMA_ISR_TEIF7         /*!< Channel 7 transfer error flag    */
+#endif /* DMA1_Channel7 */
 /**
   * @}
   */
@@ -247,6 +277,12 @@ typedef struct
 #if defined(DMA1_Channel5)
 #define LL_DMA_CHANNEL_5                  0x00000005U /*!< DMA Channel 5 */
 #endif /* DMA1_Channel5 */
+#if defined(DMA1_Channel6)
+#define LL_DMA_CHANNEL_6                  0x00000006U /*!< DMA Channel 6 */
+#endif /* DMA1_Channel6 */
+#if defined(DMA1_Channel7)
+#define LL_DMA_CHANNEL_7                  0x00000007U /*!< DMA Channel 7 */
+#endif /* DMA1_Channel7 */
 #if defined(USE_FULL_LL_DRIVER)
 #define LL_DMA_CHANNEL_ALL                0xFFFF0000U /*!< DMA Channel all (used only for function
                                                       @ref LL_DMA_DeInit(). */
@@ -370,7 +406,16 @@ typedef struct
   * @param  __CHANNEL_INSTANCE__ DMAx_Channely
   * @retval LL_DMA_CHANNEL_y
   */
-#if defined(LL_DMA_CHANNEL_5)
+#if defined(LL_DMA_CHANNEL_7)
+#define __LL_DMA_GET_CHANNEL(__CHANNEL_INSTANCE__)   \
+  (((uint32_t)(__CHANNEL_INSTANCE__) == ((uint32_t)DMA1_Channel1)) ? LL_DMA_CHANNEL_1 : \
+   ((uint32_t)(__CHANNEL_INSTANCE__) == ((uint32_t)DMA1_Channel2)) ? LL_DMA_CHANNEL_2 : \
+   ((uint32_t)(__CHANNEL_INSTANCE__) == ((uint32_t)DMA1_Channel3)) ? LL_DMA_CHANNEL_3 : \
+   ((uint32_t)(__CHANNEL_INSTANCE__) == ((uint32_t)DMA1_Channel4)) ? LL_DMA_CHANNEL_4 : \
+   ((uint32_t)(__CHANNEL_INSTANCE__) == ((uint32_t)DMA1_Channel5)) ? LL_DMA_CHANNEL_5 : \
+   ((uint32_t)(__CHANNEL_INSTANCE__) == ((uint32_t)DMA1_Channel6)) ? LL_DMA_CHANNEL_6 : \
+   LL_DMA_CHANNEL_7)
+#elif defined(LL_DMA_CHANNEL_5)
 #define __LL_DMA_GET_CHANNEL(__CHANNEL_INSTANCE__)   \
   (((uint32_t)(__CHANNEL_INSTANCE__) == ((uint32_t)DMA1_Channel1)) ? LL_DMA_CHANNEL_1 : \
    ((uint32_t)(__CHANNEL_INSTANCE__) == ((uint32_t)DMA1_Channel2)) ? LL_DMA_CHANNEL_2 : \
@@ -382,7 +427,7 @@ typedef struct
   (((uint32_t)(__CHANNEL_INSTANCE__) == ((uint32_t)DMA1_Channel1)) ? LL_DMA_CHANNEL_1 : \
    ((uint32_t)(__CHANNEL_INSTANCE__) == ((uint32_t)DMA1_Channel2)) ? LL_DMA_CHANNEL_2 : \
    LL_DMA_CHANNEL_3)
-#endif /* LL_DMA_CHANNEL_5 */
+#endif /* LL_DMA_CHANNEL_7 */
 
 /**
   * @brief  Convert DMA Instance DMAx and LL_DMA_CHANNEL_y into DMAx_Channely
@@ -390,19 +435,40 @@ typedef struct
   * @param  __CHANNEL__ LL_DMA_CHANNEL_y
   * @retval DMAx_Channely
   */
-#if defined(LL_DMA_CHANNEL_5)
-#define __LL_DMA_GET_CHANNEL_INSTANCE(__DMA_INSTANCE__, __CHANNEL__)   \
-  ((((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)DMA1)) && ((uint32_t)(__CHANNEL__) == ((uint32_t)LL_DMA_CHANNEL_1))) ? DMA1_Channel1 : \
-   (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)DMA1)) && ((uint32_t)(__CHANNEL__) == ((uint32_t)LL_DMA_CHANNEL_2))) ? DMA1_Channel2 : \
-   (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)DMA1)) && ((uint32_t)(__CHANNEL__) == ((uint32_t)LL_DMA_CHANNEL_3))) ? DMA1_Channel3 : \
-   (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)DMA1)) && ((uint32_t)(__CHANNEL__) == ((uint32_t)LL_DMA_CHANNEL_4))) ? DMA1_Channel4 : \
-   DMA1_Channel5)
+#if defined(LL_DMA_CHANNEL_7)
+#define __LL_DMA_GET_CHANNEL_INSTANCE(__DMA_INSTANCE__, __CHANNEL__)                                       \
+  ((((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)DMA1)) && ((uint32_t)(__CHANNEL__) ==                      \
+                                                          ((uint32_t)LL_DMA_CHANNEL_1))) ? DMA1_Channel1 : \
+   (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)DMA1)) && ((uint32_t)(__CHANNEL__) ==                      \
+                                                          ((uint32_t)LL_DMA_CHANNEL_2))) ? DMA1_Channel2 : \
+   (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)DMA1)) && ((uint32_t)(__CHANNEL__) ==                      \
+                                                          ((uint32_t)LL_DMA_CHANNEL_3))) ? DMA1_Channel3 : \
+   (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)DMA1)) && ((uint32_t)(__CHANNEL__) ==                      \
+                                                          ((uint32_t)LL_DMA_CHANNEL_4))) ? DMA1_Channel4 : \
+   (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)DMA1)) && ((uint32_t)(__CHANNEL__) ==                      \
+                                                          ((uint32_t)LL_DMA_CHANNEL_5))) ? DMA1_Channel5 : \
+   (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)DMA1)) && ((uint32_t)(__CHANNEL__) ==                      \
+                                                          ((uint32_t)LL_DMA_CHANNEL_6))) ? DMA1_Channel6 : \
+                                                                                           DMA1_Channel7)
+#elif defined(LL_DMA_CHANNEL_5)
+#define __LL_DMA_GET_CHANNEL_INSTANCE(__DMA_INSTANCE__, __CHANNEL__)                                       \
+  ((((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)DMA1)) && ((uint32_t)(__CHANNEL__) ==                      \
+                                                          ((uint32_t)LL_DMA_CHANNEL_1))) ? DMA1_Channel1 : \
+   (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)DMA1)) && ((uint32_t)(__CHANNEL__) ==                      \
+                                                          ((uint32_t)LL_DMA_CHANNEL_2))) ? DMA1_Channel2 : \
+   (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)DMA1)) && ((uint32_t)(__CHANNEL__) ==                      \
+                                                          ((uint32_t)LL_DMA_CHANNEL_3))) ? DMA1_Channel3 : \
+   (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)DMA1)) && ((uint32_t)(__CHANNEL__) ==                      \
+                                                          ((uint32_t)LL_DMA_CHANNEL_4))) ? DMA1_Channel4 : \
+                                                                                           DMA1_Channel5)
 #else
-#define __LL_DMA_GET_CHANNEL_INSTANCE(__DMA_INSTANCE__, __CHANNEL__)   \
-  ((((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)DMA1)) && ((uint32_t)(__CHANNEL__) == ((uint32_t)LL_DMA_CHANNEL_1))) ? DMA1_Channel1 : \
-   (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)DMA1)) && ((uint32_t)(__CHANNEL__) == ((uint32_t)LL_DMA_CHANNEL_2))) ? DMA1_Channel2 : \
-   DMA1_Channel3)
-#endif /* LL_DMA_CHANNEL_5 */
+#define __LL_DMA_GET_CHANNEL_INSTANCE(__DMA_INSTANCE__, __CHANNEL__)                                       \
+  ((((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)DMA1)) && ((uint32_t)(__CHANNEL__) ==                      \
+                                                          ((uint32_t)LL_DMA_CHANNEL_1))) ? DMA1_Channel1 : \
+   (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)DMA1)) && ((uint32_t)(__CHANNEL__) ==                      \
+                                                          ((uint32_t)LL_DMA_CHANNEL_2))) ? DMA1_Channel2 : \
+                                                                                           DMA1_Channel3)
+#endif /* LL_DMA_CHANNEL_7 */
 
 /**
   * @}
@@ -430,10 +496,12 @@ typedef struct
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_EnableChannel(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE void LL_DMA_EnableChannel(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   SET_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR, DMA_CCR_EN);
@@ -449,10 +517,12 @@ __STATIC_INLINE void LL_DMA_EnableChannel(DMA_TypeDef *DMAx, uint32_t Channel)
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_DisableChannel(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE void LL_DMA_DisableChannel(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   CLEAR_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR, DMA_CCR_EN);
@@ -468,10 +538,12 @@ __STATIC_INLINE void LL_DMA_DisableChannel(DMA_TypeDef *DMAx, uint32_t Channel)
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsEnabledChannel(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_DMA_IsEnabledChannel(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   return ((READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR,
@@ -495,6 +567,8 @@ __STATIC_INLINE uint32_t LL_DMA_IsEnabledChannel(DMA_TypeDef *DMAx, uint32_t Cha
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @param  Configuration This parameter must be a combination of all the following values:
   *         @arg @ref LL_DMA_DIRECTION_PERIPH_TO_MEMORY or @ref LL_DMA_DIRECTION_MEMORY_TO_PERIPH or
@@ -508,7 +582,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsEnabledChannel(DMA_TypeDef *DMAx, uint32_t Cha
   *              @ref LL_DMA_PRIORITY_VERYHIGH
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_ConfigTransfer(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t Configuration)
+__STATIC_INLINE void LL_DMA_ConfigTransfer(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t Configuration)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   MODIFY_REG(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR,
@@ -527,6 +601,8 @@ __STATIC_INLINE void LL_DMA_ConfigTransfer(DMA_TypeDef *DMAx, uint32_t Channel, 
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @param  Direction This parameter can be one of the following values:
   *         @arg @ref LL_DMA_DIRECTION_PERIPH_TO_MEMORY
@@ -534,7 +610,7 @@ __STATIC_INLINE void LL_DMA_ConfigTransfer(DMA_TypeDef *DMAx, uint32_t Channel, 
   *         @arg @ref LL_DMA_DIRECTION_MEMORY_TO_MEMORY
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_SetDataTransferDirection(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t Direction)
+__STATIC_INLINE void LL_DMA_SetDataTransferDirection(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t Direction)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   MODIFY_REG(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR,
@@ -552,13 +628,15 @@ __STATIC_INLINE void LL_DMA_SetDataTransferDirection(DMA_TypeDef *DMAx, uint32_t
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_DMA_DIRECTION_PERIPH_TO_MEMORY
   *         @arg @ref LL_DMA_DIRECTION_MEMORY_TO_PERIPH
   *         @arg @ref LL_DMA_DIRECTION_MEMORY_TO_MEMORY
   */
-__STATIC_INLINE uint32_t LL_DMA_GetDataTransferDirection(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_DMA_GetDataTransferDirection(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   return (READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR,
@@ -577,13 +655,15 @@ __STATIC_INLINE uint32_t LL_DMA_GetDataTransferDirection(DMA_TypeDef *DMAx, uint
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @param  Mode This parameter can be one of the following values:
   *         @arg @ref LL_DMA_MODE_NORMAL
   *         @arg @ref LL_DMA_MODE_CIRCULAR
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_SetMode(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t Mode)
+__STATIC_INLINE void LL_DMA_SetMode(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t Mode)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   MODIFY_REG(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR, DMA_CCR_CIRC,
@@ -600,12 +680,14 @@ __STATIC_INLINE void LL_DMA_SetMode(DMA_TypeDef *DMAx, uint32_t Channel, uint32_
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_DMA_MODE_NORMAL
   *         @arg @ref LL_DMA_MODE_CIRCULAR
   */
-__STATIC_INLINE uint32_t LL_DMA_GetMode(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_DMA_GetMode(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   return (READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR,
@@ -622,13 +704,15 @@ __STATIC_INLINE uint32_t LL_DMA_GetMode(DMA_TypeDef *DMAx, uint32_t Channel)
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @param  PeriphOrM2MSrcIncMode This parameter can be one of the following values:
   *         @arg @ref LL_DMA_PERIPH_INCREMENT
   *         @arg @ref LL_DMA_PERIPH_NOINCREMENT
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_SetPeriphIncMode(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t PeriphOrM2MSrcIncMode)
+__STATIC_INLINE void LL_DMA_SetPeriphIncMode(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t PeriphOrM2MSrcIncMode)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   MODIFY_REG(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR, DMA_CCR_PINC,
@@ -645,12 +729,14 @@ __STATIC_INLINE void LL_DMA_SetPeriphIncMode(DMA_TypeDef *DMAx, uint32_t Channel
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_DMA_PERIPH_INCREMENT
   *         @arg @ref LL_DMA_PERIPH_NOINCREMENT
   */
-__STATIC_INLINE uint32_t LL_DMA_GetPeriphIncMode(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_DMA_GetPeriphIncMode(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   return (READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR,
@@ -667,13 +753,15 @@ __STATIC_INLINE uint32_t LL_DMA_GetPeriphIncMode(DMA_TypeDef *DMAx, uint32_t Cha
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @param  MemoryOrM2MDstIncMode This parameter can be one of the following values:
   *         @arg @ref LL_DMA_MEMORY_INCREMENT
   *         @arg @ref LL_DMA_MEMORY_NOINCREMENT
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_SetMemoryIncMode(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t MemoryOrM2MDstIncMode)
+__STATIC_INLINE void LL_DMA_SetMemoryIncMode(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t MemoryOrM2MDstIncMode)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   MODIFY_REG(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR, DMA_CCR_MINC,
@@ -690,12 +778,14 @@ __STATIC_INLINE void LL_DMA_SetMemoryIncMode(DMA_TypeDef *DMAx, uint32_t Channel
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_DMA_MEMORY_INCREMENT
   *         @arg @ref LL_DMA_MEMORY_NOINCREMENT
   */
-__STATIC_INLINE uint32_t LL_DMA_GetMemoryIncMode(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_DMA_GetMemoryIncMode(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   return (READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR,
@@ -712,6 +802,8 @@ __STATIC_INLINE uint32_t LL_DMA_GetMemoryIncMode(DMA_TypeDef *DMAx, uint32_t Cha
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @param  PeriphOrM2MSrcDataSize This parameter can be one of the following values:
   *         @arg @ref LL_DMA_PDATAALIGN_BYTE
@@ -719,7 +811,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetMemoryIncMode(DMA_TypeDef *DMAx, uint32_t Cha
   *         @arg @ref LL_DMA_PDATAALIGN_WORD
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_SetPeriphSize(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t PeriphOrM2MSrcDataSize)
+__STATIC_INLINE void LL_DMA_SetPeriphSize(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t PeriphOrM2MSrcDataSize)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   MODIFY_REG(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR, DMA_CCR_PSIZE,
@@ -736,13 +828,15 @@ __STATIC_INLINE void LL_DMA_SetPeriphSize(DMA_TypeDef *DMAx, uint32_t Channel, u
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_DMA_PDATAALIGN_BYTE
   *         @arg @ref LL_DMA_PDATAALIGN_HALFWORD
   *         @arg @ref LL_DMA_PDATAALIGN_WORD
   */
-__STATIC_INLINE uint32_t LL_DMA_GetPeriphSize(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_DMA_GetPeriphSize(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   return (READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR,
@@ -759,6 +853,8 @@ __STATIC_INLINE uint32_t LL_DMA_GetPeriphSize(DMA_TypeDef *DMAx, uint32_t Channe
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @param  MemoryOrM2MDstDataSize This parameter can be one of the following values:
   *         @arg @ref LL_DMA_MDATAALIGN_BYTE
@@ -766,7 +862,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetPeriphSize(DMA_TypeDef *DMAx, uint32_t Channe
   *         @arg @ref LL_DMA_MDATAALIGN_WORD
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_SetMemorySize(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t MemoryOrM2MDstDataSize)
+__STATIC_INLINE void LL_DMA_SetMemorySize(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t MemoryOrM2MDstDataSize)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   MODIFY_REG(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR, DMA_CCR_MSIZE,
@@ -783,13 +879,15 @@ __STATIC_INLINE void LL_DMA_SetMemorySize(DMA_TypeDef *DMAx, uint32_t Channel, u
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_DMA_MDATAALIGN_BYTE
   *         @arg @ref LL_DMA_MDATAALIGN_HALFWORD
   *         @arg @ref LL_DMA_MDATAALIGN_WORD
   */
-__STATIC_INLINE uint32_t LL_DMA_GetMemorySize(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_DMA_GetMemorySize(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   return (READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR,
@@ -806,6 +904,8 @@ __STATIC_INLINE uint32_t LL_DMA_GetMemorySize(DMA_TypeDef *DMAx, uint32_t Channe
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @param  Priority This parameter can be one of the following values:
   *         @arg @ref LL_DMA_PRIORITY_LOW
@@ -814,7 +914,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetMemorySize(DMA_TypeDef *DMAx, uint32_t Channe
   *         @arg @ref LL_DMA_PRIORITY_VERYHIGH
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_SetChannelPriorityLevel(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t Priority)
+__STATIC_INLINE void LL_DMA_SetChannelPriorityLevel(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t Priority)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   MODIFY_REG(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR, DMA_CCR_PL,
@@ -831,6 +931,8 @@ __STATIC_INLINE void LL_DMA_SetChannelPriorityLevel(DMA_TypeDef *DMAx, uint32_t 
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_DMA_PRIORITY_LOW
@@ -838,7 +940,7 @@ __STATIC_INLINE void LL_DMA_SetChannelPriorityLevel(DMA_TypeDef *DMAx, uint32_t 
   *         @arg @ref LL_DMA_PRIORITY_HIGH
   *         @arg @ref LL_DMA_PRIORITY_VERYHIGH
   */
-__STATIC_INLINE uint32_t LL_DMA_GetChannelPriorityLevel(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_DMA_GetChannelPriorityLevel(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   return (READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR,
@@ -857,11 +959,13 @@ __STATIC_INLINE uint32_t LL_DMA_GetChannelPriorityLevel(DMA_TypeDef *DMAx, uint3
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @param  NbData Between Min_Data = 0 and Max_Data = 0x0000FFFF
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_SetDataLength(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t NbData)
+__STATIC_INLINE void LL_DMA_SetDataLength(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t NbData)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   MODIFY_REG(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CNDTR,
@@ -880,10 +984,12 @@ __STATIC_INLINE void LL_DMA_SetDataLength(DMA_TypeDef *DMAx, uint32_t Channel, u
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval Between Min_Data = 0 and Max_Data = 0xFFFFFFFF
   */
-__STATIC_INLINE uint32_t LL_DMA_GetDataLength(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_DMA_GetDataLength(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   return (READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CNDTR,
@@ -903,6 +1009,8 @@ __STATIC_INLINE uint32_t LL_DMA_GetDataLength(DMA_TypeDef *DMAx, uint32_t Channe
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @param  SrcAddress Between Min_Data = 0 and Max_Data = 0xFFFFFFFF
   * @param  DstAddress Between Min_Data = 0 and Max_Data = 0xFFFFFFFF
@@ -912,7 +1020,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetDataLength(DMA_TypeDef *DMAx, uint32_t Channe
   *         @arg @ref LL_DMA_DIRECTION_MEMORY_TO_MEMORY
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_ConfigAddresses(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t SrcAddress,
+__STATIC_INLINE void LL_DMA_ConfigAddresses(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t SrcAddress,
                                             uint32_t DstAddress, uint32_t Direction)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
@@ -942,11 +1050,13 @@ __STATIC_INLINE void LL_DMA_ConfigAddresses(DMA_TypeDef *DMAx, uint32_t Channel,
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @param  MemoryAddress Between Min_Data = 0 and Max_Data = 0xFFFFFFFF
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_SetMemoryAddress(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t MemoryAddress)
+__STATIC_INLINE void LL_DMA_SetMemoryAddress(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t MemoryAddress)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   WRITE_REG(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CMAR, MemoryAddress);
@@ -964,11 +1074,13 @@ __STATIC_INLINE void LL_DMA_SetMemoryAddress(DMA_TypeDef *DMAx, uint32_t Channel
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @param  PeriphAddress Between Min_Data = 0 and Max_Data = 0xFFFFFFFF
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_SetPeriphAddress(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t PeriphAddress)
+__STATIC_INLINE void LL_DMA_SetPeriphAddress(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t PeriphAddress)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   WRITE_REG(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CPAR, PeriphAddress);
@@ -985,10 +1097,12 @@ __STATIC_INLINE void LL_DMA_SetPeriphAddress(DMA_TypeDef *DMAx, uint32_t Channel
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval Between Min_Data = 0 and Max_Data = 0xFFFFFFFF
   */
-__STATIC_INLINE uint32_t LL_DMA_GetMemoryAddress(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_DMA_GetMemoryAddress(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   return (READ_REG(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CMAR));
@@ -1005,10 +1119,12 @@ __STATIC_INLINE uint32_t LL_DMA_GetMemoryAddress(DMA_TypeDef *DMAx, uint32_t Cha
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval Between Min_Data = 0 and Max_Data = 0xFFFFFFFF
   */
-__STATIC_INLINE uint32_t LL_DMA_GetPeriphAddress(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_DMA_GetPeriphAddress(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   return (READ_REG(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CPAR));
@@ -1026,11 +1142,13 @@ __STATIC_INLINE uint32_t LL_DMA_GetPeriphAddress(DMA_TypeDef *DMAx, uint32_t Cha
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @param  MemoryAddress Between Min_Data = 0 and Max_Data = 0xFFFFFFFF
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_SetM2MSrcAddress(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t MemoryAddress)
+__STATIC_INLINE void LL_DMA_SetM2MSrcAddress(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t MemoryAddress)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   WRITE_REG(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CPAR, MemoryAddress);
@@ -1048,11 +1166,13 @@ __STATIC_INLINE void LL_DMA_SetM2MSrcAddress(DMA_TypeDef *DMAx, uint32_t Channel
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @param  MemoryAddress Between Min_Data = 0 and Max_Data = 0xFFFFFFFF
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_SetM2MDstAddress(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t MemoryAddress)
+__STATIC_INLINE void LL_DMA_SetM2MDstAddress(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t MemoryAddress)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   WRITE_REG(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CMAR, MemoryAddress);
@@ -1069,10 +1189,12 @@ __STATIC_INLINE void LL_DMA_SetM2MDstAddress(DMA_TypeDef *DMAx, uint32_t Channel
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval Between Min_Data = 0 and Max_Data = 0xFFFFFFFF
   */
-__STATIC_INLINE uint32_t LL_DMA_GetM2MSrcAddress(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_DMA_GetM2MSrcAddress(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   return (READ_REG(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CPAR));
@@ -1089,10 +1211,12 @@ __STATIC_INLINE uint32_t LL_DMA_GetM2MSrcAddress(DMA_TypeDef *DMAx, uint32_t Cha
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval Between Min_Data = 0 and Max_Data = 0xFFFFFFFF
   */
-__STATIC_INLINE uint32_t LL_DMA_GetM2MDstAddress(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_DMA_GetM2MDstAddress(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   return (READ_REG(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CMAR));
@@ -1100,7 +1224,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetM2MDstAddress(DMA_TypeDef *DMAx, uint32_t Cha
 
 /**
   * @brief  Set DMA request for DMA Channels on DMAMUX Channel x.
-  * @note   DMAMUX channel 0 to 4 are mapped to DMA1 channel 1 to 5.
+  * @note   DMAMUX channel 0 to 6 are mapped to DMA1 channel 1 to 7.
   * @rmtoll CxCR         DMAREQ_ID     LL_DMA_SetPeriphRequest
   * @param  DMAx DMAx Instance
   * @param  Channel This parameter can be one of the following values:
@@ -1109,6 +1233,8 @@ __STATIC_INLINE uint32_t LL_DMA_GetM2MDstAddress(DMA_TypeDef *DMAx, uint32_t Cha
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @param  Request This parameter can be one of the following values:
   *         @arg @ref LL_DMAMUX_REQ_MEM2MEM
   *         @arg @ref LL_DMAMUX_REQ_GENERATOR0
@@ -1152,6 +1278,10 @@ __STATIC_INLINE uint32_t LL_DMA_GetM2MDstAddress(DMA_TypeDef *DMAx, uint32_t Cha
   *         @arg @ref LL_DMAMUX_REQ_USART1_TX
   *         @arg @ref LL_DMAMUX_REQ_USART2_RX
   *         @arg @ref LL_DMAMUX_REQ_USART2_TX
+  *         @arg @ref LL_DMAMUX_REQ_USART3_RX (*)
+  *         @arg @ref LL_DMAMUX_REQ_USART3_TX (*)
+  *         @arg @ref LL_DMAMUX_REQ_USART4_RX (*)
+  *         @arg @ref LL_DMAMUX_REQ_USART4_TX (*)
   * @note (*) Availability depends on devices
   * @retval None
   */
@@ -1164,7 +1294,7 @@ __STATIC_INLINE void LL_DMA_SetPeriphRequest(DMA_TypeDef *DMAx, uint32_t Channel
 
 /**
   * @brief  Get DMA request for DMA Channels on DMAMUX Channel x.
-  * @note   DMAMUX channel 0 to 4 are mapped to DMA1 channel 1 to 5.
+  * @note   DMAMUX channel 0 to 6 are mapped to DMA1 channel 1 to 7.
   * @rmtoll CxCR         DMAREQ_ID     LL_DMA_GetPeriphRequest
   * @param  DMAx DMAx Instance
   * @param  Channel This parameter can be one of the following values:
@@ -1173,6 +1303,8 @@ __STATIC_INLINE void LL_DMA_SetPeriphRequest(DMA_TypeDef *DMAx, uint32_t Channel
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_DMAMUX_REQ_MEM2MEM
   *         @arg @ref LL_DMAMUX_REQ_GENERATOR0
@@ -1216,6 +1348,10 @@ __STATIC_INLINE void LL_DMA_SetPeriphRequest(DMA_TypeDef *DMAx, uint32_t Channel
   *         @arg @ref LL_DMAMUX_REQ_USART1_TX
   *         @arg @ref LL_DMAMUX_REQ_USART2_RX
   *         @arg @ref LL_DMAMUX_REQ_USART2_TX
+  *         @arg @ref LL_DMAMUX_REQ_USART3_RX (*)
+  *         @arg @ref LL_DMAMUX_REQ_USART3_TX (*)
+  *         @arg @ref LL_DMAMUX_REQ_USART4_RX (*)
+  *         @arg @ref LL_DMAMUX_REQ_USART4_TX (*)
   * @note (*) Availability depends on devices
   */
 __STATIC_INLINE uint32_t LL_DMA_GetPeriphRequest(DMA_TypeDef *DMAx, uint32_t Channel)
@@ -1240,7 +1376,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetPeriphRequest(DMA_TypeDef *DMAx, uint32_t Cha
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_GI1(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_GI1(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_GIF1) == (DMA_ISR_GIF1)) ? 1UL : 0UL);
 }
@@ -1251,7 +1387,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_GI1(DMA_TypeDef *DMAx)
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_GI2(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_GI2(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_GIF2) == (DMA_ISR_GIF2)) ? 1UL : 0UL);
 }
@@ -1262,7 +1398,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_GI2(DMA_TypeDef *DMAx)
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_GI3(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_GI3(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_GIF3) == (DMA_ISR_GIF3)) ? 1UL : 0UL);
 }
@@ -1274,7 +1410,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_GI3(DMA_TypeDef *DMAx)
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_GI4(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_GI4(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_GIF4) == (DMA_ISR_GIF4)) ? 1UL : 0UL);
 }
@@ -1287,11 +1423,37 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_GI4(DMA_TypeDef *DMAx)
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_GI5(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_GI5(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_GIF5) == (DMA_ISR_GIF5)) ? 1UL : 0UL);
 }
 #endif /* DMA_ISR_GIF5 */
+
+#if defined(DMA_ISR_GIF6)
+/**
+  * @brief  Get Channel 6 global interrupt flag.
+  * @rmtoll ISR          GIF6          LL_DMA_IsActiveFlag_GI6
+  * @param  DMAx DMAx Instance
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_GI6(const DMA_TypeDef *DMAx)
+{
+  return ((READ_BIT(DMAx->ISR, DMA_ISR_GIF6) == (DMA_ISR_GIF6)) ? 1UL : 0UL);
+}
+#endif /* DMA_ISR_GIF6 */
+
+#if defined(DMA_ISR_GIF7)
+/**
+  * @brief  Get Channel 7 global interrupt flag.
+  * @rmtoll ISR          GIF7          LL_DMA_IsActiveFlag_GI7
+  * @param  DMAx DMAx Instance
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_GI7(const DMA_TypeDef *DMAx)
+{
+  return ((READ_BIT(DMAx->ISR, DMA_ISR_GIF7) == (DMA_ISR_GIF7)) ? 1UL : 0UL);
+}
+#endif /* DMA_ISR_GIF7 */
 
 /**
   * @brief  Get Channel 1 transfer complete flag.
@@ -1299,7 +1461,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_GI5(DMA_TypeDef *DMAx)
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TC1(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TC1(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_TCIF1) == (DMA_ISR_TCIF1)) ? 1UL : 0UL);
 }
@@ -1310,7 +1472,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TC1(DMA_TypeDef *DMAx)
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TC2(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TC2(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_TCIF2) == (DMA_ISR_TCIF2)) ? 1UL : 0UL);
 }
@@ -1321,7 +1483,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TC2(DMA_TypeDef *DMAx)
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TC3(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TC3(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_TCIF3) == (DMA_ISR_TCIF3)) ? 1UL : 0UL);
 }
@@ -1333,7 +1495,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TC3(DMA_TypeDef *DMAx)
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TC4(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TC4(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_TCIF4) == (DMA_ISR_TCIF4)) ? 1UL : 0UL);
 }
@@ -1346,11 +1508,37 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TC4(DMA_TypeDef *DMAx)
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TC5(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TC5(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_TCIF5) == (DMA_ISR_TCIF5)) ? 1UL : 0UL);
 }
 #endif /* DMA_ISR_TCIF5 */
+
+#if defined(DMA_ISR_TCIF6)
+/**
+  * @brief  Get Channel 6 transfer complete flag.
+  * @rmtoll ISR          TCIF6         LL_DMA_IsActiveFlag_TC6
+  * @param  DMAx DMAx Instance
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TC6(const DMA_TypeDef *DMAx)
+{
+  return ((READ_BIT(DMAx->ISR, DMA_ISR_TCIF6) == (DMA_ISR_TCIF6)) ? 1UL : 0UL);
+}
+#endif /* DMA_ISR_TCIF6 */
+
+#if defined(DMA_ISR_TCIF7)
+/**
+  * @brief  Get Channel 7 transfer complete flag.
+  * @rmtoll ISR          TCIF7         LL_DMA_IsActiveFlag_TC7
+  * @param  DMAx DMAx Instance
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TC7(const DMA_TypeDef *DMAx)
+{
+  return ((READ_BIT(DMAx->ISR, DMA_ISR_TCIF7) == (DMA_ISR_TCIF7)) ? 1UL : 0UL);
+}
+#endif /* DMA_ISR_TCIF7 */
 
 /**
   * @brief  Get Channel 1 half transfer flag.
@@ -1358,7 +1546,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TC5(DMA_TypeDef *DMAx)
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_HT1(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_HT1(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_HTIF1) == (DMA_ISR_HTIF1)) ? 1UL : 0UL);
 }
@@ -1369,7 +1557,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_HT1(DMA_TypeDef *DMAx)
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_HT2(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_HT2(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_HTIF2) == (DMA_ISR_HTIF2)) ? 1UL : 0UL);
 }
@@ -1380,7 +1568,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_HT2(DMA_TypeDef *DMAx)
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_HT3(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_HT3(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_HTIF3) == (DMA_ISR_HTIF3)) ? 1UL : 0UL);
 }
@@ -1392,7 +1580,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_HT3(DMA_TypeDef *DMAx)
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_HT4(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_HT4(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_HTIF4) == (DMA_ISR_HTIF4)) ? 1UL : 0UL);
 }
@@ -1405,11 +1593,37 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_HT4(DMA_TypeDef *DMAx)
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_HT5(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_HT5(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_HTIF5) == (DMA_ISR_HTIF5)) ? 1UL : 0UL);
 }
 #endif /* DMA_ISR_HTIF5 */
+
+#if defined(DMA_ISR_HTIF6)
+/**
+  * @brief  Get Channel 6 half transfer flag.
+  * @rmtoll ISR          HTIF6         LL_DMA_IsActiveFlag_HT6
+  * @param  DMAx DMAx Instance
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_HT6(const DMA_TypeDef *DMAx)
+{
+  return ((READ_BIT(DMAx->ISR, DMA_ISR_HTIF6) == (DMA_ISR_HTIF6)) ? 1UL : 0UL);
+}
+#endif /* DMA_ISR_HTIF6 */
+
+#if defined(DMA_ISR_HTIF7)
+/**
+  * @brief  Get Channel 7 half transfer flag.
+  * @rmtoll ISR          HTIF7         LL_DMA_IsActiveFlag_HT7
+  * @param  DMAx DMAx Instance
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_HT7(const DMA_TypeDef *DMAx)
+{
+  return ((READ_BIT(DMAx->ISR, DMA_ISR_HTIF7) == (DMA_ISR_HTIF7)) ? 1UL : 0UL);
+}
+#endif /* DMA_ISR_HTIF7 */
 
 /**
   * @brief  Get Channel 1 transfer error flag.
@@ -1417,7 +1631,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_HT5(DMA_TypeDef *DMAx)
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TE1(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TE1(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_TEIF1) == (DMA_ISR_TEIF1)) ? 1UL : 0UL);
 }
@@ -1428,7 +1642,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TE1(DMA_TypeDef *DMAx)
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TE2(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TE2(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_TEIF2) == (DMA_ISR_TEIF2)) ? 1UL : 0UL);
 }
@@ -1439,7 +1653,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TE2(DMA_TypeDef *DMAx)
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TE3(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TE3(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_TEIF3) == (DMA_ISR_TEIF3)) ? 1UL : 0UL);
 }
@@ -1451,7 +1665,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TE3(DMA_TypeDef *DMAx)
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TE4(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TE4(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_TEIF4) == (DMA_ISR_TEIF4)) ? 1UL : 0UL);
 }
@@ -1464,11 +1678,37 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TE4(DMA_TypeDef *DMAx)
   * @param  DMAx DMAx Instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TE5(DMA_TypeDef *DMAx)
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TE5(const DMA_TypeDef *DMAx)
 {
   return ((READ_BIT(DMAx->ISR, DMA_ISR_TEIF5) == (DMA_ISR_TEIF5)) ? 1UL : 0UL);
 }
 #endif /* DMA_ISR_TEIF5 */
+
+#if defined(DMA_ISR_TEIF6)
+/**
+  * @brief  Get Channel 6 transfer error flag.
+  * @rmtoll ISR          TEIF6         LL_DMA_IsActiveFlag_TE6
+  * @param  DMAx DMAx Instance
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TE6(const DMA_TypeDef *DMAx)
+{
+  return ((READ_BIT(DMAx->ISR, DMA_ISR_TEIF6) == (DMA_ISR_TEIF6)) ? 1UL : 0UL);
+}
+#endif /* DMA_ISR_TEIF6 */
+
+#if defined(DMA_ISR_TEIF7)
+/**
+  * @brief  Get Channel 7 transfer error flag.
+  * @rmtoll ISR          TEIF7         LL_DMA_IsActiveFlag_TE7
+  * @param  DMAx DMAx Instance
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TE7(const DMA_TypeDef *DMAx)
+{
+  return ((READ_BIT(DMAx->ISR, DMA_ISR_TEIF7) == (DMA_ISR_TEIF7)) ? 1UL : 0UL);
+}
+#endif /* DMA_ISR_TEIF7 */
 
 /**
   * @brief  Clear Channel 1 global interrupt flag.
@@ -1549,6 +1789,40 @@ __STATIC_INLINE void LL_DMA_ClearFlag_GI5(DMA_TypeDef *DMAx)
 }
 #endif /* DMA_IFCR_CGIF5 */
 
+#if defined(DMA_IFCR_CGIF6)
+/**
+  * @brief  Clear Channel 6 global interrupt flag.
+  * @note Do not Clear Channel 6 global interrupt flag when the channel in ON.
+    Instead clear specific flags transfer complete, half transfer & transfer
+    error flag with LL_DMA_ClearFlag_TC6, LL_DMA_ClearFlag_HT6,
+    LL_DMA_ClearFlag_TE6. bug id 2.4.1 in Product Errata Sheet.
+  * @rmtoll IFCR         CGIF6         LL_DMA_ClearFlag_GI6
+  * @param  DMAx DMAx Instance
+  * @retval None
+  */
+__STATIC_INLINE void LL_DMA_ClearFlag_GI6(DMA_TypeDef *DMAx)
+{
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CGIF6);
+}
+#endif /* DMA_IFCR_CGIF6 */
+
+#if defined(DMA_IFCR_CGIF7)
+/**
+  * @brief  Clear Channel 7 global interrupt flag.
+  * @note Do not Clear Channel 7 global interrupt flag when the channel in ON.
+    Instead clear specific flags transfer complete, half transfer & transfer
+    error flag with LL_DMA_ClearFlag_TC7, LL_DMA_ClearFlag_HT7,
+    LL_DMA_ClearFlag_TE7. bug id 2.4.1 in Product Errata Sheet.
+  * @rmtoll IFCR         CGIF7         LL_DMA_ClearFlag_GI7
+  * @param  DMAx DMAx Instance
+  * @retval None
+  */
+__STATIC_INLINE void LL_DMA_ClearFlag_GI7(DMA_TypeDef *DMAx)
+{
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CGIF7);
+}
+#endif /* DMA_IFCR_CGIF7 */
+
 /**
   * @brief  Clear Channel 1  transfer complete flag.
   * @rmtoll IFCR         CTCIF1        LL_DMA_ClearFlag_TC1
@@ -1607,6 +1881,32 @@ __STATIC_INLINE void LL_DMA_ClearFlag_TC5(DMA_TypeDef *DMAx)
   WRITE_REG(DMAx->IFCR, DMA_IFCR_CTCIF5);
 }
 #endif /* DMA_IFCR_CTCIF5 */
+
+#if defined(DMA_IFCR_CTCIF6)
+/**
+  * @brief  Clear Channel 6 transfer complete flag.
+  * @rmtoll IFCR         CTCIF6        LL_DMA_ClearFlag_TC6
+  * @param  DMAx DMAx Instance
+  * @retval None
+  */
+__STATIC_INLINE void LL_DMA_ClearFlag_TC6(DMA_TypeDef *DMAx)
+{
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CTCIF6);
+}
+#endif /* DMA_IFCR_CTCIF6 */
+
+#if defined(DMA_IFCR_CTCIF7)
+/**
+  * @brief  Clear Channel 7 transfer complete flag.
+  * @rmtoll IFCR         CTCIF7        LL_DMA_ClearFlag_TC7
+  * @param  DMAx DMAx Instance
+  * @retval None
+  */
+__STATIC_INLINE void LL_DMA_ClearFlag_TC7(DMA_TypeDef *DMAx)
+{
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CTCIF7);
+}
+#endif /* DMA_IFCR_CTCIF7 */
 
 /**
   * @brief  Clear Channel 1 half transfer flag.
@@ -1667,6 +1967,32 @@ __STATIC_INLINE void LL_DMA_ClearFlag_HT5(DMA_TypeDef *DMAx)
 }
 #endif /* DMA_IFCR_CHTIF5 */
 
+#if defined(DMA_IFCR_CHTIF6)
+/**
+  * @brief  Clear Channel 6 half transfer flag.
+  * @rmtoll IFCR         CHTIF6        LL_DMA_ClearFlag_HT6
+  * @param  DMAx DMAx Instance
+  * @retval None
+  */
+__STATIC_INLINE void LL_DMA_ClearFlag_HT6(DMA_TypeDef *DMAx)
+{
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CHTIF6);
+}
+#endif /* DMA_IFCR_CHTIF6 */
+
+#if defined(DMA_IFCR_CHTIF7)
+/**
+  * @brief  Clear Channel 7 half transfer flag.
+  * @rmtoll IFCR         CHTIF7        LL_DMA_ClearFlag_HT7
+  * @param  DMAx DMAx Instance
+  * @retval None
+  */
+__STATIC_INLINE void LL_DMA_ClearFlag_HT7(DMA_TypeDef *DMAx)
+{
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CHTIF7);
+}
+#endif /* DMA_IFCR_CHTIF7 */
+
 /**
   * @brief  Clear Channel 1 transfer error flag.
   * @rmtoll IFCR         CTEIF1        LL_DMA_ClearFlag_TE1
@@ -1726,6 +2052,32 @@ __STATIC_INLINE void LL_DMA_ClearFlag_TE5(DMA_TypeDef *DMAx)
 }
 #endif /* DMA_IFCR_CTEIF5 */
 
+#if defined(DMA_IFCR_CTEIF6)
+/**
+  * @brief  Clear Channel 6 transfer error flag.
+  * @rmtoll IFCR         CTEIF6        LL_DMA_ClearFlag_TE6
+  * @param  DMAx DMAx Instance
+  * @retval None
+  */
+__STATIC_INLINE void LL_DMA_ClearFlag_TE6(DMA_TypeDef *DMAx)
+{
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CTEIF6);
+}
+#endif /* DMA_IFCR_CTEIF6 */
+
+#if defined(DMA_IFCR_CTEIF7)
+/**
+  * @brief  Clear Channel 7 transfer error flag.
+  * @rmtoll IFCR         CTEIF7        LL_DMA_ClearFlag_TE7
+  * @param  DMAx DMAx Instance
+  * @retval None
+  */
+__STATIC_INLINE void LL_DMA_ClearFlag_TE7(DMA_TypeDef *DMAx)
+{
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CTEIF7);
+}
+#endif /* DMA_IFCR_CTEIF7 */
+
 /**
   * @}
   */
@@ -1743,6 +2095,8 @@ __STATIC_INLINE void LL_DMA_ClearFlag_TE5(DMA_TypeDef *DMAx)
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval None
   */
@@ -1762,10 +2116,12 @@ __STATIC_INLINE void LL_DMA_EnableIT_TC(DMA_TypeDef *DMAx, uint32_t Channel)
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_EnableIT_HT(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE void LL_DMA_EnableIT_HT(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   SET_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR, DMA_CCR_HTIE);
@@ -1781,10 +2137,12 @@ __STATIC_INLINE void LL_DMA_EnableIT_HT(DMA_TypeDef *DMAx, uint32_t Channel)
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_EnableIT_TE(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE void LL_DMA_EnableIT_TE(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   SET_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR, DMA_CCR_TEIE);
@@ -1800,10 +2158,12 @@ __STATIC_INLINE void LL_DMA_EnableIT_TE(DMA_TypeDef *DMAx, uint32_t Channel)
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_DisableIT_TC(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE void LL_DMA_DisableIT_TC(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   CLEAR_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR, DMA_CCR_TCIE);
@@ -1819,10 +2179,12 @@ __STATIC_INLINE void LL_DMA_DisableIT_TC(DMA_TypeDef *DMAx, uint32_t Channel)
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_DisableIT_HT(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE void LL_DMA_DisableIT_HT(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   CLEAR_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR, DMA_CCR_HTIE);
@@ -1838,10 +2200,12 @@ __STATIC_INLINE void LL_DMA_DisableIT_HT(DMA_TypeDef *DMAx, uint32_t Channel)
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval None
   */
-__STATIC_INLINE void LL_DMA_DisableIT_TE(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE void LL_DMA_DisableIT_TE(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   CLEAR_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR, DMA_CCR_TEIE);
@@ -1857,10 +2221,12 @@ __STATIC_INLINE void LL_DMA_DisableIT_TE(DMA_TypeDef *DMAx, uint32_t Channel)
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsEnabledIT_TC(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_DMA_IsEnabledIT_TC(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   return ((READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR,
@@ -1877,10 +2243,12 @@ __STATIC_INLINE uint32_t LL_DMA_IsEnabledIT_TC(DMA_TypeDef *DMAx, uint32_t Chann
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsEnabledIT_HT(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_DMA_IsEnabledIT_HT(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   return ((READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR,
@@ -1897,10 +2265,12 @@ __STATIC_INLINE uint32_t LL_DMA_IsEnabledIT_HT(DMA_TypeDef *DMAx, uint32_t Chann
   *         @arg @ref LL_DMA_CHANNEL_3
   *         @arg @ref LL_DMA_CHANNEL_4 (*)
   *         @arg @ref LL_DMA_CHANNEL_5 (*)
+  *         @arg @ref LL_DMA_CHANNEL_6 (*)
+  *         @arg @ref LL_DMA_CHANNEL_7 (*)
   * @note (*) Availability depends on devices
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_DMA_IsEnabledIT_TE(DMA_TypeDef *DMAx, uint32_t Channel)
+__STATIC_INLINE uint32_t LL_DMA_IsEnabledIT_TE(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
   return ((READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel - 1U]))->CCR,

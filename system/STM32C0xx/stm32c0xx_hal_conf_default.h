@@ -44,6 +44,7 @@ extern "C" {
 #define HAL_CRC_MODULE_ENABLED
 #define HAL_DMA_MODULE_ENABLED
 #define HAL_EXTI_MODULE_ENABLED
+#define HAL_FDCAN_MODULE_ENABLED
 #define HAL_FLASH_MODULE_ENABLED
 #define HAL_GPIO_MODULE_ENABLED
 #define HAL_HCD_MODULE_ENABLED
@@ -146,7 +147,7 @@ extern "C" {
   */
 #if !defined  (HSI48_VALUE)
 #define HSI48_VALUE   48000000U             /*!< Value of the Internal High Speed oscillator for USB FS/SDMMC/RNG in Hz.
-                                                The real value my vary depending on manufacturing process variations.*/
+                                                The real value may vary depending on manufacturing process variations.*/
 #endif /* HSI48_VALUE */
 
 /**
@@ -246,12 +247,16 @@ in voltage and temperature.*/
 #include "stm32c0xx_hal_exti.h"
 #endif /* HAL_EXTI_MODULE_ENABLED */
 
+#ifdef HAL_FDCAN_MODULE_ENABLED
+#include "stm32c0xx_hal_fdcan.h"
+#endif /* HAL_FDCAN_MODULE_ENABLED */
+
 #ifdef HAL_FLASH_MODULE_ENABLED
 #include "stm32c0xx_hal_flash.h"
 #endif /* HAL_FLASH_MODULE_ENABLED */
 
 #ifdef HAL_HCD_MODULE_ENABLED
- #include "stm32c0xx_hal_hcd.h"
+#include "stm32c0xx_hal_hcd.h"
 #endif /* HAL_HCD_MODULE_ENABLED */
 
 #ifdef HAL_I2C_MODULE_ENABLED
@@ -271,7 +276,7 @@ in voltage and temperature.*/
 #endif /* HAL_IWDG_MODULE_ENABLED */
 
 #ifdef HAL_PCD_MODULE_ENABLED
- #include "stm32c0xx_hal_pcd.h"
+#include "stm32c0xx_hal_pcd.h"
 #endif /* HAL_PCD_MODULE_ENABLED */
 
 #ifdef HAL_PWR_MODULE_ENABLED

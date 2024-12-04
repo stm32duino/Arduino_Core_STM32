@@ -261,6 +261,73 @@ extern "C" {
                                                SYSCFG_CFGR3_PINMUX3_0)                                                              /*!< STM32C071 WLCSP19 package, PinH2 assigned to GPIO PB8 */
 #define LL_PINMUX_TSSOP20_PIN1_PB7            LL_PINMUX_WLCSP19_PINB3_PB7
 #define LL_PINMUX_TSSOP20_PIN1_PB8            LL_PINMUX_WLCSP19_PINB3_PB8
+
+#elif (DEV_ID == 0x44CUL)
+#define LL_PINMUX_WLCSP15_PINH3_PF2           (((SYSCFG_CFGR3_PINMUX0_0 | SYSCFG_CFGR3_PINMUX0_1) << 16U) | 0x00000000U)            /*!< STM32C051 WLCSP15 package, PinH3 assigned to GPIO PF2 */
+#define LL_PINMUX_WLCSP15_PINH3_PA0           (((SYSCFG_CFGR3_PINMUX0_0 | SYSCFG_CFGR3_PINMUX0_1) << 16U) | \
+                                               SYSCFG_CFGR3_PINMUX0_0)                                                              /*!< STM32C051 WLCSP15 package, PinH3 assigned to GPIO PA0 */
+#define LL_PINMUX_WLCSP15_PING2_PA1           (((SYSCFG_CFGR3_PINMUX1_0 | SYSCFG_CFGR3_PINMUX1_1) << 16U) | 0x00000000U)            /*!< STM32C051 WLCSP15 package, PinG2 assigned to GPIO PA1 */
+#define LL_PINMUX_WLCSP15_PING2_PA2           (((SYSCFG_CFGR3_PINMUX1_0 | SYSCFG_CFGR3_PINMUX1_1) << 16U) | \
+                                               SYSCFG_CFGR3_PINMUX1_0)                                                              /*!< STM32C051 WLCSP15 package, PinG2 assigned to GPIO PA2 */
+#define LL_PINMUX_WLCSP15_PINK3_PA3           (((SYSCFG_CFGR3_PINMUX2_0 | SYSCFG_CFGR3_PINMUX2_1) << 16U) | 0x00000000U)            /*!< STM32C051 WLCSP15 package, PinK3 assigned to GPIO PA3 */
+#define LL_PINMUX_WLCSP15_PINK3_PA4           (((SYSCFG_CFGR3_PINMUX2_0 | SYSCFG_CFGR3_PINMUX2_1) << 16U) | \
+                                               SYSCFG_CFGR3_PINMUX2_0)                                                              /*!< STM32C051 WLCSP15 package, PinK3 assigned to GPIO PA4 */
+#define LL_PINMUX_WLCSP15_PINJ2_PA5           (((SYSCFG_CFGR3_PINMUX3_0 | SYSCFG_CFGR3_PINMUX3_1) << 16U) | 0x00000000U)            /*!< STM32C051 WLCSP15 package, PinJ2 assigned to GPIO PA5 */
+#define LL_PINMUX_WLCSP15_PINJ2_PA6           (((SYSCFG_CFGR3_PINMUX3_0 | SYSCFG_CFGR3_PINMUX3_1) << 16U) | \
+                                               SYSCFG_CFGR3_PINMUX3_0)                                                              /*!< STM32C051 WLCSP15 package, PinJ2 assigned to GPIO PA6 */
+#define LL_PINMUX_WLCSP15_PINH1_PA7           (((SYSCFG_CFGR3_PINMUX4_0 | SYSCFG_CFGR3_PINMUX4_1) << 16U) | 0x00000000U)            /*!< STM32C051 WLCSP15 package, PinH1 assigned to GPIO PA7 */
+#define LL_PINMUX_WLCSP15_PINH1_PA12          (((SYSCFG_CFGR3_PINMUX4_0 | SYSCFG_CFGR3_PINMUX4_1) << 16U) | \
+                                               SYSCFG_CFGR3_PINMUX4_0)                                                              /*!< STM32C051 WLCSP15 package, PinH1 assigned to GPIO PA12 */
+#define LL_PINMUX_WLCSP15_PINE2_PA14          (((SYSCFG_CFGR3_PINMUX5_0 | SYSCFG_CFGR3_PINMUX5_1) << 16U) | 0x00000000U)            /*!< STM32C051 WLCSP15 package, PinE2 assigned to GPIO PA14 */
+#define LL_PINMUX_WLCSP15_PINE2_PA15          (((SYSCFG_CFGR3_PINMUX5_0 | SYSCFG_CFGR3_PINMUX5_1) << 16U) | \
+                                               SYSCFG_CFGR3_PINMUX5_0)                                                              /*!< STM32C051 WLCSP15 package, PinE2 assigned to GPIO PA15 */
+#define LL_PINMUX_WLCSP15_PINB1_PA3           (((SYSCFG_CFGR3_PINMUX6_0 | SYSCFG_CFGR3_PINMUX6_1) << 16U) | 0x00000000U)            /*!< STM32C051 WLCSP15 package, PinB1 assigned to GPIO PA3 */
+#define LL_PINMUX_WLCSP15_PINB1_PA4           (((SYSCFG_CFGR3_PINMUX6_0 | SYSCFG_CFGR3_PINMUX6_1) << 16U) | \
+                                               SYSCFG_CFGR3_PINMUX6_0)                                                              /*!< STM32C051 WLCSP15 package, PinB1 assigned to GPIO PA4 */
+#define LL_PINMUX_WLCSP15_PINB1_PA5           (((SYSCFG_CFGR3_PINMUX6_0 | SYSCFG_CFGR3_PINMUX6_1) << 16U) | \
+                                               SYSCFG_CFGR3_PINMUX6_1)                                                              /*!< STM32C051 WLCSP15 package, PinB1 assigned to GPIO PA5 */
+#define LL_PINMUX_WLCSP15_PINB1_PA6           (((SYSCFG_CFGR3_PINMUX6_0 | SYSCFG_CFGR3_PINMUX6_1) << 16U) | \
+                                               SYSCFG_CFGR3_PINMUX6_1 | SYSCFG_CFGR3_PINMUX6_0)                                     /*!< STM32C051 WLCSP15 package, PinB1 assigned to GPIO PA6 */
+#define LL_PINMUX_TSSOP20_PIN20_PA3           LL_PINMUX_WLCSP15_PINB1_PA3
+#define LL_PINMUX_TSSOP20_PIN20_PA4           LL_PINMUX_WLCSP15_PINB1_PA4
+#define LL_PINMUX_TSSOP20_PIN20_PA5           LL_PINMUX_WLCSP15_PINB1_PA5
+#define LL_PINMUX_TSSOP20_PIN20_PA6           LL_PINMUX_WLCSP15_PINB1_PA6
+#define LL_PINMUX_WLCSP15_PINA2_PB7           (((SYSCFG_CFGR3_PINMUX7_0 | SYSCFG_CFGR3_PINMUX7_1) << 16U) | 0x00000000U)            /*!< STM32C051 WLCSP15 package, PinA2 assigned to GPIO PB7 */
+#define LL_PINMUX_WLCSP15_PINA2_PB8           (((SYSCFG_CFGR3_PINMUX7_0 | SYSCFG_CFGR3_PINMUX7_1) << 16U) | \
+                                               SYSCFG_CFGR3_PINMUX7_0)                                                              /*!< STM32C051 WLCSP15 package, PinA2 assigned to GPIO PB8 */
+#define LL_PINMUX_TSSOP20_PIN1_PB7            LL_PINMUX_WLCSP15_PINB1_PB7
+#define LL_PINMUX_TSSOP20_PIN1_PB8            LL_PINMUX_WLCSP15_PINB1_PB8
+
+#elif (DEV_ID == 0x44DUL)
+#define LL_PINMUX_TSSOP20_PIN19_PA14          (((SYSCFG_CFGR3_PINMUX0_0 | SYSCFG_CFGR3_PINMUX0_1) << 16U) | 0x00000000U)            /*!< STM32C091/92 TSSOP20 package, Pin19 assigned to GPIO PA14 */
+#define LL_PINMUX_TSSOP20_PIN19_PA15          (((SYSCFG_CFGR3_PINMUX0_0 | SYSCFG_CFGR3_PINMUX0_1) << 16U) | \
+                                               SYSCFG_CFGR3_PINMUX0_0)                                                              /*!< STM32C091/92 TSSOP20 package, Pin19 assigned to GPIO PA15 */
+#define LL_PINMUX_TSSOP20_PIN15_PA8           (((SYSCFG_CFGR3_PINMUX1_0 | SYSCFG_CFGR3_PINMUX1_1) << 16U) | 0x00000000U)            /*!< STM32C091/92 TSSOP20 package, Pin15 assigned to GPIO PA8 */
+#define LL_PINMUX_TSSOP20_PIN15_PB0           (((SYSCFG_CFGR3_PINMUX1_0 | SYSCFG_CFGR3_PINMUX1_1) << 16U) | \
+                                               SYSCFG_CFGR3_PINMUX1_0)                                                              /*!< STM32C091/92 TSSOP20 package, Pin15 assigned to GPIO PB0 */
+#define LL_PINMUX_TSSOP20_PIN15_PB1           (((SYSCFG_CFGR3_PINMUX1_0 | SYSCFG_CFGR3_PINMUX1_1) << 16U) | \
+                                               SYSCFG_CFGR3_PINMUX1_1)                                                              /*!< STM32C091/92 TSSOP20 package, Pin15 assigned to GPIO PB1 */
+#define LL_PINMUX_TSSOP20_PIN15_PB2           (((SYSCFG_CFGR3_PINMUX1_0 | SYSCFG_CFGR3_PINMUX1_1) << 16U) | \
+                                               (SYSCFG_CFGR3_PINMUX1_0 | SYSCFG_CFGR3_PINMUX1_1))                                   /*!< STM32C091/92 TSSOP20 package, Pin15 assigned to GPIO PB2 */
+#define LL_PINMUX_WLCSP24_PING1_PA8           LL_PINMUX_TSSOP20_PIN15_PA8
+#define LL_PINMUX_WLCSP24_PING1_PB2           LL_PINMUX_TSSOP20_PIN15_PB0
+#define LL_PINMUX_TSSOP20_PIN20_PB6           (((SYSCFG_CFGR3_PINMUX2_0 | SYSCFG_CFGR3_PINMUX2_1) << 16U) | 0x00000000U)            /*!< STM32C091/92 TSSOP20 package, Pin20 assigned to GPIO PB6 */
+#define LL_PINMUX_TSSOP20_PIN20_PB3           (((SYSCFG_CFGR3_PINMUX2_0 | SYSCFG_CFGR3_PINMUX2_1) << 16U) | \
+                                               SYSCFG_CFGR3_PINMUX2_0)                                                              /*!< STM32C091/92 TSSOP20 package, Pin20 assigned to GPIO PB3 */
+#define LL_PINMUX_TSSOP20_PIN20_PB4           (((SYSCFG_CFGR3_PINMUX2_0 | SYSCFG_CFGR3_PINMUX2_1) << 16U) | \
+                                               SYSCFG_CFGR3_PINMUX2_1)                                                              /*!< STM32C091/92 TSSOP20 package, Pin20 assigned to GPIO PB4 */
+#define LL_PINMUX_TSSOP20_PIN20_PB5           (((SYSCFG_CFGR3_PINMUX2_0 | SYSCFG_CFGR3_PINMUX2_1) << 16U) | \
+                                               SYSCFG_CFGR3_PINMUX2_0  | SYSCFG_CFGR3_PINMUX2_1)                                    /*!< STM32C091/92 TSSOP20 package, Pin20 assigned to GPIO PB5 */
+#define LL_PINMUX_WLCSP24_PINA5_PB6           LL_PINMUX_TSSOP20_PIN20_PB6
+#define LL_PINMUX_WLCSP24_PINA5_PB4           LL_PINMUX_TSSOP20_PIN20_PB3
+#define LL_PINMUX_WLCSP24_PINA3_PB5           (((SYSCFG_CFGR3_PINMUX3_0 | SYSCFG_CFGR3_PINMUX3_1) << 16U) | 0x00000000U)            /*!< STM32C091/92 WLCSP24 package, PinA3 assigned to GPIO PB5 */
+#define LL_PINMUX_WLCSP24_PINA3_PB3           (((SYSCFG_CFGR3_PINMUX3_0 | SYSCFG_CFGR3_PINMUX3_1) << 16U) | \
+                                               SYSCFG_CFGR3_PINMUX3_0)                                                              /*!< STM32C091/92 WLCSP24 package, PinA3 assigned to GPIO PB3 */
+#define LL_PINMUX_WLCSP24_PINB4_PB7           (((SYSCFG_CFGR3_PINMUX4_0 | SYSCFG_CFGR3_PINMUX4_1) << 16U) | 0x00000000U)            /*!< STM32C091/92 WLCSP24 package, PinB4 assigned to GPIO PB7 */
+#define LL_PINMUX_WLCSP24_PINB4_PB8           (((SYSCFG_CFGR3_PINMUX4_0 | SYSCFG_CFGR3_PINMUX4_1) << 16U) | \
+                                               SYSCFG_CFGR3_PINMUX4_0)                                                              /*!< STM32C091/92 WLCSP24 package, PinB4 assigned to GPIO PB8 */
+#define LL_PINMUX_TSSOP20_PIN1_PB7            LL_PINMUX_WLCSP24_PINB4_PB7
+#define LL_PINMUX_TSSOP20_PIN1_PB8            LL_PINMUX_WLCSP24_PINB4_PB8
 #endif /* DEV_ID == 0x443UL */
 /**
   * @}
@@ -290,6 +357,26 @@ extern "C" {
 #define LL_PINMUX_TSSOP20_PIN20          (SYSCFG_CFGR3_PINMUX2_0 | SYSCFG_CFGR3_PINMUX2_1)       /*!< STM32C071 TSSOP20 package, GPIO Pin20 multiplexer  */
 #define LL_PINMUX_WLCSP19_PINB3          (SYSCFG_CFGR3_PINMUX3_0 | SYSCFG_CFGR3_PINMUX3_1)       /*!< STM32C071 WLCSP19 package, GPIO PinB3 multiplexer  */
 #define LL_PINMUX_TSSOP20_PIN1           LL_PINMUX_WLCSP19_PINB3                                 /*!< STM32C071 TSSOP20 package, GPIO Pin1 multiplexer   */
+#elif (DEV_ID == 0x44CUL)
+#define LL_PINMUX_WLCSP15_PINH3          (SYSCFG_CFGR3_PINMUX0_0 | SYSCFG_CFGR3_PINMUX0_1)       /*!< STM32C051 WLCSP15 package, GPIO PinH3 multiplexer  */
+#define LL_PINMUX_WLCSP15_PING2          (SYSCFG_CFGR3_PINMUX1_0 | SYSCFG_CFGR3_PINMUX1_1)       /*!< STM32C051 WLCSP15 package, GPIO PinG2 multiplexer  */
+#define LL_PINMUX_WLCSP15_PINK3          (SYSCFG_CFGR3_PINMUX2_0 | SYSCFG_CFGR3_PINMUX2_1)       /*!< STM32C051 WLCSP15 package, GPIO PinK3 multiplexer  */
+#define LL_PINMUX_WLCSP15_PINJ2          (SYSCFG_CFGR3_PINMUX3_0 | SYSCFG_CFGR3_PINMUX3_1)       /*!< STM32C051 WLCSP15 package, GPIO PinJ2 multiplexer  */
+#define LL_PINMUX_WLCSP15_PINH1          (SYSCFG_CFGR3_PINMUX4_0 | SYSCFG_CFGR3_PINMUX4_1)       /*!< STM32C051 WLCSP15 package, GPIO PinH1 multiplexer  */
+#define LL_PINMUX_WLCSP15_PINE2          (SYSCFG_CFGR3_PINMUX5_0 | SYSCFG_CFGR3_PINMUX5_1)       /*!< STM32C051 WLCSP15 package, GPIO PinE2 multiplexer  */
+#define LL_PINMUX_WLCSP15_PINB1          (SYSCFG_CFGR3_PINMUX6_0 | SYSCFG_CFGR3_PINMUX6_1)       /*!< STM32C051 WLCSP15 package, GPIO PinB1 multiplexer  */
+#define LL_PINMUX_TSSOP20_PIN20          LL_PINMUX_WLCSP15_PINB1
+#define LL_PINMUX_WLCSP15_PINA2          (SYSCFG_CFGR3_PINMUX7_0 | SYSCFG_CFGR3_PINMUX7_1)       /*!< STM32C051 WLCSP15 package, GPIO PinA2 multiplexer  */
+#define LL_PINMUX_TSSOP20_PIN1           LL_PINMUX_WLCSP15_PINB1
+#elif (DEV_ID == 0x44DUL)
+#define LL_PINMUX_TSSOP20_PIN19          (SYSCFG_CFGR3_PINMUX0_0 | SYSCFG_CFGR3_PINMUX0_1)       /*!< STM32C091/92 TSSOP20 package, GPIO Pin19 multiplexer  */
+#define LL_PINMUX_TSSOP20_PIN15          (SYSCFG_CFGR3_PINMUX1_0 | SYSCFG_CFGR3_PINMUX1_1)       /*!< STM32C091/92 TSSOP20 package, GPIO Pin15 multiplexer  */
+#define LL_PINMUX_WLCSP24_PING1          LL_PINMUX_TSSOP20_PIN15
+#define LL_PINMUX_TSSOP20_PIN20          (SYSCFG_CFGR3_PINMUX2_0 | SYSCFG_CFGR3_PINMUX2_1)       /*!< STM32C091/92 TSSOP20 package, GPIO Pin20 multiplexer  */
+#define LL_PINMUX_WLCSP24_PINA5          LL_PINMUX_TSSOP20_PIN20
+#define LL_PINMUX_WLCSP24_PINA3          (SYSCFG_CFGR3_PINMUX3_0 | SYSCFG_CFGR3_PINMUX3_1)       /*!< STM32C091/92 WLCSP24 package, GPIO PinA3 multiplexer  */
+#define LL_PINMUX_WLCSP24_PINB4          (SYSCFG_CFGR3_PINMUX4_0 | SYSCFG_CFGR3_PINMUX4_1)       /*!< STM32C091/92 WLCSP24 package, GPIO PinB4 multiplexer  */
+#define LL_PINMUX_TSSOP20_PIN1           LL_PINMUX_WLCSP24_PINB4
 #endif /* DEV_ID == 0x443UL */
 /**
   * @}
@@ -870,6 +957,30 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH5(void)
 }
 #endif /* SYSCFG_ITLINE11_SR_DMA1_CH5 */
 
+#if defined(SYSCFG_ITLINE11_SR_DMA1_CH6)
+/**
+  * @brief  Check if DMA1_CH6 interrupt occurred or not.
+  * @rmtoll SYSCFG_ITLINE11 SR_DMA1_CH6   LL_SYSCFG_IsActiveFlag_DMA1_CH6
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH6(void)
+{
+  return ((READ_BIT(SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA1_CH6) == (SYSCFG_ITLINE11_SR_DMA1_CH6)) ? 1UL : 0UL);
+}
+#endif /* SYSCFG_ITLINE11_SR_DMA1_CH6 */
+
+#if defined(SYSCFG_ITLINE11_SR_DMA1_CH7)
+/**
+  * @brief  Check if DMA1_CH7 interrupt occurred or not.
+  * @rmtoll SYSCFG_ITLINE11 SR_DMA1_CH7   LL_SYSCFG_IsActiveFlag_DMA1_CH7
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_DMA1_CH7(void)
+{
+  return ((READ_BIT(SYSCFG->IT_LINE_SR[11], SYSCFG_ITLINE11_SR_DMA1_CH7) == (SYSCFG_ITLINE11_SR_DMA1_CH7)) ? 1UL : 0UL);
+}
+#endif /* SYSCFG_ITLINE11_SR_DMA1_CH7 */
+
 #if defined(SYSCFG_ITLINE12_SR_ADC)
 /**
   * @brief  Check if ADC interrupt occurred or not.
@@ -979,6 +1090,19 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM14(void)
 }
 #endif /* SYSCFG_ITLINE19_SR_TIM14_GLB */
 
+#if defined(SYSCFG_ITLINE20_SR_TIM15_GLB)
+/**
+  * @brief  Check if Timer 15 interrupt occurred or not.
+  * @rmtoll SYSCFG_ITLINE20 SR_TIM15_GLB  LL_SYSCFG_IsActiveFlag_TIM15
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_TIM15(void)
+{
+  return ((READ_BIT(SYSCFG->IT_LINE_SR[20], SYSCFG_ITLINE20_SR_TIM15_GLB) == \
+           (SYSCFG_ITLINE20_SR_TIM15_GLB)) ? 1UL : 0UL);
+}
+#endif /* SYSCFG_ITLINE20_SR_TIM15_GLB */
+
 #if defined(SYSCFG_ITLINE21_SR_TIM16_GLB)
 /**
   * @brief  Check if Timer 16 interrupt occurred or not.
@@ -1078,6 +1202,58 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART2(void)
            (SYSCFG_ITLINE28_SR_USART2_GLB)) ? 1UL : 0UL);
 }
 #endif /* SYSCFG_ITLINE28_SR_USART2_GLB */
+
+#if defined(SYSCFG_ITLINE29_SR_USART3_GLB)
+/**
+  * @brief  Check if USART3 interrupt occurred or not, combined with EXTI line 26.
+  * @rmtoll SYSCFG_ITLINE29 SR_USART3_GLB  LL_SYSCFG_IsActiveFlag_USART3
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART3(void)
+{
+  return ((READ_BIT(SYSCFG->IT_LINE_SR[29], SYSCFG_ITLINE29_SR_USART3_GLB) == \
+           (SYSCFG_ITLINE29_SR_USART3_GLB)) ? 1UL : 0UL);
+}
+#endif /* SYSCFG_ITLINE29_SR_USART3_GLB */
+
+#if defined(SYSCFG_ITLINE29_SR_USART4_GLB)
+/**
+  * @brief  Check if USART4 interrupt occurred or not, combined with EXTI line 26.
+  * @rmtoll SYSCFG_ITLINE29 SR_USART4_GLB  LL_SYSCFG_IsActiveFlag_USART4
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_USART4(void)
+{
+  return ((READ_BIT(SYSCFG->IT_LINE_SR[29], SYSCFG_ITLINE29_SR_USART4_GLB) == \
+           (SYSCFG_ITLINE29_SR_USART4_GLB)) ? 1UL : 0UL);
+}
+#endif /* SYSCFG_ITLINE29_SR_USART4_GLB */
+
+#if defined(SYSCFG_ITLINE30_SR_FDCAN1_IT0)
+/**
+  * @brief  Check if FDCAN1_IT0 interrupt occurred or not, combined with EXTI line 26.
+  * @rmtoll SYSCFG_ITLINE30 SR_FDCAN1_IT0  LL_SYSCFG_IsActiveFlag_FDCAN1_IT0
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FDCAN1_IT0(void)
+{
+  return ((READ_BIT(SYSCFG->IT_LINE_SR[30], SYSCFG_ITLINE30_SR_FDCAN1_IT0) == \
+           (SYSCFG_ITLINE30_SR_FDCAN1_IT0)) ? 1UL : 0UL);
+}
+#endif /* SYSCFG_ITLINE30_SR_FDCAN1_IT0 */
+
+#if defined(SYSCFG_ITLINE31_SR_FDCAN1_IT1)
+/**
+  * @brief  Check if FDCAN1_IT1 interrupt occurred or not, combined with EXTI line 26.
+  * @rmtoll SYSCFG_ITLINE31 SR_FDCAN1_IT1  LL_SYSCFG_IsActiveFlag_FDCAN1_IT1
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_FDCAN1_IT1(void)
+{
+  return ((READ_BIT(SYSCFG->IT_LINE_SR[31], SYSCFG_ITLINE31_SR_FDCAN1_IT1) == \
+           (SYSCFG_ITLINE31_SR_FDCAN1_IT1)) ? 1UL : 0UL);
+}
+#endif /* SYSCFG_ITLINE31_SR_FDCAN1_IT1 */
 
 /**
   * @}

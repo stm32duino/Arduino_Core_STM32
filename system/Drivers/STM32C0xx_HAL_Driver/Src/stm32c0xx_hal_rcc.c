@@ -1088,6 +1088,8 @@ void HAL_RCC_GetClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, uint32_t *pF
 #if defined(RCC_CR_SYSDIV)
   /* Get the SYSCLK configuration ----------------------------------------------*/
   RCC_ClkInitStruct->SYSCLKDivider = (uint32_t)(RCC->CR & RCC_CR_SYSDIV);
+#else
+  RCC_ClkInitStruct->SYSCLKDivider = RCC_SYSCLK_DIV1;
 #endif /* RCC_CR_SYSDIV */
 
   /* Get the HCLK configuration ----------------------------------------------*/

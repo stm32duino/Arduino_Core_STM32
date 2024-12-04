@@ -1045,7 +1045,7 @@ __STATIC_INLINE void LL_SPI_ClearFlag_MODF(SPI_TypeDef *SPIx)
   * @param  SPIx SPI Instance
   * @retval None
   */
-__STATIC_INLINE void LL_SPI_ClearFlag_OVR(SPI_TypeDef *SPIx)
+__STATIC_INLINE void LL_SPI_ClearFlag_OVR(const SPI_TypeDef *SPIx)
 {
   __IO uint32_t tmpreg;
   tmpreg = SPIx->DR;
@@ -1061,7 +1061,7 @@ __STATIC_INLINE void LL_SPI_ClearFlag_OVR(SPI_TypeDef *SPIx)
   * @param  SPIx SPI Instance
   * @retval None
   */
-__STATIC_INLINE void LL_SPI_ClearFlag_FRE(SPI_TypeDef *SPIx)
+__STATIC_INLINE void LL_SPI_ClearFlag_FRE(const SPI_TypeDef *SPIx)
 {
   __IO uint32_t tmpreg;
   tmpreg = SPIx->SR;
@@ -2010,7 +2010,7 @@ __STATIC_INLINE void LL_I2S_ClearFlag_OVR(SPI_TypeDef *SPIx)
   * @param  SPIx SPI Instance
   * @retval None
   */
-__STATIC_INLINE void LL_I2S_ClearFlag_UDR(SPI_TypeDef *SPIx)
+__STATIC_INLINE void LL_I2S_ClearFlag_UDR(const SPI_TypeDef *SPIx)
 {
   __IO uint32_t tmpreg;
   tmpreg = SPIx->SR;
@@ -2023,7 +2023,7 @@ __STATIC_INLINE void LL_I2S_ClearFlag_UDR(SPI_TypeDef *SPIx)
   * @param  SPIx SPI Instance
   * @retval None
   */
-__STATIC_INLINE void LL_I2S_ClearFlag_FRE(SPI_TypeDef *SPIx)
+__STATIC_INLINE void LL_I2S_ClearFlag_FRE(const SPI_TypeDef *SPIx)
 {
   LL_SPI_ClearFlag_FRE(SPIx);
 }

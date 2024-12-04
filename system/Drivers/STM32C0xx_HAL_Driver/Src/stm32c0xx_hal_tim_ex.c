@@ -1794,7 +1794,7 @@ HAL_StatusTypeDef HAL_TIMEx_OnePulseN_Stop_IT(TIM_HandleTypeDef *htim, uint32_t 
   * @param  InputTrigger the Internal trigger corresponding to the Timer Interfacing with the Hall sensor
   *          This parameter can be one of the following values:
   *            @arg TIM_TS_ITR0: Internal trigger 0 selected
-  *            @arg TIM_TS_ITR1: Internal trigger 1 selected
+  *            @arg TIM_TS_ITR1: Internal trigger 1 selected (*)
   *            @arg TIM_TS_ITR2: Internal trigger 2 selected
   *            @arg TIM_TS_ITR3: Internal trigger 3 selected
   *            @arg TIM_TS_ITR7: Internal trigger 7 selected (*)
@@ -2279,6 +2279,14 @@ HAL_StatusTypeDef HAL_TIMEx_RemapConfig(TIM_HandleTypeDef *htim, uint32_t Remap)
   *            @arg TIM_TIM14_TI1_MCO:                TIM14 TI1 is connected to MCO
   *            @arg TIM_TIM14_TI1_MCO2:               TIM14 TI1 is connected to MCO2
   *
+  *         For TIM15, the parameter is one of the following values: (*)
+  *            @arg TIM_TIM15_TI1_GPIO:               TIM15 TI1 is connected to GPIO
+  *            @arg TIM_TIM15_TI1_TIM2_CH1:           TIM15 TI1 is connected to TIM2 CH1
+  *            @arg TIM_TIM15_TI1_TIM3_CH1:           TIM15 TI1 is connected to TIM3 CH1
+  *            @arg TIM_TIM15_TI2_GPIO:               TIM15 TI2 is connected to GPIO
+  *            @arg TIM_TIM15_TI2_TIM2_CH2:           TIM15 TI2 is connected to TIM2 CH2
+  *            @arg TIM_TIM15_TI2_TIM3_CH2:           TIM15 TI2 is connected to TIM3 CH2
+  *
   *         For TIM16, the parameter can have the following values:
   *            @arg TIM_TIM16_TI1_GPIO:               TIM16 TI1 is connected to GPIO
   *            @arg TIM_TIM16_TI1_LSI:                TIM16 TI1 is connected to LSI
@@ -2290,6 +2298,9 @@ HAL_StatusTypeDef HAL_TIMEx_RemapConfig(TIM_HandleTypeDef *htim, uint32_t Remap)
   *            @arg TIM_TIM17_TI1_HSE_32:             TIM17 TI1 is connected to HSE div 32
   *            @arg TIM_TIM17_TI1_MCO:                TIM17 TI1 is connected to MCO
   *            @arg TIM_TIM17_TI1_MCO2:               TIM17 TI1 is connected to MCO2
+  *
+  *  (*) Timer instance not available on all devices \n
+  *
   * @retval HAL status
   */
 HAL_StatusTypeDef  HAL_TIMEx_TISelection(TIM_HandleTypeDef *htim, uint32_t TISelection, uint32_t Channel)

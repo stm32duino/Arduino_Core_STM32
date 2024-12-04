@@ -6,8 +6,14 @@
     #define CMSIS_STARTUP_FILE "startup_stm32c011xx.s"
   #elif defined(STM32C031xx)
     #define CMSIS_STARTUP_FILE "startup_stm32c031xx.s"
+  #elif defined(STM32C051xx)
+    #define CMSIS_STARTUP_FILE "startup_stm32c051xx.s"
   #elif defined(STM32C071xx)
     #define CMSIS_STARTUP_FILE "startup_stm32c071xx.s"
+  #elif defined(STM32C091xx)
+    #define CMSIS_STARTUP_FILE "startup_stm32c091xx.s"
+  #elif defined(STM32C092xx)
+    #define CMSIS_STARTUP_FILE "startup_stm32c092xx.s"
   #elif defined(STM32F030x6)
     #define CMSIS_STARTUP_FILE "startup_stm32f030x6.s"
   #elif defined(STM32F030x8)

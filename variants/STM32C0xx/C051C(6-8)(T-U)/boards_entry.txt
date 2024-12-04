@@ -1,0 +1,41 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic C051C6Tx
+GenC0.menu.pnum.GENERIC_C051C6TX=Generic C051C6Tx
+GenC0.menu.pnum.GENERIC_C051C6TX.upload.maximum_size=32768
+GenC0.menu.pnum.GENERIC_C051C6TX.upload.maximum_data_size=12288
+GenC0.menu.pnum.GENERIC_C051C6TX.build.board=GENERIC_C051C6TX
+GenC0.menu.pnum.GENERIC_C051C6TX.build.product_line=STM32C051xx
+GenC0.menu.pnum.GENERIC_C051C6TX.build.variant=STM32C0xx/C051C(6-8)(T-U)
+GenC0.menu.pnum.GENERIC_C051C6TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C051.svd
+
+# Generic C051C6Ux
+GenC0.menu.pnum.GENERIC_C051C6UX=Generic C051C6Ux
+GenC0.menu.pnum.GENERIC_C051C6UX.upload.maximum_size=32768
+GenC0.menu.pnum.GENERIC_C051C6UX.upload.maximum_data_size=12288
+GenC0.menu.pnum.GENERIC_C051C6UX.build.board=GENERIC_C051C6UX
+GenC0.menu.pnum.GENERIC_C051C6UX.build.product_line=STM32C051xx
+GenC0.menu.pnum.GENERIC_C051C6UX.build.variant=STM32C0xx/C051C(6-8)(T-U)
+GenC0.menu.pnum.GENERIC_C051C6UX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C051.svd
+
+# Generic C051C8Tx
+GenC0.menu.pnum.GENERIC_C051C8TX=Generic C051C8Tx
+GenC0.menu.pnum.GENERIC_C051C8TX.upload.maximum_size=65536
+GenC0.menu.pnum.GENERIC_C051C8TX.upload.maximum_data_size=12288
+GenC0.menu.pnum.GENERIC_C051C8TX.build.board=GENERIC_C051C8TX
+GenC0.menu.pnum.GENERIC_C051C8TX.build.product_line=STM32C051xx
+GenC0.menu.pnum.GENERIC_C051C8TX.build.variant=STM32C0xx/C051C(6-8)(T-U)
+GenC0.menu.pnum.GENERIC_C051C8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C051.svd
+
+# Generic C051C8Ux
+GenC0.menu.pnum.GENERIC_C051C8UX=Generic C051C8Ux
+GenC0.menu.pnum.GENERIC_C051C8UX.upload.maximum_size=65536
+GenC0.menu.pnum.GENERIC_C051C8UX.upload.maximum_data_size=12288
+GenC0.menu.pnum.GENERIC_C051C8UX.build.board=GENERIC_C051C8UX
+GenC0.menu.pnum.GENERIC_C051C8UX.build.product_line=STM32C051xx
+GenC0.menu.pnum.GENERIC_C051C8UX.build.variant=STM32C0xx/C051C(6-8)(T-U)
+GenC0.menu.pnum.GENERIC_C051C8UX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C051.svd
+
