@@ -1836,6 +1836,107 @@ HAL_StatusTypeDef HAL_I2S_DMAStop(I2S_HandleTypeDef *hi2s)
 }
 
 /**
+  * @brief  Enable the SDO/SDI alternate functions inversion feature for the dedicated I2Sx.
+  *         Original SDI pin becomes SDO and original SDO pin becomes SDI (Also applicable
+  *         on half-duplex mode in case of single data line).
+  * @param  hi2s Pointer to a @ref I2S_HandleTypeDef structure that contains
+  *         the configuration information for I2S module.
+  * @retval HAL_ERROR When IO is locked, handle is NULL or wrong state.
+  * @retval HAL_OK IO Swap feature enabled successfully.
+  */
+HAL_StatusTypeDef HAL_I2S_EnableIOSwap(I2S_HandleTypeDef *hi2s)
+{
+  /* Check the I2S handle allocation */
+  if (hi2s == NULL)
+  {
+    return HAL_ERROR;
+  }
+
+  /* Check the global state */
+  if (hi2s->State != HAL_I2S_STATE_READY)
+  {
+    return HAL_ERROR;
+  }
+
+  /* Check for IOLock */
+  if (READ_BIT(hi2s->Instance->CR1, SPI_CR1_IOLOCK) == (SPI_CR1_IOLOCK))
+  {
+    return  HAL_ERROR;
+  }
+
+  /* Check if the I2S is already enabled */
+  if ((hi2s->Instance->CR1 & SPI_CR1_SPE) == SPI_CR1_SPE)
+  {
+    /* Disable I2S peripheral */
+    __HAL_I2S_DISABLE(hi2s);
+  }
+
+  /* Enable IO Swap feature */
+  SET_BIT(hi2s->Instance->CFG2, SPI_CFG2_IOSWP);
+
+  return HAL_OK;
+}
+
+/**
+  * @brief  Disable the SDO/SDI alternate functions inversion feature for the dedicated I2Sx.
+  *         Original SDI pin becomes SDI and original SDO pin becomes SDO (Also applicable
+  *         on half-duplex mode in case of single data line).
+  * @param  hi2s Pointer to a @ref I2S_HandleTypeDef structure that contains
+  *         the configuration information for I2S module.
+  * @retval HAL_ERROR When IO is locked, handle is NULL or wrong state.
+  * @retval HAL_OK IO Swap feature disabled successfully.
+  */
+HAL_StatusTypeDef HAL_I2S_DisableIOSwap(I2S_HandleTypeDef *hi2s)
+{
+  /* Check the I2S handle allocation */
+  if (hi2s == NULL)
+  {
+    return HAL_ERROR;
+  }
+
+  /* Check the global state */
+  if (hi2s->State != HAL_I2S_STATE_READY)
+  {
+    return HAL_ERROR;
+  }
+
+  /* Check for IOLock */
+  if (READ_BIT(hi2s->Instance->CR1, SPI_CR1_IOLOCK) == (SPI_CR1_IOLOCK))
+  {
+    return HAL_ERROR;
+  }
+
+  /* Check if the I2S is already enabled */
+  if ((hi2s->Instance->CR1 & SPI_CR1_SPE) == SPI_CR1_SPE)
+  {
+    /* Disable I2S peripheral */
+    __HAL_I2S_DISABLE(hi2s);
+  }
+
+  /* Disable the IO Swap feature */
+  CLEAR_BIT(hi2s->Instance->CFG2, SPI_CFG2_IOSWP);
+
+  return HAL_OK;
+}
+
+/**
+  * @brief  Retrieve the SDO/SDI alternate functions inversion feature status for the dedicated I2Sx.
+  * @param  hi2s Pointer to a @ref I2S_HandleTypeDef structure that contains
+  *         the configuration information for I2S module.
+  * @retval 1 when I2S IO swap feature is enabled, 0 otherwise, or when hi2s pointer is null.
+  */
+uint32_t HAL_I2S_IsEnabledIOSwap(const I2S_HandleTypeDef *hi2s)
+{
+  /* Check the I2S handle allocation */
+  if (hi2s == NULL)
+  {
+    return 0;
+  }
+
+  return ((READ_BIT(hi2s->Instance->CFG2, SPI_CFG2_IOSWP) == (SPI_CFG2_IOSWP)) ? 1UL : 0UL);
+}
+
+/**
   * @brief  This function handles I2S interrupt request.
   * @param  hi2s pointer to a I2S_HandleTypeDef structure that contains
   *         the configuration information for I2S module

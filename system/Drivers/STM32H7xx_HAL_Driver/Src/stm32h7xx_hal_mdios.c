@@ -635,7 +635,7 @@ HAL_StatusTypeDef HAL_MDIOS_ReadReg(MDIOS_HandleTypeDef *hmdios, uint32_t RegNum
   * @param  hmdios: mdios handle
   * @retval bit map of written registers addresses
   */
-uint32_t HAL_MDIOS_GetWrittenRegAddress(MDIOS_HandleTypeDef *hmdios)
+uint32_t HAL_MDIOS_GetWrittenRegAddress(const MDIOS_HandleTypeDef *hmdios)
 {
   return hmdios->Instance->WRFR;
 }
@@ -645,7 +645,7 @@ uint32_t HAL_MDIOS_GetWrittenRegAddress(MDIOS_HandleTypeDef *hmdios)
   * @param  hmdios: mdios handle
   * @retval bit map of read registers addresses
   */
-uint32_t HAL_MDIOS_GetReadRegAddress(MDIOS_HandleTypeDef *hmdios)
+uint32_t HAL_MDIOS_GetReadRegAddress(const MDIOS_HandleTypeDef *hmdios)
 {
   return hmdios->Instance->RDFR;
 }
@@ -916,7 +916,7 @@ __weak void HAL_MDIOS_WakeUpCallback(MDIOS_HandleTypeDef *hmdios)
   * @param  hmdios: mdios handle
   * @retval mdios error code
   */
-uint32_t HAL_MDIOS_GetError(MDIOS_HandleTypeDef *hmdios)
+uint32_t HAL_MDIOS_GetError(const MDIOS_HandleTypeDef *hmdios)
 {
   /* return the error code */
   return hmdios->ErrorCode;
@@ -927,7 +927,7 @@ uint32_t HAL_MDIOS_GetError(MDIOS_HandleTypeDef *hmdios)
   * @param  hmdios: mdios handle
   * @retval HAL state
   */
-HAL_MDIOS_StateTypeDef HAL_MDIOS_GetState(MDIOS_HandleTypeDef *hmdios)
+HAL_MDIOS_StateTypeDef HAL_MDIOS_GetState(const MDIOS_HandleTypeDef *hmdios)
 {
   /* Return MDIOS state */
   return hmdios->State;

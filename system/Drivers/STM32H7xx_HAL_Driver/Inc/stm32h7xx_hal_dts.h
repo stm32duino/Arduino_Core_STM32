@@ -423,7 +423,7 @@ HAL_StatusTypeDef HAL_DTS_GetTemperature(DTS_HandleTypeDef *hdts, int32_t *Tempe
 HAL_StatusTypeDef HAL_DTS_Start_IT(DTS_HandleTypeDef *hdts);
 HAL_StatusTypeDef HAL_DTS_Stop_IT(DTS_HandleTypeDef *hdts);
 void              HAL_DTS_IRQHandler(DTS_HandleTypeDef *hdts);
-HAL_DTS_StateTypeDef HAL_DTS_GetState(DTS_HandleTypeDef *hdts);
+HAL_DTS_StateTypeDef HAL_DTS_GetState(const DTS_HandleTypeDef *hdts);
 /* Callback in Interrupt mode */
 void              HAL_DTS_EndCallback(DTS_HandleTypeDef *hdts);
 void              HAL_DTS_LowCallback(DTS_HandleTypeDef *hdts);
