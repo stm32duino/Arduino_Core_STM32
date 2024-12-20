@@ -777,17 +777,17 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef
       }
       else
       {
-        USBx_INEP(epnum)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_PKTCNT &
-                                       (((ep->xfer_len + ep->maxpacket - 1U) / ep->maxpacket) << 19));
+        pktcnt = (uint16_t)((ep->xfer_len + ep->maxpacket - 1U) / ep->maxpacket);
+        USBx_INEP(epnum)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_PKTCNT & ((uint32_t)pktcnt << 19));
+
+        if (ep->type == EP_TYPE_ISOC)
+        {
+          USBx_INEP(epnum)->DIEPTSIZ &= ~(USB_OTG_DIEPTSIZ_MULCNT);
+          USBx_INEP(epnum)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_MULCNT & ((uint32_t)pktcnt << 29));
+        }
       }
 
       USBx_INEP(epnum)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_XFRSIZ & ep->xfer_len);
-
-      if (ep->type == EP_TYPE_ISOC)
-      {
-        USBx_INEP(epnum)->DIEPTSIZ &= ~(USB_OTG_DIEPTSIZ_MULCNT);
-        USBx_INEP(epnum)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_MULCNT & (1U << 29));
-      }
     }
 
     if (dma == 1U)
@@ -1314,8 +1314,8 @@ void  USB_ClearInterrupts(USB_OTG_GlobalTypeDef *USBx, uint32_t interrupt)
   * @param  USBx  Selected device
   * @retval return core mode : Host or Device
   *          This parameter can be one of these values:
-  *           0 : Host
-  *           1 : Device
+  *           1 : Host
+  *           0 : Device
   */
 uint32_t USB_GetMode(const USB_OTG_GlobalTypeDef *USBx)
 {

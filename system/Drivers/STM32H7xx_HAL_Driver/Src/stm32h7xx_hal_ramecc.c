@@ -613,7 +613,7 @@ __weak void HAL_RAMECC_DetectErrorCallback(RAMECC_HandleTypeDef *hramecc)
   *                  Monitor.
   * @retval Failing address offset.
   */
-uint32_t HAL_RAMECC_GetFailingAddress(RAMECC_HandleTypeDef *hramecc)
+uint32_t HAL_RAMECC_GetFailingAddress(const RAMECC_HandleTypeDef *hramecc)
 {
   /* Check the parameters */
   assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
@@ -629,7 +629,7 @@ uint32_t HAL_RAMECC_GetFailingAddress(RAMECC_HandleTypeDef *hramecc)
   *                  Monitor.
   * @retval Failing data low.
   */
-uint32_t HAL_RAMECC_GetFailingDataLow(RAMECC_HandleTypeDef *hramecc)
+uint32_t HAL_RAMECC_GetFailingDataLow(const RAMECC_HandleTypeDef *hramecc)
 {
   /* Check the parameters */
   assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
@@ -645,7 +645,7 @@ uint32_t HAL_RAMECC_GetFailingDataLow(RAMECC_HandleTypeDef *hramecc)
   *                  Monitor.
   * @retval Failing data high.
   */
-uint32_t HAL_RAMECC_GetFailingDataHigh(RAMECC_HandleTypeDef *hramecc)
+uint32_t HAL_RAMECC_GetFailingDataHigh(const RAMECC_HandleTypeDef *hramecc)
 {
   /* Check the parameters */
   assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
@@ -661,7 +661,7 @@ uint32_t HAL_RAMECC_GetFailingDataHigh(RAMECC_HandleTypeDef *hramecc)
   *                  Monitor.
   * @retval Hamming bits injected.
   */
-uint32_t HAL_RAMECC_GetHammingErrorCode(RAMECC_HandleTypeDef *hramecc)
+uint32_t HAL_RAMECC_GetHammingErrorCode(const RAMECC_HandleTypeDef *hramecc)
 {
   /* Check the parameters */
   assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
@@ -677,7 +677,7 @@ uint32_t HAL_RAMECC_GetHammingErrorCode(RAMECC_HandleTypeDef *hramecc)
   *                  Monitor.
   * @retval State of bit (1 or 0).
   */
-uint32_t HAL_RAMECC_IsECCSingleErrorDetected(RAMECC_HandleTypeDef *hramecc)
+uint32_t HAL_RAMECC_IsECCSingleErrorDetected(const RAMECC_HandleTypeDef *hramecc)
 {
   /* Check the parameters */
   assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
@@ -693,7 +693,7 @@ uint32_t HAL_RAMECC_IsECCSingleErrorDetected(RAMECC_HandleTypeDef *hramecc)
   *                  Monitor.
   * @retval State of bit (1 or 0).
   */
-uint32_t HAL_RAMECC_IsECCDoubleErrorDetected(RAMECC_HandleTypeDef *hramecc)
+uint32_t HAL_RAMECC_IsECCDoubleErrorDetected(const RAMECC_HandleTypeDef *hramecc)
 {
   /* Check the parameters */
   assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
@@ -734,7 +734,7 @@ uint32_t HAL_RAMECC_IsECCDoubleErrorDetected(RAMECC_HandleTypeDef *hramecc)
   *                         specified RAMECC instance.
   * @retval RAMECC state.
   */
-HAL_RAMECC_StateTypeDef HAL_RAMECC_GetState(RAMECC_HandleTypeDef *hramecc)
+HAL_RAMECC_StateTypeDef HAL_RAMECC_GetState(const RAMECC_HandleTypeDef *hramecc)
 {
   /* Return the RAMECC state */
   return hramecc->State;
@@ -747,7 +747,7 @@ HAL_RAMECC_StateTypeDef HAL_RAMECC_GetState(RAMECC_HandleTypeDef *hramecc)
   *                         specified RAMECC instance.
   * @retval RAMECC error code.
   */
-uint32_t HAL_RAMECC_GetError(RAMECC_HandleTypeDef *hramecc)
+uint32_t HAL_RAMECC_GetError(const RAMECC_HandleTypeDef *hramecc)
 {
   /* Return the RAMECC error code */
   return hramecc->ErrorCode;
@@ -760,7 +760,7 @@ uint32_t HAL_RAMECC_GetError(RAMECC_HandleTypeDef *hramecc)
   *                         specified RAMECC instance.
   * @retval RAMECC error code detected.
   */
-uint32_t HAL_RAMECC_GetRAMECCError(RAMECC_HandleTypeDef *hramecc)
+uint32_t HAL_RAMECC_GetRAMECCError(const RAMECC_HandleTypeDef *hramecc)
 {
   /* Return the RAMECC error code detected*/
   return hramecc->RAMECCErrorCode;

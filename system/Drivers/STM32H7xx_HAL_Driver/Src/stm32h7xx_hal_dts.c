@@ -948,7 +948,7 @@ __weak void HAL_DTS_AsyncHighCallback(DTS_HandleTypeDef *hdts)
   * @param  hdts  DTS handle
   * @retval HAL state
   */
-HAL_DTS_StateTypeDef HAL_DTS_GetState(DTS_HandleTypeDef *hdts)
+HAL_DTS_StateTypeDef HAL_DTS_GetState(const DTS_HandleTypeDef *hdts)
 {
   /* Check the DTS handle allocation */
   if (hdts == NULL)

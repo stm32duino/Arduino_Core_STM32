@@ -88,6 +88,7 @@ extern "C" {
 #define HAL_RTC_MODULE_ENABLED
 #define HAL_SAI_MODULE_ENABLED
 #define HAL_SD_MODULE_ENABLED
+#define HAL_SDIO_MODULE_ENABLED
 #define HAL_SDRAM_MODULE_ENABLED
 #define HAL_SMARTCARD_MODULE_ENABLED
 #define HAL_SMBUS_MODULE_ENABLED
@@ -148,8 +149,8 @@ extern "C" {
 #if !defined  (LSI_VALUE)
 #define LSI_VALUE  (32000UL)      /*!< LSI Typical Value in Hz*/
 #endif /* LSI_VALUE */                      /*!< Value of the Internal Low Speed oscillator in Hz
-The real value may vary depending on the variations
-in voltage and temperature.*/
+                                              The real value may vary depending on the variations
+                                              in voltage and temperature.*/
 
 /**
   * @brief External clock source for I2S peripheral
@@ -157,7 +158,7 @@ in voltage and temperature.*/
   *        frequency, this source is inserted directly through I2S_CKIN pad.
   */
 #if !defined  (EXTERNAL_CLOCK_VALUE)
-#define EXTERNAL_CLOCK_VALUE    12288000L /*!< Value of the External clock in Hz*/
+#define EXTERNAL_CLOCK_VALUE    12288000UL /*!< Value of the External clock in Hz*/
 #endif /* EXTERNAL_CLOCK_VALUE */
 
 /* Tip: To avoid modifying this file each time you need to use different HSE,
@@ -185,7 +186,12 @@ in voltage and temperature.*/
 #if !defined (USE_FLASH_ECC)
 #define  USE_FLASH_ECC                0U       /*!< use ECC error management in FLASH */
 #endif
-
+#if !defined (USE_SDIO_TRANSCEIVER)
+#define USE_SDIO_TRANSCEIVER          0U
+#endif
+#if !defined (SDIO_MAX_IO_NUMBER)
+#define SDIO_MAX_IO_NUMBER            7U /*!< SDIO device support maximum IO number */
+#endif
 
 #if !defined(USE_HAL_ADC_REGISTER_CALLBACKS)
 #define  USE_HAL_ADC_REGISTER_CALLBACKS     0U /* ADC register callback disabled     */
@@ -550,6 +556,10 @@ in voltage and temperature.*/
 #ifdef HAL_SD_MODULE_ENABLED
 #include "stm32h7xx_hal_sd.h"
 #endif /* HAL_SD_MODULE_ENABLED */
+
+#ifdef HAL_SDIO_MODULE_ENABLED
+#include "stm32h7xx_hal_sdio.h"
+#endif /* HAL_SDIO_MODULE_ENABLED */
 
 #ifdef HAL_SDRAM_MODULE_ENABLED
 #include "stm32h7xx_hal_sdram.h"

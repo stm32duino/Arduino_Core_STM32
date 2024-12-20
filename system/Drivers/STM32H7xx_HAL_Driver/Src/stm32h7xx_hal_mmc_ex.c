@@ -45,6 +45,7 @@
   * @{
   */
 
+#if defined (SDMMC1) || defined (SDMMC2)
 #ifdef HAL_MMC_MODULE_ENABLED
 
 /* Private typedef -----------------------------------------------------------*/
@@ -57,7 +58,6 @@
 /** @addtogroup MMCEx_Exported_Functions
   * @{
   */
-
 
 
 /** @addtogroup MMCEx_Exported_Functions_Group1
@@ -333,7 +333,6 @@ HAL_StatusTypeDef HAL_MMCEx_ChangeDMABuffer(MMC_HandleTypeDef *hmmc, HAL_MMCEx_D
   return HAL_OK;
 }
 
-
 /**
   * @}
   */
@@ -343,6 +342,7 @@ HAL_StatusTypeDef HAL_MMCEx_ChangeDMABuffer(MMC_HandleTypeDef *hmmc, HAL_MMCEx_D
   */
 
 #endif /* HAL_MMC_MODULE_ENABLED */
+#endif /* SDMMC1 || SDMMC2 */
 
 /**
   * @}

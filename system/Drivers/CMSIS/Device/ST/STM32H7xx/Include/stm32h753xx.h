@@ -11714,101 +11714,198 @@ typedef struct
 /*                                                                            */
 /******************************************************************************/
 /******************  Bits definition for GPIO_MODER register  *****************/
-#define GPIO_MODER_MODE0_Pos           (0U)
-#define GPIO_MODER_MODE0_Msk           (0x3UL << GPIO_MODER_MODE0_Pos)         /*!< 0x00000003 */
-#define GPIO_MODER_MODE0               GPIO_MODER_MODE0_Msk
-#define GPIO_MODER_MODE0_0             (0x1UL << GPIO_MODER_MODE0_Pos)          /*!< 0x00000001 */
-#define GPIO_MODER_MODE0_1             (0x2UL << GPIO_MODER_MODE0_Pos)          /*!< 0x00000002 */
+#define GPIO_MODER_MODER0_Pos           (0U)
+#define GPIO_MODER_MODER0_Msk           (0x3UL << GPIO_MODER_MODER0_Pos)         /*!< 0x00000003 */
+#define GPIO_MODER_MODER0               GPIO_MODER_MODER0_Msk
+#define GPIO_MODER_MODER0_0             (0x1UL << GPIO_MODER_MODER0_Pos)          /*!< 0x00000001 */
+#define GPIO_MODER_MODER0_1             (0x2UL << GPIO_MODER_MODER0_Pos)          /*!< 0x00000002 */
 
-#define GPIO_MODER_MODE1_Pos           (2U)
-#define GPIO_MODER_MODE1_Msk           (0x3UL << GPIO_MODER_MODE1_Pos)         /*!< 0x0000000C */
-#define GPIO_MODER_MODE1               GPIO_MODER_MODE1_Msk
-#define GPIO_MODER_MODE1_0             (0x1UL << GPIO_MODER_MODE1_Pos)          /*!< 0x00000004 */
-#define GPIO_MODER_MODE1_1             (0x2UL << GPIO_MODER_MODE1_Pos)          /*!< 0x00000008 */
+#define GPIO_MODER_MODER1_Pos           (2U)
+#define GPIO_MODER_MODER1_Msk           (0x3UL << GPIO_MODER_MODER1_Pos)         /*!< 0x0000000C */
+#define GPIO_MODER_MODER1               GPIO_MODER_MODER1_Msk
+#define GPIO_MODER_MODER1_0             (0x1UL << GPIO_MODER_MODER1_Pos)          /*!< 0x00000004 */
+#define GPIO_MODER_MODER1_1             (0x2UL << GPIO_MODER_MODER1_Pos)          /*!< 0x00000008 */
 
-#define GPIO_MODER_MODE2_Pos           (4U)
-#define GPIO_MODER_MODE2_Msk           (0x3UL << GPIO_MODER_MODE2_Pos)         /*!< 0x00000030 */
-#define GPIO_MODER_MODE2               GPIO_MODER_MODE2_Msk
-#define GPIO_MODER_MODE2_0             (0x1UL << GPIO_MODER_MODE2_Pos)          /*!< 0x00000010 */
-#define GPIO_MODER_MODE2_1             (0x2UL << GPIO_MODER_MODE2_Pos)          /*!< 0x00000020 */
+#define GPIO_MODER_MODER2_Pos           (4U)
+#define GPIO_MODER_MODER2_Msk           (0x3UL << GPIO_MODER_MODER2_Pos)         /*!< 0x00000030 */
+#define GPIO_MODER_MODER2               GPIO_MODER_MODER2_Msk
+#define GPIO_MODER_MODER2_0             (0x1UL << GPIO_MODER_MODER2_Pos)          /*!< 0x00000010 */
+#define GPIO_MODER_MODER2_1             (0x2UL << GPIO_MODER_MODER2_Pos)          /*!< 0x00000020 */
 
-#define GPIO_MODER_MODE3_Pos           (6U)
-#define GPIO_MODER_MODE3_Msk           (0x3UL << GPIO_MODER_MODE3_Pos)         /*!< 0x000000C0 */
-#define GPIO_MODER_MODE3               GPIO_MODER_MODE3_Msk
-#define GPIO_MODER_MODE3_0             (0x1UL << GPIO_MODER_MODE3_Pos)          /*!< 0x00000040 */
-#define GPIO_MODER_MODE3_1             (0x2UL << GPIO_MODER_MODE3_Pos)          /*!< 0x00000080 */
+#define GPIO_MODER_MODER3_Pos           (6U)
+#define GPIO_MODER_MODER3_Msk           (0x3UL << GPIO_MODER_MODER3_Pos)         /*!< 0x000000C0 */
+#define GPIO_MODER_MODER3               GPIO_MODER_MODER3_Msk
+#define GPIO_MODER_MODER3_0             (0x1UL << GPIO_MODER_MODER3_Pos)          /*!< 0x00000040 */
+#define GPIO_MODER_MODER3_1             (0x2UL << GPIO_MODER_MODER3_Pos)          /*!< 0x00000080 */
 
-#define GPIO_MODER_MODE4_Pos           (8U)
-#define GPIO_MODER_MODE4_Msk           (0x3UL << GPIO_MODER_MODE4_Pos)         /*!< 0x00000300 */
-#define GPIO_MODER_MODE4               GPIO_MODER_MODE4_Msk
-#define GPIO_MODER_MODE4_0             (0x1UL << GPIO_MODER_MODE4_Pos)          /*!< 0x00000100 */
-#define GPIO_MODER_MODE4_1             (0x2UL << GPIO_MODER_MODE4_Pos)          /*!< 0x00000200 */
+#define GPIO_MODER_MODER4_Pos           (8U)
+#define GPIO_MODER_MODER4_Msk           (0x3UL << GPIO_MODER_MODER4_Pos)         /*!< 0x00000300 */
+#define GPIO_MODER_MODER4               GPIO_MODER_MODER4_Msk
+#define GPIO_MODER_MODER4_0             (0x1UL << GPIO_MODER_MODER4_Pos)          /*!< 0x00000100 */
+#define GPIO_MODER_MODER4_1             (0x2UL << GPIO_MODER_MODER4_Pos)          /*!< 0x00000200 */
 
-#define GPIO_MODER_MODE5_Pos           (10U)
-#define GPIO_MODER_MODE5_Msk           (0x3UL << GPIO_MODER_MODE5_Pos)         /*!< 0x00000C00 */
-#define GPIO_MODER_MODE5               GPIO_MODER_MODE5_Msk
-#define GPIO_MODER_MODE5_0             (0x1UL << GPIO_MODER_MODE5_Pos)          /*!< 0x00000400 */
-#define GPIO_MODER_MODE5_1             (0x2UL << GPIO_MODER_MODE5_Pos)          /*!< 0x00000800 */
+#define GPIO_MODER_MODER5_Pos           (10U)
+#define GPIO_MODER_MODER5_Msk           (0x3UL << GPIO_MODER_MODER5_Pos)         /*!< 0x00000C00 */
+#define GPIO_MODER_MODER5               GPIO_MODER_MODER5_Msk
+#define GPIO_MODER_MODER5_0             (0x1UL << GPIO_MODER_MODER5_Pos)          /*!< 0x00000400 */
+#define GPIO_MODER_MODER5_1             (0x2UL << GPIO_MODER_MODER5_Pos)          /*!< 0x00000800 */
 
-#define GPIO_MODER_MODE6_Pos           (12U)
-#define GPIO_MODER_MODE6_Msk           (0x3UL << GPIO_MODER_MODE6_Pos)         /*!< 0x00003000 */
-#define GPIO_MODER_MODE6               GPIO_MODER_MODE6_Msk
-#define GPIO_MODER_MODE6_0             (0x1UL << GPIO_MODER_MODE6_Pos)          /*!< 0x00001000 */
-#define GPIO_MODER_MODE6_1             (0x2UL << GPIO_MODER_MODE6_Pos)          /*!< 0x00002000 */
+#define GPIO_MODER_MODER6_Pos           (12U)
+#define GPIO_MODER_MODER6_Msk           (0x3UL << GPIO_MODER_MODER6_Pos)         /*!< 0x00003000 */
+#define GPIO_MODER_MODER6               GPIO_MODER_MODER6_Msk
+#define GPIO_MODER_MODER6_0             (0x1UL << GPIO_MODER_MODER6_Pos)          /*!< 0x00001000 */
+#define GPIO_MODER_MODER6_1             (0x2UL << GPIO_MODER_MODER6_Pos)          /*!< 0x00002000 */
 
-#define GPIO_MODER_MODE7_Pos           (14U)
-#define GPIO_MODER_MODE7_Msk           (0x3UL << GPIO_MODER_MODE7_Pos)         /*!< 0x0000C000 */
-#define GPIO_MODER_MODE7               GPIO_MODER_MODE7_Msk
-#define GPIO_MODER_MODE7_0             (0x1UL << GPIO_MODER_MODE7_Pos)          /*!< 0x00004000 */
-#define GPIO_MODER_MODE7_1             (0x2UL << GPIO_MODER_MODE7_Pos)          /*!< 0x00008000 */
+#define GPIO_MODER_MODER7_Pos           (14U)
+#define GPIO_MODER_MODER7_Msk           (0x3UL << GPIO_MODER_MODER7_Pos)         /*!< 0x0000C000 */
+#define GPIO_MODER_MODER7               GPIO_MODER_MODER7_Msk
+#define GPIO_MODER_MODER7_0             (0x1UL << GPIO_MODER_MODER7_Pos)          /*!< 0x00004000 */
+#define GPIO_MODER_MODER7_1             (0x2UL << GPIO_MODER_MODER7_Pos)          /*!< 0x00008000 */
 
-#define GPIO_MODER_MODE8_Pos           (16U)
-#define GPIO_MODER_MODE8_Msk           (0x3UL << GPIO_MODER_MODE8_Pos)         /*!< 0x00030000 */
-#define GPIO_MODER_MODE8               GPIO_MODER_MODE8_Msk
-#define GPIO_MODER_MODE8_0             (0x1UL << GPIO_MODER_MODE8_Pos)          /*!< 0x00010000 */
-#define GPIO_MODER_MODE8_1             (0x2UL << GPIO_MODER_MODE8_Pos)          /*!< 0x00020000 */
+#define GPIO_MODER_MODER8_Pos           (16U)
+#define GPIO_MODER_MODER8_Msk           (0x3UL << GPIO_MODER_MODER8_Pos)         /*!< 0x00030000 */
+#define GPIO_MODER_MODER8               GPIO_MODER_MODER8_Msk
+#define GPIO_MODER_MODER8_0             (0x1UL << GPIO_MODER_MODER8_Pos)          /*!< 0x00010000 */
+#define GPIO_MODER_MODER8_1             (0x2UL << GPIO_MODER_MODER8_Pos)          /*!< 0x00020000 */
 
-#define GPIO_MODER_MODE9_Pos           (18U)
-#define GPIO_MODER_MODE9_Msk           (0x3UL << GPIO_MODER_MODE9_Pos)         /*!< 0x000C0000 */
-#define GPIO_MODER_MODE9               GPIO_MODER_MODE9_Msk
-#define GPIO_MODER_MODE9_0             (0x1UL << GPIO_MODER_MODE9_Pos)          /*!< 0x00040000 */
-#define GPIO_MODER_MODE9_1             (0x2UL << GPIO_MODER_MODE9_Pos)          /*!< 0x00080000 */
+#define GPIO_MODER_MODER9_Pos           (18U)
+#define GPIO_MODER_MODER9_Msk           (0x3UL << GPIO_MODER_MODER9_Pos)         /*!< 0x000C0000 */
+#define GPIO_MODER_MODER9               GPIO_MODER_MODER9_Msk
+#define GPIO_MODER_MODER9_0             (0x1UL << GPIO_MODER_MODER9_Pos)          /*!< 0x00040000 */
+#define GPIO_MODER_MODER9_1             (0x2UL << GPIO_MODER_MODER9_Pos)          /*!< 0x00080000 */
 
-#define GPIO_MODER_MODE10_Pos          (20U)
-#define GPIO_MODER_MODE10_Msk          (0x3UL << GPIO_MODER_MODE10_Pos)        /*!< 0x00300000 */
-#define GPIO_MODER_MODE10              GPIO_MODER_MODE10_Msk
-#define GPIO_MODER_MODE10_0            (0x1UL << GPIO_MODER_MODE10_Pos)         /*!< 0x00100000 */
-#define GPIO_MODER_MODE10_1            (0x2UL << GPIO_MODER_MODE10_Pos)         /*!< 0x00200000 */
+#define GPIO_MODER_MODER10_Pos          (20U)
+#define GPIO_MODER_MODER10_Msk          (0x3UL << GPIO_MODER_MODER10_Pos)        /*!< 0x00300000 */
+#define GPIO_MODER_MODER10              GPIO_MODER_MODER10_Msk
+#define GPIO_MODER_MODER10_0            (0x1UL << GPIO_MODER_MODER10_Pos)         /*!< 0x00100000 */
+#define GPIO_MODER_MODER10_1            (0x2UL << GPIO_MODER_MODER10_Pos)         /*!< 0x00200000 */
 
-#define GPIO_MODER_MODE11_Pos          (22U)
-#define GPIO_MODER_MODE11_Msk          (0x3UL << GPIO_MODER_MODE11_Pos)        /*!< 0x00C00000 */
-#define GPIO_MODER_MODE11              GPIO_MODER_MODE11_Msk
-#define GPIO_MODER_MODE11_0            (0x1UL << GPIO_MODER_MODE11_Pos)         /*!< 0x00400000 */
-#define GPIO_MODER_MODE11_1            (0x2UL << GPIO_MODER_MODE11_Pos)         /*!< 0x00800000 */
+#define GPIO_MODER_MODER11_Pos          (22U)
+#define GPIO_MODER_MODER11_Msk          (0x3UL << GPIO_MODER_MODER11_Pos)        /*!< 0x00C00000 */
+#define GPIO_MODER_MODER11              GPIO_MODER_MODER11_Msk
+#define GPIO_MODER_MODER11_0            (0x1UL << GPIO_MODER_MODER11_Pos)         /*!< 0x00400000 */
+#define GPIO_MODER_MODER11_1            (0x2UL << GPIO_MODER_MODER11_Pos)         /*!< 0x00800000 */
 
-#define GPIO_MODER_MODE12_Pos          (24U)
-#define GPIO_MODER_MODE12_Msk          (0x3UL << GPIO_MODER_MODE12_Pos)        /*!< 0x03000000 */
-#define GPIO_MODER_MODE12              GPIO_MODER_MODE12_Msk
-#define GPIO_MODER_MODE12_0            (0x1UL << GPIO_MODER_MODE12_Pos)         /*!< 0x01000000 */
-#define GPIO_MODER_MODE12_1            (0x2UL << GPIO_MODER_MODE12_Pos)         /*!< 0x02000000 */
+#define GPIO_MODER_MODER12_Pos          (24U)
+#define GPIO_MODER_MODER12_Msk          (0x3UL << GPIO_MODER_MODER12_Pos)        /*!< 0x03000000 */
+#define GPIO_MODER_MODER12              GPIO_MODER_MODER12_Msk
+#define GPIO_MODER_MODER12_0            (0x1UL << GPIO_MODER_MODER12_Pos)         /*!< 0x01000000 */
+#define GPIO_MODER_MODER12_1            (0x2UL << GPIO_MODER_MODER12_Pos)         /*!< 0x02000000 */
 
-#define GPIO_MODER_MODE13_Pos          (26U)
-#define GPIO_MODER_MODE13_Msk          (0x3UL << GPIO_MODER_MODE13_Pos)        /*!< 0x0C000000 */
-#define GPIO_MODER_MODE13              GPIO_MODER_MODE13_Msk
-#define GPIO_MODER_MODE13_0            (0x1UL << GPIO_MODER_MODE13_Pos)         /*!< 0x04000000 */
-#define GPIO_MODER_MODE13_1            (0x2UL << GPIO_MODER_MODE13_Pos)         /*!< 0x08000000 */
+#define GPIO_MODER_MODER13_Pos          (26U)
+#define GPIO_MODER_MODER13_Msk          (0x3UL << GPIO_MODER_MODER13_Pos)        /*!< 0x0C000000 */
+#define GPIO_MODER_MODER13              GPIO_MODER_MODER13_Msk
+#define GPIO_MODER_MODER13_0            (0x1UL << GPIO_MODER_MODER13_Pos)         /*!< 0x04000000 */
+#define GPIO_MODER_MODER13_1            (0x2UL << GPIO_MODER_MODER13_Pos)         /*!< 0x08000000 */
 
-#define GPIO_MODER_MODE14_Pos          (28U)
-#define GPIO_MODER_MODE14_Msk          (0x3UL << GPIO_MODER_MODE14_Pos)        /*!< 0x30000000 */
-#define GPIO_MODER_MODE14              GPIO_MODER_MODE14_Msk
-#define GPIO_MODER_MODE14_0            (0x1UL << GPIO_MODER_MODE14_Pos)         /*!< 0x10000000 */
-#define GPIO_MODER_MODE14_1            (0x2UL << GPIO_MODER_MODE14_Pos)         /*!< 0x20000000 */
+#define GPIO_MODER_MODER14_Pos          (28U)
+#define GPIO_MODER_MODER14_Msk          (0x3UL << GPIO_MODER_MODER14_Pos)        /*!< 0x30000000 */
+#define GPIO_MODER_MODER14              GPIO_MODER_MODER14_Msk
+#define GPIO_MODER_MODER14_0            (0x1UL << GPIO_MODER_MODER14_Pos)         /*!< 0x10000000 */
+#define GPIO_MODER_MODER14_1            (0x2UL << GPIO_MODER_MODER14_Pos)         /*!< 0x20000000 */
 
-#define GPIO_MODER_MODE15_Pos          (30U)
-#define GPIO_MODER_MODE15_Msk          (0x3UL << GPIO_MODER_MODE15_Pos)        /*!< 0xC0000000 */
-#define GPIO_MODER_MODE15              GPIO_MODER_MODE15_Msk
-#define GPIO_MODER_MODE15_0            (0x1UL << GPIO_MODER_MODE15_Pos)         /*!< 0x40000000 */
-#define GPIO_MODER_MODE15_1            (0x2UL << GPIO_MODER_MODE15_Pos)         /*!< 0x80000000 */
+#define GPIO_MODER_MODER15_Pos          (30U)
+#define GPIO_MODER_MODER15_Msk          (0x3UL << GPIO_MODER_MODER15_Pos)        /*!< 0xC0000000 */
+#define GPIO_MODER_MODER15              GPIO_MODER_MODER15_Msk
+#define GPIO_MODER_MODER15_0            (0x1UL << GPIO_MODER_MODER15_Pos)         /*!< 0x40000000 */
+#define GPIO_MODER_MODER15_1            (0x2UL << GPIO_MODER_MODER15_Pos)         /*!< 0x80000000 */
+
+/* Legacy Defines */
+#define GPIO_MODER_MODE0_Pos           GPIO_MODER_MODER0_Pos
+#define GPIO_MODER_MODE0_Msk           GPIO_MODER_MODER0_Msk
+#define GPIO_MODER_MODE0               GPIO_MODER_MODER0
+#define GPIO_MODER_MODE0_0             GPIO_MODER_MODER0_0
+#define GPIO_MODER_MODE0_1             GPIO_MODER_MODER0_1
+
+#define GPIO_MODER_MODE1_Pos           GPIO_MODER_MODER1_Pos
+#define GPIO_MODER_MODE1_Msk           GPIO_MODER_MODER1_Msk
+#define GPIO_MODER_MODE1               GPIO_MODER_MODER1
+#define GPIO_MODER_MODE1_0             GPIO_MODER_MODER1_0
+#define GPIO_MODER_MODE1_1             GPIO_MODER_MODER1_1
+
+#define GPIO_MODER_MODE2_Pos           GPIO_MODER_MODER2_Pos
+#define GPIO_MODER_MODE2_Msk           GPIO_MODER_MODER2_Msk
+#define GPIO_MODER_MODE2               GPIO_MODER_MODER2
+#define GPIO_MODER_MODE2_0             GPIO_MODER_MODER2_0
+#define GPIO_MODER_MODE2_1             GPIO_MODER_MODER2_1
+
+#define GPIO_MODER_MODE3_Pos           GPIO_MODER_MODER3_Pos
+#define GPIO_MODER_MODE3_Msk           GPIO_MODER_MODER3_Msk
+#define GPIO_MODER_MODE3               GPIO_MODER_MODER3
+#define GPIO_MODER_MODE3_0             GPIO_MODER_MODER3_0
+#define GPIO_MODER_MODE3_1             GPIO_MODER_MODER3_1
+
+#define GPIO_MODER_MODE4_Pos           GPIO_MODER_MODER4_Pos
+#define GPIO_MODER_MODE4_Msk           GPIO_MODER_MODER4_Msk
+#define GPIO_MODER_MODE4               GPIO_MODER_MODER4
+#define GPIO_MODER_MODE4_0             GPIO_MODER_MODER4_0
+#define GPIO_MODER_MODE4_1             GPIO_MODER_MODER4_1
+
+#define GPIO_MODER_MODE5_Pos           GPIO_MODER_MODER5_Pos
+#define GPIO_MODER_MODE5_Msk           GPIO_MODER_MODER5_Msk
+#define GPIO_MODER_MODE5               GPIO_MODER_MODER5
+#define GPIO_MODER_MODE5_0             GPIO_MODER_MODER5_0
+#define GPIO_MODER_MODE5_1             GPIO_MODER_MODER5_1
+
+#define GPIO_MODER_MODE6_Pos           GPIO_MODER_MODER6_Pos
+#define GPIO_MODER_MODE6_Msk           GPIO_MODER_MODER6_Msk
+#define GPIO_MODER_MODE6               GPIO_MODER_MODER6
+#define GPIO_MODER_MODE6_0             GPIO_MODER_MODER6_0
+#define GPIO_MODER_MODE6_1             GPIO_MODER_MODER6_1
+
+#define GPIO_MODER_MODE7_Pos           GPIO_MODER_MODER7_Pos
+#define GPIO_MODER_MODE7_Msk           GPIO_MODER_MODER7_Msk
+#define GPIO_MODER_MODE7               GPIO_MODER_MODER7
+#define GPIO_MODER_MODE7_0             GPIO_MODER_MODER7_0
+#define GPIO_MODER_MODE7_1             GPIO_MODER_MODER7_1
+
+#define GPIO_MODER_MODE8_Pos           GPIO_MODER_MODER8_Pos
+#define GPIO_MODER_MODE8_Msk           GPIO_MODER_MODER8_Msk
+#define GPIO_MODER_MODE8               GPIO_MODER_MODER8
+#define GPIO_MODER_MODE8_0             GPIO_MODER_MODER8_0
+#define GPIO_MODER_MODE8_1             GPIO_MODER_MODER8_1
+
+#define GPIO_MODER_MODE9_Pos           GPIO_MODER_MODER9_Pos
+#define GPIO_MODER_MODE9_Msk           GPIO_MODER_MODER9_Msk
+#define GPIO_MODER_MODE9               GPIO_MODER_MODER9
+#define GPIO_MODER_MODE9_0             GPIO_MODER_MODER9_0
+#define GPIO_MODER_MODE9_1             GPIO_MODER_MODER9_1
+
+#define GPIO_MODER_MODE10_Pos          GPIO_MODER_MODER10_Po
+#define GPIO_MODER_MODE10_Msk          GPIO_MODER_MODER10_Ms
+#define GPIO_MODER_MODE10              GPIO_MODER_MODER10
+#define GPIO_MODER_MODE10_0            GPIO_MODER_MODER10_0
+#define GPIO_MODER_MODE10_1            GPIO_MODER_MODER10_1
+
+#define GPIO_MODER_MODE11_Pos          GPIO_MODER_MODER11_Po
+#define GPIO_MODER_MODE11_Msk          GPIO_MODER_MODER11_Ms
+#define GPIO_MODER_MODE11              GPIO_MODER_MODER11
+#define GPIO_MODER_MODE11_0            GPIO_MODER_MODER11_0
+#define GPIO_MODER_MODE11_1            GPIO_MODER_MODER11_1
+
+#define GPIO_MODER_MODE12_Pos          GPIO_MODER_MODER12_Po
+#define GPIO_MODER_MODE12_Msk          GPIO_MODER_MODER12_Ms
+#define GPIO_MODER_MODE12              GPIO_MODER_MODER12
+#define GPIO_MODER_MODE12_0            GPIO_MODER_MODER12_0
+#define GPIO_MODER_MODE12_1            GPIO_MODER_MODER12_1
+
+#define GPIO_MODER_MODE13_Pos          GPIO_MODER_MODER13_Po
+#define GPIO_MODER_MODE13_Msk          GPIO_MODER_MODER13_Ms
+#define GPIO_MODER_MODE13              GPIO_MODER_MODER13
+#define GPIO_MODER_MODE13_0            GPIO_MODER_MODER13_0
+#define GPIO_MODER_MODE13_1            GPIO_MODER_MODER13_1
+
+#define GPIO_MODER_MODE14_Pos          GPIO_MODER_MODER14_Po
+#define GPIO_MODER_MODE14_Msk          GPIO_MODER_MODER14_Ms
+#define GPIO_MODER_MODE14              GPIO_MODER_MODER14
+#define GPIO_MODER_MODE14_0            GPIO_MODER_MODER14_0
+#define GPIO_MODER_MODE14_1            GPIO_MODER_MODER14_1
+
+#define GPIO_MODER_MODE15_Pos          GPIO_MODER_MODER15_Po
+#define GPIO_MODER_MODE15_Msk          GPIO_MODER_MODER15_Ms
+#define GPIO_MODER_MODE15              GPIO_MODER_MODER15
+#define GPIO_MODER_MODE15_0            GPIO_MODER_MODER15_0
+#define GPIO_MODER_MODE15_1            GPIO_MODER_MODER15_1
 
 /******************  Bits definition for GPIO_OTYPER register  ****************/
 #define GPIO_OTYPER_OT0_Pos            (0U)
@@ -13500,10 +13597,10 @@ typedef struct
 #define JPEG_SR_COF                     JPEG_SR_COF_Msk                        /*!<JPEG Codec operation on going flag */
 
 /********************  Bit definition for CFR register  ********************/
-#define JPEG_CFR_CEOCF_Pos              (4U)
+#define JPEG_CFR_CEOCF_Pos              (5U)
 #define JPEG_CFR_CEOCF_Msk              (0x1UL << JPEG_CFR_CEOCF_Pos)          /*!< 0x00000010 */
 #define JPEG_CFR_CEOCF                  JPEG_CFR_CEOCF_Msk                     /*!<Clear End of Conversion Flag */
-#define JPEG_CFR_CHPDF_Pos              (5U)
+#define JPEG_CFR_CHPDF_Pos              (6U)
 #define JPEG_CFR_CHPDF_Msk              (0x1UL << JPEG_CFR_CHPDF_Pos)          /*!< 0x00000020 */
 #define JPEG_CFR_CHPDF                  JPEG_CFR_CHPDF_Msk                     /*!<Clear Header Parsing Done Flag */
 
@@ -16607,6 +16704,11 @@ typedef struct
 /*                           Real-Time Clock (RTC)                            */
 /*                                                                            */
 /******************************************************************************/
+#define RTC_TAMPER2_SUPPORT           /*!<RTC TAMPER 2 support feature                   */
+#define RTC_TAMPNOERASE_SUPPORT       /*!<RTC BKP REG NO ERASE ON TAMPER support feature */
+#define RTC_TAMPMASKFLAG_SUPPORT      /*!<RTC TAMPER MASK FLAG support feature           */
+#define RTC_TAMPxIE_SUPPORT           /*!<RTC TAMPERx INTERRUPT ENABLE support feature   */
+
 /********************  Bits definition for RTC_TR register  *******************/
 #define RTC_TR_PM_Pos                  (22U)
 #define RTC_TR_PM_Msk                  (0x1UL << RTC_TR_PM_Pos)                /*!< 0x00400000 */

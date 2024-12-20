@@ -90,7 +90,7 @@
            add their own code by customization of function pointer HAL_I2C_SlaveRxCpltCallback()
       (+) In case of transfer Error, HAL_I2C_ErrorCallback() function is executed and users can
            add their own code by customization of function pointer HAL_I2C_ErrorCallback()
-      (+) Abort a master I2C process communication with Interrupt using HAL_I2C_Master_Abort_IT()
+      (+) Abort a master or memory I2C process communication with Interrupt using HAL_I2C_Master_Abort_IT()
       (+) End of abort process, HAL_I2C_AbortCpltCallback() is executed and users can
            add their own code by customization of function pointer HAL_I2C_AbortCpltCallback()
       (+) Discard a slave I2C process communication using __HAL_I2C_GENERATE_NACK() macro.
@@ -156,7 +156,7 @@
             HAL_I2C_Master_Seq_Receive_IT() or using HAL_I2C_Master_Seq_Receive_DMA()
       (+++) At reception end of current frame transfer, HAL_I2C_MasterRxCpltCallback() is executed and users can
            add their own code by customization of function pointer HAL_I2C_MasterRxCpltCallback()
-      (++) Abort a master IT or DMA I2C process communication with Interrupt using HAL_I2C_Master_Abort_IT()
+      (++) Abort a master or memory IT or DMA I2C process communication with Interrupt using HAL_I2C_Master_Abort_IT()
       (+++) End of abort process, HAL_I2C_AbortCpltCallback() is executed and users can
            add their own code by customization of function pointer HAL_I2C_AbortCpltCallback()
       (++) Enable/disable the Address listen mode in slave I2C mode using HAL_I2C_EnableListen_IT()
@@ -214,7 +214,7 @@
            add their own code by customization of function pointer HAL_I2C_SlaveRxCpltCallback()
       (+) In case of transfer Error, HAL_I2C_ErrorCallback() function is executed and users can
            add their own code by customization of function pointer HAL_I2C_ErrorCallback()
-      (+) Abort a master I2C process communication with Interrupt using HAL_I2C_Master_Abort_IT()
+      (+) Abort a master or memory I2C process communication with Interrupt using HAL_I2C_Master_Abort_IT()
       (+) End of abort process, HAL_I2C_AbortCpltCallback() is executed and users can
            add their own code by customization of function pointer HAL_I2C_AbortCpltCallback()
       (+) Discard a slave I2C process communication using __HAL_I2C_GENERATE_NACK() macro.
@@ -1407,14 +1407,6 @@ HAL_StatusTypeDef HAL_I2C_Slave_Transmit(I2C_HandleTypeDef *hi2c, uint8_t *pData
     /* Enable Address Acknowledge */
     hi2c->Instance->CR2 &= ~I2C_CR2_NACK;
 
-    /* Wait until ADDR flag is set */
-    if (I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_ADDR, RESET, Timeout, tickstart) != HAL_OK)
-    {
-      /* Disable Address Acknowledge */
-      hi2c->Instance->CR2 |= I2C_CR2_NACK;
-      return HAL_ERROR;
-    }
-
     /* Preload TX data if no stretch enable */
     if (hi2c->Init.NoStretchMode == I2C_NOSTRETCH_ENABLE)
     {
@@ -1428,6 +1420,18 @@ HAL_StatusTypeDef HAL_I2C_Slave_Transmit(I2C_HandleTypeDef *hi2c, uint8_t *pData
       hi2c->XferCount--;
     }
 
+    /* Wait until ADDR flag is set */
+    if (I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_ADDR, RESET, Timeout, tickstart) != HAL_OK)
+    {
+      /* Disable Address Acknowledge */
+      hi2c->Instance->CR2 |= I2C_CR2_NACK;
+
+      /* Flush TX register */
+      I2C_Flush_TXDR(hi2c);
+
+      return HAL_ERROR;
+    }
+
     /* Clear ADDR flag */
     __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_ADDR);
 
@@ -1439,6 +1443,10 @@ HAL_StatusTypeDef HAL_I2C_Slave_Transmit(I2C_HandleTypeDef *hi2c, uint8_t *pData
       {
         /* Disable Address Acknowledge */
         hi2c->Instance->CR2 |= I2C_CR2_NACK;
+
+        /* Flush TX register */
+        I2C_Flush_TXDR(hi2c);
+
         return HAL_ERROR;
       }
 
@@ -1451,6 +1459,10 @@ HAL_StatusTypeDef HAL_I2C_Slave_Transmit(I2C_HandleTypeDef *hi2c, uint8_t *pData
     {
       /* Disable Address Acknowledge */
       hi2c->Instance->CR2 |= I2C_CR2_NACK;
+
+      /* Flush TX register */
+      I2C_Flush_TXDR(hi2c);
+
       return HAL_ERROR;
     }
 
@@ -3255,6 +3267,8 @@ HAL_StatusTypeDef HAL_I2C_IsDeviceReady(I2C_HandleTypeDef *hi2c, uint16_t DevAdd
 
   __IO uint32_t I2C_Trials = 0UL;
 
+  HAL_StatusTypeDef status = HAL_OK;
+
   FlagStatus tmp1;
   FlagStatus tmp2;
 
@@ -3312,37 +3326,64 @@ HAL_StatusTypeDef HAL_I2C_IsDeviceReady(I2C_HandleTypeDef *hi2c, uint16_t DevAdd
         /* Wait until STOPF flag is reset */
         if (I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_STOPF, RESET, Timeout, tickstart) != HAL_OK)
         {
-          return HAL_ERROR;
+          /* A non acknowledge appear during STOP Flag waiting process, a new trial must be performed */
+          if (hi2c->ErrorCode == HAL_I2C_ERROR_AF)
+          {
+            /* Clear STOP Flag */
+            __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
+
+            /* Reset the error code for next trial */
+            hi2c->ErrorCode = HAL_I2C_ERROR_NONE;
+          }
+          else
+          {
+            status = HAL_ERROR;
+          }
         }
+        else
+        {
+          /* A acknowledge appear during STOP Flag waiting process, this mean that device respond to its address */
 
-        /* Clear STOP Flag */
-        __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
+          /* Clear STOP Flag */
+          __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
 
-        /* Device is ready */
-        hi2c->State = HAL_I2C_STATE_READY;
+          /* Device is ready */
+          hi2c->State = HAL_I2C_STATE_READY;
 
-        /* Process Unlocked */
-        __HAL_UNLOCK(hi2c);
+          /* Process Unlocked */
+          __HAL_UNLOCK(hi2c);
 
-        return HAL_OK;
+          return HAL_OK;
+        }
       }
       else
       {
-        /* Wait until STOPF flag is reset */
-        if (I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_STOPF, RESET, Timeout, tickstart) != HAL_OK)
-        {
-          return HAL_ERROR;
-        }
+        /* A non acknowledge is detected, this mean that device not respond to its address,
+           a new trial must be performed */
 
         /* Clear NACK Flag */
         __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_AF);
 
-        /* Clear STOP Flag, auto generated with autoend*/
-        __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
+        /* Wait until STOPF flag is reset */
+        if (I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_STOPF, RESET, Timeout, tickstart) != HAL_OK)
+        {
+          status = HAL_ERROR;
+        }
+        else
+        {
+          /* Clear STOP Flag, auto generated with autoend*/
+          __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
+        }
       }
 
       /* Increment Trials */
       I2C_Trials++;
+
+      if ((I2C_Trials < Trials) && (status == HAL_ERROR))
+      {
+        status = HAL_OK;
+      }
+
     } while (I2C_Trials < Trials);
 
     /* Update I2C state */
@@ -4552,7 +4593,7 @@ HAL_StatusTypeDef HAL_I2C_DisableListen_IT(I2C_HandleTypeDef *hi2c)
 }
 
 /**
-  * @brief  Abort a master I2C IT or DMA process communication with Interrupt.
+  * @brief  Abort a master or memory I2C IT or DMA process communication with Interrupt.
   * @param  hi2c Pointer to a I2C_HandleTypeDef structure that contains
   *                the configuration information for the specified I2C.
   * @param  DevAddress Target device address: The device 7 bits address value
@@ -4561,7 +4602,9 @@ HAL_StatusTypeDef HAL_I2C_DisableListen_IT(I2C_HandleTypeDef *hi2c)
   */
 HAL_StatusTypeDef HAL_I2C_Master_Abort_IT(I2C_HandleTypeDef *hi2c, uint16_t DevAddress)
 {
-  if (hi2c->Mode == HAL_I2C_MODE_MASTER)
+  HAL_I2C_ModeTypeDef tmp_mode = hi2c->Mode;
+
+  if ((tmp_mode == HAL_I2C_MODE_MASTER) || (tmp_mode == HAL_I2C_MODE_MEM))
   {
     /* Process Locked */
     __HAL_LOCK(hi2c);
@@ -7284,15 +7327,17 @@ static HAL_StatusTypeDef I2C_IsErrorOccurred(I2C_HandleTypeDef *hi2c, uint32_t T
 static void I2C_TransferConfig(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint8_t Size, uint32_t Mode,
                                uint32_t Request)
 {
+  uint32_t tmp;
+
   /* Check the parameters */
   assert_param(IS_I2C_ALL_INSTANCE(hi2c->Instance));
   assert_param(IS_TRANSFER_MODE(Mode));
   assert_param(IS_TRANSFER_REQUEST(Request));
 
   /* Declaration of tmp to prevent undefined behavior of volatile usage */
-  uint32_t tmp = ((uint32_t)(((uint32_t)DevAddress & I2C_CR2_SADD) | \
-                             (((uint32_t)Size << I2C_CR2_NBYTES_Pos) & I2C_CR2_NBYTES) | \
-                             (uint32_t)Mode | (uint32_t)Request) & (~0x80000000U));
+  tmp = ((uint32_t)(((uint32_t)DevAddress & I2C_CR2_SADD) | \
+                    (((uint32_t)Size << I2C_CR2_NBYTES_Pos) & I2C_CR2_NBYTES) | \
+                    (uint32_t)Mode | (uint32_t)Request) & (~0x80000000U));
 
   /* update CR2 register */
   MODIFY_REG(hi2c->Instance->CR2, \

@@ -2235,7 +2235,6 @@ HAL_StatusTypeDef HAL_SPI_Receive_DMA(SPI_HandleTypeDef *hspi, uint8_t *pData, u
   /* Check Direction parameter */
   assert_param(IS_SPI_DIRECTION_2LINES_OR_1LINE_2LINES_RXONLY(hspi->Init.Direction));
 
-
   if (hspi->State != HAL_SPI_STATE_READY)
   {
     __HAL_UNLOCK(hspi);
@@ -2418,9 +2417,14 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive_DMA(SPI_HandleTypeDef *hspi, const uin
   CLEAR_BIT(hspi->Instance->CFG1, SPI_CFG1_TXDMAEN | SPI_CFG1_RXDMAEN);
 
   /* Packing mode management is enabled by the DMA settings */
-  if (((hspi->Init.DataSize > SPI_DATASIZE_16BIT) && (hspi->hdmarx->Init.MemDataAlignment != DMA_MDATAALIGN_WORD))    || \
-      ((hspi->Init.DataSize > SPI_DATASIZE_8BIT) && ((hspi->hdmarx->Init.MemDataAlignment != DMA_MDATAALIGN_HALFWORD) && \
-                                                     (hspi->hdmarx->Init.MemDataAlignment != DMA_MDATAALIGN_WORD))))
+  if (((hspi->Init.DataSize > SPI_DATASIZE_16BIT) && \
+       ((hspi->hdmarx->Init.MemDataAlignment != DMA_MDATAALIGN_WORD) || \
+        (hspi->hdmatx->Init.MemDataAlignment != DMA_MDATAALIGN_WORD))) || \
+      ((hspi->Init.DataSize > SPI_DATASIZE_8BIT) && \
+       (((hspi->hdmarx->Init.MemDataAlignment != DMA_MDATAALIGN_HALFWORD) && \
+         (hspi->hdmarx->Init.MemDataAlignment != DMA_MDATAALIGN_WORD)) || \
+        ((hspi->hdmatx->Init.MemDataAlignment != DMA_MDATAALIGN_HALFWORD) && \
+         (hspi->hdmatx->Init.MemDataAlignment != DMA_MDATAALIGN_WORD)))))
   {
     /* Restriction the DMA data received is not allowed in this mode */
     /* Unlock the process */

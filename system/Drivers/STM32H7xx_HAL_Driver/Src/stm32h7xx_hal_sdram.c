@@ -1214,7 +1214,7 @@ uint32_t HAL_SDRAM_GetModeStatus(SDRAM_HandleTypeDef *hsdram)
   *                the configuration information for SDRAM module.
   * @retval HAL state
   */
-HAL_SDRAM_StateTypeDef HAL_SDRAM_GetState(SDRAM_HandleTypeDef *hsdram)
+HAL_SDRAM_StateTypeDef HAL_SDRAM_GetState(const SDRAM_HandleTypeDef *hsdram)
 {
   return hsdram->State;
 }
@@ -1237,6 +1237,7 @@ HAL_SDRAM_StateTypeDef HAL_SDRAM_GetState(SDRAM_HandleTypeDef *hsdram)
   */
 static void SDRAM_DMACplt(MDMA_HandleTypeDef *hmdma)
 {
+  /* Derogation MISRAC2012-Rule-11.5 */
   SDRAM_HandleTypeDef *hsdram = (SDRAM_HandleTypeDef *)(hmdma->Parent);
 
   /* Disable the MDMA channel */
@@ -1259,6 +1260,7 @@ static void SDRAM_DMACplt(MDMA_HandleTypeDef *hmdma)
   */
 static void SDRAM_DMACpltProt(MDMA_HandleTypeDef *hmdma)
 {
+  /* Derogation MISRAC2012-Rule-11.5 */
   SDRAM_HandleTypeDef *hsdram = (SDRAM_HandleTypeDef *)(hmdma->Parent);
 
   /* Disable the MDMA channel */
@@ -1281,6 +1283,7 @@ static void SDRAM_DMACpltProt(MDMA_HandleTypeDef *hmdma)
   */
 static void SDRAM_DMAError(MDMA_HandleTypeDef *hmdma)
 {
+  /* Derogation MISRAC2012-Rule-11.5 */
   SDRAM_HandleTypeDef *hsdram = (SDRAM_HandleTypeDef *)(hmdma->Parent);
 
   /* Disable the MDMA channel */

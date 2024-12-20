@@ -509,8 +509,8 @@ HAL_StatusTypeDef HAL_MDIOS_UnRegisterCallback(MDIOS_HandleTypeDef *hmdios, HAL_
 HAL_StatusTypeDef HAL_MDIOS_WriteReg(MDIOS_HandleTypeDef *hmdios,  uint32_t RegNum, uint16_t Data);
 HAL_StatusTypeDef HAL_MDIOS_ReadReg(MDIOS_HandleTypeDef *hmdios,  uint32_t RegNum, uint16_t *pData);
 
-uint32_t HAL_MDIOS_GetWrittenRegAddress(MDIOS_HandleTypeDef *hmdios);
-uint32_t HAL_MDIOS_GetReadRegAddress(MDIOS_HandleTypeDef *hmdios);
+uint32_t HAL_MDIOS_GetWrittenRegAddress(const MDIOS_HandleTypeDef *hmdios);
+uint32_t HAL_MDIOS_GetReadRegAddress(const MDIOS_HandleTypeDef *hmdios);
 HAL_StatusTypeDef HAL_MDIOS_ClearWriteRegAddress(MDIOS_HandleTypeDef *hmdios, uint32_t RegNum);
 HAL_StatusTypeDef HAL_MDIOS_ClearReadRegAddress(MDIOS_HandleTypeDef *hmdios, uint32_t RegNum);
 
@@ -527,8 +527,8 @@ void HAL_MDIOS_WakeUpCallback(MDIOS_HandleTypeDef *hmdios);
 /** @addtogroup MDIOS_Exported_Functions_Group3
   * @{
   */
-uint32_t HAL_MDIOS_GetError(MDIOS_HandleTypeDef *hmdios);
-HAL_MDIOS_StateTypeDef HAL_MDIOS_GetState(MDIOS_HandleTypeDef *hmdios);
+uint32_t HAL_MDIOS_GetError(const MDIOS_HandleTypeDef *hmdios);
+HAL_MDIOS_StateTypeDef HAL_MDIOS_GetState(const MDIOS_HandleTypeDef *hmdios);
 /**
   * @}
   */

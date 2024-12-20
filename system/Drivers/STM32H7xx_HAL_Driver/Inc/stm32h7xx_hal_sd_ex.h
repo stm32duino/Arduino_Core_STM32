@@ -30,6 +30,7 @@ extern "C" {
 /** @addtogroup STM32H7xx_HAL_Driver
   * @{
   */
+#if defined (SDMMC1) || defined (SDMMC2)
 
 /** @addtogroup SDEx
   * @brief SD HAL extended module driver
@@ -98,6 +99,7 @@ void HAL_SDEx_Write_DMADoubleBuf1CpltCallback(SD_HandleTypeDef *hsd);
 /**
   * @}
   */
+#endif /* SDMMC1 || SDMMC2 */
 
 /**
   * @}
