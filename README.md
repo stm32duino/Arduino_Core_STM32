@@ -492,6 +492,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart:  | STM32G474CEU | WeAct G474CE | **2.10.0** | [More info](https://github.com/WeActStudio/WeActStudio.STM32G474CoreBoard) |
 | :green_heart:  | STM32G431C6<br>STM32G431C8<br>STM32G431CB | Generic Board | *2.4.0* |  |
 | :green_heart: | STM32G431C6U<br>STM32G431C8U<br>STM32G431CBU | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32G431M6<br>STM32G431M8<br>STM32G431MB | Generic Board | *2.4.0* |  |

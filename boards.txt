@@ -7453,6 +7453,16 @@ GenG4.openocd.target=stm32g4x
 GenG4.vid.0=0x0483
 GenG4.pid.0=0x5740
 
+# WEACT_G474CE board
+GenG4.menu.pnum.WEACT_G474CE=WeAct G474CE
+GenG4.menu.pnum.WEACT_G474CE.upload.maximum_size=524288
+GenG4.menu.pnum.WEACT_G474CE.upload.maximum_data_size=131072
+GenG4.menu.pnum.WEACT_G474CE.build.board=WEACT_G474CE
+GenG4.menu.pnum.WEACT_G474CE.build.product_line=STM32G474xx
+GenG4.menu.pnum.WEACT_G474CE.build.variant=STM32G4xx/G473C(B-C-E)U_G474C(B-C-E)U_G483CEU_G484CEU
+GenG4.menu.pnum.WEACT_G474CE.build.variant_h=variant_{build.board}.h
+GenG4.menu.pnum.WEACT_G474CE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G474.svd
+
 # Generic G431C6Tx
 GenG4.menu.pnum.GENERIC_G431C6TX=Generic G431C6Tx
 GenG4.menu.pnum.GENERIC_G431C6TX.upload.maximum_size=32768
