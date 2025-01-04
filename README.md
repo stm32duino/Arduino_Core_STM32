@@ -492,6 +492,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart:  | STM32G474CEU | WeAct G474CE | **2.10.0** | [More info](https://github.com/WeActStudio/WeActStudio.STM32G474CoreBoard) |
 | :green_heart:  | STM32G431C6<br>STM32G431C8<br>STM32G431CB | Generic Board | *2.4.0* |  |
 | :green_heart: | STM32G431C6U<br>STM32G431C8U<br>STM32G431CBU | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32G431M6<br>STM32G431M8<br>STM32G431MB | Generic Board | *2.4.0* |  |
@@ -509,25 +510,29 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32G471QC<br>STM32G471QE | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G471RC<br>STM32G471RE | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G471VC<br>STM32G471VE | Generic Board | *2.4.0* |  |
-| :green_heart:  | STM32G473CB<br>STM32G473CC<br>STM32G473CE | Generic Board | *2.4.0* |  |
+| :green_heart:  | STM32G473CBT<br>STM32G473CCT<br>STM32G473CET | Generic Board | *2.4.0* |  |
+| :yellow_heart:  | STM32G473CBU<br>STM32G473CCU<br>STM32G473CEU | Generic Board | **2.10.0** |  |
 | :green_heart:  | STM32G473MB<br>STM32G473MC<br>STM32G473ME | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G473PB<br>STM32G473PC<br>STM32G473PE | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G473QB<br>STM32G473QC<br>STM32G473QE | Generic Board | *2.4.0* |  |
 | :green_heart: | STM32G473RB<br>STM32G473RC<br>STM32G473RE | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32G473VB<br>STM32G473VC<br>STM32G473VE | Generic Board | *2.4.0* |  |
-| :green_heart:  | STM32G474CB<br>STM32G474CC<br>STM32G474CE | Generic Board | *2.4.0* |  |
+| :green_heart:  | STM32G474CBT<br>STM32G474CCT<br>STM32G474CET | Generic Board | *2.4.0* |  |
+| :yellow_heart:  | STM32G474CBU<br>STM32G474CCU<br>STM32G474CEU | Generic Board | **2.10.0** |  |
 | :green_heart:  | STM32G474MB<br>STM32G474MC<br>STM32G474ME | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G474PB<br>STM32G474PC<br>STM32G474PE | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G474QB<br>STM32G474QC<br>STM32G474QE | Generic Board | *2.4.0* |  |
 | :green_heart: | STM32G474RB<br>STM32G474RC<br>STM32G474RE | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32G474VB<br>STM32G474VC<br>STM32G474VE | Generic Board | *2.4.0* |  |
-| :green_heart:  | STM32G483CE | Generic Board | *2.4.0* |  |
+| :green_heart:  | STM32G483CET | Generic Board | *2.4.0* |  |
+| :yellow_heart:  | STM32G483CEU | Generic Board | **2.10.0** |  |
 | :green_heart:  | STM32G483ME | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G483PE | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G483QE | Generic Board | *2.4.0* |  |
 | :green_heart: | STM32G483RE | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32G483VE | Generic Board | *2.4.0* |  |
-| :green_heart:  | STM32G484CE | Generic Board | *2.4.0* |  |
+| :green_heart:  | STM32G484CET | Generic Board | *2.4.0* |  |
+| :yellow_heart:  | STM32G484CEU | Generic Board | **2.10.0** |  |
 | :green_heart:  | STM32G484ME | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G484PE | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G484QE | Generic Board | *2.4.0* |  |
