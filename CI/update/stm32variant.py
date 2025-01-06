@@ -2381,14 +2381,20 @@ def aggregate_dir():
             dir_str = "Directories" if nb_old > 1 else "Directory"
             print(f"\n{dir_str} not updated for {mcu_family.name}:\n")
             for d in old_dirs:
-                print(f"  - {d.name}")
+                # Check if ldsript.ld file exists in the folder
+                if not (d / "ldscript.ld").exists():
+                    deleteFolder(d)
+                    print(f"  - {d.name} (deleted)")
+                else:
+                    print(f"  - {d.name}")
             print(
                 """
-  --> Please, check if it is due to directory name update (renamed), if true then:
+  --> For each directory not deleted, it requires manual update as it was renamed:
+    - Find new directory name.
     - Move custom boards definition files, if any.
-    - Move linker script(s), if any.
+    - Move linker script(s).
     - Copy 'SystemClock_Config(void)' function to the new generic clock config file.
-  --> Then remove it, update old path in boards.txt
+  --> Then remove it and update old path in boards.txt
      (for custom board(s) as well as generic ones).
 """
             )
