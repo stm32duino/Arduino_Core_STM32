@@ -98,6 +98,7 @@ WEAK void SystemClock_Config(void)
   RCC_OscInitTypeDef RCC_OscInitStruct = {};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {};
 #ifdef USBCON
+  RCC_CRSInitTypeDef RCC_CRSInitStruct = {};
   RCC_PeriphCLKInitTypeDef PeriphClkInit = {};
 #endif
 
@@ -113,7 +114,7 @@ WEAK void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV2;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLN = 72;
+  RCC_OscInitStruct.PLL.PLLN = 85;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV6;
   RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
@@ -133,9 +134,22 @@ WEAK void SystemClock_Config(void)
   }
 
 #ifdef USBCON
+  /* Enable the SYSCFG APB clock */
+  __HAL_RCC_CRS_CLK_ENABLE();
+
+  /* Configures CRS */
+  RCC_CRSInitStruct.Prescaler = RCC_CRS_SYNC_DIV1;
+  RCC_CRSInitStruct.Source = RCC_CRS_SYNC_SOURCE_USB;
+  RCC_CRSInitStruct.Polarity = RCC_CRS_SYNC_POLARITY_RISING;
+  RCC_CRSInitStruct.ReloadValue = __HAL_RCC_CRS_RELOADVALUE_CALCULATE(48000000, 1000);
+  RCC_CRSInitStruct.ErrorLimitValue = RCC_CRS_ERRORLIMIT_DEFAULT;
+  RCC_CRSInitStruct.HSI48CalibrationValue = RCC_CRS_HSI48CALIBRATION_DEFAULT;
+
+  HAL_RCCEx_CRSConfig(&RCC_CRSInitStruct);
+
   /* Initializes the peripherals clocks */
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USB;
-  PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_PLL;
+  PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
     Error_Handler();
   }
