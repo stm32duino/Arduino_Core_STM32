@@ -1205,12 +1205,16 @@ def print_peripheral():
 
 # PinNamesVar.h generation
 def manage_syswkup():
-    syswkup_pins_list = [[] for _ in range(8)]
     if len(syswkup_list) != 0:
-        # H7xx and F446 start from 0
+        # Find the max range of SYS_WKUP
+        max_range = syswkup_list[-1][2].replace("SYS_WKUP", "")
+        max_range = int(max_range) if max_range else 1
+        # F446 start from 0
         base_index = 1
         if syswkup_list[0][2].replace("SYS_WKUP", "") == "0":
             base_index = 0
+            max_range += 1
+        syswkup_pins_list = [[] for _ in range(max_range)]
         for p in syswkup_list:
             num = p[2].replace("SYS_WKUP", "")
             num = int(num) if num else 1
@@ -1220,6 +1224,8 @@ def manage_syswkup():
             else:
                 cmt = f" /* {p[2]} */"
             syswkup_pins_list[num].append([p[0], cmt])
+    else:
+        syswkup_pins_list = []
     return syswkup_pins_list
 
 
