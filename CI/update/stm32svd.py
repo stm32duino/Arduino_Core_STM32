@@ -1,6 +1,7 @@
 import json
 import sys
 from pathlib import Path
+from xml.dom.minidom import parse
 
 script_path = Path(__file__).parent.resolve()
 sys.path.append(str(script_path.parent))
@@ -8,9 +9,11 @@ from utils import copyFile, copyFolder, createFolder, deleteFolder
 from utils import defaultConfig, genSTM32List
 
 stm32_list = []  # series
+svd_dict = {}  # 'svd file': 'name'
 root_path = script_path.parent.parent.resolve()
 hal_path = root_path / "system" / "Drivers"
 cubeclt_path = Path("")
+cubeclt_mcu_path = Path()
 cubeclt_svd_path = Path("")
 stm32_svd_repo = Path("")
 stm32_svd_dir = Path("")
@@ -18,6 +21,7 @@ stm32_svd_dir = Path("")
 
 def checkConfig():
     global cubeclt_path
+    global cubeclt_mcu_path
     global cubeclt_svd_path
     global stm32_svd_repo
     global stm32_svd_dir
@@ -43,6 +47,10 @@ def checkConfig():
                 if not cubeclt_svd_path.is_dir():
                     print(f"{cubeclt_svd_path} does not exist!")
                     exit(1)
+                cubeclt_mcu_path = cubeclt_path / "STM32target-mcu"
+                if not cubeclt_mcu_path.is_dir():
+                    print(f"{cubeclt_mcu_path} does not exist!")
+                    exit(1)
             if "STM32_SVD_PATH" not in path_config:
                 path_config["STM32_SVD_PATH"] = str("Path to stm32_svd repository")
                 defaultConfig(config_file_path, path_config)
@@ -62,11 +70,56 @@ def checkConfig():
         )
 
 
+def parse_stm32targets(stm32targets_file: Path):
+    global stm32_list
+    global svd_dict
+
+    xml_stm32targets = parse(str(stm32targets_file))
+    mcu_nodes = xml_stm32targets.getElementsByTagName("mcu")
+    for mcu_node in mcu_nodes:
+        parent_node_name = mcu_node.getElementsByTagName("parent")[0].firstChild.data
+        mcu_node_name = mcu_node.getElementsByTagName("name")[0].firstChild.data
+        cpus_node_name = mcu_node.getElementsByTagName("cpus")
+        cpu_node_name = cpus_node_name[0].getElementsByTagName("cpu")
+        svd_node = cpu_node_name[0].getElementsByTagName("svd")
+        svd_file = svd_node[0].getElementsByTagName("name")[0].firstChild.data
+        serie = (
+            parent_node_name.upper()
+            .removeprefix("STM32")
+            .removesuffix("SINGLE")
+            .removesuffix("DUAL")
+        )
+        if serie == "L4PLUS":
+            serie = "L4"
+        else:
+            if mcu_node_name.startswith("STM32H7R") or mcu_node_name.startswith(
+                "STM32H7S"
+            ):
+                serie = "H7RS"
+        svd_dict[svd_file] = serie
+        # Check if a second cpu is defined
+        if cpu_node_name.length > 1:
+            svd_node = cpu_node_name[1].getElementsByTagName("svd")
+            svd_file = svd_node[0].getElementsByTagName("name")[0].firstChild.data
+            serie = parent_node_name.upper().removeprefix("STM32").removesuffix("DUAL")
+            svd_dict[svd_file] = serie
+    xml_stm32targets.unlink()
+
+
 def main():
     global stm32_list
-    # check config have to be done first
+    # Check config have to be done first
     checkConfig()
+    # Get list of STM32 series from HAL driver directory
     stm32_list = genSTM32List(hal_path, None)
+    # Parse STM32Targets.xml to get list of STM32 series and svd file
+    # one per Cube reference
+    stm32targets_file = cubeclt_mcu_path / "stm32targets.xml"
+    if stm32targets_file.is_file():
+        parse_stm32targets(stm32targets_file)
+    else:
+        print(f"{stm32targets_file} does not exits!")
+        exit(1)
     # Reverse order to get WBA before WB to ease svd sorting
     stm32_list.sort(reverse=True)
     # Clean up core svd folder
@@ -81,17 +134,33 @@ def main():
     # Create all directories
     for serie in stm32_list:
         createFolder(stm32_svd_dir / f"STM32{serie}xx")
-    # Get all xml files
+    # Get all svd files
     svd_list = sorted(cubeclt_svd_path.glob("STM32*.svd"))
 
-    # Copy all svd files per series
+    # Copy all svd files per supported series
     for svd_file in svd_list:
         svd_name = svd_file.name
-        for serie in stm32_list:
-            if svd_name.find(f"STM32{serie}") != -1:
-                copyFile(svd_file, stm32_svd_dir / f"STM32{serie}xx")
-                break
+        if svd_name in svd_dict:
+            if svd_dict[svd_name] in stm32_list:
+                copyFile(svd_file, stm32_svd_dir / f"STM32{svd_dict[svd_name]}xx")
+        else:
+            # File not copied as not referenced in stm32targets.xml
+            if svd_name.startswith("STM32GBK"):
+                copyFile(svd_file, stm32_svd_dir / "STM32G4xx")
+            else:
+                for serie in stm32_list:
+                    if svd_name.startswith(f"STM32{serie}"):
+                        copyFile(svd_file, stm32_svd_dir / f"STM32{serie}xx")
+                        break
+                else:
+                    print(f"File {svd_name} not copied.")
 
+    # Check if created folder is empty and delete it
+    for serie in stm32_list:
+        serie_dir = stm32_svd_dir / f"STM32{serie}xx"
+        if not any(serie_dir.glob("*")):
+            print (f"Folder {serie_dir} is empty.")
+            serie_dir.rmdir()
 
 if __name__ == "__main__":
     main()
