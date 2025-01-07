@@ -3,10 +3,11 @@ import re
 import subprocess
 import shutil
 import sys
+from pathlib import Path
 
 
 # Add default key/value pair to config file
-def defaultConfig(config_file_path, data):
+def defaultConfig(config_file_path: Path, data: dict):
     print(f"Please check the default configuration '{config_file_path}'.")
     config_file = open(config_file_path, "w")
     config_file.write(json.dumps(data, indent=2))
@@ -15,7 +16,7 @@ def defaultConfig(config_file_path, data):
 
 
 # Create a folder if not exists
-def createFolder(path):
+def createFolder(path: Path):
     try:
         path.mkdir(parents=True, exist_ok=True)
     except OSError:
@@ -23,7 +24,7 @@ def createFolder(path):
 
 
 # Delete targeted folder recursively
-def deleteFolder(path):
+def deleteFolder(path: Path):
     if path.is_dir():
         shutil.rmtree(path, ignore_errors=True)
 
@@ -38,7 +39,7 @@ def copyFolder(src, dest, ign_patt=set()):
 
 
 # copy one file to dest
-def copyFile(src, dest):
+def copyFile(src: Path, dest: Path):
     try:
         if src.is_file():
             shutil.copy(str(src), str(dest))
@@ -46,7 +47,8 @@ def copyFile(src, dest):
         print(f"Error: File {src} not copied. {e}")
 
 
-def genSTM32List(path, pattern):
+# get list of STM32 series from HAL driver directory
+def genSTM32List(path: Path, pattern: str = None):
     stm32_list = []  # series
     dir_pattern = re.compile(r"^STM32(.*)xx_HAL_Driver$", re.IGNORECASE)
 
@@ -63,7 +65,7 @@ def genSTM32List(path, pattern):
     return stm32_list
 
 
-def execute_cmd(cmd, stderror):
+def execute_cmd(cmd: list, stderror: int):
     try:
         output = subprocess.check_output(cmd, stderr=stderror).decode("utf-8").strip()
     except subprocess.CalledProcessError as e:
@@ -72,7 +74,7 @@ def execute_cmd(cmd, stderror):
     return output
 
 
-def getRepoBranchName(repo_path):
+def getRepoBranchName(repo_path: Path):
     bname = ""
     rname = ""
     cmd = ["git", "-C", repo_path, "branch", "-r"]
