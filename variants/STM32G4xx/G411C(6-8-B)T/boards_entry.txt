@@ -10,6 +10,7 @@ GenG4.menu.pnum.GENERIC_G411C6TX.upload.maximum_data_size=32768
 GenG4.menu.pnum.GENERIC_G411C6TX.build.board=GENERIC_G411C6TX
 GenG4.menu.pnum.GENERIC_G411C6TX.build.product_line=STM32G411xB
 GenG4.menu.pnum.GENERIC_G411C6TX.build.variant=STM32G4xx/G411C(6-8-B)T
+GenG4.menu.pnum.GENERIC_G411C6TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G431.svd
 
 # Generic G411C8Tx
 GenG4.menu.pnum.GENERIC_G411C8TX=Generic G411C8Tx
@@ -18,6 +19,7 @@ GenG4.menu.pnum.GENERIC_G411C8TX.upload.maximum_data_size=32768
 GenG4.menu.pnum.GENERIC_G411C8TX.build.board=GENERIC_G411C8TX
 GenG4.menu.pnum.GENERIC_G411C8TX.build.product_line=STM32G411xB
 GenG4.menu.pnum.GENERIC_G411C8TX.build.variant=STM32G4xx/G411C(6-8-B)T
+GenG4.menu.pnum.GENERIC_G411C8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G431.svd
 
 # Generic G411CBTx
 GenG4.menu.pnum.GENERIC_G411CBTX=Generic G411CBTx
@@ -26,4 +28,5 @@ GenG4.menu.pnum.GENERIC_G411CBTX.upload.maximum_data_size=32768
 GenG4.menu.pnum.GENERIC_G411CBTX.build.board=GENERIC_G411CBTX
 GenG4.menu.pnum.GENERIC_G411CBTX.build.product_line=STM32G411xB
 GenG4.menu.pnum.GENERIC_G411CBTX.build.variant=STM32G4xx/G411C(6-8-B)T
+GenG4.menu.pnum.GENERIC_G411CBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G431.svd
 
