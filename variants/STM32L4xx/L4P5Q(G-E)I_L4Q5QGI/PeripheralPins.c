@@ -12,7 +12,7 @@
  */
 /*
  * Automatically generated from STM32L4P5Q(G-E)Ix.xml, STM32L4Q5QGIx.xml
- * CubeMX DB release 6.0.120
+ * CubeMX DB release 6.0.130
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
