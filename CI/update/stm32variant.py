@@ -14,8 +14,17 @@ from xml.dom.minidom import parse, Node
 
 script_path = Path(__file__).parent.resolve()
 sys.path.append(str(script_path.parent))
-from utils import defaultConfig, deleteFolder, execute_cmd, getRepoBranchName
+from utils import (
+    defaultConfig,
+    deleteFolder,
+    execute_cmd,
+    getRepoBranchName,
+    genSTM32List,
+)
 
+stm32_list = []  # series
+ignored_stm32_list = []  # series
+aggregate_serie_list = []  # series
 mcu_list = []  # 'name'
 io_list = []  # 'PIN','name'
 alt_list = []  # 'PIN','name'
@@ -158,6 +167,12 @@ def parse_mcu_file():
 
     mcu_node = xml_mcu.getElementsByTagName("Mcu")[0]
     mcu_family = mcu_node.attributes["Family"].value
+    # Check if FwLibrary is present in the attributes
+    if "FwLibrary" in mcu_node.attributes:
+        mcu_family = mcu_node.attributes["FwLibrary"].value
+        # split using '_' and kept the lasy part
+        mcu_family = f"STM32{mcu_family.split('_')[-1]}"
+
     if mcu_family.endswith("+"):
         mcu_family = mcu_family[:-1]
     mcu_refname = mcu_node.attributes["RefName"].value
@@ -1205,12 +1220,16 @@ def print_peripheral():
 
 # PinNamesVar.h generation
 def manage_syswkup():
-    syswkup_pins_list = [[] for _ in range(8)]
     if len(syswkup_list) != 0:
-        # H7xx and F446 start from 0
+        # Find the max range of SYS_WKUP
+        max_range = syswkup_list[-1][2].replace("SYS_WKUP", "")
+        max_range = int(max_range) if max_range else 1
+        # F446 start from 0
         base_index = 1
         if syswkup_list[0][2].replace("SYS_WKUP", "") == "0":
             base_index = 0
+            max_range += 1
+        syswkup_pins_list = [[] for _ in range(max_range)]
         for p in syswkup_list:
             num = p[2].replace("SYS_WKUP", "")
             num = int(num) if num else 1
@@ -1220,6 +1239,8 @@ def manage_syswkup():
             else:
                 cmt = f" /* {p[2]} */"
             syswkup_pins_list[num].append([p[0], cmt])
+    else:
+        syswkup_pins_list = []
     return syswkup_pins_list
 
 
@@ -2265,17 +2286,14 @@ def merge_dir(out_temp_path, group_mcu_dir, mcu_family, periph_xml, variant_exp)
 def aggregate_dir():
     # Get mcu_family directories
     out_temp_path = tmp_dir
-    mcu_families = sorted(out_temp_path.glob("STM32*/"))
 
     group_mcu_dir = []
     mcu_dir1_files_list = []
     mcu_dir2_files_list = []
 
     # Compare per family
-    for mcu_family in mcu_families:
-        # Generate only for one family
-        if filtered_family and filtered_family not in mcu_family.name:
-            continue
+    for mcu_family_name in aggregate_serie_list:
+        mcu_family = out_temp_path / f"{mcu_family_name}xx"
         out_family_path = root_dir / "variants" / mcu_family.name
         # Get all mcu_dir
         mcu_dirs = sorted(mcu_family.glob("*/"))
@@ -2375,14 +2393,20 @@ def aggregate_dir():
             dir_str = "Directories" if nb_old > 1 else "Directory"
             print(f"\n{dir_str} not updated for {mcu_family.name}:\n")
             for d in old_dirs:
-                print(f"  - {d.name}")
+                # Check if ldsript.ld file exists in the folder
+                if not (d / "ldscript.ld").exists():
+                    deleteFolder(d)
+                    print(f"  - {d.name} (deleted)")
+                else:
+                    print(f"  - {d.name}")
             print(
                 """
-  --> Please, check if it is due to directory name update (renamed), if true then:
+  --> For each directory not deleted, it requires manual update as it was renamed:
+    - Find new directory name.
     - Move custom boards definition files, if any.
-    - Move linker script(s), if any.
+    - Move linker script(s).
     - Copy 'SystemClock_Config(void)' function to the new generic clock config file.
-  --> Then remove it, update old path in boards.txt
+  --> Then remove it and update old path in boards.txt
      (for custom board(s) as well as generic ones).
 """
             )
@@ -2513,14 +2537,7 @@ root_dir = script_path.parents[1]
 system_path = root_dir / "system"
 templates_dir = script_path / "templates"
 mcu_family_dir = ""
-filtered_family = ""
-refname_filter = [
-    "STM32H7R",
-    "STM32H7S",
-    "STM32MP13",
-    "STM32MP2",
-    "STM32WB0",
-]
+filtered_serie = ""
 periph_c_filename = "PeripheralPins.c"
 pinvar_h_filename = "PinNamesVar.h"
 config_filename = script_path / "update_config.json"
@@ -2570,15 +2587,15 @@ group = parser.add_mutually_exclusive_group()
 group.add_argument(
     "-l",
     "--list",
-    help="list available xml files description in database",
+    help="list available xml files description in database.",
     action="store_true",
 )
 
 group.add_argument(
-    "-f",
-    "--family",
-    metavar="name",
-    help="Generate all files for specified mcu family.",
+    "-s",
+    "--serie",
+    metavar="pattern",
+    help="Generate all files for specified STM32 serie(s) pattern.",
 )
 
 parser.add_argument(
@@ -2592,7 +2609,6 @@ Use STM32CubeMX internal database. Default use GitHub {repo_name} repository.
     action="store_true",
 )
 parser.add_argument(
-    "-s",
     "--skip",
     help=f"Skip {repo_name} clone/fetch",
     action="store_true",
@@ -2644,13 +2660,9 @@ else:
     print(f"{stm32targets_file} does not exits!")
     exit(1)
 
-if args.family:
-    filtered_family = args.family.upper()
-    filtered_family = filtered_family.removeprefix("STM32")
-    while filtered_family.endswith("X"):
-        filtered_family = filtered_family.rstrip("X")
-    filtered_family = f"STM32{filtered_family}"
-
+if args.serie:
+    serie = args.serie.upper()
+    serie_pattern = re.compile(rf"STM32({serie})$", re.IGNORECASE)
 # Get all xml files
 mcu_list = sorted(dirMCU.glob("STM32*.xml"))
 
@@ -2658,6 +2670,11 @@ if args.list:
     print("Available xml files description:")
     for f in mcu_list:
         print(f.name)
+    quit()
+
+stm32_list = [f"STM32{stm32}" for stm32 in genSTM32List(system_path / "Drivers")]
+if not stm32_list:
+    print(f"No STM32 series found in {system_path}/Drivers")
     quit()
 
 # Create the jinja2 environment.
@@ -2675,22 +2692,21 @@ for mcu_file in mcu_list:
     # Open input file
     xml_mcu = parse(str(mcu_file))
     parse_mcu_file()
-
-    # Generate only for one family or supported reference
+    # Generate only for specified pattern series or supported one
+    # Check if mcu_family is supported by the core
     if (
-        filtered_family
-        and filtered_family not in mcu_family
-        or any(skp in mcu_refname for skp in refname_filter)
+        mcu_family not in stm32_list
+        or args.serie
+        and serie_pattern.search(mcu_family) is None
     ):
-        # Add a warning if filtered family is requested
-        if filtered_family and filtered_family not in refname_filter:
-            for skp in refname_filter:
-                if skp == filtered_family:
-                    print(f"Requested family {filtered_family} is filtered!")
-                    print("Please update the refname_filter list.")
-                    quit()
+        if mcu_family not in ignored_stm32_list and mcu_family not in stm32_list:
+            ignored_stm32_list.append(mcu_family)
         xml_mcu.unlink()
         continue
+
+    # Add mcu family to the list of directory to aggregate
+    if mcu_family not in aggregate_serie_list:
+        aggregate_serie_list.append(mcu_family)
 
     print(f"Generating files for '{mcu_file.name}'...")
     if not gpiofile:
@@ -2759,3 +2775,10 @@ aggregate_dir()
 
 # Clean temporary dir
 deleteFolder(tmp_dir)
+
+# Display ignored families
+if ignored_stm32_list:
+    print("\nIgnored families:")
+    for family in ignored_stm32_list:
+        print(f"  - {family}")
+    print("To be supported, series must first be supported by the core.")

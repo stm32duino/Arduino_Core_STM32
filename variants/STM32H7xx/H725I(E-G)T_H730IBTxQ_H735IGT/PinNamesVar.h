@@ -90,12 +90,6 @@ PK_1_ALT1  = PK_1  | ALT1,
 #ifdef PWR_WAKEUP_PIN6
   SYS_WKUP6 = PC_1,
 #endif
-#ifdef PWR_WAKEUP_PIN7
-  SYS_WKUP7 = NC,
-#endif
-#ifdef PWR_WAKEUP_PIN8
-  SYS_WKUP8 = NC,
-#endif
 
 /* USB */
 #ifdef USBCON

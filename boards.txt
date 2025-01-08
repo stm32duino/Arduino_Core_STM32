@@ -8934,7 +8934,7 @@ GenH7.menu.pnum.DAISY_SEED.upload.maximum_data_size=524288
 GenH7.menu.pnum.DAISY_SEED.build.board=DAISY_SEED
 GenH7.menu.pnum.DAISY_SEED.build.product_line=STM32H750xx
 GenH7.menu.pnum.DAISY_SEED.build.variant_h=variant_{build.board}.h
-GenH7.menu.pnum.DAISY_SEED.build.variant=STM32H7xx/H742I(G-I)K_H743I(G-I)K_H750IBK_H753IIK
+GenH7.menu.pnum.DAISY_SEED.build.variant=STM32H7xx/H742I(G-I)(K-T)_H743I(G-I)(K-T)_H750IB(K-T)_H753II(K-T)
 GenH7.menu.pnum.DAISY_SEED.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 GenH7.menu.pnum.DAISY_SEED.build.ldscript=DAISY_SEED.ld
 GenH7.menu.pnum.DAISY_SEED.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H750.svd
@@ -8946,7 +8946,7 @@ GenH7.menu.pnum.DAISY_PATCH_SM.upload.maximum_data_size=524288
 GenH7.menu.pnum.DAISY_PATCH_SM.build.board=DAISY_PATCH_SM
 GenH7.menu.pnum.DAISY_PATCH_SM.build.product_line=STM32H750xx
 GenH7.menu.pnum.DAISY_PATCH_SM.build.variant_h=variant_{build.board}.h
-GenH7.menu.pnum.DAISY_PATCH_SM.build.variant=STM32H7xx/H742I(G-I)K_H743I(G-I)K_H750IBK_H753IIK
+GenH7.menu.pnum.DAISY_PATCH_SM.build.variant=STM32H7xx/H742I(G-I)(K-T)_H743I(G-I)(K-T)_H750IB(K-T)_H753II(K-T)
 GenH7.menu.pnum.DAISY_PATCH_SM.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 GenH7.menu.pnum.DAISY_PATCH_SM.build.ldscript=DAISY_SEED.ld
 GenH7.menu.pnum.DAISY_PATCH_SM.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H750.svd
@@ -8958,7 +8958,7 @@ GenH7.menu.pnum.DAISY_PETAL_SM.upload.maximum_data_size=524288
 GenH7.menu.pnum.DAISY_PETAL_SM.build.board=DAISY_PETAL_SM
 GenH7.menu.pnum.DAISY_PETAL_SM.build.product_line=STM32H750xx
 GenH7.menu.pnum.DAISY_PETAL_SM.build.variant_h=variant_{build.board}.h
-GenH7.menu.pnum.DAISY_PETAL_SM.build.variant=STM32H7xx/H742I(G-I)K_H743I(G-I)K_H750IBK_H753IIK
+GenH7.menu.pnum.DAISY_PETAL_SM.build.variant=STM32H7xx/H742I(G-I)(K-T)_H743I(G-I)(K-T)_H750IB(K-T)_H753II(K-T)
 GenH7.menu.pnum.DAISY_PETAL_SM.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 GenH7.menu.pnum.DAISY_PETAL_SM.build.ldscript=DAISY_SEED.ld
 GenH7.menu.pnum.DAISY_PETAL_SM.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H750.svd
@@ -9049,7 +9049,7 @@ GenH7.menu.pnum.GENERIC_H742IGKX.upload.maximum_size=1048576
 GenH7.menu.pnum.GENERIC_H742IGKX.upload.maximum_data_size=524288
 GenH7.menu.pnum.GENERIC_H742IGKX.build.board=GENERIC_H742IGKX
 GenH7.menu.pnum.GENERIC_H742IGKX.build.product_line=STM32H742xx
-GenH7.menu.pnum.GENERIC_H742IGKX.build.variant=STM32H7xx/H742I(G-I)K_H743I(G-I)K_H750IBK_H753IIK
+GenH7.menu.pnum.GENERIC_H742IGKX.build.variant=STM32H7xx/H742I(G-I)(K-T)_H743I(G-I)(K-T)_H750IB(K-T)_H753II(K-T)
 GenH7.menu.pnum.GENERIC_H742IGKX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H742.svd
 
 # Generic H742IIKx
@@ -9058,7 +9058,7 @@ GenH7.menu.pnum.GENERIC_H742IIKX.upload.maximum_size=2097152
 GenH7.menu.pnum.GENERIC_H742IIKX.upload.maximum_data_size=524288
 GenH7.menu.pnum.GENERIC_H742IIKX.build.board=GENERIC_H742IIKX
 GenH7.menu.pnum.GENERIC_H742IIKX.build.product_line=STM32H742xx
-GenH7.menu.pnum.GENERIC_H742IIKX.build.variant=STM32H7xx/H742I(G-I)K_H743I(G-I)K_H750IBK_H753IIK
+GenH7.menu.pnum.GENERIC_H742IIKX.build.variant=STM32H7xx/H742I(G-I)(K-T)_H743I(G-I)(K-T)_H750IB(K-T)_H753II(K-T)
 GenH7.menu.pnum.GENERIC_H742IIKX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H742.svd
 
 # Generic H742IGTx
@@ -9067,7 +9067,7 @@ GenH7.menu.pnum.GENERIC_H742IGTX.upload.maximum_size=1048576
 GenH7.menu.pnum.GENERIC_H742IGTX.upload.maximum_data_size=524288
 GenH7.menu.pnum.GENERIC_H742IGTX.build.board=GENERIC_H742IGTX
 GenH7.menu.pnum.GENERIC_H742IGTX.build.product_line=STM32H742xx
-GenH7.menu.pnum.GENERIC_H742IGTX.build.variant=STM32H7xx/H742I(G-I)T_H743I(G-I)T_H750IBT_H753IIT
+GenH7.menu.pnum.GENERIC_H742IGTX.build.variant=STM32H7xx/H742I(G-I)(K-T)_H743I(G-I)(K-T)_H750IB(K-T)_H753II(K-T)
 GenH7.menu.pnum.GENERIC_H742IGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H742.svd
 
 # Generic H742IITx
@@ -9076,7 +9076,7 @@ GenH7.menu.pnum.GENERIC_H742IITX.upload.maximum_size=2097152
 GenH7.menu.pnum.GENERIC_H742IITX.upload.maximum_data_size=524288
 GenH7.menu.pnum.GENERIC_H742IITX.build.board=GENERIC_H742IITX
 GenH7.menu.pnum.GENERIC_H742IITX.build.product_line=STM32H742xx
-GenH7.menu.pnum.GENERIC_H742IITX.build.variant=STM32H7xx/H742I(G-I)T_H743I(G-I)T_H750IBT_H753IIT
+GenH7.menu.pnum.GENERIC_H742IITX.build.variant=STM32H7xx/H742I(G-I)(K-T)_H743I(G-I)(K-T)_H750IB(K-T)_H753II(K-T)
 GenH7.menu.pnum.GENERIC_H742IITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H742.svd
 
 # Generic H742VGHx
@@ -9157,7 +9157,7 @@ GenH7.menu.pnum.GENERIC_H743IGKX.upload.maximum_size=1048576
 GenH7.menu.pnum.GENERIC_H743IGKX.upload.maximum_data_size=524288
 GenH7.menu.pnum.GENERIC_H743IGKX.build.board=GENERIC_H743IGKX
 GenH7.menu.pnum.GENERIC_H743IGKX.build.product_line=STM32H743xx
-GenH7.menu.pnum.GENERIC_H743IGKX.build.variant=STM32H7xx/H742I(G-I)K_H743I(G-I)K_H750IBK_H753IIK
+GenH7.menu.pnum.GENERIC_H743IGKX.build.variant=STM32H7xx/H742I(G-I)(K-T)_H743I(G-I)(K-T)_H750IB(K-T)_H753II(K-T)
 GenH7.menu.pnum.GENERIC_H743IGKX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H743.svd
 
 # Generic H743IGTx
@@ -9166,7 +9166,7 @@ GenH7.menu.pnum.GENERIC_H743IGTX.upload.maximum_size=1048576
 GenH7.menu.pnum.GENERIC_H743IGTX.upload.maximum_data_size=524288
 GenH7.menu.pnum.GENERIC_H743IGTX.build.board=GENERIC_H743IGTX
 GenH7.menu.pnum.GENERIC_H743IGTX.build.product_line=STM32H743xx
-GenH7.menu.pnum.GENERIC_H743IGTX.build.variant=STM32H7xx/H742I(G-I)T_H743I(G-I)T_H750IBT_H753IIT
+GenH7.menu.pnum.GENERIC_H743IGTX.build.variant=STM32H7xx/H742I(G-I)(K-T)_H743I(G-I)(K-T)_H750IB(K-T)_H753II(K-T)
 GenH7.menu.pnum.GENERIC_H743IGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H743.svd
 
 # Generic H743IIKx
@@ -9175,7 +9175,7 @@ GenH7.menu.pnum.GENERIC_H743IIKX.upload.maximum_size=2097152
 GenH7.menu.pnum.GENERIC_H743IIKX.upload.maximum_data_size=524288
 GenH7.menu.pnum.GENERIC_H743IIKX.build.board=GENERIC_H743IIKX
 GenH7.menu.pnum.GENERIC_H743IIKX.build.product_line=STM32H743xx
-GenH7.menu.pnum.GENERIC_H743IIKX.build.variant=STM32H7xx/H742I(G-I)K_H743I(G-I)K_H750IBK_H753IIK
+GenH7.menu.pnum.GENERIC_H743IIKX.build.variant=STM32H7xx/H742I(G-I)(K-T)_H743I(G-I)(K-T)_H750IB(K-T)_H753II(K-T)
 GenH7.menu.pnum.GENERIC_H743IIKX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H743.svd
 
 # Generic H743IITx
@@ -9184,7 +9184,7 @@ GenH7.menu.pnum.GENERIC_H743IITX.upload.maximum_size=2097152
 GenH7.menu.pnum.GENERIC_H743IITX.upload.maximum_data_size=524288
 GenH7.menu.pnum.GENERIC_H743IITX.build.board=GENERIC_H743IITX
 GenH7.menu.pnum.GENERIC_H743IITX.build.product_line=STM32H743xx
-GenH7.menu.pnum.GENERIC_H743IITX.build.variant=STM32H7xx/H742I(G-I)T_H743I(G-I)T_H750IBT_H753IIT
+GenH7.menu.pnum.GENERIC_H743IITX.build.variant=STM32H7xx/H742I(G-I)(K-T)_H743I(G-I)(K-T)_H750IB(K-T)_H753II(K-T)
 GenH7.menu.pnum.GENERIC_H743IITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H743.svd
 
 # Generic H743VGHx
@@ -9337,7 +9337,7 @@ GenH7.menu.pnum.GENERIC_H750IBKX.upload.maximum_size=131072
 GenH7.menu.pnum.GENERIC_H750IBKX.upload.maximum_data_size=524288
 GenH7.menu.pnum.GENERIC_H750IBKX.build.board=GENERIC_H750IBKX
 GenH7.menu.pnum.GENERIC_H750IBKX.build.product_line=STM32H750xx
-GenH7.menu.pnum.GENERIC_H750IBKX.build.variant=STM32H7xx/H742I(G-I)K_H743I(G-I)K_H750IBK_H753IIK
+GenH7.menu.pnum.GENERIC_H750IBKX.build.variant=STM32H7xx/H742I(G-I)(K-T)_H743I(G-I)(K-T)_H750IB(K-T)_H753II(K-T)
 GenH7.menu.pnum.GENERIC_H750IBKX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H750.svd
 
 # Generic H750IBTx
@@ -9346,7 +9346,7 @@ GenH7.menu.pnum.GENERIC_H750IBTX.upload.maximum_size=131072
 GenH7.menu.pnum.GENERIC_H750IBTX.upload.maximum_data_size=524288
 GenH7.menu.pnum.GENERIC_H750IBTX.build.board=GENERIC_H750IBTX
 GenH7.menu.pnum.GENERIC_H750IBTX.build.product_line=STM32H750xx
-GenH7.menu.pnum.GENERIC_H750IBTX.build.variant=STM32H7xx/H742I(G-I)T_H743I(G-I)T_H750IBT_H753IIT
+GenH7.menu.pnum.GENERIC_H750IBTX.build.variant=STM32H7xx/H742I(G-I)(K-T)_H743I(G-I)(K-T)_H750IB(K-T)_H753II(K-T)
 GenH7.menu.pnum.GENERIC_H750IBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H750.svd
 
 # Generic H750VBTx
@@ -9382,7 +9382,7 @@ GenH7.menu.pnum.GENERIC_H753IIKX.upload.maximum_size=2097152
 GenH7.menu.pnum.GENERIC_H753IIKX.upload.maximum_data_size=524288
 GenH7.menu.pnum.GENERIC_H753IIKX.build.board=GENERIC_H753IIKX
 GenH7.menu.pnum.GENERIC_H753IIKX.build.product_line=STM32H753xx
-GenH7.menu.pnum.GENERIC_H753IIKX.build.variant=STM32H7xx/H742I(G-I)K_H743I(G-I)K_H750IBK_H753IIK
+GenH7.menu.pnum.GENERIC_H753IIKX.build.variant=STM32H7xx/H742I(G-I)(K-T)_H743I(G-I)(K-T)_H750IB(K-T)_H753II(K-T)
 GenH7.menu.pnum.GENERIC_H753IIKX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H753.svd
 
 # Generic H753IITx
@@ -9391,7 +9391,7 @@ GenH7.menu.pnum.GENERIC_H753IITX.upload.maximum_size=2097152
 GenH7.menu.pnum.GENERIC_H753IITX.upload.maximum_data_size=524288
 GenH7.menu.pnum.GENERIC_H753IITX.build.board=GENERIC_H753IITX
 GenH7.menu.pnum.GENERIC_H753IITX.build.product_line=STM32H753xx
-GenH7.menu.pnum.GENERIC_H753IITX.build.variant=STM32H7xx/H742I(G-I)T_H743I(G-I)T_H750IBT_H753IIT
+GenH7.menu.pnum.GENERIC_H753IITX.build.variant=STM32H7xx/H742I(G-I)(K-T)_H743I(G-I)(K-T)_H750IB(K-T)_H753II(K-T)
 GenH7.menu.pnum.GENERIC_H753IITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H753.svd
 
 # Generic H753VIHx

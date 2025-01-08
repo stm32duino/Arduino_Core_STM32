@@ -29,17 +29,5 @@ PC_6_ALT1  = PC_6  | ALT1,
 #ifdef PWR_WAKEUP_PIN4
   SYS_WKUP4 = PA_2,
 #endif
-#ifdef PWR_WAKEUP_PIN5
-  SYS_WKUP5 = NC,
-#endif
-#ifdef PWR_WAKEUP_PIN6
-  SYS_WKUP6 = NC,
-#endif
-#ifdef PWR_WAKEUP_PIN7
-  SYS_WKUP7 = NC,
-#endif
-#ifdef PWR_WAKEUP_PIN8
-  SYS_WKUP8 = NC,
-#endif
 
 /* No USB */

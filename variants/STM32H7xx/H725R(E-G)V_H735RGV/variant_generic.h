@@ -77,6 +77,7 @@
 #define PA7_ALT1                (PA7  | ALT1)
 #define PA7_ALT2                (PA7  | ALT2)
 #define PA7_ALT3                (PA7  | ALT3)
+#define PA8_ALT1                (PA8  | ALT1)
 #define PA9_ALT1                (PA9  | ALT1)
 #define PA10_ALT1               (PA10 | ALT1)
 #define PA11_ALT1               (PA11 | ALT1)
