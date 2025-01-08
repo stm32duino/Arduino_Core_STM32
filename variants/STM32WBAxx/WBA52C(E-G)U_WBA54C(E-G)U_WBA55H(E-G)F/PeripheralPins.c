@@ -14,7 +14,7 @@
  * Automatically generated from STM32WBA52CEUx.xml, STM32WBA52CGUx.xml
  * STM32WBA54CEUx.xml, STM32WBA54CGUx.xml
  * STM32WBA55HEFx.xml, STM32WBA55HGFx.xml
- * CubeMX DB release 6.0.120
+ * CubeMX DB release 6.0.130
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
