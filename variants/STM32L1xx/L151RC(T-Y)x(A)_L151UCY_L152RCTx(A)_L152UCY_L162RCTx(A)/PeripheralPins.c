@@ -16,7 +16,7 @@
  * STM32L152RCTx.xml, STM32L152RCTxA.xml
  * STM32L152UCYx.xml, STM32L162RCTx.xml
  * STM32L162RCTxA.xml
- * CubeMX DB release 6.0.120
+ * CubeMX DB release 6.0.130
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

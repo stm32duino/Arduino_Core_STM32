@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32L151ZDTx.xml, STM32L152ZDTx.xml
  * STM32L162ZDTx.xml
- * CubeMX DB release 6.0.120
+ * CubeMX DB release 6.0.130
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
