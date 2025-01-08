@@ -389,6 +389,10 @@ Nucleo_144.menu.upload_method.dfuMethod.upload.protocol=dfu
 Nucleo_144.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Nucleo_144.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+Nucleo_144.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+Nucleo_144.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+Nucleo_144.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
 Nucleo_144.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 Nucleo_144.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
 Nucleo_144.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
@@ -910,6 +914,10 @@ Nucleo_64.menu.upload_method.dfuMethod.upload.protocol=dfu
 Nucleo_64.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Nucleo_64.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+Nucleo_64.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+Nucleo_64.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+Nucleo_64.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
 Nucleo_64.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 Nucleo_64.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
 Nucleo_64.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
@@ -1085,6 +1093,10 @@ Nucleo_32.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Nucleo_32.menu.upload_method.dfuMethod.upload.protocol=dfu
 Nucleo_32.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Nucleo_32.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Nucleo_32.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+Nucleo_32.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+Nucleo_32.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 Nucleo_32.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 Nucleo_32.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
@@ -1420,6 +1432,10 @@ Disco.menu.upload_method.dfuMethod.upload.protocol=dfu
 Disco.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Disco.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+Disco.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+Disco.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+Disco.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
 Disco.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 Disco.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
 Disco.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
@@ -1503,6 +1519,10 @@ Eval.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Eval.menu.upload_method.dfuMethod.upload.protocol=dfu
 Eval.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Eval.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Eval.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+Eval.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+Eval.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 Eval.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 Eval.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
@@ -1717,6 +1737,10 @@ GenC0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenC0.menu.upload_method.serialMethod.upload.protocol=serial
 GenC0.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
 GenC0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenC0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenC0.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenC0.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 GenC0.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 GenC0.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
@@ -2638,6 +2662,10 @@ GenF0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF0.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenF0.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenF0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+GenF0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenF0.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenF0.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 GenF0.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 GenF0.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
@@ -3963,6 +3991,10 @@ GenF2.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF2.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenF2.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenF2.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+GenF2.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenF2.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenF2.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 GenF2.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 GenF2.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
@@ -6003,6 +6035,10 @@ GenF7.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenF7.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenF7.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenF7.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenF7.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenF7.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
 GenF7.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 GenF7.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
 GenF7.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
@@ -7427,6 +7463,10 @@ GenG0.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenG0.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenG0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenG0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenG0.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenG0.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
 GenG0.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 GenG0.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
 GenG0.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
@@ -8716,6 +8756,10 @@ GenG4.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenG4.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenG4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenG4.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenG4.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenG4.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
 GenG4.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 GenG4.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
 GenG4.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
@@ -8900,6 +8944,10 @@ GenH5.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenH5.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenH5.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenH5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+GenH5.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenH5.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenH5.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 #GenH5.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 #GenH5.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
@@ -9549,6 +9597,10 @@ GenH7.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenH7.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenH7.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenH7.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+GenH7.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenH7.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenH7.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 GenH7.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 GenH7.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
@@ -11178,6 +11230,10 @@ GenL1.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenL1.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenL1.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenL1.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenL1.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenL1.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
 GenL1.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 GenL1.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
 GenL1.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
@@ -11991,6 +12047,10 @@ GenL4.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenL4.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenL4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenL4.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenL4.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenL4.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
 GenL4.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 GenL4.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
 GenL4.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
@@ -12064,6 +12124,10 @@ GenL5.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenL5.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenL5.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenL5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+GenL5.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenL5.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenL5.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 GenL5.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 GenL5.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
@@ -12320,6 +12384,10 @@ GenU5.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenU5.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenU5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenU5.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenU5.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenU5.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
 GenU5.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 GenU5.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
 GenU5.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
@@ -12438,6 +12506,10 @@ GenWB.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenWB.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenWB.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenWB.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+GenWB.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenWB.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenWB.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 GenWB.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 GenWB.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
@@ -12686,6 +12758,10 @@ GenWL.menu.upload_method.dfuMethod.upload.protocol=dfu
 GenWL.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+GenWL.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenWL.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenWL.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
 GenWL.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 GenWL.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
 GenWL.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
@@ -12930,6 +13006,10 @@ GenWL.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 3dprinter.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 3dprinter.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+3dprinter.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+3dprinter.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+3dprinter.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
 3dprinter.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 3dprinter.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
 3dprinter.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
@@ -13006,6 +13086,10 @@ Blues.menu.upload_method.dfuMethod.upload.protocol=dfu
 Blues.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Blues.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+Blues.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+Blues.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+Blues.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
 Blues.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 Blues.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
 Blues.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
@@ -13059,6 +13143,10 @@ Elecgator.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Elecgator.menu.upload_method.dfuMethod.upload.protocol=dfu
 Elecgator.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Elecgator.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Elecgator.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+Elecgator.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+Elecgator.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 Elecgator.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 Elecgator.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
@@ -13129,6 +13217,10 @@ ESC_board.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 ESC_board.menu.upload_method.dfuMethod.upload.protocol=dfu
 ESC_board.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 ESC_board.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+ESC_board.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+ESC_board.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+ESC_board.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 ESC_board.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 ESC_board.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
@@ -13378,6 +13470,10 @@ IotContinuum.menu.upload_method.dfuMethod.upload.protocol=dfu
 IotContinuum.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 IotContinuum.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+IotContinuum.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+IotContinuum.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+IotContinuum.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
 IotContinuum.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 IotContinuum.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
 IotContinuum.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
@@ -13558,6 +13654,10 @@ LoRa.menu.upload_method.dfuMethod.upload.protocol=dfu
 LoRa.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+LoRa.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+LoRa.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+LoRa.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
 LoRa.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 LoRa.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
 LoRa.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
@@ -13620,6 +13720,10 @@ Midatronics.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Midatronics.menu.upload_method.dfuMethod.upload.protocol=dfu
 Midatronics.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 Midatronics.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Midatronics.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+Midatronics.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+Midatronics.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 Midatronics.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 Midatronics.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
@@ -13699,6 +13803,10 @@ SparkFun.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 SparkFun.menu.upload_method.dfuMethod.upload.protocol=dfu
 SparkFun.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
 SparkFun.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+SparkFun.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+SparkFun.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+SparkFun.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 SparkFun.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 SparkFun.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
