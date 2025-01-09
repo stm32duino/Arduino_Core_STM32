@@ -172,7 +172,7 @@ typedef enum
 
 /** @} */ /* End of group Configuration_of_CMSIS */
 
-#include <core_cm33.h>                   /*!< ARM Cortex-M33 processor and core peripherals */
+#include "core_cm33.h"                   /*!< ARM Cortex-M33 processor and core peripherals */
 #include "system_stm32wbaxx.h"           /*!< system_stm32wbaxx System */
 
 
@@ -1211,11 +1211,12 @@ typedef struct
   *         Vector table. The function does not return on successful execution.
   * @param  HdpArea notifies which hdp area to close, can be a combination of
   *         hdpa area 1 and hdp area 2
-  * @param  pointer on the vector table containing the reset handler the function
+  * @param  VectorTableAddr pointer on the vector table containing the reset handler the function
   *         jumps to.
   * @retval RSSLIB_RSS_ERROR on error on input parameter, otherwise does not return.
   */
 typedef uint32_t ( *RSSLIB_S_CloseExitHDP_TypeDef)( uint32_t HdpArea, uint32_t VectorTableAddr );
+
 
 /**
   * @brief RSSLib non-secure callable function pointer structure
@@ -1231,7 +1232,7 @@ typedef struct
 typedef struct
 {
   __IM uint32_t Reserved2[2];
-  __IM RSSLIB_S_CloseExitHDP_TypeDef CloseExitHDP;        /*!< RSSLIB Bootloader Close and exit HDP  Address offset: 0x28 */
+  __IM RSSLIB_S_CloseExitHDP_TypeDef CloseExitHDP;       /*!< RSSLIB Close and exit HDP Address offset: 0x28 */
 }S_pFuncTypeDef;
 
 /**
@@ -11855,11 +11856,12 @@ typedef struct
 #define TAMP_ATCR1_ATOSEL3_0                (0x1UL << TAMP_ATCR1_ATOSEL3_Pos)       /*!< 0x00001000 */
 #define TAMP_ATCR1_ATOSEL3_1                (0x2UL << TAMP_ATCR1_ATOSEL3_Pos)       /*!< 0x00002000 */
 #define TAMP_ATCR1_ATCKSEL_Pos              (16U)
-#define TAMP_ATCR1_ATCKSEL_Msk              (0x7UL << TAMP_ATCR1_ATCKSEL_Pos)       /*!< 0x00070000 */
+#define TAMP_ATCR1_ATCKSEL_Msk              (0xFUL << TAMP_ATCR1_ATCKSEL_Pos)       /*!< 0x000F0000 */
 #define TAMP_ATCR1_ATCKSEL                  TAMP_ATCR1_ATCKSEL_Msk
 #define TAMP_ATCR1_ATCKSEL_0                (0x1UL << TAMP_ATCR1_ATCKSEL_Pos)       /*!< 0x00010000 */
 #define TAMP_ATCR1_ATCKSEL_1                (0x2UL << TAMP_ATCR1_ATCKSEL_Pos)       /*!< 0x00020000 */
 #define TAMP_ATCR1_ATCKSEL_2                (0x4UL << TAMP_ATCR1_ATCKSEL_Pos)       /*!< 0x00040000 */
+#define TAMP_ATCR1_ATCKSEL_3                (0x8UL << TAMP_ATCR1_ATCKSEL_Pos)       /*!< 0x00080000 */
 #define TAMP_ATCR1_ATPER_Pos                (24U)
 #define TAMP_ATCR1_ATPER_Msk                (0x7UL << TAMP_ATCR1_ATPER_Pos)         /*!< 0x07000000 */
 #define TAMP_ATCR1_ATPER                    TAMP_ATCR1_ATPER_Msk
