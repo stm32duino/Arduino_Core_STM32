@@ -109,7 +109,7 @@
 /** @defgroup PWR_Extended_Private_Defines PWR Extended Private Defines
   * @{
   */
-#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx)
+#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx)
 #define PWR_PORTA_AVAILABLE_PINS  (0x0FFFFU)
 #define PWR_PORTB_AVAILABLE_PINS  (0x0FFFFU)
 #define PWR_PORTC_AVAILABLE_PINS  (0x0E000U)
@@ -119,7 +119,7 @@
 #define PWR_PORTB_AVAILABLE_PINS  (0x09318U)
 #define PWR_PORTC_AVAILABLE_PINS  (0x0C000U)
 #define PWR_PORTH_AVAILABLE_PINS  (0x00008U)
-#endif /* defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) */
+#endif /* defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) */
 /*!< Time out value of flags setting */
 #define PWR_VOSF_SETTING_DELAY_VALUE (0x32U) /*!< Time out value for VOSF flag setting */
 #define PWR_MODE_CHANGE_DELAY_VALUE  (0x32U) /*!< Time out for step down converter operating mode */
@@ -532,9 +532,9 @@ void HAL_PWREx_DisableRadioSRAMClockStandbyRetention(void)
   *         stop modes otherwise an hard fault may occur when waking up from stop modes.
   * @param RAMSelection: Specifies RAMs content to be retained in Stop mode.
   *                      This parameter can be one or a combination of the values:
-  *                      @arg PWR_SRAM1_FULL_STOP_RETENTION  : full SRAM1 retention .
-  *                      @arg PWR_SRAM2_FULL_STOP_RETENTION  : full SRAM2 retention.
-  *                      @arg PWR_ICACHE_FULL_STOP_RETENTION : I-CACHE SRAM retention.
+  *                      @arg PWR_SRAM1_FULL_STOP_RETENTION   : full SRAM1 retention.
+  *                      @arg PWR_SRAM2_FULL_STOP_RETENTION   : full SRAM2 retention.
+  *                      @arg PWR_ICACHE_FULL_STOP_RETENTION  : I-CACHE SRAM retention.
   * @retval None.
   */
 void HAL_PWREx_EnableRAMsContentStopRetention(uint32_t RAMSelection)
@@ -552,9 +552,9 @@ void HAL_PWREx_EnableRAMsContentStopRetention(uint32_t RAMSelection)
   *        powered down in Stop mode. (Consumption is optimized)
   * @param RAMSelection: Specifies RAMs content to be lost in Stop mode.
   *                      This parameter can be one or a combination of the values:
-  *                      @arg PWR_SRAM1_FULL_STOP_RETENTION  : full SRAM1 retention .
-  *                      @arg PWR_SRAM2_FULL_STOP_RETENTION  : full SRAM2 retention.
-  *                      @arg PWR_ICACHE_FULL_STOP_RETENTION : I-CACHE SRAM retention.
+  *                      @arg PWR_SRAM1_FULL_STOP_RETENTION   : full SRAM1 retention.
+  *                      @arg PWR_SRAM2_FULL_STOP_RETENTION   : full SRAM2 retention.
+  *                      @arg PWR_ICACHE_FULL_STOP_RETENTION  : I-CACHE SRAM retention.
   * @retval None.
   */
 void HAL_PWREx_DisableRAMsContentStopRetention(uint32_t RAMSelection)

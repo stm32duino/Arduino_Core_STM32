@@ -46,7 +46,7 @@ extern "C" {
 typedef struct
 {
   uint32_t TriggerState;        /*!< Specifies the trigger state. This parameter can be a value
-                                     of @ref FunctionalState */
+                                     of @ref SPI_AutonomousMode_State */
 
   uint32_t TriggerSelection;    /*!< Specifies the autonomous mode trigger signal selection. This parameter
                                      can be a value of @ref SPI_AutonomousMode_TriggerSelection */
@@ -66,7 +66,7 @@ typedef struct
   * @{
   */
 
-/** @defgroup FunctionalState SPI Autonomous Mode State
+/** @defgroup SPI_AutonomousMode_State SPI Autonomous Mode State
   * @{
   */
 #define SPI_AUTO_MODE_DISABLE           (0x00000000UL)

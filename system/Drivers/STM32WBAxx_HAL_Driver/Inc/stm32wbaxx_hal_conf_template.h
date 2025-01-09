@@ -95,7 +95,9 @@ extern "C" {
   */
 #if !defined (LSI_VALUE)
 #define LSI_VALUE               32000UL    /*!< LSI Typical Value in Hz*/
-#endif /* LSI_VALUE */                     /*!< Value of the Internal Low Speed oscillator in Hz. The real value may vary depending on the variations in voltage and temperature.*/
+#endif /* LSI_VALUE */                     /*!< Value of the Internal Low Speed oscillator in Hz
+                                                The real value may vary depending on the variations in voltage
+                                                and temperature.*/
 
 #if defined (RCC_LSI2_SUPPORT)
 #if !defined (LSI2_VALUE)
@@ -158,8 +160,8 @@ extern "C" {
 #define  USE_HAL_CRYP_REGISTER_CALLBACKS       0U /* CRYP register callback disabled      */
 #define  USE_HAL_HASH_REGISTER_CALLBACKS       0U /* HASH register callback disabled      */
 #define  USE_HAL_I2C_REGISTER_CALLBACKS        0U /* I2C register callback disabled       */
-#define  USE_HAL_IWDG_REGISTER_CALLBACKS       0U /* IWDG register callback disabled      */
 #define  USE_HAL_IRDA_REGISTER_CALLBACKS       0U /* IRDA register callback disabled      */
+#define  USE_HAL_IWDG_REGISTER_CALLBACKS       0U /* IWDG register callback disabled      */
 #define  USE_HAL_LPTIM_REGISTER_CALLBACKS      0U /* LPTIM register callback disabled     */
 #define  USE_HAL_PKA_REGISTER_CALLBACKS        0U /* PKA register callback disabled       */
 #define  USE_HAL_RAMCFG_REGISTER_CALLBACKS     0U /* RAMCFG register callback disabled    */
@@ -191,12 +193,10 @@ extern "C" {
 
 #define USE_HAL_HASH_SUSPEND_RESUME   0U
 
-
 /* Includes ------------------------------------------------------------------*/
 /**
   * @brief Include module's header file
   */
-
 #ifdef HAL_DMA_MODULE_ENABLED
 #include "stm32wbaxx_hal_dma.h"
 #endif /* HAL_DMA_MODULE_ENABLED */

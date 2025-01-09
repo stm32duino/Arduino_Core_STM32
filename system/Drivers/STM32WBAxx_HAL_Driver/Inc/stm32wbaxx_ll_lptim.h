@@ -401,10 +401,12 @@ typedef struct
   * @{
   */
 #define LL_LPTIM_LPTIM1_IC1_RMP_GPIO     0x00000000UL                 /*!< IC1 connected to GPIO */
-#if defined(COMP1) && defined(COMP2)
+#if defined(COMP1)
 #define LL_LPTIM_LPTIM1_IC1_RMP_COMP1    LPTIM_CFGR2_IC1SEL_0         /*!< IC1 connected to COMP1 */
+#endif /* COMP1 */
+#if defined(COMP2)
 #define LL_LPTIM_LPTIM1_IC1_RMP_COMP2    LPTIM_CFGR2_IC1SEL_1         /*!< IC1 connected to COMP2 */
-#endif /* COMP1 && COMP2 */
+#endif /* COMP2 */
 /**
   * @}
   */
@@ -423,10 +425,12 @@ typedef struct
   * @{
   */
 #define LL_LPTIM_LPTIM2_IC1_RMP_GPIO     0x00000000UL                 /*!< IC1 connected to GPIO */
-#if defined(COMP1) && defined(COMP2)
+#if defined(COMP1)
 #define LL_LPTIM_LPTIM2_IC1_RMP_COMP1    LPTIM_CFGR2_IC1SEL_0         /*!< IC1 connected to COMP1 */
+#endif /* COMP1 */
+#if defined(COMP2)
 #define LL_LPTIM_LPTIM2_IC1_RMP_COMP2    LPTIM_CFGR2_IC1SEL_1         /*!< IC1 connected to COMP2 */
-#endif /* COMP1 && COMP2 */
+#endif /* COMP2 */
 /**
   * @}
   */

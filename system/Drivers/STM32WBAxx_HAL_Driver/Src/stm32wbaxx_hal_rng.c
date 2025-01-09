@@ -197,17 +197,18 @@ HAL_StatusTypeDef HAL_RNG_Init(RNG_HandleTypeDef *hrng)
   /* Disable RNG */
   __HAL_RNG_DISABLE(hrng);
 
+#if defined(RNG_CR_NIST_VALUE)
+  /* Recommended value for NIST compliance, refer to application note AN4230 */
+  WRITE_REG(hrng->Instance->CR, RNG_CR_NIST_VALUE | RNG_CR_CONDRST | hrng->Init.ClockErrorDetection);
+#else
   /* Clock Error Detection Configuration when CONDRT bit is set to 1 */
   MODIFY_REG(hrng->Instance->CR, RNG_CR_CED | RNG_CR_CONDRST | RNG_CR_RNG_CONFIG2,
              hrng->Init.ClockErrorDetection | RNG_CR_CONDRST | (1U << RNG_CR_RNG_CONFIG2_Pos));
-#if defined(RNG_CR_NIST_VALUE)
-  /* Recommended value for NIST compliance, refer to application note AN4230 */
-  WRITE_REG(hrng->Instance->CR, RNG_CR_NIST_VALUE);
-#endif /* defined(RNG_CR_NIST_VALUE) */
+#endif /* RNG_CR_NIST_VALUE */
 #if defined(RNG_HTCR_NIST_VALUE)
   /* Recommended value for NIST compliance, refer to application note AN4230 */
   WRITE_REG(hrng->Instance->HTCR, RNG_HTCR_NIST_VALUE);
-#endif /* defined(RNG_HTCR_NIST_VALUE) */
+#endif /* RNG_HTCR_NIST_VALUE */
 
   /* Writing bit CONDRST=0 */
   CLEAR_BIT(hrng->Instance->CR, RNG_CR_CONDRST);

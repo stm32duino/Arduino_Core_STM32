@@ -412,6 +412,7 @@ typedef struct __DMA_HandleTypeDef
 #define DMA_SRC_ALLOCATED_PORT1  DMA_CTR1_SAP /*!< Source allocated Port 1      */
 #define DMA_DEST_ALLOCATED_PORT0 0x00000000U  /*!< Destination allocated Port 0 */
 #define DMA_DEST_ALLOCATED_PORT1 DMA_CTR1_DAP /*!< Destination allocated Port 1 */
+
 /**
   * @}
   */
@@ -461,7 +462,6 @@ typedef struct __DMA_HandleTypeDef
 /**
   * @}
   */
-
 
 
 /**

@@ -228,8 +228,10 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
 /* Note: For the characteristics of comparator power modes                    */
 /*       (propagation delay and power consumption),                           */
 /*       refer to device datasheet.                                           */
-#define COMP_POWERMODE_HIGHSPEED       (0x00000000UL)         /*!< High Speed */
-#define COMP_POWERMODE_MEDIUMSPEED     (COMP_CSR_PWRMODE_0)   /*!< Medium Speed */
+#define COMP_POWERMODE_HIGHSPEED       (0x00000000UL)         /*!< High speed */
+#define COMP_POWERMODE_INTERMSPEED     (COMP_CSR_PWRMODE_0)   /*!< Intermediate speed */
+#define COMP_POWERMODE_MEDIUMSPEED     (COMP_CSR_PWRMODE_1)   /*!< Medium speed */
+#define COMP_POWERMODE_ULTRALOWPOWER   (COMP_CSR_PWRMODE_1 | COMP_CSR_PWRMODE_0) /*!< Ultra-low power */
 /**
   * @}
   */
@@ -418,16 +420,16 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
   * @brief  Enable the COMP1 EXTI line rising & falling edge trigger.
   * @retval None
   */
-#define __HAL_COMP_COMP1_EXTI_ENABLE_RISING_FALLING_EDGE() do { \
-                                                                LL_EXTI_EnableRisingTrig_0_31(COMP_EXTI_LINE_COMP1); \
-                                                                LL_EXTI_EnableFallingTrig_0_31(COMP_EXTI_LINE_COMP1);\
+#define __HAL_COMP_COMP1_EXTI_ENABLE_RISING_FALLING_EDGE() do {                                                        \
+                                                                LL_EXTI_EnableRisingTrig_0_31(COMP_EXTI_LINE_COMP1);   \
+                                                                LL_EXTI_EnableFallingTrig_0_31(COMP_EXTI_LINE_COMP1);  \
                                                               } while(0)
 
 /**
   * @brief  Disable the COMP1 EXTI line rising & falling edge trigger.
   * @retval None
   */
-#define __HAL_COMP_COMP1_EXTI_DISABLE_RISING_FALLING_EDGE() do { \
+#define __HAL_COMP_COMP1_EXTI_DISABLE_RISING_FALLING_EDGE() do {                                                       \
                                                                  LL_EXTI_DisableRisingTrig_0_31(COMP_EXTI_LINE_COMP1); \
                                                                  LL_EXTI_DisableFallingTrig_0_31(COMP_EXTI_LINE_COMP1);\
                                                                } while(0)
@@ -514,17 +516,17 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
   * @brief  Enable the COMP2 EXTI line rising & falling edge trigger.
   * @retval None
   */
-#define __HAL_COMP_COMP2_EXTI_ENABLE_RISING_FALLING_EDGE() do { \
-                                                                LL_EXTI_EnableRisingTrig_0_31(COMP_EXTI_LINE_COMP2);\
-                                                                LL_EXTI_EnableFallingTrig_0_31(COMP_EXTI_LINE_COMP2);\
+#define __HAL_COMP_COMP2_EXTI_ENABLE_RISING_FALLING_EDGE() do {                                                        \
+                                                                LL_EXTI_EnableRisingTrig_0_31(COMP_EXTI_LINE_COMP2);   \
+                                                                LL_EXTI_EnableFallingTrig_0_31(COMP_EXTI_LINE_COMP2);  \
                                                               } while(0)
 
 /**
   * @brief  Disable the COMP2 EXTI line rising & falling edge trigger.
   * @retval None
   */
-#define __HAL_COMP_COMP2_EXTI_DISABLE_RISING_FALLING_EDGE() do { \
-                                                                 LL_EXTI_DisableRisingTrig_0_31(COMP_EXTI_LINE_COMP2);\
+#define __HAL_COMP_COMP2_EXTI_DISABLE_RISING_FALLING_EDGE() do {                                                       \
+                                                                 LL_EXTI_DisableRisingTrig_0_31(COMP_EXTI_LINE_COMP2); \
                                                                  LL_EXTI_DisableFallingTrig_0_31(COMP_EXTI_LINE_COMP2);\
                                                                } while(0)
 
@@ -662,18 +664,20 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
                                                 ((__WINDOWOUTPUT__) == COMP_WINDOWOUTPUT_BOTH)        )
 
 #define IS_COMP_POWERMODE(__POWERMODE__)    (((__POWERMODE__) == COMP_POWERMODE_HIGHSPEED)    || \
-                                             ((__POWERMODE__) == COMP_POWERMODE_MEDIUMSPEED)    )
+                                             ((__POWERMODE__) == COMP_POWERMODE_INTERMSPEED)  || \
+                                             ((__POWERMODE__) == COMP_POWERMODE_MEDIUMSPEED)  || \
+                                             ((__POWERMODE__) == COMP_POWERMODE_ULTRALOWPOWER)  )
 
 #define IS_COMP_INPUT_PLUS(__COMP_INSTANCE__, __INPUT_PLUS__) ((__INPUT_PLUS__) == COMP_INPUT_PLUS_IO1)
 
 /* Note: On this STM32 series, comparator input minus parameters are          */
 /*       the same on all COMP instances.                                      */
 /*       However, comparator instance kept as macro parameter for             */
-/*       compatibility with other STM32 families.                             */
-#define IS_COMP_INPUT_MINUS(__COMP_INSTANCE__, __INPUT_MINUS__) (((__INPUT_MINUS__) == COMP_INPUT_MINUS_1_4VREFINT)  ||\
-                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_1_2VREFINT)  ||\
-                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_3_4VREFINT)  ||\
-                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_VREFINT)     ||\
+/*       compatibility with other STM32 series.                               */
+#define IS_COMP_INPUT_MINUS(__COMP_INSTANCE__, __INPUT_MINUS__) (((__INPUT_MINUS__) == COMP_INPUT_MINUS_1_4VREFINT)  || \
+                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_1_2VREFINT)  || \
+                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_3_4VREFINT)  || \
+                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_VREFINT)     || \
                                                                  ((__INPUT_MINUS__) == COMP_INPUT_MINUS_IO1))
 
 #define IS_COMP_HYSTERESIS(__HYSTERESIS__)  (((__HYSTERESIS__) == COMP_HYSTERESIS_NONE)   || \
@@ -685,14 +689,14 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
                                              ((__POL__) == COMP_OUTPUTPOL_INVERTED))
 
 #define IS_COMP_BLANKINGSRC_INSTANCE(__INSTANCE__, __OUTPUT_BLANKING_SOURCE__)  \
-  ((((__INSTANCE__) == COMP1) &&                                               \
+  ((((__INSTANCE__) == COMP1) &&                                                \
     (((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_NONE)            ||      \
      ((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_TIM1_OC5_COMP1)  ||      \
      ((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_TIM2_OC3_COMP1)  ||      \
      ((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_TIM3_OC3_COMP1)))        \
-   ||                                                                          \
-   (((__INSTANCE__) == COMP2) &&                                               \
-    (((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_NONE)           ||      \
+   ||                                                                           \
+   (((__INSTANCE__) == COMP2) &&                                                \
+    (((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_NONE)            ||      \
      ((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_TIM3_OC4_COMP2))))
 
 

@@ -612,6 +612,7 @@ typedef struct
 #define RTC_ATAMP_ASYNCPRES_RTCCLK_32      (TAMP_ATCR1_ATCKSEL_2 | TAMP_ATCR1_ATCKSEL_0)                        /*!< RTCCLK/32  */
 #define RTC_ATAMP_ASYNCPRES_RTCCLK_64      (TAMP_ATCR1_ATCKSEL_2 | TAMP_ATCR1_ATCKSEL_1)                        /*!< RTCCLK/64  */
 #define RTC_ATAMP_ASYNCPRES_RTCCLK_128     (TAMP_ATCR1_ATCKSEL_2 | TAMP_ATCR1_ATCKSEL_1 | TAMP_ATCR1_ATCKSEL_0) /*!< RTCCLK/128 */
+#define RTC_ATAMP_ASYNCPRES_RTCCLK_2048    (TAMP_ATCR1_ATCKSEL_3 | TAMP_ATCR1_ATCKSEL_1 | TAMP_ATCR1_ATCKSEL_0) /*!< RTCCLK/2048 */
 /**
   * @}
   */
@@ -1742,7 +1743,8 @@ HAL_StatusTypeDef HAL_RTCEx_PrivilegeModeGet(const RTC_HandleTypeDef *hrtc, RTC_
                                                               ((__PRESCALER__) == RTC_ATAMP_ASYNCPRES_RTCCLK_16)  || \
                                                               ((__PRESCALER__) == RTC_ATAMP_ASYNCPRES_RTCCLK_32)  || \
                                                               ((__PRESCALER__) == RTC_ATAMP_ASYNCPRES_RTCCLK_64)  || \
-                                                              ((__PRESCALER__) == RTC_ATAMP_ASYNCPRES_RTCCLK_128))
+                                                              ((__PRESCALER__) == RTC_ATAMP_ASYNCPRES_RTCCLK_128) || \
+                                                              ((__PRESCALER__) == RTC_ATAMP_ASYNCPRES_RTCCLK_2048))
 
 
 #define IS_RTC_BKP(__BKP__)   ((__BKP__) < RTC_BKP_NUMBER)

@@ -31,12 +31,12 @@
   [..]
     (+) Each SRAM is managed by a RAMCFG instance.
         (++) SRAM1 placed in Core Domain.
-             (+++) Size         = 64 kB (STM32WBA54xx, STM32WBA55xx)
+             (+++) Size         = 64 kB (STM32WBA54xx, STM32WBA55xx, STM32WBA5Mxx)
              (+++) Size         = 16 kB (STM32WBA50xx)
              (+++) Base Address = 0x20000000.
 
         (++) SRAM2 placed in Core Domain.
-             (+++) Size         = 64 kB (STM32WBA54xx, STM32WBA55xx)
+             (+++) Size         = 64 kB (STM32WBA54xx, STM32WBA55xx, STM32WBA5Mxx)
              (+++) Size         = 48 kB (STM32WBA50xx)
              (+++) Base Address = 0x20010000.
 

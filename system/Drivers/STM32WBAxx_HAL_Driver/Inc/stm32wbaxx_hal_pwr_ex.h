@@ -53,8 +53,10 @@ extern "C" {
   */
 /* SRAM1 pages retention defines */
 #define PWR_SRAM1_FULL_STOP_RETENTION        PWR_CR2_SRAM1PDS1     /*!< SRAM1 full retention in Stop modes */
+
 /* SRAM2 pages retention defines */
 #define PWR_SRAM2_FULL_STOP_RETENTION        PWR_CR2_SRAM2PDS1     /*!< SRAM2 full retention in Stop modes */
+
 /* Cache RAMs retention defines */
 #define PWR_ICACHE_FULL_STOP_RETENTION       PWR_CR2_ICRAMPDS      /*!< ICACHE SRAM retention in Stop modes */
 /**
@@ -78,8 +80,8 @@ extern "C" {
 /** @defgroup PWREx_Supply_Configuration PWR Extended Supply Configuration
   * @{
   */
-#define PWR_LDO_SUPPLY                      (0U)                /* LDO supply  */
-#define PWR_SMPS_SUPPLY                     PWR_CR3_REGSEL      /* SMPS supply */
+#define PWR_LDO_SUPPLY                      (0U)            /* LDO supply  */
+#define PWR_SMPS_SUPPLY                     PWR_CR3_REGSEL  /* SMPS supply */
 /**
   * @}
   */
@@ -161,7 +163,7 @@ extern "C" {
 /** @defgroup PWREx_Regulator_Input_Supply_Selection PWR Extended RADIO regulator input supply selection
   * @{
   */
-#define PWR_RADIO_REG_VDDRFPA           (0x0U)                  /*!< VDDRFPA pin selected as regulator REG_VDDHPA input supply   */
+#define PWR_RADIO_REG_VDDRFPA           (0x0U)                /*!< VDDRFPA pin selected as regulator REG_VDDHPA input supply   */
 #define PWR_RADIO_REG_VDDHPA_VD11       PWR_RADIOSCR_REGPASEL
 /*!< Regulator REG_VDDHPA input supply selection between VDDRFPA
      and VDD11 dependent on requested regulated output voltage   */
@@ -169,7 +171,6 @@ extern "C" {
   * @}
   */
 #endif /* defined(PWR_RADIOSCR_REGPASEL) */
-
 
 /**
   * @}
@@ -221,7 +222,6 @@ extern "C" {
 /* All available RAM retention in Stop mode define */
 #define PWR_ALL_RAM_STOP_RETENTION_MASK (PWR_SRAM1_FULL_STOP_RETENTION | PWR_SRAM2_FULL_STOP_RETENTION  | \
                                          PWR_ICACHE_FULL_STOP_RETENTION )
-
 /* All available RAM retention in Standby mode define */
 #define PWR_ALL_RAM_STANDBY_RETENTION_MASK (PWR_SRAM1_FULL_STANDBY_RETENTION | PWR_SRAM2_FULL_STANDBY_RETENTION)
 /**
@@ -241,8 +241,9 @@ extern "C" {
 #endif /* defined(PWR_CR3_REGSEL) */
 
 /* Voltage scaling range check macro */
-#define IS_PWR_VOLTAGE_SCALING_RANGE(RANGE)      (((RANGE) == PWR_REGULATOR_VOLTAGE_SCALE1) ||\
+#define IS_PWR_VOLTAGE_SCALING_RANGE(RANGE)      (((RANGE) == PWR_REGULATOR_VOLTAGE_SCALE1)   ||\
                                                   ((RANGE) == PWR_REGULATOR_VOLTAGE_SCALE2))
+
 /* GPIO port check macro */
 #define IS_PWR_GPIO_PORT(GPIO_PORT)              (((GPIO_PORT) == PWR_GPIO_A) ||\
                                                   ((GPIO_PORT) == PWR_GPIO_B) ||\

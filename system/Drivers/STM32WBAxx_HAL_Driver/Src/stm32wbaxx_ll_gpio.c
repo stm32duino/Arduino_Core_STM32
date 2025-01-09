@@ -30,7 +30,7 @@
   * @{
   */
 
-#if defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOH)
+#if defined (GPIOA) || defined (GPIOB) || defined (GPIOC)  || defined (GPIOH)
 
 /** @addtogroup GPIO_LL
   * @{

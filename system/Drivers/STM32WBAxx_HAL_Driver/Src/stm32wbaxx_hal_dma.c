@@ -238,6 +238,7 @@ static void DMA_Init(DMA_HandleTypeDef const *const hdma);
   */
 HAL_StatusTypeDef HAL_DMA_Init(DMA_HandleTypeDef *const hdma)
 {
+
   /* Get tick number */
   uint32_t tickstart = HAL_GetTick();
 
@@ -269,6 +270,7 @@ HAL_StatusTypeDef HAL_DMA_Init(DMA_HandleTypeDef *const hdma)
     assert_param(IS_DMA_BURST_LENGTH(hdma->Init.DestBurstLength));
     assert_param(IS_DMA_TRANSFER_ALLOCATED_PORT(hdma->Init.TransferAllocatedPort));
   }
+
 
   /* Allocate lock resource */
   __HAL_UNLOCK(hdma);
@@ -1524,7 +1526,7 @@ HAL_StatusTypeDef HAL_DMA_LockChannelAttributes(DMA_HandleTypeDef const *const h
   */
 HAL_StatusTypeDef HAL_DMA_GetLockChannelAttributes(DMA_HandleTypeDef const *const hdma, uint32_t *const pLockState)
 {
-  DMA_TypeDef *p_dma_instance;
+  const DMA_TypeDef *p_dma_instance;
   uint32_t channel_idx;
 
   /* Check the DMA peripheral handle and lock state parameters */
@@ -1647,7 +1649,6 @@ static void DMA_Init(DMA_HandleTypeDef const *const hdma)
   /* Write DMA Channel Transfer Register 2 (CTR2) */
   MODIFY_REG(hdma->Instance->CTR2, (DMA_CTR2_TCEM  | DMA_CTR2_TRIGPOL | DMA_CTR2_TRIGSEL | DMA_CTR2_TRIGM |
                                     DMA_CTR2_BREQ  | DMA_CTR2_DREQ    | DMA_CTR2_SWREQ   | DMA_CTR2_REQSEL), tmpreg);
-
 
   /* Write DMA Channel Block Register 1 (CBR1) ************************************************************************/
   WRITE_REG(hdma->Instance->CBR1, 0U);

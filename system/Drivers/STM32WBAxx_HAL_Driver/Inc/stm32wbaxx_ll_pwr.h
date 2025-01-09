@@ -31,7 +31,7 @@ extern "C" {
   * @{
   */
 
-#if defined (PWR)
+#if defined(PWR)
 
 /** @defgroup PWR_LL PWR
   * @{
@@ -92,9 +92,9 @@ extern "C" {
 /** @defgroup PWR_LL_EC_LOW_POWER_MODE_SELECTION  Low Power Mode Selection
   * @{
   */
-#define LL_PWR_MODE_STOP0    0U                                /*!< Stop 0 mode   */
-#define LL_PWR_MODE_STOP1    PWR_CR1_LPMS_0                    /*!< Stop 1 mode   */
-#define LL_PWR_MODE_STANDBY  PWR_CR1_LPMS_2                    /*!< Standby mode  */
+#define LL_PWR_MODE_STOP0    0U                                 /*!< Stop 0 mode   */
+#define LL_PWR_MODE_STOP1    PWR_CR1_LPMS_0                     /*!< Stop 1 mode   */
+#define LL_PWR_MODE_STANDBY  PWR_CR1_LPMS_2                     /*!< Standby mode  */
 /**
   * @}
   */
@@ -102,7 +102,7 @@ extern "C" {
 /** @defgroup PWR_LL_EC_SRAM1_SB_RETENTION PWR SRAM1 Retention in Standby Mode
   * @{
   */
-#define LL_PWR_SRAM1_SB_NO_RETENTION          0U               /*!< SRAM1 no retention in Standby mode             */
+#define LL_PWR_SRAM1_SB_NO_RETENTION          0U               /*!< SRAM1 no retention in Standby mode         */
 #define LL_PWR_SRAM1_SB_FULL_RETENTION        PWR_CR1_R1RSB1   /*!< SRAM1 all pages retention in Standby mode      */
 /**
   * @}
@@ -111,11 +111,12 @@ extern "C" {
 /** @defgroup PWR_LL_EC_SRAM2_SB_RETENTION PWR SRAM2 Retention in Standby Mode
   * @{
   */
-#define LL_PWR_SRAM2_SB_NO_RETENTION    0U              /*!< SRAM2 no retention in Standby mode             */
-#define LL_PWR_SRAM2_SB_FULL_RETENTION  PWR_CR1_R2RSB1  /*!< SRAM2 all pages retention in Standby mode      */
+#define LL_PWR_SRAM2_SB_NO_RETENTION    0U                                /*!< SRAM2 no retention in Standby mode         */
+#define LL_PWR_SRAM2_SB_FULL_RETENTION  PWR_CR1_R2RSB1                    /*!< SRAM2 all pages retention in Standby mode  */
 /**
   * @}
   */
+
 
 /** @defgroup PWR_LL_EC_RADIO_SB_RETENTION PWR RADIO SRAMs and Sleep Clock Retention in Standby Mode
   * @{
@@ -138,8 +139,8 @@ extern "C" {
 /** @defgroup PWR_LL_EC_SRAM2_STOP_RETENTION PWR SRAM2 Retention in Stop Mode
   * @{
   */
-#define LL_PWR_SRAM2_STOP_NO_RETENTION    0U                  /*!< SRAM2 no retention in Stop mode        */
-#define LL_PWR_SRAM2_STOP_FULL_RETENTION  PWR_CR2_SRAM2PDS1   /*!< SRAM2 all pages retention in Stop mode */
+#define LL_PWR_SRAM2_STOP_NO_RETENTION    0U                                      /*!< SRAM2 no retention in Stop mode        */
+#define LL_PWR_SRAM2_STOP_FULL_RETENTION  PWR_CR2_SRAM2PDS1                       /*!< SRAM2 all pages retention in Stop mode */
 /**
   * @}
   */
@@ -202,8 +203,8 @@ extern "C" {
 /** @defgroup PWR_LL_EC_VOLTAGE_SCALING_RANGE_SELECTION PWR Voltage scaling range selection
   * @{
   */
-#define LL_PWR_REGU_VOLTAGE_SCALE1 PWR_VOSR_VOS   /*!< Voltage scaling range 1 (highest frequency) */
-#define LL_PWR_REGU_VOLTAGE_SCALE2 0U             /*!< Voltage scaling range 2 (lowest power)      */
+#define LL_PWR_REGU_VOLTAGE_SCALE1    PWR_VOSR_VOS   /*!< Voltage scaling range 1 (highest frequency)                 */
+#define LL_PWR_REGU_VOLTAGE_SCALE2    0U             /*!< Voltage scaling range 2 (lowest power)                      */
 /**
   * @}
   */
@@ -568,8 +569,7 @@ __STATIC_INLINE uint32_t LL_PWR_GetSRAM2StopRetention(void)
   */
 __STATIC_INLINE void LL_PWR_SetICacheRAMStopRetention(uint32_t ICRAMPageRetention)
 {
-  MODIFY_REG(PWR->CR2, PWR_CR2_ICRAMPDS,
-             ((~ICRAMPageRetention) & PWR_CR2_ICRAMPDS));
+  MODIFY_REG(PWR->CR2, PWR_CR2_ICRAMPDS, ((~ICRAMPageRetention) & PWR_CR2_ICRAMPDS));
 }
 
 /**
@@ -1551,7 +1551,7 @@ __STATIC_INLINE void LL_PWR_ClearFlag_WU2(void)
 {
   WRITE_REG(PWR->WUSCR, PWR_WUSCR_CWUF2);
 }
-#endif /* PWR_WUSCR_CWUF2 */
+#endif /* defined(PWR_WUSCR_CWUF2) */
 
 /**
   * @brief  Clear wake up flag 3.
@@ -1583,7 +1583,7 @@ __STATIC_INLINE void LL_PWR_ClearFlag_WU5(void)
 {
   WRITE_REG(PWR->WUSCR, PWR_WUSCR_CWUF5);
 }
-#endif /* PWR_WUSCR_CWUF5 */
+#endif /* defined(PWR_WUSCR_CWUF5) */
 
 /**
   * @brief  Clear wake up flag 6.
@@ -1665,7 +1665,7 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledNSecurePrivilege(void)
 }
 #endif /* PWR_PRIVCFGR_NSPRIV */
 
-#if defined (__ARM_FEATURE_CMSE) &&  (__ARM_FEATURE_CMSE == 3U)
+#if defined(__ARM_FEATURE_CMSE) &&  (__ARM_FEATURE_CMSE == 3U)
 /**
   * @brief  Enable privileged mode for secure items.
   * @rmtoll PRIVCFGR      SPRIV           LL_PWR_EnableSecurePrivilege
@@ -1685,7 +1685,7 @@ __STATIC_INLINE void LL_PWR_DisableSecurePrivilege(void)
 {
   CLEAR_BIT(PWR->PRIVCFGR, PWR_PRIVCFGR_SPRIV);
 }
-#endif /* defined (__ARM_FEATURE_CMSE) &&  (__ARM_FEATURE_CMSE == 3U) */
+#endif /* defined(__ARM_FEATURE_CMSE) &&  (__ARM_FEATURE_CMSE == 3U) */
 
 #if defined(PWR_PRIVCFGR_NSPRIV)
 /**
@@ -1699,7 +1699,7 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledSecurePrivilege(void)
 }
 #endif /* PWR_PRIVCFGR_NSPRIV */
 
-#if defined (__ARM_FEATURE_CMSE) &&  (__ARM_FEATURE_CMSE == 3U)
+#if defined(__ARM_FEATURE_CMSE) &&  (__ARM_FEATURE_CMSE == 3U)
 /**
   * @brief  Configure secure attribute mode.
   * @note   This API can be executed only by CPU in secure mode.
@@ -1765,12 +1765,12 @@ __STATIC_INLINE uint32_t LL_PWR_GetConfigSecure(void)
 {
   return (READ_REG(PWR->SECCFGR));
 }
-#endif /* defined (__ARM_FEATURE_CMSE) &&  (__ARM_FEATURE_CMSE == 3U) */
+#endif /* defined(__ARM_FEATURE_CMSE) &&  (__ARM_FEATURE_CMSE == 3U) */
 /**
   * @}
   */
 
-#if defined (USE_FULL_LL_DRIVER)
+#if defined(USE_FULL_LL_DRIVER)
 /** @defgroup PWR_LL_EF_Init De-initialization function
   * @{
   */
@@ -1778,7 +1778,7 @@ ErrorStatus LL_PWR_DeInit(void);
 /**
   * @}
   */
-#endif /* defined (USE_FULL_LL_DRIVER) */
+#endif /* defined(USE_FULL_LL_DRIVER) */
 
 
 /**
@@ -1789,7 +1789,7 @@ ErrorStatus LL_PWR_DeInit(void);
   * @}
   */
 
-#endif /* defined (PWR) */
+#endif /* defined(PWR) */
 
 /**
   * @}
