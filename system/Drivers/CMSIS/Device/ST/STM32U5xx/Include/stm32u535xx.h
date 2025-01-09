@@ -216,7 +216,7 @@ typedef enum
 
 /** @} */ /* End of group Configuration_of_CMSIS */
 
-#include <core_cm33.h>                       /*!< ARM Cortex-M33 processor and core peripherals */
+#include "core_cm33.h"                       /*!< ARM Cortex-M33 processor and core peripherals */
 #include "system_stm32u5xx.h"                /*!< STM32U5xx System */
 
 
@@ -4796,6 +4796,9 @@ typedef struct
 #define RNG_HTCR_HTCFG_Pos                  (0U)
 #define RNG_HTCR_HTCFG_Msk                  (0xFFFFFFFFUL << RNG_HTCR_HTCFG_Pos)    /*!< 0xFFFFFFFF */
 #define RNG_HTCR_HTCFG                      RNG_HTCR_HTCFG_Msk
+/********************  RNG Nist Compliance Values  *******************/
+#define RNG_CR_NIST_VALUE                   (0x00F00D00U)
+#define RNG_HTCR_NIST_VALUE                 (0xAAC7U)
 
 /******************************************************************************/
 /*                                                                            */
@@ -16168,7 +16171,7 @@ typedef struct
 #define TAMP_CR3_ITAMP6NOER_Msk             (0x1UL << TAMP_CR3_ITAMP6NOER_Pos)      /*!< 0x00000020 */
 #define TAMP_CR3_ITAMP6NOER                 TAMP_CR3_ITAMP6NOER_Msk
 #define TAMP_CR3_ITAMP7NOER_Pos             (6U)
-#define TAMP_CR3_ITAMP7NOER_Msk             (0x1UL << TAMP_CR3_ITAMP7NOER)
+#define TAMP_CR3_ITAMP7NOER_Msk             (0x1UL << TAMP_CR3_ITAMP7NOER_Pos)
 #define TAMP_CR3_ITAMP7NOER                 TAMP_CR3_ITAMP7NOER_Msk
 #define TAMP_CR3_ITAMP8NOER_Pos             (7U)
 #define TAMP_CR3_ITAMP8NOER_Msk             (0x1UL << TAMP_CR3_ITAMP8NOER_Pos)      /*!< 0x00000040 */
@@ -20293,7 +20296,7 @@ typedef struct
 #define VREFBUF_CSR_VRS         VREFBUF_CSR_VRS_Msk                                 /*!<Voltage reference scale         */
 #define VREFBUF_CSR_VRS_0       (0x01UL<< VREFBUF_CSR_VRS_Pos)                      /*!< 0x000O0010 */
 #define VREFBUF_CSR_VRS_1       (0x02UL<< VREFBUF_CSR_VRS_Pos)                      /*!< 0x00000020 */
-#define VREFBUF_CSR_VRS_2       (0x04UL<< VREFBUF_CSR_VRS_Pos)                      /*!< 0x00000030 */
+#define VREFBUF_CSR_VRS_2       (0x04UL<< VREFBUF_CSR_VRS_Pos)                      /*!< 0x00000040 */
 #define VREFBUF_CSR_VRR_Pos     (3U)
 #define VREFBUF_CSR_VRR_Msk     (0x1UL << VREFBUF_CSR_VRR_Pos)                      /*!< 0x00000008 */
 #define VREFBUF_CSR_VRR         VREFBUF_CSR_VRR_Msk                                 /*!<Voltage reference buffer ready  */

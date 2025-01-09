@@ -89,12 +89,12 @@
 #endif /* USE_HAL_DRIVER */
 
 /**
-  * @brief CMSIS Device version number 1.4.0
+  * @brief CMSIS Device version number 1.4.1
   */
-#define __STM32U5_CMSIS_VERSION_MAIN   (0x01) /*!< [31:24] main version */
-#define __STM32U5_CMSIS_VERSION_SUB1   (0x04) /*!< [23:16] sub1 version */
-#define __STM32U5_CMSIS_VERSION_SUB2   (0x00) /*!< [15:8]  sub2 version */
-#define __STM32U5_CMSIS_VERSION_RC     (0x00) /*!< [7:0]  release candidate */
+#define __STM32U5_CMSIS_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
+#define __STM32U5_CMSIS_VERSION_SUB1   (0x04U) /*!< [23:16] sub1 version */
+#define __STM32U5_CMSIS_VERSION_SUB2   (0x01U) /*!< [15:8]  sub2 version */
+#define __STM32U5_CMSIS_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32U5_CMSIS_VERSION        ((__STM32U5_CMSIS_VERSION_MAIN << 24U)\
                                        |(__STM32U5_CMSIS_VERSION_SUB1 << 16U)\
                                        |(__STM32U5_CMSIS_VERSION_SUB2 << 8U )\
