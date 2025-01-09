@@ -582,7 +582,9 @@ void HAL_FLASHEx_EnableSecHideProtection(uint32_t Banks)
   SET_BIT(FLASH->SECHDPCR, FLASH_SECHDPCR_HDP_ACCDIS);
 
 }
+
 #endif /* __ARM_FEATURE_CMSE */
+
 
 /**
   * @}
@@ -1116,8 +1118,8 @@ static void FLASH_OB_RDPConfig(uint32_t RDPLevel)
   *         This parameter can be one of the following values:
   *            @arg @ref OB_RDP_KEY_OEM1 OEM1 key
   *            @arg @ref OB_RDP_KEY_OEM2 OEM2 key
-  * @param  RDPKey1 Specifies the RDP key 1.
-  * @param  RDPKey2 Specifies the RDP key 2.
+  * @param  RDPKey1 Specifies the RDP key bits[0:31].
+  * @param  RDPKey2 Specifies the RDP key bits[32:63].
   * @retval None
   */
 static void FLASH_OB_RDPKeyConfig(uint32_t RDPKeyType, uint32_t RDPKey1, uint32_t RDPKey2)
@@ -1287,6 +1289,7 @@ static void FLASH_OB_UserConfig(uint32_t UserType, uint32_t UserConfig)
     optr_reg_val |= (UserConfig & FLASH_OPTR_nBOOT0);
     optr_reg_mask |= FLASH_OPTR_nBOOT0;
   }
+
 
 
 #if defined(FLASH_OPTR_TZEN)

@@ -190,6 +190,7 @@ typedef struct __DMA_QListTypeDef
                                                            => Packed at the destination data width               */
 #define DMA_DATA_UNPACK                DMA_CTR1_PAM_1 /*!< If source data width > destination data width
                                                            => Unpacked at the destination data width             */
+
 /**
   * @}
   */
@@ -281,6 +282,7 @@ typedef struct __DMA_QListTypeDef
   * @{
   */
 #define DMA_GPDMA_LINEAR_NODE (DMA_CHANNEL_TYPE_GPDMA | DMA_CHANNEL_TYPE_LINEAR_ADDR) /*!< Defines the GPDMA linear addressing node type      */
+
 /**
   * @}
   */
@@ -418,6 +420,7 @@ HAL_StatusTypeDef HAL_DMAEx_Resume(DMA_HandleTypeDef *const hdma);
   * @{
   */
 uint32_t HAL_DMAEx_GetFifoLevel(DMA_HandleTypeDef const *const hdma);
+
 /**
   * @}
   */
@@ -457,9 +460,10 @@ typedef struct
   * @brief    DMAEx Private Constants
   * @{
   */
-#define DMA_LINKEDLIST                  (0x0080U) /* DMA channel linked-list mode          */
+#define DMA_LINKEDLIST                  (0x0080U ) /* DMA channel linked-list mode          */
 
 #define DMA_CHANNEL_TYPE_LINEAR_ADDR    (0x0001U) /* DMA channel linear addressing mode    */
+#define DMA_CHANNEL_TYPE_2D_ADDR        (0x0002U) /* DMA channel 2D addressing mode        */
 #define DMA_CHANNEL_TYPE_GPDMA          (0x0020U) /* GPDMA channel node                    */
 
 #define NODE_TYPE_MASK                  (0x00FFU) /* DMA channel node type                 */
@@ -510,14 +514,6 @@ typedef struct
 
 #define IS_DMA_REPEAT_COUNT(COUNT) \
   (((COUNT) > 0U) && ((COUNT) <= (DMA_CBR1_BRC >> DMA_CBR1_BRC_Pos)))
-
-#define IS_DMA_BURST_ADDR_OFFSET(BURST_ADDR_OFFSET)     \
-  (((BURST_ADDR_OFFSET) > DMA_BURST_ADDR_OFFSET_MIN) && \
-   ((BURST_ADDR_OFFSET) < DMA_BURST_ADDR_OFFSET_MAX))
-
-#define IS_DMA_BLOCK_ADDR_OFFSET(BLOCK_ADDR_OFFSET)     \
-  (((BLOCK_ADDR_OFFSET) > DMA_BLOCK_ADDR_OFFSET_MIN) && \
-   ((BLOCK_ADDR_OFFSET) < DMA_BLOCK_ADDR_OFFSET_MAX))
 
 #define IS_DMA_LINK_ALLOCATED_PORT(LINK_ALLOCATED_PORT) \
   (((LINK_ALLOCATED_PORT) & (~(DMA_CCR_LAP))) == 0U)

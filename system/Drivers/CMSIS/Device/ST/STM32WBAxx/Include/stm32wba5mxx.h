@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file    stm32wba55xx.h
+  * @file    stm32wba5mxx.h
   * @author  MCD Application Team
-  * @brief   CMSIS STM32WBA55xx Device Peripheral Access Layer Header File.
+  * @brief   CMSIS STM32WBA5Mxx Device Peripheral Access Layer Header File.
   *
   *          This file contains:
   *           - Data structures and the address mapping for all peripherals
@@ -21,8 +21,8 @@
   *
   ******************************************************************************
   */
-#ifndef STM32WBA55xx_H
-#define STM32WBA55xx_H
+#ifndef STM32WBA5Mxx_H
+#define STM32WBA5Mxx_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,7 +32,7 @@ extern "C" {
   * @{
   */
 
-/** @addtogroup STM32WBA55xx
+/** @addtogroup STM32WBA5Mxx
   * @{
   */
 
@@ -60,7 +60,7 @@ typedef enum
   PendSV_IRQn               =  -2,    /*!< -2  Pendable request for system service                           */
   SysTick_IRQn              =  -1,    /*!< -1  System Tick Timer                                             */
 
-/* ===========================================  STM32WBA55xx Specific Interrupt Numbers  ====================================== */
+/* ===========================================  STM32WBA5Mxx Specific Interrupt Numbers  ====================================== */
   WWDG_IRQn                 = 0,      /*!< Window WatchDog interrupt                                         */
   PVD_IRQn                  = 1,      /*!< PVD through EXTI Line detection Interrupt                         */
   RTC_IRQn                  = 2,      /*!< RTC non-secure interrupt                                          */
@@ -1010,7 +1010,7 @@ typedef struct
   __IO uint32_t SR;          /*!< WWDG Status register,        Address offset: 0x08 */
 } WWDG_TypeDef;
 
-/*@}*/ /* end of group STM32WBA55xx_Peripherals */
+/*@}*/ /* end of group STM32WBA5Mxx_Peripherals */
 
 /* --------  End of section using anonymous unions and disabling warnings  -------- */
 #if   defined (__CC_ARM)
@@ -15824,7 +15824,7 @@ typedef struct
 
 /** @} */ /* End of group STM32WBAxx_Peripheral_Exported_macros */
 
-/** @} */ /* End of group STM32WBA55xx */
+/** @} */ /* End of group STM32WBA5Mxx */
 
 /** @} */ /* End of group ST */
 
@@ -15832,4 +15832,4 @@ typedef struct
 }
 #endif
 
-#endif  /* STM32WBA55xx_H */
+#endif  /* STM32WBA5Mxx_H */

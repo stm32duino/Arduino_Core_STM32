@@ -44,9 +44,11 @@ extern "C" {
   * @{
   */
 
+/** @defgroup GPIOEx_Alternate_function_selection GPIOEx Alternate function selection
+  * @{
+  */
 
-
-#if defined(STM32WBA54xx) || defined(STM32WBA55xx)
+#if defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx)
 /**
   * @brief   AF 0 selection
   */
@@ -144,7 +146,7 @@ extern "C" {
 
 #define IS_GPIO_AF(AF)         ((AF) <= (uint8_t)0x0F)
 
-#endif /* (defined(STM32WBA54xx) || defined(STM32WBA55xx)) */
+#endif /* (defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx)) */
 
 #if defined(STM32WBA52xx)
 /**
@@ -237,7 +239,7 @@ extern "C" {
 
 #define IS_GPIO_AF(AF)         ((AF) <= (uint8_t)0x0F)
 
-#endif /* (defined(STM32WBA54xx) || defined(STM32WBA55xx)) */
+#endif /* defined(STM32WBA52xx) */
 
 #if defined(STM32WBA50xx)
 /**
@@ -316,6 +318,9 @@ extern "C" {
 
 #endif /* defined(STM32WBA50xx) */
 
+/**
+  * @}
+  */
 
 /**
   * @}

@@ -113,14 +113,16 @@ typedef enum
   }while (0)
 #endif /* USE_RTOS */
 
-#if defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050) /* ARM Compiler V6 */
+#if defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+ /* ARM Compiler V6 */
 #ifndef __weak
 #define __weak __attribute__((weak))
 #endif /* __weak */
 #ifndef __packed
 #define __packed __attribute__((packed))
 #endif /* __packed */
-#elif defined (__GNUC__) /* GNU Compiler */
+#elif defined (__GNUC__)
+ /* GNU Compiler */
 #ifndef __weak
 #define __weak __attribute__((weak))
 #endif /* __weak */
@@ -148,11 +150,14 @@ typedef enum
 #endif /* __ARMCC_VERSION || __GNUC__ */
 
 /* Macro to get variable aligned on 32-bytes, needed for cache maintenance purpose */
-#if defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)  /* ARM Compiler V6 */
+#if defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+ /* ARM Compiler V6 */
 #define ALIGN_32BYTES(buf) __ALIGNED(32) buf
-#elif defined (__ICCARM__) /* IAR Compiler */
+#elif defined (__ICCARM__)
+ /* IAR Compiler */
 #define ALIGN_32BYTES(buf) _Pragma("data_alignment=32") buf
-#elif defined (__GNUC__) /* GNU Compiler */
+#elif defined (__GNUC__)
+ /* GNU Compiler */
 #define ALIGN_32BYTES(buf) buf __attribute__ ((aligned (32)))
 #endif /* __ARMCC_VERSION */
 

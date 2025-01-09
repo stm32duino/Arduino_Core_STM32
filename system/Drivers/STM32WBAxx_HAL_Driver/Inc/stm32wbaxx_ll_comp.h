@@ -169,7 +169,9 @@ typedef struct
   * @{
   */
 #define LL_COMP_POWERMODE_HIGHSPEED     (0x00000000UL)                            /*!< COMP power mode to high speed */
-#define LL_COMP_POWERMODE_MEDIUMSPEED   (COMP_CSR_PWRMODE_0)                      /*!< COMP power mode to medium speed */
+#define LL_COMP_POWERMODE_INTERMSPEED   (COMP_CSR_PWRMODE_0)                      /*!< COMP power mode to intermediate speed */
+#define LL_COMP_POWERMODE_MEDIUMSPEED   (COMP_CSR_PWRMODE_1)                      /*!< COMP power mode to medium speed */
+#define LL_COMP_POWERMODE_ULTRALOWPOWER (COMP_CSR_PWRMODE_1 | COMP_CSR_PWRMODE_0) /*!< COMP power mode to ultra-low power */
 /**
   * @}
   */
@@ -324,8 +326,8 @@ typedef struct
   * @{
   */
 
-/** @defgroup COMP_LL_EF_Configuration_comparator_common Configuration of COMP hierarchical scope:
-  *           common to several COMP instances
+/** @defgroup COMP_LL_EF_Configuration_comparator_common Configuration
+  *           of COMP hierarchical scope: common to several COMP instances
   * @{
   */
 
@@ -461,7 +463,9 @@ __STATIC_INLINE uint32_t LL_COMP_GetCommonWindowOutput(const COMP_Common_TypeDef
   * @param  COMPx Comparator instance
   * @param  PowerMode This parameter can be one of the following values:
   *         @arg @ref LL_COMP_POWERMODE_HIGHSPEED
+  *         @arg @ref LL_COMP_POWERMODE_INTERMSPEED
   *         @arg @ref LL_COMP_POWERMODE_MEDIUMSPEED
+  *         @arg @ref LL_COMP_POWERMODE_ULTRALOWPOWER
   * @retval None
   */
 __STATIC_INLINE void LL_COMP_SetPowerMode(COMP_TypeDef *COMPx, uint32_t PowerMode)
@@ -475,7 +479,9 @@ __STATIC_INLINE void LL_COMP_SetPowerMode(COMP_TypeDef *COMPx, uint32_t PowerMod
   * @param  COMPx Comparator instance
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_COMP_POWERMODE_HIGHSPEED
+  *         @arg @ref LL_COMP_POWERMODE_INTERMSPEED
   *         @arg @ref LL_COMP_POWERMODE_MEDIUMSPEED
+  *         @arg @ref LL_COMP_POWERMODE_ULTRALOWPOWER
   */
 __STATIC_INLINE uint32_t LL_COMP_GetPowerMode(const COMP_TypeDef *COMPx)
 {

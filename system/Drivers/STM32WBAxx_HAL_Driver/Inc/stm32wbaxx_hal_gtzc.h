@@ -43,7 +43,7 @@ extern "C" {
   */
 
 /*!< Values needed for MPCBB_Attribute_ConfigTypeDef structure sizing */
-#if defined (STM32WBA52xx) || defined (STM32WBA54xx) || defined (STM32WBA55xx)
+#if  defined (STM32WBA52xx) || defined (STM32WBA54xx) || defined (STM32WBA55xx) || defined (STM32WBA5Mxx)
 #define GTZC_MPCBB_NB_VCTR_REG_MAX      4U  /*!< Maximum number of superblocks */
 #endif
 #define GTZC_MPCBB_NB_LCK_VCTR_REG_MAX  1U  /*!< Maximum number of 32-bit registers to lock superblocks */
@@ -207,9 +207,7 @@ typedef struct
 #define GTZC_PERIPH_PTACONV       (GTZC_PERIPH_REG3 | GTZC_CFGR3_PTACONV_Pos)
 #endif /* PTACONV */
 
-#if defined (GPDMA1)
 #define GTZC_PERIPH_GPDMA1        (GTZC_PERIPH_REG4 | GTZC_CFGR4_GPDMA1_Pos)
-#endif /* GPDMA1 */
 #define GTZC_PERIPH_FLASH         (GTZC_PERIPH_REG4 | GTZC_CFGR4_FLASH_Pos)
 #define GTZC_PERIPH_FLASH_REG     (GTZC_PERIPH_REG4 | GTZC_CFGR4_FLASH_REG_Pos)
 #define GTZC_PERIPH_SYSCFG        (GTZC_PERIPH_REG4 | GTZC_CFGR4_SYSCFG_Pos)

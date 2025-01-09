@@ -565,7 +565,6 @@ typedef struct
   * @{
   */
 
-#if defined(GPDMA1)
 #define __HAL_RCC_GPDMA1_CLK_ENABLE()          do { \
                                                     __IO uint32_t tmpreg; \
                                                     SET_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPDMA1EN); \
@@ -573,7 +572,6 @@ typedef struct
                                                     tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPDMA1EN); \
                                                     UNUSED(tmpreg); \
                                                   } while(0)
-#endif /* GPDMA1 */
 
 #define __HAL_RCC_FLASH_CLK_ENABLE()           do { \
                                                     __IO uint32_t tmpreg; \
@@ -627,9 +625,7 @@ typedef struct
                                                     UNUSED(tmpreg); \
                                                   } while(0)
 
-#if defined(GPDMA1)
 #define __HAL_RCC_GPDMA1_CLK_DISABLE()         CLEAR_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPDMA1EN)
-#endif /* GPDMA1 */
 #define __HAL_RCC_FLASH_CLK_DISABLE()          CLEAR_BIT(RCC->AHB1ENR, RCC_AHB1ENR_FLASHEN)
 #define __HAL_RCC_CRC_CLK_DISABLE()            CLEAR_BIT(RCC->AHB1ENR, RCC_AHB1ENR_CRCEN)
 #define __HAL_RCC_TSC_CLK_DISABLE()            CLEAR_BIT(RCC->AHB1ENR, RCC_AHB1ENR_TSCEN)
@@ -674,6 +670,7 @@ typedef struct
                                                     tmpreg = READ_BIT(RCC->AHB2ENR, RCC_AHB2ENR_GPIOCEN); \
                                                     UNUSED(tmpreg); \
                                                   } while(0)
+
 
 
 #define __HAL_RCC_GPIOH_CLK_ENABLE()           do { \
@@ -1078,9 +1075,7 @@ typedef struct
   * @brief  Check whether the AHB1 peripheral clock is enabled or not.
   * @{
   */
-#if defined(GPDMA1)
 #define __HAL_RCC_GPDMA1_IS_CLK_ENABLED()      (READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPDMA1EN) != 0U)
-#endif /* GPDMA1 */
 #define __HAL_RCC_FLASH_IS_CLK_ENABLED()       (READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_FLASHEN) != 0U)
 #define __HAL_RCC_CRC_IS_CLK_ENABLED()         (READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_CRCEN) != 0U)
 #define __HAL_RCC_TSC_IS_CLK_ENABLED()         (READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_TSCEN) != 0U)
@@ -1204,16 +1199,12 @@ typedef struct
   * @{
   */
 #define __HAL_RCC_AHB1_FORCE_RESET()           WRITE_REG(RCC->AHB1RSTR, 0xFFFFFFFFU)
-#if defined(GPDMA1)
 #define __HAL_RCC_GPDMA1_FORCE_RESET()         SET_BIT(RCC->AHB1RSTR, RCC_AHB1RSTR_GPDMA1RST)
-#endif /* GPDMA1 */
 #define __HAL_RCC_CRC_FORCE_RESET()            SET_BIT(RCC->AHB1RSTR, RCC_AHB1RSTR_CRCRST)
 #define __HAL_RCC_TSC_FORCE_RESET()            SET_BIT(RCC->AHB1RSTR, RCC_AHB1RSTR_TSCRST)
 
 #define __HAL_RCC_AHB1_RELEASE_RESET()         WRITE_REG(RCC->AHB1RSTR, 0x00000000U)
-#if defined(GPDMA1)
 #define __HAL_RCC_GPDMA1_RELEASE_RESET()       CLEAR_BIT(RCC->AHB1RSTR, RCC_AHB1RSTR_GPDMA1RST)
-#endif /* GPDMA1 */
 #define __HAL_RCC_CRC_RELEASE_RESET()          CLEAR_BIT(RCC->AHB1RSTR, RCC_AHB1RSTR_CRCRST)
 #define __HAL_RCC_TSC_RELEASE_RESET()          CLEAR_BIT(RCC->AHB1RSTR, RCC_AHB1RSTR_TSCRST)
 /**
@@ -1402,9 +1393,7 @@ typedef struct
   *         is enabled only when a peripheral requests AHB clock.
   * @{
   */
-#if defined(GPDMA1)
 #define __HAL_RCC_GPDMA1_CLK_SLEEP_ENABLE()    SET_BIT(RCC->AHB1SMENR, RCC_AHB1SMENR_GPDMA1SMEN)
-#endif /* GPDMA1 */
 #define __HAL_RCC_FLASH_CLK_SLEEP_ENABLE()     SET_BIT(RCC->AHB1SMENR, RCC_AHB1SMENR_FLASHSMEN)
 #define __HAL_RCC_CRC_CLK_SLEEP_ENABLE()       SET_BIT(RCC->AHB1SMENR, RCC_AHB1SMENR_CRCSMEN)
 #define __HAL_RCC_TSC_CLK_SLEEP_ENABLE()       SET_BIT(RCC->AHB1SMENR, RCC_AHB1SMENR_TSCSMEN)
@@ -1415,9 +1404,7 @@ typedef struct
 #define __HAL_RCC_ICACHE_CLK_SLEEP_ENABLE()    SET_BIT(RCC->AHB1SMENR, RCC_AHB1SMENR_ICACHESMEN)
 #define __HAL_RCC_SRAM1_CLK_SLEEP_ENABLE()     SET_BIT(RCC->AHB1SMENR, RCC_AHB1SMENR_SRAM1SMEN)
 
-#if defined(GPDMA1)
 #define __HAL_RCC_GPDMA1_CLK_SLEEP_DISABLE()   CLEAR_BIT(RCC->AHB1SMENR, RCC_AHB1SMENR_GPDMA1SMEN)
-#endif /* GPDMA1 */
 #define __HAL_RCC_FLASH_CLK_SLEEP_DISABLE()    CLEAR_BIT(RCC->AHB1SMENR, RCC_AHB1SMENR_FLASHSMEN)
 #define __HAL_RCC_CRC_CLK_SLEEP_DISABLE()      CLEAR_BIT(RCC->AHB1SMENR, RCC_AHB1SMENR_CRCSMEN)
 #define __HAL_RCC_TSC_CLK_SLEEP_DISABLE()      CLEAR_BIT(RCC->AHB1SMENR, RCC_AHB1SMENR_TSCSMEN)
@@ -1625,9 +1612,7 @@ typedef struct
   * @brief  Check whether the AHB1 peripheral clock during Low Power (Sleep) is enabled or not.
   * @{
   */
-#if defined(GPDMA1)
 #define __HAL_RCC_GPDMA1_IS_CLK_SLEEP_ENABLED()      (READ_BIT(RCC->AHB1SMENR, RCC_AHB1SMENR_GPDMA1SMEN) != 0U)
-#endif /* GPDMA1 */
 #define __HAL_RCC_FLASH_IS_CLK_SLEEP_ENABLED()       (READ_BIT(RCC->AHB1SMENR, RCC_AHB1SMENR_FLASHSMEN) != 0U)
 #define __HAL_RCC_CRC_IS_CLK_SLEEP_ENABLED()         (READ_BIT(RCC->AHB1SMENR, RCC_AHB1SMENR_CRCSMEN) != 0U)
 #define __HAL_RCC_TSC_IS_CLK_SLEEP_ENABLED()         (READ_BIT(RCC->AHB1SMENR, RCC_AHB1SMENR_TSCSMEN) != 0U)
@@ -2174,6 +2159,7 @@ typedef struct
   *            @arg @ref RCC_IT_HSIRDY          HSI ready interrupt
   *            @arg @ref RCC_IT_HSERDY          HSE ready interrupt
   *            @arg @ref RCC_IT_PLL1RDY         PLL1 ready interrupt
+  *            @arg @ref RCC_IT_CSS             HSE32 Clock Security System Interrupt
   *            @arg @ref RCC_IT_LSI2RDY         LSI2 ready interrupt(*)
 #if defined(RCC_CCIPR2_ASSEL)
   *            @arg @ref RCC_IT_CAPTURE_ERROR   Capture Error Interrupt flag(*)
@@ -2201,6 +2187,7 @@ typedef struct
   *            @arg @ref RCC_IT_HSIRDY          HSI ready interrupt
   *            @arg @ref RCC_IT_HSERDY          HSE ready interrupt
   *            @arg @ref RCC_IT_PLL1RDY         PLL1 ready interrupt
+  *            @arg @ref RCC_IT_CSS             HSE32 Clock Security System Interrupt
   *            @arg @ref RCC_IT_LSI2RDY         LSI2 ready interrupt(*)
 #if defined(RCC_CCIPR2_ASSEL)
   *            @arg @ref RCC_IT_CAPTURE_ERROR   Capture Error Interrupt flag(*)
@@ -2228,6 +2215,7 @@ typedef struct
   *            @arg @ref RCC_IT_HSIRDY          HSI ready interrupt
   *            @arg @ref RCC_IT_HSERDY          HSE ready interrupt
   *            @arg @ref RCC_IT_PLL1RDY         PLL1 ready interrupt
+  *            @arg @ref RCC_IT_CSS             HSE32 Clock Security System Interrupt
   *            @arg @ref RCC_IT_LSI2RDY         LSI2 ready interrupt(*)
 #if defined(RCC_CCIPR2_ASSEL)
   *            @arg @ref RCC_IT_CAPTURE_ERROR   Capture Error Interrupt flag(*)
@@ -2253,6 +2241,7 @@ typedef struct
   *            @arg @ref RCC_IT_HSIRDY          HSI ready interrupt
   *            @arg @ref RCC_IT_HSERDY          HSE ready interrupt
   *            @arg @ref RCC_IT_PLL1RDY         PLL1 ready interrupt
+  *            @arg @ref RCC_IT_CSS             HSE32 Clock Security System Interrupt
   *            @arg @ref RCC_IT_LSI2RDY         LSI2 ready interrupt(*)
 #if defined(RCC_CCIPR2_ASSEL)
   *            @arg @ref RCC_IT_CAPTURE_ERROR   Capture Error Interrupt flag(*)

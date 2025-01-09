@@ -52,7 +52,6 @@
   */
 
 #if defined (GPDMA1)
-
 /** @addtogroup DMA_LL
   * @{
   */
@@ -137,11 +136,13 @@
 #define IS_LL_DMA_TRIGGER_SELECTION(__VALUE__)             ((__VALUE__) <= LL_GPDMA1_TRIGGER_ADC4_AWD1)
 #endif /* TIM3 */
 
+
 #if defined (LPTIM2)
 #define IS_LL_DMA_REQUEST_SELECTION(__VALUE__)             ((__VALUE__) <= LL_GPDMA1_REQUEST_LPTIM2_UE)
 #else
 #define IS_LL_DMA_REQUEST_SELECTION(__VALUE__)             ((__VALUE__) <= LL_GPDMA1_REQUEST_LPTIM1_UE)
 #endif /* LPTIM2 */
+
 
 #define IS_LL_DMA_TRANSFER_EVENT_MODE(__VALUE__)          (((__VALUE__) == LL_DMA_TCEM_BLK_TRANSFER)         || \
                                                            ((__VALUE__) == LL_DMA_TCEM_RPT_BLK_TRANSFER)     || \
@@ -191,7 +192,8 @@
 
 #define IS_LL_DMA_LINK_UPDATE_REGISTERS(__VALUE__)       ((((__VALUE__) & 0x01FE0000U) == 0U) && ((__VALUE__) != 0U))
 
-#define IS_LL_DMA_LINK_NODETYPE(__VALUE__)                ((__VALUE__) == LL_DMA_GPDMA_LINEAR_NODE)
+#define IS_LL_DMA_LINK_NODETYPE(TYPE)          \
+  ((TYPE) == LL_DMA_GPDMA_LINEAR_NODE)
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 #define IS_LL_DMA_CHANNEL_SRC_SEC(__VALUE__)              (((__VALUE__) == LL_DMA_CHANNEL_SRC_NSEC) || \
@@ -424,7 +426,6 @@ uint32_t LL_DMA_Init(DMA_TypeDef *DMAx, uint32_t Channel, LL_DMA_InitTypeDef *DM
     LL_DMA_ConfigBurstLength(DMAx, Channel,  DMA_InitStruct->SrcBurstLength,
                              DMA_InitStruct->DestBurstLength);
   }
-
   /*-------------------------- DMAx CTR2 Configuration -------------------------
    * Configure the channel transfer parameter :
    * - TransferEventMode:                          DMA_CTR2_TCEM [31:30] bits
@@ -603,7 +604,6 @@ uint32_t LL_DMA_List_Init(DMA_TypeDef *DMAx, uint32_t Channel, LL_DMA_InitLinked
   LL_DMA_ConfigControl(DMAx, Channel, DMA_InitLinkedListStruct->Priority | \
                        DMA_InitLinkedListStruct->LinkAllocatedPort       | \
                        DMA_InitLinkedListStruct->LinkStepMode);
-
   /*-------------------------- DMAx CTR2 Configuration -------------------------
    * Configure the channel transfer parameter :
    * - TransferEventMode:                          DMA_CTR2_TCEM [31:30] bits
@@ -666,7 +666,7 @@ void LL_DMA_NodeStructInit(LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct)
   *         LL_DMA_LinkNodeTypeDef parameters.
   * @retval None
   */
-uint32_t LL_DMA_CreateLinkNode(LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct, LL_DMA_LinkNodeTypeDef *pNode)
+uint32_t LL_DMA_CreateLinkNode(const LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct, LL_DMA_LinkNodeTypeDef *pNode)
 {
   uint32_t reg_counter = 0U;
 
@@ -745,6 +745,7 @@ uint32_t LL_DMA_CreateLinkNode(LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct, LL_DM
     pNode->LinkRegisters[reg_counter] |= (DMA_InitNodeStruct->DestSecure | \
                                           DMA_InitNodeStruct->SrcSecure);
 #endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+
 
     /* Update CTR1 register fields */
     pNode->LinkRegisters[reg_counter] |= (DMA_InitNodeStruct->DestAllocatedPort                              | \
@@ -836,7 +837,6 @@ uint32_t LL_DMA_CreateLinkNode(LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct, LL_DM
   }
 
 
-
   /* Check if CLLR register update is enabled */
   if ((DMA_InitNodeStruct->UpdateRegisters & LL_DMA_UPDATE_CLLR) == LL_DMA_UPDATE_CLLR)
   {
@@ -853,6 +853,11 @@ uint32_t LL_DMA_CreateLinkNode(LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct, LL_DM
                                                                                  DMA_CLLR_UB1 | DMA_CLLR_USA | \
                                                                                  DMA_CLLR_UDA | DMA_CLLR_ULL)));
 
+  }
+  else
+  {
+    /* Reset of the CLLR of the node being created */
+    pNode->LinkRegisters[reg_counter] = 0U;
   }
 
   return (uint32_t)SUCCESS;

@@ -157,11 +157,13 @@ typedef struct
 /** @defgroup UTILS_EC_PACKAGETYPE PACKAGE TYPE
   * @{
   */
+#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx)
 #define LL_UTILS_PACKAGETYPE_UFQFPN32           0x00000000U /*!< UFQFPN32 package type                               */
 #define LL_UTILS_PACKAGETYPE_UFQFPN48           0x00000002U /*!< UFQFPN48 package type                               */
 #define LL_UTILS_PACKAGETYPE_WLCSP41_SMPS       0x00000009U /*!< WLCSP41 with internal SMPS package type             */
 #define LL_UTILS_PACKAGETYPE_UFQFPN48_SMPS      0x0000000AU /*!< UFQFPN48 with internal SMPS package type            */
 #define LL_UTILS_PACKAGETYPE_UFBGA59            0x0000000BU /*!< UFBGA59 package type                                */
+#endif /* defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) */
 /**
   * @}
   */
@@ -222,11 +224,13 @@ __STATIC_INLINE uint32_t LL_GetFlashSize(void)
 /**
   * @brief  Get Package type
   * @retval Returned value can be one of the following values:
+#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx)
   *         @arg @ref LL_UTILS_PACKAGETYPE_UFQFPN32
   *         @arg @ref LL_UTILS_PACKAGETYPE_UFQFPN48
   *         @arg @ref LL_UTILS_PACKAGETYPE_WLCSP41_SMPS
   *         @arg @ref LL_UTILS_PACKAGETYPE_UFQFPN48_SMPS
   *         @arg @ref LL_UTILS_PACKAGETYPE_UFBGA59
+#endif
   */
 __STATIC_INLINE uint32_t LL_GetPackageType(void)
 {

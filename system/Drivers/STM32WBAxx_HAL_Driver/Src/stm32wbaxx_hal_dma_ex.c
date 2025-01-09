@@ -637,7 +637,6 @@ HAL_StatusTypeDef HAL_DMAEx_List_DeInit(DMA_HandleTypeDef *const hdma)
   /* Get DMA instance */
   DMA_TypeDef *p_dma_instance;
 #endif /* DMA_PRIVCFGR_PRIV0 */
-
   /* Get tick number */
   uint32_t tickstart = HAL_GetTick();
 
@@ -654,7 +653,6 @@ HAL_StatusTypeDef HAL_DMAEx_List_DeInit(DMA_HandleTypeDef *const hdma)
   /* Get DMA instance */
   p_dma_instance = GET_DMA_INSTANCE(hdma);
 #endif /* DMA_PRIVCFGR_PRIV0 */
-
   /* Disable the selected DMA Channel */
   __HAL_DMA_DISABLE(hdma);
 
@@ -3199,6 +3197,7 @@ HAL_StatusTypeDef HAL_DMAEx_ConfigDataHandling(DMA_HandleTypeDef *const hdma,
   {
     MODIFY_REG(hdma->Instance->CTR1, (DMA_CTR1_DHX | DMA_CTR1_DBX | DMA_CTR1_SBX | DMA_CTR1_PAM),
                (pConfigDataHandling->DataAlignment | pConfigDataHandling->DataExchange));
+
   }
   else
   {
@@ -3452,6 +3451,7 @@ uint32_t HAL_DMAEx_GetFifoLevel(DMA_HandleTypeDef const *const hdma)
 {
   return ((hdma->Instance->CSR & DMA_CSR_FIFOL) >> DMA_CSR_FIFOL_Pos);
 }
+
 /**
   * @}
   */
@@ -3560,7 +3560,6 @@ static void DMA_List_BuildNode(DMA_NodeConfTypeDef const *const pNodeConfig,
   /* Check for memory to peripheral transfer */
   if ((pNodeConfig->Init.Direction) == DMA_MEMORY_TO_PERIPH)
   {
-    /* Check for GPDMA */
     if ((pNodeConfig->NodeType & DMA_CHANNEL_TYPE_GPDMA) == DMA_CHANNEL_TYPE_GPDMA)
     {
       pNode->LinkRegisters[NODE_CTR2_DEFAULT_OFFSET] |= DMA_CTR2_DREQ;
@@ -3603,6 +3602,10 @@ static void DMA_List_BuildNode(DMA_NodeConfTypeDef const *const pNodeConfig,
   pNode->LinkRegisters[NODE_CDAR_DEFAULT_OFFSET] = pNodeConfig->DstAddress;
   /*********************************************************************************** CDAR register value is updated */
 
+  /* Update CLLR register value *************************************************************************************/
+  /* Reset CLLR Register value : channel linked-list address register offset */
+  pNode->LinkRegisters[NODE_CLLR_LINEAR_DEFAULT_OFFSET] = 0U;
+  /********************************************************************************* CLLR register value is cleared */
 
   /* Update node information value ************************************************************************************/
   /* Set node information */
@@ -3641,6 +3644,7 @@ static void DMA_List_GetNodeConfig(DMA_NodeConfTypeDef *const pNodeConfig,
                                                   (DMA_CTR1_SAP | DMA_CTR1_DAP);
   pNodeConfig->DataHandlingConfig.DataExchange  = pNode->LinkRegisters[NODE_CTR1_DEFAULT_OFFSET]   &
                                                   (DMA_CTR1_SBX | DMA_CTR1_DBX | DMA_CTR1_DHX);
+
   pNodeConfig->DataHandlingConfig.DataAlignment = pNode->LinkRegisters[NODE_CTR1_DEFAULT_OFFSET]   & DMA_CTR1_PAM;
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
   if ((pNode->LinkRegisters[NODE_CTR1_DEFAULT_OFFSET] & DMA_CTR1_SSEC) != 0U)
@@ -4071,7 +4075,7 @@ static void DMA_List_ConvertNodeToStatic(uint32_t ContextNodeAddr,
   uint32_t contextnode_reg_counter = 0U;
   uint32_t cllr_idx;
   uint32_t cllr_mask;
-  DMA_NodeTypeDef *context_node = (DMA_NodeTypeDef *)ContextNodeAddr;
+  const DMA_NodeTypeDef *context_node = (DMA_NodeTypeDef *)ContextNodeAddr;
   DMA_NodeTypeDef *current_node = (DMA_NodeTypeDef *)CurrentNodeAddr;
   uint32_t update_link[NODE_MAXIMUM_SIZE] = {DMA_CLLR_UT1, DMA_CLLR_UT2, DMA_CLLR_UB1, DMA_CLLR_USA,
                                              DMA_CLLR_UDA, DMA_CLLR_ULL

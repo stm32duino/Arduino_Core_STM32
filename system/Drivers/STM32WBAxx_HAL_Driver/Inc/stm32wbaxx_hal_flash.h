@@ -99,8 +99,8 @@ typedef struct
                                   This parameter must be a value between 0x0 and 0xFFFFFF00 */
   uint32_t RDPKeyType;       /*!< Configuration of the RDP OEM keys (used for OPTIONBYTE_RDPKEY).
                                   This parameter can be a value of @ref FLASH_OB_RDP_Key_Type */
-  uint32_t RDPKey1;          /*!< Value of the RDP OEM key 1 (used for OPTIONBYTE_RDPKEY) */
-  uint32_t RDPKey2;          /*!< Value of the RDP OEM key 2 (used for OPTIONBYTE_RDPKEY) */
+  uint32_t RDPKey1;          /*!< Value of the RDP OEM key - bits[0:31] (used for OPTIONBYTE_RDPKEY) */
+  uint32_t RDPKey2;          /*!< Value of the RDP OEM key - bits[32:63] (used for OPTIONBYTE_RDPKEY) */
 } FLASH_OBProgramInitTypeDef;
 
 /**
@@ -241,8 +241,8 @@ typedef struct
 #define FLASH_TYPEPROGRAM_BURST       (FLASH_SECCR1_PG | FLASH_SECCR1_BWR)     /*!< Program a burst (8xquad-word) at a specified secure address */
 #define FLASH_TYPEPROGRAM_BURST_NS    (FLASH_NSCR1_PG | FLASH_NSCR1_BWR | FLASH_NON_SECURE_MASK) /*!< Program a burst (8xquad-word) at a specified non-secure address */
 #else
-#define FLASH_TYPEPROGRAM_QUADWORD    FLASH_NSCR1_PG                           /*!<Program a quad-word (128-bit) at a specified address */
-#define FLASH_TYPEPROGRAM_BURST       (FLASH_NSCR1_PG | FLASH_NSCR1_BWR)        /*!<Program a burst (8xquad-word) at a specified address */
+#define FLASH_TYPEPROGRAM_QUADWORD    FLASH_NSCR1_PG                           /*!< Program a quad-word (128-bit) at a specified address */
+#define FLASH_TYPEPROGRAM_BURST       (FLASH_NSCR1_PG | FLASH_NSCR1_BWR)       /*!< Program a burst (8xquad-word) at a specified address */
 #endif /* __ARM_FEATURE_CMSE */
 /**
   * @}
@@ -298,20 +298,20 @@ typedef struct
 /** @defgroup FLASH_OB_USER_Type FLASH Option Bytes User Type
   * @{
   */
-#define OB_USER_BOR_LEV      FLASH_OPTR_BOR_LEV     /*!< BOR reset Level */
-#define OB_USER_nRST_STOP    FLASH_OPTR_nRST_STOP   /*!< Reset generated when entering the stop mode */
-#define OB_USER_nRST_STDBY   FLASH_OPTR_nRST_STDBY  /*!< Reset generated when entering the standby mode */
-#define OB_USER_SRAM1_RST    FLASH_OPTR_SRAM1_RST   /*!< SRAM1 erase upon system reset */
-#define OB_USER_IWDG_SW      FLASH_OPTR_IWDG_SW     /*!< Independent watchdog selection */
-#define OB_USER_IWDG_STOP    FLASH_OPTR_IWDG_STOP   /*!< Independent watchdog counter freeze in stop mode */
-#define OB_USER_IWDG_STDBY   FLASH_OPTR_IWDG_STDBY  /*!< Independent watchdog counter freeze in standby mode */
-#define OB_USER_WWDG_SW      FLASH_OPTR_WWDG_SW     /*!< Window watchdog selection */
-#define OB_USER_SRAM2_PE     FLASH_OPTR_SRAM2_PE    /*!< SRAM2 parity error enable */
-#define OB_USER_SRAM2_RST    FLASH_OPTR_SRAM2_RST   /*!< SRAM2 Erase when system reset */
-#define OB_USER_nSWBOOT0     FLASH_OPTR_nSWBOOT0    /*!< Software BOOT0 */
-#define OB_USER_nBOOT0       FLASH_OPTR_nBOOT0      /*!< nBOOT0 option bit */
+#define OB_USER_BOR_LEV         FLASH_OPTR_BOR_LEV     /*!< BOR reset Level */
+#define OB_USER_nRST_STOP       FLASH_OPTR_nRST_STOP   /*!< Reset generated when entering the stop mode */
+#define OB_USER_nRST_STDBY      FLASH_OPTR_nRST_STDBY  /*!< Reset generated when entering the standby mode */
+#define OB_USER_SRAM1_RST       FLASH_OPTR_SRAM1_RST   /*!< SRAM1 erase upon system reset */
+#define OB_USER_IWDG_SW         FLASH_OPTR_IWDG_SW     /*!< Independent watchdog selection */
+#define OB_USER_IWDG_STOP       FLASH_OPTR_IWDG_STOP   /*!< Independent watchdog counter freeze in stop mode */
+#define OB_USER_IWDG_STDBY      FLASH_OPTR_IWDG_STDBY  /*!< Independent watchdog counter freeze in standby mode */
+#define OB_USER_WWDG_SW         FLASH_OPTR_WWDG_SW     /*!< Window watchdog selection */
+#define OB_USER_SRAM2_PE        FLASH_OPTR_SRAM2_PE    /*!< SRAM2 parity error enable */
+#define OB_USER_SRAM2_RST       FLASH_OPTR_SRAM2_RST   /*!< SRAM2 Erase when system reset */
+#define OB_USER_nSWBOOT0        FLASH_OPTR_nSWBOOT0    /*!< Software BOOT0 */
+#define OB_USER_nBOOT0          FLASH_OPTR_nBOOT0      /*!< nBOOT0 option bit */
 #if defined(FLASH_OPTR_TZEN)
-#define OB_USER_TZEN         FLASH_OPTR_TZEN        /*!< Global TrustZone enable */
+#define OB_USER_TZEN            FLASH_OPTR_TZEN        /*!< Global TrustZone enable */
 #endif /* FLASH_OPTR_TZEN */
 
 #if defined(FLASH_OPTR_TZEN)
@@ -441,6 +441,7 @@ typedef struct
 /**
   * @}
   */
+
 
 
 #if defined(FLASH_OPTR_TZEN)
@@ -1010,6 +1011,7 @@ HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout);
 #define IS_OB_USER_SWBOOT0(VALUE)          (((VALUE) == OB_BOOT0_FROM_OB) || ((VALUE) == OB_BOOT0_FROM_PIN))
 
 #define IS_OB_USER_BOOT0(VALUE)            (((VALUE) == OB_nBOOT0_RESET) || ((VALUE) == OB_nBOOT0_SET))
+
 
 
 #define IS_OB_USER_TZEN(VALUE)             (((VALUE) == OB_TZEN_DISABLE) || ((VALUE) == OB_TZEN_ENABLE))

@@ -56,11 +56,13 @@
    application
   */
 
-#if !defined(STM32WBA50xx) && !defined(STM32WBA52xx) && !defined(STM32WBA54xx) && !defined(STM32WBA55xx)
+#if !defined(STM32WBA50xx) && !defined(STM32WBA52xx) && !defined(STM32WBA54xx) && !defined(STM32WBA55xx) && \
+    !defined(STM32WBA5Mxx)
   /* #define STM32WBA50xx */   /*!< STM32WBA50xx Devices */
   /* #define STM32WBA52xx */   /*!< STM32WBA52xx Devices */
   /* #define STM32WBA54xx */   /*!< STM32WBA54xx Devices */
   /* #define STM32WBA55xx */   /*!< STM32WBA55xx Devices */
+  /* #define STM32WBA5Mxx */   /*!< STM32WBA5Mxx Devices */
 #endif /* !STM32WBA50xx && !STM32WBA52xx ...*/
 
 /*  Tip: To avoid modifying this file each time you need to switch between these
@@ -79,7 +81,7 @@
   * @brief CMSIS Device version number
   */
 #define __STM32WBA_CMSIS_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32WBA_CMSIS_VERSION_SUB1   (0x04U) /*!< [23:16] sub1 version */
+#define __STM32WBA_CMSIS_VERSION_SUB1   (0x05U) /*!< [23:16] sub1 version */
 #define __STM32WBA_CMSIS_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
 #define __STM32WBA_CMSIS_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32WBA_CMSIS_VERSION       ((__STM32WBA_CMSIS_VERSION_MAIN << 24U)\
@@ -103,6 +105,8 @@
   #include "stm32wba54xx.h"
 #elif defined(STM32WBA55xx)
   #include "stm32wba55xx.h"
+#elif defined(STM32WBA5Mxx)
+  #include "stm32wba5mxx.h"
 #else
  #error "Please select first the target STM32WBAxx device used in your application (in stm32wbaxx.h file)"
 #endif /* STM32WBA50xx */

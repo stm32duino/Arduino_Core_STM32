@@ -360,7 +360,7 @@ typedef struct
 #endif /* I2C1 */
 #define LL_I2C_TRIG_GRP2                   (0x20000000U)         /*!< Trigger Group for I2C3 */
 
-#if defined(I2C_TRIG_GRP1)
+#if defined(LL_I2C_TRIG_GRP1)
 #define LL_I2C_GRP1_GPDMA_CH0_TCF_TRG      (uint32_t)(LL_I2C_TRIG_GRP1 | (0x00000000U))
 /*!< HW Trigger signal is GPDMA_CH0_TRG     */
 #define LL_I2C_GRP1_GPDMA_CH1_TCF_TRG      (uint32_t)(LL_I2C_TRIG_GRP1 | (0x1U << I2C_AUTOCR_TRIGSEL_Pos))
