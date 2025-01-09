@@ -7204,7 +7204,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_CCRDY(const ADC_TypeDef *ADCx)
 }
 
 #else
-#endif /* ADC_SUPPORT_2_5_MSPS */
+#endif
 /**
   * @brief  Get flag ADC group regular end of unitary conversion.
   * @rmtoll ISR      EOC            LL_ADC_IsActiveFlag_EOC
@@ -7359,7 +7359,7 @@ __STATIC_INLINE void LL_ADC_ClearFlag_CCRDY(ADC_TypeDef *ADCx)
 }
 
 #else
-#endif /* ADC_SUPPORT_2_5_MSPS */
+#endif
 /**
   * @brief  Clear flag ADC group regular end of unitary conversion.
   * @rmtoll ISR      EOC            LL_ADC_ClearFlag_EOC
@@ -7519,7 +7519,7 @@ __STATIC_INLINE void LL_ADC_EnableIT_CCRDY(ADC_TypeDef *ADCx)
 }
 
 #else
-#endif /* ADC_SUPPORT_2_5_MSPS */
+#endif
 /**
   * @brief  Enable interruption ADC group regular end of unitary conversion.
   * @rmtoll IER      EOCIE          LL_ADC_EnableIT_EOC
@@ -7671,7 +7671,7 @@ __STATIC_INLINE void LL_ADC_DisableIT_CCRDY(ADC_TypeDef *ADCx)
 }
 
 #else
-#endif /* ADC_SUPPORT_2_5_MSPS */
+#endif
 /**
   * @brief  Disable interruption ADC group regular end of unitary conversion.
   * @rmtoll IER      EOCIE          LL_ADC_DisableIT_EOC
@@ -7824,7 +7824,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_CCRDY(const ADC_TypeDef *ADCx)
 }
 
 #else
-#endif /* ADC_SUPPORT_2_5_MSPS */
+#endif
 /**
   * @brief  Get state of interruption ADC group regular end of unitary conversion
   *         (0: interrupt disabled, 1: interrupt enabled).
