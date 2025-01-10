@@ -748,6 +748,8 @@ ErrorStatus LL_TIM_BDTR_Init(TIM_TypeDef *TIMx, const LL_TIM_BDTR_InitTypeDef *T
   assert_param(IS_LL_TIM_BREAK_STATE(TIM_BDTRInitStruct->BreakState));
   assert_param(IS_LL_TIM_BREAK_POLARITY(TIM_BDTRInitStruct->BreakPolarity));
   assert_param(IS_LL_TIM_AUTOMATIC_OUTPUT_STATE(TIM_BDTRInitStruct->AutomaticOutput));
+  assert_param(IS_LL_TIM_BREAK_FILTER(TIM_BDTRInitStruct->BreakFilter));
+  assert_param(IS_LL_TIM_BREAK_AFMODE(TIM_BDTRInitStruct->BreakAFMode));
 
   /* Set the Lock level, the Break enable Bit and the Polarity, the OSSR State,
   the OSSI State, the dead time value and the Automatic Output Enable Bit */
@@ -760,8 +762,6 @@ ErrorStatus LL_TIM_BDTR_Init(TIM_TypeDef *TIMx, const LL_TIM_BDTR_InitTypeDef *T
   MODIFY_REG(tmpbdtr, TIM_BDTR_BKE, TIM_BDTRInitStruct->BreakState);
   MODIFY_REG(tmpbdtr, TIM_BDTR_BKP, TIM_BDTRInitStruct->BreakPolarity);
   MODIFY_REG(tmpbdtr, TIM_BDTR_AOE, TIM_BDTRInitStruct->AutomaticOutput);
-  assert_param(IS_LL_TIM_BREAK_FILTER(TIM_BDTRInitStruct->BreakFilter));
-  assert_param(IS_LL_TIM_BREAK_AFMODE(TIM_BDTRInitStruct->BreakAFMode));
   MODIFY_REG(tmpbdtr, TIM_BDTR_BKF, TIM_BDTRInitStruct->BreakFilter);
   MODIFY_REG(tmpbdtr, TIM_BDTR_BKBID, TIM_BDTRInitStruct->BreakAFMode);
 
@@ -815,8 +815,6 @@ static ErrorStatus OC1Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM
   assert_param(IS_LL_TIM_OCMODE(TIM_OCInitStruct->OCMode));
   assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCState));
   assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCPolarity));
-  assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCNState));
-  assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCNPolarity));
 
   /* Disable the Channel 1: Reset the CC1E Bit */
   CLEAR_BIT(TIMx->CCER, TIM_CCER_CC1E);
@@ -844,8 +842,10 @@ static ErrorStatus OC1Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM
 
   if (IS_TIM_BREAK_INSTANCE(TIMx))
   {
-    assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCNIdleState));
     assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCIdleState));
+    assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCNState));
+    assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCNPolarity));
+    assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCNIdleState));
 
     /* Set the complementary output Polarity */
     MODIFY_REG(tmpccer, TIM_CCER_CC1NP, TIM_OCInitStruct->OCNPolarity << 2U);
@@ -894,8 +894,6 @@ static ErrorStatus OC2Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM
   assert_param(IS_LL_TIM_OCMODE(TIM_OCInitStruct->OCMode));
   assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCState));
   assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCPolarity));
-  assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCNState));
-  assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCNPolarity));
 
   /* Disable the Channel 2: Reset the CC2E Bit */
   CLEAR_BIT(TIMx->CCER, TIM_CCER_CC2E);
@@ -923,8 +921,10 @@ static ErrorStatus OC2Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM
 
   if (IS_TIM_BREAK_INSTANCE(TIMx))
   {
-    assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCNIdleState));
     assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCIdleState));
+    assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCNState));
+    assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCNPolarity));
+    assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCNIdleState));
 
     /* Set the complementary output Polarity */
     MODIFY_REG(tmpccer, TIM_CCER_CC2NP, TIM_OCInitStruct->OCNPolarity << 6U);
@@ -973,8 +973,6 @@ static ErrorStatus OC3Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM
   assert_param(IS_LL_TIM_OCMODE(TIM_OCInitStruct->OCMode));
   assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCState));
   assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCPolarity));
-  assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCNState));
-  assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCNPolarity));
 
   /* Disable the Channel 3: Reset the CC3E Bit */
   CLEAR_BIT(TIMx->CCER, TIM_CCER_CC3E);
@@ -1002,8 +1000,10 @@ static ErrorStatus OC3Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM
 
   if (IS_TIM_BREAK_INSTANCE(TIMx))
   {
-    assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCNIdleState));
     assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCIdleState));
+    assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCNState));
+    assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCNPolarity));
+    assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCNIdleState));
 
     /* Set the complementary output Polarity */
     MODIFY_REG(tmpccer, TIM_CCER_CC3NP, TIM_OCInitStruct->OCNPolarity << 10U);
@@ -1052,8 +1052,6 @@ static ErrorStatus OC4Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM
   assert_param(IS_LL_TIM_OCMODE(TIM_OCInitStruct->OCMode));
   assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCState));
   assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCPolarity));
-  assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCNPolarity));
-  assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCNState));
 
   /* Disable the Channel 4: Reset the CC4E Bit */
   CLEAR_BIT(TIMx->CCER, TIM_CCER_CC4E);
@@ -1081,8 +1079,10 @@ static ErrorStatus OC4Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM
 
   if (IS_TIM_BREAK_INSTANCE(TIMx))
   {
-    assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCNIdleState));
     assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCIdleState));
+    assert_param(IS_LL_TIM_OCPOLARITY(TIM_OCInitStruct->OCNPolarity));
+    assert_param(IS_LL_TIM_OCSTATE(TIM_OCInitStruct->OCNState));
+    assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCNIdleState));
 
     /* Set the complementary output Polarity */
     MODIFY_REG(tmpccer, TIM_CCER_CC4NP, TIM_OCInitStruct->OCNPolarity << 14U);
@@ -1357,7 +1357,7 @@ static ErrorStatus IC4Config(TIM_TypeDef *TIMx, const LL_TIM_IC_InitTypeDef *TIM
              (TIM_CCMR2_CC4S | TIM_CCMR2_IC4F | TIM_CCMR2_IC4PSC),
              (TIM_ICInitStruct->ICActiveInput | TIM_ICInitStruct->ICFilter | TIM_ICInitStruct->ICPrescaler) >> 8U);
 
-  /* Select the Polarity and set the CC2E Bit */
+  /* Select the Polarity and set the CC4E Bit */
   MODIFY_REG(TIMx->CCER,
              (TIM_CCER_CC4P | TIM_CCER_CC4NP),
              ((TIM_ICInitStruct->ICPolarity << 12U) | TIM_CCER_CC4E));

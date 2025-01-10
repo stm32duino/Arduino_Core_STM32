@@ -538,7 +538,7 @@ HAL_StatusTypeDef HAL_GFXMMU_UnRegisterCallback(GFXMMU_HandleTypeDef        *hgf
   * @param  Address Start address of LUT in flash.
   * @retval HAL status.
   */
-HAL_StatusTypeDef HAL_GFXMMU_ConfigLut(GFXMMU_HandleTypeDef *hgfxmmu,
+HAL_StatusTypeDef HAL_GFXMMU_ConfigLut(const GFXMMU_HandleTypeDef *hgfxmmu,
                                        uint32_t FirstLine,
                                        uint32_t LinesNumber,
                                        uint32_t Address)
@@ -593,7 +593,7 @@ HAL_StatusTypeDef HAL_GFXMMU_ConfigLut(GFXMMU_HandleTypeDef *hgfxmmu,
   *         This parameter must be a number between Min_Data = 1 and Max_Data = 1024.
   * @retval HAL status.
   */
-HAL_StatusTypeDef HAL_GFXMMU_DisableLutLines(GFXMMU_HandleTypeDef *hgfxmmu,
+HAL_StatusTypeDef HAL_GFXMMU_DisableLutLines(const GFXMMU_HandleTypeDef *hgfxmmu,
                                              uint32_t FirstLine,
                                              uint32_t LinesNumber)
 {
@@ -640,7 +640,7 @@ HAL_StatusTypeDef HAL_GFXMMU_DisableLutLines(GFXMMU_HandleTypeDef *hgfxmmu,
   * @param  lutLine LUT line parameters.
   * @retval HAL status.
   */
-HAL_StatusTypeDef HAL_GFXMMU_ConfigLutLine(GFXMMU_HandleTypeDef *hgfxmmu, GFXMMU_LutLineTypeDef *lutLine)
+HAL_StatusTypeDef HAL_GFXMMU_ConfigLutLine(const GFXMMU_HandleTypeDef *hgfxmmu, const GFXMMU_LutLineTypeDef *lutLine)
 {
   HAL_StatusTypeDef status = HAL_OK;
 
@@ -725,7 +725,7 @@ HAL_StatusTypeDef HAL_GFXMMU_ConfigForceCache(GFXMMU_HandleTypeDef *hgfxmmu, uin
   * @retval HAL status.
   * @note This function is only available on STM32U599/STM32U5A9 devices.
   */
-HAL_StatusTypeDef HAL_GFXMMU_ModifyBuffers(GFXMMU_HandleTypeDef *hgfxmmu, GFXMMU_BuffersTypeDef *Buffers)
+HAL_StatusTypeDef HAL_GFXMMU_ModifyBuffers(GFXMMU_HandleTypeDef *hgfxmmu, const GFXMMU_BuffersTypeDef *Buffers)
 {
   HAL_StatusTypeDef status = HAL_OK;
 
@@ -761,7 +761,7 @@ HAL_StatusTypeDef HAL_GFXMMU_ModifyBuffers(GFXMMU_HandleTypeDef *hgfxmmu, GFXMMU
   * @note This function is only available on STM32U599/STM32U5A9 devices.
   */
 HAL_StatusTypeDef HAL_GFXMMU_ModifyCachePrefetch(GFXMMU_HandleTypeDef *hgfxmmu,
-                                                 GFXMMU_CachePrefetchTypeDef *CachePrefetch)
+                                                 const GFXMMU_CachePrefetchTypeDef *CachePrefetch)
 {
   HAL_StatusTypeDef status = HAL_OK;
   assert_param(IS_FUNCTIONAL_STATE(CachePrefetch->Activation));
@@ -814,7 +814,7 @@ HAL_StatusTypeDef HAL_GFXMMU_ModifyCachePrefetch(GFXMMU_HandleTypeDef *hgfxmmu,
   * @note This function is only available on STM32U5F9/STM32U5G9 devices.
   */
 HAL_StatusTypeDef HAL_GFXMMU_ModifyAddressCache(GFXMMU_HandleTypeDef *hgfxmmu,
-                                                GFXMMU_AddressCacheTypeDef *AddressCache)
+                                                const GFXMMU_AddressCacheTypeDef *AddressCache)
 {
   HAL_StatusTypeDef status = HAL_OK;
   assert_param(IS_FUNCTIONAL_STATE(AddressCache->Activation));
@@ -910,7 +910,7 @@ __weak void HAL_GFXMMU_ErrorCallback(GFXMMU_HandleTypeDef *hgfxmmu)
   * @param  hgfxmmu GFXMMU handle.
   * @retval GFXMMU state.
   */
-HAL_GFXMMU_StateTypeDef HAL_GFXMMU_GetState(GFXMMU_HandleTypeDef *hgfxmmu)
+HAL_GFXMMU_StateTypeDef HAL_GFXMMU_GetState(const GFXMMU_HandleTypeDef *hgfxmmu)
 {
   /* Return GFXMMU handle state */
   return hgfxmmu->State;
@@ -924,6 +924,7 @@ HAL_GFXMMU_StateTypeDef HAL_GFXMMU_GetState(GFXMMU_HandleTypeDef *hgfxmmu)
 uint32_t HAL_GFXMMU_GetError(GFXMMU_HandleTypeDef *hgfxmmu)
 {
   uint32_t error_code;
+  uint32_t primask = __get_PRIMASK();
 
   /* Enter in critical section */
   __disable_irq();
@@ -933,7 +934,7 @@ uint32_t HAL_GFXMMU_GetError(GFXMMU_HandleTypeDef *hgfxmmu)
   hgfxmmu->ErrorCode = GFXMMU_ERROR_NONE;
 
   /* Exit from critical section */
-  __enable_irq();
+  __set_PRIMASK(primask);
 
   /* Return GFXMMU error code */
   return error_code;

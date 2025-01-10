@@ -743,6 +743,13 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
 #define __HAL_RTC_IS_CALENDAR_INITIALIZED(__HANDLE__)  ((((RTC->ICSR) & (RTC_ICSR_INITS)) == RTC_ICSR_INITS))
 
 /**
+  * @brief  Get RTC Binary mode.
+  * @param  __HANDLE__ specifies the RTC handle.
+  * @retval The selected RTC Binary mode (RTC_BINARY_NONE, RTC_BINARY_ONLY, or RTC_BINARY_MIX).
+  */
+#define __HAL_RTC_GET_BINARY_MODE(__HANDLE__) (READ_REG(RTC->ICSR & RTC_ICSR_BIN))
+
+/**
   * @}
   */
 

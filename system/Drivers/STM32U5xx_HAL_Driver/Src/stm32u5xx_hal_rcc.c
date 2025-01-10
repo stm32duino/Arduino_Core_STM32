@@ -1657,6 +1657,10 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef   *const pRCC_Clk
 void HAL_RCC_MCOConfig(uint32_t RCC_MCOx, uint32_t RCC_MCOSource, uint32_t RCC_MCODiv)
 {
   GPIO_InitTypeDef gpio_initstruct;
+
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(RCC_MCOx);
+
   /* Check the parameters */
   assert_param(IS_RCC_MCO(RCC_MCOx));
   assert_param(IS_RCC_MCODIV(RCC_MCODiv));
@@ -2062,6 +2066,14 @@ __weak void HAL_RCC_CSSCallback(void)
 /**
   * @brief  Configure the RCC item attribute(s).
   * @note   Available attributes are to secure items and set RCC as privileged.
+  * @note   As the privileged attributes concern either all secure or all
+  *         non-secure RCC resources accesses and not each RCC individual items
+  *         access attribute, the application must ensure that the privilege
+  *         access attribute configurations are coherent amongst the security
+  *         level set on RCC individual items so not to overwrite a previous
+  *         more restricted access rule (consider either all secure and/or all
+  *         non-secure RCC resources accesses by privileged-only transactions or
+  *         privileged and unprivileged transactions).
   * @param  Item Item(s) to set attributes on.
   *         This parameter can be a one or a combination of @ref RCC_items
   * @param  Attributes specifies the RCC secure/privilege attributes.
@@ -2101,10 +2113,14 @@ void HAL_RCC_ConfigAttributes(uint32_t Item, uint32_t Attributes)
     /* Non-secure Privilege attribute */
     case RCC_NSEC_PRIV:
       SET_BIT(RCC->PRIVCFGR, RCC_PRIVCFGR_NSPRIV);
+      /* Prevent unused argument(s) compilation warning */
+      UNUSED(Item);
       break;
     /* Non-secure Non-Privilege attribute */
     case RCC_NSEC_NPRIV:
       CLEAR_BIT(RCC->PRIVCFGR, RCC_PRIVCFGR_NSPRIV);
+      /* Prevent unused argument(s) compilation warning */
+      UNUSED(Item);
       break;
 #endif /* __ARM_FEATURE_CMSE */
     default:
@@ -2154,6 +2170,9 @@ HAL_StatusTypeDef HAL_RCC_GetConfigAttributes(uint32_t Item, uint32_t *pAttribut
 #else
   /* Get Non-Secure privileges attribute */
   attributes = ((RCC->PRIVCFGR & RCC_PRIVCFGR_NSPRIV) == 0U) ? RCC_NSEC_NPRIV : RCC_NSEC_PRIV;
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(Item);
+
 #endif /* __ARM_FEATURE_CMSE */
 
   /* return value */

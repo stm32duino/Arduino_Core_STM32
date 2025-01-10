@@ -574,7 +574,7 @@ HAL_StatusTypeDef     HAL_DCMI_ConfigCrop(DCMI_HandleTypeDef *hdcmi, uint32_t X0
                                           uint32_t YSize);
 HAL_StatusTypeDef     HAL_DCMI_EnableCrop(DCMI_HandleTypeDef *hdcmi);
 HAL_StatusTypeDef     HAL_DCMI_DisableCrop(DCMI_HandleTypeDef *hdcmi);
-HAL_StatusTypeDef     HAL_DCMI_ConfigSyncUnmask(DCMI_HandleTypeDef *hdcmi, DCMI_SyncUnmaskTypeDef *SyncUnmask);
+HAL_StatusTypeDef     HAL_DCMI_ConfigSyncUnmask(DCMI_HandleTypeDef *hdcmi, const DCMI_SyncUnmaskTypeDef *SyncUnmask);
 
 /**
   * @}

@@ -682,10 +682,10 @@ typedef struct
 /** @defgroup TIM_LL_EC_COUNTERMODE Counter Mode
   * @{
   */
-#define LL_TIM_COUNTERMODE_UP                  0x00000000U          /*!<Counter used as upcounter */
+#define LL_TIM_COUNTERMODE_UP                  0x00000000U          /*!< Counter used as upcounter */
 #define LL_TIM_COUNTERMODE_DOWN                TIM_CR1_DIR          /*!< Counter used as downcounter */
 #define LL_TIM_COUNTERMODE_CENTER_DOWN         TIM_CR1_CMS_0        /*!< The counter counts up and down alternatively. Output compare interrupt flags of output channels  are set only when the counter is counting down. */
-#define LL_TIM_COUNTERMODE_CENTER_UP           TIM_CR1_CMS_1        /*!<The counter counts up and down alternatively. Output compare interrupt flags of output channels  are set only when the counter is counting up */
+#define LL_TIM_COUNTERMODE_CENTER_UP           TIM_CR1_CMS_1        /*!< The counter counts up and down alternatively. Output compare interrupt flags of output channels  are set only when the counter is counting up */
 #define LL_TIM_COUNTERMODE_CENTER_UP_DOWN      TIM_CR1_CMS          /*!< The counter counts up and down alternatively. Output compare interrupt flags of output channels  are set only when the counter is counting up or down. */
 /**
   * @}
@@ -770,8 +770,8 @@ typedef struct
 /** Legacy definitions for compatibility purpose
 @cond 0
   */
-#define LL_TIM_OCMODE_ASSYMETRIC_PWM1 LL_TIM_OCMODE_ASYMMETRIC_PWM1         /* for legacy purpose */
-#define LL_TIM_OCMODE_ASSYMETRIC_PWM2 LL_TIM_OCMODE_ASYMMETRIC_PWM2         /* for legacy purpose */
+#define LL_TIM_OCMODE_ASSYMETRIC_PWM1 LL_TIM_OCMODE_ASYMMETRIC_PWM1
+#define LL_TIM_OCMODE_ASSYMETRIC_PWM2 LL_TIM_OCMODE_ASYMMETRIC_PWM2
 /**
 @endcond
   */
@@ -1346,8 +1346,8 @@ typedef struct
 /** Legacy definitions for compatibility purpose
 @cond 0
   */
-#define LL_TIM_ReArmBRK(_PARAM_)          /* for legacy purpose */
-#define LL_TIM_ReArmBRK2(_PARAM_)         /* for legacy purpose */
+#define LL_TIM_ReArmBRK(_PARAM_)
+#define LL_TIM_ReArmBRK2(_PARAM_)
 /**
 @endcond
   */
@@ -1694,7 +1694,7 @@ typedef struct
 /** Legacy definitions for compatibility purpose
 @cond 0
   */
-#define LL_TIM_BKIN_SOURCE_DFBK  LL_TIM_BKIN_SOURCE_DF1BK         /* for legacy purpose */
+#define LL_TIM_BKIN_SOURCE_DFBK  LL_TIM_BKIN_SOURCE_DF1BK
 /**
 @endcond
   */
@@ -2375,7 +2375,7 @@ __STATIC_INLINE void LL_TIM_CC_DisablePreload(TIM_TypeDef *TIMx)
   * @param  TIMx Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_TIM_CC_IsEnabledPreload(TIM_TypeDef *TIMx)
+__STATIC_INLINE uint32_t LL_TIM_CC_IsEnabledPreload(const TIM_TypeDef *TIMx)
 {
   return ((READ_BIT(TIMx->CR2, TIM_CR2_CCPC) == (TIM_CR2_CCPC)) ? 1UL : 0UL);
 }
@@ -4036,7 +4036,7 @@ __STATIC_INLINE void LL_TIM_ConfigETR(TIM_TypeDef *TIMx, uint32_t ETRPolarity, u
 
 /**
   * @brief  Select the external trigger (ETR) input source.
-  * @note Macro IS_TIM_ETR_INSTANCE(TIMx) can be used to check whether or
+  * @note Macro IS_TIM_ETRSEL_INSTANCE(TIMx) can be used to check whether or
   *       not a timer instance supports ETR source selection.
   * @rmtoll AF1          ETRSEL        LL_TIM_SetETRSource
   * @param  TIMx Timer instance

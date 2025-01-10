@@ -753,11 +753,11 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
 
 
 /* Exported functions --------------------------------------------------------*/
-/** @addtogroup COMP_Exported_Functions COMP Exported Functions
+/** @addtogroup COMP_Exported_Functions
   * @{
   */
 
-/** @addtogroup COMP_Exported_Functions_Group1 Initialization/de-initialization functions
+/** @addtogroup COMP_Exported_Functions_Group1
   * @{
   */
 
@@ -778,7 +778,7 @@ HAL_StatusTypeDef HAL_COMP_UnRegisterCallback(COMP_HandleTypeDef *hcomp, HAL_COM
   */
 
 /* IO operation functions  *****************************************************/
-/** @addtogroup COMP_Exported_Functions_Group2 Start-Stop operation functions
+/** @addtogroup COMP_Exported_Functions_Group2
   * @{
   */
 HAL_StatusTypeDef HAL_COMP_Start(COMP_HandleTypeDef *hcomp);
@@ -789,7 +789,7 @@ void              HAL_COMP_IRQHandler(COMP_HandleTypeDef *hcomp);
   */
 
 /* Peripheral Control functions  ************************************************/
-/** @addtogroup COMP_Exported_Functions_Group3 Peripheral Control functions
+/** @addtogroup COMP_Exported_Functions_Group3
   * @{
   */
 HAL_StatusTypeDef HAL_COMP_Lock(COMP_HandleTypeDef *hcomp);
@@ -801,7 +801,7 @@ void              HAL_COMP_TriggerCallback(COMP_HandleTypeDef *hcomp);
   */
 
 /* Peripheral State functions  **************************************************/
-/** @addtogroup COMP_Exported_Functions_Group4 Peripheral State functions
+/** @addtogroup COMP_Exported_Functions_Group4
   * @{
   */
 HAL_COMP_StateTypeDef HAL_COMP_GetState(const COMP_HandleTypeDef *hcomp);

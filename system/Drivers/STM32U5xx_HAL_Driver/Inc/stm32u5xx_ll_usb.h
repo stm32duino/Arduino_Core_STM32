@@ -935,7 +935,7 @@ typedef USB_HCTypeDef       USB_DRD_HCTypeDef;
     } \
     else if ((wCount) <= 62U) \
     { \
-       USB_DRD_CALC_BLK2((pdwReg), (wCount), wNBlocks); \
+      USB_DRD_CALC_BLK2((pdwReg), (wCount), wNBlocks); \
     } \
     else \
     { \

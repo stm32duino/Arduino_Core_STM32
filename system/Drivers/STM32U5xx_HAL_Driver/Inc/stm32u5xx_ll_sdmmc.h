@@ -357,12 +357,12 @@ typedef struct
 #define SDMMC_SINGLE_BUS_SUPPORT           ((uint32_t)0x00010000U)
 #define SDMMC_CARD_LOCKED                  ((uint32_t)0x02000000U)
 
-#ifndef SDMMC_DATATIMEOUT /*Hardware Data Timeout (ms) */
+#ifndef SDMMC_DATATIMEOUT /*Hardware Data Timeout (cycles) */
 #define SDMMC_DATATIMEOUT                  ((uint32_t)0xFFFFFFFFU)
 #endif /* SDMMC_DATATIMEOUT */
 
 #ifndef SDMMC_SWDATATIMEOUT /*Software Data Timeout (ms) */
-#define SDMMC_SWDATATIMEOUT                SDMMC_DATATIMEOUT
+#define SDMMC_SWDATATIMEOUT                ((uint32_t)0xFFFFFFFFU)
 #endif /* SDMMC_SWDATATIMEOUT */
 
 #define SDMMC_0TO7BITS                     ((uint32_t)0x000000FFU)
@@ -1208,12 +1208,12 @@ HAL_StatusTypeDef SDMMC_PowerState_OFF(SDMMC_TypeDef *SDMMCx);
 uint32_t          SDMMC_GetPowerState(const SDMMC_TypeDef *SDMMCx);
 
 /* Command path state machine (CPSM) management functions */
-HAL_StatusTypeDef SDMMC_SendCommand(SDMMC_TypeDef *SDMMCx, SDMMC_CmdInitTypeDef *Command);
+HAL_StatusTypeDef SDMMC_SendCommand(SDMMC_TypeDef *SDMMCx, const SDMMC_CmdInitTypeDef *Command);
 uint8_t           SDMMC_GetCommandResponse(const SDMMC_TypeDef *SDMMCx);
 uint32_t          SDMMC_GetResponse(const SDMMC_TypeDef *SDMMCx, uint32_t Response);
 
 /* Data path state machine (DPSM) management functions */
-HAL_StatusTypeDef SDMMC_ConfigData(SDMMC_TypeDef *SDMMCx, SDMMC_DataInitTypeDef *Data);
+HAL_StatusTypeDef SDMMC_ConfigData(SDMMC_TypeDef *SDMMCx, const SDMMC_DataInitTypeDef *Data);
 uint32_t          SDMMC_GetDataCounter(const SDMMC_TypeDef *SDMMCx);
 uint32_t          SDMMC_GetFIFOCount(const SDMMC_TypeDef *SDMMCx);
 
@@ -1283,7 +1283,7 @@ uint32_t SDMMC_GetCmdResp7(SDMMC_TypeDef *SDMMCx);
 /** @addtogroup HAL_SDMMC_LL_Group6
   * @{
   */
-uint32_t SDMMC_DMALinkedList_BuildNode(SDMMC_DMALinkNodeTypeDef *pNode, SDMMC_DMALinkNodeConfTypeDef *pNodeConf);
+uint32_t SDMMC_DMALinkedList_BuildNode(SDMMC_DMALinkNodeTypeDef *pNode, const SDMMC_DMALinkNodeConfTypeDef *pNodeConf);
 uint32_t SDMMC_DMALinkedList_InsertNode(SDMMC_DMALinkedListTypeDef *pLinkedList, SDMMC_DMALinkNodeTypeDef *pPrevNode,
                                         SDMMC_DMALinkNodeTypeDef *pNode);
 uint32_t SDMMC_DMALinkedList_RemoveNode(SDMMC_DMALinkedListTypeDef *pLinkedList, SDMMC_DMALinkNodeTypeDef *pNode);

@@ -2111,7 +2111,7 @@ HAL_StatusTypeDef HAL_SD_UnRegisterTransceiverCallback(SD_HandleTypeDef *hsd)
   *         contains all CID register parameters
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SD_GetCardCID(SD_HandleTypeDef *hsd, HAL_SD_CardCIDTypeDef *pCID)
+HAL_StatusTypeDef HAL_SD_GetCardCID(const SD_HandleTypeDef *hsd, HAL_SD_CardCIDTypeDef *pCID)
 {
   pCID->ManufacturerID = (uint8_t)((hsd->CID[0] & 0xFF000000U) >> 24U);
 
@@ -2327,7 +2327,7 @@ HAL_StatusTypeDef HAL_SD_GetCardStatus(SD_HandleTypeDef *hsd, HAL_SD_CardStatusT
   *         will contain the SD card status information
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SD_GetCardInfo(SD_HandleTypeDef *hsd, HAL_SD_CardInfoTypeDef *pCardInfo)
+HAL_StatusTypeDef HAL_SD_GetCardInfo(const SD_HandleTypeDef *hsd, HAL_SD_CardInfoTypeDef *pCardInfo)
 {
   pCardInfo->CardType     = (uint32_t)(hsd->SdCard.CardType);
   pCardInfo->CardVersion  = (uint32_t)(hsd->SdCard.CardVersion);

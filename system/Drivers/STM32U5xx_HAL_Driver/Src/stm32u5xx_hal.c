@@ -52,11 +52,11 @@
   * @{
   */
 /**
-  * @brief STM32U5xx HAL Driver version number 1.6.0
+  * @brief STM32U5xx HAL Driver version number 1.6.1
    */
 #define __STM32U5xx_HAL_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
 #define __STM32U5xx_HAL_VERSION_SUB1   (0x06U) /*!< [23:16] sub1 version */
-#define __STM32U5xx_HAL_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
+#define __STM32U5xx_HAL_VERSION_SUB2   (0x01U) /*!< [15:8]  sub2 version */
 #define __STM32U5xx_HAL_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32U5xx_HAL_VERSION         ((__STM32U5xx_HAL_VERSION_MAIN << 24U)\
                                          |(__STM32U5xx_HAL_VERSION_SUB1 << 16U)\
@@ -664,7 +664,7 @@ void HAL_SYSCFG_DisableVREFBUF(void)
   *
   * @retval None
   */
-void HAL_SYSCFG_EnableIOAnalogSwitchBooster(void)
+void HAL_SYSCFG_EnableIOAnalogBooster(void)
 {
   SET_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_BOOSTEN);
 }
@@ -674,7 +674,7 @@ void HAL_SYSCFG_EnableIOAnalogSwitchBooster(void)
   *
   * @retval None
   */
-void HAL_SYSCFG_DisableIOAnalogSwitchBooster(void)
+void HAL_SYSCFG_DisableIOAnalogBooster(void)
 {
   CLEAR_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_BOOSTEN);
 }
@@ -684,7 +684,7 @@ void HAL_SYSCFG_DisableIOAnalogSwitchBooster(void)
   *
   * @retval None
   */
-void HAL_SYSCFG_EnableIOAnalogSwitchVoltageSelection(void)
+void HAL_SYSCFG_EnableIOAnalogVoltageSelection(void)
 {
   SET_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_ANASWVDD);
 }
@@ -694,10 +694,44 @@ void HAL_SYSCFG_EnableIOAnalogSwitchVoltageSelection(void)
   *
   * @retval None
   */
-void HAL_SYSCFG_DisableIOAnalogSwitchVoltageSelection(void)
+void HAL_SYSCFG_DisableIOAnalogVoltageSelection(void)
 {
   CLEAR_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_ANASWVDD);
 }
+
+#if defined(SYSCFG_CFGR1_ENDCAP)
+/**
+  * @brief  Set decoupling capacitance on HSPI supply.
+  * @rmtoll SYSCFG_CFGR1   ENDCAP   HAL_SYSCFG_SetHSPIDecouplingCapacitance
+  * @param  Capacitance This parameter can be one of the following values:
+  *         @arg @ref SYSCFG_HSPI_CAPACITANCE_OFF
+  *         @arg @ref SYSCFG_HSPI_CAPACITANCE_1_DIV_3
+  *         @arg @ref SYSCFG_HSPI_CAPACITANCE_2_DIV_3
+  *         @arg @ref SYSCFG_HSPI_CAPACITANCE_FULL
+  * @retval None
+  */
+void HAL_SYSCFG_SetHSPIDecouplingCapacitance(uint32_t Capacitance)
+{
+  /* Check the parameters */
+  assert_param(IS_SYSCFG_DECOUPLING_CAPACITANCE(Capacitance));
+
+  MODIFY_REG(SYSCFG->CFGR1, SYSCFG_CFGR1_ENDCAP, Capacitance);
+}
+
+/**
+  * @brief  Get decoupling capacitance on HSPI supply.
+  * @rmtoll SYSCFG_CFGR1   ENDCAP   HAL_SYSCFG_GetHSPIDecouplingCapacitance
+  * @retval Returned value can be one of the following values:
+  *         @arg @ref SYSCFG_HSPI_CAPACITANCE_OFF
+  *         @arg @ref SYSCFG_HSPI_CAPACITANCE_1_DIV_3
+  *         @arg @ref SYSCFG_HSPI_CAPACITANCE_2_DIV_3
+  *         @arg @ref SYSCFG_HSPI_CAPACITANCE_FULL
+  */
+uint32_t HAL_SYSCFG_GetHSPIDecouplingCapacitance(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_ENDCAP));
+}
+#endif /* SYSCFG_CFGR1_ENDCAP */
 
 #if defined(SYSCFG_CFGR1_SRAMCACHED)
 /**
@@ -756,6 +790,7 @@ void HAL_SYSCFG_EnableVddHSPICompensationCell(void)
   SET_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN3);
 }
 #endif /* SYSCFG_CCCSR_EN3 */
+
 /**
   * @brief  Disable the Compensation Cell of GPIO supplied by VDD
   * @rmtoll CCCSR   EN1    HAL_SYSCFG_DisableVddCompensationCell
@@ -865,8 +900,6 @@ HAL_StatusTypeDef HAL_SYSCFG_GetLock(uint32_t *pItem)
   */
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
-
-
 /** @defgroup HAL_Exported_Functions_Group6 HAL SYSCFG attributes management functions
   *  @brief SYSCFG attributes management functions.
   *
@@ -957,7 +990,6 @@ HAL_StatusTypeDef HAL_SYSCFG_GetConfigAttributes(uint32_t Item, uint32_t *pAttri
             This parameter can be one of @ref SYSCFG_OTG_PHY_Enable
   * @retval None
   */
-
 void HAL_SYSCFG_EnableOTGPHY(uint32_t OTGPHYConfig)
 {
   /* Check the parameter */

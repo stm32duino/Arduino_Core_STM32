@@ -131,12 +131,12 @@ extern "C" {
 /** @defgroup CORDIC_LL_EC_NBWRITE NBWRITE
   * @{
   */
-#define LL_CORDIC_NBWRITE_1                (0x00000000U)             /*!< One 32-bits write containing either only one
-                                                                          32-bit data input (Q1.31 format), or two
-                                                                          16-bit data input (Q1.15 format) packed
-                                                                          in one 32 bits Data */
-#define LL_CORDIC_NBWRITE_2                CORDIC_CSR_NARGS          /*!< Two 32-bit write containing two 32-bits data input
-                                                                          (Q1.31 format) */
+#define LL_CORDIC_NBWRITE_1                (0x00000000U)         /*!< One 32-bits write containing either only one
+                                                                      32-bits data input (Q1.31 format), or two
+                                                                      16-bits data input (Q1.15 format) packed
+                                                                      in one 32 bits Data */
+#define LL_CORDIC_NBWRITE_2                CORDIC_CSR_NARGS      /*!< Two 32-bit write containing two 32-bits data input
+                                                                      (Q1.31 format) */
 /**
   * @}
   */
@@ -144,12 +144,12 @@ extern "C" {
 /** @defgroup CORDIC_LL_EC_NBREAD NBREAD
   * @{
   */
-#define LL_CORDIC_NBREAD_1                 (0x00000000U)             /*!< One 32-bits read containing either only one
-                                                                          32-bit data output (Q1.31 format), or two
-                                                                          16-bit data output (Q1.15 format) packed
-                                                                          in one 32 bits Data */
-#define LL_CORDIC_NBREAD_2                 CORDIC_CSR_NRES           /*!< Two 32-bit Data containing two 32-bits data output
-                                                                          (Q1.31 format) */
+#define LL_CORDIC_NBREAD_1                 (0x00000000U)          /*!< One 32-bits read containing either only one
+                                                                      32-bits data output (Q1.31 format), or two
+                                                                      16-bits data output (Q1.15 format) packed
+                                                                      in one 32 bits Data */
+#define LL_CORDIC_NBREAD_2                 CORDIC_CSR_NRES       /*!< Two 32-bit Data containing two 32-bits data output
+                                                                      (Q1.31 format) */
 /**
   * @}
   */
@@ -218,9 +218,7 @@ extern "C" {
   * @}
   */
 
-
 /* Exported functions --------------------------------------------------------*/
-
 /** @defgroup CORDIC_LL_Exported_Functions CORDIC Exported Functions
   * @{
   */
@@ -748,8 +746,6 @@ __STATIC_INLINE uint32_t LL_CORDIC_ReadData(const CORDIC_TypeDef *CORDICx)
 /**
   * @}
   */
-
-
 
 #if defined(USE_FULL_LL_DRIVER)
 /** @defgroup CORDIC_LL_EF_Init Initialization and de-initialization functions
