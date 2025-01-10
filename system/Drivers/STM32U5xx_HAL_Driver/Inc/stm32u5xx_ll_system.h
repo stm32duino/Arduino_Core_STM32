@@ -135,6 +135,19 @@ extern "C" {
   * @}
   */
 
+#if defined(SYSCFG_CFGR1_ENDCAP)
+/** @defgroup SYSTEM_LL_DECOUPLING_CAPACITANCE SYSCFG DECOUPLING CAPACITANCE
+  * @{
+  */
+#define LL_SYSCFG_HSPI_CAPACITANCE_OFF       0x00000000U            /*!< Decoupling with no capacitance value on HSPI supply */
+#define LL_SYSCFG_HSPI_CAPACITANCE_1_DIV_3   SYSCFG_CFGR1_ENDCAP_0  /*!< Decoupling with 1/3 of capacitance value on HSPI supply */
+#define LL_SYSCFG_HSPI_CAPACITANCE_2_DIV_3   SYSCFG_CFGR1_ENDCAP_1  /*!< Decoupling with 2/3 of capacitance value on HSPI supply */
+#define LL_SYSCFG_HSPI_CAPACITANCE_FULL      SYSCFG_CFGR1_ENDCAP    /*!< Decoupling with full capacitance value on HSPI supply */
+/**
+  * @}
+  */
+#endif /* SYSCFG_CFGR1_ENDCAP */
+
 /** @defgroup SYSTEM_LL_EC_TIMBREAK SYSCFG TIMER BREAK
   * @{
   */
@@ -147,6 +160,77 @@ extern "C" {
                                                                    with Break Input of TIM1/8/15/16/17 */
 #define LL_SYSCFG_TIMBREAK_LOCKUP          SYSCFG_CFGR2_CLL   /*!< Enables and locks the LOCKUP output of CortexM33
                                                                    with Break Input of TIM1/15/16/17 */
+/**
+  * @}
+  */
+
+#if defined(SYSCFG_OTGHSPHYCR_CLKSEL)
+/** @defgroup SYSTEM_LL_OTG_PHY_CLOCK_FREQUENCY SYSCFG OTG High-speed (HS) PHY reference clock frequency selection
+  * @{
+  */
+#define LL_SYSCFG_OTGHSPHY_CLK_16MHZ    (SYSCFG_OTGHSPHYCR_CLKSEL_0 | SYSCFG_OTGHSPHYCR_CLKSEL_1)    /*!< Reference clock freqeuncy is 16 Mhz */
+#define LL_SYSCFG_OTGHSPHY_CLK_19_2MHZ  (SYSCFG_OTGHSPHYCR_CLKSEL_3)                                 /*!< Reference clock freqeuncy is 19.2 Mhz */
+#define LL_SYSCFG_OTGHSPHY_CLK_20MHZ    (SYSCFG_OTGHSPHYCR_CLKSEL_0 | SYSCFG_OTGHSPHYCR_CLKSEL_3)    /*!< Reference clock freqeuncy is 20 Mhz */
+#define LL_SYSCFG_OTGHSPHY_CLK_24MHZ    (SYSCFG_OTGHSPHYCR_CLKSEL_1 | SYSCFG_OTGHSPHYCR_CLKSEL_3)    /*!< Reference clock freqeuncy is 24 Mhz */
+#define LL_SYSCFG_OTGHSPHY_CLK_26MHZ    (SYSCFG_OTGHSPHYCR_CLKSEL_1 | SYSCFG_OTGHSPHYCR_CLKSEL_2 | \
+                                         SYSCFG_OTGHSPHYCR_CLKSEL_3)                                 /*!< Reference clock freqeuncy is 26 Mhz */
+#define LL_SYSCFG_OTGHSPHY_CLK_32MHZ    (SYSCFG_OTGHSPHYCR_CLKSEL_0 | SYSCFG_OTGHSPHYCR_CLKSEL_1 | \
+                                         SYSCFG_OTGHSPHYCR_CLKSEL_3)                                 /*!< Reference clock freqeuncy is 32 Mhz */
+/**
+  * @}
+  */
+#endif /* SYSCFG_OTGHSPHYCR_CLKSEL */
+
+#if defined(SYSCFG_OTGHSPHYTUNER2_COMPDISTUNE)
+/** @defgroup SYSTEM_LL_OTG_PHYTUNER_DISCONNECT_THRESTHOLD SYSCFG OTG High-speed (HS) PHYTUNER disconnnect threshold
+  * @{
+  */
+#define LL_SYSCFG_OTGHSPHY_DISCONNECT_5_9PERCENT  SYSCFG_OTGHSPHYTUNER2_COMPDISTUNE_1  /*!< +5.9% (recommended value) */
+#define LL_SYSCFG_OTGHSPHY_DISCONNECT_0PERCENT    SYSCFG_OTGHSPHYTUNER2_COMPDISTUNE_0  /*!< 0% (default value) */
+/**
+  * @}
+  */
+#endif /* SYSCFG_OTGHSPHYTUNER2_COMPDISTUNE */
+
+#if defined(SYSCFG_OTGHSPHYTUNER2_COMPDISTUNE)
+/** @defgroup SYSTEM_LL_OTG_SQUELSH SYSCFG OTG High-speed (HS) PHY Squelch threshold adjustment
+  * @{
+  */
+#define LL_SYSCFG_OTGHSPHY_SQUELCH_15PERCENT  0x00000000U                                                            /*!< +15% (recommended value) */
+#define LL_SYSCFG_OTGHSPHY_SQUELCH_0PERCENT   (SYSCFG_OTGHSPHYTUNER2_SQRXTUNE_0 | SYSCFG_OTGHSPHYTUNER2_SQRXTUNE_1)  /*!< 0% (default value) */
+/**
+  * @}
+  */
+#endif /* SYSCFG_OTGHSPHYTUNER2_COMPDISTUNE */
+
+#if defined(SYSCFG_OTGHSPHYTUNER2_TXPREEMPAMPTUNE)
+/** @defgroup SYSTEM_LL_OTG_TRANSMITTER_PREEMPHASIS_CURRENT SYSCFG OTG High-speed (HS) transmitter preemphasis current control
+  * @{
+  */
+#define LL_SYSCFG_OTGHSPHY_PREEMP_DISABLED  0x00000000U                                 /*!< HS transmitter preemphasis circuit disabled */
+#define LL_SYSCFG_OTGHSPHY_PREEMP_1X        SYSCFG_OTGHSPHYTUNER2_TXPREEMPAMPTUNE_0     /*!< HS transmitter preemphasis circuit sources 1x preemphasis current */
+#define LL_SYSCFG_OTGHSPHY_PREEMP_2X        SYSCFG_OTGHSPHYTUNER2_TXPREEMPAMPTUNE_1     /*!< HS transmitter preemphasis circuit sources 2x preemphasis current */
+#define LL_SYSCFG_OTGHSPHY_PREEMP_3X       (SYSCFG_OTGHSPHYTUNER2_TXPREEMPAMPTUNE_0 | \
+                                            SYSCFG_OTGHSPHYTUNER2_TXPREEMPAMPTUNE_1)    /*!< HS transmitter preemphasis circuit sources 3x preemphasis current */
+/**
+  * @}
+  */
+#endif /* SYSCFG_OTGHSPHYTUNER2_TXPREEMPAMPTUNE */
+
+/** @defgroup SYSCFG_Lock_items SYSCFG Lock items
+  * @{
+  */
+#define LL_SYSCFG_MPU_NSEC        SYSCFG_CNSLCKR_LOCKNSMPU                    /*!< Non-secure MPU lock (privileged secure or non-secure only) */
+#define LL_SYSCFG_VTOR_NSEC       SYSCFG_CNSLCKR_LOCKNSVTOR                   /*!< Non-secure VTOR lock (privileged secure or non-secure only) */
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+#define LL_SYSCFG_SAU             (SYSCFG_CSLCKR_LOCKSAU << 16U)              /*!< SAU lock (privileged secure code only) */
+#define LL_SYSCFG_MPU_SEC         (SYSCFG_CSLCKR_LOCKSMPU << 16U)             /*!< Secure MPU lock (privileged secure code only) */
+#define LL_SYSCFG_VTOR_AIRCR_SEC  (SYSCFG_CSLCKR_LOCKSVTAIRCR << 16U)         /*!< VTOR_S and AIRCR lock (privileged secure code only) */
+#define LL_SYSCFG_LOCK_ALL        (LL_SYSCFG_MPU_NSEC | LL_SYSCFG_VTOR_NSEC | LL_SYSCFG_SAU | LL_SYSCFG_MPU_SEC | \
+                                   LL_SYSCFG_VTOR_AIRCR_SEC)                  /*!< All */
+#else
+#define LL_SYSCFG_LOCK_ALL        (LL_SYSCFG_MPU_NSEC | LL_SYSCFG_VTOR_NSEC)  /*!< All (privileged secure or non-secure only) */
+#endif /* __ARM_FEATURE_CMSE */
 /**
   * @}
   */
@@ -267,10 +351,10 @@ extern "C" {
 /** @defgroup SYSTEM_LL_EC_VOLTAGE VREFBUF VOLTAGE
   * @{
   */
-#define LL_VREFBUF_VOLTAGE_SCALE0          ((uint32_t)0x00000000)  /*!< Voltage reference scale 0 (VREF_OUT1) */
-#define LL_VREFBUF_VOLTAGE_SCALE1          VREFBUF_CSR_VRS_0       /*!< Voltage reference scale 1 (VREF_OUT2) */
-#define LL_VREFBUF_VOLTAGE_SCALE2          VREFBUF_CSR_VRS_1       /*!< Voltage reference scale 0 (VREF_OUT3) */
-#define LL_VREFBUF_VOLTAGE_SCALE3          VREFBUF_CSR_VRS_2       /*!< Voltage reference scale 1 (VREF_OUT4) */
+#define LL_VREFBUF_VOLTAGE_SCALE0          ((uint32_t)0x00000000)                   /*!< Voltage reference scale 0 (VREF_OUT1) */
+#define LL_VREFBUF_VOLTAGE_SCALE1          VREFBUF_CSR_VRS_0                        /*!< Voltage reference scale 1 (VREF_OUT2) */
+#define LL_VREFBUF_VOLTAGE_SCALE2          VREFBUF_CSR_VRS_1                        /*!< Voltage reference scale 2 (VREF_OUT3) */
+#define LL_VREFBUF_VOLTAGE_SCALE3          (VREFBUF_CSR_VRS_0 | VREFBUF_CSR_VRS_1)  /*!< Voltage reference scale 3 (VREF_OUT4) */
 /**
   * @}
   */
@@ -406,8 +490,75 @@ __STATIC_INLINE void LL_SYSCFG_DisableFastModePlus(uint32_t ConfigFastModePlus)
   CLEAR_BIT(SYSCFG->CFGR1, ConfigFastModePlus);
 }
 
+#if defined(SYSCFG_CFGR1_ENDCAP)
 /**
-  * @brief  Enable Floating Point Unit Invalid operation Interrupt
+  * @brief  Set decoupling capacitance on HSPI supply.
+  * @rmtoll SYSCFG_CFGR1   ENDCAP   LL_SYSCFG_SetHSPIDecouplingCapacitance
+  * @param  Capacitance This parameter can be one of the following values:
+  *         @arg @ref LL_SYSCFG_HSPI_CAPACITANCE_OFF
+  *         @arg @ref LL_SYSCFG_HSPI_CAPACITANCE_1_DIV_3
+  *         @arg @ref LL_SYSCFG_HSPI_CAPACITANCE_2_DIV_3
+  *         @arg @ref LL_SYSCFG_HSPI_CAPACITANCE_FULL
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_SetHSPIDecouplingCapacitance(uint32_t Capacitance)
+{
+  MODIFY_REG(SYSCFG->CFGR1, SYSCFG_CFGR1_ENDCAP, Capacitance);
+}
+
+/**
+  * @brief  Get decoupling capacitance on HSPI supply.
+  * @rmtoll SYSCFG_CFGR1   ENDCAP   LL_SYSCFG_GetHSPIDecouplingCapacitance
+  * @retval Returned value can be one of the following values:
+  *         @arg @ref LL_SYSCFG_HSPI_CAPACITANCE_OFF
+  *         @arg @ref LL_SYSCFG_HSPI_CAPACITANCE_1_DIV_3
+  *         @arg @ref LL_SYSCFG_HSPI_CAPACITANCE_2_DIV_3
+  *         @arg @ref LL_SYSCFG_HSPI_CAPACITANCE_FULL
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetHSPIDecouplingCapacitance(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_ENDCAP));
+}
+#endif /* SYSCFG_CFGR1_ENDCAP */
+
+#if defined(SYSCFG_CFGR1_SRAMCACHED)
+/**
+  * @brief  Enable the cachability of internal SRAMs by DCACHE2.
+  * @rmtoll SYSCFG_CFGR1   SRAMCACHED   LL_SYSCFG_EnableSRAMsCachability
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_EnableSRAMsCachability(void)
+{
+  SET_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_SRAMCACHED);
+}
+
+/**
+  * @brief  Disable the cachability of internal SRAMs by DCACHE2.
+  * @rmtoll SYSCFG_CFGR1   SRAMCACHED   LL_SYSCFG_DisableSRAMsCachability
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_DisableSRAMsCachability(void)
+{
+  CLEAR_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_SRAMCACHED);
+}
+
+/**
+  * @brief  Check if internal SRAMs cachability by DCACHE2 is enabled or disabled.
+  * @rmtoll SYSCFG_CFGR1   SRAMCACHED   LL_SYSCFG_IsEnabledSRAMsCachability
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsEnabledSRAMsCachability(void)
+{
+  return ((READ_BIT(SYSCFG->CFGR1, SYSCFG_CFGR1_SRAMCACHED) == SYSCFG_CFGR1_SRAMCACHED) ? 1UL : 0UL);
+}
+#endif /* SYSCFG_CFGR1_SRAMCACHED */
+
+/** @defgroup SYSTEM_LL_EF_SYSCFG_FPU_IT_MANAGEMENT FPU interrupt management
+  * @{
+  */
+
+/**
+  * @brief  Enable Floating Point Unit Invalid operation Interrupt.
   * @rmtoll SYSCFG_FPUIMR FPU_IE_0      LL_SYSCFG_EnableIT_FPU_IOC
   * @retval None
   */
@@ -417,7 +568,7 @@ __STATIC_INLINE void LL_SYSCFG_EnableIT_FPU_IOC(void)
 }
 
 /**
-  * @brief  Enable Floating Point Unit Divide-by-zero Interrupt
+  * @brief  Enable Floating Point Unit Divide-by-zero Interrupt.
   * @rmtoll SYSCFG_FPUIMR FPU_IE_1      LL_SYSCFG_EnableIT_FPU_DZC
   * @retval None
   */
@@ -427,7 +578,7 @@ __STATIC_INLINE void LL_SYSCFG_EnableIT_FPU_DZC(void)
 }
 
 /**
-  * @brief  Enable Floating Point Unit Underflow Interrupt
+  * @brief  Enable Floating Point Unit Underflow Interrupt.
   * @rmtoll SYSCFG_FPUIMR FPU_IE_2      LL_SYSCFG_EnableIT_FPU_UFC
   * @retval None
   */
@@ -437,7 +588,7 @@ __STATIC_INLINE void LL_SYSCFG_EnableIT_FPU_UFC(void)
 }
 
 /**
-  * @brief  Enable Floating Point Unit Overflow Interrupt
+  * @brief  Enable Floating Point Unit Overflow Interrupt.
   * @rmtoll SYSCFG_FPUIMR FPU_IE_3      LL_SYSCFG_EnableIT_FPU_OFC
   * @retval None
   */
@@ -447,7 +598,7 @@ __STATIC_INLINE void LL_SYSCFG_EnableIT_FPU_OFC(void)
 }
 
 /**
-  * @brief  Enable Floating Point Unit Input denormal Interrupt
+  * @brief  Enable Floating Point Unit Input denormal Interrupt.
   * @rmtoll SYSCFG_FPUIMR FPU_IE_4      LL_SYSCFG_EnableIT_FPU_IDC
   * @retval None
   */
@@ -457,7 +608,7 @@ __STATIC_INLINE void LL_SYSCFG_EnableIT_FPU_IDC(void)
 }
 
 /**
-  * @brief  Enable Floating Point Unit Inexact Interrupt
+  * @brief  Enable Floating Point Unit Inexact Interrupt.
   * @rmtoll SYSCFG_FPUIMR FPU_IE_5      LL_SYSCFG_EnableIT_FPU_IXC
   * @retval None
   */
@@ -467,7 +618,7 @@ __STATIC_INLINE void LL_SYSCFG_EnableIT_FPU_IXC(void)
 }
 
 /**
-  * @brief  Disable Floating Point Unit Invalid operation Interrupt
+  * @brief  Disable Floating Point Unit Invalid operation Interrupt.
   * @rmtoll SYSCFG_FPUIMR FPU_IE_0      LL_SYSCFG_DisableIT_FPU_IOC
   * @retval None
   */
@@ -477,7 +628,7 @@ __STATIC_INLINE void LL_SYSCFG_DisableIT_FPU_IOC(void)
 }
 
 /**
-  * @brief  Disable Floating Point Unit Divide-by-zero Interrupt
+  * @brief  Disable Floating Point Unit Divide-by-zero Interrupt.
   * @rmtoll SYSCFG_FPUIMR FPU_IE_1      LL_SYSCFG_DisableIT_FPU_DZC
   * @retval None
   */
@@ -487,7 +638,7 @@ __STATIC_INLINE void LL_SYSCFG_DisableIT_FPU_DZC(void)
 }
 
 /**
-  * @brief  Disable Floating Point Unit Underflow Interrupt
+  * @brief  Disable Floating Point Unit Underflow Interrupt.
   * @rmtoll SYSCFG_FPUIMR FPU_IE_2      LL_SYSCFG_DisableIT_FPU_UFC
   * @retval None
   */
@@ -497,7 +648,7 @@ __STATIC_INLINE void LL_SYSCFG_DisableIT_FPU_UFC(void)
 }
 
 /**
-  * @brief  Disable Floating Point Unit Overflow Interrupt
+  * @brief  Disable Floating Point Unit Overflow Interrupt.
   * @rmtoll SYSCFG_FPUIMR FPU_IE_3      LL_SYSCFG_DisableIT_FPU_OFC
   * @retval None
   */
@@ -507,7 +658,7 @@ __STATIC_INLINE void LL_SYSCFG_DisableIT_FPU_OFC(void)
 }
 
 /**
-  * @brief  Disable Floating Point Unit Input denormal Interrupt
+  * @brief  Disable Floating Point Unit Input denormal Interrupt.
   * @rmtoll SYSCFG_FPUIMR FPU_IE_4      LL_SYSCFG_DisableIT_FPU_IDC
   * @retval None
   */
@@ -517,7 +668,7 @@ __STATIC_INLINE void LL_SYSCFG_DisableIT_FPU_IDC(void)
 }
 
 /**
-  * @brief  Disable Floating Point Unit Inexact Interrupt
+  * @brief  Disable Floating Point Unit Inexact Interrupt.
   * @rmtoll SYSCFG_FPUIMR FPU_IE_5      LL_SYSCFG_DisableIT_FPU_IXC
   * @retval None
   */
@@ -587,7 +738,182 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsEnabledIT_FPU_IXC(void)
 }
 
 /**
-  * @brief  Set connections to TIM1/8/15/16/17 Break inputs
+  * @}
+  */
+
+/** @defgroup SYSTEM_LL_EF_SYSCFG_CPU_LOCK CPU secure/non-secure lock
+  * @{
+  */
+
+/**
+  * @brief  Lock the secure or non-secure VTOR registers.
+  * @rmtoll CSLCKR/CNSLCKR   LOCKSVTAIRCR/LOCKNSVTOR   LL_SYSCFG_LockVTOR
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_LockVTOR(void)
+{
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+  SET_BIT(SYSCFG->CSLCKR, SYSCFG_CSLCKR_LOCKSVTAIRCR);
+#else
+  SET_BIT(SYSCFG->CNSLCKR, SYSCFG_CNSLCKR_LOCKNSVTOR);
+#endif /* __ARM_FEATURE_CMSE && (__ARM_FEATURE_CMSE == 3U) */
+}
+
+/**
+  * @brief  Check the lock state of secure or non-secure VTOR registers.
+  * @rmtoll CSLCKR/CNSLCKR   LOCKSVTAIRCR/LOCKNSVTOR   LL_SYSCFG_IsLockedVTOR
+  * @retval None
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsLockedVTOR(void)
+{
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+  return ((READ_BIT(SYSCFG->CSLCKR, SYSCFG_CSLCKR_LOCKSVTAIRCR) == SYSCFG_CSLCKR_LOCKSVTAIRCR) ? 1UL : 0UL);
+#else
+  return ((READ_BIT(SYSCFG->CNSLCKR, SYSCFG_CNSLCKR_LOCKNSVTOR) == SYSCFG_CNSLCKR_LOCKNSVTOR) ? 1UL : 0UL);
+#endif /* __ARM_FEATURE_CMSE && (__ARM_FEATURE_CMSE == 3U) */
+}
+
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+/**
+  * @brief  Lock the non-secure VTOR registers.
+  * @rmtoll CNSLCKR   LOCKNSVTOR   LL_SYSCFG_LockVTOR_NS
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_LockVTOR_NS(void)
+{
+  SET_BIT(SYSCFG->CNSLCKR, SYSCFG_CNSLCKR_LOCKNSVTOR);
+}
+
+/**
+  * @brief  Check the lock state of non-secure VTOR registers.
+  * @rmtoll CNSLCKR   LOCKNSVTOR   LL_SYSCFG_IsLockedVTOR_NS
+  * @retval None
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsLockedVTOR_NS(void)
+{
+  return ((READ_BIT(SYSCFG->CNSLCKR, SYSCFG_CNSLCKR_LOCKNSVTOR) == SYSCFG_CNSLCKR_LOCKNSVTOR) ? 1UL : 0UL);
+}
+#endif /* __ARM_FEATURE_CMSE && (__ARM_FEATURE_CMSE == 3U) */
+
+/**
+  * @brief  Lock the secure or non-secure MPU registers.
+  * @rmtoll CSLCKR/CNSLCKR   LOCKNSMPU/LOCKSMPU   LL_SYSCFG_LockMPU
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_LockMPU(void)
+{
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+  SET_BIT(SYSCFG->CSLCKR, SYSCFG_CSLCKR_LOCKSMPU);
+#else
+  SET_BIT(SYSCFG->CNSLCKR, SYSCFG_CNSLCKR_LOCKNSMPU);
+#endif /* __ARM_FEATURE_CMSE && (__ARM_FEATURE_CMSE == 3U) */
+}
+
+/**
+  * @brief  Check the lock state of secure or non-secure MPU registers.
+  * @rmtoll CSLCKR/CNSLCKR   LOCKNSMPU/LOCKSMPU   LL_SYSCFG_IsLockedMPU
+  * @retval None
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsLockedMPU(void)
+{
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+  return ((READ_BIT(SYSCFG->CSLCKR, SYSCFG_CSLCKR_LOCKSMPU) == SYSCFG_CSLCKR_LOCKSMPU) ? 1UL : 0UL);
+#else
+  return ((READ_BIT(SYSCFG->CNSLCKR, SYSCFG_CNSLCKR_LOCKNSMPU) == SYSCFG_CNSLCKR_LOCKNSMPU) ? 1UL : 0UL);
+#endif /* __ARM_FEATURE_CMSE && (__ARM_FEATURE_CMSE == 3U) */
+}
+
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+/**
+  * @brief  Lock the non-secure MPU registers.
+  * @rmtoll CNSLCKR   LOCKNSMPU   LL_SYSCFG_LockMPU_NS
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_LockMPU_NS(void)
+{
+  SET_BIT(SYSCFG->CNSLCKR, SYSCFG_CNSLCKR_LOCKNSMPU);
+}
+
+/**
+  * @brief  Check the lock state of non-secure MPU registers.
+  * @rmtoll CNSLCKR   LOCKNSMPU   LL_SYSCFG_IsLockedMPU_NS
+  * @retval None
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsLockedMPU_NS(void)
+{
+  return ((READ_BIT(SYSCFG->CNSLCKR, SYSCFG_CNSLCKR_LOCKNSMPU) == SYSCFG_CNSLCKR_LOCKNSMPU) ? 1UL : 0UL);
+}
+
+/**
+  * @brief  Lock the secure SAU registers.
+  * @rmtoll CSLCKR   LOCKSAU   LL_SYSCFG_LockSAU
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_LockSAU(void)
+{
+  SET_BIT(SYSCFG->CSLCKR, SYSCFG_CSLCKR_LOCKSAU);
+}
+
+/**
+  * @brief  Check the lock state of secure SAU registers.
+  * @rmtoll CSLCKR   LOCKSAU   LL_SYSCFG_IsLockedSAU
+  * @retval None
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsLockedSAU(void)
+{
+  return ((READ_BIT(SYSCFG->CSLCKR, SYSCFG_CSLCKR_LOCKSAU) == SYSCFG_CSLCKR_LOCKSAU) ? 1UL : 0UL);
+}
+#endif /* __ARM_FEATURE_CMSE && (__ARM_FEATURE_CMSE == 3U) */
+
+/**
+  * @brief  Lock the secure or non-secure CPU registers.
+  * @rmtoll CSLCKR/CNSLCKR   LOCKSVTAIRCR/LOCKNSVTOR   LL_SYSCFG_LockConfig
+  * @param  Item Item(s) to set lock on.
+  *         This parameter can be a combination of:
+  *         @arg @ref LL_SYSCFG_MPU_NSEC
+  *         @arg @ref LL_SYSCFG_VTOR_NSEC
+  *         @arg @ref LL_SYSCFG_SAU
+  *         @arg @ref LL_SYSCFG_MPU_SEC
+  *         @arg @ref LL_SYSCFG_VTOR_AIRCR_SEC
+  *         @arg @ref LL_SYSCFG_LOCK_ALL
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_LockConfig(uint32_t Item)
+{
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+  MODIFY_REG(SYSCFG->CSLCKR, (SYSCFG_CSLCKR_LOCKSVTAIRCR | SYSCFG_CSLCKR_LOCKSMPU | SYSCFG_CSLCKR_LOCKSAU), Item);
+#else
+  MODIFY_REG(SYSCFG->CNSLCKR, (SYSCFG_CNSLCKR_LOCKNSVTOR | SYSCFG_CNSLCKR_LOCKNSMPU), Item);
+#endif /* __ARM_FEATURE_CMSE && (__ARM_FEATURE_CMSE == 3U) */
+}
+
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+/**
+  * @brief  Lock the non-secure CPU registers.
+  * @rmtoll CSLCKR/CNSLCKR   LOCKSVTAIRCR/LOCKNSVTOR   LL_SYSCFG_LockConfig_NS
+  * @param  Item Item(s) to set lock on.
+  *         This parameter can be a combination of:
+  *         @arg @ref LL_SYSCFG_MPU_NSEC
+  *         @arg @ref LL_SYSCFG_VTOR_NSEC
+  *         @arg @ref LL_SYSCFG_LOCK_ALL
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_LockConfig_NS(uint32_t Item)
+{
+  MODIFY_REG(SYSCFG->CNSLCKR, (SYSCFG_CNSLCKR_LOCKNSVTOR | SYSCFG_CNSLCKR_LOCKNSMPU), Item);
+}
+#endif /* __ARM_FEATURE_CMSE && (__ARM_FEATURE_CMSE == 3U) */
+
+/**
+  * @}
+  */
+
+/** @defgroup SYSTEM_LL_EF_SYSCFG_TIMER_BREAK Timer break inputs
+  * @{
+  */
+
+/**
+  * @brief  Set connections to TIM1/8/15/16/17 Break inputs.
   * @rmtoll SYSCFG_CFGR2 CLL          LL_SYSCFG_SetTIMBreakInputs\n
   *         SYSCFG_CFGR2 SPL          LL_SYSCFG_SetTIMBreakInputs\n
   *         SYSCFG_CFGR2 PVDL         LL_SYSCFG_SetTIMBreakInputs\n
@@ -605,7 +931,7 @@ __STATIC_INLINE void LL_SYSCFG_SetTIMBreakInputs(uint32_t Break)
 }
 
 /**
-  * @brief  Get connections to TIM1/8/15/16/17 Break inputs
+  * @brief  Get connections to TIM1/8/15/16/17 Break inputs.
   * @rmtoll SYSCFG_CFGR2 CLL           LL_SYSCFG_GetTIMBreakInputs\n
   *         SYSCFG_CFGR2 SPL           LL_SYSCFG_GetTIMBreakInputs\n
   *         SYSCFG_CFGR2 PVDL          LL_SYSCFG_GetTIMBreakInputs\n
@@ -622,15 +948,695 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetTIMBreakInputs(void)
                              SYSCFG_CFGR2_PVDL | SYSCFG_CFGR2_ECCL));
 }
 
+/**
+  * @}
+  */
+
+/** @defgroup SYSTEM_LL_EF_SYSCFG_Secure_Management Secure Management
+  * @{
+  */
+
+/**
+  * @brief  Clear Status of End of Erase for ICACHE and PKA RAMs
+  * @rmtoll MESR   IPMEE    LL_SYSCFG_ClearEraseEndStatus
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_ClearEraseEndStatus(void)
+{
+  SET_BIT(SYSCFG->MESR, SYSCFG_MESR_IPMEE);
+}
+
+/**
+  * @brief  Get Status of End of Erase for ICACHE and PKA RAMs
+  * @rmtoll MESR   IPMEE    LL_SYSCFG_GetEraseEndStatus
+  * @retval Returned value can be one of the following values:
+  *   @arg LL_SYSCFG_MEMORIES_ERASE_ON_GOING : Erase of memories not yet done
+  *   @arg LL_SYSCFG_MEMORIES_ERASE_ENDED: Erase of memories ended
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetEraseEndStatus(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->MESR, SYSCFG_MESR_IPMEE));
+}
+
+/**
+  * @brief  Clear Status of End of Erase after reset  for SRAM2, BKPRAM, ICACHE, DCACHE,PKA rams
+  * @rmtoll MESR   MCLR    LL_SYSCFG_ClearEraseAfterResetStatus
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_ClearEraseAfterResetStatus(void)
+{
+  SET_BIT(SYSCFG->MESR, SYSCFG_MESR_MCLR);
+}
+
+/**
+  * @brief  Get Status of End of Erase after reset  for SRAM2, BKPRAM, ICACHE, DCACHE,PKA rams
+  * @rmtoll MESR   MCLR    LL_SYSCFG_GetEraseAfterResetStatus
+  * @retval Returned value can be one of the following values:
+  *   @arg LL_SYSCFG_MEMORIES_ERASE_ON_GOING : Erase of memories not yet done
+  *   @arg LL_SYSCFG_MEMORIES_ERASE_ENDED: Erase of memories ended
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetEraseAfterResetStatus(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->MESR, SYSCFG_MESR_MCLR));
+}
+
+/**
+  * @}
+  */
+
+/** @defgroup SYSTEM_LL_EF_SYSCFG_COMPENSATION SYSCFG Compensation cell
+  * @{
+  */
+
+/**
+  * @brief  Get the compensation cell value of the GPIO PMOS transistor supplied by VDD.
+  * @rmtoll CCVR    PCV1   LL_SYSCFG_GetPMOSVddCompensationValue
+  * @retval Returned value is the PMOS compensation cell
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetPMOSVddCompensationValue(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCVR, SYSCFG_CCVR_PCV1));
+}
+
+/**
+  * @brief  Get the compensation cell value of the GPIO NMOS transistor supplied by VDD.
+  * @rmtoll CCVR    NCV1   LL_SYSCFG_GetNMOSVddCompensationValue
+  * @retval Returned value is the NMOS compensation cell
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetNMOSVddCompensationValue(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCVR, SYSCFG_CCVR_NCV1));
+}
+
+/**
+  * @brief  Get the compensation cell value of the GPIO PMOS transistor supplied by VDDIO2.
+  * @rmtoll CCVR    PCV2   LL_SYSCFG_GetPMOSVddIO2CompensationValue
+  * @retval Returned value is the PMOS compensation cell
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetPMOSVddIO2CompensationValue(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCVR, SYSCFG_CCVR_PCV2));
+}
+
+/**
+  * @brief  Get the compensation cell value of the GPIO NMOS transistor supplied by VDDIO2.
+  * @rmtoll CCVR    NCV2   LL_SYSCFG_GetNMOSVddIO2CompensationValue
+  * @retval Returned value is the NMOS compensation cell
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetNMOSVddIO2CompensationValue(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCVR, SYSCFG_CCVR_NCV2));
+}
+
+#if defined(SYSCFG_CCVR_PCV3)
+/**
+  * @brief  Get the compensation cell value of the HSPI IO PMOS transistor supplied by VDD.
+  * @rmtoll CCVR    PCV3   LL_SYSCFG_GetPMOSVddHSPICompensationValue
+  * @retval Returned value is the PMOS compensation cell
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetPMOSVddHSPICompensationValue(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCVR, SYSCFG_CCVR_PCV3));
+}
+
+/**
+  * @brief  Get the compensation cell value of the HSPI IO NMOS transistor supplied by VDD.
+  * @rmtoll CCVR    NCV3   LL_SYSCFG_GetNMOSVddHSPICompensationValue
+  * @retval Returned value is the NMOS compensation cell
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetNMOSVddHSPICompensationValue(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCVR, SYSCFG_CCVR_NCV3));
+}
+#endif /* SYSCFG_CCVR_PCV3 */
+
+/**
+  * @brief  Set the compensation cell code of the GPIO PMOS transistor supplied by VDD.
+  * @rmtoll CCCR    PCC1  LL_SYSCFG_SetPMOSVddCompensationCode
+  * @param  PMOSCode PMOS compensation code
+  *         This code is applied to the PMOS compensation cell when the CS1 bit of the
+  *         SYSCFG_CCCSR is set
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_SetPMOSVddCompensationCode(uint32_t PMOSCode)
+{
+  MODIFY_REG(SYSCFG->CCCR, SYSCFG_CCCR_PCC1, PMOSCode << SYSCFG_CCCR_PCC1_Pos);
+}
+
+/**
+  * @brief  Get the compensation cell code of the GPIO PMOS transistor supplied by VDD.
+  * @rmtoll CCCR    PCC1   LL_SYSCFG_GetPMOSVddCompensationCode
+  * @retval Returned value is the PMOS compensation cell
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetPMOSVddCompensationCode(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCCR, SYSCFG_CCCR_PCC1));
+}
+
+/**
+  * @brief  Set the compensation cell code of the GPIO PMOS transistor supplied by VDDIO2.
+  * @rmtoll CCCR    PCC2  LL_SYSCFG_SetPMOSVddIO2CompensationCode
+  * @param  PMOSCode PMOS compensation code
+  *         This code is applied to the PMOS compensation cell when the CS2 bit of the
+  *         SYSCFG_CCCSR is set
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_SetPMOSVddIO2CompensationCode(uint32_t PMOSCode)
+{
+  MODIFY_REG(SYSCFG->CCCR, SYSCFG_CCCR_PCC2, PMOSCode << SYSCFG_CCCR_PCC2_Pos);
+}
+
+/**
+  * @brief  Get the compensation cell code of the GPIO PMOS transistor supplied by VDDIO2.
+  * @rmtoll CCCR    PCC2   LL_SYSCFG_GetPMOSVddIO2CompensationCode
+  * @retval Returned value is the PMOS compensation
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetPMOSVddIO2CompensationCode(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCCR, SYSCFG_CCCR_PCC2));
+}
+
+#if defined(SYSCFG_CCCR_PCC3)
+/**
+  * @brief  Set the compensation cell code of the HSPI IO PMOS transistor supplied by VDD.
+  * @rmtoll CCCR    PCC3  LL_SYSCFG_SetPMOSVddHSPICompensationCode
+  * @param  PMOSCode PMOS compensation code
+  *         This code is applied to the PMOS compensation cell when the CS3 bit of the
+  *         SYSCFG_CCCSR is set
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_SetPMOSVddHSPICompensationCode(uint32_t PMOSCode)
+{
+  MODIFY_REG(SYSCFG->CCCR, SYSCFG_CCCR_PCC3, PMOSCode << SYSCFG_CCCR_PCC3_Pos);
+}
+
+/**
+  * @brief  Get the compensation cell code of the HSPI IO PMOS transistor supplied by VDD.
+  * @rmtoll CCCR    PCC3   LL_SYSCFG_GetPMOSVddHSPICompensationCode
+  * @retval Returned value is the PMOS compensation
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetPMOSVddHSPICompensationCode(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCCR, SYSCFG_CCCR_PCC3));
+}
+#endif /* SYSCFG_CCCR_PCC3 */
+
+/**
+  * @brief  Set the compensation cell code of the GPIO NMOS transistor supplied by VDD.
+  * @rmtoll CCCR    PCC2  LL_SYSCFG_SetNMOSVddCompensationCode
+  * @param  NMOSCode NMOS compensation code
+  *         This code is applied to the NMOS compensation cell when the CS2 bit of the
+  *         SYSCFG_CMPCR is set
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_SetNMOSVddCompensationCode(uint32_t NMOSCode)
+{
+  MODIFY_REG(SYSCFG->CCCR, SYSCFG_CCCR_NCC1, NMOSCode << SYSCFG_CCCR_NCC1_Pos);
+}
+
+/**
+  * @brief  Get the compensation cell code of the GPIO NMOS transistor supplied by VDD.
+  * @rmtoll CCCR    NCC1   LL_SYSCFG_GetNMOSVddCompensationCode
+  * @retval Returned value is the Vdd compensation cell code for NMOS transistors
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetNMOSVddCompensationCode(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCCR, SYSCFG_CCCR_NCC1));
+}
+
+/**
+  * @brief  Set the compensation cell code of the GPIO NMOS transistor supplied by VDDIO2.
+  * @rmtoll CCCR    NCC2  LL_SYSCFG_SetNMOSVddIO2CompensationCode
+  * @param  NMOSCode NMOS compensation code
+  *         This code is applied to the NMOS compensation cell when the CS2 bit of the
+  *         SYSCFG_CMPCR is set
+  *         Value between 0 and 15
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_SetNMOSVddIO2CompensationCode(uint32_t NMOSCode)
+{
+  MODIFY_REG(SYSCFG->CCCR, SYSCFG_CCCR_NCC2, NMOSCode << SYSCFG_CCCR_NCC2_Pos);
+}
+
+/**
+  * @brief  Get the compensation cell code of the GPIO NMOS transistor supplied by VDDIO2.
+  * @rmtoll CCCR    NCC2   LL_SYSCFG_GetNMOSVddIO2CompensationCode
+  * @retval Returned value is the NMOS compensation cell code
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetNMOSVddIO2CompensationCode(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCCR, SYSCFG_CCCR_NCC2));
+}
+
+#if defined(SYSCFG_CCCR_NCC3)
+/**
+  * @brief  Set the compensation cell code of the HSPI IO NMOS transistor supplied by VDD.
+  * @rmtoll CCCR    NCC3  LL_SYSCFG_SetNMOSVddHSPICompensationCode
+  * @param  NMOSCode NMOS compensation code
+  *         This code is applied to the NMOS compensation cell when the CS3 bit of the
+  *         SYSCFG_CCCSR is set
+  *         Value between 0 and 15
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_SetNMOSVddHSPICompensationCode(uint32_t NMOSCode)
+{
+  MODIFY_REG(SYSCFG->CCCR, SYSCFG_CCCR_NCC3, NMOSCode << SYSCFG_CCCR_NCC3_Pos);
+}
+
+/**
+  * @brief  Get the compensation cell code of the HSPI IO NMOS transistor supplied by VDD.
+  * @rmtoll CCCR    NCC3   LL_SYSCFG_GetNMOSVddHSPICompensationCode
+  * @retval Returned value is the NMOS compensation cell code
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetNMOSVddHSPICompensationCode(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCCR, SYSCFG_CCCR_NCC3));
+}
+#endif /* SYSCFG_CCCR_NCC3 */
+
+/**
+  * @brief  Enable the Compensation Cell of GPIO supplied by VDD.
+  * @rmtoll CCCSR   EN1    LL_SYSCFG_EnableVddCompensationCell
+  * @note   The vdd compensation cell can be used only when the device supply
+  *         voltage ranges from 1.71 to 3.6 V
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_EnableVddCompensationCell(void)
+{
+  SET_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN1);
+}
+
+/**
+  * @brief  Enable the Compensation Cell of GPIO supplied by VDDIO2.
+  * @rmtoll CCCSR   EN2    LL_SYSCFG_EnableVddIO2CompensationCell
+  * @note   The Vdd I/O compensation cell can be used only when the device supply
+  *         voltage ranges from 1.08 to 3.6 V
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_EnableVddIO2CompensationCell(void)
+{
+  SET_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN2);
+}
+
+#if defined(SYSCFG_CCCSR_EN3)
+/**
+  * @brief  Enable the Compensation Cell of HSPI IO supplied by VDD.
+  * @rmtoll CCCSR   EN3    LL_SYSCFG_EnableVddHSPICompensationCell
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_EnableVddHSPICompensationCell(void)
+{
+  SET_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN3);
+}
+#endif /* SYSCFG_CCCSR_EN3 */
+
+/**
+  * @brief  Disable the Compensation Cell of GPIO supplied by VDD.
+  * @rmtoll CCCSR   EN1    LL_SYSCFG_DisableVddCompensationCell
+  * @note   The Vdd compensation cell can be used only when the device supply
+  *         voltage ranges from 1.71 to 3.6 V
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_DisableVddCompensationCell(void)
+{
+  CLEAR_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN1);
+}
+
+/**
+  * @brief  Disable the Compensation Cell of GPIO supplied by VDDIO2.
+  * @rmtoll CCCSR   EN2    LL_SYSCFG_DisableVddIO2CompensationCell
+  * @note   The Vdd I/O compensation cell can be used only when the device supply
+  *         voltage ranges from 1.08 to 3.6 V
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_DisableVddIO2CompensationCell(void)
+{
+  CLEAR_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN2);
+}
+
+#if defined(SYSCFG_CCCSR_EN3)
+/**
+  * @brief  Disable the Compensation Cell of HSPI IO supplied by VDD.
+  * @rmtoll CCCSR   EN3    LL_SYSCFG_DisableVddHSPICompensationCell
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_DisableVddHSPICompensationCell(void)
+{
+  CLEAR_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN3);
+}
+#endif /* SYSCFG_CCCSR_EN3 */
+
+/**
+  * @brief  Check if the Compensation Cell of GPIO supplied by VDD is enabled.
+  * @rmtoll CCCSR   EN1    LL_SYSCFG_IsEnabled_VddCompensationCell
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsEnabled_VddCompensationCell(void)
+{
+  return ((READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN1) == SYSCFG_CCCSR_EN1) ? 1UL : 0UL);
+}
+
+/**
+  * @brief  Check if the Compensation Cell of GPIO supplied by VDDIO2 is enabled.
+  * @rmtoll CCCSR   EN2   LL_SYSCFG_IsEnabled_VddIO2CompensationCell
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsEnabled_VddIO2CompensationCell(void)
+{
+  return ((READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN2) == SYSCFG_CCCSR_EN2) ? 1UL : 0UL);
+}
+
+#if defined(SYSCFG_CCCSR_EN3)
+/**
+  * @brief  Check if the Compensation Cell of HSPI IO supplied by VDD is enabled.
+  * @rmtoll CCCSR   EN3   LL_SYSCFG_IsEnabled_VddHSPICompensationCell
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsEnabled_VddHSPICompensationCell(void)
+{
+  return ((READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN3) == SYSCFG_CCCSR_EN3) ? 1UL : 0UL);
+}
+#endif /* SYSCFG_CCCSR_EN3 */
+
+/**
+  * @brief  Get Compensation Cell ready Flag of GPIO supplied by VDD.
+  * @rmtoll CCCSR   RDY1   LL_SYSCFG_IsActiveFlag_VddCMPCR
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_VddCMPCR(void)
+{
+  return ((READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_RDY1) == (SYSCFG_CCCSR_RDY1)) ? 1UL : 0UL);
+}
+
+/**
+  * @brief  Get Compensation Cell ready Flag of GPIO supplied by VDDIO2.
+  * @rmtoll CCCSR   RDY2   LL_SYSCFG_IsActiveFlag_VddIO2CMPCR
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_VddIO2CMPCR(void)
+{
+  return ((READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_RDY2) == (SYSCFG_CCCSR_RDY2)) ? 1UL : 0UL);
+}
+
+#if defined(SYSCFG_CCCSR_RDY3)
+/**
+  * @brief  Get Compensation Cell ready Flag of HSPI IO supplied by VDD.
+  * @rmtoll CCCSR   RDY3   LL_SYSCFG_IsActiveFlag_VddHSPICMPCR
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_VddHSPICMPCR(void)
+{
+  return ((READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_RDY3) == (SYSCFG_CCCSR_RDY3)) ? 1UL : 0UL);
+}
+#endif /* SYSCFG_CCCSR_RDY3 */
+
+/**
+  * @brief  Set the compensation cell code selection of GPIO supplied by VDD.
+  * @rmtoll CCCSR   CS1    LL_SYSCFG_SetVddCellCompensationCode
+  * @param  CompCode: Selects the code to be applied for the Vdd compensation cell
+  *   This parameter can be one of the following values:
+  *   @arg LL_SYSCFG_VDD_CELL_CODE : Select Code from the cell (available in the SYSCFG_CCVR)
+  *   @arg LL_SYSCFG_VDD_REGISTER_CODE: Select Code from the SYSCFG compensation cell code register (SYSCFG_CCCR)
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_SetVddCellCompensationCode(uint32_t CompCode)
+{
+  SET_BIT(SYSCFG->CCCSR, CompCode);
+}
+
+/**
+  * @brief  Set the compensation cell code selection of GPIO supplied by VDDIO2.
+  * @rmtoll CCCSR   CS2    LL_SYSCFG_SetVddIO2CellCompensationCode
+  * @param  CompCode: Selects the code to be applied for the VddIO compensation cell
+  *   This parameter can be one of the following values:
+  *   @arg LL_SYSCFG_VDDIO2_CELL_CODE : Select Code from the cell (available in the SYSCFG_CCVR)
+  *   @arg LL_SYSCFG_VDDIO2_REGISTER_CODE: Select Code from the SYSCFG compensation cell code register (SYSCFG_CCCR)
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_SetVddIO2CellCompensationCode(uint32_t CompCode)
+{
+  SET_BIT(SYSCFG->CCCSR, CompCode);
+}
+
+#if defined(SYSCFG_CCCSR_CS3)
+/**
+  * @brief  Set the compensation cell code selection of HSPI IO supplied by VDD.
+  * @rmtoll CCCSR   CS3    LL_SYSCFG_SetVddHSPICellCompensationCode
+  * @param  CompCode: Selects the code to be applied for the VddIO compensation cell
+  *   This parameter can be one of the following values:
+  *   @arg LL_SYSCFG_VDDHSPI_CELL_CODE : Select Code from the cell (available in the SYSCFG_CCVR)
+  *   @arg LL_SYSCFG_VDDHSPI_REGISTER_CODE: Select Code from the SYSCFG compensation cell code register (SYSCFG_CCCR)
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_SetVddHSPICellCompensationCode(uint32_t CompCode)
+{
+  SET_BIT(SYSCFG->CCCSR, CompCode);
+}
+#endif /* SYSCFG_CCCSR_CS3 */
+
+/**
+  * @brief  Get the compensation cell code selection of GPIO supplied by VDD.
+  * @rmtoll CCCSR   CS1    LL_SYSCFG_GetVddCellCompensationCode
+  * @retval Returned value can be one of the following values:
+  *   @arg LL_SYSCFG_VDD_CELL_CODE : Selected Code is from the cell (available in the SYSCFG_CCVR)
+  *   @arg LL_SYSCFG_VDD_REGISTER_CODE: Selected Code is from the SYSCFG compensation cell code register (SYSCFG_CCCR)
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetVddCellCompensationCode(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_CS1));
+}
+
+/**
+  * @brief  Get the compensation cell code selection of GPIO supplied by VDDIO2.
+  * @rmtoll CCCSR   CS2    LL_SYSCFG_GetVddIO2CellCompensationCode
+  * @retval Returned value can be one of the following values:
+  *   @arg LL_SYSCFG_VDDIO2_CELL_CODE : Selected Code is from the cell (available in the SYSCFG_CCVR)
+  *   @arg LL_SYSCFG_VDDIO2_REGISTER_CODE: Selected Code is from the SYSCFG compensation
+      cell code register (SYSCFG_CCCR)
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetVddIO2CellCompensationCode(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_CS2));
+}
+
+#if defined(SYSCFG_CCCSR_CS3)
+/**
+  * @brief  Get the compensation cell code selection of HSPI IO supplied by VDD.
+  * @rmtoll CCCSR   CS3    LL_SYSCFG_GetVddHSPICellCompensationCode
+  * @retval Returned value can be one of the following values:
+  *   @arg LL_SYSCFG_VDDHSPI_CELL_CODE : Selected Code is from the cell (available in the SYSCFG_CCVR)
+  *   @arg LL_SYSCFG_VDDHSPI_REGISTER_CODE: Selected Code is from the SYSCFG compensation
+      cell code register (SYSCFG_CCCR)
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetVddHSPICellCompensationCode(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_CS3));
+}
+#endif /* SYSCFG_CCCSR_CS3 */
+
+/**
+  * @}
+  */
+
+/** @defgroup SYSTEM_LL_EF_SYSCFG_OTGPHY OTG HS PHY configurations
+  * @{
+  */
+
+#if defined(SYSCFG_OTGHSPHYCR_EN)
+/**
+  * @brief  Enable the OTG high-speed PHY.
+  * @rmtoll SYSCFG_OTGHSPHYCR   EN   LL_SYSCFG_EnableOTGPHY
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_EnableOTGPHY(void)
+{
+  SET_BIT(SYSCFG->OTGHSPHYCR, SYSCFG_OTGHSPHYCR_EN);
+}
+
+/**
+  * @brief  Disable the OTG high-speed PHY.
+  * @rmtoll SYSCFG_OTGHSPHYCR   EN   LL_SYSCFG_DisableOTGPHY
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_DisableOTGPHY(void)
+{
+  CLEAR_BIT(SYSCFG->OTGHSPHYCR, SYSCFG_OTGHSPHYCR_EN);
+}
+
+/**
+  * @brief  Check if the OTG high-speed PHY is enabled or disabled.
+  * @rmtoll SYSCFG_OTGHSPHYCR   EN   LL_SYSCFG_IsEnabledOTGPHY
+  * @retval None
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsEnabledOTGPHY(void)
+{
+  return ((READ_BIT(SYSCFG->OTGHSPHYCR, SYSCFG_OTGHSPHYCR_EN) == SYSCFG_OTGHSPHYCR_EN) ? 1UL : 0UL);
+}
+#endif /* SYSCFG_OTGHSPHYCR_EN */
+
+#if defined(SYSCFG_OTGHSPHYCR_PDCTRL)
+/**
+  * @brief  Enable the OTG high-speed PHY common block power-down control.
+  * @rmtoll SYSCFG_OTGHSPHYCR   PDCTRL   LL_SYSCFG_EnableOTGPHYPowerDown
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_EnableOTGPHYPowerDown(void)
+{
+  SET_BIT(SYSCFG->OTGHSPHYCR, SYSCFG_OTGHSPHYCR_PDCTRL);
+}
+
+/**
+  * @brief  Disable the OTG high-speed PHY common block power-down control.
+  * @rmtoll SYSCFG_OTGHSPHYCR   PDCTRL   LL_SYSCFG_DisableOTGPHYPowerDown
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_DisableOTGPHYPowerDown(void)
+{
+  CLEAR_BIT(SYSCFG->OTGHSPHYCR, SYSCFG_OTGHSPHYCR_PDCTRL);
+}
+
+/**
+  * @brief  Check if the OTG high-speed PHY common block power-down is enabled or disabled.
+  * @rmtoll SYSCFG_OTGHSPHYCR   PDCTRL   LL_SYSCFG_IsEnabledOTGPHYPowerDown
+  * @retval None
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_IsEnabledOTGPHYPowerDown(void)
+{
+  return ((READ_BIT(SYSCFG->OTGHSPHYCR, SYSCFG_OTGHSPHYCR_PDCTRL) == SYSCFG_OTGHSPHYCR_PDCTRL) ? 1UL : 0UL);
+}
+#endif /* SYSCFG_OTGHSPHYCR_PDCTRL */
+
+#if defined(SYSCFG_OTGHSPHYCR_CLKSEL)
+/**
+  * @brief  Set the OTG high-speed PHY reference clock frequency selection.
+  * @rmtoll SYSCFG_OTGHSPHYCR   CLKSEL   LL_SYSCFG_SetOTGPHYReferenceClockFrequency
+  * @param  ClockFrequency This parameter can be one of the following values:
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_CLK_16MHZ
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_CLK_19_2MHZ
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_CLK_20MHZ
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_CLK_24MHZ
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_CLK_26MHZ
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_CLK_32MHZ
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_SetOTGPHYReferenceClockFrequency(uint32_t ClockFrequency)
+{
+  MODIFY_REG(SYSCFG->OTGHSPHYCR, SYSCFG_OTGHSPHYCR_CLKSEL, ClockFrequency);
+}
+
+/**
+  * @brief  Get the OTG high-speed PHY reference clock frequency selection.
+  * @rmtoll SYSCFG_OTGHSPHYCR   CLKSEL   LL_SYSCFG_GetOTGPHYReferenceClockFrequency
+  * @retval Returned value can be one of the following values:
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_CLK_16MHZ
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_CLK_19_2MHZ
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_CLK_20MHZ
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_CLK_24MHZ
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_CLK_26MHZ
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_CLK_32MHZ
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetOTGPHYReferenceClockFrequency(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->OTGHSPHYCR, SYSCFG_OTGHSPHYCR_CLKSEL));
+}
+#endif /* SYSCFG_OTGHSPHYCR_CLKSEL */
+
+#if defined(SYSCFG_OTGHSPHYTUNER2_COMPDISTUNE)
+/**
+  * @brief  Set the OTG high-speed PHY disconnect threshold adjustment.
+  * @rmtoll SYSCFG_OTGHSPHYTUNER2   COMPDISTUNE   LL_SYSCFG_SetOTGPHYDisconnectThresholdAdjustment
+  * @param  DisconnectThreshold This parameter can be one of the following values:
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_DISCONNECT_5_9PERCENT
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_DISCONNECT_0PERCENT
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_SetOTGPHYDisconnectThresholdAdjustment(uint32_t DisconnectThreshold)
+{
+  MODIFY_REG(SYSCFG->OTGHSPHYTUNER2, SYSCFG_OTGHSPHYTUNER2_COMPDISTUNE, DisconnectThreshold);
+}
+
+/**
+  * @brief  Get the OTG high-speed PHY disconnect threshold adjustment.
+  * @rmtoll SYSCFG_OTGHSPHYTUNER2   COMPDISTUNE   LL_SYSCFG_GetOTGPHYDisconnectThresholdAdjustment
+  * @retval Returned value can be one of the following values:
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_DISCONNECT_5_9PERCENT
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_DISCONNECT_0PERCENT
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetOTGPHYDisconnectThresholdAdjustment(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->OTGHSPHYTUNER2, SYSCFG_OTGHSPHYTUNER2_COMPDISTUNE));
+}
+#endif /* SYSCFG_OTGHSPHYTUNER2_COMPDISTUNE */
+
+#if defined(SYSCFG_OTGHSPHYTUNER2_SQRXTUNE)
+/**
+  * @brief  Set the voltage level for the threshold used to detect valid high-speed data.
+  * @rmtoll SYSCFG_OTGHSPHYTUNER2   SQRXTUNE   LL_SYSCFG_SetOTGPHYSquelchThresholdAdjustment
+  * @param  SquelchThreshold This parameter can be one of the following values:
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_SQUELCH_15PERCENT
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_SQUELCH_0PERCENT
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_SetOTGPHYSquelchThresholdAdjustment(uint32_t SquelchThreshold)
+{
+  MODIFY_REG(SYSCFG->OTGHSPHYTUNER2, SYSCFG_OTGHSPHYTUNER2_SQRXTUNE, SquelchThreshold);
+}
+
+/**
+  * @brief  Get the voltage level for the threshold used to detect valid high-speed data.
+  * @rmtoll SYSCFG_OTGHSPHYTUNER2   SQRXTUNE   LL_SYSCFG_GetOTGPHYSquelchThresholdAdjustment
+  * @retval Returned value can be one of the following values:
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_SQUELCH_15PERCENT
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_SQUELCH_0PERCENT
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetOTGPHYSquelchThresholdAdjustment(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->OTGHSPHYTUNER2, SYSCFG_OTGHSPHYTUNER2_SQRXTUNE));
+}
+#endif /* SYSCFG_OTGHSPHYTUNER2_SQRXTUNE */
+
+#if defined(SYSCFG_OTGHSPHYTUNER2_TXPREEMPAMPTUNE)
+/**
+  * @brief  Set the OTG high-speed PHY transmitter preemphasis current control.
+  * @rmtoll SYSCFG_OTGHSPHYTUNER2   TXPREEMPAMPTUNE   LL_SYSCFG_SetOTGPHYTransmitterPreemphasisCurrent
+  * @param  PreemphasisCurrent This parameter can be one of the following values:
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_PREEMP_DISABLED
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_PREEMP_1X
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_PREEMP_2X
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_PREEMP_3X
+  * @retval None
+  */
+__STATIC_INLINE void LL_SYSCFG_SetOTGPHYTransmitterPreemphasisCurrent(uint32_t PreemphasisCurrent)
+{
+  MODIFY_REG(SYSCFG->OTGHSPHYTUNER2, SYSCFG_OTGHSPHYTUNER2_TXPREEMPAMPTUNE, PreemphasisCurrent);
+}
+
+/**
+  * @brief  Get the OTG high-speed PHY transmitter preemphasis current control.
+  * @rmtoll SYSCFG_OTGHSPHYTUNER2   TXPREEMPAMPTUNE   LL_SYSCFG_GetOTGPHYTransmitterPreemphasisCurrent
+  * @retval Returned value can be one of the following values:
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_PREEMP_DISABLED
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_PREEMP_1X
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_PREEMP_2X
+  *         @arg @ref LL_SYSCFG_OTGHSPHY_PREEMP_3X
+  */
+__STATIC_INLINE uint32_t LL_SYSCFG_GetOTGPHYTransmitterPreemphasisCurrent(void)
+{
+  return (uint32_t)(READ_BIT(SYSCFG->OTGHSPHYTUNER2, SYSCFG_OTGHSPHYTUNER2_TXPREEMPAMPTUNE));
+}
+#endif /* SYSCFG_OTGHSPHYTUNER2_TXPREEMPAMPTUNE */
+
+/**
+  * @}
+  */
 
 /** @defgroup SYSTEM_LL_EF_SYSCFG_Secure_Management Secure Management
   * @{
   */
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
-
 /**
-  * @brief  Configure Secure mode
+  * @brief  Configure Secure mode.
   * @note Only available from secure state when system implements security (TZEN=1)
   * @rmtoll SECCFGR     SYSCFGSEC     LL_SYSCFG_ConfigSecure\n
   *         SECCFGR     CLASSBSEC     LL_SYSCFG_ConfigSecure\n
@@ -646,11 +1652,10 @@ __STATIC_INLINE void LL_SYSCFG_ConfigSecure(uint32_t Configuration)
 {
   WRITE_REG(SYSCFG->SECCFGR, Configuration);
 }
-
 #endif /* __ARM_FEATURE_CMSE && (__ARM_FEATURE_CMSE == 3U) */
 
 /**
-  * @brief  Get Secure mode configuration
+  * @brief  Get Secure mode configuration.
   * @note Only available when system implements security (TZEN=1)
   * @rmtoll SECCFGR     SYSCFGSEC     LL_SYSCFG_ConfigSecure\n
   *         SECCFGR     CLASSBSEC     LL_SYSCFG_ConfigSecure\n
@@ -669,441 +1674,6 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetConfigSecure(void)
   * @}
   */
 
-/**
-  * @}
-  */
-
-/** @defgroup SYSTEM_LL_EF_COMPENSATION SYSCFG COMPENSATION
-  * @{
-  */
-
-/**
-  * @brief  Get the compensation cell value of the GPIO PMOS transistor supplied by VDD
-  * @rmtoll CCVR    PCV1   LL_SYSCFG_GetPMOSVddCompensationValue
-  * @retval Returned value is the PMOS compensation cell
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetPMOSVddCompensationValue(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->CCVR, SYSCFG_CCVR_PCV1));
-}
-
-/**
-  * @brief  Get the compensation cell value of the GPIO NMOS transistor supplied by VDD
-  * @rmtoll CCVR    NCV1   LL_SYSCFG_GetNMOSVddCompensationValue
-  * @retval Returned value is the NMOS compensation cell
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetNMOSVddCompensationValue(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->CCVR, SYSCFG_CCVR_NCV1));
-}
-
-/**
-  * @brief  Get the compensation cell value of the GPIO PMOS transistor supplied by VDDIO2
-  * @rmtoll CCVR    PCV2   LL_SYSCFG_GetPMOSVddIO2CompensationValue
-  * @retval Returned value is the PMOS compensation cell
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetPMOSVddIO2CompensationValue(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->CCVR, SYSCFG_CCVR_PCV2));
-}
-
-/**
-  * @brief  Get the compensation cell value of the GPIO NMOS transistor supplied by VDDIO2
-  * @rmtoll CCVR    NCV2   LL_SYSCFG_GetNMOSVddIO2CompensationValue
-  * @retval Returned value is the NMOS compensation cell
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetNMOSVddIO2CompensationValue(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->CCVR, SYSCFG_CCVR_NCV2));
-}
-
-#if defined(SYSCFG_CCVR_PCV3)
-/**
-  * @brief  Get the compensation cell value of the HSPI IO PMOS transistor supplied by VDD
-  * @rmtoll CCVR    PCV3   LL_SYSCFG_GetPMOSVddHSPICompensationValue
-  * @retval Returned value is the PMOS compensation cell
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetPMOSVddHSPICompensationValue(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->CCVR, SYSCFG_CCVR_PCV3));
-}
-
-/**
-  * @brief  Get the compensation cell value of the HSPI IO NMOS transistor supplied by VDD
-  * @rmtoll CCVR    NCV3   LL_SYSCFG_GetNMOSVddHSPICompensationValue
-  * @retval Returned value is the NMOS compensation cell
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetNMOSVddHSPICompensationValue(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->CCVR, SYSCFG_CCVR_NCV3));
-}
-#endif /* SYSCFG_CCVR_PCV3 */
-
-/**
-  * @brief  Set the compensation cell code of the GPIO PMOS transistor supplied by VDD
-  * @rmtoll CCCR    PCC1  LL_SYSCFG_SetPMOSVddCompensationCode
-  * @param  PMOSCode PMOS compensation code
-  *         This code is applied to the PMOS compensation cell when the CS1 bit of the
-  *         SYSCFG_CCCSR is set
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_SetPMOSVddCompensationCode(uint32_t PMOSCode)
-{
-  MODIFY_REG(SYSCFG->CCCR, SYSCFG_CCCR_PCC1, PMOSCode << SYSCFG_CCCR_PCC1_Pos);
-}
-
-/**
-  * @brief  Get the compensation cell code of the GPIO PMOS transistor supplied by VDD
-  * @rmtoll CCCR    PCC1   LL_SYSCFG_GetPMOSVddCompensationCode
-  * @retval Returned value is the PMOS compensation cell
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetPMOSVddCompensationCode(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->CCCR, SYSCFG_CCCR_PCC1));
-}
-
-/**
-  * @brief  Set the compensation cell code of the GPIO PMOS transistor supplied by VDDIO2
-  * @rmtoll CCCR    PCC2  LL_SYSCFG_SetPMOSVddIO2CompensationCode
-  * @param  PMOSCode PMOS compensation code
-  *         This code is applied to the PMOS compensation cell when the CS2 bit of the
-  *         SYSCFG_CCCSR is set
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_SetPMOSVddIO2CompensationCode(uint32_t PMOSCode)
-{
-  MODIFY_REG(SYSCFG->CCCR, SYSCFG_CCCR_PCC2, PMOSCode << SYSCFG_CCCR_PCC2_Pos);
-}
-
-
-/**
-  * @brief  Get the compensation cell code of the GPIO PMOS transistor supplied by VDDIO2
-  * @rmtoll CCCR    PCC2   LL_SYSCFG_GetPMOSVddIO2CompensationCode
-  * @retval Returned value is the PMOS compensation
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetPMOSVddIO2CompensationCode(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->CCCR, SYSCFG_CCCR_PCC2));
-}
-
-#if defined(SYSCFG_CCCR_PCC3)
-/**
-  * @brief  Set the compensation cell code of the HSPI IO PMOS transistor supplied by VDD
-  * @rmtoll CCCR    PCC3  LL_SYSCFG_SetPMOSVddHSPICompensationCode
-  * @param  PMOSCode PMOS compensation code
-  *         This code is applied to the PMOS compensation cell when the CS3 bit of the
-  *         SYSCFG_CCCSR is set
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_SetPMOSVddHSPICompensationCode(uint32_t PMOSCode)
-{
-  MODIFY_REG(SYSCFG->CCCR, SYSCFG_CCCR_PCC3, PMOSCode << SYSCFG_CCCR_PCC3_Pos);
-}
-
-/**
-  * @brief  Get the compensation cell code of the HSPI IO PMOS transistor supplied by VDD
-  * @rmtoll CCCR    PCC3   LL_SYSCFG_GetPMOSVddHSPICompensationCode
-  * @retval Returned value is the PMOS compensation
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetPMOSVddHSPICompensationCode(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->CCCR, SYSCFG_CCCR_PCC3));
-}
-#endif /* SYSCFG_CCCR_PCC3 */
-
-/**
-  * @brief  Set the compensation cell code of the GPIO NMOS transistor supplied by VDD
-  * @rmtoll CCCR    PCC2  LL_SYSCFG_SetNMOSVddCompensationCode
-  * @param  NMOSCode NMOS compensation code
-  *         This code is applied to the NMOS compensation cell when the CS2 bit of the
-  *         SYSCFG_CMPCR is set
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_SetNMOSVddCompensationCode(uint32_t NMOSCode)
-{
-  MODIFY_REG(SYSCFG->CCCR, SYSCFG_CCCR_NCC1, NMOSCode << SYSCFG_CCCR_NCC1_Pos);
-}
-
-/**
-  * @brief  Get the compensation cell code of the GPIO NMOS transistor supplied by VDD
-  * @rmtoll CCCR    NCC1   LL_SYSCFG_GetNMOSVddCompensationCode
-  * @retval Returned value is the Vdd compensation cell code for NMOS transistors
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetNMOSVddCompensationCode(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->CCCR, SYSCFG_CCCR_NCC1));
-}
-
-/**
-  * @brief  Set the compensation cell code of the GPIO NMOS transistor supplied by VDDIO2
-  * @rmtoll CCCR    NCC2  LL_SYSCFG_SetNMOSVddIO2CompensationCode
-  * @param  NMOSCode NMOS compensation code
-  *         This code is applied to the NMOS compensation cell when the CS2 bit of the
-  *         SYSCFG_CMPCR is set
-  *         Value between 0 and 15
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_SetNMOSVddIO2CompensationCode(uint32_t NMOSCode)
-{
-  MODIFY_REG(SYSCFG->CCCR, SYSCFG_CCCR_NCC2, NMOSCode << SYSCFG_CCCR_NCC2_Pos);
-}
-
-
-/**
-  * @brief  Get the compensation cell code of the GPIO NMOS transistor supplied by VDDIO2
-  * @rmtoll CCCR    NCC2   LL_SYSCFG_GetNMOSVddIO2CompensationCode
-  * @retval Returned value is the NMOS compensation cell code
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetNMOSVddIO2CompensationCode(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->CCCR, SYSCFG_CCCR_NCC2));
-}
-
-#if defined(SYSCFG_CCCR_NCC3)
-/**
-  * @brief  Set the compensation cell code of the HSPI IO NMOS transistor supplied by VDD
-  * @rmtoll CCCR    NCC3  LL_SYSCFG_SetNMOSVddHSPICompensationCode
-  * @param  NMOSCode NMOS compensation code
-  *         This code is applied to the NMOS compensation cell when the CS3 bit of the
-  *         SYSCFG_CCCSR is set
-  *         Value between 0 and 15
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_SetNMOSVddHSPICompensationCode(uint32_t NMOSCode)
-{
-  MODIFY_REG(SYSCFG->CCCR, SYSCFG_CCCR_NCC3, NMOSCode << SYSCFG_CCCR_NCC3_Pos);
-}
-
-/**
-  * @brief  Get the compensation cell code of the HSPI IO NMOS transistor supplied by VDD
-  * @rmtoll CCCR    NCC3   LL_SYSCFG_GetNMOSVddHSPICompensationCode
-  * @retval Returned value is the NMOS compensation cell code
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetNMOSVddHSPICompensationCode(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->CCCR, SYSCFG_CCCR_NCC3));
-}
-#endif /* SYSCFG_CCCR_NCC3 */
-
-/**
-  * @brief  Enable the Compensation Cell of GPIO supplied by VDD
-  * @rmtoll CCCSR   EN1    LL_SYSCFG_EnableVddCompensationCell
-  * @note   The vdd compensation cell can be used only when the device supply
-  *         voltage ranges from 1.71 to 3.6 V
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_EnableVddCompensationCell(void)
-{
-  SET_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN1);
-}
-
-/**
-  * @brief  Enable the Compensation Cell of GPIO supplied by VDDIO2
-  * @rmtoll CCCSR   EN2    LL_SYSCFG_EnableVddIO2CompensationCell
-  * @note   The Vdd I/O compensation cell can be used only when the device supply
-  *         voltage ranges from 1.08 to 3.6 V
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_EnableVddIO2CompensationCell(void)
-{
-  SET_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN2);
-}
-
-#if defined(SYSCFG_CCCSR_EN3)
-/**
-  * @brief  Enable the Compensation Cell of HSPI IO supplied by VDD
-  * @rmtoll CCCSR   EN3    LL_SYSCFG_EnableVddHSPICompensationCell
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_EnableVddHSPICompensationCell(void)
-{
-  SET_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN3);
-}
-#endif /* SYSCFG_CCCSR_EN3 */
-
-/**
-  * @brief  Disable the Compensation Cell of GPIO supplied by VDD
-  * @rmtoll CCCSR   EN1    LL_SYSCFG_DisableVddCompensationCell
-  * @note   The Vdd compensation cell can be used only when the device supply
-  *         voltage ranges from 1.71 to 3.6 V
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_DisableVddCompensationCell(void)
-{
-  CLEAR_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN1);
-}
-
-/**
-  * @brief  Disable the Compensation Cell of GPIO supplied by VDDIO2
-  * @rmtoll CCCSR   EN2    LL_SYSCFG_DisableVddIO2CompensationCell
-  * @note   The Vdd I/O compensation cell can be used only when the device supply
-  *         voltage ranges from 1.08 to 3.6 V
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_DisableVddIO2CompensationCell(void)
-{
-  CLEAR_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN2);
-}
-
-#if defined(SYSCFG_CCCSR_EN3)
-/**
-  * @brief  Disable the Compensation Cell of HSPI IO supplied by VDD
-  * @rmtoll CCCSR   EN3    LL_SYSCFG_DisableVddHSPICompensationCell
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_DisableVddHSPICompensationCell(void)
-{
-  CLEAR_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN3);
-}
-#endif /* SYSCFG_CCCSR_EN3 */
-
-/**
-  * @brief  Check if the Compensation Cell of GPIO supplied by VDD is enable
-  * @rmtoll CCCSR   EN1    LL_SYSCFG_IsEnabled_VddCompensationCell
-  * @retval State of bit (1 or 0).
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsEnabled_VddCompensationCell(void)
-{
-  return ((READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN1) == SYSCFG_CCCSR_EN1) ? 1UL : 0UL);
-}
-
-/**
-  * @brief  Check if the Compensation Cell of GPIO supplied by VDDIO2 is enable
-  * @rmtoll CCCSR   EN2   LL_SYSCFG_IsEnabled_VddIO2CompensationCell
-  * @retval State of bit (1 or 0).
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsEnabled_VddIO2CompensationCell(void)
-{
-  return ((READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN2) == SYSCFG_CCCSR_EN2) ? 1UL : 0UL);
-}
-
-#if defined(SYSCFG_CCCSR_EN3)
-/**
-  * @brief  Check if the Compensation Cell of HSPI IO supplied by VDD is enable
-  * @rmtoll CCCSR   EN3   LL_SYSCFG_IsEnabled_VddHSPICompensationCell
-  * @retval State of bit (1 or 0).
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsEnabled_VddHSPICompensationCell(void)
-{
-  return ((READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN3) == SYSCFG_CCCSR_EN3) ? 1UL : 0UL);
-}
-#endif /* SYSCFG_CCCSR_EN3 */
-
-/**
-  * @brief  Get Compensation Cell ready Flag of GPIO supplied by VDD
-  * @rmtoll CCCSR   RDY1   LL_SYSCFG_IsActiveFlag_VddCMPCR
-  * @retval State of bit (1 or 0).
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_VddCMPCR(void)
-{
-  return ((READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_RDY1) == (SYSCFG_CCCSR_RDY1)) ? 1UL : 0UL);
-}
-
-/**
-  * @brief  Get Compensation Cell ready Flag of GPIO supplied by VDDIO2
-  * @rmtoll CCCSR   RDY2   LL_SYSCFG_IsActiveFlag_VddIO2CMPCR
-  * @retval State of bit (1 or 0).
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_VddIO2CMPCR(void)
-{
-  return ((READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_RDY2) == (SYSCFG_CCCSR_RDY2)) ? 1UL : 0UL);
-}
-
-#if defined(SYSCFG_CCCSR_RDY3)
-/**
-  * @brief  Get Compensation Cell ready Flag of HSPI IO supplied by VDD
-  * @rmtoll CCCSR   RDY3   LL_SYSCFG_IsActiveFlag_VddHSPICMPCR
-  * @retval State of bit (1 or 0).
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_VddHSPICMPCR(void)
-{
-  return ((READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_RDY3) == (SYSCFG_CCCSR_RDY3)) ? 1UL : 0UL);
-}
-#endif /* SYSCFG_CCCSR_RDY3 */
-
-/**
-  * @brief  Set the compensation cell code selection of GPIO supplied by VDD
-  * @rmtoll CCCSR   CS1    LL_SYSCFG_SetVddCellCompensationCode
-  * @param  CompCode: Selects the code to be applied for the Vdd compensation cell
-  *   This parameter can be one of the following values:
-  *   @arg LL_SYSCFG_VDD_CELL_CODE : Select Code from the cell (available in the SYSCFG_CCVR)
-  *   @arg LL_SYSCFG_VDD_REGISTER_CODE: Select Code from the SYSCFG compensation cell code register (SYSCFG_CCCR)
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_SetVddCellCompensationCode(uint32_t CompCode)
-{
-  SET_BIT(SYSCFG->CCCSR, CompCode);
-}
-
-/**
-  * @brief  Set the compensation cell code selection of GPIO supplied by VDDIO2
-  * @rmtoll CCCSR   CS2    LL_SYSCFG_SetVddIO2CellCompensationCode
-  * @param  CompCode: Selects the code to be applied for the VddIO compensation cell
-  *   This parameter can be one of the following values:
-  *   @arg LL_SYSCFG_VDDIO2_CELL_CODE : Select Code from the cell (available in the SYSCFG_CCVR)
-  *   @arg LL_SYSCFG_VDDIO2_REGISTER_CODE: Select Code from the SYSCFG compensation cell code register (SYSCFG_CCCR)
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_SetVddIO2CellCompensationCode(uint32_t CompCode)
-{
-  SET_BIT(SYSCFG->CCCSR, CompCode);
-}
-
-#if defined(SYSCFG_CCCSR_CS3)
-/**
-  * @brief  Set the compensation cell code selection of HSPI IO supplied by VDD
-  * @rmtoll CCCSR   CS3    LL_SYSCFG_SetVddHSPICellCompensationCode
-  * @param  CompCode: Selects the code to be applied for the VddIO compensation cell
-  *   This parameter can be one of the following values:
-  *   @arg LL_SYSCFG_VDDHSPI_CELL_CODE : Select Code from the cell (available in the SYSCFG_CCVR)
-  *   @arg LL_SYSCFG_VDDHSPI_REGISTER_CODE: Select Code from the SYSCFG compensation cell code register (SYSCFG_CCCR)
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_SetVddHSPICellCompensationCode(uint32_t CompCode)
-{
-  SET_BIT(SYSCFG->CCCSR, CompCode);
-}
-#endif /* SYSCFG_CCCSR_CS3 */
-
-/**
-  * @brief  Get the compensation cell code selection of GPIO supplied by VDD
-  * @rmtoll CCCSR   CS1    LL_SYSCFG_GetVddCellCompensationCode
-  * @retval Returned value can be one of the following values:
-  *   @arg LL_SYSCFG_VDD_CELL_CODE : Selected Code is from the cell (available in the SYSCFG_CCVR)
-  *   @arg LL_SYSCFG_VDD_REGISTER_CODE: Selected Code is from the SYSCFG compensation cell code register (SYSCFG_CCCR)
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetVddCellCompensationCode(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_CS1));
-}
-
-/**
-  * @brief  Get the compensation cell code selection of GPIO supplied by VDDIO2
-  * @rmtoll CCCSR   CS2    LL_SYSCFG_GetVddIO2CellCompensationCode
-  * @retval Returned value can be one of the following values:
-  *   @arg LL_SYSCFG_VDDIO2_CELL_CODE : Selected Code is from the cell (available in the SYSCFG_CCVR)
-  *   @arg LL_SYSCFG_VDDIO2_REGISTER_CODE: Selected Code is from the SYSCFG compensation
-      cell code register (SYSCFG_CCCR)
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetVddIO2CellCompensationCode(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_CS2));
-}
-
-#if defined(SYSCFG_CCCSR_CS3)
-/**
-  * @brief  Get the compensation cell code selection of HSPI IO supplied by VDD
-  * @rmtoll CCCSR   CS3    LL_SYSCFG_GetVddHSPICellCompensationCode
-  * @retval Returned value can be one of the following values:
-  *   @arg LL_SYSCFG_VDDHSPI_CELL_CODE : Selected Code is from the cell (available in the SYSCFG_CCVR)
-  *   @arg LL_SYSCFG_VDDHSPI_REGISTER_CODE: Selected Code is from the SYSCFG compensation
-      cell code register (SYSCFG_CCCR)
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetVddHSPICellCompensationCode(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_CS3));
-}
-#endif /* SYSCFG_CCCSR_CS3 */
 /**
   * @}
   */
@@ -1172,7 +1742,6 @@ __STATIC_INLINE void LL_DBGMCU_DisableDBGStandbyMode(void)
 {
   CLEAR_BIT(DBGMCU->CR, DBGMCU_CR_DBG_STANDBY);
 }
-
 
 /**
   * @brief  Enable the Debug Clock Trace
@@ -1574,6 +2143,7 @@ __STATIC_INLINE void LL_VREFBUF_SetTrimming(uint32_t Value)
 /** @defgroup SYSTEM_LL_EF_FLASH FLASH
   * @{
   */
+
 /**
   * @brief  Set FLASH Latency
   * @rmtoll FLASH_ACR    LATENCY       LL_FLASH_SetLatency
@@ -1720,59 +2290,6 @@ __STATIC_INLINE void LL_FLASH_EnableSleepPowerDown(void)
 __STATIC_INLINE void LL_FLASH_DisableSleepPowerDown(void)
 {
   CLEAR_BIT(FLASH->ACR, FLASH_ACR_SLEEP_PD);
-}
-/**
-  * @}
-  */
-
-
-/** @defgroup SYSTEM_LL_EF_ERASE_MEMORIE_STATUS ERASE MEMORIE STATUS
-  * @{
-  */
-
-/**
-  * @brief  Clear Status of End of Erase for ICACHE and PKA RAMs
-  * @rmtoll MESR   IPMEE    LL_SYSCFG_ClearEraseEndStatus
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_ClearEraseEndStatus(void)
-{
-  SET_BIT(SYSCFG->MESR, SYSCFG_MESR_IPMEE);
-}
-
-/**
-  * @brief  Get Status of End of Erase for ICACHE and PKA RAMs
-  * @rmtoll MESR   IPMEE    LL_SYSCFG_GetEraseEndStatus
-  * @retval Returned value can be one of the following values:
-  *   @arg LL_SYSCFG_MEMORIES_ERASE_ON_GOING : Erase of memories not yet done
-  *   @arg LL_SYSCFG_MEMORIES_ERASE_ENDED: Erase of memories ended
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetEraseEndStatus(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->MESR, SYSCFG_MESR_IPMEE));
-}
-
-
-/**
-  * @brief  Clear Status of End of Erase after reset  for SRAM2, BKPRAM, ICACHE, DCACHE,PKA rams
-  * @rmtoll MESR   MCLR    LL_SYSCFG_ClearEraseAfterResetStatus
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_ClearEraseAfterResetStatus(void)
-{
-  SET_BIT(SYSCFG->MESR, SYSCFG_MESR_MCLR);
-}
-
-/**
-  * @brief  Get Status of End of Erase after reset  for SRAM2, BKPRAM, ICACHE, DCACHE,PKA rams
-  * @rmtoll MESR   MCLR    LL_SYSCFG_GetEraseAfterResetStatus
-  * @retval Returned value can be one of the following values:
-  *   @arg LL_SYSCFG_MEMORIES_ERASE_ON_GOING : Erase of memories not yet done
-  *   @arg LL_SYSCFG_MEMORIES_ERASE_ENDED: Erase of memories ended
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_GetEraseAfterResetStatus(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->MESR, SYSCFG_MESR_MCLR));
 }
 /**
   * @}

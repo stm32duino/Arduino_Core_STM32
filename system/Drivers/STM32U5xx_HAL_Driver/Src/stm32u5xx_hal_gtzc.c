@@ -612,7 +612,7 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_MPCWM_ConfigMemAttributes(uint32_t MemBaseAddres
       break;
 #if defined (FMC_BANK1)
     case FMC_BANK1:
-      size = TZSC_MPCWM1_MEM_SIZE;
+      size = TZSC_MPCWM2_MEM_SIZE;
       if (pMPCWM_Desc->AreaId == GTZC_TZSC_MPCWM_ID1)
       {
         register_address = (uint32_t) &(GTZC_TZSC1_S->MPCWM2AR);

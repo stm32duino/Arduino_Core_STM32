@@ -13,7 +13,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2024 STMicroelectronics.
+  * Copyright (c) 2021 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -85,6 +85,9 @@
     (#) Configure the SDIO Card data block size by the API : HAL_SDIO_SetBlockSize().
 
     (#) Configure the SDIO Card speed mode by the API : HAL_SDIO_SetSpeedMode().
+
+    (#) To custumize the SDIO Init card function for the enumeration card sequence, you can register a user callback
+        function by calling the HAL_SDIO_RegisterIdentifyCardCallback before the HAL_SDIO_Init() function.
 
   *** SDIO Card Read operation ***
   ==============================
@@ -311,6 +314,7 @@ HAL_StatusTypeDef HAL_SDIO_Init(SDIO_HandleTypeDef *hsdio)
 {
   SDIO_InitTypeDef Init;
   uint32_t sdmmc_clk;
+  uint8_t data;
 
   /* Check the parameters */
   assert_param(hsdio != NULL);
@@ -375,9 +379,28 @@ HAL_StatusTypeDef HAL_SDIO_Init(SDIO_HandleTypeDef *hsdio)
   sdmmc_clk = sdmmc_clk / (2U * Init.ClockDiv);
   HAL_Delay(1U + (74U * 1000U / (sdmmc_clk)));
 
-  if (SDIO_InitCard(hsdio) != HAL_OK)
+  if (hsdio->SDIO_IdentifyCard == NULL)
+  {
+    hsdio->SDIO_IdentifyCard = SDIO_InitCard;
+  }
+  /* SDIO enumeration sequence */
+  if (hsdio->SDIO_IdentifyCard(hsdio) != HAL_OK)
   {
     hsdio->State = HAL_SDIO_STATE_RESET;
+    return HAL_ERROR;
+  }
+
+  /* Configure the SDMMC user parameters */
+  Init.ClockEdge           = hsdio->Init.ClockEdge;
+  Init.ClockPowerSave      = hsdio->Init.ClockPowerSave;
+  Init.BusWide             = hsdio->Init.BusWide;
+  Init.HardwareFlowControl = hsdio->Init.HardwareFlowControl;
+  Init.ClockDiv            = hsdio->Init.ClockDiv;
+  (void)SDMMC_Init(hsdio->Instance, Init);
+
+  data = (hsdio->Init.BusWide == HAL_SDIO_4_WIRES_MODE) ? 2U : 0U;
+  if (SDIO_WriteDirect(hsdio, SDMMC_SDIO_CCCR4_SD_BYTE3, HAL_SDIO_WRITE_ONLY, SDIO_FUNCTION_0, &data) != HAL_OK)
+  {
     return HAL_ERROR;
   }
 
@@ -1937,6 +1960,7 @@ HAL_StatusTypeDef HAL_SDIO_UnRegisterCallback(SDIO_HandleTypeDef *hsdio, HAL_SDI
 
   return status;
 }
+#endif /* USE_HAL_SDIO_REGISTER_CALLBACKS */
 
 #if (USE_SDIO_TRANSCEIVER != 0U)
 /**
@@ -1999,7 +2023,30 @@ HAL_StatusTypeDef HAL_SDIO_UnRegisterTransceiverCallback(SDIO_HandleTypeDef *hsd
 }
 #endif /* USE_SDIO_TRANSCEIVER */
 
-#endif /* USE_HAL_SDIO_REGISTER_CALLBACKS */
+/**
+  * @brief Register a User SDIO Identification Callback
+  * @param hsdio: Pointer to SDIO handle
+  * @param pCallback: pointer to the Callback function
+  * @retval status
+  */
+HAL_StatusTypeDef HAL_SDIO_RegisterIdentifyCardCallback(SDIO_HandleTypeDef *hsdio,
+                                                        pSDIO_IdentifyCardCallbackTypeDef pCallback)
+{
+  /* Check the parameters */
+  assert_param(hsdio != NULL);
+  assert_param(pCallback != NULL);
+
+  if (pCallback == NULL)
+  {
+    /* Update the error code */
+    hsdio->ErrorCode |= HAL_SDIO_ERROR_INVALID_CALLBACK;
+    return HAL_ERROR;
+  }
+
+  hsdio->SDIO_IdentifyCard = pCallback;
+
+  return HAL_OK;
+}
 /**
   * @}
   */
@@ -2403,7 +2450,7 @@ HAL_StatusTypeDef HAL_SDIO_DisableIOAsynInterrupt(SDIO_HandleTypeDef *hsdio)
   * @param Callback io IRQ handler.
   */
 HAL_StatusTypeDef HAL_SDIO_RegisterIOFunctionCallback(SDIO_HandleTypeDef *hsdio, uint32_t IOFunction,
-                                                      HAL_SDIO_IOFunction_CallbackTypeDef Callback)
+                                                      HAL_SDIO_IOFunction_CallbackTypeDef pCallback)
 {
   /* Check the parameters */
   assert_param(hsdio != NULL);
@@ -2415,7 +2462,7 @@ HAL_StatusTypeDef HAL_SDIO_RegisterIOFunctionCallback(SDIO_HandleTypeDef *hsdio,
     return HAL_ERROR;
   }
 
-  hsdio->SDIO_IOFunction_Callback[(uint32_t)IOFunction] = Callback;
+  hsdio->SDIO_IOFunction_Callback[(uint32_t)IOFunction] = pCallback;
   hsdio->IOFunctionMask |= (1U << (uint8_t)IOFunction);
 
   return HAL_OK;
@@ -2444,7 +2491,6 @@ static HAL_StatusTypeDef SDIO_InitCard(SDIO_HandleTypeDef *hsdio)
   uint16_t sdio_rca = 1U;
   uint32_t Resp4;
   uint32_t nbr_of_func;
-  SDMMC_InitTypeDef Init;
 
   /* Identify card operating voltage */
   errorstate = SDMMC_CmdGoIdleState(hsdio->Instance);
@@ -2510,21 +2556,6 @@ static HAL_StatusTypeDef SDIO_InitCard(SDIO_HandleTypeDef *hsdio)
   /* Select the Card ( Sending CMD7)*/
   errorstate = SDMMC_CmdSelDesel(hsdio->Instance, (uint32_t)(((uint32_t)sdio_rca) << 16U));
   if (errorstate != HAL_SDIO_ERROR_NONE)
-  {
-    return HAL_ERROR;
-  }
-
-  /* Configure the SDMMC user parameters */
-  Init.ClockEdge           = hsdio->Init.ClockEdge;
-  Init.ClockPowerSave      = hsdio->Init.ClockPowerSave;
-  Init.BusWide             = hsdio->Init.BusWide;
-  Init.HardwareFlowControl = hsdio->Init.HardwareFlowControl;
-  Init.ClockDiv            = hsdio->Init.ClockDiv;
-  (void)SDMMC_Init(hsdio->Instance, Init);
-
-  uint8_t data = (hsdio->Init.BusWide == HAL_SDIO_4_WIRES_MODE) ? 2U : 0U;
-
-  if (SDIO_WriteDirect(hsdio, SDMMC_SDIO_CCCR4_SD_BYTE3, HAL_SDIO_WRITE_ONLY, SDIO_FUNCTION_0, &data) != HAL_OK)
   {
     return HAL_ERROR;
   }

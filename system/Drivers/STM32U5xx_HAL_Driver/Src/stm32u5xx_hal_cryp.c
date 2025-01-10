@@ -363,6 +363,7 @@ static void CRYP_DMAError(DMA_HandleTypeDef *hdma);
 static void CRYP_SetKey(CRYP_HandleTypeDef *hcryp, uint32_t KeySize);
 static void CRYP_SetIV(CRYP_HandleTypeDef *hcryp);
 static void CRYP_AES_IT(CRYP_HandleTypeDef *hcryp);
+static HAL_StatusTypeDef CRYP_WaitFLAG(CRYP_HandleTypeDef *hcryp, uint32_t flag, FlagStatus Status, uint32_t Timeout);
 static HAL_StatusTypeDef CRYP_GCMCCM_SetHeaderPhase(CRYP_HandleTypeDef *hcryp, uint32_t Timeout);
 static void CRYP_GCMCCM_SetPayloadPhase_IT(CRYP_HandleTypeDef *hcryp);
 static void CRYP_GCMCCM_SetHeaderPhase_IT(CRYP_HandleTypeDef *hcryp);
@@ -635,6 +636,13 @@ HAL_StatusTypeDef HAL_CRYP_SetConfig(CRYP_HandleTypeDef *hcryp, CRYP_ConfigTypeD
 
     if (hcryp->Instance == AES)
     {
+      /* Check the busy flag before writing CR register */
+      if (CRYP_WaitFLAG(hcryp, AES_SR_BUSY, SET, CRYP_GENERAL_TIMEOUT) != HAL_OK)
+      {
+        hcryp->State = HAL_CRYP_STATE_READY;
+        __HAL_UNLOCK(hcryp);
+        return HAL_ERROR;
+      }
       /* Set the key size, data type, AlgoMode and operating mode */
       MODIFY_REG(hcryp->Instance->CR, AES_CR_DATATYPE | AES_CR_KEYSIZE | AES_CR_CHMOD | AES_CR_KMOD,
                  hcryp->Init.DataType | hcryp->Init.KeySize | hcryp->Init.Algorithm | hcryp->Init.KeyMode);
@@ -649,10 +657,23 @@ HAL_StatusTypeDef HAL_CRYP_SetConfig(CRYP_HandleTypeDef *hcryp, CRYP_ConfigTypeD
       {
         /* Disable AES to change key mode */
         __HAL_CRYP_DISABLE(hcryp);
+        /* Check the busy flag before writing CR register */
+        if (CRYP_WaitFLAG(hcryp, AES_SR_BUSY, SET, CRYP_GENERAL_TIMEOUT) != HAL_OK)
+        {
+          hcryp->State = HAL_CRYP_STATE_READY;
+          __HAL_UNLOCK(hcryp);
+          return HAL_ERROR;
+        }
         /* Set key mode selection (Normal, Wrapped or Shared key )*/
         MODIFY_REG(hcryp->Instance->CR, AES_CR_KMOD, CRYP_KEYMODE_WRAPPED);
       }
-
+      /* Check the busy flag before writing CR register */
+      if (CRYP_WaitFLAG(hcryp, AES_SR_BUSY, SET, CRYP_GENERAL_TIMEOUT) != HAL_OK)
+      {
+        hcryp->State = HAL_CRYP_STATE_READY;
+        __HAL_UNLOCK(hcryp);
+        return HAL_ERROR;
+      }
       /* Set the key size data type, AlgoMode and operating mode */
       MODIFY_REG(hcryp->Instance->CR, AES_CR_DATATYPE | AES_CR_KEYSIZE | AES_CR_CHMOD | \
                  AES_CR_KEYSEL | AES_CR_KEYPROT | AES_CR_KMOD, hcryp->Init.DataType | hcryp->Init.KeySize | \
@@ -1206,7 +1227,11 @@ HAL_StatusTypeDef HAL_CRYP_RestoreContext(CRYP_HandleTypeDef *hcryp, CRYP_Contex
     hcryp->Init.KeyMode         = pcont->KeyMode;
     hcryp->Phase                = pcont->Phase;
     hcryp->KeyIVConfig          = pcont->KeyIVConfig;
-
+    /* Check the busy flag before writing CR register */
+    if (CRYP_WaitFLAG(hcryp, AES_SR_BUSY, SET, CRYP_GENERAL_TIMEOUT) != HAL_OK)
+    {
+      return HAL_ERROR;
+    }
     /* Restore CRYP CR register content */
     WRITE_REG(hcryp->Instance->CR, (uint32_t)(pcont->CR_Reg));
 
@@ -1379,11 +1404,25 @@ HAL_StatusTypeDef HAL_CRYP_Encrypt(CRYP_HandleTypeDef *hcryp, uint32_t *pInput, 
 
     if (hcryp->Instance == AES)
     {
+      /* Check the busy flag before writing CR register */
+      if (CRYP_WaitFLAG(hcryp, AES_SR_BUSY, SET, CRYP_GENERAL_TIMEOUT) != HAL_OK)
+      {
+        hcryp->State = HAL_CRYP_STATE_READY;
+        __HAL_UNLOCK(hcryp);
+        return HAL_ERROR;
+      }
       /* Set the operating mode */
       MODIFY_REG(hcryp->Instance->CR, AES_CR_MODE, CRYP_OPERATINGMODE_ENCRYPT);
     }
     else
     {
+      /* Check the busy flag before writing CR register */
+      if (CRYP_WaitFLAG(hcryp, AES_SR_BUSY, SET, CRYP_GENERAL_TIMEOUT) != HAL_OK)
+      {
+        hcryp->State = HAL_CRYP_STATE_READY;
+        __HAL_UNLOCK(hcryp);
+        return HAL_ERROR;
+      }
       /* Set the operating mode and normal key selection */
       MODIFY_REG(hcryp->Instance->CR, AES_CR_MODE | AES_CR_KMOD, CRYP_OPERATINGMODE_ENCRYPT | CRYP_KEYMODE_NORMAL);
     }
@@ -1474,10 +1513,22 @@ HAL_StatusTypeDef HAL_CRYP_Decrypt(CRYP_HandleTypeDef *hcryp, uint32_t *pInput, 
     {
       hcryp->Size = Size;
     }
-
-    /* Set Decryption operating mode*/
-    MODIFY_REG(hcryp->Instance->CR, AES_CR_MODE, CRYP_OPERATINGMODE_DECRYPT);
-
+    /* Check the busy flag before writing CR register */
+    if (CRYP_WaitFLAG(hcryp, AES_SR_BUSY, SET, CRYP_GENERAL_TIMEOUT) != HAL_OK)
+    {
+      hcryp->State = HAL_CRYP_STATE_READY;
+      __HAL_UNLOCK(hcryp);
+      return HAL_ERROR;
+    }
+    if (IS_AES_ALL_INSTANCE(hcryp->Instance))
+    {
+      /* Set Decryption operating mode*/
+      MODIFY_REG(hcryp->Instance->CR, AES_CR_MODE, CRYP_OPERATINGMODE_DECRYPT);
+    }
+    else
+    {
+      MODIFY_REG(hcryp->Instance->CR, AES_CR_MODE | AES_CR_KMOD, CRYP_OPERATINGMODE_DECRYPT | CRYP_KEYMODE_NORMAL);
+    }
     /* algo get algorithm selected */
     algo = hcryp->Instance->CR & AES_CR_CHMOD;
 
@@ -1584,7 +1635,13 @@ HAL_StatusTypeDef HAL_CRYP_Encrypt_IT(CRYP_HandleTypeDef *hcryp, uint32_t *pInpu
     {
       hcryp->Size = Size;
     }
-
+    /* Check the busy flag before writing CR register */
+    if (CRYP_WaitFLAG(hcryp, AES_SR_BUSY, SET, CRYP_GENERAL_TIMEOUT) != HAL_OK)
+    {
+      hcryp->State = HAL_CRYP_STATE_READY;
+      __HAL_UNLOCK(hcryp);
+      return HAL_ERROR;
+    }
     /* Set encryption operating mode*/
     MODIFY_REG(hcryp->Instance->CR, AES_CR_MODE, CRYP_OPERATINGMODE_ENCRYPT);
 
@@ -1613,6 +1670,7 @@ HAL_StatusTypeDef HAL_CRYP_Encrypt_IT(CRYP_HandleTypeDef *hcryp, uint32_t *pInpu
 
       default:
         hcryp->ErrorCode |= HAL_CRYP_ERROR_NOT_SUPPORTED;
+        hcryp->State = HAL_CRYP_STATE_READY;
         status = HAL_ERROR;
         break;
     }
@@ -1687,7 +1745,13 @@ HAL_StatusTypeDef HAL_CRYP_Decrypt_IT(CRYP_HandleTypeDef *hcryp, uint32_t *pInpu
     {
       hcryp->Size = Size;
     }
-
+    /* Check the busy flag before writing CR register */
+    if (CRYP_WaitFLAG(hcryp, AES_SR_BUSY, SET, CRYP_GENERAL_TIMEOUT) != HAL_OK)
+    {
+      hcryp->State = HAL_CRYP_STATE_READY;
+      __HAL_UNLOCK(hcryp);
+      return HAL_ERROR;
+    }
     /* Set decryption operating mode*/
     MODIFY_REG(hcryp->Instance->CR, AES_CR_MODE, CRYP_OPERATINGMODE_DECRYPT);
 
@@ -1715,6 +1779,7 @@ HAL_StatusTypeDef HAL_CRYP_Decrypt_IT(CRYP_HandleTypeDef *hcryp, uint32_t *pInpu
 
       default:
         hcryp->ErrorCode |= HAL_CRYP_ERROR_NOT_SUPPORTED;
+        hcryp->State = HAL_CRYP_STATE_READY;
         status = HAL_ERROR;
         break;
     }
@@ -1772,7 +1837,13 @@ HAL_StatusTypeDef HAL_CRYP_Encrypt_DMA(CRYP_HandleTypeDef *hcryp, uint32_t *pInp
     {
       hcryp->Size = Size;
     }
-
+    /* Check the busy flag before writing CR register */
+    if (CRYP_WaitFLAG(hcryp, AES_SR_BUSY, SET, CRYP_GENERAL_TIMEOUT) != HAL_OK)
+    {
+      hcryp->State = HAL_CRYP_STATE_READY;
+      __HAL_UNLOCK(hcryp);
+      return HAL_ERROR;
+    }
     /* Set encryption operating mode*/
     MODIFY_REG(hcryp->Instance->CR, AES_CR_MODE, CRYP_OPERATINGMODE_ENCRYPT);
 
@@ -1878,6 +1949,7 @@ HAL_StatusTypeDef HAL_CRYP_Encrypt_DMA(CRYP_HandleTypeDef *hcryp, uint32_t *pInp
 
       default:
         hcryp->ErrorCode |= HAL_CRYP_ERROR_NOT_SUPPORTED;
+        hcryp->State = HAL_CRYP_STATE_READY;
         status = HAL_ERROR;
         break;
     }
@@ -1934,7 +2006,13 @@ HAL_StatusTypeDef HAL_CRYP_Decrypt_DMA(CRYP_HandleTypeDef *hcryp, uint32_t *pInp
     {
       hcryp->Size = Size;
     }
-
+    /* Check the busy flag before writing CR register */
+    if (CRYP_WaitFLAG(hcryp, AES_SR_BUSY, SET, CRYP_GENERAL_TIMEOUT) != HAL_OK)
+    {
+      hcryp->State = HAL_CRYP_STATE_READY;
+      __HAL_UNLOCK(hcryp);
+      return HAL_ERROR;
+    }
     /* Set decryption operating mode*/
     MODIFY_REG(hcryp->Instance->CR, AES_CR_MODE, CRYP_OPERATINGMODE_DECRYPT);
 
@@ -1962,6 +2040,7 @@ HAL_StatusTypeDef HAL_CRYP_Decrypt_DMA(CRYP_HandleTypeDef *hcryp, uint32_t *pInp
 
       default:
         hcryp->ErrorCode |= HAL_CRYP_ERROR_NOT_SUPPORTED;
+        hcryp->State = HAL_CRYP_STATE_READY;
         status = HAL_ERROR;
         break;
     }
@@ -2005,26 +2084,30 @@ HAL_StatusTypeDef HAL_CRYP_Decrypt_DMA(CRYP_HandleTypeDef *hcryp, uint32_t *pInp
   */
 void HAL_CRYP_IRQHandler(CRYP_HandleTypeDef *hcryp)
 {
+  uint32_t itsource   = hcryp->Instance->IER;
+  uint32_t itflagsr   = hcryp->Instance->SR;
+  uint32_t itflagisr  = hcryp->Instance->ISR;
+
   /* Check if Read or write error occurred */
-  if (__HAL_CRYP_GET_IT_SOURCE(hcryp, CRYP_IT_RWEIE) != RESET)
+  if ((itsource & CRYP_IT_RWEIE) != 0U)
   {
     /* If write Error occurred */
-    if (__HAL_CRYP_GET_FLAG(hcryp, CRYP_FLAG_WRERR) != RESET)
+    if ((itflagsr & CRYP_FLAG_WRERR) != 0U)
     {
       hcryp->ErrorCode |= HAL_CRYP_ERROR_WRITE;
       __HAL_CRYP_CLEAR_FLAG(hcryp, CRYP_CLEAR_RWEIF);
     }
     /* If read Error occurred */
-    if (__HAL_CRYP_GET_FLAG(hcryp, CRYP_FLAG_RDERR) != RESET)
+    if ((itflagsr & CRYP_FLAG_RDERR) != 0U)
     {
       hcryp->ErrorCode |= HAL_CRYP_ERROR_READ;
       __HAL_CRYP_CLEAR_FLAG(hcryp, CRYP_CLEAR_RWEIF);
     }
   }
   /* Check if Key error occurred */
-  if (__HAL_CRYP_GET_IT_SOURCE(hcryp, CRYP_IT_KEIE) != RESET)
+  if ((itsource & CRYP_IT_KEIE) != 0U)
   {
-    if (__HAL_CRYP_GET_FLAG(hcryp, CRYP_FLAG_KEIF) != RESET)
+    if ((itflagisr & CRYP_FLAG_KEIF) != 0U)
     {
       hcryp->ErrorCode |= HAL_CRYP_ERROR_KEY;
       __HAL_CRYP_CLEAR_FLAG(hcryp, CRYP_CLEAR_KEIF);
@@ -2033,9 +2116,9 @@ void HAL_CRYP_IRQHandler(CRYP_HandleTypeDef *hcryp)
     }
   }
 
-  if (__HAL_CRYP_GET_FLAG(hcryp, CRYP_FLAG_CCF) != RESET)
+  if ((itflagisr & CRYP_FLAG_CCF) != 0U)
   {
-    if (__HAL_CRYP_GET_IT_SOURCE(hcryp, CRYP_IT_CCFIE) != RESET)
+    if ((itsource & CRYP_IT_CCFIE) != 0U)
     {
       /* Clear computation complete flag */
       __HAL_CRYP_CLEAR_FLAG(hcryp, CRYP_CLEAR_CCF);
@@ -3536,7 +3619,31 @@ static void CRYP_AES_IT(CRYP_HandleTypeDef *hcryp)
 #endif /* USE_HAL_CRYP_REGISTER_CALLBACKS */
   }
 }
+/**
+  * @brief  Wait Instance Flag
+  * @param  hcryp cryp handle
+  * @param  flag Specifies the flag to check
+  * @param  Status Flag status (SET or RESET)
+  * @param  Timeout Timeout duration
+  * @retval HAL status.
+  */
 
+static HAL_StatusTypeDef CRYP_WaitFLAG(CRYP_HandleTypeDef *hcryp, uint32_t flag, FlagStatus Status, uint32_t Timeout)
+{
+  uint32_t tickstart = HAL_GetTick();
+  while (__HAL_CRYP_GET_FLAG(hcryp, flag) == Status)
+  {
+    if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
+    {
+      CLEAR_BIT(hcryp->Instance->CR, AES_CR_EN);
+      /* Change state */
+      hcryp->ErrorCode |= HAL_CRYP_ERROR_TIMEOUT;
+      /* return error */
+      return HAL_ERROR;
+    }
+  }
+  return HAL_OK;
+}
 /**
   * @brief  Writes Key in Key registers.
   * @param  hcryp pointer to a CRYP_HandleTypeDef structure that contains
@@ -3610,7 +3717,6 @@ static HAL_StatusTypeDef CRYP_AESGCM_Process(CRYP_HandleTypeDef *hcryp, uint32_t
   uint32_t incount;  /* Temporary CrypInCount Value */
   uint32_t outcount;  /* Temporary CrypOutCount Value */
   uint32_t dokeyivconfig = 1U; /* By default, carry out peripheral Key and IV configuration */
-
   if (hcryp->Init.KeyIVConfigSkip == CRYP_KEYIVCONFIG_ONCE)
   {
     if (hcryp->KeyIVConfig == 1U)
@@ -5761,7 +5867,7 @@ static void CRYP_Write_IVRegisters(CRYP_HandleTypeDef *hcryp, const uint32_t *In
 static void CRYP_Read_SuspendRegisters(CRYP_HandleTypeDef *hcryp, const uint32_t *Output)
 {
   uint32_t outputaddr = (uint32_t)Output;
-  uint32_t count = 0U;
+  uint32_t count;
 
   /* In case of GCM payload phase encryption, check that suspension can be carried out */
   if (READ_BIT(hcryp->Instance->CR, (AES_CR_CHMOD | AES_CR_GCMPH | AES_CR_MODE)) == (CRYP_AES_GCM_GMAC |

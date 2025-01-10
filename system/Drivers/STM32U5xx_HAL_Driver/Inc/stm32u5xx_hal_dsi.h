@@ -1246,7 +1246,7 @@ HAL_StatusTypeDef HAL_DSI_LongWrite(DSI_HandleTypeDef *hdsi,
                                     uint32_t Mode,
                                     uint32_t NbParams,
                                     uint32_t Param1,
-                                    uint8_t *ParametersTable);
+                                    const uint8_t *ParametersTable);
 HAL_StatusTypeDef HAL_DSI_Read(DSI_HandleTypeDef *hdsi,
                                uint32_t ChannelNbr,
                                uint8_t *Array,
@@ -1274,8 +1274,8 @@ HAL_StatusTypeDef HAL_DSI_ForceTXStopMode(DSI_HandleTypeDef *hdsi, uint32_t Lane
   *  @brief    Peripheral State and Errors functions
   * @{
   */
-uint32_t HAL_DSI_GetError(DSI_HandleTypeDef *hdsi);
-HAL_DSI_StateTypeDef HAL_DSI_GetState(DSI_HandleTypeDef *hdsi);
+uint32_t HAL_DSI_GetError(const DSI_HandleTypeDef *hdsi);
+HAL_DSI_StateTypeDef HAL_DSI_GetState(const DSI_HandleTypeDef *hdsi);
 
 /**
   * @}

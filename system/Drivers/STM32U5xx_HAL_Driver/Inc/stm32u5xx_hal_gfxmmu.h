@@ -379,28 +379,28 @@ HAL_StatusTypeDef HAL_GFXMMU_UnRegisterCallback(GFXMMU_HandleTypeDef        *hgf
   * @{
   */
 /* Operation functions ********************************************************/
-HAL_StatusTypeDef HAL_GFXMMU_ConfigLut(GFXMMU_HandleTypeDef *hgfxmmu,
+HAL_StatusTypeDef HAL_GFXMMU_ConfigLut(const GFXMMU_HandleTypeDef *hgfxmmu,
                                        uint32_t FirstLine,
                                        uint32_t LinesNumber,
                                        uint32_t Address);
 
-HAL_StatusTypeDef HAL_GFXMMU_DisableLutLines(GFXMMU_HandleTypeDef *hgfxmmu,
+HAL_StatusTypeDef HAL_GFXMMU_DisableLutLines(const GFXMMU_HandleTypeDef *hgfxmmu,
                                              uint32_t FirstLine,
                                              uint32_t LinesNumber);
 
-HAL_StatusTypeDef HAL_GFXMMU_ConfigLutLine(GFXMMU_HandleTypeDef *hgfxmmu, GFXMMU_LutLineTypeDef *lutLine);
+HAL_StatusTypeDef HAL_GFXMMU_ConfigLutLine(const GFXMMU_HandleTypeDef *hgfxmmu, const GFXMMU_LutLineTypeDef *lutLine);
 #if defined(GFXMMU_CR_CE)
 
 HAL_StatusTypeDef HAL_GFXMMU_ConfigForceCache(GFXMMU_HandleTypeDef *hgfxmmu, uint32_t ForceParam);
 
 HAL_StatusTypeDef HAL_GFXMMU_ModifyCachePrefetch(GFXMMU_HandleTypeDef *hgfxmmu,
-                                                 GFXMMU_CachePrefetchTypeDef *CachePrefetch);
+                                                 const GFXMMU_CachePrefetchTypeDef *CachePrefetch);
 #endif /* GFXMMU_CR_CE */
 
-HAL_StatusTypeDef HAL_GFXMMU_ModifyBuffers(GFXMMU_HandleTypeDef *hgfxmmu, GFXMMU_BuffersTypeDef *Buffers);
+HAL_StatusTypeDef HAL_GFXMMU_ModifyBuffers(GFXMMU_HandleTypeDef *hgfxmmu, const GFXMMU_BuffersTypeDef *Buffers);
 #if defined(GFXMMU_CR_ACE)
 HAL_StatusTypeDef HAL_GFXMMU_ModifyAddressCache(GFXMMU_HandleTypeDef *hgfxmmu,
-                                                GFXMMU_AddressCacheTypeDef *AddressCache);
+                                                const GFXMMU_AddressCacheTypeDef *AddressCache);
 #endif /* GFXMMU_CR_ACE */
 
 void HAL_GFXMMU_IRQHandler(GFXMMU_HandleTypeDef *hgfxmmu);
@@ -414,7 +414,7 @@ void HAL_GFXMMU_ErrorCallback(GFXMMU_HandleTypeDef *hgfxmmu);
   * @{
   */
 /* State function *************************************************************/
-HAL_GFXMMU_StateTypeDef HAL_GFXMMU_GetState(GFXMMU_HandleTypeDef *hgfxmmu);
+HAL_GFXMMU_StateTypeDef HAL_GFXMMU_GetState(const GFXMMU_HandleTypeDef *hgfxmmu);
 
 uint32_t HAL_GFXMMU_GetError(GFXMMU_HandleTypeDef *hgfxmmu);
 /**

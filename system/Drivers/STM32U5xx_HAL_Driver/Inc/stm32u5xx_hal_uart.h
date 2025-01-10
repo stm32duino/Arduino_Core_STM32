@@ -292,7 +292,6 @@ typedef enum
   HAL_UART_ABORT_COMPLETE_CB_ID          = 0x05U,    /*!< UART Abort Complete Callback ID          */
   HAL_UART_ABORT_TRANSMIT_COMPLETE_CB_ID = 0x06U,    /*!< UART Abort Transmit Complete Callback ID */
   HAL_UART_ABORT_RECEIVE_COMPLETE_CB_ID  = 0x07U,    /*!< UART Abort Receive Complete Callback ID  */
-  HAL_UART_WAKEUP_CB_ID                  = 0x08U,    /*!< UART Wakeup Callback ID                  */
   HAL_UART_RX_FIFO_FULL_CB_ID            = 0x09U,    /*!< UART Rx Fifo Full Callback ID            */
   HAL_UART_TX_FIFO_EMPTY_CB_ID           = 0x0AU,    /*!< UART Tx Fifo Empty Callback ID           */
 
@@ -1217,7 +1216,7 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
 /** @defgroup UART_Private_Macros   UART Private Macros
   * @{
   */
-/** @brief  Get UART clok division factor from clock prescaler value.
+/** @brief  Get UART clock division factor from clock prescaler value.
   * @param  __CLOCKPRESCALER__ UART prescaler value.
   * @retval UART clock division factor
   */
@@ -1232,8 +1231,7 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
    ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV16)  ? 16U :      \
    ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV32)  ? 32U :      \
    ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV64)  ? 64U :      \
-   ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV128) ? 128U :     \
-   ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV256) ? 256U : 1U)
+   ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV128) ? 128U : 256U)
 
 /** @brief  BRR division operation to set BRR register with LPUART.
   * @param  __PCLK__ LPUART clock.

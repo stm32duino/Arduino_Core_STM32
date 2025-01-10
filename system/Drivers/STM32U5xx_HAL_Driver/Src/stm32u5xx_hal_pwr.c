@@ -594,7 +594,6 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SleepEntry)
   *                                                  clear of pending events before.
   *            @arg PWR_STOPENTRY_WFE_NO_EVT_CLEAR : Enter STOP mode with WFE instruction and
   *                                                  no clear of pending event before.
-  * @note   In System STOP mode, all I/O pins keep the same state as in Run mode.
   * @retval None.
   */
 void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t StopEntry)
@@ -836,6 +835,13 @@ __weak void HAL_PWR_PVDCallback(void)
   *         privileged access.
   * @note   Privilege attribute for nsecure items can be managed  by a secure
   *         privileged access or by a nsecure privileged access.
+  * @note As the privileged attributes concern either all secure or all non-secure
+  *  PWR resources accesses and not each PWR individual items access attribute,
+  *  the application must ensure that the privilege access attribute configurations
+  *  are coherent amongst the security level set on PWR individual items so not to
+  *  overwrite a previous more restricted access rule (consider either all secure
+  *  and/or all non-secure PWR resources accesses by privileged-only transactions
+  *  or privileged and unprivileged transactions).
   * @param  Item       : Specifies the item(s) to set attributes on.
   *                      This parameter can be a combination of @ref PWR_Items.
   * @param  Attributes : Specifies the available attribute(s).
@@ -933,6 +939,8 @@ HAL_StatusTypeDef HAL_PWR_GetConfigAttributes(uint32_t Item, uint32_t *pAttribut
     attributes = ((PWR->PRIVCFGR & PWR_PRIVCFGR_NSPRIV) == 0U) ? PWR_NSEC_NPRIV : PWR_NSEC_PRIV;
   }
 #else
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(Item);
   /* Get Non-Secure privileges attribute */
   attributes = ((PWR->PRIVCFGR & PWR_PRIVCFGR_NSPRIV) == 0U) ? PWR_NSEC_NPRIV : PWR_NSEC_PRIV;
 #endif /* __ARM_FEATURE_CMSE */

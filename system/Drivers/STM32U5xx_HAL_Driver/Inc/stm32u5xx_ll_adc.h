@@ -3723,7 +3723,9 @@ __STATIC_INLINE uint32_t LL_ADC_GetOffsetChannel(const ADC_TypeDef *ADCx, uint32
 {
   const __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->OFR1, Offsety);
 
-  return (uint32_t) READ_BIT(*preg, ADC_OFR1_OFFSET1_CH);
+  /* Note: Value shift +1 for correspondence with channel definition using ADC_CHANNEL_ID_NUMBER_MASK */
+  uint32_t ch_decimal = (READ_BIT(*preg, ADC_OFR1_OFFSET1_CH) >> (ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS + 1UL));
+  return (uint32_t)__LL_ADC_DECIMAL_NB_TO_CHANNEL(ch_decimal);
 }
 
 /**
@@ -4779,42 +4781,8 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
   *         @arg @ref LL_ADC_REG_RANK_15
   *         @arg @ref LL_ADC_REG_RANK_16
   *         Note: Specific case for ADC4, use literals LL_ADC_REG_RANK_x_ADC4
-  * @retval Returned value can be one of the following values:
-  *         @arg @ref LL_ADC_CHANNEL_0           (3)
-  *         @arg @ref LL_ADC_CHANNEL_1           (3)
-  *         @arg @ref LL_ADC_CHANNEL_2           (3)
-  *         @arg @ref LL_ADC_CHANNEL_3           (3)
-  *         @arg @ref LL_ADC_CHANNEL_4           (3)
-  *         @arg @ref LL_ADC_CHANNEL_5           (3)
-  *         @arg @ref LL_ADC_CHANNEL_6
-  *         @arg @ref LL_ADC_CHANNEL_7
-  *         @arg @ref LL_ADC_CHANNEL_8
-  *         @arg @ref LL_ADC_CHANNEL_9
-  *         @arg @ref LL_ADC_CHANNEL_10
-  *         @arg @ref LL_ADC_CHANNEL_11
-  *         @arg @ref LL_ADC_CHANNEL_12
-  *         @arg @ref LL_ADC_CHANNEL_13
-  *         @arg @ref LL_ADC_CHANNEL_14
-  *         @arg @ref LL_ADC_CHANNEL_15
-  *         @arg @ref LL_ADC_CHANNEL_16
-  *         @arg @ref LL_ADC_CHANNEL_17
-  *         @arg @ref LL_ADC_CHANNEL_18
-  *         @arg @ref LL_ADC_CHANNEL_19
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT
-  *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
-  *         @arg @ref LL_ADC_CHANNEL_VBAT         (1)
-  *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4 (2)
-  *         @arg @ref LL_ADC_CHANNEL_DAC1CH2_ADC4 (2)
-  *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR_ADC4  (2)
-  *         @arg @ref LL_ADC_CHANNEL_VBAT_ADC4        (2)
-  *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1, ADC2.
-  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.
-  *         (3) On STM32U5, fast channel (0.125 us for 14-bit resolution (ADC conversion rate up to 8 Ms/s)).
-  *             Other channels are slow channels (conversion rate: refer to reference manual).
-  *         (1, 2) For ADC channel read back from ADC register,
-  *                comparison with internal channel parameter to be done
-  *                using helper macro @ref __LL_ADC_CHANNEL_INTERNAL_TO_EXTERNAL().
+  * @retval Returned value corresponds to one of literals LL_ADC_CHANNEL_x with specific formatting,
+  *         refer to note of this function.
   */
 __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerRanks(const ADC_TypeDef *ADCx, uint32_t Rank)
 {
@@ -5968,42 +5936,8 @@ __STATIC_INLINE void LL_ADC_INJ_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
   *         @arg @ref LL_ADC_INJ_RANK_2
   *         @arg @ref LL_ADC_INJ_RANK_3
   *         @arg @ref LL_ADC_INJ_RANK_4
-  * @retval Returned value can be one of the following values:
-  *         @arg @ref LL_ADC_CHANNEL_0           (3)
-  *         @arg @ref LL_ADC_CHANNEL_1           (3)
-  *         @arg @ref LL_ADC_CHANNEL_2           (3)
-  *         @arg @ref LL_ADC_CHANNEL_3           (3)
-  *         @arg @ref LL_ADC_CHANNEL_4           (3)
-  *         @arg @ref LL_ADC_CHANNEL_5           (3)
-  *         @arg @ref LL_ADC_CHANNEL_6
-  *         @arg @ref LL_ADC_CHANNEL_7
-  *         @arg @ref LL_ADC_CHANNEL_8
-  *         @arg @ref LL_ADC_CHANNEL_9
-  *         @arg @ref LL_ADC_CHANNEL_10
-  *         @arg @ref LL_ADC_CHANNEL_11
-  *         @arg @ref LL_ADC_CHANNEL_12
-  *         @arg @ref LL_ADC_CHANNEL_13
-  *         @arg @ref LL_ADC_CHANNEL_14
-  *         @arg @ref LL_ADC_CHANNEL_15
-  *         @arg @ref LL_ADC_CHANNEL_16
-  *         @arg @ref LL_ADC_CHANNEL_17
-  *         @arg @ref LL_ADC_CHANNEL_18
-  *         @arg @ref LL_ADC_CHANNEL_19
-  *         @arg @ref LL_ADC_CHANNEL_VREFINT
-  *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
-  *         @arg @ref LL_ADC_CHANNEL_VBAT         (1)
-  *         @arg @ref LL_ADC_CHANNEL_DAC1CH1_ADC4 (2)
-  *         @arg @ref LL_ADC_CHANNEL_DAC1CH2_ADC4 (2)
-  *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR_ADC4  (2)
-  *         @arg @ref LL_ADC_CHANNEL_VBAT_ADC4        (2)
-  *
-  *         (1) On STM32U5, parameter available only on ADC instance: ADC1, ADC2.
-  *         (2) On STM32U5, parameter available only on ADC instance: ADC4.
-  *         (3) On STM32U5, fast channel (0.125 us for 14-bit resolution (ADC conversion rate up to 8 Ms/s)).
-  *             Other channels are slow channels (conversion rate: refer to reference manual).
-  *         (1, 2) For ADC channel read back from ADC register,
-  *                comparison with internal channel parameter to be done
-  *                using helper macro @ref __LL_ADC_CHANNEL_INTERNAL_TO_EXTERNAL().
+  * @retval Returned value corresponds to one of literals LL_ADC_CHANNEL_x with specific formatting,
+  *         refer to note of this function.
   */
 __STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerRanks(const ADC_TypeDef *ADCx, uint32_t Rank)
 {
@@ -8583,6 +8517,20 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_AWD3(const ADC_TypeDef *ADCx)
 }
 
 /**
+  * @brief  Get flag ADC internal voltage regulator (LDO) ready.
+  * @note   On this STM32 series, this flag indicates LDO state in different way depending on ADC instances:
+  *         - ADC4: latched as other flags, clear flag function available
+  *         - ADC1, ADC2 (if available): current state (not latched as other flags, no clear flag function)
+  * @rmtoll ISR      LDORDY         LL_ADC_IsActiveFlag_LDORDY
+  * @param  ADCx ADC instance
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_LDORDY(const ADC_TypeDef *ADCx)
+{
+  return ((READ_BIT(ADCx->ISR, LL_ADC_FLAG_LDORDY) == (LL_ADC_FLAG_LDORDY)) ? 1UL : 0UL);
+}
+
+/**
   * @brief  Clear flag ADC ready.
   * @note   On this STM32 series, flag LL_ADC_FLAG_ADRDY is raised when the ADC
   *         is enabled and when conversion clock is active.
@@ -8695,6 +8643,19 @@ __STATIC_INLINE void LL_ADC_ClearFlag_AWD3(ADC_TypeDef *ADCx)
   WRITE_REG(ADCx->ISR, LL_ADC_FLAG_AWD3);
 }
 
+/**
+  * @brief  Clear flag ADC internal voltage regulator (LDO) ready.
+  * @note   On this STM32 series, this flag indicates LDO state in different way depending on ADC instances:
+  *         - ADC4: latched as other flags, clear flag function available
+  *         - ADC1, ADC2 (if available): current state (not latched as other flags, no clear flag function)
+  * @rmtoll ISR      LDORDY         LL_ADC_ClearFlag_LDORDY
+  * @param  ADCx ADC instance
+  * @retval None
+  */
+__STATIC_INLINE void LL_ADC_ClearFlag_LDORDY(ADC_TypeDef *ADCx)
+{
+  WRITE_REG(ADCx->ISR, LL_ADC_FLAG_LDORDY);
+}
 
 /**
   * @}

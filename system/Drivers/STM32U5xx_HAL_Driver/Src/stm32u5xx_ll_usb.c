@@ -794,17 +794,17 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef
       }
       else
       {
-        USBx_INEP(epnum)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_PKTCNT &
-                                       (((ep->xfer_len + ep->maxpacket - 1U) / ep->maxpacket) << 19));
+        pktcnt = (uint16_t)((ep->xfer_len + ep->maxpacket - 1U) / ep->maxpacket);
+        USBx_INEP(epnum)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_PKTCNT & ((uint32_t)pktcnt << 19));
+
+        if (ep->type == EP_TYPE_ISOC)
+        {
+          USBx_INEP(epnum)->DIEPTSIZ &= ~(USB_OTG_DIEPTSIZ_MULCNT);
+          USBx_INEP(epnum)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_MULCNT & ((uint32_t)pktcnt << 29));
+        }
       }
 
       USBx_INEP(epnum)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_XFRSIZ & ep->xfer_len);
-
-      if (ep->type == EP_TYPE_ISOC)
-      {
-        USBx_INEP(epnum)->DIEPTSIZ &= ~(USB_OTG_DIEPTSIZ_MULCNT);
-        USBx_INEP(epnum)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_MULCNT & (1U << 29));
-      }
     }
 
     if (dma == 1U)
@@ -2604,6 +2604,10 @@ HAL_StatusTypeDef USB_ActivateEndpoint(USB_DRD_TypeDef *USBx, USB_DRD_EPTypeDef 
       PCD_CLEAR_RX_DTOG(USBx, ep->num);
       PCD_CLEAR_TX_DTOG(USBx, ep->num);
 
+      /* Set endpoint RX count */
+      PCD_SET_EP_DBUF_CNT(USBx, ep->num, ep->is_in, ep->maxpacket);
+
+      /* Set endpoint RX to valid state */
       PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_VALID);
       PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_DIS);
     }
@@ -2708,7 +2712,7 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_DRD_TypeDef *USBx, USB_DRD_EPTypeDef *ep)
   /* IN endpoint */
   if (ep->is_in == 1U)
   {
-    /*Multi packet transfer*/
+    /* Multi packet transfer */
     if (ep->xfer_len > ep->maxpacket)
     {
       len = ep->maxpacket;
@@ -2810,9 +2814,9 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_DRD_TypeDef *USBx, USB_DRD_EPTypeDef *ep)
           USB_WritePMA(USBx, ep->xfer_buff, pmabuffer, (uint16_t)len);
         }
       }
-      else /* manage isochronous double buffer IN mode */
+      else /* Manage isochronous double buffer IN mode */
       {
-        /* each Time to write in PMA xfer_len_db will */
+        /* Each Time to write in PMA xfer_len_db will */
         ep->xfer_len_db -= len;
 
         /* Fill the data buffer */
@@ -2844,19 +2848,25 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_DRD_TypeDef *USBx, USB_DRD_EPTypeDef *ep)
   {
     if (ep->doublebuffer == 0U)
     {
-      /* Multi packet transfer */
-      if (ep->xfer_len > ep->maxpacket)
+      if ((ep->xfer_len == 0U) && (ep->type == EP_TYPE_CTRL))
       {
-        len = ep->maxpacket;
-        ep->xfer_len -= len;
+        /* This is a status out stage set the OUT_STATUS */
+        PCD_SET_OUT_STATUS(USBx, ep->num);
       }
       else
       {
-        len = ep->xfer_len;
+        PCD_CLEAR_OUT_STATUS(USBx, ep->num);
+      }
+
+      /* Multi packet transfer */
+      if (ep->xfer_len > ep->maxpacket)
+      {
+        ep->xfer_len -= ep->maxpacket;
+      }
+      else
+      {
         ep->xfer_len = 0U;
       }
-      /* configure and validate Rx endpoint */
-      PCD_SET_EP_RX_CNT(USBx, ep->num, len);
     }
 #if (USE_USB_DOUBLE_BUFFER == 1U)
     else
@@ -2865,15 +2875,13 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_DRD_TypeDef *USBx, USB_DRD_EPTypeDef *ep)
       /* Set the Double buffer counter */
       if (ep->type == EP_TYPE_BULK)
       {
-        PCD_SET_EP_DBUF_CNT(USBx, ep->num, ep->is_in, ep->maxpacket);
-
         /* Coming from ISR */
         if (ep->xfer_count != 0U)
         {
-          /* update last value to check if there is blocking state */
+          /* Update last value to check if there is blocking state */
           wEPVal = (uint16_t)PCD_GET_ENDPOINT(USBx, ep->num);
 
-          /*Blocking State */
+          /* Blocking State */
           if ((((wEPVal & USB_EP_DTOG_RX) != 0U) && ((wEPVal & USB_EP_DTOG_TX) != 0U)) ||
               (((wEPVal & USB_EP_DTOG_RX) == 0U) && ((wEPVal & USB_EP_DTOG_TX) == 0U)))
           {
@@ -2884,18 +2892,8 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_DRD_TypeDef *USBx, USB_DRD_EPTypeDef *ep)
       /* iso out double */
       else if (ep->type == EP_TYPE_ISOC)
       {
-        /* Multi packet transfer */
-        if (ep->xfer_len > ep->maxpacket)
-        {
-          len = ep->maxpacket;
-          ep->xfer_len -= len;
-        }
-        else
-        {
-          len = ep->xfer_len;
-          ep->xfer_len = 0U;
-        }
-        PCD_SET_EP_DBUF_CNT(USBx, ep->num, ep->is_in, len);
+        /* Only single packet transfer supported in FS */
+        ep->xfer_len = 0U;
       }
       else
       {
@@ -2939,25 +2937,22 @@ HAL_StatusTypeDef USB_EPSetStall(USB_DRD_TypeDef *USBx, USB_DRD_EPTypeDef *ep)
   */
 HAL_StatusTypeDef USB_EPClearStall(USB_DRD_TypeDef *USBx, USB_DRD_EPTypeDef *ep)
 {
-  if (ep->doublebuffer == 0U)
+  if (ep->is_in != 0U)
   {
-    if (ep->is_in != 0U)
-    {
-      PCD_CLEAR_TX_DTOG(USBx, ep->num);
+    PCD_CLEAR_TX_DTOG(USBx, ep->num);
 
-      if (ep->type != EP_TYPE_ISOC)
-      {
-        /* Configure NAK status for the Endpoint */
-        PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_NAK);
-      }
-    }
-    else
+    if (ep->type != EP_TYPE_ISOC)
     {
-      PCD_CLEAR_RX_DTOG(USBx, ep->num);
-
-      /* Configure VALID status for the Endpoint */
-      PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_VALID);
+      /* Configure NAK status for the Endpoint */
+      PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_NAK);
     }
+  }
+  else
+  {
+    PCD_CLEAR_RX_DTOG(USBx, ep->num);
+
+    /* Configure VALID status for the Endpoint */
+    PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_VALID);
   }
 
   return HAL_OK;
@@ -3397,7 +3392,14 @@ HAL_StatusTypeDef USB_HC_Init(USB_DRD_TypeDef *USBx, uint8_t phy_ch_num,
   }
 
   /* Clear device address, Endpoint number and Low Speed Endpoint fields */
-  wChRegVal &= ~(USB_CHEP_DEVADDR | USB_CHEP_ADDR | USB_CHEP_LSEP);
+  wChRegVal &= ~(USB_CHEP_DEVADDR |
+                 USB_CHEP_ADDR |
+                 USB_CHEP_LSEP |
+                 USB_CHEP_NAK |
+                 USB_CHEP_KIND |
+                 USB_CHEP_ERRTX |
+                 USB_CHEP_ERRRX |
+                 (0xFU << 27));
 
   /* Set device address and Endpoint number associated to the channel */
   wChRegVal |= (((uint32_t)dev_address << USB_CHEP_DEVADDR_Pos) |
@@ -3446,6 +3448,18 @@ HAL_StatusTypeDef USB_HC_StartXfer(USB_DRD_TypeDef *USBx, USB_DRD_HCTypeDef *hc)
 
     if (hc->doublebuffer == 0U)
     {
+      if ((hc->ep_type == EP_TYPE_BULK) ||
+          (hc->ep_type == EP_TYPE_INTR))
+      {
+        USB_DRD_CLEAR_RX_DTOG(USBx, phy_ch_num);
+
+        /* Set Data PID */
+        if (hc->data_pid == HC_PID_DATA1)
+        {
+          USB_DRD_RX_DTOG(USBx, phy_ch_num);
+        }
+      }
+
       /* Set RX buffer count */
       USB_DRD_SET_CHEP_RX_CNT(USBx, phy_ch_num, len);
     }
@@ -3502,6 +3516,18 @@ HAL_StatusTypeDef USB_HC_StartXfer(USB_DRD_TypeDef *USBx, USB_DRD_HCTypeDef *hc)
       if ((hc->data_pid) == HC_PID_SETUP)
       {
         USB_DRD_CHEP_TX_SETUP(USBx,  phy_ch_num);
+      }
+
+      if ((hc->ep_type == EP_TYPE_BULK) ||
+          (hc->ep_type == EP_TYPE_INTR))
+      {
+        USB_DRD_CLEAR_TX_DTOG(USBx, phy_ch_num);
+
+        /* Set Data PID */
+        if (hc->data_pid == HC_PID_DATA1)
+        {
+          USB_DRD_TX_DTOG(USBx, phy_ch_num);
+        }
       }
     }
 #if (USE_USB_DOUBLE_BUFFER == 1U)
