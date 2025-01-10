@@ -1016,27 +1016,25 @@ HAL_StatusTypeDef HAL_ADC_DeInit(ADC_HandleTypeDef *hadc)
 
 #else
   /* Reset register IER */
-  __HAL_ADC_DISABLE_IT(hadc, (
 #if defined(ADC_SUPPORT_2_5_MSPS)
-                              ADC_IT_AWD3  | ADC_IT_AWD2 | ADC_IT_AWD1 |
-                              ADC_IT_EOCAL | ADC_IT_CCRDY |
+  __HAL_ADC_DISABLE_IT(hadc, (ADC_IT_AWD3  | ADC_IT_AWD2 | ADC_IT_AWD1 |
+                              ADC_IT_EOCAL | ADC_IT_CCRDY));
 #else
-                              ADC_IT_AWD3  | ADC_IT_AWD2 | ADC_IT_AWD1 |
-                              ADC_IT_JEOS  | ADC_IT_JEOC | ADC_IT_JQOVF |
+  __HAL_ADC_DISABLE_IT(hadc, (ADC_IT_AWD3  | ADC_IT_AWD2 | ADC_IT_AWD1 |
+                              ADC_IT_JEOS  | ADC_IT_JEOC | ADC_IT_JQOVF));
 #endif /* ADC_SUPPORT_2_5_MSPS */
-                              ADC_IT_EOS   | ADC_IT_EOC  | ADC_IT_OVR   |
+  __HAL_ADC_DISABLE_IT(hadc, (ADC_IT_EOS   | ADC_IT_EOC  | ADC_IT_OVR   |
                               ADC_IT_EOSMP | ADC_IT_RDY));
 
   /* Reset register ISR */
-  __HAL_ADC_CLEAR_FLAG(hadc, (
 #if defined(ADC_SUPPORT_2_5_MSPS)
-                              ADC_FLAG_AWD3  | ADC_FLAG_AWD2 | ADC_FLAG_AWD1 |
-                              ADC_FLAG_EOCAL | ADC_FLAG_CCRDY |
+  __HAL_ADC_CLEAR_FLAG(hadc, (ADC_FLAG_AWD3  | ADC_FLAG_AWD2 | ADC_FLAG_AWD1 |
+                              ADC_FLAG_EOCAL | ADC_FLAG_CCRDY));
 #else
-                              ADC_FLAG_AWD3  | ADC_FLAG_AWD2 | ADC_FLAG_AWD1 |
-                              ADC_FLAG_JEOS  | ADC_FLAG_JEOC | ADC_FLAG_JQOVF |
+  __HAL_ADC_CLEAR_FLAG(hadc, (ADC_FLAG_AWD3  | ADC_FLAG_AWD2 | ADC_FLAG_AWD1 |
+                              ADC_FLAG_JEOS  | ADC_FLAG_JEOC | ADC_FLAG_JQOVF));
 #endif /* ADC_SUPPORT_2_5_MSPS */
-                              ADC_FLAG_EOS   | ADC_FLAG_EOC  | ADC_FLAG_OVR  |
+  __HAL_ADC_CLEAR_FLAG(hadc, (ADC_FLAG_EOS   | ADC_FLAG_EOC  | ADC_FLAG_OVR  |
                               ADC_FLAG_EOSMP | ADC_FLAG_RDY));
 
   /* Reset register CR */

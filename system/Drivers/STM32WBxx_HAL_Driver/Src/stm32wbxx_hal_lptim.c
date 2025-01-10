@@ -2388,7 +2388,6 @@ static HAL_StatusTypeDef LPTIM_WaitForFlag(const LPTIM_HandleTypeDef *hlptim, ui
   */
 void LPTIM_Disable(LPTIM_HandleTypeDef *hlptim)
 {
-  uint32_t tmpclksource = 0;
   uint32_t tmpIER;
   uint32_t tmpCFGR;
   uint32_t tmpCMP;
@@ -2403,22 +2402,6 @@ void LPTIM_Disable(LPTIM_HandleTypeDef *hlptim)
   __set_PRIMASK(1) ;
 
   /*********** Save LPTIM Config ***********/
-  /* Save LPTIM source clock */
-  switch ((uint32_t)hlptim->Instance)
-  {
-    case LPTIM1_BASE:
-      tmpclksource = __HAL_RCC_GET_LPTIM1_SOURCE();
-      break;
-#if defined(LPTIM2)
-    case LPTIM2_BASE:
-      tmpclksource = __HAL_RCC_GET_LPTIM2_SOURCE();
-      break;
-#endif /* LPTIM2 */
-    default:
-      break;
-  }
-
-  /* Save LPTIM configuration registers */
   tmpIER = hlptim->Instance->IER;
   tmpCFGR = hlptim->Instance->CFGR;
   tmpCMP = hlptim->Instance->CMP;
@@ -2447,21 +2430,6 @@ void LPTIM_Disable(LPTIM_HandleTypeDef *hlptim)
   /*********** Restore LPTIM Config ***********/
   if ((tmpCMP != 0UL) || (tmpARR != 0UL))
   {
-    /* Force LPTIM source kernel clock from APB */
-    switch ((uint32_t)hlptim->Instance)
-    {
-      case LPTIM1_BASE:
-        __HAL_RCC_LPTIM1_CONFIG(RCC_LPTIM1CLKSOURCE_PCLK1);
-        break;
-#if defined(LPTIM2)
-      case LPTIM2_BASE:
-        __HAL_RCC_LPTIM2_CONFIG(RCC_LPTIM2CLKSOURCE_PCLK1);
-        break;
-#endif /* LPTIM2 */
-      default:
-        break;
-    }
-
     if (tmpCMP != 0UL)
     {
       /* Restore CMP register (LPTIM should be enabled first) */
@@ -2489,21 +2457,6 @@ void LPTIM_Disable(LPTIM_HandleTypeDef *hlptim)
       }
 
       __HAL_LPTIM_CLEAR_FLAG(hlptim, LPTIM_FLAG_ARROK);
-    }
-
-    /* Restore LPTIM source kernel clock */
-    switch ((uint32_t)hlptim->Instance)
-    {
-      case LPTIM1_BASE:
-        __HAL_RCC_LPTIM1_CONFIG(tmpclksource);
-        break;
-#if defined(LPTIM2)
-      case LPTIM2_BASE:
-        __HAL_RCC_LPTIM2_CONFIG(tmpclksource);
-        break;
-#endif /* LPTIM2 */
-      default:
-        break;
     }
   }
 

@@ -562,46 +562,68 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *ADCx)
   {
     /* ========== Reset ADC registers ========== */
     /* Reset register IER */
+#if !defined(ADC_SUPPORT_2_5_MSPS)
     CLEAR_BIT(ADCx->IER,
               (LL_ADC_IT_ADRDY
                | LL_ADC_IT_EOC
                | LL_ADC_IT_EOS
                | LL_ADC_IT_OVR
                | LL_ADC_IT_EOSMP
-#if !defined(ADC_SUPPORT_2_5_MSPS)
                | LL_ADC_IT_JEOC
                | LL_ADC_IT_JEOS
                | LL_ADC_IT_JQOVF
-#endif /* !ADC_SUPPORT_2_5_MSPS */
                | LL_ADC_IT_AWD1
                | LL_ADC_IT_AWD2
                | LL_ADC_IT_AWD3
-#if defined(ADC_SUPPORT_2_5_MSPS)
-               | LL_ADC_IT_CCRDY
-#endif /* ADC_SUPPORT_2_5_MSPS */
               )
              );
+#endif /* !ADC_SUPPORT_2_5_MSPS */
+#if defined(ADC_SUPPORT_2_5_MSPS)
+    CLEAR_BIT(ADCx->IER,
+              (LL_ADC_IT_ADRDY
+               | LL_ADC_IT_EOC
+               | LL_ADC_IT_EOS
+               | LL_ADC_IT_OVR
+               | LL_ADC_IT_EOSMP
+               | LL_ADC_IT_CCRDY
+               | LL_ADC_IT_AWD1
+               | LL_ADC_IT_AWD2
+               | LL_ADC_IT_AWD3
+              )
+             );
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
     /* Reset register ISR */
+#if !defined(ADC_SUPPORT_2_5_MSPS)
     SET_BIT(ADCx->ISR,
             (LL_ADC_FLAG_ADRDY
              | LL_ADC_FLAG_EOC
              | LL_ADC_FLAG_EOS
              | LL_ADC_FLAG_OVR
              | LL_ADC_FLAG_EOSMP
-#if !defined(ADC_SUPPORT_2_5_MSPS)
              | LL_ADC_FLAG_JEOC
              | LL_ADC_FLAG_JEOS
              | LL_ADC_FLAG_JQOVF
-#endif /* !ADC_SUPPORT_2_5_MSPS */
              | LL_ADC_FLAG_AWD1
              | LL_ADC_FLAG_AWD2
              | LL_ADC_FLAG_AWD3
-#if defined(ADC_SUPPORT_2_5_MSPS)
-             | LL_ADC_FLAG_CCRDY
-#endif /* ADC_SUPPORT_2_5_MSPS */
             )
            );
+#endif /* !ADC_SUPPORT_2_5_MSPS */
+#if defined(ADC_SUPPORT_2_5_MSPS)
+    SET_BIT(ADCx->ISR,
+            (LL_ADC_FLAG_ADRDY
+             | LL_ADC_FLAG_EOC
+             | LL_ADC_FLAG_EOS
+             | LL_ADC_FLAG_OVR
+             | LL_ADC_FLAG_EOSMP
+             | LL_ADC_FLAG_CCRDY
+             | LL_ADC_FLAG_AWD1
+             | LL_ADC_FLAG_AWD2
+             | LL_ADC_FLAG_AWD3
+            )
+           );
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
 #if defined(ADC_SUPPORT_2_5_MSPS)
     /* Reset register CR */
