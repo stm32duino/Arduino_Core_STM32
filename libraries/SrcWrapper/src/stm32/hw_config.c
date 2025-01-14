@@ -21,6 +21,28 @@
 extern "C" {
 #endif
 
+#if defined(STM32H7xx)
+#if !defined(USE_PWR_LDO_SUPPLY) &&  !defined(USE_PWR_DIRECT_SMPS_SUPPLY) &&\
+!defined(USE_PWR_EXTERNAL_SOURCE_SUPPLY) && !defined(USE_PWR_SMPS_1V8_SUPPLIES_LDO) &&\
+!defined(USE_PWR_SMPS_2V5_SUPPLIES_LDO) && !defined(USE_PWR_SMPS_1V8_SUPPLIES_EXT_AND_LDO) &&\
+!defined(USE_PWR_SMPS_2V5_SUPPLIES_EXT_AND_LDO) && !defined(USE_PWR_SMPS_1V8_SUPPLIES_EXT) &&\
+!defined(USE_PWR_SMPS_2V5_SUPPLIES_EXT)
+#pragma message "\n\
+Configure the system power supply according to the\n\
+definition to be used at compilation preprocessing level.\n\
+The application shall set one of the following configuration option:\n\
+                            - USE_PWR_LDO_SUPPLY\n\
+                            - USE_PWR_DIRECT_SMPS_SUPPLY\n\
+                            - USE_PWR_EXTERNAL_SOURCE_SUPPLY\n\
+                            - USE_PWR_SMPS_1V8_SUPPLIES_LDO\n\
+                            - USE_PWR_SMPS_2V5_SUPPLIES_LDO\n\
+                            - USE_PWR_SMPS_1V8_SUPPLIES_EXT_AND_LDO\n\
+                            - USE_PWR_SMPS_2V5_SUPPLIES_EXT_AND_LDO\n\
+                            - USE_PWR_SMPS_1V8_SUPPLIES_EXT\n\
+                            - USE_PWR_SMPS_2V5_SUPPLIES_EXT\n"
+#endif
+#endif
+
 #if defined(HAL_CRC_MODULE_ENABLED)
 CRC_HandleTypeDef hcrc = {.Instance =
 #if defined(CRC2_BASE)
