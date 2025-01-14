@@ -88,10 +88,7 @@ int digitalRead(uint32_t ulPin)
 {
   PinName p = digitalPinToPinName(ulPin);
 
-  if (p == NC) {
-    return 0;
-  }
-  return digitalReadFast(p);
+  return (p == NC) ? 0 : digitalReadFast(p);
 }
 
 void digitalToggle(uint32_t ulPin)
