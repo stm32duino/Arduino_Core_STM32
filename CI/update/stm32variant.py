@@ -1584,10 +1584,11 @@ def print_variant(generic_list, alt_syswkup_list):
     )
 
 
-def search_product_line(valueline):
+def search_product_line(valueline: str, extra: str) -> str:
     product_line = ""
+    product_line_list = product_line_dict[mcu_family]
     if not valueline.startswith("STM32MP1"):
-        for pline in product_line_dict[mcu_family]:
+        for idx_pline, pline in enumerate(product_line_list):
             vline = valueline
             product_line = pline
             # Remove the 'x' character from pline and
@@ -1600,6 +1601,10 @@ def search_product_line(valueline):
                 else:
                     break
             if pline >= vline:
+                if extra and len(product_line_list) > idx_pline + 1:
+                    if product_line_list[idx_pline + 1] == (product_line + extra):
+                        # Look for the next product line if contains the extra
+                        product_line = product_line_list[idx_pline + 1]
                 break
         else:
             # In case of CMSIS device does not exist
@@ -1698,11 +1703,14 @@ def print_boards_entry():
                 }
             )
         # Search product line for last flash size
+        # Keep the AQ if any
+        subp = pl_regex.search(subf.group(3))
         product_line = search_product_line(
             "STM32"
             + subf.group(1)
             + subf.group(2).split("-")[-1]
-            + package_regex.sub(r"", subf.group(3))
+            + package_regex.sub(r"", subf.group(3)),
+            subp.group(1) if subp and subp.group(1) is not None else "",
         )
     else:
         valueline = mcu_refname
@@ -1715,7 +1723,11 @@ def print_boards_entry():
                 "svd": search_svdfile(mcu_refname),
             }
         )
-        product_line = search_product_line(package_regex.sub(r"", valueline))
+        subp = pl_regex.search(valueline)
+        product_line = search_product_line(
+            package_regex.sub(r"", valueline),
+            subp.group(1) if subp and subp.group(1) is not None else "",
+        )
 
     gen_entry = mcu_family.replace("STM32", "Gen")
 
@@ -2685,6 +2697,7 @@ j2_env = Environment(
 # Clean temporary dir
 deleteFolder(tmp_dir)
 
+pl_regex = re.compile(r"([AQ])$")
 package_regex = re.compile(r"[\w][\w]([ANPQSXZ])?$")
 flash_group_regex = re.compile(r"(.*)\((.*)\)(.*)")
 
