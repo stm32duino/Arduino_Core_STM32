@@ -26,7 +26,7 @@ GenH7.menu.pnum.GENERIC_H730ABIXQ=Generic H730ABIxQ
 GenH7.menu.pnum.GENERIC_H730ABIXQ.upload.maximum_size=131072
 GenH7.menu.pnum.GENERIC_H730ABIXQ.upload.maximum_data_size=577536
 GenH7.menu.pnum.GENERIC_H730ABIXQ.build.board=GENERIC_H730ABIXQ
-GenH7.menu.pnum.GENERIC_H730ABIXQ.build.product_line=STM32H730xx
+GenH7.menu.pnum.GENERIC_H730ABIXQ.build.product_line=STM32H730xxQ
 GenH7.menu.pnum.GENERIC_H730ABIXQ.build.variant=STM32H7xx/H725A(E-G)I_H730ABIxQ_H735AGI
 GenH7.menu.pnum.GENERIC_H730ABIXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H730.svd
 
