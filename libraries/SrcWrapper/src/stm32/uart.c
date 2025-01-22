@@ -68,6 +68,12 @@ typedef enum {
 #if defined(UART10_BASE) || defined(USART10_BASE)
   UART10_INDEX,
 #endif
+#if defined(USART11_BASE)
+  UART11_INDEX,
+#endif
+#if defined(UART12_BASE)
+  UART12_INDEX,
+#endif
 #if defined(LPUART1_BASE)
   LPUART1_INDEX,
 #endif
@@ -339,7 +345,24 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
     obj->irq = USART10_IRQn;
   }
 #endif
-
+#if defined(USART11_BASE)
+  else if (obj->uart == USART11) {
+    __HAL_RCC_USART11_FORCE_RESET();
+    __HAL_RCC_USART11_RELEASE_RESET();
+    __HAL_RCC_USART11_CLK_ENABLE();
+    obj->index = UART11_INDEX;
+    obj->irq = USART11_IRQn;
+  }
+#endif
+#if defined(UART12_BASE)
+  else if (obj->uart == UART12) {
+    __HAL_RCC_UART12_FORCE_RESET();
+    __HAL_RCC_UART12_RELEASE_RESET();
+    __HAL_RCC_UART12_CLK_ENABLE();
+    obj->index = UART12_INDEX;
+    obj->irq = UART12_IRQn;
+  }
+#endif
   /* Configure UART GPIO pins */
 #if defined(UART_ADVFEATURE_SWAP_INIT)
   uint32_t pin_swap = UART_ADVFEATURE_SWAP_DISABLE;
@@ -659,6 +682,20 @@ void uart_deinit(serial_t *obj)
       __HAL_RCC_USART10_FORCE_RESET();
       __HAL_RCC_USART10_RELEASE_RESET();
       __HAL_RCC_USART10_CLK_DISABLE();
+      break;
+#endif
+#if defined(USART11_BASE)
+    case UART11_INDEX:
+      __HAL_RCC_USART11_FORCE_RESET();
+      __HAL_RCC_USART11_RELEASE_RESET();
+      __HAL_RCC_USART11_CLK_DISABLE();
+      break;
+#endif
+#if defined(UART12_BASE)
+    case UART12_INDEX:
+      __HAL_RCC_UART12_FORCE_RESET();
+      __HAL_RCC_UART12_RELEASE_RESET();
+      __HAL_RCC_UART12_CLK_DISABLE();
       break;
 #endif
   }
@@ -1277,6 +1314,32 @@ void USART10_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(USART10_IRQn);
   HAL_UART_IRQHandler(uart_handlers[UART10_INDEX]);
+}
+#endif
+
+/**
+  * @brief  USART 11 IRQ handler
+  * @param  None
+  * @retval None
+  */
+#if defined(USART11_BASE)
+void USART11_IRQHandler(void)
+{
+  HAL_NVIC_ClearPendingIRQ(USART11_IRQn);
+  HAL_UART_IRQHandler(uart_handlers[UART11_INDEX]);
+}
+#endif
+
+/**
+  * @brief  UART 12 IRQ handler
+  * @param  None
+  * @retval None
+  */
+#if defined(UART12_BASE)
+void UART12_IRQHandler(void)
+{
+  HAL_NVIC_ClearPendingIRQ(UART12_IRQn);
+  HAL_UART_IRQHandler(uart_handlers[UART12_INDEX]);
 }
 #endif
 
