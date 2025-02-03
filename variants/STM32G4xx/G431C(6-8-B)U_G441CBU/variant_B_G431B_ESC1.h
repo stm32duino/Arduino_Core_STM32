@@ -214,7 +214,7 @@
 #endif
 
 /* HAL configuration */
-#define HSE_VALUE               (24000000UL)
+#define HSE_VALUE               (8000000UL)
 
 /* Extra HAL modules */
 #if !defined(HAL_DAC_MODULE_DISABLED)
