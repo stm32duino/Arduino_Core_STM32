@@ -15,6 +15,7 @@
 #include "uart.h"
 #include "Arduino.h"
 #include "PinAF_STM32F1.h"
+#include "stm32yyxx_ll_rcc.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -457,28 +458,30 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
     if (baudrate <= 9600) {
       /* Enable the clock if not already set by user */
       enableClock(LSE_CLOCK);
-      if (obj->uart == LPUART1) {
-        __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_LSE);
-      }
+      if (LL_RCC_LSE_IsReady()) {
+        if (obj->uart == LPUART1) {
+          __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_LSE);
+        }
 #if defined(LPUART2_BASE)
-      if (obj->uart == LPUART2) {
-        __HAL_RCC_LPUART2_CONFIG(RCC_LPUART2CLKSOURCE_LSE);
-      }
+        if (obj->uart == LPUART2) {
+          __HAL_RCC_LPUART2_CONFIG(RCC_LPUART2CLKSOURCE_LSE);
+        }
 #endif
 #if defined(LPUART3_BASE)
-      if (obj->uart == LPUART3) {
-        __HAL_RCC_LPUART3_CONFIG(RCC_LPUART3CLKSOURCE_LSE);
-      }
+        if (obj->uart == LPUART3) {
+          __HAL_RCC_LPUART3_CONFIG(RCC_LPUART3CLKSOURCE_LSE);
+        }
 #endif
-      if ((uart_rx == NP) && (uart_rx_swap == NP)) {
-        if (HAL_HalfDuplex_Init(huart) == HAL_OK) {
+        if ((uart_rx == NP) && (uart_rx_swap == NP)) {
+          if (HAL_HalfDuplex_Init(huart) == HAL_OK) {
+            return;
+          }
+        } else if (HAL_UART_Init(huart) == HAL_OK) {
           return;
         }
-      } else if (HAL_UART_Init(huart) == HAL_OK) {
-        return;
       }
     }
-    if (__HAL_RCC_GET_FLAG(RCC_FLAG_HSIRDY)) {
+    if (LL_RCC_HSI_IsReady()) {
       if (obj->uart == LPUART1) {
         __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_HSI);
       }
