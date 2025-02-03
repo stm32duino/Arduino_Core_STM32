@@ -242,7 +242,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F042F4<br>STM32F042F6 | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32F042G4<br>STM32F042G6 | Generic Board | *2.4.0* |  |
 | :green_heart: | STM32F042K4T<br>STM32F042K6T | Generic Board | **2.0.1** |  |
-| :yellow_heart: | STM32F042K6U | Generic Board | **2.10.0** |  |
+| :yellow_heart: | STM32F042K4U<br>STM32F042K6U | Generic Board | **2.10.0** |  |
 | :green_heart:  | STM32F042T6 | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32F048G6 | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32F048T6 | Generic Board | *2.4.0* |  |
