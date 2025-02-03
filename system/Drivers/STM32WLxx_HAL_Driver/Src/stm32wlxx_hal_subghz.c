@@ -266,13 +266,13 @@ HAL_StatusTypeDef HAL_SUBGHZ_Init(SUBGHZ_HandleTypeDef *hsubghz)
     HAL_SUBGHZ_MspInit(hsubghz);
 #endif /* USE_HAL_ SUBGHZ_REGISTER_CALLBACKS */
 
-#if defined(CM0PLUS)
+#if defined(CORE_CM0PLUS)
     /* Enable EXTI 44 : Radio IRQ ITs for CPU2 */
     LL_C2_EXTI_EnableIT_32_63(LL_EXTI_LINE_44);
 #else
     /* Enable EXTI 44 : Radio IRQ ITs for CPU1 */
     LL_EXTI_EnableIT_32_63(LL_EXTI_LINE_44);
-#endif /* CM0PLUS */
+#endif /* CORE_CM0PLUS */
   }
 
   if (subghz_state == HAL_SUBGHZ_STATE_RESET)
@@ -300,13 +300,13 @@ HAL_StatusTypeDef HAL_SUBGHZ_Init(SUBGHZ_HandleTypeDef *hsubghz)
     /* Asserts the reset signal of the Radio peripheral */
     LL_PWR_UnselectSUBGHZSPI_NSS();
 
-#if defined(CM0PLUS)
+#if defined(CORE_CM0PLUS)
     /* Enable wakeup signal of the Radio peripheral */
     LL_C2_PWR_SetRadioBusyTrigger(LL_PWR_RADIO_BUSY_TRIGGER_WU_IT);
 #else
     /* Enable wakeup signal of the Radio peripheral */
     LL_PWR_SetRadioBusyTrigger(LL_PWR_RADIO_BUSY_TRIGGER_WU_IT);
-#endif /* CM0PLUS */
+#endif /* CORE_CM0PLUS */
   }
 
   /* Clear Pending Flag */
@@ -366,7 +366,7 @@ HAL_StatusTypeDef HAL_SUBGHZ_DeInit(SUBGHZ_HandleTypeDef *hsubghz)
   HAL_SUBGHZ_MspDeInit(hsubghz);
 #endif /* USE_HAL_SUBGHZ_REGISTER_CALLBACKS */
 
-#if defined(CM0PLUS)
+#if defined(CORE_CM0PLUS)
   /* Disable EXTI 44 : Radio IRQ ITs for CPU2 */
   LL_C2_EXTI_DisableIT_32_63(LL_EXTI_LINE_44);
 
@@ -378,7 +378,7 @@ HAL_StatusTypeDef HAL_SUBGHZ_DeInit(SUBGHZ_HandleTypeDef *hsubghz)
 
   /* Disable wakeup signal of the Radio peripheral */
   LL_PWR_SetRadioBusyTrigger(LL_PWR_RADIO_BUSY_TRIGGER_NONE);
-#endif /* CM0PLUS */
+#endif /* CORE_CM0PLUS */
 
   /* Clear Pending Flag */
   LL_PWR_ClearFlag_RFBUSY();
@@ -1241,7 +1241,8 @@ void HAL_SUBGHZ_IRQHandler(SUBGHZ_HandleTypeDef *hsubghz)
   }
 
   /* Packet received Interrupt */
-  if (SUBGHZ_CHECK_IT_SOURCE(itsource, SUBGHZ_IT_RX_CPLT) != RESET)
+  if ((SUBGHZ_CHECK_IT_SOURCE(itsource, SUBGHZ_IT_RX_CPLT) != RESET) && \
+      (SUBGHZ_CHECK_IT_SOURCE(itsource, SUBGHZ_IT_CRC_ERROR) == RESET))
   {
 #if (USE_HAL_SUBGHZ_REGISTER_CALLBACKS == 1U)
     hsubghz->RxCpltCallback(hsubghz);

@@ -671,6 +671,10 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
                  | (hadc->ADCGroupRegularSequencerRanks)
                 );
     }
+    else
+    {
+      /* Nothing to do */
+    }
 
     /* Check back that ADC registers have effectively been configured to      */
     /* ensure of no potential problem of ADC core peripheral clocking.        */
@@ -790,24 +794,26 @@ HAL_StatusTypeDef HAL_ADC_DeInit(ADC_HandleTypeDef *hadc)
                              ADC_CFGR1_EXTEN   | ADC_CFGR1_EXTSEL | ADC_CFGR1_ALIGN  | ADC_CFGR1_RES    |
                              ADC_CFGR1_SCANDIR | ADC_CFGR1_DMACFG | ADC_CFGR1_DMAEN);
 
-  /* Reset register CFGR2 */
-  /* Note: Update of ADC clock mode is conditioned to ADC state disabled:   */
-  /*       already done above.                                              */
-  hadc->Instance->CFGR2 &= ~ADC_CFGR2_CKMODE;
-
   /* Reset register SMPR */
   hadc->Instance->SMPR &= ~ADC_SMPR_SMP1;
-
-  /* Reset registers AWDxTR */
-  hadc->Instance->AWD1TR &= ~(ADC_AWD1TR_HT1 | ADC_AWD1TR_LT1);
-  hadc->Instance->AWD2TR &= ~(ADC_AWD2TR_HT2 | ADC_AWD2TR_LT2);
-  hadc->Instance->AWD3TR &= ~(ADC_AWD3TR_HT3 | ADC_AWD3TR_LT3);
 
   /* Reset register CHSELR */
   hadc->Instance->CHSELR &= ~(ADC_CHSELR_SQ_ALL);
 
   /* Reset register DR */
   /* bits in access mode read only, no direct reset applicable */
+
+  /* Reset registers AWDxTR */
+  hadc->Instance->AWD1TR &= ~(ADC_AWD1TR_HT1 | ADC_AWD1TR_LT1);
+  hadc->Instance->AWD2TR &= ~(ADC_AWD2TR_HT2 | ADC_AWD2TR_LT2);
+  hadc->Instance->AWD3TR &= ~(ADC_AWD3TR_HT3 | ADC_AWD3TR_LT3);
+
+  /* Reset register CFGR2 */
+  /* Note: CFGR2 reset done at the end of de-initialization due to          */
+  /*       clock source reset                                               */
+  /* Note: Update of ADC clock mode is conditioned to ADC state disabled:   */
+  /*       already done above.                                              */
+  hadc->Instance->CFGR2 &= ~ADC_CFGR2_CKMODE;
 
   /* Reset register CCR */
   ADC_COMMON->CCR &= ~(ADC_CCR_VBATEN | ADC_CCR_TSEN | ADC_CCR_VREFEN | ADC_CCR_PRESC);

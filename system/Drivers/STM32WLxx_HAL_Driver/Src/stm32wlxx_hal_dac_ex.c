@@ -211,7 +211,6 @@ HAL_StatusTypeDef HAL_DACEx_SelfCalibrate(DAC_HandleTypeDef *hdac, DAC_ChannelCo
 {
   HAL_StatusTypeDef status = HAL_OK;
 
-  __IO uint32_t tmp;
   uint32_t trimmingvalue;
   uint32_t delta;
   __IO uint32_t wait_loop_index;
@@ -245,16 +244,6 @@ HAL_StatusTypeDef HAL_DACEx_SelfCalibrate(DAC_HandleTypeDef *hdac, DAC_ChannelCo
 
     /* Set mode in MCR  for calibration */
     MODIFY_REG(hdac->Instance->MCR, (DAC_MCR_MODE1 << (Channel & 0x10UL)), 0U);
-
-    /* Set DAC Channel1 DHR register to the middle value */
-    tmp = (uint32_t)hdac->Instance;
-
-    if (Channel == DAC_CHANNEL_1)
-    {
-      tmp += DAC_DHR12R1_ALIGNMENT(DAC_ALIGN_12B_R);
-    }
-
-    *(__IO uint32_t *) tmp = 0x0800UL;
 
     /* Enable the selected DAC channel calibration */
     /* i.e. set DAC_CR_CENx bit */
@@ -309,8 +298,12 @@ HAL_StatusTypeDef HAL_DACEx_SelfCalibrate(DAC_HandleTypeDef *hdac, DAC_ChannelCo
 
     if ((hdac->Instance->SR & (DAC_SR_CAL_FLAG1 << (Channel & 0x10UL))) == 0UL)
     {
-      /* Trimming is actually one value more */
-      trimmingvalue++;
+      /* Check trimming value below maximum */
+      if (trimmingvalue < 0x1FU)
+      {
+        /* Trimming is actually one value more */
+        trimmingvalue++;
+      }
       /* Set right trimming */
       MODIFY_REG(hdac->Instance->CCR, (DAC_CCR_OTRIM1 << (Channel & 0x10UL)), (trimmingvalue << (Channel & 0x10UL)));
     }

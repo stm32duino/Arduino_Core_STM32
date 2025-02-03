@@ -20,7 +20,7 @@
   * STM32U5: 1.6.1
   * STM32WB: 1.14.4
   * STM32WBA: 1.5.0
-  * STM32WL: 1.3.0
+  * STM32WL: 1.3.1
 
 Release notes of each STM32YYxx HAL Drivers available here:
 
