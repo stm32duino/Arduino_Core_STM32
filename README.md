@@ -368,6 +368,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F401RB<br>STM32F401RC<br>STM32F401RD<br>STM32F401RE | Generic Board | *1.8.0* |  |
 | :green_heart:  | STM32F401VB<br>STM32F401VC<br>STM32F401VD<br>STM32F401VE | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F405RG | Generic Board | *1.9.0* |  |
+| :yellow_heart:  | STM32F407IE<br>STM32F407IG | Generic Board | **2.10.0** |  |
 | :green_heart:  | STM32F407VE<br>STM32F407VG | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F407ZE<br>STM32F407ZG | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F410C8<br>STM32F410CB | Generic Board | *1.9.0* |  |
@@ -382,6 +383,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F413RG<br>STM32F413RH | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F413ZG<br>STM32F413ZH | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F415RG | Generic Board | *1.9.0* |  |
+| :yellow_heart:  | STM32F417IE<br>STM32F417IG | Generic Board | **2.10.0** |  |
 | :green_heart:  | STM32F417VE<br>STM32F417VG | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F417ZE<br>STM32F417ZG | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F423CH | Generic Board | *1.9.0* |  |
