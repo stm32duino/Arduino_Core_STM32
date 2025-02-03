@@ -178,7 +178,7 @@ typedef struct
   */
 #define LL_UTILS_PACKAGETYPE_UFBGA73        0x00000000U /*!< UFBGA73  package type */
 #define LL_UTILS_PACKAGETYPE_WLCSP59        0x00000002U /*!< WLSCSP59 package type */
-#define LL_UTILS_PACKAGETYPE_UFQFPN48       0x00000010U /*!< UFQPFN48 package type */
+#define LL_UTILS_PACKAGETYPE_UFQFPN48       0x0000000AU /*!< UFQPFN48 package type */
 /**
   * @}
   */

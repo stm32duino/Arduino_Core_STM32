@@ -78,7 +78,7 @@
          the CRYP peripheral is configured and processes the buffer in input.
          At second call, no need to Initialize the CRYP, user have to get current configuration via
          HAL_CRYP_GetConfig() API, then only  HAL_CRYP_SetConfig() is requested to set
-         new parametres, finally user can  start encryption/decryption.
+         new parameters, finally user can  start encryption/decryption.
 
        (#)Call HAL_CRYP_DeInit() to deinitialize the CRYP peripheral.
 
@@ -200,7 +200,7 @@
          (##) To perform message payload encryption or decryption AES is configured in CTR mode.
          (##) For authentication two phases are performed :
           - Header phase: peripheral processes the Additional Authenticated Data (AAD) first, then the cleartext message
-          only cleartext payload (not the ciphertext payload) is used and no outpout.
+          only cleartext payload (not the ciphertext payload) is used and no output.
          (##) Final phase: peripheral generates the authenticated tag (T) using the last block of data.
 
   *** Callback registration ***
@@ -2221,15 +2221,17 @@ static HAL_StatusTypeDef CRYP_AES_Encrypt_IT(CRYP_HandleTypeDef *hcryp)
     /* Enable CRYP */
     __HAL_CRYP_ENABLE(hcryp);
 
-    /* Write the input block in the IN FIFO */
-    hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+    /* Increment the pointer before writing the input block in the IN FIFO to make sure that
+       when Computation Completed IRQ fires, the hcryp->CrypInCount has always a consistent value
+       and it is ready for the next operation. */
     hcryp->CrypInCount++;
-    hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+    hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
     hcryp->CrypInCount++;
-    hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+    hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
     hcryp->CrypInCount++;
-    hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+    hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
     hcryp->CrypInCount++;
+    hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
   }
   else
   {
@@ -2522,15 +2524,17 @@ static HAL_StatusTypeDef CRYP_AES_Decrypt_IT(CRYP_HandleTypeDef *hcryp)
     /* Enable CRYP */
     __HAL_CRYP_ENABLE(hcryp);
 
-    /* Write the input block in the IN FIFO */
-    hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+    /* Increment the pointer before writing the input block in the IN FIFO to make sure that
+       when Computation Completed IRQ fires, the hcryp->CrypInCount has always a consistent value
+       and it is ready for the next operation. */
     hcryp->CrypInCount++;
-    hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+    hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
     hcryp->CrypInCount++;
-    hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+    hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
     hcryp->CrypInCount++;
-    hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+    hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
     hcryp->CrypInCount++;
+    hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
   }
   else
   {
@@ -3696,10 +3700,6 @@ static HAL_StatusTypeDef CRYP_AESGCM_Process_IT(CRYP_HandleTypeDef *hcryp)
           header has already been processed;
           only process here message payload */
   {
-
-    /* Enable computation complete flag and error interrupts */
-    __HAL_CRYP_ENABLE_IT(hcryp, CRYP_IT_CCFIE | CRYP_IT_ERRIE);
-
     /* Set to 0 the number of non-valid bytes using NPBLB register*/
     MODIFY_REG(hcryp->Instance->CR, AES_CR_NPBLB, 0U);
 
@@ -3736,6 +3736,9 @@ static HAL_StatusTypeDef CRYP_AESGCM_Process_IT(CRYP_HandleTypeDef *hcryp)
         HAL_CRYP_InCpltCallback(hcryp);
 #endif /* USE_HAL_CRYP_REGISTER_CALLBACKS */
       }
+
+      /* Enable computation complete flag and error interrupts */
+      __HAL_CRYP_ENABLE_IT(hcryp, CRYP_IT_CCFIE | CRYP_IT_ERRIE);
     }
     else /* Size < 16Bytes  : first block is the last block*/
     {
@@ -3784,6 +3787,9 @@ static HAL_StatusTypeDef CRYP_AESGCM_Process_IT(CRYP_HandleTypeDef *hcryp)
       /*Call legacy weak Input complete callback*/
       HAL_CRYP_InCpltCallback(hcryp);
 #endif /* USE_HAL_CRYP_REGISTER_CALLBACKS */
+
+      /* Enable computation complete flag and error interrupts */
+      __HAL_CRYP_ENABLE_IT(hcryp, CRYP_IT_CCFIE | CRYP_IT_ERRIE);
     }
   }
 
@@ -4240,14 +4246,14 @@ static HAL_StatusTypeDef CRYP_AESCCM_Process_IT(CRYP_HandleTypeDef *hcryp)
       }
       else if (hcryp->Size >= 16U)
       {
-        hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
         hcryp->CrypInCount++;
-        hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+        hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
         hcryp->CrypInCount++;
-        hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+        hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
         hcryp->CrypInCount++;
-        hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+        hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
         hcryp->CrypInCount++;
+        hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
 
         if ((hcryp->CrypInCount ==  (hcryp->Size / 4U)) && ((hcryp->Size % 16U) == 0U))
         {
@@ -4353,14 +4359,14 @@ static HAL_StatusTypeDef CRYP_AESCCM_Process_IT(CRYP_HandleTypeDef *hcryp)
     {
       /* Write the first input header block in the Input FIFO,
          the following header data will be fed after interrupt occurrence */
-      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->Init.Header + hcryp->CrypHeaderCount);
       hcryp->CrypHeaderCount++;
-      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->Init.Header + hcryp->CrypHeaderCount);
+      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->Init.Header + hcryp->CrypHeaderCount - 1U);
       hcryp->CrypHeaderCount++;
-      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->Init.Header + hcryp->CrypHeaderCount);
+      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->Init.Header + hcryp->CrypHeaderCount - 1U);
       hcryp->CrypHeaderCount++;
-      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->Init.Header + hcryp->CrypHeaderCount);
+      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->Init.Header + hcryp->CrypHeaderCount - 1U);
       hcryp->CrypHeaderCount++;
+      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->Init.Header + hcryp->CrypHeaderCount - 1U);
     }/* if (hcryp->Init.HeaderSize == 0U) */ /* Header phase is  skipped*/
   } /* end of if (dokeyivconfig == 1U) */
   else  /* Key and IV have already been configured,
@@ -4381,14 +4387,14 @@ static HAL_StatusTypeDef CRYP_AESCCM_Process_IT(CRYP_HandleTypeDef *hcryp)
     }
     else if (hcryp->Size >= 16U)
     {
-      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
       hcryp->CrypInCount++;
-      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
       hcryp->CrypInCount++;
-      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
       hcryp->CrypInCount++;
-      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + hcryp->CrypInCount);
+      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
       hcryp->CrypInCount++;
+      hcryp->Instance->DINR  = *(uint32_t *)(hcryp->pCrypInBuffPtr + (hcryp->CrypInCount - 1U));
 
       if ((hcryp->CrypInCount ==  (hcryp->Size / 4U)) && ((hcryp->Size % 16U) == 0U))
       {

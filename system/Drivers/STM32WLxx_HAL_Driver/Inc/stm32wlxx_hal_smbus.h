@@ -751,8 +751,8 @@ void HAL_SMBUS_ErrorCallback(SMBUS_HandleTypeDef *hsmbus);
   */
 
 /* Peripheral State and Errors functions  **************************************************/
-uint32_t HAL_SMBUS_GetState(SMBUS_HandleTypeDef *hsmbus);
-uint32_t HAL_SMBUS_GetError(SMBUS_HandleTypeDef *hsmbus);
+uint32_t HAL_SMBUS_GetState(const SMBUS_HandleTypeDef *hsmbus);
+uint32_t HAL_SMBUS_GetError(const SMBUS_HandleTypeDef *hsmbus);
 
 /**
   * @}
