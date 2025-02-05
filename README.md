@@ -824,7 +824,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F051K6U | Wraith V1 ESC | *1.8.0* |  |
 | :green_heart:  | STM32F103RCT | [STorM32 V1.31 RC](http://www.olliw.eu/storm32bgc-wiki/STorM32_Boards#STorM32-BGC_v1.3) | *2.1.0* |  |
 
-### [Garatronic](https://www.garatronic.fr)/[McHobby](https://shop.mchobby.be) boards
+### Garatronic/[McHobby](https://shop.mchobby.be) boards
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
