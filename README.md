@@ -241,7 +241,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32F042C4<br>STM32F042C6 | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F042F4<br>STM32F042F6 | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32F042G4<br>STM32F042G6 | Generic Board | *2.4.0* |  |
-| :green_heart: | STM32F042K4T<br>STM32F042K6T | Generic Board | **2.0.1** |  |
+| :green_heart: | STM32F042K4T<br>STM32F042K6T | Generic Board | *2.0.1* |  |
 | :yellow_heart: | STM32F042K4U<br>STM32F042K6U | Generic Board | **2.10.0** |  |
 | :green_heart:  | STM32F042T6 | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32F048G6 | Generic Board | *2.4.0* |  |
@@ -359,17 +359,17 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F411CE | [WeAct Black Pill](https://stm32-base.org/boards/STM32F411CEU6-WeAct-Black-Pill-V2.0) | *1.9.0* | [More info](https://github.com/WeActStudio/WeActStudio.MiniSTM32F4x1) |
 | :green_heart:  | STM32F407VE<br>STM32F407VG | [STM32 F4VE / Black F407VET6](https://stm32-base.org/boards/STM32F407VET6-STM32-F4VE-V2.0) | *1.4.0* | STM32F407VG support since *1.5.0* |
 | :green_heart:  | STM32F407ZE<br>STM32F407ZG | Black F407ZE / Black F407ZG | *1.5.0* |  |
-| :green_heart: | STM32F407ZG | vcc-gnd.com Mini | **2.0.0** |  |
+| :green_heart: | STM32F407ZG | vcc-gnd.com Mini | *2.0.0* |  |
 | :green_heart:  | STM32F407VE | [vcc-gnd.com Mini](https://stm32-base.org/boards/STM32F407VET6-VCC-GND-Small) | *1.4.0* |  |
 | :green_heart:  | STM32F401RC | [STM32F Core Board](https://stm32-base.org/boards/STM32F401RCT6-STM32F-Core-Board) | *1.7.0* |  |
 | :green_heart:  | STM32F407VG | [DIYMORE STM32F407VGT](https://stm32-base.org/boards/STM32F407VGT6-diymore) | *1.5.0* |  |
 | :green_heart:  | STM32F407VE | [FK407M1](https://stm32-base.org/boards/STM32F407VET6-FK407M1-V1.0) | *1.5.0* |  |
 | :green_heart:  | STM32F401CB<br>STM32F401CC<br>STM32F401CD<br>STM32F401CE | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F401RB<br>STM32F401RC<br>STM32F401RD<br>STM32F401RE | Generic Board | *1.8.0* |  |
-| :green_heart:  | STM32F401VB<br>STM32F401VC<br>STM32F401VD<br>STM32F401VE | Generic Board | **2.0.0** |  |
+| :green_heart:  | STM32F401VB<br>STM32F401VC<br>STM32F401VD<br>STM32F401VE | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F405RG | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F407VE<br>STM32F407VG | Generic Board | *1.9.0* |  |
-| :green_heart:  | STM32F407ZE<br>STM32F407ZG | Generic Board | **2.0.0** |  |
+| :green_heart:  | STM32F407ZE<br>STM32F407ZG | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F410C8<br>STM32F410CB | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F410R8<br>STM32F410RB | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F410T8<br>STM32F410TB | Generic Board | *2.4.0* |  |
@@ -383,17 +383,17 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F413ZG<br>STM32F413ZH | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F415RG | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F417VE<br>STM32F417VG | Generic Board | *1.9.0* |  |
-| :green_heart:  | STM32F417ZE<br>STM32F417ZG | Generic Board | **2.0.0** |  |
+| :green_heart:  | STM32F417ZE<br>STM32F417ZG | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F423CH | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F423RH | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F423ZH | Generic Board | *2.0.0* |  |
-| :green_heart: | STM32F427ZG<br>STM32F427ZI | Generic Board | **2.0.0** |  |
-| :green_heart: | STM32F429ZE<br>STM32F429ZG<br>STM32F429ZI | Generic Board | **2.0.0** |
-| :green_heart: | STM32F437ZG<br>STM32F437ZI | Generic Board | **2.0.0** |
-| :green_heart: | STM32F439ZG<br>STM32F439ZI | Generic Board | **2.0.0** |
+| :green_heart: | STM32F427ZG<br>STM32F427ZI | Generic Board | *2.0.0* |  |
+| :green_heart: | STM32F429ZE<br>STM32F429ZG<br>STM32F429ZI | Generic Board | *2.0.0* |
+| :green_heart: | STM32F437ZG<br>STM32F437ZI | Generic Board | *2.0.0* |
+| :green_heart: | STM32F439ZG<br>STM32F439ZI | Generic Board | *2.0.0* |
 | :green_heart:  | STM32F446RC<br>STM32F446RE | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F446ZC<br>STM32F446ZE | Generic Board | *2.7.0* |  |
-| :green_heart: | STM32F446VC<br>STM32F446VE | Generic Board | **2.0.0** |
+| :green_heart: | STM32F446VC<br>STM32F446VE | Generic Board | *2.0.0* |
 | :green_heart:  | STM32F411CE | [ThunderPack v1.1+](https://github.com/jgillick/ThunderPack) | *1.9.0* |  |
 
 ### Generic STM32F7 boards
