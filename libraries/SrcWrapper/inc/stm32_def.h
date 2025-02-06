@@ -188,11 +188,18 @@ __STATIC_INLINE void LL_RTC_SetBinMixBCDU(RTC_TypeDef *RTCx, uint32_t BinMixBcdU
 #if !defined(USB) && defined(USB_DRD_FS)
   #define USB USB_DRD_FS
   #define PinMap_USB PinMap_USB_DRD_FS
-  #if defined(STM32H5xx) || defined(STM32U0xx) || defined(STM32U5xx)
+  #if defined(STM32H5xx) || defined(STM32U0xx) ||\
+    defined(STM32U3xx) || defined(STM32U5xx)
     #define USB_BASE USB_DRD_BASE
     #if !defined(__HAL_RCC_USB_CLK_ENABLE)
-      #define __HAL_RCC_USB_CLK_ENABLE __HAL_RCC_USB_FS_CLK_ENABLE
-      #define __HAL_RCC_USB_CLK_DISABLE __HAL_RCC_USB_FS_CLK_DISABLE
+      #if defined(__HAL_RCC_USB_FS_CLK_ENABLE)
+        #define __HAL_RCC_USB_CLK_ENABLE __HAL_RCC_USB_FS_CLK_ENABLE
+        #define __HAL_RCC_USB_CLK_DISABLE __HAL_RCC_USB_FS_CLK_DISABLE
+      #endif
+      #if defined(__HAL_RCC_USB1_CLK_ENABLE)
+        #define __HAL_RCC_USB_CLK_ENABLE __HAL_RCC_USB1_CLK_ENABLE
+        #define __HAL_RCC_USB_CLK_DISABLE __HAL_RCC_USB1_CLK_DISABLE
+      #endif
     #endif
   #endif
 #endif

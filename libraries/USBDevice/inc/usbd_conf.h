@@ -80,7 +80,7 @@ extern "C" {
 #elif defined(STM32U5xx) && !defined(USB_DRD_FS)
 #define USB_IRQn OTG_FS_IRQn
 #define USB_IRQHandler OTG_FS_IRQHandler
-#elif defined(STM32L5xx)
+#elif defined(STM32L5xx) || defined(STM32U3xx)
 #define USB_IRQn            USB_FS_IRQn
 #define USB_IRQHandler      USB_FS_IRQHandler
 #endif
