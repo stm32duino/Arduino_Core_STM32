@@ -832,6 +832,21 @@ Nucleo_64.menu.pnum.NUCLEO_U083RC.build.st_extra_flags=-D{build.product_line} {b
 Nucleo_64.menu.pnum.NUCLEO_U083RC.openocd.target=stm32u0x
 Nucleo_64.menu.pnum.NUCLEO_U083RC.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U0xx/STM32U083.svd
 
+# NUCLEO_U385RG_Q board
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q=Nucleo U385RG-Q
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.node=NOD_U385RG
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.upload.maximum_size=1048576
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.upload.maximum_data_size=262144
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.build.mcu=cortex-m33
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.build.float-abi=-mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.build.board=NUCLEO_U385RG_Q
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.build.series=STM32U3xx
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.build.product_line=STM32U385xx
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.build.variant=STM32U3xx/U375R(E-G)TxQ_U385RGTxQ
+#Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.openocd.target=stm32u3x
+#Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+
 # NUCLEO_WB15CC
 Nucleo_64.menu.pnum.NUCLEO_WB15CC=Nucleo WB15CC
 Nucleo_64.menu.pnum.NUCLEO_WB15CC.node="NOD_WB15CC"
