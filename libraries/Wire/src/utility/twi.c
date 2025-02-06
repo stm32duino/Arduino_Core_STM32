@@ -267,9 +267,11 @@ static uint32_t i2c_getClkFreq(I2C_TypeDef *i2c)
     {
 #ifdef __HAL_RCC_GET_I2C2_SOURCE
       switch (__HAL_RCC_GET_I2C2_SOURCE()) {
+#ifdef RCC_I2C2CLKSOURCE_HSI
         case RCC_I2C2CLKSOURCE_HSI:
           clkSrcFreq = HSI_VALUE;
           break;
+#endif
 #ifdef RCC_I2C2CLKSOURCE_SYSCLK
         case RCC_I2C2CLKSOURCE_SYSCLK:
           clkSrcFreq = SystemCoreClock;
@@ -319,9 +321,11 @@ static uint32_t i2c_getClkFreq(I2C_TypeDef *i2c)
     {
 #if defined(__HAL_RCC_GET_I2C3_SOURCE)
       switch (__HAL_RCC_GET_I2C3_SOURCE()) {
+#ifdef RCC_I2C3CLKSOURCE_HSI
         case RCC_I2C3CLKSOURCE_HSI:
           clkSrcFreq = HSI_VALUE;
           break;
+#endif
 #ifdef RCC_I2C3CLKSOURCE_SYSCLK
         case RCC_I2C3CLKSOURCE_SYSCLK:
           clkSrcFreq = SystemCoreClock;
