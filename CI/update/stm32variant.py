@@ -2165,7 +2165,7 @@ def group_by_flash(group_base_list, glist, index_mcu_base):
             new_mcu_dirname += key
         else:
             new_mcu_dirname += f"({key})"
-        # Handle package with ANPQX
+        # Handle package with AGNPQSXZ
         # One case not manage: [Tx, TxX, Yx]
         # Assuming it is not an issue to have non existing mcu
         # Ease parsing and shorten directory name
@@ -2816,7 +2816,7 @@ variant_regex = re.compile(r"defined\(ARDUINO_GENERIC_[^\s&|]*\)")
 update_regex = re.compile(r"defined\(ARDUINO_GENERIC_.+\)")
 board_entry_regex = re.compile(r"(Gen.+\..+variant=STM32.+xx/)\S+")
 #                              P     T      E
-mcu_PE_regex = re.compile(r"([\w])([\w])([ANPQSXZ])?$")
+mcu_PE_regex = re.compile(r"([\w])([\w])([AGNPQSXZ])?$")
 aggregate_dir()
 
 # Clean temporary dir
