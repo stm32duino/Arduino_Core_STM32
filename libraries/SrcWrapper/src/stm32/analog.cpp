@@ -33,6 +33,8 @@ static PinName g_current_pin = NC;
 #ifndef ADC_SAMPLINGTIME
 #if defined(ADC_SAMPLETIME_8CYCLES_5)
 #define ADC_SAMPLINGTIME        ADC_SAMPLETIME_8CYCLES_5;
+#elif defined(ADC_SAMPLETIME_11CYCLES_5)
+#define ADC_SAMPLINGTIME        ADC_SAMPLETIME_11CYCLES_5;
 #elif defined(ADC_SAMPLETIME_12CYCLES)
 #define ADC_SAMPLINGTIME        ADC_SAMPLETIME_12CYCLES;
 #elif defined(ADC_SAMPLETIME_12CYCLES_5)
@@ -84,6 +86,8 @@ static PinName g_current_pin = NC;
 #define ADC_SAMPLINGTIME_INTERNAL ADC_SAMPLETIME_160CYCLES_5
 #elif defined(ADC_SAMPLETIME_814CYCLES_5)
 #define ADC_SAMPLINGTIME_INTERNAL ADC_SAMPLETIME_814CYCLES_5
+#elif defined(ADC_SAMPLETIME_1499CYCLES_5)
+#define ADC_SAMPLINGTIME_INTERNAL ADC_SAMPLETIME_1499CYCLES_5
 #else
 #error "ADC sampling time could not be defined for internal channels!"
 #endif
@@ -894,8 +898,8 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #if !defined(STM32F1xx) && !defined(STM32F2xx) && !defined(STM32F3xx) && \
     !defined(STM32F4xx) && !defined(STM32F7xx) && !defined(STM32G4xx) && \
     !defined(STM32H5xx) && !defined(STM32H7xx) && !defined(STM32L4xx) &&  \
-    !defined(STM32L5xx) && !defined(STM32MP1xx) && !defined(STM32WBxx) || \
-    defined(ADC_SUPPORT_2_5_MSPS)
+    !defined(STM32L5xx) && !defined(STM32MP1xx) && !defined(STM32U3xx) && \
+    !defined(STM32WBxx) || defined(ADC_SUPPORT_2_5_MSPS)
   AdcHandle.Init.LowPowerAutoPowerOff  = DISABLE;                       /* ADC automatically powers-off after a conversion and automatically wakes-up when a new conversion is triggered */
 #endif
 #ifdef ADC_CHANNELS_BANK_B
@@ -918,7 +922,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   AdcHandle.Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE; /* Parameter discarded because software trigger chosen */
 #endif
 #if !defined(STM32F1xx) && !defined(STM32H7xx) && !defined(STM32MP1xx) && \
-    !defined(ADC1_V2_5)
+    !defined(STM32U3xx) && !defined(ADC1_V2_5)
   AdcHandle.Init.DMAContinuousRequests = DISABLE;                       /* DMA one-shot mode selected (not applied to this example) */
 #endif
 #ifdef ADC_CONVERSIONDATA_DR
@@ -974,7 +978,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   AdcChannelConf.Channel      = channel;                          /* Specifies the channel to configure into ADC */
 
 #if defined(STM32G4xx) || defined(STM32H5xx) || defined(STM32L4xx) || \
-    defined(STM32L5xx) || defined(STM32WBxx)
+    defined(STM32L5xx) || defined(STM32U3xx) || defined(STM32WBxx)
   if (!IS_ADC_CHANNEL(&AdcHandle, AdcChannelConf.Channel)) {
 #else
   if (!IS_ADC_CHANNEL(AdcChannelConf.Channel)) {
