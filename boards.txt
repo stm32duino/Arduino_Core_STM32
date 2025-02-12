@@ -473,6 +473,8 @@ Nucleo_64.menu.pnum.NUCLEO_C071RB.build.product_line=STM32C071xx
 Nucleo_64.menu.pnum.NUCLEO_C071RB.build.variant=STM32C0xx/C071R(8-B)T
 Nucleo_64.menu.pnum.NUCLEO_C071RB.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Nucleo_64.menu.pnum.NUCLEO_C071RB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+Nucleo_64.menu.pnum.NUCLEO_C071RB.openocd.target=stm32c0x
+Nucleo_64.menu.pnum.NUCLEO_C071RB.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_dapdirect.cfg
 Nucleo_64.menu.pnum.NUCLEO_C071RB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C071.svd
 
 # NUCLEO_F030R8 board
@@ -829,6 +831,7 @@ Nucleo_64.menu.pnum.NUCLEO_U083RC.build.product_line=STM32U083xx
 Nucleo_64.menu.pnum.NUCLEO_U083RC.build.variant=STM32U0xx/U073R(8-B-C)(I-T)_U083RC(I-T)
 Nucleo_64.menu.pnum.NUCLEO_U083RC.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 Nucleo_64.menu.pnum.NUCLEO_U083RC.openocd.target=stm32u0x
+Nucleo_64.menu.pnum.NUCLEO_U083RC.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_dapdirect.cfg
 Nucleo_64.menu.pnum.NUCLEO_U083RC.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U0xx/STM32U083.svd
 
 # NUCLEO_WB15CC
