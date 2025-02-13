@@ -757,7 +757,9 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :yellow_heart:  | STM32U375RETxQ<br>STM32U375RGTxQ | Generic Board | **2.10.0** |  |
+| :yellow_heart:  | STM32U375VEI<br>STM32U375VGI | Generic Board | **2.10.0** |  |
 | :yellow_heart:  | STM32U385RGTxQ | Generic Board | **2.10.0** |  |
+| :yellow_heart:  | STM32U385VGI | Generic Board | **2.10.0** |  |
 
 ### Generic STM32U5 boards
 
