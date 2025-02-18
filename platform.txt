@@ -258,5 +258,5 @@ debug.server.openocd.path={openocd_dir}/bin/openocd
 debug.server.openocd.scripts_dir={openocd_dir}/openocd/scripts
 # Common config
 debug.server.openocd.scripts.0=interface/stlink.cfg
-debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_hla.cfg
+debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_dapdirect.cfg
 debug.server.openocd.scripts.2=target/{openocd.target}.cfg
