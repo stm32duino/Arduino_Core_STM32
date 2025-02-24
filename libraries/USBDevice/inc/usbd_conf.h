@@ -115,6 +115,10 @@ extern "C" {
 #define USBD_DEBUG_LEVEL                            0U
 #endif /* USBD_DEBUG_LEVEL */
 
+#ifndef USBD_USER_REGISTER_CALLBACK
+#define USBD_USER_REGISTER_CALLBACK                 0U
+#endif /* USBD_USER_REGISTER_CALLBACK */
+
 /* ECM, RNDIS, DFU Class Config */
 #ifndef USBD_SUPPORT_USER_STRING_DESC
 #define USBD_SUPPORT_USER_STRING_DESC               0U
@@ -144,6 +148,12 @@ extern "C" {
 #endif /* USBD_CDC_INTERVAL */
 
 /* DFU Class Config */
+#ifndef USBD_DFU_VENDOR_CMD_ENABLED
+#define USBD_DFU_VENDOR_CMD_ENABLED                 0U
+#endif /* USBD_DFU_VENDOR_CMD_ENABLED */
+#ifndef USBD_DFU_VENDOR_EXIT_ENABLED
+#define USBD_DFU_VENDOR_EXIT_ENABLED                1U
+#endif /* USBD_DFU_VENDOR_EXIT_ENABLED */
 #ifndef USBD_DFU_MAX_ITF_NUM
 #define USBD_DFU_MAX_ITF_NUM                        1U
 #endif /* USBD_DFU_MAX_ITF_NUM */
