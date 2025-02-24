@@ -47,6 +47,29 @@
 
 #include "stm32mp1xx.h"
 
+/*----------------------------------------------------------------------------
+  Define clocks
+ *----------------------------------------------------------------------------*/
+#if !defined  (HSE_VALUE)
+  #define HSE_VALUE            ((uint32_t)24000000U)  /*!< Value of the External oscillator in Hz */
+#endif /* HSE_VALUE */
+
+#if !defined  (HSI_VALUE)
+  #define HSI_VALUE            ((uint32_t)64000000U)  /*!< Value of the Internal oscillator in Hz*/
+#endif /* HSI_VALUE */
+
+#if !defined  (CSI_VALUE)
+  #define CSI_VALUE            ((uint32_t)4000000U)  /*!< Value of the Internal oscillator in Hz*/
+#endif /* CSI_VALUE */
+
+#if !defined  (LSI_VALUE)
+  #define LSI_VALUE             ((uint32_t)32000U)   /*!< Value of the Internal Low Speed oscillator in Hz*/
+#endif /* LSI_VALUE */
+
+#if !defined  (LSE_VALUE)
+  #define LSE_VALUE             ((uint32_t)32768U)   /*!< Value of the External Low Speed oscillator in Hz*/
+#endif /* LSE_VALUE */
+
 /**
   * @}
   */

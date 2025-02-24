@@ -706,7 +706,7 @@ typedef struct
 /*       only by selecting the corresponding ADC internal channel.            */
 #define LL_ADC_PATH_INTERNAL_NONE          (0x00000000UL)         /*!< ADC measurement paths all disabled */
 #define LL_ADC_PATH_INTERNAL_VREFINT       (ADC_CCR_VREFEN)       /*!< ADC measurement path to internal channel VrefInt */
-#define LL_ADC_PATH_INTERNAL_TEMPSENSOR    (ADC_CCR_VSENSEEN)    /*!< ADC measurement path to internal channel temperature sensor */
+#define LL_ADC_PATH_INTERNAL_TEMPSENSOR    (ADC_CCR_TSEN)    /*!< ADC measurement path to internal channel temperature sensor */
 #define LL_ADC_PATH_INTERNAL_VBAT          (ADC_CCR_VBATEN)       /*!< ADC measurement path to internal channel Vbat */
 #define LL_ADC_PATH_INTERNAL_VDDCORE       (ADC2_OR_VDDCOREEN)    /*!< ADC measurement path to internal channel Vddcore */
 /**
@@ -2390,7 +2390,7 @@ __STATIC_INLINE void LL_ADC_SetCommonPathInternalCh(ADC_Common_TypeDef *ADCxy_CO
   }
   else
   {
-    MODIFY_REG(ADCxy_COMMON->CCR, ADC_CCR_VREFEN | ADC_CCR_VSENSEEN | ADC_CCR_VBATEN, PathInternal);
+    MODIFY_REG(ADCxy_COMMON->CCR, ADC_CCR_VREFEN | ADC_CCR_TSEN | ADC_CCR_VBATEN, PathInternal);
   }
 }
 
@@ -2506,7 +2506,7 @@ __STATIC_INLINE void LL_ADC_SetCommonPathInternalChRem(ADC_Common_TypeDef *ADCxy
   */
 __STATIC_INLINE uint32_t LL_ADC_GetCommonPathInternalCh(ADC_Common_TypeDef *ADCxy_COMMON)
 {
-  return (uint32_t)(READ_BIT(ADCxy_COMMON->CCR, ADC_CCR_VREFEN | ADC_CCR_VSENSEEN | ADC_CCR_VBATEN));
+  return (uint32_t)(READ_BIT(ADCxy_COMMON->CCR, ADC_CCR_VREFEN | ADC_CCR_TSEN | ADC_CCR_VBATEN));
 }
 
 /**
@@ -5109,7 +5109,7 @@ __STATIC_INLINE void LL_ADC_SetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t AW
                                                              + ((AWDy & ADC_AWD_TR12_REGOFFSETGAP_MASK) * ADC_AWD_TR12_REGOFFSETGAP_VAL)
                                                              + (AWDThresholdsHighLow));
 
-  MODIFY_REG(*preg, ADC_LTR1_LT1, AWDThresholdValue);
+  MODIFY_REG(*preg, ADC_LTR1_LTR1, AWDThresholdValue);
 }
 
 /**
@@ -5141,7 +5141,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_
                                                                    + ((AWDy & ADC_AWD_TR12_REGOFFSETGAP_MASK) * ADC_AWD_TR12_REGOFFSETGAP_VAL)
                                                                    + (AWDThresholdsHighLow));
 
-  return (uint32_t)(READ_BIT(*preg, ADC_LTR1_LT1));
+  return (uint32_t)(READ_BIT(*preg, ADC_LTR1_LTR1));
 }
 
 /**
@@ -5284,7 +5284,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetOverSamplingDiscont(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_ConfigOverSamplingRatioShift(ADC_TypeDef *ADCx, uint32_t Ratio, uint32_t Shift)
 {
-  MODIFY_REG(ADCx->CFGR2, (ADC_CFGR2_OVSS | ADC_CFGR2_OSR), (Shift | (((Ratio - 1UL) << ADC_CFGR2_OSR_Pos))));
+  MODIFY_REG(ADCx->CFGR2, (ADC_CFGR2_OVSS | ADC_CFGR2_OSVR), (Shift | (((Ratio - 1UL) << ADC_CFGR2_OSVR_Pos))));
 }
 
 /**
@@ -5296,7 +5296,7 @@ __STATIC_INLINE void LL_ADC_ConfigOverSamplingRatioShift(ADC_TypeDef *ADCx, uint
   */
 __STATIC_INLINE uint32_t LL_ADC_GetOverSamplingRatio(ADC_TypeDef *ADCx)
 {
-  return (((uint32_t)(READ_BIT(ADCx->CFGR2, ADC_CFGR2_OSR))+(1UL << ADC_CFGR2_OSR_Pos)) >> ADC_CFGR2_OSR_Pos);
+  return (((uint32_t)(READ_BIT(ADCx->CFGR2, ADC_CFGR2_OSVR))+(1UL << ADC_CFGR2_OSVR_Pos)) >> ADC_CFGR2_OSVR_Pos);
 }
 
 /**

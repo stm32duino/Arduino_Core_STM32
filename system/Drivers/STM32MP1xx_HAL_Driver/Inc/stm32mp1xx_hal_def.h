@@ -30,7 +30,7 @@
 #if defined(USE_HAL_LEGACY)
   #include "Legacy/stm32_hal_legacy.h"
 #endif
-#include <stdio.h>
+#include <stddef.h>
 
 /* Exported types ------------------------------------------------------------*/
 

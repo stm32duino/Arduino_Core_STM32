@@ -315,7 +315,7 @@
                                        ADC_CFGR_DISCEN | ADC_CFGR_DISCNUM |\
                                        ADC_CFGR_EXTEN  | ADC_CFGR_EXTSEL)) /*!< ADC_CFGR fields of parameters that can be updated when no regular conversion is on-going */
 
-#define ADC_CFGR2_FIELDS  ((uint32_t)(ADC_CFGR2_ROVSE | ADC_CFGR2_OSR  |\
+#define ADC_CFGR2_FIELDS  ((uint32_t)(ADC_CFGR2_ROVSE | ADC_CFGR2_OSVR  |\
                                        ADC_CFGR2_OVSS | ADC_CFGR2_TROVS |\
                                        ADC_CFGR2_ROVSM))                     /*!< ADC_CFGR2 fields of parameters that can be updated when no conversion (neither regular nor injected) is on-going  */
 
@@ -626,7 +626,7 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
        /*  - Oversampling mode (continued/resumed)                            */
        MODIFY_REG(hadc->Instance->CFGR2, ADC_CFGR2_FIELDS,
                                          ADC_CFGR2_ROVSE                       |
-                                         ((hadc->Init.Oversampling.Ratio - 1UL) << ADC_CFGR2_OSR_Pos) |
+                                         ((hadc->Init.Oversampling.Ratio - 1UL) << ADC_CFGR2_OSVR_Pos) |
                                          hadc->Init.Oversampling.RightBitShift |
                                          hadc->Init.Oversampling.TriggeredMode |
                                          hadc->Init.Oversampling.OversamplingStopReset);
@@ -778,7 +778,7 @@ HAL_StatusTypeDef HAL_ADC_DeInit(ADC_HandleTypeDef *hadc)
 
   /* Reset register CFGR2 */
   CLEAR_BIT(hadc->Instance->CFGR2, ADC_CFGR2_ROVSM  | ADC_CFGR2_TROVS   | ADC_CFGR2_OVSS |
-            ADC_CFGR2_OVSR  | ADC_CFGR2_JOVSE | ADC_CFGR2_ROVSE);
+            ADC_CFGR2_OSVR  | ADC_CFGR2_JOVSE | ADC_CFGR2_ROVSE);
 
   /* Reset register SMPR1 */
   CLEAR_BIT(hadc->Instance->SMPR1, ADC_SMPR1_FIELDS);
@@ -789,16 +789,16 @@ HAL_StatusTypeDef HAL_ADC_DeInit(ADC_HandleTypeDef *hadc)
             ADC_SMPR2_SMP12 | ADC_SMPR2_SMP11 | ADC_SMPR2_SMP10);
 
   /* Reset register LTR1 and HTR1 */
-  CLEAR_BIT(hadc->Instance->LTR1, ADC_LTR1_LT1);
-  CLEAR_BIT(hadc->Instance->HTR1, ADC_HTR1_HT1);
+  CLEAR_BIT(hadc->Instance->LTR1, ADC_LTR1_LTR1);
+  CLEAR_BIT(hadc->Instance->HTR1, ADC_HTR1_HTR1);
 
   /* Reset register LTR2 and HTR2*/
-  CLEAR_BIT(hadc->Instance->LTR2, ADC_LTR2_LT2);
-  CLEAR_BIT(hadc->Instance->HTR2, ADC_HTR2_HT2);
+  CLEAR_BIT(hadc->Instance->LTR2, ADC_LTR2_LTR2);
+  CLEAR_BIT(hadc->Instance->HTR2, ADC_HTR2_HTR2);
 
   /* Reset register LTR3 and HTR3 */
-  CLEAR_BIT(hadc->Instance->LTR3, ADC_LTR2_LT2);
-  CLEAR_BIT(hadc->Instance->HTR3, ADC_HTR2_HT2);
+  CLEAR_BIT(hadc->Instance->LTR3, ADC_LTR2_LTR2);
+  CLEAR_BIT(hadc->Instance->HTR3, ADC_HTR2_HTR2);
 
   /* Reset register SQR1 */
   CLEAR_BIT(hadc->Instance->SQR1, ADC_SQR1_SQ4 | ADC_SQR1_SQ3 | ADC_SQR1_SQ2 |
@@ -3028,8 +3028,8 @@ HAL_StatusTypeDef HAL_ADC_AnalogWDGConfig(ADC_HandleTypeDef *hadc, ADC_AnalogWDG
       tmp_awd_low_threshold_shifted  = ADC_AWD1THRESHOLD_SHIFT_RESOLUTION(hadc, pAnalogWDGConfig->LowThreshold);
 
       /* Set the high and low thresholds */
-      MODIFY_REG(hadc->Instance->LTR1,  ADC_LTR1_LT1 , tmp_awd_low_threshold_shifted);
-      MODIFY_REG(hadc->Instance->HTR1,  ADC_HTR1_HT1 , tmp_awd_high_threshold_shifted);
+      MODIFY_REG(hadc->Instance->LTR1,  ADC_LTR1_LTR1 , tmp_awd_low_threshold_shifted);
+      MODIFY_REG(hadc->Instance->HTR1,  ADC_HTR1_HTR1 , tmp_awd_high_threshold_shifted);
 
       /* Update state, clear previous result related to AWD1 */
       CLEAR_BIT(hadc->State, HAL_ADC_STATE_AWD1);
@@ -3098,14 +3098,14 @@ HAL_StatusTypeDef HAL_ADC_AnalogWDGConfig(ADC_HandleTypeDef *hadc, ADC_AnalogWDG
      if (pAnalogWDGConfig->WatchdogNumber == ADC_ANALOGWATCHDOG_2)
       {
        /* Set ADC analog watchdog thresholds value of both thresholds high and low */
-        MODIFY_REG(hadc->Instance->LTR2,  ADC_LTR2_LT2 , tmp_awd_low_threshold_shifted);
-        MODIFY_REG(hadc->Instance->HTR2,  ADC_HTR2_HT2 , tmp_awd_high_threshold_shifted);
+        MODIFY_REG(hadc->Instance->LTR2,  ADC_LTR2_LTR2 , tmp_awd_low_threshold_shifted);
+        MODIFY_REG(hadc->Instance->HTR2,  ADC_HTR2_HTR2 , tmp_awd_high_threshold_shifted);
       }
       else
       {
         /* Set ADC analog watchdog thresholds value of both thresholds high and low */
-        MODIFY_REG(hadc->Instance->LTR3,  ADC_LTR3_LT3 , tmp_awd_low_threshold_shifted);
-        MODIFY_REG(hadc->Instance->HTR3,  ADC_HTR3_HT3 , tmp_awd_high_threshold_shifted);
+        MODIFY_REG(hadc->Instance->LTR3,  ADC_LTR3_LTR3 , tmp_awd_low_threshold_shifted);
+        MODIFY_REG(hadc->Instance->HTR3,  ADC_HTR3_HTR3 , tmp_awd_high_threshold_shifted);
       }
 
       if (pAnalogWDGConfig->WatchdogNumber == ADC_ANALOGWATCHDOG_2)

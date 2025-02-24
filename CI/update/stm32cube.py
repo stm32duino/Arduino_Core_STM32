@@ -930,13 +930,13 @@ Included in STM32Cube{0} FW {2}""".format(
             print(
                 "WARNING: OpenAmp MW has been updated, please check whether Arduino implementation:"
             )
-            print("          * cores/arduino/stm32/OpenAMP/mbox_ipcc.h")
-            print("          * cores/arduino/stm32/OpenAMP/mbox_ipcc.c")
-            print("          * cores/arduino/stm32/OpenAMP/rsc_table.h")
-            print("          * cores/arduino/stm32/OpenAMP/rsc_table.c")
-            print("          * cores/arduino/stm32/OpenAMP/openamp.h")
-            print("          * cores/arduino/stm32/OpenAMP/openamp.c")
-            print("          * cores/arduino/stm32/OpenAMP/openamp_conf.h")
+            print("          * libraries/VirtIO/src/mbox_ipcc.h")
+            print("          * libraries/VirtIO/src/mbox_ipcc.c")
+            print("          * libraries/VirtIO/src/rsc_table.h")
+            print("          * libraries/VirtIO/src/rsc_table.c")
+            print("          * libraries/VirtIO/inc/openamp.h")
+            print("          * libraries/VirtIO/src/openamp.c")
+            print("          * libraries/VirtIO/inc/openamp_conf.h")
             print("       should be updated from Cube project:")
             print(
                 "          --> Projects/STM32MP157C-DK2/Applications/OpenAMP/OpenAMP_TTY_echo"

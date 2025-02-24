@@ -94,7 +94,7 @@ using std::atomic_fetch_and_explicit;
 using std::atomic_thread_fence;
 using std::atomic_signal_fence;
 
-#elif defined(HAVE_STDATOMIC_H) && !defined(__CC_ARM) && \
+#elif defined(HAVE_STDATOMIC_H) && !defined(__ARMCC_VERSION) && \
       !defined(__STDC_NO_ATOMICS__)
 # include <stdint.h>
 # include <stdatomic.h>
