@@ -377,7 +377,8 @@ typedef struct
 {
   uint32_t                   interface;
   uint32_t                   uvc_state;
-  uint8_t                    buffer[UVC_TOTAL_BUF_SIZE];
+  uint32_t                   uvc_size;
+  uint8_t                    *uvc_buffer;
   VIDEO_OffsetTypeDef        offset;
   USBD_VIDEO_ControlTypeDef  control;
 } USBD_VIDEO_HandleTypeDef;

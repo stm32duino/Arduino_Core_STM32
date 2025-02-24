@@ -91,62 +91,32 @@ uint8_t MSC_Page80_Inquiry_Data[LENGTH_INQUIRY_PAGE80] =
 /* USB Mass storage sense 6 Data */
 uint8_t MSC_Mode_Sense6_data[MODE_SENSE6_LEN] =
 {
-  0x22,
-  0x00,
-  0x00,
-  0x00,
-  0x08,
-  0x12,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00
+  0x03,     /* MODE DATA LENGTH. The number of bytes that follow. */
+  0x00,     /* MEDIUM TYPE. 00h for SBC devices. */
+  0x00,     /* DEVICE-SPECIFIC PARAMETER. For SBC devices:
+             *   bit 7: WP. Set to 1 if the media is write-protected.
+             *   bits 6..5: reserved
+             *   bit 4: DPOFUA. Set to 1 if the device supports the DPO and FUA bits
+             *   bits 3..0: reserved */
+  0x00      /* BLOCK DESCRIPTOR LENGTH */
 };
 
 
-/* USB Mass storage sense 10  Data */
+/* USB Mass storage sense 10 Data */
 uint8_t MSC_Mode_Sense10_data[MODE_SENSE10_LEN] =
 {
-  0x00,
-  0x26,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x08,
-  0x12,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00
+  0x00,     /* MODE DATA LENGTH MSB. */
+  0x06,     /* MODE DATA LENGTH LSB. The number of bytes that follow. */
+  0x00,     /* MEDIUM TYPE. 00h for SBC devices. */
+  0x00,     /* DEVICE-SPECIFIC PARAMETER. For SBC devices:
+             *   bit 7: WP. Set to 1 if the media is write-protected.
+             *   bits 6..5: reserved
+             *   bit 4: DPOFUA. Set to 1 if the device supports the DPO and FUA bits
+             *   bits 3..0: reserved */
+  0x00,     /* LONGLBA Set to zero */
+  0x00,     /* Reserved */
+  0x00,     /* BLOCK DESCRIPTOR LENGTH MSB. */
+  0x00      /* BLOCK DESCRIPTOR LENGTH LSB. */
 };
 /**
   * @}

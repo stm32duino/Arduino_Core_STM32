@@ -390,7 +390,14 @@ typedef struct _USBD_HandleTypeDef
 #ifdef USE_USBD_COMPOSITE
   USBD_CompositeElementTypeDef tclasslist[USBD_MAX_SUPPORTED_CLASS];
 #endif /* USE_USBD_COMPOSITE */
+#if (USBD_USER_REGISTER_CALLBACK == 1U)
+  void (* DevStateCallback)(uint8_t dev_state, uint8_t cfgidx);                    /*!< User Notification callback      */
+#endif /* USBD_USER_REGISTER_CALLBACK */
 } USBD_HandleTypeDef;
+
+#if (USBD_USER_REGISTER_CALLBACK == 1U)
+typedef void (*USBD_DevStateCallbackTypeDef)(uint8_t dev_state, uint8_t cfgidx);   /*!< pointer to User callback function  */
+#endif /* USBD_USER_REGISTER_CALLBACK */
 
 /* USB Device endpoint direction */
 typedef enum

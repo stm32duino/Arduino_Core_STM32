@@ -742,8 +742,19 @@ static uint8_t USBD_AUDIO_IsoINIncomplete(USBD_HandleTypeDef *pdev, uint8_t epnu
   */
 static uint8_t USBD_AUDIO_IsoOutIncomplete(USBD_HandleTypeDef *pdev, uint8_t epnum)
 {
-  UNUSED(pdev);
-  UNUSED(epnum);
+  USBD_AUDIO_HandleTypeDef *haudio;
+
+  if (pdev->pClassDataCmsit[pdev->classId] == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
+
+  haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
+
+  /* Prepare Out endpoint to receive next audio packet */
+  (void)USBD_LL_PrepareReceive(pdev, epnum,
+                               &haudio->buffer[haudio->wr_ptr],
+                               AUDIO_OUT_PACKET);
 
   return (uint8_t)USBD_OK;
 }

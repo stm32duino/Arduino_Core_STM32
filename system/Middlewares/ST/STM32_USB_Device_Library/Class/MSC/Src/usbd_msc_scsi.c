@@ -477,6 +477,12 @@ static int8_t SCSI_ModeSense6(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *pa
     return -1;
   }
 
+  /* Check If media is write-protected */
+  if (((USBD_StorageTypeDef *)pdev->pUserData[pdev->classId])->IsWriteProtected(lun) != 0)
+  {
+    MSC_Mode_Sense6_data[2] |= 0x80U;
+  }
+
   if (params[4] <= len)
   {
     len = params[4];
@@ -504,6 +510,12 @@ static int8_t SCSI_ModeSense10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *p
   if (hmsc == NULL)
   {
     return -1;
+  }
+
+  /* Check If media is write-protected */
+  if (((USBD_StorageTypeDef *)pdev->pUserData[pdev->classId])->IsWriteProtected(lun) != 0)
+  {
+    MSC_Mode_Sense10_data[3] |= 0x80U;
   }
 
   if (params[8] <= len)
