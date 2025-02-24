@@ -57,12 +57,7 @@ HAL_StatusTypeDef HAL_InitTick (uint32_t TickPriority)
   uint32_t              uwPrescalerValue = 0U;
   uint32_t              pFLatency;
   
-    /*Configure the TIM6 IRQ priority */
-  HAL_NVIC_SetPriority(TIM6_IRQn, TickPriority ,0U);
-  
-  /* Enable the TIM6 global Interrupt */
-  HAL_NVIC_EnableIRQ(TIM6_IRQn);
-  
+
   /* Enable TIM6 clock */
   __HAL_RCC_TIM6_CLK_ENABLE();
   
@@ -90,6 +85,12 @@ HAL_StatusTypeDef HAL_InitTick (uint32_t TickPriority)
   TimHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
   if(HAL_TIM_Base_Init(&TimHandle) == HAL_OK)
   {
+     /*Configure the TIM6 IRQ priority */
+     HAL_NVIC_SetPriority(TIM6_IRQn, TickPriority ,0U);
+
+     /* Enable the TIM6 global Interrupt */
+     HAL_NVIC_EnableIRQ(TIM6_IRQn);
+
     /* Start the TIM time Base generation in interrupt mode */
     return HAL_TIM_Base_Start_IT(&TimHandle);
   }
