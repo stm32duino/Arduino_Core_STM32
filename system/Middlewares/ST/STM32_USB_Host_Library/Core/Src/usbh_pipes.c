@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -25,8 +24,8 @@
   */
 
 /** @addtogroup USBH_LIB_CORE
-* @{
-*/
+  * @{
+  */
 
 /** @defgroup USBH_PIPES
   * @brief This file includes opening and closing Pipes
@@ -86,11 +85,26 @@ USBH_StatusTypeDef USBH_OpenPipe(USBH_HandleTypeDef *phost, uint8_t pipe_num,
                                  uint8_t epnum, uint8_t dev_address,
                                  uint8_t speed, uint8_t ep_type, uint16_t mps)
 {
-  USBH_LL_OpenPipe(phost, pipe_num, epnum, dev_address, speed, ep_type, mps);
+  (void)USBH_LL_OpenPipe(phost, pipe_num, epnum, dev_address, speed, ep_type, mps);
 
   return USBH_OK;
 }
 
+#if defined (USBH_IN_NAK_PROCESS) && (USBH_IN_NAK_PROCESS == 1U)
+/**
+  * @brief  USBH_ActivatePipe
+  *         Activate a pipe
+  * @param  phost: Host Handle
+  * @param  pipe_num: Pipe Number
+  * @retval USBH Status
+  */
+USBH_StatusTypeDef USBH_ActivatePipe(USBH_HandleTypeDef *phost, uint8_t pipe_num)
+{
+  USBH_LL_ActivatePipe(phost, pipe_num);
+
+  return USBH_OK;
+}
+#endif /* defined (USBH_IN_NAK_PROCESS) && (USBH_IN_NAK_PROCESS == 1U) */
 
 /**
   * @brief  USBH_ClosePipe
@@ -101,7 +115,7 @@ USBH_StatusTypeDef USBH_OpenPipe(USBH_HandleTypeDef *phost, uint8_t pipe_num,
   */
 USBH_StatusTypeDef USBH_ClosePipe(USBH_HandleTypeDef *phost, uint8_t pipe_num)
 {
-  USBH_LL_ClosePipe(phost, pipe_num);
+  (void)USBH_LL_ClosePipe(phost, pipe_num);
 
   return USBH_OK;
 }
@@ -122,7 +136,7 @@ uint8_t USBH_AllocPipe(USBH_HandleTypeDef *phost, uint8_t ep_addr)
 
   if (pipe != 0xFFFFU)
   {
-    phost->Pipes[pipe & 0xFU] = 0x8000U | ep_addr;
+    phost->Pipes[pipe & 0xFU] = (uint32_t)(0x8000U | ep_addr);
   }
 
   return (uint8_t)pipe;
@@ -138,7 +152,7 @@ uint8_t USBH_AllocPipe(USBH_HandleTypeDef *phost, uint8_t ep_addr)
   */
 USBH_StatusTypeDef USBH_FreePipe(USBH_HandleTypeDef *phost, uint8_t idx)
 {
-  if (idx < 11U)
+  if (idx < USBH_MAX_PIPES_NBR)
   {
     phost->Pipes[idx] &= 0x7FFFU;
   }
@@ -157,7 +171,7 @@ static uint16_t USBH_GetFreePipe(USBH_HandleTypeDef *phost)
 {
   uint8_t idx = 0U;
 
-  for (idx = 0U ; idx < 11U ; idx++)
+  for (idx = 0U; idx < USBH_MAX_PIPES_NBR; idx++)
   {
     if ((phost->Pipes[idx] & 0x8000U) == 0U)
     {
@@ -168,21 +182,19 @@ static uint16_t USBH_GetFreePipe(USBH_HandleTypeDef *phost)
   return 0xFFFFU;
 }
 /**
-* @}
-*/
+  * @}
+  */
 
 /**
-* @}
-*/
+  * @}
+  */
 
 /**
-* @}
-*/
+  * @}
+  */
 
 /**
-* @}
-*/
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+  * @}
+  */
 
 

@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -31,21 +30,21 @@ extern "C" {
 
 
 /** @addtogroup USBH_LIB
-* @{
-*/
+  * @{
+  */
 
 /** @addtogroup USBH_CLASS
-* @{
-*/
+  * @{
+  */
 
 /** @addtogroup USBH_MTP_CLASS
-* @{
-*/
+  * @{
+  */
 
 /** @defgroup USBH_MTP_CORE
-* @brief This file is the Header file for usbh_mtp.c
-* @{
-*/
+  * @brief This file is the Header file for usbh_mtp.c
+  * @{
+  */
 
 
 
@@ -59,8 +58,8 @@ extern "C" {
   */
 
 /** @defgroup USBH_MTP_CORE_Exported_Types
-* @{
-*/
+  * @{
+  */
 typedef enum
 {
   MTP_IDLE = 0,
@@ -140,37 +139,37 @@ MTP_HandleTypeDef;
 #define MTP_ObjectHandlesTypedef    PTP_ObjectHandlesTypedef
 #define MTP_ObjectInfoTypedef       PTP_ObjectInfoTypedef
 /**
-* @}
-*/
+  * @}
+  */
 
 /** @defgroup USBH_MTP_CORE_Exported_Defines
-* @{
-*/
+  * @{
+  */
 
 /**
-* @}
-*/
+  * @}
+  */
 
 /** @defgroup USBH_MTP_CORE_Exported_Macros
-* @{
-*/
+  * @{
+  */
 /**
-* @}
-*/
+  * @}
+  */
 
 /** @defgroup USBH_MTP_CORE_Exported_Variables
-* @{
-*/
+  * @{
+  */
 extern USBH_ClassTypeDef  MTP_Class;
 #define USBH_MTP_CLASS    &MTP_Class
 
 /**
-* @}
-*/
+  * @}
+  */
 
 /** @defgroup USBH_MTP_CORE_Exported_FunctionsPrototype
-* @{
-*/
+  * @{
+  */
 uint8_t            USBH_MTP_IsReady(USBH_HandleTypeDef *phost);
 USBH_StatusTypeDef USBH_MTP_SelectStorage(USBH_HandleTypeDef *phost, uint8_t storage_idx);
 USBH_StatusTypeDef USBH_MTP_GetNumStorage(USBH_HandleTypeDef *phost, uint8_t *storage_num);
@@ -234,8 +233,8 @@ USBH_StatusTypeDef USBH_MTP_GetDevicePropDesc(USBH_HandleTypeDef *phost,
 
 void USBH_MTP_EventsCallback(USBH_HandleTypeDef *phost, uint32_t event, uint32_t param);
 /**
-* @}
-*/
+  * @}
+  */
 
 #ifdef __cplusplus
 }
@@ -244,19 +243,18 @@ void USBH_MTP_EventsCallback(USBH_HandleTypeDef *phost, uint32_t event, uint32_t
 #endif /* __USBH_MTP_H */
 
 /**
-* @}
-*/
+  * @}
+  */
 
 /**
-* @}
-*/
+  * @}
+  */
 
 /**
-* @}
-*/
+  * @}
+  */
 
 /**
-* @}
-*/
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+  * @}
+  */
 

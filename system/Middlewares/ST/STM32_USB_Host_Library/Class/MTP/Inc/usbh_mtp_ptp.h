@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -224,10 +223,10 @@ PTP_ContainerTypedef;
 
 #define PTP_USB_BULK_HS_MAX_PACKET_LEN_WRITE              1024U
 #define PTP_USB_BULK_HS_MAX_PACKET_LEN_READ               1024U
-#define PTP_USB_BULK_HDR_LEN                              (2U * sizeof(uint32_t) + 2U * sizeof(uint16_t))
+#define PTP_USB_BULK_HDR_LEN                              ((2U * sizeof(uint32_t)) + (2U * sizeof(uint16_t)))
 #define PTP_USB_BULK_PAYLOAD_LEN_WRITE                    (PTP_USB_BULK_HS_MAX_PACKET_LEN_WRITE-PTP_USB_BULK_HDR_LEN)
 #define PTP_USB_BULK_PAYLOAD_LEN_READ                     (PTP_USB_BULK_HS_MAX_PACKET_LEN_READ - PTP_USB_BULK_HDR_LEN)
-#define PTP_USB_BULK_REQ_LEN                              (PTP_USB_BULK_HDR_LEN + 5U * sizeof(uint32_t))
+#define PTP_USB_BULK_REQ_LEN                              (PTP_USB_BULK_HDR_LEN + (5U * sizeof(uint32_t)))
 #define PTP_USB_BULK_REQ_RESP_MAX_LEN                     63U
 
 typedef struct
@@ -1038,5 +1037,4 @@ USBH_StatusTypeDef USBH_PTP_GetDevicePropDesc(USBH_HandleTypeDef *phost,
 /**
   * @}
   */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

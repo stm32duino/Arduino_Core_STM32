@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -50,6 +49,10 @@ extern "C" {
 /** @defgroup USBH_HID_KEYBD_Exported_Types
   * @{
   */
+#ifndef USBH_HID_KEYBD_REPORT_SIZE
+#define USBH_HID_KEYBD_REPORT_SIZE                       0x8U
+#endif /* USBH_HID_KEYBD_REPORT_SIZE */
+
 #define KEY_NONE                               0x00
 #define KEY_ERRORROLLOVER                      0x01
 #define KEY_POSTFAIL                           0x02
@@ -103,11 +106,11 @@ extern "C" {
 #define KEY_NONUS_NUMBER_SIGN_TILDE            0x32
 #define KEY_SEMICOLON_COLON                    0x33
 #define KEY_SINGLE_AND_DOUBLE_QUOTE            0x34
-#define KEY_GRAVE ACCENT AND TILDE             0x35
+#define KEY_GRAVE_ACCENT_AND_TILDE             0x35
 #define KEY_COMMA_AND_LESS                     0x36
 #define KEY_DOT_GREATER                        0x37
 #define KEY_SLASH_QUESTION                     0x38
-#define KEY_CAPS LOCK                          0x39
+#define KEY_CAPS_LOCK                          0x39
 #define KEY_F1                                 0x3A
 #define KEY_F2                                 0x3B
 #define KEY_F3                                 0x3C
@@ -121,7 +124,7 @@ extern "C" {
 #define KEY_F11                                0x44
 #define KEY_F12                                0x45
 #define KEY_PRINTSCREEN                        0x46
-#define KEY_SCROLL LOCK                        0x47
+#define KEY_SCROLL_LOCK                        0x47
 #define KEY_PAUSE                              0x48
 #define KEY_INSERT                             0x49
 #define KEY_HOME                               0x4A
@@ -314,5 +317,4 @@ uint8_t USBH_HID_GetASCIICode(HID_KEYBD_Info_TypeDef *info);
 /**
   * @}
   */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 
