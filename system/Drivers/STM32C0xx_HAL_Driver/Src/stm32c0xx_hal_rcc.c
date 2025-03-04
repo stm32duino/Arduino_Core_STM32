@@ -164,6 +164,9 @@
 
          (+) The maximum frequency of the SYSCLK, HCLK, PCLK is 48 MHz.
 
+         (+) When the HSI48 oscillator is selected as the System clock (SYSCLK), the number of CPU wait states must
+             be adjusted before any eventual update on the HSI48 clock division factor.
+
   @endverbatim
 
      (++)  Table 1. HCLK clock frequency.
@@ -282,6 +285,9 @@ HAL_StatusTypeDef HAL_RCC_DeInit(void)
   * @note   Transition LSE Bypass to LSE On and LSE On to LSE Bypass are not
   *         supported by this function. User should request a transition to LSE Off
   *         first and then to LSE On or LSE Bypass.
+  * @note   When the HSI48 oscillator is selected as the System clock (SYSCLK), the user
+            must adjust the number of CPU wait states in their application (SystemClock_Config() API)
+            before calling the HAL_RCC_OscConfig() API to update the HSI48 clock division factor.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_RCC_OscConfig(const RCC_OscInitTypeDef  *RCC_OscInitStruct)

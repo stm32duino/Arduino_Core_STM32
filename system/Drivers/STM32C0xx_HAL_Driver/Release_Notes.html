@@ -69,11 +69,67 @@ drivers)</li>
 <section id="update-history" class="col-sm-12 col-lg-8">
 <h1>Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section5" checked aria-hidden="true">
-<label for="collapse-section5" checked aria-hidden="true">V1.3.0 /
-30-October-2024</label>
+<input type="checkbox" id="collapse-section6" checked aria-hidden="true">
+<label for="collapse-section6" checked aria-hidden="true">V1.4.0 /
+05-February-2025</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<ul>
+<li>Maintenance Release of STM32CubeC0 HAL/LL Drivers supporting
+<strong>STM32C011xx/C031xx/C051xx/C071xx/C091xx/C092xx</strong>
+devices</li>
+<li>General updates to fix known defects and implementation
+enhancements</li>
+</ul>
+<h3 id="hal-drivers-updates"><strong>HAL Drivers updates</strong></h3>
+<ul>
+<li>HAL ADC driver:
+<ul>
+<li>Change ADC calibration procedure</li>
+</ul></li>
+<li>HAL RCC driver:
+<ul>
+<li>Add notes to highlight HSI48 clock division factor update limitation
+when HSI48 oscillator is selected as system clock</li>
+</ul></li>
+<li>HAL TIM driver:
+<ul>
+<li>Fix update flag (UIF) clearing in TIM_Base_SetConfig</li>
+</ul></li>
+<li>HAL UART driver:
+<ul>
+<li>Correct references to HAL_UARTEx_WakeupCallback and to
+HAL_UART_WAKEUP_CB_ID define, according to serie capabilities</li>
+<li>Provide accurate position in RxEventCallback when ReceptionToIdle
+mode is used with DMA, when UART and DMA interrupts process is
+delayed</li>
+</ul></li>
+</ul>
+<h3 id="ll-drivers-updates"><strong>LL Drivers updates</strong></h3>
+<ul>
+<li>LL USART driver:
+<ul>
+<li>Solve Coverity out-of-bound memory access warning in use of
+USART_PRESCALER_TAB array</li>
+</ul></li>
+</ul>
+<p>Note: HAL/LL Backward compatibility ensured by legacy defines.</p>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="backward-compatibility">Backward Compatibility</h2>
+<ul>
+<li>Not applicable</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section5" aria-hidden="true">
+<label for="collapse-section5" aria-hidden="true">V1.3.0 /
+30-October-2024</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <ul>
 <li>Official Release of STM32CubeC0 Firmware package supporting
 <strong>STM32C051xx</strong> and <strong>STM32C091/92xx</strong>
@@ -81,7 +137,7 @@ devices</li>
 <li>General updates to fix known defects and implementation
 enhancements</li>
 </ul>
-<h3 id="hal-drivers-updates"><strong>HAL Drivers updates</strong></h3>
+<h3 id="hal-drivers-updates-1"><strong>HAL Drivers updates</strong></h3>
 <ul>
 <li>HAL generic driver:
 <ul>
@@ -125,7 +181,7 @@ RCC_CR_SYSDIV</li>
 polling mode</li>
 </ul></li>
 </ul>
-<h3 id="ll-drivers-updates"><strong>LL Drivers updates</strong></h3>
+<h3 id="ll-drivers-updates-1"><strong>LL Drivers updates</strong></h3>
 <ul>
 <li>LL ADC driver:
 <ul>
@@ -141,11 +197,11 @@ polling mode</li>
 </ul></li>
 </ul>
 <p>Note: HAL/LL Backward compatibility ensured by legacy defines.</p>
-<h2 id="known-limitations">Known Limitations</h2>
+<h2 id="known-limitations-1">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility">Backward Compatibility</h2>
+<h2 id="backward-compatibility-1">Backward Compatibility</h2>
 <ul>
 <li>Not applicable</li>
 </ul>
@@ -156,14 +212,14 @@ polling mode</li>
 <label for="collapse-section4" aria-hidden="true">V1.2.0 /
 05-June-2024</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>Official Release of STM32CubeC0 Firmware package supporting
 <strong>STM32C071xx</strong> devices</li>
 <li>General updates to fix known defects and implementation
 enhancements</li>
 </ul>
-<h3 id="hal-drivers-updates-1"><strong>HAL Drivers updates</strong></h3>
+<h3 id="hal-drivers-updates-2"><strong>HAL Drivers updates</strong></h3>
 <ul>
 <li>HAL generic driver:
 <ul>
@@ -282,7 +338,7 @@ in polling mode</li>
 FIFO reception in Interrupt mode</li>
 </ul></li>
 </ul>
-<h3 id="ll-drivers-updates-1"><strong>LL Drivers updates</strong></h3>
+<h3 id="ll-drivers-updates-2"><strong>LL Drivers updates</strong></h3>
 <ul>
 <li>LL ADC driver:
 <ul>
@@ -336,11 +392,11 @@ definitions</li>
 </ul></li>
 </ul>
 <p>Note: HAL/LL Backward compatibility ensured by legacy defines.</p>
-<h2 id="known-limitations-1">Known Limitations</h2>
+<h2 id="known-limitations-2">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility-1">Backward Compatibility</h2>
+<h2 id="backward-compatibility-2">Backward Compatibility</h2>
 <ul>
 <li>Not applicable</li>
 </ul>
@@ -351,7 +407,7 @@ definitions</li>
 <label for="collapse-section3" aria-hidden="true">V1.1.0 /
 07-June-2023</label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li>Maintenance Release of STM32CubeC0 Firmware Package</li>
 </ul>
@@ -422,9 +478,9 @@ pin binding (w/o overwriting existing pins biding settings).</li>
 setting.</li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-2">Known Limitations</h2>
+<h2 id="known-limitations-3">Known Limitations</h2>
 <p>N/A</p>
-<h2 id="backward-compatibility-2">Backward Compatibility</h2>
+<h2 id="backward-compatibility-3">Backward Compatibility</h2>
 <ul>
 <li>HAL_SYSCFG_GetPinBinding() and LL_SYSCFG_GetConfigPinMux() are
 updated.</li>
@@ -436,7 +492,7 @@ updated.</li>
 <label for="collapse-section2" checked aria-hidden="true">V1.0.1 /
 12-January-2023</label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li><p>Patch Release of STM32CubeC0 Firmware Package</p></li>
 <li><p>Update ADC HAL driver with proper internal sensor calibration
@@ -447,7 +503,7 @@ macro “__LL_ADC_CALC_TEMPERATURE_TYP_PARAMS()” must be used.</li>
 </ul></li>
 <li><p>Update RCC LL driver by adding missing AHB Prescaler.</p></li>
 </ul>
-<h2 id="known-limitations-3">Known Limitations</h2>
+<h2 id="known-limitations-4">Known Limitations</h2>
 <p>N/A</p>
 </div>
 </div>
@@ -456,10 +512,10 @@ macro “__LL_ADC_CALC_TEMPERATURE_TYP_PARAMS()” must be used.</li>
 <label for="collapse-section1" checked aria-hidden="true">V1.0.0 /
 09-February-2022</label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <p>First official release of HAL and LL drivers for STM32C031xx /
 STM32C011xx devices</p>
-<h2 id="known-limitations-4">Known Limitations</h2>
+<h2 id="known-limitations-5">Known Limitations</h2>
 <p>N/A</p>
 </div>
 </div>
