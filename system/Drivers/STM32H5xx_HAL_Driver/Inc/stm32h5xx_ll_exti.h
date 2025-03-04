@@ -975,7 +975,6 @@ __STATIC_INLINE void LL_EXTI_DisableRisingTrig_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_50
   *         @arg @ref LL_EXTI_LINE_53
   *
-  * (*)  : Not available for all stm32h5xxxx family lines.
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
@@ -1019,10 +1018,10 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledRisingTrig_0_31(uint32_t ExtiLine)
   * @rmtoll RTSR2        RTx           LL_EXTI_IsEnabledRisingTrig_32_63
   * @param  ExtiLine This parameter can be a combination of the following values:
   *         @arg @ref LL_EXTI_LINE_46
+  *         @arg @ref LL_EXTI_LINE_49
   *         @arg @ref LL_EXTI_LINE_50
   *         @arg @ref LL_EXTI_LINE_53
   *
-  * (*)  : Not available for all stm32h5xxxx family lines.
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
@@ -1147,7 +1146,6 @@ __STATIC_INLINE void LL_EXTI_DisableFallingTrig_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_50
   *         @arg @ref LL_EXTI_LINE_53
   *
-  * (*)  : Not available for all stm32h5xxxx family lines.
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
@@ -1193,7 +1191,6 @@ __STATIC_INLINE uint32_t LL_EXTI_IsEnabledFallingTrig_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_50
   *         @arg @ref LL_EXTI_LINE_53
   *
-  * (*)  : Not available for all stm32h5xxxx family lines.
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
@@ -1412,7 +1409,6 @@ __STATIC_INLINE void LL_EXTI_ClearFallingFlag_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_50
   *         @arg @ref LL_EXTI_LINE_53
   *
-  * (*)  : Not available for all stm32h5xxxx family lines.
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None
   */
@@ -1462,7 +1458,6 @@ __STATIC_INLINE uint32_t LL_EXTI_IsActiveRisingFlag_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_50
   *         @arg @ref LL_EXTI_LINE_53
   *
-  * (*)  : Not available for all stm32h5xxxx family lines.
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval State of bit (1 or 0).
   */
@@ -2034,7 +2029,6 @@ __STATIC_INLINE void LL_EXTI_EnablePrivilege_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_LINE_56
   *         @arg @ref LL_EXTI_LINE_57
   *         @arg @ref LL_EXTI_LINE_58
-  *         @arg @ref LL_EXTI_LINE_63
   *         @arg @ref LL_EXTI_LINE_ALL_32_63
   * @note   Please check each device line mapping for EXTI Line availability
   * @retval None

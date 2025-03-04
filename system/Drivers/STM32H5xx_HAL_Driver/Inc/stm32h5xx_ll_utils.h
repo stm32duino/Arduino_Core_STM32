@@ -205,6 +205,7 @@ typedef struct
 #define LL_UTILS_PACKAGETYPE_WLCSP39                 0x00000011U /*!< WLCSP39 package type                                */
 #define LL_UTILS_PACKAGETYPE_UFBGA100                0x00000014U /*!< UFBGA100 package type                               */
 #define LL_UTILS_PACKAGETYPE_UFBGA144                0x00000015U /*!< UFBGA144 package type                               */
+
 /**
   * @}
   */

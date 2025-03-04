@@ -305,7 +305,7 @@ HAL_StatusTypeDef HAL_HASH_DeInit(HASH_HandleTypeDef *hhash)
   *         the configuration information for HASH module
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_HASH_SetConfig(HASH_HandleTypeDef *hhash, HASH_ConfigTypeDef *pConf)
+HAL_StatusTypeDef HAL_HASH_SetConfig(HASH_HandleTypeDef *hhash, const HASH_ConfigTypeDef *pConf)
 {
   uint32_t cr_value;
 
@@ -1868,11 +1868,10 @@ HAL_StatusTypeDef HAL_HASH_HMAC_Start_IT(HASH_HandleTypeDef *hhash, const uint8_
   {
     return HAL_BUSY;
   }
-
+  status = HASH_WriteData_IT(hhash);
   /* Enable the specified HASH interrupt*/
   __HAL_HASH_ENABLE_IT(hhash, HASH_IT_DINI | HASH_IT_DCI);
 
-  status = HASH_WriteData_IT(hhash);
 
   /* Return function status */
   return status;
@@ -1949,10 +1948,10 @@ HAL_StatusTypeDef HAL_HASH_HMAC_Accumulate_IT(HASH_HandleTypeDef *hhash, const u
       /* Set the phase */
       hhash->Phase = HAL_HASH_PHASE_PROCESS;
     }
+    status = HASH_WriteData_IT(hhash);
     /* Enable the specified HASH interrupt*/
     __HAL_HASH_ENABLE_IT(hhash, HASH_IT_DINI | HASH_IT_DCI);
 
-    status = HASH_WriteData_IT(hhash);
   }
   else
   {
@@ -1999,10 +1998,10 @@ HAL_StatusTypeDef HAL_HASH_HMAC_AccumulateLast_IT(HASH_HandleTypeDef *hhash, con
     hhash->Size = Size;
     /* Set multi buffers accumulation flag */
     hhash->Accumulation = 0U;
+    status = HASH_WriteData_IT(hhash);
     /* Enable the specified HASH interrupt*/
     __HAL_HASH_ENABLE_IT(hhash, HASH_IT_DINI | HASH_IT_DCI);
 
-    status = HASH_WriteData_IT(hhash);
   }
   else
   {
@@ -2252,7 +2251,7 @@ void HAL_HASH_IRQHandler(HASH_HandleTypeDef *hhash)
 
   }
   /* If Peripheral ready to accept new data */
-  if ((itflag & HASH_FLAG_DINIS) == HASH_FLAG_DINIS)
+  if (((itflag & HASH_FLAG_DINIS) == HASH_FLAG_DINIS) && ((itflag & HASH_FLAG_DCIS) != HASH_FLAG_DCIS))
   {
     if ((itsource & HASH_IT_DINI) == HASH_IT_DINI)
     {
@@ -2958,7 +2957,7 @@ static HAL_StatusTypeDef HASH_WriteData_IT(HASH_HandleTypeDef *hhash)
       }
     }
   }
-  else if ((hhash->State == HAL_HASH_STATE_SUSPENDED))
+  else if (hhash->State == HAL_HASH_STATE_SUSPENDED)
   {
     return HAL_OK;
   }

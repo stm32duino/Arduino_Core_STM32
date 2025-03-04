@@ -541,7 +541,6 @@ typedef struct
 #if defined(I3C2)
 #define RCC_PERIPHCLK_I3C2             ((uint64_t)0x100000000000U)
 #endif /* I3C2 */
-
 /**
   * @}
   */
@@ -1267,9 +1266,11 @@ typedef struct
 /** @defgroup RCCEx_CRS_SynchroSource RCCEx CRS SynchroSource
   * @{
   */
-#define RCC_CRS_SYNC_SOURCE_GPIO       ((uint32_t)0x00000000U) /*!< Synchro Signal source GPIO */
-#define RCC_CRS_SYNC_SOURCE_LSE        CRS_CFGR_SYNCSRC_0      /*!< Synchro Signal source LSE */
-#define RCC_CRS_SYNC_SOURCE_USB        CRS_CFGR_SYNCSRC_1      /*!< Synchro Signal source USB SOF (default)*/
+#define RCC_CRS_SYNC_SOURCE_GPIO       ((uint32_t)0x00000000U)                     /*!< Synchro Signal source GPIO */
+#define RCC_CRS_SYNC_SOURCE_LSE        CRS_CFGR_SYNCSRC_0                          /*!< Synchro Signal source LSE */
+#if defined(USB_DRD_FS)
+#define RCC_CRS_SYNC_SOURCE_USB        CRS_CFGR_SYNCSRC_1                          /*!< Synchro Signal source USB SOF (default)*/
+#endif /* USB_DRD_FS */
 /**
   * @}
   */
@@ -1382,7 +1383,6 @@ typedef struct
   */
 #define __HAL_RCC_TIMIC_ENABLE()  SET_BIT(RCC->CCIPR1, RCC_CCIPR1_TIMICSEL)     /*!< HSI/1024, CSI/128 and HSI/8 generation for Timers 12,15 and LPTimer2 Input capture */
 #define __HAL_RCC_TIMIC_DISABLE() CLEAR_BIT(RCC->CCIPR1, RCC_CCIPR1_TIMICSEL)   /*!< No clock available for Timers Input capture */
-
 
 /** @brief  Macro to configure the PLL2 clock source.
   * @note   This function must be used only when all PLL2 is disabled.
@@ -3736,10 +3736,11 @@ typedef struct
    ((VALUE) == RCC_TIMPRES_ACTIVATED))
 
 #if defined(CRS)
-
+#if defined(USB_DRD_FS)
 #define IS_RCC_CRS_SYNC_SOURCE(__SOURCE__) (((__SOURCE__) == RCC_CRS_SYNC_SOURCE_GPIO) || \
                                             ((__SOURCE__) == RCC_CRS_SYNC_SOURCE_LSE) || \
                                             ((__SOURCE__) == RCC_CRS_SYNC_SOURCE_USB))
+#endif /* USB_DRD_FS */
 
 #define IS_RCC_CRS_SYNC_DIV(__DIV__)       (((__DIV__) == RCC_CRS_SYNC_DIV1) || ((__DIV__) == RCC_CRS_SYNC_DIV2) || \
                                             ((__DIV__) == RCC_CRS_SYNC_DIV4) || ((__DIV__) == RCC_CRS_SYNC_DIV8) || \

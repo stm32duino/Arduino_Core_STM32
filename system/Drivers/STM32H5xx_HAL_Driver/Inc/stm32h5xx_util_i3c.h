@@ -34,7 +34,7 @@ extern "C" {
 #endif /* USE_FULL_LL_DRIVER */
 
 #if (defined(USE_HAL_DRIVER) && defined(HAL_I3C_MODULE_ENABLED)) || defined(USE_FULL_LL_DRIVER)
-/** @addtogroup STM32H7RSxx_UTIL_Driver
+/** @addtogroup STM32H5xx_UTIL_Driver
   * @{
   */
 

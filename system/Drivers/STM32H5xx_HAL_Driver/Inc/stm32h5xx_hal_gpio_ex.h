@@ -248,7 +248,7 @@ extern "C" {
 #if defined(USART11)
 #define GPIO_AF7_USART11       ((uint8_t)0x07)  /* USART11 Alternate Function mapping                        */
 #endif /* USART11 */
-#define GPIO_AF7_ETH           ((uint8_t)0x07)  /* ETH Alternate Function mapping                         */
+
 /**
   * @brief   AF 8 selection
   */
@@ -340,6 +340,9 @@ extern "C" {
 #if defined(USB_DRD_FS)
 #define GPIO_AF10_USB          ((uint8_t)0x0A)  /* USB Alternate Function mapping                            */
 #endif /* USB_DRD_FS */
+#if defined(LTDC)
+#define GPIO_AF10_LTDC         ((uint8_t)0x0A)  /* LTDC Alternate Function mapping                           */
+#endif /* LTDC */
 
 /**
   * @brief   AF 11 selection

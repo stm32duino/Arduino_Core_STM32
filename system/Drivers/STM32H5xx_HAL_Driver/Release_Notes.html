@@ -40,9 +40,136 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section5" checked aria-hidden="true"> <label for="collapse-section5" checked aria-hidden="true"><strong>V1.4.0 / 30-October-2024</strong></label>
+<input type="checkbox" id="collapse-section6" checked aria-hidden="true"> <label for="collapse-section6" checked aria-hidden="true"><strong>V1.5.0 / 05-February-2025</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<ul>
+<li>Maintenance Release V1.5.0 of <strong>HAL and LL drivers</strong> for <strong>STM32H573xx / STM32H563xx / STM32H562xx / STM32H503xx / STM32H523xx/ STM32H533xx</strong> devices</li>
+<li><strong>Add SDIO HAL driver compliant with SDIO 3.0</strong></li>
+<li>The HAL and LL drivers provided within this package are <strong>MISRA-C, MCU ASTYLE and Coverity compliant</strong>, and have been reviewed with a static analysis tool to eliminate possible run-time errors</li>
+<li><p>General updates to fix known defects and implementation enhancements</p>
+<ul>
+<li><strong>HAL drivers</strong> :
+<ul>
+<li><strong>HAL</strong> driver
+<ul>
+<li>Add HAL_SDIO_MODULE_ENABLED, USE_HAL_SDIO_REGISTER_CALLBACKS, SDIO_MAX_IO_NUMBER and USE_SDIO_TRANSCEIVER defines in “hal_conf_template.h” file</li>
+</ul></li>
+<li><strong>HAL ETH</strong> driver
+<ul>
+<li>Add HAL_ETH_GetTxBuffersNumber define to get buffers in use number</li>
+<li>Fix context descriptor not handled properly when timestamping is enabled</li>
+</ul></li>
+<li><strong>HAL SDMMC</strong> driver
+<ul>
+<li>Add SDIO HAL driver compliant with SDIO 3.0</li>
+<li>Add defines of response results after operating with RPMB partition:
+<ul>
+<li>HAL_MMC_ERROR_RPMB_OPERATION_OK<br />
+</li>
+<li>HAL_MMC_ERROR_RPMB_GENERAL_FAILURE<br />
+</li>
+<li>HAL_MMC_ERROR_RPMB_AUTHENTICATION_FAILURE<br />
+</li>
+<li>HAL_MMC_ERROR_RPMB_COUNTER_FAILURE<br />
+</li>
+<li>HAL_MMC_ERROR_RPMB_ADDRESS_FAILURE<br />
+</li>
+<li>HAL_MMC_ERROR_RPMB_WRITE_FAILURE<br />
+</li>
+<li>HAL_MMC_ERROR_RPMB_READ_FAILURE<br />
+</li>
+<li>HAL_MMC_ERROR_RPMB_KEY_NOT_YET_PROG<br />
+</li>
+<li>HAL_MMC_ERROR_RPMB_COUNTER_EXPIRED<br />
+</li>
+<li>HAL_MMC_USER_AREA_PARTITION</li>
+<li>HAL_MMC_BOOT_PARTITION1<br />
+</li>
+<li>HAL_MMC_BOOT_PARTITION2<br />
+</li>
+<li>HAL_MMC_RPMB_PARTITION<br />
+</li>
+<li>HAL_MMC_SwitchPartition<br />
+</li>
+<li>HAL_MMC_GetRPMBError<br />
+</li>
+</ul></li>
+<li>Add Replay Protected Memory Block management defines:
+<ul>
+<li>HAL_MMC_RPMB_ProgramAuthenticationKey</li>
+<li>HAL_MMC_RPMB_ProgramAuthenticationKey_IT<br />
+</li>
+<li>HAL_MMC_RPMB_GetWriteCounter</li>
+<li>HAL_MMC_RPMB_GetWriteCounter_IT</li>
+<li>HAL_MMC_RPMB_WriteBlocks<br />
+</li>
+<li>HAL_MMC_RPMB_WriteBlocks_IT</li>
+<li>HAL_MMC_RPMB_ReadBlocks<br />
+</li>
+<li>HAL_MMC_RPMB_ReadBlocks_IT</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL USB</strong> driver
+<ul>
+<li>SA0035 fixed</li>
+</ul></li>
+</ul></li>
+<li><strong>LL drivers</strong> :
+<ul>
+<li><strong>LL SDMMC</strong> driver
+<ul>
+<li>Add SDIO defines:
+<ul>
+<li>SDMMC_SDIO_R5_ERROR<br />
+</li>
+<li>SDMMC_SDIO_R5_OUT_OF_RANGE<br />
+</li>
+<li>SDMMC_SDIO_R5_INVALID_FUNCTION_NUMBER<br />
+</li>
+<li>SDMMC_SDIO_R5_GENERAL_UNKNOWN_ERROR<br />
+</li>
+<li>SDMMC_SDIO_R5_IO_CURRENT_STATE<br />
+</li>
+<li>SDMMC_SDIO_R5_ILLEGAL_CMD<br />
+</li>
+<li>SDMMC_SDIO_R5_COM_CRC_FAILED<br />
+</li>
+<li>SDMMC_SDIO_R5_ERRORBITS<br />
+</li>
+<li>SDMMC_SDIO_MODE_BYTE<br />
+</li>
+<li>SDMMC_SDIO_MODE_BLOCK<br />
+</li>
+<li>SDMMC_SDIO_NO_INC<br />
+</li>
+<li>SDMMC_SDIO_AUTO_INC<br />
+</li>
+<li>SDMMC_SDIO_WO<br />
+</li>
+<li>SDMMC_SDIO_RAW<br />
+</li>
+</ul></li>
+<li>Add SDIO SDMMC_SDIO_CCCR defines</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Note: HAL/LL Backward compatibility ensured by legacy defines.</p>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="backward-compatibility">Backward compatibility</h2>
+<ul>
+<li>No compatibility break</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" checked aria-hidden="true"><strong>V1.4.0 / 30-October-2024</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <ul>
 <li>Maintenance Release V1.4.0 of <strong>HAL and LL drivers</strong> for <strong>STM32H573xx / STM32H563xx / STM32H562xx / STM32H503xx / STM32H523xx/ STM32H533xx</strong> devices</li>
 <li>The HAL and LL drivers provided within this package are <strong>MISRA-C, MCU ASTYLE and Coverity compliant</strong>, and have been reviewed with a static analysis tool to eliminate possible run-time errors</li>
@@ -142,11 +269,11 @@
 </ul></li>
 </ul>
 <p>Note: HAL/LL Backward compatibility ensured by legacy defines.</p>
-<h2 id="known-limitations">Known Limitations</h2>
+<h2 id="known-limitations-1">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility">Backward compatibility</h2>
+<h2 id="backward-compatibility-1">Backward compatibility</h2>
 <ul>
 <li>No compatibility break</li>
 </ul>
@@ -155,7 +282,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" checked aria-hidden="true"><strong>V1.3.0 / 05-June-2024</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>Maintenance release V1.3.0 of <strong>HAL and LL drivers</strong> for <strong>STM32H573xx / STM32H563xx / STM32H562xx / STM32H503xx / STM32H523xx/ STM32H533xx</strong> devices</li>
 <li>The HAL and LL drivers provided within this package are <strong>MISRA-C, MCU ASTYLE and Coverity compliant</strong>, and have been reviewed with a static analysis tool to eliminate possible run-time errors</li>
@@ -187,11 +314,11 @@
 </ul></li>
 </ul>
 <p>Note: HAL/LL Backward compatibility ensured by legacy defines.</p>
-<h2 id="known-limitations-1">Known Limitations</h2>
+<h2 id="known-limitations-2">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility-1">Backward compatibility</h2>
+<h2 id="backward-compatibility-2">Backward compatibility</h2>
 <ul>
 <li>No compatibility break</li>
 </ul>
@@ -200,7 +327,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true"><strong>V1.2.0 / 07-February-2024</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li><p>First offiicial release of HAL and LL drivers to support <strong>STM32H533xx and STM32H523xx</strong> devices</p>
 <ul>
@@ -370,11 +497,11 @@
 </ul></li>
 </ul>
 <p>Note: HAL/LL Backward compatibility ensured by legacy defines.</p>
-<h2 id="known-limitations-2">Known Limitations</h2>
+<h2 id="known-limitations-3">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility-2">Backward compatibility</h2>
+<h2 id="backward-compatibility-3">Backward compatibility</h2>
 <ul>
 <li>No compatibility break</li>
 </ul>
@@ -383,7 +510,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true"><strong>V1.1.0 / 07-June-2023</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li><p>Maintenance Release of <strong>HAL and LL drivers</strong> for <strong>STM32H573xx / STM32H563xx / STM32H562xx / STM32H503xx</strong> devices</p>
 <ul>
@@ -455,11 +582,11 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-3">Known Limitations</h2>
+<h2 id="known-limitations-4">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility-3">Backward compatibility</h2>
+<h2 id="backward-compatibility-4">Backward compatibility</h2>
 <ul>
 <li>No compatibility break</li>
 </ul>
@@ -468,15 +595,15 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" checked aria-hidden="true"><strong>V1.0.0 / 10-February-2023</strong></label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <ul>
 <li>First official release of <strong>HAL and LL drivers</strong> for <strong>STM32H573xx / STM32H563xx / STM32H562xx / STM32H503xx</strong> devices</li>
 </ul>
-<h2 id="known-limitations-4">Known Limitations</h2>
+<h2 id="known-limitations-5">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility-4">Backward compatibility</h2>
+<h2 id="backward-compatibility-5">Backward compatibility</h2>
 <ul>
 <li>Not Applicable</li>
 </ul>
