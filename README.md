@@ -782,7 +782,6 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :green_heart: | STM32WL55CC | [Generic Node Sensor Edition](https://www.genericnode.com/docs/sensor-edition) (GNSE) by TTI | *2.1.0* | [GNSE GitHub](https://github.com/TheThingsIndustries/generic-node-se) |
 | :green_heart: | STM32WL54CC<br>STM32WL55CC | Generic Board | *2.1.0* |  |
 | :green_heart: | STM32WL55JC<br>STM32WL55JC | Generic Board | *2.1.0* |  |
 | :green_heart: | STM32WLE4C8<br>STM32WLE4CB<br>STM32WLE4CC | Generic Board | *2.1.0* |  |
@@ -856,6 +855,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32L073RZ | [AcSIP S76S](https://www.acsip.com.tw) | *2.3.0* |  |
 | :green_heart:  | STM32F072C8<br>STM32F072CB | [Elektor LoRa Node](https://github.com/ElektorLabs/180516-Elektor_LoRa_Node) | *1.8.0* | [More info](https://www.elektormagazine.com/labs/lorawan-node-experimental-platform) |
+| :green_heart: | STM32WL55CC | [Generic Node Sensor Edition](https://www.genericnode.com/docs/sensor-edition) (GNSE) by TTI | *2.1.0* | [GNSE GitHub](https://github.com/TheThingsIndustries/generic-node-se) |
 | :green_heart:  | STM32WLE5JC | [LoRa-E5 mini](https://wiki.seeedstudio.com/LoRa_E5_mini/) | *2.6.0* |  |
 | :green_heart:  | STM32WLE5CC | [RAK3172 Module](https://github.com/RAKWireless/rakwireless-docs/tree/master/docs/Product-Categories/WisDuo/RAK3172-Module) | *2.6.0* |  |
 | :green_heart:  | STM32WLE5CC | [RAK3172T Module](https://github.com/RAKWireless/rakwireless-docs/tree/master/docs/Product-Categories/WisDuo/RAK3172-Module) | *2.8.1* | RAK3172 Module with TCXO |
