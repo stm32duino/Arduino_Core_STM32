@@ -692,6 +692,7 @@ ble_file_list = [
     "Middlewares/ST/STM32_WPAN/utilities/stm_list.h",
     "Middlewares/ST/STM32_WPAN/LICENSE.md",
     "Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_TransparentMode/Core/Inc/app_conf.h",
+    "Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_TransparentMode/Core/Inc/utilities_conf.h",
     "Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_TransparentMode/STM32_WPAN/Target/"
     + "hw_ipcc.c",
 ]
