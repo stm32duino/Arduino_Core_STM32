@@ -1670,6 +1670,7 @@ HAL_StatusTypeDef HAL_CRYP_Encrypt_IT(CRYP_HandleTypeDef *hcryp, uint32_t *pInpu
 
       default:
         hcryp->ErrorCode |= HAL_CRYP_ERROR_NOT_SUPPORTED;
+        hcryp->State = HAL_CRYP_STATE_READY;
         status = HAL_ERROR;
         break;
     }
@@ -1778,6 +1779,7 @@ HAL_StatusTypeDef HAL_CRYP_Decrypt_IT(CRYP_HandleTypeDef *hcryp, uint32_t *pInpu
 
       default:
         hcryp->ErrorCode |= HAL_CRYP_ERROR_NOT_SUPPORTED;
+        hcryp->State = HAL_CRYP_STATE_READY;
         status = HAL_ERROR;
         break;
     }
@@ -1947,6 +1949,7 @@ HAL_StatusTypeDef HAL_CRYP_Encrypt_DMA(CRYP_HandleTypeDef *hcryp, uint32_t *pInp
 
       default:
         hcryp->ErrorCode |= HAL_CRYP_ERROR_NOT_SUPPORTED;
+        hcryp->State = HAL_CRYP_STATE_READY;
         status = HAL_ERROR;
         break;
     }
@@ -2037,6 +2040,7 @@ HAL_StatusTypeDef HAL_CRYP_Decrypt_DMA(CRYP_HandleTypeDef *hcryp, uint32_t *pInp
 
       default:
         hcryp->ErrorCode |= HAL_CRYP_ERROR_NOT_SUPPORTED;
+        hcryp->State = HAL_CRYP_STATE_READY;
         status = HAL_ERROR;
         break;
     }

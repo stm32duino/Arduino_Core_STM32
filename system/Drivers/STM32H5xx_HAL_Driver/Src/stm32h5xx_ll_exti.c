@@ -259,6 +259,7 @@ ErrorStatus LL_EXTI_Init(LL_EXTI_InitTypeDef *EXTI_InitStruct)
     /* De-configure EXTI Lines in range from 32 to 63 */
     LL_EXTI_DisableIT_32_63(EXTI_InitStruct->Line_32_63);
     LL_EXTI_DisableEvent_32_63(EXTI_InitStruct->Line_32_63);
+
   }
   return status;
 }

@@ -6680,7 +6680,7 @@ HAL_StatusTypeDef HAL_I3C_Tgt_IBIReq(I3C_HandleTypeDef *hi3c, const uint8_t *pPa
     else
     {
       /* Verify if IBI request feature is enabled*/
-      if ((LL_I3C_IsEnabledIBI(hi3c->Instance) != 1U))
+      if (LL_I3C_IsEnabledIBI(hi3c->Instance) != 1U)
       {
         hi3c->ErrorCode = HAL_I3C_ERROR_NOT_ALLOWED;
         status = HAL_ERROR;

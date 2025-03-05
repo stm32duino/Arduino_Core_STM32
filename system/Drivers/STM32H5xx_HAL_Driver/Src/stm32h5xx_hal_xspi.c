@@ -865,7 +865,7 @@ HAL_StatusTypeDef HAL_XSPI_Command(XSPI_HandleTypeDef *hxspi, XSPI_RegularCmdTyp
         if (pCmd->DataMode == HAL_XSPI_DATA_NONE)
         {
           /* When there is no data phase, the transfer start as soon as the configuration is done
-             so wait until BUSY flag is reset to go back in idle state */
+             so wait until BUSY flag is reset to go back in idle state. */
           status = XSPI_WaitFlagStateUntilTimeout(hxspi, HAL_XSPI_FLAG_BUSY, RESET, tickstart, Timeout);
 
           /* Clear TC flag */

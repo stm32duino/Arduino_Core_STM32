@@ -198,7 +198,7 @@ typedef struct
 #if defined (FLASH_EDATAR_EDATA_EN)
 #define FLASH_TYPEPROGRAM_HALFWORD_EDATA    (FLASH_CR_PG | FLASH_EDATA_HALFWORD)                /*!< Program a flash
                                                              high-cycle data half-word (16-bit)at a specified address */
-#define FLASH_TYPEPROGRAM_WORD_EDATA    (FLASH_CR_PG | FLASH_EDATA_WORD)                          /*!< Program a flash
+#define FLASH_TYPEPROGRAM_WORD_EDATA        (FLASH_CR_PG | FLASH_EDATA_WORD)                          /*!< Program a flash
                                                              high-cycle data half-word (32-bit)at a specified address */
 #endif /* FLASH_EDATAR_EDATA_EN */
 #endif /* __ARM_FEATURE_CMSE */
@@ -650,6 +650,7 @@ HAL_StatusTypeDef HAL_FLASH_OB_Unlock(void);
 HAL_StatusTypeDef HAL_FLASH_OB_Lock(void);
 /* Option bytes control */
 HAL_StatusTypeDef HAL_FLASH_OB_Launch(void);
+
 /**
   * @}
   */

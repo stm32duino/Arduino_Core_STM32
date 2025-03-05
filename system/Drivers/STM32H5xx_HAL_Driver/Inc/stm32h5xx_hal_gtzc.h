@@ -283,7 +283,9 @@ typedef struct
 #if defined (SAI2)
 #define GTZC_PERIPH_SAI2          (GTZC1_PERIPH_REG2 | GTZC_CFGR2_SAI2_Pos)
 #endif /* defined (SAI2) */
+#if defined(USB_DRD_FS)
 #define GTZC_PERIPH_USB           (GTZC1_PERIPH_REG2 | GTZC_CFGR2_USB_Pos)
+#endif /* defined(USB_DRD_FS) */
 #if defined (SPI5)
 #define GTZC_PERIPH_SPI5          (GTZC1_PERIPH_REG2 | GTZC_CFGR2_SPI5_Pos)
 #endif /* defined (SPI5) */
@@ -393,9 +395,9 @@ typedef struct
  * - max number of securable and TrustZone-aware AHB/APB peripherals or masters
  *   (used in TZIC sub-block)
  */
-#define GTZC_TZSC_PERIPH_NUMBER   (HAL_GTZC_GET_ARRAY_INDEX(GTZC_PERIPH_RAMCFG + 1U))
+#define GTZC_TZSC_PERIPH_NUMBER   (HAL_GTZC_GET_ARRAY_INDEX(GTZC_PERIPH_RAMCFG) + 1U)
 #if defined (GTZC_TZIC1)
-#define GTZC_TZIC_PERIPH_NUMBER   (HAL_GTZC_GET_ARRAY_INDEX(GTZC_PERIPH_MPCBB3_REG + 1U))
+#define GTZC_TZIC_PERIPH_NUMBER   (HAL_GTZC_GET_ARRAY_INDEX(GTZC_PERIPH_MPCBB3_REG) + 1U)
 #endif /* defined (GTZC_TZIC1) */
 
 /**

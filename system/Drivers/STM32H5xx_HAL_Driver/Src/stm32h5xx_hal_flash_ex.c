@@ -1054,7 +1054,6 @@ static void FLASH_OB_EnableWRP(uint32_t WRPSector, uint32_t Banks)
 {
   /* Check the parameters */
   assert_param(IS_FLASH_BANK(Banks));
-
   if ((Banks & FLASH_BANK_1) == FLASH_BANK_1)
   {
     /* Enable Write Protection for bank 1 */

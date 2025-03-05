@@ -171,6 +171,10 @@ typedef struct
   * @}
   */
 
+/**
+  * @}
+  */
+
 /** @defgroup RCC_LL_EC_HSIDIV  HSI oscillator divider
   * @{
   */
@@ -1178,6 +1182,96 @@ typedef struct
   * @}
   */
 
+#if defined(PLAY1)
+/** @defgroup RCC_LL_EC_PLAY1  Peripheral PLAY1 get clock source
+  * @{
+  */
+#define LL_RCC_PLAY1_CLKSOURCE            RCC_CCIPR3_PLAY1SEL    /*!< PLAY1 Clock source selection */
+/**
+  * @}
+  */
+#endif /* PLAY1 */
+
+#if defined(USB_OTG_FS)
+/** @defgroup RCC_LL_EC_OTGFS  Peripheral OTGFS get clock source
+  * @{
+  */
+#define LL_RCC_OTGFS_CLKSOURCE          RCC_CCIPR4_OTGFSSEL    /*!< OTGFS Clock source selection */
+/**
+  * @}
+  */
+#endif /* USB_OTG_FS */
+
+#if defined(USB_OTG_HS)
+/** @defgroup RCC_LL_EC_OTGHS  Peripheral OTGHS get clock source
+  * @{
+  */
+#define LL_RCC_OTGHS_CLKSOURCE          RCC_CCIPR4_OTGHSSEL    /*!< OTGHS Clock source selection */
+/**
+  * @}
+  */
+#endif /* USB_OTG_HS */
+
+#if defined(RCC_CCIPR4_OTGPHYREFCKSEL)
+/** @defgroup RCC_LL_EC_OTGPHY  Peripheral OTGPHY get clock source
+  * @{
+  */
+#define LL_RCC_OTGPHY_CLKSOURCE          RCC_CCIPR4_OTGPHYREFCKSEL    /*!< OTGPHY Clock source selection */
+/**
+  * @}
+  */
+#endif /* RCC_CCIPR4_OTGPHYREFCKSEL */
+
+#if defined(RCC_CCIPR4_ETHCLKSEL)
+/** @defgroup RCC_LL_EC_ETH  Peripheral ETH get clock source
+  * @{
+  */
+#define LL_RCC_ETH_CLKSOURCE          RCC_CCIPR4_ETHCLKSEL    /*!< ETH Clock source selection */
+/**
+  * @}
+  */
+#endif /* RCC_CCIPR4_ETHCLKSEL */
+
+#if defined(OCTOSPI2)
+/** @defgroup RCC_LL_EC_OCTOSPI2  Peripheral OCTOSPI2 get clock source
+  * @{
+  */
+#define LL_RCC_OCTOSPI2_CLKSOURCE          RCC_CCIPR5_OCTOSPI2SEL    /*!< OctoSPI2 Clock source selection */
+/**
+  * @}
+  */
+#endif /* OCTOSOI2 */
+
+#if defined(LTDC)
+/** @defgroup RCC_LL_EC_LTDC  Peripheral LTDC get clock source
+  * @{
+  */
+#define LL_RCC_LTDC_CLKSOURCE          RCC_CCIPR5_LTDCSEL    /*!< LTDC Clock source selection */
+/**
+  * @}
+  */
+#endif /* LTDC */
+
+#if defined(ADF1)
+/** @defgroup RCC_LL_EC_ADF1  Peripheral ADF1 get clock source
+  * @{
+  */
+#define LL_RCC_ADF1_CLKSOURCE          RCC_CCIPR5_ADF1SEL    /*!< ADF1 Clock source selection */
+/**
+  * @}
+  */
+#endif /* ADF1 */
+
+#if defined(MDF1)
+/** @defgroup RCC_LL_EC_MDF1  Peripheral MDF1 get clock source
+  * @{
+  */
+#define LL_RCC_MDF1_CLKSOURCE          RCC_CCIPR5_MDF1SEL    /*!< MDF1 Clock source selection */
+/**
+  * @}
+  */
+#endif /* MDF1 */
+
 /** @defgroup RCC_LL_EC_CLKP Peripheral CLKP get clock source
   * @{
   */
@@ -1185,6 +1279,36 @@ typedef struct
 /**
   * @}
   */
+
+#if defined(RCC_CCIPR5_ETHPTPCLKSEL)
+/** @defgroup RCC_LL_EC_ETHPTP  Peripheral ETHPTP get clock source
+  * @{
+  */
+#define LL_RCC_ETHPTP_CLKSOURCE          RCC_CCIPR5_ETHPTPCLKSEL    /*!< ETHPTP Clock source selection */
+/**
+  * @}
+  */
+#endif /* RCC_CCIPR5_ETHPTPCLKSEL */
+
+#if defined(RCC_CCIPR5_ETHT1SCLKSEL)
+/** @defgroup RCC_LL_EC_ETHT1S  Peripheral ETHT1S get clock source
+  * @{
+  */
+#define LL_RCC_ETHT1S_CLKSOURCE          RCC_CCIPR5_ETHT1SCLKSEL    /*!< ETHT1S Clock source selection */
+/**
+  * @}
+  */
+#endif /* RCC_CCIPR5_ETHT1SCLKSEL */
+
+#if defined(RCC_CCIPR5_ETHREFCLKSEL)
+/** @defgroup RCC_LL_EC_ETHREF  Peripheral ETHREF get clock source
+  * @{
+  */
+#define LL_RCC_ETHREF_CLKSOURCE          RCC_CCIPR5_ETHREFCLKSEL    /*!< ETHREF Clock source selection */
+/**
+  * @}
+  */
+#endif /* RCC_CCIPR5_ETHREFCLKSEL */
 
 /** @defgroup RCC_LL_EC_PLL1SOURCE  PLL1 entry clock source
   * @{
@@ -2548,9 +2672,12 @@ __STATIC_INLINE void LL_RCC_ConfigMCO(uint32_t MCOxSource, uint32_t MCOxPrescale
   *         @arg @ref LL_RCC_I3C1_CLKSOURCE_PLL2R (*)
   *         @arg @ref LL_RCC_I3C1_CLKSOURCE_HSI
   *         @arg @ref LL_RCC_I3C1_CLKSOURCE_NONE
+  *         @arg @ref LL_RCC_I3C2_CLKSOURCE_PCLK1 (*)
   *         @arg @ref LL_RCC_I3C2_CLKSOURCE_PCLK3 (*)
+  *         @arg @ref LL_RCC_I3C2_CLKSOURCE_PLL3R (*)
   *         @arg @ref LL_RCC_I3C2_CLKSOURCE_PLL2R (*)
   *         @arg @ref LL_RCC_I3C2_CLKSOURCE_HSI (*)
+  *         @arg @ref LL_RCC_I3C2_CLKSOURCE_CSI (*)
   *         @arg @ref LL_RCC_I3C2_CLKSOURCE_NONE (*)
   *         @arg @ref LL_RCC_SPI1_CLKSOURCE_PLL1Q
   *         @arg @ref LL_RCC_SPI1_CLKSOURCE_PLL2P
@@ -2813,13 +2940,16 @@ __STATIC_INLINE void LL_RCC_SetI2CClockSource(uint32_t I2CxSource)
   * @rmtoll CCIPR4       I3C1SEL    LL_RCC_SetI3CClockSource\n
   *         CCIPR4       I3C2SEL    LL_RCC_SetI3CClockSource
   * @param  I3CxSource This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_I3C1_CLKSOURCE_PCLK1 (***)
   *         @arg @ref LL_RCC_I3C1_CLKSOURCE_PLL3R (*)
   *         @arg @ref LL_RCC_I3C1_CLKSOURCE_PLL2R (**)
   *         @arg @ref LL_RCC_I3C1_CLKSOURCE_HSI
   *         @arg @ref LL_RCC_I3C1_CLKSOURCE_NONE
+  *         @arg @ref LL_RCC_I3C2_CLKSOURCE_PCLK1 (***)
   *         @arg @ref LL_RCC_I3C2_CLKSOURCE_PCLK3 (**)
   *         @arg @ref LL_RCC_I3C2_CLKSOURCE_PLL2R (**)
   *         @arg @ref LL_RCC_I3C2_CLKSOURCE_HSI   (**)
+  *         @arg @ref LL_RCC_I3C2_CLKSOURCE_CSI   (***)
   *         @arg @ref LL_RCC_I3C2_CLKSOURCE_NONE  (**)
   * @retval None
   *
@@ -3092,6 +3222,211 @@ __STATIC_INLINE void LL_RCC_SetOCTOSPIClockSource(uint32_t OCTOSPIxSource)
 }
 #endif /* OCTOSPI1 */
 
+#if defined(PLAY1)
+/**
+  * @brief  Configure PLAY1 kernel clock source
+  * @rmtoll CCIPR3         PLAY1SEL        LL_RCC_SetPLAY1ClockSource
+  * @param  PLAYxSource This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_PLAY1_CLKSOURCE_PCLK3
+  *         @arg @ref LL_RCC_PLAY1_CLKSOURCE_PLL2Q
+  *         @arg @ref LL_RCC_PLAY1_CLKSOURCE_PLL3R
+  *         @arg @ref LL_RCC_PLAY1_CLKSOURCE_LSE
+  *         @arg @ref LL_RCC_PLAY1_CLKSOURCE_LSI
+  *         @arg @ref LL_RCC_PLAY1_CLKSOURCE_CLKP
+  * @retval None
+  */
+__STATIC_INLINE void LL_RCC_SetPLAY1ClockSource(uint32_t PLAYxSource)
+{
+  MODIFY_REG(RCC->CCIPR3, RCC_CCIPR3_PLAY1SEL, PLAYxSource);
+}
+#endif /* PLAY1 */
+
+#if defined(USB_OTG_FS)
+/**
+  * @brief  Configure OTGFSx kernel clock source
+  * @rmtoll CCIPR4         OTGFSSEL        LL_RCC_SetOTGFSClockSource
+  * @param  OTGFSxSource This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_OTGFS_CLKSOURCE_HSI48
+  *         @arg @ref LL_RCC_OTGFS_CLKSOURCE_PLL1Q
+  *         @arg @ref LL_RCC_OTGFS_CLKSOURCE_PLL3Q
+  *         @arg @ref LL_RCC_OTGFS_CLKSOURCE_CLK48 (*)
+  * @retval None
+  *
+  *  (*) : Available only on STM32H5E5x/STM32H5F5x when OTG_HS PHY is enabled.
+  */
+__STATIC_INLINE void LL_RCC_SetOTGFSClockSource(uint32_t OTGFSxSource)
+{
+  MODIFY_REG(RCC->CCIPR4, RCC_CCIPR4_OTGFSSEL, OTGFSxSource);
+}
+#endif /* USB_OTG_FS */
+
+#if defined(USB_OTG_HS)
+/**
+  * @brief  Configure OTGHSx kernel clock source
+  * @rmtoll CCIPR4         OTGHSSEL        LL_RCC_SetOTGHSClockSource
+  * @param  OTGHSxSource This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_OTGHS_CLKSOURCE_HSE
+  *         @arg @ref LL_RCC_OTGHS_CLKSOURCE_PLL3Q
+  *         @arg @ref LL_RCC_OTGHS_CLKSOURCE_HSE_DIV2
+  *         @arg @ref LL_RCC_OTGHS_CLKSOURCE_PLL1Q_DIV2
+  * @retval None
+  */
+__STATIC_INLINE void LL_RCC_SetOTGHSClockSource(uint32_t OTGHSxSource)
+{
+  MODIFY_REG(RCC->CCIPR4, RCC_CCIPR4_OTGHSSEL, OTGHSxSource);
+}
+#endif /* USB_OTG_HS */
+
+#if defined(RCC_CCIPR4_OTGPHYREFCKSEL)
+/**
+  * @brief  Configure OTGPHYx kernel clock source
+  * @rmtoll CCIPR4         OTGPHYREFCKSEL      LL_RCC_SetOTGPHYClockSource
+  * @param  OTGPHYxSource This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_OTGPHYREFCKCLKSOURCE_16M
+  *         @arg @ref LL_RCC_OTGPHYREFCKCLKSOURCE_19_2M
+  *         @arg @ref LL_RCC_OTGPHYREFCKCLKSOURCE_20M
+  *         @arg @ref LL_RCC_OTGPHYREFCKCLKSOURCE_24M
+  *         @arg @ref LL_RCC_OTGPHYREFCKCLKSOURCE_26M
+  *         @arg @ref LL_RCC_OTGPHYREFCKCLKSOURCE_32M
+  * @retval None
+  */
+__STATIC_INLINE void LL_RCC_SetOTGPHYClockSource(uint32_t OTGPHYxSource)
+{
+  MODIFY_REG(RCC->CCIPR4, RCC_CCIPR4_OTGPHYREFCKSEL, OTGPHYxSource);
+}
+#endif /* RCC_CCIPR4_OTGPHYREFCKSEL */
+
+#if defined(OCTOSPI2)
+/**
+  * @brief  Configure OCTOSPI2 kernel clock source
+  * @rmtoll CCIPR5         OCTOSPI2SEL        LL_RCC_SetOCTOSPI2ClockSource
+  * @param  OCTOSPIxSource This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_OSPI2_CLKSOURCE_HCLK
+  *         @arg @ref LL_RCC_OSPI2_CLKSOURCE_PLL1Q
+  *         @arg @ref LL_RCC_OSPI2_CLKSOURCE_PLL2R
+  *         @arg @ref LL_RCC_OSPI2_CLKSOURCE_CLKP
+  * @retval None
+  */
+__STATIC_INLINE void LL_RCC_SetOCTOSPI2ClockSource(uint32_t OCTOSPIxSource)
+{
+  MODIFY_REG(RCC->CCIPR5, RCC_CCIPR5_OCTOSPI2SEL, OCTOSPIxSource);
+}
+#endif /* OCTOSPI2 */
+
+#if defined(LTDC)
+/**
+  * @brief  Configure LTDCx kernel clock source
+  * @rmtoll CCIPR5         LTDCSEL        LL_RCC_SetLTDCClockSource
+  * @param  LTDCxSource This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_LTDC_CLKSOURCE_PLL3R
+  *         @arg @ref LL_RCC_LTDC_CLKSOURCE_PLL2R
+  * @retval None
+  */
+__STATIC_INLINE void LL_RCC_SetLTDCClockSource(uint32_t LTDCxSource)
+{
+  MODIFY_REG(RCC->CCIPR5, RCC_CCIPR5_LTDCSEL, LTDCxSource);
+}
+#endif /* LTDC */
+
+#if defined(ADF1)
+/**
+  * @brief  Configure ADF1 kernel clock source
+  * @rmtoll CCIPR5         ADF1SEL        LL_RCC_SetADF1ClockSource
+  * @param  ADFxSource This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_ADF1_CLKSOURCE_PLL1Q
+  *         @arg @ref LL_RCC_ADF1_CLKSOURCE_PLL2P
+  *         @arg @ref LL_RCC_ADF1_CLKSOURCE_PLL3P
+  *         @arg @ref LL_RCC_ADF1_CLKSOURCE_PIN
+  *         @arg @ref LL_RCC_ADF1_CLKSOURCE_CLKP
+  * @retval None
+  */
+__STATIC_INLINE void LL_RCC_SetADF1ClockSource(uint32_t ADFxSource)
+{
+  MODIFY_REG(RCC->CCIPR5, RCC_CCIPR5_ADF1SEL, ADFxSource);
+}
+#endif /* ADF1 */
+
+#if defined(MDF1)
+/**
+  * @brief  Configure MDF1 kernel clock source
+  * @rmtoll CCIPR5         MDF1SEL        LL_RCC_SetMDF1ClockSource
+  * @param  MDFxSource This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_MDF1_CLKSOURCE_PLL1Q
+  *         @arg @ref LL_RCC_MDF1_CLKSOURCE_PLL2P
+  *         @arg @ref LL_RCC_MDF1_CLKSOURCE_PLL3P
+  *         @arg @ref LL_RCC_MDF1_CLKSOURCE_PIN
+  *         @arg @ref LL_RCC_MDF1_CLKSOURCE_CLKP
+  * @retval None
+  */
+__STATIC_INLINE void LL_RCC_SetMDF1ClockSource(uint32_t MDFxSource)
+{
+  MODIFY_REG(RCC->CCIPR5, RCC_CCIPR5_MDF1SEL, MDFxSource);
+}
+#endif /* MDF1 */
+
+#if defined(RCC_CCIPR4_ETHCLKSEL)
+/**
+  * @brief  Configure ETH kernel clock source
+  * @rmtoll CCIPR4         ETHSEL        LL_RCC_SetETHClockSource
+  * @param  ETHxSource This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_ETH_CLKSOURCE_HSE
+  *         @arg @ref LL_RCC_ETH_CLKSOURCE_PLL1Q
+  * @retval None
+  */
+__STATIC_INLINE void LL_RCC_SetETHClockSource(uint32_t ETHxSource)
+{
+  MODIFY_REG(RCC->CCIPR4, RCC_CCIPR4_ETHCLKSEL, ETHxSource);
+}
+#endif /* RCC_CCIPR4_ETHCLKSEL */
+
+#if defined(RCC_CCIPR5_ETHPTPCLKSEL)
+/**
+  * @brief  Configure ETHPTP kernel clock source
+  * @rmtoll CCIPR5         ETHPTPSEL        LL_RCC_SetETHPTPClockSource
+  * @param  ETHPTPxSource This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_ETHPTP_CLKSOURCE_HCLK
+  *         @arg @ref LL_RCC_ETHPTP_CLKSOURCE_PLL1R
+  *         @arg @ref LL_RCC_ETHPTP_CLKSOURCE_PLL1Q
+  *         @arg @ref LL_RCC_ETHPTP_CLKSOURCE_PLL3P
+  * @retval None
+  */
+__STATIC_INLINE void LL_RCC_SetETHPTPClockSource(uint32_t ETHPTPxSource)
+{
+  MODIFY_REG(RCC->CCIPR5, RCC_CCIPR5_ETHPTPCLKSEL, ETHPTPxSource);
+}
+#endif /* RCC_CCIPR5_ETHPTPCLKSEL */
+
+#if defined(RCC_CCIPR5_ETHT1SCLKSEL)
+/**
+  * @brief  Configure ETHT1S kernel clock source
+  * @rmtoll CCIPR5         ETHT1SSEL        LL_RCC_SetETHT1SClockSource
+  * @param  ETHT1SxSource This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_ETHT1S_CLKSOURCE_PLL1Q
+  *         @arg @ref LL_RCC_ETHT1S_CLKSOURCE_PLL1R
+  *         @arg @ref LL_RCC_ETHT1S_CLKSOURCE_PLL3P
+  * @retval None
+  */
+__STATIC_INLINE void LL_RCC_SetETHT1SClockSource(uint32_t ETHT1SxSource)
+{
+  MODIFY_REG(RCC->CCIPR5, RCC_CCIPR5_ETHT1SCLKSEL, ETHT1SxSource);
+}
+#endif /* RCC_CCIPR5_ETHT1SCLKSEL */
+
+#if defined(RCC_CCIPR5_ETHREFCLKSEL)
+/**
+  * @brief  Configure ETHREF kernel clock source
+  * @rmtoll CCIPR5         ETHREFSEL        LL_RCC_SetETHREFClockSource
+  * @param  ETHREFxSource This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_ETHREF_CLKSOURCE_PLL1Q
+  *         @arg @ref LL_RCC_ETHREF_CLKSOURCE_PLL1R
+  * @retval None
+  */
+__STATIC_INLINE void LL_RCC_SetETHREFClockSource(uint32_t ETHREFxSource)
+{
+  MODIFY_REG(RCC->CCIPR5, RCC_CCIPR5_ETHREFCLKSEL, ETHREFxSource);
+}
+#endif /* RCC_CCIPR5_ETHPTPCLKSEL */
+
 /**
   * @brief  Configure CLKP Kernel clock source
   * @rmtoll CCIPR5         CKPERSEL        LL_RCC_SetCLKPClockSource
@@ -3252,9 +3587,11 @@ __STATIC_INLINE void LL_RCC_SetCLKPClockSource(uint32_t ClkSource)
   *         @arg @ref LL_RCC_I3C1_CLKSOURCE_PLL2R (*)
   *         @arg @ref LL_RCC_I3C1_CLKSOURCE_HSI
   *         @arg @ref LL_RCC_I3C1_CLKSOURCE_NONE
+  *         @arg @ref LL_RCC_I3C2_CLKSOURCE_PCLK1 (*)
   *         @arg @ref LL_RCC_I3C2_CLKSOURCE_PCLK3 (*)
   *         @arg @ref LL_RCC_I3C2_CLKSOURCE_PLL2R (*)
   *         @arg @ref LL_RCC_I3C2_CLKSOURCE_HSI (*)
+  *         @arg @ref LL_RCC_I3C2_CLKSOURCE_CSI (*)
   *         @arg @ref LL_RCC_I3C2_CLKSOURCE_NONE (*)
   *         @arg @ref LL_RCC_SPI1_CLKSOURCE_PLL1Q
   *         @arg @ref LL_RCC_SPI1_CLKSOURCE_PLL2P
@@ -3542,13 +3879,16 @@ __STATIC_INLINE uint32_t LL_RCC_GetI2CClockSource(uint32_t I2Cx)
   *         @arg @ref LL_RCC_I3C1_CLKSOURCE_PLL2R (**)
   *         @arg @ref LL_RCC_I3C1_CLKSOURCE_HSI
   *         @arg @ref LL_RCC_I3C1_CLKSOURCE_NONE
+  *         @arg @ref LL_RCC_I3C2_CLKSOURCE_PCLK1 (***)
   *         @arg @ref LL_RCC_I3C2_CLKSOURCE_PCLK3 (**)
   *         @arg @ref LL_RCC_I3C2_CLKSOURCE_PLL2R (**)
   *         @arg @ref LL_RCC_I3C2_CLKSOURCE_HSI   (**)
+  *         @arg @ref LL_RCC_I3C2_CLKSOURCE_CSI   (***)
   *         @arg @ref LL_RCC_I3C2_CLKSOURCE_NONE  (**)
   *
-  *  (*)  : For stm32h56xxx and stm32h57xxx family lines.
+  *  (*)  : For stm32h56xxx, stm32h57xxx, stm32h5exxx and stm32h5fxxx family lines.
   *  (**) : For stm32h503xx family line.
+  *  (***)  : For stm32h5exxx and stm32h5fxxx family lines.
   */
 __STATIC_INLINE uint32_t LL_RCC_GetI3CClockSource(uint32_t I3Cx)
 {
@@ -3737,7 +4077,7 @@ __STATIC_INLINE uint32_t LL_RCC_GetSAIClockSource(uint32_t SAIx)
 /**
   * @brief  Get SDMMCx kernel clock source
   * @rmtoll CCIPR4         SDMMC1SEL        LL_RCC_GetSDMMCClockSource
-  * rmtoll  CCIPR4         SDMMC2SEL        LL_RCC_GetSDMMCClockSource
+  * @rmtoll CCIPR4         SDMMC2SEL        LL_RCC_GetSDMMCClockSource
   * @param  SDMMCx This parameter can be one of the following values:
   *         @arg @ref LL_RCC_SDMMC1_CLKSOURCE
   *         @arg @ref LL_RCC_SDMMC2_CLKSOURCE (*)
@@ -6061,6 +6401,39 @@ uint32_t    LL_RCC_GetSPIClockFreq(uint32_t SPIxSource);
 #if defined(CEC)
 uint32_t    LL_RCC_GetCECClockFreq(uint32_t CECxSource);
 #endif /* CEC */
+#if defined(PLAY1)
+uint32_t    LL_RCC_GetPLAY1ClockFreq(uint32_t PLAYxSource);
+#endif /* PLAY1 */
+#if defined(USB_OTG_FS)
+uint32_t    LL_RCC_GetOTGFSClockFreq(uint32_t OTGFSxSource);
+#endif /* USB_OTG_FS */
+#if defined(USB_OTG_HS)
+uint32_t    LL_RCC_GetOTGHSClockFreq(uint32_t OTGHSxSource);
+#endif /* USB_OTG_HS */
+#if defined(OCTOSPI2)
+uint32_t    LL_RCC_GetOCTOSPI2ClockFreq(uint32_t OCTOSPIxSource);
+#endif /* OCTOSPI2 */
+#if defined(LTDC)
+uint32_t    LL_RCC_GetLTDCClockFreq(uint32_t LTDCxSource);
+#endif /* LTDC */
+#if defined(ADF1)
+uint32_t    LL_RCC_GetADF1ClockFreq(uint32_t ADFxSource);
+#endif /* ADF1 */
+#if defined(MDF1)
+uint32_t    LL_RCC_GetMDF1ClockFreq(uint32_t MDFxSource);
+#endif /* MDF1 */
+#if defined(RCC_CCIPR4_ETHCLKSEL)
+uint32_t    LL_RCC_GetETHClockFreq(uint32_t ETHxSource);
+#endif /* RCC_CCIPR4_ETHCLKSEL */
+#if defined(RCC_CCIPR5_ETHPTPCLKSEL)
+uint32_t    LL_RCC_GetETHPTPClockFreq(uint32_t ETHPTPxSource);
+#endif /* RCC_CCIPR5_ETHPTPCLKSEL */
+#if defined(RCC_CCIPR5_ETHT1SCLKSEL)
+uint32_t    LL_RCC_GetETHT1SClockFreq(uint32_t ETHT1SxSource);
+#endif /* RCC_CCIPR5_ETHT1SCLKSEL */
+#if defined(RCC_CCIPR5_ETHREFCLKSEL)
+uint32_t    LL_RCC_GetETHREFClockFreq(uint32_t ETHREFxSource);
+#endif /* RCC_CCIPR5_ETHREFCLKSEL */
 uint32_t    LL_RCC_GetCLKPClockFreq(uint32_t CLKPxSource);
 /**
   * @}

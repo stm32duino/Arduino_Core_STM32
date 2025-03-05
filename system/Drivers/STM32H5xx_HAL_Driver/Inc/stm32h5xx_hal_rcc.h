@@ -189,8 +189,8 @@ typedef struct
   */
 #define RCC_LSE_OFF                    0U                                                                 /*!< LSE clock deactivation */
 #define RCC_LSE_ON                     RCC_BDCR_LSEON                                                     /*!< LSE clock activation  */
-#define RCC_LSE_BYPASS                 ((uint32_t)(RCC_BDCR_LSEBYP | RCC_BDCR_LSEON))                     /*!< External Analog clock source for LSE clock */
-#define RCC_LSE_BYPASS_DIGITAL         ((uint32_t)(RCC_BDCR_LSEEXT | RCC_BDCR_LSEBYP | RCC_BDCR_LSEON))   /*!< External Digital clock source for LSE clock */
+#define RCC_LSE_BYPASS                 ((uint32_t)(RCC_BDCR_LSEBYP | RCC_BDCR_LSEON))                     /*!< External Analog clock source for LSE clock Bypassed*/
+#define RCC_LSE_BYPASS_DIGITAL         ((uint32_t)(RCC_BDCR_LSEEXT | RCC_BDCR_LSEBYP | RCC_BDCR_LSEON))   /*!< External Digital clock source for LSE clock Bypassed */
 /**
   * @}
   */
@@ -873,7 +873,6 @@ typedef struct
 #define __HAL_RCC_ETHTX_CLK_DISABLE()          CLEAR_BIT(RCC->AHB1ENR, RCC_AHB1ENR_ETHTXEN)
 
 #define __HAL_RCC_ETHRX_CLK_DISABLE()          CLEAR_BIT(RCC->AHB1ENR, RCC_AHB1ENR_ETHRXEN)
-
 #endif /*ETH*/
 
 #define __HAL_RCC_GTZC1_CLK_DISABLE()          CLEAR_BIT(RCC->AHB1ENR, RCC_AHB1ENR_TZSC1EN)
@@ -1123,6 +1122,9 @@ typedef struct
 #define __HAL_RCC_SAES_CLK_DISABLE()           CLEAR_BIT(RCC->AHB2ENR, RCC_AHB2ENR_SAESEN)
 #endif /* SAES */
 
+#if defined(CCB)
+#define __HAL_RCC_CCB_CLK_DISABLE()            CLEAR_BIT(RCC->AHB2ENR, RCC_AHB2ENR_CCBEN)
+#endif /* CCB */
 
 #define __HAL_RCC_SRAM2_CLK_DISABLE()          CLEAR_BIT(RCC->AHB2ENR, RCC_AHB2ENR_SRAM2EN)
 
@@ -1210,7 +1212,6 @@ typedef struct
 #if defined(OCTOSPI1)
 #define __HAL_RCC_OSPI1_CLK_DISABLE()          CLEAR_BIT(RCC->AHB4ENR, RCC_AHB4ENR_OCTOSPI1EN)
 #endif /* OCTOSPI1 */
-
 /**
   * @}
   */
@@ -1763,7 +1764,6 @@ typedef struct
                                                    } while(0)
 #endif /*USB_DRD_FS*/
 
-
 #define __HAL_RCC_TIM1_CLK_DISABLE()           CLEAR_BIT(RCC->APB2ENR, RCC_APB2ENR_TIM1EN)
 
 #define __HAL_RCC_SPI1_CLK_DISABLE()           CLEAR_BIT(RCC->APB2ENR, RCC_APB2ENR_SPI1EN)
@@ -1981,7 +1981,6 @@ typedef struct
 #endif /* VREFBUF */
 
 #define __HAL_RCC_RTC_CLK_DISABLE()            CLEAR_BIT(RCC->APB3ENR, RCC_APB3ENR_RTCAPBEN)
-
 /**
   * @}
   */
@@ -2942,7 +2941,6 @@ typedef struct
 #if defined(SAES)
 #define __HAL_RCC_SAES_RELEASE_RESET()       CLEAR_BIT(RCC->AHB2RSTR, RCC_AHB2RSTR_SAESRST)
 #endif /* SAES*/
-
 /**
   * @}
   */
@@ -3416,7 +3414,6 @@ typedef struct
 #if defined(VREFBUF)
 #define __HAL_RCC_VREF_RELEASE_RESET()         CLEAR_BIT(RCC->APB3RSTR, RCC_APB3RSTR_VREFRST)
 #endif /* VREFBUF */
-
 /**
   * @}
   */
@@ -4094,7 +4091,6 @@ typedef struct
 #endif /* VREFBUF */
 
 #define __HAL_RCC_RTC_CLK_SLEEP_DISABLE()           CLEAR_BIT(RCC->APB3LPENR, RCC_APB3LPENR_RTCAPBLPEN)
-
 /**
   * @}
   */

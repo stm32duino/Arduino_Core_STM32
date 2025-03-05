@@ -141,6 +141,7 @@ static HAL_StatusTypeDef RCCEx_PLL3_Config(const RCC_PLL3InitTypeDef *Pll3);
   *            @arg @ref RCC_PERIPHCLK_LPTIM6  LPTIM6 peripheral clock (*)
   *            @arg @ref RCC_PERIPHCLK_DAC_LP  DAC peripheral low-power clock
   *            @arg @ref RCC_PERIPHCLK_TIM     TIM peripheral clock
+  *            @arg @ref RCC_PERIPHCLK_ETH     ETH peripheral clock
   *
   * @note   Care must be taken when HAL_RCCEx_PeriphCLKConfig() is used to select
   *         the RTC clock source: in this case the access to Backup domain is enabled.

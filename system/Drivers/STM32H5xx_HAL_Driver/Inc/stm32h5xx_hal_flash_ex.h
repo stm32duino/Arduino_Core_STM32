@@ -570,61 +570,58 @@ byte configuration */
 /** @defgroup FLASH_OB_Write_Protection_Sectors FLASH Option Bytes Write Protection Sectors
   * @{
   */
-#if (FLASH_SECTOR_NB == 128)
-#define OB_WRP_SECTOR_0TO3       0x00000001U /*!< Write protection of Sector0  to Sector3    */
-#define OB_WRP_SECTOR_4TO7       0x00000002U /*!< Write protection of Sector4  to Sector7    */
-#define OB_WRP_SECTOR_8TO11      0x00000004U /*!< Write protection of Sector8  to Sector11   */
-#define OB_WRP_SECTOR_12TO15     0x00000008U /*!< Write protection of Sector12 to Sector15   */
-#define OB_WRP_SECTOR_16TO19     0x00000010U /*!< Write protection of Sector16 to Sector19   */
-#define OB_WRP_SECTOR_20TO23     0x00000020U /*!< Write protection of Sector20 to Sector23   */
-#define OB_WRP_SECTOR_24TO27     0x00000040U /*!< Write protection of Sector24 to Sector27   */
-#define OB_WRP_SECTOR_28TO31     0x00000080U /*!< Write protection of Sector28 to Sector31   */
-#define OB_WRP_SECTOR_32TO35     0x00000100U /*!< Write protection of Sector32 to Sector35   */
-#define OB_WRP_SECTOR_36TO39     0x00000200U /*!< Write protection of Sector36 to Sector39   */
-#define OB_WRP_SECTOR_40TO43     0x00000400U /*!< Write protection of Sector40 to Sector43   */
-#define OB_WRP_SECTOR_44TO47     0x00000800U /*!< Write protection of Sector44 to Sector47   */
-#define OB_WRP_SECTOR_48TO51     0x00001000U /*!< Write protection of Sector48 to Sector51   */
-#define OB_WRP_SECTOR_52TO55     0x00002000U /*!< Write protection of Sector52 to Sector55   */
-#define OB_WRP_SECTOR_56TO59     0x00004000U /*!< Write protection of Sector56 to Sector59   */
-#define OB_WRP_SECTOR_60TO63     0x00008000U /*!< Write protection of Sector60 to Sector63   */
-#define OB_WRP_SECTOR_64TO67     0x00010000U /*!< Write protection of Sector64 to Sector67   */
-#define OB_WRP_SECTOR_68TO71     0x00020000U /*!< Write protection of Sector68 to Sector71   */
-#define OB_WRP_SECTOR_72TO75     0x00040000U /*!< Write protection of Sector72 to Sector75   */
-#define OB_WRP_SECTOR_76TO79     0x00080000U /*!< Write protection of Sector76 to Sector79   */
-#define OB_WRP_SECTOR_80TO83     0x00100000U /*!< Write protection of Sector80 to Sector83   */
-#define OB_WRP_SECTOR_84TO87     0x00200000U /*!< Write protection of Sector84 to Sector87   */
-#define OB_WRP_SECTOR_88TO91     0x00400000U /*!< Write protection of Sector88 to Sector91   */
-#define OB_WRP_SECTOR_92TO95     0x00800000U /*!< Write protection of Sector92 to Sector95   */
-#define OB_WRP_SECTOR_96TO99     0x01000000U /*!< Write protection of Sector96  to Sector99  */
-#define OB_WRP_SECTOR_100TO103   0x02000000U /*!< Write protection of Sector100 to Sector103 */
-#define OB_WRP_SECTOR_104TO107   0x04000000U /*!< Write protection of Sector104 to Sector107 */
-#define OB_WRP_SECTOR_108TO111   0x08000000U /*!< Write protection of Sector108 to Sector111 */
-#define OB_WRP_SECTOR_112TO115   0x10000000U /*!< Write protection of Sector112 to Sector115 */
-#define OB_WRP_SECTOR_116TO119   0x20000000U /*!< Write protection of Sector116 to Sector119 */
-#define OB_WRP_SECTOR_120TO123   0x40000000U /*!< Write protection of Sector120 to Sector123 */
-#define OB_WRP_SECTOR_124TO127   0x80000000U /*!< Write protection of Sector124 to Sector127 */
-#define OB_WRP_SECTOR_ALL        0xFFFFFFFFU /*!< Write protection of all Sectors            */
-#elif (FLASH_SECTOR_NB == 32)
-#define OB_WRP_SECTOR_0TO3       0x00000001U /*!< Write protection of Sector0  to Sector3    */
-#define OB_WRP_SECTOR_4TO7       0x00000002U /*!< Write protection of Sector4  to Sector7    */
-#define OB_WRP_SECTOR_8TO11      0x00000004U /*!< Write protection of Sector8  to Sector11   */
-#define OB_WRP_SECTOR_12TO15     0x00000008U /*!< Write protection of Sector12 to Sector15   */
-#define OB_WRP_SECTOR_16TO19     0x00000010U /*!< Write protection of Sector16 to Sector19   */
-#define OB_WRP_SECTOR_20TO23     0x00000020U /*!< Write protection of Sector20 to Sector23   */
-#define OB_WRP_SECTOR_24TO27     0x00000040U /*!< Write protection of Sector24 to Sector27   */
-#define OB_WRP_SECTOR_28TO31     0x00000080U /*!< Write protection of Sector28 to Sector31   */
-#define OB_WRP_SECTOR_ALL        0x000000FFU /*!< Write protection of all Sectors            */
+#if (FLASH_SECTOR_NB == 8)
+#define OB_WRP_SECTOR_0          0x0000000000000001U /*!< Write protection of Sector0                */
+#define OB_WRP_SECTOR_1          0x0000000000000002U /*!< Write protection of Sector1                */
+#define OB_WRP_SECTOR_2          0x0000000000000004U /*!< Write protection of Sector2                */
+#define OB_WRP_SECTOR_3          0x0000000000000008U /*!< Write protection of Sector3                */
+#define OB_WRP_SECTOR_4          0x0000000000000010U /*!< Write protection of Sector4                */
+#define OB_WRP_SECTOR_5          0x0000000000000020U /*!< Write protection of Sector5                */
+#define OB_WRP_SECTOR_6          0x0000000000000040U /*!< Write protection of Sector6                */
+#define OB_WRP_SECTOR_7          0x0000000000000080U /*!< Write protection of Sector7                */
+#define OB_WRP_SECTOR_ALL        0x00000000000000FFU /*!< Write protection of all Sectors            */
 #else
-#define OB_WRP_SECTOR_0          0x00000001U /*!< Write protection of Sector0                */
-#define OB_WRP_SECTOR_1          0x00000002U /*!< Write protection of Sector1                */
-#define OB_WRP_SECTOR_2          0x00000004U /*!< Write protection of Sector2                */
-#define OB_WRP_SECTOR_3          0x00000008U /*!< Write protection of Sector3                */
-#define OB_WRP_SECTOR_4          0x00000010U /*!< Write protection of Sector4                */
-#define OB_WRP_SECTOR_5          0x00000020U /*!< Write protection of Sector5                */
-#define OB_WRP_SECTOR_6          0x00000040U /*!< Write protection of Sector6                */
-#define OB_WRP_SECTOR_7          0x00000080U /*!< Write protection of Sector7                */
-#define OB_WRP_SECTOR_ALL        0x000000FFU /*!< Write protection of all Sectors            */
+#define OB_WRP_SECTOR_0TO3       0x0000000000000001U /*!< Write protection of Sector0  to Sector3    */
+#define OB_WRP_SECTOR_4TO7       0x0000000000000002U /*!< Write protection of Sector4  to Sector7    */
+#define OB_WRP_SECTOR_8TO11      0x0000000000000004U /*!< Write protection of Sector8  to Sector11   */
+#define OB_WRP_SECTOR_12TO15     0x0000000000000008U /*!< Write protection of Sector12 to Sector15   */
+#define OB_WRP_SECTOR_16TO19     0x0000000000000010U /*!< Write protection of Sector16 to Sector19   */
+#define OB_WRP_SECTOR_20TO23     0x0000000000000020U /*!< Write protection of Sector20 to Sector23   */
+#define OB_WRP_SECTOR_24TO27     0x0000000000000040U /*!< Write protection of Sector24 to Sector27   */
+#define OB_WRP_SECTOR_28TO31     0x0000000000000080U /*!< Write protection of Sector28 to Sector31   */
+#if (FLASH_SECTOR_NB == 128)
+#define OB_WRP_SECTOR_32TO35     0x0000000000000100U /*!< Write protection of Sector32 to Sector35   */
+#define OB_WRP_SECTOR_36TO39     0x0000000000000200U /*!< Write protection of Sector36 to Sector39   */
+#define OB_WRP_SECTOR_40TO43     0x0000000000000400U /*!< Write protection of Sector40 to Sector43   */
+#define OB_WRP_SECTOR_44TO47     0x0000000000000800U /*!< Write protection of Sector44 to Sector47   */
+#define OB_WRP_SECTOR_48TO51     0x0000000000001000U /*!< Write protection of Sector48 to Sector51   */
+#define OB_WRP_SECTOR_52TO55     0x0000000000002000U /*!< Write protection of Sector52 to Sector55   */
+#define OB_WRP_SECTOR_56TO59     0x0000000000004000U /*!< Write protection of Sector56 to Sector59   */
+#define OB_WRP_SECTOR_60TO63     0x0000000000008000U /*!< Write protection of Sector60 to Sector63   */
+#define OB_WRP_SECTOR_64TO67     0x0000000000010000U /*!< Write protection of Sector64 to Sector67   */
+#define OB_WRP_SECTOR_68TO71     0x0000000000020000U /*!< Write protection of Sector68 to Sector71   */
+#define OB_WRP_SECTOR_72TO75     0x0000000000040000U /*!< Write protection of Sector72 to Sector75   */
+#define OB_WRP_SECTOR_76TO79     0x0000000000080000U /*!< Write protection of Sector76 to Sector79   */
+#define OB_WRP_SECTOR_80TO83     0x0000000000100000U /*!< Write protection of Sector80 to Sector83   */
+#define OB_WRP_SECTOR_84TO87     0x0000000000200000U /*!< Write protection of Sector84 to Sector87   */
+#define OB_WRP_SECTOR_88TO91     0x0000000000400000U /*!< Write protection of Sector88 to Sector91   */
+#define OB_WRP_SECTOR_92TO95     0x0000000000800000U /*!< Write protection of Sector92 to Sector95   */
+#define OB_WRP_SECTOR_96TO99     0x0000000001000000U /*!< Write protection of Sector96  to Sector99  */
+#define OB_WRP_SECTOR_100TO103   0x0000000002000000U /*!< Write protection of Sector100 to Sector103 */
+#define OB_WRP_SECTOR_104TO107   0x0000000004000000U /*!< Write protection of Sector104 to Sector107 */
+#define OB_WRP_SECTOR_108TO111   0x0000000008000000U /*!< Write protection of Sector108 to Sector111 */
+#define OB_WRP_SECTOR_112TO115   0x0000000010000000U /*!< Write protection of Sector112 to Sector115 */
+#define OB_WRP_SECTOR_116TO119   0x0000000020000000U /*!< Write protection of Sector116 to Sector119 */
+#define OB_WRP_SECTOR_120TO123   0x0000000040000000U /*!< Write protection of Sector120 to Sector123 */
+#define OB_WRP_SECTOR_124TO127   0x0000000080000000U /*!< Write protection of Sector124 to Sector127 */
 #endif /* (FLASH_SECTOR_NB == 128) */
+#endif /* (FLASH_SECTOR_NB == 8) */
+#if (FLASH_SECTOR_NB == 32)
+#define OB_WRP_SECTOR_ALL        0x00000000000000FFU /*!< Write protection of all Sectors            */
+#elif (FLASH_SECTOR_NB == 128)
+#define OB_WRP_SECTOR_ALL        0x00000000FFFFFFFFU /*!< Write protection of all Sectors            */
+#endif /* FLASH_SECTOR_NB == 32 */
+
 /**
   * @}
   */

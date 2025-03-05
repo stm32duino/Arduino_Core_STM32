@@ -2098,7 +2098,6 @@ uint32_t LL_RCC_GetI3CClockFreq(uint32_t I3CxSource)
         }
         break;
 
-
       case LL_RCC_I3C2_CLKSOURCE_NONE:    /* No Clock used for I3C2 */
         break;
 

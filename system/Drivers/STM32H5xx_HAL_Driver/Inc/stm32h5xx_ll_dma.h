@@ -2936,7 +2936,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetTransferEventMode(const DMA_TypeDef *DMAx, ui
   * @brief Set trigger polarity.
   * @note  This API is used for all available DMA channels.
   * @rmtoll CTR2          TRIGPOL            LL_DMA_SetTriggerPolarity
-    * @param  DMAx DMAx Instance
+  * @param  DMAx DMAx Instance
   * @param  Channel This parameter can be one of the following values:
   *         @arg @ref LL_DMA_CHANNEL_0
   *         @arg @ref LL_DMA_CHANNEL_1
@@ -2963,7 +2963,7 @@ __STATIC_INLINE void LL_DMA_SetTriggerPolarity(const DMA_TypeDef *DMAx, uint32_t
   * @brief Get trigger polarity.
   * @note  This API is used for all available DMA channels.
   * @rmtoll CTR2          TRIGPOL            LL_DMA_GetTriggerPolarity
-    * @param  DMAx DMAx Instance
+  * @param  DMAx DMAx Instance
   * @param  Channel This parameter can be one of the following values:
   *         @arg @ref LL_DMA_CHANNEL_0
   *         @arg @ref LL_DMA_CHANNEL_1
@@ -2988,7 +2988,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetTriggerPolarity(const DMA_TypeDef *DMAx, uint
   * @brief Set trigger Mode.
   * @note  This API is used for all available DMA channels.
   * @rmtoll CTR2          TRIGM            LL_DMA_SetTriggerMode
-    * @param  DMAx DMAx Instance
+  * @param  DMAx DMAx Instance
   * @param  Channel This parameter can be one of the following values:
   *         @arg @ref LL_DMA_CHANNEL_0
   *         @arg @ref LL_DMA_CHANNEL_1
@@ -6314,7 +6314,7 @@ uint32_t LL_DMA_List_Init(DMA_TypeDef *DMAx, uint32_t Channel,
                           LL_DMA_InitLinkedListTypeDef *DMA_InitLinkedListStruct);
 uint32_t LL_DMA_List_DeInit(DMA_TypeDef *DMAx, uint32_t Channel);
 
-uint32_t LL_DMA_CreateLinkNode(LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct, LL_DMA_LinkNodeTypeDef *pNode);
+uint32_t LL_DMA_CreateLinkNode(const LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct, LL_DMA_LinkNodeTypeDef *pNode);
 void     LL_DMA_ConnectLinkNode(LL_DMA_LinkNodeTypeDef *pPrevLinkNode, uint32_t PrevNodeCLLRIdx,
                                 LL_DMA_LinkNodeTypeDef *pNewLinkNode, uint32_t NewNodeCLLRIdx);
 void     LL_DMA_DisconnectNextLinkNode(LL_DMA_LinkNodeTypeDef *pLinkNode, uint32_t LinkNodeCLLRIdx);

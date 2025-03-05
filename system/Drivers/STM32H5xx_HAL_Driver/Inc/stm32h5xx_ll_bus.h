@@ -733,7 +733,6 @@ __STATIC_INLINE void LL_AHB1_GRP1_ReleaseReset(uint32_t Periphs)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_RAMCFG
   *         @arg @ref LL_AHB1_GRP1_PERIPH_ETH (*)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_ETHTX (*)
-  *         @arg @ref LL_AHB1_GRP1_PERIPH_ETHRX (*)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_GTZC1
   *         @arg @ref LL_AHB1_GRP1_PERIPH_BKPSRAM
   *         @arg @ref LL_AHB1_GRP1_PERIPH_DCACHE1 (*)

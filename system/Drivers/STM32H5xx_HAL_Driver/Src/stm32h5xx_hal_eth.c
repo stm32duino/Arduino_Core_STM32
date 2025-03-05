@@ -1040,6 +1040,8 @@ HAL_StatusTypeDef HAL_ETH_Transmit_IT(ETH_HandleTypeDef *heth, ETH_TxPacketConfi
 HAL_StatusTypeDef HAL_ETH_ReadData(ETH_HandleTypeDef *heth, void **pAppBuff)
 {
   uint32_t descidx;
+  uint32_t descidx_next;
+  ETH_DMADescTypeDef *dmarxdesc_next;
   ETH_DMADescTypeDef *dmarxdesc;
   uint32_t desccnt = 0U;
   uint32_t desccntmax;
@@ -1065,14 +1067,8 @@ HAL_StatusTypeDef HAL_ETH_ReadData(ETH_HandleTypeDef *heth, void **pAppBuff)
   while ((READ_BIT(dmarxdesc->DESC3, ETH_DMARXNDESCWBF_OWN) == (uint32_t)RESET) && (desccnt < desccntmax)
          && (rxdataready == 0U))
   {
-    if (READ_BIT(dmarxdesc->DESC3,  ETH_DMARXNDESCWBF_CTXT)  != (uint32_t)RESET)
-    {
-      /* Get timestamp high */
-      heth->RxDescList.TimeStamp.TimeStampHigh = dmarxdesc->DESC1;
-      /* Get timestamp low */
-      heth->RxDescList.TimeStamp.TimeStampLow  = dmarxdesc->DESC0;
-    }
-    if ((READ_BIT(dmarxdesc->DESC3, ETH_DMARXNDESCWBF_FD) != (uint32_t)RESET) || (heth->RxDescList.pRxStart != NULL))
+    if ((READ_BIT(dmarxdesc->DESC3, ETH_DMARXNDESCWBF_FD) != (uint32_t)RESET) ||
+        (heth->RxDescList.pRxStart != NULL))
     {
       /* Check if first descriptor */
       if (READ_BIT(dmarxdesc->DESC3, ETH_DMARXNDESCWBF_FD) != (uint32_t)RESET)
@@ -1092,6 +1088,22 @@ HAL_StatusTypeDef HAL_ETH_ReadData(ETH_HandleTypeDef *heth, void **pAppBuff)
 
         /* Packet ready */
         rxdataready = 1;
+
+        if (READ_BIT(dmarxdesc->DESC1, ETH_DMARXNDESCWBF_TSA) != (uint32_t)RESET)
+        {
+          descidx_next = descidx;
+          INCR_RX_DESC_INDEX(descidx_next, 1U);
+
+          dmarxdesc_next = (ETH_DMADescTypeDef *)heth->RxDescList.RxDesc[descidx_next];
+
+          if (READ_BIT(dmarxdesc_next->DESC3, ETH_DMARXNDESCWBF_CTXT) != (uint32_t)RESET)
+          {
+            /* Get timestamp high */
+            heth->RxDescList.TimeStamp.TimeStampHigh = dmarxdesc_next->DESC1;
+            /* Get timestamp low */
+            heth->RxDescList.TimeStamp.TimeStampLow  = dmarxdesc_next->DESC0;
+          }
+        }
       }
 
       /* Link data */
@@ -2743,6 +2755,16 @@ uint32_t HAL_ETH_GetMACWakeUpSource(const ETH_HandleTypeDef *heth)
   return heth->MACWakeUpEvent;
 }
 
+/**
+  * @brief  Returns the ETH Tx Buffers in use number
+  * @param  heth: pointer to a ETH_HandleTypeDef structure that contains
+  *         the configuration information for ETHERNET module
+  * @retval ETH Tx Buffers in use number
+  */
+uint32_t HAL_ETH_GetTxBuffersNumber(const ETH_HandleTypeDef *heth)
+{
+  return heth->TxDescList.BuffersInUse;
+}
 /**
   * @}
   */
