@@ -22,6 +22,8 @@
   #include "stm32l5xx_hal_sd.c"
 #elif STM32MP1xx
   #include "stm32mp1xx_hal_sd.c"
+#elif STM32U3xx
+  #include "stm32u3xx_hal_sd.c"
 #elif STM32U5xx
   #include "stm32u5xx_hal_sd.c"
 #endif
