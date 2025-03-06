@@ -72,7 +72,7 @@ static gpio_irq_conf_str gpio_irq_conf[NB_EXTI] = {
   {.irqnb = EXTI4_15_IRQn,  .callback = NULL}, //GPIO_PIN_14
   {.irqnb = EXTI4_15_IRQn,  .callback = NULL}  //GPIO_PIN_15
 #elif defined (STM32H5xx) || defined (STM32MP1xx) || defined (STM32L5xx) ||\
-      defined (STM32U5xx) || defined (STM32WBAxx)
+      defined (STM32U3xx) || defined (STM32U5xx) || defined (STM32WBAxx)
   {.irqnb = EXTI0_IRQn,     .callback = NULL}, //GPIO_PIN_0
   {.irqnb = EXTI1_IRQn,     .callback = NULL}, //GPIO_PIN_1
   {.irqnb = EXTI2_IRQn,     .callback = NULL}, //GPIO_PIN_2

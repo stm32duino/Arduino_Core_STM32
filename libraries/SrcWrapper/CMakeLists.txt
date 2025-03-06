@@ -23,6 +23,7 @@ add_library(SrcWrapper_bin OBJECT EXCLUDE_FROM_ALL
   src/HAL/stm32yyxx_hal_adc.c
   src/HAL/stm32yyxx_hal_adc_ex.c
   src/HAL/stm32yyxx_hal_can.c
+  src/HAL/stm32yyxx_hal_ccb.c
   src/HAL/stm32yyxx_hal_cec.c
   src/HAL/stm32yyxx_hal_comp.c
   src/HAL/stm32yyxx_hal_comp_ex.c
