@@ -54,6 +54,8 @@
   #include "stm32mp1xx.h"
 #elif defined(STM32U0xx)
   #include "stm32u0xx.h"
+#elif defined(STM32U3xx)
+  #include "stm32u3xx.h"
 #elif defined(STM32U5xx)
   #include "stm32u5xx.h"
 #elif defined(STM32WBxx)
