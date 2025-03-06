@@ -1,8 +1,7 @@
 /**
   ******************************************************************************
   * @file    stm32u3xx_hal_conf_template.h
-  * @author  MCD Application Team
-  * @brief   HAL configuration template file.
+  * @brief   HAL default configuration template file.
   *          This file should be copied to the application folder and renamed
   *          to stm32u3xx_hal_conf.h.
   ******************************************************************************
@@ -19,8 +18,8 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef STM32U3xx_HAL_CONF_H
-#define STM32U3xx_HAL_CONF_H
+#ifndef STM32U3xx_HAL_CONF_DEFAULT_H
+#define STM32U3xx_HAL_CONF_DEFAULT_H
 
 #include "stm32u3xx_hal_def.h"
 
@@ -32,6 +31,12 @@ extern "C" {
 /* Exported constants --------------------------------------------------------*/
 
 /* ########################## Module Selection ############################## */
+/**
+  * @brief Include the default list of modules to be used in the HAL driver
+  *        and manage module deactivation
+  */
+#include "stm32yyxx_hal_conf.h"
+#if 0
 /**
   * @brief This is the list of modules to be used in the HAL driver
   */
@@ -79,6 +84,7 @@ extern "C" {
 #define HAL_USART_MODULE_ENABLED
 #define HAL_WWDG_MODULE_ENABLED
 #define HAL_XSPI_MODULE_ENABLED
+#endif
 
 
 /* ########################## Oscillator Values adaptation ####################*/
@@ -506,4 +512,4 @@ void assert_failed(uint8_t *file, uint32_t line);
 }
 #endif
 
-#endif /* STM32U3xx_HAL_CONF_H */
+#endif /* STM32U3xx_HAL_CONF_DEFAULT_H */
