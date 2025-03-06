@@ -838,18 +838,26 @@ def updateCore():
         HAL_updated = False
         CMSIS_updated = False
         openamp_updated = False
-        hal_commit_msg = """system({0}) {3} STM32{0}xx HAL Drivers to v{1}
+        hal_commit_msg = """system({0}) {4} STM32{1}xx HAL Drivers to v{2}
 
-Included in STM32Cube{0} FW {2}""".format(
-            serie, cube_HAL_ver, cube_version, "add" if upargs.add else "update"
+Included in STM32Cube{1} FW {3}""".format(
+            serie.lower(),
+            serie,
+            cube_HAL_ver,
+            cube_version,
+            "add" if upargs.add else "update",
         )
-        cmsis_commit_msg = """system({0}): {3} STM32{0}xx CMSIS Drivers to v{1}
+        cmsis_commit_msg = """system({0}): {4} STM32{1}xx CMSIS Drivers to v{2}
 
-Included in STM32Cube{0} FW {2}""".format(
-            serie, cube_CMSIS_ver, cube_version, "add" if upargs.add else "update"
+Included in STM32Cube{1} FW {3}""".format(
+            serie.lower(),
+            serie,
+            cube_CMSIS_ver,
+            cube_version,
+            "add" if upargs.add else "update",
         )
         wrapper_commit_msg = (
-            f"core({serie}): {'add' if upargs.add else 'update'} wrapped files"
+            f"core({serie.lower()}): {'add' if upargs.add else 'update'} wrapped files"
         )
 
         # Update HAL part if needed
@@ -901,10 +909,10 @@ Included in STM32Cube{0} FW {2}""".format(
 
         if upargs.add:
             system_commit_msg = (
-                f"system({serie}): add STM32{serie}xx system source files"
+                f"system({serie.lower()}): add STM32{serie}xx system source files"
             )
             update_hal_conf_commit_msg = (
-                f"system({serie}): update STM32{serie}xx hal default config"
+                f"system({serie.lower()}): update STM32{serie}xx hal default config"
             )
             update_stm32_def_commit_msg = f"core({serie}): add top HAL include"
             # Create system files
