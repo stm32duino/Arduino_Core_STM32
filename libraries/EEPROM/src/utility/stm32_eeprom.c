@@ -236,7 +236,11 @@ void eeprom_buffer_flush(void)
 #if defined(FLASH_TYPEPROGRAM_QUADWORD)
   uint64_t data[2] = {0x0000};
 #else
+#if defined(STM32U3xx)
+  uint32_t dataAddr = 0;
+#else
   uint64_t data = 0;
+#endif
 #endif
 
   /* ERASING page */
@@ -262,9 +266,15 @@ void eeprom_buffer_flush(void)
           address += 16;
           offset += 16;
 #else
+#if defined(STM32U3xx)
+        dataAddr = (uint32_t)((uint8_t *)eeprom_buffer + offset);
+
+        if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, address, dataAddr) == HAL_OK) {
+#else
         data = *((uint64_t *)((uint8_t *)eeprom_buffer + offset));
 
         if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, address, data) == HAL_OK) {
+#endif
           address += 8;
           offset += 8;
 #endif

@@ -108,7 +108,9 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
       __HAL_USB_WAKEUP_EXTI_ENABLE_RISING_EDGE();
 #endif
 #ifdef __HAL_USB_WAKEUP_EXTI_ENABLE_IT
+#if !defined(STM32U3xx) // Workaround for STM32U3xx
       __HAL_USB_WAKEUP_EXTI_ENABLE_IT();
+#endif
 #endif
 #if defined(USB_WKUP_IRQn)
       /* USB Wakeup Interrupt */

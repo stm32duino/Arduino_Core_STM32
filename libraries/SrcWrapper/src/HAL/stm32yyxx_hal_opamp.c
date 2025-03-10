@@ -18,6 +18,8 @@
   #include "stm32l5xx_hal_opamp.c"
 #elif STM32U0xx
   #include "stm32u0xx_hal_opamp.c"
+#elif STM32U3xx
+  #include "stm32u3xx_hal_opamp.c"
 #elif STM32U5xx
   #include "stm32u5xx_hal_opamp.c"
 #endif

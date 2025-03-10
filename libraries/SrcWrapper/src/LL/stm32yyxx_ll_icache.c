@@ -6,6 +6,8 @@
   #include "stm32h5xx_ll_icache.c"
 #elif STM32L5xx
   #include "stm32l5xx_ll_icache.c"
+#elif STM32U3xx
+  #include "stm32u3xx_ll_icache.c"
 #elif STM32U5xx
   #include "stm32u5xx_ll_icache.c"
 #elif STM32WBAxx
