@@ -83,6 +83,7 @@ tim_inst_list = []  # TIMx instance
 usb_inst = {"usb": "", "otg_fs": "", "otg_hs": ""}
 mcu_family = ""
 mcu_refname = ""
+mcu_core = []
 mcu_flash = []
 mcu_ram = []
 legacy_hal = {
@@ -154,6 +155,7 @@ def parse_mcu_file():
     global gpiofile
     global mcu_family
     global mcu_refname
+    global mcu_core
 
     tim_regex = r"^(TIM\d+)$"
     usb_regex = r"^(USB(?!PD|_HOST|_DEVICE|X).*)$"
@@ -161,6 +163,7 @@ def parse_mcu_file():
     del tim_inst_list[:]
     del mcu_ram[:]
     del mcu_flash[:]
+    del mcu_core[:]
     usb_inst["usb"] = ""
     usb_inst["otg_fs"] = ""
     usb_inst["otg_hs"] = ""
@@ -176,6 +179,13 @@ def parse_mcu_file():
     if mcu_family.endswith("+"):
         mcu_family = mcu_family[:-1]
     mcu_refname = mcu_node.attributes["RefName"].value
+    core_node = mcu_node.getElementsByTagName("Core")
+    for f in core_node:
+        # Strip last non digit characters and extract the number
+        arm_core_ = re.sub(r"^A[Rr][Mm] Cortex-", "", f.firstChild.nodeValue).strip("+")
+        mcu_core_family = re.sub(r"\d+$", "", arm_core_)
+        mcu_core_digit = int(re.sub(r"^[ARM]", "", arm_core_))
+        mcu_core.append([mcu_core_family, mcu_core_digit])
 
     ram_node = mcu_node.getElementsByTagName("Ram")
     for f in ram_node:
@@ -1245,6 +1255,27 @@ def manage_syswkup():
 
 
 def print_pinamevar():
+    # First check core version and search PWR_WAKEUP_*
+    syswkup_type = "PIN"
+    if mcu_core[0][1] == 33:
+        # Search in stm32{series}xx_hal_pwr.h WR_WAKEUP_
+        pwr_header_file_path = (
+            system_path
+            / "Drivers"
+            / f"{mcu_family}xx_HAL_Driver"
+            / "Inc"
+            / f"stm32{mcu_family.replace('STM32', '').lower()}xx_hal_pwr.h"
+        )
+        if not (pwr_header_file_path).exists():
+            print(f"Error: {pwr_header_file_path} not found!")
+            exit(1)
+        else:
+            with open(pwr_header_file_path, "r") as pwr_header_file:
+                for line in pwr_header_file:
+                    if "PWR_WAKEUP_LINE" in line:
+                        syswkup_type = "LINE"
+                        break
+
     # Print specific PinNames in header file
     pinvar_h_template = j2_env.get_template(pinvar_h_filename)
 
@@ -1281,6 +1312,7 @@ def print_pinamevar():
             remap_pins_list=remap_pins_list,
             waltpin=max(waltpin),
             alt_pins_list=alt_pins_list,
+            syswkup_type=syswkup_type,
             syswkup_pins_list=syswkup_pins_list,
             wusbpin=max(wusbpin),
             usb_pins_list=sorted_usb_pins_list,
@@ -2705,6 +2737,7 @@ for mcu_file in mcu_list:
     # Open input file
     xml_mcu = parse(str(mcu_file))
     parse_mcu_file()
+
     # Generate only for specified pattern series or supported one
     # Check if mcu_family is supported by the core
     if (
