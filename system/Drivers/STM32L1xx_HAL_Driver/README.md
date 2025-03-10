@@ -27,12 +27,20 @@ Details about the content of this release are available in the release note [her
 
 ## Compatibility information
 
-It is **crucial** that you use a consistent set of versions for the CMSIS Core - CMSIS Device - HAL, as mentioned in [this](https://htmlpreview.github.io/?https://github.com/STMicroelectronics/STM32CubeL1/blob/master/Release_Notes.html) release note.
+In this table, you can find the successive versions of this HAL-LL Driver component, in line with the corresponding versions of the full MCU package:
+
+It is **crucial** that you use a consistent set of versions for the CMSIS Core - CMSIS Device - HAL, as mentioned in this table.
+
+HAL Driver L1 | CMSIS Device L1 | CMSIS Core | Was delivered in the full MCU package
+------------- | --------------- | ---------- | -------------------------------------
+Tag v1.4.0    | Tag v2.3.0 | Tag v5.4.0_cm3 | Tag v1.9.0  (and following, if any, till next HAL tag)
+Tag v1.4.1    | Tag v2.3.1 | Tag v5.4.0_cm3 | Tag v1.10.0 (and following, if any, till next HAL tag)
+Tag v1.4.2    | Tag v2.3.1 | Tag v5.4.0_cm3 | Tag v1.10.1 (and following, if any, till next HAL tag)
+Tag v1.4.3    | Tag v2.3.1 | Tag v5.4.0_cm3 | Tag v1.10.2 (and following, if any, till next HAL tag)
+Tag v1.4.4    | Tag v2.3.2 | Tag v5.4.0_cm3 | Tag v1.10.3 (and following, if any, till next HAL tag)
 
 The full **STM32CubeL1** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeL1).
 
 ## Troubleshooting
 
-If you have any issue with the **software content** of this repository, you can file an issue [here](https://github.com/STMicroelectronics/stm32l1xx_hal_driver/issues/new/choose).
-
-For any other question related to the product, the tools, the environment, you can submit a topic on the [ST Community/STM32 MCUs forum](https://community.st.com/s/group/0F90X000000AXsASAW/stm32-mcus).
+Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) guide.
