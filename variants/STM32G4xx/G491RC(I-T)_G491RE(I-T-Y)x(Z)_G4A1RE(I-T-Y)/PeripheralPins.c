@@ -15,7 +15,7 @@
  * STM32G491RETxZ.xml, STM32G491REYx.xml
  * STM32G4A1REIx.xml, STM32G4A1RETx.xml
  * STM32G4A1REYx.xml
- * CubeMX DB release 6.0.130
+ * CubeMX DB release 6.0.140
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

@@ -10,9 +10,7 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_WBA52CEUX) || defined(ARDUINO_GENERIC_WBA52CGUX) ||\
-    defined(ARDUINO_GENERIC_WBA54CEUX) || defined(ARDUINO_GENERIC_WBA54CGUX) ||\
-    defined(ARDUINO_GENERIC_WBA55HEFX) || defined(ARDUINO_GENERIC_WBA55HGFX)
+#if defined(ARDUINO_GENERIC_WBA55HEFX) || defined(ARDUINO_GENERIC_WBA55HGFX)
 #include "pins_arduino.h"
 
 /**

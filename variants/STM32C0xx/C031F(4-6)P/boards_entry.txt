@@ -1,0 +1,23 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic C031F4Px
+GenC0.menu.pnum.GENERIC_C031F4PX=Generic C031F4Px
+GenC0.menu.pnum.GENERIC_C031F4PX.upload.maximum_size=16384
+GenC0.menu.pnum.GENERIC_C031F4PX.upload.maximum_data_size=12288
+GenC0.menu.pnum.GENERIC_C031F4PX.build.board=GENERIC_C031F4PX
+GenC0.menu.pnum.GENERIC_C031F4PX.build.product_line=STM32C031xx
+GenC0.menu.pnum.GENERIC_C031F4PX.build.variant=STM32C0xx/C031F(4-6)P
+GenC0.menu.pnum.GENERIC_C031F4PX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C031.svd
+
+# Generic C031F6Px
+GenC0.menu.pnum.GENERIC_C031F6PX=Generic C031F6Px
+GenC0.menu.pnum.GENERIC_C031F6PX.upload.maximum_size=32768
+GenC0.menu.pnum.GENERIC_C031F6PX.upload.maximum_data_size=12288
+GenC0.menu.pnum.GENERIC_C031F6PX.build.board=GENERIC_C031F6PX
+GenC0.menu.pnum.GENERIC_C031F6PX.build.product_line=STM32C031xx
+GenC0.menu.pnum.GENERIC_C031F6PX.build.variant=STM32C0xx/C031F(4-6)P
+GenC0.menu.pnum.GENERIC_C031F6PX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C031.svd
+

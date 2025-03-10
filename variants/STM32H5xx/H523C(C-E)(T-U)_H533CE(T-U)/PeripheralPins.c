@@ -14,7 +14,7 @@
  * Automatically generated from STM32H523CCTx.xml, STM32H523CCUx.xml
  * STM32H523CETx.xml, STM32H523CEUx.xml
  * STM32H533CETx.xml, STM32H533CEUx.xml
- * CubeMX DB release 6.0.130
+ * CubeMX DB release 6.0.140
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

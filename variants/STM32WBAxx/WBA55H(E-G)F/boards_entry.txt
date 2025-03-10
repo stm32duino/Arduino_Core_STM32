@@ -1,0 +1,23 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic WBA55HEFx
+GenWBA.menu.pnum.GENERIC_WBA55HEFX=Generic WBA55HEFx
+GenWBA.menu.pnum.GENERIC_WBA55HEFX.upload.maximum_size=524288
+GenWBA.menu.pnum.GENERIC_WBA55HEFX.upload.maximum_data_size=98304
+GenWBA.menu.pnum.GENERIC_WBA55HEFX.build.board=GENERIC_WBA55HEFX
+GenWBA.menu.pnum.GENERIC_WBA55HEFX.build.product_line=STM32WBA55xx
+GenWBA.menu.pnum.GENERIC_WBA55HEFX.build.variant=STM32WBAxx/WBA55H(E-G)F
+GenWBA.menu.pnum.GENERIC_WBA55HEFX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA55.svd
+
+# Generic WBA55HGFx
+GenWBA.menu.pnum.GENERIC_WBA55HGFX=Generic WBA55HGFx
+GenWBA.menu.pnum.GENERIC_WBA55HGFX.upload.maximum_size=1048576
+GenWBA.menu.pnum.GENERIC_WBA55HGFX.upload.maximum_data_size=131072
+GenWBA.menu.pnum.GENERIC_WBA55HGFX.build.board=GENERIC_WBA55HGFX
+GenWBA.menu.pnum.GENERIC_WBA55HGFX.build.product_line=STM32WBA55xx
+GenWBA.menu.pnum.GENERIC_WBA55HGFX.build.variant=STM32WBAxx/WBA55H(E-G)F
+GenWBA.menu.pnum.GENERIC_WBA55HGFX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA55.svd
+
