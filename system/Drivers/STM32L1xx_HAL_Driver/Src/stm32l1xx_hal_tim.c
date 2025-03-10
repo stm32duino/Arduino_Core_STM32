@@ -3641,13 +3641,16 @@ HAL_StatusTypeDef HAL_TIM_Encoder_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Cha
   */
 void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
 {
+  uint32_t itsource = htim->Instance->DIER;
+  uint32_t itflag   = htim->Instance->SR;
+
   /* Capture compare 1 event */
-  if (__HAL_TIM_GET_FLAG(htim, TIM_FLAG_CC1) != RESET)
+  if ((itflag & (TIM_FLAG_CC1)) == (TIM_FLAG_CC1))
   {
-    if (__HAL_TIM_GET_IT_SOURCE(htim, TIM_IT_CC1) != RESET)
+    if ((itsource & (TIM_IT_CC1)) == (TIM_IT_CC1))
     {
       {
-        __HAL_TIM_CLEAR_IT(htim, TIM_IT_CC1);
+        __HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_CC1);
         htim->Channel = HAL_TIM_ACTIVE_CHANNEL_1;
 
         /* Input capture event */
@@ -3675,11 +3678,11 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
     }
   }
   /* Capture compare 2 event */
-  if (__HAL_TIM_GET_FLAG(htim, TIM_FLAG_CC2) != RESET)
+  if ((itflag & (TIM_FLAG_CC2)) == (TIM_FLAG_CC2))
   {
-    if (__HAL_TIM_GET_IT_SOURCE(htim, TIM_IT_CC2) != RESET)
+    if ((itsource & (TIM_IT_CC2)) == (TIM_IT_CC2))
     {
-      __HAL_TIM_CLEAR_IT(htim, TIM_IT_CC2);
+      __HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_CC2);
       htim->Channel = HAL_TIM_ACTIVE_CHANNEL_2;
       /* Input capture event */
       if ((htim->Instance->CCMR1 & TIM_CCMR1_CC2S) != 0x00U)
@@ -3705,11 +3708,11 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
     }
   }
   /* Capture compare 3 event */
-  if (__HAL_TIM_GET_FLAG(htim, TIM_FLAG_CC3) != RESET)
+  if ((itflag & (TIM_FLAG_CC3)) == (TIM_FLAG_CC3))
   {
-    if (__HAL_TIM_GET_IT_SOURCE(htim, TIM_IT_CC3) != RESET)
+    if ((itsource & (TIM_IT_CC3)) == (TIM_IT_CC3))
     {
-      __HAL_TIM_CLEAR_IT(htim, TIM_IT_CC3);
+      __HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_CC3);
       htim->Channel = HAL_TIM_ACTIVE_CHANNEL_3;
       /* Input capture event */
       if ((htim->Instance->CCMR2 & TIM_CCMR2_CC3S) != 0x00U)
@@ -3735,11 +3738,11 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
     }
   }
   /* Capture compare 4 event */
-  if (__HAL_TIM_GET_FLAG(htim, TIM_FLAG_CC4) != RESET)
+  if ((itflag & (TIM_FLAG_CC4)) == (TIM_FLAG_CC4))
   {
-    if (__HAL_TIM_GET_IT_SOURCE(htim, TIM_IT_CC4) != RESET)
+    if ((itsource & (TIM_IT_CC4)) == (TIM_IT_CC4))
     {
-      __HAL_TIM_CLEAR_IT(htim, TIM_IT_CC4);
+      __HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_CC4);
       htim->Channel = HAL_TIM_ACTIVE_CHANNEL_4;
       /* Input capture event */
       if ((htim->Instance->CCMR2 & TIM_CCMR2_CC4S) != 0x00U)
@@ -3765,11 +3768,11 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
     }
   }
   /* TIM Update event */
-  if (__HAL_TIM_GET_FLAG(htim, TIM_FLAG_UPDATE) != RESET)
+  if ((itflag & (TIM_FLAG_UPDATE)) == (TIM_FLAG_UPDATE))
   {
-    if (__HAL_TIM_GET_IT_SOURCE(htim, TIM_IT_UPDATE) != RESET)
+    if ((itsource & (TIM_IT_UPDATE)) == (TIM_IT_UPDATE))
     {
-      __HAL_TIM_CLEAR_IT(htim, TIM_IT_UPDATE);
+      __HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_UPDATE);
 #if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
       htim->PeriodElapsedCallback(htim);
 #else
@@ -3778,11 +3781,11 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
     }
   }
   /* TIM Trigger detection event */
-  if (__HAL_TIM_GET_FLAG(htim, TIM_FLAG_TRIGGER) != RESET)
+  if ((itflag & (TIM_FLAG_TRIGGER)) == (TIM_FLAG_TRIGGER))
   {
-    if (__HAL_TIM_GET_IT_SOURCE(htim, TIM_IT_TRIGGER) != RESET)
+    if ((itsource & (TIM_IT_TRIGGER)) == (TIM_IT_TRIGGER))
     {
-      __HAL_TIM_CLEAR_IT(htim, TIM_IT_TRIGGER);
+      __HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_TRIGGER);
 #if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
       htim->TriggerCallback(htim);
 #else
@@ -4263,7 +4266,8 @@ HAL_StatusTypeDef HAL_TIM_OnePulse_ConfigChannel(TIM_HandleTypeDef *htim,  TIM_O
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStart(TIM_HandleTypeDef *htim, uint32_t BurstBaseAddress,
-                                              uint32_t BurstRequestSrc, const uint32_t *BurstBuffer, uint32_t  BurstLength)
+                                              uint32_t BurstRequestSrc, const uint32_t *BurstBuffer,
+                                              uint32_t  BurstLength)
 {
   HAL_StatusTypeDef status;
 
@@ -6455,17 +6459,21 @@ static void TIM_Base_SetConfig(TIM_TypeDef *TIMx, const TIM_Base_InitTypeDef *St
   /* Set the auto-reload preload */
   MODIFY_REG(tmpcr1, TIM_CR1_ARPE, Structure->AutoReloadPreload);
 
-  TIMx->CR1 = tmpcr1;
-
   /* Set the Autoreload value */
   TIMx->ARR = (uint32_t)Structure->Period ;
 
   /* Set the Prescaler value */
   TIMx->PSC = Structure->Prescaler;
 
+  /* Disable Update Event (UEV) with Update Generation (UG)
+     by changing Update Request Source (URS) to avoid Update flag (UIF) */
+  SET_BIT(TIMx->CR1, TIM_CR1_URS);
+
   /* Generate an update event to reload the Prescaler
      and the repetition counter (only for advanced timer) value immediately */
   TIMx->EGR = TIM_EGR_UG;
+
+  TIMx->CR1 = tmpcr1;
 }
 
 /**

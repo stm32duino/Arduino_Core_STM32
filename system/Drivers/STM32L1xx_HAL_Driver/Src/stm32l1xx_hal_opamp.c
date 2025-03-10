@@ -556,11 +556,10 @@ HAL_StatusTypeDef HAL_OPAMP_DeInit(OPAMP_HandleTypeDef* hopamp)
 
     /* Update the OPAMP state*/
     hopamp->State = HAL_OPAMP_STATE_RESET;
+
+    /* Process unlocked */
+    __HAL_UNLOCK(hopamp);
   }
-
-  /* Process unlocked */
-  __HAL_UNLOCK(hopamp);
-
   return status;
 }
 

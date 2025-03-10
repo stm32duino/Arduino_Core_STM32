@@ -467,6 +467,9 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
     __WFE();
     __WFE();
   }
+
+  /* Additional NOP() instruction to ensure that all pending instructions are flushed before entering sleep mode */
+  __NOP();
 }
 
 /**

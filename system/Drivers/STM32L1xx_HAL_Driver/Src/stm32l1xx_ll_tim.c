@@ -723,7 +723,6 @@ static ErrorStatus OC4Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM
   return SUCCESS;
 }
 
-
 /**
   * @brief  Configure the TIMx input channel 1.
   * @param  TIMx Timer Instance
@@ -848,7 +847,7 @@ static ErrorStatus IC4Config(TIM_TypeDef *TIMx, const LL_TIM_IC_InitTypeDef *TIM
              (TIM_CCMR2_CC4S | TIM_CCMR2_IC4F | TIM_CCMR2_IC4PSC),
              (TIM_ICInitStruct->ICActiveInput | TIM_ICInitStruct->ICFilter | TIM_ICInitStruct->ICPrescaler) >> 8U);
 
-  /* Select the Polarity and set the CC2E Bit */
+  /* Select the Polarity and set the CC4E Bit */
   MODIFY_REG(TIMx->CCER,
              (TIM_CCER_CC4P | TIM_CCER_CC4NP),
              ((TIM_ICInitStruct->ICPolarity << 12U) | TIM_CCER_CC4E));

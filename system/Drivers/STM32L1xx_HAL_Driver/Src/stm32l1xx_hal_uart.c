@@ -1165,6 +1165,8 @@ HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pD
     {
       if (UART_WaitOnFlagUntilTimeout(huart, UART_FLAG_TXE, RESET, tickstart, Timeout) != HAL_OK)
       {
+        huart->gState = HAL_UART_STATE_READY;
+
         return HAL_TIMEOUT;
       }
       if (pdata8bits == NULL)
@@ -1182,6 +1184,8 @@ HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pD
 
     if (UART_WaitOnFlagUntilTimeout(huart, UART_FLAG_TC, RESET, tickstart, Timeout) != HAL_OK)
     {
+      huart->gState = HAL_UART_STATE_READY;
+
       return HAL_TIMEOUT;
     }
 
@@ -1249,6 +1253,8 @@ HAL_StatusTypeDef HAL_UART_Receive(UART_HandleTypeDef *huart, uint8_t *pData, ui
     {
       if (UART_WaitOnFlagUntilTimeout(huart, UART_FLAG_RXNE, RESET, tickstart, Timeout) != HAL_OK)
       {
+        huart->RxState = HAL_UART_STATE_READY;
+
         return HAL_TIMEOUT;
       }
       if (pdata8bits == NULL)
@@ -1397,8 +1403,16 @@ HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, const uint8_t
 
     /* Enable the UART transmit DMA channel */
     tmp = (const uint32_t *)&pData;
-    HAL_DMA_Start_IT(huart->hdmatx, *(const uint32_t *)tmp, (uint32_t)&huart->Instance->DR, Size);
+    if (HAL_DMA_Start_IT(huart->hdmatx, *(const uint32_t *)tmp, (uint32_t)&huart->Instance->DR, Size) != HAL_OK)
+    {
+      /* Set error code to DMA */
+      huart->ErrorCode = HAL_UART_ERROR_DMA;
 
+      /* Restore huart->gState to ready */
+      huart->gState = HAL_UART_STATE_READY;
+
+      return HAL_ERROR;
+    }
     /* Clear the TC flag in the SR register by writing 0 to it */
     __HAL_UART_CLEAR_FLAG(huart, UART_FLAG_TC);
 
@@ -1777,21 +1791,18 @@ HAL_StatusTypeDef HAL_UARTEx_ReceiveToIdle_DMA(UART_HandleTypeDef *huart, uint8_
     status =  UART_Start_Receive_DMA(huart, pData, Size);
 
     /* Check Rx process has been successfully started */
-    if (status == HAL_OK)
+    if (huart->ReceptionType == HAL_UART_RECEPTION_TOIDLE)
     {
-      if (huart->ReceptionType == HAL_UART_RECEPTION_TOIDLE)
-      {
-        __HAL_UART_CLEAR_IDLEFLAG(huart);
-        ATOMIC_SET_BIT(huart->Instance->CR1, USART_CR1_IDLEIE);
-      }
-      else
-      {
-        /* In case of errors already pending when reception is started,
-           Interrupts may have already been raised and lead to reception abortion.
-           (Overrun error for instance).
-           In such case Reception Type has been reset to HAL_UART_RECEPTION_STANDARD. */
-        status = HAL_ERROR;
-      }
+      __HAL_UART_CLEAR_IDLEFLAG(huart);
+      ATOMIC_SET_BIT(huart->Instance->CR1, USART_CR1_IDLEIE);
+    }
+    else
+    {
+      /* In case of errors already pending when reception is started,
+         Interrupts may have already been raised and lead to reception abortion.
+         (Overrun error for instance).
+         In such case Reception Type has been reset to HAL_UART_RECEPTION_STANDARD. */
+      status = HAL_ERROR;
     }
 
     return status;
@@ -2517,6 +2528,28 @@ void HAL_UART_IRQHandler(UART_HandleTypeDef *huart)
         HAL_UARTEx_RxEventCallback(huart, (huart->RxXferSize - huart->RxXferCount));
 #endif /* USE_HAL_UART_REGISTER_CALLBACKS */
       }
+      else
+      {
+        /* If DMA is in Circular mode, Idle event is to be reported to user
+           even if occurring after a Transfer Complete event from DMA */
+        if (nb_remaining_rx_data == huart->RxXferSize)
+        {
+          if (huart->hdmarx->Init.Mode == DMA_CIRCULAR)
+          {
+            /* Initialize type of RxEvent that correspond to RxEvent callback execution;
+               In this case, Rx Event type is Idle Event */
+            huart->RxEventType = HAL_UART_RXEVENT_IDLE;
+
+#if (USE_HAL_UART_REGISTER_CALLBACKS == 1)
+            /*Call registered Rx Event callback*/
+            huart->RxEventCallback(huart, huart->RxXferSize);
+#else
+            /*Call legacy weak Rx Event callback*/
+            HAL_UARTEx_RxEventCallback(huart, huart->RxXferSize);
+#endif /* (USE_HAL_UART_REGISTER_CALLBACKS) */
+          }
+        }
+      }
       return;
     }
     else
@@ -3179,19 +3212,31 @@ static HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef *huart, 
     /* Check for the Timeout */
     if (Timeout != HAL_MAX_DELAY)
     {
-      if ((Timeout == 0U) || ((HAL_GetTick() - Tickstart) > Timeout))
+      if (((HAL_GetTick() - Tickstart) > Timeout) || (Timeout == 0U))
       {
-        /* Disable TXE, RXNE, PE and ERR (Frame error, noise error, overrun error) interrupts for the interrupt process */
-        ATOMIC_CLEAR_BIT(huart->Instance->CR1, (USART_CR1_RXNEIE | USART_CR1_PEIE | USART_CR1_TXEIE));
-        ATOMIC_CLEAR_BIT(huart->Instance->CR3, USART_CR3_EIE);
-
-        huart->gState  = HAL_UART_STATE_READY;
-        huart->RxState = HAL_UART_STATE_READY;
-
-        /* Process Unlocked */
-        __HAL_UNLOCK(huart);
 
         return HAL_TIMEOUT;
+      }
+
+      if ((READ_BIT(huart->Instance->CR1, USART_CR1_RE) != 0U) && (Flag != UART_FLAG_TXE) && (Flag != UART_FLAG_TC))
+      {
+        if (__HAL_UART_GET_FLAG(huart, UART_FLAG_ORE) == SET)
+        {
+          /* Clear Overrun Error flag*/
+          __HAL_UART_CLEAR_OREFLAG(huart);
+
+          /* Blocking error : transfer is aborted
+          Set the UART state ready to be able to start again the process,
+          Disable Rx Interrupts if ongoing */
+          UART_EndRxTransfer(huart);
+
+          huart->ErrorCode = HAL_UART_ERROR_ORE;
+
+          /* Process Unlocked */
+          __HAL_UNLOCK(huart);
+
+          return HAL_ERROR;
+        }
       }
     }
   }
@@ -3268,8 +3313,16 @@ HAL_StatusTypeDef UART_Start_Receive_DMA(UART_HandleTypeDef *huart, uint8_t *pDa
 
   /* Enable the DMA stream */
   tmp = (uint32_t *)&pData;
-  HAL_DMA_Start_IT(huart->hdmarx, (uint32_t)&huart->Instance->DR, *(uint32_t *)tmp, Size);
+  if (HAL_DMA_Start_IT(huart->hdmarx, (uint32_t)&huart->Instance->DR, *(uint32_t *)tmp, Size) != HAL_OK)
+  {
+    /* Set error code to DMA */
+    huart->ErrorCode = HAL_UART_ERROR_DMA;
 
+    /* Restore huart->RxState to ready */
+    huart->RxState = HAL_UART_STATE_READY;
+
+    return HAL_ERROR;
+  }
   /* Clear the Overrun flag just before enabling the DMA Rx request: can be mandatory for the second transfer */
   __HAL_UART_CLEAR_OREFLAG(huart);
 
@@ -3336,7 +3389,6 @@ static void UART_DMAAbortOnError(DMA_HandleTypeDef *hdma)
 {
   UART_HandleTypeDef *huart = (UART_HandleTypeDef *)((DMA_HandleTypeDef *)hdma)->Parent;
   huart->RxXferCount = 0x00U;
-  huart->TxXferCount = 0x00U;
 
 #if (USE_HAL_UART_REGISTER_CALLBACKS == 1)
   /*Call registered error callback*/
@@ -3569,15 +3621,16 @@ static HAL_StatusTypeDef UART_EndTransmit_IT(UART_HandleTypeDef *huart)
   */
 static HAL_StatusTypeDef UART_Receive_IT(UART_HandleTypeDef *huart)
 {
-  uint8_t  *pdata8bits;
-  uint16_t *pdata16bits;
+  uint8_t  *pdata8bits = NULL;
+  uint16_t *pdata16bits = NULL;
 
   /* Check that a Rx process is ongoing */
   if (huart->RxState == HAL_UART_STATE_BUSY_RX)
   {
     if ((huart->Init.WordLength == UART_WORDLENGTH_9B) && (huart->Init.Parity == UART_PARITY_NONE))
     {
-      pdata8bits  = NULL;
+      /* Unused pdata8bits */
+      UNUSED(pdata8bits);
       pdata16bits = (uint16_t *) huart->pRxBuffPtr;
       *pdata16bits = (uint16_t)(huart->Instance->DR & (uint16_t)0x01FF);
       huart->pRxBuffPtr += 2U;
@@ -3585,7 +3638,8 @@ static HAL_StatusTypeDef UART_Receive_IT(UART_HandleTypeDef *huart)
     else
     {
       pdata8bits = (uint8_t *) huart->pRxBuffPtr;
-      pdata16bits  = NULL;
+      /* Unused pdata16bits */
+      UNUSED(pdata16bits);
 
       if ((huart->Init.WordLength == UART_WORDLENGTH_9B) || ((huart->Init.WordLength == UART_WORDLENGTH_8B) && (huart->Init.Parity == UART_PARITY_NONE)))
       {

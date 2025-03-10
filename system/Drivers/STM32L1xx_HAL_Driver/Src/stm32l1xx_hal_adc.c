@@ -548,7 +548,7 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef* hadc)
     /*  - scan mode                                                           */
     /*  - discontinuous mode disable/enable                                   */
     /*  - discontinuous mode number of conversions                            */
-    if ((ADC_IS_ENABLE(hadc) == RESET))
+    if (ADC_IS_ENABLE(hadc) == RESET)
     {
       tmp_cr2 |= hadc->Init.LowPowerAutoWait;
 
@@ -580,7 +580,10 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef* hadc)
           SET_BIT(hadc->ErrorCode, HAL_ADC_ERROR_INTERNAL);
         }
       }
-
+      else
+      {
+        /* do nothing */
+      }
       /* Update ADC configuration register CR1 with previous settings */
         MODIFY_REG(hadc->Instance->CR1,
                    ADC_CR1_RES     |
@@ -1565,7 +1568,7 @@ HAL_StatusTypeDef HAL_ADC_Start_DMA(ADC_HandleTypeDef* hadc, uint32_t* pData, ui
     hadc->Instance->CR2 |= ADC_CR2_DMA;
 
     /* Start the DMA channel */
-    HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&hadc->Instance->DR, (uint32_t)pData, Length);
+    tmp_hal_status = HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&hadc->Instance->DR, (uint32_t)pData, Length);
 
     /* Enable conversion of regular group.                                    */
     /* If software start has been selected, conversion starts immediately.    */
