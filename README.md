@@ -9,7 +9,7 @@
 
 [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
 ![GitHub All Releases](https://img.shields.io/github/downloads/stm32duino/Arduino_Core_STM32/total.svg?label=downloads%20since%201.4.0)
-[![GitHub commits since latest release](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/latest/main)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2.9.0...main)
+[![GitHub commits since latest release](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/latest/main)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2.10.0...main)
 
 
 * [Introduction](https://github.com/stm32duino/Arduino_Core_STM32#Introduction)<br>
@@ -114,7 +114,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32H723ZG | [Nucleo H723ZG](https://www.st.com/en/evaluation-tools/nucleo-h723zg.html) | *2.4.0* |  |
 | :green_heart:  | STM32H743ZI | [Nucleo H743ZI(2)](https://www.st.com/en/evaluation-tools/nucleo-h743zi.html) | *1.5.0* | Nucleo H743ZI2 since 1.6.0 |
 | :green_heart:  | STM32H753ZI | [Nucleo H753ZI](https://www.st.com/en/evaluation-tools/nucleo-h753zi.html) | *2.7.0* |  |
-| :yellow_heart: | STM32H7A3ZITxQ | [NUCLEO-H7A3ZI-Q](https://www.st.com/en/evaluation-tools/nucleo-h7a3zi-q.html) | **2.10.0** |  |
+| :green_heart: | STM32H7A3ZITxQ | [NUCLEO-H7A3ZI-Q](https://www.st.com/en/evaluation-tools/nucleo-h7a3zi-q.html) | *2.10.0* |  |
 | :green_heart:  | STM32L496ZG | [Nucleo L496ZG](http://www.st.com/en/evaluation-tools/nucleo-l496zg.html) | *1.3.0* |  |
 | :green_heart:  | STM32L496ZG-P | [Nucleo L496ZG-P](http://www.st.com/en/evaluation-tools/nucleo-l496zg-p.html) | *1.3.0* |  |
 | :green_heart:  | STM32L4R5ZI | [Nucleo L4R5ZI](http://www.st.com/en/evaluation-tools/nucleo-l4r5zi.html) | *1.4.0* |  |
@@ -153,7 +153,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L452RE-P | [Nucleo L452RE-P](http://www.st.com/en/evaluation-tools/nucleo-l452re-p.html) | *1.8.0* |  |
 | :green_heart:  | STM32L476RG | [Nucleo L476RG](http://www.st.com/en/evaluation-tools/nucleo-l476rg.html) | *0.1.0* |  |
 | :green_heart:  | STM32U083RC | [Nucleo U083RC](http://www.st.com/en/evaluation-tools/nucleo-u083rc.html) | *2.9.0* |  |
-| :yellow_heart:  | STM32U385RG-Q | [Nucleo-U385RG-Q](https://www.st.com/en/evaluation-tools/nucleo-u385rg-q.html) | **2.10.0** |  |
+| :green_heart:  | STM32U385RG-Q | [Nucleo-U385RG-Q](https://www.st.com/en/evaluation-tools/nucleo-u385rg-q.html) | *2.10.0* |  |
 | :green_heart:  | STM32WB15CCU | [Nucleo-WB15CC](https://www.st.com/en/evaluation-tools/nucleo-wb15cc.html) | *2.5.0* |  |
 | :green_heart: | STM32WBA55CGU | Nucleo-WBA55CG | *2.8.0* |  |
 | :green_heart:  | STM32WB55RG | [P-Nucleo-WB55RG](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html) | *1.6.0* | BLE support with [STM32duinoBLE](https://github.com/stm32duino/STM32duinoBLE) |
@@ -244,7 +244,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F042F4<br>STM32F042F6 | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32F042G4<br>STM32F042G6 | Generic Board | *2.4.0* |  |
 | :green_heart: | STM32F042K4T<br>STM32F042K6T | Generic Board | *2.0.1* |  |
-| :yellow_heart: | STM32F042K4U<br>STM32F042K6U | Generic Board | **2.10.0** |  |
+| :green_heart: | STM32F042K4U<br>STM32F042K6U | Generic Board | *2.10.0* |  |
 | :green_heart:  | STM32F042T6 | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32F048G6 | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32F048T6 | Generic Board | *2.4.0* |  |
@@ -370,7 +370,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F401RB<br>STM32F401RC<br>STM32F401RD<br>STM32F401RE | Generic Board | *1.8.0* |  |
 | :green_heart:  | STM32F401VB<br>STM32F401VC<br>STM32F401VD<br>STM32F401VE | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F405RG | Generic Board | *1.9.0* |  |
-| :yellow_heart:  | STM32F407IE<br>STM32F407IG | Generic Board | **2.10.0** |  |
+| :green_heart:  | STM32F407IE<br>STM32F407IG | Generic Board | *2.10.0* |  |
 | :green_heart:  | STM32F407VE<br>STM32F407VG | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F407ZE<br>STM32F407ZG | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F410C8<br>STM32F410CB | Generic Board | *1.9.0* |  |
@@ -385,7 +385,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F413RG<br>STM32F413RH | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F413ZG<br>STM32F413ZH | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F415RG | Generic Board | *1.9.0* |  |
-| :yellow_heart:  | STM32F417IE<br>STM32F417IG | Generic Board | **2.10.0** |  |
+| :green_heart:  | STM32F417IE<br>STM32F417IG | Generic Board | *2.10.0* |  |
 | :green_heart:  | STM32F417VE<br>STM32F417VG | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F417ZE<br>STM32F417ZG | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F423CH | Generic Board | *1.9.0* |  |
@@ -498,7 +498,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :yellow_heart:  | STM32G474CEU | WeAct G474CE | **2.10.0** | [More info](https://github.com/WeActStudio/WeActStudio.STM32G474CoreBoard) |
+| :green_heart:  | STM32G474CEU | WeAct G474CE | *2.10.0* | [More info](https://github.com/WeActStudio/WeActStudio.STM32G474CoreBoard) |
 | :green_heart:  | STM32G431C6<br>STM32G431C8<br>STM32G431CB | Generic Board | *2.4.0* |  |
 | :green_heart: | STM32G431C6U<br>STM32G431C8U<br>STM32G431CBU | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32G431M6<br>STM32G431M8<br>STM32G431MB | Generic Board | *2.4.0* |  |
@@ -517,28 +517,28 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32G471RC<br>STM32G471RE | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G471VC<br>STM32G471VE | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G473CBT<br>STM32G473CCT<br>STM32G473CET | Generic Board | *2.4.0* |  |
-| :yellow_heart:  | STM32G473CBU<br>STM32G473CCU<br>STM32G473CEU | Generic Board | **2.10.0** |  |
+| :green_heart:  | STM32G473CBU<br>STM32G473CCU<br>STM32G473CEU | Generic Board | *2.10.0* |  |
 | :green_heart:  | STM32G473MB<br>STM32G473MC<br>STM32G473ME | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G473PB<br>STM32G473PC<br>STM32G473PE | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G473QB<br>STM32G473QC<br>STM32G473QE | Generic Board | *2.4.0* |  |
 | :green_heart: | STM32G473RB<br>STM32G473RC<br>STM32G473RE | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32G473VB<br>STM32G473VC<br>STM32G473VE | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G474CBT<br>STM32G474CCT<br>STM32G474CET | Generic Board | *2.4.0* |  |
-| :yellow_heart:  | STM32G474CBU<br>STM32G474CCU<br>STM32G474CEU | Generic Board | **2.10.0** |  |
+| :green_heart:  | STM32G474CBU<br>STM32G474CCU<br>STM32G474CEU | Generic Board | *2.10.0* |  |
 | :green_heart:  | STM32G474MB<br>STM32G474MC<br>STM32G474ME | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G474PB<br>STM32G474PC<br>STM32G474PE | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G474QB<br>STM32G474QC<br>STM32G474QE | Generic Board | *2.4.0* |  |
 | :green_heart: | STM32G474RB<br>STM32G474RC<br>STM32G474RE | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32G474VB<br>STM32G474VC<br>STM32G474VE | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G483CET | Generic Board | *2.4.0* |  |
-| :yellow_heart:  | STM32G483CEU | Generic Board | **2.10.0** |  |
+| :green_heart:  | STM32G483CEU | Generic Board | *2.10.0* |  |
 | :green_heart:  | STM32G483ME | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G483PE | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G483QE | Generic Board | *2.4.0* |  |
 | :green_heart: | STM32G483RE | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32G483VE | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G484CET | Generic Board | *2.4.0* |  |
-| :yellow_heart:  | STM32G484CEU | Generic Board | **2.10.0** |  |
+| :green_heart:  | STM32G484CEU | Generic Board | *2.10.0* |  |
 | :green_heart:  | STM32G484ME | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G484PE | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32G484QE | Generic Board | *2.4.0* |  |
@@ -610,10 +610,10 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32H757XI | Generic Board | *2.7.0* |  |
 | :green_heart: | STM32H7A3VGHX<br>STM32H7A3VGTX | Generic Board | *2.8.0* |  |
 | :green_heart: | STM32H7A3VIHX<br>STM32H7A3VITX | Generic Board | *2.8.0* |  |
-| :yellow_heart: | STM32H7A3ZGTxQ<br>STM32H7A3ZITxQ | Generic Board | **2.10.0** |  |
+| :green_heart: | STM32H7A3ZGTxQ<br>STM32H7A3ZITxQ | Generic Board | *2.10.0* |  |
 | :green_heart: | STM32H7B0VBTX | Generic Board | *2.8.0* |  |
 | :green_heart: | STM32H7B3VIHX<br>STM32H7B3VITX | Generic Board | *2.8.0* |  |
-| :yellow_heart: | STM32H7B3ZITxQ | Generic Board | **2.10.0** |  |
+| :green_heart: | STM32H7B3ZITxQ | Generic Board | *2.10.0* |  |
 
 ### Generic STM32L0 boards
 
@@ -756,10 +756,10 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :yellow_heart:  | STM32U375RETxQ<br>STM32U375RGTxQ | Generic Board | **2.10.0** |  |
-| :yellow_heart:  | STM32U375VEI<br>STM32U375VGI | Generic Board | **2.10.0** |  |
-| :yellow_heart:  | STM32U385RGTxQ | Generic Board | **2.10.0** |  |
-| :yellow_heart:  | STM32U385VGI | Generic Board | **2.10.0** |  |
+| :green_heart:  | STM32U375RETxQ<br>STM32U375RGTxQ | Generic Board | *2.10.0* |  |
+| :green_heart:  | STM32U375VEI<br>STM32U375VGI | Generic Board | *2.10.0* |  |
+| :green_heart:  | STM32U385RGTxQ | Generic Board | *2.10.0* |  |
+| :green_heart:  | STM32U385VGI | Generic Board | *2.10.0* |  |
 
 ### Generic STM32U5 boards
 
@@ -780,8 +780,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32WB55CC<br>STM32WB55CE<br>STM32WB55CG | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32WB5MMG | Generic Board | *2.1.0* |  |
 | :green_heart: | STM32WB55RC<br>STM32WB55RE<br>STM32WB55RG | Generic Board | *2.0.0* |  |
-| :yellow_heart: | STM32WB55VC<br>STM32WB55VE<br>STM32WB55VG | Generic Board | **2.10.0** |  |
-| :yellow_heart: | STM32WB55VY | Generic Board | **2.10.0** |  |
+| :green_heart: | STM32WB55VC<br>STM32WB55VE<br>STM32WB55VG | Generic Board | *2.10.0* |  |
+| :green_heart: | STM32WB55VY | Generic Board | *2.10.0* |  |
 
 ### Generic STM32WBA boards
 
