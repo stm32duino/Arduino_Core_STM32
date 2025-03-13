@@ -832,6 +832,21 @@ Nucleo_64.menu.pnum.NUCLEO_U083RC.build.st_extra_flags=-D{build.product_line} {b
 Nucleo_64.menu.pnum.NUCLEO_U083RC.openocd.target=stm32u0x
 Nucleo_64.menu.pnum.NUCLEO_U083RC.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U0xx/STM32U083.svd
 
+# NUCLEO_U385RG_Q board
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q=Nucleo U385RG-Q
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.node=NOD_U385RG
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.upload.maximum_size=1048576
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.upload.maximum_data_size=262144
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.build.mcu=cortex-m33
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.build.float-abi=-mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.build.board=NUCLEO_U385RG_Q
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.build.series=STM32U3xx
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.build.product_line=STM32U385xx
+Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.build.variant=STM32U3xx/U375R(E-G)TxQ_U385RGTxQ
+#Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.openocd.target=stm32u3x
+#Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+
 # NUCLEO_WB15CC
 Nucleo_64.menu.pnum.NUCLEO_WB15CC=Nucleo WB15CC
 Nucleo_64.menu.pnum.NUCLEO_WB15CC.node="NOD_WB15CC"
@@ -12390,6 +12405,138 @@ GenU0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 #GenU0.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
+# Generic U3
+GenU3.name=Generic STM32U3 series
+
+GenU3.build.core=arduino
+GenU3.build.board=GenU3
+GenU3.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenU3.build.mcu=cortex-m33
+GenU3.build.fpu=-mfpu=fpv4-sp-d16
+GenU3.build.float-abi=-mfloat-abi=hard
+GenU3.build.series=STM32U3xx
+GenU3.build.flash_offset=0x0
+GenU3.upload.maximum_size=0
+GenU3.upload.maximum_data_size=0
+# GenU3.openocd.target=stm32u3x
+GenU3.vid.0=0x0483
+GenU3.pid.0=0x5740
+
+# Generic U375RETxQ
+GenU3.menu.pnum.GENERIC_U375RETXQ=Generic U375RETxQ
+GenU3.menu.pnum.GENERIC_U375RETXQ.upload.maximum_size=524288
+GenU3.menu.pnum.GENERIC_U375RETXQ.upload.maximum_data_size=262144
+GenU3.menu.pnum.GENERIC_U375RETXQ.build.board=GENERIC_U375RETXQ
+GenU3.menu.pnum.GENERIC_U375RETXQ.build.product_line=STM32U375xx
+GenU3.menu.pnum.GENERIC_U375RETXQ.build.variant=STM32U3xx/U375R(E-G)TxQ_U385RGTxQ
+GenU3.menu.pnum.GENERIC_U375RETXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+
+# Generic U375RGTxQ
+GenU3.menu.pnum.GENERIC_U375RGTXQ=Generic U375RGTxQ
+GenU3.menu.pnum.GENERIC_U375RGTXQ.upload.maximum_size=1048576
+GenU3.menu.pnum.GENERIC_U375RGTXQ.upload.maximum_data_size=262144
+GenU3.menu.pnum.GENERIC_U375RGTXQ.build.board=GENERIC_U375RGTXQ
+GenU3.menu.pnum.GENERIC_U375RGTXQ.build.product_line=STM32U375xx
+GenU3.menu.pnum.GENERIC_U375RGTXQ.build.variant=STM32U3xx/U375R(E-G)TxQ_U385RGTxQ
+GenU3.menu.pnum.GENERIC_U375RGTXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+
+# Generic U375VEIx
+GenU3.menu.pnum.GENERIC_U375VEIX=Generic U375VEIx
+GenU3.menu.pnum.GENERIC_U375VEIX.upload.maximum_size=524288
+GenU3.menu.pnum.GENERIC_U375VEIX.upload.maximum_data_size=262144
+GenU3.menu.pnum.GENERIC_U375VEIX.build.board=GENERIC_U375VEIX
+GenU3.menu.pnum.GENERIC_U375VEIX.build.product_line=STM32U375xx
+GenU3.menu.pnum.GENERIC_U375VEIX.build.variant=STM32U3xx/U375V(E-G)I_U385VGI
+GenU3.menu.pnum.GENERIC_U375VEIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+
+# Generic U375VEIxQ
+GenU3.menu.pnum.GENERIC_U375VEIXQ=Generic U375VEIxQ
+GenU3.menu.pnum.GENERIC_U375VEIXQ.upload.maximum_size=524288
+GenU3.menu.pnum.GENERIC_U375VEIXQ.upload.maximum_data_size=262144
+GenU3.menu.pnum.GENERIC_U375VEIXQ.build.board=GENERIC_U375VEIXQ
+GenU3.menu.pnum.GENERIC_U375VEIXQ.build.product_line=STM32U375xx
+GenU3.menu.pnum.GENERIC_U375VEIXQ.build.variant=STM32U3xx/U375V(E-G)IxQ_U385VGIxQ
+GenU3.menu.pnum.GENERIC_U375VEIXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+
+# Generic U375VGIx
+GenU3.menu.pnum.GENERIC_U375VGIX=Generic U375VGIx
+GenU3.menu.pnum.GENERIC_U375VGIX.upload.maximum_size=1048576
+GenU3.menu.pnum.GENERIC_U375VGIX.upload.maximum_data_size=262144
+GenU3.menu.pnum.GENERIC_U375VGIX.build.board=GENERIC_U375VGIX
+GenU3.menu.pnum.GENERIC_U375VGIX.build.product_line=STM32U375xx
+GenU3.menu.pnum.GENERIC_U375VGIX.build.variant=STM32U3xx/U375V(E-G)I_U385VGI
+GenU3.menu.pnum.GENERIC_U375VGIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+
+# Generic U375VGIxQ
+GenU3.menu.pnum.GENERIC_U375VGIXQ=Generic U375VGIxQ
+GenU3.menu.pnum.GENERIC_U375VGIXQ.upload.maximum_size=1048576
+GenU3.menu.pnum.GENERIC_U375VGIXQ.upload.maximum_data_size=262144
+GenU3.menu.pnum.GENERIC_U375VGIXQ.build.board=GENERIC_U375VGIXQ
+GenU3.menu.pnum.GENERIC_U375VGIXQ.build.product_line=STM32U375xx
+GenU3.menu.pnum.GENERIC_U375VGIXQ.build.variant=STM32U3xx/U375V(E-G)IxQ_U385VGIxQ
+GenU3.menu.pnum.GENERIC_U375VGIXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+
+# Generic U385RGTxQ
+GenU3.menu.pnum.GENERIC_U385RGTXQ=Generic U385RGTxQ
+GenU3.menu.pnum.GENERIC_U385RGTXQ.upload.maximum_size=1048576
+GenU3.menu.pnum.GENERIC_U385RGTXQ.upload.maximum_data_size=262144
+GenU3.menu.pnum.GENERIC_U385RGTXQ.build.board=GENERIC_U385RGTXQ
+GenU3.menu.pnum.GENERIC_U385RGTXQ.build.product_line=STM32U385xx
+GenU3.menu.pnum.GENERIC_U385RGTXQ.build.variant=STM32U3xx/U375R(E-G)TxQ_U385RGTxQ
+GenU3.menu.pnum.GENERIC_U385RGTXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+
+# Generic U385VGIx
+GenU3.menu.pnum.GENERIC_U385VGIX=Generic U385VGIx
+GenU3.menu.pnum.GENERIC_U385VGIX.upload.maximum_size=1048576
+GenU3.menu.pnum.GENERIC_U385VGIX.upload.maximum_data_size=262144
+GenU3.menu.pnum.GENERIC_U385VGIX.build.board=GENERIC_U385VGIX
+GenU3.menu.pnum.GENERIC_U385VGIX.build.product_line=STM32U385xx
+GenU3.menu.pnum.GENERIC_U385VGIX.build.variant=STM32U3xx/U375V(E-G)I_U385VGI
+GenU3.menu.pnum.GENERIC_U385VGIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+
+# Generic U385VGIxQ
+GenU3.menu.pnum.GENERIC_U385VGIXQ=Generic U385VGIxQ
+GenU3.menu.pnum.GENERIC_U385VGIXQ.upload.maximum_size=1048576
+GenU3.menu.pnum.GENERIC_U385VGIXQ.upload.maximum_data_size=262144
+GenU3.menu.pnum.GENERIC_U385VGIXQ.build.board=GENERIC_U385VGIXQ
+GenU3.menu.pnum.GENERIC_U385VGIXQ.build.product_line=STM32U385xx
+GenU3.menu.pnum.GENERIC_U385VGIXQ.build.variant=STM32U3xx/U375V(E-G)IxQ_U385VGIxQ
+GenU3.menu.pnum.GENERIC_U385VGIXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+
+# Upload menu
+GenU3.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenU3.menu.upload_method.swdMethod.upload.protocol=swd
+GenU3.menu.upload_method.swdMethod.upload.options=
+GenU3.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenU3.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
+GenU3.menu.upload_method.jlinkMethod.upload.protocol=jlink
+GenU3.menu.upload_method.jlinkMethod.upload.options=
+GenU3.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
+
+GenU3.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenU3.menu.upload_method.serialMethod.upload.protocol=serial
+GenU3.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenU3.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenU3.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenU3.menu.upload_method.dfuMethod.upload.protocol=dfu
+GenU3.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenU3.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+GenU3.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenU3.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenU3.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
+#GenU3.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+#GenU3.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+#GenU3.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+
+#GenU3.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+#GenU3.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+#GenU3.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+
+################################################################################
 # Generic U5
 GenU5.name=Generic STM32U5 series
 
@@ -14239,6 +14386,11 @@ GenU0.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenU0.menu.xserial.disabled=Disabled (no Serial support)
 GenU0.menu.xserial.disabled.build.xSerial=
 
+GenU3.menu.xserial.generic=Enabled (generic 'Serial')
+GenU3.menu.xserial.none=Enabled (no generic 'Serial')
+GenU3.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenU3.menu.xserial.disabled=Disabled (no Serial support)
+
 GenU5.menu.xserial.generic=Enabled (generic 'Serial')
 GenU5.menu.xserial.none=Enabled (no generic 'Serial')
 GenU5.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -14578,6 +14730,14 @@ GenU0.menu.usb.CDC=CDC (no generic 'Serial')
 GenU0.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
 GenU0.menu.usb.HID=HID (keyboard and mouse)
 GenU0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+
+GenU3.menu.usb.none=None
+GenU3.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenU3.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenU3.menu.usb.CDC=CDC (no generic 'Serial')
+GenU3.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenU3.menu.usb.HID=HID (keyboard and mouse)
+GenU3.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 
 GenU5.menu.usb.none=None
 GenU5.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
@@ -15141,6 +15301,27 @@ GenU0.menu.opt.ogstd.build.flags.optimize=-Og
 GenU0.menu.opt.o0std=No Optimization (-O0)
 GenU0.menu.opt.o0std.build.flags.optimize=-O0
 
+GenU3.menu.opt.osstd=Smallest (-Os default)
+GenU3.menu.opt.osstd.build.flags.optimize=-Os
+GenU3.menu.opt.oslto=Smallest (-Os) with LTO
+GenU3.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenU3.menu.opt.o1std=Fast (-O1)
+GenU3.menu.opt.o1std.build.flags.optimize=-O1
+GenU3.menu.opt.o1lto=Fast (-O1) with LTO
+GenU3.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenU3.menu.opt.o2std=Faster (-O2)
+GenU3.menu.opt.o2std.build.flags.optimize=-O2
+GenU3.menu.opt.o2lto=Faster (-O2) with LTO
+GenU3.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenU3.menu.opt.o3std=Fastest (-O3)
+GenU3.menu.opt.o3std.build.flags.optimize=-O3
+GenU3.menu.opt.o3lto=Fastest (-O3) with LTO
+GenU3.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenU3.menu.opt.ogstd=Debug (-Og)
+GenU3.menu.opt.ogstd.build.flags.optimize=-Og
+GenU3.menu.opt.o0std=No Optimization (-O0)
+GenU3.menu.opt.o0std.build.flags.optimize=-O0
+
 GenU5.menu.opt.osstd=Smallest (-Os default)
 GenU5.menu.opt.osstd.build.flags.optimize=-Os
 GenU5.menu.opt.oslto=Smallest (-Os) with LTO
@@ -15635,6 +15816,14 @@ GenU0.menu.dbg.enable_log.build.flags.debug=
 GenU0.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 GenU0.menu.dbg.enable_all.build.flags.debug=-g
 
+GenU3.menu.dbg.none=None
+GenU3.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenU3.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenU3.menu.dbg.enable_log=Core logs Enabled
+GenU3.menu.dbg.enable_log.build.flags.debug=
+GenU3.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenU3.menu.dbg.enable_all.build.flags.debug=-g
+
 GenU5.menu.dbg.none=None
 GenU5.menu.dbg.enable_sym=Symbols Enabled (-g)
 GenU5.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
@@ -15983,6 +16172,16 @@ GenU0.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenU0.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenU0.menu.rtlib.full=Newlib Standard
 GenU0.menu.rtlib.full.build.flags.ldspecs=
+
+GenU3.menu.rtlib.nano=Newlib Nano (default)
+GenU3.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenU3.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenU3.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenU3.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenU3.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenU3.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenU3.menu.rtlib.full=Newlib Standard
+GenU3.menu.rtlib.full.build.flags.ldspecs=
 
 GenU5.menu.rtlib.nano=Newlib Nano (default)
 GenU5.menu.rtlib.nanofp=Newlib Nano + Float Printf

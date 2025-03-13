@@ -60,6 +60,9 @@ PD_12_ALT1 = PD_12 | ALT1,
 #ifdef PWR_WAKEUP_PIN7
   SYS_WKUP7 = PB_15,
 #endif
+#ifdef PWR_WAKEUP_PIN8
+  SYS_WKUP8 = NC,
+#endif
 
 /* USB */
 #ifdef USBCON

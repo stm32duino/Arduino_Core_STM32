@@ -1,0 +1,32 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic U375REIx
+GenU3.menu.pnum.GENERIC_U375REIX=Generic U375REIx
+GenU3.menu.pnum.GENERIC_U375REIX.upload.maximum_size=524288
+GenU3.menu.pnum.GENERIC_U375REIX.upload.maximum_data_size=262144
+GenU3.menu.pnum.GENERIC_U375REIX.build.board=GENERIC_U375REIX
+GenU3.menu.pnum.GENERIC_U375REIX.build.product_line=STM32U375xx
+GenU3.menu.pnum.GENERIC_U375REIX.build.variant=STM32U3xx/U375R(E-G)I_U385RGI
+GenU3.menu.pnum.GENERIC_U375REIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+
+# Generic U375RGIx
+GenU3.menu.pnum.GENERIC_U375RGIX=Generic U375RGIx
+GenU3.menu.pnum.GENERIC_U375RGIX.upload.maximum_size=1048576
+GenU3.menu.pnum.GENERIC_U375RGIX.upload.maximum_data_size=262144
+GenU3.menu.pnum.GENERIC_U375RGIX.build.board=GENERIC_U375RGIX
+GenU3.menu.pnum.GENERIC_U375RGIX.build.product_line=STM32U375xx
+GenU3.menu.pnum.GENERIC_U375RGIX.build.variant=STM32U3xx/U375R(E-G)I_U385RGI
+GenU3.menu.pnum.GENERIC_U375RGIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+
+# Generic U385RGIx
+GenU3.menu.pnum.GENERIC_U385RGIX=Generic U385RGIx
+GenU3.menu.pnum.GENERIC_U385RGIX.upload.maximum_size=1048576
+GenU3.menu.pnum.GENERIC_U385RGIX.upload.maximum_data_size=262144
+GenU3.menu.pnum.GENERIC_U385RGIX.build.board=GENERIC_U385RGIX
+GenU3.menu.pnum.GENERIC_U385RGIX.build.product_line=STM32U385xx
+GenU3.menu.pnum.GENERIC_U385RGIX.build.variant=STM32U3xx/U375R(E-G)I_U385RGI
+GenU3.menu.pnum.GENERIC_U385RGIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+

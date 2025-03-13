@@ -1,0 +1,59 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic U375CETxQ
+GenU3.menu.pnum.GENERIC_U375CETXQ=Generic U375CETxQ
+GenU3.menu.pnum.GENERIC_U375CETXQ.upload.maximum_size=524288
+GenU3.menu.pnum.GENERIC_U375CETXQ.upload.maximum_data_size=262144
+GenU3.menu.pnum.GENERIC_U375CETXQ.build.board=GENERIC_U375CETXQ
+GenU3.menu.pnum.GENERIC_U375CETXQ.build.product_line=STM32U375xx
+GenU3.menu.pnum.GENERIC_U375CETXQ.build.variant=STM32U3xx/U375C(E-G)(T-U)xQ_U385CG(T-U)xQ
+GenU3.menu.pnum.GENERIC_U375CETXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+
+# Generic U375CEUxQ
+GenU3.menu.pnum.GENERIC_U375CEUXQ=Generic U375CEUxQ
+GenU3.menu.pnum.GENERIC_U375CEUXQ.upload.maximum_size=524288
+GenU3.menu.pnum.GENERIC_U375CEUXQ.upload.maximum_data_size=262144
+GenU3.menu.pnum.GENERIC_U375CEUXQ.build.board=GENERIC_U375CEUXQ
+GenU3.menu.pnum.GENERIC_U375CEUXQ.build.product_line=STM32U375xx
+GenU3.menu.pnum.GENERIC_U375CEUXQ.build.variant=STM32U3xx/U375C(E-G)(T-U)xQ_U385CG(T-U)xQ
+GenU3.menu.pnum.GENERIC_U375CEUXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+
+# Generic U375CGTxQ
+GenU3.menu.pnum.GENERIC_U375CGTXQ=Generic U375CGTxQ
+GenU3.menu.pnum.GENERIC_U375CGTXQ.upload.maximum_size=1048576
+GenU3.menu.pnum.GENERIC_U375CGTXQ.upload.maximum_data_size=262144
+GenU3.menu.pnum.GENERIC_U375CGTXQ.build.board=GENERIC_U375CGTXQ
+GenU3.menu.pnum.GENERIC_U375CGTXQ.build.product_line=STM32U375xx
+GenU3.menu.pnum.GENERIC_U375CGTXQ.build.variant=STM32U3xx/U375C(E-G)(T-U)xQ_U385CG(T-U)xQ
+GenU3.menu.pnum.GENERIC_U375CGTXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+
+# Generic U375CGUxQ
+GenU3.menu.pnum.GENERIC_U375CGUXQ=Generic U375CGUxQ
+GenU3.menu.pnum.GENERIC_U375CGUXQ.upload.maximum_size=1048576
+GenU3.menu.pnum.GENERIC_U375CGUXQ.upload.maximum_data_size=262144
+GenU3.menu.pnum.GENERIC_U375CGUXQ.build.board=GENERIC_U375CGUXQ
+GenU3.menu.pnum.GENERIC_U375CGUXQ.build.product_line=STM32U375xx
+GenU3.menu.pnum.GENERIC_U375CGUXQ.build.variant=STM32U3xx/U375C(E-G)(T-U)xQ_U385CG(T-U)xQ
+GenU3.menu.pnum.GENERIC_U375CGUXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+
+# Generic U385CGTxQ
+GenU3.menu.pnum.GENERIC_U385CGTXQ=Generic U385CGTxQ
+GenU3.menu.pnum.GENERIC_U385CGTXQ.upload.maximum_size=1048576
+GenU3.menu.pnum.GENERIC_U385CGTXQ.upload.maximum_data_size=262144
+GenU3.menu.pnum.GENERIC_U385CGTXQ.build.board=GENERIC_U385CGTXQ
+GenU3.menu.pnum.GENERIC_U385CGTXQ.build.product_line=STM32U385xx
+GenU3.menu.pnum.GENERIC_U385CGTXQ.build.variant=STM32U3xx/U375C(E-G)(T-U)xQ_U385CG(T-U)xQ
+GenU3.menu.pnum.GENERIC_U385CGTXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+
+# Generic U385CGUxQ
+GenU3.menu.pnum.GENERIC_U385CGUXQ=Generic U385CGUxQ
+GenU3.menu.pnum.GENERIC_U385CGUXQ.upload.maximum_size=1048576
+GenU3.menu.pnum.GENERIC_U385CGUXQ.upload.maximum_data_size=262144
+GenU3.menu.pnum.GENERIC_U385CGUXQ.build.board=GENERIC_U385CGUXQ
+GenU3.menu.pnum.GENERIC_U385CGUXQ.build.product_line=STM32U385xx
+GenU3.menu.pnum.GENERIC_U385CGUXQ.build.variant=STM32U3xx/U375C(E-G)(T-U)xQ_U385CG(T-U)xQ
+GenU3.menu.pnum.GENERIC_U385CGUXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+

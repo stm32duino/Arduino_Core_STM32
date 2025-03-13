@@ -1231,7 +1231,8 @@ def print_peripheral():
 # PinNamesVar.h generation
 def manage_syswkup():
     if len(syswkup_list) != 0:
-        # Find the max range of SYS_WKUP
+        # Find the max range of SYS_WKUP to ensure it doesn't exceed
+        # the current maximum range of SYS_WKUP used by STM32LowPower
         max_range = syswkup_list[-1][2].replace("SYS_WKUP", "")
         max_range = int(max_range) if max_range else 1
         # F446 start from 0
@@ -1239,7 +1240,12 @@ def manage_syswkup():
         if syswkup_list[0][2].replace("SYS_WKUP", "") == "0":
             base_index = 0
             max_range += 1
-        syswkup_pins_list = [[] for _ in range(max_range)]
+        if max_range > 8:
+            print(
+                f"Error: SYS_WKUP range exceeds the current maximum range of 8 --> {max_range}."
+            )
+            exit(1)
+        syswkup_pins_list = [[] for _ in range(8)]
         for p in syswkup_list:
             num = p[2].replace("SYS_WKUP", "")
             num = int(num) if num else 1
@@ -2165,7 +2171,7 @@ def group_by_flash(group_base_list, glist, index_mcu_base):
             new_mcu_dirname += key
         else:
             new_mcu_dirname += f"({key})"
-        # Handle package with ANPQX
+        # Handle package with AGNPQSXZ
         # One case not manage: [Tx, TxX, Yx]
         # Assuming it is not an issue to have non existing mcu
         # Ease parsing and shorten directory name
@@ -2816,7 +2822,7 @@ variant_regex = re.compile(r"defined\(ARDUINO_GENERIC_[^\s&|]*\)")
 update_regex = re.compile(r"defined\(ARDUINO_GENERIC_.+\)")
 board_entry_regex = re.compile(r"(Gen.+\..+variant=STM32.+xx/)\S+")
 #                              P     T      E
-mcu_PE_regex = re.compile(r"([\w])([\w])([ANPQSXZ])?$")
+mcu_PE_regex = re.compile(r"([\w])([\w])([AGNPQSXZ])?$")
 aggregate_dir()
 
 # Clean temporary dir
