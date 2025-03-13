@@ -10,7 +10,7 @@ GenF2.menu.pnum.GENERIC_F205VBTX.upload.maximum_data_size=65536
 GenF2.menu.pnum.GENERIC_F205VBTX.build.board=GENERIC_F205VBTX
 GenF2.menu.pnum.GENERIC_F205VBTX.build.product_line=STM32F205xx
 GenF2.menu.pnum.GENERIC_F205VBTX.build.variant=STM32F2xx/F205V(B-C-E-F-G)T_F215V(E-G)T
-GenF2.menu.pnum.GENERIC_F205VBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F215.svd
+GenF2.menu.pnum.GENERIC_F205VBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F205.svd
 
 # Generic F205VCTx
 GenF2.menu.pnum.GENERIC_F205VCTX=Generic F205VCTx
@@ -19,7 +19,7 @@ GenF2.menu.pnum.GENERIC_F205VCTX.upload.maximum_data_size=98304
 GenF2.menu.pnum.GENERIC_F205VCTX.build.board=GENERIC_F205VCTX
 GenF2.menu.pnum.GENERIC_F205VCTX.build.product_line=STM32F205xx
 GenF2.menu.pnum.GENERIC_F205VCTX.build.variant=STM32F2xx/F205V(B-C-E-F-G)T_F215V(E-G)T
-GenF2.menu.pnum.GENERIC_F205VCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F215.svd
+GenF2.menu.pnum.GENERIC_F205VCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F205.svd
 
 # Generic F205VETx
 GenF2.menu.pnum.GENERIC_F205VETX=Generic F205VETx
@@ -28,7 +28,7 @@ GenF2.menu.pnum.GENERIC_F205VETX.upload.maximum_data_size=131072
 GenF2.menu.pnum.GENERIC_F205VETX.build.board=GENERIC_F205VETX
 GenF2.menu.pnum.GENERIC_F205VETX.build.product_line=STM32F205xx
 GenF2.menu.pnum.GENERIC_F205VETX.build.variant=STM32F2xx/F205V(B-C-E-F-G)T_F215V(E-G)T
-GenF2.menu.pnum.GENERIC_F205VETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F215.svd
+GenF2.menu.pnum.GENERIC_F205VETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F205.svd
 
 # Generic F205VFTx
 GenF2.menu.pnum.GENERIC_F205VFTX=Generic F205VFTx
@@ -37,7 +37,7 @@ GenF2.menu.pnum.GENERIC_F205VFTX.upload.maximum_data_size=131072
 GenF2.menu.pnum.GENERIC_F205VFTX.build.board=GENERIC_F205VFTX
 GenF2.menu.pnum.GENERIC_F205VFTX.build.product_line=STM32F205xx
 GenF2.menu.pnum.GENERIC_F205VFTX.build.variant=STM32F2xx/F205V(B-C-E-F-G)T_F215V(E-G)T
-GenF2.menu.pnum.GENERIC_F205VFTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F215.svd
+GenF2.menu.pnum.GENERIC_F205VFTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F205.svd
 
 # Generic F205VGTx
 GenF2.menu.pnum.GENERIC_F205VGTX=Generic F205VGTx
@@ -46,7 +46,7 @@ GenF2.menu.pnum.GENERIC_F205VGTX.upload.maximum_data_size=131072
 GenF2.menu.pnum.GENERIC_F205VGTX.build.board=GENERIC_F205VGTX
 GenF2.menu.pnum.GENERIC_F205VGTX.build.product_line=STM32F205xx
 GenF2.menu.pnum.GENERIC_F205VGTX.build.variant=STM32F2xx/F205V(B-C-E-F-G)T_F215V(E-G)T
-GenF2.menu.pnum.GENERIC_F205VGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F215.svd
+GenF2.menu.pnum.GENERIC_F205VGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F205.svd
 
 # Generic F215VETx
 GenF2.menu.pnum.GENERIC_F215VETX=Generic F215VETx

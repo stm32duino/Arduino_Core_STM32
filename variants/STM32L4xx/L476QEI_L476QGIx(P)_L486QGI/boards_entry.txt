@@ -37,5 +37,5 @@ GenL4.menu.pnum.GENERIC_L486QGIX.upload.maximum_data_size=131072
 GenL4.menu.pnum.GENERIC_L486QGIX.build.board=GENERIC_L486QGIX
 GenL4.menu.pnum.GENERIC_L486QGIX.build.product_line=STM32L486xx
 GenL4.menu.pnum.GENERIC_L486QGIX.build.variant=STM32L4xx/L476QEI_L476QGIx(P)_L486QGI
-GenL4.menu.pnum.GENERIC_L486QGIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x6.svd
+GenL4.menu.pnum.GENERIC_L486QGIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L486.svd
 
