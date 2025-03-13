@@ -10,7 +10,7 @@ GenL4.menu.pnum.GENERIC_L475VCTX.upload.maximum_data_size=131072
 GenL4.menu.pnum.GENERIC_L475VCTX.build.board=GENERIC_L475VCTX
 GenL4.menu.pnum.GENERIC_L475VCTX.build.product_line=STM32L475xx
 GenL4.menu.pnum.GENERIC_L475VCTX.build.variant=STM32L4xx/L475V(C-E-G)T_L476V(C-E-G)T_L486VGT
-GenL4.menu.pnum.GENERIC_L475VCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x5.svd
+GenL4.menu.pnum.GENERIC_L475VCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L475.svd
 
 # Generic L475VETx
 GenL4.menu.pnum.GENERIC_L475VETX=Generic L475VETx
@@ -19,7 +19,7 @@ GenL4.menu.pnum.GENERIC_L475VETX.upload.maximum_data_size=131072
 GenL4.menu.pnum.GENERIC_L475VETX.build.board=GENERIC_L475VETX
 GenL4.menu.pnum.GENERIC_L475VETX.build.product_line=STM32L475xx
 GenL4.menu.pnum.GENERIC_L475VETX.build.variant=STM32L4xx/L475V(C-E-G)T_L476V(C-E-G)T_L486VGT
-GenL4.menu.pnum.GENERIC_L475VETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x5.svd
+GenL4.menu.pnum.GENERIC_L475VETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L475.svd
 
 # Generic L475VGTx
 GenL4.menu.pnum.GENERIC_L475VGTX=Generic L475VGTx
@@ -28,7 +28,7 @@ GenL4.menu.pnum.GENERIC_L475VGTX.upload.maximum_data_size=131072
 GenL4.menu.pnum.GENERIC_L475VGTX.build.board=GENERIC_L475VGTX
 GenL4.menu.pnum.GENERIC_L475VGTX.build.product_line=STM32L475xx
 GenL4.menu.pnum.GENERIC_L475VGTX.build.variant=STM32L4xx/L475V(C-E-G)T_L476V(C-E-G)T_L486VGT
-GenL4.menu.pnum.GENERIC_L475VGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x5.svd
+GenL4.menu.pnum.GENERIC_L475VGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L475.svd
 
 # Generic L476VCTx
 GenL4.menu.pnum.GENERIC_L476VCTX=Generic L476VCTx
@@ -64,5 +64,5 @@ GenL4.menu.pnum.GENERIC_L486VGTX.upload.maximum_data_size=131072
 GenL4.menu.pnum.GENERIC_L486VGTX.build.board=GENERIC_L486VGTX
 GenL4.menu.pnum.GENERIC_L486VGTX.build.product_line=STM32L486xx
 GenL4.menu.pnum.GENERIC_L486VGTX.build.variant=STM32L4xx/L475V(C-E-G)T_L476V(C-E-G)T_L486VGT
-GenL4.menu.pnum.GENERIC_L486VGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x6.svd
+GenL4.menu.pnum.GENERIC_L486VGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L486.svd
 
