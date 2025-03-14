@@ -5,7 +5,7 @@
 # https://arduino.github.io/arduino-cli/latest/platform-specification/
 
 name=STM32 boards groups (Board to be selected from Tools submenu 'Board part number')
-version=2.11.0-dev
+version=2.10.1
 
 
 # Define variables used multiple times in platform file
