@@ -12298,8 +12298,7 @@ GenU0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSer
 GenU0.build.flash_offset=0x0
 GenU0.upload.maximum_size=0
 GenU0.upload.maximum_data_size=0
-# Current openocd version does not support U0
-# GenU0.openocd.target=stm32u0x
+GenU0.openocd.target=stm32u0x
 GenU0.vid.0=0x0483
 GenU0.pid.0=0x5740
 
