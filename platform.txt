@@ -17,7 +17,7 @@ busybox=
 busybox.windows={runtime.tools.STM32Tools.path}/win/busybox.exe
 
 toolchain_dir={runtime.tools.xpack-arm-none-eabi-gcc-14.2.1-1.1.path}
-openocd_dir={runtime.tools.xpack-openocd-0.12.0-5.path}
+openocd_dir={runtime.tools.xpack-openocd-0.12.0-6.path}
 
 tools_bin_path.windows={runtime.tools.STM32Tools.path}/win
 tools_bin_path.macosx={runtime.tools.STM32Tools.path}/macosx
