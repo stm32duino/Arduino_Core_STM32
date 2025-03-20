@@ -743,7 +743,9 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32L552ZC-Q<br>STM32L552ZE-Q | Generic Board | *2.0.0* |  |
+| :yellow_heart:  | STM32L552QCIxQ<br>STM32L552QEIxQ | Generic Board | **2.11.0** |  |
 | :green_heart:  | STM32L562ZE-Q | Generic Board | *2.0.0* |  |
+| :yellow_heart:  | STM32L562QEIxQ | Generic Board | **2.11.0** |  |
 
 ### Generic STM32U0 boards
 
