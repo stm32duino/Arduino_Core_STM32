@@ -10,7 +10,7 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_WBA5MJGHX)
+#if defined(ARDUINO_GENERIC_WBA65CGUX) || defined(ARDUINO_GENERIC_WBA65CIUX)
 #include "pins_arduino.h"
 
 /**

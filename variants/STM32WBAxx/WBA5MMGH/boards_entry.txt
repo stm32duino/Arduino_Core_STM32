@@ -1,0 +1,13 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic WBA5MMGHx
+GenWBA.menu.pnum.GENERIC_WBA5MMGHX=Generic WBA5MMGHx
+GenWBA.menu.pnum.GENERIC_WBA5MMGHX.upload.maximum_size=1048576
+GenWBA.menu.pnum.GENERIC_WBA5MMGHX.upload.maximum_data_size=131072
+GenWBA.menu.pnum.GENERIC_WBA5MMGHX.build.board=GENERIC_WBA5MMGHX
+GenWBA.menu.pnum.GENERIC_WBA5MMGHX.build.product_line=STM32WBA5Mxx
+GenWBA.menu.pnum.GENERIC_WBA5MMGHX.build.variant=STM32WBAxx/WBA5MMGH
+
