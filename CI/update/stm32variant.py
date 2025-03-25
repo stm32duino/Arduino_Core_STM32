@@ -178,6 +178,19 @@ def parse_mcu_file():
 
     if mcu_family.endswith("+"):
         mcu_family = mcu_family[:-1]
+
+    # Generate only for specified pattern series or supported one
+    # Check if mcu_family is supported by the core
+    if (
+        mcu_family not in stm32_list
+        or args.serie
+        and serie_pattern.search(mcu_family) is None
+    ):
+        if mcu_family not in ignored_stm32_list and mcu_family not in stm32_list:
+            ignored_stm32_list.append(mcu_family)
+        xml_mcu.unlink()
+        return False
+
     mcu_refname = mcu_node.attributes["RefName"].value
     core_node = mcu_node.getElementsByTagName("Core")
     for f in core_node:
@@ -213,6 +226,7 @@ def parse_mcu_file():
             else:
                 if gpiofile == "" and s.attributes["Name"].value == "GPIO":
                     gpiofile = s.attributes["Version"].value
+    return True
 
 
 def get_gpio_af_num(pintofind, iptofind):
@@ -2742,18 +2756,7 @@ flash_group_regex = re.compile(r"(.*)\((.*)\)(.*)")
 for mcu_file in mcu_list:
     # Open input file
     xml_mcu = parse(str(mcu_file))
-    parse_mcu_file()
-
-    # Generate only for specified pattern series or supported one
-    # Check if mcu_family is supported by the core
-    if (
-        mcu_family not in stm32_list
-        or args.serie
-        and serie_pattern.search(mcu_family) is None
-    ):
-        if mcu_family not in ignored_stm32_list and mcu_family not in stm32_list:
-            ignored_stm32_list.append(mcu_family)
-        xml_mcu.unlink()
+    if parse_mcu_file() is False:
         continue
 
     # Add mcu family to the list of directory to aggregate
