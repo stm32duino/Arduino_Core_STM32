@@ -389,6 +389,7 @@ HAL_StatusTypeDef HAL_DAC_Start(DAC_HandleTypeDef* hdac, uint32_t Channel)
   */
 HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef* hdac, uint32_t Channel, uint32_t* pData, uint32_t Length, uint32_t Alignment)
 {
+  HAL_StatusTypeDef status;
   uint32_t tmpreg = 0U;
 
   /* Check the parameters */
@@ -426,14 +427,12 @@ HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef* hdac, uint32_t Channel, u
         /* Get DHR12L1 address */
         tmpreg = (uint32_t)&hdac->Instance->DHR12L1;
         break;
-      case DAC_ALIGN_8B_R:
+      default: /* case DAC_ALIGN_8B_R */
         /* Get DHR8R1 address */
         tmpreg = (uint32_t)&hdac->Instance->DHR8R1;
         break;
-      default:
-        break;
     }
-    UNUSED(tmpreg);		/* avoid warning on tmpreg affectation with stupid compiler */
+    UNUSED(tmpreg);     /* avoid warning on tmpreg affectation */
   }
   else
   {
@@ -460,11 +459,9 @@ HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef* hdac, uint32_t Channel, u
         /* Get DHR12L2 address */
         tmpreg = (uint32_t)&hdac->Instance->DHR12L2;
         break;
-      case DAC_ALIGN_8B_R:
+      default: /* case DAC_ALIGN_8B_R */
         /* Get DHR8R2 address */
         tmpreg = (uint32_t)&hdac->Instance->DHR8R2;
-        break;
-      default:
         break;
     }
   }
@@ -476,7 +473,7 @@ HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef* hdac, uint32_t Channel, u
     __HAL_DAC_ENABLE_IT(hdac, DAC_IT_DMAUDR1);
 
     /* Enable the DMA Stream */
-    HAL_DMA_Start_IT(hdac->DMA_Handle1, (uint32_t)pData, tmpreg, Length);
+    status = HAL_DMA_Start_IT(hdac->DMA_Handle1, (uint32_t)pData, tmpreg, Length);
   }
   else
   {
@@ -484,17 +481,23 @@ HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef* hdac, uint32_t Channel, u
     __HAL_DAC_ENABLE_IT(hdac, DAC_IT_DMAUDR2);
 
     /* Enable the DMA Stream */
-    HAL_DMA_Start_IT(hdac->DMA_Handle2, (uint32_t)pData, tmpreg, Length);
+    status = HAL_DMA_Start_IT(hdac->DMA_Handle2, (uint32_t)pData, tmpreg, Length);
   }
-
-  /* Enable the Peripharal */
-  __HAL_DAC_ENABLE(hdac, Channel);
 
   /* Process Unlocked */
   __HAL_UNLOCK(hdac);
 
+  if (status == HAL_OK)
+  {
+    /* Enable the Peripheral */
+    __HAL_DAC_ENABLE(hdac, Channel);
+  }
+  else
+  {
+    hdac->ErrorCode |= HAL_DAC_ERROR_DMA;
+  }
   /* Return function status */
-  return HAL_OK;
+  return status;
 }
 
 /**
@@ -734,6 +737,7 @@ HAL_StatusTypeDef HAL_DAC_Start(DAC_HandleTypeDef* hdac, uint32_t Channel)
   */
 HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef* hdac, uint32_t Channel, uint32_t* pData, uint32_t Length, uint32_t Alignment)
 {
+  HAL_StatusTypeDef status;
   uint32_t tmpreg = 0U;
 
   /* Check the parameters */
@@ -769,30 +773,35 @@ HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef* hdac, uint32_t Channel, u
       /* Get DHR12L1 address */
       tmpreg = (uint32_t)&hdac->Instance->DHR12L1;
       break;
-    case DAC_ALIGN_8B_R:
+    default:
       /* Get DHR8R1 address */
       tmpreg = (uint32_t)&hdac->Instance->DHR8R1;
       break;
-    default:
-      break;
   }
-  UNUSED(tmpreg);		/* avoid warning on tmpreg affectation with stupid compiler */
+  UNUSED(tmpreg);   /* avoid warning on tmpreg affectation */
 
-  /* Enable the DMA Stream */
   /* Enable the DAC DMA underrun interrupt */
   __HAL_DAC_ENABLE_IT(hdac, DAC_IT_DMAUDR1);
 
   /* Enable the DMA Stream */
-  HAL_DMA_Start_IT(hdac->DMA_Handle1, (uint32_t)pData, tmpreg, Length);
+  status = HAL_DMA_Start_IT(hdac->DMA_Handle1, (uint32_t)pData, tmpreg, Length);
 
   /* Enable the Peripharal */
-  __HAL_DAC_ENABLE(hdac, Channel);
-
   /* Process Unlocked */
   __HAL_UNLOCK(hdac);
 
+  if (status == HAL_OK)
+  {
+  /* Enable the Peripharal */
+  __HAL_DAC_ENABLE(hdac, Channel);
+  }
+  else
+  {
+    hdac->ErrorCode |= HAL_DAC_ERROR_DMA;
+  }
+
   /* Return function status */
-  return HAL_OK;
+  return status;
 }
 
 /**

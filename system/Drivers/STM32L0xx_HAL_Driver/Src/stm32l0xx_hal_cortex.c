@@ -133,6 +133,10 @@ void HAL_NVIC_SetPriority(IRQn_Type IRQn, uint32_t PreemptPriority, uint32_t Sub
     /* Check the parameters */
   assert_param(IS_NVIC_PREEMPTION_PRIORITY(PreemptPriority));
   NVIC_SetPriority(IRQn,PreemptPriority);
+
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(SubPriority);
+
 }
 
 /**
@@ -346,8 +350,40 @@ void HAL_MPU_Enable(uint32_t MPU_Control)
 }
 
 /**
+  * @brief  Enable the MPU Region.
+  * @retval None
+  */
+void HAL_MPU_EnableRegion(uint32_t RegionNumber)
+{
+  /* Check the parameters */
+  assert_param(IS_MPU_REGION_NUMBER(RegionNumber));
+
+  /* Set the Region number */
+  MPU->RNR = RegionNumber;
+
+  /* Enable the Region */
+  SET_BIT(MPU->RASR, MPU_RASR_ENABLE_Msk);
+}
+
+/**
+  * @brief  Disable the MPU Region.
+  * @retval None
+  */
+void HAL_MPU_DisableRegion(uint32_t RegionNumber)
+{
+  /* Check the parameters */
+  assert_param(IS_MPU_REGION_NUMBER(RegionNumber));
+
+  /* Set the Region number */
+  MPU->RNR = RegionNumber;
+
+  /* Disable the Region */
+  CLEAR_BIT(MPU->RASR, MPU_RASR_ENABLE_Msk);
+}
+
+/**
   * @brief  Initialize and configure the Region and the memory to be protected.
-  * @param  MPU_Init Pointer to a MPU_Region_InitTypeDef structure that contains
+  * @param MPU_Init Pointer to a MPU_Region_InitTypeDef structure that contains
   *                the initialization and configuration information.
   * @retval None
   */
@@ -356,42 +392,30 @@ void HAL_MPU_ConfigRegion(MPU_Region_InitTypeDef *MPU_Init)
   /* Check the parameters */
   assert_param(IS_MPU_REGION_NUMBER(MPU_Init->Number));
   assert_param(IS_MPU_REGION_ENABLE(MPU_Init->Enable));
-
-  /* Follow ARM recommendation with Data Memory Barrier prior to MPU configuration */
-  __DMB();
+  assert_param(IS_MPU_INSTRUCTION_ACCESS(MPU_Init->DisableExec));
+  assert_param(IS_MPU_REGION_PERMISSION_ATTRIBUTE(MPU_Init->AccessPermission));
+  assert_param(IS_MPU_ACCESS_SHAREABLE(MPU_Init->IsShareable));
+  assert_param(IS_MPU_ACCESS_CACHEABLE(MPU_Init->IsCacheable));
+  assert_param(IS_MPU_ACCESS_BUFFERABLE(MPU_Init->IsBufferable));
+  assert_param(IS_MPU_SUB_REGION_DISABLE(MPU_Init->SubRegionDisable));
+  assert_param(IS_MPU_REGION_SIZE(MPU_Init->Size));
 
   /* Set the Region number */
   MPU->RNR = MPU_Init->Number;
 
-  if ((MPU_Init->Enable) == MPU_REGION_ENABLE)
-  {
-    /* Check the parameters */
-    assert_param(IS_MPU_INSTRUCTION_ACCESS(MPU_Init->DisableExec));
-    assert_param(IS_MPU_REGION_PERMISSION_ATTRIBUTE(MPU_Init->AccessPermission));
-    assert_param(IS_MPU_ACCESS_SHAREABLE(MPU_Init->IsShareable));
-    assert_param(IS_MPU_ACCESS_CACHEABLE(MPU_Init->IsCacheable));
-    assert_param(IS_MPU_ACCESS_BUFFERABLE(MPU_Init->IsBufferable));
-    assert_param(IS_MPU_SUB_REGION_DISABLE(MPU_Init->SubRegionDisable));
-    assert_param(IS_MPU_REGION_SIZE(MPU_Init->Size));
+  /* Disable the Region */
+  CLEAR_BIT(MPU->RASR, MPU_RASR_ENABLE_Msk);
 
-    /* Set the base adsress and set the 4 LSB to 0 */
-    MPU->RBAR = (MPU_Init->BaseAddress) & 0xfffffff0U;
-
-    /* Fill the field RASR */
-    MPU->RASR = ((uint32_t)MPU_Init->DisableExec        << MPU_RASR_XN_Pos)   |
-                ((uint32_t)MPU_Init->AccessPermission   << MPU_RASR_AP_Pos)   |
-                ((uint32_t)MPU_Init->IsShareable        << MPU_RASR_S_Pos)    |
-                ((uint32_t)MPU_Init->IsCacheable        << MPU_RASR_C_Pos)    |
-                ((uint32_t)MPU_Init->IsBufferable       << MPU_RASR_B_Pos)    |
-                ((uint32_t)MPU_Init->SubRegionDisable   << MPU_RASR_SRD_Pos)  |
-                ((uint32_t)MPU_Init->Size               << MPU_RASR_SIZE_Pos) |
-                ((uint32_t)MPU_Init->Enable             << MPU_RASR_ENABLE_Pos);
-  }
-  else
-  {
-    MPU->RBAR = 0x00U;
-    MPU->RASR = 0x00U;
-  }
+  /* Apply configuration */
+  MPU->RBAR = MPU_Init->BaseAddress;
+  MPU->RASR = ((uint32_t)MPU_Init->DisableExec             << MPU_RASR_XN_Pos)   |
+              ((uint32_t)MPU_Init->AccessPermission        << MPU_RASR_AP_Pos)   |
+              ((uint32_t)MPU_Init->IsShareable             << MPU_RASR_S_Pos)    |
+              ((uint32_t)MPU_Init->IsCacheable             << MPU_RASR_C_Pos)    |
+              ((uint32_t)MPU_Init->IsBufferable            << MPU_RASR_B_Pos)    |
+              ((uint32_t)MPU_Init->SubRegionDisable        << MPU_RASR_SRD_Pos)  |
+              ((uint32_t)MPU_Init->Size                    << MPU_RASR_SIZE_Pos) |
+              ((uint32_t)MPU_Init->Enable                  << MPU_RASR_ENABLE_Pos);
 }
 #endif /* __MPU_PRESENT */
 
