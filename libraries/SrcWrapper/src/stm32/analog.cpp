@@ -886,7 +886,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #ifdef ADC_SCAN_SEQ_FIXED
   AdcHandle.Init.ScanConvMode          = ADC_SCAN_SEQ_FIXED;            /* Sequencer disabled (ADC conversion on only 1 channel: channel set on rank 1) */
 #else
-  AdcHandle.Init.ScanConvMode          = DISABLE;                       /* Sequencer disabled (ADC conversion on only 1 channel: channel set on rank 1) */
+  AdcHandle.Init.ScanConvMode          = ENABLE;                        /* Sequencer disabled (ADC conversion on only 1 channel: channel set on rank 1) */
 #endif
 #ifdef ADC_EOC_SINGLE_CONV
   AdcHandle.Init.EOCSelection          = ADC_EOC_SINGLE_CONV;           /* EOC flag picked-up to indicate conversion end */
@@ -964,12 +964,21 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   AdcHandle.Init.VrefProtection = ADC_VREF_PPROT_NONE;
 #endif
 
-  AdcHandle.State = HAL_ADC_STATE_RESET;
   AdcHandle.DMA_Handle = NULL;
   AdcHandle.Lock = HAL_UNLOCKED;
   /* Some other ADC_HandleTypeDef fields exists but not required */
 
   g_current_pin = pin; /* Needed for HAL_ADC_MspInit*/
+
+  if (!LL_ADC_IsEnabled(AdcHandle.Instance)) {
+    AdcHandle.State = HAL_ADC_STATE_RESET;
+  } else {
+    AdcHandle.State = HAL_ADC_STATE_READY;
+    /* Configure ADC GPIO pin */
+    if (!(g_current_pin & PADC_BASE)) {
+      pinmap_pinout(g_current_pin, PinMap_ADC);
+    }
+  }
 
   if (HAL_ADC_Init(&AdcHandle) != HAL_OK) {
     return 0;
@@ -1018,20 +1027,22 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
     return 0;
   }
 
+  if (!LL_ADC_IsEnabled(AdcHandle.Instance)) {
 #if defined(ADC_CR_ADCAL) || defined(ADC_CR2_RSTCAL)
-  /*##-2.1- Calibrate ADC then Start the conversion process ####################*/
+    /*##-2.1- Calibrate ADC then Start the conversion process ####################*/
 #if defined(ADC_CALIB_OFFSET)
-  if (HAL_ADCEx_Calibration_Start(&AdcHandle, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED) != HAL_OK)
+    if (HAL_ADCEx_Calibration_Start(&AdcHandle, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED) != HAL_OK)
 #elif defined(ADC_SINGLE_ENDED) && !defined(ADC1_V2_5)
-  if (HAL_ADCEx_Calibration_Start(&AdcHandle, ADC_SINGLE_ENDED) !=  HAL_OK)
+    if (HAL_ADCEx_Calibration_Start(&AdcHandle, ADC_SINGLE_ENDED) !=  HAL_OK)
 #else
-  if (HAL_ADCEx_Calibration_Start(&AdcHandle) !=  HAL_OK)
+    if (HAL_ADCEx_Calibration_Start(&AdcHandle) !=  HAL_OK)
 #endif
-  {
-    /* ADC Calibration Error */
-    return 0;
+    {
+      /* ADC Calibration Error */
+      return 0;
+    }
+#endif
   }
-#endif
 
   /*##-3- Start the conversion process ####################*/
   if (HAL_ADC_Start(&AdcHandle) != HAL_OK) {
@@ -1054,18 +1065,6 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
     uhADCxConvertedValue = HAL_ADC_GetValue(&AdcHandle);
   }
 
-  if (HAL_ADC_Stop(&AdcHandle) != HAL_OK) {
-    /* Stop Conversation Error */
-    return 0;
-  }
-
-  if (HAL_ADC_DeInit(&AdcHandle) != HAL_OK) {
-    return 0;
-  }
-
-  if (__LL_ADC_COMMON_INSTANCE(AdcHandle.Instance) != 0U) {
-    LL_ADC_SetCommonPathInternalCh(__LL_ADC_COMMON_INSTANCE(AdcHandle.Instance), LL_ADC_PATH_INTERNAL_NONE);
-  }
   return uhADCxConvertedValue;
 }
 #endif /* HAL_ADC_MODULE_ENABLED && !HAL_ADC_MODULE_ONLY*/
