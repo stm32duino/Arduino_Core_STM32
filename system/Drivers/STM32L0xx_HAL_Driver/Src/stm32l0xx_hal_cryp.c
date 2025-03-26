@@ -823,6 +823,12 @@ HAL_StatusTypeDef HAL_CRYP_AESECB_Encrypt_IT(CRYP_HandleTypeDef *hcryp, uint8_t 
     /* Get the last input data address */
     inputaddr = (uint32_t)hcryp->pCrypInBuffPtr;
 
+    /* Increment the pointer before writing the input block in the IN FIFO to make sure that
+       when Computation Completed IRQ fires, the hcryp->CrypInCount has always a consistent value
+       and it is ready for the next operation. */
+    hcryp->pCrypInBuffPtr += 16U;
+    hcryp->CrypInCount -= 16U;
+
     /* Write the Input block in the Data Input register */
     hcryp->Instance->DINR = *(uint32_t*)(inputaddr);
     inputaddr+=4U;
@@ -831,8 +837,6 @@ HAL_StatusTypeDef HAL_CRYP_AESECB_Encrypt_IT(CRYP_HandleTypeDef *hcryp, uint8_t 
     hcryp->Instance->DINR  = *(uint32_t*)(inputaddr);
     inputaddr+=4U;
     hcryp->Instance->DINR = *(uint32_t*)(inputaddr);
-    hcryp->pCrypInBuffPtr += 16U;
-    hcryp->CrypInCount -= 16U;
 
     /* Return function status */
     return HAL_OK;
@@ -912,6 +916,12 @@ HAL_StatusTypeDef HAL_CRYP_AESCBC_Encrypt_IT(CRYP_HandleTypeDef *hcryp, uint8_t 
     /* Get the last input data address */
     inputaddr = (uint32_t)hcryp->pCrypInBuffPtr;
 
+    /* Increment the pointer before writing the input block in the IN FIFO to make sure that
+       when Computation Completed IRQ fires, the hcryp->CrypInCount has always a consistent value
+       and it is ready for the next operation. */
+    hcryp->pCrypInBuffPtr += 16U;
+    hcryp->CrypInCount -= 16U;
+
     /* Write the Input block in the Data Input register */
     hcryp->Instance->DINR = *(uint32_t*)(inputaddr);
     inputaddr+=4U;
@@ -920,8 +930,6 @@ HAL_StatusTypeDef HAL_CRYP_AESCBC_Encrypt_IT(CRYP_HandleTypeDef *hcryp, uint8_t 
     hcryp->Instance->DINR  = *(uint32_t*)(inputaddr);
     inputaddr+=4U;
     hcryp->Instance->DINR = *(uint32_t*)(inputaddr);
-    hcryp->pCrypInBuffPtr += 16U;
-    hcryp->CrypInCount -= 16U;
 
     /* Return function status */
     return HAL_OK;
@@ -1001,6 +1009,12 @@ HAL_StatusTypeDef HAL_CRYP_AESCTR_Encrypt_IT(CRYP_HandleTypeDef *hcryp, uint8_t 
     /* Get the last input data address */
     inputaddr = (uint32_t)hcryp->pCrypInBuffPtr;
 
+    /* Increment the pointer before writing the input block in the IN FIFO to make sure that
+       when Computation Completed IRQ fires, the hcryp->CrypInCount has always a consistent value
+       and it is ready for the next operation. */
+    hcryp->pCrypInBuffPtr += 16U;
+    hcryp->CrypInCount -= 16U;
+
     /* Write the Input block in the Data Input register */
     hcryp->Instance->DINR = *(uint32_t*)(inputaddr);
     inputaddr+=4U;
@@ -1009,8 +1023,6 @@ HAL_StatusTypeDef HAL_CRYP_AESCTR_Encrypt_IT(CRYP_HandleTypeDef *hcryp, uint8_t 
     hcryp->Instance->DINR  = *(uint32_t*)(inputaddr);
     inputaddr+=4U;
     hcryp->Instance->DINR = *(uint32_t*)(inputaddr);
-    hcryp->pCrypInBuffPtr += 16U;
-    hcryp->CrypInCount -= 16U;
 
     /* Return function status */
     return HAL_OK;
@@ -1087,6 +1099,12 @@ HAL_StatusTypeDef HAL_CRYP_AESECB_Decrypt_IT(CRYP_HandleTypeDef *hcryp, uint8_t 
     /* Get the last input data address */
     inputaddr = (uint32_t)hcryp->pCrypInBuffPtr;
 
+    /* Increment the pointer before writing the input block in the IN FIFO to make sure that
+       when Computation Completed IRQ fires, the hcryp->CrypInCount has always a consistent value
+       and it is ready for the next operation. */
+    hcryp->pCrypInBuffPtr += 16U;
+    hcryp->CrypInCount -= 16U;
+
     /* Write the Input block in the Data Input register */
     hcryp->Instance->DINR = *(uint32_t*)(inputaddr);
     inputaddr+=4U;
@@ -1095,8 +1113,6 @@ HAL_StatusTypeDef HAL_CRYP_AESECB_Decrypt_IT(CRYP_HandleTypeDef *hcryp, uint8_t 
     hcryp->Instance->DINR  = *(uint32_t*)(inputaddr);
     inputaddr+=4U;
     hcryp->Instance->DINR = *(uint32_t*)(inputaddr);
-    hcryp->pCrypInBuffPtr += 16U;
-    hcryp->CrypInCount -= 16U;
 
     /* Return function status */
     return HAL_OK;
@@ -1176,6 +1192,12 @@ HAL_StatusTypeDef HAL_CRYP_AESCBC_Decrypt_IT(CRYP_HandleTypeDef *hcryp, uint8_t 
     /* Get the last input data address */
     inputaddr = (uint32_t)hcryp->pCrypInBuffPtr;
 
+    /* Increment the pointer before writing the input block in the IN FIFO to make sure that
+       when Computation Completed IRQ fires, the hcryp->CrypInCount has always a consistent value
+       and it is ready for the next operation. */
+    hcryp->pCrypInBuffPtr += 16U;
+    hcryp->CrypInCount -= 16U;
+
     /* Write the Input block in the Data Input register */
     hcryp->Instance->DINR = *(uint32_t*)(inputaddr);
     inputaddr+=4U;
@@ -1184,8 +1206,6 @@ HAL_StatusTypeDef HAL_CRYP_AESCBC_Decrypt_IT(CRYP_HandleTypeDef *hcryp, uint8_t 
     hcryp->Instance->DINR  = *(uint32_t*)(inputaddr);
     inputaddr+=4U;
     hcryp->Instance->DINR = *(uint32_t*)(inputaddr);
-    hcryp->pCrypInBuffPtr += 16U;
-    hcryp->CrypInCount -= 16U;
 
     /* Return function status */
     return HAL_OK;
@@ -1265,6 +1285,12 @@ HAL_StatusTypeDef HAL_CRYP_AESCTR_Decrypt_IT(CRYP_HandleTypeDef *hcryp, uint8_t 
     /* Get the last input data address */
     inputaddr = (uint32_t)hcryp->pCrypInBuffPtr;
 
+    /* Increment the pointer before writing the input block in the IN FIFO to make sure that
+       when Computation Completed IRQ fires, the hcryp->CrypInCount has always a consistent value
+       and it is ready for the next operation. */
+    hcryp->pCrypInBuffPtr += 16U;
+    hcryp->CrypInCount -= 16U;
+
     /* Write the Input block in the Data Input register */
     hcryp->Instance->DINR = *(uint32_t*)(inputaddr);
     inputaddr+=4U;
@@ -1273,8 +1299,6 @@ HAL_StatusTypeDef HAL_CRYP_AESCTR_Decrypt_IT(CRYP_HandleTypeDef *hcryp, uint8_t 
     hcryp->Instance->DINR  = *(uint32_t*)(inputaddr);
     inputaddr+=4U;
     hcryp->Instance->DINR = *(uint32_t*)(inputaddr);
-    hcryp->pCrypInBuffPtr += 16U;
-    hcryp->CrypInCount -= 16U;
 
     /* Return function status */
     return HAL_OK;
@@ -1922,6 +1946,12 @@ static HAL_StatusTypeDef CRYP_EncryptDecrypt_IT(CRYP_HandleTypeDef *hcryp)
     /* Get the last Input data address */
     inputaddr = (uint32_t)hcryp->pCrypInBuffPtr;
 
+    /* Increment the pointer before writing the input block in the IN FIFO to make sure that
+       when Computation Completed IRQ fires, the hcryp->CrypInCount has always a consistent value
+       and it is ready for the next operation. */
+    hcryp->pCrypInBuffPtr += 16U;
+    hcryp->CrypInCount -= 16U;
+
     /* Write the Input block in the Data Input register */
     hcryp->Instance->DINR = *(uint32_t*)(inputaddr);
     inputaddr+=4U;
@@ -1930,8 +1960,6 @@ static HAL_StatusTypeDef CRYP_EncryptDecrypt_IT(CRYP_HandleTypeDef *hcryp)
     hcryp->Instance->DINR  = *(uint32_t*)(inputaddr);
     inputaddr+=4U;
     hcryp->Instance->DINR = *(uint32_t*)(inputaddr);
-    hcryp->pCrypInBuffPtr += 16U;
-    hcryp->CrypInCount -= 16U;
   }
   return HAL_OK;
 }

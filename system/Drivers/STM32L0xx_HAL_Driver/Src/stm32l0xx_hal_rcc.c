@@ -333,7 +333,7 @@ HAL_StatusTypeDef HAL_RCC_DeInit(void)
   *         first and then HSE On or HSE Bypass.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
+HAL_StatusTypeDef HAL_RCC_OscConfig(const RCC_OscInitTypeDef  *RCC_OscInitStruct)
 {
   uint32_t tickstart;
   uint32_t hsi_state;
@@ -854,7 +854,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
   *         (for more details refer to section above "Initialization/de-initialization functions")
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, uint32_t FLatency)
+HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef  *RCC_ClkInitStruct, uint32_t FLatency)
 {
   uint32_t tickstart;
   HAL_StatusTypeDef status;
@@ -1242,17 +1242,17 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
       if (__HAL_RCC_GET_PLL_OSCSOURCE() != RCC_PLLSOURCE_HSI)
       {
         /* HSE used as PLL clock source */
-        pllvco = (uint32_t)(((uint64_t)HSE_VALUE * (uint64_t)pllm) / (uint64_t)plld);
+        pllvco = (uint32_t)((HSE_VALUE * pllm) / plld);
       }
       else
       {
         if ((RCC->CR & RCC_CR_HSIDIVF) != 0U)
         {
-          pllvco = (uint32_t)((((uint64_t)(HSI_VALUE >> 2)) * (uint64_t)pllm) / (uint64_t)plld);
+          pllvco = (uint32_t)((((HSI_VALUE >> 2)) * pllm) / plld);
         }
         else
         {
-         pllvco = (uint32_t)(((uint64_t)HSI_VALUE * (uint64_t)pllm) / (uint64_t)plld);
+         pllvco = (uint32_t)((HSI_VALUE * pllm) / plld);
         }
       }
       sysclockfreq = pllvco;

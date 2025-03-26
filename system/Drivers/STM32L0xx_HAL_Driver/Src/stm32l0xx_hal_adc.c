@@ -134,12 +134,6 @@
         monitored, thresholds, ...)
         using function HAL_ADC_AnalogWDGConfig().
 
-
-    (#) When device is in mode low-power (low-power run, low-power sleep or stop mode),
-        function "HAL_ADCEx_EnableVREFINT()" must be called before function HAL_ADC_Init().
-        In case of internal temperature sensor to be measured:
-        function "HAL_ADCEx_EnableVREFINTTempSensor()" must be called similarilly
-
      *** Execution of ADC conversions ***
      ====================================
      [..]
@@ -382,11 +376,6 @@ static void ADC_DelayMicroSecond(uint32_t microSecond);
   * @note   This function configures the ADC within 2 scopes: scope of entire
   *         ADC and scope of regular group. For parameters details, see comments
   *         of structure "ADC_InitTypeDef".
-  * @note   When device is in mode low-power (low-power run, low-power sleep or stop mode),
-  *         function "HAL_ADCEx_EnableVREFINT()" must be called before function HAL_ADC_Init()
-  *         (in case of previous ADC operations: function HAL_ADC_DeInit() must be called first).
-  *         In case of internal temperature sensor to be measured:
-  *         function "HAL_ADCEx_EnableVREFINTTempSensor()" must be called similarilly.
   * @param  hadc ADC handle
   * @retval HAL status
   */
@@ -1552,7 +1541,7 @@ HAL_StatusTypeDef HAL_ADC_Start_DMA(ADC_HandleTypeDef *hadc, uint32_t *pData, ui
       __HAL_ADC_ENABLE_IT(hadc, ADC_IT_OVR);
 
       /* Start the DMA channel */
-      HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&hadc->Instance->DR, (uint32_t)pData, Length);
+      tmp_hal_status = HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&hadc->Instance->DR, (uint32_t)pData, Length);
 
       /* Enable conversion of regular group.                                  */
       /* If software start has been selected, conversion starts immediately.  */
