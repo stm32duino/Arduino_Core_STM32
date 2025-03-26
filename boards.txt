@@ -1423,6 +1423,22 @@ Disco.menu.pnum.STM32H747I_DISCO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Disco.menu.pnum.STM32H747I_DISCO.openocd.target=stm32h7x
 Disco.menu.pnum.STM32H747I_DISCO.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H747_CM7.svd
 
+# STM32L562E-DK
+Disco.menu.pnum.STM32L562E_DK=STM32L562E-DK
+Disco.menu.pnum.STM32L562E_DK.node=DIS_L562QE
+Disco.menu.pnum.STM32L562E_DK.upload.maximum_size=524288
+Disco.menu.pnum.STM32L562E_DK.upload.maximum_data_size=196608
+Disco.menu.pnum.STM32L562E_DK.build.mcu=cortex-m33
+Disco.menu.pnum.STM32L562E_DK.build.fpu=-mfpu=fpv4-sp-d16
+Disco.menu.pnum.STM32L562E_DK.build.float-abi=-mfloat-abi=hard
+Disco.menu.pnum.STM32L562E_DK.build.board=STM32L562E_DK
+Disco.menu.pnum.STM32L562E_DK.build.series=STM32L5xx
+Disco.menu.pnum.STM32L562E_DK.build.product_line=STM32L562xx
+Disco.menu.pnum.STM32L562E_DK.build.variant=STM32L5xx/L552Q(C-E)IxQ_L562QEIxQ
+Disco.menu.pnum.STM32L562E_DK.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Disco.menu.pnum.STM32L562E_DK.openocd.target=stm32l5x
+Disco.menu.pnum.STM32L562E_DK.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L562.svd
+
 # STM32WB5MM-DK board
 Disco.menu.pnum.STM32WB5MM_DK=STM32WB5MM-DK
 Disco.menu.pnum.STM32WB5MM_DK.node="DIS_WB5MMG"
