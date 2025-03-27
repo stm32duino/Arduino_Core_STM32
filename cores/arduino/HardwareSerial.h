@@ -95,6 +95,9 @@ class HardwareSerial : public Stream {
   protected:
     // Has any byte been written to the UART since begin()
     bool _written;
+    bool _rx_invert;
+    bool _tx_invert;
+    bool _data_invert;
 
     // Don't put any members after these buffers, since only the first
     // 32 bytes of this struct can be accessed quickly using the ldd
@@ -164,6 +167,12 @@ class HardwareSerial : public Stream {
     void setHalfDuplex(void);
     bool isHalfDuplex(void) const;
     void enableHalfDuplexRx(void);
+
+    // Enable HW Rx/Tx/data inversion
+    // This needs to be done before the call to begin()
+    void setRxInvert(void);
+    void setTxInvert(void);
+    void setDataInvert(void);
 
     friend class STM32LowPower;
 
