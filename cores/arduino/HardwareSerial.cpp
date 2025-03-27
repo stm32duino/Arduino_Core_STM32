@@ -446,7 +446,7 @@ void HardwareSerial::begin(unsigned long baud, byte config)
       break;
   }
 
-  uart_init(&_serial, (uint32_t)baud, databits, parity, stopbits);
+  uart_init(&_serial, (uint32_t)baud, databits, parity, stopbits, _rx_invert, _tx_invert, _data_invert);
   enableHalfDuplexRx();
   uart_attach_rx_callback(&_serial, _rx_complete_irq);
 }
@@ -666,6 +666,21 @@ void HardwareSerial::enableHalfDuplexRx(void)
       uart_enable_rx(&_serial);
     }
   }
+}
+
+void HardwareSerial::setRxInvert(void)
+{
+  _rx_invert = true;
+}
+
+void HardwareSerial::setTxInvert(void)
+{
+  _tx_invert = true;
+}
+
+void HardwareSerial::setDataInvert(void)
+{
+  _data_invert = true;
 }
 
 #endif // HAL_UART_MODULE_ENABLED && !HAL_UART_MODULE_ONLY
