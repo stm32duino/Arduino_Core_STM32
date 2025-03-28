@@ -192,6 +192,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32H573IIKxQ | [STM32H573I-DK](https://www.st.com/en/evaluation-tools/stm32h573i-dk.html) | *2.6.0* |  |
 | :green_heart:  | STM32H747XIHx | [STM32H747I-DISCO](https://www.st.com/en/evaluation-tools/stm32h747i-disco.html) | *2.7.0* |  |
 | :green_heart:  | STM32L4S5VI | [B-L4S5I-IOT01A](https://www.st.com/en/evaluation-tools/b-l4s5i-iot01a.html) | *2.0.0* | |
+| :yellow_heart:  | STM32L562QEIxQ | [STM32L562E-DK](https://www.st.com/en/evaluation-tools/stm32l562e-dk.html) | **2.11.0** | |
 | :green_heart: | STM32U585AIIxQ | [B-U585I-IOT02A](https://www.st.com/en/evaluation-tools/b-u585i-iot02a.html) | *2.1.0* |  |
 | :green_heart: | STM32WB5MMG | [STM32WB5MM-DK](https://www.st.com/en/evaluation-tools/stm32wb5mm-dk.html) | *2.1.0* |  |
 
@@ -743,7 +744,9 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32L552ZC-Q<br>STM32L552ZE-Q | Generic Board | *2.0.0* |  |
+| :yellow_heart:  | STM32L552QCIxQ<br>STM32L552QEIxQ | Generic Board | **2.11.0** |  |
 | :green_heart:  | STM32L562ZE-Q | Generic Board | *2.0.0* |  |
+| :yellow_heart:  | STM32L562QEIxQ | Generic Board | **2.11.0** |  |
 
 ### Generic STM32U0 boards
 

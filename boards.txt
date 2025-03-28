@@ -1423,6 +1423,22 @@ Disco.menu.pnum.STM32H747I_DISCO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Disco.menu.pnum.STM32H747I_DISCO.openocd.target=stm32h7x
 Disco.menu.pnum.STM32H747I_DISCO.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H747_CM7.svd
 
+# STM32L562E-DK
+Disco.menu.pnum.STM32L562E_DK=STM32L562E-DK
+Disco.menu.pnum.STM32L562E_DK.node=DIS_L562QE
+Disco.menu.pnum.STM32L562E_DK.upload.maximum_size=524288
+Disco.menu.pnum.STM32L562E_DK.upload.maximum_data_size=196608
+Disco.menu.pnum.STM32L562E_DK.build.mcu=cortex-m33
+Disco.menu.pnum.STM32L562E_DK.build.fpu=-mfpu=fpv4-sp-d16
+Disco.menu.pnum.STM32L562E_DK.build.float-abi=-mfloat-abi=hard
+Disco.menu.pnum.STM32L562E_DK.build.board=STM32L562E_DK
+Disco.menu.pnum.STM32L562E_DK.build.series=STM32L5xx
+Disco.menu.pnum.STM32L562E_DK.build.product_line=STM32L562xx
+Disco.menu.pnum.STM32L562E_DK.build.variant=STM32L5xx/L552Q(C-E)IxQ_L562QEIxQ
+Disco.menu.pnum.STM32L562E_DK.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Disco.menu.pnum.STM32L562E_DK.openocd.target=stm32l5x
+Disco.menu.pnum.STM32L562E_DK.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L562.svd
+
 # STM32WB5MM-DK board
 Disco.menu.pnum.STM32WB5MM_DK=STM32WB5MM-DK
 Disco.menu.pnum.STM32WB5MM_DK.node="DIS_WB5MMG"
@@ -12226,6 +12242,24 @@ GenL5.openocd.target=stm32l5x
 GenL5.vid.0=0x0483
 GenL5.pid.0=0x5740
 
+# Generic L552QCIxQ
+GenL5.menu.pnum.GENERIC_L552QCIXQ=Generic L552QCIxQ
+GenL5.menu.pnum.GENERIC_L552QCIXQ.upload.maximum_size=262144
+GenL5.menu.pnum.GENERIC_L552QCIXQ.upload.maximum_data_size=262144
+GenL5.menu.pnum.GENERIC_L552QCIXQ.build.board=GENERIC_L552QCIXQ
+GenL5.menu.pnum.GENERIC_L552QCIXQ.build.product_line=STM32L552xx
+GenL5.menu.pnum.GENERIC_L552QCIXQ.build.variant=STM32L5xx/L552Q(C-E)IxQ_L562QEIxQ
+GenL5.menu.pnum.GENERIC_L552QCIXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L552.svd
+
+# Generic L552QEIxQ
+GenL5.menu.pnum.GENERIC_L552QEIXQ=Generic L552QEIxQ
+GenL5.menu.pnum.GENERIC_L552QEIXQ.upload.maximum_size=524288
+GenL5.menu.pnum.GENERIC_L552QEIXQ.upload.maximum_data_size=262144
+GenL5.menu.pnum.GENERIC_L552QEIXQ.build.board=GENERIC_L552QEIXQ
+GenL5.menu.pnum.GENERIC_L552QEIXQ.build.product_line=STM32L552xx
+GenL5.menu.pnum.GENERIC_L552QEIXQ.build.variant=STM32L5xx/L552Q(C-E)IxQ_L562QEIxQ
+GenL5.menu.pnum.GENERIC_L552QEIXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L552.svd
+
 # Generic L552ZCTxQ
 GenL5.menu.pnum.GENERIC_L552ZCTXQ=Generic L552ZCTxQ
 GenL5.menu.pnum.GENERIC_L552ZCTXQ.upload.maximum_size=262144
@@ -12243,6 +12277,15 @@ GenL5.menu.pnum.GENERIC_L552ZETXQ.build.board=GENERIC_L552ZETXQ
 GenL5.menu.pnum.GENERIC_L552ZETXQ.build.product_line=STM32L552xx
 GenL5.menu.pnum.GENERIC_L552ZETXQ.build.variant=STM32L5xx/L552Z(C-E)TxQ_L562ZETxQ
 GenL5.menu.pnum.GENERIC_L552ZETXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L552.svd
+
+# Generic L562QC-EIxQ
+GenL5.menu.pnum.GENERIC_L562QEIXQ=Generic L562QC-EIxQ
+GenL5.menu.pnum.GENERIC_L562QEIXQ.upload.maximum_size=524288
+GenL5.menu.pnum.GENERIC_L562QEIXQ.upload.maximum_data_size=196608
+GenL5.menu.pnum.GENERIC_L562QEIXQ.build.board=GENERIC_L562QEIXQ
+GenL5.menu.pnum.GENERIC_L562QEIXQ.build.product_line=STM32L562xx
+GenL5.menu.pnum.GENERIC_L562QEIXQ.build.variant=STM32L5xx/L552Q(C-E)IxQ_L562QEIxQ
+GenL5.menu.pnum.GENERIC_L562QEIXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L5xx/STM32L562.svd
 
 # Generic L562ZETxQ
 GenL5.menu.pnum.GENERIC_L562ZETXQ=Generic L562ZETxQ
