@@ -115,7 +115,7 @@ serial_t *get_serial_obj(UART_HandleTypeDef *huart)
   * @param  obj : pointer to serial_t structure
   * @retval None
   */
-void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t parity, uint32_t stopbits)
+void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t parity, uint32_t stopbits, bool rx_invert, bool tx_invert, bool data_invert)
 {
   if (obj == NULL) {
     return;
@@ -407,11 +407,31 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
   huart->Init.Mode         = UART_MODE_TX_RX;
   huart->Init.HwFlowCtl    = flow_control;
   huart->Init.OverSampling = UART_OVERSAMPLING_16;
-#if defined(UART_ADVFEATURE_SWAP_INIT)
-  huart->AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_SWAP_INIT;
-  huart->AdvancedInit.Swap = pin_swap;
-#elif defined(UART_ADVFEATURE_NO_INIT)
+#if defined(UART_ADVFEATURE_NO_INIT)
+  // Default value
   huart->AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+#if defined(UART_ADVFEATURE_SWAP_INIT)
+  huart->AdvancedInit.AdvFeatureInit |= UART_ADVFEATURE_SWAP_INIT;
+  huart->AdvancedInit.Swap = pin_swap;
+#endif
+#if defined(UART_ADVFEATURE_RXINVERT_INIT)
+  if (rx_invert) {
+    huart->AdvancedInit.AdvFeatureInit |= UART_ADVFEATURE_RXINVERT_INIT;
+    huart->AdvancedInit.RxPinLevelInvert = UART_ADVFEATURE_RXINV_ENABLE;
+  }
+#endif
+#if defined(UART_ADVFEATURE_TXINVERT_INIT)
+  if (tx_invert) {
+    huart->AdvancedInit.AdvFeatureInit |= UART_ADVFEATURE_TXINVERT_INIT;
+    huart->AdvancedInit.TxPinLevelInvert = UART_ADVFEATURE_TXINV_ENABLE;
+  }
+#endif
+#if defined(UART_ADVFEATURE_DATAINVERT_INIT)
+  if (data_invert) {
+    huart->AdvancedInit.AdvFeatureInit |= UART_ADVFEATURE_DATAINVERT_INIT;
+    huart->AdvancedInit.DataInvert = UART_ADVFEATURE_DATAINV_ENABLE;
+  }
+#endif
 #endif
 #ifdef UART_ONE_BIT_SAMPLE_DISABLE
   huart->Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
@@ -812,7 +832,7 @@ void uart_debug_init(void)
     serial_debug.pin_tx = pinmap_pin(DEBUG_UART, PinMap_UART_TX);
 #endif
     /* serial_debug.pin_rx set by default to NC to configure in half duplex mode */
-    uart_init(&serial_debug, DEBUG_UART_BAUDRATE, UART_WORDLENGTH_8B, UART_PARITY_NONE, UART_STOPBITS_1);
+    uart_init(&serial_debug, DEBUG_UART_BAUDRATE, UART_WORDLENGTH_8B, UART_PARITY_NONE, UART_STOPBITS_1, false, false, false);
   }
 }
 
