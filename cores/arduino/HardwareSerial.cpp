@@ -273,7 +273,7 @@ HardwareSerial::HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex)
                           } else
 #endif
 #if defined(PIN_SERIALLP3_TX) && defined(LPUART3_BASE)
-                            if (peripheral == LPUART2) {
+                            if (peripheral == LPUART3) {
 #if defined(PIN_SERIALLP3_RX)
                               setRx(PIN_SERIALLP3_RX);
 #endif
