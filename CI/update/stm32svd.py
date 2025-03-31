@@ -28,9 +28,8 @@ def checkConfig():
     config_file_path = script_path / "update_config.json"
     if config_file_path.is_file():
         try:
-            config_file = open(config_file_path, "r")
-            path_config = json.load(config_file)
-            config_file.close()
+            with open(config_file_path, "r") as config_file:
+                path_config = json.load(config_file)
 
             if "STM32CUBECLT_PATH" not in path_config:
                 path_config["STM32CUBECLT_PATH"] = str(
@@ -159,8 +158,9 @@ def main():
     for serie in stm32_list:
         serie_dir = stm32_svd_dir / f"STM32{serie}xx"
         if not any(serie_dir.glob("*")):
-            print (f"Folder {serie_dir} is empty.")
+            print(f"Folder {serie_dir} is empty.")
             serie_dir.rmdir()
+
 
 if __name__ == "__main__":
     main()

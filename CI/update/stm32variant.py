@@ -382,9 +382,8 @@ def get_gpio_af_numF1_default(pintofind, iptofind):
     # return "AFIO_" + iptofind .split("_")[0] + "_DISABLE"
     ip = iptofind.split("_")[0]
     afio_default = "AFIO_NONE"
-    if pintofind in default_afio_f1:
-        if ip in default_afio_f1[pintofind]:
-            afio_default = default_afio_f1[pintofind][ip]
+    if pintofind in default_afio_f1 and ip in default_afio_f1[pintofind]:
+        afio_default = default_afio_f1[pintofind][ip]
     return afio_default
 
 
@@ -559,10 +558,9 @@ def store_xspi(pin, name, signal):
 
 # Store SYS pins
 def store_sys(pin, name, signal):
-    if "_WKUP" in signal:
-        if not any(pin.replace("_C", "") in i for i in syswkup_list):
-            signal = signal.replace("PWR", "SYS")
-            syswkup_list.append([pin, name, signal])
+    if "_WKUP" in signal and not any(pin.replace("_C", "") in i for i in syswkup_list):
+        signal = signal.replace("PWR", "SYS")
+        syswkup_list.append([pin, name, signal])
 
 
 # Store USB pins
@@ -1341,7 +1339,7 @@ def print_pinamevar():
     alt_syswkup_list = []
     for idx, syswkup_list in enumerate(syswkup_pins_list, start=1):
         if len(syswkup_list) > 1:
-            for idx2, lst in enumerate(syswkup_list[1:], start=1):
+            for idx2, _lst in enumerate(syswkup_list[1:], start=1):
                 alt_syswkup_list.append(f"{idx}_{idx2}")
     return alt_syswkup_list
 
@@ -1375,13 +1373,13 @@ def spi_pins_variant():
         for ss in spissel_list:
             ss_inst = ss[2].split("_", 1)[0]
             if mosi_inst == ss_inst:
-                if "PNUM_NOT_DEFINED" == ss_pin:
+                if ss_pin == "PNUM_NOT_DEFINED":
                     ss_pin = ss[0].replace("_", "", 1)
-                elif "PNUM_NOT_DEFINED" == ss1_pin:
+                elif ss1_pin == "PNUM_NOT_DEFINED":
                     ss1_pin = ss[0].replace("_", "", 1)
-                elif "PNUM_NOT_DEFINED" == ss2_pin:
+                elif ss2_pin == "PNUM_NOT_DEFINED":
                     ss2_pin = ss[0].replace("_", "", 1)
-                elif "PNUM_NOT_DEFINED" == ss3_pin:
+                elif ss3_pin == "PNUM_NOT_DEFINED":
                     ss3_pin = ss[0].replace("_", "", 1)
                     break
         break
@@ -1449,7 +1447,7 @@ def serial_pins_variant():
             print("No serial instance number found!")
             serialnum = "-1"
     else:
-        serialtx_pin = serialtx_pin = "PNUM_NOT_DEFINED"
+        serialtx_pin = "PNUM_NOT_DEFINED"
         serialnum = "-1"
         print("No serial found!")
     return dict(instance=serialnum, rx=serialrx_pin, tx=serialtx_pin)
@@ -1653,10 +1651,13 @@ def search_product_line(valueline: str, extra: str) -> str:
                 else:
                     break
             if pline >= vline:
-                if extra and len(product_line_list) > idx_pline + 1:
-                    if product_line_list[idx_pline + 1] == (product_line + extra):
-                        # Look for the next product line if contains the extra
-                        product_line = product_line_list[idx_pline + 1]
+                if (
+                    extra
+                    and len(product_line_list) > idx_pline + 1
+                    and product_line_list[idx_pline + 1] == (product_line + extra)
+                ):
+                    # Look for the next product line if contains the extra
+                    product_line = product_line_list[idx_pline + 1]
                 break
         else:
             # In case of CMSIS device does not exist
@@ -1700,9 +1701,7 @@ def parse_stm32targets():
 
 
 def search_svdfile(mcu_name):
-    svd_file = ""
-    if mcu_name in svd_dict:
-        svd_file = svd_dict[mcu_name]
+    svd_file = svd_dict.get(mcu_name, "")
     return svd_file
 
 
@@ -2275,7 +2274,7 @@ def merge_dir(out_temp_path, group_mcu_dir, mcu_family, periph_xml, variant_exp)
             # Save board entry
             skip = False
             with open(dir_name / boards_entry_filename) as fp:
-                for index, line in enumerate(fp):
+                for _index, line in enumerate(fp):
                     # Skip until next empty line (included)
                     if skip:
                         if line == "\n":
@@ -2391,24 +2390,23 @@ def aggregate_dir():
                 periph_xml_tmp = []
                 variant_exp_tmp = []
                 for index2, fname in enumerate(mcu_dir1_files_list):
-                    with open(fname, "r") as f1:
-                        with open(mcu_dir2_files_list[index2], "r") as f2:
-                            diff = set(f1).symmetric_difference(f2)
-                            diff.discard("\n")
-                            if not diff or len(diff) == 2:
-                                if index2 == 0:
-                                    for line in diff:
-                                        periph_xml_tmp += periperalpins_regex.findall(
-                                            line
-                                        )
-                                elif index2 == 2:
-                                    for line in diff:
-                                        variant_exp_tmp += variant_regex.findall(line)
-                                continue
-                            else:
-                                # Not the same directory compare with the next one
-                                index += 1
-                                break
+                    with open(fname, "r") as f1, open(
+                        mcu_dir2_files_list[index2], "r"
+                    ) as f2:
+                        diff = set(f1).symmetric_difference(f2)
+                        diff.discard("\n")
+                        if not diff or len(diff) == 2:
+                            if index2 == 0:
+                                for line in diff:
+                                    periph_xml_tmp += periperalpins_regex.findall(line)
+                            elif index2 == 2:
+                                for line in diff:
+                                    variant_exp_tmp += variant_regex.findall(line)
+                            continue
+                        else:
+                            # Not the same directory compare with the next one
+                            index += 1
+                            break
                 # All files compared and matched
                 else:
                     # Concatenate lists without duplicate
@@ -2505,10 +2503,11 @@ def checkConfig():
     default_cubemxdir()
     if config_filename.is_file():
         try:
-            config_file = open(config_filename, "r")
-            path_config = json.load(config_file)
-            config_file.close()
-
+            # config_file = open(config_filename, "r")
+            # path_config = json.load(config_file)
+            # config_file.close()
+            with open(config_filename, "r") as config_file:
+                path_config = json.load(config_file)
             if "REPO_LOCAL_PATH" not in path_config:
                 path_config["REPO_LOCAL_PATH"] = str(repo_local_path)
                 defaultConfig(config_filename, path_config)
@@ -2779,21 +2778,21 @@ for mcu_file in mcu_list:
     generic_clock_filepath = out_temp_path / generic_clock_filename
     out_temp_path.mkdir(parents=True, exist_ok=True)
 
-    # open output file
-    periph_c_file = open(periph_c_filepath, "w", newline="\n")
-    pinvar_h_file = open(pinvar_h_filepath, "w", newline="\n")
-    variant_cpp_file = open(variant_cpp_filepath, "w", newline="\n")
-    variant_h_file = open(variant_h_filepath, "w", newline="\n")
-    boards_entry_file = open(boards_entry_filepath, "w", newline="\n")
-    generic_clock_file = open(generic_clock_filepath, "w", newline="\n")
     parse_pins()
     manage_af_and_alternate()
 
-    generic_list = print_boards_entry()
-    print_general_clock(generic_list)
-    print_peripheral()
-    alt_syswkup_list = print_pinamevar()
-    print_variant(generic_list, alt_syswkup_list)
+    with open(boards_entry_filepath, "w", newline="\n") as boards_entry_file:
+        generic_list = print_boards_entry()
+    with open(generic_clock_filepath, "w", newline="\n") as generic_clock_file:
+        print_general_clock(generic_list)
+    with open(periph_c_filepath, "w", newline="\n") as periph_c_file:
+        print_peripheral()
+    with open(pinvar_h_filepath, "w", newline="\n") as pinvar_h_file:
+        alt_syswkup_list = print_pinamevar()
+    with open(variant_cpp_filepath, "w", newline="\n") as variant_cpp_file, open(
+        variant_h_filepath, "w", newline="\n"
+    ) as variant_h_file:
+        print_variant(generic_list, alt_syswkup_list)
     del alt_syswkup_list[:]
     del generic_list[:]
     sum_io = len(io_list) + len(alt_list) + len(dualpad_list) + len(remap_list)
@@ -2810,12 +2809,6 @@ for mcu_file in mcu_list:
 
     clean_all_lists()
 
-    periph_c_file.close()
-    pinvar_h_file.close()
-    variant_h_file.close()
-    variant_cpp_file.close()
-    boards_entry_file.close()
-    generic_clock_file.close()
     xml_mcu.unlink()
     xml_gpio.unlink()
 

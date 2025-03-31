@@ -96,9 +96,8 @@ def checkConfig():
     config_file_path = script_path / "update_config.json"
     if config_file_path.is_file():
         try:
-            config_file = open(config_file_path, "r")
-            path_config = json.load(config_file)
-            config_file.close()
+            with open(config_file_path, "r") as config_file:
+                path_config = json.load(config_file)
             # Common path
             if "REPO_LOCAL_PATH" not in path_config:
                 path_config["REPO_LOCAL_PATH"] = str(repo_local_path)
@@ -201,9 +200,8 @@ def createSystemFiles(serie):
     stm32_hal_conf_file = system_serie / stm32yyxx_hal_conf_file.replace(
         "yy", serie.lower()
     )
-    out_file = open(stm32_hal_conf_file, "w", newline="\n")
-    out_file.write(stm32yyxx_hal_conf_file_template.render(serie=serie))
-    out_file.close()
+    with open(stm32_hal_conf_file, "w", newline="\n") as out_file:
+        out_file.write(stm32yyxx_hal_conf_file_template.render(serie=serie))
     # Copy system_stm32*.c file from CMSIS device template
     system_stm32_path = cmsis_dest_path / f"STM32{serie}xx" / "Source" / "Templates"
     filelist = sorted(system_stm32_path.glob("system_stm32*.c"))
@@ -365,36 +363,36 @@ def parseVersion(path, patterns):
     sub1_found = False
     sub2_found = False
     rc_found = False
-
-    for i, line in enumerate(open(path, encoding="utf8", errors="ignore")):
-        for match in re.finditer(patterns[0], line):
-            VERSION_MAIN = int(match.group(1), 16)
-            main_found = True
-        for match in re.finditer(patterns[1], line):
-            VERSION_SUB1 = int(match.group(1), 16)
-            sub1_found = True
-        for match in re.finditer(patterns[2], line):
-            VERSION_SUB2 = int(match.group(1), 16)
-            sub2_found = True
-        for match in re.finditer(patterns[3], line):
-            VERSION_RC = int(match.group(1), 16)
-            rc_found = True
-        if main_found and sub1_found and sub2_found and rc_found:
-            break
-    else:
-        print(f"Could not find the full version in {path}")
-        if main_found:
-            print(f"main version found: {VERSION_MAIN}")
-        VERSION_MAIN = "FF"
-        if sub1_found:
-            print(f"sub1 version found: {VERSION_SUB1}")
-        VERSION_SUB1 = "FF"
-        if sub2_found:
-            print(f"sub2 version found: {VERSION_SUB2}")
-        VERSION_SUB2 = "FF"
-        if rc_found:
-            print(f"rc version found: {VERSION_RC}")
-        VERSION_RC = "FF"
+    with open(path, encoding="utf8", errors="ignore") as fp:
+        for _i, line in enumerate(fp):
+            for match in re.finditer(patterns[0], line):
+                VERSION_MAIN = int(match.group(1), 16)
+                main_found = True
+            for match in re.finditer(patterns[1], line):
+                VERSION_SUB1 = int(match.group(1), 16)
+                sub1_found = True
+            for match in re.finditer(patterns[2], line):
+                VERSION_SUB2 = int(match.group(1), 16)
+                sub2_found = True
+            for match in re.finditer(patterns[3], line):
+                VERSION_RC = int(match.group(1), 16)
+                rc_found = True
+            if main_found and sub1_found and sub2_found and rc_found:
+                break
+        else:
+            print(f"Could not find the full version in {path}")
+            if main_found:
+                print(f"main version found: {VERSION_MAIN}")
+            VERSION_MAIN = "FF"
+            if sub1_found:
+                print(f"sub1 version found: {VERSION_SUB1}")
+            VERSION_SUB1 = "FF"
+            if sub2_found:
+                print(f"sub2 version found: {VERSION_SUB2}")
+            VERSION_SUB2 = "FF"
+            if rc_found:
+                print(f"rc version found: {VERSION_RC}")
+            VERSION_RC = "FF"
 
     ret = f"{VERSION_MAIN}.{VERSION_SUB1}.{VERSION_SUB2}"
 

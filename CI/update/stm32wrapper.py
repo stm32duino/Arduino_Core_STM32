@@ -129,9 +129,8 @@ def printCMSISStartup(log):
                     vline = valueline[1].upper().replace("X", "x")
                     cm = valueline[2].upper()
                     cmsis_list.append({"vline": vline, "fn": fn, "cm": cm})
-        out_file = open(CMSIS_Startupfile, "w", newline="\n")
-        out_file.write(stm32_def_build_template.render(cmsis_list=cmsis_list))
-        out_file.close()
+        with open(CMSIS_Startupfile, "w", newline="\n") as out_file:
+            out_file.write(stm32_def_build_template.render(cmsis_list=cmsis_list))
     else:
         if log:
             print("No startup files found!")
@@ -145,9 +144,8 @@ def printSystemSTM32(log):
         system_list = []
         for fp in filelist:
             system_list.append({"serie": fp.parent.name, "fn": fp.name})
-        out_file = open(system_stm32_outfile, "w", newline="\n")
-        out_file.write(system_stm32_template.render(system_list=system_list))
-        out_file.close()
+        with open(system_stm32_outfile, "w", newline="\n") as out_file:
+            out_file.write(system_stm32_template.render(system_list=system_list))
     else:
         if log:
             print("No system stm32 files found!")
@@ -186,7 +184,7 @@ def wrap(arg_core, arg_cmsis, log):
             # Search stm32yyxx_[hal|ll]*.c file
             filelist = src.glob(f"**/stm32{lower}xx_*.c")
             for fp in filelist:
-                legacy = True if fp.parent.name == "Legacy" else False
+                legacy = fp.parent.name == "Legacy"
                 # File name
                 fn = fp.name
                 found = peripheral_c_regex.match(fn)
@@ -242,30 +240,32 @@ def wrap(arg_core, arg_cmsis, log):
             filepath = HALoutSrc_path / c_file.replace("zz", "hal").replace("_ppp", "")
         else:
             filepath = HALoutSrc_path / c_file.replace("zz", "hal").replace("ppp", key)
-        out_file = open(filepath, "w", newline="\n")
-        out_file.write(c_file_template.render(periph=key, type="hal", serieslist=value))
-        out_file.close()
+        with open(filepath, "w", newline="\n") as out_file:
+            out_file.write(
+                c_file_template.render(periph=key, type="hal", serieslist=value)
+            )
     # Generate stm32yyxx_ll_*.c file
     for key, value in ll_c_dict.items():
         filepath = LLoutSrc_path / c_file.replace("zz", "ll").replace("ppp", key)
-        out_file = open(filepath, "w", newline="\n")
-        out_file.write(c_file_template.render(periph=key, type="ll", serieslist=value))
-        out_file.close()
+        with open(filepath, "w", newline="\n") as out_file:
+            out_file.write(
+                c_file_template.render(periph=key, type="ll", serieslist=value)
+            )
     # Generate stm32yyxx_ll_*.h file
     for key, value in ll_h_dict.items():
         filepath = LLoutInc_path / ll_h_file.replace("ppp", key)
-        out_file = open(filepath, "w", newline="\n")
-        out_file.write(ll_h_file_template.render(periph=key, serieslist=value))
-        out_file.close()
+        with open(filepath, "w", newline="\n") as out_file:
+            out_file.write(ll_h_file_template.render(periph=key, serieslist=value))
     if log:
         print("done")
 
     # Filter all LL header file
     all_ll_h_list = sorted(set(all_ll_h_list))
     # Generate the all LL header file
-    all_ll_file = open(LLoutInc_path / all_ll_h_file, "w", newline="\n")
-    all_ll_file.write(all_ll_header_file_template.render(ll_header_list=all_ll_h_list))
-    all_ll_file.close()
+    with open(LLoutInc_path / all_ll_h_file, "w", newline="\n") as all_ll_file:
+        all_ll_file.write(
+            all_ll_header_file_template.render(ll_header_list=all_ll_h_list)
+        )
 
     # CMSIS startup files
     printCMSISStartup(log)
@@ -280,15 +280,15 @@ def wrap(arg_core, arg_cmsis, log):
         # Delete all subfolders
         deleteFolder(CMSIS_DSP_outSrc_path / "*")
         for path_object in CMSIS_DSPSrc_path.glob("**/*"):
-            if path_object.is_file():
-                if path_object.name.endswith(".c"):
-                    dn = path_object.parent.name
-                    fn = path_object.name
-                    if dn in fn:
-                        fdn = CMSIS_DSP_outSrc_path / dn
-                        out_file = open(fdn / (f"{fn}"), "w", newline="\n")
-                        out_file.write(dsp_file_template.render(dsp_dir=dn, dsp_name=fn))
-                        out_file.close()
+            if path_object.is_file() and path_object.name.endswith(".c"):
+                dn = path_object.parent.name
+                fn = path_object.name
+                if dn in fn:
+                    fdn = CMSIS_DSP_outSrc_path / dn
+                    with open(fdn / (f"{fn}"), "w", newline="\n") as out_file:
+                        out_file.write(
+                            dsp_file_template.render(dsp_dir=dn, dsp_name=fn)
+                        )
     return 0
 
 

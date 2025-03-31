@@ -66,7 +66,7 @@ def get_fqbn_list():
     for fqbn in fqbn_list_tmp:
         try:
             output = subprocess.check_output(
-                [arduino_cli, "board", "details", "--format", "json", fqbn],
+                [arduino_cli, "board", "details", "--format", "json", "-b", fqbn],
                 stderr=subprocess.DEVNULL,
             ).decode("utf-8")
             board_detail = json.loads(output)
@@ -106,8 +106,7 @@ def main():
         arg_board_pattern = re.compile(args.board, re.IGNORECASE)
 
     for fqbn in fqbn_list:
-        if args.board:
-            if arg_board_pattern.search(fqbn) is None:
+        if args.board and arg_board_pattern.search(fqbn) is None:
                 continue
         print(fqbn)
 
