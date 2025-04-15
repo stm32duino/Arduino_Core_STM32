@@ -113,12 +113,12 @@ serial_t *get_serial_obj(UART_HandleTypeDef *huart)
 /**
   * @brief  Function called to initialize the uart interface
   * @param  obj : pointer to serial_t structure
-  * @retval None
+  * @retval boolean status
   */
-void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t parity, uint32_t stopbits, bool rx_invert, bool tx_invert, bool data_invert)
+bool uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t parity, uint32_t stopbits, bool rx_invert, bool tx_invert, bool data_invert)
 {
   if (obj == NULL) {
-    return;
+    return false;
   }
 
   UART_HandleTypeDef *huart = &(obj->handle);
@@ -143,28 +143,28 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
     if (obj != &serial_debug) {
       core_debug("ERROR: [U(S)ART] Tx pin has no peripheral!\n");
     }
-    return;
+    return false;
   }
   /* Pin Rx must not be NP if not half-duplex */
   if ((obj->pin_rx != NC) && (uart_rx == NP) && (uart_rx_swap == NP)) {
     if (obj != &serial_debug) {
       core_debug("ERROR: [U(S)ART] Rx pin has no peripheral!\n");
     }
-    return;
+    return false;
   }
   /* Pin RTS must not be NP if flow control is enabled */
   if ((obj->pin_rts != NC) && (uart_rts == NP)) {
     if (obj != &serial_debug) {
       core_debug("ERROR: [U(S)ART] RTS pin has no peripheral!\n");
     }
-    return;
+    return false;
   }
   /* Pin CTS must not be NP if flow control is enabled */
   if ((obj->pin_cts != NC) && (uart_cts == NP)) {
     if (obj != &serial_debug) {
       core_debug("ERROR: [U(S)ART] CTS pin has no peripheral!\n");
     }
-    return;
+    return false;
   }
 
   /*
@@ -184,7 +184,7 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
     if (obj != &serial_debug) {
       core_debug("ERROR: [U(S)ART] Rx/Tx/RTS/CTS pins peripherals mismatch!\n");
     }
-    return;
+    return false;
   }
 
   /* Enable USART clock */
@@ -364,6 +364,12 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
     obj->irq = UART12_IRQn;
   }
 #endif
+  else {
+    if (obj != &serial_debug) {
+      core_debug("ERROR: [U(S)ART] Peripheral not supported!\n");
+    }
+    return false;
+  }
   /* Configure UART GPIO pins */
 #if defined(UART_ADVFEATURE_SWAP_INIT)
   uint32_t pin_swap = UART_ADVFEATURE_SWAP_DISABLE;
@@ -468,10 +474,10 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
     /* Trying default LPUART clock source */
     if ((uart_rx == NP) && (uart_rx_swap == NP)) {
       if (HAL_HalfDuplex_Init(huart) == HAL_OK) {
-        return;
+        return true;
       }
     } else if (HAL_UART_Init(huart) == HAL_OK) {
-      return;
+      return true;
     }
     /* Trying to change LPUART clock source */
     /* If baudrate is lower than or equal to 9600 try to change to LSE */
@@ -494,10 +500,10 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
 #endif
         if ((uart_rx == NP) && (uart_rx_swap == NP)) {
           if (HAL_HalfDuplex_Init(huart) == HAL_OK) {
-            return;
+            return true;
           }
         } else if (HAL_UART_Init(huart) == HAL_OK) {
-          return;
+          return true;
         }
       }
     }
@@ -517,10 +523,10 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
 #endif
       if ((uart_rx == NP) && (uart_rx_swap == NP)) {
         if (HAL_HalfDuplex_Init(huart) == HAL_OK) {
-          return;
+          return true;
         }
       } else if (HAL_UART_Init(huart) == HAL_OK) {
-        return;
+        return true;
       }
     }
     if (obj->uart == LPUART1) {
@@ -544,10 +550,10 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
 #endif
     if ((uart_rx == NP) && (uart_rx_swap == NP)) {
       if (HAL_HalfDuplex_Init(huart) == HAL_OK) {
-        return;
+        return true;
       }
     } else if (HAL_UART_Init(huart) == HAL_OK) {
-      return;
+      return true;
     }
 #if defined(RCC_LPUART1CLKSOURCE_SYSCLK)
     if (obj->uart == LPUART1) {
@@ -569,11 +575,12 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
 
   if ((uart_rx == NP) && (uart_rx_swap == NP)) {
     if (HAL_HalfDuplex_Init(huart) != HAL_OK) {
-      return;
+      return false;
     }
   } else if (HAL_UART_Init(huart) != HAL_OK) {
-    return;
+    return false;
   }
+  return true;
 }
 
 /**
@@ -821,10 +828,11 @@ void uart_config_lowpower(serial_t *obj)
   * @note   Call only if debug U(S)ART peripheral is not already initialized
   *         by a Serial instance
   *         Default config: 8N1
-  * @retval None
+  * @retval boolean status
   */
-void uart_debug_init(void)
+bool uart_debug_init(void)
 {
+  bool status = false;
   if (DEBUG_UART != NP) {
 #if defined(DEBUG_PINNAME_TX)
     serial_debug.pin_tx = DEBUG_PINNAME_TX;
@@ -832,8 +840,9 @@ void uart_debug_init(void)
     serial_debug.pin_tx = pinmap_pin(DEBUG_UART, PinMap_UART_TX);
 #endif
     /* serial_debug.pin_rx set by default to NC to configure in half duplex mode */
-    uart_init(&serial_debug, DEBUG_UART_BAUDRATE, UART_WORDLENGTH_8B, UART_PARITY_NONE, UART_STOPBITS_1, false, false, false);
+    status = uart_init(&serial_debug, DEBUG_UART_BAUDRATE, UART_WORDLENGTH_8B, UART_PARITY_NONE, UART_STOPBITS_1, false, false, false);
   }
+  return status;
 }
 
 /**
@@ -863,8 +872,7 @@ size_t uart_debug_write(uint8_t *data, uint32_t size)
 
     if (serial_debug.index >= UART_NUM) {
       /* DEBUG_UART not initialized */
-      uart_debug_init();
-      if (serial_debug.index >= UART_NUM) {
+      if (!uart_debug_init()) {
         return 0;
       }
     }
