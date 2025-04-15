@@ -449,10 +449,14 @@ void HardwareSerial::begin(unsigned long baud, byte config)
   uart_init(&_serial, (uint32_t)baud, databits, parity, stopbits, _rx_invert, _tx_invert, _data_invert);
   enableHalfDuplexRx();
   uart_attach_rx_callback(&_serial, _rx_complete_irq);
+
+  _ready = true;
 }
 
 void HardwareSerial::end()
 {
+  _ready = false;
+  
   // wait for transmission of outgoing data
   flush(TX_TIMEOUT);
 
