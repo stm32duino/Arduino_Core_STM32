@@ -146,7 +146,7 @@ class HardwareSerial : public Stream {
     using Print::write; // pull in write(str) from Print
     operator bool()
     {
-      return true;
+      return _ready;
     }
 
     void setRx(uint32_t _rx);
@@ -189,6 +189,7 @@ class HardwareSerial : public Stream {
 #endif // HAL_UART_MODULE_ENABLED && !HAL_UART_MODULE_ONLY
 
   private:
+    bool _ready;
     bool _rx_enabled;
     uint8_t _config;
     unsigned long _baud;
