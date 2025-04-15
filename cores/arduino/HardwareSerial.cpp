@@ -456,7 +456,7 @@ void HardwareSerial::begin(unsigned long baud, byte config)
 void HardwareSerial::end()
 {
   _ready = false;
-  
+
   // wait for transmission of outgoing data
   flush(TX_TIMEOUT);
 
