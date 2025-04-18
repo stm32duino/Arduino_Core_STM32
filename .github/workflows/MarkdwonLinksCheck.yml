@@ -11,6 +11,9 @@ on:
       - '**.md'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  schedule:
+    # Run every day at 12 AM UTC to check url.
+    - cron: "0 11 * * *"
 jobs:
   linkinator:
     runs-on: ubuntu-latest
