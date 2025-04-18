@@ -758,6 +758,21 @@ Nucleo_64.menu.pnum.NUCLEO_L152RE.build.variant=STM32L1xx/L151RET_L152RET_L162RE
 Nucleo_64.menu.pnum.NUCLEO_L152RE.openocd.target=stm32l1
 Nucleo_64.menu.pnum.NUCLEO_L152RE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L1xx/STM32L152.svd
 
+# NUCLEO_L412RB_P board
+Nucleo_64.menu.pnum.NUCLEO_L412RB_P=Nucleo L412RB-P
+Nucleo_64.menu.pnum.NUCLEO_L412RB_P.node=NODE_L412RB
+Nucleo_64.menu.pnum.NUCLEO_L412RB_P.upload.maximum_size=131072
+Nucleo_64.menu.pnum.NUCLEO_L412RB_P.upload.maximum_data_size=40960
+Nucleo_64.menu.pnum.NUCLEO_L412RB_P.build.mcu=cortex-m4
+Nucleo_64.menu.pnum.NUCLEO_L412RB_P.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_L412RB_P.build.float-abi=-mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_L412RB_P.build.board=NUCLEO_L412RB_P
+Nucleo_64.menu.pnum.NUCLEO_L412RB_P.build.series=STM32L4xx
+Nucleo_64.menu.pnum.NUCLEO_L412RB_P.build.product_line=STM32L412xx
+Nucleo_64.menu.pnum.NUCLEO_L412RB_P.build.variant=STM32L4xx/L412RB(I-T)xP
+Nucleo_64.menu.pnum.NUCLEO_L412RB_P.openocd.target=stm32l4x
+Nucleo_64.menu.pnum.NUCLEO_L412RB_P.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L412.svd
+
 # NUCLEO_L433RC_P board
 Nucleo_64.menu.pnum.NUCLEO_L433RC_P=Nucleo L433RC-P
 Nucleo_64.menu.pnum.NUCLEO_L433RC_P.node=NODE_L433RC
@@ -11470,6 +11485,24 @@ GenL4.menu.pnum.GENERIC_L412KBUX.build.board=GENERIC_L412KBUX
 GenL4.menu.pnum.GENERIC_L412KBUX.build.product_line=STM32L412xx
 GenL4.menu.pnum.GENERIC_L412KBUX.build.variant=STM32L4xx/L412K(8-B)(T-U)_L422KB(T-U)
 GenL4.menu.pnum.GENERIC_L412KBUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L412.svd
+
+# Generic L412RBIxP
+GenL4.menu.pnum.GENERIC_L412RBIXP=Generic L412RBIxP
+GenL4.menu.pnum.GENERIC_L412RBIXP.upload.maximum_size=131072
+GenL4.menu.pnum.GENERIC_L412RBIXP.upload.maximum_data_size=40960
+GenL4.menu.pnum.GENERIC_L412RBIXP.build.board=GENERIC_L412RBIXP
+GenL4.menu.pnum.GENERIC_L412RBIXP.build.product_line=STM32L412xx
+GenL4.menu.pnum.GENERIC_L412RBIXP.build.variant=STM32L4xx/L412RB(I-T)xP
+GenL4.menu.pnum.GENERIC_L412RBIXP.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L412.svd
+
+# Generic L412RBTxP
+GenL4.menu.pnum.GENERIC_L412RBTXP=Generic L412RBTxP
+GenL4.menu.pnum.GENERIC_L412RBTXP.upload.maximum_size=131072
+GenL4.menu.pnum.GENERIC_L412RBTXP.upload.maximum_data_size=40960
+GenL4.menu.pnum.GENERIC_L412RBTXP.build.board=GENERIC_L412RBTXP
+GenL4.menu.pnum.GENERIC_L412RBTXP.build.product_line=STM32L412xx
+GenL4.menu.pnum.GENERIC_L412RBTXP.build.variant=STM32L4xx/L412RB(I-T)xP
+GenL4.menu.pnum.GENERIC_L412RBTXP.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L412.svd
 
 # Generic L422KBTx
 GenL4.menu.pnum.GENERIC_L422KBTX=Generic L422KBTx
