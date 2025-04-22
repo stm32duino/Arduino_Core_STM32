@@ -16416,4 +16416,4 @@ STeaMi.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
 STeaMi.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 STeaMi.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 STeaMi.menu.rtlib.full=Newlib Standard
-STeaMi.menu.rtlib.full.build.flags.ldspecs=
+STeaMi.menu.rtlib.full.build.flags.ldspecs= 
