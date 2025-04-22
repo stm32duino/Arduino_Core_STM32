@@ -109,7 +109,7 @@
   #define TIMER_TONE              TIM6
 #endif
 #ifndef TIMER_SERVO
-  #define TIMER_SERVO             TIM7
+  #define TIMER_SERVO             TIM16
 #endif
 
 // UART Definitions
