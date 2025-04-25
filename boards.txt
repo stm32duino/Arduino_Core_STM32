@@ -586,6 +586,21 @@ Nucleo_64.menu.pnum.NUCLEO_F401RE.build.variant=STM32F4xx/F401R(B-C-D-E)T
 Nucleo_64.menu.pnum.NUCLEO_F401RE.openocd.target=stm32f4x
 Nucleo_64.menu.pnum.NUCLEO_F401RE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F401.svd
 
+# NUCLEO_F410RB board
+Nucleo_64.menu.pnum.NUCLEO_F410RB=Nucleo F410RB
+Nucleo_64.menu.pnum.NUCLEO_F410RB.node="NOD_F410RB,NUCLEO"
+Nucleo_64.menu.pnum.NUCLEO_F410RB.upload.maximum_size=131072
+Nucleo_64.menu.pnum.NUCLEO_F410RB.upload.maximum_data_size=32768
+Nucleo_64.menu.pnum.NUCLEO_F410RB.build.mcu=cortex-m4
+Nucleo_64.menu.pnum.NUCLEO_F410RB.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_F410RB.build.float-abi=-mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_F410RB.build.board=NUCLEO_F410RB
+Nucleo_64.menu.pnum.NUCLEO_F410RB.build.series=STM32F4xx
+Nucleo_64.menu.pnum.NUCLEO_F410RB.build.product_line=STM32F410Rx
+Nucleo_64.menu.pnum.NUCLEO_F410RB.build.variant=STM32F4xx/F410R(8-B)(I-T)
+Nucleo_64.menu.pnum.NUCLEO_F410RB.openocd.target=stm32f4x
+Nucleo_64.menu.pnum.NUCLEO_F410RB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F410.svd
+
 # NUCLEO_F411RE board
 Nucleo_64.menu.pnum.NUCLEO_F411RE=Nucleo F411RE
 Nucleo_64.menu.pnum.NUCLEO_F411RE.node="NODE_F411RE,NUCLEO"
