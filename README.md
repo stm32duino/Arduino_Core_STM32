@@ -777,6 +777,11 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32U585AIIxQ | Generic Board | *2.1.0* |  |
 | :green_heart:  | STM32U585CIx | Generic Board | *2.7.0* |  |
 | :green_heart:  | STM32U585ZITxQ | Generic Board | *2.1.0* |  |
+| :yellow_heart: | STM32U595ZITxQ<br>STM32U595ZJTxQ | Generic Board | **2.11.0** |  |
+| :yellow_heart: | STM32U599ZITxQ<br>STM32U599ZJTxQ | Generic Board | **2.11.0** |  |
+| :yellow_heart: | STM32U5A5ZJTxQ | Generic Board | **2.11.0** |  |
+| :yellow_heart: | STM32U5A9ZJTxQ | Generic Board | **2.11.0** |  |
+
 
 ### Generic STM32WB boards
 
