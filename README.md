@@ -121,6 +121,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L4R5ZI-P | [Nucleo L4R5ZI-P](http://www.st.com/en/evaluation-tools/nucleo-l4r5zi-p.html) | *1.4.0* |  |
 | :green_heart: | STM32L552ZE-Q | [Nucleo L552ZE-Q](https://www.st.com/en/evaluation-tools/nucleo-l552ze-q.html) | *2.0.0* |  |
 | :green_heart:  | STM32U575ZI-Q | [NUCLEO-U575ZI-Q](https://www.st.com/en/evaluation-tools/nucleo-u575zi-q.html) | *2.1.0* |  |
+| :yellow_heart: | STM32U5A5ZJ-Q | [NUCLEO-U5A5ZJ-Q](https://www.st.com/en/evaluation-tools/nucleo-u5a5zj-q.html) | **2.11.0** |  |
 
 ### [Nucleo 64](https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-eval-tools/stm32-mcu-eval-tools/stm32-nucleo-boards.html) boards
 
