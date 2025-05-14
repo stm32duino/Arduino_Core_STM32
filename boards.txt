@@ -380,6 +380,22 @@ Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.peripheral_pins=-DCUSTOM_PERIPHERAL_P
 Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.openocd.target=stm32u5x
 Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U575.svd
 
+# NUCLEO_U5A5ZJ_Q board
+Nucleo_144.menu.pnum.NUCLEO_U5A5ZJ_Q=Nucleo U5A5ZJ-Q
+Nucleo_144.menu.pnum.NUCLEO_U5A5ZJ_Q.node=NOD_U5A5ZJ
+Nucleo_144.menu.pnum.NUCLEO_U5A5ZJ_Q.upload.maximum_size=4194304
+Nucleo_144.menu.pnum.NUCLEO_U5A5ZJ_Q.upload.maximum_data_size=2555904
+Nucleo_144.menu.pnum.NUCLEO_U5A5ZJ_Q.build.mcu=cortex-m33
+Nucleo_144.menu.pnum.NUCLEO_U5A5ZJ_Q.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_U5A5ZJ_Q.build.float-abi=-mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_U5A5ZJ_Q.build.board=NUCLEO_U5A5ZJ_Q
+Nucleo_144.menu.pnum.NUCLEO_U5A5ZJ_Q.build.series=STM32U5xx
+Nucleo_144.menu.pnum.NUCLEO_U5A5ZJ_Q.build.product_line=STM32U5A5xx
+Nucleo_144.menu.pnum.NUCLEO_U5A5ZJ_Q.build.variant=STM32U5xx/U595Z(I-J)TxQ_U599Z(I-J)TxQ_U5A5ZJTxQ_U5A9ZJTxQ
+Nucleo_144.menu.pnum.NUCLEO_U5A5ZJ_Q.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Nucleo_144.menu.pnum.NUCLEO_U5A5ZJ_Q.openocd.target=stm32u5x
+Nucleo_144.menu.pnum.NUCLEO_U5A5ZJ_Q.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U5A5.svd
+
 # Upload menu
 Nucleo_144.menu.upload_method.MassStorage=Mass Storage
 Nucleo_144.menu.upload_method.MassStorage.upload.protocol=
