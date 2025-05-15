@@ -1659,7 +1659,7 @@ GenC0.build.core=arduino
 GenC0.build.board=GenC0
 GenC0.build.mcu=cortex-m0plus
 GenC0.build.series=STM32C0xx
-GenC0.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
+GenC0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 GenC0.build.flash_offset=0x0
 GenC0.upload.maximum_size=0
 GenC0.upload.maximum_data_size=0
