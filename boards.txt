@@ -1782,6 +1782,24 @@ GenC0.menu.pnum.GENERIC_C031F6PX.build.product_line=STM32C031xx
 GenC0.menu.pnum.GENERIC_C031F6PX.build.variant=STM32C0xx/C031F(4-6)P
 GenC0.menu.pnum.GENERIC_C031F6PX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C031.svd
 
+# Generic C071G8Ux
+GenC0.menu.pnum.GENERIC_C071G8UX=Generic C071G8Ux
+GenC0.menu.pnum.GENERIC_C071G8UX.upload.maximum_size=65536
+GenC0.menu.pnum.GENERIC_C071G8UX.upload.maximum_data_size=24576
+GenC0.menu.pnum.GENERIC_C071G8UX.build.board=GENERIC_C071G8UX
+GenC0.menu.pnum.GENERIC_C071G8UX.build.product_line=STM32C071xx
+GenC0.menu.pnum.GENERIC_C071G8UX.build.variant=STM32C0xx/C071G(8-B)U
+GenC0.menu.pnum.GENERIC_C071G8UX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C071.svd
+
+# Generic C071GBUx
+GenC0.menu.pnum.GENERIC_C071GBUX=Generic C071GBUx
+GenC0.menu.pnum.GENERIC_C071GBUX.upload.maximum_size=131072
+GenC0.menu.pnum.GENERIC_C071GBUX.upload.maximum_data_size=24576
+GenC0.menu.pnum.GENERIC_C071GBUX.build.board=GENERIC_C071GBUX
+GenC0.menu.pnum.GENERIC_C071GBUX.build.product_line=STM32C071xx
+GenC0.menu.pnum.GENERIC_C071GBUX.build.variant=STM32C0xx/C071G(8-B)U
+GenC0.menu.pnum.GENERIC_C071GBUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C071.svd
+
 # Generic C071R8Tx
 GenC0.menu.pnum.GENERIC_C071R8TX=Generic C071R8Tx
 GenC0.menu.pnum.GENERIC_C071R8TX.upload.maximum_size=65536
@@ -1815,6 +1833,11 @@ GenC0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenC0.menu.upload_method.serialMethod.upload.protocol=serial
 GenC0.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
 GenC0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenC0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenC0.menu.upload_method.dfuMethod.upload.protocol=dfu
+GenC0.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenC0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenC0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
 GenC0.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
