@@ -25,17 +25,15 @@ WEAK void SystemClock_Config(void)
 
   /* HSI configuration and activation */
   LL_RCC_HSI_Enable();
-  while(LL_RCC_HSI_IsReady() != 1)
-  {
+  while (LL_RCC_HSI_IsReady() != 1) {
   }
 
   LL_RCC_HSI_SetCalibTrimming(64);
   LL_RCC_SetHSIDiv(LL_RCC_HSI_DIV_1);
   LL_RCC_HSI48_Enable();
 
-   /* Wait till HSI48 is ready */
-  while(LL_RCC_HSI48_IsReady() != 1)
-  {
+  /* Wait till HSI48 is ready */
+  while (LL_RCC_HSI48_IsReady() != 1) {
   }
 
   /* Set AHB prescaler*/
@@ -43,8 +41,7 @@ WEAK void SystemClock_Config(void)
 
   /* Sysclk activation on the HSI */
   LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_HSI);
-  while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI)
-  {
+  while (LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI) {
   }
 
   /* Set APB1 prescaler*/
@@ -52,9 +49,8 @@ WEAK void SystemClock_Config(void)
   /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
   LL_SetSystemCoreClock(48000000);
 
-   /* Update the time base */
-  if (HAL_InitTick (TICK_INT_PRIORITY) != HAL_OK)
-  {
+  /* Update the time base */
+  if (HAL_InitTick(TICK_INT_PRIORITY) != HAL_OK) {
     Error_Handler();
   }
 }
