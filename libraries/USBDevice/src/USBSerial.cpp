@@ -124,7 +124,7 @@ size_t USBSerial::readBytes(char *buffer, size_t length)
 
 size_t USBSerial::readBytesUntil(char terminator, char *buffer, size_t length)
 {
-  size_t read;
+  uint32_t read;
   size_t rest = length;
   _startMillis = millis();
   do {

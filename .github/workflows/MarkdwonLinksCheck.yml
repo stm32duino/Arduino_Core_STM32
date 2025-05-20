@@ -20,4 +20,4 @@ jobs:
         with:
           paths: '*.md ./CI/**/*.md, ./variants/**/*.md, ./libraries/**/*.md'
           verbosity: 'INFO'
-          linksToSkip: 'www.st.com, de.elv.com/lorawan'
+          linksToSkip: 'www.st.com, blues.com'

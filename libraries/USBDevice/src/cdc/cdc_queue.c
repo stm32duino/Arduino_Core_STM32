@@ -77,15 +77,16 @@ void CDC_TransmitQueue_Enqueue(CDC_TransmitQueue_TypeDef *queue,
 
 // Read flat block from queue biggest as possible, but max QUEUE_MAX_PACKET_SIZE
 uint8_t *CDC_TransmitQueue_ReadBlock(CDC_TransmitQueue_TypeDef *queue,
-                                     uint32_t *size,
-                                     uint32_t maxsize)
+                                     uint32_t *size)
 {
   if (queue->write >= queue->read) {
     *size = queue->write - queue->read;
   } else {
     *size = CDC_TRANSMIT_QUEUE_BUFFER_SIZE - queue->read;
   }
-  if(*size > maxsize) *size = maxsize;
+  if (*size > CDC_TRANSMIT_MAX_BUFFER_SIZE) {
+    *size = CDC_TRANSMIT_MAX_BUFFER_SIZE;
+  }
 
   queue->reserved = *size;
   return &queue->buffer[queue->read];
