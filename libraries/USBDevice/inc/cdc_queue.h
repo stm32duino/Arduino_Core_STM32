@@ -54,7 +54,6 @@ extern "C" {
 #define CDC_QUEUE_MAX_PACKET_SIZE USB_FS_MAX_PACKET_SIZE
 #endif
 
-#define CDC_TRANSMIT_MAX_BUFFER_SIZE    65472       //STM32 USB OTG DIEPTSIZ PKTCNT maximum 0x3ff
 #define CDC_RECEIVE_MAX_BUFFER_SIZE     CDC_QUEUE_MAX_PACKET_SIZE
 
 #ifndef CDC_TRANSMIT_QUEUE_BUFFER_PACKET_NUMBER
@@ -84,7 +83,7 @@ void CDC_TransmitQueue_Init(CDC_TransmitQueue_TypeDef *queue);
 int CDC_TransmitQueue_WriteSize(CDC_TransmitQueue_TypeDef *queue);
 int CDC_TransmitQueue_ReadSize(CDC_TransmitQueue_TypeDef *queue);
 void CDC_TransmitQueue_Enqueue(CDC_TransmitQueue_TypeDef *queue, const uint8_t *buffer, uint32_t size);
-uint8_t *CDC_TransmitQueue_ReadBlock(CDC_TransmitQueue_TypeDef *queue, uint32_t *size);
+uint8_t *CDC_TransmitQueue_ReadBlock(CDC_TransmitQueue_TypeDef *queue, uint32_t *size, uint32_t maxsize);
 void CDC_TransmitQueue_CommitRead(CDC_TransmitQueue_TypeDef *queue);
 
 void CDC_ReceiveQueue_Init(CDC_ReceiveQueue_TypeDef *queue);
