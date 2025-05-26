@@ -574,7 +574,7 @@ void HAL_QSPI_IRQHandler(QSPI_HandleTypeDef *hqspi)
 
 #if  defined(QSPI1_V1_0)
       /* Clear Busy bit */
-      HAL_QSPI_Abort_IT(hqspi);
+      (void)HAL_QSPI_Abort_IT(hqspi);
 #endif
 
       /* Change state of QSPI */
@@ -619,7 +619,7 @@ void HAL_QSPI_IRQHandler(QSPI_HandleTypeDef *hqspi)
 
 #if  defined(QSPI1_V1_0)
       /* Workaround - Extra data written in the FIFO at the end of a read transfer */
-      HAL_QSPI_Abort_IT(hqspi);
+      (void)HAL_QSPI_Abort_IT(hqspi);
 #endif
 
       /* Change state of QSPI */
@@ -1364,20 +1364,24 @@ HAL_StatusTypeDef HAL_QSPI_Transmit_DMA(QSPI_HandleTypeDef *hqspi, uint8_t *pDat
         hqspi->hdma->Init.Direction = DMA_MEMORY_TO_PERIPH;
         MODIFY_REG(hqspi->hdma->Instance->CR, DMA_SxCR_DIR, hqspi->hdma->Init.Direction);
 
+        /* Enable the QSPI transfer error Interrupt */
+        __HAL_QSPI_ENABLE_IT(hqspi, QSPI_IT_TE);
+
+        /* Enable the DMA transfer by setting the DMAEN bit in the QSPI CR register */
+        SET_BIT(hqspi->Instance->CR, QUADSPI_CR_DMAEN);
+
+
         /* Enable the QSPI transmit DMA Channel */
         if (HAL_DMA_Start_IT(hqspi->hdma, (uint32_t)pData, (uint32_t)&hqspi->Instance->DR, hqspi->TxXferSize) == HAL_OK)
         {
           /* Process unlocked */
           __HAL_UNLOCK(hqspi);
-
-          /* Enable the QSPI transfer error Interrupt */
-          __HAL_QSPI_ENABLE_IT(hqspi, QSPI_IT_TE);
-
-          /* Enable the DMA transfer by setting the DMAEN bit in the QSPI CR register */
-          SET_BIT(hqspi->Instance->CR, QUADSPI_CR_DMAEN);
         }
         else
         {
+          /* Disable the DMA transfer by clearing the DMAEN bit in the QSPI CR register */
+          CLEAR_BIT(hqspi->Instance->CR, QUADSPI_CR_DMAEN);
+
           status = HAL_ERROR;
           hqspi->ErrorCode |= HAL_QSPI_ERROR_DMA;
           hqspi->State = HAL_QSPI_STATE_READY;
@@ -1515,17 +1519,20 @@ HAL_StatusTypeDef HAL_QSPI_Receive_DMA(QSPI_HandleTypeDef *hqspi, uint8_t *pData
           /* Start the transfer by re-writing the address in AR register */
           WRITE_REG(hqspi->Instance->AR, addr_reg);
 
+        /* Enable the QSPI transfer error Interrupt */
+        __HAL_QSPI_ENABLE_IT(hqspi, QSPI_IT_TE);
+
+        /* Enable the DMA transfer by setting the DMAEN bit in the QSPI CR register */
+        SET_BIT(hqspi->Instance->CR, QUADSPI_CR_DMAEN);
+
           /* Process unlocked */
           __HAL_UNLOCK(hqspi);
-
-          /* Enable the QSPI transfer error Interrupt */
-          __HAL_QSPI_ENABLE_IT(hqspi, QSPI_IT_TE);
-
-          /* Enable the DMA transfer by setting the DMAEN bit in the QSPI CR register */
-          SET_BIT(hqspi->Instance->CR, QUADSPI_CR_DMAEN);
         }
         else
         {
+          /* Disable the DMA transfer by clearing the DMAEN bit in the QSPI CR register */
+          CLEAR_BIT(hqspi->Instance->CR, QUADSPI_CR_DMAEN);
+
           status = HAL_ERROR;
           hqspi->ErrorCode |= HAL_QSPI_ERROR_DMA;
           hqspi->State = HAL_QSPI_STATE_READY;
@@ -1776,7 +1783,7 @@ HAL_StatusTypeDef HAL_QSPI_MemoryMapped(QSPI_HandleTypeDef *hqspi, QSPI_CommandT
   assert_param(IS_QSPI_INSTRUCTION_MODE(cmd->InstructionMode));
   if (cmd->InstructionMode != QSPI_INSTRUCTION_NONE)
   {
-  assert_param(IS_QSPI_INSTRUCTION(cmd->Instruction));
+    assert_param(IS_QSPI_INSTRUCTION(cmd->Instruction));
   }
 
   assert_param(IS_QSPI_ADDRESS_MODE(cmd->AddressMode));
@@ -1816,9 +1823,9 @@ HAL_StatusTypeDef HAL_QSPI_MemoryMapped(QSPI_HandleTypeDef *hqspi, QSPI_CommandT
     if (status == HAL_OK)
     {
       /* Configure QSPI: CR register with timeout counter enable */
-    MODIFY_REG(hqspi->Instance->CR, QUADSPI_CR_TCEN, cfg->TimeOutActivation);
+      MODIFY_REG(hqspi->Instance->CR, QUADSPI_CR_TCEN, cfg->TimeOutActivation);
 
-    if (cfg->TimeOutActivation == QSPI_TIMEOUT_COUNTER_ENABLE)
+      if (cfg->TimeOutActivation == QSPI_TIMEOUT_COUNTER_ENABLE)
       {
         assert_param(IS_QSPI_TIMEOUT_PERIOD(cfg->TimeOutPeriod));
 
@@ -2724,6 +2731,9 @@ static void QSPI_Config(QSPI_HandleTypeDef *hqspi, QSPI_CommandTypeDef *cmd, uin
                                          cmd->AlternateBytesSize | cmd->AlternateByteMode |
                                          cmd->AddressMode | cmd->InstructionMode |
                                          cmd->Instruction | FunctionalMode));
+
+        /* Clear AR register */
+        CLEAR_REG(hqspi->Instance->AR);
       }
     }
     else
@@ -2751,6 +2761,9 @@ static void QSPI_Config(QSPI_HandleTypeDef *hqspi, QSPI_CommandTypeDef *cmd, uin
                                          cmd->DataMode | (cmd->DummyCycles << QUADSPI_CCR_DCYC_Pos) |
                                          cmd->AlternateByteMode | cmd->AddressMode |
                                          cmd->InstructionMode | cmd->Instruction | FunctionalMode));
+
+        /* Clear AR register */
+        CLEAR_REG(hqspi->Instance->AR);
       }
     }
   }
@@ -2785,6 +2798,9 @@ static void QSPI_Config(QSPI_HandleTypeDef *hqspi, QSPI_CommandTypeDef *cmd, uin
                                          cmd->DataMode | (cmd->DummyCycles << QUADSPI_CCR_DCYC_Pos) |
                                          cmd->AlternateBytesSize | cmd->AlternateByteMode |
                                          cmd->AddressMode | cmd->InstructionMode | FunctionalMode));
+
+        /* Clear AR register */
+        CLEAR_REG(hqspi->Instance->AR);
       }
     }
     else
@@ -2814,6 +2830,9 @@ static void QSPI_Config(QSPI_HandleTypeDef *hqspi, QSPI_CommandTypeDef *cmd, uin
                                            cmd->DataMode | (cmd->DummyCycles << QUADSPI_CCR_DCYC_Pos) |
                                            cmd->AlternateByteMode | cmd->AddressMode |
                                            cmd->InstructionMode | FunctionalMode));
+
+          /* Clear AR register */
+          CLEAR_REG(hqspi->Instance->AR);
         }
       }
     }

@@ -58,7 +58,7 @@
   *** Internal Timestamp configuration ***
   ===============================
   [..]
-    (+) To Enable the RTC internal Timestamp use the HAL_RTCEx_SetInternalTimeStamp()
+    (+) To enable the RTC internal Timestamp use the HAL_RTCEx_SetInternalTimeStamp()
         function.
     (+) To read the RTC Timestamp Time and Date register, use the HAL_RTCEx_GetTimeStamp()
         function.
@@ -66,7 +66,7 @@
   *** Tamper configuration ***
   ============================
   [..]
-    (+) To Enable the RTC Tamper and configure the Tamper filter count, trigger
+    (+) To enable the RTC Tamper and configure the Tamper filter count, trigger
         Edge or Level according to the Tamper filter value (if equal to 0 Edge
         else Level), sampling frequency, NoErase, MaskFlag, precharge or
         discharge and Pull-UP use the HAL_RTCEx_SetTamper() function.
@@ -98,9 +98,9 @@
         This cycle is maintained by a 20-bit counter clocked by RTCCLK.
     (+) The smooth calibration register (RTC_CALR) specifies the number of RTCCLK
         clock cycles to be masked during the 32-second cycle.
-    (+) The RTC Smooth Digital Calibration value and the corresponding calibration
-        cycle period (32s, 16s, or 8s) can be calibrated using the
-        HAL_RTCEx_SetSmoothCalib() function.
+    (+) To configure the RTC Smooth Digital Calibration value and the corresponding
+        calibration cycle period (32s,16s and 8s) use the HAL_RTCEx_SetSmoothCalib()
+        function.
 
   @endverbatim
   ******************************************************************************
@@ -277,7 +277,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetTimeStamp_IT(RTC_HandleTypeDef *hrtc, uint32_t RT
   /* Enable the write protection for RTC registers */
   __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
 
-  /* RTC Timestamp Interrupt Configuration: EXTI configuration */
+  /* Enable and configure the EXTI line associated to the RTC Timestamp and Tamper interrupts */
   __HAL_RTC_TAMPER_TIMESTAMP_EXTI_ENABLE_IT();
   __HAL_RTC_TAMPER_TIMESTAMP_EXTI_ENABLE_RISING_EDGE();
 
@@ -308,7 +308,7 @@ HAL_StatusTypeDef HAL_RTCEx_DeactivateTimeStamp(RTC_HandleTypeDef *hrtc)
   /* Disable the write protection for RTC registers */
   __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
 
-  /* In case of interrupt mode is used, the interrupt source must disabled */
+  /* In case interrupt mode is used, the interrupt source must disabled */
   __HAL_RTC_TIMESTAMP_DISABLE_IT(hrtc, RTC_IT_TS);
 
   /* Get the RTC_CR register and clear the bits to be configured */
@@ -344,6 +344,9 @@ HAL_StatusTypeDef HAL_RTCEx_SetInternalTimeStamp(RTC_HandleTypeDef *hrtc)
 
   /* Disable the write protection for RTC registers */
   __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
+
+  /* Clear the internal Timestamp flag */
+  __HAL_RTC_INTERNAL_TIMESTAMP_CLEAR_FLAG(hrtc, RTC_FLAG_ITSF);
 
   /* Configure the internal Timestamp Enable bits */
   __HAL_RTC_INTERNAL_TIMESTAMP_ENABLE(hrtc);
@@ -739,7 +742,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetTamper_IT(RTC_HandleTypeDef *hrtc, RTC_TamperType
   /* Copy desired configuration into configuration register */
   hrtc->Instance->TAMPCR = tmpreg;
 
-  /* RTC Tamper Interrupt Configuration: EXTI configuration */
+  /* Enable and configure the EXTI line associated to the RTC Timestamp and Tamper interrupts */
   __HAL_RTC_TAMPER_TIMESTAMP_EXTI_ENABLE_IT();
   __HAL_RTC_TAMPER_TIMESTAMP_EXTI_ENABLE_RISING_EDGE();
 
@@ -807,7 +810,7 @@ HAL_StatusTypeDef HAL_RTCEx_DeactivateTamper(RTC_HandleTypeDef *hrtc, uint32_t T
   */
 void HAL_RTCEx_TamperTimeStampIRQHandler(RTC_HandleTypeDef *hrtc)
 {
-  /* Clear the EXTI's Flag for RTC Timestamp and Tamper */
+  /* Clear the EXTI flag associated to the RTC Timestamp and Tamper interrupts */
   __HAL_RTC_TAMPER_TIMESTAMP_EXTI_CLEAR_FLAG();
 
   /* Get the Timestamp interrupt source enable status */
@@ -1295,7 +1298,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetWakeUpTimer_IT(RTC_HandleTypeDef *hrtc, uint32_t 
   /* Configure the Wakeup Timer counter */
   hrtc->Instance->WUTR = (uint32_t)WakeUpCounter;
 
-  /* RTC wakeup timer Interrupt Configuration: EXTI configuration */
+  /* Enable and configure the EXTI line associated to the RTC Wakeup Timer interrupt */
   __HAL_RTC_WAKEUPTIMER_EXTI_ENABLE_IT();
   __HAL_RTC_WAKEUPTIMER_EXTI_ENABLE_RISING_EDGE();
 
@@ -1337,7 +1340,7 @@ HAL_StatusTypeDef HAL_RTCEx_DeactivateWakeUpTimer(RTC_HandleTypeDef *hrtc)
   /* Disable the Wakeup Timer */
   __HAL_RTC_WAKEUPTIMER_DISABLE(hrtc);
 
-  /* In case of interrupt mode is used, the interrupt source must disabled */
+  /* In case interrupt mode is used, the interrupt source must disabled */
   __HAL_RTC_WAKEUPTIMER_DISABLE_IT(hrtc, RTC_IT_WUT);
 
   /* Get tick */
@@ -1396,7 +1399,7 @@ uint32_t HAL_RTCEx_GetWakeUpTimer(RTC_HandleTypeDef *hrtc)
   */
 void HAL_RTCEx_WakeUpTimerIRQHandler(RTC_HandleTypeDef *hrtc)
 {
-  /* Clear the EXTI's line Flag for RTC WakeUpTimer */
+  /* Clear the EXTI flag associated to the RTC Wakeup Timer interrupt */
   __HAL_RTC_WAKEUPTIMER_EXTI_CLEAR_FLAG();
 
   /* Get the pending status of the Wakeup timer Interrupt */
@@ -1513,7 +1516,7 @@ void HAL_RTCEx_BKUPWrite(RTC_HandleTypeDef *hrtc, uint32_t BackupRegister, uint3
   /* Check the parameters */
   assert_param(IS_RTC_BKP(BackupRegister));
 
-  tmp = (uint32_t) & (hrtc->Instance->BKP0R);
+  tmp = (uint32_t) &(hrtc->Instance->BKP0R);
   tmp += (BackupRegister * 4U);
 
   /* Write the specified register */
@@ -1536,7 +1539,7 @@ uint32_t HAL_RTCEx_BKUPRead(RTC_HandleTypeDef *hrtc, uint32_t BackupRegister)
   /* Check the parameters */
   assert_param(IS_RTC_BKP(BackupRegister));
 
-  tmp = (uint32_t) & (hrtc->Instance->BKP0R);
+  tmp = (uint32_t) &(hrtc->Instance->BKP0R);
   tmp += (BackupRegister * 4U);
 
   /* Read the specified register */
@@ -1900,7 +1903,7 @@ HAL_StatusTypeDef HAL_RTCEx_EnableBypassShadow(RTC_HandleTypeDef *hrtc)
   __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
 
   /* Set the BYPSHAD bit */
-  hrtc->Instance->CR |= (uint8_t)RTC_CR_BYPSHAD;
+  hrtc->Instance->CR |= (uint32_t)RTC_CR_BYPSHAD;
 
   /* Enable the write protection for RTC registers */
   __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
@@ -1933,7 +1936,7 @@ HAL_StatusTypeDef HAL_RTCEx_DisableBypassShadow(RTC_HandleTypeDef *hrtc)
   __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
 
   /* Reset the BYPSHAD bit */
-  hrtc->Instance->CR &= (uint8_t)~RTC_CR_BYPSHAD;
+  hrtc->Instance->CR &= (uint32_t)~RTC_CR_BYPSHAD;
 
   /* Enable the write protection for RTC registers */
   __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);

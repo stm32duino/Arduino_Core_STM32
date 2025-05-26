@@ -859,7 +859,7 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
   * @param  _CHANNELNB_ Channel number.
   * @retval None
   */
-#define ADC_SMPR2(_SAMPLETIME_, _CHANNELNB_) ((_SAMPLETIME_) << (3 * ((uint32_t)((uint16_t)(_CHANNELNB_)))))
+#define ADC_SMPR2(_SAMPLETIME_, _CHANNELNB_) ((_SAMPLETIME_) << ((3UL * ((uint32_t)((uint16_t)(_CHANNELNB_)))) & 0x1FUL))
 
 /**
   * @brief  Set the selected regular channel rank for rank between 1 and 6.

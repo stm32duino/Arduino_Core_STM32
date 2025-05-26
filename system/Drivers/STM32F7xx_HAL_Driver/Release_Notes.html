@@ -32,7 +32,91 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history"><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section18" Checked aria-hidden="true"> <label for="collapse-section18" aria-hidden="true"><strong>V1.3.1 / 10-May-2024</strong></label>
+<input type="checkbox" id="collapse-section19" Checked aria-hidden="true"> <label for="collapse-section19" aria-hidden="true"><strong>V1.3.2 / 25-April-2025</strong></label>
+<div>
+<p><strong>Main Changes</strong></p>
+<ul>
+<li>Enhance HAL code quality for MISRA-C 2012 Rule-8.13 by adding const qualifiers.</li>
+<li><strong>HAL RTC</strong>
+<ul>
+<li>Expand the cast of ‘RTC_CR_BYPSHAD’ to 32 bits when writing to the CR register in HAL_RTCEx_DisableBypassShadow() API to avoid overwriting its upper bits.</li>
+</ul></li>
+<li><strong>HAL HASH</strong>
+<ul>
+<li>Code quality enhancement : Fix MISRA-C 2012 Rule-10.7, Rule-10.6, Rule-10.4, Rule-11.5 and Rule-12.1.</li>
+</ul></li>
+<li><strong>HAL TIM</strong>
+<ul>
+<li>Update TIM_CCER_CCxE_MASK to support internal TIM Channel5 and TIM Channel6.</li>
+<li>Fix update flag (UIF) clearing in TIM_Base_SetConfig() function.</li>
+</ul></li>
+<li><strong>HAL I2C</strong>
+<ul>
+<li>Move variable tmp declaration at the beginning in I2C_TransferCofig() function.</li>
+<li>Remove extra parenthesis in c files for driver HAL I2C driver.</li>
+<li>Update HAL_I2C_IsDeviceReady() API to take into account the number of trials.</li>
+</ul></li>
+<li><strong>HAL SPI</strong>
+<ul>
+<li>Update HAL I2S driver to remove ‘go to’ instruction.</li>
+<li>Add note to clarify HAL_SPI_Receive() API behavior in master mode.</li>
+<li>Add units to physical measurements.</li>
+<li>Check data size before changing state in reception API.</li>
+<li>Fix INTEGER_OVERFLOW Coverity warning.</li>
+<li>Move a variable declaration before an executable instruction.</li>
+</ul></li>
+<li><strong>HAL SMBUS</strong>
+<ul>
+<li>Remove extra parenthesis in c files for driver HAL SMBUS.</li>
+</ul></li>
+<li><strong>HAL I2S</strong>
+<ul>
+<li>Update HAL I2S driver to remove ‘go to’ instruction.</li>
+</ul></li>
+<li><strong>HAL QSPI</strong>
+<ul>
+<li>Clear AR register after CCR to avoid new transfer when address is not needed.</li>
+</ul></li>
+<li><strong>HAL UART</strong>
+<ul>
+<li>Add HAL_UART_RXEVENT_IDLE event notification to user in case of HAL_UARTEx_ReceiveToIdle_DMA() API use with Circular DMA, even if occurring just after TC event.</li>
+<li>Correct DMA Rx abort procedure impact on ongoing Tx transfer in polling mode.</li>
+<li>Correct references to HAL_UARTEx_WakeupCallback() API and to HAL_UART_WAKEUP_CB_ID define, according to series capabilities.</li>
+<li>Provide accurate position in RxEventCallback() when ReceptionToIdle mode is used with DMA, when UART and DMA interrupts process is delayed.</li>
+</ul></li>
+<li><strong>HAL USART</strong>
+<ul>
+<li>Improve the visibility of the SPI feature support in HAL USART description.</li>
+</ul></li>
+<li><strong>HAL CAN</strong>
+<ul>
+<li>Fix UNUSED_VALUE coverity warning in HAL_CAN_ConfigFilter() API.</li>
+</ul></li>
+<li><strong>HAL ETH</strong>
+<ul>
+<li>Fix identical definitions of the ETH state code.</li>
+<li>Fix the calculation of the tail pointer so that it points to the last updated descriptor.</li>
+<li>Update the HAL_ETH_PTP_SetConfig() API to comply with the steps described in the reference manual guidelines.</li>
+</ul></li>
+<li><strong>HAL FMC</strong>
+<ul>
+<li>Change “deviceaddress” variable as volatile in HAL_NAND_Read_Page_8b(), HAL_NAND_Read_SpareArea_8b(), HAL_NAND_Read_Page_16b() and HAL_NAND_Read_SpareArea_16b() APIs to avoid compiler optimizations and ensure correct data reads .</li>
+</ul></li>
+<li><strong>HAL SDMMC</strong>
+<ul>
+<li>Update SDMMC_DATATIMEOUT definition used with two different clock situations.</li>
+<li>Remove Redundant Condition from HAL_SD_InitCard() API.</li>
+<li>Add a check condition before aborting DMA in HAL_MMC_IRQHandler() API.</li>
+</ul></li>
+<li><strong>HAL USB</strong>
+<ul>
+<li>hal_hcd.c: ensure to reactivate the usb channel in case of transfer error.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section18" aria-hidden="true"> <label for="collapse-section18" aria-hidden="true"><strong>V1.3.1 / 10-May-2024</strong></label>
 <div>
 <p><strong>Main Changes</strong></p>
 <ul>
