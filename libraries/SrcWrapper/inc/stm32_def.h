@@ -218,6 +218,11 @@ __STATIC_INLINE void LL_RTC_SetBinMixBCDU(RTC_TypeDef *RTCx, uint32_t BinMixBcdU
   #define GPIO_AF1_SPI1 STM_PIN_AFNUM_MASK
 #endif
 
+#if defined(STM32C0xx) && defined(USART3) && !defined(GPIO_AF7_USART3)
+  #define GPIO_AF7_USART3 ((uint8_t)0x07)
+#endif // STM32C0xx && !defined(USART3)
+
+
 /**
  * Libc porting layers
  */
