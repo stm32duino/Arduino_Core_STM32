@@ -51,7 +51,8 @@ typedef struct
   uint32_t DataType;                   /*!< 32-bit data, 16-bit data, 8-bit data or 1-bit string.
                                         This parameter can be a value of @ref CRYP_Data_Type */
   uint32_t KeySize;                    /*!< Used only in AES mode : 128, 192 or 256 bit key length in CRYP1.
-                                        128 or 256 bit key length in TinyAES This parameter can be a value of @ref CRYP_Key_Size */
+                                        128 or 256 bit key length in TinyAES This parameter can be a value of
+                                        @ref CRYP_Key_Size */
   uint32_t *pKey;                      /*!< The key used for encryption/decryption */
   uint32_t *pInitVect;                 /*!< The initialization vector used also as initialization
                                          counter in CTR mode */
@@ -402,8 +403,11 @@ typedef  void (*pCRYP_CallbackTypeDef)(CRYP_HandleTypeDef *hcryp);    /*!< point
   */
 #define CRYP_FLAG_MASK  0x0000001FU
 #if defined(CRYP)
-#define __HAL_CRYP_GET_FLAG(__HANDLE__, __FLAG__) ((((uint8_t)((__FLAG__) >> 24)) == 0x01U)?((((__HANDLE__)->Instance->RISR) & ((__FLAG__) & CRYP_FLAG_MASK)) == ((__FLAG__) & CRYP_FLAG_MASK)): \
-                                                   ((((__HANDLE__)->Instance->RISR) & ((__FLAG__) & CRYP_FLAG_MASK)) == ((__FLAG__) & CRYP_FLAG_MASK)))
+#define __HAL_CRYP_GET_FLAG(__HANDLE__, __FLAG__) ((((uint8_t)((__FLAG__) >> 24)) == 0x01U)? \
+                                                   ((((__HANDLE__)->Instance->RISR) & ((__FLAG__) \
+                                                       & CRYP_FLAG_MASK)) == ((__FLAG__) & CRYP_FLAG_MASK)): \
+                                                   ((((__HANDLE__)->Instance->RISR) & ((__FLAG__) & CRYP_FLAG_MASK))\
+                                                    == ((__FLAG__) & CRYP_FLAG_MASK)))
 #else /* AES*/
 #define __HAL_CRYP_GET_FLAG(__HANDLE__, __FLAG__) (((__HANDLE__)->Instance->SR & (__FLAG__)) == (__FLAG__))
 #endif /* End AES or CRYP */

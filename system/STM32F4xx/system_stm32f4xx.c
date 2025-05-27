@@ -22,13 +22,12 @@
   ******************************************************************************
   * @attention
   *
-* <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -87,7 +86,7 @@
 /* #define VECT_TAB_BASE_ADDRESS 0x08000000 */
 
 /*!< Uncomment the following line if you need to relocate your vector Table
-     in Sram else user remap will be done by default in Flash. */
+     in Sram else user remap will be done in Flash. */
 /* #define VECT_TAB_SRAM */
 
 #ifndef VECT_TAB_OFFSET
@@ -235,7 +234,7 @@ void SystemInit(void)
   */
 void SystemCoreClockUpdate(void)
 {
-  uint32_t tmp = 0, pllvco = 0, pllp = 2, pllsource = 0, pllm = 2;
+  uint32_t tmp, pllvco, pllp, pllsource, pllm;
 
   /* Get SYSCLK source -------------------------------------------------------*/
   tmp = RCC->CFGR & RCC_CFGR_SWS;
@@ -761,4 +760,3 @@ void SystemInit_ExtMemCtl(void)
 /**
   * @}
   */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
