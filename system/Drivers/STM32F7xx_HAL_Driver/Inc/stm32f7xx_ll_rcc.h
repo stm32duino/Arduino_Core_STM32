@@ -42,9 +42,9 @@ extern "C" {
   * @{
   */
 
-#if defined(RCC_DCKCFGR1_PLLSAIDIVR)
+#if defined(LTDC)
 static const uint8_t aRCC_PLLSAIDIVRPrescTable[4] = {2, 4, 8, 16};
-#endif /* RCC_DCKCFGR1_PLLSAIDIVR */
+#endif /* LTDC */
 
 /**
   * @}

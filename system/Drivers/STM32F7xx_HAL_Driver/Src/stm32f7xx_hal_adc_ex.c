@@ -586,6 +586,7 @@ uint32_t HAL_ADCEx_InjectedGetValue(ADC_HandleTypeDef* hadc, uint32_t InjectedRa
   */
 HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef* hadc, uint32_t* pData, uint32_t Length)
 {
+  HAL_StatusTypeDef tmp_hal_status = HAL_OK;
   __IO uint32_t counter = 0;
 
   /* Check the parameters */
@@ -677,7 +678,7 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef* hadc, uint32_t
     }
 
     /* Enable the DMA Stream */
-    HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&ADC->CDR, (uint32_t)pData, Length);
+    tmp_hal_status = HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&ADC->CDR, (uint32_t)pData, Length);
 
     /* if no external trigger present enable software conversion of regular channels */
     if((hadc->Instance->CR2 & ADC_CR2_EXTEN) == RESET)
@@ -696,7 +697,7 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef* hadc, uint32_t
   }
 
   /* Return function status */
-  return HAL_OK;
+  return tmp_hal_status;
 }
 
 /**

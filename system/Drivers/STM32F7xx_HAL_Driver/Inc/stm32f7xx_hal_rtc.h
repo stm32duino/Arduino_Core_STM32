@@ -262,7 +262,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
   * @{
   */
 #define RTC_OUTPUT_TYPE_OPENDRAIN      0x00000000U
-#define RTC_OUTPUT_TYPE_PUSHPULL       RTC_OR_ALARMTYPE
+#define RTC_OUTPUT_TYPE_PUSHPULL       RTC_OR_ALARMOUTTYPE
 /**
   * @}
   */
@@ -790,7 +790,7 @@ HAL_RTCStateTypeDef HAL_RTC_GetState(RTC_HandleTypeDef *hrtc);
 
 #define RTC_TIMEOUT_VALUE       1000U
 
-#define RTC_EXTI_LINE_ALARM_EVENT  EXTI_IMR_IM17  /*!< External interrupt line 17 Connected to the RTC Alarm event */
+#define RTC_EXTI_LINE_ALARM_EVENT  EXTI_IMR_IM17  /*!< External interrupt line 17 connected to the RTC Alarm event */
 /**
   * @}
   */
