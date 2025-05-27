@@ -799,12 +799,12 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef
       else
       {
         pktcnt = (uint16_t)((ep->xfer_len + ep->maxpacket - 1U) / ep->maxpacket);
-        USBx_INEP(epnum)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_PKTCNT & (pktcnt << 19));
+        USBx_INEP(epnum)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_PKTCNT & ((uint32_t)pktcnt << 19));
 
         if (ep->type == EP_TYPE_ISOC)
         {
           USBx_INEP(epnum)->DIEPTSIZ &= ~(USB_OTG_DIEPTSIZ_MULCNT);
-          USBx_INEP(epnum)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_MULCNT & (pktcnt << 29));
+          USBx_INEP(epnum)->DIEPTSIZ |= (USB_OTG_DIEPTSIZ_MULCNT & ((uint32_t)pktcnt << 29));
         }
       }
 
@@ -1335,8 +1335,8 @@ void  USB_ClearInterrupts(USB_OTG_GlobalTypeDef *USBx, uint32_t interrupt)
   * @param  USBx  Selected device
   * @retval return core mode : Host or Device
   *          This parameter can be one of these values:
-  *           0 : Host
-  *           1 : Device
+  *           1 : Host
+  *           0 : Device
   */
 uint32_t USB_GetMode(const USB_OTG_GlobalTypeDef *USBx)
 {
@@ -1418,8 +1418,15 @@ static HAL_StatusTypeDef USB_CoreReset(USB_OTG_GlobalTypeDef *USBx)
     }
   } while ((USBx->GRSTCTL & USB_OTG_GRSTCTL_AHBIDL) == 0U);
 
+  count = 10U;
+
+  /* few cycles before setting core reset */
+  while (count > 0U)
+  {
+    count--;
+  }
+
   /* Core Soft Reset */
-  count = 0U;
   USBx->GRSTCTL |= USB_OTG_GRSTCTL_CSRST;
 
   do
@@ -1637,13 +1644,13 @@ HAL_StatusTypeDef USB_DriveVbus(const USB_OTG_GlobalTypeDef *USBx, uint8_t state
 }
 
 /**
-  * @brief  Return Host Core speed
+  * @brief  Return Host Port speed
   * @param  USBx  Selected device
-  * @retval speed : Host speed
+  * @retval speed : Host port device speed
   *          This parameter can be one of these values:
-  *            @arg HCD_SPEED_HIGH: High speed mode
-  *            @arg HCD_SPEED_FULL: Full speed mode
-  *            @arg HCD_SPEED_LOW: Low speed mode
+  *            @arg HCD_DEVICE_SPEED_HIGH: High speed mode
+  *            @arg HCD_DEVICE_SPEED_FULL: Full speed mode
+  *            @arg HCD_DEVICE_SPEED_LOW: Low speed mode
   */
 uint32_t USB_GetHostSpeed(USB_OTG_GlobalTypeDef const *USBx)
 {

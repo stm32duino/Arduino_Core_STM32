@@ -98,7 +98,7 @@ typedef struct
 
   uint32_t *PacketAddress[ETH_TX_DESC_CNT];  /*<! Ethernet packet addresses array */
 
-  uint32_t *CurrentPacketAddress;           /*<! Current transmit NX_PACKET addresses */
+  uint32_t *CurrentPacketAddress;           /*<! Current transmit packet addresses */
 
   uint32_t BuffersInUse;                   /*<! Buffers in Use */
 
@@ -1193,8 +1193,8 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
   */
 #define HAL_ETH_STATE_RESET       0x00000000U    /*!< Peripheral not yet Initialized or disabled */
 #define HAL_ETH_STATE_READY       0x00000010U    /*!< Peripheral Communication started           */
-#define HAL_ETH_STATE_BUSY        0x00000023U    /*!< an internal process is ongoing             */
-#define HAL_ETH_STATE_STARTED     0x00000023U    /*!< an internal process is started             */
+#define HAL_ETH_STATE_BUSY        0x00000020U    /*!< an internal process is ongoing             */
+#define HAL_ETH_STATE_STARTED     0x00000040U    /*!< an internal process is started             */
 #define HAL_ETH_STATE_ERROR       0x000000E0U    /*!< Error State                                */
 /**
   * @}
@@ -1787,7 +1787,6 @@ TDES7 |                         Transmit Time Stamp High [31:0]                 
 #define __HAL_ETH_DMA_CLEAR_FLAG(__HANDLE__, __FLAG__)                   ((__HANDLE__)->Instance->DMASR = ( __FLAG__))
 
 
-
 /**
   * @brief  Checks whether the specified ETHERNET MAC flag is set or not.
   * @param  __HANDLE__: ETH Handle
@@ -1992,6 +1991,7 @@ uint32_t             HAL_ETH_GetError(const ETH_HandleTypeDef *heth);
 uint32_t             HAL_ETH_GetDMAError(const ETH_HandleTypeDef *heth);
 uint32_t             HAL_ETH_GetMACError(const ETH_HandleTypeDef *heth);
 uint32_t             HAL_ETH_GetMACWakeUpSource(const ETH_HandleTypeDef *heth);
+uint32_t             HAL_ETH_GetTxBuffersNumber(const ETH_HandleTypeDef *heth);
 /**
   * @}
   */

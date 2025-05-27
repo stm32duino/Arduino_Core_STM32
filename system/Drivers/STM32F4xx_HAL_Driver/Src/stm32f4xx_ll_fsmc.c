@@ -60,7 +60,7 @@
   * @{
   */
 #if defined(HAL_NOR_MODULE_ENABLED) || defined(HAL_NAND_MODULE_ENABLED) || defined(HAL_PCCARD_MODULE_ENABLED) \
- || defined(HAL_SRAM_MODULE_ENABLED)
+    || defined(HAL_SRAM_MODULE_ENABLED)
 
 /** @defgroup FSMC_LL  FSMC Low Layer
   * @brief FSMC driver modules
@@ -218,7 +218,7 @@
   * @retval HAL status
   */
 HAL_StatusTypeDef  FSMC_NORSRAM_Init(FSMC_NORSRAM_TypeDef *Device,
-                                    FSMC_NORSRAM_InitTypeDef *Init)
+                                     const FSMC_NORSRAM_InitTypeDef *Init)
 {
   uint32_t flashaccess;
   uint32_t btcr_reg;
@@ -243,7 +243,7 @@ HAL_StatusTypeDef  FSMC_NORSRAM_Init(FSMC_NORSRAM_TypeDef *Device,
   assert_param(IS_FSMC_WRITE_BURST(Init->WriteBurst));
 #if defined(FSMC_BCR1_CCLKEN)
   assert_param(IS_FSMC_CONTINOUS_CLOCK(Init->ContinuousClock));
-#endif
+#endif /* FSMC_BCR1_CCLKEN */
 #if defined(FSMC_BCR1_WFDIS)
   assert_param(IS_FSMC_WRITE_FIFO(Init->WriteFifo));
 #endif /* FSMC_BCR1_WFDIS */
@@ -305,7 +305,7 @@ HAL_StatusTypeDef  FSMC_NORSRAM_Init(FSMC_NORSRAM_TypeDef *Device,
 #endif /* FSMC_BCR1_WRAPMOD */
 #if defined(FSMC_BCR1_CCLKEN)
   mask |= FSMC_BCR1_CCLKEN;
-#endif
+#endif /* FSMC_BCR1_CCLKEN */
 #if defined(FSMC_BCR1_WFDIS)
   mask |= FSMC_BCR1_WFDIS;
 #endif /* FSMC_BCR1_WFDIS */
@@ -319,7 +319,7 @@ HAL_StatusTypeDef  FSMC_NORSRAM_Init(FSMC_NORSRAM_TypeDef *Device,
   {
     MODIFY_REG(Device->BTCR[FSMC_NORSRAM_BANK1], FSMC_BCR1_CCLKEN, Init->ContinuousClock);
   }
-#endif
+#endif /* FSMC_BCR1_CCLKEN */
 #if defined(FSMC_BCR1_WFDIS)
 
   if (Init->NSBank != FSMC_NORSRAM_BANK1)
@@ -340,7 +340,7 @@ HAL_StatusTypeDef  FSMC_NORSRAM_Init(FSMC_NORSRAM_TypeDef *Device,
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_NORSRAM_DeInit(FSMC_NORSRAM_TypeDef *Device,
-                                     FSMC_NORSRAM_EXTENDED_TypeDef *ExDevice, uint32_t Bank)
+                                      FSMC_NORSRAM_EXTENDED_TypeDef *ExDevice, uint32_t Bank)
 {
   /* Check the parameters */
   assert_param(IS_FSMC_NORSRAM_DEVICE(Device));
@@ -377,11 +377,11 @@ HAL_StatusTypeDef FSMC_NORSRAM_DeInit(FSMC_NORSRAM_TypeDef *Device,
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_NORSRAM_Timing_Init(FSMC_NORSRAM_TypeDef *Device,
-                                          FSMC_NORSRAM_TimingTypeDef *Timing, uint32_t Bank)
+                                           const FSMC_NORSRAM_TimingTypeDef *Timing, uint32_t Bank)
 {
 #if defined(FSMC_BCR1_CCLKEN)
   uint32_t tmpr;
-#endif
+#endif /* FSMC_BCR1_CCLKEN */
 
   /* Check the parameters */
   assert_param(IS_FSMC_NORSRAM_DEVICE(Device));
@@ -395,13 +395,14 @@ HAL_StatusTypeDef FSMC_NORSRAM_Timing_Init(FSMC_NORSRAM_TypeDef *Device,
   assert_param(IS_FSMC_NORSRAM_BANK(Bank));
 
   /* Set FSMC_NORSRAM device timing parameters */
-  MODIFY_REG(Device->BTCR[Bank + 1U], BTR_CLEAR_MASK, (Timing->AddressSetupTime                                  |
-                                                       ((Timing->AddressHoldTime)        << FSMC_BTR1_ADDHLD_Pos)  |
-                                                       ((Timing->DataSetupTime)          << FSMC_BTR1_DATAST_Pos)  |
-                                                       ((Timing->BusTurnAroundDuration)  << FSMC_BTR1_BUSTURN_Pos) |
-                                                       (((Timing->CLKDivision) - 1U)     << FSMC_BTR1_CLKDIV_Pos)  |
-                                                       (((Timing->DataLatency) - 2U)     << FSMC_BTR1_DATLAT_Pos)  |
-                                                       (Timing->AccessMode)));
+  Device->BTCR[Bank + 1U] =
+    (Timing->AddressSetupTime << FSMC_BTR1_ADDSET_Pos) |
+    (Timing->AddressHoldTime << FSMC_BTR1_ADDHLD_Pos) |
+    (Timing->DataSetupTime << FSMC_BTR1_DATAST_Pos) |
+    (Timing->BusTurnAroundDuration << FSMC_BTR1_BUSTURN_Pos) |
+    ((Timing->CLKDivision - 1U) << FSMC_BTR1_CLKDIV_Pos) |
+    ((Timing->DataLatency - 2U) << FSMC_BTR1_DATLAT_Pos) |
+    Timing->AccessMode;
 
 #if defined(FSMC_BCR1_CCLKEN)
   /* Configure Clock division value (in NORSRAM bank 1) when continuous clock is enabled */
@@ -412,7 +413,7 @@ HAL_StatusTypeDef FSMC_NORSRAM_Timing_Init(FSMC_NORSRAM_TypeDef *Device,
     MODIFY_REG(Device->BTCR[FSMC_NORSRAM_BANK1 + 1U], FSMC_BTR1_CLKDIV, tmpr);
   }
 
-#endif
+#endif /* FSMC_BCR1_CCLKEN */
   return HAL_OK;
 }
 
@@ -429,8 +430,8 @@ HAL_StatusTypeDef FSMC_NORSRAM_Timing_Init(FSMC_NORSRAM_TypeDef *Device,
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_NORSRAM_Extended_Timing_Init(FSMC_NORSRAM_EXTENDED_TypeDef *Device,
-                                                   FSMC_NORSRAM_TimingTypeDef *Timing, uint32_t Bank,
-                                                   uint32_t ExtendedMode)
+                                                    const FSMC_NORSRAM_TimingTypeDef *Timing, uint32_t Bank,
+                                                    uint32_t ExtendedMode)
 {
   /* Check the parameters */
   assert_param(IS_FSMC_EXTENDED_MODE(ExtendedMode));
@@ -576,7 +577,7 @@ HAL_StatusTypeDef FSMC_NORSRAM_WriteOperation_Disable(FSMC_NORSRAM_TypeDef *Devi
   * @param  Init Pointer to NAND Initialization structure
   * @retval HAL status
   */
-HAL_StatusTypeDef FSMC_NAND_Init(FSMC_NAND_TypeDef *Device, FSMC_NAND_InitTypeDef *Init)
+HAL_StatusTypeDef FSMC_NAND_Init(FSMC_NAND_TypeDef *Device, const FSMC_NAND_InitTypeDef *Init)
 {
   /* Check the parameters */
   assert_param(IS_FSMC_NAND_DEVICE(Device));
@@ -624,7 +625,7 @@ HAL_StatusTypeDef FSMC_NAND_Init(FSMC_NAND_TypeDef *Device, FSMC_NAND_InitTypeDe
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_NAND_CommonSpace_Timing_Init(FSMC_NAND_TypeDef *Device,
-                                                   FSMC_NAND_PCC_TimingTypeDef *Timing, uint32_t Bank)
+                                                    const FSMC_NAND_PCC_TimingTypeDef *Timing, uint32_t Bank)
 {
   /* Check the parameters */
   assert_param(IS_FSMC_NAND_DEVICE(Device));
@@ -638,18 +639,18 @@ HAL_StatusTypeDef FSMC_NAND_CommonSpace_Timing_Init(FSMC_NAND_TypeDef *Device,
   if (Bank == FSMC_NAND_BANK2)
   {
     /* NAND bank 2 registers configuration */
-    MODIFY_REG(Device->PMEM2, PMEM_CLEAR_MASK, (Timing->SetupTime                                             |
-                                                ((Timing->WaitSetupTime) << FSMC_PMEM2_MEMWAIT2_Pos) |
-                                                ((Timing->HoldSetupTime) << FSMC_PMEM2_MEMHOLD2_Pos) |
-                                                ((Timing->HiZSetupTime)  << FSMC_PMEM2_MEMHIZ2_Pos)));
+    WRITE_REG(Device->PMEM2, (Timing->SetupTime                                             |
+                              ((Timing->WaitSetupTime) << FSMC_PMEM2_MEMWAIT2_Pos) |
+                              ((Timing->HoldSetupTime) << FSMC_PMEM2_MEMHOLD2_Pos) |
+                              ((Timing->HiZSetupTime)  << FSMC_PMEM2_MEMHIZ2_Pos)));
   }
   else
   {
     /* NAND bank 3 registers configuration */
-    MODIFY_REG(Device->PMEM3, PMEM_CLEAR_MASK, (Timing->SetupTime                                             |
-                                                ((Timing->WaitSetupTime) << FSMC_PMEM2_MEMWAIT2_Pos) |
-                                                ((Timing->HoldSetupTime) << FSMC_PMEM2_MEMHOLD2_Pos) |
-                                                ((Timing->HiZSetupTime)  << FSMC_PMEM2_MEMHIZ2_Pos)));
+    WRITE_REG(Device->PMEM3, (Timing->SetupTime                                             |
+                              ((Timing->WaitSetupTime) << FSMC_PMEM2_MEMWAIT2_Pos) |
+                              ((Timing->HoldSetupTime) << FSMC_PMEM2_MEMHOLD2_Pos) |
+                              ((Timing->HiZSetupTime)  << FSMC_PMEM2_MEMHIZ2_Pos)));
   }
 
   return HAL_OK;
@@ -664,7 +665,7 @@ HAL_StatusTypeDef FSMC_NAND_CommonSpace_Timing_Init(FSMC_NAND_TypeDef *Device,
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_NAND_AttributeSpace_Timing_Init(FSMC_NAND_TypeDef *Device,
-                                                      FSMC_NAND_PCC_TimingTypeDef *Timing, uint32_t Bank)
+                                                       const FSMC_NAND_PCC_TimingTypeDef *Timing, uint32_t Bank)
 {
   /* Check the parameters */
   assert_param(IS_FSMC_NAND_DEVICE(Device));
@@ -678,18 +679,18 @@ HAL_StatusTypeDef FSMC_NAND_AttributeSpace_Timing_Init(FSMC_NAND_TypeDef *Device
   if (Bank == FSMC_NAND_BANK2)
   {
     /* NAND bank 2 registers configuration */
-    MODIFY_REG(Device->PATT2, PATT_CLEAR_MASK, (Timing->SetupTime                                             |
-                                                ((Timing->WaitSetupTime) << FSMC_PATT2_ATTWAIT2_Pos) |
-                                                ((Timing->HoldSetupTime) << FSMC_PATT2_ATTHOLD2_Pos) |
-                                                ((Timing->HiZSetupTime)  << FSMC_PATT2_ATTHIZ2_Pos)));
+    WRITE_REG(Device->PATT2, (Timing->SetupTime                                             |
+                              ((Timing->WaitSetupTime) << FSMC_PATT2_ATTWAIT2_Pos) |
+                              ((Timing->HoldSetupTime) << FSMC_PATT2_ATTHOLD2_Pos) |
+                              ((Timing->HiZSetupTime)  << FSMC_PATT2_ATTHIZ2_Pos)));
   }
   else
   {
     /* NAND bank 3 registers configuration */
-    MODIFY_REG(Device->PATT3, PATT_CLEAR_MASK, (Timing->SetupTime                                             |
-                                                ((Timing->WaitSetupTime) << FSMC_PATT2_ATTWAIT2_Pos) |
-                                                ((Timing->HoldSetupTime) << FSMC_PATT2_ATTHOLD2_Pos) |
-                                                ((Timing->HiZSetupTime)  << FSMC_PATT2_ATTHIZ2_Pos)));
+    WRITE_REG(Device->PATT3, (Timing->SetupTime                                             |
+                              ((Timing->WaitSetupTime) << FSMC_PATT2_ATTWAIT2_Pos) |
+                              ((Timing->HoldSetupTime) << FSMC_PATT2_ATTHOLD2_Pos) |
+                              ((Timing->HiZSetupTime)  << FSMC_PATT2_ATTHIZ2_Pos)));
   }
 
   return HAL_OK;
@@ -811,8 +812,8 @@ HAL_StatusTypeDef FSMC_NAND_ECC_Disable(FSMC_NAND_TypeDef *Device, uint32_t Bank
   * @param  Timeout Timeout wait value
   * @retval HAL status
   */
-HAL_StatusTypeDef FSMC_NAND_GetECC(FSMC_NAND_TypeDef *Device, uint32_t *ECCval, uint32_t Bank,
-                                  uint32_t Timeout)
+HAL_StatusTypeDef FSMC_NAND_GetECC(const FSMC_NAND_TypeDef *Device, uint32_t *ECCval, uint32_t Bank,
+                                   uint32_t Timeout)
 {
   uint32_t tickstart;
 
@@ -904,7 +905,7 @@ HAL_StatusTypeDef FSMC_NAND_GetECC(FSMC_NAND_TypeDef *Device, uint32_t *ECCval, 
   * @param  Init Pointer to PCCARD Initialization structure
   * @retval HAL status
   */
-HAL_StatusTypeDef FSMC_PCCARD_Init(FSMC_PCCARD_TypeDef *Device, FSMC_PCCARD_InitTypeDef *Init)
+HAL_StatusTypeDef FSMC_PCCARD_Init(FSMC_PCCARD_TypeDef *Device, const FSMC_PCCARD_InitTypeDef *Init)
 {
   /* Check the parameters */
   assert_param(IS_FSMC_PCCARD_DEVICE(Device));
@@ -938,7 +939,7 @@ HAL_StatusTypeDef FSMC_PCCARD_Init(FSMC_PCCARD_TypeDef *Device, FSMC_PCCARD_Init
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_PCCARD_CommonSpace_Timing_Init(FSMC_PCCARD_TypeDef *Device,
-                                                              FSMC_NAND_PCC_TimingTypeDef *Timing)
+                                                      const FSMC_NAND_PCC_TimingTypeDef *Timing)
 {
   /* Check the parameters */
   assert_param(IS_FSMC_PCCARD_DEVICE(Device));
@@ -950,11 +951,10 @@ HAL_StatusTypeDef FSMC_PCCARD_CommonSpace_Timing_Init(FSMC_PCCARD_TypeDef *Devic
 #endif /* FSMC_Bank2_3 */
 
   /* Set PCCARD timing parameters */
-  MODIFY_REG(Device->PMEM4, PMEM4_CLEAR_MASK,
-             (Timing->SetupTime                                              |
-              ((Timing->WaitSetupTime) << FSMC_PMEM4_MEMWAIT4_Pos)  |
-              ((Timing->HoldSetupTime) << FSMC_PMEM4_MEMHOLD4_Pos)  |
-              ((Timing->HiZSetupTime)  << FSMC_PMEM4_MEMHIZ4_Pos)));
+  WRITE_REG(Device->PMEM4, (Timing->SetupTime |
+                            ((Timing->WaitSetupTime) << FSMC_PMEM4_MEMWAIT4_Pos)  |
+                            ((Timing->HoldSetupTime) << FSMC_PMEM4_MEMHOLD4_Pos)  |
+                            ((Timing->HiZSetupTime)  << FSMC_PMEM4_MEMHIZ4_Pos)));
 
   return HAL_OK;
 }
@@ -967,7 +967,7 @@ HAL_StatusTypeDef FSMC_PCCARD_CommonSpace_Timing_Init(FSMC_PCCARD_TypeDef *Devic
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_PCCARD_AttributeSpace_Timing_Init(FSMC_PCCARD_TypeDef *Device,
-                                                                 FSMC_NAND_PCC_TimingTypeDef *Timing)
+                                                         const FSMC_NAND_PCC_TimingTypeDef *Timing)
 {
   /* Check the parameters */
   assert_param(IS_FSMC_PCCARD_DEVICE(Device));
@@ -979,11 +979,10 @@ HAL_StatusTypeDef FSMC_PCCARD_AttributeSpace_Timing_Init(FSMC_PCCARD_TypeDef *De
 #endif /* FSMC_Bank2_3 */
 
   /* Set PCCARD timing parameters */
-  MODIFY_REG(Device->PATT4, PATT4_CLEAR_MASK,
-             (Timing->SetupTime                                              |
-              ((Timing->WaitSetupTime) << FSMC_PATT4_ATTWAIT4_Pos)  |
-              ((Timing->HoldSetupTime) << FSMC_PATT4_ATTHOLD4_Pos)  |
-              ((Timing->HiZSetupTime)  << FSMC_PATT4_ATTHIZ4_Pos)));
+  WRITE_REG(Device->PATT4, (Timing->SetupTime                                                 |
+                            ((Timing->WaitSetupTime) << FSMC_PATT4_ATTWAIT4_Pos)  |
+                            ((Timing->HoldSetupTime) << FSMC_PATT4_ATTHOLD4_Pos)  |
+                            ((Timing->HiZSetupTime)  << FSMC_PATT4_ATTHIZ4_Pos)));
 
   return HAL_OK;
 }
@@ -996,7 +995,7 @@ HAL_StatusTypeDef FSMC_PCCARD_AttributeSpace_Timing_Init(FSMC_PCCARD_TypeDef *De
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_PCCARD_IOSpace_Timing_Init(FSMC_PCCARD_TypeDef *Device,
-                                                          FSMC_NAND_PCC_TimingTypeDef *Timing)
+                                                  const FSMC_NAND_PCC_TimingTypeDef *Timing)
 {
   /* Check the parameters */
   assert_param(IS_FSMC_PCCARD_DEVICE(Device));
@@ -1008,11 +1007,10 @@ HAL_StatusTypeDef FSMC_PCCARD_IOSpace_Timing_Init(FSMC_PCCARD_TypeDef *Device,
 #endif /* FSMC_Bank2_3 */
 
   /* Set FSMC_PCCARD device timing parameters */
-  MODIFY_REG(Device->PIO4, PIO4_CLEAR_MASK,
-             (Timing->SetupTime                                           |
-              (Timing->WaitSetupTime   << FSMC_PIO4_IOWAIT4_Pos) |
-              (Timing->HoldSetupTime   << FSMC_PIO4_IOHOLD4_Pos) |
-              (Timing->HiZSetupTime    << FSMC_PIO4_IOHIZ4_Pos)));
+  WRITE_REG(Device->PIO4, (Timing->SetupTime |
+                           (Timing->WaitSetupTime << FSMC_PIO4_IOWAIT4_Pos) |
+                           (Timing->HoldSetupTime << FSMC_PIO4_IOHOLD4_Pos) |
+                           (Timing->HiZSetupTime  << FSMC_PIO4_IOHIZ4_Pos)));
 
   return HAL_OK;
 }

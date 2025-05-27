@@ -72,7 +72,7 @@ typedef enum
 typedef struct __PCCARD_HandleTypeDef
 #else
 typedef struct
-#endif /* USE_HAL_PCCARD_REGISTER_CALLBACKS  */
+#endif /* USE_HAL_PCCARD_REGISTER_CALLBACKS */
 {
   FMC_PCCARD_TypeDef           *Instance;              /*!< Register base address for PCCARD device          */
 
@@ -86,7 +86,7 @@ typedef struct
   void (* MspInitCallback)(struct __PCCARD_HandleTypeDef *hpccard);               /*!< PCCARD Msp Init callback              */
   void (* MspDeInitCallback)(struct __PCCARD_HandleTypeDef *hpccard);             /*!< PCCARD Msp DeInit callback            */
   void (* ItCallback)(struct __PCCARD_HandleTypeDef *hpccard);                    /*!< PCCARD IT callback                    */
-#endif
+#endif /* USE_HAL_PCCARD_REGISTER_CALLBACKS */
 } PCCARD_HandleTypeDef;
 
 #if (USE_HAL_PCCARD_REGISTER_CALLBACKS == 1)
@@ -104,7 +104,7 @@ typedef enum
   * @brief  HAL PCCARD Callback pointer definition
   */
 typedef void (*pPCCARD_CallbackTypeDef)(PCCARD_HandleTypeDef *hpccard);
-#endif
+#endif /* USE_HAL_PCCARD_REGISTER_CALLBACKS */
 /**
   * @}
   */
@@ -126,7 +126,7 @@ typedef void (*pPCCARD_CallbackTypeDef)(PCCARD_HandleTypeDef *hpccard);
                                                              } while(0)
 #else
 #define __HAL_PCCARD_RESET_HANDLE_STATE(__HANDLE__) ((__HANDLE__)->State = HAL_PCCARD_STATE_RESET)
-#endif
+#endif /* USE_HAL_PCCARD_REGISTER_CALLBACKS */
 /**
   * @}
   */
@@ -141,7 +141,8 @@ typedef void (*pPCCARD_CallbackTypeDef)(PCCARD_HandleTypeDef *hpccard);
   */
 /* Initialization/de-initialization functions  **********************************/
 HAL_StatusTypeDef  HAL_PCCARD_Init(PCCARD_HandleTypeDef *hpccard, FMC_NAND_PCC_TimingTypeDef *ComSpaceTiming,
-                                   FMC_NAND_PCC_TimingTypeDef *AttSpaceTiming, FMC_NAND_PCC_TimingTypeDef *IOSpaceTiming);
+                                   FMC_NAND_PCC_TimingTypeDef *AttSpaceTiming,
+                                   FMC_NAND_PCC_TimingTypeDef *IOSpaceTiming);
 HAL_StatusTypeDef  HAL_PCCARD_DeInit(PCCARD_HandleTypeDef *hpccard);
 void HAL_PCCARD_MspInit(PCCARD_HandleTypeDef *hpccard);
 void HAL_PCCARD_MspDeInit(PCCARD_HandleTypeDef *hpccard);
@@ -169,7 +170,7 @@ HAL_StatusTypeDef  HAL_PCCARD_RegisterCallback(PCCARD_HandleTypeDef *hpccard, HA
                                                pPCCARD_CallbackTypeDef pCallback);
 HAL_StatusTypeDef  HAL_PCCARD_UnRegisterCallback(PCCARD_HandleTypeDef *hpccard,
                                                  HAL_PCCARD_CallbackIDTypeDef CallbackId);
-#endif
+#endif /* USE_HAL_PCCARD_REGISTER_CALLBACKS */
 /**
   * @}
   */
