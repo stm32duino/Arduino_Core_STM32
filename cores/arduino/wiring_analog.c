@@ -29,10 +29,12 @@ extern "C" {
 uint32_t g_anOutputPinConfigured[MAX_NB_PORT] = {0};
 #endif
 
-#if !defined(ADC_RESOLUTION_16B)
-#define MAX_ADC_RESOLUTION 12
-#else
+#if defined(ADC_RESOLUTION_16B)
 #define MAX_ADC_RESOLUTION 16
+#elif defined(ADC_RESOLUTION_14B)
+#define MAX_ADC_RESOLUTION 14
+#else
+#define MAX_ADC_RESOLUTION 12
 #endif
 #define MAX_PWM_RESOLUTION 16
 
