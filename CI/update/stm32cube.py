@@ -33,6 +33,7 @@ repo_core_name = "Arduino_Core_STM32"
 repo_ble_name = "STM32duinoBLE"
 repo_local_path = home / "STM32Cube_repo"
 local_cube_path = Path("")
+core_path = script_path.parent.parent.resolve()
 
 # From
 # Relative to repo path
@@ -93,7 +94,7 @@ def checkConfig():
     global md_HAL_path
     global md_CMSIS_path
     global stm32_def
-
+    global core_path
     config_file_path = script_path / "update_config.json"
     if config_file_path.is_file():
         try:
@@ -105,19 +106,14 @@ def checkConfig():
                 defaultConfig(config_file_path, path_config)
             else:
                 repo_local_path = Path(path_config["REPO_LOCAL_PATH"])
-            hal_dest_path = repo_local_path / repo_core_name / hal_dest_path
+            if not upargs.local:
+                core_path = repo_local_path / repo_core_name
+            hal_dest_path = core_path / hal_dest_path
             md_HAL_path = hal_dest_path / md_HAL_path
-            cmsis_dest_path = repo_local_path / repo_core_name / cmsis_dest_path
-            system_dest_path = repo_local_path / repo_core_name / system_dest_path
+            cmsis_dest_path = core_path / cmsis_dest_path
+            system_dest_path = core_path / system_dest_path
             md_CMSIS_path = cmsis_dest_path / md_CMSIS_path
-            stm32_def = (
-                repo_local_path
-                / repo_core_name
-                / "libraries"
-                / "SrcWrapper"
-                / "inc"
-                / stm32_def
-            )
+            stm32_def = core_path / "libraries" / "SrcWrapper" / "inc" / stm32_def
         except IOError:
             print(f"Failed to open {config_file}!")
     else:
@@ -229,18 +225,16 @@ def createSystemFiles(serie):
 
 
 def updateCoreRepo():
-    # Handle core repo
-    repo_path = repo_local_path / repo_core_name
     print(f"Updating {repo_core_name}...")
-    if repo_path.exists():
-        rname, bname = getRepoBranchName(repo_path)
+    if core_path.exists():
+        rname, bname = getRepoBranchName(core_path)
         # Get new tags from the remote
         git_cmds = [
-            ["git", "-C", repo_path, "fetch"],
+            ["git", "-C", core_path, "fetch"],
             [
                 "git",
                 "-C",
-                repo_path,
+                core_path,
                 "checkout",
                 "-B",
                 bname,
@@ -254,11 +248,30 @@ def updateCoreRepo():
         execute_cmd(cmd, None)
 
 
+def checkCoreRepo():
+    # Check if the core repo exists
+    if not core_path.exists():
+        print(f"Could not find core repo: {core_path}!")
+        exit(1)
+    # Check if the core repo is a git repository
+    if not (core_path / ".git").exists():
+        print(f"{core_path} is not a git repository!")
+        exit(1)
+    # Check if the core repo has no uncommitted changes
+    print(f"Checking {repo_core_name}...")
+    status = execute_cmd(["git", "-C", core_path, "status"], None)
+    if "working tree clean" not in status:
+        print(f"{repo_core_name} has modified or new files!")
+        exit(1)
+    status = execute_cmd(["git", "-C", core_path, "rev-parse", "--abbrev-ref", "HEAD"], None)
+    print(f"Current branch: {status.strip()}")
+
+
 def checkSTLocal():
     global local_cube_path
     global stm32_list
     # Handle local STM32Cube
-    local_cube_path = Path(upargs.local)
+    local_cube_path = Path(upargs.path).resolve()
     if not local_cube_path.exists():
         print(f"Could not find local copy: {local_cube_path}!")
         exit(1)
@@ -761,7 +774,7 @@ def updateBleReadme(filepath, version):
 
 
 def updateBleLibrary():
-    if upargs.local:
+    if upargs.path:
         cube_path = local_cube_path
     else:
         cube_name = f"{repo_generic_name}WB"
@@ -805,14 +818,13 @@ def updateBle():
 
 def updateOpenAmp():
     print("Updating OpenAmp Middleware")
-    repo_path = repo_local_path / repo_core_name
-    if upargs.local:
+    if upargs.path:
         cube_path = local_cube_path
     else:
         cube_name = f"{repo_generic_name}MP1"
         cube_path = repo_local_path / cube_name
     OpenAmp_cube_path = cube_path / "Middlewares" / "Third_Party" / "OpenAMP"
-    OpenAmp_core_path = repo_path / "system" / "Middlewares" / "OpenAMP"
+    OpenAmp_core_path = core_path / "system" / "Middlewares" / "OpenAMP"
 
     # First delete old HAL version
     deleteFolder(OpenAmp_core_path)
@@ -823,12 +835,11 @@ def updateOpenAmp():
 
 def updateCore():
     for serie in stm32_list:
-        if upargs.local:
+        if upargs.path:
             cube_path = local_cube_path
         else:
             cube_name = f"{repo_generic_name}{serie}"
             cube_path = repo_local_path / cube_name
-        core_path = repo_local_path / repo_core_name
         core_HAL_ver = core_HAL_versions[serie]
         cube_HAL_ver = cube_HAL_versions[serie]
         core_CMSIS_ver = core_CMSIS_versions[serie]
@@ -973,10 +984,16 @@ upparser.add_argument(
     "-c", "--check", help="Check versions. Default all.", action="store_true"
 )
 upparser.add_argument(
+    "-p",
+    "--path",
+    metavar="local cube",
+    help="Path to a STM32cube directory to use instead of GitHub one.",
+)
+upparser.add_argument(
     "-l",
     "--local",
-    metavar="local",
-    help="Use local copy of one STM32cube instead of GitHub",
+    action="store_true",
+    help="Do the update in the current STM32 core repo instead of a copy.",
 )
 group = upparser.add_mutually_exclusive_group()
 group.add_argument(
@@ -994,15 +1011,18 @@ def main():
     global stm32_list
     # check config have to be done first
     checkConfig()
-    updateCoreRepo()
     stm32_list = genSTM32List(hal_dest_path, upargs.serie)
+    if not upargs.local:
+        updateCoreRepo()
+    else:
+        checkCoreRepo()
     if upargs.add:
         if upargs.add.upper() not in stm32_list:
             stm32_list = [upargs.add.upper()]
         else:
             print(f"{upargs.add} can't be added as it already exists!")
             exit(1)
-    if upargs.local:
+    if upargs.path:
         checkSTLocal()
     else:
         updateSTRepo()
