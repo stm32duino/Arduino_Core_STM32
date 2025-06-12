@@ -59,6 +59,7 @@ md_HAL_path = "STM32YYxx_HAL_Driver_version.md"
 hal_skip_pattern = {"*.chm"}
 cmsis_skip_pattern = {"iar", "arm"}
 common_skip_pattern = {
+    ".git",
     ".github",
     "CODE_OF_CONDUCT.md",
     "CONTRIBUTING.md",
