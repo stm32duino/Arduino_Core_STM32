@@ -249,6 +249,7 @@ def updateCoreRepo():
         git_cmds = [["git", "-C", repo_local_path, "clone", gh_core]]
     for cmd in git_cmds:
         execute_cmd(cmd, None)
+    createBranch()
 
 
 def checkCoreRepo():
@@ -268,6 +269,35 @@ def checkCoreRepo():
         exit(1)
     status = execute_cmd(["git", "-C", core_path, "rev-parse", "--abbrev-ref", "HEAD"], None)
     print(f"Current branch: {status.strip()}")
+    createBranch()
+
+
+def createBranch():
+    # Create a new branch for the update
+    if upargs.serie:
+        bname = f"stm32cube{upargs.serie}_update"
+    elif upargs.add:
+        bname = f"stm32cube{upargs.add}_addition"
+    else:
+        bname = "stm32cube_update"
+    # Check if the branch already exists
+    bname_list = [bn[2:] for bn in execute_cmd(["git", "-C", core_path, "branch", "--list"], None).splitlines()]
+    if (
+        bname
+        in bname_list
+    ):
+        print(f"Branch {bname} already exists, ...")
+        execute_cmd(["git", "-C", core_path, "checkout", bname], None)
+    else:
+        print(f"Creating branch {bname}...")
+        execute_cmd(["git", "-C", core_path, "checkout", "-b", bname], None)
+        # Check if the branch was created successfully
+        status = execute_cmd(
+            ["git", "-C", core_path, "rev-parse", "--abbrev-ref", "HEAD"], None
+        )
+        if status.strip() != bname:
+            print(f"Failed to create branch {bname}!")
+            exit(1)
 
 
 def checkSTLocal():
