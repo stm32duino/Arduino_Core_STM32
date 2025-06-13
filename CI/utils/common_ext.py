@@ -3,15 +3,15 @@ import re
 import subprocess
 import shutil
 import sys
+from collections import OrderedDict
 from pathlib import Path
 
 
 # Add default key/value pair to config file
 def defaultConfig(config_file_path: Path, data: dict):
     print(f"Please check the default configuration '{config_file_path}'.")
-    config_file = open(config_file_path, "w")
-    config_file.write(json.dumps(data, indent=2))
-    config_file.close()
+    with open(config_file_path, "w") as config_file:
+        config_file.write(json.dumps(data, indent=2))
     exit(1)
 
 
@@ -30,7 +30,9 @@ def deleteFolder(path: Path):
 
 
 # copy src folder recursively to dest
-def copyFolder(src, dest, ign_patt=set()):
+def copyFolder(src, dest, ign_patt=None):
+    if ign_patt is None:
+        ign_patt = set()
     try:
         if src.is_dir():
             shutil.copytree(src, dest, ignore=shutil.ignore_patterns(*ign_patt))
@@ -47,22 +49,31 @@ def copyFile(src: Path, dest: Path):
         print(f"Error: File {src} not copied. {e}")
 
 
-# get list of STM32 series from HAL driver directory
-def genSTM32List(path: Path, pattern: str = None):
-    stm32_list = []  # series
-    dir_pattern = re.compile(r"^STM32(.*)xx_HAL_Driver$", re.IGNORECASE)
-
-    if pattern is not None:
-        serie_pattern = re.compile(pattern, re.IGNORECASE)
-    else:
-        serie_pattern = re.compile(".*", re.IGNORECASE)
+# Get dict of STM32 series from HAL driver directory
+def genSTM32Dict(path: Path, pattern: str = None):
+    stm32_dict = OrderedDict()  # series: nx
+    dir_pattern = re.compile(r"^STM32([^x]+)xx?_HAL_Driver$", re.IGNORECASE)
 
     for file in path.iterdir():
-        res = dir_pattern.match(file.name)
-        if res and serie_pattern.search(res.group(1)):
-            stm32_list.append(res.group(1))
-    stm32_list.sort()
-    return stm32_list
+        if file.is_dir():
+            if not any(file.iterdir()):
+                file.rmdir()  # remove empty directories
+                continue
+            res = dir_pattern.match(file.name)
+            if res:
+                if pattern is not None and res.group(1) != pattern.upper():
+                    continue
+                if "xx" in file.name:
+                    nx = "xx"
+                elif "x" in file.name:
+                    nx = "x"
+                else:
+                    # Error: no x or xx in series name
+                    print(f"Error: No x or xx in series name {file.name}")
+                    exit(1)
+                stm32_dict[res.group(1)] = nx
+    # stm32_list.sort()
+    return stm32_dict
 
 
 def execute_cmd(cmd: list, stderror: int):

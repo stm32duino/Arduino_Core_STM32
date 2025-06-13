@@ -19,10 +19,11 @@ from utils import (
     deleteFolder,
     execute_cmd,
     getRepoBranchName,
-    genSTM32List,
+    genSTM32Dict,
 )
 
 stm32_list = []  # series
+stm32_dict = OrderedDict()  # key: serie, value: nx
 ignored_stm32_list = []  # series
 aggregate_serie_list = []  # series
 mcu_list = []  # 'name'
@@ -1280,9 +1281,9 @@ def print_pinamevar():
         pwr_header_file_path = (
             system_path
             / "Drivers"
-            / f"{mcu_family}xx_HAL_Driver"
+            / f"{mcu_family}{nx}_HAL_Driver"
             / "Inc"
-            / f"stm32{mcu_family.replace('STM32', '').lower()}xx_hal_pwr.h"
+            / f"stm32{mcu_family.replace('STM32', '').lower()}{nx}_hal_pwr.h"
         )
         if not (pwr_header_file_path).exists():
             print(f"Error: {pwr_header_file_path} not found!")
@@ -1641,6 +1642,8 @@ def search_product_line(valueline: str, extra: str) -> str:
         for idx_pline, pline in enumerate(product_line_list):
             vline = valueline
             product_line = pline
+            if vline.startswith("STM32WB0"):
+                pline = pline + "xx"
             # Remove the 'x' character from pline and
             # the one at same index in the vline
             while 1:
@@ -2234,9 +2237,7 @@ def merge_dir(out_temp_path, group_mcu_dir, mcu_family, periph_xml, variant_exp)
     if len(group_mcu_dir) != 1:
         # Handle mcu name length dynamically
         # Add 3 for extra information line, #pin and flash
-        index_mcu_base = (
-            len(mcu_family.name.removeprefix("STM32").removesuffix("xx")) + 3
-        )
+        index_mcu_base = len(mcu_family.name.removeprefix("STM32").removesuffix(nx)) + 3
 
         # Extract only dir name
         for dir_name in group_mcu_dir:
@@ -2356,7 +2357,7 @@ def aggregate_dir():
 
     # Compare per family
     for mcu_family_name in aggregate_serie_list:
-        mcu_family = out_temp_path / f"{mcu_family_name}xx"
+        mcu_family = out_temp_path / f"{mcu_family_name}{nx}"
         out_family_path = root_dir / "variants" / mcu_family.name
         # Get all mcu_dir
         mcu_dirs = sorted(mcu_family.glob("*/"))
@@ -2615,7 +2616,7 @@ gh_url = "https://github.com/STMicroelectronics/STM32_open_pin_data"
 repo_name = gh_url.rsplit("/", 1)[-1]
 repo_path = repo_local_path / repo_name
 db_release = "Unknown"
-
+nx = "xx"
 checkConfig()
 
 # By default, generate for all mcu xml files description
@@ -2734,8 +2735,9 @@ if args.list:
     for f in mcu_list:
         print(f.name)
     quit()
+stm32_dict = genSTM32Dict(system_path / "Drivers")
+stm32_list = sorted([f"STM32{stm32}" for stm32 in stm32_dict.keys()])
 
-stm32_list = [f"STM32{stm32}" for stm32 in genSTM32List(system_path / "Drivers")]
 if not stm32_list:
     print(f"No STM32 series found in {system_path}/Drivers")
     quit()
@@ -2761,6 +2763,7 @@ for mcu_file in mcu_list:
     # Add mcu family to the list of directory to aggregate
     if mcu_family not in aggregate_serie_list:
         aggregate_serie_list.append(mcu_family)
+    nx = stm32_dict[mcu_family.removeprefix("STM32")]
 
     print(f"Generating files for '{mcu_file.name}'...")
     if not gpiofile:
@@ -2768,7 +2771,7 @@ for mcu_file in mcu_list:
         quit()
     xml_gpio = parse(str(dirIP / f"GPIO-{gpiofile}_Modes.xml"))
 
-    mcu_family_dir = mcu_family + "xx"
+    mcu_family_dir = f"{mcu_family}{nx}"
     out_temp_path = tmp_dir / mcu_family_dir / mcu_file.stem.replace("STM32", "")
     periph_c_filepath = out_temp_path / periph_c_filename
     pinvar_h_filepath = out_temp_path / pinvar_h_filename
@@ -2816,7 +2819,7 @@ print("Aggregating all generated files...")
 periperalpins_regex = re.compile(r"\S+\.xml")
 variant_regex = re.compile(r"defined\(ARDUINO_GENERIC_[^\s&|]*\)")
 update_regex = re.compile(r"defined\(ARDUINO_GENERIC_.+\)")
-board_entry_regex = re.compile(r"(Gen.+\..+variant=STM32.+xx/)\S+")
+board_entry_regex = re.compile(r"(Gen.+\..+variant=STM32[^x]+xx?/)\S+")
 #                              P     T      E
 mcu_PE_regex = re.compile(r"([\w])([\w])([AGNPQSXZ])?$")
 aggregate_dir()
