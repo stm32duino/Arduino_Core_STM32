@@ -27,14 +27,20 @@
     {% set outer_loop = loop %}
     {% if syswkup_list %}
       {% for syswkup in syswkup_list %}
+        {% if syswkup_type == "PINNAME" %}
+#ifdef PWR_WAKEUP_{{syswkup[0].replace("_", "")}}
+        {% else %}
 #ifdef PWR_WAKEUP_{{syswkup_type}}{{outer_loop.index}}
+        {% endif %}
   SYS_WKUP{{outer_loop.index}}{{"_{}".format(loop.index - 1) if loop.index > 1}} = {{syswkup[0]}},{{syswkup[1]}}
 #endif
       {% endfor %}
     {% else %}
+      {% if syswkup_type != "PINNAME" %}
 #ifdef PWR_WAKEUP_{{syswkup_type}}{{loop.index}}
   SYS_WKUP{{loop.index}} = NC,
 #endif
+      {% endif %}
     {% endif %}
   {% endfor %}
 {% else %}

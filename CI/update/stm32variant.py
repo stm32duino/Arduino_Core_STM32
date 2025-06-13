@@ -1248,21 +1248,21 @@ def print_peripheral():
 # PinNamesVar.h generation
 def manage_syswkup():
     if len(syswkup_list) != 0:
-        # Find the max range of SYS_WKUP to ensure it doesn't exceed
-        # the current maximum range of SYS_WKUP used by STM32LowPower
+        # Find the max range of SYS_WKUP.
+        # Ensure it is compatible with the current maximum range
+        # used by STM32LowPower.
         max_range = syswkup_list[-1][2].replace("SYS_WKUP", "")
-        max_range = int(max_range) if max_range else 1
+        max_range = int(max_range) if max_range else 8
         # F446 start from 0
         base_index = 1
         if syswkup_list[0][2].replace("SYS_WKUP", "") == "0":
             base_index = 0
             max_range += 1
-        if max_range > 8:
-            print(
-                f"Error: SYS_WKUP range exceeds the current maximum range of 8 --> {max_range}."
-            )
-            exit(1)
-        syswkup_pins_list = [[] for _ in range(8)]
+        # Ensure the max_range is at least 8
+        # as some mcu PWR_WAKEUP_PINx while not SYS_WKUPx
+        if max_range < 8:
+            max_range = 8
+        syswkup_pins_list = [[] for _ in range(max_range)]
         for p in syswkup_list:
             num = p[2].replace("SYS_WKUP", "")
             num = int(num) if num else 1
@@ -1280,6 +1280,8 @@ def manage_syswkup():
 def print_pinamevar():
     # First check core version and search PWR_WAKEUP_*
     syswkup_type = "PIN"
+    if "STM32WB0" in mcu_family:
+        syswkup_type = "PINNAME"
     if mcu_core[0][1] == 33:
         # Search in stm32{series}xx_hal_pwr.h WR_WAKEUP_
         pwr_header_file_path = (
