@@ -139,9 +139,15 @@ in voltage and temperature.*/
 /**
   * @brief This is the HAL system configuration section
   */
+#if !defined  (VDD_VALUE)
 #define  VDD_VALUE                    (3300UL) /*!< Value of VDD in mv */
+#endif /* VDD_VALUE */
+#if !defined  (TICK_INT_PRIORITY)
 #define  TICK_INT_PRIORITY            ((1UL<<__NVIC_PRIO_BITS) - 1UL) /*!< tick interrupt priority (lowest by default) */
+#endif /* TICK_INT_PRIORITY */
+#if !defined  (USE_RTOS)
 #define  USE_RTOS                     0U
+#endif /* USE_RTOS */
 
 /* ########################## Assert Selection ############################## */
 /**
@@ -156,8 +162,9 @@ in voltage and temperature.*/
  * Activated: CRC code is present inside driver
  * Deactivated: CRC code cleaned from driver
  */
-
+#if !defined (USE_SPI_CRC)
 #define USE_SPI_CRC                   1U
+#endif /* USE_SPI_CRC */
 
 /* ################ HSE Capacitor tuning configuration ###################### */
 /**
