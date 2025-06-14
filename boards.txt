@@ -920,6 +920,9 @@ Nucleo_64.menu.pnum.NUCLEO_WB09KE.build.variant=STM32WB0x/WB05KZV_WB05TZF_WB09KE
 Nucleo_64.menu.pnum.NUCLEO_WB09KE.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
 Nucleo_64.menu.pnum.NUCLEO_WB09KE.openocd.target=stm32wb0x
 Nucleo_64.menu.pnum.NUCLEO_WB09KE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WB0x/STM32WB09.svd
+Nucleo_64.menu.pnum.NUCLEO_WB09KE.upload.address=0x10040000
+Nucleo_64.menu.pnum.NUCLEO_WB09KE.upload.mode=hwRstPulse
+Nucleo_64.menu.pnum.NUCLEO_WB09KE.upload.start=0x10000000
 
 # NUCLEO_WB15CC
 Nucleo_64.menu.pnum.NUCLEO_WB15CC=Nucleo WB15CC
@@ -1002,7 +1005,7 @@ Nucleo_64.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
 Nucleo_64.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Nucleo_64.menu.upload_method.swdMethod.upload.protocol=swd
-Nucleo_64.menu.upload_method.swdMethod.upload.options=
+Nucleo_64.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 Nucleo_64.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Nucleo_64.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
@@ -13124,6 +13127,9 @@ GenWB0.build.flash_offset=0x0
 GenWB0.upload.maximum_size=0
 GenWB0.upload.maximum_data_size=0
 GenWB0.openocd.target=stm32wb0x
+GenWB0.upload.address=0x10040000
+GenWB0.upload.mode=hwRstPulse
+GenWB0.upload.start=0x10000000
 
 # Generic WB05KZVx
 GenWB0.menu.pnum.GENERIC_WB05KZVX=Generic WB05KZVx
@@ -13164,7 +13170,7 @@ GenWB0.menu.pnum.GENERIC_WB09TEFX.debug.svd_file={runtime.tools.STM32_SVD.path}/
 # Upload menu
 GenWB0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenWB0.menu.upload_method.swdMethod.upload.protocol=swd
-GenWB0.menu.upload_method.swdMethod.upload.options=
+GenWB0.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenWB0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenWB0.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
