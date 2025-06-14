@@ -1129,7 +1129,7 @@ static void _get_calibration_data(CalibrationDataTypeDef *calibrationData)
   int32_t a2;
 
   period =  LL_RADIO_TIMER_GetLSIPeriod(RADIO_CTRL);
-  while (period != LL_RADIO_TIMER_GetLSIPeriod(RADIO_CTRL) || period == 0)
+  while (period != (int32_t)LL_RADIO_TIMER_GetLSIPeriod(RADIO_CTRL) || period == 0)
   {
     period = LL_RADIO_TIMER_GetLSIPeriod(RADIO_CTRL);
   }
@@ -1143,7 +1143,7 @@ static void _get_calibration_data(CalibrationDataTypeDef *calibrationData)
   mult = 0x753 ;
   freq = LL_RADIO_TIMER_GetLSIFrequency(RADIO_CTRL);
 
-  while (freq != LL_RADIO_TIMER_GetLSIFrequency(RADIO_CTRL) || freq == 0)
+  while (freq != (int32_t)LL_RADIO_TIMER_GetLSIFrequency(RADIO_CTRL) || freq == 0)
   {
     freq = LL_RADIO_TIMER_GetLSIFrequency(RADIO_CTRL);
   }
