@@ -109,7 +109,7 @@ static void              FLASH_KeyWrite(void);
   */
 HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t *PageError)
 {
-  HAL_StatusTypeDef status;
+  HAL_StatusTypeDef status = HAL_ERROR;
   uint32_t index;
 
   /* Check the parameters */

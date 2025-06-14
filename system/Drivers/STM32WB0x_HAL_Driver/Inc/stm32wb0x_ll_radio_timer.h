@@ -445,6 +445,8 @@ __STATIC_INLINE uint32_t LL_RADIO_TIMER_IsEnabledCPUWakeupTimerForceSleeping(WAK
 __STATIC_INLINE void LL_RADIO_TIMER_SetSleepRequestMode(WAKEUP_TypeDef *WAKEUPx, uint8_t mode)
 {
 #if defined(STM32WB09)
+  (void)WAKEUPx; // No operation for STM32WB09
+  (void)mode; // No operation for STM32WB09
   return;
 #else
   MODIFY_REG_FIELD(WAKEUP->BLUE_SLEEP_REQUEST_MODE, WAKEUP_BLUE_SLEEP_REQUEST_MODE_SLEEP_REQ_MODE, (mode & 0x7));
@@ -460,6 +462,7 @@ __STATIC_INLINE void LL_RADIO_TIMER_SetSleepRequestMode(WAKEUP_TypeDef *WAKEUPx,
 __STATIC_INLINE uint32_t LL_RADIO_TIMER_GetSleepRequestMode(WAKEUP_TypeDef *WAKEUPx)
 {
 #if defined(STM32WB09)
+  (void)WAKEUPx; // No operation for STM32WB09
   return 0;
 #else
   return (uint32_t)(READ_REG(WAKEUP->BLUE_SLEEP_REQUEST_MODE) & WAKEUP_BLUE_SLEEP_REQUEST_MODE_SLEEP_REQ_MODE);
