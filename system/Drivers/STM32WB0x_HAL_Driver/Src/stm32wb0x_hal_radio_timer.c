@@ -56,7 +56,7 @@
 /** @addtogroup STM32WB0x_HAL_Driver
   * @{
   */
-
+#ifdef HAL_RADIO_TIMER_MODULE_ENABLED
 /** @addtogroup RADIO_TIMER
   * @brief HAL RADIO TIMER  module driver
   * @{
@@ -1825,7 +1825,7 @@ void HAL_RADIO_TIMER_ERROR_IRQHandler(void)
 /**
   * @}
   */
-
+#endif /* HAL_RADIO_TIMER_MODULE_ENABLED */
 /**
   * @}
   */
