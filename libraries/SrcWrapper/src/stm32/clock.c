@@ -121,14 +121,21 @@ void enableClock(sourceClock_t source)
 #endif
       break;
     case HSI_CLOCK:
+#if defined(__HAL_RCC_HSI_ENABLE)
       __HAL_RCC_HSI_ENABLE();
+#endif
+#if defined(__HAL_RCC_HSI_CONFIG)
+      __HAL_RCC_HSI_CONFIG(RCC_HSI_ON);
+#endif
       if (__HAL_RCC_GET_FLAG(RCC_FLAG_HSIRDY) == RESET) {
         RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_HSI;
         RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+#if !defined(STM32WB0x)
 #if defined(STM32MP1xx)
         RCC_OscInitStruct.HSICalibrationValue = 0x00;
 #else
         RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+#endif
 #endif
       }
       break;
