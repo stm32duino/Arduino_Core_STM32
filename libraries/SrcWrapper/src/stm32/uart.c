@@ -490,7 +490,13 @@ bool uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
       enableClock(LSE_CLOCK);
       if (LL_RCC_LSE_IsReady()) {
         if (obj->uart == LPUART1) {
+#if defined(__HAL_RCC_LPUART1_CONFIG)
           __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_LSE);
+#elif defined(__HAL_RCC_LPUART1_CLK_CONFIG)
+          __HAL_RCC_LPUART1_CLK_CONFIG(RCC_LPUART1_CLKSOURCE_LSE);
+#else
+#error "LPUART1 clock source config  not defined"
+#endif
         }
 #if defined(LPUART2_BASE)
         if (obj->uart == LPUART2) {
@@ -511,6 +517,7 @@ bool uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
         }
       }
     }
+#if defined(__HAL_RCC_LPUART1_CONFIG)
     if (LL_RCC_HSI_IsReady()) {
       if (obj->uart == LPUART1) {
         __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_HSI);
@@ -533,6 +540,7 @@ bool uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
         return true;
       }
     }
+#endif /* __HAL_RCC_LPUART1_CONFIG */
     if (obj->uart == LPUART1) {
 #if defined(RCC_LPUART1CLKSOURCE_CSI)
       __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_CSI);
@@ -540,6 +548,8 @@ bool uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
       __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_PCLK1);
 #elif defined(RCC_LPUART1CLKSOURCE_PCLK3)
       __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_PCLK3);
+#elif defined(RCC_LPUART1_CLKSOURCE_16M)
+      __HAL_RCC_LPUART1_CLK_CONFIG(RCC_LPUART1_CLKSOURCE_16M);
 #endif
     }
 #if defined(LPUART2_BASE)
@@ -756,17 +766,24 @@ void uart_config_lowpower(serial_t *obj)
   if (obj == NULL) {
     return;
   }
-  /* Ensure HSI clock is enable */
+  /* Ensure clock is enable */
+#if defined(STM32WB0x)
+  enableClock(LSE_CLOCK);
+#else
   enableClock(HSI_CLOCK);
+#endif
 
   hsem_lock(CFG_HW_RCC_CRRCR_CCIPR_SEMID, HSEM_LOCK_DEFAULT_RETRY);
   /* Configure HSI as source clock for low power wakeup clock */
   switch (obj->index) {
 #if defined(USART1_BASE)
     case UART1_INDEX:
+      /* STM32WB0x direct clock CLK_16M */
+#if defined(__HAL_RCC_GET_USART1_SOURCE)
       if (__HAL_RCC_GET_USART1_SOURCE() != RCC_USART1CLKSOURCE_HSI) {
         __HAL_RCC_USART1_CONFIG(RCC_USART1CLKSOURCE_HSI);
       }
+#endif
       break;
 #endif
 #if defined(USART2_BASE) && defined(__HAL_RCC_USART2_CONFIG)
@@ -797,14 +814,21 @@ void uart_config_lowpower(serial_t *obj)
       }
       break;
 #endif
-#if defined(LPUART1_BASE) && defined(__HAL_RCC_LPUART1_CONFIG)
+#if defined(LPUART1_BASE) && (defined(__HAL_RCC_LPUART1_CONFIG) || defined(__HAL_RCC_LPUART1_CLK_CONFIG))
+    /* LPUART1 is used for low power wakeup */
     case LPUART1_INDEX:
+#if defined(__HAL_RCC_LPUART1_CONFIG)
 #ifdef __HAL_RCC_LPUART1_CLKAM_ENABLE
       __HAL_RCC_LPUART1_CLKAM_ENABLE();
 #endif
       if (__HAL_RCC_GET_LPUART1_SOURCE() != RCC_LPUART1CLKSOURCE_HSI) {
         __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_HSI);
       }
+#elif defined(__HAL_RCC_LPUART1_CLK_CONFIG)
+      if (__HAL_RCC_GET_LPUART1_CLK_CONFIG() != RCC_LPUART1_CLKSOURCE_LSE) {
+        __HAL_RCC_LPUART1_CLK_CONFIG(RCC_LPUART1_CLKSOURCE_LSE);
+      }
+#endif
       break;
 #endif
 #if defined(LPUART2_BASE) && defined(__HAL_RCC_LPUART2_CONFIG)
