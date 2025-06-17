@@ -14211,6 +14211,34 @@ LoRa.menu.pnum.ELEKTOR_F072CB.build.st_extra_flags=-D{build.product_line} {build
 LoRa.menu.pnum.ELEKTOR_F072CB.openocd.target=stm32f0x
 LoRa.menu.pnum.ELEKTOR_F072CB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F0xx/STM32F0x2.svd
 
+# Oceanus-I Module
+LoRa.menu.pnum.WE_OCEANUS1=Oceanus-I Module
+LoRa.menu.pnum.WE_OCEANUS1.upload.maximum_size=262144
+LoRa.menu.pnum.WE_OCEANUS1.upload.maximum_data_size=65536
+LoRa.menu.pnum.WE_OCEANUS1.build.mcu=cortex-m4
+LoRa.menu.pnum.WE_OCEANUS1.build.board=WE_OCEANUS1
+LoRa.menu.pnum.WE_OCEANUS1.build.series=STM32WLxx
+LoRa.menu.pnum.WE_OCEANUS1.build.product_line=STM32WLE5xx
+LoRa.menu.pnum.WE_OCEANUS1.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
+LoRa.menu.pnum.WE_OCEANUS1.build.variant_h=variant_WE_OCEANUS1.h
+LoRa.menu.pnum.WE_OCEANUS1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+LoRa.menu.pnum.WE_OCEANUS1.openocd.target=stm32wlx
+LoRa.menu.pnum.WE_OCEANUS1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WLxx/STM32WLE5_CM4.svd
+
+# Oceanus-I EV
+LoRa.menu.pnum.WE_OCEANUS1_EV=Oceanus-I EV
+LoRa.menu.pnum.WE_OCEANUS1_EV.upload.maximum_size=262144
+LoRa.menu.pnum.WE_OCEANUS1_EV.upload.maximum_data_size=65536
+LoRa.menu.pnum.WE_OCEANUS1_EV.build.mcu=cortex-m4
+LoRa.menu.pnum.WE_OCEANUS1_EV.build.board=WE_OCEANUS1_EV
+LoRa.menu.pnum.WE_OCEANUS1_EV.build.series=STM32WLxx
+LoRa.menu.pnum.WE_OCEANUS1_EV.build.product_line=STM32WLE5xx
+LoRa.menu.pnum.WE_OCEANUS1_EV.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
+LoRa.menu.pnum.WE_OCEANUS1_EV.build.variant_h=variant_WE_OCEANUS1_EV.h
+LoRa.menu.pnum.WE_OCEANUS1_EV.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+LoRa.menu.pnum.WE_OCEANUS1_EV.openocd.target=stm32wlx
+LoRa.menu.pnum.WE_OCEANUS1_EV.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WLxx/STM32WLE5_CM4.svd
+
 # Upload menu
 LoRa.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 LoRa.menu.upload_method.swdMethod.upload.protocol=swd
