@@ -889,6 +889,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32WLE5CC | [RAK3172T Module](https://github.com/RAKWireless/rakwireless-docs/tree/master/docs/Product-Categories/WisDuo/RAK3172-Module) | *2.8.1* | RAK3172 Module with TCXO |
 | :green_heart:  | STM32L151CB | [RAK811 LoRa Tracker](https://www.rakwireless.com/en/) | *1.4.0* | [Wiki](https://github.com/stm32duino/Arduino_Core_STM32/wiki/Connectivities#lora) |
 | :green_heart:  | STM32L051C8 | [RHF76-052](https://lora-alliance.org/lora_products/rhf76-052/) | *1.7.0* | Basic support |
+| :yellow_heart:  | STM32WLE5CC | [Oceanus-I Module](https://www.we-online.com/en/components/products/OCEANUS-I) | **2.11.0** | [User Manual](https://www.we-online.com/en/components/products/manual/2618011182000) <br/> LoRa & LoRaWAN support with [STM32LoRaWAN](https://github.com/stm32duino/STM32LoRaWAN) |
+| :yellow_heart:  | STM32WLE5CC | [Oceanus-I EV](https://www.we-online.com/en/components/products/OCEANUS-I) | **2.11.0** | [User Manual](https://www.we-online.com/en/components/products/manual/2618019382001) <br/> LoRa & LoRaWAN support with [STM32LoRaWAN](https://github.com/stm32duino/STM32LoRaWAN) |
 
 ### Midatronics boards
 
