@@ -58,6 +58,8 @@
   #include "stm32u3xx.h"
 #elif defined(STM32U5xx)
   #include "stm32u5xx.h"
+#elif defined(STM32WB0x)
+  #include "stm32wb0x.h"
 #elif defined(STM32WBxx)
   #include "stm32wbxx.h"
 #elif defined(STM32WBAxx)
