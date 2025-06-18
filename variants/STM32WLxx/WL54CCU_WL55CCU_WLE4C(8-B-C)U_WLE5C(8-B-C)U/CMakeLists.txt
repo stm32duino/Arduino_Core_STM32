@@ -21,10 +21,10 @@ target_link_libraries(variant INTERFACE variant_usage)
 add_library(variant_bin STATIC EXCLUDE_FROM_ALL
   generic_clock.c
   PeripheralPins.c
+  PeripheralPins_WE_OCEANUS1.c
   variant_generic.cpp
   variant_GENERIC_NODE_SE_TTI.cpp
   variant_RAK3172_MODULE.cpp
-  PeripheralPins_WE_OCEANUS1.c
   variant_WE_OCEANUS1.cpp
 )
 target_link_libraries(variant_bin PUBLIC variant_usage)
