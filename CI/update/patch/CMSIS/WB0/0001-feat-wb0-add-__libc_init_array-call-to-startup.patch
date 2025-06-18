@@ -1,0 +1,68 @@
+From 62e01b39b8eb0f6260b55d58e85ed230986bba4e Mon Sep 17 00:00:00 2001
+From: Frederic Pillon <frederic.pillon@st.com>
+Date: Mon, 16 Jun 2025 14:22:51 +0200
+Subject: [PATCH] feat(wb0): add __libc_init_array call to startup
+
+Signed-off-by: Frederic Pillon <frederic.pillon@st.com>
+---
+ .../ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb05.s       | 2 ++
+ .../ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb06.s       | 2 ++
+ .../ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb07.s       | 2 ++
+ .../ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb09.s       | 2 ++
+ 4 files changed, 8 insertions(+)
+
+diff --git a/system/Drivers/CMSIS/Device/ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb05.s b/system/Drivers/CMSIS/Device/ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb05.s
+index a8991a7ea..1aba7b12b 100644
+--- a/system/Drivers/CMSIS/Device/ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb05.s
++++ b/system/Drivers/CMSIS/Device/ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb05.s
+@@ -107,6 +107,8 @@ LoopFillZeroBlueRam:
+   cmp  r2, r3
+   bcc  FillZerobssram
+ 
++/* Call static constructors */
++  bl __libc_init_array
+ /* Call the application's entry point.*/
+   bl  main
+ 
+diff --git a/system/Drivers/CMSIS/Device/ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb06.s b/system/Drivers/CMSIS/Device/ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb06.s
+index 3e3334fb0..8a345492a 100644
+--- a/system/Drivers/CMSIS/Device/ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb06.s
++++ b/system/Drivers/CMSIS/Device/ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb06.s
+@@ -107,6 +107,8 @@ LoopFillZeroBlueRam:
+   cmp  r2, r3
+   bcc  FillZerobssram
+ 
++/* Call static constructors */
++  bl __libc_init_array
+ /* Call the application's entry point.*/
+   bl  main
+ 
+diff --git a/system/Drivers/CMSIS/Device/ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb07.s b/system/Drivers/CMSIS/Device/ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb07.s
+index d9baea4b4..36664b5f2 100644
+--- a/system/Drivers/CMSIS/Device/ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb07.s
++++ b/system/Drivers/CMSIS/Device/ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb07.s
+@@ -107,6 +107,8 @@ LoopFillZeroBlueRam:
+   cmp  r2, r3
+   bcc  FillZerobssram
+ 
++/* Call static constructors */
++  bl __libc_init_array
+ /* Call the application's entry point.*/
+   bl  main
+ 
+diff --git a/system/Drivers/CMSIS/Device/ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb09.s b/system/Drivers/CMSIS/Device/ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb09.s
+index 7c9b47279..2ee46de75 100644
+--- a/system/Drivers/CMSIS/Device/ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb09.s
++++ b/system/Drivers/CMSIS/Device/ST/STM32WB0x/Source/Templates/gcc/startup_stm32wb09.s
+@@ -107,6 +107,8 @@ LoopFillZeroBlueRam:
+   cmp  r2, r3
+   bcc  FillZerobssram
+ 
++/* Call static constructors */
++  bl __libc_init_array
+ /* Call the application's entry point.*/
+   bl  main
+ 
+-- 
+2.34.1
+
