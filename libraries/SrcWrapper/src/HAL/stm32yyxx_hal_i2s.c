@@ -28,6 +28,8 @@
   #include "stm32l0xx_hal_i2s.c"
 #elif STM32L1xx
   #include "stm32l1xx_hal_i2s.c"
+#elif STM32WB0x
+  #include "stm32wb0x_hal_i2s.c"
 #elif STM32WLxx
   #include "stm32wlxx_hal_i2s.c"
 #endif
