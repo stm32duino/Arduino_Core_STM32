@@ -907,6 +907,20 @@ Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.build.variant=STM32U3xx/U375R(E-G)TxQ_U385RG
 #Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.openocd.target=stm32u3x
 #Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
 
+# NUCLEO_WB09KE board
+Nucleo_64.menu.pnum.NUCLEO_WB09KE=Nucleo WB09KE
+Nucleo_64.menu.pnum.NUCLEO_WB09KE.node="NOD_WB09KE"
+Nucleo_64.menu.pnum.NUCLEO_WB09KE.upload.maximum_size=524288
+Nucleo_64.menu.pnum.NUCLEO_WB09KE.upload.maximum_data_size=65536
+Nucleo_64.menu.pnum.NUCLEO_WB09KE.build.mcu=cortex-m0plus
+Nucleo_64.menu.pnum.NUCLEO_WB09KE.build.board=NUCLEO_WB09KE
+Nucleo_64.menu.pnum.NUCLEO_WB09KE.build.series=STM32WB0x
+Nucleo_64.menu.pnum.NUCLEO_WB09KE.build.product_line=STM32WB09
+Nucleo_64.menu.pnum.NUCLEO_WB09KE.build.variant=STM32WB0x/WB05KZV_WB05TZF_WB09KEV_WB09TEF
+Nucleo_64.menu.pnum.NUCLEO_WB09KE.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
+Nucleo_64.menu.pnum.NUCLEO_WB09KE.openocd.target=stm32wb0x
+Nucleo_64.menu.pnum.NUCLEO_WB09KE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WB0x/STM32WB09.svd
+
 # NUCLEO_WB15CC
 Nucleo_64.menu.pnum.NUCLEO_WB15CC=Nucleo WB15CC
 Nucleo_64.menu.pnum.NUCLEO_WB15CC.node="NOD_WB15CC"
