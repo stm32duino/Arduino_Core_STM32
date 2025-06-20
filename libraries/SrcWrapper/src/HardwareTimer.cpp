@@ -281,12 +281,16 @@ uint32_t HardwareTimer::getLLChannel(uint32_t channel)
       case 1:
         ll_channel = LL_TIM_CHANNEL_CH1N;
         break;
+#if defined(LL_TIM_CHANNEL_CH2N)
       case 2:
         ll_channel = LL_TIM_CHANNEL_CH2N;
         break;
+#endif
+#if defined(LL_TIM_CHANNEL_CH3N)
       case 3:
         ll_channel = LL_TIM_CHANNEL_CH3N;
         break;
+#endif
 #if defined(LL_TIM_CHANNEL_CH4N)
       case 4:
         ll_channel = LL_TIM_CHANNEL_CH4N;
@@ -1343,6 +1347,8 @@ uint32_t HardwareTimer::getTimerClkFreq()
   uint8_t timerClkSrc = getTimerClkSrc(_timerObj.handle.Instance);
   uint64_t clkSelection = timerClkSrc == 1 ? RCC_PERIPHCLK_TIMG1 : RCC_PERIPHCLK_TIMG2;
   return HAL_RCCEx_GetPeriphCLKFreq(clkSelection);
+#elif defined(STM32WB0x)
+  return SystemCoreClock;
 #else
   RCC_ClkInitTypeDef    clkconfig = {};
   uint32_t              pFLatency = 0U;
