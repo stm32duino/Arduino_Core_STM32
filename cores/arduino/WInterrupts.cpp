@@ -32,15 +32,21 @@ void attachInterrupt(uint32_t pin, callback_function_t callback, uint32_t mode)
     case CHANGE :
       it_mode = GPIO_MODE_IT_RISING_FALLING;
       break;
-    case FALLING :
     case LOW :
+#ifdef GPIO_MODE_IT_LEVEL_LOW
+      it_mode = GPIO_MODE_IT_LEVEL_LOW;
+      break;
+#endif
+    case FALLING :
       it_mode = GPIO_MODE_IT_FALLING;
       break;
-    case RISING :
     case HIGH :
-      it_mode = GPIO_MODE_IT_RISING;
+#ifdef GPIO_MODE_IT_LEVEL_HIGH
+      it_mode = GPIO_MODE_IT_LEVEL_HIGH;
       break;
+#endif
     default:
+    case RISING :
       it_mode = GPIO_MODE_IT_RISING;
       break;
   }

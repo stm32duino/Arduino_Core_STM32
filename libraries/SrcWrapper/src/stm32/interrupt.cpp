@@ -43,7 +43,18 @@
 #if !defined(HAL_EXTI_MODULE_DISABLED)
 
 /* Private Types */
-
+#if defined(STM32WB0x)
+static std::function<void(void)> gpio_callback[2][16] = {
+  {
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+  },
+  {
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
+  }
+};
+#else
 /*As we can have only one interrupt/pin id, don't need to get the port info*/
 typedef struct {
   IRQn_Type irqnb;
@@ -118,6 +129,7 @@ static const uint32_t ll_exti_lines[NB_EXTI] = {
   LL_EXTI_LINE_8,  LL_EXTI_LINE_9,  LL_EXTI_LINE_10, LL_EXTI_LINE_11,
   LL_EXTI_LINE_12, LL_EXTI_LINE_13, LL_EXTI_LINE_14, LL_EXTI_LINE_15
 };
+#endif /* STM32WB0x */
 /* Private Functions */
 /**
   * @brief  This function returns the pin ID function of the HAL PIN definition
@@ -152,10 +164,23 @@ void stm32_interrupt_enable(PinName pn, callback_function_t callback, uint32_t m
     HAL_GPIO_Init(port, &GPIO_InitStruct);
     hsem_unlock(CFG_HW_GPIO_SEMID);
   }
+  IRQn_Type irqnb;
+#ifdef STM32WB0x
+  if (port == GPIOA) {
+    irqnb = GPIOA_IRQn;
+    gpio_callback[0][id] = callback;
+  } else {
+    irqnb = GPIOB_IRQn;
+    gpio_callback[1][id] = callback;
+  }
+#else
   gpio_irq_conf[id].callback = callback;
+  irqnb = gpio_irq_conf[id].irqnb;
+#endif /* STM32WB0x */
   // Enable and set EXTI Interrupt
-  HAL_NVIC_SetPriority(gpio_irq_conf[id].irqnb, EXTI_IRQ_PRIO, EXTI_IRQ_SUBPRIO);
-  HAL_NVIC_EnableIRQ(gpio_irq_conf[id].irqnb);
+  HAL_NVIC_SetPriority(irqnb, EXTI_IRQ_PRIO, EXTI_IRQ_SUBPRIO);
+  HAL_NVIC_EnableIRQ(irqnb);
+
 }
 
 /**
@@ -183,6 +208,25 @@ void stm32_interrupt_disable(GPIO_TypeDef *port, uint16_t pin)
 {
   UNUSED(port);
   uint8_t id = get_pin_id(pin);
+#ifdef STM32WB0x
+  uint8_t pid = 0;
+  IRQn_Type irqnb;
+  if (port == GPIOA) {
+    irqnb = GPIOA_IRQn;
+    gpio_callback[0][id] = NULL;
+  } else {
+    irqnb = GPIOB_IRQn;
+    gpio_callback[1][id] = NULL;
+    pid = 1;
+  }
+  /* Check if irq always required */
+  for (int i = 0; i < 16; i++) {
+    if (gpio_callback[pid][i] != NULL) {
+      return;
+    }
+  }
+  HAL_NVIC_DisableIRQ(irqnb);
+#else
   gpio_irq_conf[id].callback = NULL;
   for (int i = 0; i < NB_EXTI; i++) {
     if (gpio_irq_conf[id].irqnb == gpio_irq_conf[i].irqnb
@@ -192,8 +236,47 @@ void stm32_interrupt_disable(GPIO_TypeDef *port, uint16_t pin)
   }
   LL_EXTI_DisableIT_0_31(ll_exti_lines[id]);
   HAL_NVIC_DisableIRQ(gpio_irq_conf[id].irqnb);
+#endif /* STM32WB0x */
 }
 
+
+#if defined(STM32WB0x)
+#ifdef __cplusplus
+extern "C" {
+#endif
+void HAL_GPIO_EXTI_Callback(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
+{
+  uint8_t id = get_pin_id(GPIO_Pin);
+  uint8_t pid = (GPIOx == GPIOA) ? 0 : 1;
+
+  if (gpio_callback[pid][id] != NULL) {
+    gpio_callback[pid][id]();
+  }
+}
+
+void GPIOA_IRQHandler(void)
+{
+  uint32_t line = SYSCFG_IO_DTR_PA0_DT;
+  for (uint16_t GPIO_Pin = 0; GPIO_Pin < 16; GPIO_Pin++, line <<= 1) {
+    if (LL_EXTI_IsActiveFlag(line) != 0) {
+      HAL_GPIO_EXTI_IRQHandler(GPIOA, 1 << GPIO_Pin);
+    }
+  }
+}
+
+void GPIOB_IRQHandler(void)
+{
+  uint32_t line = SYSCFG_IO_DTR_PB0_DT;
+  for (uint16_t GPIO_Pin = 0; GPIO_Pin < 16; GPIO_Pin++, line <<= 1) {
+    if (LL_EXTI_IsActiveFlag(line) != 0) {
+      HAL_GPIO_EXTI_IRQHandler(GPIOB, 1 << GPIO_Pin);
+    }
+  }
+}
+#ifdef __cplusplus
+}
+#endif
+#else
 /**
   * @brief This function his called by the HAL if the IRQ is valid
   * @param  GPIO_Pin : one of the gpio pin
@@ -477,6 +560,8 @@ void EXTI15_IRQHandler(void)
 #ifdef __cplusplus
 }
 #endif
+#endif /* !STM32WB0x */
+
 #endif /* !HAL_EXTI_MODULE_DISABLED */
 #endif
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
