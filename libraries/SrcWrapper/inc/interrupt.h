@@ -41,6 +41,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_def.h"
+#include "pinmap.h"
 
 #if !defined(HAL_EXTI_MODULE_DISABLED)
 
@@ -63,11 +64,11 @@
     #include <functional>
 
     typedef std::function<void(void)> callback_function_t;
-    void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, callback_function_t callback, uint32_t mode);
+    void stm32_interrupt_enable(PinName pn, callback_function_t callback, uint32_t mode);
   #endif
 
   /* Exported functions ------------------------------------------------------- */
-  void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, void (*callback)(void), uint32_t mode);
+  void stm32_interrupt_enable(PinName pn, void (*callback)(void), uint32_t mode);
   void stm32_interrupt_disable(GPIO_TypeDef *port, uint16_t pin);
 #endif /* !HAL_EXTI_MODULE_DISABLED */
 

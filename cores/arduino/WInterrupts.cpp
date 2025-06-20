@@ -27,10 +27,6 @@ void attachInterrupt(uint32_t pin, callback_function_t callback, uint32_t mode)
 #if !defined(HAL_EXTI_MODULE_DISABLED)
   uint32_t it_mode;
   PinName p = digitalPinToPinName(pin);
-  GPIO_TypeDef *port = set_GPIO_Port_Clock(STM_PORT(p));
-  if (!port) {
-    return;
-  }
 
   switch (mode) {
     case CHANGE :
@@ -53,7 +49,7 @@ void attachInterrupt(uint32_t pin, callback_function_t callback, uint32_t mode)
   pinF1_DisconnectDebug(p);
 #endif /* STM32F1xx */
 
-  stm32_interrupt_enable(port, STM_GPIO_PIN(p), callback, it_mode);
+  stm32_interrupt_enable(p, callback, it_mode);
 #else
   UNUSED(pin);
   UNUSED(callback);
