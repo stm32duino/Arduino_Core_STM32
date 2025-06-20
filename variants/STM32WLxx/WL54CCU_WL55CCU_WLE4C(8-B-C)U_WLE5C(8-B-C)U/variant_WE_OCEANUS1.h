@@ -62,10 +62,10 @@
 
 // SPI definitions
 #ifndef PIN_SPI_SS
-  #define PIN_SPI_SS            PA4
+  #define PIN_SPI_SS            PA15
 #endif
 #ifndef PIN_SPI_SS1
-  #define PIN_SPI_SS1           PB2
+  #define PIN_SPI_SS1           PNUM_NOT_DEFINED
 #endif
 #ifndef PIN_SPI_SS2
   #define PIN_SPI_SS2           PNUM_NOT_DEFINED
@@ -74,21 +74,21 @@
   #define PIN_SPI_SS3           PNUM_NOT_DEFINED
 #endif
 #ifndef PIN_SPI_MOSI
-  #define PIN_SPI_MOSI          PA7
+  #define PIN_SPI_MOSI          PB5
 #endif
-#ifndef PIN_SPI_MISOSPI1_SCK
-  #define PIN_SPI_MISO          PA6
+#ifndef PIN_SPI_MISO
+  #define PIN_SPI_MISO          PB4
 #endif
 #ifndef PIN_SPI_SCK
-  #define PIN_SPI_SCK           PA5
+  #define PIN_SPI_SCK           PB3
 #endif
 
 // I2C definitions
 #ifndef PIN_WIRE_SDA
-  #define PIN_WIRE_SDA          PA11
+  #define PIN_WIRE_SDA          PB7
 #endif
 #ifndef PIN_WIRE_SCL
-  #define PIN_WIRE_SCL          PA12
+  #define PIN_WIRE_SCL          PB8
 #endif
 
 // Timer Definitions

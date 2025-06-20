@@ -14,9 +14,12 @@
 
 #include "variant_WE_OCEANUS1.h"
 
-// On-board LED pin number
-#define LED_BUILTIN           PA7
+#ifndef LED_BUILTIN
+  // On-board LED pin number
+  #define LED_BUILTIN           PA7
+#endif
 
-// On-board user button
-#define USER_BTN              PA0
-
+#ifndef USER_BTN
+  // On-board user button
+  #define USER_BTN              PA0
+#endif
