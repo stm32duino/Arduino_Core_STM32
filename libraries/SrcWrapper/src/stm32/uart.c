@@ -594,151 +594,154 @@ bool uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
   */
 void uart_deinit(serial_t *obj)
 {
-  /* Reset UART and disable clock */
-  switch (obj->index) {
+  /* Ensure uart is set to prevent deinitializing uart at index 0 */
+  if (obj->uart) {
+    /* Reset UART and disable clock */
+    switch (obj->index) {
 #if defined(USART1_BASE)
-    case UART1_INDEX:
-      __HAL_RCC_USART1_FORCE_RESET();
-      __HAL_RCC_USART1_RELEASE_RESET();
-      __HAL_RCC_USART1_CLK_DISABLE();
-      break;
+      case UART1_INDEX:
+        __HAL_RCC_USART1_FORCE_RESET();
+        __HAL_RCC_USART1_RELEASE_RESET();
+        __HAL_RCC_USART1_CLK_DISABLE();
+        break;
 #endif
 #if defined(USART2_BASE)
-    case UART2_INDEX:
-      __HAL_RCC_USART2_FORCE_RESET();
-      __HAL_RCC_USART2_RELEASE_RESET();
-      __HAL_RCC_USART2_CLK_DISABLE();
-      break;
+      case UART2_INDEX:
+        __HAL_RCC_USART2_FORCE_RESET();
+        __HAL_RCC_USART2_RELEASE_RESET();
+        __HAL_RCC_USART2_CLK_DISABLE();
+        break;
 #endif
 #if defined(USART3_BASE)
-    case UART3_INDEX:
-      __HAL_RCC_USART3_FORCE_RESET();
-      __HAL_RCC_USART3_RELEASE_RESET();
-      __HAL_RCC_USART3_CLK_DISABLE();
-      break;
+      case UART3_INDEX:
+        __HAL_RCC_USART3_FORCE_RESET();
+        __HAL_RCC_USART3_RELEASE_RESET();
+        __HAL_RCC_USART3_CLK_DISABLE();
+        break;
 #endif
 #if defined(UART4_BASE)
-    case UART4_INDEX:
-      __HAL_RCC_UART4_FORCE_RESET();
-      __HAL_RCC_UART4_RELEASE_RESET();
-      __HAL_RCC_UART4_CLK_DISABLE();
-      break;
+      case UART4_INDEX:
+        __HAL_RCC_UART4_FORCE_RESET();
+        __HAL_RCC_UART4_RELEASE_RESET();
+        __HAL_RCC_UART4_CLK_DISABLE();
+        break;
 #elif defined(USART4_BASE)
-    case UART4_INDEX:
-      __HAL_RCC_USART4_FORCE_RESET();
-      __HAL_RCC_USART4_RELEASE_RESET();
-      __HAL_RCC_USART4_CLK_DISABLE();
-      break;
+      case UART4_INDEX:
+        __HAL_RCC_USART4_FORCE_RESET();
+        __HAL_RCC_USART4_RELEASE_RESET();
+        __HAL_RCC_USART4_CLK_DISABLE();
+        break;
 #endif
 #if defined(UART5_BASE)
-    case UART5_INDEX:
-      __HAL_RCC_UART5_FORCE_RESET();
-      __HAL_RCC_UART5_RELEASE_RESET();
-      __HAL_RCC_UART5_CLK_DISABLE();
-      break;
+      case UART5_INDEX:
+        __HAL_RCC_UART5_FORCE_RESET();
+        __HAL_RCC_UART5_RELEASE_RESET();
+        __HAL_RCC_UART5_CLK_DISABLE();
+        break;
 #elif defined(USART5_BASE)
-    case UART5_INDEX:
-      __HAL_RCC_USART5_FORCE_RESET();
-      __HAL_RCC_USART5_RELEASE_RESET();
-      __HAL_RCC_USART5_CLK_DISABLE();
-      break;
+      case UART5_INDEX:
+        __HAL_RCC_USART5_FORCE_RESET();
+        __HAL_RCC_USART5_RELEASE_RESET();
+        __HAL_RCC_USART5_CLK_DISABLE();
+        break;
 #endif
 #if defined(USART6_BASE)
-    case UART6_INDEX:
-      __HAL_RCC_USART6_FORCE_RESET();
-      __HAL_RCC_USART6_RELEASE_RESET();
-      __HAL_RCC_USART6_CLK_DISABLE();
-      break;
+      case UART6_INDEX:
+        __HAL_RCC_USART6_FORCE_RESET();
+        __HAL_RCC_USART6_RELEASE_RESET();
+        __HAL_RCC_USART6_CLK_DISABLE();
+        break;
 #endif
 #if defined(LPUART1_BASE)
-    case LPUART1_INDEX:
-      __HAL_RCC_LPUART1_FORCE_RESET();
-      __HAL_RCC_LPUART1_RELEASE_RESET();
-      __HAL_RCC_LPUART1_CLK_DISABLE();
-      break;
+      case LPUART1_INDEX:
+        __HAL_RCC_LPUART1_FORCE_RESET();
+        __HAL_RCC_LPUART1_RELEASE_RESET();
+        __HAL_RCC_LPUART1_CLK_DISABLE();
+        break;
 #endif
 #if defined(LPUART2_BASE)
-    case LPUART2_INDEX:
-      __HAL_RCC_LPUART2_FORCE_RESET();
-      __HAL_RCC_LPUART2_RELEASE_RESET();
-      __HAL_RCC_LPUART2_CLK_DISABLE();
-      break;
+      case LPUART2_INDEX:
+        __HAL_RCC_LPUART2_FORCE_RESET();
+        __HAL_RCC_LPUART2_RELEASE_RESET();
+        __HAL_RCC_LPUART2_CLK_DISABLE();
+        break;
 #endif
 #if defined(LPUART3_BASE)
-    case LPUART3_INDEX:
-      __HAL_RCC_LPUART3_FORCE_RESET();
-      __HAL_RCC_LPUART3_RELEASE_RESET();
-      __HAL_RCC_LPUART3_CLK_DISABLE();
-      break;
+      case LPUART3_INDEX:
+        __HAL_RCC_LPUART3_FORCE_RESET();
+        __HAL_RCC_LPUART3_RELEASE_RESET();
+        __HAL_RCC_LPUART3_CLK_DISABLE();
+        break;
 #endif
 #if defined(UART7_BASE)
-    case UART7_INDEX:
-      __HAL_RCC_UART7_FORCE_RESET();
-      __HAL_RCC_UART7_RELEASE_RESET();
-      __HAL_RCC_UART7_CLK_DISABLE();
-      break;
+      case UART7_INDEX:
+        __HAL_RCC_UART7_FORCE_RESET();
+        __HAL_RCC_UART7_RELEASE_RESET();
+        __HAL_RCC_UART7_CLK_DISABLE();
+        break;
 #elif defined(USART7_BASE)
-    case UART7_INDEX:
-      __HAL_RCC_USART7_FORCE_RESET();
-      __HAL_RCC_USART7_RELEASE_RESET();
-      __HAL_RCC_USART7_CLK_DISABLE();
-      break;
+      case UART7_INDEX:
+        __HAL_RCC_USART7_FORCE_RESET();
+        __HAL_RCC_USART7_RELEASE_RESET();
+        __HAL_RCC_USART7_CLK_DISABLE();
+        break;
 #endif
 #if defined(UART8_BASE)
-    case UART8_INDEX:
-      __HAL_RCC_UART8_FORCE_RESET();
-      __HAL_RCC_UART8_RELEASE_RESET();
-      __HAL_RCC_UART8_CLK_DISABLE();
-      break;
+      case UART8_INDEX:
+        __HAL_RCC_UART8_FORCE_RESET();
+        __HAL_RCC_UART8_RELEASE_RESET();
+        __HAL_RCC_UART8_CLK_DISABLE();
+        break;
 #elif defined(USART8_BASE)
-    case UART8_INDEX:
-      __HAL_RCC_USART8_FORCE_RESET();
-      __HAL_RCC_USART8_RELEASE_RESET();
-      __HAL_RCC_USART8_CLK_DISABLE();
-      break;
+      case UART8_INDEX:
+        __HAL_RCC_USART8_FORCE_RESET();
+        __HAL_RCC_USART8_RELEASE_RESET();
+        __HAL_RCC_USART8_CLK_DISABLE();
+        break;
 #endif
 #if defined(UART9_BASE)
-    case UART9_INDEX:
-      __HAL_RCC_UART9_FORCE_RESET();
-      __HAL_RCC_UART9_RELEASE_RESET();
-      __HAL_RCC_UART9_CLK_DISABLE();
-      break;
+      case UART9_INDEX:
+        __HAL_RCC_UART9_FORCE_RESET();
+        __HAL_RCC_UART9_RELEASE_RESET();
+        __HAL_RCC_UART9_CLK_DISABLE();
+        break;
 #endif
 #if defined(UART10_BASE)
-    case UART10_INDEX:
-      __HAL_RCC_UART10_FORCE_RESET();
-      __HAL_RCC_UART10_RELEASE_RESET();
-      __HAL_RCC_UART10_CLK_DISABLE();
-      break;
+      case UART10_INDEX:
+        __HAL_RCC_UART10_FORCE_RESET();
+        __HAL_RCC_UART10_RELEASE_RESET();
+        __HAL_RCC_UART10_CLK_DISABLE();
+        break;
 #endif
 #if defined(USART10_BASE)
-    case UART10_INDEX:
-      __HAL_RCC_USART10_FORCE_RESET();
-      __HAL_RCC_USART10_RELEASE_RESET();
-      __HAL_RCC_USART10_CLK_DISABLE();
-      break;
+      case UART10_INDEX:
+        __HAL_RCC_USART10_FORCE_RESET();
+        __HAL_RCC_USART10_RELEASE_RESET();
+        __HAL_RCC_USART10_CLK_DISABLE();
+        break;
 #endif
 #if defined(USART11_BASE)
-    case UART11_INDEX:
-      __HAL_RCC_USART11_FORCE_RESET();
-      __HAL_RCC_USART11_RELEASE_RESET();
-      __HAL_RCC_USART11_CLK_DISABLE();
-      break;
+      case UART11_INDEX:
+        __HAL_RCC_USART11_FORCE_RESET();
+        __HAL_RCC_USART11_RELEASE_RESET();
+        __HAL_RCC_USART11_CLK_DISABLE();
+        break;
 #endif
 #if defined(UART12_BASE)
-    case UART12_INDEX:
-      __HAL_RCC_UART12_FORCE_RESET();
-      __HAL_RCC_UART12_RELEASE_RESET();
-      __HAL_RCC_UART12_CLK_DISABLE();
-      break;
+      case UART12_INDEX:
+        __HAL_RCC_UART12_FORCE_RESET();
+        __HAL_RCC_UART12_RELEASE_RESET();
+        __HAL_RCC_UART12_CLK_DISABLE();
+        break;
 #endif
-  }
+    }
 
-  HAL_UART_DeInit(uart_handlers[obj->index]);
+    HAL_UART_DeInit(uart_handlers[obj->index]);
 
-  /* Release uart debug to ensure init */
-  if (serial_debug.index == obj->index) {
-    serial_debug.index = UART_NUM;
+    /* Release uart debug to ensure init */
+    if (serial_debug.index == obj->index) {
+      serial_debug.index = UART_NUM;
+    }
   }
 }
 
