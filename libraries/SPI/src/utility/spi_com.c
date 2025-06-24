@@ -29,6 +29,9 @@ extern "C" {
 uint32_t spi_getClkFreqInst(SPI_TypeDef *spi_inst)
 {
   uint32_t spi_freq = SystemCoreClock;
+#if defined(STM32WB0x)
+  (void)spi_inst; // Avoid unused parameter warning
+#else
   if (spi_inst != NP) {
 #if defined(STM32C0xx) || defined(STM32F0xx) || defined(STM32G0xx) || \
     defined(STM32U0xx)
@@ -141,6 +144,7 @@ uint32_t spi_getClkFreqInst(SPI_TypeDef *spi_inst)
 #endif // SUBGHZSPI_BASE
 #endif
   }
+#endif // !STM32WB0x
   return spi_freq;
 }
 
