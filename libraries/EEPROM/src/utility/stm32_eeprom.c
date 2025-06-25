@@ -52,10 +52,15 @@ extern "C" {
 #endif /* !FLASH_DATA_SECTOR */
 #endif /* FLASH_SECTOR_TOTAL || FLASH_SECTOR_NB */
 
-/* Be able to change FLASH_PAGE_NUMBER to use if relevant */
-#if !defined(FLASH_PAGE_NUMBER) && defined(FLASH_PAGE_SIZE)
-#define FLASH_PAGE_NUMBER   ((uint32_t)(((LL_GetFlashSize() * 1024) / FLASH_PAGE_SIZE) - 1))
-#endif /* !FLASH_PAGE_NUMBER */
+/* Be able to change EEPROM_FLASH_PAGE_NUMBER to use if relevant */
+#if !defined(EEPROM_FLASH_PAGE_NUMBER) && defined(FLASH_PAGE_SIZE)
+#if defined(STM32WB0x)
+/* STM32WB0x define the FLASH_PAGE_NUMBER */
+#define EEPROM_FLASH_PAGE_NUMBER   (FLASH_PAGE_NUMBER - 1)
+#else
+#define EEPROM_FLASH_PAGE_NUMBER   ((uint32_t)(((LL_GetFlashSize() * 1024) / FLASH_PAGE_SIZE) - 1))
+#endif
+#endif /* !EEPROM_FLASH_PAGE_NUMBER */
 
 /* Be able to change FLASH_END to use */
 #if !defined(FLASH_END)
@@ -73,9 +78,12 @@ extern "C" {
 #else
 #define FLASH_END  ((uint32_t)(FLASH_BASE + (FLASH_DATA_SECTOR * FLASH_SECTOR_SIZE) + FLASH_SECTOR_SIZE - 1))
 #endif /* FLASH_BANK_2 */
-#elif defined(FLASH_BASE) && defined(FLASH_PAGE_NUMBER) && defined (FLASH_PAGE_SIZE)
-/* If FLASH_PAGE_NUMBER is defined by user, this is not really end of the flash */
-#define FLASH_END  ((uint32_t)(FLASH_BASE + (((FLASH_PAGE_NUMBER +1) * FLASH_PAGE_SIZE))-1))
+#elif defined(FLASH_START_ADDR)
+/* If EEPROM_FLASH_PAGE_NUMBER is defined by user, this is not really end of the flash */
+#define FLASH_END  ((uint32_t)(FLASH_START_ADDR + (((EEPROM_FLASH_PAGE_NUMBER +1) * FLASH_PAGE_SIZE))-1))
+#elif defined(FLASH_BASE) && defined(EEPROM_FLASH_PAGE_NUMBER) && defined (FLASH_PAGE_SIZE)
+/* If EEPROM_FLASH_PAGE_NUMBER is defined by user, this is not really end of the flash */
+#define FLASH_END  ((uint32_t)(FLASH_BASE + (((EEPROM_FLASH_PAGE_NUMBER +1) * FLASH_PAGE_SIZE))-1))
 #endif
 #ifndef FLASH_END
 #error "FLASH_END could not be defined"
@@ -235,12 +243,15 @@ void eeprom_buffer_flush(void)
   uint32_t pageError = 0;
 #if defined(FLASH_TYPEPROGRAM_QUADWORD)
   uint64_t data[2] = {0x0000};
-#else
+#elif defined(FLASH_TYPEPROGRAM_DOUBLEWORD)
 #if defined(STM32U3xx)
   uint32_t dataAddr = 0;
 #else
+  /* Double word*/
   uint64_t data = 0;
-#endif
+#endif /* STM32U3xx */
+#elif defined(FLASH_TYPEPROGRAM_WORD)
+  uint32_t data = 0;
 #endif
 
   /* ERASING page */
@@ -248,14 +259,16 @@ void eeprom_buffer_flush(void)
 #if defined(FLASH_BANK_NUMBER)
   EraseInitStruct.Banks = FLASH_BANK_NUMBER;
 #endif /* FLASH_BANK_NUMBER */
-#if defined (FLASH_PAGE_NUMBER) && defined(FLASH_SIZE)
-  EraseInitStruct.Page = FLASH_PAGE_NUMBER;
+#if defined (EEPROM_FLASH_PAGE_NUMBER) && defined(FLASH_SIZE)
+  EraseInitStruct.Page = EEPROM_FLASH_PAGE_NUMBER;
 #else
   EraseInitStruct.PageAddress = FLASH_BASE_ADDRESS;
 #endif
   EraseInitStruct.NbPages = 1;
-
-  if (HAL_FLASH_Unlock() == HAL_OK) {
+#if !defined(PROT_LEVEL_NONE)
+  if (HAL_FLASH_Unlock() == HAL_OK)
+#endif
+  {
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_ALL_ERRORS);
     if (HAL_FLASHEx_Erase(&EraseInitStruct, &pageError) == HAL_OK) {
       while (address <= address_end) {
@@ -265,7 +278,8 @@ void eeprom_buffer_flush(void)
         if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_QUADWORD, address, (uint32_t)data) == HAL_OK) {
           address += 16;
           offset += 16;
-#else
+#elif defined(FLASH_TYPEPROGRAM_DOUBLEWORD)
+        /* 64 bits */
 #if defined(STM32U3xx)
         dataAddr = (uint32_t)((uint8_t *)eeprom_buffer + offset);
 
@@ -277,13 +291,21 @@ void eeprom_buffer_flush(void)
 #endif
           address += 8;
           offset += 8;
+#elif defined(FLASH_TYPEPROGRAM_WORD)
+        /* 32 bits */
+        memcpy(&data, eeprom_buffer + offset,  sizeof(uint32_t));
+        if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, address, (uint32_t)data) == HAL_OK) {
+          address += 4;
+          offset += 4;
 #endif
         } else {
           address = address_end + 1;
         }
       }
     }
+#if !defined(PROT_LEVEL_NONE)
     HAL_FLASH_Lock();
+#endif /* FLASH_KEY1 || FLASH_PEKEY1 */
   }
 #else /* FLASH_TYPEERASE_SECTORS */
   uint32_t SectorError = 0;
@@ -339,8 +361,7 @@ void eeprom_buffer_flush(void)
   HAL_FLASH_Lock();
 #endif
 #if defined(ICACHE) && defined (HAL_ICACHE_MODULE_ENABLED) && !defined(HAL_ICACHE_MODULE_DISABLED)
-  if (icache_enabled)
-  {
+  if (icache_enabled) {
     /* Re-enable instruction cache */
     if (HAL_ICACHE_Enable() != HAL_OK) {
       Error_Handler();

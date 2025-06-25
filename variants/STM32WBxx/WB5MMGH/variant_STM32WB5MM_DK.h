@@ -149,9 +149,9 @@
   #define PIN_SERIAL_TX         PB6
 #endif
 
-// Only 512k provided for cpu1, so defined the FLASH_PAGE_NUMBER
+// Only 512k provided for cpu1, so defined the EEPROM_FLASH_PAGE_NUMBER
 // for EEPROM emulation to the last 808k pages.
-#define FLASH_PAGE_NUMBER       201
+#define EEPROM_FLASH_PAGE_NUMBER  201
 
 // Extra HAL modules
 #if !defined(HAL_QSPI_MODULE_DISABLED)
