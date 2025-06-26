@@ -8,13 +8,13 @@
   #pragma GCC diagnostic ignored "-Wregister"
 #endif
 
-{% for serie in serieslist %}
+{% for serie, nx in serieslist %}
   {% if loop.first %}
-#ifdef STM32{{serie.upper()}}xx
+#ifdef STM32{{serie.upper()}}{{nx}}
   {% else %}
-#elif STM32{{serie.upper()}}xx
+#elif STM32{{serie.upper()}}{{nx}}
   {% endif %}
-  #include "stm32{{serie}}xx_ll_{{periph}}.h"
+  #include "stm32{{serie}}{{nx}}_ll_{{periph}}.h"
   {% if loop.last %}
 #endif
   {% endif %}

@@ -69,7 +69,7 @@ extern "C" {
 
 /* Redefinition of IRQ for C0/F0/G0/L0/U0 families */
 #if defined(STM32C0xx) || defined(STM32F0xx) || defined(STM32G0xx) ||\
-    defined(STM32L0xx) || defined(STM32U0xx)
+    defined(STM32L0xx) || defined(STM32U0xx) || defined(STM32WB0x)
 #if defined(I2C1_BASE)
 #define I2C1_EV_IRQn        I2C1_IRQn
 #define I2C1_EV_IRQHandler  I2C1_IRQHandler

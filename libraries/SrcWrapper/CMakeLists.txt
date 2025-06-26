@@ -102,6 +102,8 @@ add_library(SrcWrapper_bin OBJECT EXCLUDE_FROM_ALL
   src/HAL/stm32yyxx_hal_pwr.c
   src/HAL/stm32yyxx_hal_pwr_ex.c
   src/HAL/stm32yyxx_hal_qspi.c
+  src/HAL/stm32yyxx_hal_radio.c
+  src/HAL/stm32yyxx_hal_radio_timer.c
   src/HAL/stm32yyxx_hal_ramcfg.c
   src/HAL/stm32yyxx_hal_ramecc.c
   src/HAL/stm32yyxx_hal_rcc.c
@@ -171,6 +173,7 @@ add_library(SrcWrapper_bin OBJECT EXCLUDE_FROM_ALL
   src/LL/stm32yyxx_ll_sdmmc.c
   src/LL/stm32yyxx_ll_spi.c
   src/LL/stm32yyxx_ll_swpmi.c
+  src/LL/stm32yyxx_ll_system.c
   src/LL/stm32yyxx_ll_tim.c
   src/LL/stm32yyxx_ll_ucpd.c
   src/LL/stm32yyxx_ll_usart.c

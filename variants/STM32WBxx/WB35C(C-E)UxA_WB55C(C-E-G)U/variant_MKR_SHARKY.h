@@ -88,9 +88,9 @@
 /* Extra HAL configuration */
 #define PREFETCH_ENABLE         1U
 
-// Only 512k provided for cpu1, so defined the FLASH_PAGE_NUMBER
+// Only 512k provided for cpu1, so defined the EEPROM_FLASH_PAGE_NUMBER
 // for EEPROM emulation to the last 512k pages.
-#define FLASH_PAGE_NUMBER       127
+#define EEPROM_FLASH_PAGE_NUMBER  127
 
 /*----------------------------------------------------------------------------
  *        Arduino objects - C++ only
