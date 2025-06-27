@@ -90,7 +90,9 @@ void TwoWire::begin(uint8_t address, bool generalCall, bool NoStretchMode)
 
   _i2c.NoStretchMode = (NoStretchMode == true) ? 1 : 0;
 
-  recoverBus(); // in case I2C bus (device) is stuck after a reset for example
+  if (_i2c.isMaster == 1) {
+    recoverBus(); // in case I2C bus (device) is stuck after a reset for example
+  }
 
   i2c_init(&_i2c, 100000, ownAddress);
 
