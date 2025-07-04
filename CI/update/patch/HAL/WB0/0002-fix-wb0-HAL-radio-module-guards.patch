@@ -1,0 +1,57 @@
+From 93a1289bac219178f2173b7301c19c2d89076c2a Mon Sep 17 00:00:00 2001
+From: Frederic Pillon <frederic.pillon@st.com>
+Date: Sat, 14 Jun 2025 14:46:20 +0200
+Subject: [PATCH 2/2] fix(wb0): HAL radio module guards
+
+Signed-off-by: Frederic Pillon <frederic.pillon@st.com>
+---
+ system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_hal_radio.c | 3 ++-
+ .../STM32WB0x_HAL_Driver/Src/stm32wb0x_hal_radio_timer.c      | 4 ++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_hal_radio.c b/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_hal_radio.c
+index 4300680fe..16a9ab884 100644
+--- a/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_hal_radio.c
++++ b/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_hal_radio.c
+@@ -22,6 +22,7 @@
+ /** @addtogroup STM32WB0x_HAL_Driver
+   * @{
+   */
++#ifdef HAL_RADIO_MODULE_ENABLED
+ 
+ /** @addtogroup RADIO
+   * @{
+@@ -1790,7 +1791,7 @@ void HAL_RADIO_TXRX_SEQ_IRQHandler(void)
+ /**
+   * @}
+   */
+-
++#endif /* HAL_RADIO_MODULE_ENABLED */
+ /**
+   * @}
+   */
+diff --git a/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_hal_radio_timer.c b/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_hal_radio_timer.c
+index db269d88e..f2c992a14 100644
+--- a/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_hal_radio_timer.c
++++ b/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_hal_radio_timer.c
+@@ -56,7 +56,7 @@
+ /** @addtogroup STM32WB0x_HAL_Driver
+   * @{
+   */
+-
++#ifdef HAL_RADIO_TIMER_MODULE_ENABLED
+ /** @addtogroup RADIO_TIMER
+   * @brief HAL RADIO TIMER  module driver
+   * @{
+@@ -1844,7 +1844,7 @@ void HAL_RADIO_TIMER_ERROR_IRQHandler(void)
+ /**
+   * @}
+   */
+-
++#endif /* HAL_RADIO_TIMER_MODULE_ENABLED */
+ /**
+   * @}
+   */
+-- 
+2.34.1
+

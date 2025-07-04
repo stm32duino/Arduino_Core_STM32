@@ -69,8 +69,11 @@ static inline void resetBackupDomain(void)
     */
   HAL_PWR_EnableBkUpAccess();
 #endif
+#if defined(__HAL_RCC_BACKUPRESET_FORCE)
   __HAL_RCC_BACKUPRESET_FORCE();
   __HAL_RCC_BACKUPRESET_RELEASE();
+  // TBD: WB0 enable RTC Clock ?
+#endif
 }
 
 static inline void enableBackupDomain(void)

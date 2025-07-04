@@ -1,11 +1,11 @@
 import argparse
-import collections
 import fileinput
 import json
 import re
 import subprocess
 import stm32wrapper
 import sys
+from collections import OrderedDict
 from jinja2 import Environment, FileSystemLoader
 from packaging import version
 from pathlib import Path
@@ -14,7 +14,7 @@ from xml.dom.minidom import parse
 
 script_path = Path(__file__).parent.resolve()
 sys.path.append(str(script_path.parent))
-from utils import copyFile, copyFolder, createFolder, deleteFolder, genSTM32List
+from utils import copyFile, copyFolder, createFolder, deleteFolder, genSTM32Dict
 from utils import defaultConfig, execute_cmd, getRepoBranchName
 
 if sys.platform.startswith("win32"):
@@ -33,6 +33,7 @@ repo_core_name = "Arduino_Core_STM32"
 repo_ble_name = "STM32duinoBLE"
 repo_local_path = home / "STM32Cube_repo"
 local_cube_path = Path("")
+core_path = script_path.parent.parent.resolve()
 
 # From
 # Relative to repo path
@@ -44,12 +45,15 @@ system_dest_path = Path(system_path)
 hal_dest_path = system_dest_path / hal_src_path
 cmsis_dest_path = system_dest_path / hal_src_path / "CMSIS" / "Device" / "ST"
 
+nx = "xx"  # Default number of x in STM32 series
+
 stm32_list = []  # series
-cube_versions = collections.OrderedDict()  # key: serie name, value: cube version
-cube_HAL_versions = collections.OrderedDict()  # key: serie name, value: HAL version
-cube_CMSIS_versions = collections.OrderedDict()  # key: serie name, value: CMSIS version
-core_HAL_versions = collections.OrderedDict()  # key: serie name, value: HAL version
-core_CMSIS_versions = collections.OrderedDict()  # key: serie name, value: CMSIS version
+stm32_dict = OrderedDict()  # key: serie, value: nx
+cube_versions = OrderedDict()  # key: serie name, value: cube version
+cube_HAL_versions = OrderedDict()  # key: serie name, value: HAL version
+cube_CMSIS_versions = OrderedDict()  # key: serie name, value: CMSIS version
+core_HAL_versions = OrderedDict()  # key: serie name, value: HAL version
+core_CMSIS_versions = OrderedDict()  # key: serie name, value: CMSIS version
 
 # MD to update
 md_CMSIS_path = "STM32YYxx_CMSIS_version.md"
@@ -59,6 +63,7 @@ md_HAL_path = "STM32YYxx_HAL_Driver_version.md"
 hal_skip_pattern = {"*.chm"}
 cmsis_skip_pattern = {"iar", "arm"}
 common_skip_pattern = {
+    ".git",
     ".github",
     "CODE_OF_CONDUCT.md",
     "CONTRIBUTING.md",
@@ -92,7 +97,7 @@ def checkConfig():
     global md_HAL_path
     global md_CMSIS_path
     global stm32_def
-
+    global core_path
     config_file_path = script_path / "update_config.json"
     if config_file_path.is_file():
         try:
@@ -104,19 +109,14 @@ def checkConfig():
                 defaultConfig(config_file_path, path_config)
             else:
                 repo_local_path = Path(path_config["REPO_LOCAL_PATH"])
-            hal_dest_path = repo_local_path / repo_core_name / hal_dest_path
+            if not upargs.local:
+                core_path = repo_local_path / repo_core_name
+            hal_dest_path = core_path / hal_dest_path
             md_HAL_path = hal_dest_path / md_HAL_path
-            cmsis_dest_path = repo_local_path / repo_core_name / cmsis_dest_path
-            system_dest_path = repo_local_path / repo_core_name / system_dest_path
+            cmsis_dest_path = core_path / cmsis_dest_path
+            system_dest_path = core_path / system_dest_path
             md_CMSIS_path = cmsis_dest_path / md_CMSIS_path
-            stm32_def = (
-                repo_local_path
-                / repo_core_name
-                / "libraries"
-                / "SrcWrapper"
-                / "inc"
-                / stm32_def
-            )
+            stm32_def = core_path / "libraries" / "SrcWrapper" / "inc" / stm32_def
         except IOError:
             print(f"Failed to open {config_file}!")
     else:
@@ -126,7 +126,7 @@ def checkConfig():
 
 def updateStm32Def(serie):
     print(f"Adding top HAL include for {serie}...")
-    regex_serie = re.compile(r"defined\(STM32(\w+)xx\)")
+    regex_serie = re.compile(rf"defined\(STM32(\w+){nx}\)")
     # Add the new STM32YY entry
     added = False
     serie_found = ""
@@ -145,8 +145,8 @@ def updateStm32Def(serie):
                 pcond = "if"
             else:
                 pcond = "elif"
-            print(f"#{pcond} defined(STM32{serie}xx)")
-            print(f'  #include "stm32{serie.lower()}xx.h"')
+            print(f"#{pcond} defined(STM32{serie}{nx})")
+            print(f'  #include "stm32{serie.lower()}{nx}.h"')
             print(line.replace("#if", "#elif"), end="")
             added = True
         else:
@@ -154,14 +154,14 @@ def updateStm32Def(serie):
 
 
 def updateHalConfDefault(serie):
-    system_serie = system_dest_path / f"STM32{serie}xx"
-    hal_conf_base = f"stm32{serie.lower()}xx_hal_conf"
+    system_serie = system_dest_path / f"STM32{serie}{nx}"
+    hal_conf_base = f"stm32{serie.lower()}{nx}_hal_conf"
     hal_conf_default = system_serie / f"{hal_conf_base}_default.h"
 
     regex_module = re.compile(r"#define HAL_(\w+)_MODULE_ENABLED")
 
-    old_guard = f"STM32{serie}xx_HAL_CONF_H"
-    new_guard = f"STM32{serie}xx_HAL_CONF_DEFAULT_H"
+    old_guard = f"STM32{serie}{nx}_HAL_CONF_H"
+    new_guard = f"STM32{serie}{nx}_HAL_CONF_DEFAULT_H"
     module_sel = "Module Selection"
 
     new_include = """/**
@@ -194,16 +194,16 @@ def updateHalConfDefault(serie):
 
 def createSystemFiles(serie):
     print(f"Creating system files for {serie}...")
-    system_serie = system_dest_path / f"STM32{serie}xx"
+    system_serie = system_dest_path / f"STM32{serie}{nx}"
     createFolder(system_serie)
     # Generate stm32yyxx_hal_conf_file.h
     stm32_hal_conf_file = system_serie / stm32yyxx_hal_conf_file.replace(
         "yy", serie.lower()
-    )
+    ).replace("xx", nx)
     with open(stm32_hal_conf_file, "w", newline="\n") as out_file:
-        out_file.write(stm32yyxx_hal_conf_file_template.render(serie=serie))
+        out_file.write(stm32yyxx_hal_conf_file_template.render(serie=serie, nx=nx))
     # Copy system_stm32*.c file from CMSIS device template
-    system_stm32_path = cmsis_dest_path / f"STM32{serie}xx" / "Source" / "Templates"
+    system_stm32_path = cmsis_dest_path / f"STM32{serie}{nx}" / "Source" / "Templates"
     filelist = sorted(system_stm32_path.glob("system_stm32*.c"))
     file_number = len(filelist)
     if file_number:
@@ -220,26 +220,24 @@ def createSystemFiles(serie):
     else:
         print("No system files found!")
     # Copy stm32yyxx_hal_conf_default.h file
-    hal_conf_base = f"stm32{serie.lower()}xx_hal_conf"
-    hal_serie_path = hal_dest_path / f"STM32{serie}xx_HAL_Driver"
+    hal_conf_base = f"stm32{serie.lower()}{nx}_hal_conf"
+    hal_serie_path = hal_dest_path / f"STM32{serie}{nx}_HAL_Driver"
     hal_conf_file = hal_serie_path / "Inc" / f"{hal_conf_base}_template.h"
     hal_conf_default = system_serie / f"{hal_conf_base}_default.h"
     copyFile(hal_conf_file, hal_conf_default)
 
 
 def updateCoreRepo():
-    # Handle core repo
-    repo_path = repo_local_path / repo_core_name
     print(f"Updating {repo_core_name}...")
-    if repo_path.exists():
-        rname, bname = getRepoBranchName(repo_path)
+    if core_path.exists():
+        rname, bname = getRepoBranchName(core_path)
         # Get new tags from the remote
         git_cmds = [
-            ["git", "-C", repo_path, "fetch"],
+            ["git", "-C", core_path, "fetch"],
             [
                 "git",
                 "-C",
-                repo_path,
+                core_path,
                 "checkout",
                 "-B",
                 bname,
@@ -251,13 +249,62 @@ def updateCoreRepo():
         git_cmds = [["git", "-C", repo_local_path, "clone", gh_core]]
     for cmd in git_cmds:
         execute_cmd(cmd, None)
+    createBranch()
+
+
+def checkCoreRepo():
+    # Check if the core repo exists
+    if not core_path.exists():
+        print(f"Could not find core repo: {core_path}!")
+        exit(1)
+    # Check if the core repo is a git repository
+    if not (core_path / ".git").exists():
+        print(f"{core_path} is not a git repository!")
+        exit(1)
+    # Check if the core repo has no uncommitted changes
+    print(f"Checking {repo_core_name}...")
+    status = execute_cmd(["git", "-C", core_path, "status"], None)
+    if "working tree clean" not in status:
+        print(f"{repo_core_name} has modified or new files!")
+        exit(1)
+    status = execute_cmd(["git", "-C", core_path, "rev-parse", "--abbrev-ref", "HEAD"], None)
+    print(f"Current branch: {status.strip()}")
+    createBranch()
+
+
+def createBranch():
+    # Create a new branch for the update
+    if upargs.serie:
+        bname = f"stm32cube{upargs.serie}_update"
+    elif upargs.add:
+        bname = f"stm32cube{upargs.add}_addition"
+    else:
+        bname = "stm32cube_update"
+    # Check if the branch already exists
+    bname_list = [bn[2:] for bn in execute_cmd(["git", "-C", core_path, "branch", "--list"], None).splitlines()]
+    if (
+        bname
+        in bname_list
+    ):
+        print(f"Branch {bname} already exists, ...")
+        execute_cmd(["git", "-C", core_path, "checkout", bname], None)
+    else:
+        print(f"Creating branch {bname}...")
+        execute_cmd(["git", "-C", core_path, "checkout", "-b", bname], None)
+        # Check if the branch was created successfully
+        status = execute_cmd(
+            ["git", "-C", core_path, "rev-parse", "--abbrev-ref", "HEAD"], None
+        )
+        if status.strip() != bname:
+            print(f"Failed to create branch {bname}!")
+            exit(1)
 
 
 def checkSTLocal():
     global local_cube_path
     global stm32_list
     # Handle local STM32Cube
-    local_cube_path = Path(upargs.local)
+    local_cube_path = Path(upargs.path).resolve()
     if not local_cube_path.exists():
         print(f"Could not find local copy: {local_cube_path}!")
         exit(1)
@@ -293,10 +340,30 @@ def checkSTLocal():
 
 
 def updateSTRepo():
+    global nx
     # Handle STM32Cube repo
     for serie in stm32_list:
         repo_name = f"{repo_generic_name}{serie}"
         repo_path = repo_local_path / repo_name
+        if upargs.add:
+            # Series can have only one x,
+            # find directory starting with STM32 and ending with HAL_Driver
+            # in hal_src_path folder then check number of x
+            for f in (repo_path / hal_src_path).iterdir():
+                if f.is_dir():
+                    if f.name.startswith(f"STM32{serie}xx_HAL_Driver"):
+                        nx = "xx"
+                        break
+                    elif f.name.startswith(f"STM32{serie}x_HAL_Driver"):
+                        nx = "x"
+                        break
+            else:
+                print(
+                    f"Could not find HAL_Driver for {serie} in {repo_path / hal_src_path}"
+                )
+                exit(1)
+            stm32_dict[serie] = nx
+        nx = stm32_dict[serie]
         gh_STM32Cube = urljoin(gh_st, f"{repo_name}.git")
         print(f"Updating {repo_name}...")
         if repo_path.exists():
@@ -414,9 +481,9 @@ def checkVersion(serie, repo_path):
     HAL_file = (
         repo_path
         / hal_src_path
-        / f"STM32{userie}xx_HAL_Driver"
+        / f"STM32{userie}{nx}_HAL_Driver"
         / "Src"
-        / f"stm32{lserie}xx_hal.c"
+        / f"stm32{lserie}{nx}_hal.c"
     )
     with open(HAL_file, "r") as fp:
         data = fp.read()
@@ -424,9 +491,9 @@ def checkVersion(serie, repo_path):
             HAL_file = (
                 repo_path
                 / hal_src_path
-                / f"STM32{userie}xx_HAL_Driver"
+                / f"STM32{userie}{nx}_HAL_Driver"
                 / "Inc"
-                / f"stm32{lserie}xx_hal.h"
+                / f"stm32{lserie}{nx}_hal.h"
             )
     cube_HAL_versions[serie] = parseVersion(HAL_file, patterns)
     if upargs.add:
@@ -434,9 +501,9 @@ def checkVersion(serie, repo_path):
     else:
         HAL_file = (
             hal_dest_path
-            / f"STM32{userie}xx_HAL_Driver"
+            / f"STM32{userie}{nx}_HAL_Driver"
             / "Src"
-            / f"stm32{lserie}xx_hal.c"
+            / f"stm32{lserie}{nx}_hal.c"
         )
         with open(HAL_file, "r") as fp:
             data = fp.read()
@@ -444,9 +511,9 @@ def checkVersion(serie, repo_path):
                 HAL_file = (
                     repo_path
                     / hal_dest_path
-                    / f"STM32{userie}xx_HAL_Driver"
+                    / f"STM32{userie}{nx}_HAL_Driver"
                     / "Inc"
-                    / f"stm32{lserie}xx_hal.h"
+                    / f"stm32{lserie}{nx}_hal.h"
                 )
         core_HAL_versions[serie] = parseVersion(HAL_file, patterns)
 
@@ -465,16 +532,25 @@ def checkVersion(serie, repo_path):
     CMSIS_file = (
         repo_path
         / cmsis_src_path
-        / f"STM32{userie}xx"
+        / f"STM32{userie}{nx}"
         / "Include"
-        / f"stm32{lserie}xx.h"
+        / f"stm32{lserie}{nx}.h"
     )
+    # Some CMSIS folder have a uppercase x
+    if not CMSIS_file.is_file():
+        CMSIS_file = (
+            repo_path
+            / cmsis_src_path
+            / f"STM32{userie}{nx.upper()}"
+            / "Include"
+            / f"stm32{lserie}{nx}.h"
+        )
     cube_CMSIS_versions[serie] = parseVersion(CMSIS_file, patterns)
     if upargs.add:
         core_CMSIS_versions[serie] = "0.0.0"
     else:
         CMSIS_file = (
-            cmsis_dest_path / f"STM32{userie}xx" / "Include" / f"stm32{lserie}xx.h"
+            cmsis_dest_path / f"STM32{userie}{nx}" / "Include" / f"stm32{lserie}{nx}.h"
         )
         core_CMSIS_versions[serie] = parseVersion(CMSIS_file, patterns)
 
@@ -760,7 +836,7 @@ def updateBleReadme(filepath, version):
 
 
 def updateBleLibrary():
-    if upargs.local:
+    if upargs.path:
         cube_path = local_cube_path
     else:
         cube_name = f"{repo_generic_name}WB"
@@ -804,14 +880,13 @@ def updateBle():
 
 def updateOpenAmp():
     print("Updating OpenAmp Middleware")
-    repo_path = repo_local_path / repo_core_name
-    if upargs.local:
+    if upargs.path:
         cube_path = local_cube_path
     else:
         cube_name = f"{repo_generic_name}MP1"
         cube_path = repo_local_path / cube_name
     OpenAmp_cube_path = cube_path / "Middlewares" / "Third_Party" / "OpenAMP"
-    OpenAmp_core_path = repo_path / "system" / "Middlewares" / "OpenAMP"
+    OpenAmp_core_path = core_path / "system" / "Middlewares" / "OpenAMP"
 
     # First delete old HAL version
     deleteFolder(OpenAmp_core_path)
@@ -821,13 +896,14 @@ def updateOpenAmp():
 
 
 def updateCore():
+    global nx
     for serie in stm32_list:
-        if upargs.local:
+        if upargs.path:
             cube_path = local_cube_path
         else:
             cube_name = f"{repo_generic_name}{serie}"
             cube_path = repo_local_path / cube_name
-        core_path = repo_local_path / repo_core_name
+        nx = stm32_dict[serie.removeprefix("STM32")]
         core_HAL_ver = core_HAL_versions[serie]
         cube_HAL_ver = cube_HAL_versions[serie]
         core_CMSIS_ver = core_CMSIS_versions[serie]
@@ -836,7 +912,7 @@ def updateCore():
         HAL_updated = False
         CMSIS_updated = False
         openamp_updated = False
-        hal_commit_msg = """system({0}) {4} STM32{1}xx HAL Drivers to v{2}
+        hal_commit_msg = """system({0}) {4} STM32{1}{5} HAL Drivers to v{2}
 
 Included in STM32Cube{1} FW {3}""".format(
             serie.lower(),
@@ -844,8 +920,9 @@ Included in STM32Cube{1} FW {3}""".format(
             cube_HAL_ver,
             cube_version,
             "add" if upargs.add else "update",
+            nx,
         )
-        cmsis_commit_msg = """system({0}): {4} STM32{1}xx CMSIS Drivers to v{2}
+        cmsis_commit_msg = """system({0}): {4} STM32{1}{5} CMSIS Drivers to v{2}
 
 Included in STM32Cube{1} FW {3}""".format(
             serie.lower(),
@@ -853,6 +930,7 @@ Included in STM32Cube{1} FW {3}""".format(
             cube_CMSIS_ver,
             cube_version,
             "add" if upargs.add else "update",
+            nx,
         )
         wrapper_commit_msg = (
             f"core({serie.lower()}): {'add' if upargs.add else 'update'} wrapped files"
@@ -867,11 +945,11 @@ Included in STM32Cube{1} FW {3}""".format(
                     f"Updating {serie} HAL from version {core_HAL_ver} to {cube_HAL_ver}..."
                 )
             # First delete old HAL version
-            HAL_serie_core_path = hal_dest_path / f"STM32{serie}xx_HAL_Driver"
+            HAL_serie_core_path = hal_dest_path / f"STM32{serie}{nx}_HAL_Driver"
             deleteFolder(HAL_serie_core_path)
             # Copy new one
             HAL_serie_cube_path = (
-                cube_path / hal_src_path / f"STM32{serie}xx_HAL_Driver"
+                cube_path / hal_src_path / f"STM32{serie}{nx}_HAL_Driver"
             )
             copyFolder(
                 HAL_serie_cube_path,
@@ -891,10 +969,21 @@ Included in STM32Cube{1} FW {3}""".format(
                     f"Updating {serie} CMSIS from version {core_CMSIS_ver} to {cube_CMSIS_ver}..."
                 )
             # First delete CMSIS folder
-            CMSIS_serie_dest_path = cmsis_dest_path / f"STM32{serie}xx"
+            CMSIS_serie_dest_path = cmsis_dest_path / f"STM32{serie}{nx}"
             deleteFolder(CMSIS_serie_dest_path)
             # Copy new one
-            CMSIS_serie_cube_path = cube_path / cmsis_src_path / f"STM32{serie}xx"
+            CMSIS_serie_cube_path = cube_path / cmsis_src_path / f"STM32{serie}{nx}"
+            # Check if path exists
+            if not CMSIS_serie_cube_path.exists():
+                # Try to find the upper case version, ex: WB0X
+                CMSIS_serie_cube_path = (
+                    cube_path / cmsis_src_path / f"STM32{serie}{nx.upper()}"
+                )
+            if not CMSIS_serie_cube_path.exists():
+                print(f"Could not find CMSIS serie {serie} in {CMSIS_serie_cube_path}!")
+                exit(1)
+            # Copy CMSIS files
+            # note: that dest path uses lower x case
             copyFolder(
                 CMSIS_serie_cube_path,
                 CMSIS_serie_dest_path,
@@ -907,12 +996,12 @@ Included in STM32Cube{1} FW {3}""".format(
 
         if upargs.add:
             system_commit_msg = (
-                f"system({serie.lower()}): add STM32{serie}xx system source files"
+                f"system({serie.lower()}): add STM32{serie}{nx} system source files"
             )
             update_hal_conf_commit_msg = (
-                f"system({serie.lower()}): update STM32{serie}xx hal default config"
+                f"system({serie.lower()}): update STM32{serie}{nx} hal default config"
             )
-            update_stm32_def_commit_msg = f"core({serie}): add top HAL include"
+            update_stm32_def_commit_msg = f"core({serie.lower()}): add top HAL include"
             # Create system files
             createSystemFiles(serie)
             # Commit all system files
@@ -922,7 +1011,7 @@ Included in STM32Cube{1} FW {3}""".format(
             commitFiles(core_path, update_hal_conf_commit_msg)
             print("\tPlease, review carefully all the system files added!")
             print("\tAdd #ifndef/#endif to all definitions which should be")
-            print(f"\tredefinable in the stm32{serie.lower()}xx_hal_conf_default.h")
+            print(f"\tredefinable in the stm32{serie.lower()}{nx}_hal_conf_default.h")
             # Update stm32_def to add top HAL include
             updateStm32Def(serie)
             commitFiles(core_path, update_stm32_def_commit_msg)
@@ -972,10 +1061,16 @@ upparser.add_argument(
     "-c", "--check", help="Check versions. Default all.", action="store_true"
 )
 upparser.add_argument(
+    "-p",
+    "--path",
+    metavar="local cube",
+    help="Path to a STM32cube directory to use instead of GitHub one.",
+)
+upparser.add_argument(
     "-l",
     "--local",
-    metavar="local",
-    help="Use local copy of one STM32cube instead of GitHub",
+    action="store_true",
+    help="Do the update in the current STM32 core repo instead of a copy.",
 )
 group = upparser.add_mutually_exclusive_group()
 group.add_argument(
@@ -990,18 +1085,26 @@ upargs = upparser.parse_args()
 
 
 def main():
+    global stm32_dict
     global stm32_list
     # check config have to be done first
     checkConfig()
-    updateCoreRepo()
-    stm32_list = genSTM32List(hal_dest_path, upargs.serie)
+    if not upargs.local:
+        updateCoreRepo()
+    else:
+        checkCoreRepo()
+    stm32_dict = genSTM32Dict(hal_dest_path, upargs.serie)
+    stm32_list = sorted(list(stm32_dict.keys()))
+    if not stm32_list:
+        print(f"{upargs.serie} is not supported yet. Consider using -a instead of -s")
+        exit(1)
     if upargs.add:
         if upargs.add.upper() not in stm32_list:
             stm32_list = [upargs.add.upper()]
         else:
             print(f"{upargs.add} can't be added as it already exists!")
             exit(1)
-    if upargs.local:
+    if upargs.path:
         checkSTLocal()
     else:
         updateSTRepo()
