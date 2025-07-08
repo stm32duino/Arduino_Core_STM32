@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Release Notes for STM32WB0x CMSIS</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="_htmresc/mini-st_2020.css" />
+  <link rel="icon" type="image/x-icon" href="_htmresc/favicon.png" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<div class="row">
+<div class="col-sm-12 col-lg-4">
+<center>
+<h1 id="release-notes-for">Release Notes for</h1>
+<h1 id="stm32wb0x-cmsis"><mark>STM32WB0x CMSIS</mark></h1>
+<p>Copyright © 2024 STMicroelectronics<br />
+</p>
+<a href="https://www.st.com" class="logo"><img
+src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
+</center>
+<h1 id="purpose">Purpose</h1>
+<p>This driver provides the CMSIS device for the STM32WB0x products.
+This covers</p>
+<ul>
+<li>STM32WB05 devices</li>
+<li>STM32WB06/7 devices</li>
+<li>STM32WB09 devices</li>
+</ul>
+<p>This driver is composed of the description of the registers under
+“Include” directory.</p>
+<p>Various template files are provided to easily build an application.
+They can be adapted to fit applications requirements.</p>
+<ul>
+<li>Templates/system_stm32wb0x.c contains the initialization code
+referred as SystemInit.</li>
+<li>Startup files are provided as example for EWARM©.</li>
+<li>Linker files are provided as example for EWARM©.</li>
+</ul>
+</div>
+<section id="update-history" class="col-sm-12 col-lg-8">
+<h1>Update history</h1>
+<div class="collapse">
+<input type="checkbox" id="collapse-section4" checked aria-hidden="true">
+<label for="collapse-section4" aria-hidden="true"> <strong>V1.3.0 /
+4-June-2025</strong> </label>
+<div>
+<h2 id="main-changes">Main Changes</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="contents">Contents</h2>
+<ul>
+<li>Allow redefinition of the macro ‘VECT_TAB_OFFSET’ externally from
+the IDE, makefile, or command line.</li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section3"  aria-hidden="true">
+<label for="collapse-section3" aria-hidden="true"> <strong>V1.2.0 /
+05-February-2025</strong> </label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="contents-1">Contents</h2>
+<ul>
+<li>Release of CMSIS devices drivers
+<ul>
+<li>Support of STM32WB05xx, STM32WB06xx, STM32WB07xx and STM32WB09xx
+devices</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-1">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies-1">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="notes-1">Notes</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section2" aria-hidden="true">
+<label for="collapse-section2" aria-hidden="true"> <strong>V1.1.0 /
+30-October-2024</strong> </label>
+<div>
+<h2 id="main-changes-2">Main Changes</h2>
+<ul>
+<li>Fixed RAM size of WB06.</li>
+<li>Remove the BP_POSTP bit of the RNG_CR from CMSIS.</li>
+</ul>
+<h2 id="contents-2">Contents</h2>
+<ul>
+<li>Release of CMSIS devices drivers
+<ul>
+<li>Support of STM32WB05xx, STM32WB06xx, STM32WB07xx and STM32WB09xx
+devices</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-2">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies-2">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="notes-2">Notes</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1" aria-hidden="true">
+<label for="collapse-section1" aria-hidden="true"> <strong>V1.0.0 /
+05-June-2024</strong> </label>
+<div>
+<h2 id="main-changes-3">Main Changes</h2>
+<h3
+id="first-release-of-stm32cubewb0-firmware-package-supporting-stm32wb05xx-stm32wb06xx-stm32wb07xx-and-stm32wb09xx-devices">First
+Release of <strong>STM32CubeWB0</strong> Firmware package supporting
+<strong>STM32WB05xx, STM32WB06xx, STM32WB07xx and STM32WB09xx</strong>
+devices</h3>
+<h2 id="contents-3">Contents</h2>
+<ul>
+<li>First release of CMSIS devices drivers
+<ul>
+<li>Support of STM32WB05xx, STM32WB06xx, STM32WB07xx and STM32WB09xx
+devices</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-3">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies-3">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="notes-3">Notes</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+</section>
+</div>
+<footer class="sticky">
+<div class="columns">
+<div class="column" style="width:95%;">
+<p>For complete documentation on STM32 Microcontrollers </mark>, visit:
+<span style="font-color: blue;"><a
+href="http://www.st.com/stm32">www.st.com/stm32</a></span></p>
+<p><em>This release note uses up to date web standards and, for this
+reason, should not be opened with Internet Explorer but preferably with
+popular browsers such as Google Chrome, Mozilla Firefox, Opera or
+Microsoft Edge.</em></p>
+</div><div class="column" style="width:5%;">
+<p><abbr title="Based on template cx566953 version 2.0">Info</abbr></p>
+</div>
+</div>
+</footer>
+</body>
+</html>
