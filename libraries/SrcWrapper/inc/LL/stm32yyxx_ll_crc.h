@@ -46,6 +46,8 @@
   #include "stm32u5xx_ll_crc.h"
 #elif STM32WBxx
   #include "stm32wbxx_ll_crc.h"
+#elif STM32WB0x
+  #include "stm32wb0x_ll_crc.h"
 #elif STM32WBAxx
   #include "stm32wbaxx_ll_crc.h"
 #elif STM32WLxx

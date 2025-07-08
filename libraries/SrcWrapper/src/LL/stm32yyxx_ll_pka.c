@@ -14,6 +14,8 @@
   #include "stm32u5xx_ll_pka.c"
 #elif STM32WBxx
   #include "stm32wbxx_ll_pka.c"
+#elif STM32WB0x
+  #include "stm32wb0x_ll_pka.c"
 #elif STM32WBAxx
   #include "stm32wbaxx_ll_pka.c"
 #elif STM32WLxx
