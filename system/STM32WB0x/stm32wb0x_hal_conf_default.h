@@ -1,8 +1,7 @@
 /**
   ******************************************************************************
-  * @file    stm32wb0x_hal_conf.h
-  * @author  MCD Application Team
-  * @brief   HAL configuration file.
+  * @file    stm32wb0x_hal_conf_default.h
+  * @brief   HAL default configuration file.
   ******************************************************************************
   * @attention
   *
@@ -17,8 +16,8 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef STM32WB0x_HAL_CONF_H
-#define STM32WB0x_HAL_CONF_H
+#ifndef STM32WB0x_HAL_CONF_DEFAULT_H
+#define STM32WB0x_HAL_CONF_DEFAULT_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -28,6 +27,12 @@ extern "C" {
 /* Exported constants --------------------------------------------------------*/
 
 /* ########################## Module Selection ############################## */
+/**
+  * @brief Include the default list of modules to be used in the HAL driver
+  *        and manage module deactivation
+  */
+#include "stm32yyxx_hal_conf.h"
+#if 0
 /**
   * @brief This is the list of modules to be used in the HAL driver
   */
@@ -55,6 +60,7 @@ extern "C" {
 #define HAL_TIM_MODULE_ENABLED
 #define HAL_UART_MODULE_ENABLED
 #define HAL_USART_MODULE_ENABLED
+#endif
 
 #define USE_HAL_ADC_REGISTER_CALLBACKS       0u
 #define USE_HAL_I2C_REGISTER_CALLBACKS       0u
@@ -298,4 +304,4 @@ void assert_failed(uint8_t *file, uint32_t line);
 }
 #endif
 
-#endif /* STM32WB0x_HAL_CONF_H */
+#endif /* STM32WB0x_HAL_CONF_DEFAULT_H */
