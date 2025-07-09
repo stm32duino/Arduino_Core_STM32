@@ -69,8 +69,16 @@ static inline void resetBackupDomain(void)
     */
   HAL_PWR_EnableBkUpAccess();
 #endif
+#if defined(__HAL_RCC_BACKUPRESET_FORCE)
   __HAL_RCC_BACKUPRESET_FORCE();
   __HAL_RCC_BACKUPRESET_RELEASE();
+#endif
+#if defined(LL_APB0_GRP1_PERIPH_RTC)
+  LL_RCC_DisableRTC();
+  /* Wait until RTC is disabled */
+  while (LL_RCC_IsEnabledRTC());
+  LL_RCC_EnableRTC();
+#endif
 }
 
 static inline void enableBackupDomain(void)
@@ -90,6 +98,23 @@ static inline void enableBackupDomain(void)
 #if defined(TAMP_BKP0R) && defined(__HAL_RCC_RTCAPB_CLK_ENABLE)
   /* Enable RTC CLK for TAMP backup registers */
   __HAL_RCC_RTCAPB_CLK_ENABLE();
+#endif
+#if defined(LL_APB0_GRP1_PERIPH_RTC)
+  if (!LL_RCC_IsEnabledRTC()) {
+    if (LL_RCC_LSE_IsEnabled()) {
+      LL_RCC_LSCO_SetSource(LL_RCC_LSCO_CLKSOURCE_LSE);
+    } else {
+      /* Configure the Low Speed Clock to LSI */
+      LL_RCC_LSCO_SetSource(LL_RCC_LSCO_CLKSOURCE_LSI);
+      if (!LL_RCC_LSI_IsEnabled()) {
+        /* Enable LSI */
+        LL_RCC_LSI_Enable();
+        /* Wait until LSI is ready */
+        while (!LL_RCC_LSI_IsReady());
+      }
+    }
+    LL_RCC_EnableRTC();
+  }
 #endif
 }
 
@@ -111,13 +136,16 @@ static inline void disableBackupDomain(void)
   /* Disable RTC CLK for TAMP backup registers */
   __HAL_RCC_RTCAPB_CLK_DISABLE();
 #endif
+#if defined(LL_APB0_GRP1_PERIPH_RTC)
+  LL_RCC_DisableRTC();
+#endif
 }
 
 static inline void setBackupRegister(uint32_t index, uint32_t value)
 {
 #if defined(BKP_BASE)
   LL_RTC_BKP_SetRegister(BKP, index, value);
-#elif defined(RTC_BKP0R)
+#elif defined(RTC_BKP0R) || defined(RTC_BKP0R_BKP)
   LL_RTC_BAK_SetRegister(RTC, index, value);
 #elif defined(TAMP_BKP0R)
 #if defined(STM32G4xx) || defined(STM32H5xx) || defined(STM32L5xx) ||\
@@ -141,7 +169,7 @@ static inline uint32_t getBackupRegister(uint32_t index)
 {
 #if defined(BKP_BASE)
   return LL_RTC_BKP_GetRegister(BKP, index);
-#elif defined(RTC_BKP0R)
+#elif defined(RTC_BKP0R) || defined(RTC_BKP0R_BKP)
   return LL_RTC_BAK_GetRegister(RTC, index);
 #elif defined(TAMP_BKP0R)
 #if defined(STM32G4xx) || defined(STM32H5xx) || defined(STM32L5xx) ||\

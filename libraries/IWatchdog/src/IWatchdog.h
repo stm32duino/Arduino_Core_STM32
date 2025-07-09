@@ -37,6 +37,7 @@
 class IWatchdogClass {
 
   public:
+    IWatchdogClass();
     void begin(uint32_t timeout, uint32_t window = IWDG_TIMEOUT_MAX);
     void set(uint32_t timeout, uint32_t window = IWDG_TIMEOUT_MAX);
     void get(uint32_t *timeout, uint32_t *window = NULL);

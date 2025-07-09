@@ -36,6 +36,8 @@
   #include "system_stm32u3xx.c"
 #elif STM32U5xx
   #include "system_stm32u5xx.c"
+#elif STM32WB0x
+  #include "system_stm32wb0x.c"
 #elif STM32WBAxx
   #include "system_stm32wbaxx.c"
 #elif STM32WBxx

@@ -44,6 +44,8 @@
 #include "stm32yyxx_ll_opamp.h"
 #include "stm32yyxx_ll_pka.h"
 #include "stm32yyxx_ll_pwr.h"
+#include "stm32yyxx_ll_radio.h"
+#include "stm32yyxx_ll_radio_timer.h"
 #include "stm32yyxx_ll_rcc.h"
 #include "stm32yyxx_ll_rng.h"
 #include "stm32yyxx_ll_rtc.h"

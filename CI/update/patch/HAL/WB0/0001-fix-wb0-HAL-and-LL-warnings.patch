@@ -1,0 +1,410 @@
+From c552804f8bb6fdc70b780df6e98e696faf1ad11b Mon Sep 17 00:00:00 2001
+From: Frederic Pillon <frederic.pillon@st.com>
+Date: Sat, 14 Jun 2025 09:59:56 +0200
+Subject: [PATCH 1/2] fix(wb0): HAL and LL warnings
+
+Signed-off-by: Frederic Pillon <frederic.pillon@st.com>
+---
+ .../Inc/stm32wb0x_ll_dma.h                    | 40 +++++++++++++++++++
+ .../Inc/stm32wb0x_ll_radio_timer.h            |  3 ++
+ .../Src/stm32wb0x_hal_flash_ex.c              |  2 +-
+ .../Src/stm32wb0x_hal_radio_timer.c           |  4 +-
+ .../Src/stm32wb0x_ll_adc.c                    |  2 +-
+ 5 files changed, 47 insertions(+), 4 deletions(-)
+
+diff --git a/system/Drivers/STM32WB0x_HAL_Driver/Inc/stm32wb0x_ll_dma.h b/system/Drivers/STM32WB0x_HAL_Driver/Inc/stm32wb0x_ll_dma.h
+index bc237ac45..fff12f8c3 100644
+--- a/system/Drivers/STM32WB0x_HAL_Driver/Inc/stm32wb0x_ll_dma.h
++++ b/system/Drivers/STM32WB0x_HAL_Driver/Inc/stm32wb0x_ll_dma.h
+@@ -430,6 +430,7 @@ typedef struct
+   */
+ __STATIC_INLINE void LL_DMA_EnableChannel(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   SET_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR, DMA_CCR_EN);
+ }
+ 
+@@ -450,6 +451,7 @@ __STATIC_INLINE void LL_DMA_EnableChannel(DMA_TypeDef *DMAx, uint32_t Channel)
+   */
+ __STATIC_INLINE void LL_DMA_DisableChannel(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   CLEAR_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR, DMA_CCR_EN);
+ }
+ 
+@@ -470,6 +472,7 @@ __STATIC_INLINE void LL_DMA_DisableChannel(DMA_TypeDef *DMAx, uint32_t Channel)
+   */
+ __STATIC_INLINE uint32_t LL_DMA_IsEnabledChannel(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   return ((READ_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR,
+                    DMA_CCR_EN) == (DMA_CCR_EN)) ? 1UL : 0UL);
+ }
+@@ -506,6 +509,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsEnabledChannel(DMA_TypeDef *DMAx, uint32_t Cha
+   */
+ __STATIC_INLINE void LL_DMA_ConfigTransfer(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t Configuration)
+ {
++  (void)DMAx;
+   MODIFY_REG(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR,
+              DMA_CCR_DIR | DMA_CCR_MEM2MEM | DMA_CCR_CIRC | DMA_CCR_PINC | DMA_CCR_MINC | DMA_CCR_PSIZE | DMA_CCR_MSIZE | DMA_CCR_PL,
+              Configuration);
+@@ -533,6 +537,7 @@ __STATIC_INLINE void LL_DMA_ConfigTransfer(DMA_TypeDef *DMAx, uint32_t Channel,
+   */
+ __STATIC_INLINE void LL_DMA_SetDataTransferDirection(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t Direction)
+ {
++  (void)DMAx;
+   MODIFY_REG(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR,
+              DMA_CCR_DIR | DMA_CCR_MEM2MEM, Direction);
+ }
+@@ -558,6 +563,7 @@ __STATIC_INLINE void LL_DMA_SetDataTransferDirection(DMA_TypeDef *DMAx, uint32_t
+   */
+ __STATIC_INLINE uint32_t LL_DMA_GetDataTransferDirection(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   return (READ_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR,
+                    DMA_CCR_DIR | DMA_CCR_MEM2MEM));
+ }
+@@ -584,6 +590,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetDataTransferDirection(DMA_TypeDef *DMAx, uint
+   */
+ __STATIC_INLINE void LL_DMA_SetMode(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t Mode)
+ {
++  (void)DMAx;
+   MODIFY_REG(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR, DMA_CCR_CIRC,
+              Mode);
+ }
+@@ -607,6 +614,7 @@ __STATIC_INLINE void LL_DMA_SetMode(DMA_TypeDef *DMAx, uint32_t Channel, uint32_
+   */
+ __STATIC_INLINE uint32_t LL_DMA_GetMode(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   return (READ_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR,
+                    DMA_CCR_CIRC));
+ }
+@@ -631,6 +639,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetMode(DMA_TypeDef *DMAx, uint32_t Channel)
+   */
+ __STATIC_INLINE void LL_DMA_SetPeriphIncMode(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t PeriphOrM2MSrcIncMode)
+ {
++  (void)DMAx;
+   MODIFY_REG(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR, DMA_CCR_PINC,
+              PeriphOrM2MSrcIncMode);
+ }
+@@ -654,6 +663,7 @@ __STATIC_INLINE void LL_DMA_SetPeriphIncMode(DMA_TypeDef *DMAx, uint32_t Channel
+   */
+ __STATIC_INLINE uint32_t LL_DMA_GetPeriphIncMode(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   return (READ_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR,
+                    DMA_CCR_PINC));
+ }
+@@ -678,6 +688,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetPeriphIncMode(DMA_TypeDef *DMAx, uint32_t Cha
+   */
+ __STATIC_INLINE void LL_DMA_SetMemoryIncMode(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t MemoryOrM2MDstIncMode)
+ {
++  (void)DMAx;
+   MODIFY_REG(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR, DMA_CCR_MINC,
+              MemoryOrM2MDstIncMode);
+ }
+@@ -701,6 +712,7 @@ __STATIC_INLINE void LL_DMA_SetMemoryIncMode(DMA_TypeDef *DMAx, uint32_t Channel
+   */
+ __STATIC_INLINE uint32_t LL_DMA_GetMemoryIncMode(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   return (READ_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR,
+                    DMA_CCR_MINC));
+ }
+@@ -726,6 +738,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetMemoryIncMode(DMA_TypeDef *DMAx, uint32_t Cha
+   */
+ __STATIC_INLINE void LL_DMA_SetPeriphSize(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t PeriphOrM2MSrcDataSize)
+ {
++  (void)DMAx;
+   MODIFY_REG(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR, DMA_CCR_PSIZE,
+              PeriphOrM2MSrcDataSize);
+ }
+@@ -750,6 +763,7 @@ __STATIC_INLINE void LL_DMA_SetPeriphSize(DMA_TypeDef *DMAx, uint32_t Channel, u
+   */
+ __STATIC_INLINE uint32_t LL_DMA_GetPeriphSize(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   return (READ_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR,
+                    DMA_CCR_PSIZE));
+ }
+@@ -775,6 +789,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetPeriphSize(DMA_TypeDef *DMAx, uint32_t Channe
+   */
+ __STATIC_INLINE void LL_DMA_SetMemorySize(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t MemoryOrM2MDstDataSize)
+ {
++  (void)DMAx;
+   MODIFY_REG(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR, DMA_CCR_MSIZE,
+              MemoryOrM2MDstDataSize);
+ }
+@@ -799,6 +814,7 @@ __STATIC_INLINE void LL_DMA_SetMemorySize(DMA_TypeDef *DMAx, uint32_t Channel, u
+   */
+ __STATIC_INLINE uint32_t LL_DMA_GetMemorySize(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   return (READ_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR,
+                    DMA_CCR_MSIZE));
+ }
+@@ -825,6 +841,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetMemorySize(DMA_TypeDef *DMAx, uint32_t Channe
+   */
+ __STATIC_INLINE void LL_DMA_SetChannelPriorityLevel(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t Priority)
+ {
++  (void)DMAx;
+   MODIFY_REG(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR, DMA_CCR_PL,
+              Priority);
+ }
+@@ -850,6 +867,7 @@ __STATIC_INLINE void LL_DMA_SetChannelPriorityLevel(DMA_TypeDef *DMAx, uint32_t
+   */
+ __STATIC_INLINE uint32_t LL_DMA_GetChannelPriorityLevel(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   return (READ_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR,
+                    DMA_CCR_PL));
+ }
+@@ -874,6 +892,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetChannelPriorityLevel(DMA_TypeDef *DMAx, uint3
+   */
+ __STATIC_INLINE void LL_DMA_SetDataLength(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t NbData)
+ {
++  (void)DMAx;
+   MODIFY_REG(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CNDTR,
+              DMA_CNDTR_NDT, NbData);
+ }
+@@ -897,6 +916,7 @@ __STATIC_INLINE void LL_DMA_SetDataLength(DMA_TypeDef *DMAx, uint32_t Channel, u
+   */
+ __STATIC_INLINE uint32_t LL_DMA_GetDataLength(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   return (READ_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CNDTR,
+                    DMA_CNDTR_NDT));
+ }
+@@ -928,6 +948,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetDataLength(DMA_TypeDef *DMAx, uint32_t Channe
+ __STATIC_INLINE void LL_DMA_ConfigAddresses(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t SrcAddress,
+                                             uint32_t DstAddress, uint32_t Direction)
+ {
++  (void)DMAx;
+   /* Direction Memory to Periph */
+   if (Direction == LL_DMA_DIRECTION_MEMORY_TO_PERIPH)
+   {
+@@ -962,6 +983,7 @@ __STATIC_INLINE void LL_DMA_ConfigAddresses(DMA_TypeDef *DMAx, uint32_t Channel,
+   */
+ __STATIC_INLINE void LL_DMA_SetMemoryAddress(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t MemoryAddress)
+ {
++  (void)DMAx;
+   WRITE_REG(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CMAR, MemoryAddress);
+ }
+ 
+@@ -985,6 +1007,7 @@ __STATIC_INLINE void LL_DMA_SetMemoryAddress(DMA_TypeDef *DMAx, uint32_t Channel
+   */
+ __STATIC_INLINE void LL_DMA_SetPeriphAddress(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t PeriphAddress)
+ {
++  (void)DMAx;
+   WRITE_REG(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CPAR, PeriphAddress);
+ }
+ 
+@@ -1006,6 +1029,7 @@ __STATIC_INLINE void LL_DMA_SetPeriphAddress(DMA_TypeDef *DMAx, uint32_t Channel
+   */
+ __STATIC_INLINE uint32_t LL_DMA_GetMemoryAddress(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   return (READ_REG(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CMAR));
+ }
+ 
+@@ -1027,6 +1051,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetMemoryAddress(DMA_TypeDef *DMAx, uint32_t Cha
+   */
+ __STATIC_INLINE uint32_t LL_DMA_GetPeriphAddress(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   return (READ_REG(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CPAR));
+ }
+ 
+@@ -1050,6 +1075,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetPeriphAddress(DMA_TypeDef *DMAx, uint32_t Cha
+   */
+ __STATIC_INLINE void LL_DMA_SetM2MSrcAddress(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t MemoryAddress)
+ {
++  (void)DMAx;
+   WRITE_REG(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CPAR, MemoryAddress);
+ }
+ 
+@@ -1073,6 +1099,7 @@ __STATIC_INLINE void LL_DMA_SetM2MSrcAddress(DMA_TypeDef *DMAx, uint32_t Channel
+   */
+ __STATIC_INLINE void LL_DMA_SetM2MDstAddress(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t MemoryAddress)
+ {
++  (void)DMAx;
+   WRITE_REG(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CMAR, MemoryAddress);
+ }
+ 
+@@ -1094,6 +1121,7 @@ __STATIC_INLINE void LL_DMA_SetM2MDstAddress(DMA_TypeDef *DMAx, uint32_t Channel
+   */
+ __STATIC_INLINE uint32_t LL_DMA_GetM2MSrcAddress(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   return (READ_REG(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CPAR));
+ }
+ 
+@@ -1115,6 +1143,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetM2MSrcAddress(DMA_TypeDef *DMAx, uint32_t Cha
+   */
+ __STATIC_INLINE uint32_t LL_DMA_GetM2MDstAddress(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   return (READ_REG(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CMAR));
+ }
+ 
+@@ -1137,6 +1166,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetM2MDstAddress(DMA_TypeDef *DMAx, uint32_t Cha
+   */
+ __STATIC_INLINE void LL_DMA_SetPeriphRequest(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t Request)
+ {
++  (void)DMAx;
+   MODIFY_REG(__LL_DMA_INSTANCE_TO_DMAMUX_CCR(DMAx, Channel - 1U)->CxCR, DMAMUX_CxCR_DMAREQ_ID, Request);
+ }
+ 
+@@ -1158,6 +1188,7 @@ __STATIC_INLINE void LL_DMA_SetPeriphRequest(DMA_TypeDef *DMAx, uint32_t Channel
+   */
+ __STATIC_INLINE uint32_t LL_DMA_GetPeriphRequest(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   return (READ_BIT(__LL_DMA_INSTANCE_TO_DMAMUX_CCR(DMAx, Channel - 1U)->CxCR, DMAMUX_CxCR_DMAREQ_ID));
+ }
+ 
+@@ -1897,6 +1928,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_TE8(DMA_TypeDef *DMAx)
+   */
+ __STATIC_INLINE void LL_DMA_EnableIT_TC(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   SET_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR, DMA_CCR_TCIE);
+ }
+ 
+@@ -1917,6 +1949,7 @@ __STATIC_INLINE void LL_DMA_EnableIT_TC(DMA_TypeDef *DMAx, uint32_t Channel)
+   */
+ __STATIC_INLINE void LL_DMA_EnableIT_HT(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   SET_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR, DMA_CCR_HTIE);
+ }
+ 
+@@ -1937,6 +1970,7 @@ __STATIC_INLINE void LL_DMA_EnableIT_HT(DMA_TypeDef *DMAx, uint32_t Channel)
+   */
+ __STATIC_INLINE void LL_DMA_EnableIT_TE(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   SET_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR, DMA_CCR_TEIE);
+ }
+ 
+@@ -1957,6 +1991,7 @@ __STATIC_INLINE void LL_DMA_EnableIT_TE(DMA_TypeDef *DMAx, uint32_t Channel)
+   */
+ __STATIC_INLINE void LL_DMA_DisableIT_TC(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   CLEAR_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR, DMA_CCR_TCIE);
+ }
+ 
+@@ -1977,6 +2012,7 @@ __STATIC_INLINE void LL_DMA_DisableIT_TC(DMA_TypeDef *DMAx, uint32_t Channel)
+   */
+ __STATIC_INLINE void LL_DMA_DisableIT_HT(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   CLEAR_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR, DMA_CCR_HTIE);
+ }
+ 
+@@ -1997,6 +2033,7 @@ __STATIC_INLINE void LL_DMA_DisableIT_HT(DMA_TypeDef *DMAx, uint32_t Channel)
+   */
+ __STATIC_INLINE void LL_DMA_DisableIT_TE(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   CLEAR_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR, DMA_CCR_TEIE);
+ }
+ 
+@@ -2017,6 +2054,7 @@ __STATIC_INLINE void LL_DMA_DisableIT_TE(DMA_TypeDef *DMAx, uint32_t Channel)
+   */
+ __STATIC_INLINE uint32_t LL_DMA_IsEnabledIT_TC(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   return ((READ_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR,
+                    DMA_CCR_TCIE) == (DMA_CCR_TCIE)) ? 1UL : 0UL);
+ }
+@@ -2038,6 +2076,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsEnabledIT_TC(DMA_TypeDef *DMAx, uint32_t Chann
+   */
+ __STATIC_INLINE uint32_t LL_DMA_IsEnabledIT_HT(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   return ((READ_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR,
+                    DMA_CCR_HTIE) == (DMA_CCR_HTIE)) ? 1UL : 0UL);
+ }
+@@ -2059,6 +2098,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsEnabledIT_HT(DMA_TypeDef *DMAx, uint32_t Chann
+   */
+ __STATIC_INLINE uint32_t LL_DMA_IsEnabledIT_TE(DMA_TypeDef *DMAx, uint32_t Channel)
+ {
++  (void)DMAx;
+   return ((READ_BIT(__LL_DMA_INSTANCE_TO_CHANNEL(DMAx, Channel - 1U)->CCR,
+                    DMA_CCR_TEIE) == (DMA_CCR_TEIE)) ? 1UL : 0UL);
+ }
+diff --git a/system/Drivers/STM32WB0x_HAL_Driver/Inc/stm32wb0x_ll_radio_timer.h b/system/Drivers/STM32WB0x_HAL_Driver/Inc/stm32wb0x_ll_radio_timer.h
+index e3618cfc1..db5808c58 100644
+--- a/system/Drivers/STM32WB0x_HAL_Driver/Inc/stm32wb0x_ll_radio_timer.h
++++ b/system/Drivers/STM32WB0x_HAL_Driver/Inc/stm32wb0x_ll_radio_timer.h
+@@ -445,6 +445,8 @@ __STATIC_INLINE uint32_t LL_RADIO_TIMER_IsEnabledCPUWakeupTimerForceSleeping(WAK
+ __STATIC_INLINE void LL_RADIO_TIMER_SetSleepRequestMode(WAKEUP_TypeDef *WAKEUPx, uint8_t mode)
+ {
+ #if defined(STM32WB09)
++  (void)WAKEUPx; // No operation for STM32WB09
++  (void)mode; // No operation for STM32WB09
+   return;
+ #else
+   MODIFY_REG_FIELD(WAKEUP->BLUE_SLEEP_REQUEST_MODE, WAKEUP_BLUE_SLEEP_REQUEST_MODE_SLEEP_REQ_MODE, (mode & 0x7));
+@@ -460,6 +462,7 @@ __STATIC_INLINE void LL_RADIO_TIMER_SetSleepRequestMode(WAKEUP_TypeDef *WAKEUPx,
+ __STATIC_INLINE uint32_t LL_RADIO_TIMER_GetSleepRequestMode(WAKEUP_TypeDef *WAKEUPx)
+ {
+ #if defined(STM32WB09)
++  (void)WAKEUPx; // No operation for STM32WB09
+   return 0;
+ #else
+   return (uint32_t)(READ_REG(WAKEUP->BLUE_SLEEP_REQUEST_MODE) & WAKEUP_BLUE_SLEEP_REQUEST_MODE_SLEEP_REQ_MODE);
+diff --git a/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_hal_flash_ex.c b/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_hal_flash_ex.c
+index fe66a0a89..6bded19a1 100644
+--- a/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_hal_flash_ex.c
++++ b/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_hal_flash_ex.c
+@@ -109,7 +109,7 @@ static void              FLASH_KeyWrite(void);
+   */
+ HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t *PageError)
+ {
+-  HAL_StatusTypeDef status;
++  HAL_StatusTypeDef status = HAL_ERROR;
+   uint32_t index;
+ 
+   /* Check the parameters */
+diff --git a/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_hal_radio_timer.c b/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_hal_radio_timer.c
+index 70219dc39..db269d88e 100644
+--- a/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_hal_radio_timer.c
++++ b/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_hal_radio_timer.c
+@@ -1131,7 +1131,7 @@ static void _get_calibration_data(CalibrationDataTypeDef *calibrationData)
+   int32_t a2;
+ 
+   period =  LL_RADIO_TIMER_GetLSIPeriod(RADIO_CTRL);
+-  while (period != LL_RADIO_TIMER_GetLSIPeriod(RADIO_CTRL) || period == 0)
++  while (period != (int32_t)LL_RADIO_TIMER_GetLSIPeriod(RADIO_CTRL) || period == 0)
+   {
+     period = LL_RADIO_TIMER_GetLSIPeriod(RADIO_CTRL);
+   }
+@@ -1145,7 +1145,7 @@ static void _get_calibration_data(CalibrationDataTypeDef *calibrationData)
+   mult = 0x753 ;
+   freq = LL_RADIO_TIMER_GetLSIFrequency(RADIO_CTRL);
+ 
+-  while (freq != LL_RADIO_TIMER_GetLSIFrequency(RADIO_CTRL) || freq == 0)
++  while (freq != (int32_t)LL_RADIO_TIMER_GetLSIFrequency(RADIO_CTRL) || freq == 0)
+   {
+     freq = LL_RADIO_TIMER_GetLSIFrequency(RADIO_CTRL);
+   }
+diff --git a/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_ll_adc.c b/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_ll_adc.c
+index 5308d2980..c071750ba 100644
+--- a/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_ll_adc.c
++++ b/system/Drivers/STM32WB0x_HAL_Driver/Src/stm32wb0x_ll_adc.c
+@@ -24,7 +24,7 @@
+ #ifdef  USE_FULL_ASSERT
+ #include "stm32_assert.h"
+ #else
+-#define assert_param(expr) ((void)0UL)
++#define assert_param(expr) ((void)0U)
+ #endif /* USE_FULL_ASSERT */
+ 
+ /** @addtogroup STM32WB0x_LL_Driver
+-- 
+2.34.1
+

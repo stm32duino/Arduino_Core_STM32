@@ -24,6 +24,13 @@
 // Initialize static variable
 bool IWatchdogClass::_enabled = false;
 
+IWatchdogClass::IWatchdogClass()
+{
+#if defined(LL_APB0_GRP1_PERIPH_WDG)
+  LL_APB0_GRP1_EnableClock(LL_APB0_GRP1_PERIPH_WDG);
+#endif
+}
+
 /**
   * @brief  Enable IWDG, must be called once
   * @param  timeout: value in microseconds
@@ -46,6 +53,9 @@ void IWatchdogClass::begin(uint32_t timeout, uint32_t window)
   LL_RCC_LSI_Enable();
   while (LL_RCC_LSI_IsReady() != 1) {
   }
+#endif
+#if defined(LL_RCC_LSCO_CLKSOURCE_LSI)
+  LL_RCC_LSCO_SetSource(LL_RCC_LSCO_CLKSOURCE_LSI);
 #endif
   // Enable the IWDG by writing 0x0000 CCCC in the IWDG_KR register
   LL_IWDG_Enable(IWDG);
@@ -168,8 +178,10 @@ void IWatchdogClass::reload(void)
   */
 bool IWatchdogClass::isReset(bool clear)
 {
-#ifdef IWDG1
+#if defined(IWDG1)
   bool status = LL_RCC_IsActiveFlag_IWDG1RST();
+#elif defined(STM32WB0x)
+  bool status = LL_RCC_IsActiveFlag_WDGRST();
 #else
   bool status = LL_RCC_IsActiveFlag_IWDGRST();
 #endif

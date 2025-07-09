@@ -107,7 +107,7 @@ def main():
 
     for fqbn in fqbn_list:
         if args.board and arg_board_pattern.search(fqbn) is None:
-                continue
+            continue
         print(fqbn)
 
 

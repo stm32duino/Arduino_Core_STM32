@@ -93,9 +93,9 @@
   #define PIN_SERIAL_TX         PA9
 #endif
 
-// Only 128k provided for cpu1, so defined the FLASH_PAGE_NUMBER
+// Only 128k provided for cpu1, so defined the EEPROM_FLASH_PAGE_NUMBER
 // for EEPROM emulation to the last 128k pages.
-#define FLASH_PAGE_NUMBER       63
+#define EEPROM_FLASH_PAGE_NUMBER  63
 
 /*----------------------------------------------------------------------------
  *        Arduino objects - C++ only

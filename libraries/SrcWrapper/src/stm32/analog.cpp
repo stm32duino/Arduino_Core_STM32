@@ -30,6 +30,17 @@ static PinName g_current_pin = NC;
 /* Private_Defines */
 #if defined(HAL_ADC_MODULE_ENABLED) && !defined(HAL_ADC_MODULE_ONLY)
 
+#if defined(STM32WB0x)
+#ifndef ADC_SAMPLING_RATE
+#define ADC_SAMPLING_RATE           ADC_SAMPLE_RATE_16
+#endif /* !ADC_SAMPLING_RATE */
+#ifndef ADC_SAMPLING_RATE_INTERNAL
+#define ADC_SAMPLING_RATE_INTERNAL  ADC_SAMPLE_RATE_16
+#endif /* !ADC_SAMPLING_RATE_INTERNAL */
+#ifndef ADC_VOLT_RANGE
+#define ADC_VOLT_RANGE              ADC_VIN_RANGE_3V6
+#endif /* !ADC_VOLT_RANGE */
+#else
 #ifndef ADC_SAMPLINGTIME
 #if defined(ADC_SAMPLETIME_8CYCLES_5)
 #define ADC_SAMPLINGTIME        ADC_SAMPLETIME_8CYCLES_5
@@ -106,6 +117,7 @@ static PinName g_current_pin = NC;
 #ifndef ADC_REGULAR_RANK_1
 #define ADC_REGULAR_RANK_1  1
 #endif
+#endif /* STM32WB0x */
 
 /* Exported Functions */
 /**
@@ -119,6 +131,20 @@ uint32_t get_adc_channel(PinName pin, uint32_t *bank)
   uint32_t function = pinmap_function(pin, PinMap_ADC);
   uint32_t channel = 0;
   switch (STM_PIN_CHANNEL(function)) {
+#ifdef ADC_CHANNEL_VINP0
+    case 0:
+      channel = ADC_CHANNEL_VINP0;
+      break;
+    case 1:
+      channel = ADC_CHANNEL_VINP1;
+      break;
+    case 2:
+      channel = ADC_CHANNEL_VINP2;
+      break;
+    case 3:
+      channel = ADC_CHANNEL_VINP3;
+      break;
+#else
 #ifdef ADC_CHANNEL_0
     case 0:
       channel = ADC_CHANNEL_0;
@@ -228,11 +254,12 @@ uint32_t get_adc_channel(PinName pin, uint32_t *bank)
     case 31:
       channel = ADC_CHANNEL_31;
       break;
-#endif
-#endif
-#endif
-#endif
-#endif
+#endif /* ADC_CHANNEL_27 */
+#endif /* ADC_CHANNEL_24 */
+#endif /* ADC_CHANNEL_23 */
+#endif /* ADC_CHANNEL_20 */
+#endif /* ADC_CHANNEL_14 */
+#endif /* ADC_CHANNEL_VINP0 */
     default:
       _Error_Handler("ADC: Unknown adc channel", (int)(STM_PIN_CHANNEL(function)));
       break;
@@ -595,6 +622,12 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
   /* ADC Periph clock enable */
 #ifdef ADC1
   if (hadc->Instance == ADC1) {
+#ifdef __HAL_RCC_ADCDIG_CLK_ENABLE
+    __HAL_RCC_ADCDIG_CLK_ENABLE();
+#endif
+#ifdef __HAL_RCC_ADCANA_CLK_ENABLE
+    __HAL_RCC_ADCANA_CLK_ENABLE();
+#endif
 #ifdef __HAL_RCC_ADC1_CLK_ENABLE
     __HAL_RCC_ADC1_CLK_ENABLE();
 #endif
@@ -698,6 +731,12 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef *hadc)
 #endif
 #ifdef __HAL_RCC_ADC12_CLK_DISABLE
     __HAL_RCC_ADC12_CLK_DISABLE();
+#endif
+#ifdef __HAL_RCC_ADCANA_CLK_DISABLE
+    __HAL_RCC_ADCANA_CLK_DISABLE();
+#endif
+#ifdef __HAL_RCC_ADCDIG_CLK_DISABLE
+    __HAL_RCC_ADCDIG_CLK_DISABLE();
 #endif
   }
 #endif
@@ -804,7 +843,12 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   ADC_HandleTypeDef AdcHandle = {};
   ADC_ChannelConfTypeDef  AdcChannelConf = {};
   __IO uint16_t uhADCxConvertedValue = 0;
+#if defined(STM32WB0x)
+  uint32_t samplingRate = ADC_SAMPLING_RATE;
+  uint32_t voltageRange = ADC_VOLT_RANGE;
+#else
   uint32_t samplingTime = ADC_SAMPLINGTIME;
+#endif /* STM32WB0x */
   uint32_t channel = 0;
   uint32_t bank = 0;
 
@@ -826,10 +870,22 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #endif
 #endif
     channel = get_adc_internal_channel(pin);
+#if defined(STM32WB0x)
+    samplingRate = ADC_SAMPLING_RATE_INTERNAL;
+    if (channel == ADC_CHANNEL_TEMPSENSOR) {
+      voltageRange = ADC_VIN_RANGE_1V2;
+    } else if (channel == ADC_CHANNEL_VBAT) {
+      voltageRange = ADC_VIN_RANGE_3V6;
+    }
+#else
     samplingTime = ADC_SAMPLINGTIME_INTERNAL;
+#endif /* STM32WB0x */
   } else {
     AdcHandle.Instance = (ADC_TypeDef *)pinmap_peripheral(pin, PinMap_ADC);
     channel = get_adc_channel(pin, &bank);
+#if defined(STM32WB0x)
+
+#else
 #if defined(ADC_VER_V5_V90)
     if (AdcHandle.Instance == ADC3) {
       samplingTime = ADC3_SAMPLINGTIME;
@@ -840,12 +896,40 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
       samplingTime = ADC4_SAMPLINGTIME;
     }
 #endif
+#endif /* STM32WB0x */
   }
 
   if (AdcHandle.Instance == NP) {
     return 0;
   }
-
+#if defined(STM32WB0x)
+  AdcHandle.Init.ConversionType        = ADC_CONVERSION_WITH_DS;
+  AdcHandle.Init.ContinuousConvMode    = DISABLE;
+  AdcHandle.Init.SequenceLength        = 1;
+  AdcHandle.Init.SamplingMode          = ADC_SAMPLING_AT_START;
+  AdcHandle.Init.SampleRate            = samplingRate;
+  switch (resolution) {
+    case 12:
+    default:
+      AdcHandle.Init.DownSamplerConfig.DataWidth          = ADC_DS_DATA_WIDTH_12_BIT;
+      break;
+    case 13:
+      AdcHandle.Init.DownSamplerConfig.DataWidth          = ADC_DS_DATA_WIDTH_13_BIT;
+      break;
+    case 14:
+      AdcHandle.Init.DownSamplerConfig.DataWidth          = ADC_DS_DATA_WIDTH_14_BIT;
+      break;
+    case 15:
+      AdcHandle.Init.DownSamplerConfig.DataWidth          = ADC_DS_DATA_WIDTH_15_BIT;
+      break;
+    case 16:
+      AdcHandle.Init.DownSamplerConfig.DataWidth          = ADC_DS_DATA_WIDTH_16_BIT;
+      break;
+  }
+  AdcHandle.Init.DownSamplerConfig.DataRatio = ADC_DS_RATIO_8;
+  AdcHandle.Init.InvertOutputMode      = ADC_DATA_INVERT_NONE;
+  AdcHandle.Init.Overrun               = ADC_NEW_DATA_IS_LOST;
+#else
 #ifdef ADC_CLOCK_DIV
   AdcHandle.Init.ClockPrescaler        = ADC_CLOCK_DIV;                 /* (A)synchronous clock mode, input ADC clock divided */
 #endif
@@ -963,7 +1047,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #ifdef ADC_VREF_PPROT_NONE
   AdcHandle.Init.VrefProtection = ADC_VREF_PPROT_NONE;
 #endif
-
+#endif /* STM32WB0x*/
   AdcHandle.State = HAL_ADC_STATE_RESET;
   AdcHandle.DMA_Handle = NULL;
   AdcHandle.Lock = HAL_UNLOCKED;
@@ -985,6 +1069,49 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #endif
     return 0;
   }
+
+#if defined(STM32WB0x)
+  AdcChannelConf.Rank = ADC_RANK_1;
+  AdcChannelConf.VoltRange = voltageRange;
+  AdcChannelConf.CalibrationPoint.Number = ADC_CALIB_POINT_1;
+
+  uint32_t uADCxCalibrationPoint_Gain = 0;
+  uint32_t uADCxCalibrationPoint_Offset = 0;
+  if (channel != ADC_CHANNEL_VBAT && channel != ADC_CHANNEL_TEMPSENSOR) {
+    /* Calibration point gain and offset */
+    switch (voltageRange) {
+      case ADC_VIN_RANGE_3V6:
+        uADCxCalibrationPoint_Gain   = LL_ADC_GET_CALIB_GAIN_FOR_VINPX_3V6();
+        uADCxCalibrationPoint_Offset = LL_ADC_GET_CALIB_OFFSET_FOR_VINPX_3V6();
+        if (uADCxCalibrationPoint_Gain == 0xFFF) {
+          uADCxCalibrationPoint_Gain = LL_ADC_DEFAULT_RANGE_VALUE_3V6;
+          uADCxCalibrationPoint_Offset = 0UL;
+        }
+        break;
+      case ADC_VIN_RANGE_2V4:
+        uADCxCalibrationPoint_Gain   = LL_ADC_GET_CALIB_GAIN_FOR_VINPX_2V4();
+        uADCxCalibrationPoint_Offset = LL_ADC_GET_CALIB_OFFSET_FOR_VINPX_2V4();
+        if (uADCxCalibrationPoint_Gain == 0xFFF) {
+          uADCxCalibrationPoint_Gain = LL_ADC_DEFAULT_RANGE_VALUE_2V4;
+          uADCxCalibrationPoint_Offset = 0UL;
+        }
+        break;
+      case ADC_VIN_RANGE_1V2:
+        uADCxCalibrationPoint_Gain   = LL_ADC_GET_CALIB_GAIN_FOR_VINPX_1V2();
+        uADCxCalibrationPoint_Offset = LL_ADC_GET_CALIB_OFFSET_FOR_VINPX_1V2();
+        if (uADCxCalibrationPoint_Gain == 0xFFF) {
+          uADCxCalibrationPoint_Gain = LL_ADC_DEFAULT_RANGE_VALUE_1V2;
+          uADCxCalibrationPoint_Offset = 0UL;
+        }
+        break;
+      default:
+        _Error_Handler("ADC: Unknown ADC_VOLT_RANGE", (int)(ADC_VOLT_RANGE));
+        break;
+    }
+  }
+  AdcChannelConf.CalibrationPoint.Gain = uADCxCalibrationPoint_Gain;
+  AdcChannelConf.CalibrationPoint.Offset = uADCxCalibrationPoint_Offset;
+#else
 #if defined(ADC_SCAN_SEQ_FIXED) && defined(ADC_RANK_CHANNEL_NUMBER)
   AdcChannelConf.Rank         = ADC_RANK_CHANNEL_NUMBER;          /* Enable the rank of the selected channels when not fully configurable */
 #else
@@ -1011,7 +1138,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   AdcChannelConf.OffsetRightShift = DISABLE;                      /* No Right Offset Shift */
   AdcChannelConf.OffsetSignedSaturation = DISABLE;                /* Signed saturation feature is not used */
 #endif
-
+#endif /* STM32WB0x */
   /*##-2- Configure ADC regular channel ######################################*/
   if (HAL_ADC_ConfigChannel(&AdcHandle, &AdcChannelConf) != HAL_OK) {
     /* Channel Configuration Error */
@@ -1049,7 +1176,11 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   }
 
   /* Check if the continuous conversion of regular channel is finished */
+#if defined(HAL_ADC_STATE_DS_EOC)
+  if ((HAL_ADC_GetState(&AdcHandle) & HAL_ADC_STATE_DS_EOC) == HAL_ADC_STATE_DS_EOC) {
+#else
   if ((HAL_ADC_GetState(&AdcHandle) & HAL_ADC_STATE_REG_EOC) == HAL_ADC_STATE_REG_EOC) {
+#endif
     /*##-5- Get the converted value of regular channel  ########################*/
     uhADCxConvertedValue = HAL_ADC_GetValue(&AdcHandle);
   }
@@ -1063,9 +1194,11 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
     return 0;
   }
 
+#if defined(LL_ADC_PATH_INTERNAL_NONE)
   if (__LL_ADC_COMMON_INSTANCE(AdcHandle.Instance) != 0U) {
     LL_ADC_SetCommonPathInternalCh(__LL_ADC_COMMON_INSTANCE(AdcHandle.Instance), LL_ADC_PATH_INTERNAL_NONE);
   }
+#endif
   return uhADCxConvertedValue;
 }
 #endif /* HAL_ADC_MODULE_ENABLED && !HAL_ADC_MODULE_ONLY*/

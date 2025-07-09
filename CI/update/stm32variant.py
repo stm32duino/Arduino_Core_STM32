@@ -19,10 +19,11 @@ from utils import (
     deleteFolder,
     execute_cmd,
     getRepoBranchName,
-    genSTM32List,
+    genSTM32Dict,
 )
 
 stm32_list = []  # series
+stm32_dict = OrderedDict()  # key: serie, value: nx
 ignored_stm32_list = []  # series
 aggregate_serie_list = []  # series
 mcu_list = []  # 'name'
@@ -460,10 +461,13 @@ def store_pin(pin, name, dest_list):
 
 # Store ADC list
 def store_adc(pin, name, signal):
-    # Skip Negative input analog channels (INN)
+    # Skip Negative input analog channels (INN, INM)
     # Differential is currently not managed
-    if "IN" in signal and "INN" not in signal:
-        adclist.append([pin, name, signal])
+    # And skip PGA
+    if "IN" in signal:
+        skip_signal = re.search(r"IN[N|M]|PGA", signal)
+        if not skip_signal:
+            adclist.append([pin, name, signal])
 
 
 # Store DAC list
@@ -624,14 +628,15 @@ def adc_pinmap():
             inst += "1"  # single ADC for this product
         winst.append(len(inst))
         wpin.append(len(p[0]))
-        if "INN" in a[1]:
+        negative = re.search(r"IN[N|M]", a[1])
+        if negative:
             # Negative input analog channels
             inv = "1"
         else:
             # Positive input analog channels
             inv = "0"
         # chan
-        chan = re.sub(r"^IN[N|P]?|\D*$", "", a[1])
+        chan = re.sub(r"^V?IN[N|P|M]?|\D*$", "", a[1])
         if a[1].endswith("b"):
             mode = "STM_MODE_ANALOG_ADC_CHANNEL_BANK_B"
         else:
@@ -1243,21 +1248,21 @@ def print_peripheral():
 # PinNamesVar.h generation
 def manage_syswkup():
     if len(syswkup_list) != 0:
-        # Find the max range of SYS_WKUP to ensure it doesn't exceed
-        # the current maximum range of SYS_WKUP used by STM32LowPower
+        # Find the max range of SYS_WKUP.
+        # Ensure it is compatible with the current maximum range
+        # used by STM32LowPower.
         max_range = syswkup_list[-1][2].replace("SYS_WKUP", "")
-        max_range = int(max_range) if max_range else 1
+        max_range = int(max_range) if max_range else 8
         # F446 start from 0
         base_index = 1
         if syswkup_list[0][2].replace("SYS_WKUP", "") == "0":
             base_index = 0
             max_range += 1
-        if max_range > 8:
-            print(
-                f"Error: SYS_WKUP range exceeds the current maximum range of 8 --> {max_range}."
-            )
-            exit(1)
-        syswkup_pins_list = [[] for _ in range(8)]
+        # Ensure the max_range is at least 8
+        # as some mcu PWR_WAKEUP_PINx while not SYS_WKUPx
+        if max_range < 8:
+            max_range = 8
+        syswkup_pins_list = [[] for _ in range(max_range)]
         for p in syswkup_list:
             num = p[2].replace("SYS_WKUP", "")
             num = int(num) if num else 1
@@ -1275,14 +1280,16 @@ def manage_syswkup():
 def print_pinamevar():
     # First check core version and search PWR_WAKEUP_*
     syswkup_type = "PIN"
+    if "STM32WB0" in mcu_family:
+        syswkup_type = "PINNAME"
     if mcu_core[0][1] == 33:
         # Search in stm32{series}xx_hal_pwr.h WR_WAKEUP_
         pwr_header_file_path = (
             system_path
             / "Drivers"
-            / f"{mcu_family}xx_HAL_Driver"
+            / f"{mcu_family}{nx}_HAL_Driver"
             / "Inc"
-            / f"stm32{mcu_family.replace('STM32', '').lower()}xx_hal_pwr.h"
+            / f"stm32{mcu_family.replace('STM32', '').lower()}{nx}_hal_pwr.h"
         )
         if not (pwr_header_file_path).exists():
             print(f"Error: {pwr_header_file_path} not found!")
@@ -1641,6 +1648,8 @@ def search_product_line(valueline: str, extra: str) -> str:
         for idx_pline, pline in enumerate(product_line_list):
             vline = valueline
             product_line = pline
+            if vline.startswith("STM32WB0"):
+                pline = pline + "xx"
             # Remove the 'x' character from pline and
             # the one at same index in the vline
             while 1:
@@ -2234,9 +2243,7 @@ def merge_dir(out_temp_path, group_mcu_dir, mcu_family, periph_xml, variant_exp)
     if len(group_mcu_dir) != 1:
         # Handle mcu name length dynamically
         # Add 3 for extra information line, #pin and flash
-        index_mcu_base = (
-            len(mcu_family.name.removeprefix("STM32").removesuffix("xx")) + 3
-        )
+        index_mcu_base = len(mcu_family.name.removeprefix("STM32").removesuffix(nx)) + 3
 
         # Extract only dir name
         for dir_name in group_mcu_dir:
@@ -2356,7 +2363,7 @@ def aggregate_dir():
 
     # Compare per family
     for mcu_family_name in aggregate_serie_list:
-        mcu_family = out_temp_path / f"{mcu_family_name}xx"
+        mcu_family = out_temp_path / f"{mcu_family_name}{nx}"
         out_family_path = root_dir / "variants" / mcu_family.name
         # Get all mcu_dir
         mcu_dirs = sorted(mcu_family.glob("*/"))
@@ -2615,7 +2622,7 @@ gh_url = "https://github.com/STMicroelectronics/STM32_open_pin_data"
 repo_name = gh_url.rsplit("/", 1)[-1]
 repo_path = repo_local_path / repo_name
 db_release = "Unknown"
-
+nx = "xx"
 checkConfig()
 
 # By default, generate for all mcu xml files description
@@ -2734,8 +2741,9 @@ if args.list:
     for f in mcu_list:
         print(f.name)
     quit()
+stm32_dict = genSTM32Dict(system_path / "Drivers")
+stm32_list = sorted([f"STM32{stm32}" for stm32 in stm32_dict.keys()])
 
-stm32_list = [f"STM32{stm32}" for stm32 in genSTM32List(system_path / "Drivers")]
 if not stm32_list:
     print(f"No STM32 series found in {system_path}/Drivers")
     quit()
@@ -2761,6 +2769,7 @@ for mcu_file in mcu_list:
     # Add mcu family to the list of directory to aggregate
     if mcu_family not in aggregate_serie_list:
         aggregate_serie_list.append(mcu_family)
+    nx = stm32_dict[mcu_family.removeprefix("STM32")]
 
     print(f"Generating files for '{mcu_file.name}'...")
     if not gpiofile:
@@ -2768,7 +2777,7 @@ for mcu_file in mcu_list:
         quit()
     xml_gpio = parse(str(dirIP / f"GPIO-{gpiofile}_Modes.xml"))
 
-    mcu_family_dir = mcu_family + "xx"
+    mcu_family_dir = f"{mcu_family}{nx}"
     out_temp_path = tmp_dir / mcu_family_dir / mcu_file.stem.replace("STM32", "")
     periph_c_filepath = out_temp_path / periph_c_filename
     pinvar_h_filepath = out_temp_path / pinvar_h_filename
@@ -2816,7 +2825,7 @@ print("Aggregating all generated files...")
 periperalpins_regex = re.compile(r"\S+\.xml")
 variant_regex = re.compile(r"defined\(ARDUINO_GENERIC_[^\s&|]*\)")
 update_regex = re.compile(r"defined\(ARDUINO_GENERIC_.+\)")
-board_entry_regex = re.compile(r"(Gen.+\..+variant=STM32.+xx/)\S+")
+board_entry_regex = re.compile(r"(Gen.+\..+variant=STM32[^x]+xx?/)\S+")
 #                              P     T      E
 mcu_PE_regex = re.compile(r"([\w])([\w])([AGNPQSXZ])?$")
 aggregate_dir()
