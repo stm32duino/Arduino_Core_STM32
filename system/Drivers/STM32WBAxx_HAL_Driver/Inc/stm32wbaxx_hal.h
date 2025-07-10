@@ -78,10 +78,10 @@ extern HAL_TickFreqTypeDef      uwTickFreq;
 /**
   * @brief STM32WBAxx HAL Driver version number
   */
-#define __STM32WBAxx_HAL_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32WBAxx_HAL_VERSION_SUB1   (0x05U) /*!< [23:16] sub1 version */
-#define __STM32WBAxx_HAL_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
-#define __STM32WBAxx_HAL_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
+#define __STM32WBAxx_HAL_VERSION_MAIN   (0x01UL) /*!< [31:24] main version */
+#define __STM32WBAxx_HAL_VERSION_SUB1   (0x07UL) /*!< [23:16] sub1 version */
+#define __STM32WBAxx_HAL_VERSION_SUB2   (0x00UL) /*!< [15:8]  sub2 version */
+#define __STM32WBAxx_HAL_VERSION_RC     (0x00UL) /*!< [7:0]  release candidate */
 #define __STM32WBAxx_HAL_VERSION    ((__STM32WBAxx_HAL_VERSION_MAIN << 24U)\
                                      |(__STM32WBAxx_HAL_VERSION_SUB1 << 16U)\
                                      |(__STM32WBAxx_HAL_VERSION_SUB2 << 8U )\
@@ -150,6 +150,27 @@ extern HAL_TickFreqTypeDef      uwTickFreq;
   * @}
   */
 
+#if defined(VREFBUF)
+/** @defgroup SYSCFG_VREFBUF_VoltageScale VREFBUF Voltage Scale
+  * @{
+  */
+#define SYSCFG_VREFBUF_VOLTAGE_SCALE0 VREFBUF_CSR_VRS_OUT1 /*!< Voltage reference scale 0 (VREF_OUT1) */
+#define SYSCFG_VREFBUF_VOLTAGE_SCALE1 VREFBUF_CSR_VRS_OUT2 /*!< Voltage reference scale 1 (VREF_OUT2) */
+#define SYSCFG_VREFBUF_VOLTAGE_SCALE2 VREFBUF_CSR_VRS_OUT3 /*!< Voltage reference scale 2 (VREF_OUT3) */
+#define SYSCFG_VREFBUF_VOLTAGE_SCALE3 VREFBUF_CSR_VRS_OUT4 /*!< Voltage reference scale 3 (VREF_OUT4) */
+/**
+  * @}
+  */
+
+/** @defgroup SYSCFG_VREFBUF_HighImpedance VREFBUF High Impedance
+  * @{
+  */
+#define SYSCFG_VREFBUF_HIGH_IMPEDANCE_DISABLE 0x00000000U     /*!< VREF_plus pin is internally connected to Voltage reference buffer output */
+#define SYSCFG_VREFBUF_HIGH_IMPEDANCE_ENABLE  VREFBUF_CSR_HIZ /*!< VREF_plus pin is high impedance */
+/**
+  * @}
+  */
+#endif /* VREFBUF */
 
 /** @defgroup SYSCFG_Flags_Definition Flags
   * @{
@@ -524,6 +545,17 @@ extern HAL_TickFreqTypeDef      uwTickFreq;
                                             ((__CONFIG__) == SYSCFG_BREAK_SRAM2_PARITY)  || \
                                             ((__CONFIG__) == SYSCFG_BREAK_LOCKUP))
 
+#if defined(VREFBUF)
+#define IS_SYSCFG_VREFBUF_VOLTAGE_SCALE(__SCALE__) (((__SCALE__) == SYSCFG_VREFBUF_VOLTAGE_SCALE0) || \
+                                                    ((__SCALE__) == SYSCFG_VREFBUF_VOLTAGE_SCALE1) || \
+                                                    ((__SCALE__) == SYSCFG_VREFBUF_VOLTAGE_SCALE2) || \
+                                                    ((__SCALE__) == SYSCFG_VREFBUF_VOLTAGE_SCALE3))
+
+#define IS_SYSCFG_VREFBUF_HIGH_IMPEDANCE(__VALUE__) (((__VALUE__) == SYSCFG_VREFBUF_HIGH_IMPEDANCE_DISABLE) || \
+                                                     ((__VALUE__) == SYSCFG_VREFBUF_HIGH_IMPEDANCE_ENABLE))
+
+#define IS_SYSCFG_VREFBUF_TRIMMING(__VALUE__) (((__VALUE__) > 0U) && ((__VALUE__) <= VREFBUF_CCR_TRIM))
+#endif /* VREFBUF */
 
 #define IS_SYSCFG_FASTMODEPLUS(__PIN__) ((((__PIN__) & SYSCFG_FASTMODEPLUS_ALL) != 0x00U) && \
                                          (((__PIN__) & ~SYSCFG_FASTMODEPLUS_ALL) == 0x00U))
@@ -646,6 +678,13 @@ void HAL_SYSCFG_DisableIOAnalogSwitchBooster(void);
 void HAL_SYSCFG_EnableIOAnalogSwitchVdd(void);
 void HAL_SYSCFG_DisableIOAnalogSwitchVdd(void);
 
+#ifdef VREFBUF
+void HAL_SYSCFG_VREFBUF_VoltageScalingConfig(uint32_t VoltageScaling);
+void HAL_SYSCFG_VREFBUF_HighImpedanceConfig(uint32_t Mode);
+void HAL_SYSCFG_VREFBUF_TrimmingConfig(uint32_t TrimmingValue);
+HAL_StatusTypeDef HAL_SYSCFG_EnableVREFBUF(void);
+void HAL_SYSCFG_DisableVREFBUF(void);
+#endif /* VREFBUF */
 
 #ifdef SYSCFG_OTGHSPHYCR_EN
 void HAL_SYSCFG_SetOTGPHYReferenceClockSelection(uint32_t RefClockSelection);

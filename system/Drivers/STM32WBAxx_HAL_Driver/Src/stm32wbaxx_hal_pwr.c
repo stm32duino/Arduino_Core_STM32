@@ -37,6 +37,9 @@
       (+) Run.
       (+) Stop 0.
       (+) Stop 1.
+#if defined(PWR_STOP2_SUPPORT)
+      (+) Stop 2.
+#endif
       (+) Standby with retention
       (+) Standby.
 
@@ -451,8 +454,13 @@ void HAL_PWR_DisablePVD(void)
 
 /**
   * @brief  Enable the wake up line functionality.
+#if defined(PWR_STOP2_SUPPORT)
+  * @note   Wake up lines are used to wake up the system from Sleep, Stop 0-1-2 and
+  *         Standby modes.
+#else
   * @note   Wake up lines are used to wake up the system from Sleep, Stop 0-1 and
   *         Standby modes.
+#endif
   * @param  WakeUpPin : Specifies which wake up line to enable. This parameter
   *                     can be one of PWR_WakeUp_Pins_High_Polarity define
   *                     group where every param select the wake up line, the
@@ -491,7 +499,9 @@ void HAL_PWR_EnableWakeUpPin(uint32_t WakeUpPin)
   *                     @arg @ref PWR_WAKEUP_PIN2
   *                     @arg @ref PWR_WAKEUP_PIN3
   *                     @arg @ref PWR_WAKEUP_PIN4
+#if !defined(PWR_STOP3_SUPPORT)
   *                     @arg @ref PWR_WAKEUP_PIN5
+#endif
   *                     @arg @ref PWR_WAKEUP_PIN6
   *                     @arg @ref PWR_WAKEUP_PIN7
   *                     @arg @ref PWR_WAKEUP_PIN8
@@ -514,7 +524,9 @@ void HAL_PWR_DisableWakeUpPin(uint32_t WakeUpPin)
   *                     @arg @ref PWR_WAKEUP_PIN2
   *                     @arg @ref PWR_WAKEUP_PIN3
   *                     @arg @ref PWR_WAKEUP_PIN4
+#if !defined(PWR_STOP3_SUPPORT)
   *                     @arg @ref PWR_WAKEUP_PIN5
+#endif
   *                     @arg @ref PWR_WAKEUP_PIN6
   *                     @arg @ref PWR_WAKEUP_PIN7
   *                     @arg @ref PWR_WAKEUP_PIN8
@@ -593,6 +605,18 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
   *         the content of SRAM and registers. All clocks in the VCORE domain
   *         are stopped. The PLL, HSI16 and HSE32 oscillators are disabled.
   *         The LSE or LSI is still running.
+#if defined(PWR_STOP2_SUPPORT)
+  * @note   Stop 2 mode is the same as Stop 1 mode except that part of the
+            peripherals is powered down.
+#endif
+#if defined(PWR_STOP3_SUPPORT)
+  * @note   Stop 3 mode is the same as Stop 2 mode except that there is no wakeup
+            from autonomous peripherals. When entering Stop 3 mode the HSI16
+            oscillator and all clocks in the Vcore domain are stopped. Stop 3 mode
+            is only entered when the 2.4 GHz RADIO is in Deepsleep mode. Whenever
+            the 2.4 GHz RADIO is in Active or Sleep mode Stop 0 or Stop 1 mode
+            is entered instead.
+#endif
   * @note   When exiting Stop mode by issuing an interrupt or a
   *         wakeup event, the HSI16 oscillator is selected as system clock
   *         The MCU is in Run mode same range as before entering Stop mode.
@@ -613,6 +637,12 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
   *         This parameter can be one of the following values:
   *            @arg @ref PWR_LOWPOWERMODE_STOP0  Stop 0 mode (main regulator ON)
   *            @arg @ref PWR_LOWPOWERMODE_STOP1  Stop 1 mode (low power regulator ON)
+#if defined(PWR_STOP2_SUPPORT)
+  *            @arg @ref PWR_LOWPOWERMODE_STOP2  Stop 2 mode (low power regulator ON)
+#endif
+#if defined(PWR_STOP3_SUPPORT)
+  *            @arg @ref PWR_LOWPOWERMODE_STOP3  Stop 3 mode (low power regulator ON)
+#endif
   * @param  STOPEntry : Specifies if Stop mode is entered with WFI or WFE
   *                     instruction.
   *                     This parameter can be one of the following values :

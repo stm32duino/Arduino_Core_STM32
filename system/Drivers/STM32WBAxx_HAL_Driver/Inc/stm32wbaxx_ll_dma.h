@@ -51,7 +51,7 @@ extern "C" {
   * @{
   */
 
-#if defined (GPDMA1)
+#if defined (GPDMA1) || defined (LPDMA1)
 
 /** @defgroup DMA_LL DMA
   * @{
@@ -128,13 +128,13 @@ typedef struct
                                           @ref LL_DMA_SetDataAlignment().                                             */
 
   uint32_t SrcBurstLength;           /*!< This field specify the source burst length of transfer in bytes.
-                                          Programming this field is mandatory for all available DMA channels.
+                                          Programming this field is not mandatory for LPDMA channels.
                                           This parameter must be a value between Min_Data = 1 and Max_Data = 64.
                                           This feature can be modified afterwards using unitary function
                                           @ref LL_DMA_SetSrcBurstLength().                                            */
 
   uint32_t DestBurstLength;          /*!< This field specify the destination burst length of transfer in bytes.
-                                          Programming this field is mandatory for all available DMA channels.
+                                          Programming this field is not mandatory for LPDMA channels.
                                           This parameter must be a value between Min_Data = 1 and Max_Data = 64.
                                           This feature can be modified afterwards using unitary function
                                           @ref LL_DMA_SetDestBurstLength().                                           */
@@ -206,37 +206,37 @@ typedef struct
                                           @ref LL_DMA_SetTransferEventMode().                                         */
 
   uint32_t DestHWordExchange;        /*!< This field specify the destination half word exchange.
-                                          Programming this field is mandatory for all available DMA channels.
+                                          Programming this field is not mandatory for LPDMA channels.
                                           This parameter can be a value of @ref DMA_LL_EC_DEST_HALFWORD_EXCHANGE.
                                           This feature can be modified afterwards using unitary function
                                           @ref LL_DMA_SetDestHWordExchange().                                         */
 
   uint32_t DestByteExchange;         /*!< This field specify the destination byte exchange.
-                                          Programming this field is mandatory for all available DMA channels.
+                                          Programming this field is not mandatory for LPDMA channels.
                                           This parameter can be a value of @ref DMA_LL_EC_DEST_BYTE_EXCHANGE.
                                           This feature can be modified afterwards using unitary function
                                           @ref LL_DMA_SetDestByteExchange().                                          */
 
   uint32_t SrcByteExchange;          /*!< This field specify the source byte exchange.
-                                          Programming this field is mandatory for all available DMA channels.
+                                          Programming this field is not mandatory for LPDMA channels.
                                           This parameter can be a value of @ref DMA_LL_EC_SRC_BYTE_EXCHANGE.
                                           This feature can be modified afterwards using unitary function
                                           @ref LL_DMA_SetSrcByteExchange().                                           */
 
   uint32_t SrcAllocatedPort;         /*!< This field specify the source allocated port.
-                                          Programming this field is mandatory for all available DMA channels.
+                                          Programming this field is not mandatory for LPDMA channels.
                                           This parameter can be a value of @ref DMA_LL_EC_SOURCE_ALLOCATED_PORT.
                                           This feature can be modified afterwards using unitary function
                                           @ref LL_DMA_SetSrcAllocatedPort().                                          */
 
   uint32_t DestAllocatedPort;        /*!< This field specify the destination allocated port.
-                                          Programming this field is mandatory for all available DMA channels.
+                                          Programming this field is not mandatory for LPDMA channels.
                                           This parameter can be a value of @ref DMA_LL_EC_DESTINATION_ALLOCATED_PORT.
                                           This feature can be modified afterwards using unitary function
                                           @ref LL_DMA_SetDestAllocatedPort().                                         */
 
   uint32_t LinkAllocatedPort;        /*!< This field specify the linked-list allocated port.
-                                          Programming this field is mandatory for all available DMA channels.
+                                          Programming this field is not mandatory for LPDMA channels.
                                           This parameter can be a value of @ref DMA_LL_EC_LINKED_LIST_ALLOCATED_PORT.
                                           This feature can be modified afterwards using unitary function
                                           @ref LL_DMA_SetLinkAllocatedPort().                                         */
@@ -281,7 +281,7 @@ typedef struct
                                       @ref LL_DMA_SetLinkStepMode().                                                  */
 
   uint32_t LinkAllocatedPort;    /*!< This field specify the linked-list allocated port.
-                                      Programming this field is mandatory for all available DMA channels.
+                                      Programming this field is not mandatory for LPDMA channels.
                                       This parameter can be a value of @ref DMA_LL_EC_LINKED_LIST_ALLOCATED_PORT.
                                       This feature can be modified afterwards using unitary function
                                       @ref LL_DMA_SetLinkAllocatedPort().                                             */
@@ -304,6 +304,16 @@ typedef struct
      mandatory to update the new value in CTR1 register fields and enable update
      CTR1 register in UpdateRegisters fields if it is not enabled in the
      previous node.
+
+     If the node to be created is for LPDMA channels, there is no need to fill
+     the following fields for CTR1 register :
+     - DestAllocatedPort.
+     - DestHWordExchange.
+     - DestByteExchange.
+     - DestBurstLength.
+     - SrcAllocatedPort.
+     - SrcByteExchange.
+     - SrcBurstLength.
 
   */
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
@@ -517,8 +527,14 @@ typedef struct
 /** @defgroup DMA_LL_EC_LINKED_LIST_ALLOCATED_PORT Linked List Allocated Port
   * @{
   */
+#if defined(GPDMA1)
 #define LL_DMA_LINK_ALLOCATED_PORT0 0x00000000U /*!< Linked List Allocated Port 0 */
 #define LL_DMA_LINK_ALLOCATED_PORT1 DMA_CCR_LAP /*!< Linked List Allocated Port 1 */
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+#define LL_DMA_LINK_ALLOCATED_PORT0 0x00000000U                 /*!< Kept for porting purpose */
+#define LL_DMA_LINK_ALLOCATED_PORT1 LL_DMA_LINK_ALLOCATED_PORT0 /*!< Kept for porting purpose */
+#endif /* LPDMA1 */
 /**
   * @}
   */
@@ -564,8 +580,14 @@ typedef struct
 /** @defgroup DMA_LL_EC_SOURCE_ALLOCATED_PORT Source Allocated Port
   * @{
   */
+#if defined(GPDMA1)
 #define LL_DMA_SRC_ALLOCATED_PORT0 0x00000000U  /*!< Source Allocated Port 0 */
 #define LL_DMA_SRC_ALLOCATED_PORT1 DMA_CTR1_SAP /*!< Source Allocated Port 1 */
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+#define LL_DMA_SRC_ALLOCATED_PORT0 0x00000000U                /*!< Kept for porting purpose */
+#define LL_DMA_SRC_ALLOCATED_PORT1 LL_DMA_SRC_ALLOCATED_PORT0 /*!< Kept for porting purpose */
+#endif /* LPDMA1 */
 /**
   * @}
   */
@@ -573,8 +595,14 @@ typedef struct
 /** @defgroup DMA_LL_EC_DESTINATION_ALLOCATED_PORT Destination Allocated Port
   * @{
   */
+#if defined(GPDMA1)
 #define LL_DMA_DEST_ALLOCATED_PORT0 0x00000000U  /*!< Destination Allocated Port 0 */
 #define LL_DMA_DEST_ALLOCATED_PORT1 DMA_CTR1_DAP /*!< Destination Allocated Port 1 */
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+#define LL_DMA_DEST_ALLOCATED_PORT0 0x00000000U                 /*!< Kept for porting purpose */
+#define LL_DMA_DEST_ALLOCATED_PORT1 LL_DMA_DEST_ALLOCATED_PORT0 /*!< Kept for porting purpose */
+#endif /* LPDMA1 */
 /**
   * @}
   */
@@ -613,10 +641,12 @@ typedef struct
                                                           If src data width > dest data width :
                                                           => Left Aligned Right Truncated down to the destination
                                                              data width                                               */
+#if defined(GPDMA1)
 #define LL_DMA_DATA_PACK_UNPACK       DMA_CTR1_PAM_1 /*!< If src data width < dest data width :
                                                           => Packed at the destination data width
                                                           If src data width > dest data width :
                                                           => Unpacked at the destination data width                   */
+#endif /* GPDMA1 */
 /**
   * @}
   */
@@ -697,9 +727,16 @@ typedef struct
 /** @defgroup DMA_LL_EC_TRANSFER_DIRECTION Transfer Direction
   * @{
   */
+#if defined(GPDMA1)
 #define LL_DMA_DIRECTION_MEMORY_TO_MEMORY DMA_CTR2_SWREQ /*!< Memory to memory direction     */
 #define LL_DMA_DIRECTION_PERIPH_TO_MEMORY 0x00000000U    /*!< Peripheral to memory direction */
 #define LL_DMA_DIRECTION_MEMORY_TO_PERIPH DMA_CTR2_DREQ  /*!< Memory to peripheral direction */
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+#define LL_DMA_DIRECTION_MEMORY_TO_MEMORY DMA_CTR2_SWREQ                     /*!< Memory to memory direction */
+#define LL_DMA_DIRECTION_PERIPH_TO_MEMORY 0x00000000U                        /*!< Kept for porting purpose   */
+#define LL_DMA_DIRECTION_MEMORY_TO_PERIPH LL_DMA_DIRECTION_PERIPH_TO_MEMORY  /*!< Kept for porting purpose   */
+#endif /* LPDMA1 */
 /**
   * @}
   */
@@ -737,7 +774,12 @@ typedef struct
 /** @defgroup DMA_LL_EC_LINKEDLIST_NODE_TYPE Linked list node type
   * @{
   */
+#if defined(LPDMA1)
+#define LL_DMA_LPDMA_LINEAR_NODE 0x00U /*!< LPDMA node : linear addressing node      */
+#endif /* LPDMA1 */
+#if defined(GPDMA1)
 #define LL_DMA_GPDMA_LINEAR_NODE 0x01U /*!< GPDMA node : linear addressing node      */
+#endif /* GPDMA1 */
 
 /**
   * @}
@@ -765,6 +807,48 @@ typedef struct
 /** @defgroup DMA_LL_EC_REQUEST_SELECTION Request Selection
   * @{
   */
+#if defined (LPDMA1)
+/* LPDMA1 requests */
+#define LL_LPDMA1_REQUEST_ADC4           0U      /*!< LPDMA1 HW request is ADC4          */
+
+#define LL_LPDMA1_REQUEST_SPI3_RX        3U      /*!< LPDMA1 HW request is SPI3_RX       */
+#define LL_LPDMA1_REQUEST_SPI3_TX        4U      /*!< LPDMA1 HW request is SPI3_TX       */
+#define LL_LPDMA1_REQUEST_I2C1_RX        5U      /*!< LPDMA1 HW request is I2C1_RX       */
+#define LL_LPDMA1_REQUEST_I2C1_TX        6U      /*!< LPDMA1 HW request is I2C1_TX       */
+#define LL_LPDMA1_REQUEST_I2C1_EVC       7U      /*!< LPDMA1 HW request is I2C1_EVC      */
+#define LL_LPDMA1_REQUEST_I2C3_RX        8U      /*!< LPDMA1 HW request is I2C3_RX       */
+#define LL_LPDMA1_REQUEST_I2C3_TX        9U      /*!< LPDMA1 HW request is I2C3_TX       */
+#define LL_LPDMA1_REQUEST_I2C3_EVC       10U     /*!< LPDMA1 HW request is I2C3_EVC      */
+#define LL_LPDMA1_REQUEST_USART1_RX      11U     /*!< LPDMA1 HW request is USART1_RX     */
+#define LL_LPDMA1_REQUEST_USART1_TX      12U     /*!< LPDMA1 HW request is USART1_TX     */
+
+#define LL_LPDMA1_REQUEST_LPUART1_RX     15U     /*!< LPDMA1 HW request is LPUART1_RX    */
+#define LL_LPDMA1_REQUEST_LPUART1_TX     16U     /*!< LPDMA1 HW request is LPUART1_TX    */
+#define LL_LPDMA1_REQUEST_SAI1_A         17U     /*!< LPDMA1 HW request is SAI1_A        */
+#define LL_LPDMA1_REQUEST_SAI1_B         18U     /*!< LPDMA1 HW request is SAI1_B        */
+
+#define LL_LPDMA1_REQUEST_TIM2_CH1       26U     /*!< LPDMA1 HW request is TIM2_CH1      */
+#define LL_LPDMA1_REQUEST_TIM2_CH2       27U     /*!< LPDMA1 HW request is TIM2_CH2      */
+#define LL_LPDMA1_REQUEST_TIM2_CH3       28U     /*!< LPDMA1 HW request is TIM2_CH3      */
+#define LL_LPDMA1_REQUEST_TIM2_CH4       29U     /*!< LPDMA1 HW request is TIM2_CH4      */
+#define LL_LPDMA1_REQUEST_TIM2_UP        30U     /*!< LPDMA1 HW request is TIM2_UP       */
+#define LL_LPDMA1_REQUEST_TIM16_CH1      31U     /*!< LPDMA1 HW request is TIM16_CH1     */
+#define LL_LPDMA1_REQUEST_TIM16_UP       32U     /*!< LPDMA1 HW request is TIM16_UP      */
+#define LL_LPDMA1_REQUEST_TIM17_CH1      33U     /*!< LPDMA1 HW request is TIM17_CH1     */
+#define LL_LPDMA1_REQUEST_TIM17_UP       34U     /*!< LPDMA1 HW request is TIM17_UP      */
+
+#define LL_LPDMA1_REQUEST_AES_IN         35U     /*!< LPDMA1 HW request is AES_IN        */
+#define LL_LPDMA1_REQUEST_AES_OUT        36U     /*!< LPDMA1 HW request is AES_OUT       */
+#define LL_LPDMA1_REQUEST_HASH_IN        37U     /*!< LPDMA1 HW request is HASH_IN       */
+#define LL_LPDMA1_REQUEST_LPTIM1_IC1     38U     /*!< LPDMA1 HW request is LPTIM1_IC1    */
+#define LL_LPDMA1_REQUEST_LPTIM1_IC2     39U     /*!< LPDMA1 HW request is LPTIM1_IC2    */
+#define LL_LPDMA1_REQUEST_LPTIM1_UE      40U     /*!< LPDMA1 HW request is LPTIM1_UE     */
+#define LL_LPDMA1_REQUEST_LPTIM2_IC1     41U     /*!< LPDMA1 HW request is LPTIM2_IC1    */
+#define LL_LPDMA1_REQUEST_LPTIM2_IC2     42U     /*!< LPDMA1 HW request is LPTIM2_IC2    */
+#define LL_LPDMA1_REQUEST_LPTIM2_UE      46U     /*!< LPDMA1 HW request is LPTIM2_UE     */
+
+#define LL_LPDMA1_REQUEST_XSPI1          44U     /*!< LPDMA1 HW request is XSPI1         */
+#else
 /* GPDMA1 Hardware Requests */
 #define LL_GPDMA1_REQUEST_ADC4            0U     /*!< GPDMA1 HW request is ADC4          */
 #if defined (SPI1)
@@ -836,6 +920,32 @@ typedef struct
 #define LL_GPDMA1_REQUEST_LPTIM2_IC2     50U     /*!< GPDMA1 HW request is LPTIM2_IC2    */
 #define LL_GPDMA1_REQUEST_LPTIM2_UE      51U     /*!< GPDMA1 HW request is LPTIM2_UE     */
 #endif /* LPTIM2 */
+#if defined (SPI2)
+#define LL_GPDMA1_REQUEST_SPI2_RX        52U     /*!< GPDMA1 HW request is SPI2_RX       */
+#define LL_GPDMA1_REQUEST_SPI2_TX        53U     /*!< GPDMA1 HW request is SPI2_TX       */
+#endif /* SPI2 */
+#if defined (I2C2)
+#define LL_GPDMA1_REQUEST_I2C2_RX        54U     /*!< GPDMA1 HW request is I2C2_RX       */
+#define LL_GPDMA1_REQUEST_I2C2_TX        55U     /*!< GPDMA1 HW request is I2C2_TX       */
+#define LL_GPDMA1_REQUEST_I2C2_EVC       56U     /*!< GPDMA1 HW request is I2C2_EVC      */
+#endif /* I2C2 */
+#if defined (I2C4)
+#define LL_GPDMA1_REQUEST_I2C4_RX        57U     /*!< GPDMA1 HW request is I2C4_RX       */
+#define LL_GPDMA1_REQUEST_I2C4_TX        58U     /*!< GPDMA1 HW request is I2C4_TX       */
+#define LL_GPDMA1_REQUEST_I2C4_EVC       59U     /*!< GPDMA1 HW request is I2C4_EVC      */
+#endif /* I2C4 */
+#if defined (TIM4)
+#define LL_GPDMA1_REQUEST_TIM4_CH1       60U     /*!< GPDMA1 HW request is TIM4_CH1      */
+#define LL_GPDMA1_REQUEST_TIM4_CH2       61U     /*!< GPDMA1 HW request is TIM4_CH2      */
+#define LL_GPDMA1_REQUEST_TIM4_CH3       62U     /*!< GPDMA1 HW request is TIM4_CH3      */
+#define LL_GPDMA1_REQUEST_TIM4_CH4       63U     /*!< GPDMA1 HW request is TIM4_CH4      */
+#define LL_GPDMA1_REQUEST_TIM4_UP        64U     /*!< GPDMA1 HW request is TIM4_UP       */
+#endif /* TIM4 */
+#if defined (USART3)
+#define LL_GPDMA1_REQUEST_USART3_RX      65U     /*!< GPDMA1 HW request is USART3_RX     */
+#define LL_GPDMA1_REQUEST_USART3_TX      66U     /*!< GPDMA1 HW request is USART3_TX     */
+#endif /* USART3 */
+#endif /* LPDMA1 */
 /**
   * @}
   */
@@ -843,6 +953,37 @@ typedef struct
 /** @defgroup DMA_LL_EC_TRIGGER_SELECTION Trigger Selection
   * @{
   */
+#if defined (LPDMA1)
+/* LPDMA1 Hardware Triggers */
+#define LL_LPDMA1_TRIGGER_EXTI_LINE0        0U       /*!< LPDMA1 HW Trigger signal is EXTI_LINE0      */
+#define LL_LPDMA1_TRIGGER_EXTI_LINE1        1U       /*!< LPDMA1 HW Trigger signal is EXTI_LINE1      */
+#define LL_LPDMA1_TRIGGER_EXTI_LINE2        2U       /*!< LPDMA1 HW Trigger signal is EXTI_LINE2      */
+#define LL_LPDMA1_TRIGGER_EXTI_LINE3        3U       /*!< LPDMA1 HW Trigger signal is EXTI_LINE3      */
+#define LL_LPDMA1_TRIGGER_EXTI_LINE4        4U       /*!< LPDMA1 HW Trigger signal is EXTI_LINE4      */
+#define LL_LPDMA1_TRIGGER_EXTI_LINE5        5U       /*!< LPDMA1 HW Trigger signal is EXTI_LINE5      */
+#define LL_LPDMA1_TRIGGER_EXTI_LINE6        6U       /*!< LPDMA1 HW Trigger signal is EXTI_LINE6      */
+#define LL_LPDMA1_TRIGGER_EXTI_LINE7        7U       /*!< LPDMA1 HW Trigger signal is EXTI_LINE7      */
+#define LL_LPDMA1_TRIGGER_TAMP_TRG1         8U       /*!< LPDMA1 HW Trigger signal is TAMP_TRG1       */
+#define LL_LPDMA1_TRIGGER_TAMP_TRG2         9U       /*!< LPDMA1 HW Trigger signal is TAMP_TRG2       */
+#define LL_LPDMA1_TRIGGER_TAMP_TRG3         10U      /*!< LPDMA1 HW Trigger signal is TAMP_TRG3       */
+#define LL_LPDMA1_TRIGGER_LPTIM1_CH1        11U      /*!< LPDMA1 HW Trigger signal is LPTIM1_CH1      */
+#define LL_LPDMA1_TRIGGER_LPTIM1_CH2        12U      /*!< LPDMA1 HW Trigger signal is LPTIM1_CH2      */
+#define LL_LPDMA1_TRIGGER_LPTIM2_CH1        13U      /*!< LPDMA1 HW Trigger signal is LPTIM2_CH1      */
+#define LL_LPDMA1_TRIGGER_LPTIM2_CH2        14U      /*!< LPDMA1 HW Trigger signal is LPTIM2_CH2      */
+#define LL_LPDMA1_TRIGGER_RTC_ALRA_TRG      15U      /*!< LPDMA1 HW Trigger signal is RTC_ALRA_TRG    */
+#define LL_LPDMA1_TRIGGER_RTC_ALRB_TRG      16U      /*!< LPDMA1 HW Trigger signal is RTC_ALRB_TRG    */
+#define LL_LPDMA1_TRIGGER_RTC_WUT_TRG       17U      /*!< LPDMA1 HW Trigger signal is RTC_WUT_TRG     */
+#define LL_LPDMA1_TRIGGER_LPDMA1_CH0_TCF    18U      /*!< LPDMA1 HW Trigger signal is LPDMA1_CH0_TCF  */
+#define LL_LPDMA1_TRIGGER_LPDMA1_CH1_TCF    19U      /*!< LPDMA1 HW Trigger signal is LPDMA1_CH1_TCF  */
+#define LL_LPDMA1_TRIGGER_LPDMA1_CH2_TCF    20U      /*!< LPDMA1 HW Trigger signal is LPDMA1_CH2_TCF  */
+#define LL_LPDMA1_TRIGGER_LPDMA1_CH3_TCF    21U      /*!< LPDMA1 HW Trigger signal is LPDMA1_CH3_TCF  */
+#define LL_LPDMA1_TRIGGER_LPDMA1_CH4_TCF    22U      /*!< LPDMA1 HW Trigger signal is LPDMA1_CH4_TCF  */
+#define LL_LPDMA1_TRIGGER_LPDMA1_CH5_TCF    23U      /*!< LPDMA1 HW Trigger signal is LPDMA1_CH5_TCF  */
+#define LL_LPDMA1_TRIGGER_LPDMA1_CH6_TCF    24U      /*!< LPDMA1 HW Trigger signal is LPDMA1_CH6_TCF  */
+#define LL_LPDMA1_TRIGGER_LPDMA1_CH7_TCF    25U      /*!< LPDMA1 HW Trigger signal is LPDMA1_CH7_TCF  */
+#define LL_LPDMA1_TRIGGER_TIM2_TRGO         26U      /*!< LPDMA1 HW Trigger signal is TIM2_TRGO       */
+#define LL_LPDMA1_TRIGGER_ADC4_AWD1         27U      /*!< LPDMA1 HW Trigger signal is ADC4_ADW1       */
+#else
 /* GPDMA1 Hardware Triggers */
 #define LL_GPDMA1_TRIGGER_EXTI_LINE0        0U       /*!< GPDMA1 HW Trigger signal is EXTI_LINE0      */
 #define LL_GPDMA1_TRIGGER_EXTI_LINE1        1U       /*!< GPDMA1 HW Trigger signal is EXTI_LINE1      */
@@ -883,6 +1024,10 @@ typedef struct
 #if defined (TIM3)
 #define LL_GPDMA1_TRIGGER_TIM3_TRGO         30U      /*!< GPDMA1 HW Trigger signal is TIM3_TRGO       */
 #endif /* TIM3 */
+#if defined (TIM4)
+#define LL_GPDMA1_TRIGGER_TIM4_TRGO         31U      /*!< GPDMA1 HW Trigger signal is TIM4_TRGO       */
+#endif /* TIM4 */
+#endif /* LPDMA1 */
 /**
   * @}
   */
@@ -928,8 +1073,14 @@ typedef struct
   * @param  __CHANNEL_INSTANCE__ DMAx_Channely.
   * @retval DMAx.
   */
+#if defined (GPDMA1)
 #define LL_DMA_GET_INSTANCE(__CHANNEL_INSTANCE__) \
   (GPDMA1)
+#endif /* GPDMA1 */
+#if defined (LPDMA1)
+#define LL_DMA_GET_INSTANCE(__CHANNEL_INSTANCE__) \
+  (LPDMA1)
+#endif /* LPDMA1 */
 
 /**
   * @brief  Convert DMAx_Channely into LL_DMA_CHANNEL_y.
@@ -952,6 +1103,7 @@ typedef struct
   * @param  __CHANNEL__      LL_DMA_CHANNEL_y.
   * @retval DMAx_Channely.
   */
+#if defined (GPDMA1)
 #define LL_DMA_GET_CHANNEL_INSTANCE(__DMA_INSTANCE__, __CHANNEL__) \
   ((((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)GPDMA1)) && ((uint32_t)(__CHANNEL__) == ((uint32_t)LL_DMA_CHANNEL_0))) \
    ? GPDMA1_Channel0  :                                                                                                \
@@ -967,6 +1119,24 @@ typedef struct
    ? GPDMA1_Channel5  :                                                                                                \
    (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)GPDMA1)) && ((uint32_t)(__CHANNEL__) == ((uint32_t)LL_DMA_CHANNEL_6))) \
    ? GPDMA1_Channel6 :  GPDMA1_Channel7)
+#endif /* GPDMA1 */
+#if defined (LPDMA1)
+#define LL_DMA_GET_CHANNEL_INSTANCE(__DMA_INSTANCE__, __CHANNEL__) \
+  ((((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)LPDMA1)) && ((uint32_t)(__CHANNEL__) == ((uint32_t)LL_DMA_CHANNEL_0))) \
+   ? LPDMA1_Channel0  :                                                                                                \
+   (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)LPDMA1)) && ((uint32_t)(__CHANNEL__) == ((uint32_t)LL_DMA_CHANNEL_1))) \
+   ? LPDMA1_Channel1  :                                                                                                \
+   (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)LPDMA1)) && ((uint32_t)(__CHANNEL__) == ((uint32_t)LL_DMA_CHANNEL_2))) \
+   ? LPDMA1_Channel2  :                                                                                                \
+   (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)LPDMA1)) && ((uint32_t)(__CHANNEL__) == ((uint32_t)LL_DMA_CHANNEL_3))) \
+   ? LPDMA1_Channel3  :                                                                                                \
+   (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)LPDMA1)) && ((uint32_t)(__CHANNEL__) == ((uint32_t)LL_DMA_CHANNEL_4))) \
+   ? LPDMA1_Channel4  :                                                                                                \
+   (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)LPDMA1)) && ((uint32_t)(__CHANNEL__) == ((uint32_t)LL_DMA_CHANNEL_5))) \
+   ? LPDMA1_Channel5  :                                                                                                \
+   (((uint32_t)(__DMA_INSTANCE__) == ((uint32_t)LPDMA1)) && ((uint32_t)(__CHANNEL__) == ((uint32_t)LL_DMA_CHANNEL_6))) \
+   ? LPDMA1_Channel6 :  LPDMA1_Channel7)
+#endif /* LPDMA1 */
 
 /**
   * @}
@@ -1216,8 +1386,14 @@ __STATIC_INLINE uint32_t LL_DMA_GetLinkedListBaseAddr(const DMA_TypeDef *DMAx, u
 __STATIC_INLINE void LL_DMA_ConfigControl(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t Configuration)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
+#if defined(GPDMA1)
   MODIFY_REG(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CCR,
              (DMA_CCR_PRIO | DMA_CCR_LAP | DMA_CCR_LSM), Configuration);
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+  MODIFY_REG(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CCR,
+             (DMA_CCR_PRIO | DMA_CCR_LSM), Configuration);
+#endif /* LPDMA1 */
 }
 
 /**
@@ -1273,6 +1449,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetChannelPriorityLevel(const DMA_TypeDef *DMAx,
   return (READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CCR, DMA_CCR_PRIO));
 }
 
+#if defined(GPDMA1)
 /**
   * @brief Set linked-list allocated port.
   * @rmtoll CCR          LAP           LL_DMA_SetLinkAllocatedPort
@@ -1321,6 +1498,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetLinkAllocatedPort(const DMA_TypeDef *DMAx, ui
   return (READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CCR, DMA_CCR_LAP));
 }
 
+#endif /* GPDMA1 */
 /**
   * @brief Set link step mode.
   * @note  This API is used for all available DMA channels.
@@ -1410,11 +1588,19 @@ __STATIC_INLINE uint32_t LL_DMA_GetLinkStepMode(const DMA_TypeDef *DMAx, uint32_
 __STATIC_INLINE void LL_DMA_ConfigTransfer(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t Configuration)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
+#if defined(GPDMA1)
   MODIFY_REG(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CTR1,
              DMA_CTR1_DAP | DMA_CTR1_DHX | DMA_CTR1_DBX | DMA_CTR1_SBX | DMA_CTR1_DINC | DMA_CTR1_SINC | \
              DMA_CTR1_SAP | DMA_CTR1_PAM | DMA_CTR1_DDW_LOG2 | DMA_CTR1_SDW_LOG2, Configuration);
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+  MODIFY_REG(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CTR1,
+             DMA_CTR1_DINC | DMA_CTR1_SINC | DMA_CTR1_PAM | DMA_CTR1_DDW_LOG2 | \
+             DMA_CTR1_SDW_LOG2, Configuration);
+#endif /* LPDMA1 */
 }
 
+#if defined(GPDMA1)
 /**
   * @brief Configure source and destination burst length.
   * @rmtoll CTR1          DBL_1           LL_DMA_SetDestBurstLength\n
@@ -1441,6 +1627,7 @@ __STATIC_INLINE void LL_DMA_ConfigBurstLength(const DMA_TypeDef *DMAx, uint32_t 
              (DMA_CTR1_SBL_1 | DMA_CTR1_DBL_1), (((SrcBurstLength - 1U) << DMA_CTR1_SBL_1_Pos) & DMA_CTR1_SBL_1) | \
              (((DestBurstLength - 1U) << DMA_CTR1_DBL_1_Pos) & DMA_CTR1_DBL_1));
 }
+#endif /* GPDMA1 */
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 /**
@@ -1614,6 +1801,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsEnabledChannelSrcSecure(const DMA_TypeDef *DMA
 }
 #endif /* DMA_SECCFGR_SEC0 */
 
+#if defined(GPDMA1)
 /**
   * @brief Set destination allocated port.
   * @rmtoll CTR1          DAP           LL_DMA_SetDestAllocatedPort
@@ -1874,6 +2062,7 @@ __STATIC_INLINE void LL_DMA_SetDestIncMode(const DMA_TypeDef *DMAx, uint32_t Cha
   uint32_t dma_base_addr = (uint32_t)DMAx;
   MODIFY_REG(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CTR1, DMA_CTR1_DINC, DestInc);
 }
+#endif /* GPDMA1 */
 /**
   * @brief Get destination increment mode.
   * @note  This API is used for all available DMA channels.
@@ -1950,6 +2139,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetDestDataWidth(const DMA_TypeDef *DMAx, uint32
   return (READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CTR1, DMA_CTR1_DDW_LOG2));
 }
 
+#if defined(GPDMA1)
 /**
   * @brief Set source allocated port.
   * @rmtoll CTR1          SAP           LL_DMA_SetSrcAllocatedPort
@@ -1997,6 +2187,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetSrcAllocatedPort(const DMA_TypeDef *DMAx, uin
   uint32_t dma_base_addr = (uint32_t)DMAx;
   return (READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CTR1, DMA_CTR1_SAP));
 }
+#endif /* GPDMA1 */
 
 /**
   * @brief Set data alignment mode.
@@ -2015,7 +2206,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetSrcAllocatedPort(const DMA_TypeDef *DMAx, uin
   * @param  DataAlignment This parameter can be one of the following values:
   *         @arg @ref LL_DMA_DATA_ALIGN_ZEROPADD
   *         @arg @ref LL_DMA_DATA_ALIGN_SIGNEXTPADD
-  *         @arg @ref LL_DMA_DATA_PACK_UNPACK
+  *         @arg @ref LL_DMA_DATA_PACK_UNPACK (This value is not allowed for LPDMA channels)
   * @retval None.
   */
 __STATIC_INLINE void LL_DMA_SetDataAlignment(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t DataAlignment)
@@ -2050,6 +2241,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetDataAlignment(const DMA_TypeDef *DMAx, uint32
   return (READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CTR1, DMA_CTR1_PAM));
 }
 
+#if defined(GPDMA1)
 /**
   * @brief Set source burst length.
   * @rmtoll CTR1          SBL_1           LL_DMA_SetSrcBurstLength
@@ -2095,6 +2287,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetSrcBurstLength(const DMA_TypeDef *DMAx, uint3
   return ((READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CTR1,
                     DMA_CTR1_SBL_1) >> DMA_CTR1_SBL_1_Pos) + 1U);
 }
+#endif /* GPDMA1 */
 
 /**
   * @brief Set source increment mode.
@@ -2231,9 +2424,16 @@ __STATIC_INLINE uint32_t LL_DMA_GetSrcDataWidth(const DMA_TypeDef *DMAx, uint32_
 __STATIC_INLINE void LL_DMA_ConfigChannelTransfer(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t Configuration)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
+#if defined(GPDMA1)
   MODIFY_REG(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CTR2,
              (DMA_CTR2_TCEM | DMA_CTR2_TRIGPOL | DMA_CTR2_TRIGM | DMA_CTR2_DREQ | DMA_CTR2_SWREQ | DMA_CTR2_BREQ),
              Configuration);
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+  MODIFY_REG(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CTR2,
+             (DMA_CTR2_TCEM | DMA_CTR2_TRIGPOL | DMA_CTR2_TRIGM | DMA_CTR2_SWREQ | DMA_CTR2_BREQ),
+             Configuration);
+#endif /* LPDMA1 */
 }
 
 /**
@@ -2418,8 +2618,14 @@ __STATIC_INLINE uint32_t LL_DMA_GetTriggerMode(const DMA_TypeDef *DMAx, uint32_t
 __STATIC_INLINE void LL_DMA_SetDataTransferDirection(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t Direction)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
+#if defined(GPDMA1)
   MODIFY_REG(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CTR2,
              DMA_CTR2_DREQ | DMA_CTR2_SWREQ, Direction);
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+  MODIFY_REG(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CTR2,
+             DMA_CTR2_SWREQ, Direction);
+#endif /* LPDMA1 */
 }
 
 /**
@@ -2445,8 +2651,14 @@ __STATIC_INLINE void LL_DMA_SetDataTransferDirection(const DMA_TypeDef *DMAx, ui
 __STATIC_INLINE uint32_t LL_DMA_GetDataTransferDirection(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
   uint32_t dma_base_addr = (uint32_t)DMAx;
+#if defined(GPDMA1)
   return (READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CTR2,
                    DMA_CTR2_DREQ | DMA_CTR2_SWREQ));
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+  return (READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CTR2,
+                   DMA_CTR2_SWREQ));
+#endif /* LPDMA1 */
 }
 
 /**
@@ -2581,6 +2793,40 @@ __STATIC_INLINE uint32_t LL_DMA_GetBlkHWRequest(const DMA_TypeDef *DMAx, uint32_
   *         @arg @ref LL_GPDMA1_REQUEST_TIM4_UP (*)
   *         @arg @ref LL_GPDMA1_REQUEST_USART3_RX (*)
   *         @arg @ref LL_GPDMA1_REQUEST_USART3_TX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_ADC4 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_SPI3_RX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_SPI3_TX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_I2C1_RX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_I2C1_TX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_I2C1_EVC (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_I2C3_RX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_I2C3_TX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_I2C3_EVC (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_USART1_RX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_USART1_TX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_LPUART1_RX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_LPUART1_TX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_SAI1_A (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_SAI1_B (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_TIM2_CH1 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_TIM2_CH2 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_TIM2_CH3 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_TIM2_CH4 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_TIM2_UP (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_TIM16_CH1 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_TIM16_UP (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_TIM17_CH1 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_TIM17_UP (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_AES_IN (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_AES_OUT (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_HASH_IN (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_LPTIM1_IC1 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_LPTIM1_IC2 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_LPTIM1_UE (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_LPTIM2_IC1 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_LPTIM2_IC2 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_LPTIM2_UE (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_XSPI1 (*)
   * @note   (*) Availability depends on devices.
   * @retval None.
   */
@@ -2672,6 +2918,40 @@ __STATIC_INLINE void LL_DMA_SetPeriphRequest(const DMA_TypeDef *DMAx, uint32_t C
   *         @arg @ref LL_GPDMA1_REQUEST_TIM4_UP (*)
   *         @arg @ref LL_GPDMA1_REQUEST_USART3_RX (*)
   *         @arg @ref LL_GPDMA1_REQUEST_USART3_TX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_ADC4 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_SPI3_RX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_SPI3_TX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_I2C1_RX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_I2C1_TX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_I2C1_EVC (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_I2C3_RX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_I2C3_TX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_I2C3_EVC (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_USART1_RX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_USART1_TX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_LPUART1_RX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_LPUART1_TX (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_SAI1_A (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_SAI1_B (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_TIM2_CH1 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_TIM2_CH2 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_TIM2_CH3 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_TIM2_CH4 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_TIM2_UP (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_TIM16_CH1 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_TIM16_UP (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_TIM17_CH1 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_TIM17_UP (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_AES_IN (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_AES_OUT (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_HASH_IN (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_LPTIM1_IC1 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_LPTIM1_IC2 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_LPTIM1_UE (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_LPTIM2_IC1 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_LPTIM2_IC2 (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_LPTIM2_UE (*)
+  *         @arg @ref LL_LPDMA1_REQUEST_XSPI1 (*)
   * @note   (*) Availability depends on devices.
   */
 __STATIC_INLINE  uint32_t LL_DMA_GetPeriphRequest(const DMA_TypeDef *DMAx, uint32_t Channel)
@@ -2726,6 +3006,34 @@ __STATIC_INLINE  uint32_t LL_DMA_GetPeriphRequest(const DMA_TypeDef *DMAx, uint3
   *         @arg @ref LL_GPDMA1_TRIGGER_TIM2_TRGO
   *         @arg @ref LL_GPDMA1_TRIGGER_ADC4_AWD1
   *         @arg @ref LL_GPDMA1_TRIGGER_TIM3_TRGO (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_EXTI_LINE0 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_EXTI_LINE1 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_EXTI_LINE2 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_EXTI_LINE3 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_EXTI_LINE4 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_EXTI_LINE5 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_EXTI_LINE6 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_EXTI_LINE7 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_TAMP_TRG1 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_TAMP_TRG2 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_TAMP_TRG3 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPTIM1_CH1 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPTIM1_CH2 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPTIM2_CH1 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPTIM2_CH2 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_RTC_ALRA_TRG (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_RTC_ALRB_TRG (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_RTC_WUT_TRG (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPDMA1_CH0_TCF (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPDMA1_CH1_TCF (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPDMA1_CH2_TCF (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPDMA1_CH3_TCF (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPDMA1_CH4_TCF (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPDMA1_CH5_TCF (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPDMA1_CH6_TCF (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPDMA1_CH7_TCF (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_TIM2_TRGO (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_ADC4_AWD1 (*)
   * @retval None.
   */
 __STATIC_INLINE void LL_DMA_SetHWTrigger(const DMA_TypeDef *DMAx, uint32_t Channel, uint32_t Trigger)
@@ -2781,6 +3089,34 @@ __STATIC_INLINE void LL_DMA_SetHWTrigger(const DMA_TypeDef *DMAx, uint32_t Chann
   *         @arg @ref LL_GPDMA1_TRIGGER_TIM2_TRGO
   *         @arg @ref LL_GPDMA1_TRIGGER_ADC4_AWD1
   *         @arg @ref LL_GPDMA1_TRIGGER_TIM3_TRGO (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_EXTI_LINE0 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_EXTI_LINE1 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_EXTI_LINE2 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_EXTI_LINE3 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_EXTI_LINE4 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_EXTI_LINE5 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_EXTI_LINE6 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_EXTI_LINE7 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_TAMP_TRG1 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_TAMP_TRG2 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_TAMP_TRG3 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPTIM1_CH1 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPTIM1_CH2 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPTIM2_CH1 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPTIM2_CH2 (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_RTC_ALRA_TRG (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_RTC_ALRB_TRG (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_RTC_WUT_TRG (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPDMA1_CH0_TCF (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPDMA1_CH1_TCF (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPDMA1_CH2_TCF (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPDMA1_CH3_TCF (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPDMA1_CH4_TCF (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPDMA1_CH5_TCF (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPDMA1_CH6_TCF (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_LPDMA1_CH7_TCF (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_TIM2_TRGO (*)
+  *         @arg @ref LL_LPDMA1_TRIGGER_ADC4_AWD1 (*)
   */
 __STATIC_INLINE  uint32_t LL_DMA_GetHWTrigger(const DMA_TypeDef *DMAx, uint32_t Channel)
 {
@@ -3443,6 +3779,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetLinkedListAddrOffset(const DMA_TypeDef *DMAx,
                    DMA_CLLR_LA) >> DMA_CLLR_LA_Pos);
 }
 
+#if defined(GPDMA1)
 /**
   * @brief Get FIFO level.
   * @rmtoll CSR          FIFOL           LL_DMA_GetFIFOLevel
@@ -3464,6 +3801,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetFIFOLevel(const DMA_TypeDef *DMAx, uint32_t C
   return (READ_BIT(((DMA_Channel_TypeDef *)(dma_base_addr + LL_DMA_CH_OFFSET_TAB[Channel]))->CSR,
                    DMA_CSR_FIFOL) >> DMA_CSR_FIFOL_Pos);
 }
+#endif /* GPDMA1 */
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 /**
@@ -4546,7 +4884,7 @@ void     LL_DMA_DisconnectNextLinkNode(LL_DMA_LinkNodeTypeDef *pLinkNode, uint32
   * @}
   */
 
-#endif /* GPDMA1 */
+#endif /* GPDMA1 || LPDMA1 */
 
 /**
   * @}

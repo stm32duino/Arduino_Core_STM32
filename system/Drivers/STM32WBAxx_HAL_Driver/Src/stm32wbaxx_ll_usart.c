@@ -31,7 +31,7 @@
   * @{
   */
 
-#if defined(USART1) || defined(USART2)
+#if defined(USART1) || defined(USART2) || defined(USART3)
 
 /** @addtogroup USART_LL
   * @{
@@ -161,6 +161,16 @@ ErrorStatus LL_USART_DeInit(const USART_TypeDef *USARTx)
     LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_USART2);
   }
 #endif /* USART2 */
+#if defined(USART3)
+  else if (USARTx == USART3)
+  {
+    /* Force reset of USART clock */
+    LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_USART3);
+
+    /* Release reset of USART clock */
+    LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_USART3);
+  }
+#endif /* USART3 */
   else
   {
     status = ERROR;
@@ -243,6 +253,12 @@ ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, const LL_USART_InitTypeDef *USA
       periphclk = LL_RCC_GetUSARTClockFreq(LL_RCC_USART2_CLKSOURCE);
     }
 #endif /* USART2 */
+#if defined(USART3)
+    else if (USARTx == USART3)
+    {
+      periphclk = LL_RCC_GetUSARTClockFreq(LL_RCC_USART3_CLKSOURCE);
+    }
+#endif /* USART3 */
     else
     {
       /* Nothing to do, as error code is already assigned to ERROR value */
@@ -383,7 +399,7 @@ void LL_USART_ClockStructInit(LL_USART_ClockInitTypeDef *USART_ClockInitStruct)
   * @}
   */
 
-#endif /* USART1 || USART2 */
+#endif /* USART1 || USART2 || USART3 */
 
 /**
   * @}

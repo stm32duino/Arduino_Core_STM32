@@ -405,6 +405,9 @@ uint32_t HAL_NVIC_GetActive(IRQn_Type IRQn)
   *             @arg SYSTICK_CLKSOURCE_LSE: LSE clock selected as SysTick clock source.
   *             @arg SYSTICK_CLKSOURCE_HCLK: AHB clock selected as SysTick clock source.
   *             @arg SYSTICK_CLKSOURCE_HCLK_DIV8: AHB clock divided by 8 selected as SysTick clock source.
+  *             @arg SYSTICK_CLKSOURCE_HSI_DIV4: HSI clock divided by 4 selected as SysTick clock source. (*)
+  *
+  *             (*) value not defined in all devices.
   * @retval None
   */
 void HAL_SYSTICK_CLKSourceConfig(uint32_t CLKSource)
@@ -432,6 +435,13 @@ void HAL_SYSTICK_CLKSourceConfig(uint32_t CLKSource)
       CLEAR_BIT(SysTick->CTRL, SysTick_CTRL_CLKSOURCE_Msk);
       MODIFY_REG(RCC->CCIPR1, RCC_CCIPR1_SYSTICKSEL, RCC_CCIPR1_SYSTICKSEL_1);
       break;
+#if !defined (STM32WBA50xx) && !defined (STM32WBA52xx) && !defined (STM32WBA54xx) && !defined (STM32WBA55xx) && !defined (STM32WBA5Mxx)
+    /* Select HSI_DIV4 as Systick clock source */
+    case SYSTICK_CLKSOURCE_HSI_DIV4:
+      CLEAR_BIT(SysTick->CTRL, SysTick_CTRL_CLKSOURCE_Msk);
+      MODIFY_REG(RCC->CCIPR1, RCC_CCIPR1_SYSTICKSEL, (RCC_CCIPR1_SYSTICKSEL_1 | RCC_CCIPR1_SYSTICKSEL_0));
+      break;
+#endif
     default:
       /* Nothing to do */
       break;
@@ -445,6 +455,9 @@ void HAL_SYSTICK_CLKSourceConfig(uint32_t CLKSource)
   *             @arg SYSTICK_CLKSOURCE_LSE: LSE clock selected as SysTick clock source.
   *             @arg SYSTICK_CLKSOURCE_HCLK: AHB clock selected as SysTick clock source.
   *             @arg SYSTICK_CLKSOURCE_HCLK_DIV8: AHB clock divided by 8 selected as SysTick clock source.
+  *             @arg SYSTICK_CLKSOURCE_HSI_DIV4: HSI clock divided by 4 selected as SysTick clock source. (*)
+  *
+  *             (*) value not defined in all devices.
   */
 uint32_t HAL_SYSTICK_GetCLKSourceConfig(void)
 {
@@ -468,6 +481,12 @@ uint32_t HAL_SYSTICK_GetCLKSourceConfig(void)
       case RCC_SYSTICKCLKSOURCE_LSE:
         systick_source = SYSTICK_CLKSOURCE_LSE;
         break;
+
+#if !defined (STM32WBA50xx) && !defined (STM32WBA52xx) && !defined (STM32WBA54xx) && !defined (STM32WBA55xx) && !defined (STM32WBA5Mxx)
+      case RCC_SYSTICKCLKSOURCE_HSI_DIV4:
+        systick_source = SYSTICK_CLKSOURCE_HSI_DIV4;
+        break;
+#endif
 
       default: /* RCC_SYSTICKCLKSOURCE_HCLK_DIV8 */
         systick_source = SYSTICK_CLKSOURCE_HCLK_DIV8;

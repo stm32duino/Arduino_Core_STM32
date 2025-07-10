@@ -4282,7 +4282,9 @@ __STATIC_INLINE uint32_t LL_RTC_IsActiveFlag_TAMP4(const RTC_TypeDef *RTCx)
   UNUSED(RTCx);
   return ((READ_BIT(TAMP->SR, TAMP_SR_TAMP4F) == (TAMP_SR_TAMP4F)) ? 1U : 0U);
 }
+#endif /* TAMP_SR_TAMP4F */
 
+#ifdef TAMP_SR_TAMP5F
 /**
   * @brief  Get tamper 5 detection flag.
   * @rmtoll TAMP_SR          TAMP5F        LL_RTC_IsActiveFlag_TAMP5
@@ -4294,7 +4296,9 @@ __STATIC_INLINE uint32_t LL_RTC_IsActiveFlag_TAMP5(const RTC_TypeDef *RTCx)
   UNUSED(RTCx);
   return ((READ_BIT(TAMP->SR, TAMP_SR_TAMP5F) == (TAMP_SR_TAMP5F)) ? 1U : 0U);
 }
+#endif /* TAMP_SR_TAMP5F */
 
+#ifdef TAMP_SR_TAMP6F
 /**
   * @brief  Get tamper 6 detection flag.
   * @rmtoll TAMP_SR          TAMP6F        LL_RTC_IsActiveFlag_TAMP6
@@ -4306,7 +4310,7 @@ __STATIC_INLINE uint32_t LL_RTC_IsActiveFlag_TAMP6(const RTC_TypeDef *RTCx)
   UNUSED(RTCx);
   return ((READ_BIT(TAMP->SR, TAMP_SR_TAMP6F) == (TAMP_SR_TAMP6F)) ? 1U : 0U);
 }
-#endif /* TAMP_SR_TAMP4F */
+#endif /* TAMP_SR_TAMP6F */
 
 /**
   * @brief  Get internal tamper 3 detection flag.
@@ -4464,7 +4468,9 @@ __STATIC_INLINE uint32_t LL_RTC_IsActiveFlag_TAMP4M(const RTC_TypeDef *RTCx)
   UNUSED(RTCx);
   return ((READ_BIT(TAMP->MISR, TAMP_MISR_TAMP4MF) == (TAMP_MISR_TAMP4MF)) ? 1U : 0U);
 }
+#endif /* TAMP_MISR_TAMP4MF */
 
+#ifdef TAMP_MISR_TAMP5MF
 /**
   * @brief  Get tamper 5 interrupt masked flag.
   * @rmtoll TAMP_MISR          TAMP5MF        LL_RTC_IsActiveFlag_TAMP5M
@@ -4476,7 +4482,9 @@ __STATIC_INLINE uint32_t LL_RTC_IsActiveFlag_TAMP5M(const RTC_TypeDef *RTCx)
   UNUSED(RTCx);
   return ((READ_BIT(TAMP->MISR, TAMP_MISR_TAMP5MF) == (TAMP_MISR_TAMP5MF)) ? 1U : 0U);
 }
+#endif /* TAMP_MISR_TAMP5MF */
 
+#ifdef TAMP_MISR_TAMP6MF
 /**
   * @brief  Get tamper 6 interrupt masked flag.
   * @rmtoll TAMP_MISR          TAMP6MF        LL_RTC_IsActiveFlag_TAMP6M
@@ -4488,7 +4496,7 @@ __STATIC_INLINE uint32_t LL_RTC_IsActiveFlag_TAMP6M(const RTC_TypeDef *RTCx)
   UNUSED(RTCx);
   return ((READ_BIT(TAMP->MISR, TAMP_MISR_TAMP6MF) == (TAMP_MISR_TAMP6MF)) ? 1U : 0U);
 }
-#endif /* TAMP_MISR_TAMP4MF */
+#endif /* TAMP_MISR_TAMP6MF */
 
 /**
   * @brief  Get internal tamper 3 interrupt masked flag.
@@ -4646,7 +4654,9 @@ __STATIC_INLINE void LL_RTC_ClearFlag_TAMP4(const RTC_TypeDef *RTCx)
   UNUSED(RTCx);
   WRITE_REG(TAMP->SCR, TAMP_SCR_CTAMP4F);
 }
+#endif /* TAMP_SCR_CTAMP4F */
 
+#ifdef TAMP_SCR_CTAMP5F
 /**
   * @brief  Clear tamper 5 detection flag.
   * @rmtoll TAMP_SCR          CTAMP5F         LL_RTC_ClearFlag_TAMP5
@@ -4658,7 +4668,9 @@ __STATIC_INLINE void LL_RTC_ClearFlag_TAMP5(const RTC_TypeDef *RTCx)
   UNUSED(RTCx);
   WRITE_REG(TAMP->SCR, TAMP_SCR_CTAMP5F);
 }
+#endif /* TAMP_SCR_CTAMP5F */
 
+#ifdef TAMP_SCR_CTAMP6F
 /**
   * @brief  Clear tamper 6 detection flag.
   * @rmtoll TAMP_SCR          CTAMP6F         LL_RTC_ClearFlag_TAMP6
@@ -4670,7 +4682,7 @@ __STATIC_INLINE void LL_RTC_ClearFlag_TAMP6(const RTC_TypeDef *RTCx)
   UNUSED(RTCx);
   WRITE_REG(TAMP->SCR, TAMP_SCR_CTAMP6F);
 }
-#endif /* TAMP_SCR_CTAMP4F */
+#endif /* TAMP_SCR_CTAMP6F */
 
 /**
   * @brief  Clear internal tamper 3 detection flag.
@@ -5363,7 +5375,9 @@ __STATIC_INLINE void LL_RTC_DisableIT_TAMP4(const RTC_TypeDef *RTCx)
   UNUSED(RTCx);
   CLEAR_BIT(TAMP->IER, TAMP_IER_TAMP4IE);
 }
+#endif /* TAMP_IER_TAMP4IE */
 
+#ifdef TAMP_IER_TAMP5IE
 /**
   * @brief  Enable tamper 5 interrupt.
   * @rmtoll TAMP_IER           TAMP5IE          LL_RTC_EnableIT_TAMP5
@@ -5387,7 +5401,9 @@ __STATIC_INLINE void LL_RTC_DisableIT_TAMP5(const RTC_TypeDef *RTCx)
   UNUSED(RTCx);
   CLEAR_BIT(TAMP->IER, TAMP_IER_TAMP5IE);
 }
+#endif /* TAMP_IER_TAMP5IE */
 
+#ifdef TAMP_IER_TAMP6IE
 /**
   * @brief  Enable tamper 6 interrupt.
   * @rmtoll TAMP_IER           TAMP6IE          LL_RTC_EnableIT_TAMP6
@@ -5411,7 +5427,7 @@ __STATIC_INLINE void LL_RTC_DisableIT_TAMP6(const RTC_TypeDef *RTCx)
   UNUSED(RTCx);
   CLEAR_BIT(TAMP->IER, TAMP_IER_TAMP6IE);
 }
-#endif /* TAMP_IER_TAMP4IE */
+#endif /* TAMP_IER_TAMP6IE */
 
 /**
   * @brief  Enable internal tamper 3 interrupt.
@@ -5677,7 +5693,9 @@ __STATIC_INLINE uint32_t LL_RTC_IsEnabledIT_TAMP4(const RTC_TypeDef *RTCx)
   UNUSED(RTCx);
   return ((READ_BIT(TAMP->IER, TAMP_IER_TAMP4IE) == (TAMP_IER_TAMP4IE)) ? 1U : 0U);
 }
+#endif /* TAMP_IER_TAMP4IE */
 
+#ifdef TAMP_IER_TAMP5IE
 /**
   * @brief  Check if tamper 5 interrupt is enabled or not.
   * @rmtoll TAMP_IER           TAMP5IE        LL_RTC_IsEnabledIT_TAMP5
@@ -5689,7 +5707,9 @@ __STATIC_INLINE uint32_t LL_RTC_IsEnabledIT_TAMP5(const RTC_TypeDef *RTCx)
   UNUSED(RTCx);
   return ((READ_BIT(TAMP->IER, TAMP_IER_TAMP5IE) == (TAMP_IER_TAMP5IE)) ? 1U : 0U);
 }
+#endif /* TAMP_IER_TAMP5IE */
 
+#ifdef TAMP_IER_TAMP6IE
 /**
   * @brief  Check if tamper 6 interrupt is enabled or not.
   * @rmtoll TAMP_IER           TAMP6IE        LL_RTC_IsEnabledIT_TAMP6
@@ -5701,7 +5721,7 @@ __STATIC_INLINE uint32_t LL_RTC_IsEnabledIT_TAMP6(const RTC_TypeDef *RTCx)
   UNUSED(RTCx);
   return ((READ_BIT(TAMP->IER, TAMP_IER_TAMP6IE) == (TAMP_IER_TAMP6IE)) ? 1U : 0U);
 }
-#endif /* TAMP_IER_TAMP4IE */
+#endif /* TAMP_IER_TAMP6IE */
 
 /**
   * @brief  Check if internal tamper 3 interrupt is enabled or not.

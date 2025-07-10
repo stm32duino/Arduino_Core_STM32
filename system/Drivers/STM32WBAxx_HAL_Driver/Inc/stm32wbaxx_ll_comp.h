@@ -344,7 +344,7 @@ typedef struct
   *         @arg @ref LL_COMP_WINDOWMODE_COMP2_INPUT_PLUS_COMMON
   * @retval None
   */
-__STATIC_INLINE void LL_COMP_SetCommonWindowMode(COMP_Common_TypeDef *COMPxy_COMMON, uint32_t WindowMode)
+__STATIC_INLINE void LL_COMP_SetCommonWindowMode(const COMP_Common_TypeDef *COMPxy_COMMON, uint32_t WindowMode)
 {
   /* Note: On this STM32 series, window mode can be set from any instance     */
   /*       of the pair of comparator instances.                               */
@@ -403,7 +403,7 @@ __STATIC_INLINE uint32_t LL_COMP_GetCommonWindowMode(const COMP_Common_TypeDef *
   *         @arg @ref LL_COMP_WINDOWOUTPUT_COMP2
   * @retval None
   */
-__STATIC_INLINE void LL_COMP_SetCommonWindowOutput(COMP_Common_TypeDef *COMPxy_COMMON, uint32_t WindowOutput)
+__STATIC_INLINE void LL_COMP_SetCommonWindowOutput(const COMP_Common_TypeDef *COMPxy_COMMON, uint32_t WindowOutput)
 {
   register __IO uint32_t *preg = __COMP_PTR_REG_OFFSET(COMPxy_COMMON->CSR_ODD,
                                                        (WindowOutput & LL_COMP_WINDOWMODE_COMPX_REGOFFSET_MASK));

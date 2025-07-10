@@ -179,9 +179,11 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#ifdef TAMP_CR1_TAMP4E
+#ifdef TAMP_CR1_TAMP5E
 #define TAMP_ALL (TAMP_CR1_TAMP1E | TAMP_CR1_TAMP2E | TAMP_CR1_TAMP3E | TAMP_CR1_TAMP4E | \
                   TAMP_CR1_TAMP5E | TAMP_CR1_TAMP6E)
+#elif defined(TAMP_CR1_TAMP4E)
+#define TAMP_ALL (TAMP_CR1_TAMP1E | TAMP_CR1_TAMP2E | TAMP_CR1_TAMP3E | TAMP_CR1_TAMP4E)
 #else
 #define TAMP_ALL (TAMP_CR1_TAMP1E | TAMP_CR1_TAMP2E | TAMP_CR1_TAMP3E)
 #endif /* TAMP_CR1_TAMP4E */
@@ -2164,7 +2166,9 @@ void HAL_RTCEx_TamperIRQHandler(RTC_HandleTypeDef *hrtc)
     HAL_RTCEx_Tamper4EventCallback(hrtc);
 #endif /* USE_HAL_RTC_REGISTER_CALLBACKS */
   }
+#endif /* RTC_TAMPER_4 */
 
+#ifdef RTC_TAMPER_5
   /* Check Tamper5 status */
   if ((tmp & RTC_TAMPER_5) == RTC_TAMPER_5)
   {
@@ -2176,7 +2180,9 @@ void HAL_RTCEx_TamperIRQHandler(RTC_HandleTypeDef *hrtc)
     HAL_RTCEx_Tamper5EventCallback(hrtc);
 #endif /* USE_HAL_RTC_REGISTER_CALLBACKS */
   }
+#endif /* RTC_TAMPER_5 */
 
+#ifdef RTC_TAMPER_6
   /* Check Tamper6 status */
   if ((tmp & RTC_TAMPER_6) == RTC_TAMPER_6)
   {
@@ -2188,7 +2194,7 @@ void HAL_RTCEx_TamperIRQHandler(RTC_HandleTypeDef *hrtc)
     HAL_RTCEx_Tamper6EventCallback(hrtc);
 #endif /* USE_HAL_RTC_REGISTER_CALLBACKS */
   }
-#endif /* RTC_TAMPER_4 */
+#endif /* RTC_TAMPER_6 */
 
   /* Check Internal Tamper3 status */
   if ((tmp & RTC_INT_TAMPER_3) == RTC_INT_TAMPER_3)

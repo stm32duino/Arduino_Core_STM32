@@ -179,6 +179,7 @@ void HAL_HSEM_IRQHandler(void);
   * @}
   */
 
+#if defined(HSEM_SECCFGR_SEC0) || defined(HSEM_PRIVCFGR_PRIV0)
 /** @addtogroup HSEM_Exported_Functions_Group4
   *  @brief    HSEM Attributes functions.
   * @{
@@ -200,6 +201,7 @@ uint32_t HAL_HSEM_GetSemaphorePrivilege(void);
 /**
   * @}
   */
+#endif /* (HSEM_SECCFGR_SEC0) || (HSEM_PRIVCFGR_PRIV0) */
 
 /**
   * @}

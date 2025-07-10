@@ -238,7 +238,6 @@ static void DMA_Init(DMA_HandleTypeDef const *const hdma);
   */
 HAL_StatusTypeDef HAL_DMA_Init(DMA_HandleTypeDef *const hdma)
 {
-
   /* Get tick number */
   uint32_t tickstart = HAL_GetTick();
 
@@ -264,16 +263,31 @@ HAL_StatusTypeDef HAL_DMA_Init(DMA_HandleTypeDef *const hdma)
   assert_param(IS_DMA_TCEM_EVENT_MODE(hdma->Init.TransferEventMode));
   assert_param(IS_DMA_MODE(hdma->Init.Mode));
   /* Check DMA channel instance */
+#if defined(GPDMA1)
   if (IS_GPDMA_INSTANCE(hdma->Instance) != 0U)
+#endif /* GPDMA1 */
+#if defined(GPDMA1)
   {
     assert_param(IS_DMA_BURST_LENGTH(hdma->Init.SrcBurstLength));
     assert_param(IS_DMA_BURST_LENGTH(hdma->Init.DestBurstLength));
     assert_param(IS_DMA_TRANSFER_ALLOCATED_PORT(hdma->Init.TransferAllocatedPort));
   }
+#endif /* GPDMA1 */
 
 
   /* Allocate lock resource */
   __HAL_UNLOCK(hdma);
+
+  /* Initialize the callbacks */
+  if (hdma->State == HAL_DMA_STATE_RESET)
+  {
+    /* Clean all callbacks */
+    hdma->XferCpltCallback     = NULL;
+    hdma->XferHalfCpltCallback = NULL;
+    hdma->XferErrorCallback    = NULL;
+    hdma->XferAbortCallback    = NULL;
+    hdma->XferSuspendCallback  = NULL;
+  }
 
   /* Update the DMA channel state */
   hdma->State = HAL_DMA_STATE_BUSY;
@@ -898,7 +912,7 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *const hdma)
   }
 
   /* Data Transfer Error Interrupt management *************************************************************************/
-  if ((__HAL_DMA_GET_FLAG(hdma, DMA_FLAG_DTE) != 0U))
+  if (__HAL_DMA_GET_FLAG(hdma, DMA_FLAG_DTE) != 0U)
   {
     /* Check if interrupt source is enabled */
     if (__HAL_DMA_GET_IT_SOURCE(hdma, DMA_IT_DTE) != 0U)
@@ -912,7 +926,7 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *const hdma)
   }
 
   /* Update Linked-list Error Interrupt management ********************************************************************/
-  if ((__HAL_DMA_GET_FLAG(hdma, DMA_FLAG_ULE) != 0U))
+  if (__HAL_DMA_GET_FLAG(hdma, DMA_FLAG_ULE) != 0U)
   {
     /* Check if interrupt source is enabled */
     if (__HAL_DMA_GET_IT_SOURCE(hdma, DMA_IT_ULE) != 0U)
@@ -926,7 +940,7 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *const hdma)
   }
 
   /* User Setting Error Interrupt management **************************************************************************/
-  if ((__HAL_DMA_GET_FLAG(hdma, DMA_FLAG_USE) != 0U))
+  if (__HAL_DMA_GET_FLAG(hdma, DMA_FLAG_USE) != 0U)
   {
     /* Check if interrupt source is enabled */
     if (__HAL_DMA_GET_IT_SOURCE(hdma, DMA_IT_USE) != 0U)
@@ -940,7 +954,7 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *const hdma)
   }
 
   /* Trigger Overrun Interrupt management *****************************************************************************/
-  if ((__HAL_DMA_GET_FLAG(hdma, DMA_FLAG_TO) != 0U))
+  if (__HAL_DMA_GET_FLAG(hdma, DMA_FLAG_TO) != 0U)
   {
     /* Check if interrupt source is enabled */
     if (__HAL_DMA_GET_IT_SOURCE(hdma, DMA_IT_TO) != 0U)
@@ -954,7 +968,7 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *const hdma)
   }
 
   /* Half Transfer Complete Interrupt management **********************************************************************/
-  if ((__HAL_DMA_GET_FLAG(hdma, DMA_FLAG_HT) != 0U))
+  if (__HAL_DMA_GET_FLAG(hdma, DMA_FLAG_HT) != 0U)
   {
     /* Check if interrupt source is enabled */
     if (__HAL_DMA_GET_IT_SOURCE(hdma, DMA_IT_HT) != 0U)
@@ -972,7 +986,7 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *const hdma)
   }
 
   /* Suspend Transfer Interrupt management ****************************************************************************/
-  if ((__HAL_DMA_GET_FLAG(hdma, DMA_FLAG_SUSP) != 0U))
+  if (__HAL_DMA_GET_FLAG(hdma, DMA_FLAG_SUSP) != 0U)
   {
     /* Check if interrupt source is enabled */
     if (__HAL_DMA_GET_IT_SOURCE(hdma, DMA_IT_SUSP) != 0U)
@@ -1030,7 +1044,7 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *const hdma)
   }
 
   /* Transfer Complete Interrupt management ***************************************************************************/
-  if ((__HAL_DMA_GET_FLAG(hdma, DMA_FLAG_TC) != 0U))
+  if (__HAL_DMA_GET_FLAG(hdma, DMA_FLAG_TC) != 0U)
   {
     /* Check if interrupt source is enabled */
     if (__HAL_DMA_GET_IT_SOURCE(hdma, DMA_IT_TC) != 0U)
@@ -1322,6 +1336,7 @@ uint32_t HAL_DMA_GetError(DMA_HandleTypeDef const *const hdma)
   * @}
   */
 
+#if defined (DMA_PRIVCFGR_PRIV0)
 /** @addtogroup DMA_Exported_Functions_Group4
   *
 @verbatim
@@ -1347,7 +1362,6 @@ uint32_t HAL_DMA_GetError(DMA_HandleTypeDef const *const hdma)
 @endverbatim
   * @{
   */
-#if defined (DMA_PRIVCFGR_PRIV0)
 /**
   * @brief  Configure the DMA channel security and privilege attribute(s).
   * @note   These attributes cannot be modified when the corresponding lock state is enabled.
@@ -1483,7 +1497,6 @@ HAL_StatusTypeDef HAL_DMA_GetConfigChannelAttributes(DMA_HandleTypeDef const *co
 
   return HAL_OK;
 }
-#endif /* DMA_PRIVCFGR_PRIV0 */
 #if defined (DMA_RCFGLOCKR_LOCK0)
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 /**
@@ -1551,6 +1564,7 @@ HAL_StatusTypeDef HAL_DMA_GetLockChannelAttributes(DMA_HandleTypeDef const *cons
 /**
   * @}
   */
+#endif /* DMA_PRIVCFGR_PRIV0 */
 
 /**
   * @}
@@ -1605,19 +1619,28 @@ static void DMA_Init(DMA_HandleTypeDef const *const hdma)
   tmpreg = hdma->Init.Priority;
 
   /* Write DMA Channel Control Register (CCR) */
+#if defined(GPDMA1)
   MODIFY_REG(hdma->Instance->CCR, DMA_CCR_PRIO | DMA_CCR_LAP | DMA_CCR_LSM, tmpreg);
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+  MODIFY_REG(hdma->Instance->CCR, DMA_CCR_PRIO | DMA_CCR_LSM, tmpreg);
+#endif /* LPDMA1 */
 
   /* Prepare DMA Channel Transfer Register (CTR1) value ***************************************************************/
   tmpreg = hdma->Init.DestInc | hdma->Init.DestDataWidth | hdma->Init.SrcInc | hdma->Init.SrcDataWidth;
 
+#if defined(GPDMA1)
   /* Add parameters specific to GPDMA */
   if (IS_GPDMA_INSTANCE(hdma->Instance) != 0U)
+#endif /* GPDMA1 */
+#if defined(GPDMA1)
   {
     tmpreg |= (hdma->Init.TransferAllocatedPort                                             |
                (((hdma->Init.DestBurstLength - 1U) << DMA_CTR1_DBL_1_Pos) & DMA_CTR1_DBL_1) |
                (((hdma->Init.SrcBurstLength - 1U) << DMA_CTR1_SBL_1_Pos) & DMA_CTR1_SBL_1));
   }
 
+#endif /* GPDMA1 */
   /* Write DMA Channel Transfer Register 1 (CTR1) */
 #if defined (DMA_CTR1_SSEC)
   MODIFY_REG(hdma->Instance->CTR1, ~(DMA_CTR1_SSEC | DMA_CTR1_DSEC), tmpreg);
@@ -1631,10 +1654,14 @@ static void DMA_Init(DMA_HandleTypeDef const *const hdma)
   /* Memory to Peripheral Transfer */
   if ((hdma->Init.Direction) == DMA_MEMORY_TO_PERIPH)
   {
+#if defined(GPDMA1)
     if (IS_GPDMA_INSTANCE(hdma->Instance) != 0U)
+#endif /* GPDMA1 */
+#if defined(GPDMA1)
     {
       tmpreg |= DMA_CTR2_DREQ;
     }
+#endif /* GPDMA1 */
   }
   /* Memory to Memory Transfer */
   else if ((hdma->Init.Direction) == DMA_MEMORY_TO_MEMORY)
@@ -1647,8 +1674,14 @@ static void DMA_Init(DMA_HandleTypeDef const *const hdma)
   }
 
   /* Write DMA Channel Transfer Register 2 (CTR2) */
+#if defined(GPDMA1)
   MODIFY_REG(hdma->Instance->CTR2, (DMA_CTR2_TCEM  | DMA_CTR2_TRIGPOL | DMA_CTR2_TRIGSEL | DMA_CTR2_TRIGM |
                                     DMA_CTR2_BREQ  | DMA_CTR2_DREQ    | DMA_CTR2_SWREQ   | DMA_CTR2_REQSEL), tmpreg);
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+  MODIFY_REG(hdma->Instance->CTR2, (DMA_CTR2_TCEM  | DMA_CTR2_TRIGPOL | DMA_CTR2_TRIGSEL | DMA_CTR2_TRIGM |
+                                    DMA_CTR2_BREQ  | DMA_CTR2_SWREQ   | DMA_CTR2_REQSEL), tmpreg);
+#endif /* LPDMA1 */
 
   /* Write DMA Channel Block Register 1 (CBR1) ************************************************************************/
   WRITE_REG(hdma->Instance->CBR1, 0U);

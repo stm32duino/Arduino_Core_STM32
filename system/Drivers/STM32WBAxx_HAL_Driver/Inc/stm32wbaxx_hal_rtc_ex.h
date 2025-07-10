@@ -354,14 +354,19 @@ typedef struct
 #define RTC_TAMPER_3                       TAMP_CR1_TAMP3E
 #ifdef TAMP_CR1_TAMP4E
 #define RTC_TAMPER_4                       TAMP_CR1_TAMP4E
+#endif /* TAMP_CR1_TAMP4E */
+#ifdef TAMP_CR1_TAMP5E
 #define RTC_TAMPER_5                       TAMP_CR1_TAMP5E
 #define RTC_TAMPER_6                       TAMP_CR1_TAMP6E
-#endif /* TAMP_CR1_TAMP4E */
+#endif /* TAMP_CR1_TAMP5E */
 
-#ifdef TAMP_CR1_TAMP4E
+#ifdef TAMP_CR1_TAMP5E
 #define RTC_TAMPER_ALL                     (RTC_TAMPER_1 | RTC_TAMPER_2 |\
                                             RTC_TAMPER_3 | RTC_TAMPER_4 |\
                                             RTC_TAMPER_5 | RTC_TAMPER_6)
+#elif defined(TAMP_CR1_TAMP4E)
+#define RTC_TAMPER_ALL                     (RTC_TAMPER_1 | RTC_TAMPER_2 |\
+                                            RTC_TAMPER_3 | RTC_TAMPER_4)
 #else
 #define RTC_TAMPER_ALL                     (RTC_TAMPER_1 | RTC_TAMPER_2 |\
                                             RTC_TAMPER_3)

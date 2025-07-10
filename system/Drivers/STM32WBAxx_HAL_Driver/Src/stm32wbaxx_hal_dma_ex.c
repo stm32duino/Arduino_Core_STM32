@@ -580,10 +580,12 @@ HAL_StatusTypeDef HAL_DMAEx_List_Init(DMA_HandleTypeDef *const hdma)
   assert_param(IS_DMA_TCEM_LINKEDLIST_EVENT_MODE(hdma->InitLinkedList.TransferEventMode));
   assert_param(IS_DMA_LINKEDLIST_MODE(hdma->InitLinkedList.LinkedListMode));
   /* Check DMA channel instance */
+#if defined(GPDMA1)
   if (IS_GPDMA_INSTANCE(hdma->Instance) != 0U)
   {
     assert_param(IS_DMA_LINK_ALLOCATED_PORT(hdma->InitLinkedList.LinkAllocatedPort));
   }
+#endif /* GPDMA1 */
 
   /* Allocate lock resource */
   __HAL_UNLOCK(hdma);
@@ -1021,6 +1023,7 @@ HAL_StatusTypeDef HAL_DMAEx_List_BuildNode(DMA_NodeConfTypeDef const *const pNod
   assert_param(IS_DMA_MODE(pNodeConfig->Init.Mode));
 
   /* Check DMA channel parameters */
+#if defined(GPDMA1)
   if ((pNodeConfig->NodeType & DMA_CHANNEL_TYPE_GPDMA) == DMA_CHANNEL_TYPE_GPDMA)
   {
     assert_param(IS_DMA_BURST_LENGTH(pNodeConfig->Init.SrcBurstLength));
@@ -1028,6 +1031,7 @@ HAL_StatusTypeDef HAL_DMAEx_List_BuildNode(DMA_NodeConfTypeDef const *const pNod
     assert_param(IS_DMA_DATA_EXCHANGE(pNodeConfig->DataHandlingConfig.DataExchange));
     assert_param(IS_DMA_TRANSFER_ALLOCATED_PORT(pNodeConfig->Init.TransferAllocatedPort));
   }
+#endif /* GPDMA1 */
 
   /* Check DMA channel trigger parameters */
   assert_param(IS_DMA_TRIGGER_POLARITY(pNodeConfig->TriggerConfig.TriggerPolarity));
@@ -2868,7 +2872,7 @@ HAL_StatusTypeDef HAL_DMAEx_List_ConvertQToDynamic(DMA_QListTypeDef *const pQLis
   uint32_t cllr_offset;
   uint32_t currentnode_addr;
   DMA_NodeTypeDef context_node;
-  DMA_NodeInQInfoTypeDef node_info;
+  DMA_NodeInQInfoTypeDef node_info = {0};
 
   /* Check the queue parameter */
   if (pQList == NULL)
@@ -3163,6 +3167,7 @@ HAL_StatusTypeDef HAL_DMAEx_List_UnLinkQ(DMA_HandleTypeDef *const hdma)
       (+) The HAL_DMAEx_ConfigDataHandling() function allows to configure DMA channel data handling.
               (++) GPDMA data handling : byte-based reordering, packing/unpacking, padding/truncation, sign extension
                                          and left/right alignment.
+              (++) LPDMA data handling : byte-based padding/truncation, sign extension and left/right alignment.
 
       (+) The HAL_DMAEx_ConfigTrigger() function allows to configure DMA channel HW triggers.
 
@@ -3190,13 +3195,20 @@ HAL_StatusTypeDef HAL_DMAEx_ConfigDataHandling(DMA_HandleTypeDef *const hdma,
 
   /* Check the parameters */
   assert_param(IS_DMA_DATA_ALIGNMENT(pConfigDataHandling->DataAlignment));
+#if defined(GPDMA1)
   assert_param(IS_DMA_DATA_EXCHANGE(pConfigDataHandling->DataExchange));
+#endif /* GPDMA1 */
 
   /* Check DMA channel state */
   if (hdma->State == HAL_DMA_STATE_READY)
   {
+#if defined(GPDMA1)
     MODIFY_REG(hdma->Instance->CTR1, (DMA_CTR1_DHX | DMA_CTR1_DBX | DMA_CTR1_SBX | DMA_CTR1_PAM),
                (pConfigDataHandling->DataAlignment | pConfigDataHandling->DataExchange));
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+    MODIFY_REG(hdma->Instance->CTR1, DMA_CTR1_PAM_0, pConfigDataHandling->DataAlignment);
+#endif /* LPDMA1 */
 
   }
   else
@@ -3441,6 +3453,7 @@ HAL_StatusTypeDef HAL_DMAEx_Resume(DMA_HandleTypeDef *const hdma)
   * @{
   */
 
+#if defined(GPDMA1)
 /**
   * @brief  Get and returns the DMA channel FIFO level.
   * @param  hdma : Pointer to a DMA_HandleTypeDef structure that contains the configuration information for the
@@ -3451,6 +3464,7 @@ uint32_t HAL_DMAEx_GetFifoLevel(DMA_HandleTypeDef const *const hdma)
 {
   return ((hdma->Instance->CSR & DMA_CSR_FIFOL) >> DMA_CSR_FIFOL_Pos);
 }
+#endif /* GPDMA1 */
 
 /**
   * @}
@@ -3480,13 +3494,20 @@ static void DMA_List_Init(DMA_HandleTypeDef const *const hdma)
   tmpreg = hdma->InitLinkedList.Priority | hdma->InitLinkedList.LinkStepMode;
 
   /* Check DMA channel instance */
+#if defined(GPDMA1)
   if (IS_GPDMA_INSTANCE(hdma->Instance) != 0U)
   {
     tmpreg |= hdma->InitLinkedList.LinkAllocatedPort;
   }
+#endif /* GPDMA1 */
 
   /* Write DMA Channel Control Register (CCR) */
+#if defined(GPDMA1)
   MODIFY_REG(hdma->Instance->CCR, DMA_CCR_PRIO | DMA_CCR_LAP | DMA_CCR_LSM, tmpreg);
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+  MODIFY_REG(hdma->Instance->CCR, DMA_CCR_PRIO | DMA_CCR_LSM, tmpreg);
+#endif /* LPDMA1 */
 
   /* Write DMA Channel Control Register (CTR1) */
   WRITE_REG(hdma->Instance->CTR1, 0U);
@@ -3541,6 +3562,7 @@ static void DMA_List_BuildNode(DMA_NodeConfTypeDef const *const pNodeConfig,
 #endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 
   /* Add parameters related to DMA configuration */
+#if defined(GPDMA1)
   if ((pNodeConfig->NodeType & DMA_CHANNEL_TYPE_GPDMA) == DMA_CHANNEL_TYPE_GPDMA)
   {
     /* Prepare DMA channel transfer register (CTR1) value */
@@ -3549,6 +3571,7 @@ static void DMA_List_BuildNode(DMA_NodeConfTypeDef const *const pNodeConfig,
        (((pNodeConfig->Init.DestBurstLength - 1U) << DMA_CTR1_DBL_1_Pos) & DMA_CTR1_DBL_1)    |
        (((pNodeConfig->Init.SrcBurstLength - 1U) << DMA_CTR1_SBL_1_Pos) & DMA_CTR1_SBL_1));
   }
+#endif /* GPDMA1 */
   /*********************************************************************************** CTR1 register value is updated */
 
 
@@ -3560,10 +3583,14 @@ static void DMA_List_BuildNode(DMA_NodeConfTypeDef const *const pNodeConfig,
   /* Check for memory to peripheral transfer */
   if ((pNodeConfig->Init.Direction) == DMA_MEMORY_TO_PERIPH)
   {
+#if defined(GPDMA1)
     if ((pNodeConfig->NodeType & DMA_CHANNEL_TYPE_GPDMA) == DMA_CHANNEL_TYPE_GPDMA)
     {
+#endif /* GPDMA1 */
+#if defined(GPDMA1)
       pNode->LinkRegisters[NODE_CTR2_DEFAULT_OFFSET] |= DMA_CTR2_DREQ;
     }
+#endif /* GPDMA1 */
   }
   /* Memory to memory transfer */
   else if ((pNodeConfig->Init.Direction) == DMA_MEMORY_TO_MEMORY)
@@ -3636,6 +3663,7 @@ static void DMA_List_GetNodeConfig(DMA_NodeConfTypeDef *const pNodeConfig,
   pNodeConfig->Init.DestInc                     = pNode->LinkRegisters[NODE_CTR1_DEFAULT_OFFSET]   & DMA_CTR1_DINC;
   pNodeConfig->Init.SrcDataWidth                = pNode->LinkRegisters[NODE_CTR1_DEFAULT_OFFSET]   & DMA_CTR1_SDW_LOG2;
   pNodeConfig->Init.DestDataWidth               = pNode->LinkRegisters[NODE_CTR1_DEFAULT_OFFSET]   & DMA_CTR1_DDW_LOG2;
+#if defined(GPDMA1)
   pNodeConfig->Init.SrcBurstLength              = ((pNode->LinkRegisters[NODE_CTR1_DEFAULT_OFFSET] &
                                                     DMA_CTR1_SBL_1) >> DMA_CTR1_SBL_1_Pos) + 1U;
   pNodeConfig->Init.DestBurstLength             = ((pNode->LinkRegisters[NODE_CTR1_DEFAULT_OFFSET] &
@@ -3644,6 +3672,7 @@ static void DMA_List_GetNodeConfig(DMA_NodeConfTypeDef *const pNodeConfig,
                                                   (DMA_CTR1_SAP | DMA_CTR1_DAP);
   pNodeConfig->DataHandlingConfig.DataExchange  = pNode->LinkRegisters[NODE_CTR1_DEFAULT_OFFSET]   &
                                                   (DMA_CTR1_SBX | DMA_CTR1_DBX | DMA_CTR1_DHX);
+#endif /* GPDMA1 */
 
   pNodeConfig->DataHandlingConfig.DataAlignment = pNode->LinkRegisters[NODE_CTR1_DEFAULT_OFFSET]   & DMA_CTR1_PAM;
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
@@ -3678,6 +3707,7 @@ static void DMA_List_GetNodeConfig(DMA_NodeConfTypeDef *const pNodeConfig,
   {
     pNodeConfig->Init.Request   = pNode->LinkRegisters[NODE_CTR2_DEFAULT_OFFSET] & DMA_CTR2_REQSEL;
 
+#if defined(GPDMA1)
     if ((pNode->LinkRegisters[NODE_CTR2_DEFAULT_OFFSET] & DMA_CTR2_DREQ) != 0U)
     {
       pNodeConfig->Init.Direction = DMA_MEMORY_TO_PERIPH;
@@ -3686,6 +3716,10 @@ static void DMA_List_GetNodeConfig(DMA_NodeConfTypeDef *const pNodeConfig,
     {
       pNodeConfig->Init.Direction = DMA_PERIPH_TO_MEMORY;
     }
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+    pNodeConfig->Init.Direction = DMA_MEMORY_TO_PERIPH;
+#endif /* LPDMA1 */
   }
 
   pNodeConfig->Init.BlkHWRequest              = (pNode->LinkRegisters[NODE_CTR2_DEFAULT_OFFSET] & DMA_CTR2_BREQ);

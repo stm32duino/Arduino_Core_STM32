@@ -207,7 +207,11 @@ HAL_StatusTypeDef HAL_RNG_Init(RNG_HandleTypeDef *hrng)
 #endif /* RNG_CR_NIST_VALUE */
 #if defined(RNG_HTCR_NIST_VALUE)
   /* Recommended value for NIST compliance, refer to application note AN4230 */
+#if defined(RNG_HTCR0_HTCFG)
+  WRITE_REG(hrng->Instance->HTCR[0], RNG_HTCR_NIST_VALUE);
+#else
   WRITE_REG(hrng->Instance->HTCR, RNG_HTCR_NIST_VALUE);
+#endif  /* defined(RNG_HTCR0_HTCFG) */
 #endif /* RNG_HTCR_NIST_VALUE */
 
   /* Writing bit CONDRST=0 */
@@ -651,6 +655,8 @@ HAL_StatusTypeDef HAL_RNG_GenerateRandomNumber(RNG_HandleTypeDef *hrng, uint32_t
       status = RNG_RecoverSeedError(hrng);
       if (status == HAL_ERROR)
       {
+        /* Update the error code */
+        hrng->ErrorCode = HAL_RNG_ERROR_RECOVERSEED;
         return status;
       }
     }

@@ -406,7 +406,11 @@
   */
 #if defined(HAL_DMA_MODULE_ENABLED)
 /* Macro to get remaining data to transfer on DMA side */
+#if defined(GPDMA1)
 #define I2C_GET_DMA_REMAIN_DATA(__HANDLE__)     (__HAL_DMA_GET_COUNTER(__HANDLE__) + HAL_DMAEx_GetFifoLevel(__HANDLE__))
+#else /* GPDMA1 */
+#define I2C_GET_DMA_REMAIN_DATA(__HANDLE__)     __HAL_DMA_GET_COUNTER(__HANDLE__)
+#endif /* GPDMA1 */
 #endif /* HAL_DMA_MODULE_ENABLED */
 /**
   * @}

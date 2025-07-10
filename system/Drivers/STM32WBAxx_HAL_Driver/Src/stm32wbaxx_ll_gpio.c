@@ -30,7 +30,7 @@
   * @{
   */
 
-#if defined (GPIOA) || defined (GPIOB) || defined (GPIOC)  || defined (GPIOH)
+#if defined (GPIOA) || defined (GPIOB) || defined (GPIOC)  || defined (GPIOD)  || defined (GPIOE)  || defined (GPIOG) || defined (GPIOH)
 
 /** @addtogroup GPIO_LL
   * @{
@@ -127,6 +127,27 @@ ErrorStatus LL_GPIO_DeInit(const GPIO_TypeDef *GPIOx)
     LL_AHB2_GRP1_ForceReset(LL_AHB2_GRP1_PERIPH_GPIOC);
     LL_AHB2_GRP1_ReleaseReset(LL_AHB2_GRP1_PERIPH_GPIOC);
   }
+#if defined(GPIOD)
+  else if (GPIOx == GPIOD)
+  {
+    LL_AHB2_GRP1_ForceReset(LL_AHB2_GRP1_PERIPH_GPIOD);
+    LL_AHB2_GRP1_ReleaseReset(LL_AHB2_GRP1_PERIPH_GPIOD);
+  }
+#endif /* defined(GPIOD) */
+#if defined(GPIOE)
+  else if (GPIOx == GPIOE)
+  {
+    LL_AHB2_GRP1_ForceReset(LL_AHB2_GRP1_PERIPH_GPIOE);
+    LL_AHB2_GRP1_ReleaseReset(LL_AHB2_GRP1_PERIPH_GPIOE);
+  }
+#endif /* defined(GPIOE) */
+#if defined(GPIOG)
+  else if (GPIOx == GPIOG)
+  {
+    LL_AHB2_GRP1_ForceReset(LL_AHB2_GRP1_PERIPH_GPIOG);
+    LL_AHB2_GRP1_ReleaseReset(LL_AHB2_GRP1_PERIPH_GPIOG);
+  }
+#endif /* defined(GPIOG) */
   else if (GPIOx == GPIOH)
   {
     LL_AHB2_GRP1_ForceReset(LL_AHB2_GRP1_PERIPH_GPIOH);
@@ -245,7 +266,7 @@ void LL_GPIO_StructInit(LL_GPIO_InitTypeDef *GPIO_InitStruct)
   * @}
   */
 
-#endif /* defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOH) */
+#endif /* defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOD) || defined (GPIOE) || defined (GPIOG) || defined (GPIOH) */
 
 /**
   * @}

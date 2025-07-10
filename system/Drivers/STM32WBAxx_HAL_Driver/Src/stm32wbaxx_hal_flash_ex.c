@@ -119,7 +119,11 @@
 /** @defgroup FLASHEx_Private_Functions FLASHEx Private Functions
   * @{
   */
+#if defined(FLASH_DBANK_SUPPORT)
+static void     FLASH_MassErase(uint32_t Banks);
+#else /* FLASH_DBANK_SUPPORT */
 static void     FLASH_MassErase(void);
+#endif /* FLASH_DBANK_SUPPORT */
 static void     FLASH_OB_WRPConfig(uint32_t WRPArea, uint32_t WRPStartOffset, uint32_t WRPEndOffset,
                                    FunctionalState WRPLock);
 static void     FLASH_OB_RDPConfig(uint32_t RDPLevel);
@@ -140,7 +144,12 @@ static void     FLASH_OB_GetWMSEC(uint32_t *WMSecConfig, uint32_t *WMSecStartPag
 static uint32_t FLASH_OB_GetBootLock(void);
 #endif /* __ARM_FEATURE_CMSE */
 static void     FLASH_OB_GetBootAddr(uint32_t BootAddrConfig, uint32_t *BootAddr);
+#if defined(FLASH_OEM1KEYR3_OEM1KEY)
+static void     FLASH_OB_RDPKeyConfig(uint32_t RDPKeyType, uint32_t RDPKey1, uint32_t RDPKey2,
+                                      uint32_t RDPKey3, uint32_t RDPKey4);
+#else /* FLASH_OEM1KEYR3_OEM1KEY */
 static void     FLASH_OB_RDPKeyConfig(uint32_t RDPKeyType, uint32_t RDPKey1, uint32_t RDPKey2);
+#endif /* FLASH_OEM1KEYR3_OEM1KEY */
 /**
   * @}
   */
@@ -178,7 +187,7 @@ static void     FLASH_OB_RDPKeyConfig(uint32_t RDPKeyType, uint32_t RDPKey1, uin
   *
   * @retval HAL Status
   */
-HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t *PageError)
+HAL_StatusTypeDef HAL_FLASHEx_Erase(const FLASH_EraseInitTypeDef *pEraseInit, uint32_t *PageError)
 {
   HAL_StatusTypeDef status;
   uint32_t page_index;
@@ -211,7 +220,11 @@ HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t
     if ((pEraseInit->TypeErase & (~FLASH_NON_SECURE_MASK)) == FLASH_TYPEERASE_MASSERASE)
     {
       /* Mass erase to be done */
+#if defined(FLASH_DBANK_SUPPORT)
+      FLASH_MassErase(pEraseInit->Banks);
+#else /* FLASH_DBANK_SUPPORT */
       FLASH_MassErase();
+#endif /* FLASH_DBANK_SUPPORT */
 
       /* Wait for last operation to be completed */
       status = FLASH_WaitForLastOperation(FLASH_TIMEOUT_VALUE);
@@ -224,7 +237,11 @@ HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t
       for (page_index = pEraseInit->Page; page_index < (pEraseInit->Page + pEraseInit->NbPages); page_index++)
       {
         /* Start erase page */
+#if defined(FLASH_DBANK_SUPPORT)
+        FLASH_PageErase(page_index, pEraseInit->Banks);
+#else /* FLASH_DBANK_SUPPORT */
         FLASH_PageErase(page_index);
+#endif /* FLASH_DBANK_SUPPORT */
 
         /* Wait for last operation to be completed */
         status = FLASH_WaitForLastOperation(FLASH_TIMEOUT_VALUE);
@@ -239,7 +256,11 @@ HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t
     }
 
     /* If the erase operation is completed, disable the associated bits */
+#if defined(FLASH_DBANK_SUPPORT)
+    CLEAR_BIT((*reg_cr), (((pEraseInit->TypeErase) & (~(FLASH_NON_SECURE_MASK))) | FLASH_NSCR1_BKER | FLASH_NSCR1_PNB));
+#else /* FLASH_DBANK_SUPPORT */
     CLEAR_BIT((*reg_cr), (((pEraseInit->TypeErase) & (~(FLASH_NON_SECURE_MASK))) | FLASH_NSCR1_PNB));
+#endif /* FLASH_DBANK_SUPPORT */
   }
 
   /* Process Unlocked */
@@ -297,16 +318,27 @@ HAL_StatusTypeDef HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit)
     if ((pEraseInit->TypeErase & (~FLASH_NON_SECURE_MASK)) == FLASH_TYPEERASE_MASSERASE)
     {
       /* Mass erase to be done */
+#if defined(FLASH_DBANK_SUPPORT)
+      FLASH_MassErase(pEraseInit->Banks);
+#else /* FLASH_DBANK_SUPPORT */
       FLASH_MassErase();
+#endif /* FLASH_DBANK_SUPPORT */
     }
     else
     {
       /* Erase by page to be done */
       pFlash.NbPagesToErase = pEraseInit->NbPages;
       pFlash.Page = pEraseInit->Page;
+#if defined(FLASH_DBANK_SUPPORT)
+      pFlash.Bank = pEraseInit->Banks;
+#endif /* FLASH_DBANK_SUPPORT */
 
       /* Erase first page and wait for IT */
+#if defined(FLASH_DBANK_SUPPORT)
+        FLASH_PageErase(pEraseInit->Page, pEraseInit->Banks);
+#else /* FLASH_DBANK_SUPPORT */
         FLASH_PageErase(pEraseInit->Page);
+#endif /* FLASH_DBANK_SUPPORT */
     }
   }
 
@@ -363,7 +395,11 @@ HAL_StatusTypeDef HAL_FLASHEx_OBProgram(FLASH_OBProgramInitTypeDef *pOBInit)
     if ((pOBInit->OptionType & OPTIONBYTE_RDPKEY) != 0U)
     {
       /* Configure the Read protection key */
+#if defined(FLASH_OEM1KEYR3_OEM1KEY)
+      FLASH_OB_RDPKeyConfig(pOBInit->RDPKeyType, pOBInit->RDPKey1, pOBInit->RDPKey2, pOBInit->RDPKey3, pOBInit->RDPKey4);
+#else /* FLASH_OEM1KEYR3_OEM1KEY */
       FLASH_OB_RDPKeyConfig(pOBInit->RDPKeyType, pOBInit->RDPKey1, pOBInit->RDPKey2);
+#endif /* FLASH_OEM1KEYR3_OEM1KEY */
     }
 
     /* User Configuration */
@@ -425,7 +461,12 @@ void HAL_FLASHEx_OBGetConfig(FLASH_OBProgramInitTypeDef *pOBInit)
 {
   pOBInit->OptionType = (OPTIONBYTE_RDP | OPTIONBYTE_USER);
 
+#if defined(FLASH_DBANK_SUPPORT)
+  if ((pOBInit->WRPArea == OB_WRPAREA_BANK1_AREAA) || (pOBInit->WRPArea == OB_WRPAREA_BANK1_AREAB) ||
+      (pOBInit->WRPArea == OB_WRPAREA_BANK2_AREAA) || (pOBInit->WRPArea == OB_WRPAREA_BANK2_AREAB))
+#else /* FLASH_DBANK_SUPPORT */
   if ((pOBInit->WRPArea == OB_WRPAREA_BANK1_AREAA) || (pOBInit->WRPArea == OB_WRPAREA_BANK1_AREAB))
+#endif /* FLASH_DBANK_SUPPORT */
   {
     pOBInit->OptionType |= OPTIONBYTE_WRP;
     /* Get write protection on the selected area */
@@ -440,7 +481,11 @@ void HAL_FLASHEx_OBGetConfig(FLASH_OBProgramInitTypeDef *pOBInit)
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
   /* Get the configuration of the watermark secure area for the selected area */
+#if defined(FLASH_DBANK_SUPPORT)
+  if ((pOBInit->WMSecConfig == OB_WMSEC_AREA1) || (pOBInit->WMSecConfig == OB_WMSEC_AREA2))
+#else /* FLASH_DBANK_SUPPORT */
   if (pOBInit->WMSecConfig == OB_WMSEC_AREA1)
+#endif /* FLASH_DBANK_SUPPORT */
   {
     pOBInit->OptionType |= OPTIONBYTE_WMSEC;
     FLASH_OB_GetWMSEC(&(pOBInit->WMSecConfig), &(pOBInit->WMSecStartPage), &(pOBInit->WMSecEndPage),
@@ -480,13 +525,16 @@ void HAL_FLASHEx_OBGetConfig(FLASH_OBProgramInitTypeDef *pOBInit)
   *
   * @retval HAL Status
   */
-HAL_StatusTypeDef HAL_FLASHEx_ConfigBBAttributes(FLASH_BBAttributesTypeDef *pBBAttributes)
+HAL_StatusTypeDef HAL_FLASHEx_ConfigBBAttributes(const FLASH_BBAttributesTypeDef *pBBAttributes)
 {
   HAL_StatusTypeDef status;
   uint8_t index;
   __IO uint32_t *reg;
 
   /* Check the parameters */
+#if defined(FLASH_DBANK_SUPPORT)
+  assert_param(IS_FLASH_BANK_EXCLUSIVE(pBBAttributes->Bank));
+#endif /* FLASH_DBANK_SUPPORT */
   assert_param(IS_FLASH_BB_EXCLUSIVE(pBBAttributes->BBAttributesType));
 
   /* Wait for last operation to be completed */
@@ -498,12 +546,34 @@ HAL_StatusTypeDef HAL_FLASHEx_ConfigBBAttributes(FLASH_BBAttributesTypeDef *pBBA
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
     if (pBBAttributes->BBAttributesType == FLASH_BB_SEC)
     {
+#if defined(FLASH_DBANK_SUPPORT)
+      if (pBBAttributes->Bank == FLASH_BANK_1)
+      {
+        reg = &(FLASH->SECBB1R1);
+      }
+      else
+      {
+        reg = &(FLASH->SECBB2R1);
+      }
+#else /* FLASH_DBANK_SUPPORT */
       reg = &(FLASH->SECBBR1);
+#endif /* FLASH_DBANK_SUPPORT */
     }
     else
 #endif /* __ARM_FEATURE_CMSE */
     {
+#if defined(FLASH_DBANK_SUPPORT)
+      if (pBBAttributes->Bank == FLASH_BANK_1)
+      {
+        reg = &(FLASH->PRIVBB1R1);
+      }
+      else
+      {
+        reg = &(FLASH->PRIVBB2R1);
+      }
+#else /* FLASH_DBANK_SUPPORT */
       reg = &(FLASH->PRIVBBR1);
+#endif /* FLASH_DBANK_SUPPORT */
     }
 
     /* Modify the register values and check that new attributes are taken in account */
@@ -543,16 +613,41 @@ void HAL_FLASHEx_GetConfigBBAttributes(FLASH_BBAttributesTypeDef *pBBAttributes)
   __IO uint32_t *reg;
 
   /* Check the parameters */
+#if defined(FLASH_DBANK_SUPPORT)
+  assert_param(IS_FLASH_BANK_EXCLUSIVE(pBBAttributes->Bank));
+#endif /* FLASH_DBANK_SUPPORT */
   assert_param(IS_FLASH_BB_EXCLUSIVE(pBBAttributes->BBAttributesType));
 
   /* Set the first Block-Based register to read */
   if (pBBAttributes->BBAttributesType == FLASH_BB_SEC)
   {
+#if defined(FLASH_DBANK_SUPPORT)
+    if (pBBAttributes->Bank == FLASH_BANK_1)
+    {
+      reg = &(FLASH->SECBB1R1);
+    }
+    else
+    {
+      reg = &(FLASH->SECBB2R1);
+    }
+#else /* FLASH_DBANK_SUPPORT */
     reg = &(FLASH->SECBBR1);
+#endif /* FLASH_DBANK_SUPPORT */
   }
   else
   {
+#if defined(FLASH_DBANK_SUPPORT)
+    if (pBBAttributes->Bank == FLASH_BANK_1)
+    {
+      reg = &(FLASH->PRIVBB1R1);
+    }
+    else
+    {
+      reg = &(FLASH->PRIVBB2R1);
+    }
+#else /* FLASH_DBANK_SUPPORT */
     reg = &(FLASH->PRIVBBR1);
+#endif /* FLASH_DBANK_SUPPORT */
   }
 
   /* Read the register values */
@@ -571,6 +666,10 @@ void HAL_FLASHEx_GetConfigBBAttributes(FLASH_BBAttributesTypeDef *pBBAttributes)
   * @param  Banks indicate the bank concerned by the activation
   *          This parameter can be one of the following values:
   *            @arg FLASH_BANK_1: Bank1 to be protected
+#if defined(FLASH_DBANK_SUPPORT)
+  *            @arg FLASH_BANK_2: Bank2 to be protected
+  *            @arg FLASH_BANK_BOTH: Bank1 and Bank2 to be protected
+#endif
   *
   * @retval None
   */
@@ -579,12 +678,145 @@ void HAL_FLASHEx_EnableSecHideProtection(uint32_t Banks)
   /* Check the parameters */
   assert_param(IS_FLASH_BANK(Banks));
 
+#if defined(FLASH_DBANK_SUPPORT)
+  if ((Banks & FLASH_BANK_1) != 0U)
+  {
+    SET_BIT(FLASH->SECHDPCR, FLASH_SECHDPCR_HDP1_ACCDIS);
+  }
+
+  if ((Banks & FLASH_BANK_2) != 0U)
+  {
+    SET_BIT(FLASH->SECHDPCR, FLASH_SECHDPCR_HDP2_ACCDIS);
+  }
+#else /* FLASH_DBANK_SUPPORT */
   SET_BIT(FLASH->SECHDPCR, FLASH_SECHDPCR_HDP_ACCDIS);
+#endif /* FLASH_DBANK_SUPPORT */
 
 }
 
+#if defined(FLASH_SECHDPEXTR_HDP_PEXT)
+/**
+  * @brief  Configure the extended secure hide area.
+  *
+  * @param  pHDPExtension pointer to an @ref FLASH_HDPExtensionTypeDef structure that
+  *         contains the configuration information for the programming.
+  *
+  * @note   The field pHDPExtension->Bank should indicate which area is requested
+  *         for the extended secure hide area.
+  * @note   The field pHDPExtension->NbPages should indicate the number of
+  *         pages of the extended secure hide area.
+  *
+  * @retval  HAL Status
+  */
+HAL_StatusTypeDef HAL_FLASHEx_ConfigHDPExtension(FLASH_HDPExtensionTypeDef *pHDPExtension)
+{
+  HAL_StatusTypeDef status;
+
+  /* Check the parameters */
+  assert_param(IS_FLASH_BANK_EXCLUSIVE(pHDPExtension->Bank));
+  assert_param(IS_FLASH_PAGE(pHDPExtension->NbPages));
+
+  /* Wait for last operation to be completed */
+  status = FLASH_WaitForLastOperation(FLASH_TIMEOUT_VALUE);
+
+  if (status == HAL_OK)
+  {
+    if ((pHDPExtension->Bank) == FLASH_BANK_1)
+    {
+      MODIFY_REG(FLASH->SECHDPEXTR, FLASH_SECHDPEXTR_HDP_PEXT, pHDPExtension->NbPages);
+    }
+
+    /* ISB instruction is called to be sure next instructions are performed with
+      correct extended secure hide area configuration  */
+    __ISB();
+  }
+
+  /* Process Unlocked */
+  __HAL_UNLOCK(&pFlash);
+
+  return status;
+}
+
+/**
+  * @brief  Return the extended secure hide area.
+  *
+  * @param  pHDPExtension [in/out] pointer to an @ref FLASH_HDPExtensionTypeDef structure
+  *         that contains the configuration information.
+  *
+  * @note   The field pHDPExtension->Bank should indicate which area is requested
+  *         for the extended secure hide area.
+  *
+  * @retval  None
+  */
+void HAL_FLASHEx_GetConfigHDPExtension(FLASH_HDPExtensionTypeDef *pHDPExtension)
+{
+  /* Check the parameters */
+  assert_param(IS_FLASH_BANK_EXCLUSIVE(pHDPExtension->Bank));
+
+  if ((pHDPExtension->Bank) == FLASH_BANK_1)
+  {
+    pHDPExtension->NbPages = (FLASH->SECHDPEXTR & FLASH_SECHDPEXTR_HDP_PEXT);
+  }
+}
+
+/**
+  * @brief  Activation of the protection of the extended secure hide area.
+  *
+  * @param  Banks indicate the bank concerned by the activation
+  *          This parameter can be one of the following values:
+  *            @arg @ref FLASH_BANK_1 Bank1 to be protected
+  *            @arg @ref FLASH_BANK_BOTH Bank1 to be protected
+  * @param  ProtectionType indicate the type of protection to be performed
+  *          This parameter can be one of the following values:
+  *            @arg @ref FLASH_EXTHDP_ONLY_ACCESS_PROTECTED Access to area denied and bits configuration allowed
+  *            @arg @ref FLASH_EXTHDP_ALL_PROTECTED Access to bits configuration and area denied
+  *
+  * @retval  None
+  */
+void HAL_FLASHEx_EnableHDPExtensionProtection(uint32_t Banks, uint32_t ProtectionType)
+{
+  /* Check the parameters */
+  assert_param(IS_FLASH_BANK(Banks));
+  assert_param(IS_FLASH_EXTHDP_PROTECTION(ProtectionType));
+
+  if ((Banks & FLASH_BANK_1) != 0U)
+  {
+    MODIFY_REG(FLASH->SECHDPCR,
+               FLASH_SECHDPCR_HDPEXT_ACCDIS,
+               ((ProtectionType & 0xFFU) << FLASH_SECHDPCR_HDPEXT_ACCDIS_Pos));
+  }
+}
+#endif /* FLASH_SECHDPEXTR_HDP_PEXT */
 #endif /* __ARM_FEATURE_CMSE */
 
+#if defined(FLASH_OEMKEYSR_OEM1KEYCRC)
+/**
+  * @brief  Get the CRC value of a read protection key.
+  *
+  * @param  RDPKeyType Specifies the read protection key type.
+  *          This parameter can be one of the following values:
+  *            @arg @ref OB_RDP_KEY_OEM1 OEM1 key
+  *            @arg @ref OB_RDP_KEY_OEM2 OEM2 key
+  * @param  CRCKeyValue Specifies the address to return the CRC value of the key.
+  *
+  * @retval  None
+  */
+void HAL_FLASHEx_GetRDPKeyCRC(uint32_t RDPKeyType, uint32_t *CRCKeyValue)
+{
+  /* Check the parameters */
+  assert_param(IS_OB_RDP_KEY_TYPE(RDPKeyType));
+
+  /* Get the CRC value of OEM key */
+  if (RDPKeyType == OB_RDP_KEY_OEM1)
+  {
+    *CRCKeyValue = (FLASH->OEMKEYSR & FLASH_OEMKEYSR_OEM1KEYCRC);
+  }
+  else
+  {
+    *CRCKeyValue = ((FLASH->OEMKEYSR & FLASH_OEMKEYSR_OEM2KEYCRC) >> FLASH_OEMKEYSR_OEM2KEYCRC_Pos);
+  }
+}
+#endif /* FLASH_OEMKEYSR_OEM1KEYCRC */
 
 /**
   * @}
@@ -746,13 +978,96 @@ uint32_t HAL_FLASHEx_GetSecInversion(void)
 
 /**
   * @brief  Enable the Power-down Mode for Flash Banks
+#if defined(FLASH_DBANK_SUPPORT)
+  * @param  Banks indicate which bank to put in power-down mode
+  *          This parameter can be one of the following values:
+  *            @arg FLASH_BANK_1: Flash Bank 1
+  *            @arg FLASH_BANK_2: Flash Bank 2
+  *            @arg FLASH_BANK_BOTH: Flash Bank 1 and Bank 2
+#endif
   * @retval HAL Status
   */
+#if defined(FLASH_DBANK_SUPPORT)
+HAL_StatusTypeDef HAL_FLASHEx_EnablePowerDown(uint32_t Banks)
+#else /* FLASH_DBANK_SUPPORT */
 HAL_StatusTypeDef HAL_FLASHEx_EnablePowerDown()
+#endif /* FLASH_DBANK_SUPPORT */
 {
   HAL_StatusTypeDef status = HAL_OK;
   uint32_t tickstart;
 
+#if defined(FLASH_DBANK_SUPPORT)
+  /* Check the parameters */
+  assert_param(IS_FLASH_BANK(Banks));
+
+  /* Request power-down mode for Bank 1 */
+  if ((Banks & FLASH_BANK_1) != 0U)
+  {
+    /* Check PD1 and PDREQ1 bits (Flash is not in power-down mode and not being
+       already under power-down request) */
+    if ((FLASH->NSSR & FLASH_NSSR_PD1) != 0U)
+    {
+      status = HAL_ERROR;
+    }
+    else if ((FLASH->ACR & FLASH_ACR_PDREQ1) != 0U)
+    {
+      status = HAL_ERROR;
+    }
+    else
+    {
+      /* Unlock PDREQ bit */
+      WRITE_REG(FLASH->PDKEY1R, FLASH_PDKEY1_1);
+      WRITE_REG(FLASH->PDKEY1R, FLASH_PDKEY1_2);
+
+      /* Set PDREQ in FLASH_ACR register */
+      SET_BIT(FLASH->ACR, FLASH_ACR_PDREQ1);
+
+      /* Check PD1 bit */
+      tickstart = HAL_GetTick();
+      while (((FLASH->NSSR & FLASH_NSSR_PD1) == 0U))
+      {
+        if((HAL_GetTick() - tickstart) > FLASH_TIMEOUT_VALUE)
+        {
+          return HAL_TIMEOUT;
+        }
+      }
+    }
+  }
+
+  /* Request power-down mode for Bank 2 */
+  if ((Banks & FLASH_BANK_2) != 0U)
+  {
+    /* Check PD2 and PDREQ2 bits (Bank 2 is not in power-down mode and not being
+       already under power-down request) */
+    if ((FLASH->NSSR & FLASH_NSSR_PD2) != 0U)
+    {
+      status = HAL_ERROR;
+    }
+    else if ((FLASH->ACR & FLASH_ACR_PDREQ2) != 0U)
+    {
+      status = HAL_ERROR;
+    }
+    else
+    {
+      /* Unlock PDREQ2 bit */
+      WRITE_REG(FLASH->PDKEY2R, FLASH_PDKEY2_1);
+      WRITE_REG(FLASH->PDKEY2R, FLASH_PDKEY2_2);
+
+      /* Set PDREQ2 in FLASH_ACR register */
+      SET_BIT(FLASH->ACR, FLASH_ACR_PDREQ2);
+
+      /* Check PD2 bit */
+      tickstart = HAL_GetTick();
+      while (((FLASH->NSSR & FLASH_NSSR_PD2) == 0U))
+      {
+        if ((HAL_GetTick() - tickstart) > FLASH_TIMEOUT_VALUE)
+        {
+          return HAL_TIMEOUT;
+        }
+      }
+    }
+  }
+#else /* FLASH_DBANK_SUPPORT */
   /* Check PD and PDREQ bits (Flash is not in power-down mode and not being
      already under power-down request) */
   if ((FLASH->NSSR & FLASH_NSSR_PD) != 0U)
@@ -782,6 +1097,7 @@ HAL_StatusTypeDef HAL_FLASHEx_EnablePowerDown()
       }
     }
   }
+#endif /* FLASH_DBANK_SUPPORT */
 
   return status;
 }
@@ -844,7 +1160,11 @@ void HAL_FLASHEx_GetOperation(FLASH_OperationTypeDef *pFlashOperation)
   pFlashOperation->OperationType = opsr_reg & FLASH_OPSR_CODE_OP;
 
   /* Get Flash operation memory */
+#if defined(FLASH_DBANK_SUPPORT)
+  pFlashOperation->FlashArea = (opsr_reg & (FLASH_OPSR_SYSF_OP | FLASH_OPSR_BK_OP));
+#else /* FLASH_DBANK_SUPPORT */
   pFlashOperation->FlashArea = opsr_reg & FLASH_OPSR_SYSF_OP;
+#endif /* FLASH_DBANK_SUPPORT */
 
   /* Get Flash operation address */
   pFlashOperation->Address = opsr_reg & FLASH_OPSR_ADDR_OP;
@@ -906,7 +1226,11 @@ void HAL_FLASHEx_GetEccInfo(FLASH_EccInfoTypeDef *pData)
   eccr = FLASH->ECCR;
 
   /* Retrieve and sort information */
+#if defined(FLASH_DBANK_SUPPORT)
+  pData->Area = (eccr & (FLASH_ECCR_SYSF_ECC | FLASH_ECCR_BK_ECC));
+#else /* FLASH_DBANK_SUPPORT */
   pData->Area = (eccr & FLASH_ECCR_SYSF_ECC);
+#endif /* FLASH_DBANK_SUPPORT */
   pData->Address = ((eccr & FLASH_ECCR_ADDR_ECC) << 3U);
 
   /* Add Base address depending on targeted area */
@@ -914,6 +1238,12 @@ void HAL_FLASHEx_GetEccInfo(FLASH_EccInfoTypeDef *pData)
   {
     pData->Address |= FLASH_BASE;
   }
+#if defined(FLASH_DBANK_SUPPORT)
+  else if (pData->Area == FLASH_ECC_AREA_USER_BANK2)
+  {
+    pData->Address |= (FLASH_BASE + FLASH_BANK_SIZE);
+  }
+#endif /* FLASH_DBANK_SUPPORT */
   else
   {
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
@@ -983,12 +1313,27 @@ __weak void HAL_FLASHEx_EccDetectionCallback(void)
   */
 /**
   * @brief  Mass erase of FLASH memory.
+#if defined(FLASH_DBANK_SUPPORT)
+  * @param  Banks Banks to be erased
+  *          This parameter can be one of the following values:
+  *            @arg @ref FLASH_BANK_1 Bank1 to be erased
+  *            @arg @ref FLASH_BANK_2 Bank2 to be erased
+  *            @arg @ref FLASH_BANK_BOTH Bank1 and Bank2 to be erased
+#endif
   * @retval None
   */
+#if defined(FLASH_DBANK_SUPPORT)
+static void FLASH_MassErase(uint32_t Banks)
+#else /* FLASH_DBANK_SUPPORT */
 static void FLASH_MassErase()
+#endif /* FLASH_DBANK_SUPPORT */
 {
   __IO uint32_t *reg_cr;
 
+#if defined(FLASH_DBANK_SUPPORT)
+  /* Check the parameters */
+  assert_param(IS_FLASH_BANK(Banks));
+#endif /* FLASH_DBANK_SUPPORT */
 
   /* Access to SECCR1 or NSCR1 registers depends on operation type */
 #if defined(FLASH_SECCR1_LOCK)
@@ -997,22 +1342,44 @@ static void FLASH_MassErase()
   reg_cr = &(FLASH_NS->NSCR1);
 #endif /* FLASH_SECCR1_LOCK */
 
+#if defined(FLASH_DBANK_SUPPORT)
+  /* Set the Mass Erase Bit for the bank 1 and 2 if requested */
+  SET_BIT((*reg_cr), Banks);
+
+  /* Proceed to erase */
+  SET_BIT((*reg_cr), FLASH_NSCR1_STRT);
+#else /* FLASH_DBANK_SUPPORT */
   /* Set the Mass Erase Bit for the bank 1 and proceed to erase */
   SET_BIT((*reg_cr), FLASH_NSCR1_MER | FLASH_NSCR1_STRT);
+#endif /* FLASH_DBANK_SUPPORT */
 }
 
 /**
   * @brief  Erase the specified FLASH memory page.
   * @param  Page FLASH page to erase
   *         This parameter must be a value between 0 and (max number of pages in the bank - 1)
+#if defined(FLASH_DBANK_SUPPORT)
+  * @param  Banks Bank(s) where the page will be erased
+  *          This parameter can be one of the following values:
+  *            @arg @ref FLASH_BANK_1 Page in bank 1 to be erased
+  *            @arg @ref FLASH_BANK_2 Page in bank 2 to be erased
+#endif
   * @retval None
   */
+#if defined(FLASH_DBANK_SUPPORT)
+void FLASH_PageErase(uint32_t Page, uint32_t Banks)
+#else /* FLASH_DBANK_SUPPORT */
 void FLASH_PageErase(uint32_t Page)
+#endif /* FLASH_DBANK_SUPPORT */
 {
   __IO uint32_t *reg_cr;
 
   /* Check the parameters */
   assert_param(IS_FLASH_PAGE(Page));
+#if defined(FLASH_DBANK_SUPPORT)
+  /* Check the parameters */
+  assert_param(IS_FLASH_BANK_EXCLUSIVE(Banks));
+#endif /* FLASH_DBANK_SUPPORT */
 
   /* Access to SECCR1 or NSCR1 registers depends on operation type */
 #if defined(FLASH_SECCR1_LOCK)
@@ -1021,6 +1388,16 @@ void FLASH_PageErase(uint32_t Page)
   reg_cr = &(FLASH_NS->NSCR1);
 #endif /* FLASH_SECCR1_LOCK */
 
+#if defined(FLASH_DBANK_SUPPORT)
+  if ((Banks & FLASH_BANK_1) != 0U)
+  {
+    CLEAR_BIT((*reg_cr), FLASH_NSCR1_BKER);
+  }
+  else
+  {
+    SET_BIT((*reg_cr), FLASH_NSCR1_BKER);
+  }
+#endif /* FLASH_DBANK_SUPPORT */
 
   /* Proceed to erase the page */
   MODIFY_REG((*reg_cr), (FLASH_NSCR1_PNB | FLASH_NSCR1_PER | FLASH_NSCR1_STRT), ((Page << FLASH_NSCR1_PNB_Pos) | FLASH_NSCR1_PER | FLASH_NSCR1_STRT));
@@ -1045,6 +1422,10 @@ void FLASH_PageErase(uint32_t Page)
   *          This parameter can be one of the following values:
   *            @arg @ref OB_WRPAREA_BANK1_AREAA Flash Bank 1 Area A
   *            @arg @ref OB_WRPAREA_BANK1_AREAB Flash Bank 1 Area B
+#if defined(FLASH_DBANK_SUPPORT)
+  *            @arg @ref OB_WRPAREA_BANK2_AREAA Flash Bank 2 Area A
+  *            @arg @ref OB_WRPAREA_BANK2_AREAB Flash Bank 2 Area B
+#endif
   *
   * @param  WRPStartOffset Specifies the start page of the write protected area
   *          This parameter can be page number between 0 and (max number of pages in the Flash - 1)
@@ -1068,16 +1449,42 @@ static void FLASH_OB_WRPConfig(uint32_t WRPArea, uint32_t WRPStartOffset, uint32
   /* Configure the write protected area */
   if (WRPArea == OB_WRPAREA_BANK1_AREAA)
   {
+#if defined(FLASH_DBANK_SUPPORT)
+    FLASH->WRP1AR = (((uint32_t)(~WRPLock) << FLASH_WRP1AR_UNLOCK_Pos)       | \
+                     (WRPEndOffset << FLASH_WRP1AR_WRP1A_PEND_Pos) | \
+                     WRPStartOffset);
+#else /* FLASH_DBANK_SUPPORT */
     FLASH->WRPAR = (((uint32_t)(~WRPLock) << FLASH_WRPAR_UNLOCK_Pos)       | \
                     (WRPEndOffset << FLASH_WRPAR_WRPA_PEND_Pos) | \
                     WRPStartOffset);
+#endif /* FLASH_DBANK_SUPPORT */
   }
   else if (WRPArea == OB_WRPAREA_BANK1_AREAB)
   {
+#if defined(FLASH_DBANK_SUPPORT)
+    FLASH->WRP1BR = (((uint32_t)(~WRPLock) << FLASH_WRP1BR_UNLOCK_Pos)       | \
+                     (WRPEndOffset << FLASH_WRP1BR_WRP1B_PEND_Pos) | \
+                     WRPStartOffset);
+#else /* FLASH_DBANK_SUPPORT */
     FLASH->WRPBR = (((uint32_t)(~WRPLock) << FLASH_WRPBR_UNLOCK_Pos)       | \
                     (WRPEndOffset << FLASH_WRPBR_WRPB_PEND_Pos) | \
                     WRPStartOffset);
+#endif /* FLASH_DBANK_SUPPORT */
   }
+#if defined(FLASH_DBANK_SUPPORT)
+  else if (WRPArea == OB_WRPAREA_BANK2_AREAA)
+  {
+    FLASH->WRP2AR = (((uint32_t)(~WRPLock) << FLASH_WRP2AR_UNLOCK_Pos)       | \
+                     (WRPEndOffset << FLASH_WRP2AR_WRP2A_PEND_Pos) | \
+                     WRPStartOffset);
+  }
+  else if (WRPArea == OB_WRPAREA_BANK2_AREAB)
+  {
+    FLASH->WRP2BR = (((uint32_t)(~WRPLock) << FLASH_WRP2BR_UNLOCK_Pos)       | \
+                     (WRPEndOffset << FLASH_WRP2BR_WRP2B_PEND_Pos) | \
+                     WRPStartOffset);
+  }
+#endif /* FLASH_DBANK_SUPPORT */
   else
   {
     /* Empty statement (to be compliant MISRA 15.7) */
@@ -1120,9 +1527,18 @@ static void FLASH_OB_RDPConfig(uint32_t RDPLevel)
   *            @arg @ref OB_RDP_KEY_OEM2 OEM2 key
   * @param  RDPKey1 Specifies the RDP key bits[0:31].
   * @param  RDPKey2 Specifies the RDP key bits[32:63].
+#if defined(FLASH_OEM1KEYR3_OEM1KEY)
+  * @param  RDPKey3 Specifies the RDP key bits[64:95].
+  * @param  RDPKey4 Specifies the RDP key bits[96:127].
+#endif
   * @retval None
   */
+#if defined(FLASH_OEM1KEYR3_OEM1KEY)
+static void FLASH_OB_RDPKeyConfig(uint32_t RDPKeyType, uint32_t RDPKey1, uint32_t RDPKey2,
+                                  uint32_t RDPKey3, uint32_t RDPKey4)
+#else /* FLASH_OEM1KEYR3_OEM1KEY */
 static void FLASH_OB_RDPKeyConfig(uint32_t RDPKeyType, uint32_t RDPKey1, uint32_t RDPKey2)
+#endif /* FLASH_OEM1KEYR3_OEM1KEY */
 {
   /* Check the parameters */
   assert_param(IS_OB_RDP_KEY_TYPE(RDPKeyType));
@@ -1132,11 +1548,19 @@ static void FLASH_OB_RDPKeyConfig(uint32_t RDPKeyType, uint32_t RDPKey1, uint32_
   {
     WRITE_REG(FLASH->OEM1KEYR1, RDPKey1);
     WRITE_REG(FLASH->OEM1KEYR2, RDPKey2);
+#if defined(FLASH_OEM1KEYR3_OEM1KEY)
+    WRITE_REG(FLASH->OEM1KEYR3, RDPKey3);
+    WRITE_REG(FLASH->OEM1KEYR4, RDPKey4);
+#endif /* FLASH_OEM1KEYR3_OEM1KEY */
   }
   else
   {
     WRITE_REG(FLASH->OEM2KEYR1, RDPKey1);
     WRITE_REG(FLASH->OEM2KEYR2, RDPKey2);
+#if defined(FLASH_OEM1KEYR3_OEM1KEY)
+    WRITE_REG(FLASH->OEM2KEYR3, RDPKey3);
+    WRITE_REG(FLASH->OEM2KEYR4, RDPKey4);
+#endif /* FLASH_OEM1KEYR3_OEM1KEY */
   }
 }
 
@@ -1239,6 +1663,7 @@ static void FLASH_OB_UserConfig(uint32_t UserType, uint32_t UserConfig)
     optr_reg_mask |= FLASH_OPTR_IWDG_STDBY;
   }
 
+#if defined(FLASH_OPTR_WWDG_SW)
   if ((UserType & OB_USER_WWDG_SW) != 0U)
   {
     /* WWDG_SW option byte should be modified */
@@ -1248,7 +1673,29 @@ static void FLASH_OB_UserConfig(uint32_t UserType, uint32_t UserConfig)
     optr_reg_val |= (UserConfig & FLASH_OPTR_WWDG_SW);
     optr_reg_mask |= FLASH_OPTR_WWDG_SW;
   }
+#endif /* FLASH_OPTR_WWDG_SW */
 
+#if defined(FLASH_DBANK_SUPPORT)
+  if ((UserType & OB_USER_SWAP_BANK) != 0U)
+  {
+    /* SWAP_BANK option byte should be modified */
+    assert_param(IS_OB_USER_SWAP_BANK(UserConfig & FLASH_OPTR_SWAP_BANK));
+
+    /* Set value and mask for SWAP_BANK option byte */
+    optr_reg_val |= (UserConfig & FLASH_OPTR_SWAP_BANK);
+    optr_reg_mask |= FLASH_OPTR_SWAP_BANK;
+  }
+
+  if ((UserType & OB_USER_DUALBANK) != 0U)
+  {
+    /* DUALBANK option byte should be modified */
+    assert_param(IS_OB_USER_DUALBANK(UserConfig & FLASH_OPTR_DUAL_BANK));
+
+    /* Set value and mask for DUALBANK option byte */
+    optr_reg_val |= (UserConfig & FLASH_OPTR_DUAL_BANK);
+    optr_reg_mask |= FLASH_OPTR_DUAL_BANK;
+  }
+#endif /* FLASH_DBANK_SUPPORT */
 
   if ((UserType & OB_USER_SRAM2_PE) != 0U)
   {
@@ -1290,7 +1737,29 @@ static void FLASH_OB_UserConfig(uint32_t UserType, uint32_t UserConfig)
     optr_reg_mask |= FLASH_OPTR_nBOOT0;
   }
 
+#if defined(FLASH_OPTR_IO_VDD_HSLV)
+  if ((UserType & OB_USER_IO_VDD_HSLV) != 0U)
+  {
+    /* IO_VDD_HSLV option byte should be modified */
+    assert_param(IS_OB_USER_IO_VDD_HSLV(UserConfig & FLASH_OPTR_IO_VDD_HSLV));
 
+    /* Set value and mask for IO_VDD_HSLV option byte */
+    optr_reg_val |= (UserConfig & FLASH_OPTR_IO_VDD_HSLV);
+    optr_reg_mask |= FLASH_OPTR_IO_VDD_HSLV;
+  }
+#endif /* FLASH_OPTR_IO_VDD_HSLV */
+
+#if defined(FLASH_OPTR_IO_VDDIO2_HSLV)
+  if ((UserType & OB_USER_IO_VDDIO2_HSLV) != 0U)
+  {
+    /* IO_VDDIO2_HSLV option byte should be modified */
+    assert_param(IS_OB_USER_IO_VDDIO2_HSLV(UserConfig & FLASH_OPTR_IO_VDDIO2_HSLV));
+
+    /* Set value and mask for IO_VDDIO2_HSLV option byte */
+    optr_reg_val |= (UserConfig & FLASH_OPTR_IO_VDDIO2_HSLV);
+    optr_reg_mask |= FLASH_OPTR_IO_VDDIO2_HSLV;
+  }
+#endif /* FLASH_OPTR_IO_VDDIO2_HSLV */
 
 #if defined(FLASH_OPTR_TZEN)
   if ((UserType & OB_USER_TZEN) != 0U)
@@ -1339,7 +1808,11 @@ static void FLASH_OB_WMSECConfig(uint32_t WMSecConfig, uint32_t WMSecStartPage, 
 
   /* Check the parameters */
   assert_param(IS_OB_WMSEC_CONFIG(WMSecConfig));
+#if defined(FLASH_DBANK_SUPPORT)
+  assert_param(IS_OB_WMSEC_AREA_EXCLUSIVE(WMSecConfig & (FLASH_BANK_1 | FLASH_BANK_2)));
+#else /* FLASH_DBANK_SUPPORT */
   assert_param(IS_OB_WMSEC_AREA_EXCLUSIVE(WMSecConfig & FLASH_BANK_1));
+#endif /* FLASH_DBANK_SUPPORT */
   assert_param(IS_FLASH_PAGE(WMSecStartPage));
   assert_param(IS_FLASH_PAGE(WMSecEndPage));
   assert_param(IS_FLASH_PAGE(WMHDPEndPage));
@@ -1347,9 +1820,21 @@ static void FLASH_OB_WMSECConfig(uint32_t WMSecConfig, uint32_t WMSecStartPage, 
   /* Read SECWM registers */
   if ((WMSecConfig & OB_WMSEC_AREA1) != 0U)
   {
+#if defined(FLASH_DBANK_SUPPORT)
+    tmp_secwm1 = FLASH->SECWM1R1;
+    tmp_secwm2 = FLASH->SECWM1R2;
+#else /* FLASH_DBANK_SUPPORT */
     tmp_secwm1 = FLASH->SECWMR1;
     tmp_secwm2 = FLASH->SECWMR2;
+#endif /* FLASH_DBANK_SUPPORT */
   }
+#if defined(FLASH_DBANK_SUPPORT)
+  else if ((WMSecConfig & OB_WMSEC_AREA2) != 0U)
+  {
+    tmp_secwm1 = FLASH->SECWM2R1;
+    tmp_secwm2 = FLASH->SECWM2R2;
+  }
+#endif /* FLASH_DBANK_SUPPORT */
   else
   {
     /* Nothing to do */
@@ -1358,35 +1843,69 @@ static void FLASH_OB_WMSECConfig(uint32_t WMSecConfig, uint32_t WMSecStartPage, 
   /* Configure Secure Area */
   if ((WMSecConfig & OB_WMSEC_SECURE_AREA_CONFIG) != 0U)
   {
+#if defined(FLASH_DBANK_SUPPORT)
+    MODIFY_REG(tmp_secwm1, (FLASH_SECWM1R1_SECWM1_PSTRT | FLASH_SECWM1R1_SECWM1_PEND),
+               ((WMSecEndPage << FLASH_SECWM1R1_SECWM1_PEND_Pos) | WMSecStartPage));
+#else /* FLASH_DBANK_SUPPORT */
     MODIFY_REG(tmp_secwm1, (FLASH_SECWMR1_SECWM_PSTRT | FLASH_SECWMR1_SECWM_PEND),
                ((WMSecEndPage << FLASH_SECWMR1_SECWM_PEND_Pos) | WMSecStartPage));
+#endif /* FLASH_DBANK_SUPPORT */
   }
 
   /* Configure Secure Hide Area */
   if ((WMSecConfig & OB_WMSEC_HDP_AREA_CONFIG) != 0U)
   {
+#if defined(FLASH_DBANK_SUPPORT)
+    tmp_secwm2 &= (~FLASH_SECWM1R2_HDP1_PEND);
+    tmp_secwm2 |= (WMHDPEndPage << FLASH_SECWM1R2_HDP1_PEND_Pos);
+#else /* FLASH_DBANK_SUPPORT */
     tmp_secwm2 &= (~FLASH_SECWMR2_HDP_PEND);
     tmp_secwm2 |= (WMHDPEndPage << FLASH_SECWMR2_HDP_PEND_Pos);
+#endif /* FLASH_DBANK_SUPPORT */
   }
 
   /* Enable Secure Hide Area */
   if ((WMSecConfig & OB_WMSEC_HDP_AREA_ENABLE) != 0U)
   {
+#if defined(FLASH_DBANK_SUPPORT)
+    tmp_secwm2 |= FLASH_SECWM1R2_HDP1EN;
+#else /* FLASH_DBANK_SUPPORT */
     tmp_secwm2 |= FLASH_SECWMR2_HDPEN;
+#endif /* FLASH_DBANK_SUPPORT */
   }
 
   /* Disable Secure Hide Area */
   if ((WMSecConfig & OB_WMSEC_HDP_AREA_DISABLE) != 0U)
   {
+#if defined(FLASH_DBANK_SUPPORT)
+    tmp_secwm2 &= (~FLASH_SECWM1R2_HDP1EN);
+#else /* FLASH_DBANK_SUPPORT */
+#if defined(FLASH_HDP_BYTE_VALUE_SUPPORT)
+    MODIFY_REG(tmp_secwm2, FLASH_SECWMR2_HDPEN, (0xB4U << FLASH_SECWMR2_HDPEN_Pos));
+#else /* FLASH_HDP_BYTE_VALUE_SUPPORT */
     tmp_secwm2 &= (~FLASH_SECWMR2_HDPEN);
+#endif /* FLASH_HDP_BYTE_VALUE_SUPPORT */
+#endif /* FLASH_DBANK_SUPPORT */
   }
 
   /* Write SECWM registers */
   if ((WMSecConfig & OB_WMSEC_AREA1) != 0U)
   {
+#if defined(FLASH_DBANK_SUPPORT)
+    FLASH->SECWM1R1 = tmp_secwm1;
+    FLASH->SECWM1R2 = tmp_secwm2;
+#else /* FLASH_DBANK_SUPPORT */
     FLASH->SECWMR1 = tmp_secwm1;
     FLASH->SECWMR2 = tmp_secwm2;
+#endif /* FLASH_DBANK_SUPPORT */
   }
+#if defined(FLASH_DBANK_SUPPORT)
+  else if ((WMSecConfig & OB_WMSEC_AREA2) != 0U)
+  {
+    FLASH->SECWM2R1 = tmp_secwm1;
+    FLASH->SECWM2R2 = tmp_secwm2;
+  }
+#endif /* FLASH_DBANK_SUPPORT */
   else
   {
     /* Nothing to do */
@@ -1457,6 +1976,10 @@ static void FLASH_OB_BootAddrConfig(uint32_t BootAddrConfig, uint32_t BootAddr)
   *              This parameter can be one of the following values:
   *              @arg @ref OB_WRPAREA_BANK1_AREAA Flash Bank 1 Area A
   *              @arg @ref OB_WRPAREA_BANK1_AREAB Flash Bank 1 Area B
+#if defined(FLASH_DBANK_SUPPORT)
+  *              @arg @ref OB_WRPAREA_BANK2_AREAA Flash Bank 2 Area A
+  *              @arg @ref OB_WRPAREA_BANK2_AREAB Flash Bank 2 Area B
+#endif
   *
   * @param[out]  WRPStartOffset Specifies the address where to copied the start page
   *                             of the write protected area
@@ -1474,16 +1997,42 @@ static void FLASH_OB_GetWRP(uint32_t WRPArea, uint32_t *WRPStartOffset, uint32_t
   /* Get the configuration of the write protected area */
   if (WRPArea == OB_WRPAREA_BANK1_AREAA)
   {
+#if defined(FLASH_DBANK_SUPPORT)
+    *WRPStartOffset = READ_BIT(FLASH->WRP1AR, FLASH_WRP1AR_WRP1A_PSTRT);
+    *WRPEndOffset = (READ_BIT(FLASH->WRP1AR, FLASH_WRP1AR_WRP1A_PEND) >> FLASH_WRP1AR_WRP1A_PEND_Pos);
+    *WRPLock = (READ_BIT(FLASH->WRP1AR, FLASH_WRP1AR_UNLOCK) != 0U) ? DISABLE : ENABLE;
+#else /* FLASH_DBANK_SUPPORT */
     *WRPStartOffset = READ_BIT(FLASH->WRPAR, FLASH_WRPAR_WRPA_PSTRT);
     *WRPEndOffset = (READ_BIT(FLASH->WRPAR, FLASH_WRPAR_WRPA_PEND) >> FLASH_WRPAR_WRPA_PEND_Pos);
     *WRPLock = (READ_BIT(FLASH->WRPAR, FLASH_WRPAR_UNLOCK) != 0U) ? DISABLE : ENABLE;
+#endif /* FLASH_DBANK_SUPPORT */
   }
   else if (WRPArea == OB_WRPAREA_BANK1_AREAB)
   {
+#if defined(FLASH_DBANK_SUPPORT)
+    *WRPStartOffset = READ_BIT(FLASH->WRP1BR, FLASH_WRP1BR_WRP1B_PSTRT);
+    *WRPEndOffset = (READ_BIT(FLASH->WRP1BR, FLASH_WRP1BR_WRP1B_PEND) >> FLASH_WRP1BR_WRP1B_PEND_Pos);
+    *WRPLock = (READ_BIT(FLASH->WRP1BR, FLASH_WRP1BR_UNLOCK) != 0U) ? DISABLE : ENABLE;
+#else /* FLASH_DBANK_SUPPORT */
     *WRPStartOffset = READ_BIT(FLASH->WRPBR, FLASH_WRPBR_WRPB_PSTRT);
     *WRPEndOffset = (READ_BIT(FLASH->WRPBR, FLASH_WRPBR_WRPB_PEND) >> FLASH_WRPBR_WRPB_PEND_Pos);
     *WRPLock = (READ_BIT(FLASH->WRPBR, FLASH_WRPBR_UNLOCK) != 0U) ? DISABLE : ENABLE;
+#endif /* FLASH_DBANK_SUPPORT */
   }
+#if defined(FLASH_DBANK_SUPPORT)
+  else if (WRPArea == OB_WRPAREA_BANK2_AREAA)
+  {
+    *WRPStartOffset = READ_BIT(FLASH->WRP2AR, FLASH_WRP2AR_WRP2A_PSTRT);
+    *WRPEndOffset = (READ_BIT(FLASH->WRP2AR, FLASH_WRP2AR_WRP2A_PEND) >> FLASH_WRP2AR_WRP2A_PEND_Pos);
+    *WRPLock = (READ_BIT(FLASH->WRP2AR, FLASH_WRP2AR_UNLOCK) != 0U) ? DISABLE : ENABLE;
+  }
+  else if (WRPArea == OB_WRPAREA_BANK2_AREAB)
+  {
+    *WRPStartOffset = READ_BIT(FLASH->WRP2BR, FLASH_WRP2BR_WRP2B_PSTRT);
+    *WRPEndOffset = (READ_BIT(FLASH->WRP2BR, FLASH_WRP2BR_WRP2B_PEND) >> FLASH_WRP2BR_WRP2B_PEND_Pos);
+    *WRPLock = (READ_BIT(FLASH->WRP2BR, FLASH_WRP2BR_UNLOCK) != 0U) ? DISABLE : ENABLE;
+  }
+#endif /* FLASH_DBANK_SUPPORT */
   else
   {
     /* Empty statement (to be compliant MISRA 15.7) */
@@ -1561,27 +2110,60 @@ static void FLASH_OB_GetWMSEC(uint32_t *WMSecConfig, uint32_t *WMSecStartPage, u
 
   /* Check the parameters */
   assert_param(IS_OB_WMSEC_CONFIG(*WMSecConfig));
+#if defined(FLASH_DBANK_SUPPORT)
+  assert_param(IS_FLASH_BANK_EXCLUSIVE((*WMSecConfig) & (FLASH_BANK_1 | FLASH_BANK_2)));
+#else /* FLASH_DBANK_SUPPORT */
   assert_param(IS_FLASH_BANK_EXCLUSIVE((*WMSecConfig) & FLASH_BANK_1));
+#endif /* FLASH_DBANK_SUPPORT */
 
   /* Read SECWM registers */
   if (((*WMSecConfig) & OB_WMSEC_AREA1) != 0U)
   {
+#if defined(FLASH_DBANK_SUPPORT)
+    tmp_secwm1 = FLASH->SECWM1R1;
+    tmp_secwm2 = FLASH->SECWM1R2;
+#else /* FLASH_DBANK_SUPPORT */
     tmp_secwm1 = FLASH->SECWMR1;
     tmp_secwm2 = FLASH->SECWMR2;
+#endif /* FLASH_DBANK_SUPPORT */
   }
+#if defined(FLASH_DBANK_SUPPORT)
+  else if (((*WMSecConfig) & OB_WMSEC_AREA2) != 0U)
+  {
+    tmp_secwm1 = FLASH->SECWM2R1;
+    tmp_secwm2 = FLASH->SECWM2R2;
+  }
+#endif /* FLASH_DBANK_SUPPORT */
   else
   {
     /* Empty statement (to be compliant MISRA 15.7) */
   }
 
   /* Configuration of secure area */
+#if defined(FLASH_DBANK_SUPPORT)
+  *WMSecStartPage = (tmp_secwm1 & FLASH_SECWM1R1_SECWM1_PSTRT);
+  *WMSecEndPage = ((tmp_secwm1 & FLASH_SECWM1R1_SECWM1_PEND) >> FLASH_SECWM1R1_SECWM1_PEND_Pos);
+#else /* FLASH_DBANK_SUPPORT */
   *WMSecStartPage = (tmp_secwm1 & FLASH_SECWMR1_SECWM_PSTRT);
   *WMSecEndPage = ((tmp_secwm1 & FLASH_SECWMR1_SECWM_PEND) >> FLASH_SECWMR1_SECWM_PEND_Pos);
+#endif /* FLASH_DBANK_SUPPORT */
 
   /* Configuration of secure hide area */
+#if defined(FLASH_DBANK_SUPPORT)
+  *WMHDPEndPage = ((tmp_secwm2 & FLASH_SECWM1R2_HDP1_PEND) >> FLASH_SECWM1R2_HDP1_PEND_Pos);
+#else /* FLASH_DBANK_SUPPORT */
   *WMHDPEndPage = ((tmp_secwm2 & FLASH_SECWMR2_HDP_PEND) >> FLASH_SECWMR2_HDP_PEND_Pos);
+#endif /* FLASH_DBANK_SUPPORT */
 
+#if defined(FLASH_DBANK_SUPPORT)
+  if ((tmp_secwm2 & FLASH_SECWM1R2_HDP1EN) == 0U)
+#else /* FLASH_DBANK_SUPPORT */
+#if defined(FLASH_HDP_BYTE_VALUE_SUPPORT)
+  if ((tmp_secwm2 & FLASH_SECWMR2_HDPEN) == (0xB4U << FLASH_SECWMR2_HDPEN_Pos))
+#else /* FLASH_HDP_BYTE_VALUE_SUPPORT */
   if ((tmp_secwm2 & FLASH_SECWMR2_HDPEN) == 0U)
+#endif /* FLASH_HDP_BYTE_VALUE_SUPPORT */
+#endif /* FLASH_DBANK_SUPPORT */
   {
     *WMSecConfig = ((*WMSecConfig) | OB_WMSEC_HDP_AREA_DISABLE);
   }

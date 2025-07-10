@@ -163,6 +163,15 @@ typedef struct
 #define LL_UTILS_PACKAGETYPE_WLCSP41_SMPS       0x00000009U /*!< WLCSP41 with internal SMPS package type             */
 #define LL_UTILS_PACKAGETYPE_UFQFPN48_SMPS      0x0000000AU /*!< UFQFPN48 with internal SMPS package type            */
 #define LL_UTILS_PACKAGETYPE_UFBGA59            0x0000000BU /*!< UFBGA59 package type                                */
+#elif defined(STM32WBA62xx) || defined(STM32WBA63xx) || defined(STM32WBA64xx) || defined(STM32WBA65xx) || defined (STM32WBA6Mxx)
+#define LL_UTILS_PACKAGETYPE_UFQFPN48_USB       0x00000003U /*!< UFQFPN48 with USB package type                      */
+#define LL_UTILS_PACKAGETYPE_WLCSP88_USB        0x00000005U /*!< WLSCP88 with USB package type                       */
+#define LL_UTILS_PACKAGETYPE_UFBGA121_USB       0x00000007U /*!< UFBGA121 with USB package type                      */
+#define LL_UTILS_PACKAGETYPE_UFQFPN48_SMPS      0x0000000AU /*!< UFQFPN48 with internal SMPS package type            */
+#define LL_UTILS_PACKAGETYPE_UFQFPN48_SMPS_USB  0x0000000BU /*!< UFQFPN48 with internal SMPS and USB package type    */
+#define LL_UTILS_PACKAGETYPE_VFQFPN68_SMPS_USB  0x0000000CU /*!< VFQFPN68 with internal SMPS and USB package type    */
+#define LL_UTILS_PACKAGETYPE_WLCSP88_SMPS_USB   0x0000000DU /*!< WLCSP88 with internal SMPS and USB package type     */
+#define LL_UTILS_PACKAGETYPE_UFBGA121_SMPS_USB  0x0000000FU /*!< UFBGA121 with internal SMPS and USB package type    */
 #endif /* defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) */
 /**
   * @}
@@ -230,6 +239,15 @@ __STATIC_INLINE uint32_t LL_GetFlashSize(void)
   *         @arg @ref LL_UTILS_PACKAGETYPE_WLCSP41_SMPS
   *         @arg @ref LL_UTILS_PACKAGETYPE_UFQFPN48_SMPS
   *         @arg @ref LL_UTILS_PACKAGETYPE_UFBGA59
+#elif defined(STM32WBA62xx) || defined(STM32WBA63xx) || defined(STM32WBA64xx) || defined(STM32WBA65xx) || defined (STM32WBA6Mxx)
+  *         @arg @ref LL_UTILS_PACKAGETYPE_UFQFPN48_USB
+  *         @arg @ref LL_UTILS_PACKAGETYPE_WLCSP88_USB
+  *         @arg @ref LL_UTILS_PACKAGETYPE_UFBGA121_USB
+  *         @arg @ref LL_UTILS_PACKAGETYPE_UFQFPN48_SMPS
+  *         @arg @ref LL_UTILS_PACKAGETYPE_UFQFPN48_SMPS_USB
+  *         @arg @ref LL_UTILS_PACKAGETYPE_VFQFPN68_SMPS_USB
+  *         @arg @ref LL_UTILS_PACKAGETYPE_WLCSP88_SMPS_USB
+  *         @arg @ref LL_UTILS_PACKAGETYPE_UFBGA121_SMPS_USB
 #endif
   */
 __STATIC_INLINE uint32_t LL_GetPackageType(void)

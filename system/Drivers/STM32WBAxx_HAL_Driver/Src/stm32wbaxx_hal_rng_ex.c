@@ -127,7 +127,11 @@ HAL_StatusTypeDef HAL_RNGEx_SetConfig(RNG_HandleTypeDef *hrng, const RNG_ConfigT
                (uint32_t)(RNG_CR_CONDRST | cr_value));
 
     /* RNG health test control in accordance with NIST */
+#if defined(RNG_HTCR0_HTCFG)
+    WRITE_REG(hrng->Instance->HTCR[0], pConf->HealthTest);
+#else
     WRITE_REG(hrng->Instance->HTCR, pConf->HealthTest);
+#endif  /* defined(RNG_HTCR0_HTCFG) */
 
     /* Writing bit CONDRST=0*/
     CLEAR_BIT(hrng->Instance->CR, RNG_CR_CONDRST);
@@ -202,7 +206,11 @@ HAL_StatusTypeDef HAL_RNGEx_GetConfig(RNG_HandleTypeDef *hrng, RNG_ConfigTypeDef
     pConf->ClockDivider   = (hrng->Instance->CR & RNG_CR_CLKDIV);
     pConf->NistCompliance = (hrng->Instance->CR & RNG_CR_NISTC);
     pConf->AutoReset      = (hrng->Instance->CR & RNG_CR_ARDIS);
+#if defined(RNG_HTCR0_HTCFG)
+    pConf->HealthTest     = (hrng->Instance->HTCR[0]);
+#else
     pConf->HealthTest     = (hrng->Instance->HTCR);
+#endif  /* defined(RNG_HTCR0_HTCFG) */
 
     /* Initialize the RNG state */
     hrng->State = HAL_RNG_STATE_READY;
@@ -306,6 +314,11 @@ HAL_StatusTypeDef HAL_RNGEx_RecoverSeedError(RNG_HandleTypeDef *hrng)
 
     /* sequence to fully recover from a seed error */
     status = RNG_RecoverSeedError(hrng);
+    if (status == HAL_ERROR)
+    {
+      /* Update the error code */
+      hrng->ErrorCode = HAL_RNG_ERROR_RECOVERSEED;
+    }
   }
   else
   {

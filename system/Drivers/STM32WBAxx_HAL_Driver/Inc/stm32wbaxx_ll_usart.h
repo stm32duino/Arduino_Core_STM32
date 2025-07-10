@@ -31,7 +31,7 @@ extern "C" {
   * @{
   */
 
-#if defined(USART1) || defined(USART2)
+#if defined(USART1) || defined(USART2) || defined(USART3)
 
 /** @defgroup USART_LL USART
   * @{
@@ -56,6 +56,10 @@ static const uint32_t USART_PRESCALER_TAB[] =
   32UL,
   64UL,
   128UL,
+  256UL,
+  256UL,
+  256UL,
+  256UL,
   256UL
 };
 /**
@@ -4478,7 +4482,7 @@ void        LL_USART_ClockStructInit(LL_USART_ClockInitTypeDef *USART_ClockInitS
   * @}
   */
 
-#endif /* USART1 || USART2 */
+#endif /* USART1 || USART2 || USART3 */
 
 /**
   * @}

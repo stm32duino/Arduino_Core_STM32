@@ -31,7 +31,7 @@ extern "C" {
   * @{
   */
 
-#if defined (TIM1) || defined (TIM2) || defined (TIM3) || defined (TIM16) || defined (TIM17)
+#if defined (TIM1) || defined (TIM2) || defined (TIM3) || defined (TIM4) || defined (TIM16) || defined (TIM17)
 
 /** @defgroup TIM_LL TIM
   * @{
@@ -149,7 +149,7 @@ static const uint8_t SHIFT_TAB_OISx[] =
   */
 
 #define OCREF_CLEAR_SELECT_POS (28U)
-#define OCREF_CLEAR_SELECT_MSK (0x1U << OCREF_CLEAR_SELECT_POS)                /*!< 0x10000000 */
+#define OCREF_CLEAR_SELECT_MSK (0x1UL << OCREF_CLEAR_SELECT_POS)                /*!< 0x10000000 */
 /**
   * @}
   */
@@ -172,6 +172,7 @@ static const uint8_t SHIFT_TAB_OISx[] =
   *         @arg @ref LL_TIM_CHANNEL_CH6
   * @retval none
   */
+#if defined(TIM_CCER_CC5E) && defined(TIM_CCER_CC6E)
 #define TIM_GET_CHANNEL_INDEX( __CHANNEL__) \
   (((__CHANNEL__) == LL_TIM_CHANNEL_CH1) ? 0U :\
    ((__CHANNEL__) == LL_TIM_CHANNEL_CH1N) ? 1U :\
@@ -182,6 +183,13 @@ static const uint8_t SHIFT_TAB_OISx[] =
    ((__CHANNEL__) == LL_TIM_CHANNEL_CH4) ? 6U :\
    ((__CHANNEL__) == LL_TIM_CHANNEL_CH4N) ? 7U :\
    ((__CHANNEL__) == LL_TIM_CHANNEL_CH5) ? 8U : 9U)
+#else
+#define TIM_GET_CHANNEL_INDEX( __CHANNEL__) \
+  (((__CHANNEL__) == LL_TIM_CHANNEL_CH1) ? 0U :\
+   ((__CHANNEL__) == LL_TIM_CHANNEL_CH1N) ? 1U :\
+   ((__CHANNEL__) == LL_TIM_CHANNEL_CH2) ? 2U :\
+   ((__CHANNEL__) == LL_TIM_CHANNEL_CH3) ? 4U : 6U)
+#endif /* TIM_CCER_CC5E && TIM_CCER_CC6E*/
 
 /** @brief  Calculate the deadtime sampling period(in ps).
   * @param  __TIMCLK__ timer input clock frequency (in Hz).
@@ -515,6 +523,7 @@ typedef struct
                                       @note This bit-field can not be modified as long as LOCK level 1 has been
                                       programmed. */
 
+#if defined(TIM_BDTR_BK2E)
   uint32_t Break2State;          /*!< Specifies whether the TIM Break2 input is enabled or not.
                                       This parameter can be a value of @ref TIM_LL_EC_BREAK2_ENABLE
 
@@ -552,6 +561,7 @@ typedef struct
 
                                       @note This bit-field can not be modified as long as LOCK level 1 has been
                                       programmed. */
+#endif /* TIM_BDTR_BK2E */
 
   uint32_t AutomaticOutput;      /*!< Specifies whether the TIM Automatic Output feature is enabled or not.
                                       This parameter can be a value of @ref TIM_LL_EC_AUTOMATICOUTPUT_ENABLE
@@ -582,12 +592,18 @@ typedef struct
 #define LL_TIM_SR_CC2IF                        TIM_SR_CC2IF         /*!< Capture/compare 2 interrupt flag */
 #define LL_TIM_SR_CC3IF                        TIM_SR_CC3IF         /*!< Capture/compare 3 interrupt flag */
 #define LL_TIM_SR_CC4IF                        TIM_SR_CC4IF         /*!< Capture/compare 4 interrupt flag */
+#if defined(TIM_CCER_CC5E)
 #define LL_TIM_SR_CC5IF                        TIM_SR_CC5IF         /*!< Capture/compare 5 interrupt flag */
+#endif /* TIM_CCER_CC5E */
+#if defined(TIM_CCER_CC6E)
 #define LL_TIM_SR_CC6IF                        TIM_SR_CC6IF         /*!< Capture/compare 6 interrupt flag */
+#endif /* TIM_CCER_CC6E */
 #define LL_TIM_SR_COMIF                        TIM_SR_COMIF         /*!< COM interrupt flag */
 #define LL_TIM_SR_TIF                          TIM_SR_TIF           /*!< Trigger interrupt flag */
 #define LL_TIM_SR_BIF                          TIM_SR_BIF           /*!< Break interrupt flag */
+#if defined(TIM_SR_B2IF)
 #define LL_TIM_SR_B2IF                         TIM_SR_B2IF          /*!< Second break interrupt flag */
+#endif /* TIM_SR_B2IF */
 #define LL_TIM_SR_CC1OF                        TIM_SR_CC1OF         /*!< Capture/Compare 1 overcapture flag */
 #define LL_TIM_SR_CC2OF                        TIM_SR_CC2OF         /*!< Capture/Compare 2 overcapture flag */
 #define LL_TIM_SR_CC3OF                        TIM_SR_CC3OF         /*!< Capture/Compare 3 overcapture flag */
@@ -610,6 +626,7 @@ typedef struct
 /**
   * @}
   */
+#if defined(TIM_BDTR_BK2E)
 
 /** @defgroup TIM_LL_EC_BREAK2_ENABLE Break2 Enable
   * @{
@@ -619,6 +636,7 @@ typedef struct
 /**
   * @}
   */
+#endif /* TIM_BDTR_BK2E */
 
 /** @defgroup TIM_LL_EC_AUTOMATICOUTPUT_ENABLE Automatic output enable
   * @{
@@ -734,13 +752,23 @@ typedef struct
 #define LL_TIM_CHANNEL_CH1                     TIM_CCER_CC1E     /*!< Timer input/output channel 1 */
 #define LL_TIM_CHANNEL_CH1N                    TIM_CCER_CC1NE    /*!< Timer complementary output channel 1 */
 #define LL_TIM_CHANNEL_CH2                     TIM_CCER_CC2E     /*!< Timer input/output channel 2 */
+#if defined(TIM_CCER_CC2NE)
 #define LL_TIM_CHANNEL_CH2N                    TIM_CCER_CC2NE    /*!< Timer complementary output channel 2 */
+#endif /* TIM_CCER_CC2NE */
 #define LL_TIM_CHANNEL_CH3                     TIM_CCER_CC3E     /*!< Timer input/output channel 3 */
+#if defined(TIM_CCER_CC3NE)
 #define LL_TIM_CHANNEL_CH3N                    TIM_CCER_CC3NE    /*!< Timer complementary output channel 3 */
+#endif /* TIM_CCER_CC3NE */
 #define LL_TIM_CHANNEL_CH4                     TIM_CCER_CC4E     /*!< Timer input/output channel 4 */
-#define LL_TIM_CHANNEL_CH4N                    TIM_CCER_CC4NE     /*!< Timer complementary output channel 4 */
+#if defined(TIM_CCER_CC4NE)
+#define LL_TIM_CHANNEL_CH4N                    TIM_CCER_CC4NE    /*!< Timer complementary output channel 4 */
+#endif /* TIM_CCER_CC4NE */
+#if defined(TIM_CCER_CC5E)
 #define LL_TIM_CHANNEL_CH5                     TIM_CCER_CC5E     /*!< Timer output channel 5 */
+#endif /* TIM_CCER_CC5E */
+#if defined(TIM_CCER_CC6E)
 #define LL_TIM_CHANNEL_CH6                     TIM_CCER_CC6E     /*!< Timer output channel 6 */
+#endif /* TIM_CCER_CC6E */
 /**
   * @}
   */
@@ -806,6 +834,7 @@ typedef struct
   * @}
   */
 
+#if defined(TIM_CCR5_CCR5)
 /** @defgroup TIM_LL_EC_GROUPCH5 GROUPCH5
   * @{
   */
@@ -816,6 +845,7 @@ typedef struct
 /**
   * @}
   */
+#endif /* TIM_CCR5_CCR5 */
 
 /** @defgroup TIM_LL_EC_ACTIVEINPUT Active Input Selection
   * @{
@@ -913,6 +943,7 @@ typedef struct
   * @}
   */
 
+#if defined(TIM_CR2_MMS2)
 /** @defgroup TIM_LL_EC_TRGO2 Trigger Output 2
   * @{
   */
@@ -935,6 +966,7 @@ typedef struct
 /**
   * @}
   */
+#endif /* TIM_CR2_MMS2 */
 
 /** @defgroup TIM_LL_EC_SLAVEMODE Slave Mode
   * @{
@@ -962,11 +994,21 @@ typedef struct
 /** @defgroup TIM_LL_EC_TS Trigger Selection
   * @{
   */
+#if defined(TIM1)
 #define LL_TIM_TS_ITR0                         0x00000000U                                                     /*!< Internal Trigger 0 (ITR0) is used as trigger input */
 #define LL_TIM_TS_ITR1                         TIM_SMCR_TS_0                                                   /*!< Internal Trigger 1 (ITR1) is used as trigger input */
+#endif /* TIM1 */
+#if defined(TIM3)
 #define LL_TIM_TS_ITR2                         TIM_SMCR_TS_1                                                   /*!< Internal Trigger 2 (ITR2) is used as trigger input */
+#endif /* TIM3 */
+#if defined(TIM4)
+#define LL_TIM_TS_ITR3                         (TIM_SMCR_TS_0 | TIM_SMCR_TS_1)                                 /*!< Internal Trigger 3 (ITR3) is used as trigger input   */
+#endif /* TIM4 */
 #define LL_TIM_TS_ITR7                         (TIM_SMCR_TS_0 | TIM_SMCR_TS_1 | TIM_SMCR_TS_3)                 /*!< Internal Trigger 7 (ITR7) is used as trigger input   */
 #define LL_TIM_TS_ITR8                         (TIM_SMCR_TS_2 | TIM_SMCR_TS_3)                                 /*!< Internal Trigger 8 (ITR8) is used as trigger input   */
+#if defined(USB_OTG_HS) || defined(USB_DRD_FS)
+#define LL_TIM_TS_ITR11                        (TIM_SMCR_TS_0 | TIM_SMCR_TS_1 | TIM_SMCR_TS_2 | TIM_SMCR_TS_3) /*!< Internal Trigger 11 (ITR11) is used as trigger input */
+#endif /* USB_OTG_HS || USB_DRD_FS */
 #define LL_TIM_TS_TI1F_ED                      TIM_SMCR_TS_2                                                   /*!< TI1 Edge Detector (TI1F_ED) is used as trigger input */
 #define LL_TIM_TS_TI1FP1                       (TIM_SMCR_TS_2 | TIM_SMCR_TS_0)                                 /*!< Filtered Timer Input 1 (TI1FP1) is used as trigger input */
 #define LL_TIM_TS_TI2FP2                       (TIM_SMCR_TS_2 | TIM_SMCR_TS_1)                                 /*!< Filtered Timer Input 2 (TI12P2) is used as trigger input */
@@ -1018,6 +1060,7 @@ typedef struct
   * @}
   */
 
+#if defined(TIM1)
 /** @defgroup TIM_LL_EC_TIM1_ETRSOURCE External Trigger Source TIM1
   * @{
   */
@@ -1033,6 +1076,7 @@ typedef struct
 /**
   * @}
   */
+#endif /* TIM1 */
 
 /** @defgroup TIM_LL_EC_TIM2_ETRSOURCE External Trigger Source TIM2
   * @{
@@ -1043,12 +1087,23 @@ typedef struct
 #define LL_TIM_TIM2_ETRSOURCE_COMP2        TIM_AF1_ETRSEL_1                                          /*!< ETR input is connected to COMP2_OUT */
 #endif /* COMP1 && COMP2 */
 #define LL_TIM_TIM2_ETRSOURCE_HSI          TIM_AF1_ETRSEL_2                                          /*!< ETR input is connected to HSI */
+#if defined(TIM3)
 #define LL_TIM_TIM2_ETRSOURCE_TIM3_ETR     TIM_AF1_ETRSEL_3                                          /*!< ETR input is connected to TIM3 ETR */
+#endif /* TIM3 */
+#if defined(TIM4)
+#define LL_TIM_TIM2_ETRSOURCE_TIM4_ETR     (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_0)                     /*!< ETR input is connected to TIM4 ETR */
+#endif /* TIM4 */
 #define LL_TIM_TIM2_ETRSOURCE_LSE          (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_1 | TIM_AF1_ETRSEL_0)  /*!< ETR input is connected to LSE */
+#if defined(TIM2_ETR_ADC4_SUPPORT)
+#define LL_TIM_TIM2_ETRSOURCE_ADC4_AWD1    (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_2)                     /*!< ADC4 analog watchdog 1 */
+#define LL_TIM_TIM2_ETRSOURCE_ADC4_AWD2    (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_2 | TIM_AF1_ETRSEL_0)  /*!< ADC4 analog watchdog 2 */
+#define LL_TIM_TIM2_ETRSOURCE_ADC4_AWD3    (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_2 | TIM_AF1_ETRSEL_1)  /*!< ADC4 analog watchdog 3 */
+#endif /* TIM2_ETR_ADC4_SUPPORT */
 /**
   * @}
   */
 
+#if defined(TIM3)
 /** @defgroup TIM_LL_EC_TIM3_ETRSOURCE External Trigger Source TIM3
   * @{
   */
@@ -1059,12 +1114,32 @@ typedef struct
 #endif /* COMP1 && COMP2 */
 #define LL_TIM_TIM3_ETRSOURCE_HSI          TIM_AF1_ETRSEL_2                                          /*!< ETR input is connected to HSI */
 #define LL_TIM_TIM3_ETRSOURCE_TIM2_ETR     TIM_AF1_ETRSEL_3                                          /*!< ETR input is connected to TIM2 ETR */
+#if defined(TIM4)
+#define LL_TIM_TIM3_ETRSOURCE_TIM4_ETR     (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_0)                     /*!< ETR input is connected to TIM4 ETR */
+#endif /* TIM4 */
 #define LL_TIM_TIM3_ETRSOURCE_ADC4_AWD1    (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_1 | TIM_AF1_ETRSEL_0)  /*!< ADC1 analog watchdog 1 */
 #define LL_TIM_TIM3_ETRSOURCE_ADC4_AWD2    (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_2)                     /*!< ADC1 analog watchdog 2 */
 #define LL_TIM_TIM3_ETRSOURCE_ADC4_AWD3    (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_2 | TIM_AF1_ETRSEL_0)  /*!< ADC1 analog watchdog 3 */
 /**
   * @}
   */
+#endif /* TIM3 */
+
+#if defined(TIM4)
+/** @defgroup TIM_LL_EC_TIM4_ETRSOURCE External Trigger Source TIM4
+  * @{
+  */
+#define LL_TIM_TIM4_ETRSOURCE_GPIO         0x00000000U                                               /*!< ETR input is connected to GPIO */
+#if defined(COMP1) && defined(COMP2)
+#define LL_TIM_TIM4_ETRSOURCE_COMP1        TIM_AF1_ETRSEL_0                                          /*!< ETR input is connected to COMP1_OUT */
+#define LL_TIM_TIM4_ETRSOURCE_COMP2        TIM_AF1_ETRSEL_1                                          /*!< ETR input is connected to COMP2_OUT */
+#endif /* COMP1 && COMP2 */
+#define LL_TIM_TIM4_ETRSOURCE_HSI          TIM_AF1_ETRSEL_2                                          /*!< ETR input is connected to HSI */
+#define LL_TIM_TIM4_ETRSOURCE_TIM3_ETR     TIM_AF1_ETRSEL_3                                          /*!< ETR input is connected to TIM3 ETR */
+/**
+  * @}
+  */
+#endif /* TIM4 */
 
 /** @defgroup TIM_LL_EC_BREAK_POLARITY break polarity
   * @{
@@ -1098,6 +1173,7 @@ typedef struct
   * @}
   */
 
+#if defined(TIM_BDTR_BK2P)
 /** @defgroup TIM_LL_EC_BREAK2_POLARITY BREAK2 POLARITY
   * @{
   */
@@ -1106,7 +1182,9 @@ typedef struct
 /**
   * @}
   */
+#endif /* TIM_BDTR_BK2P */
 
+#if defined(TIM_BDTR_BK2F)
 /** @defgroup TIM_LL_EC_BREAK2_FILTER BREAK2 FILTER
   * @{
   */
@@ -1129,6 +1207,7 @@ typedef struct
 /**
   * @}
   */
+#endif /* TIM_BDTR_BK2F */
 
 /** @defgroup TIM_LL_EC_OSSI OSSI
   * @{
@@ -1152,7 +1231,9 @@ typedef struct
   * @{
   */
 #define LL_TIM_BREAK_INPUT_BKIN                0x00000000U  /*!< TIMx_BKIN input */
+#if defined(TIM_BDTR_BK2E)
 #define LL_TIM_BREAK_INPUT_BKIN2               0x00000004U  /*!< TIMx_BKIN2 input */
+#endif /* TIM_BDTR_BK2E */
 /**
   * @}
   */
@@ -1187,6 +1268,7 @@ typedef struct
   * @}
   */
 
+#if defined(TIM_BDTR_BK2BID)
 /** @defgroup TIM_LL_EC_BREAK2_AFMODE BREAK2 AF MODE
   * @{
   */
@@ -1195,12 +1277,15 @@ typedef struct
 /**
   * @}
   */
+#endif /* TIM_BDTR_BK2BID */
 
 /** Legacy definitions for compatibility purpose
 @cond 0
   */
 #define LL_TIM_ReArmBRK(_PARAM_)
+#if defined(TIM_BDTR_BK2E)
 #define LL_TIM_ReArmBRK2(_PARAM_)
+#endif /* TIM_BDTR_BK2E */
 /**
 @endcond
   */
@@ -1285,6 +1370,7 @@ typedef struct
 /**
   * @}
   */
+#if defined(TIM1)
 /** @defgroup TIM_LL_EC_TIM1_TI1_RMP  TIM1 External Input Ch1 Remap
   * @{
   */
@@ -1296,6 +1382,7 @@ typedef struct
 /**
   * @}
   */
+#endif /* TIM1 */
 
 /** @defgroup TIM_LL_EC_TIM2_TI1_RMP  TIM2 External Input Ch1 Remap
   * @{
@@ -1333,6 +1420,7 @@ typedef struct
   * @}
   */
 
+#if defined(TIM3)
 /** @defgroup TIM_LL_EC_TIM3_TI1_RMP  TIM3 External Input Ch1 Remap
   * @{
   */
@@ -1356,6 +1444,33 @@ typedef struct
 /**
   * @}
   */
+#endif /* TIM3 */
+
+#if defined(TIM4)
+/** @defgroup TIM_LL_EC_TIM4_TI1_RMP  TIM4 External Input Ch1 Remap
+  * @{
+  */
+#define LL_TIM_TIM4_TI1_RMP_GPIO                0x00000000UL                                       /*!< TIM4 TI1 is connected to GPIO */
+#if defined(COMP1) && defined(COMP2)
+#define LL_TIM_TIM4_TI1_RMP_COMP1               TIM_TISEL_TI1SEL_0                                 /*!< TIM4 TI1 is connected to COMP1 output */
+#define LL_TIM_TIM4_TI1_RMP_COMP2               TIM_TISEL_TI1SEL_1                                 /*!< TIM4 TI1 is connected to COMP2 output */
+#endif /* COMP1 && COMP2 */
+/**
+  * @}
+  */
+
+/** @defgroup TIM_LL_EC_TIM4_TI2_RMP  TIM4 External Input Ch2 Remap
+  * @{
+  */
+#define LL_TIM_TIM4_TI2_RMP_GPIO                0x00000000UL                                       /*!< TIM4 TI2 is connected to GPIO */
+#if defined(COMP1) && defined(COMP2)
+#define LL_TIM_TIM4_TI2_RMP_COMP1               TIM_TISEL_TI2SEL_0                                 /*!< TIM4 TI2 is connected to COMP1 output */
+#define LL_TIM_TIM4_TI2_RMP_COMP2               TIM_TISEL_TI2SEL_1                                 /*!< TIM4 TI2 is connected to COMP2 output */
+#endif /* COMP1 && COMP2 */
+/**
+  * @}
+  */
+#endif /* TIM4 */
 
 /** @defgroup TIM_LL_EC_TIM16_TI1_RMP  TIM16 External Input Ch1 Remap
   * @{
@@ -1389,8 +1504,10 @@ typedef struct
   * @{
   */
 #define LL_TIM_OCREF_CLR_INT_ETR         OCREF_CLEAR_SELECT_MSK                   /*!< OCREF_CLR_INT is connected to ETRF */
+#if defined(COMP1) && defined(COMP2)
 #define LL_TIM_OCREF_CLR_INT_COMP1       0x00000000U                              /*!< OCREF clear input is connected to COMP1_OUT */
 #define LL_TIM_OCREF_CLR_INT_COMP2       TIM_AF2_OCRSEL_0                         /*!< OCREF clear input is connected to COMP2_OUT */
+#endif /* COMP1 && COMP2 */
 /**
   * @}
   */
@@ -2900,6 +3017,7 @@ __STATIC_INLINE void LL_TIM_OC_SetCompareCH4(TIM_TypeDef *TIMx, uint32_t Compare
   WRITE_REG(TIMx->CCR4, CompareValue);
 }
 
+#if defined(TIM_CCR5_CCR5)
 /**
   * @brief  Set compare value for output channel 5 (TIMx_CCR5).
   * @note Macro IS_TIM_CC5_INSTANCE(TIMx) can be used to check whether or not
@@ -2915,6 +3033,8 @@ __STATIC_INLINE void LL_TIM_OC_SetCompareCH5(TIM_TypeDef *TIMx, uint32_t Compare
   MODIFY_REG(TIMx->CCR5, TIM_CCR5_CCR5, CompareValue);
 }
 
+#endif /* TIM_CCR5_CCR5 */
+#if defined(TIM_CCR6_CCR6)
 /**
   * @brief  Set compare value for output channel 6 (TIMx_CCR6).
   * @note Macro IS_TIM_CC6_INSTANCE(TIMx) can be used to check whether or not
@@ -2930,6 +3050,7 @@ __STATIC_INLINE void LL_TIM_OC_SetCompareCH6(TIM_TypeDef *TIMx, uint32_t Compare
   WRITE_REG(TIMx->CCR6, CompareValue);
 }
 
+#endif /* TIM_CCR6_CCR6 */
 /**
   * @brief  Get compare value (TIMx_CCR1) set for  output channel 1.
   * @note In 32-bit timer implementations returned compare value can be between 0x00000000 and 0xFFFFFFFF.
@@ -2998,6 +3119,7 @@ __STATIC_INLINE uint32_t LL_TIM_OC_GetCompareCH4(const TIM_TypeDef *TIMx)
   return (uint32_t)(READ_REG(TIMx->CCR4));
 }
 
+#if defined(TIM_CCR5_CCR5)
 /**
   * @brief  Get compare value (TIMx_CCR5) set for  output channel 5.
   * @note Macro IS_TIM_CC5_INSTANCE(TIMx) can be used to check whether or not
@@ -3012,6 +3134,8 @@ __STATIC_INLINE uint32_t LL_TIM_OC_GetCompareCH5(const TIM_TypeDef *TIMx)
   return (uint32_t)(READ_BIT(TIMx->CCR5, TIM_CCR5_CCR5));
 }
 
+#endif /* TIM_CCR5_CCR5 */
+#if defined(TIM_CCR6_CCR6)
 /**
   * @brief  Get compare value (TIMx_CCR6) set for  output channel 6.
   * @note Macro IS_TIM_CC6_INSTANCE(TIMx) can be used to check whether or not
@@ -3026,6 +3150,8 @@ __STATIC_INLINE uint32_t LL_TIM_OC_GetCompareCH6(const TIM_TypeDef *TIMx)
   return (uint32_t)(READ_REG(TIMx->CCR6));
 }
 
+#endif /* TIM_CCR6_CCR6 */
+#if defined(TIM_CCR5_CCR5)
 /**
   * @brief  Select on which reference signal the OC5REF is combined to.
   * @note Macro IS_TIM_COMBINED3PHASEPWM_INSTANCE(TIMx) can be used to check
@@ -3046,6 +3172,7 @@ __STATIC_INLINE void LL_TIM_SetCH5CombinedChannels(TIM_TypeDef *TIMx, uint32_t G
   MODIFY_REG(TIMx->CCR5, (TIM_CCR5_GC5C3 | TIM_CCR5_GC5C2 | TIM_CCR5_GC5C1), GroupCH5);
 }
 
+#endif /* TIM_CCR5_CCR5 */
 /**
   * @brief  Set the pulse on compare pulse width prescaler.
   * @note Macro IS_TIM_PULSEONCOMPARE_INSTANCE(TIMx) can be used to check
@@ -3636,6 +3763,7 @@ __STATIC_INLINE void LL_TIM_SetTriggerOutput(TIM_TypeDef *TIMx, uint32_t TimerSy
   MODIFY_REG(TIMx->CR2, TIM_CR2_MMS, TimerSynchronization);
 }
 
+#if defined(TIM_CR2_MMS2)
 /**
   * @brief  Set the trigger output 2 (TRGO2) used for ADC synchronization .
   * @note Macro IS_TIM_TRGO2_INSTANCE(TIMx) can be used to check
@@ -3666,6 +3794,7 @@ __STATIC_INLINE void LL_TIM_SetTriggerOutput2(TIM_TypeDef *TIMx, uint32_t ADCSyn
   MODIFY_REG(TIMx->CR2, TIM_CR2_MMS2, ADCSynchronization);
 }
 
+#endif /* TIM_CR2_MMS2 */
 /**
   * @brief  Set the synchronization mode of a slave timer.
   * @note Macro IS_TIM_SLAVE_INSTANCE(TIMx) can be used to check whether or not
@@ -3693,15 +3822,19 @@ __STATIC_INLINE void LL_TIM_SetSlaveMode(TIM_TypeDef *TIMx, uint32_t SlaveMode)
   * @rmtoll SMCR         TS            LL_TIM_SetTriggerInput
   * @param  TIMx Timer instance
   * @param  TriggerInput This parameter can be one of the following values:
-  *         @arg @ref LL_TIM_TS_ITR0
-  *         @arg @ref LL_TIM_TS_ITR1
-  *         @arg @ref LL_TIM_TS_ITR2
+  *         @arg @ref LL_TIM_TS_ITR0  (*)
+  *         @arg @ref LL_TIM_TS_ITR1  (*)
+  *         @arg @ref LL_TIM_TS_ITR2  (*)
+  *         @arg @ref LL_TIM_TS_ITR3  (*)
   *         @arg @ref LL_TIM_TS_ITR7
   *         @arg @ref LL_TIM_TS_ITR8
+  *         @arg @ref LL_TIM_TS_ITR11 (*)
   *         @arg @ref LL_TIM_TS_TI1F_ED
   *         @arg @ref LL_TIM_TS_TI1FP1
   *         @arg @ref LL_TIM_TS_TI2FP2
   *         @arg @ref LL_TIM_TS_ETRF
+  *
+  *      (*)  Value not defined in all devices.
   * @retval None
   */
 __STATIC_INLINE void LL_TIM_SetTriggerInput(TIM_TypeDef *TIMx, uint32_t TriggerInput)
@@ -3797,11 +3930,11 @@ __STATIC_INLINE void LL_TIM_ConfigETR(TIM_TypeDef *TIMx, uint32_t ETRPolarity, u
   * @param  TIMx Timer instance
   * @param  ETRSource This parameter can be one of the following values:
   *
-  *      For TIM1, the parameter is one of the following values:
+  *      For TIM1, the parameter is one of the following values: (**)
   *
   *            @arg @ref LL_TIM_TIM1_ETRSOURCE_GPIO
-  *            @arg @ref LL_TIM_TIM1_ETRSOURCE_COMP1   (*)
-  *            @arg @ref LL_TIM_TIM1_ETRSOURCE_COMP2   (*)
+  *            @arg @ref LL_TIM_TIM1_ETRSOURCE_COMP1     (*)
+  *            @arg @ref LL_TIM_TIM1_ETRSOURCE_COMP2     (*)
   *            @arg @ref LL_TIM_TIM1_ETRSOURCE_HSI
   *            @arg @ref LL_TIM_TIM1_ETRSOURCE_ADC4_AWD1
   *            @arg @ref LL_TIM_TIM1_ETRSOURCE_ADC4_AWD2
@@ -3810,24 +3943,38 @@ __STATIC_INLINE void LL_TIM_ConfigETR(TIM_TypeDef *TIMx, uint32_t ETRPolarity, u
   *      For TIM2, the parameter is one of the following values:
   *
   *            @arg @ref LL_TIM_TIM2_ETRSOURCE_GPIO
-  *            @arg @ref LL_TIM_TIM2_ETRSOURCE_COMP1   (*)
-  *            @arg @ref LL_TIM_TIM2_ETRSOURCE_COMP2   (*)
+  *            @arg @ref LL_TIM_TIM2_ETRSOURCE_COMP1     (*)
+  *            @arg @ref LL_TIM_TIM2_ETRSOURCE_COMP2     (*)
   *            @arg @ref LL_TIM_TIM2_ETRSOURCE_HSI
-  *            @arg @ref LL_TIM_TIM2_ETRSOURCE_TIM3_ETR
+  *            @arg @ref LL_TIM_TIM2_ETRSOURCE_TIM3_ETR  (*)
+  *            @arg @ref LL_TIM_TIM2_ETRSOURCE_TIM4_ETR  (*)
   *            @arg @ref LL_TIM_TIM2_ETRSOURCE_LSE
+  *            @arg @ref LL_TIM_TIM2_ETRSOURCE_ADC4_AWD1 (*)
+  *            @arg @ref LL_TIM_TIM2_ETRSOURCE_ADC4_AWD2 (*)
+  *            @arg @ref LL_TIM_TIM2_ETRSOURCE_ADC4_AWD3 (*)
   *
-  *      For TIM3, the parameter is one of the following values:
+  *      For TIM3, the parameter is one of the following values: (**)
   *
   *            @arg @ref LL_TIM_TIM3_ETRSOURCE_GPIO
-  *            @arg @ref LL_TIM_TIM3_ETRSOURCE_COMP1   (*)
-  *            @arg @ref LL_TIM_TIM3_ETRSOURCE_COMP2   (*)
+  *            @arg @ref LL_TIM_TIM3_ETRSOURCE_COMP1     (*)
+  *            @arg @ref LL_TIM_TIM3_ETRSOURCE_COMP2     (*)
   *            @arg @ref LL_TIM_TIM3_ETRSOURCE_HSI
   *            @arg @ref LL_TIM_TIM3_ETRSOURCE_TIM2_ETR
+  *            @arg @ref LL_TIM_TIM3_ETRSOURCE_TIM4_ETR  (*)
   *            @arg @ref LL_TIM_TIM3_ETRSOURCE_ADC4_AWD1
   *            @arg @ref LL_TIM_TIM3_ETRSOURCE_ADC4_AWD2
   *            @arg @ref LL_TIM_TIM3_ETRSOURCE_ADC4_AWD3
   *
+  *      For TIM4, the parameter is one of the following values: (**)
+  *
+  *            @arg @ref LL_TIM_TIM4_ETRSOURCE_GPIO
+  *            @arg @ref LL_TIM_TIM4_ETRSOURCE_COMP1
+  *            @arg @ref LL_TIM_TIM4_ETRSOURCE_COMP2
+  *            @arg @ref LL_TIM_TIM4_ETRSOURCE_HSI
+  *            @arg @ref LL_TIM_TIM4_ETRSOURCE_TIM3_ETR
+  *
   *  (*) Value not defined in all devices. \n
+  *  (**) Timer instance not available on all devices \n
   * @retval None
   */
 __STATIC_INLINE void LL_TIM_SetETRSource(TIM_TypeDef *TIMx, uint32_t ETRSource)
@@ -4001,6 +4148,7 @@ __STATIC_INLINE void LL_TIM_DisarmBRK(TIM_TypeDef *TIMx)
   SET_BIT(TIMx->BDTR, TIM_BDTR_BKDSRM);
 }
 
+#if defined(TIM_BDTR_BK2E)
 /**
   * @brief  Enable the break 2 function.
   * @note Macro IS_TIM_BKIN2_INSTANCE(TIMx) can be used to check whether or not
@@ -4090,6 +4238,7 @@ __STATIC_INLINE void LL_TIM_DisarmBRK2(TIM_TypeDef *TIMx)
   SET_BIT(TIMx->BDTR, TIM_BDTR_BK2DSRM);
 }
 
+#endif /* TIM_BDTR_BK2E */
 /**
   * @brief  Select the outputs off state (enabled v.s. disabled) in Idle and Run modes.
   * @note Macro IS_TIM_BREAK_INSTANCE(TIMx) can be used to check whether or not
@@ -4205,11 +4354,13 @@ __STATIC_INLINE uint32_t LL_TIM_IsEnabledAllOutputs(const TIM_TypeDef *TIMx)
   * @param  TIMx Timer instance
   * @param  BreakInput This parameter can be one of the following values:
   *         @arg @ref LL_TIM_BREAK_INPUT_BKIN
-  *         @arg @ref LL_TIM_BREAK_INPUT_BKIN2
+  *         @arg @ref LL_TIM_BREAK_INPUT_BKIN2 (*)
   * @param  Source This parameter can be one of the following values:
   *         @arg @ref LL_TIM_BKIN_SOURCE_BKIN
-  *         @arg @ref LL_TIM_BKIN_SOURCE_BKCOMP1
-  *         @arg @ref LL_TIM_BKIN_SOURCE_BKCOMP2
+  *         @arg @ref LL_TIM_BKIN_SOURCE_BKCOMP1 (*)
+  *         @arg @ref LL_TIM_BKIN_SOURCE_BKCOMP2 (*)
+  *
+  *         (*)  Value not defined in all devices.
   * @retval None
   */
 __STATIC_INLINE void LL_TIM_EnableBreakInputSource(TIM_TypeDef *TIMx, uint32_t BreakInput, uint32_t Source)
@@ -4231,11 +4382,13 @@ __STATIC_INLINE void LL_TIM_EnableBreakInputSource(TIM_TypeDef *TIMx, uint32_t B
   * @param  TIMx Timer instance
   * @param  BreakInput This parameter can be one of the following values:
   *         @arg @ref LL_TIM_BREAK_INPUT_BKIN
-  *         @arg @ref LL_TIM_BREAK_INPUT_BKIN2
+  *         @arg @ref LL_TIM_BREAK_INPUT_BKIN2 (*)
   * @param  Source This parameter can be one of the following values:
   *         @arg @ref LL_TIM_BKIN_SOURCE_BKIN
-  *         @arg @ref LL_TIM_BKIN_SOURCE_BKCOMP1
-  *         @arg @ref LL_TIM_BKIN_SOURCE_BKCOMP2
+  *         @arg @ref LL_TIM_BKIN_SOURCE_BKCOMP1 (*)
+  *         @arg @ref LL_TIM_BKIN_SOURCE_BKCOMP2 (*)
+  *
+  *         (*)  Value not defined in all devices.
   * @retval None
   */
 __STATIC_INLINE void LL_TIM_DisableBreakInputSource(TIM_TypeDef *TIMx, uint32_t BreakInput, uint32_t Source)
@@ -4257,14 +4410,16 @@ __STATIC_INLINE void LL_TIM_DisableBreakInputSource(TIM_TypeDef *TIMx, uint32_t 
   * @param  TIMx Timer instance
   * @param  BreakInput This parameter can be one of the following values:
   *         @arg @ref LL_TIM_BREAK_INPUT_BKIN
-  *         @arg @ref LL_TIM_BREAK_INPUT_BKIN2
+  *         @arg @ref LL_TIM_BREAK_INPUT_BKIN2 (*)
   * @param  Source This parameter can be one of the following values:
   *         @arg @ref LL_TIM_BKIN_SOURCE_BKIN
-  *         @arg @ref LL_TIM_BKIN_SOURCE_BKCOMP1
-  *         @arg @ref LL_TIM_BKIN_SOURCE_BKCOMP2
+  *         @arg @ref LL_TIM_BKIN_SOURCE_BKCOMP1 (*)
+  *         @arg @ref LL_TIM_BKIN_SOURCE_BKCOMP2 (*)
   * @param  Polarity This parameter can be one of the following values:
   *         @arg @ref LL_TIM_BKIN_POLARITY_LOW
   *         @arg @ref LL_TIM_BKIN_POLARITY_HIGH
+  *
+  *         (*)  Value not defined in all devices.
   * @retval None
   */
 __STATIC_INLINE void LL_TIM_SetBreakInputSourcePolarity(TIM_TypeDef *TIMx, uint32_t BreakInput, uint32_t Source,
@@ -4710,7 +4865,7 @@ __STATIC_INLINE void LL_TIM_ConfigIDX(TIM_TypeDef *TIMx, uint32_t Configuration)
   *
   *         Below description summarizes "Timer Instance" and "Remap" param combinations:
   *
-  *         TIM1: one of the following values:
+  *         TIM1: one of the following values: (**)
   *            @arg LL_TIM_TIM1_TI1_RMP_GPIO:                TIM1 TI1 is connected to GPIO
   *            @arg LL_TIM_TIM1_TI1_RMP_COMP1:               TIM1 TI1 is connected to COMP1 output (*)
   *            @arg LL_TIM_TIM1_TI1_RMP_COMP2:               TIM1 TI1 is connected to COMP2 output (*)
@@ -4726,13 +4881,21 @@ __STATIC_INLINE void LL_TIM_ConfigIDX(TIM_TypeDef *TIMx, uint32_t Configuration)
   *            @arg LL_TIM_TIM2_TI4_RMP_COMP1:               TIM2 TI4 is connected to COMP1 output (*)
   *            @arg LL_TIM_TIM2_TI4_RMP_COMP2:               TIM2 TI4 is connected to COMP2 output (*)
   *
-  *         TIM3: one of the following values:
+  *         TIM3: one of the following values: (**)
   *            @arg LL_TIM_TIM3_TI1_RMP_GPIO:                TIM3 TI1 is connected to GPIO
   *            @arg LL_TIM_TIM3_TI1_RMP_COMP1:               TIM3 TI1 is connected to COMP1 output (*)
   *            @arg LL_TIM_TIM3_TI1_RMP_COMP2:               TIM3 TI1 is connected to COMP2 output (*)
   *            @arg LL_TIM_TIM3_TI2_RMP_GPIO:                TIM3 TI2 is connected to GPIO
   *            @arg LL_TIM_TIM3_TI2_RMP_COMP1:               TIM3 TI2 is connected to COMP1 output (*)
   *            @arg LL_TIM_TIM3_TI2_RMP_COMP2:               TIM3 TI2 is connected to COMP2 output (*)
+  *
+  *         TIM4: one of the following values: (**)
+  *            @arg LL_TIM_TIM4_TI1_RMP_GPIO:                TIM4 TI1 is connected to GPIO
+  *            @arg LL_TIM_TIM4_TI1_RMP_COMP1:               TIM4 TI1 is connected to COMP1 output
+  *            @arg LL_TIM_TIM4_TI1_RMP_COMP2:               TIM4 TI1 is connected to COMP2 output
+  *            @arg LL_TIM_TIM4_TI2_RMP_GPIO:                TIM4 TI2 is connected to GPIO
+  *            @arg LL_TIM_TIM4_TI2_RMP_COMP1:               TIM4 TI2 is connected to COMP1 output
+  *            @arg LL_TIM_TIM4_TI2_RMP_COMP2:               TIM4 TI2 is connected to COMP2 output
   *
   *         TIM16: one of the following values:
   *            @arg LL_TIM_TIM16_TI1_RMP_GPIO:              TIM16 TI1 is connected to GPIO
@@ -4753,7 +4916,7 @@ __STATIC_INLINE void LL_TIM_ConfigIDX(TIM_TypeDef *TIMx, uint32_t Configuration)
   *            @arg LL_TIM_TIM17_TI1_RMP_HSI_256:           TIM17 TI1 is connected to HSI/256
   *
   *         (*)  Value not defined in all devices. \n
-
+  *         (**) Timer instance not available on all devices. \n
   *
   * @retval None
   */
@@ -4943,6 +5106,7 @@ __STATIC_INLINE uint32_t LL_TIM_IsActiveFlag_CC4(const TIM_TypeDef *TIMx)
   return ((READ_BIT(TIMx->SR, TIM_SR_CC4IF) == (TIM_SR_CC4IF)) ? 1UL : 0UL);
 }
 
+#if defined (TIM_SR_CC5IF)
 /**
   * @brief  Clear the Capture/Compare 5 interrupt flag (CC5F).
   * @rmtoll SR           CC5IF         LL_TIM_ClearFlag_CC5
@@ -4965,6 +5129,8 @@ __STATIC_INLINE uint32_t LL_TIM_IsActiveFlag_CC5(const TIM_TypeDef *TIMx)
   return ((READ_BIT(TIMx->SR, TIM_SR_CC5IF) == (TIM_SR_CC5IF)) ? 1UL : 0UL);
 }
 
+#endif /* TIM_SR_CC5IF */
+#if defined (TIM_SR_CC6IF)
 /**
   * @brief  Clear the Capture/Compare 6 interrupt flag (CC6F).
   * @rmtoll SR           CC6IF         LL_TIM_ClearFlag_CC6
@@ -4987,6 +5153,7 @@ __STATIC_INLINE uint32_t LL_TIM_IsActiveFlag_CC6(const TIM_TypeDef *TIMx)
   return ((READ_BIT(TIMx->SR, TIM_SR_CC6IF) == (TIM_SR_CC6IF)) ? 1UL : 0UL);
 }
 
+#endif /* TIM_SR_CC6IF */
 /**
   * @brief  Clear the commutation interrupt flag (COMIF).
   * @rmtoll SR           COMIF         LL_TIM_ClearFlag_COM
@@ -5053,6 +5220,7 @@ __STATIC_INLINE uint32_t LL_TIM_IsActiveFlag_BRK(const TIM_TypeDef *TIMx)
   return ((READ_BIT(TIMx->SR, TIM_SR_BIF) == (TIM_SR_BIF)) ? 1UL : 0UL);
 }
 
+#if defined(TIM_SR_B2IF)
 /**
   * @brief  Clear the break 2 interrupt flag (B2IF).
   * @rmtoll SR           B2IF          LL_TIM_ClearFlag_BRK2
@@ -5075,6 +5243,7 @@ __STATIC_INLINE uint32_t LL_TIM_IsActiveFlag_BRK2(const TIM_TypeDef *TIMx)
   return ((READ_BIT(TIMx->SR, TIM_SR_B2IF) == (TIM_SR_B2IF)) ? 1UL : 0UL);
 }
 
+#endif /* TIM_SR_B2IF */
 /**
   * @brief  Clear the Capture/Compare 1 over-capture interrupt flag (CC1OF).
   * @rmtoll SR           CC1OF         LL_TIM_ClearFlag_CC1OVR
@@ -6052,6 +6221,7 @@ __STATIC_INLINE void LL_TIM_GenerateEvent_BRK(TIM_TypeDef *TIMx)
   SET_BIT(TIMx->EGR, TIM_EGR_BG);
 }
 
+#if defined(TIM_EGR_B2G)
 /**
   * @brief  Generate break 2 event.
   * @rmtoll EGR          B2G           LL_TIM_GenerateEvent_BRK2
@@ -6063,6 +6233,7 @@ __STATIC_INLINE void LL_TIM_GenerateEvent_BRK2(TIM_TypeDef *TIMx)
   SET_BIT(TIMx->EGR, TIM_EGR_B2G);
 }
 
+#endif /* TIM_EGR_B2G */
 /**
   * @}
   */
@@ -6098,7 +6269,7 @@ ErrorStatus LL_TIM_BDTR_Init(TIM_TypeDef *TIMx, const LL_TIM_BDTR_InitTypeDef *T
   * @}
   */
 
-#endif /* TIM1 || TIM2 || TIM3 || TIM16 || TIM17 */
+#endif /* TIM1 || TIM2 || TIM3 || TIM4 || TIM16 || TIM17 */
 
 /**
   * @}

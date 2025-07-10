@@ -129,7 +129,11 @@ FLASH_ProcessTypeDef pFlash = {.Lock = HAL_UNLOCKED, \
 /** @defgroup FLASH_Private_Functions FLASH Private Functions
   * @{
   */
+#if defined(FLASH_DOUBLEWORD_SUPPORT)
+static void FLASH_Program_DoubleWord(uint32_t Address, uint32_t DataAddress);
+#else /* FLASH_DOUBLEWORD_SUPPORT */
 static void FLASH_Program_QuadWord(uint32_t Address, uint32_t DataAddress);
+#endif /* FLASH_DOUBLEWORD_SUPPORT */
 static void FLASH_Program_Burst(uint32_t Address, uint32_t DataAddress);
 /**
   * @}
@@ -156,13 +160,13 @@ static void FLASH_Program_Burst(uint32_t Address, uint32_t DataAddress);
   */
 
 /**
-  * @brief  Program a quad-word or a burst of 8 quad-words at a specified address.
+  * @brief  Program a double/quad-word or a burst of 8 quad-words/16 double-words at a specified address.
   * @note   Before any operation, it is possible to check there is no operation suspended
   *         by call HAL_FLASHEx_IsOperationSuspended()
   * @param  TypeProgram  Indicate the way to program at a specified address
   *                      This parameter can be a value of @ref FLASH_TYPE_PROGRAM
   * @param  Address  Specifies the address to be programmed.
-  *         This parameter shall be aligned to the Flash word (128 bits)
+  *         This parameter shall be aligned to the Flash word (128 bits or 64 bits)
   * @param  DataAddress Specifies the address of data to be programmed.
   *         This parameter shall be 32-bit aligned
   *
@@ -197,14 +201,22 @@ HAL_StatusTypeDef HAL_FLASH_Program(uint32_t TypeProgram, uint32_t Address, uint
     reg_cr = &(FLASH_NS->NSCR1);
 #endif /* FLASH_SECCR1_LOCK */
 
+#if defined(FLASH_DOUBLEWORD_SUPPORT)
+    if ((TypeProgram & (~FLASH_NON_SECURE_MASK)) == FLASH_TYPEPROGRAM_DOUBLEWORD)
+    {
+      /* Program a double-word (64-bit) at a specified address */
+      FLASH_Program_DoubleWord(Address, DataAddress);
+    }
+#else /* FLASH_DOUBLEWORD_SUPPORT */
     if ((TypeProgram & (~FLASH_NON_SECURE_MASK)) == FLASH_TYPEPROGRAM_QUADWORD)
     {
       /* Program a quad-word (128-bit) at a specified address */
       FLASH_Program_QuadWord(Address, DataAddress);
     }
+#endif /* FLASH_DOUBLEWORD_SUPPORT */
     else
     {
-      /* Program a burst of 8 quad-words at a specified address */
+      /* Program a burst of 8 quad-words or 16 double-words at a specified address */
       FLASH_Program_Burst(Address, DataAddress);
     }
 
@@ -223,11 +235,11 @@ HAL_StatusTypeDef HAL_FLASH_Program(uint32_t TypeProgram, uint32_t Address, uint
 }
 
 /**
-  * @brief  Program a quad-word or a burst of 8 quad-words at a specified address with interrupt enabled.
+  * @brief  Program a double/quad-word or a burst of 8 quad-words/16 double-words at a specified address with interrupt enabled.
   * @param  TypeProgram Indicate the way to program at a specified address.
   *                           This parameter can be a value of @ref FLASH_TYPE_PROGRAM
   * @param  Address Specifies the address to be programmed.
-  *         This parameter shall be aligned to the Flash word (128 bits)
+  *         This parameter shall be aligned to the Flash word (128 bits or 64 bits)
   * @param  DataAddress specifies the address of data to be programmed.
   *         This parameter shall be 32-bit aligned
   *
@@ -272,14 +284,22 @@ HAL_StatusTypeDef HAL_FLASH_Program_IT(uint32_t TypeProgram, uint32_t Address, u
     /* Enable End of Operation and Error interrupts */
     (*reg_cr) |= (FLASH_IT_EOP | FLASH_IT_OPERR);
 
+#if defined(FLASH_DOUBLEWORD_SUPPORT)
+    if ((TypeProgram & (~FLASH_NON_SECURE_MASK)) == FLASH_TYPEPROGRAM_DOUBLEWORD)
+    {
+      /* Program a double-word (64-bit) at a specified address */
+      FLASH_Program_DoubleWord(Address, DataAddress);
+    }
+#else /* FLASH_DOUBLEWORD_SUPPORT */
     if ((TypeProgram & (~FLASH_NON_SECURE_MASK)) == FLASH_TYPEPROGRAM_QUADWORD)
     {
       /* Program a quad-word (128-bit) at a specified address */
       FLASH_Program_QuadWord(Address, DataAddress);
     }
+#endif /* FLASH_DOUBLEWORD_SUPPORT */
     else
     {
-      /* Program a burst of 8 quad-words at a specified address */
+      /* Program a burst of 8 quad-words or 16 double-words at a specified address */
       FLASH_Program_Burst(Address, DataAddress);
     }
   }
@@ -324,10 +344,23 @@ void HAL_FLASH_IRQHandler(void)
   {
     param = pFlash.Page;
   }
+#if defined(FLASH_DBANK_SUPPORT)
+  else if (type == FLASH_TYPEERASE_MASSERASE)
+  {
+    param = pFlash.Bank;
+  }
+#endif /* FLASH_DBANK_SUPPORT */
+#if defined(FLASH_DOUBLEWORD_SUPPORT)
+  else if (type == FLASH_TYPEPROGRAM_DOUBLEWORD)
+  {
+    param = pFlash.Address;
+  }
+#else /* FLASH_DOUBLEWORD_SUPPORT */
   else if (type == FLASH_TYPEPROGRAM_QUADWORD)
   {
     param = pFlash.Address;
   }
+#endif /* FLASH_DOUBLEWORD_SUPPORT */
   else if (type == FLASH_TYPEPROGRAM_BURST)
   {
     param = pFlash.Address;
@@ -338,7 +371,11 @@ void HAL_FLASH_IRQHandler(void)
   }
 
   /* Clear operation bit on the on-going procedure */
+#if defined(FLASH_DBANK_SUPPORT)
+  CLEAR_BIT((*reg_cr), (type | FLASH_NSCR1_BKER | FLASH_NSCR1_PNB));
+#else /* FLASH_DBANK_SUPPORT */
   CLEAR_BIT((*reg_cr), (type | FLASH_NSCR1_PNB));
+#endif /* FLASH_DBANK_SUPPORT */
 
   /* Check FLASH operation error flags */
   if (error != 0U)
@@ -378,7 +415,11 @@ void HAL_FLASH_IRQHandler(void)
       {
         /* Increment page number */
         pFlash.Page++;
+#if defined(FLASH_DBANK_SUPPORT)
+        FLASH_PageErase(pFlash.Page, pFlash.Bank);
+#else /* FLASH_DBANK_SUPPORT */
         FLASH_PageErase(pFlash.Page);
+#endif /* FLASH_DBANK_SUPPORT */
       }
       else
       {
@@ -662,7 +703,7 @@ HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)
   /* Wait for the FLASH operation to complete by polling on BUSY and WDW flags to be reset.
      Even if the FLASH operation fails, the BUSY & WDW flags will be reset, and an error flag will be set */
 
-  uint32_t timeout = HAL_GetTick() + Timeout;
+  uint32_t timeout = HAL_GetTick();
   uint32_t error;
   __IO uint32_t *reg_sr;
 
@@ -677,7 +718,7 @@ HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)
   {
     if (Timeout != HAL_MAX_DELAY)
     {
-      if (HAL_GetTick() >= timeout)
+      if ((HAL_GetTick() - timeout) >= Timeout)
       {
         return HAL_TIMEOUT;
       }
@@ -717,6 +758,51 @@ HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)
   return HAL_OK;
 }
 
+#if defined(FLASH_DOUBLEWORD_SUPPORT)
+/**
+  * @brief  Program a double-word (64-bit) at a specified address.
+  * @param  Address Specifies the address to be programmed.
+  * @param  DataAddress Specifies the address of data to be programmed.
+  * @retval None
+  */
+static void FLASH_Program_DoubleWord(uint32_t Address, uint32_t DataAddress)
+{
+  uint8_t index = 2;
+  uint32_t *dest_addr = (uint32_t *)Address;
+  uint32_t *src_addr  = (uint32_t *)DataAddress;
+  uint32_t primask_bit;
+  __IO uint32_t *reg_cr;
+
+  /* Check the parameters */
+  assert_param(IS_FLASH_PROGRAM_ADDRESS(Address));
+
+  /* Access to SECCR1 or NSCR1 registers depends on operation type */
+#if defined(FLASH_SECCR1_LOCK)
+  reg_cr = IS_FLASH_SECURE_OPERATION() ? &(FLASH->SECCR1) : &(FLASH_NS->NSCR1);
+#else
+  reg_cr = &(FLASH_NS->NSCR1);
+#endif /* FLASH_SECCR1_LOCK */
+
+  /* Set PG bit */
+  SET_BIT((*reg_cr), FLASH_NSCR1_PG);
+
+  /* Enter critical section: Disable interrupts to avoid any interruption during the loop */
+  primask_bit = __get_PRIMASK();
+  __disable_irq();
+
+  /* Program the double-word */
+  do
+  {
+    *dest_addr = *src_addr;
+    dest_addr++;
+    src_addr++;
+    index--;
+  } while (index != 0U);
+
+  /* Exit critical section: restore previous priority mask */
+  __set_PRIMASK(primask_bit);
+}
+#else /* FLASH_DOUBLEWORD_SUPPORT */
 /**
   * @brief  Program a quad-word (128-bit) at a specified address.
   * @param  Address Specifies the address to be programmed.
@@ -760,9 +846,10 @@ static void FLASH_Program_QuadWord(uint32_t Address, uint32_t DataAddress)
   /* Exit critical section: restore previous priority mask */
   __set_PRIMASK(primask_bit);
 }
+#endif /* FLASH_DOUBLEWORD_SUPPORT */
 
 /**
-  * @brief  Program a burst of 8x quad-words at a specified address.
+  * @brief  Program a burst of 8x quad-words/ 16x double-words at a specified address.
   * @param  Address Specifies the address to be programmed.
   * @param  DataAddress Specifies the address where the data are stored.
   * @retval None

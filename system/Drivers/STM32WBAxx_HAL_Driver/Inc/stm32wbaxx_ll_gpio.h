@@ -31,7 +31,7 @@ extern "C" {
   * @{
   */
 
-#if defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOH)
+#if defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOD) || defined (GPIOE) || defined (GPIOG) || defined (GPIOH)
 
 /** @defgroup GPIO_LL GPIO
   * @{
@@ -954,6 +954,70 @@ __STATIC_INLINE void LL_GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint32_t PinMask)
   WRITE_REG(GPIOx->BSRR, ((odr & PinMask) << 16u) | (~odr & PinMask));
 }
 
+#if defined (STM32WBA62xx) || defined (STM32WBA63xx) || defined (STM32WBA64xx) || defined (STM32WBA65xx) || defined (STM32WBA6Mxx)
+/**
+  * @brief  Enable speed optimization for several pin of dedicated port.
+  * @note   Not all I/Os support the HSLV mode. Refer to the I/O structure in the corresponding
+  *         datasheet for the list of I/Os supporting this feature. Other I/Os HSLV configuration must
+  *         be kept at reset value.
+  * @note   It must be used only if the I/O supply voltage is below 2.7 V.
+  * @rmtoll HSLVR      HSLVy           LL_GPIO_EnableHighSPeedLowVoltage
+  * @param  GPIOx GPIO Port
+  * @param  PinMask This parameter can be a combination of the following values:
+  *         @arg @ref LL_GPIO_PIN_0
+  *         @arg @ref LL_GPIO_PIN_1
+  *         @arg @ref LL_GPIO_PIN_2
+  *         @arg @ref LL_GPIO_PIN_3
+  *         @arg @ref LL_GPIO_PIN_4
+  *         @arg @ref LL_GPIO_PIN_5
+  *         @arg @ref LL_GPIO_PIN_6
+  *         @arg @ref LL_GPIO_PIN_8
+  *         @arg @ref LL_GPIO_PIN_9
+  *         @arg @ref LL_GPIO_PIN_10
+  *         @arg @ref LL_GPIO_PIN_11
+  *         @arg @ref LL_GPIO_PIN_12
+  *         @arg @ref LL_GPIO_PIN_13
+  *         @arg @ref LL_GPIO_PIN_14
+  *         @arg @ref LL_GPIO_PIN_15
+  * @retval None
+  */
+__STATIC_INLINE void LL_GPIO_EnableHighSPeedLowVoltage(GPIO_TypeDef *GPIOx, uint32_t PinMask)
+{
+  SET_BIT(GPIOx->HSLVR, PinMask);
+}
+
+/**
+  * @brief  Disable speed optimization for several pin of dedicated port.
+  * @note   Not all I/Os support the HSLV mode. Refer to the I/O structure in the corresponding
+  *         datasheet for the list of I/Os supporting this feature. Other I/Os HSLV configuration must
+  *         be kept at reset value.
+  * @note   It must be used only if the I/O supply voltage is below 2.7 V.
+  * @rmtoll HSLVR      HSLVy           LL_GPIO_DisableHighSPeedLowVoltage
+  * @param  GPIOx GPIO Port
+  * @param  PinMask This parameter can be a combination of the following values:
+  *         @arg @ref LL_GPIO_PIN_0
+  *         @arg @ref LL_GPIO_PIN_1
+  *         @arg @ref LL_GPIO_PIN_2
+  *         @arg @ref LL_GPIO_PIN_3
+  *         @arg @ref LL_GPIO_PIN_4
+  *         @arg @ref LL_GPIO_PIN_5
+  *         @arg @ref LL_GPIO_PIN_6
+  *         @arg @ref LL_GPIO_PIN_8
+  *         @arg @ref LL_GPIO_PIN_9
+  *         @arg @ref LL_GPIO_PIN_10
+  *         @arg @ref LL_GPIO_PIN_11
+  *         @arg @ref LL_GPIO_PIN_12
+  *         @arg @ref LL_GPIO_PIN_13
+  *         @arg @ref LL_GPIO_PIN_14
+  *         @arg @ref LL_GPIO_PIN_15
+  * @retval None
+  */
+__STATIC_INLINE void LL_GPIO_DisableHighSPeedLowVoltage(GPIO_TypeDef *GPIOx, uint32_t PinMask)
+{
+  CLEAR_BIT(GPIOx->HSLVR, PinMask);
+}
+
+#endif  /* defined (STM32WBA62xx) || defined (STM32WBA63xx) || defined (STM32WBA64xx) || defined (STM32WBA65xx) || defined (STM32WBA6Mxx) */
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 
 /**
@@ -1073,7 +1137,7 @@ void        LL_GPIO_StructInit(LL_GPIO_InitTypeDef *GPIO_InitStruct);
   * @}
   */
 
-#endif /* defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOH) */
+#endif /* defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOD) || defined (GPIOE) || defined (GPIOG) || defined (GPIOH) */
 /**
   * @}
   */

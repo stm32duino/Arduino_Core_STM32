@@ -662,14 +662,17 @@ uint32_t HAL_RAMCFG_GetWaitState(const RAMCFG_HandleTypeDef *hramcfg)
   * @param  hramcfg       : Pointer to a RAMCFG_HandleTypeDef structure that
   *                         contains the configuration information for the
   *                         specified RAMCFG instance.
-  * @param  StartPage     : Select the start page number (from 0 to 63)
+  * @param  StartPage     : Select the start page number (from 0 to 63 or
+  *                         from 0 to 31 according devices)
   * @param  NbPage        : Number of pages to be protected.
   * @retval HAL status.
   */
 HAL_StatusTypeDef HAL_RAMCFG_EnableWriteProtection(RAMCFG_HandleTypeDef *hramcfg, uint32_t StartPage, uint32_t NbPage)
 {
   uint32_t page_mask_0 = 0U;
+#if defined(RAMCFG_WPR2_P32WP)
   uint32_t page_mask_1 = 0U;
+#endif /* defined(RAMCFG_WPR2_P32WP) */
 
   /* Check the parameters */
   assert_param(IS_RAMCFG_WP_INSTANCE(hramcfg->Instance));
@@ -688,15 +691,19 @@ HAL_StatusTypeDef HAL_RAMCFG_EnableWriteProtection(RAMCFG_HandleTypeDef *hramcfg
       {
         page_mask_0 |= (1UL << (StartPage + count));
       }
+#if defined(RAMCFG_WPR2_P32WP)
       else
       {
         page_mask_1 |= (1UL << ((StartPage + count) - 32U));
       }
+#endif /* defined(RAMCFG_WPR2_P32WP) */
     }
 
     /* Apply mask to protect pages */
     WRITE_REG(hramcfg->Instance->WPR1, page_mask_0);
+#if defined(RAMCFG_WPR2_P32WP)
     WRITE_REG(hramcfg->Instance->WPR2, page_mask_1);
+#endif /* defined(RAMCFG_WPR2_P32WP) */
   }
   else
   {

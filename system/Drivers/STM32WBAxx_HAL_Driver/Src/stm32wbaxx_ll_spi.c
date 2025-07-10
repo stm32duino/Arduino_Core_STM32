@@ -30,7 +30,7 @@
   * @{
   */
 
-#if defined(SPI1) || defined(SPI3)
+#if defined(SPI1) || defined(SPI2) || defined(SPI3)
 
 /** @addtogroup SPI_LL
   * @{
@@ -256,6 +256,19 @@ ErrorStatus LL_SPI_DeInit(const SPI_TypeDef *SPIx)
     status = SUCCESS;
   }
 #endif /* SPI1 */
+#if defined(SPI2)
+  if (SPIx == SPI2)
+  {
+    /* Force reset of SPI clock */
+    LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_SPI2);
+
+    /* Release reset of SPI clock */
+    LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_SPI2);
+
+    /* Update the return status */
+    status = SUCCESS;
+  }
+#endif /* SPI2 */
 #if defined(SPI3)
   if (SPIx == SPI3)
   {
@@ -400,7 +413,7 @@ void LL_SPI_StructInit(LL_SPI_InitTypeDef *SPI_InitStruct)
   * @}
   */
 
-#endif /* defined(SPI1) || defined(SPI3) */
+#endif /* defined(SPI1) || defined(SPI2) || defined(SPI3) */
 
 /**
   * @}
