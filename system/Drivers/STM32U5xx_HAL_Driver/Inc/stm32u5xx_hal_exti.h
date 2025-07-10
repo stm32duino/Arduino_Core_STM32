@@ -201,19 +201,19 @@ typedef struct
 /**
   * @brief  EXTI Line property definition
   */
-#define EXTI_PROPERTY_SHIFT                  24U
-#define EXTI_DIRECT                         (0x01U << EXTI_PROPERTY_SHIFT)
-#define EXTI_CONFIG                         (0x02U << EXTI_PROPERTY_SHIFT)
-#define EXTI_GPIO                           ((0x04U << EXTI_PROPERTY_SHIFT) | EXTI_CONFIG)
-#define EXTI_RESERVED                       (0x08U << EXTI_PROPERTY_SHIFT)
+#define EXTI_PROPERTY_SHIFT                  24UL
+#define EXTI_DIRECT                         (0x01UL << EXTI_PROPERTY_SHIFT)
+#define EXTI_CONFIG                         (0x02UL << EXTI_PROPERTY_SHIFT)
+#define EXTI_GPIO                           ((0x04UL << EXTI_PROPERTY_SHIFT) | EXTI_CONFIG)
+#define EXTI_RESERVED                       (0x08UL << EXTI_PROPERTY_SHIFT)
 #define EXTI_PROPERTY_MASK                  (EXTI_DIRECT | EXTI_CONFIG | EXTI_GPIO)
 
 /**
   * @brief  EXTI Register and bit usage
   */
-#define EXTI_REG_SHIFT                      16U
-#define EXTI_REG1                           (0x00U << EXTI_REG_SHIFT)
-#define EXTI_REG2                           (0x01U << EXTI_REG_SHIFT)
+#define EXTI_REG_SHIFT                      16UL
+#define EXTI_REG1                           (0x00UL << EXTI_REG_SHIFT)
+#define EXTI_REG2                           (0x01UL << EXTI_REG_SHIFT)
 #define EXTI_REG_MASK                       (EXTI_REG1 | EXTI_REG2)
 #define EXTI_PIN_MASK                       0x0000001FU
 

@@ -76,8 +76,11 @@
               call HAL_RAMCFG_GetDoubleErrorAddress() to get the address of the
               last fail RAM word detected (only for double error).
 
-          (+) Call HAL_RAMCFG_IsECCErrorDetected() to check if an ECC single/double
-              error was detected. This API is used in silent mode (No ECC interrupt
+          (+) Call HAL_RAMCFG_IsECCSingleErrorDetected() to check if an ECC single
+              error was detected.
+              Call HAL_RAMCFG_IsECCDoubleErrorDetected() to check if an ECC double
+              error was detected.
+              These APIs are used in silent mode (No ECC interrupt
               is enabled).
 
      *** Wait State feature ***
@@ -227,7 +230,7 @@ HAL_StatusTypeDef HAL_RAMCFG_Init(RAMCFG_HandleTypeDef *hramcfg)
   /* Clear RAMCFG monitor flags */
   __HAL_RAMCFG_CLEAR_FLAG(hramcfg, RAMCFG_FLAGS_ALL);
 
-  /* Initialise the RAMCFG error code */
+  /* Initialize the RAMCFG error code */
   hramcfg->ErrorCode = HAL_RAMCFG_ERROR_NONE;
 
   /* Initialize the RAMCFG state */
@@ -339,8 +342,10 @@ __weak void HAL_RAMCFG_MspDeInit(RAMCFG_HandleTypeDef *hramcfg)
       The HAL_RAMCFG_DisableNotification() function allows disabling interrupts
       for single ECC error, double ECC error. When NMI interrupt is enabled it
       can only be disabled by a global peripheral reset or by a system reset.
-      The HAL_RAMCFG_IsECCErrorDetected() function allows to check if an ECC error
-      has occurred.
+      The HAL_RAMCFG_IsECCSingleErrorDetected() function allows to check if an
+      single ECC error has occurred.
+      The HAL_RAMCFG_IsECCDoubleErrorDetected() function allows to check if an
+      double ECC error has occurred.
       The HAL_RAMCFG_GetSingleErrorAddress() function allows to get the address of
       the last single ECC error detected.
       The HAL_RAMCFG_GetDoubleErrorAddress() function allows to get the address of

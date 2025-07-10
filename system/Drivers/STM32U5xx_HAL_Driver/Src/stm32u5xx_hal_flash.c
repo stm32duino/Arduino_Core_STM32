@@ -626,7 +626,7 @@ HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)
   /* Wait for the FLASH operation to complete by polling on BUSY and WDW flags to be reset.
      Even if the FLASH operation fails, the BUSY & WDW flags will be reset, and an error flag will be set */
 
-  uint32_t timeout = HAL_GetTick() + Timeout;
+  uint32_t tickstart = HAL_GetTick();
   uint32_t error;
   __IO uint32_t *reg_sr;
 
@@ -637,7 +637,7 @@ HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)
   {
     if (Timeout != HAL_MAX_DELAY)
     {
-      if (HAL_GetTick() >= timeout)
+      if(((HAL_GetTick() - tickstart) >= Timeout) || (Timeout == 0U))
       {
         return HAL_TIMEOUT;
       }

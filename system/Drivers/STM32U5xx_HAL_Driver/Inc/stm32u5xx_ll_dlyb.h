@@ -113,8 +113,8 @@ __STATIC_INLINE void LL_DLYB_Disable(DLYB_TypeDef *DLYBx)
   * @{
   */
 
-void LL_DLYB_SetDelay(DLYB_TypeDef *DLYBx, LL_DLYB_CfgTypeDef  *pdlyb_cfg);
-void LL_DLYB_GetDelay(DLYB_TypeDef *DLYBx, LL_DLYB_CfgTypeDef *pdlyb_cfg);
+void LL_DLYB_SetDelay(DLYB_TypeDef *DLYBx, const LL_DLYB_CfgTypeDef  *pdlyb_cfg);
+void LL_DLYB_GetDelay(const DLYB_TypeDef *DLYBx, LL_DLYB_CfgTypeDef *pdlyb_cfg);
 uint32_t LL_DLYB_GetClockPeriod(DLYB_TypeDef *DLYBx, LL_DLYB_CfgTypeDef *pdlyb_cfg);
 
 /**

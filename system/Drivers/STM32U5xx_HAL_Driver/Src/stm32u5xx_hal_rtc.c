@@ -66,8 +66,10 @@
  ===================================================================
   [..]
     (+) Enable the RTC domain access (see description in the section above).
-    (+) Configure the RTC Prescaler (Asynchronous and Synchronous) and RTC hour
-        format using the HAL_RTC_Init() function.
+    (+) Configure the RTC prescalers (asynchronous and synchronous), the RTC mode
+        (binary, BCD or mix) and the RTC hour format using the HAL_RTC_Init() function.
+    (+) In order to reconfigure the RTC peripheral, it is necessary to use HAL_RTC_DeInit()
+        first, then use HAL_RTC_Init() again.
 
   *** Time and Date configuration ***
   ===================================
@@ -401,11 +403,15 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
         /* Enable the write protection for RTC registers */
         __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
       }
+      else
+      {
+        /* The calendar does not need to be initialized as the 'binary only' mode is selected */
+        status = HAL_OK;
+      }
     }
     else
     {
-      /* Calendar is already initialized */
-      /* Set flag to OK */
+      /* The calendar is already initialized */
       status = HAL_OK;
     }
 

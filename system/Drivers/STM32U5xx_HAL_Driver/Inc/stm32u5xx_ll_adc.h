@@ -483,7 +483,7 @@ extern "C" {
 
 /* ADC internal channels related definitions */
 /* Internal voltage reference VrefInt */
-#define VREFINT_CAL_ADDR            ((uint16_t*) (0x0BFA07A5UL)) /* Internal voltage reference, address of parameter
+#define VREFINT_CAL_ADDR            ((const uint16_t*) (0x0BFA07A5UL)) /* Internal voltage reference, address of parameter
                                                                     VREFINT_CAL: VrefInt ADC raw data acquired at
                                                                     temperature 30 DegC (tolerance: +-5 DegC),
                                                                     Vref+ = 3.0 V (tolerance: +-10 mV).              */
@@ -491,12 +491,12 @@ extern "C" {
                                                                     VrefInt has been calibrated in production
                                                                     (tolerance: +-10 mV) (unit: mV).      */
 /* Temperature sensor */
-#define TEMPSENSOR_CAL1_ADDR        ((uint16_t*) (0x0BFA0710UL)) /* Internal temperature sensor, address of parameter
+#define TEMPSENSOR_CAL1_ADDR        ((const uint16_t*) (0x0BFA0710UL)) /* Internal temperature sensor, address of parameter
                                                                     TS_CAL1: On STM32U5, temperature sensor ADC raw
                                                                              data acquired at temperature  30 DegC
                                                                              (tolerance: +-5 DegC),Vref+ = 3.0 V
                                                                              (tolerance: +-10 mV).                   */
-#define TEMPSENSOR_CAL2_ADDR        ((uint16_t*) (0x0BFA0742UL)) /* Internal temperature sensor, address of parameter
+#define TEMPSENSOR_CAL2_ADDR        ((const uint16_t*) (0x0BFA0742UL)) /* Internal temperature sensor, address of parameter
                                                                     TS_CAL2: On STM32U5, temperature sensor ADC raw
                                                                              data acquired at temperature 110 DegC
                                                                              (tolerance: +-5 DegC), Vref+ = 3.0 V
