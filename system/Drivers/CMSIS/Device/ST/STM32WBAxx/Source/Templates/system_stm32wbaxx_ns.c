@@ -78,29 +78,19 @@
 #define HSI_VALUE     (16000000U) /*!< Value of the Internal oscillator in Hz*/
 #endif /* HSI_VALUE */
 
-/* Note: Following vector table addresses must be defined in line with linker
-         configuration. */
-/*!< Uncomment the following line if you need to relocate the vector table
-     anywhere in Flash or Sram, else the vector table is kept at the automatic
-     remap of boot address selected */
-/* #define USER_VECT_TAB_ADDRESS */
-
-#if defined(USER_VECT_TAB_ADDRESS)
-/*!< Uncomment the following line if you need to relocate your vector Table
-     in Sram else user remap will be done in Flash. */
-/* #define VECT_TAB_SRAM */
-#if defined(VECT_TAB_SRAM)
-#define VECT_TAB_BASE_ADDRESS   SRAM2_BASE                 /*!< Vector Table base address field.
-                                                                This value must be a multiple of 0x200. */
-#define VECT_TAB_OFFSET         0x00000000U                /*!< Vector Table base offset field.
-                                                                This value must be a multiple of 0x200. */
-#else
-#define VECT_TAB_BASE_ADDRESS   (FLASH_BASE + 0x00080000U) /*!< Vector Table base address field.
-                                                                This value must be a multiple of 0x200. */
-#define VECT_TAB_OFFSET         0x00000000U                /*!< Vector Table base offset field.
-                                                                This value must be a multiple of 0x200. */
-#endif /* VECT_TAB_SRAM */
-#endif /* USER_VECT_TAB_ADDRESS */
+/*!< The VTOR location information is based on information from the linker with a dependency
+     on the IDE, the cortex register is updated using the INTVECT_START.
+*/
+#if defined(__ICCARM__)
+extern uint32_t __vector_table;
+#define INTVECT_START ((uint32_t)& __vector_table)
+#elif defined(__CC_ARM) || defined(__ARMCC_VERSION)
+extern void * __Vectors;
+#define INTVECT_START ((uint32_t) & __Vectors)
+#elif defined(__GNUC__)
+extern void * g_pfnVectors;
+#define INTVECT_START ((uint32_t)& g_pfnVectors)
+#endif /* __ICCARM__*/
 
 /******************************************************************************/
 
@@ -162,9 +152,7 @@ void SystemInit(void)
 #endif
 
   /* Configure the Vector Table location -------------------------------------*/
-#if defined(USER_VECT_TAB_ADDRESS)
-  SCB->VTOR = VECT_TAB_BASE_ADDRESS | VECT_TAB_OFFSET; /* Vector Table Relocation */
-#endif /* USER_VECT_TAB_ADDRESS */
+  SCB->VTOR = INTVECT_START;
 
   /* Non-secure main application shall call SystemCoreClockUpdate() to update */
   /* the SystemCoreClock variable to insure non-secure application relies on  */
