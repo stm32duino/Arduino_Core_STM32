@@ -5,8 +5,8 @@
 **
 **  Author      : STM32CubeIDE
 **
-**  Abstract    : Linker script for STM32U5G9xJ Device from STM32U5 series
-**                      2528Kbytes RAM
+**  Abstract    : Linker script for STM32U5A5xJ Device from STM32U5 series
+**                      2512Kbytes RAM
 **
 **                Set heap size, stack size and stack location according
 **                to application requirements.
@@ -21,13 +21,12 @@
 *****************************************************************************
 ** @attention
 **
-** <h2><center>&copy; Copyright (c) 2023 STMicroelectronics.
-** All rights reserved.</center></h2>
+** Copyright (c) 2024 STMicroelectronics.
+** All rights reserved.
 **
-** This software component is licensed by ST under BSD 3-Clause license,
-** the "License"; You may not use this file except in compliance with the
-** License. You may obtain a copy of the License at:
-**                        opensource.org/licenses/BSD-3-Clause
+** This software is licensed under terms that can be found in the LICENSE file
+** in the root directory of this software component.
+** If no LICENSE file comes with this software, it is provided AS-IS.
 **
 *****************************************************************************
 */
@@ -38,14 +37,15 @@ ENTRY(Reset_Handler)
 /* Highest address of the user mode stack */
 _estack = ORIGIN(RAM) + LENGTH(RAM); /* end of "RAM" Ram type memory */
 
-_Min_Heap_Size = 0x200 ; /* required amount of heap */
-_Min_Stack_Size = 0x400 ; /* required amount of stack */
+_Min_Heap_Size = 0x200; /* required amount of heap */
+_Min_Stack_Size = 0x400; /* required amount of stack */
 
 /* Memories definition */
 MEMORY
 {
-  RAM (xrw)   : ORIGIN = 0x200D0000, LENGTH = 2176K    /* Memory is divided. Actual start is 0x200D0000 and actual length is 2176K */
-  SRAM4 (xrw) : ORIGIN = 0x28000000, LENGTH = 16K      /* Non-Secure SRAM4 */
+  RAM (xrw)     : ORIGIN = 0x30000000, LENGTH = 824K     /* Memory is divided. Actual start is 0x30000000 and actual length is 2512K */
+  RAM_NSC (xrw) : ORIGIN = 0x300CE000, LENGTH = 8K       /* Non-Secure Call-able region */
+  SRAM4 (xrw)   : ORIGIN = 0x38000000, LENGTH = 16K
 }
 
 /* Sections */
@@ -85,7 +85,6 @@ SECTIONS
   {
     *(.ARM.extab* .gnu.linkonce.armextab.*)
   } >RAM
-
   .ARM (READONLY) : /* The READONLY keyword is only supported in GCC11 and later, remove it if using GCC10 or earlier. */
   {
     __exidx_start = .;
@@ -128,6 +127,13 @@ SECTIONS
 
     _edata = .;        /* define a global symbol at data end */
   } >RAM
+
+  .gnu.sgstubs :
+  {
+    . = ALIGN(4);
+    *(.gnu.sgstubs*)   /* Secure Gateway stubs */
+    . = ALIGN(4);
+  } >RAM_NSC
 
   /* Uninitialized data section into "RAM" Ram type memory */
   .bss :
