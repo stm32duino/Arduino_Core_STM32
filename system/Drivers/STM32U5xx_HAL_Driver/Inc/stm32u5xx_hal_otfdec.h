@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2021 STMicroelectronics.
+  * Copyright (c) 2020 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -350,7 +350,7 @@ HAL_StatusTypeDef HAL_OTFDEC_RegionSetKey(OTFDEC_HandleTypeDef *hotfdec, uint32_
 HAL_StatusTypeDef HAL_OTFDEC_RegionSetMode(OTFDEC_HandleTypeDef *hotfdec, uint32_t RegionIndex, uint32_t mode);
 HAL_StatusTypeDef HAL_OTFDEC_RegionConfig(OTFDEC_HandleTypeDef *hotfdec, uint32_t RegionIndex,
                                           const OTFDEC_RegionConfigTypeDef *Config, uint32_t lock);
-uint32_t HAL_OTFDEC_KeyCRCComputation(uint32_t *pKey);
+uint32_t HAL_OTFDEC_KeyCRCComputation(const uint32_t *pKey);
 HAL_StatusTypeDef HAL_OTFDEC_RegionEnable(OTFDEC_HandleTypeDef *hotfdec, uint32_t RegionIndex);
 HAL_StatusTypeDef HAL_OTFDEC_RegionDisable(OTFDEC_HandleTypeDef *hotfdec, uint32_t RegionIndex);
 HAL_StatusTypeDef HAL_OTFDEC_ConfigAttributes(OTFDEC_HandleTypeDef *hotfdec, uint32_t Attributes);
@@ -365,9 +365,9 @@ HAL_StatusTypeDef HAL_OTFDEC_Cipher(OTFDEC_HandleTypeDef *hotfdec, uint32_t Regi
 /** @addtogroup @addtogroup OTFDEC_Exported_Functions_Group4 Peripheral State and Status functions
   * @{
   */
-HAL_OTFDEC_StateTypeDef HAL_OTFDEC_GetState(OTFDEC_HandleTypeDef *hotfdec);
+HAL_OTFDEC_StateTypeDef HAL_OTFDEC_GetState(const OTFDEC_HandleTypeDef *hotfdec);
 HAL_StatusTypeDef HAL_OTFDEC_GetConfigAttributes(OTFDEC_HandleTypeDef *hotfdec, uint32_t *Attributes);
-uint32_t HAL_OTFDEC_RegionGetKeyCRC(OTFDEC_HandleTypeDef *hotfdec, uint32_t RegionIndex);
+uint32_t HAL_OTFDEC_RegionGetKeyCRC(const OTFDEC_HandleTypeDef *hotfdec, uint32_t RegionIndex);
 HAL_StatusTypeDef HAL_OTFDEC_RegionGetConfig(OTFDEC_HandleTypeDef *hotfdec, uint32_t RegionIndex,
                                              OTFDEC_RegionConfigTypeDef *Config);
 /**

@@ -13,7 +13,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2021 STMicroelectronics.
+  * Copyright (c) 2020 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -780,16 +780,16 @@ HAL_StatusTypeDef HAL_OTFDEC_ConfigAttributes(OTFDEC_HandleTypeDef *hotfdec, uin
   * @param  pKey pointer at set of keys
   * @retval CRC value
   */
-uint32_t HAL_OTFDEC_KeyCRCComputation(uint32_t *pKey)
+uint32_t HAL_OTFDEC_KeyCRCComputation(const uint32_t *pKey)
 {
   uint8_t crc7_poly = 0x7;
-  uint32_t key_strobe[4] = {0xAA55AA55U, 0x3U, 0x18U, 0xC0U};
+  const uint32_t key_strobe[4] = {0xAA55AA55U, 0x3U, 0x18U, 0xC0U};
   uint8_t  i;
   uint8_t crc = 0;
   uint32_t  j;
   uint32_t  keyval;
   uint32_t  k;
-  uint32_t *temp = pKey;
+  const uint32_t *temp = pKey;
 
   for (j = 0U; j < 4U; j++)
   {
@@ -889,9 +889,6 @@ HAL_StatusTypeDef HAL_OTFDEC_Cipher(OTFDEC_HandleTypeDef *hotfdec, uint32_t Regi
   /* Check the parameters */
   assert_param(IS_OTFDEC_ALL_INSTANCE(hotfdec->Instance));
   assert_param(IS_OTFDEC_REGIONINDEX(RegionIndex));
-
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(RegionIndex);
 
   if ((input == NULL) || (output == NULL) || (size == 0U))
   {
@@ -1025,7 +1022,7 @@ HAL_StatusTypeDef HAL_OTFDEC_RegionDisable(OTFDEC_HandleTypeDef *hotfdec, uint32
   *         the configuration information for OTFDEC module
   * @retval HAL state
   */
-HAL_OTFDEC_StateTypeDef HAL_OTFDEC_GetState(OTFDEC_HandleTypeDef *hotfdec)
+HAL_OTFDEC_StateTypeDef HAL_OTFDEC_GetState(const OTFDEC_HandleTypeDef *hotfdec)
 {
   return hotfdec->State;
 }
@@ -1064,9 +1061,9 @@ HAL_StatusTypeDef HAL_OTFDEC_GetConfigAttributes(OTFDEC_HandleTypeDef *hotfdec, 
   * @param  RegionIndex index of region the keys CRC of which is read
   * @retval Key CRC
   */
-uint32_t HAL_OTFDEC_RegionGetKeyCRC(OTFDEC_HandleTypeDef *hotfdec, uint32_t RegionIndex)
+uint32_t HAL_OTFDEC_RegionGetKeyCRC(const OTFDEC_HandleTypeDef *hotfdec, uint32_t RegionIndex)
 {
-  OTFDEC_Region_TypeDef *region;
+  const OTFDEC_Region_TypeDef *region;
   uint32_t address;
   uint32_t keycrc;
 
@@ -1123,7 +1120,7 @@ HAL_StatusTypeDef HAL_OTFDEC_RegionGetConfig(OTFDEC_HandleTypeDef *hotfdec, uint
     Config->EndAddress = READ_REG(region->REG_END_ADDR);
 
     /* Read Version */
-    Config->Version = (uint16_t)(READ_REG(region->REG_CONFIGR) &
+    Config->Version = (READ_REG(region->REG_CONFIGR) &
                                  OTFDEC_REG_CONFIGR_VERSION) >> OTFDEC_REG_CONFIGR_VERSION_Pos;
 
     /* Release Lock */

@@ -56,6 +56,7 @@ typedef enum
   USB_DRD_MODE    = 2
 } USB_ModeTypeDef;
 
+#if defined (HAL_HCD_MODULE_ENABLED)
 /**
   * @brief  URB States definition
   */
@@ -66,7 +67,8 @@ typedef enum
   URB_NOTREADY,
   URB_NYET,
   URB_ERROR,
-  URB_STALL
+  URB_STALL,
+  URB_NAK_WAIT
 } USB_URBStateTypeDef;
 
 /**
@@ -85,6 +87,7 @@ typedef enum
   HC_BBLERR,
   HC_DATATGLERR
 } USB_HCStateTypeDef;
+#endif /* defined (HAL_HCD_MODULE_ENABLED) */
 
 
 /**
@@ -134,6 +137,7 @@ typedef struct
 #endif /* defined (USB_DRD_FS) */
 } USB_CfgTypeDef;
 
+#if defined (HAL_PCD_MODULE_ENABLED)
 typedef struct
 {
   uint8_t   num;                  /*!< Endpoint number
@@ -197,7 +201,9 @@ typedef struct
   uint8_t   xfer_fill_db;         /*!< double buffer Need to Fill new buffer  used with bulk_in                 */
 #endif /* defined (USB_DRD_FS) */
 } USB_EPTypeDef;
+#endif /* defined (HAL_PCD_MODULE_ENABLED) */
 
+#if defined (HAL_HCD_MODULE_ENABLED)
 typedef struct
 {
   uint8_t   dev_addr;           /*!< USB device address.
@@ -206,8 +212,6 @@ typedef struct
   uint8_t   phy_ch_num;         /*!< Host channel number.
                                      This parameter must be a number between Min_Data = 1 and Max_Data = 15     */
 
-  uint8_t   ch_dir;             /*!< channel direction
-                                     This parameter store the physical channel direction IN/OUT/BIDIR           */
 #else
   uint8_t   ch_num;             /*!< Host channel number.
                                      This parameter must be a number between Min_Data = 1 and Max_Data = 15     */
@@ -218,6 +222,9 @@ typedef struct
 
   uint8_t   ep_num;             /*!< Endpoint number.
                                      This parameter must be a number between Min_Data = 1 and Max_Data = 15     */
+  uint8_t   ch_dir;             /*!< channel direction
+                                     This parameter store the physical channel direction IN/OUT/BIDIR           */
+
   uint8_t   speed;              /*!< USB Host Channel speed.
                                      This parameter can be any value of @ref HCD_Device_Speed:
                                                                              (HCD_DEVICE_SPEED_xxx)             */
@@ -263,6 +270,8 @@ typedef struct
 #if defined (USB_OTG_FS) || defined (USB_OTG_HS)
   uint32_t  dma_addr;           /*!< 32 bits aligned transfer buffer address.                                   */
   uint32_t  NyetErrCnt;         /*!< Complete Split NYET Host channel error count.                              */
+
+  uint32_t  NakCnt;             /*!< Host channel NAK count.                                                    */
 #endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 
   uint32_t  ErrCnt;             /*!< Host channel error count.                                                  */
@@ -287,22 +296,36 @@ typedef struct
   USB_HCStateTypeDef state;       /*!< Host Channel state.
                                        This parameter can be any value of @ref USB_HCStateTypeDef               */
 } USB_HCTypeDef;
+#endif /* defined (HAL_HCD_MODULE_ENABLED) */
 
 #if defined (USB_OTG_FS) || defined (USB_OTG_HS)
 typedef USB_ModeTypeDef     USB_OTG_ModeTypeDef;
 typedef USB_CfgTypeDef      USB_OTG_CfgTypeDef;
+
+#if defined (HAL_PCD_MODULE_ENABLED)
 typedef USB_EPTypeDef       USB_OTG_EPTypeDef;
+#endif /* defined (HAL_PCD_MODULE_ENABLED) */
+
+#if defined (HAL_HCD_MODULE_ENABLED)
 typedef USB_URBStateTypeDef USB_OTG_URBStateTypeDef;
 typedef USB_HCStateTypeDef  USB_OTG_HCStateTypeDef;
 typedef USB_HCTypeDef       USB_OTG_HCTypeDef;
+#endif /* defined (HAL_HCD_MODULE_ENABLED) */
 #endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
+
 #if defined (USB_DRD_FS)
 typedef USB_ModeTypeDef     USB_DRD_ModeTypeDef;
 typedef USB_CfgTypeDef      USB_DRD_CfgTypeDef;
+
+#if defined (HAL_PCD_MODULE_ENABLED)
 typedef USB_EPTypeDef       USB_DRD_EPTypeDef;
+#endif /* defined (HAL_PCD_MODULE_ENABLED) */
+
+#if defined (HAL_HCD_MODULE_ENABLED)
 typedef USB_URBStateTypeDef USB_DRD_URBStateTypeDef;
 typedef USB_HCStateTypeDef  USB_DRD_HCStateTypeDef;
 typedef USB_HCTypeDef       USB_DRD_HCTypeDef;
+#endif /* defined (HAL_HCD_MODULE_ENABLED) */
 #endif /* defined (USB_DRD_FS) */
 
 /* Exported constants --------------------------------------------------------*/
@@ -377,9 +400,9 @@ typedef USB_HCTypeDef       USB_DRD_HCTypeDef;
 /** @defgroup USB_LL_Core_PHY_Frequency USB Low Layer Core PHY Frequency
   * @{
   */
-#define DSTS_ENUMSPD_HS_PHY_30MHZ_OR_60MHZ     (0U << 1)
-#define DSTS_ENUMSPD_FS_PHY_30MHZ_OR_60MHZ     (1U << 1)
-#define DSTS_ENUMSPD_FS_PHY_48MHZ              (3U << 1)
+#define DSTS_ENUMSPD_HS_PHY_30MHZ_OR_60MHZ     (0UL << 1)
+#define DSTS_ENUMSPD_FS_PHY_30MHZ_OR_60MHZ     (1UL << 1)
+#define DSTS_ENUMSPD_FS_PHY_48MHZ              (3UL << 1)
 /**
   * @}
   */
@@ -520,6 +543,12 @@ typedef USB_HCTypeDef       USB_DRD_HCTypeDef;
 #define TEST_PACKET                            4U
 #define TEST_FORCE_EN                          5U
 
+#define USB_OTG_GAHBCFG_HBSTLEN_SINGLE         (0x0UL << USB_OTG_GAHBCFG_HBSTLEN_Pos)
+#define USB_OTG_GAHBCFG_HBSTLEN_INCR           (0x1UL << USB_OTG_GAHBCFG_HBSTLEN_Pos)
+#define USB_OTG_GAHBCFG_HBSTLEN_INCR4          (0x3UL << USB_OTG_GAHBCFG_HBSTLEN_Pos)
+#define USB_OTG_GAHBCFG_HBSTLEN_INCR8          (0x5UL << USB_OTG_GAHBCFG_HBSTLEN_Pos)
+#define USB_OTG_GAHBCFG_HBSTLEN_INCR16         (0x7UL << USB_OTG_GAHBCFG_HBSTLEN_Pos)
+
 #define USBx_PCGCCTL    *(__IO uint32_t *)((uint32_t)USBx_BASE + USB_OTG_PCGCCTL_BASE)
 #define USBx_HPRT0      *(__IO uint32_t *)((uint32_t)USBx_BASE + USB_OTG_HOST_PORT_BASE)
 
@@ -580,8 +609,8 @@ typedef USB_HCTypeDef       USB_DRD_HCTypeDef;
   * @}
   */
 /********************  Bit definition for USB_COUNTn_RX register  *************/
-#define USB_CNTRX_NBLK_MSK                    (0x1FU << 26)
-#define USB_CNTRX_BLSIZE                      (0x1U << 31)
+#define USB_CNTRX_NBLK_MSK                    (0x1FUL << 26)
+#define USB_CNTRX_BLSIZE                      (0x1UL << 31)
 
 
 /*Set Channel/Endpoint to the USB Register */
@@ -1101,18 +1130,23 @@ HAL_StatusTypeDef USB_SetCurrentMode(USB_OTG_GlobalTypeDef *USBx, USB_OTG_ModeTy
 HAL_StatusTypeDef USB_SetDevSpeed(const USB_OTG_GlobalTypeDef *USBx, uint8_t speed);
 HAL_StatusTypeDef USB_FlushRxFifo(USB_OTG_GlobalTypeDef *USBx);
 HAL_StatusTypeDef USB_FlushTxFifo(USB_OTG_GlobalTypeDef *USBx, uint32_t num);
+
+#if defined (HAL_PCD_MODULE_ENABLED)
 HAL_StatusTypeDef USB_ActivateEndpoint(const USB_OTG_GlobalTypeDef *USBx, const USB_OTG_EPTypeDef *ep);
 HAL_StatusTypeDef USB_DeactivateEndpoint(const USB_OTG_GlobalTypeDef *USBx, const USB_OTG_EPTypeDef *ep);
 HAL_StatusTypeDef USB_ActivateDedicatedEndpoint(const USB_OTG_GlobalTypeDef *USBx, const USB_OTG_EPTypeDef *ep);
 HAL_StatusTypeDef USB_DeactivateDedicatedEndpoint(const USB_OTG_GlobalTypeDef *USBx, const USB_OTG_EPTypeDef *ep);
+HAL_StatusTypeDef USB_EPSetStall(const USB_OTG_GlobalTypeDef *USBx, const USB_OTG_EPTypeDef *ep);
+HAL_StatusTypeDef USB_EPClearStall(const USB_OTG_GlobalTypeDef *USBx, const USB_OTG_EPTypeDef *ep);
 HAL_StatusTypeDef USB_EPStartXfer(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep, uint8_t dma);
+HAL_StatusTypeDef USB_EPStopXfer(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep);
+#endif /* defined (HAL_PCD_MODULE_ENABLED) */
+
 HAL_StatusTypeDef USB_WritePacket(const USB_OTG_GlobalTypeDef *USBx, uint8_t *src,
                                   uint8_t ch_ep_num, uint16_t len, uint8_t dma);
 
 void             *USB_ReadPacket(const USB_OTG_GlobalTypeDef *USBx, uint8_t *dest, uint16_t len);
-HAL_StatusTypeDef USB_EPSetStall(const USB_OTG_GlobalTypeDef *USBx, const USB_OTG_EPTypeDef *ep);
-HAL_StatusTypeDef USB_EPClearStall(const USB_OTG_GlobalTypeDef *USBx, const USB_OTG_EPTypeDef *ep);
-HAL_StatusTypeDef USB_EPStopXfer(const USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep);
+
 HAL_StatusTypeDef USB_SetDevAddress(const USB_OTG_GlobalTypeDef *USBx, uint8_t address);
 HAL_StatusTypeDef USB_DevConnect(const USB_OTG_GlobalTypeDef *USBx);
 HAL_StatusTypeDef USB_DevDisconnect(const USB_OTG_GlobalTypeDef *USBx);
@@ -1128,13 +1162,17 @@ uint32_t          USB_ReadDevOutEPInterrupt(const USB_OTG_GlobalTypeDef *USBx, u
 uint32_t          USB_ReadDevAllInEpInterrupt(const USB_OTG_GlobalTypeDef *USBx);
 uint32_t          USB_ReadDevInEPInterrupt(const USB_OTG_GlobalTypeDef *USBx, uint8_t epnum);
 void              USB_ClearInterrupts(USB_OTG_GlobalTypeDef *USBx, uint32_t interrupt);
+HAL_StatusTypeDef USB_InitFSLSPClkSel(const USB_OTG_GlobalTypeDef *USBx, uint8_t freq);
 
 HAL_StatusTypeDef USB_HostInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef cfg);
-HAL_StatusTypeDef USB_InitFSLSPClkSel(const USB_OTG_GlobalTypeDef *USBx, uint8_t freq);
 HAL_StatusTypeDef USB_ResetPort(const USB_OTG_GlobalTypeDef *USBx);
 HAL_StatusTypeDef USB_DriveVbus(const USB_OTG_GlobalTypeDef *USBx, uint8_t state);
 uint32_t          USB_GetHostSpeed(USB_OTG_GlobalTypeDef const *USBx);
 uint32_t          USB_GetCurrentFrame(USB_OTG_GlobalTypeDef const *USBx);
+HAL_StatusTypeDef USB_DoPing(const USB_OTG_GlobalTypeDef *USBx, uint8_t ch_num);
+HAL_StatusTypeDef USB_StopHost(USB_OTG_GlobalTypeDef *USBx);
+
+#if defined (HAL_HCD_MODULE_ENABLED)
 HAL_StatusTypeDef USB_HC_Init(USB_OTG_GlobalTypeDef *USBx, uint8_t ch_num,
                               uint8_t epnum, uint8_t dev_address, uint8_t speed,
                               uint8_t ep_type, uint16_t mps);
@@ -1143,8 +1181,9 @@ HAL_StatusTypeDef USB_HC_StartXfer(USB_OTG_GlobalTypeDef *USBx,
 
 uint32_t          USB_HC_ReadInterrupt(const USB_OTG_GlobalTypeDef *USBx);
 HAL_StatusTypeDef USB_HC_Halt(const USB_OTG_GlobalTypeDef *USBx, uint8_t hc_num);
-HAL_StatusTypeDef USB_DoPing(const USB_OTG_GlobalTypeDef *USBx, uint8_t ch_num);
-HAL_StatusTypeDef USB_StopHost(USB_OTG_GlobalTypeDef *USBx);
+HAL_StatusTypeDef USB_HC_Activate(USB_OTG_GlobalTypeDef *USBx, uint8_t ch_num, uint8_t ch_dir);
+#endif /* defined (HAL_HCD_MODULE_ENABLED) */
+
 HAL_StatusTypeDef USB_ActivateRemoteWakeup(const USB_OTG_GlobalTypeDef *USBx);
 HAL_StatusTypeDef USB_DeActivateRemoteWakeup(const USB_OTG_GlobalTypeDef *USBx);
 #endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
@@ -1176,16 +1215,21 @@ uint32_t          USB_ReadInterrupts(USB_DRD_TypeDef const *USBx);
 
 HAL_StatusTypeDef USB_ResetPort(USB_DRD_TypeDef *USBx);
 HAL_StatusTypeDef USB_HostInit(USB_DRD_TypeDef *USBx, USB_DRD_CfgTypeDef cfg);
-HAL_StatusTypeDef USB_HC_IN_Halt(USB_DRD_TypeDef *USBx, uint8_t phy_ch);
-HAL_StatusTypeDef USB_HC_OUT_Halt(USB_DRD_TypeDef *USBx, uint8_t phy_ch);
+
+#if defined (HAL_HCD_MODULE_ENABLED)
+HAL_StatusTypeDef USB_HC_IN_Halt(USB_DRD_TypeDef *USBx, uint8_t phy_ch_num);
+HAL_StatusTypeDef USB_HC_OUT_Halt(USB_DRD_TypeDef *USBx, uint8_t phy_ch_num);
 HAL_StatusTypeDef USB_HC_StartXfer(USB_DRD_TypeDef *USBx, USB_DRD_HCTypeDef *hc);
+HAL_StatusTypeDef USB_HC_DoubleBuffer(USB_DRD_TypeDef *USBx, uint8_t phy_ch_num, uint8_t db_state);
+HAL_StatusTypeDef USB_HC_Init(USB_DRD_TypeDef *USBx, uint8_t phy_ch_num, uint8_t epnum,
+                              uint8_t dev_address, uint8_t speed, uint8_t ep_type, uint16_t mps);
+
+HAL_StatusTypeDef USB_HC_Activate(USB_DRD_TypeDef *USBx, uint8_t phy_ch_num, uint8_t ch_dir);
+#endif /* defined (HAL_HCD_MODULE_ENABLED) */
 
 uint32_t          USB_GetHostSpeed(USB_DRD_TypeDef const *USBx);
 uint32_t          USB_GetCurrentFrame(USB_DRD_TypeDef const *USBx);
 HAL_StatusTypeDef USB_StopHost(USB_DRD_TypeDef *USBx);
-HAL_StatusTypeDef USB_HC_DoubleBuffer(USB_DRD_TypeDef *USBx, uint8_t phy_ch_num, uint8_t db_state);
-HAL_StatusTypeDef USB_HC_Init(USB_DRD_TypeDef *USBx, uint8_t phy_ch_num, uint8_t epnum,
-                              uint8_t dev_address, uint8_t speed, uint8_t ep_type, uint16_t mps);
 
 HAL_StatusTypeDef USB_ActivateRemoteWakeup(USB_DRD_TypeDef *USBx);
 HAL_StatusTypeDef USB_DeActivateRemoteWakeup(USB_DRD_TypeDef *USBx);
@@ -1216,6 +1260,5 @@ void              USB_ReadPMA(USB_DRD_TypeDef const *USBx, uint8_t *pbUsrBuf,
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
-
 
 #endif /* STM32U5xx_LL_USB_H */

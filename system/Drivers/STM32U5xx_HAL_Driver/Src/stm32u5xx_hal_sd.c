@@ -465,7 +465,7 @@ HAL_StatusTypeDef HAL_SD_Init(SD_HandleTypeDef *hsd)
 HAL_StatusTypeDef HAL_SD_InitCard(SD_HandleTypeDef *hsd)
 {
   uint32_t errorstate;
-  SD_InitTypeDef Init;
+  SD_InitTypeDef Init = {0U};
   uint32_t sdmmc_clk;
 
   /* Default SDMMC peripheral configuration for SD card initialization */

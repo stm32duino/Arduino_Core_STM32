@@ -62,17 +62,17 @@
           Use Functions HAL_SPI_RegisterCallback() to register an interrupt callback.
 
           Function HAL_SPI_RegisterCallback() allows to register following callbacks:
-            (+) TxCpltCallback        : SPI Tx Completed callback
-            (+) RxCpltCallback        : SPI Rx Completed callback
-            (+) TxRxCpltCallback      : SPI TxRx Completed callback
-            (+) TxHalfCpltCallback    : SPI Tx Half Completed callback
-            (+) RxHalfCpltCallback    : SPI Rx Half Completed callback
-            (+) TxRxHalfCpltCallback  : SPI TxRx Half Completed callback
-            (+) ErrorCallback         : SPI Error callback
-            (+) AbortCpltCallback     : SPI Abort callback
-            (+) SuspendCallback       : SPI Suspend callback
-            (+) MspInitCallback       : SPI Msp Init callback
-            (+) MspDeInitCallback     : SPI Msp DeInit callback
+            (++) TxCpltCallback        : SPI Tx Completed callback
+            (++) RxCpltCallback        : SPI Rx Completed callback
+            (++) TxRxCpltCallback      : SPI TxRx Completed callback
+            (++) TxHalfCpltCallback    : SPI Tx Half Completed callback
+            (++) RxHalfCpltCallback    : SPI Rx Half Completed callback
+            (++) TxRxHalfCpltCallback  : SPI TxRx Half Completed callback
+            (++) ErrorCallback         : SPI Error callback
+            (++) AbortCpltCallback     : SPI Abort callback
+            (++) SuspendCallback       : SPI Suspend callback
+            (++) MspInitCallback       : SPI Msp Init callback
+            (++) MspDeInitCallback     : SPI Msp DeInit callback
           This function takes as parameters the HAL peripheral handle, the Callback ID
           and a pointer to the user callback function.
 
@@ -82,17 +82,17 @@
           HAL_SPI_UnRegisterCallback takes as parameters the HAL peripheral handle,
           and the Callback ID.
           This function allows to reset following callbacks:
-            (+) TxCpltCallback        : SPI Tx Completed callback
-            (+) RxCpltCallback        : SPI Rx Completed callback
-            (+) TxRxCpltCallback      : SPI TxRx Completed callback
-            (+) TxHalfCpltCallback    : SPI Tx Half Completed callback
-            (+) RxHalfCpltCallback    : SPI Rx Half Completed callback
-            (+) TxRxHalfCpltCallback  : SPI TxRx Half Completed callback
-            (+) ErrorCallback         : SPI Error callback
-            (+) AbortCpltCallback     : SPI Abort callback
-            (+) SuspendCallback       : SPI Suspend callback
-            (+) MspInitCallback       : SPI Msp Init callback
-            (+) MspDeInitCallback     : SPI Msp DeInit callback
+            (++) TxCpltCallback        : SPI Tx Completed callback
+            (++) RxCpltCallback        : SPI Rx Completed callback
+            (++) TxRxCpltCallback      : SPI TxRx Completed callback
+            (++) TxHalfCpltCallback    : SPI Tx Half Completed callback
+            (++) RxHalfCpltCallback    : SPI Rx Half Completed callback
+            (++) TxRxHalfCpltCallback  : SPI TxRx Half Completed callback
+            (++) ErrorCallback         : SPI Error callback
+            (++) AbortCpltCallback     : SPI Abort callback
+            (++) SuspendCallback       : SPI Suspend callback
+            (++) MspInitCallback       : SPI Msp Init callback
+            (++) MspDeInitCallback     : SPI Msp DeInit callback
 
        By default, after the HAL_SPI_Init() and when the state is HAL_SPI_STATE_RESET
        all callbacks are set to the corresponding weak functions:
@@ -3819,13 +3819,15 @@ static void SPI_RxISR_32BIT(SPI_HandleTypeDef *hspi)
 static void SPI_TxISR_8BIT(SPI_HandleTypeDef *hspi)
 {
   /* Transmit data in 8 Bit mode */
-  *(__IO uint8_t *)&hspi->Instance->TXDR = *((const uint8_t *)hspi->pTxBuffPtr);
-  hspi->pTxBuffPtr += sizeof(uint8_t);
-  hspi->TxXferCount--;
-
-  /* Disable IT if no more data excepted */
-  if (hspi->TxXferCount == 0UL)
+  if (hspi->TxXferCount != 0UL)
   {
+    *(__IO uint8_t *)&hspi->Instance->TXDR = *((const uint8_t *)hspi->pTxBuffPtr);
+    hspi->pTxBuffPtr += sizeof(uint8_t);
+    hspi->TxXferCount--;
+  }
+  else
+  {
+    /* Disable IT if no more data expected */
     /* Disable TXP interrupts */
     __HAL_SPI_DISABLE_IT(hspi, SPI_IT_TXP);
   }
@@ -3840,19 +3842,21 @@ static void SPI_TxISR_8BIT(SPI_HandleTypeDef *hspi)
 static void SPI_TxISR_16BIT(SPI_HandleTypeDef *hspi)
 {
   /* Transmit data in 16 Bit mode */
-#if defined (__GNUC__)
-  __IO uint16_t *ptxdr_16bits = (__IO uint16_t *)(&(hspi->Instance->TXDR));
-
-  *ptxdr_16bits = *((const uint16_t *)hspi->pTxBuffPtr);
-#else
-  *((__IO uint16_t *)&hspi->Instance->TXDR) = *((const uint16_t *)hspi->pTxBuffPtr);
-#endif /* __GNUC__ */
-  hspi->pTxBuffPtr += sizeof(uint16_t);
-  hspi->TxXferCount--;
-
-  /* Disable IT if no more data excepted */
-  if (hspi->TxXferCount == 0UL)
+  if (hspi->TxXferCount != 0UL)
   {
+#if defined (__GNUC__)
+    __IO uint16_t *ptxdr_16bits = (__IO uint16_t *)(&(hspi->Instance->TXDR));
+
+    *ptxdr_16bits = *((const uint16_t *)hspi->pTxBuffPtr);
+#else
+    *((__IO uint16_t *)&hspi->Instance->TXDR) = *((const uint16_t *)hspi->pTxBuffPtr);
+#endif /* __GNUC__ */
+    hspi->pTxBuffPtr += sizeof(uint16_t);
+    hspi->TxXferCount--;
+  }
+  else
+  {
+    /* Disable IT if no more data expected */
     /* Disable TXP interrupts */
     __HAL_SPI_DISABLE_IT(hspi, SPI_IT_TXP);
   }
@@ -3867,13 +3871,15 @@ static void SPI_TxISR_16BIT(SPI_HandleTypeDef *hspi)
 static void SPI_TxISR_32BIT(SPI_HandleTypeDef *hspi)
 {
   /* Transmit data in 32 Bit mode */
-  *((__IO uint32_t *)&hspi->Instance->TXDR) = *((const uint32_t *)hspi->pTxBuffPtr);
-  hspi->pTxBuffPtr += sizeof(uint32_t);
-  hspi->TxXferCount--;
-
-  /* Disable IT if no more data excepted */
-  if (hspi->TxXferCount == 0UL)
+  if (hspi->TxXferCount != 0UL)
   {
+    *((__IO uint32_t *)&hspi->Instance->TXDR) = *((const uint32_t *)hspi->pTxBuffPtr);
+    hspi->pTxBuffPtr += sizeof(uint32_t);
+    hspi->TxXferCount--;
+  }
+  else
+  {
+    /* Disable IT if no more data expected */
     /* Disable TXP interrupts */
     __HAL_SPI_DISABLE_IT(hspi, SPI_IT_TXP);
   }

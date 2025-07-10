@@ -40,13 +40,123 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section10" checked aria-hidden="true"> <label for="collapse-section10" checked aria-hidden="true"><strong>V1.6.1 / 30-October-2024</strong></label>
+<input type="checkbox" id="collapse-section11" checked aria-hidden="true"> <label for="collapse-section11" checked aria-hidden="true"><strong>V1.6.2 / 04-June-2025</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and implementation enhancements.</li>
 </ul>
 <h3 id="halll-drivers-updates"><strong>HAL/LL Drivers</strong> updates</h3>
+<ul>
+<li><strong>HAL Generic</strong> driver
+<ul>
+<li>Update HAL_SetTickFreq() API to restore current tick frequency when call to HAL_InitTick() fails.</li>
+</ul></li>
+<li><strong>HAL/LL GPIO</strong> driver
+<ul>
+<li>Update HAL_GPIO_Init() API to add Pull down capability in analog mode.</li>
+</ul></li>
+<li><strong>HAL/LL DMA</strong> driver
+<ul>
+<li>Remove extra unused parentheses in HAL_DMA_IRQHandler.</li>
+<li>Add attribute ((no_inline)) to DMA_List_CheckNodesBaseAddresse() API to avoid warning with GCC compiler.</li>
+<li>Add DMA XferSuspendCallback initialization before starting DMA transfers in HAL UART.</li>
+<li>Add initialization of callbacks in HAL_DMA_Init() API.</li>
+</ul></li>
+<li><strong>HAL FLASH</strong> driver
+<ul>
+<li>Replace the timeout calculation in HAL_GetTick() to determine elapsed time instead of adding a fixed timeout value.</li>
+</ul></li>
+<li><strong>HAL/LL ADC</strong> driver
+<ul>
+<li>Remove assert in HAL_ADC_ConfigChannel() API.</li>
+<li>Update ADC calibration values as addresses of const data.</li>
+</ul></li>
+<li><strong>HAL/LL TIM</strong> driver
+<ul>
+<li>Update TIM_CCER_CCxE_MASK to support internal TIM Channel5 and TIM Channel6.</li>
+</ul></li>
+<li><strong>HAL/LL LPTIM</strong> driver
+<ul>
+<li>Fix LL_LPTIM_CC_SetChannelMode() static function to manage properly on the fly channel mode changes.</li>
+</ul></li>
+<li><strong>HAL/LL UART</strong> driver
+<ul>
+<li>Provide accurate position in RxEventCallback when ReceptionToIdle mode is used with DMA, when UART and DMA interrupts process is delayed.</li>
+</ul></li>
+<li><strong>HAL/LL USART</strong> driver
+<ul>
+<li>Solve Coverity out-of-bound memory access warning in use of USART_PRESCALER_TAB array.</li>
+</ul></li>
+<li><strong>HAL OCTOSPI</strong> driver
+<ul>
+<li>Change ChipSelectHighTime max limits to 64 to feat with specification.</li>
+</ul></li>
+<li><strong>HAL/LL SPI</strong> driver
+<ul>
+<li>Clear auto suspend flag in HAL_SPI_Receive() API.</li>
+<li>Fix buffer overflow in TX interrupt service routine.</li>
+</ul></li>
+<li><strong>HAL XSPI</strong> driver
+<ul>
+<li>Add asserts to inform user when data size or address requested is not compatible with current XSPI configuration.</li>
+<li>Check BUSY flag instead of TC flag in indirect mode to be sure that command is well completed (FIFO flush).</li>
+</ul></li>
+<li><strong>LL LPUART</strong> driver
+<ul>
+<li>Solve Coverity out-of-bound memory access warning in use of LPUART_PRESCALER_TAB array.</li>
+</ul></li>
+<li><strong>HAL/LL RTC_BKP</strong> driver
+<ul>
+<li>Complete the check on the tamper trigger configuration in HAL_RTCEx_SetTamper_IT() API to be the same as in HAL_RTCEx_SetTamper() API.</li>
+<li>Add an ‘else’ block to the ‘if’ statement that checks the RTC binary mode in HAL_RTC_Init() API.</li>
+<li>Remove useless second write access to TAMP-&gt;IER register from HAL_RTCEx_SetActiveTampers() API.</li>
+</ul></li>
+<li><strong>HAL CRC</strong> driver
+<ul>
+<li>Replace successive ‘if’ statements by ‘else if’ to improve checksum calculation performance in CRC_Handle_8() function.</li>
+</ul></li>
+<li><strong>HAL FMAC</strong> driver
+<ul>
+<li>Complete DMA Abort sequence in HAL_FMAC_FilterStop()</li>
+</ul></li>
+<li><strong>HAL/LL PKA</strong> driver
+<ul>
+<li>Update PKA_ModExpFastMode_Set() function to solve the issue when data is not multiple of 4 bytes for PKA Modular Exponentiation Fast Mode.</li>
+<li>Add specific LL PKA API to check the PKA initialization OK status: LL_PKA_IsActiveFlag_INITOK() API.</li>
+</ul></li>
+<li><strong>HAL/LL NAND</strong> driver
+<ul>
+<li>Update bug in HAL_NAND_Read_Page_8b(), HAL_NAND_Read_Page_16b(), HAL_NAND_Read_SpareArea_8b() and HAL_NAND_Read_SpareArea_16b() APIs to ensure correct data reads.</li>
+</ul></li>
+<li><strong>HAL JPEG</strong> driver
+<ul>
+<li>Update JPEG_DMA_ContinueProcess() function to use blocking DMA abort.</li>
+<li>Remove multiple volatile reads in interrupt handler in JPEG_Process() and JPEG_DMA_ContinueProcess() functions.</li>
+</ul></li>
+<li><strong>HAL USB-FS</strong> driver
+<ul>
+<li>Fix USB PCD setup and data buffers overflow (SA0035).</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>N/A</li>
+</ul>
+<h2 id="backward-compatibility">Backward compatibility</h2>
+<ul>
+<li>N/A</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section10" aria-hidden="true"> <label for="collapse-section10" aria-hidden="true"><strong>V1.6.1 / 30-October-2024</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<ul>
+<li>General updates to fix known defects and implementation enhancements.</li>
+</ul>
+<h3 id="halll-drivers-updates-1"><strong>HAL/LL Drivers</strong> updates</h3>
 <ul>
 <li><strong>HAL/LL ADC</strong> driver
 <ul>
@@ -178,11 +288,11 @@
 <li>Fix the condition on EONUM flag of DOEPCTLx register in HAL_PCD_IRQHandler() to correctly check on the frame number parity.</li>
 </ul></li>
 </ul>
-<h2 id="known-limitations">Known Limitations</h2>
+<h2 id="known-limitations-1">Known Limitations</h2>
 <ul>
 <li>N/A</li>
 </ul>
-<h2 id="backward-compatibility">Backward compatibility</h2>
+<h2 id="backward-compatibility-1">Backward compatibility</h2>
 <ul>
 <li>N/A</li>
 </ul>
@@ -191,12 +301,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section9" aria-hidden="true"> <label for="collapse-section9" checked aria-hidden="true"><strong>V1.6.0 / 05-June-2024</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>Maintenance Release V1.6.0 of <span style="font-weight: bold;">STM32CubeU5</span> Firmware Package to deploy the new HAL SDIO driver.</li>
 <li>General updates to fix known defects and implementation enhancements.</li>
 </ul>
-<h3 id="halll-drivers-updates-1"><strong>HAL/LL Drivers</strong> updates</h3>
+<h3 id="halll-drivers-updates-2"><strong>HAL/LL Drivers</strong> updates</h3>
 <ul>
 <li><strong>HAL GENERIC</strong> driver
 <ul>
@@ -220,11 +330,11 @@
 <li>Support new HAL SDIO driver.</li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-1">Known Limitations</h2>
+<h2 id="known-limitations-2">Known Limitations</h2>
 <ul>
 <li>N/A</li>
 </ul>
-<h2 id="backward-compatibility-1">Backward compatibility</h2>
+<h2 id="backward-compatibility-2">Backward compatibility</h2>
 <ul>
 <li>N/A</li>
 </ul>
@@ -233,7 +343,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section8" aria-hidden="true"> <label for="collapse-section8" aria-hidden="true"><strong>V1.5.0 / 13-February-2024</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li><strong>HAL and LL drivers</strong> Maintenance Release for <strong>STM32U535xx/STM32U545xx, STM32U575xx/STM32U585xx, STM32U599xx/STM32U5A9xx, STM32U595xx/STM32U5A5xx, STM32U5F9xx/STM32U5G9xx</strong> and <strong>STM32U5F7xx/STM32U5G7xx</strong> devices</li>
 <li>Add the <strong>HAL MMC</strong> replay protected memory block management feature</li>
@@ -414,11 +524,11 @@
 <li>Rename LL_UTILS_PACKAGETYPE_WLCSP144_SMPS to LL_UTILS_PACKAGETYPE_LQFP100_DSI_SMPS define</li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-2">Known Limitations</h2>
+<h2 id="known-limitations-3">Known Limitations</h2>
 <ul>
 <li>N/A</li>
 </ul>
-<h2 id="backward-compatibility-2">Backward compatibility</h2>
+<h2 id="backward-compatibility-3">Backward compatibility</h2>
 <ul>
 <li>N/A</li>
 </ul>
@@ -427,7 +537,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section7" aria-hidden="true"> <label for="collapse-section7" checked aria-hidden="true"><strong>V1.4.0 / 20-October-2023</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li><strong>HAL and LL drivers</strong> Maintenance Release for <strong>STM32U5XX</strong> devices</li>
 <li>Update <strong>ADC</strong> HAL and LL drivers to fix known defects and add implementation enhancements</li>
@@ -451,11 +561,11 @@
 <li>Add new Helper macro for differential mode raw data to voltage conversion</li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-3">Known Limitations</h2>
+<h2 id="known-limitations-4">Known Limitations</h2>
 <ul>
 <li>N/A</li>
 </ul>
-<h2 id="backward-compatibility-3">Backward compatibility</h2>
+<h2 id="backward-compatibility-4">Backward compatibility</h2>
 <ul>
 <li>N/A</li>
 </ul>
@@ -464,7 +574,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" checked aria-hidden="true"><strong>V1.3.0 / 09-June-2023</strong></label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <ul>
 <li><strong>HAL and LL drivers</strong> official Release for <strong>STM32U5F7xx/STM32U5G7xx</strong>, <strong>STM32U5F9xx/STM32U5G9xx</strong>, <strong>STM32U535xx/STM32U545xx, STM32U575xx/STM32U585xx, STM32U595xx/STM32U5A5xx</strong> and <strong>STM32U599xx/STM32U5A9xx</strong> devices</li>
 <li>Add <strong>2 new HAL drivers</strong> : <strong>GFXTIM</strong> and <strong>JPEG</strong> highlighting the graphics aspect of STM32U5F7/STM32U5G7/STM32U5F9/STM32U5G9 devices</li>
@@ -554,11 +664,11 @@
 </ul></li>
 </ul>
 <p>Note: HAL/LL Backward compatibility ensured by legacy defines.</p>
-<h2 id="known-limitations-4">Known Limitations</h2>
+<h2 id="known-limitations-5">Known Limitations</h2>
 <ul>
 <li>N/A</li>
 </ul>
-<h2 id="backward-compatibility-4">Backward compatibility</h2>
+<h2 id="backward-compatibility-5">Backward compatibility</h2>
 <ul>
 <li>N/A</li>
 </ul>
@@ -567,7 +677,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" checked aria-hidden="true"><strong>V1.2.0 / 08-February-2023</strong></label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <ul>
 <li><strong>HAL and LL drivers</strong> Official Release for STM32U535xx / STM32U545xx, STM32U575xx / STM32U585xx, STM32U595xx, STM32U5A5xx, STM32U599xx and STM32U5A9xx devices.</li>
 <li>Update STM32U545xx_User_Manual, STM32U585xx_User_Manual and STM32U5A9xx_User_Manual CHM User Manuals</li>
@@ -767,11 +877,11 @@
 </ul></li>
 </ul>
 <p>Note: HAL/LL Backward compatibility ensured by legacy defines.</p>
-<h2 id="known-limitations-5">Known Limitations</h2>
+<h2 id="known-limitations-6">Known Limitations</h2>
 <ul>
 <li>N/A</li>
 </ul>
-<h2 id="backward-compatibility-5">Backward compatibility</h2>
+<h2 id="backward-compatibility-6">Backward compatibility</h2>
 <ul>
 <li>N/A</li>
 </ul>
@@ -780,7 +890,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" checked aria-hidden="true"><strong>V1.1.0 / 16-February-2022</strong></label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <ul>
 <li><strong>HAL and LL drivers</strong> Maintenance Release for STM32U575xx / STM32U585xx devices and new support of STM32U595xx, STM32U5A5xx, STM32U599xx and STM32U5A9xx devices</li>
 <li>Add <strong>New LTDC, GFXMMU, DSI, GPU2D HAL drivers</strong> highlighting the graphics aspect of STM32U595/STM32U5A5/STM32U599/STM32U5A9 devices</li>
@@ -1007,11 +1117,11 @@
 </ul></li>
 </ul>
 <p>Backward compatibility ensured by legacy defines</p>
-<h2 id="known-limitations-6">Known Limitations</h2>
+<h2 id="known-limitations-7">Known Limitations</h2>
 <ul>
 <li>N/A</li>
 </ul>
-<h2 id="backward-compatibility-6">Backward compatibility</h2>
+<h2 id="backward-compatibility-7">Backward compatibility</h2>
 <ul>
 <li>N/A</li>
 </ul>
@@ -1020,7 +1130,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true"><strong>V1.0.2 / 14-October-2021</strong></label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
+<h2 id="main-changes-8">Main Changes</h2>
 <ul>
 <li>Patch release V1.0.2 of <strong>HAL and LL drivers</strong> for <strong>STM32U575xx / STM32U585xx</strong> devices</li>
 </ul>
@@ -1036,11 +1146,11 @@
 </ul></li>
 <li>Backward compatibility ensured by legacy defines</li>
 </ul>
-<h2 id="known-limitations-7">Known Limitations</h2>
+<h2 id="known-limitations-8">Known Limitations</h2>
 <ul>
 <li>N/A</li>
 </ul>
-<h2 id="backward-compatibility-7">Backward compatibility</h2>
+<h2 id="backward-compatibility-8">Backward compatibility</h2>
 <ul>
 <li>N/A</li>
 </ul>
@@ -1049,7 +1159,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true"><strong>V1.0.1 / 01-October-2021</strong></label>
 <div>
-<h2 id="main-changes-8">Main Changes</h2>
+<h2 id="main-changes-9">Main Changes</h2>
 <ul>
 <li>Patch release V1.0.1 of <strong>HAL and LL drivers</strong> for <strong>STM32U575xx / STM32U585xx</strong> devices</li>
 </ul>
@@ -1098,11 +1208,11 @@
 <li>Add LL_I2C_EnableFastModePlus, LL_I2C_DisableFastModePlus and LL_I2C_IsEnabledFastModePlus APIs</li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-8">Known Limitations</h2>
+<h2 id="known-limitations-9">Known Limitations</h2>
 <ul>
 <li>N/A</li>
 </ul>
-<h2 id="backward-compatibility-8">Backward compatibility</h2>
+<h2 id="backward-compatibility-9">Backward compatibility</h2>
 <ul>
 <li>N/A</li>
 </ul>
@@ -1111,11 +1221,11 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" checked aria-hidden="true"><strong>V1.0.0 / 28-June-2021</strong></label>
 <div>
-<h2 id="main-changes-9">Main Changes</h2>
+<h2 id="main-changes-10">Main Changes</h2>
 <ul>
 <li>First official release of <strong>HAL and LL drivers</strong> for <strong>STM32U575xx / STM32U585xx</strong> devices</li>
 </ul>
-<h2 id="known-limitations-9">Known Limitations</h2>
+<h2 id="known-limitations-10">Known Limitations</h2>
 <ul>
 <li>N/A</li>
 </ul>

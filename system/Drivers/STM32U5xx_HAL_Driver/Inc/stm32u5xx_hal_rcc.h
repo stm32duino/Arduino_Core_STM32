@@ -4705,10 +4705,10 @@ typedef struct
   *            @arg @ref RCC_FLAG_LPWRRST  Low Power reset
   * @retval The new state of __FLAG__ (TRUE or FALSE).
   */
-#define __HAL_RCC_GET_FLAG(__FLAG__) ((((((((__FLAG__) >> 5U) == 1U) ? RCC->CR :                  \
-                                          ((((__FLAG__) >> 5U) == 2U) ? RCC->BDCR :                 \
-                                           ((((__FLAG__) >> 5U) == 3U) ? RCC->CSR : RCC->CIFR)))) &  \
-                                        (1U << ((__FLAG__) & RCC_FLAG_MASK))) != 0U) ? 1U : 0U)
+#define __HAL_RCC_GET_FLAG(__FLAG__) ((((((((__FLAG__) >> 5UL) == 1UL) ? RCC->CR :                  \
+                                          ((((__FLAG__) >> 5UL) == 2UL) ? RCC->BDCR :                 \
+                                           ((((__FLAG__) >> 5UL) == 3UL) ? RCC->CSR : RCC->CIFR)))) &  \
+                                        (1UL << ((__FLAG__) & RCC_FLAG_MASK))) != 0UL) ? 1U : 0U)
 /**
   * @}
   */
