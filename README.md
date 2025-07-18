@@ -763,7 +763,9 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart:  | STM32U073C8<br>STM32U073CB<br>STM32U073CC | Generic Board | **2.11.0** |  |
 | :green_heart:  | STM32U073R8<br>STSTM32U073RB<br>STM32U073RC | Generic Board | *2.9.0* |  |
+| :yellow_heart:  | STM32U083CC | Generic Board | **2.11.0** |  |
 | :green_heart:  | STM32U083RC | Generic Board | *2.9.0* |  |
 
 ### Generic STM32U3 boards
