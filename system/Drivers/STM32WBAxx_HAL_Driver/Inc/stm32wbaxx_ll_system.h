@@ -43,7 +43,7 @@ extern "C" {
   * @{
   */
 
-#if defined (FLASH) || defined (SYSCFG) || defined (DBGMCU)
+#if defined (FLASH) || defined (SYSCFG) || defined (DBGMCU) || defined (VREFBUF)
 
 /** @defgroup SYSTEM_LL SYSTEM
   * @{
@@ -60,9 +60,18 @@ extern "C" {
 /**
   * @brief Power-down in Run mode Flash key
   */
+#if defined(FLASH_DBANK_SUPPORT)
+#define FLASH_PDKEY1_1                 0x04152637U /*!< Flash bank 1 power down key1 */
+#define FLASH_PDKEY1_2                 0xFAFBFCFDU /*!< Flash bank 1 power down key2: used with FLASH_PDKEY1R
+                                                       to unlock the PDREQ1 bit in FLASH_ACR */
+#define FLASH_PDKEY2_1                 0x40516273U /*!< Flash bank 2 power down key1 */
+#define FLASH_PDKEY2_2                 0xAFBFCFDFU /*!< Flash bank 2 power down key2: used with FLASH_PDKEY2R
+                                                       to unlock the PDREQ2 bit in FLASH_ACR */
+#else
 #define FLASH_PDKEY1_1                 0x04152637U /*!< Flash power down key1 */
 #define FLASH_PDKEY1_2                 0xFAFBFCFDU /*!< Flash power down key2: used with FLASH_PDKEYR
                                                        to unlock the PDREQ bit in FLASH_ACR */
+#endif /* FLASH_DBANK_SUPPORT */
 /**
   * @}
   */
@@ -150,11 +159,17 @@ extern "C" {
   */
 #define LL_DBGMCU_APB1_GRP1_TIM2_STOP      DBGMCU_APB1LFZR_DBG_TIM2_STOP   /*!< The counter clock of TIM2 is stopped when the core is halted*/
 #define LL_DBGMCU_APB1_GRP1_TIM3_STOP      DBGMCU_APB1LFZR_DBG_TIM3_STOP   /*!< The counter clock of TIM3 is stopped when the core is halted*/
+#if defined(TIM4)
+#define LL_DBGMCU_APB1_GRP1_TIM4_STOP      DBGMCU_APB1LFZR_DBG_TIM4_STOP   /*!< The counter clock of TIM4 is stopped when the core is halted*/
+#endif /* TIM4 */
 #define LL_DBGMCU_APB1_GRP1_WWDG_STOP      DBGMCU_APB1LFZR_DBG_WWDG_STOP   /*!< The window watchdog counter clock is stopped when the core is halted*/
 #define LL_DBGMCU_APB1_GRP1_IWDG_STOP      DBGMCU_APB1LFZR_DBG_IWDG_STOP   /*!< The independent watchdog counter clock is stopped when the core is halted*/
 #if defined(I2C1)
 #define LL_DBGMCU_APB1_GRP1_I2C1_STOP      DBGMCU_APB1LFZR_DBG_I2C1_STOP   /*!< The I2C1 SMBus timeout is frozen*/
 #endif /* I2C1 */
+#if defined(I2C2)
+#define LL_DBGMCU_APB1_GRP1_I2C2_STOP      DBGMCU_APB1LFZR_DBG_I2C2_STOP   /*!< The I2C2 SMBus timeout is frozen*/
+#endif /* I2C2 */
 /**
   * @}
   */
@@ -162,6 +177,9 @@ extern "C" {
 /** @defgroup SYSTEM_LL_EC_APB1_GRP2_STOP_IP DBGMCU APB1 GRP2 STOP IP
   * @{
   */
+#if defined(I2C4)
+#define LL_DBGMCU_APB1_GRP2_I2C4_STOP      DBGMCU_APB1HFZR_DBG_I2C4_STOP   /*!< The I2C4 SMBus timeout is frozen*/
+#endif /* I2C4 */
 #if defined(LPTIM2)
 #define LL_DBGMCU_APB1_GRP2_LPTIM2_STOP    DBGMCU_APB1HFZR_DBG_LPTIM2_STOP /*!< The counter clock of LPTIM2 is stopped when the core is halted*/
 #endif /* LPTIM2 */
@@ -212,6 +230,18 @@ extern "C" {
   * @}
   */
 
+#if defined(VREFBUF)
+/** @defgroup SYSTEM_LL_EC_VOLTAGE VREFBUF VOLTAGE
+  * @{
+  */
+#define LL_VREFBUF_VOLTAGE_SCALE0          VREFBUF_CSR_VRS_OUT1   /*!< Voltage reference scale 0 (VREF_OUT1) */
+#define LL_VREFBUF_VOLTAGE_SCALE1          VREFBUF_CSR_VRS_OUT2   /*!< Voltage reference scale 1 (VREF_OUT2) */
+#define LL_VREFBUF_VOLTAGE_SCALE2          VREFBUF_CSR_VRS_OUT3   /*!< Voltage reference scale 2 (VREF_OUT3) */
+#define LL_VREFBUF_VOLTAGE_SCALE3          VREFBUF_CSR_VRS_OUT4   /*!< Voltage reference scale 3 (VREF_OUT4) */
+/**
+  * @}
+  */
+#endif /* VREFBUF */
 
 /**
   * @}
@@ -1170,6 +1200,20 @@ __STATIC_INLINE uint32_t LL_FLASH_GetLatency(void)
   */
 __STATIC_INLINE void LL_FLASH_EnableRunPowerDown(void)
 {
+#if defined(FLASH_DBANK_SUPPORT)
+  /* Following values must be written consecutively to unlock the PDREQ1 bit in
+  FLASH_ACR for Bank 1 */
+  WRITE_REG(FLASH->PDKEY1R, FLASH_PDKEY1_1);
+  WRITE_REG(FLASH->PDKEY1R, FLASH_PDKEY1_2);
+
+  /* Following values must be written consecutively to unlock the PDREQ2 bit in
+  FLASH_ACR for Bank 2 */
+  WRITE_REG(FLASH->PDKEY2R, FLASH_PDKEY2_1);
+  WRITE_REG(FLASH->PDKEY2R, FLASH_PDKEY2_2);
+
+  /*Request to enter flash in power mode */
+  SET_BIT(FLASH->ACR, (FLASH_ACR_PDREQ1 | FLASH_ACR_PDREQ2));
+#else
   /* Following values must be written consecutively to unlock the PDREQ bit in
   FLASH_ACR */
   WRITE_REG(FLASH->PDKEYR, FLASH_PDKEY1_1);
@@ -1177,6 +1221,7 @@ __STATIC_INLINE void LL_FLASH_EnableRunPowerDown(void)
 
   /*Request to enter flash in power mode */
   SET_BIT(FLASH->ACR, FLASH_ACR_PDREQ);
+#endif /* FLASH_DBANK_SUPPORT */
 }
 
 /**
@@ -1234,6 +1279,115 @@ __STATIC_INLINE uint32_t LL_FLASH_GetSTCompanyID(void)
   */
 
 
+#if defined(VREFBUF)
+/** @defgroup SYSTEM_LL_EF_VREFBUF VREFBUF
+  * @{
+  */
+
+/**
+  * @brief  Enable Internal voltage reference
+  * @rmtoll VREFBUF_CSR  ENVR          LL_VREFBUF_Enable
+  * @retval None
+  */
+__STATIC_INLINE void LL_VREFBUF_Enable(void)
+{
+  SET_BIT(VREFBUF->CSR, VREFBUF_CSR_ENVR);
+}
+
+/**
+  * @brief  Disable Internal voltage reference
+  * @rmtoll VREFBUF_CSR  ENVR          LL_VREFBUF_Disable
+  * @retval None
+  */
+__STATIC_INLINE void LL_VREFBUF_Disable(void)
+{
+  CLEAR_BIT(VREFBUF->CSR, VREFBUF_CSR_ENVR);
+}
+
+/**
+  * @brief  Enable high impedance (VREF+pin is high impedance)
+  * @rmtoll VREFBUF_CSR  HIZ           LL_VREFBUF_EnableHIZ
+  * @retval None
+  */
+__STATIC_INLINE void LL_VREFBUF_EnableHIZ(void)
+{
+  SET_BIT(VREFBUF->CSR, VREFBUF_CSR_HIZ);
+}
+
+/**
+  * @brief  Disable high impedance (VREF+pin is internally connected to the voltage reference buffer output)
+  * @rmtoll VREFBUF_CSR  HIZ           LL_VREFBUF_DisableHIZ
+  * @retval None
+  */
+__STATIC_INLINE void LL_VREFBUF_DisableHIZ(void)
+{
+  CLEAR_BIT(VREFBUF->CSR, VREFBUF_CSR_HIZ);
+}
+
+/**
+  * @brief  Set the Voltage reference scale
+  * @rmtoll VREFBUF_CSR  VRS           LL_VREFBUF_SetVoltageScaling
+  * @param  Scale This parameter can be one of the following values:
+  *         @arg @ref LL_VREFBUF_VOLTAGE_SCALE0
+  *         @arg @ref LL_VREFBUF_VOLTAGE_SCALE1
+  *         @arg @ref LL_VREFBUF_VOLTAGE_SCALE2
+  *         @arg @ref LL_VREFBUF_VOLTAGE_SCALE3
+  * @retval None
+  */
+__STATIC_INLINE void LL_VREFBUF_SetVoltageScaling(uint32_t Scale)
+{
+  MODIFY_REG(VREFBUF->CSR, VREFBUF_CSR_VRS, Scale);
+}
+
+/**
+  * @brief  Get the Voltage reference scale
+  * @rmtoll VREFBUF_CSR  VRS           LL_VREFBUF_GetVoltageScaling
+  * @retval Returned value can be one of the following values:
+  *         @arg @ref LL_VREFBUF_VOLTAGE_SCALE0
+  *         @arg @ref LL_VREFBUF_VOLTAGE_SCALE1
+  *         @arg @ref LL_VREFBUF_VOLTAGE_SCALE2
+  *         @arg @ref LL_VREFBUF_VOLTAGE_SCALE3
+  */
+__STATIC_INLINE uint32_t LL_VREFBUF_GetVoltageScaling(void)
+{
+  return (uint32_t)(READ_BIT(VREFBUF->CSR, VREFBUF_CSR_VRS));
+}
+
+/**
+  * @brief  Check if Voltage reference buffer is ready
+  * @rmtoll VREFBUF_CSR  VRR           LL_VREFBUF_IsVREFReady
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_VREFBUF_IsVREFReady(void)
+{
+  return ((READ_BIT(VREFBUF->CSR, VREFBUF_CSR_VRR) == VREFBUF_CSR_VRR) ? 1UL : 0UL);
+}
+
+/**
+  * @brief  Get the trimming code for VREFBUF calibration
+  * @rmtoll VREFBUF_CCR  TRIM          LL_VREFBUF_GetTrimming
+  * @retval Between 0 and 0x3F
+  */
+__STATIC_INLINE uint32_t LL_VREFBUF_GetTrimming(void)
+{
+  return (uint32_t)(READ_BIT(VREFBUF->CCR, VREFBUF_CCR_TRIM));
+}
+
+/**
+  * @brief  Set the trimming code for VREFBUF calibration (Tune the internal reference buffer voltage)
+  * @rmtoll VREFBUF_CCR  TRIM          LL_VREFBUF_SetTrimming
+  * @param  Value Between 0 and 0x3F
+  * @retval None
+  */
+__STATIC_INLINE void LL_VREFBUF_SetTrimming(uint32_t Value)
+{
+  WRITE_REG(VREFBUF->CCR, Value);
+}
+
+/**
+  * @}
+  */
+#endif /* VREFBUF */
 
 /**
   * @}

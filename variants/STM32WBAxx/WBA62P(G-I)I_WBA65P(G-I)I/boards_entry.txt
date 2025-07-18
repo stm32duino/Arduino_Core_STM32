@@ -1,0 +1,41 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic WBA62PGIx
+GenWBA.menu.pnum.GENERIC_WBA62PGIX=Generic WBA62PGIx
+GenWBA.menu.pnum.GENERIC_WBA62PGIX.upload.maximum_size=1048576
+GenWBA.menu.pnum.GENERIC_WBA62PGIX.upload.maximum_data_size=262144
+GenWBA.menu.pnum.GENERIC_WBA62PGIX.build.board=GENERIC_WBA62PGIX
+GenWBA.menu.pnum.GENERIC_WBA62PGIX.build.product_line=STM32WBA62xx
+GenWBA.menu.pnum.GENERIC_WBA62PGIX.build.variant=STM32WBAxx/WBA62P(G-I)I_WBA65P(G-I)I
+GenWBA.menu.pnum.GENERIC_WBA62PGIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA62.svd
+
+# Generic WBA62PIIx
+GenWBA.menu.pnum.GENERIC_WBA62PIIX=Generic WBA62PIIx
+GenWBA.menu.pnum.GENERIC_WBA62PIIX.upload.maximum_size=2097152
+GenWBA.menu.pnum.GENERIC_WBA62PIIX.upload.maximum_data_size=524288
+GenWBA.menu.pnum.GENERIC_WBA62PIIX.build.board=GENERIC_WBA62PIIX
+GenWBA.menu.pnum.GENERIC_WBA62PIIX.build.product_line=STM32WBA62xx
+GenWBA.menu.pnum.GENERIC_WBA62PIIX.build.variant=STM32WBAxx/WBA62P(G-I)I_WBA65P(G-I)I
+GenWBA.menu.pnum.GENERIC_WBA62PIIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA62.svd
+
+# Generic WBA65PGIx
+GenWBA.menu.pnum.GENERIC_WBA65PGIX=Generic WBA65PGIx
+GenWBA.menu.pnum.GENERIC_WBA65PGIX.upload.maximum_size=1048576
+GenWBA.menu.pnum.GENERIC_WBA65PGIX.upload.maximum_data_size=262144
+GenWBA.menu.pnum.GENERIC_WBA65PGIX.build.board=GENERIC_WBA65PGIX
+GenWBA.menu.pnum.GENERIC_WBA65PGIX.build.product_line=STM32WBA65xx
+GenWBA.menu.pnum.GENERIC_WBA65PGIX.build.variant=STM32WBAxx/WBA62P(G-I)I_WBA65P(G-I)I
+GenWBA.menu.pnum.GENERIC_WBA65PGIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA65.svd
+
+# Generic WBA65PIIx
+GenWBA.menu.pnum.GENERIC_WBA65PIIX=Generic WBA65PIIx
+GenWBA.menu.pnum.GENERIC_WBA65PIIX.upload.maximum_size=2097152
+GenWBA.menu.pnum.GENERIC_WBA65PIIX.upload.maximum_data_size=524288
+GenWBA.menu.pnum.GENERIC_WBA65PIIX.build.board=GENERIC_WBA65PIIX
+GenWBA.menu.pnum.GENERIC_WBA65PIIX.build.product_line=STM32WBA65xx
+GenWBA.menu.pnum.GENERIC_WBA65PIIX.build.variant=STM32WBAxx/WBA62P(G-I)I_WBA65P(G-I)I
+GenWBA.menu.pnum.GENERIC_WBA65PIIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA65.svd
+

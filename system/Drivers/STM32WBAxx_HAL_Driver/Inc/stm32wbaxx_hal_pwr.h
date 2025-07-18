@@ -107,6 +107,12 @@ typedef struct
   */
 #define PWR_LOWPOWERMODE_STOP0        (0x00000000U)                     /*!< Stop 0: stop mode with main regulator      */
 #define PWR_LOWPOWERMODE_STOP1        (PWR_CR1_LPMS_0)                  /*!< Stop 1: stop mode with low power regulator */
+#if defined(PWR_STOP2_SUPPORT)
+#define PWR_LOWPOWERMODE_STOP2        (PWR_CR1_LPMS_1)                  /*!< Stop 2: stop mode with low power regulator */
+#endif /* defined(PWR_STOP2_SUPPORT) */
+#if defined(PWR_STOP3_SUPPORT)
+#define PWR_LOWPOWERMODE_STOP3        (PWR_CR1_LPMS_1 | PWR_CR1_LPMS_0) /*!< Stop 3: stop mode with low power regulator */
+#endif /* defined(PWR_STOP3_SUPPORT) */
 #define PWR_LOWPOWERMODE_STANDBY      (PWR_CR1_LPMS_2)                  /*!< Standby mode                               */
 /**
   * @}
@@ -145,6 +151,13 @@ typedef struct
 #if defined(PWR_RADIOSCR_REGPARDYV11)
 #define PWR_FLAG_REGPARDYV11          (8U)  /*!< Ready bit for VDDHPA voltage level when selecting VDD11 input   */
 #endif /* defined(PWR_RADIOSCR_REGPARDYV11) */
+#if defined(PWR_STOP2_SUPPORT)
+#define PWR_FLAG_STOP2F               (9U)  /*!< Stop2 flag */
+#ifndef PWR_STOP3_SUPPORT
+#define PWR_FLAG_VDD11USBRDY          (10U) /*!< USB OTG_HS VDD11USB ready flag                                  */
+#define PWR_FLAG_USBBOOSTRDY          (11U) /*!< USB OTG_HS power booster ready flag                             */
+#endif
+#endif /* defined(PWR_STOP2_SUPPORT) */
 /**
   * @}
   */
@@ -173,7 +186,7 @@ typedef struct
   * @{
   */
 #define PWR_WAKEUP_PIN1_HIGH_0 (PWR_WUCR1_WUPEN1 | PWR_WAKEUP1_SOURCE_SELECTION_0) /*!< PA0  : Wakeup pin 1 (high polarity) */
-#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx)
+#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) || defined(PWR_STOP2_SUPPORT)
 #define PWR_WAKEUP_PIN1_HIGH_1 (PWR_WUCR1_WUPEN1 | PWR_WAKEUP1_SOURCE_SELECTION_1) /*!< PB2  : Wakeup pin 1 (high polarity) */
 #endif /* defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) */
 
@@ -183,12 +196,12 @@ typedef struct
 #endif /* defined(PWR_WUCR1_WUPEN2) */
 
 #define PWR_WAKEUP_PIN3_HIGH_1 (PWR_WUCR1_WUPEN3 | PWR_WAKEUP3_SOURCE_SELECTION_1) /*!< PA1  : Wakeup pin 3 (high polarity) */
-#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx)
+#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) || defined(PWR_STOP2_SUPPORT)
 #define PWR_WAKEUP_PIN3_HIGH_2 (PWR_WUCR1_WUPEN3 | PWR_WAKEUP3_SOURCE_SELECTION_2) /*!< PB6  : Wakeup pin 3 (high polarity) */
 #endif /* defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) */
 
 #define PWR_WAKEUP_PIN4_HIGH_0 (PWR_WUCR1_WUPEN4 | PWR_WAKEUP4_SOURCE_SELECTION_0) /*!< PA2  : Wakeup pin 4 (high polarity) */
-#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx)
+#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) || defined(PWR_STOP2_SUPPORT)
 #define PWR_WAKEUP_PIN4_HIGH_1 (PWR_WUCR1_WUPEN4 | PWR_WAKEUP4_SOURCE_SELECTION_1) /*!< PB1  : Wakeup pin 4 (high polarity) */
 #endif /* defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) */
 
@@ -201,7 +214,7 @@ typedef struct
 #define PWR_WAKEUP_PIN6_HIGH_1 (PWR_WUCR1_WUPEN6 | PWR_WAKEUP6_SOURCE_SELECTION_1) /*!< PA5  : Wakeup pin 6 (high polarity) */
 #define PWR_WAKEUP_PIN6_HIGH_3 (PWR_WUCR1_WUPEN6 | PWR_WAKEUP6_SOURCE_SELECTION_3) /*!< RTC  : Wakeup pin 6 (high polarity) */
 
-#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx)
+#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) || defined(PWR_STOP2_SUPPORT)
 #define PWR_WAKEUP_PIN7_HIGH_0 (PWR_WUCR1_WUPEN7 | PWR_WAKEUP7_SOURCE_SELECTION_0) /*!< PB14 : Wakeup pin 7 (high polarity) */
 #endif /* defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) */
 #define PWR_WAKEUP_PIN7_HIGH_1 (PWR_WUCR1_WUPEN7 | PWR_WAKEUP7_SOURCE_SELECTION_1) /*!< PA6  : Wakeup pin 7 (high polarity) */
@@ -218,7 +231,7 @@ typedef struct
   * @{
   */
 #define PWR_WAKEUP_PIN1_LOW_0 (PWR_WUCR1_WUPEN1 | PWR_WAKEUP1_POLARITY_LOW | PWR_WAKEUP1_SOURCE_SELECTION_0) /*!< PA0  : Wakeup pin 1 (low polarity) */
-#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx)
+#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) || defined(PWR_STOP2_SUPPORT)
 #define PWR_WAKEUP_PIN1_LOW_1 (PWR_WUCR1_WUPEN1 | PWR_WAKEUP1_POLARITY_LOW | PWR_WAKEUP1_SOURCE_SELECTION_1) /*!< PB2  : Wakeup pin 1 (low polarity) */
 #endif /* defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) */
 
@@ -228,12 +241,12 @@ typedef struct
 #endif /* defined(PWR_WUCR1_WUPEN2) */
 
 #define PWR_WAKEUP_PIN3_LOW_1 (PWR_WUCR1_WUPEN3 | PWR_WAKEUP3_POLARITY_LOW | PWR_WAKEUP3_SOURCE_SELECTION_1) /*!< PA1  : Wakeup pin 3 (low polarity) */
-#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx)
+#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) || defined(PWR_STOP2_SUPPORT)
 #define PWR_WAKEUP_PIN3_LOW_2 (PWR_WUCR1_WUPEN3 | PWR_WAKEUP3_POLARITY_LOW | PWR_WAKEUP3_SOURCE_SELECTION_2) /*!< PB6  : Wakeup pin 3 (low polarity) */
 #endif /* defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) */
 
 #define PWR_WAKEUP_PIN4_LOW_0 (PWR_WUCR1_WUPEN4 | PWR_WAKEUP4_POLARITY_LOW | PWR_WAKEUP4_SOURCE_SELECTION_0) /*!< PA2  : Wakeup pin 4 (low polarity) */
-#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx)
+#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) || defined(PWR_STOP2_SUPPORT)
 #define PWR_WAKEUP_PIN4_LOW_1 (PWR_WUCR1_WUPEN4 | PWR_WAKEUP4_POLARITY_LOW | PWR_WAKEUP4_SOURCE_SELECTION_1) /*!< PB1  : Wakeup pin 4 (low polarity) */
 #endif /* defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) */
 
@@ -246,7 +259,7 @@ typedef struct
 #define PWR_WAKEUP_PIN6_LOW_1 (PWR_WUCR1_WUPEN6 | PWR_WAKEUP6_POLARITY_LOW | PWR_WAKEUP6_SOURCE_SELECTION_1) /*!< PA5  : Wakeup pin 6 (low polarity) */
 #define PWR_WAKEUP_PIN6_LOW_3 (PWR_WUCR1_WUPEN6 | PWR_WAKEUP6_POLARITY_LOW | PWR_WAKEUP6_SOURCE_SELECTION_3) /*!< RTC  : Wakeup pin 6 (low polarity) */
 
-#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx)
+#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) || defined(PWR_STOP2_SUPPORT)
 #define PWR_WAKEUP_PIN7_LOW_0 (PWR_WUCR1_WUPEN7 | PWR_WAKEUP7_POLARITY_LOW | PWR_WAKEUP7_SOURCE_SELECTION_0) /*!< PB14 : Wakeup pin 7 (low polarity) */
 #endif /* defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) */
 #define PWR_WAKEUP_PIN7_LOW_1 (PWR_WUCR1_WUPEN7 | PWR_WAKEUP7_POLARITY_LOW | PWR_WAKEUP7_SOURCE_SELECTION_1) /*!< PA6  : Wakeup pin 7 (low polarity) */
@@ -352,6 +365,14 @@ typedef struct
   *                                                   Indicates that the Vcore level at or above VOS selected level.
   *                    @arg @ref PWR_FLAG_STOPF     : Stop flag.
   *                                                   Indicates that the device was resumed from Stop mode.
+#if defined(PWR_STOP2_SUPPORT)
+  *                    @arg @ref PWR_FLAG_STOP2F    : Stop 2 flag.
+  *                                                   Indicates that the device was resumed from Stop 2 mode.
+  *                    @arg @ref PWR_FLAG_VDD11USBRDY : USB OTG_HS VDD11USB ready flag.
+  *                                                   Indicates that the USB OTG_HS VDD11 is ready.
+  *                    @arg @ref PWR_FLAG_USBBOOSTRDY : USB OTG_HS power booster ready flag.
+  *                                                   Indicates that the USB OTG_HS power booster is ready.
+#endif
   *                    @arg @ref PWR_FLAG_SBF       : Standby flag.
   *                                                   Indicates that the device was resumed from Standby mode.
   *                    @arg @ref PWR_FLAG_ACTVOSRDY : Currently applied VOS ready flag.
@@ -376,8 +397,10 @@ typedef struct
   *                                                   Indicates that a wakeup event was received from the WKUP line 3.
   *                    @arg @ref PWR_WAKEUP_FLAG4   : Wakeup flag 4.
   *                                                   Indicates that a wakeup event was received from the WKUP line 4.
+#if !defined(PWR_STOP3_SUPPORT)
   *                    @arg @ref PWR_WAKEUP_FLAG5   : Wakeup flag 5.
   *                                                   Indicates that a wakeup event was received from the WKUP line 5.
+#endif
   *                    @arg @ref PWR_WAKEUP_FLAG6   : Wakeup flag 6.
   *                                                   Indicates that a wakeup event was received from the WKUP line 6.
   *                    @arg @ref PWR_WAKEUP_FLAG7   : Wakeup flag 7.
@@ -387,6 +410,174 @@ typedef struct
   * (*) Feature not available on all devices of the family
   * @retval The state of __FLAG__ (TRUE or FALSE).
   */
+#if defined(PWR_STOP2_SUPPORT) && defined(USB_OTG_HS) && defined(PWR_FLAG_REGS)
+#define __HAL_PWR_GET_FLAG(__FLAG__)( \
+                                      ((__FLAG__) == PWR_FLAG_VOSRDY)           ? (READ_BIT(PWR->VOSR, PWR_VOSR_VOSRDY)== \
+                                          PWR_VOSR_VOSRDY)    : \
+                                      ((__FLAG__) == PWR_FLAG_VDD11USBRDY)      ? (READ_BIT(PWR->VOSR, PWR_VOSR_VDD11USBRDY)== \
+                                          PWR_VOSR_VDD11USBRDY): \
+                                      ((__FLAG__) == PWR_FLAG_USBBOOSTRDY)      ? (READ_BIT(PWR->VOSR, PWR_VOSR_USBBOOSTRDY)== \
+                                          PWR_VOSR_USBBOOSTRDY): \
+                                      ((__FLAG__) == PWR_FLAG_STOPF)            ? (READ_BIT(PWR->SR, PWR_SR_STOPF)== \
+                                          PWR_SR_STOPF)       : \
+                                      ((__FLAG__) == PWR_FLAG_STOP2F)           ? (READ_BIT(PWR->SR, PWR_SR_STOP2F)== \
+                                          PWR_SR_STOP2F)       : \
+                                      ((__FLAG__) == PWR_FLAG_SBF)              ? (READ_BIT(PWR->SR, PWR_SR_SBF)== \
+                                          PWR_SR_SBF)         : \
+                                      ((__FLAG__) == PWR_FLAG_ACTVOSRDY)        ?(READ_BIT(PWR->SVMSR, PWR_SVMSR_ACTVOSRDY)== \
+                                          PWR_SVMSR_ACTVOSRDY): \
+                                      ((__FLAG__) == PWR_FLAG_PVDO)             ?(READ_BIT(PWR->SVMSR, PWR_SVMSR_PVDO)== \
+                                          PWR_SVMSR_PVDO)     : \
+                                      ((__FLAG__) == PWR_FLAG_REGS)             ?(READ_BIT(PWR->SVMSR, PWR_SVMSR_REGS)== \
+                                          PWR_SVMSR_REGS)     : \
+                                      ((__FLAG__) == PWR_FLAG_REGPARDYVDDRFPA)  ?(READ_BIT(PWR->RADIOSCR, PWR_RADIOSCR_REGPARDYVDDRFPA)== \
+                                          PWR_RADIOSCR_REGPARDYVDDRFPA)     : \
+                                      ((__FLAG__) == PWR_FLAG_REGPARDYV11)      ?(READ_BIT(PWR->RADIOSCR, PWR_RADIOSCR_REGPARDYV11)== \
+                                          PWR_RADIOSCR_REGPARDYV11)     : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG1)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF1)  == \
+                                          PWR_WUSR_WUF1)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG2)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF2)  == \
+                                          PWR_WUSR_WUF2)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG3)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF3)  == \
+                                          PWR_WUSR_WUF3)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG4)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF4)  == \
+                                          PWR_WUSR_WUF4)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG5)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF5)  == \
+                                          PWR_WUSR_WUF5)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG6)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF6)  == \
+                                          PWR_WUSR_WUF6)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG7)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF7)  == \
+                                          PWR_WUSR_WUF7)      : \
+                                      (READ_BIT(PWR->WUSR, PWR_WUSR_WUF8)       == PWR_WUSR_WUF8))
+#elif defined(PWR_STOP2_SUPPORT) && defined(USB_OTG_HS)
+#define __HAL_PWR_GET_FLAG(__FLAG__)( \
+                                      ((__FLAG__) == PWR_FLAG_VOSRDY)           ? (READ_BIT(PWR->VOSR, PWR_VOSR_VOSRDY)== \
+                                          PWR_VOSR_VOSRDY)    : \
+                                      ((__FLAG__) == PWR_FLAG_VDD11USBRDY)      ? (READ_BIT(PWR->VOSR, PWR_VOSR_VDD11USBRDY)== \
+                                          PWR_VOSR_VDD11USBRDY): \
+                                      ((__FLAG__) == PWR_FLAG_USBBOOSTRDY)      ? (READ_BIT(PWR->VOSR, PWR_VOSR_USBBOOSTRDY)== \
+                                          PWR_VOSR_USBBOOSTRDY): \
+                                      ((__FLAG__) == PWR_FLAG_STOPF)            ? (READ_BIT(PWR->SR, PWR_SR_STOPF)== \
+                                          PWR_SR_STOPF)       : \
+                                      ((__FLAG__) == PWR_FLAG_STOP2F)           ? (READ_BIT(PWR->SR, PWR_SR_STOP2F)== \
+                                          PWR_SR_STOP2F)       : \
+                                      ((__FLAG__) == PWR_FLAG_SBF)              ? (READ_BIT(PWR->SR, PWR_SR_SBF)== \
+                                          PWR_SR_SBF)         : \
+                                      ((__FLAG__) == PWR_FLAG_ACTVOSRDY)        ?(READ_BIT(PWR->SVMSR, PWR_SVMSR_ACTVOSRDY)== \
+                                          PWR_SVMSR_ACTVOSRDY): \
+                                      ((__FLAG__) == PWR_FLAG_PVDO)             ?(READ_BIT(PWR->SVMSR, PWR_SVMSR_PVDO)== \
+                                          PWR_SVMSR_PVDO)     : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG1)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF1)  == \
+                                          PWR_WUSR_WUF1)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG2)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF2)  == \
+                                          PWR_WUSR_WUF2)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG3)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF3)  == \
+                                          PWR_WUSR_WUF3)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG4)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF4)  == \
+                                          PWR_WUSR_WUF4)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG5)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF5)  == \
+                                          PWR_WUSR_WUF5)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG6)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF6)  == \
+                                          PWR_WUSR_WUF6)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG7)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF7)  == \
+                                          PWR_WUSR_WUF7)      : \
+                                      (READ_BIT(PWR->WUSR, PWR_WUSR_WUF8)       == PWR_WUSR_WUF8))
+#elif defined(PWR_STOP2_SUPPORT) && defined(PWR_FLAG_REGS) && !defined(PWR_STOP3_SUPPORT)
+#define __HAL_PWR_GET_FLAG(__FLAG__)( \
+                                      ((__FLAG__) == PWR_FLAG_VOSRDY)           ? (READ_BIT(PWR->VOSR, PWR_VOSR_VOSRDY)== \
+                                          PWR_VOSR_VOSRDY)    : \
+                                      ((__FLAG__) == PWR_FLAG_STOPF)            ? (READ_BIT(PWR->SR, PWR_SR_STOPF)== \
+                                          PWR_SR_STOPF)       : \
+                                      ((__FLAG__) == PWR_FLAG_SBF)              ? (READ_BIT(PWR->SR, PWR_SR_SBF)== \
+                                          PWR_SR_SBF)         : \
+                                      ((__FLAG__) == PWR_FLAG_ACTVOSRDY)        ?(READ_BIT(PWR->SVMSR, PWR_SVMSR_ACTVOSRDY)== \
+                                          PWR_SVMSR_ACTVOSRDY): \
+                                      ((__FLAG__) == PWR_FLAG_PVDO)             ?(READ_BIT(PWR->SVMSR, PWR_SVMSR_PVDO)== \
+                                          PWR_SVMSR_PVDO)     : \
+                                      ((__FLAG__) == PWR_FLAG_REGS)             ?(READ_BIT(PWR->SVMSR, PWR_SVMSR_REGS)== \
+                                          PWR_SVMSR_REGS)     : \
+                                      ((__FLAG__) == PWR_FLAG_REGPARDYVDDRFPA)  ?(READ_BIT(PWR->RADIOSCR, PWR_RADIOSCR_REGPARDYVDDRFPA)== \
+                                          PWR_RADIOSCR_REGPARDYVDDRFPA)     : \
+                                      ((__FLAG__) == PWR_FLAG_REGPARDYV11)      ?(READ_BIT(PWR->RADIOSCR, PWR_RADIOSCR_REGPARDYV11)== \
+                                          PWR_RADIOSCR_REGPARDYV11)     : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG1)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF1)  == \
+                                          PWR_WUSR_WUF1)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG2)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF2)  == \
+                                          PWR_WUSR_WUF2)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG3)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF3)  == \
+                                          PWR_WUSR_WUF3)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG4)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF4)  == \
+                                          PWR_WUSR_WUF4)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG5)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF5)  == \
+                                          PWR_WUSR_WUF5)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG6)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF6)  == \
+                                          PWR_WUSR_WUF6)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG7)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF7)  == \
+                                          PWR_WUSR_WUF7)      : \
+                                      (READ_BIT(PWR->WUSR, PWR_WUSR_WUF8)       == PWR_WUSR_WUF8))
+#elif defined(PWR_STOP2_SUPPORT) && defined(PWR_STOP3_SUPPORT)
+#define __HAL_PWR_GET_FLAG(__FLAG__)( \
+                                      ((__FLAG__) == PWR_FLAG_VOSRDY)           ? (READ_BIT(PWR->VOSR, PWR_VOSR_VOSRDY)== \
+                                          PWR_VOSR_VOSRDY)    : \
+                                      ((__FLAG__) == PWR_FLAG_STOPF)            ? (READ_BIT(PWR->SR, PWR_SR_STOPF)== \
+                                          PWR_SR_STOPF)       : \
+                                      ((__FLAG__) == PWR_FLAG_STOP2F)           ? (READ_BIT(PWR->SR, PWR_SR_STOP2F)== \
+                                          PWR_SR_STOP2F)       : \
+                                      ((__FLAG__) == PWR_FLAG_SBF)              ? (READ_BIT(PWR->SR, PWR_SR_SBF)== \
+                                          PWR_SR_SBF)         : \
+                                      ((__FLAG__) == PWR_FLAG_ACTVOSRDY)        ?(READ_BIT(PWR->SVMSR, PWR_SVMSR_ACTVOSRDY)== \
+                                          PWR_SVMSR_ACTVOSRDY): \
+                                      ((__FLAG__) == PWR_FLAG_PVDO)             ?(READ_BIT(PWR->SVMSR, PWR_SVMSR_PVDO)== \
+                                          PWR_SVMSR_PVDO)     : \
+                                      ((__FLAG__) == PWR_FLAG_REGS)             ?(READ_BIT(PWR->SVMSR, PWR_SVMSR_REGS)== \
+                                          PWR_SVMSR_REGS)     : \
+                                      ((__FLAG__) == PWR_FLAG_REGPARDYVDDRFPA)  ?(READ_BIT(PWR->RADIOSCR, PWR_RADIOSCR_REGPARDYVDDRFPA)== \
+                                          PWR_RADIOSCR_REGPARDYVDDRFPA)     : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG1)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF1)  == \
+                                          PWR_WUSR_WUF1)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG2)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF2)  == \
+                                          PWR_WUSR_WUF2)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG3)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF3)  == \
+                                          PWR_WUSR_WUF3)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG4)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF4)  == \
+                                          PWR_WUSR_WUF4)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG6)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF6)  == \
+                                          PWR_WUSR_WUF6)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG7)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF7)  == \
+                                          PWR_WUSR_WUF7)      : \
+                                      (READ_BIT(PWR->WUSR, PWR_WUSR_WUF8)       == PWR_WUSR_WUF8))
+#elif defined(PWR_STOP2_SUPPORT)
+#define __HAL_PWR_GET_FLAG(__FLAG__)( \
+                                      ((__FLAG__) == PWR_FLAG_VOSRDY)           ? (READ_BIT(PWR->VOSR, PWR_VOSR_VOSRDY)== \
+                                          PWR_VOSR_VOSRDY)    : \
+                                      ((__FLAG__) == PWR_FLAG_STOPF)            ? (READ_BIT(PWR->SR, PWR_SR_STOPF)== \
+                                          PWR_SR_STOPF)       : \
+                                      ((__FLAG__) == PWR_FLAG_STOP2F)           ? (READ_BIT(PWR->SR, PWR_SR_STOP2F)== \
+                                          PWR_SR_STOP2F)       : \
+                                      ((__FLAG__) == PWR_FLAG_SBF)              ? (READ_BIT(PWR->SR, PWR_SR_SBF)== \
+                                          PWR_SR_SBF)         : \
+                                      ((__FLAG__) == PWR_FLAG_ACTVOSRDY)        ?(READ_BIT(PWR->SVMSR, PWR_SVMSR_ACTVOSRDY)== \
+                                          PWR_SVMSR_ACTVOSRDY): \
+                                      ((__FLAG__) == PWR_FLAG_PVDO)             ?(READ_BIT(PWR->SVMSR, PWR_SVMSR_PVDO)== \
+                                          PWR_SVMSR_PVDO)     : \
+                                      ((__FLAG__) == PWR_FLAG_REGPARDYVDDRFPA)  ?(READ_BIT(PWR->RADIOSCR, PWR_RADIOSCR_REGPARDYVDDRFPA)== \
+                                          PWR_RADIOSCR_REGPARDYVDDRFPA)     : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG1)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF1)  == \
+                                          PWR_WUSR_WUF1)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG2)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF2)  == \
+                                          PWR_WUSR_WUF2)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG3)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF3)  == \
+                                          PWR_WUSR_WUF3)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG4)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF4)  == \
+                                          PWR_WUSR_WUF4)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG5)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF5)  == \
+                                          PWR_WUSR_WUF5)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG6)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF6)  == \
+                                          PWR_WUSR_WUF6)      : \
+                                      ((__FLAG__) == PWR_WAKEUP_FLAG7)          ?(READ_BIT(PWR->WUSR, PWR_WUSR_WUF7)  == \
+                                          PWR_WUSR_WUF7)      : \
+                                      (READ_BIT(PWR->WUSR, PWR_WUSR_WUF8)       == PWR_WUSR_WUF8))
+#else
 #if defined(PWR_WUCR1_WUPEN2) && defined(PWR_WUCR1_WUPEN5)
 #if defined(PWR_FLAG_REGS)
 #define __HAL_PWR_GET_FLAG(__FLAG__)( \
@@ -477,12 +668,17 @@ typedef struct
                                           PWR_WUSR_WUF7)      : \
                                       (READ_BIT(PWR->WUSR, PWR_WUSR_WUF8)       == PWR_WUSR_WUF8))
 #endif /*defined(PWR_WUCR1_WUPEN2) && defined(PWR_WUCR1_WUPEN5) */
+#endif /* defined(PWR_STOP2_SUPPORT) */
 
 /** @brief  Clear PWR flags.
   * @param  __FLAG__ : Specifies the flag to clear.
   *                    This parameter can be one of the following values when available:
   *                    @arg @ref PWR_FLAG_STOPF      : Stop flag.
   *                                                    Indicates that the device was resumed from Stop mode.
+#if defined(PWR_STOP2_SUPPORT)
+  *                    @arg @ref PWR_FLAG_STOP2F     : Stop 2 flag.
+  *                                                    Indicates that the device was resumed from Stop 2 mode.
+#endif
   *                    @arg @ref PWR_FLAG_SBF        : Standby flag.
   *                                                    Indicates that the device was resumed from Standby mode.
   *                    @arg @ref PWR_WAKEUP_FLAG1    : Wakeup flag 1.
@@ -504,6 +700,51 @@ typedef struct
   *                    @arg @ref PWR_WAKEUP_ALL_FLAG : all Wakeup flags.
   * @retval None.
   */
+#if defined(PWR_STOP2_SUPPORT)
+#if defined(PWR_STOP3_SUPPORT)
+#define __HAL_PWR_CLEAR_FLAG(__FLAG__)  ( \
+                                          ((__FLAG__) == PWR_FLAG_STOPF)   ? (SET_BIT(PWR->SR, PWR_SR_CSSF))        : \
+                                          ((__FLAG__) == PWR_FLAG_STOP2F)  ? (SET_BIT(PWR->SR, PWR_SR_CSSF))        : \
+                                          ((__FLAG__) == PWR_FLAG_SBF)     ? (SET_BIT(PWR->SR, PWR_SR_CSSF))        : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG1) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF1)) : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG2) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF2)) : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG3) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF3)) : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG4) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF4)) : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG6) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF6)) : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG7) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF7)) : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG8) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF8)) : \
+                                          (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF)))
+#else
+#if defined(PWR_WUCR1_WUPEN2) && defined(PWR_WUCR1_WUPEN5)
+#define __HAL_PWR_CLEAR_FLAG(__FLAG__)  ( \
+                                          ((__FLAG__) == PWR_FLAG_STOPF)   ? (SET_BIT(PWR->SR, PWR_SR_CSSF))        : \
+                                          ((__FLAG__) == PWR_FLAG_STOP2F)  ? (SET_BIT(PWR->SR, PWR_SR_CSSF))        : \
+                                          ((__FLAG__) == PWR_FLAG_SBF)     ? (SET_BIT(PWR->SR, PWR_SR_CSSF))        : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG1) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF1)) : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG2) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF2)) : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG3) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF3)) : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG4) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF4)) : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG5) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF5)) : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG6) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF6)) : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG7) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF7)) : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG8) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF8)) : \
+                                          (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF)))
+#else
+#define __HAL_PWR_CLEAR_FLAG(__FLAG__)  ( \
+                                          ((__FLAG__) == PWR_FLAG_STOPF)   ? (SET_BIT(PWR->SR, PWR_SR_CSSF))        : \
+                                          ((__FLAG__) == PWR_FLAG_STOP2F)  ? (SET_BIT(PWR->SR, PWR_SR_CSSF))        : \
+                                          ((__FLAG__) == PWR_FLAG_SBF)     ? (SET_BIT(PWR->SR, PWR_SR_CSSF))        : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG1) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF1)) : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG3) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF3)) : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG4) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF4)) : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG6) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF6)) : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG7) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF7)) : \
+                                          ((__FLAG__) == PWR_WAKEUP_FLAG8) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF8)) : \
+                                          (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF)))
+
+#endif /* defined(PWR_WUCR1_WUPEN2) && defined(PWR_WUCR1_WUPEN5) */
+#endif /* defined(PWR_STOP3_SUPPORT) */
+#else
 #if defined(PWR_WUCR1_WUPEN2) && defined(PWR_WUCR1_WUPEN5)
 #define __HAL_PWR_CLEAR_FLAG(__FLAG__)  ( \
                                           ((__FLAG__) == PWR_FLAG_STOPF)   ? (SET_BIT(PWR->SR, PWR_SR_CSSF))        : \
@@ -529,6 +770,7 @@ typedef struct
                                           ((__FLAG__) == PWR_WAKEUP_FLAG8) ? (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF8)) : \
                                           (SET_BIT(PWR->WUSCR, PWR_WUSCR_CWUF)))
 #endif /* defined(PWR_WUCR1_WUPEN2) && defined(PWR_WUCR1_WUPEN5) */
+#endif /* defined(PWR_STOP2_SUPPORT) */
 
 /**
   * @brief  Enable the PVD Extended Interrupt Line.
@@ -652,7 +894,7 @@ typedef struct
 
 /* Defines wake up lines selection */
 #define PWR_WAKEUP1_SOURCE_SELECTION_0 (0U)
-#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx)
+#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) || defined(PWR_STOP2_SUPPORT)
 #define PWR_WAKEUP1_SOURCE_SELECTION_1 (PWR_WUCR3_WUSEL1_0 << PWR_WUP_SELECT_SIGNAL_SHIFT)                        /*!< Internal constant used to retrieve wakeup signal selection */
 #endif /* defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) */
 
@@ -662,12 +904,12 @@ typedef struct
 #endif /* defined(PWR_WUCR1_WUPEN2) */
 
 #define PWR_WAKEUP3_SOURCE_SELECTION_1 (PWR_WUCR3_WUSEL3_0 << PWR_WUP_SELECT_SIGNAL_SHIFT)                        /*!< Internal constant used to retrieve wakeup signal selection */
-#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx)
+#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) || defined(PWR_STOP2_SUPPORT)
 #define PWR_WAKEUP3_SOURCE_SELECTION_2 (PWR_WUCR3_WUSEL3_1 << PWR_WUP_SELECT_SIGNAL_SHIFT)                        /*!< Internal constant used to retrieve wakeup signal selection */
 #endif /* defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) */
 
 #define PWR_WAKEUP4_SOURCE_SELECTION_0 (0U)                                                                       /*!< Internal constant used to retrieve wakeup signal selection */
-#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx)
+#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) || defined(PWR_STOP2_SUPPORT)
 #define PWR_WAKEUP4_SOURCE_SELECTION_1 (PWR_WUCR3_WUSEL4_0 << PWR_WUP_SELECT_SIGNAL_SHIFT)                        /*!< Internal constant used to retrieve wakeup signal selection */
 #endif /* defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) */
 
@@ -680,7 +922,7 @@ typedef struct
 #define PWR_WAKEUP6_SOURCE_SELECTION_1 (PWR_WUCR3_WUSEL6_0 << PWR_WUP_SELECT_SIGNAL_SHIFT)                        /*!< Internal constant used to retrieve wakeup signal selection */
 #define PWR_WAKEUP6_SOURCE_SELECTION_3 ((PWR_WUCR3_WUSEL6_0 | PWR_WUCR3_WUSEL6_1) << PWR_WUP_SELECT_SIGNAL_SHIFT) /*!< Internal constant used to retrieve wakeup signal selection */
 
-#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx)
+#if defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) || defined(PWR_STOP2_SUPPORT)
 #define PWR_WAKEUP7_SOURCE_SELECTION_0 (0U)                                                                       /*!< Internal constant used to retrieve wakeup signal selection */
 #endif /* defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) */
 #define PWR_WAKEUP7_SOURCE_SELECTION_1 (PWR_WUCR3_WUSEL7_0 << PWR_WUP_SELECT_SIGNAL_SHIFT)                        /*!< Internal constant used to retrieve wakeup signal selection */
@@ -718,8 +960,21 @@ typedef struct
   */
 
 /* Stop mode entry check macro */
+#if defined(PWR_STOP2_SUPPORT)
+#if defined(PWR_STOP3_SUPPORT)
+#define IS_PWR_REGULATOR(REGULATOR)  (((REGULATOR) == PWR_LOWPOWERMODE_STOP0) || \
+                                      ((REGULATOR) == PWR_LOWPOWERMODE_STOP1) || \
+                                      ((REGULATOR) == PWR_LOWPOWERMODE_STOP2) || \
+                                      ((REGULATOR) == PWR_LOWPOWERMODE_STOP3))
+#else
+#define IS_PWR_REGULATOR(REGULATOR)  (((REGULATOR) == PWR_LOWPOWERMODE_STOP0) || \
+                                      ((REGULATOR) == PWR_LOWPOWERMODE_STOP1) || \
+                                      ((REGULATOR) == PWR_LOWPOWERMODE_STOP2))
+#endif /* defined(PWR_STOP3_SUPPORT) */
+#else
 #define IS_PWR_REGULATOR(REGULATOR)  (((REGULATOR) == PWR_LOWPOWERMODE_STOP0) || \
                                       ((REGULATOR) == PWR_LOWPOWERMODE_STOP1))
+#endif /* defined(PWR_STOP2_SUPPORT) */
 
 
 /* Wake up pins check macro */
@@ -848,12 +1103,67 @@ typedef struct
                                 ((PIN) == PWR_WAKEUP_PIN8))
 #endif /* defined (STM32WBA55xx) */
 #endif /* defined (STM32WBA52xx) || defined (STM32WBA54xx) || defined (STM32WBA55xx) */
+#if defined (STM32WBA62xx) || defined (STM32WBA63xx) || defined (STM32WBA64xx) || defined (STM32WBA65xx) || defined (STM32WBA6Mxx)
+#define IS_PWR_WAKEUP_PIN(PIN) (((PIN) == PWR_WAKEUP_PIN1_HIGH_0)  ||\
+                                ((PIN) == PWR_WAKEUP_PIN1_HIGH_1)  ||\
+                                ((PIN) == PWR_WAKEUP_PIN2_HIGH_0)  ||\
+                                ((PIN) == PWR_WAKEUP_PIN2_HIGH_1)  ||\
+                                ((PIN) == PWR_WAKEUP_PIN3_HIGH_1)  ||\
+                                ((PIN) == PWR_WAKEUP_PIN3_HIGH_2)  ||\
+                                ((PIN) == PWR_WAKEUP_PIN4_HIGH_0)  ||\
+                                ((PIN) == PWR_WAKEUP_PIN4_HIGH_1)  ||\
+                                ((PIN) == PWR_WAKEUP_PIN5_HIGH_1)  ||\
+                                ((PIN) == PWR_WAKEUP_PIN5_HIGH_2)  ||\
+                                ((PIN) == PWR_WAKEUP_PIN6_HIGH_0)  ||\
+                                ((PIN) == PWR_WAKEUP_PIN6_HIGH_1)  ||\
+                                ((PIN) == PWR_WAKEUP_PIN6_HIGH_3)  ||\
+                                ((PIN) == PWR_WAKEUP_PIN7_HIGH_0)  ||\
+                                ((PIN) == PWR_WAKEUP_PIN7_HIGH_1)  ||\
+                                ((PIN) == PWR_WAKEUP_PIN7_HIGH_3)  ||\
+                                ((PIN) == PWR_WAKEUP_PIN8_HIGH_1)  ||\
+                                ((PIN) == PWR_WAKEUP_PIN8_HIGH_2)  ||\
+                                ((PIN) == PWR_WAKEUP_PIN8_HIGH_3)  ||\
+                                ((PIN) == PWR_WAKEUP_PIN1_LOW_0)   ||\
+                                ((PIN) == PWR_WAKEUP_PIN1_LOW_1)   ||\
+                                ((PIN) == PWR_WAKEUP_PIN2_LOW_0)   ||\
+                                ((PIN) == PWR_WAKEUP_PIN2_LOW_1)   ||\
+                                ((PIN) == PWR_WAKEUP_PIN3_LOW_1)   ||\
+                                ((PIN) == PWR_WAKEUP_PIN3_LOW_2)   ||\
+                                ((PIN) == PWR_WAKEUP_PIN4_LOW_0)   ||\
+                                ((PIN) == PWR_WAKEUP_PIN4_LOW_1)   ||\
+                                ((PIN) == PWR_WAKEUP_PIN5_LOW_1)   ||\
+                                ((PIN) == PWR_WAKEUP_PIN5_LOW_2)   ||\
+                                ((PIN) == PWR_WAKEUP_PIN6_LOW_0)   ||\
+                                ((PIN) == PWR_WAKEUP_PIN6_LOW_1)   ||\
+                                ((PIN) == PWR_WAKEUP_PIN6_LOW_3)   ||\
+                                ((PIN) == PWR_WAKEUP_PIN7_LOW_0)   ||\
+                                ((PIN) == PWR_WAKEUP_PIN7_LOW_1)   ||\
+                                ((PIN) == PWR_WAKEUP_PIN7_LOW_3)   ||\
+                                ((PIN) == PWR_WAKEUP_PIN8_LOW_1)   ||\
+                                ((PIN) == PWR_WAKEUP_PIN8_LOW_2)   ||\
+                                ((PIN) == PWR_WAKEUP_PIN8_LOW_3)   ||\
+                                ((PIN) == PWR_WAKEUP_PIN1)         ||\
+                                ((PIN) == PWR_WAKEUP_PIN2)         ||\
+                                ((PIN) == PWR_WAKEUP_PIN3)         ||\
+                                ((PIN) == PWR_WAKEUP_PIN4)         ||\
+                                ((PIN) == PWR_WAKEUP_PIN5)         ||\
+                                ((PIN) == PWR_WAKEUP_PIN6)         ||\
+                                ((PIN) == PWR_WAKEUP_PIN7)         ||\
+                                ((PIN) == PWR_WAKEUP_PIN8))
+#endif /* defined (STM32WBA62xx) || defined (STM32WBA63xx) || defined (STM32WBA64xx) || defined (STM32WBA65xx) || defined (STM32WBA6Mxx) */
 
 /* PVD level check macro */
+#if defined(PWR_STOP3_SUPPORT)
+#define IS_PWR_PVD_LEVEL(LEVEL) (((LEVEL) == PWR_PVDLEVEL_0) || ((LEVEL) == PWR_PVDLEVEL_1) || \
+                                 ((LEVEL) == PWR_PVDLEVEL_2) || ((LEVEL) == PWR_PVDLEVEL_3) || \
+                                 ((LEVEL) == PWR_PVDLEVEL_4) || ((LEVEL) == PWR_PVDLEVEL_5) || \
+                                 ((LEVEL) == PWR_PVDLEVEL_6))
+#else
 #define IS_PWR_PVD_LEVEL(LEVEL) (((LEVEL) == PWR_PVDLEVEL_0) || ((LEVEL) == PWR_PVDLEVEL_1) || \
                                  ((LEVEL) == PWR_PVDLEVEL_2) || ((LEVEL) == PWR_PVDLEVEL_3) || \
                                  ((LEVEL) == PWR_PVDLEVEL_4) || ((LEVEL) == PWR_PVDLEVEL_5) || \
                                  ((LEVEL) == PWR_PVDLEVEL_6) || ((LEVEL) == PWR_PVDLEVEL_7))
+#endif /* defined(PWR_STOP3_SUPPORT) */
 
 /* PVD mode check macro */
 #define IS_PWR_PVD_MODE(MODE) (((MODE) == PWR_PVD_MODE_NORMAL)               ||\

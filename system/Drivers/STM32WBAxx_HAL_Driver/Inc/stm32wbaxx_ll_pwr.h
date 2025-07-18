@@ -57,7 +57,9 @@ extern "C" {
 #define LL_PWR_WUSCR_CWUF2     PWR_WUSCR_CWUF2 /*!< Clear Wakeup flag 2          */
 #define LL_PWR_WUSCR_CWUF3     PWR_WUSCR_CWUF3 /*!< Clear Wakeup flag 3          */
 #define LL_PWR_WUSCR_CWUF4     PWR_WUSCR_CWUF4 /*!< Clear Wakeup flag 4          */
+#if !defined(PWR_STOP3_SUPPORT)
 #define LL_PWR_WUSCR_CWUF5     PWR_WUSCR_CWUF5 /*!< Clear Wakeup flag 5          */
+#endif /* !defined(PWR_STOP3_SUPPORT) */
 #define LL_PWR_WUSCR_CWUF6     PWR_WUSCR_CWUF6 /*!< Clear Wakeup flag 6          */
 #define LL_PWR_WUSCR_CWUF7     PWR_WUSCR_CWUF7 /*!< Clear Wakeup flag 7          */
 #define LL_PWR_WUSCR_CWUF8     PWR_WUSCR_CWUF8 /*!< Clear Wakeup flag 8          */
@@ -81,7 +83,9 @@ extern "C" {
 #define LL_PWR_WAKEUP_FLAG2   PWR_WUSR_WUF2       /*!< Wakeup flag 2 */
 #define LL_PWR_WAKEUP_FLAG3   PWR_WUSR_WUF3       /*!< Wakeup flag 3 */
 #define LL_PWR_WAKEUP_FLAG4   PWR_WUSR_WUF4       /*!< Wakeup flag 4 */
+#if !defined(PWR_STOP3_SUPPORT)
 #define LL_PWR_WAKEUP_FLAG5   PWR_WUSR_WUF5       /*!< Wakeup flag 5 */
+#endif /* !defined(PWR_STOP3_SUPPORT) */
 #define LL_PWR_WAKEUP_FLAG6   PWR_WUSR_WUF6       /*!< Wakeup flag 6 */
 #define LL_PWR_WAKEUP_FLAG7   PWR_WUSR_WUF7       /*!< Wakeup flag 7 */
 #define LL_PWR_WAKEUP_FLAG8   PWR_WUSR_WUF8       /*!< Wakeup flag 8 */
@@ -94,6 +98,12 @@ extern "C" {
   */
 #define LL_PWR_MODE_STOP0    0U                                 /*!< Stop 0 mode   */
 #define LL_PWR_MODE_STOP1    PWR_CR1_LPMS_0                     /*!< Stop 1 mode   */
+#if defined(PWR_STOP2_SUPPORT)
+#define LL_PWR_MODE_STOP2    PWR_CR1_LPMS_1                     /*!< Stop 2 mode   */
+#endif /* defined(PWR_STOP2_SUPPORT) */
+#if defined(PWR_STOP3_SUPPORT)
+#define LL_PWR_MODE_STOP3    (PWR_CR1_LPMS_1 | PWR_CR1_LPMS_0)  /*!< Stop 3 mode   */
+#endif /* defined(PWR_STOP3_SUPPORT) */
 #define LL_PWR_MODE_STANDBY  PWR_CR1_LPMS_2                     /*!< Standby mode  */
 /**
   * @}
@@ -103,7 +113,21 @@ extern "C" {
   * @{
   */
 #define LL_PWR_SRAM1_SB_NO_RETENTION          0U               /*!< SRAM1 no retention in Standby mode         */
+#if defined(PWR_STOP2_SUPPORT)
+#define LL_PWR_SRAM1_SB_PAGE1_RETENTION       PWR_CR1_R1RSB1   /*!< SRAM1 page 1 retention in Standby mode     */
+#if defined(PWR_STOP3_SUPPORT)
+#define LL_PWR_SRAM1_SB_FULL_RETENTION        PWR_CR1_R1RSB1   /*!< SRAM1 all pages retention in Standby mode  */
+#else
+#define LL_PWR_SRAM1_SB_PAGE2_RETENTION       PWR_CR1_R1RSB2   /*!< SRAM1 page 2 retention in Standby mode     */
+#define LL_PWR_SRAM1_SB_PAGE3_RETENTION       PWR_CR1_R1RSB3   /*!< SRAM1 page 3 retention in Standby mode     */
+#define LL_PWR_SRAM1_SB_PAGE4_RETENTION       PWR_CR1_R1RSB4   /*!< SRAM1 page 4 retention in Standby mode     */
+#define LL_PWR_SRAM1_SB_PAGE567_RETENTION     PWR_CR1_R1RSB567 /*!< SRAM1 page 5-6-7 retention in Standby mode */
+#define LL_PWR_SRAM1_SB_FULL_RETENTION        (PWR_CR1_R1RSB1 | PWR_CR1_R1RSB2 | PWR_CR1_R1RSB3 |\
+                                               PWR_CR1_R1RSB4 | PWR_CR1_R1RSB567)
+#endif /* defined(PWR_STOP3_SUPPORT) */
+#else/*!< SRAM1 all pages retention in Standby mode */
 #define LL_PWR_SRAM1_SB_FULL_RETENTION        PWR_CR1_R1RSB1   /*!< SRAM1 all pages retention in Standby mode      */
+#endif /* defined(PWR_STOP2_SUPPORT) */
 /**
   * @}
   */
@@ -112,11 +136,27 @@ extern "C" {
   * @{
   */
 #define LL_PWR_SRAM2_SB_NO_RETENTION    0U                                /*!< SRAM2 no retention in Standby mode         */
+#if !defined(PWR_STOP3_SUPPORT)
 #define LL_PWR_SRAM2_SB_FULL_RETENTION  PWR_CR1_R2RSB1                    /*!< SRAM2 all pages retention in Standby mode  */
+#else
+#define LL_PWR_SRAM2_SB_PAGE1_RETENTION PWR_CR1_R2RSB1                    /*!< SRAM2 page1 retention in Standby mode      */
+#define LL_PWR_SRAM2_SB_PAGE2_RETENTION PWR_CR1_R2RSB2                    /*!< SRAM2 page2 retention in Standby mode      */
+#define LL_PWR_SRAM2_SB_FULL_RETENTION  (PWR_CR1_R2RSB1 | PWR_CR1_R2RSB2) /*!< SRAM2 all pages retention in Standby mode  */
+#endif /* !defined(PWR_STOP3_SUPPORT) */
 /**
   * @}
   */
 
+#if defined(PWR_STOP3_SUPPORT)
+/** @defgroup PWR_LL_EC_RTC_SB_RETENTION RTC and TAMP retention in Standby mode
+  * @{
+  */
+#define LL_PWR_RTC_SB_NO_RETENTION    0U              /*!< RTC and TAMP content not retained in Standby mode */
+#define LL_PWR_RTC_SB_FULL_RETENTION  PWR_CR1_RTCRSB  /*!< RTC and TAMP content retained in Standby mode */
+/**
+  * @}
+  */
+ #endif /* defined(PWR_STOP3_SUPPORT) */
 
 /** @defgroup PWR_LL_EC_RADIO_SB_RETENTION PWR RADIO SRAMs and Sleep Clock Retention in Standby Mode
   * @{
@@ -131,7 +171,18 @@ extern "C" {
   * @{
   */
 #define LL_PWR_SRAM1_STOP_NO_RETENTION       0U                   /*!< SRAM1 no retention in Stop mode        */
+#if defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT)
+#define LL_PWR_SRAM1_STOP_PAGE1_RETENTION    PWR_CR2_SRAM1PDS1    /*!< SRAM1 page1 retention in Stop mode */
+#define LL_PWR_SRAM1_STOP_PAGE2_RETENTION    PWR_CR2_SRAM1PDS2    /*!< SRAM1 page2 retention in Stop mode */
+#define LL_PWR_SRAM1_STOP_PAGE3_RETENTION    PWR_CR2_SRAM1PDS3    /*!< SRAM1 page3 retention in Stop mode */
+#define LL_PWR_SRAM1_STOP_PAGE4_RETENTION    PWR_CR2_SRAM1PDS4    /*!< SRAM1 page4 retention in Stop mode */
+#define LL_PWR_SRAM1_STOP_PAGE567_RETENTION  PWR_CR2_SRAM1PDS567  /*!< SRAM1 page4 retention in Stop mode */
+#define LL_PWR_SRAM1_STOP_FULL_RETENTION     (PWR_CR2_SRAM1PDS1 | PWR_CR2_SRAM1PDS2 | PWR_CR2_SRAM1PDS3 |\
+                                              PWR_CR2_SRAM1PDS4 | PWR_CR2_SRAM1PDS567)
+/*!< SRAM1 all pages retention in Stop mode */
+#else
 #define LL_PWR_SRAM1_STOP_FULL_RETENTION  PWR_CR2_SRAM1PDS1   /*!< SRAM1 all pages retention in Stop mode */
+#endif /* defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT) */
 /**
   * @}
   */
@@ -140,7 +191,13 @@ extern "C" {
   * @{
   */
 #define LL_PWR_SRAM2_STOP_NO_RETENTION    0U                                      /*!< SRAM2 no retention in Stop mode        */
+#if defined(PWR_STOP3_SUPPORT)
+#define LL_PWR_SRAM2_STOP_PAGE1_RETENTION PWR_CR2_SRAM2PDS1                       /*!< SRAM2 page1 retention in Stop mode */
+#define LL_PWR_SRAM2_STOP_PAGE2_RETENTION PWR_CR2_SRAM2PDS2                       /*!< SRAM2 page2 retention in Stop mode */
+#define LL_PWR_SRAM2_STOP_FULL_RETENTION  (PWR_CR2_SRAM2PDS1 | PWR_CR2_SRAM2PDS2) /*!< SRAM2 all pages retention in Stop mode */
+#else
 #define LL_PWR_SRAM2_STOP_FULL_RETENTION  PWR_CR2_SRAM2PDS1                       /*!< SRAM2 all pages retention in Stop mode */
+#endif /* defined(PWR_STOP3_SUPPORT) */
 /**
   * @}
   */
@@ -154,6 +211,36 @@ extern "C" {
   * @}
   */
 
+#if defined(PWR_STOP2_SUPPORT)
+#if defined(USB_OTG_HS)
+/** @defgroup PWR_LL_EC_USB_OTG_HS_SRAM_STOP_RETENTION PWR USB_OTG_HS SRAM Retention in Stop Mode
+  * @{
+  */
+#define LL_PWR_USB_OTG_HS_SRAM_STOP_NO_RETENTION    0U               /*!< USB_OTG_HS SRAM no retention in Stop mode   */
+#define LL_PWR_USB_OTG_HS_SRAM_STOP_FULL_RETENTION  PWR_CR2_PRAMPDS  /*!< USB_OTG_HS SRAM full retention in Stop mode */
+/**
+  * @}
+  */
+#else
+ /** @defgroup PWR_LL_EC_USB_SRAM_STOP_RETENTION PWR USB SRAM Retention in Stop Mode
+  * @{
+  */
+#define LL_PWR_USB_SRAM_STOP_NO_RETENTION    0U               /*!< USB SRAM no retention in Stop mode   */
+#define LL_PWR_USB_SRAM_STOP_FULL_RETENTION  PWR_CR2_PRAMPDS  /*!< USB SRAM full retention in Stop mode */
+/**
+  * @}
+  */
+#endif /* defined(USB_OTG_HS) */
+
+/** @defgroup PWR_LL_EC_PKARAM_STOP_RETENTION PWR PKA SRAM Retention in Stop Mode
+  * @{
+  */
+#define LL_PWR_PKARAM_STOP_NO_RETENTION    0U                 /*!< PKA SRAM no retention in Stop mode   */
+#define LL_PWR_PKARAM_STOP_FULL_RETENTION  PWR_CR2_PKARAMPDS  /*!< PKA SRAM full retention in Stop mode */
+/**
+  * @}
+  */
+#endif /* defined(PWR_STOP2_SUPPORT) */
 /** @defgroup PWR_LL_EC_SMPS_PWM_MODE PWR SMPS PWM mode
   * @{
   */
@@ -203,8 +290,14 @@ extern "C" {
 /** @defgroup PWR_LL_EC_VOLTAGE_SCALING_RANGE_SELECTION PWR Voltage scaling range selection
   * @{
   */
+#if defined(PWR_STOP3_SUPPORT)
+#define LL_PWR_REGU_VOLTAGE_SCALE1    PWR_VOSR_VOS_0 /*!< Voltage scaling range 1 (highest frequency)                 */
+#define LL_PWR_REGU_VOLTAGE_SCALE1_5  PWR_VOSR_VOS_1 /*!< Voltage scaling range 1.5 (highest frequency, lower power)  */
+#define LL_PWR_REGU_VOLTAGE_SCALE2    0U             /*!< Voltage scaling range 2 (lowest power)                      */
+#else
 #define LL_PWR_REGU_VOLTAGE_SCALE1    PWR_VOSR_VOS   /*!< Voltage scaling range 1 (highest frequency)                 */
 #define LL_PWR_REGU_VOLTAGE_SCALE2    0U             /*!< Voltage scaling range 2 (lowest power)                      */
+#endif /* defined(PWR_STOP3_SUPPORT) */
 /**
   * @}
   */
@@ -219,8 +312,10 @@ extern "C" {
 #define LL_PWR_PVDLEVEL_4 PWR_SVMCR_PVDLS_2                       /*!< Voltage threshold detected by PVD 2.6 V  */
 #define LL_PWR_PVDLEVEL_5 (PWR_SVMCR_PVDLS_0 | PWR_SVMCR_PVDLS_2) /*!< Voltage threshold detected by PVD 2.8 V  */
 #define LL_PWR_PVDLEVEL_6 (PWR_SVMCR_PVDLS_1 | PWR_SVMCR_PVDLS_2) /*!< Voltage threshold detected by PVD 2.9 V  */
+#if !defined(PWR_STOP3_SUPPORT)
 #define LL_PWR_PVDLEVEL_7 PWR_SVMCR_PVDLS                         /*!< External input analog voltage on PVD_IN
                                                                        pin, compared to internal VREFINT level  */
+#endif /* !defined(PWR_STOP3_SUPPORT) */
 /**
   * @}
   */
@@ -232,7 +327,9 @@ extern "C" {
 #define LL_PWR_WAKEUP_PIN2 PWR_WUCR1_WUPEN2 /*!< Wakeup pin 2 enable */
 #define LL_PWR_WAKEUP_PIN3 PWR_WUCR1_WUPEN3 /*!< Wakeup pin 3 enable */
 #define LL_PWR_WAKEUP_PIN4 PWR_WUCR1_WUPEN4 /*!< Wakeup pin 4 enable */
+#if !defined(PWR_STOP3_SUPPORT)
 #define LL_PWR_WAKEUP_PIN5 PWR_WUCR1_WUPEN5 /*!< Wakeup pin 5 enable */
+#endif /* !defined(PWR_STOP3_SUPPORT)*/
 #define LL_PWR_WAKEUP_PIN6 PWR_WUCR1_WUPEN6 /*!< Wakeup pin 6 enable */
 #define LL_PWR_WAKEUP_PIN7 PWR_WUCR1_WUPEN7 /*!< Wakeup pin 7 enable */
 #define LL_PWR_WAKEUP_PIN8 PWR_WUCR1_WUPEN8 /*!< Wakeup pin 8 enable */
@@ -257,6 +354,11 @@ extern "C" {
 #define LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTA  (uint32_t)(&(PWR->IORETENRA)) /*!< GPIO port A */
 #define LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTB  (uint32_t)(&(PWR->IORETENRB)) /*!< GPIO port B */
 #define LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTC  (uint32_t)(&(PWR->IORETENRC)) /*!< GPIO port C */
+#if defined(PWR_STOP2_SUPPORT)
+#define LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTD  (uint32_t)(&(PWR->IORETENRD)) /*!< GPIO port D */
+#define LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTE  (uint32_t)(&(PWR->IORETENRE)) /*!< GPIO port E */
+#define LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTG  (uint32_t)(&(PWR->IORETENRG)) /*!< GPIO port G */
+#endif /* defined(PWR_STOP2_SUPPORT) */
 #define LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTH  (uint32_t)(&(PWR->IORETENRH)) /*!< GPIO port H */
 /**
   * @}
@@ -268,6 +370,11 @@ extern "C" {
 #define LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTA  (uint32_t)(&(PWR->IORETRA)) /*!< GPIO port A */
 #define LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTB  (uint32_t)(&(PWR->IORETRB)) /*!< GPIO port B */
 #define LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTC  (uint32_t)(&(PWR->IORETRC)) /*!< GPIO port C */
+#if defined(PWR_STOP2_SUPPORT)
+#define LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTD  (uint32_t)(&(PWR->IORETRD)) /*!< GPIO port D */
+#define LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTE  (uint32_t)(&(PWR->IORETRE)) /*!< GPIO port E */
+#define LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTG  (uint32_t)(&(PWR->IORETRG)) /*!< GPIO port G */
+#endif /* defined(PWR_STOP2_SUPPORT) */
 #define LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTH  (uint32_t)(&(PWR->IORETRH)) /*!< GPIO port H */
 /**
   * @}
@@ -307,8 +414,10 @@ extern "C" {
 #define LL_PWR_WAKEUP_PIN3_SEC  PWR_SECCFGR_WUP3SEC /*!< Wake up pin 3 secure mode             */
 #define LL_PWR_WAKEUP_PIN4_NSEC 0U                  /*!< Wake up pin 4 nsecure mode            */
 #define LL_PWR_WAKEUP_PIN4_SEC  PWR_SECCFGR_WUP4SEC /*!< Wake up pin 4 secure mode             */
+#if !defined(PWR_STOP3_SUPPORT)
 #define LL_PWR_WAKEUP_PIN5_NSEC 0U                  /*!< Wake up pin 5 nsecure mode            */
 #define LL_PWR_WAKEUP_PIN5_SEC  PWR_SECCFGR_WUP5SEC /*!< Wake up pin 5 secure mode             */
+#endif /* !defined(PWR_STOP3_SUPPORT) */
 #define LL_PWR_WAKEUP_PIN6_NSEC 0U                  /*!< Wake up pin 6 nsecure mode            */
 #define LL_PWR_WAKEUP_PIN6_SEC  PWR_SECCFGR_WUP6SEC /*!< Wake up pin 6 secure mode             */
 #define LL_PWR_WAKEUP_PIN7_NSEC 0U                  /*!< Wake up pin 7 nsecure mode            */
@@ -378,6 +487,12 @@ extern "C" {
   * @param  Mode  This parameter can be one of the following values:
   *         @arg @ref LL_PWR_MODE_STOP0
   *         @arg @ref LL_PWR_MODE_STOP1
+#if defined(PWR_STOP2_SUPPORT)
+  *         @arg @ref LL_PWR_MODE_STOP2
+#endif
+#if defined(PWR_STOP3_SUPPORT)
+  *         @arg @ref LL_PWR_MODE_STOP3
+#endif
   *         @arg @ref LL_PWR_MODE_STANDBY
   * @retval None
   */
@@ -392,6 +507,12 @@ __STATIC_INLINE void LL_PWR_SetPowerMode(uint32_t Mode)
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_PWR_MODE_STOP0
   *         @arg @ref LL_PWR_MODE_STOP1
+#if defined(PWR_STOP2_SUPPORT)
+  *         @arg @ref LL_PWR_MODE_STOP2
+#endif
+#if defined(PWR_STOP3_SUPPORT)
+  *         @arg @ref LL_PWR_MODE_STOP3
+#endif
   *         @arg @ref LL_PWR_MODE_STANDBY
   */
 __STATIC_INLINE uint32_t LL_PWR_GetPowerMode(void)
@@ -402,52 +523,146 @@ __STATIC_INLINE uint32_t LL_PWR_GetPowerMode(void)
 /**
   * @brief  Set the SRAM2 page(s) retention in Standby mode.
   * @rmtoll CR1           R2RSB1          LL_PWR_SetSRAM2SBRetention
+#if defined(PWR_STOP3_SUPPORT)
+  * @rmtoll CR1           R2RSB2          LL_PWR_SetSRAM2SBRetention
+#endif
   * @param  SRAM2PageRetention  This parameter can be one of the following values:
   *                              @arg @ref LL_PWR_SRAM2_SB_NO_RETENTION
+#if defined(PWR_STOP3_SUPPORT)
+  *                              @arg @ref LL_PWR_SRAM2_SB_PAGE1_RETENTION
+  *                              @arg @ref LL_PWR_SRAM2_SB_PAGE2_RETENTION
+#endif
   *                              @arg @ref LL_PWR_SRAM2_SB_FULL_RETENTION
   * @retval None
   */
 __STATIC_INLINE void LL_PWR_SetSRAM2SBRetention(uint32_t SRAM2PageRetention)
 {
+#if defined(PWR_STOP3_SUPPORT)
+  MODIFY_REG(PWR->CR1, (PWR_CR1_R2RSB1 | PWR_CR1_R2RSB2), SRAM2PageRetention);
+#else
   MODIFY_REG(PWR->CR1, PWR_CR1_R2RSB1, SRAM2PageRetention);
+#endif /* PWR_STOP3_SUPPORT */
 }
 
 /**
   * @brief  Get the SRAM2 page(s) retention in Standby mode.
   * @rmtoll CR1           R2RSB1          LL_PWR_GetSRAM2SBRetention
+#if defined(PWR_STOP3_SUPPORT)
+  * @rmtoll CR1           R2RSB2          LL_PWR_SetSRAM2SBRetention
+#endif
   * @retval Returned value can be one of the following values:
   *                              @arg @ref LL_PWR_SRAM2_SB_NO_RETENTION
+#if defined(PWR_STOP3_SUPPORT)
+  *                              @arg @ref LL_PWR_SRAM2_SB_PAGE1_RETENTION
+  *                              @arg @ref LL_PWR_SRAM2_SB_PAGE2_RETENTION
+#endif
   *                              @arg @ref LL_PWR_SRAM2_SB_FULL_RETENTION
   */
 __STATIC_INLINE uint32_t LL_PWR_GetSRAM2SBRetention(void)
 {
+#if defined(PWR_STOP3_SUPPORT)
+  return (READ_BIT(PWR->CR1, (PWR_CR1_R2RSB1 | PWR_CR1_R2RSB2)));
+#else
   return (READ_BIT(PWR->CR1, PWR_CR1_R2RSB1));
+#endif /* PWR_STOP3_SUPPORT */
 }
 
 /**
   * @brief  Set the SRAM1 page(s) retention in Standby mode.
   * @rmtoll CR1           R1RSB1          LL_PWR_SetSRAM1SBRetention
+#if defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT)
+  * @rmtoll CR1    R1RSB2       LL_PWR_SetSRAM1SBRetention
+  * @rmtoll CR1    R1RSB3       LL_PWR_SetSRAM1SBRetention
+  * @rmtoll CR1    R1RSB4       LL_PWR_SetSRAM1SBRetention
+  * @rmtoll CR1    R1RSB5       LL_PWR_SetSRAM1SBRetention
+  * @rmtoll CR1    R1RSB6       LL_PWR_SetSRAM1SBRetention
+  * @rmtoll CR1    R1RSB7       LL_PWR_SetSRAM1SBRetention
+#endif
   * @param  SRAM1PageRetention  This parameter can be one of the following values:
   *                              @arg @ref LL_PWR_SRAM1_SB_NO_RETENTION
+#if defined(PWR_STOP2_SUPPORT)
+                                 @arg @ref LL_PWR_SRAM1_SB_PAGE1_RETENTION
+#if !defined(PWR_STOP3_SUPPORT)
+                                 @arg @ref LL_PWR_SRAM1_SB_PAGE2_RETENTION
+                                 @arg @ref LL_PWR_SRAM1_SB_PAGE3_RETENTION
+                                 @arg @ref LL_PWR_SRAM1_SB_PAGE4_RETENTION
+                                 @arg @ref LL_PWR_SRAM1_SB_PAGE567_RETENTION
+#endif
+#endif
   *                              @arg @ref LL_PWR_SRAM1_SB_FULL_RETENTION
   * @retval None
   */
 __STATIC_INLINE void LL_PWR_SetSRAM1SBRetention(uint32_t SRAM1PageRetention)
 {
+#if defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT)
+  MODIFY_REG(PWR->CR1, (PWR_CR1_R1RSB1 |PWR_CR1_R1RSB2 |PWR_CR1_R1RSB3 |\
+                        PWR_CR1_R1RSB4 | PWR_CR1_R1RSB567), SRAM1PageRetention);
+#else
   MODIFY_REG(PWR->CR1, PWR_CR1_R1RSB1, SRAM1PageRetention);
+#endif /* defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT) */
 }
 
 /**
   * @brief  Get the SRAM1 page(s) retention in Standby mode.
   * @rmtoll CR1           R1RSB1          LL_PWR_GetSRAM1SBRetention
+#if defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT)
+  * @rmtoll CR1    R1RSB2       LL_PWR_GetSRAM1SBRetention
+  * @rmtoll CR1    R1RSB3       LL_PWR_GetSRAM1SBRetention
+  * @rmtoll CR1    R1RSB4       LL_PWR_GetSRAM1SBRetention
+  * @rmtoll CR1    R1RSB5       LL_PWR_GetSRAM1SBRetention
+  * @rmtoll CR1    R1RSB6       LL_PWR_GetSRAM1SBRetention
+  * @rmtoll CR1    R1RSB7       LL_PWR_GetSRAM1SBRetention
+#endif
   * @retval Returned value can be one of the following values:
   *                              @arg @ref LL_PWR_SRAM1_SB_NO_RETENTION
+#if defined(PWR_STOP2_SUPPORT)
+                                 @arg @ref LL_PWR_SRAM1_SB_PAGE1_RETENTION
+#if !defined(PWR_STOP3_SUPPORT)
+                                 @arg @ref LL_PWR_SRAM1_SB_PAGE2_RETENTION
+                                 @arg @ref LL_PWR_SRAM1_SB_PAGE3_RETENTION
+                                 @arg @ref LL_PWR_SRAM1_SB_PAGE4_RETENTION
+                                 @arg @ref LL_PWR_SRAM1_SB_PAGE567_RETENTION
+#endif
+#endif
+#if !defined(PWR_STOP3_SUPPORT)
   *                              @arg @ref LL_PWR_SRAM1_SB_FULL_RETENTION
+#endif
   */
 __STATIC_INLINE uint32_t LL_PWR_GetSRAM1SBRetention(void)
 {
+#if defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT)
+  return (READ_BIT(PWR->CR1, (PWR_CR1_R1RSB1 |PWR_CR1_R1RSB2 |PWR_CR1_R1RSB3 |\
+                              PWR_CR1_R1RSB4 | PWR_CR1_R1RSB567)));
+#else
   return (READ_BIT(PWR->CR1, PWR_CR1_R1RSB1));
+#endif /* defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT) */
 }
+#if defined(PWR_STOP3_SUPPORT)
+/**
+  * @brief  Set the RTC/TAMP retention in Standby mode.
+  * @rmtoll CR1           RTCRSB        LL_PWR_SetRTCSBRetention
+  * @param  RadioRetention  This parameter can be one of the following values:
+  *                              @arg @ref LL_PWR_RTC_SB_NO_RETENTION
+  *                              @arg @ref LL_PWR_RTC_SB_FULL_RETENTION
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_SetRTCSBRetention(uint32_t RtcRetention)
+{
+  MODIFY_REG(PWR->CR1, PWR_CR1_RTCRSB, RtcRetention);
+}
+
+/**
+  * @brief  Get the Radio retention in Standby mode.
+  * @rmtoll CR1           RTCRSB        LL_PWR_GetRTCSBRetention
+  * @retval Returned value can be one of the following values:
+  *                              @arg @ref LL_PWR_RTC_SB_NO_RETENTION
+  *                              @arg @ref LL_PWR_RTC_SB_FULL_RETENTION
+  */
+__STATIC_INLINE uint32_t LL_PWR_GetRTCSBRetention(void)
+{
+  return (READ_BIT(PWR->CR1, PWR_CR1_RTCRSB));
+}
+#endif /* defined(PWR_STOP3_SUPPORT) */
 
 /**
   * @brief  Set the Radio retention in Standby mode.
@@ -508,39 +723,95 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledUltraLowPowerMode(void)
 /**
   * @brief  Set the SRAM1 page(s) retention in Stop mode.
   * @rmtoll CR2           SRAM1PDS1       LL_PWR_SetSRAM1StopRetention
+#if defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT)
+  * @rmtoll CR2           SRAM1PDS2       LL_PWR_SetSRAM1StopRetention
+  * @rmtoll CR2           SRAM1PDS3       LL_PWR_SetSRAM1StopRetention
+  * @rmtoll CR2           SRAM1PDS4       LL_PWR_SetSRAM1StopRetention
+  * @rmtoll CR2           SRAM1PDS567     LL_PWR_SetSRAM1StopRetention
+#endif
   * @param  SRAM1PageRetention  This parameter can be one of the following values:
   *         @arg @ref LL_PWR_SRAM1_STOP_NO_RETENTION
+#if defined(PWR_STOP2_SUPPORT)
+            @arg @ref LL_PWR_SRAM1_STOP_PAGE1_RETENTION
+#if !defined(PWR_STOP3_SUPPORT)
+            @arg @ref LL_PWR_SRAM1_STOP_PAGE2_RETENTION
+            @arg @ref LL_PWR_SRAM1_STOP_PAGE3_RETENTION
+            @arg @ref LL_PWR_SRAM1_STOP_PAGE4_RETENTION
+            @arg @ref LL_PWR_SRAM1_STOP_PAGE567_RETENTION
+#endif
+#endif
   *         @arg @ref LL_PWR_SRAM1_STOP_FULL_RETENTION
   * @retval None
   */
 __STATIC_INLINE void LL_PWR_SetSRAM1StopRetention(uint32_t SRAM1PageRetention)
 {
+#if defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT)
+  MODIFY_REG(PWR->CR2, (PWR_CR2_SRAM1PDS1 | PWR_CR2_SRAM1PDS2 |\
+                        PWR_CR2_SRAM1PDS3 | PWR_CR2_SRAM1PDS4 | PWR_CR2_SRAM1PDS567),
+                        ((~SRAM1PageRetention) & (PWR_CR2_SRAM1PDS1 | PWR_CR2_SRAM1PDS2 |\
+                        PWR_CR2_SRAM1PDS3 | PWR_CR2_SRAM1PDS4 | PWR_CR2_SRAM1PDS567)));
+#else
   MODIFY_REG(PWR->CR2, PWR_CR2_SRAM1PDS1, ((~SRAM1PageRetention) & PWR_CR2_SRAM1PDS1));
+#endif /* defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT) */
 }
 
 /**
   * @brief  Get the SRAM1 page(s) retention in Stop mode.
   * @rmtoll CR2           SRAM1PDS1       LL_PWR_GetSRAM1StopRetention
+#if defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT)
+  * @rmtoll CR2           SRAM1PDS2       LL_PWR_GetSRAM1StopRetention
+  * @rmtoll CR2           SRAM1PDS3       LL_PWR_GetSRAM1StopRetention
+  * @rmtoll CR2           SRAM1PDS4       LL_PWR_GetSRAM1StopRetention
+  * @rmtoll CR2           SRAM1PDS567     LL_PWR_GetSRAM1StopRetention
+#endif
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_PWR_SRAM1_STOP_NO_RETENTION
+#if defined(PWR_STOP2_SUPPORT)
+            @arg @ref LL_PWR_SRAM1_STOP_PAGE1_RETENTION
+#if !defined(PWR_STOP3_SUPPORT)
+            @arg @ref LL_PWR_SRAM1_STOP_PAGE2_RETENTION
+            @arg @ref LL_PWR_SRAM1_STOP_PAGE3_RETENTION
+            @arg @ref LL_PWR_SRAM1_STOP_PAGE4_RETENTION
+            @arg @ref LL_PWR_SRAM1_STOP_PAGE567_RETENTION
+#endif
+#endif
   *         @arg @ref LL_PWR_SRAM1_STOP_FULL_RETENTION
   */
 __STATIC_INLINE uint32_t LL_PWR_GetSRAM1StopRetention(void)
 {
+#if defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT)
+  return ((~(READ_BIT(PWR->CR2, (PWR_CR2_SRAM1PDS1 | PWR_CR2_SRAM1PDS2 |\
+                                PWR_CR2_SRAM1PDS3 | PWR_CR2_SRAM1PDS4 | PWR_CR2_SRAM1PDS567)))) &\
+                                (PWR_CR2_SRAM1PDS1 | PWR_CR2_SRAM1PDS2 | PWR_CR2_SRAM1PDS3 |\
+                                PWR_CR2_SRAM1PDS4 | PWR_CR2_SRAM1PDS567));
+#else
   return ((~(READ_BIT(PWR->CR2, PWR_CR2_SRAM1PDS1))) & PWR_CR2_SRAM1PDS1);
+#endif /* defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT) */
 }
 
 /**
   * @brief  Set the SRAM2 page(s) retention in Stop mode.
   * @rmtoll CR2           SRAM2PDS1       LL_PWR_SetSRAM2StopRetention
+#if defined(PWR_STOP3_SUPPORT)
+  * @rmtoll CR2           SRAM2PDS2       LL_PWR_SetSRAM2StopRetention
+#endif
   * @param  SRAM2PageRetention  This parameter can be one of the following values:
   *         @arg @ref LL_PWR_SRAM2_STOP_NO_RETENTION
+#if defined(PWR_STOP3_SUPPORT)
+  *         @arg @ref LL_PWR_SRAM2_STOP_PAGE1_RETENTION
+  *         @arg @ref LL_PWR_SRAM2_STOP_PAGE2_RETENTION
+#endif
   *         @arg @ref LL_PWR_SRAM2_STOP_FULL_RETENTION
   * @retval None
   */
 __STATIC_INLINE void LL_PWR_SetSRAM2StopRetention(uint32_t SRAM2PageRetention)
 {
+#if defined(PWR_STOP3_SUPPORT)
+  MODIFY_REG(PWR->CR2, (PWR_CR2_SRAM2PDS1 | PWR_CR2_SRAM2PDS2),
+                       ((~SRAM2PageRetention) & (PWR_CR2_SRAM2PDS1 | PWR_CR2_SRAM2PDS2)));
+#else
   MODIFY_REG(PWR->CR2, PWR_CR2_SRAM2PDS1, ((~SRAM2PageRetention) & PWR_CR2_SRAM2PDS1));
+#endif /* defined(PWR_STOP3_SUPPORT) */
 }
 
 /**
@@ -548,13 +819,22 @@ __STATIC_INLINE void LL_PWR_SetSRAM2StopRetention(uint32_t SRAM2PageRetention)
   * @rmtoll CR2           SRAM2PDS1       LL_PWR_GetSRAM2StopRetention
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_PWR_SRAM2_STOP_NO_RETENTION
+#if defined(PWR_STOP3_SUPPORT)
+  *         @arg @ref LL_PWR_SRAM2_STOP_PAGE1_RETENTION
+  *         @arg @ref LL_PWR_SRAM2_STOP_PAGE2_RETENTION
+#endif
   *         @arg @ref LL_PWR_SRAM2_STOP_FULL_RETENTION
   */
 __STATIC_INLINE uint32_t LL_PWR_GetSRAM2StopRetention(void)
 {
+#if defined(PWR_STOP3_SUPPORT)
+  return ((~(READ_BIT(PWR->CR2, (PWR_CR2_SRAM2PDS1 | PWR_CR2_SRAM2PDS2)))) & (PWR_CR2_SRAM2PDS1 | PWR_CR2_SRAM2PDS2));
+#else
   return ((~(READ_BIT(PWR->CR2, PWR_CR2_SRAM2PDS1))) & PWR_CR2_SRAM2PDS1);
+#endif /* defined(PWR_STOP3_SUPPORT) */
 }
 
+#if defined (PWR_CR2_ICRAMPDS)
 /**
   * @brief  Set the ICACHE SRAM page(s) retention in Stop mode.
   * @rmtoll CR2           ICRAMPDS        LL_PWR_SetICacheRAMStopRetention
@@ -583,6 +863,89 @@ __STATIC_INLINE uint32_t LL_PWR_GetICacheRAMStopRetention(void)
 {
   return ((~(READ_BIT(PWR->CR2, PWR_CR2_ICRAMPDS))) & PWR_CR2_ICRAMPDS);
 }
+#endif /* PWR_CR2_ICRAMPDS */
+
+#if defined(PWR_STOP2_SUPPORT)
+#if defined(USB_OTG_HS)
+/**
+  * @brief  Set the USB_OTG_HS SRAM retention in Stop mode.
+  * @rmtoll CR2           PRAMPDS         LL_PWR_SetOTGHSRAMStopRetention
+  * @param  OTGHSRAMRetention  This parameter can be one of the following values:
+  *         @arg @ref LL_PWR_USB_OTG_HS_SRAM_STOP_NO_RETENTION
+  *         @arg @ref LL_PWR_USB_OTG_HS_SRAM_STOP_FULL_RETENTION
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_SetOTGHSRAMStopRetention(uint32_t OTGHSRAMRetention)
+{
+  MODIFY_REG(PWR->CR2, PWR_CR2_PRAMPDS, ((~OTGHSRAMRetention) & PWR_CR2_PRAMPDS));
+}
+
+/**
+  * @brief  Get the USB_OTG_HS SRAM retention in Stop mode.
+  * @rmtoll CR2           PRAMPDS         LL_PWR_GetOTGHSRAMStopRetention
+  * @retval Returned value can be one of the following values:
+  *         @arg @ref LL_PWR_USB_OTG_HS_SRAM_STOP_NO_RETENTION
+  *         @arg @ref LL_PWR_USB_OTG_HS_SRAM_STOP_FULL_RETENTION
+  */
+__STATIC_INLINE uint32_t LL_PWR_GetOTGHSRAMStopRetention(void)
+{
+  return ((~(READ_BIT(PWR->CR2, PWR_CR2_PRAMPDS))) & PWR_CR2_PRAMPDS);
+}
+#else
+
+#if defined(PWR_CR2_PRAMPDS)
+/**
+  * @brief  Set the USB SRAM retention in Stop mode.
+  * @rmtoll CR2           PRAMPDS         LL_PWR_SetUSBRAMStopRetention
+  * @param  USBRAMRetention  This parameter can be one of the following values:
+  *         @arg @ref LL_PWR_USB_SRAM_STOP_NO_RETENTION
+  *         @arg @ref LL_PWR_USB_SRAM_STOP_FULL_RETENTION
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_SetUSBRAMStopRetention(uint32_t USBRAMRetention)
+{
+  MODIFY_REG(PWR->CR2, PWR_CR2_PRAMPDS, ((~USBRAMRetention) & PWR_CR2_PRAMPDS));
+}
+
+/**
+  * @brief  Get the USB SRAM retention in Stop mode.
+  * @rmtoll CR2           PRAMPDS         LL_PWR_GetUSBRAMStopRetention
+  * @retval Returned value can be one of the following values:
+  *         @arg @ref LL_PWR_USB_SRAM_STOP_NO_RETENTION
+  *         @arg @ref LL_PWR_USB_SRAM_STOP_FULL_RETENTION
+  */
+__STATIC_INLINE uint32_t LL_PWR_GetUSBRAMStopRetention(void)
+{
+  return ((~(READ_BIT(PWR->CR2, PWR_CR2_PRAMPDS))) & PWR_CR2_PRAMPDS);
+}
+#endif /* defined(PWR_CR2_PRAMPDS) */
+#endif /* defined(USB_OTG_HS) */
+
+/**
+  * @brief  Set the PKA SRAM retention in Stop mode.
+  * @rmtoll CR2           PKARAMPDS       LL_PWR_SetPKARAMStopRetention
+  * @param  PKASRAMRetention  This parameter can be one of the following values:
+  *         @arg @ref LL_PWR_PKARAM_STOP_NO_RETENTION
+  *         @arg @ref LL_PWR_PKARAM_STOP_FULL_RETENTION
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_SetPKARAMStopRetention(uint32_t PKASRAMRetention)
+{
+  MODIFY_REG(PWR->CR2, PWR_CR2_PKARAMPDS, ((~PKASRAMRetention) & PWR_CR2_PKARAMPDS));
+}
+
+/**
+  * @brief  Get the PKA SRAM retention in Stop mode.
+  * @rmtoll CR2           PKARAMPDS       LL_PWR_GetPKARAMStopRetention
+  * @retval Returned value can be one of the following values:
+  *         @arg @ref LL_PWR_PKARAM_STOP_NO_RETENTION
+  *         @arg @ref LL_PWR_PKARAM_STOP_FULL_RETENTION
+  */
+__STATIC_INLINE uint32_t LL_PWR_GetPKARAMStopRetention(void)
+{
+  return ((~(READ_BIT(PWR->CR2, PWR_CR2_PKARAMPDS))) & PWR_CR2_PKARAMPDS);
+}
+#endif /* defined(PWR_STOP2_SUPPORT) */
 
 /**
   * @brief  Enable the flash memory fast wakeup from Stop mode (Stop 0, 1).
@@ -708,6 +1071,9 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledFastSoftStart(void)
   * @rmtoll VOSR          VOS             LL_PWR_SetRegulVoltageScaling
   * @param  VoltageScaling This parameter can be one of the following values:
   *         @arg @ref LL_PWR_REGU_VOLTAGE_SCALE1
+#if defined(PWR_STOP3_SUPPORT)
+  *         @arg @ref LL_PWR_REGU_VOLTAGE_SCALE1_5
+#endif
   *         @arg @ref LL_PWR_REGU_VOLTAGE_SCALE2
   * @retval None
   */
@@ -721,12 +1087,222 @@ __STATIC_INLINE void LL_PWR_SetRegulVoltageScaling(uint32_t VoltageScaling)
   * @rmtoll VOSR          VOS             LL_PWR_GetRegulVoltageScaling
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_PWR_REGU_VOLTAGE_SCALE1
+#if defined(PWR_STOP3_SUPPORT)
+  *         @arg @ref LL_PWR_REGU_VOLTAGE_SCALE1_5
+#endif
   *         @arg @ref LL_PWR_REGU_VOLTAGE_SCALE2
   */
 __STATIC_INLINE uint32_t LL_PWR_GetRegulVoltageScaling(void)
 {
   return (uint32_t)(READ_BIT(PWR->VOSR, PWR_VOSR_VOS));
 }
+#if defined(PWR_STOP2_SUPPORT)
+#if defined(USB_OTG_HS)
+/**
+  * @brief  Set the clocked delay between VDD11USBDIS and VDD11USBRDY.
+  * @rmtoll VOSR          VDD11USBSWDLY   LL_PWR_SetVdd11UsbSwitchDelay
+  * @param  Delay : Specifies the delay in system clock cycles.
+  *                 This parameter can be a value between 0 to 1023.
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_SetVdd11UsbSwitchDelay(uint32_t Delay)
+{
+  MODIFY_REG(PWR->VOSR, PWR_VOSR_VDD11USBSWDLY, (Delay << PWR_VOSR_VDD11USBSWDLY_Pos));
+}
+
+/**
+  * @brief  Get the clocked delay between VDD11USBDIS and VDD11USBRDY.
+  * @rmtoll VOSR          VDD11USBSWDLY   LL_PWR_GetVdd11UsbSwitchDelay
+  * @retval Returned the delay in system clock cycles.
+  */
+__STATIC_INLINE uint32_t LL_PWR_GetVdd11UsbSwitchDelay(void)
+{
+  return (uint32_t)((READ_BIT(PWR->VOSR, PWR_VOSR_VDD11USBSWDLY) >> PWR_VOSR_VDD11USBSWDLY_Pos));
+}
+
+/**
+  * @brief  Enable the VDD11 USB.
+  * @rmtoll VOSR          VDD11USBDIS     LL_PWR_EnableVdd11USB
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_EnableVdd11USB(void)
+{
+  CLEAR_BIT(PWR->VOSR, PWR_VOSR_VDD11USBDIS);
+}
+
+/**
+  * @brief  Disable the VDD11 USB.
+  * @rmtoll VOSR          VDD11USBDIS     LL_PWR_DisableVdd11USB
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_DisableVdd11USB(void)
+{
+  SET_BIT(PWR->VOSR, PWR_VOSR_VDD11USBDIS);
+}
+
+/**
+  * @brief  Check if the VDD11 USB is enabled.
+  * @rmtoll VOSR          VDD11USBDIS     LL_PWR_IsEnabledVdd11USB
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_PWR_IsEnabledVdd11USB(void)
+{
+  return ((READ_BIT(PWR->VOSR, PWR_VOSR_VDD11USBDIS) == (PWR_VOSR_VDD11USBDIS)) ? 0UL : 1UL);
+}
+
+/**
+  * @brief  Enable the USB booster.
+  * @rmtoll VOSR          USBBOOSTEN      LL_PWR_EnableUSBBooster
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_EnableUSBBooster(void)
+{
+  SET_BIT(PWR->VOSR, PWR_VOSR_USBBOOSTEN);
+}
+
+/**
+  * @brief  Disable the USB booster.
+  * @rmtoll VOSR          USBBOOSTEN      LL_PWR_DisableUSBBooster
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_DisableUSBBooster(void)
+{
+  CLEAR_BIT(PWR->VOSR, PWR_VOSR_USBBOOSTEN);
+}
+
+/**
+  * @brief  Check if the USB booster is enabled.
+  * @rmtoll VOSR          USBBOOSTEN      LL_PWR_IsEnabledUSBBooster
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_PWR_IsEnabledUSBBooster(void)
+{
+  return ((READ_BIT(PWR->VOSR, PWR_VOSR_USBBOOSTEN) == (PWR_VOSR_USBBOOSTEN)) ? 1UL : 0UL);
+}
+
+/**
+  * @brief  Enable the USB OTG_HS power.
+  * @rmtoll VOSR          USBPWREN        LL_PWR_EnableUSBPWR
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_EnableUSBPWR(void)
+{
+  SET_BIT(PWR->VOSR, PWR_VOSR_USBPWREN);
+}
+
+/**
+  * @brief  Disable the USB OTG_HS power.
+  * @rmtoll VOSR          USBPWREN        LL_PWR_DisableUSBPWR
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_DisableUSBPWR(void)
+{
+  CLEAR_BIT(PWR->VOSR, PWR_VOSR_USBPWREN);
+}
+
+/**
+  * @brief  Check if the USB OTG_HS power is enabled.
+  * @rmtoll VOSR          USBPWREN        LL_PWR_IsEnabledUSBPWR
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_PWR_IsEnabledUSBPWR(void)
+{
+  return ((READ_BIT(PWR->VOSR, PWR_VOSR_USBPWREN) == (PWR_VOSR_USBPWREN)) ? 1UL : 0UL);
+}
+
+/**
+  * @brief  Enable the VDDUSB supply.
+  * @rmtoll VOSR          USV             LL_PWR_EnableVddUSB
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_EnableVddUSB(void)
+{
+  SET_BIT(PWR->SVMCR, PWR_SVMCR_USV);
+}
+
+/**
+  * @brief  Disable the VDDUSB supply.
+  * @rmtoll VOSR          USV             LL_PWR_DisableVddUSB
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_DisableVddUSB(void)
+{
+  CLEAR_BIT(PWR->SVMCR, PWR_SVMCR_USV);
+}
+
+/**
+  * @brief  Check if the VDDUSB supply is enabled.
+  * @rmtoll VOSR          USV             LL_PWR_IsEnabledVddUSB
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_PWR_IsEnabledVddUSB(void)
+{
+  return ((READ_BIT(PWR->SVMCR, PWR_SVMCR_USV) == (PWR_SVMCR_USV)) ? 1UL : 0UL);
+}
+#elif defined(PWR_STOP3_SUPPORT) && defined(PWR_SVMCR_USV)
+/**
+  * @brief  Enable the VDDUSB supply.
+  * @rmtoll VOSR          USV             LL_PWR_EnableVddUSB
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_EnableVddUSB(void)
+{
+  SET_BIT(PWR->SVMCR, PWR_SVMCR_USV);
+}
+
+/**
+  * @brief  Disable the VDDUSB supply.
+  * @rmtoll VOSR          USV             LL_PWR_DisableVddUSB
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_DisableVddUSB(void)
+{
+  CLEAR_BIT(PWR->SVMCR, PWR_SVMCR_USV);
+}
+
+/**
+  * @brief  Check if the VDDUSB supply is enabled.
+  * @rmtoll VOSR          USV             LL_PWR_IsEnabledVddUSB
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_PWR_IsEnabledVddUSB(void)
+{
+  return ((READ_BIT(PWR->SVMCR, PWR_SVMCR_USV) == (PWR_SVMCR_USV)) ? 1UL : 0UL);
+}
+#endif /* defined(PWR_STOP3_SUPPORT) && defined(PWR_SVMCR_USV) */
+
+#if defined(PWR_SVMCR_IO2SV)
+/**
+  * @brief  Enable the independent I/Os supply.
+  * @rmtoll SVMCR    IO2SV       LL_PWR_EnableVddIO2
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_EnableVddIO2(void)
+{
+  SET_BIT(PWR->SVMCR, PWR_SVMCR_IO2SV);
+}
+
+/**
+  * @brief  Disable the independent I/Os supply.
+  * @rmtoll SVMCR    IO2SV       LL_PWR_DisableVddIO2
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_DisableVddIO2(void)
+{
+  CLEAR_BIT(PWR->SVMCR, PWR_SVMCR_IO2SV);
+}
+
+/**
+  * @brief  Check if the independent I/Os supply is enabled.
+  * @rmtoll SVMCR    IO2SV       LL_PWR_IsEnabledVddIO2
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_PWR_IsEnabledVddIO2(void)
+{
+  return ((READ_BIT(PWR->SVMCR, PWR_SVMCR_IO2SV) == (PWR_SVMCR_IO2SV)) ? 1UL : 0UL);
+}
+#endif /* defined(PWR_SVMCR_IO2SV) */
+#endif /* defined(PWR_STOP2_SUPPORT) */
 
 /**
   * @brief  Set the Power voltage detector level.
@@ -739,7 +1315,9 @@ __STATIC_INLINE uint32_t LL_PWR_GetRegulVoltageScaling(void)
   *         @arg @ref LL_PWR_PVDLEVEL_4
   *         @arg @ref LL_PWR_PVDLEVEL_5
   *         @arg @ref LL_PWR_PVDLEVEL_6
+#if !defined(PWR_STOP3_SUPPORT)
   *         @arg @ref LL_PWR_PVDLEVEL_7
+#endif
   * @retval None
   */
 __STATIC_INLINE void LL_PWR_SetPVDLevel(uint32_t PVDLevel)
@@ -758,7 +1336,9 @@ __STATIC_INLINE void LL_PWR_SetPVDLevel(uint32_t PVDLevel)
   *         @arg @ref LL_PWR_PVDLEVEL_4
   *         @arg @ref LL_PWR_PVDLEVEL_5
   *         @arg @ref LL_PWR_PVDLEVEL_6
+#if !defined(PWR_STOP3_SUPPORT)
   *         @arg @ref LL_PWR_PVDLEVEL_7
+#endif
   */
 __STATIC_INLINE uint32_t LL_PWR_GetPVDLevel(void)
 {
@@ -803,7 +1383,9 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledPVD(void)
   *         @arg @ref LL_PWR_WAKEUP_PIN2
   *         @arg @ref LL_PWR_WAKEUP_PIN3
   *         @arg @ref LL_PWR_WAKEUP_PIN4
+#if !defined(PWR_STOP3_SUPPORT)
   *         @arg @ref LL_PWR_WAKEUP_PIN5
+#endif
   *         @arg @ref LL_PWR_WAKEUP_PIN6
   *         @arg @ref LL_PWR_WAKEUP_PIN7
   *         @arg @ref LL_PWR_WAKEUP_PIN8
@@ -822,7 +1404,9 @@ __STATIC_INLINE void LL_PWR_EnableWakeUpPin(uint32_t WakeUpPin)
   *         @arg @ref LL_PWR_WAKEUP_PIN2
   *         @arg @ref LL_PWR_WAKEUP_PIN3
   *         @arg @ref LL_PWR_WAKEUP_PIN4
+#if !defined(PWR_STOP3_SUPPORT)
   *         @arg @ref LL_PWR_WAKEUP_PIN5
+#endif
   *         @arg @ref LL_PWR_WAKEUP_PIN6
   *         @arg @ref LL_PWR_WAKEUP_PIN7
   *         @arg @ref LL_PWR_WAKEUP_PIN8
@@ -841,7 +1425,9 @@ __STATIC_INLINE void LL_PWR_DisableWakeUpPin(uint32_t WakeUpPin)
   *         @arg @ref LL_PWR_WAKEUP_PIN2
   *         @arg @ref LL_PWR_WAKEUP_PIN3
   *         @arg @ref LL_PWR_WAKEUP_PIN4
+#if !defined(PWR_STOP3_SUPPORT)
   *         @arg @ref LL_PWR_WAKEUP_PIN5
+#endif
   *         @arg @ref LL_PWR_WAKEUP_PIN6
   *         @arg @ref LL_PWR_WAKEUP_PIN7
   *         @arg @ref LL_PWR_WAKEUP_PIN8
@@ -860,7 +1446,9 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledWakeUpPin(uint32_t WakeUpPin)
   *         @arg @ref LL_PWR_WAKEUP_PIN2
   *         @arg @ref LL_PWR_WAKEUP_PIN3
   *         @arg @ref LL_PWR_WAKEUP_PIN4
+#if !defined(PWR_STOP3_SUPPORT)
   *         @arg @ref LL_PWR_WAKEUP_PIN5
+#endif
   *         @arg @ref LL_PWR_WAKEUP_PIN6
   *         @arg @ref LL_PWR_WAKEUP_PIN7
   *         @arg @ref LL_PWR_WAKEUP_PIN8
@@ -879,7 +1467,9 @@ __STATIC_INLINE void LL_PWR_SetWakeUpPinPolarityLow(uint32_t WakeUpPin)
   *         @arg @ref LL_PWR_WAKEUP_PIN2
   *         @arg @ref LL_PWR_WAKEUP_PIN3
   *         @arg @ref LL_PWR_WAKEUP_PIN4
+#if !defined(PWR_STOP3_SUPPORT)
   *         @arg @ref LL_PWR_WAKEUP_PIN5
+#endif
   *         @arg @ref LL_PWR_WAKEUP_PIN6
   *         @arg @ref LL_PWR_WAKEUP_PIN7
   *         @arg @ref LL_PWR_WAKEUP_PIN8
@@ -898,7 +1488,9 @@ __STATIC_INLINE void LL_PWR_SetWakeUpPinPolarityHigh(uint32_t WakeUpPin)
   *         @arg @ref LL_PWR_WAKEUP_PIN2
   *         @arg @ref LL_PWR_WAKEUP_PIN3
   *         @arg @ref LL_PWR_WAKEUP_PIN4
+#if !defined(PWR_STOP3_SUPPORT)
   *         @arg @ref LL_PWR_WAKEUP_PIN5
+#endif
   *         @arg @ref LL_PWR_WAKEUP_PIN6
   *         @arg @ref LL_PWR_WAKEUP_PIN7
   *         @arg @ref LL_PWR_WAKEUP_PIN8
@@ -917,7 +1509,9 @@ __STATIC_INLINE uint32_t LL_PWR_GetWakeUpPinPolarity(uint32_t WakeUpPin)
   *         @arg @ref LL_PWR_WAKEUP_PIN2
   *         @arg @ref LL_PWR_WAKEUP_PIN3
   *         @arg @ref LL_PWR_WAKEUP_PIN4
+#if !defined(PWR_STOP3_SUPPORT)
   *         @arg @ref LL_PWR_WAKEUP_PIN5
+#endif
   *         @arg @ref LL_PWR_WAKEUP_PIN6
   *         @arg @ref LL_PWR_WAKEUP_PIN7
   *         @arg @ref LL_PWR_WAKEUP_PIN8
@@ -937,7 +1531,9 @@ __STATIC_INLINE void LL_PWR_SetWakeUpPinSignal0Selection(uint32_t WakeUpPin)
   *         @arg @ref LL_PWR_WAKEUP_PIN2
   *         @arg @ref LL_PWR_WAKEUP_PIN3
   *         @arg @ref LL_PWR_WAKEUP_PIN4
+#if !defined(PWR_STOP3_SUPPORT)
   *         @arg @ref LL_PWR_WAKEUP_PIN5
+#endif
   *         @arg @ref LL_PWR_WAKEUP_PIN6
   *         @arg @ref LL_PWR_WAKEUP_PIN7
   *         @arg @ref LL_PWR_WAKEUP_PIN8
@@ -957,7 +1553,9 @@ __STATIC_INLINE void LL_PWR_SetWakeUpPinSignal1Selection(uint32_t WakeUpPin)
   *         @arg @ref LL_PWR_WAKEUP_PIN2
   *         @arg @ref LL_PWR_WAKEUP_PIN3
   *         @arg @ref LL_PWR_WAKEUP_PIN4
+#if !defined(PWR_STOP3_SUPPORT)
   *         @arg @ref LL_PWR_WAKEUP_PIN5
+#endif
   *         @arg @ref LL_PWR_WAKEUP_PIN6
   *         @arg @ref LL_PWR_WAKEUP_PIN7
   *         @arg @ref LL_PWR_WAKEUP_PIN8
@@ -977,7 +1575,9 @@ __STATIC_INLINE void LL_PWR_SetWakeUpPinSignal2Selection(uint32_t WakeUpPin)
   *         @arg @ref LL_PWR_WAKEUP_PIN2
   *         @arg @ref LL_PWR_WAKEUP_PIN3
   *         @arg @ref LL_PWR_WAKEUP_PIN4
+#if !defined(PWR_STOP3_SUPPORT)
   *         @arg @ref LL_PWR_WAKEUP_PIN5
+#endif
   *         @arg @ref LL_PWR_WAKEUP_PIN6
   *         @arg @ref LL_PWR_WAKEUP_PIN7
   *         @arg @ref LL_PWR_WAKEUP_PIN8
@@ -997,7 +1597,9 @@ __STATIC_INLINE void LL_PWR_SetWakeUpPinSignal3Selection(uint32_t WakeUpPin)
   *         @arg @ref LL_PWR_WAKEUP_PIN2
   *         @arg @ref LL_PWR_WAKEUP_PIN3
   *         @arg @ref LL_PWR_WAKEUP_PIN4
+#if !defined(PWR_STOP3_SUPPORT)
   *         @arg @ref LL_PWR_WAKEUP_PIN5
+#endif
   *         @arg @ref LL_PWR_WAKEUP_PIN6
   *         @arg @ref LL_PWR_WAKEUP_PIN7
   *         @arg @ref LL_PWR_WAKEUP_PIN8
@@ -1044,6 +1646,11 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledBkUpAccess(void)
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTA
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTB
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTC
+#if defined(PWR_STOP2_SUPPORT)
+  *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTD
+  *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTE
+  *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTG
+#endif
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTH
   * @param  GPIOPin This parameter can be a combination of the following values:
   *         @arg @ref LL_PWR_GPIO_PIN_0
@@ -1076,6 +1683,11 @@ __STATIC_INLINE void LL_PWR_EnableGPIOStandbyRetention(uint32_t GPIOPort, uint32
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTA
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTB
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTC
+#if defined(PWR_STOP2_SUPPORT)
+  *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTD
+  *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTE
+  *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTG
+#endif
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTH
   * @param  GPIOPin This parameter can be a combinat+ion of the following values:
   *         @arg @ref LL_PWR_GPIO_PIN_0
@@ -1108,6 +1720,11 @@ __STATIC_INLINE void LL_PWR_DisableGPIOStandbyRetention(uint32_t GPIOPort, uint3
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTA
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTB
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTC
+#if defined(PWR_STOP2_SUPPORT)
+  *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTD
+  *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTE
+  *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTG
+#endif
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_ENABLE_PORTH
   * @param  GPIOPin This parameter can be one of the following values:
   *         @arg @ref LL_PWR_GPIO_PIN_0
@@ -1140,6 +1757,11 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledGPIOStandbyRetention(uint32_t GPIOPort,
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTA
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTB
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTC
+#if defined(PWR_STOP2_SUPPORT)
+  *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTD
+  *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTE
+  *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTG
+#endif
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTH
   * @param  GPIOPin This parameter can be one of the following values:
   *         @arg @ref LL_PWR_GPIO_PIN_0
@@ -1172,6 +1794,11 @@ __STATIC_INLINE uint32_t LL_PWR_IsGPIOStandbyStateRetained(uint32_t GPIOPort, ui
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTA
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTB
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTC
+#if defined(PWR_STOP2_SUPPORT)
+  *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTD
+  *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTE
+  *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTG
+#endif
   *         @arg @ref LL_PWR_GPIO_STATE_RETENTION_STATUS_PORTH
   * @param  GPIOPin This parameter can be one of the following values:
   *         @arg @ref LL_PWR_GPIO_PIN_0
@@ -1202,6 +1829,9 @@ __STATIC_INLINE void LL_PWR_ClearGPIOStandbyRetentionStatus(uint32_t GPIOPort, u
   * @rmtoll SVMSR         ACTVOS          LL_PWR_GetRegulCurrentVOS
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_PWR_REGU_VOLTAGE_SCALE1
+#if defined(PWR_STOP3_SUPPORT)
+  *         @arg @ref LL_PWR_REGU_VOLTAGE_SCALE1_5
+#endif
   *         @arg @ref LL_PWR_REGU_VOLTAGE_SCALE2
   */
 __STATIC_INLINE uint32_t LL_PWR_GetRegulCurrentVOS(void)
@@ -1354,6 +1984,44 @@ __STATIC_INLINE uint32_t LL_PWR_GetRadioMode(void)
   * @}
   */
 
+#if defined(PWR_STOP2_SUPPORT) && defined(PWR_S2RETR_PTASREN)
+/** @defgroup PWR_LL_EF_PTA_STOP2_RETENTION_MANAGEMENT PWR PTA Stop2 Retention Management
+  * @{
+  */
+
+/**
+  * @brief  Enable the PTA output signals retention in Stop 2 mode.
+  * @rmtoll S2RETR        PTASRE          LL_PWR_EnablePTAOutputStop2Retention
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_EnablePTAOutputStop2Retention(void)
+{
+  SET_BIT(PWR->S2RETR, PWR_S2RETR_PTASREN);
+}
+
+/**
+  * @brief  Disable the PTA output signals retention in Stop 2 mode.
+  * @rmtoll S2RETR        PTASRE          LL_PWR_DisablePTAOutputStop2Retention
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_DisablePTAOutputStop2Retention(void)
+{
+  CLEAR_BIT(PWR->S2RETR, PWR_S2RETR_PTASREN);
+}
+
+/**
+  * @brief  Check if the PTA output signals retention in Stop 2 mode is enabled.
+  * @rmtoll S2RETR        PTASRE          LL_PWR_IsEnabledPTAOutputStop2Retention
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_PWR_IsEnabledPTAOutputStop2Retention(void)
+{
+  return ((READ_BIT(PWR->S2RETR, PWR_S2RETR_PTASREN) == (PWR_S2RETR_PTASREN)) ? 1UL : 0UL);
+}
+/**
+  * @}
+  */
+#endif /* PWR_STOP2_SUPPORT && PWR_S2RETR_PTASREN */
 
 /** @defgroup PWR_LL_EF_FLAG_MANAGEMENT PWR FLAG Management
   * @{
@@ -1370,6 +2038,29 @@ __STATIC_INLINE uint32_t LL_PWR_IsActiveFlag_VOS(void)
   return ((READ_BIT(PWR->VOSR, PWR_VOSR_VOSRDY) == (PWR_VOSR_VOSRDY)) ? 1UL : 0UL);
 }
 
+#if defined(PWR_STOP2_SUPPORT)
+#if defined(USB_OTG_HS)
+/**
+  * @brief  Indicate whether the VDD11 USB is ready or not.
+  * @rmtoll SVMSR         VDD11USBRDY     LL_PWR_IsActiveFlag_VDD11USBRDY
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_PWR_IsActiveFlag_VDD11USBRDY(void)
+{
+  return ((READ_BIT(PWR->VOSR, PWR_VOSR_VDD11USBRDY) == (PWR_VOSR_VDD11USBRDY)) ? 1UL : 0UL);
+}
+
+/**
+  * @brief  Indicate whether the USB booster is ready or not.
+  * @rmtoll SVMSR         USBBOOSTRDY     LL_PWR_IsActiveFlag_USBBOOSTRDY
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_PWR_IsActiveFlag_USBBOOSTRDY(void)
+{
+  return ((READ_BIT(PWR->VOSR, PWR_VOSR_USBBOOSTRDY) == (PWR_VOSR_USBBOOSTRDY)) ? 1UL : 0UL);
+}
+#endif /* defined(USB_OTG_HS) */
+#endif /* defined(PWR_STOP2_SUPPORT) */
 
 /**
   * @brief  Indicate whether the system was in standby mode or not.
@@ -1391,6 +2082,17 @@ __STATIC_INLINE uint32_t LL_PWR_IsActiveFlag_STOP(void)
   return ((READ_BIT(PWR->SR, PWR_SR_STOPF) == (PWR_SR_STOPF)) ? 1UL : 0UL);
 }
 
+#if defined(PWR_STOP2_SUPPORT)
+/**
+  * @brief  Indicate whether the system was in stop2 mode or not.
+  * @rmtoll SR            STOP2F          LL_PWR_IsActiveFlag_STOP2
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_PWR_IsActiveFlag_STOP2(void)
+{
+  return ((READ_BIT(PWR->SR, PWR_SR_STOP2F) == (PWR_SR_STOP2F)) ? 1UL : 0UL);
+}
+#endif /* defined(PWR_STOP2_SUPPORT) */
 
 #if defined(PWR_SVMSR_REGS)
 /**
@@ -1509,6 +2211,17 @@ __STATIC_INLINE uint32_t LL_PWR_IsActiveFlag_WU8(void)
   return ((READ_BIT(PWR->WUSR, PWR_WUSR_WUF8) == (PWR_WUSR_WUF8)) ? 1UL : 0UL);
 }
 
+#if defined(PWR_STOP2_SUPPORT) && defined(PWR_S2RETR_PTASR)
+/**
+  * @brief  Indicate whether the PTA output signals state retention in Stop 2 mode is active or not.
+  * @rmtoll SVMSR         PTASR           LL_PWR_IsActiveFlag_PTASR
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_PWR_IsActiveFlag_PTASR(void)
+{
+  return ((READ_BIT(PWR->S2RETR, PWR_S2RETR_PTASR) == (PWR_S2RETR_PTASR)) ? 1UL : 0UL);
+}
+#endif /* defined(PWR_STOP2_SUPPORT) && defined(PWR_S2RETR_PTASR) */
 
 /**
   * @brief  Clear stop flag.
@@ -1520,6 +2233,17 @@ __STATIC_INLINE void LL_PWR_ClearFlag_STOP(void)
   WRITE_REG(PWR->SR, PWR_SR_CSSF);
 }
 
+#if defined(PWR_STOP2_SUPPORT)
+/**
+  * @brief  Clear stop2 flag.
+  * @rmtoll SR            CSSF            LL_PWR_ClearFlag_STOP2
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_ClearFlag_STOP2(void)
+{
+  WRITE_REG(PWR->SR, PWR_SR_CSSF);
+}
+#endif /* defined(PWR_STOP2_SUPPORT) */
 
 /**
   * @brief  Clear standby flag.
@@ -1625,6 +2349,17 @@ __STATIC_INLINE void LL_PWR_ClearFlag_WU(void)
   WRITE_REG(PWR->WUSCR, PWR_WUSCR_CWUF);
 }
 
+#if defined(PWR_STOP2_SUPPORT) && defined(PWR_S2RETR_PTASR)
+/**
+  * @brief  Clear the PTA output signals state retention in Stop 2 mode active.
+  * @rmtoll SVMSR         PTASR           LL_PWR_ClearFlag_PTASR
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_ClearFlag_PTASR(void)
+{
+  CLEAR_BIT(PWR->S2RETR, PWR_S2RETR_PTASR);
+}
+#endif /* defined(PWR_STOP2_SUPPORT) && defined(PWR_S2RETR_PTASR) */
 /**
   * @}
   */

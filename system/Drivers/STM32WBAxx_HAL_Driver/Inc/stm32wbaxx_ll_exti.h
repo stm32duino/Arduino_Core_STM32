@@ -110,6 +110,12 @@ typedef struct
 #if defined(EXTI_IMR1_IM18)
 #define LL_EXTI_LINE_18                EXTI_IMR1_IM18          /*!< Extended line 18 */
 #endif /* LL_EXTI_LINE_18 */
+#if defined(EXTI_IMR1_IM19)
+#define LL_EXTI_LINE_19                EXTI_IMR1_IM19          /*!< Extended line 19 */
+#endif /* LL_EXTI_LINE_19 */
+#if defined(EXTI_IMR1_IM20)
+#define LL_EXTI_LINE_20                EXTI_IMR1_IM20          /*!< Extended line 20 */
+#endif /* LL_EXTI_LINE_20 */
 #define LL_EXTI_LINE_ALL_0_31          0x007FFFFFU             /*!< ALL Extended line */
 
 #if defined(USE_FULL_LL_DRIVER)
@@ -120,9 +126,24 @@ typedef struct
   * @{
   */
 #define LL_EXTI_CONFIG_PORTA               0U                                          /*!< EXTI PORT A */
+#if !defined (EXTI_EXTICR1_EXTI0)
+#define LL_EXTI_CONFIG_PORTB               EXTI_EXTICR2_EXTI4_0                        /*!< EXTI PORT B */
+#define LL_EXTI_CONFIG_PORTC               EXTI_EXTICR2_EXTI4_1                        /*!< EXTI PORT C */
+#define LL_EXTI_CONFIG_PORTH               (EXTI_EXTICR2_EXTI4_2|EXTI_EXTICR2_EXTI4_1|EXTI_EXTICR2_EXTI4_0) /*!< EXTI PORT H */
+#else /* !defined (EXTI_EXTICR1_EXTI0) */
 #define LL_EXTI_CONFIG_PORTB               EXTI_EXTICR1_EXTI0_0                        /*!< EXTI PORT B */
 #define LL_EXTI_CONFIG_PORTC               EXTI_EXTICR1_EXTI0_1                        /*!< EXTI PORT C */
+#if defined(GPIOD)
+#define LL_EXTI_CONFIG_PORTD               (EXTI_EXTICR1_EXTI0_1|EXTI_EXTICR1_EXTI0_0) /*!< EXTI PORT D */
+#endif /* GPIOD */
+#if defined(GPIOE)
+#define LL_EXTI_CONFIG_PORTE               EXTI_EXTICR1_EXTI0_2                        /*!< EXTI PORT E */
+#endif /* GPIOE */
+#if defined(GPIOG)
+#define LL_EXTI_CONFIG_PORTG               (EXTI_EXTICR1_EXTI0_1|EXTI_EXTICR1_EXTI0_1) /*!< EXTI PORT G */
+#endif /* GPIOG */
 #define LL_EXTI_CONFIG_PORTH               (EXTI_EXTICR1_EXTI0_2|EXTI_EXTICR1_EXTI0_1|EXTI_EXTICR1_EXTI0_0) /*!< EXTI PORT H */
+#endif /* !defined (EXTI_EXTICR1_EXTI0) */
 /**
   * @}
   */
@@ -1008,7 +1029,11 @@ __STATIC_INLINE void LL_EXTI_ClearRisingFlag_0_31(uint32_t ExtiLine)
   */
 __STATIC_INLINE void LL_EXTI_SetEXTISource(uint32_t Port, uint32_t Line)
 {
+#if defined (EXTI_EXTICR1_EXTI0)
   MODIFY_REG(EXTI->EXTICR[Line & 0x03U], EXTI_EXTICR1_EXTI0 << (Line >> LL_EXTI_REGISTER_PINPOS_SHFT), Port << (Line >> LL_EXTI_REGISTER_PINPOS_SHFT));
+#else /* defined (EXTI_EXTICR1_EXTI0) */
+  MODIFY_REG(EXTI->EXTICR[Line & 0x03U], EXTI_EXTICR2_EXTI4 << (Line >> LL_EXTI_REGISTER_PINPOS_SHFT), Port << (Line >> LL_EXTI_REGISTER_PINPOS_SHFT));
+#endif /* defined (EXTI_EXTICR1_EXTI0) */
 }
 
 /**
@@ -1054,7 +1079,11 @@ __STATIC_INLINE void LL_EXTI_SetEXTISource(uint32_t Port, uint32_t Line)
   */
 __STATIC_INLINE uint32_t LL_EXTI_GetEXTISource(uint32_t Line)
 {
+#if defined (EXTI_EXTICR1_EXTI0)
   return (uint32_t)(READ_BIT(EXTI->EXTICR[Line & 0x03U], (EXTI_EXTICR1_EXTI0 << (Line >> LL_EXTI_REGISTER_PINPOS_SHFT))) >> (Line >> LL_EXTI_REGISTER_PINPOS_SHFT));
+#else /* defined (EXTI_EXTICR1_EXTI0) */
+  return (uint32_t)(READ_BIT(EXTI->EXTICR[Line & 0x03U], (EXTI_EXTICR2_EXTI4 << (Line >> LL_EXTI_REGISTER_PINPOS_SHFT))) >> (Line >> LL_EXTI_REGISTER_PINPOS_SHFT));
+#endif /* defined (EXTI_EXTICR1_EXTI0) */
 }
 /**
   * @}

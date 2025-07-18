@@ -31,7 +31,7 @@ extern "C" {
   * @{
   */
 
-#if defined (I2C1) || defined (I2C3)
+#if defined (I2C1) || defined (I2C2) || defined (I2C3) || defined (I2C4)
 
 /** @defgroup I2C_LL I2C
   * @{
@@ -355,9 +355,9 @@ typedef struct
   * @brief    I2C Autonomous Trigger selection
   * @{
   */
-#if defined(I2C1)
-#define LL_I2C_TRIG_GRP1                   (0x10000000U)         /*!< Trigger Group for I2C1 */
-#endif /* I2C1 */
+#if (defined(I2C1) || defined(I2C2) || defined(I2C4))
+#define LL_I2C_TRIG_GRP1                   (0x10000000U)         /*!< Trigger Group for I2C1, I2C2, I2C4 */
+#endif /* I2C1, I2C2, I2C4 */
 #define LL_I2C_TRIG_GRP2                   (0x20000000U)         /*!< Trigger Group for I2C3 */
 
 #if defined(LL_I2C_TRIG_GRP1)
@@ -2598,7 +2598,7 @@ void LL_I2C_StructInit(LL_I2C_InitTypeDef *I2C_InitStruct);
   * @}
   */
 
-#endif /* I2C1 || I2C3 */
+#endif /* I2C1 || I2C2 || I2C3 || I2C4 */
 
 /**
   * @}

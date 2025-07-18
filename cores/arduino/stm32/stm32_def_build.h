@@ -492,6 +492,16 @@
     #define CMSIS_STARTUP_FILE "startup_stm32wba55xx.s"
   #elif defined(STM32WBA5Mxx)
     #define CMSIS_STARTUP_FILE "startup_stm32wba5mxx.s"
+  #elif defined(STM32WBA62xx)
+    #define CMSIS_STARTUP_FILE "startup_stm32wba62xx.s"
+  #elif defined(STM32WBA63xx)
+    #define CMSIS_STARTUP_FILE "startup_stm32wba63xx.s"
+  #elif defined(STM32WBA64xx)
+    #define CMSIS_STARTUP_FILE "startup_stm32wba64xx.s"
+  #elif defined(STM32WBA65xx)
+    #define CMSIS_STARTUP_FILE "startup_stm32wba65xx.s"
+  #elif defined(STM32WBA6Mxx)
+    #define CMSIS_STARTUP_FILE "startup_stm32wba6mxx.s"
   #elif defined(STM32WB10xx)
     #define CMSIS_STARTUP_FILE "startup_stm32wb10xx_cm4.s"
   #elif defined(STM32WB15xx)

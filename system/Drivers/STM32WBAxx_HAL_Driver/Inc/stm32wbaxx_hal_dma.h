@@ -250,6 +250,48 @@ typedef struct __DMA_HandleTypeDef
   * @brief    DMA Request Selection
   * @{
   */
+#if defined (LPDMA1)
+/* LPDMA1 requests */
+#define LPDMA1_REQUEST_ADC4           0U      /*!< LPDMA1 HW request is ADC4          */
+
+#define LPDMA1_REQUEST_SPI3_RX        3U      /*!< LPDMA1 HW request is SPI3_RX       */
+#define LPDMA1_REQUEST_SPI3_TX        4U      /*!< LPDMA1 HW request is SPI3_TX       */
+#define LPDMA1_REQUEST_I2C1_RX        5U      /*!< LPDMA1 HW request is I2C1_RX       */
+#define LPDMA1_REQUEST_I2C1_TX        6U      /*!< LPDMA1 HW request is I2C1_TX       */
+#define LPDMA1_REQUEST_I2C1_EVC       7U      /*!< LPDMA1 HW request is I2C1_EVC      */
+#define LPDMA1_REQUEST_I2C3_RX        8U      /*!< LPDMA1 HW request is I2C3_RX       */
+#define LPDMA1_REQUEST_I2C3_TX        9U      /*!< LPDMA1 HW request is I2C3_TX       */
+#define LPDMA1_REQUEST_I2C3_EVC       10U     /*!< LPDMA1 HW request is I2C3_EVC      */
+#define LPDMA1_REQUEST_USART1_RX      11U     /*!< LPDMA1 HW request is USART1_RX     */
+#define LPDMA1_REQUEST_USART1_TX      12U     /*!< LPDMA1 HW request is USART1_TX     */
+
+#define LPDMA1_REQUEST_LPUART1_RX     15U     /*!< LPDMA1 HW request is LPUART1_RX    */
+#define LPDMA1_REQUEST_LPUART1_TX     16U     /*!< LPDMA1 HW request is LPUART1_TX    */
+#define LPDMA1_REQUEST_SAI1_A         17U     /*!< LPDMA1 HW request is SAI1_A        */
+#define LPDMA1_REQUEST_SAI1_B         18U     /*!< LPDMA1 HW request is SAI1_B        */
+
+#define LPDMA1_REQUEST_TIM2_CH1       26U     /*!< LPDMA1 HW request is TIM2_CH1      */
+#define LPDMA1_REQUEST_TIM2_CH2       27U     /*!< LPDMA1 HW request is TIM2_CH2      */
+#define LPDMA1_REQUEST_TIM2_CH3       28U     /*!< LPDMA1 HW request is TIM2_CH3      */
+#define LPDMA1_REQUEST_TIM2_CH4       29U     /*!< LPDMA1 HW request is TIM2_CH4      */
+#define LPDMA1_REQUEST_TIM2_UP        30U     /*!< LPDMA1 HW request is TIM2_UP       */
+#define LPDMA1_REQUEST_TIM16_CH1      31U     /*!< LPDMA1 HW request is TIM16_CH1     */
+#define LPDMA1_REQUEST_TIM16_UP       32U     /*!< LPDMA1 HW request is TIM16_UP      */
+#define LPDMA1_REQUEST_TIM17_CH1      33U     /*!< LPDMA1 HW request is TIM17_CH1     */
+#define LPDMA1_REQUEST_TIM17_UP       34U     /*!< LPDMA1 HW request is TIM17_UP      */
+
+#define LPDMA1_REQUEST_AES_IN         35U     /*!< LPDMA1 HW request is AES_IN        */
+#define LPDMA1_REQUEST_AES_OUT        36U     /*!< LPDMA1 HW request is AES_OUT       */
+#define LPDMA1_REQUEST_HASH_IN        37U     /*!< LPDMA1 HW request is HASH_IN       */
+#define LPDMA1_REQUEST_LPTIM1_IC1     38U     /*!< LPDMA1 HW request is LPTIM1_IC1    */
+#define LPDMA1_REQUEST_LPTIM1_IC2     39U     /*!< LPDMA1 HW request is LPTIM1_IC2    */
+#define LPDMA1_REQUEST_LPTIM1_UE      40U     /*!< LPDMA1 HW request is LPTIM1_UE     */
+#define LPDMA1_REQUEST_LPTIM2_IC1     41U     /*!< LPDMA1 HW request is LPTIM2_IC1    */
+#define LPDMA1_REQUEST_LPTIM2_IC2     42U     /*!< LPDMA1 HW request is LPTIM2_IC2    */
+#define LPDMA1_REQUEST_LPTIM2_UE      46U     /*!< LPDMA1 HW request is LPTIM2_UE     */
+
+#define LPDMA1_REQUEST_XSPI1          44U     /*!< LPDMA1 HW request is XSPI1         */
+#else
 /* GPDMA1 requests */
 #define GPDMA1_REQUEST_ADC4           0U      /*!< GPDMA1 HW request is ADC4          */
 #if defined (SPI1)
@@ -321,6 +363,32 @@ typedef struct __DMA_HandleTypeDef
 #define GPDMA1_REQUEST_LPTIM2_IC2     50U     /*!< GPDMA1 HW request is LPTIM2_IC2    */
 #define GPDMA1_REQUEST_LPTIM2_UE      51U     /*!< GPDMA1 HW request is LPTIM2_UE     */
 #endif /* LPTIM2 */
+#if defined (SPI2)
+#define GPDMA1_REQUEST_SPI2_RX        52U     /*!< GPDMA1 HW request is SPI2_RX       */
+#define GPDMA1_REQUEST_SPI2_TX        53U     /*!< GPDMA1 HW request is SPI2_TX       */
+#endif /* SPI2 */
+#if defined (I2C2)
+#define GPDMA1_REQUEST_I2C2_RX        54U     /*!< GPDMA1 HW request is I2C2_RX       */
+#define GPDMA1_REQUEST_I2C2_TX        55U     /*!< GPDMA1 HW request is I2C2_TX       */
+#define GPDMA1_REQUEST_I2C2_EVC       56U     /*!< GPDMA1 HW request is I2C2_EVC      */
+#endif /* I2C2 */
+#if defined (I2C4)
+#define GPDMA1_REQUEST_I2C4_RX        57U     /*!< GPDMA1 HW request is I2C4_RX       */
+#define GPDMA1_REQUEST_I2C4_TX        58U     /*!< GPDMA1 HW request is I2C4_TX       */
+#define GPDMA1_REQUEST_I2C4_EVC       59U     /*!< GPDMA1 HW request is I2C4_EVC      */
+#endif /* I2C4 */
+#if defined (TIM4)
+#define GPDMA1_REQUEST_TIM4_CH1       60U     /*!< GPDMA1 HW request is TIM4_CH1      */
+#define GPDMA1_REQUEST_TIM4_CH2       61U     /*!< GPDMA1 HW request is TIM4_CH2      */
+#define GPDMA1_REQUEST_TIM4_CH3       62U     /*!< GPDMA1 HW request is TIM4_CH3      */
+#define GPDMA1_REQUEST_TIM4_CH4       63U     /*!< GPDMA1 HW request is TIM4_CH4      */
+#define GPDMA1_REQUEST_TIM4_UP        64U     /*!< GPDMA1 HW request is TIM4_UP       */
+#endif /* TIM4 */
+#if defined (USART3)
+#define GPDMA1_REQUEST_USART3_RX      65U     /*!< GPDMA1 HW request is USART3_RX     */
+#define GPDMA1_REQUEST_USART3_TX      66U     /*!< GPDMA1 HW request is USART3_TX     */
+#endif /* USART3 */
+#endif /* LPDMA1 */
 
 /* Software request */
 #define DMA_REQUEST_SW                DMA_CTR2_SWREQ /*!< DMA SW request              */
@@ -342,9 +410,16 @@ typedef struct __DMA_HandleTypeDef
   * @brief    DMA transfer direction
   * @{
   */
+#if defined(GPDMA1)
 #define DMA_PERIPH_TO_MEMORY 0x00000000U             /*!< Peripheral to memory direction */
 #define DMA_MEMORY_TO_PERIPH DMA_CTR2_DREQ           /*!< Memory to peripheral direction */
 #define DMA_MEMORY_TO_MEMORY DMA_CTR2_SWREQ          /*!< Memory to memory direction     */
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+#define DMA_PERIPH_TO_MEMORY 0x00000000U             /*!< Kept for porting purpose       */
+#define DMA_MEMORY_TO_PERIPH DMA_PERIPH_TO_MEMORY    /*!< Kept for porting purpose       */
+#define DMA_MEMORY_TO_MEMORY DMA_CTR2_SWREQ          /*!< Memory to memory direction     */
+#endif /* LPDMA1 */
 /**
   * @}
   */
@@ -408,10 +483,18 @@ typedef struct __DMA_HandleTypeDef
   * @brief    DMA Transfer Allocated Port
   * @{
   */
+#if defined(GPDMA1)
 #define DMA_SRC_ALLOCATED_PORT0  0x00000000U  /*!< Source allocated Port 0      */
 #define DMA_SRC_ALLOCATED_PORT1  DMA_CTR1_SAP /*!< Source allocated Port 1      */
 #define DMA_DEST_ALLOCATED_PORT0 0x00000000U  /*!< Destination allocated Port 0 */
 #define DMA_DEST_ALLOCATED_PORT1 DMA_CTR1_DAP /*!< Destination allocated Port 1 */
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+#define DMA_SRC_ALLOCATED_PORT0  0x00000000U              /*!< Kept for porting purpose     */
+#define DMA_SRC_ALLOCATED_PORT1  DMA_SRC_ALLOCATED_PORT0  /*!< Kept for porting purpose     */
+#define DMA_DEST_ALLOCATED_PORT0 0x00000000U              /*!< Kept for porting purpose     */
+#define DMA_DEST_ALLOCATED_PORT1 DMA_DEST_ALLOCATED_PORT0 /*!< Kept for porting purpose     */
+#endif /* LPDMA1 */
 
 /**
   * @}
@@ -660,11 +743,11 @@ uint32_t             HAL_DMA_GetError(DMA_HandleTypeDef const *const hdma);
   * @}
   */
 
+#if defined (DMA_PRIVCFGR_PRIV0)
 /** @defgroup DMA_Exported_Functions_Group4 DMA Attributes Functions
   * @brief    DMA Attributes Functions
   * @{
   */
-#if defined (DMA_PRIVCFGR_PRIV0)
 HAL_StatusTypeDef HAL_DMA_ConfigChannelAttributes(DMA_HandleTypeDef *const hdma,
                                                   uint32_t ChannelAttributes);
 HAL_StatusTypeDef HAL_DMA_GetConfigChannelAttributes(DMA_HandleTypeDef const *const hdma,
@@ -677,10 +760,10 @@ HAL_StatusTypeDef HAL_DMA_GetLockChannelAttributes(DMA_HandleTypeDef const *cons
                                                    uint32_t *const pLockState);
 
 #endif /* DMA_RCFGLOCKR_LOCK0 */
-#endif /* DMA_PRIVCFGR_PRIV0 */
 /**
   * @}
   */
+#endif /* DMA_PRIVCFGR_PRIV0 */
 
 /**
   * @}
@@ -723,10 +806,17 @@ HAL_StatusTypeDef HAL_DMA_GetLockChannelAttributes(DMA_HandleTypeDef const *cons
 #define IS_DMA_MODE(MODE) \
   ((MODE) == DMA_NORMAL)
 
+#if defined(GPDMA1)
 #define IS_DMA_DIRECTION(DIRECTION)         \
   (((DIRECTION) == DMA_PERIPH_TO_MEMORY) || \
    ((DIRECTION) == DMA_MEMORY_TO_PERIPH) || \
    ((DIRECTION) == DMA_MEMORY_TO_MEMORY))
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+#define IS_DMA_DIRECTION(DIRECTION)         \
+  (((DIRECTION) == DMA_PERIPH_TO_MEMORY) || \
+   ((DIRECTION) == DMA_MEMORY_TO_MEMORY))
+#endif /* LPDMA1 */
 
 #define IS_DMA_LEVEL_COMPLETE(LEVEL)     \
   (((LEVEL) == HAL_DMA_FULL_TRANSFER) || \
@@ -763,6 +853,12 @@ HAL_StatusTypeDef HAL_DMA_GetLockChannelAttributes(DMA_HandleTypeDef const *cons
 #define  IS_DMA_TRANSFER_ALLOCATED_PORT(ALLOCATED_PORT) \
   (((ALLOCATED_PORT) & (~(DMA_CTR1_SAP | DMA_CTR1_DAP))) == 0U)
 
+#if defined (GPDMA1)
+#if defined (USART3)
+#define IS_DMA_REQUEST(REQUEST)     \
+  (((REQUEST) == DMA_REQUEST_SW) || \
+   ((REQUEST) <= GPDMA1_REQUEST_USART3_TX))
+#else
 #if defined (LPTIM2)
 #define IS_DMA_REQUEST(REQUEST)     \
   (((REQUEST) == DMA_REQUEST_SW) || \
@@ -772,6 +868,13 @@ HAL_StatusTypeDef HAL_DMA_GetLockChannelAttributes(DMA_HandleTypeDef const *cons
   (((REQUEST) == DMA_REQUEST_SW) || \
    ((REQUEST) <= GPDMA1_REQUEST_LPTIM1_UE))
 #endif /* LPTIM2 */
+#endif /* USART3 */
+#endif /* GPDMA1 */
+#if defined (LPDMA1)
+#define IS_DMA_REQUEST(REQUEST)     \
+  (((REQUEST) == DMA_REQUEST_SW) || \
+   ((REQUEST) <= LPDMA1_REQUEST_XSPI1))
+#endif /* LPDMA1 */
 
 #define IS_DMA_BLOCK_HW_REQUEST(MODE)   \
   (((MODE) == DMA_BREQ_SINGLE_BURST) || \

@@ -110,6 +110,12 @@ typedef struct
 #if defined(COMP2)
 #define EXTI_LINE_18                        (EXTI_CONFIG   | EXTI_REG1 | 0x12U)
 #endif /* COMP2 */
+#if defined (EXTI_IMR1_IM19)
+#define EXTI_LINE_19                        (EXTI_CONFIG   | EXTI_REG1 | 0x13U)
+#endif /* EXTI_IMR1_IM19 */
+#if defined (EXTI_IMR1_IM20)
+#define EXTI_LINE_20                        (EXTI_CONFIG   | EXTI_REG1 | 0x14U)
+#endif /* EXTI_IMR1_IM20 */
 /**
   * @}
   */
@@ -142,6 +148,15 @@ typedef struct
 #define EXTI_GPIOA                          0x00000000U
 #define EXTI_GPIOB                          0x00000001U
 #define EXTI_GPIOC                          0x00000002U
+#if defined(GPIOD)
+#define EXTI_GPIOD                          0x00000002U
+#endif /* GPIOD */
+#if defined(GPIOE)
+#define EXTI_GPIOE                          0x00000004U
+#endif /* GPIOE */
+#if defined(GPIOG)
+#define EXTI_GPIOG                          0x00000006U
+#endif /* GPIOG */
 #define EXTI_GPIOH                          0x00000007U
 /**
   * @}
@@ -177,19 +192,19 @@ typedef struct
 /**
   * @brief  EXTI Line property definition
   */
-#define EXTI_PROPERTY_SHIFT                  24U
-#define EXTI_DIRECT                         (0x01U << EXTI_PROPERTY_SHIFT)
-#define EXTI_CONFIG                         (0x02U << EXTI_PROPERTY_SHIFT)
-#define EXTI_GPIO                           ((0x04U << EXTI_PROPERTY_SHIFT) | EXTI_CONFIG)
-#define EXTI_RESERVED                       (0x08U << EXTI_PROPERTY_SHIFT)
+#define EXTI_PROPERTY_SHIFT                 24U
+#define EXTI_DIRECT                         (0x01UL << EXTI_PROPERTY_SHIFT)
+#define EXTI_CONFIG                         (0x02UL << EXTI_PROPERTY_SHIFT)
+#define EXTI_GPIO                           ((0x04UL << EXTI_PROPERTY_SHIFT) | EXTI_CONFIG)
+#define EXTI_RESERVED                       (0x08UL << EXTI_PROPERTY_SHIFT)
 #define EXTI_PROPERTY_MASK                  (EXTI_DIRECT | EXTI_CONFIG | EXTI_GPIO)
 
 /**
   * @brief  EXTI Register and bit usage
   */
 #define EXTI_REG_SHIFT                      16U
-#define EXTI_REG1                           (0x00U << EXTI_REG_SHIFT)
-#define EXTI_REG2                           (0x01U << EXTI_REG_SHIFT)
+#define EXTI_REG1                           (0x00UL << EXTI_REG_SHIFT)
+#define EXTI_REG2                           (0x01UL << EXTI_REG_SHIFT)
 #define EXTI_REG_MASK                       (EXTI_REG1 | EXTI_REG2)
 #define EXTI_PIN_MASK                       0x0000001FU
 
@@ -206,7 +221,13 @@ typedef struct
 /**
   * @brief  EXTI Line number
   */
+#if defined (EXTI_IMR1_IM20)
+#define EXTI_LINE_NB                        20U
+#elif defined (EXTI_IMR1_IM19)
+#define EXTI_LINE_NB                        19U
+#else /* EXTI_IMR1_IM20 */
 #define EXTI_LINE_NB                        18U
+#endif /* EXTI_IMR1_IM20 */
 
 #if defined(EXTI_SECCFGR1_SEC0)
 /**
@@ -240,10 +261,63 @@ typedef struct
 
 #define IS_EXTI_CONFIG_LINE(__LINE__)   (((__LINE__) & EXTI_CONFIG) != 0x00U)
 
+#if defined(GPIOD)
+#if defined(GPIOE) && defined(GPIOG)
+#define IS_EXTI_GPIO_PORT(__PORT__)     (((__PORT__) == EXTI_GPIOA) || \
+                                         ((__PORT__) == EXTI_GPIOB) || \
+                                         ((__PORT__) == EXTI_GPIOC) || \
+                                         ((__PORT__) == EXTI_GPIOD) || \
+                                         ((__PORT__) == EXTI_GPIOE) || \
+                                         ((__PORT__) == EXTI_GPIOG) || \
+                                         ((__PORT__) == EXTI_GPIOH))
+#elif defined(GPIOE)
+#define IS_EXTI_GPIO_PORT(__PORT__)     (((__PORT__) == EXTI_GPIOA) || \
+                                         ((__PORT__) == EXTI_GPIOB) || \
+                                         ((__PORT__) == EXTI_GPIOC) || \
+                                         ((__PORT__) == EXTI_GPIOD) || \
+                                         ((__PORT__) == EXTI_GPIOE) || \
+                                         ((__PORT__) == EXTI_GPIOH))
+#elif defined(GPIOG)
+#define IS_EXTI_GPIO_PORT(__PORT__)     (((__PORT__) == EXTI_GPIOA) || \
+                                         ((__PORT__) == EXTI_GPIOB) || \
+                                         ((__PORT__) == EXTI_GPIOC) || \
+                                         ((__PORT__) == EXTI_GPIOD) || \
+                                         ((__PORT__) == EXTI_GPIOG) || \
+                                         ((__PORT__) == EXTI_GPIOH))
+#else /* No GPIOE and GPIOG */
+#define IS_EXTI_GPIO_PORT(__PORT__)     (((__PORT__) == EXTI_GPIOA) || \
+                                         ((__PORT__) == EXTI_GPIOB) || \
+                                         ((__PORT__) == EXTI_GPIOC) || \
+                                         ((__PORT__) == EXTI_GPIOD) || \
+                                         ((__PORT__) == EXTI_GPIOH))
+#endif /* defined(GPIOE) && defined(GPIOG) */
+#else /* No GPIOD */
+#if defined(GPIOE) && defined(GPIOG)
+#define IS_EXTI_GPIO_PORT(__PORT__)     (((__PORT__) == EXTI_GPIOA) || \
+                                         ((__PORT__) == EXTI_GPIOB) || \
+                                         ((__PORT__) == EXTI_GPIOC) || \
+                                         ((__PORT__) == EXTI_GPIOE) || \
+                                         ((__PORT__) == EXTI_GPIOG) || \
+                                         ((__PORT__) == EXTI_GPIOH))
+#elif defined(GPIOE)
+#define IS_EXTI_GPIO_PORT(__PORT__)     (((__PORT__) == EXTI_GPIOA) || \
+                                         ((__PORT__) == EXTI_GPIOB) || \
+                                         ((__PORT__) == EXTI_GPIOC) || \
+                                         ((__PORT__) == EXTI_GPIOE) || \
+                                         ((__PORT__) == EXTI_GPIOH))
+#elif defined(GPIOG)
+#define IS_EXTI_GPIO_PORT(__PORT__)     (((__PORT__) == EXTI_GPIOA) || \
+                                         ((__PORT__) == EXTI_GPIOB) || \
+                                         ((__PORT__) == EXTI_GPIOC) || \
+                                         ((__PORT__) == EXTI_GPIOG) || \
+                                         ((__PORT__) == EXTI_GPIOH))
+#else /* No GPIOE and GPIOG */
 #define IS_EXTI_GPIO_PORT(__PORT__)     (((__PORT__) == EXTI_GPIOA) || \
                                          ((__PORT__) == EXTI_GPIOB) || \
                                          ((__PORT__) == EXTI_GPIOC) || \
                                          ((__PORT__) == EXTI_GPIOH))
+#endif /* defined(GPIOE) && defined(GPIOG) */
+#endif /* defined(GPIOD) */
 
 #define IS_EXTI_GPIO_PIN(__PIN__)        ((__PIN__) < 16U)
 
@@ -281,8 +355,8 @@ typedef struct
   * @{
   */
 /* Configuration functions ****************************************************/
-HAL_StatusTypeDef HAL_EXTI_SetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigTypeDef *pExtiConfig);
-HAL_StatusTypeDef HAL_EXTI_GetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigTypeDef *pExtiConfig);
+HAL_StatusTypeDef HAL_EXTI_SetConfigLine(EXTI_HandleTypeDef *hexti, const EXTI_ConfigTypeDef *pExtiConfig);
+HAL_StatusTypeDef HAL_EXTI_GetConfigLine(const EXTI_HandleTypeDef *hexti, EXTI_ConfigTypeDef *pExtiConfig);
 HAL_StatusTypeDef HAL_EXTI_ClearConfigLine(const EXTI_HandleTypeDef *hexti);
 HAL_StatusTypeDef HAL_EXTI_RegisterCallback(EXTI_HandleTypeDef *hexti, EXTI_CallbackIDTypeDef CallbackID, void (*pPendingCbfn)(void));
 HAL_StatusTypeDef HAL_EXTI_GetHandle(EXTI_HandleTypeDef *hexti, uint32_t ExtiLine);

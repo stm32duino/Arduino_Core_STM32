@@ -101,13 +101,13 @@ typedef struct
 /** @defgroup ICACHE_Region_Size Remapped Region size
   * @{
   */
-#define ICACHE_REGIONSIZE_2MB          1U  /*!< Region size 2MB */
-#define ICACHE_REGIONSIZE_4MB          2U  /*!< Region size 4MB */
-#define ICACHE_REGIONSIZE_8MB          3U  /*!< Region size 8MB */
-#define ICACHE_REGIONSIZE_16MB         4U  /*!< Region size 16MB */
-#define ICACHE_REGIONSIZE_32MB         5U  /*!< Region size 32MB */
-#define ICACHE_REGIONSIZE_64MB         6U  /*!< Region size 64MB */
-#define ICACHE_REGIONSIZE_128MB        7U  /*!< Region size 128MB */
+#define ICACHE_REGIONSIZE_2MB          1UL  /*!< Region size 2MB */
+#define ICACHE_REGIONSIZE_4MB          2UL  /*!< Region size 4MB */
+#define ICACHE_REGIONSIZE_8MB          3UL  /*!< Region size 8MB */
+#define ICACHE_REGIONSIZE_16MB         4UL  /*!< Region size 16MB */
+#define ICACHE_REGIONSIZE_32MB         5UL  /*!< Region size 32MB */
+#define ICACHE_REGIONSIZE_64MB         6UL  /*!< Region size 64MB */
+#define ICACHE_REGIONSIZE_128MB        7UL  /*!< Region size 128MB */
 /**
   * @}
   */

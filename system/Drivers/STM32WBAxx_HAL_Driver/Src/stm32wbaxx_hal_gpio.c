@@ -204,7 +204,8 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, const GPIO_InitTypeDef *GPIO_Init)
         GPIOx->OTYPER = temp;
       }
 
-      if ((GPIO_Init->Mode & GPIO_MODE) != MODE_ANALOG)
+      if (((GPIO_Init->Mode & GPIO_MODE) != MODE_ANALOG) ||
+          (((GPIO_Init->Mode & GPIO_MODE) == MODE_ANALOG) && (GPIO_Init->Pull != GPIO_PULLUP)))
       {
         /* Check the Pull parameter */
         assert_param(IS_GPIO_PULL(GPIO_Init->Pull));
@@ -508,6 +509,50 @@ HAL_StatusTypeDef HAL_GPIO_LockPin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
   }
 }
 
+#if defined (STM32WBA62xx) || defined (STM32WBA63xx) || defined (STM32WBA64xx) || defined (STM32WBA65xx) || defined (STM32WBA6Mxx)
+/**
+  * @brief  Enable speed optimization for several pin of dedicated port.
+  * @note   Not all I/Os support the HSLV mode. Refer to the I/O structure in the corresponding
+  *         datasheet for the list of I/Os supporting this feature. Other I/Os HSLV configuration must
+  *         be kept at reset value.
+  * @note   It must be used only if the I/O supply voltage is below 2.7 V.
+  * @param  GPIOx: where x can be (A..H) for stm32WBAxxx family to select the GPIO peripheral
+  * @param  GPIO_Pin: specifies the port bit to be written.
+  *         This parameter can be any combination of GPIO_Pin_x where x can be (0..15).
+  * @retval None
+  */
+void HAL_GPIO_EnableHighSPeedLowVoltage(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
+{
+  /* Check the parameters */
+  assert_param(IS_GPIO_PIN(GPIO_Pin));
+  assert_param(IS_GPIO_ALL_INSTANCE(GPIOx));
+
+  /* Set HSLVR gpio pin */
+  SET_BIT(GPIOx->HSLVR, GPIO_Pin);
+}
+
+/**
+  * @brief  Disable speed optimization for several pin of dedicated port.
+  * @note   Not all I/Os support the HSLV mode. Refer to the I/O structure in the corresponding
+  *         datasheet for the list of I/Os supporting this feature. Other I/Os HSLV configuration must
+  *         be kept at reset value.
+  * @note   It must be used only if the I/O supply voltage is below 2.7 V.
+  * @param  GPIOx: where x can be (A..H) for stm32WBAxxx family to select the GPIO peripheral
+  * @param  GPIO_Pin: specifies the port bit to be written.
+  *         This parameter can be any combination of GPIO_Pin_x where x can be (0..15).
+  * @retval None
+  */
+void HAL_GPIO_DisableHighSPeedLowVoltage(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
+{
+  /* Check the parameters */
+  assert_param(IS_GPIO_PIN(GPIO_Pin));
+  assert_param(IS_GPIO_ALL_INSTANCE(GPIOx));
+
+  /* Clear HSLVR gpio pin */
+  CLEAR_BIT(GPIOx->HSLVR, GPIO_Pin);
+}
+
+#endif  /* defined (STM32WBA62xx) || defined (STM32WBA63xx) || defined (STM32WBA64xx) || defined (STM32WBA65xx) || defined (STM32WBA6Mxx) */
 /**
   * @brief  Handle EXTI interrupt request.
   * @param  GPIO_Pin Specifies the port pin connected to corresponding EXTI line.

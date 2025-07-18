@@ -677,7 +677,11 @@ __STATIC_INLINE void LL_RNG_SetHealthConfig(RNG_TypeDef *RNGx, uint32_t HTCFG)
 #if defined(RNG_HTCR_NIST_VALUE)
   /* For NIST compliance we can fin the recommended value in the application note AN4230 */
 #endif /* defined(RNG_HTCR_NIST_VALUE) */
+#if defined(RNG_HTCR0_HTCFG)
+  WRITE_REG(RNGx->HTCR[0], HTCFG);
+#else
   WRITE_REG(RNGx->HTCR, HTCFG);
+#endif  /* defined(RNG_HTCR0_HTCFG) */
 }
 
 /**
@@ -688,7 +692,11 @@ __STATIC_INLINE void LL_RNG_SetHealthConfig(RNG_TypeDef *RNGx, uint32_t HTCFG)
   */
 __STATIC_INLINE uint32_t LL_RNG_GetHealthConfig(const RNG_TypeDef *RNGx)
 {
+#if defined(RNG_HTCR0_HTCFG)
+  return (uint32_t)READ_REG(RNGx->HTCR[0]);
+#else
   return (uint32_t)READ_REG(RNGx->HTCR);
+#endif  /* defined(RNG_HTCR0_HTCFG) */
 }
 
 /**

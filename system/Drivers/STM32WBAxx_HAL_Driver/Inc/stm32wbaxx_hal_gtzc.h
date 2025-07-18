@@ -45,6 +45,8 @@ extern "C" {
 /*!< Values needed for MPCBB_Attribute_ConfigTypeDef structure sizing */
 #if  defined (STM32WBA52xx) || defined (STM32WBA54xx) || defined (STM32WBA55xx) || defined (STM32WBA5Mxx)
 #define GTZC_MPCBB_NB_VCTR_REG_MAX      4U  /*!< Maximum number of superblocks */
+#elif defined (STM32WBA62xx) || defined (STM32WBA63xx) || defined (STM32WBA64xx) || defined (STM32WBA65xx) || defined (STM32WBA6Mxx)
+#define GTZC_MPCBB_NB_VCTR_REG_MAX      28U /*!< Maximum number of superblocks */
 #endif
 #define GTZC_MPCBB_NB_LCK_VCTR_REG_MAX  1U  /*!< Maximum number of 32-bit registers to lock superblocks */
 typedef struct
@@ -67,6 +69,7 @@ typedef struct
                                      It can be a value of @ref GTZC_MPCBB_InvertSecureState */
   MPCBB_Attribute_ConfigTypeDef AttributeConfig; /*!< MPCBB attribute configuration sub-structure */
 } MPCBB_ConfigTypeDef;
+
 
 /**
   * @}
@@ -147,6 +150,7 @@ typedef struct
   * @}
   */
 
+
 /** @defgroup GTZC_TZSC_TZIC_PeriphId GTZC TZSC and TZIC Peripheral identifier values
   * @{
   */
@@ -155,26 +159,46 @@ typedef struct
 #if defined (TIM3)
 #define GTZC_PERIPH_TIM3          (GTZC_PERIPH_REG1 | GTZC_CFGR1_TIM3_Pos)
 #endif /* TIM3 */
+#if defined (TIM4)
+#define GTZC_PERIPH_TIM4          (GTZC_PERIPH_REG1 | GTZC_CFGR1_TIM4_Pos)
+#endif /* TIM4 */
 #if defined (WWDG)
 #define GTZC_PERIPH_WWDG          (GTZC_PERIPH_REG1 | GTZC_CFGR1_WWDG_Pos)
 #endif /* WWDG */
 #define GTZC_PERIPH_IWDG          (GTZC_PERIPH_REG1 | GTZC_CFGR1_IWDG_Pos)
+#if defined (SPI2)
+#define GTZC_PERIPH_SPI2          (GTZC_PERIPH_REG1 | GTZC_CFGR1_SPI2_Pos)
+#endif /* SPI2 */
 #if defined (USART2)
 #define GTZC_PERIPH_USART2        (GTZC_PERIPH_REG1 | GTZC_CFGR1_USART2_Pos)
 #endif /* USART2 */
+#if defined (USART3)
+#define GTZC_PERIPH_USART3        (GTZC_PERIPH_REG1 | GTZC_CFGR1_USART3_Pos)
+#endif /* USART3 */
 #define GTZC_PERIPH_I2C1          (GTZC_PERIPH_REG1 | GTZC_CFGR1_I2C1_Pos)
+#if defined (I2C2)
+#define GTZC_PERIPH_I2C2          (GTZC_PERIPH_REG1 | GTZC_CFGR1_I2C2_Pos)
+#endif /* I2C2 */
+#if defined (I2C4)
+#define GTZC_PERIPH_I2C4          (GTZC_PERIPH_REG1 | GTZC_CFGR1_I2C4_Pos)
+#endif /* I2C4 */
 #define GTZC_PERIPH_LPTIM2        (GTZC_PERIPH_REG1 | GTZC_CFGR1_LPTIM2_Pos)
 
 #if defined (TIM1)
 #define GTZC_PERIPH_TIM1          (GTZC_PERIPH_REG2 | GTZC_CFGR2_TIM1_Pos)
 #endif /* TIM1 */
+#if defined (SPI1)
 #define GTZC_PERIPH_SPI1          (GTZC_PERIPH_REG2 | GTZC_CFGR2_SPI1_Pos)
+#endif /* SPI1 */
 #define GTZC_PERIPH_USART1        (GTZC_PERIPH_REG2 | GTZC_CFGR2_USART1_Pos)
 #define GTZC_PERIPH_TIM16         (GTZC_PERIPH_REG2 | GTZC_CFGR2_TIM16_Pos)
 #define GTZC_PERIPH_TIM17         (GTZC_PERIPH_REG2 | GTZC_CFGR2_TIM17_Pos)
 #if defined (SAI1)
 #define GTZC_PERIPH_SAI1          (GTZC_PERIPH_REG2 | GTZC_CFGR2_SAI1_Pos)
 #endif /* SAI1 */
+#if defined (USB_DRD_FS)
+#define GTZC_PERIPH_USB1          (GTZC_PERIPH_REG2 | GTZC_CFGR2_USB1_Pos)
+#endif /* USB_DRD_FS */
 #if defined (SPI3)
 #define GTZC_PERIPH_SPI3          (GTZC_PERIPH_REG2 | GTZC_CFGR2_SPI3_Pos)
 #endif /* SPI3 */
@@ -185,12 +209,18 @@ typedef struct
 #define GTZC_PERIPH_COMP          (GTZC_PERIPH_REG2 | GTZC_CFGR2_COMP_Pos)
 #endif /* COMP1 */
 #define GTZC_PERIPH_ADC4          (GTZC_PERIPH_REG2 | GTZC_CFGR2_ADC4_Pos)
+#if defined (VREFBUF)
+#define GTZC_PERIPH_VREFBUF       (GTZC_PERIPH_REG2 | GTZC_CFGR2_VREFBUF_Pos)
+#endif /* VREFBUF */
 
 #define GTZC_PERIPH_CRC           (GTZC_PERIPH_REG3 | GTZC_CFGR3_CRC_Pos)
 #if defined (TSC)
 #define GTZC_PERIPH_TSC           (GTZC_PERIPH_REG3 | GTZC_CFGR3_TSC_Pos)
 #endif /* TSC */
 #define GTZC_PERIPH_ICACHE_REG    (GTZC_PERIPH_REG3 | GTZC_CFGR3_ICACHE_REG_Pos)
+#if defined (USB_OTG_HS)
+#define GTZC_PERIPH_OTG           (GTZC_PERIPH_REG3 | GTZC_CFGR3_OTG_Pos)
+#endif /* USB_OTG_HS */
 #define GTZC_PERIPH_AES           (GTZC_PERIPH_REG3 | GTZC_CFGR3_AES_Pos)
 #define GTZC_PERIPH_HASH          (GTZC_PERIPH_REG3 | GTZC_CFGR3_HASH_Pos)
 #define GTZC_PERIPH_RNG           (GTZC_PERIPH_REG3 | GTZC_CFGR3_RNG_Pos)
@@ -201,15 +231,26 @@ typedef struct
 #define GTZC_PERIPH_HSEM          (GTZC_PERIPH_REG3 | GTZC_CFGR3_HSEM_Pos)
 #endif /* HSEM */
 #define GTZC_PERIPH_PKA           (GTZC_PERIPH_REG3 | GTZC_CFGR3_PKA_Pos)
+#if defined (XSPI1)
+#define GTZC_PERIPH_XSPI1         (GTZC_PERIPH_REG3 | GTZC_CFGR3_XSPI1_Pos)
+#endif /* XSPI1 */
 #define GTZC_PERIPH_RAMCFG        (GTZC_PERIPH_REG3 | GTZC_CFGR3_RAMCFG_Pos)
 #define GTZC_PERIPH_RADIO         (GTZC_PERIPH_REG3 | GTZC_CFGR3_RADIO_Pos)
 #if defined (PTACONV)
 #define GTZC_PERIPH_PTACONV       (GTZC_PERIPH_REG3 | GTZC_CFGR3_PTACONV_Pos)
 #endif /* PTACONV */
 
+#if defined (LPDMA1)
+#define GTZC_PERIPH_LPDMA1        (GTZC_PERIPH_REG4 | GTZC_CFGR4_LPDMA1_Pos)
+#endif /* LPDMA1 */
+#if defined (GPDMA1)
 #define GTZC_PERIPH_GPDMA1        (GTZC_PERIPH_REG4 | GTZC_CFGR4_GPDMA1_Pos)
+#endif /* GPDMA1 */
 #define GTZC_PERIPH_FLASH         (GTZC_PERIPH_REG4 | GTZC_CFGR4_FLASH_Pos)
 #define GTZC_PERIPH_FLASH_REG     (GTZC_PERIPH_REG4 | GTZC_CFGR4_FLASH_REG_Pos)
+#if defined (OTFDEC1)
+#define GTZC_PERIPH_OTFDEC1       (GTZC_PERIPH_REG4 | GTZC_CFGR4_OTFDEC1_Pos)
+#endif /* OTFDEC1 */
 #define GTZC_PERIPH_SYSCFG        (GTZC_PERIPH_REG4 | GTZC_CFGR4_SYSCFG_Pos)
 #define GTZC_PERIPH_RTC           (GTZC_PERIPH_REG4 | GTZC_CFGR4_RTC_Pos)
 #define GTZC_PERIPH_TAMP          (GTZC_PERIPH_REG4 | GTZC_CFGR4_TAMP_Pos)
@@ -218,14 +259,17 @@ typedef struct
 #define GTZC_PERIPH_EXTI          (GTZC_PERIPH_REG4 | GTZC_CFGR4_EXTI_Pos)
 #define GTZC_PERIPH_TZSC          (GTZC_PERIPH_REG4 | GTZC_CFGR4_TZSC_Pos)
 #define GTZC_PERIPH_TZIC          (GTZC_PERIPH_REG4 | GTZC_CFGR4_TZIC_Pos)
+#if defined (XSPI1)
+#define GTZC_PERIPH_MPCWM1        (GTZC_PERIPH_REG4 | GTZC_CFGR4_MPCWM1_REG_Pos)
+#endif /* XSPI1 */
 #define GTZC_PERIPH_SRAM1         (GTZC_PERIPH_REG4 | GTZC_CFGR4_SRAM1_Pos)
 #define GTZC_PERIPH_MPCBB1_REG    (GTZC_PERIPH_REG4 | GTZC_CFGR4_MPCBB1_REG_Pos)
 #define GTZC_PERIPH_SRAM2         (GTZC_PERIPH_REG4 | GTZC_CFGR4_SRAM2_Pos)
 #define GTZC_PERIPH_MPCBB2_REG    (GTZC_PERIPH_REG4 | GTZC_CFGR4_MPCBB2_REG_Pos)
-#if defined (SRAM6_BASE)
+#if defined (GTZC_MPCBB6)
 #define GTZC_PERIPH_SRAM6         (GTZC_PERIPH_REG4 | GTZC_CFGR4_SRAM6_Pos)
 #define GTZC_PERIPH_MPCBB6_REG    (GTZC_PERIPH_REG4 | GTZC_CFGR4_MPCBB6_REG_Pos)
-#endif /* SRAM6 */
+#endif /* MPCBB6 */
 
 #define GTZC_PERIPH_ALL           (0x00000020U)
 
@@ -240,7 +284,11 @@ typedef struct
 #else
 #define GTZC_TZSC_PERIPH_NUMBER   (HAL_GTZC_GET_ARRAY_INDEX(GTZC_PERIPH_RADIO) + 1U)
 #endif /* PTACONV */
+#if defined(GTZC_MPCBB6)
 #define GTZC_TZIC_PERIPH_NUMBER   (HAL_GTZC_GET_ARRAY_INDEX(GTZC_PERIPH_MPCBB6_REG) + 1U)
+#else
+#define GTZC_TZIC_PERIPH_NUMBER   (HAL_GTZC_GET_ARRAY_INDEX(GTZC_PERIPH_MPCBB2_REG) + 1U)
+#endif /* GTZC_MPCBB6 */
 
 /**
   * @}
@@ -395,6 +443,7 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_GetConfigPeriphAttributes(uint32_t PeriphId,
 /**
   * @}
   */
+
 
 #if defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 

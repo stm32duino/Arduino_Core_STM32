@@ -47,8 +47,14 @@ extern "C" {
 typedef struct
 {
   FunctionalState  Activation;  /*!< Enable/disable PDM interface */
+#if defined(STM32WBA62xx) || defined(STM32WBA63xx) || defined(STM32WBA64xx) || defined(STM32WBA65xx) || defined (STM32WBA6Mxx)
+  uint32_t         MicPairsNbr; /*!< Specifies the number of microphone pairs used.
+                                     This parameter must be a number between Min_Data = 1 and
+                                     Max_Data = 3 for STM32WBA6xxx devices, Max_Data = 2 for other devices. */
+#else /* defined(STM32WBA62xx) || defined(STM32WBA63xx) || defined(STM32WBA64xx) || defined(STM32WBA65xx) || defined (STM32WBA6Mxx) */
   uint32_t         MicPairsNbr; /*!< Specifies the number of microphone pairs used.
                                      This parameter must be a number between Min_Data = 1 and Max_Data = 2. */
+#endif /* defined(STM32WBA62xx) || defined(STM32WBA63xx) || defined(STM32WBA64xx) || defined(STM32WBA65xx) || defined (STM32WBA6Mxx) */
   uint32_t         ClockEnable; /*!< Specifies which clock must be enabled.
                                      This parameter can be a values combination of @ref SAI_PDM_ClockEnable */
 } SAI_PdmInitTypeDef;
@@ -853,7 +859,11 @@ uint32_t HAL_SAI_GetError(const SAI_HandleTypeDef *hsai);
 #define IS_SAI_BLOCK_MCK_OVERSAMPLING(VALUE) (((VALUE) == SAI_MCK_OVERSAMPLING_DISABLE) || \
                                               ((VALUE) == SAI_MCK_OVERSAMPLING_ENABLE))
 
+#if defined(STM32WBA62xx) || defined(STM32WBA63xx) || defined(STM32WBA64xx) || defined(STM32WBA65xx) || defined (STM32WBA6Mxx)
+#define IS_SAI_PDM_MIC_PAIRS_NUMBER(VALUE)   ((1U <= (VALUE)) && ((VALUE) <= 3U))
+#else /* defined(STM32WBA62xx) || defined(STM32WBA63xx) || defined(STM32WBA64xx) || defined(STM32WBA65xx) || defined (STM32WBA6Mxx) */
 #define IS_SAI_PDM_MIC_PAIRS_NUMBER(VALUE)   ((1U <= (VALUE)) && ((VALUE) <= 2U))
+#endif /* defined(STM32WBA62xx) || defined(STM32WBA63xx) || defined(STM32WBA64xx) || defined(STM32WBA65xx) || defined (STM32WBA6Mxx) */
 
 #define IS_SAI_PDM_CLOCK_ENABLE(CLOCK) (((CLOCK) != 0U) && \
                                         (((CLOCK) & ~(SAI_PDM_CLOCK1_ENABLE | SAI_PDM_CLOCK2_ENABLE)) == 0U))

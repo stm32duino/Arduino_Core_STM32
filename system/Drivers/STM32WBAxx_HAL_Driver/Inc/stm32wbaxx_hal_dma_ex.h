@@ -186,10 +186,12 @@ typedef struct __DMA_QListTypeDef
 #define DMA_DATA_LEFTALIGN_RIGHTTRUNC  DMA_CTR1_PAM_0 /*!< If source data width > destination data width
                                                            => Left Aligned Right Truncated down to the
                                                               destination data width                             */
+#if defined(GPDMA1)
 #define DMA_DATA_PACK                  DMA_CTR1_PAM_1 /*!< If source data width < destination data width
                                                            => Packed at the destination data width               */
 #define DMA_DATA_UNPACK                DMA_CTR1_PAM_1 /*!< If source data width > destination data width
                                                            => Unpacked at the destination data width             */
+#endif /* GPDMA1 */
 
 /**
   * @}
@@ -233,6 +235,37 @@ typedef struct __DMA_QListTypeDef
   * @brief    DMAEx Trigger Selection
   * @{
   */
+#if defined (LPDMA1)
+/* LPDMA1 triggers */
+#define LPDMA1_TRIGGER_EXTI_LINE0        0U       /*!< LPDMA1 HW Trigger signal is EXTI_LINE0      */
+#define LPDMA1_TRIGGER_EXTI_LINE1        1U       /*!< LPDMA1 HW Trigger signal is EXTI_LINE1      */
+#define LPDMA1_TRIGGER_EXTI_LINE2        2U       /*!< LPDMA1 HW Trigger signal is EXTI_LINE2      */
+#define LPDMA1_TRIGGER_EXTI_LINE3        3U       /*!< LPDMA1 HW Trigger signal is EXTI_LINE3      */
+#define LPDMA1_TRIGGER_EXTI_LINE4        4U       /*!< LPDMA1 HW Trigger signal is EXTI_LINE4      */
+#define LPDMA1_TRIGGER_EXTI_LINE5        5U       /*!< LPDMA1 HW Trigger signal is EXTI_LINE5      */
+#define LPDMA1_TRIGGER_EXTI_LINE6        6U       /*!< LPDMA1 HW Trigger signal is EXTI_LINE6      */
+#define LPDMA1_TRIGGER_EXTI_LINE7        7U       /*!< LPDMA1 HW Trigger signal is EXTI_LINE7      */
+#define LPDMA1_TRIGGER_TAMP_TRG1         8U       /*!< LPDMA1 HW Trigger signal is TAMP_TRG1       */
+#define LPDMA1_TRIGGER_TAMP_TRG2         9U       /*!< LPDMA1 HW Trigger signal is TAMP_TRG2       */
+#define LPDMA1_TRIGGER_TAMP_TRG3         10U      /*!< LPDMA1 HW Trigger signal is TAMP_TRG3       */
+#define LPDMA1_TRIGGER_LPTIM1_CH1        11U      /*!< LPDMA1 HW Trigger signal is LPTIM1_CH1      */
+#define LPDMA1_TRIGGER_LPTIM1_CH2        12U      /*!< LPDMA1 HW Trigger signal is LPTIM1_CH2      */
+#define LPDMA1_TRIGGER_LPTIM2_CH1        13U      /*!< LPDMA1 HW Trigger signal is LPTIM2_CH1      */
+#define LPDMA1_TRIGGER_LPTIM2_CH2        14U      /*!< LPDMA1 HW Trigger signal is LPTIM2_CH2      */
+#define LPDMA1_TRIGGER_RTC_ALRA_TRG      15U      /*!< LPDMA1 HW Trigger signal is RTC_ALRA_TRG    */
+#define LPDMA1_TRIGGER_RTC_ALRB_TRG      16U      /*!< LPDMA1 HW Trigger signal is RTC_ALRB_TRG    */
+#define LPDMA1_TRIGGER_RTC_WUT_TRG       17U      /*!< LPDMA1 HW Trigger signal is RTC_WUT_TRG     */
+#define LPDMA1_TRIGGER_LPDMA1_CH0_TCF    18U      /*!< LPDMA1 HW Trigger signal is LPDMA1_CH0_TCF  */
+#define LPDMA1_TRIGGER_LPDMA1_CH1_TCF    19U      /*!< LPDMA1 HW Trigger signal is LPDMA1_CH1_TCF  */
+#define LPDMA1_TRIGGER_LPDMA1_CH2_TCF    20U      /*!< LPDMA1 HW Trigger signal is LPDMA1_CH2_TCF  */
+#define LPDMA1_TRIGGER_LPDMA1_CH3_TCF    21U      /*!< LPDMA1 HW Trigger signal is LPDMA1_CH3_TCF  */
+#define LPDMA1_TRIGGER_LPDMA1_CH4_TCF    22U      /*!< LPDMA1 HW Trigger signal is LPDMA1_CH4_TCF  */
+#define LPDMA1_TRIGGER_LPDMA1_CH5_TCF    23U      /*!< LPDMA1 HW Trigger signal is LPDMA1_CH5_TCF  */
+#define LPDMA1_TRIGGER_LPDMA1_CH6_TCF    24U      /*!< LPDMA1 HW Trigger signal is LPDMA1_CH6_TCF  */
+#define LPDMA1_TRIGGER_LPDMA1_CH7_TCF    25U      /*!< LPDMA1 HW Trigger signal is LPDMA1_CH7_TCF  */
+#define LPDMA1_TRIGGER_TIM2_TRGO         26U      /*!< LPDMA1 HW Trigger signal is TIM2_TRGO       */
+#define LPDMA1_TRIGGER_ADC4_AWD1         27U      /*!< LPDMA1 HW Trigger signal is ADC4_ADW1       */
+#else
 /* GPDMA1 triggers */
 #define GPDMA1_TRIGGER_EXTI_LINE0        0U       /*!< GPDMA1 HW Trigger signal is EXTI_LINE0      */
 #define GPDMA1_TRIGGER_EXTI_LINE1        1U       /*!< GPDMA1 HW Trigger signal is EXTI_LINE1      */
@@ -273,6 +306,10 @@ typedef struct __DMA_QListTypeDef
 #if defined (TIM3)
 #define GPDMA1_TRIGGER_TIM3_TRGO         30U      /*!< GPDMA1 HW Trigger signal is TIM3_TRGO       */
 #endif /* TIM3 */
+#if defined (TIM4)
+#define GPDMA1_TRIGGER_TIM4_TRGO         31U      /*!< GPDMA1 HW Trigger signal is TIM4_TRGO       */
+#endif /* TIM4 */
+#endif /* LPDMA1 */
 /**
   * @}
   */
@@ -281,7 +318,12 @@ typedef struct __DMA_QListTypeDef
   * @brief    DMAEx Node Type
   * @{
   */
+#if defined(LPDMA1)
+#define DMA_LPDMA_LINEAR_NODE (DMA_CHANNEL_TYPE_LPDMA | DMA_CHANNEL_TYPE_LINEAR_ADDR) /*!< Defines the LPDMA linear addressing node type      */
+#endif /* LPDMA1 */
+#if defined(GPDMA1)
 #define DMA_GPDMA_LINEAR_NODE (DMA_CHANNEL_TYPE_GPDMA | DMA_CHANNEL_TYPE_LINEAR_ADDR) /*!< Defines the GPDMA linear addressing node type      */
+#endif /* GPDMA1 */
 
 /**
   * @}
@@ -291,8 +333,13 @@ typedef struct __DMA_QListTypeDef
   * @brief    DMAEx Linked-List Allocated Port
   * @{
   */
+#if defined(GPDMA1)
 #define DMA_LINK_ALLOCATED_PORT0 0x00000000U /*!< Link allocated port 0 */
 #define DMA_LINK_ALLOCATED_PORT1 DMA_CCR_LAP /*!< Link allocated port 1 */
+#else
+#define DMA_LINK_ALLOCATED_PORT0  0x00000000U              /*!< Kept for porting purpose     */
+#define DMA_LINK_ALLOCATED_PORT1  DMA_LINK_ALLOCATED_PORT0 /*!< Kept for porting purpose     */
+#endif /* GPDMA1 */
 /**
   * @}
   */
@@ -415,11 +462,13 @@ HAL_StatusTypeDef HAL_DMAEx_Resume(DMA_HandleTypeDef *const hdma);
   * @}
   */
 
+#if defined(GPDMA1)
 /** @defgroup DMAEx_Exported_Functions_Group6 FIFO Status Function
   * @brief    FIFO Status Function
   * @{
   */
 uint32_t HAL_DMAEx_GetFifoLevel(DMA_HandleTypeDef const *const hdma);
+#endif /* GPDMA1 */
 
 /**
   * @}
@@ -463,8 +512,15 @@ typedef struct
 #define DMA_LINKEDLIST                  (0x0080U ) /* DMA channel linked-list mode          */
 
 #define DMA_CHANNEL_TYPE_LINEAR_ADDR    (0x0001U) /* DMA channel linear addressing mode    */
+#if defined(GPDMA1)
 #define DMA_CHANNEL_TYPE_2D_ADDR        (0x0002U) /* DMA channel 2D addressing mode        */
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+#define DMA_CHANNEL_TYPE_LPDMA          (0x0010U) /* LPDMA channel node                    */
+#endif /* LPDMA1 */
+#if defined(GPDMA1)
 #define DMA_CHANNEL_TYPE_GPDMA          (0x0020U) /* GPDMA channel node                    */
+#endif /* GPDMA1 */
 
 #define NODE_TYPE_MASK                  (0x00FFU) /* DMA channel node type                 */
 #define NODE_CLLR_IDX                   (0x0700U) /* DMA channel node CLLR index mask      */
@@ -484,12 +540,12 @@ typedef struct
 #define QUEUE_TYPE_STATIC               (0x0000U) /* DMA channel static queue              */
 #define QUEUE_TYPE_DYNAMIC              (0x0001U) /* DMA channel dynamic queue             */
 
-#define NODE_CTR1_DEFAULT_OFFSET        (0x0000U) /* CTR1 default offset                   */
-#define NODE_CTR2_DEFAULT_OFFSET        (0x0001U) /* CTR2 default offset                   */
-#define NODE_CBR1_DEFAULT_OFFSET        (0x0002U) /* CBR1 default offset                   */
-#define NODE_CSAR_DEFAULT_OFFSET        (0x0003U) /* CSAR default offset                   */
-#define NODE_CDAR_DEFAULT_OFFSET        (0x0004U) /* CDAR default offset                   */
-#define NODE_CLLR_LINEAR_DEFAULT_OFFSET (0x0005U) /* CLLR linear addressing default offset */
+#define NODE_CTR1_DEFAULT_OFFSET        (0x0000UL) /* CTR1 default offset                   */
+#define NODE_CTR2_DEFAULT_OFFSET        (0x0001UL) /* CTR2 default offset                   */
+#define NODE_CBR1_DEFAULT_OFFSET        (0x0002UL) /* CBR1 default offset                   */
+#define NODE_CSAR_DEFAULT_OFFSET        (0x0003UL) /* CSAR default offset                   */
+#define NODE_CDAR_DEFAULT_OFFSET        (0x0004UL) /* CDAR default offset                   */
+#define NODE_CLLR_LINEAR_DEFAULT_OFFSET (0x0005UL) /* CLLR linear addressing default offset */
 
 #define DMA_BURST_ADDR_OFFSET_MIN       (-8192L)  /* DMA burst minimum address offset      */
 #define DMA_BURST_ADDR_OFFSET_MAX       (8192L)   /* DMA burst maximum address offset      */
@@ -504,13 +560,22 @@ typedef struct
   * @brief    DMAEx Private Macros
   * @{
   */
+#if defined(GPDMA1)
 #define IS_DMA_DATA_ALIGNMENT(ALIGNMENT)              \
   (((ALIGNMENT) == DMA_DATA_RIGHTALIGN_ZEROPADDED) || \
    ((ALIGNMENT) == DMA_DATA_RIGHTALIGN_SIGNEXT)    || \
    ((ALIGNMENT) == DMA_DATA_PACK))
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+#define IS_DMA_DATA_ALIGNMENT(ALIGNMENT)              \
+  (((ALIGNMENT) == DMA_DATA_RIGHTALIGN_ZEROPADDED) || \
+   ((ALIGNMENT) == DMA_DATA_RIGHTALIGN_SIGNEXT))
+#endif /* LPDMA1 */
 
+#if defined(GPDMA1)
 #define IS_DMA_DATA_EXCHANGE(EXCHANGE) \
   (((EXCHANGE) & (~(DMA_EXCHANGE_SRC_BYTE | DMA_EXCHANGE_DEST_BYTE | DMA_EXCHANGE_DEST_HALFWORD))) == 0U)
+#endif /* GPDMA1 */
 
 #define IS_DMA_REPEAT_COUNT(COUNT) \
   (((COUNT) > 0U) && ((COUNT) <= (DMA_CBR1_BRC >> DMA_CBR1_BRC_Pos)))
@@ -541,6 +606,11 @@ typedef struct
    ((POLARITY) == DMA_TRIG_POLARITY_RISING) || \
    ((POLARITY) == DMA_TRIG_POLARITY_FALLING))
 
+#if defined (GPDMA1)
+#if defined (TIM4)
+#define IS_DMA_TRIGGER_SELECTION(TRIGGER) \
+  ((TRIGGER) <= GPDMA1_TRIGGER_TIM4_TRGO)
+#else
 #if defined (TIM3)
 #define IS_DMA_TRIGGER_SELECTION(TRIGGER) \
   ((TRIGGER) <= GPDMA1_TRIGGER_TIM3_TRGO)
@@ -548,9 +618,21 @@ typedef struct
 #define IS_DMA_TRIGGER_SELECTION(TRIGGER) \
   ((TRIGGER) <= GPDMA1_TRIGGER_ADC4_AWD1)
 #endif /* TIM3 */
+#endif /* TIM4 */
+#endif /* GPDMA1 */
+#if defined (LPDMA1)
+#define IS_DMA_TRIGGER_SELECTION(TRIGGER) \
+  ((TRIGGER) <= LPDMA1_TRIGGER_ADC4_AWD1)
+#endif /* LPDMA1 */
 
+#if defined (GPDMA1)
 #define IS_DMA_NODE_TYPE(TYPE)          \
   ((TYPE) == DMA_GPDMA_LINEAR_NODE)
+#endif /* GPDMA1 */
+#if defined (LPDMA1)
+#define IS_DMA_NODE_TYPE(TYPE)          \
+  ((TYPE) == DMA_LPDMA_LINEAR_NODE)
+#endif /* LPDMA1 */
 /**
   * @}
   */

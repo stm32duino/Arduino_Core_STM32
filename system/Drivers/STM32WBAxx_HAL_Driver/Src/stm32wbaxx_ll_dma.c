@@ -51,7 +51,8 @@
   * @{
   */
 
-#if defined (GPDMA1)
+#if defined (GPDMA1) || defined (LPDMA1)
+
 /** @addtogroup DMA_LL
   * @{
   */
@@ -64,6 +65,7 @@
 /** @addtogroup DMA_LL_Private_Macros
   * @{
   */
+#if defined (GPDMA1)
 #define IS_LL_DMA_ALL_CHANNEL_INSTANCE(INSTANCE, Channel) (((INSTANCE) == GPDMA1)                && \
                                                            (((Channel)  == LL_DMA_CHANNEL_0)     || \
                                                             ((Channel)  == LL_DMA_CHANNEL_1)     || \
@@ -74,7 +76,21 @@
                                                             ((Channel)  == LL_DMA_CHANNEL_6)     || \
                                                             ((Channel)  == LL_DMA_CHANNEL_7)     || \
                                                             ((Channel)  == LL_DMA_CHANNEL_ALL)))
+#endif /* GPDMA1 */
+#if defined (LPDMA1)
+#define IS_LL_DMA_ALL_CHANNEL_INSTANCE(INSTANCE, Channel) (((INSTANCE) == LPDMA1)                && \
+                                                           (((Channel)  == LL_DMA_CHANNEL_0)     || \
+                                                            ((Channel)  == LL_DMA_CHANNEL_1)     || \
+                                                            ((Channel)  == LL_DMA_CHANNEL_2)     || \
+                                                            ((Channel)  == LL_DMA_CHANNEL_3)     || \
+                                                            ((Channel)  == LL_DMA_CHANNEL_4)     || \
+                                                            ((Channel)  == LL_DMA_CHANNEL_5)     || \
+                                                            ((Channel)  == LL_DMA_CHANNEL_6)     || \
+                                                            ((Channel)  == LL_DMA_CHANNEL_7)     || \
+                                                            ((Channel)  == LL_DMA_CHANNEL_ALL)))
+#endif /* LPDMA1 */
 
+#if  defined(GPDMA1)
 #define IS_LL_GPDMA_CHANNEL_INSTANCE(INSTANCE, Channel)   (((INSTANCE) == GPDMA1)                && \
                                                            (((Channel)  == LL_DMA_CHANNEL_0)     || \
                                                             ((Channel)  == LL_DMA_CHANNEL_1)     || \
@@ -85,6 +101,8 @@
                                                             ((Channel)  == LL_DMA_CHANNEL_6)     || \
                                                             ((Channel)  == LL_DMA_CHANNEL_7)))
 
+#endif /* GPDMA1 */
+#if defined(GPDMA1)
 #define IS_LL_DMA_DIRECTION(__VALUE__)                    (((__VALUE__) == LL_DMA_DIRECTION_MEMORY_TO_MEMORY) || \
                                                            ((__VALUE__) == LL_DMA_DIRECTION_PERIPH_TO_MEMORY) || \
                                                            ((__VALUE__) == LL_DMA_DIRECTION_MEMORY_TO_PERIPH))
@@ -92,6 +110,14 @@
 #define IS_LL_DMA_DATA_ALIGNMENT(__VALUE__)               (((__VALUE__) == LL_DMA_DATA_ALIGN_ZEROPADD)    || \
                                                            ((__VALUE__) == LL_DMA_DATA_ALIGN_SIGNEXTPADD) || \
                                                            ((__VALUE__) == LL_DMA_DATA_PACK_UNPACK))
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+#define IS_LL_DMA_DIRECTION(__VALUE__)                    (((__VALUE__) == LL_DMA_DIRECTION_MEMORY_TO_MEMORY) || \
+                                                           ((__VALUE__) == LL_DMA_DIRECTION_PERIPH_TO_MEMORY))
+
+#define IS_LL_DMA_DATA_ALIGNMENT(__VALUE__)               (((__VALUE__) == LL_DMA_DATA_ALIGN_ZEROPADD)    || \
+                                                           ((__VALUE__) == LL_DMA_DATA_ALIGN_SIGNEXTPADD))
+#endif /* LPDMA1 */
 
 #define IS_LL_DMA_BURST_LENGTH(__VALUE__)                 (((__VALUE__) > 0U) && ((__VALUE__) <= 64U))
 
@@ -130,18 +156,36 @@
 #define IS_LL_DMA_BLKHW_REQUEST(__VALUE__)                (((__VALUE__) == LL_DMA_HWREQUEST_SINGLEBURST) || \
                                                            ((__VALUE__) == LL_DMA_HWREQUEST_BLK))
 
+#if defined (GPDMA1)
+#if defined (TIM4)
+#define IS_LL_DMA_TRIGGER_SELECTION(__VALUE__)             ((__VALUE__) <= LL_GPDMA1_TRIGGER_TIM4_TRGO)
+#else
 #if defined (TIM3)
 #define IS_LL_DMA_TRIGGER_SELECTION(__VALUE__)             ((__VALUE__) <= LL_GPDMA1_TRIGGER_TIM3_TRGO)
 #else
 #define IS_LL_DMA_TRIGGER_SELECTION(__VALUE__)             ((__VALUE__) <= LL_GPDMA1_TRIGGER_ADC4_AWD1)
 #endif /* TIM3 */
+#endif /* TIM4 */
+#endif /* GPDMA1 */
+#if defined (LPDMA1)
+#define IS_LL_DMA_TRIGGER_SELECTION(__VALUE__)             ((__VALUE__) <= LL_LPDMA1_TRIGGER_ADC4_AWD1)
+#endif /* LPDMA1 */
 
 
+#if defined (GPDMA1)
+#if defined (USART3)
+#define IS_LL_DMA_REQUEST_SELECTION(__VALUE__)             ((__VALUE__) <= LL_GPDMA1_REQUEST_USART3_TX)
+#else
 #if defined (LPTIM2)
 #define IS_LL_DMA_REQUEST_SELECTION(__VALUE__)             ((__VALUE__) <= LL_GPDMA1_REQUEST_LPTIM2_UE)
 #else
 #define IS_LL_DMA_REQUEST_SELECTION(__VALUE__)             ((__VALUE__) <= LL_GPDMA1_REQUEST_LPTIM1_UE)
 #endif /* LPTIM2 */
+#endif /* USART3 */
+#endif /* GPDMA1 */
+#if defined (LPDMA1)
+#define IS_LL_DMA_REQUEST_SELECTION(__VALUE__)             ((__VALUE__) <= LL_LPDMA1_REQUEST_XSPI1)
+#endif /* LPDMA1 */
 
 
 #define IS_LL_DMA_TRANSFER_EVENT_MODE(__VALUE__)          (((__VALUE__) == LL_DMA_TCEM_BLK_TRANSFER)         || \
@@ -192,8 +236,14 @@
 
 #define IS_LL_DMA_LINK_UPDATE_REGISTERS(__VALUE__)       ((((__VALUE__) & 0x01FE0000U) == 0U) && ((__VALUE__) != 0U))
 
+#if defined (GPDMA1)
 #define IS_LL_DMA_LINK_NODETYPE(TYPE)          \
   ((TYPE) == LL_DMA_GPDMA_LINEAR_NODE)
+#endif /* GPDMA1 */
+#if defined (LPDMA1)
+#define IS_LL_DMA_LINK_NODETYPE(TYPE)          \
+  ((TYPE) == LL_DMA_LPDMA_LINEAR_NODE)
+#endif /* LPDMA1 */
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 #define IS_LL_DMA_CHANNEL_SRC_SEC(__VALUE__)              (((__VALUE__) == LL_DMA_CHANNEL_SRC_NSEC) || \
@@ -249,11 +299,21 @@ uint32_t LL_DMA_DeInit(DMA_TypeDef *DMAx, uint32_t Channel)
 
   if (Channel == LL_DMA_CHANNEL_ALL)
   {
+#if defined(GPDMA1)
     /* Force reset of DMA clock */
     LL_AHB2_GRP1_ForceReset(LL_AHB1_GRP1_PERIPH_GPDMA1);
 
     /* Release reset of DMA clock */
     LL_AHB1_GRP1_ReleaseReset(LL_AHB1_GRP1_PERIPH_GPDMA1);
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+
+    /* Force reset of DMA clock */
+    LL_AHB2_GRP1_ForceReset(LL_AHB1_GRP1_PERIPH_LPDMA1);
+
+    /* Release reset of DMA clock */
+    LL_AHB1_GRP1_ReleaseReset(LL_AHB1_GRP1_PERIPH_LPDMA1);
+#endif /* LPDMA1 */
   }
   else
   {
@@ -359,6 +419,7 @@ uint32_t LL_DMA_Init(DMA_TypeDef *DMAx, uint32_t Channel, LL_DMA_InitTypeDef *DM
   assert_param(IS_LL_DMA_LINK_ADDR_OFFSET(DMA_InitStruct->LinkedListAddrOffset));
 
   /* Check DMA instance */
+#if defined(GPDMA1)
   if (IS_LL_GPDMA_CHANNEL_INSTANCE(DMAx, Channel) != 0U)
   {
     assert_param(IS_LL_DMA_BURST_LENGTH(DMA_InitStruct->SrcBurstLength));
@@ -370,6 +431,7 @@ uint32_t LL_DMA_Init(DMA_TypeDef *DMAx, uint32_t Channel, LL_DMA_InitTypeDef *DM
     assert_param(IS_LL_DMA_SRC_ALLOCATED_PORT(DMA_InitStruct->SrcAllocatedPort));
     assert_param(IS_LL_DMA_DEST_ALLOCATED_PORT(DMA_InitStruct->DestAllocatedPort));
   }
+#endif /* GPDMA1 */
 
   /* Check trigger polarity */
   if (DMA_InitStruct->TriggerPolarity != LL_DMA_TRIG_POLARITY_MASKED)
@@ -388,12 +450,19 @@ uint32_t LL_DMA_Init(DMA_TypeDef *DMAx, uint32_t Channel, LL_DMA_InitTypeDef *DM
   /*-------------------------- DMAx CCR Configuration --------------------------
    * Configure the control parameter :
    * - LinkAllocatedPort:                              DMA_CCR_LAP bit
+   *   LinkAllocatedPort field is not supported by LPDMA channels.
    * - LinkStepMode:                                   DMA_CCR_LSM bit
    * - Priority:                                       DMA_CCR_PRIO [23:22] bits
    */
+#if defined(GPDMA1)
   LL_DMA_ConfigControl(DMAx, Channel, DMA_InitStruct->Priority | \
                        DMA_InitStruct->LinkAllocatedPort       | \
                        DMA_InitStruct->LinkStepMode);
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+  LL_DMA_ConfigControl(DMAx, Channel, DMA_InitStruct->Priority | \
+                       DMA_InitStruct->LinkStepMode);
+#endif /* LPDMA1 */
 
   /*-------------------------- DMAx CTR1 Configuration -------------------------
    * Configure the Data transfer  parameter :
@@ -410,6 +479,7 @@ uint32_t LL_DMA_Init(DMA_TypeDef *DMAx, uint32_t Channel, LL_DMA_InitTypeDef *DM
    * - SrcBurstLength:                            DMA_CTR1_SBL_1 [9:4] bits
    * - DestBurstLength:                           DMA_CTR1_DBL_1 [25:20] bits
    */
+#if  defined(GPDMA1)
   LL_DMA_ConfigTransfer(DMAx, Channel, DMA_InitStruct->DestAllocatedPort | \
                         DMA_InitStruct->DestHWordExchange                | \
                         DMA_InitStruct->DestByteExchange                 | \
@@ -420,12 +490,24 @@ uint32_t LL_DMA_Init(DMA_TypeDef *DMAx, uint32_t Channel, LL_DMA_InitTypeDef *DM
                         DMA_InitStruct->DataAlignment                    | \
                         DMA_InitStruct->SrcIncMode                       | \
                         DMA_InitStruct->SrcDataWidth);
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+  LL_DMA_ConfigTransfer(DMAx, Channel, DMA_InitStruct->DestIncMode       | \
+                        DMA_InitStruct->DestDataWidth                    | \
+                        DMA_InitStruct->DataAlignment                    | \
+                        DMA_InitStruct->SrcIncMode                       | \
+                        DMA_InitStruct->SrcDataWidth);
+#endif /* LPDMA1 */
   /* Check DMA instance */
+#if defined(GPDMA1)
   if (IS_LL_GPDMA_CHANNEL_INSTANCE(DMAx, Channel) != 0U)
+#endif /* GPDMA1 */
+#if defined(GPDMA1)
   {
     LL_DMA_ConfigBurstLength(DMAx, Channel,  DMA_InitStruct->SrcBurstLength,
                              DMA_InitStruct->DestBurstLength);
   }
+#endif /* GPDMA1 */
   /*-------------------------- DMAx CTR2 Configuration -------------------------
    * Configure the channel transfer parameter :
    * - TransferEventMode:                          DMA_CTR2_TCEM [31:30] bits
@@ -434,8 +516,11 @@ uint32_t LL_DMA_Init(DMA_TypeDef *DMAx, uint32_t Channel, LL_DMA_InitTypeDef *DM
    * - BlkHWRequest:                               DMA_CTR2_BREQ bit
    * - Direction:                                  DMA_CTR2_DREQ bit
    * - Direction:                                  DMA_CTR2_SWREQ bit
+   *   Direction field is reduced to one bit for LPDMA channels (SWREQ).
    * - TriggerSelection:                           DMA_CTR2_TRIGSEL [21:16] bits
+   *   TriggerSelection field is reduced to 5 bits for LPDMA channels.
    * - Request:                                    DMA_CTR2_REQSEL [6:0] bits
+   *   Request field is reduced to 5 bits for LPDMA channels.
    */
   LL_DMA_ConfigChannelTransfer(DMAx, Channel, DMA_InitStruct->TransferEventMode | \
                                DMA_InitStruct->TriggerPolarity                  | \
@@ -503,12 +588,14 @@ void LL_DMA_StructInit(LL_DMA_InitTypeDef *DMA_InitStruct)
   DMA_InitStruct->TriggerSelection         = 0x00000000U;
   DMA_InitStruct->Request                  = 0x00000000U;
   DMA_InitStruct->TransferEventMode        = LL_DMA_TCEM_BLK_TRANSFER;
+#if defined(GPDMA1)
   DMA_InitStruct->DestHWordExchange        = LL_DMA_DEST_HALFWORD_PRESERVE;
   DMA_InitStruct->DestByteExchange         = LL_DMA_DEST_BYTE_PRESERVE;
   DMA_InitStruct->SrcByteExchange          = LL_DMA_SRC_BYTE_PRESERVE;
   DMA_InitStruct->SrcAllocatedPort         = LL_DMA_SRC_ALLOCATED_PORT0;
   DMA_InitStruct->DestAllocatedPort        = LL_DMA_DEST_ALLOCATED_PORT0;
   DMA_InitStruct->LinkAllocatedPort        = LL_DMA_LINK_ALLOCATED_PORT0;
+#endif /* GPDMA1 */
   DMA_InitStruct->LinkStepMode             = LL_DMA_LSM_FULL_EXECUTION;
   DMA_InitStruct->LinkedListBaseAddr       = 0x00000000U;
   DMA_InitStruct->LinkedListAddrOffset     = 0x00000000U;
@@ -526,7 +613,9 @@ void LL_DMA_ListStructInit(LL_DMA_InitLinkedListTypeDef *DMA_InitLinkedListStruc
   DMA_InitLinkedListStruct->Priority          = LL_DMA_LOW_PRIORITY_LOW_WEIGHT;
   DMA_InitLinkedListStruct->LinkStepMode      = LL_DMA_LSM_FULL_EXECUTION;
   DMA_InitLinkedListStruct->TransferEventMode = LL_DMA_TCEM_LAST_LLITEM_TRANSFER;
+#if defined(GPDMA1)
   DMA_InitLinkedListStruct->LinkAllocatedPort = LL_DMA_LINK_ALLOCATED_PORT0;
+#endif /* GPDMA1 */
 }
 
 /**
@@ -589,10 +678,12 @@ uint32_t LL_DMA_List_Init(DMA_TypeDef *DMAx, uint32_t Channel, LL_DMA_InitLinked
   assert_param(IS_LL_DMA_LINK_STEP_MODE(DMA_InitLinkedListStruct->LinkStepMode));
   assert_param(IS_LL_DMA_TRANSFER_EVENT_MODE(DMA_InitLinkedListStruct->TransferEventMode));
   /* Check DMA instance */
+#if defined(GPDMA1)
   if (IS_LL_GPDMA_CHANNEL_INSTANCE(DMAx, Channel) != 0U)
   {
     assert_param(IS_LL_DMA_LINK_ALLOCATED_PORT(DMA_InitLinkedListStruct->LinkAllocatedPort));
   }
+#endif /* GPDMA1 */
 
   /*-------------------------- DMAx CCR Configuration --------------------------
    * Configure the control parameter :
@@ -601,9 +692,15 @@ uint32_t LL_DMA_List_Init(DMA_TypeDef *DMAx, uint32_t Channel, LL_DMA_InitLinked
    * - LinkStepMode:                                   DMA_CCR_LSM bit
    * - Priority:                                       DMA_CCR_PRIO [23:22] bits
    */
+#if defined(GPDMA1)
   LL_DMA_ConfigControl(DMAx, Channel, DMA_InitLinkedListStruct->Priority | \
                        DMA_InitLinkedListStruct->LinkAllocatedPort       | \
                        DMA_InitLinkedListStruct->LinkStepMode);
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+  LL_DMA_ConfigControl(DMAx, Channel, DMA_InitLinkedListStruct->Priority | \
+                       DMA_InitLinkedListStruct->LinkStepMode);
+#endif /* LPDMA1 */
   /*-------------------------- DMAx CTR2 Configuration -------------------------
    * Configure the channel transfer parameter :
    * - TransferEventMode:                          DMA_CTR2_TCEM [31:30] bits
@@ -625,7 +722,9 @@ void LL_DMA_NodeStructInit(LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct)
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
   DMA_InitNodeStruct->DestSecure               = LL_DMA_CHANNEL_DEST_NSEC;
 #endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#if defined(GPDMA1)
   DMA_InitNodeStruct->DestAllocatedPort        = LL_DMA_DEST_ALLOCATED_PORT0;
+#endif /* GPDMA1 */
   DMA_InitNodeStruct->DestHWordExchange        = LL_DMA_DEST_HALFWORD_PRESERVE;
   DMA_InitNodeStruct->DestByteExchange         = LL_DMA_DEST_BYTE_PRESERVE;
   DMA_InitNodeStruct->DestBurstLength          = 1U;
@@ -634,7 +733,9 @@ void LL_DMA_NodeStructInit(LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct)
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
   DMA_InitNodeStruct->SrcSecure                = LL_DMA_CHANNEL_SRC_NSEC;
 #endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+#if defined(GPDMA1)
   DMA_InitNodeStruct->SrcAllocatedPort         = LL_DMA_SRC_ALLOCATED_PORT0;
+#endif /* GPDMA1 */
   DMA_InitNodeStruct->SrcByteExchange          = LL_DMA_SRC_BYTE_PRESERVE;
   DMA_InitNodeStruct->DataAlignment            = LL_DMA_DATA_ALIGN_ZEROPADD;
   DMA_InitNodeStruct->SrcBurstLength           = 1U;
@@ -653,7 +754,12 @@ void LL_DMA_NodeStructInit(LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct)
   DMA_InitNodeStruct->UpdateRegisters          = (LL_DMA_UPDATE_CTR1 | LL_DMA_UPDATE_CTR2 | \
                                                   LL_DMA_UPDATE_CBR1 | LL_DMA_UPDATE_CSAR | \
                                                   LL_DMA_UPDATE_CDAR | LL_DMA_UPDATE_CLLR);
+#if defined(GPDMA1)
   DMA_InitNodeStruct->NodeType                 = LL_DMA_GPDMA_LINEAR_NODE;
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+  DMA_InitNodeStruct->NodeType                 = LL_DMA_LPDMA_LINEAR_NODE;
+#endif /* LPDMA1 */
 }
 
 /**
@@ -706,13 +812,17 @@ uint32_t LL_DMA_CreateLinkNode(const LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct,
   }
 
   /* Check node type */
+#if defined(GPDMA1)
   if (DMA_InitNodeStruct->NodeType == LL_DMA_GPDMA_LINEAR_NODE)
+#endif /* GPDMA1 */
   {
+#if defined(GPDMA1)
     assert_param(IS_LL_DMA_DEST_HALFWORD_EXCHANGE(DMA_InitNodeStruct->DestHWordExchange));
     assert_param(IS_LL_DMA_DEST_BYTE_EXCHANGE(DMA_InitNodeStruct->DestByteExchange));
     assert_param(IS_LL_DMA_SRC_BYTE_EXCHANGE(DMA_InitNodeStruct->SrcByteExchange));
     assert_param(IS_LL_DMA_SRC_ALLOCATED_PORT(DMA_InitNodeStruct->SrcAllocatedPort));
     assert_param(IS_LL_DMA_DEST_ALLOCATED_PORT(DMA_InitNodeStruct->DestAllocatedPort));
+#endif /* GPDMA1 */
   }
 
 
@@ -722,17 +832,25 @@ uint32_t LL_DMA_CreateLinkNode(const LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct,
     /*-------------------------- DMAx CTR1 Configuration -----------------------
     * Configure the Data transfer  parameter :
     * - DestAllocatedPort:                        DMA_CTR1_DAP bit
+    *   DestAllocatedPort field is not supported by LPDMA channels.
     * - DestHWordExchange:                        DMA_CTR1_DHX bit
+    *   DestHWordExchange field is not supported by LPDMA channels.
     * - DestByteExchange:                         DMA_CTR1_DBX bit
+    *   DestByteExchange field is not supported by LPDMA channels.
     * - DestIncMode:                              DMA_CTR1_DINC bit
     * - DestDataWidth:                            DMA_CTR1_DDW_LOG2 [17:16] bits
     * - SrcAllocatedPort:                         DMA_CTR1_SAP bit
+    *   SrcAllocatedPort field is not supported by LPDMA channels.
     * - SrcByteExchange:                          DMA_CTR1_SBX bit
+    *   SrcByteExchange field is not supported by LPDMA channels.
     * - DataAlignment:                            DMA_CTR1_PAM [12:11] bits
+    *   DataAlignment field is reduced to one bit for LPDMA channels.
     * - SrcIncMode:                               DMA_CTR1_SINC bit
     * - SrcDataWidth:                             DMA_CTR1_SDW_LOG2 [1:0] bits
     * - SrcBurstLength:                           DMA_CTR1_SBL_1 [9:4] bits
+    *   SrcBurstLength field is not supported by LPDMA channels.
     * - DestBurstLength:                          DMA_CTR1_DBL_1 [25:20] bits
+    *   DestBurstLength field is not supported by LPDMA channels.
     */
 
     pNode->LinkRegisters[reg_counter] = (DMA_InitNodeStruct->DestIncMode   | \
@@ -747,6 +865,7 @@ uint32_t LL_DMA_CreateLinkNode(const LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct,
 #endif /* (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 
 
+#if defined(GPDMA1)
     /* Update CTR1 register fields */
     pNode->LinkRegisters[reg_counter] |= (DMA_InitNodeStruct->DestAllocatedPort                              | \
                                           DMA_InitNodeStruct->DestHWordExchange                              | \
@@ -755,6 +874,7 @@ uint32_t LL_DMA_CreateLinkNode(const LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct,
                                           DMA_InitNodeStruct->SrcAllocatedPort                               | \
                                           DMA_InitNodeStruct->SrcByteExchange                                | \
                                           ((DMA_InitNodeStruct->SrcBurstLength - 1U) << DMA_CTR1_SBL_1_Pos));
+#endif /* GPDMA1 */
 
     /* Increment counter for the next register */
     reg_counter++;
@@ -772,8 +892,11 @@ uint32_t LL_DMA_CreateLinkNode(const LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct,
      * - BlkHWRequest:                             DMA_CTR2_BREQ bit
      * - Direction:                                DMA_CTR2_DREQ bit
      * - Direction:                                DMA_CTR2_SWREQ bit
+     *   Direction field is reduced to one bit for LPDMA channels (SWREQ).
      * - TriggerSelection:                         DMA_CTR2_TRIGSEL [21:16] bits
+     *   DataAlignment field is reduced to 5 bits for LPDMA channels.
      * - Request:                                  DMA_CTR2_REQSEL [6:0] bits
+     *   DataAlignment field is reduced to 5 bits for LPDMA channels.
      */
     pNode->LinkRegisters[reg_counter] = (DMA_InitNodeStruct->TransferEventMode | \
                                          DMA_InitNodeStruct->TriggerPolarity   | \
@@ -793,6 +916,13 @@ uint32_t LL_DMA_CreateLinkNode(const LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct,
                                              DMA_CTR2_TRIGSEL) | DMA_InitNodeStruct->TriggerMode);
     }
 
+#if defined(LPDMA1)
+    /* Update CTR2 register fields for LPDMA */
+    if (DMA_InitNodeStruct->NodeType == LL_DMA_LPDMA_LINEAR_NODE)
+    {
+      pNode->LinkRegisters[reg_counter] &= (~(1UL << 21U) & ~(3UL << 5U));
+    }
+#endif /* LPDMA1 */
 
     /* Increment counter for the next register */
     reg_counter++;
@@ -835,7 +965,6 @@ uint32_t LL_DMA_CreateLinkNode(const LL_DMA_InitNodeTypeDef *DMA_InitNodeStruct,
     /* Increment counter for the next register */
     reg_counter++;
   }
-
 
   /* Check if CLLR register update is enabled */
   if ((DMA_InitNodeStruct->UpdateRegisters & LL_DMA_UPDATE_CLLR) == LL_DMA_UPDATE_CLLR)
@@ -905,7 +1034,7 @@ void LL_DMA_DisconnectNextLinkNode(LL_DMA_LinkNodeTypeDef *pLinkNode, uint32_t L
   * @}
   */
 
-#endif /* GPDMA1 */
+#endif /* GPDMA1 || LPDMA1 */
 
 /**
   * @}

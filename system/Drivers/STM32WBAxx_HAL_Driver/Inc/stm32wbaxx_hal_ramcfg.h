@@ -393,8 +393,11 @@ HAL_RAMCFG_StateTypeDef HAL_RAMCFG_GetState(const RAMCFG_HandleTypeDef *hramcfg)
                                         ((WAITSTATE) == RAMCFG_WAITSTATE_4) || ((WAITSTATE) == RAMCFG_WAITSTATE_5) || \
                                         ((WAITSTATE) == RAMCFG_WAITSTATE_6) || ((WAITSTATE) == RAMCFG_WAITSTATE_7))
 
-#define IS_RAMCFG_WRITEPROTECTION_PAGE(PAGE)   ((PAGE) <= 64U)
-
+#if defined(RAMCFG_WPR2_P32WP)
+#define IS_RAMCFG_WRITEPROTECTION_PAGE(PAGE)   ((PAGE) < 64U)
+#else /* defined(RAMCFG_WPR2_P32WP) */
+#define IS_RAMCFG_WRITEPROTECTION_PAGE(PAGE)   ((PAGE) < 32U)
+#endif /* defined(RAMCFG_WPR2_P32WP) */
 
 
 /**

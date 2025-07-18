@@ -52,13 +52,38 @@ extern "C" {
   * @{
   */
 /* SRAM1 pages retention defines */
+#if defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT)
+#define PWR_SRAM1_PAGE1_STOP_RETENTION       PWR_CR2_SRAM1PDS1                       /*!< SRAM1 page 1 retention in Stop mode */
+#define PWR_SRAM1_PAGE2_STOP_RETENTION       PWR_CR2_SRAM1PDS2                       /*!< SRAM1 page 2 retention in Stop mode */
+#define PWR_SRAM1_PAGE3_STOP_RETENTION       PWR_CR2_SRAM1PDS3                       /*!< SRAM1 page 3 retention in Stop mode */
+#define PWR_SRAM1_PAGE4_STOP_RETENTION       PWR_CR2_SRAM1PDS4                       /*!< SRAM1 page 4 retention in Stop mode */
+#define PWR_SRAM1_PAGE567_STOP_RETENTION     PWR_CR2_SRAM1PDS567                     /*!< SRAM1 page 5-6-7 retention in Stop mode */
+#define PWR_SRAM1_FULL_STOP_RETENTION        (PWR_CR2_SRAM1PDS1 |PWR_CR2_SRAM1PDS2 |PWR_CR2_SRAM1PDS3 |\
+                                              PWR_CR2_SRAM1PDS4 | PWR_CR2_SRAM1PDS567)
+#else
 #define PWR_SRAM1_FULL_STOP_RETENTION        PWR_CR2_SRAM1PDS1     /*!< SRAM1 full retention in Stop modes */
+#endif /* defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT) */
 
 /* SRAM2 pages retention defines */
+#if defined(PWR_STOP3_SUPPORT)
+#define PWR_SRAM2_PAGE1_STOP_RETENTION       PWR_CR2_SRAM2PDS1                        /*!< SRAM2 page1 retention in Stop modes */
+#define PWR_SRAM2_PAGE2_STOP_RETENTION       PWR_CR2_SRAM2PDS2                        /*!< SRAM2 page2 retention in Stop modes */
+#define PWR_SRAM2_FULL_STOP_RETENTION        (PWR_CR2_SRAM2PDS1 | PWR_CR2_SRAM2PDS2)  /*!< SRAM2 full retention in Stop modes  */
+#else
 #define PWR_SRAM2_FULL_STOP_RETENTION        PWR_CR2_SRAM2PDS1     /*!< SRAM2 full retention in Stop modes */
+#endif /* !defined(PWR_STOP3_SUPPORT) */
 
 /* Cache RAMs retention defines */
 #define PWR_ICACHE_FULL_STOP_RETENTION       PWR_CR2_ICRAMPDS      /*!< ICACHE SRAM retention in Stop modes */
+#if defined(PWR_STOP2_SUPPORT)
+#if defined(USB_OTG_HS)
+/* USB_OTG_HS SRAM power-down in Stop modes */
+#define PWR_USB_OTG_HS_SRAM_STOP_RETENTION   PWR_CR2_PRAMPDS      /*!< USB_OTG_HS SRAM content retained in Stop modes */
+#endif /* defined(USB_OTG_HS) */
+
+/* PKA SRAM power-down in Stop modes */
+#define PWR_PKA_SRAM_STOP_RETENTION          PWR_CR2_PKARAMPDS    /*!< PKA SRAM content retained in Stop modes */
+#endif /* defined(PWR_STOP2_SUPPORT) */
 /**
   * @}
   */
@@ -67,9 +92,25 @@ extern "C" {
 /** @defgroup PWREx_RAM_Contents_Standby_Retention PWR Extended SRAM Contents Standby Retention
   * @{
   */
+#if defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT)
+#define PWR_SRAM1_PAGE1_STANDBY_RETENTION       PWR_CR1_R1RSB1                       /*!< SRAM1 page 1 retention in Standby mode */
+#define PWR_SRAM1_PAGE2_STANDBY_RETENTION       PWR_CR1_R1RSB2                       /*!< SRAM1 page 2 retention in Standby mode */
+#define PWR_SRAM1_PAGE3_STANDBY_RETENTION       PWR_CR1_R1RSB3                       /*!< SRAM1 page 3 retention in Standby mode */
+#define PWR_SRAM1_PAGE4_STANDBY_RETENTION       PWR_CR1_R1RSB4                       /*!< SRAM1 page 4 retention in Standby mode */
+#define PWR_SRAM1_PAGE567_STANDBY_RETENTION     PWR_CR1_R1RSB567                     /*!< SRAM1 page 5-6-7 retention in Standby mode */
+#define PWR_SRAM1_FULL_STANDBY_RETENTION        (PWR_CR1_R1RSB1 |PWR_CR1_R1RSB2 | PWR_CR1_R1RSB3 |\
+                                                 PWR_CR1_R1RSB4 | PWR_CR1_R1RSB567)  /*!< SRAM1 full retention in Standby mode        */
+#else
 #define PWR_SRAM1_FULL_STANDBY_RETENTION        PWR_CR1_R1RSB1      /*!< SRAM1 full retention in Standby mode      */
+#endif /* defined(PWR_STOP2_SUPPORT) */
 
+#if defined(PWR_STOP3_SUPPORT)
+#define PWR_SRAM2_PAGE1_STANDBY_RETENTION       PWR_CR1_R2RSB1                      /*!< SRAM2 page 1 retention in Standby mode      */
+#define PWR_SRAM2_PAGE2_STANDBY_RETENTION       PWR_CR1_R2RSB2                      /*!< SRAM2 page 2 retention in Standby mode      */
+#define PWR_SRAM2_FULL_STANDBY_RETENTION        (PWR_CR1_R2RSB1 |  PWR_CR1_R2RSB2)  /*!< SRAM2 full retention in Standby mode      */
+#else
 #define PWR_SRAM2_FULL_STANDBY_RETENTION        PWR_CR1_R2RSB1      /*!< SRAM2 full retention in Standby mode      */
+#endif /* defined(PWR_STOP3_SUPPORT) */
 #define PWR_RADIOSRAM_FULL_STANDBY_RETENTION    PWR_CR1_RADIORSB    /*!< 2.4GHz RADIO SRAMs (TXRX and Sequence)
                                                                          and Sleep clock retention in Standby mode */
 /**
@@ -90,8 +131,14 @@ extern "C" {
 /** @defgroup PWREx_Regulator_Voltage_Scale PWR Extended Regulator Voltage Scale
   * @{
   */
+#if defined(PWR_STOP3_SUPPORT)
+#define PWR_REGULATOR_VOLTAGE_SCALE1     PWR_VOSR_VOS_0     /*!< Voltage scaling range 1    */
+#define PWR_REGULATOR_VOLTAGE_SCALE1_5   PWR_VOSR_VOS_1     /*!< Voltage scaling range 1.5  */
+#define PWR_REGULATOR_VOLTAGE_SCALE2     (0U)               /*!< Voltage scaling range 2    */
+#else
 #define PWR_REGULATOR_VOLTAGE_SCALE1     PWR_VOSR_VOS       /*!< Voltage scaling range 1 */
 #define PWR_REGULATOR_VOLTAGE_SCALE2     (0U)               /*!< Voltage scaling range 2 */
+#endif /* defined(PWR_STOP3_SUPPORT) */
 /**
   * @}
   */
@@ -102,6 +149,17 @@ extern "C" {
 #define PWR_GPIO_A (0x00U) /*!< GPIO port A */
 #define PWR_GPIO_B (0x01U) /*!< GPIO port B */
 #define PWR_GPIO_C (0x02U) /*!< GPIO port C */
+#if defined(PWR_STOP2_SUPPORT)
+#if defined(GPIOD)
+#define PWR_GPIO_D (0x03U) /*!< GPIO port D */
+#endif /* defined(GPIOD) */
+#if defined(GPIOE)
+#define PWR_GPIO_E (0x04U) /*!< GPIO port E */
+#endif /* defined(GPIOE) */
+#if defined(GPIOG)
+#define PWR_GPIO_G (0x06U) /*!< GPIO port G */
+#endif /* defined(GPIOG) */
+#endif /* defined(PWR_STOP2_SUPPORT) */
 #define PWR_GPIO_H (0x07U) /*!< GPIO port H */
 /**
   * @}
@@ -220,8 +278,30 @@ extern "C" {
   */
 
 /* All available RAM retention in Stop mode define */
+#if defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT)
+#if defined(USB_OTG_HS)
+#define PWR_ALL_RAM_STOP_RETENTION_MASK (PWR_SRAM1_FULL_STOP_RETENTION  | PWR_SRAM2_FULL_STOP_RETENTION  | \
+                                         PWR_ICACHE_FULL_STOP_RETENTION | PWR_USB_OTG_HS_SRAM_STOP_RETENTION | \
+                                         PWR_PKA_SRAM_STOP_RETENTION)
+#else
+#define PWR_ALL_RAM_STOP_RETENTION_MASK (PWR_SRAM1_FULL_STOP_RETENTION  | PWR_SRAM2_FULL_STOP_RETENTION  | \
+                                         PWR_ICACHE_FULL_STOP_RETENTION | PWR_PKA_SRAM_STOP_RETENTION)
+
+#endif /* defined(USB_OTG_HS) */
+#else
+#if defined(PWR_STOP3_SUPPORT)
+#if defined (PWR_USB_SRAM_STOP_RETENTION)
+#define PWR_ALL_RAM_STOP_RETENTION_MASK (PWR_SRAM1_FULL_STOP_RETENTION  | PWR_SRAM2_FULL_STOP_RETENTION | \
+                                         PWR_USB_SRAM_STOP_RETENTION    | PWR_PKA_SRAM_STOP_RETENTION)
+#else /* defined (PWR_USB_SRAM_STOP_RETENTION) */
+#define PWR_ALL_RAM_STOP_RETENTION_MASK (PWR_SRAM1_FULL_STOP_RETENTION  | PWR_SRAM2_FULL_STOP_RETENTION | \
+                                         PWR_PKA_SRAM_STOP_RETENTION)
+#endif /* defined (PWR_USB_SRAM_STOP_RETENTION) */
+#else
 #define PWR_ALL_RAM_STOP_RETENTION_MASK (PWR_SRAM1_FULL_STOP_RETENTION | PWR_SRAM2_FULL_STOP_RETENTION  | \
                                          PWR_ICACHE_FULL_STOP_RETENTION )
+#endif /* defined(PWR_STOP3_SUPPORT) */
+#endif /* defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT) */
 /* All available RAM retention in Standby mode define */
 #define PWR_ALL_RAM_STANDBY_RETENTION_MASK (PWR_SRAM1_FULL_STANDBY_RETENTION | PWR_SRAM2_FULL_STANDBY_RETENTION)
 /**
@@ -241,32 +321,129 @@ extern "C" {
 #endif /* defined(PWR_CR3_REGSEL) */
 
 /* Voltage scaling range check macro */
+#if defined(PWR_STOP3_SUPPORT)
+#define IS_PWR_VOLTAGE_SCALING_RANGE(RANGE)      (((RANGE) == PWR_REGULATOR_VOLTAGE_SCALE1)   ||\
+                                                  ((RANGE) == PWR_REGULATOR_VOLTAGE_SCALE1_5) ||\
+                                                  ((RANGE) == PWR_REGULATOR_VOLTAGE_SCALE2))
+#else
 #define IS_PWR_VOLTAGE_SCALING_RANGE(RANGE)      (((RANGE) == PWR_REGULATOR_VOLTAGE_SCALE1)   ||\
                                                   ((RANGE) == PWR_REGULATOR_VOLTAGE_SCALE2))
+#endif /* defined(PWR_STOP3_SUPPORT) */
 
 /* GPIO port check macro */
+#if defined(PWR_STOP2_SUPPORT)
+#if defined(PWR_GPIO_D)
+#if defined(PWR_GPIO_E) && defined(PWR_GPIO_G)
+#define IS_PWR_GPIO_PORT(GPIO_PORT)              (((GPIO_PORT) == PWR_GPIO_A) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_B) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_C) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_D) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_E) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_G) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_H))
+#elif defined(PWR_GPIO_E)
+#define IS_PWR_GPIO_PORT(GPIO_PORT)              (((GPIO_PORT) == PWR_GPIO_A) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_B) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_C) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_D) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_E) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_H))
+#elif defined(PWR_GPIO_G)
+#define IS_PWR_GPIO_PORT(GPIO_PORT)              (((GPIO_PORT) == PWR_GPIO_A) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_B) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_C) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_D) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_G) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_H))
+#else /* No PWR_GPIO_E and PWR_GPIO_G */
+#define IS_PWR_GPIO_PORT(GPIO_PORT)              (((GPIO_PORT) == PWR_GPIO_A) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_B) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_C) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_D) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_H))
+#endif /* PWR_GPIO_E */
+#else /* No PWR_GPIO_D */
 #define IS_PWR_GPIO_PORT(GPIO_PORT)              (((GPIO_PORT) == PWR_GPIO_A) ||\
                                                   ((GPIO_PORT) == PWR_GPIO_B) ||\
                                                   ((GPIO_PORT) == PWR_GPIO_C) ||\
                                                   ((GPIO_PORT) == PWR_GPIO_H))
+#endif /* PWR_GPIO_D */
+#else
+#define IS_PWR_GPIO_PORT(GPIO_PORT)              (((GPIO_PORT) == PWR_GPIO_A) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_B) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_C) ||\
+                                                  ((GPIO_PORT) == PWR_GPIO_H))
+#endif /* defined(PWR_STOP2_SUPPORT) */
 
 /* GPIO pin mask check macro */
 #define IS_PWR_GPIO_PIN_MASK(BIT_MASK)           ((((BIT_MASK) & PWR_GPIO_PIN_MASK) != 0U) &&\
                                                   ((BIT_MASK) <= PWR_GPIO_PIN_MASK))
 
 /* SRAM1 retention in Standby mode check macro */
+#if defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT)
+#define IS_PWR_SRAM1_STANDBY_RETENTION(CONTENT)  (((CONTENT) == PWR_SRAM1_PAGE1_STANDBY_RETENTION)   ||\
+                                                  ((CONTENT) == PWR_SRAM1_PAGE2_STANDBY_RETENTION)   ||\
+                                                  ((CONTENT) == PWR_SRAM1_PAGE3_STANDBY_RETENTION)   ||\
+                                                  ((CONTENT) == PWR_SRAM1_PAGE4_STANDBY_RETENTION)   ||\
+                                                  ((CONTENT) == PWR_SRAM1_PAGE567_STANDBY_RETENTION) ||\
+                                                  ((CONTENT) == PWR_SRAM1_FULL_STANDBY_RETENTION))
+#else
 #define IS_PWR_SRAM1_STANDBY_RETENTION(CONTENT)  ((CONTENT) == PWR_SRAM1_FULL_STANDBY_RETENTION)
+#endif /* defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT) */
 
 /* SRAM2 retention in Standby mode check macro */
+#if defined(PWR_STOP3_SUPPORT)
+#define IS_PWR_SRAM2_STANDBY_RETENTION(CONTENT)  (((CONTENT) == PWR_SRAM2_PAGE1_STANDBY_RETENTION)   ||\
+                                                  ((CONTENT) == PWR_SRAM2_PAGE2_STANDBY_RETENTION)   ||\
+                                                  ((CONTENT) == PWR_SRAM2_FULL_STANDBY_RETENTION))
+#else
 #define IS_PWR_SRAM2_STANDBY_RETENTION(CONTENT)  ((CONTENT) == PWR_SRAM2_FULL_STANDBY_RETENTION)
+#endif /* defined(PWR_STOP3_SUPPORT) */
 
 /* RADIO SRAM retention in Standby mode check macro */
 #define IS_PWR_RADIOSRAM_STANDBY_RETENTION(CONTENT)  ((CONTENT) == PWR_RADIOSRAM_FULL_STANDBY_RETENTION)
 
 /* RAMs retention in Stop mode check macro */
+#if defined(PWR_STOP2_SUPPORT)
+#if defined(USB_OTG_HS)
+#define IS_PWR_RAM_STOP_RETENTION(RAMCONTENT)    (((RAMCONTENT) == PWR_SRAM1_PAGE1_STOP_RETENTION)   ||\
+                                                  ((RAMCONTENT) == PWR_SRAM1_PAGE2_STOP_RETENTION)   ||\
+                                                  ((RAMCONTENT) == PWR_SRAM1_PAGE3_STOP_RETENTION)   ||\
+                                                  ((RAMCONTENT) == PWR_SRAM1_PAGE4_STOP_RETENTION)   ||\
+                                                  ((RAMCONTENT) == PWR_SRAM1_PAGE567_STOP_RETENTION) ||\
+                                                  ((RAMCONTENT) == PWR_SRAM1_FULL_STOP_RETENTION)    ||\
+                                                  ((RAMCONTENT) == PWR_SRAM2_FULL_STOP_RETENTION)    ||\
+                                                  ((RAMCONTENT) == PWR_ICACHE_FULL_STOP_RETENTION)   ||\
+                                                  ((RAMCONTENT) == PWR_USB_OTG_HS_SRAM_STOP_RETENTION)   ||\
+                                                  ((RAMCONTENT) == PWR_PKA_SRAM_STOP_RETENTION))
+#else
+#if   defined(PWR_STOP3_SUPPORT)
+#define IS_PWR_RAM_STOP_RETENTION(RAMCONTENT)    (((RAMCONTENT) == PWR_SRAM1_FULL_STOP_RETENTION)    ||\
+                                                  ((RAMCONTENT) == PWR_SRAM2_PAGE1_STOP_RETENTION)   ||\
+                                                  ((RAMCONTENT) == PWR_SRAM2_PAGE2_STOP_RETENTION)   ||\
+                                                  ((RAMCONTENT) == PWR_SRAM2_FULL_STOP_RETENTION)    ||\
+                                                  ((RAMCONTENT) == PWR_PKA_SRAM_STOP_RETENTION))
+#else
+#define IS_PWR_RAM_STOP_RETENTION(RAMCONTENT)    (((RAMCONTENT) == PWR_SRAM1_PAGE1_STOP_RETENTION)   ||\
+                                                  ((RAMCONTENT) == PWR_SRAM1_PAGE2_STOP_RETENTION)   ||\
+                                                  ((RAMCONTENT) == PWR_SRAM1_PAGE3_STOP_RETENTION)   ||\
+                                                  ((RAMCONTENT) == PWR_SRAM1_PAGE4_STOP_RETENTION)   ||\
+                                                  ((RAMCONTENT) == PWR_SRAM1_PAGE567_STOP_RETENTION) ||\
+                                                  ((RAMCONTENT) == PWR_SRAM1_FULL_STOP_RETENTION)    ||\
+                                                  ((RAMCONTENT) == PWR_SRAM2_FULL_STOP_RETENTION)    ||\
+                                                  ((RAMCONTENT) == PWR_ICACHE_FULL_STOP_RETENTION)   ||\
+                                                  ((RAMCONTENT) == PWR_PKA_SRAM_STOP_RETENTION))
+#endif /* defined(PWR_STOP3_SUPPORT) */
+#endif /* defined(USB_OTG_HS) */
+#else
 #define IS_PWR_RAM_STOP_RETENTION(RAMCONTENT)    (((RAMCONTENT) == PWR_SRAM1_FULL_STOP_RETENTION) ||\
                                                   ((RAMCONTENT) == PWR_SRAM2_FULL_STOP_RETENTION) ||\
                                                   ((RAMCONTENT) == PWR_ICACHE_FULL_STOP_RETENTION))
+#endif /* defined(PWR_STOP2_SUPPORT) */
+#if defined(PWR_STOP2_SUPPORT)
+/* Vdd11 USB switch delay check macro */
+#define IS_PWR_VDD11USB_SWITCH_DELAY(DELAY)      ((DELAY) <= 1023U)
+#endif /* defined(PWR_STOP2_SUPPORT) */
 /**
   * @}
   */
@@ -291,6 +468,25 @@ void HAL_PWREx_DisableSMPSPWM(void);
 #endif /* defined(PWR_CR2_FPWM) */
 void              HAL_PWREx_EnableFastSoftStart(void);
 void              HAL_PWREx_DisableFastSoftStart(void);
+#if defined(PWR_STOP2_SUPPORT)
+#if defined(PWR_VOSR_USBPWREN)
+void              HAL_PWREx_ConfigVdd11UsbSwitchDelay(uint32_t Delay);
+void              HAL_PWREx_EnableVdd11USB(void);
+void              HAL_PWREx_DisableVdd11USB(void);
+HAL_StatusTypeDef HAL_PWREx_EnableUSBBooster(void);
+HAL_StatusTypeDef HAL_PWREx_DisableUSBBooster(void);
+void              HAL_PWREx_EnableUSBPWR(void);
+void              HAL_PWREx_DisableUSBPWR(void);
+#endif /* defined(PWR_VOSR_USBPWREN) */
+#if defined(PWR_SVMCR_USV)
+void              HAL_PWREx_EnableVddUSB(void);
+void              HAL_PWREx_DisableVddUSB(void);
+#endif /* defined(PWR_SVMCR_USV) */
+#if defined(PWR_SVMCR_IO2SV)
+void              HAL_PWREx_EnableVddIO2(void);
+void              HAL_PWREx_DisableVddIO2(void);
+#endif /* defined(PWR_SVMCR_IO2SV) */
+#endif /* defined(PWR_STOP2_SUPPORT) */
 /**
   * @}
   */
@@ -328,6 +524,12 @@ HAL_StatusTypeDef HAL_PWREx_EnableStandbyIORetention(uint32_t GPIO_Port, uint32_
 HAL_StatusTypeDef HAL_PWREx_DisableStandbyIORetention(uint32_t GPIO_Port, uint32_t GPIO_Pin);
 uint32_t          HAL_PWREx_GetStandbyIORetentionStatus(uint32_t GPIO_Port);
 HAL_StatusTypeDef HAL_PWREx_DisableStandbyRetainedIOState(uint32_t GPIO_Port, uint32_t GPIO_Pin);
+#if defined(PWR_STOP2_SUPPORT)
+void              HAL_PWREx_EnablePTAOutputStop2Retention(void);
+void              HAL_PWREx_DisablePTAOutputStop2Retention(void);
+uint32_t          HAL_PWREx_GetPTAOutputStop2RetentionState(void);
+void              HAL_PWREx_ClearPTAOutputStop2RetentionState(void);
+#endif /* defined(PWR_STOP2_SUPPORT) */
 /**
   * @}
   */

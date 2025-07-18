@@ -10,7 +10,7 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_WBA5MJGHX)
+#if defined(ARDUINO_GENERIC_WBA6MOIHX)
 #include "pins_arduino.h"
 
 // Digital PinName array
@@ -41,13 +41,34 @@ const PinName digitalPin[] = {
   PB_7,   // D23
   PB_8,   // D24
   PB_9,   // D25/A9
-  PB_11,  // D26
-  PB_12,  // D27
-  PB_13,  // D28
-  PB_14,  // D29
-  PB_15,  // D30
-  PC_13,  // D31
-  PH_3    // D32
+  PB_10,  // D26
+  PB_11,  // D27
+  PB_12,  // D28
+  PB_13,  // D29
+  PB_14,  // D30
+  PB_15,  // D31
+  PC_0,   // D32
+  PC_1,   // D33
+  PC_3,   // D34
+  PC_4,   // D35
+  PC_5,   // D36
+  PC_6,   // D37
+  PC_7,   // D38
+  PC_8,   // D39
+  PC_13,  // D40
+  PC_14,  // D41
+  PC_15,  // D42
+  PD_5,   // D43
+  PD_6,   // D44
+  PD_7,   // D45
+  PD_8,   // D46
+  PD_9,   // D47
+  PD_14,  // D48
+  PE_0,   // D49
+  PE_1,   // D50
+  PE_2,   // D51
+  PE_3,   // D52
+  PH_3    // D53
 };
 
 // Analog (Ax) pin number array

@@ -87,57 +87,57 @@ typedef struct
 /* HW Trigger signal is GPDMA_CH0_TRG   */
 #define SPI_GRP1_GPDMA_CH0_TCF_TRG      (uint32_t)(SPI_TRIG_GRP1 | (0x00000000U))
 /* HW Trigger signal is GPDMA_CH1_TRG   */
-#define SPI_GRP1_GPDMA_CH1_TCF_TRG      (uint32_t)(SPI_TRIG_GRP1 | (0x1U << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP1_GPDMA_CH1_TCF_TRG      (uint32_t)(SPI_TRIG_GRP1 | (0x1UL << SPI_AUTOCR_TRIGSEL_Pos))
 /* HW Trigger signal is GPDMA_CH2_TRG   */
-#define SPI_GRP1_GPDMA_CH2_TCF_TRG      (uint32_t)(SPI_TRIG_GRP1 | (0x2U << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP1_GPDMA_CH2_TCF_TRG      (uint32_t)(SPI_TRIG_GRP1 | (0x2UL << SPI_AUTOCR_TRIGSEL_Pos))
 /* HW Trigger signal is GPDMA_CH3_TRG   */
-#define SPI_GRP1_GPDMA_CH3_TCF_TRG      (uint32_t)(SPI_TRIG_GRP1 | (0x3U << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP1_GPDMA_CH3_TCF_TRG      (uint32_t)(SPI_TRIG_GRP1 | (0x3UL << SPI_AUTOCR_TRIGSEL_Pos))
 /* HW Trigger signal is EXTI4_TRG       */
-#define SPI_GRP1_EXTI4_TRG              (uint32_t)(SPI_TRIG_GRP1 | (0x4U << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP1_EXTI4_TRG              (uint32_t)(SPI_TRIG_GRP1 | (0x4UL << SPI_AUTOCR_TRIGSEL_Pos))
 /* HW Trigger signal is EXTI9_TRG       */
-#define SPI_GRP1_EXTI9_TRG              (uint32_t)(SPI_TRIG_GRP1 | (0x5U << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP1_EXTI9_TRG              (uint32_t)(SPI_TRIG_GRP1 | (0x5UL << SPI_AUTOCR_TRIGSEL_Pos))
 /* HW Trigger signal is LPTIM1_CH1_TRG  */
-#define SPI_GRP1_LPTIM1_CH1_TRG         (uint32_t)(SPI_TRIG_GRP1 | (0x6U << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP1_LPTIM1_CH1_TRG         (uint32_t)(SPI_TRIG_GRP1 | (0x6UL << SPI_AUTOCR_TRIGSEL_Pos))
 #if defined(LPTIM2)
 /* HW Trigger signal is LPTIM2_CH1_TRG  */
-#define SPI_GRP1_LPTIM2_CH1_TRG         (uint32_t)(SPI_TRIG_GRP1 | (0x7U << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP1_LPTIM2_CH1_TRG         (uint32_t)(SPI_TRIG_GRP1 | (0x7UL << SPI_AUTOCR_TRIGSEL_Pos))
 #endif /* LPTIM2 */
 #if defined(COMP1)
 /* HW Trigger signal is COMP1_TRG       */
-#define SPI_GRP1_COMP1_TRG              (uint32_t)(SPI_TRIG_GRP1 | (0x8U << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP1_COMP1_TRG              (uint32_t)(SPI_TRIG_GRP1 | (0x8UL << SPI_AUTOCR_TRIGSEL_Pos))
 #endif /* COMP1 */
 #if defined(COMP2)
 /* HW Trigger signal is COMP2_TRG       */
-#define SPI_GRP1_COMP2_TRG              (uint32_t)(SPI_TRIG_GRP1 | (0x9U << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP1_COMP2_TRG              (uint32_t)(SPI_TRIG_GRP1 | (0x9UL << SPI_AUTOCR_TRIGSEL_Pos))
 #endif /* (COMP2) */
 /* HW Trigger signal is RTC_ALRA_TRG    */
-#define SPI_GRP1_RTC_ALRA_TRG           (uint32_t)(SPI_TRIG_GRP1 | (0xAU << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP1_RTC_ALRA_TRG           (uint32_t)(SPI_TRIG_GRP1 | (0xAUL << SPI_AUTOCR_TRIGSEL_Pos))
 /* HW Trigger signal is RTC_WUT_TRG     */
-#define SPI_GRP1_RTC_WUT_TRG            (uint32_t)(SPI_TRIG_GRP1 | (0xBU << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP1_RTC_WUT_TRG            (uint32_t)(SPI_TRIG_GRP1 | (0xBUL << SPI_AUTOCR_TRIGSEL_Pos))
 #endif /* SPI_TRIG_GRP1 */
 
 /* HW Trigger signal is GPDMA_CH0_TRG   */
 #define SPI_GRP2_GPDMA_CH0_TCF_TRG      (uint32_t)(SPI_TRIG_GRP2 | (0x00000000U))
 /* HW Trigger signal is GPDMA_CH1_TRG   */
-#define SPI_GRP2_GPDMA_CH1_TCF_TRG      (uint32_t)(SPI_TRIG_GRP2 | (0x1U << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP2_GPDMA_CH1_TCF_TRG      (uint32_t)(SPI_TRIG_GRP2 | (0x1UL << SPI_AUTOCR_TRIGSEL_Pos))
 /* HW Trigger signal is GPDMA_CH2_TRG   */
-#define SPI_GRP2_GPDMA_CH2_TCF_TRG      (uint32_t)(SPI_TRIG_GRP2 | (0x2U << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP2_GPDMA_CH2_TCF_TRG      (uint32_t)(SPI_TRIG_GRP2 | (0x2UL << SPI_AUTOCR_TRIGSEL_Pos))
 /* HW Trigger signal is GPDMA_CH3_TRG   */
-#define SPI_GRP2_GPDMA_CH3_TCF_TRG      (uint32_t)(SPI_TRIG_GRP2 | (0x3U << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP2_GPDMA_CH3_TCF_TRG      (uint32_t)(SPI_TRIG_GRP2 | (0x3UL << SPI_AUTOCR_TRIGSEL_Pos))
 /* HW Trigger signal is EXTI4_TRG       */
-#define SPI_GRP2_EXTI4_TRG              (uint32_t)(SPI_TRIG_GRP2 | (0x4U << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP2_EXTI4_TRG              (uint32_t)(SPI_TRIG_GRP2 | (0x4UL << SPI_AUTOCR_TRIGSEL_Pos))
 /* HW Trigger signal is EXTI8_TRG       */
-#define SPI_GRP2_EXTI8_TRG              (uint32_t)(SPI_TRIG_GRP2 | (0x5U << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP2_EXTI8_TRG              (uint32_t)(SPI_TRIG_GRP2 | (0x5UL << SPI_AUTOCR_TRIGSEL_Pos))
 /* HW Trigger signal is LPTIM1_CH1_TRG  */
-#define SPI_GRP2_LPTIM1_CH1_TRG         (uint32_t)(SPI_TRIG_GRP2 | (0x6U << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP2_LPTIM1_CH1_TRG         (uint32_t)(SPI_TRIG_GRP2 | (0x6UL << SPI_AUTOCR_TRIGSEL_Pos))
 #if defined(COMP1)
 /* HW Trigger signal is COMP1_TRG       */
-#define SPI_GRP2_COMP1_TRG              (uint32_t)(SPI_TRIG_GRP2 | (0x8U << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP2_COMP1_TRG              (uint32_t)(SPI_TRIG_GRP2 | (0x8UL << SPI_AUTOCR_TRIGSEL_Pos))
 #endif /* COMP1 */
 /* HW Trigger signal is RTC_ALRA_TRG    */
-#define SPI_GRP2_RTC_ALRA_TRG           (uint32_t)(SPI_TRIG_GRP2 | (0xAU << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP2_RTC_ALRA_TRG           (uint32_t)(SPI_TRIG_GRP2 | (0xAUL << SPI_AUTOCR_TRIGSEL_Pos))
 /* HW Trigger signal is RTC_WUT_TRG     */
-#define SPI_GRP2_RTC_WUT_TRG            (uint32_t)(SPI_TRIG_GRP2 | (0xBU << SPI_AUTOCR_TRIGSEL_Pos))
+#define SPI_GRP2_RTC_WUT_TRG            (uint32_t)(SPI_TRIG_GRP2 | (0xBUL << SPI_AUTOCR_TRIGSEL_Pos))
 /**
   * @}
   */

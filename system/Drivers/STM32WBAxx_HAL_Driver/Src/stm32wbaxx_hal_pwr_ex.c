@@ -55,6 +55,10 @@
              (++) SRAM1
              (++) SRAM2
              (++) ICACHE
+#if defined(PWR_STOP2_SUPPORT)
+             (++) PKA SRAM
+             (++) USB_OTG_HS SRAM
+#endif
 
    (#) Call HAL_PWREx_EnableFlashFastWakeUp() and
        HAL_PWREx_DisableFlashFastWakeUp() to enable / disable the flash memory
@@ -84,6 +88,10 @@
 
    (#) Call HAL_PWREx_EnableREGVDDHPABypass and HAL_PWREx_DisableREGVDDHPABypass
        to enable / disable regulator REG_VDDHPA bypass
+#if defined(PWR_STOP2_SUPPORT)
+   (#) Call HAL_PWREx_EnableVddUSB() and HAL_PWREx_DisableVddUSB()
+       functions to enable and disable the VDDUSB supply valid.
+#endif
 
   @endverbatim
   ******************************************************************************
@@ -119,10 +127,34 @@
 #define PWR_PORTB_AVAILABLE_PINS  (0x09318U)
 #define PWR_PORTC_AVAILABLE_PINS  (0x0C000U)
 #define PWR_PORTH_AVAILABLE_PINS  (0x00008U)
+#elif defined(PWR_STOP2_SUPPORT)
+#if defined(STM32WBA63xx)
+#define PWR_PORTA_AVAILABLE_PINS  (0x0FFEFU)
+#define PWR_PORTB_AVAILABLE_PINS  (0x0D3FFU)
+#define PWR_PORTC_AVAILABLE_PINS  (0x0E0F0U)
+#define PWR_PORTH_AVAILABLE_PINS  (0x00008U)
+#elif defined(STM32WBA64xx)
+#define PWR_PORTA_AVAILABLE_PINS  (0x0FFEEU)
+#define PWR_PORTB_AVAILABLE_PINS  (0x0FD0FU)
+#define PWR_PORTC_AVAILABLE_PINS  (0x0E0F0U)
+#define PWR_PORTD_AVAILABLE_PINS  (0x003C0U)
+#define PWR_PORTH_AVAILABLE_PINS  (0x00008U)
+#elif defined(STM32WBA62xx) || defined(STM32WBA65xx) || defined (STM32WBA6Mxx)
+#define PWR_PORTA_AVAILABLE_PINS  (0x0FFFFU)
+#define PWR_PORTB_AVAILABLE_PINS  (0x0FFFFU)
+#define PWR_PORTC_AVAILABLE_PINS  (0x0E1FBU)
+#define PWR_PORTD_AVAILABLE_PINS  (0x0FFFFU)
+#define PWR_PORTE_AVAILABLE_PINS  (0x000FFU)
+#define PWR_PORTG_AVAILABLE_PINS  (0x0FFFCU)
+#define PWR_PORTH_AVAILABLE_PINS  (0x00008U)
+#endif /* defined(STM32WBA63xx) */
 #endif /* defined(STM32WBA52xx) || defined(STM32WBA54xx) || defined(STM32WBA55xx) || defined(STM32WBA5Mxx) */
 /*!< Time out value of flags setting */
 #define PWR_VOSF_SETTING_DELAY_VALUE (0x32U) /*!< Time out value for VOSF flag setting */
 #define PWR_MODE_CHANGE_DELAY_VALUE  (0x32U) /*!< Time out for step down converter operating mode */
+#if defined(PWR_STOP2_SUPPORT)
+#define BOOSTER_TIMEOUT_VALUE        (1U)    /*!< Timeout for booster ready : 1ms */
+#endif /* defined(PWR_STOP2_SUPPORT) */
 /**
   * @}
   */
@@ -175,8 +207,13 @@
           has been entered from the SMPS regulator, after exiting standby with the LDO,
           the regulator is subsequently switched to SMPS regulator.
 
+#if defined(PWR_STOP2_SUPPORT)
+      (+) When exiting from Stop 0 modes the voltage range is the same as on entering Stop 0
+          mode. When exiting from Stop 1, Stop2 or Standby modes the voltage range 2 is used.
+#else
       (+) When exiting from Stop 0 modes the voltage range is the same as on entering Stop 0
           mode. When exiting from Stop 1 and Standby modes the voltage range 2 is used.
+#endif
 
       (+) When the 2.4 GHz RADIO is active the regulator and range can not be changed. Any
           requested regulator or range change while the 2.4 GHz RADIO is active is suspended
@@ -371,6 +408,163 @@ void HAL_PWREx_DisableFastSoftStart(void)
   CLEAR_BIT(PWR->CR3, PWR_CR3_FSTEN);
 }
 
+#if defined(PWR_STOP2_SUPPORT)
+#if defined(USB_OTG_HS)
+/**
+  * @brief  Configure the clocked delay between VDD11USBDIS and VDD11USBRDY.
+  * @param  Delay : Specifies the delay in system clock cycles.
+  *                 This parameter can be a value between 0 to 1023.
+  * @retval None.
+  */
+void HAL_PWREx_ConfigVdd11UsbSwitchDelay(uint32_t Delay)
+{
+  /* Check the parameters */
+  assert_param(IS_PWR_VDD11USB_SWITCH_DELAY(Delay));
+
+  MODIFY_REG(PWR->VOSR, PWR_VOSR_VDD11USBSWDLY, (Delay << PWR_VOSR_VDD11USBSWDLY_Pos));
+}
+
+/**
+  * @brief  Enable VDD11 USB.
+  * @retval None.
+  */
+void HAL_PWREx_EnableVdd11USB(void)
+{
+  CLEAR_BIT(PWR->VOSR, PWR_VOSR_VDD11USBDIS);
+}
+
+/**
+  * @brief  Disable VDD11 USB.
+  * @retval None.
+  */
+void HAL_PWREx_DisableVdd11USB(void)
+{
+  SET_BIT(PWR->VOSR, PWR_VOSR_VDD11USBDIS);
+}
+
+/**
+  * @brief  Enable USB booster.
+  * @retval HAL status.
+  */
+HAL_StatusTypeDef HAL_PWREx_EnableUSBBooster(void)
+{
+  uint32_t tickstart;
+
+  /* Enable USB booster */
+  SET_BIT(PWR->VOSR, PWR_VOSR_USBBOOSTEN);
+
+  /* Get Start Tick*/
+  tickstart = HAL_GetTick();
+
+  /* Wait till boster ready bit is set */
+  while (READ_BIT(PWR->VOSR, PWR_VOSR_USBBOOSTRDY) != PWR_VOSR_USBBOOSTRDY)
+  {
+    if ((HAL_GetTick() - tickstart) > BOOSTER_TIMEOUT_VALUE)
+    {
+      if (READ_BIT(PWR->VOSR, PWR_VOSR_USBBOOSTRDY) != PWR_VOSR_USBBOOSTRDY)
+      {
+        return HAL_TIMEOUT;
+      }
+    }
+  }
+
+  /* Booster is enabled and ready */
+  return HAL_OK;
+}
+
+/**
+  * @brief  Disable USB booster.
+  * @note   ....
+  * @retval HAL status.
+  */
+HAL_StatusTypeDef HAL_PWREx_DisableUSBBooster(void)
+{
+  uint32_t tickstart;
+
+  /* Disable USB booster */
+  CLEAR_BIT(PWR->VOSR, PWR_VOSR_USBBOOSTEN);
+
+  /* Get Start Tick*/
+  tickstart = HAL_GetTick();
+
+  /* Wait till boster ready bit is reset */
+  while (READ_BIT(PWR->VOSR, PWR_VOSR_USBBOOSTRDY) != 0U)
+  {
+    if ((HAL_GetTick() - tickstart) > BOOSTER_TIMEOUT_VALUE)
+    {
+      if (READ_BIT(PWR->VOSR, PWR_VOSR_USBBOOSTRDY) != 0U)
+      {
+        return HAL_TIMEOUT;
+      }
+    }
+  }
+
+  /* Booster is disabled */
+  return HAL_OK;
+}
+
+/**
+  * @brief  Enable USB OTG_HS power.
+  * @retval None.
+  */
+void HAL_PWREx_EnableUSBPWR(void)
+{
+  SET_BIT(PWR->VOSR, PWR_VOSR_USBPWREN);
+}
+
+/**
+  * @brief  Disable USB OTG_HS power.
+  * @retval None.
+  */
+void HAL_PWREx_DisableUSBPWR(void)
+{
+  CLEAR_BIT(PWR->VOSR, PWR_VOSR_USBPWREN);
+}
+
+/**
+  * @brief  Enable VDDUSB supply.
+  * @note   Remove VDDUSB electrical and logical isolation, once VDDUSB supply
+  *         is present for consumption saving.
+  * @retval None.
+  */
+void HAL_PWREx_EnableVddUSB(void)
+{
+  SET_BIT(PWR->SVMCR, PWR_SVMCR_USV);
+}
+
+/**
+  * @brief  Disable VDDUSB supply.
+  * @retval None.
+  */
+void HAL_PWREx_DisableVddUSB(void)
+{
+  CLEAR_BIT(PWR->SVMCR, PWR_SVMCR_USV);
+}
+#endif /* defined(USB_OTG_HS) */
+
+#if defined(PWR_SVMCR_IO2SV)
+/**
+  * @brief  Enable VDDIO2 supply.
+  * @note   Remove VDDIO2 electrical and logical isolation, once VDDIO2 supply
+  *         is present for consumption saving.
+  * @retval None.
+  */
+void HAL_PWREx_EnableVddIO2(void)
+{
+  SET_BIT(PWR->SVMCR, PWR_SVMCR_IO2SV);
+}
+
+/**
+  * @brief  Disable VDDIO2 supply.
+  * @note   Activate VDDIO2 electrical and logical isolation.
+  * @retval None.
+  */
+void HAL_PWREx_DisableVddIO2(void)
+{
+  CLEAR_BIT(PWR->SVMCR, PWR_SVMCR_IO2SV);
+}
+#endif /* defined(PWR_SVMCR_IO2SV) */
+#endif /* defined(PWR_STOP2_SUPPORT) */
 /**
   * @}
   */
@@ -421,6 +615,10 @@ void HAL_PWREx_DisableUltraLowPowerMode(void)
              (++) SRAM1
              (++) SRAM2
              (++) ICACHE
+#if defined(PWR_STOP2_SUPPORT)
+             (++) PKA SRAM
+             (++) USB_OTG_HS SRAM
+#endif
 
     [..]
       Several STM32WBA devices RAMs are configurable to retain or lose RAMs content
@@ -435,10 +633,21 @@ void HAL_PWREx_DisableUltraLowPowerMode(void)
 
 /**
   * @brief  Enable SRAM1 content retention in Standby mode.
+#if defined(PWR_STOP2_SUPPORT)
+  * @note   Each bit is used to keep a SRAM1 64 KB page content in Standby retention mode.
+#else
   * @note   When R1RSB1 bit is set, SRAM1 is powered by the low-power regulator in
   *         Standby mode and its content is kept.
+#endif
   * @param  SRAM1Pages : Specifies the SRAM1 area
   *                      This parameter can be combination of the following values :
+#if defined(PWR_STOP2_SUPPORT)
+  *                      @arg PWR_SRAM1_PAGE1_STANDBY_RETENTION : SRAM1 page 1 retention.
+  *                      @arg PWR_SRAM1_PAGE2_STANDBY_RETENTION : SRAM1 page 2 retention.
+  *                      @arg PWR_SRAM1_PAGE3_STANDBY_RETENTION : SRAM1 page 3 retention.
+  *                      @arg PWR_SRAM1_PAGE4_STANDBY_RETENTION : SRAM1 page 4 retention.
+  *                      @arg PWR_SRAM1_PAGE567_STANDBY_RETENTION : SRAM1 page 5-6-7 retention.
+#endif
   *                      @arg PWR_SRAM1_FULL_STANDBY_RETENTION  : full SRAM1 retention.
   * @retval None.
   */
@@ -528,13 +737,37 @@ void HAL_PWREx_DisableRadioSRAMClockStandbyRetention(void)
   * @brief  Enable RAMs content retention in Stop modes.
   * @note   When enabling content retention for a given ram, memory is kept powered
   *         on in Stop mode. (Consumption is not optimized)
+#if defined(PWR_STOP2_SUPPORT)
+#else
   * @note   On Silicon Cut 1.0, it is mandatory to disable the ICACHE before going into
   *         stop modes otherwise an hard fault may occur when waking up from stop modes.
+#endif
   * @param RAMSelection: Specifies RAMs content to be retained in Stop mode.
   *                      This parameter can be one or a combination of the values:
+#if defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT)
+  *                      @arg PWR_SRAM1_PAGE1_STOP_RETENTION     : SRAM1 Page 1 retention.
+  *                      @arg PWR_SRAM1_PAGE2_STOP_RETENTION     : SRAM1 Page 2 retention.
+  *                      @arg PWR_SRAM1_PAGE3_STOP_RETENTION     : SRAM1 Page 3 retention.
+  *                      @arg PWR_SRAM1_PAGE4_STOP_RETENTION     : SRAM1 Page 4 retention.
+  *                      @arg PWR_SRAM1_PAGE567_STOP_RETENTION   : SRAM1 Page 5-6-7 retention.
+  *                      @arg PWR_SRAM1_FULL_STOP_RETENTION      : full SRAM1 retention.
+  *                      @arg PWR_SRAM2_FULL_STOP_RETENTION      : full SRAM2 retention.
+  *                      @arg PWR_ICACHE_FULL_STOP_RETENTION     : I-CACHE SRAM retention.
+  *                      @arg PWR_USB_OTG_HS_SRAM_STOP_RETENTION : USB_OTG_HS SRAM retention.(*)
+  *                      @arg PWR_PKA_SRAM_STOP_RETENTION        : PKA SRAM retention.
+  * (*) Feature not available on all devices of the family
+#else
   *                      @arg PWR_SRAM1_FULL_STOP_RETENTION   : full SRAM1 retention.
+#if defined(PWR_STOP3_SUPPORT)
+  *                      @arg PWR_SRAM2_PAGE1_STOP_RETENTION  : SRAM2 Page 1 retention.
+  *                      @arg PWR_SRAM2_PAGE2_STOP_RETENTION  : SRAM2 Page 2 retention.
+#endif
   *                      @arg PWR_SRAM2_FULL_STOP_RETENTION   : full SRAM2 retention.
   *                      @arg PWR_ICACHE_FULL_STOP_RETENTION  : I-CACHE SRAM retention.
+#if   defined(PWR_STOP3_SUPPORT)
+  *                      @arg PWR_PKA_SRAM_STOP_RETENTION     : PKA SRAM retention.
+#endif
+#endif
   * @retval None.
   */
 void HAL_PWREx_EnableRAMsContentStopRetention(uint32_t RAMSelection)
@@ -552,9 +785,30 @@ void HAL_PWREx_EnableRAMsContentStopRetention(uint32_t RAMSelection)
   *        powered down in Stop mode. (Consumption is optimized)
   * @param RAMSelection: Specifies RAMs content to be lost in Stop mode.
   *                      This parameter can be one or a combination of the values:
+#if defined(PWR_STOP2_SUPPORT) && !defined(PWR_STOP3_SUPPORT)
+  *                      @arg PWR_SRAM1_PAGE1_STOP_RETENTION     : SRAM1 Page 1 retention.
+  *                      @arg PWR_SRAM1_PAGE2_STOP_RETENTION     : SRAM1 Page 2 retention.
+  *                      @arg PWR_SRAM1_PAGE3_STOP_RETENTION     : SRAM1 Page 3 retention.
+  *                      @arg PWR_SRAM1_PAGE4_STOP_RETENTION     : SRAM1 Page 4 retention.
+  *                      @arg PWR_SRAM1_PAGE567_STOP_RETENTION   : SRAM1 Page 5-6-7 retention.
+  *                      @arg PWR_SRAM1_FULL_STOP_RETENTION      : full SRAM1 retention.
+  *                      @arg PWR_SRAM2_FULL_STOP_RETENTION      : full SRAM2 retention.
+  *                      @arg PWR_ICACHE_FULL_STOP_RETENTION     : I-CACHE SRAM retention.
+  *                      @arg PWR_USB_OTG_HS_SRAM_STOP_RETENTION : USB_OTG_HS SRAM retention.(*)
+  *                      @arg PWR_PKA_SRAM_STOP_RETENTION        : PKA SRAM retention.
+  * (*) Feature not available on all devices of the family
+#else
   *                      @arg PWR_SRAM1_FULL_STOP_RETENTION   : full SRAM1 retention.
+#if defined(PWR_STOP3_SUPPORT)
+  *                      @arg PWR_SRAM2_PAGE1_STOP_RETENTION  : SRAM2 Page 1 retention.
+  *                      @arg PWR_SRAM2_PAGE2_STOP_RETENTION  : SRAM2 Page 2 retention.
+#endif
   *                      @arg PWR_SRAM2_FULL_STOP_RETENTION   : full SRAM2 retention.
   *                      @arg PWR_ICACHE_FULL_STOP_RETENTION  : I-CACHE SRAM retention.
+#if   defined(PWR_STOP3_SUPPORT)
+  *                      @arg PWR_PKA_SRAM_STOP_RETENTION     : PKA SRAM retention.
+#endif
+#endif
   * @retval None.
   */
 void HAL_PWREx_DisableRAMsContentStopRetention(uint32_t RAMSelection)
@@ -621,6 +875,11 @@ void HAL_PWREx_DisableFlashFastWakeUp(void)
       The GPIO Standby retention enable information in PWR_IORETENRx is lost and has to be reconfigured
       for sub-sequent entering into Standby mode.
 
+#if defined(PWR_STOP2_SUPPORT)
+    [..]
+      When PWR_S2RETR_PTASREN bit is set, the GPIOs state of PTA output signals are retained during and after
+      exiting from Stop 2 mode until PWR_S2RETR_PTASREN_PTASR bit is cleared by software.
+#endif
 @endverbatim
   * @{
   */
@@ -685,6 +944,49 @@ HAL_StatusTypeDef HAL_PWREx_EnableStandbyIORetention(uint32_t GPIO_Port, uint32_
       }
       break;
 
+#if defined(PWR_STOP2_SUPPORT)
+#if defined(GPIOD)
+    case PWR_GPIO_D: /* Enables the Standby GPIO retention feature for PDy */
+      if (((GPIO_Pin & PWR_PORTD_AVAILABLE_PINS) == 0U) || \
+          ((GPIO_Pin & (~PWR_PORTD_AVAILABLE_PINS)) != 0U))
+      {
+        ret = HAL_ERROR;
+      }
+      else
+      {
+        SET_BIT(PWR->IORETENRD, GPIO_Pin);
+      }
+      break;
+#endif /* defined(GPIOD) */
+
+#if defined(GPIOE)
+    case PWR_GPIO_E: /* Enables the Standby GPIO retention feature for PEy */
+      if (((GPIO_Pin & PWR_PORTE_AVAILABLE_PINS) == 0U) || \
+          ((GPIO_Pin & (~PWR_PORTE_AVAILABLE_PINS)) != 0U))
+      {
+        ret = HAL_ERROR;
+      }
+      else
+      {
+        SET_BIT(PWR->IORETENRE, GPIO_Pin);
+      }
+      break;
+#endif /* defined(GPIOE) */
+
+#if defined(GPIOG)
+    case PWR_GPIO_G: /* Enables the Standby GPIO retention feature for PGy */
+      if (((GPIO_Pin & PWR_PORTG_AVAILABLE_PINS) == 0U) || \
+          ((GPIO_Pin & (~PWR_PORTG_AVAILABLE_PINS)) != 0U))
+      {
+        ret = HAL_ERROR;
+      }
+      else
+      {
+        SET_BIT(PWR->IORETENRG, GPIO_Pin);
+      }
+      break;
+#endif /* defined(GPIOG) */
+#endif /* defined(PWR_STOP2_SUPPORT) */
     case PWR_GPIO_H: /* Enables the Standby GPIO retention feature for PHy */
       if (((GPIO_Pin & PWR_PORTH_AVAILABLE_PINS) == 0U) || \
           ((GPIO_Pin & (~PWR_PORTH_AVAILABLE_PINS)) != 0U))
@@ -765,6 +1067,49 @@ HAL_StatusTypeDef HAL_PWREx_DisableStandbyIORetention(uint32_t GPIO_Port, uint32
       }
       break;
 
+#if defined(PWR_STOP2_SUPPORT)
+#if defined(GPIOD)
+    case PWR_GPIO_D: /* Enables the Standby GPIO retention feature for PDy */
+      if (((GPIO_Pin & PWR_PORTD_AVAILABLE_PINS) == 0U) || \
+          ((GPIO_Pin & (~PWR_PORTD_AVAILABLE_PINS)) != 0U))
+      {
+        ret = HAL_ERROR;
+      }
+      else
+      {
+        CLEAR_BIT(PWR->IORETENRD, GPIO_Pin);
+      }
+      break;
+#endif /* defined(GPIOD) */
+
+#if defined(GPIOE)
+    case PWR_GPIO_E: /* Enables the Standby GPIO retention feature for PEy */
+      if (((GPIO_Pin & PWR_PORTE_AVAILABLE_PINS) == 0U) || \
+          ((GPIO_Pin & (~PWR_PORTE_AVAILABLE_PINS)) != 0U))
+      {
+        ret = HAL_ERROR;
+      }
+      else
+      {
+        CLEAR_BIT(PWR->IORETENRE, GPIO_Pin);
+      }
+      break;
+#endif /* defined(GPIOE) */
+
+#if defined(GPIOG)
+    case PWR_GPIO_G: /* Enables the Standby GPIO retention feature for PGy */
+      if (((GPIO_Pin & PWR_PORTG_AVAILABLE_PINS) == 0U) || \
+          ((GPIO_Pin & (~PWR_PORTG_AVAILABLE_PINS)) != 0U))
+      {
+        ret = HAL_ERROR;
+      }
+      else
+      {
+        CLEAR_BIT(PWR->IORETENRG, GPIO_Pin);
+      }
+      break;
+#endif /* defined(GPIOG) */
+#endif /* defined(PWR_STOP2_SUPPORT) */
     case PWR_GPIO_H: /* Disables the Standby GPIO retention feature for PHy */
       if (((GPIO_Pin & PWR_PORTH_AVAILABLE_PINS) == 0U) || \
            ((GPIO_Pin & (~PWR_PORTH_AVAILABLE_PINS)) != 0U))
@@ -815,6 +1160,25 @@ uint32_t HAL_PWREx_GetStandbyIORetentionStatus(uint32_t GPIO_Port)
       return READ_REG(PWR->IORETRC);
       break;
 
+#if defined(PWR_STOP2_SUPPORT)
+#if defined(GPIOD)
+    case PWR_GPIO_D: /* Get port D standby GPIO retention status */
+      return READ_REG(PWR->IORETRD);
+      break;
+#endif /* defined(GPIOD) */
+
+#if defined(GPIOE)
+    case PWR_GPIO_E: /* Get port E standby GPIO retention status */
+      return READ_REG(PWR->IORETRE);
+      break;
+#endif /* defined(GPIOE) */
+
+#if defined(GPIOG)
+    case PWR_GPIO_G: /* Get port G standby GPIO retention status */
+      return READ_REG(PWR->IORETRG);
+      break;
+#endif /* defined(GPIOG) */
+#endif /* defined(PWR_STOP2_SUPPORT) */
     case PWR_GPIO_H: /* Get port H standby GPIO retention status */
       return READ_REG(PWR->IORETRH);
       break;
@@ -904,6 +1268,44 @@ HAL_StatusTypeDef HAL_PWREx_DisableStandbyRetainedIOState(uint32_t GPIO_Port, ui
   return ret;
 }
 
+#if defined(PWR_STOP2_SUPPORT) && defined(PWR_S2RETR_PTASREN)
+/**
+  * @brief  Enable the PTA output signals retention in Stop 2 mode.
+  * @retval None.
+  */
+void HAL_PWREx_EnablePTAOutputStop2Retention(void)
+{
+  SET_BIT(PWR->S2RETR, PWR_S2RETR_PTASREN);
+}
+
+/**
+  * @brief  Disable the PTA output signals retention in Stop 2 mode.
+  * @retval None.
+  */
+void HAL_PWREx_DisablePTAOutputStop2Retention(void)
+{
+  CLEAR_BIT(PWR->S2RETR, PWR_S2RETR_PTASREN);
+}
+
+/**
+  * @brief  Get PTA interface output signals state retention in Stop 2 mode.
+  * @retval None.
+  */
+uint32_t HAL_PWREx_GetPTAOutputStop2RetentionState(void)
+{
+  uint32_t return_value = ((READ_BIT(PWR->S2RETR, PWR_S2RETR_PTASR)) >> PWR_S2RETR_PTASR_Pos);
+  return return_value;
+}
+
+/**
+  * @brief  Clear PTA interface output signals state retention in Stop 2 mode.
+  * @retval None.
+  */
+void HAL_PWREx_ClearPTAOutputStop2RetentionState(void)
+{
+  CLEAR_BIT(PWR->S2RETR, PWR_S2RETR_PTASR);
+}
+#endif /* defined(PWR_STOP2_SUPPORT) && defined(PWR_S2RETR_PTASREN) */
 /**
   * @}
   */

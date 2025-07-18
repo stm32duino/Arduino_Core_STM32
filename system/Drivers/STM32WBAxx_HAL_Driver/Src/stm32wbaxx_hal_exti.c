@@ -136,7 +136,7 @@
   * @param  pExtiConfig Pointer on EXTI configuration to be set.
   * @retval HAL Status.
   */
-HAL_StatusTypeDef HAL_EXTI_SetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigTypeDef *pExtiConfig)
+HAL_StatusTypeDef HAL_EXTI_SetConfigLine(EXTI_HandleTypeDef *hexti, const EXTI_ConfigTypeDef *pExtiConfig)
 {
   __IO uint32_t *regaddr;
   uint32_t regval;
@@ -208,7 +208,11 @@ HAL_StatusTypeDef HAL_EXTI_SetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigT
       assert_param(IS_EXTI_GPIO_PIN(linepos));
 
       regval = EXTI->EXTICR[(linepos >> 2U) & 0x03UL];
+#if defined (EXTI_EXTICR1_EXTI0)
       regval &= ~(EXTI_EXTICR1_EXTI0 << (EXTI_EXTICR1_EXTI1_Pos * (linepos & 0x03U)));
+#else /* defined (EXTI_EXTICR1_EXTI0) */
+      regval &= ~(EXTI_EXTICR2_EXTI4 << (EXTI_EXTICR1_EXTI1_Pos * (linepos & 0x03U)));
+#endif /* defined (EXTI_EXTICR1_EXTI0) */
       regval |= (pExtiConfig->GPIOSel << (EXTI_EXTICR1_EXTI1_Pos * (linepos & 0x03U)));
       EXTI->EXTICR[(linepos >> 2U) & 0x03UL] = regval;
     }
@@ -258,7 +262,7 @@ HAL_StatusTypeDef HAL_EXTI_SetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigT
   * @param  pExtiConfig Pointer on structure to store Exti configuration.
   * @retval HAL Status.
   */
-HAL_StatusTypeDef HAL_EXTI_GetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigTypeDef *pExtiConfig)
+HAL_StatusTypeDef HAL_EXTI_GetConfigLine(const EXTI_HandleTypeDef *hexti, EXTI_ConfigTypeDef *pExtiConfig)
 {
   const __IO uint32_t *regaddr;
   uint32_t regval;
@@ -410,7 +414,11 @@ HAL_StatusTypeDef HAL_EXTI_ClearConfigLine(const EXTI_HandleTypeDef *hexti)
       assert_param(IS_EXTI_GPIO_PIN(linepos));
 
       regval = EXTI->EXTICR[(linepos >> 2U) & 0x03UL];
+#if defined (EXTI_EXTICR1_EXTI0)
       regval &= ~(EXTI_EXTICR1_EXTI0 << (EXTI_EXTICR1_EXTI1_Pos * (linepos & 0x03U)));
+#else /* defined (EXTI_EXTICR1_EXTI0) */
+      regval &= ~(EXTI_EXTICR2_EXTI4 << (EXTI_EXTICR1_EXTI1_Pos * (linepos & 0x03U)));
+#endif /* defined (EXTI_EXTICR1_EXTI0) */
       EXTI->EXTICR[(linepos >> 2U) & 0x03UL] = regval;
     }
   }

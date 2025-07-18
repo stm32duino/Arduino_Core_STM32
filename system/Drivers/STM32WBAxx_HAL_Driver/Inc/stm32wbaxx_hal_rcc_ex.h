@@ -69,14 +69,30 @@ typedef struct
                                            This parameter can be a value of @ref RCCEx_USART2_Clock_Source */
 #endif
 
+#if defined (USART3)
+  uint32_t Usart3ClockSelection;      /*!< Specifies USART3 clock source.
+                                           This parameter can be a value of @ref RCCEx_USART3_Clock_Source */
+#endif
 
 #if defined (I2C1)
   uint32_t I2c1ClockSelection;        /*!< Specifies I2C1 clock source.
                                            This parameter can be a value of @ref RCCEx_I2C1_Clock_Source */
 #endif
 
+#if defined (I2C2)
+  uint32_t I2c2ClockSelection;        /*!< Specifies I2C2 clock source.
+                                           This parameter can be a value of @ref RCCEx_I2C2_Clock_Source */
+#endif
 
+#if defined (I2C4)
+  uint32_t I2c4ClockSelection;        /*!< Specifies I2C4 clock source.
+                                           This parameter can be a value of @ref RCCEx_I2C4_Clock_Source */
+#endif
 
+#if defined (SPI2)
+  uint32_t Spi2ClockSelection;        /*!< Specifies SPI2 clock source
+                                           This parameter can be a value of @ref RCCEx_SPI2_Clock_Source */
+#endif
 
 #if defined (LPTIM2)
   uint32_t Lptim2ClockSelection;      /*!< Specifies LPTIM2 clock source.
@@ -102,6 +118,10 @@ typedef struct
   uint32_t RngClockSelection;         /*!< Specifies RNG clock source
                                            This parameter can be a value of @ref RCCEx_RNG_Clock_Source */
 
+#if defined (USB_OTG_HS)
+  uint32_t UsbOtgHsPhyClockSelection; /*!< Specifies USB OTG HS PHY clock source.
+                                           This parameter can be a value of @ref RCCEx_USBOTGHSPHY_Clock_Source */
+#endif
 
 #if defined (RCC_CCIPR2_ASSEL)
   uint32_t AudioSyncClockSelection;   /*!< Specifies Audio Sync clock source.
@@ -184,6 +204,21 @@ uint32_t CompareValue;                /*!< Compare value.
 #define RCC_PERIPHCLK_ADC                   0x00002000U
 #define RCC_PERIPHCLK_RTC                   0x00004000U
 #define RCC_PERIPHCLK_RADIOST               0x00008000U
+#if defined (USART3)
+#define RCC_PERIPHCLK_USART3                0x00010000U
+#endif
+#if defined (I2C2)
+#define RCC_PERIPHCLK_I2C2                  0x00020000U
+#endif
+#if defined (I2C4)
+#define RCC_PERIPHCLK_I2C4                  0x00040000U
+#endif
+#if defined (SPI2)
+#define RCC_PERIPHCLK_SPI2                  0x00080000U
+#endif
+#if defined (USB_OTG_HS)
+#define RCC_PERIPHCLK_USBOTGHSPHY           0x00100000U
+#endif
 #if defined (RCC_CCIPR2_ASSEL)
 #define RCC_PERIPHCLK_AUDIOSYNC             0x00200000U
 #endif
@@ -215,6 +250,18 @@ uint32_t CompareValue;                /*!< Compare value.
   */
 #endif
 
+#if defined (USART3)
+/** @defgroup RCCEx_USART3_Clock_Source USART3 Clock Source
+  * @{
+  */
+#define RCC_USART3CLKSOURCE_PCLK1           0x00000000U
+#define RCC_USART3CLKSOURCE_SYSCLK          RCC_CCIPR1_USART3SEL_0
+#define RCC_USART3CLKSOURCE_HSI             RCC_CCIPR1_USART3SEL_1
+#define RCC_USART3CLKSOURCE_LSE             (RCC_CCIPR1_USART3SEL_0 | RCC_CCIPR1_USART3SEL_1)
+/**
+  * @}
+  */
+#endif
 
 #if defined (I2C1)
 /** @defgroup RCCEx_I2C1_Clock_Source I2C1 Clock Source
@@ -228,8 +275,41 @@ uint32_t CompareValue;                /*!< Compare value.
   */
 #endif
 
+#if defined (I2C2)
+/** @defgroup RCCEx_I2C2_Clock_Source I2C2 Clock Source
+  * @{
+  */
+#define RCC_I2C2CLKSOURCE_PCLK1             0x00000000U
+#define RCC_I2C2CLKSOURCE_SYSCLK            RCC_CCIPR1_I2C2SEL_0
+#define RCC_I2C2CLKSOURCE_HSI               RCC_CCIPR1_I2C2SEL_1
+/**
+  * @}
+  */
+#endif
 
+#if defined (I2C4)
+/** @defgroup RCCEx_I2C4_Clock_Source I2C4 Clock Source
+  * @{
+  */
+#define RCC_I2C4CLKSOURCE_PCLK1             0x00000000U
+#define RCC_I2C4CLKSOURCE_SYSCLK            RCC_CCIPR1_I2C4SEL_0
+#define RCC_I2C4CLKSOURCE_HSI               RCC_CCIPR1_I2C4SEL_1
+/**
+  * @}
+  */
+#endif
 
+#if defined (SPI2)
+/** @defgroup RCCEx_SPI2_Clock_Source SPI2 Clock Source
+  * @{
+  */
+#define RCC_SPI2CLKSOURCE_PCLK1             0x00000000U
+#define RCC_SPI2CLKSOURCE_SYSCLK            RCC_CCIPR1_SPI2SEL_0
+#define RCC_SPI2CLKSOURCE_HSI               RCC_CCIPR1_SPI2SEL_1
+/**
+  * @}
+  */
+#endif
 
 #if defined (LPTIM2)
 /** @defgroup RCCEx_LPTIM2_Clock_Source LPTIM2 Clock Source
@@ -262,6 +342,9 @@ uint32_t CompareValue;                /*!< Compare value.
 #define RCC_SYSTICKCLKSOURCE_HCLK_DIV8      0x00000000U
 #define RCC_SYSTICKCLKSOURCE_LSI            RCC_CCIPR1_SYSTICKSEL_0
 #define RCC_SYSTICKCLKSOURCE_LSE            RCC_CCIPR1_SYSTICKSEL_1
+#if !defined (STM32WBA50xx) && !defined (STM32WBA52xx) && !defined (STM32WBA54xx) && !defined (STM32WBA55xx) && !defined (STM32WBA5Mxx)
+#define RCC_SYSTICKCLKSOURCE_HSI_DIV4       (RCC_CCIPR1_SYSTICKSEL_1 | RCC_CCIPR1_SYSTICKSEL_0)
+#endif
 /**
   * @}
   */
@@ -300,6 +383,18 @@ uint32_t CompareValue;                /*!< Compare value.
   * @}
   */
 
+#if defined (USB_OTG_HS)
+/** @defgroup RCCEx_USBOTGHSPHY_Clock_Source USB OTGHS PHY Clock Source
+  * @{
+  */
+#define RCC_USBOTGHSPHYCLKSOURCE_HSE        0x00000000U
+#define RCC_USBOTGHSPHYCLKSOURCE_PLL1P      RCC_CCIPR2_OTGHSSEL_0
+#define RCC_USBOTGHSPHYCLKSOURCE_HSE_DIV2   RCC_CCIPR2_OTGHSSEL_1
+#define RCC_USBOTGHSPHYCLKSOURCE_PLL1P_DIV2 (RCC_CCIPR2_OTGHSSEL_1 | RCC_CCIPR2_OTGHSSEL_0)
+/**
+  * @}
+  */
+#endif
 
 #if defined (RCC_CCIPR2_ASSEL)
 /** @defgroup RCCEx_AudioSync_Clock_Source Audio Sync Clock Source
@@ -482,6 +577,28 @@ uint32_t CompareValue;                /*!< Compare value.
 #define __HAL_RCC_GET_USART2_SOURCE()       READ_BIT(RCC->CCIPR1, RCC_CCIPR1_USART2SEL)
 #endif
 
+#if defined (USART3)
+/** @brief  Macro to configure the USART3 clock (USART3CLK).
+  * @param  __USART3_CLKSOURCE__ specifies the USART3 clock source.
+  *          This parameter can be one of the following values:
+  *            @arg @ref RCC_USART3CLKSOURCE_PCLK1  PCLK1 selected as USART3 clock
+  *            @arg @ref RCC_USART3CLKSOURCE_HSI  HSI selected as USART3 clock
+  *            @arg @ref RCC_USART3CLKSOURCE_SYSCLK  System Clock selected as USART3 clock
+  *            @arg @ref RCC_USART3CLKSOURCE_LSE  LSE selected as USART3 clock
+  * @retval None
+  */
+#define __HAL_RCC_USART3_CONFIG(__USART3_CLKSOURCE__) \
+  MODIFY_REG(RCC->CCIPR1, RCC_CCIPR1_USART3SEL, (__USART3_CLKSOURCE__))
+
+/** @brief  Macro to get the USART3 clock source.
+  * @retval The clock source can be one of the following values:
+  *            @arg @ref RCC_USART3CLKSOURCE_PCLK1  PCLK1 selected as USART3 clock
+  *            @arg @ref RCC_USART3CLKSOURCE_HSI  HSI selected as USART3 clock
+  *            @arg @ref RCC_USART3CLKSOURCE_SYSCLK  System Clock selected as USART3 clock
+  *            @arg @ref RCC_USART3CLKSOURCE_LSE  LSE selected as USART3 clock
+  */
+#define __HAL_RCC_GET_USART3_SOURCE()       READ_BIT(RCC->CCIPR1, RCC_CCIPR1_USART3SEL)
+#endif
 
 #if defined (I2C1)
 /** @brief  Macro to configure the I2C1 clock (I2C1CLK).
@@ -504,8 +621,67 @@ uint32_t CompareValue;                /*!< Compare value.
 #define __HAL_RCC_GET_I2C1_SOURCE()         READ_BIT(RCC->CCIPR1, RCC_CCIPR1_I2C1SEL)
 #endif
 
+#if defined (I2C2)
+/** @brief  Macro to configure the I2C2 clock (I2C2CLK).
+  * @param  __I2C2_CLKSOURCE__ specifies the I2C2 clock source.
+  *          This parameter can be one of the following values:
+  *            @arg @ref RCC_I2C2CLKSOURCE_PCLK1  PCLK1 selected as I2C2 clock
+  *            @arg @ref RCC_I2C2CLKSOURCE_SYSCLK  System Clock selected as I2C2 clock
+  *            @arg @ref RCC_I2C2CLKSOURCE_HSI  HSI selected as I2C2 clock
+  * @retval None
+  */
+#define __HAL_RCC_I2C2_CONFIG(__I2C2_CLKSOURCE__) \
+  MODIFY_REG(RCC->CCIPR1, RCC_CCIPR1_I2C2SEL, (__I2C2_CLKSOURCE__))
 
+/** @brief  Macro to get the I2C2 clock source.
+  * @retval The clock source can be one of the following values:
+  *            @arg @ref RCC_I2C2CLKSOURCE_PCLK1  PCLK1 selected as I2C2 clock
+  *            @arg @ref RCC_I2C2CLKSOURCE_SYSCLK  System Clock selected as I2C2 clock
+  *            @arg @ref RCC_I2C2CLKSOURCE_HSI  HSI selected as I2C2 clock
+  */
+#define __HAL_RCC_GET_I2C2_SOURCE()         READ_BIT(RCC->CCIPR1, RCC_CCIPR1_I2C2SEL)
+#endif
 
+#if defined (I2C4)
+/** @brief  Macro to configure the I2C4 clock (I2C4CLK).
+  * @param  __I2C4_CLKSOURCE__ specifies the I2C4 clock source.
+  *          This parameter can be one of the following values:
+  *            @arg @ref RCC_I2C4CLKSOURCE_PCLK1  PCLK1 selected as I2C4 clock
+  *            @arg @ref RCC_I2C4CLKSOURCE_SYSCLK  System Clock selected as I2C4 clock
+  *            @arg @ref RCC_I2C4CLKSOURCE_HSI  HSI selected as I2C4 clock
+  * @retval None
+  */
+#define __HAL_RCC_I2C4_CONFIG(__I2C4_CLKSOURCE__) \
+  MODIFY_REG(RCC->CCIPR1, RCC_CCIPR1_I2C4SEL, (__I2C4_CLKSOURCE__))
+
+/** @brief  Macro to get the I2C4 clock source.
+  * @retval The clock source can be one of the following values:
+  *            @arg @ref RCC_I2C4CLKSOURCE_PCLK1  PCLK1 selected as I2C4 clock
+  *            @arg @ref RCC_I2C4CLKSOURCE_SYSCLK  System Clock selected as I2C4 clock
+  *            @arg @ref RCC_I2C4CLKSOURCE_HSI  HSI selected as I2C4 clock
+  */
+#define __HAL_RCC_GET_I2C4_SOURCE()         READ_BIT(RCC->CCIPR1, RCC_CCIPR1_I2C4SEL)
+#endif
+
+#if defined (SPI2)
+/** @brief  macro to configure the SPI2 clock source.
+  * @param  __SPI2_CLKSOURCE__ specifies the SPI2 clock source.
+  *          This parameter can be one of the following values:
+  *            @arg RCC_SPI2CLKSOURCE_PCLK2 : PCLK2 Clock selected as SPI2 clock
+  *            @arg RCC_SPI2CLKSOURCE_SYSCLK : SYSCLK Clock selected as SPI2 clock
+  *            @arg RCC_SPI2CLKSOURCE_HSI : HSI Clock selected as SPI2 clock
+  */
+#define __HAL_RCC_SPI2_CONFIG(__SPI2_CLKSOURCE__) \
+  MODIFY_REG(RCC->CCIPR1, RCC_CCIPR1_SPI2SEL, (__SPI2_CLKSOURCE__))
+
+/** @brief  macro to get the SPI2 clock source.
+  * @retval The clock source can be one of the following values:
+  *            @arg RCC_SPI2CLKSOURCE_PCLK2 : PCLK2 Clock used as SPI2 clock
+  *            @arg RCC_SPI2CLKSOURCE_SYSCLK : SYSCLK Clock used as SPI2 clock
+  *            @arg RCC_SPI2CLKSOURCE_HSI : HSI Clock used as SPI2 clock
+  */
+#define __HAL_RCC_GET_SPI2_SOURCE()         READ_BIT(RCC->CCIPR1, RCC_CCIPR1_SPI2SEL)
+#endif
 
 #if defined (LPTIM2)
 /** @brief  Macro to configure the LPTIM2 clock (LPTIM2CLK).
@@ -555,6 +731,8 @@ uint32_t CompareValue;                /*!< Compare value.
   *            @arg RCC_SYSTICKCLKSOURCE_HCLK_DIV8 : HCLK divided by 8 Clock selected as SYSTICK clock
   *            @arg RCC_SYSTICKCLKSOURCE_LSI : LSI Clock selected as SYSTICK clock
   *            @arg RCC_SYSTICKCLKSOURCE_LSE : LSE Clock selected as SYSTICK clock
+  *            @arg RCC_SYSTICKCLKSOURCE_HSI_DIV4 : HSI divided by 4 Clock selected as SYSTICK clock (1)
+  * @note   (1) Source is not available on all devices
   */
 #define __HAL_RCC_SYSTICK_CONFIG(__SYSTICK_CLKSOURCE__) \
   MODIFY_REG(RCC->CCIPR1, RCC_CCIPR1_SYSTICKSEL, (__SYSTICK_CLKSOURCE__))
@@ -564,6 +742,8 @@ uint32_t CompareValue;                /*!< Compare value.
   *            @arg RCC_SYSTICKCLKSOURCE_HCLK_DIV8 : HCLK divided by 8 Clock selected as SYSTICK clock
   *            @arg RCC_SYSTICKCLKSOURCE_LSI : LSI Clock selected as SYSTICK clock
   *            @arg RCC_SYSTICKCLKSOURCE_LSE : LSE Clock selected as SYSTICK clock
+  *            @arg RCC_SYSTICKCLKSOURCE_HSI_DIV4 : HSI divided by 4 Clock selected as SYSTICK clock (1)
+  * @note   (1) Source is not available on all devices
   */
 #define __HAL_RCC_GET_SYSTICK_SOURCE()      READ_BIT(RCC->CCIPR1, RCC_CCIPR1_SYSTICKSEL)
 
@@ -609,6 +789,29 @@ uint32_t CompareValue;                /*!< Compare value.
 #define __HAL_RCC_GET_SAI1_SOURCE()         READ_BIT(RCC->CCIPR2, RCC_CCIPR2_SAI1SEL)
 #endif
 
+#if defined (USB_OTG_HS)
+/** @brief  Macro to configure the USB OTG HS PHY clock (USBOTGHSPHYCLK).
+  * @param  __USBOTGHSPHY_CLKSOURCE__ specifies the USBOTGHSPHY clock source.
+  *          This parameter can be one of the following values:
+  *            @arg @ref RCC_USBOTGHSPHYCLKSOURCE_HSE  HSE selected as USBOTGHSPHY clock
+  *            @arg @ref RCC_USBOTGHSPHYCLKSOURCE_PLL1P  PLL1P selected as USBOTGHSPHY clock
+  *            @arg @ref RCC_USBOTGHSPHYCLKSOURCE_HSE_DIV2  HSE divided by 2 selected as USBOTGHSPHY clock
+  *            @arg @ref RCC_USBOTGHSPHYCLKSOURCE_PLL1P_DIV2  PLL1P divided by 2 selected as USBOTGHSPHY clock
+  * @retval None
+  */
+#define __HAL_RCC_USB_OTG_HS_PHY_CONFIG(__USBOTGHSPHY_CLKSOURCE__) \
+  MODIFY_REG(RCC->CCIPR2, RCC_CCIPR2_OTGHSSEL, (__USBOTGHSPHY_CLKSOURCE__))
+
+/** @brief  Macro to get the USB OTG HS PHY clock source.
+  * @retval The clock source can be one of the following values:
+  *            @arg @ref RCC_USBOTGHSPHYCLKSOURCE_HSE  HSE selected as USBOTGHSPHY clock
+  *            @arg @ref RCC_USBOTGHSPHYCLKSOURCE_PLL1P  PLL1P selected as USBOTGHSPHY clock
+  *            @arg @ref RCC_USBOTGHSPHYCLKSOURCE_HSE_DIV2  HSE divided by 2 selected as USBOTGHSPHY clock
+  *            @arg @ref RCC_USBOTGHSPHYCLKSOURCE_PLL1P_DIV2  PLL1P divided by 2 selected as USBOTGHSPHY clock
+  */
+#define __HAL_RCC_GET_USB_OTG_HS_PHY_SOURCE() \
+  READ_BIT(RCC->CCIPR2, RCC_CCIPR2_OTGHSSEL)
+#endif
 
 #if defined (RCC_CCIPR2_ASSEL)
 /** @brief  macro to configure the Audio Sync clock source.
@@ -874,6 +1077,22 @@ uint32_t          HAL_RCCEx_GetAudioSyncCaptureValue(void);
                                          RCC_PERIPHCLK_LPUART1 | RCC_PERIPHCLK_SPI3   | RCC_PERIPHCLK_I2C3    | \
                                          RCC_PERIPHCLK_LPTIM1  | RCC_PERIPHCLK_ADC    | RCC_PERIPHCLK_RTC     | \
                                          RCC_PERIPHCLK_RADIOST)
+#elif defined (STM32WBA62xx) || defined (STM32WBA64xx) || defined (STM32WBA65xx) || defined (STM32WBA6Mxx)
+#define RCC_PERIPHCLOCK_ALL             (RCC_PERIPHCLK_USART1  | RCC_PERIPHCLK_USART2 | RCC_PERIPHCLK_I2C1        | \
+                                         RCC_PERIPHCLK_LPTIM2  | RCC_PERIPHCLK_SPI1   | RCC_PERIPHCLK_SYSTICK     | \
+                                         RCC_PERIPHCLK_TIMIC   | RCC_PERIPHCLK_SAI1   | RCC_PERIPHCLK_RNG         | \
+                                         RCC_PERIPHCLK_LPUART1 | RCC_PERIPHCLK_SPI3   | RCC_PERIPHCLK_I2C3        | \
+                                         RCC_PERIPHCLK_LPTIM1  | RCC_PERIPHCLK_ADC    | RCC_PERIPHCLK_RTC         | \
+                                         RCC_PERIPHCLK_RADIOST | RCC_PERIPHCLK_USART3 | RCC_PERIPHCLK_I2C2        | \
+                                         RCC_PERIPHCLK_I2C4    | RCC_PERIPHCLK_SPI2   | RCC_PERIPHCLK_USBOTGHSPHY | \
+                                         RCC_PERIPHCLK_AUDIOSYNC)
+#elif defined (STM32WBA63xx)
+#define RCC_PERIPHCLOCK_ALL             (RCC_PERIPHCLK_USART1  | RCC_PERIPHCLK_USART2 | RCC_PERIPHCLK_I2C1    | \
+                                         RCC_PERIPHCLK_LPTIM2  | RCC_PERIPHCLK_SPI1   | RCC_PERIPHCLK_SYSTICK | \
+                                         RCC_PERIPHCLK_TIMIC   | RCC_PERIPHCLK_SAI1   | RCC_PERIPHCLK_RNG     | \
+                                         RCC_PERIPHCLK_LPUART1 | RCC_PERIPHCLK_SPI3   | RCC_PERIPHCLK_I2C3    | \
+                                         RCC_PERIPHCLK_LPTIM1  | RCC_PERIPHCLK_ADC    | RCC_PERIPHCLK_RTC     | \
+                                         RCC_PERIPHCLK_RADIOST | RCC_PERIPHCLK_AUDIOSYNC)
 #endif
 /**
   * @}
@@ -898,6 +1117,12 @@ uint32_t          HAL_RCCEx_GetAudioSyncCaptureValue(void);
                                                    ((__SOURCE__) == RCC_USART2CLKSOURCE_LSE))
 #endif
 
+#if defined(USART3)
+#define IS_RCC_USART3CLKSOURCE(__SOURCE__)        (((__SOURCE__) == RCC_USART3CLKSOURCE_PCLK1)  || \
+                                                   ((__SOURCE__) == RCC_USART3CLKSOURCE_SYSCLK) || \
+                                                   ((__SOURCE__) == RCC_USART3CLKSOURCE_HSI)    || \
+                                                   ((__SOURCE__) == RCC_USART3CLKSOURCE_LSE))
+#endif
 
 #if defined(I2C1)
 #define IS_RCC_I2C1CLKSOURCE(__SOURCE__)          (((__SOURCE__) == RCC_I2C1CLKSOURCE_PCLK1)  || \
@@ -905,8 +1130,23 @@ uint32_t          HAL_RCCEx_GetAudioSyncCaptureValue(void);
                                                    ((__SOURCE__) == RCC_I2C1CLKSOURCE_HSI))
 #endif
 
+#if defined(I2C2)
+#define IS_RCC_I2C2CLKSOURCE(__SOURCE__)          (((__SOURCE__) == RCC_I2C2CLKSOURCE_PCLK1)  || \
+                                                   ((__SOURCE__) == RCC_I2C2CLKSOURCE_SYSCLK) || \
+                                                   ((__SOURCE__) == RCC_I2C2CLKSOURCE_HSI))
+#endif
 
+#if defined(I2C4)
+#define IS_RCC_I2C4CLKSOURCE(__SOURCE__)          (((__SOURCE__) == RCC_I2C4CLKSOURCE_PCLK1)  || \
+                                                   ((__SOURCE__) == RCC_I2C4CLKSOURCE_SYSCLK) || \
+                                                   ((__SOURCE__) == RCC_I2C4CLKSOURCE_HSI))
+#endif
 
+#if defined (SPI2)
+#define IS_RCC_SPI2CLKSOURCE(__SOURCE__)          (((__SOURCE__) == RCC_SPI2CLKSOURCE_PCLK1)  || \
+                                                   ((__SOURCE__) == RCC_SPI2CLKSOURCE_SYSCLK) || \
+                                                   ((__SOURCE__) == RCC_SPI2CLKSOURCE_HSI))
+#endif
 
 #if defined (LPTIM2)
 #define IS_RCC_LPTIM2CLKSOURCE(__SOURCE__)        (((__SOURCE__) == RCC_LPTIM2CLKSOURCE_PCLK1) || \
@@ -926,9 +1166,16 @@ uint32_t          HAL_RCCEx_GetAudioSyncCaptureValue(void);
                                                    ((__SOURCE__) == RCC_SPI1CLKSOURCE_HSI))
 #endif
 
+#if !defined (STM32WBA50xx) && !defined (STM32WBA52xx) && !defined (STM32WBA54xx) && !defined (STM32WBA55xx) && !defined (STM32WBA5Mxx)
+#define IS_RCC_SYSTICKCLKSOURCE(__SOURCE__)       (((__SOURCE__) == RCC_SYSTICKCLKSOURCE_HCLK_DIV8)  || \
+                                                   ((__SOURCE__) == RCC_SYSTICKCLKSOURCE_LSI)        || \
+                                                   ((__SOURCE__) == RCC_SYSTICKCLKSOURCE_LSE)        || \
+                                                   ((__SOURCE__) == RCC_SYSTICKCLKSOURCE_HSI_DIV4))
+#else
 #define IS_RCC_SYSTICKCLKSOURCE(__SOURCE__)       (((__SOURCE__) == RCC_SYSTICKCLKSOURCE_HCLK_DIV8)  || \
                                                    ((__SOURCE__) == RCC_SYSTICKCLKSOURCE_LSI)        || \
                                                    ((__SOURCE__) == RCC_SYSTICKCLKSOURCE_LSE))
+#endif
 
 #define IS_RCC_TIMICCLKSOURCE(__SOURCE__)         (((__SOURCE__) == RCC_TIMICCLKSOURCE_HSI)  || \
                                                    ((__SOURCE__) == RCC_TIMICCLKSOURCE_HSI_DIV256))
@@ -946,6 +1193,12 @@ uint32_t          HAL_RCCEx_GetAudioSyncCaptureValue(void);
                                                    ((__SOURCE__) == RCC_RNGCLKSOURCE_HSI)   || \
                                                    ((__SOURCE__) == RCC_RNGCLKSOURCE_PLL1Q))
 
+#if defined (USB_OTG_HS)
+#define IS_RCC_USBOTGHSPHYCLKSOURCE(__SOURCE__)   (((__SOURCE__) == RCC_USBOTGHSPHYCLKSOURCE_HSE)         || \
+                                                   ((__SOURCE__) == RCC_USBOTGHSPHYCLKSOURCE_PLL1P)       || \
+                                                   ((__SOURCE__) == RCC_USBOTGHSPHYCLKSOURCE_HSE_DIV2)    || \
+                                                   ((__SOURCE__) == RCC_USBOTGHSPHYCLKSOURCE_PLL1P_DIV2))
+#endif
 
 #if defined (RCC_CCIPR2_ASSEL)
 #define IS_RCC_ASCLKSOURCE(__SOURCE__)            (((__SOURCE__) == RCC_ASCLKSOURCE_PLL1P)  || \

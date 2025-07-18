@@ -224,6 +224,9 @@ __STATIC_INLINE void LL_RTC_SetBinMixBCDU(RTC_TypeDef *RTCx, uint32_t BinMixBcdU
   #define GPIO_AF7_USART3 ((uint8_t)0x07)
 #endif // STM32C0xx && !defined(USART3)
 
+#if defined(STM32WBAxx) && defined(USB_OTG_HS) && !defined(GPIO_AF4_USB_OTG_HS)
+  #define GPIO_AF4_USB_OTG_HS GPIO_AF4_OTG_HS
+#endif // STM32WBAxx && defined(USB_OTG_HS) && !defined(GPIO_AF4_USB_OTG_HS)
 
 /**
  * Libc porting layers

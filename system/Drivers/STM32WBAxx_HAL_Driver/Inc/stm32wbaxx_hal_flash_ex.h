@@ -57,6 +57,10 @@ extern "C" {
   */
 typedef struct
 {
+#if defined(FLASH_DBANK_SUPPORT)
+  uint32_t Bank;                                        /*!< Selection of the associated bank of Block-based Area.
+                                                             This parameter must be a value of @ref FLASH_Banks */
+#endif /* FLASH_DBANK_SUPPORT */
   uint32_t BBAttributesType;                            /*!< Block-Based Attributes type.
                                                              This parameter must be a value of @ref FLASHEx_BB_Attributes */
   uint32_t BBAttributes_array[FLASH_BLOCKBASED_NB_REG]; /*!< Each bit specifies the block-based attribute configuration of a page:
@@ -65,6 +69,21 @@ typedef struct
 } FLASH_BBAttributesTypeDef;
 #endif /* FLASH_SECBBR1_SECBB0 || FLASH_PRIVBBR1_PRIVBB0 */
 
+#if defined(FLASH_SECHDPEXTR_HDP_PEXT)
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+/**
+  * @brief  FLASHEx Extended secure hide area structure definition
+  */
+typedef struct
+{
+  uint32_t Bank;            /*!< Selection of the associated bank of extended secure hide area.
+                                 This parameter must be a value of @ref FLASH_Banks */
+  uint32_t NbPages;         /*!< Number of pages of the extended secure hide area.
+                                 This parameter must be a value between 0 and (WM end page - WM start page) if no HDP,
+                                 or between 0 and (WM end page - HDP end page) if HDP enabled */
+} FLASH_HDPExtensionTypeDef;
+#endif /* __ARM_FEATURE_CMSE */
+#endif /* FLASH_SECHDPEXTR_HDP_PEXT */
 
 /**
   * @brief  FLASHEx Operation structure definition
@@ -150,20 +169,41 @@ typedef struct
   * @{
   */
 #define FLASH_OPERATION_TYPE_NONE         00000000U                                     /*!< No Flash operation      */
+#if defined(FLASH_DOUBLEWORD_SUPPORT)
+#define FLASH_OPERATION_TYPE_DOUBLEWORD   FLASH_OPSR_CODE_OP_0                          /*!< Single write operation  */
+#else /* FLASH_DOUBLEWORD_SUPPORT */
 #define FLASH_OPERATION_TYPE_QUADWORD     FLASH_OPSR_CODE_OP_0                          /*!< Single write operation  */
+#endif /* FLASH_DOUBLEWORD_SUPPORT */
 #define FLASH_OPERATION_TYPE_BURST        FLASH_OPSR_CODE_OP_1                          /*!< Burst write operation   */
 #define FLASH_OPERATION_TYPE_PAGEERASE    (FLASH_OPSR_CODE_OP_1 | FLASH_OPSR_CODE_OP_0) /*!< Page erase operation    */
+#if defined(FLASH_DBANK_SUPPORT)
+#define FLASH_OPERATION_TYPE_BANKERASE    FLASH_OPSR_CODE_OP_2                          /*!< Bank erase operation    */
+#endif /* FLASH_DBANK_SUPPORT */
 #define FLASH_OPERATION_TYPE_MASSERASE    (FLASH_OPSR_CODE_OP_2 | FLASH_OPSR_CODE_OP_0) /*!< Mass erase operation    */
 #define FLASH_OPERATION_TYPE_OPTIONCHANGE (FLASH_OPSR_CODE_OP_2 | FLASH_OPSR_CODE_OP_1) /*!< Option change operation */
 /**
   * @}
   */
 
+#if defined(FLASH_SECHDPEXTR_HDP_PEXT)
+/** @defgroup FLASH_ExtHDP_Protection FLASH Extended HDP Area protection type
+  * @{
+  */
+#define FLASH_EXTHDP_NO_PROTECTION           0xA3U       /*!< Access to bits configuration and area allowed        */
+#define FLASH_EXTHDP_ONLY_ACCESS_PROTECTED   0x5CU       /*!< Access to area denied and bits configuration allowed */
+#define FLASH_EXTHDP_ALL_PROTECTED           0x00U       /*!< Access to bits configuration and area denied         */
+/**
+  * @}
+  */
+#endif /* FLASH_SECHDPEXTR_HDP_PEXT */
 
 /** @defgroup FLASHEx_ECC_Area FLASH ECC Area
   * @{
   */
 #define FLASH_ECC_AREA_USER_BANK1  0x00000000U          /*!< FLASH bank 1 area */
+#if defined(FLASH_DBANK_SUPPORT)
+#define FLASH_ECC_AREA_USER_BANK2  FLASH_ECCR_BK_ECC    /*!< FLASH bank 2 area */
+#endif /* FLASH_DBANK_SUPPORT */
 #define FLASH_ECC_AREA_SYSTEM      FLASH_ECCR_SYSF_ECC  /*!< System FLASH area */
 /**
   * @}
@@ -180,6 +220,31 @@ typedef struct
 /** @defgroup FLASHEx_Suspend_Request FLASH Suspend Request
   * @{
   */
+#if defined(FLASH_DBANK_SUPPORT)
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+#define FLASH_SUSPEND_PROGRAM             (FLASH_SECCR2_PS1 | FLASH_SECCR2_PS2) /*!< Suspend all program requests */
+#define FLASH_SUSPEND_BANK1_PROGRAM       FLASH_SECCR2_PS1                      /*!< Suspend all program requests in bank 1 */
+#define FLASH_SUSPEND_BANK2_PROGRAM       FLASH_SECCR2_PS2                      /*!< Suspend all program requests in bank 2 */
+#define FLASH_SUSPEND_ERASE               (FLASH_SECCR2_ES1 | FLASH_SECCR2_ES2) /*!< Suspend all erase requests */
+#define FLASH_SUSPEND_BANK1_ERASE         FLASH_SECCR2_ES1                      /*!< Suspend all erase requests in bank 1 */
+#define FLASH_SUSPEND_BANK2_ERASE         FLASH_SECCR2_ES2                      /*!< Suspend all erase requests in bank 2 */
+#define FLASH_SUSPEND_PROGRAM_ERASE       (FLASH_SECCR2_PS1 | FLASH_SECCR2_ES1 | \
+                                           FLASH_SECCR2_PS2 | FLASH_SECCR2_ES2) /*!< Suspend all requests (program and erase) */
+#define FLASH_SUSPEND_BANK1_PROGRAM_ERASE (FLASH_SECCR2_PS1 | FLASH_SECCR2_ES1) /*!< Suspend all requests in bank 1 (program and erase) */
+#define FLASH_SUSPEND_BANK2_PROGRAM_ERASE (FLASH_SECCR2_PS2 | FLASH_SECCR2_ES2) /*!< Suspend all requests in bank 2 (program and erase) */
+#else
+#define FLASH_SUSPEND_PROGRAM             (FLASH_NSCR2_PS1 | FLASH_NSCR2_PS2) /*!< Suspend all program requests */
+#define FLASH_SUSPEND_BANK1_PROGRAM       FLASH_NSCR2_PS1                     /*!< Suspend all program requests in bank 1 */
+#define FLASH_SUSPEND_BANK2_PROGRAM       FLASH_NSCR2_PS2                     /*!< Suspend all program requests in bank 2 */
+#define FLASH_SUSPEND_ERASE               (FLASH_NSCR2_ES1 | FLASH_NSCR2_ES2) /*!< Suspend all erase requests */
+#define FLASH_SUSPEND_BANK1_ERASE         FLASH_NSCR2_ES1                     /*!< Suspend all erase requests in bank 1 */
+#define FLASH_SUSPEND_BANK2_ERASE         FLASH_NSCR2_ES2                     /*!< Suspend all erase requests in bank 2 */
+#define FLASH_SUSPEND_PROGRAM_ERASE       (FLASH_NSCR2_PS1 | FLASH_NSCR2_ES1 | \
+                                           FLASH_NSCR2_PS2 | FLASH_NSCR2_ES2) /*!< Suspend all requests (program and erase) */
+#define FLASH_SUSPEND_BANK1_PROGRAM_ERASE (FLASH_NSCR2_PS1 | FLASH_NSCR2_ES1) /*!< Suspend all requests in bank 1 (program and erase) */
+#define FLASH_SUSPEND_BANK2_PROGRAM_ERASE (FLASH_NSCR2_PS2 | FLASH_NSCR2_ES2) /*!< Suspend all requests in bank 2 (program and erase) */
+#endif /* __ARM_FEATURE_CMSE */
+#else /* FLASH_DBANK_SUPPORT */
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 #define FLASH_SUSPEND_PROGRAM             FLASH_SECCR2_PS                     /*!< Suspend all program requests */
 #define FLASH_SUSPEND_ERASE               FLASH_SECCR2_ES                     /*!< Suspend all erase requests */
@@ -189,6 +254,7 @@ typedef struct
 #define FLASH_SUSPEND_ERASE               FLASH_NSCR2_ES                      /*!< Suspend all erase requests */
 #define FLASH_SUSPEND_PROGRAM_ERASE       (FLASH_NSCR2_PS | FLASH_NSCR2_ES)   /*!< Suspend all requests (program and erase) */
 #endif /* __ARM_FEATURE_CMSE */
+#endif /* FLASH_DBANK_SUPPORT */
 /**
   * @}
   */
@@ -196,6 +262,31 @@ typedef struct
 /** @defgroup FLASHEx_Allow_Request FLASH Allow Request
   * @{
   */
+#if defined(FLASH_DBANK_SUPPORT)
+#if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
+#define FLASH_ALLOW_PROGRAM             (FLASH_SECCR2_PS1 | FLASH_SECCR2_PS2) /*!< Suspend all program requests */
+#define FLASH_ALLOW_BANK1_PROGRAM       FLASH_SECCR2_PS1                      /*!< Suspend all program requests in bank 1 */
+#define FLASH_ALLOW_BANK2_PROGRAM       FLASH_SECCR2_PS2                      /*!< Suspend all program requests in bank 2 */
+#define FLASH_ALLOW_ERASE               (FLASH_SECCR2_ES1 | FLASH_SECCR2_ES2) /*!< Suspend all erase requests */
+#define FLASH_ALLOW_BANK1_ERASE         FLASH_SECCR2_ES1                      /*!< Suspend all erase requests in bank 1 */
+#define FLASH_ALLOW_BANK2_ERASE         FLASH_SECCR2_ES2                      /*!< Suspend all erase requests in bank 2 */
+#define FLASH_ALLOW_PROGRAM_ERASE       (FLASH_SECCR2_PS1 | FLASH_SECCR2_ES1 | \
+                                         FLASH_SECCR2_PS2 | FLASH_SECCR2_ES2) /*!< Suspend all requests (program and erase) */
+#define FLASH_ALLOW_BANK1_PROGRAM_ERASE (FLASH_SECCR2_PS1 | FLASH_SECCR2_ES1) /*!< Suspend all requests in bank 1 (program and erase) */
+#define FLASH_ALLOW_BANK2_PROGRAM_ERASE (FLASH_SECCR2_PS2 | FLASH_SECCR2_ES2) /*!< Suspend all requests in bank 2 (program and erase) */
+#else
+#define FLASH_ALLOW_PROGRAM             (FLASH_NSCR2_PS1 | FLASH_NSCR2_PS2) /*!< Suspend all program requests */
+#define FLASH_ALLOW_BANK1_PROGRAM       FLASH_NSCR2_PS1                     /*!< Suspend all program requests in bank 1 */
+#define FLASH_ALLOW_BANK2_PROGRAM       FLASH_NSCR2_PS2                     /*!< Suspend all program requests in bank 2 */
+#define FLASH_ALLOW_ERASE               (FLASH_NSCR2_ES1 | FLASH_NSCR2_ES2) /*!< Suspend all erase requests */
+#define FLASH_ALLOW_BANK1_ERASE         FLASH_NSCR2_ES1                     /*!< Suspend all erase requests in bank 1 */
+#define FLASH_ALLOW_BANK2_ERASE         FLASH_NSCR2_ES2                     /*!< Suspend all erase requests in bank 2 */
+#define FLASH_ALLOW_PROGRAM_ERASE       (FLASH_NSCR2_PS1 | FLASH_NSCR2_ES1 | \
+                                         FLASH_NSCR2_PS2 | FLASH_NSCR2_ES2) /*!< Suspend all requests (program and erase) */
+#define FLASH_ALLOW_BANK1_PROGRAM_ERASE (FLASH_NSCR2_PS1 | FLASH_NSCR2_ES1) /*!< Suspend all requests in bank 1 (program and erase) */
+#define FLASH_ALLOW_BANK2_PROGRAM_ERASE (FLASH_NSCR2_PS2 | FLASH_NSCR2_ES2) /*!< Suspend all requests in bank 2 (program and erase) */
+#endif /* __ARM_FEATURE_CMSE */
+#else /* FLASH_DBANK_SUPPORT */
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 #define FLASH_ALLOW_PROGRAM               FLASH_SECCR2_PS                     /*!< Allow all program requests */
 #define FLASH_ALLOW_ERASE                 FLASH_SECCR2_ES                     /*!< Allow all erase requests */
@@ -205,6 +296,7 @@ typedef struct
 #define FLASH_ALLOW_ERASE                 FLASH_NSCR2_ES                      /*!< Allow all erase requests */
 #define FLASH_ALLOW_PROGRAM_ERASE         (FLASH_NSCR2_PS | FLASH_NSCR2_ES)   /*!< Allow all requests (program and erase) */
 #endif /* __ARM_FEATURE_CMSE */
+#endif /* FLASH_DBANK_SUPPORT */
 /**
   * @}
   */
@@ -224,17 +316,25 @@ typedef struct
 /** @addtogroup FLASHEx_Exported_Functions_Group1
   * @{
   */
-HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t *PageError);
+HAL_StatusTypeDef HAL_FLASHEx_Erase(const FLASH_EraseInitTypeDef *pEraseInit, uint32_t *PageError);
 HAL_StatusTypeDef HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit);
 HAL_StatusTypeDef HAL_FLASHEx_OBProgram(FLASH_OBProgramInitTypeDef *pOBInit);
 void              HAL_FLASHEx_OBGetConfig(FLASH_OBProgramInitTypeDef *pOBInit);
 #if defined(FLASH_SECBBR1_SECBB0) || defined(FLASH_PRIVBBR1_PRIVBB0) || defined(FLASH_SECBB1R1_SECBB0) || defined(FLASH_PRIVBB1R1_PRIVBB0)
-HAL_StatusTypeDef HAL_FLASHEx_ConfigBBAttributes(FLASH_BBAttributesTypeDef *pBBAttributes);
+HAL_StatusTypeDef HAL_FLASHEx_ConfigBBAttributes(const FLASH_BBAttributesTypeDef *pBBAttributes);
 void              HAL_FLASHEx_GetConfigBBAttributes(FLASH_BBAttributesTypeDef *pBBAttributes);
 #endif /* FLASH_SECBBR1_SECBB0 || FLASH_PRIVBBR1_PRIVBB0 */
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 void              HAL_FLASHEx_EnableSecHideProtection(uint32_t Banks);
+#if defined(FLASH_SECHDPEXTR_HDP_PEXT)
+HAL_StatusTypeDef HAL_FLASHEx_ConfigHDPExtension(FLASH_HDPExtensionTypeDef *pHDPExtension);
+void              HAL_FLASHEx_GetConfigHDPExtension(FLASH_HDPExtensionTypeDef *pHDPExtension);
+void              HAL_FLASHEx_EnableHDPExtensionProtection(uint32_t Banks, uint32_t ProtectionType);
+#endif /* FLASH_SECHDPEXTR_HDP_PEXT */
 #endif /* __ARM_FEATURE_CMSE */
+#if defined(FLASH_OEMKEYSR_OEM1KEYCRC)
+void              HAL_FLASHEx_GetRDPKeyCRC(uint32_t RDPKeyType, uint32_t *CRCKeyValue);
+#endif /* FLASH_OEMKEYSR_OEM1KEYCRC */
 /**
   * @}
   */
@@ -253,7 +353,11 @@ uint32_t          HAL_FLASHEx_GetPrivMode(void);
 HAL_StatusTypeDef HAL_FLASHEx_ConfigSecInversion(uint32_t SecInvState);
 uint32_t          HAL_FLASHEx_GetSecInversion(void);
 #endif /* __ARM_FEATURE_CMSE */
+#if defined(FLASH_DBANK_SUPPORT)
+HAL_StatusTypeDef HAL_FLASHEx_EnablePowerDown(uint32_t Banks);
+#else /* FLASH_DBANK_SUPPORT */
 HAL_StatusTypeDef HAL_FLASHEx_EnablePowerDown(void);
+#endif /* FLASH_DBANK_SUPPORT */
 HAL_StatusTypeDef HAL_FLASHEx_ConfigLowPowerRead(uint32_t ConfigLPM);
 uint32_t          HAL_FLASHEx_GetLowPowerRead(void);
 void              HAL_FLASHEx_GetOperation(FLASH_OperationTypeDef *pFlashOperation);
@@ -282,7 +386,11 @@ __weak void       HAL_FLASHEx_EccCorrectionCallback(void);
 /** @addtogroup FLASHEx_Private_Functions FLASHEx Private Functions
   * @{
   */
+#if defined(FLASH_DBANK_SUPPORT)
+void FLASH_PageErase(uint32_t Page, uint32_t Banks);
+#else /* FLASH_DBANK_SUPPORT */
 void FLASH_PageErase(uint32_t Page);
+#endif /* FLASH_DBANK_SUPPORT */
 /**
   * @}
   */
@@ -304,7 +412,32 @@ void FLASH_PageErase(uint32_t Page);
 #define IS_FLASH_CFGLPM(CFG)               (((CFG) == FLASH_LPM_DISABLE) || \
                                             ((CFG) == FLASH_LPM_ENABLE))
 
+#if defined(FLASH_SECHDPEXTR_HDP_PEXT)
+#define IS_FLASH_EXTHDP_PROTECTION(CFG)    (((CFG) == FLASH_EXTHDP_ONLY_ACCESS_PROTECTED) || \
+                                            ((CFG) == FLASH_EXTHDP_ALL_PROTECTED))
+#endif /* FLASH_SECHDPEXTR_HDP_PEXT */
 
+#if defined(FLASH_DBANK_SUPPORT)
+#define IS_FLASH_SUSPEND_REQ(VALUE)        (((VALUE) == FLASH_SUSPEND_PROGRAM)             || \
+                                            ((VALUE) == FLASH_SUSPEND_BANK1_PROGRAM)       || \
+                                            ((VALUE) == FLASH_SUSPEND_BANK2_PROGRAM)       || \
+                                            ((VALUE) == FLASH_SUSPEND_ERASE)               || \
+                                            ((VALUE) == FLASH_SUSPEND_BANK1_ERASE)         || \
+                                            ((VALUE) == FLASH_SUSPEND_BANK2_ERASE)         || \
+                                            ((VALUE) == FLASH_SUSPEND_PROGRAM_ERASE)       || \
+                                            ((VALUE) == FLASH_SUSPEND_BANK1_PROGRAM_ERASE) || \
+                                            ((VALUE) == FLASH_SUSPEND_BANK2_PROGRAM_ERASE))
+
+#define IS_FLASH_ALLOW_REQ(VALUE)          (((VALUE) == FLASH_ALLOW_PROGRAM)             || \
+                                            ((VALUE) == FLASH_ALLOW_BANK1_PROGRAM)       || \
+                                            ((VALUE) == FLASH_ALLOW_BANK2_PROGRAM)       || \
+                                            ((VALUE) == FLASH_ALLOW_ERASE)               || \
+                                            ((VALUE) == FLASH_ALLOW_BANK1_ERASE)         || \
+                                            ((VALUE) == FLASH_ALLOW_BANK2_ERASE)         || \
+                                            ((VALUE) == FLASH_ALLOW_PROGRAM_ERASE)       || \
+                                            ((VALUE) == FLASH_ALLOW_BANK1_PROGRAM_ERASE) || \
+                                            ((VALUE) == FLASH_ALLOW_BANK2_PROGRAM_ERASE))
+#else /* FLASH_DBANK_SUPPORT */
 #define IS_FLASH_SUSPEND_REQ(VALUE)        (((VALUE) == FLASH_SUSPEND_PROGRAM) || \
                                             ((VALUE) == FLASH_SUSPEND_ERASE)   || \
                                             ((VALUE) == FLASH_SUSPEND_PROGRAM_ERASE))
@@ -312,6 +445,7 @@ void FLASH_PageErase(uint32_t Page);
 #define IS_FLASH_ALLOW_REQ(VALUE)          (((VALUE) == FLASH_ALLOW_PROGRAM) || \
                                             ((VALUE) == FLASH_ALLOW_ERASE)   || \
                                             ((VALUE) == FLASH_ALLOW_PROGRAM_ERASE))
+#endif /* FLASH_DBANK_SUPPORT */
 /**
   * @}
   */
