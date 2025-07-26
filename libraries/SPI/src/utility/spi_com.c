@@ -203,9 +203,10 @@ static uint32_t compute_disable_delay(spi_t *obj)
   * @param  speed : spi output speed
   * @param  mode : one of the spi modes
   * @param  msb : set to 1 in msb first
+  * @param  device : spi device mode: master or slave
   * @retval None
   */
-void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb)
+void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb, SPIDeviceMode device)
 {
   if (obj == NULL) {
     return;
@@ -257,8 +258,8 @@ void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb)
   }
 
   /* Fill default value */
-  handle->Instance               = obj->spi;
-  handle->Init.Mode              = SPI_MODE_MASTER;
+  handle->Instance = obj->spi;
+  handle->Init.Mode = (device == SPI_MASTER) ? SPI_MODE_MASTER : SPI_MODE_SLAVE;
 
   spi_freq = spi_getClkFreqInst(obj->spi);
   /* For SUBGHZSPI,  'SPI_BAUDRATEPRESCALER_*' == 'SUBGHZSPI_BAUDRATEPRESCALER_*' */
