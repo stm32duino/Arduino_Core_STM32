@@ -9,7 +9,7 @@
 
 [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
 ![GitHub All Releases](https://img.shields.io/github/downloads/stm32duino/Arduino_Core_STM32/total.svg?label=downloads%20since%201.4.0)
-[![GitHub commits since latest release](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/latest/main)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2.10.1...main)
+[![GitHub commits since latest release](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/latest/main)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2.11.0...main)
 
 
 * [Introduction](https://github.com/stm32duino/Arduino_Core_STM32#Introduction)<br>
@@ -122,7 +122,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L4R5ZI-P | [Nucleo L4R5ZI-P](http://www.st.com/en/evaluation-tools/nucleo-l4r5zi-p.html) | *1.4.0* |  |
 | :green_heart: | STM32L552ZE-Q | [Nucleo L552ZE-Q](https://www.st.com/en/evaluation-tools/nucleo-l552ze-q.html) | *2.0.0* |  |
 | :green_heart:  | STM32U575ZI-Q | [NUCLEO-U575ZI-Q](https://www.st.com/en/evaluation-tools/nucleo-u575zi-q.html) | *2.1.0* |  |
-| :yellow_heart: | STM32U5A5ZJ-Q | [NUCLEO-U5A5ZJ-Q](https://www.st.com/en/evaluation-tools/nucleo-u5a5zj-q.html) | **2.11.0** |  |
+| :green_heart: | STM32U5A5ZJ-Q | [NUCLEO-U5A5ZJ-Q](https://www.st.com/en/evaluation-tools/nucleo-u5a5zj-q.html) | *2.11.0* |  |
 
 ### [Nucleo 64](https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-eval-tools/stm32-mcu-eval-tools/stm32-nucleo-boards.html) boards
 
@@ -130,7 +130,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart: | STM32C031C6 | [Nucleo C031C6](https://www.st.com/en/evaluation-tools/nucleo-c031c6.html) | *2.5.0* |  |
 | :green_heart: | STM32C071RB | [Nucleo C071RB](https://www.st.com/en/evaluation-tools/nucleo-c071rb.html) | *2.9.0* |  |
-| :yellow_heart: | STM32C092RC | [Nucleo C092RC](https://www.st.com/en/evaluation-tools/nucleo-c092rc.html)| **2.11.0** |  |
+| :green_heart: | STM32C092RC | [Nucleo C092RC](https://www.st.com/en/evaluation-tools/nucleo-c092rc.html)| *2.11.0* |  |
 | :green_heart:  | STM32F030R8 | [Nucleo F030R8](http://www.st.com/en/evaluation-tools/nucleo-f030r8.html) | *0.2.0* |  |
 | :green_heart:  | STM32F070RB | [Nucleo F070RB](http://www.st.com/en/evaluation-tools/nucleo-f070rb.html) | *2.0.0* |  |
 | :green_heart:  | STM32F072RB | [Nucleo F072RB](http://www.st.com/en/evaluation-tools/nucleo-f072rb.html) | *1.9.0* |  |
@@ -139,7 +139,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F302R8 | [Nucleo F302R8](http://www.st.com/en/evaluation-tools/nucleo-f302r8.html) | *1.1.0* |  |
 | :green_heart:  | STM32F303RE | [Nucleo F303RE](http://www.st.com/en/evaluation-tools/nucleo-f303re.html) | *0.1.0* |  |
 | :green_heart:  | STM32F401RE | [Nucleo F401RE](http://www.st.com/en/evaluation-tools/nucleo-f401re.html) | *0.2.1* |  |
-| :yellow_heart:  | STM32F410RB | [Nucleo F410RB](http://www.st.com/en/evaluation-tools/nucleo-f410rb.html) | **2.11.0** |  |
+| :green_heart:  | STM32F410RB | [Nucleo F410RB](http://www.st.com/en/evaluation-tools/nucleo-f410rb.html) | *2.11.0* |  |
 | :green_heart:  | STM32F411RE | [Nucleo F411RE](http://www.st.com/en/evaluation-tools/nucleo-f411re.html) | *0.2.1* |  |
 | :green_heart:  | STM32F446RE | [Nucleo F446RE](http://www.st.com/en/evaluation-tools/nucleo-f446re.html) | *1.1.1* |  |
 | :green_heart:  | STM32G070RB | [Nucleo G070RB](https://www.st.com/en/evaluation-tools/nucleo-g070rb.html) | *2.3.0* |  |
@@ -152,14 +152,14 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L053R8 | [Nucleo L053R8](http://www.st.com/en/evaluation-tools/nucleo-l053r8.html) | *0.1.0* |  |
 | :green_heart:  | STM32L073RZ | [Nucleo L073RZ](http://www.st.com/en/evaluation-tools/nucleo-l073rz.html) | *1.4.0* |  |
 | :green_heart:  | STM32L152RE | [Nucleo L152RE](http://www.st.com/en/evaluation-tools/nucleo-l152re.html) | *1.0.0* |  |
-| :yellow_heart:  | STM32L412RB-P | [Nucleo L412RC-P](https://www.st.com/en/evaluation-tools/nucleo-l412rb-p.html) | **2.11.0** |  |
+| :green_heart:  | STM32L412RB-P | [Nucleo L412RC-P](https://www.st.com/en/evaluation-tools/nucleo-l412rb-p.html) | *2.11.0* |  |
 | :green_heart:  | STM32L433RC-P | [Nucleo L433RC-P](https://www.st.com/en/evaluation-tools/nucleo-l433rc-p.html) | *1.9.0* |  |
 | :green_heart:  | STM32L452RE | [Nucleo L452RE](http://www.st.com/en/evaluation-tools/nucleo-l452re.html) | *1.5.0* |  |
 | :green_heart:  | STM32L452RE-P | [Nucleo L452RE-P](http://www.st.com/en/evaluation-tools/nucleo-l452re-p.html) | *1.8.0* |  |
 | :green_heart:  | STM32L476RG | [Nucleo L476RG](http://www.st.com/en/evaluation-tools/nucleo-l476rg.html) | *0.1.0* |  |
 | :green_heart:  | STM32U083RC | [Nucleo U083RC](http://www.st.com/en/evaluation-tools/nucleo-u083rc.html) | *2.9.0* |  |
 | :green_heart:  | STM32U385RG-Q | [Nucleo-U385RG-Q](https://www.st.com/en/evaluation-tools/nucleo-u385rg-q.html) | *2.10.0* |  |
-| :yellow_heart: | STM32WB09KEV | [Nucleo-WB09KE](https://www.st.com/en/evaluation-tools/nucleo-wb09ke.html) | **2.11.0** |  |
+| :green_heart: | STM32WB09KEV | [Nucleo-WB09KE](https://www.st.com/en/evaluation-tools/nucleo-wb09ke.html) | *2.11.0* |  |
 | :green_heart:  | STM32WB15CCU | [Nucleo-WB15CC](https://www.st.com/en/evaluation-tools/nucleo-wb15cc.html) | *2.5.0* |  |
 | :green_heart: | STM32WBA55CGU | Nucleo-WBA55CG | *2.8.0* |  |
 | :green_heart:  | STM32WB55RG | [P-Nucleo-WB55RG](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html) | *1.6.0* | BLE support with [STM32duinoBLE](https://github.com/stm32duino/STM32duinoBLE) |
@@ -198,7 +198,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32H573IIKxQ | [STM32H573I-DK](https://www.st.com/en/evaluation-tools/stm32h573i-dk.html) | *2.6.0* |  |
 | :green_heart:  | STM32H747XIHx | [STM32H747I-DISCO](https://www.st.com/en/evaluation-tools/stm32h747i-disco.html) | *2.7.0* |  |
 | :green_heart:  | STM32L4S5VI | [B-L4S5I-IOT01A](https://www.st.com/en/evaluation-tools/b-l4s5i-iot01a.html) | *2.0.0* | |
-| :yellow_heart:  | STM32L562QEIxQ | [STM32L562E-DK](https://www.st.com/en/evaluation-tools/stm32l562e-dk.html) | **2.11.0** | |
+| :green_heart:  | STM32L562QEIxQ | [STM32L562E-DK](https://www.st.com/en/evaluation-tools/stm32l562e-dk.html) | *2.11.0* | |
 | :green_heart: | STM32U585AIIxQ | [B-U585I-IOT02A](https://www.st.com/en/evaluation-tools/b-u585i-iot02a.html) | *2.1.0* |  |
 | :green_heart: | STM32WB5MMG | [STM32WB5MM-DK](https://www.st.com/en/evaluation-tools/stm32wb5mm-dk.html) | *2.1.0* |  |
 
@@ -225,11 +225,11 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32C011J4<br>STM32C011J6 | Generic Board | *2.8.0* |  |
 | :green_heart: | STM32C031C4<br>STM32C031C6 | Generic Board | *2.5.0* |  |
 | :green_heart: | STM32C031F4<br>STM32C031F6 | Generic Board | *2.6.0* |  |
-| :yellow_heart: | STM32C071G8<br>STM32C071GB | Generic Board | **2.11.0** |  |
+| :green_heart: | STM32C071G8<br>STM32C071GB | Generic Board | *2.11.0* |  |
 | :green_heart: | STM32C071R8<br>STM32C071RB | Generic Board | *2.9.0* | |
-| :yellow_heart: | STM32C092CBT | Generic Board | **2.11.0** |  |
-| :yellow_heart: | STM32C092RBT<br>STM32C092RCT | Generic Board | **2.11.0** |  |
-| :yellow_heart: | STM32C092RCI | Generic Board | **2.11.0** |  |
+| :green_heart: | STM32C092CBT | Generic Board | *2.11.0* |  |
+| :green_heart: | STM32C092RBT<br>STM32C092RCT | Generic Board | *2.11.0* |  |
+| :green_heart: | STM32C092RCI | Generic Board | *2.11.0* |  |
 
 ### Generic STM32F0 boards
 
@@ -714,7 +714,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32L412K8<br>STM32L412KB<br>STM32L422KB | Generic Board | *2.0.0* |  |
-| :yellow_heart: | STM32L412RBIxP<br>STM32L412RBTxP | Generic Board | **2.11.0** |  |
+| :green_heart: | STM32L412RBIxP<br>STM32L412RBTxP | Generic Board | *2.11.0* |  |
 | :green_heart:  | STM32L431CB<br>STM32L431CC | Generic Board | *2.8.1* |  |
 | :green_heart:  | STM32L431RB<br>STM32L431RC | Generic Board | *2.3.0* |  |
 | :green_heart:  | STM32L432KB<br>STM32L432KC<br>STM32L442KC | Generic Board | *2.0.0* |  |
@@ -755,17 +755,17 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32L552ZC-Q<br>STM32L552ZE-Q | Generic Board | *2.0.0* |  |
-| :yellow_heart:  | STM32L552QCIxQ<br>STM32L552QEIxQ | Generic Board | **2.11.0** |  |
+| :green_heart:  | STM32L552QCIxQ<br>STM32L552QEIxQ | Generic Board | *2.11.0* |  |
 | :green_heart:  | STM32L562ZE-Q | Generic Board | *2.0.0* |  |
-| :yellow_heart:  | STM32L562QEIxQ | Generic Board | **2.11.0** |  |
+| :green_heart:  | STM32L562QEIxQ | Generic Board | *2.11.0* |  |
 
 ### Generic STM32U0 boards
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :yellow_heart:  | STM32U073C8<br>STM32U073CB<br>STM32U073CC | Generic Board | **2.11.0** |  |
+| :green_heart:  | STM32U073C8<br>STM32U073CB<br>STM32U073CC | Generic Board | *2.11.0* |  |
 | :green_heart:  | STM32U073R8<br>STSTM32U073RB<br>STM32U073RC | Generic Board | *2.9.0* |  |
-| :yellow_heart:  | STM32U083CC | Generic Board | **2.11.0** |  |
+| :green_heart:  | STM32U083CC | Generic Board | *2.11.0* |  |
 | :green_heart:  | STM32U083RC | Generic Board | *2.9.0* |  |
 
 ### Generic STM32U3 boards
@@ -787,10 +787,10 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32U585AIIxQ | Generic Board | *2.1.0* |  |
 | :green_heart:  | STM32U585CIx | Generic Board | *2.7.0* |  |
 | :green_heart:  | STM32U585ZITxQ | Generic Board | *2.1.0* |  |
-| :yellow_heart: | STM32U595ZITxQ<br>STM32U595ZJTxQ | Generic Board | **2.11.0** |  |
-| :yellow_heart: | STM32U599ZITxQ<br>STM32U599ZJTxQ | Generic Board | **2.11.0** |  |
-| :yellow_heart: | STM32U5A5ZJTxQ | Generic Board | **2.11.0** |  |
-| :yellow_heart: | STM32U5A9ZJTxQ | Generic Board | **2.11.0** |  |
+| :green_heart: | STM32U595ZITxQ<br>STM32U595ZJTxQ | Generic Board | *2.11.0* |  |
+| :green_heart: | STM32U599ZITxQ<br>STM32U599ZJTxQ | Generic Board | *2.11.0* |  |
+| :green_heart: | STM32U5A5ZJTxQ | Generic Board | *2.11.0* |  |
+| :green_heart: | STM32U5A9ZJTxQ | Generic Board | *2.11.0* |  |
 
 
 ### Generic STM32WB boards
@@ -808,8 +808,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :yellow_heart: | WB05KZV<br>WB05TZF| Generic Board | **2.11.0** |  |
-| :yellow_heart: | WB09KEV<br>WB09TEF | Generic Board | **2.11.0** |  |
+| :green_heart: | WB05KZV<br>WB05TZF| Generic Board | *2.11.0* |  |
+| :green_heart: | WB09KEV<br>WB09TEF | Generic Board | *2.11.0* |  |
 
 ### Generic STM32WBA boards
 
@@ -900,8 +900,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32WLE5CC | [RAK3172T Module](https://github.com/RAKWireless/rakwireless-docs/tree/master/docs/Product-Categories/WisDuo/RAK3172-Module) | *2.8.1* | RAK3172 Module with TCXO |
 | :green_heart:  | STM32L151CB | [RAK811 LoRa Tracker](https://www.rakwireless.com/en/) | *1.4.0* | [Wiki](https://github.com/stm32duino/Arduino_Core_STM32/wiki/Connectivities#lora) |
 | :green_heart:  | STM32L051C8 | [RHF76-052](https://lora-alliance.org/lora_products/rhf76-052/) | *1.7.0* | Basic support |
-| :yellow_heart:  | STM32WLE5CC | [Oceanus-I Module](https://www.we-online.com/en/components/products/OCEANUS-I) | **2.11.0** | [User Manual](https://www.we-online.com/en/components/products/manual/2618011182000) <br/> LoRa & LoRaWAN support with [STM32LoRaWAN](https://github.com/stm32duino/STM32LoRaWAN) |
-| :yellow_heart:  | STM32WLE5CC | [Oceanus-I EV](https://www.we-online.com/en/components/products/OCEANUS-I) | **2.11.0** | [User Manual](https://www.we-online.com/en/components/products/manual/2618019382001) <br/> LoRa & LoRaWAN support with [STM32LoRaWAN](https://github.com/stm32duino/STM32LoRaWAN) |
+| :green_heart:  | STM32WLE5CC | [Oceanus-I Module](https://www.we-online.com/en/components/products/OCEANUS-I) | *2.11.0* | [User Manual](https://www.we-online.com/en/components/products/manual/2618011182000) <br/> LoRa & LoRaWAN support with [STM32LoRaWAN](https://github.com/stm32duino/STM32LoRaWAN) |
+| :green_heart:  | STM32WLE5CC | [Oceanus-I EV](https://www.we-online.com/en/components/products/OCEANUS-I) | *2.11.0* | [User Manual](https://www.we-online.com/en/components/products/manual/2618019382001) <br/> LoRa & LoRaWAN support with [STM32LoRaWAN](https://github.com/stm32duino/STM32LoRaWAN) |
 
 ### Midatronics boards
 
