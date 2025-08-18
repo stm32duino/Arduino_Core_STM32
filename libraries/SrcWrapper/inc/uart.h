@@ -273,10 +273,9 @@ void uart_enable_rx(serial_t *obj);
 size_t uart_debug_write(uint8_t *data, uint32_t size);
 
 #if defined(UART_PRESCALER_DIV1)
-uint32_t calculatePresc(uint32_t pclk, uint32_t baudrate, uint32_t oversampling);
+uint32_t uart_compute_prescaler(UART_HandleTypeDef *huart);
+uint32_t uart_get_clock_source_freq(UART_HandleTypeDef *huart);
 #endif
-
-uint32_t uart_getPCLK(UART_HandleTypeDef *huart);
 
 #endif /* HAL_UART_MODULE_ENABLED  && !HAL_UART_MODULE_ONLY */
 #ifdef __cplusplus

@@ -416,12 +416,7 @@ bool uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
 
   /* Configure UART Clock Prescaler */
 #if defined(UART_PRESCALER_DIV1)
-  // Default Value
-  uint32_t clock_prescaler = UART_PRESCALER_DIV1;
-
-  uint32_t pclk = uart_getPCLK(huart);
-  clock_prescaler = calculatePresc(pclk, baudrate, huart->Init.OverSampling);
-  huart->Init.ClockPrescaler = clock_prescaler;
+  huart->Init.ClockPrescaler = uart_compute_prescaler(huart);
 #endif
 
 #if defined(UART_ADVFEATURE_NO_INIT)
@@ -1429,28 +1424,29 @@ void HAL_UARTEx_WakeupCallback(UART_HandleTypeDef *huart)
 
 /**
   * @brief  Function called to set the uart clock prescaler
-  * @param  pclk : supplied clock rate to related uart
+  * @param  huart : uart handle structure
   * @retval uint32_t clock prescaler
   */
 #if defined(UART_PRESCALER_DIV1)
-uint32_t calculatePresc(uint32_t pclk, uint32_t baudrate, uint32_t oversampling)
+uint32_t uart_compute_prescaler(UART_HandleTypeDef *huart)
 {
   static const uint16_t presc_div[12] = {1, 2, 4, 6, 8, 10, 12, 16, 32, 64, 128, 256};
+  uint32_t freq = uart_get_clock_source_freq(huart);
 
   uint32_t condition = 0;
-  if (oversampling == UART_OVERSAMPLING_16) {
+  if (huart->Init.OverSampling == UART_OVERSAMPLING_16) {
     condition = 16U;
   } else {
     condition = 8U;
   }
 
-  for (uint32_t idx = 0; idx < 8; idx++) {
-    uint32_t uartclk = pclk / presc_div[idx];
+  for (uint32_t idx = 0; idx < 12; idx++) {
+    uint32_t uartclk = freq / presc_div[idx];
     uint32_t brr = 0;
-    if (oversampling == UART_OVERSAMPLING_16) {
-      brr = (uartclk + (baudrate / 2U)) / baudrate;
+    if (huart->Init.OverSampling == UART_OVERSAMPLING_16) {
+      brr = (uartclk + (huart->Init.BaudRate / 2U)) / huart->Init.BaudRate;
     } else {
-      brr = ((2U * uartclk) + (baudrate / 2U)) / baudrate;
+      brr = ((2U * uartclk) + (huart->Init.BaudRate / 2U)) / huart->Init.BaudRate;
     }
 
     if (brr >= condition && brr <= 0xFFFU) {
@@ -1459,14 +1455,13 @@ uint32_t calculatePresc(uint32_t pclk, uint32_t baudrate, uint32_t oversampling)
   }
   return UART_PRESCALER_DIV1;
 }
-#endif
 
 /**
   * @brief  Function called to get the clock source frequency of the uart
   * @param  huart : uart handle structure
   * @retval uint32_t clock source frequency
   */
-uint32_t uart_getPCLK(UART_HandleTypeDef *huart)
+uint32_t uart_get_clock_source_freq(UART_HandleTypeDef *huart)
 {
 #if defined(LPUART1)
   if (huart->Instance == LPUART1) {
@@ -1582,6 +1577,7 @@ uint32_t uart_getPCLK(UART_HandleTypeDef *huart)
 
   return 0;
 }
+#endif /* UART_PRESCALER_DIV1 */
 
 #endif /* HAL_UART_MODULE_ENABLED  && !HAL_UART_MODULE_ONLY */
 
