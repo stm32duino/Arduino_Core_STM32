@@ -501,7 +501,7 @@ Nucleo_64.menu.pnum.NUCLEO_C092RC.build.mcu=cortex-m0plus
 Nucleo_64.menu.pnum.NUCLEO_C092RC.build.board=NUCLEO_C092RC
 Nucleo_64.menu.pnum.NUCLEO_C092RC.build.series=STM32C0xx
 Nucleo_64.menu.pnum.NUCLEO_C092RC.build.product_line=STM32C092xx
-Nucleo_64.menu.pnum.NUCLEO_C092RC.build.variant=STM32C0xx/C092CBT_C092RBT_C092RC(I-T)
+Nucleo_64.menu.pnum.NUCLEO_C092RC.build.variant=STM32C0xx/C092RBT_C092RC(I-T)
 Nucleo_64.menu.pnum.NUCLEO_C092RC.build.st_extra_flags=-DSTM32C092xx {build.xSerial} -D__CORTEX_SC=0
 Nucleo_64.menu.pnum.NUCLEO_C092RC.openocd.target=stm32c0x
 Nucleo_64.menu.pnum.NUCLEO_C092RC.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C092.svd
@@ -905,7 +905,7 @@ Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.build.series=STM32U3xx
 Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.build.product_line=STM32U385xx
 Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.build.variant=STM32U3xx/U375R(E-G)TxQ_U385RGTxQ
 #Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.openocd.target=stm32u3x
-#Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+#Nucleo_64.menu.pnum.NUCLEO_U385RG_Q.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U385.svd
 
 # NUCLEO_WB09KE board
 Nucleo_64.menu.pnum.NUCLEO_WB09KE=Nucleo WB09KE
@@ -1871,8 +1871,35 @@ GenC0.menu.pnum.GENERIC_C092CBTX.upload.maximum_size=131072
 GenC0.menu.pnum.GENERIC_C092CBTX.upload.maximum_data_size=30720
 GenC0.menu.pnum.GENERIC_C092CBTX.build.board=GENERIC_C092CBTX
 GenC0.menu.pnum.GENERIC_C092CBTX.build.product_line=STM32C092xx
-GenC0.menu.pnum.GENERIC_C092CBTX.build.variant=STM32C0xx/C092CBT_C092RBT_C092RC(I-T)
+GenC0.menu.pnum.GENERIC_C092CBTX.build.variant=STM32C0xx/C092C(B-C)(T-U)
 GenC0.menu.pnum.GENERIC_C092CBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C092.svd
+
+# Generic C092CBUx
+GenC0.menu.pnum.GENERIC_C092CBUX=Generic C092CBUx
+GenC0.menu.pnum.GENERIC_C092CBUX.upload.maximum_size=131072
+GenC0.menu.pnum.GENERIC_C092CBUX.upload.maximum_data_size=30720
+GenC0.menu.pnum.GENERIC_C092CBUX.build.board=GENERIC_C092CBUX
+GenC0.menu.pnum.GENERIC_C092CBUX.build.product_line=STM32C092xx
+GenC0.menu.pnum.GENERIC_C092CBUX.build.variant=STM32C0xx/C092C(B-C)(T-U)
+GenC0.menu.pnum.GENERIC_C092CBUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C092.svd
+
+# Generic C092CCTx
+GenC0.menu.pnum.GENERIC_C092CCTX=Generic C092CCTx
+GenC0.menu.pnum.GENERIC_C092CCTX.upload.maximum_size=262144
+GenC0.menu.pnum.GENERIC_C092CCTX.upload.maximum_data_size=30720
+GenC0.menu.pnum.GENERIC_C092CCTX.build.board=GENERIC_C092CCTX
+GenC0.menu.pnum.GENERIC_C092CCTX.build.product_line=STM32C092xx
+GenC0.menu.pnum.GENERIC_C092CCTX.build.variant=STM32C0xx/C092C(B-C)(T-U)
+GenC0.menu.pnum.GENERIC_C092CCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C092.svd
+
+# Generic C092CCUx
+GenC0.menu.pnum.GENERIC_C092CCUX=Generic C092CCUx
+GenC0.menu.pnum.GENERIC_C092CCUX.upload.maximum_size=262144
+GenC0.menu.pnum.GENERIC_C092CCUX.upload.maximum_data_size=30720
+GenC0.menu.pnum.GENERIC_C092CCUX.build.board=GENERIC_C092CCUX
+GenC0.menu.pnum.GENERIC_C092CCUX.build.product_line=STM32C092xx
+GenC0.menu.pnum.GENERIC_C092CCUX.build.variant=STM32C0xx/C092C(B-C)(T-U)
+GenC0.menu.pnum.GENERIC_C092CCUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C092.svd
 
 # Generic C092RBTx
 GenC0.menu.pnum.GENERIC_C092RBTX=Generic C092RBTx
@@ -1880,7 +1907,7 @@ GenC0.menu.pnum.GENERIC_C092RBTX.upload.maximum_size=131072
 GenC0.menu.pnum.GENERIC_C092RBTX.upload.maximum_data_size=30720
 GenC0.menu.pnum.GENERIC_C092RBTX.build.board=GENERIC_C092RBTX
 GenC0.menu.pnum.GENERIC_C092RBTX.build.product_line=STM32C092xx
-GenC0.menu.pnum.GENERIC_C092RBTX.build.variant=STM32C0xx/C092CBT_C092RBT_C092RC(I-T)
+GenC0.menu.pnum.GENERIC_C092RBTX.build.variant=STM32C0xx/C092RBT_C092RC(I-T)
 GenC0.menu.pnum.GENERIC_C092RBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C092.svd
 
 # Generic C092RCIx
@@ -1889,7 +1916,7 @@ GenC0.menu.pnum.GENERIC_C092RCIX.upload.maximum_size=262144
 GenC0.menu.pnum.GENERIC_C092RCIX.upload.maximum_data_size=30720
 GenC0.menu.pnum.GENERIC_C092RCIX.build.board=GENERIC_C092RCIX
 GenC0.menu.pnum.GENERIC_C092RCIX.build.product_line=STM32C092xx
-GenC0.menu.pnum.GENERIC_C092RCIX.build.variant=STM32C0xx/C092CBT_C092RBT_C092RC(I-T)
+GenC0.menu.pnum.GENERIC_C092RCIX.build.variant=STM32C0xx/C092RBT_C092RC(I-T)
 GenC0.menu.pnum.GENERIC_C092RCIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C092.svd
 
 # Generic C092RCTx
@@ -1898,7 +1925,7 @@ GenC0.menu.pnum.GENERIC_C092RCTX.upload.maximum_size=262144
 GenC0.menu.pnum.GENERIC_C092RCTX.upload.maximum_data_size=30720
 GenC0.menu.pnum.GENERIC_C092RCTX.build.board=GENERIC_C092RCTX
 GenC0.menu.pnum.GENERIC_C092RCTX.build.product_line=STM32C092xx
-GenC0.menu.pnum.GENERIC_C092RCTX.build.variant=STM32C0xx/C092CBT_C092RBT_C092RC(I-T)
+GenC0.menu.pnum.GENERIC_C092RCTX.build.variant=STM32C0xx/C092RBT_C092RC(I-T)
 GenC0.menu.pnum.GENERIC_C092RCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C092.svd
 
 # Upload menu
@@ -12697,7 +12724,7 @@ GenU3.menu.pnum.GENERIC_U375RETXQ.upload.maximum_data_size=262144
 GenU3.menu.pnum.GENERIC_U375RETXQ.build.board=GENERIC_U375RETXQ
 GenU3.menu.pnum.GENERIC_U375RETXQ.build.product_line=STM32U375xx
 GenU3.menu.pnum.GENERIC_U375RETXQ.build.variant=STM32U3xx/U375R(E-G)TxQ_U385RGTxQ
-GenU3.menu.pnum.GENERIC_U375RETXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+GenU3.menu.pnum.GENERIC_U375RETXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U375.svd
 
 # Generic U375RGTxQ
 GenU3.menu.pnum.GENERIC_U375RGTXQ=Generic U375RGTxQ
@@ -12706,7 +12733,7 @@ GenU3.menu.pnum.GENERIC_U375RGTXQ.upload.maximum_data_size=262144
 GenU3.menu.pnum.GENERIC_U375RGTXQ.build.board=GENERIC_U375RGTXQ
 GenU3.menu.pnum.GENERIC_U375RGTXQ.build.product_line=STM32U375xx
 GenU3.menu.pnum.GENERIC_U375RGTXQ.build.variant=STM32U3xx/U375R(E-G)TxQ_U385RGTxQ
-GenU3.menu.pnum.GENERIC_U375RGTXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+GenU3.menu.pnum.GENERIC_U375RGTXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U375.svd
 
 # Generic U375VEIx
 GenU3.menu.pnum.GENERIC_U375VEIX=Generic U375VEIx
@@ -12715,7 +12742,7 @@ GenU3.menu.pnum.GENERIC_U375VEIX.upload.maximum_data_size=262144
 GenU3.menu.pnum.GENERIC_U375VEIX.build.board=GENERIC_U375VEIX
 GenU3.menu.pnum.GENERIC_U375VEIX.build.product_line=STM32U375xx
 GenU3.menu.pnum.GENERIC_U375VEIX.build.variant=STM32U3xx/U375V(E-G)I_U385VGI
-GenU3.menu.pnum.GENERIC_U375VEIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+GenU3.menu.pnum.GENERIC_U375VEIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U375.svd
 
 # Generic U375VEIxQ
 GenU3.menu.pnum.GENERIC_U375VEIXQ=Generic U375VEIxQ
@@ -12724,7 +12751,7 @@ GenU3.menu.pnum.GENERIC_U375VEIXQ.upload.maximum_data_size=262144
 GenU3.menu.pnum.GENERIC_U375VEIXQ.build.board=GENERIC_U375VEIXQ
 GenU3.menu.pnum.GENERIC_U375VEIXQ.build.product_line=STM32U375xx
 GenU3.menu.pnum.GENERIC_U375VEIXQ.build.variant=STM32U3xx/U375V(E-G)IxQ_U385VGIxQ
-GenU3.menu.pnum.GENERIC_U375VEIXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+GenU3.menu.pnum.GENERIC_U375VEIXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U375.svd
 
 # Generic U375VGIx
 GenU3.menu.pnum.GENERIC_U375VGIX=Generic U375VGIx
@@ -12733,7 +12760,7 @@ GenU3.menu.pnum.GENERIC_U375VGIX.upload.maximum_data_size=262144
 GenU3.menu.pnum.GENERIC_U375VGIX.build.board=GENERIC_U375VGIX
 GenU3.menu.pnum.GENERIC_U375VGIX.build.product_line=STM32U375xx
 GenU3.menu.pnum.GENERIC_U375VGIX.build.variant=STM32U3xx/U375V(E-G)I_U385VGI
-GenU3.menu.pnum.GENERIC_U375VGIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+GenU3.menu.pnum.GENERIC_U375VGIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U375.svd
 
 # Generic U375VGIxQ
 GenU3.menu.pnum.GENERIC_U375VGIXQ=Generic U375VGIxQ
@@ -12742,7 +12769,7 @@ GenU3.menu.pnum.GENERIC_U375VGIXQ.upload.maximum_data_size=262144
 GenU3.menu.pnum.GENERIC_U375VGIXQ.build.board=GENERIC_U375VGIXQ
 GenU3.menu.pnum.GENERIC_U375VGIXQ.build.product_line=STM32U375xx
 GenU3.menu.pnum.GENERIC_U375VGIXQ.build.variant=STM32U3xx/U375V(E-G)IxQ_U385VGIxQ
-GenU3.menu.pnum.GENERIC_U375VGIXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+GenU3.menu.pnum.GENERIC_U375VGIXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U375.svd
 
 # Generic U385RGTxQ
 GenU3.menu.pnum.GENERIC_U385RGTXQ=Generic U385RGTxQ
@@ -12751,7 +12778,7 @@ GenU3.menu.pnum.GENERIC_U385RGTXQ.upload.maximum_data_size=262144
 GenU3.menu.pnum.GENERIC_U385RGTXQ.build.board=GENERIC_U385RGTXQ
 GenU3.menu.pnum.GENERIC_U385RGTXQ.build.product_line=STM32U385xx
 GenU3.menu.pnum.GENERIC_U385RGTXQ.build.variant=STM32U3xx/U375R(E-G)TxQ_U385RGTxQ
-GenU3.menu.pnum.GENERIC_U385RGTXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+GenU3.menu.pnum.GENERIC_U385RGTXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U385.svd
 
 # Generic U385VGIx
 GenU3.menu.pnum.GENERIC_U385VGIX=Generic U385VGIx
@@ -12760,7 +12787,7 @@ GenU3.menu.pnum.GENERIC_U385VGIX.upload.maximum_data_size=262144
 GenU3.menu.pnum.GENERIC_U385VGIX.build.board=GENERIC_U385VGIX
 GenU3.menu.pnum.GENERIC_U385VGIX.build.product_line=STM32U385xx
 GenU3.menu.pnum.GENERIC_U385VGIX.build.variant=STM32U3xx/U375V(E-G)I_U385VGI
-GenU3.menu.pnum.GENERIC_U385VGIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+GenU3.menu.pnum.GENERIC_U385VGIX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U385.svd
 
 # Generic U385VGIxQ
 GenU3.menu.pnum.GENERIC_U385VGIXQ=Generic U385VGIxQ
@@ -12769,7 +12796,7 @@ GenU3.menu.pnum.GENERIC_U385VGIXQ.upload.maximum_data_size=262144
 GenU3.menu.pnum.GENERIC_U385VGIXQ.build.board=GENERIC_U385VGIXQ
 GenU3.menu.pnum.GENERIC_U385VGIXQ.build.product_line=STM32U385xx
 GenU3.menu.pnum.GENERIC_U385VGIXQ.build.variant=STM32U3xx/U375V(E-G)IxQ_U385VGIxQ
-GenU3.menu.pnum.GENERIC_U385VGIXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+GenU3.menu.pnum.GENERIC_U385VGIXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U385.svd
 
 # Upload menu
 GenU3.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
@@ -13110,7 +13137,7 @@ GenWB.menu.pnum.GENERIC_WB55VCYX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic WB55VEQx
 GenWB.menu.pnum.GENERIC_WB55VEQX=Generic WB55VEQx
 GenWB.menu.pnum.GENERIC_WB55VEQX.upload.maximum_size=262144
-GenWB.menu.pnum.GENERIC_WB55VEQX.upload.maximum_data_size=65536
+GenWB.menu.pnum.GENERIC_WB55VEQX.upload.maximum_data_size=131072
 GenWB.menu.pnum.GENERIC_WB55VEQX.build.board=GENERIC_WB55VEQX
 GenWB.menu.pnum.GENERIC_WB55VEQX.build.product_line=STM32WB55xx
 GenWB.menu.pnum.GENERIC_WB55VEQX.build.variant=STM32WBxx/WB55V(C-E-G)(Q-Y)_WB55VYY
@@ -13128,7 +13155,7 @@ GenWB.menu.pnum.GENERIC_WB55VEYX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic WB55VGQx
 GenWB.menu.pnum.GENERIC_WB55VGQX=Generic WB55VGQx
 GenWB.menu.pnum.GENERIC_WB55VGQX.upload.maximum_size=524288
-GenWB.menu.pnum.GENERIC_WB55VGQX.upload.maximum_data_size=65536
+GenWB.menu.pnum.GENERIC_WB55VGQX.upload.maximum_data_size=131072
 GenWB.menu.pnum.GENERIC_WB55VGQX.build.board=GENERIC_WB55VGQX
 GenWB.menu.pnum.GENERIC_WB55VGQX.build.product_line=STM32WB55xx
 GenWB.menu.pnum.GENERIC_WB55VGQX.build.variant=STM32WBxx/WB55V(C-E-G)(Q-Y)_WB55VYY

@@ -10,8 +10,7 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_G491CCUX) || defined(ARDUINO_GENERIC_G491CEUX) ||\
-    defined(ARDUINO_GENERIC_G4A1CEUX)
+#if defined(ARDUINO_GENERIC_G491CCUX) || defined(ARDUINO_GENERIC_G491CEUX)
 #include "pins_arduino.h"
 
 // Digital PinName array

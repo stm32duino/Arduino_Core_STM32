@@ -10,7 +10,7 @@ GenU3.menu.pnum.GENERIC_U375RETXQ.upload.maximum_data_size=262144
 GenU3.menu.pnum.GENERIC_U375RETXQ.build.board=GENERIC_U375RETXQ
 GenU3.menu.pnum.GENERIC_U375RETXQ.build.product_line=STM32U375xx
 GenU3.menu.pnum.GENERIC_U375RETXQ.build.variant=STM32U3xx/U375R(E-G)TxQ_U385RGTxQ
-GenU3.menu.pnum.GENERIC_U375RETXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+GenU3.menu.pnum.GENERIC_U375RETXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U375.svd
 
 # Generic U375RGTxQ
 GenU3.menu.pnum.GENERIC_U375RGTXQ=Generic U375RGTxQ
@@ -19,7 +19,7 @@ GenU3.menu.pnum.GENERIC_U375RGTXQ.upload.maximum_data_size=262144
 GenU3.menu.pnum.GENERIC_U375RGTXQ.build.board=GENERIC_U375RGTXQ
 GenU3.menu.pnum.GENERIC_U375RGTXQ.build.product_line=STM32U375xx
 GenU3.menu.pnum.GENERIC_U375RGTXQ.build.variant=STM32U3xx/U375R(E-G)TxQ_U385RGTxQ
-GenU3.menu.pnum.GENERIC_U375RGTXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+GenU3.menu.pnum.GENERIC_U375RGTXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U375.svd
 
 # Generic U385RGTxQ
 GenU3.menu.pnum.GENERIC_U385RGTXQ=Generic U385RGTxQ
@@ -28,5 +28,5 @@ GenU3.menu.pnum.GENERIC_U385RGTXQ.upload.maximum_data_size=262144
 GenU3.menu.pnum.GENERIC_U385RGTXQ.build.board=GENERIC_U385RGTXQ
 GenU3.menu.pnum.GENERIC_U385RGTXQ.build.product_line=STM32U385xx
 GenU3.menu.pnum.GENERIC_U385RGTXQ.build.variant=STM32U3xx/U375R(E-G)TxQ_U385RGTxQ
-GenU3.menu.pnum.GENERIC_U385RGTXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U3.svd
+GenU3.menu.pnum.GENERIC_U385RGTXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U385.svd
 

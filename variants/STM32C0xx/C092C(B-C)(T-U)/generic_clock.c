@@ -10,8 +10,8 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_C092CBTX) || defined(ARDUINO_GENERIC_C092RBTX) ||\
-    defined(ARDUINO_GENERIC_C092RCIX) || defined(ARDUINO_GENERIC_C092RCTX)
+#if defined(ARDUINO_GENERIC_C092CBTX) || defined(ARDUINO_GENERIC_C092CBUX) ||\
+    defined(ARDUINO_GENERIC_C092CCTX) || defined(ARDUINO_GENERIC_C092CCUX)
 #include "pins_arduino.h"
 
 /**

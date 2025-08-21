@@ -14,7 +14,7 @@
  * Automatically generated from STM32U375CETx.xml, STM32U375CEUx.xml
  * STM32U375CGTx.xml, STM32U375CGUx.xml
  * STM32U385CGTx.xml, STM32U385CGUx.xml
- * CubeMX DB release 6.0.140
+ * CubeMX DB release 6.0.150
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

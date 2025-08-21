@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32U375RETx.xml, STM32U375RGTx.xml
  * STM32U385RGTx.xml
- * CubeMX DB release 6.0.140
+ * CubeMX DB release 6.0.150
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32C092ECYx.xml, STM32C092FBPx.xml
  * STM32C092FCPx.xml
- * CubeMX DB release 6.0.140
+ * CubeMX DB release 6.0.150
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

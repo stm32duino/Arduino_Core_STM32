@@ -10,8 +10,7 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_C092CBUX) || defined(ARDUINO_GENERIC_C092CCTX) ||\
-    defined(ARDUINO_GENERIC_C092CCUX)
+#if defined(ARDUINO_GENERIC_G4A1CEUX)
 #include "pins_arduino.h"
 
 /**
