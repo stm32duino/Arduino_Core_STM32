@@ -10,4 +10,5 @@ GenWBA.menu.pnum.GENERIC_WBA5MMGHX.upload.maximum_data_size=131072
 GenWBA.menu.pnum.GENERIC_WBA5MMGHX.build.board=GENERIC_WBA5MMGHX
 GenWBA.menu.pnum.GENERIC_WBA5MMGHX.build.product_line=STM32WBA5Mxx
 GenWBA.menu.pnum.GENERIC_WBA5MMGHX.build.variant=STM32WBAxx/WBA5MMGH
+GenWBA.menu.pnum.GENERIC_WBA5MMGHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA55.svd
 

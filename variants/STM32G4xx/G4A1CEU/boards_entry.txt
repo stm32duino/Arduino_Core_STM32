@@ -1,0 +1,14 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic G4A1CEUx
+GenG4.menu.pnum.GENERIC_G4A1CEUX=Generic G4A1CEUx
+GenG4.menu.pnum.GENERIC_G4A1CEUX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G4A1CEUX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1CEUX.build.board=GENERIC_G4A1CEUX
+GenG4.menu.pnum.GENERIC_G4A1CEUX.build.product_line=STM32G4A1xx
+GenG4.menu.pnum.GENERIC_G4A1CEUX.build.variant=STM32G4xx/G4A1CEU
+GenG4.menu.pnum.GENERIC_G4A1CEUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G4A1.svd
+

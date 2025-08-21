@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32H563VGTx.xml, STM32H563VITx.xml
  * STM32H573VITx.xml
- * CubeMX DB release 6.0.140
+ * CubeMX DB release 6.0.150
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
