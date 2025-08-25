@@ -61,7 +61,7 @@ extern "C" {
 #define GPIO_AF0_OSC           ((uint8_t)0x00)  /*!< OSC (By pass and Enable) Alternate Function mapping */
 #define GPIO_AF0_TIM14         ((uint8_t)0x00)  /*!< TIM14 Alternate Function mapping */
 #endif /* !STM32C011xx */
-#if defined(STM32C031xx) || defined(STM32C071xx) || defined(STM32C091xx)  || defined(STM32C092xx)
+#if defined(STM32C031xx) || defined(STM32C051xx) || defined(STM32C071xx) || defined(STM32C091xx)  || defined(STM32C092xx)
 #define GPIO_AF0_USART2        ((uint8_t)0x00)  /*!< USART2 Alternate Function mapping */
 #endif /* STM32C031xx | STM32C071xx | STM32C091xx | STM32C092xx*/
 #if defined(SPI2)
