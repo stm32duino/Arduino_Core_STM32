@@ -1689,7 +1689,7 @@ void HAL_MMC_IRQHandler(MMC_HandleTypeDef *hmmc)
           }
         }
       }
-      else if(((context & SD_CONTEXT_READ_SINGLE_BLOCK) != 0U) || ((context & SD_CONTEXT_READ_MULTIPLE_BLOCK) != 0U))
+      else if(((context & MMC_CONTEXT_READ_SINGLE_BLOCK) != 0U) || ((context & MMC_CONTEXT_READ_MULTIPLE_BLOCK) != 0U))
       {
         if(hmmc->hdmarx != NULL)
         {
