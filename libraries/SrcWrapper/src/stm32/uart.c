@@ -1439,26 +1439,32 @@ uint32_t uart_compute_prescaler(UART_HandleTypeDef *huart)
   uint32_t prescaler = UART_PRESCALER_DIV1;
   static const uint16_t presc_div[12] = {1, 2, 4, 6, 8, 10, 12, 16, 32, 64, 128, 256};
   uint32_t freq = uart_get_clock_source_freq(huart);
+  uint32_t usartdiv = 0;
 
-  uint32_t condition = 0;
-  if (huart->Init.OverSampling == UART_OVERSAMPLING_16) {
-    condition = 16U;
-  } else {
-    condition = 8U;
-  }
-
-  for (uint32_t idx = 0; idx < 12; idx++) {
-    uint32_t uartclk = freq / presc_div[idx];
-    uint32_t brr = 0;
-    if (huart->Init.OverSampling == UART_OVERSAMPLING_16) {
-      brr = (uartclk + (huart->Init.BaudRate / 2U)) / huart->Init.BaudRate;
-    } else {
-      brr = ((2U * uartclk) + (huart->Init.BaudRate / 2U)) / huart->Init.BaudRate;
+#if defined(UART_INSTANCE_LOWPOWER)
+  if (UART_INSTANCE_LOWPOWER(huart)) {
+    for (uint32_t idx = 0; idx < 12; idx++) {
+      /* Check computed UsartDiv value is in allocated range
+        (it is forbidden to write values lower than 0x300 in the LPUART_BRR register) */
+      usartdiv = (uint32_t)(UART_DIV_LPUART(freq, huart->Init.BaudRate, presc_div[idx]));
+      if ((usartdiv >= 0x00000300U) && (usartdiv <= 0x000FFFFFU)) {
+        prescaler = UART_PRESCALER_DIV1 + idx;
+        break;
+      }
     }
-
-    if (brr >= condition && brr <= 0xFFFU) {
-      prescaler = UART_PRESCALER_DIV1 + idx;
-      break;
+  } else
+#endif /* UART_INSTANCE_LOWPOWER */
+  {
+    for (uint32_t idx = 0; idx < 12; idx++) {
+      if (huart->Init.OverSampling == UART_OVERSAMPLING_8) {
+        usartdiv = (uint32_t)(UART_DIV_SAMPLING8(freq, huart->Init.BaudRate, presc_div[idx]));
+      } else {
+        usartdiv = (uint32_t)(UART_DIV_SAMPLING16(freq, huart->Init.BaudRate, presc_div[idx]));
+      }
+      if ((usartdiv >= 0x10U) && (usartdiv <= 0x0000FFFFU)) {
+        prescaler = UART_PRESCALER_DIV1 + idx;
+        break;
+      }
     }
   }
   return prescaler;
@@ -1471,119 +1477,91 @@ uint32_t uart_compute_prescaler(UART_HandleTypeDef *huart)
   */
 uint32_t uart_get_clock_source_freq(UART_HandleTypeDef *huart)
 {
-#if defined(LPUART1)
-  if (huart->Instance == LPUART1) {
-#if defined(STM32H5) || defined(STM32U3) || defined(STM32U5)
-    return HAL_RCC_GetPCLK3Freq();
-#elif defined(STM32H7)
-    uint32_t sysclk = HAL_RCC_GetSysClockFreq();
-#if defined(STM32H7A3xx) || defined (STM32H7A3xxQ) || defined(STM32H7B3xx) || defined(STM32H7B3xxQ) || defined(STM32H7B0xx) || defined(STM32H7B0xxQ)
-    uint32_t prescaler = (RCC->SRDCFGR & RCC_SRDCFGR_SRDPPRE) >> RCC_SRDCFGR_SRDPPRE_Pos;
-#else
-    uint32_t prescaler = (RCC->D3CFGR & RCC_D3CFGR_D3PPRE) >> RCC_D3CFGR_D3PPRE_Pos;
-#endif
-
-    uint32_t apb4 = 1;
-
-    switch (prescaler) {
-      case 0b000: prescaler = 1; break;
-      case 0b100: prescaler = 2; break;
-      case 0b101: prescaler = 4; break;
-      case 0b110: prescaler = 8; break;
-      case 0b111: prescaler = 16; break;
-      default: break;
-    }
-
-    return (sysclk / prescaler);
-#elif defined(STM32G4) || defined(STM32L4) || defined(STM32L5) || defined(STM32WB)
-    return HAL_RCC_GetPCLK1Freq();
-#elif defined(STM32WL)
-    return HAL_RCC_GetPCLK2Freq();
-#elif defined(STM32WBA)
-    return HAL_RCC_GetPCLK7Freq();
-#endif
-  }
-#endif
-
-#if defined(LPUART2)
-  if (huart->Instance == LPUART2) {
-    return HAL_RCC_GetPCLK1Freq();
-  }
-#endif
-
-#if defined(LPUART3)
-  if (huart->Instance == LPUART3) {
-    return HAL_RCC_GetPCLK1Freq();
-  }
-#endif
-
-#if defined(STM32F0) || defined(STM32G0) || defined(STM32L0) || defined(STM32C0) \
-    || defined(STM32WB)
-  return HAL_RCC_GetPCLK1Freq();
-#endif
-
+  uint32_t freq = 0;
 #if defined(STM32WB0)
-  uint32_t sysclk = HAL_RCC_GetSysClockFreq();
-  uint32_t ppre2 = (RCC->CFGR & RCC_CFGR_CLKSYSDIV) >> RCC_CFGR_CLKSYSDIV_Pos;
-  uint32_t apb2_div = 1;
-
-  switch (ppre2) {
-    case 0b000: apb2_div = 1; break;
-    case 0b100: apb2_div = 2; break;
-    case 0b101: apb2_div = 4; break;
-    case 0b110: apb2_div = 8; break;
-    case 0b111: apb2_div = 16; break;
-    default: break;
+  freq = UART_PERIPHCLK;
+  if (UART_INSTANCE_LOWPOWER(huart)) {
+#if defined(RCC_CFGR_LPUCLKSEL)
+    freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_LPUART1);
+#endif /* RCC_CFGR_LPUCLKSEL */
   }
-  return (sysclk / apb2_div);
+#else /* !STM32WB0 */
+  uint32_t clocksource;
+  UART_GETCLOCKSOURCE(huart, clocksource);
+#if defined(STM32H5) || defined(STM32MP1) || defined(STM32U0) ||\
+    defined(STM32U3) || defined(STM32U5)
+  freq = HAL_RCCEx_GetPeriphCLKFreq(clocksource);
+#else
+  switch (clocksource) {
+#if defined(UART_CLOCKSOURCE_D2PCLK1) || defined(UART_CLOCKSOURCE_PCLK1)
+#if defined(UART_CLOCKSOURCE_D2PCLK1)
+    case UART_CLOCKSOURCE_D2PCLK1:
+#endif /* UART_CLOCKSOURCE_D2PCLK1*/
+#if defined(UART_CLOCKSOURCE_PCLK1)
+    case UART_CLOCKSOURCE_PCLK1:
+#endif /* UART_CLOCKSOURCE_PCLK1 */
+      freq = HAL_RCC_GetPCLK1Freq();
+      break;
+#endif /* UART_CLOCKSOURCE_D2PCLK1 || UART_CLOCKSOURCE_PCLK1*/
+#if defined(UART_CLOCKSOURCE_D2PCLK2) || defined(UART_CLOCKSOURCE_PCLK2)
+#if defined(UART_CLOCKSOURCE_D2PCLK2)
+    case UART_CLOCKSOURCE_D2PCLK2:
+#endif /* UART_CLOCKSOURCE_D2PCLK2*/
+#if defined(UART_CLOCKSOURCE_PCLK2)
+    case UART_CLOCKSOURCE_PCLK2:
+#endif /* UART_CLOCKSOURCE_PCLK2 */
+      freq = HAL_RCC_GetPCLK2Freq();
+      break;
+#endif /* UART_CLOCKSOURCE_D2PCLK2 || UART_CLOCKSOURCE_PCLK2*/
+#if defined(UART_CLOCKSOURCE_PCLK7)
+    case UART_CLOCKSOURCE_PCLK7:
+      freq = HAL_RCC_GetPCLK7Freq();
+      break;
+#endif /* UART_CLOCKSOURCE_PCLK7 */
+#if defined(UART_CLOCKSOURCE_PLL2)
+    case UART_CLOCKSOURCE_PLL2:
+      HAL_RCCEx_GetPLL2ClockFreq(&pll2_clocks);
+      freq = pll2_clocks.PLL2_Q_Frequency;
+      break;
+    case UART_CLOCKSOURCE_PLL3:
+      HAL_RCCEx_GetPLL3ClockFreq(&pll3_clocks);
+      freq = pll3_clocks.PLL3_Q_Frequency;
+      break;
+#endif /* UART_CLOCKSOURCE_PLL2 */
+    case UART_CLOCKSOURCE_HSI:
+#if defined(__HAL_RCC_GET_HSIKER_DIVIDER)
+      freq = (HSI_VALUE / ((__HAL_RCC_GET_HSIKER_DIVIDER() >> RCC_CR_HSIKERDIV_Pos) + 1U));
+#else
+#if defined(RCC_FLAG_HSIDIV)
+      if (__HAL_RCC_GET_FLAG(RCC_FLAG_HSIDIV) != 0U) {
+        freq = (uint32_t)(HSI_VALUE >> (__HAL_RCC_GET_HSI_DIVIDER() >> 3U));
+      } else
+#endif /* RCC_FLAG_HSIDIV */
+      {
+        freq = (uint32_t) HSI_VALUE;
+      }
 #endif
-
-#if defined(STM32WL)
-  return HAL_RCC_GetPCLK2Freq();
-#endif
-
-#if defined(STM32H7)
-  if (huart->Instance == USART1
-#if defined(USART10)
-      || huart->Instance == USART10
-#endif
-#if defined(USART6)
-      || huart->Instance == USART6
-#endif
-#if defined(UART9)
-      || huart->Instance == UART9
-#endif
-     ) {
-    return HAL_RCC_GetPCLK2Freq();
+      break;
+#if defined(UART_CLOCKSOURCE_CSI)
+    case UART_CLOCKSOURCE_CSI:
+      freq = (uint32_t) CSI_VALUE;
+      break;
+#endif /* UART_CLOCKSOURCE_CSI */
+#if defined(UART_CLOCKSOURCE_SYSCLK)
+    case UART_CLOCKSOURCE_SYSCLK:
+      freq = HAL_RCC_GetSysClockFreq();
+      break;
+#endif /* UART_CLOCKSOURCE_SYSCLK */
+    case UART_CLOCKSOURCE_LSE:
+      freq = (uint32_t) LSE_VALUE;
+      break;
+    default:
+      freq = 0U;
+      break;
   }
-  return HAL_RCC_GetPCLK1Freq();
-#endif
-
-#if defined(STM32MP1)
-  if (huart->Instance == USART1) {
-    return HAL_RCC_GetPCLK5Freq();
-  } else if (huart->Instance == USART6) {
-    return HAL_RCC_GetPCLK2Freq();
-  } else {
-    return HAL_RCC_GetPCLK1Freq();
-  }
-#endif
-
-#if defined(STM32F7) || defined(STM32F2) || defined(STM32F4) || defined(STM32F1) \
-    || defined(STM32U3) || defined(STM32F3) || defined(STM32H5) || defined(STM32G4) \
-    || defined(STM32L4) || defined(STM32L5) || defined(STM32WBA) || defined(STM32U5) \
-    || defined(STM32L1)
-  if (huart->Instance == USART1
-#if defined(USART6) && !defined(STM32H5) && !defined(STM32U5)
-      || huart->Instance == USART6
-#endif
-     ) {
-    return HAL_RCC_GetPCLK2Freq();
-  }
-  return HAL_RCC_GetPCLK1Freq();
-#endif
-
-  return 0;
+#endif /* STM32H5 */
+#endif /* STM32WB0 */
+  return freq;
 }
 #endif /* UART_PRESCALER_DIV1 */
 
