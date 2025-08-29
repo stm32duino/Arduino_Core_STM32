@@ -2971,6 +2971,16 @@ GenF1.menu.pnum.BLACKPILL_F103CB.build.variant_h=variant_PILL_F103Cx.h
 GenF1.menu.pnum.BLACKPILL_F103CB.build.variant=STM32F1xx/F103C8T_F103CB(T-U)
 GenF1.menu.pnum.BLACKPILL_F103CB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
 
+# Databoard board
+GenF1.menu.pnum.DATABOARD=Databoard
+GenF1.menu.pnum.DATABOARD.upload.maximum_size=65536
+GenF1.menu.pnum.DATABOARD.upload.maximum_data_size=20480
+GenF1.menu.pnum.DATABOARD.build.board=DATABOARD
+GenF1.menu.pnum.DATABOARD.build.product_line=STM32F103xB
+GenF1.menu.pnum.DATABOARD.build.variant_h=variant_{build.board}.h
+GenF1.menu.pnum.DATABOARD.build.variant=STM32F1xx/F103C8T_F103CB(T-U)
+GenF1.menu.pnum.DATABOARD.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F1xx/STM32F103.svd
+
 # VCCGND_F103ZET6_MINI board
 GenF1.menu.pnum.VCCGND_F103ZET6_MINI=VCCGND F103ZET6 Mini
 GenF1.menu.pnum.VCCGND_F103ZET6_MINI.upload.maximum_size=524288
