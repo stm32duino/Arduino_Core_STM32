@@ -61,7 +61,7 @@ system_stm32_template = j2_env.get_template(system_stm32_file)
 
 # re
 peripheral_c_regex = re.compile(r"stm32\w+_[h]?[al][l]_(.*).c$")
-peripheral_h_regex = re.compile(r"stm32\w+_(\w+).h$")
+peripheral_h_regex = re.compile(r"stm32\w+_[h]?[al][l]_(.*).h$")
 
 
 def checkConfig(arg_core, arg_cmsis):
