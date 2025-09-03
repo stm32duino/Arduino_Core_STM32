@@ -1421,6 +1421,20 @@ Disco.menu.pnum.DISCO_F407VG.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
 Disco.menu.pnum.DISCO_F407VG.openocd.target=stm32f4x
 Disco.menu.pnum.DISCO_F407VG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F407.svd
 
+# DISCO_F411VE board
+Disco.menu.pnum.DISCO_F411VE=STM32F411E-DISCO
+Disco.menu.pnum.DISCO_F411VE.upload.maximum_size=524288
+Disco.menu.pnum.DISCO_F411VE.upload.maximum_data_size=131072
+Disco.menu.pnum.DISCO_F411VE.build.mcu=cortex-m4
+Disco.menu.pnum.DISCO_F411VE.build.fpu=-mfpu=fpv4-sp-d16
+Disco.menu.pnum.DISCO_F411VE.build.float-abi=-mfloat-abi=hard
+Disco.menu.pnum.DISCO_F411VE.build.board=DISCO_F411VE
+Disco.menu.pnum.DISCO_F411VE.build.series=STM32F4xx
+Disco.menu.pnum.DISCO_F411VE.build.product_line=STM32F411xE
+Disco.menu.pnum.DISCO_F411VE.build.variant=STM32F4xx/F411V(C-E)T
+Disco.menu.pnum.DISCO_F411VE.openocd.target=stm32f4x
+Disco.menu.pnum.DISCO_F411VE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F411.svd
+
 # DISCO_F413ZH board
 Disco.menu.pnum.DISCO_F413ZH=STM32F413H-DISCO
 Disco.menu.pnum.DISCO_F413ZH.node=DIS_F413ZH
@@ -5257,6 +5271,24 @@ GenF4.menu.pnum.GENERIC_F411RETX.build.board=GENERIC_F411RETX
 GenF4.menu.pnum.GENERIC_F411RETX.build.product_line=STM32F411xE
 GenF4.menu.pnum.GENERIC_F411RETX.build.variant=STM32F4xx/F411R(C-E)T
 GenF4.menu.pnum.GENERIC_F411RETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F411.svd
+
+# Generic F411VCTx
+GenF4.menu.pnum.GENERIC_F411VCTX=Generic F411VCTx
+GenF4.menu.pnum.GENERIC_F411VCTX.upload.maximum_size=262144
+GenF4.menu.pnum.GENERIC_F411VCTX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F411VCTX.build.board=GENERIC_F411VCTX
+GenF4.menu.pnum.GENERIC_F411VCTX.build.product_line=STM32F411xE
+GenF4.menu.pnum.GENERIC_F411VCTX.build.variant=STM32F4xx/F411V(C-E)T
+GenF4.menu.pnum.GENERIC_F411VCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F411.svd
+
+# Generic F411VETx
+GenF4.menu.pnum.GENERIC_F411VETX=Generic F411VETx
+GenF4.menu.pnum.GENERIC_F411VETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F411VETX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F411VETX.build.board=GENERIC_F411VETX
+GenF4.menu.pnum.GENERIC_F411VETX.build.product_line=STM32F411xE
+GenF4.menu.pnum.GENERIC_F411VETX.build.variant=STM32F4xx/F411V(C-E)T
+GenF4.menu.pnum.GENERIC_F411VETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F411.svd
 
 # Generic F412CEUx
 GenF4.menu.pnum.GENERIC_F412CEUX=Generic F412CEUx
