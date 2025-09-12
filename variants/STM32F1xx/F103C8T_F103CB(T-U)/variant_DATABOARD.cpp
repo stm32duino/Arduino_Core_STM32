@@ -10,8 +10,7 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_F103C8TX) || defined(ARDUINO_GENERIC_F103CBTX) ||\
-    defined(ARDUINO_GENERIC_F103CBUX)
+#if defined(ARDUINO_DATABOARD)
 #include "pins_arduino.h"
 
 // Digital PinName array
