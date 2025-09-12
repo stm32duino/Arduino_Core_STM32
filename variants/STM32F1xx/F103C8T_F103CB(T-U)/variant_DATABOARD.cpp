@@ -69,4 +69,4 @@ const uint32_t analogInputPin[] = {
   17  // A9,  PB1
 };
 
-#endif /* ARDUINO_GENERIC_* */
+#endif /* ARDUINO_DATABOARD */
