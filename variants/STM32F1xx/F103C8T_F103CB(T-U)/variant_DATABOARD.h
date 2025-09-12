@@ -245,6 +245,8 @@
   #define PIN_SERIAL_TX         PA2
 #endif
 
+#define HSE_VALUE    16000000U // HSE - External Oscillator Frequency in hertz (16MHZ)
+
 /*----------------------------------------------------------------------------
  *        Arduino objects - C++ only
  *----------------------------------------------------------------------------*/
