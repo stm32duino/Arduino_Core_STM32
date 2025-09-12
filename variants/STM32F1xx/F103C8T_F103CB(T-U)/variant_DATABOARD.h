@@ -53,6 +53,107 @@
 #define PD0                     35
 #define PD1                     36
 
+// Pin Aliases
+
+#define IO1                     PA10
+#define GPIO1                   PA10
+#define GP1                     PA10
+
+#define IO2                     PA9
+#define GPIO2                   PA9
+#define GP2                     PA9
+
+#define IO3                     PA8
+#define GPIO3                   PA8
+#define GP3                     PA8
+
+#define IO4                     PB15
+#define GPIO4                   PB15
+#define GP4                     PB15
+
+#define IO5                     PB14
+#define GPIO5                   PB14
+#define GP5                     PB14
+
+#define IO6                     PB13
+#define GPIO6                   PB13
+#define GP6                     PB13
+
+#define IO7                     PB12
+#define GPIO7                   PB12
+#define GP7                     PB12
+
+#define AIO8                    PA7
+#define IO8                     PA7
+#define GPIO8                   PA7
+#define GP8                     PA7
+
+#define AIO9                    PA6
+#define IO9                     PA6
+#define GPIO9                   PA6
+#define GP9 PA6
+
+#define AIO10                   PA5
+#define IO10                    PA5
+#define GPIO10                  PA5
+#define GP10                    PA5
+
+#define IO11                    PB11
+#define GPIO11                  PB11
+#define GP11                    PB11
+
+#define IO12                    PB10
+#define GPIO12                  PB10
+#define GP12                    PB10
+
+#define AIO13                   PB1
+#define IO13                    PB1
+#define GPIO13                  PB1
+#define GP13                    PB1
+
+#define AIO14                   PA4
+#define IO14                    PA4
+#define GPIO14                  PA4
+#define GP14                    PA4
+
+#define AIO15                   PA3
+#define IO15                    PA3
+#define GPIO15                  PA3
+#define GP15                    PA3
+
+#define AIO16                   PA2
+#define IO16                    PA2
+#define GPIO16                  PA2
+#define GP16                    PA2
+
+#define AIO17                   PA1
+#define IO17                    PA1
+#define GPIO17                  PA1
+#define GP17                    PA1
+
+#define AIO18                   PA0
+#define IO18                    PA0
+#define GPIO18                  PA0
+#define GP18                    PA0
+
+#define WIFI_EN                 PB8
+#define WIFI                    PB8
+#define WIFI_RX                 PB7
+#define WIFI_TX                 PB6
+#define WIFI_BOOT               PB9
+#define WIFI_BOOT_EN            PB9
+#define WIFI_BOOT_UART          PB0
+#define WIFI_BOOT_UART_EN       PB0
+
+#define MICROSD                 PB2
+#define MICROSD_EN              PB2
+#define MICROSD_MOSI            PB5
+#define MICROSD_CLOCK           PB3
+#define MICROSD_CLK             PB3
+#define MICROSD_MISO            PB4
+
+
+
 // Alternate pins number
 #define PA0_ALT1                (PA0  | ALT1)
 #define PA1_ALT1                (PA1  | ALT1)
