@@ -1,3 +1,4 @@
+#if defined(ARDUINO_MALYANM200_F070CB) || defined(ARDUINO_MALYANM300_F070CB)
 /**
   ******************************************************************************
   * @file      startup_stm32f070xb.s
@@ -300,3 +301,4 @@ g_pfnVectors:
   .thumb_set USB_IRQHandler,Default_Handler
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+#endif /* ARDUINO_MALYANM200_F070CB || ARDUINO_MALYANM300_F070CB */

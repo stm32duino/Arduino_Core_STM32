@@ -1,3 +1,4 @@
+#if defined(ARDUINO_MALYANM200_F103CB)
 /**
   *************** (C) COPYRIGHT 2017 STMicroelectronics ************************
   * @file      startup_stm32f103xb.s
@@ -389,3 +390,5 @@ g_pfnVectors:
   .thumb_set USBWakeUp_IRQHandler,Default_Handler
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+#endif /* ARDUINO_MALYANM200_F103CB */
