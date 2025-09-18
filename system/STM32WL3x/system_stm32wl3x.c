@@ -74,38 +74,29 @@
 /** @addtogroup STM32WL3x_System_Private_Defines
   * @{
   */
-#if !defined (HSE_VALUE)
-#define HSE_VALUE     (48000000U) /*!< Value of the External oscillator in Hz */
-#endif /* HSE_VALUE */
-
-#if !defined (HSI_VALUE)
-#define HSI_VALUE     (64000000U) /*!< Value of the Internal oscillator in Hz*/
-#endif /* HSI_VALUE */
 
 /* Note: Following vector table addresses must be defined in line with linker
          configuration. */
-/*!< Uncomment the following line if you need to relocate the vector table
-     anywhere in Flash or Sram, else the vector table is kept at the automatic
-     remap of boot address selected */
-/* #define USER_VECT_TAB_ADDRESS */
+/*!< Uncomment the following line and change the address
+     if you need to relocate your vector Table at a custom base address (+ VECT_TAB_OFFSET) */
+/* #define VECT_TAB_BASE_ADDRESS 0x08000000 */
 
-#if defined(USER_VECT_TAB_ADDRESS)
+#if !defined(VECT_TAB_OFFSET)
+#define VECT_TAB_OFFSET         0x00000000U     /*!< Vector Table base offset field.
+                                                     This value must be a multiple of 0x100. */
+#endif  /* VECT_TAB_OFFSET */
+#if !defined(VECT_TAB_BASE_ADDRESS)
 /*!< Uncomment the following line if you need to relocate your vector Table
      in SRAM else user remap will be done in FLASH. */
 /* #define VECT_TAB_SRAM */
 #if defined(VECT_TAB_SRAM)
 #define VECT_TAB_BASE_ADDRESS   SRAM_BASE       /*!< Vector Table base address field.
                                                      This value must be a multiple of 0x100. */
-#define VECT_TAB_OFFSET         0x00000000U     /*!< Vector Table base offset field.
-                                                     This value must be a multiple of 0x100. */
 #else
 #define VECT_TAB_BASE_ADDRESS   FLASH_BASE      /*!< Vector Table base address field.
                                                      This value must be a multiple of 0x100. */
-#define VECT_TAB_OFFSET         0x00000000U     /*!< Vector Table base offset field.
-                                                     This value must be a multiple of 0x100. */
 #endif /* VECT_TAB_SRAM */
-#endif /* USER_VECT_TAB_ADDRESS */
-
+#endif /* VECT_TAB_BASE_ADDRESS */
 /******************************************************************************/
 
 /*!< HW TRIMMING Defines */
@@ -209,11 +200,7 @@ void SystemInit(void)
   }
 
   /* Configure the Vector Table location */
-#if defined(USER_VECT_TAB_ADDRESS)
   SCB->VTOR = VECT_TAB_BASE_ADDRESS | VECT_TAB_OFFSET; /* Vector Table Relocation */
-#else
-  SCB->VTOR = (uint32_t) (__vector_table);
-#endif /* USER_VECT_TAB_ADDRESS */
 
   /* Store in RAM the AppBase information */
   RAM_VR.AppBase = (uint32_t) SCB->VTOR;
