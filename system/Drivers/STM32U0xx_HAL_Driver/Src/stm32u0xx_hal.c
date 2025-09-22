@@ -54,17 +54,17 @@
 /**
   * @brief STM32U0xx HAL Driver version number
   */
-#define __STM32U0xx_HAL_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32U0xx_HAL_VERSION_SUB1   (0x02U) /*!< [23:16] sub1 version */
-#define __STM32U0xx_HAL_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
-#define __STM32U0xx_HAL_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
-#define __STM32U0xx_HAL_VERSION         ((__STM32U0xx_HAL_VERSION_MAIN << 24U)\
-                                         |(__STM32U0xx_HAL_VERSION_SUB1 << 16U)\
-                                         |(__STM32U0xx_HAL_VERSION_SUB2 << 8U )\
+#define __STM32U0xx_HAL_VERSION_MAIN   (0x01UL) /*!< [31:24] main version */
+#define __STM32U0xx_HAL_VERSION_SUB1   (0x03UL) /*!< [23:16] sub1 version */
+#define __STM32U0xx_HAL_VERSION_SUB2   (0x00UL) /*!< [15:8]  sub2 version */
+#define __STM32U0xx_HAL_VERSION_RC     (0x00UL) /*!< [7:0]  release candidate */
+#define __STM32U0xx_HAL_VERSION         ((__STM32U0xx_HAL_VERSION_MAIN << 24UL) \
+                                         |(__STM32U0xx_HAL_VERSION_SUB1 << 16UL)\
+                                         |(__STM32U0xx_HAL_VERSION_SUB2 << 8UL) \
                                          |(__STM32U0xx_HAL_VERSION_RC))
 
 #if defined(VREFBUF)
-#define VREFBUF_TIMEOUT_VALUE     10U   /*!<  10 ms */
+#define VREFBUF_TIMEOUT_VALUE     10UL   /*!<  10 ms */
 #endif /* VREFBUF */
 
 /**
@@ -78,7 +78,7 @@
   */
 __IO uint32_t uwTick;
 uint32_t uwTickPrio = (1UL << __NVIC_PRIO_BITS); /* Invalid PRIO */
-uint32_t uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
+HAL_TickFreqTypeDef uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
 /**
   * @}
   */
@@ -239,10 +239,10 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 {
   HAL_StatusTypeDef  status = HAL_OK;
 
-  if (uwTickFreq != 0U)
+  if ((uint32_t)uwTickFreq != 0U)
   {
     /*Configure the SysTick to have interrupt in 1ms time basis*/
-    if (HAL_SYSTICK_Config(SystemCoreClock / (1000U / uwTickFreq)) == 0U)
+    if (HAL_SYSTICK_Config(SystemCoreClock / (1000U / (uint32_t)uwTickFreq)) == 0U)
     {
       /* Configure the SysTick IRQ priority */
       if (TickPriority < (1UL << __NVIC_PRIO_BITS))
@@ -304,7 +304,7 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   */
 __weak void HAL_IncTick(void)
 {
-  uwTick += uwTickFreq;
+  uwTick += (uint32_t)uwTickFreq;
 }
 
 /**
@@ -331,17 +331,28 @@ uint32_t HAL_GetTickPrio(void)
   * @brief Set new tick Freq.
   * @retval Status
   */
-HAL_StatusTypeDef HAL_SetTickFreq(uint32_t Freq)
+HAL_StatusTypeDef HAL_SetTickFreq(HAL_TickFreqTypeDef Freq)
 {
   HAL_StatusTypeDef status  = HAL_OK;
+  HAL_TickFreqTypeDef prevTickFreq;
   assert_param(IS_TICKFREQ(Freq));
 
   if (uwTickFreq != Freq)
   {
+    /* Back up uwTickFreq frequency */
+    prevTickFreq = uwTickFreq;
+
+    /* Update uwTickFreq global variable used by HAL_InitTick() */
     uwTickFreq = Freq;
 
     /* Apply the new tick Freq  */
     status = HAL_InitTick(uwTickPrio);
+
+   if (status != HAL_OK)
+    {
+      /* Restore previous tick frequency */
+      uwTickFreq = prevTickFreq;
+    }
   }
 
   return status;
@@ -351,7 +362,7 @@ HAL_StatusTypeDef HAL_SetTickFreq(uint32_t Freq)
   * @brief return tick frequency.
   * @retval tick period in Hz
   */
-uint32_t HAL_GetTickFreq(void)
+HAL_TickFreqTypeDef HAL_GetTickFreq(void)
 {
   return uwTickFreq;
 }
@@ -430,7 +441,7 @@ uint32_t HAL_GetHalVersion(void)
   */
 uint32_t HAL_GetREVID(void)
 {
-  return ((DBGMCU->IDCODE & DBGMCU_IDCODE_REV_ID) >> 16U);
+  return ((DBGMCU->IDCODE & DBGMCU_IDCODE_REV_ID) >> DBGMCU_IDCODE_REV_ID_Pos);
 }
 
 /**

@@ -470,6 +470,7 @@ __STATIC_INLINE uint32_t LL_COMP_GetCommonWindowOutput(const COMP_Common_TypeDef
   * @param  PowerMode This parameter can be one of the following values:
   *         @arg @ref LL_COMP_POWERMODE_HIGHSPEED
   *         @arg @ref LL_COMP_POWERMODE_MEDIUMSPEED
+  *         @arg @ref LL_COMP_POWERMODE_ULTRALOWPOWER
   * @retval None
   */
 __STATIC_INLINE void LL_COMP_SetPowerMode(COMP_TypeDef *COMPx, uint32_t PowerMode)
@@ -484,6 +485,7 @@ __STATIC_INLINE void LL_COMP_SetPowerMode(COMP_TypeDef *COMPx, uint32_t PowerMod
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_COMP_POWERMODE_HIGHSPEED
   *         @arg @ref LL_COMP_POWERMODE_MEDIUMSPEED
+  *         @arg @ref LL_COMP_POWERMODE_ULTRALOWPOWER
   */
 __STATIC_INLINE uint32_t LL_COMP_GetPowerMode(const COMP_TypeDef *COMPx)
 {

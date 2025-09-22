@@ -225,7 +225,7 @@ typedef struct
   */
 
 /** @defgroup PWREx_Flag  PWR Status Flags
-  *        Elements values convention: 0000 0000 0XXY YYYYb
+  *        Elements values convention: 0000 00XX 000Y YYYYb
   *           - Y YYYY  : Flag position in the XX register (5 bits)
   *           - XX  : Status register (2 bits)
   *                 - 01: SR1 register
@@ -254,7 +254,7 @@ typedef struct
 #define PWR_FLAG_PVMO_USB                    0x020CU             /*!< Power Voltage Monitoring 1 output flag    */
 #define PWR_FLAG_PVMO_ADC                    0x020EU             /*!< Power Voltage Monitoring 3 output flag    */
 #define PWR_FLAG_PVMO_DAC                    0x020FU             /*!< Power Voltage Monitoring 4 output flag    */
-#define PWR_SCR_CWUF                         0x002FU             /*!< Clear Wake-up Flags                       */
+#define PWR_SCR_CWUF                         0x005FU             /*!< Clear Wake-up Flags                       */
 /**
   * @}
   */

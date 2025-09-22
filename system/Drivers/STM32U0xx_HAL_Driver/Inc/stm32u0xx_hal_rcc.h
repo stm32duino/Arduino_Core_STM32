@@ -478,33 +478,33 @@ typedef struct
    | Index |  AF   | Port  |  Pin  |
    -------------------------------*/
 
-#define RCC_MCO_GPIOPORT_POS   16U
+#define RCC_MCO_GPIOPORT_POS   16UL
 #define RCC_MCO_GPIOPORT_MASK  (0xFUL << RCC_MCO_GPIOPORT_POS)
-#define RCC_MCO_GPIOAF_POS     20U
+#define RCC_MCO_GPIOAF_POS     20UL
 #define RCC_MCO_GPIOAF_MASK    (0xFFUL << RCC_MCO_GPIOAF_POS)
-#define RCC_MCO_INDEX_POS      28U
+#define RCC_MCO_INDEX_POS      28UL
 #define RCC_MCO_INDEX_MASK     (0x1UL << RCC_MCO_INDEX_POS)
 #define RCC_MCO1_INDEX         (0x0UL << RCC_MCO_INDEX_POS)             /*!< MCO1 index */
 #define RCC_MCO1_PA8           (RCC_MCO1_INDEX |\
-                                (GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS) | \
+                                (RCC_MCO_GPIOAF_MASK & ((uint32_t)GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS)) | \
                                 (GPIO_GET_INDEX(GPIOA) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_8)
 #define RCC_MCO1_PA9           (RCC_MCO1_INDEX |\
-                                (GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS) | \
+                                (RCC_MCO_GPIOAF_MASK & ((uint32_t)GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS)) | \
                                 (GPIO_GET_INDEX(GPIOA) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_9)
 #define RCC_MCO1_PF2           (RCC_MCO1_INDEX |\
-                                (GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS) | \
+                                (RCC_MCO_GPIOAF_MASK & ((uint32_t)GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS)) | \
                                 (GPIO_GET_INDEX(GPIOF) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_2)
 #define RCC_MCO1               RCC_MCO1_PA8
 
 #define RCC_MCO2_INDEX         (0x1UL << RCC_MCO_INDEX_POS)             /*!< MCO2 index */
 #define RCC_MCO2_PC2           (RCC_MCO2_INDEX |\
-                                (GPIO_AF0_MCO2 << RCC_MCO_GPIOAF_POS) | \
+                                (RCC_MCO_GPIOAF_MASK & ((uint32_t)GPIO_AF0_MCO2 << RCC_MCO_GPIOAF_POS)) | \
                                 (GPIO_GET_INDEX(GPIOC) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_2)
 #define RCC_MCO2_PA10          (RCC_MCO2_INDEX |\
-                                (GPIO_AF3_MCO2 << RCC_MCO_GPIOAF_POS) | \
+                                (RCC_MCO_GPIOAF_MASK & ((uint32_t)GPIO_AF3_MCO2 << RCC_MCO_GPIOAF_POS)) | \
                                 (GPIO_GET_INDEX(GPIOA) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_10)
 #define RCC_MCO2_PA8           (RCC_MCO2_INDEX |\
-                                (GPIO_AF3_MCO2 << RCC_MCO_GPIOAF_POS) | \
+                                (RCC_MCO_GPIOAF_MASK & ((uint32_t)GPIO_AF3_MCO2 << RCC_MCO_GPIOAF_POS)) | \
                                 (GPIO_GET_INDEX(GPIOA) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_8)
 #define RCC_MCO2                RCC_MCO2_PC2
 

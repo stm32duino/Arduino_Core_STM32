@@ -963,7 +963,7 @@ HAL_StatusTypeDef HAL_CRYP_Suspend(CRYP_HandleTypeDef *hcryp)
         (hcryp->Init.Algorithm == CRYP_AES_CCM))
     {
       /* Save Suspension registers */
-      CRYP_Read_SuspendRegisters(hcryp, hcryp->SUSPxR_saved);
+      CRYP_Read_SuspendRegisters(hcryp, hcryp->SUSPRx_saved);
       /* Save Key */
       CRYP_Read_KeyRegisters(hcryp, hcryp->Key_saved, hcryp->Init.KeySize);
       /* Save IV */
@@ -1053,10 +1053,10 @@ HAL_StatusTypeDef HAL_CRYP_Resume(CRYP_HandleTypeDef *hcryp)
       hcryp->CrypHeaderCount = hcryp->CrypHeaderCount_saved;
       hcryp->SizesSum        = hcryp->SizesSum_saved;
 
-      /* Disable AES and write-back SUSPxR registers */;
+      /* Disable AES and write-back SUSPRx registers */;
       __HAL_CRYP_DISABLE(hcryp);
       /* Restore AES Suspend Registers */
-      CRYP_Write_SuspendRegisters(hcryp, hcryp->SUSPxR_saved);
+      CRYP_Write_SuspendRegisters(hcryp, hcryp->SUSPRx_saved);
       /* Restore Control,  Key and IV Registers, then enable AES */
       hcryp->Instance->CR = hcryp->CR_saved;
       CRYP_Write_KeyRegisters(hcryp, hcryp->Key_saved, hcryp->Init.KeySize);
@@ -5300,7 +5300,7 @@ static void CRYP_Write_IVRegisters(CRYP_HandleTypeDef *hcryp, uint32_t *Input)
   * @param  hcryp pointer to a CRYP_HandleTypeDef structure that contains
   *         the configuration information for CRYP module.
   * @param  Output Pointer to the buffer containing the saved Suspend Registers.
-  * @note   These values have to be stored for reuse by writing back the AES_SUSPxR registers
+  * @note   These values have to be stored for reuse by writing back the AES_SUSPRx registers
   *         as soon as the suspended processing has to be resumed.
   * @retval None
   */
@@ -5335,21 +5335,21 @@ static void CRYP_Read_SuspendRegisters(CRYP_HandleTypeDef *hcryp, uint32_t *Outp
   }
 
 
-  *(uint32_t *)(outputaddr) = hcryp->Instance->SUSP7R;
+  *(uint32_t *)(outputaddr) = hcryp->Instance->SUSPR7;
   outputaddr += 4U;
-  *(uint32_t *)(outputaddr) = hcryp->Instance->SUSP6R;
+  *(uint32_t *)(outputaddr) = hcryp->Instance->SUSPR6;
   outputaddr += 4U;
-  *(uint32_t *)(outputaddr) = hcryp->Instance->SUSP5R;
+  *(uint32_t *)(outputaddr) = hcryp->Instance->SUSPR5;
   outputaddr += 4U;
-  *(uint32_t *)(outputaddr) = hcryp->Instance->SUSP4R;
+  *(uint32_t *)(outputaddr) = hcryp->Instance->SUSPR4;
   outputaddr += 4U;
-  *(uint32_t *)(outputaddr) = hcryp->Instance->SUSP3R;
+  *(uint32_t *)(outputaddr) = hcryp->Instance->SUSPR3;
   outputaddr += 4U;
-  *(uint32_t *)(outputaddr) = hcryp->Instance->SUSP2R;
+  *(uint32_t *)(outputaddr) = hcryp->Instance->SUSPR2;
   outputaddr += 4U;
-  *(uint32_t *)(outputaddr) = hcryp->Instance->SUSP1R;
+  *(uint32_t *)(outputaddr) = hcryp->Instance->SUSPR1;
   outputaddr += 4U;
-  *(uint32_t *)(outputaddr) = hcryp->Instance->SUSP0R;
+  *(uint32_t *)(outputaddr) = hcryp->Instance->SUSPR0;
 }
 
 /**
@@ -5366,21 +5366,21 @@ static void CRYP_Write_SuspendRegisters(CRYP_HandleTypeDef *hcryp, uint32_t *Inp
 {
   uint32_t ivaddr = (uint32_t)Input;
 
-  hcryp->Instance->SUSP7R = *(uint32_t *)(ivaddr);
+  hcryp->Instance->SUSPR7 = *(uint32_t *)(ivaddr);
   ivaddr += 4U;
-  hcryp->Instance->SUSP6R = *(uint32_t *)(ivaddr);
+  hcryp->Instance->SUSPR6 = *(uint32_t *)(ivaddr);
   ivaddr += 4U;
-  hcryp->Instance->SUSP5R = *(uint32_t *)(ivaddr);
+  hcryp->Instance->SUSPR5 = *(uint32_t *)(ivaddr);
   ivaddr += 4U;
-  hcryp->Instance->SUSP4R = *(uint32_t *)(ivaddr);
+  hcryp->Instance->SUSPR4 = *(uint32_t *)(ivaddr);
   ivaddr += 4U;
-  hcryp->Instance->SUSP3R = *(uint32_t *)(ivaddr);
+  hcryp->Instance->SUSPR3 = *(uint32_t *)(ivaddr);
   ivaddr += 4U;
-  hcryp->Instance->SUSP2R = *(uint32_t *)(ivaddr);
+  hcryp->Instance->SUSPR2 = *(uint32_t *)(ivaddr);
   ivaddr += 4U;
-  hcryp->Instance->SUSP1R = *(uint32_t *)(ivaddr);
+  hcryp->Instance->SUSPR1 = *(uint32_t *)(ivaddr);
   ivaddr += 4U;
-  hcryp->Instance->SUSP0R = *(uint32_t *)(ivaddr);
+  hcryp->Instance->SUSPR0 = *(uint32_t *)(ivaddr);
 }
 
 /**

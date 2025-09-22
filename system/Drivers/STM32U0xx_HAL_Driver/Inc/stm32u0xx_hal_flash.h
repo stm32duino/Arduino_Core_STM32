@@ -292,7 +292,7 @@ typedef struct
   * @{
   */
 #define OB_USER_BOR_EN                  FLASH_OPTR_BOR_EN                           /*!< BOR reset enable */
-#define OB_USER_BOR_LEV                 (FLASH_OPTR_BORF_LEV | FLASH_OPTR_BORR_LEV) /*!< BOR reset Level */
+#define OB_USER_BOR_LEV                 FLASH_OPTR_BOR_LEV                          /*!< BOR reset Level */
 #define OB_USER_NRST_STOP               FLASH_OPTR_nRST_STOP                        /*!< Reset generated when entering the stop mode */
 #define OB_USER_NRST_STDBY              FLASH_OPTR_nRST_STDBY                       /*!< Reset generated when entering the standby mode */
 #define OB_USER_NRST_SHDW               FLASH_OPTR_nRST_SHDW                        /*!< Reset generated when entering the shutdown mode */
@@ -328,14 +328,11 @@ typedef struct
 /** @defgroup FLASH_OB_USER_BOR_LEVEL FLASH Option Bytes User BOR Level
   * @{
   */
-#define OB_BOR_LEVEL_FALLING_0          0x00000000U                                     /*!< BOR falling level 1 with threshold around 2.0V */
-#define OB_BOR_LEVEL_FALLING_1          FLASH_OPTR_BORF_LEV_0                           /*!< BOR falling level 2 with threshold around 2.2V */
-#define OB_BOR_LEVEL_FALLING_2          FLASH_OPTR_BORF_LEV_1                           /*!< BOR falling level 3 with threshold around 2.5V */
-#define OB_BOR_LEVEL_FALLING_3          (FLASH_OPTR_BORF_LEV_0 | FLASH_OPTR_BORF_LEV_1) /*!< BOR falling level 4 with threshold around 2.8V */
-#define OB_BOR_LEVEL_RISING_0           0x00000000U                                     /*!< BOR rising level 1 with threshold around 2.1V */
-#define OB_BOR_LEVEL_RISING_1           FLASH_OPTR_BORR_LEV_0                           /*!< BOR rising level 2 with threshold around 2.3V */
-#define OB_BOR_LEVEL_RISING_2           FLASH_OPTR_BORR_LEV_1                           /*!< BOR rising level 3 with threshold around 2.6V */
-#define OB_BOR_LEVEL_RISING_3           (FLASH_OPTR_BORR_LEV_0 | FLASH_OPTR_BORR_LEV_1) /*!< BOR rising level 4 with threshold around 2.9V */
+#define OB_BOR_LEVEL_0      0x00000000U                                    /*!< BOR level 0 with threshold around 2.0V */
+#define OB_BOR_LEVEL_1      FLASH_OPTR_BOR_LEV_0                           /*!< BOR level 1 with threshold around 2.2V */
+#define OB_BOR_LEVEL_2      FLASH_OPTR_BOR_LEV_1                           /*!< BOR level 2 with threshold around 2.5V */
+#define OB_BOR_LEVEL_3      (FLASH_OPTR_BOR_LEV_0 | FLASH_OPTR_BOR_LEV_1)  /*!< BOR level 3 with threshold around 2.8V */
+
 /**
   * @}
   */
