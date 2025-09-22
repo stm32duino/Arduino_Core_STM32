@@ -117,8 +117,10 @@
 /*!< Uncomment the following line if you need to relocate your vector Table in
      Internal SRAM. */
 //#define VECT_TAB_SRAM
+#if !defined(VECT_TAB_OFFSET)
 #define VECT_TAB_OFFSET  0x0U /*!< Vector Table base offset field.
                                    This value must be a multiple of 0x200. */
+#endif /* VECT_TAB_OFFSET */
 
 /*!< Comment the following line if you would like to disable the software
      workaround related to debug access in case RDP=1 and Boot_Lock=1      */
@@ -327,7 +329,7 @@ void SystemCoreClockUpdate(void)
   }
   /* Compute HCLK clock frequency --------------------------------------------*/
   /* Get HCLK prescaler */
-  tmp = AHBPrescTable[((RCC->CFGR & RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos) & 0xFU];
+  tmp = AHBPrescTable[(((RCC->CFGR & RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos) & 0xFU)];
   /* HCLK clock frequency */
   SystemCoreClock >>= tmp;
 }
