@@ -1,8 +1,7 @@
 /**
   ******************************************************************************
-  * @file    stm32wl3x_hal_conf.h
-  * @author  MCD Application Team
-  * @brief   HAL configuration file.
+  * @file    stm32wl3x_hal_conf_default.h
+  * @brief   HAL default configuration file.
   ******************************************************************************
   * @attention
   *
@@ -28,6 +27,12 @@ extern "C" {
 /* Exported constants --------------------------------------------------------*/
 
 /* ########################## Module Selection ############################## */
+/**
+  * @brief Include the default list of modules to be used in the HAL driver
+  *        and manage module deactivation
+  */
+#include "stm32yyxx_hal_conf.h"
+#if 0
 /**
   * @brief This is the list of modules to be used in the HAL driver
   */
@@ -61,6 +66,7 @@ extern "C" {
 #define HAL_TIM_MODULE_ENABLED
 #define HAL_UART_MODULE_ENABLED
 #define HAL_USART_MODULE_ENABLED
+#endif
 
 #define USE_HAL_ADC_REGISTER_CALLBACKS       0u
 #define USE_HAL_COMP_REGISTER_CALLBACKS       0u
