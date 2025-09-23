@@ -1,0 +1,59 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic WL33C8Vx
+GenWL3.menu.pnum.GENERIC_WL33C8VX=Generic WL33C8Vx
+GenWL3.menu.pnum.GENERIC_WL33C8VX.upload.maximum_size=65536
+GenWL3.menu.pnum.GENERIC_WL33C8VX.upload.maximum_data_size=16384
+GenWL3.menu.pnum.GENERIC_WL33C8VX.build.board=GENERIC_WL33C8VX
+GenWL3.menu.pnum.GENERIC_WL33C8VX.build.product_line=STM32WL3xx
+GenWL3.menu.pnum.GENERIC_WL33C8VX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+GenWL3.menu.pnum.GENERIC_WL33C8VX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+
+# Generic WL33C8VxX
+GenWL3.menu.pnum.GENERIC_WL33C8VXX=Generic WL33C8VxX
+GenWL3.menu.pnum.GENERIC_WL33C8VXX.upload.maximum_size=65536
+GenWL3.menu.pnum.GENERIC_WL33C8VXX.upload.maximum_data_size=16384
+GenWL3.menu.pnum.GENERIC_WL33C8VXX.build.board=GENERIC_WL33C8VXX
+GenWL3.menu.pnum.GENERIC_WL33C8VXX.build.product_line=STM32WL3xx
+GenWL3.menu.pnum.GENERIC_WL33C8VXX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+GenWL3.menu.pnum.GENERIC_WL33C8VXX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+
+# Generic WL33CBVx
+GenWL3.menu.pnum.GENERIC_WL33CBVX=Generic WL33CBVx
+GenWL3.menu.pnum.GENERIC_WL33CBVX.upload.maximum_size=131072
+GenWL3.menu.pnum.GENERIC_WL33CBVX.upload.maximum_data_size=32768
+GenWL3.menu.pnum.GENERIC_WL33CBVX.build.board=GENERIC_WL33CBVX
+GenWL3.menu.pnum.GENERIC_WL33CBVX.build.product_line=STM32WL3xx
+GenWL3.menu.pnum.GENERIC_WL33CBVX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+GenWL3.menu.pnum.GENERIC_WL33CBVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+
+# Generic WL33CBVxX
+GenWL3.menu.pnum.GENERIC_WL33CBVXX=Generic WL33CBVxX
+GenWL3.menu.pnum.GENERIC_WL33CBVXX.upload.maximum_size=131072
+GenWL3.menu.pnum.GENERIC_WL33CBVXX.upload.maximum_data_size=32768
+GenWL3.menu.pnum.GENERIC_WL33CBVXX.build.board=GENERIC_WL33CBVXX
+GenWL3.menu.pnum.GENERIC_WL33CBVXX.build.product_line=STM32WL3xx
+GenWL3.menu.pnum.GENERIC_WL33CBVXX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+GenWL3.menu.pnum.GENERIC_WL33CBVXX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+
+# Generic WL33CCVx
+GenWL3.menu.pnum.GENERIC_WL33CCVX=Generic WL33CCVx
+GenWL3.menu.pnum.GENERIC_WL33CCVX.upload.maximum_size=262144
+GenWL3.menu.pnum.GENERIC_WL33CCVX.upload.maximum_data_size=32768
+GenWL3.menu.pnum.GENERIC_WL33CCVX.build.board=GENERIC_WL33CCVX
+GenWL3.menu.pnum.GENERIC_WL33CCVX.build.product_line=STM32WL3xx
+GenWL3.menu.pnum.GENERIC_WL33CCVX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+GenWL3.menu.pnum.GENERIC_WL33CCVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+
+# Generic WL33CCVxX
+GenWL3.menu.pnum.GENERIC_WL33CCVXX=Generic WL33CCVxX
+GenWL3.menu.pnum.GENERIC_WL33CCVXX.upload.maximum_size=262144
+GenWL3.menu.pnum.GENERIC_WL33CCVXX.upload.maximum_data_size=32768
+GenWL3.menu.pnum.GENERIC_WL33CCVXX.build.board=GENERIC_WL33CCVXX
+GenWL3.menu.pnum.GENERIC_WL33CCVXX.build.product_line=STM32WL3xx
+GenWL3.menu.pnum.GENERIC_WL33CCVXX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+GenWL3.menu.pnum.GENERIC_WL33CCVXX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+
