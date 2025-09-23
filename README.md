@@ -78,6 +78,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [Generic STM32WB boards](#generic-stm32wb-boards)
  - [Generic STM32WB0 boards](#generic-stm32wb0-boards)
  - [Generic STM32WBA boards](#generic-stm32wba-boards)
+ - [Generic STM32WL3 boards](#generic-stm32wl3-boards)
  - [Generic STM32WL boards](#generic-stm32wl-boards)
  - [3D printer boards](#3d-printer-boards)
  - [Blues boards](#blues-boards)
@@ -821,6 +822,13 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart: | STM32WBA55CEU<br>STM32WBA55CGU | Generic Board | *2.8.0* |  |
+
+### Generic STM32WL3 boards
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart: | STM32WL3C8V<br>STM32WL3CBV<br>STM32WL3CCV | Generic Board | **2.12.0** |  |
+| :yellow_heart: | STM32WL3C8VX<br>STM32WL3CBVX<br>STM32WL3CCVX | Generic Board | **2.12.0** |  |
 
 ### Generic STM32WL boards
 
