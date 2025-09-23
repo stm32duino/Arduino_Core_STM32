@@ -84,23 +84,22 @@ static const uint8_t LL_LPTIM_SHIFT_TAB_CCxSEL[] =
 
 static const uint8_t LL_LPTIM_SHIFT_TAB_CCxE[] =
 {
-  LPTIM_CCMR1_CC1E_Pos,            /* CC1E */
-  LPTIM_CCMR1_CC2E_Pos,            /* CC2E */
-  LPTIM_CCMR2_CC3E_Pos,            /* CC3E */
-  LPTIM_CCMR2_CC4E_Pos,            /* CC4E */
+  (uint8_t)LPTIM_CCMR1_CC1E_Pos,            /* CC1E */
+  (uint8_t)LPTIM_CCMR1_CC2E_Pos,            /* CC2E */
+  (uint8_t)LPTIM_CCMR2_CC3E_Pos,            /* CC3E */
+  (uint8_t)LPTIM_CCMR2_CC4E_Pos,            /* CC4E */
 };
 
 static const uint8_t LL_LPTIM_OFFSET_TAB_ICx[8][4] =
 {
-  {2, 7, 9, 13},
-  {3, 5, 6, 8},
-  {2, 3, 4, 5},
-  {2, 2, 3, 3},
-  {2, 2, 2, 2},
-  {2, 2, 2, 2},
-  {2, 2, 2, 2},
-  {2, 2, 2, 2}
-
+  {2U, 7U, 9U, 13U},
+  {3U, 5U, 6U, 8U},
+  {2U, 3U, 4U, 5U},
+  {2U, 2U, 3U, 3U},
+  {2U, 2U, 2U, 2U},
+  {2U, 2U, 2U, 2U},
+  {2U, 2U, 2U, 2U},
+  {2U, 2U, 2U, 2U}
 };
 
 /**

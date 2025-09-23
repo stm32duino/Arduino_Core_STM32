@@ -533,7 +533,7 @@ typedef struct
   *            @arg @ref RTC_CLEAR_SSRUF              Clear SSR underflow flag"
   * @retval None
   */
-#define __HAL_RTC_CLEAR_FLAG(__HANDLE__, __FLAG__)   (RTC->SCR = (__FLAG__))
+#define __HAL_RTC_CLEAR_FLAG(__HANDLE__, __FLAG__)   (UNUSED(__HANDLE__), (RTC->SCR = (__FLAG__)))
 
 /** @brief  Check whether the specified RTC flag is set or not.
   * @param  __HANDLE__ specifies the RTC Handle.
@@ -554,8 +554,8 @@ typedef struct
   * @retval The state of __FLAG__ (TRUE or FALSE).
   */
 #define __HAL_RTC_GET_FLAG(__HANDLE__, __FLAG__) \
-  (((((__FLAG__)) >> 8U) == 1U) ? (RTC->ICSR & (1U << (((uint16_t)(__FLAG__)) & RTC_IT_MASK))) : \
-   (RTC->SR & (1U << (((uint16_t)(__FLAG__)) & RTC_IT_MASK))))
+  (UNUSED(__HANDLE__), (((((__FLAG__)) >> 8U) == 1U) ? (RTC->ICSR & (1U << (((uint16_t)(__FLAG__)) & RTC_IT_MASK))) : \
+   (RTC->SR & (1U << (((uint16_t)(__FLAG__)) & RTC_IT_MASK)))))
 
 /* ---------------------------------WAKEUPTIMER---------------------------------*/
 /** @defgroup RTCEx_WakeUp_Timer RTC WakeUp Timer
@@ -566,14 +566,14 @@ typedef struct
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_WAKEUPTIMER_ENABLE(__HANDLE__)                      (RTC->CR |= (RTC_CR_WUTE))
+#define __HAL_RTC_WAKEUPTIMER_ENABLE(__HANDLE__)                      (UNUSED(__HANDLE__), (RTC->CR |= (RTC_CR_WUTE)))
 
 /**
   * @brief  Disable the RTC WakeUp Timer peripheral.
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_WAKEUPTIMER_DISABLE(__HANDLE__)                     (RTC->CR &= ~(RTC_CR_WUTE))
+#define __HAL_RTC_WAKEUPTIMER_DISABLE(__HANDLE__)                     (UNUSED(__HANDLE__), (RTC->CR &= ~(RTC_CR_WUTE)))
 
 /**
   * @brief  Enable the RTC WakeUpTimer interrupt.
@@ -583,7 +583,7 @@ typedef struct
   *            @arg @ref RTC_IT_WUT WakeUpTimer interrupt
   * @retval None
   */
-#define __HAL_RTC_WAKEUPTIMER_ENABLE_IT(__HANDLE__, __INTERRUPT__)    (RTC->CR |= (__INTERRUPT__))
+#define __HAL_RTC_WAKEUPTIMER_ENABLE_IT(__HANDLE__, __INTERRUPT__)    (UNUSED(__HANDLE__), (RTC->CR |= (__INTERRUPT__)))
 
 /**
   * @brief  Disable the RTC WakeUpTimer interrupt.
@@ -593,7 +593,7 @@ typedef struct
   *            @arg @ref RTC_IT_WUT WakeUpTimer interrupt
   * @retval None
   */
-#define __HAL_RTC_WAKEUPTIMER_DISABLE_IT(__HANDLE__, __INTERRUPT__)   (RTC->CR &= ~(__INTERRUPT__))
+#define __HAL_RTC_WAKEUPTIMER_DISABLE_IT(__HANDLE__, __INTERRUPT__)   (UNUSED(__HANDLE__), (RTC->CR &= ~(__INTERRUPT__)))
 
 
 /**
@@ -604,8 +604,8 @@ typedef struct
   *            @arg @ref RTC_IT_WUT  WakeUpTimer interrupt
   * @retval The state of __FLAG__ (TRUE or FALSE).
   */
-#define __HAL_RTC_WAKEUPTIMER_GET_IT(__HANDLE__, __INTERRUPT__)       ((((RTC->MISR) &\
-                                                                         ((__INTERRUPT__)>> 12U)) != 0UL) ? 1UL : 0UL)
+#define __HAL_RTC_WAKEUPTIMER_GET_IT(__HANDLE__, __INTERRUPT__)       (UNUSED(__HANDLE__), ((((RTC->MISR) &\
+                                                                         ((__INTERRUPT__)>> 12U)) != 0UL) ? 1UL : 0UL))
 /**
   * @brief  Check whether the specified RTC Wake Up timer interrupt has been enabled or not.
   * @param  __HANDLE__ specifies the RTC handle.
@@ -614,8 +614,8 @@ typedef struct
   *            @arg @ref RTC_IT_WUT  WakeUpTimer interrupt
   * @retval The state of __FLAG__ (TRUE or FALSE).
   */
-#define __HAL_RTC_WAKEUPTIMER_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)   ((((RTC->CR) &\
-                                                                            (__INTERRUPT__)) != 0UL) ? 1UL : 0UL)
+#define __HAL_RTC_WAKEUPTIMER_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)   (UNUSED(__HANDLE__), ((((RTC->CR) &\
+                                                                            (__INTERRUPT__)) != 0UL) ? 1UL : 0UL))
 
 /**
   * @brief  Get the selected RTC WakeUpTimers flag status.
@@ -678,14 +678,14 @@ typedef struct
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_TIMESTAMP_ENABLE(__HANDLE__)                       (RTC->CR |= (RTC_CR_TSE))
+#define __HAL_RTC_TIMESTAMP_ENABLE(__HANDLE__)                       (UNUSED(__HANDLE__), (RTC->CR |= (RTC_CR_TSE)))
 
 /**
   * @brief  Disable the RTC TimeStamp peripheral.
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_TIMESTAMP_DISABLE(__HANDLE__)                      (RTC->CR &= ~(RTC_CR_TSE))
+#define __HAL_RTC_TIMESTAMP_DISABLE(__HANDLE__)                      (UNUSED(__HANDLE__), (RTC->CR &= ~(RTC_CR_TSE)))
 
 /**
   * @brief  Enable the RTC TimeStamp interrupt.
@@ -695,7 +695,7 @@ typedef struct
   *            @arg @ref RTC_IT_TS TimeStamp interrupt
   * @retval None
   */
-#define __HAL_RTC_TIMESTAMP_ENABLE_IT(__HANDLE__, __INTERRUPT__)     (RTC->CR |= (__INTERRUPT__))
+#define __HAL_RTC_TIMESTAMP_ENABLE_IT(__HANDLE__, __INTERRUPT__)     (UNUSED(__HANDLE__), (RTC->CR |= (__INTERRUPT__)))
 
 /**
   * @brief  Disable the RTC TimeStamp interrupt.
@@ -705,7 +705,7 @@ typedef struct
   *            @arg @ref RTC_IT_TS TimeStamp interrupt
   * @retval None
   */
-#define __HAL_RTC_TIMESTAMP_DISABLE_IT(__HANDLE__, __INTERRUPT__)    (RTC->CR &= ~(__INTERRUPT__))
+#define __HAL_RTC_TIMESTAMP_DISABLE_IT(__HANDLE__, __INTERRUPT__)    (UNUSED(__HANDLE__), (RTC->CR &= ~(__INTERRUPT__)))
 
 /**
   * @brief  Check whether the specified RTC TimeStamp interrupt has occurred or not.
@@ -715,8 +715,8 @@ typedef struct
   *            @arg @ref RTC_IT_TS TimeStamp interrupt
   * @retval The state of __FLAG__ (TRUE or FALSE).
   */
-#define __HAL_RTC_TIMESTAMP_GET_IT(__HANDLE__, __INTERRUPT__)        ((((RTC->MISR) &\
-                                                                        ((__INTERRUPT__)>> 12U)) != 0U) ? 1UL : 0UL)
+#define __HAL_RTC_TIMESTAMP_GET_IT(__HANDLE__, __INTERRUPT__)        (UNUSED(__HANDLE__), ((((RTC->MISR) &\
+                                                                        ((__INTERRUPT__)>> 12U)) != 0U) ? 1UL : 0UL))
 /**
   * @brief  Check whether the specified RTC Time Stamp interrupt has been enabled or not.
   * @param  __HANDLE__ specifies the RTC handle.
@@ -725,8 +725,8 @@ typedef struct
   *            @arg @ref RTC_IT_TS TimeStamp interrupt
   * @retval The state of __FLAG__ (TRUE or FALSE).
   */
-#define __HAL_RTC_TIMESTAMP_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)     ((((RTC->CR) &\
-                                                                            (__INTERRUPT__)) != 0U) ? 1UL : 0UL)
+#define __HAL_RTC_TIMESTAMP_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)     (UNUSED(__HANDLE__), ((((RTC->CR) &\
+                                                                            (__INTERRUPT__)) != 0U) ? 1UL : 0UL))
 
 /**
   * @brief  Get the selected RTC TimeStamps flag status.
@@ -781,14 +781,14 @@ typedef struct
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_INTERNAL_TIMESTAMP_ENABLE(__HANDLE__)                (RTC->CR |= (RTC_CR_ITSE))
+#define __HAL_RTC_INTERNAL_TIMESTAMP_ENABLE(__HANDLE__)                (UNUSED(__HANDLE__), (RTC->CR |= (RTC_CR_ITSE)))
 
 /**
   * @brief  Disable the RTC internal TimeStamp peripheral.
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_INTERNAL_TIMESTAMP_DISABLE(__HANDLE__)               (RTC->CR &= ~(RTC_CR_ITSE))
+#define __HAL_RTC_INTERNAL_TIMESTAMP_DISABLE(__HANDLE__)               (UNUSED(__HANDLE__), (RTC->CR &= ~(RTC_CR_ITSE)))
 
 /**
   * @brief  Get the selected RTC Internal Time Stamps flag status.
@@ -816,28 +816,28 @@ typedef struct
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_TAMPTS_ENABLE(__HANDLE__)                       (RTC->CR |= (RTC_CR_TAMPTS))
+#define __HAL_RTC_TAMPTS_ENABLE(__HANDLE__)                       (UNUSED(__HANDLE__), (RTC->CR |= (RTC_CR_TAMPTS)))
 
 /**
   * @brief  Disable the RTC TimeStamp on Tamper detection.
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_TAMPTS_DISABLE(__HANDLE__)                      (RTC->CR &= ~(RTC_CR_TAMPTS))
+#define __HAL_RTC_TAMPTS_DISABLE(__HANDLE__)                      (UNUSED(__HANDLE__), (RTC->CR &= ~(RTC_CR_TAMPTS)))
 
 /**
   * @brief  Enable the RTC Tamper detection output.
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_TAMPOE_ENABLE(__HANDLE__)                       (RTC->CR |= (RTC_CR_TAMPOE))
+#define __HAL_RTC_TAMPOE_ENABLE(__HANDLE__)                       (UNUSED(__HANDLE__), (RTC->CR |= (RTC_CR_TAMPOE)))
 
 /**
   * @brief  Disable the RTC Tamper detection output.
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_TAMPOE_DISABLE(__HANDLE__)                      (RTC->CR &= ~(RTC_CR_TAMPOE))
+#define __HAL_RTC_TAMPOE_DISABLE(__HANDLE__)                      (UNUSED(__HANDLE__), (RTC->CR &= ~(RTC_CR_TAMPOE)))
 
 
 /**
@@ -855,14 +855,14 @@ typedef struct
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_CALIBRATION_OUTPUT_ENABLE(__HANDLE__)               (RTC->CR |= (RTC_CR_COE))
+#define __HAL_RTC_CALIBRATION_OUTPUT_ENABLE(__HANDLE__)               (UNUSED(__HANDLE__), (RTC->CR |= (RTC_CR_COE)))
 
 /**
   * @brief  Disable the calibration output.
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_CALIBRATION_OUTPUT_DISABLE(__HANDLE__)              (RTC->CR &= ~(RTC_CR_COE))
+#define __HAL_RTC_CALIBRATION_OUTPUT_DISABLE(__HANDLE__)              (UNUSED(__HANDLE__), (RTC->CR &= ~(RTC_CR_COE)))
 
 
 /**
@@ -870,14 +870,14 @@ typedef struct
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_CLOCKREF_DETECTION_ENABLE(__HANDLE__)               (RTC->CR |= (RTC_CR_REFCKON))
+#define __HAL_RTC_CLOCKREF_DETECTION_ENABLE(__HANDLE__)               (UNUSED(__HANDLE__), (RTC->CR |= (RTC_CR_REFCKON)))
 
 /**
   * @brief  Disable the clock reference detection.
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_CLOCKREF_DETECTION_DISABLE(__HANDLE__)              (RTC->CR &= ~(RTC_CR_REFCKON))
+#define __HAL_RTC_CLOCKREF_DETECTION_DISABLE(__HANDLE__)              (UNUSED(__HANDLE__), (RTC->CR &= ~(RTC_CR_REFCKON)))
 
 
 /**
@@ -1092,7 +1092,7 @@ typedef struct
   *            @arg @ref RTC_IT_SSRU SSRU interrupt
   * @retval None
   */
-#define __HAL_RTC_SSRU_ENABLE_IT(__HANDLE__, __INTERRUPT__)    (RTC->CR |= (__INTERRUPT__))
+#define __HAL_RTC_SSRU_ENABLE_IT(__HANDLE__, __INTERRUPT__)    (UNUSED(__HANDLE__), (RTC->CR |= (__INTERRUPT__)))
 
 /**
   * @brief  Disable the RTC SSRU interrupt.
@@ -1102,7 +1102,7 @@ typedef struct
   *            @arg @ref RTC_IT_SSRU SSRU interrupt
   * @retval None
   */
-#define __HAL_RTC_SSRU_DISABLE_IT(__HANDLE__, __INTERRUPT__)   (RTC->CR &= ~(__INTERRUPT__))
+#define __HAL_RTC_SSRU_DISABLE_IT(__HANDLE__, __INTERRUPT__)   (UNUSED(__HANDLE__), (RTC->CR &= ~(__INTERRUPT__)))
 
 
 /**
@@ -1113,7 +1113,7 @@ typedef struct
   *            @arg @ref RTC_IT_SSRU  SSRU interrupt
   * @retval The state of __FLAG__ (TRUE or FALSE).
   */
-#define __HAL_RTC_SSRU_GET_IT(__HANDLE__, __INTERRUPT__)       (((RTC->MISR) & ((__INTERRUPT__) >> 1) != 0U) ? 1U : 0U)
+#define __HAL_RTC_SSRU_GET_IT(__HANDLE__, __INTERRUPT__)       (UNUSED(__HANDLE__), (((RTC->MISR) & ((__INTERRUPT__) >> 1) != 0U) ? 1U : 0U))
 /**
   * @brief  Check whether the specified RTC Wake Up timer interrupt has been enabled or not.
   * @param  __HANDLE__ specifies the RTC handle.
@@ -1122,7 +1122,7 @@ typedef struct
   *            @arg @ref RTC_IT_SSRU  SSRU interrupt
   * @retval The state of __FLAG__ (TRUE or FALSE).
   */
-#define __HAL_RTC_SSRU_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)   ((((RTC->CR) & (__INTERRUPT__)) != 0U) ? 1U : 0U)
+#define __HAL_RTC_SSRU_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)   (UNUSED(__HANDLE__), ((((RTC->CR) & (__INTERRUPT__)) != 0U) ? 1U : 0U))
 
 /**
   * @brief  Get the selected RTC SSRU's flag status.

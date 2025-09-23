@@ -40,11 +40,69 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section3" checked aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true">V1.2.0 / 30-October-2024</label>
+<input type="checkbox" id="collapse-section4" checked aria-hidden="true"> <label for="collapse-section4" checked aria-hidden="true">V1.3.0 / 04-June-2025</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
-<p>Second maintenance release of <strong>HAL</strong> and <strong>LL</strong> drivers for <strong>STM32U083 / STM32U073 / STM32U031</strong> devices</p>
+<p>Third maintenance release of <strong>HAL</strong> and <strong>LL</strong> drivers for <strong>STM32U083 / STM32U073 / STM32U031</strong> devices</p>
 <h2 id="contents">Contents</h2>
+<p>HAL and LL driver third maintenance release</p>
+<ul>
+<li><strong>HAL</strong> drivers:
+<ul>
+<li>HAL ADC driver:
+<ul>
+<li>Update the “HAL_ADCEx_Calibration_Start” function to use properly “LL_ADC_GetCalibrationFactor”.</li>
+</ul></li>
+<li>HAL CRYP driver:
+<ul>
+<li>Rename AES suspend registers according last update in STM32U0 reference manual.</li>
+</ul></li>
+<li>HAL CRC driver:
+<ul>
+<li>Improve performance of “CRC_Handle_8” function.</li>
+</ul></li>
+<li>HAL RTC driver:
+<ul>
+<li>Minors implementation enhancements.</li>
+</ul></li>
+<li>HAL SPI driver:
+<ul>
+<li>Implementation enhancements.</li>
+</ul></li>
+<li>HAL UART driver:
+<ul>
+<li>Implementation enhancements.</li>
+</ul></li>
+<li>LL ADC driver:
+<ul>
+<li>Update the “LL_ADC_GetChannelSamplingTime” to return correct value when multiple channels configured.</li>
+</ul></li>
+<li>LL COMP driver:
+<ul>
+<li>Update the “IS_LL_COMP_POWER_MODE” macro to support the “LL_COMP_POWERMODE_ULTRALOWPOWER”.</li>
+</ul></li>
+<li>LL SPI driver:
+<ul>
+<li>Minors implementation enhancements.</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="backward-compatibility">Backward Compatibility</h2>
+<ul>
+<li>Not applicable</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true">V1.2.0 / 30-October-2024</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<p>Second maintenance release of <strong>HAL</strong> and <strong>LL</strong> drivers for <strong>STM32U083 / STM32U073 / STM32U031</strong> devices</p>
+<h2 id="contents-1">Contents</h2>
 <p>HAL and LL driver second maintenance release</p>
 <ul>
 <li><strong>HAL</strong> drivers:
@@ -63,11 +121,11 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations">Known Limitations</h2>
+<h2 id="known-limitations-1">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility">Backward Compatibility</h2>
+<h2 id="backward-compatibility-1">Backward Compatibility</h2>
 <ul>
 <li>Not applicable</li>
 </ul>
@@ -76,9 +134,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true">V1.1.0 / 05-June-2024</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <p>Maintenance release of <strong>HAL</strong> and <strong>LL</strong> drivers for <strong>STM32U083 / STM32U073 / STM32U031</strong> devices</p>
-<h2 id="contents-1">Contents</h2>
+<h2 id="contents-2">Contents</h2>
 <p>HAL and LL driver maintenance release</p>
 <ul>
 <li><strong>HAL</strong> drivers:
@@ -101,11 +159,11 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-1">Known Limitations</h2>
+<h2 id="known-limitations-2">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility-1">Backward Compatibility</h2>
+<h2 id="backward-compatibility-2">Backward Compatibility</h2>
 <ul>
 <li>Not applicable</li>
 </ul>
@@ -114,19 +172,19 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" checked aria-hidden="true">V1.0.0 / 12-February-2024</label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <p>First official release of <strong>HAL</strong> and <strong>LL</strong> drivers for <strong>STM32U083 / STM32U073 / STM32U031</strong> devices</p>
-<h2 id="contents-2">Contents</h2>
+<h2 id="contents-3">Contents</h2>
 <p>HAL and LL driver beta version for all peripherals</p>
 <ul>
 <li><p><strong>HAL</strong>: ADC, CORTEX, COMP, CRC, CRYP, DAC, DMA, EXTI, GPIO, I2C, I2S, IRDA, IWDG, LPTIM, OPAMP, LTDC, PCD, PWR, RCC, RNG, RTC, SMARTCARD, SPI, TIM, UART, USART, WWDG</p></li>
 <li><p><strong>LL</strong>: ADC, COMP, CRC, CRS, DAC, DMA, EXTI, GPIO, I2C, LPTIM, LPUART, OPAMP, PWR, RCC, RNG, RTC, SPI, TIM, USART, USB, UTILS</p></li>
 </ul>
-<h2 id="known-limitations-2">Known Limitations</h2>
+<h2 id="known-limitations-3">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility-2">Backward Compatibility</h2>
+<h2 id="backward-compatibility-3">Backward Compatibility</h2>
 <ul>
 <li>Not applicable</li>
 </ul>

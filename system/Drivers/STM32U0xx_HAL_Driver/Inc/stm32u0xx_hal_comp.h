@@ -686,7 +686,8 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
                                                 ((__WINDOWOUTPUT__) == COMP_WINDOWOUTPUT_BOTH)        )
 
 #define IS_COMP_POWERMODE(__POWERMODE__)    (((__POWERMODE__) == COMP_POWERMODE_HIGHSPEED)    || \
-                                             ((__POWERMODE__) == COMP_POWERMODE_MEDIUMSPEED)    )
+                                             ((__POWERMODE__) == COMP_POWERMODE_MEDIUMSPEED)  || \
+                                             ((__POWERMODE__) == COMP_POWERMODE_ULTRALOWPOWER)  )
 
 #define IS_COMP_INPUT_PLUS(__COMP_INSTANCE__, __INPUT_PLUS__) (((__COMP_INSTANCE__) == COMP1)                   \
                                                                ? (((__INPUT_PLUS__) == COMP_INPUT_PLUS_IO1) ||  \
