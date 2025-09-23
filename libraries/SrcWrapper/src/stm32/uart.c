@@ -1478,14 +1478,14 @@ uint32_t uart_compute_prescaler(UART_HandleTypeDef *huart)
 uint32_t uart_get_clock_source_freq(UART_HandleTypeDef *huart)
 {
   uint32_t freq = 0;
-#if defined(STM32WB0)
+#if defined(STM32WB0x) || defined(STM32WL3x)
   freq = UART_PERIPHCLK;
   if (UART_INSTANCE_LOWPOWER(huart)) {
 #if defined(RCC_CFGR_LPUCLKSEL)
     freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_LPUART1);
 #endif /* RCC_CFGR_LPUCLKSEL */
   }
-#else /* !STM32WB0 */
+#else /* STM32WB0x || STM32WL3x */
   uint32_t clocksource;
   UART_GETCLOCKSOURCE(huart, clocksource);
 #if defined(STM32H5) || defined(STM32MP1) || defined(STM32U0) ||\
@@ -1560,7 +1560,7 @@ uint32_t uart_get_clock_source_freq(UART_HandleTypeDef *huart)
       break;
   }
 #endif /* STM32H5 */
-#endif /* STM32WB0 */
+#endif /* STM32WB0x || STM32WL3x */
   return freq;
 }
 #endif /* UART_PRESCALER_DIV1 */
