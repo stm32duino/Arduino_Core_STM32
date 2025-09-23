@@ -12,5 +12,7 @@
   #include "stm32u0xx_hal_lcd.c"
 #elif STM32WBxx
   #include "stm32wbxx_hal_lcd.c"
+#elif STM32WL3x
+  #include "stm32wl3x_hal_lcd.c"
 #endif
 #pragma GCC diagnostic pop

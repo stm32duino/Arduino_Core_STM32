@@ -42,6 +42,8 @@
   #include "system_stm32wbaxx.c"
 #elif STM32WBxx
   #include "system_stm32wbxx.c"
+#elif STM32WL3x
+  #include "system_stm32wl3x.c"
 #elif STM32WLxx
   #include "system_stm32wlxx.c"
 #endif

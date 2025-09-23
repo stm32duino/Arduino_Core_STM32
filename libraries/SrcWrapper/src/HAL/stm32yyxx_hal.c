@@ -52,5 +52,7 @@
   #include "stm32wbaxx_hal.c"
 #elif STM32WLxx
   #include "stm32wlxx_hal.c"
+#elif STM32WL3x
+  #include "stm32wl3x_hal.c"
 #endif
 #pragma GCC diagnostic pop

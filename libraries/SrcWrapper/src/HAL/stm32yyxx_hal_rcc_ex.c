@@ -48,5 +48,7 @@
   #include "stm32wbaxx_hal_rcc_ex.c"
 #elif STM32WLxx
   #include "stm32wlxx_hal_rcc_ex.c"
+#elif STM32WL3x
+  #include "stm32wl3x_hal_rcc_ex.c"
 #endif
 #pragma GCC diagnostic pop
