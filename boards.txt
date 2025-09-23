@@ -13391,6 +13391,93 @@ GenWBA.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenWBA.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 
 ################################################################################
+# Generic WL3
+GenWL3.name=Generic STM32WL3 series
+
+GenWL3.build.core=arduino
+GenWL3.build.board=GenWL3
+GenWL3.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
+GenWL3.build.mcu=cortex-m0plus
+GenWL3.build.series=STM32WL3x
+GenWL3.build.flash_offset=0x0
+GenWL3.upload.maximum_size=0
+GenWL3.upload.maximum_data_size=0
+GenWL3.openocd.target=stm32wl3x
+GenWL3.upload.address=0x10040000
+GenWL3.upload.mode=hwRstPulse
+GenWL3.upload.start=0x10000000
+
+# Generic WL33C8Vx
+GenWL3.menu.pnum.GENERIC_WL33C8VX=Generic WL33C8Vx
+GenWL3.menu.pnum.GENERIC_WL33C8VX.upload.maximum_size=65536
+GenWL3.menu.pnum.GENERIC_WL33C8VX.upload.maximum_data_size=16384
+GenWL3.menu.pnum.GENERIC_WL33C8VX.build.board=GENERIC_WL33C8VX
+GenWL3.menu.pnum.GENERIC_WL33C8VX.build.product_line=STM32WL3xx
+GenWL3.menu.pnum.GENERIC_WL33C8VX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+GenWL3.menu.pnum.GENERIC_WL33C8VX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+
+# Generic WL33C8VxX
+GenWL3.menu.pnum.GENERIC_WL33C8VXX=Generic WL33C8VxX
+GenWL3.menu.pnum.GENERIC_WL33C8VXX.upload.maximum_size=65536
+GenWL3.menu.pnum.GENERIC_WL33C8VXX.upload.maximum_data_size=16384
+GenWL3.menu.pnum.GENERIC_WL33C8VXX.build.board=GENERIC_WL33C8VXX
+GenWL3.menu.pnum.GENERIC_WL33C8VXX.build.product_line=STM32WL3xx
+GenWL3.menu.pnum.GENERIC_WL33C8VXX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+GenWL3.menu.pnum.GENERIC_WL33C8VXX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+
+# Generic WL33CBVx
+GenWL3.menu.pnum.GENERIC_WL33CBVX=Generic WL33CBVx
+GenWL3.menu.pnum.GENERIC_WL33CBVX.upload.maximum_size=131072
+GenWL3.menu.pnum.GENERIC_WL33CBVX.upload.maximum_data_size=32768
+GenWL3.menu.pnum.GENERIC_WL33CBVX.build.board=GENERIC_WL33CBVX
+GenWL3.menu.pnum.GENERIC_WL33CBVX.build.product_line=STM32WL3xx
+GenWL3.menu.pnum.GENERIC_WL33CBVX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+GenWL3.menu.pnum.GENERIC_WL33CBVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+
+# Generic WL33CBVxX
+GenWL3.menu.pnum.GENERIC_WL33CBVXX=Generic WL33CBVxX
+GenWL3.menu.pnum.GENERIC_WL33CBVXX.upload.maximum_size=131072
+GenWL3.menu.pnum.GENERIC_WL33CBVXX.upload.maximum_data_size=32768
+GenWL3.menu.pnum.GENERIC_WL33CBVXX.build.board=GENERIC_WL33CBVXX
+GenWL3.menu.pnum.GENERIC_WL33CBVXX.build.product_line=STM32WL3xx
+GenWL3.menu.pnum.GENERIC_WL33CBVXX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+GenWL3.menu.pnum.GENERIC_WL33CBVXX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+
+# Generic WL33CCVx
+GenWL3.menu.pnum.GENERIC_WL33CCVX=Generic WL33CCVx
+GenWL3.menu.pnum.GENERIC_WL33CCVX.upload.maximum_size=262144
+GenWL3.menu.pnum.GENERIC_WL33CCVX.upload.maximum_data_size=32768
+GenWL3.menu.pnum.GENERIC_WL33CCVX.build.board=GENERIC_WL33CCVX
+GenWL3.menu.pnum.GENERIC_WL33CCVX.build.product_line=STM32WL3xx
+GenWL3.menu.pnum.GENERIC_WL33CCVX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+GenWL3.menu.pnum.GENERIC_WL33CCVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+
+# Generic WL33CCVxX
+GenWL3.menu.pnum.GENERIC_WL33CCVXX=Generic WL33CCVxX
+GenWL3.menu.pnum.GENERIC_WL33CCVXX.upload.maximum_size=262144
+GenWL3.menu.pnum.GENERIC_WL33CCVXX.upload.maximum_data_size=32768
+GenWL3.menu.pnum.GENERIC_WL33CCVXX.build.board=GENERIC_WL33CCVXX
+GenWL3.menu.pnum.GENERIC_WL33CCVXX.build.product_line=STM32WL3xx
+GenWL3.menu.pnum.GENERIC_WL33CCVXX.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+GenWL3.menu.pnum.GENERIC_WL33CCVXX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+
+# Upload menu
+GenWL3.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenWL3.menu.upload_method.swdMethod.upload.protocol=swd
+GenWL3.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
+GenWL3.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenWL3.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
+GenWL3.menu.upload_method.jlinkMethod.upload.protocol=jlink
+GenWL3.menu.upload_method.jlinkMethod.upload.options=
+GenWL3.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
+
+GenWL3.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenWL3.menu.upload_method.serialMethod.upload.protocol=serial
+GenWL3.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenWL3.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+################################################################################
 # Generic WL
 GenWL.name=Generic STM32WL series
 
@@ -14911,6 +14998,12 @@ GenWBA.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenWBA.menu.xserial.disabled=Disabled (no Serial support)
 GenWBA.menu.xserial.disabled.build.xSerial=
 
+GenWL3.menu.xserial.generic=Enabled (generic 'Serial')
+GenWL3.menu.xserial.none=Enabled (no generic 'Serial')
+GenWL3.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenWL3.menu.xserial.disabled=Disabled (no Serial support)
+GenWL3.menu.xserial.disabled.build.xSerial=
+
 GenWL.menu.xserial.generic=Enabled (generic 'Serial')
 GenWL.menu.xserial.none=Enabled (no generic 'Serial')
 GenWL.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -15905,6 +15998,26 @@ GenWBA.menu.opt.ogstd.build.flags.optimize=-Og
 GenWBA.menu.opt.o0std=No Optimization (-O0)
 GenWBA.menu.opt.o0std.build.flags.optimize=-O0
 
+GenWL3.menu.opt.osstd=Smallest (-Os default)
+GenWL3.menu.opt.oslto=Smallest (-Os) with LTO
+GenWL3.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenWL3.menu.opt.o1std=Fast (-O1)
+GenWL3.menu.opt.o1std.build.flags.optimize=-O1
+GenWL3.menu.opt.o1lto=Fast (-O1) with LTO
+GenWL3.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenWL3.menu.opt.o2std=Faster (-O2)
+GenWL3.menu.opt.o2std.build.flags.optimize=-O2
+GenWL3.menu.opt.o2lto=Faster (-O2) with LTO
+GenWL3.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenWL3.menu.opt.o3std=Fastest (-O3)
+GenWL3.menu.opt.o3std.build.flags.optimize=-O3
+GenWL3.menu.opt.o3lto=Fastest (-O3) with LTO
+GenWL3.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenWL3.menu.opt.ogstd=Debug (-Og)
+GenWL3.menu.opt.ogstd.build.flags.optimize=-Og
+GenWL3.menu.opt.o0std=No Optimization (-O0)
+GenWL3.menu.opt.o0std.build.flags.optimize=-O0
+
 GenWL.menu.opt.osstd=Smallest (-Os default)
 GenWL.menu.opt.oslto=Smallest (-Os) with LTO
 GenWL.menu.opt.oslto.build.flags.optimize=-Os -flto
@@ -16378,6 +16491,14 @@ GenWBA.menu.dbg.enable_log.build.flags.debug=
 GenWBA.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 GenWBA.menu.dbg.enable_all.build.flags.debug=-g
 
+GenWL3.menu.dbg.none=None
+GenWL3.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenWL3.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenWL3.menu.dbg.enable_log=Core logs Enabled
+GenWL3.menu.dbg.enable_log.build.flags.debug=
+GenWL3.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenWL3.menu.dbg.enable_all.build.flags.debug=-g
+
 GenWL.menu.dbg.none=None
 GenWL.menu.dbg.enable_sym=Symbols Enabled (-g)
 GenWL.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
@@ -16752,6 +16873,16 @@ GenWBA.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenWBA.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenWBA.menu.rtlib.full=Newlib Standard
 GenWBA.menu.rtlib.full.build.flags.ldspecs=
+
+GenWL3.menu.rtlib.nano=Newlib Nano (default)
+GenWL3.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenWL3.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenWL3.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenWL3.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenWL3.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenWL3.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenWL3.menu.rtlib.full=Newlib Standard
+GenWL3.menu.rtlib.full.build.flags.ldspecs=
 
 GenWL.menu.rtlib.nano=Newlib Nano (default)
 GenWL.menu.rtlib.nanofp=Newlib Nano + Float Printf
