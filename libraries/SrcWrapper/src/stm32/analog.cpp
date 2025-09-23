@@ -474,7 +474,11 @@ void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
   }
 
   /*##-3- Set DAC Channel1 DHR register ######################################*/
+#if defined(DAC_ALIGN_12B_R)
   if (HAL_DAC_SetValue(&DacHandle, dacChannel, DAC_ALIGN_12B_R, value) != HAL_OK) {
+#else
+  if (HAL_DAC_SetValue(&DacHandle, dacChannel, DAC_ALIGN_6B_R, value) != HAL_OK) {
+ #endif
     /* Setting value Error */
     return;
   }
