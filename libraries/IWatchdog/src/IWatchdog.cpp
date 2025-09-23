@@ -182,6 +182,8 @@ bool IWatchdogClass::isReset(bool clear)
   bool status = LL_RCC_IsActiveFlag_IWDG1RST();
 #elif defined(STM32WB0x)
   bool status = LL_RCC_IsActiveFlag_WDGRST();
+#elif defined(STM32WL3x)
+  bool status = ((RAM_VR.ResetReason & RCC_FLAG_WDGRST) == RCC_FLAG_WDGRST);
 #else
   bool status = LL_RCC_IsActiveFlag_IWDGRST();
 #endif
