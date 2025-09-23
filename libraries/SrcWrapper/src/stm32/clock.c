@@ -130,7 +130,7 @@ void enableClock(sourceClock_t source)
       if (__HAL_RCC_GET_FLAG(RCC_FLAG_HSIRDY) == RESET) {
         RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_HSI;
         RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-#if !defined(STM32WB0x)
+#if !defined(STM32WB0x) && !defined(STM32WL3x)
 #if defined(STM32MP1xx)
         RCC_OscInitStruct.HSICalibrationValue = 0x00;
 #else
