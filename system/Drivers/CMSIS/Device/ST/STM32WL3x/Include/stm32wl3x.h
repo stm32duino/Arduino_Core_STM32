@@ -102,7 +102,10 @@
 /** @addtogroup Device_Included
   * @{
   */
-
+/* Fix issue with case sensitive definition in stm32wl3x.h */
+#if defined(STM32WL3xx)
+  #define STM32WL3XX
+#endif
 #if defined(STM32WL3XX)
   #include "stm32wl3xx.h"
 #else
