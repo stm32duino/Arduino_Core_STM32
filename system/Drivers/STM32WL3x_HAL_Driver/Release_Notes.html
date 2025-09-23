@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Release Notes for STM32CubeWL33 HAL Drivers Package</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="_htmresc/mini-st_2020.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="icon" type="image/x-icon" href="_htmresc/favicon.png" />
+</head>
+<body>
+<div class="row">
+<div class="col-sm-12 col-lg-4">
+<center>
+<h1 id="release-notes-for">Release Notes for</h1>
+<h1 id="stm32wl3xx-hal-drivers"><mark>STM32WL3xx HAL Drivers</mark></h1>
+<p>Copyright © 2024-2025 STMicroelectronics</p>
+<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
+</center>
+<h1 id="purpose">Purpose</h1>
+<p>The STM32Cube HAL and LL, an STM32 abstraction layer embedded software, ensure maximized portability across STM32 portfolio.</p>
+<p>The portable APIs layer provides a generic, multi instanced and simple set of APIs to interact with the upper layer (application, libraries and stacks). It is composed of native and extended APIs set. It is directly built around a generic architecture and allows the build-upon layers, like the middleware layer, to implement its functions without knowing in-depth the used STM32 device. This improves the library code reusability and guarantees an easy portability on other devices and STM32 families.</p>
+<p>The Low Layer (LL) drivers are part of the STM32Cube firmware HAL that provides a basic set of optimized and one shot services. The Low layer drivers, contrary to the HAL ones are not fully portable across the STM32 families; the availability of some functions depends on the physical availability of the relative features on the product. The Low Layer (LL) drivers are designed to offer the following features:</p>
+<ul>
+<li>New set of inline functions for direct and atomic register access</li>
+<li>One-shot operations that can be used by the HAL drivers or from application level</li>
+<li>Full independence from HAL and standalone usage (without HAL drivers)</li>
+<li>Full features coverage of all the supported peripherals</li>
+</ul>
+</div>
+<div class="col-sm-12 col-lg-8">
+<h1 id="update-history">Update History</h1>
+<div class="collapse">
+<input type="checkbox" id="collapse-section3" checked aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true"><strong>V1.2.0 / 04-June-2025</strong></label>
+<div>
+<h2 id="main-changes">Main Changes</h2>
+<h3 id="release-of-hal-and-ll-drivers-for-stm32wl3x-devices">Release of <strong>HAL and LL drivers</strong> for <strong>STM32WL3x</strong> devices</h3>
+<h2 id="contents">Contents</h2>
+<h3 id="hal-drivers-updates"><strong>HAL Drivers</strong> updates</h3>
+<ul>
+<li><strong>HAL MRSUBG</strong> driver
+<ul>
+<li>Fixed wrong length of SYNC word in wM-Bus packet initialization function.</li>
+<li>Fixed HAL_MRSubG_Sequencer_Microseconds return value.</li>
+<li>Moved HAL_MRSUBG_TIMER_CPU_WKUP IRQ Handler from MRSUBG to MRSUBG TIMER.</li>
+<li>Updated names of IRQ handlers.</li>
+</ul></li>
+<li><strong>HAL LPAWUR</strong> driver
+<ul>
+<li>Added MspInit and MspDeInit functions to MRSUBG, MRSUBG TIMER, and LPAWUR.</li>
+</ul></li>
+<li><strong>HAL RCC</strong> driver
+<ul>
+<li>Added support for <code>RCC_LPUART1_CLKSOURCE_16M</code> with a frequency of 16,000,000.</li>
+</ul></li>
+</ul>
+<h3 id="ll-drivers-updates"><strong>LL Drivers</strong> updates</h3>
+<ul>
+<li><strong>LL RCC</strong> driver
+<ul>
+<li>Added LL RCC APIs to manage RTC clock: LL_RCC_EnableRTC(), LL_RCC_DisableRTC() and LL_RCC_IsEnabledRTC().</li>
+</ul></li>
+</ul>
+<h2 id="supported-devices-and-boards">Supported Devices and boards</h2>
+<ul>
+<li>NUCLEO-WL33CC1 board</li>
+<li>NUCLEO-WL33CC2 board</li>
+</ul>
+<h2 id="backward-compatibility">Backward compatibility</h2>
+<ul>
+<li>Not applicable</li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true"><strong>V1.1.0 / 5-February-2025</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<h3 id="release-of-hal-and-ll-drivers-for-stm32wl3x-devices-1">Release of <strong>HAL and LL drivers</strong> for <strong>STM32WL3x</strong> devices</h3>
+Improved MRSUBG LL and HAL drivers with new APIs and macros:
+<ul>
+<li>
+<pre><code>__HAL_MRSUBG_GET_DATABUFFER_COUNT()</code></pre>
+</li>
+<li>
+<pre><code>__HAL_MRSUBG_SET_PQI_THRESHOLD(__THRVAL__)</code></pre>
+</li>
+<li>
+<pre><code>LL_MRSubG_GetRssiLevelOnSync(void)</code></pre>
+</li>
+<li>
+<pre><code>LL_MRSubG_SetRSSIFilter(uint32_t rssiFilter)</code></pre>
+</li>
+<li>
+<pre><code>LL_MRSubG_SetClkRecCtrl0(uint32_t clkRec)</code></pre>
+</li>
+<li>
+<pre><code>LL_MRSubG_SetClkRecCtrl1(uint32_t clkRec)</code></pre>
+</li>
+<li>
+<pre><code>LL_MRSubG_SetAFC0(uint32_t afcCfg)</code></pre>
+</li>
+<li>
+<pre><code>LL_MRSubG_SetAFC1(uint32_t afcCfg)</code></pre>
+</li>
+<li>
+<pre><code>LL_MRSubG_SetAFC2(uint32_t afcCfg)</code></pre>
+</li>
+<li>
+<pre><code>LL_MRSubG_SetAFC3(uint32_t afcCfg)</code></pre>
+</li>
+</ul>
+<ul>
+<li><strong>HAL ADC</strong> driver
+<ul>
+<li>Fix rmtoll doxygen comment in LL_ADC_GetCalibPointOffset()</li>
+</ul></li>
+<li><strong>HAL UART</strong> driver
+<ul>
+<li>Corrections in CHM/PDF rendering for HAL_UART</li>
+<li>Provide accurate position in RxEventCallback when ReceptionToIdle mode is used with DMA, when UART and DMA interrupts process is delayed</li>
+<li>Correct references to HAL_UARTEx_WakeupCallback and to HAL_UART_WAKEUP_CB_ID define, according to series capabilities</li>
+</ul></li>
+<li><strong>LL LPUART</strong> driver
+<ul>
+<li>Solve Coverity out-of-bound memory access warning in use of LPUART_PRESCALER_TAB array</li>
+</ul></li>
+<li><strong>LL USART</strong> driver
+<ul>
+<li>Solve Coverity out-of-bound memory access warning in use of USART_PRESCALER_TAB array</li>
+</ul></li>
+</ul>
+<p>Check the code documentation for further details.</p>
+<h2 id="contents-1">Contents</h2>
+<ul>
+<li>Release of HAL/LL drivers
+<ul>
+<li><p><strong>HAL</strong>: COMP, CORTEX, CRC, CRYP, DMA, FLASH, GPIO, I2C, IRDA, IWDG, LCD, LPAWUR, MRSUBG, PWR, RCC, RNG, RTC, SMARTCARD, SPI, TIM, UART, USART</p></li>
+<li><p><strong>LL</strong>: COMP, CRC, DMA, GPIO, I2C, LCSC, LPUART, LPAWUR, MRSUBG, PWR, RCC, RNG, RTC, SPI, TIM, USART, UTILS</p></li>
+</ul></li>
+</ul>
+<h2 id="supported-devices-and-boards-1">Supported Devices and boards</h2>
+<ul>
+<li>NUCLEO-WL33CC1 board</li>
+<li>NUCLEO-WL33CC2 board</li>
+</ul>
+<h2 id="backward-compatibility-1">Backward compatibility</h2>
+<ul>
+<li>Not applicable</li>
+</ul>
+<h2 id="known-limitations-1">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies-1">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="notes-1">Notes</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" checked aria-hidden="true"><strong>V1.0.0 / 30-October-2024</strong></label>
+<div>
+<h2 id="main-changes-2">Main Changes</h2>
+<h3 id="first-official-release-of-hal-and-ll-drivers-for-stm32wl33-devices">First Official Release of <strong>HAL and LL drivers</strong> for <strong>STM32WL33</strong> devices</h3>
+<h2 id="contents-2">Contents</h2>
+<ul>
+<li>First Official Release of HAL/LL drivers
+<ul>
+<li><p><strong>HAL</strong>: COMP, CORTEX, CRC, CRYP, DMA, FLASH, GPIO, I2C, IRDA, IWDG, LCD, LPAWUR, MRSUBG, PWR, RCC, RNG, RTC, SMARTCARD, SPI, TIM, UART, USART</p></li>
+<li><p><strong>LL</strong>: COMP, CRC, DMA, GPIO, I2C, LCSC, LPUART, LPAWUR, MRSUBG, PWR, RCC, RNG, RTC, SPI, TIM, USART, UTILS</p></li>
+</ul></li>
+</ul>
+<h2 id="supported-devices-and-boards-2">Supported Devices and boards</h2>
+<ul>
+<li>NUCLEO-WL33CC board</li>
+</ul>
+<h2 id="backward-compatibility-2">Backward compatibility</h2>
+<ul>
+<li>Not applicable</li>
+</ul>
+<h2 id="known-limitations-2">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies-2">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="notes-2">Notes</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<footer class="sticky">
+<div class="columns">
+<div class="column" style="width:95%;">
+<p>For complete documentation on STM32 Microcontrollers </mark>, visit: <span style="font-color: blue;"><a href="http://www.st.com/stm32">www.st.com/stm32</a></span></p>
+<p><em>This release note uses up to date web standards and, for this reason, should not be opened with Internet Explorer but preferably with popular browsers such as Google Chrome, Mozilla Firefox, Opera or Microsoft Edge.</em></p>
+</div><div class="column" style="width:5%;">
+<p><abbr title="Based on template cx566953 version 2.0">Info</abbr></p>
+</div>
+</div>
+</footer>
+</body>
+</html>
