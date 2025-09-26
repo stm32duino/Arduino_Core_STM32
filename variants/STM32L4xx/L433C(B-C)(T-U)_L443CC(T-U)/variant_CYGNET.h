@@ -153,6 +153,14 @@
   #define PIN_SERIAL_TX         PA9
 #endif
 
+// Default pin used for generic `Serial2` instance
+#ifndef PIN_SERIAL2_RX
+  #define PIN_SERIAL2_RX         PA3
+#endif
+#ifndef PIN_SERIAL2_TX
+  #define PIN_SERIAL2_TX         PA2
+#endif
+
 // LPUART1
 #ifndef PIN_SERIAL_LP1_RX
   #define PIN_SERIAL_LP1_RX     PB10
