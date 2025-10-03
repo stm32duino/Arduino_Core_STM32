@@ -155,10 +155,10 @@
 
 // Default pin used for generic `Serial2` instance
 #ifndef PIN_SERIAL2_RX
-  #define PIN_SERIAL2_RX         PA3
+  #define PIN_SERIAL2_RX         PA3_ALT1
 #endif
 #ifndef PIN_SERIAL2_TX
-  #define PIN_SERIAL2_TX         PA2
+  #define PIN_SERIAL2_TX         PA2_ALT1
 #endif
 
 // LPUART1
