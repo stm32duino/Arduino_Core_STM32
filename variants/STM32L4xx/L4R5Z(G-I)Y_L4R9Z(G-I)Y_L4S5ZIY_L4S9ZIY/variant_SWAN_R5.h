@@ -236,12 +236,12 @@
   #define PIN_SERIAL_TX         PA9
 #endif
 
-// Default pin used for generic 'Serial2' instance
-#ifndef PIN_SERIAL2_RX
-  #define PIN_SERIAL2_RX        PC5
+// Default pin used for generic 'Serial3' instance
+#ifndef PIN_SERIAL3_RX
+  #define PIN_SERIAL3_RX        PC5
 #endif
-#ifndef PIN_SERIAL2_TX
-  #define PIN_SERIAL2_TX        PC4
+#ifndef PIN_SERIAL3_TX
+  #define PIN_SERIAL3_TX        PC4
 #endif
 
 // LPUART1
