@@ -628,6 +628,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32H7B0VBTX | Generic Board | *2.8.0* |  |
 | :green_heart: | STM32H7B3VIHX<br>STM32H7B3VITX | Generic Board | *2.8.0* |  |
 | :green_heart: | STM32H7B3ZITxQ | Generic Board | *2.10.0* |  |
+| :yellow_heart:  | STM32H733VGT | Generic Board | *2.12.0* |  |
 
 ### Generic STM32L0 boards
 
