@@ -984,6 +984,23 @@ Nucleo_64.menu.pnum.NUCLEO_WBA55CG.build.variant=STM32WBAxx/WBA55C(E-G)U
 Nucleo_64.menu.pnum.NUCLEO_WBA55CG.openocd.target=stm32wbax
 Nucleo_64.menu.pnum.NUCLEO_WBA55CG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA55.svd
 
+# NUCLEO_WL3CC1 board
+Nucleo_64.menu.pnum.NUCLEO_WL33CC1=Nucleo WL33CC1
+Nucleo_64.menu.pnum.NUCLEO_WL33CC1.node="NOD_WL33CC"
+Nucleo_64.menu.pnum.NUCLEO_WL33CC1.upload.maximum_size=262144
+Nucleo_64.menu.pnum.NUCLEO_WL33CC1.upload.maximum_data_size=32768
+Nucleo_64.menu.pnum.NUCLEO_WL33CC1.build.mcu=cortex-m0plus
+Nucleo_64.menu.pnum.NUCLEO_WL33CC1.build.board=NUCLEO_WL33CC1
+Nucleo_64.menu.pnum.NUCLEO_WL33CC1.build.series=STM32WL3x
+Nucleo_64.menu.pnum.NUCLEO_WL33CC1.build.product_line=STM32WL3xx
+Nucleo_64.menu.pnum.NUCLEO_WL33CC1.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+Nucleo_64.menu.pnum.NUCLEO_WL33CC1.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
+Nucleo_64.menu.pnum.NUCLEO_WL33CC1.openocd.target=stm32wl3x
+Nucleo_64.menu.pnum.NUCLEO_WL33CC1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+Nucleo_64.menu.pnum.NUCLEO_WL33CC1.upload.address=0x10040000
+Nucleo_64.menu.pnum.NUCLEO_WL33CC1.upload.mode=hwRstPulse
+Nucleo_64.menu.pnum.NUCLEO_WL33CC1.upload.start=0x10000000
+
 # NUCLEO_WL55JC1 board
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1=Nucleo WL55JC1
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1.node="NOD_WL55JC"
