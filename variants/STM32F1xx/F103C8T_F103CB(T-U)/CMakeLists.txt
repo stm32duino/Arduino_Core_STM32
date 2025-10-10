@@ -24,6 +24,7 @@ add_library(variant_bin STATIC EXCLUDE_FROM_ALL
   PeripheralPins_MALYANM200_F103CB.c
   startup_M200_f103xb.S
   variant_AFROFLIGHT_F103CB.cpp
+  variant_DATABOARD.cpp
   variant_generic.cpp
   variant_MALYANM200_F103CB.cpp
   variant_MAPLEMINI_F103CB.cpp
