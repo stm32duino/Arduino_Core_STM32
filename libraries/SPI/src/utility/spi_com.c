@@ -206,11 +206,14 @@ static uint32_t compute_disable_delay(spi_t *obj)
   * @param  device : spi device mode: master or slave
   * @retval None
   */
-void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb, SPIDeviceMode device)
+spi_status_e spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb, SPIDeviceMode device)
 {
   if (obj == NULL) {
-    return;
+    return SPI_ERROR;
   }
+
+  // Set the device mode before any other initialization
+  obj->mode = device;
 
   SPI_HandleTypeDef *handle = &(obj->handle);
   uint32_t spi_freq = 0;
@@ -226,9 +229,11 @@ void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb, SPIDeviceMo
     SPI_TypeDef *spi_ssel = pinmap_peripheral(obj->pin_ssel, PinMap_SPI_SSEL);
 
     /* Pins MOSI/MISO/SCLK must not be NP. ssel can be NP. */
-    if (spi_mosi == NP || spi_miso == NP || spi_sclk == NP) {
-      core_debug("ERROR: at least one SPI pin has no peripheral\n");
-      return;
+    if (spi_mosi == NP || spi_miso == NP || spi_sclk == NP || spi_ssel == NP) {
+      if (spi_miso == NP && obj->duplex) {
+        core_debug("ERROR: at least one SPI pin has no peripheral\n");
+        return SPI_ERROR;
+      }
     }
 
     SPI_TypeDef *spi_data = pinmap_merge_peripheral(spi_mosi, spi_miso);
@@ -239,27 +244,31 @@ void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb, SPIDeviceMo
     // Are all pins connected to the same SPI instance?
     if (spi_data == NP || spi_cntl == NP || obj->spi == NP) {
       core_debug("ERROR: SPI pins mismatch\n");
-      return;
+      return SPI_ERROR;
     }
 #if defined(SUBGHZSPI_BASE)
   } else {
     if (obj->pin_mosi != NC || obj->pin_miso != NC || obj->pin_sclk != NC || obj->pin_ssel != NC) {
       core_debug("ERROR: SUBGHZ_SPI cannot define custom pins\n");
-      return;
+      return SPI_ERROR;
     }
   }
 #endif
 
   // Configure the SPI pins
   if (obj->pin_ssel != NC) {
-    handle->Init.NSS = SPI_NSS_HARD_OUTPUT;
+    if (obj->mode == SPI_MODE_SLAVE) {
+      handle->Init.NSS = SPI_NSS_HARD_INPUT;
+    } else {
+      handle->Init.NSS = SPI_NSS_HARD_OUTPUT;
+   }
   } else {
     handle->Init.NSS = SPI_NSS_SOFT;
   }
 
   /* Fill default value */
-  handle->Instance = obj->spi;
-  handle->Init.Mode = (device == SPI_MASTER) ? SPI_MODE_MASTER : SPI_MODE_SLAVE;
+  handle->Instance               = obj->spi;
+  handle->Init.Mode              = obj->mode;
 
   spi_freq = spi_getClkFreqInst(obj->spi);
   /* For SUBGHZSPI,  'SPI_BAUDRATEPRESCALER_*' == 'SUBGHZSPI_BAUDRATEPRESCALER_*' */
@@ -290,7 +299,7 @@ void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb, SPIDeviceMo
   obj->disable_delay = compute_disable_delay(obj);
 #endif
 
-  handle->Init.Direction         = SPI_DIRECTION_2LINES;
+  handle->Init.Direction         = obj->direction;
 
   if ((mode == SPI_MODE0) || (mode == SPI_MODE2)) {
     handle->Init.CLKPhase          = SPI_PHASE_1EDGE;
@@ -325,9 +334,22 @@ void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb, SPIDeviceMo
 #if defined(SUBGHZSPI_BASE)
   if (handle->Instance != SUBGHZSPI) {
 #endif
-    /* Configure SPI GPIO pins */
-    pinmap_pinout(obj->pin_mosi, PinMap_SPI_MOSI);
-    pinmap_pinout(obj->pin_miso, PinMap_SPI_MISO);
+    /* Configure SPI GPIO pins based on device mode and duplex setting */
+    if (obj->mode == SPI_MODE_MASTER) {
+      /* Master mode: configure MOSI for output */
+      pinmap_pinout(obj->pin_mosi, PinMap_SPI_MOSI);
+      /* Configure MISO for input if duplex is enabled */
+      if (obj->duplex) {
+        pinmap_pinout(obj->pin_miso, PinMap_SPI_MISO);
+      }
+    } else {
+      /* Slave mode: configure MISO for output */
+      pinmap_pinout(obj->pin_miso, PinMap_SPI_MISO);
+      /* Configure MOSI for input if duplex is enabled */
+      if (obj->duplex) {
+        pinmap_pinout(obj->pin_mosi, PinMap_SPI_MOSI);
+      }
+    }
     pinmap_pinout(obj->pin_sclk, PinMap_SPI_SCLK);
     /*
     * According the STM32 Datasheet for SPI peripheral we need to PULLDOWN
@@ -396,10 +418,15 @@ void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb, SPIDeviceMo
   }
 #endif
 
-  HAL_SPI_Init(handle);
+  HAL_StatusTypeDef status = HAL_SPI_Init(handle);
+  if (status != HAL_OK) {
+    core_debug("ERROR: HAL_SPI_Init failed\n");
+    return SPI_ERROR;
+  }
 
   /* In order to set correctly the SPI polarity we need to enable the peripheral */
   __HAL_SPI_ENABLE(handle);
+  return SPI_OK;
 }
 
 /**
