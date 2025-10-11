@@ -30,6 +30,9 @@ struct spi_s {
   PinName pin_mosi;
   PinName pin_sclk;
   PinName pin_ssel;
+  bool duplex;
+  uint32_t direction;
+  uint32_t mode;
 #if defined(SPI_IFCR_EOTC)
   // Delay before disabling SPI.
   // See https://github.com/stm32duino/Arduino_Core_STM32/issues/1294
@@ -38,7 +41,6 @@ struct spi_s {
 };
 
 typedef struct spi_s spi_t;
-
 
 ///@brief specifies the SPI speed bus in HZ.
 #define SPI_SPEED_CLOCK_DEFAULT     4000000
@@ -88,7 +90,7 @@ typedef enum {
 } spi_status_e;
 
 /* Exported functions ------------------------------------------------------- */
-void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb, SPIDeviceMode device);
+spi_status_e spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb, SPIDeviceMode device_mode);
 void spi_deinit(spi_t *obj);
 spi_status_e spi_transfer(spi_t *obj, const uint8_t *tx_buffer, uint8_t *rx_buffer, uint16_t len);
 uint32_t spi_getClkFreq(spi_t *obj);
