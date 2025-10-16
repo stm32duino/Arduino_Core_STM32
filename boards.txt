@@ -403,22 +403,22 @@ Nucleo_144.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
 Nucleo_144.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Nucleo_144.menu.upload_method.swdMethod.upload.protocol=swd
-Nucleo_144.menu.upload_method.swdMethod.upload.options=
+Nucleo_144.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 Nucleo_144.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Nucleo_144.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 Nucleo_144.menu.upload_method.jlinkMethod.upload.protocol=jlink
-Nucleo_144.menu.upload_method.jlinkMethod.upload.options=
+Nucleo_144.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 Nucleo_144.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 Nucleo_144.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 Nucleo_144.menu.upload_method.serialMethod.upload.protocol=serial
-Nucleo_144.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+Nucleo_144.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 Nucleo_144.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 Nucleo_144.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Nucleo_144.menu.upload_method.dfuMethod.upload.protocol=dfu
-Nucleo_144.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+Nucleo_144.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 Nucleo_144.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 Nucleo_144.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -923,6 +923,7 @@ Nucleo_64.menu.pnum.NUCLEO_WB09KE.debug.svd_file={runtime.tools.STM32_SVD.path}/
 Nucleo_64.menu.pnum.NUCLEO_WB09KE.upload.address=0x10040000
 Nucleo_64.menu.pnum.NUCLEO_WB09KE.upload.mode=hwRstPulse
 Nucleo_64.menu.pnum.NUCLEO_WB09KE.upload.start=0x10000000
+Nucleo_64.menu.pnum.NUCLEO_WB09KE.upload.parity=none
 
 # NUCLEO_WB15CC
 Nucleo_64.menu.pnum.NUCLEO_WB15CC=Nucleo WB15CC
@@ -1000,6 +1001,7 @@ Nucleo_64.menu.pnum.NUCLEO_WL33CC1.debug.svd_file={runtime.tools.STM32_SVD.path}
 Nucleo_64.menu.pnum.NUCLEO_WL33CC1.upload.address=0x10040000
 Nucleo_64.menu.pnum.NUCLEO_WL33CC1.upload.mode=hwRstPulse
 Nucleo_64.menu.pnum.NUCLEO_WL33CC1.upload.start=0x10000000
+Nucleo_64.menu.pnum.NUCLEO_WL33CC1.upload.parity=none
 
 # NUCLEO_WL55JC1 board
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1=Nucleo WL55JC1
@@ -1027,17 +1029,17 @@ Nucleo_64.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Nucleo_64.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 Nucleo_64.menu.upload_method.jlinkMethod.upload.protocol=jlink
-Nucleo_64.menu.upload_method.jlinkMethod.upload.options=
+Nucleo_64.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 Nucleo_64.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 Nucleo_64.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 Nucleo_64.menu.upload_method.serialMethod.upload.protocol=serial
-Nucleo_64.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+Nucleo_64.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 Nucleo_64.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 Nucleo_64.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Nucleo_64.menu.upload_method.dfuMethod.upload.protocol=dfu
-Nucleo_64.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+Nucleo_64.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 Nucleo_64.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 Nucleo_64.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -1202,22 +1204,22 @@ Nucleo_32.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
 Nucleo_32.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Nucleo_32.menu.upload_method.swdMethod.upload.protocol=swd
-Nucleo_32.menu.upload_method.swdMethod.upload.options=
+Nucleo_32.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 Nucleo_32.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Nucleo_32.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 Nucleo_32.menu.upload_method.jlinkMethod.upload.protocol=jlink
-Nucleo_32.menu.upload_method.jlinkMethod.upload.options=
+Nucleo_32.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 Nucleo_32.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 Nucleo_32.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 Nucleo_32.menu.upload_method.serialMethod.upload.protocol=serial
-Nucleo_32.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+Nucleo_32.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 Nucleo_32.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 Nucleo_32.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Nucleo_32.menu.upload_method.dfuMethod.upload.protocol=dfu
-Nucleo_32.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+Nucleo_32.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 Nucleo_32.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 Nucleo_32.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -1570,22 +1572,22 @@ Disco.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
 Disco.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Disco.menu.upload_method.swdMethod.upload.protocol=swd
-Disco.menu.upload_method.swdMethod.upload.options=
+Disco.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 Disco.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Disco.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 Disco.menu.upload_method.jlinkMethod.upload.protocol=jlink
-Disco.menu.upload_method.jlinkMethod.upload.options=
+Disco.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 Disco.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 Disco.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 Disco.menu.upload_method.serialMethod.upload.protocol=serial
-Disco.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+Disco.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 Disco.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 Disco.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Disco.menu.upload_method.dfuMethod.upload.protocol=dfu
-Disco.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+Disco.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 Disco.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 Disco.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -1663,17 +1665,17 @@ Eval.menu.pnum.STEVAL_MKBOXPRO.debug.svd_file={runtime.tools.STM32_SVD.path}/svd
 # Upload menu
 Eval.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Eval.menu.upload_method.swdMethod.upload.protocol=swd
-Eval.menu.upload_method.swdMethod.upload.options=
+Eval.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 Eval.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Eval.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 Eval.menu.upload_method.jlinkMethod.upload.protocol=jlink
-Eval.menu.upload_method.jlinkMethod.upload.options=
+Eval.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 Eval.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 Eval.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Eval.menu.upload_method.dfuMethod.upload.protocol=dfu
-Eval.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+Eval.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 Eval.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 Eval.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -1962,22 +1964,22 @@ GenC0.menu.pnum.GENERIC_C092RCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Upload menu
 GenC0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenC0.menu.upload_method.swdMethod.upload.protocol=swd
-GenC0.menu.upload_method.swdMethod.upload.options=
+GenC0.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenC0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenC0.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenC0.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenC0.menu.upload_method.jlinkMethod.upload.options=
+GenC0.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenC0.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenC0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenC0.menu.upload_method.serialMethod.upload.protocol=serial
-GenC0.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenC0.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenC0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenC0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenC0.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenC0.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenC0.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenC0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenC0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -2905,22 +2907,22 @@ GenF0.menu.pnum.GENERIC_F098VCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Upload menu
 GenF0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF0.menu.upload_method.swdMethod.upload.protocol=swd
-GenF0.menu.upload_method.swdMethod.upload.options=
+GenF0.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenF0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenF0.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenF0.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenF0.menu.upload_method.jlinkMethod.upload.options=
+GenF0.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenF0.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenF0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenF0.menu.upload_method.serialMethod.upload.protocol=serial
-GenF0.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenF0.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenF0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenF0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF0.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenF0.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenF0.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenF0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenF0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -3752,22 +3754,22 @@ GenF1.menu.pnum.GENERIC_F103ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Upload menu
 GenF1.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF1.menu.upload_method.swdMethod.upload.protocol=swd
-GenF1.menu.upload_method.swdMethod.upload.options=
+GenF1.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenF1.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenF1.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenF1.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenF1.menu.upload_method.jlinkMethod.upload.options=
+GenF1.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenF1.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenF1.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenF1.menu.upload_method.serialMethod.upload.protocol=serial
-GenF1.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenF1.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenF1.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenF1.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF1.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenF1.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenF1.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenF1.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenF1.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -4244,22 +4246,22 @@ GenF2.menu.pnum.GENERIC_F217ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Upload menu
 GenF2.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF2.menu.upload_method.swdMethod.upload.protocol=swd
-GenF2.menu.upload_method.swdMethod.upload.options=
+GenF2.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenF2.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenF2.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenF2.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenF2.menu.upload_method.jlinkMethod.upload.options=
+GenF2.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenF2.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenF2.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenF2.menu.upload_method.serialMethod.upload.protocol=serial
-GenF2.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenF2.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenF2.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenF2.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF2.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenF2.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenF2.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenF2.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenF2.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -4712,22 +4714,22 @@ GenF3.menu.pnum.GENERIC_F398VETX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Upload menu
 GenF3.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF3.menu.upload_method.swdMethod.upload.protocol=swd
-GenF3.menu.upload_method.swdMethod.upload.options=
+GenF3.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenF3.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenF3.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenF3.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenF3.menu.upload_method.jlinkMethod.upload.options=
+GenF3.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenF3.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenF3.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenF3.menu.upload_method.serialMethod.upload.protocol=serial
-GenF3.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenF3.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenF3.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenF3.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF3.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenF3.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenF3.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenF3.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenF3.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -5824,22 +5826,22 @@ GenF4.menu.pnum.GENERIC_F446ZETX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Upload menu
 GenF4.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF4.menu.upload_method.swdMethod.upload.protocol=swd
-GenF4.menu.upload_method.swdMethod.upload.options=
+GenF4.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenF4.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenF4.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenF4.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenF4.menu.upload_method.jlinkMethod.upload.options=
+GenF4.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenF4.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenF4.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenF4.menu.upload_method.serialMethod.upload.protocol=serial
-GenF4.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenF4.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenF4.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenF4.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF4.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenF4.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenF4.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenF4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenF4.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -6377,22 +6379,22 @@ GenF7.menu.pnum.GENERIC_F777ZITX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Upload menu
 GenF7.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF7.menu.upload_method.swdMethod.upload.protocol=swd
-GenF7.menu.upload_method.swdMethod.upload.options=
+GenF7.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenF7.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenF7.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenF7.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenF7.menu.upload_method.jlinkMethod.upload.options=
+GenF7.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenF7.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenF7.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenF7.menu.upload_method.serialMethod.upload.protocol=serial
-GenF7.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenF7.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenF7.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenF7.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF7.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenF7.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenF7.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenF7.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenF7.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -7805,22 +7807,22 @@ GenG0.menu.pnum.GENERIC_G0C1RETX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Upload menu
 GenG0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenG0.menu.upload_method.swdMethod.upload.protocol=swd
-GenG0.menu.upload_method.swdMethod.upload.options=
+GenG0.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenG0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenG0.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenG0.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenG0.menu.upload_method.jlinkMethod.upload.options=
+GenG0.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenG0.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenG0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenG0.menu.upload_method.serialMethod.upload.protocol=serial
-GenG0.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenG0.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenG0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenG0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenG0.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenG0.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenG0.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenG0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenG0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -9098,22 +9100,22 @@ GenG4.menu.pnum.GENERIC_G4A1VETX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Upload menu
 GenG4.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenG4.menu.upload_method.swdMethod.upload.protocol=swd
-GenG4.menu.upload_method.swdMethod.upload.options=
+GenG4.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenG4.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenG4.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenG4.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenG4.menu.upload_method.jlinkMethod.upload.options=
+GenG4.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenG4.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenG4.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenG4.menu.upload_method.serialMethod.upload.protocol=serial
-GenG4.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenG4.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenG4.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenG4.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenG4.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenG4.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenG4.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenG4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenG4.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -9287,22 +9289,22 @@ GenH5.menu.pnum.GENERIC_H573ZITX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Upload menu
 GenH5.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenH5.menu.upload_method.swdMethod.upload.protocol=swd
-GenH5.menu.upload_method.swdMethod.upload.options=
+GenH5.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenH5.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenH5.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenH5.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenH5.menu.upload_method.jlinkMethod.upload.options=
+GenH5.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenH5.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenH5.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenH5.menu.upload_method.serialMethod.upload.protocol=serial
-GenH5.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenH5.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenH5.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenH5.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenH5.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenH5.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenH5.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenH5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenH5.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -10039,22 +10041,22 @@ GenH7.menu.pnum.GENERIC_H7B3ZITXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/
 # Upload menu
 GenH7.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenH7.menu.upload_method.swdMethod.upload.protocol=swd
-GenH7.menu.upload_method.swdMethod.upload.options=
+GenH7.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenH7.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenH7.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenH7.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenH7.menu.upload_method.jlinkMethod.upload.options=
+GenH7.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenH7.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenH7.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenH7.menu.upload_method.serialMethod.upload.protocol=serial
-GenH7.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenH7.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenH7.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenH7.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenH7.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenH7.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenH7.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenH7.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenH7.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -11334,22 +11336,22 @@ GenL0.menu.pnum.GENERIC_L083V8TX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Upload menu
 GenL0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenL0.menu.upload_method.swdMethod.upload.protocol=swd
-GenL0.menu.upload_method.swdMethod.upload.options=
+GenL0.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenL0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenL0.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenL0.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenL0.menu.upload_method.jlinkMethod.upload.options=
+GenL0.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenL0.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenL0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenL0.menu.upload_method.serialMethod.upload.protocol=serial
-GenL0.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenL0.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenL0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenL0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenL0.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenL0.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenL0.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenL0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenL0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -11671,22 +11673,22 @@ GenL1.menu.pnum.GENERIC_L162ZDTX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Upload menu
 GenL1.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenL1.menu.upload_method.swdMethod.upload.protocol=swd
-GenL1.menu.upload_method.swdMethod.upload.options=
+GenL1.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenL1.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenL1.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenL1.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenL1.menu.upload_method.jlinkMethod.upload.options=
+GenL1.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenL1.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenL1.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenL1.menu.upload_method.serialMethod.upload.protocol=serial
-GenL1.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenL1.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenL1.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenL1.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenL1.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenL1.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenL1.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenL1.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenL1.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -12506,22 +12508,22 @@ GenL4.menu.pnum.GENERIC_L4S9ZIYX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Upload menu
 GenL4.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenL4.menu.upload_method.swdMethod.upload.protocol=swd
-GenL4.menu.upload_method.swdMethod.upload.options=
+GenL4.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenL4.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenL4.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenL4.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenL4.menu.upload_method.jlinkMethod.upload.options=
+GenL4.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenL4.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenL4.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenL4.menu.upload_method.serialMethod.upload.protocol=serial
-GenL4.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenL4.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenL4.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenL4.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenL4.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenL4.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenL4.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenL4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenL4.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -12611,22 +12613,22 @@ GenL5.menu.pnum.GENERIC_L562ZETXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/
 # Upload menu
 GenL5.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenL5.menu.upload_method.swdMethod.upload.protocol=swd
-GenL5.menu.upload_method.swdMethod.upload.options=
+GenL5.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenL5.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenL5.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenL5.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenL5.menu.upload_method.jlinkMethod.upload.options=
+GenL5.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenL5.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenL5.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenL5.menu.upload_method.serialMethod.upload.protocol=serial
-GenL5.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenL5.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenL5.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenL5.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenL5.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenL5.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenL5.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenL5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenL5.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -12804,22 +12806,22 @@ GenU0.menu.pnum.GENERIC_U083RCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Upload menu
 GenU0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenU0.menu.upload_method.swdMethod.upload.protocol=swd
-GenU0.menu.upload_method.swdMethod.upload.options=
+GenU0.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenU0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenU0.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenU0.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenU0.menu.upload_method.jlinkMethod.upload.options=
+GenU0.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenU0.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenU0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenU0.menu.upload_method.serialMethod.upload.protocol=serial
-GenU0.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenU0.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenU0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenU0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenU0.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenU0.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenU0.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenU0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 #GenU0.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
@@ -12932,22 +12934,22 @@ GenU3.menu.pnum.GENERIC_U385VGIXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/
 # Upload menu
 GenU3.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenU3.menu.upload_method.swdMethod.upload.protocol=swd
-GenU3.menu.upload_method.swdMethod.upload.options=
+GenU3.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenU3.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenU3.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenU3.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenU3.menu.upload_method.jlinkMethod.upload.options=
+GenU3.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenU3.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenU3.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenU3.menu.upload_method.serialMethod.upload.protocol=serial
-GenU3.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenU3.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenU3.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenU3.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenU3.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenU3.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenU3.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenU3.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenU3.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -13127,22 +13129,22 @@ GenU5.menu.pnum.GENERIC_U5A9ZJTXQ.debug.svd_file={runtime.tools.STM32_SVD.path}/
 # Upload menu
 GenU5.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenU5.menu.upload_method.swdMethod.upload.protocol=swd
-GenU5.menu.upload_method.swdMethod.upload.options=
+GenU5.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenU5.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenU5.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenU5.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenU5.menu.upload_method.jlinkMethod.upload.options=
+GenU5.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenU5.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenU5.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenU5.menu.upload_method.serialMethod.upload.protocol=serial
-GenU5.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenU5.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenU5.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenU5.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenU5.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenU5.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenU5.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenU5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenU5.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -13314,22 +13316,22 @@ GenWB.menu.pnum.GENERIC_WB55VYYX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Upload menu
 GenWB.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenWB.menu.upload_method.swdMethod.upload.protocol=swd
-GenWB.menu.upload_method.swdMethod.upload.options=
+GenWB.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenWB.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenWB.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenWB.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenWB.menu.upload_method.jlinkMethod.upload.options=
+GenWB.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenWB.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenWB.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenWB.menu.upload_method.serialMethod.upload.protocol=serial
-GenWB.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenWB.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenWB.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenWB.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenWB.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenWB.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenWB.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenWB.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenWB.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -13360,6 +13362,7 @@ GenWB0.openocd.target=stm32wb0x
 GenWB0.upload.address=0x10040000
 GenWB0.upload.mode=hwRstPulse
 GenWB0.upload.start=0x10000000
+GenWB0.upload.parity=none
 
 # Generic WB05KZVx
 GenWB0.menu.pnum.GENERIC_WB05KZVX=Generic WB05KZVx
@@ -13405,12 +13408,12 @@ GenWB0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenWB0.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenWB0.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenWB0.menu.upload_method.jlinkMethod.upload.options=
+GenWB0.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenWB0.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenWB0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenWB0.menu.upload_method.serialMethod.upload.protocol=serial
-GenWB0.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenWB0.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenWB0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenWB0.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
@@ -13458,17 +13461,17 @@ GenWBA.menu.pnum.GENERIC_WBA55CGUX.debug.svd_file={runtime.tools.STM32_SVD.path}
 # Upload menu
 GenWBA.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenWBA.menu.upload_method.swdMethod.upload.protocol=swd
-GenWBA.menu.upload_method.swdMethod.upload.options=
+GenWBA.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenWBA.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenWBA.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenWBA.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenWBA.menu.upload_method.jlinkMethod.upload.options=
+GenWBA.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenWBA.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenWBA.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenWBA.menu.upload_method.serialMethod.upload.protocol=serial
-GenWBA.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenWBA.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenWBA.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenWBA.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
@@ -13495,6 +13498,7 @@ GenWL3.openocd.target=stm32wl3x
 GenWL3.upload.address=0x10040000
 GenWL3.upload.mode=hwRstPulse
 GenWL3.upload.start=0x10000000
+GenWL3.upload.parity=none
 
 # Generic WL33C8Vx
 GenWL3.menu.pnum.GENERIC_WL33C8VX=Generic WL33C8Vx
@@ -13558,12 +13562,12 @@ GenWL3.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenWL3.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenWL3.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenWL3.menu.upload_method.jlinkMethod.upload.options=
+GenWL3.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenWL3.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenWL3.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenWL3.menu.upload_method.serialMethod.upload.protocol=serial
-GenWL3.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenWL3.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenWL3.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -13729,22 +13733,22 @@ GenWL.menu.pnum.GENERIC_WLE5JCIX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Upload menu
 GenWL.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenWL.menu.upload_method.swdMethod.upload.protocol=swd
-GenWL.menu.upload_method.swdMethod.upload.options=
+GenWL.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenWL.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenWL.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenWL.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenWL.menu.upload_method.jlinkMethod.upload.options=
+GenWL.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenWL.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenWL.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenWL.menu.upload_method.serialMethod.upload.protocol=serial
-GenWL.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenWL.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenWL.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenWL.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenWL.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenWL.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenWL.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenWL.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -13977,22 +13981,22 @@ GenWL.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 # Upload menu
 3dprinter.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 3dprinter.menu.upload_method.swdMethod.upload.protocol=swd
-3dprinter.menu.upload_method.swdMethod.upload.options=
+3dprinter.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 3dprinter.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 3dprinter.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 3dprinter.menu.upload_method.jlinkMethod.upload.protocol=jlink
-3dprinter.menu.upload_method.jlinkMethod.upload.options=
+3dprinter.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 3dprinter.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 3dprinter.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 3dprinter.menu.upload_method.serialMethod.upload.protocol=serial
-3dprinter.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+3dprinter.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 3dprinter.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 3dprinter.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 3dprinter.menu.upload_method.dfuMethod.upload.protocol=dfu
-3dprinter.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+3dprinter.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 3dprinter.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 3dprinter.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -14057,22 +14061,22 @@ Blues.menu.pnum.CYGNET.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4
 # Upload menu
 Blues.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Blues.menu.upload_method.swdMethod.upload.protocol=swd
-Blues.menu.upload_method.swdMethod.upload.options=
+Blues.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 Blues.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Blues.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 Blues.menu.upload_method.jlinkMethod.upload.protocol=jlink
-Blues.menu.upload_method.jlinkMethod.upload.options=
+Blues.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 Blues.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 Blues.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 Blues.menu.upload_method.serialMethod.upload.protocol=serial
-Blues.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+Blues.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 Blues.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 Blues.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Blues.menu.upload_method.dfuMethod.upload.protocol=dfu
-Blues.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+Blues.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 Blues.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 Blues.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -14120,17 +14124,17 @@ Elecgator.menu.pnum.ETHERCAT_DUINO.debug.svd_file={runtime.tools.STM32_SVD.path}
 # Upload menu
 Elecgator.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Elecgator.menu.upload_method.swdMethod.upload.protocol=swd
-Elecgator.menu.upload_method.swdMethod.upload.options=
+Elecgator.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 Elecgator.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Elecgator.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 Elecgator.menu.upload_method.jlinkMethod.upload.protocol=jlink
-Elecgator.menu.upload_method.jlinkMethod.upload.options=
+Elecgator.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 Elecgator.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 Elecgator.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Elecgator.menu.upload_method.dfuMethod.upload.protocol=dfu
-Elecgator.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+Elecgator.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 Elecgator.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 Elecgator.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -14189,22 +14193,22 @@ ESC_board.menu.pnum.STORM32_V1_31_RC.debug.svd_file={runtime.tools.STM32_SVD.pat
 # Upload menu
 ESC_board.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 ESC_board.menu.upload_method.swdMethod.upload.protocol=swd
-ESC_board.menu.upload_method.swdMethod.upload.options=
+ESC_board.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 ESC_board.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 ESC_board.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 ESC_board.menu.upload_method.jlinkMethod.upload.protocol=jlink
-ESC_board.menu.upload_method.jlinkMethod.upload.options=
+ESC_board.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 ESC_board.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 ESC_board.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 ESC_board.menu.upload_method.serialMethod.upload.protocol=serial
-ESC_board.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+ESC_board.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 ESC_board.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 ESC_board.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 ESC_board.menu.upload_method.dfuMethod.upload.protocol=dfu
-ESC_board.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+ESC_board.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 ESC_board.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ESC_board.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -14295,7 +14299,7 @@ Garatronic.menu.pnum.PYBSTICK26_PRO.debug.svd_file={runtime.tools.STM32_SVD.path
 # PYBSTICK26 boards upload method
 Garatronic.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Garatronic.menu.upload_method.dfuMethod.upload.protocol=dfu
-Garatronic.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+Garatronic.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 Garatronic.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -14360,22 +14364,22 @@ GenFlight.menu.pnum.Sparky_V1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/
 # Upload menu
 GenFlight.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenFlight.menu.upload_method.swdMethod.upload.protocol=swd
-GenFlight.menu.upload_method.swdMethod.upload.options=
+GenFlight.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 GenFlight.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 GenFlight.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 GenFlight.menu.upload_method.jlinkMethod.upload.protocol=jlink
-GenFlight.menu.upload_method.jlinkMethod.upload.options=
+GenFlight.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 GenFlight.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 GenFlight.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 GenFlight.menu.upload_method.serialMethod.upload.protocol=serial
-GenFlight.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+GenFlight.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenFlight.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 GenFlight.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenFlight.menu.upload_method.dfuMethod.upload.protocol=dfu
-GenFlight.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+GenFlight.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 GenFlight.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenFlight.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -14441,22 +14445,22 @@ IotContinuum.menu.pnum.DEVKIT_IOT_CONTINUUM.debug.svd_file={runtime.tools.STM32_
 # Upload menu
 IotContinuum.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 IotContinuum.menu.upload_method.swdMethod.upload.protocol=swd
-IotContinuum.menu.upload_method.swdMethod.upload.options=
+IotContinuum.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 IotContinuum.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 IotContinuum.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 IotContinuum.menu.upload_method.jlinkMethod.upload.protocol=jlink
-IotContinuum.menu.upload_method.jlinkMethod.upload.options=
+IotContinuum.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 IotContinuum.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 IotContinuum.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 IotContinuum.menu.upload_method.serialMethod.upload.protocol=serial
-IotContinuum.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+IotContinuum.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 IotContinuum.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 IotContinuum.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 IotContinuum.menu.upload_method.dfuMethod.upload.protocol=dfu
-IotContinuum.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+IotContinuum.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 IotContinuum.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 IotContinuum.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -14653,22 +14657,22 @@ LoRa.menu.pnum.WE_OCEANUS1_EV.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/
 # Upload menu
 LoRa.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 LoRa.menu.upload_method.swdMethod.upload.protocol=swd
-LoRa.menu.upload_method.swdMethod.upload.options=
+LoRa.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 LoRa.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 LoRa.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 LoRa.menu.upload_method.jlinkMethod.upload.protocol=jlink
-LoRa.menu.upload_method.jlinkMethod.upload.options=
+LoRa.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 LoRa.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 LoRa.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 LoRa.menu.upload_method.serialMethod.upload.protocol=serial
-LoRa.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+LoRa.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 LoRa.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 LoRa.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 LoRa.menu.upload_method.dfuMethod.upload.protocol=dfu
-LoRa.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+LoRa.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 LoRa.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -14720,22 +14724,22 @@ Midatronics.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
 Midatronics.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Midatronics.menu.upload_method.swdMethod.upload.protocol=swd
-Midatronics.menu.upload_method.swdMethod.upload.options=
+Midatronics.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 Midatronics.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 Midatronics.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 Midatronics.menu.upload_method.jlinkMethod.upload.protocol=jlink
-Midatronics.menu.upload_method.jlinkMethod.upload.options=
+Midatronics.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 Midatronics.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 Midatronics.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 Midatronics.menu.upload_method.serialMethod.upload.protocol=serial
-Midatronics.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+Midatronics.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 Midatronics.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 Midatronics.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Midatronics.menu.upload_method.dfuMethod.upload.protocol=dfu
-Midatronics.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+Midatronics.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 Midatronics.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 Midatronics.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -14803,22 +14807,22 @@ SparkFun.menu.pnum.MICROMOD_F405.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Upload menu
 SparkFun.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 SparkFun.menu.upload_method.swdMethod.upload.protocol=swd
-SparkFun.menu.upload_method.swdMethod.upload.options=
+SparkFun.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 SparkFun.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 SparkFun.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
 SparkFun.menu.upload_method.jlinkMethod.upload.protocol=jlink
-SparkFun.menu.upload_method.jlinkMethod.upload.options=
+SparkFun.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 SparkFun.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 SparkFun.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
 SparkFun.menu.upload_method.serialMethod.upload.protocol=serial
-SparkFun.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+SparkFun.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 SparkFun.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 SparkFun.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 SparkFun.menu.upload_method.dfuMethod.upload.protocol=dfu
-SparkFun.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid}
+SparkFun.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
 SparkFun.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 SparkFun.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -14861,17 +14865,17 @@ ELV_Modular_System.menu.pnum.ELV_BM_TRX1.debug.svd_file={runtime.tools.STM32_SVD
 # Upload menu
 ELV_Modular_System.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD) with Bootloader
 ELV_Modular_System.menu.upload_method.swdMethod.upload.protocol=swd
-ELV_Modular_System.menu.upload_method.swdMethod.upload.options=
+ELV_Modular_System.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
 ELV_Modular_System.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
 ELV_Modular_System.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link) with Bootloader
 ELV_Modular_System.menu.upload_method.jlinkMethod.upload.protocol=jlink
-ELV_Modular_System.menu.upload_method.jlinkMethod.upload.options=
+ELV_Modular_System.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
 ELV_Modular_System.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
 
 ELV_Modular_System.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial) with Bootloader
 ELV_Modular_System.menu.upload_method.serialMethod.upload.protocol=serial
-ELV_Modular_System.menu.upload_method.serialMethod.upload.options=-c {serial.port.file}
+ELV_Modular_System.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 ELV_Modular_System.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
 ################################################################################

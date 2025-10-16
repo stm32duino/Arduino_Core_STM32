@@ -120,6 +120,7 @@ upload.pid={upload.pid.0}
 upload.address=0x8000000
 upload.mode=UR
 upload.start=0x8000000
+upload.parity=even
 
 # To customize the USB manufacturer or product string, must add defines
 # for them, e.g.:
