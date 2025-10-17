@@ -995,6 +995,7 @@ Nucleo_64.menu.pnum.NUCLEO_WL33CC1.build.board=NUCLEO_WL33CC1
 Nucleo_64.menu.pnum.NUCLEO_WL33CC1.build.series=STM32WL3x
 Nucleo_64.menu.pnum.NUCLEO_WL33CC1.build.product_line=STM32WL3xx
 Nucleo_64.menu.pnum.NUCLEO_WL33CC1.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+Nucleo_64.menu.pnum.NUCLEO_WL33CC1.build.variant_h=variant_NUCLEO_WL33CCx.h
 Nucleo_64.menu.pnum.NUCLEO_WL33CC1.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
 Nucleo_64.menu.pnum.NUCLEO_WL33CC1.openocd.target=stm32wl3x
 Nucleo_64.menu.pnum.NUCLEO_WL33CC1.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
@@ -1002,6 +1003,25 @@ Nucleo_64.menu.pnum.NUCLEO_WL33CC1.upload.address=0x10040000
 Nucleo_64.menu.pnum.NUCLEO_WL33CC1.upload.mode=hwRstPulse
 Nucleo_64.menu.pnum.NUCLEO_WL33CC1.upload.start=0x10000000
 Nucleo_64.menu.pnum.NUCLEO_WL33CC1.upload.parity=none
+
+# NUCLEO_WL3CC2 board
+Nucleo_64.menu.pnum.NUCLEO_WL33CC2=Nucleo WL33CC2
+Nucleo_64.menu.pnum.NUCLEO_WL33CC2.node="NOD_WL33CC"
+Nucleo_64.menu.pnum.NUCLEO_WL33CC2.upload.maximum_size=262144
+Nucleo_64.menu.pnum.NUCLEO_WL33CC2.upload.maximum_data_size=32768
+Nucleo_64.menu.pnum.NUCLEO_WL33CC2.build.mcu=cortex-m0plus
+Nucleo_64.menu.pnum.NUCLEO_WL33CC2.build.board=NUCLEO_WL33CC2
+Nucleo_64.menu.pnum.NUCLEO_WL33CC2.build.series=STM32WL3x
+Nucleo_64.menu.pnum.NUCLEO_WL33CC2.build.product_line=STM32WL3xx
+Nucleo_64.menu.pnum.NUCLEO_WL33CC2.build.variant=STM32WL3x/WL33C(8-B-C)Vx(X)
+Nucleo_64.menu.pnum.NUCLEO_WL33CC2.build.variant_h=variant_NUCLEO_WL33CCx.h
+Nucleo_64.menu.pnum.NUCLEO_WL33CC2.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
+Nucleo_64.menu.pnum.NUCLEO_WL33CC2.openocd.target=stm32wl3x
+Nucleo_64.menu.pnum.NUCLEO_WL33CC2.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL33.svd
+Nucleo_64.menu.pnum.NUCLEO_WL33CC2.upload.address=0x10040000
+Nucleo_64.menu.pnum.NUCLEO_WL33CC2.upload.mode=hwRstPulse
+Nucleo_64.menu.pnum.NUCLEO_WL33CC2.upload.start=0x10000000
+Nucleo_64.menu.pnum.NUCLEO_WL33CC2.upload.parity=none
 
 # NUCLEO_WL55JC1 board
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1=Nucleo WL55JC1

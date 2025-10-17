@@ -10,7 +10,7 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_NUCLEO_WL33CC1)
+#if defined(ARDUINO_NUCLEO_WL33CC1) || defined(ARDUINO_NUCLEO_WL33CC2)
 #include "pins_arduino.h"
 #include "pinmap.h"
 
@@ -112,4 +112,4 @@ WEAK void initVariant(void)
 #ifdef __cplusplus
 }
 #endif
-#endif /* ARDUINO_NUCLEO_WL33CC1 */
+#endif /* ARDUINO_NUCLEO_WL33CC1 || ARDUINO_NUCLEO_WL33CC2 */
