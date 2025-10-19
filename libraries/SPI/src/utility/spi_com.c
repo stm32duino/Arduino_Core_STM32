@@ -237,6 +237,51 @@ spi_status_e spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb, SPI
       }
     }
 
+    /* Validate pins based on direction mode */
+    if (obj->direction == SPI_DIRECTION_1LINE) {
+      /* Half-duplex: only MOSI (master) or MISO (slave) is used */
+      if (obj->mode == SPI_MODE_MASTER) {
+        if (spi_mosi == NP) {
+          core_debug("ERROR: MOSI required for 1-line master mode\n");
+          return SPI_ERROR;
+        }
+        spi_miso = spi_mosi; /* Merge with same peripheral for validation */
+      } else {
+        if (spi_miso == NP) {
+          core_debug("ERROR: MISO required for 1-line slave mode\n");
+          return SPI_ERROR;
+        }
+        spi_mosi = spi_miso; /* Merge with same peripheral for validation */
+      }
+    } else if (obj->direction == SPI_DIRECTION_2LINES_RXONLY) {
+      /* RX-only: only MISO (master) or MOSI (slave) is used */
+      if (obj->mode == SPI_MODE_MASTER) {
+        if (spi_miso == NP) {
+          core_debug("ERROR: MISO required for master RX-only mode\n");
+          return SPI_ERROR;
+        }
+        spi_mosi = spi_miso; /* Merge with same peripheral for validation */
+      } else {
+        if (spi_mosi == NP) {
+          core_debug("ERROR: MOSI required for slave RX-only mode\n");
+          return SPI_ERROR;
+        }
+        spi_miso = spi_mosi; /* Merge with same peripheral for validation */
+      }
+    } else {
+      /* Full duplex (SPI_DIRECTION_2LINES): both MOSI and MISO required */
+      if (spi_mosi == NP || spi_miso == NP) {
+        core_debug("ERROR: Both MOSI and MISO required for 2-line mode\n");
+        return SPI_ERROR;
+      }
+    }
+
+    /* Validate SCLK is always required */
+    if (spi_sclk == NP) {
+      core_debug("ERROR: SCLK is required\n");
+      return SPI_ERROR;
+    }
+
     SPI_TypeDef *spi_data = pinmap_merge_peripheral(spi_mosi, spi_miso);
     SPI_TypeDef *spi_cntl = pinmap_merge_peripheral(spi_sclk, spi_ssel);
 
@@ -335,19 +380,34 @@ spi_status_e spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb, SPI
 #if defined(SUBGHZSPI_BASE)
   if (handle->Instance != SUBGHZSPI) {
 #endif
-    /* Configure SPI GPIO pins based on device mode and duplex setting */
-    if (obj->mode == SPI_MODE_MASTER) {
-      /* Master mode: configure MOSI for output */
-      pinmap_pinout(obj->pin_mosi, PinMap_SPI_MOSI);
-      /* Configure MISO for input if duplex is enabled */
-      if (obj->duplex) {
+    /* Configure SPI GPIO pins based on device mode and direction */
+    if (obj->direction == SPI_DIRECTION_1LINE) {
+      /* Half-duplex mode: single bidirectional data line */
+      if (obj->mode == SPI_MODE_MASTER) {
+        /* Master uses MOSI as bidirectional line */
+        pinmap_pinout(obj->pin_mosi, PinMap_SPI_MOSI);
+      } else {
+        /* Slave uses MISO as bidirectional line */
         pinmap_pinout(obj->pin_miso, PinMap_SPI_MISO);
       }
+    } else if (obj->direction == SPI_DIRECTION_2LINES_RXONLY) {
+      /* RX-only mode: only receive pin is configured */
+      if (obj->mode == SPI_MODE_MASTER) {
+        /* Master RX-only: only configure MISO (receives from slave) */
+        pinmap_pinout(obj->pin_miso, PinMap_SPI_MISO);
+      } else {
+        /* Slave RX-only: only configure MOSI (receives from master) */
+        pinmap_pinout(obj->pin_mosi, PinMap_SPI_MOSI);
+      }
     } else {
-      /* Slave mode: configure MISO for output */
-      pinmap_pinout(obj->pin_miso, PinMap_SPI_MISO);
-      /* Configure MOSI for input if duplex is enabled */
-      if (obj->duplex) {
+      /* Full duplex mode (SPI_DIRECTION_2LINES): configure both pins */
+      if (obj->mode == SPI_MODE_MASTER) {
+        /* Master mode: configure MOSI for output and MISO for input */
+        pinmap_pinout(obj->pin_mosi, PinMap_SPI_MOSI);
+        pinmap_pinout(obj->pin_miso, PinMap_SPI_MISO);
+      } else {
+        /* Slave mode: configure MISO for output and MOSI for input */
+        pinmap_pinout(obj->pin_miso, PinMap_SPI_MISO);
         pinmap_pinout(obj->pin_mosi, PinMap_SPI_MOSI);
       }
     }
