@@ -140,6 +140,11 @@ class SPIClass {
       _spiSettings.deviceMode = deviceMode;
     };
 
+    void setIsMaster(bool isMaster)
+    {
+      _spi.mode = isMaster ? SPI_MODE_MASTER : SPI_MODE_SLAVE;
+    };
+
     bool begin(SPIDeviceMode device = SPI_MASTER);
     void end(void);
 
