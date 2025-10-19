@@ -80,6 +80,7 @@ add_library(SrcWrapper_bin OBJECT EXCLUDE_FROM_ALL
   src/HAL/stm32yyxx_hal_iwdg.c
   src/HAL/stm32yyxx_hal_jpeg.c
   src/HAL/stm32yyxx_hal_lcd.c
+  src/HAL/stm32yyxx_hal_lpawur.c
   src/HAL/stm32yyxx_hal_lptim.c
   src/HAL/stm32yyxx_hal_ltdc.c
   src/HAL/stm32yyxx_hal_ltdc_ex.c
@@ -88,6 +89,8 @@ add_library(SrcWrapper_bin OBJECT EXCLUDE_FROM_ALL
   src/HAL/stm32yyxx_hal_mdma.c
   src/HAL/stm32yyxx_hal_mmc.c
   src/HAL/stm32yyxx_hal_mmc_ex.c
+  src/HAL/stm32yyxx_hal_mrsubg.c
+  src/HAL/stm32yyxx_hal_mrsubg_timer.c
   src/HAL/stm32yyxx_hal_nand.c
   src/HAL/stm32yyxx_hal_nor.c
   src/HAL/stm32yyxx_hal_opamp.c
@@ -160,6 +163,7 @@ add_library(SrcWrapper_bin OBJECT EXCLUDE_FROM_ALL
   src/LL/stm32yyxx_ll_i2c.c
   src/LL/stm32yyxx_ll_i3c.c
   src/LL/stm32yyxx_ll_icache.c
+  src/LL/stm32yyxx_ll_lcsc.c
   src/LL/stm32yyxx_ll_lpgpio.c
   src/LL/stm32yyxx_ll_lptim.c
   src/LL/stm32yyxx_ll_lpuart.c

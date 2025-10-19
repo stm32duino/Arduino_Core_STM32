@@ -43,7 +43,7 @@
 #if !defined(HAL_EXTI_MODULE_DISABLED)
 
 /* Private Types */
-#if defined(STM32WB0x)
+#if defined(STM32WB0x) || defined(STM32WL3x)
 static std::function<void(void)> gpio_callback[2][16] = {
   {
     NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
@@ -129,7 +129,7 @@ static const uint32_t ll_exti_lines[NB_EXTI] = {
   LL_EXTI_LINE_8,  LL_EXTI_LINE_9,  LL_EXTI_LINE_10, LL_EXTI_LINE_11,
   LL_EXTI_LINE_12, LL_EXTI_LINE_13, LL_EXTI_LINE_14, LL_EXTI_LINE_15
 };
-#endif /* STM32WB0x */
+#endif /* STM32WB0x || STM32WL3x */
 /* Private Functions */
 /**
   * @brief  This function returns the pin ID function of the HAL PIN definition
@@ -165,7 +165,7 @@ void stm32_interrupt_enable(PinName pn, callback_function_t callback, uint32_t m
     hsem_unlock(CFG_HW_GPIO_SEMID);
   }
   IRQn_Type irqnb;
-#ifdef STM32WB0x
+#if defined(STM32WB0x) || defined(STM32WL3x)
   if (port == GPIOA) {
     irqnb = GPIOA_IRQn;
     gpio_callback[0][id] = callback;
@@ -176,7 +176,7 @@ void stm32_interrupt_enable(PinName pn, callback_function_t callback, uint32_t m
 #else
   gpio_irq_conf[id].callback = callback;
   irqnb = gpio_irq_conf[id].irqnb;
-#endif /* STM32WB0x */
+#endif /* STM32WB0x || */
   // Enable and set EXTI Interrupt
   HAL_NVIC_SetPriority(irqnb, EXTI_IRQ_PRIO, EXTI_IRQ_SUBPRIO);
   HAL_NVIC_EnableIRQ(irqnb);
@@ -208,7 +208,7 @@ void stm32_interrupt_disable(GPIO_TypeDef *port, uint16_t pin)
 {
   UNUSED(port);
   uint8_t id = get_pin_id(pin);
-#ifdef STM32WB0x
+#if defined(STM32WB0x) || defined(STM32WL3x)
   uint8_t pid = 0;
   IRQn_Type irqnb;
   if (port == GPIOA) {
@@ -236,11 +236,11 @@ void stm32_interrupt_disable(GPIO_TypeDef *port, uint16_t pin)
   }
   LL_EXTI_DisableIT_0_31(ll_exti_lines[id]);
   HAL_NVIC_DisableIRQ(gpio_irq_conf[id].irqnb);
-#endif /* STM32WB0x */
+#endif /* STM32WB0x || STM32WL3x */
 }
 
 
-#if defined(STM32WB0x)
+#if defined(STM32WB0x) || defined(STM32WL3x)
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -560,7 +560,7 @@ void EXTI15_IRQHandler(void)
 #ifdef __cplusplus
 }
 #endif
-#endif /* !STM32WB0x */
+#endif /* STM32WB0x || STM32WL3x */
 
 #endif /* !HAL_EXTI_MODULE_DISABLED */
 #endif

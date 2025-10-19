@@ -40,6 +40,8 @@
   #include "stm32wbaxx_ll_comp.h"
 #elif STM32WLxx
   #include "stm32wlxx_ll_comp.h"
+#elif STM32WL3x
+  #include "stm32wl3x_ll_comp.h"
 #endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_COMP_H_ */

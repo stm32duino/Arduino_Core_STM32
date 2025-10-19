@@ -36,5 +36,7 @@
   #include "stm32wbaxx_ll_rng.c"
 #elif STM32WLxx
   #include "stm32wlxx_ll_rng.c"
+#elif STM32WL3x
+  #include "stm32wl3x_ll_rng.c"
 #endif
 #pragma GCC diagnostic pop

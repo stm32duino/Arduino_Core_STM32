@@ -46,5 +46,7 @@
   #include "stm32wbaxx_hal_irda.c"
 #elif STM32WLxx
   #include "stm32wlxx_hal_irda.c"
+#elif STM32WL3x
+  #include "stm32wl3x_hal_irda.c"
 #endif
 #pragma GCC diagnostic pop

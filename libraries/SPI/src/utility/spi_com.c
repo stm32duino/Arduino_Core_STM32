@@ -29,8 +29,9 @@ extern "C" {
 uint32_t spi_getClkFreqInst(SPI_TypeDef *spi_inst)
 {
   uint32_t spi_freq = SystemCoreClock;
-#if defined(STM32WB0x)
+#if defined(STM32WB0x) || defined(STM32WL3x)
   (void)spi_inst; // Avoid unused parameter warning
+  spi_freq = SystemCoreClock / 4;
 #else
   if (spi_inst != NP) {
 #if defined(STM32C0xx) || defined(STM32F0xx) || defined(STM32G0xx) || \

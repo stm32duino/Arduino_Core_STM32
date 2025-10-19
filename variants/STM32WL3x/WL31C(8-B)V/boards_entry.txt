@@ -1,0 +1,23 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic WL31C8Vx
+GenWL3.menu.pnum.GENERIC_WL31C8VX=Generic WL31C8Vx
+GenWL3.menu.pnum.GENERIC_WL31C8VX.upload.maximum_size=65536
+GenWL3.menu.pnum.GENERIC_WL31C8VX.upload.maximum_data_size=8192
+GenWL3.menu.pnum.GENERIC_WL31C8VX.build.board=GENERIC_WL31C8VX
+GenWL3.menu.pnum.GENERIC_WL31C8VX.build.product_line=STM32WL3xx
+GenWL3.menu.pnum.GENERIC_WL31C8VX.build.variant=STM32WL3x/WL31C(8-B)V
+GenWL3.menu.pnum.GENERIC_WL31C8VX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL31.svd
+
+# Generic WL31CBVx
+GenWL3.menu.pnum.GENERIC_WL31CBVX=Generic WL31CBVx
+GenWL3.menu.pnum.GENERIC_WL31CBVX.upload.maximum_size=131072
+GenWL3.menu.pnum.GENERIC_WL31CBVX.upload.maximum_data_size=16384
+GenWL3.menu.pnum.GENERIC_WL31CBVX.build.board=GENERIC_WL31CBVX
+GenWL3.menu.pnum.GENERIC_WL31CBVX.build.product_line=STM32WL3xx
+GenWL3.menu.pnum.GENERIC_WL31CBVX.build.variant=STM32WL3x/WL31C(8-B)V
+GenWL3.menu.pnum.GENERIC_WL31CBVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL31.svd
+

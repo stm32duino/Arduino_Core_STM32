@@ -30,6 +30,8 @@
   #include "stm32wb0x_ll_dmamux.h"
 #elif STM32WLxx
   #include "stm32wlxx_ll_dmamux.h"
+#elif STM32WL3x
+  #include "stm32wl3x_ll_dmamux.h"
 #endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_DMAMUX_H_ */

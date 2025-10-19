@@ -30,7 +30,7 @@ static PinName g_current_pin = NC;
 /* Private_Defines */
 #if defined(HAL_ADC_MODULE_ENABLED) && !defined(HAL_ADC_MODULE_ONLY)
 
-#if defined(STM32WB0x)
+#if defined(STM32WB0x) || defined(STM32WL3x)
 #ifndef ADC_SAMPLING_RATE
 #define ADC_SAMPLING_RATE           ADC_SAMPLE_RATE_16
 #endif /* !ADC_SAMPLING_RATE */
@@ -117,7 +117,7 @@ static PinName g_current_pin = NC;
 #ifndef ADC_REGULAR_RANK_1
 #define ADC_REGULAR_RANK_1  1
 #endif
-#endif /* STM32WB0x */
+#endif /* STM32WB0x || STM32WL3x */
 
 /* Exported Functions */
 /**
@@ -474,7 +474,11 @@ void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
   }
 
   /*##-3- Set DAC Channel1 DHR register ######################################*/
+#if defined(DAC_ALIGN_12B_R)
   if (HAL_DAC_SetValue(&DacHandle, dacChannel, DAC_ALIGN_12B_R, value) != HAL_OK) {
+#else
+  if (HAL_DAC_SetValue(&DacHandle, dacChannel, DAC_ALIGN_6B_R, value) != HAL_OK) {
+#endif
     /* Setting value Error */
     return;
   }
@@ -843,12 +847,12 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   ADC_HandleTypeDef AdcHandle = {};
   ADC_ChannelConfTypeDef  AdcChannelConf = {};
   __IO uint16_t uhADCxConvertedValue = 0;
-#if defined(STM32WB0x)
+#if defined(STM32WB0x) || defined(STM32WL3x)
   uint32_t samplingRate = ADC_SAMPLING_RATE;
   uint32_t voltageRange = ADC_VOLT_RANGE;
 #else
   uint32_t samplingTime = ADC_SAMPLINGTIME;
-#endif /* STM32WB0x */
+#endif /* STM32WB0x || STM32WL3x */
   uint32_t channel = 0;
   uint32_t bank = 0;
 
@@ -870,7 +874,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #endif
 #endif
     channel = get_adc_internal_channel(pin);
-#if defined(STM32WB0x)
+#if defined(STM32WB0x) || defined(STM32WL3x)
     samplingRate = ADC_SAMPLING_RATE_INTERNAL;
     if (channel == ADC_CHANNEL_TEMPSENSOR) {
       voltageRange = ADC_VIN_RANGE_1V2;
@@ -879,13 +883,11 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
     }
 #else
     samplingTime = ADC_SAMPLINGTIME_INTERNAL;
-#endif /* STM32WB0x */
+#endif /* STM32WB0x || STM32WL3x */
   } else {
     AdcHandle.Instance = (ADC_TypeDef *)pinmap_peripheral(pin, PinMap_ADC);
     channel = get_adc_channel(pin, &bank);
-#if defined(STM32WB0x)
-
-#else
+#if !defined(STM32WB0x) && !defined(STM32WL3x)
 #if defined(ADC_VER_V5_V90)
     if (AdcHandle.Instance == ADC3) {
       samplingTime = ADC3_SAMPLINGTIME;
@@ -896,14 +898,16 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
       samplingTime = ADC4_SAMPLINGTIME;
     }
 #endif
-#endif /* STM32WB0x */
+#endif /* !STM32WB0x  && !STM32WL3x */
   }
 
   if (AdcHandle.Instance == NP) {
     return 0;
   }
-#if defined(STM32WB0x)
+#if defined(STM32WB0x) || defined(STM32WL3x)
+#if defined(ADC_CONVERSION_WITH_DS)
   AdcHandle.Init.ConversionType        = ADC_CONVERSION_WITH_DS;
+#endif /* ADC_CONVERSION_WITH_DS */
   AdcHandle.Init.ContinuousConvMode    = DISABLE;
   AdcHandle.Init.SequenceLength        = 1;
   AdcHandle.Init.SamplingMode          = ADC_SAMPLING_AT_START;
@@ -1047,7 +1051,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #ifdef ADC_VREF_PPROT_NONE
   AdcHandle.Init.VrefProtection = ADC_VREF_PPROT_NONE;
 #endif
-#endif /* STM32WB0x*/
+#endif /* STM32WB0x || STM32WL3x */
   AdcHandle.State = HAL_ADC_STATE_RESET;
   AdcHandle.DMA_Handle = NULL;
   AdcHandle.Lock = HAL_UNLOCKED;
@@ -1070,7 +1074,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
     return 0;
   }
 
-#if defined(STM32WB0x)
+#if defined(STM32WB0x) || defined(STM32WL3x)
   AdcChannelConf.Rank = ADC_RANK_1;
   AdcChannelConf.VoltRange = voltageRange;
   AdcChannelConf.CalibrationPoint.Number = ADC_CALIB_POINT_1;
@@ -1138,7 +1142,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   AdcChannelConf.OffsetRightShift = DISABLE;                      /* No Right Offset Shift */
   AdcChannelConf.OffsetSignedSaturation = DISABLE;                /* Signed saturation feature is not used */
 #endif
-#endif /* STM32WB0x */
+#endif /* STM32WB0x || STM32WL3x */
   /*##-2- Configure ADC regular channel ######################################*/
   if (HAL_ADC_ConfigChannel(&AdcHandle, &AdcChannelConf) != HAL_OK) {
     /* Channel Configuration Error */

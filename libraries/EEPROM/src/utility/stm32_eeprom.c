@@ -54,8 +54,8 @@ extern "C" {
 
 /* Be able to change EEPROM_FLASH_PAGE_NUMBER to use if relevant */
 #if !defined(EEPROM_FLASH_PAGE_NUMBER) && defined(FLASH_PAGE_SIZE)
-#if defined(STM32WB0x)
-/* STM32WB0x define the FLASH_PAGE_NUMBER */
+#if defined(STM32WB0x) || defined(STM32WL3x)
+/* STM32WB0x and STM32WL3 define the FLASH_PAGE_NUMBER */
 #define EEPROM_FLASH_PAGE_NUMBER   (FLASH_PAGE_NUMBER - 1)
 #else
 #define EEPROM_FLASH_PAGE_NUMBER   ((uint32_t)(((LL_GetFlashSize() * 1024) / FLASH_PAGE_SIZE) - 1))
@@ -265,8 +265,9 @@ void eeprom_buffer_flush(void)
   EraseInitStruct.PageAddress = FLASH_BASE_ADDRESS;
 #endif
   EraseInitStruct.NbPages = 1;
-#if !defined(PROT_LEVEL_NONE)
+#if !defined(PROT_LEVEL_NONE) && !defined(STM32WL3x)
   if (HAL_FLASH_Unlock() == HAL_OK)
+    /* TODO: else HAL_FLASHEx_PageProtection? */
 #endif
   {
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_ALL_ERRORS);
@@ -303,9 +304,9 @@ void eeprom_buffer_flush(void)
         }
       }
     }
-#if !defined(PROT_LEVEL_NONE)
+#if !defined(PROT_LEVEL_NONE) && !defined(STM32WL3x)
     HAL_FLASH_Lock();
-#endif /* FLASH_KEY1 || FLASH_PEKEY1 */
+#endif
   }
 #else /* FLASH_TYPEERASE_SECTORS */
   uint32_t SectorError = 0;

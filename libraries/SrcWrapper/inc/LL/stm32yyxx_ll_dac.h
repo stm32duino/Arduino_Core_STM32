@@ -44,6 +44,8 @@
   #include "stm32u5xx_ll_dac.h"
 #elif STM32WLxx
   #include "stm32wlxx_ll_dac.h"
+#elif STM32WL3x
+  #include "stm32wl3x_ll_dac.h"
 #endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_DAC_H_ */

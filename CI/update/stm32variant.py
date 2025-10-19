@@ -707,8 +707,8 @@ def dac_pinmap():
 
 def i2c_pinmap(lst):
     i2c_pins_list = []
-    winst = []
-    wpin = []
+    winst = [0]
+    wpin = [0]
     mode = "STM_MODE_AF_OD"
     if lst == i2csda_list:
         aname = "I2C_SDA"
@@ -1651,7 +1651,7 @@ def search_product_line(valueline: str, extra: str) -> str:
         for idx_pline, pline in enumerate(product_line_list):
             vline = valueline
             product_line = pline
-            if vline.startswith("STM32WB0"):
+            if vline.startswith("STM32WB0") or vline.startswith("STM32WL3"):
                 pline = pline + "xx"
             # Remove the 'x' character from pline and
             # the one at same index in the vline
@@ -2204,15 +2204,19 @@ def group_by_flash(group_base_list, glist, index_mcu_base):
         ext_list = []
         for ppe in key_package_list:
             sub = mcu_PE_regex.search(ppe)
-            package_list.append(sub.group(1))
-            # Assert
-            if sub.group(2) != "x":
-                print(
-                    f"Package of {base_name}, ppe {ppe} info contains {sub.group(2)} instead of 'x'"
-                )
+            if not sub:
+                print(f"Package of {base_name}, ppe {ppe} info not recognized")
                 exit(1)
-            if sub.group(3):
-                ext_list.append(sub.group(3))
+            else:
+                package_list.append(sub.group(1))
+                # Assert
+                if sub.group(2) != "x":
+                    print(
+                        f"Package of {base_name}, ppe {ppe} info contains {sub.group(2)} instead of 'x'"
+                    )
+                    exit(1)
+                if sub.group(3):
+                    ext_list.append(sub.group(3))
         # Count each subpart
         pcounter = Counter(package_list)
         ecounter = Counter(ext_list)
@@ -2245,9 +2249,10 @@ def merge_dir(out_temp_path, group_mcu_dir, mcu_family, periph_xml, variant_exp)
     # Merge if needed
     if len(group_mcu_dir) != 1:
         # Handle mcu name length dynamically
-        # Add 3 for extra information line, #pin and flash
-        index_mcu_base = len(mcu_family.name.removeprefix("STM32").removesuffix(nx)) + 3
-
+        # Add num for extra information line, #pin and flash
+        index_mcu_base = len(mcu_family.name.removeprefix("STM32").removesuffix(nx)) + (
+            3 if len(nx) == 2 else 2
+        )
         # Extract only dir name
         for dir_name in group_mcu_dir:
             dirname_list.append(dir_name.stem)

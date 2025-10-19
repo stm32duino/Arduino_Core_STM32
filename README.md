@@ -78,6 +78,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [Generic STM32WB boards](#generic-stm32wb-boards)
  - [Generic STM32WB0 boards](#generic-stm32wb0-boards)
  - [Generic STM32WBA boards](#generic-stm32wba-boards)
+ - [Generic STM32WL3 boards](#generic-stm32wl3-boards)
  - [Generic STM32WL boards](#generic-stm32wl-boards)
  - [3D printer boards](#3d-printer-boards)
  - [Blues boards](#blues-boards)
@@ -164,6 +165,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32WBA55CGU | Nucleo-WBA55CG | *2.8.0* |  |
 | :green_heart:  | STM32WB55RG | [P-Nucleo-WB55RG](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html) | *1.6.0* | BLE support with [STM32duinoBLE](https://github.com/stm32duino/STM32duinoBLE) |
 | :green_heart:  | STM32WB55CG | [P-Nucleo-WB55 USB Dongle](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html) | *2.5.0* | BLE support with [STM32duinoBLE](https://github.com/stm32duino/STM32duinoBLE) |
+| :yellow_heart: | STM32WL3CCV | [Nucleo-WL33CC1](https://www.st.com/en/evaluation-tools/nucleo-wl33cc1.html) | **2.12.0** |  |
+| :yellow_heart: | STM32WL3CCV | [Nucleo-WL33CC2](https://www.st.com/en/evaluation-tools/nucleo-wl33cc2.html) | **2.12.0** |  |
 | :green_heart:  | STM32WL55JC | [Nucleo WL55JC1](https://www.st.com/en/evaluation-tools/nucleo-wl55jc.html) | *2.1.0* | LoRa support not available |
 
 
@@ -589,7 +592,9 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart:  | STM32H723VE<br>STM32H723VG | Generic Board | **2.12.0** |  |
 | :green_heart:  | STM32H723ZE<br>STM32H723ZG | Generic Board | *2.4.0* |  |
+| :yellow_heart:  | STM32H730VB<br>STM32H733VGT | Generic Board | **2.12.0** |  |
 | :green_heart:  | STM32H730ZBT | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32H733ZGT | Generic Board | *2.4.0* |  |
 | :green_heart: | STM32H742IG<br>STM32H742II | Generic Board | *2.1.0* |  |
@@ -819,6 +824,13 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart: | STM32WBA55CEU<br>STM32WBA55CGU | Generic Board | *2.8.0* |  |
+
+### Generic STM32WL3 boards
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart: | STM32WL3C8V<br>STM32WL3CBV<br>STM32WL3CCV | Generic Board | **2.12.0** |  |
+| :yellow_heart: | STM32WL3C8VX<br>STM32WL3CBVX<br>STM32WL3CCVX | Generic Board | **2.12.0** |  |
 
 ### Generic STM32WL boards
 

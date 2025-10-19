@@ -48,5 +48,7 @@
   #include "stm32wbaxx_ll_rcc.c"
 #elif STM32WLxx
   #include "stm32wlxx_ll_rcc.c"
+#elif STM32WL3x
+  #include "stm32wl3x_ll_rcc.c"
 #endif
 #pragma GCC diagnostic pop
