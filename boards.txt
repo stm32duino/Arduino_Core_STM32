@@ -8941,7 +8941,7 @@ GenG4.menu.pnum.GENERIC_G484VETX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G491CCTx
 GenG4.menu.pnum.GENERIC_G491CCTX=Generic G491CCTx
 GenG4.menu.pnum.GENERIC_G491CCTX.upload.maximum_size=262144
-GenG4.menu.pnum.GENERIC_G491CCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491CCTX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G491CCTX.build.board=GENERIC_G491CCTX
 GenG4.menu.pnum.GENERIC_G491CCTX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491CCTX.build.variant=STM32G4xx/G491C(C-E)T_G4A1CET
@@ -8950,7 +8950,7 @@ GenG4.menu.pnum.GENERIC_G491CCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G491CETx
 GenG4.menu.pnum.GENERIC_G491CETX=Generic G491CETx
 GenG4.menu.pnum.GENERIC_G491CETX.upload.maximum_size=524288
-GenG4.menu.pnum.GENERIC_G491CETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491CETX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G491CETX.build.board=GENERIC_G491CETX
 GenG4.menu.pnum.GENERIC_G491CETX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491CETX.build.variant=STM32G4xx/G491C(C-E)T_G4A1CET
@@ -8959,7 +8959,7 @@ GenG4.menu.pnum.GENERIC_G491CETX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G491KCUx
 GenG4.menu.pnum.GENERIC_G491KCUX=Generic G491KCUx
 GenG4.menu.pnum.GENERIC_G491KCUX.upload.maximum_size=262144
-GenG4.menu.pnum.GENERIC_G491KCUX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491KCUX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G491KCUX.build.board=GENERIC_G491KCUX
 GenG4.menu.pnum.GENERIC_G491KCUX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491KCUX.build.variant=STM32G4xx/G491K(C-E)U_G4A1KEU
@@ -8968,7 +8968,7 @@ GenG4.menu.pnum.GENERIC_G491KCUX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G491KEUx
 GenG4.menu.pnum.GENERIC_G491KEUX=Generic G491KEUx
 GenG4.menu.pnum.GENERIC_G491KEUX.upload.maximum_size=524288
-GenG4.menu.pnum.GENERIC_G491KEUX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491KEUX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G491KEUX.build.board=GENERIC_G491KEUX
 GenG4.menu.pnum.GENERIC_G491KEUX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491KEUX.build.variant=STM32G4xx/G491K(C-E)U_G4A1KEU
@@ -8977,7 +8977,7 @@ GenG4.menu.pnum.GENERIC_G491KEUX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G491MCSx
 GenG4.menu.pnum.GENERIC_G491MCSX=Generic G491MCSx
 GenG4.menu.pnum.GENERIC_G491MCSX.upload.maximum_size=262144
-GenG4.menu.pnum.GENERIC_G491MCSX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491MCSX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G491MCSX.build.board=GENERIC_G491MCSX
 GenG4.menu.pnum.GENERIC_G491MCSX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491MCSX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
@@ -8986,7 +8986,7 @@ GenG4.menu.pnum.GENERIC_G491MCSX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G491MESx
 GenG4.menu.pnum.GENERIC_G491MESX=Generic G491MESx
 GenG4.menu.pnum.GENERIC_G491MESX.upload.maximum_size=524288
-GenG4.menu.pnum.GENERIC_G491MESX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491MESX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G491MESX.build.board=GENERIC_G491MESX
 GenG4.menu.pnum.GENERIC_G491MESX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491MESX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
@@ -8995,7 +8995,7 @@ GenG4.menu.pnum.GENERIC_G491MESX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G491MCTx
 GenG4.menu.pnum.GENERIC_G491MCTX=Generic G491MCTx
 GenG4.menu.pnum.GENERIC_G491MCTX.upload.maximum_size=262144
-GenG4.menu.pnum.GENERIC_G491MCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491MCTX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G491MCTX.build.board=GENERIC_G491MCTX
 GenG4.menu.pnum.GENERIC_G491MCTX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491MCTX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
@@ -9004,7 +9004,7 @@ GenG4.menu.pnum.GENERIC_G491MCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G491METx
 GenG4.menu.pnum.GENERIC_G491METX=Generic G491METx
 GenG4.menu.pnum.GENERIC_G491METX.upload.maximum_size=524288
-GenG4.menu.pnum.GENERIC_G491METX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491METX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G491METX.build.board=GENERIC_G491METX
 GenG4.menu.pnum.GENERIC_G491METX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491METX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
@@ -9013,7 +9013,7 @@ GenG4.menu.pnum.GENERIC_G491METX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G491RCIx
 GenG4.menu.pnum.GENERIC_G491RCIX=Generic G491RCIx
 GenG4.menu.pnum.GENERIC_G491RCIX.upload.maximum_size=262144
-GenG4.menu.pnum.GENERIC_G491RCIX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491RCIX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G491RCIX.build.board=GENERIC_G491RCIX
 GenG4.menu.pnum.GENERIC_G491RCIX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491RCIX.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)x(Z)_G4A1RE(I-T-Y)
@@ -9022,7 +9022,7 @@ GenG4.menu.pnum.GENERIC_G491RCIX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G491REIx
 GenG4.menu.pnum.GENERIC_G491REIX=Generic G491REIx
 GenG4.menu.pnum.GENERIC_G491REIX.upload.maximum_size=524288
-GenG4.menu.pnum.GENERIC_G491REIX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491REIX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G491REIX.build.board=GENERIC_G491REIX
 GenG4.menu.pnum.GENERIC_G491REIX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491REIX.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)x(Z)_G4A1RE(I-T-Y)
@@ -9031,7 +9031,7 @@ GenG4.menu.pnum.GENERIC_G491REIX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G491RCTx
 GenG4.menu.pnum.GENERIC_G491RCTX=Generic G491RCTx
 GenG4.menu.pnum.GENERIC_G491RCTX.upload.maximum_size=262144
-GenG4.menu.pnum.GENERIC_G491RCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491RCTX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G491RCTX.build.board=GENERIC_G491RCTX
 GenG4.menu.pnum.GENERIC_G491RCTX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491RCTX.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)x(Z)_G4A1RE(I-T-Y)
@@ -9040,7 +9040,7 @@ GenG4.menu.pnum.GENERIC_G491RCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G491RETx
 GenG4.menu.pnum.GENERIC_G491RETX=Generic G491RETx
 GenG4.menu.pnum.GENERIC_G491RETX.upload.maximum_size=524288
-GenG4.menu.pnum.GENERIC_G491RETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491RETX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G491RETX.build.board=GENERIC_G491RETX
 GenG4.menu.pnum.GENERIC_G491RETX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491RETX.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)x(Z)_G4A1RE(I-T-Y)
@@ -9049,7 +9049,7 @@ GenG4.menu.pnum.GENERIC_G491RETX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G491RETxZ
 GenG4.menu.pnum.GENERIC_G491RETXZ=Generic G491RETxZ
 GenG4.menu.pnum.GENERIC_G491RETXZ.upload.maximum_size=524288
-GenG4.menu.pnum.GENERIC_G491RETXZ.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491RETXZ.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G491RETXZ.build.board=GENERIC_G491RETXZ
 GenG4.menu.pnum.GENERIC_G491RETXZ.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491RETXZ.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)x(Z)_G4A1RE(I-T-Y)
@@ -9057,7 +9057,7 @@ GenG4.menu.pnum.GENERIC_G491RETXZ.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T
 # Generic G491REYx
 GenG4.menu.pnum.GENERIC_G491REYX=Generic G491REYx
 GenG4.menu.pnum.GENERIC_G491REYX.upload.maximum_size=524288
-GenG4.menu.pnum.GENERIC_G491REYX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491REYX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G491REYX.build.board=GENERIC_G491REYX
 GenG4.menu.pnum.GENERIC_G491REYX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491REYX.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)x(Z)_G4A1RE(I-T-Y)
@@ -9066,7 +9066,7 @@ GenG4.menu.pnum.GENERIC_G491REYX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G491VCTx
 GenG4.menu.pnum.GENERIC_G491VCTX=Generic G491VCTx
 GenG4.menu.pnum.GENERIC_G491VCTX.upload.maximum_size=262144
-GenG4.menu.pnum.GENERIC_G491VCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491VCTX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G491VCTX.build.board=GENERIC_G491VCTX
 GenG4.menu.pnum.GENERIC_G491VCTX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491VCTX.build.variant=STM32G4xx/G491V(C-E)T_G4A1VET
@@ -9075,7 +9075,7 @@ GenG4.menu.pnum.GENERIC_G491VCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G491VETx
 GenG4.menu.pnum.GENERIC_G491VETX=Generic G491VETx
 GenG4.menu.pnum.GENERIC_G491VETX.upload.maximum_size=524288
-GenG4.menu.pnum.GENERIC_G491VETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491VETX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G491VETX.build.board=GENERIC_G491VETX
 GenG4.menu.pnum.GENERIC_G491VETX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491VETX.build.variant=STM32G4xx/G491V(C-E)T_G4A1VET
@@ -9084,7 +9084,7 @@ GenG4.menu.pnum.GENERIC_G491VETX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G4A1REIx
 GenG4.menu.pnum.GENERIC_G4A1REIX=Generic G4A1REIx
 GenG4.menu.pnum.GENERIC_G4A1REIX.upload.maximum_size=524288
-GenG4.menu.pnum.GENERIC_G4A1REIX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1REIX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G4A1REIX.build.board=GENERIC_G4A1REIX
 GenG4.menu.pnum.GENERIC_G4A1REIX.build.product_line=STM32G4A1xx
 GenG4.menu.pnum.GENERIC_G4A1REIX.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)x(Z)_G4A1RE(I-T-Y)
@@ -9093,7 +9093,7 @@ GenG4.menu.pnum.GENERIC_G4A1REIX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G4A1CETx
 GenG4.menu.pnum.GENERIC_G4A1CETX=Generic G4A1CETx
 GenG4.menu.pnum.GENERIC_G4A1CETX.upload.maximum_size=524288
-GenG4.menu.pnum.GENERIC_G4A1CETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1CETX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G4A1CETX.build.board=GENERIC_G4A1CETX
 GenG4.menu.pnum.GENERIC_G4A1CETX.build.product_line=STM32G4A1xx
 GenG4.menu.pnum.GENERIC_G4A1CETX.build.variant=STM32G4xx/G491C(C-E)T_G4A1CET
@@ -9102,7 +9102,7 @@ GenG4.menu.pnum.GENERIC_G4A1CETX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G4A1KEUx
 GenG4.menu.pnum.GENERIC_G4A1KEUX=Generic G4A1KEUx
 GenG4.menu.pnum.GENERIC_G4A1KEUX.upload.maximum_size=524288
-GenG4.menu.pnum.GENERIC_G4A1KEUX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1KEUX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G4A1KEUX.build.board=GENERIC_G4A1KEUX
 GenG4.menu.pnum.GENERIC_G4A1KEUX.build.product_line=STM32G4A1xx
 GenG4.menu.pnum.GENERIC_G4A1KEUX.build.variant=STM32G4xx/G491K(C-E)U_G4A1KEU
@@ -9111,7 +9111,7 @@ GenG4.menu.pnum.GENERIC_G4A1KEUX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G4A1MESx
 GenG4.menu.pnum.GENERIC_G4A1MESX=Generic G4A1MESx
 GenG4.menu.pnum.GENERIC_G4A1MESX.upload.maximum_size=524288
-GenG4.menu.pnum.GENERIC_G4A1MESX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1MESX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G4A1MESX.build.board=GENERIC_G4A1MESX
 GenG4.menu.pnum.GENERIC_G4A1MESX.build.product_line=STM32G4A1xx
 GenG4.menu.pnum.GENERIC_G4A1MESX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
@@ -9120,7 +9120,7 @@ GenG4.menu.pnum.GENERIC_G4A1MESX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G4A1METx
 GenG4.menu.pnum.GENERIC_G4A1METX=Generic G4A1METx
 GenG4.menu.pnum.GENERIC_G4A1METX.upload.maximum_size=524288
-GenG4.menu.pnum.GENERIC_G4A1METX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1METX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G4A1METX.build.board=GENERIC_G4A1METX
 GenG4.menu.pnum.GENERIC_G4A1METX.build.product_line=STM32G4A1xx
 GenG4.menu.pnum.GENERIC_G4A1METX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
@@ -9129,7 +9129,7 @@ GenG4.menu.pnum.GENERIC_G4A1METX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G4A1RETx
 GenG4.menu.pnum.GENERIC_G4A1RETX=Generic G4A1RETx
 GenG4.menu.pnum.GENERIC_G4A1RETX.upload.maximum_size=524288
-GenG4.menu.pnum.GENERIC_G4A1RETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1RETX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G4A1RETX.build.board=GENERIC_G4A1RETX
 GenG4.menu.pnum.GENERIC_G4A1RETX.build.product_line=STM32G4A1xx
 GenG4.menu.pnum.GENERIC_G4A1RETX.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)x(Z)_G4A1RE(I-T-Y)
@@ -9138,7 +9138,7 @@ GenG4.menu.pnum.GENERIC_G4A1RETX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G4A1REYx
 GenG4.menu.pnum.GENERIC_G4A1REYX=Generic G4A1REYx
 GenG4.menu.pnum.GENERIC_G4A1REYX.upload.maximum_size=524288
-GenG4.menu.pnum.GENERIC_G4A1REYX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1REYX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G4A1REYX.build.board=GENERIC_G4A1REYX
 GenG4.menu.pnum.GENERIC_G4A1REYX.build.product_line=STM32G4A1xx
 GenG4.menu.pnum.GENERIC_G4A1REYX.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)x(Z)_G4A1RE(I-T-Y)
@@ -9147,7 +9147,7 @@ GenG4.menu.pnum.GENERIC_G4A1REYX.debug.svd_file={runtime.tools.STM32_SVD.path}/s
 # Generic G4A1VETx
 GenG4.menu.pnum.GENERIC_G4A1VETX=Generic G4A1VETx
 GenG4.menu.pnum.GENERIC_G4A1VETX.upload.maximum_size=524288
-GenG4.menu.pnum.GENERIC_G4A1VETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1VETX.upload.maximum_data_size=114688
 GenG4.menu.pnum.GENERIC_G4A1VETX.build.board=GENERIC_G4A1VETX
 GenG4.menu.pnum.GENERIC_G4A1VETX.build.product_line=STM32G4A1xx
 GenG4.menu.pnum.GENERIC_G4A1VETX.build.variant=STM32G4xx/G491V(C-E)T_G4A1VET
