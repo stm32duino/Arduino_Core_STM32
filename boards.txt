@@ -601,6 +601,21 @@ Nucleo_64.menu.pnum.NUCLEO_F303RE.build.variant=STM32F3xx/F303R(D-E)T
 Nucleo_64.menu.pnum.NUCLEO_F303RE.openocd.target=stm32f3x
 Nucleo_64.menu.pnum.NUCLEO_F303RE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F303.svd
 
+# NUCLEO_F334R8 board
+Nucleo_64.menu.pnum.NUCLEO_F334R8=Nucleo F334R8
+Nucleo_64.menu.pnum.NUCLEO_F334R8.node=NODE_F334R8
+Nucleo_64.menu.pnum.NUCLEO_F334R8.upload.maximum_size=65536
+Nucleo_64.menu.pnum.NUCLEO_F334R8.upload.maximum_data_size=12288
+Nucleo_64.menu.pnum.NUCLEO_F334R8.build.mcu=cortex-m4
+Nucleo_64.menu.pnum.NUCLEO_F334R8.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_F334R8.build.float-abi=-mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_F334R8.build.board=NUCLEO_F334R8
+Nucleo_64.menu.pnum.NUCLEO_F334R8.build.series=STM32F3xx
+Nucleo_64.menu.pnum.NUCLEO_F334R8.build.product_line=STM32F334x8
+Nucleo_64.menu.pnum.NUCLEO_F334R8.build.variant=STM32F3xx/F303R(6-8)T_F334R(6-8)T
+Nucleo_64.menu.pnum.NUCLEO_F334R8.openocd.target=stm32f3x
+Nucleo_64.menu.pnum.NUCLEO_F334R8.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F3xx/STM32F334.svd
+
 # NUCLEO_F401RE board
 Nucleo_64.menu.pnum.NUCLEO_F401RE=Nucleo F401RE
 Nucleo_64.menu.pnum.NUCLEO_F401RE.node="NODE_F401RE,NUCLEO"
