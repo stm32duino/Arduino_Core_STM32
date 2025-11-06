@@ -1505,6 +1505,22 @@ Disco.menu.pnum.DISCO_F413ZH.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Disco.menu.pnum.DISCO_F413ZH.openocd.target=stm32f4x
 Disco.menu.pnum.DISCO_F413ZH.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F413.svd
 
+# DISCO_F429ZI board
+Disco.menu.pnum.DISCO_F429ZI= STM32F429ZI-DISCO
+Disco.menu.pnum.DISCO_F429ZI.node=DIS_F429ZI
+Disco.menu.pnum.DISCO_F429ZI.upload.maximum_size=2097152
+Disco.menu.pnum.DISCO_F429ZI.upload.maximum_data_size=196608
+Disco.menu.pnum.DISCO_F429ZI.build.mcu=cortex-m4
+Disco.menu.pnum.DISCO_F429ZI.build.fpu=-mfpu=fpv4-sp-d16
+Disco.menu.pnum.DISCO_F429ZI.build.float-abi=-mfloat-abi=hard
+Disco.menu.pnum.DISCO_F429ZI.build.board=DISCO_F429ZI
+Disco.menu.pnum.DISCO_F429ZI.build.series=STM32F4xx
+Disco.menu.pnum.DISCO_F429ZI.build.product_line=STM32F429xx
+Disco.menu.pnum.DISCO_F429ZI.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+Disco.menu.pnum.DISCO_F429ZI.build.variant_h=variant_DISCO_F429ZI.h
+Disco.menu.pnum.DISCO_F429ZI.openocd.target=stm32f4x
+Disco.menu.pnum.DISCO_F429ZI.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F429.svd
+
 # DISCO_F746NG board
 Disco.menu.pnum.DISCO_F746NG=STM32F746G-DISCOVERY
 Disco.menu.pnum.DISCO_F746NG.node=DIS_F746NG
