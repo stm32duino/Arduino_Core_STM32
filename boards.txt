@@ -9488,6 +9488,16 @@ GenH7.menu.pnum.WeActMiniH750VBTX.build.variant_h=variant_WeActMiniH7xx.h
 GenH7.menu.pnum.WeActMiniH750VBTX.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 GenH7.menu.pnum.WeActMiniH750VBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H750.svd
 
+# WeAct Mini H723VGTX
+GenH7.menu.pnum.WeActMiniH723VGTX=WeAct MiniSTM32H723VGTX
+GenH7.menu.pnum.WeActMiniH723VGTX.upload.maximum_size=1048576
+GenH7.menu.pnum.WeActMiniH723VGTX.upload.maximum_data_size=577536
+GenH7.menu.pnum.WeActMiniH723VGTX.build.board=WeActMiniH723VGTX
+GenH7.menu.pnum.WeActMiniH723VGTX.build.product_line=STM32H723xx
+GenH7.menu.pnum.WeActMiniH750VBTX.build.variant_h=variant_WeActMiniH7xx.h
+GenH7.menu.pnum.WeActMiniH723VGTX.build.variant=STM32H7xx/H723V(E-G)(H-T)_H730VB(H-T)_H733VG(H-T)
+GenH7.menu.pnum.WeActMiniH723VGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H723.svd
+
 # Generic H723VEHx
 GenH7.menu.pnum.GENERIC_H723VEHX=Generic H723VEHx
 GenH7.menu.pnum.GENERIC_H723VEHX.upload.maximum_size=524288
