@@ -22,6 +22,7 @@ add_library(variant_bin STATIC EXCLUDE_FROM_ALL
   generic_clock.c
   PeripheralPins.c
   PeripheralPins_NUCLEO_F4x9ZI.c
+  variant_DISCO_F429ZI.cpp
   variant_generic.cpp
   variant_NUCLEO_F4x9ZI.cpp
 )
