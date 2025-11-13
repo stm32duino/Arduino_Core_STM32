@@ -257,6 +257,24 @@ Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.variant_h=variant_NUCLEO_H743ZI.h
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.openocd.target=stm32h7x
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H743.svd
 
+# NUCLEO_H745ZI_Q board
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q=Nucleo H745ZI-Q
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.node=NODE_H743ZIQ
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.upload.maximum_size=2097152
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.upload.maximum_data_size=884736
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.mcu=cortex-m7
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.float-abi=-mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DCORE_CM7
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.board=NUCLEO_H745ZI_Q
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.series=STM32H7xx
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.product_line=STM32H745xx
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.variant=STM32H7xx/H745Z(G-I)T_H755ZIT
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.variant_h=variant_NUCLEO_H745ZI_Q.h
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.openocd.target=stm32h7x
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H745_CM7.svd
+
+
 # NUCLEO_H753ZI board
 Nucleo_144.menu.pnum.NUCLEO_H753ZI=Nucleo H753ZI
 Nucleo_144.menu.pnum.NUCLEO_H753ZI.node=NODE_H753ZI
