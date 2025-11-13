@@ -610,6 +610,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32H743XG<br>STM32H743XI | Generic Board | *2.7.0* |  |
 | :green_heart: | STM32H743ZG<br>STM32H743ZI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H745XG<br>STM32H745XI | Generic Board | *2.7.0* |  |
+| :yellow_heart: | STM32H745ZG<br>STM32H745ZI | Generic Board | **2.12.0** |  |
 | :green_heart: | STM32H747AG<br>STM32H747AI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H747IG<br>STM32H747II | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H747XG<br>STM32H747XI | Generic Board | *2.7.0* |  |
@@ -626,6 +627,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32H753XI | Generic Board | *2.7.0* |  |
 | :green_heart: | STM32H753ZI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H755XI | Generic Board | *2.7.0* |  |
+| :yellow_heart: | STM32H755ZI | Generic Board | **2.12.0** |  |
 | :green_heart: | STM32H757AI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H757II | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H757XI | Generic Board | *2.7.0* |  |
