@@ -2153,7 +2153,7 @@ def keyflash(x):
     return x[0]
 
 
-def group_by_flash(group_base_list, glist, index_mcu_base):
+def group_by_flash(glist, index_mcu_base):
     expanded_dir_list = []
     group_flash_list = []
     new_mcu_dirname = ""
@@ -2205,14 +2205,14 @@ def group_by_flash(group_base_list, glist, index_mcu_base):
         for ppe in key_package_list:
             sub = mcu_PE_regex.search(ppe)
             if not sub:
-                print(f"Package of {base_name}, ppe {ppe} info not recognized")
+                print(f"Package: {base_name}, ppe: {ppe} not recognized")
                 exit(1)
             else:
                 package_list.append(sub.group(1))
                 # Assert
                 if sub.group(2) != "x":
                     print(
-                        f"Package of {base_name}, ppe {ppe} info contains {sub.group(2)} instead of 'x'"
+                        f"Package: {base_name}, ppe: {ppe} contains {sub.group(2)} instead of 'x'"
                     )
                     exit(1)
                 if sub.group(3):
@@ -2241,7 +2241,7 @@ def group_by_flash(group_base_list, glist, index_mcu_base):
     return new_mcu_dirname
 
 
-def merge_dir(out_temp_path, group_mcu_dir, mcu_family, periph_xml, variant_exp):
+def merge_dir(out_temp_path, group_mcu_dir, mcu_family_name, periph_xml, variant_exp):
     dirname_list = []
     new_mcu_dirname = ""
     # Working mcu directory
@@ -2250,7 +2250,8 @@ def merge_dir(out_temp_path, group_mcu_dir, mcu_family, periph_xml, variant_exp)
     if len(group_mcu_dir) != 1:
         # Handle mcu name length dynamically
         # Add num for extra information line, #pin and flash
-        index_mcu_base = len(mcu_family.name.removeprefix("STM32").removesuffix(nx)) + (
+        nx = stm32_dict[mcu_family_name.removeprefix("STM32")]
+        index_mcu_base = len(mcu_family_name.removeprefix("STM32").removesuffix(nx)) + (
             3 if len(nx) == 2 else 2
         )
         # Extract only dir name
@@ -2271,14 +2272,14 @@ def merge_dir(out_temp_path, group_mcu_dir, mcu_family, periph_xml, variant_exp)
                 new_mcu_dirname += f"{'_' if index != 0 else ''}{glist[0].strip('x')}"
             else:
                 # Group using flash info
-                gbf = group_by_flash(group_base_list, glist, index_mcu_base)
+                gbf = group_by_flash(glist, index_mcu_base)
                 new_mcu_dirname += f"{'_' if index != 0 else ''}{gbf}"
         del group_package_list[:]
         del group_flash_list[:]
         del group_base_list[:]
         del dirname_list[:]
 
-        new_mcu_dir = out_temp_path / mcu_family.name / new_mcu_dirname
+        new_mcu_dir = out_temp_path / f"{mcu_family_name}{nx}" / new_mcu_dirname
 
         board_entry = ""
         with open(mcu_dir / boards_entry_filename) as fp:
@@ -2371,10 +2372,11 @@ def aggregate_dir():
 
     # Compare per family
     for mcu_family_name in aggregate_serie_list:
-        mcu_family = out_temp_path / f"{mcu_family_name}{nx}"
-        out_family_path = root_dir / "variants" / mcu_family.name
+        nx = stm32_dict[mcu_family_name.removeprefix("STM32")]
+        mcu_family_path = out_temp_path / f"{mcu_family_name}{nx}"
+        out_family_path = root_dir / "variants" / mcu_family_path.name
         # Get all mcu_dir
-        mcu_dirs = sorted(mcu_family.glob("*/"))
+        mcu_dirs = sorted(mcu_family_path.glob("*/"))
         # Get original directory list of current serie STM32YYxx
         mcu_out_dirs_ori = sorted(out_family_path.glob("*/**"))
         mcu_out_dirs_up = []
@@ -2437,7 +2439,7 @@ def aggregate_dir():
 
             # Merge directories name and contents if needed
             mcu_dir = merge_dir(
-                out_temp_path, group_mcu_dir, mcu_family, periph_xml, variant_exp
+                out_temp_path, group_mcu_dir, mcu_family_name, periph_xml, variant_exp
             )
             # Move to variants/ folder
             out_path = out_family_path / mcu_dir.stem
@@ -2460,7 +2462,7 @@ def aggregate_dir():
         if new_dirs:
             nb_new = len(new_dirs)
             dir_str = "directories" if nb_new > 1 else "directory"
-            print(f"\nNew {dir_str} for {mcu_family.name}:\n")
+            print(f"\nNew {dir_str} for {mcu_family_path.name}:\n")
             for d in new_dirs:
                 print(f"  - {d.name}")
             print("\n  --> Please, check if it is a new directory or a renamed one.")
@@ -2468,7 +2470,7 @@ def aggregate_dir():
         if old_dirs:
             nb_old = len(old_dirs)
             dir_str = "Directories" if nb_old > 1 else "Directory"
-            print(f"\n{dir_str} not updated for {mcu_family.name}:\n")
+            print(f"\n{dir_str} not updated for {mcu_family_path.name}:\n")
             for d in old_dirs:
                 # Check if ldsript.ld file exists in the folder
                 if not (d / "ldscript.ld").exists():
