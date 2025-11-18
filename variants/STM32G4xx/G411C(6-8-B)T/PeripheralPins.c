@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32G411C6Tx.xml, STM32G411C8Tx.xml
  * STM32G411CBTx.xml
- * CubeMX DB release 6.0.150
+ * CubeMX DB release 6.0.160
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

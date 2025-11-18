@@ -12,7 +12,7 @@
  */
 /*
  * Automatically generated from STM32F205Z(C-E-F-G)Tx.xml, STM32F215Z(E-G)Tx.xml
- * CubeMX DB release 6.0.150
+ * CubeMX DB release 6.0.160
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

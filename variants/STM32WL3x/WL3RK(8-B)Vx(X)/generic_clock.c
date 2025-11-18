@@ -10,9 +10,8 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_H563IGKX) || defined(ARDUINO_GENERIC_H563IGTX) ||\
-    defined(ARDUINO_GENERIC_H563IIKX) || defined(ARDUINO_GENERIC_H563IITX) ||\
-    defined(ARDUINO_GENERIC_H573IIKX) || defined(ARDUINO_GENERIC_H573IITX)
+#if defined(ARDUINO_GENERIC_WL3RK8VX) || defined(ARDUINO_GENERIC_WL3RK8VXX) ||\
+    defined(ARDUINO_GENERIC_WL3RKBVX) || defined(ARDUINO_GENERIC_WL3RKBVXX)
 #include "pins_arduino.h"
 
 /**
