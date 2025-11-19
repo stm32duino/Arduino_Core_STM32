@@ -163,7 +163,7 @@
 
 // On-board user button
 #ifndef USER_BTN
-  #define USER_BTN              PNUM_NOT_DEFINED
+  #define USER_BTN              PC13
 #endif
 
 // SPI definitions
