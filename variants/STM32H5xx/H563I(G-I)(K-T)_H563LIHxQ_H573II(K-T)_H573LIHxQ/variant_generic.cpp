@@ -12,7 +12,8 @@
  */
 #if defined(ARDUINO_GENERIC_H563IGKX) || defined(ARDUINO_GENERIC_H563IGTX) ||\
     defined(ARDUINO_GENERIC_H563IIKX) || defined(ARDUINO_GENERIC_H563IITX) ||\
-    defined(ARDUINO_GENERIC_H573IIKX) || defined(ARDUINO_GENERIC_H573IITX)
+    defined(ARDUINO_GENERIC_H563LIHXQ) || defined(ARDUINO_GENERIC_H573IIKX) ||\
+    defined(ARDUINO_GENERIC_H573IITX) || defined(ARDUINO_GENERIC_H573LIHXQ)
 #include "pins_arduino.h"
 
 // Digital PinName array

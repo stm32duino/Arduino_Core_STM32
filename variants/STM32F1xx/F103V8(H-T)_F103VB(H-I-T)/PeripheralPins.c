@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32F103V(8-B)Hx.xml, STM32F103V(8-B)Tx.xml
  * STM32F103VBIx.xml
- * CubeMX DB release 6.0.150
+ * CubeMX DB release 6.0.160
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

@@ -12,7 +12,7 @@
  */
 /*
  * Automatically generated from STM32L451C(C-E)Ux.xml, STM32L451CETx.xml
- * CubeMX DB release 6.0.150
+ * CubeMX DB release 6.0.160
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

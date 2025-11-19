@@ -14,7 +14,7 @@
  * Automatically generated from STM32G431R(6-8-B)Ix.xml, STM32G431R(6-8-B)Tx.xml
  * STM32G431RBTxZ.xml, STM32G441RBIx.xml
  * STM32G441RBTx.xml
- * CubeMX DB release 6.0.150
+ * CubeMX DB release 6.0.160
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32L452V(C-E)Ix.xml, STM32L452V(C-E)Tx.xml
  * STM32L462VEIx.xml, STM32L462VETx.xml
- * CubeMX DB release 6.0.150
+ * CubeMX DB release 6.0.160
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

@@ -257,6 +257,24 @@ Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.variant_h=variant_NUCLEO_H743ZI.h
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.openocd.target=stm32h7x
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H743.svd
 
+# NUCLEO_H745ZI_Q board
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q=Nucleo H745ZI-Q
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.node=NODE_H743ZIQ
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.upload.maximum_size=2097152
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.upload.maximum_data_size=884736
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.mcu=cortex-m7
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.float-abi=-mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DCORE_CM7
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.board=NUCLEO_H745ZI_Q
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.series=STM32H7xx
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.product_line=STM32H745xx
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.variant=STM32H7xx/H745Z(G-I)T_H755ZIT
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.variant_h=variant_NUCLEO_H745ZI_Q.h
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.openocd.target=stm32h7x
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H745_CM7.svd
+
+
 # NUCLEO_H753ZI board
 Nucleo_144.menu.pnum.NUCLEO_H753ZI=Nucleo H753ZI
 Nucleo_144.menu.pnum.NUCLEO_H753ZI.node=NODE_H753ZI
@@ -1504,6 +1522,22 @@ Disco.menu.pnum.DISCO_F413ZH.build.variant=STM32F4xx/F413Z(G-H)(J-T)_F423ZH(J-T)
 Disco.menu.pnum.DISCO_F413ZH.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Disco.menu.pnum.DISCO_F413ZH.openocd.target=stm32f4x
 Disco.menu.pnum.DISCO_F413ZH.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F413.svd
+
+# DISCO_F429ZI board
+Disco.menu.pnum.DISCO_F429ZI= STM32F429ZI-DISCO
+Disco.menu.pnum.DISCO_F429ZI.node=DIS_F429ZI
+Disco.menu.pnum.DISCO_F429ZI.upload.maximum_size=2097152
+Disco.menu.pnum.DISCO_F429ZI.upload.maximum_data_size=196608
+Disco.menu.pnum.DISCO_F429ZI.build.mcu=cortex-m4
+Disco.menu.pnum.DISCO_F429ZI.build.fpu=-mfpu=fpv4-sp-d16
+Disco.menu.pnum.DISCO_F429ZI.build.float-abi=-mfloat-abi=hard
+Disco.menu.pnum.DISCO_F429ZI.build.board=DISCO_F429ZI
+Disco.menu.pnum.DISCO_F429ZI.build.series=STM32F4xx
+Disco.menu.pnum.DISCO_F429ZI.build.product_line=STM32F429xx
+Disco.menu.pnum.DISCO_F429ZI.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+Disco.menu.pnum.DISCO_F429ZI.build.variant_h=variant_DISCO_F429ZI.h
+Disco.menu.pnum.DISCO_F429ZI.openocd.target=stm32f4x
+Disco.menu.pnum.DISCO_F429ZI.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F429.svd
 
 # DISCO_F746NG board
 Disco.menu.pnum.DISCO_F746NG=STM32F746G-DISCOVERY
@@ -9840,6 +9874,24 @@ GenH7.menu.pnum.GENERIC_H745XIHX.build.product_line=STM32H745xx
 GenH7.menu.pnum.GENERIC_H745XIHX.build.variant=STM32H7xx/H742X(G-I)H_H743X(G-I)H_H745X(G-I)H_H747X(G-I)H_H750XBH_H753XIH_H755XIH_H757XIH
 GenH7.menu.pnum.GENERIC_H745XIHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H745_CM7.svd
 
+# Generic H745ZGTx
+GenH7.menu.pnum.GENERIC_H745ZGTX=Generic H745ZGTx
+GenH7.menu.pnum.GENERIC_H745ZGTX.upload.maximum_size=1048576
+GenH7.menu.pnum.GENERIC_H745ZGTX.upload.maximum_data_size=884736
+GenH7.menu.pnum.GENERIC_H745ZGTX.build.board=GENERIC_H745ZGTX
+GenH7.menu.pnum.GENERIC_H745ZGTX.build.product_line=STM32H745xG
+GenH7.menu.pnum.GENERIC_H745ZGTX.build.variant=STM32H7xx/H745Z(G-I)T_H755ZIT
+GenH7.menu.pnum.GENERIC_H745ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H745_CM7.svd
+
+# Generic H745ZITx
+GenH7.menu.pnum.GENERIC_H745ZITX=Generic H745ZITx
+GenH7.menu.pnum.GENERIC_H745ZITX.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H745ZITX.upload.maximum_data_size=884736
+GenH7.menu.pnum.GENERIC_H745ZITX.build.board=GENERIC_H745ZITX
+GenH7.menu.pnum.GENERIC_H745ZITX.build.product_line=STM32H745xx
+GenH7.menu.pnum.GENERIC_H745ZITX.build.variant=STM32H7xx/H745Z(G-I)T_H755ZIT
+GenH7.menu.pnum.GENERIC_H745ZITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H745_CM7.svd
+
 # Generic H747AGIx
 GenH7.menu.pnum.GENERIC_H747AGIX=Generic H747AGIx
 GenH7.menu.pnum.GENERIC_H747AGIX.upload.maximum_size=1048576
@@ -10001,6 +10053,15 @@ GenH7.menu.pnum.GENERIC_H755XIHX.build.board=GENERIC_H755XIHX
 GenH7.menu.pnum.GENERIC_H755XIHX.build.product_line=STM32H755xx
 GenH7.menu.pnum.GENERIC_H755XIHX.build.variant=STM32H7xx/H742X(G-I)H_H743X(G-I)H_H745X(G-I)H_H747X(G-I)H_H750XBH_H753XIH_H755XIH_H757XIH
 GenH7.menu.pnum.GENERIC_H755XIHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H755_CM7.svd
+
+# Generic H755ZITx
+GenH7.menu.pnum.GENERIC_H755ZITX=Generic H755ZITx
+GenH7.menu.pnum.GENERIC_H755ZITX.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H755ZITX.upload.maximum_data_size=884736
+GenH7.menu.pnum.GENERIC_H755ZITX.build.board=GENERIC_H755ZITX
+GenH7.menu.pnum.GENERIC_H755ZITX.build.product_line=STM32H755xx
+GenH7.menu.pnum.GENERIC_H755ZITX.build.variant=STM32H7xx/H745Z(G-I)T_H755ZIT
+GenH7.menu.pnum.GENERIC_H755ZITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7xx/STM32H755_CM7.svd
 
 # Generic H757AIIx
 GenH7.menu.pnum.GENERIC_H757AIIX=Generic H757AIIx

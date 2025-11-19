@@ -15,7 +15,7 @@
  * STM32WL33K8Vx.xml, STM32WL33K8VxX.xml
  * STM32WL33KBVx.xml, STM32WL33KBVxX.xml
  * STM32WL33KCVx.xml, STM32WL33KCVxX.xml
- * CubeMX DB release 6.0.150
+ * CubeMX DB release 6.0.160
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

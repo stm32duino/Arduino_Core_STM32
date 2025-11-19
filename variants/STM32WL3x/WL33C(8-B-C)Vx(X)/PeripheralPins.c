@@ -14,7 +14,7 @@
  * Automatically generated from STM32WL33C8Vx.xml, STM32WL33C8VxX.xml
  * STM32WL33CBVx.xml, STM32WL33CBVxX.xml
  * STM32WL33CCVx.xml, STM32WL33CCVxX.xml
- * CubeMX DB release 6.0.150
+ * CubeMX DB release 6.0.160
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
