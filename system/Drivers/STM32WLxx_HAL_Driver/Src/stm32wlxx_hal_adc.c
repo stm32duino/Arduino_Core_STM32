@@ -254,11 +254,11 @@
      all callbacks are set to the corresponding weak functions:
      examples HAL_ADC_ConvCpltCallback(), HAL_ADC_ErrorCallback().
      Exception done for MspInit and MspDeInit functions that are
-     reset to the legacy weak functions in the HAL_ADC_Init()/HAL_ADC_DeInit() only when
+     reset to the legacy weak functions in the HAL_ADC_Init()/ HAL_ADC_DeInit() only when
      these callbacks are null (not registered beforehand).
     [..]
 
-     If MspInit or MspDeInit are not null, the HAL_ADC_Init()/HAL_ADC_DeInit()
+     If MspInit or MspDeInit are not null, the HAL_ADC_Init()/ HAL_ADC_DeInit()
      keep and use the user MspInit/MspDeInit callbacks (registered beforehand) whatever the state.
      [..]
 
@@ -278,6 +278,7 @@
      are set to the corresponding weak functions.
 
   @endverbatim
+  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -379,8 +380,8 @@ static void ADC_DMAError(DMA_HandleTypeDef *hdma);
 HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
 {
   HAL_StatusTypeDef tmp_hal_status = HAL_OK;
-  uint32_t tmpCFGR1 = 0UL;
-  uint32_t tmpCFGR2 = 0UL;
+  uint32_t tmp_cfgr1 = 0UL;
+  uint32_t tmp_cfgr2 = 0UL;
   uint32_t tmp_adc_reg_is_conversion_on_going;
   __IO uint32_t wait_loop_index = 0UL;
 
@@ -541,14 +542,14 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
       /*   - internal measurement paths (VrefInt, ...)                        */
       /*     (set into HAL_ADC_ConfigChannel() )                              */
 
-      tmpCFGR1 |= (hadc->Init.Resolution                                          |
-                   ADC_CFGR1_AUTOWAIT((uint32_t)hadc->Init.LowPowerAutoWait)      |
-                   ADC_CFGR1_AUTOOFF((uint32_t)hadc->Init.LowPowerAutoPowerOff)   |
-                   ADC_CFGR1_CONTINUOUS((uint32_t)hadc->Init.ContinuousConvMode)  |
-                   ADC_CFGR1_OVERRUN(hadc->Init.Overrun)                          |
-                   hadc->Init.DataAlign                                           |
-                   ADC_SCAN_SEQ_MODE(hadc->Init.ScanConvMode)                     |
-                   ADC_CFGR1_DMACONTREQ((uint32_t)hadc->Init.DMAContinuousRequests));
+      tmp_cfgr1 |= (hadc->Init.Resolution                                          |
+                    ADC_CFGR1_AUTOWAIT((uint32_t)hadc->Init.LowPowerAutoWait)      |
+                    ADC_CFGR1_AUTOOFF((uint32_t)hadc->Init.LowPowerAutoPowerOff)   |
+                    ADC_CFGR1_CONTINUOUS((uint32_t)hadc->Init.ContinuousConvMode)  |
+                    ADC_CFGR1_OVERRUN(hadc->Init.Overrun)                          |
+                    hadc->Init.DataAlign                                           |
+                    ADC_SCAN_SEQ_MODE(hadc->Init.ScanConvMode)                     |
+                    ADC_CFGR1_DMACONTREQ((uint32_t)hadc->Init.DMAContinuousRequests));
 
       /* Update setting of discontinuous mode only if continuous mode is disabled */
       if (hadc->Init.DiscontinuousConvMode == ENABLE)
@@ -556,7 +557,7 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
         if (hadc->Init.ContinuousConvMode == DISABLE)
         {
           /* Enable the selected ADC group regular discontinuous mode */
-          tmpCFGR1 |= ADC_CFGR1_DISCEN;
+          tmp_cfgr1 |= ADC_CFGR1_DISCEN;
         }
         else
         {
@@ -579,37 +580,38 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
       /*       software start.                                                  */
       if (hadc->Init.ExternalTrigConv != ADC_SOFTWARE_START)
       {
-        tmpCFGR1 |= ((hadc->Init.ExternalTrigConv & ADC_CFGR1_EXTSEL) |
-                     hadc->Init.ExternalTrigConvEdge);
+        tmp_cfgr1 |= ((hadc->Init.ExternalTrigConv & ADC_CFGR1_EXTSEL) |
+                      hadc->Init.ExternalTrigConvEdge);
       }
 
       /* Update ADC configuration register with previous settings */
       MODIFY_REG(hadc->Instance->CFGR1,
-                 ADC_CFGR1_RES     |
-                 ADC_CFGR1_DISCEN  |
-                 ADC_CFGR1_AUTOFF  |
-                 ADC_CFGR1_WAIT    |
-                 ADC_CFGR1_CONT    |
-                 ADC_CFGR1_OVRMOD  |
-                 ADC_CFGR1_EXTSEL  |
-                 ADC_CFGR1_EXTEN   |
-                 ADC_CFGR1_ALIGN   |
-                 ADC_CFGR1_SCANDIR |
+                 ADC_CFGR1_RES       |
+                 ADC_CFGR1_DISCEN    |
+                 ADC_CFGR1_CHSELRMOD |
+                 ADC_CFGR1_AUTOFF    |
+                 ADC_CFGR1_WAIT      |
+                 ADC_CFGR1_CONT      |
+                 ADC_CFGR1_OVRMOD    |
+                 ADC_CFGR1_EXTSEL    |
+                 ADC_CFGR1_EXTEN     |
+                 ADC_CFGR1_ALIGN     |
+                 ADC_CFGR1_SCANDIR   |
                  ADC_CFGR1_DMACFG,
-                 tmpCFGR1);
+                 tmp_cfgr1);
 
-      tmpCFGR2 |= ((hadc->Init.ClockPrescaler & ADC_CFGR2_CKMODE) |
-                   hadc->Init.TriggerFrequencyMode
-                  );
+      tmp_cfgr2 |= ((hadc->Init.ClockPrescaler & ADC_CFGR2_CKMODE) |
+                    hadc->Init.TriggerFrequencyMode
+                   );
 
       if (hadc->Init.OversamplingMode == ENABLE)
       {
-        tmpCFGR2 |= (ADC_CFGR2_OVSE |
-                     (hadc->Init.ClockPrescaler & ADC_CFGR2_CKMODE) |
-                     hadc->Init.Oversampling.Ratio         |
-                     hadc->Init.Oversampling.RightBitShift |
-                     hadc->Init.Oversampling.TriggeredMode
-                    );
+        tmp_cfgr2 |= (ADC_CFGR2_OVSE |
+                      (hadc->Init.ClockPrescaler & ADC_CFGR2_CKMODE) |
+                      hadc->Init.Oversampling.Ratio         |
+                      hadc->Init.Oversampling.RightBitShift |
+                      hadc->Init.Oversampling.TriggeredMode
+                     );
       }
 
       MODIFY_REG(hadc->Instance->CFGR2,
@@ -619,7 +621,7 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
                  ADC_CFGR2_OVSR   |
                  ADC_CFGR2_OVSS   |
                  ADC_CFGR2_TOVS,
-                 tmpCFGR2);
+                 tmp_cfgr2);
 
       /* Configuration of ADC clock mode: asynchronous clock source           */
       /* with selectable prescaler.                                           */
@@ -678,8 +680,8 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
 
     /* Check back that ADC registers have effectively been configured to      */
     /* ensure of no potential problem of ADC core peripheral clocking.        */
-    if(LL_ADC_GetSamplingTimeCommonChannels(hadc->Instance, LL_ADC_SAMPLINGTIME_COMMON_1)
-      == hadc->Init.SamplingTimeCommon1)
+    if (LL_ADC_GetSamplingTimeCommonChannels(hadc->Instance, LL_ADC_SAMPLINGTIME_COMMON_1)
+        == hadc->Init.SamplingTimeCommon1)
     {
       /* Set ADC error code to none */
       ADC_CLEAR_ERRORCODE(hadc);
@@ -790,7 +792,8 @@ HAL_StatusTypeDef HAL_ADC_DeInit(ADC_HandleTypeDef *hadc)
 
   /* Reset register CFGR1 */
   hadc->Instance->CFGR1 &= ~(ADC_CFGR1_AWD1CH   | ADC_CFGR1_AWD1EN  | ADC_CFGR1_AWD1SGL | ADC_CFGR1_DISCEN |
-                             ADC_CFGR1_AUTOFF  | ADC_CFGR1_WAIT   | ADC_CFGR1_CONT   | ADC_CFGR1_OVRMOD |
+                             ADC_CFGR1_CHSELRMOD | ADC_CFGR1_AUTOFF |
+                             ADC_CFGR1_WAIT | ADC_CFGR1_CONT | ADC_CFGR1_OVRMOD |
                              ADC_CFGR1_EXTEN   | ADC_CFGR1_EXTSEL | ADC_CFGR1_ALIGN  | ADC_CFGR1_RES    |
                              ADC_CFGR1_SCANDIR | ADC_CFGR1_DMACFG | ADC_CFGR1_DMAEN);
 
@@ -1025,7 +1028,7 @@ HAL_StatusTypeDef HAL_ADC_UnRegisterCallback(ADC_HandleTypeDef *hadc, HAL_ADC_Ca
 {
   HAL_StatusTypeDef status = HAL_OK;
 
-  if ((hadc->State & HAL_ADC_STATE_READY) != 0)
+  if ((hadc->State & HAL_ADC_STATE_READY) != 0UL)
   {
     switch (CallbackID)
     {
@@ -1114,7 +1117,7 @@ HAL_StatusTypeDef HAL_ADC_UnRegisterCallback(ADC_HandleTypeDef *hadc, HAL_ADC_Ca
   */
 
 /** @defgroup ADC_Exported_Functions_Group2 ADC Input and Output operation functions
-  *  @brief    ADC IO operation functions
+  * @brief    ADC IO operation functions
   *
 @verbatim
  ===============================================================================
@@ -1376,12 +1379,12 @@ HAL_StatusTypeDef HAL_ADC_PollForConversion(ADC_HandleTypeDef *hadc, uint32_t Ti
   * @param EventType the ADC event type.
   *          This parameter can be one of the following values:
   *            @arg @ref ADC_EOSMP_EVENT  ADC End of Sampling event
-  *            @arg @ref ADC_AWD1_EVENT   ADC Analog watchdog 1 event (main analog watchdog, present on all
-  *                                       STM32 series)
-  *            @arg @ref ADC_AWD2_EVENT   ADC Analog watchdog 2 event (additional analog watchdog, not present on all
-  *                                       STM32 series)
-  *            @arg @ref ADC_AWD3_EVENT   ADC Analog watchdog 3 event (additional analog watchdog, not present on all
-  *                                       STM32 series)
+  *            @arg @ref ADC_AWD1_EVENT   ADC Analog watchdog 1 event (main analog watchdog, present on
+  *                                       all STM32 series)
+  *            @arg @ref ADC_AWD2_EVENT   ADC Analog watchdog 2 event (additional analog watchdog, not present on
+  *                                       all STM32 series)
+  *            @arg @ref ADC_AWD3_EVENT   ADC Analog watchdog 3 event (additional analog watchdog, not present on
+  *                                       all STM32 series)
   *            @arg @ref ADC_OVR_EVENT    ADC Overrun event
   * @param Timeout Timeout value in millisecond.
   * @note   The relevant flag is cleared if found to be set, except for ADC_FLAG_OVR.
@@ -1837,7 +1840,7 @@ HAL_StatusTypeDef HAL_ADC_Stop_DMA(ADC_HandleTypeDef *hadc)
   * @param hadc ADC handle
   * @retval ADC group regular conversion data
   */
-uint32_t HAL_ADC_GetValue(ADC_HandleTypeDef *hadc)
+uint32_t HAL_ADC_GetValue(const ADC_HandleTypeDef *hadc)
 {
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
@@ -2162,7 +2165,7 @@ __weak void HAL_ADC_ErrorCallback(ADC_HandleTypeDef *hadc)
   * @param pConfig Structure of ADC channel assigned to ADC group regular.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef *hadc, ADC_ChannelConfTypeDef *pConfig)
+HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef *hadc, const ADC_ChannelConfTypeDef *pConfig)
 {
   HAL_StatusTypeDef tmp_hal_status = HAL_OK;
   uint32_t tmp_config_internal_channel;
@@ -2370,7 +2373,7 @@ HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef *hadc, ADC_ChannelConf
   * @param pAnalogWDGConfig Structure of ADC analog watchdog configuration
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_ADC_AnalogWDGConfig(ADC_HandleTypeDef *hadc, ADC_AnalogWDGConfTypeDef *pAnalogWDGConfig)
+HAL_StatusTypeDef HAL_ADC_AnalogWDGConfig(ADC_HandleTypeDef *hadc, const ADC_AnalogWDGConfTypeDef *pAnalogWDGConfig)
 {
   HAL_StatusTypeDef tmp_hal_status = HAL_OK;
   uint32_t tmp_awd_high_threshold_shifted;
@@ -2606,7 +2609,7 @@ HAL_StatusTypeDef HAL_ADC_AnalogWDGConfig(ADC_HandleTypeDef *hadc, ADC_AnalogWDG
   * @param hadc ADC handle
   * @retval ADC handle state (bitfield on 32 bits)
   */
-uint32_t HAL_ADC_GetState(ADC_HandleTypeDef *hadc)
+uint32_t HAL_ADC_GetState(const ADC_HandleTypeDef *hadc)
 {
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
@@ -2620,7 +2623,7 @@ uint32_t HAL_ADC_GetState(ADC_HandleTypeDef *hadc)
   * @param hadc ADC handle
   * @retval ADC error code (bitfield on 32 bits)
   */
-uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc)
+uint32_t HAL_ADC_GetError(const ADC_HandleTypeDef *hadc)
 {
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));

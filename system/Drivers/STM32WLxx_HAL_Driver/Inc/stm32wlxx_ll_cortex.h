@@ -120,7 +120,7 @@ extern "C" {
 #define LL_MPU_REGION_SIZE_32B             (0x04U << MPU_RASR_SIZE_Pos) /*!< 32B Size of the MPU protection region */
 #define LL_MPU_REGION_SIZE_64B             (0x05U << MPU_RASR_SIZE_Pos) /*!< 64B Size of the MPU protection region */
 #define LL_MPU_REGION_SIZE_128B            (0x06U << MPU_RASR_SIZE_Pos) /*!< 128B Size of the MPU protection region */
-#endif
+#endif /* CORE_CM0PLUS */
 #define LL_MPU_REGION_SIZE_256B            (0x07U << MPU_RASR_SIZE_Pos) /*!< 256B Size of the MPU protection region */
 #define LL_MPU_REGION_SIZE_512B            (0x08U << MPU_RASR_SIZE_Pos) /*!< 512B Size of the MPU protection region */
 #define LL_MPU_REGION_SIZE_1KB             (0x09U << MPU_RASR_SIZE_Pos) /*!< 1KB Size of the MPU protection region */
@@ -166,9 +166,12 @@ extern "C" {
 /** @defgroup CORTEX_LL_EC_TEX MPU TEX Level
   * @{
   */
+#if defined(CORE_CM0PLUS)
+#else
 #define LL_MPU_TEX_LEVEL0                  (0x00U << MPU_RASR_TEX_Pos) /*!< b000 for TEX bits */
 #define LL_MPU_TEX_LEVEL1                  (0x01U << MPU_RASR_TEX_Pos) /*!< b001 for TEX bits */
 #define LL_MPU_TEX_LEVEL2                  (0x02U << MPU_RASR_TEX_Pos) /*!< b010 for TEX bits */
+#endif /* CORE_CM0PLUS */
 
 /**
   * @}
@@ -583,7 +586,7 @@ __STATIC_INLINE void LL_MPU_EnableRegion(uint32_t Region)
   *           or @ref LL_MPU_REGION_SIZE_4GB
   *         @arg @ref LL_MPU_REGION_NO_ACCESS or @ref LL_MPU_REGION_PRIV_RW or @ref LL_MPU_REGION_PRIV_RW_URO
   *           or @ref LL_MPU_REGION_FULL_ACCESS or @ref LL_MPU_REGION_PRIV_RO or @ref LL_MPU_REGION_PRIV_RO_URO
-  *         @arg @ref LL_MPU_TEX_LEVEL0 or @ref LL_MPU_TEX_LEVEL1 or @ref LL_MPU_TEX_LEVEL2
+  *         @arg @ref LL_MPU_TEX_LEVEL0 (*) or @ref LL_MPU_TEX_LEVEL1 (*) or @ref LL_MPU_TEX_LEVEL2 (*)
   *         @arg @ref LL_MPU_INSTRUCTION_ACCESS_ENABLE or  @ref LL_MPU_INSTRUCTION_ACCESS_DISABLE
   *         @arg @ref LL_MPU_ACCESS_SHAREABLE or @ref LL_MPU_ACCESS_NOT_SHAREABLE
   *         @arg @ref LL_MPU_ACCESS_CACHEABLE or @ref LL_MPU_ACCESS_NOT_CACHEABLE

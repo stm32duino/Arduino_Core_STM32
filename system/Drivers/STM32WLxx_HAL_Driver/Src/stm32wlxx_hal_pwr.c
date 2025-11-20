@@ -59,7 +59,7 @@
 #if defined(DUAL_CORE)
 #define PWR_C2CR1_RESET_VALUE (PWR_C2CR1_LPMS_2 | PWR_C2CR1_LPMS_1 | PWR_C2CR1_LPMS_0)
 #define PWR_C2CR3_RESET_VALUE (0x00000000)
-#endif
+#endif /* DUAL_CORE */
 /**
   * @}
   */
@@ -108,7 +108,7 @@ void HAL_PWR_DeInit(void)
 #ifdef CORE_CM0PLUS
   LL_PWR_WriteReg(C2CR1, PWR_C2CR1_RESET_VALUE);
   LL_PWR_WriteReg(C2CR3, PWR_C2CR3_RESET_VALUE);
-#endif
+#endif /* CORE_CM0PLUS */
 
   /* Clear all flags */
 #if defined(DUAL_CORE)
@@ -119,7 +119,7 @@ void HAL_PWR_DeInit(void)
                   | LL_PWR_SCR_CC2HF
                  );
 #else
-    LL_PWR_WriteReg(SCR,
+  LL_PWR_WriteReg(SCR,
                   LL_PWR_SCR_CWUF
                   | LL_PWR_SCR_CWRFBUSYF
                   | LL_PWR_SCR_CWPVDF
@@ -345,7 +345,7 @@ void HAL_PWR_DisableBkUpAccess(void)
   *         wake-up target is set to wake-up the selected CPU.
   * @retval HAL Status
   */
-HAL_StatusTypeDef HAL_PWR_ConfigPVD(PWR_PVDTypeDef *sConfigPVD)
+HAL_StatusTypeDef HAL_PWR_ConfigPVD(const PWR_PVDTypeDef *sConfigPVD)
 {
   /* Check the parameters */
   assert_param(IS_PWR_PVD_LEVEL(sConfigPVD->PVDLevel));
@@ -424,14 +424,15 @@ void HAL_PWR_EnableWakeUpPin(uint32_t WakeUpPinPolarity)
 
   /* Specifies the Wake-Up pin polarity for the event detection
     (rising or falling edge) */
-  MODIFY_REG(PWR->CR4, ((PWR_CR4_WP1 | PWR_CR4_WP2 | PWR_CR4_WP3) & WakeUpPinPolarity), (WakeUpPinPolarity >> PWR_WUP_POLARITY_SHIFT));
+  MODIFY_REG(PWR->CR4, ((PWR_CR4_WP1 | PWR_CR4_WP2 | PWR_CR4_WP3) & WakeUpPinPolarity),
+             (WakeUpPinPolarity >> PWR_WUP_POLARITY_SHIFT));
 
   /* Enable wake-up pin */
 #ifdef CORE_CM0PLUS
   SET_BIT(PWR->C2CR3, (PWR_C2CR3_EWUP & WakeUpPinPolarity));
 #else
   SET_BIT(PWR->CR3, (PWR_CR3_EWUP & WakeUpPinPolarity));
-#endif
+#endif /* CORE_CM0PLUS */
 }
 
 /**
@@ -452,7 +453,7 @@ void HAL_PWR_DisableWakeUpPin(uint32_t WakeUpPinx)
   CLEAR_BIT(PWR->C2CR3, (PWR_C2CR3_EWUP & WakeUpPinx));
 #else
   CLEAR_BIT(PWR->CR3, (PWR_CR3_EWUP & WakeUpPinx));
-#endif
+#endif /* CORE_CM0PLUS */
 }
 
 /**
@@ -602,15 +603,15 @@ void HAL_PWR_EnterSTANDBYMode(void)
 #else
   /* Set Stand-by mode */
   MODIFY_REG(PWR->CR1, PWR_CR1_LPMS, PWR_LOWPOWERMODE_STANDBY);
-#endif
+#endif /* CORE_CM0PLUS */
 
   /* Set SLEEPDEEP bit of Cortex System Control Register */
   SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
 
   /* This option is used to ensure that store operations are completed */
-#if defined ( __CC_ARM)
+#if defined (__CC_ARM)
   __force_stores();
-#endif
+#endif /* __CC_ARM */
 
   /* Request Wait For Interrupt */
   __WFI();

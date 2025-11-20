@@ -145,7 +145,8 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 #elif defined (RTC_CLOCK_SOURCE_LSI)
     if ((PeriphClkInitStruct.RTCClockSelection == RCC_RTCCLKSOURCE_LSI) && (__HAL_RCC_GET_FLAG(RCC_FLAG_LSIRDY) != 0x00u))
 #elif defined (RTC_CLOCK_SOURCE_HSE)
-    if ((PeriphClkInitStruct.RTCClockSelection == RCC_RTCCLKSOURCE_HSE_DIV32) && (__HAL_RCC_GET_FLAG(RCC_FLAG_HSERDY) != 0x00u))
+    if ((PeriphClkInitStruct.RTCClockSelection == RCC_RTCCLKSOURCE_HSE_DIV32)
+        && (__HAL_RCC_GET_FLAG(RCC_FLAG_HSERDY) != 0x00u))
 #else
 #error Please select the RTC Clock source
 #endif
@@ -177,14 +178,14 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 
       /* COnfigure oscillator */
       status = HAL_RCC_OscConfig(&RCC_OscInitStruct);
-      if(status == HAL_OK)
+      if (status == HAL_OK)
       {
         /* Configure RTC clock source */
         PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RTC;
         status = HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);
 
         /* Enable RTC Clock */
-        if(status == HAL_OK)
+        if (status == HAL_OK)
         {
           __HAL_RCC_RTC_ENABLE();
         }
@@ -207,7 +208,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
     }
 
     /* HAL RTC Init is ok & calendar has never been initialized */
-    if((status == HAL_OK)  && (__HAL_RTC_GET_FLAG(&hRTC_Handle, RTC_FLAG_INITS) == 0x00u))
+    if ((status == HAL_OK)  && (__HAL_RTC_GET_FLAG(&hRTC_Handle, RTC_FLAG_INITS) == 0x00u))
     {
       time.Hours = 0x00u;
       time.Minutes = 0x00u;
@@ -218,7 +219,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
       time.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
       time.StoreOperation = RTC_STOREOPERATION_RESET;
       status = HAL_RTC_SetTime(&hRTC_Handle, &time, RTC_FORMAT_BCD);
-      if(status == HAL_OK)
+      if (status == HAL_OK)
       {
         date.WeekDay = RTC_WEEKDAY_MONDAY;
         date.Date = 0x01u;
@@ -267,7 +268,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
       alarm.AlarmDateWeekDay = RTC_WEEKDAY_MONDAY;
       alarm.Alarm = RTC_ALARM_A;
       status = HAL_RTC_SetAlarm_IT(&hRTC_Handle, &alarm, RTC_FORMAT_BCD);
-      if(status == HAL_OK)
+      if (status == HAL_OK)
       {
         /* Enable the RTC global Interrupt */
 #if defined(CORE_CM0PLUS)

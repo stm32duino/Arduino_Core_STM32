@@ -58,8 +58,12 @@ typedef struct
                                       This parameter can be a value of @ref CORTEX_MPU_Region_Size                  */
   uint8_t    SubRegionDisable;   /*!< Specifies the number of the subregion protection to disable.
                                       This parameter must be a number between Min_Data = 0x00 and Max_Data = 0xFF   */
+#ifdef CORE_CM0PLUS
+#else
   uint8_t    TypeExtField;       /*!< Specifies the TEX field level.
                                       This parameter can be a value of @ref CORTEX_MPU_TEX_Levels                   */
+#endif /* CORE_CM0PLUS */
+
   uint8_t    AccessPermission;   /*!< Specifies the region access permission type.
                                       This parameter can be a value of @ref CORTEX_MPU_Region_Permission_Attributes */
   uint8_t    DisableExec;        /*!< Specifies the instruction access status.
@@ -175,9 +179,12 @@ typedef struct
 /** @defgroup CORTEX_MPU_TEX_Levels CORTEX MPU TEX Levels
   * @{
   */
+#if defined(CORE_CM0PLUS)
+#else
 #define  MPU_TEX_LEVEL0              ((uint8_t)0x00)
 #define  MPU_TEX_LEVEL1              ((uint8_t)0x01)
 #define  MPU_TEX_LEVEL2              ((uint8_t)0x02)
+#endif /* CORE_CM0PLUS */
 
 /**
   * @}
@@ -191,7 +198,7 @@ typedef struct
 #define   MPU_REGION_SIZE_32B        ((uint8_t)0x04)
 #define   MPU_REGION_SIZE_64B        ((uint8_t)0x05)
 #define   MPU_REGION_SIZE_128B       ((uint8_t)0x06)
-#endif
+#endif /* CORE_CM0PLUS */
 #define   MPU_REGION_SIZE_256B       ((uint8_t)0x07)
 #define   MPU_REGION_SIZE_512B       ((uint8_t)0x08)
 #define   MPU_REGION_SIZE_1KB        ((uint8_t)0x09)
@@ -362,9 +369,12 @@ void HAL_MPU_ConfigRegion(MPU_Region_InitTypeDef *MPU_Init);
 #define IS_MPU_ACCESS_BUFFERABLE(STATE)   (((STATE) == MPU_ACCESS_BUFFERABLE) || \
                                            ((STATE) == MPU_ACCESS_NOT_BUFFERABLE))
 
+#if defined(CORE_CM0PLUS)
+#else
 #define IS_MPU_TEX_LEVEL(TYPE) (((TYPE) == MPU_TEX_LEVEL0)  || \
                                 ((TYPE) == MPU_TEX_LEVEL1)  || \
                                 ((TYPE) == MPU_TEX_LEVEL2))
+#endif /* CORE_CM0PLUS */
 
 #define IS_MPU_REGION_PERMISSION_ATTRIBUTE(TYPE) (((TYPE) == MPU_REGION_NO_ACCESS)   || \
                                                   ((TYPE) == MPU_REGION_PRIV_RW)     || \
@@ -437,7 +447,7 @@ void HAL_MPU_ConfigRegion(MPU_Region_InitTypeDef *MPU_Init);
                                      ((SIZE) == MPU_REGION_SIZE_1GB)   || \
                                      ((SIZE) == MPU_REGION_SIZE_2GB)   || \
                                      ((SIZE) == MPU_REGION_SIZE_4GB))
-#endif
+#endif /* CORE_CM0PLUS */
 #define IS_MPU_SUB_REGION_DISABLE(SUBREGION)      ((SUBREGION) < (uint16_t)0x00FFU)
 #endif /* __MPU_PRESENT */
 

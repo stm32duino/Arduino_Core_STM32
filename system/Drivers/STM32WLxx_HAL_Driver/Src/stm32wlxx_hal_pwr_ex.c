@@ -39,7 +39,10 @@
 /** @addtogroup PWREx_Private_Constants PWR Extended Private Constants
   * @{
   */
-#define PWR_PORTC_AVAILABLE_PINS   (PWR_GPIO_BIT_15 | PWR_GPIO_BIT_14 | PWR_GPIO_BIT_13 | PWR_GPIO_BIT_6 | PWR_GPIO_BIT_5 | PWR_GPIO_BIT_4 | PWR_GPIO_BIT_3 | PWR_GPIO_BIT_2 | PWR_GPIO_BIT_1 | PWR_GPIO_BIT_0)
+#define PWR_PORTC_AVAILABLE_PINS   (PWR_GPIO_BIT_15 |\
+                                    PWR_GPIO_BIT_14 |\
+                                    PWR_GPIO_BIT_13 |\
+                                    PWR_GPIO_BIT_6 | PWR_GPIO_BIT_5 | PWR_GPIO_BIT_4 | PWR_GPIO_BIT_3 | PWR_GPIO_BIT_2 | PWR_GPIO_BIT_1 | PWR_GPIO_BIT_0)
 #define PWR_PORTH_AVAILABLE_PINS   (PWR_GPIO_BIT_3)
 
 /** @defgroup PWREx_TimeOut_Value PWR Extended Flag Setting Time Out Value
@@ -187,7 +190,7 @@ void HAL_PWREx_EnableInternalWakeUpLine(void)
   SET_BIT(PWR->C2CR3, PWR_C2CR3_EIWUL);
 #else
   SET_BIT(PWR->CR3, PWR_CR3_EIWUL);
-#endif
+#endif /* CORE_CM0PLUS */
 }
 
 /**
@@ -200,7 +203,7 @@ void HAL_PWREx_DisableInternalWakeUpLine(void)
   CLEAR_BIT(PWR->C2CR3, PWR_C2CR3_EIWUL);
 #else
   CLEAR_BIT(PWR->CR3, PWR_CR3_EIWUL);
-#endif
+#endif /* CORE_CM0PLUS */
 }
 
 /**
@@ -237,7 +240,7 @@ void HAL_PWREx_SetRadioBusyTrigger(uint32_t RadioBusyTrigger)
   LL_C2_PWR_SetRadioBusyTrigger(RadioBusyTrigger);
 #else
   LL_PWR_SetRadioBusyTrigger(RadioBusyTrigger);
-#endif
+#endif /* CORE_CM0PLUS */
 }
 
 /**
@@ -257,7 +260,7 @@ void HAL_PWREx_SetRadioIRQTrigger(uint32_t RadioIRQTrigger)
   LL_C2_PWR_SetRadioIRQTrigger(RadioIRQTrigger);
 #else
   LL_PWR_SetRadioIRQTrigger(RadioIRQTrigger);
-#endif
+#endif /* CORE_CM0PLUS */
 }
 
 #if defined(DUAL_CORE)
@@ -278,7 +281,7 @@ void HAL_PWREx_DisableHOLDC2IT(void)
 {
   CLEAR_BIT(PWR->CR3, PWR_CR3_EC2H);
 }
-#endif
+#endif /* DUAL_CORE */
 
 /****************************************************************************/
 
@@ -494,7 +497,7 @@ void HAL_PWREx_EnablePullUpPullDownConfig(void)
   SET_BIT(PWR->C2CR3, PWR_C2CR3_APC);
 #else
   SET_BIT(PWR->CR3, PWR_CR3_APC);
-#endif
+#endif /* CORE_CM0PLUS */
 }
 
 /**
@@ -509,7 +512,7 @@ void HAL_PWREx_DisablePullUpPullDownConfig(void)
   CLEAR_BIT(PWR->C2CR3, PWR_C2CR3_APC);
 #else
   CLEAR_BIT(PWR->CR3, PWR_CR3_APC);
-#endif
+#endif /* CORE_CM0PLUS */
 }
 
 /****************************************************************************/
@@ -578,8 +581,8 @@ uint32_t HAL_PWREx_IsEnabledWakeUp_ILAC(void)
 {
   return LL_PWR_C2_IsEnabledWakeUp_ILAC();
 }
-#endif
-#endif
+#endif /* CORE_CM0PLUS */
+#endif /* DUAL_CORE */
 
 /****************************************************************************/
 /**
@@ -637,7 +640,7 @@ void HAL_PWREx_EnableFlashPowerDown(uint32_t PowerMode)
 
   /* Set flash power down mode */
   SET_BIT(PWR->CR1, PowerMode);
-#endif
+#endif /* CORE_CM0PLUS */
 }
 
 /**
@@ -660,7 +663,7 @@ void HAL_PWREx_DisableFlashPowerDown(uint32_t PowerMode)
 #else
   /* Set flash power down mode */
   CLEAR_BIT(PWR->CR1, PowerMode);
-#endif
+#endif /* CORE_CM0PLUS */
 }
 
 /****************************************************************************/
@@ -676,7 +679,7 @@ void HAL_PWREx_EnableWPVD(void)
   LL_C2_PWR_EnableWPVD();
 #else
   LL_PWR_EnableWPVD();
-#endif
+#endif /* CORE_CM0PLUS */
 }
 
 /**
@@ -689,7 +692,7 @@ void HAL_PWREx_DisableWPVD(void)
   LL_C2_PWR_DisableWPVD();
 #else
   LL_PWR_DisableWPVD();
-#endif
+#endif /* CORE_CM0PLUS */
 }
 
 /**
@@ -749,7 +752,7 @@ void HAL_PWREx_DisablePVM3(void)
   *         detection level and to each monitored supply.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_PWREx_ConfigPVM(PWR_PVMTypeDef *sConfigPVM)
+HAL_StatusTypeDef HAL_PWREx_ConfigPVM(const PWR_PVMTypeDef *sConfigPVM)
 {
   HAL_StatusTypeDef status = HAL_OK;
 
@@ -925,7 +928,7 @@ void HAL_PWREx_EnterSTOP0Mode(uint8_t STOPEntry)
   /* Stop 0 mode with Main Regulator */
   MODIFY_REG(PWR->CR1, PWR_CR1_LPMS, PWR_LOWPOWERMODE_STOP0);
 
-#endif
+#endif /* CORE_CM0PLUS */
 
   /* Set SLEEPDEEP bit of Cortex System Control Register */
   SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
@@ -982,7 +985,7 @@ void HAL_PWREx_EnterSTOP1Mode(uint8_t STOPEntry)
 #else
   /* Stop 1 mode with Low-Power Regulator */
   MODIFY_REG(PWR->CR1, PWR_CR1_LPMS, PWR_LOWPOWERMODE_STOP1);
-#endif
+#endif /* CORE_CM0PLUS */
 
   /* Set SLEEPDEEP bit of Cortex System Control Register */
   SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
@@ -1041,7 +1044,7 @@ void HAL_PWREx_EnterSTOP2Mode(uint8_t STOPEntry)
 #else
   /* Set Stop mode 2 */
   MODIFY_REG(PWR->CR1, PWR_CR1_LPMS, PWR_LOWPOWERMODE_STOP2);
-#endif
+#endif /* CORE_CM0PLUS */
 
   /* Set SLEEPDEEP bit of Cortex System Control Register */
   SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
@@ -1083,15 +1086,15 @@ void HAL_PWREx_EnterSHUTDOWNMode(void)
 #else
   /* Set Shutdown mode */
   MODIFY_REG(PWR->CR1, PWR_CR1_LPMS, PWR_LOWPOWERMODE_SHUTDOWN);
-#endif
+#endif /* CORE_CM0PLUS */
 
   /* Set SLEEPDEEP bit of Cortex System Control Register */
   SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
 
   /* This option is used to ensure that store operations are completed */
-#if defined ( __CC_ARM)
+#if defined (__CC_ARM)
   __force_stores();
-#endif
+#endif /* __CC_ARM */
 
   /* Request Wait For Interrupt */
   __WFI();

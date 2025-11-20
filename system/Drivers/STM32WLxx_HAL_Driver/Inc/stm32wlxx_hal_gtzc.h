@@ -217,7 +217,7 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_MPCWM_GetConfigMemAttributes(uint32_t MemBaseAdd
   * @{
   */
 /* TZSC and TZSC-MPCWM Lock functions *****************************************/
-uint32_t          HAL_GTZC_TZSC_GetLock(GTZC_TZSC_TypeDef *TZSCx);
+uint32_t          HAL_GTZC_TZSC_GetLock(const GTZC_TZSC_TypeDef *TZSCx);
 #if defined(CORE_CM0PLUS)
 void              HAL_GTZC_TZSC_Lock(GTZC_TZSC_TypeDef *TZSCx);
 /**
@@ -267,21 +267,25 @@ void              HAL_GTZC_TZIC_Callback(uint32_t PeriphId);
   *         in case of GTZC_PERIPH_ALL usage in the two following functions:
   *         HAL_GTZC_TZSC_ConfigPeriphAttributes and HAL_GTZC_TZSC_GetConfigPeriphAttributes
   */
-#define GTZC_GET_ARRAY_INDEX(__PERIPHERAL__)  ((GTZC_GET_REG_INDEX(__PERIPHERAL__) * 32U) + GTZC_GET_PERIPH_POS(__PERIPHERAL__))
+#define GTZC_GET_ARRAY_INDEX(__PERIPHERAL__)  \
+  ((GTZC_GET_REG_INDEX(__PERIPHERAL__) * 32U) + GTZC_GET_PERIPH_POS(__PERIPHERAL__))
 
 
 /**
   * @brief  GTZC private macros to check function input parameters
   */
-#define IS_GTZC_ATTRIBUTE(__ATTRIBUTES__)   (((__ATTRIBUTES__) & ~(GTZC_TZSC_ATTRIBUTE_SEC | GTZC_TZSC_ATTRIBUTE_PRIV)) == 0x00u)
+#define IS_GTZC_ATTRIBUTE(__ATTRIBUTES__)   \
+  (((__ATTRIBUTES__) & ~(GTZC_TZSC_ATTRIBUTE_SEC | GTZC_TZSC_ATTRIBUTE_PRIV)) == 0x00u)
 
-#define IS_GTZC_TZSC_PERIPHERAL(__PERIPHERAL__)  (((__PERIPHERAL__) == GTZC_PERIPH_AES) || ((__PERIPHERAL__) == GTZC_PERIPH_RNG) || \
-                                                  ((__PERIPHERAL__) == GTZC_PERIPH_SUBGHZSPI) || ((__PERIPHERAL__) == GTZC_PERIPH_PKA) ||\
-                                                  ((__PERIPHERAL__) == GTZC_PERIPH_ALL))
+#define IS_GTZC_TZSC_PERIPHERAL(__PERIPHERAL__)                                            \
+  (((__PERIPHERAL__) == GTZC_PERIPH_AES) || ((__PERIPHERAL__) == GTZC_PERIPH_RNG) ||       \
+   ((__PERIPHERAL__) == GTZC_PERIPH_SUBGHZSPI) || ((__PERIPHERAL__) == GTZC_PERIPH_PKA) || \
+   ((__PERIPHERAL__) == GTZC_PERIPH_ALL))
 
-#define IS_GTZC_TZIC_PERIPHERAL(__PERIPHERAL__)  (((((__PERIPHERAL__) & ~(GTZC_PERIPH_REG_Pos | GTZC_PERIPH_BITPOS_Msk)) == 0x00u) && \
-                                                  ((GTZC_GET_ARRAY_INDEX(__PERIPHERAL__) <= GTZC_GET_ARRAY_INDEX(GTZC_PERIPH_TZIC_MAX)))) || \
-                                                  ((__PERIPHERAL__) == GTZC_PERIPH_ALLPERIPH_Msk))
+#define IS_GTZC_TZIC_PERIPHERAL(__PERIPHERAL__)                                                \
+  (((((__PERIPHERAL__) & ~(GTZC_PERIPH_REG_Pos | GTZC_PERIPH_BITPOS_Msk)) == 0x00u) &&         \
+    ((GTZC_GET_ARRAY_INDEX(__PERIPHERAL__) <= GTZC_GET_ARRAY_INDEX(GTZC_PERIPH_TZIC_MAX)))) || \
+   ((__PERIPHERAL__) == GTZC_PERIPH_ALLPERIPH_Msk))
 
 #define IS_GTZC_MPCWM_MEMORY_BASEADDRESS(__BASE_ADDRESS__)   (((__BASE_ADDRESS__) == FLASH_BASE) || \
                                                               ((__BASE_ADDRESS__) == SRAM1_BASE) || \
@@ -295,13 +299,13 @@ void              HAL_GTZC_TZIC_Callback(uint32_t PeriphId);
 #define IS_GTZC_MPCWM_SRAM2_AREAID(__AREAID__)  ((__AREAID__) == GTZC_TZSC_MPCWM_AREAID_UNPRIV)
 
 #define IS_GTZC_MPCWM_FLASH_LENGTH(__LENGTH__)  ((((__LENGTH__) % GTZC_TZSC_MPCWM_GRANULARITY_FLASH) == 0x00u) && \
-                                                  ((__LENGTH__) <= FLASH_SIZE))
+                                                 ((__LENGTH__) <= FLASH_SIZE))
 
 #define IS_GTZC_MPCWM_SRAM1_LENGTH(__LENGTH__)  ((((__LENGTH__) % GTZC_TZSC_MPCWM_GRANULARITY_SRAM1) == 0x00u) && \
-                                                  ((__LENGTH__) <= SRAM1_SIZE))
+                                                 ((__LENGTH__) <= SRAM1_SIZE))
 
 #define IS_GTZC_MPCWM_SRAM2_LENGTH(__LENGTH__)  ((((__LENGTH__) % GTZC_TZSC_MPCWM_GRANULARITY_SRAM2) == 0x00u) && \
-                                                  ((__LENGTH__) <= SRAM2_SIZE))
+                                                 ((__LENGTH__) <= SRAM2_SIZE))
 
 /**
   * @}

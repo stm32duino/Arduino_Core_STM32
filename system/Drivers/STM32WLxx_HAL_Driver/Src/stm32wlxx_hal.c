@@ -56,8 +56,8 @@
   * @brief STM32WLxx HAL Driver version number
   */
 #define __STM32WLxx_HAL_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32WLxx_HAL_VERSION_SUB1   (0x03U) /*!< [23:16] sub1 version */
-#define __STM32WLxx_HAL_VERSION_SUB2   (0x01U) /*!< [15:8]  sub2 version */
+#define __STM32WLxx_HAL_VERSION_SUB1   (0x04U) /*!< [23:16] sub1 version */
+#define __STM32WLxx_HAL_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
 #define __STM32WLxx_HAL_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32WLxx_HAL_VERSION         ((__STM32WLxx_HAL_VERSION_MAIN << 24U)\
                                          |(__STM32WLxx_HAL_VERSION_SUB1 << 16U)\
@@ -780,7 +780,7 @@ void HAL_SYSCFG_DisableIOAnalogSwitchBooster(void)
   *                   the Interrupt Mask configuration
   * @retval None
   */
-void HAL_SYSCFG_EnableIT(SYSCFG_InterruptTypeDef *Interrupt)
+void HAL_SYSCFG_EnableIT(const SYSCFG_InterruptTypeDef *Interrupt)
 {
   uint32_t InterruptMask1 = (Interrupt->InterruptMask1 & ~HAL_SYSCFG_GRP1_RESERVED);
   uint32_t InterruptMask2 = (Interrupt->InterruptMask2 & ~HAL_SYSCFG_GRP2_RESERVED);
@@ -806,7 +806,7 @@ void HAL_SYSCFG_EnableIT(SYSCFG_InterruptTypeDef *Interrupt)
   *                   the Interrupt Mask configuration
   * @retval None
   */
-void HAL_SYSCFG_DisableIT(SYSCFG_InterruptTypeDef *Interrupt)
+void HAL_SYSCFG_DisableIT(const SYSCFG_InterruptTypeDef *Interrupt)
 {
   uint32_t InterruptMask1 = (Interrupt->InterruptMask1 & ~HAL_SYSCFG_GRP1_RESERVED);
   uint32_t InterruptMask2 = (Interrupt->InterruptMask2 & ~HAL_SYSCFG_GRP2_RESERVED);

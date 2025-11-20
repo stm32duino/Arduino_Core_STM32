@@ -74,21 +74,21 @@
                                                  ((__VALUE__) == LL_DMA_PRIORITY_VERYHIGH))
 
 #define IS_LL_DMA_ALL_CHANNEL_INSTANCE(INSTANCE, CHANNEL)  ((((INSTANCE) == DMA1) && \
-                                                            (((CHANNEL) == LL_DMA_CHANNEL_1) || \
-                                                             ((CHANNEL) == LL_DMA_CHANNEL_2) || \
-                                                             ((CHANNEL) == LL_DMA_CHANNEL_3) || \
-                                                             ((CHANNEL) == LL_DMA_CHANNEL_4) || \
-                                                             ((CHANNEL) == LL_DMA_CHANNEL_5) || \
-                                                             ((CHANNEL) == LL_DMA_CHANNEL_6) || \
-                                                             ((CHANNEL) == LL_DMA_CHANNEL_7))) || \
+                                                             (((CHANNEL) == LL_DMA_CHANNEL_1) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_2) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_3) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_4) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_5) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_6) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_7))) || \
                                                             (((INSTANCE) == DMA2) && \
-                                                            (((CHANNEL) == LL_DMA_CHANNEL_1) || \
-                                                             ((CHANNEL) == LL_DMA_CHANNEL_2) || \
-                                                             ((CHANNEL) == LL_DMA_CHANNEL_3) || \
-                                                             ((CHANNEL) == LL_DMA_CHANNEL_4) || \
-                                                             ((CHANNEL) == LL_DMA_CHANNEL_5) || \
-                                                             ((CHANNEL) == LL_DMA_CHANNEL_6) || \
-                                                             ((CHANNEL) == LL_DMA_CHANNEL_7))))
+                                                             (((CHANNEL) == LL_DMA_CHANNEL_1) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_2) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_3) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_4) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_5) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_6) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_7))))
 /**
   * @}
   */

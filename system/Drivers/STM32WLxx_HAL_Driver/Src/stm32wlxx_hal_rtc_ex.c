@@ -144,7 +144,7 @@
 
 
 /** @addtogroup RTCEx_Exported_Functions_Group1
- *  @brief   RTC TimeStamp and Tamper functions
+  *  @brief   RTC TimeStamp and Tamper functions
   *
 @verbatim
  ===============================================================================
@@ -283,7 +283,7 @@ HAL_StatusTypeDef HAL_RTCEx_DeactivateTimeStamp(RTC_HandleTypeDef *hrtc)
   CLEAR_BIT(RTC->CR, (RTC_CR_TSEDGE | RTC_CR_TSE | RTC_CR_TSIE));
 
   /* Clear timestamp flag only if internal timestamp flag not set */
-  if( READ_BIT( RTC->SR, RTC_SR_ITSF) == 0U )
+  if (READ_BIT(RTC->SR, RTC_SR_ITSF) == 0U)
   {
     WRITE_REG(RTC->SCR, RTC_SCR_CTSF);
   }
@@ -350,9 +350,9 @@ HAL_StatusTypeDef HAL_RTCEx_DeactivateInternalTimeStamp(RTC_HandleTypeDef *hrtc)
 
   /* Clear internal timestamp flag if Timestamp not enabled and TSOVF not set */
   WRITE_REG(RTC->SCR, RTC_SCR_CITSF);
-  if ( READ_BIT(RTC->SR, RTC_SR_TSOVF) == 0U )
+  if (READ_BIT(RTC->SR, RTC_SR_TSOVF) == 0U)
   {
-    if ( READ_BIT(RTC->CR, RTC_CR_TSE) == 0U )
+    if (READ_BIT(RTC->CR, RTC_CR_TSE) == 0U)
     {
       WRITE_REG(RTC->SCR, RTC_SCR_CTSF);
     }
@@ -383,7 +383,8 @@ HAL_StatusTypeDef HAL_RTCEx_DeactivateInternalTimeStamp(RTC_HandleTypeDef *hrtc)
   *             @arg RTC_FORMAT_BCD: BCD data format
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_RTCEx_GetTimeStamp(RTC_HandleTypeDef *hrtc, RTC_TimeTypeDef *sTimeStamp, RTC_DateTypeDef *sTimeStampDate, uint32_t Format)
+HAL_StatusTypeDef HAL_RTCEx_GetTimeStamp(RTC_HandleTypeDef *hrtc, RTC_TimeTypeDef *sTimeStamp,
+                                         RTC_DateTypeDef *sTimeStampDate, uint32_t Format)
 {
   uint32_t tmptime;
   uint32_t tmpdate;
@@ -447,7 +448,7 @@ void HAL_RTCEx_TimeStampIRQHandler(RTC_HandleTypeDef *hrtc)
     hrtc->TimeStampEventCallback(hrtc);
 #else
     HAL_RTCEx_TimeStampEventCallback(hrtc);
-#endif
+#endif /* USE_HAL_RTC_REGISTER_CALLBACKS */
     /* Clearing flags after the Callback because the content of RTC_TSTR and RTC_TSDR are cleared when TSF bit is reset.*/
     WRITE_REG(RTC->SCR, RTC_SCR_CITSF | RTC_SCR_CTSF);
   }
@@ -608,7 +609,8 @@ HAL_StatusTypeDef HAL_RTCEx_SetWakeUpTimer(RTC_HandleTypeDef *hrtc, uint32_t Wak
   *                         That is why when WakeUpAutoClr is set, EXTI is configured as EVENT instead of Interrupt to avoid useless IRQ handler execution.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_RTCEx_SetWakeUpTimer_IT(RTC_HandleTypeDef *hrtc, uint32_t WakeUpCounter, uint32_t WakeUpClock, uint32_t WakeUpAutoClr)
+HAL_StatusTypeDef HAL_RTCEx_SetWakeUpTimer_IT(RTC_HandleTypeDef *hrtc, uint32_t WakeUpCounter, uint32_t WakeUpClock,
+                                              uint32_t WakeUpAutoClr)
 {
   uint32_t tickstart;
 
@@ -877,7 +879,8 @@ HAL_StatusTypeDef HAL_RTCEx_PollForWakeUpTimerEvent(RTC_HandleTypeDef *hrtc, uin
   *          This parameter can be one any value from 0 to 0x000001FF.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_RTCEx_SetSmoothCalib(RTC_HandleTypeDef *hrtc, uint32_t SmoothCalibPeriod, uint32_t SmoothCalibPlusPulses, uint32_t SmoothCalibMinusPulsesValue)
+HAL_StatusTypeDef HAL_RTCEx_SetSmoothCalib(RTC_HandleTypeDef *hrtc, uint32_t SmoothCalibPeriod,
+                                           uint32_t SmoothCalibPlusPulses, uint32_t SmoothCalibMinusPulsesValue)
 {
   uint32_t tickstart;
 
@@ -919,7 +922,8 @@ HAL_StatusTypeDef HAL_RTCEx_SetSmoothCalib(RTC_HandleTypeDef *hrtc, uint32_t Smo
   }
 
   /* Configure the Smooth calibration settings */
-  MODIFY_REG(RTC->CALR, (RTC_CALR_CALP | RTC_CALR_CALW8 | RTC_CALR_CALW16 | RTC_CALR_CALM), (uint32_t)(SmoothCalibPeriod | SmoothCalibPlusPulses | SmoothCalibMinusPulsesValue));
+  MODIFY_REG(RTC->CALR, (RTC_CALR_CALP | RTC_CALR_CALW8 | RTC_CALR_CALW16 | RTC_CALR_CALM),
+             (uint32_t)(SmoothCalibPeriod | SmoothCalibPlusPulses | SmoothCalibMinusPulsesValue));
 
   /* Enable the write protection for RTC registers */
   __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
@@ -1900,7 +1904,7 @@ void HAL_RTCEx_TamperIRQHandler(RTC_HandleTypeDef *hrtc)
 #else
     /* Tamper1 callback */
     HAL_RTCEx_Tamper1EventCallback(hrtc);
-#endif
+#endif /* USE_HAL_RTC_REGISTER_CALLBACKS */
   }
 
   /* Check Tamper2 status */
@@ -1912,7 +1916,7 @@ void HAL_RTCEx_TamperIRQHandler(RTC_HandleTypeDef *hrtc)
 #else
     /* Tamper2 callback */
     HAL_RTCEx_Tamper2EventCallback(hrtc);
-#endif
+#endif /* USE_HAL_RTC_REGISTER_CALLBACKS */
   }
 
   /* Check Tamper3 status */
@@ -1924,9 +1928,8 @@ void HAL_RTCEx_TamperIRQHandler(RTC_HandleTypeDef *hrtc)
 #else
     /* Tamper3 callback */
     HAL_RTCEx_Tamper3EventCallback(hrtc);
-#endif
+#endif /* USE_HAL_RTC_REGISTER_CALLBACKS */
   }
-
 
   /* Check Internal Tamper3 status */
   if ((tmp & RTC_INT_TAMPER_3) == RTC_INT_TAMPER_3)
@@ -1937,7 +1940,7 @@ void HAL_RTCEx_TamperIRQHandler(RTC_HandleTypeDef *hrtc)
 #else
     /* Internal Tamper3 callback */
     HAL_RTCEx_InternalTamper3EventCallback(hrtc);
-#endif
+#endif /* USE_HAL_RTC_REGISTER_CALLBACKS */
   }
 
   /* Check Internal Tamper5 status */
@@ -1949,7 +1952,7 @@ void HAL_RTCEx_TamperIRQHandler(RTC_HandleTypeDef *hrtc)
 #else
     /* Internal Tamper5 callback */
     HAL_RTCEx_InternalTamper5EventCallback(hrtc);
-#endif
+#endif /* USE_HAL_RTC_REGISTER_CALLBACKS */
   }
 
   /* Check Internal Tamper6 status */
@@ -1961,7 +1964,7 @@ void HAL_RTCEx_TamperIRQHandler(RTC_HandleTypeDef *hrtc)
 #else
     /* Internal Tamper6 callback */
     HAL_RTCEx_InternalTamper6EventCallback(hrtc);
-#endif
+#endif /* USE_HAL_RTC_REGISTER_CALLBACKS */
   }
 
   /* Check Internal Tamper8 status */
@@ -1973,7 +1976,7 @@ void HAL_RTCEx_TamperIRQHandler(RTC_HandleTypeDef *hrtc)
 #else
     /* Internal Tamper8 callback */
     HAL_RTCEx_InternalTamper8EventCallback(hrtc);
-#endif
+#endif /* USE_HAL_RTC_REGISTER_CALLBACKS */
   }
 }
 
@@ -2124,7 +2127,7 @@ void HAL_RTCEx_BKUPWrite(RTC_HandleTypeDef *hrtc, uint32_t BackupRegister, uint3
   /* Check the parameters */
   assert_param(IS_RTC_BKP(BackupRegister));
 
-  tmp = (uint32_t) & (TAMP->BKP0R);
+  tmp = (uint32_t) &(TAMP->BKP0R);
   tmp += (BackupRegister * 4U);
 
   /* Write the specified register */
@@ -2147,7 +2150,7 @@ uint32_t HAL_RTCEx_BKUPRead(RTC_HandleTypeDef *hrtc, uint32_t BackupRegister)
   /* Check the parameters */
   assert_param(IS_RTC_BKP(BackupRegister));
 
-  tmp = (uint32_t) & (TAMP->BKP0R);
+  tmp = (uint32_t) &(TAMP->BKP0R);
   tmp += (BackupRegister * 4U);
 
   /* Read the specified register */

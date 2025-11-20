@@ -55,7 +55,7 @@
 #if defined(DUAL_CORE)
 #define PWR_C2CR1_RESET_VALUE (PWR_C2CR1_LPMS_2 | PWR_C2CR1_LPMS_1 | PWR_C2CR1_LPMS_0)
 #define PWR_C2CR3_RESET_VALUE (0x00000000)
-#endif
+#endif /* DUAL_CORE */
 /**
   * @}
   */
@@ -97,7 +97,7 @@ ErrorStatus LL_PWR_DeInit(void)
 #ifdef CORE_CM0PLUS
   LL_PWR_WriteReg(C2CR1, PWR_C2CR1_RESET_VALUE);
   LL_PWR_WriteReg(C2CR3, PWR_C2CR3_RESET_VALUE);
-#endif
+#endif /* CORE_CM0PLUS */
 
   /* Clear all flags */
 #if defined(DUAL_CORE)
@@ -113,7 +113,7 @@ ErrorStatus LL_PWR_DeInit(void)
                   | LL_PWR_SCR_CWRFBUSYF
                   | LL_PWR_SCR_CWPVDF
                  );
-#endif
+#endif /* DUAL_CORE */
 
 #ifdef CORE_CM0PLUS
   LL_PWR_WriteReg(EXTSCR,
@@ -123,7 +123,7 @@ ErrorStatus LL_PWR_DeInit(void)
   LL_PWR_WriteReg(EXTSCR,
                   LL_PWR_EXTSCR_C1CSSF
                  );
-#endif
+#endif /* CORE_CM0PLUS */
 
   return SUCCESS;
 }
@@ -139,7 +139,7 @@ ErrorStatus LL_PWR_DeInit(void)
 /**
   * @}
   */
-#endif /* defined(PWR) */
+#endif /* PWR */
 /**
   * @}
   */
