@@ -9503,7 +9503,7 @@ GenH7.menu.pnum.DevEBoxH750VBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/sv
 # WeAct Mini H723VGTX
 GenH7.menu.pnum.WeActMiniH723VGTX=WeAct MiniSTM32H723VGTX
 GenH7.menu.pnum.WeActMiniH723VGTX.upload.maximum_size=1048576
-GenH7.menu.pnum.WeActMiniH723VGTX.upload.maximum_data_size=577536
+GenH7.menu.pnum.WeActMiniH723VGTX.upload.maximum_data_size=327680
 GenH7.menu.pnum.WeActMiniH723VGTX.build.board=WeActMiniH723VGTX
 GenH7.menu.pnum.WeActMiniH723VGTX.build.product_line=STM32H723xx
 GenH7.menu.pnum.WeActMiniH750VBTX.build.variant_h=variant_WeActMiniH7xx.h
