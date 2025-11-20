@@ -262,7 +262,7 @@ __STATIC_INLINE uint32_t LL_GetPackageType(void)
   *         @ref LL_RCC_GetSystemClocksFreq (HCLK2_Frequency field))
   * @note   When a RTOS is used, it is recommended to avoid changing the SysTick
   *         configuration by calling this function, for a delay use rather osDelay RTOS service.
-  * @param  Ticks Number of ticks
+  * @param  Ticks Frequency of Ticks (Hz)
   * @retval None
   */
 #else
@@ -272,7 +272,7 @@ __STATIC_INLINE uint32_t LL_GetPackageType(void)
   *         @ref LL_RCC_GetSystemClocksFreq (HCLK1_Frequency field))
   * @note   When a RTOS is used, it is recommended to avoid changing the SysTick
   *         configuration by calling this function, for a delay use rather osDelay RTOS service.
-  * @param  Ticks Number of ticks
+  * @param  Ticks Frequency of Ticks (Hz)
   * @retval None
   */
 #endif /* CORE_CM0PLUS */

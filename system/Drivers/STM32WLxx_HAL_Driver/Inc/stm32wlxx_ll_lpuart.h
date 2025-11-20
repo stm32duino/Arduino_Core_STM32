@@ -56,6 +56,10 @@ static const uint16_t LPUART_PRESCALER_TAB[] =
   (uint16_t)32,
   (uint16_t)64,
   (uint16_t)128,
+  (uint16_t)256,
+  (uint16_t)256,
+  (uint16_t)256,
+  (uint16_t)256,
   (uint16_t)256
 };
 /**
@@ -1637,8 +1641,7 @@ __STATIC_INLINE uint32_t LL_LPUART_IsActiveFlag_IDLE(const USART_TypeDef *LPUART
   return ((READ_BIT(LPUARTx->ISR, USART_ISR_IDLE) == (USART_ISR_IDLE)) ? 1UL : 0UL);
 }
 
-/* Legacy define */
-#define LL_LPUART_IsActiveFlag_RXNE  LL_LPUART_IsActiveFlag_RXNE_RXFNE
+#define LL_LPUART_IsActiveFlag_RXNE  LL_LPUART_IsActiveFlag_RXNE_RXFNE /* Redefinition for legacy purpose */
 
 /**
   * @brief  Check if the LPUART Read Data Register or LPUART RX FIFO Not Empty Flag is set or not
@@ -1662,8 +1665,7 @@ __STATIC_INLINE uint32_t LL_LPUART_IsActiveFlag_TC(const USART_TypeDef *LPUARTx)
   return ((READ_BIT(LPUARTx->ISR, USART_ISR_TC) == (USART_ISR_TC)) ? 1UL : 0UL);
 }
 
-/* Legacy define */
-#define LL_LPUART_IsActiveFlag_TXE  LL_LPUART_IsActiveFlag_TXE_TXFNF
+#define LL_LPUART_IsActiveFlag_TXE  LL_LPUART_IsActiveFlag_TXE_TXFNF /* Redefinition for legacy purpose */
 
 /**
   * @brief  Check if the LPUART Transmit Data Register Empty or LPUART TX FIFO Not Full Flag is set or not
@@ -1937,8 +1939,7 @@ __STATIC_INLINE void LL_LPUART_EnableIT_IDLE(USART_TypeDef *LPUARTx)
   ATOMIC_SET_BIT(LPUARTx->CR1, USART_CR1_IDLEIE);
 }
 
-/* Legacy define */
-#define LL_LPUART_EnableIT_RXNE  LL_LPUART_EnableIT_RXNE_RXFNE
+#define LL_LPUART_EnableIT_RXNE  LL_LPUART_EnableIT_RXNE_RXFNE /* Redefinition for legacy purpose */
 
 /**
   * @brief  Enable RX Not Empty and RX FIFO Not Empty Interrupt
@@ -1962,8 +1963,7 @@ __STATIC_INLINE void LL_LPUART_EnableIT_TC(USART_TypeDef *LPUARTx)
   ATOMIC_SET_BIT(LPUARTx->CR1, USART_CR1_TCIE);
 }
 
-/* Legacy define */
-#define LL_LPUART_EnableIT_TXE  LL_LPUART_EnableIT_TXE_TXFNF
+#define LL_LPUART_EnableIT_TXE  LL_LPUART_EnableIT_TXE_TXFNF /* Redefinition for legacy purpose */
 
 /**
   * @brief  Enable TX Empty and TX FIFO Not Full Interrupt
@@ -2090,8 +2090,7 @@ __STATIC_INLINE void LL_LPUART_DisableIT_IDLE(USART_TypeDef *LPUARTx)
   ATOMIC_CLEAR_BIT(LPUARTx->CR1, USART_CR1_IDLEIE);
 }
 
-/* Legacy define */
-#define LL_LPUART_DisableIT_RXNE  LL_LPUART_DisableIT_RXNE_RXFNE
+#define LL_LPUART_DisableIT_RXNE  LL_LPUART_DisableIT_RXNE_RXFNE /* Redefinition for legacy purpose */
 
 /**
   * @brief  Disable RX Not Empty and RX FIFO Not Empty Interrupt
@@ -2115,8 +2114,7 @@ __STATIC_INLINE void LL_LPUART_DisableIT_TC(USART_TypeDef *LPUARTx)
   ATOMIC_CLEAR_BIT(LPUARTx->CR1, USART_CR1_TCIE);
 }
 
-/* Legacy define */
-#define LL_LPUART_DisableIT_TXE  LL_LPUART_DisableIT_TXE_TXFNF
+#define LL_LPUART_DisableIT_TXE  LL_LPUART_DisableIT_TXE_TXFNF /* Redefinition for legacy purpose */
 
 /**
   * @brief  Disable TX Empty and TX FIFO Not Full Interrupt
@@ -2243,8 +2241,7 @@ __STATIC_INLINE uint32_t LL_LPUART_IsEnabledIT_IDLE(const USART_TypeDef *LPUARTx
   return ((READ_BIT(LPUARTx->CR1, USART_CR1_IDLEIE) == (USART_CR1_IDLEIE)) ? 1UL : 0UL);
 }
 
-/* Legacy define */
-#define LL_LPUART_IsEnabledIT_RXNE  LL_LPUART_IsEnabledIT_RXNE_RXFNE
+#define LL_LPUART_IsEnabledIT_RXNE  LL_LPUART_IsEnabledIT_RXNE_RXFNE /* Redefinition for legacy purpose */
 
 /**
   * @brief  Check if the LPUART RX Not Empty and LPUART RX FIFO Not Empty Interrupt is enabled or disabled.
@@ -2268,8 +2265,7 @@ __STATIC_INLINE uint32_t LL_LPUART_IsEnabledIT_TC(const USART_TypeDef *LPUARTx)
   return ((READ_BIT(LPUARTx->CR1, USART_CR1_TCIE) == (USART_CR1_TCIE)) ? 1UL : 0UL);
 }
 
-/* Legacy define */
-#define LL_LPUART_IsEnabledIT_TXE  LL_LPUART_IsEnabledIT_TXE_TXFNF
+#define LL_LPUART_IsEnabledIT_TXE  LL_LPUART_IsEnabledIT_TXE_TXFNF /* Redefinition for legacy purpose */
 
 /**
   * @brief  Check if the LPUART TX Empty and LPUART TX FIFO Not Full Interrupt is enabled or disabled
@@ -2611,6 +2607,21 @@ __STATIC_INLINE void LL_LPUART_RequestEnterMuteMode(USART_TypeDef *LPUARTx)
 __STATIC_INLINE void LL_LPUART_RequestRxDataFlush(USART_TypeDef *LPUARTx)
 {
   SET_BIT(LPUARTx->RQR, (uint16_t)USART_RQR_RXFRQ);
+}
+
+/**
+  * @brief  Request a Transmit data FIFO flush
+  * @note   TXFRQ bit is set to flush the whole FIFO when FIFO mode is enabled. This
+  *         also sets the flag TXFE (TXFIFO empty bit in the LPUART_ISR register).
+  * @note   Macro IS_UART_FIFO_INSTANCE(USARTx) can be used to check whether or not
+  *         FIFO mode feature is supported by the USARTx instance.
+  * @rmtoll RQR          TXFRQ         LL_LPUART_RequestTxDataFlush
+  * @param  LPUARTx LPUART Instance
+  * @retval None
+  */
+__STATIC_INLINE void LL_LPUART_RequestTxDataFlush(USART_TypeDef *LPUARTx)
+{
+  SET_BIT(LPUARTx->RQR, (uint16_t)USART_RQR_TXFRQ);
 }
 
 /**

@@ -121,6 +121,12 @@
   */
 HAL_StatusTypeDef HAL_DACEx_TriangleWaveGenerate(DAC_HandleTypeDef *hdac, uint32_t Channel, uint32_t Amplitude)
 {
+  /* Check the DAC peripheral handle */
+  if (hdac == NULL)
+  {
+    return HAL_ERROR;
+  }
+
   /* Check the parameters */
   assert_param(IS_DAC_CHANNEL(Channel));
   assert_param(IS_DAC_LFSR_UNMASK_TRIANGLE_AMPLITUDE(Amplitude));
@@ -170,6 +176,12 @@ HAL_StatusTypeDef HAL_DACEx_TriangleWaveGenerate(DAC_HandleTypeDef *hdac, uint32
   */
 HAL_StatusTypeDef HAL_DACEx_NoiseWaveGenerate(DAC_HandleTypeDef *hdac, uint32_t Channel, uint32_t Amplitude)
 {
+  /* Check the DAC peripheral handle */
+  if (hdac == NULL)
+  {
+    return HAL_ERROR;
+  }
+
   /* Check the parameters */
   assert_param(IS_DAC_CHANNEL(Channel));
   assert_param(IS_DAC_LFSR_UNMASK_TRIANGLE_AMPLITUDE(Amplitude));
@@ -223,7 +235,7 @@ HAL_StatusTypeDef HAL_DACEx_SelfCalibrate(DAC_HandleTypeDef *hdac, DAC_ChannelCo
 
   /* Check the DAC handle allocation */
   /* Check if DAC running */
-  if (hdac == NULL)
+  if ((hdac == NULL) || (sConfig == NULL))
   {
     status = HAL_ERROR;
   }
@@ -251,8 +263,8 @@ HAL_StatusTypeDef HAL_DACEx_SelfCalibrate(DAC_HandleTypeDef *hdac, DAC_ChannelCo
 
     /* Init trimming counter */
     /* Medium value */
-    trimmingvalue = 16UL;
-    delta = 8UL;
+    trimmingvalue = 0x10UL;
+    delta = 0x08UL;
     while (delta != 0UL)
     {
       /* Set candidate trimming */
@@ -263,7 +275,7 @@ HAL_StatusTypeDef HAL_DACEx_SelfCalibrate(DAC_HandleTypeDef *hdac, DAC_ChannelCo
       /* Note: Variable divided by 2 to compensate partially CPU processing cycles, scaling in us split to not exceed */
       /*       32 bits register capacity and handle low frequency. */
       wait_loop_index = ((DAC_DELAY_TRIM_US / 10UL) * ((SystemCoreClock / (100000UL * 2UL)) + 1UL));
-      while(wait_loop_index != 0UL)
+      while (wait_loop_index != 0UL)
       {
         wait_loop_index--;
       }
@@ -291,7 +303,7 @@ HAL_StatusTypeDef HAL_DACEx_SelfCalibrate(DAC_HandleTypeDef *hdac, DAC_ChannelCo
     /* Note: Variable divided by 2 to compensate partially CPU processing cycles, scaling in us split to not exceed */
     /*       32 bits register capacity and handle low frequency. */
     wait_loop_index = ((DAC_DELAY_TRIM_US / 10UL) * ((SystemCoreClock / (100000UL * 2UL)) + 1UL));
-    while(wait_loop_index != 0UL)
+    while (wait_loop_index != 0UL)
     {
       wait_loop_index--;
     }
@@ -345,8 +357,8 @@ HAL_StatusTypeDef HAL_DACEx_SetUserTrimming(DAC_HandleTypeDef *hdac, DAC_Channel
   assert_param(IS_DAC_CHANNEL(Channel));
   assert_param(IS_DAC_NEWTRIMMINGVALUE(NewTrimmingValue));
 
-  /* Check the DAC handle allocation */
-  if (hdac == NULL)
+  /* Check the DAC handle and channel configuration struct allocation */
+  if ((hdac == NULL) || (sConfig == NULL))
   {
     status = HAL_ERROR;
   }
@@ -374,8 +386,7 @@ HAL_StatusTypeDef HAL_DACEx_SetUserTrimming(DAC_HandleTypeDef *hdac, DAC_Channel
   * @param  Channel The selected DAC channel.
   *          This parameter can be one of the following values:
   *            @arg DAC_CHANNEL_1: DAC Channel1 selected
-  * @retval Trimming value : range: 0->31
-  *
+  * @retval TrimmingValue Value between Min_Data=0x00 and Max_Data=0x1F
  */
 uint32_t HAL_DACEx_GetTrimOffset(const DAC_HandleTypeDef *hdac, uint32_t Channel)
 {

@@ -946,9 +946,9 @@ static void FLASH_OB_RDPConfig(uint32_t RDPLevel)
   *         @ref FLASH_OB_USER_nRST_SHUTDOWN, @ref FLASH_OB_USER_IWDG_SW,
   *         @ref FLASH_OB_USER_IWDG_STOP, @ref FLASH_OB_USER_IWDG_STANDBY,
   *         @ref FLASH_OB_USER_WWDG_SW, @ref OB_USER_SWAP_BANK,
-  *         @ref FLASH_OB_USER_DUALBANK, @ref FLASH_OB_USER_DBANK,
-  *         @ref FLASH_OB_USER_SRAM2_PAR, @ref FLASH_OB_USER_SRAM2_RST,
-  *         @ref OB_USER_nSWBOOT0, @ref OB_USER_nBOOT0, @ref FLASH_OB_USER_PA15_PUPEN
+  *         @ref FLASH_OB_USER_DUALBANK, @ref FLASH_OB_USER_SRAM2_PAR,
+  *         @ref FLASH_OB_USER_SRAM2_RST, @ref OB_USER_nSWBOOT0,
+  *         @ref OB_USER_nBOOT0, @ref FLASH_OB_USER_PA15_PUPEN
   *         and @ref OB_USER_TZEN
   *
   * @retval None

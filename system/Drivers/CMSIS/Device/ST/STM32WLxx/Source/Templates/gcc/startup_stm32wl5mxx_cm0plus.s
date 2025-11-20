@@ -127,7 +127,6 @@ Infinite_Loop:
 ******************************************************************************/
   .section .isr_vector,"a",%progbits
   .type g_pfnVectors, %object
-  .size g_pfnVectors, .-g_pfnVectors
 
 g_pfnVectors:
   .word _estack
@@ -178,6 +177,8 @@ g_pfnVectors:
   .word	LPUART1_IRQHandler                   			/* LPUART1 Interrupt                                  */
   .word	SUBGHZSPI_IRQHandler                 			/* SUBGHZSPI Interrupt                                */
   .word	SUBGHZ_Radio_IRQHandler              			/* SUBGHZ Radio Interrupt                             */
+
+  .size g_pfnVectors, .-g_pfnVectors
 
 /*******************************************************************************
 *

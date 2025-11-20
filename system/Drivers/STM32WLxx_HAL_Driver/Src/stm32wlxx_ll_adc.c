@@ -207,7 +207,7 @@
   *          - SUCCESS: ADC common registers are de-initialized
   *          - ERROR: not applicable
   */
-ErrorStatus LL_ADC_CommonDeInit(ADC_Common_TypeDef *ADCxy_COMMON)
+ErrorStatus LL_ADC_CommonDeInit(const ADC_Common_TypeDef *ADCxy_COMMON)
 {
   /* Check the parameters */
   assert_param(IS_ADC_COMMON_INSTANCE(ADCxy_COMMON));
@@ -239,7 +239,7 @@ ErrorStatus LL_ADC_CommonDeInit(ADC_Common_TypeDef *ADCxy_COMMON)
   *          - SUCCESS: ADC common registers are initialized
   *          - ERROR: ADC common registers are not initialized
   */
-ErrorStatus LL_ADC_CommonInit(ADC_Common_TypeDef *ADCxy_COMMON, LL_ADC_CommonInitTypeDef *pADC_CommonInitStruct)
+ErrorStatus LL_ADC_CommonInit(ADC_Common_TypeDef *ADCxy_COMMON, const LL_ADC_CommonInitTypeDef *pADC_CommonInitStruct)
 {
   ErrorStatus status = SUCCESS;
 
@@ -309,24 +309,13 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *ADCx)
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(ADCx));
 
-  /* Disable ADC instance if not already disabled.                            */
+  /* Disable ADC instance if not already disabled. */
   if (LL_ADC_IsEnabled(ADCx) == 1UL)
   {
-    /* Set ADC group regular trigger source to SW start to ensure to not      */
-    /* have an external trigger event occurring during the conversion stop    */
-    /* ADC disable process.                                                   */
-    LL_ADC_REG_SetTriggerSource(ADCx, LL_ADC_REG_TRIG_SOFTWARE);
+    /* Stop potential ADC conversion on going on ADC group regular. */
+    LL_ADC_REG_StopConversion(ADCx);
 
-    /* Stop potential ADC conversion on going on ADC group regular.           */
-    if (LL_ADC_REG_IsConversionOngoing(ADCx) != 0UL)
-    {
-      if (LL_ADC_REG_IsStopConversionOngoing(ADCx) == 0UL)
-      {
-        LL_ADC_REG_StopConversion(ADCx);
-      }
-    }
-
-    /* Wait for ADC conversions are effectively stopped                       */
+    /* Wait for ADC conversions are effectively stopped */
     timeout_cpu_cycles = ADC_TIMEOUT_STOP_CONVERSION_CPU_CYCLES;
     while (LL_ADC_REG_IsStopConversionOngoing(ADCx) == 1UL)
     {
@@ -485,7 +474,7 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *ADCx)
   *         is conditioned to ADC state:
   *         ADC instance must be disabled.
   *         This condition is applied to all ADC features, for efficiency
-  *         and compatibility over all STM32 families. However, the different
+  *         and compatibility over all STM32 series. However, the different
   *         features can be set under different ADC state conditions
   *         (setting possible with ADC enabled without conversion on going,
   *         ADC enabled with conversion on going, ...)
@@ -512,7 +501,7 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *ADCx)
   *          - SUCCESS: ADC registers are initialized
   *          - ERROR: ADC registers are not initialized
   */
-ErrorStatus LL_ADC_Init(ADC_TypeDef *ADCx, LL_ADC_InitTypeDef *pADC_InitStruct)
+ErrorStatus LL_ADC_Init(ADC_TypeDef *ADCx, const LL_ADC_InitTypeDef *pADC_InitStruct)
 {
   ErrorStatus status = SUCCESS;
 
@@ -586,7 +575,7 @@ void LL_ADC_StructInit(LL_ADC_InitTypeDef *pADC_InitStruct)
   *         is conditioned to ADC state:
   *         ADC instance must be disabled.
   *         This condition is applied to all ADC features, for efficiency
-  *         and compatibility over all STM32 families. However, the different
+  *         and compatibility over all STM32 series. However, the different
   *         features can be set under different ADC state conditions
   *         (setting possible with ADC enabled without conversion on going,
   *         ADC enabled with conversion on going, ...)
@@ -616,7 +605,7 @@ void LL_ADC_StructInit(LL_ADC_InitTypeDef *pADC_InitStruct)
   *          - SUCCESS: ADC registers are initialized
   *          - ERROR: ADC registers are not initialized
   */
-ErrorStatus LL_ADC_REG_Init(ADC_TypeDef *ADCx, LL_ADC_REG_InitTypeDef *pADC_RegInitStruct)
+ErrorStatus LL_ADC_REG_Init(ADC_TypeDef *ADCx, const LL_ADC_REG_InitTypeDef *pADC_RegInitStruct)
 {
   ErrorStatus status = SUCCESS;
 

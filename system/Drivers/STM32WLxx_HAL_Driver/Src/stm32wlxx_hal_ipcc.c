@@ -424,11 +424,11 @@ IPCC_CHANNELStatusTypeDef HAL_IPCC_GetChannelStatus(IPCC_HandleTypeDef const *co
 {
   uint32_t channel_state;
 #if defined(CORE_CM0PLUS)
-  IPCC_CommonTypeDef *currentInstance = IPCC_C2;
-  IPCC_CommonTypeDef *otherInstance = IPCC_C1;
+  const IPCC_CommonTypeDef *currentInstance = IPCC_C2;
+  const IPCC_CommonTypeDef *otherInstance = IPCC_C1;
 #else
-  IPCC_CommonTypeDef *currentInstance = IPCC_C1;
-  IPCC_CommonTypeDef *otherInstance = IPCC_C2;
+  const IPCC_CommonTypeDef *currentInstance = IPCC_C1;
+  const IPCC_CommonTypeDef *otherInstance = IPCC_C2;
 #endif
 
   /* Check the parameters */
@@ -553,10 +553,10 @@ void HAL_IPCC_RX_IRQHandler(IPCC_HandleTypeDef *const hipcc)
   uint32_t ch_count = 0U;
 #if defined(CORE_CM0PLUS)
   IPCC_CommonTypeDef *currentInstance = IPCC_C2;
-  IPCC_CommonTypeDef *otherInstance = IPCC_C1;
+  const IPCC_CommonTypeDef *otherInstance = IPCC_C1;
 #else
   IPCC_CommonTypeDef *currentInstance = IPCC_C1;
-  IPCC_CommonTypeDef *otherInstance = IPCC_C2;
+  const IPCC_CommonTypeDef *otherInstance = IPCC_C2;
 #endif
 
   /* check the Rx occupied channels which are not masked */

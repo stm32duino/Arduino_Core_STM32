@@ -110,7 +110,7 @@ typedef struct
 #define PWR_LOWPOWERMODE_STOP2              (PWR_CR1_LPMS_1)                      /*!< Stop 2: Stop mode with low power regulator and VDD12I interruptible digital core domain supply OFF (less peripherals activated than low power mode stop 1 to reduce power consumption)*/
 #define PWR_LOWPOWERMODE_STANDBY            (PWR_CR1_LPMS_0 | PWR_CR1_LPMS_1)     /*!< Standby mode */
 #define PWR_LOWPOWERMODE_SHUTDOWN           (PWR_CR1_LPMS_2 | PWR_CR1_LPMS_1 | PWR_CR1_LPMS_0) /*!< Shutdown mode */
-#endif
+#endif /* CORE_CM0PLUS */
 /**
   * @}
   */
@@ -298,22 +298,22 @@ typedef struct
   *
   * @retval The new state of __FLAG__ (TRUE or FALSE).
   */
-#endif
+#endif /* DUAL_CORE */
 #define __HAL_PWR_GET_FLAG(__FLAG__)  ((((__FLAG__) & PWR_FLAG_REG_MASK) == PWR_FLAG_REG_SR1) ?   \
                                        (                                                          \
-                                        PWR->SR1 & (1UL << ((__FLAG__) & 31UL))                   \
+                                           PWR->SR1 & (1UL << ((__FLAG__) & 31UL))                \
                                        )                                                          \
                                        :                                                          \
                                        (                                                          \
-                                        (((__FLAG__) & PWR_FLAG_REG_MASK) == PWR_FLAG_REG_SR2) ? \
-                                        (                                                        \
-                                         PWR->SR2 & (1UL << ((__FLAG__) & 31UL))                 \
-                                        )                                                        \
-                                        :                                                        \
-                                        (                                                        \
-                                         PWR->EXTSCR & (1UL << ((__FLAG__) & 31UL))              \
-                                        )                                                        \
-                                       )                                                          \
+                                           (((__FLAG__) & PWR_FLAG_REG_MASK) == PWR_FLAG_REG_SR2) ? \
+                                           (                                                        \
+                                               PWR->SR2 & (1UL << ((__FLAG__) & 31UL))              \
+                                           )                                                        \
+                                           :                                                        \
+                                           (                                                        \
+                                               PWR->EXTSCR & (1UL << ((__FLAG__) & 31UL))           \
+                                           )                                                        \
+                                       )                                                            \
                                       )
 
 #if defined(DUAL_CORE)
@@ -371,17 +371,17 @@ typedef struct
   *
   * @retval None
   */
-#endif
-#define __HAL_PWR_CLEAR_FLAG(__FLAG__)   ((((__FLAG__) & PWR_FLAG_REG_MASK) == PWR_FLAG_REG_EXTSCR) ?                                  \
-                                          (                                                                                            \
-                                           PWR->EXTSCR = (1UL << (((__FLAG__) & PWR_FLAG_EXTSCR_CLR_MASK) >> PWR_FLAG_EXTSCR_CLR_POS)) \
-                                          )                                                                                            \
-                                          :                                                                                            \
-                                          (                                                                                            \
-                                           (((__FLAG__)) == PWR_FLAG_WU) ?                                                             \
-                                           (PWR->SCR = PWR_SCR_CWUF) :                                                                 \
-                                           (PWR->SCR = (1UL << ((__FLAG__) & 31UL)))                                                   \
-                                          )                                                                                            \
+#endif /* DUAL_CORE */
+#define __HAL_PWR_CLEAR_FLAG(__FLAG__)   ((((__FLAG__) & PWR_FLAG_REG_MASK) == PWR_FLAG_REG_EXTSCR) ?                                     \
+                                          (                                                                                               \
+                                              PWR->EXTSCR = (1UL << (((__FLAG__) & PWR_FLAG_EXTSCR_CLR_MASK) >> PWR_FLAG_EXTSCR_CLR_POS)) \
+                                          )                                                                                               \
+                                          :                                                                                               \
+                                          (                                                                                               \
+                                              (((__FLAG__)) == PWR_FLAG_WU) ?                                                             \
+                                              (PWR->SCR = PWR_SCR_CWUF) :                                                                 \
+                                              (PWR->SCR = (1UL << ((__FLAG__) & 31UL)))                                                   \
+                                          )                                                                                               \
                                          )
 
 /**
@@ -392,7 +392,7 @@ typedef struct
 #define __HAL_PWR_PVD_EXTI_ENABLE_IT()      LL_C2_EXTI_EnableIT_0_31(PWR_EXTI_LINE_PVD)
 #else
 #define __HAL_PWR_PVD_EXTI_ENABLE_IT()      LL_EXTI_EnableIT_0_31(PWR_EXTI_LINE_PVD)
-#endif
+#endif /* CORE_CM0PLUS */
 
 /**
   * @brief Disable the PVD Extended Interrupt line.
@@ -402,7 +402,7 @@ typedef struct
 #define __HAL_PWR_PVD_EXTI_DISABLE_IT()     LL_C2_EXTI_DisableIT_0_31(PWR_EXTI_LINE_PVD)
 #else
 #define __HAL_PWR_PVD_EXTI_DISABLE_IT()     LL_EXTI_DisableIT_0_31(PWR_EXTI_LINE_PVD)
-#endif
+#endif /* CORE_CM0PLUS */
 
 /* Note: On STM32WL series, power PVD event is not available on EXTI lines     */
 /*       (only interruption is available through EXTI line 16).               */
@@ -533,7 +533,7 @@ void              HAL_PWR_DisableBkUpAccess(void);
   * @{
   */
 /* Peripheral Control functions  ************************************************/
-HAL_StatusTypeDef HAL_PWR_ConfigPVD(PWR_PVDTypeDef *sConfigPVD);
+HAL_StatusTypeDef HAL_PWR_ConfigPVD(const PWR_PVDTypeDef *sConfigPVD);
 void              HAL_PWR_EnablePVD(void);
 void              HAL_PWR_DisablePVD(void);
 

@@ -44,9 +44,9 @@ extern "C" {
 /** @defgroup USARTEx_Word_Length USARTEx Word Length
   * @{
   */
-#define USART_WORDLENGTH_7B                  ((uint32_t)USART_CR1_M1)   /*!< 7-bit long USART frame */
-#define USART_WORDLENGTH_8B                  0x00000000U                /*!< 8-bit long USART frame */
-#define USART_WORDLENGTH_9B                  ((uint32_t)USART_CR1_M0)   /*!< 9-bit long USART frame */
+#define USART_WORDLENGTH_7B                  (USART_CR1_M1)   /*!< 7-bit long USART frame */
+#define USART_WORDLENGTH_8B                  (0x00000000U)    /*!< 8-bit long USART frame */
+#define USART_WORDLENGTH_9B                  (USART_CR1_M0)   /*!< 9-bit long USART frame */
 /**
   * @}
   */
@@ -108,9 +108,11 @@ extern "C" {
 /**
   * @}
   */
+
 /**
   * @}
   */
+
 /* Private macros ------------------------------------------------------------*/
 /** @defgroup USARTEx_Private_Macros USARTEx Private Macros
   * @{
@@ -165,7 +167,6 @@ extern "C" {
       (__HANDLE__)->Mask = 0x0000U;                                   \
     }                                                                 \
   } while(0U)
-
 
 /**
   * @brief Ensure that USART frame length is valid.
@@ -256,6 +257,7 @@ HAL_StatusTypeDef HAL_USARTEx_EnableFifoMode(USART_HandleTypeDef *husart);
 HAL_StatusTypeDef HAL_USARTEx_DisableFifoMode(USART_HandleTypeDef *husart);
 HAL_StatusTypeDef HAL_USARTEx_SetTxFifoThreshold(USART_HandleTypeDef *husart, uint32_t Threshold);
 HAL_StatusTypeDef HAL_USARTEx_SetRxFifoThreshold(USART_HandleTypeDef *husart, uint32_t Threshold);
+
 /**
   * @}
   */

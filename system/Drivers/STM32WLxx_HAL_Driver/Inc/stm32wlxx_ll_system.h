@@ -62,8 +62,8 @@ extern "C" {
 #define LL_SYSCFG_EXTI_REGISTER_PINPOS_SHFT     16U   /*!< Define used to shift pin position in EXTICR register */
 
 /**
- * @brief VREFBUF VREF_SC0 & VREF_SC1 calibration values
- */
+  * @brief VREFBUF VREF_SC0 & VREF_SC1 calibration values
+  */
 #define VREFBUF_SC0_CAL_ADDR   ((uint8_t*) (0x1FFF75F0UL)) /*!<  Address of VREFBUF trimming value for VRS=0,
                                                                  VREF_SC0 in STM32WL datasheet */
 #define VREFBUF_SC1_CAL_ADDR   ((uint8_t*) (0x1FFF7530UL)) /*!<  Address of VREFBUF trimming value for VRS=1,
@@ -81,8 +81,8 @@ extern "C" {
   */
 
 /** @defgroup SYSTEM_LL_EC_REMAP SYSCFG REMAP
-* @{
-*/
+  * @{
+  */
 #define LL_SYSCFG_REMAP_FLASH                   0x00000000U                                           /*!< Main Flash memory mapped at 0x00000000   */
 #define LL_SYSCFG_REMAP_SYSTEMFLASH             SYSCFG_MEMRMP_MEM_MODE_0                              /*!< System Flash memory mapped at 0x00000000 */
 #define LL_SYSCFG_REMAP_SRAM                    (SYSCFG_MEMRMP_MEM_MODE_1 | SYSCFG_MEMRMP_MEM_MODE_0) /*!< SRAM1 mapped at 0x00000000               */
@@ -591,7 +591,8 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetEXTISource(uint32_t Line)
 #if defined(CORE_CM0PLUS)
   return (uint32_t)(READ_BIT(SYSCFG->EXTICR[Line & 0x03U], (SYSCFG_EXTICR1_EXTI0 << ((Line >> LL_SYSCFG_EXTI_REGISTER_PINPOS_SHFT) & 12UL))) >> ((Line >> LL_SYSCFG_EXTI_REGISTER_PINPOS_SHFT) & 12UL));
 #else
-  return (uint32_t)(READ_BIT(SYSCFG->EXTICR[Line & 0x03U], (Line >> LL_SYSCFG_EXTI_REGISTER_PINPOS_SHFT)) >> POSITION_VAL(Line >> LL_SYSCFG_EXTI_REGISTER_PINPOS_SHFT));
+  return (uint32_t)(READ_BIT(SYSCFG->EXTICR[Line & 0x03U],
+                             (Line >> LL_SYSCFG_EXTI_REGISTER_PINPOS_SHFT)) >> POSITION_VAL(Line >> LL_SYSCFG_EXTI_REGISTER_PINPOS_SHFT));
 #endif
 }
 

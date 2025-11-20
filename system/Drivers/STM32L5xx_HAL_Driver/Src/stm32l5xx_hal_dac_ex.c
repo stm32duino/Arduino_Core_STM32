@@ -666,8 +666,8 @@ HAL_StatusTypeDef HAL_DACEx_SelfCalibrate(DAC_HandleTypeDef *hdac, DAC_ChannelCo
 
     /* Init trimming counter */
     /* Medium value */
-    trimmingvalue = 16UL;
-    delta = 8UL;
+    trimmingvalue = 0x10UL;
+    delta = 0x08UL;
     while (delta != 0UL)
     {
       /* Set candidate trimming */
@@ -713,8 +713,12 @@ HAL_StatusTypeDef HAL_DACEx_SelfCalibrate(DAC_HandleTypeDef *hdac, DAC_ChannelCo
 
     if ((hdac->Instance->SR & (DAC_SR_CAL_FLAG1 << (Channel & 0x10UL))) == 0UL)
     {
-      /* Trimming is actually one value more */
-      trimmingvalue++;
+      /* Check trimming value below maximum */
+      if (trimmingvalue < 0x1FU)
+      {
+        /* Trimming is actually one value more */
+        trimmingvalue++;
+      }
       /* Set right trimming */
       MODIFY_REG(hdac->Instance->CCR, (DAC_CCR_OTRIM1 << (Channel & 0x10UL)), (trimmingvalue << (Channel & 0x10UL)));
     }
@@ -787,8 +791,7 @@ HAL_StatusTypeDef HAL_DACEx_SetUserTrimming(DAC_HandleTypeDef *hdac, DAC_Channel
   *          This parameter can be one of the following values:
   *            @arg DAC_CHANNEL_1: DAC Channel1 selected
   *            @arg DAC_CHANNEL_2: DAC Channel2 selected
-  * @retval Trimming value : range: 0->31
-  *
+  * @retval TrimmingValue Value between Min_Data=0x00 and Max_Data=0x1F
  */
 uint32_t HAL_DACEx_GetTrimOffset(const DAC_HandleTypeDef *hdac, uint32_t Channel)
 {

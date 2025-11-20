@@ -2248,8 +2248,8 @@ __STATIC_INLINE void LL_I2C_TransmitData8(I2C_TypeDef *I2Cx, uint8_t Data)
   * @{
   */
 
-ErrorStatus LL_I2C_Init(I2C_TypeDef *I2Cx, LL_I2C_InitTypeDef *I2C_InitStruct);
-ErrorStatus LL_I2C_DeInit(I2C_TypeDef *I2Cx);
+ErrorStatus LL_I2C_Init(I2C_TypeDef *I2Cx, const LL_I2C_InitTypeDef *I2C_InitStruct);
+ErrorStatus LL_I2C_DeInit(const I2C_TypeDef *I2Cx);
 void LL_I2C_StructInit(LL_I2C_InitTypeDef *I2C_InitStruct);
 
 

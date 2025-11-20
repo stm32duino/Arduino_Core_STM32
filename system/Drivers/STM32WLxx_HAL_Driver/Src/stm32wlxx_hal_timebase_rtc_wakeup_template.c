@@ -123,8 +123,8 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
     /* Disable the Wake-up Timer */
     __HAL_RTC_WAKEUPTIMER_DISABLE(&hRTC_Handle);
     /* In case of interrupt mode is used, the interrupt source must disabled */
-    __HAL_RTC_WAKEUPTIMER_DISABLE_IT(&hRTC_Handle,RTC_IT_WUT);
-    __HAL_RTC_WAKEUPTIMER_CLEAR_FLAG(&hRTC_Handle,RTC_FLAG_WUTF);
+    __HAL_RTC_WAKEUPTIMER_DISABLE_IT(&hRTC_Handle, RTC_IT_WUT);
+    __HAL_RTC_WAKEUPTIMER_CLEAR_FLAG(&hRTC_Handle, RTC_FLAG_WUTF);
 
     /* Get RTC clock configuration */
     HAL_RCCEx_GetPeriphCLKConfig(&PeriphClkInitStruct);
@@ -135,7 +135,8 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 #elif defined (RTC_CLOCK_SOURCE_LSI)
     if ((PeriphClkInitStruct.RTCClockSelection == RCC_RTCCLKSOURCE_LSI) && (__HAL_RCC_GET_FLAG(RCC_FLAG_LSIRDY) != 0x00u))
 #elif defined (RTC_CLOCK_SOURCE_HSE)
-    if ((PeriphClkInitStruct.RTCClockSelection == RCC_RTCCLKSOURCE_HSE_DIV32) && (__HAL_RCC_GET_FLAG(RCC_FLAG_HSERDY) != 0x00u))
+    if ((PeriphClkInitStruct.RTCClockSelection == RCC_RTCCLKSOURCE_HSE_DIV32)
+        && (__HAL_RCC_GET_FLAG(RCC_FLAG_HSERDY) != 0x00u))
 #else
 #error Please select the RTC Clock source
 #endif
@@ -167,14 +168,14 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 
       /* COnfigure oscillator */
       status = HAL_RCC_OscConfig(&RCC_OscInitStruct);
-      if(status == HAL_OK)
+      if (status == HAL_OK)
       {
         /* Configure RTC clock source */
         PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RTC;
         status = HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);
 
         /* Enable RTC Clock */
-        if(status == HAL_OK)
+        if (status == HAL_OK)
         {
           __HAL_RCC_RTC_ENABLE();
         }
@@ -182,7 +183,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
     }
 
     /* If RTC Clock configuration is ok */
-    if(status == HAL_OK)
+    if (status == HAL_OK)
     {
       /* No care of RTC init parameter here. Only needed if RTC is being used
         for other features in same time: calendar, alarm, timestamp, etc... */
@@ -195,7 +196,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
       hRTC_Handle.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
       status = HAL_RTC_Init(&hRTC_Handle);
 
-      if(status == HAL_OK)
+      if (status == HAL_OK)
       {
         /* The time base should be of (uint32_t)uwTickFreq) ms. Tick counter
           is incremented eachtime wakeup time reaches zero. Wakeup timer is
@@ -209,10 +210,10 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
         /* HSE input clock to RTC is divided by 32 */
         wucounter = (HSE_VALUE >> 5);
 #endif
-        wucounter = ((wucounter >> 1) / (1000U / (uint32_t)uwTickFreq)) -1u;
+        wucounter = ((wucounter >> 1) / (1000U / (uint32_t)uwTickFreq)) - 1u;
         status = HAL_RTCEx_SetWakeUpTimer_IT(&hRTC_Handle, wucounter, RTC_WAKEUPCLOCK_RTCCLK_DIV2, 0);
 
-        if(status == HAL_OK)
+        if (status == HAL_OK)
         {
           /* Enable the RTC global Interrupt */
 #if defined(CORE_CM0PLUS)

@@ -4577,7 +4577,6 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStart(TIM_HandleTypeDef *htim, uint32_t 
                                             ((BurstLength) >> 8U) + 1U);
 
 
-
   return status;
 }
 
@@ -6946,8 +6945,6 @@ void TIM_Base_SetConfig(TIM_TypeDef *TIMx, const TIM_Base_InitTypeDef *Structure
   /* Set the auto-reload preload */
   MODIFY_REG(tmpcr1, TIM_CR1_ARPE, Structure->AutoReloadPreload);
 
-  TIMx->CR1 = tmpcr1;
-
   /* Set the Autoreload value */
   TIMx->ARR = (uint32_t)Structure->Period ;
 
@@ -6960,16 +6957,15 @@ void TIM_Base_SetConfig(TIM_TypeDef *TIMx, const TIM_Base_InitTypeDef *Structure
     TIMx->RCR = Structure->RepetitionCounter;
   }
 
+  /* Disable Update Event (UEV) with Update Generation (UG)
+     by changing Update Request Source (URS) to avoid Update flag (UIF) */
+  SET_BIT(TIMx->CR1, TIM_CR1_URS);
+
   /* Generate an update event to reload the Prescaler
      and the repetition counter (only for advanced timer) value immediately */
   TIMx->EGR = TIM_EGR_UG;
 
-  /* Check if the update flag is set after the Update Generation, if so clear the UIF flag */
-  if (HAL_IS_BIT_SET(TIMx->SR, TIM_FLAG_UPDATE))
-  {
-    /* Clear the update flag */
-    CLEAR_BIT(TIMx->SR, TIM_FLAG_UPDATE);
-  }
+  TIMx->CR1 = tmpcr1;
 }
 
 /**
@@ -7012,12 +7008,13 @@ static void TIM_OC1_SetConfig(TIM_TypeDef *TIMx, const TIM_OC_InitTypeDef *OC_Co
     /* Check parameters */
     assert_param(IS_TIM_OCN_POLARITY(OC_Config->OCNPolarity));
 
+    /* Disable the Channel 1N: Reset the CC1NE Bit */
+    TIMx->CCER &= ~TIM_CCER_CC1NE;
+
     /* Reset the Output N Polarity level */
     tmpccer &= ~TIM_CCER_CC1NP;
     /* Set the Output N Polarity */
     tmpccer |= OC_Config->OCNPolarity;
-    /* Reset the Output N State */
-    tmpccer &= ~TIM_CCER_CC1NE;
   }
 
   if (IS_TIM_BREAK_INSTANCE(TIMx))
@@ -7088,12 +7085,13 @@ void TIM_OC2_SetConfig(TIM_TypeDef *TIMx, const TIM_OC_InitTypeDef *OC_Config)
   {
     assert_param(IS_TIM_OCN_POLARITY(OC_Config->OCNPolarity));
 
+    /* Disable the Channel 2N: Reset the CC2NE Bit */
+    TIMx->CCER &= ~TIM_CCER_CC2NE;
+
     /* Reset the Output N Polarity level */
     tmpccer &= ~TIM_CCER_CC2NP;
     /* Set the Output N Polarity */
     tmpccer |= (OC_Config->OCNPolarity << 4U);
-    /* Reset the Output N State */
-    tmpccer &= ~TIM_CCER_CC2NE;
   }
 
   if (IS_TIM_BREAK_INSTANCE(TIMx))
@@ -7163,12 +7161,13 @@ static void TIM_OC3_SetConfig(TIM_TypeDef *TIMx, const TIM_OC_InitTypeDef *OC_Co
   {
     assert_param(IS_TIM_OCN_POLARITY(OC_Config->OCNPolarity));
 
+    /* Disable the Channel 3N: Reset the CC3NE Bit */
+    TIMx->CCER &= ~TIM_CCER_CC3NE;
+
     /* Reset the Output N Polarity level */
     tmpccer &= ~TIM_CCER_CC3NP;
     /* Set the Output N Polarity */
     tmpccer |= (OC_Config->OCNPolarity << 8U);
-    /* Reset the Output N State */
-    tmpccer &= ~TIM_CCER_CC3NE;
   }
 
   if (IS_TIM_BREAK_INSTANCE(TIMx))
@@ -7515,9 +7514,18 @@ void TIM_TI1_SetConfig(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity, uint32_t TIM_
   uint32_t tmpccmr1;
   uint32_t tmpccer;
 
-  /* Disable the Channel 1: Reset the CC1E Bit */
+  /* Get the TIMx CCER register value */
   tmpccer = TIMx->CCER;
+
+  /* Disable the Channel 1: Reset the CC1E Bit */
   TIMx->CCER &= ~TIM_CCER_CC1E;
+  /* Disable the Channel 1N: Reset the CC1NE Bit */
+  if (IS_TIM_CCXN_INSTANCE(TIMx, TIM_CHANNEL_1))
+  {
+    TIMx->CCER &= ~TIM_CCER_CC1NE;
+  }
+
+  /* Get the TIMx CCMR1 register value */
   tmpccmr1 = TIMx->CCMR1;
 
   /* Select the Input */
@@ -7561,9 +7569,18 @@ static void TIM_TI1_ConfigInputStage(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity,
   uint32_t tmpccmr1;
   uint32_t tmpccer;
 
-  /* Disable the Channel 1: Reset the CC1E Bit */
+  /* Get the TIMx CCER register value */
   tmpccer = TIMx->CCER;
+
+  /* Disable the Channel 1: Reset the CC1E Bit */
   TIMx->CCER &= ~TIM_CCER_CC1E;
+  /* Disable the Channel 1N: Reset the CC1NE Bit */
+  if (IS_TIM_CCXN_INSTANCE(TIMx, TIM_CHANNEL_1))
+  {
+    TIMx->CCER &= ~TIM_CCER_CC1NE;
+  }
+
+  /* Get the TIMx CCMR1 register value */
   tmpccmr1 = TIMx->CCMR1;
 
   /* Set the filter */
@@ -7605,9 +7622,18 @@ static void TIM_TI2_SetConfig(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity, uint32
   uint32_t tmpccmr1;
   uint32_t tmpccer;
 
-  /* Disable the Channel 2: Reset the CC2E Bit */
+  /* Get the TIMx CCER register value */
   tmpccer = TIMx->CCER;
+
+  /* Disable the Channel 2: Reset the CC2E Bit */
   TIMx->CCER &= ~TIM_CCER_CC2E;
+  /* Disable the Channel 2N: Reset the CC2NE Bit */
+  if (IS_TIM_CCXN_INSTANCE(TIMx, TIM_CHANNEL_2))
+  {
+    TIMx->CCER &= ~TIM_CCER_CC2NE;
+  }
+
+  /* Get the TIMx CCMR1 register value */
   tmpccmr1 = TIMx->CCMR1;
 
   /* Select the Input */
@@ -7644,9 +7670,18 @@ static void TIM_TI2_ConfigInputStage(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity,
   uint32_t tmpccmr1;
   uint32_t tmpccer;
 
-  /* Disable the Channel 2: Reset the CC2E Bit */
+  /* Get the TIMx CCER register value */
   tmpccer = TIMx->CCER;
+
+  /* Disable the Channel 2: Reset the CC2E Bit */
   TIMx->CCER &= ~TIM_CCER_CC2E;
+  /* Disable the Channel 2N: Reset the CC2NE Bit */
+  if (IS_TIM_CCXN_INSTANCE(TIMx, TIM_CHANNEL_2))
+  {
+    TIMx->CCER &= ~TIM_CCER_CC2NE;
+  }
+
+  /* Get the TIMx CCMR1 register value */
   tmpccmr1 = TIMx->CCMR1;
 
   /* Set the filter */
@@ -7688,9 +7723,18 @@ static void TIM_TI3_SetConfig(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity, uint32
   uint32_t tmpccmr2;
   uint32_t tmpccer;
 
-  /* Disable the Channel 3: Reset the CC3E Bit */
+  /* Get the TIMx CCER register value */
   tmpccer = TIMx->CCER;
+
+  /* Disable the Channel 3: Reset the CC3E Bit */
   TIMx->CCER &= ~TIM_CCER_CC3E;
+  /* Disable the Channel 3N: Reset the CC3NE Bit */
+  if (IS_TIM_CCXN_INSTANCE(TIMx, TIM_CHANNEL_3))
+  {
+    TIMx->CCER &= ~TIM_CCER_CC3NE;
+  }
+
+  /* Get the TIMx CCMR2 register value */
   tmpccmr2 = TIMx->CCMR2;
 
   /* Select the Input */
@@ -7736,9 +7780,13 @@ static void TIM_TI4_SetConfig(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity, uint32
   uint32_t tmpccmr2;
   uint32_t tmpccer;
 
-  /* Disable the Channel 4: Reset the CC4E Bit */
+  /* Get the TIMx CCER register value */
   tmpccer = TIMx->CCER;
+
+  /* Disable the Channel 4: Reset the CC4E Bit */
   TIMx->CCER &= ~TIM_CCER_CC4E;
+
+  /* Get the TIMx CCMR2 register value */
   tmpccmr2 = TIMx->CCMR2;
 
   /* Select the Input */
@@ -7825,10 +7873,10 @@ void TIM_ETR_SetConfig(TIM_TypeDef *TIMx, uint32_t TIM_ExtTRGPrescaler,
   * @param  TIMx to select the TIM peripheral
   * @param  Channel specifies the TIM Channel
   *          This parameter can be one of the following values:
-  *            @arg TIM_CHANNEL_1: TIM Channel 1
-  *            @arg TIM_CHANNEL_2: TIM Channel 2
-  *            @arg TIM_CHANNEL_3: TIM Channel 3
-  *            @arg TIM_CHANNEL_4: TIM Channel 4
+  *            @arg TIM_CHANNEL_1: TIM Channel 1 selected
+  *            @arg TIM_CHANNEL_2: TIM Channel 2 selected
+  *            @arg TIM_CHANNEL_3: TIM Channel 3 selected
+  *            @arg TIM_CHANNEL_4: TIM Channel 4 selected
   *            @arg TIM_CHANNEL_5: TIM Channel 5 selected
   *            @arg TIM_CHANNEL_6: TIM Channel 6 selected
   * @param  ChannelState specifies the TIM Channel CCxE bit new state.

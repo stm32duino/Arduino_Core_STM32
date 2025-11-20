@@ -113,7 +113,7 @@ extern "C" {
 #define LL_PWR_EXTSCR_C2DS                 PWR_EXTSCR_C2DS     /* CPU2 deepsleep mode */
 #define LL_PWR_SR2_C2BOOTS                 PWR_SR2_C2BOOTS     /* CPU2 boot request source information flag */
 #define LL_PWR_SR1_C2HF                    PWR_SR1_C2HF        /* CPU2 hold interrupt flag */
-#endif
+#endif /* DUAL_CORE */
 /**
   * @}
   */
@@ -1776,7 +1776,7 @@ __STATIC_INLINE uint32_t LL_PWR_C2_IsEnabledWakeUp_ILAC(void)
 {
   return ((READ_BIT(PWR->SECCFGR, PWR_SECCFGR_C2EWILA) == (PWR_SECCFGR_C2EWILA)) ? 1UL : 0UL);
 }
-#endif
+#endif /* DUAL_CORE */
 
 /**
   * @}
@@ -2094,7 +2094,7 @@ __STATIC_INLINE uint32_t LL_PWR_IsActiveFlag_C2BOOTS(void)
 {
   return ((READ_BIT(PWR->SR2, PWR_SR2_C2BOOTS) == (PWR_SR2_C2BOOTS)) ? 1UL : 0UL);
 }
-#endif
+#endif /* DUAL_CORE */
 
 /**
   * @brief  Get system Stop 0 or Stop 1 flag for CPU1
@@ -2186,7 +2186,7 @@ __STATIC_INLINE void LL_PWR_ClearFlag_C2H(void)
 {
   WRITE_REG(PWR->SCR, PWR_SCR_CC2HF);
 }
-#endif
+#endif /* DUAL_CORE */
 
 /**
   * @brief  Clear standby and stop flags for CPU1
@@ -2208,7 +2208,7 @@ __STATIC_INLINE void LL_PWR_ClearFlag_C2STOP_C2STB(void)
 {
   WRITE_REG(PWR->EXTSCR, PWR_EXTSCR_C2CSSF);
 }
-#endif
+#endif /* DUAL_CORE */
 
 /**
   * @}
@@ -2252,7 +2252,7 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledIT_HoldCPU2(void)
 /**
   * @}
   */
-#endif
+#endif /* DUAL_CORE */
 
 #if defined(USE_FULL_LL_DRIVER)
 /** @defgroup PWR_LL_EF_Init De-initialization function
@@ -2272,7 +2272,7 @@ ErrorStatus LL_PWR_DeInit(void);
   * @}
   */
 
-#endif /* defined(PWR) */
+#endif /* PWR */
 
 /**
   * @}

@@ -91,7 +91,7 @@
 
     [..]
     Use function HAL_USART_UnRegisterCallback() to reset a callback to the default
-    weak (surcharged) function.
+    weak function.
     HAL_USART_UnRegisterCallback() takes as parameters the HAL peripheral handle,
     and the Callback ID.
     This function allows to reset following callbacks:
@@ -109,10 +109,10 @@
 
     [..]
     By default, after the HAL_USART_Init() and when the state is HAL_USART_STATE_RESET
-    all callbacks are set to the corresponding weak (surcharged) functions:
+    all callbacks are set to the corresponding weak functions:
     examples HAL_USART_TxCpltCallback(), HAL_USART_RxHalfCpltCallback().
     Exception done for MspInit and MspDeInit functions that are respectively
-    reset to the legacy weak (surcharged) functions in the HAL_USART_Init()
+    reset to the legacy weak functions in the HAL_USART_Init()
     and HAL_USART_DeInit() only when these callbacks are null (not registered beforehand).
     If not, MspInit or MspDeInit are not null, the HAL_USART_Init() and HAL_USART_DeInit()
     keep and use the user MspInit/MspDeInit callbacks (registered beforehand).
@@ -129,7 +129,7 @@
     [..]
     When The compilation define USE_HAL_USART_REGISTER_CALLBACKS is set to 0 or
     not defined, the callback registration feature is not available
-    and weak (surcharged) callbacks are used.
+    and weak callbacks are used.
 
 
   @endverbatim
@@ -406,7 +406,9 @@ __weak void HAL_USART_MspDeInit(USART_HandleTypeDef *husart)
 #if (USE_HAL_USART_REGISTER_CALLBACKS == 1)
 /**
   * @brief  Register a User USART Callback
-  *         To be used instead of the weak predefined callback
+  *         To be used to override the weak predefined callback
+  * @note   The HAL_USART_RegisterCallback() may be called before HAL_USART_Init() in HAL_USART_STATE_RESET
+  *         to register callbacks for HAL_USART_MSPINIT_CB_ID and HAL_USART_MSPDEINIT_CB_ID
   * @param  husart usart handle
   * @param  CallbackID ID of the callback to be registered
   *         This parameter can be one of the following values:
@@ -436,8 +438,6 @@ HAL_StatusTypeDef HAL_USART_RegisterCallback(USART_HandleTypeDef *husart, HAL_US
 
     return HAL_ERROR;
   }
-  /* Process locked */
-  __HAL_LOCK(husart);
 
   if (husart->State == HAL_USART_STATE_READY)
   {
@@ -526,15 +526,14 @@ HAL_StatusTypeDef HAL_USART_RegisterCallback(USART_HandleTypeDef *husart, HAL_US
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(husart);
-
   return status;
 }
 
 /**
   * @brief  Unregister an USART Callback
   *         USART callaback is redirected to the weak predefined callback
+  * @note   The HAL_USART_UnRegisterCallback() may be called before HAL_USART_Init() in HAL_USART_STATE_RESET
+  *         to un-register callbacks for HAL_USART_MSPINIT_CB_ID and HAL_USART_MSPDEINIT_CB_ID
   * @param  husart usart handle
   * @param  CallbackID ID of the callback to be unregistered
   *         This parameter can be one of the following values:
@@ -554,9 +553,6 @@ HAL_StatusTypeDef HAL_USART_RegisterCallback(USART_HandleTypeDef *husart, HAL_US
 HAL_StatusTypeDef HAL_USART_UnRegisterCallback(USART_HandleTypeDef *husart, HAL_USART_CallbackIDTypeDef CallbackID)
 {
   HAL_StatusTypeDef status = HAL_OK;
-
-  /* Process locked */
-  __HAL_LOCK(husart);
 
   if (HAL_USART_STATE_READY == husart->State)
   {
@@ -644,9 +640,6 @@ HAL_StatusTypeDef HAL_USART_UnRegisterCallback(USART_HandleTypeDef *husart, HAL_
     /* Return error status */
     status =  HAL_ERROR;
   }
-
-  /* Release Lock */
-  __HAL_UNLOCK(husart);
 
   return status;
 }
@@ -754,7 +747,8 @@ HAL_StatusTypeDef HAL_USART_UnRegisterCallback(USART_HandleTypeDef *husart, HAL_
   * @param  Timeout Timeout duration.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_USART_Transmit(USART_HandleTypeDef *husart, const uint8_t *pTxData, uint16_t Size, uint32_t Timeout)
+HAL_StatusTypeDef HAL_USART_Transmit(USART_HandleTypeDef *husart, const uint8_t *pTxData, uint16_t Size,
+                                     uint32_t Timeout)
 {
   const uint8_t  *ptxdata8bits;
   const uint16_t *ptxdata16bits;
@@ -860,9 +854,10 @@ HAL_StatusTypeDef HAL_USART_Transmit(USART_HandleTypeDef *husart, const uint8_t 
   *         of u16 available through pRxData.
   * @note   Dual core specific: there is no support for unaligned accesses on the Cortex-M0+ processor.
   *         When USART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
-  *         address of user data buffer for storing data to be received, should be aligned on a half word frontier (16 bits)
-  *         (as received data will be handled using u16 pointer cast). Depending on compilation chain,
-  *         use of specific alignment compilation directives or pragmas might be required to ensure proper alignment for pRxData.
+  *         address of user data buffer for storing data to be received, should be aligned on a half word frontier
+  *         (16 bits) (as received data will be handled using u16 pointer cast). Depending on compilation chain,
+  *         use of specific alignment compilation directives or pragmas might be required to ensure
+  *         proper alignment for pRxData.
   * @param husart USART handle.
   * @param pRxData Pointer to data buffer (u8 or u16 data elements).
   * @param Size Amount of data elements (u8 or u16) to be received.
@@ -989,9 +984,10 @@ HAL_StatusTypeDef HAL_USART_Receive(USART_HandleTypeDef *husart, uint8_t *pRxDat
   *         of u16 available through pTxData and through pRxData.
   * @note   Dual core specific: there is no support for unaligned accesses on the Cortex-M0+ processor.
   *         When USART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
-  *         address of user data buffers containing data to be sent/received, should be aligned on a half word frontier (16 bits)
-  *         (as sent/received data will be handled using u16 pointer cast). Depending on compilation chain,
-  *         use of specific alignment compilation directives or pragmas might be required to ensure proper alignment for pTxData and pRxData.
+  *         address of user data buffers containing data to be sent/received, should be aligned on a half word frontier
+  *         (16 bits) (as sent/received data will be handled using u16 pointer cast). Depending on compilation chain,
+  *         use of specific alignment compilation directives or pragmas might be required to ensure
+  *         proper alignment for pTxData and pRxData.
   * @param  husart USART handle.
   * @param  pTxData pointer to TX data buffer (u8 or u16 data elements).
   * @param  pRxData pointer to RX data buffer (u8 or u16 data elements).
@@ -1156,9 +1152,10 @@ HAL_StatusTypeDef HAL_USART_TransmitReceive(USART_HandleTypeDef *husart, const u
   *         of u16 provided through pTxData.
   * @note   Dual core specific: there is no support for unaligned accesses on the Cortex-M0+ processor.
   *         When USART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
-  *         address of user data buffer containing data to be sent, should be aligned on a half word frontier (16 bits)
-  *         (as sent data will be handled using u16 pointer cast). Depending on compilation chain,
-  *         use of specific alignment compilation directives or pragmas might be required to ensure proper alignment for pTxData.
+  *         address of user data buffer containing data to be sent, should be aligned on a half word frontier
+  *         (16 bits) (as sent data will be handled using u16 pointer cast). Depending on compilation chain,
+  *         use of specific alignment compilation directives or pragmas might be required to ensure
+  *         proper alignment for pTxData.
   * @param  husart USART handle.
   * @param  pTxData pointer to data buffer (u8 or u16 data elements).
   * @param  Size amount of data elements (u8 or u16) to be sent.
@@ -1257,9 +1254,10 @@ HAL_StatusTypeDef HAL_USART_Transmit_IT(USART_HandleTypeDef *husart, const uint8
   *         of u16 available through pRxData.
   * @note   Dual core specific: there is no support for unaligned accesses on the Cortex-M0+ processor.
   *         When USART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
-  *         address of user data buffer for storing data to be received, should be aligned on a half word frontier (16 bits)
-  *         (as received data will be handled using u16 pointer cast). Depending on compilation chain,
-  *         use of specific alignment compilation directives or pragmas might be required to ensure proper alignment for pRxData.
+  *         address of user data buffer for storing data to be received, should be aligned on a half word frontier
+  *         (16 bits) (as received data will be handled using u16 pointer cast). Depending on compilation chain,
+  *         use of specific alignment compilation directives or pragmas might be required to ensure
+  *         proper alignment for pRxData.
   * @param  husart USART handle.
   * @param  pRxData pointer to data buffer (u8 or u16 data elements).
   * @param  Size amount of data elements (u8 or u16) to be received.
@@ -1388,9 +1386,10 @@ HAL_StatusTypeDef HAL_USART_Receive_IT(USART_HandleTypeDef *husart, uint8_t *pRx
   *         of u16 available through pTxData and through pRxData.
   * @note   Dual core specific: there is no support for unaligned accesses on the Cortex-M0+ processor.
   *         When USART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
-  *         address of user data buffers containing data to be sent/received, should be aligned on a half word frontier (16 bits)
-  *         (as sent/received data will be handled using u16 pointer cast). Depending on compilation chain,
-  *         use of specific alignment compilation directives or pragmas might be required to ensure proper alignment for pTxData and pRxData.
+  *         address of user data buffers containing data to be sent/received, should be aligned on a half word frontier
+  *         (16 bits) (as sent/received data will be handled using u16 pointer cast). Depending on compilation chain,
+  *         use of specific alignment compilation directives or pragmas might be required to ensure
+  *         proper alignment for pTxData and pRxData.
   * @param  husart USART handle.
   * @param  pTxData pointer to TX data buffer (u8 or u16 data elements).
   * @param  pRxData pointer to RX data buffer (u8 or u16 data elements).
@@ -2348,6 +2347,14 @@ void HAL_USART_IRQHandler(USART_HandleTypeDef *husart)
       __HAL_USART_CLEAR_IT(husart, USART_CLEAR_OREF);
 
       husart->ErrorCode |= HAL_USART_ERROR_ORE;
+    }
+
+    /* USART Receiver Timeout interrupt occurred ---------------------------------*/
+    if (((isrflags & USART_ISR_RTOF) != 0U) && ((cr1its & USART_CR1_RTOIE) != 0U))
+    {
+      __HAL_USART_CLEAR_IT(husart, USART_CLEAR_RTOF);
+
+      husart->ErrorCode |= HAL_USART_ERROR_RTO;
     }
 
     /* USART SPI slave underrun error interrupt occurred -------------------------*/

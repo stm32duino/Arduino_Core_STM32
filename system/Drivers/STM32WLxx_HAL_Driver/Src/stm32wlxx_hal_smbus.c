@@ -926,7 +926,7 @@ HAL_StatusTypeDef HAL_SMBUS_Master_Transmit_IT(SMBUS_HandleTypeDef *hsmbus, uint
                                                uint8_t *pData, uint16_t Size, uint32_t XferOptions)
 {
   uint32_t tmp;
-  uint32_t sizetoxfer = 0U;
+  uint32_t sizetoxfer;
 
   /* Check the parameters */
   assert_param(IS_SMBUS_TRANSFER_OPTIONS_REQUEST(XferOptions));
@@ -960,20 +960,27 @@ HAL_StatusTypeDef HAL_SMBUS_Master_Transmit_IT(SMBUS_HandleTypeDef *hsmbus, uint
     }
 
     sizetoxfer = hsmbus->XferSize;
-    if ((hsmbus->XferSize > 0U) && ((XferOptions == SMBUS_FIRST_FRAME) ||
-                                    (XferOptions == SMBUS_FIRST_AND_LAST_FRAME_NO_PEC) ||
-                                    (XferOptions == SMBUS_FIRST_FRAME_WITH_PEC) ||
-                                    (XferOptions == SMBUS_FIRST_AND_LAST_FRAME_WITH_PEC)))
+    if ((sizetoxfer > 0U) && ((XferOptions == SMBUS_FIRST_FRAME) ||
+                              (XferOptions == SMBUS_FIRST_AND_LAST_FRAME_NO_PEC) ||
+                              (XferOptions == SMBUS_FIRST_FRAME_WITH_PEC) ||
+                              (XferOptions == SMBUS_FIRST_AND_LAST_FRAME_WITH_PEC)))
     {
-      /* Preload TX register */
-      /* Write data to TXDR */
-      hsmbus->Instance->TXDR = *hsmbus->pBuffPtr;
+      if (hsmbus->pBuffPtr != NULL)
+      {
+        /* Preload TX register */
+        /* Write data to TXDR */
+        hsmbus->Instance->TXDR = *hsmbus->pBuffPtr;
 
-      /* Increment Buffer pointer */
-      hsmbus->pBuffPtr++;
+        /* Increment Buffer pointer */
+        hsmbus->pBuffPtr++;
 
-      hsmbus->XferCount--;
-      hsmbus->XferSize--;
+        hsmbus->XferCount--;
+        hsmbus->XferSize--;
+      }
+      else
+      {
+        return HAL_ERROR;
+      }
     }
 
     /* Send Slave Address */
@@ -1014,8 +1021,15 @@ HAL_StatusTypeDef HAL_SMBUS_Master_Transmit_IT(SMBUS_HandleTypeDef *hsmbus, uint
       /* PEC byte is automatically sent by HW block, no need to manage it in Transmit process */
       if (SMBUS_GET_PEC_MODE(hsmbus) != 0UL)
       {
-        hsmbus->XferSize--;
-        hsmbus->XferCount--;
+        if (hsmbus->XferSize > 0U)
+        {
+          hsmbus->XferSize--;
+          hsmbus->XferCount--;
+        }
+        else
+        {
+          return HAL_ERROR;
+        }
       }
     }
 

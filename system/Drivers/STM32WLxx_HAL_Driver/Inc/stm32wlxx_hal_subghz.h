@@ -201,6 +201,7 @@ typedef enum
 #define HAL_SUBGHZ_ERROR_NONE               (0x00000000U)   /*!< No error                         */
 #define HAL_SUBGHZ_ERROR_TIMEOUT            (0x00000001U)   /*!< Timeout Error                    */
 #define HAL_SUBGHZ_ERROR_RF_BUSY            (0x00000002U)   /*!< RF Busy Error                    */
+#define HAL_SUBGHZ_ERROR_CRC_MISMATCH       (0x00000004U)   /*!< CRC mismatch Error               */
 #if (USE_HAL_SUBGHZ_REGISTER_CALLBACKS == 1)
 #define HAL_SUBGHZ_ERROR_INVALID_CALLBACK   (0x00000080U)   /*!< Invalid Callback error           */
 #endif /* USE_HAL_SUBGHZ_REGISTER_CALLBACKS */
@@ -399,8 +400,8 @@ void HAL_SUBGHZ_LrFhssHopCallback(SUBGHZ_HandleTypeDef *hsubghz);
   * @{
   */
 /* Peripheral State and Error functions ***************************************/
-HAL_SUBGHZ_StateTypeDef HAL_SUBGHZ_GetState(SUBGHZ_HandleTypeDef *hsubghz);
-uint32_t                HAL_SUBGHZ_GetError(SUBGHZ_HandleTypeDef *hsubghz);
+HAL_SUBGHZ_StateTypeDef HAL_SUBGHZ_GetState(const SUBGHZ_HandleTypeDef *hsubghz);
+uint32_t                HAL_SUBGHZ_GetError(const SUBGHZ_HandleTypeDef *hsubghz);
 /**
   * @}
   */

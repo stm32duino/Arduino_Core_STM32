@@ -121,7 +121,7 @@
   * @{
   */
 static uint32_t    UTILS_GetPLLOutputFrequency(uint32_t PLL_InputFrequency,
-                                               LL_UTILS_PLLInitTypeDef *UTILS_PLLInitStruct);
+                                               const LL_UTILS_PLLInitTypeDef *UTILS_PLLInitStruct);
 static ErrorStatus UTILS_EnablePLLAndSwitchSystem(uint32_t SYSCLK_Frequency, LL_UTILS_ClkInitTypeDef *UTILS_ClkInitStruct);
 static ErrorStatus UTILS_PLL_IsBusy(void);
 /**
@@ -668,7 +668,7 @@ ErrorStatus LL_PLL_ConfigSystemClock_HSE(uint32_t HSEFrequency, uint32_t HSEBypa
   *                             the configuration information for the PLL.
   * @retval PLL output frequency (in Hz)
   */
-static uint32_t UTILS_GetPLLOutputFrequency(uint32_t PLL_InputFrequency, LL_UTILS_PLLInitTypeDef *UTILS_PLLInitStruct)
+static uint32_t UTILS_GetPLLOutputFrequency(uint32_t PLL_InputFrequency, const LL_UTILS_PLLInitTypeDef *UTILS_PLLInitStruct)
 {
   uint32_t pllfreq;
 

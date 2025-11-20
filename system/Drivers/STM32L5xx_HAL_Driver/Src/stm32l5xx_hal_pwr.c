@@ -307,7 +307,7 @@ void HAL_PWR_DisableBkUpAccess(void)
   *         detection level.
   * @retval None
   */
-HAL_StatusTypeDef HAL_PWR_ConfigPVD(PWR_PVDTypeDef *sConfigPVD)
+HAL_StatusTypeDef HAL_PWR_ConfigPVD(const PWR_PVDTypeDef *sConfigPVD)
 {
   /* Check the parameters */
   assert_param(IS_PWR_PVD_LEVEL(sConfigPVD->PVDLevel));
@@ -658,6 +658,13 @@ __weak void HAL_PWR_PVDCallback(void)
   * @note   Secure and non-secure attributes can only be set from the secure
   *         state when the system implements the security (TZEN=1).
   * @note   Security and privilege attributes can be set independently.
+  * @note   As the privileged attribute concerns all secure and non-secure PWR
+  *         resources accesses and not each PWR individual items access attribute,
+  *         the application must ensure that the privileged access attribute configuration
+  *         is coherent amongst the security level set on PWR individual items so not
+  *         to overwrite a previous more restricted access rule (consider either all secure
+  *         and non-secure PWR resources accesses by privileged-only transactions
+  *         or privileged and unprivileged transactions).
   * @param  Item Item(s) to set attributes on.
   *         This parameter can be a one or a combination of @ref PWR_items
   * @param  Attributes can be one or a combination of the following values:

@@ -73,8 +73,8 @@ extern "C" {
   */
 
 /**
- * @}
- */
+  * @}
+  */
 
 /* Private functions ---------------------------------------------------------*/
 /** @defgroup CRYPEx_Private_Functions CRYPEx Private Functions
@@ -93,8 +93,8 @@ extern "C" {
 /** @addtogroup CRYPEx_Exported_Functions_Group1
   * @{
   */
-HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, uint32_t *AuthTag, uint32_t Timeout);
-HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, uint32_t *AuthTag, uint32_t Timeout);
+HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, const uint32_t *AuthTag, uint32_t Timeout);
+HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, const uint32_t *AuthTag, uint32_t Timeout);
 
 /**
   * @}
