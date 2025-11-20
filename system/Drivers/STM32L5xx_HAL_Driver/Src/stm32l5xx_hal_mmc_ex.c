@@ -60,7 +60,6 @@
   */
 
 
-
 /** @addtogroup MMCEx_Exported_Functions_Group1
   *  @brief   Multibuffer functions
   *
@@ -333,7 +332,6 @@ HAL_StatusTypeDef HAL_MMCEx_ChangeDMABuffer(MMC_HandleTypeDef *hmmc, HAL_MMCEx_D
 
   return HAL_OK;
 }
-
 
 /**
   * @}

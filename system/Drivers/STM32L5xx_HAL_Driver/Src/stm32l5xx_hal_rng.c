@@ -115,7 +115,8 @@
   */
 /*  Health test control register information to use in CCM algorithm */
 #define RNG_HTCFG_1   0x17590ABCU /*!< Magic number */
-#define RNG_HTCFG     0x0000A2B3U /*!< Recommended value for NIST compliance */
+#define RNG_HTCFG     0x0000A2B3U /*!< Recommended value for NIST compliance, refer to application note AN4230 */
+#define RNG_CRCFG     0x00F00D00U
 /**
   * @}
   */
@@ -206,12 +207,12 @@ HAL_StatusTypeDef HAL_RNG_Init(RNG_HandleTypeDef *hrng)
   /* Disable RNG */
   __HAL_RNG_DISABLE(hrng);
 
-  /* Clock Error Detection Configuration when CONDRT bit is set to 1 */
-  MODIFY_REG(hrng->Instance->CR, RNG_CR_CED | RNG_CR_CONDRST, hrng->Init.ClockErrorDetection | RNG_CR_CONDRST);
+  /* Recommended value for NIST compliance, refer to application note AN4230 */
+  WRITE_REG(hrng->Instance->CR, RNG_CRCFG | RNG_CR_CONDRST | hrng->Init.ClockErrorDetection);
 #if defined(RNG_VER_3_2) || defined(RNG_VER_3_1) || defined(RNG_VER_3_0)
   /*!< magic number must be written immediately before to RNG_HTCRG */
   WRITE_REG(hrng->Instance->HTCR, RNG_HTCFG_1);
-  /* for best latency and to be compliant with NIST */
+  /* Recommended value for NIST compliance, refer to application note AN4230 */
   WRITE_REG(hrng->Instance->HTCR, RNG_HTCFG);
 #endif /* RNG_VER_3_2 || RNG_VER_3_1 || RNG_VER_3_0 */
 
@@ -253,7 +254,7 @@ HAL_StatusTypeDef HAL_RNG_Init(RNG_HandleTypeDef *hrng)
     if ((HAL_GetTick() - tickstart) > RNG_TIMEOUT_VALUE)
     {
       /* New check to avoid false timeout detection in case of preemption */
-      if (__HAL_RNG_GET_FLAG(hrng, RNG_FLAG_SECS) != RESET)
+      if (__HAL_RNG_GET_FLAG(hrng, RNG_FLAG_DRDY) != SET)
       {
         hrng->State = HAL_RNG_STATE_ERROR;
         hrng->ErrorCode = HAL_RNG_ERROR_TIMEOUT;
@@ -656,6 +657,8 @@ HAL_StatusTypeDef HAL_RNG_GenerateRandomNumber(RNG_HandleTypeDef *hrng, uint32_t
       status = RNG_RecoverSeedError(hrng);
       if (status == HAL_ERROR)
       {
+        /* Update the error code */
+        hrng->ErrorCode = HAL_RNG_ERROR_RECOVERSEED;
         return status;
       }
     }

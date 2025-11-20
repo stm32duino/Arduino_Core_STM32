@@ -72,9 +72,9 @@
   * @{
   */
 static HAL_StatusTypeDef RCCEx_PLLSource_Enable(uint32_t PllSource);
-static HAL_StatusTypeDef RCCEx_PLLSAI1_Config(RCC_PLLSAI1InitTypeDef *pPllSai1, uint32_t Divider);
+static HAL_StatusTypeDef RCCEx_PLLSAI1_Config(const RCC_PLLSAI1InitTypeDef *pPllSai1, uint32_t Divider);
 static uint32_t          RCCEx_PLLSAI1_GetVCOFreq(void);
-static HAL_StatusTypeDef RCCEx_PLLSAI2_Config(RCC_PLLSAI2InitTypeDef *pPllSai2, uint32_t Divider);
+static HAL_StatusTypeDef RCCEx_PLLSAI2_Config(const RCC_PLLSAI2InitTypeDef *pPllSai2, uint32_t Divider);
 static uint32_t          RCCEx_PLLSAI2_GetVCOFreq(void);
 static uint32_t          RCCEx_GetSAIxPeriphCLKFreq(uint32_t PeriphClk, uint32_t InputFrequency);
 
@@ -1937,7 +1937,7 @@ __weak void HAL_RCCEx_LSECSS_Callback(void)
   */
 void HAL_RCCEx_EnableLSCO(uint32_t LSCOSource)
 {
-  GPIO_InitTypeDef GPIO_InitStruct;
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
   FlagStatus       pwrclkchanged = RESET;
   FlagStatus       backupchanged = RESET;
 
@@ -2111,7 +2111,7 @@ void HAL_RCCEx_DisableMSIPLLMode(void)
   * @param  pInit Pointer on RCC_CRSInitTypeDef structure
   * @retval None
   */
-void HAL_RCCEx_CRSConfig(RCC_CRSInitTypeDef *pInit)
+void HAL_RCCEx_CRSConfig(const RCC_CRSInitTypeDef *pInit)
 {
   uint32_t value;
 
@@ -2519,7 +2519,7 @@ static HAL_StatusTypeDef RCCEx_PLLSource_Enable(uint32_t PllSource)
   *
   * @retval HAL status
   */
-static HAL_StatusTypeDef RCCEx_PLLSAI1_Config(RCC_PLLSAI1InitTypeDef *pPllSai1, uint32_t Divider)
+static HAL_StatusTypeDef RCCEx_PLLSAI1_Config(const RCC_PLLSAI1InitTypeDef *pPllSai1, uint32_t Divider)
 {
   HAL_StatusTypeDef status = HAL_OK;
   uint32_t tickstart;
@@ -2659,7 +2659,7 @@ static HAL_StatusTypeDef RCCEx_PLLSAI1_Config(RCC_PLLSAI1InitTypeDef *pPllSai1, 
   *
   * @retval HAL status
   */
-static HAL_StatusTypeDef RCCEx_PLLSAI2_Config(RCC_PLLSAI2InitTypeDef *pPllSai2, uint32_t Divider)
+static HAL_StatusTypeDef RCCEx_PLLSAI2_Config(const RCC_PLLSAI2InitTypeDef *pPllSai2, uint32_t Divider)
 {
   HAL_StatusTypeDef status = HAL_OK;
   uint32_t tickstart;
