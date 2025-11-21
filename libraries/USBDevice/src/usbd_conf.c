@@ -173,10 +173,17 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
 #ifndef USE_USB_HS_IN_FS
     __HAL_RCC_USB_OTG_HS_ULPI_CLK_ENABLE();
 #endif /* USE_USB_HS_IN_FS */
-
     /* Enable USB HS Clocks */
     __HAL_RCC_USB_OTG_HS_CLK_ENABLE();
-
+#ifdef __HAL_RCC_USBPHYC_CLK_ENABLE
+    __HAL_RCC_USBPHYC_CLK_ENABLE();
+#endif
+#if defined (PWR_VOSR_USBPWREN)
+    HAL_PWREx_EnableUSBHSTranceiverSupply();
+#endif
+#ifdef SYSCFG_OTGHSPHYCR_EN
+    HAL_SYSCFG_EnableOTGPHY(SYSCFG_OTG_HS_PHY_ENABLE);
+#endif
     /* Set USB HS Interrupt priority */
     HAL_NVIC_SetPriority(OTG_HS_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
 
@@ -191,13 +198,14 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
 #ifdef __HAL_USB_OTG_HS_WAKEUP_EXTI_ENABLE_RISING_EDGE
       __HAL_USB_OTG_HS_WAKEUP_EXTI_ENABLE_RISING_EDGE();
 #endif
+#ifdef __HAL_USB_OTG_HS_WAKEUP_EXTI_ENABLE_IT
       __HAL_USB_OTG_HS_WAKEUP_EXTI_ENABLE_IT();
-
       /* Set EXTI Wakeup Interrupt priority */
       HAL_NVIC_SetPriority(OTG_HS_WKUP_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
 
       /* Enable EXTI Interrupt */
       HAL_NVIC_EnableIRQ(OTG_HS_WKUP_IRQn);
+#endif
     }
   }
 #endif /* USB_OTG_HS */
