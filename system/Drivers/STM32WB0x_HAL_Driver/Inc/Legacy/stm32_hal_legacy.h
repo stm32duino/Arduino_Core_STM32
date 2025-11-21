@@ -361,7 +361,10 @@ extern "C" {
 #if defined(STM32L4R5xx) || defined(STM32L4R9xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || \
     defined(STM32L4S7xx) || defined(STM32L4S9xx)
 #define DMA_REQUEST_DCMI_PSSI                    DMA_REQUEST_DCMI
-#endif
+#elif defined(STM32L4P5xx) || defined(STM32L4Q5xx)
+#define DMA_REQUEST_PSSI                    DMA_REQUEST_DCMI_PSSI
+#define LL_DMAMUX_REQ_PSSI                  LL_DMAMUX_REQ_DCMI_PSSI
+#endif /* STM32L4R5xx || STM32L4R9xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 
 #endif /* STM32L4 */
 
@@ -2149,6 +2152,13 @@ extern "C" {
 #define UFB_MODE_BitNumber                    UFB_MODE_BIT_NUMBER
 #define CMP_PD_BitNumber                      CMP_PD_BIT_NUMBER
 
+#if defined(STM32H7RS) || defined(STM32N6)
+#define FMC_SWAPBMAP_DISABLE                  FMC_SWAPBANK_MODE0
+#define FMC_SWAPBMAP_SDRAM_SRAM               FMC_SWAPBANK_MODE1
+#define HAL_SetFMCMemorySwappingConfig        HAL_FMC_SetBankSwapConfig
+#define HAL_GetFMCMemorySwappingConfig        HAL_FMC_GetBankSwapConfig
+#endif /* STM32H7RS || STM32N6 */
+
 /**
   * @}
   */
@@ -3701,9 +3711,7 @@ extern "C" {
 #define RCC_SYSCLKSOURCE_STATUS_PLLR   RCC_SYSCLKSOURCE_STATUS_PLLCLK
 #endif
 
-#if defined(STM32L4) || defined(STM32WB) || defined(STM32G0) || defined(STM32G4) || defined(STM32L5) || \
-      defined(STM32WL) || defined(STM32C0) || defined(STM32N6) || defined(STM32H7RS) || \
-      defined(STM32U0)
+#if defined(STM32L4) || defined(STM32WB) || defined(STM32G0) || defined(STM32G4) || defined(STM32L5) ||  defined(STM32WL) || defined(STM32C0) || defined(STM32N6) || defined(STM32H7RS) ||  defined(STM32U0)
 #define RCC_RTCCLKSOURCE_NO_CLK     RCC_RTCCLKSOURCE_NONE
 #else
 #define RCC_RTCCLKSOURCE_NONE       RCC_RTCCLKSOURCE_NO_CLK
@@ -3952,10 +3960,7 @@ extern "C" {
 /** @defgroup HAL_RTC_Aliased_Macros HAL RTC Aliased Macros maintained for legacy purpose
   * @{
   */
-#if defined (STM32G0) || defined (STM32L5) || defined (STM32L412xx) || defined (STM32L422xx) || \
-    defined (STM32L4P5xx)|| defined (STM32L4Q5xx) || defined (STM32G4) || defined (STM32WL) || defined (STM32U5) || \
-    defined (STM32WBA) || defined (STM32H5) || \
-    defined (STM32C0) || defined (STM32N6) || defined (STM32H7RS) ||  defined (STM32U0) || defined (STM32U3)
+#if defined (STM32G0) || defined (STM32L5) || defined (STM32L412xx) || defined (STM32L422xx) ||  defined (STM32L4P5xx)|| defined (STM32L4Q5xx) || defined (STM32G4) || defined (STM32WL) || defined (STM32U5) || defined (STM32WBA) || defined (STM32H5) ||  defined (STM32C0) || defined (STM32N6) || defined (STM32H7RS) || defined (STM32U0) || defined (STM32U3)
 #else
 #define __HAL_RTC_CLEAR_FLAG                      __HAL_RTC_EXTI_CLEAR_FLAG
 #endif
