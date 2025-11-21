@@ -22,7 +22,6 @@
 /** @addtogroup STM32WB0x_HAL_Driver
   * @{
   */
-#ifdef HAL_RADIO_MODULE_ENABLED
 
 /** @addtogroup RADIO
   * @{
@@ -71,11 +70,6 @@
   * @{
   */
 
-/* initDelay */
-#define INITDELAY_WAKEUP          (0x40U)
-#define INITDELAY_TIMER12_CAL     (0x3FU)
-#define INITDELAY_TIMER2_NOCAL    (0x9U)
-
 /* Init_radio_delay */
 #if defined (STM32WB05) || defined(STM32WB09 )
 #define DELAYCHK_TRANSMIT_CAL     (0x5AU)
@@ -103,8 +97,6 @@
 #if defined (STM32WB06) || defined(STM32WB07)
 #define TXREADY_TIMEOUT          (0x5U)
 #endif
-#define TXDELAY_START            (0x10U)
-#define TXDELAY_END              (0x10U)
 
 /* RX parameter init */
 #define RCV_TIMEOUT              (0x100)
@@ -299,9 +291,9 @@ void HAL_RADIO_Init(RADIO_HandleTypeDef *hradio)
 #endif /* STM32WB05 or STM32WB09 */
 
   /*Set InitDelay*/
-  LL_RADIO_SetWakeupInitDelay(INITDELAY_WAKEUP);
-  LL_RADIO_SetTimer12InitDelayCal(INITDELAY_TIMER12_CAL);
-  LL_RADIO_SetTimer12InitDelayNoCal(INITDELAY_TIMER2_NOCAL);
+  LL_RADIO_SetWakeupInitDelay(RADIO_INITDELAY_WAKEUP);
+  LL_RADIO_SetTimer12InitDelayCal(RADIO_INITDELAY_TIMER12_CAL);
+  LL_RADIO_SetTimer12InitDelayNoCal(RADIO_INITDELAY_TIMER2_NOCAL);
 
   /*Set Init_radio_delay*/
   LL_RADIO_SetReceivedCalDelayChk(DELAYCHK_RECEIVE_CAL);
@@ -312,8 +304,8 @@ void HAL_RADIO_Init(RADIO_HandleTypeDef *hradio)
   /* Initial and final TX delays: control the on-air start time of the TX packet
   *  and the length of the packet "tail" after last bit is transmitted
   */
-  LL_RADIO_SetTxDelayStart(TXDELAY_START);
-  LL_RADIO_SetTxDelayEnd(TXDELAY_END);
+  LL_RADIO_SetTxDelayStart(RADIO_TXDELAY_START);
+  LL_RADIO_SetTxDelayEnd(RADIO_TXDELAY_END);
 
   /* Timeout for TX ready signal from the radio FSM after the 2nd init phase
   *  has expired
@@ -393,6 +385,9 @@ void HAL_RADIO_Init(RADIO_HandleTypeDef *hradio)
   /* Reload radio config pointer */
   RRM->UDRA_CTRL0 = RRM_UDRA_CTRL0_RELOAD_RDCFGPTR;
   LL_RADIO_Active2ErrorInterrupt_Enable();
+
+  /* Enable RRM Port Grant interrupt */
+  SET_BIT(RRM->BLE_IRQ_ENABLE, RRM_BLE_IRQ_ENABLE_PORT_GRANT);
 
 #if USE_RADIO_PROPRIETARY_DRIVER
   globalParameters.back2backTime = BACK_TO_BACK_TIME;
@@ -1751,6 +1746,9 @@ __weak void HAL_RADIO_TxRxCallback(uint32_t flags)
 {
 }
 
+__weak void HAL_RADIO_RRMCallback(uint32_t ble_irq_status)
+{
+}
 
 __weak void HAL_RADIO_TxRxSeqCallback(void)
 {
@@ -1761,7 +1759,7 @@ void HAL_RADIO_TXRX_IRQHandler(void)
   uint32_t blue_status = BLUE->STATUSREG;
   uint32_t blue_interrupt = BLUE->INTERRUPT1REG;
 
-  /** clear all pending interrupts */
+  /* clear all pending interrupts */
   BLUE->INTERRUPT1REG = blue_interrupt;
 
   HAL_RADIO_TIMER_EndOfRadioActivityIsr();
@@ -1782,6 +1780,19 @@ void HAL_RADIO_TXRX_IRQHandler(void)
   blue_interrupt = BLUE->INTERRUPT1REG;
 }
 
+void HAL_RADIO_RRM_IRQHandler(void)
+{
+  uint32_t ble_irq_status = RRM->BLE_IRQ_STATUS;
+
+  /* Clear RRM Status register */
+  RRM->BLE_IRQ_STATUS = ble_irq_status;
+
+  HAL_RADIO_RRMCallback(ble_irq_status);
+
+  /* Ensure flag is cleared */
+  ble_irq_status = RRM->BLE_IRQ_STATUS;
+}
+
 
 void HAL_RADIO_TXRX_SEQ_IRQHandler(void)
 {
@@ -1791,7 +1802,7 @@ void HAL_RADIO_TXRX_SEQ_IRQHandler(void)
 /**
   * @}
   */
-#endif /* HAL_RADIO_MODULE_ENABLED */
+
 /**
   * @}
   */

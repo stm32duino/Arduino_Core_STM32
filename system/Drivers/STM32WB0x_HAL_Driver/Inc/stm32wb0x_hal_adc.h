@@ -365,10 +365,14 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   * @{
   */
 
-#define ADC_SAMPLING_AT_START    (LL_ADC_SAMPLING_AT_START)  /*!< Sampling only at conversion start (default) */
-#define ADC_SAMPLING_AT_END      (LL_ADC_SAMPLING_AT_END)    /*!< Sampling sampling phase starts after end of
-                                                                  conversion, and stops upon trigger event
-                                                                  (Also known as Bulb sampling mode). */
+#define ADC_SAMPLING_AT_START    (LL_ADC_SAMPLING_AT_START)  /*!< Sampling phase starts only at conversion start and
+                                                                  sampling time is 125ns regardless of the sampling
+                                                                  period (default). */
+#define ADC_SAMPLING_AT_END      (LL_ADC_SAMPLING_AT_END)    /*!< Sampling phase starts after end of
+                                                                  conversion, and stops upon trigger event (Also known
+                                                                  as Bulb sampling mode).
+                                                                  Sampling time is a function of the sampling period
+                                                                  (Sample rate). */
 
 /**
   * @}

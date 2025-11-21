@@ -56,7 +56,7 @@
 /** @addtogroup STM32WB0x_HAL_Driver
   * @{
   */
-#ifdef HAL_RADIO_TIMER_MODULE_ENABLED
+
 /** @addtogroup RADIO_TIMER
   * @brief HAL RADIO TIMER  module driver
   * @{
@@ -71,6 +71,7 @@ typedef struct
 {
   uint8_t periodicCalibration; /*!< Periodic calibration enable status */
   uint32_t periodicCalibrationInterval;  /*!< Periodic calibration interval in ms, to disable set to 0 */
+  uint32_t periodicCalibrationIntervalMTU;  /*!< Periodic calibration interval in Machine Time Unit, to disable set to 0 */
   bool calibration_in_progress;  /*!< Flag to indicate that a periodic calibration has been started */
 } CalibrationSettingsTypeDef;
 
@@ -81,8 +82,7 @@ typedef struct
   int32_t freq1;          /** Round(((freq/64)*0x753)/256) */
   int32_t period1;        /** Round (( ((period /256) * 0x8BCF6) + (((period % 256)* 0x8BCF6)/256)) / 32) */
   int32_t last_period1;   /** Period global in last calibration */
-  uint64_t last_calibration_time; /** Absolute system time when last calibration was performed */
-  uint32_t calibration_machine_interval; /** Calibration Interval MTU */
+  uint64_t nextCalibrationEvent; /** Absolute system time when next calibration will be performed */
   uint8_t calibration_data_available; /** Flag to signal if a new calibration data is available or not */
 } CalibrationDataTypeDef;
 
@@ -114,9 +114,10 @@ typedef struct
   VTIMER_HandleType calibrationTimer;
   RADIO_TIMER_RadioHandleTypeDef radioTimer;
   uint32_t hs_startup_time; /*!< HS startup time */
-  uint64_t cumulative_time; /** Absolute system time since power up */
-  uint64_t last_system_time; /** Last System Time */
-  uint32_t last_machine_time; /** Last machine time used to update cumulative time */
+  uint64_t last_calib_system_time; /** Absolute system time of last calibration since power up */
+  uint32_t last_calib_machine_time; /** Last calibration machine time used to update cumulative time */
+  uint64_t last_system_time; /** Last System Time since power up*/
+  uint32_t last_machine_time; /** Last Machine Time used paired with last_system_time */
   uint8_t last_setup_time; /**setup time of last timer programmed*/
   uint32_t last_anchor_mt;
   VTIMER_HandleType *rootNode; /*!< First timer of the host timer queue */
@@ -188,6 +189,9 @@ it is not sure the timer can be cleared properly */
 
 #define RADIO_TX_RX_EXCEPTION_NUMBER 18
 #endif
+
+/* This is the maximum timeout that can be used to program a timer with 32 bits */
+#define HAL_RADIO_TIMER_MAX_32BIT_TIMEOUT                     (0xFFFFFFFF - 410)
 
 /**
   * @}
@@ -263,19 +267,19 @@ static void _updateCalibrationData(void);
 
 static uint32_t _us_to_systime(uint32_t time);
 static uint32_t _us_to_machinetime(uint32_t time);
-static void _configureTxRxDelay(RADIO_TIMER_ContextTypeDef *context, uint8_t calculate_st);
+static void _configureTxRxDelay(uint8_t calculate_st);
 static void _update_xtal_startup_time(uint16_t hs_startup_time, int32_t freq1);
 uint32_t blue_unit_conversion(uint32_t time, uint32_t period_freq,
                               uint32_t thr); /* Translate MTU to STU and vice-versa. It is implemented using integer operation. */
-static uint64_t _get_system_time_and_machine(RADIO_TIMER_ContextTypeDef *context, uint32_t *current_machine_time);
+static void _update_calibration_time(void);
+static void _update_system_and_machine_time(void);
 static int32_t _start_timer(VTIMER_HandleType *timerHandle, uint64_t time);
 static VTIMER_HandleType *_update_user_timeout(VTIMER_HandleType *rootNode, uint8_t *expired);
 static VTIMER_HandleType *_insert_timer_in_queue(VTIMER_HandleType *rootNode, VTIMER_HandleType *handle);
 static void _virtualTimeBaseEnable(FunctionalState state);
 static VTIMER_HandleType *_remove_timer_in_queue(VTIMER_HandleType *rootNode, VTIMER_HandleType *handle);
 static VTIMER_HandleType *_check_callbacks(VTIMER_HandleType *rootNode, VTIMER_HandleType **expiredList);
-static void _update_system_time(RADIO_TIMER_ContextTypeDef *context);
-static void _check_radio_activity(RADIO_TIMER_RadioHandleTypeDef *timerHandle, uint8_t *expired);
+static uint8_t _check_radio_activity(uint8_t update_sys_time);
 #if defined (STM32WB06) || defined (STM32WB07)
 static uint32_t TIMER_SetRadioHostWakeupTime(uint32_t delay, bool *share);
 static void _set_controller_as_host(void);
@@ -283,7 +287,7 @@ static void _check_host_activity(void);
 #else
 static uint32_t VTIMER_SetWakeupTime(uint32_t delay, bool allow_sleep);
 #endif
-static uint8_t TIMER_SetRadioTimerValue(uint32_t timeout, bool event_type, bool cal_req);
+static uint8_t TIMER_SetRadioTimerValue(void);
 static uint64_t TIMER_GetPastSysTime(uint32_t time, uint64_t *current_system_time);
 static bool TIMER_SleepCheck(void);
 static uint8_t TIMER_GetRadioTimerValue(uint32_t *time);
@@ -337,8 +341,6 @@ void HAL_RADIO_TIMER_Init(RADIO_TIMER_InitTypeDef *RADIO_TIMER_InitStruct)
   if (RADIO_TIMER_InitStruct->periodicCalibrationInterval == 0)
   {
     RADIO_TIMER_Context.calibrationSettings.periodicCalibrationInterval = HAL_RADIO_TIMER_MachineTimeToSysTime(0x50000000);
-
-
   }
   else
   {
@@ -354,12 +356,11 @@ void HAL_RADIO_TIMER_Init(RADIO_TIMER_InitTypeDef *RADIO_TIMER_InitStruct)
 
   /* Init Radio Timer Context */
   RADIO_TIMER_Context.last_setup_time = 0;
-  RADIO_TIMER_Context.cumulative_time = 0;
-  RADIO_TIMER_Context.last_machine_time = LL_RADIO_TIMER_GetAbsoluteTime(WAKEUP);
+  RADIO_TIMER_Context.last_calib_system_time = 0;
+  RADIO_TIMER_Context.last_calib_machine_time = LL_RADIO_TIMER_GetAbsoluteTime(WAKEUP);
   RADIO_TIMER_Context.last_system_time = 0;
-  RADIO_TIMER_Context.calibrationData.last_calibration_time = 0;
   RADIO_TIMER_Context.calibrationData.calibration_data_available = 0;
-  RADIO_TIMER_Context.calibrationData.calibration_machine_interval = blue_unit_conversion(RADIO_TIMER_Context.calibrationSettings.periodicCalibrationInterval,
+  RADIO_TIMER_Context.calibrationSettings.periodicCalibrationIntervalMTU = blue_unit_conversion(RADIO_TIMER_Context.calibrationSettings.periodicCalibrationInterval,
                                                                      RADIO_TIMER_Context.calibrationData.freq1, MULT64_THR_FREQ);
   RADIO_TIMER_Context.wakeup_calibration = RADIO_TIMER_Context.calibrationSettings.periodicCalibration;
 
@@ -381,9 +382,8 @@ void HAL_RADIO_TIMER_Init(RADIO_TIMER_InitTypeDef *RADIO_TIMER_InitStruct)
   RADIO_TIMER_Context.calibrationTimer.userData = NULL;
   _start_timer(&RADIO_TIMER_Context.calibrationTimer,
                HAL_RADIO_TIMER_GetCurrentSysTime() + RADIO_TIMER_Context.calibrationSettings.periodicCalibrationInterval);
-
   /* Tx & Rx delay configuration */
-  _configureTxRxDelay(&RADIO_TIMER_Context, TRUE);
+  _configureTxRxDelay(TRUE);
 }
 
 /**
@@ -395,16 +395,6 @@ void HAL_RADIO_TIMER_Init(RADIO_TIMER_InitTypeDef *RADIO_TIMER_InitStruct)
 void HAL_RADIO_TIMER_Tick(void)
 {
   uint8_t expired = 0;
-
-  ATOMIC_SECTION_BEGIN();
-  if (RADIO_TIMER_Context.radioTimer.active)
-  {
-    if (RADIO_TIMER_Context.radioTimer.expiryTime < HAL_RADIO_TIMER_GetCurrentSysTime())
-    {
-      RADIO_TIMER_Context.radioTimer.active = FALSE;
-    }
-  }
-  ATOMIC_SECTION_END();
 
   /* Check for expired timers */
   while (DIFF8(RADIO_TIMER_Context.expired_count, RADIO_TIMER_Context.served_count))
@@ -452,12 +442,6 @@ void HAL_RADIO_TIMER_Tick(void)
       {
         /* Collect calibration data */
         _updateCalibrationData();
-        RADIO_TIMER_Context.rootNode = _update_user_timeout(RADIO_TIMER_Context.rootNode, &expired);
-        if (expired == 1)
-        {
-          /* A new root timer is already expired, mimic timer expire */
-          INCREMENT_EXPIRE_COUNT;
-        }
       }
 
 #if defined (STM32WB06) || defined (STM32WB07)
@@ -465,17 +449,9 @@ void HAL_RADIO_TIMER_Tick(void)
       {
         RADIO_TIMER_Context.waitCal = 0;
         RADIO_TIMER_Context.radioTimer.pending = TRUE;
-        _check_radio_activity(&RADIO_TIMER_Context.radioTimer, &expired);
-        RADIO_TIMER_Context.rootNode = _update_user_timeout(RADIO_TIMER_Context.rootNode, &expired);
-        if (expired == 1)
-        {
-          /* A new root timer is already expired, mimic timer expire */
-          INCREMENT_EXPIRE_COUNT;
-        }
       }
-#else
-      _check_radio_activity(&RADIO_TIMER_Context.radioTimer, &expired); //Start Radio Timer after calibration
 #endif
+      _check_radio_activity(TRUE); //Start Radio Timer after calibration
 
       /* Schedule next calibration event */
       HAL_RADIO_TIMER_StopVirtualTimer(&RADIO_TIMER_Context.calibrationTimer);
@@ -488,7 +464,7 @@ void HAL_RADIO_TIMER_Tick(void)
   {
     if (RADIO_TIMER_Context.calibrationSettings.periodicCalibration)
     {
-      if (HAL_RADIO_TIMER_GetCurrentSysTime() > (RADIO_TIMER_Context.calibrationData.last_calibration_time +
+      if (HAL_RADIO_TIMER_GetCurrentSysTime() > (RADIO_TIMER_Context.last_calib_system_time +
                                                  TIMER_SYSTICK_PER_FIVE_SECONDS))
       {
         HAL_RADIO_TIMER_StopVirtualTimer(&RADIO_TIMER_Context.calibrationTimer);
@@ -610,37 +586,40 @@ PowerSaveLevels HAL_RADIO_TIMER_PowerSaveLevelCheck(void)
   * @param  event_type: Specify if it is a TX (1) or RX (0) event.
   * @param  cal_req: Specify if PLL calibration is requested (1) or not (0).
   * @retval 0 if radio activity has been scheduled successfully.
-  * @retval 1 if radio activity has been rejected (it is too close or in the past).
+  * @retval 1 if radio activity has been rejected.
   */
 uint32_t HAL_RADIO_TIMER_SetRadioTimerValue(uint32_t time, uint8_t event_type, uint8_t cal_req)
 {
   uint8_t retVal = 0;
-#if defined (STM32WB06) || defined (STM32WB07)
-  uint64_t current_time;
-#endif
 
   RADIO_TIMER_Context.radioTimer.event_type = event_type;
   RADIO_TIMER_Context.radioTimer.cal_req = cal_req;
-  RADIO_TIMER_Context.radioTimer.expiryTime = RADIO_TIMER_Context.calibrationData.last_calibration_time + (uint32_t)(time - (uint32_t)RADIO_TIMER_Context.calibrationData.last_calibration_time);
   RADIO_TIMER_Context.radioTimer.active = FALSE;
   RADIO_TIMER_Context.radioTimer.intTxRx_to_be_served = FALSE;
   RADIO_TIMER_Context.radioTimer.pending = TRUE;
 
+  ATOMIC_SECTION_BEGIN();
+  RADIO_TIMER_Context.radioTimer.expiryTime = HAL_RADIO_TIMER_GetFutureSysTime64(time);
+  if(RADIO_TIMER_Context.radioTimer.expiryTime - RADIO_TIMER_Context.last_system_time > HAL_RADIO_TIMER_MAX_32BIT_TIMEOUT)
+  {
+    RADIO_TIMER_Context.radioTimer.pending = FALSE;
+    ATOMIC_SECTION_END();
+    return 1;
+  }
 #if defined (STM32WB06) || defined (STM32WB07)
-  current_time = HAL_RADIO_TIMER_GetCurrentSysTime();
 
   if (RADIO_TIMER_Context.rootNode == NULL)
   {
-    _check_radio_activity(&RADIO_TIMER_Context.radioTimer, &retVal);
+    retVal = _check_radio_activity(FALSE);
   }
   else
   {
-    if (RADIO_TIMER_Context.rootNode->expiryTime < current_time ||
+    if (RADIO_TIMER_Context.rootNode->expiryTime < RADIO_TIMER_Context.last_system_time ||
         ((RADIO_TIMER_Context.radioTimer.expiryTime < (RADIO_TIMER_Context.rootNode->expiryTime +
                                                        RADIO_TIMER_Context.hostMargin)) && RADIO_TIMER_Context.rootNode->active) || !RADIO_TIMER_Context.rootNode->active)
     {
       /* Program the radio timer */
-      _check_radio_activity(&RADIO_TIMER_Context.radioTimer, &retVal);
+      retVal = _check_radio_activity(FALSE);
       if ((RADIO_TIMER_Context.radioTimer.expiryTime >= RADIO_TIMER_Context.rootNode->expiryTime)
           && RADIO_TIMER_Context.rootNode->active)
       {
@@ -658,11 +637,11 @@ uint32_t HAL_RADIO_TIMER_SetRadioTimerValue(uint32_t time, uint8_t event_type, u
     }
   }
 #else
-  _check_radio_activity(&RADIO_TIMER_Context.radioTimer, &retVal);
+  retVal = _check_radio_activity(FALSE);
 #endif
 
+  ATOMIC_SECTION_END();
   _virtualTimeBaseEnable(ENABLE);
-
   return retVal;
 }
 
@@ -841,7 +820,12 @@ void HAL_RADIO_TIMER_RadioTimerIsr(void)
   */
 void HAL_RADIO_TIMER_EndOfRadioActivityIsr(void)
 {
+  if (RADIO_TIMER_Context.radioTimer.active)
+  {
+     RADIO_TIMER_Context.radioTimer.active = FALSE;
+  }
   RADIO_TIMER_Context.radioTimer.intTxRx_to_be_served = FALSE;
+
 }
 
 /* ----------------------- Radio Timer time unit APIs ------------------------*/
@@ -877,8 +861,8 @@ uint32_t HAL_RADIO_TIMER_MachineTimeToSysTime(uint32_t time)
   */
 uint64_t HAL_RADIO_TIMER_GetCurrentSysTime(void)
 {
-  uint32_t current_machine_time;
-  return _get_system_time_and_machine(&RADIO_TIMER_Context, &current_machine_time);
+  _update_system_and_machine_time();
+  return RADIO_TIMER_Context.last_system_time;
 }
 
 /**
@@ -985,9 +969,10 @@ uint64_t HAL_RADIO_TIMER_ExpiryTime(VTIMER_HandleType *timerHandle)
 void HAL_RADIO_TIMER_WakeUpCallback(void)
 {
   volatile uint32_t status = 0;
-  uint8_t expired;
   UNUSED(status);
-  _check_radio_activity(&RADIO_TIMER_Context.radioTimer, &expired);
+
+  _check_radio_activity(TRUE);
+
   if (RADIO_TIMER_Context.hostIsRadioPending)
   {
     RADIO_TIMER_Context.hostIsRadioPending = 0;
@@ -1047,7 +1032,7 @@ uint64_t HAL_RADIO_TIMER_GetSysTime64(uint32_t sys_time)
 {
   uint64_t time;
 
-  time = RADIO_TIMER_Context.calibrationData.last_calibration_time + (uint32_t)(sys_time - (uint32_t)RADIO_TIMER_Context.calibrationData.last_calibration_time);
+  time = RADIO_TIMER_Context.last_calib_system_time + (uint32_t)(sys_time - (uint32_t)RADIO_TIMER_Context.last_calib_system_time);
 
   return time;
 }
@@ -1061,13 +1046,11 @@ uint64_t HAL_RADIO_TIMER_GetSysTime64(uint32_t sys_time)
   */
 uint64_t HAL_RADIO_TIMER_GetFutureSysTime64(uint32_t sys_time)
 {
-  uint64_t current_time;
   uint32_t sysTime_ms32b;
+  _update_system_and_machine_time();
+  sysTime_ms32b = RADIO_TIMER_Context.last_system_time >> 32; /* Most significant 32 bits of sysTime64 */
 
-  current_time = HAL_RADIO_TIMER_GetCurrentSysTime();
-  sysTime_ms32b = current_time >> 32; /* Most significant 32 bits of sysTime64 */
-
-  if (sys_time < (uint32_t)current_time)
+  if (sys_time < (uint32_t)RADIO_TIMER_Context.last_system_time)
   {
     /* Need to get most signicant 32 bits of current time increased by one */
     sysTime_ms32b++;
@@ -1129,7 +1112,7 @@ static void _get_calibration_data(CalibrationDataTypeDef *calibrationData)
   int32_t a2;
 
   period =  LL_RADIO_TIMER_GetLSIPeriod(RADIO_CTRL);
-  while (period != (int32_t)LL_RADIO_TIMER_GetLSIPeriod(RADIO_CTRL) || period == 0)
+  while (period != LL_RADIO_TIMER_GetLSIPeriod(RADIO_CTRL) || period == 0)
   {
     period = LL_RADIO_TIMER_GetLSIPeriod(RADIO_CTRL);
   }
@@ -1143,7 +1126,7 @@ static void _get_calibration_data(CalibrationDataTypeDef *calibrationData)
   mult = 0x753 ;
   freq = LL_RADIO_TIMER_GetLSIFrequency(RADIO_CTRL);
 
-  while (freq != (int32_t)LL_RADIO_TIMER_GetLSIFrequency(RADIO_CTRL) || freq == 0)
+  while (freq != LL_RADIO_TIMER_GetLSIFrequency(RADIO_CTRL) || freq == 0)
   {
     freq = LL_RADIO_TIMER_GetLSIFrequency(RADIO_CTRL);
   }
@@ -1153,22 +1136,22 @@ static void _get_calibration_data(CalibrationDataTypeDef *calibrationData)
   calibrationData->freq = freq;
 }
 
-static void _configureTxRxDelay(RADIO_TIMER_ContextTypeDef *context, uint8_t calculate_st)
+static void _configureTxRxDelay(uint8_t calculate_st)
 {
   uint8_t tx_delay_start;
 
   tx_delay_start = (BLUEGLOB->TXDELAYSTART * 125 / 1000) + 1;
 
-  BLUEGLOB->WAKEUPINITDELAY =  blue_unit_conversion(WAKEUP_INIT_DELAY, context->calibrationData.freq1, MULT64_THR_FREQ);
-  context->TxRxDelay.tim12_delay_mt = _us_to_machinetime(BLUEGLOB->TIMER12INITDELAYCAL);
-  context->TxRxDelay.tx_cal_delay = _us_to_machinetime(BLUEGLOB->TRANSMITCALDELAYCHK + tx_delay_start);
-  context->TxRxDelay.tx_no_cal_delay = _us_to_machinetime(BLUEGLOB->TRANSMITNOCALDELAYCHK + tx_delay_start);
-  context->TxRxDelay.rx_cal_delay = _us_to_machinetime(BLUEGLOB->RECEIVECALDELAYCHK);
-  context->TxRxDelay.rx_no_cal_delay = _us_to_machinetime(BLUEGLOB->RECEIVENOCALDELAYCHK);
+  BLUEGLOB->WAKEUPINITDELAY =  blue_unit_conversion(WAKEUP_INIT_DELAY, RADIO_TIMER_Context.calibrationData.freq1, MULT64_THR_FREQ);
+  RADIO_TIMER_Context.TxRxDelay.tim12_delay_mt = _us_to_machinetime(BLUEGLOB->TIMER12INITDELAYCAL);
+  RADIO_TIMER_Context.TxRxDelay.tx_cal_delay = _us_to_machinetime(BLUEGLOB->TRANSMITCALDELAYCHK + tx_delay_start);
+  RADIO_TIMER_Context.TxRxDelay.tx_no_cal_delay = _us_to_machinetime(BLUEGLOB->TRANSMITNOCALDELAYCHK + tx_delay_start);
+  RADIO_TIMER_Context.TxRxDelay.rx_cal_delay = _us_to_machinetime(BLUEGLOB->RECEIVECALDELAYCHK);
+  RADIO_TIMER_Context.TxRxDelay.rx_no_cal_delay = _us_to_machinetime(BLUEGLOB->RECEIVENOCALDELAYCHK);
 
   if (calculate_st)
   {
-    context->TxRxDelay.tx_cal_delay_st    = _us_to_systime(BLUEGLOB->TRANSMITCALDELAYCHK + tx_delay_start) + WAKEUP_INIT_DELAY;
+    RADIO_TIMER_Context.TxRxDelay.tx_cal_delay_st    = _us_to_systime(BLUEGLOB->TRANSMITCALDELAYCHK + tx_delay_start) + WAKEUP_INIT_DELAY;
   }
 
 }
@@ -1249,24 +1232,23 @@ static int32_t _start_timer(VTIMER_HandleType *timerHandle, uint64_t time)
   return expired;
 }
 
-static uint64_t _get_system_time_and_machine(RADIO_TIMER_ContextTypeDef *context, uint32_t *current_machine_time)
+static void _update_system_and_machine_time(void)
 {
   uint32_t difftime;
   uint64_t new_time;
 
   ATOMIC_SECTION_BEGIN();
-  new_time = context->cumulative_time;
-  *current_machine_time =  LL_RADIO_TIMER_GetAbsoluteTime(WAKEUP);
-  difftime = TIME_ABSDIFF(*current_machine_time, context->last_machine_time);
-  new_time += blue_unit_conversion(difftime, context->calibrationData.period1, MULT64_THR_PERIOD);
-  if (new_time < context->last_system_time)
+  new_time = RADIO_TIMER_Context.last_calib_system_time;
+  RADIO_TIMER_Context.last_machine_time = LL_RADIO_TIMER_GetAbsoluteTime(WAKEUP);
+  difftime = TIME_ABSDIFF(RADIO_TIMER_Context.last_machine_time, RADIO_TIMER_Context.last_calib_machine_time);
+  new_time += blue_unit_conversion(difftime, RADIO_TIMER_Context.calibrationData.period1, MULT64_THR_PERIOD);
+  if (new_time < RADIO_TIMER_Context.last_system_time)
   {
-    new_time += blue_unit_conversion(TIMER_MAX_VALUE, context->calibrationData.period1, MULT64_THR_PERIOD);
+    new_time += blue_unit_conversion(TIMER_MAX_VALUE, RADIO_TIMER_Context.calibrationData.period1, MULT64_THR_PERIOD);
   }
-  context->last_system_time = new_time;
+  RADIO_TIMER_Context.last_system_time = new_time;
   ATOMIC_SECTION_END();
 
-  return new_time;
 }
 
 /* Set timeout and skip non active timers */
@@ -1281,12 +1263,12 @@ static VTIMER_HandleType *_update_user_timeout(VTIMER_HandleType *rootNode, uint
     if (curr->active)
     {
       ATOMIC_SECTION_BEGIN();
+      _update_system_and_machine_time();
 #if defined (STM32WB06) || defined (STM32WB07)
-      uint8_t dummy;
       bool share = FALSE;
-      _check_radio_activity(&RADIO_TIMER_Context.radioTimer, &dummy);
+      uint8_t dummy = _check_radio_activity(FALSE);
 #endif
-      delay = curr->expiryTime - HAL_RADIO_TIMER_GetCurrentSysTime();
+      delay = curr->expiryTime - RADIO_TIMER_Context.last_system_time;
       if (delay > 0)
       {
          /* Protection against interrupt must be used to avoid that the called function will be interrupted
@@ -1485,43 +1467,40 @@ static void _updateCalibrationData(void)
     RADIO_TIMER_Context.calibrationData.freq1 = updatedCalibrationData.freq1;
     RADIO_TIMER_Context.calibrationData.period = updatedCalibrationData.period;
     RADIO_TIMER_Context.calibrationData.period1 = updatedCalibrationData.period1;
-    _update_system_time(&RADIO_TIMER_Context);
+    _update_calibration_time();
     ATOMIC_SECTION_END();
 
-    _configureTxRxDelay(&RADIO_TIMER_Context, FALSE);
+    _configureTxRxDelay(FALSE);
   }
   else
   {
   ATOMIC_SECTION_BEGIN();
-  _update_system_time(&RADIO_TIMER_Context);
+  _update_calibration_time();
   ATOMIC_SECTION_END();
   }
 }
 
-/* This function update the system time after a calibration.
+/* This function update the cumulative time after a calibration.
  * If the user calls too often this function, you could have rounding issues in the integer maths.
  */
-static void _update_system_time(RADIO_TIMER_ContextTypeDef *context)
+static void _update_calibration_time(void)
 {
-  uint32_t current_machine_time;
-  uint32_t period;
+  RADIO_TIMER_Context.last_machine_time = LL_RADIO_TIMER_GetAbsoluteTime(WAKEUP);
+  RADIO_TIMER_Context.last_calib_system_time += blue_unit_conversion(TIME_ABSDIFF(RADIO_TIMER_Context.last_machine_time,
+                                                                     RADIO_TIMER_Context.last_calib_machine_time),
+                                                                     RADIO_TIMER_Context.calibrationData.last_period1,
+                                                                     MULT64_THR_PERIOD);
 
-  current_machine_time = LL_RADIO_TIMER_GetAbsoluteTime(WAKEUP);
-  period = context->calibrationData.last_period1;
-  context->cumulative_time = context->calibrationData.last_calibration_time + \
-                             blue_unit_conversion(TIME_ABSDIFF(current_machine_time,
-                                                               context->last_machine_time),
-                                                  period, MULT64_THR_PERIOD);
-
-  if ((context->calibrationSettings.periodicCalibration == 0)
-      && (TIME_ABSDIFF(current_machine_time,
-                       context->last_machine_time) < context->calibrationData.calibration_machine_interval))
+  if ((RADIO_TIMER_Context.calibrationSettings.periodicCalibration == 0) //LSE
+      && (TIME_ABSDIFF(RADIO_TIMER_Context.last_machine_time,
+                       RADIO_TIMER_Context.last_calib_machine_time) < RADIO_TIMER_Context.calibrationSettings.periodicCalibrationIntervalMTU))
   {
-    context->cumulative_time += blue_unit_conversion(TIMER_MAX_VALUE, period, MULT64_THR_PERIOD);
+    RADIO_TIMER_Context.last_calib_system_time += blue_unit_conversion(TIMER_MAX_VALUE, RADIO_TIMER_Context.calibrationData.last_period1, MULT64_THR_PERIOD);
   }
-  context->last_machine_time = current_machine_time;
-  context->calibrationData.last_calibration_time = context->cumulative_time;
-  context->calibrationData.last_period1 = context->calibrationData.period1;
+  RADIO_TIMER_Context.last_system_time = RADIO_TIMER_Context.last_calib_system_time;
+  RADIO_TIMER_Context.last_calib_machine_time = RADIO_TIMER_Context.last_machine_time;
+  RADIO_TIMER_Context.calibrationData.nextCalibrationEvent = RADIO_TIMER_Context.last_calib_system_time + RADIO_TIMER_Context.calibrationSettings.periodicCalibrationInterval;
+  RADIO_TIMER_Context.calibrationData.last_period1 = RADIO_TIMER_Context.calibrationData.period1;
 }
 
 /* Check if it is time to program the pending radio timer (large timeouts).
@@ -1532,34 +1511,33 @@ static void _update_system_time(RADIO_TIMER_ContextTypeDef *context)
    The check on the next calibration event is made even though the calibration is disabled (max cal. interval)
    in order to avoid counter wrapping with timeouts far in the future.
 */
-static void _check_radio_activity(RADIO_TIMER_RadioHandleTypeDef *timerHandle, uint8_t *expired)
+static uint8_t _check_radio_activity(uint8_t update_sys_time)
 {
-  uint64_t nextCalibrationEvent, currentTime;
-  *expired = 0;
-  if (timerHandle->pending)
+  uint8_t expired = 0;
+  if (RADIO_TIMER_Context.radioTimer.pending)
   {
 
-    nextCalibrationEvent = RADIO_TIMER_Context.calibrationData.last_calibration_time + \
-                           RADIO_TIMER_Context.calibrationSettings.periodicCalibrationInterval;
-
     ATOMIC_SECTION_BEGIN();
-    currentTime = HAL_RADIO_TIMER_GetCurrentSysTime();
-    if ((timerHandle->expiryTime < (nextCalibrationEvent + RADIO_ACTIVITY_MARGIN)) || \
-        (currentTime > (nextCalibrationEvent + CALIB_SAFE_THR)))
+    if(update_sys_time == TRUE)
     {
-      if (timerHandle->expiryTime - TIMER1_INIT_DELAY > (currentTime + TIMER1_MARGIN))
+       _update_system_and_machine_time();
+    }
+
+    if ((RADIO_TIMER_Context.radioTimer.expiryTime < (RADIO_TIMER_Context.calibrationData.nextCalibrationEvent + RADIO_ACTIVITY_MARGIN)) || \
+        (RADIO_TIMER_Context.last_system_time > (RADIO_TIMER_Context.calibrationData.nextCalibrationEvent + CALIB_SAFE_THR)))
+    {
+      if (RADIO_TIMER_Context.radioTimer.expiryTime - TIMER1_INIT_DELAY > (RADIO_TIMER_Context.last_system_time + TIMER1_MARGIN))
       {
-        *expired = TIMER_SetRadioTimerValue(timerHandle->expiryTime, timerHandle->event_type, timerHandle->cal_req);
-        timerHandle->pending = FALSE; /* timer has been served. No more pending */
-        timerHandle->active = TRUE; /* timer has been programmed and it becomes ACTIVE */
-        timerHandle->intTxRx_to_be_served = TRUE;
+        expired = TIMER_SetRadioTimerValue();
+        RADIO_TIMER_Context.radioTimer.pending = FALSE; /* timer has been served. No more pending */
+        RADIO_TIMER_Context.radioTimer.active = TRUE; /* timer has been programmed and it becomes ACTIVE */
+        RADIO_TIMER_Context.radioTimer.intTxRx_to_be_served = TRUE;
       }
       else
       {
 
         RADIO_TIMER_Context.radioTimer.pending = FALSE;
-        *expired = 1;
-
+        expired = 1;
       }
     }
     else
@@ -1568,11 +1546,10 @@ static void _check_radio_activity(RADIO_TIMER_RadioHandleTypeDef *timerHandle, u
 #if defined (STM32WB06) || defined (STM32WB07)
       RADIO_TIMER_Context.waitCal = 1;
 #endif
-
     }
     ATOMIC_SECTION_END();
-
   }
+  return expired;
 }
 
 #if defined (STM32WB06) || defined (STM32WB07)
@@ -1657,15 +1634,15 @@ static void _check_host_activity(void)
   * @retval  0 if a correct timeout has been programmed in the timeout register
   * @retval  1 if a correct timeout cannot be programmed
   */
-static uint8_t TIMER_SetRadioTimerValue(uint32_t timeout, bool event_type, bool cal_req)
+static uint8_t TIMER_SetRadioTimerValue(void)
 {
-  uint32_t current_time, delay, radio_init_delay, device_delay, rel_timeout, rel_timeout_mt;
+  uint32_t delay, radio_init_delay, device_delay, rel_timeout, rel_timeout_mt;
   uint8_t ret_val;
 
   /*choose the 2nd init duration. Check the event_type and cal. request*/
-  if (event_type == TX)
+  if (RADIO_TIMER_Context.radioTimer.event_type == TX)
   {
-    if (cal_req)
+    if (RADIO_TIMER_Context.radioTimer.cal_req)
     {
       radio_init_delay = RADIO_TIMER_Context.TxRxDelay.tx_cal_delay;
       device_delay = RADIO_TIMER_Context.TxRxDelay.tx_cal_delay_st;
@@ -1678,7 +1655,7 @@ static uint8_t TIMER_SetRadioTimerValue(uint32_t timeout, bool event_type, bool 
   }
   else
   {
-    if (cal_req)
+    if (RADIO_TIMER_Context.radioTimer.cal_req)
     {
       radio_init_delay = RADIO_TIMER_Context.TxRxDelay.rx_cal_delay;
       device_delay = RADIO_TIMER_Context.TxRxDelay.tx_cal_delay_st;
@@ -1691,33 +1668,34 @@ static uint8_t TIMER_SetRadioTimerValue(uint32_t timeout, bool event_type, bool 
   }
 
   /* At this point, it is care of the upper layers to guarantee that the timeout represents an absolute time in the future */
-  rel_timeout = timeout - (uint32_t)_get_system_time_and_machine(&RADIO_TIMER_Context, &current_time);
-
+  rel_timeout = (uint32_t)RADIO_TIMER_Context.radioTimer.expiryTime - (uint32_t)RADIO_TIMER_Context.last_system_time;
   rel_timeout_mt =  blue_unit_conversion(rel_timeout, RADIO_TIMER_Context.calibrationData.freq1, MULT64_THR_FREQ);
 
   /*Check if the timeout is beyond the wakeup time offset. Then program either the WakeUp timer or the Timer1*/
   if (rel_timeout > (device_delay + RADIO_TIMER_Context.hs_startup_time + MARGIN_EXT))
   {
     /*The timeout is after the wakeup_time_offset, So it is ok to program the wakeup timer*/
+
     delay = rel_timeout_mt - BLUEGLOB->WAKEUPINITDELAY - radio_init_delay;
-    LL_RADIO_TIMER_SetBLEWakeupTime(WAKEUP, ((current_time + delay) & TIMER_MAX_VALUE));
+    LL_RADIO_TIMER_SetBLEWakeupTime(WAKEUP, ((RADIO_TIMER_Context.last_machine_time + delay) & TIMER_MAX_VALUE));
     LL_RADIO_TIMER_SetSleepRequestMode(WAKEUP, 0);
     LL_RADIO_TIMER_DisableTimer1(BLUE);
     LL_RADIO_TIMER_DisableTimer2(BLUE);
     LL_RADIO_TIMER_EnableBLEWakeupTimer(WAKEUP);
     LL_RADIO_TIMER_EnableWakeupTimerLowPowerMode(WAKEUP);
     radio_init_delay += BLUEGLOB->WAKEUPINITDELAY;
+
   }
   else
   {
     delay = rel_timeout_mt - RADIO_TIMER_Context.TxRxDelay.tim12_delay_mt - radio_init_delay;
-    LL_RADIO_TIMER_SetTimeout(BLUE, ((current_time + delay) & TIMER_MAX_VALUE));
+    LL_RADIO_TIMER_SetTimeout(BLUE, ((RADIO_TIMER_Context.last_machine_time + delay) & TIMER_MAX_VALUE));
     LL_RADIO_TIMER_DisableBLEWakeupTimer(WAKEUP);
     LL_RADIO_TIMER_EnableTimer1(BLUE);
     radio_init_delay += RADIO_TIMER_Context.TxRxDelay.tim12_delay_mt;
   }
 
-  RADIO_TIMER_Context.last_anchor_mt = (current_time + rel_timeout_mt) & TIMER_MAX_VALUE;
+  RADIO_TIMER_Context.last_anchor_mt = (RADIO_TIMER_Context.last_machine_time + rel_timeout_mt) & TIMER_MAX_VALUE;
 
 #if defined (STM32WB06) || defined (STM32WB07)
   BLUEGLOB->BYTE4 |= 1 << 7;
@@ -1751,11 +1729,12 @@ static uint8_t TIMER_SetRadioTimerValue(uint32_t timeout, bool event_type, bool 
   */
 static uint64_t TIMER_GetPastSysTime(uint32_t time, uint64_t *current_system_time)
 {
-  uint32_t delta_systime, current_machine_time;
-
-  *current_system_time = _get_system_time_and_machine(&RADIO_TIMER_Context, &current_machine_time);
-  delta_systime = blue_unit_conversion(TIME_DIFF(current_machine_time, time), RADIO_TIMER_Context.calibrationData.period1, MULT64_THR_PERIOD);
-
+  uint32_t delta_systime;
+  ATOMIC_SECTION_BEGIN();
+  _update_system_and_machine_time();
+  *current_system_time = RADIO_TIMER_Context.last_system_time;
+  delta_systime = blue_unit_conversion(TIME_DIFF(RADIO_TIMER_Context.last_machine_time, time), RADIO_TIMER_Context.calibrationData.period1, MULT64_THR_PERIOD);
+  ATOMIC_SECTION_END();
   return (*current_system_time - delta_systime);
 }
 
@@ -1846,7 +1825,7 @@ void HAL_RADIO_TIMER_ERROR_IRQHandler(void)
 /**
   * @}
   */
-#endif /* HAL_RADIO_TIMER_MODULE_ENABLED */
+
 /**
   * @}
   */

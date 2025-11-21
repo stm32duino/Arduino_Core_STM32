@@ -100,6 +100,20 @@ typedef struct
   * @}
   */
 
+/** @defgroup RADIO_TIMER_Exported_Constants Radio Timer Exported Constants
+  * @{
+  */
+
+#define RADIO_INITDELAY_WAKEUP          (64U)
+#define RADIO_INITDELAY_TIMER12_CAL     (63U)
+#define RADIO_INITDELAY_TIMER2_NOCAL     (9U)
+
+#define RADIO_TXDELAY_START             (16U)
+#define RADIO_TXDELAY_END               (24U)
+/**
+  * @}
+  */
+
 
 /** @defgroup RADIO_Exported_Functions RADIO Exported Functions
   * @{
@@ -109,9 +123,13 @@ void HAL_RADIO_Init(RADIO_HandleTypeDef *hradio);
 
 void HAL_RADIO_TXRX_IRQHandler(void);
 
+void HAL_RADIO_RRM_IRQHandler(void);
+
 void HAL_RADIO_TXRX_SEQ_IRQHandler(void);
 
 void HAL_RADIO_TxRxCallback(uint32_t flags);
+
+void HAL_RADIO_RRMCallback(uint32_t ble_irq_status);
 
 void HAL_RADIO_TxRxSeqCallback(void);
 

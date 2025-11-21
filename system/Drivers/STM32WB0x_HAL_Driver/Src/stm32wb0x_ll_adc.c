@@ -24,7 +24,7 @@
 #ifdef  USE_FULL_ASSERT
 #include "stm32_assert.h"
 #else
-#define assert_param(expr) ((void)0U)
+#define assert_param(expr) ((void)0UL)
 #endif /* USE_FULL_ASSERT */
 
 /** @addtogroup STM32WB0x_LL_Driver
