@@ -65,22 +65,22 @@
 #define PE5                     45
 #define PE6                     46
 #define PC13                    47
-#define PC0                     PIN_A10
-#define PC1                     PIN_A11
-#define PC2_C                   PIN_A14
-#define PC3_C                   PIN_A15
-#define PA0                     PIN_A0
-#define PA1                     PIN_A1
-#define PA2                     PIN_A2
-#define PA3                     PIN_A3
-#define PA4                     PIN_A4
-#define PA5                     PIN_A5
-#define PA6                     PIN_A6
-#define PA7                     PIN_A7
+#define PC0                     PIN_A0
+#define PC1                     PIN_A1
+#define PC2_C                   PIN_A2
+#define PC3_C                   PIN_A3
+#define PA0                     PIN_A4
+#define PA1                     PIN_A5
+#define PA2                     PIN_A6
+#define PA3                     PIN_A7
+#define PA4                     PIN_A8
+#define PA5                     PIN_A9
+#define PA6                     PIN_A10
+#define PA7                     PIN_A11
 #define PC4                     PIN_A12
 #define PC5                     PIN_A13
-#define PB0                     PIN_A8
-#define PB1                     PIN_A9
+#define PB0                     PIN_A14
+#define PB1                     PIN_A15
 #define PB2                     64
 #define PE7                     65
 #define PE8                     66
@@ -94,12 +94,12 @@
 #define PB10                    74
 #define PB11                    75
 // Other
-#define PA13                    13
-#define PA14                    14
-#define PC14                    44
-#define PC15                    45
-#define PH0                     78
-#define PH1                     79
+#define PA13                    76
+#define PA14                    77
+#define PC14                    78
+#define PC15                    79
+#define PH0                     80
+#define PH1                     81
 
 // Alternate pins number
 #define PA0_ALT1                (PA0  | ALT1)
