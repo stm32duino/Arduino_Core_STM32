@@ -107,8 +107,6 @@ LoopFillZeroBlueRam:
   cmp  r2, r3
   bcc  FillZerobssram
 
-/* Call static constructors */
-  bl __libc_init_array
 /* Call the application's entry point.*/
   bl  main
 
@@ -182,7 +180,7 @@ __vector_table:
   .word 0x00000000                    /* IRQ19: Reserved                      */
   .word RADIO_TIMER_ERROR_IRQHandler  /* IRQ20: RADIO TIMER Error interrupt   */
   .word 0x00000000                    /* IRQ21: Reserved                      */
-  .word 0x00000000                    /* IRQ22: Reserved                      */
+  .word RADIO_RRM_IRQHandler          /* IRQ22: RADIO RRM interrupt           */
   .word RADIO_TIMER_CPU_WKUP_IRQHandler   /* IRQ23: RADIO TIMER CPU Wakeup interrupt    */
   .word RADIO_TIMER_TXRX_WKUP_IRQHandler  /* IRQ24: RADIO TIMER Wakeup interrupt        */
   .word RADIO_TXRX_SEQ_IRQHandler     /* IRQ25: RADIO Tx/Rx Sequence interrupt*/
@@ -272,6 +270,9 @@ __vector_table:
 
    .weak      RADIO_TIMER_ERROR_IRQHandler
    .thumb_set RADIO_TIMER_ERROR_IRQHandler,Default_Handler
+
+   .weak      RADIO_RRM_IRQHandler
+   .thumb_set RADIO_RRM_IRQHandler,Default_Handler
 
    .weak      RADIO_TIMER_CPU_WKUP_IRQHandler
    .thumb_set RADIO_TIMER_CPU_WKUP_IRQHandler,Default_Handler
