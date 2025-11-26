@@ -17229,7 +17229,7 @@ typedef struct
 
 /*******************  Bit definition for TIM_CCR5 register  *******************/
 #define TIM_CCR5_CCR5_Pos         (0U)
-#define TIM_CCR5_CCR5_Msk         (0xFFFFFFFFUL << TIM_CCR5_CCR5_Pos)          /*!< 0xFFFFFFFF */
+#define TIM_CCR5_CCR5_Msk         (0xFFFFUL << TIM_CCR5_CCR5_Pos)              /*!< 0x0000FFFF */
 #define TIM_CCR5_CCR5             TIM_CCR5_CCR5_Msk                            /*!<Capture/Compare 5 Value */
 #define TIM_CCR5_GC5C1_Pos        (29U)
 #define TIM_CCR5_GC5C1_Msk        (0x1UL << TIM_CCR5_GC5C1_Pos)                /*!< 0x20000000 */
@@ -19550,6 +19550,9 @@ typedef struct
 #define USB_OTG_FRMNUM_1                         (0x2UL << USB_OTG_FRMNUM_Pos) /*!< 0x00400000 */
 #define USB_OTG_FRMNUM_2                         (0x4UL << USB_OTG_FRMNUM_Pos) /*!< 0x00800000 */
 #define USB_OTG_FRMNUM_3                         (0x8UL << USB_OTG_FRMNUM_Pos) /*!< 0x01000000 */
+#define USB_OTG_STSPHST_Pos                      (27U)
+#define USB_OTG_STSPHST_Msk                      (0x1UL << USB_OTG_STSPHST_Pos) /*!< 0x08000000 */
+#define USB_OTG_STSPHST                          USB_OTG_STSPHST_Msk            /*!< Status phase start */
 /* Host/Device mode */
 #define USB_OTG_BCNT_Pos                         (4U)
 #define USB_OTG_BCNT_Msk                         (0x7FFUL << USB_OTG_BCNT_Pos) /*!< 0x00007FF0 */
