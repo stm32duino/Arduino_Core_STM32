@@ -100,6 +100,7 @@ typedef enum
   DMA_IRQn                  =  17,              /*!< 17 DMA interrupt                                                          */
   RADIO_TXRX_IRQn           =  18,              /*!< 18  RADIO Tx/Rx interrupt                                                 */
   RADIO_TIMER_ERROR_IRQn    =  20,              /*!< 20  RADIO TIMER Error interrupt                                           */
+  RADIO_RRM_IRQn            =  22,              /*!< 22  RADIO Resource Manager interrupt                                      */
   RADIO_TIMER_CPU_WKUP_IRQn =  23,              /*!< 23  RADIO TIMER CPU Wakeup interrupt                                      */
   RADIO_TIMER_TXRX_WKUP_IRQn =  24,             /*!< 24  RADIO TIMER Tx/Rx Wakeup interrupt                                    */
   RADIO_TXRX_SEQ_IRQn       =  25,              /*!< 25  RADIO Tx/Rx sequence interrupt                                        */

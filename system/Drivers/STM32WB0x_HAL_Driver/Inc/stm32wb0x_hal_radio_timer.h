@@ -173,7 +173,7 @@ RADIO_TIMER_Status HAL_RADIO_TIMER_GetRadioTimerStatus(uint64_t *time);
   * @param  event_type: Specify if it is a TX (1) or RX (0) event.
   * @param  cal_req: Specify if PLL calibration is requested (1) or not (0).
   * @retval 0 if radio activity has been scheduled successfully.
-  * @retval 1 if radio activity has been rejected (it is too close or in the past).
+  * @retval 1 if radio activity has been rejected.
   */
 uint32_t HAL_RADIO_TIMER_SetRadioTimerValue(uint32_t time, uint8_t event_type, uint8_t cal_req);
 
