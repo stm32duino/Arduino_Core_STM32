@@ -310,7 +310,7 @@ HAL_StatusTypeDef  HAL_PCDEx_PMAConfig(PCD_HandleTypeDef *hpcd, uint16_t ep_addr
 {
   PCD_EPTypeDef *ep;
 
-  /* initialize ep structure*/
+  /* Initialize ep structure */
   if ((0x80U & ep_addr) == 0x80U)
   {
     ep = &hpcd->IN_ep[ep_addr & EP_ADDR_MSK];
@@ -325,6 +325,7 @@ HAL_StatusTypeDef  HAL_PCDEx_PMAConfig(PCD_HandleTypeDef *hpcd, uint16_t ep_addr
   {
     /* Single Buffer */
     ep->doublebuffer = 0U;
+
     /* Configure the PMA */
     ep->pmaadress = (uint16_t)pmaadress;
   }
@@ -333,6 +334,7 @@ HAL_StatusTypeDef  HAL_PCDEx_PMAConfig(PCD_HandleTypeDef *hpcd, uint16_t ep_addr
   {
     /* Double Buffer Endpoint */
     ep->doublebuffer = 1U;
+
     /* Configure the PMA */
     ep->pmaaddr0 = (uint16_t)(pmaadress & 0xFFFFU);
     ep->pmaaddr1 = (uint16_t)((pmaadress & 0xFFFF0000U) >> 16);
@@ -352,13 +354,11 @@ HAL_StatusTypeDef HAL_PCDEx_ActivateBCD(PCD_HandleTypeDef *hpcd)
   USB_TypeDef *USBx = hpcd->Instance;
   hpcd->battery_charging_active = 1U;
 
-  /* Enable BCD feature */
-  USBx->BCDR |= USB_BCDR_BCDEN;
-
-  /* Enable DCD : Data Contact Detect */
   USBx->BCDR &= ~(USB_BCDR_PDEN);
   USBx->BCDR &= ~(USB_BCDR_SDEN);
-  USBx->BCDR |= USB_BCDR_DCDEN;
+
+  /* Enable BCD feature */
+  USBx->BCDR |= USB_BCDR_BCDEN;
 
   return HAL_OK;
 }
@@ -390,21 +390,10 @@ void HAL_PCDEx_BCD_VBUSDetect(PCD_HandleTypeDef *hpcd)
   uint32_t tickstart = HAL_GetTick();
 
   /* Wait for Min DCD Timeout */
-  HAL_Delay(300U);
+  HAL_Delay(350U);
 
-  /* Data Pin Contact ? Check Detect flag */
-  if ((USBx->BCDR & USB_BCDR_DCDET) == USB_BCDR_DCDET)
-  {
-#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
-    hpcd->BCDCallback(hpcd, PCD_BCD_CONTACT_DETECTION);
-#else
-    HAL_PCDEx_BCD_Callback(hpcd, PCD_BCD_CONTACT_DETECTION);
-#endif /* USE_HAL_PCD_REGISTER_CALLBACKS */
-  }
   /* Primary detection: checks if connected to Standard Downstream Port
   (without charging capability) */
-  USBx->BCDR &= ~(USB_BCDR_DCDEN);
-  HAL_Delay(50U);
   USBx->BCDR |= (USB_BCDR_PDEN);
   HAL_Delay(50U);
 

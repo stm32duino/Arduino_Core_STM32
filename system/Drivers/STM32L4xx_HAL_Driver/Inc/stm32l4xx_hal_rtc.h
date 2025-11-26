@@ -238,19 +238,22 @@ typedef struct
   */
 typedef enum
 {
-  HAL_RTC_ALARM_A_EVENT_CB_ID            =  0u,    /*!< RTC Alarm A Event Callback ID      */
-  HAL_RTC_ALARM_B_EVENT_CB_ID            =  1u,    /*!< RTC Alarm B Event Callback ID      */
-  HAL_RTC_TIMESTAMP_EVENT_CB_ID          =  2u,    /*!< RTC TimeStamp Event Callback ID    */
-  HAL_RTC_WAKEUPTIMER_EVENT_CB_ID        =  3u,    /*!< RTC WakeUp Timer Event Callback ID */
+  HAL_RTC_ALARM_A_EVENT_CB_ID            =  0u,    /*!< RTC Alarm A Event Callback ID                       */
+  HAL_RTC_ALARM_B_EVENT_CB_ID            =  1u,    /*!< RTC Alarm B Event Callback ID                       */
+  HAL_RTC_TIMESTAMP_EVENT_CB_ID          =  2u,    /*!< RTC TimeStamp Event Callback ID                     */
+  HAL_RTC_WAKEUPTIMER_EVENT_CB_ID        =  3u,    /*!< RTC WakeUp Timer Event Callback ID                  */
+#if defined (STM32L4P5xx) || defined (STM32L4Q5xx)
+  HAL_RTC_SSRU_EVENT_CB_ID               =  4u     /*!< RTC Subseconds Register Underflow Event Callback ID */
+#endif
 #if defined(RTC_TAMPER1_SUPPORT)
-  HAL_RTC_TAMPER1_EVENT_CB_ID            =  4u,    /*!< RTC Tamper 1 Callback ID           */
+  HAL_RTC_TAMPER1_EVENT_CB_ID            =  5u,    /*!< RTC Tamper 1 Callback ID                            */
 #endif /* RTC_TAMPER1_SUPPORT */
-  HAL_RTC_TAMPER2_EVENT_CB_ID            =  5u,    /*!< RTC Tamper 2 Callback ID           */
+  HAL_RTC_TAMPER2_EVENT_CB_ID            =  6u,    /*!< RTC Tamper 2 Callback ID                            */
 #if defined(RTC_TAMPER3_SUPPORT)
-  HAL_RTC_TAMPER3_EVENT_CB_ID            =  6u,    /*!< RTC Tamper 3 Callback ID           */
+  HAL_RTC_TAMPER3_EVENT_CB_ID            =  7u,    /*!< RTC Tamper 3 Callback ID                            */
 #endif /* RTC_TAMPER3_SUPPORT */
-  HAL_RTC_MSPINIT_CB_ID                  =  7u,    /*!< RTC Msp Init callback ID           */
-  HAL_RTC_MSPDEINIT_CB_ID                =  8u     /*!< RTC Msp DeInit callback ID         */
+  HAL_RTC_MSPINIT_CB_ID                  =  8u,    /*!< RTC Msp Init callback ID                            */
+  HAL_RTC_MSPDEINIT_CB_ID                =  9u     /*!< RTC Msp DeInit callback ID                          */
 } HAL_RTC_CallbackIDTypeDef;
 
 /**
@@ -650,6 +653,15 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
 #else
 #define __HAL_RTC_IS_CALENDAR_INITIALIZED(__HANDLE__)  (((((__HANDLE__)->Instance->ISR) & (RTC_FLAG_INITS)) == RTC_FLAG_INITS) ? 1U : 0U)
 #endif /* #if defined(STM32L412xx) || defined(STM32L422xx) || defined (STM32L4P5xx) || defined (STM32L4Q5xx) */
+
+#if defined (STM32L4P5xx) || defined (STM32L4Q5xx)
+/**
+  * @brief  Get RTC Binary mode.
+  * @param  __HANDLE__ specifies the RTC handle.
+  * @retval The selected RTC Binary mode (RTC_BINARY_NONE, RTC_BINARY_ONLY, or RTC_BINARY_MIX).
+  */
+#define __HAL_RTC_GET_BINARY_MODE(__HANDLE__) (READ_REG(RTC->ICSR & RTC_ICSR_BIN))
+#endif /* #if defined (STM32L4P5xx) || defined (STM32L4Q5xx) */
 
 /**
   * @brief  Add 1 hour (summer time change).

@@ -81,8 +81,6 @@ extern "C" {
 #define ADC_REG_RANK_15_SQRX_BITOFFSET_POS ( 0UL) /* Equivalent to bitfield "ADC_SQR4_SQ15" position in register */
 #define ADC_REG_RANK_16_SQRX_BITOFFSET_POS ( 6UL) /* Equivalent to bitfield "ADC_SQR4_SQ16" position in register */
 
-
-
 /* Internal mask for ADC group injected sequencer:                            */
 /* To select into literal LL_ADC_INJ_RANK_x the relevant bits for:            */
 /* - data register offset                                                     */
@@ -106,8 +104,6 @@ extern "C" {
 #define ADC_INJ_RANK_2_JSQR_BITOFFSET_POS  (14UL) /* Equivalent to bitfield "ADC_JSQR_JSQ2" position in register */
 #define ADC_INJ_RANK_3_JSQR_BITOFFSET_POS  (20UL) /* Equivalent to bitfield "ADC_JSQR_JSQ3" position in register */
 #define ADC_INJ_RANK_4_JSQR_BITOFFSET_POS  (26UL) /* Equivalent to bitfield "ADC_JSQR_JSQ4" position in register */
-
-
 
 /* Internal mask for ADC group regular trigger:                               */
 /* To select into literal LL_ADC_REG_TRIG_x the relevant bits for:            */
@@ -137,8 +133,6 @@ extern "C" {
 #define ADC_REG_TRIG_EXTSEL_BITOFFSET_POS  ( 6UL) /* Equivalent to bitfield "ADC_CFGR_EXTSEL" position in register */
 #define ADC_REG_TRIG_EXTEN_BITOFFSET_POS   (10UL) /* Equivalent to bitfield "ADC_CFGR_EXTEN" position in register */
 
-
-
 /* Internal mask for ADC group injected trigger:                              */
 /* To select into literal LL_ADC_INJ_TRIG_x the relevant bits for:            */
 /* - injected trigger source                                                  */
@@ -166,11 +160,6 @@ extern "C" {
 /* Definition of ADC group injected trigger bits information.                 */
 #define ADC_INJ_TRIG_EXTSEL_BITOFFSET_POS  ( 2UL) /* Equivalent to bitfield "ADC_JSQR_JEXTSEL" position in register */
 #define ADC_INJ_TRIG_EXTEN_BITOFFSET_POS   ( 6UL) /* Equivalent to bitfield "ADC_JSQR_JEXTEN" position in register */
-
-
-
-
-
 
 /* Internal mask for ADC channel:                                             */
 /* To select into literal LL_ADC_CHANNEL_x the relevant bits for:             */
@@ -368,17 +357,17 @@ extern "C" {
 
 /* ADC internal channels related definitions */
 /* Internal voltage reference VrefInt */
-#define VREFINT_CAL_ADDR                   ((uint16_t*) (0x1FFF75AAUL)) /* Internal voltage reference, address of
+#define VREFINT_CAL_ADDR                   ((const uint16_t*) (0x1FFF75AAUL)) /* Internal voltage reference, address of
                                            parameter VREFINT_CAL: VrefInt ADC raw data acquired at temperature 30 DegC
                                            (tolerance: +-5 DegC), Vref+ = 3.0 V (tolerance: +-10 mV). */
 #define VREFINT_CAL_VREF                   ( 3000UL)                    /* Analog voltage reference (Vref+) value
                                            with which VrefInt has been calibrated in production
                                            (tolerance: +-10 mV) (unit: mV). */
 /* Temperature sensor */
-#define TEMPSENSOR_CAL1_ADDR               ((uint16_t*) (0x1FFF75A8UL)) /* Address of parameter TS_CAL1: On STM32L4,
+#define TEMPSENSOR_CAL1_ADDR               ((const uint16_t*) (0x1FFF75A8UL)) /* Address of parameter TS_CAL1:
                                            temperature sensor ADC raw data acquired at temperature  30 DegC
                                            (tolerance: +-5 DegC), Vref+ = 3.0 V (tolerance: +-10 mV). */
-#define TEMPSENSOR_CAL2_ADDR               ((uint16_t*) (0x1FFF75CAUL)) /* Address of parameter TS_CAL2: On STM32L4,
+#define TEMPSENSOR_CAL2_ADDR               ((const uint16_t*) (0x1FFF75CAUL)) /* Address of parameter TS_CAL2:
                                            temperature sensor ADC raw data acquired at temperature defined by
                                            TEMPSENSOR_CAL2_TEMP (tolerance: +-5 DegC), Vref+ = 3.0 V (tolerance: +-10 mV). */
 #define TEMPSENSOR_CAL1_TEMP               (( int32_t)   30L)           /* Temperature at which temperature sensor
@@ -401,7 +390,6 @@ extern "C" {
   * @}
   */
 
-
 /* Private macros ------------------------------------------------------------*/
 /** @defgroup ADC_LL_Private_Macros ADC Private Macros
   * @{
@@ -421,7 +409,6 @@ extern "C" {
 /**
   * @}
   */
-
 
 /* Exported types ------------------------------------------------------------*/
 #if defined(USE_FULL_LL_DRIVER)

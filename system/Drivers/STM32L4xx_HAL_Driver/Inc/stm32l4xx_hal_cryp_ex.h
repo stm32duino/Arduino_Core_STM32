@@ -62,10 +62,10 @@ void HAL_CRYPEx_ComputationCpltCallback(CRYP_HandleTypeDef *hcryp);
 /* AES encryption/decryption processing functions  ****************************/
 HAL_StatusTypeDef HAL_CRYPEx_AES(CRYP_HandleTypeDef *hcryp, uint8_t *pInputData, uint16_t Size, uint8_t *pOutputData, uint32_t Timeout);
 HAL_StatusTypeDef HAL_CRYPEx_AES_IT(CRYP_HandleTypeDef *hcryp,  uint8_t *pInputData, uint16_t Size, uint8_t *pOutputData);
-HAL_StatusTypeDef HAL_CRYPEx_AES_DMA(CRYP_HandleTypeDef *hcryp,  uint8_t *pInputData, uint16_t Size, uint8_t *pOutputData);
+HAL_StatusTypeDef HAL_CRYPEx_AES_DMA(CRYP_HandleTypeDef *hcryp,  const uint8_t *pInputData, uint16_t Size, const uint8_t *pOutputData);
 
 /* AES encryption/decryption/authentication processing functions  *************/
-HAL_StatusTypeDef HAL_CRYPEx_AES_Auth(CRYP_HandleTypeDef *hcryp, uint8_t *pInputData, uint64_t Size, uint8_t *pOutputData, uint32_t Timeout);
+HAL_StatusTypeDef HAL_CRYPEx_AES_Auth(CRYP_HandleTypeDef *hcryp, const uint8_t *pInputData, uint64_t Size, uint8_t *pOutputData, uint32_t Timeout);
 HAL_StatusTypeDef HAL_CRYPEx_AES_Auth_IT(CRYP_HandleTypeDef *hcryp, uint8_t *pInputData, uint64_t Size, uint8_t *pOutputData);
 HAL_StatusTypeDef HAL_CRYPEx_AES_Auth_DMA(CRYP_HandleTypeDef *hcryp, uint8_t *pInputData, uint64_t Size, uint8_t *pOutputData);
 
@@ -78,11 +78,11 @@ HAL_StatusTypeDef HAL_CRYPEx_AES_Auth_DMA(CRYP_HandleTypeDef *hcryp, uint8_t *pI
   */
 
 /* AES suspension/resumption functions  ***************************************/
-void HAL_CRYPEx_Read_IVRegisters(CRYP_HandleTypeDef *hcryp, uint8_t* Output);
-void HAL_CRYPEx_Write_IVRegisters(CRYP_HandleTypeDef *hcryp, uint8_t* Input);
+void HAL_CRYPEx_Read_IVRegisters(const CRYP_HandleTypeDef *hcryp, uint8_t* Output);
+void HAL_CRYPEx_Write_IVRegisters(CRYP_HandleTypeDef *hcryp, const uint8_t* Input);
 void HAL_CRYPEx_Read_SuspendRegisters(CRYP_HandleTypeDef *hcryp, uint8_t* Output);
-void HAL_CRYPEx_Write_SuspendRegisters(CRYP_HandleTypeDef *hcryp, uint8_t* Input);
-void HAL_CRYPEx_Read_KeyRegisters(CRYP_HandleTypeDef *hcryp, uint8_t* Output, uint32_t KeySize);
+void HAL_CRYPEx_Write_SuspendRegisters(CRYP_HandleTypeDef *hcryp, const uint8_t* Input);
+void HAL_CRYPEx_Read_KeyRegisters(const CRYP_HandleTypeDef *hcryp, uint8_t* Output, uint32_t KeySize);
 void HAL_CRYPEx_Write_KeyRegisters(CRYP_HandleTypeDef *hcryp, uint8_t* Input, uint32_t KeySize);
 void HAL_CRYPEx_Read_ControlRegister(CRYP_HandleTypeDef *hcryp, uint8_t* Output);
 void HAL_CRYPEx_Write_ControlRegister(CRYP_HandleTypeDef *hcryp, uint8_t* Input);

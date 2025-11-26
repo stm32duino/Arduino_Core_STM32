@@ -108,7 +108,7 @@
           during the Init/DeInit.
           In that case first register the MspInit/MspDeInit user callbacks
           using @ref HAL_CRYP_RegisterCallback before calling @ref HAL_CRYP_DeInit
-          or @ref HAL_¨CRYP_Init function.
+          or @ref HAL_CRYP_Init function.
 
           When The compilation define USE_HAL_CRYP_REGISTER_CALLBACKS is set to 0 or
           not defined, the callback registering feature is not available
@@ -1482,7 +1482,7 @@ void HAL_CRYP_IRQHandler(CRYP_HandleTypeDef *hcryp)
   *         the configuration information for CRYP module
   * @retval HAL state
   */
-HAL_CRYP_STATETypeDef HAL_CRYP_GetState(CRYP_HandleTypeDef *hcryp)
+HAL_CRYP_STATETypeDef HAL_CRYP_GetState(const CRYP_HandleTypeDef *hcryp)
 {
   /* Return CRYP handle state */
   return hcryp->State;
@@ -1495,7 +1495,7 @@ HAL_CRYP_STATETypeDef HAL_CRYP_GetState(CRYP_HandleTypeDef *hcryp)
   * @note   The returned error is a bit-map combination of possible errors
   * @retval Error bit-map
   */
-uint32_t HAL_CRYP_GetError(CRYP_HandleTypeDef *hcryp)
+uint32_t HAL_CRYP_GetError(const CRYP_HandleTypeDef *hcryp)
 {
   return hcryp->ErrorCode;
 }
@@ -1639,13 +1639,13 @@ static HAL_StatusTypeDef CRYP_AES_IT(CRYP_HandleTypeDef *hcryp)
         outputaddr+=4U;
       }
 
-        *(uint32_t*)(outputaddr) = __REV(hcryp->Instance->KEYR3);
-        outputaddr+=4U;
-        *(uint32_t*)(outputaddr) = __REV(hcryp->Instance->KEYR2);
-        outputaddr+=4U;
-        *(uint32_t*)(outputaddr) = __REV(hcryp->Instance->KEYR1);
-        outputaddr+=4U;
-        *(uint32_t*)(outputaddr) = __REV(hcryp->Instance->KEYR0);
+      *(uint32_t*)(outputaddr) = __REV(hcryp->Instance->KEYR3);
+      outputaddr+=4U;
+      *(uint32_t*)(outputaddr) = __REV(hcryp->Instance->KEYR2);
+      outputaddr+=4U;
+      *(uint32_t*)(outputaddr) = __REV(hcryp->Instance->KEYR1);
+      outputaddr+=4U;
+      *(uint32_t*)(outputaddr) = __REV(hcryp->Instance->KEYR0);
     }
 
     /* In case of ciphering or deciphering, check if all output text has been retrieved;

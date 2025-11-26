@@ -41,14 +41,113 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section34" checked aria-hidden="true"> <label for="collapse-section34" aria-hidden="true">V1.13.5 / 28-June-2024</label>
+<input type="checkbox" id="collapse-section35" checked aria-hidden="true"> <label for="collapse-section35" aria-hidden="true">V1.13.6 / 14-November-2025</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and implementation enhancements.</li>
 <li>HAL code quality enhancement for MISRA-C Rule-8.13 by adding const qualifiers.</li>
+<li>HAL code quality enhancement for MISRA-C2012 Rule-12.1.</li>
 </ul>
 <h2 id="contents">Contents</h2>
+<ul>
+<li>HAL code quality enhancement for MISRA-C 2012 Rule-8.13 by adding ‘const’ qualifier.</li>
+<li>HAL code quality enhancement for MISRA-C 2012 Rule-12.2 by adding ‘UL’ qualifier on defined const.</li>
+<li>Upgrated HAL drivers to be compliant with Synopsys Coverity static analysis tool.</li>
+<li><strong>HAL ADC</strong> update
+<ul>
+<li>Add busy-state check in before aborting DMA.</li>
+<li>Fix length param definition in HAL_ADCEx_MultiModeStart_DMA() API.</li>
+</ul></li>
+<li><strong>HAL DAC</strong> update
+<ul>
+<li>Update the check for software trigger enablement by adding a verification of the Trigger selection.</li>
+</ul></li>
+<li><strong>HAL I2C</strong> update
+<ul>
+<li>Improvement and simplification IsDeviceReady() function.</li>
+<li>Move variable tmp declaration at the beginning in I2C_TransferCofig() function.</li>
+<li>Update HAL_I2C_IsDeviceReady() API to take into account the number of trials.</li>
+<li>Add support for memory transfer mode to the HAL_I2C_Master_Abort_IT() API.</li>
+</ul></li>
+<li><strong>HAL FMC</strong> update
+<ul>
+<li>Change “deviceaddress” variable as volatile in HAL_NAND_Read_Page_8b(), HAL_NAND_Read_SpareArea_8b(), HAL_NAND_Read_Page_16b() and HAL_NAND_Read_SpareArea_16b() APIs to avoid compiler optimizations and ensure correct data reads.</li>
+</ul></li>
+<li><strong>HAL OSPI</strong> update
+<ul>
+<li>Add HAL_OSPI_IsMemoryMapped() API.</li>
+<li>change ChipSelectHighTime max limits to 64 to feat with specification.</li>
+</ul></li>
+<li><strong>HAL QSPI</strong> update
+<ul>
+<li>Race condition with QSPI data transfer (DMA).</li>
+</ul></li>
+<li><strong>HAL SPI</strong> update
+<ul>
+<li>Check data size before changing state in reception API.</li>
+<li>Replace SD defines by MMC defines in HAL_MMC_IRQHandler() API.</li>
+<li>Add note to clarify HAL_SPI_Receive() API behavior in master mode.</li>
+<li>Add units to physical measurements.</li>
+<li>Avoid buffer overflow in SPI_WaitFifoStateUntilTimeout().</li>
+</ul></li>
+<li><strong>HAL TIM</strong> update
+<ul>
+<li>Fix update flag (UIF) clearing in TIM_Base_SetConfig.</li>
+<li>Update HAL_TIMEx_ConfigBreakInput() API to fix MISRAC 2012 Rule-16.1 violation.</li>
+<li>Update TIM_CCER_CCxE_MASK to support internal TIM Channel5 and TIM Channel6.</li>
+<li>Fix complementary channel systematically disabled by TIM_OCx_SetConfig().</li>
+</ul></li>
+<li><strong>HAL UART</strong> update
+<ul>
+<li>Correct DMA Rx abort procedure impact on ongoing Tx transfer in polling mode.</li>
+<li>Correct references to HAL_UARTEx_WakeupCallback and to HAL_UART_WAKEUP_CB_ID define, according to serie capabilities.</li>
+<li>Provide accurate position in RxEventCallback when ReceptionToIdle mode is used with DMA, when UART and DMA interrupts process is delayed.</li>
+<li>Fix transfer count underflow when using polling mode.</li>
+</ul></li>
+<li><strong>HAL SDMMC</strong> update
+<ul>
+<li>Add a check condition before aborting DMA in HAL_MMC_IRQHandler() API.</li>
+</ul></li>
+<li><strong>HAL DMA</strong> update
+<ul>
+<li>Fix DMA channel mask calculation bug for DMA2.</li>
+<li>Update HAL DMA request defines to reference LL DMAMUX define.</li>
+</ul></li>
+<li><strong>HAL RTC</strong> update
+<ul>
+<li>Add missing enumerator ‘HAL_RTC_SSRU_EVENT_CB_ID’ to the enumerated type ‘HAL_RTC_CallbackIDTypeDef’.</li>
+<li>Avoid entering initialization mode when calling HAL_RTC_Init() API if the RTC is already configured in binary mode to prevent unwanted reset of the SSR register.</li>
+</ul></li>
+<li><strong>HAL USB</strong> update
+<ul>
+<li>Fix the condition on EONUM flag of DOEPCTLx register in HAL_PCD_IRQHandler() to correctly check on the frame number parity.</li>
+</ul></li>
+<li><strong>LL RNG</strong> update
+<ul>
+<li>Update the LL RNG driver to support access to the HTCR register.</li>
+<li>Alignment of LL RNG API naming across the STM32 series.
+<ul>
+<li>LL_RNG_SetConditioningResetBit() -&gt; LL_RNG_EnableCondReset()</li>
+<li>LL_RNG_ResetConditioningResetBit() -&gt; LL_RNG_DisableCondReset()</li>
+<li>LL_RNG_IsResetConditioningBitSet() -&gt; LL_RNG_IsEnabledCondReset()</li>
+<li>LL_RNG_IsNistComplianceEnabled() -&gt; LL_RNG_IsEnabledNistCompliance()</li>
+<li>LL_RNG_SetHealthconfiguration() -&gt; LL_RNG_SetHealthConfig()</li>
+<li>LL_RNG_GetHealthconfiguration() -&gt; LL_RNG_GetHealthConfig()</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section34" aria-hidden="true"> <label for="collapse-section34" aria-hidden="true">V1.13.5 / 28-June-2024</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<ul>
+<li>General updates to fix known defects and implementation enhancements.</li>
+<li>HAL code quality enhancement for MISRA-C Rule-8.13 by adding const qualifiers.</li>
+</ul>
+<h2 id="contents-1">Contents</h2>
 <ul>
 <li><strong>LL GENERIC</strong> update
 <ul>
@@ -198,12 +297,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section33" aria-hidden="true"> <label for="collapse-section33" aria-hidden="true">V1.13.4 / 07-June-2023</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and implementation enhancements.</li>
 <li>HAL code quality enhancement for MISRA-C Rule-8.13 by adding const qualifiers.</li>
 </ul>
-<h2 id="contents-1">Contents</h2>
+<h2 id="contents-2">Contents</h2>
 <ul>
 <li><strong>HAL Generic</strong> update
 <ul>
@@ -359,12 +458,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section32" aria-hidden="true"> <label for="collapse-section32" aria-hidden="true">V1.13.3 / 15-April-2022</label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li>Maintenance release of <strong>HAL and Low Layer</strong> drivers to fix mainly HAL OSPI driver issue</li>
 <li>HAL code quality enhancement for MISRA-C Rule-8.13 by adding const qualifiers</li>
 </ul>
-<h2 id="contents-2">Contents</h2>
+<h2 id="contents-3">Contents</h2>
 <ul>
 <li><strong>HAL RCC</strong>
 <ul>
@@ -430,11 +529,11 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section31"  aria-hidden="true"> <label for="collapse-section31" aria-hidden="true">V1.13.2 / 26-November-2021</label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li>Maintenance release of <strong>HAL and Low Layer</strong> drivers to include latest corrections</li>
 </ul>
-<h2 id="contents-3">Contents</h2>
+<h2 id="contents-4">Contents</h2>
 <ul>
 <li><strong>RCC_HAL</strong>
 <ul>
@@ -589,11 +688,11 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section30" aria-hidden="true"> <label for="collapse-section30" aria-hidden="true">V1.13.1 / 24-September-2021</label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <ul>
 <li>Patch release only of ** USB HAL and Low Layer** drivers to include latest corrections</li>
 </ul>
-<h2 id="contents-4">Contents</h2>
+<h2 id="contents-5">Contents</h2>
 <p><strong><span class="underline"><span style="font-size: 10pt; font-family: Verdana; color: black;">HAL drivers changes</span></span></strong></p>
 <ul>
 <li><strong>HAL USB PCD</strong> driver
@@ -618,7 +717,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section29" aria-hidden="true"> <label for="collapse-section29" aria-hidden="true">V1.13.0 / 11-February-2021</label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <ul>
 <li>Maintenance release of <strong>HAL and Low Layer</strong> drivers to include latest corrections
 <ul>
@@ -638,7 +737,7 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="contents-5">Contents</h2>
+<h2 id="contents-6">Contents</h2>
 <h3 id="halll-generic-updates"><strong>HAL/LL generic</strong> updates</h3>
 <ul>
 <li>stm32l4xx_hal_timebase_tim_template.c
@@ -804,12 +903,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section28" aria-hidden="true"> <label for="collapse-section28" aria-hidden="true">V1.12.0 / 26-June-2020</label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <ul>
 <li>Maintenance release of <strong>HAL and Low Layer</strong> drivers to include latest corrections</li>
 <li>Update of <strong>HAL OSPI</strong> driver introducing <strong>compatibility break</strong> with previous versions</li>
 </ul>
-<h2 id="contents-6">Contents</h2>
+<h2 id="contents-7">Contents</h2>
 <h3 id="halll-generic-updates-1"><strong>HAL/LL generic</strong> updates</h3>
 <ul>
 <li>Remove the use of keyword register in HAL/LL drivers</li>
@@ -974,11 +1073,11 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section27" aria-hidden="true"> <label for="collapse-section27" aria-hidden="true">V1.11.1 / 07-February-2020</label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
+<h2 id="main-changes-8">Main Changes</h2>
 <ul>
 <li>Patch release of <strong>HAL and Low Layer</strong> drivers to include latest corrections</li>
 </ul>
-<h2 id="contents-7">Contents</h2>
+<h2 id="contents-8">Contents</h2>
 <p><strong><span class="underline"><span style="font-size: 10pt; font-family: Verdana; color: black;">HAL drivers changes</span></span></strong></p>
 <ul>
 <li><strong>HAL GPIO</strong> driver
@@ -1021,7 +1120,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section26" aria-hidden="true"> <label for="collapse-section26" aria-hidden="true">V1.11.0 / 22-November-2019</label>
 <div>
-<h2 id="main-changes-8">Main Changes</h2>
+<h2 id="main-changes-9">Main Changes</h2>
 <ul>
 <li>Release of <strong>HAL and Low Layer</strong> drivers to add support of <strong>STM32L4P5xx/STM32L4Q5xx</strong> devices
 <ul>
@@ -1031,7 +1130,7 @@
 </li>
 <li>Correction of several issues applicable to other devices</li>
 </ul>
-<h2 id="contents-8">Contents</h2>
+<h2 id="contents-9">Contents</h2>
 <p><strong><span class="underline"><span style="font-size: 10pt; font-family: Verdana; color: black;">HAL drivers changes</span></span></strong></p>
 <ul>
 <li><strong>HAL</strong> driver
@@ -1371,11 +1470,11 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section22" aria-hidden="true"> <label for="collapse-section22" aria-hidden="true">V1.10.0 / 03-April-2019</label>
 <div>
-<h2 id="main-changes-9">Main Changes</h2>
+<h2 id="main-changes-10">Main Changes</h2>
 <ul>
 <li>Delivery of the new HAL MMC driver</li>
 </ul>
-<h2 id="contents-9">Contents</h2>
+<h2 id="contents-10">Contents</h2>
 <p><strong><span class="underline"><span style="font-size: 10pt; font-family: Verdana; color: black;">HAL drivers changes</span></span></strong></p>
 <ul>
 <li><strong>HAL ADC</strong> driver
@@ -1663,13 +1762,13 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section21" aria-hidden="true"> <label for="collapse-section21" aria-hidden="true">V1.9.0 / 27-July-2018</label>
 <div>
-<h2 id="main-changes-10">Main Changes</h2>
+<h2 id="main-changes-11">Main Changes</h2>
 <ul>
 <li>Release of <strong>HAL and Low Layer drivers</strong> to add support of <strong>STM32L412xx/STM32L422xx</strong></li>
 <li>Superset features device STM32L422xx API User Manual available (STM32L422xx_User_Manual.chm)  </li>
 <li>MISRA C:2012 corrections</li>
 </ul>
-<h2 id="contents-10">Contents</h2>
+<h2 id="contents-11">Contents</h2>
 <p><strong><span class="underline"><span style="font-size: 10pt; font-family: Verdana; color: black;">HAL drivers changes</span></span></strong></p>
 <p>MISRA C:2012 corrections listed hereafter are applicable to LL driver as well.</p>
 <ul>
@@ -1855,7 +1954,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section19" aria-hidden="true"> <label for="collapse-section19" aria-hidden="true">V1.8.3 / 22-May-2018</label>
 <div>
-<h2 id="main-changes-11">Main Changes</h2>
+<h2 id="main-changes-12">Main Changes</h2>
 <p>Maintenance Release of <strong>HAL and Low Layer drivers</strong></p>
 <p><strong>Add support of HAL callback registration feature</strong></p>
 <ul>
@@ -1865,7 +1964,7 @@
 <li><p>Once enabled, the user application may resort to HAL_PPP_RegisterCallback() to register specific callback function(s) and unregister it(them) with HAL_PPP_UnRegisterCallback().</p></li>
 </ul>
 <p>MISRA C:2012 corrections</p>
-<h2 id="contents-11">Contents</h2>
+<h2 id="contents-12">Contents</h2>
 <p><strong><span class="underline"><span style="font-size: 10pt; font-family: Verdana; color: black;">HAL drivers changes</span></span></strong></p>
 <ul>
 <li><p><strong>HAL generic</strong> driver</p>
@@ -2213,11 +2312,11 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true">V1.8.2 / 22-December-2017</label>
 <div>
-<h2 id="main-changes-12">Main Changes</h2>
+<h2 id="main-changes-13">Main Changes</h2>
 <ul>
 <li>Maintenance Release of <strong>HAL and Low Layer drivers</strong></li>
 </ul>
-<h2 id="contents-12">Contents</h2>
+<h2 id="contents-13">Contents</h2>
 <p><strong><span class="underline"><span style="font-size: 10pt; font-family: Verdana; color: black;">HAL drivers changes</span></span></strong></p>
 <ul>
 <li><strong>HAL CAN</strong> driver</li>
@@ -2295,11 +2394,11 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true">V1.8.1 / 13-October-2017</label>
 <div>
-<h2 id="main-changes-13">Main Changes</h2>
+<h2 id="main-changes-14">Main Changes</h2>
 <ul>
 <li>Maintenance Release of <strong>HAL and Low Layer drivers</strong></li>
 </ul>
-<h2 id="contents-13">Contents</h2>
+<h2 id="contents-14">Contents</h2>
 <p><strong><span class="underline"><span style="font-size: 10pt; font-family: Verdana; color: black;">HAL drivers changes</span></span></strong></p>
 <ul>
 <li><p><strong>HAL generic</strong> driver</p>
@@ -2377,7 +2476,7 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 <div class="collapse">
 <input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true">V1.8.0 / 25-August-2017</label>
 <div>
-<h2 id="main-changes-14">Main Changes</h2>
+<h2 id="main-changes-15">Main Changes</h2>
 <ul>
 <li><p>Release of <strong>HAL and Low Layer drivers</strong> to add support of <strong>STM32L4R5xx/STM32L4R7xx/STM32L4R9xx/STM32L4S5xx/STM32L4S7xx/STM32L4S9xx</strong> devices</p></li>
 <li><p>New OctoSPI, DSI, LTDC, GFXMMU peripherals supported in <strong>new HAL OSPI, HAL DSI, HAL LTDC</strong> and <strong>HAL GFXMMU</strong> drivers</p></li>
@@ -2634,11 +2733,11 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 <div class="collapse">
 <input type="checkbox" id="collapse-section7" aria-hidden="true"> <label for="collapse-section7" aria-hidden="true">V1.7.2 / 16-June-2017</label>
 <div>
-<h2 id="main-changes-15">Main Changes</h2>
+<h2 id="main-changes-16">Main Changes</h2>
 <ul>
 <li>Maintenance Release of <strong>HAL and Low Layer drivers</strong></li>
 </ul>
-<h2 id="contents-14">Contents</h2>
+<h2 id="contents-15">Contents</h2>
 <p><strong><span class="underline"><span style="font-size: 10pt; font-family: Verdana; color: black;">HAL drivers changes</span></span></strong></p>
 <ul>
 <li><p><strong>HAL CAN</strong> driver</p>
@@ -2690,11 +2789,11 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 <div class="collapse">
 <input type="checkbox" id="collapse-section8" aria-hidden="true"> <label for="collapse-section8" aria-hidden="true">V1.7.1 / 21-April-2017</label>
 <div>
-<h2 id="main-changes-16">Main Changes</h2>
+<h2 id="main-changes-17">Main Changes</h2>
 <ul>
 <li>Maintenance Release of <strong>HAL and Low Layer drivers</strong></li>
 </ul>
-<h2 id="contents-15">Contents</h2>
+<h2 id="contents-16">Contents</h2>
 <p><strong><span class="underline"><span style="font-size: 10pt; font-family: Verdana; color: black;">HAL drivers changes</span></span></strong></p>
 <ul>
 <li><p><strong>HAL generic</strong> driver</p>
@@ -2734,7 +2833,7 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 <div class="collapse">
 <input type="checkbox" id="collapse-section9" aria-hidden="true"> <label for="collapse-section9" aria-hidden="true">V1.7.0 / 17-February-2017</label>
 <div>
-<h2 id="main-changes-17">Main Changes</h2>
+<h2 id="main-changes-18">Main Changes</h2>
 <ul>
 <li>Release of <strong>HAL and Low Layer drivers</strong> to add support of <strong>STM32L496xx/STM32L4A6xx</strong> devices</li>
 <li>New DCMI, DMA2D, HASH peripherals supported in <strong>new HAL DCMI, HAL &amp; LL DMA2D and HAL HASH</strong> drivers</li>
@@ -2743,7 +2842,7 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 <li>Superset features device STM32L4A6xx API User Manual available (STM32L4A6xx_User_Manual.chm) <br />
 </li>
 </ul>
-<h2 id="contents-16">Contents</h2>
+<h2 id="contents-17">Contents</h2>
 <p><strong><span class="underline"><span style="font-size: 10pt; font-family: Verdana; color: black;">HAL drivers changes</span></span></strong></p>
 <ul>
 <li><strong>HAL DCMI</strong> driver <strong>(NEW)</strong>: stm32l4xx_hal_dcmi.h/.c files</li>
@@ -2843,12 +2942,12 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 <div class="collapse">
 <input type="checkbox" id="collapse-section10" aria-hidden="true"> <label for="collapse-section10" aria-hidden="true">V1.6.0 / 28-October-2016</label>
 <div>
-<h2 id="main-changes-18">Main Changes</h2>
+<h2 id="main-changes-19">Main Changes</h2>
 <ul>
 <li>Release of <strong>HAL and Low Layer drivers</strong> to add support of <strong>STM32L451xx/STM32L452xx/STM32L462xx</strong> devices</li>
 <li>Superset features device STM32L462xx API User Manual available (STM32L462xx_User_Manual.chm)</li>
 </ul>
-<h2 id="contents-17">Contents</h2>
+<h2 id="contents-18">Contents</h2>
 <p><strong><span class="underline"><span style="font-size: 10pt; font-family: Verdana; color: black;">HAL drivers changes</span></span></strong></p>
 <ul>
 <li><p><strong>HAL CRYP</strong> driver</p>
@@ -2908,7 +3007,7 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 <div class="collapse">
 <input type="checkbox" id="collapse-section11" aria-hidden="true"> <label for="collapse-section11" aria-hidden="true">V1.5.2 / 12-September-2016</label>
 <div>
-<h2 id="contents-18">Contents</h2>
+<h2 id="contents-19">Contents</h2>
 <p><strong><span class="underline"><span style="font-size: 10pt; font-family: Verdana; color: black;">HAL drivers changes</span></span></strong></p>
 <ul>
 <li><p><strong>HAL ADC</strong> driver</p>
@@ -3000,7 +3099,7 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 <div class="collapse">
 <input type="checkbox" id="collapse-section12" aria-hidden="true"> <label for="collapse-section12" aria-hidden="true">V1.5.1 / 31-May-2016</label>
 <div>
-<h2 id="contents-19">Contents</h2>
+<h2 id="contents-20">Contents</h2>
 <p><strong><span class="underline"><span style="font-size: 10pt; font-family: Verdana; color: black;">HAL drivers changes</span></span></strong></p>
 <ul>
 <li><p><strong>HAL ADC</strong> driver</p>
@@ -3028,11 +3127,11 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 <div class="collapse">
 <input type="checkbox" id="collapse-section13" aria-hidden="true"> <label for="collapse-section13" aria-hidden="true">V1.5.0 / 29-April-2016</label>
 <div>
-<h2 id="main-changes-19">Main Changes</h2>
+<h2 id="main-changes-20">Main Changes</h2>
 <ul>
 <li>Maintenance Release of <strong>HAL and Low Layer drivers</strong></li>
 </ul>
-<h2 id="contents-20">Contents</h2>
+<h2 id="contents-21">Contents</h2>
 <p><strong><span class="underline"><span style="font-size: 10pt; font-family: Verdana; color: black;">HAL drivers changes</span></span></strong></p>
 <p>Enhance HAL delay and timebase implementation</p>
 <ul>
@@ -3278,7 +3377,7 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 <div class="collapse">
 <input type="checkbox" id="collapse-section14" aria-hidden="true"> <label for="collapse-section14" aria-hidden="true">V1.4.0 / 26-February-2016</label>
 <div>
-<h2 id="main-changes-20">Main Changes</h2>
+<h2 id="main-changes-21">Main Changes</h2>
 <ul>
 <li>Release of <strong>HAL and Low Layer drivers</strong> to add support of <strong>STM32L431xx/STM32L432xx/STM32L433xx/STM32L442xx/STM32L443xx</strong> devices</li>
 <li><strong>Low Layer driver initialization/de-initialization APIs</strong> applicable to all STM32L4xx devices</li>
@@ -3286,7 +3385,7 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 <li>Superset features device STM32L443xx API User Manual available (STM32L443xx_User_Manual.chm) <br />
 </li>
 </ul>
-<h2 id="contents-21">Contents</h2>
+<h2 id="contents-22">Contents</h2>
 <p><strong><span class="underline"><span style="font-size: 10pt; font-family: Verdana; color: black;">HAL drivers changes</span></span></strong></p>
 <ul>
 <li><p><strong>HAL</strong> generic update</p>
@@ -3350,7 +3449,7 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 <div class="collapse">
 <input type="checkbox" id="collapse-section15" aria-hidden="true"> <label for="collapse-section15" aria-hidden="true">V1.3.0 / 29-January-2016</label>
 <div>
-<h2 id="main-changes-21">Main Changes</h2>
+<h2 id="main-changes-22">Main Changes</h2>
 <ul>
 <li><strong>New Low Layer driver initialization/de-initialization APIs</strong>
 <ul>
@@ -3363,7 +3462,7 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 </ul></li>
 <li>Fix "parameter unused" GCC compilation warnings on __weak functions</li>
 </ul>
-<h2 id="contents-22">Contents</h2>
+<h2 id="contents-23">Contents</h2>
 <p><strong><span class="underline"><span style="font-size: 10pt; font-family: Verdana; color: black;">HAL drivers changes</span></span></strong></p>
 <ul>
 <li><p><strong>HAL generic</strong> update</p>
@@ -3511,7 +3610,7 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 <div class="collapse">
 <input type="checkbox" id="collapse-section16" aria-hidden="true"> <label for="collapse-section16" aria-hidden="true">V1.2.0 / 25-November-2015</label>
 <div>
-<h2 id="main-changes-22">Main Changes</h2>
+<h2 id="main-changes-23">Main Changes</h2>
 <ul>
 <li><strong>HAL generic</strong> update
 <ul>
@@ -3568,7 +3667,7 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 <div class="collapse">
 <input type="checkbox" id="collapse-section17" aria-hidden="true"> <label for="collapse-section17" aria-hidden="true">V1.1.1 / 16-October-2015</label>
 <div>
-<h2 id="main-changes-23">Main Changes</h2>
+<h2 id="main-changes-24">Main Changes</h2>
 <ul>
 <li><p><strong>HAL generic</strong> update</p>
 <ul>
@@ -3598,7 +3697,7 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 <div class="collapse">
 <input type="checkbox" id="collapse-section20" aria-hidden="true"> <label for="collapse-section20" aria-hidden="true">V1.1.0 / 26-September-2015</label>
 <div>
-<h2 id="main-changes-24">Main Changes</h2>
+<h2 id="main-changes-25">Main Changes</h2>
 <p><strong>Add Low Layer drivers allowing performance and footprint optimization</strong></p>
 <ul>
 <li>Low Layer drivers APIs provide register level programming: they require deep knowledge of peripherals described in STM32L4x6 Reference Manual</li>
@@ -3606,7 +3705,7 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 </p></li>
 <li><p>Low Layer drivers APIs are implemented as static inline function in new Inc/stm32l4xx_ll_ppp.h files for PPP peripherals, there is no configuration file and each stm32l4xx_ll_ppp.h file must be included in user code.</p></li>
 </ul>
-<h2 id="contents-23">Contents</h2>
+<h2 id="contents-24">Contents</h2>
 <ul>
 <li><p><strong>HAL ADC</strong> update</p>
 <ul>
@@ -3671,7 +3770,7 @@ HAL_PCD_UnRegisterCallback(), HAL_PCD_RegisterDataOutStageCallback(), HAL_PCD_Un
 <div class="collapse">
 <input type="checkbox" id="collapse-section18" aria-hidden="true"> <label for="collapse-section18" aria-hidden="true">V1.0.0 / 26-June-2015</label>
 <div>
-<h2 id="main-changes-25">Main Changes</h2>
+<h2 id="main-changes-26">Main Changes</h2>
 <ul>
 <li>First official release of <strong>STM32L4xx HAL Drivers</strong> for <strong>STM32L471xx/STM32L475xx/STM32L476xx/STM32L485xx</strong> and <strong>STM32L486xx</strong> devices</li>
 </ul>
