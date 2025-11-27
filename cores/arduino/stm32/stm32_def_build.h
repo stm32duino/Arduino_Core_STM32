@@ -518,7 +518,9 @@
     #define CMSIS_STARTUP_FILE "startup_stm32wb55xx_cm4.s"
   #elif defined(STM32WB5Mxx)
     #define CMSIS_STARTUP_FILE "startup_stm32wb5mxx_cm4.s"
-  #elif defined(STM32WL3xx)
+  #elif defined(STM32WL3RX)
+    #define CMSIS_STARTUP_FILE "startup_stm32wl3rx.s"
+  #elif defined(STM32WL3XX)
     #define CMSIS_STARTUP_FILE "startup_stm32wl3xx.s"
   #elif defined(STM32WL54xx) && defined(USE_CM0PLUS_STARTUP_FILE)
     #define CMSIS_STARTUP_FILE "startup_stm32wl54xx_cm0plus.s"
