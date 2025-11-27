@@ -65,9 +65,9 @@ drivers)</li>
 <section id="update-history" class="col-sm-12 col-lg-8">
 <h1>Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section12" checked aria-hidden="true">
-<label for="collapse-section12" aria-hidden="true"><strong>V1.7.0 /
-23-May-2025</strong></label>
+<input type="checkbox" id="collapse-section13" checked aria-hidden="true">
+<label for="collapse-section13" aria-hidden="true"><strong>V1.8.0 /
+07-October-2025</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <h3
@@ -89,12 +89,110 @@ UART, USART, WWDG</li>
 HSEM, I2C, ICACHE, IWDG, LPTIM, LPUART, PKA, PWR, RCC, RNG, RTC, SPI,
 SYSTEM, TIM, USART, USB, UTILS, WWDG</li>
 </ul></li>
+</ul>
+<p><br />
+</p>
+<h2 id="hal-drivers-updates"><strong>HAL Drivers</strong> updates</h2>
+<ul>
+<li><strong>HAL GPIO</strong> driver
+<ul>
+<li>Update the naming of the USB OTG-HS alternate function</li>
+</ul></li>
+<li><strong>HAL HASH</strong> driver
+<ul>
+<li>Optimization of waiting flag function</li>
+<li>Correction of MISRA warnings</li>
+<li>Correction of compilation warnings in customer environment</li>
+<li>Update related to error callbacks generation with the correct
+computed digest</li>
+</ul></li>
+<li><strong>HAL HCD</strong> driver
+<ul>
+<li>Correction of MISRA warnings</li>
+<li>Adding data toggle support for control EP</li>
+</ul></li>
+<li><strong>HAL PCD</strong> driver
+<ul>
+<li>Correction of MISRA warnings</li>
+</ul></li>
+<li><strong>HAL UART</strong> driver
+<ul>
+<li>Fix transfer count underflow when using polling mode</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<h2 id="ll-drivers-updates"><strong>LL Drivers</strong> updates</h2>
+<ul>
+<li><strong>LL USB</strong> driver
+<ul>
+<li>Use phy_ch_num instead ch_num for DRD IP</li>
+<li>Correct used value of GAHBCFG[HBSTLEN] field</li>
+<li>Correction of MISRA warnings</li>
+<li>Ensure to enable NYET/NAK ITs</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<h2 id="supported-devices-and-boards">Supported Devices and boards</h2>
+<ul>
+<li>STM32WBA50xx, STM32WBA52xx, STM32WBA54xx, STM32WBA55xx and
+STM32WBA5Mxx devices</li>
+<li>STM32WBA62xx, STM32WBA63xx, STM32WBA64xx, STM32WBA65xx and
+STM32WBA6Mxx devices</li>
+<li>NUCLEO-WBA55CG, STM32WBA55G-DK1 and B-WBA5M-WPAN boards</li>
+<li>NUCLEO-WBA65RI, STM32WBA65I-DK1 and B-WBA6M-WPAN board</li>
+</ul>
+<h2 id="backward-compatibility">Backward compatibility</h2>
+<ul>
+<li>Not applicable</li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section12" aria-hidden="true">
+<label for="collapse-section12" aria-hidden="true"><strong>V1.7.0 /
+23-May-2025</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<h3
+id="official-release-of-stm32cubewba-firmware-package-supporting-stm32wba5x-and-stm32wba6x-devices-1">Official
+Release of <strong>STM32CubeWBA</strong> Firmware package supporting
+<strong>STM32WBA5x</strong> and <strong>STM32WBA6x</strong> devices</h3>
+<h2 id="contents-1">Contents</h2>
+<h3
+id="official-release-of-halll-drivers-for-stm32wbaxx-serie-1">Official
+Release of <strong>HAL/LL Drivers</strong> for
+<strong>STM32WBAxx</strong> serie</h3>
+<ul>
+<li><strong>HAL/LL Drivers</strong> are available for all peripherals:
+<ul>
+<li><strong>HAL</strong>: ADC, COMP, CORTEX, CRC, CRYP, DMA, EXTI,
+FLASH, GPIO, GTZC, HASH, HCD, HSEM, I2C, ICACHE, IRDA, IWDG, LPTIM, PCD,
+PKA, PWR, RAMCFG, RCC, RNG, RTC, SAI, SMARTCARD, SMBUS, SPI, TIM, TSC,
+UART, USART, WWDG</li>
+<li><strong>LL</strong>: ADC, BUS, COMP, CORTEX, CRC, DMA, EXTI, GPIO,
+HSEM, I2C, ICACHE, IWDG, LPTIM, LPUART, PKA, PWR, RCC, RNG, RTC, SPI,
+SYSTEM, TIM, USART, USB, UTILS, WWDG</li>
+</ul></li>
 <li>Update HAL/LL drivers to support of <strong>STM32WBA6Mxx</strong>
 devices</li>
 </ul>
 <p><br />
 </p>
-<h2 id="hal-drivers-updates"><strong>HAL Drivers</strong> updates</h2>
+<h2 id="hal-drivers-updates-1"><strong>HAL Drivers</strong> updates</h2>
 <ul>
 <li><strong>HAL CORTEX</strong> driver
 <ul>
@@ -186,7 +284,7 @@ Channel6.</li>
 </ul>
 <p><br />
 </p>
-<h2 id="ll-drivers-updates"><strong>LL Drivers</strong> updates</h2>
+<h2 id="ll-drivers-updates-1"><strong>LL Drivers</strong> updates</h2>
 <ul>
 <li><strong>LL ADC</strong> driver
 <ul>
@@ -224,99 +322,13 @@ Channel6.</li>
 </ul>
 <p><br />
 </p>
-<h2 id="supported-devices-and-boards">Supported Devices and boards</h2>
-<ul>
-<li>STM32WBA50xx, STM32WBA52xx, STM32WBA54xx, STM32WBA55xx and
-STM32WBA5Mxx devices</li>
-<li>STM32WBA62xx, STM32WBA63xx, STM32WBA64xx, STM32WBA65xx and
-STM32WBA6Mxx devices</li>
-<li>NUCLEO-WBA55CG, STM32WBA55G-DK1 and B-WBA5M-WPAN boards</li>
-<li>NUCLEO-WBA65RI and STM32WBA65I-DK1 board</li>
-</ul>
-<h2 id="backward-compatibility">Backward compatibility</h2>
-<ul>
-<li>Not applicable</li>
-</ul>
-<h2 id="known-limitations">Known Limitations</h2>
-<ul>
-<li>None</li>
-</ul>
-<h2 id="dependencies">Dependencies</h2>
-<ul>
-<li>None</li>
-</ul>
-<h2 id="notes">Notes</h2>
-<ul>
-<li>None</li>
-</ul>
-</div>
-</div>
-<div class="collapse">
-<input type="checkbox" id="collapse-section11" aria-hidden="true">
-<label for="collapse-section11" aria-hidden="true"><strong>V1.6.1 /
-02-April-2025</strong></label>
-<div>
-<h2 id="main-changes-1">Main Changes</h2>
-<h3
-id="official-release-of-stm32cubewba-firmware-package-supporting-stm32wba5x-and-stm32wba6x-devices-1">Official
-Release of <strong>STM32CubeWBA</strong> Firmware package supporting
-<strong>STM32WBA5x</strong> and <strong>STM32WBA6x</strong> devices</h3>
-<h2 id="contents-1">Contents</h2>
-<h3
-id="official-release-of-halll-drivers-for-stm32wbaxx-serie-1">Official
-Release of <strong>HAL/LL Drivers</strong> for
-<strong>STM32WBAxx</strong> serie</h3>
-<ul>
-<li><strong>HAL/LL Drivers</strong> are available for all peripherals:
-<ul>
-<li><strong>HAL</strong>: ADC, COMP, CORTEX, CRC, CRYP, DMA, EXTI,
-FLASH, GPIO, GTZC, HASH, <strong>HCD</strong>, HSEM, I2C, ICACHE, IRDA,
-IWDG, LPTIM, <strong>PCD</strong>, PKA, PWR, RAMCFG, RCC, RNG, RTC, SAI,
-SMARTCARD, SMBUS, SPI, TIM, TSC, UART, USART, WWDG</li>
-<li><strong>LL</strong>: ADC, BUS, COMP, CORTEX, CRC, DMA, EXTI, GPIO,
-HSEM, I2C, ICACHE, IWDG, LPTIM, LPUART, PKA, PWR, RCC, RNG, RTC, SPI,
-SYSTEM, TIM, USART, <strong>USB</strong>, UTILS, WWDG</li>
-</ul></li>
-<li>Update HAL/LL drivers to include latest corrections</li>
-</ul>
-<p><br />
-</p>
-<h2 id="hal-drivers-updates-1"><strong>HAL Drivers</strong> updates</h2>
-<ul>
-<li><strong>HAL CRYP</strong> driver
-<ul>
-<li>Better performance by removing multiple volatile reads or writes in
-interrupt handler</li>
-<li>Correction of MISRA warnings</li>
-<li>Check the busy flag before writing CR register</li>
-<li>Update to use correctly the wrapped key in decryption mode</li>
-<li>Correction of Coverity warnings</li>
-</ul></li>
-<li><strong>HAL RNG</strong> driver
-<ul>
-<li>Distinguish error coming from RecoverSeedError or from
-SeedError</li>
-</ul></li>
-<li><strong>HAL UART</strong> driver
-<ul>
-<li>Fix Doxygen issues for User Manual generation</li>
-</ul></li>
-</ul>
-<p><br />
-</p>
-<h2 id="ll-drivers-updates-1"><strong>LL Drivers</strong> updates</h2>
-<ul>
-<li>None</li>
-</ul>
-<p><br />
-</p>
 <h2 id="supported-devices-and-boards-1">Supported Devices and
 boards</h2>
 <ul>
 <li>STM32WBA50xx, STM32WBA52xx, STM32WBA54xx, STM32WBA55xx and
 STM32WBA5Mxx devices</li>
-<li>STM32WBA62xx, STM32WBA63xx, STM32WBA64xx and STM32WBA65xx
-devices</li>
+<li>STM32WBA62xx, STM32WBA63xx, STM32WBA64xx, STM32WBA65xx and
+STM32WBA6Mxx devices</li>
 <li>NUCLEO-WBA55CG, STM32WBA55G-DK1 and B-WBA5M-WPAN boards</li>
 <li>NUCLEO-WBA65RI and STM32WBA65I-DK1 board</li>
 </ul>
@@ -339,9 +351,9 @@ devices</li>
 </div>
 </div>
 <div class="collapse">
-<input type="checkbox" id="collapse-section10" aria-hidden="true">
-<label for="collapse-section10" aria-hidden="true"><strong>V1.6.0 /
-07-February-2025</strong></label>
+<input type="checkbox" id="collapse-section11" aria-hidden="true">
+<label for="collapse-section11" aria-hidden="true"><strong>V1.6.1 /
+02-April-2025</strong></label>
 <div>
 <h2 id="main-changes-2">Main Changes</h2>
 <h3
@@ -364,34 +376,27 @@ SMARTCARD, SMBUS, SPI, TIM, TSC, UART, USART, WWDG</li>
 HSEM, I2C, ICACHE, IWDG, LPTIM, LPUART, PKA, PWR, RCC, RNG, RTC, SPI,
 SYSTEM, TIM, USART, <strong>USB</strong>, UTILS, WWDG</li>
 </ul></li>
-<li>Update HAL/LL drivers to support of <strong>STM32WBA6xxx</strong>
-devices</li>
+<li>Update HAL/LL drivers to include latest corrections</li>
 </ul>
 <p><br />
 </p>
 <h2 id="hal-drivers-updates-2"><strong>HAL Drivers</strong> updates</h2>
 <ul>
-<li><strong>HAL ADC</strong> driver
+<li><strong>HAL CRYP</strong> driver
 <ul>
-<li>Update the DMA data length management implementation according to
-source/destination width</li>
+<li>Better performance by removing multiple volatile reads or writes in
+interrupt handler</li>
+<li>Correction of MISRA warnings</li>
+<li>Check the busy flag before writing CR register</li>
+<li>Update to use correctly the wrapped key in decryption mode</li>
+<li>Correction of Coverity warnings</li>
 </ul></li>
-<li><strong>HAL DMA</strong> driver
+<li><strong>HAL RNG</strong> driver
 <ul>
-<li>DMA Callbacks to be initialized to NULL in RESET state</li>
-<li>Remove extra unused parentheses in HAL_DMA_IRQHandler</li>
-<li>Fix Doxygen issues for User Manual generation</li>
-<li>Fix GCC13 warning</li>
+<li>Distinguish error coming from RecoverSeedError or from
+SeedError</li>
 </ul></li>
-<li><strong>HAL GPIO</strong> driver
-<ul>
-<li>Add pull-down capability in analog mode</li>
-</ul></li>
-<li><strong>HAL HSEM</strong> driver
-<ul>
-<li>Fix Doxygen issues for User Manual generation</li>
-</ul></li>
-<li><strong>HAL RCC</strong> driver
+<li><strong>HAL UART</strong> driver
 <ul>
 <li>Fix Doxygen issues for User Manual generation</li>
 </ul></li>
@@ -400,11 +405,7 @@ source/destination width</li>
 </p>
 <h2 id="ll-drivers-updates-2"><strong>LL Drivers</strong> updates</h2>
 <ul>
-<li><strong>LL LPTIM</strong> driver
-<ul>
-<li>Fixed LL_LPTIM_CC_SetChannelMode to manage properly on the fly
-channel mode changes.</li>
-</ul></li>
+<li>None</li>
 </ul>
 <p><br />
 </p>
@@ -437,20 +438,118 @@ devices</li>
 </div>
 </div>
 <div class="collapse">
+<input type="checkbox" id="collapse-section10" aria-hidden="true">
+<label for="collapse-section10" aria-hidden="true"><strong>V1.6.0 /
+07-February-2025</strong></label>
+<div>
+<h2 id="main-changes-3">Main Changes</h2>
+<h3
+id="official-release-of-stm32cubewba-firmware-package-supporting-stm32wba5x-and-stm32wba6x-devices-3">Official
+Release of <strong>STM32CubeWBA</strong> Firmware package supporting
+<strong>STM32WBA5x</strong> and <strong>STM32WBA6x</strong> devices</h3>
+<h2 id="contents-3">Contents</h2>
+<h3
+id="official-release-of-halll-drivers-for-stm32wbaxx-serie-3">Official
+Release of <strong>HAL/LL Drivers</strong> for
+<strong>STM32WBAxx</strong> serie</h3>
+<ul>
+<li><strong>HAL/LL Drivers</strong> are available for all peripherals:
+<ul>
+<li><strong>HAL</strong>: ADC, COMP, CORTEX, CRC, CRYP, DMA, EXTI,
+FLASH, GPIO, GTZC, HASH, <strong>HCD</strong>, HSEM, I2C, ICACHE, IRDA,
+IWDG, LPTIM, <strong>PCD</strong>, PKA, PWR, RAMCFG, RCC, RNG, RTC, SAI,
+SMARTCARD, SMBUS, SPI, TIM, TSC, UART, USART, WWDG</li>
+<li><strong>LL</strong>: ADC, BUS, COMP, CORTEX, CRC, DMA, EXTI, GPIO,
+HSEM, I2C, ICACHE, IWDG, LPTIM, LPUART, PKA, PWR, RCC, RNG, RTC, SPI,
+SYSTEM, TIM, USART, <strong>USB</strong>, UTILS, WWDG</li>
+</ul></li>
+<li>Update HAL/LL drivers to support of <strong>STM32WBA6xxx</strong>
+devices</li>
+</ul>
+<p><br />
+</p>
+<h2 id="hal-drivers-updates-3"><strong>HAL Drivers</strong> updates</h2>
+<ul>
+<li><strong>HAL ADC</strong> driver
+<ul>
+<li>Update the DMA data length management implementation according to
+source/destination width</li>
+</ul></li>
+<li><strong>HAL DMA</strong> driver
+<ul>
+<li>DMA Callbacks to be initialized to NULL in RESET state</li>
+<li>Remove extra unused parentheses in HAL_DMA_IRQHandler</li>
+<li>Fix Doxygen issues for User Manual generation</li>
+<li>Fix GCC13 warning</li>
+</ul></li>
+<li><strong>HAL GPIO</strong> driver
+<ul>
+<li>Add pull-down capability in analog mode</li>
+</ul></li>
+<li><strong>HAL HSEM</strong> driver
+<ul>
+<li>Fix Doxygen issues for User Manual generation</li>
+</ul></li>
+<li><strong>HAL RCC</strong> driver
+<ul>
+<li>Fix Doxygen issues for User Manual generation</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<h2 id="ll-drivers-updates-3"><strong>LL Drivers</strong> updates</h2>
+<ul>
+<li><strong>LL LPTIM</strong> driver
+<ul>
+<li>Fixed LL_LPTIM_CC_SetChannelMode to manage properly on the fly
+channel mode changes.</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<h2 id="supported-devices-and-boards-3">Supported Devices and
+boards</h2>
+<ul>
+<li>STM32WBA50xx, STM32WBA52xx, STM32WBA54xx, STM32WBA55xx and
+STM32WBA5Mxx devices</li>
+<li>STM32WBA62xx, STM32WBA63xx, STM32WBA64xx and STM32WBA65xx
+devices</li>
+<li>NUCLEO-WBA55CG, STM32WBA55G-DK1 and B-WBA5M-WPAN boards</li>
+<li>NUCLEO-WBA65RI and STM32WBA65I-DK1 board</li>
+</ul>
+<h2 id="backward-compatibility-3">Backward compatibility</h2>
+<ul>
+<li>Not applicable</li>
+</ul>
+<h2 id="known-limitations-3">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies-3">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="notes-3">Notes</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
 <input type="checkbox" id="collapse-section9" aria-hidden="true">
 <label for="collapse-section9" aria-hidden="true"><strong>V1.5.0 /
 22-October-2024</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <h3
 id="official-release-of-stm32cubewba-firmware-package-supporting-stm32wba50xx-stm32wba52xx-stm32wba54xx-stm32wba55xx-and-stm32wba5mxx-devices">Official
 Release of <strong>STM32CubeWBA</strong> Firmware package supporting
 <strong>STM32WBA50xx</strong>, <strong>STM32WBA52xx</strong>,
 <strong>STM32WBA54xx</strong>, <strong>STM32WBA55xx</strong> and
 <strong>STM32WBA5Mxx</strong> devices</h3>
-<h2 id="contents-3">Contents</h2>
+<h2 id="contents-4">Contents</h2>
 <h3
-id="official-release-of-halll-drivers-for-stm32wbaxx-serie-3">Official
+id="official-release-of-halll-drivers-for-stm32wbaxx-serie-4">Official
 Release of <strong>HAL/LL Drivers</strong> for
 <strong>STM32WBAxx</strong> serie</h3>
 <ul>
@@ -468,7 +567,7 @@ SYSTEM, TIM, USART, UTILS, WWDG</li>
 </ul>
 <p><br />
 </p>
-<h2 id="hal-drivers-updates-3"><strong>HAL Drivers</strong> updates</h2>
+<h2 id="hal-drivers-updates-4"><strong>HAL Drivers</strong> updates</h2>
 <ul>
 <li><strong>HAL COMP</strong> driver
 <ul>
@@ -541,7 +640,7 @@ polling mode</li>
 </ul>
 <p><br />
 </p>
-<h2 id="ll-drivers-updates-3"><strong>LL Drivers</strong> updates</h2>
+<h2 id="ll-drivers-updates-4"><strong>LL Drivers</strong> updates</h2>
 <ul>
 <li><strong>LL ADC</strong> driver
 <ul>
@@ -574,26 +673,26 @@ polling mode</li>
 </ul>
 <p><br />
 </p>
-<h2 id="supported-devices-and-boards-3">Supported Devices and
+<h2 id="supported-devices-and-boards-4">Supported Devices and
 boards</h2>
 <ul>
 <li>STM32WBA50xx, STM32WBA52xx, STM32WBA54xx, STM32WBA55xx and
 STM32WBA5Mxx devices</li>
 <li>NUCLEO-WBA55CG, STM32WBA55G-DK1 and b-WBA5M-WPAN boards</li>
 </ul>
-<h2 id="backward-compatibility-3">Backward compatibility</h2>
+<h2 id="backward-compatibility-4">Backward compatibility</h2>
 <ul>
 <li>Not applicable</li>
 </ul>
-<h2 id="known-limitations-3">Known Limitations</h2>
+<h2 id="known-limitations-4">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="dependencies-3">Dependencies</h2>
+<h2 id="dependencies-4">Dependencies</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="notes-3">Notes</h2>
+<h2 id="notes-4">Notes</h2>
 <ul>
 <li>None</li>
 </ul>
@@ -604,16 +703,16 @@ STM32WBA5Mxx devices</li>
 <label for="collapse-section8" aria-hidden="true"><strong>V1.4.0 /
 05-June-2024</strong></label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <h3
 id="official-release-of-stm32cubewba-firmware-package-supporting-stm32wba50xx-stm32wba52xx-stm32wba54xx-and-stm32wba55xx-devices">Official
 Release of <strong>STM32CubeWBA</strong> Firmware package supporting
 <strong>STM32WBA50xx</strong>, <strong>STM32WBA52xx</strong>,
 <strong>STM32WBA54xx</strong> and <strong>STM32WBA55xx</strong>
 devices</h3>
-<h2 id="contents-4">Contents</h2>
+<h2 id="contents-5">Contents</h2>
 <h3
-id="official-release-of-halll-drivers-for-stm32wbaxx-serie-4">Official
+id="official-release-of-halll-drivers-for-stm32wbaxx-serie-5">Official
 Release of <strong>HAL/LL Drivers</strong> for
 <strong>STM32WBAxx</strong> serie</h3>
 <ul>
@@ -630,7 +729,7 @@ LPTIM, LPUART, PKA, PWR, RCC, RNG, RTC, SPI, TIM, USART, UTILS</li>
 </ul>
 <p><br />
 </p>
-<h2 id="hal-drivers-updates-4"><strong>HAL Drivers</strong> updates</h2>
+<h2 id="hal-drivers-updates-5"><strong>HAL Drivers</strong> updates</h2>
 <ul>
 <li><strong>HAL CORTEX</strong> driver
 <ul>
@@ -675,7 +774,7 @@ with RM.</li>
 </ul>
 <p><br />
 </p>
-<h2 id="ll-drivers-updates-4"><strong>LL Drivers</strong> updates</h2>
+<h2 id="ll-drivers-updates-5"><strong>LL Drivers</strong> updates</h2>
 <ul>
 <li><strong>LL CORTEX</strong> driver
 <ul>
@@ -705,26 +804,26 @@ number of semaphores</li>
 </ul>
 <p><br />
 </p>
-<h2 id="supported-devices-and-boards-4">Supported Devices and
+<h2 id="supported-devices-and-boards-5">Supported Devices and
 boards</h2>
 <ul>
 <li>STM32WBA50xx, STM32WBA52xx, STM32WBA54xx and STM32WBA55xx
 devices</li>
 <li>NUCLEO-WBA52CG, NUCLEO-WBA55CG and STM32WBA55G-DK1 boards</li>
 </ul>
-<h2 id="backward-compatibility-4">Backward compatibility</h2>
+<h2 id="backward-compatibility-5">Backward compatibility</h2>
 <ul>
 <li>Not applicable</li>
 </ul>
-<h2 id="known-limitations-4">Known Limitations</h2>
+<h2 id="known-limitations-5">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="dependencies-4">Dependencies</h2>
+<h2 id="dependencies-5">Dependencies</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="notes-4">Notes</h2>
+<h2 id="notes-5">Notes</h2>
 <ul>
 <li>None</li>
 </ul>
@@ -735,15 +834,15 @@ devices</li>
 <label for="collapse-section7" aria-hidden="true"><strong>V1.3.0 /
 07-February-2024</strong></label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <h3
 id="official-release-of-stm32cubewba-firmware-package-supporting-stm32wba52xx-and-stm32wba55xx-devices">Official
 Release of <strong>STM32CubeWBA</strong> Firmware package supporting
 <strong>STM32WBA52xx</strong> and <strong>STM32WBA55xx</strong>
 devices</h3>
-<h2 id="contents-5">Contents</h2>
+<h2 id="contents-6">Contents</h2>
 <h3
-id="official-release-of-halll-drivers-for-stm32wbaxx-serie-5">Official
+id="official-release-of-halll-drivers-for-stm32wbaxx-serie-6">Official
 Release of <strong>HAL/LL Drivers</strong> for
 <strong>STM32WBAxx</strong> serie</h3>
 <ul>
@@ -760,7 +859,7 @@ LPTIM, LPUART, PKA, PWR, RCC, RNG, RTC, SPI, TIM, USART, UTILS</li>
 </ul>
 <p><br />
 </p>
-<h2 id="hal-drivers-updates-5"><strong>HAL Drivers</strong> updates</h2>
+<h2 id="hal-drivers-updates-6"><strong>HAL Drivers</strong> updates</h2>
 <ul>
 <li><strong>HAL CORTEX</strong> driver
 <ul>
@@ -798,7 +897,7 @@ duration</li>
 </ul>
 <p><br />
 </p>
-<h2 id="ll-drivers-updates-5"><strong>LL Drivers</strong> updates</h2>
+<h2 id="ll-drivers-updates-6"><strong>LL Drivers</strong> updates</h2>
 <ul>
 <li><strong>LL LPUART</strong> driver
 <ul>
@@ -807,25 +906,25 @@ duration</li>
 </ul>
 <p><br />
 </p>
-<h2 id="supported-devices-and-boards-5">Supported Devices and
+<h2 id="supported-devices-and-boards-6">Supported Devices and
 boards</h2>
 <ul>
 <li>STM32WBA52xx and STM32WBA55xx devices</li>
 <li>NUCLEO-WBA52CG, NUCLEO-WBA55CG and STM32WBA55G-DK1 boards</li>
 </ul>
-<h2 id="backward-compatibility-5">Backward compatibility</h2>
+<h2 id="backward-compatibility-6">Backward compatibility</h2>
 <ul>
 <li>Not applicable</li>
 </ul>
-<h2 id="known-limitations-5">Known Limitations</h2>
+<h2 id="known-limitations-6">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="dependencies-5">Dependencies</h2>
+<h2 id="dependencies-6">Dependencies</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="notes-5">Notes</h2>
+<h2 id="notes-6">Notes</h2>
 <ul>
 <li>None</li>
 </ul>
@@ -836,15 +935,15 @@ boards</h2>
 <label for="collapse-section6" aria-hidden="true"><strong>V1.2.0 /
 02-November-2023</strong></label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <h3
 id="official-release-of-stm32cubewba-firmware-package-supporting-stm32wba52xx-and-stm32wba55xx-devices-1">Official
 Release of <strong>STM32CubeWBA</strong> Firmware package supporting
 <strong>STM32WBA52xx</strong> and <strong>STM32WBA55xx</strong>
 devices</h3>
-<h2 id="contents-6">Contents</h2>
+<h2 id="contents-7">Contents</h2>
 <h3
-id="official-release-of-halll-drivers-for-stm32wbaxx-serie-6">Official
+id="official-release-of-halll-drivers-for-stm32wbaxx-serie-7">Official
 Release of <strong>HAL/LL Drivers</strong> for
 <strong>STM32WBAxx</strong> serie</h3>
 <ul>
@@ -871,7 +970,7 @@ HAL_SYSTICK_CLKSourceConfig()</li>
 </ul>
 <p><br />
 </p>
-<h2 id="hal-drivers-updates-6"><strong>HAL Drivers</strong> updates</h2>
+<h2 id="hal-drivers-updates-7"><strong>HAL Drivers</strong> updates</h2>
 <ul>
 <li><strong>HAL CORTEX</strong> driver
 <ul>
@@ -984,7 +1083,7 @@ mode</li>
 </ul>
 <p><br />
 </p>
-<h2 id="ll-drivers-updates-6"><strong>LL Drivers</strong> updates</h2>
+<h2 id="ll-drivers-updates-7"><strong>LL Drivers</strong> updates</h2>
 <ul>
 <li><strong>LL GPIO</strong> driver
 <ul>
@@ -1011,25 +1110,25 @@ only when supported</li>
 </ul>
 <p><br />
 </p>
-<h2 id="supported-devices-and-boards-6">Supported Devices and
+<h2 id="supported-devices-and-boards-7">Supported Devices and
 boards</h2>
 <ul>
 <li>STM32WBA52xx and STM32WBA55xx devices</li>
 <li>NUCLEO-WBA52CG, NUCLEO-WBA55CG and STM32WBA55G-DK1 boards</li>
 </ul>
-<h2 id="backward-compatibility-6">Backward compatibility</h2>
+<h2 id="backward-compatibility-7">Backward compatibility</h2>
 <ul>
 <li>Not applicable</li>
 </ul>
-<h2 id="known-limitations-6">Known Limitations</h2>
+<h2 id="known-limitations-7">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="dependencies-6">Dependencies</h2>
+<h2 id="dependencies-7">Dependencies</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="notes-6">Notes</h2>
+<h2 id="notes-7">Notes</h2>
 <ul>
 <li>None</li>
 </ul>
@@ -1040,14 +1139,14 @@ boards</h2>
 <label for="collapse-section5" aria-hidden="true"><strong>V1.1.0 /
 06-June-2023</strong></label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
+<h2 id="main-changes-8">Main Changes</h2>
 <h3
 id="official-release-of-stm32cubewba-firmware-package-supporting-stm32wba52xx-devices">Official
 Release of <strong>STM32CubeWBA</strong> Firmware package supporting
 <strong>STM32WBA52xx</strong> devices</h3>
-<h2 id="contents-7">Contents</h2>
+<h2 id="contents-8">Contents</h2>
 <h3
-id="official-release-of-halll-drivers-for-stm32wbaxx-serie-7">Official
+id="official-release-of-halll-drivers-for-stm32wbaxx-serie-8">Official
 Release of <strong>HAL/LL Drivers</strong> for
 <strong>STM32WBAxx</strong> serie</h3>
 <ul>
@@ -1063,7 +1162,7 @@ LPUART, PKA, PWR, RCC, RNG, RTC, SPI, TIM, USART, UTILS</li>
 </ul>
 <p><br />
 </p>
-<h2 id="hal-drivers-updates-7"><strong>HAL Drivers</strong> updates</h2>
+<h2 id="hal-drivers-updates-8"><strong>HAL Drivers</strong> updates</h2>
 <ul>
 <li><strong>HAL CORTEX</strong> driver
 <ul>
@@ -1141,7 +1240,7 @@ settings</li>
 </ul>
 <p><br />
 </p>
-<h2 id="ll-drivers-updates-7"><strong>LL Drivers</strong> updates</h2>
+<h2 id="ll-drivers-updates-8"><strong>LL Drivers</strong> updates</h2>
 <ul>
 <li><strong>LL DMA</strong> driver
 <ul>
@@ -1167,58 +1266,6 @@ status</li>
 </ul>
 <p><br />
 </p>
-<h2 id="supported-devices-and-boards-7">Supported Devices and
-boards</h2>
-<ul>
-<li>STM32WBA52xx devices</li>
-<li>NUCLEO-WBA52CG board</li>
-</ul>
-<h2 id="backward-compatibility-7">Backward compatibility</h2>
-<ul>
-<li>Not applicable</li>
-</ul>
-<h2 id="known-limitations-7">Known Limitations</h2>
-<ul>
-<li>None</li>
-</ul>
-<h2 id="dependencies-7">Dependencies</h2>
-<ul>
-<li>None</li>
-</ul>
-<h2 id="notes-7">Notes</h2>
-<ul>
-<li>None</li>
-</ul>
-</div>
-</div>
-<div class="collapse">
-<input type="checkbox" id="collapse-section4" aria-hidden="true">
-<label for="collapse-section4" checked aria-hidden="true"><strong>V1.0.0
-/ 08-February-2023</strong></label>
-<div>
-<h2 id="main-changes-8">Main Changes</h2>
-<h3
-id="first-official-release-of-stm32cubewba-firmware-package-supporting-stm32wba52xx-devices">First
-Official Release of <strong>STM32CubeWBA</strong> Firmware package
-supporting <strong>STM32WBA52xx</strong> devices</h3>
-<h2 id="contents-8">Contents</h2>
-<h3
-id="first-official-release-of-halll-drivers-for-stm32wbaxx-serie">First
-Official Release of <strong>HAL/LL Drivers</strong> for
-<strong>STM32WBAxx</strong> serie</h3>
-<ul>
-<li><strong>HAL/LL Drivers</strong> are available for all peripherals:
-<ul>
-<li><strong>HAL</strong>: ADC, CORTEX, CRC, CRYP, DMA, EXTI, FLASH,
-GPIO, GTZC, HASH, HSEM, I2C, ICACHE, IRDA, IWDG, LPTIM, PKA, PWR,
-RAMCFG, RCC, RNG, RTC, SMARTCARD, SMBUS, SPI, TIM, TSC, UART, USART,
-WWDG</li>
-<li><strong>LL</strong>: ADC, CRC, DMA, EXTI, GPIO, I2C, ICACHE, LPTIM,
-LPUART, PKA, PWR, RCC, RNG, RTC, SPI, TIM, USART, UTILS</li>
-</ul></li>
-</ul>
-<p><br />
-</p>
 <h2 id="supported-devices-and-boards-8">Supported Devices and
 boards</h2>
 <ul>
@@ -1238,6 +1285,58 @@ boards</h2>
 <li>None</li>
 </ul>
 <h2 id="notes-8">Notes</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section4" aria-hidden="true">
+<label for="collapse-section4" checked aria-hidden="true"><strong>V1.0.0
+/ 08-February-2023</strong></label>
+<div>
+<h2 id="main-changes-9">Main Changes</h2>
+<h3
+id="first-official-release-of-stm32cubewba-firmware-package-supporting-stm32wba52xx-devices">First
+Official Release of <strong>STM32CubeWBA</strong> Firmware package
+supporting <strong>STM32WBA52xx</strong> devices</h3>
+<h2 id="contents-9">Contents</h2>
+<h3
+id="first-official-release-of-halll-drivers-for-stm32wbaxx-serie">First
+Official Release of <strong>HAL/LL Drivers</strong> for
+<strong>STM32WBAxx</strong> serie</h3>
+<ul>
+<li><strong>HAL/LL Drivers</strong> are available for all peripherals:
+<ul>
+<li><strong>HAL</strong>: ADC, CORTEX, CRC, CRYP, DMA, EXTI, FLASH,
+GPIO, GTZC, HASH, HSEM, I2C, ICACHE, IRDA, IWDG, LPTIM, PKA, PWR,
+RAMCFG, RCC, RNG, RTC, SMARTCARD, SMBUS, SPI, TIM, TSC, UART, USART,
+WWDG</li>
+<li><strong>LL</strong>: ADC, CRC, DMA, EXTI, GPIO, I2C, ICACHE, LPTIM,
+LPUART, PKA, PWR, RCC, RNG, RTC, SPI, TIM, USART, UTILS</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<h2 id="supported-devices-and-boards-9">Supported Devices and
+boards</h2>
+<ul>
+<li>STM32WBA52xx devices</li>
+<li>NUCLEO-WBA52CG board</li>
+</ul>
+<h2 id="backward-compatibility-9">Backward compatibility</h2>
+<ul>
+<li>Not applicable</li>
+</ul>
+<h2 id="known-limitations-9">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies-9">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="notes-9">Notes</h2>
 <ul>
 <li>None</li>
 </ul>

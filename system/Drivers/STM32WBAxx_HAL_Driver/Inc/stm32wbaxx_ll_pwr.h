@@ -202,6 +202,7 @@ extern "C" {
   * @}
   */
 
+#if defined (PWR_CR2_ICRAMPDS)
 /** @defgroup PWR_LL_EC_ICACHERAM_STOP_RETENTION PWR ICACHE SRAM Retention in Stop Mode
   * @{
   */
@@ -210,6 +211,7 @@ extern "C" {
 /**
   * @}
   */
+#endif /* PWR_CR2_ICRAMPDS */
 
 #if defined(PWR_STOP2_SUPPORT)
 #if defined(USB_OTG_HS)

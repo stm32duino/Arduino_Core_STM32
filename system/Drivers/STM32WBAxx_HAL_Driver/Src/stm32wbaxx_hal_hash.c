@@ -301,7 +301,7 @@ HAL_StatusTypeDef HAL_HASH_DeInit(HASH_HandleTypeDef *hhash)
   *         the configuration information for HASH module
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_HASH_SetConfig(HASH_HandleTypeDef *hhash, HASH_ConfigTypeDef *pConf)
+HAL_StatusTypeDef HAL_HASH_SetConfig(HASH_HandleTypeDef *hhash, const HASH_ConfigTypeDef *pConf)
 {
   uint32_t cr_value;
 
@@ -751,11 +751,11 @@ HAL_StatusTypeDef HAL_HASH_ProcessSuspend(HASH_HandleTypeDef *hhash)
       /* DMA3 used, DMA_CBR1_BNDT in bytes, DMA_CSR_FIFOL in words */
       remainingwords = ((((DMA_Channel_TypeDef *)hhash->hdmain->Instance)->CBR1) \
                         & DMA_CBR1_BNDT) / 4U;
-#if defined(GPDMA1)
+#if  defined(DMA_CSR_FIFOL)
       remainingwords += ((((DMA_Channel_TypeDef *)hhash->hdmain->Instance)->CSR) \
                          & DMA_CSR_FIFOL) >> DMA_CSR_FIFOL_Pos;
-#endif /* GPDMA1 */
 
+#endif /* DMA_CSR_FIFOL */
       if (remainingwords <= nbbytePartialHash)
       {
         /* No suspension attempted since almost to the end of the transferred data. */
@@ -1837,11 +1837,10 @@ HAL_StatusTypeDef HAL_HASH_HMAC_Start_IT(HASH_HandleTypeDef *hhash, const uint8_
   {
     return HAL_BUSY;
   }
-
+  status = HASH_WriteData_IT(hhash);
   /* Enable the specified HASH interrupt*/
   __HAL_HASH_ENABLE_IT(hhash, HASH_IT_DINI | HASH_IT_DCI);
 
-  status = HASH_WriteData_IT(hhash);
 
   /* Return function status */
   return status;
@@ -1909,10 +1908,10 @@ HAL_StatusTypeDef HAL_HASH_HMAC_Accumulate_IT(HASH_HandleTypeDef *hhash, const u
       /* Set the phase */
       hhash->Phase = HAL_HASH_PHASE_PROCESS;
     }
+    status = HASH_WriteData_IT(hhash);
     /* Enable the specified HASH interrupt*/
     __HAL_HASH_ENABLE_IT(hhash, HASH_IT_DINI | HASH_IT_DCI);
 
-    status = HASH_WriteData_IT(hhash);
   }
   else
   {
@@ -1959,10 +1958,10 @@ HAL_StatusTypeDef HAL_HASH_HMAC_AccumulateLast_IT(HASH_HandleTypeDef *hhash, con
     hhash->Size = Size;
     /* Set multi buffers accumulation flag */
     hhash->Accumulation = 0U;
+    status = HASH_WriteData_IT(hhash);
     /* Enable the specified HASH interrupt*/
     __HAL_HASH_ENABLE_IT(hhash, HASH_IT_DINI | HASH_IT_DCI);
 
-    status = HASH_WriteData_IT(hhash);
   }
   else
   {
@@ -2203,7 +2202,7 @@ void HAL_HASH_IRQHandler(HASH_HandleTypeDef *hhash)
 
   }
   /* If Peripheral ready to accept new data */
-  if ((itflag & HASH_FLAG_DINIS) == HASH_FLAG_DINIS)
+  if (((itflag & HASH_FLAG_DINIS) == HASH_FLAG_DINIS) && ((itflag & HASH_FLAG_DCIS) != HASH_FLAG_DCIS))
   {
     if ((itsource & HASH_IT_DINI) == HASH_IT_DINI)
     {
@@ -2909,7 +2908,7 @@ static HAL_StatusTypeDef HASH_WriteData_IT(HASH_HandleTypeDef *hhash)
       }
     }
   }
-  else if ((hhash->State == HAL_HASH_STATE_SUSPENDED))
+  else if (hhash->State == HAL_HASH_STATE_SUSPENDED)
   {
     return HAL_OK;
   }
@@ -3015,43 +3014,20 @@ static HAL_StatusTypeDef HASH_WaitOnFlagUntilTimeout(HASH_HandleTypeDef *hhash, 
 {
   uint32_t tickstart = HAL_GetTick();
 
-  /* Wait until flag is set */
-  if (Status == RESET)
+  while (__HAL_HASH_GET_FLAG(hhash, Flag) == Status)
   {
-    while (__HAL_HASH_GET_FLAG(hhash, Flag) == RESET)
+    /* Check for the Timeout */
+    if (Timeout != HAL_MAX_DELAY)
     {
-      /* Check for the Timeout */
-      if (Timeout != HAL_MAX_DELAY)
+      if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
       {
-        if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
-        {
-          /* Set State to Ready to be able to restart later on */
-          hhash->State  = HAL_HASH_STATE_READY;
-          hhash->ErrorCode |= HAL_HASH_ERROR_TIMEOUT;
-          /* Process Unlocked */
-          __HAL_UNLOCK(hhash);
-          return HAL_ERROR;
-        }
-      }
-    }
-  }
-  else
-  {
-    while (__HAL_HASH_GET_FLAG(hhash, Flag) != RESET)
-    {
-      /* Check for the Timeout */
-      if (Timeout != HAL_MAX_DELAY)
-      {
-        if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
-        {
-          /* Set State to Ready to be able to restart later on */
-          hhash->State  = HAL_HASH_STATE_READY;
-          hhash->ErrorCode |= HAL_HASH_ERROR_TIMEOUT;
-          /* Process Unlocked */
-          __HAL_UNLOCK(hhash);
+        /* Set State to Ready to be able to restart later on */
+        hhash->State  = HAL_HASH_STATE_READY;
+        hhash->ErrorCode |= HAL_HASH_ERROR_TIMEOUT;
+        /* Process Unlocked */
+        __HAL_UNLOCK(hhash);
 
-          return HAL_ERROR;
-        }
+        return HAL_ERROR;
       }
     }
   }

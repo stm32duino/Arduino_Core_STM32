@@ -676,7 +676,7 @@ HAL_StatusTypeDef HAL_RAMCFG_EnableWriteProtection(RAMCFG_HandleTypeDef *hramcfg
 
   /* Check the parameters */
   assert_param(IS_RAMCFG_WP_INSTANCE(hramcfg->Instance));
-  assert_param(IS_RAMCFG_WRITEPROTECTION_PAGE(StartPage + NbPage));
+  assert_param(IS_RAMCFG_WRITEPROTECTION_PAGE(StartPage + NbPage - 1U));
 
   /* Check RAMCFG state */
   if (hramcfg->State == HAL_RAMCFG_STATE_READY)

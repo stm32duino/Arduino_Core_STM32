@@ -43,7 +43,7 @@ extern "C" {
   */
 
 /*!< Values needed for MPCBB_Attribute_ConfigTypeDef structure sizing */
-#if  defined (STM32WBA52xx) || defined (STM32WBA54xx) || defined (STM32WBA55xx) || defined (STM32WBA5Mxx)
+#if defined (STM32WBA52xx) || defined (STM32WBA54xx) || defined (STM32WBA55xx) || defined (STM32WBA5Mxx)
 #define GTZC_MPCBB_NB_VCTR_REG_MAX      4U  /*!< Maximum number of superblocks */
 #elif defined (STM32WBA62xx) || defined (STM32WBA63xx) || defined (STM32WBA64xx) || defined (STM32WBA65xx) || defined (STM32WBA6Mxx)
 #define GTZC_MPCBB_NB_VCTR_REG_MAX      28U /*!< Maximum number of superblocks */
