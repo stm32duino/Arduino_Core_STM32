@@ -3101,7 +3101,7 @@ typedef struct
 
 /******************  Bit definition for DMA_CTR2 register  *******************/
 #define DMA_CTR2_REQSEL_Pos                 (0UL)
-#define DMA_CTR2_REQSEL_Msk                 (0x3FUL << DMA_CTR2_REQSEL_Pos)         /*!< 0x0000003F */
+#define DMA_CTR2_REQSEL_Msk                 (0x7FUL << DMA_CTR2_REQSEL_Pos)         /*!< 0x0000007F */
 #define DMA_CTR2_REQSEL                     DMA_CTR2_REQSEL_Msk                     /*!< DMA hardware request selection */
 #define DMA_CTR2_SWREQ_Pos                  (9UL)
 #define DMA_CTR2_SWREQ_Msk                  (0x1UL << DMA_CTR2_SWREQ_Pos)           /*!< 0x00000100 */
