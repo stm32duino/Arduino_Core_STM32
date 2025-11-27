@@ -68,7 +68,6 @@ extern "C" {
 #define HAL_UART_MODULE_ENABLED
 #define HAL_USART_MODULE_ENABLED
 #define HAL_WWDG_MODULE_ENABLED
-#define HAL_XSPI_MODULE_ENABLED
 
 /* ########################## Oscillator Values adaptation ####################*/
 /**
@@ -181,7 +180,6 @@ extern "C" {
 #define  USE_HAL_UART_REGISTER_CALLBACKS       0U /* UART register callback disabled      */
 #define  USE_HAL_USART_REGISTER_CALLBACKS      0U /* USART register callback disabled     */
 #define  USE_HAL_WWDG_REGISTER_CALLBACKS       0U /* WWDG register callback disabled      */
-#define  USE_HAL_XSPI_REGISTER_CALLBACKS       0U /* XSPI register callback disabled      */
 
 /* ################## SPI peripheral configuration ########################## */
 
@@ -338,10 +336,6 @@ extern "C" {
 #ifdef HAL_WWDG_MODULE_ENABLED
 #include "stm32wbaxx_hal_wwdg.h"
 #endif /* HAL_WWDG_MODULE_ENABLED */
-
-#ifdef HAL_XSPI_MODULE_ENABLED
-#include "stm32wbaxx_hal_xspi.h"
-#endif /* HAL_XSPI_MODULE_ENABLED */
 
 /* Exported macro ------------------------------------------------------------*/
 #ifdef  USE_FULL_ASSERT

@@ -308,8 +308,14 @@ typedef struct
 #if defined(COMP2)
 #define LL_LPTIM_TRIG_SOURCE_COMP2            LPTIM_CFGR_TRIGSEL                                                   /*!<External input trigger is connected to COMP2 output*/
 #endif /* COMP2 */
+#if defined(GPDMA1)
 #define LL_LPTIM_TRIG_SOURCE_GPDMA_CH0_TCF    LPTIM_CFGR_TRIGSEL_2                                                 /*!<External input trigger is connected to GPDMA CH0 transfer complete */
 #define LL_LPTIM_TRIG_SOURCE_GPDMA_CH4_TCF    (LPTIM_CFGR_TRIGSEL_2 | LPTIM_CFGR_TRIGSEL_0)                        /*!<External input trigger is connected to GPDMA CH4 transfer complete */
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+#define LL_LPTIM_TRIG_SOURCE_LPDMA_CH0_TCF    LPTIM_CFGR_TRIGSEL_2                                                 /*!<External input trigger is connected to LPDMA CH0 transfer complete */
+#define LL_LPTIM_TRIG_SOURCE_LPDMA_CH4_TCF    (LPTIM_CFGR_TRIGSEL_2 | LPTIM_CFGR_TRIGSEL_0)                        /*!<External input trigger is connected to LPDMA CH4 transfer complete */
+#endif /* LPDMA1 */
 /**
   * @}
   */

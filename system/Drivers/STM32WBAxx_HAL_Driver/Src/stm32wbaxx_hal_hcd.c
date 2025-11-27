@@ -1777,8 +1777,7 @@ static void HCD_HC_OUT_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
       hhcd->hc[chnum].state = HC_HALTED;
       hhcd->hc[chnum].urb_state = URB_DONE;
 
-      if ((hhcd->hc[chnum].ep_type == EP_TYPE_BULK) ||
-          (hhcd->hc[chnum].ep_type == EP_TYPE_INTR))
+      if (hhcd->hc[chnum].ep_type != EP_TYPE_ISOC)
       {
         if (hhcd->Init.dma_enable == 0U)
         {
@@ -2284,7 +2283,7 @@ HAL_StatusTypeDef HAL_HCD_HC_Init(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
           else
           {
             /* This is a dual EP0 PMA allocation */
-            hhcd->ep0_PmaAllocState |= (0x1U << 12);
+            hhcd->ep0_PmaAllocState |= (0x1UL << 12);
 
             /* PMA Dynamic Allocation for EP0 OUT direction */
             hhcd->hc[ch_num & 0xFU].ch_dir = CH_OUT_DIR;
@@ -4520,7 +4519,7 @@ static uint16_t HAL_HCD_GetFreePMA(HCD_HandleTypeDef *hhcd, uint16_t mps)
     while ((j <= 31U) && (FreeBlocks != NbrReqBlocks))
     {
       /* check if block j is free */
-      if ((Entry & ((uint32_t)1U << j)) == 0U)
+      if ((Entry & ((uint32_t)1UL << j)) == 0U)
       {
         if (FreeBlocks == 0U)
         {
@@ -4531,7 +4530,7 @@ static uint16_t HAL_HCD_GetFreePMA(HCD_HandleTypeDef *hhcd, uint16_t mps)
         j++;
 
         /* Parse Column PMALockTable */
-        while ((j <= 31U) && ((Entry & ((uint32_t)1U << j)) == 0U) && (FreeBlocks < NbrReqBlocks))
+        while ((j <= 31U) && ((Entry & ((uint32_t)1UL << j)) == 0U) && (FreeBlocks < NbrReqBlocks))
         {
           FreeBlocks++;
           j++;
@@ -4539,7 +4538,7 @@ static uint16_t HAL_HCD_GetFreePMA(HCD_HandleTypeDef *hhcd, uint16_t mps)
 
         /* Free contiguous Blocks not found */
         if (((FreeBlocks < NbrReqBlocks) && (j < 31U)) ||
-            ((j == 31U) && ((Entry & ((uint32_t)1U << j)) != 0U)))
+            ((j == 31U) && ((Entry & ((uint32_t)1UL << j)) != 0U)))
         {
           FreeBlocks = 0U;
         }
@@ -4557,7 +4556,7 @@ static uint16_t HAL_HCD_GetFreePMA(HCD_HandleTypeDef *hhcd, uint16_t mps)
     {
       for (uint8_t j = ColIndex; j <= 31U; j++)
       {
-        hhcd->PMALookupTable[i] |= ((uint32_t)1U << j);
+        hhcd->PMALookupTable[i] |= ((uint32_t)1UL << j);
         if (--FreeBlocks == 0U)
         {
           break;
@@ -4616,7 +4615,7 @@ HAL_StatusTypeDef  HAL_HCD_PMAlloc(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
       {
         hhcd->ep0_PmaAllocState &= 0xFFF0U;
         hhcd->ep0_PmaAllocState |= ch_num;
-        hhcd->ep0_PmaAllocState |= (1U << 8);
+        hhcd->ep0_PmaAllocState |= (1UL << 8);
       }
 
       /* Configure the PMA */
@@ -4749,7 +4748,7 @@ HAL_StatusTypeDef  HAL_HCD_PMAReset(HCD_HandleTypeDef *hhcd)
   /* Allocate a Space for buffer descriptor table depending on the Host channel number */
   for (uint8_t i = 0U; i < hhcd->Init.Host_channels; i++)
   {
-    hhcd->PMALookupTable[0] |= ((uint32_t)1U << i);
+    hhcd->PMALookupTable[0] |= ((uint32_t)1UL << i);
   }
 
   return HAL_OK;
@@ -4811,12 +4810,12 @@ static HAL_StatusTypeDef  HAL_HCD_PMAFree(HCD_HandleTypeDef *hhcd, uint32_t pma_
     for (uint8_t j = ColIndex; j <= 31U; j++)
     {
       /* Check if the block is not already reserved or it was already closed */
-      if ((hhcd->PMALookupTable[i] & ((uint32_t)1U << j)) == 0U)
+      if ((hhcd->PMALookupTable[i] & ((uint32_t)1UL << j)) == 0U)
       {
         return HAL_ERROR;
       }
       /* Free the reserved block by resetting the corresponding bit */
-      hhcd->PMALookupTable[i] &= ~(1U << j);
+      hhcd->PMALookupTable[i] &= ~(1UL << j);
 
       if (--block_nbr == 0U)
       {

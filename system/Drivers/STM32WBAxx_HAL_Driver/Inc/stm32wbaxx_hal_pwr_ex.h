@@ -73,8 +73,11 @@ extern "C" {
 #define PWR_SRAM2_FULL_STOP_RETENTION        PWR_CR2_SRAM2PDS1     /*!< SRAM2 full retention in Stop modes */
 #endif /* !defined(PWR_STOP3_SUPPORT) */
 
+#if defined (PWR_CR2_ICRAMPDS)
 /* Cache RAMs retention defines */
 #define PWR_ICACHE_FULL_STOP_RETENTION       PWR_CR2_ICRAMPDS      /*!< ICACHE SRAM retention in Stop modes */
+#endif /* PWR_CR2_ICRAMPDS */
+
 #if defined(PWR_STOP2_SUPPORT)
 #if defined(USB_OTG_HS)
 /* USB_OTG_HS SRAM power-down in Stop modes */

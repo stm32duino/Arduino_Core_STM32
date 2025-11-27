@@ -361,6 +361,7 @@ typedef struct
 #define LL_I2C_TRIG_GRP2                   (0x20000000U)         /*!< Trigger Group for I2C3 */
 
 #if defined(LL_I2C_TRIG_GRP1)
+#if defined(GPDMA1)
 #define LL_I2C_GRP1_GPDMA_CH0_TCF_TRG      (uint32_t)(LL_I2C_TRIG_GRP1 | (0x00000000U))
 /*!< HW Trigger signal is GPDMA_CH0_TRG     */
 #define LL_I2C_GRP1_GPDMA_CH1_TCF_TRG      (uint32_t)(LL_I2C_TRIG_GRP1 | (0x1U << I2C_AUTOCR_TRIGSEL_Pos))
@@ -369,6 +370,17 @@ typedef struct
 /*!< HW Trigger signal is GPDMA_CH2_TRG     */
 #define LL_I2C_GRP1_GPDMA_CH3_TCF_TRG      (uint32_t)(LL_I2C_TRIG_GRP1 | (0x3U << I2C_AUTOCR_TRIGSEL_Pos))
 /*!< HW Trigger signal is GPDMA_CH3_TRG     */
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+#define LL_I2C_GRP1_LPDMA_CH0_TCF_TRG      (uint32_t)(LL_I2C_TRIG_GRP1 | (0x00000000U))
+/*!< HW Trigger signal is LPDMA_CH0_TRG     */
+#define LL_I2C_GRP1_LPDMA_CH1_TCF_TRG      (uint32_t)(LL_I2C_TRIG_GRP1 | (0x1U << I2C_AUTOCR_TRIGSEL_Pos))
+/*!< HW Trigger signal is LPDMA_CH1_TRG     */
+#define LL_I2C_GRP1_LPDMA_CH2_TCF_TRG      (uint32_t)(LL_I2C_TRIG_GRP1 | (0x2U << I2C_AUTOCR_TRIGSEL_Pos))
+/*!< HW Trigger signal is LPDMA_CH2_TRG     */
+#define LL_I2C_GRP1_LPDMA_CH3_TCF_TRG      (uint32_t)(LL_I2C_TRIG_GRP1 | (0x3U << I2C_AUTOCR_TRIGSEL_Pos))
+/*!< HW Trigger signal is LPDMA_CH3_TRG     */
+#endif /* LPDMA1 */
 #define LL_I2C_GRP1_EXTI5_TRG              (uint32_t)(LL_I2C_TRIG_GRP1 | (0x4U << I2C_AUTOCR_TRIGSEL_Pos))
 /*!< HW Trigger signal is EXTI5_TRG         */
 #define LL_I2C_GRP1_EXTI9_TRG              (uint32_t)(LL_I2C_TRIG_GRP1 | (0x5U << I2C_AUTOCR_TRIGSEL_Pos))
@@ -391,6 +403,7 @@ typedef struct
 /*!< HW Trigger signal is RTC_WUT_TRG       */
 #endif /* I2C_TRIG_GRP1 */
 
+#if defined(GPDMA1)
 #define LL_I2C_GRP2_GPDMA_CH0_TCF_TRG      (uint32_t)(LL_I2C_TRIG_GRP2 | (0x00000000U))
 /*!< HW Trigger signal is GPDMA_CH0_TRG     */
 #define LL_I2C_GRP2_GPDMA_CH1_TCF_TRG      (uint32_t)(LL_I2C_TRIG_GRP2 | (0x1U << I2C_AUTOCR_TRIGSEL_Pos))
@@ -399,6 +412,17 @@ typedef struct
 /*!< HW Trigger signal is GPDMA_CH2_TRG     */
 #define LL_I2C_GRP2_GPDMA_CH3_TCF_TRG      (uint32_t)(LL_I2C_TRIG_GRP2 | (0x3U << I2C_AUTOCR_TRIGSEL_Pos))
 /*!< HW Trigger signal is GPDMA_CH3_TRG     */
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+#define LL_I2C_GRP2_LPDMA_CH0_TCF_TRG      (uint32_t)(LL_I2C_TRIG_GRP2 | (0x00000000U))
+/*!< HW Trigger signal is LPDMA_CH0_TRG     */
+#define LL_I2C_GRP2_LPDMA_CH1_TCF_TRG      (uint32_t)(LL_I2C_TRIG_GRP2 | (0x1U << I2C_AUTOCR_TRIGSEL_Pos))
+/*!< HW Trigger signal is LPDMA_CH1_TRG     */
+#define LL_I2C_GRP2_LPDMA_CH2_TCF_TRG      (uint32_t)(LL_I2C_TRIG_GRP2 | (0x2U << I2C_AUTOCR_TRIGSEL_Pos))
+/*!< HW Trigger signal is LPDMA_CH2_TRG     */
+#define LL_I2C_GRP2_LPDMA_CH3_TCF_TRG      (uint32_t)(LL_I2C_TRIG_GRP2 | (0x3U << I2C_AUTOCR_TRIGSEL_Pos))
+/*!< HW Trigger signal is LPDMA_CH3_TRG     */
+#endif /* LPDMA1 */
 #define LL_I2C_GRP2_EXTI5_TRG              (uint32_t)(LL_I2C_TRIG_GRP2 | (0x4U << I2C_AUTOCR_TRIGSEL_Pos))
 /*!< HW Trigger signal is EXTI5_TRG         */
 #define LL_I2C_GRP2_EXTI8_TRG              (uint32_t)(LL_I2C_TRIG_GRP2 | (0x5U << I2C_AUTOCR_TRIGSEL_Pos))

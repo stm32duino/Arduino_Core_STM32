@@ -409,7 +409,7 @@ void HAL_PWREx_DisableFastSoftStart(void)
 }
 
 #if defined(PWR_STOP2_SUPPORT)
-#if defined(USB_OTG_HS)
+#if defined(PWR_VOSR_USBPWREN)
 /**
   * @brief  Configure the clocked delay between VDD11USBDIS and VDD11USBRDY.
   * @param  Delay : Specifies the delay in system clock cycles.
@@ -520,7 +520,9 @@ void HAL_PWREx_DisableUSBPWR(void)
 {
   CLEAR_BIT(PWR->VOSR, PWR_VOSR_USBPWREN);
 }
+#endif /* defined(PWR_VOSR_USBPWREN) */
 
+#if defined(PWR_SVMCR_USV)
 /**
   * @brief  Enable VDDUSB supply.
   * @note   Remove VDDUSB electrical and logical isolation, once VDDUSB supply
@@ -540,7 +542,7 @@ void HAL_PWREx_DisableVddUSB(void)
 {
   CLEAR_BIT(PWR->SVMCR, PWR_SVMCR_USV);
 }
-#endif /* defined(USB_OTG_HS) */
+#endif /* defined(PWR_SVMCR_USV) */
 
 #if defined(PWR_SVMCR_IO2SV)
 /**

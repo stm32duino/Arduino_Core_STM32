@@ -367,11 +367,11 @@ extern "C" {
 /**
   * @brief   AF 4 selection
   */
-#define GPIO_AF4_I2C1          ((uint8_t)0x04)  /*!< I2C1 Alternate Function mapping   */
-#define GPIO_AF4_I2C2          ((uint8_t)0x04)  /*!< I2C2 Alternate Function mapping   */
-#define GPIO_AF4_I2C3          ((uint8_t)0x04)  /*!< I2C3 Alternate Function mapping   */
-#define GPIO_AF4_I2C4          ((uint8_t)0x04)  /*!< I2C4 Alternate Function mapping   */
-#define GPIO_AF4_OTG_HS        ((uint8_t)0x04)  /*!< OTG-HS Alternate Function mapping */
+#define GPIO_AF4_I2C1          ((uint8_t)0x04)  /*!< I2C1 Alternate Function mapping       */
+#define GPIO_AF4_I2C2          ((uint8_t)0x04)  /*!< I2C2 Alternate Function mapping       */
+#define GPIO_AF4_I2C3          ((uint8_t)0x04)  /*!< I2C3 Alternate Function mapping       */
+#define GPIO_AF4_I2C4          ((uint8_t)0x04)  /*!< I2C4 Alternate Function mapping       */
+#define GPIO_AF4_USB_OTG_HS    ((uint8_t)0x04)  /*!< USB OTG-HS Alternate Function mapping */
 
 /**
   * @brief   AF 5 selection

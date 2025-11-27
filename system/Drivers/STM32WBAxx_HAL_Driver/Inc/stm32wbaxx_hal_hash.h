@@ -291,11 +291,13 @@ typedef  void (*pHASH_CallbackTypeDef)(HASH_HandleTypeDef *hhash);  /*!< pointer
   *            @arg @ref HASH_FLAG_DMAS DMA interface is enabled (DMAE=1) or a transfer is ongoing.
   *            @arg @ref HASH_FLAG_BUSY The hash core is Busy : processing a block of data.
   *            @arg @ref HASH_FLAG_DINNE DIN not empty : the input buffer contains at least one word of data.
-  * @retval The new state of __FLAG__ (TRUE or FALSE).
+  * @retval The new state of __FLAG__ (SET or RESET).
   */
-#define __HAL_HASH_GET_FLAG(__HANDLE__, __FLAG__)  (((__FLAG__) > 8U)  ?                    \
-                                                    (((__HANDLE__)->Instance->CR & (__FLAG__)) == (__FLAG__)) :\
-                                                    (((__HANDLE__)->Instance->SR & (__FLAG__)) == (__FLAG__)) )
+#define __HAL_HASH_GET_FLAG(__HANDLE__, __FLAG__)  (((__FLAG__) > 8U)  ?                           \
+                                                    ((((__HANDLE__)->Instance->CR & (__FLAG__)) == \
+                                                      (__FLAG__)) ? SET : RESET) :                     \
+                                                    ((((__HANDLE__)->Instance->SR & (__FLAG__)) == \
+                                                      (__FLAG__)) ? SET : RESET) )
 
 /** @brief  Clear the specified HASH flag.
   * @param  __HANDLE__ specifies the HASH handle.
@@ -389,7 +391,7 @@ HAL_StatusTypeDef HAL_HASH_DeInit(HASH_HandleTypeDef *hhash);
 void HAL_HASH_MspInit(HASH_HandleTypeDef *hhash);
 void HAL_HASH_MspDeInit(HASH_HandleTypeDef *hhash);
 HAL_StatusTypeDef HAL_HASH_GetConfig(HASH_HandleTypeDef *hhash, HASH_ConfigTypeDef *pConf);
-HAL_StatusTypeDef HAL_HASH_SetConfig(HASH_HandleTypeDef *hhash, HASH_ConfigTypeDef *pConf);
+HAL_StatusTypeDef HAL_HASH_SetConfig(HASH_HandleTypeDef *hhash, const HASH_ConfigTypeDef *pConf);
 
 /* Callbacks Register/UnRegister functions  ***********************************/
 #if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)

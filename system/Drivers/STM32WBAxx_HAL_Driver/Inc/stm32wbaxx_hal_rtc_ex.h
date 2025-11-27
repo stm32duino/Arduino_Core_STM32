@@ -854,12 +854,20 @@ typedef struct
   * @{
   */
 #define TAMP_DEVICESECRETS_ERASE_NONE          0U                   /*! < No Erase          */
+#ifdef TAMP_RPCFGR_RPCFG
 #define TAMP_DEVICESECRETS_ERASE_SRAM2         TAMP_RPCFGR_RPCFG_1  /*!< SRAM2              */
 #define TAMP_DEVICESECRETS_ERASE_RHUK          TAMP_RPCFGR_RPCFG_2  /*!< RHUK               */
 #define TAMP_DEVICESECRETS_ERASE_ICACHE        TAMP_RPCFGR_RPCFG_3  /*!< ICACHE             */
 #define TAMP_DEVICESECRETS_ERASE_SAES_AES_HASH TAMP_RPCFGR_RPCFG_4  /*!< SAES, AES and HASH */
 #define TAMP_DEVICESECRETS_ERASE_PKA_SRAM      TAMP_RPCFGR_RPCFG_5  /*!< Initialization     */
 #define TAMP_DEVICESECRETS_ERASE_ALL           TAMP_RPCFGR_RPCFG    /*!< All                */
+#elif defined(TAMP_ERCFGR_ERCFG)
+#define TAMP_DEVICESECRETS_ERASE_SRAM2           TAMP_ERCFGR_ERCFG_1  /*!< SRAM2                */
+#define TAMP_DEVICESECRETS_ERASE_ICACHE          TAMP_ERCFGR_ERCFG_3  /*!< ICACHE               */
+#define TAMP_DEVICESECRETS_ERASE_AES_HASH_OTFDEC TAMP_ERCFGR_ERCFG_4  /*!< AES, HASH and OTFDEC */
+#define TAMP_DEVICESECRETS_ERASE_PKA_SRAM        TAMP_ERCFGR_ERCFG_5  /*!< PKA SRAM             */
+#define TAMP_DEVICESECRETS_ERASE_ALL             TAMP_ERCFGR_ERCFG    /*!< All                  */
+#endif
 /**
   * @}
   */
@@ -1609,7 +1617,7 @@ uint32_t          HAL_RTCEx_BKUPRead(const RTC_HandleTypeDef *hrtc, uint32_t Bac
 void              HAL_RTCEx_BKUPErase(const RTC_HandleTypeDef *hrtc);
 void              HAL_RTCEx_BKUPBlock(const RTC_HandleTypeDef *hrtc);
 void              HAL_RTCEx_BKUPUnblock(const RTC_HandleTypeDef *hrtc);
-#ifdef TAMP_RPCFGR_RPCFG
+#if defined (TAMP_RPCFGR_RPCFG) || defined(TAMP_ERCFGR_ERCFG)
 void              HAL_RTCEx_ConfigEraseDeviceSecrets(const RTC_HandleTypeDef *hrtc, uint32_t DeviceSecretConf);
 #endif /* TAMP_RPCFGR_RPCFG */
 /**
