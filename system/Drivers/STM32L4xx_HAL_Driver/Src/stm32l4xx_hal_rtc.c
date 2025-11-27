@@ -318,10 +318,15 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
 #endif
     /* Set RTC state */
     hrtc->State = HAL_RTC_STATE_BUSY;
-
+#if defined (STM32L4P5xx) || defined (STM32L4Q5xx)
+    /* Check whether the calendar needs to be initialized and the RTC mode is not 'binary only' */
+    if ((__HAL_RTC_IS_CALENDAR_INITIALIZED(hrtc) == 0U) && (__HAL_RTC_GET_BINARY_MODE(hrtc) != RTC_BINARY_ONLY))
+    {
+#else
     /* Check whether the calendar needs to be initialized */
     if (__HAL_RTC_IS_CALENDAR_INITIALIZED(hrtc) == 0U)
     {
+#endif /* STM32L412xx || STM32L422xx || STM32L4P5xx || STM32L4Q5xx */
       /* Disable the write protection for RTC registers */
       __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
 
@@ -412,7 +417,7 @@ HAL_StatusTypeDef HAL_RTC_DeInit(RTC_HandleTypeDef *hrtc)
       /* Reset all RTC CR register bits */
       hrtc->Instance->TR = 0x00000000U;
       hrtc->Instance->DR = ((uint32_t)(RTC_DR_WDU_0 | RTC_DR_MU_0 | RTC_DR_DU_0));
-      hrtc->Instance->CR &= 0x00000000U;
+      hrtc->Instance->CR = 0x00000000U;
 
       hrtc->Instance->WUTR = RTC_WUTR_WUT;
       hrtc->Instance->PRER = ((uint32_t)(RTC_PRER_PREDIV_A | 0x000000FFU));
@@ -479,6 +484,9 @@ HAL_StatusTypeDef HAL_RTC_DeInit(RTC_HandleTypeDef *hrtc)
   *          @arg @ref HAL_RTC_ALARM_B_EVENT_CB_ID          Alarm B Event Callback ID
   *          @arg @ref HAL_RTC_TIMESTAMP_EVENT_CB_ID        TimeStamp Event Callback ID
   *          @arg @ref HAL_RTC_WAKEUPTIMER_EVENT_CB_ID      WakeUp Timer Event Callback ID
+#if defined (STM32L4P5xx) || defined (STM32L4Q5xx)
+  *          @arg @ref HAL_RTC_SSRU_EVENT_CB_ID             SSRU Callback ID
+#endif
   *          @arg @ref HAL_RTC_TAMPER1_EVENT_CB_ID          Tamper 1 Callback ID
   *          @arg @ref HAL_RTC_TAMPER2_EVENT_CB_ID          Tamper 2 Callback ID
   *          @arg @ref HAL_RTC_TAMPER3_EVENT_CB_ID          Tamper 3 Callback ID
@@ -594,15 +602,15 @@ HAL_StatusTypeDef HAL_RTC_RegisterCallback(RTC_HandleTypeDef *hrtc, HAL_RTC_Call
   *          @arg @ref HAL_RTC_ALARM_A_EVENT_CB_ID          Alarm A Event Callback ID
   *          @arg @ref HAL_RTC_ALARM_B_EVENT_CB_ID          Alarm B Event Callback ID
   *          @arg @ref HAL_RTC_TIMESTAMP_EVENT_CB_ID        TimeStamp Event Callback ID
+  *          @arg @ref HAL_RTC_WAKEUPTIMER_EVENT_CB_ID      WakeUp Timer Event Callback ID
 #if defined (STM32L4P5xx) || defined (STM32L4Q5xx)
   *          @arg @ref HAL_RTC_SSRU_EVENT_CB_ID             SSRU Callback ID
 #endif
-  *          @arg @ref HAL_RTC_WAKEUPTIMER_EVENT_CB_ID      WakeUp Timer Event Callback ID
   *          @arg @ref HAL_RTC_TAMPER1_EVENT_CB_ID          Tamper 1 Callback ID
   *          @arg @ref HAL_RTC_TAMPER2_EVENT_CB_ID          Tamper 2 Callback ID
   *          @arg @ref HAL_RTC_TAMPER3_EVENT_CB_ID          Tamper 3 Callback ID
-  *          @arg @ref HAL_RTC_MSPINIT_CB_ID Msp Init callback ID
-  *          @arg @ref HAL_RTC_MSPDEINIT_CB_ID Msp DeInit callback ID
+  *          @arg @ref HAL_RTC_MSPINIT_CB_ID                Msp Init callback ID
+  *          @arg @ref HAL_RTC_MSPDEINIT_CB_ID              Msp DeInit callback ID
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_RTC_UnRegisterCallback(RTC_HandleTypeDef *hrtc, HAL_RTC_CallbackIDTypeDef CallbackID)
