@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file      : startup_stm32wl3x.s
+  * @file      : startup_stm32wl3rx.s
   * @author    : GPM WBL Application Team
   * @brief     : STM32WL3x Ultra Low Power Devices vector
   *              This module performs:
@@ -138,8 +138,8 @@ __vector_table:
   .word  RCC_IRQHandler                       /* IRQ1:  RCC interrupt                 */
   .word  PVD_IRQHandler                       /* IRQ2:  PVD interrupt                 */
   .word I2C1_IRQHandler                       /* IRQ3:  I2C1 interrupt                */
-  .word I2C2_IRQHandler                       /* IRQ4:  I2C2 interrupt                */
-  .word SPI1_IRQHandler                       /* IRQ5:  SPI1 interrupt                */
+  .word 0x00000000                            /* IRQ4:  Reserved                      */
+  .word 0x00000000                            /* IRQ5:  Reserved                      */
   .word 0x00000000                            /* IRQ6:  Reserved                      */
   .word SPI3_IRQHandler                       /* IRQ7:  SPI3 interrupt                */
   .word USART1_IRQHandler                     /* IRQ8:  USART1 interrupt              */
@@ -152,18 +152,18 @@ __vector_table:
   .word GPIOA_IRQHandler                      /* IRQ15: GPIOA interrupt               */
   .word GPIOB_IRQHandler                      /* IRQ16: GPIOB interrupt               */
   .word DMA_IRQHandler                        /* IRQ17: DMA interrupt                 */
-  .word LPAWUR_IRQHandler                     /* IRQ18: LPAWUR interrupt              */
-  .word COMP1_IRQHandler                      /* IRQ19: COMP1 interrupt               */
+  .word 0x00000000                            /* IRQ18: Reserved                      */
+  .word 0x00000000                            /* IRQ19: Reserved                      */
   .word MRSUBG_BUSY_IRQHandler                /* IRQ20: MR SUBG BUSY interrupt        */
   .word MRSUBG_IRQHandler                     /* IRQ21: MR SUBG interrupt             */
   .word MRSUBG_TX_RX_SEQUENCE_IRQHandler      /* IRQ22: MR SUBG TX RX Sequence interrupt      */
   .word MRSUBG_TIMER_CPU_WKUP_IRQHandler      /* IRQ23: MR SUBG TIMER CPU Wakeup interrupt    */
-  .word MRSUBG_WKUP_IRQHandler                /* IRQ24: MR SUBG Wakeup interrupt      */
-  .word DAC_IRQHandler                        /* IRQ25: DAC interrupt                 */
+  .word MRSUBG_WKUP_IRQHandler                /* IRQ24: MR SUBG Wakeup interrupt        */
+  .word 0x00000000                            /* IRQ25: Reserved                      */
   .word TIM16_IRQHandler                      /* IRQ26: TIM16 interrupt               */
-  .word LCD_IRQHandler                        /* IRQ27: LCD interrupt                 */
-  .word LCSC_IRQHandler                       /* IRQ28: LCSC interrupt                */
-  .word LCSC_LC_ACTIVITY_IRQHandler           /* IRQ29: LCSC LC ACTIVITY interrupt    */
+  .word 0x00000000                            /* IRQ27: Reserved                      */
+  .word 0x00000000                            /* IRQ28: Reserved                      */
+  .word 0x00000000                            /* IRQ29: Reserved                      */
   .word 0x00000000                            /* IRQ30: Reserved                      */
   .word 0x00000000                            /* IRQ31: Reserved                      */
 
@@ -202,12 +202,6 @@ __vector_table:
    .weak      I2C1_IRQHandler
    .thumb_set I2C1_IRQHandler,Default_Handler
 
-   .weak      I2C2_IRQHandler
-   .thumb_set I2C2_IRQHandler,Default_Handler
-
-   .weak      SPI1_IRQHandler
-   .thumb_set SPI1_IRQHandler,Default_Handler
-
    .weak      SPI3_IRQHandler
    .thumb_set SPI3_IRQHandler,Default_Handler
 
@@ -238,12 +232,6 @@ __vector_table:
    .weak      DMA_IRQHandler
    .thumb_set DMA_IRQHandler,Default_Handler
 
-   .weak      LPAWUR_IRQHandler
-   .thumb_set LPAWUR_IRQHandler,Default_Handler
-
-   .weak      COMP1_IRQHandler
-   .thumb_set COMP1_IRQHandler,Default_Handler
-
    .weak      MRSUBG_BUSY_IRQHandler
    .thumb_set MRSUBG_BUSY_IRQHandler,Default_Handler
 
@@ -259,17 +247,5 @@ __vector_table:
    .weak      MRSUBG_WKUP_IRQHandler
    .thumb_set MRSUBG_WKUP_IRQHandler,Default_Handler
 
-   .weak      DAC_IRQHandler
-   .thumb_set DAC_IRQHandler,Default_Handler
-
    .weak      TIM16_IRQHandler
    .thumb_set TIM16_IRQHandler,Default_Handler
-
-   .weak      LCD_IRQHandler
-   .thumb_set LCD_IRQHandler,Default_Handler
-
-   .weak      LCSC_IRQHandler
-   .thumb_set LCSC_IRQHandler,Default_Handler
-
-   .weak      LCSC_LC_ACTIVITY_IRQHandler
-   .thumb_set LCSC_LC_ACTIVITY_IRQHandler,Default_Handler

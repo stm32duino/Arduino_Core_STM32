@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    stm32wl3xx.h
+  * @file    stm32wl3rx.h
   * @author  MCD Application Team
   * @brief   CMSIS Cortex Device Peripheral Access Layer Header File.
   *          This file contains all the peripheral register's definitions, bits
@@ -24,8 +24,8 @@
   ******************************************************************************
   */
 
-#ifndef STM32WL3XX_H
-#define STM32WL3XX_H
+#ifndef STM32WL3RX_H
+#define STM32WL3RX_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -37,7 +37,7 @@ extern "C" {
   */
 
 
-/** @addtogroup STM32WL3XX
+/** @addtogroup STM32WL3RX
   * @{
   */
 
@@ -66,8 +66,6 @@ typedef enum {
   RCC_IRQn                  =   1,              /*!< 1  RCC interrupt                                                          */
   PVD_IRQn                  =   2,              /*!< 2  PVD interrupt                                                          */
   I2C1_IRQn                 =   3,              /*!< 3  I2C1 interrupt                                                         */
-  I2C2_IRQn                 =   4,              /*!< 4  I2C2 interrupt                                                         */
-  SPI1_IRQn                 =   5,              /*!< 5  SPI1 interrupt                                                         */
   SPI3_IRQn                 =   7,              /*!< 7  SPI3 interrupt                                                         */
   USART1_IRQn               =   8,              /*!< 8  USART interrupt                                                        */
   LPUART1_IRQn              =   9,              /*!< 9  Low Power UART interrupt                                               */
@@ -78,18 +76,12 @@ typedef enum {
   GPIOA_IRQn                =  15,              /*!< 15 GPIOA interrupt                                                        */
   GPIOB_IRQn                =  16,              /*!< 16 GPIOB interrupt                                                        */
   DMA_IRQn                  =  17,              /*!< 17 DMA interrupt                                                          */
-  LPAWUR_IRQn               =  18,              /*!< 18 LPAWUR interrupt                                                       */
-  COMP1_IRQn                =  19,              /*!< 19 Comp interrupt through SYSCFGBLE                                       */
   MRSUBG_BUSY_IRQn          =  20,              /*!< 20 MR_SUBG Busy interrupt                                                 */
   MRSUBG_IRQn               =  21,              /*!< 21 MR_SUBG interrupt                                                      */
   MRSUBG_TX_RX_SEQUENCE_IRQn = 22,              /*!< 22 MR_SUBG TX/RX Sequence interrupt                                       */
   MRSUBG_TIMER_CPU_WKUP_IRQn = 23,              /*!< 23 CPU Wakeup interrupt                                                   */
   MRSUBG_WKUP_IRQn          =  24,              /*!< 24 SUBG Wakeup interrupt                                                  */
-  DAC_IRQn                  =  25,              /*!< 25 DAC interrupt                                                          */
   TIM16_IRQn                =  26,              /*!< 26 TIM16 interrupt                                                        */
-  LCD_IRQn                  =  27,              /*!< 27 LCD interrupt                                                          */
-  LCSC_IRQn                 =  28,              /*!< 28 LCSC interrupt                                                         */
-  LCSC_LC_ACTIVITY_IRQn     =  29               /*!< 28 LCSC LC activity interrupt                                             */
 } IRQn_Type;
 
 
@@ -660,68 +652,6 @@ typedef struct {                                /*!< ADC Structure              
 
 
 
-/* =========================================================================================================================== */
-/* ================                                     COMP                                                  ================ */
-/* =========================================================================================================================== */
-
-
-/**
-  * @brief Comparator (COMP)
-  */
-
-typedef struct {                              /*!< COMP Structure                                                              */
-  __IO  uint32_t  CSR;                       /*!< (@ 0x00000000) Control and status register                                  */
-} COMP_TypeDef;                               /*!< Size = 4 (0x04)                                                             */
-
-
-
-/* =========================================================================================================================== */
-/* ================                                     DAC                                                   ================ */
-/* =========================================================================================================================== */
-
-
-/**
-  * @brief Digital to Analog Converter (DAC)
-  */
-
-typedef struct {                                /*!< DAC Structure                                                 */
-  __IO uint32_t  CR;                           /*!< (@ 0x00000000) Control register                               */
-  __IO  uint32_t  SWTRIGR;                      /*!< (@ 0x00000004) Software trigger register                      */
-  __IO  uint32_t  RESERVED[2];
-  __IO uint32_t  DHR;                          /*!< (@ 0x00000010) Channel data holding register                  */
-  __IO  uint32_t  RESERVED1[6];
-  __IO  uint32_t  DOR;                          /*!< (@ 0x0000002C) Channel data output register                   */
-  __IO  uint32_t  RESERVED2;
-  __IO uint32_t  SR;                           /*!< (@ 0x00000034) Status register                                */
-} DAC_TypeDef;                                  /*!< Size = 56 (0x38)                                              */
-
-
-
-/* =========================================================================================================================== */
-/* ================                                     LCSC                                                  ================ */
-/* =========================================================================================================================== */
-
-
-/**
-  * @brief LC Sensor Controller (LCSC)
-  */
-
-typedef struct{ /*!< LCSC Structure  */
-  __IO uint32_t CR0;       /*!< (@ 0x00000000) LCSC_CR0 register               */
-  __IO uint32_t CR1;       /*!< (@ 0x00000004) LCSC_CR1 register               */
-  __IO uint32_t CR2;       /*!< (@ 0x00000008) LCSC_CR2 register               */
-  __IO uint32_t PULSE_CR;  /*!< (@ 0x0000000C) LCSC_PULSE_CR register          */
-  __IO uint32_t ENR;       /*!< (@ 0x00000010) LCSC_ENR register               */
-  __IO  uint32_t WHEEL_SR;  /*!< (@ 0x00000014) LCSC_WHEEL_SR register          */
-  __IO uint32_t CONFR;     /*!< (@ 0x00000018) LCSC_CONFR register             */
-  __IO  uint32_t COMP_CNT;  /*!< (@ 0x0000001C) LCSC_COMP_CNT register          */
-  __IO  uint32_t SR;        /*!< (@ 0x00000020) LCSC_SR register                */
-  __IO uint32_t STAT;      /*!< (@ 0x00000024) LCSC_STAT register              */
-  __IO  uint32_t RESERVED[6];
-  __IO uint32_t ISR;       /*!< (@ 0x00000044) LCSC_ISR register               */
-} LCSC_TypeDef;              /*!< Size = 72 (0x48) */
-
-
 
 /* =========================================================================================================================== */
 /* ================                                     DBGMCU                                                ================ */
@@ -739,38 +669,6 @@ typedef struct{ /*!< DBGMCU Structure  */
 } DBGMCU_TypeDef;                      /*!< Size = 12 (0x0C) */
 
 
-
-/* =========================================================================================================================== */
-/* ================                                     LCD                                                   ================ */
-/* =========================================================================================================================== */
-
-
-/**
-  * @brief Liquid crystal display controller (LCD)
-  */
-
-typedef struct {                                /*!< LCD Structure                                                             */
-  __IO  uint32_t  CR;                          /*!< (@ 0x00000000) Control register                                           */
-  __IO  uint32_t  FCR;                         /*!< (@ 0x00000004) Frame control register                                     */
-  __IO  uint32_t  SR;                          /*!< (@ 0x00000008) Status register                                            */
-  __IO   uint32_t  CLR;                         /*!< (@ 0x0000000C) Clear register                                             */
-  __IO   uint32_t  RESERVED;
-  __IO  uint32_t  RAM_COM0;                    /*!< (@ 0x00000014) Disaplay Memory COM 0                                      */
-  __IO   uint32_t  RESERVED1;
-  __IO  uint32_t  RAM_COM1;                    /*!< (@ 0x0000001C) Disaplay Memory COM 1                                      */
-  __IO   uint32_t  RESERVED2;
-  __IO  uint32_t  RAM_COM2;                    /*!< (@ 0x00000024) Disaplay Memory COM 2                                      */
-  __IO   uint32_t  RESERVED3;
-  __IO  uint32_t  RAM_COM3;                    /*!< (@ 0x0000002C) Disaplay Memory COM 3                                      */
-  __IO   uint32_t  RESERVED4;
-  __IO  uint32_t  RAM_COM4;                    /*!< (@ 0x00000034) Disaplay Memory COM 4                                      */
-  __IO   uint32_t  RESERVED5;
-  __IO  uint32_t  RAM_COM5;                    /*!< (@ 0x0000003C) Disaplay Memory COM 5                                      */
-  __IO   uint32_t  RESERVED6;
-  __IO  uint32_t  RAM_COM6;                    /*!< (@ 0x00000044) Disaplay Memory COM 6                                      */
-  __IO   uint32_t  RESERVED7;
-  __IO  uint32_t  RAM_COM7;                    /*!< (@ 0x0000004C) Disaplay Memory COM 7                                      */
-} LCD_TypeDef;                                  /*!< Size = 80 (0x50)                                                          */
 
 
 
@@ -840,7 +738,8 @@ typedef struct{ /*!< MR_SUBG_RADIO Structure  */
   __IO uint32_t SINGEN_ANA_ENG;        /*!< (@ 0x00000100) SINGEN_ANA_ENG register                 */
   __IO  uint32_t RESERVED7;
   __IO  uint32_t RF_INFO_OUT;          /*!< (@ 0x00000108) RF_INFO_OUT register                */
-  __IO  uint32_t RESERVED8[6];
+  __IO  uint32_t RFANA_PLL_IN;         /*!< (@ 0x0000010C) RFANA_PLL_IN register                */
+  __IO  uint32_t RESERVED8[5];
   __IO uint32_t RF_FSM8_TIMEOUT;       /*!< (@ 0x00000124) RF_FSM8_TIMEOUT register                */
   __IO uint32_t RF_FSM9_TIMEOUT;       /*!< (@ 0x00000128) RF_FSM9_TIMEOUT register                */
   __IO uint32_t RF_FSM10_TIMEOUT;      /*!< (@ 0x0000012C) RF_FSM10_TIMEOUT register               */
@@ -970,30 +869,6 @@ typedef struct{ /*!< MR_SUBG_GLOB_RETAINED Structure  */
 
 
 
-/* =========================================================================================================================== */
-/* ================                                        LPAWUR                                             ================ */
-/* =========================================================================================================================== */
-
-
-/**
-  * @brief Low Power Autonomous Wakeup Radio IP
-  */
-
-typedef struct{ /*!< LPAWUR Structure  */
-  __IO uint32_t FRAME_CONFIG0;       /*!< (@ 0x00000000) FRAME_CONFIG0 register              */
-  __IO uint32_t FRAME_CONFIG1;       /*!< (@ 0x00000004) FRAME_CONFIG1 register              */
-  __IO uint32_t FRAME_SYNC_CONFIG;   /*!< (@ 0x00000008) FRAME_SYNC_CONFIG register          */
-  __IO uint32_t RFIP_CONFIG;         /*!< (@ 0x0000000C) RFIP_CONFIG register                */
-  __IO uint32_t RF_CONFIG;           /*!< (@ 0x00000010) RF_CONFIG register                  */
-  __IO uint32_t AGC_CONFIG;          /*!< (@ 0x00000014) AGC_CONFIG register                 */
-  __IO  uint32_t RESERVED;
-  __IO  uint32_t PAYLOAD_0;           /*!< (@ 0x0000001C) PAYLOAD_0 register                  */
-  __IO  uint32_t PAYLOAD_1;           /*!< (@ 0x00000020) PAYLOAD_1 register                  */
-  __IO  uint32_t RESERVED1[7];
-  __IO  uint32_t RFIP_VERSION;        /*!< (@ 0x00000040) RFIP_VERSION register               */
-  __IO uint32_t IRQ_ENABLE;          /*!< (@ 0x00000044) IRQ_ENABLE register                 */
-  __IO uint32_t STATUS;              /*!< (@ 0x00000048) STATUS register                     */
-} LPAWUR_TypeDef;                        /*!< Size = 76 (0x4C) */
 
 
 
@@ -1043,17 +918,11 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define IWDG_BASE          (APB0PERIPH_BASE + 0x3000UL)
 #define RTC_BASE           (APB0PERIPH_BASE + 0x4000UL)
 #define TIM16_BASE         (APB0PERIPH_BASE + 0x5000UL)
-#define DAC1_BASE          (APB0PERIPH_BASE + 0x6000UL)
-#define LCD_BASE           (APB0PERIPH_BASE + 0x7000UL)
 #define DBGMCU_BASE        (APB0PERIPH_BASE + 0x8000UL)
-#define COMP_BASE          (APB0PERIPH_BASE + 0x9000UL)
-#define LCSC_BASE          (APB0PERIPH_BASE + 0xA000UL)
 
 
 /*!< APB1 peripherals */
 #define I2C1_BASE          (APB1PERIPH_BASE + 0x0000UL)
-#define I2C2_BASE          (APB1PERIPH_BASE + 0x1000UL)
-#define SPI1_BASE          (APB1PERIPH_BASE + 0x2000UL)
 #define USART1_BASE        (APB1PERIPH_BASE + 0x4000UL)
 #define LPUART1_BASE       (APB1PERIPH_BASE + 0x5000UL)
 #define ADC1_BASE           (APB1PERIPH_BASE + 0x6000UL)
@@ -1096,7 +965,6 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define MR_SUBG_GLOB_STATUS_BASE   (MR_SUBG_BASE    + 0x0600UL)
 #define MR_SUBG_GLOB_MISC_BASE     (MR_SUBG_BASE    + 0x0700UL)
 #define MR_SUBG_GLOB_RETAINED_BASE (MR_SUBG_BASE    + 0x0780UL)
-#define LPAWUR_BASE                (APB2PERIPH_BASE + 0x1000UL)
 
 
 /** @} */ /* End of group Device_Peripheral_peripheralAddr */
@@ -1119,16 +987,10 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define IWDG                        ((IWDG_TypeDef*)               IWDG_BASE)
 #define RTC                         ((RTC_TypeDef*)                 RTC_BASE)
 #define TIM16                       ((TIM_TypeDef*)               TIM16_BASE)
-#define DAC1                        ((DAC_TypeDef*)                DAC1_BASE)
-#define LCD                         ((LCD_TypeDef*)                 LCD_BASE)
 #define DBGMCU                      ((DBGMCU_TypeDef*)           DBGMCU_BASE)
-#define COMP1                       ((COMP_TypeDef*)               COMP_BASE)
-#define LCSC                        ((LCSC_TypeDef*)               LCSC_BASE)
 
 /* Peripherals available on APB1 bus */
 #define I2C1                        ((I2C_TypeDef*)                I2C1_BASE)
-#define I2C2                        ((I2C_TypeDef*)                I2C2_BASE)
-#define SPI1                        ((SPI_TypeDef*)                SPI1_BASE)
 #define USART1                      ((USART_TypeDef*)            USART1_BASE)
 #define LPUART1                     ((USART_TypeDef*)           LPUART1_BASE)
 #define ADC1                        ((ADC_TypeDef*)                ADC1_BASE)
@@ -1168,7 +1030,6 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define MR_SUBG_GLOB_STATUS         ((MR_SUBG_GLOB_STATUS_TypeDef*)     MR_SUBG_GLOB_STATUS_BASE)
 #define MR_SUBG_GLOB_MISC           ((MR_SUBG_GLOB_MISC_TypeDef*)         MR_SUBG_GLOB_MISC_BASE)
 #define MR_SUBG_GLOB_RETAINED       ((MR_SUBG_GLOB_RETAINED_TypeDef*) MR_SUBG_GLOB_RETAINED_BASE)
-#define LPAWUR                      ((LPAWUR_TypeDef*)                               LPAWUR_BASE)
 
 /** @} */ /* End of group Device_Peripheral_declaration */
 
@@ -1269,18 +1130,6 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define SYSCFG_JTAG_ID_MANUF_ID_10                                         (0x400U << SYSCFG_JTAG_ID_MANUF_ID_Pos)
 
 /* =====================================================    I2C_FMP_CTRL    =====================================================*/
-#define SYSCFG_I2C_FMP_CTRL_I2C2_PA14_FMP_Pos                              (9UL)        /*!<SYSCFG I2C_FMP_CTRL: I2C2_PA14_FMP (Bit 9) */
-#define SYSCFG_I2C_FMP_CTRL_I2C2_PA14_FMP_Msk                              (0x200UL)        /*!< SYSCFG I2C_FMP_CTRL: I2C2_PA14_FMP (Bitfield-Mask: 0x01) */
-#define SYSCFG_I2C_FMP_CTRL_I2C2_PA14_FMP                                  SYSCFG_I2C_FMP_CTRL_I2C2_PA14_FMP_Msk
-#define SYSCFG_I2C_FMP_CTRL_I2C2_PA13_FMP_Pos                              (8UL)        /*!<SYSCFG I2C_FMP_CTRL: I2C2_PA13_FMP (Bit 8) */
-#define SYSCFG_I2C_FMP_CTRL_I2C2_PA13_FMP_Msk                              (0x100UL)        /*!< SYSCFG I2C_FMP_CTRL: I2C2_PA13_FMP (Bitfield-Mask: 0x01) */
-#define SYSCFG_I2C_FMP_CTRL_I2C2_PA13_FMP                                  SYSCFG_I2C_FMP_CTRL_I2C2_PA13_FMP_Msk
-#define SYSCFG_I2C_FMP_CTRL_I2C2_PA7_FMP_Pos                               (7UL)        /*!<SYSCFG I2C_FMP_CTRL: I2C2_PA7_FMP (Bit 7) */
-#define SYSCFG_I2C_FMP_CTRL_I2C2_PA7_FMP_Msk                               (0x80UL)        /*!< SYSCFG I2C_FMP_CTRL: I2C2_PA7_FMP (Bitfield-Mask: 0x01) */
-#define SYSCFG_I2C_FMP_CTRL_I2C2_PA7_FMP                                   SYSCFG_I2C_FMP_CTRL_I2C2_PA7_FMP_Msk
-#define SYSCFG_I2C_FMP_CTRL_I2C2_PA6_FMP_Pos                               (6UL)        /*!<SYSCFG I2C_FMP_CTRL: I2C2_PA6_FMP (Bit 6) */
-#define SYSCFG_I2C_FMP_CTRL_I2C2_PA6_FMP_Msk                               (0x40UL)        /*!< SYSCFG I2C_FMP_CTRL: I2C2_PA6_FMP (Bitfield-Mask: 0x01) */
-#define SYSCFG_I2C_FMP_CTRL_I2C2_PA6_FMP                                   SYSCFG_I2C_FMP_CTRL_I2C2_PA6_FMP_Msk
 #define SYSCFG_I2C_FMP_CTRL_I2C1_PB11_FMP_Pos                              (5UL)        /*!<SYSCFG I2C_FMP_CTRL: I2C1_PB11_FMP (Bit 5) */
 #define SYSCFG_I2C_FMP_CTRL_I2C1_PB11_FMP_Msk                              (0x20UL)        /*!< SYSCFG I2C_FMP_CTRL: I2C1_PB11_FMP (Bitfield-Mask: 0x01) */
 #define SYSCFG_I2C_FMP_CTRL_I2C1_PB11_FMP                                  SYSCFG_I2C_FMP_CTRL_I2C1_PB11_FMP_Msk
@@ -3760,266 +3609,6 @@ typedef struct{ /*!< LPAWUR Structure  */
 /******************** Number of backup registers ******************************/
 #define RTC_BKP_NUMBER                 (2U)
 
-/* ============================================================================================================================*/
-/*=====================                                        LCD                                        =====================*/
-/* ============================================================================================================================*/
-
-/* =====================================================    CR    =====================================================*/
-#define LCD_CR_BUFEN_Pos                                                   (8UL)        /*!<LCD CR: BUFEN (Bit 8) */
-#define LCD_CR_BUFEN_Msk                                                   (0x100UL)        /*!< LCD CR: BUFEN (Bitfield-Mask: 0x01) */
-#define LCD_CR_BUFEN                                                       LCD_CR_BUFEN_Msk
-#define LCD_CR_BIAS_Pos                                                    (5UL)        /*!<LCD CR: BIAS (Bit 5) */
-#define LCD_CR_BIAS_Msk                                                    (0x60UL)        /*!< LCD CR: BIAS (Bitfield-Mask: 0x03) */
-#define LCD_CR_BIAS                                                        LCD_CR_BIAS_Msk
-#define LCD_CR_BIAS_0                                                      (0x1U << LCD_CR_BIAS_Pos)
-#define LCD_CR_BIAS_1                                                      (0x2U << LCD_CR_BIAS_Pos)
-#define LCD_CR_DUTY_Pos                                                    (2UL)        /*!<LCD CR: DUTY (Bit 2) */
-#define LCD_CR_DUTY_Msk                                                    (0x1cUL)        /*!< LCD CR: DUTY (Bitfield-Mask: 0x07) */
-#define LCD_CR_DUTY                                                        LCD_CR_DUTY_Msk
-#define LCD_CR_DUTY_0                                                      (0x1U << LCD_CR_DUTY_Pos)
-#define LCD_CR_DUTY_1                                                      (0x2U << LCD_CR_DUTY_Pos)
-#define LCD_CR_DUTY_2                                                      (0x4U << LCD_CR_DUTY_Pos)
-#define LCD_CR_VSEL_Pos                                                    (1UL)        /*!<LCD CR: VSEL (Bit 1) */
-#define LCD_CR_VSEL_Msk                                                    (0x2UL)        /*!< LCD CR: VSEL (Bitfield-Mask: 0x01) */
-#define LCD_CR_VSEL                                                        LCD_CR_VSEL_Msk
-#define LCD_CR_LCDEN_Pos                                                   (0UL)        /*!<LCD CR: LCDEN (Bit 0) */
-#define LCD_CR_LCDEN_Msk                                                   (0x1UL)        /*!< LCD CR: LCDEN (Bitfield-Mask: 0x01) */
-#define LCD_CR_LCDEN                                                       LCD_CR_LCDEN_Msk
-
-/* =====================================================    FCR    =====================================================*/
-#define LCD_FCR_PS_Pos                                                     (22UL)        /*!<LCD FCR: PS (Bit 22) */
-#define LCD_FCR_PS_Msk                                                     (0x3c00000UL)        /*!< LCD FCR: PS (Bitfield-Mask: 0x0f) */
-#define LCD_FCR_PS                                                         LCD_FCR_PS_Msk
-#define LCD_FCR_PS_0                                                       (0x1U << LCD_FCR_PS_Pos)
-#define LCD_FCR_PS_1                                                       (0x2U << LCD_FCR_PS_Pos)
-#define LCD_FCR_PS_2                                                       (0x4U << LCD_FCR_PS_Pos)
-#define LCD_FCR_PS_3                                                       (0x8U << LCD_FCR_PS_Pos)
-#define LCD_FCR_DIV_Pos                                                    (18UL)        /*!<LCD FCR: DIV (Bit 18) */
-#define LCD_FCR_DIV_Msk                                                    (0x3c0000UL)        /*!< LCD FCR: DIV (Bitfield-Mask: 0x0f) */
-#define LCD_FCR_DIV                                                        LCD_FCR_DIV_Msk
-#define LCD_FCR_DIV_0                                                      (0x1U << LCD_FCR_DIV_Pos)
-#define LCD_FCR_DIV_1                                                      (0x2U << LCD_FCR_DIV_Pos)
-#define LCD_FCR_DIV_2                                                      (0x4U << LCD_FCR_DIV_Pos)
-#define LCD_FCR_DIV_3                                                      (0x8U << LCD_FCR_DIV_Pos)
-#define LCD_FCR_BLINK_Pos                                                  (16UL)        /*!<LCD FCR: BLINK (Bit 16) */
-#define LCD_FCR_BLINK_Msk                                                  (0x30000UL)        /*!< LCD FCR: BLINK (Bitfield-Mask: 0x03) */
-#define LCD_FCR_BLINK                                                      LCD_FCR_BLINK_Msk
-#define LCD_FCR_BLINK_0                                                    (0x1U << LCD_FCR_BLINK_Pos)
-#define LCD_FCR_BLINK_1                                                    (0x2U << LCD_FCR_BLINK_Pos)
-#define LCD_FCR_BLINKF_Pos                                                 (13UL)        /*!<LCD FCR: BLINKF (Bit 13) */
-#define LCD_FCR_BLINKF_Msk                                                 (0xe000UL)        /*!< LCD FCR: BLINKF (Bitfield-Mask: 0x07) */
-#define LCD_FCR_BLINKF                                                     LCD_FCR_BLINKF_Msk
-#define LCD_FCR_BLINKF_0                                                   (0x1U << LCD_FCR_BLINKF_Pos)
-#define LCD_FCR_BLINKF_1                                                   (0x2U << LCD_FCR_BLINKF_Pos)
-#define LCD_FCR_BLINKF_2                                                   (0x4U << LCD_FCR_BLINKF_Pos)
-#define LCD_FCR_CC_Pos                                                     (10UL)        /*!<LCD FCR: CC (Bit 10) */
-#define LCD_FCR_CC_Msk                                                     (0x1c00UL)        /*!< LCD FCR: CC (Bitfield-Mask: 0x07) */
-#define LCD_FCR_CC                                                         LCD_FCR_CC_Msk
-#define LCD_FCR_CC_0                                                       (0x1U << LCD_FCR_CC_Pos)
-#define LCD_FCR_CC_1                                                       (0x2U << LCD_FCR_CC_Pos)
-#define LCD_FCR_CC_2                                                       (0x4U << LCD_FCR_CC_Pos)
-#define LCD_FCR_DEAD_Pos                                                   (7UL)        /*!<LCD FCR: DEAD (Bit 7) */
-#define LCD_FCR_DEAD_Msk                                                   (0x380UL)        /*!< LCD FCR: DEAD (Bitfield-Mask: 0x07) */
-#define LCD_FCR_DEAD                                                       LCD_FCR_DEAD_Msk
-#define LCD_FCR_DEAD_0                                                     (0x1U << LCD_FCR_DEAD_Pos)
-#define LCD_FCR_DEAD_1                                                     (0x2U << LCD_FCR_DEAD_Pos)
-#define LCD_FCR_DEAD_2                                                     (0x4U << LCD_FCR_DEAD_Pos)
-#define LCD_FCR_PON_Pos                                                    (4UL)        /*!<LCD FCR: PON (Bit 4) */
-#define LCD_FCR_PON_Msk                                                    (0x70UL)        /*!< LCD FCR: PON (Bitfield-Mask: 0x07) */
-#define LCD_FCR_PON                                                        LCD_FCR_PON_Msk
-#define LCD_FCR_PON_0                                                      (0x1U << LCD_FCR_PON_Pos)
-#define LCD_FCR_PON_1                                                      (0x2U << LCD_FCR_PON_Pos)
-#define LCD_FCR_PON_2                                                      (0x4U << LCD_FCR_PON_Pos)
-#define LCD_FCR_UDDIE_Pos                                                  (3UL)        /*!<LCD FCR: UDDIE (Bit 3) */
-#define LCD_FCR_UDDIE_Msk                                                  (0x8UL)        /*!< LCD FCR: UDDIE (Bitfield-Mask: 0x01) */
-#define LCD_FCR_UDDIE                                                      LCD_FCR_UDDIE_Msk
-#define LCD_FCR_SOFIE_Pos                                                  (1UL)        /*!<LCD FCR: SOFIE (Bit 1) */
-#define LCD_FCR_SOFIE_Msk                                                  (0x2UL)        /*!< LCD FCR: SOFIE (Bitfield-Mask: 0x01) */
-#define LCD_FCR_SOFIE                                                      LCD_FCR_SOFIE_Msk
-#define LCD_FCR_HD_Pos                                                     (0UL)        /*!<LCD FCR: HD (Bit 0) */
-#define LCD_FCR_HD_Msk                                                     (0x1UL)        /*!< LCD FCR: HD (Bitfield-Mask: 0x01) */
-#define LCD_FCR_HD                                                         LCD_FCR_HD_Msk
-
-/* =====================================================    SR    =====================================================*/
-#define LCD_SR_FCRSF_Pos                                                   (5UL)        /*!<LCD SR: FCRSF (Bit 5) */
-#define LCD_SR_FCRSF_Msk                                                   (0x20UL)        /*!< LCD SR: FCRSF (Bitfield-Mask: 0x01) */
-#define LCD_SR_FCRSF                                                       LCD_SR_FCRSF_Msk
-#define LCD_SR_RDY_Pos                                                     (4UL)        /*!<LCD SR: RDY (Bit 4) */
-#define LCD_SR_RDY_Msk                                                     (0x10UL)        /*!< LCD SR: RDY (Bitfield-Mask: 0x01) */
-#define LCD_SR_RDY                                                         LCD_SR_RDY_Msk
-#define LCD_SR_UDD_Pos                                                     (3UL)        /*!<LCD SR: UDD (Bit 3) */
-#define LCD_SR_UDD_Msk                                                     (0x8UL)        /*!< LCD SR: UDD (Bitfield-Mask: 0x01) */
-#define LCD_SR_UDD                                                         LCD_SR_UDD_Msk
-#define LCD_SR_UDR_Pos                                                     (2UL)        /*!<LCD SR: UDR (Bit 2) */
-#define LCD_SR_UDR_Msk                                                     (0x4UL)        /*!< LCD SR: UDR (Bitfield-Mask: 0x01) */
-#define LCD_SR_UDR                                                         LCD_SR_UDR_Msk
-#define LCD_SR_SOF_Pos                                                     (1UL)        /*!<LCD SR: SOF (Bit 1) */
-#define LCD_SR_SOF_Msk                                                     (0x2UL)        /*!< LCD SR: SOF (Bitfield-Mask: 0x01) */
-#define LCD_SR_SOF                                                         LCD_SR_SOF_Msk
-#define LCD_SR_ENS_Pos                                                     (0UL)        /*!<LCD SR: ENS (Bit 0) */
-#define LCD_SR_ENS_Msk                                                     (0x1UL)        /*!< LCD SR: ENS (Bitfield-Mask: 0x01) */
-#define LCD_SR_ENS                                                         LCD_SR_ENS_Msk
-
-/* =====================================================    CLR    =====================================================*/
-#define LCD_CLR_UDDC_Pos                                                   (3UL)        /*!<LCD CLR: UDDC (Bit 3) */
-#define LCD_CLR_UDDC_Msk                                                   (0x8UL)        /*!< LCD CLR: UDDC (Bitfield-Mask: 0x01) */
-#define LCD_CLR_UDDC                                                       LCD_CLR_UDDC_Msk
-#define LCD_CLR_SOFC_Pos                                                   (1UL)        /*!<LCD CLR: SOFC (Bit 1) */
-#define LCD_CLR_SOFC_Msk                                                   (0x2UL)        /*!< LCD CLR: SOFC (Bitfield-Mask: 0x01) */
-#define LCD_CLR_SOFC                                                       LCD_CLR_SOFC_Msk
-
-/* =====================================================    RAM_COM0    =====================================================*/
-#define LCD_RAM_COM0_SEGMENT_DATA_Pos                                      (0UL)        /*!<LCD RAM_COM0: SEGMENT_DATA (Bit 0) */
-#define LCD_RAM_COM0_SEGMENT_DATA_Msk                                      (0xffffUL)        /*!< LCD RAM_COM0: SEGMENT_DATA (Bitfield-Mask: 0xffff) */
-#define LCD_RAM_COM0_SEGMENT_DATA                                          LCD_RAM_COM0_SEGMENT_DATA_Msk
-#define LCD_RAM_COM0_SEGMENT_DATA_0                                        (0x1U << LCD_RAM_COM0_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM0_SEGMENT_DATA_1                                        (0x2U << LCD_RAM_COM0_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM0_SEGMENT_DATA_2                                        (0x4U << LCD_RAM_COM0_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM0_SEGMENT_DATA_3                                        (0x8U << LCD_RAM_COM0_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM0_SEGMENT_DATA_4                                        (0x10U << LCD_RAM_COM0_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM0_SEGMENT_DATA_5                                        (0x20U << LCD_RAM_COM0_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM0_SEGMENT_DATA_6                                        (0x40U << LCD_RAM_COM0_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM0_SEGMENT_DATA_7                                        (0x80U << LCD_RAM_COM0_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM0_SEGMENT_DATA_8                                        (0x100U << LCD_RAM_COM0_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM0_SEGMENT_DATA_9                                        (0x200U << LCD_RAM_COM0_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM0_SEGMENT_DATA_10                                       (0x400U << LCD_RAM_COM0_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM0_SEGMENT_DATA_11                                       (0x800U << LCD_RAM_COM0_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM0_SEGMENT_DATA_12                                       (0x1000U << LCD_RAM_COM0_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM0_SEGMENT_DATA_13                                       (0x2000U << LCD_RAM_COM0_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM0_SEGMENT_DATA_14                                       (0x4000U << LCD_RAM_COM0_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM0_SEGMENT_DATA_15                                       (0x8000U << LCD_RAM_COM0_SEGMENT_DATA_Pos)
-
-/* =====================================================    RAM_COM1    =====================================================*/
-#define LCD_RAM_COM1_SEGMENT_DATA_Pos                                      (0UL)        /*!<LCD RAM_COM1: SEGMENT_DATA (Bit 0) */
-#define LCD_RAM_COM1_SEGMENT_DATA_Msk                                      (0xffffUL)        /*!< LCD RAM_COM1: SEGMENT_DATA (Bitfield-Mask: 0xffff) */
-#define LCD_RAM_COM1_SEGMENT_DATA                                          LCD_RAM_COM1_SEGMENT_DATA_Msk
-#define LCD_RAM_COM1_SEGMENT_DATA_0                                        (0x1U << LCD_RAM_COM1_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM1_SEGMENT_DATA_1                                        (0x2U << LCD_RAM_COM1_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM1_SEGMENT_DATA_2                                        (0x4U << LCD_RAM_COM1_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM1_SEGMENT_DATA_3                                        (0x8U << LCD_RAM_COM1_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM1_SEGMENT_DATA_4                                        (0x10U << LCD_RAM_COM1_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM1_SEGMENT_DATA_5                                        (0x20U << LCD_RAM_COM1_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM1_SEGMENT_DATA_6                                        (0x40U << LCD_RAM_COM1_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM1_SEGMENT_DATA_7                                        (0x80U << LCD_RAM_COM1_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM1_SEGMENT_DATA_8                                        (0x100U << LCD_RAM_COM1_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM1_SEGMENT_DATA_9                                        (0x200U << LCD_RAM_COM1_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM1_SEGMENT_DATA_10                                       (0x400U << LCD_RAM_COM1_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM1_SEGMENT_DATA_11                                       (0x800U << LCD_RAM_COM1_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM1_SEGMENT_DATA_12                                       (0x1000U << LCD_RAM_COM1_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM1_SEGMENT_DATA_13                                       (0x2000U << LCD_RAM_COM1_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM1_SEGMENT_DATA_14                                       (0x4000U << LCD_RAM_COM1_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM1_SEGMENT_DATA_15                                       (0x8000U << LCD_RAM_COM1_SEGMENT_DATA_Pos)
-
-/* =====================================================    RAM_COM2    =====================================================*/
-#define LCD_RAM_COM2_SEGMENT_DATA_Pos                                      (0UL)        /*!<LCD RAM_COM2: SEGMENT_DATA (Bit 0) */
-#define LCD_RAM_COM2_SEGMENT_DATA_Msk                                      (0xffffUL)        /*!< LCD RAM_COM2: SEGMENT_DATA (Bitfield-Mask: 0xffff) */
-#define LCD_RAM_COM2_SEGMENT_DATA                                          LCD_RAM_COM2_SEGMENT_DATA_Msk
-#define LCD_RAM_COM2_SEGMENT_DATA_0                                        (0x1U << LCD_RAM_COM2_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM2_SEGMENT_DATA_1                                        (0x2U << LCD_RAM_COM2_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM2_SEGMENT_DATA_2                                        (0x4U << LCD_RAM_COM2_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM2_SEGMENT_DATA_3                                        (0x8U << LCD_RAM_COM2_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM2_SEGMENT_DATA_4                                        (0x10U << LCD_RAM_COM2_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM2_SEGMENT_DATA_5                                        (0x20U << LCD_RAM_COM2_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM2_SEGMENT_DATA_6                                        (0x40U << LCD_RAM_COM2_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM2_SEGMENT_DATA_7                                        (0x80U << LCD_RAM_COM2_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM2_SEGMENT_DATA_8                                        (0x100U << LCD_RAM_COM2_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM2_SEGMENT_DATA_9                                        (0x200U << LCD_RAM_COM2_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM2_SEGMENT_DATA_10                                       (0x400U << LCD_RAM_COM2_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM2_SEGMENT_DATA_11                                       (0x800U << LCD_RAM_COM2_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM2_SEGMENT_DATA_12                                       (0x1000U << LCD_RAM_COM2_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM2_SEGMENT_DATA_13                                       (0x2000U << LCD_RAM_COM2_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM2_SEGMENT_DATA_14                                       (0x4000U << LCD_RAM_COM2_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM2_SEGMENT_DATA_15                                       (0x8000U << LCD_RAM_COM2_SEGMENT_DATA_Pos)
-
-/* =====================================================    RAM_COM3    =====================================================*/
-#define LCD_RAM_COM3_SEGMENT_DATA_Pos                                      (0UL)        /*!<LCD RAM_COM3: SEGMENT_DATA (Bit 0) */
-#define LCD_RAM_COM3_SEGMENT_DATA_Msk                                      (0xffffUL)        /*!< LCD RAM_COM3: SEGMENT_DATA (Bitfield-Mask: 0xffff) */
-#define LCD_RAM_COM3_SEGMENT_DATA                                          LCD_RAM_COM3_SEGMENT_DATA_Msk
-#define LCD_RAM_COM3_SEGMENT_DATA_0                                        (0x1U << LCD_RAM_COM3_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM3_SEGMENT_DATA_1                                        (0x2U << LCD_RAM_COM3_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM3_SEGMENT_DATA_2                                        (0x4U << LCD_RAM_COM3_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM3_SEGMENT_DATA_3                                        (0x8U << LCD_RAM_COM3_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM3_SEGMENT_DATA_4                                        (0x10U << LCD_RAM_COM3_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM3_SEGMENT_DATA_5                                        (0x20U << LCD_RAM_COM3_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM3_SEGMENT_DATA_6                                        (0x40U << LCD_RAM_COM3_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM3_SEGMENT_DATA_7                                        (0x80U << LCD_RAM_COM3_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM3_SEGMENT_DATA_8                                        (0x100U << LCD_RAM_COM3_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM3_SEGMENT_DATA_9                                        (0x200U << LCD_RAM_COM3_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM3_SEGMENT_DATA_10                                       (0x400U << LCD_RAM_COM3_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM3_SEGMENT_DATA_11                                       (0x800U << LCD_RAM_COM3_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM3_SEGMENT_DATA_12                                       (0x1000U << LCD_RAM_COM3_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM3_SEGMENT_DATA_13                                       (0x2000U << LCD_RAM_COM3_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM3_SEGMENT_DATA_14                                       (0x4000U << LCD_RAM_COM3_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM3_SEGMENT_DATA_15                                       (0x8000U << LCD_RAM_COM3_SEGMENT_DATA_Pos)
-
-/* =====================================================    RAM_COM4    =====================================================*/
-#define LCD_RAM_COM4_SEGMENT_DATA_Pos                                      (0UL)        /*!<LCD RAM_COM4: SEGMENT_DATA (Bit 0) */
-#define LCD_RAM_COM4_SEGMENT_DATA_Msk                                      (0xffffUL)        /*!< LCD RAM_COM4: SEGMENT_DATA (Bitfield-Mask: 0xffff) */
-#define LCD_RAM_COM4_SEGMENT_DATA                                          LCD_RAM_COM4_SEGMENT_DATA_Msk
-#define LCD_RAM_COM4_SEGMENT_DATA_0                                        (0x1U << LCD_RAM_COM4_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM4_SEGMENT_DATA_1                                        (0x2U << LCD_RAM_COM4_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM4_SEGMENT_DATA_2                                        (0x4U << LCD_RAM_COM4_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM4_SEGMENT_DATA_3                                        (0x8U << LCD_RAM_COM4_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM4_SEGMENT_DATA_4                                        (0x10U << LCD_RAM_COM4_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM4_SEGMENT_DATA_5                                        (0x20U << LCD_RAM_COM4_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM4_SEGMENT_DATA_6                                        (0x40U << LCD_RAM_COM4_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM4_SEGMENT_DATA_7                                        (0x80U << LCD_RAM_COM4_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM4_SEGMENT_DATA_8                                        (0x100U << LCD_RAM_COM4_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM4_SEGMENT_DATA_9                                        (0x200U << LCD_RAM_COM4_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM4_SEGMENT_DATA_10                                       (0x400U << LCD_RAM_COM4_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM4_SEGMENT_DATA_11                                       (0x800U << LCD_RAM_COM4_SEGMENT_DATA_Pos)
-
-/* =====================================================    RAM_COM5    =====================================================*/
-#define LCD_RAM_COM5_SEGMENT_DATA_Pos                                      (0UL)        /*!<LCD RAM_COM5: SEGMENT_DATA (Bit 0) */
-#define LCD_RAM_COM5_SEGMENT_DATA_Msk                                      (0xffffUL)        /*!< LCD RAM_COM5: SEGMENT_DATA (Bitfield-Mask: 0xffff) */
-#define LCD_RAM_COM5_SEGMENT_DATA                                          LCD_RAM_COM5_SEGMENT_DATA_Msk
-#define LCD_RAM_COM5_SEGMENT_DATA_0                                        (0x1U << LCD_RAM_COM5_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM5_SEGMENT_DATA_1                                        (0x2U << LCD_RAM_COM5_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM5_SEGMENT_DATA_2                                        (0x4U << LCD_RAM_COM5_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM5_SEGMENT_DATA_3                                        (0x8U << LCD_RAM_COM5_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM5_SEGMENT_DATA_4                                        (0x10U << LCD_RAM_COM5_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM5_SEGMENT_DATA_5                                        (0x20U << LCD_RAM_COM5_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM5_SEGMENT_DATA_6                                        (0x40U << LCD_RAM_COM5_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM5_SEGMENT_DATA_7                                        (0x80U << LCD_RAM_COM5_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM5_SEGMENT_DATA_8                                        (0x100U << LCD_RAM_COM5_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM5_SEGMENT_DATA_9                                        (0x200U << LCD_RAM_COM5_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM5_SEGMENT_DATA_10                                       (0x400U << LCD_RAM_COM5_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM5_SEGMENT_DATA_11                                       (0x800U << LCD_RAM_COM5_SEGMENT_DATA_Pos)
-
-/* =====================================================    RAM_COM6    =====================================================*/
-#define LCD_RAM_COM6_SEGMENT_DATA_Pos                                      (0UL)        /*!<LCD RAM_COM6: SEGMENT_DATA (Bit 0) */
-#define LCD_RAM_COM6_SEGMENT_DATA_Msk                                      (0xffffUL)        /*!< LCD RAM_COM6: SEGMENT_DATA (Bitfield-Mask: 0xffff) */
-#define LCD_RAM_COM6_SEGMENT_DATA                                          LCD_RAM_COM6_SEGMENT_DATA_Msk
-#define LCD_RAM_COM6_SEGMENT_DATA_0                                        (0x1U << LCD_RAM_COM6_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM6_SEGMENT_DATA_1                                        (0x2U << LCD_RAM_COM6_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM6_SEGMENT_DATA_2                                        (0x4U << LCD_RAM_COM6_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM6_SEGMENT_DATA_3                                        (0x8U << LCD_RAM_COM6_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM6_SEGMENT_DATA_4                                        (0x10U << LCD_RAM_COM6_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM6_SEGMENT_DATA_5                                        (0x20U << LCD_RAM_COM6_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM6_SEGMENT_DATA_6                                        (0x40U << LCD_RAM_COM6_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM6_SEGMENT_DATA_7                                        (0x80U << LCD_RAM_COM6_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM6_SEGMENT_DATA_8                                        (0x100U << LCD_RAM_COM6_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM6_SEGMENT_DATA_9                                        (0x200U << LCD_RAM_COM6_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM6_SEGMENT_DATA_10                                       (0x400U << LCD_RAM_COM6_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM6_SEGMENT_DATA_11                                       (0x800U << LCD_RAM_COM6_SEGMENT_DATA_Pos)
-
-/* =====================================================    RAM_COM7    =====================================================*/
-#define LCD_RAM_COM7_SEGMENT_DATA_Pos                                      (0UL)        /*!<LCD RAM_COM7: SEGMENT_DATA (Bit 0) */
-#define LCD_RAM_COM7_SEGMENT_DATA_Msk                                      (0xffffUL)        /*!< LCD RAM_COM7: SEGMENT_DATA (Bitfield-Mask: 0xffff) */
-#define LCD_RAM_COM7_SEGMENT_DATA                                          LCD_RAM_COM7_SEGMENT_DATA_Msk
-#define LCD_RAM_COM7_SEGMENT_DATA_0                                        (0x1U << LCD_RAM_COM7_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM7_SEGMENT_DATA_1                                        (0x2U << LCD_RAM_COM7_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM7_SEGMENT_DATA_2                                        (0x4U << LCD_RAM_COM7_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM7_SEGMENT_DATA_3                                        (0x8U << LCD_RAM_COM7_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM7_SEGMENT_DATA_4                                        (0x10U << LCD_RAM_COM7_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM7_SEGMENT_DATA_5                                        (0x20U << LCD_RAM_COM7_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM7_SEGMENT_DATA_6                                        (0x40U << LCD_RAM_COM7_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM7_SEGMENT_DATA_7                                        (0x80U << LCD_RAM_COM7_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM7_SEGMENT_DATA_8                                        (0x100U << LCD_RAM_COM7_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM7_SEGMENT_DATA_9                                        (0x200U << LCD_RAM_COM7_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM7_SEGMENT_DATA_10                                       (0x400U << LCD_RAM_COM7_SEGMENT_DATA_Pos)
-#define LCD_RAM_COM7_SEGMENT_DATA_11                                       (0x800U << LCD_RAM_COM7_SEGMENT_DATA_Pos)
-
 
 /* ============================================================================================================================*/
 /*=====================                                      DBGMCU                                      =====================*/
@@ -4048,468 +3637,10 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define DBGMCU_DBG_APB0_FZ_DBG_TIM2_STOP                                   DBGMCU_DBG_APB0_FZ_DBG_TIM2_STOP_Msk
 
 /* =====================================================    DBG_APB1_FZ    =====================================================*/
-#define DBGMCU_DBG_APB1_FZ_DBG_I2C2_STOP_Pos                               (23UL)        /*!<DBGMCU DBG_APB1_FZ: DBG_I2C2_STOP (Bit 23) */
-#define DBGMCU_DBG_APB1_FZ_DBG_I2C2_STOP_Msk                               (0x800000UL)        /*!< DBGMCU DBG_APB1_FZ: DBG_I2C2_STOP (Bitfield-Mask: 0x01) */
-#define DBGMCU_DBG_APB1_FZ_DBG_I2C2_STOP                                   DBGMCU_DBG_APB1_FZ_DBG_I2C2_STOP_Msk
 #define DBGMCU_DBG_APB1_FZ_DBG_I2C1_STOP_Pos                               (21UL)        /*!<DBGMCU DBG_APB1_FZ: DBG_I2C1_STOP (Bit 21) */
 #define DBGMCU_DBG_APB1_FZ_DBG_I2C1_STOP_Msk                               (0x200000UL)        /*!< DBGMCU DBG_APB1_FZ: DBG_I2C1_STOP (Bitfield-Mask: 0x01) */
 #define DBGMCU_DBG_APB1_FZ_DBG_I2C1_STOP                                   DBGMCU_DBG_APB1_FZ_DBG_I2C1_STOP_Msk
 
-
-/* ============================================================================================================================*/
-/*=====================                                       COMP                                       =====================*/
-/* ============================================================================================================================*/
-
-/* =====================================================    CSR    =====================================================*/
-#define COMP_CSR_LOCK_Pos                                                  (31UL)        /*!<COMP CSR: LOCK (Bit 31) */
-#define COMP_CSR_LOCK_Msk                                                  (0x80000000UL)        /*!< COMP CSR: LOCK (Bitfield-Mask: 0x01) */
-#define COMP_CSR_LOCK                                                      COMP_CSR_LOCK_Msk
-#define COMP_CSR_VALUE_Pos                                                 (30UL)        /*!<COMP CSR: VALUE (Bit 30) */
-#define COMP_CSR_VALUE_Msk                                                 (0x40000000UL)        /*!< COMP CSR: VALUE (Bitfield-Mask: 0x01) */
-#define COMP_CSR_VALUE                                                     COMP_CSR_VALUE_Msk
-#define COMP_CSR_SCALEN_Pos                                                (23UL)        /*!<COMP CSR: SCALEN (Bit 23) */
-#define COMP_CSR_SCALEN_Msk                                                (0x800000UL)        /*!< COMP CSR: SCALEN (Bitfield-Mask: 0x01) */
-#define COMP_CSR_SCALEN                                                    COMP_CSR_SCALEN_Msk
-#define COMP_CSR_BRGEN_Pos                                                 (22UL)        /*!<COMP CSR: BRGEN (Bit 22) */
-#define COMP_CSR_BRGEN_Msk                                                 (0x400000UL)        /*!< COMP CSR: BRGEN (Bitfield-Mask: 0x01) */
-#define COMP_CSR_BRGEN                                                     COMP_CSR_BRGEN_Msk
-#define COMP_CSR_BLANKING_Pos                                              (18UL)        /*!<COMP CSR: BLANKING (Bit 18) */
-#define COMP_CSR_BLANKING_Msk                                              (0x1c0000UL)        /*!< COMP CSR: BLANKING (Bitfield-Mask: 0x07) */
-#define COMP_CSR_BLANKING                                                  COMP_CSR_BLANKING_Msk
-#define COMP_CSR_BLANKING_0                                                (0x1U << COMP_CSR_BLANKING_Pos)
-#define COMP_CSR_BLANKING_1                                                (0x2U << COMP_CSR_BLANKING_Pos)
-#define COMP_CSR_BLANKING_2                                                (0x4U << COMP_CSR_BLANKING_Pos)
-#define COMP_CSR_HYST_Pos                                                  (16UL)        /*!<COMP CSR: HYST (Bit 16) */
-#define COMP_CSR_HYST_Msk                                                  (0x30000UL)        /*!< COMP CSR: HYST (Bitfield-Mask: 0x03) */
-#define COMP_CSR_HYST                                                      COMP_CSR_HYST_Msk
-#define COMP_CSR_HYST_0                                                    (0x1U << COMP_CSR_HYST_Pos)
-#define COMP_CSR_HYST_1                                                    (0x2U << COMP_CSR_HYST_Pos)
-#define COMP_CSR_POLARITY_Pos                                              (15UL)        /*!<COMP CSR: POLARITY (Bit 15) */
-#define COMP_CSR_POLARITY_Msk                                              (0x8000UL)        /*!< COMP CSR: POLARITY (Bitfield-Mask: 0x01) */
-#define COMP_CSR_POLARITY                                                  COMP_CSR_POLARITY_Msk
-#define COMP_CSR_INPSEL_Pos                                                (7UL)        /*!<COMP CSR: INPSEL (Bit 7) */
-#define COMP_CSR_INPSEL_Msk                                                (0x180UL)        /*!< COMP CSR: INPSEL (Bitfield-Mask: 0x03) */
-#define COMP_CSR_INPSEL                                                    COMP_CSR_INPSEL_Msk
-#define COMP_CSR_INPSEL_0                                                  (0x1U << COMP_CSR_INPSEL_Pos)
-#define COMP_CSR_INPSEL_1                                                  (0x2U << COMP_CSR_INPSEL_Pos)
-#define COMP_CSR_INMSEL_Pos                                                (4UL)        /*!<COMP CSR: INMSEL (Bit 4) */
-#define COMP_CSR_INMSEL_Msk                                                (0x70UL)        /*!< COMP CSR: INMSEL (Bitfield-Mask: 0x07) */
-#define COMP_CSR_INMSEL                                                    COMP_CSR_INMSEL_Msk
-#define COMP_CSR_INMSEL_0                                                  (0x1U << COMP_CSR_INMSEL_Pos)
-#define COMP_CSR_INMSEL_1                                                  (0x2U << COMP_CSR_INMSEL_Pos)
-#define COMP_CSR_INMSEL_2                                                  (0x4U << COMP_CSR_INMSEL_Pos)
-#define COMP_CSR_PWRMODE_Pos                                               (2UL)        /*!<COMP CSR: PWRMODE (Bit 2) */
-#define COMP_CSR_PWRMODE_Msk                                               (0xcUL)        /*!< COMP CSR: PWRMODE (Bitfield-Mask: 0x03) */
-#define COMP_CSR_PWRMODE                                                   COMP_CSR_PWRMODE_Msk
-#define COMP_CSR_PWRMODE_0                                                 (0x1U << COMP_CSR_PWRMODE_Pos)
-#define COMP_CSR_PWRMODE_1                                                 (0x2U << COMP_CSR_PWRMODE_Pos)
-#define COMP_CSR_EN_Pos                                                    (0UL)        /*!<COMP CSR: EN (Bit 0) */
-#define COMP_CSR_EN_Msk                                                    (0x1UL)        /*!< COMP CSR: EN (Bitfield-Mask: 0x01) */
-#define COMP_CSR_EN                                                        COMP_CSR_EN_Msk
-
-
-/* ============================================================================================================================*/
-/*=====================                                        DAC                                        =====================*/
-/* ============================================================================================================================*/
-
-/* =====================================================    CR    =====================================================*/
-#define DAC_CR_VCMON_Pos                                                   (16UL)        /*!<DAC CR: VCMON (Bit 16) */
-#define DAC_CR_VCMON_Msk                                                   (0x10000UL)        /*!< DAC CR: VCMON (Bitfield-Mask: 0x01) */
-#define DAC_CR_VCMON                                                       DAC_CR_VCMON_Msk
-#define DAC_CR_VCMEN_Pos                                                   (15UL)        /*!<DAC CR: VCMEN (Bit 15) */
-#define DAC_CR_VCMEN_Msk                                                   (0x8000UL)        /*!< DAC CR: VCMEN (Bitfield-Mask: 0x01) */
-#define DAC_CR_VCMEN                                                       DAC_CR_VCMEN_Msk
-#define DAC_CR_CMPEN_Pos                                                   (14UL)        /*!<DAC CR: CMPEN (Bit 14) */
-#define DAC_CR_CMPEN_Msk                                                   (0x4000UL)        /*!< DAC CR: CMPEN (Bitfield-Mask: 0x01) */
-#define DAC_CR_CMPEN                                                       DAC_CR_CMPEN_Msk
-#define DAC_CR_DMAUDRIE_Pos                                                (13UL)        /*!<DAC CR: DMAUDRIE (Bit 13) */
-#define DAC_CR_DMAUDRIE_Msk                                                (0x2000UL)        /*!< DAC CR: DMAUDRIE (Bitfield-Mask: 0x01) */
-#define DAC_CR_DMAUDRIE                                                    DAC_CR_DMAUDRIE_Msk
-#define DAC_CR_DMAEN_Pos                                                   (12UL)        /*!<DAC CR: DMAEN (Bit 12) */
-#define DAC_CR_DMAEN_Msk                                                   (0x1000UL)        /*!< DAC CR: DMAEN (Bitfield-Mask: 0x01) */
-#define DAC_CR_DMAEN                                                       DAC_CR_DMAEN_Msk
-#define DAC_CR_MAMP_Pos                                                    (8UL)        /*!<DAC CR: MAMP (Bit 8) */
-#define DAC_CR_MAMP_Msk                                                    (0xf00UL)        /*!< DAC CR: MAMP (Bitfield-Mask: 0x0f) */
-#define DAC_CR_MAMP                                                        DAC_CR_MAMP_Msk
-#define DAC_CR_MAMP_0                                                      (0x1U << DAC_CR_MAMP_Pos)
-#define DAC_CR_MAMP_1                                                      (0x2U << DAC_CR_MAMP_Pos)
-#define DAC_CR_MAMP_2                                                      (0x4U << DAC_CR_MAMP_Pos)
-#define DAC_CR_MAMP_3                                                      (0x8U << DAC_CR_MAMP_Pos)
-#define DAC_CR_WAVE_Pos                                                    (6UL)        /*!<DAC CR: WAVE (Bit 6) */
-#define DAC_CR_WAVE_Msk                                                    (0xc0UL)        /*!< DAC CR: WAVE (Bitfield-Mask: 0x03) */
-#define DAC_CR_WAVE                                                        DAC_CR_WAVE_Msk
-#define DAC_CR_WAVE_0                                                      (0x1U << DAC_CR_WAVE_Pos)
-#define DAC_CR_WAVE_1                                                      (0x2U << DAC_CR_WAVE_Pos)
-#define DAC_CR_TSEL_Pos                                                    (3UL)        /*!<DAC CR: TSEL (Bit 3) */
-#define DAC_CR_TSEL_Msk                                                    (0x38UL)        /*!< DAC CR: TSEL (Bitfield-Mask: 0x07) */
-#define DAC_CR_TSEL                                                        DAC_CR_TSEL_Msk
-#define DAC_CR_TSEL_0                                                      (0x1U << DAC_CR_TSEL_Pos)
-#define DAC_CR_TSEL_1                                                      (0x2U << DAC_CR_TSEL_Pos)
-#define DAC_CR_TSEL_2                                                      (0x4U << DAC_CR_TSEL_Pos)
-#define DAC_CR_TEN_Pos                                                     (2UL)        /*!<DAC CR: TEN (Bit 2) */
-#define DAC_CR_TEN_Msk                                                     (0x4UL)        /*!< DAC CR: TEN (Bitfield-Mask: 0x01) */
-#define DAC_CR_TEN                                                         DAC_CR_TEN_Msk
-#define DAC_CR_BON_Pos                                                     (1UL)        /*!<DAC CR: BON (Bit 1) */
-#define DAC_CR_BON_Msk                                                     (0x2UL)        /*!< DAC CR: BON (Bitfield-Mask: 0x01) */
-#define DAC_CR_BON                                                         DAC_CR_BON_Msk
-#define DAC_CR_EN_Pos                                                      (0UL)        /*!<DAC CR: EN (Bit 0) */
-#define DAC_CR_EN_Msk                                                      (0x1UL)        /*!< DAC CR: EN (Bitfield-Mask: 0x01) */
-#define DAC_CR_EN                                                          DAC_CR_EN_Msk
-
-/* =====================================================    SWTRIGR    =====================================================*/
-#define DAC_SWTRIGR_SWTRIG_Pos                                             (0UL)        /*!<DAC SWTRIGR: SWTRIG (Bit 0) */
-#define DAC_SWTRIGR_SWTRIG_Msk                                             (0x1UL)        /*!< DAC SWTRIGR: SWTRIG (Bitfield-Mask: 0x01) */
-#define DAC_SWTRIGR_SWTRIG                                                 DAC_SWTRIGR_SWTRIG_Msk
-
-/* =====================================================    DHR    =====================================================*/
-#define DAC_DHR_DACDHR_Pos                                                 (0UL)        /*!<DAC DHR: DACDHR (Bit 0) */
-#define DAC_DHR_DACDHR_Msk                                                 (0x3fUL)        /*!< DAC DHR: DACDHR (Bitfield-Mask: 0x3f) */
-#define DAC_DHR_DACDHR                                                     DAC_DHR_DACDHR_Msk
-#define DAC_DHR_DACDHR_0                                                   (0x1U << DAC_DHR_DACDHR_Pos)
-#define DAC_DHR_DACDHR_1                                                   (0x2U << DAC_DHR_DACDHR_Pos)
-#define DAC_DHR_DACDHR_2                                                   (0x4U << DAC_DHR_DACDHR_Pos)
-#define DAC_DHR_DACDHR_3                                                   (0x8U << DAC_DHR_DACDHR_Pos)
-#define DAC_DHR_DACDHR_4                                                   (0x10U << DAC_DHR_DACDHR_Pos)
-#define DAC_DHR_DACDHR_5                                                   (0x20U << DAC_DHR_DACDHR_Pos)
-
-/* =====================================================    DOR    =====================================================*/
-#define DAC_DOR_DACDOR_Pos                                                 (0UL)        /*!<DAC DOR: DACDOR (Bit 0) */
-#define DAC_DOR_DACDOR_Msk                                                 (0x3fUL)        /*!< DAC DOR: DACDOR (Bitfield-Mask: 0x3f) */
-#define DAC_DOR_DACDOR                                                     DAC_DOR_DACDOR_Msk
-#define DAC_DOR_DACDOR_0                                                   (0x1U << DAC_DOR_DACDOR_Pos)
-#define DAC_DOR_DACDOR_1                                                   (0x2U << DAC_DOR_DACDOR_Pos)
-#define DAC_DOR_DACDOR_2                                                   (0x4U << DAC_DOR_DACDOR_Pos)
-#define DAC_DOR_DACDOR_3                                                   (0x8U << DAC_DOR_DACDOR_Pos)
-#define DAC_DOR_DACDOR_4                                                   (0x10U << DAC_DOR_DACDOR_Pos)
-#define DAC_DOR_DACDOR_5                                                   (0x20U << DAC_DOR_DACDOR_Pos)
-
-/* =====================================================    SR    =====================================================*/
-#define DAC_SR_DMAUDR_Pos                                                  (13UL)        /*!<DAC SR: DMAUDR (Bit 13) */
-#define DAC_SR_DMAUDR_Msk                                                  (0x2000UL)        /*!< DAC SR: DMAUDR (Bitfield-Mask: 0x01) */
-#define DAC_SR_DMAUDR                                                      DAC_SR_DMAUDR_Msk
-
-
-/* ============================================================================================================================*/
-/*=====================                                       LCSC                                       =====================*/
-/* ============================================================================================================================*/
-
-/* =====================================================    CR0    =====================================================*/
-#define LCSC_CR0_TICAP_Pos                                                 (24UL)        /*!<LCSC CR0: TICAP (Bit 24) */
-#define LCSC_CR0_TICAP_Msk                                                 (0x7000000UL)        /*!< LCSC CR0: TICAP (Bitfield-Mask: 0x07) */
-#define LCSC_CR0_TICAP                                                     LCSC_CR0_TICAP_Msk
-#define LCSC_CR0_TICAP_0                                                   (0x1U << LCSC_CR0_TICAP_Pos)
-#define LCSC_CR0_TICAP_1                                                   (0x2U << LCSC_CR0_TICAP_Pos)
-#define LCSC_CR0_TICAP_2                                                   (0x4U << LCSC_CR0_TICAP_Pos)
-#define LCSC_CR0_TCAP_Pos                                                  (16UL)        /*!<LCSC CR0: TCAP (Bit 16) */
-#define LCSC_CR0_TCAP_Msk                                                  (0x3f0000UL)        /*!< LCSC CR0: TCAP (Bitfield-Mask: 0x3f) */
-#define LCSC_CR0_TCAP                                                      LCSC_CR0_TCAP_Msk
-#define LCSC_CR0_TCAP_0                                                    (0x1U << LCSC_CR0_TCAP_Pos)
-#define LCSC_CR0_TCAP_1                                                    (0x2U << LCSC_CR0_TCAP_Pos)
-#define LCSC_CR0_TCAP_2                                                    (0x4U << LCSC_CR0_TCAP_Pos)
-#define LCSC_CR0_TCAP_3                                                    (0x8U << LCSC_CR0_TCAP_Pos)
-#define LCSC_CR0_TCAP_4                                                    (0x10U << LCSC_CR0_TCAP_Pos)
-#define LCSC_CR0_TCAP_5                                                    (0x20U << LCSC_CR0_TCAP_Pos)
-#define LCSC_CR0_TMEAS_Pos                                                 (0UL)        /*!<LCSC CR0: TMEAS (Bit 0) */
-#define LCSC_CR0_TMEAS_Msk                                                 (0x3fffUL)        /*!< LCSC CR0: TMEAS (Bitfield-Mask: 0x3fff) */
-#define LCSC_CR0_TMEAS                                                     LCSC_CR0_TMEAS_Msk
-#define LCSC_CR0_TMEAS_0                                                   (0x1U << LCSC_CR0_TMEAS_Pos)
-#define LCSC_CR0_TMEAS_1                                                   (0x2U << LCSC_CR0_TMEAS_Pos)
-#define LCSC_CR0_TMEAS_2                                                   (0x4U << LCSC_CR0_TMEAS_Pos)
-#define LCSC_CR0_TMEAS_3                                                   (0x8U << LCSC_CR0_TMEAS_Pos)
-#define LCSC_CR0_TMEAS_4                                                   (0x10U << LCSC_CR0_TMEAS_Pos)
-#define LCSC_CR0_TMEAS_5                                                   (0x20U << LCSC_CR0_TMEAS_Pos)
-#define LCSC_CR0_TMEAS_6                                                   (0x40U << LCSC_CR0_TMEAS_Pos)
-#define LCSC_CR0_TMEAS_7                                                   (0x80U << LCSC_CR0_TMEAS_Pos)
-#define LCSC_CR0_TMEAS_8                                                   (0x100U << LCSC_CR0_TMEAS_Pos)
-#define LCSC_CR0_TMEAS_9                                                   (0x200U << LCSC_CR0_TMEAS_Pos)
-#define LCSC_CR0_TMEAS_10                                                  (0x400U << LCSC_CR0_TMEAS_Pos)
-#define LCSC_CR0_TMEAS_11                                                  (0x800U << LCSC_CR0_TMEAS_Pos)
-#define LCSC_CR0_TMEAS_12                                                  (0x1000U << LCSC_CR0_TMEAS_Pos)
-#define LCSC_CR0_TMEAS_13                                                  (0x2000U << LCSC_CR0_TMEAS_Pos)
-
-/* =====================================================    CR1    =====================================================*/
-#define LCSC_CR1_TSTART_VCM_Pos                                            (20UL)
-#define LCSC_CR1_TSTART_VCM_Msk                                            (0x7ff00000UL)
-#define LCSC_CR1_TSTART_VCM                                                LCSC_CR1_TSTART_VCM_Msk
-#define LCSC_CR1_TREC_VCM_Pos                                              (10UL)        /*!<LCSC CR1: TREC_VCM (Bit 10) */
-#define LCSC_CR1_TREC_VCM_Msk                                              (0x7fc00UL)        /*!< LCSC CR1: TREC_VCM (Bitfield-Mask: 0x1ff) */
-#define LCSC_CR1_TREC_VCM                                                  LCSC_CR1_TREC_VCM_Msk
-#define LCSC_CR1_TREC_VCM_0                                                (0x1U << LCSC_CR1_TREC_VCM_Pos)
-#define LCSC_CR1_TREC_VCM_1                                                (0x2U << LCSC_CR1_TREC_VCM_Pos)
-#define LCSC_CR1_TREC_VCM_2                                                (0x4U << LCSC_CR1_TREC_VCM_Pos)
-#define LCSC_CR1_TREC_VCM_3                                                (0x8U << LCSC_CR1_TREC_VCM_Pos)
-#define LCSC_CR1_TREC_VCM_4                                                (0x10U << LCSC_CR1_TREC_VCM_Pos)
-#define LCSC_CR1_TREC_VCM_5                                                (0x20U << LCSC_CR1_TREC_VCM_Pos)
-#define LCSC_CR1_TREC_VCM_6                                                (0x40U << LCSC_CR1_TREC_VCM_Pos)
-#define LCSC_CR1_TREC_VCM_7                                                (0x80U << LCSC_CR1_TREC_VCM_Pos)
-#define LCSC_CR1_TREC_VCM_8                                                (0x100U << LCSC_CR1_TREC_VCM_Pos)
-#define LCSC_CR1_LCAB_DAMP_THRES_Pos                                       (0UL)        /*!<LCSC CR1: LCAB_DAMP_THRES (Bit 0) */
-#define LCSC_CR1_LCAB_DAMP_THRES_Msk                                       (0xffUL)        /*!< LCSC CR1: LCAB_DAMP_THRES (Bitfield-Mask: 0xff) */
-#define LCSC_CR1_LCAB_DAMP_THRES                                           LCSC_CR1_LCAB_DAMP_THRES_Msk
-#define LCSC_CR1_LCAB_DAMP_THRES_0                                         (0x1U << LCSC_CR1_LCAB_DAMP_THRES_Pos)
-#define LCSC_CR1_LCAB_DAMP_THRES_1                                         (0x2U << LCSC_CR1_LCAB_DAMP_THRES_Pos)
-#define LCSC_CR1_LCAB_DAMP_THRES_2                                         (0x4U << LCSC_CR1_LCAB_DAMP_THRES_Pos)
-#define LCSC_CR1_LCAB_DAMP_THRES_3                                         (0x8U << LCSC_CR1_LCAB_DAMP_THRES_Pos)
-#define LCSC_CR1_LCAB_DAMP_THRES_4                                         (0x10U << LCSC_CR1_LCAB_DAMP_THRES_Pos)
-#define LCSC_CR1_LCAB_DAMP_THRES_5                                         (0x20U << LCSC_CR1_LCAB_DAMP_THRES_Pos)
-#define LCSC_CR1_LCAB_DAMP_THRES_6                                         (0x40U << LCSC_CR1_LCAB_DAMP_THRES_Pos)
-#define LCSC_CR1_LCAB_DAMP_THRES_7                                         (0x80U << LCSC_CR1_LCAB_DAMP_THRES_Pos)
-
-/* =====================================================    CR2    =====================================================*/
-#define LCSC_CR2_LCT_DAMP_THRES_Pos                                        (8UL)        /*!<LCSC CR2: LCT_DAMP_THRES (Bit 8) */
-#define LCSC_CR2_LCT_DAMP_THRES_Msk                                        (0xff00UL)        /*!< LCSC CR2: LCT_DAMP_THRES (Bitfield-Mask: 0xff) */
-#define LCSC_CR2_LCT_DAMP_THRES                                            LCSC_CR2_LCT_DAMP_THRES_Msk
-#define LCSC_CR2_LCT_DAMP_THRES_0                                          (0x1U << LCSC_CR2_LCT_DAMP_THRES_Pos)
-#define LCSC_CR2_LCT_DAMP_THRES_1                                          (0x2U << LCSC_CR2_LCT_DAMP_THRES_Pos)
-#define LCSC_CR2_LCT_DAMP_THRES_2                                          (0x4U << LCSC_CR2_LCT_DAMP_THRES_Pos)
-#define LCSC_CR2_LCT_DAMP_THRES_3                                          (0x8U << LCSC_CR2_LCT_DAMP_THRES_Pos)
-#define LCSC_CR2_LCT_DAMP_THRES_4                                          (0x10U << LCSC_CR2_LCT_DAMP_THRES_Pos)
-#define LCSC_CR2_LCT_DAMP_THRES_5                                          (0x20U << LCSC_CR2_LCT_DAMP_THRES_Pos)
-#define LCSC_CR2_LCT_DAMP_THRES_6                                          (0x40U << LCSC_CR2_LCT_DAMP_THRES_Pos)
-#define LCSC_CR2_LCT_DAMP_THRES_7                                          (0x80U << LCSC_CR2_LCT_DAMP_THRES_Pos)
-#define LCSC_CR2_TAMP_PSC_Pos                                              (0UL)        /*!<LCSC CR2: TAMP_PSC (Bit 0) */
-#define LCSC_CR2_TAMP_PSC_Msk                                              (0xffUL)        /*!< LCSC CR2: TAMP_PSC (Bitfield-Mask: 0xff) */
-#define LCSC_CR2_TAMP_PSC                                                  LCSC_CR2_TAMP_PSC_Msk
-#define LCSC_CR2_TAMP_PSC_0                                                (0x1U << LCSC_CR2_TAMP_PSC_Pos)
-#define LCSC_CR2_TAMP_PSC_1                                                (0x2U << LCSC_CR2_TAMP_PSC_Pos)
-#define LCSC_CR2_TAMP_PSC_2                                                (0x4U << LCSC_CR2_TAMP_PSC_Pos)
-#define LCSC_CR2_TAMP_PSC_3                                                (0x8U << LCSC_CR2_TAMP_PSC_Pos)
-#define LCSC_CR2_TAMP_PSC_4                                                (0x10U << LCSC_CR2_TAMP_PSC_Pos)
-#define LCSC_CR2_TAMP_PSC_5                                                (0x20U << LCSC_CR2_TAMP_PSC_Pos)
-#define LCSC_CR2_TAMP_PSC_6                                                (0x40U << LCSC_CR2_TAMP_PSC_Pos)
-#define LCSC_CR2_TAMP_PSC_7                                                (0x80U << LCSC_CR2_TAMP_PSC_Pos)
-
-/* =====================================================    PULSE_CR    =====================================================*/
-#define LCSC_PULSE_CR_LCT_PULSE_WIDTH_Pos                                  (8UL)        /*!<LCSC PULSE_CR: LCT_PULSE_WIDTH (Bit 8) */
-#define LCSC_PULSE_CR_LCT_PULSE_WIDTH_Msk                                  (0xf00UL)        /*!< LCSC PULSE_CR: LCT_PULSE_WIDTH (Bitfield-Mask: 0x0f) */
-#define LCSC_PULSE_CR_LCT_PULSE_WIDTH                                      LCSC_PULSE_CR_LCT_PULSE_WIDTH_Msk
-#define LCSC_PULSE_CR_LCT_PULSE_WIDTH_0                                    (0x1U << LCSC_PULSE_CR_LCT_PULSE_WIDTH_Pos)
-#define LCSC_PULSE_CR_LCT_PULSE_WIDTH_1                                    (0x2U << LCSC_PULSE_CR_LCT_PULSE_WIDTH_Pos)
-#define LCSC_PULSE_CR_LCT_PULSE_WIDTH_2                                    (0x4U << LCSC_PULSE_CR_LCT_PULSE_WIDTH_Pos)
-#define LCSC_PULSE_CR_LCT_PULSE_WIDTH_3                                    (0x8U << LCSC_PULSE_CR_LCT_PULSE_WIDTH_Pos)
-#define LCSC_PULSE_CR_PULSETRIM_Pos                                        (4UL)/*!<LCSC PULSE_CR: PULSETRIM (Bit 4) */
-#define LCSC_PULSE_CR_PULSETRIM_Msk                                        (0xf0UL)/*!< LCSC PULSE_CR: PULSETRIM (Bitfield-Mask: 0xf0) */
-#define LCSC_PULSE_CR_PULSETRIM                                            LCSC_PULSE_CR_PULSETRIM_Msk
-#define LCSC_PULSE_CR_PULSETRIM_0                                          (0x1U << LCSC_PULSE_CR_PULSETRIM_Pos)
-#define LCSC_PULSE_CR_PULSETRIM_1                                          (0x2U << LCSC_PULSE_CR_PULSETRIM_Pos)
-#define LCSC_PULSE_CR_PULSETRIM_2                                          (0x4U << LCSC_PULSE_CR_PULSETRIM_Pos)
-#define LCSC_PULSE_CR_PULSETRIM_3                                          (0x8U << LCSC_PULSE_CR_PULSETRIM_Pos)
-#define LCSC_PULSE_CR_LCAB_PULSE_WIDTH_Pos                                 (0UL)        /*!<LCSC PULSE_CR: LCAB_PULSE_WIDTH (Bit 0) */
-#define LCSC_PULSE_CR_LCAB_PULSE_WIDTH_Msk                                 (0xfUL)        /*!< LCSC PULSE_CR: LCAB_PULSE_WIDTH (Bitfield-Mask: 0x0f) */
-#define LCSC_PULSE_CR_LCAB_PULSE_WIDTH                                     LCSC_PULSE_CR_LCAB_PULSE_WIDTH_Msk
-#define LCSC_PULSE_CR_LCAB_PULSE_WIDTH_0                                   (0x1U << LCSC_PULSE_CR_LCAB_PULSE_WIDTH_Pos)
-#define LCSC_PULSE_CR_LCAB_PULSE_WIDTH_1                                   (0x2U << LCSC_PULSE_CR_LCAB_PULSE_WIDTH_Pos)
-#define LCSC_PULSE_CR_LCAB_PULSE_WIDTH_2                                   (0x4U << LCSC_PULSE_CR_LCAB_PULSE_WIDTH_Pos)
-#define LCSC_PULSE_CR_LCAB_PULSE_WIDTH_3                                   (0x8U << LCSC_PULSE_CR_LCAB_PULSE_WIDTH_Pos)
-
-/* =====================================================    ENR    =====================================================*/
-#define LCSC_ENR_LCSC_EN_Pos                                               (31UL)        /*!<LCSC ENR: LCSC_EN (Bit 31) */
-#define LCSC_ENR_LCSC_EN_Msk                                               (0x80000000UL)        /*!< LCSC ENR: LCSC_EN (Bitfield-Mask: 0x01) */
-#define LCSC_ENR_LCSC_EN                                                   LCSC_ENR_LCSC_EN_Msk
-#define LCSC_ENR_CNT_OFB_WKP_IE_Pos                                        (3UL)        /*!<LCSC ENR: CNT_OFB_WKP_IE (Bit 3) */
-#define LCSC_ENR_CNT_OFB_WKP_IE_Msk                                        (0x8UL)        /*!< LCSC ENR: CNT_OFB_WKP_IE (Bitfield-Mask: 0x01) */
-#define LCSC_ENR_CNT_OFB_WKP_IE                                            LCSC_ENR_CNT_OFB_WKP_IE_Msk
-#define LCSC_ENR_TAMP_IE_Pos                                               (2UL)        /*!<LCSC ENR: TAMP_IE (Bit 2) */
-#define LCSC_ENR_TAMP_IE_Msk                                               (0x4UL)        /*!< LCSC ENR: TAMP_IE (Bitfield-Mask: 0x01) */
-#define LCSC_ENR_TAMP_IE                                                   LCSC_ENR_TAMP_IE_Msk
-#define LCSC_ENR_ACLKWISE_IE_Pos                                           (1UL)        /*!<LCSC ENR: ACLKWISE_IE (Bit 1) */
-#define LCSC_ENR_ACLKWISE_IE_Msk                                           (0x2UL)        /*!< LCSC ENR: ACLKWISE_IE (Bitfield-Mask: 0x01) */
-#define LCSC_ENR_ACLKWISE_IE                                               LCSC_ENR_ACLKWISE_IE_Msk
-#define LCSC_ENR_CLKWISE_IE_Pos                                            (0UL)        /*!<LCSC ENR: CLKWISE_IE (Bit 0) */
-#define LCSC_ENR_CLKWISE_IE_Msk                                            (0x1UL)        /*!< LCSC ENR: CLKWISE_IE (Bitfield-Mask: 0x01) */
-#define LCSC_ENR_CLKWISE_IE                                                LCSC_ENR_CLKWISE_IE_Msk
-
-/* =====================================================    WHEEL_SR    =====================================================*/
-#define LCSC_WHEEL_SR_ACLKWISE_Pos                                         (16UL)        /*!<LCSC WHEEL_SR: ACLKWISE (Bit 16) */
-#define LCSC_WHEEL_SR_ACLKWISE_Msk                                         (0xffff0000UL)        /*!< LCSC WHEEL_SR: ACLKWISE (Bitfield-Mask: 0xffff) */
-#define LCSC_WHEEL_SR_ACLKWISE                                             LCSC_WHEEL_SR_ACLKWISE_Msk
-#define LCSC_WHEEL_SR_ACLKWISE_0                                           (0x1U << LCSC_WHEEL_SR_ACLKWISE_Pos)
-#define LCSC_WHEEL_SR_ACLKWISE_1                                           (0x2U << LCSC_WHEEL_SR_ACLKWISE_Pos)
-#define LCSC_WHEEL_SR_ACLKWISE_2                                           (0x4U << LCSC_WHEEL_SR_ACLKWISE_Pos)
-#define LCSC_WHEEL_SR_ACLKWISE_3                                           (0x8U << LCSC_WHEEL_SR_ACLKWISE_Pos)
-#define LCSC_WHEEL_SR_ACLKWISE_4                                           (0x10U << LCSC_WHEEL_SR_ACLKWISE_Pos)
-#define LCSC_WHEEL_SR_ACLKWISE_5                                           (0x20U << LCSC_WHEEL_SR_ACLKWISE_Pos)
-#define LCSC_WHEEL_SR_ACLKWISE_6                                           (0x40U << LCSC_WHEEL_SR_ACLKWISE_Pos)
-#define LCSC_WHEEL_SR_ACLKWISE_7                                           (0x80U << LCSC_WHEEL_SR_ACLKWISE_Pos)
-#define LCSC_WHEEL_SR_ACLKWISE_8                                           (0x100U << LCSC_WHEEL_SR_ACLKWISE_Pos)
-#define LCSC_WHEEL_SR_ACLKWISE_9                                           (0x200U << LCSC_WHEEL_SR_ACLKWISE_Pos)
-#define LCSC_WHEEL_SR_ACLKWISE_10                                          (0x400U << LCSC_WHEEL_SR_ACLKWISE_Pos)
-#define LCSC_WHEEL_SR_ACLKWISE_11                                          (0x800U << LCSC_WHEEL_SR_ACLKWISE_Pos)
-#define LCSC_WHEEL_SR_ACLKWISE_12                                          (0x1000U << LCSC_WHEEL_SR_ACLKWISE_Pos)
-#define LCSC_WHEEL_SR_ACLKWISE_13                                          (0x2000U << LCSC_WHEEL_SR_ACLKWISE_Pos)
-#define LCSC_WHEEL_SR_ACLKWISE_14                                          (0x4000U << LCSC_WHEEL_SR_ACLKWISE_Pos)
-#define LCSC_WHEEL_SR_ACLKWISE_15                                          (0x8000U << LCSC_WHEEL_SR_ACLKWISE_Pos)
-#define LCSC_WHEEL_SR_CLKWISE_Pos                                          (0UL)        /*!<LCSC WHEEL_SR: CLKWISE (Bit 0) */
-#define LCSC_WHEEL_SR_CLKWISE_Msk                                          (0xffffUL)        /*!< LCSC WHEEL_SR: CLKWISE (Bitfield-Mask: 0xffff) */
-#define LCSC_WHEEL_SR_CLKWISE                                              LCSC_WHEEL_SR_CLKWISE_Msk
-#define LCSC_WHEEL_SR_CLKWISE_0                                            (0x1U << LCSC_WHEEL_SR_CLKWISE_Pos)
-#define LCSC_WHEEL_SR_CLKWISE_1                                            (0x2U << LCSC_WHEEL_SR_CLKWISE_Pos)
-#define LCSC_WHEEL_SR_CLKWISE_2                                            (0x4U << LCSC_WHEEL_SR_CLKWISE_Pos)
-#define LCSC_WHEEL_SR_CLKWISE_3                                            (0x8U << LCSC_WHEEL_SR_CLKWISE_Pos)
-#define LCSC_WHEEL_SR_CLKWISE_4                                            (0x10U << LCSC_WHEEL_SR_CLKWISE_Pos)
-#define LCSC_WHEEL_SR_CLKWISE_5                                            (0x20U << LCSC_WHEEL_SR_CLKWISE_Pos)
-#define LCSC_WHEEL_SR_CLKWISE_6                                            (0x40U << LCSC_WHEEL_SR_CLKWISE_Pos)
-#define LCSC_WHEEL_SR_CLKWISE_7                                            (0x80U << LCSC_WHEEL_SR_CLKWISE_Pos)
-#define LCSC_WHEEL_SR_CLKWISE_8                                            (0x100U << LCSC_WHEEL_SR_CLKWISE_Pos)
-#define LCSC_WHEEL_SR_CLKWISE_9                                            (0x200U << LCSC_WHEEL_SR_CLKWISE_Pos)
-#define LCSC_WHEEL_SR_CLKWISE_10                                           (0x400U << LCSC_WHEEL_SR_CLKWISE_Pos)
-#define LCSC_WHEEL_SR_CLKWISE_11                                           (0x800U << LCSC_WHEEL_SR_CLKWISE_Pos)
-#define LCSC_WHEEL_SR_CLKWISE_12                                           (0x1000U << LCSC_WHEEL_SR_CLKWISE_Pos)
-#define LCSC_WHEEL_SR_CLKWISE_13                                           (0x2000U << LCSC_WHEEL_SR_CLKWISE_Pos)
-#define LCSC_WHEEL_SR_CLKWISE_14                                           (0x4000U << LCSC_WHEEL_SR_CLKWISE_Pos)
-#define LCSC_WHEEL_SR_CLKWISE_15                                           (0x8000U << LCSC_WHEEL_SR_CLKWISE_Pos)
-
-/* =====================================================    CONFR    =====================================================*/
-#define LCSC_CONFR_ACLKWISE_THRES_Pos                                      (16UL)        /*!<LCSC CONFR: ACLKWISE_THRES (Bit 16) */
-#define LCSC_CONFR_ACLKWISE_THRES_Msk                                      (0xffff0000UL)        /*!< LCSC CONFR: ACLKWISE_THRES (Bitfield-Mask: 0xffff) */
-#define LCSC_CONFR_ACLKWISE_THRES                                          LCSC_CONFR_ACLKWISE_THRES_Msk
-#define LCSC_CONFR_ACLKWISE_THRES_0                                        (0x1U << LCSC_CONFR_ACLKWISE_THRES_Pos)
-#define LCSC_CONFR_ACLKWISE_THRES_1                                        (0x2U << LCSC_CONFR_ACLKWISE_THRES_Pos)
-#define LCSC_CONFR_ACLKWISE_THRES_2                                        (0x4U << LCSC_CONFR_ACLKWISE_THRES_Pos)
-#define LCSC_CONFR_ACLKWISE_THRES_3                                        (0x8U << LCSC_CONFR_ACLKWISE_THRES_Pos)
-#define LCSC_CONFR_ACLKWISE_THRES_4                                        (0x10U << LCSC_CONFR_ACLKWISE_THRES_Pos)
-#define LCSC_CONFR_ACLKWISE_THRES_5                                        (0x20U << LCSC_CONFR_ACLKWISE_THRES_Pos)
-#define LCSC_CONFR_ACLKWISE_THRES_6                                        (0x40U << LCSC_CONFR_ACLKWISE_THRES_Pos)
-#define LCSC_CONFR_ACLKWISE_THRES_7                                        (0x80U << LCSC_CONFR_ACLKWISE_THRES_Pos)
-#define LCSC_CONFR_ACLKWISE_THRES_8                                        (0x100U << LCSC_CONFR_ACLKWISE_THRES_Pos)
-#define LCSC_CONFR_ACLKWISE_THRES_9                                        (0x200U << LCSC_CONFR_ACLKWISE_THRES_Pos)
-#define LCSC_CONFR_ACLKWISE_THRES_10                                       (0x400U << LCSC_CONFR_ACLKWISE_THRES_Pos)
-#define LCSC_CONFR_ACLKWISE_THRES_11                                       (0x800U << LCSC_CONFR_ACLKWISE_THRES_Pos)
-#define LCSC_CONFR_ACLKWISE_THRES_12                                       (0x1000U << LCSC_CONFR_ACLKWISE_THRES_Pos)
-#define LCSC_CONFR_ACLKWISE_THRES_13                                       (0x2000U << LCSC_CONFR_ACLKWISE_THRES_Pos)
-#define LCSC_CONFR_ACLKWISE_THRES_14                                       (0x4000U << LCSC_CONFR_ACLKWISE_THRES_Pos)
-#define LCSC_CONFR_ACLKWISE_THRES_15                                       (0x8000U << LCSC_CONFR_ACLKWISE_THRES_Pos)
-#define LCSC_CONFR_CLKWISE_THRES_Pos                                       (0UL)        /*!<LCSC CONFR: CLKWISE_THRES (Bit 0) */
-#define LCSC_CONFR_CLKWISE_THRES_Msk                                       (0xffffUL)        /*!< LCSC CONFR: CLKWISE_THRES (Bitfield-Mask: 0xffff) */
-#define LCSC_CONFR_CLKWISE_THRES                                           LCSC_CONFR_CLKWISE_THRES_Msk
-#define LCSC_CONFR_CLKWISE_THRES_0                                         (0x1U << LCSC_CONFR_CLKWISE_THRES_Pos)
-#define LCSC_CONFR_CLKWISE_THRES_1                                         (0x2U << LCSC_CONFR_CLKWISE_THRES_Pos)
-#define LCSC_CONFR_CLKWISE_THRES_2                                         (0x4U << LCSC_CONFR_CLKWISE_THRES_Pos)
-#define LCSC_CONFR_CLKWISE_THRES_3                                         (0x8U << LCSC_CONFR_CLKWISE_THRES_Pos)
-#define LCSC_CONFR_CLKWISE_THRES_4                                         (0x10U << LCSC_CONFR_CLKWISE_THRES_Pos)
-#define LCSC_CONFR_CLKWISE_THRES_5                                         (0x20U << LCSC_CONFR_CLKWISE_THRES_Pos)
-#define LCSC_CONFR_CLKWISE_THRES_6                                         (0x40U << LCSC_CONFR_CLKWISE_THRES_Pos)
-#define LCSC_CONFR_CLKWISE_THRES_7                                         (0x80U << LCSC_CONFR_CLKWISE_THRES_Pos)
-#define LCSC_CONFR_CLKWISE_THRES_8                                         (0x100U << LCSC_CONFR_CLKWISE_THRES_Pos)
-#define LCSC_CONFR_CLKWISE_THRES_9                                         (0x200U << LCSC_CONFR_CLKWISE_THRES_Pos)
-#define LCSC_CONFR_CLKWISE_THRES_10                                        (0x400U << LCSC_CONFR_CLKWISE_THRES_Pos)
-#define LCSC_CONFR_CLKWISE_THRES_11                                        (0x800U << LCSC_CONFR_CLKWISE_THRES_Pos)
-#define LCSC_CONFR_CLKWISE_THRES_12                                        (0x1000U << LCSC_CONFR_CLKWISE_THRES_Pos)
-#define LCSC_CONFR_CLKWISE_THRES_13                                        (0x2000U << LCSC_CONFR_CLKWISE_THRES_Pos)
-#define LCSC_CONFR_CLKWISE_THRES_14                                        (0x4000U << LCSC_CONFR_CLKWISE_THRES_Pos)
-#define LCSC_CONFR_CLKWISE_THRES_15                                        (0x8000U << LCSC_CONFR_CLKWISE_THRES_Pos)
-
-/* =====================================================    COMP_CNT    =====================================================*/
-#define LCSC_COMP_CNT_CMP_LCT_CNT_Pos                                      (20UL)        /*!<LCSC COMP_CNT: CMP_LCT_CNT (Bit 20) */
-#define LCSC_COMP_CNT_CMP_LCT_CNT_Msk                                      (0xff00000UL)        /*!< LCSC COMP_CNT: CMP_LCT_CNT (Bitfield-Mask: 0xff) */
-#define LCSC_COMP_CNT_CMP_LCT_CNT                                          LCSC_COMP_CNT_CMP_LCT_CNT_Msk
-#define LCSC_COMP_CNT_CMP_LCT_CNT_0                                        (0x1U << LCSC_COMP_CNT_CMP_LCT_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCT_CNT_1                                        (0x2U << LCSC_COMP_CNT_CMP_LCT_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCT_CNT_2                                        (0x4U << LCSC_COMP_CNT_CMP_LCT_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCT_CNT_3                                        (0x8U << LCSC_COMP_CNT_CMP_LCT_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCT_CNT_4                                        (0x10U << LCSC_COMP_CNT_CMP_LCT_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCT_CNT_5                                        (0x20U << LCSC_COMP_CNT_CMP_LCT_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCT_CNT_6                                        (0x40U << LCSC_COMP_CNT_CMP_LCT_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCT_CNT_7                                        (0x80U << LCSC_COMP_CNT_CMP_LCT_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCB_CNT_Pos                                      (10UL)        /*!<LCSC COMP_CNT: CMP_LCB_CNT (Bit 10) */
-#define LCSC_COMP_CNT_CMP_LCB_CNT_Msk                                      (0x3fc00UL)        /*!< LCSC COMP_CNT: CMP_LCB_CNT (Bitfield-Mask: 0xff) */
-#define LCSC_COMP_CNT_CMP_LCB_CNT                                          LCSC_COMP_CNT_CMP_LCB_CNT_Msk
-#define LCSC_COMP_CNT_CMP_LCB_CNT_0                                        (0x1U << LCSC_COMP_CNT_CMP_LCB_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCB_CNT_1                                        (0x2U << LCSC_COMP_CNT_CMP_LCB_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCB_CNT_2                                        (0x4U << LCSC_COMP_CNT_CMP_LCB_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCB_CNT_3                                        (0x8U << LCSC_COMP_CNT_CMP_LCB_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCB_CNT_4                                        (0x10U << LCSC_COMP_CNT_CMP_LCB_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCB_CNT_5                                        (0x20U << LCSC_COMP_CNT_CMP_LCB_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCB_CNT_6                                        (0x40U << LCSC_COMP_CNT_CMP_LCB_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCB_CNT_7                                        (0x80U << LCSC_COMP_CNT_CMP_LCB_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCA_CNT_Pos                                      (0UL)        /*!<LCSC COMP_CNT: CMP_LCA_CNT (Bit 0) */
-#define LCSC_COMP_CNT_CMP_LCA_CNT_Msk                                      (0xffUL)        /*!< LCSC COMP_CNT: CMP_LCA_CNT (Bitfield-Mask: 0xff) */
-#define LCSC_COMP_CNT_CMP_LCA_CNT                                          LCSC_COMP_CNT_CMP_LCA_CNT_Msk
-#define LCSC_COMP_CNT_CMP_LCA_CNT_0                                        (0x1U << LCSC_COMP_CNT_CMP_LCA_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCA_CNT_1                                        (0x2U << LCSC_COMP_CNT_CMP_LCA_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCA_CNT_2                                        (0x4U << LCSC_COMP_CNT_CMP_LCA_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCA_CNT_3                                        (0x8U << LCSC_COMP_CNT_CMP_LCA_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCA_CNT_4                                        (0x10U << LCSC_COMP_CNT_CMP_LCA_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCA_CNT_5                                        (0x20U << LCSC_COMP_CNT_CMP_LCA_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCA_CNT_6                                        (0x40U << LCSC_COMP_CNT_CMP_LCA_CNT_Pos)
-#define LCSC_COMP_CNT_CMP_LCA_CNT_7                                        (0x80U << LCSC_COMP_CNT_CMP_LCA_CNT_Pos)
-
-/* =====================================================    SR    =====================================================*/
-#define LCSC_SR_LAST_DIR_Pos                                               (4UL)        /*!<LCSC SR: LAST_DIR (Bit 4) */
-#define LCSC_SR_LAST_DIR_Msk                                               (0x30UL)        /*!< LCSC SR: LAST_DIR (Bitfield-Mask: 0x03) */
-#define LCSC_SR_LAST_DIR                                                   LCSC_SR_LAST_DIR_Msk
-#define LCSC_SR_LAST_DIR_0                                                 (0x1U << LCSC_SR_LAST_DIR_Pos)
-#define LCSC_SR_LAST_DIR_1                                                 (0x2U << LCSC_SR_LAST_DIR_Pos)
-#define LCSC_SR_ACLKWISE_STATE_Pos                                         (2UL)        /*!<LCSC SR: ACLKWISE_STATE (Bit 2) */
-#define LCSC_SR_ACLKWISE_STATE_Msk                                         (0xcUL)        /*!< LCSC SR: ACLKWISE_STATE (Bitfield-Mask: 0x03) */
-#define LCSC_SR_ACLKWISE_STATE                                             LCSC_SR_ACLKWISE_STATE_Msk
-#define LCSC_SR_ACLKWISE_STATE_0                                           (0x1U << LCSC_SR_ACLKWISE_STATE_Pos)
-#define LCSC_SR_ACLKWISE_STATE_1                                           (0x2U << LCSC_SR_ACLKWISE_STATE_Pos)
-#define LCSC_SR_CLKWISE_STATE_Pos                                          (0UL)        /*!<LCSC SR: CLKWISE_STATE (Bit 0) */
-#define LCSC_SR_CLKWISE_STATE_Msk                                          (0x3UL)        /*!< LCSC SR: CLKWISE_STATE (Bitfield-Mask: 0x03) */
-#define LCSC_SR_CLKWISE_STATE                                              LCSC_SR_CLKWISE_STATE_Msk
-#define LCSC_SR_CLKWISE_STATE_0                                            (0x1U << LCSC_SR_CLKWISE_STATE_Pos)
-#define LCSC_SR_CLKWISE_STATE_1                                            (0x2U << LCSC_SR_CLKWISE_STATE_Pos)
-
-/* =====================================================    STAT    =====================================================*/
-#define LCSC_STAT_MAX_LCAB_CNT_BOUND_Pos                                   (24UL)        /*!<LCSC STAT: MAX_LCAB_CNT_BOUND (Bit 24) */
-#define LCSC_STAT_MAX_LCAB_CNT_BOUND_Msk                                   (0xff000000UL)        /*!< LCSC STAT: MAX_LCAB_CNT_BOUND (Bitfield-Mask: 0xff) */
-#define LCSC_STAT_MAX_LCAB_CNT_BOUND                                       LCSC_STAT_MAX_LCAB_CNT_BOUND_Msk
-#define LCSC_STAT_MAX_LCAB_CNT_BOUND_0                                     (0x1U << LCSC_STAT_MAX_LCAB_CNT_BOUND_Pos)
-#define LCSC_STAT_MAX_LCAB_CNT_BOUND_1                                     (0x2U << LCSC_STAT_MAX_LCAB_CNT_BOUND_Pos)
-#define LCSC_STAT_MAX_LCAB_CNT_BOUND_2                                     (0x4U << LCSC_STAT_MAX_LCAB_CNT_BOUND_Pos)
-#define LCSC_STAT_MAX_LCAB_CNT_BOUND_3                                     (0x8U << LCSC_STAT_MAX_LCAB_CNT_BOUND_Pos)
-#define LCSC_STAT_MAX_LCAB_CNT_BOUND_4                                     (0x10U << LCSC_STAT_MAX_LCAB_CNT_BOUND_Pos)
-#define LCSC_STAT_MAX_LCAB_CNT_BOUND_5                                     (0x20U << LCSC_STAT_MAX_LCAB_CNT_BOUND_Pos)
-#define LCSC_STAT_MAX_LCAB_CNT_BOUND_6                                     (0x40U << LCSC_STAT_MAX_LCAB_CNT_BOUND_Pos)
-#define LCSC_STAT_MAX_LCAB_CNT_BOUND_7                                     (0x80U << LCSC_STAT_MAX_LCAB_CNT_BOUND_Pos)
-#define LCSC_STAT_MIN_LCAB_CNT_BOUND_Pos                                   (16UL)        /*!<LCSC STAT: MIN_LCAB_CNT_BOUND (Bit 16) */
-#define LCSC_STAT_MIN_LCAB_CNT_BOUND_Msk                                   (0xff0000UL)        /*!< LCSC STAT: MIN_LCAB_CNT_BOUND (Bitfield-Mask: 0xff) */
-#define LCSC_STAT_MIN_LCAB_CNT_BOUND                                       LCSC_STAT_MIN_LCAB_CNT_BOUND_Msk
-#define LCSC_STAT_MIN_LCAB_CNT_BOUND_0                                     (0x1U << LCSC_STAT_MIN_LCAB_CNT_BOUND_Pos)
-#define LCSC_STAT_MIN_LCAB_CNT_BOUND_1                                     (0x2U << LCSC_STAT_MIN_LCAB_CNT_BOUND_Pos)
-#define LCSC_STAT_MIN_LCAB_CNT_BOUND_2                                     (0x4U << LCSC_STAT_MIN_LCAB_CNT_BOUND_Pos)
-#define LCSC_STAT_MIN_LCAB_CNT_BOUND_3                                     (0x8U << LCSC_STAT_MIN_LCAB_CNT_BOUND_Pos)
-#define LCSC_STAT_MIN_LCAB_CNT_BOUND_4                                     (0x10U << LCSC_STAT_MIN_LCAB_CNT_BOUND_Pos)
-#define LCSC_STAT_MIN_LCAB_CNT_BOUND_5                                     (0x20U << LCSC_STAT_MIN_LCAB_CNT_BOUND_Pos)
-#define LCSC_STAT_MIN_LCAB_CNT_BOUND_6                                     (0x40U << LCSC_STAT_MIN_LCAB_CNT_BOUND_Pos)
-#define LCSC_STAT_MIN_LCAB_CNT_BOUND_7                                     (0x80U << LCSC_STAT_MIN_LCAB_CNT_BOUND_Pos)
-#define LCSC_STAT_MAX_LCAB_CNT_Pos                                         (8UL)        /*!<LCSC STAT: MAX_LCAB_CNT (Bit 8) */
-#define LCSC_STAT_MAX_LCAB_CNT_Msk                                         (0xff00UL)        /*!< LCSC STAT: MAX_LCAB_CNT (Bitfield-Mask: 0xff) */
-#define LCSC_STAT_MAX_LCAB_CNT                                             LCSC_STAT_MAX_LCAB_CNT_Msk
-#define LCSC_STAT_MAX_LCAB_CNT_0                                           (0x1U << LCSC_STAT_MAX_LCAB_CNT_Pos)
-#define LCSC_STAT_MAX_LCAB_CNT_1                                           (0x2U << LCSC_STAT_MAX_LCAB_CNT_Pos)
-#define LCSC_STAT_MAX_LCAB_CNT_2                                           (0x4U << LCSC_STAT_MAX_LCAB_CNT_Pos)
-#define LCSC_STAT_MAX_LCAB_CNT_3                                           (0x8U << LCSC_STAT_MAX_LCAB_CNT_Pos)
-#define LCSC_STAT_MAX_LCAB_CNT_4                                           (0x10U << LCSC_STAT_MAX_LCAB_CNT_Pos)
-#define LCSC_STAT_MAX_LCAB_CNT_5                                           (0x20U << LCSC_STAT_MAX_LCAB_CNT_Pos)
-#define LCSC_STAT_MAX_LCAB_CNT_6                                           (0x40U << LCSC_STAT_MAX_LCAB_CNT_Pos)
-#define LCSC_STAT_MAX_LCAB_CNT_7                                           (0x80U << LCSC_STAT_MAX_LCAB_CNT_Pos)
-#define LCSC_STAT_MIN_LCAB_CNT_Pos                                         (0UL)        /*!<LCSC STAT: MIN_LCAB_CNT (Bit 0) */
-#define LCSC_STAT_MIN_LCAB_CNT_Msk                                         (0xffUL)        /*!< LCSC STAT: MIN_LCAB_CNT (Bitfield-Mask: 0xff) */
-#define LCSC_STAT_MIN_LCAB_CNT                                             LCSC_STAT_MIN_LCAB_CNT_Msk
-#define LCSC_STAT_MIN_LCAB_CNT_0                                           (0x1U << LCSC_STAT_MIN_LCAB_CNT_Pos)
-#define LCSC_STAT_MIN_LCAB_CNT_1                                           (0x2U << LCSC_STAT_MIN_LCAB_CNT_Pos)
-#define LCSC_STAT_MIN_LCAB_CNT_2                                           (0x4U << LCSC_STAT_MIN_LCAB_CNT_Pos)
-#define LCSC_STAT_MIN_LCAB_CNT_3                                           (0x8U << LCSC_STAT_MIN_LCAB_CNT_Pos)
-#define LCSC_STAT_MIN_LCAB_CNT_4                                           (0x10U << LCSC_STAT_MIN_LCAB_CNT_Pos)
-#define LCSC_STAT_MIN_LCAB_CNT_5                                           (0x20U << LCSC_STAT_MIN_LCAB_CNT_Pos)
-#define LCSC_STAT_MIN_LCAB_CNT_6                                           (0x40U << LCSC_STAT_MIN_LCAB_CNT_Pos)
-#define LCSC_STAT_MIN_LCAB_CNT_7                                           (0x80U << LCSC_STAT_MIN_LCAB_CNT_Pos)
-
-/* =====================================================    ISR    =====================================================*/
-#define LCSC_ISR_CNT_OFB_F_Pos                                             (3UL)        /*!<LCSC ISR: CNT_OFB_F (Bit 3) */
-#define LCSC_ISR_CNT_OFB_F_Msk                                             (0x8UL)        /*!< LCSC ISR: CNT_OFB_F (Bitfield-Mask: 0x01) */
-#define LCSC_ISR_CNT_OFB_F                                                 LCSC_ISR_CNT_OFB_F_Msk
-#define LCSC_ISR_TAMP_F_Pos                                                (2UL)        /*!<LCSC ISR: TAMP_F (Bit 2) */
-#define LCSC_ISR_TAMP_F_Msk                                                (0x4UL)        /*!< LCSC ISR: TAMP_F (Bitfield-Mask: 0x01) */
-#define LCSC_ISR_TAMP_F                                                    LCSC_ISR_TAMP_F_Msk
-#define LCSC_ISR_ACLKWISE_F_Pos                                            (1UL)        /*!<LCSC ISR: ACLKWISE_F (Bit 1) */
-#define LCSC_ISR_ACLKWISE_F_Msk                                            (0x2UL)        /*!< LCSC ISR: ACLKWISE_F (Bitfield-Mask: 0x01) */
-#define LCSC_ISR_ACLKWISE_F                                                LCSC_ISR_ACLKWISE_F_Msk
-#define LCSC_ISR_CLKWISE_F_Pos                                             (0UL)        /*!<LCSC ISR: CLKWISE_F (Bit 0) */
-#define LCSC_ISR_CLKWISE_F_Msk                                             (0x1UL)        /*!< LCSC ISR: CLKWISE_F (Bitfield-Mask: 0x01) */
-#define LCSC_ISR_CLKWISE_F                                                 LCSC_ISR_CLKWISE_F_Msk
 
 
 /* ============================================================================================================================*/
@@ -4911,7 +4042,6 @@ typedef struct{ /*!< LPAWUR Structure  */
 /* ============================================================================================================================*/
 /*=====================                                        SPI                                        =====================*/
 /* ============================================================================================================================*/
-#define SPI_I2S_SUPPORT                       /*!< I2S support */
 
 /* =====================================================    CR1    =====================================================*/
 #define SPI_CR1_BIDIMODE_Pos                                               (15UL)        /*!<SPI CR1: BIDIMODE (Bit 15) */
@@ -5125,59 +4255,6 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define SPI_TXCRCR_TXCRC_14                                                (0x4000U << SPI_TXCRCR_TXCRC_Pos)
 #define SPI_TXCRCR_TXCRC_15                                                (0x8000U << SPI_TXCRCR_TXCRC_Pos)
 
-/* =====================================================    I2SCFGR    =====================================================*/
-#define SPI_I2SCFGR_ASTRTEN_Pos                                            (12UL)        /*!<SPI I2SCFGR: ASTRTEN (Bit 12) */
-#define SPI_I2SCFGR_ASTRTEN_Msk                                            (0x1000UL)        /*!< SPI I2SCFGR: ASTRTEN (Bitfield-Mask: 0x01) */
-#define SPI_I2SCFGR_ASTRTEN                                                SPI_I2SCFGR_ASTRTEN_Msk
-#define SPI_I2SCFGR_I2SMOD_Pos                                             (11UL)        /*!<SPI I2SCFGR: I2SMOD (Bit 11) */
-#define SPI_I2SCFGR_I2SMOD_Msk                                             (0x800UL)        /*!< SPI I2SCFGR: I2SMOD (Bitfield-Mask: 0x01) */
-#define SPI_I2SCFGR_I2SMOD                                                 SPI_I2SCFGR_I2SMOD_Msk
-#define SPI_I2SCFGR_I2SE_Pos                                               (10UL)        /*!<SPI I2SCFGR: I2SE (Bit 10) */
-#define SPI_I2SCFGR_I2SE_Msk                                               (0x400UL)        /*!< SPI I2SCFGR: I2SE (Bitfield-Mask: 0x01) */
-#define SPI_I2SCFGR_I2SE                                                   SPI_I2SCFGR_I2SE_Msk
-#define SPI_I2SCFGR_I2SCFG_Pos                                             (8UL)        /*!<SPI I2SCFGR: I2SCFG (Bit 8) */
-#define SPI_I2SCFGR_I2SCFG_Msk                                             (0x300UL)        /*!< SPI I2SCFGR: I2SCFG (Bitfield-Mask: 0x03) */
-#define SPI_I2SCFGR_I2SCFG                                                 SPI_I2SCFGR_I2SCFG_Msk
-#define SPI_I2SCFGR_I2SCFG_0                                               (0x1U << SPI_I2SCFGR_I2SCFG_Pos)
-#define SPI_I2SCFGR_I2SCFG_1                                               (0x2U << SPI_I2SCFGR_I2SCFG_Pos)
-#define SPI_I2SCFGR_PCMSYNC_Pos                                            (7UL)        /*!<SPI I2SCFGR: PCMSYNC (Bit 7) */
-#define SPI_I2SCFGR_PCMSYNC_Msk                                            (0x80UL)        /*!< SPI I2SCFGR: PCMSYNC (Bitfield-Mask: 0x01) */
-#define SPI_I2SCFGR_PCMSYNC                                                SPI_I2SCFGR_PCMSYNC_Msk
-#define SPI_I2SCFGR_I2SSTD_Pos                                             (4UL)        /*!<SPI I2SCFGR: I2SSTD (Bit 4) */
-#define SPI_I2SCFGR_I2SSTD_Msk                                             (0x30UL)        /*!< SPI I2SCFGR: I2SSTD (Bitfield-Mask: 0x03) */
-#define SPI_I2SCFGR_I2SSTD                                                 SPI_I2SCFGR_I2SSTD_Msk
-#define SPI_I2SCFGR_I2SSTD_0                                               (0x1U << SPI_I2SCFGR_I2SSTD_Pos)
-#define SPI_I2SCFGR_I2SSTD_1                                               (0x2U << SPI_I2SCFGR_I2SSTD_Pos)
-#define SPI_I2SCFGR_CKPOL_Pos                                              (3UL)        /*!<SPI I2SCFGR: CKPOL (Bit 3) */
-#define SPI_I2SCFGR_CKPOL_Msk                                              (0x8UL)        /*!< SPI I2SCFGR: CKPOL (Bitfield-Mask: 0x01) */
-#define SPI_I2SCFGR_CKPOL                                                  SPI_I2SCFGR_CKPOL_Msk
-#define SPI_I2SCFGR_DATLEN_Pos                                             (1UL)        /*!<SPI I2SCFGR: DATLEN (Bit 1) */
-#define SPI_I2SCFGR_DATLEN_Msk                                             (0x6UL)        /*!< SPI I2SCFGR: DATLEN (Bitfield-Mask: 0x03) */
-#define SPI_I2SCFGR_DATLEN                                                 SPI_I2SCFGR_DATLEN_Msk
-#define SPI_I2SCFGR_DATLEN_0                                               (0x1U << SPI_I2SCFGR_DATLEN_Pos)
-#define SPI_I2SCFGR_DATLEN_1                                               (0x2U << SPI_I2SCFGR_DATLEN_Pos)
-#define SPI_I2SCFGR_CHLEN_Pos                                              (0UL)        /*!<SPI I2SCFGR: CHLEN (Bit 0) */
-#define SPI_I2SCFGR_CHLEN_Msk                                              (0x1UL)        /*!< SPI I2SCFGR: CHLEN (Bitfield-Mask: 0x01) */
-#define SPI_I2SCFGR_CHLEN                                                  SPI_I2SCFGR_CHLEN_Msk
-
-/* =====================================================    I2SPR    =====================================================*/
-#define SPI_I2SPR_MCKOE_Pos                                                (9UL)        /*!<SPI I2SPR: MCKOE (Bit 9) */
-#define SPI_I2SPR_MCKOE_Msk                                                (0x200UL)        /*!< SPI I2SPR: MCKOE (Bitfield-Mask: 0x01) */
-#define SPI_I2SPR_MCKOE                                                    SPI_I2SPR_MCKOE_Msk
-#define SPI_I2SPR_ODD_Pos                                                  (8UL)        /*!<SPI I2SPR: ODD (Bit 8) */
-#define SPI_I2SPR_ODD_Msk                                                  (0x100UL)        /*!< SPI I2SPR: ODD (Bitfield-Mask: 0x01) */
-#define SPI_I2SPR_ODD                                                      SPI_I2SPR_ODD_Msk
-#define SPI_I2SPR_I2SDIV_Pos                                               (0UL)        /*!<SPI I2SPR: I2SDIV (Bit 0) */
-#define SPI_I2SPR_I2SDIV_Msk                                               (0xffUL)        /*!< SPI I2SPR: I2SDIV (Bitfield-Mask: 0xff) */
-#define SPI_I2SPR_I2SDIV                                                   SPI_I2SPR_I2SDIV_Msk
-#define SPI_I2SPR_I2SDIV_0                                                 (0x1U << SPI_I2SPR_I2SDIV_Pos)
-#define SPI_I2SPR_I2SDIV_1                                                 (0x2U << SPI_I2SPR_I2SDIV_Pos)
-#define SPI_I2SPR_I2SDIV_2                                                 (0x4U << SPI_I2SPR_I2SDIV_Pos)
-#define SPI_I2SPR_I2SDIV_3                                                 (0x8U << SPI_I2SPR_I2SDIV_Pos)
-#define SPI_I2SPR_I2SDIV_4                                                 (0x10U << SPI_I2SPR_I2SDIV_Pos)
-#define SPI_I2SPR_I2SDIV_5                                                 (0x20U << SPI_I2SPR_I2SDIV_Pos)
-#define SPI_I2SPR_I2SDIV_6                                                 (0x40U << SPI_I2SPR_I2SDIV_Pos)
-#define SPI_I2SPR_I2SDIV_7                                                 (0x80U << SPI_I2SPR_I2SDIV_Pos)
 
 
 /* ============================================================================================================================*/
@@ -7305,12 +6382,6 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_KRMR_KRM_EN                                                    RCC_KRMR_KRM_EN_Msk
 
 /* =====================================================    CIER    =====================================================*/
-#define RCC_CIER_LCSCRSTIE_Pos                                             (13UL)        /*!<RCC CIER: LCSCRSTIE (Bit 13) */
-#define RCC_CIER_LCSCRSTIE_Msk                                             (0x2000UL)        /*!< RCC CIER: LCSCRSTIE (Bitfield-Mask: 0x01) */
-#define RCC_CIER_LCSCRSTIE                                                 RCC_CIER_LCSCRSTIE_Msk
-#define RCC_CIER_LCDRSTIE_Pos                                              (10UL)        /*!<RCC CIER: LCDRSTIE (Bit 10) */
-#define RCC_CIER_LCDRSTIE_Msk                                              (0x400UL)        /*!< RCC CIER: LCDRSTIE (Bitfield-Mask: 0x01) */
-#define RCC_CIER_LCDRSTIE                                                  RCC_CIER_LCDRSTIE_Msk
 #define RCC_CIER_LPURSTIE_Pos                                              (9UL)        /*!<RCC CIER: LPURSTIE (Bit 9) */
 #define RCC_CIER_LPURSTIE_Msk                                              (0x200UL)        /*!< RCC CIER: LPURSTIE (Bitfield-Mask: 0x01) */
 #define RCC_CIER_LPURSTIE                                                  RCC_CIER_LPURSTIE_Msk
@@ -7340,12 +6411,6 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_CIER_LSIRDYIE                                                  RCC_CIER_LSIRDYIE_Msk
 
 /* =====================================================    CIFR    =====================================================*/
-#define RCC_CIFR_LCSCRSTF_Pos                                              (13UL)        /*!<RCC CIFR: LCSCRSTF (Bit 13) */
-#define RCC_CIFR_LCSCRSTF_Msk                                              (0x2000UL)        /*!< RCC CIFR: LCSCRSTF (Bitfield-Mask: 0x01) */
-#define RCC_CIFR_LCSCRSTF                                                  RCC_CIFR_LCSCRSTF_Msk
-#define RCC_CIFR_LCDRSTF_Pos                                               (10UL)        /*!<RCC CIFR: LCDRSTF (Bit 10) */
-#define RCC_CIFR_LCDRSTF_Msk                                               (0x400UL)        /*!< RCC CIFR: LCDRSTF (Bitfield-Mask: 0x01) */
-#define RCC_CIFR_LCDRSTF                                                   RCC_CIFR_LCDRSTF_Msk
 #define RCC_CIFR_LPURSTF_Pos                                               (9UL)        /*!<RCC CIFR: LPURSTF (Bit 9) */
 #define RCC_CIFR_LPURSTF_Msk                                               (0x200UL)        /*!< RCC CIFR: LPURSTF (Bitfield-Mask: 0x01) */
 #define RCC_CIFR_LPURSTF                                                   RCC_CIFR_LPURSTF_Msk
@@ -7423,21 +6488,9 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB0RSTR_WDGRST_Pos                                            (14UL)        /*!<RCC APB0RSTR: WDGRST (Bit 14) */
 #define RCC_APB0RSTR_WDGRST_Msk                                            (0x4000UL)        /*!< RCC APB0RSTR: WDGRST (Bitfield-Mask: 0x01) */
 #define RCC_APB0RSTR_WDGRST                                                RCC_APB0RSTR_WDGRST_Msk
-#define RCC_APB0RSTR_LCSCRST_Pos                                           (13UL)        /*!<RCC APB0RSTR: LCSCRST (Bit 13) */
-#define RCC_APB0RSTR_LCSCRST_Msk                                           (0x2000UL)        /*!< RCC APB0RSTR: LCSCRST (Bitfield-Mask: 0x01) */
-#define RCC_APB0RSTR_LCSCRST                                               RCC_APB0RSTR_LCSCRST_Msk
 #define RCC_APB0RSTR_RTCRST_Pos                                            (12UL)        /*!<RCC APB0RSTR: RTCRST (Bit 12) */
 #define RCC_APB0RSTR_RTCRST_Msk                                            (0x1000UL)        /*!< RCC APB0RSTR: RTCRST (Bitfield-Mask: 0x01) */
 #define RCC_APB0RSTR_RTCRST                                                RCC_APB0RSTR_RTCRST_Msk
-#define RCC_APB0RSTR_DACRST_Pos                                            (11UL)        /*!<RCC APB0RSTR: DACRST (Bit 11) */
-#define RCC_APB0RSTR_DACRST_Msk                                            (0x800UL)        /*!< RCC APB0RSTR: DACRST (Bitfield-Mask: 0x01) */
-#define RCC_APB0RSTR_DACRST                                                RCC_APB0RSTR_DACRST_Msk
-#define RCC_APB0RSTR_COMPRST_Pos                                           (10UL)        /*!<RCC APB0RSTR: COMPRST (Bit 10) */
-#define RCC_APB0RSTR_COMPRST_Msk                                           (0x400UL)        /*!< RCC APB0RSTR: COMPRST (Bitfield-Mask: 0x01) */
-#define RCC_APB0RSTR_COMPRST                                               RCC_APB0RSTR_COMPRST_Msk
-#define RCC_APB0RSTR_LCDCRST_Pos                                           (9UL)        /*!<RCC APB0RSTR: LCDCRST (Bit 9) */
-#define RCC_APB0RSTR_LCDCRST_Msk                                           (0x200UL)        /*!< RCC APB0RSTR: LCDCRST (Bitfield-Mask: 0x01) */
-#define RCC_APB0RSTR_LCDCRST                                               RCC_APB0RSTR_LCDCRST_Msk
 #define RCC_APB0RSTR_SYSCFGRST_Pos                                         (8UL)        /*!<RCC APB0RSTR: SYSCFGRST (Bit 8) */
 #define RCC_APB0RSTR_SYSCFGRST_Msk                                         (0x100UL)        /*!< RCC APB0RSTR: SYSCFGRST (Bitfield-Mask: 0x01) */
 #define RCC_APB0RSTR_SYSCFGRST                                             RCC_APB0RSTR_SYSCFGRST_Msk
@@ -7449,9 +6502,6 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB0RSTR_TIM2RST                                               RCC_APB0RSTR_TIM2RST_Msk
 
 /* =====================================================    APB1RSTR    =====================================================*/
-#define RCC_APB1RSTR_I2C2RST_Pos                                           (23UL)        /*!<RCC APB1RSTR: I2C2RST (Bit 23) */
-#define RCC_APB1RSTR_I2C2RST_Msk                                           (0x800000UL)        /*!< RCC APB1RSTR: I2C2RST (Bitfield-Mask: 0x01) */
-#define RCC_APB1RSTR_I2C2RST                                               RCC_APB1RSTR_I2C2RST_Msk
 #define RCC_APB1RSTR_I2C1RST_Pos                                           (21UL)        /*!<RCC APB1RSTR: I2C1RST (Bit 21) */
 #define RCC_APB1RSTR_I2C1RST_Msk                                           (0x200000UL)        /*!< RCC APB1RSTR: I2C1RST (Bitfield-Mask: 0x01) */
 #define RCC_APB1RSTR_I2C1RST                                               RCC_APB1RSTR_I2C1RST_Msk
@@ -7467,14 +6517,8 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB1RSTR_ADCRST_Pos                                            (4UL)        /*!<RCC APB1RSTR: ADCRST (Bit 4) */
 #define RCC_APB1RSTR_ADCRST_Msk                                            (0x10UL)        /*!< RCC APB1RSTR: ADCRST (Bitfield-Mask: 0x01) */
 #define RCC_APB1RSTR_ADCRST                                                RCC_APB1RSTR_ADCRST_Msk
-#define RCC_APB1RSTR_SPI1RST_Pos                                           (0UL)        /*!<RCC APB1RSTR: SPI1RST (Bit 0) */
-#define RCC_APB1RSTR_SPI1RST_Msk                                           (0x1UL)        /*!< RCC APB1RSTR: SPI1RST (Bitfield-Mask: 0x01) */
-#define RCC_APB1RSTR_SPI1RST                                               RCC_APB1RSTR_SPI1RST_Msk
 
 /* =====================================================    APB2RSTR    =====================================================*/
-#define RCC_APB2RSTR_LPAWURRST_Pos                                         (3UL)        /*!<RCC APB2RSTR: LPAWURRST (Bit 3) */
-#define RCC_APB2RSTR_LPAWURRST_Msk                                         (0x8UL)        /*!< RCC APB2RSTR: LPAWURRST (Bitfield-Mask: 0x01) */
-#define RCC_APB2RSTR_LPAWURRST                                             RCC_APB2RSTR_LPAWURRST_Msk
 #define RCC_APB2RSTR_MRSUBGRST_Pos                                         (0UL)        /*!<RCC APB2RSTR: MRSUBGRST (Bit 0) */
 #define RCC_APB2RSTR_MRSUBGRST_Msk                                         (0x1UL)        /*!< RCC APB2RSTR: MRSUBGRST (Bitfield-Mask: 0x01) */
 #define RCC_APB2RSTR_MRSUBGRST                                             RCC_APB2RSTR_MRSUBGRST_Msk
@@ -7506,21 +6550,9 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB0ENR_WDGEN_Pos                                              (14UL)        /*!<RCC APB0ENR: WDGEN (Bit 14) */
 #define RCC_APB0ENR_WDGEN_Msk                                              (0x4000UL)        /*!< RCC APB0ENR: WDGEN (Bitfield-Mask: 0x01) */
 #define RCC_APB0ENR_WDGEN                                                  RCC_APB0ENR_WDGEN_Msk
-#define RCC_APB0ENR_LCSCEN_Pos                                             (13UL)        /*!<RCC APB0ENR: LCSCEN (Bit 13) */
-#define RCC_APB0ENR_LCSCEN_Msk                                             (0x2000UL)        /*!< RCC APB0ENR: LCSCEN (Bitfield-Mask: 0x01) */
-#define RCC_APB0ENR_LCSCEN                                                 RCC_APB0ENR_LCSCEN_Msk
 #define RCC_APB0ENR_RTCEN_Pos                                              (12UL)        /*!<RCC APB0ENR: RTCEN (Bit 12) */
 #define RCC_APB0ENR_RTCEN_Msk                                              (0x1000UL)        /*!< RCC APB0ENR: RTCEN (Bitfield-Mask: 0x01) */
 #define RCC_APB0ENR_RTCEN                                                  RCC_APB0ENR_RTCEN_Msk
-#define RCC_APB0ENR_DACEN_Pos                                              (11UL)        /*!<RCC APB0ENR: DACEN (Bit 11) */
-#define RCC_APB0ENR_DACEN_Msk                                              (0x800UL)        /*!< RCC APB0ENR: DACEN (Bitfield-Mask: 0x01) */
-#define RCC_APB0ENR_DACEN                                                  RCC_APB0ENR_DACEN_Msk
-#define RCC_APB0ENR_COMPEN_Pos                                             (10UL)        /*!<RCC APB0ENR: COMPEN (Bit 10) */
-#define RCC_APB0ENR_COMPEN_Msk                                             (0x400UL)        /*!< RCC APB0ENR: COMPEN (Bitfield-Mask: 0x01) */
-#define RCC_APB0ENR_COMPEN                                                 RCC_APB0ENR_COMPEN_Msk
-#define RCC_APB0ENR_LCDEN_Pos                                              (9UL)        /*!<RCC APB0ENR: LCDEN (Bit 9) */
-#define RCC_APB0ENR_LCDEN_Msk                                              (0x200UL)        /*!< RCC APB0ENR: LCDEN (Bitfield-Mask: 0x01) */
-#define RCC_APB0ENR_LCDEN                                                  RCC_APB0ENR_LCDEN_Msk
 #define RCC_APB0ENR_SYSCFGEN_Pos                                           (8UL)        /*!<RCC APB0ENR: SYSCFGEN (Bit 8) */
 #define RCC_APB0ENR_SYSCFGEN_Msk                                           (0x100UL)        /*!< RCC APB0ENR: SYSCFGEN (Bitfield-Mask: 0x01) */
 #define RCC_APB0ENR_SYSCFGEN                                               RCC_APB0ENR_SYSCFGEN_Msk
@@ -7532,9 +6564,6 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB0ENR_TIM2EN                                                 RCC_APB0ENR_TIM2EN_Msk
 
 /* =====================================================    APB1ENR    =====================================================*/
-#define RCC_APB1ENR_I2C2EN_Pos                                             (23UL)        /*!<RCC APB1ENR: I2C2EN (Bit 23) */
-#define RCC_APB1ENR_I2C2EN_Msk                                             (0x800000UL)        /*!< RCC APB1ENR: I2C2EN (Bitfield-Mask: 0x01) */
-#define RCC_APB1ENR_I2C2EN                                                 RCC_APB1ENR_I2C2EN_Msk
 #define RCC_APB1ENR_I2C1EN_Pos                                             (21UL)        /*!<RCC APB1ENR: I2C1EN (Bit 21) */
 #define RCC_APB1ENR_I2C1EN_Msk                                             (0x200000UL)        /*!< RCC APB1ENR: I2C1EN (Bitfield-Mask: 0x01) */
 #define RCC_APB1ENR_I2C1EN                                                 RCC_APB1ENR_I2C1EN_Msk
@@ -7553,14 +6582,8 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB1ENR_ADCDIGEN_Pos                                           (4UL)        /*!<RCC APB1ENR: ADCDIGEN (Bit 4) */
 #define RCC_APB1ENR_ADCDIGEN_Msk                                           (0x10UL)        /*!< RCC APB1ENR: ADCDIGEN (Bitfield-Mask: 0x01) */
 #define RCC_APB1ENR_ADCDIGEN                                               RCC_APB1ENR_ADCDIGEN_Msk
-#define RCC_APB1ENR_SPI1EN_Pos                                             (0UL)        /*!<RCC APB1ENR: SPI1EN (Bit 0) */
-#define RCC_APB1ENR_SPI1EN_Msk                                             (0x1UL)        /*!< RCC APB1ENR: SPI1EN (Bitfield-Mask: 0x01) */
-#define RCC_APB1ENR_SPI1EN                                                 RCC_APB1ENR_SPI1EN_Msk
 
 /* =====================================================    APB2ENR    =====================================================*/
-#define RCC_APB2ENR_LPAWUREN_Pos                                           (3UL)        /*!<RCC APB2ENR: LPAWUREN (Bit 3) */
-#define RCC_APB2ENR_LPAWUREN_Msk                                           (0x8UL)        /*!< RCC APB2ENR: LPAWUREN (Bitfield-Mask: 0x01) */
-#define RCC_APB2ENR_LPAWUREN                                               RCC_APB2ENR_LPAWUREN_Msk
 #define RCC_APB2ENR_MRSUBGEN_Pos                                           (0UL)        /*!<RCC APB2ENR: MRSUBGEN (Bit 0) */
 #define RCC_APB2ENR_MRSUBGEN_Msk                                           (0x1UL)        /*!< RCC APB2ENR: MRSUBGEN (Bitfield-Mask: 0x01) */
 #define RCC_APB2ENR_MRSUBGEN                                               RCC_APB2ENR_MRSUBGEN_Msk
@@ -7667,21 +6690,9 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB0SMENR_WDGSMEN_Pos                                          (14UL)        /*!<RCC APB0SMENR: WDGSMEN (Bit 14) */
 #define RCC_APB0SMENR_WDGSMEN_Msk                                          (0x4000UL)        /*!< RCC APB0SMENR: WDGSMEN (Bitfield-Mask: 0x01) */
 #define RCC_APB0SMENR_WDGSMEN                                              RCC_APB0SMENR_WDGSMEN_Msk
-#define RCC_APB0SMENR_LCSCSMEN_Pos                                         (13UL)        /*!<RCC APB0SMENR: LCSCSMEN (Bit 13) */
-#define RCC_APB0SMENR_LCSCSMEN_Msk                                         (0x2000UL)        /*!< RCC APB0SMENR: LCSCSMEN (Bitfield-Mask: 0x01) */
-#define RCC_APB0SMENR_LCSCSMEN                                             RCC_APB0SMENR_LCSCSMEN_Msk
 #define RCC_APB0SMENR_RTCSMEN_Pos                                          (12UL)        /*!<RCC APB0SMENR: RTCSMEN (Bit 12) */
 #define RCC_APB0SMENR_RTCSMEN_Msk                                          (0x1000UL)        /*!< RCC APB0SMENR: RTCSMEN (Bitfield-Mask: 0x01) */
 #define RCC_APB0SMENR_RTCSMEN                                              RCC_APB0SMENR_RTCSMEN_Msk
-#define RCC_APB0SMENR_DACSMEN_Pos                                          (11UL)        /*!<RCC APB0SMENR: DACSMEN (Bit 11) */
-#define RCC_APB0SMENR_DACSMEN_Msk                                          (0x800UL)        /*!< RCC APB0SMENR: DACSMEN (Bitfield-Mask: 0x01) */
-#define RCC_APB0SMENR_DACSMEN                                              RCC_APB0SMENR_DACSMEN_Msk
-#define RCC_APB0SMENR_COMPSMEN_Pos                                         (10UL)        /*!<RCC APB0SMENR: COMPSMEN (Bit 10) */
-#define RCC_APB0SMENR_COMPSMEN_Msk                                         (0x400UL)        /*!< RCC APB0SMENR: COMPSMEN (Bitfield-Mask: 0x01) */
-#define RCC_APB0SMENR_COMPSMEN                                             RCC_APB0SMENR_COMPSMEN_Msk
-#define RCC_APB0SMENR_LCDCSMEN_Pos                                         (9UL)        /*!<RCC APB0SMENR: LCDCSMEN (Bit 9) */
-#define RCC_APB0SMENR_LCDCSMEN_Msk                                         (0x200UL)        /*!< RCC APB0SMENR: LCDCSMEN (Bitfield-Mask: 0x01) */
-#define RCC_APB0SMENR_LCDCSMEN                                             RCC_APB0SMENR_LCDCSMEN_Msk
 #define RCC_APB0SMENR_SYSCFGSMEN_Pos                                       (8UL)        /*!<RCC APB0SMENR: SYSCFGSMEN (Bit 8) */
 #define RCC_APB0SMENR_SYSCFGSMEN_Msk                                       (0x100UL)        /*!< RCC APB0SMENR: SYSCFGSMEN (Bitfield-Mask: 0x01) */
 #define RCC_APB0SMENR_SYSCFGSMEN                                           RCC_APB0SMENR_SYSCFGSMEN_Msk
@@ -7693,9 +6704,6 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB0SMENR_TIM2SMEN                                             RCC_APB0SMENR_TIM2SMEN_Msk
 
 /* =====================================================    APB1SMENR    =====================================================*/
-#define RCC_APB1SMENR_I2C2SMEN_Pos                                         (23UL)        /*!<RCC APB1SMENR: I2C2SMEN (Bit 23) */
-#define RCC_APB1SMENR_I2C2SMEN_Msk                                         (0x800000UL)        /*!< RCC APB1SMENR: I2C2SMEN (Bitfield-Mask: 0x01) */
-#define RCC_APB1SMENR_I2C2SMEN                                             RCC_APB1SMENR_I2C2SMEN_Msk
 #define RCC_APB1SMENR_I2C1SMEN_Pos                                         (21UL)        /*!<RCC APB1SMENR: I2C1SMEN (Bit 21) */
 #define RCC_APB1SMENR_I2C1SMEN_Msk                                         (0x200000UL)        /*!< RCC APB1SMENR: I2C1SMEN (Bitfield-Mask: 0x01) */
 #define RCC_APB1SMENR_I2C1SMEN                                             RCC_APB1SMENR_I2C1SMEN_Msk
@@ -7714,9 +6722,6 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB1SMENR_ADCDIGSMEN_Pos                                       (4UL)        /*!<RCC APB1SMENR: ADCDIGSMEN (Bit 4) */
 #define RCC_APB1SMENR_ADCDIGSMEN_Msk                                       (0x10UL)        /*!< RCC APB1SMENR: ADCDIGSMEN (Bitfield-Mask: 0x01) */
 #define RCC_APB1SMENR_ADCDIGSMEN                                           RCC_APB1SMENR_ADCDIGSMEN_Msk
-#define RCC_APB1SMENR_SPI1SMEN_Pos                                         (0UL)        /*!<RCC APB1SMENR: SPI1SMEN (Bit 0) */
-#define RCC_APB1SMENR_SPI1SMEN_Msk                                         (0x1UL)        /*!< RCC APB1SMENR: SPI1SMEN (Bitfield-Mask: 0x01) */
-#define RCC_APB1SMENR_SPI1SMEN                                             RCC_APB1SMENR_SPI1SMEN_Msk
 
 
 /* ============================================================================================================================*/
@@ -7785,24 +6790,12 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define PWR_CR2_PVDE                                                       PWR_CR2_PVDE_Msk
 
 /* =====================================================    IEWU    =====================================================*/
-#define PWR_IEWU_EWLPAWUR_Pos                                              (10UL)        /*!<PWR IEWU: EWLPAWUR (Bit 10) */
-#define PWR_IEWU_EWLPAWUR_Msk                                              (0x400UL)        /*!< PWR IEWU: EWLPAWUR (Bitfield-Mask: 0x01) */
-#define PWR_IEWU_EWLPAWUR                                                   PWR_IEWU_EWLPAWUR_Msk
 #define PWR_IEWU_EWMRSUBGHCPU_Pos                                          (9UL)        /*!<PWR IEWU: EWMRSUBGHCPU (Bit 9) */
 #define PWR_IEWU_EWMRSUBGHCPU_Msk                                          (0x200UL)        /*!< PWR IEWU: EWMRSUBGHCPU (Bitfield-Mask: 0x01) */
 #define PWR_IEWU_EWMRSUBGHCPU                                              PWR_IEWU_EWMRSUBGHCPU_Msk
 #define PWR_IEWU_EWMRSUBG_Pos                                              (8UL)        /*!<PWR IEWU: EWMRSUBG (Bit 8) */
 #define PWR_IEWU_EWMRSUBG_Msk                                              (0x100UL)        /*!< PWR IEWU: EWMRSUBG (Bitfield-Mask: 0x01) */
 #define PWR_IEWU_EWMRSUBG                                                  PWR_IEWU_EWMRSUBG_Msk
-#define PWR_IEWU_EIWL4_Pos                                                 (4UL)        /*!<PWR IEWU: EIWL4 (Bit 4) */
-#define PWR_IEWU_EIWL4_Msk                                                 (0x10UL)        /*!< PWR IEWU: EIWL4 (Bitfield-Mask: 0x01) */
-#define PWR_IEWU_EIWL4                                                     PWR_IEWU_EIWL4_Msk
-#define PWR_IEWU_EIWL3_Pos                                                 (3UL)        /*!<PWR IEWU: EIWL3 (Bit 3) */
-#define PWR_IEWU_EIWL3_Msk                                                 (0x8UL)        /*!< PWR IEWU: EIWL3 (Bitfield-Mask: 0x01) */
-#define PWR_IEWU_EIWL3                                                     PWR_IEWU_EIWL3_Msk
-#define PWR_IEWU_EIWL2_Pos                                                 (2UL)        /*!<PWR IEWU: EIWL2 (Bit 2) */
-#define PWR_IEWU_EIWL2_Msk                                                 (0x4UL)        /*!< PWR IEWU: EIWL2 (Bitfield-Mask: 0x01) */
-#define PWR_IEWU_EIWL2                                                     PWR_IEWU_EIWL2_Msk
 #define PWR_IEWU_EIWL1_Pos                                                 (1UL)        /*!<PWR IEWU: EIWL1 (Bit 1) */
 #define PWR_IEWU_EIWL1_Msk                                                 (0x2UL)        /*!< PWR IEWU: EIWL1 (Bitfield-Mask: 0x01) */
 #define PWR_IEWU_EIWL1                                                     PWR_IEWU_EIWL1_Msk
@@ -7811,9 +6804,6 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define PWR_IEWU_EIWL0                                                     PWR_IEWU_EIWL0_Msk
 
 /* =====================================================    IWUP    =====================================================*/
-#define PWR_IWUP_WLPAWURP_Pos                                              (10UL)        /*!<PWR IWUP: WLPAWURP (Bit 10) */
-#define PWR_IWUP_WLPAWURP_Msk                                              (0x400UL)        /*!< PWR IWUP: WLPAWURP (Bitfield-Mask: 0x01) */
-#define PWR_IWUP_WLPAWURP                                                  PWR_IWUP_WLPAWURP_Msk
 #define PWR_IWUP_WMRSUBGHCPUP_Pos                                          (9UL)        /*!<PWR IWUP: WMRSUBGHCPUP (Bit 9) */
 #define PWR_IWUP_WMRSUBGHCPUP_Msk                                          (0x200UL)        /*!< PWR IWUP: WMRSUBGHCPUP (Bitfield-Mask: 0x01) */
 #define PWR_IWUP_WMRSUBGHCPUP                                              PWR_IWUP_WMRSUBGHCPUP_Msk
@@ -7837,9 +6827,6 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define PWR_IWUP_IWUP0                                                     PWR_IWUP_IWUP0_Msk
 
 /* =====================================================    IWUF    =====================================================*/
-#define PWR_IWUF_WLPAWURF_Pos                                              (10UL)        /*!<PWR IWUF: WLPAWURF (Bit 10) */
-#define PWR_IWUF_WLPAWURF_Msk                                              (0x400UL)        /*!< PWR IWUF: WLPAWURF (Bitfield-Mask: 0x01) */
-#define PWR_IWUF_WLPAWURF                                                  PWR_IWUF_WLPAWURF_Msk
 #define PWR_IWUF_WMRSUBGHCPUF_Pos                                          (9UL)        /*!<PWR IWUF: WMRSUBGHCPUF (Bit 9) */
 #define PWR_IWUF_WMRSUBGHCPUF_Msk                                          (0x200UL)        /*!< PWR IWUF: WMRSUBGHCPUF (Bitfield-Mask: 0x01) */
 #define PWR_IWUF_WMRSUBGHCPUF                                              PWR_IWUF_WMRSUBGHCPUF_Msk
@@ -8017,9 +7004,9 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define PWR_PDCRA_PA7_Pos                                                  (7UL)        /*!<PWR PDCRA: PA7 (Bit 7) */
 #define PWR_PDCRA_PA7_Msk                                                  (0x80UL)        /*!< PWR PDCRA: PA7 (Bitfield-Mask: 0x01) */
 #define PWR_PDCRA_PA7                                                      PWR_PDCRA_PA7_Msk
-#define PWR_PDCRA_PA6_Pos                                                  (6UL)        /*!<PWR PDCRA: PA6 (Bit 6) */
-#define PWR_PDCRA_PA6_Msk                                                  (0x40UL)        /*!< PWR PDCRA: PA6 (Bitfield-Mask: 0x01) */
-#define PWR_PDCRA_PA6                                                      PWR_PDCRA_PA6_Msk
+#define PWR_PDCRA_UDP_Pos                                                  (6UL)        /*!<PWR PDCRA: UDP (Bit 6) */
+#define PWR_PDCRA_UDP_Msk                                                  (0x40UL)        /*!< PWR PDCRA: UDP (Bitfield-Mask: 0x01) */
+#define PWR_PDCRA_UDP                                                      PWR_PDCRA_UDP_Msk
 #define PWR_PDCRA_PA5_Pos                                                  (5UL)        /*!<PWR PDCRA: PA5 (Bit 5) */
 #define PWR_PDCRA_PA5_Msk                                                  (0x20UL)        /*!< PWR PDCRA: PA5 (Bitfield-Mask: 0x01) */
 #define PWR_PDCRA_PA5                                                      PWR_PDCRA_PA5_Msk
@@ -9825,308 +8812,6 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define AES_SUSP7_SUSP_31                                                  (0x80000000UL << AES_SUSP7_SUSP_Pos)
 
 
-/* ============================================================================================================================*/
-/*=====================                                      LPAWUR                                      =====================*/
-/* ============================================================================================================================*/
-
-/* =====================================================    FRAME_CONFIG0    =====================================================*/
-#define LPAWUR_FRAME_CONFIG0_SLOW_CLK_CYCLE_PER_BIT_CNT_Pos                (21UL)        /*!<LPAWUR FRAME_CONFIG0: SLOW_CLK_CYCLE_PER_BIT_CNT (Bit 21) */
-#define LPAWUR_FRAME_CONFIG0_SLOW_CLK_CYCLE_PER_BIT_CNT_Msk                (0x3e00000UL)        /*!< LPAWUR FRAME_CONFIG0: SLOW_CLK_CYCLE_PER_BIT_CNT (Bitfield-Mask: 0x1f) */
-#define LPAWUR_FRAME_CONFIG0_SLOW_CLK_CYCLE_PER_BIT_CNT                    LPAWUR_FRAME_CONFIG0_SLOW_CLK_CYCLE_PER_BIT_CNT_Msk
-#define LPAWUR_FRAME_CONFIG0_SLOW_CLK_CYCLE_PER_BIT_CNT_0                  (0x1U << LPAWUR_FRAME_CONFIG0_SLOW_CLK_CYCLE_PER_BIT_CNT_Pos)
-#define LPAWUR_FRAME_CONFIG0_SLOW_CLK_CYCLE_PER_BIT_CNT_1                  (0x2U << LPAWUR_FRAME_CONFIG0_SLOW_CLK_CYCLE_PER_BIT_CNT_Pos)
-#define LPAWUR_FRAME_CONFIG0_SLOW_CLK_CYCLE_PER_BIT_CNT_2                  (0x4U << LPAWUR_FRAME_CONFIG0_SLOW_CLK_CYCLE_PER_BIT_CNT_Pos)
-#define LPAWUR_FRAME_CONFIG0_SLOW_CLK_CYCLE_PER_BIT_CNT_3                  (0x8U << LPAWUR_FRAME_CONFIG0_SLOW_CLK_CYCLE_PER_BIT_CNT_Pos)
-#define LPAWUR_FRAME_CONFIG0_SLOW_CLK_CYCLE_PER_BIT_CNT_4                  (0x10U << LPAWUR_FRAME_CONFIG0_SLOW_CLK_CYCLE_PER_BIT_CNT_Pos)
-#define LPAWUR_FRAME_CONFIG0_PAYLOAD_LENGTH_Pos                            (16UL)        /*!<LPAWUR FRAME_CONFIG0: PAYLOAD_LENGTH (Bit 16) */
-#define LPAWUR_FRAME_CONFIG0_PAYLOAD_LENGTH_Msk                            (0xf0000UL)        /*!< LPAWUR FRAME_CONFIG0: PAYLOAD_LENGTH (Bitfield-Mask: 0x0f) */
-#define LPAWUR_FRAME_CONFIG0_PAYLOAD_LENGTH                                LPAWUR_FRAME_CONFIG0_PAYLOAD_LENGTH_Msk
-#define LPAWUR_FRAME_CONFIG0_PAYLOAD_LENGTH_0                              (0x1U << LPAWUR_FRAME_CONFIG0_PAYLOAD_LENGTH_Pos)
-#define LPAWUR_FRAME_CONFIG0_PAYLOAD_LENGTH_1                              (0x2U << LPAWUR_FRAME_CONFIG0_PAYLOAD_LENGTH_Pos)
-#define LPAWUR_FRAME_CONFIG0_PAYLOAD_LENGTH_2                              (0x4U << LPAWUR_FRAME_CONFIG0_PAYLOAD_LENGTH_Pos)
-#define LPAWUR_FRAME_CONFIG0_PAYLOAD_LENGTH_3                              (0x8U << LPAWUR_FRAME_CONFIG0_PAYLOAD_LENGTH_Pos)
-#define LPAWUR_FRAME_CONFIG0_SYNC_THRESHOLD_COUNT_Pos                      (10UL)        /*!<LPAWUR FRAME_CONFIG0: SYNC_THRESHOLD_COUNT (Bit 10) */
-#define LPAWUR_FRAME_CONFIG0_SYNC_THRESHOLD_COUNT_Msk                      (0xfc00UL)        /*!< LPAWUR FRAME_CONFIG0: SYNC_THRESHOLD_COUNT (Bitfield-Mask: 0x3f) */
-#define LPAWUR_FRAME_CONFIG0_SYNC_THRESHOLD_COUNT                          LPAWUR_FRAME_CONFIG0_SYNC_THRESHOLD_COUNT_Msk
-#define LPAWUR_FRAME_CONFIG0_SYNC_THRESHOLD_COUNT_0                        (0x1U << LPAWUR_FRAME_CONFIG0_SYNC_THRESHOLD_COUNT_Pos)
-#define LPAWUR_FRAME_CONFIG0_SYNC_THRESHOLD_COUNT_1                        (0x2U << LPAWUR_FRAME_CONFIG0_SYNC_THRESHOLD_COUNT_Pos)
-#define LPAWUR_FRAME_CONFIG0_SYNC_THRESHOLD_COUNT_2                        (0x4U << LPAWUR_FRAME_CONFIG0_SYNC_THRESHOLD_COUNT_Pos)
-#define LPAWUR_FRAME_CONFIG0_SYNC_THRESHOLD_COUNT_3                        (0x8U << LPAWUR_FRAME_CONFIG0_SYNC_THRESHOLD_COUNT_Pos)
-#define LPAWUR_FRAME_CONFIG0_SYNC_THRESHOLD_COUNT_4                        (0x10U << LPAWUR_FRAME_CONFIG0_SYNC_THRESHOLD_COUNT_Pos)
-#define LPAWUR_FRAME_CONFIG0_SYNC_THRESHOLD_COUNT_5                        (0x20U << LPAWUR_FRAME_CONFIG0_SYNC_THRESHOLD_COUNT_Pos)
-#define LPAWUR_FRAME_CONFIG0_SYNC_LENGTH_Pos                               (8UL)        /*!<LPAWUR FRAME_CONFIG0: SYNC_LENGTH (Bit 8) */
-#define LPAWUR_FRAME_CONFIG0_SYNC_LENGTH_Msk                               (0x100UL)        /*!< LPAWUR FRAME_CONFIG0: SYNC_LENGTH (Bitfield-Mask: 0x01) */
-#define LPAWUR_FRAME_CONFIG0_SYNC_LENGTH                                   LPAWUR_FRAME_CONFIG0_SYNC_LENGTH_Msk
-#define LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT_Pos                  (0UL)        /*!<LPAWUR FRAME_CONFIG0: PREAMBLE_THRESHOLD_COUNT (Bit 0) */
-#define LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT_Msk                  (0xffUL)        /*!< LPAWUR FRAME_CONFIG0: PREAMBLE_THRESHOLD_COUNT (Bitfield-Mask: 0xff) */
-#define LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT                      LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT_Msk
-#define LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT_0                    (0x1U << LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT_Pos)
-#define LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT_1                    (0x2U << LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT_Pos)
-#define LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT_2                    (0x4U << LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT_Pos)
-#define LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT_3                    (0x8U << LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT_Pos)
-#define LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT_4                    (0x10U << LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT_Pos)
-#define LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT_5                    (0x20U << LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT_Pos)
-#define LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT_6                    (0x40U << LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT_Pos)
-#define LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT_7                    (0x80U << LPAWUR_FRAME_CONFIG0_PREAMBLE_THRESHOLD_COUNT_Pos)
-
-/* =====================================================    FRAME_CONFIG1    =====================================================*/
-#define LPAWUR_FRAME_CONFIG1_TREC_LOOP_ALGO_SEL_Pos                        (18UL)        /*!<LPAWUR FRAME_CONFIG1: TREC_LOOP_ALGO_SEL (Bit 18) */
-#define LPAWUR_FRAME_CONFIG1_TREC_LOOP_ALGO_SEL_Msk                        (0x40000UL)        /*!< LPAWUR FRAME_CONFIG1: TREC_LOOP_ALGO_SEL (Bitfield-Mask: 0x01) */
-#define LPAWUR_FRAME_CONFIG1_TREC_LOOP_ALGO_SEL                            LPAWUR_FRAME_CONFIG1_TREC_LOOP_ALGO_SEL_Msk
-#define LPAWUR_FRAME_CONFIG1_PREAMBLE_ENABLE_Pos                           (17UL)        /*!<LPAWUR FRAME_CONFIG1: PREAMBLE_ENABLE (Bit 17) */
-#define LPAWUR_FRAME_CONFIG1_PREAMBLE_ENABLE_Msk                           (0x20000UL)        /*!< LPAWUR FRAME_CONFIG1: PREAMBLE_ENABLE (Bitfield-Mask: 0x01) */
-#define LPAWUR_FRAME_CONFIG1_PREAMBLE_ENABLE                               LPAWUR_FRAME_CONFIG1_PREAMBLE_ENABLE_Msk
-#define LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT_Pos                (8UL)        /*!<LPAWUR FRAME_CONFIG1: FRAME_SYNC_COUNTER_TIMEOUT (Bit 8) */
-#define LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT_Msk                (0xff00UL)        /*!< LPAWUR FRAME_CONFIG1: FRAME_SYNC_COUNTER_TIMEOUT (Bitfield-Mask: 0xff) */
-#define LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT                    LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT_Msk
-#define LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT_0                  (0x1U << LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT_Pos)
-#define LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT_1                  (0x2U << LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT_Pos)
-#define LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT_2                  (0x4U << LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT_Pos)
-#define LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT_3                  (0x8U << LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT_Pos)
-#define LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT_4                  (0x10U << LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT_Pos)
-#define LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT_5                  (0x20U << LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT_Pos)
-#define LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT_6                  (0x40U << LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT_Pos)
-#define LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT_7                  (0x80U << LPAWUR_FRAME_CONFIG1_FRAME_SYNC_COUNTER_TIMEOUT_Pos)
-#define LPAWUR_FRAME_CONFIG1_KP_Pos                                        (4UL)        /*!<LPAWUR FRAME_CONFIG1: KP (Bit 4) */
-#define LPAWUR_FRAME_CONFIG1_KP_Msk                                        (0xf0UL)        /*!< LPAWUR FRAME_CONFIG1: KP (Bitfield-Mask: 0x0f) */
-#define LPAWUR_FRAME_CONFIG1_KP                                            LPAWUR_FRAME_CONFIG1_KP_Msk
-#define LPAWUR_FRAME_CONFIG1_KP_0                                          (0x1U << LPAWUR_FRAME_CONFIG1_KP_Pos)
-#define LPAWUR_FRAME_CONFIG1_KP_1                                          (0x2U << LPAWUR_FRAME_CONFIG1_KP_Pos)
-#define LPAWUR_FRAME_CONFIG1_KP_2                                          (0x4U << LPAWUR_FRAME_CONFIG1_KP_Pos)
-#define LPAWUR_FRAME_CONFIG1_KP_3                                          (0x8U << LPAWUR_FRAME_CONFIG1_KP_Pos)
-#define LPAWUR_FRAME_CONFIG1_KI_Pos                                        (0UL)        /*!<LPAWUR FRAME_CONFIG1: KI (Bit 0) */
-#define LPAWUR_FRAME_CONFIG1_KI_Msk                                        (0xfUL)        /*!< LPAWUR FRAME_CONFIG1: KI (Bitfield-Mask: 0x0f) */
-#define LPAWUR_FRAME_CONFIG1_KI                                            LPAWUR_FRAME_CONFIG1_KI_Msk
-#define LPAWUR_FRAME_CONFIG1_KI_0                                          (0x1U << LPAWUR_FRAME_CONFIG1_KI_Pos)
-#define LPAWUR_FRAME_CONFIG1_KI_1                                          (0x2U << LPAWUR_FRAME_CONFIG1_KI_Pos)
-#define LPAWUR_FRAME_CONFIG1_KI_2                                          (0x4U << LPAWUR_FRAME_CONFIG1_KI_Pos)
-#define LPAWUR_FRAME_CONFIG1_KI_3                                          (0x8U << LPAWUR_FRAME_CONFIG1_KI_Pos)
-
-/* =====================================================    FRAME_SYNC_CONFIG    =====================================================*/
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_Pos                  (16UL)        /*!<LPAWUR FRAME_SYNC_CONFIG: FRAME_SYNC_PATTERN_H (Bit 16) */
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_Msk                  (0xffff0000UL)        /*!< LPAWUR FRAME_SYNC_CONFIG: FRAME_SYNC_PATTERN_H (Bitfield-Mask: 0xffff) */
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H                      LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_Msk
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_0                    (0x1U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_1                    (0x2U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_2                    (0x4U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_3                    (0x8U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_4                    (0x10U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_5                    (0x20U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_6                    (0x40U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_7                    (0x80U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_8                    (0x100U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_9                    (0x200U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_10                   (0x400U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_11                   (0x800U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_12                   (0x1000U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_13                   (0x2000U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_14                   (0x4000U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_15                   (0x8000U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_H_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_Pos                  (0UL)        /*!<LPAWUR FRAME_SYNC_CONFIG: FRAME_SYNC_PATTERN_L (Bit 0) */
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_Msk                  (0xffffUL)        /*!< LPAWUR FRAME_SYNC_CONFIG: FRAME_SYNC_PATTERN_L (Bitfield-Mask: 0xffff) */
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L                      LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_Msk
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_0                    (0x1U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_1                    (0x2U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_2                    (0x4U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_3                    (0x8U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_4                    (0x10U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_5                    (0x20U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_6                    (0x40U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_7                    (0x80U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_8                    (0x100U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_9                    (0x200U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_10                   (0x400U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_11                   (0x800U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_12                   (0x1000U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_13                   (0x2000U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_14                   (0x4000U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_Pos)
-#define LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_15                   (0x8000U << LPAWUR_FRAME_SYNC_CONFIG_FRAME_SYNC_PATTERN_L_Pos)
-
-/* =====================================================    RFIP_CONFIG    =====================================================*/
-#define LPAWUR_RFIP_CONFIG_WAKEUP_LEVEL_Pos                                (1UL)        /*!<LPAWUR RFIP_CONFIG: WAKEUP_LEVEL (Bit 1) */
-#define LPAWUR_RFIP_CONFIG_WAKEUP_LEVEL_Msk                                (0x6UL)        /*!< LPAWUR RFIP_CONFIG: WAKEUP_LEVEL (Bitfield-Mask: 0x03) */
-#define LPAWUR_RFIP_CONFIG_WAKEUP_LEVEL                                    LPAWUR_RFIP_CONFIG_WAKEUP_LEVEL_Msk
-#define LPAWUR_RFIP_CONFIG_WAKEUP_LEVEL_0                                  (0x1U << LPAWUR_RFIP_CONFIG_WAKEUP_LEVEL_Pos)
-#define LPAWUR_RFIP_CONFIG_WAKEUP_LEVEL_1                                  (0x2U << LPAWUR_RFIP_CONFIG_WAKEUP_LEVEL_Pos)
-#define LPAWUR_RFIP_CONFIG_LPAWUR_ENABLE_Pos                               (0UL)        /*!<LPAWUR RFIP_CONFIG: LPAWUR_ENABLE (Bit 0) */
-#define LPAWUR_RFIP_CONFIG_LPAWUR_ENABLE_Msk                               (0x1UL)        /*!< LPAWUR RFIP_CONFIG: LPAWUR_ENABLE (Bitfield-Mask: 0x01) */
-#define LPAWUR_RFIP_CONFIG_LPAWUR_ENABLE                                   LPAWUR_RFIP_CONFIG_LPAWUR_ENABLE_Msk
-
-/* =====================================================    RF_CONFIG    =====================================================*/
-#define LPAWUR_RF_CONFIG_ED_ICAL_Pos                                       (18UL)        /*!<LPAWUR RF_CONFIG: ED_ICAL (Bit 18) */
-#define LPAWUR_RF_CONFIG_ED_ICAL_Msk                                       (0x1c0000UL)        /*!< LPAWUR RF_CONFIG: ED_ICAL (Bitfield-Mask: 0x07) */
-#define LPAWUR_RF_CONFIG_ED_ICAL                                           LPAWUR_RF_CONFIG_ED_ICAL_Msk
-#define LPAWUR_RF_CONFIG_ED_ICAL_0                                         (0x1U << LPAWUR_RF_CONFIG_ED_ICAL_Pos)
-#define LPAWUR_RF_CONFIG_ED_ICAL_1                                         (0x2U << LPAWUR_RF_CONFIG_ED_ICAL_Pos)
-#define LPAWUR_RF_CONFIG_ED_ICAL_2                                         (0x4U << LPAWUR_RF_CONFIG_ED_ICAL_Pos)
-#define LPAWUR_RF_CONFIG_AGC_HIGH_LVL_Pos                                  (14UL)        /*!<LPAWUR RF_CONFIG: AGC_HIGH_LVL (Bit 14) */
-#define LPAWUR_RF_CONFIG_AGC_HIGH_LVL_Msk                                  (0x3c000UL)        /*!< LPAWUR RF_CONFIG: AGC_HIGH_LVL (Bitfield-Mask: 0x0f) */
-#define LPAWUR_RF_CONFIG_AGC_HIGH_LVL                                      LPAWUR_RF_CONFIG_AGC_HIGH_LVL_Msk
-#define LPAWUR_RF_CONFIG_AGC_HIGH_LVL_0                                    (0x1U << LPAWUR_RF_CONFIG_AGC_HIGH_LVL_Pos)
-#define LPAWUR_RF_CONFIG_AGC_HIGH_LVL_1                                    (0x2U << LPAWUR_RF_CONFIG_AGC_HIGH_LVL_Pos)
-#define LPAWUR_RF_CONFIG_AGC_HIGH_LVL_2                                    (0x4U << LPAWUR_RF_CONFIG_AGC_HIGH_LVL_Pos)
-#define LPAWUR_RF_CONFIG_AGC_HIGH_LVL_3                                    (0x8U << LPAWUR_RF_CONFIG_AGC_HIGH_LVL_Pos)
-#define LPAWUR_RF_CONFIG_ED_DC_CTRL_Pos                                    (13UL)        /*!<LPAWUR RF_CONFIG: ED_DC_CTRL (Bit 13) */
-#define LPAWUR_RF_CONFIG_ED_DC_CTRL_Msk                                    (0x2000UL)        /*!< LPAWUR RF_CONFIG: ED_DC_CTRL (Bitfield-Mask: 0x01) */
-#define LPAWUR_RF_CONFIG_ED_DC_CTRL                                        LPAWUR_RF_CONFIG_ED_DC_CTRL_Msk
-#define LPAWUR_RF_CONFIG_AGC_LOW_LVL_Pos                                   (11UL)        /*!<LPAWUR RF_CONFIG: AGC_LOW_LVL (Bit 11) */
-#define LPAWUR_RF_CONFIG_AGC_LOW_LVL_Msk                                   (0x1800UL)        /*!< LPAWUR RF_CONFIG: AGC_LOW_LVL (Bitfield-Mask: 0x03) */
-#define LPAWUR_RF_CONFIG_AGC_LOW_LVL                                       LPAWUR_RF_CONFIG_AGC_LOW_LVL_Msk
-#define LPAWUR_RF_CONFIG_AGC_LOW_LVL_0                                     (0x1U << LPAWUR_RF_CONFIG_AGC_LOW_LVL_Pos)
-#define LPAWUR_RF_CONFIG_AGC_LOW_LVL_1                                     (0x2U << LPAWUR_RF_CONFIG_AGC_LOW_LVL_Pos)
-#define LPAWUR_RF_CONFIG_CLKDIV_Pos                                        (1UL)        /*!<LPAWUR RF_CONFIG: CLKDIV (Bit 1) */
-#define LPAWUR_RF_CONFIG_CLKDIV_Msk                                        (0x1eUL)        /*!< LPAWUR RF_CONFIG: CLKDIV (Bitfield-Mask: 0x0f) */
-#define LPAWUR_RF_CONFIG_CLKDIV                                            LPAWUR_RF_CONFIG_CLKDIV_Msk
-#define LPAWUR_RF_CONFIG_CLKDIV_0                                          (0x1U << LPAWUR_RF_CONFIG_CLKDIV_Pos)
-#define LPAWUR_RF_CONFIG_CLKDIV_1                                          (0x2U << LPAWUR_RF_CONFIG_CLKDIV_Pos)
-#define LPAWUR_RF_CONFIG_CLKDIV_2                                          (0x4U << LPAWUR_RF_CONFIG_CLKDIV_Pos)
-#define LPAWUR_RF_CONFIG_CLKDIV_3                                          (0x8U << LPAWUR_RF_CONFIG_CLKDIV_Pos)
-#define LPAWUR_RF_CONFIG_ED_SWITCH_Pos                                     (0UL)        /*!<LPAWUR RF_CONFIG: ED_SWITCH (Bit 0) */
-#define LPAWUR_RF_CONFIG_ED_SWITCH_Msk                                     (0x1UL)        /*!< LPAWUR RF_CONFIG: ED_SWITCH (Bitfield-Mask: 0x01) */
-#define LPAWUR_RF_CONFIG_ED_SWITCH                                         LPAWUR_RF_CONFIG_ED_SWITCH_Msk
-
-/* =====================================================    AGC_CONFIG    =====================================================*/
-#define LPAWUR_AGC_CONFIG_AGC_RESET_MODE_Pos                               (3UL)        /*!<LPAWUR AGC_CONFIG: AGC_RESET_MODE (Bit 3) */
-#define LPAWUR_AGC_CONFIG_AGC_RESET_MODE_Msk                               (0x8UL)        /*!< LPAWUR AGC_CONFIG: AGC_RESET_MODE (Bitfield-Mask: 0x01) */
-#define LPAWUR_AGC_CONFIG_AGC_RESET_MODE                                   LPAWUR_AGC_CONFIG_AGC_RESET_MODE_Msk
-#define LPAWUR_AGC_CONFIG_AGC_HOLD_MODE_Pos                                (2UL)        /*!<LPAWUR AGC_CONFIG: AGC_HOLD_MODE (Bit 2) */
-#define LPAWUR_AGC_CONFIG_AGC_HOLD_MODE_Msk                                (0x4UL)        /*!< LPAWUR AGC_CONFIG: AGC_HOLD_MODE (Bitfield-Mask: 0x01) */
-#define LPAWUR_AGC_CONFIG_AGC_HOLD_MODE                                    LPAWUR_AGC_CONFIG_AGC_HOLD_MODE_Msk
-#define LPAWUR_AGC_CONFIG_AGC_MODE_Pos                                     (0UL)        /*!<LPAWUR AGC_CONFIG: AGC_MODE (Bit 0) */
-#define LPAWUR_AGC_CONFIG_AGC_MODE_Msk                                     (0x3UL)        /*!< LPAWUR AGC_CONFIG: AGC_MODE (Bitfield-Mask: 0x03) */
-#define LPAWUR_AGC_CONFIG_AGC_MODE                                         LPAWUR_AGC_CONFIG_AGC_MODE_Msk
-#define LPAWUR_AGC_CONFIG_AGC_MODE_0                                       (0x1U << LPAWUR_AGC_CONFIG_AGC_MODE_Pos)
-#define LPAWUR_AGC_CONFIG_AGC_MODE_1                                       (0x2U << LPAWUR_AGC_CONFIG_AGC_MODE_Pos)
-
-/* =====================================================    PAYLOAD_0    =====================================================*/
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos                                     (0UL)        /*!<LPAWUR PAYLOAD_0: PAYLOAD_0 (Bit 0) */
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_Msk                                     (0xffffffffUL)        /*!< LPAWUR PAYLOAD_0: PAYLOAD_0 (Bitfield-Mask: 0xffffffff) */
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0                                         LPAWUR_PAYLOAD_0_PAYLOAD_0_Msk
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_0                                       (0x1U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_1                                       (0x2U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_2                                       (0x4U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_3                                       (0x8U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_4                                       (0x10U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_5                                       (0x20U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_6                                       (0x40U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_7                                       (0x80U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_8                                       (0x100U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_9                                       (0x200U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_10                                      (0x400U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_11                                      (0x800U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_12                                      (0x1000U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_13                                      (0x2000U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_14                                      (0x4000U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_15                                      (0x8000U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_16                                      (0x10000U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_17                                      (0x20000U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_18                                      (0x40000U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_19                                      (0x80000U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_20                                      (0x100000U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_21                                      (0x200000U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_22                                      (0x400000U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_23                                      (0x800000U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_24                                      (0x1000000U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_25                                      (0x2000000U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_26                                      (0x4000000U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_27                                      (0x8000000U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_28                                      (0x10000000U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_29                                      (0x20000000U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_30                                      (0x40000000U << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-#define LPAWUR_PAYLOAD_0_PAYLOAD_0_31                                      (0x80000000UL << LPAWUR_PAYLOAD_0_PAYLOAD_0_Pos)
-
-/* =====================================================    PAYLOAD_1    =====================================================*/
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos                                     (0UL)        /*!<LPAWUR PAYLOAD_1: PAYLOAD_1 (Bit 0) */
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_Msk                                     (0xffffffffUL)        /*!< LPAWUR PAYLOAD_1: PAYLOAD_1 (Bitfield-Mask: 0xffffffff) */
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1                                         LPAWUR_PAYLOAD_1_PAYLOAD_1_Msk
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_0                                       (0x1U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_1                                       (0x2U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_2                                       (0x4U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_3                                       (0x8U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_4                                       (0x10U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_5                                       (0x20U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_6                                       (0x40U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_7                                       (0x80U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_8                                       (0x100U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_9                                       (0x200U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_10                                      (0x400U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_11                                      (0x800U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_12                                      (0x1000U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_13                                      (0x2000U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_14                                      (0x4000U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_15                                      (0x8000U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_16                                      (0x10000U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_17                                      (0x20000U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_18                                      (0x40000U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_19                                      (0x80000U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_20                                      (0x100000U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_21                                      (0x200000U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_22                                      (0x400000U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_23                                      (0x800000U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_24                                      (0x1000000U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_25                                      (0x2000000U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_26                                      (0x4000000U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_27                                      (0x8000000U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_28                                      (0x10000000U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_29                                      (0x20000000U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_30                                      (0x40000000U << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-#define LPAWUR_PAYLOAD_1_PAYLOAD_1_31                                      (0x80000000UL << LPAWUR_PAYLOAD_1_PAYLOAD_1_Pos)
-
-/* =====================================================    RFIP_VERSION    =====================================================*/
-#define LPAWUR_RFIP_VERSION_PRODUCT_Pos                                    (12UL)        /*!<LPAWUR RFIP_VERSION: PRODUCT (Bit 12) */
-#define LPAWUR_RFIP_VERSION_PRODUCT_Msk                                    (0xf000UL)        /*!< LPAWUR RFIP_VERSION: PRODUCT (Bitfield-Mask: 0x0f) */
-#define LPAWUR_RFIP_VERSION_PRODUCT                                        LPAWUR_RFIP_VERSION_PRODUCT_Msk
-#define LPAWUR_RFIP_VERSION_PRODUCT_0                                      (0x1U << LPAWUR_RFIP_VERSION_PRODUCT_Pos)
-#define LPAWUR_RFIP_VERSION_PRODUCT_1                                      (0x2U << LPAWUR_RFIP_VERSION_PRODUCT_Pos)
-#define LPAWUR_RFIP_VERSION_PRODUCT_2                                      (0x4U << LPAWUR_RFIP_VERSION_PRODUCT_Pos)
-#define LPAWUR_RFIP_VERSION_PRODUCT_3                                      (0x8U << LPAWUR_RFIP_VERSION_PRODUCT_Pos)
-#define LPAWUR_RFIP_VERSION_VERSION_Pos                                    (8UL)        /*!<LPAWUR RFIP_VERSION: VERSION (Bit 8) */
-#define LPAWUR_RFIP_VERSION_VERSION_Msk                                    (0xf00UL)        /*!< LPAWUR RFIP_VERSION: VERSION (Bitfield-Mask: 0x0f) */
-#define LPAWUR_RFIP_VERSION_VERSION                                        LPAWUR_RFIP_VERSION_VERSION_Msk
-#define LPAWUR_RFIP_VERSION_VERSION_0                                      (0x1U << LPAWUR_RFIP_VERSION_VERSION_Pos)
-#define LPAWUR_RFIP_VERSION_VERSION_1                                      (0x2U << LPAWUR_RFIP_VERSION_VERSION_Pos)
-#define LPAWUR_RFIP_VERSION_VERSION_2                                      (0x4U << LPAWUR_RFIP_VERSION_VERSION_Pos)
-#define LPAWUR_RFIP_VERSION_VERSION_3                                      (0x8U << LPAWUR_RFIP_VERSION_VERSION_Pos)
-#define LPAWUR_RFIP_VERSION_REVISION_Pos                                   (4UL)        /*!<LPAWUR RFIP_VERSION: REVISION (Bit 4) */
-#define LPAWUR_RFIP_VERSION_REVISION_Msk                                   (0xf0UL)        /*!< LPAWUR RFIP_VERSION: REVISION (Bitfield-Mask: 0x0f) */
-#define LPAWUR_RFIP_VERSION_REVISION                                       LPAWUR_RFIP_VERSION_REVISION_Msk
-#define LPAWUR_RFIP_VERSION_REVISION_0                                     (0x1U << LPAWUR_RFIP_VERSION_REVISION_Pos)
-#define LPAWUR_RFIP_VERSION_REVISION_1                                     (0x2U << LPAWUR_RFIP_VERSION_REVISION_Pos)
-#define LPAWUR_RFIP_VERSION_REVISION_2                                     (0x4U << LPAWUR_RFIP_VERSION_REVISION_Pos)
-#define LPAWUR_RFIP_VERSION_REVISION_3                                     (0x8U << LPAWUR_RFIP_VERSION_REVISION_Pos)
-
-/* =====================================================    IRQ_ENABLE    =====================================================*/
-#define LPAWUR_IRQ_ENABLE_FRAME_VALID_E_Pos                                (3UL)        /*!<LPAWUR IRQ_ENABLE: FRAME_VALID_E (Bit 3) */
-#define LPAWUR_IRQ_ENABLE_FRAME_VALID_E_Msk                                (0x8UL)        /*!< LPAWUR IRQ_ENABLE: FRAME_VALID_E (Bitfield-Mask: 0x01) */
-#define LPAWUR_IRQ_ENABLE_FRAME_VALID_E                                    LPAWUR_IRQ_ENABLE_FRAME_VALID_E_Msk
-#define LPAWUR_IRQ_ENABLE_FRAME_COMPLETE_E_Pos                             (2UL)        /*!<LPAWUR IRQ_ENABLE: FRAME_COMPLETE_E (Bit 2) */
-#define LPAWUR_IRQ_ENABLE_FRAME_COMPLETE_E_Msk                             (0x4UL)        /*!< LPAWUR IRQ_ENABLE: FRAME_COMPLETE_E (Bitfield-Mask: 0x01) */
-#define LPAWUR_IRQ_ENABLE_FRAME_COMPLETE_E                                 LPAWUR_IRQ_ENABLE_FRAME_COMPLETE_E_Msk
-#define LPAWUR_IRQ_ENABLE_FRAME_SYNC_COMPLETE_E_Pos                        (1UL)        /*!<LPAWUR IRQ_ENABLE: FRAME_SYNC_COMPLETE_E (Bit 1) */
-#define LPAWUR_IRQ_ENABLE_FRAME_SYNC_COMPLETE_E_Msk                        (0x2UL)        /*!< LPAWUR IRQ_ENABLE: FRAME_SYNC_COMPLETE_E (Bitfield-Mask: 0x01) */
-#define LPAWUR_IRQ_ENABLE_FRAME_SYNC_COMPLETE_E                            LPAWUR_IRQ_ENABLE_FRAME_SYNC_COMPLETE_E_Msk
-#define LPAWUR_IRQ_ENABLE_BIT_SYNC_DETECTED_E_Pos                          (0UL)        /*!<LPAWUR IRQ_ENABLE: BIT_SYNC_DETECTED_E (Bit 0) */
-#define LPAWUR_IRQ_ENABLE_BIT_SYNC_DETECTED_E_Msk                          (0x1UL)        /*!< LPAWUR IRQ_ENABLE: BIT_SYNC_DETECTED_E (Bitfield-Mask: 0x01) */
-#define LPAWUR_IRQ_ENABLE_BIT_SYNC_DETECTED_E                              LPAWUR_IRQ_ENABLE_BIT_SYNC_DETECTED_E_Msk
-
-/* =====================================================    STATUS    =====================================================*/
-#define LPAWUR_STATUS_ERROR_F_Pos                                          (30UL)        /*!<LPAWUR STATUS: ERROR_F (Bit 30) */
-#define LPAWUR_STATUS_ERROR_F_Msk                                          (0xc0000000UL)        /*!< LPAWUR STATUS: ERROR_F (Bitfield-Mask: 0x03) */
-#define LPAWUR_STATUS_ERROR_F                                              LPAWUR_STATUS_ERROR_F_Msk
-#define LPAWUR_STATUS_ERROR_F_0                                            (0x1U << LPAWUR_STATUS_ERROR_F_Pos)
-#define LPAWUR_STATUS_ERROR_F_1                                            (0x2U << LPAWUR_STATUS_ERROR_F_Pos)
-#define LPAWUR_STATUS_FRAME_VALID_F_Pos                                    (3UL)        /*!<LPAWUR STATUS: FRAME_VALID_F (Bit 3) */
-#define LPAWUR_STATUS_FRAME_VALID_F_Msk                                    (0x8UL)        /*!< LPAWUR STATUS: FRAME_VALID_F (Bitfield-Mask: 0x01) */
-#define LPAWUR_STATUS_FRAME_VALID_F                                        LPAWUR_STATUS_FRAME_VALID_F_Msk
-#define LPAWUR_STATUS_FRAME_COMPLETE_F_Pos                                 (2UL)        /*!<LPAWUR STATUS: FRAME_COMPLETE_F (Bit 2) */
-#define LPAWUR_STATUS_FRAME_COMPLETE_F_Msk                                 (0x4UL)        /*!< LPAWUR STATUS: FRAME_COMPLETE_F (Bitfield-Mask: 0x01) */
-#define LPAWUR_STATUS_FRAME_COMPLETE_F                                     LPAWUR_STATUS_FRAME_COMPLETE_F_Msk
-#define LPAWUR_STATUS_FRAME_SYNC_COMPLETE_F_Pos                            (1UL)        /*!<LPAWUR STATUS: FRAME_SYNC_COMPLETE_F (Bit 1) */
-#define LPAWUR_STATUS_FRAME_SYNC_COMPLETE_F_Msk                            (0x2UL)        /*!< LPAWUR STATUS: FRAME_SYNC_COMPLETE_F (Bitfield-Mask: 0x01) */
-#define LPAWUR_STATUS_FRAME_SYNC_COMPLETE_F                                LPAWUR_STATUS_FRAME_SYNC_COMPLETE_F_Msk
-#define LPAWUR_STATUS_BIT_SYNC_DETECTED_F_Pos                              (0UL)        /*!<LPAWUR STATUS: BIT_SYNC_DETECTED_F (Bit 0) */
-#define LPAWUR_STATUS_BIT_SYNC_DETECTED_F_Msk                              (0x1UL)        /*!< LPAWUR STATUS: BIT_SYNC_DETECTED_F (Bitfield-Mask: 0x01) */
-#define LPAWUR_STATUS_BIT_SYNC_DETECTED_F                                  LPAWUR_STATUS_BIT_SYNC_DETECTED_F_Msk
 
 
 /* ============================================================================================================================*/
@@ -12543,6 +11228,10 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define MR_SUBG_RADIO_RF_INFO_OUT_RFSUBG_ID_1                             (0x2U << MR_SUBG_RADIO_RF_INFO_OUT_RFSUBG_ID_Pos)
 #define MR_SUBG_RADIO_RF_INFO_OUT_RFSUBG_ID_2                             (0x4U << MR_SUBG_RADIO_RF_INFO_OUT_RFSUBG_ID_Pos)
 #define MR_SUBG_RADIO_RF_INFO_OUT_RFSUBG_ID_3                             (0x8U << MR_SUBG_RADIO_RF_INFO_OUT_RFSUBG_ID_Pos)
+/* =====================================================    RFANA_PLL_IN    =====================================================*/
+#define MR_SUBG_RADIO_RFANA_PLL_IN_DIV12_SEL_Pos                          (6UL)        /*!MR_SUBG_RADIO_RFANA_PLL_IN: DIV12_SEL (Bit 6) */
+#define MR_SUBG_RADIO_RFANA_PLL_IN_DIV12_SEL_Msk                          (0x40UL)        /*!< MR_SUBG_RADIO RFANA_PLL_IN: DIV12_SEL (Bitfield-Mask: 0x40) */
+#define MR_SUBG_RADIO_RFANA_PLL_IN_DIV12_SEL                              MR_SUBG_RADIO_RFANA_PLL_IN_DIV12_SEL_Msk
 
 /* =====================================================    RF_FSM8_TIMEOUT    =====================================================*/
 #define MR_SUBG_RADIO_RF_FSM8_TIMEOUT_SYNTH_PDWN_TIMER_Pos                 (0UL)        /*!<MR_SUBG_RADIO RF_FSM8_TIMEOUT: SYNTH_PDWN_TIMER (Bit 0) */
@@ -12646,9 +11335,6 @@ typedef struct{ /*!< LPAWUR Structure  */
 /******************************* CRC Instances ********************************/
 #define IS_CRC_ALL_INSTANCE(INSTANCE) ((INSTANCE) == CRC)
 
-/******************************* DAC Instances ********************************/
-#define IS_DAC_ALL_INSTANCE(INSTANCE) ((INSTANCE) == DAC1)
-
 /******************************** DMA Instances *******************************/
 #define IS_DMA_ALL_INSTANCE(INSTANCE) (((INSTANCE) == DMA1_Channel1) || \
                                        ((INSTANCE) == DMA1_Channel2) || \
@@ -12673,12 +11359,10 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define IS_GPIO_LOCK_INSTANCE(INSTANCE) IS_GPIO_ALL_INSTANCE(INSTANCE)
 
 /******************************** I2C Instances *******************************/
-#define IS_I2C_ALL_INSTANCE(INSTANCE) (((INSTANCE) == I2C1) || \
-                                       ((INSTANCE) == I2C2))
+#define IS_I2C_ALL_INSTANCE(INSTANCE) ((INSTANCE) == I2C1)
 
 /******************************* SMBUS Instances ******************************/
-#define IS_SMBUS_ALL_INSTANCE(INSTANCE) (((INSTANCE) == I2C1) || \
-                                        ((INSTANCE) == I2C2))
+#define IS_SMBUS_ALL_INSTANCE(INSTANCE) ((INSTANCE) == I2C1)
 
 /******************************* RNG Instances ********************************/
 #define IS_RNG_ALL_INSTANCE(INSTANCE)  ((INSTANCE) == RNG)
@@ -12687,11 +11371,8 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define IS_RTC_ALL_INSTANCE(INSTANCE)  ((INSTANCE) == RTC)
 
 /******************************** SPI Instances *******************************/
-#define IS_SPI_ALL_INSTANCE(INSTANCE) (((INSTANCE) == SPI1) || \
-                                       ((INSTANCE) == SPI3))
+#define IS_SPI_ALL_INSTANCE(INSTANCE) ((INSTANCE) == SPI3)
 
-/******************************** I2S Instances *******************************/
-#define IS_I2S_ALL_INSTANCE(INSTANCE)  (((INSTANCE) == SPI3))
 
 /****************************** IWDG Instances ********************************/
 #define IS_IWDG_ALL_INSTANCE(INSTANCE)  ((INSTANCE) == IWDG)
@@ -12816,11 +11497,6 @@ typedef struct{ /*!< LPAWUR Structure  */
 /******************************* AES Instances ********************************/
 #define IS_AES_ALL_INSTANCE(INSTANCE) (((INSTANCE) == AES))
 
-/******************************** COMP Instances ******************************/
-#define IS_COMP_ALL_INSTANCE(INSTANCE) (((INSTANCE) == COMP1))
-
-/******************************* LCD Instances ********************************/
-#define IS_LCD_ALL_INSTANCE(INSTANCE)  ((INSTANCE) == LCD)
 
 /** @} */ /* End of group STM32WBL3x_Peripheral_Exported_macros */
 
@@ -12832,4 +11508,4 @@ typedef struct{ /*!< LPAWUR Structure  */
 }
 #endif
 
-#endif /* STM32WL3XX_H */
+#endif /* STM32WL3RX_H */

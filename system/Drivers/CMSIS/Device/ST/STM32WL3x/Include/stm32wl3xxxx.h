@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    stm32wl3xx.h
+  * @file    $PRODUCTNAME_LC$.h
   * @author  MCD Application Team
   * @brief   CMSIS Cortex Device Peripheral Access Layer Header File.
   *          This file contains all the peripheral register's definitions, bits
@@ -24,8 +24,8 @@
   ******************************************************************************
   */
 
-#ifndef STM32WL3XX_H
-#define STM32WL3XX_H
+#ifndef $PRODUCTNAME_UC$_H
+#define $PRODUCTNAME_UC$_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -37,7 +37,7 @@ extern "C" {
   */
 
 
-/** @addtogroup STM32WL3XX
+/** @addtogroup $PRODUCTNAME_UC$
   * @{
   */
 
@@ -66,8 +66,10 @@ typedef enum {
   RCC_IRQn                  =   1,              /*!< 1  RCC interrupt                                                          */
   PVD_IRQn                  =   2,              /*!< 2  PVD interrupt                                                          */
   I2C1_IRQn                 =   3,              /*!< 3  I2C1 interrupt                                                         */
+#if defined (STM32WL3XX)
   I2C2_IRQn                 =   4,              /*!< 4  I2C2 interrupt                                                         */
   SPI1_IRQn                 =   5,              /*!< 5  SPI1 interrupt                                                         */
+#endif /* (STM32WL3XX)*/
   SPI3_IRQn                 =   7,              /*!< 7  SPI3 interrupt                                                         */
   USART1_IRQn               =   8,              /*!< 8  USART interrupt                                                        */
   LPUART1_IRQn              =   9,              /*!< 9  Low Power UART interrupt                                               */
@@ -78,18 +80,24 @@ typedef enum {
   GPIOA_IRQn                =  15,              /*!< 15 GPIOA interrupt                                                        */
   GPIOB_IRQn                =  16,              /*!< 16 GPIOB interrupt                                                        */
   DMA_IRQn                  =  17,              /*!< 17 DMA interrupt                                                          */
+#if defined (STM32WL3XX)
   LPAWUR_IRQn               =  18,              /*!< 18 LPAWUR interrupt                                                       */
   COMP1_IRQn                =  19,              /*!< 19 Comp interrupt through SYSCFGBLE                                       */
+#endif /* (STM32WL3XX) */
   MRSUBG_BUSY_IRQn          =  20,              /*!< 20 MR_SUBG Busy interrupt                                                 */
   MRSUBG_IRQn               =  21,              /*!< 21 MR_SUBG interrupt                                                      */
   MRSUBG_TX_RX_SEQUENCE_IRQn = 22,              /*!< 22 MR_SUBG TX/RX Sequence interrupt                                       */
   MRSUBG_TIMER_CPU_WKUP_IRQn = 23,              /*!< 23 CPU Wakeup interrupt                                                   */
   MRSUBG_WKUP_IRQn          =  24,              /*!< 24 SUBG Wakeup interrupt                                                  */
+#if defined (STM32WL3XX)
   DAC_IRQn                  =  25,              /*!< 25 DAC interrupt                                                          */
+#endif /* (STM32WL3XX)*/
   TIM16_IRQn                =  26,              /*!< 26 TIM16 interrupt                                                        */
+#if defined (STM32WL3XX)
   LCD_IRQn                  =  27,              /*!< 27 LCD interrupt                                                          */
   LCSC_IRQn                 =  28,              /*!< 28 LCSC interrupt                                                         */
   LCSC_LC_ACTIVITY_IRQn     =  29               /*!< 28 LCSC LC activity interrupt                                             */
+#endif /* (STM32WL3XX)*/
 } IRQn_Type;
 
 
@@ -660,6 +668,7 @@ typedef struct {                                /*!< ADC Structure              
 
 
 
+#if defined (STM32WL3XX)
 /* =========================================================================================================================== */
 /* ================                                     COMP                                                  ================ */
 /* =========================================================================================================================== */
@@ -722,6 +731,7 @@ typedef struct{ /*!< LCSC Structure  */
 } LCSC_TypeDef;              /*!< Size = 72 (0x48) */
 
 
+#endif /* (STM32WL3XX) */
 
 /* =========================================================================================================================== */
 /* ================                                     DBGMCU                                                ================ */
@@ -740,6 +750,7 @@ typedef struct{ /*!< DBGMCU Structure  */
 
 
 
+#if defined (STM32WL3XX)
 /* =========================================================================================================================== */
 /* ================                                     LCD                                                   ================ */
 /* =========================================================================================================================== */
@@ -772,6 +783,7 @@ typedef struct {                                /*!< LCD Structure              
   __IO  uint32_t  RAM_COM7;                    /*!< (@ 0x0000004C) Disaplay Memory COM 7                                      */
 } LCD_TypeDef;                                  /*!< Size = 80 (0x50)                                                          */
 
+#endif /* (STM32WL3XX) */
 
 
 /* =========================================================================================================================== */
@@ -840,7 +852,12 @@ typedef struct{ /*!< MR_SUBG_RADIO Structure  */
   __IO uint32_t SINGEN_ANA_ENG;        /*!< (@ 0x00000100) SINGEN_ANA_ENG register                 */
   __IO  uint32_t RESERVED7;
   __IO  uint32_t RF_INFO_OUT;          /*!< (@ 0x00000108) RF_INFO_OUT register                */
+#if defined (STM32WL3RX)
+  __IO  uint32_t RFANA_PLL_IN;         /*!< (@ 0x0000010C) RFANA_PLL_IN register                */
+  __IO  uint32_t RESERVED8[5];
+#else
   __IO  uint32_t RESERVED8[6];
+#endif /* STM32WL3RX */
   __IO uint32_t RF_FSM8_TIMEOUT;       /*!< (@ 0x00000124) RF_FSM8_TIMEOUT register                */
   __IO uint32_t RF_FSM9_TIMEOUT;       /*!< (@ 0x00000128) RF_FSM9_TIMEOUT register                */
   __IO uint32_t RF_FSM10_TIMEOUT;      /*!< (@ 0x0000012C) RF_FSM10_TIMEOUT register               */
@@ -970,6 +987,7 @@ typedef struct{ /*!< MR_SUBG_GLOB_RETAINED Structure  */
 
 
 
+#if defined (STM32WL3XX)
 /* =========================================================================================================================== */
 /* ================                                        LPAWUR                                             ================ */
 /* =========================================================================================================================== */
@@ -994,6 +1012,7 @@ typedef struct{ /*!< LPAWUR Structure  */
   __IO uint32_t IRQ_ENABLE;          /*!< (@ 0x00000044) IRQ_ENABLE register                 */
   __IO uint32_t STATUS;              /*!< (@ 0x00000048) STATUS register                     */
 } LPAWUR_TypeDef;                        /*!< Size = 76 (0x4C) */
+#endif /* (STM32WL3XX) */
 
 
 
@@ -1043,17 +1062,23 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define IWDG_BASE          (APB0PERIPH_BASE + 0x3000UL)
 #define RTC_BASE           (APB0PERIPH_BASE + 0x4000UL)
 #define TIM16_BASE         (APB0PERIPH_BASE + 0x5000UL)
+#if defined (STM32WL3XX)
 #define DAC1_BASE          (APB0PERIPH_BASE + 0x6000UL)
 #define LCD_BASE           (APB0PERIPH_BASE + 0x7000UL)
+#endif /* (STM32WL3XX)*/
 #define DBGMCU_BASE        (APB0PERIPH_BASE + 0x8000UL)
+#if defined (STM32WL3XX)
 #define COMP_BASE          (APB0PERIPH_BASE + 0x9000UL)
 #define LCSC_BASE          (APB0PERIPH_BASE + 0xA000UL)
+#endif /* (STM32WL3XX)*/
 
 
 /*!< APB1 peripherals */
 #define I2C1_BASE          (APB1PERIPH_BASE + 0x0000UL)
+#if defined (STM32WL3XX)
 #define I2C2_BASE          (APB1PERIPH_BASE + 0x1000UL)
 #define SPI1_BASE          (APB1PERIPH_BASE + 0x2000UL)
+#endif /* (STM32WL3XX)*/
 #define USART1_BASE        (APB1PERIPH_BASE + 0x4000UL)
 #define LPUART1_BASE       (APB1PERIPH_BASE + 0x5000UL)
 #define ADC1_BASE           (APB1PERIPH_BASE + 0x6000UL)
@@ -1096,7 +1121,9 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define MR_SUBG_GLOB_STATUS_BASE   (MR_SUBG_BASE    + 0x0600UL)
 #define MR_SUBG_GLOB_MISC_BASE     (MR_SUBG_BASE    + 0x0700UL)
 #define MR_SUBG_GLOB_RETAINED_BASE (MR_SUBG_BASE    + 0x0780UL)
+#if defined (STM32WL3XX)
 #define LPAWUR_BASE                (APB2PERIPH_BASE + 0x1000UL)
+#endif /* (STM32WL3XX) */
 
 
 /** @} */ /* End of group Device_Peripheral_peripheralAddr */
@@ -1119,16 +1146,22 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define IWDG                        ((IWDG_TypeDef*)               IWDG_BASE)
 #define RTC                         ((RTC_TypeDef*)                 RTC_BASE)
 #define TIM16                       ((TIM_TypeDef*)               TIM16_BASE)
+#if defined (STM32WL3XX)
 #define DAC1                        ((DAC_TypeDef*)                DAC1_BASE)
 #define LCD                         ((LCD_TypeDef*)                 LCD_BASE)
+#endif /* (STM32WL3XX) */
 #define DBGMCU                      ((DBGMCU_TypeDef*)           DBGMCU_BASE)
+#if defined (STM32WL3XX)
 #define COMP1                       ((COMP_TypeDef*)               COMP_BASE)
 #define LCSC                        ((LCSC_TypeDef*)               LCSC_BASE)
+#endif /* (STM32WL3XX) */
 
 /* Peripherals available on APB1 bus */
 #define I2C1                        ((I2C_TypeDef*)                I2C1_BASE)
+#if defined (STM32WL3XX)
 #define I2C2                        ((I2C_TypeDef*)                I2C2_BASE)
 #define SPI1                        ((SPI_TypeDef*)                SPI1_BASE)
+#endif /* (STM32WL3XX) */
 #define USART1                      ((USART_TypeDef*)            USART1_BASE)
 #define LPUART1                     ((USART_TypeDef*)           LPUART1_BASE)
 #define ADC1                        ((ADC_TypeDef*)                ADC1_BASE)
@@ -1168,7 +1201,9 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define MR_SUBG_GLOB_STATUS         ((MR_SUBG_GLOB_STATUS_TypeDef*)     MR_SUBG_GLOB_STATUS_BASE)
 #define MR_SUBG_GLOB_MISC           ((MR_SUBG_GLOB_MISC_TypeDef*)         MR_SUBG_GLOB_MISC_BASE)
 #define MR_SUBG_GLOB_RETAINED       ((MR_SUBG_GLOB_RETAINED_TypeDef*) MR_SUBG_GLOB_RETAINED_BASE)
+#if defined (STM32WL3XX)
 #define LPAWUR                      ((LPAWUR_TypeDef*)                               LPAWUR_BASE)
+#endif /* (STM32WL3XX) */
 
 /** @} */ /* End of group Device_Peripheral_declaration */
 
@@ -1269,6 +1304,7 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define SYSCFG_JTAG_ID_MANUF_ID_10                                         (0x400U << SYSCFG_JTAG_ID_MANUF_ID_Pos)
 
 /* =====================================================    I2C_FMP_CTRL    =====================================================*/
+#if defined (STM32WL3XX)
 #define SYSCFG_I2C_FMP_CTRL_I2C2_PA14_FMP_Pos                              (9UL)        /*!<SYSCFG I2C_FMP_CTRL: I2C2_PA14_FMP (Bit 9) */
 #define SYSCFG_I2C_FMP_CTRL_I2C2_PA14_FMP_Msk                              (0x200UL)        /*!< SYSCFG I2C_FMP_CTRL: I2C2_PA14_FMP (Bitfield-Mask: 0x01) */
 #define SYSCFG_I2C_FMP_CTRL_I2C2_PA14_FMP                                  SYSCFG_I2C_FMP_CTRL_I2C2_PA14_FMP_Msk
@@ -1281,6 +1317,7 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define SYSCFG_I2C_FMP_CTRL_I2C2_PA6_FMP_Pos                               (6UL)        /*!<SYSCFG I2C_FMP_CTRL: I2C2_PA6_FMP (Bit 6) */
 #define SYSCFG_I2C_FMP_CTRL_I2C2_PA6_FMP_Msk                               (0x40UL)        /*!< SYSCFG I2C_FMP_CTRL: I2C2_PA6_FMP (Bitfield-Mask: 0x01) */
 #define SYSCFG_I2C_FMP_CTRL_I2C2_PA6_FMP                                   SYSCFG_I2C_FMP_CTRL_I2C2_PA6_FMP_Msk
+#endif /* (STM32WL3XX) */
 #define SYSCFG_I2C_FMP_CTRL_I2C1_PB11_FMP_Pos                              (5UL)        /*!<SYSCFG I2C_FMP_CTRL: I2C1_PB11_FMP (Bit 5) */
 #define SYSCFG_I2C_FMP_CTRL_I2C1_PB11_FMP_Msk                              (0x20UL)        /*!< SYSCFG I2C_FMP_CTRL: I2C1_PB11_FMP (Bitfield-Mask: 0x01) */
 #define SYSCFG_I2C_FMP_CTRL_I2C1_PB11_FMP                                  SYSCFG_I2C_FMP_CTRL_I2C1_PB11_FMP_Msk
@@ -3760,6 +3797,7 @@ typedef struct{ /*!< LPAWUR Structure  */
 /******************** Number of backup registers ******************************/
 #define RTC_BKP_NUMBER                 (2U)
 
+#if defined (STM32WL3XX)
 /* ============================================================================================================================*/
 /*=====================                                        LCD                                        =====================*/
 /* ============================================================================================================================*/
@@ -4020,6 +4058,7 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define LCD_RAM_COM7_SEGMENT_DATA_10                                       (0x400U << LCD_RAM_COM7_SEGMENT_DATA_Pos)
 #define LCD_RAM_COM7_SEGMENT_DATA_11                                       (0x800U << LCD_RAM_COM7_SEGMENT_DATA_Pos)
 
+#endif /* (STM32WL3XX) */
 
 /* ============================================================================================================================*/
 /*=====================                                      DBGMCU                                      =====================*/
@@ -4048,14 +4087,17 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define DBGMCU_DBG_APB0_FZ_DBG_TIM2_STOP                                   DBGMCU_DBG_APB0_FZ_DBG_TIM2_STOP_Msk
 
 /* =====================================================    DBG_APB1_FZ    =====================================================*/
+#if defined (STM32WL3XX)
 #define DBGMCU_DBG_APB1_FZ_DBG_I2C2_STOP_Pos                               (23UL)        /*!<DBGMCU DBG_APB1_FZ: DBG_I2C2_STOP (Bit 23) */
 #define DBGMCU_DBG_APB1_FZ_DBG_I2C2_STOP_Msk                               (0x800000UL)        /*!< DBGMCU DBG_APB1_FZ: DBG_I2C2_STOP (Bitfield-Mask: 0x01) */
 #define DBGMCU_DBG_APB1_FZ_DBG_I2C2_STOP                                   DBGMCU_DBG_APB1_FZ_DBG_I2C2_STOP_Msk
+#endif /* (STM32WL3XX) */
 #define DBGMCU_DBG_APB1_FZ_DBG_I2C1_STOP_Pos                               (21UL)        /*!<DBGMCU DBG_APB1_FZ: DBG_I2C1_STOP (Bit 21) */
 #define DBGMCU_DBG_APB1_FZ_DBG_I2C1_STOP_Msk                               (0x200000UL)        /*!< DBGMCU DBG_APB1_FZ: DBG_I2C1_STOP (Bitfield-Mask: 0x01) */
 #define DBGMCU_DBG_APB1_FZ_DBG_I2C1_STOP                                   DBGMCU_DBG_APB1_FZ_DBG_I2C1_STOP_Msk
 
 
+#if defined (STM32WL3XX)
 /* ============================================================================================================================*/
 /*=====================                                       COMP                                       =====================*/
 /* ============================================================================================================================*/
@@ -4511,6 +4553,7 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define LCSC_ISR_CLKWISE_F_Msk                                             (0x1UL)        /*!< LCSC ISR: CLKWISE_F (Bitfield-Mask: 0x01) */
 #define LCSC_ISR_CLKWISE_F                                                 LCSC_ISR_CLKWISE_F_Msk
 
+#endif /* (STM32WL3XX) */
 
 /* ============================================================================================================================*/
 /*=====================                                        I2C                                        =====================*/
@@ -4911,7 +4954,9 @@ typedef struct{ /*!< LPAWUR Structure  */
 /* ============================================================================================================================*/
 /*=====================                                        SPI                                        =====================*/
 /* ============================================================================================================================*/
+#if defined (STM32WL3XX)
 #define SPI_I2S_SUPPORT                       /*!< I2S support */
+#endif /* (STM32WL3XX) */
 
 /* =====================================================    CR1    =====================================================*/
 #define SPI_CR1_BIDIMODE_Pos                                               (15UL)        /*!<SPI CR1: BIDIMODE (Bit 15) */
@@ -5125,6 +5170,7 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define SPI_TXCRCR_TXCRC_14                                                (0x4000U << SPI_TXCRCR_TXCRC_Pos)
 #define SPI_TXCRCR_TXCRC_15                                                (0x8000U << SPI_TXCRCR_TXCRC_Pos)
 
+#if defined (STM32WL3XX)
 /* =====================================================    I2SCFGR    =====================================================*/
 #define SPI_I2SCFGR_ASTRTEN_Pos                                            (12UL)        /*!<SPI I2SCFGR: ASTRTEN (Bit 12) */
 #define SPI_I2SCFGR_ASTRTEN_Msk                                            (0x1000UL)        /*!< SPI I2SCFGR: ASTRTEN (Bitfield-Mask: 0x01) */
@@ -5178,6 +5224,7 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define SPI_I2SPR_I2SDIV_5                                                 (0x20U << SPI_I2SPR_I2SDIV_Pos)
 #define SPI_I2SPR_I2SDIV_6                                                 (0x40U << SPI_I2SPR_I2SDIV_Pos)
 #define SPI_I2SPR_I2SDIV_7                                                 (0x80U << SPI_I2SPR_I2SDIV_Pos)
+#endif /* STM32WL3XX */
 
 
 /* ============================================================================================================================*/
@@ -7305,12 +7352,14 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_KRMR_KRM_EN                                                    RCC_KRMR_KRM_EN_Msk
 
 /* =====================================================    CIER    =====================================================*/
+#if defined (STM32WL3XX)
 #define RCC_CIER_LCSCRSTIE_Pos                                             (13UL)        /*!<RCC CIER: LCSCRSTIE (Bit 13) */
 #define RCC_CIER_LCSCRSTIE_Msk                                             (0x2000UL)        /*!< RCC CIER: LCSCRSTIE (Bitfield-Mask: 0x01) */
 #define RCC_CIER_LCSCRSTIE                                                 RCC_CIER_LCSCRSTIE_Msk
 #define RCC_CIER_LCDRSTIE_Pos                                              (10UL)        /*!<RCC CIER: LCDRSTIE (Bit 10) */
 #define RCC_CIER_LCDRSTIE_Msk                                              (0x400UL)        /*!< RCC CIER: LCDRSTIE (Bitfield-Mask: 0x01) */
 #define RCC_CIER_LCDRSTIE                                                  RCC_CIER_LCDRSTIE_Msk
+#endif /* (STM32WL3XX) */
 #define RCC_CIER_LPURSTIE_Pos                                              (9UL)        /*!<RCC CIER: LPURSTIE (Bit 9) */
 #define RCC_CIER_LPURSTIE_Msk                                              (0x200UL)        /*!< RCC CIER: LPURSTIE (Bitfield-Mask: 0x01) */
 #define RCC_CIER_LPURSTIE                                                  RCC_CIER_LPURSTIE_Msk
@@ -7340,12 +7389,14 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_CIER_LSIRDYIE                                                  RCC_CIER_LSIRDYIE_Msk
 
 /* =====================================================    CIFR    =====================================================*/
+#if defined (STM32WL3XX)
 #define RCC_CIFR_LCSCRSTF_Pos                                              (13UL)        /*!<RCC CIFR: LCSCRSTF (Bit 13) */
 #define RCC_CIFR_LCSCRSTF_Msk                                              (0x2000UL)        /*!< RCC CIFR: LCSCRSTF (Bitfield-Mask: 0x01) */
 #define RCC_CIFR_LCSCRSTF                                                  RCC_CIFR_LCSCRSTF_Msk
 #define RCC_CIFR_LCDRSTF_Pos                                               (10UL)        /*!<RCC CIFR: LCDRSTF (Bit 10) */
 #define RCC_CIFR_LCDRSTF_Msk                                               (0x400UL)        /*!< RCC CIFR: LCDRSTF (Bitfield-Mask: 0x01) */
 #define RCC_CIFR_LCDRSTF                                                   RCC_CIFR_LCDRSTF_Msk
+#endif /* (STM32WL3XX) */
 #define RCC_CIFR_LPURSTF_Pos                                               (9UL)        /*!<RCC CIFR: LPURSTF (Bit 9) */
 #define RCC_CIFR_LPURSTF_Msk                                               (0x200UL)        /*!< RCC CIFR: LPURSTF (Bitfield-Mask: 0x01) */
 #define RCC_CIFR_LPURSTF                                                   RCC_CIFR_LPURSTF_Msk
@@ -7423,12 +7474,15 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB0RSTR_WDGRST_Pos                                            (14UL)        /*!<RCC APB0RSTR: WDGRST (Bit 14) */
 #define RCC_APB0RSTR_WDGRST_Msk                                            (0x4000UL)        /*!< RCC APB0RSTR: WDGRST (Bitfield-Mask: 0x01) */
 #define RCC_APB0RSTR_WDGRST                                                RCC_APB0RSTR_WDGRST_Msk
+#if defined (STM32WL3XX)
 #define RCC_APB0RSTR_LCSCRST_Pos                                           (13UL)        /*!<RCC APB0RSTR: LCSCRST (Bit 13) */
 #define RCC_APB0RSTR_LCSCRST_Msk                                           (0x2000UL)        /*!< RCC APB0RSTR: LCSCRST (Bitfield-Mask: 0x01) */
 #define RCC_APB0RSTR_LCSCRST                                               RCC_APB0RSTR_LCSCRST_Msk
+#endif /* (STM32WL3XX) */
 #define RCC_APB0RSTR_RTCRST_Pos                                            (12UL)        /*!<RCC APB0RSTR: RTCRST (Bit 12) */
 #define RCC_APB0RSTR_RTCRST_Msk                                            (0x1000UL)        /*!< RCC APB0RSTR: RTCRST (Bitfield-Mask: 0x01) */
 #define RCC_APB0RSTR_RTCRST                                                RCC_APB0RSTR_RTCRST_Msk
+#if defined (STM32WL3XX)
 #define RCC_APB0RSTR_DACRST_Pos                                            (11UL)        /*!<RCC APB0RSTR: DACRST (Bit 11) */
 #define RCC_APB0RSTR_DACRST_Msk                                            (0x800UL)        /*!< RCC APB0RSTR: DACRST (Bitfield-Mask: 0x01) */
 #define RCC_APB0RSTR_DACRST                                                RCC_APB0RSTR_DACRST_Msk
@@ -7438,6 +7492,7 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB0RSTR_LCDCRST_Pos                                           (9UL)        /*!<RCC APB0RSTR: LCDCRST (Bit 9) */
 #define RCC_APB0RSTR_LCDCRST_Msk                                           (0x200UL)        /*!< RCC APB0RSTR: LCDCRST (Bitfield-Mask: 0x01) */
 #define RCC_APB0RSTR_LCDCRST                                               RCC_APB0RSTR_LCDCRST_Msk
+#endif /* (STM32WL3XX) */
 #define RCC_APB0RSTR_SYSCFGRST_Pos                                         (8UL)        /*!<RCC APB0RSTR: SYSCFGRST (Bit 8) */
 #define RCC_APB0RSTR_SYSCFGRST_Msk                                         (0x100UL)        /*!< RCC APB0RSTR: SYSCFGRST (Bitfield-Mask: 0x01) */
 #define RCC_APB0RSTR_SYSCFGRST                                             RCC_APB0RSTR_SYSCFGRST_Msk
@@ -7449,9 +7504,11 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB0RSTR_TIM2RST                                               RCC_APB0RSTR_TIM2RST_Msk
 
 /* =====================================================    APB1RSTR    =====================================================*/
+#if defined (STM32WL3XX)
 #define RCC_APB1RSTR_I2C2RST_Pos                                           (23UL)        /*!<RCC APB1RSTR: I2C2RST (Bit 23) */
 #define RCC_APB1RSTR_I2C2RST_Msk                                           (0x800000UL)        /*!< RCC APB1RSTR: I2C2RST (Bitfield-Mask: 0x01) */
 #define RCC_APB1RSTR_I2C2RST                                               RCC_APB1RSTR_I2C2RST_Msk
+#endif /* (STM32WL3XX) */
 #define RCC_APB1RSTR_I2C1RST_Pos                                           (21UL)        /*!<RCC APB1RSTR: I2C1RST (Bit 21) */
 #define RCC_APB1RSTR_I2C1RST_Msk                                           (0x200000UL)        /*!< RCC APB1RSTR: I2C1RST (Bitfield-Mask: 0x01) */
 #define RCC_APB1RSTR_I2C1RST                                               RCC_APB1RSTR_I2C1RST_Msk
@@ -7467,14 +7524,18 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB1RSTR_ADCRST_Pos                                            (4UL)        /*!<RCC APB1RSTR: ADCRST (Bit 4) */
 #define RCC_APB1RSTR_ADCRST_Msk                                            (0x10UL)        /*!< RCC APB1RSTR: ADCRST (Bitfield-Mask: 0x01) */
 #define RCC_APB1RSTR_ADCRST                                                RCC_APB1RSTR_ADCRST_Msk
+#if defined (STM32WL3XX)
 #define RCC_APB1RSTR_SPI1RST_Pos                                           (0UL)        /*!<RCC APB1RSTR: SPI1RST (Bit 0) */
 #define RCC_APB1RSTR_SPI1RST_Msk                                           (0x1UL)        /*!< RCC APB1RSTR: SPI1RST (Bitfield-Mask: 0x01) */
 #define RCC_APB1RSTR_SPI1RST                                               RCC_APB1RSTR_SPI1RST_Msk
+#endif /* (STM32WL3XX) */
 
 /* =====================================================    APB2RSTR    =====================================================*/
+#if defined (STM32WL3XX)
 #define RCC_APB2RSTR_LPAWURRST_Pos                                         (3UL)        /*!<RCC APB2RSTR: LPAWURRST (Bit 3) */
 #define RCC_APB2RSTR_LPAWURRST_Msk                                         (0x8UL)        /*!< RCC APB2RSTR: LPAWURRST (Bitfield-Mask: 0x01) */
 #define RCC_APB2RSTR_LPAWURRST                                             RCC_APB2RSTR_LPAWURRST_Msk
+#endif /* (STM32WL3XX) */
 #define RCC_APB2RSTR_MRSUBGRST_Pos                                         (0UL)        /*!<RCC APB2RSTR: MRSUBGRST (Bit 0) */
 #define RCC_APB2RSTR_MRSUBGRST_Msk                                         (0x1UL)        /*!< RCC APB2RSTR: MRSUBGRST (Bitfield-Mask: 0x01) */
 #define RCC_APB2RSTR_MRSUBGRST                                             RCC_APB2RSTR_MRSUBGRST_Msk
@@ -7506,12 +7567,15 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB0ENR_WDGEN_Pos                                              (14UL)        /*!<RCC APB0ENR: WDGEN (Bit 14) */
 #define RCC_APB0ENR_WDGEN_Msk                                              (0x4000UL)        /*!< RCC APB0ENR: WDGEN (Bitfield-Mask: 0x01) */
 #define RCC_APB0ENR_WDGEN                                                  RCC_APB0ENR_WDGEN_Msk
+#if defined (STM32WL3XX)
 #define RCC_APB0ENR_LCSCEN_Pos                                             (13UL)        /*!<RCC APB0ENR: LCSCEN (Bit 13) */
 #define RCC_APB0ENR_LCSCEN_Msk                                             (0x2000UL)        /*!< RCC APB0ENR: LCSCEN (Bitfield-Mask: 0x01) */
 #define RCC_APB0ENR_LCSCEN                                                 RCC_APB0ENR_LCSCEN_Msk
+#endif /* (STM32WL3XX) */
 #define RCC_APB0ENR_RTCEN_Pos                                              (12UL)        /*!<RCC APB0ENR: RTCEN (Bit 12) */
 #define RCC_APB0ENR_RTCEN_Msk                                              (0x1000UL)        /*!< RCC APB0ENR: RTCEN (Bitfield-Mask: 0x01) */
 #define RCC_APB0ENR_RTCEN                                                  RCC_APB0ENR_RTCEN_Msk
+#if defined (STM32WL3XX)
 #define RCC_APB0ENR_DACEN_Pos                                              (11UL)        /*!<RCC APB0ENR: DACEN (Bit 11) */
 #define RCC_APB0ENR_DACEN_Msk                                              (0x800UL)        /*!< RCC APB0ENR: DACEN (Bitfield-Mask: 0x01) */
 #define RCC_APB0ENR_DACEN                                                  RCC_APB0ENR_DACEN_Msk
@@ -7521,6 +7585,7 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB0ENR_LCDEN_Pos                                              (9UL)        /*!<RCC APB0ENR: LCDEN (Bit 9) */
 #define RCC_APB0ENR_LCDEN_Msk                                              (0x200UL)        /*!< RCC APB0ENR: LCDEN (Bitfield-Mask: 0x01) */
 #define RCC_APB0ENR_LCDEN                                                  RCC_APB0ENR_LCDEN_Msk
+#endif /* (STM32WL3XX) */
 #define RCC_APB0ENR_SYSCFGEN_Pos                                           (8UL)        /*!<RCC APB0ENR: SYSCFGEN (Bit 8) */
 #define RCC_APB0ENR_SYSCFGEN_Msk                                           (0x100UL)        /*!< RCC APB0ENR: SYSCFGEN (Bitfield-Mask: 0x01) */
 #define RCC_APB0ENR_SYSCFGEN                                               RCC_APB0ENR_SYSCFGEN_Msk
@@ -7532,9 +7597,11 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB0ENR_TIM2EN                                                 RCC_APB0ENR_TIM2EN_Msk
 
 /* =====================================================    APB1ENR    =====================================================*/
+#if defined (STM32WL3XX)
 #define RCC_APB1ENR_I2C2EN_Pos                                             (23UL)        /*!<RCC APB1ENR: I2C2EN (Bit 23) */
 #define RCC_APB1ENR_I2C2EN_Msk                                             (0x800000UL)        /*!< RCC APB1ENR: I2C2EN (Bitfield-Mask: 0x01) */
 #define RCC_APB1ENR_I2C2EN                                                 RCC_APB1ENR_I2C2EN_Msk
+#endif /* (STM32WL3XX) */
 #define RCC_APB1ENR_I2C1EN_Pos                                             (21UL)        /*!<RCC APB1ENR: I2C1EN (Bit 21) */
 #define RCC_APB1ENR_I2C1EN_Msk                                             (0x200000UL)        /*!< RCC APB1ENR: I2C1EN (Bitfield-Mask: 0x01) */
 #define RCC_APB1ENR_I2C1EN                                                 RCC_APB1ENR_I2C1EN_Msk
@@ -7553,14 +7620,18 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB1ENR_ADCDIGEN_Pos                                           (4UL)        /*!<RCC APB1ENR: ADCDIGEN (Bit 4) */
 #define RCC_APB1ENR_ADCDIGEN_Msk                                           (0x10UL)        /*!< RCC APB1ENR: ADCDIGEN (Bitfield-Mask: 0x01) */
 #define RCC_APB1ENR_ADCDIGEN                                               RCC_APB1ENR_ADCDIGEN_Msk
+#if defined (STM32WL3XX)
 #define RCC_APB1ENR_SPI1EN_Pos                                             (0UL)        /*!<RCC APB1ENR: SPI1EN (Bit 0) */
 #define RCC_APB1ENR_SPI1EN_Msk                                             (0x1UL)        /*!< RCC APB1ENR: SPI1EN (Bitfield-Mask: 0x01) */
 #define RCC_APB1ENR_SPI1EN                                                 RCC_APB1ENR_SPI1EN_Msk
+#endif /* (STM32WL3XX) */
 
 /* =====================================================    APB2ENR    =====================================================*/
+#if defined (STM32WL3XX)
 #define RCC_APB2ENR_LPAWUREN_Pos                                           (3UL)        /*!<RCC APB2ENR: LPAWUREN (Bit 3) */
 #define RCC_APB2ENR_LPAWUREN_Msk                                           (0x8UL)        /*!< RCC APB2ENR: LPAWUREN (Bitfield-Mask: 0x01) */
 #define RCC_APB2ENR_LPAWUREN                                               RCC_APB2ENR_LPAWUREN_Msk
+#endif /* (STM32WL3XX) */
 #define RCC_APB2ENR_MRSUBGEN_Pos                                           (0UL)        /*!<RCC APB2ENR: MRSUBGEN (Bit 0) */
 #define RCC_APB2ENR_MRSUBGEN_Msk                                           (0x1UL)        /*!< RCC APB2ENR: MRSUBGEN (Bitfield-Mask: 0x01) */
 #define RCC_APB2ENR_MRSUBGEN                                               RCC_APB2ENR_MRSUBGEN_Msk
@@ -7667,12 +7738,15 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB0SMENR_WDGSMEN_Pos                                          (14UL)        /*!<RCC APB0SMENR: WDGSMEN (Bit 14) */
 #define RCC_APB0SMENR_WDGSMEN_Msk                                          (0x4000UL)        /*!< RCC APB0SMENR: WDGSMEN (Bitfield-Mask: 0x01) */
 #define RCC_APB0SMENR_WDGSMEN                                              RCC_APB0SMENR_WDGSMEN_Msk
+#if defined (STM32WL3XX)
 #define RCC_APB0SMENR_LCSCSMEN_Pos                                         (13UL)        /*!<RCC APB0SMENR: LCSCSMEN (Bit 13) */
 #define RCC_APB0SMENR_LCSCSMEN_Msk                                         (0x2000UL)        /*!< RCC APB0SMENR: LCSCSMEN (Bitfield-Mask: 0x01) */
 #define RCC_APB0SMENR_LCSCSMEN                                             RCC_APB0SMENR_LCSCSMEN_Msk
+#endif /* (STM32WL3XX) */
 #define RCC_APB0SMENR_RTCSMEN_Pos                                          (12UL)        /*!<RCC APB0SMENR: RTCSMEN (Bit 12) */
 #define RCC_APB0SMENR_RTCSMEN_Msk                                          (0x1000UL)        /*!< RCC APB0SMENR: RTCSMEN (Bitfield-Mask: 0x01) */
 #define RCC_APB0SMENR_RTCSMEN                                              RCC_APB0SMENR_RTCSMEN_Msk
+#if defined (STM32WL3XX)
 #define RCC_APB0SMENR_DACSMEN_Pos                                          (11UL)        /*!<RCC APB0SMENR: DACSMEN (Bit 11) */
 #define RCC_APB0SMENR_DACSMEN_Msk                                          (0x800UL)        /*!< RCC APB0SMENR: DACSMEN (Bitfield-Mask: 0x01) */
 #define RCC_APB0SMENR_DACSMEN                                              RCC_APB0SMENR_DACSMEN_Msk
@@ -7682,6 +7756,7 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB0SMENR_LCDCSMEN_Pos                                         (9UL)        /*!<RCC APB0SMENR: LCDCSMEN (Bit 9) */
 #define RCC_APB0SMENR_LCDCSMEN_Msk                                         (0x200UL)        /*!< RCC APB0SMENR: LCDCSMEN (Bitfield-Mask: 0x01) */
 #define RCC_APB0SMENR_LCDCSMEN                                             RCC_APB0SMENR_LCDCSMEN_Msk
+#endif /* (STM32WL3XX) */
 #define RCC_APB0SMENR_SYSCFGSMEN_Pos                                       (8UL)        /*!<RCC APB0SMENR: SYSCFGSMEN (Bit 8) */
 #define RCC_APB0SMENR_SYSCFGSMEN_Msk                                       (0x100UL)        /*!< RCC APB0SMENR: SYSCFGSMEN (Bitfield-Mask: 0x01) */
 #define RCC_APB0SMENR_SYSCFGSMEN                                           RCC_APB0SMENR_SYSCFGSMEN_Msk
@@ -7693,9 +7768,11 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB0SMENR_TIM2SMEN                                             RCC_APB0SMENR_TIM2SMEN_Msk
 
 /* =====================================================    APB1SMENR    =====================================================*/
+#if defined (STM32WL3XX)
 #define RCC_APB1SMENR_I2C2SMEN_Pos                                         (23UL)        /*!<RCC APB1SMENR: I2C2SMEN (Bit 23) */
 #define RCC_APB1SMENR_I2C2SMEN_Msk                                         (0x800000UL)        /*!< RCC APB1SMENR: I2C2SMEN (Bitfield-Mask: 0x01) */
 #define RCC_APB1SMENR_I2C2SMEN                                             RCC_APB1SMENR_I2C2SMEN_Msk
+#endif /* (STM32WL3XX) */
 #define RCC_APB1SMENR_I2C1SMEN_Pos                                         (21UL)        /*!<RCC APB1SMENR: I2C1SMEN (Bit 21) */
 #define RCC_APB1SMENR_I2C1SMEN_Msk                                         (0x200000UL)        /*!< RCC APB1SMENR: I2C1SMEN (Bitfield-Mask: 0x01) */
 #define RCC_APB1SMENR_I2C1SMEN                                             RCC_APB1SMENR_I2C1SMEN_Msk
@@ -7714,9 +7791,11 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define RCC_APB1SMENR_ADCDIGSMEN_Pos                                       (4UL)        /*!<RCC APB1SMENR: ADCDIGSMEN (Bit 4) */
 #define RCC_APB1SMENR_ADCDIGSMEN_Msk                                       (0x10UL)        /*!< RCC APB1SMENR: ADCDIGSMEN (Bitfield-Mask: 0x01) */
 #define RCC_APB1SMENR_ADCDIGSMEN                                           RCC_APB1SMENR_ADCDIGSMEN_Msk
+#if defined (STM32WL3XX)
 #define RCC_APB1SMENR_SPI1SMEN_Pos                                         (0UL)        /*!<RCC APB1SMENR: SPI1SMEN (Bit 0) */
 #define RCC_APB1SMENR_SPI1SMEN_Msk                                         (0x1UL)        /*!< RCC APB1SMENR: SPI1SMEN (Bitfield-Mask: 0x01) */
 #define RCC_APB1SMENR_SPI1SMEN                                             RCC_APB1SMENR_SPI1SMEN_Msk
+#endif /* (STM32WL3XX) */
 
 
 /* ============================================================================================================================*/
@@ -7785,15 +7864,18 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define PWR_CR2_PVDE                                                       PWR_CR2_PVDE_Msk
 
 /* =====================================================    IEWU    =====================================================*/
+#if defined (STM32WL3XX)
 #define PWR_IEWU_EWLPAWUR_Pos                                              (10UL)        /*!<PWR IEWU: EWLPAWUR (Bit 10) */
 #define PWR_IEWU_EWLPAWUR_Msk                                              (0x400UL)        /*!< PWR IEWU: EWLPAWUR (Bitfield-Mask: 0x01) */
 #define PWR_IEWU_EWLPAWUR                                                   PWR_IEWU_EWLPAWUR_Msk
+#endif /* (STM32WL3XX) */
 #define PWR_IEWU_EWMRSUBGHCPU_Pos                                          (9UL)        /*!<PWR IEWU: EWMRSUBGHCPU (Bit 9) */
 #define PWR_IEWU_EWMRSUBGHCPU_Msk                                          (0x200UL)        /*!< PWR IEWU: EWMRSUBGHCPU (Bitfield-Mask: 0x01) */
 #define PWR_IEWU_EWMRSUBGHCPU                                              PWR_IEWU_EWMRSUBGHCPU_Msk
 #define PWR_IEWU_EWMRSUBG_Pos                                              (8UL)        /*!<PWR IEWU: EWMRSUBG (Bit 8) */
 #define PWR_IEWU_EWMRSUBG_Msk                                              (0x100UL)        /*!< PWR IEWU: EWMRSUBG (Bitfield-Mask: 0x01) */
 #define PWR_IEWU_EWMRSUBG                                                  PWR_IEWU_EWMRSUBG_Msk
+#if defined (STM32WL3XX)
 #define PWR_IEWU_EIWL4_Pos                                                 (4UL)        /*!<PWR IEWU: EIWL4 (Bit 4) */
 #define PWR_IEWU_EIWL4_Msk                                                 (0x10UL)        /*!< PWR IEWU: EIWL4 (Bitfield-Mask: 0x01) */
 #define PWR_IEWU_EIWL4                                                     PWR_IEWU_EIWL4_Msk
@@ -7803,6 +7885,7 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define PWR_IEWU_EIWL2_Pos                                                 (2UL)        /*!<PWR IEWU: EIWL2 (Bit 2) */
 #define PWR_IEWU_EIWL2_Msk                                                 (0x4UL)        /*!< PWR IEWU: EIWL2 (Bitfield-Mask: 0x01) */
 #define PWR_IEWU_EIWL2                                                     PWR_IEWU_EIWL2_Msk
+#endif /* (STM32WL3XX) */
 #define PWR_IEWU_EIWL1_Pos                                                 (1UL)        /*!<PWR IEWU: EIWL1 (Bit 1) */
 #define PWR_IEWU_EIWL1_Msk                                                 (0x2UL)        /*!< PWR IEWU: EIWL1 (Bitfield-Mask: 0x01) */
 #define PWR_IEWU_EIWL1                                                     PWR_IEWU_EIWL1_Msk
@@ -7811,9 +7894,11 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define PWR_IEWU_EIWL0                                                     PWR_IEWU_EIWL0_Msk
 
 /* =====================================================    IWUP    =====================================================*/
+#if defined (STM32WL3XX)
 #define PWR_IWUP_WLPAWURP_Pos                                              (10UL)        /*!<PWR IWUP: WLPAWURP (Bit 10) */
 #define PWR_IWUP_WLPAWURP_Msk                                              (0x400UL)        /*!< PWR IWUP: WLPAWURP (Bitfield-Mask: 0x01) */
 #define PWR_IWUP_WLPAWURP                                                  PWR_IWUP_WLPAWURP_Msk
+#endif /* (STM32WL3XX) */
 #define PWR_IWUP_WMRSUBGHCPUP_Pos                                          (9UL)        /*!<PWR IWUP: WMRSUBGHCPUP (Bit 9) */
 #define PWR_IWUP_WMRSUBGHCPUP_Msk                                          (0x200UL)        /*!< PWR IWUP: WMRSUBGHCPUP (Bitfield-Mask: 0x01) */
 #define PWR_IWUP_WMRSUBGHCPUP                                              PWR_IWUP_WMRSUBGHCPUP_Msk
@@ -7837,9 +7922,11 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define PWR_IWUP_IWUP0                                                     PWR_IWUP_IWUP0_Msk
 
 /* =====================================================    IWUF    =====================================================*/
+#if defined (STM32WL3XX)
 #define PWR_IWUF_WLPAWURF_Pos                                              (10UL)        /*!<PWR IWUF: WLPAWURF (Bit 10) */
 #define PWR_IWUF_WLPAWURF_Msk                                              (0x400UL)        /*!< PWR IWUF: WLPAWURF (Bitfield-Mask: 0x01) */
 #define PWR_IWUF_WLPAWURF                                                  PWR_IWUF_WLPAWURF_Msk
+#endif /* (STM32WL3XX) */
 #define PWR_IWUF_WMRSUBGHCPUF_Pos                                          (9UL)        /*!<PWR IWUF: WMRSUBGHCPUF (Bit 9) */
 #define PWR_IWUF_WMRSUBGHCPUF_Msk                                          (0x200UL)        /*!< PWR IWUF: WMRSUBGHCPUF (Bitfield-Mask: 0x01) */
 #define PWR_IWUF_WMRSUBGHCPUF                                              PWR_IWUF_WMRSUBGHCPUF_Msk
@@ -8017,9 +8104,15 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define PWR_PDCRA_PA7_Pos                                                  (7UL)        /*!<PWR PDCRA: PA7 (Bit 7) */
 #define PWR_PDCRA_PA7_Msk                                                  (0x80UL)        /*!< PWR PDCRA: PA7 (Bitfield-Mask: 0x01) */
 #define PWR_PDCRA_PA7                                                      PWR_PDCRA_PA7_Msk
+#if defined(STM32WL3XX)
 #define PWR_PDCRA_PA6_Pos                                                  (6UL)        /*!<PWR PDCRA: PA6 (Bit 6) */
 #define PWR_PDCRA_PA6_Msk                                                  (0x40UL)        /*!< PWR PDCRA: PA6 (Bitfield-Mask: 0x01) */
 #define PWR_PDCRA_PA6                                                      PWR_PDCRA_PA6_Msk
+#else
+#define PWR_PDCRA_UDP_Pos                                                  (6UL)        /*!<PWR PDCRA: UDP (Bit 6) */
+#define PWR_PDCRA_UDP_Msk                                                  (0x40UL)        /*!< PWR PDCRA: UDP (Bitfield-Mask: 0x01) */
+#define PWR_PDCRA_UDP                                                      PWR_PDCRA_UDP_Msk
+#endif /* STM32WL3XX */
 #define PWR_PDCRA_PA5_Pos                                                  (5UL)        /*!<PWR PDCRA: PA5 (Bit 5) */
 #define PWR_PDCRA_PA5_Msk                                                  (0x20UL)        /*!< PWR PDCRA: PA5 (Bitfield-Mask: 0x01) */
 #define PWR_PDCRA_PA5                                                      PWR_PDCRA_PA5_Msk
@@ -9825,6 +9918,7 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define AES_SUSP7_SUSP_31                                                  (0x80000000UL << AES_SUSP7_SUSP_Pos)
 
 
+#if defined (STM32WL3XX)
 /* ============================================================================================================================*/
 /*=====================                                      LPAWUR                                      =====================*/
 /* ============================================================================================================================*/
@@ -10127,6 +10221,7 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define LPAWUR_STATUS_BIT_SYNC_DETECTED_F_Pos                              (0UL)        /*!<LPAWUR STATUS: BIT_SYNC_DETECTED_F (Bit 0) */
 #define LPAWUR_STATUS_BIT_SYNC_DETECTED_F_Msk                              (0x1UL)        /*!< LPAWUR STATUS: BIT_SYNC_DETECTED_F (Bitfield-Mask: 0x01) */
 #define LPAWUR_STATUS_BIT_SYNC_DETECTED_F                                  LPAWUR_STATUS_BIT_SYNC_DETECTED_F_Msk
+#endif /* (STM32WL3XX) */
 
 
 /* ============================================================================================================================*/
@@ -12543,6 +12638,12 @@ typedef struct{ /*!< LPAWUR Structure  */
 #define MR_SUBG_RADIO_RF_INFO_OUT_RFSUBG_ID_1                             (0x2U << MR_SUBG_RADIO_RF_INFO_OUT_RFSUBG_ID_Pos)
 #define MR_SUBG_RADIO_RF_INFO_OUT_RFSUBG_ID_2                             (0x4U << MR_SUBG_RADIO_RF_INFO_OUT_RFSUBG_ID_Pos)
 #define MR_SUBG_RADIO_RF_INFO_OUT_RFSUBG_ID_3                             (0x8U << MR_SUBG_RADIO_RF_INFO_OUT_RFSUBG_ID_Pos)
+#if defined (STM32WL3RX)
+/* =====================================================    RFANA_PLL_IN    =====================================================*/
+#define MR_SUBG_RADIO_RFANA_PLL_IN_DIV12_SEL_Pos                          (6UL)        /*!MR_SUBG_RADIO_RFANA_PLL_IN: DIV12_SEL (Bit 6) */
+#define MR_SUBG_RADIO_RFANA_PLL_IN_DIV12_SEL_Msk                          (0x40UL)        /*!< MR_SUBG_RADIO RFANA_PLL_IN: DIV12_SEL (Bitfield-Mask: 0x40) */
+#define MR_SUBG_RADIO_RFANA_PLL_IN_DIV12_SEL                              MR_SUBG_RADIO_RFANA_PLL_IN_DIV12_SEL_Msk
+#endif /* STM32WL3RX */
 
 /* =====================================================    RF_FSM8_TIMEOUT    =====================================================*/
 #define MR_SUBG_RADIO_RF_FSM8_TIMEOUT_SYNTH_PDWN_TIMER_Pos                 (0UL)        /*!<MR_SUBG_RADIO RF_FSM8_TIMEOUT: SYNTH_PDWN_TIMER (Bit 0) */
@@ -12645,9 +12746,11 @@ typedef struct{ /*!< LPAWUR Structure  */
 
 /******************************* CRC Instances ********************************/
 #define IS_CRC_ALL_INSTANCE(INSTANCE) ((INSTANCE) == CRC)
+#if defined (STM32WL3XX)
 
 /******************************* DAC Instances ********************************/
 #define IS_DAC_ALL_INSTANCE(INSTANCE) ((INSTANCE) == DAC1)
+#endif /* (STM32WL3XX) */
 
 /******************************** DMA Instances *******************************/
 #define IS_DMA_ALL_INSTANCE(INSTANCE) (((INSTANCE) == DMA1_Channel1) || \
@@ -12672,13 +12775,23 @@ typedef struct{ /*!< LPAWUR Structure  */
 /**************************** GPIO Lock Instances *****************************/
 #define IS_GPIO_LOCK_INSTANCE(INSTANCE) IS_GPIO_ALL_INSTANCE(INSTANCE)
 
+#if defined (STM32WL3XX)
 /******************************** I2C Instances *******************************/
 #define IS_I2C_ALL_INSTANCE(INSTANCE) (((INSTANCE) == I2C1) || \
                                        ((INSTANCE) == I2C2))
+#elif defined (STM32WL3RX)
+/******************************** I2C Instances *******************************/
+#define IS_I2C_ALL_INSTANCE(INSTANCE) ((INSTANCE) == I2C1)
+#endif /* (STM32WL3XX) */
 
+#if defined (STM32WL3XX)
 /******************************* SMBUS Instances ******************************/
 #define IS_SMBUS_ALL_INSTANCE(INSTANCE) (((INSTANCE) == I2C1) || \
                                         ((INSTANCE) == I2C2))
+#elif defined (STM32WL3RX)
+/******************************* SMBUS Instances ******************************/
+#define IS_SMBUS_ALL_INSTANCE(INSTANCE) ((INSTANCE) == I2C1)
+#endif /* (STM32WL3XX) */
 
 /******************************* RNG Instances ********************************/
 #define IS_RNG_ALL_INSTANCE(INSTANCE)  ((INSTANCE) == RNG)
@@ -12686,12 +12799,19 @@ typedef struct{ /*!< LPAWUR Structure  */
 /****************************** RTC Instances *********************************/
 #define IS_RTC_ALL_INSTANCE(INSTANCE)  ((INSTANCE) == RTC)
 
+#if defined (STM32WL3XX)
 /******************************** SPI Instances *******************************/
 #define IS_SPI_ALL_INSTANCE(INSTANCE) (((INSTANCE) == SPI1) || \
                                        ((INSTANCE) == SPI3))
+#elif defined (STM32WL3RX)
+/******************************** SPI Instances *******************************/
+#define IS_SPI_ALL_INSTANCE(INSTANCE) ((INSTANCE) == SPI3)
+#endif /* (STM32WL3XX) */
 
+#if defined (STM32WL3XX)
 /******************************** I2S Instances *******************************/
 #define IS_I2S_ALL_INSTANCE(INSTANCE)  (((INSTANCE) == SPI3))
+#endif /* (STM32WL3XX) */
 
 /****************************** IWDG Instances ********************************/
 #define IS_IWDG_ALL_INSTANCE(INSTANCE)  ((INSTANCE) == IWDG)
@@ -12816,11 +12936,13 @@ typedef struct{ /*!< LPAWUR Structure  */
 /******************************* AES Instances ********************************/
 #define IS_AES_ALL_INSTANCE(INSTANCE) (((INSTANCE) == AES))
 
+#if defined (STM32WL3XX)
 /******************************** COMP Instances ******************************/
 #define IS_COMP_ALL_INSTANCE(INSTANCE) (((INSTANCE) == COMP1))
 
 /******************************* LCD Instances ********************************/
 #define IS_LCD_ALL_INSTANCE(INSTANCE)  ((INSTANCE) == LCD)
+#endif /* (STM32WL3XX) */
 
 /** @} */ /* End of group STM32WBL3x_Peripheral_Exported_macros */
 
@@ -12832,4 +12954,4 @@ typedef struct{ /*!< LPAWUR Structure  */
 }
 #endif
 
-#endif /* STM32WL3XX_H */
+#endif /* $PRODUCTNAME_UC$_H */
