@@ -361,7 +361,10 @@ extern "C" {
 #if defined(STM32L4R5xx) || defined(STM32L4R9xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || \
     defined(STM32L4S7xx) || defined(STM32L4S9xx)
 #define DMA_REQUEST_DCMI_PSSI                    DMA_REQUEST_DCMI
-#endif
+#elif defined(STM32L4P5xx) || defined(STM32L4Q5xx)
+#define DMA_REQUEST_PSSI                    DMA_REQUEST_DCMI_PSSI
+#define LL_DMAMUX_REQ_PSSI                  LL_DMAMUX_REQ_DCMI_PSSI
+#endif /* STM32L4R5xx || STM32L4R9xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 
 #endif /* STM32L4 */
 
@@ -564,6 +567,9 @@ extern "C" {
 #define OB_nBOOT0_RESET               OB_NBOOT0_RESET
 #define OB_nBOOT0_SET                 OB_NBOOT0_SET
 #endif /* STM32U0 */
+#if defined(STM32H5)
+#define FLASH_ECC_AREA_EDATA          FLASH_ECC_AREA_EDATA_BANK1
+#endif /* STM32H5 */
 
 /**
   * @}
@@ -2145,6 +2151,13 @@ extern "C" {
 #define IS_SYSCFG_FASTMODEPLUS_CONFIG         IS_I2C_FASTMODEPLUS
 #define UFB_MODE_BitNumber                    UFB_MODE_BIT_NUMBER
 #define CMP_PD_BitNumber                      CMP_PD_BIT_NUMBER
+
+#if defined(STM32H7RS) || defined(STM32N6)
+#define FMC_SWAPBMAP_DISABLE                  FMC_SWAPBANK_MODE0
+#define FMC_SWAPBMAP_SDRAM_SRAM               FMC_SWAPBANK_MODE1
+#define HAL_SetFMCMemorySwappingConfig        HAL_FMC_SetBankSwapConfig
+#define HAL_GetFMCMemorySwappingConfig        HAL_FMC_GetBankSwapConfig
+#endif /* STM32H7RS || STM32N6 */
 
 /**
   * @}

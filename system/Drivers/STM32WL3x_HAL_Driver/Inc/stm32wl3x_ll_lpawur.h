@@ -32,6 +32,7 @@ extern "C" {
 /** @addtogroup STM32WL3x_LL_Driver
   * @{
   */
+#if defined (LPAWUR)
 
 /** @addtogroup LPAWUR
   * @{
@@ -746,6 +747,8 @@ __STATIC_INLINE AgcMode LL_LPAWUR_GetAgcMode(void)
 /**
   * @}
   */
+
+#endif /* LPAWUR */
 
 #ifdef __cplusplus
 }

@@ -102,7 +102,12 @@ extern "C" {
 #define LL_DMAMUX_REQ_DAC                0x0000001AU  /*!< DMAMUX DAC request */
 #endif
 
+#if defined(STM32WL3X)
 #define LL_DMAMUX_MAX_REQ                LL_DMAMUX_REQ_DAC
+#else
+#define LL_DMAMUX_MAX_REQ                LL_DMAMUX_REQ_TIM16_TRG
+#endif /* (STM32WL3X) */
+
 /**
   * @}
   */

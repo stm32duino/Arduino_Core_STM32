@@ -40,40 +40,74 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section3" checked aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true"><strong>V1.2.0 / 04-June-2025</strong></label>
+<input type="checkbox" id="collapse-section4" checked aria-hidden="true"> <label for="collapse-section4" checked aria-hidden="true"><strong>V1.3.0 / 29-October-2025</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
-<h3 id="release-of-hal-and-ll-drivers-for-stm32wl3x-devices">Release of <strong>HAL and LL drivers</strong> for <strong>STM32WL3x</strong> devices</h3>
+<ul>
+<li>HAL and LL drivers updates to support STM32WL3Rx product line.</li>
+<li>Corrections/enhancements to the following HAL drivers: ADC, MRSUBG, RCC, MRSUBG Timer, GPIO, UART, USART, LCSC, PWR.</li>
+</ul>
 <h2 id="contents">Contents</h2>
 <h3 id="hal-drivers-updates"><strong>HAL Drivers</strong> updates</h3>
 <ul>
-<li><strong>HAL MRSUBG</strong> driver
+<li><strong>HAL ADC</strong> driver
 <ul>
-<li>Fixed wrong length of SYNC word in wM-Bus packet initialization function.</li>
-<li>Fixed HAL_MRSubG_Sequencer_Microseconds return value.</li>
-<li>Moved HAL_MRSUBG_TIMER_CPU_WKUP IRQ Handler from MRSUBG to MRSUBG TIMER.</li>
-<li>Updated names of IRQ handlers.</li>
-</ul></li>
-<li><strong>HAL LPAWUR</strong> driver
-<ul>
-<li>Added MspInit and MspDeInit functions to MRSUBG, MRSUBG TIMER, and LPAWUR.</li>
+<li>Improving accuracy of calibration value for VINM input (changing sign of the applied value)</li>
+<li>Fix rmtoll doxygen comment in LL_ADC_GetCalibPointOffset()</li>
+<li>Optimize precision of temperature sensor data conversion</li>
 </ul></li>
 <li><strong>HAL RCC</strong> driver
 <ul>
-<li>Added support for <code>RCC_LPUART1_CLKSOURCE_16M</code> with a frequency of 16,000,000.</li>
+<li>Add LL RCC APIs to manage RTC clock: LL_RCC_EnableRTC(), LL_RCC_DisableRTC() and LL_RCC_IsEnabledRTC()</li>
+</ul></li>
+<li><strong>HAL MRSUBG</strong> driver
+<ul>
+<li>Turned <code>IS_169MHZ</code> define into <code>STM32WL33XA</code>.</li>
+<li>Added get and set API for SQI Threshold:
+<pre><code>__HAL_MRSUBG_SET_SQI_THRESHOLD(__THRVAL__)</code></pre>
+</li>
+<pre><code>__HAL_MRSUBG_GET_SQI_THRESHOLD()</code></pre>
+</li></li>
+<li>Fixed <code>HAL_MRSubG_GetPALeveldBm()</code> when PA is set in LEGACY o FIR mode</li>
+<li>Added <code>LL_MRSubG_GetPAMode()</code> to retrieve the current PA mode</li>
+<li>Fixed build errors when assertions are enabled.</li>
+</ul></li>
+<li><strong>HAL MRSUBG_TIMER</strong> driver
+<ul>
+<li>Enhanced power-saving state mechanism</li>
+</ul></li>
+<li><strong>HAL GPIO</strong> driver
+<ul>
+<li>Added else clause to disable pull-up/down resistors when GPIO mode is analog</li>
+</ul></li>
+<li><strong>HAL PWR</strong> driver
+<ul>
+<li>Added support to STM32WL3Rx ultra deepstop low power mode.</li>
+</ul></li>
+<li><strong>HAL LPUART</strong> driver
+<ul>
+<li>Solve Coverity out-of-bound memory access warning in use of LPUART_PRESCALER_TAB array</li>
+</ul></li>
+<li><strong>LL ADC</strong> driver
+<ul>
+<li>Fix assert_param define</li>
+</ul></li>
+<li><strong>LL LCSC</strong> driver
+<ul>
+<li>Fixed incorrect clearing of LCSC interrupt flags in LL driver</li>
+</ul></li>
+<li><strong>LL USART</strong> driver
+<ul>
+<li>Solve Coverity out-of-bound memory access warning in use of USART_PRESCALER_TAB array</li>
 </ul></li>
 </ul>
-<h3 id="ll-drivers-updates"><strong>LL Drivers</strong> updates</h3>
-<ul>
-<li><strong>LL RCC</strong> driver
-<ul>
-<li>Added LL RCC APIs to manage RTC clock: LL_RCC_EnableRTC(), LL_RCC_DisableRTC() and LL_RCC_IsEnabledRTC().</li>
-</ul></li>
-</ul>
+<h3 id="bsp-updates"><strong>BSP</strong> updates</h3>
 <h2 id="supported-devices-and-boards">Supported Devices and boards</h2>
 <ul>
 <li>NUCLEO-WL33CC1 board</li>
 <li>NUCLEO-WL33CC2 board</li>
+<li>NUCLEO-WL3RKB1 board</li>
+<li>NUCLEO-WL3RKB2 board</li>
 </ul>
 <h2 id="backward-compatibility">Backward compatibility</h2>
 <ul>
@@ -94,9 +128,72 @@
 </div>
 </div>
 <div class="collapse">
-<input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true"><strong>V1.1.0 / 5-February-2025</strong></label>
+<input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true"><strong>V1.2.0 / 04-June-2025</strong></label>
 <div>
 <h2 id="main-changes-1">Main Changes</h2>
+<h3 id="release-of-hal-and-ll-drivers-for-stm32wl3x-devices">Release of <strong>HAL and LL drivers</strong> for <strong>STM32WL3x</strong> devices</h3>
+<h2 id="contents-1">Contents</h2>
+<h3 id="hal-drivers-updates-1"><strong>HAL Drivers</strong> updates</h3>
+<ul>
+<li><strong>HAL MRSUBG</strong> driver
+<ul>
+<li>Fixed wrong length of SYNC word in wM-Bus packet initialization function.</li>
+<li>Fixed HAL_MRSubG_Sequencer_Microseconds return value.</li>
+<li>HAL_MRSUBG_TIMER_CPU_WKUP IRQ Handler moved from MRSUBG to MRSUBG TIMER.</li>
+<li>Updated names for IRQ handlers.</li>
+</ul></li>
+<li><strong>HAL LPAWUR</strong> driver
+<ul>
+<li>Added MspInit and MspDeInit functions to MRSUBG, MRSUBG TIMER, and LPAWUR.</li>
+</ul></li>
+<li><strong>HAL RCC</strong> driver
+<ul>
+<li>Add LL RCC APIs to manage RTC clock: LL_RCC_EnableRTC(), LL_RCC_DisableRTC() and LL_RCC_IsEnabledRTC().</li>
+<li>Added support for <code>RCC_LPUART1_CLKSOURCE_16M</code> with a frequency of 16,000,000.</li>
+</ul></li>
+</ul>
+<h3 id="ll-drivers-updates"><strong>LL Drivers</strong> updates</h3>
+<ul>
+<li><strong>LL ADC</strong> driver
+<ul>
+<li>Fix rmtoll doxygen comment in LL_ADC_GetCalibPointOffset()</li>
+</ul></li>
+<li><strong>LL USART</strong> driver
+<ul>
+<li>Solve Coverity out-of-bound memory access warning in use of USART_PRESCALER_TAB array.</li>
+</ul></li>
+<li><strong>LL LPUART</strong> driver
+<ul>
+<li>Solve Coverity out-of-bound memory access warning in use of LPUART_PRESCALER_TAB array.</li>
+</ul></li>
+</ul>
+<h2 id="supported-devices-and-boards-1">Supported Devices and boards</h2>
+<ul>
+<li>NUCLEO-WL33CC1 board</li>
+<li>NUCLEO-WL33CC2 board</li>
+</ul>
+<h2 id="backward-compatibility-1">Backward compatibility</h2>
+<ul>
+<li>Not applicable</li>
+</ul>
+<h2 id="known-limitations-1">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies-1">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="notes-1">Notes</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true"><strong>V1.1.0 / 5-February-2025</strong></label>
+<div>
+<h2 id="main-changes-2">Main Changes</h2>
 <h3 id="release-of-hal-and-ll-drivers-for-stm32wl3x-devices-1">Release of <strong>HAL and LL drivers</strong> for <strong>STM32WL3x</strong> devices</h3>
 Improved MRSUBG LL and HAL drivers with new APIs and macros:
 <ul>
@@ -152,7 +249,7 @@ Improved MRSUBG LL and HAL drivers with new APIs and macros:
 </ul></li>
 </ul>
 <p>Check the code documentation for further details.</p>
-<h2 id="contents-1">Contents</h2>
+<h2 id="contents-2">Contents</h2>
 <ul>
 <li>Release of HAL/LL drivers
 <ul>
@@ -160,45 +257,10 @@ Improved MRSUBG LL and HAL drivers with new APIs and macros:
 <li><p><strong>LL</strong>: COMP, CRC, DMA, GPIO, I2C, LCSC, LPUART, LPAWUR, MRSUBG, PWR, RCC, RNG, RTC, SPI, TIM, USART, UTILS</p></li>
 </ul></li>
 </ul>
-<h2 id="supported-devices-and-boards-1">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-2">Supported Devices and boards</h2>
 <ul>
 <li>NUCLEO-WL33CC1 board</li>
 <li>NUCLEO-WL33CC2 board</li>
-</ul>
-<h2 id="backward-compatibility-1">Backward compatibility</h2>
-<ul>
-<li>Not applicable</li>
-</ul>
-<h2 id="known-limitations-1">Known Limitations</h2>
-<ul>
-<li>None</li>
-</ul>
-<h2 id="dependencies-1">Dependencies</h2>
-<ul>
-<li>None</li>
-</ul>
-<h2 id="notes-1">Notes</h2>
-<ul>
-<li>None</li>
-</ul>
-</div>
-</div>
-<div class="collapse">
-<input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" checked aria-hidden="true"><strong>V1.0.0 / 30-October-2024</strong></label>
-<div>
-<h2 id="main-changes-2">Main Changes</h2>
-<h3 id="first-official-release-of-hal-and-ll-drivers-for-stm32wl33-devices">First Official Release of <strong>HAL and LL drivers</strong> for <strong>STM32WL33</strong> devices</h3>
-<h2 id="contents-2">Contents</h2>
-<ul>
-<li>First Official Release of HAL/LL drivers
-<ul>
-<li><p><strong>HAL</strong>: COMP, CORTEX, CRC, CRYP, DMA, FLASH, GPIO, I2C, IRDA, IWDG, LCD, LPAWUR, MRSUBG, PWR, RCC, RNG, RTC, SMARTCARD, SPI, TIM, UART, USART</p></li>
-<li><p><strong>LL</strong>: COMP, CRC, DMA, GPIO, I2C, LCSC, LPUART, LPAWUR, MRSUBG, PWR, RCC, RNG, RTC, SPI, TIM, USART, UTILS</p></li>
-</ul></li>
-</ul>
-<h2 id="supported-devices-and-boards-2">Supported Devices and boards</h2>
-<ul>
-<li>NUCLEO-WL33CC board</li>
 </ul>
 <h2 id="backward-compatibility-2">Backward compatibility</h2>
 <ul>
@@ -213,6 +275,41 @@ Improved MRSUBG LL and HAL drivers with new APIs and macros:
 <li>None</li>
 </ul>
 <h2 id="notes-2">Notes</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" checked aria-hidden="true"><strong>V1.0.0 / 30-October-2024</strong></label>
+<div>
+<h2 id="main-changes-3">Main Changes</h2>
+<h3 id="first-official-release-of-hal-and-ll-drivers-for-stm32wl33-devices">First Official Release of <strong>HAL and LL drivers</strong> for <strong>STM32WL33</strong> devices</h3>
+<h2 id="contents-3">Contents</h2>
+<ul>
+<li>First Official Release of HAL/LL drivers
+<ul>
+<li><p><strong>HAL</strong>: COMP, CORTEX, CRC, CRYP, DMA, FLASH, GPIO, I2C, IRDA, IWDG, LCD, LPAWUR, MRSUBG, PWR, RCC, RNG, RTC, SMARTCARD, SPI, TIM, UART, USART</p></li>
+<li><p><strong>LL</strong>: COMP, CRC, DMA, GPIO, I2C, LCSC, LPUART, LPAWUR, MRSUBG, PWR, RCC, RNG, RTC, SPI, TIM, USART, UTILS</p></li>
+</ul></li>
+</ul>
+<h2 id="supported-devices-and-boards-3">Supported Devices and boards</h2>
+<ul>
+<li>NUCLEO-WL33CC board</li>
+</ul>
+<h2 id="backward-compatibility-3">Backward compatibility</h2>
+<ul>
+<li>Not applicable</li>
+</ul>
+<h2 id="known-limitations-3">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies-3">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="notes-3">Notes</h2>
 <ul>
 <li>None</li>
 </ul>

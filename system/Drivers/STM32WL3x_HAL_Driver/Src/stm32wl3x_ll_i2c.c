@@ -89,7 +89,7 @@ ErrorStatus LL_I2C_DeInit(const I2C_TypeDef *I2Cx)
 
   /* Check the I2C Instance I2Cx */
   assert_param(IS_I2C_ALL_INSTANCE(I2Cx));
-
+#if defined(I2C1)
   if (I2Cx == I2C1)
   {
     /* Force reset of I2C clock */
@@ -98,6 +98,8 @@ ErrorStatus LL_I2C_DeInit(const I2C_TypeDef *I2Cx)
     /* Release reset of I2C clock */
     LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_I2C1);
   }
+#endif /* I2C1*/
+#if defined(I2C2)
   else if (I2Cx == I2C2)
   {
     /* Force reset of I2C clock */
@@ -107,6 +109,7 @@ ErrorStatus LL_I2C_DeInit(const I2C_TypeDef *I2Cx)
     LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_I2C2);
 
   }
+#endif /* I2C2*/
   else
   {
     status = ERROR;

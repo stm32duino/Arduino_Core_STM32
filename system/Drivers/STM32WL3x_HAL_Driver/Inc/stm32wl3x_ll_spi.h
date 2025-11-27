@@ -1404,6 +1404,7 @@ void        LL_SPI_StructInit(LL_SPI_InitTypeDef *SPI_InitStruct);
   * @}
   */
 
+#if defined(SPI_I2S_SUPPORT)
 /** @defgroup I2S_LL I2S
   * @{
   */
@@ -2267,6 +2268,7 @@ void        LL_I2S_ConfigPrescaler(SPI_TypeDef *SPIx, uint32_t PrescalerLinear, 
 /**
   * @}
   */
+#endif /* SPI_I2S_SUPPORT */
 
 #endif /* defined (SPI1) || defined (SPI3) */
 

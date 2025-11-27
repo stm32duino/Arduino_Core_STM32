@@ -844,9 +844,13 @@ typedef struct
   * @brief  Force or release APB1 peripheral reset.
   * @{
   */
+#if defined(STM32WL3XX)
 #define __HAL_RCC_APB1_FORCE_RESET()            LL_APB1_GRP1_ForceReset( RCC_APB1ENR_ADCDIGEN|\
                                                                          RCC_APB1ENR_LPUARTEN|RCC_APB1ENR_USARTEN|RCC_APB1ENR_SPI1EN|RCC_APB1ENR_SPI3EN|RCC_APB1ENR_I2C1EN|RCC_APB1ENR_I2C2EN)
-
+#else
+#define __HAL_RCC_APB1_FORCE_RESET()            LL_APB1_GRP1_ForceReset( RCC_APB1ENR_ADCDIGEN|\
+                                                                         RCC_APB1ENR_LPUARTEN|RCC_APB1ENR_USARTEN|RCC_APB1ENR_SPI3EN|RCC_APB1ENR_I2C1EN)
+#endif /* (STM32WL3XX) */
 #if defined(SPI1)
 #define __HAL_RCC_SPI1_FORCE_RESET()            LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_SPI1)
 #endif
@@ -861,9 +865,13 @@ typedef struct
 #define __HAL_RCC_I2C2_FORCE_RESET()            LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_I2C2)
 #endif
 
-
+#if defined(STM32WL3XX)
 #define __HAL_RCC_APB1_RELEASE_RESET()          LL_APB1_GRP1_ReleaseReset(RCC_APB1ENR_ADCDIGEN|\
                                                                           RCC_APB1ENR_LPUARTEN|RCC_APB1ENR_USARTEN|RCC_APB1ENR_SPI1EN|RCC_APB1ENR_SPI3EN|RCC_APB1ENR_I2C1EN|RCC_APB1ENR_I2C2EN)
+#else
+#define __HAL_RCC_APB1_RELEASE_RESET()          LL_APB1_GRP1_ReleaseReset(RCC_APB1ENR_ADCDIGEN|\
+                                                                          RCC_APB1ENR_LPUARTEN|RCC_APB1ENR_USARTEN|RCC_APB1ENR_SPI3EN|RCC_APB1ENR_I2C1EN)
+#endif /* (STM32WL3XX) */
 
 #if defined(SPI1)
 #define __HAL_RCC_SPI1_RELEASE_RESET()          LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_SPI1)
@@ -891,14 +899,18 @@ typedef struct
 #define __HAL_RCC_APB2_FORCE_RESET()             LL_APB2_GRP1_ForceReset(LL_APB2_GRP1_PERIPH_ALL)
 #if defined(MR_SUBG_RADIO)
 #define __HAL_RCC_MRSUBG_FORCE_RESET()           LL_APB2_GRP1_ForceReset(LL_APB2_GRP1_PERIPH_MRSUBG)
+#endif /* MR_SUBG_RADIO*/
+#if defined(LPAWUR)
 #define __HAL_RCC_LPAWUR_FORCE_RESET()           LL_APB2_GRP1_ForceReset(LL_APB2_GRP1_PERIPH_LPAWUR)
-#endif
+#endif /* LPAWUR */
 
 #define __HAL_RCC_APB2_RELEASE_RESET()           LL_APB2_GRP1_ReleaseReset(LL_APB2_GRP1_PERIPH_ALL)
 #if defined(MR_SUBG_RADIO)
 #define __HAL_RCC_MRSUBG_RELEASE_RESET()         LL_APB2_GRP1_ReleaseReset(LL_APB2_GRP1_PERIPH_MRSUBG)
+#endif /* MR_SUBG_RADIO*/
+#if defined(LPAWUR)
 #define __HAL_RCC_LPAWUR_RELEASE_RESET()         LL_APB2_GRP1_ReleaseReset(LL_APB2_GRP1_PERIPH_LPAWUR)
-#endif
+#endif /* LPAWUR */
 /**
   * @}
   */

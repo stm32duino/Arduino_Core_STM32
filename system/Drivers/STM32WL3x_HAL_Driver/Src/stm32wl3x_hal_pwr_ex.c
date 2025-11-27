@@ -124,6 +124,7 @@ HAL_StatusTypeDef HAL_PWREx_DisableGPIOPullUp(uint32_t GPIO, uint32_t GPIONumber
   *        PUy bit of PWR_PUCRx register is cleared unless it is reserved.
   * @note  Even if a PDy bit to set is reserved, the other PDy bits entered as input
   *        parameter at the same time are set.
+  * @note  For the STM32WL3R device, the pull-down configuration is not valid on PA6.
   * @param GPIO Specify the IO port. This parameter can be PWR_GPIO_A, PWR_GPIO_B
   *         to select the GPIO peripheral.
   * @param GPIONumber Specify the I/O pins numbers.
@@ -164,6 +165,7 @@ HAL_StatusTypeDef HAL_PWREx_EnableGPIOPullDown(uint32_t GPIO, uint32_t GPIONumbe
   *        in pull-down state in DeepStop and Shutdown modes.
   * @note  Even if a PDy bit to reset is reserved, the other PDy bits entered as input
   *        parameter at the same time are reset.
+  * @note  For the STM32WL3R device, the pull-down configuration is not valid on PA6.
   * @param GPIO Specifies the IO port. This parameter can be PWR_GPIO_A, PWR_GPIO_B
   *         to select the GPIO peripheral.
   * @param GPIONumber Specify the I/O pins numbers.
@@ -312,6 +314,11 @@ void HAL_PWREx_EnterSHUTDOWNMode(void)
   LL_PWR_ClearInternalWakeupSource(LL_PWR_WAKEUP_ALL);
   LL_PWR_ClearWakeupSource(PWR_WAKEUP_PORTA, LL_PWR_WAKEUP_ALL);
   LL_PWR_ClearWakeupSource(PWR_WAKEUP_PORTB, LL_PWR_WAKEUP_ALL);
+
+#if defined (STM32WL3RX)
+  /* clear Ultra Deepstop bit before EnterSHUTDOWNMode */
+  CLEAR_BIT(PWR->PDCRA, PWR_PDCRA_UDP);
+#endif /* STM32WL3RX */
 
   /* Enable the device Shutdown configuration */
   LL_PWR_SetPowerMode(LL_PWR_MODE_SHUTDOWN);

@@ -203,7 +203,8 @@ __STATIC_INLINE uint32_t LL_LCSC_GetDampingThreshold_LCAB(LCSC_TypeDef *LCSCx)
   * @brief  Set the duration of TrecoveryVCM (in number of slow clock cycles)
   *         between the enable of the VCMBUFF and the establishment of the Voltage to the value VDD33/2.
   * @note   This time is to be considered between each sequence of LC measurement, called TSCAN in the registers.
-  *         (sequence of LC measurement = LCA, LCB and sometimes LCT). TREC_VCM must not be set to values lower of 0x02
+  *         (sequence of LC measurement = LCA, LCB and sometimes LCT).
+  *         TREC_VCM must not be set to values lower of 0x02.
   * @rmtoll CR1          TREC_VCM       LL_LCSC_Set_VCMBuff_RecoveryTime
   * @param  LCSCx LCSC Instance
   * @param  value parameter must be a number between 0 and 511 (form 0x0 to 0x1ff)
@@ -328,6 +329,29 @@ __STATIC_INLINE void LL_LCSC_SetLowPulseWidth_LCAB(LCSC_TypeDef *LCSCx, uint32_t
 __STATIC_INLINE uint32_t LL_LCSC_GetLowPulseWidth_LCAB(LCSC_TypeDef *LCSCx)
 {
   return (uint32_t)(READ_BIT(LCSCx->PULSE_CR, LCSC_PULSE_CR_LCAB_PULSE_WIDTH) >> LCSC_PULSE_CR_LCAB_PULSE_WIDTH_Pos);
+}
+
+/**
+  * @brief  Set the Pulse trimming for generated pulse.
+  * @rmtoll PULSE_CR          PULSETRIM       LL_LCSC_SetLowPulseTrimming
+  * @param  LCSCx LCSC Instance
+  * @param  value parameter must be a number between 0 and 15 (form 0x0 to 0xf)
+  * @retval None
+  */
+__STATIC_INLINE void LL_LCSC_SetLowPulseTrimming(LCSC_TypeDef *LCSCx, uint32_t value)
+{
+  MODIFY_REG(LCSCx->PULSE_CR, LCSC_PULSE_CR_PULSETRIM, value << LCSC_PULSE_CR_PULSETRIM_Pos);
+}
+
+/**
+  * @brief  Get the Pulse trimming for generated pulse.
+  * @rmtoll PULSE_CR          PULSETRIM       LL_LCSC_GetLowPulseTrimming
+  * @param  LCSCx LCSC Instance
+  * @retval the low pulse width trimming value
+  */
+__STATIC_INLINE uint32_t LL_LCSC_GetLowPulseTrimming(LCSC_TypeDef *LCSCx)
+{
+  return (uint32_t)(READ_BIT(LCSCx->PULSE_CR, LCSC_PULSE_CR_PULSETRIM) >> LCSC_PULSE_CR_PULSETRIM_Pos);
 }
 
 /**
@@ -592,35 +616,35 @@ __STATIC_INLINE uint32_t LL_LCSC_GetAntiClockWiseTarget(LCSC_TypeDef *LCSCx)
 
 /**
   * @brief  Get the LCA Comparator last damping count
-  * @rmtoll COMP_CTN          CMP_LCA_CNT       LL_LCSC_GetComparatorLastDampingCount_LCA
+  * @rmtoll COMP_CNT          CMP_LCA_CNT       LL_LCSC_GetComparatorLastDampingCount_LCA
   * @param  LCSCx LCSC Instance
   * @retval the LCA Comparator last damping count
   */
 __STATIC_INLINE uint32_t LL_LCSC_GetComparatorLastDampingCount_LCA(LCSC_TypeDef *LCSCx)
 {
-  return (uint32_t)(READ_BIT(LCSCx->COMP_CTN, LCSC_COMP_CTN_CMP_LCA_CNT) >> LCSC_COMP_CTN_CMP_LCA_CNT_Pos);
+  return (uint32_t)(READ_BIT(LCSCx->COMP_CNT, LCSC_COMP_CNT_CMP_LCA_CNT) >> LCSC_COMP_CNT_CMP_LCA_CNT_Pos);
 }
 
 /**
   * @brief  Get the LCB Comparator last damping count
-  * @rmtoll COMP_CTN          CMP_LCB_CNT       LL_LCSC_GetComparatorLastDampingCount_LCB
+  * @rmtoll COMP_CNT          CMP_LCB_CNT       LL_LCSC_GetComparatorLastDampingCount_LCB
   * @param  LCSCx LCSC Instance
   * @retval the LCB Comparator last damping count
   */
 __STATIC_INLINE uint32_t LL_LCSC_GetComparatorLastDampingCount_LCB(LCSC_TypeDef *LCSCx)
 {
-  return (uint32_t)(READ_BIT(LCSCx->COMP_CTN, LCSC_COMP_CTN_CMP_LCB_CNT) >> LCSC_COMP_CTN_CMP_LCB_CNT_Pos);
+  return (uint32_t)(READ_BIT(LCSCx->COMP_CNT, LCSC_COMP_CNT_CMP_LCB_CNT) >> LCSC_COMP_CNT_CMP_LCB_CNT_Pos);
 }
 
 /**
   * @brief  Get the LCT Comparator last damping count
-  * @rmtoll COMP_CTN          CMP_LCT_CNT       LL_LCSC_GetComparatorLastDampingCount_LCT
+  * @rmtoll COMP_CNT          CMP_LCT_CNT       LL_LCSC_GetComparatorLastDampingCount_LCT
   * @param  LCSCx LCSC Instance
   * @retval the LCT Comparator last damping count
   */
 __STATIC_INLINE uint32_t LL_LCSC_GetComparatorLastDampingCount_LCT(LCSC_TypeDef *LCSCx)
 {
-  return (uint32_t)(READ_BIT(LCSCx->COMP_CTN, LCSC_COMP_CTN_CMP_LCT_CNT) >> LCSC_COMP_CTN_CMP_LCT_CNT_Pos);
+  return (uint32_t)(READ_BIT(LCSCx->COMP_CNT, LCSC_COMP_CNT_CMP_LCT_CNT) >> LCSC_COMP_CNT_CMP_LCT_CNT_Pos);
 }
 
 /**
@@ -668,10 +692,10 @@ __STATIC_INLINE uint32_t LL_LCSC_GetLastDirection(LCSC_TypeDef *LCSCx)
 }
 
 /**
-  * @brief  Get the Minimum of CMP_LCA_CNT, CMP_LCB_CNT reached during the measurement
+  * @brief  Get the Minimum of CMP_LCAB_CNT reached during the measurement
   * @rmtoll STAT          MIN_LCAB_CNT       LL_LCSC_GetMin_Counter
   * @param  LCSCx LCSC Instance
-  * @retval the Minimum of CMP_LCA_CNT
+  * @retval the Minimum of CMP_LCAB_CNT
   */
 __STATIC_INLINE uint32_t LL_LCSC_GetMin_Counter(LCSC_TypeDef *LCSCx)
 {
@@ -679,10 +703,10 @@ __STATIC_INLINE uint32_t LL_LCSC_GetMin_Counter(LCSC_TypeDef *LCSCx)
 }
 
 /**
-  * @brief  Get the Maximum of CMP_LCA_CNT, CMP_LCB_CNT reached during the measurement
+  * @brief  Get the Maximum of CMP_LCAB_CNT reached during the measurement
   * @rmtoll STAT          MAX_LCAB_CNT       LL_LCSC_GetMax_Counter
   * @param  LCSCx LCSC Instance
-  * @retval the Maximum of CMP_LCA_CNT
+  * @retval the Maximum of CMP_LCAB_CNT
   */
 __STATIC_INLINE uint32_t LL_LCSC_GetMax_Counter(LCSC_TypeDef *LCSCx)
 {
@@ -690,7 +714,7 @@ __STATIC_INLINE uint32_t LL_LCSC_GetMax_Counter(LCSC_TypeDef *LCSCx)
 }
 
 /**
-  * @brief  Set the Minimum bound of CMP_LCA_COUNT, CMP_LCB_COUNT used when monitoring the MIN_LCAB_CNT
+  * @brief  Set the Minimum bound of CMP_LCAB_COUNT used when monitoring the MIN_LCAB_CNT
   * @rmtoll STAT          MIN_LCAB_CNT_BOUND       LL_LCSC_SetMin_CounterOutOfBound
   * @param  LCSCx LCSC Instance
   * @param  value parameter must be a number between 0 and 255 (form 0x0 to 0xff)
@@ -702,10 +726,10 @@ __STATIC_INLINE void LL_LCSC_SetMin_CounterOutOfBound(LCSC_TypeDef *LCSCx, uint3
 }
 
 /**
-  * @brief  Get the Minimum bound of CMP_LCA_COUNT, CMP_LCB_COUNT used when monitoring the MIN_LCAB_CNT
+  * @brief  Get the Minimum bound of CMP_LCAB_COUNT used when monitoring the MIN_LCAB_CNT
   * @rmtoll STAT          MIN_LCAB_CNT_BOUND       LL_LCSC_GetMin_CounterOutOfBound
   * @param  LCSCx LCSC Instance
-  * @retval the Minimum bound of CMP_LCA_COUNT
+  * @retval the Minimum bound of CMP_LCAB_COUNT
   */
 __STATIC_INLINE uint32_t LL_LCSC_GetMin_CounterOutOfBound(LCSC_TypeDef *LCSCx)
 {
@@ -713,7 +737,7 @@ __STATIC_INLINE uint32_t LL_LCSC_GetMin_CounterOutOfBound(LCSC_TypeDef *LCSCx)
 }
 
 /**
-  * @brief  Set the Maximum bound of CMP_LCA_COUNT, CMP_LCB_COUNT used when monitoring the MAX_LCAB_CNT
+  * @brief  Set the Maximum bound of CMP_LCAB_COUNT used when monitoring the MAX_LCAB_CNT
   * @rmtoll STAT          MAX_LCAB_CNT_BOUND       LL_LCSC_SetMax_CounterOutOfBound
   * @param  LCSCx LCSC Instance
   * @param  value parameter must be a number between 0 and 255 (form 0x0 to 0xff)
@@ -725,49 +749,14 @@ __STATIC_INLINE void LL_LCSC_SetMax_CounterOutOfBound(LCSC_TypeDef *LCSCx, uint3
 }
 
 /**
-  * @brief  Get the Maximum bound of CMP_LCA_COUNT, CMP_LCB_COUNT used when monitoring the MAX_LCAB_CNT
+  * @brief  Get the Maximum bound of CMP_LCAB_COUNT used when monitoring the MAX_LCAB_CNT
   * @rmtoll STAT          MAX_LCAB_CNT_BOUND       LL_LCSC_GetMax_CounterOutOfBound
   * @param  LCSCx LCSC Instance
-  * @retval the Maximum bound of CMP_LCA_COUNT
+  * @retval the Maximum bound of CMP_LCAB_COUNT
   */
 __STATIC_INLINE uint32_t LL_LCSC_GetMax_CounterOutOfBound(LCSC_TypeDef *LCSCx)
 {
   return (uint32_t)(READ_BIT(LCSCx->STAT, LCSC_STAT_MAX_LCAB_CNT_BOUND) >> LCSC_STAT_MAX_LCAB_CNT_BOUND_Pos);
-}
-
-/**
-  * @brief  Get the Revision of the RFIP
-  * @note   to be used for metal fixes
-  * @rmtoll VER          REV       LL_LCSC_GetRevision
-  * @param  LCSCx LCSC Instance
-  * @retval the Revision of the RFIP
-  */
-__STATIC_INLINE uint32_t LL_LCSC_GetRevision(LCSC_TypeDef *LCSCx)
-{
-  return (uint32_t)(READ_BIT(LCSCx->VER, LCSC_VER_REV) >> LCSC_VER_REV_Pos);
-}
-
-/**
-  * @brief  Get the Version of the RFIP
-  * @note   to be used for cut upgrades
-  * @rmtoll VER          VER       LL_LCSC_GetVersion
-  * @param  LCSCx LCSC Instance
-  * @retval the Version of the RFIP
-  */
-__STATIC_INLINE uint32_t LL_LCSC_GetVersion(LCSC_TypeDef *LCSCx)
-{
-  return (uint32_t)(READ_BIT(LCSCx->VER, LCSC_VER_VER) >> LCSC_VER_VER_Pos);
-}
-
-/**
-  * @brief  Get the Used for major upgrades
-  * @rmtoll VER          PROD       LL_LCSC_GetProduct
-  * @param  LCSCx LCSC Instance
-  * @retval the Used for major upgrades
-  */
-__STATIC_INLINE uint32_t LL_LCSC_GetProduct(LCSC_TypeDef *LCSCx)
-{
-  return (uint32_t)(READ_BIT(LCSCx->VER, LCSC_VER_PROD) >> LCSC_VER_PROD_Pos);
 }
 
 /**
@@ -791,7 +780,7 @@ __STATIC_INLINE uint32_t LL_LCSC_IsActiveFlag_CLKWISE(LCSC_TypeDef *LCSCx)
   */
 __STATIC_INLINE void LL_LCSC_ClearFlag_CLKWISE(LCSC_TypeDef *LCSCx)
 {
-  SET_BIT(LCSCx->ISR, LCSC_ISR_CLKWISE_F);
+  WRITE_REG(LCSCx->ISR, LCSC_ISR_CLKWISE_F);
 }
 
 /**
@@ -815,7 +804,7 @@ __STATIC_INLINE uint32_t LL_LCSC_IsActiveFlag_ACLKWISE(LCSC_TypeDef *LCSCx)
   */
 __STATIC_INLINE void LL_LCSC_ClearFlag_ACLKWISE(LCSC_TypeDef *LCSCx)
 {
-  SET_BIT(LCSCx->ISR, LCSC_ISR_ACLKWISE_F);
+  WRITE_REG(LCSCx->ISR, LCSC_ISR_ACLKWISE_F);
 }
 
 /**
@@ -839,7 +828,7 @@ __STATIC_INLINE uint32_t LL_LCSC_IsActiveFlag_TAMP(LCSC_TypeDef *LCSCx)
   */
 __STATIC_INLINE void LL_LCSC_ClearFlag_TAMP(LCSC_TypeDef *LCSCx)
 {
-  SET_BIT(LCSCx->ISR, LCSC_ISR_TAMP_F);
+  WRITE_REG(LCSCx->ISR, LCSC_ISR_TAMP_F);
 }
 
 /**
@@ -863,7 +852,7 @@ __STATIC_INLINE uint32_t LL_LCSC_IsActiveFlag_CNT_OFB(LCSC_TypeDef *LCSCx)
   */
 __STATIC_INLINE void LL_LCSC_ClearFlag_CNT_OFB(LCSC_TypeDef *LCSCx)
 {
-  SET_BIT(LCSCx->ISR, LCSC_ISR_CNT_OFB_F);
+  WRITE_REG(LCSCx->ISR, LCSC_ISR_CNT_OFB_F);
 }
 
 

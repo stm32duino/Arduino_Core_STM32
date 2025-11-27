@@ -339,8 +339,14 @@ typedef struct
   * @{
   */
 
-#define LL_ADC_SAMPLING_AT_START    (0x00000000UL)             /*!< Sampling only at conversion start */
-#define LL_ADC_SAMPLING_AT_END      (ADC_CONF_ADC_CONT_1V2)    /*!< Sampling starts at the end of conversion (default)*/
+#define LL_ADC_SAMPLING_AT_START    (0x00000000UL)             /*!< Sampling phase starts only at conversion start and
+                                                                    sampling time is 125ns regardless of the sampling
+                                                                    period (default). */
+#define LL_ADC_SAMPLING_AT_END      (ADC_CONF_ADC_CONT_1V2)    /*!< Sampling phase starts after end of
+                                                                    conversion, and stops upon trigger event (Also known
+                                                                    as Bulb sampling mode).
+                                                                    Sampling time is a function of the sampling period
+                                                                    (Sample rate). */
 
 /**
   * @}
@@ -829,12 +835,23 @@ typedef struct
   * @retval Temperature (unit: degree Celsius)
   *         In case or error, value LL_ADC_TEMPERATURE_CALC_ERROR is returned (inconsistent temperature value)
   */
-#define __LL_ADC_CALC_TEMPERATURE(__TEMPSENSOR_ADC_DATA__,\
-                                  __ADC_WIDTH__)                                                                       \
-(((__LL_ADC_CONVERT_DATA_RESOLUTION((__TEMPSENSOR_ADC_DATA__),(__ADC_WIDTH__), LL_ADC_DS_DATA_WIDTH_12_BIT)            \
-   - (int32_t)*TEMPSENSOR_C30_ADDR + (int32_t)*TEMPSENSOR_TCK_ADDR)                                                    \
-  / (10UL))                                                                                                            \
-)
+#define __LL_ADC_CALC_TEMPERATURE(__TEMPSENSOR_ADC_DATA__, __ADC_WIDTH__)                                              \
+  ( ((__ADC_WIDTH__) == LL_ADC_DS_DATA_WIDTH_12_BIT) ?                                                                 \
+    (((__TEMPSENSOR_ADC_DATA__) - (int32_t)*TEMPSENSOR_C30_ADDR + (int32_t)*TEMPSENSOR_TCK_ADDR) / (10L))              \
+    :                                                                                                                  \
+    (__LL_ADC_CONVERT_DATA_RESOLUTION(                                                                                 \
+        ((int32_t) __LL_ADC_CONVERT_DATA_RESOLUTION((__TEMPSENSOR_ADC_DATA__),                                         \
+                                                    (__ADC_WIDTH__),                                                   \
+                                                    LL_ADC_DS_DATA_WIDTH_16_BIT)                                       \
+         - (int32_t) __LL_ADC_CONVERT_DATA_RESOLUTION(((int32_t)*TEMPSENSOR_C30_ADDR),                                 \
+                                                      (LL_ADC_DS_DATA_WIDTH_12_BIT),                                   \
+                                                      LL_ADC_DS_DATA_WIDTH_16_BIT)                                     \
+         + (int32_t) __LL_ADC_CONVERT_DATA_RESOLUTION(((int32_t)*TEMPSENSOR_TCK_ADDR),                                 \
+                                                      (LL_ADC_DS_DATA_WIDTH_12_BIT),                                   \
+                                                      LL_ADC_DS_DATA_WIDTH_16_BIT)),                                   \
+        LL_ADC_DS_DATA_WIDTH_16_BIT,                                                                                   \
+        LL_ADC_DS_DATA_WIDTH_12_BIT) / 10L)                                                                            \
+  )
 
 /**
   * @brief  Helper macro to calculate the temperature (unit: degree Celsius)
@@ -2863,7 +2880,7 @@ __STATIC_INLINE int8_t LL_ADC_GET_CALIB_OFFSET_FOR_VINMX_3V6(void)
 {
   int8_t calibration_offset = ((*(uint32_t *)ADC_CALIB_ADDRESS_VINMX_3V6) >> 12UL);
 
-  return - (int8_t)calibration_offset;
+  return (int8_t)calibration_offset;
 }
 
 /**
@@ -2888,7 +2905,7 @@ __STATIC_INLINE int8_t LL_ADC_GET_CALIB_OFFSET_FOR_VINMX_2V4(void)
 {
   int8_t calibration_offset = ((*(uint32_t *)ADC_CALIB_ADDRESS_VINMX_2V4) >> 12UL);
 
-  return - (int8_t)calibration_offset;
+  return (int8_t)calibration_offset;
 }
 
 
@@ -2914,7 +2931,7 @@ __STATIC_INLINE int8_t LL_ADC_GET_CALIB_OFFSET_FOR_VINMX_1V2(void)
 {
   int8_t calibration_offset = ((*(uint32_t *)ADC_CALIB_ADDRESS_VINMX_1V2) >> 12UL);
 
-  return - (int8_t)calibration_offset;
+  return (int8_t)calibration_offset;
 }
 
 

@@ -23,7 +23,7 @@
 /** @addtogroup STM32WL3x_HAL_Driver
   * @{
   */
-
+#if defined (LPAWUR)
 /** @addtogroup LPAWUR
   * @{
   */
@@ -350,7 +350,7 @@ void HAL_LPAWUR_IRQHandler(void)
 /**
   * @}
   */
-
+#endif /* LPAWUR */
 /**
   * @}
   */
