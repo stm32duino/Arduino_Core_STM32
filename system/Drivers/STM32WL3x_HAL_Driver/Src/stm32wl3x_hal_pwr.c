@@ -77,9 +77,10 @@
    (#) The Core low power modes are :
       (+) Run.
       (+) Sleep.
-      (+) DEEPSTOP with with retention and low speed clock enabled.
-      (+) DEEPSTOP with with retention and low speed clock disabled.
+      (+) DEEPSTOP with retention and low speed clock enabled.
+      (+) DEEPSTOP with retention and low speed clock disabled.
       (+) Shutdown.
+      (+) ULTRA-DEEPSTOP.
 
     [..]
      *** PVD configuration ***
@@ -90,7 +91,7 @@
       (+) PVDO flag is available to indicate when VDD is lower
           than the PVD threshold. This event can generate an interrupt if enabled.
           This is done through  __HAL_PVD_ENABLE_IT() macro.
-      (+) The PVD is stopped in Shutdown mode.
+      (+) The PVD is stopped in Shutdown and ULTRA-DEEPSTOP modes.
 
     *** Wake-up pin configuration ***
     =================================
@@ -330,7 +331,71 @@ void HAL_PWR_EnterDEEPSTOPMode(void)
   /* Wait for Interrupt Request to enter in DEEPSTOP */
   __WFI();
 }
+#if defined (STM32WL3RX)
+/**
+  * @brief  Configures the system to allow the ULTRA-DEEPSTOP mode.
+  * @retval None.
+  * @note This mode is available only for STM32WL3RX device.
+  */
+HAL_StatusTypeDef HAL_PWR_ConfigUltraDeepStop(PWR_ULTRA_DEEPSTOPTypeDef *sConfigUltraDeepStop)
+{
+  /* Check the parameters */
+  assert_param(IS_PWR_WAKEUP_POLARITY(sConfigUltraDeepStop->WakeUpPol));
 
+  /* BOR configuration during ULTRA-DEEPSTOP mode */
+  if (sConfigUltraDeepStop->BORStatus == ENABLE)
+  {
+    LL_PWR_EnableBORinSDN();
+  }
+  else
+  {
+    LL_PWR_DisableBORinSDN();
+  }
+
+  if (sConfigUltraDeepStop->WakeUpPinStatus == ENABLE)
+  {
+    LL_PWR_IOWakeupPolaritySDN(sConfigUltraDeepStop->WakeUpPol);
+    LL_PWR_EnableIOWakeupSDN();
+  }
+  else
+  {
+    LL_PWR_DisableIOWakeupSDN();
+  }
+
+  /* Disable DIRECT HSE configuration to allow ULTRA-DEEPSTOP request */
+  if (LL_RCC_DIRECT_HSE_IsEnabled())
+  {
+    LL_RCC_DIRECT_HSE_Disable();
+  }
+
+  return HAL_OK;
+}
+
+/**
+  * @brief  Enter the whole system in ULTRA-DEEPSTOP mode.
+  * @retval None.
+  * @note This mode is available only for STM32WL3RX device.
+  */
+void HAL_PWR_EnterUltraDeepStopMode(void)
+{
+  /* Clear all the wake-up pin flags */
+  LL_PWR_ClearInternalWakeupSource(LL_PWR_WAKEUP_ALL);
+  LL_PWR_ClearWakeupSource(PWR_WAKEUP_PORTA, LL_PWR_WAKEUP_ALL);
+  LL_PWR_ClearWakeupSource(PWR_WAKEUP_PORTB, LL_PWR_WAKEUP_ALL);
+
+  /* Enable the device ULTRA_DEEPSTOP configuration */
+  LL_PWR_SetPowerMode(LL_PWR_MODE_ULTRA_DEEPSTOP);
+
+  /* Set Ultra Deepstop bit */
+  SET_BIT(PWR->PDCRA, PWR_PDCRA_UDP);
+
+  /* Set SLEEPDEEP bit of Cortex System Control Register */
+  SET_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP_Msk);
+
+  /* Wait for Interrupt Request to enter in ULTRA-DEEPSTOP */
+  __WFI();
+}
+#endif /* STM32WL3RX */
 /**
   * @brief  Configures the system to allow the SHUTDOWN mode.
   * @param  sConfigSHUTDOWN : Pointer to a @ref PWR_SHUTDOWNTypeDef structure that

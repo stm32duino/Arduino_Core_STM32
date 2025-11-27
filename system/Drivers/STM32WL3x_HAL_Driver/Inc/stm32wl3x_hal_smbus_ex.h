@@ -110,16 +110,20 @@ void HAL_SMBUSEx_DisableFastModePlus(uint32_t ConfigFastModePlus);
 /** @defgroup SMBUSEx_Private_Macro SMBUS Extended Private Macros
   * @{
   */
-#define IS_SMBUS_FASTMODEPLUS(__CONFIG__) ((((__CONFIG__) & (SMBUS_FASTMODEPLUS_PB6))  == SMBUS_FASTMODEPLUS_PB6)   || \
-                                           (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PB7))  == SMBUS_FASTMODEPLUS_PB7)   || \
-                                           (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA0))  == SMBUS_FASTMODEPLUS_PA0)   || \
-                                           (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA1))  == SMBUS_FASTMODEPLUS_PA1)   || \
-                                           (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA1))  == SMBUS_FASTMODEPLUS_PB10)  || \
-                                           (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA1))  == SMBUS_FASTMODEPLUS_PB11)  || \
-                                           (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA1))  == SMBUS_FASTMODEPLUS_PA6)   || \
-                                           (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA1))  == SMBUS_FASTMODEPLUS_PA7)   || \
-                                           (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA1))  == SMBUS_FASTMODEPLUS_PA13)  || \
-                                           (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA1))  == SMBUS_FASTMODEPLUS_PA14))
+#if defined(I2C1) || defined(I2C2)
+#define IS_SMBUS_FASTMODEPLUS(__CONFIG__) ( \
+    (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PB6))  == SMBUS_FASTMODEPLUS_PB6)  || \
+    (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PB7))  == SMBUS_FASTMODEPLUS_PB7)  || \
+    (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA0))  == SMBUS_FASTMODEPLUS_PA0)  || \
+    (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA1))  == SMBUS_FASTMODEPLUS_PA1)  || \
+    (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PB10)) == SMBUS_FASTMODEPLUS_PB10) || \
+    (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PB11)) == SMBUS_FASTMODEPLUS_PB11) || \
+    (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA6))  == SMBUS_FASTMODEPLUS_PA6)  || \
+    (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA7))  == SMBUS_FASTMODEPLUS_PA7)  || \
+    (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA13)) == SMBUS_FASTMODEPLUS_PA13) || \
+    (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA14)) == SMBUS_FASTMODEPLUS_PA14))
+#endif /* I2C1 || I2C2 */
+
 /**
   * @}
   */

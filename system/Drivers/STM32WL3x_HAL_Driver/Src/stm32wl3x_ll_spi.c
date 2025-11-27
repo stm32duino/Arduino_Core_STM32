@@ -238,8 +238,10 @@ ErrorStatus LL_SPI_Init(SPI_TypeDef *SPIx, LL_SPI_InitTypeDef *SPI_InitStruct)
     status = SUCCESS;
   }
 
+#if defined (SPI_I2S_SUPPORT)
   /* Activate the SPI mode (Reset I2SMOD bit in I2SCFGR register) */
   CLEAR_BIT(SPIx->I2SCFGR, SPI_I2SCFGR_I2SMOD);
+#endif /* SPI_I2S_SUPPORT */
   return status;
 }
 
@@ -276,6 +278,7 @@ void LL_SPI_StructInit(LL_SPI_InitTypeDef *SPI_InitStruct)
   * @}
   */
 
+#if defined(SPI_I2S_SUPPORT)
 /** @addtogroup I2S_LL
   * @{
   */
@@ -539,6 +542,7 @@ void LL_I2S_ConfigPrescaler(SPI_TypeDef *SPIx, uint32_t PrescalerLinear, uint32_
 /**
   * @}
   */
+#endif /* SPI_I2S_SUPPORT */
 
 #endif /* defined (SPI1) || defined (SPI3) */
 

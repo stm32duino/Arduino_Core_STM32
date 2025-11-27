@@ -41,12 +41,12 @@
   * @{
   */
 
-#if defined(STM32WL3XX)
+#if defined(STM32WL3XX) || defined(STM32WL3RX)
 #define __LSCO1_CLK_ENABLE()   __HAL_RCC_GPIOA_CLK_ENABLE()
 #define LSCO1_GPIO_PORT        GPIOA
 #define LSCO1_PIN              GPIO_PIN_4
 #define LSCO1_GPIO_AF          GPIO_AF0_LCO
-#endif
+#endif /* (STM32WL3XX) || (STM32WL3Rx) */
 
 #define __LSCO2_CLK_ENABLE()   __HAL_RCC_GPIOA_CLK_ENABLE()
 #define LSCO2_GPIO_PORT        GPIOA
@@ -54,12 +54,12 @@
 #define LSCO2_GPIO_AF          GPIO_AF0_LCO
 
 
-#if defined(STM32WL3XX)
+#if defined(STM32WL3XX) || defined(STM32WL3RX)
 #define __LSCO3_CLK_ENABLE()   __HAL_RCC_GPIOB_CLK_ENABLE()
 #define LSCO3_GPIO_PORT        GPIOB
 #define LSCO3_PIN              GPIO_PIN_12
 #define LSCO3_GPIO_AF          GPIO_AF2_LCO
-#endif
+#endif /* (STM32WL3XX) || (STM32WL3Rx) */
 
 /**
   * @}
@@ -265,8 +265,6 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
           frequency = LSE_VALUE;
           break;
         case RCC_LPUART1_CLKSOURCE_16M:
-          frequency = 16000000U;
-          break;
         default:
           frequency = HSE_VALUE / 2;
           break;

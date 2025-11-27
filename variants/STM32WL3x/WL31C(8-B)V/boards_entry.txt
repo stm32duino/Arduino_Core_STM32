@@ -8,7 +8,7 @@ GenWL3.menu.pnum.GENERIC_WL31C8VX=Generic WL31C8Vx
 GenWL3.menu.pnum.GENERIC_WL31C8VX.upload.maximum_size=65536
 GenWL3.menu.pnum.GENERIC_WL31C8VX.upload.maximum_data_size=8192
 GenWL3.menu.pnum.GENERIC_WL31C8VX.build.board=GENERIC_WL31C8VX
-GenWL3.menu.pnum.GENERIC_WL31C8VX.build.product_line=STM32WL3xx
+GenWL3.menu.pnum.GENERIC_WL31C8VX.build.product_line=STM32WL3XX
 GenWL3.menu.pnum.GENERIC_WL31C8VX.build.variant=STM32WL3x/WL31C(8-B)V
 GenWL3.menu.pnum.GENERIC_WL31C8VX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL31.svd
 
@@ -17,7 +17,7 @@ GenWL3.menu.pnum.GENERIC_WL31CBVX=Generic WL31CBVx
 GenWL3.menu.pnum.GENERIC_WL31CBVX.upload.maximum_size=131072
 GenWL3.menu.pnum.GENERIC_WL31CBVX.upload.maximum_data_size=16384
 GenWL3.menu.pnum.GENERIC_WL31CBVX.build.board=GENERIC_WL31CBVX
-GenWL3.menu.pnum.GENERIC_WL31CBVX.build.product_line=STM32WL3xx
+GenWL3.menu.pnum.GENERIC_WL31CBVX.build.product_line=STM32WL3XX
 GenWL3.menu.pnum.GENERIC_WL31CBVX.build.variant=STM32WL3x/WL31C(8-B)V
 GenWL3.menu.pnum.GENERIC_WL31CBVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WL3x/STM32WL31.svd
 

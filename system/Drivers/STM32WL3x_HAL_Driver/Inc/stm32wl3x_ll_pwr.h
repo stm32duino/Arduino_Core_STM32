@@ -54,6 +54,7 @@ extern "C" {
   */
 #define LL_PWR_MODE_DEEPSTOP               (0x000000000U)   /*!< Low Power Mode Selection DEEPSTOP mode */
 #define LL_PWR_MODE_SHUTDOWN               (PWR_CR1_LPMS)   /*!< Low Power Mode Selection SHUTDOWN mode */
+#define LL_PWR_MODE_ULTRA_DEEPSTOP         (PWR_CR1_LPMS)   /*!< Low Power Mode Selection SHUTDOWN mode */
 /**
   * @}
   */
@@ -480,7 +481,7 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledBORinSDN(void)
 
 #if defined(PWR_SDWN_WUEN_WUEN)
 /**
-  * @brief  Shutdown I/O Wakeup enable.
+  * @brief  Shutdown/Ultra_deepstop I/O Wakeup enable.
   * @rmtoll SDWN_WUEN          WUEN           LL_PWR_EnableIOWakeupSDN
   * @retval None
   */
@@ -490,7 +491,7 @@ __STATIC_INLINE void LL_PWR_EnableIOWakeupSDN(void)
 }
 
 /**
-  * @brief  Shutdown I/O Wakeup disable.
+  * @brief  Shutdown/Ultra_deepstop I/O Wakeup disable.
   * @rmtoll SDWN_WUEN          WUEN           LL_PWR_DisableIOWakeupSDN
   * @retval None
   */
@@ -500,7 +501,7 @@ __STATIC_INLINE void LL_PWR_DisableIOWakeupSDN(void)
 }
 
 /**
-  * @brief  Checks if Shutdown I/O Wakeup is enabled or disabled.
+  * @brief  Checks if Shutdown/Ultra_deepstop I/O Wakeup is enabled or disabled.
   * @rmtoll SDWN_WUEN         WUEN     LL_PWR_IsEnabledIOWakeupSDN
   * @retval State of bit (1 or 0).
   */
@@ -510,13 +511,13 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledIOWakeupSDN(void)
 }
 
 /**
-  * @brief  Shutdown I/O Wakeup Polarity configuration.
+  * @brief  Shutdown/Ultra_deepstop I/O Wakeup Polarity configuration.
   * @rmtoll SDWN_WUPOL          WUPOL           LL_PWR_IOWakeupPolaritySDN
   * @param  pol IO wakeup polarity. This parameter can be one of the following values:
   *         @arg @ref LL_PWR_WUP_RISIEDG
   *         @arg @ref LL_PWR_WUP_FALLEDG
   * @retval None
-  * @note The wakeup from shutdown can happen on pulse or level detection
+  * @note The wakeup from shutdown or ultra_deepstop can happen on pulse or level detection
   */
 __STATIC_INLINE void LL_PWR_IOWakeupPolaritySDN(uint8_t pol)
 {
@@ -524,9 +525,14 @@ __STATIC_INLINE void LL_PWR_IOWakeupPolaritySDN(uint8_t pol)
 }
 
 /**
-  * @brief  Checks if Shutdown I/O Wakeup from PB0 pin occurred.
+  * @brief  Checks if Shutdown/Ultra_deepstop I/O Wakeup occurred.
   * @rmtoll SDWN_WUF         WUF     LL_PWR_IsIOWakeupSDN
-  * @retval State of bit (1 or 0).
+  * @retval State of bit (1 or 0)
+  * @note For STM32WL3RX device the I/O wakeup from shutdown and ultra-deepstop modes can be occurred
+          by the following pins: PB0, PA0, PA7, PA8, PA9, and PA11.
+  * @note For STM32WL3XX device The I/O wakeup from shutdown mode can be occurred
+          by PB0 pin.
+
   */
 __STATIC_INLINE uint32_t LL_PWR_IsIOWakeupSDN(void)
 {
@@ -534,9 +540,13 @@ __STATIC_INLINE uint32_t LL_PWR_IsIOWakeupSDN(void)
 }
 
 /**
-  * @brief  Clear I/O Wakeup from PB0 pin occurred flag
+  * @brief  Clear I/O Wakeup occurred flag
   * @rmtoll SDWN_WUF          WUF           LL_PWR_ClearIOWakeupFlagSDN
   * @retval None
+  * @note For STM32WL3RX device the I/O wakeup from shutdown and ultra-deepstop modes can be occurred
+          by the following pins: PB0, PA0, PA7, PA8, PA9, and PA11
+  * @note For STM32WL3XX device The I/O wakeup from shutdown mode can be occurred
+          by PB0 pin
   */
 __STATIC_INLINE void LL_PWR_ClearIOWakeupFlagSDN(void)
 {
@@ -550,6 +560,7 @@ __STATIC_INLINE void LL_PWR_ClearIOWakeupFlagSDN(void)
   * @param  LowPowerMode Low Power Mode Selection. This parameter can be one of the following values:
   *         @arg @ref LL_PWR_MODE_DEEPSTOP
   *         @arg @ref LL_PWR_MODE_SHUTDOWN
+  *         @arg @ref LL_PWR_MODE_ULTRA_DEEPSTOP
   * @retval None
   */
 __STATIC_INLINE void LL_PWR_SetPowerMode(uint32_t LowPowerMode)
@@ -563,6 +574,7 @@ __STATIC_INLINE void LL_PWR_SetPowerMode(uint32_t LowPowerMode)
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_PWR_MODE_DEEPSTOP
   *         @arg @ref LL_PWR_MODE_SHUTDOWN
+  *         @arg @ref LL_PWR_MODE_ULTRA_DEEPSTOP
   */
 
 __STATIC_INLINE uint32_t LL_PWR_GetPowerMode(void)
@@ -1214,6 +1226,7 @@ __STATIC_INLINE uint32_t LL_PWR_IsActiveFlag_MRSUBGHCPU(void)
   return ((READ_BIT(PWR->IWUF, PWR_IWUF_WMRSUBGHCPUF) == (PWR_IWUF_WMRSUBGHCPUF)) ? 1UL : 0UL);
 }
 
+#if defined(LPAWUR)
 /**
   * @brief  Get LPAWUR Flag
   * @rmtoll IWUF          WLPAWURF           LL_PWR_IsActiveFlag_LPAWUR
@@ -1223,6 +1236,7 @@ __STATIC_INLINE uint32_t LL_PWR_IsActiveFlag_LPAWUR(void)
 {
   return ((READ_BIT(PWR->IWUF, PWR_IWUF_WLPAWURF) == (PWR_IWUF_WLPAWURF)) ? 1UL : 0UL);
 }
+#endif /* LPAWUR */
 
 /**
   * @brief  Get IO BOOT value.
@@ -1304,6 +1318,38 @@ __STATIC_INLINE uint32_t LL_PWR_IsSMPSinPRECHARGEMode(void)
 {
   return ((READ_BIT(PWR->SR2, PWR_SR2_SMPSBYPR) == (PWR_SR2_SMPSBYPR)) ? 1UL : 0UL);
 }
+
+#if defined (STM32WL3RX)
+/**
+  * @brief  Enable ULTRA_DEEPSTOP bit
+  * @rmtoll PDCRA          UDP           LL_PWR_EnableUDP
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_EnableUDP(void)
+{
+  SET_BIT(PWR->PDCRA, PWR_PDCRA_UDP);
+}
+
+/**
+  * @brief  Disable ULTRA_DEEPSTOP bit
+  * @rmtoll PDCRA          UDP           LL_PWR_DisableUDP
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_DisableUDP(void)
+{
+  CLEAR_BIT(PWR->PDCRA, PWR_PDCRA_UDP);
+}
+
+/**
+  * @brief  Check if ULTRA_DEEPSTOP bit is enabled
+  * @rmtoll PDCRA          UDP           LL_PWR_IsEnabledUDP
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_PWR_IsEnabledUDP(void)
+{
+  return ((READ_BIT(PWR->PDCRA, PWR_PDCRA_UDP) == (PWR_PDCRA_UDP)) ? 1UL : 0UL);
+}
+#endif /* STM32WL3RX */
 
 /**
   * @brief  Set SMPS Mode.
@@ -2856,6 +2902,7 @@ __STATIC_INLINE void LL_PWR_ClearFlag_MRSUBGHCPU(void)
   WRITE_REG(PWR->IWUF, PWR_IWUF_WMRSUBGHCPUF);
 }
 
+#if defined (LPAWUR)
 /**
   * @brief  Clear LPAWUR wakeup flag
   * @rmtoll IWUF     WLPAWURF          LL_PWR_ClearFlag_LPAWUR
@@ -2866,6 +2913,7 @@ __STATIC_INLINE void LL_PWR_ClearFlag_LPAWUR(void)
   WRITE_REG(PWR->IWUF, PWR_IWUF_WLPAWURF);
 }
 
+#endif /* LPAWUR */
 /**
   * @}
   */

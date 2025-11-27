@@ -53,6 +53,7 @@ extern "C" {
 /** @defgroup I2CEx_FastModePlus I2C Extended Fast Mode Plus
   * @{
   */
+#if defined (I2C1) || defined (I2C2)
 #define I2C_FASTMODEPLUS_PA0            SYSCFG_I2C_FMP_CTRL_I2C1_PA0_FMP                        /*!< Enable Fast Mode Plus on PA0       */
 #define I2C_FASTMODEPLUS_PA1            SYSCFG_I2C_FMP_CTRL_I2C1_PA1_FMP                        /*!< Enable Fast Mode Plus on PA1       */
 #define I2C_FASTMODEPLUS_PB6            SYSCFG_I2C_FMP_CTRL_I2C1_PB6_FMP                        /*!< Enable Fast Mode Plus on PB6       */
@@ -63,6 +64,7 @@ extern "C" {
 #define I2C_FASTMODEPLUS_PA7            SYSCFG_I2C_FMP_CTRL_I2C2_PA7_FMP                        /*!< Enable Fast Mode Plus on PA7       */
 #define I2C_FASTMODEPLUS_PA13           SYSCFG_I2C_FMP_CTRL_I2C2_PA13_FMP                       /*!< Enable Fast Mode Plus on PA13      */
 #define I2C_FASTMODEPLUS_PA14           SYSCFG_I2C_FMP_CTRL_I2C2_PA14_FMP                       /*!< Enable Fast Mode Plus on PA14      */
+#endif /* I2C1 || I2C2 */
 /**
   * @}
   */
@@ -126,16 +128,19 @@ void HAL_I2CEx_DisableFastModePlus(uint32_t ConfigFastModePlus);
 
 #define IS_I2C_DIGITAL_FILTER(FILTER)   ((FILTER) <= 0x0000000FU)
 
-#define IS_I2C_FASTMODEPLUS(__CONFIG__) ((((__CONFIG__) & (I2C_FASTMODEPLUS_PB6))  == I2C_FASTMODEPLUS_PB6)     || \
-                                         (((__CONFIG__) & (I2C_FASTMODEPLUS_PB7))  == I2C_FASTMODEPLUS_PB7)     || \
-                                         (((__CONFIG__) & (I2C_FASTMODEPLUS_PA0))  == I2C_FASTMODEPLUS_PA0)     || \
-                                         (((__CONFIG__) & (I2C_FASTMODEPLUS_PA1))  == I2C_FASTMODEPLUS_PA1)     || \
-                                         (((__CONFIG__) & (I2C_FASTMODEPLUS_PB10)) == I2C_FASTMODEPLUS_PB10)    || \
-                                         (((__CONFIG__) & (I2C_FASTMODEPLUS_PB11)) == I2C_FASTMODEPLUS_PB11)    || \
-                                         (((__CONFIG__) & (I2C_FASTMODEPLUS_PA6))  == I2C_FASTMODEPLUS_PA6)     || \
-                                         (((__CONFIG__) & (I2C_FASTMODEPLUS_PA7))  == I2C_FASTMODEPLUS_PA7)     || \
-                                         (((__CONFIG__) & (I2C_FASTMODEPLUS_PA13)) == I2C_FASTMODEPLUS_PA13)    || \
-                                         (((__CONFIG__) & (I2C_FASTMODEPLUS_PA14)) == I2C_FASTMODEPLUS_PA14))
+#if defined(I2C1) || defined(I2C2)
+#define IS_I2C_FASTMODEPLUS(__CONFIG__) ( \
+    (((__CONFIG__) & (I2C_FASTMODEPLUS_PB7))  == I2C_FASTMODEPLUS_PB7)  || \
+    (((__CONFIG__) & (I2C_FASTMODEPLUS_PA0))  == I2C_FASTMODEPLUS_PA0)  || \
+    (((__CONFIG__) & (I2C_FASTMODEPLUS_PA1))  == I2C_FASTMODEPLUS_PA1)  || \
+    (((__CONFIG__) & (I2C_FASTMODEPLUS_PB10)) == I2C_FASTMODEPLUS_PB10) || \
+    (((__CONFIG__) & (I2C_FASTMODEPLUS_PB11)) == I2C_FASTMODEPLUS_PB11) || \
+    (((__CONFIG__) & (I2C_FASTMODEPLUS_PA6))  == I2C_FASTMODEPLUS_PA6)  || \
+    (((__CONFIG__) & (I2C_FASTMODEPLUS_PA7))  == I2C_FASTMODEPLUS_PA7)  || \
+    (((__CONFIG__) & (I2C_FASTMODEPLUS_PA13)) == I2C_FASTMODEPLUS_PA13) || \
+    (((__CONFIG__) & (I2C_FASTMODEPLUS_PA14)) == I2C_FASTMODEPLUS_PA14))
+#endif /* I2C1 || I2C2 */
+
 /**
   * @}
   */

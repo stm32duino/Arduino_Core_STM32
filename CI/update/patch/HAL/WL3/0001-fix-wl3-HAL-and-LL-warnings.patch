@@ -1,4 +1,4 @@
-From 6d24d07674b242544e2f24a26dd9785efb178650 Mon Sep 17 00:00:00 2001
+From cf9d51a1f1763f3452c8ce2312b79357ac9766fc Mon Sep 17 00:00:00 2001
 From: Frederic Pillon <frederic.pillon@st.com>
 Date: Tue, 23 Sep 2025 14:48:50 +0200
 Subject: [PATCH 1/1] fix(wl3): HAL and LL warnings
@@ -7,8 +7,7 @@ Signed-off-by: Frederic Pillon <frederic.pillon@st.com>
 ---
  .../Inc/stm32wl3x_ll_dma.h                    | 104 ++++++++++++++++++
  .../Src/stm32wl3x_hal_flash_ex.c              |   2 +-
- .../Src/stm32wl3x_ll_adc.c                    |   2 +-
- 3 files changed, 106 insertions(+), 2 deletions(-)
+ 2 files changed, 105 insertions(+), 1 deletion(-)
 
 diff --git a/system/Drivers/STM32WL3x_HAL_Driver/Inc/stm32wl3x_ll_dma.h b/system/Drivers/STM32WL3x_HAL_Driver/Inc/stm32wl3x_ll_dma.h
 index b94790b32..e49d7c53f 100644
@@ -859,19 +858,6 @@ index 9cd95caf3..d1b9f3dd0 100644
    uint32_t index;
  
    /* Check the parameters */
-diff --git a/system/Drivers/STM32WL3x_HAL_Driver/Src/stm32wl3x_ll_adc.c b/system/Drivers/STM32WL3x_HAL_Driver/Src/stm32wl3x_ll_adc.c
-index 5455a5343..4a88375ed 100644
---- a/system/Drivers/STM32WL3x_HAL_Driver/Src/stm32wl3x_ll_adc.c
-+++ b/system/Drivers/STM32WL3x_HAL_Driver/Src/stm32wl3x_ll_adc.c
-@@ -24,7 +24,7 @@
- #ifdef  USE_FULL_ASSERT
- #include "stm32_assert.h"
- #else
--#define assert_param(expr) ((void)0UL)
-+#define assert_param(expr) ((void)0U)
- #endif /* USE_FULL_ASSERT */
- 
- /** @addtogroup STM32WL3x_LL_Driver
 -- 
 2.34.1
 

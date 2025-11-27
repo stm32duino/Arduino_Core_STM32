@@ -52,7 +52,7 @@ extern "C" {
  *
  */
 
-#if defined(STM32WL3XX)
+#if defined(STM32WL3XX) || defined(STM32WL3RX)
 /**
   * @brief   AF 0 selection
   */

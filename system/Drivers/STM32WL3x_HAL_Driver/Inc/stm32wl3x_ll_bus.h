@@ -93,11 +93,20 @@ extern "C" {
 /** @defgroup BUS_LL_APB0_GRP1_PERIPH  APB0 PERIPH
   * @{
   */
+#if defined(STM32WL3XX)
 #define LL_APB0_GRP1_PERIPH_ALL            (RCC_APB0ENR_TIM2EN|\
                                             RCC_APB0ENR_TIM16EN|\
                                             RCC_APB0ENR_SYSCFGEN|\
                                             RCC_APB0ENR_LCDEN|\
                                             RCC_APB0ENR_COMPEN|RCC_APB0ENR_DACEN|RCC_APB0ENR_RTCEN|RCC_APB0ENR_LCSCEN|RCC_APB0ENR_WDGEN|RCC_APB0ENR_DBGMCUEN)
+#else
+#define LL_APB0_GRP1_PERIPH_ALL            (RCC_APB0ENR_TIM2EN|\
+                                            RCC_APB0ENR_TIM16EN|\
+                                            RCC_APB0ENR_SYSCFGEN|\
+                                            RCC_APB0ENR_RTCEN|RCC_APB0ENR_WDGEN|RCC_APB0ENR_DBGMCUEN)
+#endif /* (STM32WL3XX) */
+
+
 #if defined(TIM1)
 #define LL_APB0_GRP1_PERIPH_TIM1           RCC_APB0ENR_TIM1EN
 #endif
@@ -136,9 +145,15 @@ extern "C" {
 /** @defgroup BUS_LL_APB1_GRP1_PERIPH  APB1 PERIPH
   * @{
   */
+#if defined(STM32WL3XX)
 #define LL_APB1_GRP1_PERIPH_ALL            (RCC_APB1ENR_SPI1EN|\
                                             RCC_APB1ENR_ADCDIGEN|\
                                             RCC_APB1ENR_ADCANAEN|RCC_APB1ENR_LPUARTEN|RCC_APB1ENR_USARTEN|RCC_APB1ENR_SPI3EN|RCC_APB1ENR_I2C1EN|RCC_APB1ENR_I2C2EN)
+#else
+#define LL_APB1_GRP1_PERIPH_ALL            (RCC_APB1ENR_ADCDIGEN|\
+                                            RCC_APB1ENR_ADCANAEN|RCC_APB1ENR_LPUARTEN|RCC_APB1ENR_USARTEN|RCC_APB1ENR_SPI3EN|RCC_APB1ENR_I2C1EN)
+#endif /* (STM32WL3XX) */
+
 #if defined(SPI1)
 #define LL_APB1_GRP1_PERIPH_SPI1           RCC_APB1ENR_SPI1EN
 #endif
@@ -158,10 +173,13 @@ extern "C" {
 /** @defgroup BUS_LL_APB2_GRP1_PERIPH  APB2 PERIPH
   * @{
   */
-#if defined(MR_SUBG_RADIO)
+#if defined(MR_SUBG_RADIO) &&  defined(LPAWUR)
 #define LL_APB2_GRP1_PERIPH_ALL      (RCC_APB2ENR_MRSUBGEN|RCC_APB2ENR_LPAWUREN)
 #define LL_APB2_GRP1_PERIPH_MRSUBG   RCC_APB2ENR_MRSUBGEN
 #define LL_APB2_GRP1_PERIPH_LPAWUR   RCC_APB2ENR_LPAWUREN
+#else
+#define LL_APB2_GRP1_PERIPH_ALL      RCC_APB2ENR_MRSUBGEN
+#define LL_APB2_GRP1_PERIPH_MRSUBG   RCC_APB2ENR_MRSUBGEN
 #endif
 /**
   * @}

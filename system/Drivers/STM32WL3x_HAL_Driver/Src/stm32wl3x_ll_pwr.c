@@ -76,6 +76,7 @@ ErrorStatus LL_PWR_DeInit(void)
   LL_PWR_WriteReg(SDWN_WUPOL, 0);
 #endif /* PWR_SDWN_WUEN_WUEN */
 
+#if defined (STM32WL3XX)
   LL_PWR_WriteReg(IWUF,
                   LL_PWR_WAKEUP_LPAWUR
                   | LL_PWR_WAKEUP_SUBG
@@ -86,6 +87,14 @@ ErrorStatus LL_PWR_DeInit(void)
                   | LL_PWR_WAKEUP_RTC
                   | LL_PWR_WAKEUP_LPUART
                  );
+#else
+  LL_PWR_WriteReg(IWUF,
+                  LL_PWR_WAKEUP_SUBG
+                  | LL_PWR_WAKEUP_SUBGHOST
+                  | LL_PWR_WAKEUP_RTC
+                  | LL_PWR_WAKEUP_LPUART
+                 );
+#endif /* (STM32WL3XX) */
 
   LL_PWR_WriteReg(WUFA, LL_PWR_WAKEUP_ALL);
   LL_PWR_WriteReg(WUFB, LL_PWR_WAKEUP_ALL);

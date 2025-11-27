@@ -27,6 +27,7 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "stm32wl3x_hal_def.h"
 
+#if defined(SPI_I2S_SUPPORT)
 /** @addtogroup STM32WL3x_HAL_Driver
   * @{
   */
@@ -543,6 +544,7 @@ uint32_t HAL_I2S_GetError(I2S_HandleTypeDef *hi2s);
 /**
   * @}
   */
+#endif /* SPI_I2S_SUPPORT */
 
 #ifdef __cplusplus
 }

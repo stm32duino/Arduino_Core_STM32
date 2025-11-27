@@ -212,6 +212,12 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
         temp |= ((GPIO_Init->Pull) << (position * 2U));
         GPIOx->PUPDR = temp;
       }
+      else
+      {
+        temp = GPIOx->PUPDR;
+        temp &= ~(GPIO_PUPDR_PUPD0 << (position * 2U));
+        GPIOx->PUPDR = temp;
+      }
 
       /* In case of Alternate function mode selection */
       if ((GPIO_Init->Mode & GPIO_MODE) == MODE_AF)

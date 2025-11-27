@@ -158,8 +158,8 @@ __vector_table:
   .word COMP1_IRQHandler                      /* IRQ19: COMP1 interrupt               */
   .word MRSUBG_BUSY_IRQHandler                /* IRQ20: MR SUBG BUSY interrupt        */
   .word MRSUBG_IRQHandler                     /* IRQ21: MR SUBG interrupt             */
-  .word MRSUBG_TX_RX_SEQUENCE_IRQHandler      /* IRQ22: MR SUBG TX RX Sequence interrupt    */
-  .word MRSUBG_TIMER_CPU_WKUP_IRQHandler      /* IRQ23: MR SUBG TIMER CPU Wakeup interrupt */
+  .word MRSUBG_TX_RX_SEQUENCE_IRQHandler      /* IRQ22: MR SUBG TX RX Sequence interrupt      */
+  .word MRSUBG_TIMER_CPU_WKUP_IRQHandler      /* IRQ23: MR SUBG TIMER CPU Wakeup interrupt    */
   .word MRSUBG_WKUP_IRQHandler                /* IRQ24: MR SUBG Wakeup interrupt      */
   .word DAC_IRQHandler                        /* IRQ25: DAC interrupt                 */
   .word TIM16_IRQHandler                      /* IRQ26: TIM16 interrupt               */

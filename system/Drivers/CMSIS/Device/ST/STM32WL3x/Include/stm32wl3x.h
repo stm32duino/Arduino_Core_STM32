@@ -48,7 +48,7 @@
 /**
   * @brief STM32 Family
   */
-#if !defined (STM32WL3)
+#if !defined(STM32WL3)
 #define STM32WL3
 #endif /* STM32WL3 */
 
@@ -61,12 +61,13 @@
   * - Product miscellaneous configuration: assert macros, …
   * Note: These CMSIS drivers (stm32wl3xx.h) are always supporting features of the sub-family's superset.
   */
-#if !defined (STM32WL3XX)
+#if !defined(STM32WL3XX) && !defined(STM32WL3RX)
   /* #define STM32WL3XX */   /*!< STM32WL30x, STM32WL31x and STM32WL33x Devices */
+  /* #define STM32WL3RX */   /*!< STM32WL3RX Devices */
 #endif /* STM32WL3XX */
 
 /* Legacy aliases */
-#if defined (STM32WL33)
+#if defined(STM32WL33)
  #define STM32WL3XX
 #endif /* STM32WL33 */
 
@@ -74,7 +75,7 @@
 /*  Tip: To avoid modifying this file each time you need to switch between these
         devices, you can define the device in your toolchain compiler preprocessor.
   */
-#if !defined  (USE_HAL_DRIVER)
+#if !defined(USE_HAL_DRIVER)
 /**
  * @brief Comment the line below if you will not use the peripherals drivers.
    In this case, these drivers will not be included and the application code will
@@ -87,7 +88,7 @@
   * @brief CMSIS Device version number
   */
 #define __STM32WL3x_CMSIS_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32WL3x_CMSIS_VERSION_SUB1   (0x02U) /*!< [23:16] sub1 version */
+#define __STM32WL3x_CMSIS_VERSION_SUB1   (0x03U) /*!< [23:16] sub1 version */
 #define __STM32WL3x_CMSIS_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
 #define __STM32WL3x_CMSIS_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32WL3x_CMSIS_VERSION       ((__STM32WL3x_CMSIS_VERSION_MAIN << 24U)\
@@ -102,12 +103,11 @@
 /** @addtogroup Device_Included
   * @{
   */
-/* Fix issue with case sensitive definition in stm32wl3x.h */
-#if defined(STM32WL3xx)
-  #define STM32WL3XX
-#endif
+
 #if defined(STM32WL3XX)
   #include "stm32wl3xx.h"
+#elif defined(STM32WL3R) || defined(STM32WL3RX)
+#include "stm32wl3rx.h"
 #else
  #error "Please select first the target STM32WL3xx device used in your application (in stm32wl3x.h file)"
 #endif /* STM32WL3XX */
@@ -280,7 +280,7 @@ typedef uint8_t BOOL;
 #define FALSE ((BOOL)0U)
 #endif
 
-#if defined (USE_HAL_DRIVER)
+#if defined(USE_HAL_DRIVER)
  #include "stm32wl3x_hal.h"
 #endif /* USE_HAL_DRIVER */
 

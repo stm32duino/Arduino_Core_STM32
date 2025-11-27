@@ -110,7 +110,7 @@
 
 /*!< HW TRIMMING Defines */
 #define VALIDITY_TAG      0xFCBCECCC  /*!< TAG to validate the content of the
-					   trimming area content. */
+                                           trimming area content. */
 #define VALIDITY_LOCATION 0x10001EF8  /*!< ROM address of the the validity trimming values content. */
 
 /*!< SMPS Configuration Defines */
@@ -157,13 +157,13 @@
   /* The RAM_VR variable is a mirroring in RAM of some registers information.
      It is a sort of virtual register in RAM.
   */
-#if defined ( __ICCARM__ )
+#if defined(__ICCARM__)
   #pragma location=".ram_vr"
   __root __no_init RAM_VR_TypeDef RAM_VR;
 #else
-#if defined ( __ARMCC_VERSION )
+#if defined(__ARMCC_VERSION)
   __attribute__((section(".bss" ".ram_vr")))
-#elif defined (  __GNUC__  )
+#elif defined(__GNUC__)
   __attribute__((section(".ram_vr")))
 #endif
   RAM_VR_TypeDef RAM_VR __attribute__((used));
@@ -191,7 +191,6 @@ void CPUcontextRestore(void);
   * @param  None
   * @retval None
   */
-
 void SystemInit(void)
 {
   uint32_t mainRegulator, smpsOutVoltage, lsiBw, hsiCalib;
@@ -203,7 +202,8 @@ void SystemInit(void)
     RAM_VR.WakeupFromSleepFlag = 1; /* A wakeup from power save occurred */
     CPUcontextRestore();            /* Restore the context */
     /* if the context restore worked properly, we should never return here */
-    while(1) {
+    while(1)
+    {
       NVIC_SystemReset();
     }
   }

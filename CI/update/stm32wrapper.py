@@ -123,12 +123,16 @@ def printCMSISStartup(log):
         for fn_list in group_startup_list:
             if len(fn_list) == 1:
                 valueline = re.split("_|\\.", fn_list[0])
-                vline = valueline[1].upper().replace("X", "x")
+                vline = valueline[1].upper()
+                if not valueline[1].startswith("stm32wl3"):
+                    vline = vline.replace("X", "x")
                 cmsis_list.append({"vline": vline, "fn": fn_list[0], "cm": ""})
             else:
                 for fn in fn_list:
                     valueline = re.split("_|\\.", fn)
-                    vline = valueline[1].upper().replace("X", "x")
+                    vline = valueline[1].upper()
+                    if not valueline[1].startswith("stm32wl3"):
+                        vline = vline.replace("X", "x")
                     cm = valueline[2].upper()
                     cmsis_list.append({"vline": vline, "fn": fn, "cm": cm})
         with open(CMSIS_Startupfile, "w", newline="\n") as out_file:

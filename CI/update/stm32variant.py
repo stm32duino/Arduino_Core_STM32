@@ -1647,11 +1647,64 @@ def print_variant(generic_list, alt_syswkup_list):
 def search_product_line(valueline: str, extra: str) -> str:
     product_line = ""
     product_line_list = product_line_dict[mcu_family]
-    if not valueline.startswith("STM32MP1"):
+    if valueline.startswith("STM32MP1"):
+        # previous
+        # Unfortunately, MP1 does not follows the same naming rules
+        for pline in product_line_dict[mcu_family]:
+            vline = valueline
+            product_line = pline
+            # Remove the 'x' character from pline and
+            # the one at same index in the vline
+            while 1:
+                idx = pline.find("x")
+                if idx > 0:
+                    pline = pline.replace("x", "", 1)
+                    if "STM32MP15xx" != vline:
+                        vline = vline[:idx] + vline[idx + 1 :]
+                else:
+                    break
+            if pline >= vline and pline[:10] == vline[:10]:
+                break
+        else:
+            # In case of CMSIS device does not exist
+            product_line = "STM32MP15xx"
+    elif valueline.startswith("STM32WL3"):
+        for idx_pline, pline in enumerate(product_line_list):
+            vline = valueline
+            # Add an 'x' at the end to match the length
+            # as startup file contains only one 'x' at the end
+            # STM32WL3xx -> STM32WL30K8
+            # STM32WL3Rx -> STM32WL3RK8
+            product_line = pline
+            pline = pline + "x"
+            # Remove the 'x' character from pline and
+            # the one at same index in the vline
+            while 1:
+                idx = pline.find("x")
+                if idx > 0:
+                    pline = pline.replace("x", "", 1)
+                    vline = vline[:idx] + vline[idx + 1 :]
+                else:
+                    break
+            # Exact match or generic name
+            if pline == vline or product_line == "STM32WL3xx":
+                if (
+                    extra
+                    and len(product_line_list) > idx_pline + 1
+                    and product_line_list[idx_pline + 1] == (product_line + extra)
+                ):
+                    # Look for the next product line if contains the extra
+                    product_line = product_line_list[idx_pline + 1]
+                break
+        else:
+            # In case of CMSIS device does not exist
+            product_line = ""
+        product_line = product_line.upper()
+    else:
         for idx_pline, pline in enumerate(product_line_list):
             vline = valueline
             product_line = pline
-            if vline.startswith("STM32WB0") or vline.startswith("STM32WL3"):
+            if vline.startswith("STM32WB0"):
                 pline = pline + "xx"
             # Remove the 'x' character from pline and
             # the one at same index in the vline
@@ -1674,27 +1727,6 @@ def search_product_line(valueline: str, extra: str) -> str:
         else:
             # In case of CMSIS device does not exist
             product_line = ""
-    else:
-        # previous
-        # Unfortunately, MP1 does not follows the same naming rules
-        for pline in product_line_dict[mcu_family]:
-            vline = valueline
-            product_line = pline
-            # Remove the 'x' character from pline and
-            # the one at same index in the vline
-            while 1:
-                idx = pline.find("x")
-                if idx > 0:
-                    pline = pline.replace("x", "", 1)
-                    if "STM32MP15xx" != vline:
-                        vline = vline[:idx] + vline[idx + 1 :]
-                else:
-                    break
-            if pline >= vline and pline[:10] == vline[:10]:
-                break
-        else:
-            # In case of CMSIS device does not exist
-            product_line = "STM32MP15xx"
     return product_line
 
 
