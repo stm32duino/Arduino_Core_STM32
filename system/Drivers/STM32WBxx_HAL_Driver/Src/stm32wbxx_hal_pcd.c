@@ -1903,7 +1903,7 @@ static HAL_StatusTypeDef PCD_EP_ISR_Handler(PCD_HandleTypeDef *hpcd)
         }
         else
         {
-           ep->xfer_buff += count;
+          ep->xfer_buff += count;
           (void)USB_EPStartXfer(hpcd->Instance, ep);
         }
       }
