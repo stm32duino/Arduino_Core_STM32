@@ -75,6 +75,7 @@ typedef struct
   uint8_t battery_charging_enable; /*!< Enable or disable Battery charging.                                    */
 } USB_CfgTypeDef;
 
+#if defined (HAL_PCD_MODULE_ENABLED)
 typedef struct
 {
   uint8_t   num;                  /*!< Endpoint number
@@ -119,6 +120,7 @@ typedef struct
 
   uint8_t   xfer_fill_db;         /*!< double buffer Need to Fill new buffer  used with bulk_in                 */
 } USB_EPTypeDef;
+#endif /* defined (HAL_PCD_MODULE_ENABLED) */
 
 /* Exported constants --------------------------------------------------------*/
 
@@ -161,7 +163,7 @@ typedef struct
 #define PMA_ACCESS                             1U
 
 #ifndef USB_EP_RX_STRX
-#define USB_EP_RX_STRX                         (0x3U << 12)
+#define USB_EP_RX_STRX                         (0x3UL << 12)
 #endif /* USB_EP_RX_STRX */
 
 #define EP_ADDR_MSK                            0x7U
@@ -186,11 +188,11 @@ typedef struct
   */
 
 
-HAL_StatusTypeDef USB_CoreInit(USB_TypeDef *USBx, USB_CfgTypeDef cfg);
+HAL_StatusTypeDef USB_CoreInit(USB_TypeDef const *USBx, USB_CfgTypeDef cfg);
 HAL_StatusTypeDef USB_DevInit(USB_TypeDef *USBx, USB_CfgTypeDef cfg);
 HAL_StatusTypeDef USB_EnableGlobalInt(USB_TypeDef *USBx);
 HAL_StatusTypeDef USB_DisableGlobalInt(USB_TypeDef *USBx);
-HAL_StatusTypeDef USB_SetCurrentMode(USB_TypeDef *USBx, USB_ModeTypeDef mode);
+HAL_StatusTypeDef USB_SetCurrentMode(USB_TypeDef const *USBx, USB_ModeTypeDef mode);
 
 HAL_StatusTypeDef USB_FlushRxFifo(USB_TypeDef const *USBx);
 HAL_StatusTypeDef USB_FlushTxFifo(USB_TypeDef const *USBx, uint32_t num);
@@ -238,6 +240,5 @@ void              USB_ReadPMA(USB_TypeDef const *USBx, uint8_t *pbUsrBuf,
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
-
 
 #endif /* STM32WBxx_LL_USB_H */

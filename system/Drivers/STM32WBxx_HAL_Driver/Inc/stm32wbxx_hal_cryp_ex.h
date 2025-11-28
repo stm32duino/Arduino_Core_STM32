@@ -32,7 +32,6 @@ extern "C" {
   */
 
 
-
 /** @defgroup CRYPEx CRYPEx
   * @brief CRYP Extension HAL module driver.
   * @{
@@ -93,8 +92,10 @@ extern "C" {
 /** @addtogroup CRYPEx_Exported_Functions_Group1
   * @{
   */
-HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, uint32_t *AuthTag, uint32_t Timeout);
-HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, uint32_t *AuthTag, uint32_t Timeout);
+HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, const uint32_t *AuthTag,
+                                                    uint32_t Timeout);
+HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, const uint32_t *AuthTag,
+                                                    uint32_t Timeout);
 
 /**
   * @}

@@ -32,7 +32,6 @@ extern "C" {
   */
 
 
-
 /** @defgroup CRYP CRYP
   * @brief CRYP HAL module driver.
   * @{
