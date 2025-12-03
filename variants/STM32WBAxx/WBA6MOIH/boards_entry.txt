@@ -10,4 +10,5 @@ GenWBA.menu.pnum.GENERIC_WBA6MOIHX.upload.maximum_data_size=524288
 GenWBA.menu.pnum.GENERIC_WBA6MOIHX.build.board=GENERIC_WBA6MOIHX
 GenWBA.menu.pnum.GENERIC_WBA6MOIHX.build.product_line=STM32WBA6Mxx
 GenWBA.menu.pnum.GENERIC_WBA6MOIHX.build.variant=STM32WBAxx/WBA6MOIH
+GenWBA.menu.pnum.GENERIC_WBA6MOIHX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA6M.svd
 
