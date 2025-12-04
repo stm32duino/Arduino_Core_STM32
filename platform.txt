@@ -222,11 +222,11 @@ tools.bmp_upload.upload.pattern="{path}/{cmd}" -nx -b {upload.speed} {upload.ver
 tools.bmp_upload.upload.pattern.windows="{path}/{cmd}" -nx -b {upload.speed} {upload.verbose} -ex "set confirm off" -ex "target extended-remote \\.\{serial.port}" -ex "monitor swdp_scan" -ex "attach 1" -ex "load" -ex "compare-sections" -ex "kill" "{build.path}/{build.project_name}.elf"
 
 # HID flash 2.2 (HID bootloader v2.2 for STM32F1 and STM32F4 series)
-tools.hid_upload.cmd=hid-flash
-tools.hid_upload.cmd.windows=hid-flash.exe
+tools.hid_upload.script=hid-flash.sh
+tools.hid_upload.path={runtime.tools.STM32Tools.path}
 tools.hid_upload.upload.params.verbose=-d
 tools.hid_upload.upload.params.quiet=n
-tools.hid_upload.upload.pattern="{tools_bin_path}/{cmd}" "{build.path}/{build.project_name}.bin" {serial.port.file}
+tools.hid_upload.upload.pattern="{busybox}" sh "{path}/{script}" "{build.path}/{build.project_name}.bin" {serial.port.file}
 
 # Upload using Maple bootloader over DFU
 tools.maple_upload.script=maple_upload.sh
