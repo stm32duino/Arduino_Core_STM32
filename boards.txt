@@ -450,6 +450,8 @@ Nucleo_144.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 Nucleo_144.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 Nucleo_144.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 Nucleo_144.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+Nucleo_144.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+Nucleo_144.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Nucleo 64 boards
@@ -1106,6 +1108,8 @@ Nucleo_64.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 Nucleo_64.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 Nucleo_64.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 Nucleo_64.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+Nucleo_64.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+Nucleo_64.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Nucleo 32 boards
@@ -1286,6 +1290,8 @@ Nucleo_32.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 Nucleo_32.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 Nucleo_32.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 Nucleo_32.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+Nucleo_32.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+Nucleo_32.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Discovery boards
@@ -1670,6 +1676,8 @@ Disco.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 Disco.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 Disco.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 Disco.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+Disco.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+Disco.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Eval boards
@@ -1758,6 +1766,8 @@ Eval.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 Eval.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 Eval.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 Eval.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+Eval.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+Eval.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # STM32MP1 microprocessor series (MPU + MCU)
@@ -2098,6 +2108,8 @@ GenC0.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 GenC0.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 GenC0.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenC0.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+GenC0.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+GenC0.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ###############################
 # Generic F0
@@ -3041,6 +3053,8 @@ GenF0.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 GenF0.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 GenF0.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenF0.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+GenF0.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+GenF0.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Generic F1
@@ -3908,6 +3922,8 @@ GenF1.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 GenF1.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 GenF1.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenF1.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+GenF1.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+GenF1.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Generic F2
@@ -4380,6 +4396,8 @@ GenF2.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 GenF2.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 GenF2.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenF2.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+GenF2.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+GenF2.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Generic F3
@@ -4848,6 +4866,8 @@ GenF3.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 GenF3.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 GenF3.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenF3.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+GenF3.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+GenF3.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Generic F4
@@ -5966,6 +5986,8 @@ GenF4.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 GenF4.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 GenF4.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenF4.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+GenF4.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+GenF4.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Generic F7
@@ -6513,6 +6535,8 @@ GenF7.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 GenF7.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 GenF7.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenF7.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+GenF7.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+GenF7.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ###############################
 # Generic G0
@@ -7941,6 +7965,8 @@ GenG0.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 GenG0.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 GenG0.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenG0.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+GenG0.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+GenG0.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ###############################
 # Generic G4
@@ -9234,6 +9260,8 @@ GenG4.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 GenG4.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 GenG4.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenG4.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+GenG4.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+GenG4.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Generic H5
@@ -9423,6 +9451,8 @@ GenH5.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 #GenH5.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 #GenH5.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 #GenH5.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+#GenH5.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+#GenH5.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Generic H7
@@ -10212,6 +10242,8 @@ GenH7.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 GenH7.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 GenH7.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenH7.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+GenH7.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+GenH7.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Generic L0
@@ -11507,6 +11539,8 @@ GenL0.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 GenL0.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 GenL0.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenL0.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+GenL0.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+GenL0.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Generic L1
@@ -11844,6 +11878,8 @@ GenL1.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 GenL1.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 GenL1.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenL1.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+GenL1.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+GenL1.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Generic L4
@@ -12679,6 +12715,8 @@ GenL4.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 GenL4.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 GenL4.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenL4.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+GenL4.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+GenL4.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Generic L5
@@ -12784,6 +12822,8 @@ GenL5.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 GenL5.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 GenL5.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenL5.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+GenL5.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+GenL5.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ###############################
 # Generic U0
@@ -12973,6 +13013,8 @@ GenU0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 #GenU0.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 #GenU0.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 #GenU0.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+#GenU0.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+#GenU0.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Generic U3
@@ -13300,6 +13342,8 @@ GenU5.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 GenU5.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 GenU5.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenU5.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+GenU5.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+GenU5.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Generic WB
@@ -13487,6 +13531,8 @@ GenWB.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 GenWB.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 GenWB.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenWB.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+GenWB.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+GenWB.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Generic WB0
@@ -13558,13 +13604,15 @@ GenWB0.menu.upload_method.serialMethod.upload.protocol=serial
 GenWB0.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
 GenWB0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
-GenWB0.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
-GenWB0.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
-GenWB0.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
+#GenWB0.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
+#GenWB0.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
+#GenWB0.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 
-GenWB0.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
-GenWB0.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
-GenWB0.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+#GenWB0.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
+#GenWB0.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
+#GenWB0.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+#GenWB0.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+#GenWB0.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Generic WBA
@@ -13623,6 +13671,8 @@ GenWBA.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 GenWBA.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 GenWBA.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenWBA.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+GenWBA.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+GenWBA.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Generic WL3
@@ -13904,6 +13954,8 @@ GenWL.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 GenWL.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 GenWL.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenWL.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+GenWL.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+GenWL.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # 3D printer boards
@@ -14152,6 +14204,8 @@ GenWL.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 3dprinter.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 3dprinter.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 3dprinter.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+3dprinter.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+3dprinter.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Blues boards
@@ -14232,6 +14286,8 @@ Blues.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 Blues.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 Blues.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 Blues.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+Blues.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+Blues.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Elecgator boards
@@ -14290,6 +14346,8 @@ Elecgator.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 Elecgator.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 Elecgator.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 Elecgator.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+Elecgator.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+Elecgator.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Electronic Speed Controller boards
@@ -14364,6 +14422,8 @@ ESC_board.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 ESC_board.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 ESC_board.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 ESC_board.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+ESC_board.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+ESC_board.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Garatronic-McHobby STM32 boards
@@ -14555,6 +14615,8 @@ GenFlight.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 GenFlight.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 GenFlight.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 GenFlight.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+GenFlight.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+GenFlight.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # IoT continuum Boards
@@ -14616,6 +14678,8 @@ IotContinuum.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 IotContinuum.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 IotContinuum.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 IotContinuum.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+IotContinuum.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+IotContinuum.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # LoRa boards
@@ -14828,6 +14892,8 @@ LoRa.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 LoRa.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 LoRa.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 LoRa.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+LoRa.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+LoRa.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # Midatronics boards
@@ -14895,6 +14961,8 @@ Midatronics.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 Midatronics.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 Midatronics.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 Midatronics.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+Midatronics.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+Midatronics.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # SparkFun Boards
@@ -14978,6 +15046,8 @@ SparkFun.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
 SparkFun.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 SparkFun.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 SparkFun.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+SparkFun.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+SparkFun.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 ################################################################################
 # ELV Modular System boards
@@ -15057,6 +15127,8 @@ STeaMi.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 STeaMi.menu.upload_method.OpenOCDDapLink=OpenOCD DapLink (SWD)
 STeaMi.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 STeaMi.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
+STeaMi.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
+STeaMi.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
 
 STeaMi.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 STeaMi.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
