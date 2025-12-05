@@ -107,7 +107,7 @@ static void              FLASH_Program_OTPWord(uint32_t Address, uint32_t Data);
   */
 HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t *PageError)
 {
-  HAL_StatusTypeDef status = HAL_ERROR;
+  HAL_StatusTypeDef status;
   uint32_t index;
 
   /* Check the parameters */

@@ -44,16 +44,20 @@ extern "C" {
 /** @defgroup SMBUSEx_FastModePlus SMBUS Extended Fast Mode Plus
   * @{
   */
+#if defined (I2C1)
 #define SMBUS_FASTMODEPLUS_PA0            SYSCFG_I2C_FMP_CTRL_I2C1_PA0_FMP                        /*!< Enable Fast Mode Plus on PA0       */
 #define SMBUS_FASTMODEPLUS_PA1            SYSCFG_I2C_FMP_CTRL_I2C1_PA1_FMP                        /*!< Enable Fast Mode Plus on PA1       */
 #define SMBUS_FASTMODEPLUS_PB6            SYSCFG_I2C_FMP_CTRL_I2C1_PB6_FMP                        /*!< Enable Fast Mode Plus on PB6       */
 #define SMBUS_FASTMODEPLUS_PB7            SYSCFG_I2C_FMP_CTRL_I2C1_PB7_FMP                        /*!< Enable Fast Mode Plus on PB7       */
 #define SMBUS_FASTMODEPLUS_PB10           SYSCFG_I2C_FMP_CTRL_I2C1_PB10_FMP                       /*!< Enable Fast Mode Plus on PB10      */
 #define SMBUS_FASTMODEPLUS_PB11           SYSCFG_I2C_FMP_CTRL_I2C1_PB11_FMP                       /*!< Enable Fast Mode Plus on PB11      */
+#endif /* I2C1 */
+#if defined(I2C2)
 #define SMBUS_FASTMODEPLUS_PA6            SYSCFG_I2C_FMP_CTRL_I2C2_PA6_FMP                        /*!< Enable Fast Mode Plus on PA6       */
 #define SMBUS_FASTMODEPLUS_PA7            SYSCFG_I2C_FMP_CTRL_I2C2_PA7_FMP                        /*!< Enable Fast Mode Plus on PA7       */
 #define SMBUS_FASTMODEPLUS_PA13           SYSCFG_I2C_FMP_CTRL_I2C2_PA13_FMP                       /*!< Enable Fast Mode Plus on PA13      */
 #define SMBUS_FASTMODEPLUS_PA14           SYSCFG_I2C_FMP_CTRL_I2C2_PA14_FMP                       /*!< Enable Fast Mode Plus on PA14      */
+#endif /* I2C2 */
 /**
   * @}
   */
@@ -110,19 +114,23 @@ void HAL_SMBUSEx_DisableFastModePlus(uint32_t ConfigFastModePlus);
 /** @defgroup SMBUSEx_Private_Macro SMBUS Extended Private Macros
   * @{
   */
-#if defined(I2C1) || defined(I2C2)
+#if defined(I2C1)
 #define IS_SMBUS_FASTMODEPLUS(__CONFIG__) ( \
     (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PB6))  == SMBUS_FASTMODEPLUS_PB6)  || \
     (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PB7))  == SMBUS_FASTMODEPLUS_PB7)  || \
     (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA0))  == SMBUS_FASTMODEPLUS_PA0)  || \
     (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA1))  == SMBUS_FASTMODEPLUS_PA1)  || \
     (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PB10)) == SMBUS_FASTMODEPLUS_PB10) || \
-    (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PB11)) == SMBUS_FASTMODEPLUS_PB11) || \
+    (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PB11)) == SMBUS_FASTMODEPLUS_PB11) )
+#endif /* I2C1 */
+
+#if defined(I2C2)
+#define IS_SMBUS_FASTMODEPLUS(__CONFIG__) ( \
     (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA6))  == SMBUS_FASTMODEPLUS_PA6)  || \
     (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA7))  == SMBUS_FASTMODEPLUS_PA7)  || \
     (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA13)) == SMBUS_FASTMODEPLUS_PA13) || \
-    (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA14)) == SMBUS_FASTMODEPLUS_PA14))
-#endif /* I2C1 || I2C2 */
+    (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PA14)) == SMBUS_FASTMODEPLUS_PA14) )
+#endif /* I2C2 */
 
 /**
   * @}
