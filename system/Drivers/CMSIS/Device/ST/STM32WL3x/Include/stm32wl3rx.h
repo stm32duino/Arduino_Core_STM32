@@ -4042,6 +4042,7 @@ typedef struct{ /*!< MR_SUBG_GLOB_RETAINED Structure  */
 /* ============================================================================================================================*/
 /*=====================                                        SPI                                        =====================*/
 /* ============================================================================================================================*/
+#define SPI_I2S_SUPPORT                       /*!< I2S support */
 
 /* =====================================================    CR1    =====================================================*/
 #define SPI_CR1_BIDIMODE_Pos                                               (15UL)        /*!<SPI CR1: BIDIMODE (Bit 15) */
@@ -4255,6 +4256,59 @@ typedef struct{ /*!< MR_SUBG_GLOB_RETAINED Structure  */
 #define SPI_TXCRCR_TXCRC_14                                                (0x4000U << SPI_TXCRCR_TXCRC_Pos)
 #define SPI_TXCRCR_TXCRC_15                                                (0x8000U << SPI_TXCRCR_TXCRC_Pos)
 
+/* =====================================================    I2SCFGR    =====================================================*/
+#define SPI_I2SCFGR_ASTRTEN_Pos                                            (12UL)        /*!<SPI I2SCFGR: ASTRTEN (Bit 12) */
+#define SPI_I2SCFGR_ASTRTEN_Msk                                            (0x1000UL)        /*!< SPI I2SCFGR: ASTRTEN (Bitfield-Mask: 0x01) */
+#define SPI_I2SCFGR_ASTRTEN                                                SPI_I2SCFGR_ASTRTEN_Msk
+#define SPI_I2SCFGR_I2SMOD_Pos                                             (11UL)        /*!<SPI I2SCFGR: I2SMOD (Bit 11) */
+#define SPI_I2SCFGR_I2SMOD_Msk                                             (0x800UL)        /*!< SPI I2SCFGR: I2SMOD (Bitfield-Mask: 0x01) */
+#define SPI_I2SCFGR_I2SMOD                                                 SPI_I2SCFGR_I2SMOD_Msk
+#define SPI_I2SCFGR_I2SE_Pos                                               (10UL)        /*!<SPI I2SCFGR: I2SE (Bit 10) */
+#define SPI_I2SCFGR_I2SE_Msk                                               (0x400UL)        /*!< SPI I2SCFGR: I2SE (Bitfield-Mask: 0x01) */
+#define SPI_I2SCFGR_I2SE                                                   SPI_I2SCFGR_I2SE_Msk
+#define SPI_I2SCFGR_I2SCFG_Pos                                             (8UL)        /*!<SPI I2SCFGR: I2SCFG (Bit 8) */
+#define SPI_I2SCFGR_I2SCFG_Msk                                             (0x300UL)        /*!< SPI I2SCFGR: I2SCFG (Bitfield-Mask: 0x03) */
+#define SPI_I2SCFGR_I2SCFG                                                 SPI_I2SCFGR_I2SCFG_Msk
+#define SPI_I2SCFGR_I2SCFG_0                                               (0x1U << SPI_I2SCFGR_I2SCFG_Pos)
+#define SPI_I2SCFGR_I2SCFG_1                                               (0x2U << SPI_I2SCFGR_I2SCFG_Pos)
+#define SPI_I2SCFGR_PCMSYNC_Pos                                            (7UL)        /*!<SPI I2SCFGR: PCMSYNC (Bit 7) */
+#define SPI_I2SCFGR_PCMSYNC_Msk                                            (0x80UL)        /*!< SPI I2SCFGR: PCMSYNC (Bitfield-Mask: 0x01) */
+#define SPI_I2SCFGR_PCMSYNC                                                SPI_I2SCFGR_PCMSYNC_Msk
+#define SPI_I2SCFGR_I2SSTD_Pos                                             (4UL)        /*!<SPI I2SCFGR: I2SSTD (Bit 4) */
+#define SPI_I2SCFGR_I2SSTD_Msk                                             (0x30UL)        /*!< SPI I2SCFGR: I2SSTD (Bitfield-Mask: 0x03) */
+#define SPI_I2SCFGR_I2SSTD                                                 SPI_I2SCFGR_I2SSTD_Msk
+#define SPI_I2SCFGR_I2SSTD_0                                               (0x1U << SPI_I2SCFGR_I2SSTD_Pos)
+#define SPI_I2SCFGR_I2SSTD_1                                               (0x2U << SPI_I2SCFGR_I2SSTD_Pos)
+#define SPI_I2SCFGR_CKPOL_Pos                                              (3UL)        /*!<SPI I2SCFGR: CKPOL (Bit 3) */
+#define SPI_I2SCFGR_CKPOL_Msk                                              (0x8UL)        /*!< SPI I2SCFGR: CKPOL (Bitfield-Mask: 0x01) */
+#define SPI_I2SCFGR_CKPOL                                                  SPI_I2SCFGR_CKPOL_Msk
+#define SPI_I2SCFGR_DATLEN_Pos                                             (1UL)        /*!<SPI I2SCFGR: DATLEN (Bit 1) */
+#define SPI_I2SCFGR_DATLEN_Msk                                             (0x6UL)        /*!< SPI I2SCFGR: DATLEN (Bitfield-Mask: 0x03) */
+#define SPI_I2SCFGR_DATLEN                                                 SPI_I2SCFGR_DATLEN_Msk
+#define SPI_I2SCFGR_DATLEN_0                                               (0x1U << SPI_I2SCFGR_DATLEN_Pos)
+#define SPI_I2SCFGR_DATLEN_1                                               (0x2U << SPI_I2SCFGR_DATLEN_Pos)
+#define SPI_I2SCFGR_CHLEN_Pos                                              (0UL)        /*!<SPI I2SCFGR: CHLEN (Bit 0) */
+#define SPI_I2SCFGR_CHLEN_Msk                                              (0x1UL)        /*!< SPI I2SCFGR: CHLEN (Bitfield-Mask: 0x01) */
+#define SPI_I2SCFGR_CHLEN                                                  SPI_I2SCFGR_CHLEN_Msk
+
+/* =====================================================    I2SPR    =====================================================*/
+#define SPI_I2SPR_MCKOE_Pos                                                (9UL)        /*!<SPI I2SPR: MCKOE (Bit 9) */
+#define SPI_I2SPR_MCKOE_Msk                                                (0x200UL)        /*!< SPI I2SPR: MCKOE (Bitfield-Mask: 0x01) */
+#define SPI_I2SPR_MCKOE                                                    SPI_I2SPR_MCKOE_Msk
+#define SPI_I2SPR_ODD_Pos                                                  (8UL)        /*!<SPI I2SPR: ODD (Bit 8) */
+#define SPI_I2SPR_ODD_Msk                                                  (0x100UL)        /*!< SPI I2SPR: ODD (Bitfield-Mask: 0x01) */
+#define SPI_I2SPR_ODD                                                      SPI_I2SPR_ODD_Msk
+#define SPI_I2SPR_I2SDIV_Pos                                               (0UL)        /*!<SPI I2SPR: I2SDIV (Bit 0) */
+#define SPI_I2SPR_I2SDIV_Msk                                               (0xffUL)        /*!< SPI I2SPR: I2SDIV (Bitfield-Mask: 0xff) */
+#define SPI_I2SPR_I2SDIV                                                   SPI_I2SPR_I2SDIV_Msk
+#define SPI_I2SPR_I2SDIV_0                                                 (0x1U << SPI_I2SPR_I2SDIV_Pos)
+#define SPI_I2SPR_I2SDIV_1                                                 (0x2U << SPI_I2SPR_I2SDIV_Pos)
+#define SPI_I2SPR_I2SDIV_2                                                 (0x4U << SPI_I2SPR_I2SDIV_Pos)
+#define SPI_I2SPR_I2SDIV_3                                                 (0x8U << SPI_I2SPR_I2SDIV_Pos)
+#define SPI_I2SPR_I2SDIV_4                                                 (0x10U << SPI_I2SPR_I2SDIV_Pos)
+#define SPI_I2SPR_I2SDIV_5                                                 (0x20U << SPI_I2SPR_I2SDIV_Pos)
+#define SPI_I2SPR_I2SDIV_6                                                 (0x40U << SPI_I2SPR_I2SDIV_Pos)
+#define SPI_I2SPR_I2SDIV_7                                                 (0x80U << SPI_I2SPR_I2SDIV_Pos)
 
 
 /* ============================================================================================================================*/
@@ -11373,6 +11427,8 @@ typedef struct{ /*!< MR_SUBG_GLOB_RETAINED Structure  */
 /******************************** SPI Instances *******************************/
 #define IS_SPI_ALL_INSTANCE(INSTANCE) ((INSTANCE) == SPI3)
 
+/******************************** I2S Instances *******************************/
+#define IS_I2S_ALL_INSTANCE(INSTANCE)  (((INSTANCE) == SPI3))
 
 /****************************** IWDG Instances ********************************/
 #define IS_IWDG_ALL_INSTANCE(INSTANCE)  ((INSTANCE) == IWDG)
