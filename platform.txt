@@ -25,7 +25,9 @@ tools_bin_path.linux={runtime.tools.STM32Tools.path}/linux
 
 core_stm32_dir={build.core.path}/stm32
 hal_dir={build.system.path}/Drivers/{build.series}_HAL_Driver
-cmsis_dir={runtime.tools.CMSIS-5.9.0.path}/CMSIS
+cmsis_dir={runtime.tools.CMSIS-6.2.0.path}/CMSIS
+cmsis_dsp={runtime.tools.CMSIS_DSP-1.16.2.path}
+cmsis_nn={runtime.tools.CMSIS_NN-7.0.0.path}
 cmsis_dev_dir={build.system.path}/Drivers/CMSIS/Device/ST/{build.series}
 usbd_core_dir={build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core
 builtin_library_dir={build.core.path}/../../libraries
@@ -37,7 +39,7 @@ USBDevice_include_dir={builtin_library_dir}/USBDevice/inc
 # STM compile variables
 # ----------------------
 compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{core_stm32_dir}" "-I{SrcWrapper_include_dir}" "-I{SrcWrapper_include_dir}/LL" "-I{hal_dir}/Inc" "-I{hal_dir}/Src" "-I{build.system.path}/{build.series}" "-I{USBDevice_include_dir}" "-I{usbd_core_dir}/Inc" "-I{usbd_core_dir}/Src" "-I{VirtIO_include_dir}" {build.virtio_extra_include}
-compiler.arm.cmsis.c.flags="-I{cmsis_dir}/Core/Include/" "-I{cmsis_dev_dir}/Include/" "-I{cmsis_dev_dir}/Source/Templates/gcc/" "-I{cmsis_dir}/DSP/Include" "-I{cmsis_dir}/DSP/PrivateInclude"
+compiler.arm.cmsis.c.flags="-I{cmsis_dir}/Core/Include/" "-I{cmsis_dev_dir}/Include/" "-I{cmsis_dev_dir}/Source/Templates/gcc/" "-I{cmsis_dsp}/Include" "-I{cmsis_dsp}/PrivateInclude"
 
 compiler.warning_flags=-w
 compiler.warning_flags.none=-w
