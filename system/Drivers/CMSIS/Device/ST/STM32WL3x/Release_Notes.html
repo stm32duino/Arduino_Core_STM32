@@ -60,19 +60,13 @@ referred as SystemInit.</li>
 <section id="update-history" class="col-sm-12 col-lg-8">
 <h1>Update history</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section5" checked aria-hidden="true">
-<label for="collapse-section5" aria-hidden="true"> <strong>V1.3.0 /
-29-October-2025</strong> </label>
+<input type="checkbox" id="collapse-section6" checked aria-hidden="true">
+<label for="collapse-section6" aria-hidden="true"> <strong>V1.3.1 /
+20-November-2025</strong> </label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <ul>
-<li>Added support to STM32WL3Rx product line.</li>
-<li>[LCSC] LCSC_VER register removed from the accessible register list,
-as it is Non-User.</li>
-<li>[LCSC] Fixed a typo on an LCSC register name (COMP_CTN -&gt;
-COMP_CNT)</li>
-<li>[MRSUBG] RSSI_FLT bit #3 renamed to
-<code>FREEZE_SYNC_ON_SYNC_OOK_PEAK_DECAY</code></li>
+<li>Added missing I2S support on WL3Rx devices (stm32wl3rx.h)</li>
 </ul>
 <h2 id="known-limitations">Known Limitations</h2>
 <ul>
@@ -90,24 +84,23 @@ Compilers</h2>
 </div>
 </div>
 <div class="collapse">
-<input type="checkbox" id="collapse-section3" aria-hidden="true">
-<label for="collapse-section3" aria-hidden="true"> <strong>V1.2.0 /
-04-June-2025</strong> </label>
+<input type="checkbox" id="collapse-section5" aria-hidden="true">
+<label for="collapse-section5" aria-hidden="true"> <strong>V1.3.0 /
+29-October-2025</strong> </label>
 <div>
 <h2 id="main-changes-1">Main Changes</h2>
 <ul>
-<li>Documentation based on jQuery 1.7.1 removed</li>
-</ul>
-<h2 id="contents">Contents</h2>
-<ul>
-<li>Add PULSETRIM bits definition in CMSIS header files</li>
-<li>Renamed some interrupt to improve clarity and consistency</li>
-<li>Added FQCY_BAND_ID bits definition for RF_INFO_OUT register</li>
+<li>Added support to STM32WL3Rx product line.</li>
+<li>[LCSC] LCSC_VER register removed from the accessible register list,
+as it is Non-User.</li>
+<li>[LCSC] Fixed a typo on an LCSC register name (COMP_CTN -&gt;
+COMP_CNT)</li>
+<li>[MRSUBG] RSSI_FLT bit #3 renamed to
+<code>FREEZE_SYNC_ON_SYNC_OOK_PEAK_DECAY</code></li>
 </ul>
 <h2 id="known-limitations-1">Known Limitations</h2>
 <ul>
-<li>CMSIS devices files are delivered “as is” and have not been fully
-validated</li>
+<li>None</li>
 </ul>
 <h2 id="development-toolchains-and-compilers-1">Development Toolchains
 and Compilers</h2>
@@ -122,18 +115,19 @@ boards</h2>
 </div>
 </div>
 <div class="collapse">
-<input type="checkbox" id="collapse-section2"  aria-hidden="true">
-<label for="collapse-section2" aria-hidden="true"> <strong>V1.1.0 /
-05-February-2025</strong> </label>
+<input type="checkbox" id="collapse-section3" aria-hidden="true">
+<label for="collapse-section3" aria-hidden="true"> <strong>V1.2.0 /
+04-June-2025</strong> </label>
 <div>
 <h2 id="main-changes-2">Main Changes</h2>
-<h3 id="release">Release</h3>
 <ul>
-<li>Release of CMSIS for STM32WL3xx devices</li>
+<li>Documentation based on jQuery 1.7.1 removed</li>
 </ul>
-<h2 id="contents-1">Contents</h2>
+<h2 id="contents">Contents</h2>
 <ul>
-<li>CMSIS devices files for STM32WL3xx</li>
+<li>Add PULSETRIM bits definition in CMSIS header files</li>
+<li>Renamed some interrupt to improve clarity and consistency</li>
+<li>Added FQCY_BAND_ID bits definition for RF_INFO_OUT register</li>
 </ul>
 <h2 id="known-limitations-2">Known Limitations</h2>
 <ul>
@@ -153,18 +147,18 @@ boards</h2>
 </div>
 </div>
 <div class="collapse">
-<input type="checkbox" id="collapse-section1" aria-hidden="true">
-<label for="collapse-section1" aria-hidden="true"> <strong>V1.0.0 /
-30-October-2024</strong> </label>
+<input type="checkbox" id="collapse-section2"  aria-hidden="true">
+<label for="collapse-section2" aria-hidden="true"> <strong>V1.1.0 /
+05-February-2025</strong> </label>
 <div>
 <h2 id="main-changes-3">Main Changes</h2>
-<h3 id="first-release">First Release</h3>
+<h3 id="release">Release</h3>
 <ul>
-<li>First Official Release of CMSIS for STM32WL33x devices</li>
+<li>Release of CMSIS for STM32WL3xx devices</li>
 </ul>
-<h2 id="contents-2">Contents</h2>
+<h2 id="contents-1">Contents</h2>
 <ul>
-<li>CMSIS devices files for STM32WL33x</li>
+<li>CMSIS devices files for STM32WL3xx</li>
 </ul>
 <h2 id="known-limitations-3">Known Limitations</h2>
 <ul>
@@ -177,6 +171,37 @@ and Compilers</h2>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V9.30.1</li>
 </ul>
 <h2 id="supported-devices-and-boards-3">Supported Devices and
+boards</h2>
+<ul>
+<li>STM32WL3xx devices</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1" aria-hidden="true">
+<label for="collapse-section1" aria-hidden="true"> <strong>V1.0.0 /
+30-October-2024</strong> </label>
+<div>
+<h2 id="main-changes-4">Main Changes</h2>
+<h3 id="first-release">First Release</h3>
+<ul>
+<li>First Official Release of CMSIS for STM32WL33x devices</li>
+</ul>
+<h2 id="contents-2">Contents</h2>
+<ul>
+<li>CMSIS devices files for STM32WL33x</li>
+</ul>
+<h2 id="known-limitations-4">Known Limitations</h2>
+<ul>
+<li>CMSIS devices files are delivered “as is” and have not been fully
+validated</li>
+</ul>
+<h2 id="development-toolchains-and-compilers-4">Development Toolchains
+and Compilers</h2>
+<ul>
+<li>IAR Embedded Workbench for ARM (EWARM) toolchain V9.30.1</li>
+</ul>
+<h2 id="supported-devices-and-boards-4">Supported Devices and
 boards</h2>
 <ul>
 <li>STM32WL33x devices</li>
