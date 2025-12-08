@@ -19,7 +19,9 @@ CMSIS_DSP_lib_path = ""
 system_path = ""
 
 # CMSIS outside of the core. Can be updated by arg
-CMSIS_path = core_path.parent / "ArduinoModule-CMSIS" / "CMSIS_5"
+# CMSIS_VERSION = "CMSIS_5"
+CMSIS_VERSION = "CMSIS_6"
+CMSIS_path = core_path.parent / "ArduinoModule-CMSIS" / CMSIS_VERSION
 CMSIS_DSPSrc_path = ""
 
 # Out sources files
@@ -82,7 +84,7 @@ def checkConfig(arg_core, arg_cmsis):
 
     if arg_core is not None:
         core_path = Path(arg_core).resolve()
-        CMSIS_path = core_path.parent / "ArduinoModule-CMSIS" / "CMSIS_5"
+        CMSIS_path = core_path.parent / "ArduinoModule-CMSIS" / CMSIS_VERSION
 
     if not core_path.is_dir():
         print(f"Could not find {core_path}")
@@ -103,7 +105,11 @@ def checkConfig(arg_core, arg_cmsis):
 
     if arg_cmsis is not None:
         CMSIS_path = Path(arg_cmsis).resolve()
-    CMSIS_DSPSrc_path = CMSIS_path / "CMSIS" / "DSP" / "Source"
+
+    if CMSIS_VERSION == "CMSIS_6":
+        CMSIS_DSPSrc_path = CMSIS_path / ".." / "CMSIS-DSP" / "Source"
+    else:
+        CMSIS_DSPSrc_path = CMSIS_path / "CMSIS" / "DSP" / "Source"
 
 
 def printCMSISStartup(log):
@@ -289,13 +295,16 @@ def wrap(arg_core, arg_cmsis, log):
         print("CMSIS DSP generation skipped.")
     else:
         # Delete all subfolders
-        deleteFolder(CMSIS_DSP_outSrc_path / "*")
+        for path_object in CMSIS_DSP_outSrc_path.glob("*"):
+            if path_object.is_dir():
+                deleteFolder(path_object)
         for path_object in CMSIS_DSPSrc_path.glob("**/*"):
             if path_object.is_file() and path_object.name.endswith(".c"):
                 dn = path_object.parent.name
                 fn = path_object.name
                 if dn in fn:
                     fdn = CMSIS_DSP_outSrc_path / dn
+                    createFolder(fdn)
                     with open(fdn / (f"{fn}"), "w", newline="\n") as out_file:
                         out_file.write(
                             dsp_file_template.render(dsp_dir=dn, dsp_name=fn)
