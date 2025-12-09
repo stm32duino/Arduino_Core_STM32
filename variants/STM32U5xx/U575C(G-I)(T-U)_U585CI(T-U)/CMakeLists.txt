@@ -22,8 +22,10 @@ add_library(variant_bin STATIC EXCLUDE_FROM_ALL
   generic_clock.c
   PeripheralPins.c
   PeripheralPins_DEVKIT_IOT_CONTINUUM.c
+  PeripheralPins_HERON.c
   variant_DEVKIT_IOT_CONTINUUM.cpp
   variant_generic.cpp
+  variant_HERON.cpp
 )
 target_link_libraries(variant_bin PUBLIC variant_usage)
 

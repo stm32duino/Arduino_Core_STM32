@@ -14254,31 +14254,24 @@ Blues.menu.pnum.CYGNET.pid.0=0x0003
 Blues.menu.pnum.CYGNET.openocd.target=stm32l4x
 Blues.menu.pnum.CYGNET.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L433.svd
 
+# Heron board
+Blues.menu.pnum.HERON=Heron
+Blues.menu.pnum.HERON.upload.maximum_size=2097152
+Blues.menu.pnum.HERON.upload.maximum_data_size=786432
+Blues.menu.pnum.HERON.build.mcu=cortex-m33
+Blues.menu.pnum.HERON.build.fpu=-mfpu=fpv5-sp-d16
+Blues.menu.pnum.HERON.build.float-abi=-mfloat-abi=hard
+Blues.menu.pnum.HERON.build.board=HERON
+Blues.menu.pnum.HERON.build.series=STM32U5xx
+Blues.menu.pnum.HERON.build.product_line=STM32U575xx
+Blues.menu.pnum.HERON.build.variant=STM32U5xx/U575C(G-I)(T-U)_U585CI(T-U)
+Blues.menu.pnum.HERON.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Blues.menu.pnum.HERON.vid.0=0x30A4
+Blues.menu.pnum.HERON.pid.0=0x0004
+Blues.menu.pnum.HERON.openocd.target=stm32u5x
+Blues.menu.pnum.HERON.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U5xx/STM32U575.svd
+
 # Upload menu
-Blues.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
-Blues.menu.upload_method.swdMethod.upload.protocol=swd
-Blues.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
-Blues.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
-
-Blues.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
-Blues.menu.upload_method.jlinkMethod.upload.protocol=jlink
-Blues.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
-Blues.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
-
-Blues.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
-Blues.menu.upload_method.serialMethod.upload.protocol=serial
-Blues.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
-Blues.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
-
-Blues.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
-Blues.menu.upload_method.dfuMethod.upload.protocol=dfu
-Blues.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
-Blues.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
-
-Blues.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
-Blues.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
-Blues.menu.upload_method.bmpMethod.upload.tool=bmp_upload
-
 Blues.menu.upload_method.OpenOCDSTLink=OpenOCD STLink (SWD)
 Blues.menu.upload_method.OpenOCDSTLink.upload.protocol=stlink
 Blues.menu.upload_method.OpenOCDSTLink.upload.tool=openocd_upload
@@ -14288,6 +14281,30 @@ Blues.menu.upload_method.OpenOCDDapLink.upload.protocol=cmsis-dap
 Blues.menu.upload_method.OpenOCDDapLink.upload.tool=openocd_upload
 Blues.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.0=interface/cmsis-dap.cfg
 Blues.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_swd.cfg
+
+Blues.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+Blues.menu.upload_method.swdMethod.upload.protocol=swd
+Blues.menu.upload_method.swdMethod.upload.options=-a {upload.address} -m {upload.mode} -s {upload.start}
+Blues.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+Blues.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+Blues.menu.upload_method.dfuMethod.upload.protocol=dfu
+Blues.menu.upload_method.dfuMethod.upload.options=-v {upload.vid} -p {upload.pid} -a {upload.address} -s {upload.start}
+Blues.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Blues.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+Blues.menu.upload_method.serialMethod.upload.protocol=serial
+Blues.menu.upload_method.serialMethod.upload.options=-c {serial.port.file} -a {upload.address} -s {upload.start} --parity {upload.parity}
+Blues.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+Blues.menu.upload_method.jlinkMethod=STM32CubeProgrammer (J-Link)
+Blues.menu.upload_method.jlinkMethod.upload.protocol=jlink
+Blues.menu.upload_method.jlinkMethod.upload.options=-a {upload.address} -s {upload.start}
+Blues.menu.upload_method.jlinkMethod.upload.tool=stm32CubeProg
+
+Blues.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+Blues.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+Blues.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 ################################################################################
 # Elecgator boards
@@ -16365,9 +16382,13 @@ GenWL.menu.opt.o0std.build.flags.optimize=-O0
 3dprinter.menu.opt.o0std=No Optimization (-O0)
 3dprinter.menu.opt.o0std.build.flags.optimize=-O0
 
+Blues.menu.opt.ogstd=Debug (-Og)
+Blues.menu.opt.ogstd.build.flags.optimize=-Og
 Blues.menu.opt.osstd=Smallest (-Os default)
 Blues.menu.opt.oslto=Smallest (-Os) with LTO
 Blues.menu.opt.oslto.build.flags.optimize=-Os -flto
+Blues.menu.opt.o0std=No Optimization (-O0)
+Blues.menu.opt.o0std.build.flags.optimize=-O0
 Blues.menu.opt.o1std=Fast (-O1)
 Blues.menu.opt.o1std.build.flags.optimize=-O1
 Blues.menu.opt.o1lto=Fast (-O1) with LTO
@@ -16380,10 +16401,6 @@ Blues.menu.opt.o3std=Fastest (-O3)
 Blues.menu.opt.o3std.build.flags.optimize=-O3
 Blues.menu.opt.o3lto=Fastest (-O3) with LTO
 Blues.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-Blues.menu.opt.ogstd=Debug (-Og)
-Blues.menu.opt.ogstd.build.flags.optimize=-Og
-Blues.menu.opt.o0std=No Optimization (-O0)
-Blues.menu.opt.o0std.build.flags.optimize=-O0
 
 Elecgator.menu.opt.osstd=Smallest (-Os default)
 Elecgator.menu.opt.oslto=Smallest (-Os) with LTO
@@ -16822,13 +16839,13 @@ GenWL.menu.dbg.enable_all.build.flags.debug=-g
 3dprinter.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
 3dprinter.menu.dbg.enable_all.build.flags.debug=-g
 
-Blues.menu.dbg.none=None
+Blues.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+Blues.menu.dbg.enable_all.build.flags.debug=-g
 Blues.menu.dbg.enable_sym=Symbols Enabled (-g)
 Blues.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
 Blues.menu.dbg.enable_log=Core logs Enabled
 Blues.menu.dbg.enable_log.build.flags.debug=
-Blues.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
-Blues.menu.dbg.enable_all.build.flags.debug=-g
+Blues.menu.dbg.none=None
 
 Elecgator.menu.dbg.none=None
 Elecgator.menu.dbg.enable_sym=Symbols Enabled (-g)
