@@ -874,6 +874,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32L4R5ZIYx | [Swan R5](https://blues.com/products/swan)  |  *2.1.0*  | |
 | :green_heart: | STM32L433CC   | [Cygnet](https://blues.com/products) | *2.8.0* | |
+| :yellow_heart: | STM32U575CITx | [Heron](https://blues.com/products) | **2.12.0** | |
 
 ### [Elecgator](https://www.elecgator.com/) boards
 
