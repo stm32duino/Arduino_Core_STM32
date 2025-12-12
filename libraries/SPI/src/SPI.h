@@ -126,13 +126,32 @@ class SPIClass {
       _spi.pin_ssel = (ssel);
     };
 
-    void begin(SPIDeviceMode device = SPI_MASTER);
+    void setDirection(uint32_t direction)
+    {
+      _spi.direction = direction;
+      if (direction == SPI_DIRECTION_1LINE)
+        _spi.duplex = false;
+      else
+        _spi.duplex = true;
+    };
+
+    void setDeviceMode(SPIDeviceMode deviceMode)
+    {
+      _spiSettings.deviceMode = deviceMode;
+    };
+
+    void setIsMaster(bool isMaster)
+    {
+      _spi.mode = isMaster ? SPI_MODE_MASTER : SPI_MODE_SLAVE;
+    };
+
+    bool begin(SPIDeviceMode device = SPI_MASTER);
     void end(void);
 
     /* This function should be used to configure the SPI instance in case you
      * don't use default parameters.
      */
-    void beginTransaction(SPISettings settings);
+    bool beginTransaction(SPISettings settings);
     void endTransaction(void);
 
     /* Transfer functions: must be called after initialization of the SPI
@@ -145,7 +164,7 @@ class SPIClass {
     /* Expand SPI API
      * https://github.com/arduino/ArduinoCore-API/discussions/189
      */
-    void transfer(const void *tx_buf, void *rx_buf, size_t count);
+    spi_status_e transfer(const void *tx_buf, void *rx_buf, size_t count);
 
     /* These methods are deprecated and kept for compatibility.
      * Use SPISettings with SPI.beginTransaction() to configure SPI parameters.
@@ -181,6 +200,7 @@ class SPIClass {
   protected:
     // spi instance
     spi_t         _spi;
+    bool init;
 
   private:
     /* Current SPISettings */
