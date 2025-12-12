@@ -1386,6 +1386,22 @@ Disco.menu.pnum.B_L4S5I_IOT01A.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Disco.menu.pnum.B_L4S5I_IOT01A.openocd.target=stm32l4x
 Disco.menu.pnum.B_L4S5I_IOT01A.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4S5.svd
 
+# STDES_MB2095 board
+Disco.menu.pnum.STDES_MB2095=STDES-MB2095
+Disco.menu.pnum.STDES_MB2095.node="No_mass_storage_for_this_board_Use_STLink_upload_method"
+Disco.menu.pnum.STDES_MB2095.upload.maximum_size=1048576
+Disco.menu.pnum.STDES_MB2095.upload.maximum_data_size=262144
+Disco.menu.pnum.STDES_MB2095.build.mcu=cortex-m33
+Disco.menu.pnum.STDES_MB2095.build.fpu=-mfpu=fpv5-sp-d16
+Disco.menu.pnum.STDES_MB2095.build.float-abi=-mfloat-abi=hard
+Disco.menu.pnum.STDES_MB2095.build.board=STDES_MB2095
+Disco.menu.pnum.STDES_MB2095.build.series=STM32U3xx
+Disco.menu.pnum.STDES_MB2095.build.product_line=STM32U385xx
+Disco.menu.pnum.STDES_MB2095.build.variant=STM32U3xx/U375V(E-G)IxQ_U385VGIxQ
+Disco.menu.pnum.STDES_MB2095.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Disco.menu.pnum.STDES_MB2095.openocd.target=stm32u3x
+Disco.menu.pnum.STDES_MB2095.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32U3xx/STM32U385.svd
+
 # B_U585I_IOT02A board
 Disco.menu.pnum.B_U585I_IOT02A=B-U585I-IOT02A
 Disco.menu.pnum.B_U585I_IOT02A.node="NOD_U585AI,DIS_U585AI"
