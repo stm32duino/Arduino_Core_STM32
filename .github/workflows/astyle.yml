@@ -31,7 +31,7 @@ jobs:
     steps:
     # First of all, clone the repo using the checkout action.
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Astyle check
       id: Astyle

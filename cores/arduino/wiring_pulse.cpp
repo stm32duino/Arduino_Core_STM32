@@ -26,15 +26,15 @@
  * ATTENTION:
  * This function relies on micros() so cannot be used in noInterrupt() context
  */
-uint32_t pulseIn(uint32_t pin, uint32_t state, uint32_t timeout)
+unsigned long pulseIn(pin_size_t pin, uint8_t state, unsigned long timeout)
 {
   // Cache the port and bit of the pin in order to speed up the
   // pulse width measuring loop and achieve finer resolution.
   // Calling digitalRead() instead yields much coarser resolution.
-  uint32_t bit = digitalPinToBitMask(pin);
-  __IO uint32_t *portIn = portInputRegister(digitalPinToPort(pin));
-  uint32_t stateMask = (state ? bit : 0);
-  uint32_t startMicros = micros();
+  pin_size_t bit = digitalPinToBitMask(pin);
+  __IO uint32_t  *portIn = portInputRegister(digitalPinToPort(pin));
+  uint8_t stateMask = (state ? bit : 0);
+  unsigned long startMicros = micros();
 
   // wait for any previous pulse to end
   while ((*portIn & bit) == stateMask) {
@@ -68,7 +68,8 @@ uint32_t pulseIn(uint32_t pin, uint32_t state, uint32_t timeout)
  * ATTENTION:
  * This function relies on micros() so cannot be used in noInterrupt() context
  */
-uint32_t pulseInLong(uint32_t pin, uint32_t state, uint32_t timeout)
+unsigned long pulseInLong(pin_size_t pin, uint8_t state, unsigned long timeout)
 {
   return pulseIn(pin, state, timeout);
 }
+

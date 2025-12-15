@@ -26,27 +26,77 @@
 #include <string.h>
 #include <math.h>
 
-#include "avr/dtostrf.h"
-#include "binary.h"
-#include "itoa.h"
+#include "Arduino.h"
 
-#include "wiring_analog.h"
-#include "wiring_constants.h"
-#include "wiring_digital.h"
-#include "wiring_pulse.h"
-#include "wiring_shift.h"
-#include "wiring_time.h"
+#include "avr/dtostrf.h"
+
+
+
+#include <stdarg.h>
+#include "clock.h"
+#include "dwt.h"
+#include <sys/time.h> // for struct timeval
+
+/* wirinig_analog*/
+#ifdef __cplusplus
+extern "C" {
+#endif
+/*
+ * \brief Set the resolution of analogRead return values. Default is 10 bits (range from 0 to 1023).
+ *
+ * \param res
+ */
+extern void analogReadResolution(int res);
+/*
+ * \brief Set the resolution of analogWrite parameters. Default is 8 bits (range from 0 to 255).
+ *
+ * \param res
+ */
+extern void analogWriteResolution(int res);
+/*
+ * \brief Set the frequency of analogWrite. Default is PWM_FREQUENCY (1000) in Hertz.
+ *
+ * \param freq
+ */
+extern void analogWriteFrequency(uint32_t freq);
+extern void analogOutputInit(void) ;
+
+/* wiring_constants */
+#define DEFAULT 1
+#define EXTERNAL 0
+
+#define interrupts() __enable_irq()
+#define noInterrupts() __disable_irq()
+
+#ifndef _BV
+#define _BV(bit) (1 << (bit))
+#endif
+#ifndef cbi
+#define cbi(reg, bitmask) *reg &= ~bitmask
+#endif
+#ifndef sbi
+#define sbi(reg, bitmask) *reg |= bitmask
+#endif
+
+typedef bool boolean __attribute__((deprecated));
+
+/* wiring_digital */
+/**
+ * \brief Toggle the value from a specified digital pin.
+ *
+ * \param ulPin The number of the digital pin you want to toggle (int)
+ */
+extern void digitalToggle(pin_size_t pinNumber) ;
+
+#ifdef __cplusplus
+}
+#endif
 
 #include <board.h>
 
 #ifdef __cplusplus
   #include "HardwareTimer.h"
-  #include "Tone.h"
-  #include "WCharacter.h"
-  #include "WInterrupts.h"
-  #include "WMath.h"
   #include "WSerial.h"
-  #include "WString.h"
 #endif // __cplusplus
 
 

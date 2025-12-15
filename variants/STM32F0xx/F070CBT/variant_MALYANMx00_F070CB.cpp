@@ -20,7 +20,7 @@
 #define FW_START_ADDR 0x08002000
 
 /**Force VectorTable to specific memory position defined in linker*/
-volatile uint32_t ram_vector_table[48] __attribute__((section(".RAMVectorTable")));
+volatile pin_size_t ram_vector_table[48] __attribute__((section(".RAMVectorTable")));
 
 // Pin number
 const PinName digitalPin[] = {
@@ -67,7 +67,7 @@ const PinName digitalPin[] = {
 };
 
 // Analog (Ax) pin number array
-const uint32_t analogInputPin[] = {
+const pin_size_t analogInputPin[] = {
   20, // A0
   21, // A1
   22, // A2
@@ -94,7 +94,7 @@ extern "C" {
 void initVariant()
 {
   for (int i = 0; i < 48; i++) {
-    ram_vector_table[i] = *(volatile uint32_t *)(FW_START_ADDR + (i << 2));
+    ram_vector_table[i] = *(volatile pin_size_t *)(FW_START_ADDR + (i << 2));
   }
 
   __HAL_SYSCFG_REMAPMEMORY_SRAM();
