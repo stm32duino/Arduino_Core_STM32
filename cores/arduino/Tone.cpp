@@ -118,6 +118,12 @@ void tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
   }
 }
 
+
+void noTone(uint8_t _pin)
+{
+  noTone(_pin, false);
+}
+
 void noTone(uint8_t _pin, bool destruct)
 {
   PinName p = digitalPinToPinName(_pin);
@@ -138,6 +144,11 @@ void tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
   UNUSED(_pin);
   UNUSED(frequency);
   UNUSED(duration);
+}
+
+void noTone(uint8_t _pin)
+{
+  UNUSED(_pin);
 }
 
 void noTone(uint8_t _pin, bool destruct)
