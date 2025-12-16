@@ -36,7 +36,7 @@
 extern "C" {
 #endif
 
-extern GPIO_TypeDef *GPIOPort[];
+extern GPIO_TypeDef *GPIOPort_list[];
 
 typedef enum {
   FirstPort = 0x00,
@@ -79,7 +79,7 @@ typedef enum {
 #define MAX_NB_PORT (LastPort-FirstPort+1)
 
 /* Return GPIO base address */
-#define get_GPIO_Port(p) ((p < MAX_NB_PORT) ? GPIOPort[p] : (GPIO_TypeDef *)NULL)
+#define get_GPIO_Port(p) ((p < MAX_NB_PORT) ? GPIOPort_list[p] : (GPIO_TypeDef *)NULL)
 /* Enable GPIO clock and return GPIO base address */
 GPIO_TypeDef *set_GPIO_Port_Clock(uint32_t port_idx);
 
