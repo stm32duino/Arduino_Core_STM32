@@ -9,7 +9,7 @@
 
 [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
 ![GitHub All Releases](https://img.shields.io/github/downloads/stm32duino/Arduino_Core_STM32/total.svg?label=downloads%20since%201.4.0)
-[![GitHub commits since latest release](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/latest/main)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2.11.0...main)
+[![GitHub commits since latest release](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/latest/main)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2.12.0...main)
 
 
 * [Introduction](https://github.com/stm32duino/Arduino_Core_STM32#Introduction)<br>
@@ -115,7 +115,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32H563ZI | [Nucleo H563ZI](https://www.st.com/en/evaluation-tools/nucleo-h563zi.html) | *2.6.0* |  |
 | :green_heart:  | STM32H723ZG | [Nucleo H723ZG](https://www.st.com/en/evaluation-tools/nucleo-h723zg.html) | *2.4.0* |  |
 | :green_heart:  | STM32H743ZI | [Nucleo H743ZI(2)](https://www.st.com/en/evaluation-tools/nucleo-h743zi.html) | *1.5.0* | Nucleo H743ZI2 since 1.6.0 |
-| :yellow_heart: | STM32H745ZI-Q | [Nucleo-H745ZI-Q](https://www.st.com/en/evaluation-tools/nucleo-h745zi-q.html) | **2.12.0** |  |
+| :green_heart: | STM32H745ZI-Q | [Nucleo-H745ZI-Q](https://www.st.com/en/evaluation-tools/nucleo-h745zi-q.html) | *2.12.0* |  |
 | :green_heart:  | STM32H753ZI | [Nucleo H753ZI](https://www.st.com/en/evaluation-tools/nucleo-h753zi.html) | *2.7.0* |  |
 | :green_heart: | STM32H7A3ZITxQ | [NUCLEO-H7A3ZI-Q](https://www.st.com/en/evaluation-tools/nucleo-h7a3zi-q.html) | *2.10.0* |  |
 | :green_heart:  | STM32L496ZG | [Nucleo L496ZG](http://www.st.com/en/evaluation-tools/nucleo-l496zg.html) | *1.3.0* |  |
@@ -140,7 +140,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F103RB | [Nucleo F103RB](http://www.st.com/en/evaluation-tools/nucleo-f103rb.html) | *0.2.0* |  |
 | :green_heart:  | STM32F302R8 | [Nucleo F302R8](http://www.st.com/en/evaluation-tools/nucleo-f302r8.html) | *1.1.0* |  |
 | :green_heart:  | STM32F303RE | [Nucleo F303RE](http://www.st.com/en/evaluation-tools/nucleo-f303re.html) | *0.1.0* |  |
-| :yellow_heart: | STM32F334R8 | [Nucleo-F334R8](https://www.st.com/en/evaluation-tools/nucleo-f334r8.html) | **2.12.0** |  |
+| :green_heart: | STM32F334R8 | [Nucleo-F334R8](https://www.st.com/en/evaluation-tools/nucleo-f334r8.html) | *2.12.0* |  |
 | :green_heart:  | STM32F401RE | [Nucleo F401RE](http://www.st.com/en/evaluation-tools/nucleo-f401re.html) | *0.2.1* |  |
 | :green_heart:  | STM32F410RB | [Nucleo F410RB](http://www.st.com/en/evaluation-tools/nucleo-f410rb.html) | *2.11.0* |  |
 | :green_heart:  | STM32F411RE | [Nucleo F411RE](http://www.st.com/en/evaluation-tools/nucleo-f411re.html) | *0.2.1* |  |
@@ -167,8 +167,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32WBA55CGU | Nucleo-WBA55CG | *2.8.0* |  |
 | :green_heart:  | STM32WB55RG | [P-Nucleo-WB55RG](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html) | *1.6.0* | BLE support with [STM32duinoBLE](https://github.com/stm32duino/STM32duinoBLE) |
 | :green_heart:  | STM32WB55CG | [P-Nucleo-WB55 USB Dongle](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html) | *2.5.0* | BLE support with [STM32duinoBLE](https://github.com/stm32duino/STM32duinoBLE) |
-| :yellow_heart: | STM32WL3CCV | [Nucleo-WL33CC1](https://www.st.com/en/evaluation-tools/nucleo-wl33cc1.html) | **2.12.0** |  |
-| :yellow_heart: | STM32WL3CCV | [Nucleo-WL33CC2](https://www.st.com/en/evaluation-tools/nucleo-wl33cc2.html) | **2.12.0** |  |
+| :green_heart: | STM32WL3CCV | [Nucleo-WL33CC1](https://www.st.com/en/evaluation-tools/nucleo-wl33cc1.html) | *2.12.0* |  |
+| :green_heart: | STM32WL3CCV | [Nucleo-WL33CC2](https://www.st.com/en/evaluation-tools/nucleo-wl33cc2.html) | *2.12.0* |  |
 | :green_heart:  | STM32WL55JC | [Nucleo WL55JC1](https://www.st.com/en/evaluation-tools/nucleo-wl55jc.html) | *2.1.0* | LoRa support not available |
 
 
@@ -196,9 +196,9 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F100RB | [STM32VLDISCOVERY](https://www.st.com/en/evaluation-tools/stm32vldiscovery.html) | 0.2.1 |  |
 | :green_heart:  | STM32F303VC | [STM32F3DISCOVERY](https://www.st.com/en/evaluation-tools/stm32f3discovery.html) | *2.0.0* |  |
 | :green_heart:  | STM32F407VG | [STM32F407G-DISC1](http://www.st.com/en/evaluation-tools/stm32f4discovery.html) | *0.1.0* |  |
-| :yellow_heart:  | STM32F411VE | [STM32F411E-DISCO](https://www.st.com/en/evaluation-tools/32f411ediscovery.html) | **2.12.0** |  |
+| :green_heart:  | STM32F411VE | [STM32F411E-DISCO](https://www.st.com/en/evaluation-tools/32f411ediscovery.html) | *2.12.0* |  |
 | :green_heart:  | STM32F413ZH | [32F413HDISCOVERY](https://www.st.com/en/evaluation-tools/32f413hdiscovery.html) | *1.9.0* |  |
-| :yellow_heart:  | STM32F429I | [STM32F429I-DISC1](https://www.st.com/en/evaluation-tools/32f429idiscovery.html) | **2.12.0** |  |
+| :green_heart:  | STM32F429I | [STM32F429I-DISC1](https://www.st.com/en/evaluation-tools/32f429idiscovery.html) | *2.12.0* |  |
 | :green_heart:  | STM32F746NG | [STM32F746G-DISCOVERY](http://www.st.com/en/evaluation-tools/32f746gdiscovery.html) | *0.1.0* |  |
 | :green_heart:  | STM32G031J6 | [STM32G0316-DISCO](https://www.st.com/en/evaluation-tools/stm32g0316-disco.html) | *1.9.0* |  |
 | :green_heart:  | STM32G431CB | [B-G431B-ESC1](https://www.st.com/en/evaluation-tools/b-g431b-esc1.html) | *2.0.0* |  |
@@ -206,7 +206,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32H747XIHx | [STM32H747I-DISCO](https://www.st.com/en/evaluation-tools/stm32h747i-disco.html) | *2.7.0* |  |
 | :green_heart:  | STM32L4S5VI | [B-L4S5I-IOT01A](https://www.st.com/en/evaluation-tools/b-l4s5i-iot01a.html) | *2.0.0* | |
 | :green_heart:  | STM32L562QEIxQ | [STM32L562E-DK](https://www.st.com/en/evaluation-tools/stm32l562e-dk.html) | *2.11.0* | |
-| :yellow_heart:  | STM32U385VGIxQ | [STDES-MB2095](https://www.st.com/en/evaluation-tools/stdes-mb2095.html) | **2.12.0** |  |
+| :green_heart:  | STM32U385VGIxQ | [STDES-MB2095](https://www.st.com/en/evaluation-tools/stdes-mb2095.html) | *2.12.0* |  |
 | :green_heart: | STM32U585AIIxQ | [B-U585I-IOT02A](https://www.st.com/en/evaluation-tools/b-u585i-iot02a.html) | *2.1.0* |  |
 | :green_heart: | STM32WB5MMG | [STM32WB5MM-DK](https://www.st.com/en/evaluation-tools/stm32wb5mm-dk.html) | *2.1.0* |  |
 
@@ -233,10 +233,10 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32C011J4<br>STM32C011J6 | Generic Board | *2.8.0* |  |
 | :green_heart: | STM32C031C4<br>STM32C031C6 | Generic Board | *2.5.0* |  |
 | :green_heart: | STM32C031F4<br>STM32C031F6 | Generic Board | *2.6.0* |  |
-| :yellow_heart: | STM32C051C6<br>STM32C051C8 | Generic Board | **2.12.0** |  |
+| :green_heart: | STM32C051C6<br>STM32C051C8 | Generic Board | *2.12.0* |  |
 | :green_heart: | STM32C071G8<br>STM32C071GB | Generic Board | *2.11.0* |  |
 | :green_heart: | STM32C071R8<br>STM32C071RB | Generic Board | *2.9.0* | |
-| :yellow_heart: | STM32C092CB<br>STM32C092CC| Generic Board | **2.12.0** | STM32C092CBT since 2.11.0 |
+| :green_heart: | STM32C092CB<br>STM32C092CC| Generic Board | *2.12.0* | STM32C092CBT since 2.11.0 |
 | :green_heart: | STM32C092RBT<br>STM32C092RCT | Generic Board | *2.11.0* |  |
 | :green_heart: | STM32C092RCI | Generic Board | *2.11.0* |  |
 
@@ -312,7 +312,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F101ZC<br>STM32F101ZD<br>STM32F101ZE | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32F103C6<br>STM32F103C8<br>STM32F103CB | [Blue Pill](https://stm32-base.org/boards/STM32F103C8T6-Blue-Pill) | *1.2.0* | USB CDC support since *1.5.0*<br> Maple bootloaders support since *1.6.0* |
 | :green_heart:  | STM32F103C8<br>STM32F103CB | [Black Pill](https://stm32-base.org/boards/STM32F103C8T6-Black-Pill) | *1.5.0* |  |
-| :yellow_heart:  | STM32F103C8 | [Databoard](https://github.com/its-kronos/Databoard) | **2.12.0** |  |
+| :green_heart:  | STM32F103C8 | [Databoard](https://github.com/its-kronos/Databoard) | *2.12.0* |  |
 | :green_heart:  | STM32F103C4<br>STM32F103C6<br>STM32F103C8<br>STM32F103CB | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F103R8<br>STM32F103RB<br>STM32F103RC<br>STM32F103RE | [Blue Button F103Rx](https://stm32-base.org/boards/STM32F103RET6-Generic-Board) | *1.9.0* |  |
 | :green_heart:  | STM32F103R6<br>STM32F103R8<br>STM32F103RB<br>STM32F103RC<br>STM32F103RD<br>STM32F103RE<br>STM32F103RF<br>STM32F103RG | Generic Board | *1.9.0* |  |
@@ -399,7 +399,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F410T8<br>STM32F410TB | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32F411CC<br>STM32F411CE | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F411RC<br>STM32F411RE | Generic Board | *1.9.0* |  |
-| :yellow_heart:  | STM32F411VC<br>STM32F411VE | Generic Board | **2.12.0** |  |
+| :green_heart:  | STM32F411VC<br>STM32F411VE | Generic Board | *2.12.0* |  |
 | :green_heart:  | STM32F412CE<br>STM32F412CG | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F412RE<br>STM32F412RG | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F412ZE<br>STM32F412ZG | Generic Board | *2.6.0* |  |
@@ -597,10 +597,10 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :yellow_heart:  | STM32H723VE<br>STM32H723VG | Generic Board | **2.12.0** |  |
-| :yellow_heart:  | STM32H723VGT | [WeActStudio MiniSTM32H723VGT6](https://github.com/WeActStudio/WeActStudio.MiniSTM32H723) | **2.12.0** |  |
+| :green_heart:  | STM32H723VE<br>STM32H723VG | Generic Board | *2.12.0* |  |
+| :green_heart:  | STM32H723VGT | [WeActStudio MiniSTM32H723VGT6](https://github.com/WeActStudio/WeActStudio.MiniSTM32H723) | *2.12.0* |  |
 | :green_heart:  | STM32H723ZE<br>STM32H723ZG | Generic Board | *2.4.0* |  |
-| :yellow_heart:  | STM32H730VB<br>STM32H733VGT | Generic Board | **2.12.0** |  |
+| :green_heart:  | STM32H730VB<br>STM32H733VGT | Generic Board | *2.12.0* |  |
 | :green_heart:  | STM32H730ZBT | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32H733ZGT | Generic Board | *2.4.0* |  |
 | :green_heart: | STM32H742IG<br>STM32H742II | Generic Board | *2.1.0* |  |
@@ -614,7 +614,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32H743XG<br>STM32H743XI | Generic Board | *2.7.0* |  |
 | :green_heart: | STM32H743ZG<br>STM32H743ZI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H745XG<br>STM32H745XI | Generic Board | *2.7.0* |  |
-| :yellow_heart: | STM32H745ZG<br>STM32H745ZI | Generic Board | **2.12.0** |  |
+| :green_heart: | STM32H745ZG<br>STM32H745ZI | Generic Board | *2.12.0* |  |
 | :green_heart: | STM32H747AG<br>STM32H747AI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H747IG<br>STM32H747II | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H747XG<br>STM32H747XI | Generic Board | *2.7.0* |  |
@@ -631,7 +631,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32H753XI | Generic Board | *2.7.0* |  |
 | :green_heart: | STM32H753ZI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H755XI | Generic Board | *2.7.0* |  |
-| :yellow_heart: | STM32H755ZI | Generic Board | **2.12.0** |  |
+| :green_heart: | STM32H755ZI | Generic Board | *2.12.0* |  |
 | :green_heart: | STM32H757AI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H757II | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H757XI | Generic Board | *2.7.0* |  |
@@ -837,8 +837,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :yellow_heart: | STM32WL3C8V<br>STM32WL3CBV<br>STM32WL3CCV | Generic Board | **2.12.0** |  |
-| :yellow_heart: | STM32WL3C8VX<br>STM32WL3CBVX<br>STM32WL3CCVX | Generic Board | **2.12.0** |  |
+| :green_heart: | STM32WL3C8V<br>STM32WL3CBV<br>STM32WL3CCV | Generic Board | *2.12.0* |  |
+| :green_heart: | STM32WL3C8VX<br>STM32WL3CBVX<br>STM32WL3CCVX | Generic Board | *2.12.0* |  |
 
 ### Generic STM32WL boards
 
