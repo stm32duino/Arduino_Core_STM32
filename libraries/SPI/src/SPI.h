@@ -43,17 +43,17 @@ extern "C" {
 
 class SPISettings {
   public:
-    constexpr SPISettings(uint32_t clock, BitOrder bitOrder, uint8_t dataMode, SPIDeviceMode deviceMode = SPI_MASTER)
+    constexpr SPISettings(uint32_t clock, BitOrder order, uint8_t mode, SPIDeviceMode devMode = SPI_MASTER)
       : clockFreq(clock),
-        bitOrder(bitOrder),
-        dataMode((SPIMode)dataMode),
-        deviceMode(deviceMode)
+        bitOrder(order),
+        dataMode((SPIMode)mode),
+        deviceMode(devMode)
     { }
-    constexpr SPISettings(uint32_t clock, BitOrder bitOrder, SPIMode dataMode, SPIDeviceMode deviceMode = SPI_MASTER)
+    constexpr SPISettings(uint32_t clock, BitOrder order, SPIMode mode, SPIDeviceMode devMode = SPI_MASTER)
       : clockFreq(clock),
-        bitOrder(bitOrder),
-        dataMode(dataMode),
-        deviceMode(deviceMode)
+        bitOrder(order),
+        dataMode(mode),
+        deviceMode(devMode)
     { }
     constexpr SPISettings()
       : clockFreq(SPI_SPEED_CLOCK_DEFAULT),

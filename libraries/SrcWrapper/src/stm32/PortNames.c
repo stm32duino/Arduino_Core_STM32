@@ -29,7 +29,7 @@
  */
 #include "PortNames.h"
 
-GPIO_TypeDef *GPIOPort[MAX_NB_PORT] = {
+GPIO_TypeDef *GPIOPort_list[MAX_NB_PORT] = {
   (GPIO_TypeDef *)GPIOA_BASE,
   (GPIO_TypeDef *)GPIOB_BASE
 #if defined GPIOC_BASE
