@@ -1,8 +1,5 @@
 #!/bin/sh
 
-readonly CMSIS_VERSION="$1"
-readonly CMSIS_ARCHIVE="CMSIS-${CMSIS_VERSION}.tar.bz2"
-
 # Use python venv
 python3 -m venv "$HOME/venv"
 # shellcheck disable=SC1091
@@ -11,22 +8,16 @@ python3 -m venv "$HOME/venv"
 python3 -m pip install --quiet --upgrade platformio
 
 # Install the development version of ststm32 platform
-platformio platform install "https://github.com/platformio/platform-ststm32.git" || {
+pio pkg install --platform "https://github.com/platformio/platform-ststm32.git" --force --global || {
   exit 1
 }
 # Prepare framework for CI
+# Modify platform.json to use local framework-arduinoststm32 package
 python3 -c "import json; import os; fp=open(os.path.expanduser('~/.platformio/platforms/ststm32/platform.json'), 'r+'); data=json.load(fp); data['packages']['framework-arduinoststm32']['version'] = '*'; del data['packages']['framework-arduinoststm32']['owner']; fp.seek(0); fp.truncate(); json.dump(data, fp); fp.close()" || {
   exit 1
 }
-
+# Create symbolic link to the framework-arduinoststm32 package pointing to the repository workspace
 ln --symbolic "$GITHUB_WORKSPACE" "$HOME/.platformio/packages/framework-arduinoststm32" || {
-  exit 1
-}
-# Download and unpack CMSIS package
-wget --no-verbose "https://github.com/stm32duino/ArduinoModule-CMSIS/releases/download/$CMSIS_VERSION/$CMSIS_ARCHIVE" || {
-  exit 1
-}
-tar --extract --bzip2 --file="$CMSIS_ARCHIVE" || {
   exit 1
 }
 cd "$GITHUB_WORKSPACE/CI/build/" || {
