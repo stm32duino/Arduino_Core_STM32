@@ -53,7 +53,9 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@main
+        with:
+          submodules: true
 
       - name: Get latest CMake and Ninja
         uses: lukka/get-cmake@latest

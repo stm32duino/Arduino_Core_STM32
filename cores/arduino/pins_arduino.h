@@ -22,6 +22,8 @@
 #include "variant.h"
 #include "PinNames.h"
 
+#include "Arduino.h"
+
 #include "pins_arduino_analog.h"
 #include "pins_arduino_digital.h"
 
@@ -64,13 +66,13 @@ _Static_assert(NUM_ANALOG_INPUTS <= MAX_ANALOG_INPUTS,
   #define PIN_SPI_SCK               13
 #endif
 
-static const uint32_t SS   = PIN_SPI_SS;
-static const uint32_t SS1  = PIN_SPI_SS1;
-static const uint32_t SS2  = PIN_SPI_SS2;
-static const uint32_t SS3  = PIN_SPI_SS3;
-static const uint32_t MOSI = PIN_SPI_MOSI;
-static const uint32_t MISO = PIN_SPI_MISO;
-static const uint32_t SCK  = PIN_SPI_SCK;
+static const pin_size_t SS   = PIN_SPI_SS;
+static const pin_size_t SS1  = PIN_SPI_SS1;
+static const pin_size_t SS2  = PIN_SPI_SS2;
+static const pin_size_t SS3  = PIN_SPI_SS3;
+static const pin_size_t MOSI = PIN_SPI_MOSI;
+static const pin_size_t MISO = PIN_SPI_MISO;
+static const pin_size_t SCK  = PIN_SPI_SCK;
 
 /* I2C Definitions */
 #ifndef PIN_WIRE_SDA
@@ -80,47 +82,47 @@ static const uint32_t SCK  = PIN_SPI_SCK;
   #define PIN_WIRE_SCL              15
 #endif
 
-static const uint32_t SDA = PIN_WIRE_SDA;
-static const uint32_t SCL = PIN_WIRE_SCL;
+static const pin_size_t SDA = PIN_WIRE_SDA;
+static const pin_size_t SCL = PIN_WIRE_SCL;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 extern const PinName digitalPin[];
-extern const uint32_t analogInputPin[];
+extern const pin_size_t analogInputPin[];
 
-#define NOT_AN_INTERRUPT            (uint32_t)NC
+#define NOT_AN_INTERRUPT            (pin_size_t)NC
 
 /* Convert a digital pin number Dxx to a PinName PX_n */
 #if NUM_ANALOG_INPUTS > 0
 /* Note: Analog pin is also a digital pin */
-#define digitalPinToPinName(p)      ((((uint32_t)(p) & PNUM_MASK) < NUM_DIGITAL_PINS) ? \
-            (PinName)(digitalPin[(uint32_t)(p) & PNUM_MASK] | ((p) & ALTX_MASK)) : \
-            (((uint32_t)(p) & PNUM_ANALOG_BASE) == PNUM_ANALOG_BASE) && \
-            (((uint32_t)(p) & PNUM_MASK) < NUM_ANALOG_INTERNAL_FIRST) ? \
+#define digitalPinToPinName(p)      ((((pin_size_t)(p) & PNUM_MASK) < NUM_DIGITAL_PINS) ? \
+            (PinName)(digitalPin[(pin_size_t)(p) & PNUM_MASK] | ((p) & ALTX_MASK)) : \
+            (((pin_size_t)(p) & PNUM_ANALOG_BASE) == PNUM_ANALOG_BASE) && \
+            (((pin_size_t)(p) & PNUM_MASK) < NUM_ANALOG_INTERNAL_FIRST) ? \
             (PinName)(digitalPin[analogInputPin[(p) & PNUM_ANALOG_INDEX]] | ((p) & ALTX_MASK)) : NC)
 #else
-#define digitalPinToPinName(p)      ((((uint32_t)(p) & PNUM_MASK) < NUM_DIGITAL_PINS) ? \
-            (PinName)(digitalPin[(uint32_t)(p) & PNUM_MASK] | ((p) & ALTX_MASK)) : NC)
+#define digitalPinToPinName(p)      ((((pin_size_t)(p) & PNUM_MASK) < NUM_DIGITAL_PINS) ? \
+            (PinName)(digitalPin[(pin_size_t)(p) & PNUM_MASK] | ((p) & ALTX_MASK)) : NC)
 #endif /* NUM_ANALOG_INPUTS > 0 */
 /* Convert a PinName PX_n to a digital pin number */
-uint32_t pinNametoDigitalPin(PinName p);
+pin_size_t pinNametoDigitalPin(PinName p);
 
 /* Convert an analog pin number to a digital pin number */
 #if NUM_ANALOG_INPUTS > 0
 /* Used by analogRead api to have A0 == 0 */
 /* Non contiguous analog pins definition in digitalPin array */
-#define analogInputToDigitalPin(p)  ((((uint32_t)(p) & PNUM_MASK) < NUM_ANALOG_INPUTS) ? \
-            analogInputPin[(uint32_t)(p) & PNUM_MASK] | ((uint32_t)(p) & ALTX_MASK) : \
-            (((uint32_t)(p) & PNUM_ANALOG_BASE) == PNUM_ANALOG_BASE) && \
-            (((uint32_t)(p) & PNUM_MASK) < NUM_ANALOG_INTERNAL_FIRST) ? \
-            analogInputPin[(p) & PNUM_ANALOG_INDEX] | ((uint32_t)(p) & ALTX_MASK) : (uint32_t)NC)
+#define analogInputToDigitalPin(p)  ((((pin_size_t)(p) & PNUM_MASK) < NUM_ANALOG_INPUTS) ? \
+            analogInputPin[(pin_size_t)(p) & PNUM_MASK] | ((pin_size_t)(p) & ALTX_MASK) : \
+            (((pin_size_t)(p) & PNUM_ANALOG_BASE) == PNUM_ANALOG_BASE) && \
+            (((pin_size_t)(p) & PNUM_MASK) < NUM_ANALOG_INTERNAL_FIRST) ? \
+            analogInputPin[(p) & PNUM_ANALOG_INDEX] | ((pin_size_t)(p) & ALTX_MASK) : (pin_size_t)NC)
 #else/* No analog pin defined */
 #define analogInputToDigitalPin(p)  (NUM_DIGITAL_PINS)
 #endif /* NUM_ANALOG_INPUTS > 0 */
 
 /* Convert an analog pin number Ax to a PinName PX_n */
-PinName analogInputToPinName(uint32_t pin);
+PinName analogInputToPinName(pin_size_t pin);
 
 /* All pins could manage EXTI */
 #define digitalPinToInterrupt(p)    (digitalPinIsValid(p) ? p : NOT_AN_INTERRUPT)
@@ -181,8 +183,8 @@ PinName analogInputToPinName(uint32_t pin);
 #endif
 /* Convenient macro to handle Analog for Firmata */
 #define pinIsAnalogInput digitalpinIsAnalogInput
-bool digitalpinIsAnalogInput(uint32_t pin);
-uint32_t digitalPinToAnalogInput(uint32_t pin);
+bool digitalpinIsAnalogInput(pin_size_t pin);
+pin_size_t digitalPinToAnalogInput(pin_size_t pin);
 
 #ifdef __cplusplus
 }

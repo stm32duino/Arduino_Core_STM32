@@ -20,19 +20,23 @@ target_link_libraries(core INTERFACE core_usage)
 
 add_library(core_bin STATIC EXCLUDE_FROM_ALL
   abi.cpp
+  api/CanMsg.cpp
+  api/CanMsgRingbuffer.cpp
+  api/Common.cpp
+  api/IPAddress.cpp
+  api/PluggableUSB.cpp
+  api/Print.cpp
+  api/Stream.cpp
+  api/String.cpp
   avr/dtostrf.c
   board.c
   core_debug.c
   HardwareSerial.cpp
   hooks.c
-  IPAddress.cpp
   itoa.c
   main.cpp
   pins_arduino.c
-  Print.cpp
-  RingBuffer.cpp
   stm32/startup_stm32yyxx.S
-  Stream.cpp
   Tone.cpp
   WInterrupts.cpp
   wiring_analog.c
@@ -42,7 +46,6 @@ add_library(core_bin STATIC EXCLUDE_FROM_ALL
   wiring_time.c
   WMath.cpp
   WSerial.cpp
-  WString.cpp
 )
 target_link_libraries(core_bin PUBLIC core_usage)
 
