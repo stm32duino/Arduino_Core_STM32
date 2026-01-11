@@ -53,6 +53,12 @@ void CDC_deInit(void);
 bool CDC_connected(void);
 void CDC_enableDTR(bool enable);
 
+// getters for CDC line codings. Do not expose struct directly
+uint32_t CDC_getBaudrate(void);
+uint8_t  CDC_getStopBits(void);
+uint8_t  CDC_getParity(void);
+uint8_t  CDC_getDataBits(void);
+
 #ifdef __cplusplus
 }
 #endif
