@@ -379,6 +379,30 @@ void CDC_enableDTR(bool enable)
   CDC_DTR_enabled = enable;
 }
 
+// getter for CDC baudrate
+uint32_t CDC_getBaudrate()
+{
+  return linecoding.bitrate;
+}
+
+// getter for CDC stop bits. Note: CDC definition identical to USBSerial.h
+uint8_t  CDC_getStopBits(void)
+{
+  return linecoding.format;
+}
+
+// getter for CDC parity. Note: CDC definition identical to USBSerial.h
+uint8_t  CDC_getParity(void)
+{
+  return linecoding.paritytype;
+}
+
+// getter for CDC data bits. Note: CDC definition identical to USBSerial.h
+uint8_t  CDC_getDataBits(void)
+{
+  return linecoding.datatype;
+}
+
 #endif /* USBD_USE_CDC */
 #endif /* USBCON */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
