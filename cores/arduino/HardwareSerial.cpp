@@ -114,7 +114,7 @@
     void serialEventLP2() __attribute__((weak));
   #endif
   #if defined(HAVE_HWSERIALLP3)
-    HardwareSerial SerialLP2(LPUART3);
+    HardwareSerial SerialLP3(LPUART3);
     void serialEventLP3() __attribute__((weak));
   #endif
 #endif // HAVE_HWSERIALx
