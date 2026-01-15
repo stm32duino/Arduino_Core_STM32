@@ -31,11 +31,11 @@ add_library(core_bin STATIC EXCLUDE_FROM_ALL
   avr/dtostrf.c
   board.c
   core_debug.c
-  HardwareSerial.cpp
   hooks.c
   itoa.c
   main.cpp
   pins_arduino.c
+  Serial.cpp
   stm32/startup_stm32yyxx.S
   Tone.cpp
   WInterrupts.cpp

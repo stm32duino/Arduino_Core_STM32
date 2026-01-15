@@ -2,7 +2,7 @@
 #define WIRING_SERIAL_H
 
 #include "variant.h"
-#include "HardwareSerial.h"
+#include "Serial.h"
 #if defined (USBCON) && defined(USBD_USE_CDC)
   #include "USBSerial.h"
 #endif /* USBCON && USBD_USE_CDC */
@@ -235,7 +235,5 @@
     extern void serialEventLP3(void) __attribute__((weak));
   #endif
 #endif /* HAL_UART_MODULE_ENABLED  && !HAL_UART_MODULE_ONLY */
-
-extern void serialEventRun(void);
 
 #endif /* WIRING_SERIAL_H */
