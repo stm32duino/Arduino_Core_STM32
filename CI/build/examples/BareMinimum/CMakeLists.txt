@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 3.21)
 # STEP 1: set up bases of environment
 # -----------------------------------------------------------------------------
 
-add_definitions(-DEXTENDED_PIN_MODE)
+add_definitions(-DEXTENDED_PIN_MODE -DARDUINO_CORE_STM32)
 
 file(REAL_PATH "../../../../" CORE_PATH EXPAND_TILDE)
 file(TO_CMAKE_PATH "${CORE_PATH}" CORE_PATH)
@@ -42,12 +42,12 @@ include(build_sketch)
 build_sketch(TARGET "BareMinimum"
   SOURCES
   BareMinimum.ino
-  # DEPENDS
+  DEPENDS
   # CMSIS_DSP
   # EEPROM
   # IWatchdog
   # Servo
-  # SoftwareSerial
+  SoftwareSerial
   # SPI
   # Wire
 )
