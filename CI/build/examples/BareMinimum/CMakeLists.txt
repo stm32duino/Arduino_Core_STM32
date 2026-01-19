@@ -7,7 +7,6 @@ cmake_minimum_required(VERSION 3.21)
 # STEP 1: set up bases of environment
 # -----------------------------------------------------------------------------
 
-add_definitions(-DEXTENDED_PIN_MODE -DARDUINO_CORE_STM32)
 
 file(REAL_PATH "../../../../" CORE_PATH EXPAND_TILDE)
 file(TO_CMAKE_PATH "${CORE_PATH}" CORE_PATH)
@@ -49,5 +48,5 @@ build_sketch(TARGET "BareMinimum"
   # Servo
   SoftwareSerial
   # SPI
-  # Wire
+  Wire
 )

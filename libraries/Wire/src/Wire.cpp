@@ -33,7 +33,7 @@ static const uint8_t MASTER_ADDRESS = 0x01;
 
 // Constructors ////////////////////////////////////////////////////////////////
 
-TwoWire::TwoWire(uint32_t sda, uint32_t scl)
+TwoWire::TwoWire(pin_size_t sda, pin_size_t scl)
 {
   memset((void *)&_i2c, 0, sizeof(_i2c));
   _i2c.sda = digitalPinToPinName(sda);
@@ -56,7 +56,7 @@ TwoWire::~TwoWire()
 
 // Public Methods //////////////////////////////////////////////////////////////
 
-void TwoWire::begin(uint32_t sda, uint32_t scl)
+void TwoWire::begin(pin_size_t sda, pin_size_t scl)
 {
   _i2c.sda = digitalPinToPinName(sda);
   _i2c.scl = digitalPinToPinName(scl);
@@ -125,9 +125,9 @@ void TwoWire::end(void)
   rxBufferAllocated = 0;
 }
 
-void TwoWire::setClock(uint32_t frequency)
+void TwoWire::setClock(uint32_t freq)
 {
-  i2c_setTiming(&_i2c, frequency);
+  i2c_setTiming(&_i2c, freq);
   if (_i2c.isMaster == 0) {
     i2c_attachSlaveTxEvent(&_i2c, onRequestService);
     i2c_attachSlaveRxEvent(&_i2c, onReceiveService);
@@ -189,9 +189,9 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint8_t sendStop
   return requestFrom((uint8_t)address, (uint8_t)quantity, (uint32_t)0, (uint8_t)0, (uint8_t)sendStop);
 }
 
-uint8_t TwoWire::requestFrom(uint8_t address, size_t quantity, bool sendStop)
+size_t TwoWire::requestFrom(uint8_t address, size_t quantity, bool sendStop)
 {
-  return requestFrom((uint8_t)address, (uint8_t)quantity, (uint8_t)sendStop);
+  return (size_t)requestFrom((uint8_t)address, (uint8_t)quantity, (uint8_t)sendStop);
 }
 
 uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity)
@@ -237,15 +237,15 @@ void TwoWire::beginTransmission(int address)
 //  no call to endTransmission(true) is made. Some I2C
 //  devices will behave oddly if they do not see a STOP.
 //
-uint8_t TwoWire::endTransmission(uint8_t sendStop)
+uint8_t TwoWire::endTransmission(bool stopBit)
 {
 #if !defined(I2C_OTHER_FRAME)
-  UNUSED(sendStop);
+  UNUSED(stopBit);
 #endif
   int8_t ret = 4;
   // check transfer options and store it in the I2C handle
 #if defined(I2C_OTHER_FRAME)
-  if (sendStop == 0) {
+  if (stopBit == 0) {
     _i2c.handle.XferOptions = I2C_OTHER_FRAME ;
   } else {
     _i2c.handle.XferOptions = I2C_OTHER_AND_LAST_FRAME;
@@ -292,7 +292,7 @@ uint8_t TwoWire::endTransmission(uint8_t sendStop)
 //
 uint8_t TwoWire::endTransmission(void)
 {
-  return endTransmission((uint8_t)true);
+  return endTransmission(true);
 }
 
 // must be called in:
@@ -454,8 +454,18 @@ void TwoWire::onReceive(cb_function_receive_t function)
   user_onReceive = function;
 }
 
+void TwoWire::onReceive(void(*function)(int))
+{
+  user_onReceive = function;
+}
+
 // sets function called on slave read
 void TwoWire::onRequest(cb_function_request_t function)
+{
+  user_onRequest = function;
+}
+
+void TwoWire::onRequest(void(*function)(void))
 {
   user_onRequest = function;
 }

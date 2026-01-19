@@ -24,8 +24,8 @@
 
 #include <functional>
 
-#include "Stream.h"
 #include "Arduino.h"
+#include "api/HardwareI2C.h"
 extern "C" {
 #include "utility/twi.h"
 }
@@ -41,7 +41,7 @@ extern "C" {
 // WIRE_HAS_END means Wire has end()
 #define WIRE_HAS_END 1
 
-class TwoWire : public Stream {
+class TwoWire : public arduino::HardwareI2C {
   public:
     typedef std::function<void(int)> cb_function_receive_t;
     typedef std::function<void(void)> cb_function_request_t;
@@ -76,14 +76,14 @@ class TwoWire : public Stream {
     void recoverBus(void);
 
   public:
-    TwoWire(uint32_t sda = SDA, uint32_t scl = SCL);
+    TwoWire(pin_size_t sda = SDA, pin_size_t scl = SCL);
     ~TwoWire();
     // setSCL/SDA have to be called before begin()
-    void setSCL(uint32_t scl)
+    void setSCL(pin_size_t scl)
     {
       _i2c.scl = digitalPinToPinName(scl);
     };
-    void setSDA(uint32_t sda)
+    void setSDA(pin_size_t sda)
     {
       _i2c.sda = digitalPinToPinName(sda);
     };
@@ -95,31 +95,46 @@ class TwoWire : public Stream {
     {
       _i2c.sda = sda;
     };
-    void begin(bool generalCall = false);
-    void begin(uint32_t, uint32_t);
+    void begin(bool generalCall);
+    void begin(pin_size_t, pin_size_t);
     void begin(uint8_t, bool generalCall = false, bool NoStretchMode = false);
     void begin(int, bool generalCall = false, bool NoStretchMode = false);
-    void end();
-    void setClock(uint32_t);
-    void beginTransmission(uint8_t);
+    void begin() override
+    {
+      begin(false);
+    }
+    void begin(uint8_t address) override
+    {
+      begin(address, false, false);
+    }
+    void end() override;
+    void setClock(uint32_t freq) override;
+    void beginTransmission(uint8_t address) override;
     void beginTransmission(int);
-    uint8_t endTransmission(void);
-    uint8_t endTransmission(uint8_t);
+    uint8_t endTransmission(void) override;
+    uint8_t endTransmission(bool stopBit) override;
     uint8_t requestFrom(uint8_t, uint8_t);
     uint8_t requestFrom(uint8_t, uint8_t, uint8_t);
-    uint8_t requestFrom(uint8_t, size_t, bool);
+    size_t requestFrom(uint8_t address, size_t len, bool stopBit) override;
     uint8_t requestFrom(uint8_t, uint8_t, uint32_t, uint8_t, uint8_t);
     uint8_t requestFrom(int, int);
     uint8_t requestFrom(int, int, int);
-    virtual size_t write(uint8_t);
-    virtual size_t write(const uint8_t *, size_t);
-    virtual int available(void);
-    virtual int read(void);
-    virtual int peek(void);
-    virtual void flush(void);
+    size_t requestFrom(uint8_t address, size_t len) override
+    {
+      return (size_t)requestFrom(address, (uint8_t)len);
+    }
+
+    size_t write(uint8_t) override;
+    size_t write(const uint8_t *, size_t) override;
+    int available(void) override;
+    int read(void) override;
+    int peek(void) override;
+    void flush(void) override;
 
     void onReceive(cb_function_receive_t callback);
+    void onReceive(void (*)(int)) override;
     void onRequest(cb_function_request_t callback);
+    void onRequest(void (*)(void)) override;
 
     inline size_t write(unsigned long n)
     {

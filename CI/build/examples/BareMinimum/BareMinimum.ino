@@ -5,6 +5,7 @@
  */
 
 #include <SoftwareSerial.h>
+#include <Wire.h>
 
 #ifndef USER_BTN
 #define USER_BTN 2
@@ -48,9 +49,35 @@ void setup() {
   }
   swSerial.end();
 
+    // Wire
+  Wire.setSCL(PIN_WIRE_SCL);
+  Wire.setSDA(digitalPinToPinName(PIN_WIRE_SDA));
+  Wire.setClock(400000);
+  Wire.begin(4);
+  Wire.onRequest(requestEvent);
+  Wire.onReceive(receiveEvent);
+  Wire.beginTransmission(4);
+  Wire.endTransmission();
+  Wire.requestFrom(2, 1);
+  Wire.end();
+
 }
 
 void loop() {
+}
+
+// Wire
+// function that executes whenever data is received from master
+// this function is registered as an event, see setup()
+void receiveEvent(int) {
+  while (1 < Wire.available()) {
+    Wire.read();
+  }
+}
+// function that executes whenever data is requested by master
+// this function is registered as an event, see setup()
+void requestEvent() {
+  Wire.write("x");
 }
 
 

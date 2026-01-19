@@ -25,6 +25,7 @@ target_compile_definitions(base_config INTERFACE
 	USE_HAL_DRIVER
 	USE_FULL_LL_DRIVER
 	ARDUINO_ARCH_STM32
+  EXTENDED_PIN_MODE
 )
 target_compile_options(base_config INTERFACE
   -mthumb
