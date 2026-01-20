@@ -4,6 +4,7 @@
  * and can not be executed.
  */
 
+#include <SPI.h>
 #include <SoftwareSerial.h>
 #include <Wire.h>
 
@@ -38,7 +39,6 @@ void setup() {
   Serial.begin(9600);  // start serial for output
   while (!Serial) {};
 
-  // Test SoftwareSerial
   swSerial.begin(4800);
   swSerial.println("X");
   delay(20);
@@ -49,7 +49,18 @@ void setup() {
   }
   swSerial.end();
 
-    // Wire
+  // SPI
+  SPISettings settings(SPI_SPEED_CLOCK_DEFAULT, MSBFIRST, SPI_MODE0);
+  SPI.setMISO(PIN_SPI_MISO);
+  SPI.setMOSI(PIN_SPI_MOSI);
+  SPI.setSCLK(PIN_SPI_SCK);
+  SPI.setSSEL(digitalPinToPinName(PIN_SPI_SS));
+  SPI.begin();
+  SPI.beginTransaction(settings);
+  SPI.endTransaction();
+  SPI.transfer(1);
+  SPI.end();
+  // Wire
   Wire.setSCL(PIN_WIRE_SCL);
   Wire.setSDA(digitalPinToPinName(PIN_WIRE_SDA));
   Wire.setClock(400000);

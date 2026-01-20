@@ -47,6 +47,6 @@ build_sketch(TARGET "BareMinimum"
   # IWatchdog
   # Servo
   SoftwareSerial
-  # SPI
+  SPI
   Wire
 )
