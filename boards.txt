@@ -15519,6 +15519,8 @@ GenF3.menu.xusb.HSFS=High Speed in Full Speed mode
 GenF3.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenF4.menu.usb.none=None
+GenF4.menu.usb.TinyUSB=Adafruit TinyUSB
+GenF4.menu.usb.TinyUSB.build.usb_flags={build.usb_flags} -DARDUINO_ARCH_TINYUSB
 GenF4.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenF4.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenF4.menu.usb.CDC=CDC (no generic 'Serial')
