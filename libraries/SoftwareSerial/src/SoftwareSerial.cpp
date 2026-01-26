@@ -409,6 +409,8 @@ void SoftwareSerial::flush()
   noInterrupts();
   _receive_buffer_head = _receive_buffer_tail = 0;
   interrupts();
+  // wait for previous transmit to complete
+  while (active_out);
 }
 
 int SoftwareSerial::peek()
