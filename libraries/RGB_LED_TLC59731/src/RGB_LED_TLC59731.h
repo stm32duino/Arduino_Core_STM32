@@ -23,7 +23,7 @@
 class RGB_LED_TLC59731 {
 
   public:
-    RGB_LED_TLC59731(uint32_t rgb_pin = LED_BUILTIN, uint32_t enable_pin = NC):
+    RGB_LED_TLC59731(pin_size_t rgb_pin = LED_BUILTIN, pin_size_t enable_pin = NC):
       _rgb_pin(digitalPinToPinName(rgb_pin)), _enable_pin(digitalPinToPinName(enable_pin)) {};
     void on(uint8_t rgb[3]);
     void on(uint8_t red, uint8_t green, uint8_t blue);
