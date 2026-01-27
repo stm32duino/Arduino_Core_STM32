@@ -628,7 +628,7 @@ void HardwareTimer::setCount(uint32_t counter, TimerFormat_t format)
   * @param  pin: Arduino pin number, ex: D1, 1 or PA1
   * @retval None
   */
-void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, uint32_t pin, ChannelInputFilter_t filter)
+void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, pin_size_t pin, ChannelInputFilter_t filter)
 {
   setMode(channel, mode, digitalPinToPinName(pin), filter);
 }
@@ -916,7 +916,7 @@ uint32_t HardwareTimer::getCaptureCompare(uint32_t channel,  TimerCompareFormat_
   * @param  CompareCallback: timer compare callback
   * @retval None
   */
-void HardwareTimer::setPWM(uint32_t channel, uint32_t pin, uint32_t frequency, uint32_t dutycycle, callback_function_t PeriodCallback, callback_function_t CompareCallback)
+void HardwareTimer::setPWM(uint32_t channel, pin_size_t pin, uint32_t frequency, uint32_t dutycycle, callback_function_t PeriodCallback, callback_function_t CompareCallback)
 {
   setPWM(channel, digitalPinToPinName(pin), frequency, dutycycle, PeriodCallback, CompareCallback);
 }
