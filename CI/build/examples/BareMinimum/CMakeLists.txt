@@ -42,10 +42,10 @@ build_sketch(TARGET "BareMinimum"
   SOURCES
   BareMinimum.ino
   DEPENDS
-  # CMSIS_DSP
-  # EEPROM
-  # IWatchdog
-  # Servo
+  CMSIS_DSP
+  EEPROM
+  IWatchdog
+  Servo
   SoftwareSerial
   SPI
   Wire
