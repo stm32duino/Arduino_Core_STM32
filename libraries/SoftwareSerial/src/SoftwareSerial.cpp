@@ -360,6 +360,7 @@ void SoftwareSerial::begin(long speed)
 void SoftwareSerial::end()
 {
   stopListening();
+  setSpeed(0);
 }
 
 // Read data from buffer
