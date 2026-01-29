@@ -24,11 +24,11 @@ extern "C" {
 #endif
 
 
-extern uint32_t g_anOutputPinConfigured[MAX_NB_PORT];
+extern pin_size_t g_anOutputPinConfigured[MAX_NB_PORT];
 
-void pinMode(uint32_t ulPin, uint32_t ulMode)
+void pinMode(pin_size_t pinNumber, PinMode pinMode)
 {
-  PinName p = digitalPinToPinName(ulPin);
+  PinName p = digitalPinToPinName(pinNumber);
 
   if (p != NC) {
     // If the pin that support PWM or DAC output, we need to turn it off
@@ -50,7 +50,7 @@ void pinMode(uint32_t ulPin, uint32_t ulMode)
       }
     }
 #endif
-    switch (ulMode) {
+    switch (pinMode) {
       case INPUT: /* INPUT_FLOATING */
         pin_function(p, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, 0));
         break;
@@ -76,26 +76,26 @@ void pinMode(uint32_t ulPin, uint32_t ulMode)
   }
 }
 
-void digitalWrite(uint32_t ulPin, uint32_t ulVal)
+void digitalWrite(pin_size_t pinNumber, PinStatus status)
 {
-  PinName p = digitalPinToPinName(ulPin);
+  PinName p = digitalPinToPinName(pinNumber);
   if (p != NC) {
-    digitalWriteFast(p, ulVal);
+    digitalWriteFast(p, status);
   }
 }
 
-int digitalRead(uint32_t ulPin)
+PinStatus digitalRead(pin_size_t pinNumber)
 {
-  PinName p = digitalPinToPinName(ulPin);
+  PinName p = digitalPinToPinName(pinNumber);
 
   return (p == NC) ? 0 : digitalReadFast(p);
 }
 
-void digitalToggle(uint32_t ulPin)
+void digitalToggle(pin_size_t pinNumber)
 {
-  PinName p = digitalPinToPinName(ulPin);
+  PinName p = digitalPinToPinName(pinNumber);
   if (p != NC) {
-    digitalToggleFast(digitalPinToPinName(ulPin));
+    digitalToggleFast(digitalPinToPinName(pinNumber));
   }
 }
 

@@ -87,7 +87,7 @@ const PinName digitalPin[] = {
 };
 
 // Analog (Ax) pin number array
-const uint32_t analogInputPin[] = {
+const pin_size_t analogInputPin[] = {
   36, // A0, PA4
   37, // A1, PB12
   38, // A2, PB11

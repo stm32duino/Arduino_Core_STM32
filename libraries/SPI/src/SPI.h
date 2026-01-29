@@ -13,6 +13,7 @@
 #define _SPI_H_INCLUDED
 
 #include "Arduino.h"
+#include "api/HardwareSPI.h"
 #include <stdio.h>
 extern "C" {
 #include "utility/spi_com.h"
@@ -23,7 +24,6 @@ extern "C" {
 //   - endTransaction()
 //   - usingInterrupt()
 //   - SPISetting(clock, bitOrder, dataMode)
-#define SPI_HAS_TRANSACTION 1
 
 // Compatibility with sketches designed for AVR @ 16 MHz could not
 // be ensured as SPI frequency depends of system clock configuration.
@@ -41,70 +41,26 @@ extern "C" {
 #define SPI_TRANSMITRECEIVE false
 #define SPI_TRANSMITONLY true
 
-class SPISettings {
+using namespace arduino;
+
+class SPIClass : public HardwareSPI {
   public:
-    constexpr SPISettings(uint32_t clock, BitOrder order, uint8_t mode, SPIDeviceMode devMode = SPI_MASTER)
-      : clockFreq(clock),
-        bitOrder(order),
-        dataMode((SPIMode)mode),
-        deviceMode(devMode)
-    { }
-    constexpr SPISettings(uint32_t clock, BitOrder order, SPIMode mode, SPIDeviceMode devMode = SPI_MASTER)
-      : clockFreq(clock),
-        bitOrder(order),
-        dataMode(mode),
-        deviceMode(devMode)
-    { }
-    constexpr SPISettings()
-      : clockFreq(SPI_SPEED_CLOCK_DEFAULT),
-        bitOrder(MSBFIRST),
-        dataMode(SPI_MODE0),
-        deviceMode(SPI_MASTER)
-    { }
-
-    bool operator==(const SPISettings &rhs) const
-    {
-      if ((this->clockFreq == rhs.clockFreq) &&
-          (this->bitOrder == rhs.bitOrder) &&
-          (this->dataMode == rhs.dataMode) &&
-          (this->deviceMode == rhs.deviceMode)) {
-        return true;
-      }
-      return false;
-    }
-
-    bool operator!=(const SPISettings &rhs) const
-    {
-      return !(*this == rhs);
-    }
-
-  private:
-    uint32_t clockFreq;       // specifies the spi bus maximum clock speed
-    BitOrder bitOrder;        // bit order (MSBFirst or LSBFirst)
-    SPIMode  dataMode;        // one of the data mode
-    SPIDeviceMode deviceMode; // device mode: master or slave
-
-    friend class SPIClass;
-};
-
-class SPIClass {
-  public:
-    SPIClass(uint32_t mosi = MOSI, uint32_t miso = MISO, uint32_t sclk = SCK, uint32_t ssel = PNUM_NOT_DEFINED);
+    SPIClass(pin_size_t mosi = MOSI, pin_size_t miso = MISO, pin_size_t sclk = SCK, pin_size_t ssel = PNUM_NOT_DEFINED);
 
     // setMISO/MOSI/SCLK/SSEL have to be called before begin()
-    void setMISO(uint32_t miso)
+    void setMISO(pin_size_t miso)
     {
       _spi.pin_miso = digitalPinToPinName(miso);
     };
-    void setMOSI(uint32_t mosi)
+    void setMOSI(pin_size_t mosi)
     {
       _spi.pin_mosi = digitalPinToPinName(mosi);
     };
-    void setSCLK(uint32_t sclk)
+    void setSCLK(pin_size_t sclk)
     {
       _spi.pin_sclk = digitalPinToPinName(sclk);
     };
-    void setSSEL(uint32_t ssel)
+    void setSSEL(pin_size_t ssel)
     {
       _spi.pin_ssel = digitalPinToPinName(ssel);
     };
@@ -126,21 +82,37 @@ class SPIClass {
       _spi.pin_ssel = (ssel);
     };
 
-    void begin(SPIDeviceMode device = SPI_MASTER);
-    void end(void);
+    void begin(SPIBusMode busMode);
+    void begin() override
+    {
+      begin(SPI_CONTROLLER);
+    }
+    void end(void) override ;
 
     /* This function should be used to configure the SPI instance in case you
      * don't use default parameters.
      */
-    void beginTransaction(SPISettings settings);
-    void endTransaction(void);
+    void beginTransaction(SPISettings settings) override;
+    void endTransaction(void) override;
 
     /* Transfer functions: must be called after initialization of the SPI
      * instance with begin() or beginTransaction().
      */
-    uint8_t transfer(uint8_t data, bool skipReceive = SPI_TRANSMITRECEIVE);
-    uint16_t transfer16(uint16_t data, bool skipReceive = SPI_TRANSMITRECEIVE);
-    void transfer(void *buf, size_t count, bool skipReceive = SPI_TRANSMITRECEIVE);
+    uint8_t transfer(uint8_t data, bool skipReceive);
+    uint8_t transfer(uint8_t data) override
+    {
+      return transfer(data, SPI_TRANSMITRECEIVE);
+    }
+    uint16_t transfer16(uint16_t data, bool skipReceive);
+    uint16_t transfer16(uint16_t data) override
+    {
+      return transfer16(data, SPI_TRANSMITRECEIVE);
+    }
+    void transfer(void *buf, size_t count, bool skipReceive);
+    void transfer(void *buf, size_t count) override
+    {
+      transfer(buf, count, SPI_TRANSMITRECEIVE);
+    }
 
     /* Expand SPI API
      * https://github.com/arduino/ArduinoCore-API/discussions/189
@@ -156,10 +128,10 @@ class SPIClass {
     void setClockDivider(uint8_t);
 
     // Not implemented functions. Kept for compatibility.
-    void usingInterrupt(int interruptNumber);
-    void notUsingInterrupt(int interruptNumber);
-    void attachInterrupt(void);
-    void detachInterrupt(void);
+    void usingInterrupt(int interruptNumber) override;
+    void notUsingInterrupt(int interruptNumber) override;
+    void attachInterrupt(void) override;
+    void detachInterrupt(void) override;
 
     // Could be used to mix Arduino API and STM32Cube HAL API (ex: DMA). Use at your own risk.
     SPI_HandleTypeDef *getHandle(void)
@@ -168,7 +140,7 @@ class SPIClass {
     }
 
     // Dedicated to SPI Slave
-    void attachSlaveInterrupt(uint8_t pin, callback_function_t callback)
+    void attachSlaveInterrupt(uint8_t pin, voidFuncPtr callback)
     {
       ::attachInterrupt(pin, callback, FALLING);
     }
@@ -185,6 +157,8 @@ class SPIClass {
   private:
     /* Current SPISettings */
     SPISettings   _spiSettings = SPISettings();
+
+    void applySettings(const SPISettings &settings);
 };
 
 extern SPIClass SPI;
@@ -197,7 +171,7 @@ class SUBGHZSPIClass : public SPIClass {
       _spi.spi = SUBGHZSPI;
     }
 
-    void enableDebugPins(uint32_t mosi = DEBUG_SUBGHZSPI_MOSI, uint32_t miso = DEBUG_SUBGHZSPI_MISO, uint32_t sclk = DEBUG_SUBGHZSPI_SCLK, uint32_t ssel = DEBUG_SUBGHZSPI_SS);
+    void enableDebugPins(pin_size_t mosi = DEBUG_SUBGHZSPI_MOSI, pin_size_t miso = DEBUG_SUBGHZSPI_MISO, pin_size_t sclk = DEBUG_SUBGHZSPI_SCLK, pin_size_t ssel = DEBUG_SUBGHZSPI_SS);
 };
 
 #endif

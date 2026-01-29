@@ -66,7 +66,7 @@ const PinName digitalPin[] = {
   PG_13 // D37
 };
 
-const uint32_t analogInputPin[] = {
+const pin_size_t analogInputPin[] = {
   15, // A0
   16, // A1
   17, // A2

@@ -120,17 +120,17 @@
 #endif // HAVE_HWSERIALx
 
 // Constructors ////////////////////////////////////////////////////////////////
-HardwareSerial::HardwareSerial(uint32_t _rx, uint32_t _tx, uint32_t _rts, uint32_t _cts)
+STM32HardwareSerial::STM32HardwareSerial(pin_size_t _rx, pin_size_t _tx, pin_size_t _rts, pin_size_t _cts)
 {
   init(digitalPinToPinName(_rx), digitalPinToPinName(_tx), digitalPinToPinName(_rts), digitalPinToPinName(_cts));
 }
 
-HardwareSerial::HardwareSerial(PinName _rx, PinName _tx, PinName _rts, PinName _cts)
+STM32HardwareSerial::STM32HardwareSerial(PinName _rx, PinName _tx, PinName _rts, PinName _cts)
 {
   init(_rx, _tx, _rts, _cts);
 }
 
-HardwareSerial::HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex)
+STM32HardwareSerial::STM32HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex)
 {
   // If PIN_SERIALy_RX is not defined assume half-duplex
   _serial.pin_rx = NC;
@@ -302,17 +302,17 @@ HardwareSerial::HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex)
   init(_serial.pin_rx, _serial.pin_tx);
 }
 
-HardwareSerial::HardwareSerial(uint32_t _rxtx)
+STM32HardwareSerial::STM32HardwareSerial(pin_size_t _rxtx)
 {
   init(NC, digitalPinToPinName(_rxtx));
 }
 
-HardwareSerial::HardwareSerial(PinName _rxtx)
+STM32HardwareSerial::STM32HardwareSerial(PinName _rxtx)
 {
   init(NC, _rxtx);
 }
 
-void HardwareSerial::init(PinName _rx, PinName _tx, PinName _rts, PinName _cts)
+void STM32HardwareSerial::init(PinName _rx, PinName _tx, PinName _rts, PinName _cts)
 {
   if (_rx == _tx) {
     _serial.pin_rx = NC;
@@ -330,7 +330,7 @@ void HardwareSerial::init(PinName _rx, PinName _tx, PinName _rts, PinName _cts)
   _serial.tx_tail = 0;
 }
 
-void HardwareSerial::configForLowPower(void)
+void STM32HardwareSerial::configForLowPower(void)
 {
 #if defined(HAL_PWR_MODULE_ENABLED) && (defined(UART_IT_WUF) || defined(LPUART1_BASE))
   // Reconfigure properly Serial instance to use HSI as clock source
@@ -342,7 +342,7 @@ void HardwareSerial::configForLowPower(void)
 
 // Actual interrupt handlers //////////////////////////////////////////////////////////////
 
-void HardwareSerial::_rx_complete_irq(serial_t *obj)
+void STM32HardwareSerial::_rx_complete_irq(serial_t *obj)
 {
   // No Parity error, read byte and store it in the buffer if there is room
   unsigned char c;
@@ -364,7 +364,7 @@ void HardwareSerial::_rx_complete_irq(serial_t *obj)
 
 // Actual interrupt handlers //////////////////////////////////////////////////
 
-int HardwareSerial::_tx_complete_irq(serial_t *obj)
+int STM32HardwareSerial::_tx_complete_irq(serial_t *obj)
 {
   size_t remaining_data;
   // previous HAL transfer is finished, move tail pointer accordingly
@@ -387,7 +387,7 @@ int HardwareSerial::_tx_complete_irq(serial_t *obj)
 
 // Public Methods //////////////////////////////////////////////////////////////
 
-void HardwareSerial::begin(unsigned long baud, byte config)
+void STM32HardwareSerial::begin(unsigned long baud, uint16_t config)
 {
   uint32_t databits = 0;
   uint32_t stopbits = 0;
@@ -397,14 +397,14 @@ void HardwareSerial::begin(unsigned long baud, byte config)
   _config = config;
 
   // Manage databits
-  switch (config & 0x07) {
-    case 0x02:
+  switch (config & SERIAL_DATA_MASK) {
+    case SERIAL_DATA_6:
       databits = 6;
       break;
-    case 0x04:
+    case SERIAL_DATA_7:
       databits = 7;
       break;
-    case 0x06:
+    case SERIAL_DATA_8:
       databits = 8;
       break;
     default:
@@ -412,20 +412,27 @@ void HardwareSerial::begin(unsigned long baud, byte config)
       break;
   }
 
-  if ((config & 0x30) == 0x30) {
-    parity = UART_PARITY_ODD;
-    databits++;
-  } else if ((config & 0x20) == 0x20) {
-    parity = UART_PARITY_EVEN;
-    databits++;
-  } else {
-    parity = UART_PARITY_NONE;
+  switch (config & SERIAL_PARITY_MASK) {
+    case SERIAL_PARITY_ODD:
+      parity   = UART_PARITY_ODD;
+      databits++;               // word length = data bits + parity
+      break;
+    case SERIAL_PARITY_EVEN:
+      parity   = UART_PARITY_EVEN;
+      databits++;
+      break;
+    default:
+      parity   = UART_PARITY_NONE;
+      break;
   }
 
-  if ((config & 0x08) == 0x08) {
-    stopbits = UART_STOPBITS_2;
-  } else {
-    stopbits = UART_STOPBITS_1;
+  switch (config & SERIAL_STOP_BIT_MASK) {
+    case SERIAL_STOP_BIT_2:
+      stopbits = UART_STOPBITS_2;
+      break;
+    default:
+      stopbits = UART_STOPBITS_1;
+      break;
   }
 
   switch (databits) {
@@ -453,7 +460,7 @@ void HardwareSerial::begin(unsigned long baud, byte config)
   }
 }
 
-void HardwareSerial::end()
+void STM32HardwareSerial::end()
 {
   _ready = false;
 
@@ -466,12 +473,12 @@ void HardwareSerial::end()
   _serial.rx_head = _serial.rx_tail;
 }
 
-int HardwareSerial::available(void)
+int STM32HardwareSerial::available(void)
 {
   return ((unsigned int)(SERIAL_RX_BUFFER_SIZE + _serial.rx_head - _serial.rx_tail)) % SERIAL_RX_BUFFER_SIZE;
 }
 
-int HardwareSerial::peek(void)
+int STM32HardwareSerial::peek(void)
 {
   if (_serial.rx_head == _serial.rx_tail) {
     return -1;
@@ -480,7 +487,7 @@ int HardwareSerial::peek(void)
   }
 }
 
-int HardwareSerial::read(void)
+int STM32HardwareSerial::read(void)
 {
   enableHalfDuplexRx();
   // if the head isn't ahead of the tail, we don't have any characters
@@ -493,7 +500,7 @@ int HardwareSerial::read(void)
   }
 }
 
-int HardwareSerial::availableForWrite(void)
+int STM32HardwareSerial::availableForWrite(void)
 {
   tx_buffer_index_t head = _serial.tx_head;
   tx_buffer_index_t tail = _serial.tx_tail;
@@ -504,12 +511,12 @@ int HardwareSerial::availableForWrite(void)
   return tail - head - 1;
 }
 
-void HardwareSerial::flush()
+void STM32HardwareSerial::flush()
 {
   flush(0);
 }
 
-void HardwareSerial::flush(uint32_t timeout)
+void STM32HardwareSerial::flush(uint32_t timeout)
 {
   // If we have never written a byte, no need to flush. This special
   // case is needed since there is no way to force the TXC (transmit
@@ -530,7 +537,7 @@ void HardwareSerial::flush(uint32_t timeout)
   }
 }
 
-size_t HardwareSerial::write(const uint8_t *buffer, size_t size)
+size_t STM32HardwareSerial::write(const uint8_t *buffer, size_t size)
 {
   size_t size_intermediate;
   size_t ret = size;
@@ -591,75 +598,75 @@ size_t HardwareSerial::write(const uint8_t *buffer, size_t size)
   return ret;
 }
 
-size_t HardwareSerial::write(uint8_t c)
+size_t STM32HardwareSerial::write(uint8_t c)
 {
   uint8_t buff = c;
   return write(&buff, 1);
 }
 
-void HardwareSerial::setRx(uint32_t _rx)
+void STM32HardwareSerial::setRx(pin_size_t _rx)
 {
   _serial.pin_rx = digitalPinToPinName(_rx);
 }
 
-void HardwareSerial::setTx(uint32_t _tx)
+void STM32HardwareSerial::setTx(pin_size_t _tx)
 {
   _serial.pin_tx = digitalPinToPinName(_tx);
 }
 
-void HardwareSerial::setRx(PinName _rx)
+void STM32HardwareSerial::setRx(PinName _rx)
 {
   _serial.pin_rx = _rx;
 }
 
-void HardwareSerial::setTx(PinName _tx)
+void STM32HardwareSerial::setTx(PinName _tx)
 {
   _serial.pin_tx = _tx;
 }
 
-void HardwareSerial::setRts(uint32_t _rts)
+void STM32HardwareSerial::setRts(pin_size_t _rts)
 {
   _serial.pin_rts = digitalPinToPinName(_rts);
 }
 
-void HardwareSerial::setCts(uint32_t _cts)
+void STM32HardwareSerial::setCts(pin_size_t _cts)
 {
   _serial.pin_cts = digitalPinToPinName(_cts);
 }
 
-void HardwareSerial::setRtsCts(uint32_t _rts, uint32_t _cts)
+void STM32HardwareSerial::setRtsCts(pin_size_t _rts, pin_size_t _cts)
 {
   _serial.pin_rts = digitalPinToPinName(_rts);
   _serial.pin_cts = digitalPinToPinName(_cts);
 }
 
-void HardwareSerial::setRts(PinName _rts)
+void STM32HardwareSerial::setRts(PinName _rts)
 {
   _serial.pin_rts = _rts;
 }
 
-void HardwareSerial::setCts(PinName _cts)
+void STM32HardwareSerial::setCts(PinName _cts)
 {
   _serial.pin_cts = _cts;
 }
 
-void HardwareSerial::setRtsCts(PinName _rts, PinName _cts)
+void STM32HardwareSerial::setRtsCts(PinName _rts, PinName _cts)
 {
   _serial.pin_rts = _rts;
   _serial.pin_cts = _cts;
 }
 
-void HardwareSerial::setHalfDuplex(void)
+void STM32HardwareSerial::setHalfDuplex(void)
 {
   _serial.pin_rx = NC;
 }
 
-bool HardwareSerial::isHalfDuplex(void) const
+bool STM32HardwareSerial::isHalfDuplex(void) const
 {
   return _serial.pin_rx == NC;
 }
 
-void HardwareSerial::enableHalfDuplexRx(void)
+void STM32HardwareSerial::enableHalfDuplexRx(void)
 {
   if (isHalfDuplex()) {
     // In half-duplex mode we have to wait for all TX characters to
@@ -672,17 +679,17 @@ void HardwareSerial::enableHalfDuplexRx(void)
   }
 }
 
-void HardwareSerial::setRxInvert(void)
+void STM32HardwareSerial::setRxInvert(void)
 {
   _rx_invert = true;
 }
 
-void HardwareSerial::setTxInvert(void)
+void STM32HardwareSerial::setTxInvert(void)
 {
   _tx_invert = true;
 }
 
-void HardwareSerial::setDataInvert(void)
+void STM32HardwareSerial::setDataInvert(void)
 {
   _data_invert = true;
 }

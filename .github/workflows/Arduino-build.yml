@@ -35,7 +35,9 @@ jobs:
     steps:
     # First of all, clone the repo using the checkout action.
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@main
+      with:
+        submodules: true
 
     - name: Compilation
       id: Compile

@@ -26,8 +26,10 @@
 
 #include <inttypes.h>
 
-#include "Stream.h"
+#include "Arduino.h"
 #include "uart.h"
+
+#include "api/HardwareSerial.h"
 
 // Define constants and variables for buffering incoming serial data.  We're
 // using a ring buffer (I think), in which head is the index of the location
@@ -61,37 +63,49 @@ typedef enum {
   HALF_DUPLEX_ENABLED
 } HalfDuplexMode_t;
 
-// Define config for Serial.begin(baud, config);
 // below configs are not supported by STM32
-//#define SERIAL_5N1 0x00
-//#define SERIAL_5N2 0x08
-//#define SERIAL_5E1 0x20
-//#define SERIAL_5E2 0x28
-//#define SERIAL_5O1 0x30
-//#define SERIAL_5O2 0x38
-//#define SERIAL_6N1 0x02
-//#define SERIAL_6N2 0x0A
+#undef SERIAL_PARITY_MARK
+#undef SERIAL_PARITY_SPACE
+#undef SERIAL_STOP_BIT_1_5
 
-#ifdef UART_WORDLENGTH_7B
-  #define SERIAL_7N1 0x04
-  #define SERIAL_7N2 0x0C
-  #define SERIAL_6E1 0x22
-  #define SERIAL_6E2 0x2A
-  #define SERIAL_6O1 0x32
-  #define SERIAL_6O2 0x3A
+#undef SERIAL_5M1
+#undef SERIAL_6M1
+#undef SERIAL_7M1
+#undef SERIAL_8M1
+#undef SERIAL_5M2
+#undef SERIAL_6M2
+#undef SERIAL_7M2
+#undef SERIAL_8M2
+#undef SERIAL_5S1
+#undef SERIAL_6S1
+#undef SERIAL_7S1
+#undef SERIAL_8S1
+#undef SERIAL_5S2
+#undef SERIAL_6S2
+#undef SERIAL_7S2
+#undef SERIAL_8S2
+
+#undef SERIAL_DATA_5
+#undef SERIAL_5N1
+#undef SERIAL_5N2
+#undef SERIAL_5E1
+#undef SERIAL_5E2
+#undef SERIAL_5O1
+#undef SERIAL_5O2
+
+#undef SERIAL_6N1
+#undef SERIAL_6N2
+
+#ifndef UART_WORDLENGTH_7B
+  #undef SERIAL_7N1
+  #undef SERIAL_7N2
+  #undef SERIAL_6E1
+  #undef SERIAL_6E2
+  #undef SERIAL_6O1
+  #undef SERIAL_6O2
 #endif
-#define SERIAL_8N1 0x06
-#define SERIAL_8N2 0x0E
-#define SERIAL_7E1 0x24
-#define SERIAL_8E1 0x26
-#define SERIAL_7E2 0x2C
-#define SERIAL_8E2 0x2E
-#define SERIAL_7O1 0x34
-#define SERIAL_8O1 0x36
-#define SERIAL_7O2 0x3C
-#define SERIAL_8O2 0x3E
 
-class HardwareSerial : public Stream {
+class STM32HardwareSerial : public arduino::HardwareSerial {
   protected:
     // Has any byte been written to the UART since begin()
     bool _written;
@@ -108,24 +122,33 @@ class HardwareSerial : public Stream {
     serial_t _serial;
 
   public:
-    HardwareSerial(uint32_t _rx, uint32_t _tx, uint32_t _rts = NUM_DIGITAL_PINS, uint32_t _cts = NUM_DIGITAL_PINS);
-    HardwareSerial(PinName _rx, PinName _tx, PinName _rts = NC, PinName _cts = NC);
-    HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex = HALF_DUPLEX_DISABLED);
-    HardwareSerial(uint32_t _rxtx);
-    HardwareSerial(PinName _rxtx);
-    void begin(unsigned long baud)
+    STM32HardwareSerial(pin_size_t _rx, pin_size_t _tx, pin_size_t _rts = NUM_DIGITAL_PINS, pin_size_t _cts = NUM_DIGITAL_PINS);
+    STM32HardwareSerial(PinName _rx, PinName _tx, PinName _rts = NC, PinName _cts = NC);
+    STM32HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex = HALF_DUPLEX_DISABLED);
+    STM32HardwareSerial(pin_size_t _rxtx);
+    STM32HardwareSerial(PinName _rxtx);
+    void begin(unsigned long baud) override
     {
       begin(baud, SERIAL_8N1);
     }
-    void begin(unsigned long, uint8_t);
-    void end();
-    virtual int available(void);
-    virtual int peek(void);
-    virtual int read(void);
+    void begin(unsigned long baud, uint16_t config) override ;
+
+    // Implement all pure virtuals
+    void end() override;
+    int available(void) override;
+    int peek(void) override;
+    int read(void) override;
+    void flush() override;
+    size_t write(uint8_t) override;
+    operator bool() override
+    {
+      return _ready;
+    }
+
+    // STM32 extension
     int availableForWrite(void);
-    virtual void flush();
     void flush(uint32_t timeout);
-    virtual size_t write(uint8_t);
+
     inline size_t write(unsigned long n)
     {
       return write((uint8_t)n);
@@ -144,20 +167,16 @@ class HardwareSerial : public Stream {
     }
     size_t write(const uint8_t *buffer, size_t size);
     using Print::write; // pull in write(str) from Print
-    operator bool()
-    {
-      return _ready;
-    }
 
-    void setRx(uint32_t _rx);
-    void setTx(uint32_t _tx);
+    void setRx(pin_size_t _rx);
+    void setTx(pin_size_t _tx);
     void setRx(PinName _rx);
     void setTx(PinName _tx);
 
     // Enable HW flow control on RTS, CTS or both
-    void setRts(uint32_t _rts);
-    void setCts(uint32_t _cts);
-    void setRtsCts(uint32_t _rts, uint32_t _cts);
+    void setRts(pin_size_t _rts);
+    void setCts(pin_size_t _cts);
+    void setRtsCts(pin_size_t _rts, pin_size_t _cts);
     void setRts(PinName _rts);
     void setCts(PinName _cts);
     void setRtsCts(PinName _rts, PinName _cts);
@@ -191,11 +210,14 @@ class HardwareSerial : public Stream {
   private:
     bool _ready;
     bool _rx_enabled;
-    uint8_t _config;
+    uint16_t _config;
     unsigned long _baud;
     void init(PinName _rx, PinName _tx, PinName _rts = NC, PinName _cts = NC);
     void configForLowPower(void);
 };
+
+// all existing code that uses "HardwareSerial"
+using HardwareSerial = STM32HardwareSerial;
 
 #if defined(USART1)
   extern HardwareSerial Serial1;

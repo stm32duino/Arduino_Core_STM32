@@ -44,8 +44,8 @@
 class SoftwareSerial : public Stream {
   private:
     // per object data
-    uint16_t _receivePin;
-    uint16_t _transmitPin;
+    pin_size_t _receivePin;
+    pin_size_t _transmitPin;
     GPIO_TypeDef *_receivePinPort;
     uint32_t _receivePinNumber;
     GPIO_TypeDef *_transmitPinPort;
@@ -89,7 +89,7 @@ class SoftwareSerial : public Stream {
   public:
     // public methods
 
-    SoftwareSerial(uint16_t receivePin, uint16_t transmitPin, bool inverse_logic = false);
+    SoftwareSerial(pin_size_t receivePin, pin_size_t transmitPin, bool inverse_logic = false);
     virtual ~SoftwareSerial();
     void begin(long speed);
     bool listen();

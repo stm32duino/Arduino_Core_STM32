@@ -306,7 +306,7 @@ inline void SoftwareSerial::handleInterrupt()
 //
 // Constructor
 //
-SoftwareSerial::SoftwareSerial(uint16_t receivePin, uint16_t transmitPin, bool inverse_logic /* = false */) :
+SoftwareSerial::SoftwareSerial(pin_size_t receivePin, pin_size_t transmitPin, bool inverse_logic /* = false */) :
   _receivePin(receivePin),
   _transmitPin(transmitPin),
   _receivePinPort(digitalPinToPort(receivePin)),

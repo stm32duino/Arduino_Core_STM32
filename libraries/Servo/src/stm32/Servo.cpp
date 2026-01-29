@@ -18,7 +18,6 @@
 
 #if defined(ARDUINO_ARCH_STM32)
 
-#include <Arduino.h>
 #include <Servo.h>
 #include <HardwareTimer.h>
 
@@ -111,12 +110,12 @@ Servo::Servo()
   }
 }
 
-uint8_t Servo::attach(int pin, int value)
+uint8_t Servo::attach(pin_size_t pin, int value)
 {
   return this->attach(pin, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, value);
 }
 
-uint8_t Servo::attach(int pin, int min, int max, int value)
+uint8_t Servo::attach(pin_size_t pin, int min, int max, int value)
 {
   if (this->servoIndex < MAX_SERVOS) {
     pinMode(pin, OUTPUT);                                   // set servo pin to output
@@ -201,12 +200,12 @@ bool Servo::attached()
 
 #warning "TIMER_TONE or HAL_TIM_MODULE_ENABLED not defined"
 Servo::Servo() {}
-uint8_t Servo::attach(int pin)
+uint8_t Servo::attach(pin_size_t pin)
 {
   UNUSED(pin);
   return 0;
 }
-uint8_t Servo::attach(int pin, int min, int max)
+uint8_t Servo::attach(pin_size_t pin, int min, int max)
 {
   UNUSED(pin);
   UNUSED(min);

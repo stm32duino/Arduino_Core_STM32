@@ -66,19 +66,19 @@ typedef struct spi_s spi_t;
 //SPI_MODE2             1                         0
 //SPI_MODE3             1                         1
 //enum definitions coming from SPI.h of SAM
-// SPI mode parameters for SPISettings
+// SPI data mode parameters
 typedef enum {
-  SPI_MODE0 = 0,
-  SPI_MODE1 = 1,
-  SPI_MODE2 = 2,
-  SPI_MODE3 = 3,
-} SPIMode;
+  SPI_MODE0_C = 0,
+  SPI_MODE1_C = 1,
+  SPI_MODE2_C = 2,
+  SPI_MODE3_C = 3,
+} spi_mode_e;
 
-// Device mode
+// Bus mode
 typedef enum {
-  SPI_MASTER, /* Device is master */
-  SPI_SLAVE   /* Device is slave */
-} SPIDeviceMode;
+  SPI_CONTROLLER_C = 0,
+  SPI_PERIPHERAL_C = 1,
+} spi_busmode_e;
 
 ///@brief SPI errors
 typedef enum {
@@ -88,7 +88,7 @@ typedef enum {
 } spi_status_e;
 
 /* Exported functions ------------------------------------------------------- */
-void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb, SPIDeviceMode device);
+void spi_init(spi_t *obj, uint32_t speed, spi_mode_e dataMode, uint8_t msb, spi_busmode_e busMode);
 void spi_deinit(spi_t *obj);
 spi_status_e spi_transfer(spi_t *obj, const uint8_t *tx_buffer, uint8_t *rx_buffer, uint16_t len);
 uint32_t spi_getClkFreq(spi_t *obj);

@@ -22,13 +22,13 @@
 extern "C" {
 #endif
 
-WEAK uint32_t pinNametoDigitalPin(PinName p)
+WEAK pin_size_t pinNametoDigitalPin(PinName p)
 {
-  uint32_t i = NUM_DIGITAL_PINS;
+  pin_size_t i = NUM_DIGITAL_PINS;
   if (STM_VALID_PINNAME(p)) {
     for (i = 0; i < NUM_DIGITAL_PINS; i++) {
       if (digitalPin[i] == (p & PNAME_MASK)) {
-        i |= ((uint32_t)(p) & ALTX_MASK);
+        i |= ((pin_size_t)(p) & ALTX_MASK);
         break;
       }
     }
@@ -36,7 +36,7 @@ WEAK uint32_t pinNametoDigitalPin(PinName p)
   return i;
 }
 
-PinName analogInputToPinName(uint32_t pin)
+PinName analogInputToPinName(pin_size_t pin)
 {
   PinName pn = digitalPinToPinName(analogInputToDigitalPin(pin));
   if (pn == NC) {
@@ -73,14 +73,14 @@ PinName analogInputToPinName(uint32_t pin)
   * @param  pin Dx, x or PYn
   * @retval boolean true if analog or false
   */
-bool digitalpinIsAnalogInput(uint32_t pin)
+bool digitalpinIsAnalogInput(pin_size_t pin)
 {
   bool ret = false;
 #if NUM_ANALOG_INPUTS > 0
   if ((pin & PNUM_ANALOG_BASE) == PNUM_ANALOG_BASE) {
     ret = true;
   } else {
-    for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
+    for (pin_size_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
       if (analogInputPin[i] == (pin & PNUM_MASK)) {
         ret = true;
         break;
@@ -96,15 +96,15 @@ bool digitalpinIsAnalogInput(uint32_t pin)
   * @param  pin Dx, x or PYn
   * @retval analogInput valid analog input or NUM_ANALOG_INPUTS
   */
-uint32_t digitalPinToAnalogInput(uint32_t pin)
+pin_size_t digitalPinToAnalogInput(pin_size_t pin)
 {
-  uint32_t ret = NUM_ANALOG_INPUTS;
+  pin_size_t ret = NUM_ANALOG_INPUTS;
 #if NUM_ANALOG_INPUTS > 0
   if ((pin & PNUM_ANALOG_BASE) == PNUM_ANALOG_BASE) {
     /* PYn = Ax */
     ret = (pin & PNUM_ANALOG_INDEX) | (pin & ALTX_MASK);
   } else {
-    for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
+    for (pin_size_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
       if (analogInputPin[i] == (pin & PNUM_MASK)) {
         ret = i | (pin & ALTX_MASK);
         break;
