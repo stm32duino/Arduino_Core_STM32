@@ -178,9 +178,15 @@ extern "C" {
 /**
   * @brief This is the HAL system configuration section
   */
+#if !defined  (VDD_VALUE)
 #define VDD_VALUE          3300UL /*!< Value of VDD in mv */
+#endif /* VDD_VALUE */
+#if !defined  (TICK_INT_PRIORITY)
 #define TICK_INT_PRIORITY  ((1UL<<__NVIC_PRIO_BITS) - 1UL)  /*!< tick interrupt priority (lowest by default) */
+#endif /* TICK_INT_PRIORITY */
+#if !defined  (USE_RTOS)
 #define USE_RTOS           0U
+#endif /* USE_RTOS */
 
 /* ########################## Assert Selection ############################## */
 /**
@@ -242,8 +248,9 @@ extern "C" {
  * Activated: CRC code is present inside driver
  * Deactivated: CRC code cleaned from driver
  */
-
+#if !defined(USE_SPI_CRC)
 #define USE_SPI_CRC                   1U
+#endif /* USE_SPI_CRC */
 
 /* ################## CRYP peripheral configuration ########################## */
 
@@ -255,20 +262,28 @@ extern "C" {
 
 /* #define USE_HAL_CRYP_ONLY       1U */
 /* #define USE_HAL_SAES_ONLY       0U */
-
+#if !defined (USE_HAL_CRYP_SUSPEND_RESUME)
 #define USE_HAL_CRYP_SUSPEND_RESUME   0U
+#endif /* USE_HAL_CRYP_SUSPEND_RESUME */
 
 /* ################## HASH peripheral configuration ########################## */
-
+#if !defined (USE_HAL_HASH_SUSPEND_RESUME)
 #define USE_HAL_HASH_SUSPEND_RESUME   0U
+#endif /* USE_HAL_HASH_SUSPEND_RESUME */
 
 /* ################## SDMMC peripheral configuration ######################### */
-
+#if !defined (USE_SD_TRANSCEIVER)
 #define USE_SD_TRANSCEIVER            0U
+#endif /* USE_SD_TRANSCEIVER */
 
 /* ################## SDIO peripheral configuration ########################## */
+#if !defined (USE_SDIO_TRANSCEIVER)
 #define USE_SDIO_TRANSCEIVER          0U
+#endif /* USE_SDIO_TRANSCEIVER */
+#if !defined (SDIO_MAX_IO_NUMBER)
 #define SDIO_MAX_IO_NUMBER            7U
+#endif /* SDIO_MAX_IO_NUMBER */
+
 /* Includes ------------------------------------------------------------------*/
 /**
   * @brief Include module's header file
