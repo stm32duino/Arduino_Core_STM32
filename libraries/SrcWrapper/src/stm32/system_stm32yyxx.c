@@ -18,6 +18,8 @@
   #include "system_stm32g4xx.c"
 #elif STM32H5xx
   #include "system_stm32h5xx.c"
+#elif STM32H7RSxx
+  #include "system_stm32h7rsxx.c"
 #elif STM32H7xx
   #include "system_stm32h7xx.c"
 #elif STM32L0xx

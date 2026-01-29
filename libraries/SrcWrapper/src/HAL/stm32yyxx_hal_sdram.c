@@ -10,5 +10,7 @@
   #include "stm32h5xx_hal_sdram.c"
 #elif STM32H7xx
   #include "stm32h7xx_hal_sdram.c"
+#elif STM32H7RSxx
+  #include "stm32h7rsxx_hal_sdram.c"
 #endif
 #pragma GCC diagnostic pop

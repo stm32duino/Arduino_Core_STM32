@@ -17,5 +17,7 @@
 #elif STM32H7xx
   #include "Legacy/stm32h7xx_hal_eth.c"
   #include "stm32h7xx_hal_eth.c"
+#elif STM32H7RSxx
+  #include "stm32h7rsxx_hal_eth.c"
 #endif
 #pragma GCC diagnostic pop
