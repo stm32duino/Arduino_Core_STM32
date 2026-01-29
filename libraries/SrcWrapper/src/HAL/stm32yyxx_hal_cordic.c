@@ -8,6 +8,8 @@
   #include "stm32h5xx_hal_cordic.c"
 #elif STM32H7xx
   #include "stm32h7xx_hal_cordic.c"
+#elif STM32H7RSxx
+  #include "stm32h7rsxx_hal_cordic.c"
 #elif STM32U5xx
   #include "stm32u5xx_hal_cordic.c"
 #endif

@@ -10,6 +10,8 @@
 
 #ifdef STM32H5xx
   #include "stm32h5xx_ll_dlyb.h"
+#elif STM32H7RSxx
+  #include "stm32h7rsxx_ll_dlyb.h"
 #elif STM32U3xx
   #include "stm32u3xx_ll_dlyb.h"
 #elif STM32U5xx

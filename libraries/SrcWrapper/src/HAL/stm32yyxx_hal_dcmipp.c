@@ -3,8 +3,6 @@
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 
 #ifdef STM32H7RSxx
-  #include "stm32h7rsxx_hal_gfxtim.c"
-#elif STM32U5xx
-  #include "stm32u5xx_hal_gfxtim.c"
+  #include "stm32h7rsxx_hal_dcmipp.c"
 #endif
 #pragma GCC diagnostic pop

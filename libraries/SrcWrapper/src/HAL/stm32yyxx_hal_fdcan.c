@@ -12,6 +12,8 @@
   #include "stm32h5xx_hal_fdcan.c"
 #elif STM32H7xx
   #include "stm32h7xx_hal_fdcan.c"
+#elif STM32H7RSxx
+  #include "stm32h7rsxx_hal_fdcan.c"
 #elif STM32L5xx
   #include "stm32l5xx_hal_fdcan.c"
 #elif STM32MP1xx
