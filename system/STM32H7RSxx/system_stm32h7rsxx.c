@@ -66,17 +66,6 @@
 /** @addtogroup STM32H7RSxx_System_Private_Defines
   * @{
   */
-#if !defined  (HSE_VALUE)
-  #define HSE_VALUE    24000000UL /*!< Value of the High-Speed External oscillator in Hz */
-#endif /* HSE_VALUE */
-
-#if !defined  (HSI_VALUE)
-  #define HSI_VALUE    64000000UL /*!< Value of the High-Speed Internal oscillator in Hz */
-#endif /* HSI_VALUE */
-
-#if !defined  (CSI_VALUE)
-  #define CSI_VALUE    4000000UL  /*!< Value of the Low-power Internal oscillator in Hz */
-#endif /* CSI_VALUE */
 
 /*!< The VTOR location information is based on information from the linker with a dependency
      on the IDE, the cortex register is updated using the INTVECT_START.
