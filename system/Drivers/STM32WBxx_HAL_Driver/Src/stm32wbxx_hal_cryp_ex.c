@@ -31,7 +31,6 @@
   */
 
 
-
 #ifdef HAL_CRYP_MODULE_ENABLED
 
 /* Private typedef -----------------------------------------------------------*/
@@ -95,7 +94,8 @@
   * @param  Timeout Timeout duration
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, uint32_t *AuthTag, uint32_t Timeout)
+HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, const uint32_t *AuthTag,
+                                                    uint32_t Timeout)
 {
   uint32_t tickstart;
   /* Assume first Init.HeaderSize is in words */
@@ -216,7 +216,8 @@ HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
   * @param  Timeout Timeout duration
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, uint32_t *AuthTag, uint32_t Timeout)
+HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, const uint32_t *AuthTag,
+                                                    uint32_t Timeout)
 {
   uint32_t tagaddr = (uint32_t)AuthTag;
   uint32_t tickstart;

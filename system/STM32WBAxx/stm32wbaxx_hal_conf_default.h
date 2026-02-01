@@ -50,12 +50,14 @@ extern "C" {
 #define HAL_GPIO_MODULE_ENABLED
 #define HAL_GTZC_MODULE_ENABLED
 #define HAL_HASH_MODULE_ENABLED
+#define HAL_HCD_MODULE_ENABLED
 #define HAL_HSEM_MODULE_ENABLED
 #define HAL_I2C_MODULE_ENABLED
 #define HAL_ICACHE_MODULE_ENABLED
 #define HAL_IRDA_MODULE_ENABLED
 #define HAL_IWDG_MODULE_ENABLED
 #define HAL_LPTIM_MODULE_ENABLED
+#define HAL_PCD_MODULE_ENABLED
 #define HAL_PKA_MODULE_ENABLED
 #define HAL_PWR_MODULE_ENABLED
 #define HAL_RAMCFG_MODULE_ENABLED
@@ -101,7 +103,9 @@ extern "C" {
   */
 #if !defined (LSI_VALUE)
 #define LSI_VALUE               32000UL    /*!< LSI Typical Value in Hz*/
-#endif /* LSI_VALUE */                     /*!< Value of the Internal Low Speed oscillator in Hz. The real value may vary depending on the variations in voltage and temperature.*/
+#endif /* LSI_VALUE */                     /*!< Value of the Internal Low Speed oscillator in Hz
+                                                The real value may vary depending on the variations in voltage
+                                                and temperature.*/
 
 #if defined (RCC_LSI2_SUPPORT)
 #if !defined (LSI2_VALUE)
@@ -171,10 +175,12 @@ extern "C" {
 #define  USE_HAL_COMP_REGISTER_CALLBACKS       0U /* COMP register callback disabled      */
 #define  USE_HAL_CRYP_REGISTER_CALLBACKS       0U /* CRYP register callback disabled      */
 #define  USE_HAL_HASH_REGISTER_CALLBACKS       0U /* HASH register callback disabled      */
+#define  USE_HAL_HCD_REGISTER_CALLBACKS        0U /* HCD register callback disabled       */
 #define  USE_HAL_I2C_REGISTER_CALLBACKS        0U /* I2C register callback disabled       */
-#define  USE_HAL_IWDG_REGISTER_CALLBACKS       0U /* IWDG register callback disabled      */
 #define  USE_HAL_IRDA_REGISTER_CALLBACKS       0U /* IRDA register callback disabled      */
+#define  USE_HAL_IWDG_REGISTER_CALLBACKS       0U /* IWDG register callback disabled      */
 #define  USE_HAL_LPTIM_REGISTER_CALLBACKS      0U /* LPTIM register callback disabled     */
+#define  USE_HAL_PCD_REGISTER_CALLBACKS        0U /* PCD register callback disabled       */
 #define  USE_HAL_PKA_REGISTER_CALLBACKS        0U /* PKA register callback disabled       */
 #define  USE_HAL_RAMCFG_REGISTER_CALLBACKS     0U /* RAMCFG register callback disabled    */
 #define  USE_HAL_RNG_REGISTER_CALLBACKS        0U /* RNG register callback disabled       */
@@ -205,15 +211,17 @@ extern "C" {
 
 #define USE_HAL_HASH_SUSPEND_RESUME   0U
 
-
 /* Includes ------------------------------------------------------------------*/
 /**
   * @brief Include module's header file
   */
-
 #ifdef HAL_DMA_MODULE_ENABLED
 #include "stm32wbaxx_hal_dma.h"
 #endif /* HAL_DMA_MODULE_ENABLED */
+
+#ifdef HAL_RCC_MODULE_ENABLED
+#include "stm32wbaxx_hal_rcc.h"
+#endif /* HAL_RCC_MODULE_ENABLED */
 
 #ifdef HAL_ADC_MODULE_ENABLED
 #include "stm32wbaxx_hal_adc.h"
@@ -255,6 +263,10 @@ extern "C" {
 #include "stm32wbaxx_hal_hash.h"
 #endif /* HAL_HASH_MODULE_ENABLED */
 
+#ifdef HAL_HCD_MODULE_ENABLED
+#include "stm32wbaxx_hal_hcd.h"
+#endif /* HAL_HCD_MODULE_ENABLED */
+
 #ifdef HAL_HSEM_MODULE_ENABLED
 #include "stm32wbaxx_hal_hsem.h"
 #endif /* HAL_HSEM_MODULE_ENABLED */
@@ -279,6 +291,10 @@ extern "C" {
 #include "stm32wbaxx_hal_lptim.h"
 #endif /* HAL_LPTIM_MODULE_ENABLED */
 
+#ifdef HAL_PCD_MODULE_ENABLED
+#include "stm32wbaxx_hal_pcd.h"
+#endif /* HAL_PCD_MODULE_ENABLED */
+
 #ifdef HAL_PKA_MODULE_ENABLED
 #include "stm32wbaxx_hal_pka.h"
 #endif /* HAL_PKA_MODULE_ENABLED */
@@ -290,10 +306,6 @@ extern "C" {
 #ifdef HAL_RAMCFG_MODULE_ENABLED
 #include "stm32wbaxx_hal_ramcfg.h"
 #endif /* HAL_RAMCFG_MODULE_ENABLED */
-
-#ifdef HAL_RCC_MODULE_ENABLED
-#include "stm32wbaxx_hal_rcc.h"
-#endif /* HAL_RCC_MODULE_ENABLED */
 
 #ifdef HAL_RNG_MODULE_ENABLED
 #include "stm32wbaxx_hal_rng.h"
@@ -338,7 +350,6 @@ extern "C" {
 #ifdef HAL_WWDG_MODULE_ENABLED
 #include "stm32wbaxx_hal_wwdg.h"
 #endif /* HAL_WWDG_MODULE_ENABLED */
-
 
 /* Exported macro ------------------------------------------------------------*/
 #ifdef  USE_FULL_ASSERT

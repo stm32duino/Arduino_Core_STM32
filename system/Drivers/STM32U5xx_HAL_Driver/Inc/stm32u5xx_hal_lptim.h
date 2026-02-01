@@ -220,6 +220,7 @@ typedef struct
   __IO  HAL_LPTIM_StateTypeDef   State;            /*!< LPTIM peripheral state    */
 
   __IO  HAL_LPTIM_ChannelStateTypeDef   ChannelState[2];  /*!< LPTIM channel operation state                       */
+
 #if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
   void (* MspInitCallback)(struct __LPTIM_HandleTypeDef *hlptim);            /*!< LPTIM Base Msp Init Callback                 */
   void (* MspDeInitCallback)(struct __LPTIM_HandleTypeDef *hlptim);          /*!< LPTIM Base Msp DeInit Callback               */
@@ -616,6 +617,7 @@ typedef  void (*pLPTIM_CallbackTypeDef)(LPTIM_HandleTypeDef *hlptim);  /*!< poin
   * @brief  Write the passed parameter in the Autoreload register.
   * @param  __HANDLE__ LPTIM handle
   * @param  __VALUE__ Autoreload value
+  *         This parameter must be a value between Min_Data = 0x0001 and Max_Data = 0xFFFF.
   * @retval None
   * @note   The ARR register can only be modified when the LPTIM instance is enabled.
   */

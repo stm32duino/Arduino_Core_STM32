@@ -656,7 +656,7 @@ typedef void (*pOSPI_CallbackTypeDef)(OSPI_HandleTypeDef *hospi);
   */
 
 #if     defined (OCTOSPIM)
-/** @defgroup OSPI_IO_Manger_IOPort OSPI IO Manager IO Port
+/** @defgroup OSPIM_IOPort OSPI IO Manager IO Port
   * @{
   */
 #define HAL_OSPIM_IOPORT_NONE              ((uint32_t)0x00000000U)                                          /*!< IOs not used */
@@ -788,12 +788,12 @@ typedef void (*pOSPI_CallbackTypeDef)(OSPI_HandleTypeDef *hospi);
   */
 
 /* Exported functions --------------------------------------------------------*/
-/** @addtogroup OSPI_Exported_Functions OSPI Exported Functions
+/** @addtogroup OSPI_Exported_Functions
   * @{
   */
 
 /* Initialization/de-initialization functions  ********************************/
-/** @addtogroup OSPI_Exported_Functions_Group1 Initialization/de-initialization functions
+/** @addtogroup OSPI_Exported_Functions_Group1
   * @{
   */
 HAL_StatusTypeDef     HAL_OSPI_Init(OSPI_HandleTypeDef *hospi);
@@ -806,7 +806,7 @@ void                  HAL_OSPI_MspDeInit(OSPI_HandleTypeDef *hospi);
   */
 
 /* IO operation functions *****************************************************/
-/** @addtogroup OSPI_Exported_Functions_Group2 Input and Output operation functions
+/** @addtogroup OSPI_Exported_Functions_Group2
   * @{
   */
 /* OSPI IRQ handler function */
@@ -862,7 +862,7 @@ HAL_StatusTypeDef     HAL_OSPI_UnRegisterCallback(OSPI_HandleTypeDef *hospi, HAL
   */
 
 /* Peripheral Control and State functions  ************************************/
-/** @addtogroup OSPI_Exported_Functions_Group3 Peripheral Control and State functions
+/** @addtogroup OSPI_Exported_Functions_Group3
   * @{
   */
 HAL_StatusTypeDef     HAL_OSPI_Abort(OSPI_HandleTypeDef *hospi);
@@ -879,7 +879,7 @@ uint32_t              HAL_OSPI_GetState(const OSPI_HandleTypeDef *hospi);
 
 #if     defined (OCTOSPIM)
 /* OSPI IO Manager configuration function  ************************************/
-/** @addtogroup OSPI_Exported_Functions_Group4 IO Manager configuration function
+/** @addtogroup OSPI_Exported_Functions_Group4
   * @{
   */
 HAL_StatusTypeDef     HAL_OSPIM_Config(OSPI_HandleTypeDef *hospi, OSPIM_CfgTypeDef *cfg, uint32_t Timeout);
@@ -923,7 +923,7 @@ HAL_StatusTypeDef      HAL_OSPI_DLYB_GetClockPeriod(OSPI_HandleTypeDef *hospi, H
 
 #define IS_OSPI_DEVICE_SIZE(SIZE)          (((SIZE) >= 1U) && ((SIZE) <= 32U))
 
-#define IS_OSPI_CS_HIGH_TIME(TIME)         (((TIME) >= 1U) && ((TIME) <= 8U))
+#define IS_OSPI_CS_HIGH_TIME(TIME)         (((TIME) >= 1U) && ((TIME) <= 64U))
 
 #define IS_OSPI_FREE_RUN_CLK(CLK)          (((CLK) == HAL_OSPI_FREERUNCLK_DISABLE) || \
                                             ((CLK) == HAL_OSPI_FREERUNCLK_ENABLE))

@@ -66,6 +66,11 @@ typedef struct
                                    This parameter can be a value of @ref RCCEx_USB_Clock_Source */
 #endif /* USB_DRD_FS */
 
+#if defined(FDCAN1)
+  uint32_t Fdcan1ClockSelection;   /*!< Specifies FDCAN1 clock source.
+                                   This parameter can be a value of @ref RCCEx_FDCAN1_Clock_Source */
+#endif /* FDCAN1 */
+
   uint32_t AdcClockSelection;      /*!< Specifies ADC interface clock source
                                         This parameter can be a value of @ref RCCEx_ADC_Clock_Source */
 
@@ -154,6 +159,9 @@ typedef struct
 #if defined(USB_DRD_FS)
 #define RCC_PERIPHCLK_USB              0x00000008U
 #endif /* USB_DRD_FS */
+#if defined(FDCAN1)
+#define RCC_PERIPHCLK_FDCAN1           0x00000010U
+#endif /* FDCAN1 */
 #define RCC_PERIPHCLK_ADC              0x00000020U
 #define RCC_PERIPHCLK_RTC              0x00000040U
 #define RCC_PERIPHCLK_HSIKER           0x00000080U
@@ -205,6 +213,18 @@ typedef struct
   * @}
   */
 #endif /* USB_DRD_FS */
+
+#if defined(FDCAN1)
+/** @defgroup RCCEx_FDCAN1_Clock_Source FDCAN1 Clock Source
+  * @{
+  */
+#define RCC_FDCAN1CLKSOURCE_PCLK1         0x00000000U
+#define RCC_FDCAN1CLKSOURCE_HSIKER        RCC_CCIPR_FDCAN1SEL_0
+#define RCC_FDCAN1CLKSOURCE_HSE           RCC_CCIPR_FDCAN1SEL_1
+/**
+  * @}
+  */
+#endif /* FDCAN1 */
 
 /** @defgroup RCCEx_ADC_Clock_Source RCC ADC Clock Source
   * @{
@@ -435,6 +455,27 @@ typedef struct
   */
 #define __HAL_RCC_GET_USB_SOURCE() ((uint32_t)(READ_BIT(RCC->CCIPR2, RCC_CCIPR2_USBSEL)))
 #endif /* USB_DRD_FS */
+
+#if defined(FDCAN1)
+/** @brief  Macro to configure the FDCAN1 clock (FDCAN1CLK).
+  *
+  * @param  __FDCAN1_CLKSOURCE__  specifies the FDCAN1 clock source.
+  *          This parameter can be one of the following values:
+  *            @arg @ref RCC_FDCAN1CLKSOURCE_PCLK1  APB Clock selected as FDCAN1 clock
+  *            @arg @ref RCC_FDCAN1CLKSOURCE_HSIKER  HSI Kernel Clock selected as FDCAN1 clock
+  *            @arg @ref RCC_FDCAN1CLKSOURCE_HSE     HSE clock selected as FDCAN1 clock
+  */
+#define __HAL_RCC_FDCAN1_CONFIG(__FDCAN1_CLKSOURCE__) \
+  MODIFY_REG(RCC->CCIPR, RCC_CCIPR_FDCAN1SEL, (uint32_t)(__FDCAN1_CLKSOURCE__))
+
+/** @brief  Macro to get the FDCAN1 clock source.
+  * @retval The clock source can be one of the following values:
+  *            @arg @ref RCC_FDCAN1CLKSOURCE_PCLK1  APB Clock selected as FDCAN1 clock
+  *            @arg @ref RCC_FDCAN1CLKSOURCE_HSIKER  HSI Kernel Clock selected as FDCAN1 clock
+  *            @arg @ref RCC_FDCAN1CLKSOURCE_HSE     HSE clock selected as FDCAN1 clock
+  */
+#define __HAL_RCC_GET_FDCAN1_SOURCE() ((uint32_t)(READ_BIT(RCC->CCIPR, RCC_CCIPR_FDCAN1SEL)))
+#endif /* FDCAN1 */
 
 /** @brief  Macro to configure the ADC interface clock
   * @param  __ADC_CLKSOURCE__ specifies the ADC digital interface clock source.
@@ -724,6 +765,15 @@ void              HAL_RCCEx_CRS_ErrorCallback(uint32_t Error);
    (((__SELECTION__) & RCC_PERIPHCLK_USB)     == RCC_PERIPHCLK_USB)     || \
    (((__SELECTION__) & RCC_PERIPHCLK_RTC)     == RCC_PERIPHCLK_RTC)     || \
    (((__SELECTION__) & RCC_PERIPHCLK_HSIKER)  == RCC_PERIPHCLK_HSIKER))
+#elif defined (FDCAN1)
+#define IS_RCC_PERIPHCLOCK(__SELECTION__)  \
+  ((((__SELECTION__) & RCC_PERIPHCLK_USART1)  == RCC_PERIPHCLK_USART1)  || \
+   (((__SELECTION__) & RCC_PERIPHCLK_I2C1)    == RCC_PERIPHCLK_I2C1)    || \
+   (((__SELECTION__) & RCC_PERIPHCLK_I2S1)    == RCC_PERIPHCLK_I2S1)    || \
+   (((__SELECTION__) & RCC_PERIPHCLK_ADC)     == RCC_PERIPHCLK_ADC)     || \
+   (((__SELECTION__) & RCC_PERIPHCLK_FDCAN1)  == RCC_PERIPHCLK_FDCAN1)  || \
+   (((__SELECTION__) & RCC_PERIPHCLK_RTC)     == RCC_PERIPHCLK_RTC)     || \
+   (((__SELECTION__) & RCC_PERIPHCLK_HSIKER)  == RCC_PERIPHCLK_HSIKER))
 #else
 #define IS_RCC_PERIPHCLOCK(__SELECTION__)  \
   ((((__SELECTION__) & RCC_PERIPHCLK_USART1)  == RCC_PERIPHCLK_USART1)  || \
@@ -750,6 +800,13 @@ void              HAL_RCCEx_CRS_ErrorCallback(uint32_t Error);
    ((__SOURCE__) == RCC_I2S1CLKSOURCE_HSIKER)   || \
    ((__SOURCE__) == RCC_I2S1CLKSOURCE_EXT))
 
+#if defined (FDCAN1)
+#define IS_RCC_FDCAN1CLKSOURCE(__SOURCE__)  \
+  (((__SOURCE__) == RCC_FDCAN1CLKSOURCE_HSE)   || \
+   ((__SOURCE__) == RCC_FDCAN1CLKSOURCE_HSIKER)|| \
+   ((__SOURCE__) == RCC_FDCAN1CLKSOURCE_PCLK1))
+#endif /* FDCAN1 */
+
 #if defined (USB_DRD_FS)
 #define IS_RCC_USBCLKSOURCE(__SOURCE__)  \
   (((__SOURCE__) == RCC_USBCLKSOURCE_HSE)   || \
@@ -766,7 +823,6 @@ void              HAL_RCCEx_CRS_ErrorCallback(uint32_t Error);
                                    ((__DIV__) == RCC_HSIKER_DIV7)  || ((__DIV__) == RCC_HSIKER_DIV8))
 
 #if defined(CRS)
-
 #define IS_RCC_CRS_SYNC_SOURCE(__SOURCE__) (((__SOURCE__) == RCC_CRS_SYNC_SOURCE_GPIO) || \
                                             ((__SOURCE__) == RCC_CRS_SYNC_SOURCE_LSE)  || \
                                             ((__SOURCE__) == RCC_CRS_SYNC_SOURCE_USB))
@@ -787,7 +843,6 @@ void              HAL_RCCEx_CRS_ErrorCallback(uint32_t Error);
 
 #define IS_RCC_CRS_FREQERRORDIR(__DIR__)   (((__DIR__) == RCC_CRS_FREQERRORDIR_UP) || \
                                             ((__DIR__) == RCC_CRS_FREQERRORDIR_DOWN))
-
 #endif /* CRS */
 /**
   * @}

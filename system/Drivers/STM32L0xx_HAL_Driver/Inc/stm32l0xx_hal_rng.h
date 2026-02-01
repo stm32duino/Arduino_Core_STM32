@@ -304,7 +304,7 @@ uint32_t HAL_RNG_GetRandomNumber_IT(RNG_HandleTypeDef
                                     *hrng); /* Obsolete, use HAL_RNG_GenerateRandomNumber_IT() instead */
 HAL_StatusTypeDef HAL_RNG_GenerateRandomNumber(RNG_HandleTypeDef *hrng, uint32_t *random32bit);
 HAL_StatusTypeDef HAL_RNG_GenerateRandomNumber_IT(RNG_HandleTypeDef *hrng);
-uint32_t HAL_RNG_ReadLastRandomNumber(RNG_HandleTypeDef *hrng);
+uint32_t HAL_RNG_ReadLastRandomNumber(const RNG_HandleTypeDef *hrng);
 
 void HAL_RNG_IRQHandler(RNG_HandleTypeDef *hrng);
 void HAL_RNG_ErrorCallback(RNG_HandleTypeDef *hrng);
@@ -317,8 +317,8 @@ void HAL_RNG_ReadyDataCallback(RNG_HandleTypeDef *hrng, uint32_t random32bit);
 /** @defgroup RNG_Exported_Functions_Group3 Peripheral State functions
   * @{
   */
-HAL_RNG_StateTypeDef HAL_RNG_GetState(RNG_HandleTypeDef *hrng);
-uint32_t             HAL_RNG_GetError(RNG_HandleTypeDef *hrng);
+HAL_RNG_StateTypeDef HAL_RNG_GetState(const RNG_HandleTypeDef *hrng);
+uint32_t             HAL_RNG_GetError(const RNG_HandleTypeDef *hrng);
 /**
   * @}
   */

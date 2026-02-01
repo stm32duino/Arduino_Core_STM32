@@ -52,6 +52,7 @@
 #define IS_LL_COMP_POWER_MODE(__POWER_MODE__)                                  \
   (((__POWER_MODE__) == LL_COMP_POWERMODE_HIGHSPEED)                           \
    || ((__POWER_MODE__) == LL_COMP_POWERMODE_MEDIUMSPEED)                      \
+   || ((__POWER_MODE__) == LL_COMP_POWERMODE_ULTRALOWPOWER)                    \
   )
 
 #define IS_LL_COMP_INPUT_PLUS(__COMP_INSTANCE__, __INPUT_PLUS__)               \

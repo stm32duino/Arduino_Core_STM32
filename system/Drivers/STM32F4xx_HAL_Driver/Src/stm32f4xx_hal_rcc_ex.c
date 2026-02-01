@@ -3374,7 +3374,7 @@ HAL_StatusTypeDef HAL_RCC_DeInit(void)
   *         is only available in STM32F410xx/STM32F446xx/STM32F469xx/STM32F479xx/STM32F412Zx/STM32F412Vx/STM32F412Rx/STM32F412Cx devices
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
+HAL_StatusTypeDef HAL_RCC_OscConfig(const RCC_OscInitTypeDef  *RCC_OscInitStruct)
 {
   uint32_t tickstart;
   uint32_t pll_config;

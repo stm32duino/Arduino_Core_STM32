@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -102,26 +101,26 @@ extern "C" {
 /* States for HID State Machine */
 typedef enum
 {
-  HID_INIT = 0,
-  HID_IDLE,
-  HID_SEND_DATA,
-  HID_BUSY,
-  HID_GET_DATA,
-  HID_SYNC,
-  HID_POLL,
-  HID_ERROR,
+  USBH_HID_INIT = 0,
+  USBH_HID_IDLE,
+  USBH_HID_SEND_DATA,
+  USBH_HID_BUSY,
+  USBH_HID_GET_DATA,
+  USBH_HID_SYNC,
+  USBH_HID_POLL,
+  USBH_HID_ERROR,
 }
-HID_StateTypeDef;
+USBH_HID_StateTypeDef;
 
 typedef enum
 {
-  HID_REQ_INIT = 0,
-  HID_REQ_IDLE,
-  HID_REQ_GET_REPORT_DESC,
-  HID_REQ_GET_HID_DESC,
-  HID_REQ_SET_IDLE,
-  HID_REQ_SET_PROTOCOL,
-  HID_REQ_SET_REPORT,
+  USBH_HID_REQ_INIT = 0,
+  USBH_HID_REQ_IDLE,
+  USBH_HID_REQ_GET_REPORT_DESC,
+  USBH_HID_REQ_GET_HID_DESC,
+  USBH_HID_REQ_SET_IDLE,
+  USBH_HID_REQ_SET_PROTOCOL,
+  USBH_HID_REQ_SET_REPORT,
 
 }
 HID_CtlStateTypeDef;
@@ -211,7 +210,7 @@ typedef struct _HID_Process
 {
   uint8_t              OutPipe;
   uint8_t              InPipe;
-  HID_StateTypeDef     state;
+  USBH_HID_StateTypeDef     state;
   uint8_t              OutEp;
   uint8_t              InEp;
   HID_CtlStateTypeDef  ctl_state;
@@ -340,5 +339,4 @@ uint16_t  USBH_HID_FifoWrite(FIFO_TypeDef *f, void *buf, uint16_t nbytes);
 /**
   * @}
   */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

@@ -193,6 +193,10 @@ static I2C_HandleTypeDef *i2c_handles[I2C_NUM];
 static uint32_t i2c_getClkFreq(I2C_TypeDef *i2c)
 {
   uint32_t clkSrcFreq = 0;
+#if defined(STM32WB0x) || defined(STM32WL3x)
+  (void)i2c; // Avoid unused parameter warning
+  clkSrcFreq = SystemCoreClock / 4;
+#else
 #ifdef STM32H7xx
   PLL3_ClocksTypeDef PLL3_Clocks;
 #endif
@@ -267,9 +271,11 @@ static uint32_t i2c_getClkFreq(I2C_TypeDef *i2c)
     {
 #ifdef __HAL_RCC_GET_I2C2_SOURCE
       switch (__HAL_RCC_GET_I2C2_SOURCE()) {
+#ifdef RCC_I2C2CLKSOURCE_HSI
         case RCC_I2C2CLKSOURCE_HSI:
           clkSrcFreq = HSI_VALUE;
           break;
+#endif
 #ifdef RCC_I2C2CLKSOURCE_SYSCLK
         case RCC_I2C2CLKSOURCE_SYSCLK:
           clkSrcFreq = SystemCoreClock;
@@ -319,9 +325,11 @@ static uint32_t i2c_getClkFreq(I2C_TypeDef *i2c)
     {
 #if defined(__HAL_RCC_GET_I2C3_SOURCE)
       switch (__HAL_RCC_GET_I2C3_SOURCE()) {
+#ifdef RCC_I2C3CLKSOURCE_HSI
         case RCC_I2C3CLKSOURCE_HSI:
           clkSrcFreq = HSI_VALUE;
           break;
+#endif
 #ifdef RCC_I2C3CLKSOURCE_SYSCLK
         case RCC_I2C3CLKSOURCE_SYSCLK:
           clkSrcFreq = SystemCoreClock;
@@ -507,6 +515,7 @@ static uint32_t i2c_getClkFreq(I2C_TypeDef *i2c)
     }
   }
 #endif // I2C6_BASE
+#endif /* STM32WB0x || STM32WL3x */
   return clkSrcFreq;
 }
 
@@ -750,7 +759,8 @@ void i2c_init(i2c_t *obj, uint32_t timing, uint32_t ownAddress)
 
           obj->irq = I2C1_EV_IRQn;
 #if !defined(STM32C0xx) && !defined(STM32F0xx) && !defined(STM32G0xx) && \
-    !defined(STM32L0xx) && !defined(STM32U0xx)
+    !defined(STM32L0xx) && !defined(STM32U0xx) && !defined(STM32WB0x) && \
+    !defined(STM32WL3x)
           obj->irqER = I2C1_ER_IRQn;
 #endif /* !STM32C0xx && !STM32F0xx && !STM32G0xx && !STM32L0xx && !STM32U0xx */
           i2c_handles[I2C1_INDEX] = handle;
@@ -763,8 +773,9 @@ void i2c_init(i2c_t *obj, uint32_t timing, uint32_t ownAddress)
           __HAL_RCC_I2C2_FORCE_RESET();
           __HAL_RCC_I2C2_RELEASE_RESET();
           obj->irq = I2C2_EV_IRQn;
-#if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx) && \
-    !defined(STM32U0xx)
+#if !defined(STM32C0xx) && !defined(STM32F0xx) && !defined(STM32G0xx) && \
+    !defined(STM32L0xx) && !defined(STM32U0xx) && !defined(STM32WB0x) && \
+    !defined(STM32WL3x)
           obj->irqER = I2C2_ER_IRQn;
 #endif /* !STM32F0xx && !STM32G0xx && !STM32L0xx && !STM32U0xx */
           i2c_handles[I2C2_INDEX] = handle;

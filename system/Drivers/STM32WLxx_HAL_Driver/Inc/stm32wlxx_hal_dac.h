@@ -275,20 +275,6 @@ typedef void (*pDAC_CallbackTypeDef)(DAC_HandleTypeDef *hdac);
   * @}
   */
 
-/* Delay for DAC channel voltage settling time from DAC channel startup       */
-/* (transition from disable to enable).                                       */
-/* Note: DAC channel startup time depends on board application environment:   */
-/*       impedance connected to DAC channel output.                           */
-/*       The delay below is specified under conditions:                       */
-/*        - voltage maximum transition (lowest to highest value)              */
-/*        - until voltage reaches final value +-1LSB                          */
-/*        - DAC channel output buffer enabled                                 */
-/*        - load impedance of 5kOhm (min), 50pF (max)                         */
-/* Literal set to maximum value (refer to device datasheet,                   */
-/* parameter "tWAKEUP").                                                      */
-/* Unit: us                                                                   */
-#define DAC_DELAY_STARTUP_US          (8UL)   /*!< Delay for DAC channel voltage settling time from DAC channel startup (transition from disable to enable) */
-
 /* Exported macro ------------------------------------------------------------*/
 
 /** @defgroup DAC_Exported_Macros DAC Exported Macros

@@ -94,6 +94,9 @@ extern "C" {
 #if defined (USB_DRD_FS)
 #define LL_APB1_GRP1_PERIPH_USB            RCC_APBENR1_USBEN
 #endif /* USB_DRD_FS */
+#if defined (FDCAN1)
+#define LL_APB1_GRP1_PERIPH_FDCAN1         RCC_APBENR1_FDCAN1EN
+#endif /* FDCAN1 */
 #if defined(SPI2)
 #define LL_APB1_GRP1_PERIPH_SPI2           RCC_APBENR1_SPI2EN
 #endif /* SPI2 */
@@ -101,6 +104,12 @@ extern "C" {
 #define LL_APB1_GRP1_PERIPH_CRS            RCC_APBENR1_CRSEN
 #endif /* CRS */
 #define LL_APB1_GRP1_PERIPH_USART2         RCC_APBENR1_USART2EN
+#if defined(USART3)
+#define LL_APB1_GRP1_PERIPH_USART3         RCC_APBENR1_USART3EN
+#endif /* USART3 */
+#if defined(USART4)
+#define LL_APB1_GRP1_PERIPH_USART4         RCC_APBENR1_USART4EN
+#endif /* USART4 */
 #define LL_APB1_GRP1_PERIPH_I2C1           RCC_APBENR1_I2C1EN
 #if defined(I2C2)
 #define LL_APB1_GRP1_PERIPH_I2C2           RCC_APBENR1_I2C2EN
@@ -121,6 +130,9 @@ extern "C" {
 #define LL_APB1_GRP2_PERIPH_SPI1           RCC_APBENR2_SPI1EN
 #define LL_APB1_GRP2_PERIPH_USART1         RCC_APBENR2_USART1EN
 #define LL_APB1_GRP2_PERIPH_TIM14          RCC_APBENR2_TIM14EN
+#if defined(TIM15)
+#define LL_APB1_GRP2_PERIPH_TIM15          RCC_APBENR2_TIM15EN
+#endif /* TIM15 */
 #define LL_APB1_GRP2_PERIPH_TIM16          RCC_APBENR2_TIM16EN
 #define LL_APB1_GRP2_PERIPH_TIM17          RCC_APBENR2_TIM17EN
 #define LL_APB1_GRP2_PERIPH_ADC            RCC_APBENR2_ADCEN
@@ -315,6 +327,9 @@ __STATIC_INLINE void LL_AHB1_GRP1_DisableClockStopSleep(uint32_t Periphs)
   *         APBENR1      SPI2EN        LL_APB1_GRP1_EnableClock\n (*)
   *         APBENR1      I2C2EN        LL_APB1_GRP1_EnableClock\n (*)
   *         APBENR1      USBEN         LL_APB1_GRP1_EnableClock\n (*)
+  *         APBENR1      FDCAN1EN      LL_APB1_GRP1_EnableClock\n (*)
+  *         APBENR1      USART3EN      LL_APB1_GRP1_EnableClock\n (*)
+  *         APBENR1      USART4EN      LL_APB1_GRP1_EnableClock (*)
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3
   *         @arg @ref LL_APB1_GRP1_PERIPH_RTC
@@ -326,6 +341,9 @@ __STATIC_INLINE void LL_AHB1_GRP1_DisableClockStopSleep(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2 (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_I2C2 (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_USB  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_FDCAN1  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_USART3  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_USART4  (*)
   * @note (*) peripheral not available on all devices
   * @retval None
   */
@@ -351,6 +369,9 @@ __STATIC_INLINE void LL_APB1_GRP1_EnableClock(uint32_t Periphs)
   *         APBENR1      SPI2EN        LL_APB1_GRP1_IsEnabledClock\n (*)
   *         APBENR1      I2C2EN        LL_APB1_GRP1_IsEnabledClock\n (*)
   *         APBENR1      USBEN         LL_APB1_GRP1_IsEnabledClock\n (*)
+  *         APBENR1      FDCAN1EN      LL_APB1_GRP1_IsEnabledClock\n (*)
+  *         APBENR1      USART3EN      LL_APB1_GRP1_IsEnabledClock\n (*)
+  *         APBENR1      USART4EN      LL_APB1_GRP1_IsEnabledClock (*)
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3
   *         @arg @ref LL_APB1_GRP1_PERIPH_RTC
@@ -363,6 +384,9 @@ __STATIC_INLINE void LL_APB1_GRP1_EnableClock(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2 (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_I2C2 (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_USB  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_FDCAN1  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_USART3  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_USART4  (*)
   * @note (*) peripheral not available on all devices
   * @retval State of Periphs (1 or 0).
   */
@@ -384,6 +408,9 @@ __STATIC_INLINE uint32_t LL_APB1_GRP1_IsEnabledClock(uint32_t Periphs)
   *         APBENR1      SPI2EN        LL_APB1_GRP1_DisableClock\n (*)
   *         APBENR1      I2C2EN        LL_APB1_GRP1_DisableClock\n (*)
   *         APBENR1      USBEN         LL_APB1_GRP1_DisableClock\n (*)
+  *         APBENR1      FDACN1EN      LL_APB1_GRP1_DisableClock\n (*)
+  *         APBENR1      USART3EN      LL_APB1_GRP1_DisableClock\n (*)
+  *         APBENR1      USART4EN      LL_APB1_GRP1_DisableClock (*)
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3
   *         @arg @ref LL_APB1_GRP1_PERIPH_RTC
@@ -396,6 +423,9 @@ __STATIC_INLINE uint32_t LL_APB1_GRP1_IsEnabledClock(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2 (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_I2C2 (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_USB  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_FDCAN1  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_USART3  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_USART4  (*)
   * @note (*) peripheral not available on all devices
   * @retval None
   */
@@ -416,6 +446,9 @@ __STATIC_INLINE void LL_APB1_GRP1_DisableClock(uint32_t Periphs)
   *         APBRSTR1     SPI2RST       LL_APB1_GRP1_ForceReset\n (*)
   *         APBRSTR1     I2C2RST       LL_APB1_GRP1_ForceReset\n (*)
   *         APBRSTR1     USBRST        LL_APB1_GRP1_ForceReset\n (*)
+  *         APBRSTR1     FDCAN1RST     LL_APB1_GRP1_ForceReset\n (*)
+  *         APBRSTR1     USART3RST     LL_APB1_GRP1_ForceReset\n (*)
+  *         APBRSTR1     USART4RST     LL_APB1_GRP1_ForceReset (*)
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP1_PERIPH_ALL
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3
@@ -428,6 +461,9 @@ __STATIC_INLINE void LL_APB1_GRP1_DisableClock(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2 (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_I2C2 (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_USB  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_FDCAN1  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_USART3  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_USART4  (*)
   * @note (*) peripheral not available on all devices
   * @retval None
   */
@@ -448,6 +484,9 @@ __STATIC_INLINE void LL_APB1_GRP1_ForceReset(uint32_t Periphs)
   *         APBRSTR1     SPI2RST       LL_APB1_GRP1_ReleaseReset\n (*)
   *         APBRSTR1     I2C2RST       LL_APB1_GRP1_ReleaseReset\n (*)
   *         APBRSTR1     USBRST        LL_APB1_GRP1_ReleaseReset\n (*)
+  *         APBRSTR1     FDCAN1RST     LL_APB1_GRP1_ReleaseReset\n (*)
+  *         APBRSTR1     USART3RST     LL_APB1_GRP1_ReleaseReset\n (*)
+  *         APBRSTR1     USART4RST     LL_APB1_GRP1_ReleaseReset (*)
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP1_PERIPH_ALL
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3
@@ -460,6 +499,9 @@ __STATIC_INLINE void LL_APB1_GRP1_ForceReset(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2 (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_I2C2 (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_USB  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_FDCAN1  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_USART3  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_USART4  (*)
   * @note (*) peripheral not available on all devices
   * @retval None
   */
@@ -480,6 +522,9 @@ __STATIC_INLINE void LL_APB1_GRP1_ReleaseReset(uint32_t Periphs)
   *         APBSMENR1    SPI2SMEN      LL_APB1_GRP1_EnableClockStopSleep\n (*)
   *         APBSMENR1    I2C2SMEN      LL_APB1_GRP1_EnableClockStopSleep\n (*)
   *         APBSMENR1    USBSMEN       LL_APB1_GRP1_EnableClockStopSleep\n (*)
+  *         APBSMENR1    FDCAN1SMEN    LL_APB1_GRP1_EnableClockStopSleep\n (*)
+  *         APBSMENR1    USART3SMEN    LL_APB1_GRP1_EnableClockStopSleep\n (*)
+  *         APBSMENR1    USART4SMEN    LL_APB1_GRP1_EnableClockStopSleep (*)
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3
   *         @arg @ref LL_APB1_GRP1_PERIPH_RTC
@@ -491,6 +536,9 @@ __STATIC_INLINE void LL_APB1_GRP1_ReleaseReset(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2 (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_I2C2 (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_USB  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_FDCAN1  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_USART3  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_USART4  (*)
   * @note (*) peripheral not available on all devices
   * @retval None
   */
@@ -515,6 +563,9 @@ __STATIC_INLINE void LL_APB1_GRP1_EnableClockStopSleep(uint32_t Periphs)
   *         APBSMENR1    SPI2SMEN      LL_APB1_GRP1_DisableClockStopSleep\n (*)
   *         APBSMENR1    I2C2SMEN      LL_APB1_GRP1_DisableClockStopSleep\n (*)
   *         APBSMENR1    USBSMEN       LL_APB1_GRP1_DisableClockStopSleep\n (*)
+  *         APBSMENR1    FDCAN1SMEN    LL_APB1_GRP1_DisableClockStopSleep\n (*)
+  *         APBSMENR1    USART3SMEN    LL_APB1_GRP1_DisableClockStopSleep\n (*)
+  *         APBSMENR1    USART4SMEN    LL_APB1_GRP1_DisableClockStopSleep (*)
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3
   *         @arg @ref LL_APB1_GRP1_PERIPH_RTC
@@ -526,6 +577,9 @@ __STATIC_INLINE void LL_APB1_GRP1_EnableClockStopSleep(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2 (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_I2C2 (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_USB  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_FDCAN1  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_USART3  (*)
+  *         @arg @ref LL_APB1_GRP1_PERIPH_USART4  (*)
   * @note (*) peripheral not available on all devices
   * @retval None
   */
@@ -551,7 +605,8 @@ __STATIC_INLINE void LL_APB1_GRP1_DisableClockStopSleep(uint32_t Periphs)
   *         APBENR2      TIM14EN       LL_APB1_GRP2_EnableClock\n
   *         APBENR2      TIM16EN       LL_APB1_GRP2_EnableClock\n
   *         APBENR2      TIM17EN       LL_APB1_GRP2_EnableClock\n
-  *         APBENR2      ADCEN         LL_APB1_GRP2_EnableClock
+  *         APBENR2      ADCEN         LL_APB1_GRP2_EnableClock\n
+  *         APBENR2      TIM15EN       LL_APB1_GRP2_EnableClock (*)
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP2_PERIPH_SYSCFG
   *         @arg @ref LL_APB1_GRP2_PERIPH_TIM1
@@ -561,6 +616,8 @@ __STATIC_INLINE void LL_APB1_GRP1_DisableClockStopSleep(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP2_PERIPH_TIM16
   *         @arg @ref LL_APB1_GRP2_PERIPH_TIM17
   *         @arg @ref LL_APB1_GRP2_PERIPH_ADC
+  *         @arg @ref LL_APB1_GRP2_PERIPH_TIM15 (*)
+  * @note (*) peripheral not available on all devices
   * @retval None
   */
 __STATIC_INLINE void LL_APB1_GRP2_EnableClock(uint32_t Periphs)
@@ -582,7 +639,8 @@ __STATIC_INLINE void LL_APB1_GRP2_EnableClock(uint32_t Periphs)
   *         APBENR2      TIM14EN       LL_APB1_GRP2_IsEnabledClock\n
   *         APBENR2      TIM16EN       LL_APB1_GRP2_IsEnabledClock\n
   *         APBENR2      TIM17EN       LL_APB1_GRP2_IsEnabledClock\n
-  *         APBENR2      ADCEN         LL_APB1_GRP2_IsEnabledClock
+  *         APBENR2      ADCEN         LL_APB1_GRP2_IsEnabledClock\n
+  *         APBENR2      TIM15EN       LL_APB1_GRP2_IsEnabledClock (*)
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP2_PERIPH_SYSCFG
   *         @arg @ref LL_APB1_GRP2_PERIPH_TIM1
@@ -592,6 +650,8 @@ __STATIC_INLINE void LL_APB1_GRP2_EnableClock(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP2_PERIPH_TIM16
   *         @arg @ref LL_APB1_GRP2_PERIPH_TIM17
   *         @arg @ref LL_APB1_GRP2_PERIPH_ADC
+  *         @arg @ref LL_APB1_GRP2_PERIPH_TIM15 (*)
+  * @note (*) peripheral not available on all devices
   * @retval State of Periphs (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_APB1_GRP2_IsEnabledClock(uint32_t Periphs)
@@ -609,7 +669,8 @@ __STATIC_INLINE uint32_t LL_APB1_GRP2_IsEnabledClock(uint32_t Periphs)
   *         APBENR2      TIM14EN       LL_APB1_GRP2_DisableClock\n
   *         APBENR2      TIM16EN       LL_APB1_GRP2_DisableClock\n
   *         APBENR2      TIM17EN       LL_APB1_GRP2_DisableClock\n
-  *         APBENR2      ADCEN         LL_APB1_GRP2_DisableClock
+  *         APBENR2      ADCEN         LL_APB1_GRP2_DisableClock\n
+  *         APBENR2      TIM15EN       LL_APB1_GRP2_DisableClock (*)
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP2_PERIPH_SYSCFG
   *         @arg @ref LL_APB1_GRP2_PERIPH_TIM1
@@ -619,6 +680,9 @@ __STATIC_INLINE uint32_t LL_APB1_GRP2_IsEnabledClock(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP2_PERIPH_TIM16
   *         @arg @ref LL_APB1_GRP2_PERIPH_TIM17
   *         @arg @ref LL_APB1_GRP2_PERIPH_ADC
+  *         @arg @ref LL_APB1_GRP2_PERIPH_ADC
+  *         @arg @ref LL_APB1_GRP2_PERIPH_TIM15 (*)
+  * @note (*) peripheral not available on all devices
   * @retval None
   */
 __STATIC_INLINE void LL_APB1_GRP2_DisableClock(uint32_t Periphs)
@@ -636,7 +700,8 @@ __STATIC_INLINE void LL_APB1_GRP2_DisableClock(uint32_t Periphs)
   *         APBRSTR2     TIM14RST      LL_APB1_GRP2_ForceReset\n
   *         APBRSTR2     TIM16RST      LL_APB1_GRP2_ForceReset\n
   *         APBRSTR2     TIM17RST      LL_APB1_GRP2_ForceReset\n
-  *         APBRSTR2     ADCRST        LL_APB1_GRP2_ForceReset
+  *         APBRSTR2     ADCRST        LL_APB1_GRP2_ForceReset\n
+  *         APBRSTR2     TIM15RST      LL_APB1_GRP2_ForceReset (*)
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP2_PERIPH_ALL
   *         @arg @ref LL_APB1_GRP2_PERIPH_SYSCFG
@@ -647,6 +712,8 @@ __STATIC_INLINE void LL_APB1_GRP2_DisableClock(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP2_PERIPH_TIM16
   *         @arg @ref LL_APB1_GRP2_PERIPH_TIM17
   *         @arg @ref LL_APB1_GRP2_PERIPH_ADC
+  *         @arg @ref LL_APB1_GRP2_PERIPH_TIM15 (*)
+  * @note (*) peripheral not available on all devices
   * @retval None
   */
 __STATIC_INLINE void LL_APB1_GRP2_ForceReset(uint32_t Periphs)
@@ -664,7 +731,8 @@ __STATIC_INLINE void LL_APB1_GRP2_ForceReset(uint32_t Periphs)
   *         APBRSTR2     TIM14RST      LL_APB1_GRP2_ReleaseReset\n
   *         APBRSTR2     TIM16RST      LL_APB1_GRP2_ReleaseReset\n
   *         APBRSTR2     TIM17RST      LL_APB1_GRP2_ReleaseReset\n
-  *         APBRSTR2     ADCRST        LL_APB1_GRP2_ReleaseReset
+  *         APBRSTR2     ADCRST        LL_APB1_GRP2_ReleaseReset\n
+  *         APBRSTR2     TIM15RST      LL_APB1_GRP2_ReleaseReset (*)
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP2_PERIPH_ALL
   *         @arg @ref LL_APB1_GRP2_PERIPH_SYSCFG
@@ -675,6 +743,8 @@ __STATIC_INLINE void LL_APB1_GRP2_ForceReset(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP2_PERIPH_TIM16
   *         @arg @ref LL_APB1_GRP2_PERIPH_TIM17
   *         @arg @ref LL_APB1_GRP2_PERIPH_ADC
+  *         @arg @ref LL_APB1_GRP2_PERIPH_TIM15 (*)
+  * @note (*) peripheral not available on all devices
   * @retval None
   */
 __STATIC_INLINE void LL_APB1_GRP2_ReleaseReset(uint32_t Periphs)
@@ -692,7 +762,8 @@ __STATIC_INLINE void LL_APB1_GRP2_ReleaseReset(uint32_t Periphs)
   *         APBSMENR2    TIM14SMEN     LL_APB1_GRP2_EnableClockStopSleep\n
   *         APBSMENR2    TIM16SMEN     LL_APB1_GRP2_EnableClockStopSleep\n
   *         APBSMENR2    TIM17SMEN     LL_APB1_GRP2_EnableClockStopSleep\n
-  *         APBSMENR2    ADCSMEN       LL_APB1_GRP2_EnableClockStopSleep
+  *         APBSMENR2    ADCSMEN       LL_APB1_GRP2_EnableClockStopSleep\n
+  *         APBSMENR2    TIM15SMEN     LL_APB1_GRP2_EnableClockStopSleep (*)
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP2_PERIPH_SYSCFG
   *         @arg @ref LL_APB1_GRP2_PERIPH_TIM1
@@ -702,6 +773,8 @@ __STATIC_INLINE void LL_APB1_GRP2_ReleaseReset(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP2_PERIPH_TIM16
   *         @arg @ref LL_APB1_GRP2_PERIPH_TIM17
   *         @arg @ref LL_APB1_GRP2_PERIPH_ADC
+  *         @arg @ref LL_APB1_GRP2_PERIPH_TIM15 (*)
+  * @note (*) peripheral not available on all devices
   * @retval None
   */
 __STATIC_INLINE void LL_APB1_GRP2_EnableClockStopSleep(uint32_t Periphs)
@@ -723,7 +796,8 @@ __STATIC_INLINE void LL_APB1_GRP2_EnableClockStopSleep(uint32_t Periphs)
   *         APBSMENR2    TIM14SMEN     LL_APB1_GRP2_DisableClockStopSleep\n
   *         APBSMENR2    TIM16SMEN     LL_APB1_GRP2_DisableClockStopSleep\n
   *         APBSMENR2    TIM17SMEN     LL_APB1_GRP2_DisableClockStopSleep\n
-  *         APBSMENR2    ADCSMEN       LL_APB1_GRP2_DisableClockStopSleep
+  *         APBSMENR2    ADCSMEN       LL_APB1_GRP2_DisableClockStopSleep\n
+  *         APBSMENR2    TIM15SMEN     LL_APB1_GRP2_DisableClockStopSleep (*)
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP2_PERIPH_SYSCFG
   *         @arg @ref LL_APB1_GRP2_PERIPH_TIM1
@@ -733,6 +807,8 @@ __STATIC_INLINE void LL_APB1_GRP2_EnableClockStopSleep(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP2_PERIPH_TIM16
   *         @arg @ref LL_APB1_GRP2_PERIPH_TIM17
   *         @arg @ref LL_APB1_GRP2_PERIPH_ADC
+  *         @arg @ref LL_APB1_GRP2_PERIPH_TIM15 (*)
+  * @note (*) peripheral not available on all devices
   * @retval None
   */
 __STATIC_INLINE void LL_APB1_GRP2_DisableClockStopSleep(uint32_t Periphs)

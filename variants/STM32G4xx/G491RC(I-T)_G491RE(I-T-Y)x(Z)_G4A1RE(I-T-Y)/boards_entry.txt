@@ -46,6 +46,7 @@ GenG4.menu.pnum.GENERIC_G491RETXZ.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G491RETXZ.build.board=GENERIC_G491RETXZ
 GenG4.menu.pnum.GENERIC_G491RETXZ.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491RETXZ.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)x(Z)_G4A1RE(I-T-Y)
+GenG4.menu.pnum.GENERIC_G491RETXZ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G491.svd
 
 # Generic G491REYx
 GenG4.menu.pnum.GENERIC_G491REYX=Generic G491REYx

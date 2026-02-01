@@ -74,6 +74,12 @@ typedef enum {
   SPI_MODE3 = 3,
 } SPIMode;
 
+// Device mode
+typedef enum {
+  SPI_MASTER, /* Device is master */
+  SPI_SLAVE   /* Device is slave */
+} SPIDeviceMode;
+
 ///@brief SPI errors
 typedef enum {
   SPI_OK = 0,
@@ -82,7 +88,7 @@ typedef enum {
 } spi_status_e;
 
 /* Exported functions ------------------------------------------------------- */
-void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb);
+void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb, SPIDeviceMode device);
 void spi_deinit(spi_t *obj);
 spi_status_e spi_transfer(spi_t *obj, const uint8_t *tx_buffer, uint8_t *rx_buffer, uint16_t len);
 uint32_t spi_getClkFreq(spi_t *obj);

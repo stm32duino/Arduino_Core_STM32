@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -30,21 +29,21 @@ extern "C" {
 
 
 /** @addtogroup USBH_LIB
-* @{
-*/
+  * @{
+  */
 
 /** @addtogroup USBH_CLASS
-* @{
-*/
+  * @{
+  */
 
 /** @addtogroup USBH_CDC_CLASS
-* @{
-*/
+  * @{
+  */
 
 /** @defgroup USBH_CDC_CORE
-* @brief This file is the Header file for usbh_core.c
-* @{
-*/
+  * @brief This file is the Header file for usbh_core.c
+  * @{
+  */
 
 
 
@@ -131,8 +130,8 @@ extern "C" {
   */
 
 /** @defgroup USBH_CDC_CORE_Exported_Types
-* @{
-*/
+  * @{
+  */
 
 /* States for CDC State Machine */
 typedef enum
@@ -196,7 +195,7 @@ Offset|  field              | Size  |    Value   |   Description
       |                     |       |            | release number in binary-coded
       |                     |       |            | decimal
 ------|---------------------|-------|------------|------------------------------
-*/
+  */
 typedef struct _FunctionalDescriptorHeader
 {
   uint8_t     bLength;            /*Size of this descriptor.*/
@@ -237,7 +236,7 @@ Offset|  field              | Size  |    Value   |   Description
 4     | bDataInterface      | 1     | Number     | Interface number of Data Class interface
       |                     |       |            | optionally used for call management.
 ------|---------------------|-------|------------|------------------------------
-*/
+  */
 typedef struct _CallMgmtFunctionalDescriptor
 {
   uint8_t    bLength;            /*Size of this functional descriptor, in bytes.*/
@@ -275,7 +274,7 @@ Offset|  field              | Size  |    Value   |   Description
       |                     |       |            | a Communication Class interface with the
       |                     |       |            |   SubClass code of Abstract Control Model.
 ------|---------------------|-------|------------|------------------------------
-*/
+  */
 typedef struct _AbstractCntrlMgmtFunctionalDescriptor
 {
   uint8_t    bLength;            /*Size of this functional descriptor, in bytes.*/
@@ -298,7 +297,7 @@ Offset|  field              | Size  |    Value   |   Description
 4     | bSlaveInterface0    | 1     | Number     | nterface number of first slave or associated
       |                     |       |            | interface in the union.
 ------|---------------------|-------|------------|------------------------------
-*/
+  */
 typedef struct _UnionFunctionalDescriptor
 {
   uint8_t    bLength;            /*Size of this functional descriptor, in bytes*/
@@ -328,7 +327,7 @@ typedef struct
   uint8_t              buff[8];
   uint16_t             NotifEpSize;
 }
-CDC_CommItfTypedef ;
+CDC_CommItfTypedef;
 
 typedef struct
 {
@@ -340,7 +339,7 @@ typedef struct
   uint16_t             OutEpSize;
   uint16_t             InEpSize;
 }
-CDC_DataItfTypedef ;
+CDC_DataItfTypedef;
 
 /* Structure for CDC process */
 typedef struct _CDC_Process
@@ -362,37 +361,37 @@ typedef struct _CDC_Process
 CDC_HandleTypeDef;
 
 /**
-* @}
-*/
+  * @}
+  */
 
 /** @defgroup USBH_CDC_CORE_Exported_Defines
-* @{
-*/
+  * @{
+  */
 
 /**
-* @}
-*/
+  * @}
+  */
 
 /** @defgroup USBH_CDC_CORE_Exported_Macros
-* @{
-*/
+  * @{
+  */
 /**
-* @}
-*/
+  * @}
+  */
 
 /** @defgroup USBH_CDC_CORE_Exported_Variables
-* @{
-*/
+  * @{
+  */
 extern USBH_ClassTypeDef  CDC_Class;
 #define USBH_CDC_CLASS    &CDC_Class
 
 /**
-* @}
-*/
+  * @}
+  */
 
 /** @defgroup USBH_CDC_CORE_Exported_FunctionsPrototype
-* @{
-*/
+  * @{
+  */
 
 USBH_StatusTypeDef  USBH_CDC_SetLineCoding(USBH_HandleTypeDef *phost,
                                            CDC_LineCodingTypeDef *linecoding);
@@ -420,8 +419,8 @@ void USBH_CDC_TransmitCallback(USBH_HandleTypeDef *phost);
 void USBH_CDC_ReceiveCallback(USBH_HandleTypeDef *phost);
 
 /**
-* @}
-*/
+  * @}
+  */
 
 #ifdef __cplusplus
 }
@@ -430,19 +429,18 @@ void USBH_CDC_ReceiveCallback(USBH_HandleTypeDef *phost);
 #endif /* __USBH_CDC_H */
 
 /**
-* @}
-*/
+  * @}
+  */
 
 /**
-* @}
-*/
+  * @}
+  */
 
 /**
-* @}
-*/
+  * @}
+  */
 
 /**
-* @}
-*/
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+  * @}
+  */
 

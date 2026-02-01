@@ -215,8 +215,8 @@ void              HAL_DMAEx_MUX_IRQHandler(DMA_HandleTypeDef *hdma);
 /* Private macros ------------------------------------------------------------*/
 /** @defgroup DMAEx_Private_Macros DMAEx Private Macros
   * @brief    DMAEx private macros
- * @{
- */
+  * @{
+  */
 
 #define IS_DMAMUX_SYNC_SIGNAL_ID(SIGNAL_ID)             (((SIGNAL_ID) == HAL_DMAMUX1_SYNC_EXTI0) || \
                                                          (((SIGNAL_ID) >= HAL_DMAMUX1_SYNC_EXTI1) && \

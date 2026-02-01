@@ -54,7 +54,6 @@
 
 // CN10 Left Side
 #define PD3                     28
-#define PC11                    29
 
 // CN8 Left Side
 #define PA0                     PIN_A0
@@ -66,20 +65,22 @@
 
 // CN10 Right side
 #define PA3                     PIN_A7 // VCP_RX
-#define PC15                    37 // OSCX_OUT
+#define PC15                    36 // OSCX_OUT
 #define PB12                    PIN_A18
 #define PB2                     PIN_A15
-#define PF3                     40
+#define PF3                     39
 #define PA8                     PIN_A11
-#define PB15                    42
-#define PB14                    43
-#define PB13                    44
+#define PB15                    41
+#define PB14                    42
+#define PB13                    43
 
 // Others
-#define PF2                     45 // NRST
+#define PF2                     44 // NRST
+#define PA9_R                   45
+#define PA10_R                  46
 
-
-#define NUM_DIGITAL_PINS        46
+#define NUM_DIGITAL_PINS        47
+#define NUM_REMAP_PINS          2
 #define NUM_ANALOG_INPUTS       19
 
 // On-board LED pin number

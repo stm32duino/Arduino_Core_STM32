@@ -53,14 +53,14 @@ IWatchdogClass IWatchdog = IWatchdogClass();
 
 #### Predefined values
 
- * Minimal timeout in microseconds: `IWDG_TIMEOUT_MIN`
- * Maximal timeout in microseconds: `IWDG_TIMEOUT_MAX`
+ * Minimal timeout in **microseconds**: `IWDG_TIMEOUT_MIN`
+ * Maximal timeout in **microseconds**: `IWDG_TIMEOUT_MAX`
 
 #### `void begin(uint32_t timeout, uint32_t window = IWDG_TIMEOUT_MAX)`
 
 The `begin()` function would initialize the IWDG hardware block.
 
-The `timeout` parameter is in microseconds and set the timer reset timeout.
+The `timeout` parameter is in **microseconds** and set the timer reset timeout.
 When the timer reaches zero the hardware block would generate a reset signal
 for the CPU.
 
@@ -84,22 +84,22 @@ Valid timeout values depends of the LSI clock. Typically, it is 32kH value are b
  | 8193ms - 16384ms    | 4ms
  | 16385ms - 32768ms   | 8ms
 
-The optional `window` parameter is in microseconds and must be less than `timeout`.
+The optional `window` parameter is in **microseconds and must be less than `timeout`**.
 If the window option is enabled, the counter must be refreshed inside the window;
 otherwise, a system reset is generated.
 
-**Note:**
-Window feature is not available for all STM32 series.
+> [!NOTE]
+> Window feature is not available for all STM32 series.
 
 Calling the `begin()` method with value outside of the valid range
 would return without initializing the watchdog timer.
 
-**WARNING:**
-*Once started the IWDG timer can not be stopped. If you are
-planning to debug the live system, the watchdog timer may cause the
-system to be reset while you are stopped in the debugger. Also consider
-the iwatchdog timer implications if you are designing a system which puts
-the CPU in sleep mode.*
+> [!WARNING]
+> Once started the IWDG timer can not be stopped. If you are
+> planning to debug the live system, the watchdog timer may cause the
+> system to be reset while you are stopped in the debugger. Also consider
+> the iwatchdog timer implications if you are designing a system which puts
+> the CPU in sleep mode.*
 
 #### `void reload()`
 
@@ -119,7 +119,7 @@ The `timeout` and optional `window` parameters are the same than `begin()` metho
 The `get()` method allows to get the current timeout and window values
 currently set.
 
-The `timeout` and optional `window` pointers to get values are in microseconds.
+The `timeout` and optional `window` pointers to get values are in **microseconds**.
 
 #### `bool isEnabled()`
 

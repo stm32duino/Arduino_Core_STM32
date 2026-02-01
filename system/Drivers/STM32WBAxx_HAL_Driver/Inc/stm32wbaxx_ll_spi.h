@@ -31,7 +31,7 @@ extern "C" {
   * @{
   */
 
-#if defined(SPI1) || defined(SPI3)
+#if defined(SPI1) || defined(SPI2) || defined(SPI3)
 
 /** @defgroup SPI_LL SPI
   * @{
@@ -2722,7 +2722,7 @@ void        LL_SPI_StructInit(LL_SPI_InitTypeDef *SPI_InitStruct);
   */
 
 
-#endif /* defined(SPI1) || defined(SPI3) */
+#endif /* defined(SPI1) || defined(SPI2) || defined(SPI3) */
 
 /**
   * @}

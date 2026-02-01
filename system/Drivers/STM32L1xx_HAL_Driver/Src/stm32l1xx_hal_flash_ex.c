@@ -184,7 +184,7 @@ static HAL_StatusTypeDef  FLASH_DATAEEPROM_ProgramByte(uint32_t Address, uint8_t
   */
 HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t *PageError)
 {
-  HAL_StatusTypeDef status = HAL_ERROR;
+  HAL_StatusTypeDef status;
   uint32_t address = 0U;
 
   /* Process Locked */
@@ -280,7 +280,7 @@ HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t
   */
 HAL_StatusTypeDef HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit)
 {
-  HAL_StatusTypeDef status = HAL_ERROR;
+  HAL_StatusTypeDef status;
 
   /* If procedure already ongoing, reject the next one */
   if (pFlash.ProcedureOnGoing != FLASH_PROC_NONE)
@@ -845,7 +845,7 @@ HAL_StatusTypeDef HAL_FLASHEx_DATAEEPROM_Erase(uint32_t TypeErase, uint32_t Addr
 
 HAL_StatusTypeDef   HAL_FLASHEx_DATAEEPROM_Program(uint32_t TypeProgram, uint32_t Address, uint32_t Data)
 {
-  HAL_StatusTypeDef status = HAL_ERROR;
+  HAL_StatusTypeDef status;
 
   /* Process Locked */
   __HAL_LOCK(&pFlash);

@@ -204,7 +204,6 @@
       not defined, the callback registration feature is not available
       and weak callbacks are used.
 
-
   @endverbatim
   *
   */
@@ -229,7 +228,6 @@
 /** @defgroup  FMAC_Private_Constants   FMAC Private Constants
   * @{
   */
-
 #define MAX_FILTER_DATA_SIZE_TO_HANDLE ((uint16_t) 0xFFU)
 #define MAX_PRELOAD_INDEX      0xFFU
 #define PRELOAD_ACCESS_DMA     0x00U
@@ -322,7 +320,6 @@
 /* Private variables ---------------------------------------------------------*/
 /* Global variables ----------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
-
 static HAL_StatusTypeDef FMAC_Reset(FMAC_HandleTypeDef *hfmac);
 static void FMAC_ResetDataPointers(FMAC_HandleTypeDef *hfmac);
 static void FMAC_ResetOutputStateAndDataPointers(FMAC_HandleTypeDef *hfmac);
@@ -348,7 +345,6 @@ static void FMAC_DMAFilterPreload(DMA_HandleTypeDef *hdma);
 static void FMAC_DMAError(DMA_HandleTypeDef *hdma);
 
 /* Functions Definition ------------------------------------------------------*/
-
 /** @defgroup FMAC_Exported_Functions FMAC Exported Functions
   * @{
   */
@@ -1203,7 +1199,7 @@ HAL_StatusTypeDef HAL_FMAC_PollFilterData(FMAC_HandleTypeDef *hfmac, uint32_t Ti
   */
 HAL_StatusTypeDef HAL_FMAC_FilterStop(FMAC_HandleTypeDef *hfmac)
 {
-  HAL_StatusTypeDef status;
+  HAL_StatusTypeDef status = HAL_OK;
 
   /* Check handle state is ready */
   if (hfmac->State == HAL_FMAC_STATE_READY)
@@ -1222,9 +1218,22 @@ HAL_StatusTypeDef HAL_FMAC_FilterStop(FMAC_HandleTypeDef *hfmac)
     {
       (*(hfmac->pInputSize))  = hfmac->InputCurrentSize;
     }
+
     if ((hfmac->OutputAccess == FMAC_BUFFER_ACCESS_IT) && (hfmac->pOutput != NULL))
     {
       (*(hfmac->pOutputSize)) = hfmac->OutputCurrentSize;
+    }
+
+    if (hfmac->InputAccess == FMAC_BUFFER_ACCESS_DMA)
+    {
+      /* Disable the DMA stream managing FMAC input data */
+      status = HAL_DMA_Abort_IT(hfmac->hdmaIn);
+    }
+
+    if ((hfmac->OutputAccess == FMAC_BUFFER_ACCESS_DMA) && (status == HAL_OK))
+    {
+      /* Disable the DMA stream managing FMAC output data */
+      status = HAL_DMA_Abort_IT(hfmac->hdmaOut);
     }
 
     /* Reset FMAC unit (internal pointers) */
@@ -1239,8 +1248,6 @@ HAL_StatusTypeDef HAL_FMAC_FilterStop(FMAC_HandleTypeDef *hfmac)
     {
       /* Reset the data pointers */
       FMAC_ResetDataPointers(hfmac);
-
-      status = HAL_OK;
     }
 
     /* Reset the busy flag */
@@ -2410,7 +2417,6 @@ static void FMAC_DMAFilterConfig(DMA_HandleTypeDef *hdma)
 #else
   HAL_FMAC_ErrorCallback(hfmac);
 #endif /* USE_HAL_FMAC_REGISTER_CALLBACKS */
-
 }
 
 /**
@@ -2516,10 +2522,10 @@ static void FMAC_DMAError(DMA_HandleTypeDef *hdma)
   HAL_FMAC_ErrorCallback(hfmac);
 #endif /* USE_HAL_FMAC_REGISTER_CALLBACKS */
 }
+
 /**
   * @}
   */
-
 
 /**
   * @}

@@ -429,6 +429,16 @@ typedef struct
   * @}
   */
 
+#if defined(PWR_USBSCR_OTGHSEN)
+/** @defgroup OTGHS_CLK48_VALUE OTG_HS output clock
+  * @{
+  */
+#define OTGHS_CLK48_VALUE        48000000U    /*!< Value of the OTGHS_CLK48 in Hz*/
+/**
+  * @}
+  */
+#endif /* PWR_USBSCR_OTGHSEN */
+
 /** @defgroup RCCEx_Periph_Clock_Selection  RCCEx Periph Clock Selection
   * @{
   */
@@ -1256,9 +1266,11 @@ typedef struct
 /** @defgroup RCCEx_CRS_SynchroSource RCCEx CRS SynchroSource
   * @{
   */
-#define RCC_CRS_SYNC_SOURCE_GPIO       ((uint32_t)0x00000000U) /*!< Synchro Signal source GPIO */
-#define RCC_CRS_SYNC_SOURCE_LSE        CRS_CFGR_SYNCSRC_0      /*!< Synchro Signal source LSE */
-#define RCC_CRS_SYNC_SOURCE_USB        CRS_CFGR_SYNCSRC_1      /*!< Synchro Signal source USB SOF (default)*/
+#define RCC_CRS_SYNC_SOURCE_GPIO       ((uint32_t)0x00000000U)                     /*!< Synchro Signal source GPIO */
+#define RCC_CRS_SYNC_SOURCE_LSE        CRS_CFGR_SYNCSRC_0                          /*!< Synchro Signal source LSE */
+#if defined(USB_DRD_FS)
+#define RCC_CRS_SYNC_SOURCE_USB        CRS_CFGR_SYNCSRC_1                          /*!< Synchro Signal source USB SOF (default)*/
+#endif /* USB_DRD_FS */
 /**
   * @}
   */
@@ -3724,10 +3736,11 @@ typedef struct
    ((VALUE) == RCC_TIMPRES_ACTIVATED))
 
 #if defined(CRS)
-
+#if defined(USB_DRD_FS)
 #define IS_RCC_CRS_SYNC_SOURCE(__SOURCE__) (((__SOURCE__) == RCC_CRS_SYNC_SOURCE_GPIO) || \
                                             ((__SOURCE__) == RCC_CRS_SYNC_SOURCE_LSE) || \
                                             ((__SOURCE__) == RCC_CRS_SYNC_SOURCE_USB))
+#endif /* USB_DRD_FS */
 
 #define IS_RCC_CRS_SYNC_DIV(__DIV__)       (((__DIV__) == RCC_CRS_SYNC_DIV1) || ((__DIV__) == RCC_CRS_SYNC_DIV2) || \
                                             ((__DIV__) == RCC_CRS_SYNC_DIV4) || ((__DIV__) == RCC_CRS_SYNC_DIV8) || \

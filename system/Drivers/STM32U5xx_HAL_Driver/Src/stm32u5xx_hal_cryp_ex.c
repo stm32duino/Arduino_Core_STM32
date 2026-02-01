@@ -39,7 +39,7 @@
 /** @addtogroup CRYPEx_Private_Defines
   * @{
   */
-
+#define CRYPEx_GENERAL_TIMEOUT                         82U
 #define CRYP_PHASE_INIT                              0x00000000U             /*!< GCM/GMAC (or CCM) init phase */
 #define CRYP_PHASE_HEADER                            AES_CR_GCMPH_0          /*!< GCM/GMAC or CCM header phase */
 #define CRYP_PHASE_PAYLOAD                           AES_CR_GCMPH_1          /*!< GCM(/CCM) payload phase   */
@@ -66,6 +66,7 @@
 /* Private function prototypes -----------------------------------------------*/
 static HAL_StatusTypeDef CRYPEx_KeyDecrypt(CRYP_HandleTypeDef *hcryp, uint32_t Timeout);
 static HAL_StatusTypeDef CRYPEx_KeyEncrypt(CRYP_HandleTypeDef *hcryp, uint32_t Timeout);
+static HAL_StatusTypeDef CRYPEx_WaitFLAG(CRYP_HandleTypeDef *hcryp, uint32_t flag, FlagStatus Status, uint32_t Timeout);
 /* Exported functions---------------------------------------------------------*/
 /** @addtogroup CRYPEx_Exported_Functions
   * @{
@@ -125,6 +126,13 @@ HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, c
     /* Check if initialization phase has already been performed */
     if (hcryp->Phase == CRYPEx_PHASE_PROCESS)
     {
+      /* Check the busy flag before writing CR register */
+      if (CRYPEx_WaitFLAG(hcryp, AES_SR_BUSY, SET, CRYPEx_GENERAL_TIMEOUT) != HAL_OK)
+      {
+        hcryp->State = HAL_CRYP_STATE_READY;
+        __HAL_UNLOCK(hcryp);
+        return HAL_ERROR;
+      }
       /* Change the CRYP phase */
       hcryp->Phase = CRYPEx_PHASE_FINAL;
 
@@ -143,19 +151,16 @@ HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, c
       while (HAL_IS_BIT_CLR(hcryp->Instance->ISR, AES_ISR_CCF))
       {
         /* Check for the Timeout */
-        if (Timeout != HAL_MAX_DELAY)
+        if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
         {
-          if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
-          {
-            /* Disable the CRYP peripheral clock */
-            __HAL_CRYP_DISABLE(hcryp);
+          /* Disable the CRYP peripheral clock */
+          __HAL_CRYP_DISABLE(hcryp);
 
-            /* Change state */
-            hcryp->ErrorCode |= HAL_CRYP_ERROR_TIMEOUT;
-            hcryp->State = HAL_CRYP_STATE_READY;
-            __HAL_UNLOCK(hcryp);
-            return HAL_ERROR;
-          }
+          /* Change state */
+          hcryp->ErrorCode |= HAL_CRYP_ERROR_TIMEOUT;
+          hcryp->State = HAL_CRYP_STATE_READY;
+          __HAL_UNLOCK(hcryp);
+          return HAL_ERROR;
         }
       }
 
@@ -459,7 +464,13 @@ HAL_StatusTypeDef HAL_CRYPEx_EncryptSharedKey(CRYP_HandleTypeDef *hcryp, uint32_
 
     /* Set the operating mode */
     MODIFY_REG(hcryp->Instance->CR, AES_CR_KMOD | AES_CR_KSHAREID, CRYP_KEYMODE_SHARED | ID);
-
+    /* Check the busy flag before writing CR register */
+    if (CRYPEx_WaitFLAG(hcryp, AES_SR_BUSY, SET, CRYPEx_GENERAL_TIMEOUT) != HAL_OK)
+    {
+      hcryp->State = HAL_CRYP_STATE_READY;
+      __HAL_UNLOCK(hcryp);
+      return HAL_ERROR;
+    }
     /* Encryption operating mode(Mode 0)*/
     MODIFY_REG(hcryp->Instance->CR, AES_CR_MODE, CRYP_OPERATINGMODE_ENCRYPT);
 
@@ -504,7 +515,13 @@ HAL_StatusTypeDef HAL_CRYPEx_DecryptSharedKey(CRYP_HandleTypeDef *hcryp, uint32_
 
     /* Set the operating mode */
     MODIFY_REG(hcryp->Instance->CR, AES_CR_KMOD | AES_CR_KSHAREID, CRYP_KEYMODE_SHARED | ID);
-
+    /* Check the busy flag before writing CR register */
+    if (CRYPEx_WaitFLAG(hcryp, AES_SR_BUSY, SET, CRYPEx_GENERAL_TIMEOUT) != HAL_OK)
+    {
+      hcryp->State = HAL_CRYP_STATE_READY;
+      __HAL_UNLOCK(hcryp);
+      return HAL_ERROR;
+    }
     status = CRYPEx_KeyDecrypt(hcryp, Timeout);
   }
   else
@@ -722,6 +739,31 @@ static HAL_StatusTypeDef CRYPEx_KeyEncrypt(CRYP_HandleTypeDef *hcryp, uint32_t T
   /* Change the CRYP peripheral state */
   hcryp->State = HAL_CRYP_STATE_READY;
   __HAL_UNLOCK(hcryp);
+  return HAL_OK;
+}
+/**
+  * @brief  Wait Instance Flag
+  * @param  hcryp cryp handle
+  * @param  flag Specifies the flag to check
+  * @param  Status Flag status (SET or RESET)
+  * @param  Timeout Timeout duration
+  * @retval HAL status.
+  */
+
+static HAL_StatusTypeDef CRYPEx_WaitFLAG(CRYP_HandleTypeDef *hcryp, uint32_t flag, FlagStatus Status, uint32_t Timeout)
+{
+  uint32_t tickstart = HAL_GetTick();
+  while (__HAL_CRYP_GET_FLAG(hcryp, flag) == Status)
+  {
+    if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
+    {
+      CLEAR_BIT(hcryp->Instance->CR, AES_CR_EN);
+      /* Change state */
+      hcryp->ErrorCode |= HAL_CRYP_ERROR_TIMEOUT;
+      /* return error */
+      return HAL_ERROR;
+    }
+  }
   return HAL_OK;
 }
 

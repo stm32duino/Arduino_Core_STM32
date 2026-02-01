@@ -101,7 +101,14 @@
   * @{
   */
 /* Variable used for Erase sectors under interruption */
-FLASH_ProcessTypeDef pFlash;
+FLASH_ProcessTypeDef pFlash  = {.ProcedureOnGoing = FLASH_PROC_NONE,
+                                .NbSectorsToErase = 0U,
+                                .VoltageForErase= FLASH_VOLTAGE_RANGE_1,
+                                .Sector = 0U,
+                                .Bank = FLASH_BANK_1,
+                                .Address = 0U,
+                                .Lock = HAL_UNLOCKED,
+                                .ErrorCode = HAL_FLASH_ERROR_NONE};
 /**
   * @}
   */
@@ -153,7 +160,7 @@ HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout);
   */
 HAL_StatusTypeDef HAL_FLASH_Program(uint32_t TypeProgram, uint32_t Address, uint64_t Data)
 {
-  HAL_StatusTypeDef status = HAL_ERROR;
+  HAL_StatusTypeDef status;
 
   /* Process Locked */
   __HAL_LOCK(&pFlash);

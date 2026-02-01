@@ -6,29 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
+  * Copyright (c) 2023 STMicroelectronics.
+  * All rights reserved.
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -105,14 +88,14 @@ extern "C" {
 /** @defgroup CRS_LL_EC_SYNC_DIV Synchronization Signal Divider
   * @{
   */
-#define LL_CRS_SYNC_DIV_1                  ((uint32_t)0x00U)                         /*!< Synchro Signal not divided (default) */
-#define LL_CRS_SYNC_DIV_2                  CRS_CFGR_SYNCDIV_0                        /*!< Synchro Signal divided by 2 */
-#define LL_CRS_SYNC_DIV_4                  CRS_CFGR_SYNCDIV_1                        /*!< Synchro Signal divided by 4 */
-#define LL_CRS_SYNC_DIV_8                  (CRS_CFGR_SYNCDIV_1 | CRS_CFGR_SYNCDIV_0) /*!< Synchro Signal divided by 8 */
-#define LL_CRS_SYNC_DIV_16                 CRS_CFGR_SYNCDIV_2                        /*!< Synchro Signal divided by 16 */
-#define LL_CRS_SYNC_DIV_32                 (CRS_CFGR_SYNCDIV_2 | CRS_CFGR_SYNCDIV_0) /*!< Synchro Signal divided by 32 */
-#define LL_CRS_SYNC_DIV_64                 (CRS_CFGR_SYNCDIV_2 | CRS_CFGR_SYNCDIV_1) /*!< Synchro Signal divided by 64 */
-#define LL_CRS_SYNC_DIV_128                CRS_CFGR_SYNCDIV                          /*!< Synchro Signal divided by 128 */
+#define LL_CRS_SYNC_DIV_1         ((uint32_t)0x00U)                         /*!< Synchro Signal not divided (default) */
+#define LL_CRS_SYNC_DIV_2         CRS_CFGR_SYNCDIV_0                        /*!< Synchro Signal divided by 2 */
+#define LL_CRS_SYNC_DIV_4         CRS_CFGR_SYNCDIV_1                        /*!< Synchro Signal divided by 4 */
+#define LL_CRS_SYNC_DIV_8         (CRS_CFGR_SYNCDIV_1 | CRS_CFGR_SYNCDIV_0) /*!< Synchro Signal divided by 8 */
+#define LL_CRS_SYNC_DIV_16        CRS_CFGR_SYNCDIV_2                        /*!< Synchro Signal divided by 16 */
+#define LL_CRS_SYNC_DIV_32        (CRS_CFGR_SYNCDIV_2 | CRS_CFGR_SYNCDIV_0) /*!< Synchro Signal divided by 32 */
+#define LL_CRS_SYNC_DIV_64        (CRS_CFGR_SYNCDIV_2 | CRS_CFGR_SYNCDIV_1) /*!< Synchro Signal divided by 64 */
+#define LL_CRS_SYNC_DIV_128       CRS_CFGR_SYNCDIV                          /*!< Synchro Signal divided by 128 */
 /**
   * @}
   */
@@ -469,7 +452,8 @@ __STATIC_INLINE uint32_t LL_CRS_GetSyncPolarity(void)
   * @param  ReloadValue a number between Min_Data = 0 and Max_Data = 255
   * @param  Settings This parameter can be a combination of the following values:
   *         @arg @ref LL_CRS_SYNC_DIV_1 or @ref LL_CRS_SYNC_DIV_2 or @ref LL_CRS_SYNC_DIV_4 or @ref LL_CRS_SYNC_DIV_8
-  *              or @ref LL_CRS_SYNC_DIV_16 or @ref LL_CRS_SYNC_DIV_32 or @ref LL_CRS_SYNC_DIV_64 or @ref LL_CRS_SYNC_DIV_128
+  *              or @ref LL_CRS_SYNC_DIV_16 or @ref LL_CRS_SYNC_DIV_32 or @ref LL_CRS_SYNC_DIV_64
+  *              or @ref LL_CRS_SYNC_DIV_128
   *         @arg @ref LL_CRS_SYNC_SOURCE_GPIO or @ref LL_CRS_SYNC_SOURCE_LSE or @ref LL_CRS_SYNC_SOURCE_USB
   *         @arg @ref LL_CRS_SYNC_POLARITY_RISING or @ref LL_CRS_SYNC_POLARITY_FALLING
   * @retval None
@@ -806,5 +790,3 @@ ErrorStatus LL_CRS_DeInit(void);
 #endif
 
 #endif /* STM32C0xx_LL_CRS_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

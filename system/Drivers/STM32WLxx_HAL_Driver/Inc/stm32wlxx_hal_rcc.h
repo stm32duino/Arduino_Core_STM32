@@ -633,11 +633,11 @@ typedef struct
   */
 
 /* @cond */
-  /* 32     28      20       16      0
-   --------------------------------
-   | MCO   | GPIO  | GPIO  | GPIO  |
-   | Index |  AF   | Port  |  Pin  |
-   -------------------------------*/
+/* 32     28      20       16      0
+ --------------------------------
+ | MCO   | GPIO  | GPIO  | GPIO  |
+ | Index |  AF   | Port  |  Pin  |
+ -------------------------------*/
 
 #define RCC_MCO_GPIOPORT_POS   16U
 #define RCC_MCO_GPIOPORT_MASK  (0xFUL << RCC_MCO_GPIOPORT_POS)
@@ -2005,26 +2005,38 @@ typedef struct
   *         This parameter can be one of the following values:
   *            @arg @ref RCC_LSE_OFF  Turn OFF the LSE oscillator, LSERDY flag goes low after
   *                              6 LSE oscillator clock cycles.
-  *            @arg @ref RCC_LSE_ON  Turn ON the LSE oscillator.
-  *            @arg @ref RCC_LSE_BYPASS  LSE oscillator bypassed with external clock.
+  *            @arg @ref RCC_LSE_ON_RTC_ONLY      Turn ON the LSE oscillator to be used only for RTC.
+  *            @arg @ref RCC_LSE_ON               Turn ON the LSE oscillator to be used by any peripheral.
+  *            @arg @ref RCC_LSE_BYPASS_RTC_ONLY  LSE oscillator bypassed with external clock to be used only for RTC.
+  *            @arg @ref RCC_LSE_BYPASS           LSE oscillator bypassed with external clock to be used by any peripheral.
   * @retval None
   */
-#define __HAL_RCC_LSE_CONFIG(__STATE__)  do {                                          \
-                                              if((__STATE__) == RCC_LSE_ON)            \
-                                              {                                        \
-                                                LL_RCC_LSE_Enable();                   \
-                                              }                                        \
-                                              else if((__STATE__) == RCC_LSE_BYPASS)   \
-                                              {                                        \
-                                                LL_RCC_LSE_EnableBypass();             \
-                                                LL_RCC_LSE_Enable();                   \
-                                              }                                        \
-                                              else                                     \
-                                              {                                        \
-                                                LL_RCC_LSE_Disable();                  \
-                                                LL_RCC_LSE_DisableBypass();            \
-                                              }                                        \
-                                            } while(0U)
+#define __HAL_RCC_LSE_CONFIG(__STATE__)                                \
+  do {                                                                 \
+    if((__STATE__) == RCC_LSE_ON_RTC_ONLY)                             \
+    {                                                                  \
+      SET_BIT(RCC->BDCR,RCC_BDCR_LSEON);                               \
+    }                                                                  \
+    else if((__STATE__) == RCC_LSE_ON)                                 \
+    {                                                                  \
+      SET_BIT(RCC->BDCR, (RCC_BDCR_LSEON | RCC_BDCR_LSESYSEN));        \
+    }                                                                  \
+    else if((__STATE__) == RCC_LSE_BYPASS_RTC_ONLY)                    \
+    {                                                                  \
+      SET_BIT(RCC->BDCR, RCC_BDCR_LSEBYP);                             \
+      SET_BIT(RCC->BDCR, RCC_BDCR_LSEON);                              \
+    }                                                                  \
+    else if((__STATE__) == RCC_LSE_BYPASS)                             \
+    {                                                                  \
+      SET_BIT(RCC->BDCR, RCC_BDCR_LSEBYP);                             \
+      SET_BIT(RCC->BDCR, (RCC_BDCR_LSEON | RCC_BDCR_LSESYSEN));        \
+    }                                                                  \
+    else                                                               \
+    {                                                                  \
+      CLEAR_BIT(RCC->BDCR, (RCC_BDCR_LSEON | RCC_BDCR_LSESYSEN));      \
+      CLEAR_BIT(RCC->BDCR, RCC_BDCR_LSEBYP);                           \
+    }                                                                  \
+  } while(0)
 
 /** @brief  Macro to configure the RTC clock (RTCCLK).
   * @note   As the RTC clock configuration bits are in the Backup domain and write

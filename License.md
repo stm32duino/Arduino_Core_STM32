@@ -1,35 +1,36 @@
 This files includes licensing information for parts of this repository.
 
-Note: most license information is available on top of each source file
-      or on bottom of Release_Notes.html if available.
+> [!NOTE]
+> Most license information is available on top of each source file or on bottom of Release_Notes.html if available.
 
 [LGPLv2.1](#lgplv21) is used for:
 
-* cores/arduino/*.* mainly contains modified files from Arduino.
+* `cores/arduino/*.*` mainly contains modified files from Arduino.
 
 [BSD 3-Clause License](#bsd-3-clause-license) is used for:
 
-* system/Drivers/STM32*xx_HAL_Driver folders include the STMicroelectronics HAL Drivers
-* system/Middlewares/OpenAMP
-* libraries/VirtIO - except virtio implementation (see [MIT License](#mit-license))
-* libraries/SrcWrapper/inc/PinName*.h
+* `system/Drivers/STM32*xx_HAL_Driver` folders include the STMicroelectronics HAL Drivers
+* `system/Middlewares/OpenAMP`
+* `libraries/VirtIO` - except virtio implementation (see [MIT License](#mit-license))
+* `libraries/SrcWrapper/inc/PinName*.h`
 
 [Ultimate Liberty License](#Ultimate-Liberty-License) is used for:
-* system/Middlewares/STM32_USB_*_Library folders
-* libraries/USBDevice (see header)
+* `system/Middlewares/STM32_USB_*_Library` folders
+* `libraries/USBDevice` (see header)
 
 [Apache License](#apache-license) is used for:
-* system/Drivers/CMSIS folder includes the STMicroelectronics CMSIS device
-* system/include/include/pinmap.h
-* libraries/SrcWrapper/src/stm32/pinmap.c
-* tools/platformio/platformio-build.py
+* `system/Drivers/CMSIS` folder includes the STMicroelectronics CMSIS device
+* `system/include/include/pinmap.h`
+* `libraries/SrcWrapper/src/stm32/pinmap.c`
+* `tools/platformio/platformio-build.py`
 
 [MIT License](#mit-license)
-* libraries/VirtIO/*/virtio*
+* `libraries/VirtIO/*/virtio*`
 
-Note:
-* system/STM32*xx/system_stm32*xx.c uses same license than system/Drivers/ subfolders
-* system/STM32*xx/stm32*xx_hal_conf_default.h uses same license than system/Drivers/CMSIS
+> [!NOTE]
+> `system/STM32*xx/system_stm32*xx.c` uses same license than `system/Drivers/CMSIS`
+> `system/STM32*xx/stm32*xx_hal_conf_default.h` uses same license than `system/Drivers` subfolders
+
 -------------------------------------------------------------------------------
 ## LGPLv2.1
                   GNU LESSER GENERAL PUBLIC LICENSE

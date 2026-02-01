@@ -95,6 +95,9 @@ class HardwareSerial : public Stream {
   protected:
     // Has any byte been written to the UART since begin()
     bool _written;
+    bool _rx_invert;
+    bool _tx_invert;
+    bool _data_invert;
 
     // Don't put any members after these buffers, since only the first
     // 32 bytes of this struct can be accessed quickly using the ldd
@@ -143,7 +146,7 @@ class HardwareSerial : public Stream {
     using Print::write; // pull in write(str) from Print
     operator bool()
     {
-      return true;
+      return _ready;
     }
 
     void setRx(uint32_t _rx);
@@ -165,6 +168,12 @@ class HardwareSerial : public Stream {
     bool isHalfDuplex(void) const;
     void enableHalfDuplexRx(void);
 
+    // Enable HW Rx/Tx/data inversion
+    // This needs to be done before the call to begin()
+    void setRxInvert(void);
+    void setTxInvert(void);
+    void setDataInvert(void);
+
     friend class STM32LowPower;
 
     // Interrupt handlers
@@ -180,6 +189,7 @@ class HardwareSerial : public Stream {
 #endif // HAL_UART_MODULE_ENABLED && !HAL_UART_MODULE_ONLY
 
   private:
+    bool _ready;
     bool _rx_enabled;
     uint8_t _config;
     unsigned long _baud;

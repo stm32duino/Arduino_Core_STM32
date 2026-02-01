@@ -364,7 +364,7 @@ HAL_StatusTypeDef HAL_USARTEx_DisableFifoMode(USART_HandleTypeDef *husart)
   /* Disable USART */
   __HAL_USART_DISABLE(husart);
 
-  /* Enable FIFO mode */
+  /* Disable FIFO mode */
   CLEAR_BIT(tmpcr1, USART_CR1_FIFOEN);
   husart->FifoMode = USART_FIFOMODE_DISABLE;
 

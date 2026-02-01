@@ -105,7 +105,7 @@ typedef struct
 
   uint32_t *PacketAddress[ETH_TX_DESC_CNT];  /*<! Ethernet packet addresses array */
 
-  uint32_t *CurrentPacketAddress;           /*<! Current transmit NX_PACKET addresses */
+  uint32_t *CurrentPacketAddress;           /*<! Current transmit packet addresses */
 
   uint32_t BuffersInUse;                   /*<! Buffers in Use */
 
@@ -1252,22 +1252,22 @@ typedef struct
   * @{
   */
 #define ETH_DMA_RX_NO_ERROR_FLAG                 0x00000000U
-#define ETH_DMA_RX_DESC_READ_ERROR_FLAG          (ETH_DMACSR_REB_BIT_2 | ETH_DMACSR_REB_BIT_1 | ETH_DMACSR_REB_BIT_0)
-#define ETH_DMA_RX_DESC_WRITE_ERROR_FLAG         (ETH_DMACSR_REB_BIT_2 | ETH_DMACSR_REB_BIT_1)
-#define ETH_DMA_RX_BUFFER_READ_ERROR_FLAG        (ETH_DMACSR_REB_BIT_2 | ETH_DMACSR_REB_BIT_0)
-#define ETH_DMA_RX_BUFFER_WRITE_ERROR_FLAG        ETH_DMACSR_REB_BIT_2
+#define ETH_DMA_RX_DESC_READ_ERROR_FLAG          0x00380000U
+#define ETH_DMA_RX_DESC_WRITE_ERROR_FLAG         0x00300000U
+#define ETH_DMA_RX_BUFFER_READ_ERROR_FLAG        0x00280000U
+#define ETH_DMA_RX_BUFFER_WRITE_ERROR_FLAG       0x00200000U
 #define ETH_DMA_TX_NO_ERROR_FLAG                 0x00000000U
-#define ETH_DMA_TX_DESC_READ_ERROR_FLAG          (ETH_DMACSR_TEB_BIT_2 | ETH_DMACSR_TEB_BIT_1 | ETH_DMACSR_TEB_BIT_0)
-#define ETH_DMA_TX_DESC_WRITE_ERROR_FLAG         (ETH_DMACSR_TEB_BIT_2 | ETH_DMACSR_TEB_BIT_1)
-#define ETH_DMA_TX_BUFFER_READ_ERROR_FLAG        (ETH_DMACSR_TEB_BIT_2 | ETH_DMACSR_TEB_BIT_0)
-#define ETH_DMA_TX_BUFFER_WRITE_ERROR_FLAG        ETH_DMACSR_TEB_BIT_2
-#define ETH_DMA_CONTEXT_DESC_ERROR_FLAG           ETH_DMACSR_CDE
-#define ETH_DMA_FATAL_BUS_ERROR_FLAG              ETH_DMACSR_FBE
-#define ETH_DMA_EARLY_TX_IT_FLAG                  ETH_DMACSR_ERI
-#define ETH_DMA_RX_WATCHDOG_TIMEOUT_FLAG          ETH_DMACSR_RWT
-#define ETH_DMA_RX_PROCESS_STOPPED_FLAG           ETH_DMACSR_RPS
-#define ETH_DMA_RX_BUFFER_UNAVAILABLE_FLAG        ETH_DMACSR_RBU
-#define ETH_DMA_TX_PROCESS_STOPPED_FLAG           ETH_DMACSR_TPS
+#define ETH_DMA_TX_DESC_READ_ERROR_FLAG          0x00070000U
+#define ETH_DMA_TX_DESC_WRITE_ERROR_FLAG         0x00060000U
+#define ETH_DMA_TX_BUFFER_READ_ERROR_FLAG        0x00050000U
+#define ETH_DMA_TX_BUFFER_WRITE_ERROR_FLAG       0x00040000U
+#define ETH_DMA_CONTEXT_DESC_ERROR_FLAG          ETH_DMACSR_CDE
+#define ETH_DMA_FATAL_BUS_ERROR_FLAG             ETH_DMACSR_FBE
+#define ETH_DMA_EARLY_TX_IT_FLAG                 ETH_DMACSR_ERI
+#define ETH_DMA_RX_WATCHDOG_TIMEOUT_FLAG         ETH_DMACSR_RWT
+#define ETH_DMA_RX_PROCESS_STOPPED_FLAG          ETH_DMACSR_RPS
+#define ETH_DMA_RX_BUFFER_UNAVAILABLE_FLAG       ETH_DMACSR_RBU
+#define ETH_DMA_TX_PROCESS_STOPPED_FLAG          ETH_DMACSR_TPS
 /**
   * @}
   */
@@ -1473,8 +1473,8 @@ typedef struct
   */
 #define HAL_ETH_STATE_RESET                0x00000000U    /*!< Peripheral not yet Initialized or disabled */
 #define HAL_ETH_STATE_READY                0x00000010U    /*!< Peripheral Communication started           */
-#define HAL_ETH_STATE_BUSY                 0x00000023U    /*!< an internal process is ongoing             */
-#define HAL_ETH_STATE_STARTED              0x00000023U    /*!< an internal process is started             */
+#define HAL_ETH_STATE_BUSY                 0x00000020U    /*!< an internal process is ongoing             */
+#define HAL_ETH_STATE_STARTED              0x00000040U    /*!< an internal process is started             */
 #define HAL_ETH_STATE_ERROR                0x000000E0U    /*!< Error State                                */
 /**
   * @}
@@ -1824,6 +1824,7 @@ uint32_t             HAL_ETH_GetError(const ETH_HandleTypeDef *heth);
 uint32_t             HAL_ETH_GetDMAError(const ETH_HandleTypeDef *heth);
 uint32_t             HAL_ETH_GetMACError(const ETH_HandleTypeDef *heth);
 uint32_t             HAL_ETH_GetMACWakeUpSource(const ETH_HandleTypeDef *heth);
+uint32_t             HAL_ETH_GetTxBuffersNumber(const ETH_HandleTypeDef *heth);
 /**
   * @}
   */

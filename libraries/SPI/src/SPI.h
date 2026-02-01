@@ -43,27 +43,31 @@ extern "C" {
 
 class SPISettings {
   public:
-    constexpr SPISettings(uint32_t clock, BitOrder bitOrder, uint8_t dataMode)
+    constexpr SPISettings(uint32_t clock, BitOrder order, uint8_t mode, SPIDeviceMode devMode = SPI_MASTER)
       : clockFreq(clock),
-        bitOrder(bitOrder),
-        dataMode((SPIMode)dataMode)
+        bitOrder(order),
+        dataMode((SPIMode)mode),
+        deviceMode(devMode)
     { }
-    constexpr SPISettings(uint32_t clock, BitOrder bitOrder, SPIMode dataMode)
+    constexpr SPISettings(uint32_t clock, BitOrder order, SPIMode mode, SPIDeviceMode devMode = SPI_MASTER)
       : clockFreq(clock),
-        bitOrder(bitOrder),
-        dataMode(dataMode)
+        bitOrder(order),
+        dataMode(mode),
+        deviceMode(devMode)
     { }
     constexpr SPISettings()
       : clockFreq(SPI_SPEED_CLOCK_DEFAULT),
         bitOrder(MSBFIRST),
-        dataMode(SPI_MODE0)
+        dataMode(SPI_MODE0),
+        deviceMode(SPI_MASTER)
     { }
 
     bool operator==(const SPISettings &rhs) const
     {
       if ((this->clockFreq == rhs.clockFreq) &&
           (this->bitOrder == rhs.bitOrder) &&
-          (this->dataMode == rhs.dataMode)) {
+          (this->dataMode == rhs.dataMode) &&
+          (this->deviceMode == rhs.deviceMode)) {
         return true;
       }
       return false;
@@ -75,17 +79,17 @@ class SPISettings {
     }
 
   private:
-    uint32_t clockFreq; //specifies the spi bus maximum clock speed
-    BitOrder bitOrder;  //bit order (MSBFirst or LSBFirst)
-    SPIMode  dataMode;  //one of the data mode
+    uint32_t clockFreq;       // specifies the spi bus maximum clock speed
+    BitOrder bitOrder;        // bit order (MSBFirst or LSBFirst)
+    SPIMode  dataMode;        // one of the data mode
+    SPIDeviceMode deviceMode; // device mode: master or slave
 
     friend class SPIClass;
 };
 
 class SPIClass {
   public:
-    SPIClass();
-    SPIClass(uint32_t mosi, uint32_t miso, uint32_t sclk, uint32_t ssel = PNUM_NOT_DEFINED);
+    SPIClass(uint32_t mosi = MOSI, uint32_t miso = MISO, uint32_t sclk = SCK, uint32_t ssel = PNUM_NOT_DEFINED);
 
     // setMISO/MOSI/SCLK/SSEL have to be called before begin()
     void setMISO(uint32_t miso)
@@ -122,7 +126,7 @@ class SPIClass {
       _spi.pin_ssel = (ssel);
     };
 
-    void begin(void);
+    void begin(SPIDeviceMode device = SPI_MASTER);
     void end(void);
 
     /* This function should be used to configure the SPI instance in case you
@@ -161,6 +165,17 @@ class SPIClass {
     SPI_HandleTypeDef *getHandle(void)
     {
       return &(_spi.handle);
+    }
+
+    // Dedicated to SPI Slave
+    void attachSlaveInterrupt(uint8_t pin, callback_function_t callback)
+    {
+      ::attachInterrupt(pin, callback, FALLING);
+    }
+
+    void detachSlaveInterrupt(uint8_t pin)
+    {
+      ::detachInterrupt(pin);
     }
 
   protected:

@@ -349,7 +349,7 @@ uint32_t SDMMC_GetPowerState(const SDMMC_TypeDef *SDMMCx)
   *         the configuration information for the SDMMC command
   * @retval HAL status
   */
-HAL_StatusTypeDef SDMMC_SendCommand(SDMMC_TypeDef *SDMMCx, SDMMC_CmdInitTypeDef *Command)
+HAL_StatusTypeDef SDMMC_SendCommand(SDMMC_TypeDef *SDMMCx, const SDMMC_CmdInitTypeDef *Command)
 {
   uint32_t tmpreg = 0;
 
@@ -417,7 +417,7 @@ uint32_t SDMMC_GetResponse(const SDMMC_TypeDef *SDMMCx, uint32_t Response)
   *         that contains the configuration information for the SDMMC data.
   * @retval HAL status
   */
-HAL_StatusTypeDef SDMMC_ConfigData(SDMMC_TypeDef *SDMMCx, SDMMC_DataInitTypeDef *Data)
+HAL_StatusTypeDef SDMMC_ConfigData(SDMMC_TypeDef *SDMMCx, const SDMMC_DataInitTypeDef *Data)
 {
   uint32_t tmpreg = 0;
 
@@ -1849,7 +1849,7 @@ uint32_t SDMMC_GetCmdResp7(SDMMC_TypeDef *SDMMCx)
   * @param  pNodeConf: Pointer to configuration parameters for new node to add.
   * @retval Error status
   */
-uint32_t SDMMC_DMALinkedList_BuildNode(SDMMC_DMALinkNodeTypeDef *pNode, SDMMC_DMALinkNodeConfTypeDef *pNodeConf)
+uint32_t SDMMC_DMALinkedList_BuildNode(SDMMC_DMALinkNodeTypeDef *pNode, const SDMMC_DMALinkNodeConfTypeDef *pNodeConf)
 {
 
   if ((pNode == NULL) || (pNodeConf == NULL))

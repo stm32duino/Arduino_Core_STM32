@@ -64,24 +64,30 @@ typedef struct
   uint32_t VoltageClass;           /*!< Specifies the SWP Voltage Class.
                                         This parameter can be a value of @ref SWPMI_LL_EC_VOLTAGE_CLASS
 
-                                        This feature can be modified afterwards using unitary function @ref LL_SWPMI_SetVoltageClass. */
+                                        This feature can be modified afterwards using unitary
+                                        function @ref LL_SWPMI_SetVoltageClass. */
 
   uint32_t BitRatePrescaler;       /*!< Specifies the SWPMI bitrate prescaler.
-                                        This parameter must be a number between Min_Data=0 and Max_Data=63U.
+                                        This parameter must be a number between Min_Data=0
+                                        and Max_Data=63U.
 
-                                        The value can be calculated thanks to helper macro @ref __LL_SWPMI_CALC_BITRATE_PRESCALER
+                                        The value can be calculated thanks to helper
+                                        macro @ref __LL_SWPMI_CALC_BITRATE_PRESCALER
 
-                                        This feature can be modified afterwards using unitary function @ref LL_SWPMI_SetBitRatePrescaler. */
+                                        This feature can be modified afterwards using unitary
+                                        function @ref LL_SWPMI_SetBitRatePrescaler. */
 
   uint32_t TxBufferingMode;        /*!< Specifies the transmission buffering mode.
                                         This parameter can be a value of @ref SWPMI_LL_EC_SW_BUFFER_TX
 
-                                        This feature can be modified afterwards using unitary function @ref LL_SWPMI_SetTransmissionMode. */
+                                        This feature can be modified afterwards using
+                                        unitary function @ref LL_SWPMI_SetTransmissionMode. */
 
   uint32_t RxBufferingMode;        /*!< Specifies the reception buffering mode.
                                         This parameter can be a value of @ref SWPMI_LL_EC_SW_BUFFER_RX
 
-                                        This feature can be modified afterwards using unitary function @ref LL_SWPMI_SetReceptionMode. */
+                                        This feature can be modified afterwards using
+                                        unitary function @ref LL_SWPMI_SetReceptionMode. */
 } LL_SWPMI_InitTypeDef;
 
 /**
@@ -1032,12 +1038,12 @@ __STATIC_INLINE uint32_t LL_SWPMI_DMA_GetRegAddr(const SWPMI_TypeDef *SWPMIx, ui
   if (Direction == LL_SWPMI_DMA_REG_DATA_TRANSMIT)
   {
     /* return address of TDR register */
-    data_reg_addr = (uint32_t)&(SWPMIx->TDR);
+    data_reg_addr = (uint32_t) &(SWPMIx->TDR);
   }
   else
   {
     /* return address of RDR register */
-    data_reg_addr = (uint32_t)&(SWPMIx->RDR);
+    data_reg_addr = (uint32_t) &(SWPMIx->RDR);
   }
 
   return data_reg_addr;

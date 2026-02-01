@@ -45,7 +45,8 @@ class Configuration(dict):
                 except KeyError:
                     raise
                     newv = ""
-
+                # remove contiguous space
+                newv = " ".join(newv.split())
                 self[k] = newv
             else:
                 self[k].evaluate_entries(wrt)

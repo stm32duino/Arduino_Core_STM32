@@ -166,11 +166,13 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc)
           return HAL_ERROR;
         }
       }
-
-      calibration_factor_accumulated += LL_ADC_GetCalibrationFactor(hadc->Instance);
+      /* Read the calibration factor and increment by one */
+      calibration_factor_accumulated += (LL_ADC_GetCalibrationFactor(hadc->Instance) + 1UL);
     }
-    /* Compute average */
+    /* Compute average (rounded up to the nearest integer) */
+    calibration_factor_accumulated += (calibration_index / 2UL);
     calibration_factor_accumulated /= calibration_index;
+
     /* Apply calibration factor (requires ADC enable and disable process) */
     LL_ADC_Enable(hadc->Instance);
 
@@ -247,7 +249,7 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc)
   * @param hadc ADC handle.
   * @retval Calibration value.
   */
-uint32_t HAL_ADCEx_Calibration_GetValue(ADC_HandleTypeDef *hadc)
+uint32_t HAL_ADCEx_Calibration_GetValue(const ADC_HandleTypeDef *hadc)
 {
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));

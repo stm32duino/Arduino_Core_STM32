@@ -114,7 +114,7 @@
     void serialEventLP2() __attribute__((weak));
   #endif
   #if defined(HAVE_HWSERIALLP3)
-    HardwareSerial SerialLP2(LPUART3);
+    HardwareSerial SerialLP3(LPUART3);
     void serialEventLP3() __attribute__((weak));
   #endif
 #endif // HAVE_HWSERIALx
@@ -273,7 +273,7 @@ HardwareSerial::HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex)
                           } else
 #endif
 #if defined(PIN_SERIALLP3_TX) && defined(LPUART3_BASE)
-                            if (peripheral == LPUART2) {
+                            if (peripheral == LPUART3) {
 #if defined(PIN_SERIALLP3_RX)
                               setRx(PIN_SERIALLP3_RX);
 #endif
@@ -446,13 +446,17 @@ void HardwareSerial::begin(unsigned long baud, byte config)
       break;
   }
 
-  uart_init(&_serial, (uint32_t)baud, databits, parity, stopbits);
-  enableHalfDuplexRx();
-  uart_attach_rx_callback(&_serial, _rx_complete_irq);
+  _ready = uart_init(&_serial, (uint32_t)baud, databits, parity, stopbits, _rx_invert, _tx_invert, _data_invert);
+  if (_ready) {
+    enableHalfDuplexRx();
+    uart_attach_rx_callback(&_serial, _rx_complete_irq);
+  }
 }
 
 void HardwareSerial::end()
 {
+  _ready = false;
+
   // wait for transmission of outgoing data
   flush(TX_TIMEOUT);
 
@@ -666,6 +670,21 @@ void HardwareSerial::enableHalfDuplexRx(void)
       uart_enable_rx(&_serial);
     }
   }
+}
+
+void HardwareSerial::setRxInvert(void)
+{
+  _rx_invert = true;
+}
+
+void HardwareSerial::setTxInvert(void)
+{
+  _tx_invert = true;
+}
+
+void HardwareSerial::setDataInvert(void)
+{
+  _data_invert = true;
 }
 
 #endif // HAL_UART_MODULE_ENABLED && !HAL_UART_MODULE_ONLY

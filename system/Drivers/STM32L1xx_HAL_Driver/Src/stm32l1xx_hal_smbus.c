@@ -181,7 +181,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-/** @addtogroup SMBUS_Private_Define
+/** @defgroup SMBUS_Private_Define SMBUS Private Define
   * @{
   */
 #define SMBUS_TIMEOUT_FLAG          35U         /*!< Timeout 35 ms             */

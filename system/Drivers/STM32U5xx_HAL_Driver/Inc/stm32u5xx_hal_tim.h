@@ -416,29 +416,28 @@ typedef struct
   */
 typedef enum
 {
-  HAL_TIM_BASE_MSPINIT_CB_ID              = 0x00U   /*!< TIM Base MspInit Callback ID                              */
-  , HAL_TIM_BASE_MSPDEINIT_CB_ID          = 0x01U   /*!< TIM Base MspDeInit Callback ID                            */
-  , HAL_TIM_IC_MSPINIT_CB_ID              = 0x02U   /*!< TIM IC MspInit Callback ID                                */
-  , HAL_TIM_IC_MSPDEINIT_CB_ID            = 0x03U   /*!< TIM IC MspDeInit Callback ID                              */
-  , HAL_TIM_OC_MSPINIT_CB_ID              = 0x04U   /*!< TIM OC MspInit Callback ID                                */
-  , HAL_TIM_OC_MSPDEINIT_CB_ID            = 0x05U   /*!< TIM OC MspDeInit Callback ID                              */
-  , HAL_TIM_PWM_MSPINIT_CB_ID             = 0x06U   /*!< TIM PWM MspInit Callback ID                               */
-  , HAL_TIM_PWM_MSPDEINIT_CB_ID           = 0x07U   /*!< TIM PWM MspDeInit Callback ID                             */
-  , HAL_TIM_ONE_PULSE_MSPINIT_CB_ID       = 0x08U   /*!< TIM One Pulse MspInit Callback ID                         */
-  , HAL_TIM_ONE_PULSE_MSPDEINIT_CB_ID     = 0x09U   /*!< TIM One Pulse MspDeInit Callback ID                       */
-  , HAL_TIM_ENCODER_MSPINIT_CB_ID         = 0x0AU   /*!< TIM Encoder MspInit Callback ID                           */
-  , HAL_TIM_ENCODER_MSPDEINIT_CB_ID       = 0x0BU   /*!< TIM Encoder MspDeInit Callback ID                         */
-  , HAL_TIM_HALL_SENSOR_MSPINIT_CB_ID     = 0x0CU   /*!< TIM Hall Sensor MspDeInit Callback ID                     */
-  , HAL_TIM_HALL_SENSOR_MSPDEINIT_CB_ID   = 0x0DU   /*!< TIM Hall Sensor MspDeInit Callback ID                     */
+  HAL_TIM_BASE_MSPINIT_CB_ID              = 0x00U   /*!< TIM Base MspInit Callback ID                               */
+  , HAL_TIM_BASE_MSPDEINIT_CB_ID          = 0x01U   /*!< TIM Base MspDeInit Callback ID                             */
+  , HAL_TIM_IC_MSPINIT_CB_ID              = 0x02U   /*!< TIM IC MspInit Callback ID                                 */
+  , HAL_TIM_IC_MSPDEINIT_CB_ID            = 0x03U   /*!< TIM IC MspDeInit Callback ID                               */
+  , HAL_TIM_OC_MSPINIT_CB_ID              = 0x04U   /*!< TIM OC MspInit Callback ID                                 */
+  , HAL_TIM_OC_MSPDEINIT_CB_ID            = 0x05U   /*!< TIM OC MspDeInit Callback ID                               */
+  , HAL_TIM_PWM_MSPINIT_CB_ID             = 0x06U   /*!< TIM PWM MspInit Callback ID                                */
+  , HAL_TIM_PWM_MSPDEINIT_CB_ID           = 0x07U   /*!< TIM PWM MspDeInit Callback ID                              */
+  , HAL_TIM_ONE_PULSE_MSPINIT_CB_ID       = 0x08U   /*!< TIM One Pulse MspInit Callback ID                          */
+  , HAL_TIM_ONE_PULSE_MSPDEINIT_CB_ID     = 0x09U   /*!< TIM One Pulse MspDeInit Callback ID                        */
+  , HAL_TIM_ENCODER_MSPINIT_CB_ID         = 0x0AU   /*!< TIM Encoder MspInit Callback ID                            */
+  , HAL_TIM_ENCODER_MSPDEINIT_CB_ID       = 0x0BU   /*!< TIM Encoder MspDeInit Callback ID                          */
+  , HAL_TIM_HALL_SENSOR_MSPINIT_CB_ID     = 0x0CU   /*!< TIM Hall Sensor MspDeInit Callback ID                      */
+  , HAL_TIM_HALL_SENSOR_MSPDEINIT_CB_ID   = 0x0DU   /*!< TIM Hall Sensor MspDeInit Callback ID                      */
   , HAL_TIM_PERIOD_ELAPSED_CB_ID          = 0x0EU   /*!< TIM Period Elapsed Callback ID                             */
   , HAL_TIM_PERIOD_ELAPSED_HALF_CB_ID     = 0x0FU   /*!< TIM Period Elapsed half complete Callback ID               */
   , HAL_TIM_TRIGGER_CB_ID                 = 0x10U   /*!< TIM Trigger Callback ID                                    */
   , HAL_TIM_TRIGGER_HALF_CB_ID            = 0x11U   /*!< TIM Trigger half complete Callback ID                      */
-
   , HAL_TIM_IC_CAPTURE_CB_ID              = 0x12U   /*!< TIM Input Capture Callback ID                              */
   , HAL_TIM_IC_CAPTURE_HALF_CB_ID         = 0x13U   /*!< TIM Input Capture half complete Callback ID                */
   , HAL_TIM_OC_DELAY_ELAPSED_CB_ID        = 0x14U   /*!< TIM Output Compare Delay Elapsed Callback ID               */
-  , HAL_TIM_PWM_PULSE_FINISHED_CB_ID      = 0x15U   /*!< TIM PWM Pulse Finished Callback ID           */
+  , HAL_TIM_PWM_PULSE_FINISHED_CB_ID      = 0x15U   /*!< TIM PWM Pulse Finished Callback ID                         */
   , HAL_TIM_PWM_PULSE_FINISHED_HALF_CB_ID = 0x16U   /*!< TIM PWM Pulse Finished half complete Callback ID           */
   , HAL_TIM_ERROR_CB_ID                   = 0x17U   /*!< TIM Error Callback ID                                      */
   , HAL_TIM_COMMUTATION_CB_ID             = 0x18U   /*!< TIM Commutation Callback ID                                */
@@ -1835,7 +1834,8 @@ mode.
   */
 /* The counter of a timer instance is disabled only if all the CCx and CCxN
    channels have been disabled */
-#define TIM_CCER_CCxE_MASK  ((uint32_t)(TIM_CCER_CC1E | TIM_CCER_CC2E | TIM_CCER_CC3E | TIM_CCER_CC4E))
+#define TIM_CCER_CCxE_MASK  ((uint32_t)(TIM_CCER_CC1E | TIM_CCER_CC2E | TIM_CCER_CC3E | TIM_CCER_CC4E | \
+                                        TIM_CCER_CC5E | TIM_CCER_CC6E))
 #define TIM_CCER_CCxNE_MASK ((uint32_t)(TIM_CCER_CC1NE | TIM_CCER_CC2NE | TIM_CCER_CC3NE | TIM_CCER_CC4NE))
 /**
   * @}
@@ -1882,7 +1882,7 @@ mode.
                                    ((__BASE__) == TIM_DMABASE_AF2)   || \
                                    ((__BASE__) == TIM_DMABASE_TISEL) || \
                                    ((__BASE__) == TIM_DMABASE_DTR2)  || \
-                                   ((__BASE__) == TIM_DMABASE_ECR)  || \
+                                   ((__BASE__) == TIM_DMABASE_ECR)   || \
                                    ((__BASE__) == TIM_DMABASE_OR1))
 
 #define IS_TIM_EVENT_SOURCE(__SOURCE__) ((((__SOURCE__) & 0xFFFFFE00U) == 0x00000000U) && ((__SOURCE__) != 0x00000000U))
@@ -1964,9 +1964,11 @@ mode.
 #define IS_TIM_OPM_CHANNELS(__CHANNEL__)   (((__CHANNEL__) == TIM_CHANNEL_1) || \
                                             ((__CHANNEL__) == TIM_CHANNEL_2))
 
-#define IS_TIM_PERIOD(__HANDLE__, __PERIOD__) ((IS_TIM_32B_COUNTER_INSTANCE(((__HANDLE__)->Instance)) == 0U) ? \
-                                               (((__PERIOD__) > 0U) && ((__PERIOD__) <= 0x0000FFFFU)) :        \
-                                               ((__PERIOD__) > 0U))
+#define IS_TIM_PERIOD(__HANDLE__, __PERIOD__) ((IS_TIM_32B_COUNTER_INSTANCE(((__HANDLE__)->Instance)) == 0U) ?  \
+                                               ((READ_BIT((__HANDLE__)->Instance->CR1, TIM_CR1_DITHEN) == 0U) ? \
+                                                (((__PERIOD__) > 0U) && ((__PERIOD__) <= 0x0000FFFFU)) :        \
+                                                (((__PERIOD__) > 0U) && ((__PERIOD__) <= 0x000FFFEFU))) :       \
+                                               ((__PERIOD__) > 0U ))
 
 #define IS_TIM_COMPLEMENTARY_CHANNELS(__CHANNEL__) (((__CHANNEL__) == TIM_CHANNEL_1) || \
                                                     ((__CHANNEL__) == TIM_CHANNEL_2) || \
@@ -2024,7 +2026,6 @@ mode.
                                             ((__LEVEL__) == TIM_LOCKLEVEL_3))
 
 #define IS_TIM_BREAK_FILTER(__BRKFILTER__) ((__BRKFILTER__) <= 0xFUL)
-
 
 #define IS_TIM_BREAK_STATE(__STATE__)      (((__STATE__) == TIM_BREAK_ENABLE) || \
                                             ((__STATE__) == TIM_BREAK_DISABLE))
@@ -2205,20 +2206,15 @@ mode.
    ((__CHANNEL__) == TIM_CHANNEL_5) ? ((__HANDLE__)->ChannelState[4] = (__CHANNEL_STATE__)) :\
    ((__HANDLE__)->ChannelState[5] = (__CHANNEL_STATE__)))
 
-#define TIM_CHANNEL_STATE_SET_ALL(__HANDLE__,  __CHANNEL_STATE__) do { \
-                                                                       (__HANDLE__)->ChannelState[0]  = \
-                                                                       (__CHANNEL_STATE__);  \
-                                                                       (__HANDLE__)->ChannelState[1]  = \
-                                                                       (__CHANNEL_STATE__);  \
-                                                                       (__HANDLE__)->ChannelState[2]  = \
-                                                                       (__CHANNEL_STATE__);  \
-                                                                       (__HANDLE__)->ChannelState[3]  = \
-                                                                       (__CHANNEL_STATE__);  \
-                                                                       (__HANDLE__)->ChannelState[4]  = \
-                                                                       (__CHANNEL_STATE__);  \
-                                                                       (__HANDLE__)->ChannelState[5]  = \
-                                                                       (__CHANNEL_STATE__);  \
-                                                                     } while(0)
+#define TIM_CHANNEL_STATE_SET_ALL(__HANDLE__,  __CHANNEL_STATE__)\
+  do {\
+    (__HANDLE__)->ChannelState[0]  = (__CHANNEL_STATE__);  \
+    (__HANDLE__)->ChannelState[1]  = (__CHANNEL_STATE__);  \
+    (__HANDLE__)->ChannelState[2]  = (__CHANNEL_STATE__);  \
+    (__HANDLE__)->ChannelState[3]  = (__CHANNEL_STATE__);  \
+    (__HANDLE__)->ChannelState[4]  = (__CHANNEL_STATE__);  \
+    (__HANDLE__)->ChannelState[5]  = (__CHANNEL_STATE__);  \
+  } while(0)
 
 #define TIM_CHANNEL_N_STATE_GET(__HANDLE__, __CHANNEL__)\
   (((__CHANNEL__) == TIM_CHANNEL_1) ? (__HANDLE__)->ChannelNState[0] :\
@@ -2232,16 +2228,13 @@ mode.
    ((__CHANNEL__) == TIM_CHANNEL_3) ? ((__HANDLE__)->ChannelNState[2] = (__CHANNEL_STATE__)) :\
    ((__HANDLE__)->ChannelNState[3] = (__CHANNEL_STATE__)))
 
-#define TIM_CHANNEL_N_STATE_SET_ALL(__HANDLE__,  __CHANNEL_STATE__) do { \
-                                                                         (__HANDLE__)->ChannelNState[0] = \
-                                                                         (__CHANNEL_STATE__);  \
-                                                                         (__HANDLE__)->ChannelNState[1] = \
-                                                                         (__CHANNEL_STATE__);  \
-                                                                         (__HANDLE__)->ChannelNState[2] = \
-                                                                         (__CHANNEL_STATE__);  \
-                                                                         (__HANDLE__)->ChannelNState[3] = \
-                                                                         (__CHANNEL_STATE__);  \
-                                                                       } while(0)
+#define TIM_CHANNEL_N_STATE_SET_ALL(__HANDLE__,  __CHANNEL_STATE__)\
+  do {\
+    (__HANDLE__)->ChannelNState[0] = (__CHANNEL_STATE__);  \
+    (__HANDLE__)->ChannelNState[1] = (__CHANNEL_STATE__);  \
+    (__HANDLE__)->ChannelNState[2] = (__CHANNEL_STATE__);  \
+    (__HANDLE__)->ChannelNState[3] = (__CHANNEL_STATE__);  \
+  } while(0)
 
 /**
   * @}

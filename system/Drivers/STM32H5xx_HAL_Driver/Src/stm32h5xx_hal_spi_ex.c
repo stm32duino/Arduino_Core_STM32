@@ -58,7 +58,6 @@
 
     (#) SPIEx function:
         (++) HAL_SPIEx_FlushRxFifo()
-        (++) HAL_SPIEx_FlushRxFifo()
         (++) HAL_SPIEx_EnableLockConfiguration()
         (++) HAL_SPIEx_ConfigureUnderrun()
 
@@ -208,6 +207,100 @@ HAL_StatusTypeDef HAL_SPIEx_ConfigureUnderrun(SPI_HandleTypeDef *hspi, uint32_t 
   __HAL_UNLOCK(hspi);
   return errorcode;
 }
+#if defined(SPI_CFG1_DRDS)
+
+/**
+  * @brief  Enable the Delay Read Data Sampling on Master Input IO
+  *         DRDS setting has no impact on the other SCK management.
+  *         When CRC is enabled, CRC computation and evaluation is delayed too.
+  * @param  hspi: pointer to a SPI_HandleTypeDef structure that contains
+  *               the configuration information for SPI module.
+  * @retval None
+  */
+HAL_StatusTypeDef HAL_SPIEx_EnableDelayReadDataSampling(SPI_HandleTypeDef *hspi)
+{
+  HAL_StatusTypeDef errorcode = HAL_OK;
+
+  /* Process Locked */
+  __HAL_LOCK(hspi);
+
+  if (hspi->State != HAL_SPI_STATE_READY)
+  {
+    errorcode = HAL_BUSY;
+    hspi->State = HAL_SPI_STATE_READY;
+    /* Process Unlocked */
+    __HAL_UNLOCK(hspi);
+    return errorcode;
+  }
+
+  /* Check if the SPI is disabled to edit DRDS bit */
+  if ((hspi->Instance->CR1 & SPI_CR1_SPE) != SPI_CR1_SPE)
+  {
+    SET_BIT(hspi->Instance->CFG1, SPI_CFG1_DRDS);
+  }
+  else
+  {
+    /* Disable SPI peripheral */
+    __HAL_SPI_DISABLE(hspi);
+
+    SET_BIT(hspi->Instance->CFG1, SPI_CFG1_DRDS);
+
+    /* Enable SPI peripheral */
+    __HAL_SPI_ENABLE(hspi);
+  }
+
+  hspi->State = HAL_SPI_STATE_READY;
+  /* Process Unlocked */
+  __HAL_UNLOCK(hspi);
+  return errorcode;
+}
+
+/**
+  * @brief  Disable the Delay Read Data Sampling on Master Input IO
+  *         DRDS setting has no impact on the other SCK management.
+  *         When CRC is enabled, CRC computation and evaluation is delayed too.
+  * @param  hspi: pointer to a SPI_HandleTypeDef structure that contains
+  *               the configuration information for SPI module.
+  * @retval None
+  */
+HAL_StatusTypeDef HAL_SPIEx_DisableDelayReadDataSampling(SPI_HandleTypeDef *hspi)
+{
+  HAL_StatusTypeDef errorcode = HAL_OK;
+
+  /* Process Locked */
+  __HAL_LOCK(hspi);
+
+  if (hspi->State != HAL_SPI_STATE_READY)
+  {
+    errorcode = HAL_BUSY;
+    hspi->State = HAL_SPI_STATE_READY;
+    /* Process Unlocked */
+    __HAL_UNLOCK(hspi);
+    return errorcode;
+  }
+
+  /* Check if the SPI is disabled to edit DRDS bit */
+  if ((hspi->Instance->CR1 & SPI_CR1_SPE) != SPI_CR1_SPE)
+  {
+    CLEAR_BIT(hspi->Instance->CFG1, SPI_CFG1_DRDS);
+  }
+  else
+  {
+    /* Disable SPI peripheral */
+    __HAL_SPI_DISABLE(hspi);
+
+    CLEAR_BIT(hspi->Instance->CFG1, SPI_CFG1_DRDS);
+
+    /* Enable SPI peripheral */
+    __HAL_SPI_ENABLE(hspi);
+  }
+
+  hspi->State = HAL_SPI_STATE_READY;
+  /* Process Unlocked */
+  __HAL_UNLOCK(hspi);
+  return errorcode;
+}
+#endif /* SPI_CFG1_DRDS */
 
 /**
   * @}

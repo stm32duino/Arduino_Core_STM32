@@ -1609,7 +1609,7 @@ __STATIC_INLINE uint32_t LL_DMA_GetM2MDstAddress(DMA_TypeDef* DMAx, uint32_t Str
   */
 __STATIC_INLINE void LL_DMA_SetMemory1Address(DMA_TypeDef *DMAx, uint32_t Stream, uint32_t Address)
 {
-  MODIFY_REG(((DMA_Stream_TypeDef*)((uint32_t)((uint32_t)DMAx + STREAM_OFFSET_TAB[Stream])))->M1AR, DMA_SxM1AR_M1A, Address);
+  WRITE_REG(((DMA_Stream_TypeDef*)((uint32_t)((uint32_t)DMAx + STREAM_OFFSET_TAB[Stream])))->M1AR, Address);
 }
 
 /**

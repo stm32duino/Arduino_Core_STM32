@@ -142,6 +142,7 @@ typedef struct
 #if defined(LPTIM_OR_TIM1_ITR2_RMP) && defined(LPTIM_OR_TIM5_ITR1_RMP) && defined(LPTIM_OR_TIM5_ITR1_RMP)
 #define IS_TIM_REMAP(INSTANCE, TIM_REMAP)                                 \
   ((((INSTANCE) == TIM2)  && (((TIM_REMAP) == TIM_TIM2_TIM8_TRGO)      || \
+                              ((TIM_REMAP) == TIM_TIM2_ETH_PTP)        || \
                               ((TIM_REMAP) == TIM_TIM2_USBFS_SOF)      || \
                               ((TIM_REMAP) == TIM_TIM2_USBHS_SOF)))    || \
    (((INSTANCE) == TIM5)  && (((TIM_REMAP) == TIM_TIM5_GPIO)           || \
@@ -159,6 +160,7 @@ typedef struct
 #elif defined(TIM8)
 #define IS_TIM_REMAP(INSTANCE, TIM_REMAP)                                 \
   ((((INSTANCE) == TIM2)  && (((TIM_REMAP) == TIM_TIM2_TIM8_TRGO)      || \
+                              ((TIM_REMAP) == TIM_TIM2_ETH_PTP)        || \
                               ((TIM_REMAP) == TIM_TIM2_USBFS_SOF)      || \
                               ((TIM_REMAP) == TIM_TIM2_USBHS_SOF)))    || \
    (((INSTANCE) == TIM5)  && (((TIM_REMAP) == TIM_TIM5_GPIO)           || \

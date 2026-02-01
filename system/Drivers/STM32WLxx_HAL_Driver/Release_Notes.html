@@ -40,16 +40,293 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section4" checked aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.3.0 / 09-November-2022</strong></label>
+<input type="checkbox" id="collapse-section6" checked aria-hidden="true"> <label for="collapse-section6" aria-hidden="true"><strong>V1.4.0 / 29-October-2025</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<ul>
+<li>Maintenance release of <strong>HAL and Low Layer</strong> drivers to include latest corrections</li>
+<li><p>Update the following IPs Drivers: ADC, CRYP, DMA, EXTI, FLASH, GENERIC, GPIO, GTZC, HSEM, I2C, IPCC, IWDG, LPTIM, PWR, RCC, RTC, SPI, SUBGHZ, TIM, UART, USART, UTILS, WWDG</p></li>
+<li><p>Fixes for MISRAC2012 Rules 13.4_b, 12.3, 10.4 and 8.13 violations</p></li>
+</ul>
+<h2 id="contents">Contents</h2>
+<h3 id="hal-drivers-updates"><strong>HAL Drivers</strong> updates</h3>
+<ul>
+<li><strong>HAL ADC</strong> driver
+<ul>
+<li>Add const qualifier for calibrated values (read only, in system flash)<br />
+</li>
+<li>Fixed MISRA C2012 Rule 8.13 violations</li>
+</ul></li>
+<li><strong>HAL CRYP</strong> driver
+<ul>
+<li>Fixed MISRA C2012 Rule 8.13 violations<br />
+</li>
+<li>Fixed MISRA C2012 Rule 10.4_a violations</li>
+</ul></li>
+<li><strong>HAL DMA</strong> driver
+<ul>
+<li>Rebase wl code against the most recent c7amba_dma1 reference branch<br />
+</li>
+<li>Fix MISRA PC Lint issue against rule-11.9</li>
+</ul></li>
+<li><strong>HAL EXTI</strong> driver
+<ul>
+<li>Fixed MISRA C2012 Rule 8.13 violations</li>
+</ul></li>
+<li><strong>HAL FLASH</strong> driver
+<ul>
+<li>Fix bitwise comparison that otherwise always evaluates to false<br />
+</li>
+<li>Fixed MISRA C2012 Rule 8.13 violations</li>
+</ul></li>
+<li><strong>HAL GENERIC</strong> driver
+<ul>
+<li>Fixed timer timebase initialization sequence by registering the callback before starting the timer to ensure correct callback handling in FreeRTOS projects</li>
+<li>Fixed MISRA C2012 Rule 8.13 violations</li>
+</ul></li>
+<li><strong>HAL GPIO</strong> driver
+<ul>
+<li>Fixed MISRA C2012 Rule 8.13 violations</li>
+</ul></li>
+<li><strong>HAL GTZC</strong> driver
+<ul>
+<li>Fixed MISRA C2012 Rule 8.13 violations</li>
+</ul></li>
+<li><strong>HAL HSEM</strong> driver
+<ul>
+<li>Fix an issue where LL_HSEM_1StepLock uses HSEM_R_LOCK instead of HSEM_RLR_LOCK while checking the RLR register<br />
+</li>
+<li>Macro update to be aligned with register name in CMSIS<br />
+</li>
+<li>Update LL HSEM description and define to be aligned with the correct number of semaphores</li>
+</ul></li>
+<li><strong>HAL I2C</strong> driver
+<ul>
+<li>Update HAL I2C driver to disable all interrupts after end of transaction.</li>
+</ul></li>
+<li><strong>HAL IPCC</strong> driver
+<ul>
+<li>Fixed MISRA C2012 Rule 8.13 violations</li>
+</ul></li>
+<li><strong>HAL IWDG</strong> driver
+<ul>
+<li>Fixed MISRA C2012 Rule 8.13 violations</li>
+</ul></li>
+<li><strong>HAL LPTIM</strong> driver
+<ul>
+<li>Removed redundant IS_LPTIM_AUTORELOAD macro</li>
+</ul></li>
+<li><strong>HAL PWR</strong> driver
+<ul>
+<li>Fixed MISRA C2012 Rule 8.13 violations</li>
+</ul></li>
+<li><strong>HAL RCC</strong> driver
+<ul>
+<li>Correct LSE config macro regarding LSESYS handling</li>
+</ul></li>
+<li><strong>HAL RTC</strong> driver
+<ul>
+<li>Update STM32CubeIDE projects to fix the location of .size directive in startup code to allow proper size information of vector table<br />
+</li>
+<li>Fixed MISRA C2012 Rule 13.4_b violations<br />
+</li>
+<li>Fixed MISRA C2012 Rule 12.3 violations</li>
+</ul></li>
+<li><strong>HAL SPI</strong> driver
+<ul>
+<li>Rebase wl code against the most recent c7amba_spi2s1 reference branch<br />
+</li>
+<li>Fix compilation error in SPI validation code</li>
+</ul></li>
+<li><strong>HAL SUBGHZ</strong> driver
+<ul>
+<li>Pass CRC status info in upper layer<br />
+</li>
+<li>Fixed MISRA C2012 Rule 8.13 violations</li>
+</ul></li>
+<li><strong>HAL TIM</strong> driver
+<ul>
+<li>Assert check for the right channels<br />
+</li>
+<li>Fixed typo in PWM symmetric mode related constants names</li>
+</ul></li>
+<li><strong>HAL UART</strong> driver
+<ul>
+<li>Rework of UART_WaitOnFlagUntilTimeout() API to avoid being stuck forever when UART overrun error occurs and to enhance behavior</li>
+</ul></li>
+<li><strong>HAL USART</strong> driver
+<ul>
+<li>__HAL_LOCK() removal from HAL_xxx_RegisterCallback()/HAL_xxx_UnRegisterCallback()</li>
+</ul></li>
+<li><strong>HAL UTILS</strong> driver
+<ul>
+<li>Fixed MISRA C2012 Rule 8.13 violations</li>
+</ul></li>
+<li><strong>HAL WWDG</strong> driver
+<ul>
+<li>Fixed MISRA C2012 Rule 8.13 violations</li>
+</ul></li>
+</ul>
+<p><br />
+</p>
+<h2 id="known-limitations">Known Limitations</h2>
+<p>None</p>
+<h2 id="development-toolchains-and-compilers">Development Toolchains and Compilers</h2>
+<ul>
+<li>IAR Embedded Workbench for ARM (EWARM) toolchain V9.20.1 + <a href="./../../Utilities/PC_Software/EWARMv8_STM32WLxx_V4.9_Signed.zip">Patch EWARM</a></li>
+<li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.36 + <a href="./../../Utilities/PC_Software/Keil.STM32WLxx_DFP.1.1.1.zip">Keil DFP V1.1.1 Pack</a></li>
+<li>STM32CubeIDE 1.11.0 (GNU Tools for STM32 10.3-2021.10)</li>
+</ul>
+<h2 id="supported-devices-and-boards">Supported Devices and boards</h2>
+<p>Supported Devices:</p>
+<ul>
+<li>STM32WL55xx</li>
+<li>STM32WL54xx</li>
+<li>STM32WLE5xx</li>
+<li>STM32WLE4xx</li>
+<li>STM32WL5Mxx</li>
+</ul>
+<h2 id="backward-compatibility">Backward Compatibility</h2>
+<p>Not applicable</p>
+<h2 id="dependencies">Dependencies</h2>
+<p>None</p>
+<p><br />
+</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true"><strong>V1.3.1 / 20-December-2024</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<ul>
+<li>Patch release of <strong>HAL and Low Layer</strong> drivers to include latest corrections</li>
+<li>Update the following IPs Drivers: ADC, CORTEX, CRYP, DAC, GENERIC, GPIO, I2C, SMBUS, SPIU, SUBGHZ, TIM, UART, UTILS</li>
+</ul>
+<h2 id="contents-1">Contents</h2>
+<h3 id="hal-drivers-updates-1"><strong>HAL Drivers</strong> updates</h3>
+<ul>
+<li><strong>HAL ADC</strong> driver
+<ul>
+<li>Fix MISRA-C 2012 Rule 15.7 issue</li>
+<li>Improve de-init sequence by reset clock configuration on last step (otherwise, under specific clock source selection, some parameters can be not reset)</li>
+<li>Add CFGR1_CHSELRMOD bit to be reset by LL_ADC_DeInit() function</li>
+</ul></li>
+<li><strong>HAL CORTEX</strong> driver
+<ul>
+<li>Update HAL_MPU_ConfigRegion() to allow the configuration of the MPU registers independently of the value of Enable/Disable field and add new APIs HAL_MPU_EnableRegion() / HAL_MPU_DisableRegion()</li>
+</ul></li>
+<li><strong>HAL CRYP</strong> driver
+<ul>
+<li>Update AES GCM in interrupt mode to avoid Computation Completed IRQ fires before the DINR pointer increment</li>
+<li>Update Crypt/Decrypt IT processes to avoid Computation Completed IRQ fires before the DINR pointer increment</li>
+</ul></li>
+<li><strong>HAL DAC</strong> driver
+<ul>
+<li>Fix HAL DAC calibration procedure (function HAL_DACEx_SelfCalibrate() ) to manage case of calibration factor equal to range maximum value (previously, in this case calibration factor was reset, leading to voltage accuracy not optimal)</li>
+<li>Update DAC buffer calibration according to Reference Manual</li>
+</ul></li>
+<li><strong>HAL Generic</strong> driver
+<ul>
+<li>Update of HAL_GetTickFreq() brief</li>
+</ul></li>
+<li><strong>HAL I2C</strong> driver
+<ul>
+<li>Remove HAL DMA dependency thanks to the HAL_DMA_MODULE_ENABLED define</li>
+<li>Solve Slave No stretch not functional by using HAL Slave interface</li>
+<li>Update I2C_WaitOnFlagUntilTimeout() API to handle error case</li>
+<li>Update HAL_I2C_Slave_Transmit() to check if the received NACK is the good one</li>
+<li>Update HAL_I2C_Init() API to clear ADD10 bit in 7 bit addressing mode</li>
+<li>Update I2C_GENERATE_START() macro to generate stop automatically in 10 bit addressing mode</li>
+<li>Remove the unusable code in function HAL_I2C_IsDeviceReady</li>
+<li>Enhance HAL code quality for MISRA-C Rule-8.13 by adding const qualifiers</li>
+<li>Update I2C_WaitOnRXNEFlagUntilTimeout to check I2C_FLAG_AF independently from I2C_FLAG_RXNE</li>
+<li>Update HAL I2C driver to prefetch data before starting the transmission: implementation of errata sheet workaround I2C2-190208 : Transmission stalled after first byte</li>
+<li>Update I2C_Slave_ISR_IT, I2C_Slave_ISR_DMA and I2C_ITSlaveCplt to prevent the call of HAL_I2C_ListenCpltCallback twice</li>
+<li>Update HAL_I2C_Mem_Write_IT API to initialize XferSize at 0</li>
+<li>Enhance HAL I2C to be thread safe</li>
+</ul></li>
+<li><strong>HAL SMBUS</strong> driver
+<ul>
+<li>Update SMBUS_ITErrorHandler to flush TXDR just in case of error</li>
+<li>Enhance HAL code quality for MISRA-C Rule-8.13 by adding const qualifiers</li>
+<li>Update HAL SMBUS driver to prefetch data before starting the transmission: implementation of errata sheet workaround I2C2-190208 : Transmission stalled after first byte</li>
+</ul></li>
+<li><strong>HAL SPI</strong> driver
+<ul>
+<li>Update HAL_SPI_TransmitReceive API to set the bit CRCNEXT in case of one byte transaction</li>
+<li>Update IT API to enable interrupts after process unlock</li>
+<li>Fix driver to don’t update state in case of error (HAL_SPI_STATE_READY will be set only in case of HAL_TIMEOUT)</li>
+</ul></li>
+<li><strong>HAL SUBGHZ</strong> driver
+<ul>
+<li>Change macro from ‘CM0PLUS’ to ‘CORE_CM0PLUS’ as in preprocessor directives</li>
+</ul></li>
+<li><strong>HAL TIM</strong> driver
+<ul>
+<li>Update interrupt flag is cleared when the update event is generated by software</li>
+<li>Remove multiple volatile reads or writes in interrupt handler for better performance</li>
+</ul></li>
+<li><strong>HAL UART</strong> driver
+<ul>
+<li>Avoid RTOF flag to be cleared by a transmit process in polling mode</li>
+<li>Fix incorrect gState check in HAL_UART_RegisterRxEventCallback/HAL_UART_UnRegisterRxEventCallback to allow user Rx Event Callback registration when a transmit is ongoing</li>
+<li>Update initialisation sequence for TXINV, RXINV and TXRXSWAP settings</li>
+</ul></li>
+<li><strong>HAL UTILS</strong> driver
+<ul>
+<li>Fix UFQFPN48 package definition<br />
+</li>
+</ul></li>
+</ul>
+<h3 id="ll-drivers-updates"><strong>LL Drivers</strong> updates</h3>
+<ul>
+<li><strong>LL GPIO</strong> driver
+<ul>
+<li>Remove a redundant call to LL_GPIO_SetPinMode() within the LL_GPIO_Init() API</li>
+</ul></li>
+<li><strong>LL I2C</strong> driver
+<ul>
+<li>Update LL_I2C_HandleTranfer function to prevent undefined behavior of volatile usage before updating the CR2 register</li>
+<li>Enhance HAL code quality for MISRA-C Rule-8.13 by adding const qualifiers<br />
+</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-1">Known Limitations</h2>
+<p>None</p>
+<h2 id="development-toolchains-and-compilers-1">Development Toolchains and Compilers</h2>
+<ul>
+<li>IAR Embedded Workbench for ARM (EWARM) toolchain V9.20.1 + <a href="./../../Utilities/PC_Software/EWARMv8_STM32WLxx_V4.9_Signed.zip">Patch EWARM</a></li>
+<li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.36 + <a href="./../../Utilities/PC_Software/Keil.STM32WLxx_DFP.1.1.1.zip">Keil DFP V1.1.1 Pack</a></li>
+<li>STM32CubeIDE 1.11.0 (GNU Tools for STM32 10.3-2021.10)</li>
+</ul>
+<h2 id="supported-devices-and-boards-1">Supported Devices and boards</h2>
+<p>Supported Devices:</p>
+<ul>
+<li>STM32WL55xx</li>
+<li>STM32WL54xx</li>
+<li>STM32WLE5xx</li>
+<li>STM32WLE4xx</li>
+<li>STM32WL5Mxx</li>
+</ul>
+<h2 id="backward-compatibility-1">Backward Compatibility</h2>
+<p>Not applicable</p>
+<h2 id="dependencies-1">Dependencies</h2>
+<p>None</p>
+<p><br />
+</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.3.0 / 09-November-2022</strong></label>
+<div>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>Maintenance release of <strong>HAL and Low Layer</strong> drivers to include latest corrections</li>
 <li>Remove HAL_LOCK/HAL_UNLOCK calls in HAL_xxxx_RegisterCallback &amp; HAL_xxxx_UnregisterCallback for IPs (DAC, IRDA, LPTIM, SMARTCARD, TIM, UART, USART)</li>
 <li>Enhance code quality (MISRA-C rules 8.13, 11.9) for some drivers: ADC, COMP, DMA, IRDA, LPTIM, SMARTCARD, TIM, UART, USART</li>
 </ul>
-<h2 id="contents">Contents</h2>
-<h3 id="hal-drivers-updates"><strong>HAL Drivers</strong> updates</h3>
+<h2 id="contents-2">Contents</h2>
+<h3 id="hal-drivers-updates-2"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li><strong>HAL ADC</strong> driver
 <ul>
@@ -132,7 +409,7 @@
 </ul>
 <p><br />
 </p>
-<h3 id="ll-drivers-updates"><strong>LL Drivers</strong> updates</h3>
+<h3 id="ll-drivers-updates-1"><strong>LL Drivers</strong> updates</h3>
 <ul>
 <li><strong>LL LPTIM</strong> driver
 <ul>
@@ -153,15 +430,15 @@
 </ul>
 <p><br />
 </p>
-<h2 id="known-limitations">Known Limitations</h2>
+<h2 id="known-limitations-2">Known Limitations</h2>
 <p>None</p>
-<h2 id="development-toolchains-and-compilers">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-2">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V9.20.1 + <a href="./../../Utilities/PC_Software/EWARMv8_STM32WLxx_V4.9_Signed.zip">Patch EWARM</a></li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.36 + <a href="./../../Utilities/PC_Software/Keil.STM32WLxx_DFP.1.1.1.zip">Keil DFP V1.1.1 Pack</a></li>
 <li>STM32CubeIDE 1.11.0 (GNU Tools for STM32 10.3-2021.10)</li>
 </ul>
-<h2 id="supported-devices-and-boards">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-2">Supported Devices and boards</h2>
 <p>Supported Devices:</p>
 <ul>
 <li>STM32WL55xx</li>
@@ -170,9 +447,9 @@
 <li>STM32WLE4xx</li>
 <li>STM32WL5Mxx</li>
 </ul>
-<h2 id="backward-compatibility">Backward Compatibility</h2>
+<h2 id="backward-compatibility-2">Backward Compatibility</h2>
 <p>Not applicable</p>
-<h2 id="dependencies">Dependencies</h2>
+<h2 id="dependencies-2">Dependencies</h2>
 <p>None</p>
 <p><br />
 </p>
@@ -181,14 +458,14 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true"><strong>V1.2.0 / 4-February-2022</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li>Maintenance release of <strong>HAL and Low Layer</strong> drivers to include latest corrections</li>
 <li>All source files: update disclaimer to add reference to the new license agreement</li>
 <li>Correct English spelling errors and typos</li>
 </ul>
-<h2 id="contents-1">Contents</h2>
-<h3 id="hal-drivers-updates-1"><strong>HAL Drivers</strong> updates</h3>
+<h2 id="contents-3">Contents</h2>
+<h3 id="hal-drivers-updates-3"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li><strong>HAL ADC</strong> driver
 <ul>
@@ -252,7 +529,7 @@
 </ul>
 <p><br />
 </p>
-<h3 id="ll-drivers-updates-1"><strong>LL Drivers</strong> updates</h3>
+<h3 id="ll-drivers-updates-2"><strong>LL Drivers</strong> updates</h3>
 <ul>
 <li><strong>LL ADC</strong> driver
 <ul>
@@ -285,15 +562,15 @@
 </li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-1">Known Limitations</h2>
+<h2 id="known-limitations-3">Known Limitations</h2>
 <p>None</p>
-<h2 id="development-toolchains-and-compilers-1">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-3">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.30.1</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.31</li>
 <li>STM32CubeIDE 1.9.0 (native GNU ARM 10.3-2021-10 or optional GNU ARM 9-2020-q2-update)</li>
 </ul>
-<h2 id="supported-devices-and-boards-1">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-3">Supported Devices and boards</h2>
 <p>Supported Devices:</p>
 <ul>
 <li>STM32WL55xx</li>
@@ -301,9 +578,9 @@
 <li>STM32WLE5xx</li>
 <li>STM32WLE4xx</li>
 </ul>
-<h2 id="backward-compatibility-1">Backward Compatibility</h2>
+<h2 id="backward-compatibility-3">Backward Compatibility</h2>
 <p>Not applicable</p>
-<h2 id="dependencies-1">Dependencies</h2>
+<h2 id="dependencies-3">Dependencies</h2>
 <p>None</p>
 <p><br />
 </p>
@@ -312,7 +589,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true"><strong>V1.1.0 / 16-June-2021</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li>Maintenance release of <strong>HAL and Low Layer</strong> drivers to include latest corrections</li>
 <li>Update of HAL SMBUS driver to introduce fast mode and fast mode plus
@@ -324,8 +601,8 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="contents-2">Contents</h2>
-<h3 id="hal-drivers-updates-2"><strong>HAL Drivers</strong> updates</h3>
+<h2 id="contents-4">Contents</h2>
+<h3 id="hal-drivers-updates-4"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li><strong>HAL ADC</strong> driver
 <ul>
@@ -448,7 +725,7 @@
 </ul>
 <p><br />
 </p>
-<h3 id="ll-drivers-updates-2"><strong>LL Drivers</strong> updates</h3>
+<h3 id="ll-drivers-updates-3"><strong>LL Drivers</strong> updates</h3>
 <ul>
 <li><strong>LL RCC</strong> driver
 <ul>
@@ -481,15 +758,15 @@
 </ul>
 <p><br />
 </p>
-<h2 id="known-limitations-2">Known Limitations</h2>
+<h2 id="known-limitations-4">Known Limitations</h2>
 <p>None</p>
-<h2 id="development-toolchains-and-compilers-2">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-4">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.30.1</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.31</li>
 <li>STM32CubeIDE 1.7.0</li>
 </ul>
-<h2 id="supported-devices-and-boards-2">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-4">Supported Devices and boards</h2>
 <p>Supported Devices:</p>
 <ul>
 <li>STM32WL55xx</li>
@@ -497,9 +774,9 @@
 <li>STM32WLE5xx</li>
 <li>STM32WLE4xx</li>
 </ul>
-<h2 id="backward-compatibility-2">Backward Compatibility</h2>
+<h2 id="backward-compatibility-4">Backward Compatibility</h2>
 <p>Not applicable</p>
-<h2 id="dependencies-2">Dependencies</h2>
+<h2 id="dependencies-4">Dependencies</h2>
 <p>None</p>
 <p><br />
 </p>
@@ -508,19 +785,19 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true"><strong>V1.0.0 / 28-October-2020</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <p><strong>First Official Release</strong></p>
-<h2 id="contents-3">Contents</h2>
+<h2 id="contents-5">Contents</h2>
 <p>First official release of LL / HAL Drivers for STM32WLxx series.</p>
-<h2 id="known-limitations-3">Known Limitations</h2>
+<h2 id="known-limitations-5">Known Limitations</h2>
 <p>None</p>
-<h2 id="development-toolchains-and-compilers-3">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-5">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.30.1</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.28</li>
 <li>STM32CubeIDE 1.5.0</li>
 </ul>
-<h2 id="supported-devices-and-boards-3">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-5">Supported Devices and boards</h2>
 <p>Supported Devices:</p>
 <ul>
 <li>STM32WL55xx</li>
@@ -528,9 +805,9 @@
 <li>STM32WLE5xx</li>
 <li>STM32WLE4xx</li>
 </ul>
-<h2 id="backward-compatibility-3">Backward Compatibility</h2>
+<h2 id="backward-compatibility-5">Backward Compatibility</h2>
 <p>Not applicable</p>
-<h2 id="dependencies-3">Dependencies</h2>
+<h2 id="dependencies-5">Dependencies</h2>
 <p>None</p>
 <p><br />
 </p>

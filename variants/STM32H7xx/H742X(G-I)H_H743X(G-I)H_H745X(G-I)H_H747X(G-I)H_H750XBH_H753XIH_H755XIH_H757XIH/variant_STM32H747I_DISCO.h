@@ -326,6 +326,7 @@
   #define HAL_SD_MODULE_ENABLED
 #endif
 
+#define USE_PWR_DIRECT_SMPS_SUPPLY
 
 /*----------------------------------------------------------------------------
  *        Arduino objects - C++ only

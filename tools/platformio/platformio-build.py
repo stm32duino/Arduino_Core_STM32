@@ -376,13 +376,11 @@ if not board_config.get("build.ldscript", ""):
         print("Warning! Cannot find linker script for the current target!\n")
     env.Append(
         LINKFLAGS=[
-            (
-                "-Wl,--default-script",
-                join(
-                    inc_variant_dir,
-                    board_config.get("build.arduino.ldscript", "ldscript.ld"),
-                ),
-            )
+            "-Wl,--default-script",
+            join(
+                inc_variant_dir,
+                board_config.get("build.arduino.ldscript", "ldscript.ld"),
+            ),
         ]
     )
 

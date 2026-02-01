@@ -600,8 +600,6 @@ void LL_TIM_HALLSENSOR_StructInit(LL_TIM_HALLSENSOR_InitTypeDef *TIM_HallSensorI
   * @note Channel 2 is configured in output PWM 2 mode.
   * @note Compare value stored in TIMx_CCR2 corresponds to the commutation delay.
   * @note OC2REF is selected as trigger output on TRGO.
-  * @note LL_TIM_IC_POLARITY_BOTHEDGE must not be used for TI1 when it is used
-  *       when TIMx operates in Hall sensor interface mode.
   * @param  TIMx Timer Instance
   * @param  TIM_HallSensorInitStruct pointer to a @ref LL_TIM_HALLSENSOR_InitTypeDef structure (TIMx HALL sensor
   *         interface configuration data structure)

@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -33,8 +32,8 @@ extern "C" {
   */
 
 /** @addtogroup USBH_LIB_CORE
-* @{
-*/
+  * @{
+  */
 
 /** @defgroup USBH_CTLREQ
   * @brief This file is the
@@ -93,7 +92,7 @@ USBH_StatusTypeDef USBH_GetDescriptor(USBH_HandleTypeDef *phost,
                                       uint8_t  req_type, uint16_t value_idx,
                                       uint8_t *buff, uint16_t length);
 
-USBH_StatusTypeDef USBH_Get_DevDesc(USBH_HandleTypeDef *phost, uint8_t length);
+USBH_StatusTypeDef USBH_Get_DevDesc(USBH_HandleTypeDef *phost, uint16_t length);
 
 USBH_StatusTypeDef USBH_Get_StringDesc(USBH_HandleTypeDef *phost,
                                        uint8_t string_index, uint8_t *buff,
@@ -133,9 +132,7 @@ USBH_DescHeader_t *USBH_GetNextDesc(uint8_t *pbuf, uint16_t *ptr);
   */
 
 /**
-* @}
-*/
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+  * @}
+  */
 
 

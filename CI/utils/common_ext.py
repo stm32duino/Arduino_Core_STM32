@@ -3,19 +3,20 @@ import re
 import subprocess
 import shutil
 import sys
+from collections import OrderedDict
+from pathlib import Path
 
 
 # Add default key/value pair to config file
-def defaultConfig(config_file_path, data):
+def defaultConfig(config_file_path: Path, data: dict):
     print(f"Please check the default configuration '{config_file_path}'.")
-    config_file = open(config_file_path, "w")
-    config_file.write(json.dumps(data, indent=2))
-    config_file.close()
+    with open(config_file_path, "w") as config_file:
+        config_file.write(json.dumps(data, indent=2))
     exit(1)
 
 
 # Create a folder if not exists
-def createFolder(path):
+def createFolder(path: Path):
     try:
         path.mkdir(parents=True, exist_ok=True)
     except OSError:
@@ -23,13 +24,15 @@ def createFolder(path):
 
 
 # Delete targeted folder recursively
-def deleteFolder(path):
+def deleteFolder(path: Path):
     if path.is_dir():
         shutil.rmtree(path, ignore_errors=True)
 
 
 # copy src folder recursively to dest
-def copyFolder(src, dest, ign_patt=set()):
+def copyFolder(src, dest, ign_patt=None):
+    if ign_patt is None:
+        ign_patt = set()
     try:
         if src.is_dir():
             shutil.copytree(src, dest, ignore=shutil.ignore_patterns(*ign_patt))
@@ -38,7 +41,7 @@ def copyFolder(src, dest, ign_patt=set()):
 
 
 # copy one file to dest
-def copyFile(src, dest):
+def copyFile(src: Path, dest: Path):
     try:
         if src.is_file():
             shutil.copy(str(src), str(dest))
@@ -46,24 +49,34 @@ def copyFile(src, dest):
         print(f"Error: File {src} not copied. {e}")
 
 
-def genSTM32List(path, pattern):
-    stm32_list = []  # series
-    dir_pattern = re.compile(r"^STM32(.*)xx_HAL_Driver$", re.IGNORECASE)
-
-    if pattern is not None:
-        serie_pattern = re.compile(pattern, re.IGNORECASE)
-    else:
-        serie_pattern = re.compile(".*", re.IGNORECASE)
+# Get dict of STM32 series from HAL driver directory
+def genSTM32Dict(path: Path, pattern: str = None):
+    stm32_dict = OrderedDict()  # series: nx
+    dir_pattern = re.compile(r"^STM32([^x]+)xx?_HAL_Driver$", re.IGNORECASE)
 
     for file in path.iterdir():
-        res = dir_pattern.match(file.name)
-        if res and serie_pattern.search(res.group(1)):
-            stm32_list.append(res.group(1))
-    stm32_list.sort()
-    return stm32_list
+        if file.is_dir():
+            if not any(file.iterdir()):
+                file.rmdir()  # remove empty directories
+                continue
+            res = dir_pattern.match(file.name)
+            if res:
+                if pattern is not None and res.group(1) != pattern.upper():
+                    continue
+                if "xx" in file.name:
+                    nx = "xx"
+                elif "x" in file.name:
+                    nx = "x"
+                else:
+                    # Error: no x or xx in series name
+                    print(f"Error: No x or xx in series name {file.name}")
+                    exit(1)
+                stm32_dict[res.group(1)] = nx
+    # stm32_list.sort()
+    return stm32_dict
 
 
-def execute_cmd(cmd, stderror):
+def execute_cmd(cmd: list, stderror: int):
     try:
         output = subprocess.check_output(cmd, stderr=stderror).decode("utf-8").strip()
     except subprocess.CalledProcessError as e:
@@ -72,7 +85,7 @@ def execute_cmd(cmd, stderror):
     return output
 
 
-def getRepoBranchName(repo_path):
+def getRepoBranchName(repo_path: Path):
     bname = ""
     rname = ""
     cmd = ["git", "-C", repo_path, "branch", "-r"]

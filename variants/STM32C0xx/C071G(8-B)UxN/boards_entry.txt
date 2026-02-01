@@ -10,6 +10,7 @@ GenC0.menu.pnum.GENERIC_C071G8UXN.upload.maximum_data_size=24576
 GenC0.menu.pnum.GENERIC_C071G8UXN.build.board=GENERIC_C071G8UXN
 GenC0.menu.pnum.GENERIC_C071G8UXN.build.product_line=STM32C071xx
 GenC0.menu.pnum.GENERIC_C071G8UXN.build.variant=STM32C0xx/C071G(8-B)UxN
+GenC0.menu.pnum.GENERIC_C071G8UXN.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C071.svd
 
 # Generic C071GBUxN
 GenC0.menu.pnum.GENERIC_C071GBUXN=Generic C071GBUxN
@@ -18,4 +19,5 @@ GenC0.menu.pnum.GENERIC_C071GBUXN.upload.maximum_data_size=24576
 GenC0.menu.pnum.GENERIC_C071GBUXN.build.board=GENERIC_C071GBUXN
 GenC0.menu.pnum.GENERIC_C071GBUXN.build.product_line=STM32C071xx
 GenC0.menu.pnum.GENERIC_C071GBUXN.build.variant=STM32C0xx/C071G(8-B)UxN
+GenC0.menu.pnum.GENERIC_C071GBUXN.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C071.svd
 

@@ -117,6 +117,26 @@
     (((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_DAC1_CH1)  ||                   \
     ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_DAC3_CH2))                       \
    ))
+#elif defined(STM32G411xB) || defined(STM32G411xC)
+#define IS_LL_COMP_INPUT_MINUS(__COMP_INSTANCE__, __INPUT_MINUS__)             \
+  (((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_1_4VREFINT)  ||                   \
+   ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_1_2VREFINT)  ||                   \
+   ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_3_4VREFINT)  ||                   \
+   ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_VREFINT)     ||                   \
+   ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_IO1)         ||                   \
+   ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_IO2)         ||                   \
+   (((__COMP_INSTANCE__) == COMP1)                        &&                   \
+    (((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_DAC1_CH1)  ||                   \
+    ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_DAC3_CH1))                       \
+   )                                                      ||                   \
+   (((__COMP_INSTANCE__) == COMP2)                        &&                   \
+    (((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_DAC1_CH2)  ||                   \
+    ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_DAC3_CH2))                       \
+   )                                                      ||                   \
+   (((__COMP_INSTANCE__) == COMP3)                        &&                   \
+    (((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_DAC1_CH1)  ||                   \
+    ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_DAC3_CH1))                       \
+   ))
 #endif
 
 #define IS_LL_COMP_INPUT_HYSTERESIS(__INPUT_HYSTERESIS__)                      \
@@ -253,6 +273,29 @@
    || ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM20_OC5)                    \
    || ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM15_OC1)                    \
    || ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM4_OC3)                     \
+  )
+#elif defined(STM32G411xB) || defined(STM32G411xC)
+#define IS_LL_COMP_OUTPUT_BLANKING_SOURCE(__INSTANCE__, __OUTPUT_BLANKING_SOURCE__)      \
+  ((((__INSTANCE__) == COMP1) &&                                                         \
+    (((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_NONE)            ||            \
+     ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM1_OC5_COMP1)  ||            \
+     ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM2_OC3_COMP1)  ||            \
+     ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM3_OC3_COMP1)  ||            \
+     ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM8_OC5_COMP1)))              \
+   ||                                                                                    \
+   (((__INSTANCE__) == COMP2) &&                                                         \
+    (((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_NONE)            ||            \
+     ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM1_OC5_COMP2)  ||            \
+     ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM2_OC3_COMP2)  ||            \
+     ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM3_OC3_COMP2)  ||            \
+     ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM8_OC5_COMP2)))              \
+   ||                                                                                    \
+   (((__INSTANCE__) == COMP3) &&                                                         \
+    (((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_NONE)            ||            \
+     ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM1_OC5_COMP3)  ||            \
+     ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM2_OC4_COMP3)  ||            \
+     ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM3_OC3_COMP3)  ||            \
+     ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM8_OC5_COMP3)))              \
   )
 #endif
 /**

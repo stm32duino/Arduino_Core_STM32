@@ -346,6 +346,8 @@ __weak void HAL_DCMI_MspDeInit(DCMI_HandleTypeDef* hdcmi)
   */
 HAL_StatusTypeDef HAL_DCMI_Start_DMA(DCMI_HandleTypeDef* hdcmi, uint32_t DCMI_Mode, uint32_t pData, uint32_t Length)
 {
+  HAL_StatusTypeDef status;
+
   /* Initialize the second memory address */
   uint32_t SecondMemAddress = 0U;
 
@@ -381,7 +383,7 @@ HAL_StatusTypeDef HAL_DCMI_Start_DMA(DCMI_HandleTypeDef* hdcmi, uint32_t DCMI_Mo
   if(Length <= 0xFFFFU)
   {
     /* Enable the DMA Stream */
-    HAL_DMA_Start_IT(hdcmi->DMA_Handle, (uint32_t)&hdcmi->Instance->DR, (uint32_t)pData, Length);
+    status = HAL_DMA_Start_IT(hdcmi->DMA_Handle, (uint32_t)&hdcmi->Instance->DR, (uint32_t)pData, Length);
   }
   else /* DCMI_DOUBLE_BUFFER Mode */
   {
@@ -408,7 +410,7 @@ HAL_StatusTypeDef HAL_DCMI_Start_DMA(DCMI_HandleTypeDef* hdcmi, uint32_t DCMI_Mo
     SecondMemAddress = (uint32_t)(pData + (4U*hdcmi->XferSize));
 
     /* Start DMA multi buffer transfer */
-    HAL_DMAEx_MultiBufferStart_IT(hdcmi->DMA_Handle, (uint32_t)&hdcmi->Instance->DR, (uint32_t)pData, SecondMemAddress, hdcmi->XferSize);
+    status = HAL_DMAEx_MultiBufferStart_IT(hdcmi->DMA_Handle, (uint32_t)&hdcmi->Instance->DR, (uint32_t)pData, SecondMemAddress, hdcmi->XferSize);
   }
 
   /* Enable Capture */
@@ -418,7 +420,7 @@ HAL_StatusTypeDef HAL_DCMI_Start_DMA(DCMI_HandleTypeDef* hdcmi, uint32_t DCMI_Mo
   __HAL_UNLOCK(hdcmi);
 
   /* Return function status */
-  return HAL_OK;
+  return status;
 }
 
 /**
@@ -572,7 +574,10 @@ void HAL_DCMI_IRQHandler(DCMI_HandleTypeDef *hdcmi)
     hdcmi->DMA_Handle->XferAbortCallback = DCMI_DMAError;
 
     /* Abort the DMA Transfer */
-    HAL_DMA_Abort_IT(hdcmi->DMA_Handle);
+    if (HAL_DMA_Abort_IT(hdcmi->DMA_Handle) != HAL_OK)
+    {
+      DCMI_DMAError(hdcmi->DMA_Handle);
+    }
   }
   /* Overflow interrupt management ********************************************/
   if((isr_value & DCMI_FLAG_OVRRI) == DCMI_FLAG_OVRRI)
@@ -590,7 +595,10 @@ void HAL_DCMI_IRQHandler(DCMI_HandleTypeDef *hdcmi)
     hdcmi->DMA_Handle->XferAbortCallback = DCMI_DMAError;
 
     /* Abort the DMA Transfer */
-    HAL_DMA_Abort_IT(hdcmi->DMA_Handle);
+    if (HAL_DMA_Abort_IT(hdcmi->DMA_Handle) != HAL_OK)
+    {
+      DCMI_DMAError(hdcmi->DMA_Handle);
+    }
   }
   /* Line Interrupt management ************************************************/
   if((isr_value & DCMI_FLAG_LINERI) == DCMI_FLAG_LINERI)

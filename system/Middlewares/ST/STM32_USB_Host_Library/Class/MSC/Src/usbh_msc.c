@@ -3,6 +3,20 @@
   * @file    usbh_msc.c
   * @author  MCD Application Team
   * @brief   This file implements the MSC class driver functions
+  *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  *  @verbatim
+  *
   *          ===================================================================
   *                                MSC Class  Description
   *          ===================================================================
@@ -14,17 +28,6 @@
   *             - Subclass : SCSI transparent command set (ref. SCSI Primary Commands - 3 (SPC-3))
   *
   *  @endverbatim
-  *
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -59,7 +62,6 @@ EndBSPDependencies */
   * @{
   */
 
-
 /** @defgroup USBH_MSC_CORE_Private_TypesDefinitions
   * @{
   */
@@ -81,7 +83,6 @@ EndBSPDependencies */
   * @}
   */
 
-
 /** @defgroup USBH_MSC_CORE_Private_Variables
   * @{
   */
@@ -89,21 +90,15 @@ EndBSPDependencies */
   * @}
   */
 
-
 /** @defgroup USBH_MSC_CORE_Private_FunctionPrototypes
   * @{
   */
 
 static USBH_StatusTypeDef USBH_MSC_InterfaceInit(USBH_HandleTypeDef *phost);
-
 static USBH_StatusTypeDef USBH_MSC_InterfaceDeInit(USBH_HandleTypeDef *phost);
-
 static USBH_StatusTypeDef USBH_MSC_Process(USBH_HandleTypeDef *phost);
-
 static USBH_StatusTypeDef USBH_MSC_ClassRequest(USBH_HandleTypeDef *phost);
-
 static USBH_StatusTypeDef USBH_MSC_SOFProcess(USBH_HandleTypeDef *phost);
-
 static USBH_StatusTypeDef USBH_MSC_RdWrProcess(USBH_HandleTypeDef *phost, uint8_t lun);
 
 USBH_ClassTypeDef  USBH_msc =
@@ -118,25 +113,20 @@ USBH_ClassTypeDef  USBH_msc =
   NULL,
 };
 
-
 /**
   * @}
   */
-
 
 /** @defgroup USBH_MSC_CORE_Exported_Variables
   * @{
   */
-
 /**
   * @}
   */
 
-
 /** @defgroup USBH_MSC_CORE_Private_Functions
   * @{
   */
-
 
 /**
   * @brief  USBH_MSC_InterfaceInit
@@ -175,9 +165,9 @@ static USBH_StatusTypeDef USBH_MSC_InterfaceInit(USBH_HandleTypeDef *phost)
   }
 
   /* Initialize msc handler */
-  USBH_memset(MSC_Handle, 0, sizeof(MSC_HandleTypeDef));
+  (void)USBH_memset(MSC_Handle, 0, sizeof(MSC_HandleTypeDef));
 
-  if (phost->device.CfgDesc.Itf_Desc[interface].Ep_Desc[0].bEndpointAddress & 0x80U)
+  if ((phost->device.CfgDesc.Itf_Desc[interface].Ep_Desc[0].bEndpointAddress & 0x80U) != 0U)
   {
     MSC_Handle->InEp = (phost->device.CfgDesc.Itf_Desc[interface].Ep_Desc[0].bEndpointAddress);
     MSC_Handle->InEpSize = phost->device.CfgDesc.Itf_Desc[interface].Ep_Desc[0].wMaxPacketSize;
@@ -188,7 +178,7 @@ static USBH_StatusTypeDef USBH_MSC_InterfaceInit(USBH_HandleTypeDef *phost)
     MSC_Handle->OutEpSize = phost->device.CfgDesc.Itf_Desc[interface].Ep_Desc[0].wMaxPacketSize;
   }
 
-  if (phost->device.CfgDesc.Itf_Desc[interface].Ep_Desc[1].bEndpointAddress & 0x80U)
+  if ((phost->device.CfgDesc.Itf_Desc[interface].Ep_Desc[1].bEndpointAddress & 0x80U) != 0U)
   {
     MSC_Handle->InEp = (phost->device.CfgDesc.Itf_Desc[interface].Ep_Desc[1].bEndpointAddress);
     MSC_Handle->InEpSize = phost->device.CfgDesc.Itf_Desc[interface].Ep_Desc[1].wMaxPacketSize;
@@ -205,19 +195,33 @@ static USBH_StatusTypeDef USBH_MSC_InterfaceInit(USBH_HandleTypeDef *phost)
   MSC_Handle->OutPipe = USBH_AllocPipe(phost, MSC_Handle->OutEp);
   MSC_Handle->InPipe = USBH_AllocPipe(phost, MSC_Handle->InEp);
 
-  USBH_MSC_BOT_Init(phost);
+  (void)USBH_MSC_BOT_Init(phost);
 
   /* Open the new channels */
-  USBH_OpenPipe(phost, MSC_Handle->OutPipe, MSC_Handle->OutEp,
-                phost->device.address, phost->device.speed,
-                USB_EP_TYPE_BULK, MSC_Handle->OutEpSize);
+  if ((MSC_Handle->OutEp != 0U) && (MSC_Handle->OutEpSize != 0U))
+  {
+    (void)USBH_OpenPipe(phost, MSC_Handle->OutPipe, MSC_Handle->OutEp,
+                        phost->device.address, phost->device.speed,
+                        USB_EP_TYPE_BULK, MSC_Handle->OutEpSize);
+  }
+  else
+  {
+    return USBH_NOT_SUPPORTED;
+  }
 
-  USBH_OpenPipe(phost, MSC_Handle->InPipe, MSC_Handle->InEp,
-                phost->device.address, phost->device.speed, USB_EP_TYPE_BULK,
-                MSC_Handle->InEpSize);
+  if ((MSC_Handle->InEp != 0U) && (MSC_Handle->InEpSize != 0U))
+  {
+    (void)USBH_OpenPipe(phost, MSC_Handle->InPipe, MSC_Handle->InEp,
+                        phost->device.address, phost->device.speed, USB_EP_TYPE_BULK,
+                        MSC_Handle->InEpSize);
+  }
+  else
+  {
+    return USBH_NOT_SUPPORTED;
+  }
 
-  USBH_LL_SetToggle(phost, MSC_Handle->InPipe, 0U);
-  USBH_LL_SetToggle(phost, MSC_Handle->OutPipe, 0U);
+  (void)USBH_LL_SetToggle(phost, MSC_Handle->InPipe, 0U);
+  (void)USBH_LL_SetToggle(phost, MSC_Handle->OutPipe, 0U);
 
   return USBH_OK;
 }
@@ -232,21 +236,21 @@ static USBH_StatusTypeDef USBH_MSC_InterfaceDeInit(USBH_HandleTypeDef *phost)
 {
   MSC_HandleTypeDef *MSC_Handle = (MSC_HandleTypeDef *) phost->pActiveClass->pData;
 
-  if (MSC_Handle->OutPipe)
+  if ((MSC_Handle->OutPipe) != 0U)
   {
-    USBH_ClosePipe(phost, MSC_Handle->OutPipe);
-    USBH_FreePipe(phost, MSC_Handle->OutPipe);
+    (void)USBH_ClosePipe(phost, MSC_Handle->OutPipe);
+    (void)USBH_FreePipe(phost, MSC_Handle->OutPipe);
     MSC_Handle->OutPipe = 0U;     /* Reset the Channel as Free */
   }
 
-  if (MSC_Handle->InPipe)
+  if ((MSC_Handle->InPipe != 0U))
   {
-    USBH_ClosePipe(phost, MSC_Handle->InPipe);
-    USBH_FreePipe(phost, MSC_Handle->InPipe);
+    (void)USBH_ClosePipe(phost, MSC_Handle->InPipe);
+    (void)USBH_FreePipe(phost, MSC_Handle->InPipe);
     MSC_Handle->InPipe = 0U;     /* Reset the Channel as Free */
   }
 
-  if (phost->pActiveClass->pData)
+  if ((phost->pActiveClass->pData) != NULL)
   {
     USBH_free(phost->pActiveClass->pData);
     phost->pActiveClass->pData = 0U;
@@ -266,18 +270,19 @@ static USBH_StatusTypeDef USBH_MSC_ClassRequest(USBH_HandleTypeDef *phost)
 {
   MSC_HandleTypeDef *MSC_Handle = (MSC_HandleTypeDef *) phost->pActiveClass->pData;
   USBH_StatusTypeDef status = USBH_BUSY;
-  uint8_t i;
+  uint8_t lun_idx;
 
   /* Switch MSC REQ state machine */
   switch (MSC_Handle->req_state)
   {
     case MSC_REQ_IDLE:
     case MSC_REQ_GET_MAX_LUN:
+
       /* Issue GetMaxLUN request */
       status = USBH_MSC_BOT_REQ_GetMaxLUN(phost, &MSC_Handle->max_lun);
 
       /* When devices do not support the GetMaxLun request, this should
-         be considred as only one logical unit is supported */
+         be considered as only one logical unit is supported */
       if (status == USBH_NOT_SUPPORTED)
       {
         MSC_Handle->max_lun = 0U;
@@ -289,10 +294,10 @@ static USBH_StatusTypeDef USBH_MSC_ClassRequest(USBH_HandleTypeDef *phost)
         MSC_Handle->max_lun = (MSC_Handle->max_lun > MAX_SUPPORTED_LUN) ? MAX_SUPPORTED_LUN : (MSC_Handle->max_lun + 1U);
         USBH_UsrLog("Number of supported LUN: %d", MSC_Handle->max_lun);
 
-        for (i = 0U; i < MSC_Handle->max_lun; i++)
+        for (lun_idx = 0U; lun_idx < MSC_Handle->max_lun; lun_idx++)
         {
-          MSC_Handle->unit[i].prev_ready_state = USBH_FAIL;
-          MSC_Handle->unit[i].state_changed = 0U;
+          MSC_Handle->unit[lun_idx].prev_ready_state = USBH_FAIL;
+          MSC_Handle->unit[lun_idx].state_changed = 0U;
         }
       }
       break;
@@ -331,8 +336,8 @@ static USBH_StatusTypeDef USBH_MSC_Process(USBH_HandleTypeDef *phost)
 
       if (MSC_Handle->current_lun < MSC_Handle->max_lun)
       {
-
         MSC_Handle->unit[MSC_Handle->current_lun].error = MSC_NOT_READY;
+
         /* Switch MSC REQ state machine */
         switch (MSC_Handle->unit[MSC_Handle->current_lun].state)
         {
@@ -352,7 +357,7 @@ static USBH_StatusTypeDef USBH_MSC_Process(USBH_HandleTypeDef *phost)
               USBH_UsrLog("Inquiry Version : %s", MSC_Handle->unit[MSC_Handle->current_lun].inquiry.revision_id);
               MSC_Handle->unit[MSC_Handle->current_lun].state = MSC_TEST_UNIT_READY;
             }
-            if (scsi_status == USBH_FAIL)
+            else if (scsi_status == USBH_FAIL)
             {
               MSC_Handle->unit[MSC_Handle->current_lun].state = MSC_REQUEST_SENSE;
             }
@@ -360,7 +365,7 @@ static USBH_StatusTypeDef USBH_MSC_Process(USBH_HandleTypeDef *phost)
             {
               if (scsi_status == USBH_UNRECOVERED_ERROR)
               {
-                MSC_Handle->unit[MSC_Handle->current_lun].state = MSC_IDLE;
+                MSC_Handle->unit[MSC_Handle->current_lun].state = MSC_UNRECOVERED_ERROR;
                 MSC_Handle->unit[MSC_Handle->current_lun].error = MSC_ERROR;
               }
             }
@@ -384,7 +389,7 @@ static USBH_StatusTypeDef USBH_MSC_Process(USBH_HandleTypeDef *phost)
               MSC_Handle->unit[MSC_Handle->current_lun].error = MSC_OK;
               MSC_Handle->unit[MSC_Handle->current_lun].prev_ready_state = USBH_OK;
             }
-            if (ready_status == USBH_FAIL)
+            else if (ready_status == USBH_FAIL)
             {
               /* Media not ready, so try to check again during 10s */
               if (MSC_Handle->unit[MSC_Handle->current_lun].prev_ready_state != USBH_FAIL)
@@ -404,23 +409,24 @@ static USBH_StatusTypeDef USBH_MSC_Process(USBH_HandleTypeDef *phost)
             {
               if (ready_status == USBH_UNRECOVERED_ERROR)
               {
-                MSC_Handle->unit[MSC_Handle->current_lun].state = MSC_IDLE;
+                MSC_Handle->unit[MSC_Handle->current_lun].state = MSC_UNRECOVERED_ERROR;
                 MSC_Handle->unit[MSC_Handle->current_lun].error = MSC_ERROR;
               }
             }
             break;
 
           case MSC_READ_CAPACITY10:
-            scsi_status = USBH_MSC_SCSI_ReadCapacity(phost, (uint8_t)MSC_Handle->current_lun, &MSC_Handle->unit[MSC_Handle->current_lun].capacity) ;
+            scsi_status = USBH_MSC_SCSI_ReadCapacity(phost, (uint8_t)MSC_Handle->current_lun, &MSC_Handle->unit[MSC_Handle->current_lun].capacity);
 
             if (scsi_status == USBH_OK)
             {
               if (MSC_Handle->unit[MSC_Handle->current_lun].state_changed == 1U)
               {
-                USBH_UsrLog("MSC Device capacity : %lu Bytes", \
-                            (int32_t)(MSC_Handle->unit[MSC_Handle->current_lun].capacity.block_nbr * MSC_Handle->unit[MSC_Handle->current_lun].capacity.block_size));
-                USBH_UsrLog("Block number : %lu", (int32_t)(MSC_Handle->unit[MSC_Handle->current_lun].capacity.block_nbr));
-                USBH_UsrLog("Block Size   : %lu", (int32_t)(MSC_Handle->unit[MSC_Handle->current_lun].capacity.block_size));
+                USBH_UsrLog("MSC Device capacity : %u Bytes", \
+                            (unsigned int)(MSC_Handle->unit[MSC_Handle->current_lun].capacity.block_nbr *
+                             MSC_Handle->unit[MSC_Handle->current_lun].capacity.block_size));
+                USBH_UsrLog("Block number : %u", (unsigned int)(MSC_Handle->unit[MSC_Handle->current_lun].capacity.block_nbr));
+                USBH_UsrLog("Block Size   : %u", (unsigned int)(MSC_Handle->unit[MSC_Handle->current_lun].capacity.block_size));
               }
               MSC_Handle->unit[MSC_Handle->current_lun].state = MSC_IDLE;
               MSC_Handle->unit[MSC_Handle->current_lun].error = MSC_OK;
@@ -434,7 +440,7 @@ static USBH_StatusTypeDef USBH_MSC_Process(USBH_HandleTypeDef *phost)
             {
               if (scsi_status == USBH_UNRECOVERED_ERROR)
               {
-                MSC_Handle->unit[MSC_Handle->current_lun].state = MSC_IDLE;
+                MSC_Handle->unit[MSC_Handle->current_lun].state = MSC_UNRECOVERED_ERROR;
                 MSC_Handle->unit[MSC_Handle->current_lun].error = MSC_ERROR;
               }
             }
@@ -462,16 +468,17 @@ static USBH_StatusTypeDef USBH_MSC_Process(USBH_HandleTypeDef *phost)
               MSC_Handle->unit[MSC_Handle->current_lun].state = MSC_IDLE;
               MSC_Handle->current_lun++;
             }
-            if (scsi_status == USBH_FAIL)
+            else if (scsi_status == USBH_FAIL)
             {
               USBH_UsrLog("MSC Device NOT ready");
               MSC_Handle->unit[MSC_Handle->current_lun].state = MSC_UNRECOVERED_ERROR;
+              MSC_Handle->unit[MSC_Handle->current_lun].error = MSC_ERROR;
             }
             else
             {
               if (scsi_status == USBH_UNRECOVERED_ERROR)
               {
-                MSC_Handle->unit[MSC_Handle->current_lun].state = MSC_IDLE;
+                MSC_Handle->unit[MSC_Handle->current_lun].state = MSC_UNRECOVERED_ERROR;
                 MSC_Handle->unit[MSC_Handle->current_lun].error = MSC_ERROR;
               }
             }
@@ -486,29 +493,44 @@ static USBH_StatusTypeDef USBH_MSC_Process(USBH_HandleTypeDef *phost)
         }
 
 #if (USBH_USE_OS == 1U)
-        phost->os_msg = (uint32_t)USBH_CLASS_EVENT;
-#if (osCMSIS < 0x20000U)
-        (void)osMessagePut(phost->os_event, phost->os_msg, 0U);
-#else
-        (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
-#endif
-#endif
+        USBH_OS_PutMessage(phost, USBH_CLASS_EVENT, 0U, 0U);
+#endif /* (USBH_USE_OS == 1U) */
       }
       else
       {
         MSC_Handle->current_lun = 0U;
-        MSC_Handle->state = MSC_IDLE;
+        MSC_Handle->state = MSC_USER_NOTIFY;
 
 #if (USBH_USE_OS == 1U)
-        phost->os_msg = (uint32_t)USBH_CLASS_EVENT;
-#if (osCMSIS < 0x20000U)
-        (void)osMessagePut(phost->os_event, phost->os_msg, 0U);
-#else
-        (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
-#endif
-#endif
-        phost->pUser(phost, HOST_USER_CLASS_ACTIVE);
+        USBH_OS_PutMessage(phost, USBH_CLASS_EVENT, 0U, 0U);
+#endif /* (USBH_USE_OS == 1U) */
       }
+      break;
+
+    case MSC_USER_NOTIFY:
+      if (MSC_Handle->lun < MSC_Handle->max_lun)
+      {
+        MSC_Handle->current_lun = MSC_Handle->lun;
+        if (MSC_Handle->unit[MSC_Handle->current_lun].error == MSC_OK)
+        {
+          phost->pUser(phost, HOST_USER_CLASS_ACTIVE);
+        }
+        else
+        {
+          phost->pUser(phost, HOST_USER_UNRECOVERED_ERROR);
+        }
+
+        MSC_Handle->lun++;
+      }
+      else
+      {
+        MSC_Handle->lun = 0U;
+        MSC_Handle->state = MSC_IDLE;
+      }
+
+#if (USBH_USE_OS == 1U)
+      USBH_OS_PutMessage(phost, USBH_CLASS_EVENT, 0U, 0U);
+#endif /* (USBH_USE_OS == 1U) */
       break;
 
     case MSC_IDLE:
@@ -545,13 +567,12 @@ static USBH_StatusTypeDef USBH_MSC_SOFProcess(USBH_HandleTypeDef *phost)
 static USBH_StatusTypeDef USBH_MSC_RdWrProcess(USBH_HandleTypeDef *phost, uint8_t lun)
 {
   MSC_HandleTypeDef *MSC_Handle = (MSC_HandleTypeDef *) phost->pActiveClass->pData;
-  USBH_StatusTypeDef error = USBH_BUSY ;
-  USBH_StatusTypeDef scsi_status = USBH_BUSY ;
+  USBH_StatusTypeDef error = USBH_BUSY;
+  USBH_StatusTypeDef scsi_status = USBH_BUSY;
 
   /* Switch MSC REQ state machine */
   switch (MSC_Handle->unit[lun].state)
   {
-
     case MSC_READ:
       scsi_status = USBH_MSC_SCSI_Read(phost, lun, 0U, NULL, 0U);
 
@@ -574,13 +595,8 @@ static USBH_StatusTypeDef USBH_MSC_RdWrProcess(USBH_HandleTypeDef *phost, uint8_
       }
 
 #if (USBH_USE_OS == 1U)
-      phost->os_msg = (uint32_t)USBH_CLASS_EVENT;
-#if (osCMSIS < 0x20000U)
-      (void)osMessagePut(phost->os_event, phost->os_msg, 0U);
-#else
-      (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
-#endif
-#endif
+      USBH_OS_PutMessage(phost, USBH_CLASS_EVENT, 0U, 0U);
+#endif /* (USBH_USE_OS == 1U) */
       break;
 
     case MSC_WRITE:
@@ -605,13 +621,8 @@ static USBH_StatusTypeDef USBH_MSC_RdWrProcess(USBH_HandleTypeDef *phost, uint8_
       }
 
 #if (USBH_USE_OS == 1U)
-      phost->os_msg = (uint32_t)USBH_CLASS_EVENT;
-#if (osCMSIS < 0x20000U)
-      (void)osMessagePut(phost->os_event, phost->os_msg, 0U);
-#else
-      (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
-#endif
-#endif
+      USBH_OS_PutMessage(phost, USBH_CLASS_EVENT, 0U, 0U);
+#endif /* (USBH_USE_OS == 1U) */
       break;
 
     case MSC_REQUEST_SENSE:
@@ -627,7 +638,7 @@ static USBH_StatusTypeDef USBH_MSC_RdWrProcess(USBH_HandleTypeDef *phost, uint8_
 
         error = USBH_FAIL;
       }
-      if (scsi_status == USBH_FAIL)
+      else if (scsi_status == USBH_FAIL)
       {
         USBH_UsrLog("MSC Device NOT ready");
       }
@@ -641,13 +652,8 @@ static USBH_StatusTypeDef USBH_MSC_RdWrProcess(USBH_HandleTypeDef *phost, uint8_
       }
 
 #if (USBH_USE_OS == 1U)
-      phost->os_msg = (uint32_t)USBH_CLASS_EVENT;
-#if (osCMSIS < 0x20000U)
-      (void)osMessagePut(phost->os_event, phost->os_msg, 0U);
-#else
-      (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
-#endif
-#endif
+      USBH_OS_PutMessage(phost, USBH_CLASS_EVENT, 0U, 0U);
+#endif /* (USBH_USE_OS == 1U) */
       break;
 
     default:
@@ -663,7 +669,7 @@ static USBH_StatusTypeDef USBH_MSC_RdWrProcess(USBH_HandleTypeDef *phost, uint8_
   * @param  phost: Host handle
   * @retval USBH Status
   */
-uint8_t  USBH_MSC_IsReady(USBH_HandleTypeDef *phost)
+uint8_t USBH_MSC_IsReady(USBH_HandleTypeDef *phost)
 {
   MSC_HandleTypeDef *MSC_Handle = (MSC_HandleTypeDef *) phost->pActiveClass->pData;
   uint8_t res;
@@ -686,7 +692,7 @@ uint8_t  USBH_MSC_IsReady(USBH_HandleTypeDef *phost)
   * @param  phost: Host handle
   * @retval logical Unit Number supported
   */
-uint8_t  USBH_MSC_GetMaxLUN(USBH_HandleTypeDef *phost)
+uint8_t USBH_MSC_GetMaxLUN(USBH_HandleTypeDef *phost)
 {
   MSC_HandleTypeDef *MSC_Handle = (MSC_HandleTypeDef *) phost->pActiveClass->pData;
 
@@ -705,10 +711,13 @@ uint8_t  USBH_MSC_GetMaxLUN(USBH_HandleTypeDef *phost)
   * @param  lun: logical Unit Number
   * @retval Lun status (0: not ready / 1: ready)
   */
-uint8_t  USBH_MSC_UnitIsReady(USBH_HandleTypeDef *phost, uint8_t lun)
+uint8_t USBH_MSC_UnitIsReady(USBH_HandleTypeDef *phost, uint8_t lun)
 {
   MSC_HandleTypeDef *MSC_Handle = (MSC_HandleTypeDef *) phost->pActiveClass->pData;
   uint8_t res;
+
+  /* Store the current lun */
+  MSC_Handle->current_lun = lun;
 
   if ((phost->gState == HOST_CLASS) && (MSC_Handle->unit[lun].error == MSC_OK))
   {
@@ -732,9 +741,13 @@ uint8_t  USBH_MSC_UnitIsReady(USBH_HandleTypeDef *phost, uint8_t lun)
 USBH_StatusTypeDef USBH_MSC_GetLUNInfo(USBH_HandleTypeDef *phost, uint8_t lun, MSC_LUNTypeDef *info)
 {
   MSC_HandleTypeDef *MSC_Handle = (MSC_HandleTypeDef *) phost->pActiveClass->pData;
+
+  /* Store the current lun */
+  MSC_Handle->current_lun = lun;
+
   if (phost->gState == HOST_CLASS)
   {
-    USBH_memcpy(info, &MSC_Handle->unit[lun], sizeof(MSC_LUNTypeDef));
+    (void)USBH_memcpy(info, &MSC_Handle->unit[lun], sizeof(MSC_LUNTypeDef));
     return USBH_OK;
   }
   else
@@ -762,30 +775,29 @@ USBH_StatusTypeDef USBH_MSC_Read(USBH_HandleTypeDef *phost,
   uint32_t timeout;
   MSC_HandleTypeDef *MSC_Handle = (MSC_HandleTypeDef *) phost->pActiveClass->pData;
 
-  if ((phost->device.is_connected == 0U) ||
+  /* Store the current lun */
+  MSC_Handle->current_lun = lun;
+
+  if ((phost->device.PortEnabled == 0U) ||
       (phost->gState != HOST_CLASS) ||
       (MSC_Handle->unit[lun].state != MSC_IDLE))
   {
     return  USBH_FAIL;
   }
 
-  MSC_Handle->state = MSC_READ;
   MSC_Handle->unit[lun].state = MSC_READ;
-  MSC_Handle->rw_lun = lun;
 
-  USBH_MSC_SCSI_Read(phost, lun, address, pbuf, length);
+  (void)USBH_MSC_SCSI_Read(phost, lun, address, pbuf, length);
 
   timeout = phost->Timer;
 
   while (USBH_MSC_RdWrProcess(phost, lun) == USBH_BUSY)
   {
-    if (((phost->Timer - timeout) > (10000U * length)) || (phost->device.is_connected == 0U))
+    if (((phost->Timer - timeout) > (10000U * length)) || (phost->device.PortEnabled == 0U))
     {
-      MSC_Handle->state = MSC_IDLE;
       return USBH_FAIL;
     }
   }
-  MSC_Handle->state = MSC_IDLE;
 
   return USBH_OK;
 }
@@ -809,29 +821,29 @@ USBH_StatusTypeDef USBH_MSC_Write(USBH_HandleTypeDef *phost,
   uint32_t timeout;
   MSC_HandleTypeDef *MSC_Handle = (MSC_HandleTypeDef *) phost->pActiveClass->pData;
 
-  if ((phost->device.is_connected == 0U) ||
+  /* Store the current lun */
+  MSC_Handle->current_lun = lun;
+
+  if ((phost->device.PortEnabled == 0U) ||
       (phost->gState != HOST_CLASS) ||
       (MSC_Handle->unit[lun].state != MSC_IDLE))
   {
     return  USBH_FAIL;
   }
 
-  MSC_Handle->state = MSC_WRITE;
   MSC_Handle->unit[lun].state = MSC_WRITE;
-  MSC_Handle->rw_lun = lun;
 
-  USBH_MSC_SCSI_Write(phost, lun, address, pbuf, length);
+  (void)USBH_MSC_SCSI_Write(phost, lun, address, pbuf, length);
 
   timeout = phost->Timer;
   while (USBH_MSC_RdWrProcess(phost, lun) == USBH_BUSY)
   {
-    if (((phost->Timer - timeout) > (10000U * length)) || (phost->device.is_connected == 0U))
+    if (((phost->Timer - timeout) > (10000U * length)) || (phost->device.PortEnabled == 0U))
     {
-      MSC_Handle->state = MSC_IDLE;
       return USBH_FAIL;
     }
   }
-  MSC_Handle->state = MSC_IDLE;
+
   return USBH_OK;
 }
 
@@ -855,4 +867,3 @@ USBH_StatusTypeDef USBH_MSC_Write(USBH_HandleTypeDef *phost,
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

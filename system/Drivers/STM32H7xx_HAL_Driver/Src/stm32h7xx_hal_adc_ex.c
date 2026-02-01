@@ -197,7 +197,7 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc, uint32_t 
   *           @arg @ref ADC_DIFFERENTIAL_ENDED Channel in mode input differential ended
   * @retval Calibration value.
   */
-uint32_t HAL_ADCEx_Calibration_GetValue(ADC_HandleTypeDef *hadc, uint32_t SingleDiff)
+uint32_t HAL_ADCEx_Calibration_GetValue(const ADC_HandleTypeDef *hadc, uint32_t SingleDiff)
 {
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
@@ -1016,7 +1016,7 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedStop_IT(ADC_HandleTypeDef *hadc)
   * @param Length Length of data to be transferred from ADC peripheral to memory (in bytes).
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef *hadc, uint32_t *pData, uint32_t Length)
+HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef *hadc, const uint32_t *pData, uint32_t Length)
 {
   HAL_StatusTypeDef tmp_hal_status;
   ADC_HandleTypeDef tmphadcSlave;
@@ -1277,7 +1277,7 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStop_DMA(ADC_HandleTypeDef *hadc)
   * @param hadc ADC handle of ADC Master (handle of ADC Slave must not be used)
   * @retval The converted data values.
   */
-uint32_t HAL_ADCEx_MultiModeGetValue(ADC_HandleTypeDef *hadc)
+uint32_t HAL_ADCEx_MultiModeGetValue(const ADC_HandleTypeDef *hadc)
 {
   const ADC_Common_TypeDef *tmpADC_Common;
 
@@ -1323,7 +1323,7 @@ uint32_t HAL_ADCEx_MultiModeGetValue(ADC_HandleTypeDef *hadc)
   *            @arg @ref ADC_INJECTED_RANK_4 ADC group injected rank 4
   * @retval ADC group injected conversion data
   */
-uint32_t HAL_ADCEx_InjectedGetValue(ADC_HandleTypeDef *hadc, uint32_t InjectedRank)
+uint32_t HAL_ADCEx_InjectedGetValue(const ADC_HandleTypeDef *hadc, uint32_t InjectedRank)
 {
   uint32_t tmp_jdr;
 
@@ -2296,8 +2296,8 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedConfigChannel(ADC_HandleTypeDef *hadc, ADC_I
     /* Note: ADC channel number masked with value "0x1F" to ensure shift value within 32 bits range */
     if (sConfigInjected->InjectedSingleDiff == ADC_DIFFERENTIAL_ENDED)
     {
-      /* Set sampling time of the selected ADC channel */
-      LL_ADC_SetChannelSamplingTime(hadc->Instance, (uint32_t)(__LL_ADC_DECIMAL_NB_TO_CHANNEL((__LL_ADC_CHANNEL_TO_DECIMAL_NB((uint32_t)sConfigInjected->InjectedChannel) + 1UL) & 0x1FUL)), sConfigInjected->InjectedSamplingTime);
+      /* Set ADC channel preselection of corresponding negative channel */
+      LL_ADC_SetChannelPreselection(hadc->Instance, ADC_CHANNEL_DIFF_NEG_INPUT(hadc, sConfigInjected->InjectedChannel));
     }
 
     /* Management of internal measurement channels: Vbat/VrefInt/TempSensor   */

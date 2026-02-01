@@ -1199,7 +1199,7 @@ HAL_StatusTypeDef HAL_FMAC_PollFilterData(FMAC_HandleTypeDef *hfmac, uint32_t Ti
   */
 HAL_StatusTypeDef HAL_FMAC_FilterStop(FMAC_HandleTypeDef *hfmac)
 {
-  HAL_StatusTypeDef status;
+  HAL_StatusTypeDef status = HAL_OK;
 
   /* Check handle state is ready */
   if (hfmac->State == HAL_FMAC_STATE_READY)
@@ -1218,9 +1218,22 @@ HAL_StatusTypeDef HAL_FMAC_FilterStop(FMAC_HandleTypeDef *hfmac)
     {
       (*(hfmac->pInputSize))  = hfmac->InputCurrentSize;
     }
+
     if ((hfmac->OutputAccess == FMAC_BUFFER_ACCESS_IT) && (hfmac->pOutput != NULL))
     {
       (*(hfmac->pOutputSize)) = hfmac->OutputCurrentSize;
+    }
+
+    if (hfmac->InputAccess == FMAC_BUFFER_ACCESS_DMA)
+    {
+      /* Disable the DMA stream managing FMAC input data */
+      status = HAL_DMA_Abort_IT(hfmac->hdmaIn);
+    }
+
+    if ((hfmac->OutputAccess == FMAC_BUFFER_ACCESS_DMA) && (status == HAL_OK))
+    {
+      /* Disable the DMA stream managing FMAC output data */
+      status = HAL_DMA_Abort_IT(hfmac->hdmaOut);
     }
 
     /* Reset FMAC unit (internal pointers) */
@@ -1235,8 +1248,6 @@ HAL_StatusTypeDef HAL_FMAC_FilterStop(FMAC_HandleTypeDef *hfmac)
     {
       /* Reset the data pointers */
       FMAC_ResetDataPointers(hfmac);
-
-      status = HAL_OK;
     }
 
     /* Reset the busy flag */

@@ -1453,7 +1453,7 @@ void HAL_PCD_IRQHandler(PCD_HandleTypeDef *hpcd)
 
         if ((hpcd->OUT_ep[epnum].type == EP_TYPE_ISOC) &&
             ((RegVal & USB_OTG_DOEPCTL_EPENA) == USB_OTG_DOEPCTL_EPENA) &&
-            ((RegVal & (0x1U << 16)) == (hpcd->FrameNumber & 0x1U)))
+            (((RegVal & (0x1U << 16)) >> 16U) == (hpcd->FrameNumber & 0x1U)))
         {
           hpcd->OUT_ep[epnum].is_iso_incomplete = 1U;
 
@@ -1766,7 +1766,7 @@ HAL_StatusTypeDef HAL_PCD_SetAddress(PCD_HandleTypeDef *hpcd, uint8_t address)
 HAL_StatusTypeDef HAL_PCD_EP_Open(PCD_HandleTypeDef *hpcd, uint8_t ep_addr,
                                   uint16_t ep_mps, uint8_t ep_type)
 {
-  HAL_StatusTypeDef  ret = HAL_OK;
+  HAL_StatusTypeDef ret = HAL_OK;
   PCD_EPTypeDef *ep;
 
   if ((ep_addr & 0x80U) == 0x80U)
@@ -1781,7 +1781,7 @@ HAL_StatusTypeDef HAL_PCD_EP_Open(PCD_HandleTypeDef *hpcd, uint8_t ep_addr,
   }
 
   ep->num = ep_addr & EP_ADDR_MSK;
-  ep->maxpacket = ep_mps;
+  ep->maxpacket = (uint32_t)ep_mps & 0x7FFU;
   ep->type = ep_type;
 
   if (ep->is_in != 0U)
@@ -2101,6 +2101,7 @@ HAL_StatusTypeDef HAL_PCD_SetTestMode(const PCD_HandleTypeDef *hpcd, uint8_t tes
     case TEST_SE0_NAK:
     case TEST_PACKET:
     case TEST_FORCE_EN:
+      USBx_DEVICE->DCTL &= ~(0x7U << 4);
       USBx_DEVICE->DCTL |= (uint32_t)testmode << 4;
       break;
 
@@ -2331,13 +2332,11 @@ static HAL_StatusTypeDef PCD_EP_OutSetupPacket_int(PCD_HandleTypeDef *hpcd, uint
 }
 #endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 
-
 /**
   * @}
   */
 #endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 #endif /* HAL_PCD_MODULE_ENABLED */
-
 /**
   * @}
   */

@@ -178,6 +178,7 @@ typedef  void (*pRNG_ReadyDataCallbackTypeDef)(RNG_HandleTypeDef *hrng, uint32_t
 #define  HAL_RNG_ERROR_BUSY             0x00000004U    /*!< Busy error        */
 #define  HAL_RNG_ERROR_SEED             0x00000008U    /*!< Seed error        */
 #define  HAL_RNG_ERROR_CLOCK            0x00000010U    /*!< Clock error       */
+#define  HAL_RNG_ERROR_RECOVERSEED      0x00000020U    /*!< Recover Seed error */
 /**
   * @}
   */

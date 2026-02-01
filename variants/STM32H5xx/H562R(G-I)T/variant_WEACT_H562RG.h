@@ -222,8 +222,6 @@ P1                P2
   #define HAL_SD_MODULE_ENABLED
 #endif
 
-#define HSE_VALUE               8000000UL
-
 // SD card slot Definitions
 // SDMMC signals not available
 #define SDMMC_CDIR_NA
@@ -256,6 +254,8 @@ P1                P2
 #ifndef SDX_CK
   #define SDX_CK                PC12
 #endif
+
+#define HSE_VALUE               8000000UL
 
 /*----------------------------------------------------------------------------
  *        Arduino objects - C++ only

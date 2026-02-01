@@ -1,0 +1,23 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic WB06CCVx
+GenWB0.menu.pnum.GENERIC_WB06CCVX=Generic WB06CCVx
+GenWB0.menu.pnum.GENERIC_WB06CCVX.upload.maximum_size=262144
+GenWB0.menu.pnum.GENERIC_WB06CCVX.upload.maximum_data_size=32768
+GenWB0.menu.pnum.GENERIC_WB06CCVX.build.board=GENERIC_WB06CCVX
+GenWB0.menu.pnum.GENERIC_WB06CCVX.build.product_line=STM32WB06
+GenWB0.menu.pnum.GENERIC_WB06CCVX.build.variant=STM32WB0x/WB06CCV_WB07CCV
+GenWB0.menu.pnum.GENERIC_WB06CCVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WB0x/STM32WB06.svd
+
+# Generic WB07CCVx
+GenWB0.menu.pnum.GENERIC_WB07CCVX=Generic WB07CCVx
+GenWB0.menu.pnum.GENERIC_WB07CCVX.upload.maximum_size=262144
+GenWB0.menu.pnum.GENERIC_WB07CCVX.upload.maximum_data_size=65536
+GenWB0.menu.pnum.GENERIC_WB07CCVX.build.board=GENERIC_WB07CCVX
+GenWB0.menu.pnum.GENERIC_WB07CCVX.build.product_line=STM32WB07
+GenWB0.menu.pnum.GENERIC_WB07CCVX.build.variant=STM32WB0x/WB06CCV_WB07CCV
+GenWB0.menu.pnum.GENERIC_WB07CCVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WB0x/STM32WB07.svd
+

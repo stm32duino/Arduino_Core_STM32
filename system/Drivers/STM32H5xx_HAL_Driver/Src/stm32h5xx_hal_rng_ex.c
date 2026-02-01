@@ -306,6 +306,11 @@ HAL_StatusTypeDef HAL_RNGEx_RecoverSeedError(RNG_HandleTypeDef *hrng)
 
     /* sequence to fully recover from a seed error */
     status = RNG_RecoverSeedError(hrng);
+    if (status == HAL_ERROR)
+    {
+      /* Update the error code */
+      hrng->ErrorCode = HAL_RNG_ERROR_RECOVERSEED;
+    }
   }
   else
   {

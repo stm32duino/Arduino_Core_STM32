@@ -383,6 +383,7 @@ __weak void HAL_HSEM_FreeCallback(uint32_t SemMask)
     */
 }
 
+#if defined(HSEM_SECCFGR_SEC0) || defined(HSEM_PRIVCFGR_PRIV0)
 /** @defgroup HSEM_Exported_Functions_Group4 HSEM Security and privilege management
   *  @brief    HSEM Attributes functions.
   *
@@ -463,6 +464,7 @@ uint32_t HAL_HSEM_GetSemaphorePrivilege(void)
 /**
   * @}
   */
+#endif /* (HSEM_SECCFGR_SEC0) || (HSEM_PRIVCFGR_PRIV0) */
 
 /**
   * @}

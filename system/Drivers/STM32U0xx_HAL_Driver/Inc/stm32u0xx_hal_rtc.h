@@ -590,6 +590,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
   */
 #define __HAL_RTC_WRITEPROTECTION_DISABLE(__HANDLE__)             \
   do{                   \
+    UNUSED(__HANDLE__); \
     RTC->WPR = 0xCAU;   \
     RTC->WPR = 0x53U;   \
   } while(0U)
@@ -601,6 +602,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
   */
 #define __HAL_RTC_WRITEPROTECTION_ENABLE(__HANDLE__)              \
   do{                   \
+    UNUSED(__HANDLE__); \
     RTC->WPR = 0xFFU;   \
   } while(0U)
 
@@ -643,28 +645,28 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_ALARMA_ENABLE(__HANDLE__)  (RTC->CR |= (RTC_CR_ALRAE))
+#define __HAL_RTC_ALARMA_ENABLE(__HANDLE__)  (UNUSED(__HANDLE__), (RTC->CR |= (RTC_CR_ALRAE)))
 
 /**
   * @brief  Disable the RTC ALARMA peripheral.
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_ALARMA_DISABLE(__HANDLE__)  (RTC->CR &= ~(RTC_CR_ALRAE))
+#define __HAL_RTC_ALARMA_DISABLE(__HANDLE__)  (UNUSED(__HANDLE__), (RTC->CR &= ~(RTC_CR_ALRAE)))
 
 /**
   * @brief  Enable the RTC ALARMB peripheral.
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_ALARMB_ENABLE(__HANDLE__)   (RTC->CR |= (RTC_CR_ALRBE))
+#define __HAL_RTC_ALARMB_ENABLE(__HANDLE__)   (UNUSED(__HANDLE__), (RTC->CR |= (RTC_CR_ALRBE)))
 
 /**
   * @brief  Disable the RTC ALARMB peripheral.
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_ALARMB_DISABLE(__HANDLE__)  (RTC->CR &= ~(RTC_CR_ALRBE))
+#define __HAL_RTC_ALARMB_DISABLE(__HANDLE__)  (UNUSED(__HANDLE__), (RTC->CR &= ~(RTC_CR_ALRBE)))
 
 /**
   * @brief  Enable the RTC Alarm interrupt.
@@ -675,7 +677,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
   *             @arg @ref RTC_IT_ALRB Alarm B interrupt
   * @retval None
   */
-#define __HAL_RTC_ALARM_ENABLE_IT(__HANDLE__, __INTERRUPT__)   (RTC->CR |= (__INTERRUPT__))
+#define __HAL_RTC_ALARM_ENABLE_IT(__HANDLE__, __INTERRUPT__)   (UNUSED(__HANDLE__), (RTC->CR |= (__INTERRUPT__)))
 
 /**
   * @brief  Disable the RTC Alarm interrupt.
@@ -686,7 +688,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
   *            @arg @ref RTC_IT_ALRB Alarm B interrupt
   * @retval None
   */
-#define __HAL_RTC_ALARM_DISABLE_IT(__HANDLE__, __INTERRUPT__) (RTC->CR &= ~(__INTERRUPT__))
+#define __HAL_RTC_ALARM_DISABLE_IT(__HANDLE__, __INTERRUPT__)  (UNUSED(__HANDLE__), (RTC->CR &= ~(__INTERRUPT__)))
 
 /**
   * @brief  Check whether the specified RTC Alarm interrupt has occurred or not.
@@ -697,7 +699,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
   *            @arg @ref RTC_IT_ALRB Alarm B interrupt
   * @retval None
   */
-#define __HAL_RTC_ALARM_GET_IT(__HANDLE__, __INTERRUPT__) ((((RTC->MISR)& ((__INTERRUPT__)>> 12U)) != 0U) ? 1UL : 0UL)
+#define __HAL_RTC_ALARM_GET_IT(__HANDLE__, __INTERRUPT__)      (UNUSED(__HANDLE__), ((((RTC->MISR)& ((__INTERRUPT__)>> 12U)) != 0U) ? 1UL : 0UL))
 
 /**
   * @brief  Check whether the specified RTC Alarm interrupt has been enabled or not.
@@ -708,7 +710,7 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
   *            @arg @ref RTC_IT_ALRB Alarm B interrupt
   * @retval None
   */
-#define __HAL_RTC_ALARM_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)     ((((RTC->CR) & (__INTERRUPT__)) != 0U) ? 1UL : 0UL)
+#define __HAL_RTC_ALARM_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)     (UNUSED(__HANDLE__), ((((RTC->CR) & (__INTERRUPT__)) != 0U) ? 1UL : 0UL))
 
 /**
   * @brief  Get the selected RTC Alarms flag status.
@@ -730,8 +732,8 @@ typedef  void (*pRTC_CallbackTypeDef)(RTC_HandleTypeDef *hrtc);  /*!< pointer to
   *             @arg @ref RTC_FLAG_ALRBF
   * @retval None
   */
-#define __HAL_RTC_ALARM_CLEAR_FLAG(__HANDLE__, __FLAG__) \
-  (((__FLAG__) == RTC_FLAG_ALRAF) ? ((RTC->SCR = (RTC_CLEAR_ALRAF))) : (RTC->SCR = (RTC_CLEAR_ALRBF)))
+#define __HAL_RTC_ALARM_CLEAR_FLAG(__HANDLE__, __FLAG__) (UNUSED(__HANDLE__), \
+  (((__FLAG__) == RTC_FLAG_ALRAF) ? ((RTC->SCR = (RTC_CLEAR_ALRAF))) : (RTC->SCR = (RTC_CLEAR_ALRBF))))
 /**
   * @brief  Enable interrupt on the RTC Alarm associated Exti line.
   * @retval None

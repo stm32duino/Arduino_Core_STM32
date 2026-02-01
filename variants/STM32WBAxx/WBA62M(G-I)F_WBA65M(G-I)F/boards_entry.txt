@@ -1,0 +1,41 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic WBA62MGFx
+GenWBA.menu.pnum.GENERIC_WBA62MGFX=Generic WBA62MGFx
+GenWBA.menu.pnum.GENERIC_WBA62MGFX.upload.maximum_size=1048576
+GenWBA.menu.pnum.GENERIC_WBA62MGFX.upload.maximum_data_size=262144
+GenWBA.menu.pnum.GENERIC_WBA62MGFX.build.board=GENERIC_WBA62MGFX
+GenWBA.menu.pnum.GENERIC_WBA62MGFX.build.product_line=STM32WBA62xx
+GenWBA.menu.pnum.GENERIC_WBA62MGFX.build.variant=STM32WBAxx/WBA62M(G-I)F_WBA65M(G-I)F
+GenWBA.menu.pnum.GENERIC_WBA62MGFX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA62.svd
+
+# Generic WBA62MIFx
+GenWBA.menu.pnum.GENERIC_WBA62MIFX=Generic WBA62MIFx
+GenWBA.menu.pnum.GENERIC_WBA62MIFX.upload.maximum_size=2097152
+GenWBA.menu.pnum.GENERIC_WBA62MIFX.upload.maximum_data_size=524288
+GenWBA.menu.pnum.GENERIC_WBA62MIFX.build.board=GENERIC_WBA62MIFX
+GenWBA.menu.pnum.GENERIC_WBA62MIFX.build.product_line=STM32WBA62xx
+GenWBA.menu.pnum.GENERIC_WBA62MIFX.build.variant=STM32WBAxx/WBA62M(G-I)F_WBA65M(G-I)F
+GenWBA.menu.pnum.GENERIC_WBA62MIFX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA62.svd
+
+# Generic WBA65MGFx
+GenWBA.menu.pnum.GENERIC_WBA65MGFX=Generic WBA65MGFx
+GenWBA.menu.pnum.GENERIC_WBA65MGFX.upload.maximum_size=1048576
+GenWBA.menu.pnum.GENERIC_WBA65MGFX.upload.maximum_data_size=262144
+GenWBA.menu.pnum.GENERIC_WBA65MGFX.build.board=GENERIC_WBA65MGFX
+GenWBA.menu.pnum.GENERIC_WBA65MGFX.build.product_line=STM32WBA65xx
+GenWBA.menu.pnum.GENERIC_WBA65MGFX.build.variant=STM32WBAxx/WBA62M(G-I)F_WBA65M(G-I)F
+GenWBA.menu.pnum.GENERIC_WBA65MGFX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA65.svd
+
+# Generic WBA65MIFx
+GenWBA.menu.pnum.GENERIC_WBA65MIFX=Generic WBA65MIFx
+GenWBA.menu.pnum.GENERIC_WBA65MIFX.upload.maximum_size=2097152
+GenWBA.menu.pnum.GENERIC_WBA65MIFX.upload.maximum_data_size=524288
+GenWBA.menu.pnum.GENERIC_WBA65MIFX.build.board=GENERIC_WBA65MIFX
+GenWBA.menu.pnum.GENERIC_WBA65MIFX.build.product_line=STM32WBA65xx
+GenWBA.menu.pnum.GENERIC_WBA65MIFX.build.variant=STM32WBAxx/WBA62M(G-I)F_WBA65M(G-I)F
+GenWBA.menu.pnum.GENERIC_WBA65MIFX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA65.svd
+

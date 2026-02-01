@@ -410,7 +410,6 @@ typedef struct
 /**
   * @}
   */
-
 /** @defgroup FLASH_OB_USER_CCMSRAM_RST FLASH Option Bytes User CCMSRAM Erase On Reset Type
   * @{
   */
@@ -419,7 +418,6 @@ typedef struct
 /**
   * @}
   */
-
 /** @defgroup FLASH_OB_USER_nSWBOOT0 FLASH Option Bytes User Software BOOT0
   * @{
   */
@@ -974,6 +972,7 @@ HAL_StatusTypeDef  FLASH_WaitForLastOperation(uint32_t Timeout);
 #define IS_OB_USER_BOOT1(VALUE)            (((VALUE) == OB_BOOT1_SRAM) || ((VALUE) == OB_BOOT1_SYSTEM))
 
 #define IS_OB_USER_SRAM_PARITY(VALUE)      (((VALUE) == OB_SRAM_PARITY_ENABLE) || ((VALUE) == OB_SRAM_PARITY_DISABLE))
+
 
 #define IS_OB_USER_CCMSRAM_RST(VALUE)      (((VALUE) == OB_CCMSRAM_RST_ERASE) || ((VALUE) == OB_CCMSRAM_RST_NOT_ERASE))
 

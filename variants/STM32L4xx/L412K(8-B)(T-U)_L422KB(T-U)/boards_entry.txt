@@ -46,7 +46,7 @@ GenL4.menu.pnum.GENERIC_L422KBTX.upload.maximum_data_size=40960
 GenL4.menu.pnum.GENERIC_L422KBTX.build.board=GENERIC_L422KBTX
 GenL4.menu.pnum.GENERIC_L422KBTX.build.product_line=STM32L422xx
 GenL4.menu.pnum.GENERIC_L422KBTX.build.variant=STM32L4xx/L412K(8-B)(T-U)_L422KB(T-U)
-GenL4.menu.pnum.GENERIC_L422KBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x2.svd
+GenL4.menu.pnum.GENERIC_L422KBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L422.svd
 
 # Generic L422KBUx
 GenL4.menu.pnum.GENERIC_L422KBUX=Generic L422KBUx
@@ -55,5 +55,5 @@ GenL4.menu.pnum.GENERIC_L422KBUX.upload.maximum_data_size=40960
 GenL4.menu.pnum.GENERIC_L422KBUX.build.board=GENERIC_L422KBUX
 GenL4.menu.pnum.GENERIC_L422KBUX.build.product_line=STM32L422xx
 GenL4.menu.pnum.GENERIC_L422KBUX.build.variant=STM32L4xx/L412K(8-B)(T-U)_L422KB(T-U)
-GenL4.menu.pnum.GENERIC_L422KBUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L4x2.svd
+GenL4.menu.pnum.GENERIC_L422KBUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L4xx/STM32L422.svd
 

@@ -988,18 +988,18 @@ typedef struct {
 
 #define FLASH_BASE            (0x08000000UL) /*!< FLASH (up to 256 kB) base address */
 #define SRAM1_BASE            (0x20000000UL) /*!< SRAM1(up to 40 KB) base address */
-#define CCMSRAM_BASE          (0x10000000UL) /*!< CCMSRAM(16 KB) base address */
+#define CCMSRAM_BASE          (0x10000000UL) /*!< CCMSRAM(20 KB) base address */
 #define PERIPH_BASE           (0x40000000UL) /*!< Peripheral base address */
 
 #define SRAM1_BB_BASE         (0x22000000UL) /*!< SRAM1(40 KB) base address in the bit-band region */
-#define CCMSRAM_BB_BASE       (0x22300000UL) /*!< CCMSRAM(16 KB) base address in the bit-band region */
+#define CCMSRAM_BB_BASE       (0x22300000UL) /*!< CCMSRAM(20 KB) base address in the bit-band region */
 #define PERIPH_BB_BASE        (0x42000000UL) /*!< Peripheral base address in the bit-band region */
 /* Legacy defines */
 #define SRAM_BASE             SRAM1_BASE
 #define SRAM_BB_BASE          SRAM1_BB_BASE
 
 #define SRAM1_SIZE_MAX        (0x0000A000UL) /*!< maximum SRAM1 size (up to 40 KBytes) */
-#define CCMSRAM_SIZE          (0x00004000UL) /*!< CCMSRAM size (16 KBytes) */
+#define CCMSRAM_SIZE          (0x00005000UL) /*!< CCMSRAM size (20 KBytes) */
 
 /*!< Peripheral memory map */
 #define APB1PERIPH_BASE        PERIPH_BASE
@@ -12720,15 +12720,15 @@ typedef struct {
 #define TAMP_CR2_TAMP3NOERASE_Pos    (2U)
 #define TAMP_CR2_TAMP3NOERASE_Msk    (0x1UL << TAMP_CR2_TAMP3NOERASE_Pos)      /*!< 0x00000004 */
 #define TAMP_CR2_TAMP3NOERASE        TAMP_CR2_TAMP3NOERASE_Msk
-#define TAMP_CR2_TAMP1MF_Pos         (16U)
-#define TAMP_CR2_TAMP1MF_Msk         (0x1UL << TAMP_CR2_TAMP1MF_Pos)           /*!< 0x00010000 */
-#define TAMP_CR2_TAMP1MF             TAMP_CR2_TAMP1MF_Msk
-#define TAMP_CR2_TAMP2MF_Pos         (17U)
-#define TAMP_CR2_TAMP2MF_Msk         (0x1UL << TAMP_CR2_TAMP2MF_Pos)           /*!< 0x00020000 */
-#define TAMP_CR2_TAMP2MF             TAMP_CR2_TAMP2MF_Msk
-#define TAMP_CR2_TAMP3MF_Pos         (18U)
-#define TAMP_CR2_TAMP3MF_Msk         (0x1UL << TAMP_CR2_TAMP3MF_Pos)           /*!< 0x00040000 */
-#define TAMP_CR2_TAMP3MF             TAMP_CR2_TAMP3MF_Msk
+#define TAMP_CR2_TAMP1MSK_Pos         (16U)
+#define TAMP_CR2_TAMP1MSK_Msk         (0x1UL << TAMP_CR2_TAMP1MSK_Pos)           /*!< 0x00010000 */
+#define TAMP_CR2_TAMP1MSK             TAMP_CR2_TAMP1MSK_Msk
+#define TAMP_CR2_TAMP2MSK_Pos         (17U)
+#define TAMP_CR2_TAMP2MSK_Msk         (0x1UL << TAMP_CR2_TAMP2MSK_Pos)           /*!< 0x00020000 */
+#define TAMP_CR2_TAMP2MSK             TAMP_CR2_TAMP2MSK_Msk
+#define TAMP_CR2_TAMP3MSK_Pos         (18U)
+#define TAMP_CR2_TAMP3MSK_Msk         (0x1UL << TAMP_CR2_TAMP3MSK_Pos)           /*!< 0x00040000 */
+#define TAMP_CR2_TAMP3MSK             TAMP_CR2_TAMP3MSK_Msk
 #define TAMP_CR2_TAMP1TRG_Pos        (24U)
 #define TAMP_CR2_TAMP1TRG_Msk        (0x1UL << TAMP_CR2_TAMP1TRG_Pos)          /*!< 0x01000000 */
 #define TAMP_CR2_TAMP1TRG            TAMP_CR2_TAMP1TRG_Msk
@@ -12738,6 +12738,17 @@ typedef struct {
 #define TAMP_CR2_TAMP3TRG_Pos        (26U)
 #define TAMP_CR2_TAMP3TRG_Msk        (0x1UL << TAMP_CR2_TAMP3TRG_Pos)          /*!< 0x04000000 */
 #define TAMP_CR2_TAMP3TRG            TAMP_CR2_TAMP3TRG_Msk
+
+/* Legacy aliases */
+#define TAMP_CR2_TAMP1MF_Pos            TAMP_CR2_TAMP1MSK_Pos
+#define TAMP_CR2_TAMP1MF_Msk            TAMP_CR2_TAMP1MSK_Msk
+#define TAMP_CR2_TAMP1MF                TAMP_CR2_TAMP1MSK
+#define TAMP_CR2_TAMP2MF_Pos            TAMP_CR2_TAMP2MSK_Pos
+#define TAMP_CR2_TAMP2MF_Msk            TAMP_CR2_TAMP2MSK_Msk
+#define TAMP_CR2_TAMP2MF                TAMP_CR2_TAMP2MSK
+#define TAMP_CR2_TAMP3MF_Pos            TAMP_CR2_TAMP3MSK_Pos
+#define TAMP_CR2_TAMP3MF_Msk            TAMP_CR2_TAMP3MSK_Msk
+#define TAMP_CR2_TAMP3MF                TAMP_CR2_TAMP3MSK
 
 /********************  Bits definition for TAMP_FLTCR register  ***************/
 #define TAMP_FLTCR_TAMPFREQ_0        (0x00000001UL)

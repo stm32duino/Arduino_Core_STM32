@@ -118,8 +118,6 @@ typedef enum
   HAL_I2C_STATE_BUSY_RX_LISTEN    = 0x2AU,   /*!< Address Listen Mode and Data Reception
                                                  process is ongoing                         */
   HAL_I2C_STATE_ABORT             = 0x60U,   /*!< Abort user request ongoing                */
-  HAL_I2C_STATE_TIMEOUT           = 0xA0U,   /*!< Timeout state                             */
-  HAL_I2C_STATE_ERROR             = 0xE0U    /*!< Error                                     */
 
 } HAL_I2C_StateTypeDef;
 

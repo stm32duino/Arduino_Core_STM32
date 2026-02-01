@@ -156,7 +156,9 @@
 /* SystemCoreClock dividers. Corresponding to time execution of while loop.   */
 #define SUBGHZ_DEFAULT_LOOP_TIME   ((SystemCoreClock*28U)>>19U)
 #define SUBGHZ_RFBUSY_LOOP_TIME    ((SystemCoreClock*24U)>>20U)
-#define SUBGHZ_NSS_LOOP_TIME       ((SystemCoreClock*24U)>>16U)
+
+/* ~150 us loop delay assuming 10 CPU cycles per iteration (> 20us as per Semtech spec) */
+#define SUBGHZ_NSS_LOOP_TIME       ((SystemCoreClock)>>16U)
 /**
   * @}
   */
@@ -266,13 +268,13 @@ HAL_StatusTypeDef HAL_SUBGHZ_Init(SUBGHZ_HandleTypeDef *hsubghz)
     HAL_SUBGHZ_MspInit(hsubghz);
 #endif /* USE_HAL_ SUBGHZ_REGISTER_CALLBACKS */
 
-#if defined(CM0PLUS)
+#if defined(CORE_CM0PLUS)
     /* Enable EXTI 44 : Radio IRQ ITs for CPU2 */
     LL_C2_EXTI_EnableIT_32_63(LL_EXTI_LINE_44);
 #else
     /* Enable EXTI 44 : Radio IRQ ITs for CPU1 */
     LL_EXTI_EnableIT_32_63(LL_EXTI_LINE_44);
-#endif /* CM0PLUS */
+#endif /* CORE_CM0PLUS */
   }
 
   if (subghz_state == HAL_SUBGHZ_STATE_RESET)
@@ -300,13 +302,13 @@ HAL_StatusTypeDef HAL_SUBGHZ_Init(SUBGHZ_HandleTypeDef *hsubghz)
     /* Asserts the reset signal of the Radio peripheral */
     LL_PWR_UnselectSUBGHZSPI_NSS();
 
-#if defined(CM0PLUS)
+#if defined(CORE_CM0PLUS)
     /* Enable wakeup signal of the Radio peripheral */
     LL_C2_PWR_SetRadioBusyTrigger(LL_PWR_RADIO_BUSY_TRIGGER_WU_IT);
 #else
     /* Enable wakeup signal of the Radio peripheral */
     LL_PWR_SetRadioBusyTrigger(LL_PWR_RADIO_BUSY_TRIGGER_WU_IT);
-#endif /* CM0PLUS */
+#endif /* CORE_CM0PLUS */
   }
 
   /* Clear Pending Flag */
@@ -366,7 +368,7 @@ HAL_StatusTypeDef HAL_SUBGHZ_DeInit(SUBGHZ_HandleTypeDef *hsubghz)
   HAL_SUBGHZ_MspDeInit(hsubghz);
 #endif /* USE_HAL_SUBGHZ_REGISTER_CALLBACKS */
 
-#if defined(CM0PLUS)
+#if defined(CORE_CM0PLUS)
   /* Disable EXTI 44 : Radio IRQ ITs for CPU2 */
   LL_C2_EXTI_DisableIT_32_63(LL_EXTI_LINE_44);
 
@@ -378,7 +380,7 @@ HAL_StatusTypeDef HAL_SUBGHZ_DeInit(SUBGHZ_HandleTypeDef *hsubghz)
 
   /* Disable wakeup signal of the Radio peripheral */
   LL_PWR_SetRadioBusyTrigger(LL_PWR_RADIO_BUSY_TRIGGER_NONE);
-#endif /* CM0PLUS */
+#endif /* CORE_CM0PLUS */
 
   /* Clear Pending Flag */
   LL_PWR_ClearFlag_RFBUSY();
@@ -1241,8 +1243,12 @@ void HAL_SUBGHZ_IRQHandler(SUBGHZ_HandleTypeDef *hsubghz)
   }
 
   /* Packet received Interrupt */
-  if (SUBGHZ_CHECK_IT_SOURCE(itsource, SUBGHZ_IT_RX_CPLT) != RESET)
+  if ((SUBGHZ_CHECK_IT_SOURCE(itsource, SUBGHZ_IT_RX_CPLT) != RESET))
   {
+    if (SUBGHZ_CHECK_IT_SOURCE(itsource, SUBGHZ_IT_CRC_ERROR) != RESET)
+    {
+      hsubghz->ErrorCode |= HAL_SUBGHZ_ERROR_CRC_MISMATCH;
+    }
 #if (USE_HAL_SUBGHZ_REGISTER_CALLBACKS == 1U)
     hsubghz->RxCpltCallback(hsubghz);
 #else
@@ -1535,7 +1541,7 @@ __weak void HAL_SUBGHZ_LrFhssHopCallback(SUBGHZ_HandleTypeDef *hsubghz)
   *         the handle information for SUBGHZ module.
   * @retval SUBGHZ state
   */
-HAL_SUBGHZ_StateTypeDef HAL_SUBGHZ_GetState(SUBGHZ_HandleTypeDef *hsubghz)
+HAL_SUBGHZ_StateTypeDef HAL_SUBGHZ_GetState(const SUBGHZ_HandleTypeDef *hsubghz)
 {
   /* Return SUBGHZ handle state */
   return hsubghz->State;
@@ -1547,7 +1553,7 @@ HAL_SUBGHZ_StateTypeDef HAL_SUBGHZ_GetState(SUBGHZ_HandleTypeDef *hsubghz)
   *         the handle information for SUBGHZ module.
   * @retval SUBGHZ error code in bitmap format
   */
-uint32_t HAL_SUBGHZ_GetError(SUBGHZ_HandleTypeDef *hsubghz)
+uint32_t HAL_SUBGHZ_GetError(const SUBGHZ_HandleTypeDef *hsubghz)
 {
   /* Return SUBGHZ ErrorCode */
   return hsubghz->ErrorCode;

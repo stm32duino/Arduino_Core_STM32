@@ -21,7 +21,7 @@
 #define STM32WLxx_HAL_CONF_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Exported types ------------------------------------------------------------*/
@@ -190,127 +190,127 @@
   * @brief Include module's header file
   */
 #ifdef HAL_DMA_MODULE_ENABLED
-  #include "stm32wlxx_hal_dma.h"
+#include "stm32wlxx_hal_dma.h"
 #endif /* HAL_DMA_MODULE_ENABLED */
 
 #ifdef HAL_ADC_MODULE_ENABLED
-  #include "stm32wlxx_hal_adc.h"
+#include "stm32wlxx_hal_adc.h"
 #endif /* HAL_ADC_MODULE_ENABLED */
 
 #ifdef HAL_COMP_MODULE_ENABLED
-  #include "stm32wlxx_hal_comp.h"
+#include "stm32wlxx_hal_comp.h"
 #endif /* HAL_COMP_MODULE_ENABLED */
 
 #ifdef HAL_CORTEX_MODULE_ENABLED
-  #include "stm32wlxx_hal_cortex.h"
+#include "stm32wlxx_hal_cortex.h"
 #endif /* HAL_CORTEX_MODULE_ENABLED */
 
 #ifdef HAL_CRC_MODULE_ENABLED
-  #include "stm32wlxx_hal_crc.h"
+#include "stm32wlxx_hal_crc.h"
 #endif /* HAL_CRC_MODULE_ENABLED */
 
 #ifdef HAL_CRYP_MODULE_ENABLED
-  #include "stm32wlxx_hal_cryp.h"
+#include "stm32wlxx_hal_cryp.h"
 #endif /* HAL_CRYP_MODULE_ENABLED */
 
 #ifdef HAL_DAC_MODULE_ENABLED
-  #include "stm32wlxx_hal_dac.h"
+#include "stm32wlxx_hal_dac.h"
 #endif /* HAL_DAC_MODULE_ENABLED */
 
 #ifdef HAL_EXTI_MODULE_ENABLED
-  #include "stm32wlxx_hal_exti.h"
+#include "stm32wlxx_hal_exti.h"
 #endif /* HAL_EXTI_MODULE_ENABLED */
 
 #ifdef HAL_FLASH_MODULE_ENABLED
-  #include "stm32wlxx_hal_flash.h"
+#include "stm32wlxx_hal_flash.h"
 #endif /* HAL_FLASH_MODULE_ENABLED */
 
 #ifdef HAL_GPIO_MODULE_ENABLED
-  #include "stm32wlxx_hal_gpio.h"
+#include "stm32wlxx_hal_gpio.h"
 #endif /* HAL_GPIO_MODULE_ENABLED */
 
 #ifdef HAL_GTZC_MODULE_ENABLED
-  #include "stm32wlxx_hal_gtzc.h"
+#include "stm32wlxx_hal_gtzc.h"
 #endif /* HAL_GTZC_MODULE_ENABLED */
 
 #ifdef HAL_HSEM_MODULE_ENABLED
-  #include "stm32wlxx_hal_hsem.h"
+#include "stm32wlxx_hal_hsem.h"
 #endif /* HAL_HSEM_MODULE_ENABLED */
 
 #ifdef HAL_I2C_MODULE_ENABLED
-  #include "stm32wlxx_hal_i2c.h"
+#include "stm32wlxx_hal_i2c.h"
 #endif /* HAL_I2C_MODULE_ENABLED */
 
 #ifdef HAL_I2S_MODULE_ENABLED
-  #include "stm32wlxx_hal_i2s.h"
+#include "stm32wlxx_hal_i2s.h"
 #endif /* HAL_I2S_MODULE_ENABLED */
 
 #ifdef HAL_IPCC_MODULE_ENABLED
-  #include "stm32wlxx_hal_ipcc.h"
+#include "stm32wlxx_hal_ipcc.h"
 #endif /* HAL_IPCC_MODULE_ENABLED */
 
 #ifdef HAL_IRDA_MODULE_ENABLED
-  #include "stm32wlxx_hal_irda.h"
+#include "stm32wlxx_hal_irda.h"
 #endif /* HAL_IRDA_MODULE_ENABLED */
 
 #ifdef HAL_IWDG_MODULE_ENABLED
-  #include "stm32wlxx_hal_iwdg.h"
+#include "stm32wlxx_hal_iwdg.h"
 #endif /* HAL_IWDG_MODULE_ENABLED */
 
 #ifdef HAL_LPTIM_MODULE_ENABLED
-  #include "stm32wlxx_hal_lptim.h"
+#include "stm32wlxx_hal_lptim.h"
 #endif /* HAL_LPTIM_MODULE_ENABLED */
 
 #ifdef HAL_PKA_MODULE_ENABLED
-  #include "stm32wlxx_hal_pka.h"
+#include "stm32wlxx_hal_pka.h"
 #endif /* HAL_PKA_MODULE_ENABLED */
 
 #ifdef HAL_PWR_MODULE_ENABLED
-  #include "stm32wlxx_hal_pwr.h"
+#include "stm32wlxx_hal_pwr.h"
 #endif /* HAL_PWR_MODULE_ENABLED */
 
 #ifdef HAL_RCC_MODULE_ENABLED
-  #include "stm32wlxx_hal_rcc.h"
+#include "stm32wlxx_hal_rcc.h"
 #endif /* HAL_RCC_MODULE_ENABLED */
 
 #ifdef HAL_RNG_MODULE_ENABLED
-  #include "stm32wlxx_hal_rng.h"
+#include "stm32wlxx_hal_rng.h"
 #endif /* HAL_RNG_MODULE_ENABLED */
 
 #ifdef HAL_RTC_MODULE_ENABLED
-  #include "stm32wlxx_hal_rtc.h"
+#include "stm32wlxx_hal_rtc.h"
 #endif /* HAL_RTC_MODULE_ENABLED */
 
 #ifdef HAL_SMARTCARD_MODULE_ENABLED
-  #include "stm32wlxx_hal_smartcard.h"
+#include "stm32wlxx_hal_smartcard.h"
 #endif /* HAL_SMARTCARD_MODULE_ENABLED */
 
 #ifdef HAL_SMBUS_MODULE_ENABLED
-  #include "stm32wlxx_hal_smbus.h"
+#include "stm32wlxx_hal_smbus.h"
 #endif /* HAL_SMBUS_MODULE_ENABLED */
 
 #ifdef HAL_SPI_MODULE_ENABLED
-  #include "stm32wlxx_hal_spi.h"
+#include "stm32wlxx_hal_spi.h"
 #endif /* HAL_SPI_MODULE_ENABLED */
 
 #ifdef HAL_SUBGHZ_MODULE_ENABLED
-  #include "stm32wlxx_hal_subghz.h"
+#include "stm32wlxx_hal_subghz.h"
 #endif /* HAL_SUBGHZ_MODULE_ENABLED */
 
 #ifdef HAL_TIM_MODULE_ENABLED
-  #include "stm32wlxx_hal_tim.h"
+#include "stm32wlxx_hal_tim.h"
 #endif /* HAL_TIM_MODULE_ENABLED */
 
 #ifdef HAL_UART_MODULE_ENABLED
-  #include "stm32wlxx_hal_uart.h"
+#include "stm32wlxx_hal_uart.h"
 #endif /* HAL_UART_MODULE_ENABLED */
 
 #ifdef HAL_USART_MODULE_ENABLED
-  #include "stm32wlxx_hal_usart.h"
+#include "stm32wlxx_hal_usart.h"
 #endif /* HAL_USART_MODULE_ENABLED */
 
 #ifdef HAL_WWDG_MODULE_ENABLED
-  #include "stm32wlxx_hal_wwdg.h"
+#include "stm32wlxx_hal_wwdg.h"
 #endif /* HAL_WWDG_MODULE_ENABLED */
 
 /* Exported macro ------------------------------------------------------------*/
@@ -323,11 +323,11 @@
   *         If expr is true, it returns no value.
   * @retval None
   */
-  #define assert_param(expr) ((expr) ? (void)0U : assert_failed((uint8_t *)__FILE__, __LINE__))
+#define assert_param(expr) ((expr) ? (void)0U : assert_failed((uint8_t *)__FILE__, __LINE__))
 /* Exported functions ------------------------------------------------------- */
-  void assert_failed(uint8_t* file, uint32_t line);
+void assert_failed(uint8_t *file, uint32_t line);
 #else
-  #define assert_param(expr) ((void)0U)
+#define assert_param(expr) ((void)0U)
 #endif /* USE_FULL_ASSERT */
 
 #ifdef __cplusplus

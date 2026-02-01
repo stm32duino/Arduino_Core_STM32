@@ -18,6 +18,16 @@
   ******************************************************************************
   @endverbatim
 
+### V1.0.6/13-December-2024 ###
+===============================
+   + Fix compilation error with ARM Compiler verion 6 MDK-ARM
+     - lib/atomic.h
+     - lib/errno.h
+     - lib/compiler.h
+     - lib/include/metal/atomic.h
+     - lib/include/metal/errno.h
+     - lib/include/metal/compiler.h
+
 ### V1.0.5/18-January-2022 ###
 ===============================
    + Integrate official release v2021.10

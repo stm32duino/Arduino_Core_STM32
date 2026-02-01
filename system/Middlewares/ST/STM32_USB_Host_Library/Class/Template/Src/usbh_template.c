@@ -8,13 +8,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -23,57 +22,57 @@
 #include "usbh_template.h"
 
 /** @addtogroup USBH_LIB
-* @{
-*/
+  * @{
+  */
 
 /** @addtogroup USBH_CLASS
-* @{
-*/
+  * @{
+  */
 
 /** @addtogroup USBH_TEMPLATE_CLASS
-* @{
-*/
+  * @{
+  */
 
 /** @defgroup USBH_TEMPLATE_CORE
-* @brief    This file includes TEMPLATE Layer Handlers for USB Host TEMPLATE class.
-* @{
-*/
+  * @brief    This file includes TEMPLATE Layer Handlers for USB Host TEMPLATE class.
+  * @{
+  */
 
 /** @defgroup USBH_TEMPLATE_CORE_Private_TypesDefinitions
-* @{
-*/
+  * @{
+  */
 /**
-* @}
-*/
+  * @}
+  */
 
 
 /** @defgroup USBH_TEMPLATE_CORE_Private_Defines
-* @{
-*/
+  * @{
+  */
 /**
-* @}
-*/
+  * @}
+  */
 
 
 /** @defgroup USBH_TEMPLATE_CORE_Private_Macros
-* @{
-*/
+  * @{
+  */
 /**
-* @}
-*/
+  * @}
+  */
 
 
 /** @defgroup USBH_TEMPLATE_CORE_Private_Variables
-* @{
-*/
+  * @{
+  */
 /**
-* @}
-*/
+  * @}
+  */
 
 
 /** @defgroup USBH_TEMPLATE_CORE_Private_FunctionPrototypes
-* @{
-*/
+  * @{
+  */
 
 static USBH_StatusTypeDef USBH_TEMPLATE_InterfaceInit(USBH_HandleTypeDef *phost);
 static USBH_StatusTypeDef USBH_TEMPLATE_InterfaceDeInit(USBH_HandleTypeDef *phost);
@@ -91,13 +90,13 @@ USBH_ClassTypeDef  TEMPLATE_Class =
   USBH_TEMPLATE_Process
 };
 /**
-* @}
-*/
+  * @}
+  */
 
 
 /** @defgroup USBH_TEMPLATE_CORE_Private_Functions
-* @{
-*/
+  * @{
+  */
 
 /**
   * @brief  USBH_TEMPLATE_InterfaceInit
@@ -214,25 +213,24 @@ USBH_StatusTypeDef USBH_TEMPLATE_IOProcess(USBH_HandleTypeDef *phost)
 }
 
 /**
-* @}
-*/
+  * @}
+  */
 
 /**
-* @}
-*/
+  * @}
+  */
 
 /**
-* @}
-*/
-
-
-/**
-* @}
-*/
+  * @}
+  */
 
 
 /**
-* @}
-*/
+  * @}
+  */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+/**
+  * @}
+  */
+

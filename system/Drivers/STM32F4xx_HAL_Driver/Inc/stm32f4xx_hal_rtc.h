@@ -791,7 +791,7 @@ HAL_RTCStateTypeDef HAL_RTC_GetState(RTC_HandleTypeDef *hrtc);
 
 #define RTC_TIMEOUT_VALUE       1000U
 
-#define RTC_EXTI_LINE_ALARM_EVENT  EXTI_IMR_MR17  /*!< External interrupt line 17 Connected to the RTC Alarm event */
+#define RTC_EXTI_LINE_ALARM_EVENT  EXTI_IMR_MR17  /*!< External interrupt line 17 connected to the RTC Alarm event */
 /**
   * @}
   */

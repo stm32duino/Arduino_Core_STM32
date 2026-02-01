@@ -1363,7 +1363,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetTamper(RTC_HandleTypeDef *hrtc, RTC_TamperTypeDef
 
   /* Configuration register 2 */
   tmpreg = READ_REG(TAMP->CR2);
-  tmpreg &= ~((sTamper->Tamper << TAMP_CR2_TAMP1TRG_Pos) | (sTamper->Tamper << TAMP_CR2_TAMP1MF_Pos) | (sTamper->Tamper << TAMP_CR2_TAMP1NOERASE_Pos));
+  tmpreg &= ~((sTamper->Tamper << TAMP_CR2_TAMP1TRG_Pos) | (sTamper->Tamper << TAMP_CR2_TAMP1MSK_Pos) | (sTamper->Tamper << TAMP_CR2_TAMP1NOERASE_Pos));
 
   if ((sTamper->Trigger == RTC_TAMPERTRIGGER_HIGHLEVEL) || (sTamper->Trigger == RTC_TAMPERTRIGGER_FALLINGEDGE))
   {
@@ -1372,7 +1372,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetTamper(RTC_HandleTypeDef *hrtc, RTC_TamperTypeDef
 
   if (sTamper->MaskFlag != RTC_TAMPERMASK_FLAG_DISABLE)
   {
-    tmpreg |= (sTamper->Tamper << TAMP_CR2_TAMP1MF_Pos);
+    tmpreg |= (sTamper->Tamper << TAMP_CR2_TAMP1MSK_Pos);
   }
 
   if (sTamper->NoErase != RTC_TAMPER_ERASE_BACKUP_ENABLE)
@@ -1423,7 +1423,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetTamper_IT(RTC_HandleTypeDef *hrtc, RTC_TamperType
 
   /* Configuration register 2 */
   tmpreg = READ_REG(TAMP->CR2);
-  tmpreg &= ~((sTamper->Tamper << TAMP_CR2_TAMP1TRG_Pos) | (sTamper->Tamper << TAMP_CR2_TAMP1MF_Pos) | (sTamper->Tamper << TAMP_CR2_TAMP1NOERASE_Pos));
+  tmpreg &= ~((sTamper->Tamper << TAMP_CR2_TAMP1TRG_Pos) | (sTamper->Tamper << TAMP_CR2_TAMP1MSK_Pos) | (sTamper->Tamper << TAMP_CR2_TAMP1NOERASE_Pos));
 
   if (sTamper->Trigger != RTC_TAMPERTRIGGER_RISINGEDGE)
   {
@@ -1432,7 +1432,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetTamper_IT(RTC_HandleTypeDef *hrtc, RTC_TamperType
 
   if (sTamper->MaskFlag != RTC_TAMPERMASK_FLAG_DISABLE)
   {
-    tmpreg |= (sTamper->Tamper << TAMP_CR2_TAMP1MF_Pos);
+    tmpreg |= (sTamper->Tamper << TAMP_CR2_TAMP1MSK_Pos);
   }
 
   if (sTamper->NoErase != RTC_TAMPER_ERASE_BACKUP_ENABLE)
@@ -1478,13 +1478,15 @@ HAL_StatusTypeDef HAL_RTCEx_SetTamper_IT(RTC_HandleTypeDef *hrtc, RTC_TamperType
   */
 HAL_StatusTypeDef HAL_RTCEx_DeactivateTamper(RTC_HandleTypeDef *hrtc, uint32_t Tamper)
 {
+  UNUSED(hrtc);
+
   assert_param(IS_RTC_TAMPER(Tamper));
 
   /* Disable the selected Tamper pin */
   CLEAR_BIT(TAMP->CR1, Tamper);
 
   /* Clear tamper mask/noerase/trigger configuration */
-  CLEAR_BIT(TAMP->CR2, ((Tamper << TAMP_CR2_TAMP1TRG_Pos) | (Tamper << TAMP_CR2_TAMP1MF_Pos) | (Tamper << TAMP_CR2_TAMP1NOERASE_Pos)));
+  CLEAR_BIT(TAMP->CR2, ((Tamper << TAMP_CR2_TAMP1TRG_Pos) | (Tamper << TAMP_CR2_TAMP1MSK_Pos) | (Tamper << TAMP_CR2_TAMP1NOERASE_Pos)));
 
   /* Clear tamper interrupt mode configuration */
   CLEAR_BIT(TAMP->IER, Tamper);

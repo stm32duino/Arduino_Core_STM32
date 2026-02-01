@@ -2884,7 +2884,18 @@ uint32_t LL_RCC_GetUSBClockFreq(uint32_t USBxSource)
         }
       }
       break;
-#endif /* LL_RCC_USB_CLKSOURCE_PLL3 */
+#else
+    case LL_RCC_USB_CLKSOURCE_PLL2Q:          /* PLL2 Q clock used as USB clock source */
+      if (LL_RCC_PLL2_IsReady() != 0U)
+      {
+        if (LL_RCC_PLL2Q_IsEnabled() != 0U)
+        {
+          LL_RCC_GetPLL2ClockFreq(&PLL_Clocks);
+          usb_frequency = PLL_Clocks.PLL_Q_Frequency;
+        }
+      }
+      break;
+#endif /* LL_RCC_USB_CLKSOURCE_PLL3Q */
 
     case LL_RCC_USB_CLKSOURCE_HSI48:         /* HSI48 clock used as USB clock source */
       if (LL_RCC_HSI48_IsReady() == 1U)

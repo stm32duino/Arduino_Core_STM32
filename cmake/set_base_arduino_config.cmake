@@ -48,7 +48,7 @@ target_link_options(base_config INTERFACE
 	LINKER:--script=${BUILD_SYSTEM_PATH}/ldscript.ld
 )
 target_link_directories(base_config INTERFACE
-	"${CMSIS5_PATH}/CMSIS/DSP/Lib/GCC"
+	"${CMSIS6_PATH}/CMSIS/DSP/Lib/GCC"
 )
 
 target_include_directories(base_config INTERFACE
@@ -61,10 +61,10 @@ target_include_directories(base_config INTERFACE
 	"${BUILD_LIB_PATH}/VirtIO/inc"
 	"${BUILD_SYSTEM_PATH}/Middlewares/ST/STM32_USB_Device_Library/Core/Inc"
 	"${BUILD_SYSTEM_PATH}/Middlewares/ST/STM32_USB_Device_Library/Core/Src"
-	"${CMSIS5_PATH}/CMSIS/DSP/Include"
-	"${CMSIS5_PATH}/CMSIS/DSP/PrivateInclude"
-	"${CMSIS5_PATH}/CMSIS/Core/Include/"
-	"${CMSIS5_PATH}/CMSIS"
+	"${CMSIS_DSP_PATH}/Include"
+	"${CMSIS_DSP_PATH}/PrivateInclude"
+	"${CMSIS6_PATH}/CMSIS/Core/Include/"
+	"${CMSIS6_PATH}/CMSIS"
   "${BUILD_SYSTEM_PATH}/Middlewares/OpenAMP"
   "${BUILD_SYSTEM_PATH}/Middlewares/OpenAMP/open-amp/lib/include"
   "${BUILD_SYSTEM_PATH}/Middlewares/OpenAMP/libmetal/lib/include"

@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -52,9 +51,9 @@ extern "C" {
 
 typedef struct _HID_MOUSE_Info
 {
-  uint8_t              x;
-  uint8_t              y;
-  uint8_t              buttons[3];
+  uint8_t x;
+  uint8_t y;
+  uint8_t buttons[3];
 }
 HID_MOUSE_Info_TypeDef;
 
@@ -65,6 +64,9 @@ HID_MOUSE_Info_TypeDef;
 /** @defgroup USBH_HID_MOUSE_Exported_Defines
   * @{
   */
+#ifndef USBH_HID_MOUSE_REPORT_SIZE
+#define USBH_HID_MOUSE_REPORT_SIZE                       0x8U
+#endif /* USBH_HID_MOUSE_REPORT_SIZE */
 /**
   * @}
   */
@@ -114,4 +116,4 @@ HID_MOUSE_Info_TypeDef *USBH_HID_GetMouseInfo(USBH_HandleTypeDef *phost);
 /**
   * @}
   */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+

@@ -1,0 +1,26 @@
+From d4316ffbdd8fb8eb5863d9198422b832aafd44c6 Mon Sep 17 00:00:00 2001
+From: Frederic Pillon <frederic.pillon@st.com>
+Date: Tue, 23 Sep 2025 09:50:23 +0200
+Subject: [PATCH 1/1] feat(wl3): add __libc_init_array call to startup
+
+Signed-off-by: Frederic Pillon <frederic.pillon@st.com>
+---
+ .../ST/STM32WL3x/Source/Templates/gcc/startup_stm32wl3xx.s      | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/system/Drivers/CMSIS/Device/ST/STM32WL3x/Source/Templates/gcc/startup_stm32wl3xx.s b/system/Drivers/CMSIS/Device/ST/STM32WL3x/Source/Templates/gcc/startup_stm32wl3xx.s
+index 68b8c7ab4..28bf2e6da 100644
+--- a/system/Drivers/CMSIS/Device/ST/STM32WL3x/Source/Templates/gcc/startup_stm32wl3xx.s
++++ b/system/Drivers/CMSIS/Device/ST/STM32WL3x/Source/Templates/gcc/startup_stm32wl3xx.s
+@@ -83,6 +83,8 @@ LoopFillZerobss:
+   cmp  r2, r3
+   bcc  FillZerobss
+ 
++/* Call static constructors */
++  bl __libc_init_array
+ /* Call the application's entry point.*/
+   bl  main
+ 
+-- 
+2.34.1
+

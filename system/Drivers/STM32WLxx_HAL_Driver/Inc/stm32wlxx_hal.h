@@ -537,9 +537,9 @@ typedef enum
   */
 /* Legacy define */
 #define __HAL_SYSCFG_SRAM2_WRP_1_31_ENABLE      __HAL_SYSCFG_SRAM2_WRP_0_31_ENABLE
-#define __HAL_SYSCFG_SRAM2_WRP_0_31_ENABLE(__SRAM2WRP__)    do {assert_param(IS_SYSCFG_SRAM2WRP_PAGE((__SRAM2WRP__)));\
-                                                                LL_SYSCFG_EnableSRAM2PageWRP_0_31(__SRAM2WRP__);\
-                                                            }while(0)
+#define __HAL_SYSCFG_SRAM2_WRP_0_31_ENABLE(__SRAM2WRP__)    do { assert_param(IS_SYSCFG_SRAM2WRP_PAGE((__SRAM2WRP__)));\
+                                                                 LL_SYSCFG_EnableSRAM2PageWRP_0_31(__SRAM2WRP__);      \
+                                                               } while(0)
 
 /** @brief  SRAM2 page write protection unlock prior to erase
   * @note   Writing a wrong key reactivates the write protection
@@ -593,13 +593,13 @@ typedef enum
 /** @brief  Fast mode Plus driving capability enable/disable macros
   * @param __FASTMODEPLUS__ This parameter can be a value of @ref SYSCFG_FastModePlus_GPIO
   */
-#define __HAL_SYSCFG_FASTMODEPLUS_ENABLE(__FASTMODEPLUS__)  do {assert_param(IS_SYSCFG_FASTMODEPLUS((__FASTMODEPLUS__))); \
-                                                                LL_SYSCFG_EnableFastModePlus(__FASTMODEPLUS__);           \
-                                                               }while(0)
+#define __HAL_SYSCFG_FASTMODEPLUS_ENABLE(__FASTMODEPLUS__)  do { assert_param(IS_SYSCFG_FASTMODEPLUS((__FASTMODEPLUS__))); \
+                                                                 LL_SYSCFG_EnableFastModePlus(__FASTMODEPLUS__);           \
+                                                               } while(0)
 
-#define __HAL_SYSCFG_FASTMODEPLUS_DISABLE(__FASTMODEPLUS__) do {assert_param(IS_SYSCFG_FASTMODEPLUS((__FASTMODEPLUS__))); \
-                                                                LL_SYSCFG_DisableFastModePlus(__FASTMODEPLUS__);          \
-                                                               }while(0)
+#define __HAL_SYSCFG_FASTMODEPLUS_DISABLE(__FASTMODEPLUS__) do { assert_param(IS_SYSCFG_FASTMODEPLUS((__FASTMODEPLUS__))); \
+                                                                 LL_SYSCFG_DisableFastModePlus(__FASTMODEPLUS__);          \
+                                                               } while(0)
 
 /**
   * @}
@@ -816,8 +816,8 @@ void HAL_SYSCFG_EnableIOAnalogSwitchBooster(void);
 void HAL_SYSCFG_DisableIOAnalogSwitchBooster(void);
 
 #if defined(DUAL_CORE)
-void HAL_SYSCFG_EnableIT(SYSCFG_InterruptTypeDef *Interrupt);
-void HAL_SYSCFG_DisableIT(SYSCFG_InterruptTypeDef *Interrupt);
+void HAL_SYSCFG_EnableIT(const SYSCFG_InterruptTypeDef *Interrupt);
+void HAL_SYSCFG_DisableIT(const SYSCFG_InterruptTypeDef *Interrupt);
 #endif
 /**
   * @}

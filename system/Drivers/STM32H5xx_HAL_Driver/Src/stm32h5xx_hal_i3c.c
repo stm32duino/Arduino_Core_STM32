@@ -127,7 +127,7 @@
         The I3C_XferTypeDef structure contains different parameters about Control, Status buffer,
         and Transmit and Receive buffer.
         Use HAL_I3C_AddDescToFrame() function each time application add a descriptor in the frame before call
-        an IO operation interface
+        a Controller IO operation interface
         One element of the frame descriptor correspond to one frame to manage through IO operation.
 
     (#) To check if I3C target device is ready for communication, use the function HAL_I3C_Ctrl_IsDeviceI3C_Ready()
@@ -1661,8 +1661,8 @@ void HAL_I3C_EV_IRQHandler(I3C_HandleTypeDef *hi3c) /* Derogation MISRAC2012-Rul
              All different characteristics must be fill through structure I3C_DeviceConfTypeDef.
              This function is called only when mode is Controller.
 
-         (+) Call the function HAL_I3C_AddDescToFrame() to prepare the full transfer usecase in a transfer descriptor
-             which contained different buffer pointers and their associated size through I3C_XferTypeDef.
+         (+) Call the function HAL_I3C_AddDescToFrame() to prepare the full transfer usecase in a Controller transfer
+             descriptor which contained different buffer pointers and their associated size through I3C_XferTypeDef.
              This function must be called before initiate any communication transfer.
          (+) Call the function HAL_I3C_Ctrl_SetConfigResetPattern() to configure the insertion of the reset pattern
              at the end of a Frame.
@@ -2141,10 +2141,10 @@ HAL_StatusTypeDef HAL_I3C_Ctrl_ConfigBusDevices(I3C_HandleTypeDef           *hi3
 }
 
 /**
-  * @brief  Add Private or CCC descriptor in the user data transfer descriptor.
-  * @note   This function must be called before initiate any communication transfer. This function help the preparation
-  *         of the full transfer usecase in a transfer descriptor which contained different buffer pointers
-  *         and their associated size through I3C_XferTypeDef.
+  * @brief  Add Private or CCC descriptor in the user data transfer controller descriptor.
+  * @note   This function must be called before initiate initiate any controller communication transfer. This function
+  *         help the preparation of the full transfer usecase in a transfer descriptor which contained different buffer
+  *         pointers and their associated size through I3C_XferTypeDef.
   * @note   The Tx FIFO threshold @ref HAL_I3C_TXFIFO_THRESHOLD_4_4 is not allowed when the transfer descriptor contains
   *         multiple transmission frames.
   * @param  hi3c          : [IN]  Pointer to an I3C_HandleTypeDef structure that contains the configuration information
@@ -5495,7 +5495,6 @@ HAL_StatusTypeDef HAL_I3C_Ctrl_GenerateArbitration(I3C_HandleTypeDef *hi3c, uint
   * @param  pXferData  : [IN]  Pointer to an I3C_XferTypeDef structure that contains required transmission buffers
   *                            information (Pointer to the Tx buffer (TxBuf.pBuffer) and size of data
   *                            to transmit in bytes (TxBuf.Size)).
-  *                            This value contain transfer data after called @ref HAL_I3C_AddDescToFrame().
   * @param  timeout    : [IN]  Timeout duration in millisecond.
   * @retval HAL Status :       Value from HAL_StatusTypeDef enumeration.
   */
@@ -5639,7 +5638,6 @@ HAL_StatusTypeDef HAL_I3C_Tgt_Transmit(I3C_HandleTypeDef *hi3c, I3C_XferTypeDef 
   * @param  pXferData  : [IN]  Pointer to an I3C_XferTypeDef structure that contains required transmission buffers
   *                            information (Pointer to the Tx buffer (TxBuf.pBuffer) and size of data
   *                            to transmit in bytes (TxBuf.Size)).
-  *                            This value contain transfer data after called @ref HAL_I3C_AddDescToFrame().
   * @retval HAL Status :       Value from HAL_StatusTypeDef enumeration.
   */
 HAL_StatusTypeDef HAL_I3C_Tgt_Transmit_IT(I3C_HandleTypeDef *hi3c, I3C_XferTypeDef *pXferData)
@@ -5738,7 +5736,6 @@ HAL_StatusTypeDef HAL_I3C_Tgt_Transmit_IT(I3C_HandleTypeDef *hi3c, I3C_XferTypeD
   * @param  pXferData  : [IN]  Pointer to an I3C_XferTypeDef structure that contains required transmission buffers
   *                            information (Pointer to the Tx buffer (TxBuf.pBuffer) and size of data
   *                            to transmit in bytes (TxBuf.Size)).
-  *                            This value contain transfer data after called @ref HAL_I3C_AddDescToFrame().
   * @retval HAL Status :       Value from HAL_StatusTypeDef enumeration.
   */
 HAL_StatusTypeDef HAL_I3C_Tgt_Transmit_DMA(I3C_HandleTypeDef *hi3c, I3C_XferTypeDef *pXferData)
@@ -5899,7 +5896,6 @@ HAL_StatusTypeDef HAL_I3C_Tgt_Transmit_DMA(I3C_HandleTypeDef *hi3c, I3C_XferType
   * @param  pXferData  : [IN]  Pointer to an I3C_XferTypeDef structure that contains required reception buffers
   *                            information (Pointer to the Rx buffer (RxBuf.pBuffer) and size of data
   *                            to be received in bytes (RxBuf.Size)).
-  *                            This value contain transfer data after called @ref HAL_I3C_AddDescToFrame().
   * @param  timeout    : [IN]  Timeout duration in millisecond.
   * @retval HAL Status :       Value from HAL_StatusTypeDef enumeration.
   */
@@ -6042,7 +6038,6 @@ HAL_StatusTypeDef HAL_I3C_Tgt_Receive(I3C_HandleTypeDef *hi3c, I3C_XferTypeDef *
   * @param  pXferData  : [IN]  Pointer to an I3C_XferTypeDef structure that contains required reception buffers
   *                            information (Pointer to the Rx buffer (RxBuf.pBuffer) and size of data
   *                            to be received in bytes (RxBuf.Size)).
-  *                            This value contain transfer data after called @ref HAL_I3C_AddDescToFrame().
   * @retval HAL Status :       Value from HAL_StatusTypeDef enumeration.
   */
 HAL_StatusTypeDef HAL_I3C_Tgt_Receive_IT(I3C_HandleTypeDef *hi3c, I3C_XferTypeDef *pXferData)
@@ -6137,7 +6132,6 @@ HAL_StatusTypeDef HAL_I3C_Tgt_Receive_IT(I3C_HandleTypeDef *hi3c, I3C_XferTypeDe
   * @param  pXferData  : [IN]  Pointer to an I3C_XferTypeDef structure that contains required reception buffers
   *                            information (Pointer to the Rx buffer (RxBuf.pBuffer) and size of data
   *                            to be received in bytes (RxBuf.Size)).
-  *                            This value contain transfer data after called @ref HAL_I3C_AddDescToFrame().
   * @retval HAL Status :       Value from HAL_StatusTypeDef enumeration.
   */
 HAL_StatusTypeDef HAL_I3C_Tgt_Receive_DMA(I3C_HandleTypeDef *hi3c, I3C_XferTypeDef *pXferData)
@@ -6686,7 +6680,7 @@ HAL_StatusTypeDef HAL_I3C_Tgt_IBIReq(I3C_HandleTypeDef *hi3c, const uint8_t *pPa
     else
     {
       /* Verify if IBI request feature is enabled*/
-      if ((LL_I3C_IsEnabledIBI(hi3c->Instance) != 1U))
+      if (LL_I3C_IsEnabledIBI(hi3c->Instance) != 1U)
       {
         hi3c->ErrorCode = HAL_I3C_ERROR_NOT_ALLOWED;
         status = HAL_ERROR;

@@ -36,13 +36,19 @@
   #include "stm32mp1xx_ll_i2c.c"
 #elif STM32U0xx
   #include "stm32u0xx_ll_i2c.c"
+#elif STM32U3xx
+  #include "stm32u3xx_ll_i2c.c"
 #elif STM32U5xx
   #include "stm32u5xx_ll_i2c.c"
 #elif STM32WBxx
   #include "stm32wbxx_ll_i2c.c"
+#elif STM32WB0x
+  #include "stm32wb0x_ll_i2c.c"
 #elif STM32WBAxx
   #include "stm32wbaxx_ll_i2c.c"
 #elif STM32WLxx
   #include "stm32wlxx_ll_i2c.c"
+#elif STM32WL3x
+  #include "stm32wl3x_ll_i2c.c"
 #endif
 #pragma GCC diagnostic pop

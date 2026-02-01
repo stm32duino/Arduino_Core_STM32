@@ -84,7 +84,7 @@
   *          - SUCCESS: PKA registers are de-initialized
   *          - ERROR: PKA registers are not de-initialized
   */
-ErrorStatus LL_PKA_DeInit(PKA_TypeDef *PKAx)
+ErrorStatus LL_PKA_DeInit(const PKA_TypeDef *PKAx)
 {
   ErrorStatus status = SUCCESS;
 

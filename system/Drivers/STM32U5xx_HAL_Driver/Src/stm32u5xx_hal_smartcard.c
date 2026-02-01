@@ -828,6 +828,14 @@ HAL_StatusTypeDef HAL_SMARTCARD_Transmit(SMARTCARD_HandleTypeDef *hsmartcard, co
     /* Init tickstart for timeout management */
     tickstart = HAL_GetTick();
 
+#if defined(USART_DMAREQUESTS_SW_WA)
+    /* Disable the USART DMA Tx request if enabled */
+    if (HAL_IS_BIT_SET(hsmartcard->Instance->CR3, USART_CR3_DMAT))
+    {
+      CLEAR_BIT(hsmartcard->Instance->CR3, USART_CR3_DMAT);
+    }
+
+#endif /* USART_DMAREQUESTS_SW_WA */
     /* Disable the Peripheral first to update mode for TX master */
     CLEAR_BIT(hsmartcard->Instance->CR1, USART_CR1_UE);
 
@@ -935,6 +943,14 @@ HAL_StatusTypeDef HAL_SMARTCARD_Receive(SMARTCARD_HandleTypeDef *hsmartcard, uin
     /* Init tickstart for timeout management */
     tickstart = HAL_GetTick();
 
+#if defined(USART_DMAREQUESTS_SW_WA)
+    /* Disable the USART DMA Tx request if enabled */
+    if (HAL_IS_BIT_SET(hsmartcard->Instance->CR3, USART_CR3_DMAR))
+    {
+      CLEAR_BIT(hsmartcard->Instance->CR3, USART_CR3_DMAR);
+    }
+
+#endif /* USART_DMAREQUESTS_SW_WA */
     hsmartcard->RxXferSize = Size;
     hsmartcard->RxXferCount = Size;
 
@@ -1001,6 +1017,14 @@ HAL_StatusTypeDef HAL_SMARTCARD_Transmit_IT(SMARTCARD_HandleTypeDef *hsmartcard,
     hsmartcard->TxXferCount = Size;
     hsmartcard->TxISR       = NULL;
 
+#if defined(USART_DMAREQUESTS_SW_WA)
+    /* Disable the USART DMA Tx request if enabled */
+    if (HAL_IS_BIT_SET(hsmartcard->Instance->CR3, USART_CR3_DMAT))
+    {
+      CLEAR_BIT(hsmartcard->Instance->CR3, USART_CR3_DMAT);
+    }
+
+#endif /* USART_DMAREQUESTS_SW_WA */
     /* Disable the Peripheral first to update mode for TX master */
     CLEAR_BIT(hsmartcard->Instance->CR1, USART_CR1_UE);
 
@@ -1094,6 +1118,14 @@ HAL_StatusTypeDef HAL_SMARTCARD_Receive_IT(SMARTCARD_HandleTypeDef *hsmartcard, 
     hsmartcard->RxXferSize = Size;
     hsmartcard->RxXferCount = Size;
 
+#if defined(USART_DMAREQUESTS_SW_WA)
+    /* Disable the USART DMA Tx request if enabled */
+    if (HAL_IS_BIT_SET(hsmartcard->Instance->CR3, USART_CR3_DMAR))
+    {
+      CLEAR_BIT(hsmartcard->Instance->CR3, USART_CR3_DMAR);
+    }
+
+#endif /* USART_DMAREQUESTS_SW_WA */
     /* Configure Rx interrupt processing */
     if ((hsmartcard->FifoMode == SMARTCARD_FIFOMODE_ENABLE) && (Size >= hsmartcard->NbRxDataToProcess))
     {
@@ -1395,8 +1427,10 @@ HAL_StatusTypeDef HAL_SMARTCARD_Abort(SMARTCARD_HandleTypeDef *hsmartcard)
   /* Disable the SMARTCARD DMA Tx request if enabled */
   if (HAL_IS_BIT_SET(hsmartcard->Instance->CR3, USART_CR3_DMAT))
   {
+#if !defined(USART_DMAREQUESTS_SW_WA)
     CLEAR_BIT(hsmartcard->Instance->CR3, USART_CR3_DMAT);
 
+#endif /* USART_DMAREQUESTS_SW_WA */
     /* Abort the SMARTCARD DMA Tx channel : use blocking DMA Abort API (no callback) */
     if (hsmartcard->hdmatx != NULL)
     {
@@ -1420,8 +1454,10 @@ HAL_StatusTypeDef HAL_SMARTCARD_Abort(SMARTCARD_HandleTypeDef *hsmartcard)
   /* Disable the SMARTCARD DMA Rx request if enabled */
   if (HAL_IS_BIT_SET(hsmartcard->Instance->CR3, USART_CR3_DMAR))
   {
+#if !defined(USART_DMAREQUESTS_SW_WA)
     CLEAR_BIT(hsmartcard->Instance->CR3, USART_CR3_DMAR);
 
+#endif /* USART_DMAREQUESTS_SW_WA */
     /* Abort the SMARTCARD DMA Rx channel : use blocking DMA Abort API (no callback) */
     if (hsmartcard->hdmarx != NULL)
     {
@@ -1492,8 +1528,10 @@ HAL_StatusTypeDef HAL_SMARTCARD_AbortTransmit(SMARTCARD_HandleTypeDef *hsmartcar
   /* Disable the SMARTCARD DMA Tx request if enabled */
   if (HAL_IS_BIT_SET(hsmartcard->Instance->CR3, USART_CR3_DMAT))
   {
+#if !defined(USART_DMAREQUESTS_SW_WA)
     CLEAR_BIT(hsmartcard->Instance->CR3, USART_CR3_DMAT);
 
+#endif /* USART_DMAREQUESTS_SW_WA */
     /* Abort the SMARTCARD DMA Tx channel : use blocking DMA Abort API (no callback) */
     if (hsmartcard->hdmatx != NULL)
     {
@@ -1558,8 +1596,10 @@ HAL_StatusTypeDef HAL_SMARTCARD_AbortReceive(SMARTCARD_HandleTypeDef *hsmartcard
   /* Disable the SMARTCARD DMA Rx request if enabled */
   if (HAL_IS_BIT_SET(hsmartcard->Instance->CR3, USART_CR3_DMAR))
   {
+#if !defined(USART_DMAREQUESTS_SW_WA)
     CLEAR_BIT(hsmartcard->Instance->CR3, USART_CR3_DMAR);
 
+#endif /* USART_DMAREQUESTS_SW_WA */
     /* Abort the SMARTCARD DMA Rx channel : use blocking DMA Abort API (no callback) */
     if (hsmartcard->hdmarx != NULL)
     {
@@ -1657,9 +1697,11 @@ HAL_StatusTypeDef HAL_SMARTCARD_Abort_IT(SMARTCARD_HandleTypeDef *hsmartcard)
   /* Disable the SMARTCARD DMA Tx request if enabled */
   if (HAL_IS_BIT_SET(hsmartcard->Instance->CR3, USART_CR3_DMAT))
   {
+#if !defined(USART_DMAREQUESTS_SW_WA)
     /* Disable DMA Tx at UART level */
     CLEAR_BIT(hsmartcard->Instance->CR3, USART_CR3_DMAT);
 
+#endif /* USART_DMAREQUESTS_SW_WA */
     /* Abort the SMARTCARD DMA Tx channel : use non blocking DMA Abort API (callback) */
     if (hsmartcard->hdmatx != NULL)
     {
@@ -1681,8 +1723,10 @@ HAL_StatusTypeDef HAL_SMARTCARD_Abort_IT(SMARTCARD_HandleTypeDef *hsmartcard)
   /* Disable the SMARTCARD DMA Rx request if enabled */
   if (HAL_IS_BIT_SET(hsmartcard->Instance->CR3, USART_CR3_DMAR))
   {
+#if !defined(USART_DMAREQUESTS_SW_WA)
     CLEAR_BIT(hsmartcard->Instance->CR3, USART_CR3_DMAR);
 
+#endif /* USART_DMAREQUESTS_SW_WA */
     /* Abort the SMARTCARD DMA Rx channel : use non blocking DMA Abort API (callback) */
     if (hsmartcard->hdmarx != NULL)
     {
@@ -1771,8 +1815,10 @@ HAL_StatusTypeDef HAL_SMARTCARD_AbortTransmit_IT(SMARTCARD_HandleTypeDef *hsmart
   /* Disable the SMARTCARD DMA Tx request if enabled */
   if (HAL_IS_BIT_SET(hsmartcard->Instance->CR3, USART_CR3_DMAT))
   {
+#if !defined(USART_DMAREQUESTS_SW_WA)
     CLEAR_BIT(hsmartcard->Instance->CR3, USART_CR3_DMAT);
 
+#endif /* USART_DMAREQUESTS_SW_WA */
     /* Abort the SMARTCARD DMA Tx channel : use non blocking DMA Abort API (callback) */
     if (hsmartcard->hdmatx != NULL)
     {
@@ -1869,8 +1915,10 @@ HAL_StatusTypeDef HAL_SMARTCARD_AbortReceive_IT(SMARTCARD_HandleTypeDef *hsmartc
   /* Disable the SMARTCARD DMA Rx request if enabled */
   if (HAL_IS_BIT_SET(hsmartcard->Instance->CR3, USART_CR3_DMAR))
   {
+#if !defined(USART_DMAREQUESTS_SW_WA)
     CLEAR_BIT(hsmartcard->Instance->CR3, USART_CR3_DMAR);
 
+#endif /* USART_DMAREQUESTS_SW_WA */
     /* Abort the SMARTCARD DMA Rx channel : use non blocking DMA Abort API (callback) */
     if (hsmartcard->hdmarx != NULL)
     {
@@ -2052,8 +2100,10 @@ void HAL_SMARTCARD_IRQHandler(SMARTCARD_HandleTypeDef *hsmartcard)
         /* Disable the SMARTCARD DMA Rx request if enabled */
         if (HAL_IS_BIT_SET(hsmartcard->Instance->CR3, USART_CR3_DMAR))
         {
+#if !defined(USART_DMAREQUESTS_SW_WA)
           CLEAR_BIT(hsmartcard->Instance->CR3, USART_CR3_DMAR);
 
+#endif /* USART_DMAREQUESTS_SW_WA */
           /* Abort the SMARTCARD DMA Rx channel */
           if (hsmartcard->hdmarx != NULL)
           {
@@ -2106,8 +2156,10 @@ void HAL_SMARTCARD_IRQHandler(SMARTCARD_HandleTypeDef *hsmartcard)
         /* Disable the SMARTCARD DMA Tx request if enabled */
         if (HAL_IS_BIT_SET(hsmartcard->Instance->CR3, USART_CR3_DMAT))
         {
+#if !defined(USART_DMAREQUESTS_SW_WA)
           CLEAR_BIT(hsmartcard->Instance->CR3, USART_CR3_DMAT);
 
+#endif /* USART_DMAREQUESTS_SW_WA */
           /* Abort the SMARTCARD DMA Tx channel */
           if (hsmartcard->hdmatx != NULL)
           {
@@ -2744,10 +2796,12 @@ static void SMARTCARD_DMATransmitCplt(DMA_HandleTypeDef *hdma)
   SMARTCARD_HandleTypeDef *hsmartcard = (SMARTCARD_HandleTypeDef *)(hdma->Parent);
   hsmartcard->TxXferCount = 0U;
 
+#if !defined(USART_DMAREQUESTS_SW_WA)
   /* Disable the DMA transfer for transmit request by resetting the DMAT bit
   in the SMARTCARD associated USART CR3 register */
   CLEAR_BIT(hsmartcard->Instance->CR3, USART_CR3_DMAT);
 
+#endif /* USART_DMAREQUESTS_SW_WA */
   /* Enable the SMARTCARD Transmit Complete Interrupt */
   __HAL_SMARTCARD_ENABLE_IT(hsmartcard, hsmartcard->AdvancedInit.TxCompletionIndication);
 }
@@ -2767,10 +2821,12 @@ static void SMARTCARD_DMAReceiveCplt(DMA_HandleTypeDef *hdma)
   CLEAR_BIT(hsmartcard->Instance->CR1, USART_CR1_PEIE);
   CLEAR_BIT(hsmartcard->Instance->CR3, USART_CR3_EIE);
 
+#if !defined(USART_DMAREQUESTS_SW_WA)
   /* Disable the DMA transfer for the receiver request by resetting the DMAR bit
      in the SMARTCARD associated USART CR3 register */
   CLEAR_BIT(hsmartcard->Instance->CR3, USART_CR3_DMAR);
 
+#endif /* USART_DMAREQUESTS_SW_WA */
   /* At end of Rx process, restore hsmartcard->RxState to Ready */
   hsmartcard->RxState = HAL_SMARTCARD_STATE_READY;
 

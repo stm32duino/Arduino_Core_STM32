@@ -314,7 +314,7 @@ HAL_StatusTypeDef HAL_DMA2D_DeInit(DMA2D_HandleTypeDef *hdma2d)
 
   /* Before aborting any DMA2D transfer or CLUT loading, check
      first whether or not DMA2D clock is enabled */
-  if (__HAL_RCC_DMA2D_IS_CLK_ENABLED())
+  if (__HAL_RCC_DMA2D_IS_CLK_ENABLED() == 1U)
   {
     /* Abort DMA2D transfer if any */
     if ((hdma2d->Instance->CR & DMA2D_CR_START) == DMA2D_CR_START)
@@ -971,7 +971,8 @@ HAL_StatusTypeDef HAL_DMA2D_EnableCLUT(DMA2D_HandleTypeDef *hdma2d, uint32_t Lay
   *                   DMA2D_BACKGROUND_LAYER(0) / DMA2D_FOREGROUND_LAYER(1)
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_DMA2D_CLUTStartLoad(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef *CLUTCfg, uint32_t LayerIdx)
+HAL_StatusTypeDef HAL_DMA2D_CLUTStartLoad(DMA2D_HandleTypeDef *hdma2d, const DMA2D_CLUTCfgTypeDef *CLUTCfg,
+                                          uint32_t LayerIdx)
 {
   /* Check the parameters */
   assert_param(IS_DMA2D_LAYER(LayerIdx));
@@ -1025,7 +1026,7 @@ HAL_StatusTypeDef HAL_DMA2D_CLUTStartLoad(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLU
   *                   DMA2D_BACKGROUND_LAYER(0) / DMA2D_FOREGROUND_LAYER(1)
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_DMA2D_CLUTStartLoad_IT(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef *CLUTCfg,
+HAL_StatusTypeDef HAL_DMA2D_CLUTStartLoad_IT(DMA2D_HandleTypeDef *hdma2d, const DMA2D_CLUTCfgTypeDef *CLUTCfg,
                                              uint32_t LayerIdx)
 {
   /* Check the parameters */
@@ -1728,7 +1729,7 @@ __weak void HAL_DMA2D_CLUTLoadingCpltCallback(DMA2D_HandleTypeDef *hdma2d)
   */
 HAL_StatusTypeDef HAL_DMA2D_ConfigLayer(DMA2D_HandleTypeDef *hdma2d, uint32_t LayerIdx)
 {
-  DMA2D_LayerCfgTypeDef *pLayerCfg;
+  const DMA2D_LayerCfgTypeDef *pLayerCfg;
   uint32_t regMask;
   uint32_t regValue;
 
@@ -2007,7 +2008,7 @@ HAL_StatusTypeDef HAL_DMA2D_ConfigDeadTime(DMA2D_HandleTypeDef *hdma2d, uint8_t 
   *                 the configuration information for the DMA2D.
   * @retval HAL state
   */
-HAL_DMA2D_StateTypeDef HAL_DMA2D_GetState(DMA2D_HandleTypeDef *hdma2d)
+HAL_DMA2D_StateTypeDef HAL_DMA2D_GetState(const DMA2D_HandleTypeDef *hdma2d)
 {
   return hdma2d->State;
 }
@@ -2018,7 +2019,7 @@ HAL_DMA2D_StateTypeDef HAL_DMA2D_GetState(DMA2D_HandleTypeDef *hdma2d)
   *               the configuration information for DMA2D.
   * @retval DMA2D Error Code
   */
-uint32_t HAL_DMA2D_GetError(DMA2D_HandleTypeDef *hdma2d)
+uint32_t HAL_DMA2D_GetError(const DMA2D_HandleTypeDef *hdma2d)
 {
   return hdma2d->ErrorCode;
 }

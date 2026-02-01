@@ -1567,13 +1567,13 @@ __STATIC_INLINE uint32_t LL_PWR_IsActiveFlag_PVDO(void)
 }
 
 /**
-  * @brief  Indicate whether the VDD voltage is below the threshold or not.
+  * @brief  Indicate whether the VDDA voltage is below the threshold or not.
   * @rmtoll VMSR          AVDO          LL_PWR_IsActiveFlag_AVDO
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_PWR_IsActiveFlag_AVDO(void)
 {
-  return ((READ_BIT(PWR->VMSR, PWR_VMSR_PVDO) == (PWR_VMSR_AVDO)) ? 1UL : 0UL);
+  return ((READ_BIT(PWR->VMSR, PWR_VMSR_AVDO) == (PWR_VMSR_AVDO)) ? 1UL : 0UL);
 }
 
 /**

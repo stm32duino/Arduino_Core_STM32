@@ -2341,7 +2341,7 @@ HAL_StatusTypeDef HAL_ADC_Stop_DMA(ADC_HandleTypeDef *hadc)
   * @param hadc ADC handle
   * @retval ADC group regular conversion data
   */
-uint32_t HAL_ADC_GetValue(ADC_HandleTypeDef *hadc)
+uint32_t HAL_ADC_GetValue(const ADC_HandleTypeDef *hadc)
 {
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
@@ -3022,11 +3022,8 @@ HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef *hadc, ADC_ChannelConf
       /* Configuration of differential mode */
       if (sConfig->SingleDiff == ADC_DIFFERENTIAL_ENDED)
       {
-        /* Set sampling time of the selected ADC channel */
-        /* Note: ADC channel number masked with value "0x1F" to ensure shift value within 32 bits range */
-        LL_ADC_SetChannelSamplingTime(hadc->Instance,
-                                      (uint32_t)(__LL_ADC_DECIMAL_NB_TO_CHANNEL((__LL_ADC_CHANNEL_TO_DECIMAL_NB((uint32_t)sConfig->Channel) + 1UL) & 0x1FUL)),
-                                      sConfig->SamplingTime);
+        /* Set ADC channel preselection of corresponding negative channel */
+        LL_ADC_SetChannelPreselection(hadc->Instance, ADC_CHANNEL_DIFF_NEG_INPUT(hadc, sConfig->Channel));
       }
 
       /* Management of internal measurement channels: Vbat/VrefInt/TempSensor.  */
@@ -3494,7 +3491,7 @@ HAL_StatusTypeDef HAL_ADC_AnalogWDGConfig(ADC_HandleTypeDef *hadc, ADC_AnalogWDG
   * @param hadc ADC handle
   * @retval ADC handle state (bitfield on 32 bits)
   */
-uint32_t HAL_ADC_GetState(ADC_HandleTypeDef *hadc)
+uint32_t HAL_ADC_GetState(const ADC_HandleTypeDef *hadc)
 {
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
@@ -3508,7 +3505,7 @@ uint32_t HAL_ADC_GetState(ADC_HandleTypeDef *hadc)
   * @param hadc ADC handle
   * @retval ADC error code (bitfield on 32 bits)
   */
-uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc)
+uint32_t HAL_ADC_GetError(const ADC_HandleTypeDef *hadc)
 {
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));

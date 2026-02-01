@@ -1,0 +1,41 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic WB05KZVx
+GenWB0.menu.pnum.GENERIC_WB05KZVX=Generic WB05KZVx
+GenWB0.menu.pnum.GENERIC_WB05KZVX.upload.maximum_size=196608
+GenWB0.menu.pnum.GENERIC_WB05KZVX.upload.maximum_data_size=24576
+GenWB0.menu.pnum.GENERIC_WB05KZVX.build.board=GENERIC_WB05KZVX
+GenWB0.menu.pnum.GENERIC_WB05KZVX.build.product_line=STM32WB05
+GenWB0.menu.pnum.GENERIC_WB05KZVX.build.variant=STM32WB0x/WB05KZV_WB05TZF_WB09KEV_WB09TEF
+GenWB0.menu.pnum.GENERIC_WB05KZVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WB0x/STM32WB05.svd
+
+# Generic WB05TZFx
+GenWB0.menu.pnum.GENERIC_WB05TZFX=Generic WB05TZFx
+GenWB0.menu.pnum.GENERIC_WB05TZFX.upload.maximum_size=196608
+GenWB0.menu.pnum.GENERIC_WB05TZFX.upload.maximum_data_size=24576
+GenWB0.menu.pnum.GENERIC_WB05TZFX.build.board=GENERIC_WB05TZFX
+GenWB0.menu.pnum.GENERIC_WB05TZFX.build.product_line=STM32WB05
+GenWB0.menu.pnum.GENERIC_WB05TZFX.build.variant=STM32WB0x/WB05KZV_WB05TZF_WB09KEV_WB09TEF
+GenWB0.menu.pnum.GENERIC_WB05TZFX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WB0x/STM32WB05.svd
+
+# Generic WB09KEVx
+GenWB0.menu.pnum.GENERIC_WB09KEVX=Generic WB09KEVx
+GenWB0.menu.pnum.GENERIC_WB09KEVX.upload.maximum_size=524288
+GenWB0.menu.pnum.GENERIC_WB09KEVX.upload.maximum_data_size=65536
+GenWB0.menu.pnum.GENERIC_WB09KEVX.build.board=GENERIC_WB09KEVX
+GenWB0.menu.pnum.GENERIC_WB09KEVX.build.product_line=STM32WB09
+GenWB0.menu.pnum.GENERIC_WB09KEVX.build.variant=STM32WB0x/WB05KZV_WB05TZF_WB09KEV_WB09TEF
+GenWB0.menu.pnum.GENERIC_WB09KEVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WB0x/STM32WB09.svd
+
+# Generic WB09TEFx
+GenWB0.menu.pnum.GENERIC_WB09TEFX=Generic WB09TEFx
+GenWB0.menu.pnum.GENERIC_WB09TEFX.upload.maximum_size=524288
+GenWB0.menu.pnum.GENERIC_WB09TEFX.upload.maximum_data_size=65536
+GenWB0.menu.pnum.GENERIC_WB09TEFX.build.board=GENERIC_WB09TEFX
+GenWB0.menu.pnum.GENERIC_WB09TEFX.build.product_line=STM32WB09
+GenWB0.menu.pnum.GENERIC_WB09TEFX.build.variant=STM32WB0x/WB05KZV_WB05TZF_WB09KEV_WB09TEF
+GenWB0.menu.pnum.GENERIC_WB09TEFX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WB0x/STM32WB09.svd
+

@@ -902,10 +902,10 @@ HAL_StatusTypeDef HAL_OPAMP_Lock(OPAMP_HandleTypeDef *hopamp)
   *         or OPAMP_FACTORYTRIMMING_DUMMY if trimming value is not available
   *
   */
-HAL_OPAMP_TrimmingValueTypeDef HAL_OPAMP_GetTrimOffset (OPAMP_HandleTypeDef *hopamp, uint32_t trimmingoffset)
+HAL_OPAMP_TrimmingValueTypeDef HAL_OPAMP_GetTrimOffset (const OPAMP_HandleTypeDef *hopamp, uint32_t trimmingoffset)
 {
   HAL_OPAMP_TrimmingValueTypeDef trimmingvalue;
-  __IO uint32_t* tmp_opamp_reg_trimming;  /* Selection of register of trimming depending on power mode: OTR or LPOTR */
+  __IO const uint32_t* tmp_opamp_reg_trimming;  /* Selection of register of trimming depending on power mode: OTR or LPOTR */
 
   /* Check the OPAMP handle allocation */
   /* Value can be retrieved in HAL_OPAMP_STATE_READY state */
@@ -1122,7 +1122,7 @@ HAL_StatusTypeDef HAL_OPAMP_UnRegisterCallback (OPAMP_HandleTypeDef *hopamp, HAL
   * @param  hopamp  OPAMP handle
   * @retval HAL state
   */
-HAL_OPAMP_StateTypeDef HAL_OPAMP_GetState(OPAMP_HandleTypeDef *hopamp)
+HAL_OPAMP_StateTypeDef HAL_OPAMP_GetState(const OPAMP_HandleTypeDef *hopamp)
 {
   /* Check the OPAMP handle allocation */
   if(hopamp == NULL)

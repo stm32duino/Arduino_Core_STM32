@@ -1020,26 +1020,26 @@ void HAL_FLASHEx_GetEccInfo(FLASH_EccInfoTypeDef *pData)
   */
 void HAL_FLASHEx_BusFault_IRQHandler(void)
 {
-  /* Check if the ECC double error occured*/
+  /* Check if the ECC double error occurred*/
   if ((FLASH->SR1 & FLASH_FLAG_DBECCERR_BANK1)  != 0)
   {
     /* FLASH ECC detection user callback */
     HAL_FLASHEx_EccDetectionCallback();
 
     /* Clear Bank 1 ECC double detection error flag
-    note : this step will clear all the informations related to the flash ECC detection
+    note : this step will clear all the information related to the flash ECC detection
     */
     __HAL_FLASH_CLEAR_FLAG_BANK1(FLASH_FLAG_DBECCERR_BANK1);
   }
 #if defined (DUAL_BANK)
-  /* Check if the ECC double error occured*/
+  /* Check if the ECC double error occurred*/
   if ((FLASH->SR2 & FLASH_FLAG_DBECCERR_BANK2)  != 0)
   {
     /* FLASH ECC detection user callback */
     HAL_FLASHEx_EccDetectionCallback();
 
     /* Clear Bank 2 ECC double detection error flag
-    note : this step will clear all the informations related to the flash ECC detection
+    note : this step will clear all the information related to the flash ECC detection
     */
     __HAL_FLASH_CLEAR_FLAG_BANK2(FLASH_FLAG_DBECCERR_BANK2);
   }

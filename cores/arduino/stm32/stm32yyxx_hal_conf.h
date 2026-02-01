@@ -82,6 +82,18 @@
   #undef HAL_SUBGHZ_MODULE_ENABLED
 #endif
 
+#if !defined(HAL_RADIO_MODULE_DISABLED)
+  #define HAL_RADIO_MODULE_ENABLED
+#else
+  #undef HAL_RADIO_MODULE_ENABLED
+#endif
+
+#if !defined(HAL_RADIO_TIMER_MODULE_DISABLED)
+  #define HAL_RADIO_TIMER_MODULE_ENABLED
+#else
+  #undef HAL_RADIO_TIMER_MODULE_ENABLED
+#endif
+
 /*
  * Not defined by default
  */

@@ -100,7 +100,7 @@
   *          - SUCCESS: GPIO registers are de-initialized
   *          - ERROR:   Wrong GPIO Port
   */
-ErrorStatus LL_GPIO_DeInit(GPIO_TypeDef *GPIOx)
+ErrorStatus LL_GPIO_DeInit(const GPIO_TypeDef *GPIOx)
 {
   ErrorStatus status = SUCCESS;
 
@@ -174,8 +174,6 @@ ErrorStatus LL_GPIO_Init(GPIO_TypeDef *GPIOx, LL_GPIO_InitTypeDef *GPIO_InitStru
 
     if (currentpin != 0x00u)
     {
-      /* Pin Mode configuration */
-      LL_GPIO_SetPinMode(GPIOx, currentpin, GPIO_InitStruct->Mode);
 
       if ((GPIO_InitStruct->Mode == LL_GPIO_MODE_OUTPUT) || (GPIO_InitStruct->Mode == LL_GPIO_MODE_ALTERNATE))
       {

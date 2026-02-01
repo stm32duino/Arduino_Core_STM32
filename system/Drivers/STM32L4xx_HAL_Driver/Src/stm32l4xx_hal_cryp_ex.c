@@ -346,7 +346,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AES_IT(CRYP_HandleTypeDef *hcryp,  uint8_t *pInputD
   * @note   pInputData and pOutputData buffers must be 32-bit aligned to ensure a correct DMA transfer to and from the IP.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_CRYPEx_AES_DMA(CRYP_HandleTypeDef *hcryp,  uint8_t *pInputData, uint16_t Size, uint8_t *pOutputData)
+HAL_StatusTypeDef HAL_CRYPEx_AES_DMA(CRYP_HandleTypeDef *hcryp,  const uint8_t *pInputData, uint16_t Size, const uint8_t *pOutputData)
 {
   uint32_t inputaddr;
   uint32_t outputaddr;
@@ -427,7 +427,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AES_DMA(CRYP_HandleTypeDef *hcryp,  uint8_t *pInput
   *         can be skipped by the user if so required.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_CRYPEx_AES_Auth(CRYP_HandleTypeDef *hcryp, uint8_t *pInputData, uint64_t Size, uint8_t *pOutputData, uint32_t Timeout)
+HAL_StatusTypeDef HAL_CRYPEx_AES_Auth(CRYP_HandleTypeDef *hcryp, const uint8_t *pInputData, uint64_t Size, uint8_t *pOutputData, uint32_t Timeout)
 {
   uint32_t index             ;
   uint32_t inputaddr         ;
@@ -1859,7 +1859,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AES_Auth_DMA(CRYP_HandleTypeDef *hcryp, uint8_t *pI
   * @note   AES must be disabled when reading or resetting the IV values.
   * @retval None
   */
-void HAL_CRYPEx_Read_IVRegisters(CRYP_HandleTypeDef *hcryp, uint8_t* Output)
+void HAL_CRYPEx_Read_IVRegisters(const CRYP_HandleTypeDef *hcryp, uint8_t* Output)
 {
   uint32_t outputaddr = (uint32_t)Output;
 
@@ -1883,7 +1883,7 @@ void HAL_CRYPEx_Read_IVRegisters(CRYP_HandleTypeDef *hcryp, uint8_t* Output)
   * @note   AES must be disabled when reading or resetting the IV values.
   * @retval None
   */
-void HAL_CRYPEx_Write_IVRegisters(CRYP_HandleTypeDef *hcryp, uint8_t* Input)
+void HAL_CRYPEx_Write_IVRegisters(CRYP_HandleTypeDef *hcryp, const uint8_t* Input)
 {
   uint32_t ivaddr = (uint32_t)Input;
 
@@ -1958,7 +1958,7 @@ void HAL_CRYPEx_Read_SuspendRegisters(CRYP_HandleTypeDef *hcryp, uint8_t* Output
   *         write back in the CRYP hardware block.
   * @retval None
   */
-void HAL_CRYPEx_Write_SuspendRegisters(CRYP_HandleTypeDef *hcryp, uint8_t* Input)
+void HAL_CRYPEx_Write_SuspendRegisters(CRYP_HandleTypeDef *hcryp, const uint8_t* Input)
 {
   uint32_t ivaddr = (uint32_t)Input;
 
@@ -1990,7 +1990,7 @@ void HAL_CRYPEx_Write_SuspendRegisters(CRYP_HandleTypeDef *hcryp, uint8_t* Input
   *         as soon as the interrupted processing has to be resumed.
   * @retval None
   */
-void HAL_CRYPEx_Read_KeyRegisters(CRYP_HandleTypeDef *hcryp, uint8_t* Output, uint32_t KeySize)
+void HAL_CRYPEx_Read_KeyRegisters(const CRYP_HandleTypeDef *hcryp, uint8_t* Output, uint32_t KeySize)
 {
   uint32_t keyaddr = (uint32_t)Output;
 
@@ -2041,13 +2041,13 @@ void HAL_CRYPEx_Write_KeyRegisters(CRYP_HandleTypeDef *hcryp, uint8_t* Input, ui
     keyaddr+=4U;
   }
 
-    hcryp->Instance->KEYR3 = __REV(*(uint32_t*)(keyaddr));
-    keyaddr+=4U;
-    hcryp->Instance->KEYR2 = __REV(*(uint32_t*)(keyaddr));
-    keyaddr+=4U;
-    hcryp->Instance->KEYR1 = __REV(*(uint32_t*)(keyaddr));
-    keyaddr+=4U;
-    hcryp->Instance->KEYR0 = __REV(*(uint32_t*)(keyaddr));
+  hcryp->Instance->KEYR3 = __REV(*(uint32_t*)(keyaddr));
+  keyaddr+=4U;
+  hcryp->Instance->KEYR2 = __REV(*(uint32_t*)(keyaddr));
+  keyaddr+=4U;
+  hcryp->Instance->KEYR1 = __REV(*(uint32_t*)(keyaddr));
+  keyaddr+=4U;
+  hcryp->Instance->KEYR0 = __REV(*(uint32_t*)(keyaddr));
 }
 
 
@@ -2881,13 +2881,13 @@ static HAL_StatusTypeDef CRYP_ReadKey(CRYP_HandleTypeDef *hcryp, uint8_t* Output
     outputaddr+=4U;
   }
 
-    *(uint32_t*)(outputaddr) = __REV(hcryp->Instance->KEYR3);
-    outputaddr+=4U;
-    *(uint32_t*)(outputaddr) = __REV(hcryp->Instance->KEYR2);
-    outputaddr+=4U;
-    *(uint32_t*)(outputaddr) = __REV(hcryp->Instance->KEYR1);
-    outputaddr+=4U;
-    *(uint32_t*)(outputaddr) = __REV(hcryp->Instance->KEYR0);
+  *(uint32_t*)(outputaddr) = __REV(hcryp->Instance->KEYR3);
+  outputaddr+=4U;
+  *(uint32_t*)(outputaddr) = __REV(hcryp->Instance->KEYR2);
+  outputaddr+=4U;
+  *(uint32_t*)(outputaddr) = __REV(hcryp->Instance->KEYR1);
+  outputaddr+=4U;
+  *(uint32_t*)(outputaddr) = __REV(hcryp->Instance->KEYR0);
 
 
   /* Return function status */

@@ -145,10 +145,10 @@ typedef enum
                                            (((SWITCH) & SYSCFG_SWITCH_PA1) == SYSCFG_SWITCH_PA1))
 
 
-#define SYSCFG_SWITCH_PA0_OPEN                       SYSCFG_PMCSETR_ANA0_SEL_SEL       /*!< PA0 analog switch opened */
-#define SYSCFG_SWITCH_PA0_CLOSE                      ((uint32_t)0x00000000)         /*!< PA0 analog switch closed */
-#define SYSCFG_SWITCH_PA1_OPEN                       SYSCFG_PMCSETR_ANA1_SEL_SEL       /*!< PA1 analog switch opened */
-#define SYSCFG_SWITCH_PA1_CLOSE                      ((uint32_t)0x00000000)         /*!< PA1 analog switch closed*/
+#define SYSCFG_SWITCH_PA0_OPEN                      ((uint32_t)0x00000000)         /*!< PA0 analog switch opened */
+#define SYSCFG_SWITCH_PA0_CLOSE                     SYSCFG_PMCSETR_ANA0_SEL_SEL    /*!< PA0 analog switch closed */
+#define SYSCFG_SWITCH_PA1_OPEN                      ((uint32_t)0x00000000)         /*!< PA1 analog switch opened */
+#define SYSCFG_SWITCH_PA1_CLOSE                     SYSCFG_PMCSETR_ANA1_SEL_SEL    /*!< PA1 analog switch closed */
 
 #define IS_SYSCFG_SWITCH_STATE(STATE)      ((((STATE) & SYSCFG_SWITCH_PA0_OPEN) == SYSCFG_SWITCH_PA0_OPEN)    || \
                                            (((STATE) & SYSCFG_SWITCH_PA0_CLOSE) == SYSCFG_SWITCH_PA0_CLOSE)   || \

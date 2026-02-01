@@ -1962,7 +1962,7 @@ HAL_StatusTypeDef       HAL_ADC_Start_DMA(ADC_HandleTypeDef *hadc, uint32_t *pDa
 HAL_StatusTypeDef       HAL_ADC_Stop_DMA(ADC_HandleTypeDef *hadc);
 
 /* ADC retrieve conversion value intended to be used with polling or interruption */
-uint32_t                HAL_ADC_GetValue(ADC_HandleTypeDef *hadc);
+uint32_t                HAL_ADC_GetValue(const ADC_HandleTypeDef *hadc);
 
 /* ADC IRQHandler and Callbacks used in non-blocking modes (Interruption and DMA) */
 void                    HAL_ADC_IRQHandler(ADC_HandleTypeDef *hadc);
@@ -1990,8 +1990,8 @@ HAL_StatusTypeDef       HAL_ADC_AnalogWDGConfig(ADC_HandleTypeDef *hadc, ADC_Ana
 /** @addtogroup ADC_Exported_Functions_Group4
   * @{
   */
-uint32_t                HAL_ADC_GetState(ADC_HandleTypeDef *hadc);
-uint32_t                HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
+uint32_t                HAL_ADC_GetState(const ADC_HandleTypeDef *hadc);
+uint32_t                HAL_ADC_GetError(const ADC_HandleTypeDef *hadc);
 
 /**
   * @}

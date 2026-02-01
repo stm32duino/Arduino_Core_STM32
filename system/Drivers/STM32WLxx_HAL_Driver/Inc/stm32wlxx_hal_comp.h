@@ -50,7 +50,8 @@ typedef struct
 
   uint32_t WindowMode;         /*!< Set window mode of a pair of comparators instances
                                     (2 consecutive instances odd and even COMP<x> and COMP<x+1>).
-                                    Note: HAL COMP driver allows to set window mode from any COMP instance of the pair of COMP instances composing window mode.
+                                    Note: HAL COMP driver allows to set window mode from any COMP
+                                    instance of the pair of COMP instances composing window mode.
                                     This parameter can be a value of @ref COMP_WindowMode */
 
   uint32_t Mode;               /*!< Set comparator operating mode to adjust power and speed.
@@ -151,14 +152,24 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
   * @}
   */
 
+
 /** @defgroup COMP_WindowMode COMP Window Mode
   * @{
   */
-#define COMP_WINDOWMODE_DISABLE                 (0x00000000UL)         /*!< Window mode disable: Comparators instances pair COMP1 and COMP2 are independent */
-#define COMP_WINDOWMODE_COMP1_INPUT_PLUS_COMMON (COMP_CSR_WINMODE)     /*!< Window mode enable: Comparators instances pair COMP1 and COMP2 have their input plus connected together. The common input is COMP1 input plus (COMP2 input plus is no more accessible). */
+#define COMP_WINDOWMODE_DISABLE                 (0x00000000UL)            /*!< Window mode disable: Comparators
+                                                                               instances pair COMP1 and COMP2 are
+                                                                               independent */
+#define COMP_WINDOWMODE_COMP1_INPUT_PLUS_COMMON (COMP_CSR_WINMODE)        /*!< Window mode enable: Comparators instances
+                                                                               pair COMP1 and COMP2 have their input
+                                                                               plus connected together.
+                                                                               The common input is COMP1 input plus
+                                                                               (COMP2 input plus is no more accessible).
+                                                                               */
 /**
   * @}
   */
+
+
 
 /** @defgroup COMP_PowerMode COMP power mode
   * @{
@@ -300,14 +311,14 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
   * @param  __HANDLE__  COMP handle
   * @retval None
   */
-#define __HAL_COMP_ENABLE(__HANDLE__)              SET_BIT((__HANDLE__)->Instance->CSR, COMP_CSR_EN)
+#define __HAL_COMP_ENABLE(__HANDLE__)       SET_BIT((__HANDLE__)->Instance->CSR, COMP_CSR_EN)
 
 /**
   * @brief  Disable the specified comparator.
   * @param  __HANDLE__  COMP handle
   * @retval None
   */
-#define __HAL_COMP_DISABLE(__HANDLE__)             CLEAR_BIT((__HANDLE__)->Instance->CSR, COMP_CSR_EN)
+#define __HAL_COMP_DISABLE(__HANDLE__)      CLEAR_BIT((__HANDLE__)->Instance->CSR, COMP_CSR_EN)
 
 /**
   * @brief  Lock the specified comparator configuration.
@@ -318,14 +329,14 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
   * @param  __HANDLE__  COMP handle
   * @retval None
   */
-#define __HAL_COMP_LOCK(__HANDLE__)                SET_BIT((__HANDLE__)->Instance->CSR, COMP_CSR_LOCK)
+#define __HAL_COMP_LOCK(__HANDLE__)         SET_BIT((__HANDLE__)->Instance->CSR, COMP_CSR_LOCK)
 
 /**
   * @brief  Check whether the specified comparator is locked.
   * @param  __HANDLE__  COMP handle
   * @retval Value 0 if COMP instance is not locked, value 1 if COMP instance is locked
   */
-#define __HAL_COMP_IS_LOCKED(__HANDLE__)           (READ_BIT((__HANDLE__)->Instance->CSR, COMP_CSR_LOCK) == COMP_CSR_LOCK)
+#define __HAL_COMP_IS_LOCKED(__HANDLE__)    (READ_BIT((__HANDLE__)->Instance->CSR, COMP_CSR_LOCK) == COMP_CSR_LOCK)
 
 /**
   * @}
@@ -334,7 +345,6 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
 /** @defgroup COMP_Exti_Management  COMP external interrupt line management
   * @{
   */
-
 /**
   * @brief  Enable the COMP1 EXTI line rising edge trigger.
   * @retval None
@@ -363,19 +373,19 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
   * @brief  Enable the COMP1 EXTI line rising & falling edge trigger.
   * @retval None
   */
-#define __HAL_COMP_COMP1_EXTI_ENABLE_RISING_FALLING_EDGE()   do { \
-                                                               LL_EXTI_EnableRisingTrig_0_31(COMP_EXTI_LINE_COMP1); \
-                                                               LL_EXTI_EnableFallingTrig_0_31(COMP_EXTI_LINE_COMP1); \
-                                                             } while(0)
+#define __HAL_COMP_COMP1_EXTI_ENABLE_RISING_FALLING_EDGE() do {                                                        \
+                                                                LL_EXTI_EnableRisingTrig_0_31(COMP_EXTI_LINE_COMP1);   \
+                                                                LL_EXTI_EnableFallingTrig_0_31(COMP_EXTI_LINE_COMP1);  \
+                                                              } while(0)
 
 /**
   * @brief  Disable the COMP1 EXTI line rising & falling edge trigger.
   * @retval None
   */
-#define __HAL_COMP_COMP1_EXTI_DISABLE_RISING_FALLING_EDGE()  do { \
-                                                               LL_EXTI_DisableRisingTrig_0_31(COMP_EXTI_LINE_COMP1); \
-                                                               LL_EXTI_DisableFallingTrig_0_31(COMP_EXTI_LINE_COMP1); \
-                                                             } while(0)
+#define __HAL_COMP_COMP1_EXTI_DISABLE_RISING_FALLING_EDGE() do {                                                       \
+                                                                 LL_EXTI_DisableRisingTrig_0_31(COMP_EXTI_LINE_COMP1); \
+                                                                 LL_EXTI_DisableFallingTrig_0_31(COMP_EXTI_LINE_COMP1);\
+                                                               } while(0)
 
 /**
   * @brief  Enable the COMP1 EXTI line in interrupt mode.
@@ -463,19 +473,19 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
   * @brief  Enable the COMP2 EXTI line rising & falling edge trigger.
   * @retval None
   */
-#define __HAL_COMP_COMP2_EXTI_ENABLE_RISING_FALLING_EDGE()   do { \
-                                                               LL_EXTI_EnableRisingTrig_0_31(COMP_EXTI_LINE_COMP2); \
-                                                               LL_EXTI_EnableFallingTrig_0_31(COMP_EXTI_LINE_COMP2); \
-                                                             } while(0)
+#define __HAL_COMP_COMP2_EXTI_ENABLE_RISING_FALLING_EDGE() do {                                                        \
+                                                                LL_EXTI_EnableRisingTrig_0_31(COMP_EXTI_LINE_COMP2);   \
+                                                                LL_EXTI_EnableFallingTrig_0_31(COMP_EXTI_LINE_COMP2);  \
+                                                              } while(0)
 
 /**
   * @brief  Disable the COMP2 EXTI line rising & falling edge trigger.
   * @retval None
   */
-#define __HAL_COMP_COMP2_EXTI_DISABLE_RISING_FALLING_EDGE()  do { \
-                                                               LL_EXTI_DisableRisingTrig_0_31(COMP_EXTI_LINE_COMP2); \
-                                                               LL_EXTI_DisableFallingTrig_0_31(COMP_EXTI_LINE_COMP2); \
-                                                             } while(0)
+#define __HAL_COMP_COMP2_EXTI_DISABLE_RISING_FALLING_EDGE() do {                                                       \
+                                                                 LL_EXTI_DisableRisingTrig_0_31(COMP_EXTI_LINE_COMP2); \
+                                                                 LL_EXTI_DisableFallingTrig_0_31(COMP_EXTI_LINE_COMP2);\
+                                                               } while(0)
 
 /**
   * @brief  Enable the COMP2 EXTI line in interrupt mode.
@@ -599,7 +609,7 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
 /* Note: On this STM32 series, comparator input minus parameters are          */
 /*       the same on all COMP instances.                                      */
 /*       However, comparator instance kept as macro parameter for             */
-/*       compatibility with other STM32 families.                             */
+/*       compatibility with other STM32 series.                               */
 #define IS_COMP_INPUT_MINUS(__COMP_INSTANCE__, __INPUT_MINUS__) (((__INPUT_MINUS__) == COMP_INPUT_MINUS_1_4VREFINT)  || \
                                                                  ((__INPUT_MINUS__) == COMP_INPUT_MINUS_1_2VREFINT)  || \
                                                                  ((__INPUT_MINUS__) == COMP_INPUT_MINUS_3_4VREFINT)  || \
@@ -619,7 +629,7 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
                                              ((__POL__) == COMP_OUTPUTPOL_INVERTED))
 
 #define IS_COMP_BLANKINGSRCE(__OUTPUT_BLANKING_SOURCE__)                    \
-  (   ((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_NONE)               \
+  (((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_NONE)                  \
    || ((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_TIM1_OC5)           \
    || ((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_TIM2_OC3)           \
   )
@@ -627,7 +637,7 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
 /* Note: Output blanking source common to all COMP instances */
 /*       Macro kept for compatibility with other STM32 series */
 #define IS_COMP_BLANKINGSRC_INSTANCE(__INSTANCE__, __OUTPUT_BLANKING_SOURCE__)  \
-   (IS_COMP_BLANKINGSRCE(__OUTPUT_BLANKING_SOURCE__))
+  (IS_COMP_BLANKINGSRCE(__OUTPUT_BLANKING_SOURCE__))
 
 
 #define IS_COMP_TRIGGERMODE(__MODE__)       (((__MODE__) == COMP_TRIGGERMODE_NONE)                 || \

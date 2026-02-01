@@ -6,8 +6,9 @@
   *          This file provides firmware functions to manage the following
   *          functionalities of GTZC peripheral:
   *           + TZSC Initialization and Configuration functions
+  *           + TZSC-MPCWM Initialization and Configuration functions
   *           + MPCBB Initialization and Configuration functions
-  *           + TZSC and MPCBB Lock functions
+  *           + TZSC, TZSC-MPCWM and MPCBB Lock functions
   *           + TZIC Initialization and Configuration functions
   *
   ******************************************************************************
@@ -29,7 +30,8 @@
     (+) Global TrustZone Controller (GTZC) composed of three sub-blocks:
       (++) TZSC: TrustZone security controller
             This sub-block defines the secure/privileged state of master and slave
-            peripherals.
+            peripherals. It also controls the secure/privileged state of subregions
+            for the watermark memory peripheral controller (MPCWM).
       (++) MPCBB: Block-Based memory protection controller
             This sub-block defines the secure/privileged state of all blocks
             (512-byte pages) of the associated SRAM.
@@ -62,6 +64,9 @@
 
     (#) Configure or get back securable peripherals attributes using
         HAL_GTZC_TZSC_ConfigPeriphAttributes() / HAL_GTZC_TZSC_GetConfigPeriphAttributes()
+
+    (#) Configure or get back MPCWM memories attributes using
+        HAL_GTZC_TZSC_MPCWM_ConfigMemAttributes() / HAL_GTZC_TZSC_MPCWM_GetConfigMemAttributes()
 
     (#) Lock TZSC sub-block or get lock status using HAL_GTZC_TZSC_Lock() /
         HAL_GTZC_TZSC_GetLock()
@@ -111,19 +116,35 @@
   * @{
   */
 
+
 /* Definitions for GTZC TZSC & TZIC ALL register values */
 /* TZSC1 / TZIC1 instances */
-#if defined (STM32WBA54xx) || defined (STM32WBA55xx)
+#if defined (STM32WBA54xx) || defined (STM32WBA55xx) || defined(STM32WBA5Mxx)
 #define TZSC1_SECCFGR1_ALL       (0x000222C3UL)
 #define TZSC1_SECCFGR2_ALL       (0x018F00EBUL)
 #define TZSC1_SECCFGR3_ALL       (0x01C17858UL)
+#define TZIC1_IER4_ALL           (0xC3C0EF87UL)
+#elif defined (STM32WBA63xx)
+#define TZSC1_SECCFGR1_ALL       (0x000222C3UL)
+#define TZSC1_SECCFGR2_ALL       (0x018F00EBUL)
+#define TZSC1_SECCFGR3_ALL       (0x01C17858UL)
+#define TZIC1_IER4_ALL           (0xC3C0EF87UL)
+#elif defined (STM32WBA62xx) || defined (STM32WBA65xx) || defined (STM32WBA6Mxx)
+#define TZSC1_SECCFGR1_ALL       (0x000367C7UL)
+#define TZSC1_SECCFGR2_ALL       (0x038F00EBUL)
+#define TZSC1_SECCFGR3_ALL       (0x01C17C58UL)
+#define TZIC1_IER4_ALL           (0xC3C0EF87UL)
+#elif defined (STM32WBA64xx)
+#define TZSC1_SECCFGR1_ALL       (0x000367C7UL)
+#define TZSC1_SECCFGR2_ALL       (0x018F00EBUL)
+#define TZSC1_SECCFGR3_ALL       (0x01C17C58UL)
 #define TZIC1_IER4_ALL           (0xC3C0EF87UL)
 #else
 #define TZSC1_SECCFGR1_ALL       (0x000222C3UL)
 #define TZSC1_SECCFGR2_ALL       (0x010F006BUL)
 #define TZSC1_SECCFGR3_ALL       (0x00C17858UL)
 #define TZIC1_IER4_ALL           (0xC3C0EF87UL)
-#endif /* STM32WBA54xx || STM32WBA55xx */
+#endif /* STM32WBA54xx || STM32WBA55xx || STM32WBA5Mxx */
 
 #define TZSC1_PRIVCFGR1_ALL      TZSC1_SECCFGR1_ALL
 #define TZSC1_PRIVCFGR2_ALL      TZSC1_SECCFGR2_ALL
@@ -455,6 +476,7 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_GetConfigPeriphAttributes(uint32_t PeriphId,
   * @}
   */
 
+
 #if defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
 
 /** @defgroup GTZC_Exported_Functions_Group3 TZSC Lock functions
@@ -608,7 +630,7 @@ HAL_StatusTypeDef HAL_GTZC_MPCBB_ConfigMem(uint32_t MemBaseAddress,
 HAL_StatusTypeDef HAL_GTZC_MPCBB_GetConfigMem(uint32_t MemBaseAddress,
                                               MPCBB_ConfigTypeDef *pMPCBB_desc)
 {
-  GTZC_MPCBB_TypeDef *mpcbb_ptr;
+  const GTZC_MPCBB_TypeDef *mpcbb_ptr;
   uint32_t mem_size;
   uint32_t size_in_superblocks;
   uint32_t i;
@@ -832,7 +854,7 @@ HAL_StatusTypeDef HAL_GTZC_MPCBB_GetConfigMemAttributes(uint32_t MemAddress,
                                                         uint32_t NbBlocks,
                                                         uint32_t *pMemAttributes)
 {
-  GTZC_MPCBB_TypeDef *mpcbb_ptr;
+  const GTZC_MPCBB_TypeDef *mpcbb_ptr;
   uint32_t base_address;
   uint32_t end_address;
   uint32_t block_start;

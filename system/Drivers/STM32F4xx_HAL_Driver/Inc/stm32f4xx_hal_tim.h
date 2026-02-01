@@ -1839,12 +1839,13 @@ typedef  void (*pTIM_CallbackTypeDef)(TIM_HandleTypeDef *htim);  /*!< pointer to
    ((__CHANNEL__) == TIM_CHANNEL_3) ? ((__HANDLE__)->ChannelState[2] = (__CHANNEL_STATE__)) :\
    ((__HANDLE__)->ChannelState[3] = (__CHANNEL_STATE__)))
 
-#define TIM_CHANNEL_STATE_SET_ALL(__HANDLE__,  __CHANNEL_STATE__) do { \
-                                                                       (__HANDLE__)->ChannelState[0]  = (__CHANNEL_STATE__);  \
-                                                                       (__HANDLE__)->ChannelState[1]  = (__CHANNEL_STATE__);  \
-                                                                       (__HANDLE__)->ChannelState[2]  = (__CHANNEL_STATE__);  \
-                                                                       (__HANDLE__)->ChannelState[3]  = (__CHANNEL_STATE__);  \
-                                                                     } while(0)
+#define TIM_CHANNEL_STATE_SET_ALL(__HANDLE__,  __CHANNEL_STATE__)\
+  do {\
+    (__HANDLE__)->ChannelState[0]  = (__CHANNEL_STATE__);\
+    (__HANDLE__)->ChannelState[1]  = (__CHANNEL_STATE__);\
+    (__HANDLE__)->ChannelState[2]  = (__CHANNEL_STATE__);\
+    (__HANDLE__)->ChannelState[3]  = (__CHANNEL_STATE__);\
+  } while(0)
 
 #define TIM_CHANNEL_N_STATE_GET(__HANDLE__, __CHANNEL__)\
   (((__CHANNEL__) == TIM_CHANNEL_1) ? (__HANDLE__)->ChannelNState[0] :\
@@ -1858,16 +1859,17 @@ typedef  void (*pTIM_CallbackTypeDef)(TIM_HandleTypeDef *htim);  /*!< pointer to
    ((__CHANNEL__) == TIM_CHANNEL_3) ? ((__HANDLE__)->ChannelNState[2] = (__CHANNEL_STATE__)) :\
    ((__HANDLE__)->ChannelNState[3] = (__CHANNEL_STATE__)))
 
-#define TIM_CHANNEL_N_STATE_SET_ALL(__HANDLE__,  __CHANNEL_STATE__) do { \
-                                                                         (__HANDLE__)->ChannelNState[0] = \
-                                                                         (__CHANNEL_STATE__);  \
-                                                                         (__HANDLE__)->ChannelNState[1] = \
-                                                                         (__CHANNEL_STATE__);  \
-                                                                         (__HANDLE__)->ChannelNState[2] = \
-                                                                         (__CHANNEL_STATE__);  \
-                                                                         (__HANDLE__)->ChannelNState[3] = \
-                                                                         (__CHANNEL_STATE__);  \
-                                                                       } while(0)
+#define TIM_CHANNEL_N_STATE_SET_ALL(__HANDLE__,  __CHANNEL_STATE__)\
+  do {\
+    (__HANDLE__)->ChannelNState[0] = \
+    (__CHANNEL_STATE__);  \
+    (__HANDLE__)->ChannelNState[1] = \
+    (__CHANNEL_STATE__);  \
+    (__HANDLE__)->ChannelNState[2] = \
+    (__CHANNEL_STATE__);  \
+    (__HANDLE__)->ChannelNState[3] = \
+    (__CHANNEL_STATE__);  \
+  } while(0)
 
 /**
   * @}

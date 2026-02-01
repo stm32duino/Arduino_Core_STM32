@@ -258,17 +258,17 @@ extern "C" {
 
 /* ADC internal channels related definitions */
 /* Internal voltage reference VrefInt */
-#define VREFINT_CAL_ADDR                   ((uint16_t*) (0x1FFF6EA4UL)) /* Internal voltage reference, address of
+#define VREFINT_CAL_ADDR                   ((const uint16_t*) (0x1FFF6EA4UL)) /* Internal voltage reference, address of
                                            parameter VREFINT_CAL: VrefInt ADC raw data acquired at temperature 30 Deg
                                            (tolerance: +-5 DegC), Vref+ = 3.0 V (tolerance: +-10 mV). */
 #define VREFINT_CAL_VREF                   ( 3000UL)                    /* Analog voltage reference (Vref+) value
                                            with which VrefInt has been calibrated in production
                                            (tolerance: +-10 mV) (unit: mV). */
 /* Temperature sensor */
-#define TEMPSENSOR_CAL1_ADDR               ((uint16_t*) (0x1FFF6E68UL)) /* Address of parameter TS_CAL1: On STM32U0,
+#define TEMPSENSOR_CAL1_ADDR               ((const uint16_t*) (0x1FFF6E68UL)) /* Address of parameter TS_CAL1:
                                            temperature sensor ADC raw data acquired at temperature  30 DegC
                                            (tolerance: +-5 DegC), Vref+ = 3.0 V (tolerance: +-10 mV). */
-#define TEMPSENSOR_CAL2_ADDR               ((uint16_t*) (0x1FFF6E8AUL)) /* Address of parameter TS_CAL2: On STM32U0,
+#define TEMPSENSOR_CAL2_ADDR               ((const uint16_t*) (0x1FFF6E8AUL)) /* Address of parameter TS_CAL2:
                                            temperature sensor ADC raw data acquired at temperature 130 DegC
                                            (tolerance: +-5 DegC), Vref+ = 3.0 V (tolerance: +-10 mV). */
 #define TEMPSENSOR_CAL1_TEMP               (( int32_t)   30)            /* Temperature at which temperature sensor
@@ -3830,7 +3830,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetChannelSamplingTime(const ADC_TypeDef *ADCx, 
   uint32_t smp_channel_posbit0 = ((smpr & ADC_SAMPLING_TIME_CH_MASK)
                                   >> ((((Channel & ADC_CHANNEL_ID_NUMBER_MASK) >> ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS)
                                        + ADC_SMPR_SMPSEL0_BITOFFSET_POS)
-                                      & 0x1FUL));
+                                      & 0x1FUL)) & 0x01UL;
 
   /* Select sampling time bitfield depending on sampling time bit value 0 or 1.  */
   return ((~(smp_channel_posbit0) * LL_ADC_SAMPLINGTIME_COMMON_1)

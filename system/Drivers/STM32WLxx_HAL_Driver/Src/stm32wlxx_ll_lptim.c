@@ -49,7 +49,7 @@
 #define IS_LL_LPTIM_CLOCK_SOURCE(__VALUE__) (((__VALUE__) == LL_LPTIM_CLK_SOURCE_INTERNAL) \
                                              || ((__VALUE__) == LL_LPTIM_CLK_SOURCE_EXTERNAL))
 
-#define IS_LL_LPTIM_CLOCK_PRESCALER(__VALUE__) (((__VALUE__) == LL_LPTIM_PRESCALER_DIV1)      \
+#define IS_LL_LPTIM_CLOCK_PRESCALER(__VALUE__) (((__VALUE__) == LL_LPTIM_PRESCALER_DIV1)   \
                                                 || ((__VALUE__) == LL_LPTIM_PRESCALER_DIV2)   \
                                                 || ((__VALUE__) == LL_LPTIM_PRESCALER_DIV4)   \
                                                 || ((__VALUE__) == LL_LPTIM_PRESCALER_DIV8)   \
@@ -92,7 +92,7 @@
   *          - SUCCESS: LPTIMx registers are de-initialized
   *          - ERROR: invalid LPTIMx instance
   */
-ErrorStatus LL_LPTIM_DeInit(LPTIM_TypeDef *LPTIMx)
+ErrorStatus LL_LPTIM_DeInit(const LPTIM_TypeDef *LPTIMx)
 {
   ErrorStatus result = SUCCESS;
 

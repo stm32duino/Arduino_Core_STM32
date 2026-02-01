@@ -24,6 +24,8 @@
   #include "stm32l5xx_ll_comp.c"
 #elif STM32U0xx
   #include "stm32u0xx_ll_comp.c"
+#elif STM32U3xx
+  #include "stm32u3xx_ll_comp.c"
 #elif STM32U5xx
   #include "stm32u5xx_ll_comp.c"
 #elif STM32WBxx
@@ -32,5 +34,7 @@
   #include "stm32wbaxx_ll_comp.c"
 #elif STM32WLxx
   #include "stm32wlxx_ll_comp.c"
+#elif STM32WL3x
+  #include "stm32wl3x_ll_comp.c"
 #endif
 #pragma GCC diagnostic pop

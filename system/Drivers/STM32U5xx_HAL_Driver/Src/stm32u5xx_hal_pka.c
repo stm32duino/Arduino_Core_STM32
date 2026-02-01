@@ -1121,11 +1121,18 @@ void HAL_PKA_RSACRTExp_GetResult(PKA_HandleTypeDef *hpka, uint8_t *pRes)
   */
 HAL_StatusTypeDef HAL_PKA_PointCheck(PKA_HandleTypeDef *hpka, PKA_PointCheckInTypeDef *in, uint32_t Timeout)
 {
-  /* Set input parameter in PKA RAM */
-  PKA_PointCheck_Set(hpka, in);
+  if ((in->pMontgomeryParam) != NULL)
+  {
+    /* Set input parameter in PKA RAM */
+    PKA_PointCheck_Set(hpka, in);
 
-  /* Start the operation */
-  return PKA_Process(hpka, PKA_MODE_POINT_CHECK, Timeout);
+    /* Start the operation */
+    return PKA_Process(hpka, PKA_MODE_POINT_CHECK, Timeout);
+  }
+  else
+  {
+    return HAL_ERROR;
+  }
 }
 
 /**
@@ -1136,11 +1143,18 @@ HAL_StatusTypeDef HAL_PKA_PointCheck(PKA_HandleTypeDef *hpka, PKA_PointCheckInTy
   */
 HAL_StatusTypeDef HAL_PKA_PointCheck_IT(PKA_HandleTypeDef *hpka, PKA_PointCheckInTypeDef *in)
 {
-  /* Set input parameter in PKA RAM */
-  PKA_PointCheck_Set(hpka, in);
+  if ((in->pMontgomeryParam) != NULL)
+  {
+    /* Set input parameter in PKA RAM */
+    PKA_PointCheck_Set(hpka, in);
 
-  /* Start the operation */
-  return PKA_Process_IT(hpka, PKA_MODE_POINT_CHECK);
+    /* Start the operation */
+    return PKA_Process_IT(hpka, PKA_MODE_POINT_CHECK);
+  }
+  else
+  {
+    return HAL_ERROR;
+  }
 }
 
 /**

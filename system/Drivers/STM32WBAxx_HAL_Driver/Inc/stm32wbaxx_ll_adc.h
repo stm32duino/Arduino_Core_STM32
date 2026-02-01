@@ -63,7 +63,6 @@ extern "C" {
 #define ADC_REG_RANK_8_SQRX_BITOFFSET_POS  (28UL) /* Equivalent to bitfield "ADC_CHSELR_SQ8" position in register */
 
 
-
 /* Internal mask for ADC group regular trigger:                               */
 /* To select into literal LL_ADC_REG_TRIG_x the relevant bits for:            */
 /* - regular trigger source                                                   */
@@ -91,7 +90,6 @@ extern "C" {
 /* Definition of ADC group regular trigger bits information.                  */
 #define ADC_REG_TRIG_EXTSEL_BITOFFSET_POS  ( 6UL) /* Equivalent to bitfield "ADC_CFGR1_EXTSEL" position in register */
 #define ADC_REG_TRIG_EXTEN_BITOFFSET_POS   (10UL) /* Equivalent to bitfield "ADC_CFGR1_EXTEN" position in register */
-
 
 
 /* Internal mask for ADC channel:                                             */
@@ -219,7 +217,6 @@ extern "C" {
 #define ADC_AWD_TRX_REGOFFSET_BITOFFSET_POS (20UL)
 
 
-
 /* ADC registers bits positions */
 #define ADC_CHSELR_CHSEL0_BITOFFSET_POS    ( 0UL) /* Equivalent to bitfield "ADC_CHSELR_CHSEL0" position in register */
 #define ADC_CHSELR_CHSEL1_BITOFFSET_POS    ( 1UL) /* Equivalent to bitfield "ADC_CHSELR_CHSEL1" position in register */
@@ -253,20 +250,37 @@ extern "C" {
 
 
 /* ADC internal channels related definitions */
+#if defined(STM32WBA62xx) || defined(STM32WBA63xx) || defined(STM32WBA64xx) || defined(STM32WBA65xx) || defined (STM32WBA6Mxx)
 /* Internal voltage reference VrefInt */
-#define VREFINT_CAL_ADDR                   ((uint16_t*) (0x0BF907A5UL)) /* Internal voltage reference, address of
+#define VREFINT_CAL_ADDR                   ((const uint16_t*) (0x0BFA07A5UL)) /* Internal voltage reference, address of
                                            parameter VREFINT_CAL: VrefInt ADC raw data acquired at temperature 30 DegC
                                            (tolerance: +-5 DegC), Vref+ = 3.3 V (tolerance: +-10 mV). */
+#else
+/* Internal voltage reference VrefInt */
+#define VREFINT_CAL_ADDR                   ((const uint16_t*) (0x0BF907A5UL)) /* Internal voltage reference, address of
+                                           parameter VREFINT_CAL: VrefInt ADC raw data acquired at temperature 30 DegC
+                                           (tolerance: +-5 DegC), Vref+ = 3.3 V (tolerance: +-10 mV). */
+#endif /* STM32WBA62xx || STM32WBA63xx || STM32WBA64xx || STM32WBA65xx || STM32WBA6Mxx */
 #define VREFINT_CAL_VREF                   ( 3000UL)                    /* Analog voltage reference (Vref+) value
                                            with which VrefInt has been calibrated in production
                                            (tolerance: +-10 mV) (unit: mV). */
+#if defined(STM32WBA62xx) || defined(STM32WBA63xx) || defined(STM32WBA64xx) || defined(STM32WBA65xx) || defined (STM32WBA6Mxx)
 /* Temperature sensor */
-#define TEMPSENSOR_CAL1_ADDR               ((uint16_t*) (0x0BF90710UL)) /* Address of parameter TS_CAL1: On this series,
+#define TEMPSENSOR_CAL1_ADDR               ((const uint16_t*) (0x0BFA0710UL)) /* Address of parameter TS_CAL1: On this series,
                                            temperature sensor ADC raw data acquired at temperature  30 DegC
                                            (tolerance: +-5 DegC), Vref+ = 3.0 V (tolerance: +-10 mV). */
-#define TEMPSENSOR_CAL2_ADDR               ((uint16_t*) (0x0BF90742UL)) /* Address of parameter TS_CAL2: On this series,
+#define TEMPSENSOR_CAL2_ADDR               ((const uint16_t*) (0x0BFA0742UL)) /* Address of parameter TS_CAL2: On this series,
                                            temperature sensor ADC raw data acquired at temperature 130 DegC
                                            (tolerance: +-5 DegC), Vref+ = 3.0 V (tolerance: +-10 mV). */
+#else
+/* Temperature sensor */
+#define TEMPSENSOR_CAL1_ADDR               ((const uint16_t*) (0x0BF90710UL)) /* Address of parameter TS_CAL1: On this series,
+                                           temperature sensor ADC raw data acquired at temperature  30 DegC
+                                           (tolerance: +-5 DegC), Vref+ = 3.0 V (tolerance: +-10 mV). */
+#define TEMPSENSOR_CAL2_ADDR               ((const uint16_t*) (0x0BF90742UL)) /* Address of parameter TS_CAL2: On this series,
+                                           temperature sensor ADC raw data acquired at temperature 130 DegC
+                                           (tolerance: +-5 DegC), Vref+ = 3.0 V (tolerance: +-10 mV). */
+#endif /* STM32WBA62xx || STM32WBA63xx || STM32WBA64xx || STM32WBA65xx || STM32WBA6Mxx */
 #define TEMPSENSOR_CAL1_TEMP               (( int32_t)   30)            /* Temperature at which temperature sensor
                                            has been calibrated in production for data into TEMPSENSOR_CAL1_ADDR
                                            (tolerance: +-5 DegC) (unit: DegC). */
@@ -1814,7 +1828,7 @@ __STATIC_INLINE uint32_t LL_ADC_DMA_GetRegAddr(const ADC_TypeDef *ADCx, uint32_t
   (void)(Register);
 
   /* Retrieve address of register DR */
-  return (uint32_t) & (ADCx->DR);
+  return (uint32_t) &(ADCx->DR);
 }
 
 /**
@@ -4361,8 +4375,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_IsStopConversionOngoing(const ADC_TypeDef *A
 /**
   * @brief  Get ADC group regular conversion data, range fit for
   *         all ADC configurations: all ADC resolutions and
-  *         all oversampling increased data width (for devices
-  *         with feature oversampling).
+  *         features extending data width (oversampling, data shift,...).
   * @rmtoll DR       DATA           LL_ADC_REG_ReadConversionData32
   * @param  ADCx ADC instance
   * @retval Value between Min_Data=0x00000000 and Max_Data=0xFFFFFFFF

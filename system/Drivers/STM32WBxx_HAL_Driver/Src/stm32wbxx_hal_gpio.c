@@ -161,9 +161,9 @@
   *         the configuration information for the specified GPIO peripheral.
   * @retval None
   */
-void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
+void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, const GPIO_InitTypeDef *GPIO_Init)
 {
-  uint32_t position = 0x00u;
+  uint32_t position = 0x00UL;
   uint32_t iocurrent;
   uint32_t temp;
 
@@ -218,7 +218,7 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
 
         /* Configure Alternate function mapped with the current IO */
         temp = GPIOx->AFR[position >> 3u];
-        temp &= ~(0xFu << ((position & 0x07u) * 4u));
+        temp &= ~(0xFUL << ((position & 0x07UL) * 4UL));
         temp |= ((GPIO_Init->Alternate) << ((position & 0x07u) * 4u));
         GPIOx->AFR[position >> 3u] = temp;
       }
@@ -327,7 +327,7 @@ void HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
       GPIOx->MODER |= (GPIO_MODER_MODE0 << (position * 2u));
 
       /* Configure the default Alternate Function in current IO */
-      GPIOx->AFR[position >> 3u] &= ~(0xFu << ((position & 0x07u) * 4u)) ;
+      GPIOx->AFR[position >> 3UL] &= ~(0xFUL << ((position & 0x07UL) * 4UL)) ;
 
       /* Deactivate the Pull-up and Pull-down resistor for the current IO */
       GPIOx->PUPDR &= ~(GPIO_PUPDR_PUPD0 << (position * 2u));
@@ -366,7 +366,7 @@ void HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
   *         This parameter can be GPIO_PIN_x where x can be (0..15).
   * @retval The input port pin value.
   */
-GPIO_PinState HAL_GPIO_ReadPin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
+GPIO_PinState HAL_GPIO_ReadPin(const GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
 {
   GPIO_PinState bitstatus;
 

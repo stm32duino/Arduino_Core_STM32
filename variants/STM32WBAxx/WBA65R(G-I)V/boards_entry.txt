@@ -1,0 +1,23 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic WBA65RGVx
+GenWBA.menu.pnum.GENERIC_WBA65RGVX=Generic WBA65RGVx
+GenWBA.menu.pnum.GENERIC_WBA65RGVX.upload.maximum_size=1048576
+GenWBA.menu.pnum.GENERIC_WBA65RGVX.upload.maximum_data_size=262144
+GenWBA.menu.pnum.GENERIC_WBA65RGVX.build.board=GENERIC_WBA65RGVX
+GenWBA.menu.pnum.GENERIC_WBA65RGVX.build.product_line=STM32WBA65xx
+GenWBA.menu.pnum.GENERIC_WBA65RGVX.build.variant=STM32WBAxx/WBA65R(G-I)V
+GenWBA.menu.pnum.GENERIC_WBA65RGVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA65.svd
+
+# Generic WBA65RIVx
+GenWBA.menu.pnum.GENERIC_WBA65RIVX=Generic WBA65RIVx
+GenWBA.menu.pnum.GENERIC_WBA65RIVX.upload.maximum_size=2097152
+GenWBA.menu.pnum.GENERIC_WBA65RIVX.upload.maximum_data_size=524288
+GenWBA.menu.pnum.GENERIC_WBA65RIVX.build.board=GENERIC_WBA65RIVX
+GenWBA.menu.pnum.GENERIC_WBA65RIVX.build.product_line=STM32WBA65xx
+GenWBA.menu.pnum.GENERIC_WBA65RIVX.build.variant=STM32WBAxx/WBA65R(G-I)V
+GenWBA.menu.pnum.GENERIC_WBA65RIVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA65.svd
+

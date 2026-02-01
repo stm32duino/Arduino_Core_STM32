@@ -115,9 +115,9 @@ typedef struct
 #define HAL_DMAMUX1_SYNC_DMAMUX1_CH0_EVT           16U     /*!<  Synchronization Signal is DMAMUX1 Channel0 Event  */
 #define HAL_DMAMUX1_SYNC_DMAMUX1_CH1_EVT           17U     /*!<  Synchronization Signal is DMAMUX1 Channel1 Event  */
 #define HAL_DMAMUX1_SYNC_DMAMUX1_CH2_EVT           18U     /*!<  Synchronization Signal is DMAMUX1 Channel2 Event  */
-#if defined(STM32C071xx)
+#if defined(DMAMUX1_Channel3)
 #define HAL_DMAMUX1_SYNC_DMAMUX1_CH3_EVT           19U     /*!<  Synchronization Signal is DMAMUX1 Channel3 Event  */
-#endif /* STM32C071xx */
+#endif /* DMAMUX1_Channel3 */
 #define HAL_DMAMUX1_SYNC_TIM14_OC                  22U     /*!<  Synchronization Signal is TIM14 OC */
 
 /**
@@ -157,9 +157,9 @@ typedef struct
 #define HAL_DMAMUX1_REQ_GEN_DMAMUX1_CH0_EVT    16U     /*!< Request generator Signal is DMAMUX1 Channel0 Event */
 #define HAL_DMAMUX1_REQ_GEN_DMAMUX1_CH1_EVT    17U     /*!< Request generator Signal is DMAMUX1 Channel1 Event */
 #define HAL_DMAMUX1_REQ_GEN_DMAMUX1_CH2_EVT    18U     /*!< Request generator Signal is DMAMUX1 Channel2 Event */
-#if defined(STM32C071xx)
+#if defined(DMAMUX1_Channel3)
 #define HAL_DMAMUX1_REQ_GEN_DMAMUX1_CH3_EVT    19U     /*!< Request generator Signal is DMAMUX1 Channel3 Event */
-#endif /* STM32C071xx */
+#endif /* DMAMUX1_Channel3 */
 #define HAL_DMAMUX1_REQ_GEN_TIM14_OC           22U     /*!< Request generator Signal is TIM14 OC */
 /**
   * @}

@@ -114,6 +114,9 @@ typedef struct
 #define SYSTICK_CLKSOURCE_LSI           0x00000001U /*!< LSI clock selected as SysTick clock source */
 #define SYSTICK_CLKSOURCE_LSE           0x00000002U /*!< LSE clock selected as SysTick clock source */
 #define SYSTICK_CLKSOURCE_HCLK          0x00000004U /*!< AHB clock selected as SysTick clock source */
+#if !defined (STM32WBA50xx) && !defined (STM32WBA52xx) && !defined (STM32WBA54xx) && !defined (STM32WBA55xx) && !defined (STM32WBA5Mxx)
+#define SYSTICK_CLKSOURCE_HSI_DIV4      0x00000008U /*!< HSI clock divided by 4 selected as SysTick clock source */
+#endif
 /**
   * @}
   */
@@ -333,10 +336,18 @@ void HAL_MPU_ConfigMemoryAttributes_NS(MPU_Attributes_InitTypeDef *MPU_Attribute
 
 #define IS_NVIC_DEVICE_IRQ(IRQ)                ((IRQ) > SysTick_IRQn)
 
+#if !defined (STM32WBA50xx) && !defined (STM32WBA52xx) && !defined (STM32WBA54xx) && !defined (STM32WBA55xx) && !defined (STM32WBA5Mxx)
+#define IS_SYSTICK_CLK_SOURCE(SOURCE) (((SOURCE) == SYSTICK_CLKSOURCE_LSI)      || \
+                                       ((SOURCE) == SYSTICK_CLKSOURCE_LSE)      || \
+                                       ((SOURCE) == SYSTICK_CLKSOURCE_HCLK)     || \
+                                       ((SOURCE) == SYSTICK_CLKSOURCE_HCLK_DIV8)|| \
+                                       ((SOURCE) == SYSTICK_CLKSOURCE_HSI_DIV4))
+#else
 #define IS_SYSTICK_CLK_SOURCE(SOURCE) (((SOURCE) == SYSTICK_CLKSOURCE_LSI) || \
                                        ((SOURCE) == SYSTICK_CLKSOURCE_LSE) || \
                                        ((SOURCE) == SYSTICK_CLKSOURCE_HCLK)|| \
                                        ((SOURCE) == SYSTICK_CLKSOURCE_HCLK_DIV8))
+#endif
 
 #define IS_MPU_REGION_ENABLE(STATE) (((STATE) == MPU_REGION_ENABLE) || \
                                      ((STATE) == MPU_REGION_DISABLE))

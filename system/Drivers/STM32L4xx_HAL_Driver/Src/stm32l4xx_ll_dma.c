@@ -24,7 +24,7 @@
 #include "stm32_assert.h"
 #else
 #define assert_param(expr) ((void)0U)
-#endif
+#endif /* USE_FULL_ASSERT */
 
 /** @addtogroup STM32L4xx_LL_Driver
   * @{
@@ -67,7 +67,7 @@
 #define IS_LL_DMA_NBDATA(__VALUE__)             ((__VALUE__)  <= 0x0000FFFFU)
 
 #if defined(DMAMUX1)
-#define IS_LL_DMA_PERIPHREQUEST(__VALUE__)      ((__VALUE__) <= 93U)
+#define IS_LL_DMA_PERIPHREQUEST(__VALUE__)      ((__VALUE__) <= LL_DMAMUX_MAX_REQ)
 #else
 #define IS_LL_DMA_PERIPHREQUEST(__VALUE__)      (((__VALUE__) == LL_DMA_REQUEST_0)  || \
                                                  ((__VALUE__) == LL_DMA_REQUEST_1)  || \
@@ -77,57 +77,29 @@
                                                  ((__VALUE__) == LL_DMA_REQUEST_5)  || \
                                                  ((__VALUE__) == LL_DMA_REQUEST_6)  || \
                                                  ((__VALUE__) == LL_DMA_REQUEST_7))
-#endif /* DMAMUX1 */
+#endif /* DMAMUX 1*/
 
 #define IS_LL_DMA_PRIORITY(__VALUE__)           (((__VALUE__) == LL_DMA_PRIORITY_LOW)    || \
                                                  ((__VALUE__) == LL_DMA_PRIORITY_MEDIUM) || \
                                                  ((__VALUE__) == LL_DMA_PRIORITY_HIGH)   || \
                                                  ((__VALUE__) == LL_DMA_PRIORITY_VERYHIGH))
 
-#if defined (DMA2)
-#if defined (DMA2_Channel6) && defined (DMA2_Channel7)
 #define IS_LL_DMA_ALL_CHANNEL_INSTANCE(INSTANCE, CHANNEL)  ((((INSTANCE) == DMA1) && \
-                                                         (((CHANNEL) == LL_DMA_CHANNEL_1) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_2) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_3) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_4) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_5) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_6) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_7))) || \
-                                                         (((INSTANCE) == DMA2) && \
-                                                         (((CHANNEL) == LL_DMA_CHANNEL_1) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_2) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_3) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_4) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_5) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_6) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_7))))
-#else
-#define IS_LL_DMA_ALL_CHANNEL_INSTANCE(INSTANCE, CHANNEL)  ((((INSTANCE) == DMA1) && \
-                                                         (((CHANNEL) == LL_DMA_CHANNEL_1) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_2) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_3) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_4) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_5) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_6) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_7))) || \
-                                                         (((INSTANCE) == DMA2) && \
-                                                         (((CHANNEL) == LL_DMA_CHANNEL_1) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_2) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_3) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_4) || \
-                                                          ((CHANNEL) == LL_DMA_CHANNEL_5))))
-#endif
-#else
-#define IS_LL_DMA_ALL_CHANNEL_INSTANCE(INSTANCE, CHANNEL)  ((((INSTANCE) == DMA1) && \
-                                                            (((CHANNEL) == LL_DMA_CHANNEL_1)|| \
-                                                            ((CHANNEL) == LL_DMA_CHANNEL_2) || \
-                                                            ((CHANNEL) == LL_DMA_CHANNEL_3) || \
-                                                            ((CHANNEL) == LL_DMA_CHANNEL_4) || \
-                                                            ((CHANNEL) == LL_DMA_CHANNEL_5) || \
-                                                            ((CHANNEL) == LL_DMA_CHANNEL_6) || \
-                                                            ((CHANNEL) == LL_DMA_CHANNEL_7))))
-#endif
+                                                             (((CHANNEL) == LL_DMA_CHANNEL_1) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_2) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_3) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_4) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_5) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_6) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_7))) || \
+                                                            (((INSTANCE) == DMA2) && \
+                                                             (((CHANNEL) == LL_DMA_CHANNEL_1) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_2) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_3) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_4) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_5) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_6) || \
+                                                              ((CHANNEL) == LL_DMA_CHANNEL_7))))
 /**
   * @}
   */
@@ -162,7 +134,6 @@
 ErrorStatus LL_DMA_DeInit(DMA_TypeDef *DMAx, uint32_t Channel)
 {
   ErrorStatus status = SUCCESS;
-  DMA_Channel_TypeDef *tmp;
 
   /* Check the DMA Instance DMAx and Channel parameters*/
   assert_param(IS_LL_DMA_ALL_CHANNEL_INSTANCE(DMAx, Channel) || (Channel == LL_DMA_CHANNEL_ALL));
@@ -186,7 +157,7 @@ ErrorStatus LL_DMA_DeInit(DMA_TypeDef *DMAx, uint32_t Channel)
       /* Release reset of DMA clock */
       LL_AHB1_GRP1_ReleaseReset(LL_AHB1_GRP1_PERIPH_DMA2);
     }
-#endif
+#endif /* DMA2 */
     else
     {
       status = ERROR;
@@ -194,6 +165,8 @@ ErrorStatus LL_DMA_DeInit(DMA_TypeDef *DMAx, uint32_t Channel)
   }
   else
   {
+    DMA_Channel_TypeDef *tmp;
+
     tmp = (DMA_Channel_TypeDef *)(__LL_DMA_GET_CHANNEL_INSTANCE(DMAx, Channel));
 
     /* Disable the selected DMAx_Channely */
@@ -208,7 +181,7 @@ ErrorStatus LL_DMA_DeInit(DMA_TypeDef *DMAx, uint32_t Channel)
     /* Reset DMAx_Channely peripheral address register */
     WRITE_REG(tmp->CPAR, 0U);
 
-    /* Reset DMAx_Channely memory 0 address register */
+    /* Reset DMAx_Channely memory address register */
     WRITE_REG(tmp->CMAR, 0U);
 
 #if defined(DMAMUX1)
@@ -244,7 +217,6 @@ ErrorStatus LL_DMA_DeInit(DMA_TypeDef *DMAx, uint32_t Channel)
       /* Reset interrupt pending bits for DMAx Channel5 */
       LL_DMA_ClearFlag_GI5(DMAx);
     }
-
     else if (Channel == LL_DMA_CHANNEL_6)
     {
       /* Reset interrupt pending bits for DMAx Channel6 */

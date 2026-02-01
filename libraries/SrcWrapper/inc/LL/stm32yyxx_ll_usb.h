@@ -40,10 +40,14 @@
   #include "stm32l5xx_ll_usb.h"
 #elif STM32U0xx
   #include "stm32u0xx_ll_usb.h"
+#elif STM32U3xx
+  #include "stm32u3xx_ll_usb.h"
 #elif STM32U5xx
   #include "stm32u5xx_ll_usb.h"
 #elif STM32WBxx
   #include "stm32wbxx_ll_usb.h"
+#elif STM32WBAxx
+  #include "stm32wbaxx_ll_usb.h"
 #endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_USB_H_ */

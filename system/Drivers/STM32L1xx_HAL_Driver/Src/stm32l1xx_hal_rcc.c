@@ -794,7 +794,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
   *         (for more details refer to section above "Initialization/de-initialization functions")
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, uint32_t FLatency)
+HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef  *RCC_ClkInitStruct, uint32_t FLatency)
 {
   uint32_t tickstart;
   HAL_StatusTypeDef status;
@@ -1008,6 +1008,9 @@ void HAL_RCC_MCOConfig(uint32_t RCC_MCOx, uint32_t RCC_MCOSource, uint32_t RCC_M
   assert_param(IS_RCC_MCO(RCC_MCOx));
   assert_param(IS_RCC_MCODIV(RCC_MCODiv));
   assert_param(IS_RCC_MCO1SOURCE(RCC_MCOSource));
+
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(RCC_MCOx);
 
   /* Configure the MCO1 pin in alternate function mode */
   gpio.Mode      = GPIO_MODE_AF_PP;

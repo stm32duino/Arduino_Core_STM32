@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2015 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -26,7 +25,7 @@
   * @param  phost: Host handle
   * @retval USBH Status
   */
-USBH_StatusTypeDef  USBH_LL_Init(USBH_HandleTypeDef *phost)
+USBH_StatusTypeDef USBH_LL_Init(USBH_HandleTypeDef *phost)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(phost);
@@ -40,7 +39,7 @@ USBH_StatusTypeDef  USBH_LL_Init(USBH_HandleTypeDef *phost)
   * @param  phost: Host handle
   * @retval USBH Status
   */
-USBH_StatusTypeDef  USBH_LL_DeInit(USBH_HandleTypeDef *phost)
+USBH_StatusTypeDef USBH_LL_DeInit(USBH_HandleTypeDef *phost)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(phost);
@@ -54,7 +53,7 @@ USBH_StatusTypeDef  USBH_LL_DeInit(USBH_HandleTypeDef *phost)
   * @param  phost: Host handle
   * @retval USBH Status
   */
-USBH_StatusTypeDef  USBH_LL_Start(USBH_HandleTypeDef *phost)
+USBH_StatusTypeDef USBH_LL_Start(USBH_HandleTypeDef *phost)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(phost);
@@ -68,7 +67,7 @@ USBH_StatusTypeDef  USBH_LL_Start(USBH_HandleTypeDef *phost)
   * @param  phost: Host handle
   * @retval USBH Status
   */
-USBH_StatusTypeDef  USBH_LL_Stop(USBH_HandleTypeDef *phost)
+USBH_StatusTypeDef USBH_LL_Stop(USBH_HandleTypeDef *phost)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(phost);
@@ -126,7 +125,7 @@ uint32_t USBH_LL_GetLastXferSize(USBH_HandleTypeDef *phost, uint8_t pipe)
   * @brief  USBH_LL_OpenPipe
   *         Open a pipe of the Low Level Driver.
   * @param  phost: Host handle
-  * @param  pipe_num: Pipe index
+  * @param  pipe: Pipe index
   * @param  epnum: Endpoint Number
   * @param  dev_address: Device USB address
   * @param  speed: Device Speed
@@ -134,17 +133,17 @@ uint32_t USBH_LL_GetLastXferSize(USBH_HandleTypeDef *phost, uint8_t pipe)
   * @param  mps: Endpoint Max Packet Size
   * @retval USBH Status
   */
-USBH_StatusTypeDef   USBH_LL_OpenPipe(USBH_HandleTypeDef *phost,
-                                      uint8_t pipe_num,
-                                      uint8_t epnum,
-                                      uint8_t dev_address,
-                                      uint8_t speed,
-                                      uint8_t ep_type,
-                                      uint16_t mps)
+USBH_StatusTypeDef USBH_LL_OpenPipe(USBH_HandleTypeDef *phost,
+                                    uint8_t pipe,
+                                    uint8_t epnum,
+                                    uint8_t dev_address,
+                                    uint8_t speed,
+                                    uint8_t ep_type,
+                                    uint16_t mps)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(phost);
-  UNUSED(pipe_num);
+  UNUSED(pipe);
   UNUSED(epnum);
   UNUSED(dev_address);
   UNUSED(speed);
@@ -158,10 +157,26 @@ USBH_StatusTypeDef   USBH_LL_OpenPipe(USBH_HandleTypeDef *phost,
   * @brief  USBH_LL_ClosePipe
   *         Close a pipe of the Low Level Driver.
   * @param  phost: Host handle
-  * @param  pipe_num: Pipe index
+  * @param  pipe: Pipe index
   * @retval USBH Status
   */
-USBH_StatusTypeDef   USBH_LL_ClosePipe(USBH_HandleTypeDef *phost, uint8_t pipe)
+USBH_StatusTypeDef USBH_LL_ClosePipe(USBH_HandleTypeDef *phost, uint8_t pipe)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(phost);
+  UNUSED(pipe);
+
+  return USBH_OK;
+}
+
+/**
+  * @brief  USBH_LL_ActivatePipe
+  *         Activate a pipe of the Low Level Driver.
+  * @param  phost: Host handle
+  * @param  pipe: Pipe index
+  * @retval USBH Status
+  */
+USBH_StatusTypeDef USBH_LL_ActivatePipe(USBH_HandleTypeDef *phost, uint8_t pipe)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(phost);
@@ -198,15 +213,14 @@ USBH_StatusTypeDef   USBH_LL_ClosePipe(USBH_HandleTypeDef *phost, uint8_t pipe)
   *           1 : do ping active
   * @retval Status
   */
-
-USBH_StatusTypeDef   USBH_LL_SubmitURB(USBH_HandleTypeDef *phost,
-                                       uint8_t pipe,
-                                       uint8_t direction,
-                                       uint8_t ep_type,
-                                       uint8_t token,
-                                       uint8_t *pbuff,
-                                       uint16_t length,
-                                       uint8_t do_ping)
+USBH_StatusTypeDef USBH_LL_SubmitURB(USBH_HandleTypeDef *phost,
+                                     uint8_t pipe,
+                                     uint8_t direction,
+                                     uint8_t ep_type,
+                                     uint8_t token,
+                                     uint8_t *pbuff,
+                                     uint16_t length,
+                                     uint8_t do_ping)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(phost);
@@ -236,7 +250,7 @@ USBH_StatusTypeDef   USBH_LL_SubmitURB(USBH_HandleTypeDef *phost,
   *            @arg URB_ERROR
   *            @arg URB_STALL
   */
-USBH_URBStateTypeDef  USBH_LL_GetURBState(USBH_HandleTypeDef *phost, uint8_t pipe)
+USBH_URBStateTypeDef USBH_LL_GetURBState(USBH_HandleTypeDef *phost, uint8_t pipe)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(phost);
@@ -251,12 +265,11 @@ USBH_URBStateTypeDef  USBH_LL_GetURBState(USBH_HandleTypeDef *phost, uint8_t pip
   * @param  phost: Host handle
   * @param  state : VBUS state
   *          This parameter can be one of the these values:
-  *           0 : VBUS Active
-  *           1 : VBUS Inactive
+  *           0 : VBUS Inactive
+  *           1 : VBUS Active
   * @retval Status
   */
-
-USBH_StatusTypeDef  USBH_LL_DriverVBUS(USBH_HandleTypeDef *phost, uint8_t state)
+USBH_StatusTypeDef USBH_LL_DriverVBUS(USBH_HandleTypeDef *phost, uint8_t state)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(phost);
@@ -274,7 +287,7 @@ USBH_StatusTypeDef  USBH_LL_DriverVBUS(USBH_HandleTypeDef *phost, uint8_t state)
   * @param  toggle: toggle (0/1)
   * @retval Status
   */
-USBH_StatusTypeDef   USBH_LL_SetToggle(USBH_HandleTypeDef *phost, uint8_t pipe, uint8_t toggle)
+USBH_StatusTypeDef USBH_LL_SetToggle(USBH_HandleTypeDef *phost, uint8_t pipe, uint8_t toggle)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(phost);
@@ -291,7 +304,7 @@ USBH_StatusTypeDef   USBH_LL_SetToggle(USBH_HandleTypeDef *phost, uint8_t pipe, 
   * @param  pipe: Pipe index
   * @retval toggle (0/1)
   */
-uint8_t  USBH_LL_GetToggle(USBH_HandleTypeDef *phost, uint8_t pipe)
+uint8_t USBH_LL_GetToggle(USBH_HandleTypeDef *phost, uint8_t pipe)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(phost);
@@ -301,15 +314,15 @@ uint8_t  USBH_LL_GetToggle(USBH_HandleTypeDef *phost, uint8_t pipe)
 
   return toggle;
 }
+
 /**
   * @brief  USBH_Delay
   *         Delay routine for the USB Host Library
   * @param  Delay: Delay in ms
   * @retval None
   */
-void  USBH_Delay(uint32_t Delay)
+void USBH_Delay(uint32_t Delay)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(Delay);
 }
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

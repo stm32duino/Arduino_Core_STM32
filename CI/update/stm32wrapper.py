@@ -1,13 +1,14 @@
 import argparse
 import re
 import sys
+from collections import OrderedDict
 from itertools import groupby
 from jinja2 import Environment, FileSystemLoader, Template
 from pathlib import Path
 
 script_path = Path(__file__).parent.resolve()
 sys.path.append(str(script_path.parent))
-from utils import createFolder, deleteFolder, genSTM32List
+from utils import createFolder, deleteFolder, genSTM32Dict
 
 # Base path
 core_path = script_path.parent.parent
@@ -18,7 +19,9 @@ CMSIS_DSP_lib_path = ""
 system_path = ""
 
 # CMSIS outside of the core. Can be updated by arg
-CMSIS_path = core_path.parent / "ArduinoModule-CMSIS" / "CMSIS_5"
+# CMSIS_VERSION = "CMSIS_5"
+CMSIS_VERSION = "CMSIS_6"
+CMSIS_path = core_path.parent / "ArduinoModule-CMSIS" / CMSIS_VERSION
 CMSIS_DSPSrc_path = ""
 
 # Out sources files
@@ -37,6 +40,7 @@ system_stm32_outfile = ""
 
 # List of STM32 series
 stm32_series = []
+stm32_dict = OrderedDict()  # key: serie, value: nx
 
 # Templating
 templates_dir = script_path / "templates"
@@ -59,7 +63,7 @@ system_stm32_template = j2_env.get_template(system_stm32_file)
 
 # re
 peripheral_c_regex = re.compile(r"stm32\w+_[h]?[al][l]_(.*).c$")
-peripheral_h_regex = re.compile(r"stm32\w+_(\w+).h$")
+peripheral_h_regex = re.compile(r"stm32\w+_[h]?[al][l]_(.*).h$")
 
 
 def checkConfig(arg_core, arg_cmsis):
@@ -80,7 +84,7 @@ def checkConfig(arg_core, arg_cmsis):
 
     if arg_core is not None:
         core_path = Path(arg_core).resolve()
-        CMSIS_path = core_path.parent / "ArduinoModule-CMSIS" / "CMSIS_5"
+        CMSIS_path = core_path.parent / "ArduinoModule-CMSIS" / CMSIS_VERSION
 
     if not core_path.is_dir():
         print(f"Could not find {core_path}")
@@ -101,7 +105,11 @@ def checkConfig(arg_core, arg_cmsis):
 
     if arg_cmsis is not None:
         CMSIS_path = Path(arg_cmsis).resolve()
-    CMSIS_DSPSrc_path = CMSIS_path / "CMSIS" / "DSP" / "Source"
+
+    if CMSIS_VERSION == "CMSIS_6":
+        CMSIS_DSPSrc_path = CMSIS_path / ".." / "CMSIS-DSP" / "Source"
+    else:
+        CMSIS_DSPSrc_path = CMSIS_path / "CMSIS" / "DSP" / "Source"
 
 
 def printCMSISStartup(log):
@@ -121,17 +129,20 @@ def printCMSISStartup(log):
         for fn_list in group_startup_list:
             if len(fn_list) == 1:
                 valueline = re.split("_|\\.", fn_list[0])
-                vline = valueline[1].upper().replace("X", "x")
+                vline = valueline[1].upper()
+                if not valueline[1].startswith("stm32wl3"):
+                    vline = vline.replace("X", "x")
                 cmsis_list.append({"vline": vline, "fn": fn_list[0], "cm": ""})
             else:
                 for fn in fn_list:
                     valueline = re.split("_|\\.", fn)
-                    vline = valueline[1].upper().replace("X", "x")
+                    vline = valueline[1].upper()
+                    if not valueline[1].startswith("stm32wl3"):
+                        vline = vline.replace("X", "x")
                     cm = valueline[2].upper()
                     cmsis_list.append({"vline": vline, "fn": fn, "cm": cm})
-        out_file = open(CMSIS_Startupfile, "w", newline="\n")
-        out_file.write(stm32_def_build_template.render(cmsis_list=cmsis_list))
-        out_file.close()
+        with open(CMSIS_Startupfile, "w", newline="\n") as out_file:
+            out_file.write(stm32_def_build_template.render(cmsis_list=cmsis_list))
     else:
         if log:
             print("No startup files found!")
@@ -145,9 +156,8 @@ def printSystemSTM32(log):
         system_list = []
         for fp in filelist:
             system_list.append({"serie": fp.parent.name, "fn": fp.name})
-        out_file = open(system_stm32_outfile, "w", newline="\n")
-        out_file.write(system_stm32_template.render(system_list=system_list))
-        out_file.close()
+        with open(system_stm32_outfile, "w", newline="\n") as out_file:
+            out_file.write(system_stm32_template.render(system_list=system_list))
     else:
         if log:
             print("No system stm32 files found!")
@@ -157,8 +167,8 @@ def wrap(arg_core, arg_cmsis, log):
     global stm32_series
     # check config have to be done first
     checkConfig(arg_core, arg_cmsis)
-    stm32_series = genSTM32List(HALDrivers_path, "")
-
+    stm32_dict = genSTM32Dict(HALDrivers_path)
+    stm32_series = sorted(list(stm32_dict.keys()))
     # Remove old file
     deleteFolder(HALoutSrc_path)
     createFolder(HALoutSrc_path)
@@ -175,8 +185,9 @@ def wrap(arg_core, arg_cmsis, log):
     hal_c_dict = {}
     # Search all files for each series
     for serie in stm32_series:
-        src = HALDrivers_path / f"STM32{serie}xx_HAL_Driver" / "Src"
-        inc = HALDrivers_path / f"STM32{serie}xx_HAL_Driver" / "Inc"
+        nx = stm32_dict[serie]
+        src = HALDrivers_path / f"STM32{serie}{nx}_HAL_Driver" / "Src"
+        inc = HALDrivers_path / f"STM32{serie}{nx}_HAL_Driver" / "Inc"
 
         if src.exists():
             if log:
@@ -184,9 +195,9 @@ def wrap(arg_core, arg_cmsis, log):
             lower = serie.lower()
 
             # Search stm32yyxx_[hal|ll]*.c file
-            filelist = src.glob(f"**/stm32{lower}xx_*.c")
+            filelist = src.glob(f"**/stm32{lower}{nx}_*.c")
             for fp in filelist:
-                legacy = True if fp.parent.name == "Legacy" else False
+                legacy = fp.parent.name == "Legacy"
                 # File name
                 fn = fp.name
                 found = peripheral_c_regex.match(fn)
@@ -200,12 +211,14 @@ def wrap(arg_core, arg_cmsis, log):
                             current_list = ll_c_dict.pop(peripheral)
                             if current_list[-1][0] == lower:
                                 current_list.pop()
-                            current_list.append((lower, legacy))
+                            current_list.append((lower, legacy, stm32_dict[serie]))
                             ll_c_dict[peripheral] = current_list
                         else:
-                            ll_c_dict[peripheral].append((lower, legacy))
+                            ll_c_dict[peripheral].append(
+                                (lower, legacy, stm32_dict[serie])
+                            )
                     else:
-                        ll_c_dict[peripheral] = [(lower, legacy)]
+                        ll_c_dict[peripheral] = [(lower, legacy, stm32_dict[serie])]
                 else:
                     if peripheral in hal_c_dict:
                         if legacy:
@@ -213,15 +226,17 @@ def wrap(arg_core, arg_cmsis, log):
                             current_list = hal_c_dict.pop(peripheral)
                             if current_list[-1][0] == lower:
                                 current_list.pop()
-                            current_list.append((lower, legacy))
+                            current_list.append((lower, legacy, stm32_dict[serie]))
                             hal_c_dict[peripheral] = current_list
                         else:
-                            hal_c_dict[peripheral].append((lower, legacy))
+                            hal_c_dict[peripheral].append(
+                                (lower, legacy, stm32_dict[serie])
+                            )
                     else:
-                        hal_c_dict[peripheral] = [(lower, legacy)]
+                        hal_c_dict[peripheral] = [(lower, legacy, stm32_dict[serie])]
 
             # Search stm32yyxx_ll_*.h file
-            filelist = inc.glob(f"stm32{lower}xx_ll_*.h")
+            filelist = inc.glob(f"stm32{lower}{nx}_ll_*.h")
             for fp in filelist:
                 # File name
                 fn = fp.name
@@ -230,11 +245,11 @@ def wrap(arg_core, arg_cmsis, log):
                     continue
                 peripheral = found.group(1)
                 # Amend all LL header list
-                all_ll_h_list.append(fn.replace(lower, "yy"))
+                all_ll_h_list.append(fn.replace(f"{lower}{nx}", "yyxx"))
                 if peripheral in ll_h_dict:
-                    ll_h_dict[peripheral].append(lower)
+                    ll_h_dict[peripheral].append((lower, stm32_dict[serie]))
                 else:
-                    ll_h_dict[peripheral] = [lower]
+                    ll_h_dict[peripheral] = [(lower, stm32_dict[serie])]
 
     # Generate stm32yyxx_hal_*.c file
     for key, value in hal_c_dict.items():
@@ -242,30 +257,32 @@ def wrap(arg_core, arg_cmsis, log):
             filepath = HALoutSrc_path / c_file.replace("zz", "hal").replace("_ppp", "")
         else:
             filepath = HALoutSrc_path / c_file.replace("zz", "hal").replace("ppp", key)
-        out_file = open(filepath, "w", newline="\n")
-        out_file.write(c_file_template.render(periph=key, type="hal", serieslist=value))
-        out_file.close()
+        with open(filepath, "w", newline="\n") as out_file:
+            out_file.write(
+                c_file_template.render(periph=key, type="hal", serieslist=value)
+            )
     # Generate stm32yyxx_ll_*.c file
     for key, value in ll_c_dict.items():
         filepath = LLoutSrc_path / c_file.replace("zz", "ll").replace("ppp", key)
-        out_file = open(filepath, "w", newline="\n")
-        out_file.write(c_file_template.render(periph=key, type="ll", serieslist=value))
-        out_file.close()
+        with open(filepath, "w", newline="\n") as out_file:
+            out_file.write(
+                c_file_template.render(periph=key, type="ll", serieslist=value)
+            )
     # Generate stm32yyxx_ll_*.h file
     for key, value in ll_h_dict.items():
         filepath = LLoutInc_path / ll_h_file.replace("ppp", key)
-        out_file = open(filepath, "w", newline="\n")
-        out_file.write(ll_h_file_template.render(periph=key, serieslist=value))
-        out_file.close()
+        with open(filepath, "w", newline="\n") as out_file:
+            out_file.write(ll_h_file_template.render(periph=key, serieslist=value))
     if log:
         print("done")
 
     # Filter all LL header file
     all_ll_h_list = sorted(set(all_ll_h_list))
     # Generate the all LL header file
-    all_ll_file = open(LLoutInc_path / all_ll_h_file, "w", newline="\n")
-    all_ll_file.write(all_ll_header_file_template.render(ll_header_list=all_ll_h_list))
-    all_ll_file.close()
+    with open(LLoutInc_path / all_ll_h_file, "w", newline="\n") as all_ll_file:
+        all_ll_file.write(
+            all_ll_header_file_template.render(ll_header_list=all_ll_h_list)
+        )
 
     # CMSIS startup files
     printCMSISStartup(log)
@@ -278,17 +295,20 @@ def wrap(arg_core, arg_cmsis, log):
         print("CMSIS DSP generation skipped.")
     else:
         # Delete all subfolders
-        deleteFolder(CMSIS_DSP_outSrc_path / "*")
+        for path_object in CMSIS_DSP_outSrc_path.glob("*"):
+            if path_object.is_dir():
+                deleteFolder(path_object)
         for path_object in CMSIS_DSPSrc_path.glob("**/*"):
-            if path_object.is_file():
-                if path_object.name.endswith(".c"):
-                    dn = path_object.parent.name
-                    fn = path_object.name
-                    if dn in fn:
-                        fdn = CMSIS_DSP_outSrc_path / dn
-                        out_file = open(fdn / (f"{fn}"), "w", newline="\n")
-                        out_file.write(dsp_file_template.render(dsp_dir=dn, dsp_name=fn))
-                        out_file.close()
+            if path_object.is_file() and path_object.name.endswith(".c"):
+                dn = path_object.parent.name
+                fn = path_object.name
+                if dn in fn:
+                    fdn = CMSIS_DSP_outSrc_path / dn
+                    createFolder(fdn)
+                    with open(fdn / (f"{fn}"), "w", newline="\n") as out_file:
+                        out_file.write(
+                            dsp_file_template.render(dsp_dir=dn, dsp_name=fn)
+                        )
     return 0
 
 

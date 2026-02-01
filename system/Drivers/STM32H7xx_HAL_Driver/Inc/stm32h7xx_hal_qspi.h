@@ -26,6 +26,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32h7xx_hal_def.h"
+#if defined (DLYB_QUADSPI)
+#include "stm32h7xx_ll_delayblock.h"
+#endif /* DLYB_QUADSPI */
 
 #if defined(QUADSPI)
 

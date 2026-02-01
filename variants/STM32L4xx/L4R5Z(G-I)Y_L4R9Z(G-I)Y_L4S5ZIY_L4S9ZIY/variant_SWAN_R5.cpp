@@ -120,25 +120,21 @@ extern "C" {
 
 WEAK void initVariant(void)
 {
-
-  GPIO_InitTypeDef  GPIO_InitStruct;
-  __HAL_RCC_GPIOE_CLK_ENABLE();
-  __HAL_RCC_GPIOC_CLK_ENABLE();
-
-  /* Set the DISCHARGE pin and the USB_DETECT pin to FLOAT */
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Pin = GPIO_PIN_6;
-  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct); /* PE6 DISCHRG */
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct); /* PC6 is USB_DETECT */
+  /* All pins set to high-Z (floating) initially */
+  /* DS12023 Rev 5, Section 3.10.5 - Reset mode: */
+  /* In order to improve the consumption under reset, the I/Os state under and after reset is
+   * “analog state” (the I/O schmitt trigger is disable). In addition, the internal reset pull-up is
+   * deactivated when the reset source is internal.
+   */
 
   /* Turn on the 3V3 regulator */
+  __HAL_RCC_GPIOE_CLK_ENABLE();
+  GPIO_InitTypeDef  GPIO_InitStruct;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
-  GPIO_InitStruct.Pin = GPIO_PIN_4;
+  GPIO_InitStruct.Pin = GPIO_PIN_4 | GPIO_PIN_6;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
-  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_4, GPIO_PIN_SET);
-
+  HAL_GPIO_WritePin(GPIOE, GPIO_InitStruct.Pin, GPIO_PIN_SET);
 }
 
 /**

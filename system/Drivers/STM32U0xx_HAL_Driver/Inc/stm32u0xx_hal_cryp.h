@@ -177,7 +177,7 @@ typedef struct
 
   uint32_t                    IV_saved[4];             /*!< copy of Initialisation Vector registers */
 
-  uint32_t                    SUSPxR_saved[8];         /*!< copy of suspension registers */
+  uint32_t                    SUSPRx_saved[8];         /*!< copy of suspension registers */
 
   uint32_t                    CR_saved;                /*!< copy of CRYP control register  when processing is suspended*/
 

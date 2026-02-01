@@ -31,7 +31,7 @@
   * @{
   */
 
-#if defined (TIM1) || defined (TIM2) || defined (TIM3) || defined (TIM16) || defined (TIM17)
+#if defined (TIM1) || defined (TIM2) || defined (TIM3) || defined (TIM4) || defined (TIM16) || defined (TIM17)
 
 /** @addtogroup TIM_LL
   * @{
@@ -159,6 +159,7 @@
 
 #define IS_LL_TIM_BREAK_AFMODE(__VALUE__) (((__VALUE__) == LL_TIM_BREAK_AFMODE_INPUT)          \
                                            || ((__VALUE__) == LL_TIM_BREAK_AFMODE_BIDIRECTIONAL))
+#if defined(TIM_BDTR_BK2E)
 
 #define IS_LL_TIM_BREAK2_STATE(__VALUE__) (((__VALUE__) == LL_TIM_BREAK2_DISABLE) \
                                            || ((__VALUE__) == LL_TIM_BREAK2_ENABLE))
@@ -185,6 +186,7 @@
 
 #define IS_LL_TIM_BREAK2_AFMODE(__VALUE__) (((__VALUE__) == LL_TIM_BREAK2_AFMODE_INPUT)       \
                                             || ((__VALUE__) == LL_TIM_BREAK2_AFMODE_BIDIRECTIONAL))
+#endif /* TIM_BDTR_BK2E */
 
 #define IS_LL_TIM_AUTOMATIC_OUTPUT_STATE(__VALUE__) (((__VALUE__) == LL_TIM_AUTOMATICOUTPUT_DISABLE) \
                                                      || ((__VALUE__) == LL_TIM_AUTOMATICOUTPUT_ENABLE))
@@ -201,8 +203,12 @@ static ErrorStatus OC1Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM
 static ErrorStatus OC2Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM_OCInitStruct);
 static ErrorStatus OC3Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM_OCInitStruct);
 static ErrorStatus OC4Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM_OCInitStruct);
+#if defined(TIM_CCER_CC5E)
 static ErrorStatus OC5Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM_OCInitStruct);
+#endif /* TIM_CCER_CC5E */
+#if defined(TIM_CCER_CC6E)
 static ErrorStatus OC6Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM_OCInitStruct);
+#endif /* TIM_CCER_CC6E */
 static ErrorStatus IC1Config(TIM_TypeDef *TIMx, const LL_TIM_IC_InitTypeDef *TIM_ICInitStruct);
 static ErrorStatus IC2Config(TIM_TypeDef *TIMx, const LL_TIM_IC_InitTypeDef *TIM_ICInitStruct);
 static ErrorStatus IC3Config(TIM_TypeDef *TIMx, const LL_TIM_IC_InitTypeDef *TIM_ICInitStruct);
@@ -234,16 +240,18 @@ ErrorStatus LL_TIM_DeInit(const TIM_TypeDef *TIMx)
   /* Check the parameters */
   assert_param(IS_TIM_INSTANCE(TIMx));
 
-  if (TIMx == TIM1)
-  {
-    LL_APB2_GRP1_ForceReset(LL_APB2_GRP1_PERIPH_TIM1);
-    LL_APB2_GRP1_ReleaseReset(LL_APB2_GRP1_PERIPH_TIM1);
-  }
-  else if (TIMx == TIM2)
+  if (TIMx == TIM2)
   {
     LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_TIM2);
     LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM2);
   }
+#if defined(TIM1)
+  else if (TIMx == TIM1)
+  {
+    LL_APB2_GRP1_ForceReset(LL_APB2_GRP1_PERIPH_TIM1);
+    LL_APB2_GRP1_ReleaseReset(LL_APB2_GRP1_PERIPH_TIM1);
+  }
+#endif /* TIM1 */
 #if defined(TIM3)
   else if (TIMx == TIM3)
   {
@@ -251,6 +259,13 @@ ErrorStatus LL_TIM_DeInit(const TIM_TypeDef *TIMx)
     LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM3);
   }
 #endif /* TIM3 */
+#if defined(TIM4)
+  else if (TIMx == TIM4)
+  {
+    LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_TIM4);
+    LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_TIM4);
+  }
+#endif /* TIM4 */
   else if (TIMx == TIM16)
   {
     LL_APB2_GRP1_ForceReset(LL_APB2_GRP1_PERIPH_TIM16);
@@ -395,12 +410,16 @@ ErrorStatus LL_TIM_OC_Init(TIM_TypeDef *TIMx, uint32_t Channel, const LL_TIM_OC_
     case LL_TIM_CHANNEL_CH4:
       result = OC4Config(TIMx, TIM_OC_InitStruct);
       break;
+#if defined(TIM_CCER_CC5E)
     case LL_TIM_CHANNEL_CH5:
       result = OC5Config(TIMx, TIM_OC_InitStruct);
       break;
+#endif /* TIM_CCER_CC5E */
+#if defined(TIM_CCER_CC6E)
     case LL_TIM_CHANNEL_CH6:
       result = OC6Config(TIMx, TIM_OC_InitStruct);
       break;
+#endif /* TIM_CCER_CC6E */
     default:
       break;
   }
@@ -675,10 +694,12 @@ void LL_TIM_BDTR_StructInit(LL_TIM_BDTR_InitTypeDef *TIM_BDTRInitStruct)
   TIM_BDTRInitStruct->BreakPolarity   = LL_TIM_BREAK_POLARITY_LOW;
   TIM_BDTRInitStruct->BreakFilter     = LL_TIM_BREAK_FILTER_FDIV1;
   TIM_BDTRInitStruct->BreakAFMode     = LL_TIM_BREAK_AFMODE_INPUT;
+#if defined(TIM_BDTR_BK2E)
   TIM_BDTRInitStruct->Break2State     = LL_TIM_BREAK2_DISABLE;
   TIM_BDTRInitStruct->Break2Polarity  = LL_TIM_BREAK2_POLARITY_LOW;
   TIM_BDTRInitStruct->Break2Filter    = LL_TIM_BREAK2_FILTER_FDIV1;
   TIM_BDTRInitStruct->Break2AFMode    = LL_TIM_BREAK2_AFMODE_INPUT;
+#endif /* TIM_BDTR_BK2E */
   TIM_BDTRInitStruct->AutomaticOutput = LL_TIM_AUTOMATICOUTPUT_DISABLE;
 }
 
@@ -727,6 +748,7 @@ ErrorStatus LL_TIM_BDTR_Init(TIM_TypeDef *TIMx, const LL_TIM_BDTR_InitTypeDef *T
   MODIFY_REG(tmpbdtr, TIM_BDTR_AOE, TIM_BDTRInitStruct->AutomaticOutput);
   MODIFY_REG(tmpbdtr, TIM_BDTR_BKF, TIM_BDTRInitStruct->BreakFilter);
   MODIFY_REG(tmpbdtr, TIM_BDTR_BKBID, TIM_BDTRInitStruct->BreakAFMode);
+#if defined(TIM_BDTR_BK2E)
 
   if (IS_TIM_BKIN2_INSTANCE(TIMx))
   {
@@ -741,6 +763,7 @@ ErrorStatus LL_TIM_BDTR_Init(TIM_TypeDef *TIMx, const LL_TIM_BDTR_InitTypeDef *T
     MODIFY_REG(tmpbdtr, TIM_BDTR_BK2P, TIM_BDTRInitStruct->Break2Polarity);
     MODIFY_REG(tmpbdtr, TIM_BDTR_BK2BID, TIM_BDTRInitStruct->Break2AFMode);
   }
+#endif /* TIM_BDTR_BK2E */
 
   /* Set TIMx_BDTR */
   LL_TIM_WriteReg(TIMx, BDTR, tmpbdtr);
@@ -882,6 +905,7 @@ static ErrorStatus OC2Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM
   /* Set the Output State */
   MODIFY_REG(tmpccer, TIM_CCER_CC2E, TIM_OCInitStruct->OCState << 4U);
 
+#if defined(TIM_CR2_OIS2)
   if (IS_TIM_BREAK_INSTANCE(TIMx))
   {
     assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCIdleState));
@@ -901,6 +925,7 @@ static ErrorStatus OC2Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM
     /* Set the complementary output Idle state */
     MODIFY_REG(tmpcr2, TIM_CR2_OIS2N, TIM_OCInitStruct->OCNIdleState << 3U);
   }
+#endif /* TIM_CR2_OIS2 */
 
   /* Write to TIMx CR2 */
   LL_TIM_WriteReg(TIMx, CR2, tmpcr2);
@@ -961,6 +986,7 @@ static ErrorStatus OC3Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM
   /* Set the Output State */
   MODIFY_REG(tmpccer, TIM_CCER_CC3E, TIM_OCInitStruct->OCState << 8U);
 
+#if defined(TIM_CR2_OIS3)
   if (IS_TIM_BREAK_INSTANCE(TIMx))
   {
     assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCIdleState));
@@ -980,6 +1006,7 @@ static ErrorStatus OC3Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM
     /* Set the complementary output Idle state */
     MODIFY_REG(tmpcr2, TIM_CR2_OIS3N, TIM_OCInitStruct->OCNIdleState << 5U);
   }
+#endif /* TIM_CR2_OIS3 */
 
   /* Write to TIMx CR2 */
   LL_TIM_WriteReg(TIMx, CR2, tmpcr2);
@@ -1040,6 +1067,7 @@ static ErrorStatus OC4Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM
   /* Set the Output State */
   MODIFY_REG(tmpccer, TIM_CCER_CC4E, TIM_OCInitStruct->OCState << 12U);
 
+#if defined(TIM_CR2_OIS4)
   if (IS_TIM_BREAK_INSTANCE(TIMx))
   {
     assert_param(IS_LL_TIM_OCIDLESTATE(TIM_OCInitStruct->OCIdleState));
@@ -1059,6 +1087,7 @@ static ErrorStatus OC4Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM
     /* Set the complementary output Idle state */
     MODIFY_REG(tmpcr2, TIM_CR2_OIS4N, TIM_OCInitStruct->OCNIdleState << 7U);
   }
+#endif /* TIM_CR2_OIS4 */
 
   /* Write to TIMx CR2 */
   LL_TIM_WriteReg(TIMx, CR2, tmpcr2);
@@ -1075,6 +1104,7 @@ static ErrorStatus OC4Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM
   return SUCCESS;
 }
 
+#if defined(TIM_CCER_CC5E)
 /**
   * @brief  Configure the TIMx output channel 5.
   * @param  TIMx Timer Instance
@@ -1135,7 +1165,9 @@ static ErrorStatus OC5Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM
 
   return SUCCESS;
 }
+#endif /* TIM_CCER_CC5E */
 
+#if defined(TIM_CCER_CC6E)
 /**
   * @brief  Configure the TIMx output channel 6.
   * @param  TIMx Timer Instance
@@ -1195,6 +1227,7 @@ static ErrorStatus OC6Config(TIM_TypeDef *TIMx, const LL_TIM_OC_InitTypeDef *TIM
 
   return SUCCESS;
 }
+#endif /* TIM_CCER_CC6E */
 
 /**
   * @brief  Configure the TIMx input channel 1.
@@ -1337,7 +1370,7 @@ static ErrorStatus IC4Config(TIM_TypeDef *TIMx, const LL_TIM_IC_InitTypeDef *TIM
   * @}
   */
 
-#endif /* TIM1 || TIM2 || TIM3 || TIM16 || TIM17 */
+#endif /* TIM1 || TIM2 || TIM3 || TIM4 || TIM16 || TIM17 */
 
 /**
   * @}

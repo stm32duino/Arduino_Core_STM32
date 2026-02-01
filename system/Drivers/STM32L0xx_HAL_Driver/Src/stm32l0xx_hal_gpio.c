@@ -447,7 +447,7 @@ void HAL_GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
 * @param  GPIOx where x can be (A..E and H) to select the GPIO peripheral for STM32L0xx family.
 *                Note that GPIOE is not available on all devices.
 * @param  GPIO_Pin specifies the port bit to be locked.
-*         This parameter can be any combination of GPIO_Pin_x where x can be (0..15).
+*         This parameter can be any combination of GPIO_PIN_x where x can be (0..15).
 *         All port bits are not necessarily available on all GPIOs.
 * @retval None
 */

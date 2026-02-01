@@ -412,7 +412,7 @@ void HAL_PWR_DisableBkUpAccess (void)
   *         only Cortex-M4 or wake up Cortex-M7 and Cortex-M4.
   * @retval None.
   */
-void HAL_PWR_ConfigPVD (PWR_PVDTypeDef *sConfigPVD)
+void HAL_PWR_ConfigPVD (const PWR_PVDTypeDef *sConfigPVD)
 {
   /* Check the PVD configuration parameter */
   if (sConfigPVD == NULL)

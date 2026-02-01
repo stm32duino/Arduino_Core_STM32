@@ -179,6 +179,8 @@ void SystemInit(void)
 {
 #if defined(STM32WBAXX_SI_CUT1_0)
   __IO uint32_t timeout_cpu_cycles;
+#endif
+#if defined(STM32WBAXX_SI_CUT1_0) || defined (VREFBUF)
   __IO uint32_t tmpreg;
 #endif
 
@@ -244,6 +246,25 @@ void SystemInit(void)
   /* Disable ADC kernel clock */
   CLEAR_BIT(RCC->AHB4ENR, RCC_AHB4ENR_ADC4EN);
 #endif
+
+#if defined (VREFBUF)
+  /* Work-around for VREFBUF peripheral issue.
+     Refer to STM32WBA errata sheet item "VREF BUFF cannot be trimmed by EngiBit".
+     Actions: Our SW copies the TRIM V11 (R1) in VREFBUF CCR (to guarantee the correct start
+               trim instead the current bad value 111111).
+  */
+  /* Enable VREFBUF kernel clock */
+  SET_BIT(RCC->APB7ENR, RCC_APB7ENR_VREFEN);
+  /* Delay after an RCC peripheral clock enabling */
+  tmpreg = READ_BIT(RCC->APB7ENR, RCC_APB7ENR_VREFEN);
+  (void)tmpreg;
+
+  /* Set TRIM V11 (R1) value */
+  MODIFY_REG(VREFBUF->CCR, VREFBUF_CCR_TRIM, ((*(uint32_t *)(FLASH_ENGY_BASE + 0x2ABUL)) & 0x3FUL));
+
+  /* Disable VREFBUF kernel clock */
+  CLEAR_BIT(RCC->APB7ENR, RCC_APB7ENR_VREFEN);
+#endif /* VREFBUF */
 }
 
 /**

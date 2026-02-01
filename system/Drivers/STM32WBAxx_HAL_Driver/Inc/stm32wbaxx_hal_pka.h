@@ -107,6 +107,9 @@ typedef struct
   PKA_TypeDef                   *Instance;              /*!< Register base address */
   __IO HAL_PKA_StateTypeDef     State;                  /*!< PKA state */
   __IO uint32_t                 ErrorCode;              /*!< PKA Error code */
+  __IO uint32_t                 primeordersize;         /*!< Elliptic curve prime order length */
+  __IO uint32_t                 opsize;                 /*!< Modular exponentiation operand length */
+  __IO uint32_t                 modulussize;            /*!< Elliptic curve modulus length */
 #if (USE_HAL_PKA_REGISTER_CALLBACKS == 1)
   void (* OperationCpltCallback)(struct __PKA_HandleTypeDef *hpka); /*!< PKA End of operation callback */
   void (* ErrorCallback)(struct __PKA_HandleTypeDef *hpka);         /*!< PKA Error callback            */

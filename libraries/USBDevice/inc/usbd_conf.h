@@ -71,16 +71,16 @@ extern "C" {
 #define USB_WKUP_IRQHandler USB_FS_WKUP_IRQHandler
 #endif
 #endif
-#elif defined(STM32G0xx)
+#elif defined(STM32G0B1xx) || defined(STM32G0C1xx)
 #define USB_IRQn USB_UCPD1_2_IRQn
 #define USB_IRQHandler USB_UCPD1_2_IRQHandler
-#elif defined(STM32H5xx) || defined(STM32U0xx)
+#elif defined(STM32C0xx) || defined(STM32H5xx) || defined(STM32U0xx)
 #define USB_IRQn USB_DRD_FS_IRQn
 #define USB_IRQHandler USB_DRD_FS_IRQHandler
 #elif defined(STM32U5xx) && !defined(USB_DRD_FS)
 #define USB_IRQn OTG_FS_IRQn
 #define USB_IRQHandler OTG_FS_IRQHandler
-#elif defined(STM32L5xx)
+#elif defined(STM32L5xx) || defined(STM32U3xx)
 #define USB_IRQn            USB_FS_IRQn
 #define USB_IRQHandler      USB_FS_IRQHandler
 #endif
@@ -115,6 +115,10 @@ extern "C" {
 #define USBD_DEBUG_LEVEL                            0U
 #endif /* USBD_DEBUG_LEVEL */
 
+#ifndef USBD_USER_REGISTER_CALLBACK
+#define USBD_USER_REGISTER_CALLBACK                 0U
+#endif /* USBD_USER_REGISTER_CALLBACK */
+
 /* ECM, RNDIS, DFU Class Config */
 #ifndef USBD_SUPPORT_USER_STRING_DESC
 #define USBD_SUPPORT_USER_STRING_DESC               0U
@@ -144,6 +148,12 @@ extern "C" {
 #endif /* USBD_CDC_INTERVAL */
 
 /* DFU Class Config */
+#ifndef USBD_DFU_VENDOR_CMD_ENABLED
+#define USBD_DFU_VENDOR_CMD_ENABLED                 0U
+#endif /* USBD_DFU_VENDOR_CMD_ENABLED */
+#ifndef USBD_DFU_VENDOR_EXIT_ENABLED
+#define USBD_DFU_VENDOR_EXIT_ENABLED                1U
+#endif /* USBD_DFU_VENDOR_EXIT_ENABLED */
 #ifndef USBD_DFU_MAX_ITF_NUM
 #define USBD_DFU_MAX_ITF_NUM                        1U
 #endif /* USBD_DFU_MAX_ITF_NUM */

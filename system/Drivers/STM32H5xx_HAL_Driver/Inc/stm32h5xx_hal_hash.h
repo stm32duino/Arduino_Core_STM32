@@ -398,7 +398,7 @@ HAL_StatusTypeDef HAL_HASH_DeInit(HASH_HandleTypeDef *hhash);
 void HAL_HASH_MspInit(HASH_HandleTypeDef *hhash);
 void HAL_HASH_MspDeInit(HASH_HandleTypeDef *hhash);
 HAL_StatusTypeDef HAL_HASH_GetConfig(HASH_HandleTypeDef *hhash, HASH_ConfigTypeDef *pConf);
-HAL_StatusTypeDef HAL_HASH_SetConfig(HASH_HandleTypeDef *hhash, HASH_ConfigTypeDef *pConf);
+HAL_StatusTypeDef HAL_HASH_SetConfig(HASH_HandleTypeDef *hhash, const HASH_ConfigTypeDef *pConf);
 
 /* Callbacks Register/UnRegister functions  ***********************************/
 #if (USE_HAL_HASH_REGISTER_CALLBACKS == 1)

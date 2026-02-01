@@ -469,7 +469,7 @@ HAL_StatusTypeDef HAL_SD_Init(SD_HandleTypeDef *hsd)
 HAL_StatusTypeDef HAL_SD_InitCard(SD_HandleTypeDef *hsd)
 {
   uint32_t errorstate;
-  SD_InitTypeDef Init;
+  SD_InitTypeDef Init = {0U};
   uint32_t sdmmc_clk;
 
   /* Default SDMMC peripheral configuration for SD card initialization */
@@ -486,7 +486,14 @@ HAL_StatusTypeDef HAL_SD_InitCard(SD_HandleTypeDef *hsd)
     hsd->ErrorCode = SDMMC_ERROR_INVALID_PARAMETER;
     return HAL_ERROR;
   }
-  Init.ClockDiv = sdmmc_clk / (2U * SD_INIT_FREQ);
+  if (sdmmc_clk <= SD_INIT_FREQ)
+  {
+    Init.ClockDiv = 0U;
+  }
+  else
+  {
+    Init.ClockDiv = (sdmmc_clk / (2U * SD_INIT_FREQ)) + 1U;
+  }
 
 #if (USE_SD_TRANSCEIVER != 0U)
   Init.TranceiverPresent = hsd->Init.TranceiverPresent;
@@ -2154,7 +2161,7 @@ HAL_StatusTypeDef HAL_SD_UnRegisterTransceiverCallback(SD_HandleTypeDef *hsd)
   *         contains all CID register parameters
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SD_GetCardCID(SD_HandleTypeDef *hsd, HAL_SD_CardCIDTypeDef *pCID)
+HAL_StatusTypeDef HAL_SD_GetCardCID(const SD_HandleTypeDef *hsd, HAL_SD_CardCIDTypeDef *pCID)
 {
   pCID->ManufacturerID = (uint8_t)((hsd->CID[0] & 0xFF000000U) >> 24U);
 
@@ -2370,7 +2377,7 @@ HAL_StatusTypeDef HAL_SD_GetCardStatus(SD_HandleTypeDef *hsd, HAL_SD_CardStatusT
   *         will contain the SD card status information
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SD_GetCardInfo(SD_HandleTypeDef *hsd, HAL_SD_CardInfoTypeDef *pCardInfo)
+HAL_StatusTypeDef HAL_SD_GetCardInfo(const SD_HandleTypeDef *hsd, HAL_SD_CardInfoTypeDef *pCardInfo)
 {
   pCardInfo->CardType     = (uint32_t)(hsd->SdCard.CardType);
   pCardInfo->CardVersion  = (uint32_t)(hsd->SdCard.CardVersion);
@@ -3149,7 +3156,7 @@ static uint32_t SD_PowerON(SD_HandleTypeDef *hsd)
 
   /* CMD8: SEND_IF_COND: Command available only on V2.0 cards */
   errorstate = SDMMC_CmdOperCond(hsd->Instance);
-  if (errorstate == SDMMC_ERROR_TIMEOUT) /* No response to CMD8 */
+  if (errorstate == SDMMC_ERROR_CMD_RSP_TIMEOUT) /* No response to CMD8 */
   {
     hsd->SdCard.CardVersion = CARD_V1_X;
     /* CMD0: GO_IDLE_STATE */

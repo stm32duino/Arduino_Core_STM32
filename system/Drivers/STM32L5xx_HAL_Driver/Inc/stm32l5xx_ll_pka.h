@@ -459,7 +459,18 @@ __STATIC_INLINE uint32_t LL_PKA_IsActiveFlag_BUSY(const PKA_TypeDef *PKAx)
 {
   return ((READ_BIT(PKAx->SR, PKA_SR_BUSY) == (PKA_SR_BUSY)) ? 1UL : 0UL);
 }
-
+#if defined(PKA_SR_INITOK)
+/**
+  * @brief  Get PKA init ok flag.
+  * @rmtoll SR           INITOK          LL_PKA_IsActiveFlag_INITOK
+  * @param  PKAx PKA Instance.
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_PKA_IsActiveFlag_INITOK(const PKA_TypeDef *PKAx)
+{
+  return ((READ_BIT(PKAx->SR, PKA_SR_INITOK) == (PKA_SR_INITOK)) ? 1UL : 0UL);
+}
+#endif /* PKA_SR_INITOK */
 /**
   * @brief  Clear PKA address error flag.
   * @rmtoll CLRFR        ADDRERRFC     LL_PKA_ClearFlag_ADDERR

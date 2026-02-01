@@ -47,12 +47,10 @@ typedef struct
 {
   uint32_t BaudRate;                /*!< This member configures the UART communication baud rate.
                                          The baud rate register is computed using the following formula:
-                                         LPUART:
-                                         =======
+                                         @note For LPUART :
                                          Baud Rate Register = ((256 * lpuart_ker_ckpres) / ((huart->Init.BaudRate)))
-                                         where lpuart_ker_ck_pres is the UART input clock divided by a prescaler
-                                         UART:
-                                         =====
+                                         where lpuart_ker_ck_pres is the UART input clock divided by a prescaler.
+                                         @note For UART :
                                          - If oversampling is 16 or in LIN mode,
                                             Baud Rate Register = ((uart_ker_ckpres) / ((huart->Init.BaudRate)))
                                          - If oversampling is 8,
@@ -1230,7 +1228,7 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
 /** @defgroup UART_Private_Macros   UART Private Macros
   * @{
   */
-/** @brief  Get UART clok division factor from clock prescaler value.
+/** @brief  Get UART clock division factor from clock prescaler value.
   * @param  __CLOCKPRESCALER__ UART prescaler value.
   * @retval UART clock division factor
   */
@@ -1245,8 +1243,7 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
    ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV16)  ? 16U :      \
    ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV32)  ? 32U :      \
    ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV64)  ? 64U :      \
-   ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV128) ? 128U :     \
-   ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV256) ? 256U : 1U)
+   ((__CLOCKPRESCALER__) == UART_PRESCALER_DIV128) ? 128U : 256U)
 
 /** @brief  BRR division operation to set BRR register with LPUART.
   * @param  __PCLK__ LPUART clock.

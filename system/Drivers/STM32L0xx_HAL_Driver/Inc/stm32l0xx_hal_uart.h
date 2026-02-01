@@ -47,12 +47,10 @@ typedef struct
 {
   uint32_t BaudRate;                /*!< This member configures the UART communication baud rate.
                                          The baud rate register is computed using the following formula:
-                                         LPUART:
-                                         =======
+                                         @note For LPUART :
                                          Baud Rate Register = ((256 * lpuart_ker_ck) / ((huart->Init.BaudRate)))
-                                         where lpuart_ker_ck is the UART input clock
-                                         UART:
-                                         =====
+                                         where lpuart_ker_ck is the UART input clock.
+                                         @note For UART :
                                          - If oversampling is 16 or in LIN mode,
                                             Baud Rate Register = ((uart_ker_ck) / ((huart->Init.BaudRate)))
                                          - If oversampling is 8,

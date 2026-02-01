@@ -36,8 +36,8 @@ extern "C" {
 
 struct EERef {
 
-  EERef(const int index)
-    : index(index)                 {}
+  EERef(const int idx)
+    : index(idx)                 {}
 
   //Access/read members.
   uint8_t operator*() const
@@ -140,8 +140,8 @@ struct EERef {
 
 struct EEPtr {
 
-  EEPtr(const int index)
-    : index(index)                {}
+  EEPtr(const int idx)
+    : index(idx)                {}
 
   operator int() const
   {

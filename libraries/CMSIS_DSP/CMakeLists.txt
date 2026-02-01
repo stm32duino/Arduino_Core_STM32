@@ -47,6 +47,7 @@ add_library(CMSIS_DSP_bin OBJECT EXCLUDE_FROM_ALL
   src/SVMFunctions/SVMFunctionsF16.c
   src/TransformFunctions/TransformFunctions.c
   src/TransformFunctions/TransformFunctionsF16.c
+  src/WindowFunctions/WindowFunctions.c
 )
 target_link_libraries(CMSIS_DSP_bin PUBLIC CMSIS_DSP_usage)
 

@@ -53,7 +53,8 @@ extern "C" {
 /** @defgroup ADC_HAL_EC_GROUPS  ADC instance - Groups
   * @{
   */
-#define ADC_REGULAR_GROUP                  (LL_ADC_GROUP_REGULAR)           /*!< ADC group regular (available on all STM32 devices) */
+#define ADC_REGULAR_GROUP                  (LL_ADC_GROUP_REGULAR)          /*!< ADC group regular (available on
+                                                                                all STM32 devices) */
 /**
   * @}
   */
@@ -143,7 +144,7 @@ extern "C" {
 
 /* ADC calibration */
 HAL_StatusTypeDef       HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc);
-uint32_t                HAL_ADCEx_Calibration_GetValue(ADC_HandleTypeDef *hadc);
+uint32_t                HAL_ADCEx_Calibration_GetValue(const ADC_HandleTypeDef *hadc);
 HAL_StatusTypeDef       HAL_ADCEx_Calibration_SetValue(ADC_HandleTypeDef *hadc, uint32_t CalibrationFactor);
 
 /* ADC IRQHandler and Callbacks used in non-blocking modes (Interruption) */

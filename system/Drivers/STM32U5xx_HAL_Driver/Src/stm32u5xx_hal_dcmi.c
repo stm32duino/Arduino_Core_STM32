@@ -86,7 +86,7 @@
     and a pointer to the user callback function.
 
     Use function HAL_DCMI_UnRegisterCallback() to reset a callback to the default
-    weak (surcharged) function.
+    weak (overridden) function.
     HAL_DCMI_UnRegisterCallback() takes as parameters the HAL peripheral handle,
     and the callback ID.
     This function allows to reset following callbacks:
@@ -98,10 +98,10 @@
       (+) MspDeInitCallback  : callback for DCMI MspDeInit.
 
     By default, after the HAL_DCMI_Init and if the state is HAL_DCMI_STATE_RESET
-    all callbacks are reset to the corresponding legacy weak (surcharged) functions:
+    all callbacks are reset to the corresponding legacy weak (overridden) functions:
     examples FrameEventCallback(), HAL_DCMI_ErrorCallback().
     Exception done for MspInit and MspDeInit callbacks that are respectively
-    reset to the legacy weak (surcharged) functions in the HAL_DCMI_Init
+    reset to the legacy weak (overridden) functions in the HAL_DCMI_Init
     and HAL_DCMI_DeInit only when these callbacks are null (not registered beforehand).
     If not, MspInit or MspDeInit are not null, the HAL_DCMI_Init and HAL_DCMI_DeInit
     keep and use the user MspInit/MspDeInit callbacks (registered beforehand).
@@ -116,7 +116,7 @@
 
     When the compilation define USE_HAL_DCMI_REGISTER_CALLBACKS is set to 0 or
     not defined, the callback registering feature is not available
-    and weak (surcharged) callbacks are used.
+    and weak (overridden) callbacks are used.
 
   @endverbatim
   ******************************************************************************
@@ -1000,7 +1000,7 @@ HAL_StatusTypeDef HAL_DCMI_EnableCrop(DCMI_HandleTypeDef *hdcmi)
   *                    the embedded synchronization delimiters unmasks.
   * @retval HAL status
   */
-HAL_StatusTypeDef  HAL_DCMI_ConfigSyncUnmask(DCMI_HandleTypeDef *hdcmi, DCMI_SyncUnmaskTypeDef *SyncUnmask)
+HAL_StatusTypeDef  HAL_DCMI_ConfigSyncUnmask(DCMI_HandleTypeDef *hdcmi, const DCMI_SyncUnmaskTypeDef *SyncUnmask)
 {
   /* Process Locked */
   __HAL_LOCK(hdcmi);

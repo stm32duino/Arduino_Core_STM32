@@ -561,7 +561,6 @@ typedef struct __DMA_HandleTypeDef
   */
 
 
-
 /**
   * @}
   */

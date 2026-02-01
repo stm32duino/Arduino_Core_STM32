@@ -37,6 +37,7 @@ GenG4.menu.pnum.GENERIC_G473QETXZ.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G473QETXZ.build.board=GENERIC_G473QETXZ
 GenG4.menu.pnum.GENERIC_G473QETXZ.build.product_line=STM32G473xx
 GenG4.menu.pnum.GENERIC_G473QETXZ.build.variant=STM32G4xx/G473Q(B-C)T_G473QETx(Z)_G474Q(B-C-E)T_G483QET_G484QET
+GenG4.menu.pnum.GENERIC_G473QETXZ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G473.svd
 
 # Generic G474QBTx
 GenG4.menu.pnum.GENERIC_G474QBTX=Generic G474QBTx

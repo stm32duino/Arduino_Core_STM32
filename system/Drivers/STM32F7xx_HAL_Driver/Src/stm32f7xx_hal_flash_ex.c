@@ -155,7 +155,7 @@ extern HAL_StatusTypeDef  FLASH_WaitForLastOperation(uint32_t Timeout);
   */
 HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t *SectorError)
 {
-  HAL_StatusTypeDef status = HAL_ERROR;
+  HAL_StatusTypeDef status;
   uint32_t index = 0;
 
   /* Process Locked */

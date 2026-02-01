@@ -1,0 +1,23 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic WBA63CGUx
+GenWBA.menu.pnum.GENERIC_WBA63CGUX=Generic WBA63CGUx
+GenWBA.menu.pnum.GENERIC_WBA63CGUX.upload.maximum_size=1048576
+GenWBA.menu.pnum.GENERIC_WBA63CGUX.upload.maximum_data_size=262144
+GenWBA.menu.pnum.GENERIC_WBA63CGUX.build.board=GENERIC_WBA63CGUX
+GenWBA.menu.pnum.GENERIC_WBA63CGUX.build.product_line=STM32WBA63xx
+GenWBA.menu.pnum.GENERIC_WBA63CGUX.build.variant=STM32WBAxx/WBA63C(G-I)U
+GenWBA.menu.pnum.GENERIC_WBA63CGUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA63.svd
+
+# Generic WBA63CIUx
+GenWBA.menu.pnum.GENERIC_WBA63CIUX=Generic WBA63CIUx
+GenWBA.menu.pnum.GENERIC_WBA63CIUX.upload.maximum_size=2097152
+GenWBA.menu.pnum.GENERIC_WBA63CIUX.upload.maximum_data_size=524288
+GenWBA.menu.pnum.GENERIC_WBA63CIUX.build.board=GENERIC_WBA63CIUX
+GenWBA.menu.pnum.GENERIC_WBA63CIUX.build.product_line=STM32WBA63xx
+GenWBA.menu.pnum.GENERIC_WBA63CIUX.build.variant=STM32WBAxx/WBA63C(G-I)U
+GenWBA.menu.pnum.GENERIC_WBA63CIUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA63.svd
+

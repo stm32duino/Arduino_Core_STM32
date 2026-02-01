@@ -1736,6 +1736,17 @@ HAL_StatusTypeDef HAL_RTCEx_PrivilegeModeGet(const RTC_HandleTypeDef *hrtc, RTC_
   */
 #endif /* TAMP_PRIVCFGR_TAMPPRIV */
 
+#if defined (RTC_OR_OUT2_RMP)
+/** @defgroup RTCEx_Exported_Functions_Group9 Extended RTC Backup register functions
+  * @{
+  */
+void              HAL_RTCEx_EnableRemapRtcOut2(RTC_HandleTypeDef *hrtc);
+void              HAL_RTCEx_DisableRemapRtcOut2(RTC_HandleTypeDef *hrtc);
+/**
+  * @}
+  */
+#endif /* defined (RTC_OR_OUT2_RMP) */
+
 /**
   * @}
   */

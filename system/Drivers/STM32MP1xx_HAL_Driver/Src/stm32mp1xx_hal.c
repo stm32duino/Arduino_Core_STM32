@@ -54,7 +54,7 @@
  * @brief STM32MP1xx HAL Driver version number
    */
 #define __STM32MP1xx_HAL_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32MP1xx_HAL_VERSION_SUB1   (0x06U) /*!< [23:16] sub1 version */
+#define __STM32MP1xx_HAL_VERSION_SUB1   (0x07U) /*!< [23:16] sub1 version */
 #define __STM32MP1xx_HAL_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
 #define __STM32MP1xx_HAL_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32MP1xx_HAL_VERSION         ((__STM32MP1xx_HAL_VERSION_MAIN << 24)\
@@ -367,7 +367,14 @@ __weak uint32_t HAL_GetTick(void)
   return uwTick;
 #else
   /* tick value directly got from 64bits CA7 register*/
-  return ( PL1_GetCurrentPhysicalValue() / (HSI_VALUE/1000));
+  if ((RCC->STGENCKSELR & RCC_STGENCKSELR_STGENSRC) == RCC_STGENCLKSOURCE_HSE)
+    {
+      return ((uint32_t)PL1_GetCurrentPhysicalValue() / (HSE_VALUE / 1000UL));
+    }
+  else
+    {
+      return ((uint32_t)PL1_GetCurrentPhysicalValue() / (HSI_VALUE / 1000UL));
+    }
 #endif
 
 #endif /* CORE_CA7 */

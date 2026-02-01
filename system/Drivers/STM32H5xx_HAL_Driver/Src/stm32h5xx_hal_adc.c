@@ -2843,7 +2843,8 @@ HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef *hadc, const ADC_Chann
   /*  - Channel rank                                                          */
   if (LL_ADC_REG_IsConversionOngoing(hadc->Instance) == 0UL)
   {
-    if (pConfig->Channel == ADC_CHANNEL_0)
+    if ((pConfig->Channel == ADC_CHANNEL_0)
+        || ((pConfig->Channel == ADC_CHANNEL_1) && (pConfig->SingleDiff == ADC_DIFFERENTIAL_ENDED)))
     {
       LL_ADC_EnableChannel0_GPIO(hadc->Instance);
     }

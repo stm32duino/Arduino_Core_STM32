@@ -187,7 +187,6 @@ extern "C" {
 /** @defgroup SYSTEM_LL_EC_CCMSRAMWRP SYSCFG CCMSRAM WRP
   * @{
   */
-#if defined(CCMSRAM_BASE)
 #define LL_SYSCFG_CCMSRAMWRP_PAGE0         SYSCFG_SWPR_PAGE0  /*!< CCMSRAM Write protection page 0  */
 #define LL_SYSCFG_CCMSRAMWRP_PAGE1         SYSCFG_SWPR_PAGE1  /*!< CCMSRAM Write protection page 1  */
 #define LL_SYSCFG_CCMSRAMWRP_PAGE2         SYSCFG_SWPR_PAGE2  /*!< CCMSRAM Write protection page 2  */
@@ -198,7 +197,6 @@ extern "C" {
 #define LL_SYSCFG_CCMSRAMWRP_PAGE7         SYSCFG_SWPR_PAGE7  /*!< CCMSRAM Write protection page 7  */
 #define LL_SYSCFG_CCMSRAMWRP_PAGE8         SYSCFG_SWPR_PAGE8  /*!< CCMSRAM Write protection page 8  */
 #define LL_SYSCFG_CCMSRAMWRP_PAGE9         SYSCFG_SWPR_PAGE9  /*!< CCMSRAM Write protection page 9  */
-#endif /* CCMSRAM_BASE */
 #if defined(SYSCFG_SWPR_PAGE10)
 #define LL_SYSCFG_CCMSRAMWRP_PAGE10        SYSCFG_SWPR_PAGE10 /*!< CCMSRAM Write protection page 10 */
 #define LL_SYSCFG_CCMSRAMWRP_PAGE11        SYSCFG_SWPR_PAGE11 /*!< CCMSRAM Write protection page 11 */
@@ -210,6 +208,8 @@ extern "C" {
 #define LL_SYSCFG_CCMSRAMWRP_PAGE17        SYSCFG_SWPR_PAGE17 /*!< CCMSRAM Write protection page 17 */
 #define LL_SYSCFG_CCMSRAMWRP_PAGE18        SYSCFG_SWPR_PAGE18 /*!< CCMSRAM Write protection page 18 */
 #define LL_SYSCFG_CCMSRAMWRP_PAGE19        SYSCFG_SWPR_PAGE19 /*!< CCMSRAM Write protection page 19 */
+#endif /* SYSCFG_SWPR_PAGE10 */
+#if defined(SYSCFG_SWPR_PAGE20)
 #define LL_SYSCFG_CCMSRAMWRP_PAGE20        SYSCFG_SWPR_PAGE20 /*!< CCMSRAM Write protection page 20 */
 #define LL_SYSCFG_CCMSRAMWRP_PAGE21        SYSCFG_SWPR_PAGE21 /*!< CCMSRAM Write protection page 21 */
 #define LL_SYSCFG_CCMSRAMWRP_PAGE22        SYSCFG_SWPR_PAGE22 /*!< CCMSRAM Write protection page 22 */
@@ -222,7 +222,7 @@ extern "C" {
 #define LL_SYSCFG_CCMSRAMWRP_PAGE29        SYSCFG_SWPR_PAGE29 /*!< CCMSRAM Write protection page 29 */
 #define LL_SYSCFG_CCMSRAMWRP_PAGE30        SYSCFG_SWPR_PAGE30 /*!< CCMSRAM Write protection page 30 */
 #define LL_SYSCFG_CCMSRAMWRP_PAGE31        SYSCFG_SWPR_PAGE31 /*!< CCMSRAM Write protection page 31 */
-#endif /* SYSCFG_SWPR_PAGE10 */
+#endif /* SYSCFG_SWPR_PAGE20 */
 /**
   * @}
   */
@@ -758,7 +758,6 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetEXTISource(uint32_t Line)
   return (uint32_t)(READ_BIT(SYSCFG->EXTICR[Line & 0x3U], (Line >> 16U)) >> (POSITION_VAL(Line >> 16U) & 0x1FU));
 }
 
-#if defined (CCMSRAM_BASE)
 /**
   * @brief  Enable CCMSRAM Erase (starts a hardware CCMSRAM erase operation. This bit is
   * automatically cleared at the end of the CCMSRAM erase operation.)
@@ -784,7 +783,6 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsCCMSRAMEraseOngoing(void)
   return ((READ_BIT(SYSCFG->SCSR, SYSCFG_SCSR_CCMBSY) == (SYSCFG_SCSR_CCMBSY)) ? 1UL : 0UL);
 }
 
-#endif /* CCMSRAM_BASE */
 /**
   * @brief  Set connections to TIM1/8/15/16/17 Break inputs
   * @rmtoll SYSCFG_CFGR2 CLL           LL_SYSCFG_SetTIMBreakInputs\n
@@ -840,7 +838,6 @@ __STATIC_INLINE void LL_SYSCFG_ClearFlag_SP(void)
   SET_BIT(SYSCFG->CFGR2, SYSCFG_CFGR2_SPF);
 }
 
-#if defined(CCMSRAM_BASE)
 /**
   * @brief  Enable CCMSRAM page write protection
   * @note Write protection is cleared only by a system reset
@@ -909,7 +906,6 @@ __STATIC_INLINE void LL_SYSCFG_UnlockCCMSRAMWRP(void)
   WRITE_REG(SYSCFG->SKR, 0xCA);
   WRITE_REG(SYSCFG->SKR, 0x53);
 }
-#endif /* CCMSRAM_BASE */
 /**
   * @}
   */

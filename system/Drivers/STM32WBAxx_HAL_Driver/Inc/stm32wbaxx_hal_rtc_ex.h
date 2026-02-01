@@ -354,14 +354,19 @@ typedef struct
 #define RTC_TAMPER_3                       TAMP_CR1_TAMP3E
 #ifdef TAMP_CR1_TAMP4E
 #define RTC_TAMPER_4                       TAMP_CR1_TAMP4E
+#endif /* TAMP_CR1_TAMP4E */
+#ifdef TAMP_CR1_TAMP5E
 #define RTC_TAMPER_5                       TAMP_CR1_TAMP5E
 #define RTC_TAMPER_6                       TAMP_CR1_TAMP6E
-#endif /* TAMP_CR1_TAMP4E */
+#endif /* TAMP_CR1_TAMP5E */
 
-#ifdef TAMP_CR1_TAMP4E
+#ifdef TAMP_CR1_TAMP5E
 #define RTC_TAMPER_ALL                     (RTC_TAMPER_1 | RTC_TAMPER_2 |\
                                             RTC_TAMPER_3 | RTC_TAMPER_4 |\
                                             RTC_TAMPER_5 | RTC_TAMPER_6)
+#elif defined(TAMP_CR1_TAMP4E)
+#define RTC_TAMPER_ALL                     (RTC_TAMPER_1 | RTC_TAMPER_2 |\
+                                            RTC_TAMPER_3 | RTC_TAMPER_4)
 #else
 #define RTC_TAMPER_ALL                     (RTC_TAMPER_1 | RTC_TAMPER_2 |\
                                             RTC_TAMPER_3)
@@ -612,6 +617,7 @@ typedef struct
 #define RTC_ATAMP_ASYNCPRES_RTCCLK_32      (TAMP_ATCR1_ATCKSEL_2 | TAMP_ATCR1_ATCKSEL_0)                        /*!< RTCCLK/32  */
 #define RTC_ATAMP_ASYNCPRES_RTCCLK_64      (TAMP_ATCR1_ATCKSEL_2 | TAMP_ATCR1_ATCKSEL_1)                        /*!< RTCCLK/64  */
 #define RTC_ATAMP_ASYNCPRES_RTCCLK_128     (TAMP_ATCR1_ATCKSEL_2 | TAMP_ATCR1_ATCKSEL_1 | TAMP_ATCR1_ATCKSEL_0) /*!< RTCCLK/128 */
+#define RTC_ATAMP_ASYNCPRES_RTCCLK_2048    (TAMP_ATCR1_ATCKSEL_3 | TAMP_ATCR1_ATCKSEL_1 | TAMP_ATCR1_ATCKSEL_0) /*!< RTCCLK/2048 */
 /**
   * @}
   */
@@ -848,12 +854,20 @@ typedef struct
   * @{
   */
 #define TAMP_DEVICESECRETS_ERASE_NONE          0U                   /*! < No Erase          */
+#ifdef TAMP_RPCFGR_RPCFG
 #define TAMP_DEVICESECRETS_ERASE_SRAM2         TAMP_RPCFGR_RPCFG_1  /*!< SRAM2              */
 #define TAMP_DEVICESECRETS_ERASE_RHUK          TAMP_RPCFGR_RPCFG_2  /*!< RHUK               */
 #define TAMP_DEVICESECRETS_ERASE_ICACHE        TAMP_RPCFGR_RPCFG_3  /*!< ICACHE             */
 #define TAMP_DEVICESECRETS_ERASE_SAES_AES_HASH TAMP_RPCFGR_RPCFG_4  /*!< SAES, AES and HASH */
 #define TAMP_DEVICESECRETS_ERASE_PKA_SRAM      TAMP_RPCFGR_RPCFG_5  /*!< Initialization     */
 #define TAMP_DEVICESECRETS_ERASE_ALL           TAMP_RPCFGR_RPCFG    /*!< All                */
+#elif defined(TAMP_ERCFGR_ERCFG)
+#define TAMP_DEVICESECRETS_ERASE_SRAM2           TAMP_ERCFGR_ERCFG_1  /*!< SRAM2                */
+#define TAMP_DEVICESECRETS_ERASE_ICACHE          TAMP_ERCFGR_ERCFG_3  /*!< ICACHE               */
+#define TAMP_DEVICESECRETS_ERASE_AES_HASH_OTFDEC TAMP_ERCFGR_ERCFG_4  /*!< AES, HASH and OTFDEC */
+#define TAMP_DEVICESECRETS_ERASE_PKA_SRAM        TAMP_ERCFGR_ERCFG_5  /*!< PKA SRAM             */
+#define TAMP_DEVICESECRETS_ERASE_ALL             TAMP_ERCFGR_ERCFG    /*!< All                  */
+#endif
 /**
   * @}
   */
@@ -1603,7 +1617,7 @@ uint32_t          HAL_RTCEx_BKUPRead(const RTC_HandleTypeDef *hrtc, uint32_t Bac
 void              HAL_RTCEx_BKUPErase(const RTC_HandleTypeDef *hrtc);
 void              HAL_RTCEx_BKUPBlock(const RTC_HandleTypeDef *hrtc);
 void              HAL_RTCEx_BKUPUnblock(const RTC_HandleTypeDef *hrtc);
-#ifdef TAMP_RPCFGR_RPCFG
+#if defined (TAMP_RPCFGR_RPCFG) || defined(TAMP_ERCFGR_ERCFG)
 void              HAL_RTCEx_ConfigEraseDeviceSecrets(const RTC_HandleTypeDef *hrtc, uint32_t DeviceSecretConf);
 #endif /* TAMP_RPCFGR_RPCFG */
 /**
@@ -1742,7 +1756,8 @@ HAL_StatusTypeDef HAL_RTCEx_PrivilegeModeGet(const RTC_HandleTypeDef *hrtc, RTC_
                                                               ((__PRESCALER__) == RTC_ATAMP_ASYNCPRES_RTCCLK_16)  || \
                                                               ((__PRESCALER__) == RTC_ATAMP_ASYNCPRES_RTCCLK_32)  || \
                                                               ((__PRESCALER__) == RTC_ATAMP_ASYNCPRES_RTCCLK_64)  || \
-                                                              ((__PRESCALER__) == RTC_ATAMP_ASYNCPRES_RTCCLK_128))
+                                                              ((__PRESCALER__) == RTC_ATAMP_ASYNCPRES_RTCCLK_128) || \
+                                                              ((__PRESCALER__) == RTC_ATAMP_ASYNCPRES_RTCCLK_2048))
 
 
 #define IS_RTC_BKP(__BKP__)   ((__BKP__) < RTC_BKP_NUMBER)

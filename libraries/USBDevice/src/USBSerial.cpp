@@ -158,22 +158,26 @@ void USBSerial::flush(void)
 
 uint32_t USBSerial::baud()
 {
-  return 115200;
+  // return (virtual) CDC line setting coding
+  return CDC_getBaudrate();
 }
 
 uint8_t USBSerial::stopbits()
 {
-  return ONE_STOP_BIT;
+  // return (virtual) CDC line setting coding
+  return CDC_getStopBits();
 }
 
 uint8_t USBSerial::paritytype()
 {
-  return NO_PARITY;
+  // return (virtual) CDC line setting coding
+  return CDC_getParity();
 }
 
 uint8_t USBSerial::numbits()
 {
-  return 8;
+  // return (virtual) CDC line setting coding
+  return CDC_getDataBits();
 }
 
 void USBSerial::dtr(bool enable)

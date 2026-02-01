@@ -14,26 +14,18 @@
 SPIClass SPI;
 
 /**
-  * @brief  Default constructor. Uses pin configuration of variant.h.
-  */
-SPIClass::SPIClass()
-{
-  _spi.pin_miso = digitalPinToPinName(MISO);
-  _spi.pin_mosi = digitalPinToPinName(MOSI);
-  _spi.pin_sclk = digitalPinToPinName(SCK);
-  _spi.pin_ssel = NC;
-}
-
-/**
-  * @brief  Constructor to create another SPI instance attached to another SPI
-  *         peripheral different of the default SPI. All pins must be attached to
-  *         the same SPI peripheral. See datasheet of the microcontroller.
+  * @brief  Default Constructor. Uses pin configuration of default SPI
+  *         defined in the variant*.h.
+  *         To create another SPI instance attached to another SPI
+  *         peripheral gave the pins as parameters to the constructor.
+  * @note   All pins must be attached to the same SPI peripheral.
+  *         See datasheet of the microcontroller.
   * @param  mosi: SPI mosi pin. Accepted format: number or Arduino format (Dx)
-  *         or ST format (Pxy).
+  *         or ST format (Pxy). Default is MOSI pin of the default SPI peripheral.
   * @param  miso: SPI miso pin. Accepted format: number or Arduino format (Dx)
-  *         or ST format (Pxy).
+  *         or ST format (Pxy). Default is MISO pin of the default SPI peripheral.
   * @param  sclk: SPI clock pin. Accepted format: number or Arduino format (Dx)
-  *         or ST format (Pxy).
+  *         or ST format (Pxy). Default is SCK pin of the default SPI peripheral.
   * @param  ssel: SPI ssel pin (optional). Accepted format: number or
   *         Arduino format (Dx) or ST format (Pxy). By default is set to NC.
   *         This pin must correspond to a hardware CS pin which can be managed
@@ -45,6 +37,7 @@ SPIClass::SPIClass()
   */
 SPIClass::SPIClass(uint32_t mosi, uint32_t miso, uint32_t sclk, uint32_t ssel)
 {
+  memset((void *)&_spi, 0, sizeof(_spi));
   _spi.pin_miso = digitalPinToPinName(miso);
   _spi.pin_mosi = digitalPinToPinName(mosi);
   _spi.pin_sclk = digitalPinToPinName(sclk);
@@ -53,28 +46,28 @@ SPIClass::SPIClass(uint32_t mosi, uint32_t miso, uint32_t sclk, uint32_t ssel)
 
 /**
   * @brief  Initialize the SPI instance.
+  * @param  device: device mode (optional), SPI_MASTER or SPI_SLAVE. Default is master.
   */
-void SPIClass::begin(void)
+void SPIClass::begin(SPIDeviceMode device)
 {
   _spi.handle.State = HAL_SPI_STATE_RESET;
   _spiSettings = SPISettings();
-  spi_init(&_spi, _spiSettings.clockFreq,
-           _spiSettings.dataMode,
-           _spiSettings.bitOrder);
+  _spiSettings.deviceMode = device;
+  spi_init(&_spi, _spiSettings.clockFreq, _spiSettings.dataMode,
+           _spiSettings.bitOrder, _spiSettings.deviceMode);
 }
 
 /**
   * @brief  This function should be used to configure the SPI instance in case you
   *         don't use the default parameters set by the begin() function.
-  * @param  settings: SPI settings(clock speed, bit order, data mode).
+  * @param  settings: SPI settings(clock speed, bit order, data mode, device mode).
   */
 void SPIClass::beginTransaction(SPISettings settings)
 {
   if (_spiSettings != settings) {
     _spiSettings = settings;
-    spi_init(&_spi, _spiSettings.clockFreq,
-             _spiSettings.dataMode,
-             _spiSettings.bitOrder);
+    spi_init(&_spi, _spiSettings.clockFreq, _spiSettings.dataMode,
+             _spiSettings.bitOrder, _spiSettings.deviceMode);
   }
 }
 
@@ -103,9 +96,8 @@ void SPIClass::setBitOrder(BitOrder bitOrder)
 {
   _spiSettings.bitOrder = bitOrder;
 
-  spi_init(&_spi, _spiSettings.clockFreq,
-           _spiSettings.dataMode,
-           _spiSettings.bitOrder);
+  spi_init(&_spi, _spiSettings.clockFreq, _spiSettings.dataMode,
+           _spiSettings.bitOrder, _spiSettings.deviceMode);
 }
 
 /**
@@ -127,9 +119,8 @@ void SPIClass::setDataMode(uint8_t mode)
 void SPIClass::setDataMode(SPIMode mode)
 {
   _spiSettings.dataMode = mode;
-  spi_init(&_spi, _spiSettings.clockFreq,
-           _spiSettings.dataMode,
-           _spiSettings.bitOrder);
+  spi_init(&_spi, _spiSettings.clockFreq, _spiSettings.dataMode,
+           _spiSettings.bitOrder, _spiSettings.deviceMode);
 }
 
 /**
@@ -147,9 +138,8 @@ void SPIClass::setClockDivider(uint8_t divider)
     _spiSettings.clockFreq = spi_getClkFreq(&_spi) / divider;
   }
 
-  spi_init(&_spi, _spiSettings.clockFreq,
-           _spiSettings.dataMode,
-           _spiSettings.bitOrder);
+  spi_init(&_spi, _spiSettings.clockFreq, _spiSettings.dataMode,
+           _spiSettings.bitOrder, _spiSettings.deviceMode);
 }
 
 /**

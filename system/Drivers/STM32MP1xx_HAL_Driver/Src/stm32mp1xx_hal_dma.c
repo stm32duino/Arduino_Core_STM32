@@ -121,7 +121,10 @@ typedef struct
  */
 #define HAL_TIMEOUT_DMA_ABORT    (5U)  /* 5 ms */
 
-
+#define IS_DMA_UART_USART_REQUEST(__REQUEST__) ((((__REQUEST__) >= DMA_REQUEST_USART2_RX)  &&  ((__REQUEST__) <= DMA_REQUEST_USART3_TX)) || \
+                                                 (((__REQUEST__) >= DMA_REQUEST_UART4_RX)  &&  ((__REQUEST__) <= DMA_REQUEST_UART5_TX )) || \
+                                                 (((__REQUEST__) >= DMA_REQUEST_USART6_RX) &&  ((__REQUEST__) <= DMA_REQUEST_USART6_TX)) || \
+                                                 (((__REQUEST__) >= DMA_REQUEST_UART7_RX)  &&  ((__REQUEST__) <= DMA_REQUEST_UART8_TX )))
 /**
   * @}
   */
@@ -254,6 +257,12 @@ HAL_StatusTypeDef HAL_DMA_Init(DMA_HandleTypeDef *hdma)
     {
       /* Get memory burst and peripheral burst */
       registerValue |=  hdma->Init.MemBurst | hdma->Init.PeriphBurst;
+    }
+
+    /* enable bufferable transfers if the DMA request is for UART/USART */
+    if(IS_DMA_UART_USART_REQUEST(hdma->Init.Request) != 0U)
+    {
+      registerValue |= DMA_SxCR_TRBUFF;
     }
 
     /* Write to DMA Stream CR register */

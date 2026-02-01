@@ -472,7 +472,9 @@ extern "C" {
 #define TYPEPROGRAMDATA_FASTBYTE      FLASH_TYPEPROGRAMDATA_FASTBYTE
 #define TYPEPROGRAMDATA_FASTHALFWORD  FLASH_TYPEPROGRAMDATA_FASTHALFWORD
 #define TYPEPROGRAMDATA_FASTWORD      FLASH_TYPEPROGRAMDATA_FASTWORD
+#if !defined(STM32F2) && !defined(STM32F4) && !defined(STM32F7) && !defined(STM32H7)
 #define PAGESIZE                      FLASH_PAGE_SIZE
+#endif /* STM32F2 && STM32F4 && STM32F7 &&  STM32H7 */
 #define TYPEPROGRAM_FASTBYTE          FLASH_TYPEPROGRAM_BYTE
 #define TYPEPROGRAM_FASTHALFWORD      FLASH_TYPEPROGRAM_HALFWORD
 #define TYPEPROGRAM_FASTWORD          FLASH_TYPEPROGRAM_WORD
@@ -600,6 +602,15 @@ extern "C" {
 #define HAL_SYSCFG_EnableIOAnalogSwitchVDD        HAL_SYSCFG_EnableIOSwitchVDD
 #define HAL_SYSCFG_DisableIOAnalogSwitchVDD       HAL_SYSCFG_DisableIOSwitchVDD
 #endif /* STM32G4 */
+
+#if defined(STM32U5)
+
+#define HAL_SYSCFG_EnableIOAnalogSwitchBooster                 HAL_SYSCFG_EnableIOAnalogBooster
+#define HAL_SYSCFG_DisableIOAnalogSwitchBooster                HAL_SYSCFG_DisableIOAnalogBooster
+#define HAL_SYSCFG_EnableIOAnalogSwitchVoltageSelection        HAL_SYSCFG_EnableIOAnalogVoltageSelection
+#define HAL_SYSCFG_DisableIOAnalogSwitchVoltageSelection       HAL_SYSCFG_DisableIOAnalogVoltageSelection
+
+#endif /* STM32U5 */
 
 #if defined(STM32H5)
 #define SYSCFG_IT_FPU_IOC         SBS_IT_FPU_IOC
@@ -875,6 +886,10 @@ extern "C" {
 #define __HAL_HRTIM_SetCompare        __HAL_HRTIM_SETCOMPARE
 #define __HAL_HRTIM_GetCompare        __HAL_HRTIM_GETCOMPARE
 
+#if defined(STM32F3) || defined(STM32G4) || defined(STM32H7)
+#define HRTIMInterruptResquests  HRTIMInterruptRequests
+#endif /* STM32F3 || STM32G4 || STM32H7 */
+
 #if defined(STM32G4)
 #define HAL_HRTIM_ExternalEventCounterConfig    HAL_HRTIM_ExtEventCounterConfig
 #define HAL_HRTIM_ExternalEventCounterEnable    HAL_HRTIM_ExtEventCounterEnable
@@ -1012,8 +1027,8 @@ extern "C" {
 #define HRTIM_CALIBRATIONRATE_910              (HRTIM_DLLCR_CALRTE_0)
 #define HRTIM_CALIBRATIONRATE_114              (HRTIM_DLLCR_CALRTE_1)
 #define HRTIM_CALIBRATIONRATE_14               (HRTIM_DLLCR_CALRTE_1 | HRTIM_DLLCR_CALRTE_0)
-
 #endif /* STM32F3 */
+
 /**
   * @}
   */
@@ -3680,7 +3695,7 @@ extern "C" {
 #endif
 
 #if defined(STM32L4) || defined(STM32WB) || defined(STM32G0) || defined(STM32G4) || defined(STM32L5) || \
-    defined(STM32WL) || defined(STM32C0) || defined(STM32U0)
+    defined(STM32WL) || defined(STM32C0) || defined(STM32H7RS) || defined(STM32U0)
 #define RCC_RTCCLKSOURCE_NO_CLK     RCC_RTCCLKSOURCE_NONE
 #else
 #define RCC_RTCCLKSOURCE_NONE       RCC_RTCCLKSOURCE_NO_CLK

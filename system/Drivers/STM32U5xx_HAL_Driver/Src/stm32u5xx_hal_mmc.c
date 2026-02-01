@@ -486,7 +486,7 @@ HAL_StatusTypeDef HAL_MMC_Init(MMC_HandleTypeDef *hmmc)
 HAL_StatusTypeDef HAL_MMC_InitCard(MMC_HandleTypeDef *hmmc)
 {
   uint32_t errorstate;
-  MMC_InitTypeDef Init;
+  MMC_InitTypeDef Init = {0U};
   uint32_t sdmmc_clk;
 
   /* Default SDMMC peripheral configuration for MMC card initialization */
@@ -2120,7 +2120,7 @@ HAL_StatusTypeDef HAL_MMC_UnRegisterCallback(MMC_HandleTypeDef *hmmc, HAL_MMC_Ca
   *         contains all CID register parameters
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_MMC_GetCardCID(MMC_HandleTypeDef *hmmc, HAL_MMC_CardCIDTypeDef *pCID)
+HAL_StatusTypeDef HAL_MMC_GetCardCID(const MMC_HandleTypeDef *hmmc, HAL_MMC_CardCIDTypeDef *pCID)
 {
   pCID->ManufacturerID = (uint8_t)((hmmc->CID[0] & 0xFF000000U) >> 24U);
 
@@ -2271,7 +2271,7 @@ HAL_StatusTypeDef HAL_MMC_GetCardCSD(MMC_HandleTypeDef *hmmc, HAL_MMC_CardCSDTyp
   *         will contain the MMC card status information
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_MMC_GetCardInfo(MMC_HandleTypeDef *hmmc, HAL_MMC_CardInfoTypeDef *pCardInfo)
+HAL_StatusTypeDef HAL_MMC_GetCardInfo(const MMC_HandleTypeDef *hmmc, HAL_MMC_CardInfoTypeDef *pCardInfo)
 {
   pCardInfo->CardType     = (uint32_t)(hmmc->MmcCard.CardType);
   pCardInfo->Class        = (uint32_t)(hmmc->MmcCard.Class);
@@ -3368,7 +3368,7 @@ HAL_StatusTypeDef HAL_MMC_SleepDevice(MMC_HandleTypeDef *hmmc)
                   {
                     /* Send CMD5 CMD_MMC_SLEEP_AWAKE with RCA and SLEEP as argument */
                     errorstate = SDMMC_CmdSleepMmc(hmmc->Instance,
-                                                   ((hmmc->MmcCard.RelCardAdd << 16U) | (0x1U << 15U)));
+                                                   ((hmmc->MmcCard.RelCardAdd << 16UL) | (0x1UL << 15UL)));
                     if (errorstate == HAL_MMC_ERROR_NONE)
                     {
                       /* Wait that the device is ready by checking the D0 line */
@@ -3986,7 +3986,7 @@ static uint32_t MMC_HighSpeed(MMC_HandleTypeDef *hmmc, FunctionalState state)
   uint32_t response = 0U;
   uint32_t count;
   uint32_t sdmmc_clk;
-  SDMMC_InitTypeDef Init;
+  SDMMC_InitTypeDef Init = {0U};
 
   if (((hmmc->Instance->CLKCR & SDMMC_CLKCR_BUSSPEED) != 0U) && (state == DISABLE))
   {
@@ -4302,7 +4302,6 @@ static uint32_t MMC_PwrClassUpdate(MMC_HandleTypeDef *hmmc, uint32_t Wide, uint3
   * @brief  Used to select the partition.
   * @param  hmmc: Pointer to MMC handle
   * @param  Partition: Partition type
-  * @param  Timeout: Specify timeout value
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_MMC_SwitchPartition(MMC_HandleTypeDef *hmmc, HAL_MMC_PartitionTypeDef Partition)
@@ -4683,7 +4682,7 @@ HAL_StatusTypeDef HAL_MMC_RPMB_ProgramAuthenticationKey(MMC_HandleTypeDef *hmmc,
 /**
   * @brief  Allows to get the value of write counter within the RPMB partition.
   * @param  hmmc: Pointer to MMC handle
-  * @param  Nonce: pointer to the value of nonce (16 bytes)
+  * @param  pNonce: pointer to the value of nonce (16 bytes)
   * @param  Timeout: Specify timeout value
   * @retval write counter value.
   */

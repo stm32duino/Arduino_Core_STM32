@@ -553,6 +553,13 @@ void HAL_RCCEx_GetPeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *PeriphClkInit)
                                         RCC_PERIPHCLK_LPTIM1  | RCC_PERIPHCLK_SAI1   | RCC_PERIPHCLK_I2S    | RCC_PERIPHCLK_FDCAN    | \
                                         RCC_PERIPHCLK_RNG     | RCC_PERIPHCLK_USB    | RCC_PERIPHCLK_ADC12  | \
                                         RCC_PERIPHCLK_RTC;
+#elif defined(STM32G411xB) || defined(STM32G411xC)
+
+  PeriphClkInit->PeriphClockSelection = RCC_PERIPHCLK_USART1  | RCC_PERIPHCLK_USART2 | RCC_PERIPHCLK_UART4  | \
+                                        RCC_PERIPHCLK_LPUART1 | RCC_PERIPHCLK_I2C1   | RCC_PERIPHCLK_I2C2   | \
+                                        RCC_PERIPHCLK_LPTIM1  | RCC_PERIPHCLK_I2S    | RCC_PERIPHCLK_FDCAN  | \
+                                        RCC_PERIPHCLK_RNG     | RCC_PERIPHCLK_ADC12  | RCC_PERIPHCLK_RTC;
+
 #elif defined(STM32GBK1CB)
 
   PeriphClkInit->PeriphClockSelection = RCC_PERIPHCLK_USART1  | RCC_PERIPHCLK_USART2 | RCC_PERIPHCLK_USART3 | \

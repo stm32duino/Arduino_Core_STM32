@@ -106,21 +106,43 @@ ErrorStatus LL_PWR_DeInit(void)
   LL_PWR_WriteReg(C2CR3, PWR_C2CR3_RESET_VALUE);
 
   /* Clear all flags */
+  #if defined(PWR_CR3_E802A) && defined(PWR_CR5_SMPSEN)
+LL_PWR_WriteReg(SCR,
+                LL_PWR_SCR_CC2HF
+                | LL_PWR_SCR_CBLEAF
+                | LL_PWR_SCR_CCRPEF
+                | LL_PWR_SCR_C802AF
+                | LL_PWR_SCR_C802WUF
+                | LL_PWR_SCR_CBLEWUF
+                | LL_PWR_SCR_CBORHF
+                | LL_PWR_SCR_CSMPSFBF
+                | LL_PWR_SCR_CWUF);
+#elif defined(PWR_CR3_E802A)
   LL_PWR_WriteReg(SCR,
-                  LL_PWR_SCR_CC2HF
-                  | LL_PWR_SCR_CBLEAF
-                  | LL_PWR_SCR_CCRPEF
-#if defined(PWR_CR3_E802A)
-                  | LL_PWR_SCR_C802AF
-                  | LL_PWR_SCR_C802WUF
-#endif /* PWR_CR3_E802A */
-                  | LL_PWR_SCR_CBLEWUF
-#if defined(PWR_CR5_SMPSEN)
-                  | LL_PWR_SCR_CBORHF
-                  | LL_PWR_SCR_CSMPSFBF
-#endif /* PWR_CR5_SMPSEN */
-                  | LL_PWR_SCR_CWUF
-                 );
+                LL_PWR_SCR_CC2HF
+                | LL_PWR_SCR_CBLEAF
+                | LL_PWR_SCR_CCRPEF
+                | LL_PWR_SCR_C802AF
+                | LL_PWR_SCR_C802WUF
+                | LL_PWR_SCR_CBLEWUF
+                | LL_PWR_SCR_CWUF);
+#elif defined(PWR_CR5_SMPSEN)
+  LL_PWR_WriteReg(SCR,
+                LL_PWR_SCR_CC2HF
+                | LL_PWR_SCR_CBLEAF
+                | LL_PWR_SCR_CCRPEF
+                | LL_PWR_SCR_CBLEWUF
+                | LL_PWR_SCR_CBORHF
+                | LL_PWR_SCR_CSMPSFBF
+                | LL_PWR_SCR_CWUF);
+#else
+  LL_PWR_WriteReg(SCR,
+                LL_PWR_SCR_CC2HF
+                | LL_PWR_SCR_CBLEAF
+                | LL_PWR_SCR_CCRPEF
+                | LL_PWR_SCR_CBLEWUF
+                | LL_PWR_SCR_CWUF);
+#endif
 
   LL_PWR_WriteReg(EXTSCR,
                   LL_PWR_EXTSCR_CCRPF

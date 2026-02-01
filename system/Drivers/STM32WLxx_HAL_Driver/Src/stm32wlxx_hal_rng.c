@@ -42,7 +42,7 @@
     allows the user to configure dynamically the driver callbacks.
 
     [..]
-    Use FunctionHAL_RNG_RegisterCallback() to register a user callback.
+    Use Function HAL_RNG_RegisterCallback() to register a user callback.
     Function HAL_RNG_RegisterCallback() allows to register following callbacks:
     (+) ErrorCallback             : RNG Error Callback.
     (+) MspInitCallback           : RNG MspInit.
@@ -52,7 +52,7 @@
 
     [..]
     Use function HAL_RNG_UnRegisterCallback() to reset a callback to the default
-    weak (surcharged) function.
+    weak (overridden) function.
     HAL_RNG_UnRegisterCallback() takes as parameters the HAL peripheral handle,
     and the Callback ID.
     This function allows to reset following callbacks:
@@ -66,10 +66,10 @@
 
     [..]
     By default, after the HAL_RNG_Init() and when the state is HAL_RNG_STATE_RESET
-    all callbacks are set to the corresponding weak (surcharged) functions:
+    all callbacks are set to the corresponding weak (overridden) functions:
     example HAL_RNG_ErrorCallback().
     Exception done for MspInit and MspDeInit functions that are respectively
-    reset to the legacy weak (surcharged) functions in the HAL_RNG_Init()
+    reset to the legacy weak (overridden) functions in the HAL_RNG_Init()
     and HAL_RNG_DeInit() only when these callbacks are null (not registered beforehand).
     If not, MspInit or MspDeInit are not null, the HAL_RNG_Init() and HAL_RNG_DeInit()
     keep and use the user MspInit/MspDeInit callbacks (registered beforehand).
@@ -86,7 +86,7 @@
     [..]
     When The compilation define USE_HAL_RNG_REGISTER_CALLBACKS is set to 0 or
     not defined, the callback registration feature is not available
-    and weak (surcharged) callbacks are used.
+    and weak (overridden) callbacks are used.
 
   @endverbatim
   ******************************************************************************
@@ -115,7 +115,8 @@
   */
 /*  Health test control register information to use in CCM algorithm */
 #define RNG_HTCFG_1   0x17590ABCU /*!< Magic number */
-#define RNG_HTCFG     0x0000A2B3U /*!< Recommended value for NIST compliance */
+#define RNG_HTCFG     0x0000AA74U /*!< Recommended value for NIST compliance, refer to application note AN4230 */
+#define RNG_CRCFG     0x00F00D00U
 /**
   * @}
   */
@@ -208,11 +209,10 @@ HAL_StatusTypeDef HAL_RNG_Init(RNG_HandleTypeDef *hrng)
 
   /* Clock Error Detection Configuration when CONDRT bit is set to 1 */
   MODIFY_REG(hrng->Instance->CR, RNG_CR_CED | RNG_CR_CONDRST, hrng->Init.ClockErrorDetection | RNG_CR_CONDRST);
-
 #if defined(RNG_VER_3_2) || defined(RNG_VER_3_1) || defined(RNG_VER_3_0)
   /*!< magic number must be written immediately before to RNG_HTCRG */
   WRITE_REG(hrng->Instance->HTCR, RNG_HTCFG_1);
-  /* for best latency and to be compliant with NIST */
+  /* Recommended value for NIST compliance, refer to application note AN4230 */
   WRITE_REG(hrng->Instance->HTCR, RNG_HTCFG);
 #endif /* RNG_VER_3_2 || RNG_VER_3_1 || RNG_VER_3_0 */
 
@@ -249,12 +249,12 @@ HAL_StatusTypeDef HAL_RNG_Init(RNG_HandleTypeDef *hrng)
   /* Get tick */
   tickstart = HAL_GetTick();
   /* Check if data register contains valid random data */
-  while (__HAL_RNG_GET_FLAG(hrng, RNG_FLAG_SECS) != RESET)
+  while (__HAL_RNG_GET_FLAG(hrng, RNG_FLAG_DRDY) != SET)
   {
     if ((HAL_GetTick() - tickstart) > RNG_TIMEOUT_VALUE)
     {
       /* New check to avoid false timeout detection in case of preemption */
-      if (__HAL_RNG_GET_FLAG(hrng, RNG_FLAG_SECS) != RESET)
+      if (__HAL_RNG_GET_FLAG(hrng, RNG_FLAG_DRDY) != SET)
       {
         hrng->State = HAL_RNG_STATE_ERROR;
         hrng->ErrorCode = HAL_RNG_ERROR_TIMEOUT;
@@ -401,8 +401,6 @@ HAL_StatusTypeDef HAL_RNG_RegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Call
     hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
     return HAL_ERROR;
   }
-  /* Process locked */
-  __HAL_LOCK(hrng);
 
   if (HAL_RNG_STATE_READY == hrng->State)
   {
@@ -456,8 +454,6 @@ HAL_StatusTypeDef HAL_RNG_RegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Call
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hrng);
   return status;
 }
 
@@ -476,8 +472,6 @@ HAL_StatusTypeDef HAL_RNG_UnRegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Ca
 {
   HAL_StatusTypeDef status = HAL_OK;
 
-  /* Process locked */
-  __HAL_LOCK(hrng);
 
   if (HAL_RNG_STATE_READY == hrng->State)
   {
@@ -531,8 +525,6 @@ HAL_StatusTypeDef HAL_RNG_UnRegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Ca
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hrng);
   return status;
 }
 
@@ -665,6 +657,8 @@ HAL_StatusTypeDef HAL_RNG_GenerateRandomNumber(RNG_HandleTypeDef *hrng, uint32_t
       status = RNG_RecoverSeedError(hrng);
       if (status == HAL_ERROR)
       {
+        /* Update the error code */
+        hrng->ErrorCode = HAL_RNG_ERROR_RECOVERSEED;
         return status;
       }
     }
@@ -695,10 +689,9 @@ HAL_StatusTypeDef HAL_RNG_GenerateRandomNumber(RNG_HandleTypeDef *hrng, uint32_t
        be used as it may not have enough entropy */
     if (__HAL_RNG_GET_IT(hrng, RNG_IT_SEI) != RESET)
     {
-      /* Update the error code */
+      /* Update the error code and status */
       hrng->ErrorCode = HAL_RNG_ERROR_SEED;
-      /* Clear bit DRDY */
-      CLEAR_BIT(hrng->Instance->SR, RNG_FLAG_DRDY);
+      status = HAL_ERROR;
     }
     else /* No seed error */
     {
@@ -776,18 +769,19 @@ HAL_StatusTypeDef HAL_RNG_GenerateRandomNumber_IT(RNG_HandleTypeDef *hrng)
 void HAL_RNG_IRQHandler(RNG_HandleTypeDef *hrng)
 {
   uint32_t rngclockerror = 0U;
+  uint32_t itflag   = hrng->Instance->SR;
 
   /* RNG clock error interrupt occurred */
-  if (__HAL_RNG_GET_IT(hrng, RNG_IT_CEI) != RESET)
+  if ((itflag & RNG_IT_CEI) == RNG_IT_CEI)
   {
     /* Update the error code */
     hrng->ErrorCode = HAL_RNG_ERROR_CLOCK;
     rngclockerror = 1U;
   }
-  else if (__HAL_RNG_GET_IT(hrng, RNG_IT_SEI) != RESET)
+  else if ((itflag & RNG_IT_SEI) == RNG_IT_SEI)
   {
     /* Check if Seed Error Current Status (SECS) is set */
-    if (__HAL_RNG_GET_FLAG(hrng, RNG_FLAG_SECS) == RESET)
+    if ((itflag & RNG_FLAG_SECS) != RNG_FLAG_SECS)
     {
       /* RNG IP performed the reset automatically (auto-reset) */
       /* Clear bit SEIS */
@@ -827,7 +821,7 @@ void HAL_RNG_IRQHandler(RNG_HandleTypeDef *hrng)
   }
 
   /* Check RNG data ready interrupt occurred */
-  if (__HAL_RNG_GET_IT(hrng, RNG_IT_DRDY) != RESET)
+  if ((itflag & RNG_IT_DRDY) == RNG_IT_DRDY)
   {
     /* Generate random number once, so disable the IT */
     __HAL_RNG_DISABLE_IT(hrng);
@@ -859,7 +853,7 @@ void HAL_RNG_IRQHandler(RNG_HandleTypeDef *hrng)
   *                the configuration information for RNG.
   * @retval random value
   */
-uint32_t HAL_RNG_ReadLastRandomNumber(RNG_HandleTypeDef *hrng)
+uint32_t HAL_RNG_ReadLastRandomNumber(const RNG_HandleTypeDef *hrng)
 {
   return (hrng->RandomNumber);
 }
@@ -926,7 +920,7 @@ __weak void HAL_RNG_ErrorCallback(RNG_HandleTypeDef *hrng)
   *                the configuration information for RNG.
   * @retval HAL state
   */
-HAL_RNG_StateTypeDef HAL_RNG_GetState(RNG_HandleTypeDef *hrng)
+HAL_RNG_StateTypeDef HAL_RNG_GetState(const RNG_HandleTypeDef *hrng)
 {
   return hrng->State;
 }
@@ -936,7 +930,7 @@ HAL_RNG_StateTypeDef HAL_RNG_GetState(RNG_HandleTypeDef *hrng)
   * @param  hrng: pointer to a RNG_HandleTypeDef structure.
   * @retval RNG Error Code
   */
-uint32_t HAL_RNG_GetError(RNG_HandleTypeDef *hrng)
+uint32_t HAL_RNG_GetError(const RNG_HandleTypeDef *hrng)
 {
   /* Return RNG Error Code */
   return hrng->ErrorCode;
@@ -996,8 +990,7 @@ HAL_StatusTypeDef RNG_RecoverSeedError(RNG_HandleTypeDef *hrng)
 #endif /* USE_HAL_RNG_REGISTER_CALLBACKS */
         return HAL_ERROR;
       }
-    }
-    while (HAL_IS_BIT_SET(hrng->Instance->CR, RNG_CR_CONDRST));
+    } while (HAL_IS_BIT_SET(hrng->Instance->CR, RNG_CR_CONDRST));
 
     if (__HAL_RNG_GET_IT(hrng, RNG_IT_SEI) != RESET)
     {
@@ -1025,8 +1018,7 @@ HAL_StatusTypeDef RNG_RecoverSeedError(RNG_HandleTypeDef *hrng)
 #endif /* USE_HAL_RNG_REGISTER_CALLBACKS */
         return HAL_ERROR;
       }
-    }
-    while (HAL_IS_BIT_SET(hrng->Instance->SR, RNG_FLAG_SECS));
+    } while (HAL_IS_BIT_SET(hrng->Instance->SR, RNG_FLAG_SECS));
   }
   /* Update the error code */
   hrng->ErrorCode &= ~ HAL_RNG_ERROR_SEED;

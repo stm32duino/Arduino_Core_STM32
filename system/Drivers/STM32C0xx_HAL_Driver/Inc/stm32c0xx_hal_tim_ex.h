@@ -147,6 +147,16 @@ typedef struct
 #define TIM_TIM14_TI1_MCO                     0x00000003U                       /*!< TIM14_TI1 is connected to MCO */
 #define TIM_TIM14_TI1_MCO2                    0x00000004U                       /*!< TIM14_TI1 is connected to MCO2 */
 
+#if defined(TIM15)
+#define TIM_TIM15_TI1_GPIO                    0x00000000U                       /*!< TIM15_TI1 is connected to GPIO */
+#define TIM_TIM15_TI1_TIM2_CH1                0x00000001U                       /*!< TIM15_TI1 is connected to TIM2 CH1 */
+#define TIM_TIM15_TI1_TIM3_CH1                0x00000002U                       /*!< TIM15_TI1 is connected to TIM3 CH1 */
+
+#define TIM_TIM15_TI2_GPIO                    0x00000000U                       /*!< TIM15_TI2 is connected to GPIO */
+#define TIM_TIM15_TI2_TIM2_CH2                0x00000100U                       /*!< TIM15_TI2 is connected to TIM2 CH2 */
+#define TIM_TIM15_TI2_TIM3_CH2                0x00000200U                       /*!< TIM15_TI2 is connected to TIM3 CH2 */
+#endif /* TIM15 */
+
 #define TIM_TIM16_TI1_GPIO                    0x00000000U                       /*!< TIM16_TI1 is connected to GPIO */
 #define TIM_TIM16_TI1_LSI                     0x00000001U                       /*!< TIM16_TI1 is connected to LSI */
 #define TIM_TIM16_TI1_LSE                     0x00000002U                       /*!< TIM16_TI1 is connected to LSE */

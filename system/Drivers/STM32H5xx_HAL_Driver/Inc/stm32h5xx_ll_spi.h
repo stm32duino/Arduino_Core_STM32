@@ -3632,7 +3632,7 @@ __STATIC_INLINE void LL_I2S_TransmitData32(SPI_TypeDef *SPIx, uint32_t TxData)
   */
 
 ErrorStatus LL_I2S_DeInit(const SPI_TypeDef *SPIx);
-ErrorStatus LL_I2S_Init(SPI_TypeDef *SPIx, LL_I2S_InitTypeDef *I2S_InitStruct);
+ErrorStatus LL_I2S_Init(SPI_TypeDef *SPIx, const LL_I2S_InitTypeDef *I2S_InitStruct);
 void        LL_I2S_StructInit(LL_I2S_InitTypeDef *I2S_InitStruct);
 void        LL_I2S_ConfigPrescaler(SPI_TypeDef *SPIx, uint32_t PrescalerLinear, uint32_t PrescalerParity);
 

@@ -341,7 +341,7 @@ __STATIC_INLINE void LL_COMP_SetCommonWindowMode(COMP_Common_TypeDef *COMPxy_COM
   *         @arg @ref LL_COMP_WINDOWMODE_DISABLE
   *         @arg @ref LL_COMP_WINDOWMODE_COMP1_INPUT_PLUS_COMMON
   */
-__STATIC_INLINE uint32_t LL_COMP_GetCommonWindowMode(COMP_Common_TypeDef *COMPxy_COMMON)
+__STATIC_INLINE uint32_t LL_COMP_GetCommonWindowMode(const COMP_Common_TypeDef *COMPxy_COMMON)
 {
   return (uint32_t)(READ_BIT(COMPxy_COMMON->CFGR, COMP_CFGRx_WINMODE));
 }
@@ -378,7 +378,7 @@ __STATIC_INLINE void LL_COMP_SetPowerMode(COMP_TypeDef *COMPx, uint32_t PowerMod
   *         @arg @ref LL_COMP_POWERMODE_MEDIUMSPEED
   *         @arg @ref LL_COMP_POWERMODE_ULTRALOWPOWER
   */
-__STATIC_INLINE uint32_t LL_COMP_GetPowerMode(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_GetPowerMode(const COMP_TypeDef *COMPx)
 {
   return (uint32_t)(READ_BIT(COMPx->CFGR, COMP_CFGRx_PWRMODE));
 }
@@ -480,7 +480,7 @@ __STATIC_INLINE void LL_COMP_SetInputPlus(COMP_TypeDef *COMPx, uint32_t InputPlu
   *         @arg @ref LL_COMP_INPUT_PLUS_IO2
   *         @arg @ref LL_COMP_INPUT_PLUS_DAC2_CH1
   */
-__STATIC_INLINE uint32_t LL_COMP_GetInputPlus(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_GetInputPlus(const COMP_TypeDef *COMPx)
 {
 #if defined (COMP_CFGRx_INP2SEL)
   return (uint32_t)(READ_BIT(COMPx->CFGR, COMP_CFGRx_INPSEL | COMP_CFGRx_INP2SEL));
@@ -549,7 +549,7 @@ __STATIC_INLINE void LL_COMP_SetInputMinus(COMP_TypeDef *COMPx, uint32_t InputMi
   *         @arg @ref LL_COMP_INPUT_MINUS_TPSENS_DAC2CH1
   *         @arg @ref LL_COMP_INPUT_MINUS_VBAT_VDDAP
   */
-__STATIC_INLINE uint32_t LL_COMP_GetInputMinus(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_GetInputMinus(const COMP_TypeDef *COMPx)
 {
   return (uint32_t)(READ_BIT(COMPx->CFGR, COMP_CFGRx_INMSEL | COMP_CFGRx_SCALEN | COMP_CFGRx_BRGEN));
 }
@@ -580,7 +580,7 @@ __STATIC_INLINE void LL_COMP_SetInputHysteresis(COMP_TypeDef *COMPx, uint32_t In
   *         @arg @ref LL_COMP_HYSTERESIS_MEDIUM
   *         @arg @ref LL_COMP_HYSTERESIS_HIGH
   */
-__STATIC_INLINE uint32_t LL_COMP_GetInputHysteresis(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_GetInputHysteresis(const COMP_TypeDef *COMPx)
 {
   return (uint32_t)(READ_BIT(COMPx->CFGR, COMP_CFGRx_HYST));
 }
@@ -615,7 +615,7 @@ __STATIC_INLINE void LL_COMP_SetOutputPolarity(COMP_TypeDef *COMPx, uint32_t Out
   *         @arg @ref LL_COMP_OUTPUTPOL_NONINVERTED
   *         @arg @ref LL_COMP_OUTPUTPOL_INVERTED
   */
-__STATIC_INLINE uint32_t LL_COMP_GetOutputPolarity(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_GetOutputPolarity(const COMP_TypeDef *COMPx)
 {
   return (uint32_t)(READ_BIT(COMPx->CFGR, COMP_CFGRx_POLARITY));
 }
@@ -660,7 +660,7 @@ __STATIC_INLINE void LL_COMP_SetOutputBlankingSource(COMP_TypeDef *COMPx, uint32
   *         @arg @ref LL_COMP_BLANKINGSRC_TIM8_OC5
   *         @arg @ref LL_COMP_BLANKINGSRC_TIM15_OC1
   */
-__STATIC_INLINE uint32_t LL_COMP_GetOutputBlankingSource(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_GetOutputBlankingSource(const COMP_TypeDef *COMPx)
 {
   return (uint32_t)(READ_BIT(COMPx->CFGR, COMP_CFGRx_BLANKING));
 }
@@ -685,7 +685,7 @@ __STATIC_INLINE uint32_t LL_COMP_GetOutputBlankingSource(COMP_TypeDef *COMPx)
   *            @arg @ref LL_COMP_AF_PK2
   * @retval None
   */
-__STATIC_INLINE void LL_COMP_SetOutputAlternateFunction(COMP_TypeDef *COMPx, uint32_t CompAFx)
+__STATIC_INLINE void LL_COMP_SetOutputAlternateFunction(const COMP_TypeDef *COMPx, uint32_t CompAFx)
 {
   MODIFY_REG(COMP12->OR, 0x7FFUL, (COMPx == COMP1) ? ((~CompAFx) & 0x7FFUL) : CompAFx);
 }
@@ -706,7 +706,7 @@ __STATIC_INLINE void LL_COMP_SetOutputAlternateFunction(COMP_TypeDef *COMPx, uin
   *            @arg @ref LL_COMP_AF_PI4
   *            @arg @ref LL_COMP_AF_PK2
   */
-__STATIC_INLINE uint32_t LL_COMP_GetOutputAlternateFunction(COMP_TypeDef *COMPx )
+__STATIC_INLINE uint32_t LL_COMP_GetOutputAlternateFunction(const COMP_TypeDef *COMPx )
 {
   return (uint32_t) ((COMPx == COMP1) ? ((~COMP12->OR) & 0x7FFUL) : (COMP12->OR &  0x7FFUL));
 }
@@ -751,7 +751,7 @@ __STATIC_INLINE void LL_COMP_Disable(COMP_TypeDef *COMPx)
   * @param  COMPx Comparator instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_COMP_IsEnabled(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_IsEnabled(const COMP_TypeDef *COMPx)
 {
   return ((READ_BIT(COMPx->CFGR, COMP_CFGRx_EN) == (COMP_CFGRx_EN)) ? 1UL : 0UL);
 }
@@ -778,7 +778,7 @@ __STATIC_INLINE void LL_COMP_Lock(COMP_TypeDef *COMPx)
   * @param  COMPx Comparator instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_COMP_IsLocked(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_IsLocked(const COMP_TypeDef *COMPx)
 {
   return ((READ_BIT(COMPx->CFGR, COMP_CFGRx_LOCK) == (COMP_CFGRx_LOCK)) ? 1UL : 0UL);
 }
@@ -803,7 +803,7 @@ __STATIC_INLINE uint32_t LL_COMP_IsLocked(COMP_TypeDef *COMPx)
   *         @arg @ref LL_COMP_OUTPUT_LEVEL_LOW
   *         @arg @ref LL_COMP_OUTPUT_LEVEL_HIGH
   */
-__STATIC_INLINE uint32_t LL_COMP_ReadOutputLevel(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_ReadOutputLevel(const COMP_TypeDef *COMPx)
 {
   if (COMPx == COMP1)
   {
@@ -829,7 +829,7 @@ __STATIC_INLINE uint32_t LL_COMP_ReadOutputLevel(COMP_TypeDef *COMPx)
   * @param  COMPx Comparator instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_COMP_IsActiveFlag_OutputTrig(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_IsActiveFlag_OutputTrig(const COMP_TypeDef *COMPx)
 {
    if (COMPx == COMP1)
   {
@@ -847,7 +847,7 @@ __STATIC_INLINE uint32_t LL_COMP_IsActiveFlag_OutputTrig(COMP_TypeDef *COMPx)
   * @param  COMPx Comparator instance
   * @retval None
   */
-__STATIC_INLINE void LL_COMP_ClearFlag_OutputTrig(COMP_TypeDef *COMPx)
+__STATIC_INLINE void LL_COMP_ClearFlag_OutputTrig(const COMP_TypeDef *COMPx)
 {
   if (COMPx == COMP1)
   {
@@ -895,7 +895,7 @@ __STATIC_INLINE void LL_COMP_DisableIT_OutputTrig(COMP_TypeDef *COMPx)
   * @param  COMPx Comparator instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_COMP_IsEnabledIT_OutputTrig(COMP_TypeDef *COMPx)
+__STATIC_INLINE uint32_t LL_COMP_IsEnabledIT_OutputTrig(const COMP_TypeDef *COMPx)
 {
   return ((READ_BIT(COMPx->CFGR, COMP_CFGRx_ITEN) == (COMP_CFGRx_ITEN)) ? 1UL : 0UL);
 }

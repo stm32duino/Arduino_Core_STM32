@@ -45,9 +45,9 @@ extern "C" {
   */
 /* Defines used to perform offsets*/
 /* Offset used to access to RCC_CCIPR1 and RCC_CCIPR2 registers */
-#define RCC_OFFSET_CCIPR1       0U
-#define RCC_OFFSET_CCIPR2       0x04U
-#define RCC_OFFSET_CCIPR3       0x08U
+#define RCC_OFFSET_CCIPR1       0UL
+#define RCC_OFFSET_CCIPR2       0x04UL
+#define RCC_OFFSET_CCIPR3       0x08UL
 
 /* Defines used for security configuration extension */
 #define RCC_SECURE_MASK         0x1FFFU
@@ -2952,7 +2952,7 @@ __STATIC_INLINE void LL_RCC_SetLPUARTClockSource(uint32_t LPUARTxSource)
 __STATIC_INLINE void LL_RCC_SetI2CClockSource(uint32_t I2CxSource)
 {
   __IO uint32_t *reg = (__IO uint32_t *)(uint32_t)(RCC_BASE + 0xE0U + (I2CxSource >> 24U));
-  MODIFY_REG(*reg, 3U << (((I2CxSource & 0x00FF0000U) >> 16U) & 0x1FU), ((I2CxSource & 0x000000FFU) << \
+  MODIFY_REG(*reg, 3UL << (((I2CxSource & 0x00FF0000U) >> 16U) & 0x1FU), ((I2CxSource & 0x000000FFU) << \
                                                                          (((I2CxSource & 0x00FF0000U) >> 16U) & \
                                                                           0x1FU)));
 }
@@ -2981,7 +2981,7 @@ __STATIC_INLINE void LL_RCC_SetI2CClockSource(uint32_t I2CxSource)
 __STATIC_INLINE void LL_RCC_SetSPIClockSource(uint32_t SPIxSource)
 {
   __IO uint32_t *reg = (__IO uint32_t *)(uint32_t)(RCC_BASE + 0xE0U + (SPIxSource >> 24U));
-  MODIFY_REG(*reg, 3U << (((SPIxSource & 0x00FF0000U) >> 16U) & 0x1FU), ((SPIxSource & 0x000000FFU) << \
+  MODIFY_REG(*reg, 3UL << (((SPIxSource & 0x00FF0000U) >> 16U) & 0x1FU), ((SPIxSource & 0x000000FFU) << \
                                                                          (((SPIxSource & 0x00FF0000U) >> 16U) & \
                                                                           0x1FU)));
 }
@@ -3009,7 +3009,7 @@ __STATIC_INLINE void LL_RCC_SetSPIClockSource(uint32_t SPIxSource)
 __STATIC_INLINE void LL_RCC_SetLPTIMClockSource(uint32_t LPTIMxSource)
 {
   __IO uint32_t *reg = (__IO uint32_t *)(uint32_t)(RCC_BASE + 0xE0U + (LPTIMxSource >> 24U));
-  MODIFY_REG(*reg, 3U << (((LPTIMxSource & 0x00FF0000U) >> 16U) & 0x1FU), ((LPTIMxSource & 0x000000FFU) << \
+  MODIFY_REG(*reg, 3UL << (((LPTIMxSource & 0x00FF0000U) >> 16U) & 0x1FU), ((LPTIMxSource & 0x000000FFU) << \
                                                                            (((LPTIMxSource & 0x00FF0000U) >> 16U) & \
                                                                             0x1FU)));
 }

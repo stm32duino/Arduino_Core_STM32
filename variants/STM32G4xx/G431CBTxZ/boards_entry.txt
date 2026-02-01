@@ -10,4 +10,5 @@ GenG4.menu.pnum.GENERIC_G431CBTXZ.upload.maximum_data_size=32768
 GenG4.menu.pnum.GENERIC_G431CBTXZ.build.board=GENERIC_G431CBTXZ
 GenG4.menu.pnum.GENERIC_G431CBTXZ.build.product_line=STM32G431xx
 GenG4.menu.pnum.GENERIC_G431CBTXZ.build.variant=STM32G4xx/G431CBTxZ
+GenG4.menu.pnum.GENERIC_G431CBTXZ.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G431.svd
 

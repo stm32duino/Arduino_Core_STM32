@@ -31,12 +31,12 @@
   [..]
     (+) Each SRAM is managed by a RAMCFG instance.
         (++) SRAM1 placed in Core Domain.
-             (+++) Size         = 64 kB (STM32WBA54xx, STM32WBA55xx)
+             (+++) Size         = 64 kB (STM32WBA54xx, STM32WBA55xx, STM32WBA5Mxx)
              (+++) Size         = 16 kB (STM32WBA50xx)
              (+++) Base Address = 0x20000000.
 
         (++) SRAM2 placed in Core Domain.
-             (+++) Size         = 64 kB (STM32WBA54xx, STM32WBA55xx)
+             (+++) Size         = 64 kB (STM32WBA54xx, STM32WBA55xx, STM32WBA5Mxx)
              (+++) Size         = 48 kB (STM32WBA50xx)
              (+++) Base Address = 0x20010000.
 
@@ -662,18 +662,21 @@ uint32_t HAL_RAMCFG_GetWaitState(const RAMCFG_HandleTypeDef *hramcfg)
   * @param  hramcfg       : Pointer to a RAMCFG_HandleTypeDef structure that
   *                         contains the configuration information for the
   *                         specified RAMCFG instance.
-  * @param  StartPage     : Select the start page number (from 0 to 63)
+  * @param  StartPage     : Select the start page number (from 0 to 63 or
+  *                         from 0 to 31 according devices)
   * @param  NbPage        : Number of pages to be protected.
   * @retval HAL status.
   */
 HAL_StatusTypeDef HAL_RAMCFG_EnableWriteProtection(RAMCFG_HandleTypeDef *hramcfg, uint32_t StartPage, uint32_t NbPage)
 {
   uint32_t page_mask_0 = 0U;
+#if defined(RAMCFG_WPR2_P32WP)
   uint32_t page_mask_1 = 0U;
+#endif /* defined(RAMCFG_WPR2_P32WP) */
 
   /* Check the parameters */
   assert_param(IS_RAMCFG_WP_INSTANCE(hramcfg->Instance));
-  assert_param(IS_RAMCFG_WRITEPROTECTION_PAGE(StartPage + NbPage));
+  assert_param(IS_RAMCFG_WRITEPROTECTION_PAGE(StartPage + NbPage - 1U));
 
   /* Check RAMCFG state */
   if (hramcfg->State == HAL_RAMCFG_STATE_READY)
@@ -688,15 +691,19 @@ HAL_StatusTypeDef HAL_RAMCFG_EnableWriteProtection(RAMCFG_HandleTypeDef *hramcfg
       {
         page_mask_0 |= (1UL << (StartPage + count));
       }
+#if defined(RAMCFG_WPR2_P32WP)
       else
       {
         page_mask_1 |= (1UL << ((StartPage + count) - 32U));
       }
+#endif /* defined(RAMCFG_WPR2_P32WP) */
     }
 
     /* Apply mask to protect pages */
     WRITE_REG(hramcfg->Instance->WPR1, page_mask_0);
+#if defined(RAMCFG_WPR2_P32WP)
     WRITE_REG(hramcfg->Instance->WPR2, page_mask_1);
+#endif /* defined(RAMCFG_WPR2_P32WP) */
   }
   else
   {

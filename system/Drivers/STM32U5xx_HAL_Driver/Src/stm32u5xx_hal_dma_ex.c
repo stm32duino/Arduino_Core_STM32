@@ -537,9 +537,15 @@ static void DMA_List_BuildNode(DMA_NodeConfTypeDef const *const pNodeConfig,
                                DMA_NodeTypeDef *const pNode);
 static void DMA_List_GetNodeConfig(DMA_NodeConfTypeDef *const pNodeConfig,
                                    DMA_NodeTypeDef const *const pNode);
+#if defined ( __GNUC__ ) && !defined (__CC_ARM)
+static __attribute__((noinline)) uint32_t DMA_List_CheckNodesBaseAddresses(DMA_NodeTypeDef const *const pNode1,  \
+                                                                           DMA_NodeTypeDef const *const pNode2,  \
+                                                                           DMA_NodeTypeDef const *const pNode3);
+#else
 static uint32_t DMA_List_CheckNodesBaseAddresses(DMA_NodeTypeDef const *const pNode1,
                                                  DMA_NodeTypeDef const *const pNode2,
                                                  DMA_NodeTypeDef const *const pNode3);
+#endif /* __GNUC__ && !__CC_ARM */
 static uint32_t DMA_List_CheckNodesTypes(DMA_NodeTypeDef const *const pNode1,
                                          DMA_NodeTypeDef const *const pNode2,
                                          DMA_NodeTypeDef const *const pNode3);
@@ -1087,10 +1093,6 @@ HAL_StatusTypeDef HAL_DMAEx_List_BuildNode(DMA_NodeConfTypeDef const *const pNod
   if ((pNodeConfig->NodeType & DMA_CHANNEL_TYPE_2D_ADDR) == DMA_CHANNEL_TYPE_2D_ADDR)
   {
     assert_param(IS_DMA_REPEAT_COUNT(pNodeConfig->RepeatBlockConfig.RepeatCount));
-    assert_param(IS_DMA_BURST_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.SrcAddrOffset));
-    assert_param(IS_DMA_BURST_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.DestAddrOffset));
-    assert_param(IS_DMA_BLOCK_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.BlkSrcAddrOffset));
-    assert_param(IS_DMA_BLOCK_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.BlkDestAddrOffset));
     assert_param(IS_DMA_BURST_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.SrcAddrOffset));
     assert_param(IS_DMA_BURST_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.DestAddrOffset));
     assert_param(IS_DMA_BLOCK_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.BlkSrcAddrOffset));
@@ -3903,7 +3905,6 @@ static void DMA_List_BuildNode(DMA_NodeConfTypeDef const *const pNodeConfig,
     /********************************************************************************* CBR2 register value is updated */
   }
 
-
   /* Update node information value ************************************************************************************/
   /* Set node information */
   pNode->NodeInfo = pNodeConfig->NodeType;
@@ -4087,9 +4088,15 @@ static void DMA_List_GetNodeConfig(DMA_NodeConfTypeDef *const pNodeConfig,
   * @param  pNode3 : Pointer to a DMA_NodeTypeDef structure that contains linked-list node 3 registers configurations.
   * @retval Return 0 when nodes addresses are compatible, 1 otherwise.
   */
+#if defined ( __GNUC__ ) && !defined (__CC_ARM)
+static __attribute__((noinline)) uint32_t DMA_List_CheckNodesBaseAddresses(DMA_NodeTypeDef const *const pNode1,  \
+                                                                           DMA_NodeTypeDef const *const pNode2,  \
+                                                                           DMA_NodeTypeDef const *const pNode3)
+#else
 static uint32_t DMA_List_CheckNodesBaseAddresses(DMA_NodeTypeDef const *const pNode1,
                                                  DMA_NodeTypeDef const *const pNode2,
                                                  DMA_NodeTypeDef const *const pNode3)
+#endif /* __GNUC__ && !__CC_ARM */
 {
   uint32_t temp = (((uint32_t)pNode1 | (uint32_t)pNode2 | (uint32_t)pNode3) & DMA_CLBAR_LBA);
   uint32_t ref  = 0U;
@@ -4458,7 +4465,7 @@ static void DMA_List_ConvertNodeToStatic(uint32_t ContextNodeAddr,
   uint32_t contextnode_reg_counter = 0U;
   uint32_t cllr_idx;
   uint32_t cllr_mask;
-  DMA_NodeTypeDef *context_node = (DMA_NodeTypeDef *)ContextNodeAddr;
+  const DMA_NodeTypeDef *context_node = (DMA_NodeTypeDef *)ContextNodeAddr;
   DMA_NodeTypeDef *current_node = (DMA_NodeTypeDef *)CurrentNodeAddr;
   uint32_t update_link[NODE_MAXIMUM_SIZE] = {DMA_CLLR_UT1, DMA_CLLR_UT2, DMA_CLLR_UB1, DMA_CLLR_USA,
                                              DMA_CLLR_UDA, DMA_CLLR_UT3, DMA_CLLR_UB2, DMA_CLLR_ULL

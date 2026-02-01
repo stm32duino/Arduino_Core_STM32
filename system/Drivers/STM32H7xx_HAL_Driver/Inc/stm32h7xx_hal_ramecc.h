@@ -303,12 +303,12 @@ HAL_StatusTypeDef HAL_RAMECC_UnRegisterCallback(RAMECC_HandleTypeDef *hramecc);
   * @brief    Error information functions
   * @{
   */
-uint32_t HAL_RAMECC_GetFailingAddress(RAMECC_HandleTypeDef *hramecc);
-uint32_t HAL_RAMECC_GetFailingDataLow(RAMECC_HandleTypeDef *hramecc);
-uint32_t HAL_RAMECC_GetFailingDataHigh(RAMECC_HandleTypeDef *hramecc);
-uint32_t HAL_RAMECC_GetHammingErrorCode(RAMECC_HandleTypeDef *hramecc);
-uint32_t HAL_RAMECC_IsECCSingleErrorDetected(RAMECC_HandleTypeDef *hramecc);
-uint32_t HAL_RAMECC_IsECCDoubleErrorDetected(RAMECC_HandleTypeDef *hramecc);
+uint32_t HAL_RAMECC_GetFailingAddress(const RAMECC_HandleTypeDef *hramecc);
+uint32_t HAL_RAMECC_GetFailingDataLow(const RAMECC_HandleTypeDef *hramecc);
+uint32_t HAL_RAMECC_GetFailingDataHigh(const RAMECC_HandleTypeDef *hramecc);
+uint32_t HAL_RAMECC_GetHammingErrorCode(const RAMECC_HandleTypeDef *hramecc);
+uint32_t HAL_RAMECC_IsECCSingleErrorDetected(const RAMECC_HandleTypeDef *hramecc);
+uint32_t HAL_RAMECC_IsECCDoubleErrorDetected(const RAMECC_HandleTypeDef *hramecc);
 /**
   * @}
   */
@@ -317,9 +317,9 @@ uint32_t HAL_RAMECC_IsECCDoubleErrorDetected(RAMECC_HandleTypeDef *hramecc);
   * @brief    State and Error Functions
   * @{
   */
-HAL_RAMECC_StateTypeDef HAL_RAMECC_GetState(RAMECC_HandleTypeDef *hramecc);
-uint32_t HAL_RAMECC_GetError(RAMECC_HandleTypeDef *hramecc);
-uint32_t HAL_RAMECC_GetRAMECCError(RAMECC_HandleTypeDef *hramecc);
+HAL_RAMECC_StateTypeDef HAL_RAMECC_GetState(const RAMECC_HandleTypeDef *hramecc);
+uint32_t HAL_RAMECC_GetError(const RAMECC_HandleTypeDef *hramecc);
+uint32_t HAL_RAMECC_GetRAMECCError(const RAMECC_HandleTypeDef *hramecc);
 /**
   * @}
   */

@@ -512,6 +512,7 @@ static uint8_t USBD_DFU_EP0_RxReady(USBD_HandleTypeDef *pdev)
 
   return (uint8_t)USBD_OK;
 }
+
 /**
   * @brief  USBD_DFU_EP0_TxReady
   *         handle EP0 TRx Ready event
@@ -521,9 +522,13 @@ static uint8_t USBD_DFU_EP0_RxReady(USBD_HandleTypeDef *pdev)
 static uint8_t  USBD_DFU_EP0_TxReady(USBD_HandleTypeDef *pdev)
 {
   USBD_SetupReqTypedef req;
+  uint32_t app_addr_ptr;
   uint32_t addr;
   USBD_DFU_HandleTypeDef *hdfu = (USBD_DFU_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
   USBD_DFU_MediaTypeDef *DfuInterface = (USBD_DFU_MediaTypeDef *)pdev->pUserData[pdev->classId];
+#if (USBD_DFU_VENDOR_CMD_ENABLED == 1U) || (USBD_DFU_VENDOR_CHECK_ENABLED == 1U)
+  uint32_t VendorStatus = 0U;
+#endif /* USBD_DFU_VENDOR_CMD_ENABLED */
 
   if (hdfu == NULL)
   {
@@ -541,11 +546,43 @@ static uint8_t  USBD_DFU_EP0_TxReady(USBD_HandleTypeDef *pdev)
         {
           /* Nothing to do */
         }
+#if (USBD_DFU_VENDOR_CMD_ENABLED == 1U)
+        else
+        {
+          /* Vendor specific DFU CMD */
+          if (DfuInterface->VendorDownloadCMD(hdfu->buffer.d8, hdfu->wblock_num,
+                                              hdfu->wlength, &VendorStatus) != USBD_OK)
+          {
+            /* Update the state machine */
+            hdfu->dev_state = DFU_STATE_ERROR;
+            hdfu->dev_status[0] = (uint8_t)VendorStatus;
+            hdfu->dev_status[1] = 0U;
+            hdfu->dev_status[2] = 0U;
+            hdfu->dev_status[3] = 0U;
+            hdfu->dev_status[4] = hdfu->dev_state;
+            return (uint8_t)USBD_FAIL;
+          }
+        }
+#endif /* USBD_DFU_VENDOR_CMD_ENABLED */
       }
       else if (hdfu->wlength == 5U)
       {
         if (hdfu->buffer.d8[0] == DFU_CMD_SETADDRESSPOINTER)
         {
+#if (USBD_DFU_VENDOR_CHECK_ENABLED == 1U)
+          if (DfuInterface->VendorCheck(hdfu->buffer.d8, IS_DFU_SETADDRESSPOINTER, &VendorStatus) != USBD_OK)
+          {
+            /* Update the state machine */
+            hdfu->dev_state = DFU_STATE_ERROR;
+            hdfu->dev_status[0] = (uint8_t)VendorStatus;
+            hdfu->dev_status[1] = 0U;
+            hdfu->dev_status[2] = 0U;
+            hdfu->dev_status[3] = 0U;
+            hdfu->dev_status[4] = hdfu->dev_state;
+            return (uint8_t)USBD_FAIL;
+          }
+#endif /* USBD_DFU_VENDOR_CHECK_ENABLED */
+
           hdfu->data_ptr = hdfu->buffer.d8[1];
           hdfu->data_ptr += (uint32_t)hdfu->buffer.d8[2] << 8;
           hdfu->data_ptr += (uint32_t)hdfu->buffer.d8[3] << 16;
@@ -553,30 +590,114 @@ static uint8_t  USBD_DFU_EP0_TxReady(USBD_HandleTypeDef *pdev)
         }
         else if (hdfu->buffer.d8[0] == DFU_CMD_ERASE)
         {
-          hdfu->data_ptr = hdfu->buffer.d8[1];
-          hdfu->data_ptr += (uint32_t)hdfu->buffer.d8[2] << 8;
-          hdfu->data_ptr += (uint32_t)hdfu->buffer.d8[3] << 16;
-          hdfu->data_ptr += (uint32_t)hdfu->buffer.d8[4] << 24;
-
-          if (DfuInterface->Erase(hdfu->data_ptr) != USBD_OK)
+#if (USBD_DFU_VENDOR_CHECK_ENABLED == 1U)
+          if (DfuInterface->VendorCheck(hdfu->buffer.d8, IS_DFU_DOWNLOAD, &VendorStatus) != USBD_OK)
           {
+            /* Update the state machine */
+            hdfu->dev_state = DFU_STATE_ERROR;
+            hdfu->dev_status[0] = (uint8_t)VendorStatus;
+            hdfu->dev_status[1] = 0U;
+            hdfu->dev_status[2] = 0U;
+            hdfu->dev_status[3] = 0U;
+            hdfu->dev_status[4] = hdfu->dev_state;
+            return (uint8_t)USBD_FAIL;
+          }
+#endif /* USBD_DFU_VENDOR_CHECK_ENABLED */
+
+          app_addr_ptr = hdfu->buffer.d8[1];
+          app_addr_ptr += (uint32_t)hdfu->buffer.d8[2] << 8;
+          app_addr_ptr += (uint32_t)hdfu->buffer.d8[3] << 16;
+          app_addr_ptr += (uint32_t)hdfu->buffer.d8[4] << 24;
+
+          if (DfuInterface->Erase(app_addr_ptr) != USBD_OK)
+          {
+            /* Update the state machine */
+            hdfu->dev_state = DFU_STATE_ERROR;
+            hdfu->dev_status[0] = DFU_ERROR_VENDOR;
+            hdfu->dev_status[1] = 0U;
+            hdfu->dev_status[2] = 0U;
+            hdfu->dev_status[3] = 0U;
+            hdfu->dev_status[4] = hdfu->dev_state;
+            return (uint8_t)USBD_FAIL;
+          }
+        }
+#if (USBD_DFU_VENDOR_CMD_ENABLED == 1U)
+        else
+        {
+          /* Vendor specific DFU CMD */
+          if (DfuInterface->VendorDownloadCMD(hdfu->buffer.d8, hdfu->wblock_num,
+                                              hdfu->wlength, &VendorStatus) != USBD_OK)
+          {
+            /* Update the state machine */
+            hdfu->dev_state =  DFU_STATE_ERROR;
+            hdfu->dev_status[0] = (uint8_t)VendorStatus;
+            hdfu->dev_status[1] = 0U;
+            hdfu->dev_status[2] = 0U;
+            hdfu->dev_status[3] = 0U;
+            hdfu->dev_status[4] = hdfu->dev_state;
+            return (uint8_t)USBD_FAIL;
+          }
+        }
+#else
+        else
+        {
+          return (uint8_t)USBD_FAIL;
+        }
+#endif /* USBD_DFU_VENDOR_CMD_ENABLED */
+      }
+      else
+      {
+#if (USBD_DFU_VENDOR_CMD_ENABLED == 1U)
+        if (hdfu->wlength > 0U)
+        {
+#if (USBD_DFU_VENDOR_CHECK_ENABLED == 1U)
+          if (DfuInterface->VendorCheck(hdfu->buffer.d8, IS_DFU_DOWNLOAD, &VendorStatus) != USBD_OK)
+          {
+            /* Update the state machine */
+            hdfu->dev_state = DFU_STATE_ERROR;
+            hdfu->dev_status[0] = (uint8_t)VendorStatus;
+            hdfu->dev_status[1] = 0U;
+            hdfu->dev_status[2] = 0U;
+            hdfu->dev_status[3] = 0U;
+            hdfu->dev_status[4] = hdfu->dev_state;
+            return (uint8_t)USBD_FAIL;
+          }
+#endif /* USBD_DFU_VENDOR_CHECK_ENABLED */
+
+          /* Vendor specific DFU CMD */
+          if (DfuInterface->VendorDownloadCMD(hdfu->buffer.d8, hdfu->wblock_num,
+                                              hdfu->wlength, &VendorStatus) != USBD_OK)
+          {
+            /* Update the state machine */
+            hdfu->dev_state =  DFU_STATE_ERROR;
+            hdfu->dev_status[0] = (uint8_t)VendorStatus;
+            hdfu->dev_status[1] = 0U;
+            hdfu->dev_status[2] = 0U;
+            hdfu->dev_status[3] = 0U;
+            hdfu->dev_status[4] = hdfu->dev_state;
             return (uint8_t)USBD_FAIL;
           }
         }
         else
         {
-          return (uint8_t)USBD_FAIL;
+          /* Reset the block number */
+          hdfu->wblock_num = 0U;
+
+          /* Call the error management function (command will be NAKed) */
+          req.bmRequest = 0U;
+          req.wLength = 1U;
+          USBD_CtlError(pdev, &req);
         }
-      }
-      else
-      {
+#else
         /* Reset the global length and block number */
         hdfu->wlength = 0U;
         hdfu->wblock_num = 0U;
+
         /* Call the error management function (command will be NAKed) */
         req.bmRequest = 0U;
         req.wLength = 1U;
         USBD_CtlError(pdev, &req);
+#endif /* USBD_DFU_VENDOR_CMD_ENABLED */
       }
     }
     /* Regular Download Command */
@@ -584,12 +705,33 @@ static uint8_t  USBD_DFU_EP0_TxReady(USBD_HandleTypeDef *pdev)
     {
       if (hdfu->wblock_num > 1U)
       {
+#if (USBD_DFU_VENDOR_CHECK_ENABLED == 1U)
+        if (DfuInterface->VendorCheck(hdfu->buffer.d8, IS_DFU_DOWNLOAD, &VendorStatus) != USBD_OK)
+        {
+          /* Update the state machine */
+          hdfu->dev_state = DFU_STATE_ERROR;
+          hdfu->dev_status[0] = (uint8_t)VendorStatus;
+          hdfu->dev_status[1] = 0U;
+          hdfu->dev_status[2] = 0U;
+          hdfu->dev_status[3] = 0U;
+          hdfu->dev_status[4] = hdfu->dev_state;
+          return (uint8_t)USBD_FAIL;
+        }
+#endif /* USBD_DFU_VENDOR_CHECK_ENABLED */
+
         /* Decode the required address */
         addr = ((hdfu->wblock_num - 2U) * USBD_DFU_XFER_SIZE) + hdfu->data_ptr;
 
         /* Perform the write operation */
         if (DfuInterface->Write(hdfu->buffer.d8, (uint8_t *)addr, hdfu->wlength) != USBD_OK)
         {
+          /* Update the state machine */
+          hdfu->dev_state = DFU_STATE_ERROR;
+          hdfu->dev_status[0] = DFU_ERROR_VENDOR;
+          hdfu->dev_status[1] = 0U;
+          hdfu->dev_status[2] = 0U;
+          hdfu->dev_status[3] = 0U;
+          hdfu->dev_status[4] = hdfu->dev_state;
           return (uint8_t)USBD_FAIL;
         }
       }
@@ -670,7 +812,7 @@ static uint8_t *USBD_DFU_GetUsrStringDesc(USBD_HandleTypeDef *pdev, uint8_t inde
   else
   {
     /* Not supported Interface Descriptor index */
-    length = 0U;
+    *length = 0U;
     return NULL;
   }
 }
@@ -758,6 +900,11 @@ static void DFU_Download(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 {
   USBD_DFU_HandleTypeDef *hdfu = (USBD_DFU_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
 
+#if (USBD_DFU_VENDOR_CHECK_ENABLED == 1U)
+  USBD_DFU_MediaTypeDef *DfuInterface = (USBD_DFU_MediaTypeDef *)pdev->pUserData[pdev->classId];
+  uint32_t VendorStatus = 0U;
+#endif /* USBD_DFU_VENDOR_CHECK_ENABLED */
+
   if (hdfu == NULL)
   {
     return;
@@ -789,15 +936,30 @@ static void DFU_Download(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
   /* 0 Data DNLOAD request */
   else
   {
-    /* End of DNLOAD operation*/
+    /* End of DNLOAD operation */
     if ((hdfu->dev_state == DFU_STATE_DNLOAD_IDLE) || (hdfu->dev_state == DFU_STATE_IDLE))
     {
-      hdfu->manif_state = DFU_MANIFEST_IN_PROGRESS;
-      hdfu->dev_state = DFU_STATE_MANIFEST_SYNC;
-      hdfu->dev_status[1] = 0U;
-      hdfu->dev_status[2] = 0U;
-      hdfu->dev_status[3] = 0U;
-      hdfu->dev_status[4] = hdfu->dev_state;
+#if (USBD_DFU_VENDOR_CHECK_ENABLED == 1U)
+      if (DfuInterface->VendorCheck(hdfu->buffer.d8, IS_DFU_SETADDRESSPOINTER, &VendorStatus) != USBD_OK)
+      {
+        /* Update the state machine */
+        hdfu->dev_state = DFU_STATE_ERROR;
+        hdfu->dev_status[0] = (uint8_t)VendorStatus;
+        hdfu->dev_status[1] = 0U;
+        hdfu->dev_status[2] = 0U;
+        hdfu->dev_status[3] = 0U;
+        hdfu->dev_status[4] = hdfu->dev_state;
+      }
+      else
+#endif /* USBD_DFU_VENDOR_CHECK_ENABLED */
+      {
+        hdfu->manif_state = DFU_MANIFEST_IN_PROGRESS;
+        hdfu->dev_state = DFU_STATE_MANIFEST_SYNC;
+        hdfu->dev_status[1] = 0U;
+        hdfu->dev_status[2] = 0U;
+        hdfu->dev_status[3] = 0U;
+        hdfu->dev_status[4] = hdfu->dev_state;
+      }
     }
     else
     {
@@ -820,6 +982,13 @@ static void DFU_Upload(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
   USBD_DFU_MediaTypeDef *DfuInterface = (USBD_DFU_MediaTypeDef *)pdev->pUserData[pdev->classId];
   uint8_t *phaddr;
   uint32_t addr;
+  uint32_t CmdLength;
+#if (USBD_DFU_VENDOR_CMD_ENABLED == 1U)
+  uint32_t VendorStatus = 0U;
+  uint8_t VendorCmdLength = 0U;
+  uint8_t VendorCmdBuffer[DFU_VENDOR_CMD_MAX];
+  uint8_t idx;
+#endif /* USBD_DFU_VENDOR_CMD_ENABLED */
 
   if (hdfu == NULL)
   {
@@ -851,8 +1020,24 @@ static void DFU_Upload(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
         hdfu->buffer.d8[1] = DFU_CMD_SETADDRESSPOINTER;
         hdfu->buffer.d8[2] = DFU_CMD_ERASE;
 
+        CmdLength = 3U;
+
+#if (USBD_DFU_VENDOR_CMD_ENABLED == 1U)
+        if (DfuInterface->GetVendorCMD != NULL)
+        {
+          (void)DfuInterface->GetVendorCMD(VendorCmdBuffer, (uint8_t *)&VendorCmdLength);
+
+          for (idx = 0U; idx < MIN(VendorCmdLength, DFU_VENDOR_CMD_MAX); idx++)
+          {
+            hdfu->buffer.d8[idx + 3U] = VendorCmdBuffer[idx];
+          }
+
+          CmdLength += MIN(VendorCmdLength, DFU_VENDOR_CMD_MAX);
+        }
+#endif /* USBD_DFU_VENDOR_CMD_ENABLED */
+
         /* Send the status data over EP0 */
-        (void)USBD_CtlSendData(pdev, (uint8_t *)(&(hdfu->buffer.d8[0])), 3U);
+        (void)USBD_CtlSendData(pdev, (uint8_t *)(&(hdfu->buffer.d8[0])), CmdLength);
       }
       else if (hdfu->wblock_num > 1U)
       {
@@ -863,13 +1048,48 @@ static void DFU_Upload(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
         hdfu->dev_status[3] = 0U;
         hdfu->dev_status[4] = hdfu->dev_state;
 
-        addr = ((hdfu->wblock_num - 2U) * USBD_DFU_XFER_SIZE) + hdfu->data_ptr;
+#if (USBD_DFU_VENDOR_CMD_ENABLED == 1U)
+        /* Vendor specific DFU CMD */
+        if (DfuInterface->VendorUploadCMD(hdfu->data_ptr, hdfu->wblock_num, &VendorStatus) != USBD_OK)
+        {
+          /* Update the state machine */
+          hdfu->dev_state = DFU_ERROR_STALLEDPKT;
+          hdfu->dev_status[0] = (uint8_t)VendorStatus;
+          hdfu->dev_status[1] = 0U;
+          hdfu->dev_status[2] = 0U;
+          hdfu->dev_status[3] = 0U;
+          hdfu->dev_status[4] = hdfu->dev_state;
 
-        /* Return the physical address where data are stored */
-        phaddr = DfuInterface->Read((uint8_t *)addr, hdfu->buffer.d8, hdfu->wlength);
+          /* Call the error management function (command will be NAKed) */
+          USBD_CtlError(pdev, req);
+        }
 
-        /* Send the status data over EP0 */
-        (void)USBD_CtlSendData(pdev, phaddr, hdfu->wlength);
+        if (VendorStatus == IS_DFU_PHY_ADDRESS)
+#endif /* USBD_DFU_VENDOR_CMD_ENABLED */
+        {
+          addr = ((hdfu->wblock_num - 2U) * USBD_DFU_XFER_SIZE) + hdfu->data_ptr;
+
+          /* Return the physical address where data are stored */
+          phaddr = DfuInterface->Read((uint8_t *)addr, hdfu->buffer.d8, hdfu->wlength);
+
+          if (phaddr == NULL)
+          {
+            hdfu->dev_state = DFU_ERROR_STALLEDPKT;
+
+            hdfu->dev_status[1] = 0U;
+            hdfu->dev_status[2] = 0U;
+            hdfu->dev_status[3] = 0U;
+            hdfu->dev_status[4] = hdfu->dev_state;
+
+            /* Call the error management function (command will be NAKed) */
+            USBD_CtlError(pdev, req);
+          }
+          else
+          {
+            /* Send the status data over EP0 */
+            (void)USBD_CtlSendData(pdev, phaddr, hdfu->wlength);
+          }
+        }
       }
       else  /* unsupported hdfu->wblock_num */
       {
@@ -880,7 +1100,7 @@ static void DFU_Upload(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
         hdfu->dev_status[3] = 0U;
         hdfu->dev_status[4] = hdfu->dev_state;
 
-        /* Call the error management function (command will be NAKed */
+        /* Call the error management function (command will be NAKed) */
         USBD_CtlError(pdev, req);
       }
     }
@@ -890,7 +1110,7 @@ static void DFU_Upload(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
       hdfu->wlength = 0U;
       hdfu->wblock_num = 0U;
 
-      /* Call the error management function (command will be NAKed */
+      /* Call the error management function (command will be NAKed) */
       USBD_CtlError(pdev, req);
     }
   }
@@ -944,7 +1164,7 @@ static void DFU_GetStatus(USBD_HandleTypeDef *pdev)
           DfuInterface->GetStatus(hdfu->data_ptr, DFU_MEDIA_PROGRAM, hdfu->dev_status);
         }
       }
-      else  /* (hdfu->wlength==0)*/
+      else  /* (hdfu->wlength == 0U) */
       {
         hdfu->dev_state = DFU_STATE_DNLOAD_IDLE;
 
@@ -960,7 +1180,7 @@ static void DFU_GetStatus(USBD_HandleTypeDef *pdev)
       {
         hdfu->dev_state = DFU_STATE_MANIFEST;
 
-        hdfu->dev_status[1] = 1U;             /*bwPollTimeout = 1ms*/
+        hdfu->dev_status[1] = 1U;             /* bwPollTimeout = 1ms */
         hdfu->dev_status[2] = 0U;
         hdfu->dev_status[3] = 0U;
         hdfu->dev_status[4] = hdfu->dev_state;
@@ -1088,9 +1308,10 @@ static void DFU_Abort(USBD_HandleTypeDef *pdev)
 static void DFU_Leave(USBD_HandleTypeDef *pdev)
 {
   USBD_DFU_HandleTypeDef *hdfu = (USBD_DFU_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
+  USBD_DFU_MediaTypeDef *DfuInterface = (USBD_DFU_MediaTypeDef *)pdev->pUserData[pdev->classId];
   USBD_DFUFuncDescTypeDef *pDfuFunc = (USBD_DFUFuncDescTypeDef *)USBD_DFU_GetDfuFuncDesc(pdev->pConfDesc);
 
-  if ((hdfu == NULL) || (pDfuFunc == NULL))
+  if ((hdfu == NULL) || (DfuInterface == NULL) || (pDfuFunc == NULL))
   {
     return;
   }
@@ -1119,8 +1340,13 @@ static void DFU_Leave(USBD_HandleTypeDef *pdev)
     /* Disconnect the USB device */
     (void)USBD_Stop(pdev);
 
+#if (USBD_DFU_VENDOR_EXIT_ENABLED == 1U)
+    /* Jump should be ensured by user application */
+    DfuInterface->LeaveDFU(hdfu->data_ptr);
+#else
     /* Generate system reset to allow jumping to the user code */
     NVIC_SystemReset();
+#endif /* USBD_DFU_VENDOR_EXIT_ENABLED */
 
     /* The next instructions will not be reached (system reset) */
   }

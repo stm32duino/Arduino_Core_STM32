@@ -623,7 +623,7 @@ typedef struct
     :                                     \
     RESET                                 \
   )
-#elif defined(STM32G491xx) || defined(STM32G4A1xx)
+#elif defined(STM32G491xx) || defined(STM32G4A1xx) || defined(STM32G411xC)
 #define ADC_IS_INDEPENDENT(__HANDLE__)    \
   ( ( ( ((__HANDLE__)->Instance) == ADC3) \
     )?                                    \
@@ -631,7 +631,7 @@ typedef struct
     :                                     \
     RESET                                 \
   )
-#elif defined(STM32G414xx) || defined(STM32GBK1CB) || defined(STM32G431xx) || defined(STM32G441xx) || defined(STM32G471xx)
+#elif defined(STM32G411xB) || defined(STM32G414xx) || defined(STM32GBK1CB) || defined(STM32G431xx) || defined(STM32G441xx) || defined(STM32G471xx)
 #define ADC_IS_INDEPENDENT(__HANDLE__) (RESET)
 #endif /* defined(STM32G474xx) || defined(STM32G484xx) || defined(STM32G473xx) || defined(STM32G483xx) */
 
@@ -790,7 +790,7 @@ typedef struct
     :                                                                    \
     ((__HANDLE_SLAVE__)->Instance = NULL)                                \
   )
-#elif defined(STM32G414xx) || defined(STM32GBK1CB) || defined(STM32G431xx) || defined(STM32G441xx) || defined(STM32G471xx) || defined(STM32G491xx) || defined(STM32G4A1xx)
+#elif defined(STM32G411xB) || defined(STM32G411xC) || defined(STM32G414xx) || defined(STM32GBK1CB) || defined(STM32G431xx) || defined(STM32G441xx) || defined(STM32G471xx) || defined(STM32G491xx) || defined(STM32G4A1xx)
 /**
   * @brief Set handle instance of the ADC slave associated to the ADC master.
   * @param __HANDLE_MASTER__ ADC master handle.
@@ -816,7 +816,7 @@ typedef struct
 #if defined(STM32G474xx) || defined(STM32G484xx) || defined(STM32G473xx) || defined(STM32G483xx)
 #define ADC_TEMPERATURE_SENSOR_INSTANCE(__HANDLE__) \
   ((((__HANDLE__)->Instance) == ADC1) || (((__HANDLE__)->Instance) == ADC5))
-#elif defined(STM32G414xx) || defined(STM32GBK1CB) || defined(STM32G431xx) || defined(STM32G441xx) || defined(STM32G471xx) || defined(STM32G491xx) || defined(STM32G4A1xx)
+#elif defined(STM32G411xB) || defined(STM32G411xC) || defined(STM32G414xx) || defined(STM32GBK1CB) || defined(STM32G431xx) || defined(STM32G441xx) || defined(STM32G471xx) || defined(STM32G491xx) || defined(STM32G4A1xx)
 #define ADC_TEMPERATURE_SENSOR_INSTANCE(__HANDLE__)  (((__HANDLE__)->Instance) == ADC1)
 #endif /* defined(STM32G474xx) || defined(STM32G484xx) || defined(STM32G473xx) || defined(STM32G483xx) */
 
@@ -828,7 +828,7 @@ typedef struct
 #if defined(STM32G474xx) || defined(STM32G484xx) || defined(STM32G473xx) || defined(STM32G483xx)
 #define ADC_BATTERY_VOLTAGE_INSTANCE(__HANDLE__) \
   ((((__HANDLE__)->Instance) != ADC2) || (((__HANDLE__)->Instance) != ADC4))
-#elif defined(STM32G414xx) || defined(STM32GBK1CB) || defined(STM32G431xx) || defined(STM32G441xx) || defined(STM32G471xx)
+#elif defined(STM32G411xB) || defined(STM32G411xC) || defined(STM32G414xx) || defined(STM32GBK1CB) || defined(STM32G431xx) || defined(STM32G441xx) || defined(STM32G471xx)
 #define ADC_BATTERY_VOLTAGE_INSTANCE(__HANDLE__)  (((__HANDLE__)->Instance) != ADC2)
 #elif defined(STM32G491xx) || defined(STM32G4A1xx)
 #define ADC_BATTERY_VOLTAGE_INSTANCE(__HANDLE__)  (((__HANDLE__)->Instance) == ADC1)
@@ -947,7 +947,7 @@ typedef struct
                                                           ((__CHANNEL__) == ADC_CHANNEL_16)               || \
                                                           ((__CHANNEL__) == ADC_CHANNEL_VBAT)             || \
                                                           ((__CHANNEL__) == ADC_CHANNEL_VREFINT))))
-#elif defined(STM32G414xx) || defined(STM32GBK1CB) || defined(STM32G431xx) || defined(STM32G441xx)
+#elif defined(STM32G411xB) || defined(STM32G411xC) || defined(STM32G414xx) || defined(STM32GBK1CB) || defined(STM32G431xx) || defined(STM32G441xx)
 #define IS_ADC_CHANNEL(__HANDLE__, __CHANNEL__)  (      ( ((__CHANNEL__) == ADC_CHANNEL_0)                || \
                                                           ((__CHANNEL__) == ADC_CHANNEL_1)                || \
                                                           ((__CHANNEL__) == ADC_CHANNEL_2)                || \
@@ -1051,7 +1051,7 @@ typedef struct
                                                          (((__CHANNEL__) == ADC_CHANNEL_12)          || \
                                                           ((__CHANNEL__) == ADC_CHANNEL_13)          || \
                                                           ((__CHANNEL__) == ADC_CHANNEL_15))) )
-#elif defined(STM32G471xx) || defined(STM32G491xx) || defined(STM32G4A1xx)
+#elif defined(STM32G471xx) || defined(STM32G491xx) || defined(STM32G4A1xx) || defined(STM32G411xC)
 #define IS_ADC_DIFF_CHANNEL(__HANDLE__, __CHANNEL__)  ( ( ((__CHANNEL__) == ADC_CHANNEL_1)           || \
                                                          (((__CHANNEL__) == ADC_CHANNEL_2)           || \
                                                           ((__CHANNEL__) == ADC_CHANNEL_3)           || \
@@ -1069,7 +1069,7 @@ typedef struct
                                                           ((__CHANNEL__) == ADC_CHANNEL_13)))        || \
                                                         ((((__HANDLE__)->Instance) == ADC3)  && \
                                                           ((__CHANNEL__) == ADC_CHANNEL_15))) )
-#elif defined(STM32G414xx) || defined(STM32GBK1CB) || defined(STM32G431xx) || defined(STM32G441xx)
+#elif defined(STM32G411xB) || defined(STM32G414xx) || defined(STM32GBK1CB) || defined(STM32G431xx) || defined(STM32G441xx)
 #define IS_ADC_DIFF_CHANNEL(__HANDLE__, __CHANNEL__)  ( ( ((__CHANNEL__) == ADC_CHANNEL_1)           || \
                                                           ((__CHANNEL__) == ADC_CHANNEL_2)           || \
                                                           ((__CHANNEL__) == ADC_CHANNEL_3)           || \
@@ -1239,7 +1239,7 @@ typedef struct
                                                          ((__INJTRIG__) == ADC_EXTERNALTRIGINJEC_T8_CC2)       || \
                                                          ((__INJTRIG__) == ADC_EXTERNALTRIGINJEC_EXT_IT3)))    || \
                                                        ((__INJTRIG__) == ADC_INJECTED_SOFTWARE_START)          )
-#elif defined(STM32G414xx) || defined(STM32GBK1CB) || defined(STM32G431xx) || defined(STM32G441xx)
+#elif defined(STM32G411xB) || defined(STM32G414xx) || defined(STM32GBK1CB) || defined(STM32G431xx) || defined(STM32G441xx)
 #define IS_ADC_EXTTRIGINJEC(__HANDLE__, __INJTRIG__)  (((__INJTRIG__) == ADC_EXTERNALTRIGINJEC_T1_TRGO)        || \
                                                        ((__INJTRIG__) == ADC_EXTERNALTRIGINJEC_T1_TRGO2)       || \
                                                        ((__INJTRIG__) == ADC_EXTERNALTRIGINJEC_T1_CC4)         || \
@@ -1260,7 +1260,7 @@ typedef struct
                                                        ((__INJTRIG__) == ADC_EXTERNALTRIGINJEC_EXT_IT15)       || \
                                                        ((__INJTRIG__) == ADC_EXTERNALTRIGINJEC_LPTIM_OUT)      || \
                                                        ((__INJTRIG__) == ADC_INJECTED_SOFTWARE_START)          )
-#elif defined(STM32G491xx) || defined(STM32G4A1xx)
+#elif defined(STM32G491xx) || defined(STM32G4A1xx) || defined(STM32G411xC)
 #define IS_ADC_EXTTRIGINJEC(__HANDLE__, __INJTRIG__)  (((__INJTRIG__) == ADC_EXTERNALTRIGINJEC_T1_TRGO)        || \
                                                        ((__INJTRIG__) == ADC_EXTERNALTRIGINJEC_T1_TRGO2)       || \
                                                        ((__INJTRIG__) == ADC_EXTERNALTRIGINJEC_T1_CC4)         || \

@@ -97,6 +97,8 @@ function(declare_deps CORE_VERSION)
   # 2. find the versions of the dependencies for that core
   set(XPACK_VERSION "0.0.0")
   set(CMSIS_VERSION "0.0.0")
+  set(CMSIS_DSP_VERSION "0.0.0")
+  set(CMSIS_NN_VERSION "0.0.0")
   # Note: we're ignoring the STM32Tools dep, because unlike Arduino IDE we don't need it (upload + misc scripts)
   string(JSON LEN_DEPS LENGTH "${DEPS}")
   math(EXPR LEN_DEPS "${LEN_DEPS}-1")
@@ -106,6 +108,10 @@ function(declare_deps CORE_VERSION)
       string(JSON XPACK_VERSION GET "${DEPS}" ${I_DEP} "version")
     elseif(${DEP_NAME} STREQUAL "CMSIS")
       string(JSON CMSIS_VERSION GET "${DEPS}" ${I_DEP} "version")
+    elseif(${DEP_NAME} STREQUAL "CMSIS_DSP")
+      string(JSON CMSIS_DSP_VERSION GET "${DEPS}" ${I_DEP} "version")
+    elseif(${DEP_NAME} STREQUAL "CMSIS_NN")
+      string(JSON CMSIS_NN_VERSION GET "${DEPS}" ${I_DEP} "version")
     endif()
   endforeach()
 
@@ -114,6 +120,10 @@ function(declare_deps CORE_VERSION)
   set(XPACK_SHA "")
   set(CMSIS_URL "")
   set(CMSIS_SHA "")
+  set(CMSIS_DSP_URL "")
+  set(CMSIS_DSP_SHA "")
+  set(CMSIS_NN_URL "")
+  set(CMSIS_NN_SHA "")
   foreach(I_TOOL RANGE ${LEN_TOOLS})
     string(JSON TOOL_NAME GET "${TOOLS}" ${I_TOOL} "name")
     string(JSON TOOL_VERSION GET "${TOOLS}" ${I_TOOL} "version")
@@ -122,6 +132,10 @@ function(declare_deps CORE_VERSION)
       get_target_url("${TOOL_SUPPORT}" XPACK_URL XPACK_SHA)
     elseif(${TOOL_NAME} STREQUAL "CMSIS" AND ${TOOL_VERSION} VERSION_EQUAL ${CMSIS_VERSION})
       get_target_url("${TOOL_SUPPORT}" CMSIS_URL CMSIS_SHA)
+    elseif(${TOOL_NAME} STREQUAL "CMSIS_DSP" AND ${TOOL_VERSION} VERSION_EQUAL ${CMSIS_DSP_VERSION})
+      get_target_url("${TOOL_SUPPORT}" CMSIS_DSP_URL CMSIS_DSP_SHA)
+    elseif(${TOOL_NAME} STREQUAL "CMSIS_NN" AND ${TOOL_VERSION} VERSION_EQUAL ${CMSIS_NN_VERSION})
+      get_target_url("${TOOL_SUPPORT}" CMSIS_NN_URL CMSIS_NN_SHA)
     endif()
   endforeach()
 
@@ -136,29 +150,55 @@ function(declare_deps CORE_VERSION)
   )
 
   FetchContent_Declare(
-    CMSIS5
-    SOURCE_DIR ${DL_DIR}/dist/CMSIS5
+    CMSIS6
+    SOURCE_DIR ${DL_DIR}/dist/CMSIS6
     PREFIX ${DL_DIR}
     URL "${CMSIS_URL}"
     URL_HASH SHA256=${CMSIS_SHA}
     UPDATE_DISCONNECTED
   )
+
+    FetchContent_Declare(
+    CMSIS_DSP
+    SOURCE_DIR ${DL_DIR}/dist/CMSIS_DSP
+    PREFIX ${DL_DIR}
+    URL "${CMSIS_DSP_URL}"
+    URL_HASH SHA256=${CMSIS_DSP_SHA}
+    UPDATE_DISCONNECTED
+  )
+
+  FetchContent_Declare(
+    CMSIS_NN
+    SOURCE_DIR ${DL_DIR}/dist/CMSIS_NN
+    PREFIX ${DL_DIR}
+    URL "${CMSIS_NN_URL}"
+    URL_HASH SHA256=${CMSIS_NN_SHA}
+    UPDATE_DISCONNECTED
+  )
 endfunction()
 
-# defines a CMSIS5_PATH in the caller's scope
+# defines a CMSIS6_PATH in the caller's scope
 function(ensure_core_deps)
-  if(NOT EXISTS ${DL_DIR}/dist/CMSIS5 OR NOT EXISTS ${DL_DIR}/dist/xpack)
+  if(NOT EXISTS ${DL_DIR}/dist/CMSIS6 OR NOT EXISTS ${DL_DIR}/dist/xpack)
     get_core_version(COREVER)
     declare_deps(${COREVER})
     message(STATUS "Downloading the CMSIS...")
-    FetchContent_MakeAvailable(CMSIS5)
+    FetchContent_MakeAvailable(CMSIS6)
     message(STATUS "Downloading the CMSIS... Done.")
+    message(STATUS "Downloading the CMSIS_DSP...")
+    FetchContent_MakeAvailable(CMSIS_DSP)
+    message(STATUS "Downloading the CMSIS_DSP... Done.")
+    message(STATUS "Downloading the CMSIS_NN...")
+    FetchContent_MakeAvailable(CMSIS_NN)
+    message(STATUS "Downloading the CMSIS_NN... Done.")
     message(STATUS "Downloading the compiler toolchain...")
     FetchContent_MakeAvailable(xpack)
     message(STATUS "Downloading the compiler toolchain... Done.")
   endif()
 
-  set(CMSIS5_PATH ${DL_DIR}/dist/CMSIS5 PARENT_SCOPE)
+  set(CMSIS6_PATH ${DL_DIR}/dist/CMSIS6 PARENT_SCOPE)
+  set(CMSIS_DSP_PATH ${DL_DIR}/dist/CMSIS_DSP PARENT_SCOPE)
+  set(CMSIS_NN_PATH ${DL_DIR}/dist/CMSIS_NN PARENT_SCOPE)
 
   find_program(CMAKE_ASM_COMPILER arm-none-eabi-gcc PATHS ${DL_DIR}/dist/xpack/bin REQUIRED)
   find_program(CMAKE_C_COMPILER arm-none-eabi-gcc PATHS ${DL_DIR}/dist/xpack/bin REQUIRED)

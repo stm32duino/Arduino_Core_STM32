@@ -157,12 +157,13 @@
   #define PIN_SERIAL_TX         PA4
 #endif
 
-#define HSE_VALUE               24000000UL /*!< Value of the External oscillator in Hz */
-
 // Extra HAL modules
 #if !defined(HAL_DAC_MODULE_DISABLED)
   #define HAL_DAC_MODULE_ENABLED
 #endif
+
+// Value of the External oscillator in Hz
+#define HSE_VALUE               24000000UL
 
 /*----------------------------------------------------------------------------
  *        Arduino objects - C++ only

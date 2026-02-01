@@ -60,6 +60,8 @@ defined in linker script */
 Reset_Handler:
   ldr   sp, =_estack      /* set stack pointer */
 
+/* Call the ExitRun0Mode function to configure the power supply */
+  bl  ExitRun0Mode
 /* Call the clock system initialization function.*/
   bl  SystemInit
 

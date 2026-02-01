@@ -65,6 +65,8 @@ extern "C" {
 
 #define DFU_DESCRIPTOR_TYPE            0x21U
 
+#define DFU_VENDOR_CMD_MAX             32U
+
 
 /**************************************************/
 /* DFU Requests  DFU states                       */
@@ -126,6 +128,11 @@ extern "C" {
 #define DFU_MANIFEST_MASK              (1U << 2)
 #define DFU_STATUS_DEPTH               6U
 
+#define IS_DFU_DOWNLOAD                0x0DFDFU
+#define IS_DFU_UPLOAD                  0x1DFDFU
+#define IS_DFU_SETADDRESSPOINTER       0x2DFDFU
+#define IS_DFU_PHY_ADDRESS             0x3DFDFU
+
 typedef enum
 {
   DFU_DETACH = 0U,
@@ -176,6 +183,7 @@ typedef struct
   uint32_t wblock_num;
   uint32_t wlength;
   uint32_t data_ptr;
+  uint32_t app_addr_ptr;
   uint32_t alt_setting;
 
   uint8_t dev_status[DFU_STATUS_DEPTH];
@@ -193,6 +201,17 @@ typedef struct
   uint16_t (* Write)(uint8_t *src, uint8_t *dest, uint32_t Len);
   uint8_t *(* Read)(uint8_t *src, uint8_t *dest, uint32_t Len);
   uint16_t (* GetStatus)(uint32_t Add, uint8_t cmd, uint8_t *buff);
+#if (USBD_DFU_VENDOR_CMD_ENABLED == 1U)
+  uint16_t (* GetVendorCMD)(uint8_t *cmd, uint8_t *cmdlength);
+  uint16_t (* VendorDownloadCMD)(uint8_t *pbuf, uint32_t BlockNumber, uint32_t wlength, uint32_t *status);
+  uint16_t (* VendorUploadCMD)(uint32_t Add, uint32_t BlockNumber, uint32_t *status);
+#endif /* USBD_DFU_VENDOR_CMD_ENABLED */
+#if (USBD_DFU_VENDOR_CHECK_ENABLED == 1U)
+  uint16_t (* VendorCheck)(uint8_t *pbuf, uint32_t ReqType, uint32_t *status);
+#endif /* USBD_DFU_VENDOR_CHECK_ENABLED */
+#if (USBD_DFU_VENDOR_EXIT_ENABLED == 1U)
+  uint16_t (* LeaveDFU)(uint32_t Add);
+#endif /* USBD_DFU_VENDOR_EXIT_ENABLED */
 } USBD_DFU_MediaTypeDef;
 
 typedef struct

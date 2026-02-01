@@ -1065,6 +1065,14 @@ HAL_StatusTypeDef HAL_DAC_ConfigChannel(DAC_HandleTypeDef *hdac,
     assert_param(IS_DAC_HOLDTIME(sConfig->DAC_SampleAndHoldConfig.DAC_HoldTime));
     assert_param(IS_DAC_REFRESHTIME(sConfig->DAC_SampleAndHoldConfig.DAC_RefreshTime));
   }
+  else
+  {
+    /* In case of mode normal and buffer disabled, connection to both on chip periph and external pin is not possible */
+    if (sConfig->DAC_OutputBuffer == DAC_OUTPUTBUFFER_DISABLE)
+    {
+      assert_param(sConfig->DAC_ConnectOnChipPeripheral != DAC_CHIPCONNECT_BOTH);
+    }
+  }
   assert_param(IS_DAC_CHANNEL(Channel));
 
   /* Process locked */

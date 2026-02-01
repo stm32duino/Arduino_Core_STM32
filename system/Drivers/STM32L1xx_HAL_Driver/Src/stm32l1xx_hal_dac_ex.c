@@ -387,7 +387,6 @@ __weak void HAL_DACEx_DMAUnderrunCallbackCh2(DAC_HandleTypeDef *hdac)
 }
 
 
-
 /**
   * @}
   */

@@ -3099,6 +3099,38 @@ HAL_StatusTypeDef HAL_RTCEx_PrivilegeModeGet(const RTC_HandleTypeDef *hrtc, RTC_
   */
 #endif /* TAMP_PRIVCFGR_TAMPPRIV */
 
+#if defined (RTC_OR_OUT2_RMP)
+/**
+  * @brief  Enable RTC OUT2 remap feature.
+  * @note   When enable RTC_OUT2 is mapped on PB2.
+  * @param  hrtc RTC handle
+  * @retval None
+  */
+void HAL_RTCEx_EnableRemapRtcOut2(RTC_HandleTypeDef *hrtc)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hrtc);
+
+  /* Enable RTC OUT2 remap */
+  SET_BIT(RTC->OR, RTC_OR_OUT2_RMP);
+}
+
+/**
+  * @brief  Disable RTC OUT2 remap feature.
+  * @note   When disable RTC_OUT2 is mapped on PI8.
+  * @param  hrtc RTC handle
+  * @retval None
+  */
+void HAL_RTCEx_DisableRemapRtcOut2(RTC_HandleTypeDef *hrtc)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hrtc);
+
+  /* Disable RTC OUT2 remap */
+  CLEAR_BIT(RTC->OR, RTC_OR_OUT2_RMP);
+}
+#endif /* defined (RTC_OR_OUT2_RMP) */
+
 /**
   * @}
   */

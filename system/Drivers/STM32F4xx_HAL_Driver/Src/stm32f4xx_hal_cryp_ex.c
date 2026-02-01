@@ -93,7 +93,6 @@
 /* Private function prototypes -----------------------------------------------*/
 
 
-
 /* Exported functions---------------------------------------------------------*/
 /** @addtogroup CRYPEx_Exported_Functions
   * @{

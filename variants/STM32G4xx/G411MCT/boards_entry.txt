@@ -1,0 +1,14 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic G411MCTx
+GenG4.menu.pnum.GENERIC_G411MCTX=Generic G411MCTx
+GenG4.menu.pnum.GENERIC_G411MCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G411MCTX.upload.maximum_data_size=262144
+GenG4.menu.pnum.GENERIC_G411MCTX.build.board=GENERIC_G411MCTX
+GenG4.menu.pnum.GENERIC_G411MCTX.build.product_line=STM32G411xC
+GenG4.menu.pnum.GENERIC_G411MCTX.build.variant=STM32G4xx/G411MCT
+GenG4.menu.pnum.GENERIC_G411MCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32G4xx/STM32G431.svd
+

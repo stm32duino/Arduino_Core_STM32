@@ -454,11 +454,11 @@ HAL_StatusTypeDef HAL_CRYP_Decrypt_DMA(CRYP_HandleTypeDef *hcryp, uint32_t *Inpu
   */
 /* Interrupt Handler functions  **********************************************/
 void HAL_CRYP_IRQHandler(CRYP_HandleTypeDef *hcryp);
-HAL_CRYP_STATETypeDef HAL_CRYP_GetState(CRYP_HandleTypeDef *hcryp);
+HAL_CRYP_STATETypeDef HAL_CRYP_GetState(const CRYP_HandleTypeDef *hcryp);
 void HAL_CRYP_InCpltCallback(CRYP_HandleTypeDef *hcryp);
 void HAL_CRYP_OutCpltCallback(CRYP_HandleTypeDef *hcryp);
 void HAL_CRYP_ErrorCallback(CRYP_HandleTypeDef *hcryp);
-uint32_t HAL_CRYP_GetError(CRYP_HandleTypeDef *hcryp);
+uint32_t HAL_CRYP_GetError(const CRYP_HandleTypeDef *hcryp);
 
 /**
   * @}

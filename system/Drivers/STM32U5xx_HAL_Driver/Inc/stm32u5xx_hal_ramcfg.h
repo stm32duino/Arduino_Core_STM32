@@ -168,8 +168,6 @@ typedef struct
 /**
   * @}
   */
-
-
 /**
   * @}
   */
@@ -359,6 +357,7 @@ HAL_RAMCFG_StateTypeDef HAL_RAMCFG_GetState(const RAMCFG_HandleTypeDef *hramcfg)
 /**
   * @}
   */
+
 
 /**
   * @}

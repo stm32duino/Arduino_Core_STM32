@@ -626,10 +626,10 @@ typedef  void (*pCAN_CallbackTypeDef)(CAN_HandleTypeDef *hcan); /*!< pointer to 
   * @retval None
   */
 #define __HAL_CAN_CLEAR_FLAG(__HANDLE__, __FLAG__) \
-  ((((__FLAG__) >> 8U) == 5U)? (((__HANDLE__)->Instance->TSR) = (1U << ((__FLAG__) & CAN_FLAG_MASK))): \
-   (((__FLAG__) >> 8U) == 2U)? (((__HANDLE__)->Instance->RF0R) = (1U << ((__FLAG__) & CAN_FLAG_MASK))): \
-   (((__FLAG__) >> 8U) == 4U)? (((__HANDLE__)->Instance->RF1R) = (1U << ((__FLAG__) & CAN_FLAG_MASK))): \
-   (((__FLAG__) >> 8U) == 1U)? (((__HANDLE__)->Instance->MSR) = (1U << ((__FLAG__) & CAN_FLAG_MASK))): 0U)
+  ((((__FLAG__) >> 8U) == 5U)? (((__HANDLE__)->Instance->TSR) = (1UL << ((__FLAG__) & CAN_FLAG_MASK))): \
+   (((__FLAG__) >> 8U) == 2U)? (((__HANDLE__)->Instance->RF0R) = (1UL << ((__FLAG__) & CAN_FLAG_MASK))): \
+   (((__FLAG__) >> 8U) == 4U)? (((__HANDLE__)->Instance->RF1R) = (1UL << ((__FLAG__) & CAN_FLAG_MASK))): \
+   (((__FLAG__) >> 8U) == 1U)? (((__HANDLE__)->Instance->MSR) = (1UL << ((__FLAG__) & CAN_FLAG_MASK))): 0U)
 
 /**
  * @}

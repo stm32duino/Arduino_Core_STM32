@@ -177,10 +177,14 @@ typedef struct
                                                                                  (128-bit) of OBK to alternate sector */
 #endif /* FLASH_SR_OBKERR */
 #if defined (FLASH_EDATAR_EDATA_EN)
-#define FLASH_TYPEPROGRAM_HALFWORD_EDATA    (FLASH_CR_PG | FLASH_EDATA)                          /*!< Program a flash
+#define FLASH_TYPEPROGRAM_HALFWORD_EDATA    (FLASH_CR_PG | FLASH_EDATA_HALFWORD)               /*!< Program a flash
                                                       high-cycle data half-word (16-bit)at a specified secure address */
-#define FLASH_TYPEPROGRAM_HALFWORD_EDATA_NS (FLASH_CR_PG | FLASH_EDATA | FLASH_NON_SECURE_MASK)  /*!< Program a flash
+#define FLASH_TYPEPROGRAM_HALFWORD_EDATA_NS (FLASH_CR_PG | FLASH_EDATA_HALFWORD | FLASH_NON_SECURE_MASK)  /*!< Program a flash
                                                   high-cycle data half-word (16-bit)at a specified non-secure address */
+#define FLASH_TYPEPROGRAM_WORD_EDATA    (FLASH_CR_PG | FLASH_EDATA_WORD)                          /*!< Program a flash
+                                                      high-cycle data word (32-bit)at a specified secure address */
+#define FLASH_TYPEPROGRAM_WORD_EDATA_NS (FLASH_CR_PG | FLASH_EDATA_WORD | FLASH_NON_SECURE_MASK)  /*!< Program a flash
+                                                  high-cycle data word (32-bit)at a specified non-secure address */
 #endif /* FLASH_EDATAR_EDATA_EN */
 #else
 #define FLASH_TYPEPROGRAM_QUADWORD           FLASH_CR_PG                                        /*!< Program a quad-word
@@ -192,8 +196,10 @@ typedef struct
                                                                                  (128-bit) of OBK to alternate sector */
 #endif /* FLASH_SR_OBKERR */
 #if defined (FLASH_EDATAR_EDATA_EN)
-#define FLASH_TYPEPROGRAM_HALFWORD_EDATA    (FLASH_CR_PG | FLASH_EDATA)                          /*!< Program a flash
+#define FLASH_TYPEPROGRAM_HALFWORD_EDATA    (FLASH_CR_PG | FLASH_EDATA_HALFWORD)                /*!< Program a flash
                                                              high-cycle data half-word (16-bit)at a specified address */
+#define FLASH_TYPEPROGRAM_WORD_EDATA        (FLASH_CR_PG | FLASH_EDATA_WORD)                          /*!< Program a flash
+                                                             high-cycle data half-word (32-bit)at a specified address */
 #endif /* FLASH_EDATAR_EDATA_EN */
 #endif /* __ARM_FEATURE_CMSE */
 #define FLASH_TYPEPROGRAM_HALFWORD_OTP      (FLASH_CR_PG | FLASH_OTP | FLASH_NON_SECURE_MASK)   /*!< Program an OTP
@@ -644,6 +650,7 @@ HAL_StatusTypeDef HAL_FLASH_OB_Unlock(void);
 HAL_StatusTypeDef HAL_FLASH_OB_Lock(void);
 /* Option bytes control */
 HAL_StatusTypeDef HAL_FLASH_OB_Launch(void);
+
 /**
   * @}
   */
@@ -682,7 +689,8 @@ extern FLASH_ProcessTypeDef pFlash;
 #define FLASH_OTP                       0x20000000U
 
 #if defined (FLASH_EDATAR_EDATA_EN)
-#define FLASH_EDATA                     0x40000000U
+#define FLASH_EDATA_HALFWORD            0x40000000U
+#define FLASH_EDATA_WORD                0x60000000U
 #endif /* FLASH_EDATAR_EDATA_EN */
 
 #define FLASH_NON_SECURE_MASK           0x80000000U
@@ -703,6 +711,8 @@ extern FLASH_ProcessTypeDef pFlash;
                                           ((VALUE) == FLASH_TYPEPROGRAM_HALFWORD_OTP)                               || \
                                           ((VALUE) == FLASH_TYPEPROGRAM_HALFWORD_EDATA)                             || \
                                           ((VALUE) == FLASH_TYPEPROGRAM_HALFWORD_EDATA_NS)                          || \
+                                          ((VALUE) == FLASH_TYPEPROGRAM_WORD_EDATA)                                 || \
+                                          ((VALUE) == FLASH_TYPEPROGRAM_WORD_EDATA_NS)                              || \
                                           ((VALUE) == FLASH_TYPEPROGRAM_QUADWORD_OBK)                               || \
                                           ((VALUE) == FLASH_TYPEPROGRAM_QUADWORD_OBK_ALT))
 #else
@@ -715,6 +725,7 @@ extern FLASH_ProcessTypeDef pFlash;
 #define IS_FLASH_TYPEPROGRAM(VALUE)      (((VALUE) == FLASH_TYPEPROGRAM_QUADWORD)                                   || \
                                           ((VALUE) == FLASH_TYPEPROGRAM_HALFWORD_OTP)                               || \
                                           ((VALUE) == FLASH_TYPEPROGRAM_HALFWORD_EDATA)                             || \
+                                          ((VALUE) == FLASH_TYPEPROGRAM_WORD_EDATA)                                 || \
                                           ((VALUE) == FLASH_TYPEPROGRAM_QUADWORD_OBK)                               || \
                                           ((VALUE) == FLASH_TYPEPROGRAM_QUADWORD_OBK_ALT))
 #else

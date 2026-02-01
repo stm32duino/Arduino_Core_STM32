@@ -126,7 +126,8 @@
    The timeout value is multiplied by 1000 to be converted in milliseconds.
    LSI startup time is also considered here by adding LSI_STARTUP_TIME
    converted in milliseconds. */
-#define HAL_IWDG_DEFAULT_TIMEOUT        (((6UL * 256UL * 1000UL) / LSI_VALUE) + ((LSI_STARTUP_TIME / 1000UL) + 1UL))
+#define HAL_IWDG_DEFAULT_TIMEOUT        (((6UL * 256UL * 1000UL) / (LSI_VALUE / 128U)) + \
+                                         ((LSI_STARTUP_TIME / 1000UL) + 1UL))
 #define IWDG_KERNEL_UPDATE_FLAGS        (IWDG_SR_WVU | IWDG_SR_RVU | IWDG_SR_PVU)
 /**
   * @}

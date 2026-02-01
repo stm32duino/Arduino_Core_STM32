@@ -38,6 +38,7 @@
 #define __UART_H
 
 /* Includes ------------------------------------------------------------------*/
+#include <stdbool.h>
 #include "stm32_def.h"
 #include "PinNames.h"
 
@@ -120,7 +121,7 @@ struct serial_s {
 #define USART3_IRQn USART3_4_IRQn
 #define USART3_IRQHandler USART3_4_IRQHandler
 #endif /* STM32F091xC || STM32F098xx */
-#elif defined(STM32G0xx)
+#elif defined(STM32G0xx) || defined(STM32C0xx)
 #if defined(LPUART2_BASE)
 #define USART3_IRQn USART3_4_5_6_LPUART1_IRQn
 #define USART3_IRQHandler USART3_4_5_6_LPUART1_IRQHandler
@@ -152,7 +153,7 @@ struct serial_s {
 #endif /* STM32F091xC || STM32F098xx */
 #elif defined(STM32L0xx)
 #define USART4_IRQn USART4_5_IRQn
-#elif defined(STM32G0xx)
+#elif defined(STM32G0xx) || defined(STM32C0xx)
 #if defined(LPUART2_BASE)
 #define USART4_IRQn USART3_4_5_6_LPUART1_IRQn
 #elif defined(LPUART1_BASE)
@@ -254,7 +255,7 @@ struct serial_s {
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t parity, uint32_t stopbits);
+bool uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t parity, uint32_t stopbits, bool rx_invert, bool tx_invert, bool data_invert);
 void uart_deinit(serial_t *obj);
 #if defined(HAL_PWR_MODULE_ENABLED) && (defined(UART_IT_WUF) || defined(LPUART1_BASE))
 void uart_config_lowpower(serial_t *obj);
@@ -270,6 +271,11 @@ void uart_enable_tx(serial_t *obj);
 void uart_enable_rx(serial_t *obj);
 
 size_t uart_debug_write(uint8_t *data, uint32_t size);
+
+#if defined(UART_PRESCALER_DIV1)
+uint32_t uart_compute_prescaler(UART_HandleTypeDef *huart);
+uint32_t uart_get_clock_source_freq(UART_HandleTypeDef *huart);
+#endif
 
 #endif /* HAL_UART_MODULE_ENABLED  && !HAL_UART_MODULE_ONLY */
 #ifdef __cplusplus

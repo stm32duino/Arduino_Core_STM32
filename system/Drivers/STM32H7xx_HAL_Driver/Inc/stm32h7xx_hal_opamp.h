@@ -417,7 +417,7 @@ HAL_StatusTypeDef HAL_OPAMP_RegisterCallback (OPAMP_HandleTypeDef *hopamp, HAL_O
 HAL_StatusTypeDef HAL_OPAMP_UnRegisterCallback (OPAMP_HandleTypeDef *hopamp, HAL_OPAMP_CallbackIDTypeDef CallbackId);
 #endif /* USE_HAL_OPAMP_REGISTER_CALLBACKS */
 HAL_StatusTypeDef HAL_OPAMP_Lock(OPAMP_HandleTypeDef *hopamp);
-HAL_OPAMP_TrimmingValueTypeDef HAL_OPAMP_GetTrimOffset (OPAMP_HandleTypeDef *hopamp, uint32_t trimmingoffset);
+HAL_OPAMP_TrimmingValueTypeDef HAL_OPAMP_GetTrimOffset (const OPAMP_HandleTypeDef *hopamp, uint32_t trimmingoffset);
 
 /**
   * @}
@@ -428,7 +428,7 @@ HAL_OPAMP_TrimmingValueTypeDef HAL_OPAMP_GetTrimOffset (OPAMP_HandleTypeDef *hop
   */
 
 /* Peripheral State functions  **************************************************/
-HAL_OPAMP_StateTypeDef HAL_OPAMP_GetState(OPAMP_HandleTypeDef *hopamp);
+HAL_OPAMP_StateTypeDef HAL_OPAMP_GetState(const OPAMP_HandleTypeDef *hopamp);
 
 /**
   * @}

@@ -1,0 +1,41 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic C092KBTx
+GenC0.menu.pnum.GENERIC_C092KBTX=Generic C092KBTx
+GenC0.menu.pnum.GENERIC_C092KBTX.upload.maximum_size=131072
+GenC0.menu.pnum.GENERIC_C092KBTX.upload.maximum_data_size=30720
+GenC0.menu.pnum.GENERIC_C092KBTX.build.board=GENERIC_C092KBTX
+GenC0.menu.pnum.GENERIC_C092KBTX.build.product_line=STM32C092xx
+GenC0.menu.pnum.GENERIC_C092KBTX.build.variant=STM32C0xx/C092K(B-C)(T-U)
+GenC0.menu.pnum.GENERIC_C092KBTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C092.svd
+
+# Generic C092KBUx
+GenC0.menu.pnum.GENERIC_C092KBUX=Generic C092KBUx
+GenC0.menu.pnum.GENERIC_C092KBUX.upload.maximum_size=131072
+GenC0.menu.pnum.GENERIC_C092KBUX.upload.maximum_data_size=30720
+GenC0.menu.pnum.GENERIC_C092KBUX.build.board=GENERIC_C092KBUX
+GenC0.menu.pnum.GENERIC_C092KBUX.build.product_line=STM32C092xx
+GenC0.menu.pnum.GENERIC_C092KBUX.build.variant=STM32C0xx/C092K(B-C)(T-U)
+GenC0.menu.pnum.GENERIC_C092KBUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C092.svd
+
+# Generic C092KCTx
+GenC0.menu.pnum.GENERIC_C092KCTX=Generic C092KCTx
+GenC0.menu.pnum.GENERIC_C092KCTX.upload.maximum_size=262144
+GenC0.menu.pnum.GENERIC_C092KCTX.upload.maximum_data_size=30720
+GenC0.menu.pnum.GENERIC_C092KCTX.build.board=GENERIC_C092KCTX
+GenC0.menu.pnum.GENERIC_C092KCTX.build.product_line=STM32C092xx
+GenC0.menu.pnum.GENERIC_C092KCTX.build.variant=STM32C0xx/C092K(B-C)(T-U)
+GenC0.menu.pnum.GENERIC_C092KCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C092.svd
+
+# Generic C092KCUx
+GenC0.menu.pnum.GENERIC_C092KCUX=Generic C092KCUx
+GenC0.menu.pnum.GENERIC_C092KCUX.upload.maximum_size=262144
+GenC0.menu.pnum.GENERIC_C092KCUX.upload.maximum_data_size=30720
+GenC0.menu.pnum.GENERIC_C092KCUX.build.board=GENERIC_C092KCUX
+GenC0.menu.pnum.GENERIC_C092KCUX.build.product_line=STM32C092xx
+GenC0.menu.pnum.GENERIC_C092KCUX.build.variant=STM32C0xx/C092K(B-C)(T-U)
+GenC0.menu.pnum.GENERIC_C092KCUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32C0xx/STM32C092.svd
+

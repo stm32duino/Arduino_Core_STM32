@@ -106,6 +106,7 @@ typedef struct
 /** @defgroup TIMEx_Remap TIM Extended Remapping
   * @{
   */
+#if defined(TIM1)
 #define TIM_TIM1_ETR_GPIO           0x00000000UL                                                /*!< TIM1_ETR is not connected to I/O      */
 #define TIM_TIM1_ETR_COMP1          TIM_AF1_ETRSEL_0                                            /*!< TIM1_ETR is connected to COMP1 output */
 #define TIM_TIM1_ETR_COMP2          TIM_AF1_ETRSEL_1                                            /*!< TIM1_ETR is connected to COMP2 output */
@@ -113,22 +114,48 @@ typedef struct
 #define TIM_TIM1_ETR_ADC4_AWD1      (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_1 | TIM_AF1_ETRSEL_0)    /*!< TIM1_ETR is connected to ADC4 AWD1    */
 #define TIM_TIM1_ETR_ADC4_AWD2      (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_2)                       /*!< TIM1_ETR is connected to ADC4 AWD2    */
 #define TIM_TIM1_ETR_ADC4_AWD3      (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_2 | TIM_AF1_ETRSEL_0)    /*!< TIM1_ETR is connected to ADC4 AWD3    */
+#endif /* TIM1 */
 
 #define TIM_TIM2_ETR_GPIO           0x00000000UL                                                /*!< TIM2_ETR is not connected to I/O      */
+#if defined(COMP1) && defined(COMP2)
 #define TIM_TIM2_ETR_COMP1          TIM_AF1_ETRSEL_0                                            /*!< TIM2_ETR is connected to COMP1 output */
 #define TIM_TIM2_ETR_COMP2          TIM_AF1_ETRSEL_1                                            /*!< TIM2_ETR is connected to COMP2 output */
+#endif /* COMP1 && COMP2 */
 #define TIM_TIM2_ETR_HSI            TIM_AF1_ETRSEL_2                                            /*!< TIM2_ETR is connected to HSI          */
+#if defined(TIM3)
 #define TIM_TIM2_ETR_TIM3_ETR       TIM_AF1_ETRSEL_3                                            /*!< TIM2_ETR is connected to TIM3 ETR     */
+#endif /* TIM3 */
+#if defined(TIM4)
+#define TIM_TIM2_ETR_TIM4_ETR       (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_0)                       /*!< TIM2_ETR is connected to TIM4 ETR     */
+#endif /* TIM4 */
 #define TIM_TIM2_ETR_LSE            (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_1 | TIM_AF1_ETRSEL_0)    /*!< TIM2_ETR is connected to LSE          */
+#if defined(TIM2_ETR_ADC4_SUPPORT)
+#define TIM_TIM2_ETR_ADC4_AWD1      (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_2)                       /*!< TIM2_ETR is connected to ADC4 AWD1    */
+#define TIM_TIM2_ETR_ADC4_AWD2      (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_2 | TIM_AF1_ETRSEL_0)    /*!< TIM2_ETR is connected to ADC4 AWD2    */
+#define TIM_TIM2_ETR_ADC4_AWD3      (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_2 | TIM_AF1_ETRSEL_1)    /*!< TIM2_ETR is connected to ADC4 AWD3    */
+#endif /* TIM2_ETR_ADC4_SUPPORT */
 
+#if defined(TIM3)
 #define TIM_TIM3_ETR_GPIO           0x00000000UL                                                /*!< TIM3_ETR is not connected to I/O      */
 #define TIM_TIM3_ETR_COMP1          TIM_AF1_ETRSEL_0                                            /*!< TIM3_ETR is connected to COMP1 output */
 #define TIM_TIM3_ETR_COMP2          TIM_AF1_ETRSEL_1                                            /*!< TIM3_ETR is connected to COMP2 output */
 #define TIM_TIM3_ETR_HSI            TIM_AF1_ETRSEL_2                                            /*!< TIM3_ETR is connected to HSI          */
 #define TIM_TIM3_ETR_TIM2_ETR       TIM_AF1_ETRSEL_3                                            /*!< TIM3_ETR is connected to TIM2 ETR     */
+#if defined(TIM4)
+#define TIM_TIM3_ETR_TIM4_ETR       (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_0)                       /*!< TIM3_ETR is connected to TIM4 ETR     */
+#endif /* TIM4 */
 #define TIM_TIM3_ETR_ADC4_AWD1      (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_1| TIM_AF1_ETRSEL_0)     /*!< TIM3_ETR is connected to ADC4 AWD1    */
 #define TIM_TIM3_ETR_ADC4_AWD2      (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_2)                       /*!< TIM3_ETR is connected to ADC4 AWD2    */
 #define TIM_TIM3_ETR_ADC4_AWD3      (TIM_AF1_ETRSEL_3 | TIM_AF1_ETRSEL_2 | TIM_AF1_ETRSEL_0)    /*!< TIM3_ETR is connected to ADC4 AWD3    */
+#endif /* TIM3 */
+
+#if defined(TIM4)
+#define TIM_TIM4_ETR_GPIO           0x00000000UL                                                /*!< TIM4_ETR is not connected to I/O      */
+#define TIM_TIM4_ETR_COMP1          TIM_AF1_ETRSEL_0                                            /*!< TIM4_ETR is connected to COMP1 output */
+#define TIM_TIM4_ETR_COMP2          TIM_AF1_ETRSEL_1                                            /*!< TIM4_ETR is connected to COMP2 output */
+#define TIM_TIM4_ETR_HSI            TIM_AF1_ETRSEL_2                                            /*!< TIM4_ETR is connected to HSI          */
+#define TIM_TIM4_ETR_TIM3_ETR       TIM_AF1_ETRSEL_3                                            /*!< TIM4_ETR is connected to TIM3 ETR     */
+#endif /* TIM4 */
 /**
   * @}
   */
@@ -137,7 +164,9 @@ typedef struct
   * @{
   */
 #define TIM_BREAKINPUT_BRK     0x00000001U                                      /*!< Timer break input  */
+#if defined(TIM_BDTR_BK2E)
 #define TIM_BREAKINPUT_BRK2    0x00000002U                                      /*!< Timer break2 input */
+#endif /* TIM_BDTR_BK2E */
 /**
   * @}
   */
@@ -146,8 +175,10 @@ typedef struct
   * @{
   */
 #define TIM_BREAKINPUTSOURCE_BKIN     0x00000001U                               /*!< An external source (GPIO) is connected to the BKIN pin  */
+#if defined(COMP1) && defined(COMP2)
 #define TIM_BREAKINPUTSOURCE_COMP1    0x00000002U                               /*!< The COMP1 output is connected to the break input */
 #define TIM_BREAKINPUTSOURCE_COMP2    0x00000004U                               /*!< The COMP2 output is connected to the break input */
+#endif /* COMP1 && COMP2 */
 /**
   * @}
   */
@@ -173,24 +204,33 @@ typedef struct
 /** @defgroup TIMEx_Timer_Input_Selection TIM Extended Timer input selection
   * @{
   */
+#if defined(TIM1)
 #define TIM_TIM1_TI1_GPIO                          0x00000000UL                                                   /*!< TIM1_TI1 is connected to GPIO */
 #define TIM_TIM1_TI1_COMP1                         TIM_TISEL_TI1SEL_0                                             /*!< TIM1_TI1 is connected to COMP1 OUT */
 #define TIM_TIM1_TI1_COMP2                         TIM_TISEL_TI1SEL_1                                             /*!< TIM1_TI1 is connected to COMP2 OUT */
 #define TIM_TIM1_TI2_GPIO                          0x00000000UL                                                   /*!< TIM1_TI2 is connected to GPIO */
 #define TIM_TIM1_TI3_GPIO                          0x00000000UL                                                   /*!< TIM1_TI3 is connected to GPIO */
 #define TIM_TIM1_TI4_GPIO                          0x00000000UL                                                   /*!< TIM1_TI4 is connected to GPIO */
+#endif /* TIM1 */
 
 #define TIM_TIM2_TI1_GPIO                          0x00000000UL                                                   /*!< TIM2_TI1 is connected to GPIO */
+#if defined(COMP1) && defined(COMP2)
 #define TIM_TIM2_TI1_COMP1                         TIM_TISEL_TI1SEL_0                                             /*!< TIM2_TI1 is connected to COMP1 OUT */
 #define TIM_TIM2_TI1_COMP2                         TIM_TISEL_TI1SEL_1                                             /*!< TIM2_TI1 is connected to COMP2 OUT */
+#endif /* COMP1 && COMP2 */
 #define TIM_TIM2_TI2_GPIO                          0x00000000UL                                                   /*!< TIM2_TI2 is connected to GPIO */
+#if defined(COMP1) && defined(COMP2)
 #define TIM_TIM2_TI2_COMP1                         TIM_TISEL_TI2SEL_0                                             /*!< TIM2_TI2 is connected to COMP1 OUT */
 #define TIM_TIM2_TI2_COMP2                         TIM_TISEL_TI2SEL_1                                             /*!< TIM2_TI2 is connected to COMP2 OUT */
+#endif /* COMP1 && COMP2 */
 #define TIM_TIM2_TI3_GPIO                          0x00000000UL                                                   /*!< TIM2_TI3 is connected to GPIO */
 #define TIM_TIM2_TI4_GPIO                          0x00000000UL                                                   /*!< TIM2_TI4 is connected to GPIO */
+#if defined(COMP1) && defined(COMP2)
 #define TIM_TIM2_TI4_COMP1                         TIM_TISEL_TI4SEL_0                                             /*!< TIM2_TI4 is connected to COMP1 OUT */
 #define TIM_TIM2_TI4_COMP2                         TIM_TISEL_TI4SEL_1                                             /*!< TIM2_TI4 is connected to COMP2 OUT */
+#endif /* COMP1 && COMP2 */
 
+#if defined(TIM3)
 #define TIM_TIM3_TI1_GPIO                          0x00000000UL                                                   /*!< TIM3_TI1 is connected to GPIO */
 #define TIM_TIM3_TI1_COMP1                         TIM_TISEL_TI1SEL_0                                             /*!< TIM3_TI1 is connected to COMP1 OUT */
 #define TIM_TIM3_TI1_COMP2                         TIM_TISEL_TI1SEL_1                                             /*!< TIM3_TI1 is connected to COMP2 OUT */
@@ -199,6 +239,18 @@ typedef struct
 #define TIM_TIM3_TI2_COMP2                         TIM_TISEL_TI2SEL_1                                             /*!< TIM3_TI2 is connected to COMP2 OUT */
 #define TIM_TIM3_TI3_GPIO                          0x00000000UL                                                   /*!< TIM3_TI3 is connected to GPIO */
 #define TIM_TIM3_TI4_GPIO                          0x00000000UL                                                   /*!< TIM3_TI4 is connected to GPIO */
+#endif /* TIM3 */
+
+#if defined(TIM4)
+#define TIM_TIM4_TI1_GPIO                          0x00000000UL                                                   /*!< TIM4_TI1 is connected to GPIO */
+#define TIM_TIM4_TI1_COMP1                         TIM_TISEL_TI1SEL_0                                             /*!< TIM4_TI1 is connected to COMP1 OUT */
+#define TIM_TIM4_TI1_COMP2                         TIM_TISEL_TI1SEL_1                                             /*!< TIM4_TI1 is connected to COMP2 OUT */
+#define TIM_TIM4_TI2_GPIO                          0x00000000UL                                                   /*!< TIM4_TI2 is connected to GPIO */
+#define TIM_TIM4_TI2_COMP1                         TIM_TISEL_TI2SEL_0                                             /*!< TIM4_TI2 is connected to COMP1 OUT */
+#define TIM_TIM4_TI2_COMP2                         TIM_TISEL_TI2SEL_1                                             /*!< TIM4_TI2 is connected to COMP2 OUT */
+#define TIM_TIM4_TI3_GPIO                          0x00000000UL                                                   /*!< TIM4_TI3 is connected to GPIO */
+#define TIM_TIM4_TI4_GPIO                          0x00000000UL                                                   /*!< TIM4_TI4 is connected to GPIO */
+#endif /* TIM4 */
 
 #define TIM_TIM16_TI1_GPIO                         0x00000000UL                                                   /*!< TIM16_TI1 is connected to GPIO */
 #define TIM_TIM16_TI1_MCO                          TIM_TISEL_TI1SEL_1                                             /*!< TIM16_TI1 is connected to MCO */
@@ -393,12 +445,21 @@ typedef struct
   * @{
   */
 #define IS_TIM_REMAP(__REMAP__) ((((__REMAP__) & 0xFFFC3FFFU) == 0x00000000U))
+
+#if defined(TIM_BDTR_BK2E)
 #define IS_TIM_BREAKINPUT(__BREAKINPUT__)  (((__BREAKINPUT__) == TIM_BREAKINPUT_BRK)  || \
                                             ((__BREAKINPUT__) == TIM_BREAKINPUT_BRK2))
+#else
+#define IS_TIM_BREAKINPUT(__BREAKINPUT__)  ((__BREAKINPUT__) == TIM_BREAKINPUT_BRK)
+#endif /* TIM_BDTR_BK2E */
 
+#if defined(COMP1) && defined(COMP2)
 #define IS_TIM_BREAKINPUTSOURCE(__SOURCE__)  (((__SOURCE__) == TIM_BREAKINPUTSOURCE_BKIN)  || \
                                               ((__SOURCE__) == TIM_BREAKINPUTSOURCE_COMP1) || \
                                               ((__SOURCE__) == TIM_BREAKINPUTSOURCE_COMP2))
+#else
+#define IS_TIM_BREAKINPUTSOURCE(__SOURCE__)  ((__SOURCE__) == TIM_BREAKINPUTSOURCE_BKIN)
+#endif /* COMP1 && COMP2 */
 
 #define IS_TIM_BREAKINPUTSOURCE_STATE(__STATE__)  (((__STATE__) == TIM_BREAKINPUTSOURCE_DISABLE)  || \
                                                    ((__STATE__) == TIM_BREAKINPUTSOURCE_ENABLE))
@@ -406,12 +467,70 @@ typedef struct
 #define IS_TIM_BREAKINPUTSOURCE_POLARITY(__POLARITY__)  (((__POLARITY__) == TIM_BREAKINPUTSOURCE_POLARITY_LOW)  || \
                                                          ((__POLARITY__) == TIM_BREAKINPUTSOURCE_POLARITY_HIGH))
 
+#if !defined(TIM1)
+#define IS_TIM_TISEL(__TISEL__) ((((__TISEL__) & 0xFFFFFFF0U) == 0x00000000U))
+#else
 #define IS_TIM_TISEL(__TISEL__) ((((__TISEL__) & 0xF0F0F0F0U) == 0x00000000U))
+#endif /* !TIM1 */
 
 #define IS_TIM_TISEL_TIX_INSTANCE(INSTANCE, CHANNEL) \
-  (IS_TIM_CCX_INSTANCE(INSTANCE, CHANNEL) && ((CHANNEL) < TIM_CHANNEL_5))
+  (IS_TIM_CCX_INSTANCE(INSTANCE, CHANNEL) && ((CHANNEL) <= TIM_CHANNEL_4))
 
-#if   defined(TIM3)
+#if defined(TIM4) && defined(TIM3)
+#define IS_TIM_CLOCKSOURCE_INSTANCE(INSTANCE, __CLOCK__) \
+  ((((INSTANCE) == TIM1) &&                  \
+    (((__CLOCK__) == TIM_CLOCKSOURCE_INTERNAL)  ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ETRMODE2)  ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR1)      ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR2)      ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR3)      ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_TI1ED)     ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_TI1)       ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_TI2)       ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ETRMODE1)  ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR7)      ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR8)))                \
+   ||                                        \
+   (((INSTANCE) == TIM2) &&                  \
+    (((__CLOCK__) == TIM_CLOCKSOURCE_INTERNAL)  ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ETRMODE2)  ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR0)      ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR2)      ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR3)      ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_TI1ED)     ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_TI1)       ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_TI2)       ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ETRMODE1)  ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR7)      ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR8)      ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR11)))               \
+   ||                                        \
+   (((INSTANCE) == TIM3) &&                  \
+    (((__CLOCK__) == TIM_CLOCKSOURCE_INTERNAL)  ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ETRMODE2)  ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR0)      ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR1)      ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR3)      ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_TI1ED)     ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_TI1)       ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_TI2)       ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ETRMODE1)  ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR7)      ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR8)))                \
+   ||                                        \
+   (((INSTANCE) == TIM4) &&                  \
+    (((__CLOCK__) == TIM_CLOCKSOURCE_INTERNAL)  ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ETRMODE2)  ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR0)      ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR1)      ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR2)      ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_TI1ED)     ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_TI1)       ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_TI2)       ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ETRMODE1)  ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR7)      ||          \
+     ((__CLOCK__) == TIM_CLOCKSOURCE_ITR8))))
+#elif defined(TIM3)
 #define IS_TIM_CLOCKSOURCE_INSTANCE(INSTANCE, __CLOCK__) \
   ((((INSTANCE) == TIM1) &&                  \
     (((__CLOCK__) == TIM_CLOCKSOURCE_INTERNAL)  ||          \
@@ -448,7 +567,7 @@ typedef struct
      ((__CLOCK__) == TIM_CLOCKSOURCE_ETRMODE1)  ||          \
      ((__CLOCK__) == TIM_CLOCKSOURCE_ITR7)      ||          \
      ((__CLOCK__) == TIM_CLOCKSOURCE_ITR8))))
-#else
+#elif defined(TIM1)
 #define IS_TIM_CLOCKSOURCE_INSTANCE(INSTANCE, __CLOCK__) \
   ((((INSTANCE) == TIM1) &&                  \
     (((__CLOCK__) == TIM_CLOCKSOURCE_INTERNAL)  ||          \
@@ -473,9 +592,80 @@ typedef struct
      ((__CLOCK__) == TIM_CLOCKSOURCE_ETRMODE1)  ||          \
      ((__CLOCK__) == TIM_CLOCKSOURCE_ITR7)      ||          \
      ((__CLOCK__) == TIM_CLOCKSOURCE_ITR8))))
+#else
+#if defined(USB_OTG_HS) || defined(USB_DRD_FS)
+#define IS_TIM_CLOCKSOURCE_INSTANCE(INSTANCE, __CLOCK__) \
+  (((INSTANCE) == TIM2) &&                   \
+   (((__CLOCK__) == TIM_CLOCKSOURCE_INTERNAL)  ||          \
+    ((__CLOCK__) == TIM_CLOCKSOURCE_ETRMODE2)  ||          \
+    ((__CLOCK__) == TIM_CLOCKSOURCE_TI1ED)     ||          \
+    ((__CLOCK__) == TIM_CLOCKSOURCE_TI1)       ||          \
+    ((__CLOCK__) == TIM_CLOCKSOURCE_TI2)       ||          \
+    ((__CLOCK__) == TIM_CLOCKSOURCE_ETRMODE1)  ||          \
+    ((__CLOCK__) == TIM_CLOCKSOURCE_ITR7)      ||          \
+    ((__CLOCK__) == TIM_CLOCKSOURCE_ITR8)      ||          \
+    ((__CLOCK__) == TIM_CLOCKSOURCE_ITR11)))
+#else /* (USB_OTG_HS) || (USB_DRD_FS)*/
+#define IS_TIM_CLOCKSOURCE_INSTANCE(INSTANCE, __CLOCK__) \
+  (((INSTANCE) == TIM2) &&                   \
+   (((__CLOCK__) == TIM_CLOCKSOURCE_INTERNAL)  ||          \
+    ((__CLOCK__) == TIM_CLOCKSOURCE_ETRMODE2)  ||          \
+    ((__CLOCK__) == TIM_CLOCKSOURCE_TI1ED)     ||          \
+    ((__CLOCK__) == TIM_CLOCKSOURCE_TI1)       ||          \
+    ((__CLOCK__) == TIM_CLOCKSOURCE_TI2)       ||          \
+    ((__CLOCK__) == TIM_CLOCKSOURCE_ETRMODE1)  ||          \
+    ((__CLOCK__) == TIM_CLOCKSOURCE_ITR7)      ||          \
+    ((__CLOCK__) == TIM_CLOCKSOURCE_ITR8)))
+#endif /* (USB_OTG_HS) || (USB_DRD_FS)*/
 #endif /* TIM3 */
 
-#if   defined(TIM3)
+#if defined(TIM4) && defined(TIM3)
+#define IS_TIM_TRIGGER_INSTANCE(INSTANCE, __SELECTION__) \
+  ((((INSTANCE) == TIM1) &&                  \
+    (((__SELECTION__) == TIM_TS_ITR1)    ||          \
+     ((__SELECTION__) == TIM_TS_ITR2)    ||          \
+     ((__SELECTION__) == TIM_TS_ITR3)    ||          \
+     ((__SELECTION__) == TIM_TS_TI1F_ED) ||          \
+     ((__SELECTION__) == TIM_TS_TI1FP1)  ||          \
+     ((__SELECTION__) == TIM_TS_TI2FP2)  ||          \
+     ((__SELECTION__) == TIM_TS_ETRF)    ||          \
+     ((__SELECTION__) == TIM_TS_ITR7)    ||          \
+     ((__SELECTION__) == TIM_TS_ITR8)))              \
+   ||                                        \
+   (((INSTANCE) == TIM2) &&                  \
+    (((__SELECTION__) == TIM_TS_ITR0)    ||          \
+     ((__SELECTION__) == TIM_TS_ITR2)    ||          \
+     ((__SELECTION__) == TIM_TS_ITR3)    ||          \
+     ((__SELECTION__) == TIM_TS_TI1F_ED) ||          \
+     ((__SELECTION__) == TIM_TS_TI1FP1)  ||          \
+     ((__SELECTION__) == TIM_TS_TI2FP2)  ||          \
+     ((__SELECTION__) == TIM_TS_ETRF)    ||          \
+     ((__SELECTION__) == TIM_TS_ITR7)    ||          \
+     ((__SELECTION__) == TIM_TS_ITR8)    ||          \
+     ((__SELECTION__) == TIM_TS_ITR11)))             \
+   ||                                        \
+   (((INSTANCE) == TIM3) &&                  \
+    (((__SELECTION__) == TIM_TS_ITR0)    ||          \
+     ((__SELECTION__) == TIM_TS_ITR1)    ||          \
+     ((__SELECTION__) == TIM_TS_ITR3)    ||          \
+     ((__SELECTION__) == TIM_TS_TI1F_ED) ||          \
+     ((__SELECTION__) == TIM_TS_TI1FP1)  ||          \
+     ((__SELECTION__) == TIM_TS_TI2FP2)  ||          \
+     ((__SELECTION__) == TIM_TS_ETRF)    ||          \
+     ((__SELECTION__) == TIM_TS_ITR7)    ||          \
+     ((__SELECTION__) == TIM_TS_ITR8)))              \
+   ||                                        \
+   (((INSTANCE) == TIM4) &&                  \
+    (((__SELECTION__) == TIM_TS_ITR0)    ||          \
+     ((__SELECTION__) == TIM_TS_ITR1)    ||          \
+     ((__SELECTION__) == TIM_TS_ITR2)    ||          \
+     ((__SELECTION__) == TIM_TS_TI1F_ED) ||          \
+     ((__SELECTION__) == TIM_TS_TI1FP1)  ||          \
+     ((__SELECTION__) == TIM_TS_TI2FP2)  ||          \
+     ((__SELECTION__) == TIM_TS_ETRF)    ||          \
+     ((__SELECTION__) == TIM_TS_ITR7)    ||          \
+     ((__SELECTION__) == TIM_TS_ITR8))))
+#elif defined(TIM3)
 #define IS_TIM_TRIGGER_INSTANCE(INSTANCE, __SELECTION__) \
   ((((INSTANCE) == TIM1) &&                  \
     (((__SELECTION__) == TIM_TS_ITR1)    ||          \
@@ -506,7 +696,7 @@ typedef struct
      ((__SELECTION__) == TIM_TS_ETRF)    ||          \
      ((__SELECTION__) == TIM_TS_ITR7)    ||          \
      ((__SELECTION__) == TIM_TS_ITR8))))
-#else
+#elif defined(TIM1)
 #define IS_TIM_TRIGGER_INSTANCE(INSTANCE, __SELECTION__) \
   ((((INSTANCE) == TIM1) &&                  \
     (((__SELECTION__) == TIM_TS_ITR1)    ||          \
@@ -527,9 +717,64 @@ typedef struct
      ((__SELECTION__) == TIM_TS_ETRF)    ||          \
      ((__SELECTION__) == TIM_TS_ITR7)    ||          \
      ((__SELECTION__) == TIM_TS_ITR8))))
+#else
+#if defined(USB_OTG_HS) || defined(USB_DRD_FS)
+#define IS_TIM_TRIGGER_INSTANCE(INSTANCE, __SELECTION__) \
+  (((INSTANCE) == TIM2) &&                   \
+   (((__SELECTION__) == TIM_TS_TI1F_ED) ||          \
+    ((__SELECTION__) == TIM_TS_TI1FP1)  ||          \
+    ((__SELECTION__) == TIM_TS_TI2FP2)  ||          \
+    ((__SELECTION__) == TIM_TS_ETRF)    ||          \
+    ((__SELECTION__) == TIM_TS_ITR7)    ||          \
+    ((__SELECTION__) == TIM_TS_ITR8)    ||          \
+    ((__SELECTION__) == TIM_TS_ITR11)))
+#else  /* (USB_OTG_HS) || (USB_DRD_FS)*/
+#define IS_TIM_TRIGGER_INSTANCE(INSTANCE, __SELECTION__) \
+  (((INSTANCE) == TIM2) &&                   \
+   (((__SELECTION__) == TIM_TS_TI1F_ED) ||          \
+    ((__SELECTION__) == TIM_TS_TI1FP1)  ||          \
+    ((__SELECTION__) == TIM_TS_TI2FP2)  ||          \
+    ((__SELECTION__) == TIM_TS_ETRF)    ||          \
+    ((__SELECTION__) == TIM_TS_ITR7)    ||          \
+    ((__SELECTION__) == TIM_TS_ITR8)))
+#endif  /* (USB_OTG_HS) || (USB_DRD_FS)*/
 #endif /* TIM3 */
 
-#if   defined(TIM3)
+#if defined(TIM4) && defined(TIM3)
+#define IS_TIM_INTERNAL_TRIGGEREVENT_INSTANCE(INSTANCE, __SELECTION__) \
+  ((((INSTANCE) == TIM1) &&                  \
+    (((__SELECTION__) == TIM_TS_ITR1)  ||         \
+     ((__SELECTION__) == TIM_TS_ITR2)  ||         \
+     ((__SELECTION__) == TIM_TS_ITR3)  ||         \
+     ((__SELECTION__) == TIM_TS_ITR7)  ||         \
+     ((__SELECTION__) == TIM_TS_ITR8)  ||         \
+     ((__SELECTION__) == TIM_TS_NONE)))           \
+   ||                                        \
+   (((INSTANCE) == TIM2) &&                  \
+    (((__SELECTION__) == TIM_TS_ITR0)  ||         \
+     ((__SELECTION__) == TIM_TS_ITR2)  ||         \
+     ((__SELECTION__) == TIM_TS_ITR3)  ||         \
+     ((__SELECTION__) == TIM_TS_ITR7)  ||         \
+     ((__SELECTION__) == TIM_TS_ITR8)  ||         \
+     ((__SELECTION__) == TIM_TS_ITR11) ||         \
+     ((__SELECTION__) == TIM_TS_NONE)))           \
+   ||                                        \
+   (((INSTANCE) == TIM3) &&                  \
+    (((__SELECTION__) == TIM_TS_ITR0)  ||         \
+     ((__SELECTION__) == TIM_TS_ITR1)  ||         \
+     ((__SELECTION__) == TIM_TS_ITR3)  ||         \
+     ((__SELECTION__) == TIM_TS_ITR7)  ||         \
+     ((__SELECTION__) == TIM_TS_ITR8)  ||         \
+     ((__SELECTION__) == TIM_TS_NONE)))           \
+   ||                                        \
+   (((INSTANCE) == TIM4) &&                  \
+    (((__SELECTION__) == TIM_TS_ITR0)  ||         \
+     ((__SELECTION__) == TIM_TS_ITR1)  ||         \
+     ((__SELECTION__) == TIM_TS_ITR2)  ||         \
+     ((__SELECTION__) == TIM_TS_ITR7)  ||         \
+     ((__SELECTION__) == TIM_TS_ITR8)  ||         \
+     ((__SELECTION__) == TIM_TS_NONE))))
+#elif defined(TIM3)
 #define IS_TIM_INTERNAL_TRIGGEREVENT_INSTANCE(INSTANCE, __SELECTION__) \
   ((((INSTANCE) == TIM1) &&                  \
     (((__SELECTION__) == TIM_TS_ITR1) ||          \
@@ -551,7 +796,7 @@ typedef struct
      ((__SELECTION__) == TIM_TS_ITR7) ||          \
      ((__SELECTION__) == TIM_TS_ITR8) ||          \
      ((__SELECTION__) == TIM_TS_NONE))))
-#else
+#elif defined(TIM1)
 #define IS_TIM_INTERNAL_TRIGGEREVENT_INSTANCE(INSTANCE, __SELECTION__) \
   ((((INSTANCE) == TIM1) &&                  \
     (((__SELECTION__) == TIM_TS_ITR1) ||          \
@@ -566,6 +811,21 @@ typedef struct
      ((__SELECTION__) == TIM_TS_ITR7) ||          \
      ((__SELECTION__) == TIM_TS_ITR8) ||          \
      ((__SELECTION__) == TIM_TS_NONE))))
+#else
+#if defined(USB_OTG_HS) || defined(USB_DRD_FS)
+#define IS_TIM_INTERNAL_TRIGGEREVENT_INSTANCE(INSTANCE, __SELECTION__) \
+  (((INSTANCE) == TIM2) &&                   \
+   (((__SELECTION__) == TIM_TS_ITR7)  ||          \
+    ((__SELECTION__) == TIM_TS_ITR8)  ||          \
+    ((__SELECTION__) == TIM_TS_ITR11) ||          \
+    ((__SELECTION__) == TIM_TS_NONE)))
+#else /* (USB_OTG_HS) || (USB_DRD_FS) */
+#define IS_TIM_INTERNAL_TRIGGEREVENT_INSTANCE(INSTANCE, __SELECTION__) \
+  (((INSTANCE) == TIM2) &&                   \
+   (((__SELECTION__) == TIM_TS_ITR7)  ||          \
+    ((__SELECTION__) == TIM_TS_ITR8)  ||          \
+    ((__SELECTION__) == TIM_TS_NONE)))
+#endif /* (USB_OTG_HS) || (USB_DRD_FS) */
 #endif /* TIM3 */
 
 #define IS_TIM_OC_CHANNEL_MODE(__MODE__, __CHANNEL__)   \
@@ -719,7 +979,9 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakDeadTime(TIM_HandleTypeDef *htim,
                                                 const TIM_BreakDeadTimeConfigTypeDef *sBreakDeadTimeConfig);
 HAL_StatusTypeDef HAL_TIMEx_ConfigBreakInput(TIM_HandleTypeDef *htim, uint32_t BreakInput,
                                              const TIMEx_BreakInputConfigTypeDef *sBreakInputConfig);
+#if defined(TIM_CCR5_CCR5)
 HAL_StatusTypeDef HAL_TIMEx_GroupChannel5(TIM_HandleTypeDef *htim, uint32_t Channels);
+#endif /* TIM_CCR5_CCR5 */
 HAL_StatusTypeDef HAL_TIMEx_RemapConfig(TIM_HandleTypeDef *htim, uint32_t Remap);
 HAL_StatusTypeDef  HAL_TIMEx_TISelection(TIM_HandleTypeDef *htim, uint32_t TISelection, uint32_t Channel);
 
@@ -756,7 +1018,9 @@ HAL_StatusTypeDef HAL_TIMEx_DisableEncoderFirstIndex(TIM_HandleTypeDef *htim);
 void HAL_TIMEx_CommutCallback(TIM_HandleTypeDef *htim);
 void HAL_TIMEx_CommutHalfCpltCallback(TIM_HandleTypeDef *htim);
 void HAL_TIMEx_BreakCallback(TIM_HandleTypeDef *htim);
+#if defined(TIM_BDTR_BK2E)
 void HAL_TIMEx_Break2Callback(TIM_HandleTypeDef *htim);
+#endif /* TIM_BDTR_BK2E */
 void HAL_TIMEx_EncoderIndexCallback(TIM_HandleTypeDef *htim);
 void HAL_TIMEx_DirectionChangeCallback(TIM_HandleTypeDef *htim);
 void HAL_TIMEx_IndexErrorCallback(TIM_HandleTypeDef *htim);

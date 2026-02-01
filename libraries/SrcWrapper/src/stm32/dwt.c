@@ -58,11 +58,20 @@ void dwt_access(bool ena)
    * Define DWT LSR mask which is (currentuly) not defined by the CMSIS.
    * Same as ITM LSR one.
    */
+
 #if !defined DWT_LSR_Present_Msk
+#if defined(ITM_LSR_PRESENT_Msk)
+#define DWT_LSR_Present_Msk ITM_LSR_PRESENT_Msk
+#else
 #define DWT_LSR_Present_Msk ITM_LSR_Present_Msk
 #endif
+#endif
 #if !defined DWT_LSR_Access_Msk
+#if defined(ITM_LSR_ACCESS_Msk)
+#define DWT_LSR_Access_Msk ITM_LSR_ACCESS_Msk
+#else
 #define DWT_LSR_Access_Msk ITM_LSR_Access_Msk
+#endif
 #endif
   uint32_t lsr = DWT->LSR;
 

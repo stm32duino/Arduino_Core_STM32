@@ -129,7 +129,7 @@ ErrorStatus LL_OPAMP_DeInit(OPAMP_TypeDef* OPAMPx)
   *          - SUCCESS: OPAMP registers are initialized
   *          - ERROR: OPAMP registers are not initialized
   */
-ErrorStatus LL_OPAMP_Init(OPAMP_TypeDef *OPAMPx, LL_OPAMP_InitTypeDef *OPAMP_InitStruct)
+ErrorStatus LL_OPAMP_Init(OPAMP_TypeDef *OPAMPx, const LL_OPAMP_InitTypeDef *OPAMP_InitStruct)
 {
   /* Check the parameters */
   assert_param(IS_OPAMP_ALL_INSTANCE(OPAMPx));

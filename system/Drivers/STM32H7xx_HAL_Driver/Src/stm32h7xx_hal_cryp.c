@@ -74,7 +74,7 @@
          the CRYP peripheral is configured and processes the buffer in input.
          At second call, no need to Initialize the CRYP, user have to get current configuration via
          HAL_CRYP_GetConfig() API, then only  HAL_CRYP_SetConfig() is requested to set
-         new parametres, finally user can  start encryption/decryption.
+         new parameters, finally user can  start encryption/decryption.
 
        (#)Call HAL_CRYP_DeInit() to deinitialize the CRYP peripheral.
 
@@ -1741,7 +1741,7 @@ void HAL_CRYP_IRQHandler(CRYP_HandleTypeDef *hcryp)
   *                 the configuration information for the  CRYP IP
   * @retval CRYP error code
   */
-uint32_t HAL_CRYP_GetError(CRYP_HandleTypeDef *hcryp)
+uint32_t HAL_CRYP_GetError(const CRYP_HandleTypeDef *hcryp)
 {
   return hcryp->ErrorCode;
 }
@@ -1752,7 +1752,7 @@ uint32_t HAL_CRYP_GetError(CRYP_HandleTypeDef *hcryp)
   *         the configuration information for CRYP module.
   * @retval HAL state
   */
-HAL_CRYP_STATETypeDef HAL_CRYP_GetState(CRYP_HandleTypeDef *hcryp)
+HAL_CRYP_STATETypeDef HAL_CRYP_GetState(const CRYP_HandleTypeDef *hcryp)
 {
   return hcryp->State;
 }
@@ -4434,7 +4434,7 @@ static HAL_StatusTypeDef CRYP_GCMCCM_SetHeaderPhase(CRYP_HandleTypeDef *hcryp, u
   uint32_t loopcounter;
   uint32_t size_in_bytes;
   uint32_t tmp;
-  uint32_t mask[4] = {0x0U, 0x0FFU, 0x0FFFFU, 0x0FFFFFFU};
+  const uint32_t mask[4] = {0x0U, 0x0FFU, 0x0FFFFU, 0x0FFFFFFU};
 
   /***************************** Header phase for GCM/GMAC or CCM *********************************/
 

@@ -113,8 +113,6 @@ ErrorStatus LL_FMAC_DeInit(const FMAC_TypeDef *FMACx)
   return (status);
 }
 
-
-
 /**
   * @}
   */

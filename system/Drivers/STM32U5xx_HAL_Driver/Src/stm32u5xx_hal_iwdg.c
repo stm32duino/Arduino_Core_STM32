@@ -137,7 +137,8 @@
    The timeout value is multiplied by 1000 to be converted in milliseconds.
    LSI startup time is also considered here by adding LSI_STARTUP_TIME
    converted in milliseconds. */
-#define HAL_IWDG_DEFAULT_TIMEOUT        (((1UL * 1024UL * 1000UL) / LSI_VALUE) + ((LSI_STARTUP_TIME / 1000UL) + 1UL))
+#define HAL_IWDG_DEFAULT_TIMEOUT        (((1UL * 1024UL * 1000UL) / (LSI_VALUE / 128U)) + \
+                                         ((LSI_STARTUP_TIME / 1000UL) + 1UL))
 #define IWDG_KERNEL_UPDATE_FLAGS        (IWDG_SR_EWU | IWDG_SR_WVU | IWDG_SR_RVU | IWDG_SR_PVU)
 /**
   * @}
@@ -297,7 +298,7 @@ __weak void HAL_IWDG_MspInit(IWDG_HandleTypeDef *hiwdg)
 #if (USE_HAL_IWDG_REGISTER_CALLBACKS == 1)
 /**
   * @brief  Register a User IWDG Callback
-  *         To be used instead of the weak (surcharged) predefined callback
+  *         To be used instead of the weak (overridden) predefined callback
   * @param  hiwdg IWDG handle
   * @param  CallbackID ID of the callback to be registered
   *         This parameter can be one of the following values:
@@ -338,7 +339,7 @@ HAL_StatusTypeDef HAL_IWDG_RegisterCallback(IWDG_HandleTypeDef *hiwdg, HAL_IWDG_
 
 /**
   * @brief  Unregister a IWDG Callback
-  *         IWDG Callback is redirected to the weak (surcharged) predefined callback
+  *         IWDG Callback is redirected to the weak (overridden) predefined callback
   * @param  hiwdg IWDG handle
   * @param  CallbackID ID of the callback to be registered
   *         This parameter can be one of the following values:

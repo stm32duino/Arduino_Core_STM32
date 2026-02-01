@@ -6,7 +6,7 @@
  * @brief STM32 core version number
  */
 #define STM32_CORE_VERSION_MAJOR    (0x02U) /*!< [31:24] major version */
-#define STM32_CORE_VERSION_MINOR    (0x09U) /*!< [23:16] minor version */
+#define STM32_CORE_VERSION_MINOR    (0x0DU) /*!< [23:16] minor version */
 #define STM32_CORE_VERSION_PATCH    (0x00U) /*!< [15:8]  patch version */
 /*
  * Extra label for development:
@@ -54,12 +54,18 @@
   #include "stm32mp1xx.h"
 #elif defined(STM32U0xx)
   #include "stm32u0xx.h"
+#elif defined(STM32U3xx)
+  #include "stm32u3xx.h"
 #elif defined(STM32U5xx)
   #include "stm32u5xx.h"
+#elif defined(STM32WB0x)
+  #include "stm32wb0x.h"
 #elif defined(STM32WBxx)
   #include "stm32wbxx.h"
 #elif defined(STM32WBAxx)
   #include "stm32wbaxx.h"
+#elif defined(STM32WL3x)
+  #include "stm32wl3x.h"
 #elif defined(STM32WLxx)
   #include "stm32wlxx.h"
 #else
@@ -186,11 +192,18 @@ __STATIC_INLINE void LL_RTC_SetBinMixBCDU(RTC_TypeDef *RTCx, uint32_t BinMixBcdU
 #if !defined(USB) && defined(USB_DRD_FS)
   #define USB USB_DRD_FS
   #define PinMap_USB PinMap_USB_DRD_FS
-  #if defined(STM32H5xx) || defined(STM32U0xx) || defined(STM32U5xx)
+  #if defined(STM32H5xx) || defined(STM32U0xx) ||\
+    defined(STM32U3xx) || defined(STM32U5xx)
     #define USB_BASE USB_DRD_BASE
     #if !defined(__HAL_RCC_USB_CLK_ENABLE)
-      #define __HAL_RCC_USB_CLK_ENABLE __HAL_RCC_USB_FS_CLK_ENABLE
-      #define __HAL_RCC_USB_CLK_DISABLE __HAL_RCC_USB_FS_CLK_DISABLE
+      #if defined(__HAL_RCC_USB_FS_CLK_ENABLE)
+        #define __HAL_RCC_USB_CLK_ENABLE __HAL_RCC_USB_FS_CLK_ENABLE
+        #define __HAL_RCC_USB_CLK_DISABLE __HAL_RCC_USB_FS_CLK_DISABLE
+      #endif
+      #if defined(__HAL_RCC_USB1_CLK_ENABLE)
+        #define __HAL_RCC_USB_CLK_ENABLE __HAL_RCC_USB1_CLK_ENABLE
+        #define __HAL_RCC_USB_CLK_DISABLE __HAL_RCC_USB1_CLK_DISABLE
+      #endif
     #endif
   #endif
 #endif
@@ -208,6 +221,19 @@ __STATIC_INLINE void LL_RTC_SetBinMixBCDU(RTC_TypeDef *RTCx, uint32_t BinMixBcdU
 #if defined(STM32L0xx) && !defined(GPIO_AF1_SPI1)
   #define GPIO_AF1_SPI1 STM_PIN_AFNUM_MASK
 #endif
+
+#if defined(STM32C0xx)
+  #if defined(USART3) && !defined(GPIO_AF7_USART3)
+    #define GPIO_AF7_USART3 ((uint8_t)0x07)
+  #endif /* USART3 & !GPIO_AF7_USART3*/
+  #if defined(STM32C051xx) && !defined(GPIO_AF0_USART2)
+    #define GPIO_AF0_USART2 ((uint8_t)0x00)
+  #endif
+#endif // STM32C0xx
+
+#if defined(STM32WBAxx) && defined(USB_OTG_HS) && !defined(GPIO_AF4_USB_OTG_HS)
+  #define GPIO_AF4_USB_OTG_HS GPIO_AF4_OTG_HS
+#endif // STM32WBAxx && defined(USB_OTG_HS) && !defined(GPIO_AF4_USB_OTG_HS)
 
 /**
  * Libc porting layers

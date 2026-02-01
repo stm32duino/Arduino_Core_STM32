@@ -71,7 +71,7 @@ extern "C" {
 /** @addtogroup FLASHEx_Exported_Functions_Group1
   * @{
   */
-HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t *PageError);
+HAL_StatusTypeDef HAL_FLASHEx_Erase(const FLASH_EraseInitTypeDef *pEraseInit, uint32_t *PageError);
 HAL_StatusTypeDef HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit);
 uint32_t          HAL_FLASHEx_FlashEmptyCheck(void);
 void              HAL_FLASHEx_ForceFlashEmpty(uint32_t FlashEmpty);
@@ -99,9 +99,11 @@ uint32_t          HAL_FLASHEx_GetPrivMode(void);
 /** @defgroup FLASHEx_Private_Macros FLASHEx Private Macros
   *  @{
   */
-#define IS_FLASH_EMPTY_CHECK(__VALUE__)         (((__VALUE__) == FLASH_PROG_EMPTY) || ((__VALUE__) == FLASH_PROG_NOT_EMPTY))
+#define IS_FLASH_EMPTY_CHECK(__VALUE__)         (((__VALUE__) == FLASH_PROG_EMPTY) ||\
+                                                 ((__VALUE__) == FLASH_PROG_NOT_EMPTY))
 
-#define IS_FLASH_CFGPRIVMODE(__VALUE__)         (((__VALUE__) == FLASH_PRIV_GRANTED) || ((__VALUE__) == FLASH_PRIV_DENIED))
+#define IS_FLASH_CFGPRIVMODE(__VALUE__)         (((__VALUE__) == FLASH_PRIV_GRANTED) ||\
+                                                 ((__VALUE__) == FLASH_PRIV_DENIED))
 /**
   * @}
   */

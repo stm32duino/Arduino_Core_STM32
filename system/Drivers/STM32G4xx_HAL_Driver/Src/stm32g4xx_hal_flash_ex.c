@@ -920,7 +920,6 @@ static HAL_StatusTypeDef FLASH_OB_UserConfig(uint32_t UserType, uint32_t UserCon
       optr_reg_val |= (UserConfig & FLASH_OPTR_SRAM_PE);
       optr_reg_mask |= FLASH_OPTR_SRAM_PE;
     }
-#if defined(CCMSRAM_BASE)
     if ((UserType & OB_USER_CCMSRAM_RST) != 0U)
     {
       /* CCMSRAM_RST option byte should be modified */
@@ -930,7 +929,6 @@ static HAL_StatusTypeDef FLASH_OB_UserConfig(uint32_t UserType, uint32_t UserCon
       optr_reg_val |= (UserConfig & FLASH_OPTR_CCMSRAM_RST);
       optr_reg_mask |= FLASH_OPTR_CCMSRAM_RST;
     }
-#endif /* CCMSRAM_BASE */
     if ((UserType & OB_USER_nSWBOOT0) != 0U)
     {
       /* nSWBOOT0 option byte should be modified */

@@ -276,9 +276,16 @@ typedef void (*pDAC_CallbackTypeDef)(DAC_HandleTypeDef *hdac);
 /** @defgroup DAC_ConnectOnChipPeripheral DAC ConnectOnChipPeripheral
   * @{
   */
-#define DAC_CHIPCONNECT_DISABLE    (0x00000000UL)
-#define DAC_CHIPCONNECT_ENABLE     (DAC_MCR_MODE1_0)
-
+#define DAC_CHIPCONNECT_DISABLE    (0x00000000UL)   /*!< DAC channel output is connected to external
+                                        pin.
+                                        Note: Depending on other parameters (mode normal or sample and hold,
+                                              output buffer state), output can also be connected to on-chip
+                                              peripherals, refer to ref manual. */
+#define DAC_CHIPCONNECT_ENABLE     (DAC_MCR_MODE1_0) /*!< DAC channel output is connected to on-chip
+                                        peripherals (via internal paths).
+                                        Note: Depending on other parameters (mode normal or sample and hold,
+                                              output buffer state), output can also be connected to external pin,
+                                              refer to ref manual. */
 /**
   * @}
   */

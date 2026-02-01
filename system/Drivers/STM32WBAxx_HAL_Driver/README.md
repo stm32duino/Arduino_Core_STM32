@@ -9,7 +9,7 @@
 **STM32Cube** covers the overall STM32 products portfolio. It includes a comprehensive embedded software platform delivered for each STM32 series.
    * The CMSIS modules (core and device) corresponding to the ARM(tm) core implemented in this STM32 product.
    * The STM32 HAL-LL drivers, an abstraction layer offering a set of APIs ensuring maximized portability across the STM32 portfolio.
-   * The BSP drivers of each evaluation, demonstration, or nucleo board provided for this STM32 series.
+   * The BSP drivers of each evaluation, discovery, or nucleo board provided for this STM32 series.
    * A consistent set of middleware libraries such as WPAN, ThreadX, FileX, USBX, NetDuoX, OpenBootloader, trustedfirmware, mbed-crypto...
    * A full set of software projects (basic examples, applications, and demonstrations) for each board, each project developed in three flavors using three toolchains (EWARM, MDK-ARM, and STM32CubeIDE).
 

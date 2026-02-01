@@ -664,7 +664,7 @@ void HAL_PWREx_DisablePVM4(void)
   *         detection level and to each monitored supply.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_PWREx_ConfigPVM(PWR_PVMTypeDef *sConfigPVM)
+HAL_StatusTypeDef HAL_PWREx_ConfigPVM(const PWR_PVMTypeDef *sConfigPVM)
 {
   HAL_StatusTypeDef status = HAL_OK;
 

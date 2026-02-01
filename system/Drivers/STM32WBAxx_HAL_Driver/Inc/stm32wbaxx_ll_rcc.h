@@ -45,9 +45,9 @@ extern "C" {
   */
 /* Defines used to perform offsets*/
 /* Offset used to access to RCC_CCIPR1, RCC_CCIPR2 and RCC_CCIPR3 registers */
-#define RCC_OFFSET_CCIPR1       0U
-#define RCC_OFFSET_CCIPR2       0x04U
-#define RCC_OFFSET_CCIPR3       0x08U
+#define RCC_OFFSET_CCIPR1       0UL
+#define RCC_OFFSET_CCIPR2       0x04UL
+#define RCC_OFFSET_CCIPR3       0x08UL
 
 /* Defines used for security configuration extension */
 #define RCC_SECURE_MASK         0x10FBU
@@ -272,9 +272,12 @@ typedef struct
 /** @defgroup RCC_LL_EC_SYSTICK_CLKSOURCE  SYSTICK clock source selection
   * @{
   */
-#define LL_RCC_SYSTICK_CLKSOURCE_HCLKDIV8  0U                      /*!< HCLKDIV8 clock used as SYSTICK clock source */
-#define LL_RCC_SYSTICK_CLKSOURCE_LSI       RCC_CCIPR1_SYSTICKSEL_0 /*!< LSI clock used as SYSTICK clock source        */
-#define LL_RCC_SYSTICK_CLKSOURCE_LSE       RCC_CCIPR1_SYSTICKSEL_1 /*!< LSE clock used as SYSTICK clock source        */
+#define LL_RCC_SYSTICK_CLKSOURCE_HCLKDIV8  0U                                                  /*!< HCLKDIV8 clock used as SYSTICK clock source */
+#define LL_RCC_SYSTICK_CLKSOURCE_LSI       RCC_CCIPR1_SYSTICKSEL_0                             /*!< LSI clock used as SYSTICK clock source      */
+#define LL_RCC_SYSTICK_CLKSOURCE_LSE       RCC_CCIPR1_SYSTICKSEL_1                             /*!< LSE clock used as SYSTICK clock source      */
+#if !defined (STM32WBA50xx) && !defined (STM32WBA52xx) && !defined (STM32WBA54xx) && !defined (STM32WBA55xx) && !defined (STM32WBA5Mxx)
+#define LL_RCC_SYSTICK_CLKSOURCE_HSIDIV4   (RCC_CCIPR1_SYSTICKSEL_1 | RCC_CCIPR1_SYSTICKSEL_0) /*!< HSIDIV4 clock used as SYSTICK clock source  */
+#endif
 /**
   * @}
   */
@@ -412,6 +415,12 @@ typedef struct
 #define LL_RCC_USART2_CLKSOURCE_HSI     ((RCC_CCIPR1_USART2SEL << 16U) | RCC_CCIPR1_USART2SEL_1) /*!< HSI clock used as USART2 clock source */
 #define LL_RCC_USART2_CLKSOURCE_LSE     ((RCC_CCIPR1_USART2SEL << 16U) | RCC_CCIPR1_USART2SEL)   /*!< LSE clock used as USART2 clock source */
 #endif /* USART2 */
+#if defined(USART3)
+#define LL_RCC_USART3_CLKSOURCE_PCLK1   (RCC_CCIPR1_USART3SEL << 16U)                            /*!< PCLK1 clock used as USART3 clock source */
+#define LL_RCC_USART3_CLKSOURCE_SYSCLK  ((RCC_CCIPR1_USART3SEL << 16U) | RCC_CCIPR1_USART3SEL_0) /*!< SYSCLK clock used as USART3 clock source */
+#define LL_RCC_USART3_CLKSOURCE_HSI     ((RCC_CCIPR1_USART3SEL << 16U) | RCC_CCIPR1_USART3SEL_1) /*!< HSI clock used as USART3 clock source */
+#define LL_RCC_USART3_CLKSOURCE_LSE     ((RCC_CCIPR1_USART3SEL << 16U) | RCC_CCIPR1_USART3SEL)   /*!< LSE clock used as USART3 clock source */
+#endif /* USART3 */
 /**
   * @}
   */
@@ -433,9 +442,19 @@ typedef struct
 #define LL_RCC_I2C1_CLKSOURCE_PCLK1     ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C1SEL_Pos << 16U))                                                    /*!< PCLK1 clock used as I2C1 clock source */
 #define LL_RCC_I2C1_CLKSOURCE_SYSCLK    ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C1SEL_Pos << 16U) | (RCC_CCIPR1_I2C1SEL_0 >> RCC_CCIPR1_I2C1SEL_Pos)) /*!< SYSCLK clock used as I2C1 clock source */
 #define LL_RCC_I2C1_CLKSOURCE_HSI       ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C1SEL_Pos << 16U) | (RCC_CCIPR1_I2C1SEL_1 >> RCC_CCIPR1_I2C1SEL_Pos)) /*!< HSI clock used as I2C1 clock source */
+#if defined(I2C2)
+#define LL_RCC_I2C2_CLKSOURCE_PCLK1     ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C2SEL_Pos << 16U))                                                    /*!< PCLK1 clock used as I2C2 clock source */
+#define LL_RCC_I2C2_CLKSOURCE_SYSCLK    ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C2SEL_Pos << 16U) | (RCC_CCIPR1_I2C2SEL_0 >> RCC_CCIPR1_I2C2SEL_Pos)) /*!< SYSCLK clock used as I2C2 clock source */
+#define LL_RCC_I2C2_CLKSOURCE_HSI       ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C2SEL_Pos << 16U) | (RCC_CCIPR1_I2C2SEL_1 >> RCC_CCIPR1_I2C2SEL_Pos)) /*!< HSI clock used as I2C2 clock source */
+#endif /* I2C2 */
 #define LL_RCC_I2C3_CLKSOURCE_PCLK7     ((RCC_OFFSET_CCIPR3 << 24U) | (RCC_CCIPR3_I2C3SEL_Pos << 16U))                                                    /*!< PCLK7 clock used as I2C3 clock source */
 #define LL_RCC_I2C3_CLKSOURCE_SYSCLK    ((RCC_OFFSET_CCIPR3 << 24U) | (RCC_CCIPR3_I2C3SEL_Pos << 16U) | (RCC_CCIPR3_I2C3SEL_0 >> RCC_CCIPR3_I2C3SEL_Pos)) /*!< SYSCLK clock used as I2C3 clock source */
 #define LL_RCC_I2C3_CLKSOURCE_HSI       ((RCC_OFFSET_CCIPR3 << 24U) | (RCC_CCIPR3_I2C3SEL_Pos << 16U) | (RCC_CCIPR3_I2C3SEL_1 >> RCC_CCIPR3_I2C3SEL_Pos)) /*!< HSI clock used as I2C3 clock source */
+#if defined(I2C4)
+#define LL_RCC_I2C4_CLKSOURCE_PCLK1     ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C4SEL_Pos << 16U))                                                    /*!< PCLK1 clock used as I2C4 clock source */
+#define LL_RCC_I2C4_CLKSOURCE_SYSCLK    ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C4SEL_Pos << 16U) | (RCC_CCIPR1_I2C4SEL_0 >> RCC_CCIPR1_I2C4SEL_Pos)) /*!< SYSCLK clock used as I2C4 clock source */
+#define LL_RCC_I2C4_CLKSOURCE_HSI       ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C4SEL_Pos << 16U) | (RCC_CCIPR1_I2C4SEL_1 >> RCC_CCIPR1_I2C4SEL_Pos)) /*!< HSI clock used as I2C4 clock source */
+#endif /* I2C4 */
 /**
   * @}
   */
@@ -448,6 +467,11 @@ typedef struct
 #define LL_RCC_SPI1_CLKSOURCE_SYSCLK    ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_SPI1SEL_Pos << 16U) | (RCC_CCIPR1_SPI1SEL_0 >> RCC_CCIPR1_SPI1SEL_Pos)) /*!< SYSCLK clock used as SPI1 clock source */
 #define LL_RCC_SPI1_CLKSOURCE_HSI       ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_SPI1SEL_Pos << 16U) | (RCC_CCIPR1_SPI1SEL_1 >> RCC_CCIPR1_SPI1SEL_Pos)) /*!< HSI clock used as SPI1 clock source */
 #endif /* SPI1 */
+#if defined(SPI2)
+#define LL_RCC_SPI2_CLKSOURCE_PCLK1     ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_SPI2SEL_Pos << 16U))                                                    /*!< PCLK1 clock used as SPI2 clock source */
+#define LL_RCC_SPI2_CLKSOURCE_SYSCLK    ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_SPI2SEL_Pos << 16U) | (RCC_CCIPR1_SPI2SEL_0 >> RCC_CCIPR1_SPI2SEL_Pos)) /*!< SYSCLK clock used as SPI2 clock source */
+#define LL_RCC_SPI2_CLKSOURCE_HSI       ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_SPI2SEL_Pos << 16U) | (RCC_CCIPR1_SPI2SEL_1 >> RCC_CCIPR1_SPI2SEL_Pos)) /*!< HSI clock used as SPI2 clock source */
+#endif /* SPI2 */
 #define LL_RCC_SPI3_CLKSOURCE_PCLK7     ((RCC_OFFSET_CCIPR3 << 24U) | (RCC_CCIPR3_SPI3SEL_Pos << 16U))                                                    /*!< PCLK7 clock used as SPI3 clock source */
 #define LL_RCC_SPI3_CLKSOURCE_SYSCLK    ((RCC_OFFSET_CCIPR3 << 24U) | (RCC_CCIPR3_SPI3SEL_Pos << 16U) | (RCC_CCIPR3_SPI3SEL_0 >> RCC_CCIPR3_SPI3SEL_Pos)) /*!< SYSCLK clock used as SPI3 clock source */
 #define LL_RCC_SPI3_CLKSOURCE_HSI       ((RCC_OFFSET_CCIPR3 << 24U) | (RCC_CCIPR3_SPI3SEL_Pos << 16U) | (RCC_CCIPR3_SPI3SEL_1 >> RCC_CCIPR3_SPI3SEL_Pos)) /*!< HSI clock used as SPI3 clock source */
@@ -517,6 +541,18 @@ typedef struct
   * @}
   */
 
+#if defined(USB_OTG_HS)
+/** @defgroup RCC_LL_EC_SAI_CLKSOURCE  Peripheral OTG_HS PHY clock source selection
+  * @{
+  */
+#define LL_RCC_OTG_HS_CLKSOURCE_HSE        0U                                               /*!< HSE clock used as OTGHS clock source */
+#define LL_RCC_OTG_HS_CLKSOURCE_PLL1P      RCC_CCIPR2_OTGHSSEL_0                            /*!< PLL1P clock used as OTGHS clock source */
+#define LL_RCC_OTG_HS_CLKSOURCE_HSE_DIV2   RCC_CCIPR2_OTGHSSEL_1                            /*!< HSE/2 clock used as OTGHS clock source */
+#define LL_RCC_OTG_HS_CLKSOURCE_PLL1P_DIV2 (RCC_CCIPR2_OTGHSSEL_1 | RCC_CCIPR2_OTGHSSEL_0)  /*!< PLL1P/2 clock used as OTGHS clock source */
+/**
+  * @}
+  */
+#endif /* USB_OTG_HS */
 
 
 /** @defgroup RCC_LL_EC_TIM_INPUT_CAPTURE_CLOCKSource TIM Input capture clock source selection
@@ -535,6 +571,9 @@ typedef struct
 #if defined(USART2)
 #define LL_RCC_USART2_CLKSOURCE         RCC_CCIPR1_USART2SEL /*!< USART2 Clock source selection */
 #endif /* USART2 */
+#if defined(USART3)
+#define LL_RCC_USART3_CLKSOURCE         RCC_CCIPR1_USART3SEL /*!< USART3 Clock source selection */
+#endif /* USART3 */
 /**
   * @}
   */
@@ -545,6 +584,9 @@ typedef struct
 #if defined(SPI1)
 #define LL_RCC_SPI1_CLKSOURCE           ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_SPI1SEL_Pos << 16U) | (RCC_CCIPR1_SPI1SEL >> RCC_CCIPR1_SPI1SEL_Pos)) /*!< SPI1 Clock source selection */
 #endif /* SPI1 */
+#if defined(SPI2)
+#define LL_RCC_SPI2_CLKSOURCE           ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_SPI2SEL_Pos << 16U) | (RCC_CCIPR1_SPI2SEL >> RCC_CCIPR1_SPI2SEL_Pos)) /*!< SPI2 Clock source selection */
+#endif /* SPI2 */
 #define LL_RCC_SPI3_CLKSOURCE           ((RCC_OFFSET_CCIPR3 << 24U) | (RCC_CCIPR3_SPI3SEL_Pos << 16U) | (RCC_CCIPR3_SPI3SEL >> RCC_CCIPR3_SPI3SEL_Pos)) /*!< SPI3 Clock source selection */
 /**
   * @}
@@ -564,7 +606,13 @@ typedef struct
 #if defined(I2C1)
 #define LL_RCC_I2C1_CLKSOURCE           ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C1SEL_Pos << 16U) | (RCC_CCIPR1_I2C1SEL >> RCC_CCIPR1_I2C1SEL_Pos)) /*!< I2C1 Clock source selection */
 #endif /* I2C1 */
+#if defined(I2C2)
+#define LL_RCC_I2C2_CLKSOURCE           ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C2SEL_Pos << 16U) | (RCC_CCIPR1_I2C2SEL >> RCC_CCIPR1_I2C2SEL_Pos)) /*!< I2C2 Clock source selection */
+#endif /* I2C2 */
 #define LL_RCC_I2C3_CLKSOURCE           ((RCC_OFFSET_CCIPR3 << 24U) | (RCC_CCIPR3_I2C3SEL_Pos << 16U) | (RCC_CCIPR3_I2C3SEL >> RCC_CCIPR3_I2C3SEL_Pos)) /*!< I2C3 Clock source selection */
+#if defined(I2C4)
+#define LL_RCC_I2C4_CLKSOURCE           ((RCC_OFFSET_CCIPR1 << 24U) | (RCC_CCIPR1_I2C4SEL_Pos << 16U) | (RCC_CCIPR1_I2C4SEL >> RCC_CCIPR1_I2C4SEL_Pos)) /*!< I2C4 Clock source selection */
+#endif /* I2C4 */
 
 /**
   * @}
@@ -607,6 +655,15 @@ typedef struct
   * @}
   */
 
+#if defined(USB_OTG_HS)
+/** @defgroup RCC_LL_EC_OTG_HS  Peripheral OTG_HS PHY get clock source
+  * @{
+  */
+#define LL_RCC_OTG_HS_CLKSOURCE         RCC_CCIPR2_OTGHSSEL /*!< OTG_HS Clock source selection */
+/**
+  * @}
+  */
+#endif /* USB_OTG_HS */
 
 /** @defgroup RCC_LL_EC_PLL1SOURCE  PLL1 entry clock source
   * @{
@@ -1481,6 +1538,9 @@ __STATIC_INLINE void LL_RCC_SetAHBPrescaler(uint32_t Prescaler)
   *         @arg @ref LL_RCC_SYSTICK_CLKSOURCE_LSI
   *         @arg @ref LL_RCC_SYSTICK_CLKSOURCE_LSE
   *         @arg @ref LL_RCC_SYSTICK_CLKSOURCE_HCLKDIV8
+  *         @arg @ref LL_RCC_SYSTICK_CLKSOURCE_HSIDIV4 (*)
+  *
+  *         (*) value not defined in all devices.
   * @retval None
   */
 __STATIC_INLINE void LL_RCC_SetSystickClockSource(uint32_t SystickSource)
@@ -1587,6 +1647,9 @@ __STATIC_INLINE uint32_t LL_RCC_GetAHBPrescaler(void)
   *         @arg @ref LL_RCC_SYSTICK_CLKSOURCE_LSI
   *         @arg @ref LL_RCC_SYSTICK_CLKSOURCE_LSE
   *         @arg @ref LL_RCC_SYSTICK_CLKSOURCE_HCLKDIV8
+  *         @arg @ref LL_RCC_SYSTICK_CLKSOURCE_HSIDIV4 (*)
+  *
+  *         (*) value not defined in all devices.
   */
 __STATIC_INLINE uint32_t LL_RCC_GetSystickClockSource(void)
 {
@@ -1813,6 +1876,9 @@ __STATIC_INLINE void LL_RCC_ConfigMCO(uint32_t MCOxSource, uint32_t MCOxPrescale
   * @brief  Configure USARTx clock source
   * @rmtoll CCIPR1       USART1SEL     LL_RCC_SetUSARTClockSource\n
   *         CCIPR1       USART2SEL     LL_RCC_SetUSARTClockSource\n
+#if defined(USART3)
+  *         CCIPR1       USART3SEL     LL_RCC_SetUSARTClockSource
+#endif
   * @param  USARTxSource This parameter can be one of the following values:
   *         @arg @ref LL_RCC_USART1_CLKSOURCE_PCLK2
   *         @arg @ref LL_RCC_USART1_CLKSOURCE_SYSCLK
@@ -1822,6 +1888,14 @@ __STATIC_INLINE void LL_RCC_ConfigMCO(uint32_t MCOxSource, uint32_t MCOxPrescale
   *         @arg @ref LL_RCC_USART2_CLKSOURCE_SYSCLK
   *         @arg @ref LL_RCC_USART2_CLKSOURCE_HSI
   *         @arg @ref LL_RCC_USART2_CLKSOURCE_LSE
+#if defined(USART3)
+  *         @arg @ref LL_RCC_USART3_CLKSOURCE_PCLK1 (*)
+  *         @arg @ref LL_RCC_USART3_CLKSOURCE_SYSCLK (*)
+  *         @arg @ref LL_RCC_USART3_CLKSOURCE_HSI (*)
+  *         @arg @ref LL_RCC_USART3_CLKSOURCE_LSE (*)
+  *
+  *         (*) value not defined in all devices.
+#endif
   * @retval None
   */
 __STATIC_INLINE void LL_RCC_SetUSARTClockSource(uint32_t USARTxSource)
@@ -1847,39 +1921,69 @@ __STATIC_INLINE void LL_RCC_SetLPUARTClockSource(uint32_t LPUARTxSource)
 /**
   * @brief  Configure I2Cx clock source
   * @rmtoll CCIPR1       I2C1SEL       LL_RCC_SetI2CClockSource\n
+#if defined(I2C2)
+  *         CCIPR1       I2C2SEL       LL_RCC_SetI2CClockSource\n
+#endif
   *         CCIPR3       I2C3SEL       LL_RCC_SetI2CClockSource\n
+#if defined(I2C4)
+  *         CCIPR1       I2C4SEL       LL_RCC_SetI2CClockSource
+#endif
   * @param  I2CxSource This parameter can be one of the following values:
   *         @arg @ref LL_RCC_I2C1_CLKSOURCE_PCLK1
   *         @arg @ref LL_RCC_I2C1_CLKSOURCE_SYSCLK
   *         @arg @ref LL_RCC_I2C1_CLKSOURCE_HSI
+#if defined(I2C2)
+  *         @arg @ref LL_RCC_I2C2_CLKSOURCE_PCLK1 (*)
+  *         @arg @ref LL_RCC_I2C2_CLKSOURCE_SYSCLK (*)
+  *         @arg @ref LL_RCC_I2C2_CLKSOURCE_HSI (*)
+#endif
   *         @arg @ref LL_RCC_I2C3_CLKSOURCE_PCLK7
   *         @arg @ref LL_RCC_I2C3_CLKSOURCE_SYSCLK
   *         @arg @ref LL_RCC_I2C3_CLKSOURCE_HSI
+#if defined(I2C4)
+  *         @arg @ref LL_RCC_I2C4_CLKSOURCE_PCLK1 (*)
+  *         @arg @ref LL_RCC_I2C4_CLKSOURCE_SYSCLK (*)
+  *         @arg @ref LL_RCC_I2C4_CLKSOURCE_HSI (*)
+  *
+  *         (*) value not defined in all devices.
+#endif
   * @retval None
   */
 __STATIC_INLINE void LL_RCC_SetI2CClockSource(uint32_t I2CxSource)
 {
   __IO uint32_t *reg = (__IO uint32_t *)(uint32_t)(RCC_BASE + 0xE0U + (I2CxSource >> 24U));
-  MODIFY_REG(*reg, 3U << (((I2CxSource & 0x00FF0000U) >> 16U) & 0x1FU), ((I2CxSource & 0x000000FFU) << (((I2CxSource & 0x00FF0000U) >> 16U) & 0x1FU)));
+  MODIFY_REG(*reg, 3UL << (((I2CxSource & 0x00FF0000U) >> 16U) & 0x1FU), ((I2CxSource & 0x000000FFU) << (((I2CxSource & 0x00FF0000U) >> 16U) & 0x1FU)));
 }
 
 /**
   * @brief  Configure SPIx clock source
   * @rmtoll CCIPR1       SPI1SEL       LL_RCC_SetSPIClockSource\n
+#if defined(SPI2)
+  *         CCIPR1       SPI2SEL       LL_RCC_SetSPIClockSource
+#endif
   *         CCIPR3       SPI3SEL       LL_RCC_SetSPIClockSource\n
   * @param  SPIxSource This parameter can be one of the following values:
   *         @arg @ref LL_RCC_SPI1_CLKSOURCE_PCLK2
   *         @arg @ref LL_RCC_SPI1_CLKSOURCE_SYSCLK
   *         @arg @ref LL_RCC_SPI1_CLKSOURCE_HSI
+#if defined(SPI2)
+  *         @arg @ref LL_RCC_SPI2_CLKSOURCE_PCLK1 (*)
+  *         @arg @ref LL_RCC_SPI2_CLKSOURCE_SYSCLK (*)
+  *         @arg @ref LL_RCC_SPI2_CLKSOURCE_HSI (*)
+#endif
   *         @arg @ref LL_RCC_SPI3_CLKSOURCE_PCLK7
   *         @arg @ref LL_RCC_SPI3_CLKSOURCE_SYSCLK
   *         @arg @ref LL_RCC_SPI3_CLKSOURCE_HSI
+#if defined(SPI2)
+  *
+  *         (*) value not defined in all devices.
+#endif
   * @retval None
   */
 __STATIC_INLINE void LL_RCC_SetSPIClockSource(uint32_t SPIxSource)
 {
   __IO uint32_t *reg = (__IO uint32_t *)(uint32_t)(RCC_BASE + 0xE0U + (SPIxSource >> 24U));
-  MODIFY_REG(*reg, 3U << (((SPIxSource & 0x00FF0000U) >> 16U) & 0x1FU), ((SPIxSource & 0x000000FFU) << (((SPIxSource & 0x00FF0000U) >> 16U) & 0x1FU)));
+  MODIFY_REG(*reg, 3UL << (((SPIxSource & 0x00FF0000U) >> 16U) & 0x1FU), ((SPIxSource & 0x000000FFU) << (((SPIxSource & 0x00FF0000U) >> 16U) & 0x1FU)));
 }
 
 /**
@@ -1900,7 +2004,7 @@ __STATIC_INLINE void LL_RCC_SetSPIClockSource(uint32_t SPIxSource)
 __STATIC_INLINE void LL_RCC_SetLPTIMClockSource(uint32_t LPTIMxSource)
 {
   __IO uint32_t *reg = (__IO uint32_t *)(uint32_t)(RCC_BASE + 0xE0U + (LPTIMxSource >> 24U));
-  MODIFY_REG(*reg, 3U << (((LPTIMxSource & 0x00FF0000U) >> 16U) & 0x1FU), ((LPTIMxSource & 0x000000FFU) << (((LPTIMxSource & 0x00FF0000U) >> 16U) & 0x1FU)));
+  MODIFY_REG(*reg, 3UL << (((LPTIMxSource & 0x00FF0000U) >> 16U) & 0x1FU), ((LPTIMxSource & 0x000000FFU) << (((LPTIMxSource & 0x00FF0000U) >> 16U) & 0x1FU)));
 }
 
 
@@ -1952,14 +2056,36 @@ __STATIC_INLINE void LL_RCC_SetADCClockSource(uint32_t ADC4Source)
   MODIFY_REG(RCC->CCIPR3, RCC_CCIPR3_ADCSEL, ADC4Source);
 }
 
+#if defined(USB_OTG_HS)
+/**
+  * @brief  Configure OTG_HS PHYx clock source
+  * @rmtoll CCIPR2       OTGHSSEL      LL_RCC_SetOTGHSClockSource
+  * @param  OTGHSxSource This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_OTG_HS_CLKSOURCE_HSE
+  *         @arg @ref LL_RCC_OTG_HS_CLKSOURCE_PLL1P
+  *         @arg @ref LL_RCC_OTG_HS_CLKSOURCE_HSE_DIV2
+  *         @arg @ref LL_RCC_OTG_HS_CLKSOURCE_PLL1P_DIV2
+  * @retval None
+  */
+__STATIC_INLINE void LL_RCC_SetOTGHSClockSource(uint32_t OTGHSxSource)
+{
+  MODIFY_REG(RCC->CCIPR2, RCC_CCIPR2_OTGHSSEL, OTGHSxSource);
+}
+#endif /* USB_OTG_HS */
 
 /**
   * @brief  Get USARTx clock source
   * @rmtoll CCIPR1       USART1SEL     LL_RCC_GetUSARTClockSource\n
   *         CCIPR1       USART2SEL     LL_RCC_GetUSARTClockSource\n
+#if defined(USART3)
+  *         CCIPR1       USART3SEL     LL_RCC_GetUSARTClockSource\n
+#endif
   * @param  USARTx This parameter can be one of the following values:
   *         @arg @ref LL_RCC_USART1_CLKSOURCE
   *         @arg @ref LL_RCC_USART2_CLKSOURCE
+#if defined(USART3)
+  *         @arg @ref LL_RCC_USART3_CLKSOURCE
+#endif
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_RCC_USART1_CLKSOURCE_PCLK2
   *         @arg @ref LL_RCC_USART1_CLKSOURCE_SYSCLK
@@ -1969,6 +2095,14 @@ __STATIC_INLINE void LL_RCC_SetADCClockSource(uint32_t ADC4Source)
   *         @arg @ref LL_RCC_USART2_CLKSOURCE_SYSCLK
   *         @arg @ref LL_RCC_USART2_CLKSOURCE_HSI
   *         @arg @ref LL_RCC_USART2_CLKSOURCE_LSE
+#if defined(USART3)
+  *         @arg @ref LL_RCC_USART3_CLKSOURCE_PCLK1 (*)
+  *         @arg @ref LL_RCC_USART3_CLKSOURCE_SYSCLK (*)
+  *         @arg @ref LL_RCC_USART3_CLKSOURCE_HSI (*)
+  *         @arg @ref LL_RCC_USART3_CLKSOURCE_LSE (*)
+  *
+  *         (*) value not defined in all devices.
+#endif
   */
 __STATIC_INLINE uint32_t LL_RCC_GetUSARTClockSource(uint32_t USARTx)
 {
@@ -1994,17 +2128,41 @@ __STATIC_INLINE uint32_t LL_RCC_GetLPUARTClockSource(uint32_t LPUARTx)
 /**
   * @brief  Get I2Cx clock source
   * @rmtoll CCIPR1       I2C1SEL       LL_RCC_GetI2CClockSource\n
+#if defined(I2C2)
+  *         CCIPR1       I2C2SEL       LL_RCC_GetI2CClockSource\n
+#endif
   *         CCIPR3       I2C3SEL       LL_RCC_GetI2CClockSource\n
+#if defined(I2C4)
+  *         CCIPR1       I2C4SEL       LL_RCC_GetI2CClockSource\n
+#endif
   * @param  I2Cx This parameter can be one of the following values:
   *         @arg @ref LL_RCC_I2C1_CLKSOURCE
+#if defined(I2C2)
+  *         @arg @ref LL_RCC_I2C2_CLKSOURCE
+#endif
   *         @arg @ref LL_RCC_I2C3_CLKSOURCE
+#if defined(I2C4)
+  *         @arg @ref LL_RCC_I2C4_CLKSOURCE
+#endif
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_RCC_I2C1_CLKSOURCE_PCLK1
   *         @arg @ref LL_RCC_I2C1_CLKSOURCE_SYSCLK
   *         @arg @ref LL_RCC_I2C1_CLKSOURCE_HSI
+#if defined(I2C2)
+  *         @arg @ref LL_RCC_I2C2_CLKSOURCE_PCLK1 (*)
+  *         @arg @ref LL_RCC_I2C2_CLKSOURCE_SYSCLK (*)
+  *         @arg @ref LL_RCC_I2C2_CLKSOURCE_HSI (*)
+#endif
   *         @arg @ref LL_RCC_I2C3_CLKSOURCE_PCLK7
   *         @arg @ref LL_RCC_I2C3_CLKSOURCE_SYSCLK
   *         @arg @ref LL_RCC_I2C3_CLKSOURCE_HSI
+#if defined(I2C4)
+  *         @arg @ref LL_RCC_I2C4_CLKSOURCE_PCLK1 (*)
+  *         @arg @ref LL_RCC_I2C4_CLKSOURCE_SYSCLK (*)
+  *         @arg @ref LL_RCC_I2C4_CLKSOURCE_HSI (*)
+  *
+  *         (*) value not defined in all devices.
+#endif
  */
 __STATIC_INLINE uint32_t LL_RCC_GetI2CClockSource(uint32_t I2Cx)
 {
@@ -2015,17 +2173,32 @@ __STATIC_INLINE uint32_t LL_RCC_GetI2CClockSource(uint32_t I2Cx)
 /**
   * @brief  Get SPIx clock source
   * @rmtoll CCIPR1       SPI1SEL       LL_RCC_GetSPIClockSource\n
+#if defined(SPI2)
+  *         CCIPR1       SPI2SEL       LL_RCC_GetSPIClockSource
+#endif
   *         CCIPR3       SPI3SEL       LL_RCC_GetSPIClockSource
   * @param  SPIx This parameter can be one of the following values:
   *         @arg @ref LL_RCC_SPI1_CLKSOURCE
+#if defined(SPI2)
+  *         @arg @ref LL_RCC_SPI2_CLKSOURCE
+#endif
   *         @arg @ref LL_RCC_SPI3_CLKSOURCE
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_RCC_SPI1_CLKSOURCE_PCLK2
   *         @arg @ref LL_RCC_SPI1_CLKSOURCE_SYSCLK
   *         @arg @ref LL_RCC_SPI1_CLKSOURCE_HSI
+#if defined(SPI2)
+  *         @arg @ref LL_RCC_SPI2_CLKSOURCE_PCLK1 (*)
+  *         @arg @ref LL_RCC_SPI2_CLKSOURCE_SYSCLK (*)
+  *         @arg @ref LL_RCC_SPI2_CLKSOURCE_HSI (*)
+#endif
   *         @arg @ref LL_RCC_SPI3_CLKSOURCE_PCLK7
   *         @arg @ref LL_RCC_SPI3_CLKSOURCE_SYSCLK
   *         @arg @ref LL_RCC_SPI3_CLKSOURCE_HSI
+#if defined(SPI2)
+  *
+  *         (*) value not defined in all devices.
+#endif
  */
 __STATIC_INLINE uint32_t LL_RCC_GetSPIClockSource(uint32_t SPIx)
 {
@@ -2133,6 +2306,23 @@ __STATIC_INLINE uint32_t LL_RCC_GetADCClockSource(uint32_t ADCx)
   return (uint32_t)(READ_BIT(RCC->CCIPR3, ADCx));
 }
 
+#if defined(USB_OTG_HS)
+/**
+  * @brief  Get OTG_HS PHYx clock source
+  * @rmtoll CCIPR2       OTGHSSEL      LL_RCC_GetOTGHSClockSource
+  * @param  OTGHSx This parameter can be one of the following values:
+  *         @arg @ref LL_RCC_OTG_HS_CLKSOURCE
+  * @retval Returned value can be one of the following values:
+  *         @arg @ref LL_RCC_OTG_HS_CLKSOURCE_HSE
+  *         @arg @ref LL_RCC_OTG_HS_CLKSOURCE_PLL1P
+  *         @arg @ref LL_RCC_OTG_HS_CLKSOURCE_HSE_DIV2
+  *         @arg @ref LL_RCC_OTG_HS_CLKSOURCE_PLL1P_DIV2
+  */
+__STATIC_INLINE uint32_t LL_RCC_GetOTGHSClockSource(uint32_t OTGHSx)
+{
+  return (uint32_t)(READ_BIT(RCC->CCIPR2, OTGHSx));
+}
+#endif /* USB_OTG_HS */
 
 /**
   * @}
@@ -3250,6 +3440,9 @@ uint32_t    LL_RCC_GetRNGClockFreq(uint32_t RNGxSource);
 uint32_t    LL_RCC_GetSAIClockFreq(uint32_t SAIxSource);
 uint32_t    LL_RCC_GetSPIClockFreq(uint32_t SPIxSource);
 uint32_t    LL_RCC_GetUSARTClockFreq(uint32_t USARTxSource);
+#if defined(USB_OTG_HS)
+uint32_t    LL_RCC_GetOTGHSClockFreq(uint32_t OTGHSxSource);
+#endif /* USB_OTG_HS */
 /**
   * @}
   */

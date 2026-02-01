@@ -145,7 +145,7 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_ConfigPeriphAttributes(uint32_t PeriphId, uint32
     {
       GTZC_TZSC->SECCFGR1 = 0x00U;
     }
-#endif
+#endif /* CORE_CM0PLUS */
 
     /* privilege configuration */
     if ((PeriphAttributes & GTZC_TZSC_ATTRIBUTE_PRIV) != 0x00U)
@@ -172,7 +172,7 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_ConfigPeriphAttributes(uint32_t PeriphId, uint32
     {
       GTZC_TZSC->SECCFGR1 &= ~periphpos;
     }
-#endif
+#endif /* CORE_CM0PLUS */
 
     /* privilege configuration */
     if ((PeriphAttributes & GTZC_TZSC_ATTRIBUTE_PRIV) != 0x00U)
@@ -225,7 +225,7 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_GetConfigPeriphAttributes(uint32_t PeriphId, uin
     {
       /* Check what are TZSC peripheral position. Here use privilege mask as
         reference because SPISUBGHZ is securable by option byte */
-      while((TZSC_PRIVCFGR1_ALL_Msk & (1UL << periphpos)) == 0x00U)
+      while ((TZSC_PRIVCFGR1_ALL_Msk & (1UL << periphpos)) == 0x00U)
       {
         /* increment peripheral position */
         periphpos++;
@@ -241,7 +241,7 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_GetConfigPeriphAttributes(uint32_t PeriphId, uin
       }
 
       /* increment peripheral position */
-        periphpos++;
+      periphpos++;
     }
 
     /* do the same for get privilege configuration but on bit1 */
@@ -250,7 +250,7 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_GetConfigPeriphAttributes(uint32_t PeriphId, uin
     for (index = 0U; index < GTZC_TZSC_PERIPH_NUMBER; index++)
     {
       /* Check what are TZSC peripheral position */
-      while((TZSC_PRIVCFGR1_ALL_Msk & (1UL << periphpos)) == 0x00U)
+      while ((TZSC_PRIVCFGR1_ALL_Msk & (1UL << periphpos)) == 0x00U)
       {
         /* increment peripheral position */
         periphpos++;
@@ -266,7 +266,7 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_GetConfigPeriphAttributes(uint32_t PeriphId, uin
       }
 
       /* increment peripheral position */
-        periphpos++;
+      periphpos++;
     }
   }
   else
@@ -388,7 +388,7 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_MPCWM_ConfigMemAttributes(uint32_t MemBaseAddres
       break;
   }
 
-  if(status != HAL_ERROR)
+  if (status != HAL_ERROR)
   {
     /* Store length */
     reg_value = *pregister & ~length_msk;
@@ -412,7 +412,7 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_MPCWM_ConfigMemAttributes(uint32_t MemBaseAddres
   */
 HAL_StatusTypeDef HAL_GTZC_TZSC_MPCWM_GetConfigMemAttributes(uint32_t MemBaseAddress, MPCWM_ConfigTypeDef *pMPCWM_Desc)
 {
-  __IO uint32_t *pregister;
+  const __IO uint32_t *pregister;
   HAL_StatusTypeDef status = HAL_OK;
   uint32_t reg_value;
   uint32_t length_pos;
@@ -473,7 +473,7 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_MPCWM_GetConfigMemAttributes(uint32_t MemBaseAdd
       break;
   }
 
-  if(status != HAL_ERROR)
+  if (status != HAL_ERROR)
   {
     /* Store length */
     reg_value = (*pregister & length_msk) >> length_pos;
@@ -513,7 +513,7 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_MPCWM_GetConfigMemAttributes(uint32_t MemBaseAdd
   * @param  TZSCx TZSC sub-block instance.
   * @retval Lock State (GTZC_TZSC_LOCK_OFF or GTZC_TZSC_LOCK_ON)
   */
-uint32_t HAL_GTZC_TZSC_GetLock(GTZC_TZSC_TypeDef *TZSCx)
+uint32_t HAL_GTZC_TZSC_GetLock(const GTZC_TZSC_TypeDef *TZSCx)
 {
   return (READ_BIT(TZSCx->CR, TZSC_CR_LCK_Msk) >> TZSC_CR_LCK_Pos);
 }
@@ -569,7 +569,7 @@ HAL_StatusTypeDef HAL_GTZC_TZIC_DisableIT(uint32_t PeriphId)
     uint32_t register_address;
 
     /* common case where only one peripheral is configured */
-    register_address = (uint32_t)&(GTZC_TZIC->IER1) + (4U * GTZC_GET_REG_INDEX(PeriphId));
+    register_address = (uint32_t) &(GTZC_TZIC->IER1) + (4U * GTZC_GET_REG_INDEX(PeriphId));
     CLEAR_BIT(*(uint32_t *)register_address, 1UL << GTZC_GET_PERIPH_POS(PeriphId));
   }
 
@@ -597,7 +597,7 @@ HAL_StatusTypeDef HAL_GTZC_TZIC_EnableIT(uint32_t PeriphId)
     uint32_t register_address;
 
     /* common case where only one peripheral is configured */
-    register_address = (uint32_t)&(GTZC_TZIC->IER1) + (4U * GTZC_GET_REG_INDEX(PeriphId));
+    register_address = (uint32_t) &(GTZC_TZIC->IER1) + (4U * GTZC_GET_REG_INDEX(PeriphId));
     SET_BIT(*(uint32_t *)register_address, 1UL << GTZC_GET_PERIPH_POS(PeriphId));
   }
 
@@ -637,7 +637,7 @@ HAL_StatusTypeDef HAL_GTZC_TZIC_GetFlag(uint32_t PeriphId, uint32_t *pFlag)
     uint32_t register_address;
 
     /* common case where only one peripheral is concerned */
-    register_address = (uint32_t)&(GTZC_TZIC->MISR1) + (4U * GTZC_GET_REG_INDEX(PeriphId));
+    register_address = (uint32_t) &(GTZC_TZIC->MISR1) + (4U * GTZC_GET_REG_INDEX(PeriphId));
     *pFlag = READ_BIT(*(uint32_t *)register_address, 1UL << GTZC_GET_PERIPH_POS(PeriphId)) >> GTZC_GET_PERIPH_POS(PeriphId);
   }
 
@@ -666,7 +666,7 @@ HAL_StatusTypeDef HAL_GTZC_TZIC_ClearFlag(uint32_t PeriphId)
     uint32_t register_address;
 
     /* common case where only one peripheral is configured */
-    register_address = (uint32_t)&(GTZC_TZIC->ICR1) + (4U * GTZC_GET_REG_INDEX(PeriphId));
+    register_address = (uint32_t) &(GTZC_TZIC->ICR1) + (4U * GTZC_GET_REG_INDEX(PeriphId));
     SET_BIT(*(uint32_t *)register_address, 1UL << GTZC_GET_PERIPH_POS(PeriphId));
   }
 
@@ -735,7 +735,7 @@ __weak void HAL_GTZC_TZIC_Callback(uint32_t PeriphId)
    */
 }
 
-#endif
+#endif /* CORE_CM0PLUS */
 /**
   * @}
   */

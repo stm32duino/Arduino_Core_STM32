@@ -3507,7 +3507,7 @@ __STATIC_INLINE void LL_RTC_TAMPER_ITAMP_Disable(const RTC_TypeDef *RTCx, uint32
 /**
   * @brief  Enable backup register erase after internal tamper event detection
   * @rmtoll TAMP_CR3       ITAMP1NOER     LL_RTC_TAMPER_ITAMP_EnableEraseBKP
-  * @rmtoll TAMP_CR3       ITAMP2NOER     LL_RTC_TAMPER_ITAMP_EnableEraseBKP
+  *         TAMP_CR3       ITAMP2NOER...  LL_RTC_TAMPER_ITAMP_EnableEraseBKP
   * @param  RTCx RTC Instance
   * @param  InternalTamper This parameter can be a combination of the following values:
   *         @arg @ref RTC_LL_EC_ITAMPER_NOERASE
@@ -3523,7 +3523,7 @@ __STATIC_INLINE void LL_RTC_TAMPER_ITAMP_EnableEraseBKP(const RTC_TypeDef *RTCx,
 /**
   * @brief  Disable backup register erase after internal tamper event detection
   * @rmtoll TAMP_CR3       ITAMP1NOER     LL_RTC_TAMPER_ITAMP_DisableEraseBKP
-  * @rmtoll TAMP_CR3       ITAMP2NOER     LL_RTC_TAMPER_ITAMP_DisableEraseBKP
+  *         TAMP_CR3       ITAMP2NOER...  LL_RTC_TAMPER_ITAMP_DisableEraseBKP
   * @param  RTCx RTC Instance
   * @param  InternalTamper This parameter can be a combination of the following values:
   *         @arg @ref RTC_LL_EC_ITAMPER_NOERASE
@@ -6413,9 +6413,49 @@ __STATIC_INLINE uint32_t LL_RTC_GetMonotonicCounter(const RTC_TypeDef *RTCx)
   return READ_REG(TAMP->COUNT1R);
 }
 
+#if defined (RTC_OR_OUT2_RMP)
 /**
-  * @}
+  * @brief  Enable RTC OUT2 remap feature.
+  * @rmtoll RTC_OR           OUT2_RMP          LL_RTC_EnableRemapRtcOut2
+  * @param  RTCx RTC Instance
+  * @retval None
   */
+__STATIC_INLINE void LL_RTC_EnableRemapRtcOut2(const RTC_TypeDef *RTCx)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(RTCx);
+  /* Enable RTC OUT2 remap */
+  SET_BIT(RTC->OR, RTC_OR_OUT2_RMP);
+}
+
+/**
+  * @brief  Disable RTC OUT2 remap feature.
+  * @rmtoll RTC_OR           OUT2_RMP          LL_RTC_DisableRemapRtcOut2
+  * @param  RTCx RTC Instance
+  * @retval None
+  */
+__STATIC_INLINE void LL_RTC_DisableRemapRtcOut2(const RTC_TypeDef *RTCx)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(RTCx);
+  /* Disable  RTC OUT2 remap */
+  CLEAR_BIT(RTC->OR, RTC_OR_OUT2_RMP);
+}
+
+/**
+  * @brief  Check if RTC_OUT2 is mapped on PB2.
+  * @rmtoll RTC_OR           OUT2_RMP        IsEnabledRemapRtcOut2
+  * @param  RTCx RTC Instance
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_RTC_IsEnabledRemapRtcOut2(const RTC_TypeDef *RTCx)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(RTCx);
+  /* Disable  RTC OUT2 remap */
+  return ((READ_BIT(RTC->OR, RTC_OR_OUT2_RMP) == (RTC_OR_OUT2_RMP)) ? 1U : 0U);
+}
+#endif /* defined (RTC_OR_OUT2_RMP) */
 
 #if defined(USE_FULL_LL_DRIVER)
 /** @defgroup RTC_LL_EF_Init Initialization and de-initialization functions

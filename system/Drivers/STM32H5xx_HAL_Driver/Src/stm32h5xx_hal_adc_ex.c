@@ -1907,11 +1907,13 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedConfigChannel(ADC_HandleTypeDef *hadc,
   /*    mode is disabled.                                                     */
   if (LL_ADC_INJ_IsConversionOngoing(hadc->Instance) == 0UL)
   {
-    if (pConfigInjected->InjectedChannel == ADC_CHANNEL_0)
+    if ((pConfigInjected->InjectedChannel == ADC_CHANNEL_0)
+        || ((pConfigInjected->InjectedChannel == ADC_CHANNEL_1)
+            && (pConfigInjected->InjectedSingleDiff == ADC_DIFFERENTIAL_ENDED))
+       )
     {
       LL_ADC_EnableChannel0_GPIO(hadc->Instance);
     }
-
     /* If auto-injected mode is disabled: no constraint                       */
     if (pConfigInjected->AutoInjectedConv == DISABLE)
     {

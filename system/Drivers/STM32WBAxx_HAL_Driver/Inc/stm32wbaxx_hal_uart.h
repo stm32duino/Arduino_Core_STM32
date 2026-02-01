@@ -47,12 +47,10 @@ typedef struct
 {
   uint32_t BaudRate;                /*!< This member configures the UART communication baud rate.
                                          The baud rate register is computed using the following formula:
-                                         LPUART:
-                                         =======
+                                         @note For LPUART :
                                          Baud Rate Register = ((256 * lpuart_ker_ckpres) / ((huart->Init.BaudRate)))
-                                         where lpuart_ker_ck_pres is the UART input clock divided by a prescaler
-                                         UART:
-                                         =====
+                                         where lpuart_ker_ck_pres is the UART input clock divided by a prescaler.
+                                         @note For UART :
                                          - If oversampling is 16 or in LIN mode,
                                             Baud Rate Register = ((uart_ker_ckpres) / ((huart->Init.BaudRate)))
                                          - If oversampling is 8,
@@ -306,7 +304,6 @@ typedef enum
   HAL_UART_ABORT_COMPLETE_CB_ID          = 0x05U,    /*!< UART Abort Complete Callback ID          */
   HAL_UART_ABORT_TRANSMIT_COMPLETE_CB_ID = 0x06U,    /*!< UART Abort Transmit Complete Callback ID */
   HAL_UART_ABORT_RECEIVE_COMPLETE_CB_ID  = 0x07U,    /*!< UART Abort Receive Complete Callback ID  */
-  HAL_UART_WAKEUP_CB_ID                  = 0x08U,    /*!< UART Wakeup Callback ID                  */
   HAL_UART_RX_FIFO_FULL_CB_ID            = 0x09U,    /*!< UART Rx Fifo Full Callback ID            */
   HAL_UART_TX_FIFO_EMPTY_CB_ID           = 0x0AU,    /*!< UART Tx Fifo Empty Callback ID           */
 

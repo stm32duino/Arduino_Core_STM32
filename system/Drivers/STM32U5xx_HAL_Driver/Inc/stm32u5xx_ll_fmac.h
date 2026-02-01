@@ -38,7 +38,6 @@ extern "C" {
   */
 
 /* Exported types ------------------------------------------------------------*/
-
 /* Exported constants --------------------------------------------------------*/
 /** @defgroup FMAC_LL_Exported_Constants FMAC Exported Constants
   * @{
@@ -147,9 +146,7 @@ extern "C" {
   * @}
   */
 
-
 /* Exported functions --------------------------------------------------------*/
-
 /** @defgroup FMAC_LL_Exported_Functions FMAC Exported Functions
   * @{
   */
@@ -1033,15 +1030,12 @@ __STATIC_INLINE void LL_FMAC_ConfigFunc(FMAC_TypeDef *FMACx, uint8_t Start, uint
   * @}
   */
 
-
-
 #if defined(USE_FULL_LL_DRIVER)
 /** @defgroup FMAC_LL_EF_Init Initialization and de-initialization functions
   * @{
   */
 ErrorStatus LL_FMAC_Init(FMAC_TypeDef *FMACx);
 ErrorStatus LL_FMAC_DeInit(const FMAC_TypeDef *FMACx);
-
 
 /**
   * @}

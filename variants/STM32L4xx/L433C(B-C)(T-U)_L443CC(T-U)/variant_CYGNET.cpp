@@ -73,31 +73,21 @@ extern "C" {
 
 WEAK void initVariant(void)
 {
-  GPIO_InitTypeDef  GPIO_InitStruct;
-
-  // Init lines that we'll be using below
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOC_CLK_ENABLE();
-  __HAL_RCC_GPIOH_CLK_ENABLE();
-
-  /* Set DISCHARGE_3V3 as well as the pins we're not initially using to FLOAT */
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Pin = GPIO_PIN_1;
-  HAL_GPIO_Init(GPIOH, &GPIO_InitStruct); /* PH1 DISCHARGE_3V3 */
-  GPIO_InitStruct.Pin = GPIO_PIN_3;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct); /* PB3 is USB_DETECT */
-  GPIO_InitStruct.Pin = GPIO_PIN_15;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); /* PA15 is CHARGE_DETECT */
-  GPIO_InitStruct.Pin = GPIO_PIN_4;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); /* PA4 is BAT_VOLTAGE */
+  /* All pins set to high-Z (floating) initially */
+  /* DS11449 Rev 8, Section 3.9.5 - Reset Mode: */
+  /* In order to improve the consumption under reset, the I/Os state under and after reset is
+   * “analog state” (the I/O schmitt trigger is disable). In addition, the internal reset pull-up is
+   * deactivated when the reset source is internal.
+   */
 
   /* Turn on the 3V3 regulator */
+  __HAL_RCC_GPIOH_CLK_ENABLE();
+  GPIO_InitTypeDef  GPIO_InitStruct;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
-  GPIO_InitStruct.Pin = GPIO_PIN_0;
-  HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
-  HAL_GPIO_WritePin(GPIOH, GPIO_InitStruct.Pin, GPIO_PIN_SET);
+  GPIO_InitStruct.Pin = GPIO_PIN_0 | GPIO_PIN_1;
+  HAL_GPIO_Init(GPIOH, &GPIO_InitStruct); /* PH0 is ENABLE_3V3, PH1 is DISCHARGE_3V3 */
+  HAL_GPIO_WritePin(GPIOH, GPIO_InitStruct.Pin, GPIO_PIN_SET); /* Enable 3V3 regulator and disable discharging */
 }
 
 /**

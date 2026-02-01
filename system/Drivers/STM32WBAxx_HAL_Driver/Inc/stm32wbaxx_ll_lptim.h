@@ -69,20 +69,20 @@ static const uint8_t LL_LPTIM_SHIFT_TAB_CCxSEL[] =
 
 static const uint8_t LL_LPTIM_SHIFT_TAB_CCxE[] =
 {
-  LPTIM_CCMR1_CC1E_Pos,            /* CC1E */
-  LPTIM_CCMR1_CC2E_Pos             /* CC2E */
+  (uint8_t)LPTIM_CCMR1_CC1E_Pos,            /* CC1E */
+  (uint8_t)LPTIM_CCMR1_CC2E_Pos             /* CC2E */
 };
 
 static const uint8_t LL_LPTIM_OFFSET_TAB_ICx[8][4] =
 {
-  {2, 7, 9, 13},
-  {3, 5, 6, 8},
-  {2, 3, 4, 5},
-  {2, 2, 3, 3},
-  {2, 2, 2, 2},
-  {2, 2, 2, 2},
-  {2, 2, 2, 2},
-  {2, 2, 2, 2}
+  {2U, 7U, 9U, 13U},
+  {3U, 5U, 6U, 8U},
+  {2U, 3u, 4U, 5U},
+  {2U, 2U, 3U, 3U},
+  {2U, 2U, 2U, 2U},
+  {2U, 2U, 2U, 2U},
+  {2U, 2U, 2U, 2U},
+  {2U, 2U, 2U, 2U}
 
 };
 
@@ -308,8 +308,14 @@ typedef struct
 #if defined(COMP2)
 #define LL_LPTIM_TRIG_SOURCE_COMP2            LPTIM_CFGR_TRIGSEL                                                   /*!<External input trigger is connected to COMP2 output*/
 #endif /* COMP2 */
+#if defined(GPDMA1)
 #define LL_LPTIM_TRIG_SOURCE_GPDMA_CH0_TCF    LPTIM_CFGR_TRIGSEL_2                                                 /*!<External input trigger is connected to GPDMA CH0 transfer complete */
 #define LL_LPTIM_TRIG_SOURCE_GPDMA_CH4_TCF    (LPTIM_CFGR_TRIGSEL_2 | LPTIM_CFGR_TRIGSEL_0)                        /*!<External input trigger is connected to GPDMA CH4 transfer complete */
+#endif /* GPDMA1 */
+#if defined(LPDMA1)
+#define LL_LPTIM_TRIG_SOURCE_LPDMA_CH0_TCF    LPTIM_CFGR_TRIGSEL_2                                                 /*!<External input trigger is connected to LPDMA CH0 transfer complete */
+#define LL_LPTIM_TRIG_SOURCE_LPDMA_CH4_TCF    (LPTIM_CFGR_TRIGSEL_2 | LPTIM_CFGR_TRIGSEL_0)                        /*!<External input trigger is connected to LPDMA CH4 transfer complete */
+#endif /* LPDMA1 */
 /**
   * @}
   */
@@ -401,10 +407,12 @@ typedef struct
   * @{
   */
 #define LL_LPTIM_LPTIM1_IC1_RMP_GPIO     0x00000000UL                 /*!< IC1 connected to GPIO */
-#if defined(COMP1) && defined(COMP2)
+#if defined(COMP1)
 #define LL_LPTIM_LPTIM1_IC1_RMP_COMP1    LPTIM_CFGR2_IC1SEL_0         /*!< IC1 connected to COMP1 */
+#endif /* COMP1 */
+#if defined(COMP2)
 #define LL_LPTIM_LPTIM1_IC1_RMP_COMP2    LPTIM_CFGR2_IC1SEL_1         /*!< IC1 connected to COMP2 */
-#endif /* COMP1 && COMP2 */
+#endif /* COMP2 */
 /**
   * @}
   */
@@ -423,10 +431,12 @@ typedef struct
   * @{
   */
 #define LL_LPTIM_LPTIM2_IC1_RMP_GPIO     0x00000000UL                 /*!< IC1 connected to GPIO */
-#if defined(COMP1) && defined(COMP2)
+#if defined(COMP1)
 #define LL_LPTIM_LPTIM2_IC1_RMP_COMP1    LPTIM_CFGR2_IC1SEL_0         /*!< IC1 connected to COMP1 */
+#endif /* COMP1 */
+#if defined(COMP2)
 #define LL_LPTIM_LPTIM2_IC1_RMP_COMP2    LPTIM_CFGR2_IC1SEL_1         /*!< IC1 connected to COMP2 */
-#endif /* COMP1 && COMP2 */
+#endif /* COMP2 */
 /**
   * @}
   */
@@ -1171,7 +1181,8 @@ __STATIC_INLINE uint32_t LL_LPTIM_IC_GetPrescaler(const LPTIM_TypeDef *LPTIMx, u
   */
 __STATIC_INLINE void  LL_LPTIM_CC_SetChannelMode(LPTIM_TypeDef *LPTIMx, uint32_t Channel, uint32_t CCMode)
 {
-  SET_BIT(LPTIMx->CCMR1, CCMode << LL_LPTIM_SHIFT_TAB_CCxSEL[Channel]);
+  MODIFY_REG(LPTIMx->CCMR1, LPTIM_CCMR1_CC1SEL << LL_LPTIM_SHIFT_TAB_CCxSEL[Channel],
+             CCMode << LL_LPTIM_SHIFT_TAB_CCxSEL[Channel]);
 }
 
 /**

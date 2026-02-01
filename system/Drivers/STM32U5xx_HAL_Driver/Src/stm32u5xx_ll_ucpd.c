@@ -112,7 +112,7 @@ ErrorStatus LL_UCPD_DeInit(UCPD_TypeDef *UCPDx)
   *         the configuration information for the UCPD peripheral.
   * @retval An ErrorStatus enumeration value. (Return always SUCCESS)
   */
-ErrorStatus LL_UCPD_Init(UCPD_TypeDef *UCPDx, LL_UCPD_InitTypeDef *UCPD_InitStruct)
+ErrorStatus LL_UCPD_Init(UCPD_TypeDef *UCPDx, const LL_UCPD_InitTypeDef *UCPD_InitStruct)
 {
   /* Check the ucpd Instance UCPDx*/
   assert_param(IS_UCPD_ALL_INSTANCE(UCPDx));

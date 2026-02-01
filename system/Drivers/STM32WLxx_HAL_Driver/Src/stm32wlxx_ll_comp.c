@@ -15,6 +15,7 @@
   *
   ******************************************************************************
   */
+
 #if defined(USE_FULL_LL_DRIVER)
 
 /* Includes ------------------------------------------------------------------*/
@@ -49,29 +50,29 @@
 /* COMP instance.                                                             */
 
 #define IS_LL_COMP_POWER_MODE(__POWER_MODE__)                                  \
-  (   ((__POWER_MODE__) == LL_COMP_POWERMODE_HIGHSPEED)                        \
+  (((__POWER_MODE__) == LL_COMP_POWERMODE_HIGHSPEED)                           \
    || ((__POWER_MODE__) == LL_COMP_POWERMODE_MEDIUMSPEED)                      \
    || ((__POWER_MODE__) == LL_COMP_POWERMODE_ULTRALOWPOWER)                    \
   )
 
 #define IS_LL_COMP_INPUT_PLUS(__COMP_INSTANCE__, __INPUT_PLUS__)               \
   ((__COMP_INSTANCE__ == COMP1)                                                \
-   ? (   ((__INPUT_PLUS__) == LL_COMP_INPUT_PLUS_IO1)                          \
+   ? (((__INPUT_PLUS__) == LL_COMP_INPUT_PLUS_IO1)                             \
       || ((__INPUT_PLUS__) == LL_COMP_INPUT_PLUS_IO2)                          \
      )                                                                         \
-     :                                                                         \
-     (   ((__INPUT_PLUS__) == LL_COMP_INPUT_PLUS_IO1)                          \
-      || ((__INPUT_PLUS__) == LL_COMP_INPUT_PLUS_IO2)                          \
-      || ((__INPUT_PLUS__) == LL_COMP_INPUT_PLUS_IO3)                          \
-     )                                                                         \
+   :                                                                         \
+   (((__INPUT_PLUS__) == LL_COMP_INPUT_PLUS_IO1)                             \
+    || ((__INPUT_PLUS__) == LL_COMP_INPUT_PLUS_IO2)                          \
+    || ((__INPUT_PLUS__) == LL_COMP_INPUT_PLUS_IO3)                          \
+   )                                                                         \
   )
 
 /* Note: On this STM32 series, comparator input minus parameters are          */
 /*       the same on all COMP instances.                                      */
 /*       However, comparator instance kept as macro parameter for             */
-/*       compatibility with other STM32 families.                             */
+/*       compatibility with other STM32 series.                               */
 #define IS_LL_COMP_INPUT_MINUS(__COMP_INSTANCE__, __INPUT_MINUS__)             \
-  (   ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_1_4VREFINT)                    \
+  (((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_1_4VREFINT)                       \
    || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_1_2VREFINT)                    \
    || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_3_4VREFINT)                    \
    || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_VREFINT)                       \
@@ -83,19 +84,19 @@
   )
 
 #define IS_LL_COMP_INPUT_HYSTERESIS(__INPUT_HYSTERESIS__)                      \
-  (   ((__INPUT_HYSTERESIS__) == LL_COMP_HYSTERESIS_NONE)                      \
+  (((__INPUT_HYSTERESIS__) == LL_COMP_HYSTERESIS_NONE)                         \
    || ((__INPUT_HYSTERESIS__) == LL_COMP_HYSTERESIS_LOW)                       \
    || ((__INPUT_HYSTERESIS__) == LL_COMP_HYSTERESIS_MEDIUM)                    \
    || ((__INPUT_HYSTERESIS__) == LL_COMP_HYSTERESIS_HIGH)                      \
   )
 
 #define IS_LL_COMP_OUTPUT_POLARITY(__POLARITY__)                               \
-  (   ((__POLARITY__) == LL_COMP_OUTPUTPOL_NONINVERTED)                        \
+  (((__POLARITY__) == LL_COMP_OUTPUTPOL_NONINVERTED)                           \
    || ((__POLARITY__) == LL_COMP_OUTPUTPOL_INVERTED)                           \
   )
 
 #define IS_LL_COMP_OUTPUT_BLANKING_SOURCE(__OUTPUT_BLANKING_SOURCE__)          \
-  (   ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_NONE)               \
+  (((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_NONE)                  \
    || ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM1_OC5)           \
    || ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM2_OC3)           \
   )

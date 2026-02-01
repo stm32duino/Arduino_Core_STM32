@@ -10,7 +10,7 @@ GenF2.menu.pnum.GENERIC_F205ZCTX.upload.maximum_data_size=98304
 GenF2.menu.pnum.GENERIC_F205ZCTX.build.board=GENERIC_F205ZCTX
 GenF2.menu.pnum.GENERIC_F205ZCTX.build.product_line=STM32F205xx
 GenF2.menu.pnum.GENERIC_F205ZCTX.build.variant=STM32F2xx/F205Z(C-E-F-G)T_F215Z(E-G)T
-GenF2.menu.pnum.GENERIC_F205ZCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F215.svd
+GenF2.menu.pnum.GENERIC_F205ZCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F205.svd
 
 # Generic F205ZETx
 GenF2.menu.pnum.GENERIC_F205ZETX=Generic F205ZETx
@@ -19,7 +19,7 @@ GenF2.menu.pnum.GENERIC_F205ZETX.upload.maximum_data_size=131072
 GenF2.menu.pnum.GENERIC_F205ZETX.build.board=GENERIC_F205ZETX
 GenF2.menu.pnum.GENERIC_F205ZETX.build.product_line=STM32F205xx
 GenF2.menu.pnum.GENERIC_F205ZETX.build.variant=STM32F2xx/F205Z(C-E-F-G)T_F215Z(E-G)T
-GenF2.menu.pnum.GENERIC_F205ZETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F215.svd
+GenF2.menu.pnum.GENERIC_F205ZETX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F205.svd
 
 # Generic F205ZFTx
 GenF2.menu.pnum.GENERIC_F205ZFTX=Generic F205ZFTx
@@ -28,7 +28,7 @@ GenF2.menu.pnum.GENERIC_F205ZFTX.upload.maximum_data_size=131072
 GenF2.menu.pnum.GENERIC_F205ZFTX.build.board=GENERIC_F205ZFTX
 GenF2.menu.pnum.GENERIC_F205ZFTX.build.product_line=STM32F205xx
 GenF2.menu.pnum.GENERIC_F205ZFTX.build.variant=STM32F2xx/F205Z(C-E-F-G)T_F215Z(E-G)T
-GenF2.menu.pnum.GENERIC_F205ZFTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F215.svd
+GenF2.menu.pnum.GENERIC_F205ZFTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F205.svd
 
 # Generic F205ZGTx
 GenF2.menu.pnum.GENERIC_F205ZGTX=Generic F205ZGTx
@@ -37,7 +37,7 @@ GenF2.menu.pnum.GENERIC_F205ZGTX.upload.maximum_data_size=131072
 GenF2.menu.pnum.GENERIC_F205ZGTX.build.board=GENERIC_F205ZGTX
 GenF2.menu.pnum.GENERIC_F205ZGTX.build.product_line=STM32F205xx
 GenF2.menu.pnum.GENERIC_F205ZGTX.build.variant=STM32F2xx/F205Z(C-E-F-G)T_F215Z(E-G)T
-GenF2.menu.pnum.GENERIC_F205ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F215.svd
+GenF2.menu.pnum.GENERIC_F205ZGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F2xx/STM32F205.svd
 
 # Generic F215ZETx
 GenF2.menu.pnum.GENERIC_F215ZETX=Generic F215ZETx

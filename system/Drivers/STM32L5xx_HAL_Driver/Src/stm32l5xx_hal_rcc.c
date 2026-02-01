@@ -1135,7 +1135,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
   *         (for more details refer to section above "Initialization/de-initialization functions")
   * @retval None
   */
-HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, uint32_t FLatency)
+HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef  *RCC_ClkInitStruct, uint32_t FLatency)
 {
   uint32_t tickstart;
   uint32_t pllfreq;
@@ -1360,7 +1360,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
   *            @arg @ref RCC_MCO1SOURCE_SYSCLK  system  clock selected as MCO source
   *            @arg @ref RCC_MCO1SOURCE_MSI  MSI clock selected as MCO source
   *            @arg @ref RCC_MCO1SOURCE_HSI  HSI clock selected as MCO source
-  *            @arg @ref RCC_MCO1SOURCE_HSE  HSE clock selected as MCO sourcee
+  *            @arg @ref RCC_MCO1SOURCE_HSE  HSE clock selected as MCO source
   *            @arg @ref RCC_MCO1SOURCE_PLLCLK  main PLL clock selected as MCO source
   *            @arg @ref RCC_MCO1SOURCE_LSI  LSI clock selected as MCO source
   *            @arg @ref RCC_MCO1SOURCE_LSE  LSE clock selected as MCO source
@@ -1802,6 +1802,12 @@ uint32_t HAL_RCC_GetResetSource(void)
   * @note   Secure and non-secure attributes can only be set from the secure
   *         state when the system implements the security (TZEN=1).
   * @note   Security and privilege attributes can be set independently.
+  * @note As the privileged attribute concerns all secure and non-secure
+  *       RCC resources accesses and not each RCC individual items access attribute,
+  *       the application must ensure that the privilege access attribute configuration
+  *       is coherent amongst the security level set on RCC individual items so not to overwrite
+  *       a previous more restricted access rule (consider either all secure and non-secure RCC resources
+  *       accesses by privileged-only transactions or privileged and unprivileged transactions)
   * @param  Item Item(s) to set attributes on.
   *         This parameter can be a one or a combination of @ref RCC_items
   * @param  Attributes can be one or a combination of the following values:
@@ -2039,9 +2045,9 @@ static uint32_t RCC_GetSysClockFreqFromPLLSource(void)
       { /* MSIRANGE from RCC_CR applies */
         msirange = READ_BIT(RCC->CR, RCC_CR_MSIRANGE) >> RCC_CR_MSIRANGE_Pos;
       }
-        /*MSI frequency range in HZ*/
-        pllvco = MSIRangeTable[msirange];
-        break;
+      /*MSI frequency range in HZ*/
+      pllvco = MSIRangeTable[msirange];
+      break;
     default:
       /* unexpected */
       pllvco = 0;

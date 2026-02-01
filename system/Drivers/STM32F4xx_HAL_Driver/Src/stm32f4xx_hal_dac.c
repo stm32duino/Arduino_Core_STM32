@@ -534,7 +534,11 @@ HAL_StatusTypeDef HAL_DAC_Stop(DAC_HandleTypeDef *hdac, uint32_t Channel)
 HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef *hdac, uint32_t Channel, const uint32_t *pData, uint32_t Length,
                                     uint32_t Alignment)
 {
+#if defined(DAC_CHANNEL2_SUPPORT)
+  HAL_StatusTypeDef status;
+#else
   HAL_StatusTypeDef status = HAL_ERROR;
+#endif /* DAC_CHANNEL2_SUPPORT */
   uint32_t tmpreg;
 
   /* Check the DAC peripheral handle */

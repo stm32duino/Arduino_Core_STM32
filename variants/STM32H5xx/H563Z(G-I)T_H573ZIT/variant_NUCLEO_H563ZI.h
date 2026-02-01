@@ -254,11 +254,11 @@
   #define HAL_SD_MODULE_ENABLED
 #endif
 
-// Value of the HSE Bypass in Hz
-#define HSE_VALUE               8000000U
-
 // Pin UCPD to configure TCPP in default Type-C legacy state (UCPD_DBn for TCPP01)
 #define PIN_UCPD_TCPP           PA9
+
+// Value of the HSE Bypass in Hz
+#define HSE_VALUE               8000000U
 
 /*----------------------------------------------------------------------------
  *        Arduino objects - C++ only

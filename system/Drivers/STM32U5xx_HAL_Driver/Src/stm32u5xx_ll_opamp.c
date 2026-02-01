@@ -64,7 +64,7 @@
 /*       compatibility with other STM32 families.                             */
 #define IS_LL_OPAMP_INPUT_NONINVERTING(__OPAMPX__, __INPUT_NONINVERTING__)     \
   (   ((__INPUT_NONINVERTING__) == LL_OPAMP_INPUT_NONINVERT_IO0)               \
-      || ((__INPUT_NONINVERTING__) == LL_OPAMP_INPUT_NONINV_DAC1_CH1)          \
+      || ((__INPUT_NONINVERTING__) == LL_OPAMP_INPUT_NONINVERT_DAC)            \
   )
 
 /* Note: Comparator non-inverting inputs parameters are the same on all       */

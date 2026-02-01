@@ -156,7 +156,7 @@
   *         the configuration information for the specified GPIO peripheral.
   * @retval None
   */
-void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
+void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, const GPIO_InitTypeDef *GPIO_Init)
 {
   uint32_t position = 0U;
   uint32_t iocurrent;
@@ -196,7 +196,8 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
       }
 
       /* Activate the Pull-up or Pull down resistor for the current IO */
-      if ((GPIO_Init->Mode & GPIO_MODE) != MODE_ANALOG)
+      if (((GPIO_Init->Mode & GPIO_MODE) != MODE_ANALOG) ||
+          (((GPIO_Init->Mode & GPIO_MODE) == MODE_ANALOG) && (GPIO_Init->Pull != GPIO_PULLUP)))
       {
         /* Check the Pull parameter */
         assert_param(IS_GPIO_PULL(GPIO_Init->Pull));
@@ -364,7 +365,7 @@ void HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
   *         This parameter can be any combination of GPIO_PIN_x where x can be (0..15).
   * @retval The input port pin value.
   */
-GPIO_PinState HAL_GPIO_ReadPin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
+GPIO_PinState HAL_GPIO_ReadPin(const GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
 {
   GPIO_PinState bitstatus;
 
@@ -587,7 +588,7 @@ void HAL_GPIO_ConfigPinAttributes(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, uint32
   * @param  pPinAttributes pointer to return the pin attributes.
   * @retval HAL Status.
   */
-HAL_StatusTypeDef HAL_GPIO_GetConfigPinAttributes(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, uint32_t *pPinAttributes)
+HAL_StatusTypeDef HAL_GPIO_GetConfigPinAttributes(const GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, uint32_t *pPinAttributes)
 {
   /* Check null pointer */
   if (pPinAttributes == NULL)

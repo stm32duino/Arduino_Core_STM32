@@ -193,8 +193,8 @@ typedef struct
 /** @defgroup OPAMP_LL_EC_INPUT_NONINVERTING OPAMP input non-inverting
   * @{
   */
-#define LL_OPAMP_INPUT_NONINVERT_IO0       0x00000000U             /*!< OPAMP non inverting input connected to GPIO pin (pin PA0 for OPAMP1, pin PA6 for OPAMP2)             */
-#define LL_OPAMP_INPUT_NONINV_DAC1_CH1     (OPAMP_CSR_VP_SEL)      /*!< OPAMP non inverting input connected to DAC1 channel output(channel1 for OPAMP1, channel2 for OPAMP2) */
+#define LL_OPAMP_INPUT_NONINVERT_IO0       0x00000000U           /*!< OPAMP non inverting input connected to GPIO pin (pin PA0 for OPAMP1, pin PA6 for OPAMP2)             */
+#define LL_OPAMP_INPUT_NONINVERT_DAC       (OPAMP_CSR_VP_SEL)    /*!< OPAMP non inverting input connected to DAC1 channel output(channel1 for OPAMP1, channel2 for OPAMP2) */
 /**
   * @}
   */
@@ -213,13 +213,15 @@ typedef struct
   * @{
   */
 #define LL_OPAMP_NONINVERTINGINPUT_IO0      LL_OPAMP_INPUT_NONINVERT_IO0
-#define LL_OPAMP_NONINVERTINGINPUT_DAC_CH   LL_OPAMP_INPUT_NONINV_DAC1_CH1
+#define LL_OPAMP_NONINVERTINGINPUT_DAC_CH   LL_OPAMP_INPUT_NONINVERT_DAC
 
 #define LL_OPAMP_INVERTINGINPUT_IO0         LL_OPAMP_INPUT_INVERT_IO0
 #define LL_OPAMP_INVERTINGINPUT_IO1         LL_OPAMP_INPUT_INVERT_IO1
 #define LL_OPAMP_INVERTINGINPUT_CONNECT_NO  LL_OPAMP_INPUT_INVERT_CONNECT_NO
 
-#define LL_OPAMP_INPUT_NONINVERT_DAC1_CH1   LL_OPAMP_INPUT_NONINV_DAC1_CH1
+#define LL_OPAMP_INPUT_NONINV_DAC1_CH1      LL_OPAMP_INPUT_NONINVERT_DAC
+
+#define LL_OPAMP_INPUT_NONINVERT_DAC1_CH1   LL_OPAMP_INPUT_NONINVERT_DAC
 /**
   * @}
   */
@@ -554,7 +556,7 @@ __STATIC_INLINE uint32_t LL_OPAMP_GetPGAGain(const OPAMP_TypeDef *OPAMPx)
   * @param  OPAMPx OPAMP instance
   * @param  InputNonInverting This parameter can be one of the following values:
   *         @arg @ref LL_OPAMP_INPUT_NONINVERT_IO0
-  *         @arg @ref LL_OPAMP_INPUT_NONINV_DAC1_CH1
+  *         @arg @ref LL_OPAMP_INPUT_NONINVERT_DAC
   * @retval None
   */
 __STATIC_INLINE void LL_OPAMP_SetInputNonInverting(OPAMP_TypeDef *OPAMPx, uint32_t InputNonInverting)
@@ -568,7 +570,7 @@ __STATIC_INLINE void LL_OPAMP_SetInputNonInverting(OPAMP_TypeDef *OPAMPx, uint32
   * @param  OPAMPx OPAMP instance
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_OPAMP_INPUT_NONINVERT_IO0
-  *         @arg @ref LL_OPAMP_INPUT_NONINV_DAC1_CH1
+  *         @arg @ref LL_OPAMP_INPUT_NONINVERT_DAC
   */
 __STATIC_INLINE uint32_t LL_OPAMP_GetInputNonInverting(const OPAMP_TypeDef *OPAMPx)
 {

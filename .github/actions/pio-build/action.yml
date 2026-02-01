@@ -1,12 +1,6 @@
 # action.yml
 name: 'PlatformIO Build'
 description: 'Compile using PlatformIO'
-inputs:
-  cmsis-version:
-    description: 'CMSIS package version to use'
-    default: '5.9.0'
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
-    - ${{ inputs.cmsis-version }}

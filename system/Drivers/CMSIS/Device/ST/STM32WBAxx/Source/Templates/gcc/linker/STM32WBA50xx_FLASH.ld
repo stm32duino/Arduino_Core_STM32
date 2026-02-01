@@ -7,7 +7,7 @@
 **
 **  Abstract    : Linker script for STM32WBA50xx Device from STM32WBA series
 **                      512Kbytes FLASH
-**                      16Kbytes RAM
+**                      16Kbytes + 48Kbytes RAM
 **
 **                Set heap size, stack size and stack location according
 **                to application requirements.
@@ -45,6 +45,7 @@ _Min_Stack_Size = 0x400; /* required amount of stack */
 MEMORY
 {
   RAM    (xrw)    : ORIGIN = 0x20000000,   LENGTH = 16K
+  SRAM2  (xrw)    : ORIGIN = 0x20010000,   LENGTH = 48K
   FLASH  (rx)     : ORIGIN = 0x08000000,   LENGTH = 512K
 }
 
@@ -146,7 +147,7 @@ SECTIONS
     . = ALIGN(4);
     _edata = .;        /* define a global symbol at data end */
 
-  } >RAM AT> FLASH
+  } >SRAM2 AT> FLASH
 
   /* Uninitialized data section into "RAM" Ram type memory */
   . = ALIGN(4);
@@ -162,7 +163,7 @@ SECTIONS
     . = ALIGN(4);
     _ebss = .;         /* define a global symbol at bss end */
     __bss_end__ = _ebss;
-  } >RAM
+  } >SRAM2
 
   /* User_heap_stack section, used to check that there is enough "RAM" Ram  type memory left */
   ._user_heap_stack :

@@ -946,13 +946,13 @@ __STATIC_INLINE void LL_MPU_ConfigAttributes(uint32_t AttIndex, uint32_t  Attrib
   if (AttIndex < LL_MPU_ATTRIBUTES_NUMBER4)
   {
     /* Modify Attr<i> field of MPU_MAIR0 accordingly */
-    MODIFY_REG(MPU->MAIR0, (0xFFU << (AttIndex * 8U)), (Attributes << (AttIndex * 8U)));
+    MODIFY_REG(MPU->MAIR0, (0xFFUL << (AttIndex * 8U)), (Attributes << (AttIndex * 8U)));
   }
   /* When selected index is in range [4;7] */
   else
   {
     /* Modify Attr<i> field of MPU_MAIR1 accordingly */
-    MODIFY_REG(MPU->MAIR1, (0xFFU << ((AttIndex - 4U) * 8U)), (Attributes << ((AttIndex - 4U) * 8U)));
+    MODIFY_REG(MPU->MAIR1, (0xFFUL << ((AttIndex - 4U) * 8U)), (Attributes << ((AttIndex - 4U) * 8U)));
   }
 }
 
@@ -979,13 +979,13 @@ __STATIC_INLINE void LL_MPU_ConfigAttributes_NS(uint32_t AttIndex, uint32_t  Att
   if (AttIndex < LL_MPU_ATTRIBUTES_NUMBER4)
   {
     /* Modify Attr<i> field of MPU_MAIR0_NS accordingly */
-    MODIFY_REG(MPU_NS->MAIR0, (0xFFU << (AttIndex * 8U)), (Attributes << (AttIndex * 8U)));
+    MODIFY_REG(MPU_NS->MAIR0, (0xFFUL << (AttIndex * 8U)), (Attributes << (AttIndex * 8U)));
   }
   /* When selected index is in range [4;7] */
   else
   {
     /* Modify Attr<i> field of MPU_MAIR1_NS accordingly */
-    MODIFY_REG(MPU_NS->MAIR1, (0xFFU << ((AttIndex - 4U) * 8U)), (Attributes << ((AttIndex - 4U) * 8U)));
+    MODIFY_REG(MPU_NS->MAIR1, (0xFFUL << ((AttIndex - 4U) * 8U)), (Attributes << ((AttIndex - 4U) * 8U)));
   }
 }
 #endif /* __ARM_FEATURE_CMSE */

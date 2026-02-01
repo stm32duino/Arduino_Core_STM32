@@ -5,7 +5,7 @@
 # https://arduino.github.io/arduino-cli/latest/platform-specification/
 
 name=STM32 boards groups (Board to be selected from Tools submenu 'Board part number')
-version=2.9.0-dev
+version=2.13.0-dev
 
 
 # Define variables used multiple times in platform file
@@ -16,8 +16,8 @@ tool_suffix.windows=.exe
 busybox=
 busybox.windows={runtime.tools.STM32Tools.path}/win/busybox.exe
 
-toolchain_dir={runtime.tools.xpack-arm-none-eabi-gcc-13.2.1-1.1.path}
-openocd_dir={runtime.tools.xpack-openocd-0.12.0-3.path}
+toolchain_dir={runtime.tools.xpack-arm-none-eabi-gcc-14.2.1-1.1.path}
+openocd_dir={runtime.tools.xpack-openocd-0.12.0-6.path}
 
 tools_bin_path.windows={runtime.tools.STM32Tools.path}/win
 tools_bin_path.macosx={runtime.tools.STM32Tools.path}/macosx
@@ -25,7 +25,9 @@ tools_bin_path.linux={runtime.tools.STM32Tools.path}/linux
 
 core_stm32_dir={build.core.path}/stm32
 hal_dir={build.system.path}/Drivers/{build.series}_HAL_Driver
-cmsis_dir={runtime.tools.CMSIS-5.9.0.path}/CMSIS
+cmsis_dir={runtime.tools.CMSIS-6.2.0.path}/CMSIS
+cmsis_dsp={runtime.tools.CMSIS_DSP-1.16.2.path}
+cmsis_nn={runtime.tools.CMSIS_NN-7.0.0.path}
 cmsis_dev_dir={build.system.path}/Drivers/CMSIS/Device/ST/{build.series}
 usbd_core_dir={build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core
 builtin_library_dir={build.core.path}/../../libraries
@@ -37,7 +39,7 @@ USBDevice_include_dir={builtin_library_dir}/USBDevice/inc
 # STM compile variables
 # ----------------------
 compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{core_stm32_dir}" "-I{SrcWrapper_include_dir}" "-I{SrcWrapper_include_dir}/LL" "-I{hal_dir}/Inc" "-I{hal_dir}/Src" "-I{build.system.path}/{build.series}" "-I{USBDevice_include_dir}" "-I{usbd_core_dir}/Inc" "-I{usbd_core_dir}/Src" "-I{VirtIO_include_dir}" {build.virtio_extra_include}
-compiler.arm.cmsis.c.flags="-I{cmsis_dir}/Core/Include/" "-I{cmsis_dev_dir}/Include/" "-I{cmsis_dev_dir}/Source/Templates/gcc/" "-I{cmsis_dir}/DSP/Include" "-I{cmsis_dir}/DSP/PrivateInclude"
+compiler.arm.cmsis.c.flags="-I{cmsis_dir}/Core/Include/" "-I{cmsis_dev_dir}/Include/" "-I{cmsis_dev_dir}/Source/Templates/gcc/" "-I{cmsis_dsp}/Include" "-I{cmsis_dsp}/PrivateInclude"
 
 compiler.warning_flags=-w
 compiler.warning_flags.none=-w
@@ -117,6 +119,10 @@ upload.vid.0=0x0483
 upload.pid.0=0xdf11
 upload.vid={upload.vid.0}
 upload.pid={upload.pid.0}
+upload.address=0x8000000
+upload.mode=UR
+upload.start=0x8000000
+upload.parity=even
 
 # To customize the USB manufacturer or product string, must add defines
 # for them, e.g.:
@@ -218,11 +224,11 @@ tools.bmp_upload.upload.pattern="{path}/{cmd}" -nx -b {upload.speed} {upload.ver
 tools.bmp_upload.upload.pattern.windows="{path}/{cmd}" -nx -b {upload.speed} {upload.verbose} -ex "set confirm off" -ex "target extended-remote \\.\{serial.port}" -ex "monitor swdp_scan" -ex "attach 1" -ex "load" -ex "compare-sections" -ex "kill" "{build.path}/{build.project_name}.elf"
 
 # HID flash 2.2 (HID bootloader v2.2 for STM32F1 and STM32F4 series)
-tools.hid_upload.cmd=hid-flash
-tools.hid_upload.cmd.windows=hid-flash.exe
+tools.hid_upload.script=hid-flash.sh
+tools.hid_upload.path={runtime.tools.STM32Tools.path}
 tools.hid_upload.upload.params.verbose=-d
 tools.hid_upload.upload.params.quiet=n
-tools.hid_upload.upload.pattern="{tools_bin_path}/{cmd}" "{build.path}/{build.project_name}.bin" {serial.port.file}
+tools.hid_upload.upload.pattern="{busybox}" sh "{path}/{script}" "{build.path}/{build.project_name}.bin" {serial.port.file}
 
 # Upload using Maple bootloader over DFU
 tools.maple_upload.script=maple_upload.sh
@@ -244,7 +250,7 @@ tools.openocd_upload.cmd=bin/openocd
 tools.openocd_upload.cmd.windows=bin/openocd.exe
 tools.openocd_upload.upload.params.verbose=-d2
 tools.openocd_upload.upload.params.quiet=-d0
-tools.openocd_upload.upload.pattern="{path}/{cmd}" {upload.verbose} -f interface/{upload.protocol}.cfg -f target/{openocd.target}.cfg -c "program {build.path}/{build.project_name}.elf verify reset exit"
+tools.openocd_upload.upload.pattern="{path}/{cmd}" {upload.verbose} -f interface/{upload.protocol}.cfg -f target/{openocd.target}.cfg -c "program {{build.path}/{build.project_name}.elf} verify reset exit"
 
 #
 # Debugger
@@ -258,5 +264,5 @@ debug.server.openocd.path={openocd_dir}/bin/openocd
 debug.server.openocd.scripts_dir={openocd_dir}/openocd/scripts
 # Common config
 debug.server.openocd.scripts.0=interface/stlink.cfg
-debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_hla.cfg
+debug.server.openocd.scripts.1={runtime.platform.path}/debugger/select_dapdirect.cfg
 debug.server.openocd.scripts.2=target/{openocd.target}.cfg

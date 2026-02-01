@@ -599,7 +599,7 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef *hadc, uint32_t
 {
   __IO uint32_t counter = 0U;
   ADC_Common_TypeDef *tmpADC_Common;
-
+  HAL_StatusTypeDef tmp_hal_status = HAL_OK;
   /* Check the parameters */
   assert_param(IS_FUNCTIONAL_STATE(hadc->Init.ContinuousConvMode));
   assert_param(IS_ADC_EXT_TRIG_EDGE(hadc->Init.ExternalTrigConvEdge));
@@ -694,7 +694,7 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef *hadc, uint32_t
     }
 
     /* Enable the DMA Stream */
-    HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&tmpADC_Common->CDR, (uint32_t)pData, Length);
+    tmp_hal_status = HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&tmpADC_Common->CDR, (uint32_t)pData, Length);
 
     /* if no external trigger present enable software conversion of regular channels */
     if ((hadc->Instance->CR2 & ADC_CR2_EXTEN) == RESET)
@@ -713,7 +713,7 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef *hadc, uint32_t
   }
 
   /* Return function status */
-  return HAL_OK;
+  return tmp_hal_status;
 }
 
 /**

@@ -69,21 +69,20 @@ static const uint8_t LL_LPTIM_SHIFT_TAB_CCxSEL[] =
 
 static const uint8_t LL_LPTIM_SHIFT_TAB_CCxE[] =
 {
-  LPTIM_CCMR1_CC1E_Pos,            /* CC1E */
-  LPTIM_CCMR1_CC2E_Pos             /* CC2E */
+  (uint8_t)LPTIM_CCMR1_CC1E_Pos,            /* CC1E */
+  (uint8_t)LPTIM_CCMR1_CC2E_Pos             /* CC2E */
 };
 
 static const uint8_t LL_LPTIM_OFFSET_TAB_ICx[8][4] =
 {
-  {2, 7, 9, 13},
-  {3, 5, 6, 8},
-  {2, 3, 4, 5},
-  {2, 2, 3, 3},
-  {2, 2, 2, 2},
-  {2, 2, 2, 2},
-  {2, 2, 2, 2},
-  {2, 2, 2, 2}
-
+  {2U, 7U, 9U, 13U},
+  {3U, 5U, 6U, 8U},
+  {2U, 3U, 4U, 5U},
+  {2U, 2U, 3U, 3U},
+  {2U, 2U, 2U, 2U},
+  {2U, 2U, 2U, 2U},
+  {2U, 2U, 2U, 2U},
+  {2U, 2U, 2U, 2U}
 };
 
 /**
@@ -94,10 +93,10 @@ static const uint8_t LL_LPTIM_OFFSET_TAB_ICx[8][4] =
 /** Legacy definitions for compatibility purpose
 @cond 0
   */
-#define LL_LPTIM_SetCompareCH1     LL_LPTIM_OC_SetCompareCH1   /* for legacy purpose */
-#define LL_LPTIM_SetCompareCH2     LL_LPTIM_OC_SetCompareCH2   /* for legacy purpose */
-#define LL_LPTIM_GetCompareCH1     LL_LPTIM_OC_GetCompareCH1   /* for legacy purpose */
-#define LL_LPTIM_GetCompareCH2     LL_LPTIM_OC_GetCompareCH2   /* for legacy purpose */
+#define LL_LPTIM_SetCompareCH1     LL_LPTIM_OC_SetCompareCH1
+#define LL_LPTIM_SetCompareCH2     LL_LPTIM_OC_SetCompareCH2
+#define LL_LPTIM_GetCompareCH1     LL_LPTIM_OC_GetCompareCH1
+#define LL_LPTIM_GetCompareCH2     LL_LPTIM_OC_GetCompareCH2
 /**
 @endcond
   */
@@ -541,12 +540,12 @@ typedef struct
 /** Legacy definitions for compatibility purpose
 @cond 0
   */
-#define LL_LPTIM_ClearFLAG_CMPM  LL_LPTIM_ClearFlag_CMPM   /* for legacy purpose */
-#define LL_LPTIM_ClearFLAG_CC1   LL_LPTIM_ClearFlag_CC1    /* for legacy purpose */
-#define LL_LPTIM_ClearFLAG_CC2   LL_LPTIM_ClearFlag_CC2    /* for legacy purpose */
-#define LL_LPTIM_ClearFLAG_CC1O  LL_LPTIM_ClearFlag_CC1O   /* for legacy purpose */
-#define LL_LPTIM_ClearFLAG_CC2O  LL_LPTIM_ClearFlag_CC2O   /* for legacy purpose */
-#define LL_LPTIM_ClearFLAG_ARRM  LL_LPTIM_ClearFlag_ARRM   /* for legacy purpose */
+#define LL_LPTIM_ClearFLAG_CMPM  LL_LPTIM_ClearFlag_CMPM
+#define LL_LPTIM_ClearFLAG_CC1   LL_LPTIM_ClearFlag_CC1
+#define LL_LPTIM_ClearFLAG_CC2   LL_LPTIM_ClearFlag_CC2
+#define LL_LPTIM_ClearFLAG_CC1O  LL_LPTIM_ClearFlag_CC1O
+#define LL_LPTIM_ClearFLAG_CC2O  LL_LPTIM_ClearFlag_CC2O
+#define LL_LPTIM_ClearFLAG_ARRM  LL_LPTIM_ClearFlag_ARRM
 /**
 @endcond
   */
@@ -1218,7 +1217,8 @@ __STATIC_INLINE uint32_t LL_LPTIM_IC_GetPrescaler(const LPTIM_TypeDef *LPTIMx, u
   */
 __STATIC_INLINE void  LL_LPTIM_CC_SetChannelMode(LPTIM_TypeDef *LPTIMx, uint32_t Channel, uint32_t CCMode)
 {
-  SET_BIT(LPTIMx->CCMR1, CCMode << LL_LPTIM_SHIFT_TAB_CCxSEL[Channel]);
+  MODIFY_REG(LPTIMx->CCMR1, LPTIM_CCMR1_CC1SEL << LL_LPTIM_SHIFT_TAB_CCxSEL[Channel],
+             CCMode << LL_LPTIM_SHIFT_TAB_CCxSEL[Channel]);
 }
 
 /**
@@ -1689,6 +1689,7 @@ __STATIC_INLINE uint32_t LL_LPTIM_IsActiveFlag_CC2O(const LPTIM_TypeDef *LPTIMx)
 {
   return (((READ_BIT(LPTIMx->ISR, LPTIM_ISR_CC2OF) == LPTIM_ISR_CC2OF) ? 1UL : 0UL));
 }
+
 /**
   * @brief  Clear the autoreload match flag (ARRMCF)
   * @rmtoll ICR          ARRMCF        LL_LPTIM_ClearFlag_ARRM

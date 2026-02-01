@@ -14,7 +14,7 @@
 
 #if defined(__ICCARM__)
 # include <metal/compiler/iar/errno.h>
-#elif defined(__CC_ARM)
+#elif defined(__ARMCC_VERSION)
 # include <metal/compiler/armcc/errno.h>
 #else
 # include <errno.h>

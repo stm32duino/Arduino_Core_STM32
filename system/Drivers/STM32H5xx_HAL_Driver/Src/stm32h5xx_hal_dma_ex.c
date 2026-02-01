@@ -824,6 +824,12 @@ HAL_StatusTypeDef HAL_DMAEx_List_Start(DMA_HandleTypeDef *const hdma)
     return HAL_ERROR;
   }
 
+  /* Check the DMA Mode is not DMA_NORMAL */
+  if (hdma->Mode == DMA_NORMAL)
+  {
+    return HAL_ERROR;
+  }
+
   /* Check DMA channel state */
   dma_state = hdma->State;
   ccr_value = hdma->Instance->CCR & DMA_CCR_LSM;
@@ -882,6 +888,12 @@ HAL_StatusTypeDef HAL_DMAEx_List_Start_IT(DMA_HandleTypeDef *const hdma)
 
   /* Check the DMA peripheral handle and the linked-list queue parameters */
   if ((hdma == NULL) || (hdma->LinkedListQueue == NULL))
+  {
+    return HAL_ERROR;
+  }
+
+  /* Check the DMA Mode is not DMA_NORMAL */
+  if (hdma->Mode == DMA_NORMAL)
   {
     return HAL_ERROR;
   }
@@ -1087,10 +1099,6 @@ HAL_StatusTypeDef HAL_DMAEx_List_BuildNode(DMA_NodeConfTypeDef const *const pNod
   if ((pNodeConfig->NodeType & DMA_CHANNEL_TYPE_2D_ADDR) == DMA_CHANNEL_TYPE_2D_ADDR)
   {
     assert_param(IS_DMA_REPEAT_COUNT(pNodeConfig->RepeatBlockConfig.RepeatCount));
-    assert_param(IS_DMA_BURST_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.SrcAddrOffset));
-    assert_param(IS_DMA_BURST_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.DestAddrOffset));
-    assert_param(IS_DMA_BLOCK_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.BlkSrcAddrOffset));
-    assert_param(IS_DMA_BLOCK_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.BlkDestAddrOffset));
     assert_param(IS_DMA_BURST_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.SrcAddrOffset));
     assert_param(IS_DMA_BURST_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.DestAddrOffset));
     assert_param(IS_DMA_BLOCK_ADDR_OFFSET(pNodeConfig->RepeatBlockConfig.BlkSrcAddrOffset));
@@ -3113,6 +3121,12 @@ HAL_StatusTypeDef HAL_DMAEx_List_LinkQ(DMA_HandleTypeDef *const hdma,
     return HAL_ERROR;
   }
 
+  /* Check the DMA Mode is not DMA_NORMAL */
+  if (hdma->Mode == DMA_NORMAL)
+  {
+    return HAL_ERROR;
+  }
+
   /* Get DMA state */
   state = hdma->State;
 
@@ -3193,6 +3207,12 @@ HAL_StatusTypeDef HAL_DMAEx_List_UnLinkQ(DMA_HandleTypeDef *const hdma)
     return HAL_ERROR;
   }
 
+  /* Check the DMA Mode is not DMA_NORMAL */
+  if (hdma->Mode == DMA_NORMAL)
+  {
+    return HAL_ERROR;
+  }
+
   /* Get DMA state */
   state = hdma->State;
 
@@ -3261,6 +3281,12 @@ HAL_StatusTypeDef HAL_DMAEx_ConfigDataHandling(DMA_HandleTypeDef *const hdma,
     return HAL_ERROR;
   }
 
+  /* Check the DMA Mode is DMA_NORMAL */
+  if (hdma->Mode != DMA_NORMAL)
+  {
+    return HAL_ERROR;
+  }
+
   /* Check the parameters */
   assert_param(IS_DMA_DATA_ALIGNMENT(pConfigDataHandling->DataAlignment));
   assert_param(IS_DMA_DATA_EXCHANGE(pConfigDataHandling->DataExchange));
@@ -3297,6 +3323,12 @@ HAL_StatusTypeDef HAL_DMAEx_ConfigTrigger(DMA_HandleTypeDef *const hdma,
 {
   /* Check the DMA peripheral handle and trigger parameters */
   if ((hdma == NULL) || (pConfigTrigger == NULL))
+  {
+    return HAL_ERROR;
+  }
+
+  /* Check the DMA Mode is DMA_NORMAL */
+  if (hdma->Mode != DMA_NORMAL)
   {
     return HAL_ERROR;
   }
@@ -3345,6 +3377,12 @@ HAL_StatusTypeDef HAL_DMAEx_ConfigRepeatBlock(DMA_HandleTypeDef *const hdma,
 
   /* Check the DMA peripheral handle and repeated block parameters */
   if ((hdma == NULL) || (pConfigRepeatBlock == NULL))
+  {
+    return HAL_ERROR;
+  }
+
+  /* Check the DMA Mode is DMA_NORMAL */
+  if (hdma->Mode != DMA_NORMAL)
   {
     return HAL_ERROR;
   }
@@ -3903,8 +3941,19 @@ static void DMA_List_BuildNode(DMA_NodeConfTypeDef const *const pNodeConfig,
         (((uint32_t)pNodeConfig->RepeatBlockConfig.BlkDestAddrOffset << DMA_CBR2_BRDAO_Pos) & DMA_CBR2_BRDAO);
     }
     /********************************************************************************* CBR2 register value is updated */
-  }
 
+    /* Update CLLR register value *************************************************************************************/
+    /* Reset CLLR Register value : channel linked-list address register offset */
+    pNode->LinkRegisters[NODE_CLLR_2D_DEFAULT_OFFSET] = 0U;
+    /********************************************************************************* CLLR register value is cleared */
+  }
+  else
+  {
+    /* Update CLLR register value *************************************************************************************/
+    /* Reset CLLR Register value : channel linked-list address register offset */
+    pNode->LinkRegisters[NODE_CLLR_LINEAR_DEFAULT_OFFSET] = 0U;
+    /********************************************************************************* CLLR register value is cleared */
+  }
 
   /* Update node information value ************************************************************************************/
   /* Set node information */
@@ -4460,7 +4509,7 @@ static void DMA_List_ConvertNodeToStatic(uint32_t ContextNodeAddr,
   uint32_t contextnode_reg_counter = 0U;
   uint32_t cllr_idx;
   uint32_t cllr_mask;
-  DMA_NodeTypeDef *context_node = (DMA_NodeTypeDef *)ContextNodeAddr;
+  const DMA_NodeTypeDef *context_node = (DMA_NodeTypeDef *)ContextNodeAddr;
   DMA_NodeTypeDef *current_node = (DMA_NodeTypeDef *)CurrentNodeAddr;
   uint32_t update_link[NODE_MAXIMUM_SIZE] = {DMA_CLLR_UT1, DMA_CLLR_UT2, DMA_CLLR_UB1, DMA_CLLR_USA,
                                              DMA_CLLR_UDA, DMA_CLLR_UT3, DMA_CLLR_UB2, DMA_CLLR_ULL

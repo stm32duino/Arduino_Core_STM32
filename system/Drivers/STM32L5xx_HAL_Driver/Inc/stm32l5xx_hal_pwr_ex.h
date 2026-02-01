@@ -824,7 +824,7 @@ void HAL_PWREx_EnablePVM3(void);
 void HAL_PWREx_DisablePVM3(void);
 void HAL_PWREx_EnablePVM4(void);
 void HAL_PWREx_DisablePVM4(void);
-HAL_StatusTypeDef HAL_PWREx_ConfigPVM(PWR_PVMTypeDef *sConfigPVM);
+HAL_StatusTypeDef HAL_PWREx_ConfigPVM(const PWR_PVMTypeDef *sConfigPVM);
 
 /* Low Power modes configuration functions ************************************/
 void HAL_PWREx_EnableLowPowerRunMode(void);

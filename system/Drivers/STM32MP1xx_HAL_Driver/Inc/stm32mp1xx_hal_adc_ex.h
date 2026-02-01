@@ -682,7 +682,7 @@ typedef struct
 #define ADC_CLEAR_COMMON_CONTROL_REGISTER(__HANDLE__) CLEAR_BIT(__LL_ADC_COMMON_INSTANCE((__HANDLE__)->Instance)->CCR, ADC_CCR_CKMODE    | \
                                                                                                       ADC_CCR_PRESC     | \
                                                                                                       ADC_CCR_VBATEN    | \
-                                                                                                      ADC_CCR_VSENSEEN  | \
+                                                                                                      ADC_CCR_TSEN  | \
                                                                                                       ADC_CCR_VREFEN    | \
                                                                                                       ADC_CCR_DAMDF     | \
                                                                                                       ADC_CCR_DELAY     | \

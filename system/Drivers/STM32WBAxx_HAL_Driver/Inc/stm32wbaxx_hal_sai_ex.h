@@ -45,8 +45,14 @@ extern "C" {
   */
 typedef struct
 {
+#if defined(STM32WBA62xx) || defined(STM32WBA63xx) || defined(STM32WBA64xx) || defined(STM32WBA65xx) || defined (STM32WBA6Mxx)
+  uint32_t MicPair;     /*!< Specifies which pair of microphones is selected.
+                             This parameter must be a number between Min_Data = 1 and
+                             Max_Data = 3 for STM32WBA6xxx devices, Max_Data = 2 for other devices. */
+#else /* defined(STM32WBA62xx) || defined(STM32WBA63xx) || defined(STM32WBA64xx) || defined(STM32WBA65xx) || defined (STM32WBA6Mxx) */
   uint32_t MicPair;     /*!< Specifies which pair of microphones is selected.
                              This parameter must be a number between Min_Data = 1 and Max_Data = 2. */
+#endif /* defined(STM32WBA62xx) || defined(STM32WBA63xx) || defined(STM32WBA64xx) || defined(STM32WBA65xx) || defined (STM32WBA6Mxx) */
 
   uint32_t LeftDelay;   /*!< Specifies the delay in PDM clock unit to apply on left microphone.
                              This parameter must be a number between Min_Data = 0 and Max_Data = 7. */

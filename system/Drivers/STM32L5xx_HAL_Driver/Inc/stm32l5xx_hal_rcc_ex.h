@@ -1923,7 +1923,7 @@ void              HAL_RCCEx_DisableMSIPLLMode(void);
   * @{
   */
 
-void              HAL_RCCEx_CRSConfig(RCC_CRSInitTypeDef *pInit);
+void              HAL_RCCEx_CRSConfig(const RCC_CRSInitTypeDef *pInit);
 void              HAL_RCCEx_CRSSoftwareSynchronizationGenerate(void);
 void              HAL_RCCEx_CRSGetSynchronizationInfo(RCC_CRSSynchroInfoTypeDef *pSynchroInfo);
 uint32_t          HAL_RCCEx_CRSWaitSynchronization(uint32_t Timeout);

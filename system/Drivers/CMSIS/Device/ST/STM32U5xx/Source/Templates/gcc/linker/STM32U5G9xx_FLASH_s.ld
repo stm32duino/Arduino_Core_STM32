@@ -45,8 +45,8 @@ _Min_Stack_Size = 0x400 ; /* required amount of stack */
 /* Memories definition */
 MEMORY
 {
-  RAM (xrw)      : ORIGIN = 0x30000000, LENGTH = 768K     /* Memory is divided. Actual start is 0x30000000 and actual length is 2512K */
-  FLASH (rx)     : ORIGIN = 0x0C000000, LENGTH = 2040K    /* Memory is divided. Actual start is 0x0C000000 and actual length is 4096K */
+  RAM (xrw)      : ORIGIN = 0x30000000, LENGTH = 832K     /* Memory is divided. Actual start is 0x30000000 and actual length is 832K */
+  FLASH (rx)     : ORIGIN = 0x0C000000, LENGTH = 2040K    /* Memory is divided. Actual start is 0x0C000000 and actual length is 2040K */
   FLASH_NSC (rx) : ORIGIN = 0x0C1FE000, LENGTH = 8K       /* Non-Secure Call-able region */
   SRAM4 (xrw)    : ORIGIN = 0x38000000, LENGTH = 16K      /* Secure SRAM4 */
 }

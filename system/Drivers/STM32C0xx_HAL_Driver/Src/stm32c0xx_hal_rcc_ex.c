@@ -85,6 +85,7 @@
   *            @arg @ref RCC_PERIPHCLK_I2S1   I2S1 peripheral clock
   *            @arg @ref RCC_PERIPHCLK_USART1 USART1 peripheral clock
   *            @arg @ref RCC_PERIPHCLK_USB     USB peripheral clock (*)
+  *            @arg @ref RCC_PERIPHCLK_FDCAN1  FDCAN1 peripheral clock (*)
   * @note   Care must be taken when @ref HAL_RCCEx_PeriphCLKConfig() is used to select
   *         the RTC clock source: in this case the access to RTC domain is enabled.
   * @note (*) not available on all devices
@@ -209,6 +210,18 @@ HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(const RCC_PeriphCLKInitTypeDef  *Per
 
   }
 #endif /* USB_DRD_FS */
+#if defined (FDCAN1)
+  /*-------------------------- FDCAN1 clock source configuration ----------------*/
+  if (((PeriphClkInit->PeriphClockSelection) & RCC_PERIPHCLK_FDCAN1) == RCC_PERIPHCLK_FDCAN1)
+  {
+    /* Check the parameters */
+    assert_param(IS_RCC_FDCAN1CLKSOURCE(PeriphClkInit->Fdcan1ClockSelection));
+
+    /* Configure the FDCAN1 clock source */
+    __HAL_RCC_FDCAN1_CONFIG(PeriphClkInit->Fdcan1ClockSelection);
+
+  }
+#endif /* FDCAN1 */
   /*-------------------------- I2S1 clock source configuration ---------------------*/
   if (((PeriphClkInit->PeriphClockSelection) & RCC_PERIPHCLK_I2S1) == RCC_PERIPHCLK_I2S1)
   {
@@ -246,6 +259,9 @@ void HAL_RCCEx_GetPeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *PeriphClkInit)
 #if defined(USB_DRD_FS)
   PeriphClkInit->PeriphClockSelection |= RCC_PERIPHCLK_USB;
 #endif /* USB_DRD_FS */
+#if defined(FDCAN1)
+  PeriphClkInit->PeriphClockSelection |= RCC_PERIPHCLK_FDCAN1;
+#endif /* FDCAN1 */
   /* Get the USART1 clock source ---------------------------------------------*/
   PeriphClkInit->Usart1ClockSelection  = __HAL_RCC_GET_USART1_SOURCE();
 
@@ -262,6 +278,11 @@ void HAL_RCCEx_GetPeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *PeriphClkInit)
   /* Get the USB clock source -------------------------------------------------*/
   PeriphClkInit->UsbClockSelection     = __HAL_RCC_GET_USB_SOURCE();
 #endif /* USB_DRD_FS */
+
+#if defined (FDCAN1)
+  /* Get the FDCAN1 clock source -------------------------------------------------*/
+  PeriphClkInit->Fdcan1ClockSelection     = __HAL_RCC_GET_FDCAN1_SOURCE();
+#endif /* FDCAN1 */
 
   /* Get the I2S1 clock source -----------------------------------------------*/
   PeriphClkInit->I2s1ClockSelection    = __HAL_RCC_GET_I2S1_SOURCE();
@@ -281,6 +302,7 @@ void HAL_RCCEx_GetPeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *PeriphClkInit)
   *            @arg @ref RCC_PERIPHCLK_I2S1    I2S1 peripheral clock
   *            @arg @ref RCC_PERIPHCLK_USART1  USART1 peripheral clock
   *            @arg @ref RCC_PERIPHCLK_USB     USB peripheral clock (*)
+  *            @arg @ref RCC_PERIPHCLK_FDCAN1  FDCAN1 peripheral clock (*)
   * @note (*) not available on all devices
   * @retval Frequency in Hz
   */
@@ -417,6 +439,31 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
           /* Nothing to do as frequency already initialized to 0U */
         }
         break;
+#if defined(FDCAN1)
+      case RCC_PERIPHCLK_FDCAN1:
+        /* Get the current FDCAN1 source */
+        srcclk = __HAL_RCC_GET_FDCAN1_SOURCE();
+
+        if (srcclk == RCC_FDCAN1CLKSOURCE_PCLK1)
+        {
+          frequency = HAL_RCC_GetPCLK1Freq();
+        }
+        else if ((HAL_IS_BIT_SET(RCC->CR, RCC_CR_HSIRDY)) && (srcclk == RCC_FDCAN1CLKSOURCE_HSIKER))
+        {
+          frequency = (HSI_VALUE / ((__HAL_RCC_GET_HSIKER_DIVIDER() >> RCC_CR_HSIKERDIV_Pos) + 1U));
+        }
+        else if (srcclk == RCC_FDCAN1CLKSOURCE_HSE)
+        {
+          /* External clock used.*/
+          frequency = HSE_VALUE;
+        }
+        /* Clock not enabled for FDCAN1 */
+        else
+        {
+          /* Nothing to do as frequency already initialized to 0U */
+        }
+        break;
+#endif /* FDCAN1 */
 #if defined (USB_DRD_FS)
       case RCC_PERIPHCLK_USB:
         /* Get the current USB source */

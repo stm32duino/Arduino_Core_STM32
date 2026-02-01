@@ -849,7 +849,7 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedStop_IT(ADC_HandleTypeDef *hadc)
   *         conversions.
   * @param hadc ADC handle of ADC master (handle of ADC slave must not be used)
   * @param pData Destination Buffer address.
-  * @param Length Length of data to be transferred from ADC peripheral to memory (in bytes).
+  * @param Length Length of data to be transferred from ADC peripheral to memory.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef *hadc, uint32_t *pData, uint32_t Length)
@@ -1045,13 +1045,16 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStop_DMA(ADC_HandleTypeDef *hadc)
     /* while DMA transfer is on going)                                        */
     /* Note: DMA channel of ADC slave should be stopped after this function   */
     /*       with HAL_ADC_Stop_DMA() API.                                     */
-    tmp_hal_status = HAL_DMA_Abort(hadc->DMA_Handle);
-
-    /* Check if DMA channel effectively disabled */
-    if (tmp_hal_status == HAL_ERROR)
+    if (hadc->DMA_Handle->State == HAL_DMA_STATE_BUSY)
     {
-      /* Update ADC state machine to error */
-      SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_DMA);
+      tmp_hal_status = HAL_DMA_Abort(hadc->DMA_Handle);
+
+      /* Check if DMA channel effectively disabled */
+      if (tmp_hal_status == HAL_ERROR)
+      {
+        /* Update ADC state machine to error */
+        SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_DMA);
+      }
     }
 
     /* Disable ADC overrun interrupt */
@@ -1401,13 +1404,16 @@ HAL_StatusTypeDef HAL_ADCEx_RegularStop_DMA(ADC_HandleTypeDef *hadc)
 
     /* Disable the DMA channel (in case of DMA in circular mode or stop while */
     /* while DMA transfer is on going)                                        */
-    tmp_hal_status = HAL_DMA_Abort(hadc->DMA_Handle);
-
-    /* Check if DMA channel effectively disabled */
-    if (tmp_hal_status != HAL_OK)
+    if (hadc->DMA_Handle->State == HAL_DMA_STATE_BUSY)
     {
-      /* Update ADC state machine to error */
-      SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_DMA);
+      tmp_hal_status = HAL_DMA_Abort(hadc->DMA_Handle);
+
+      /* Check if DMA channel effectively disabled */
+      if (tmp_hal_status == HAL_ERROR)
+      {
+        /* Update ADC state machine to error */
+        SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_DMA);
+      }
     }
 
     /* Disable ADC overrun interrupt */
@@ -1541,13 +1547,16 @@ HAL_StatusTypeDef HAL_ADCEx_RegularMultiModeStop_DMA(ADC_HandleTypeDef *hadc)
     /* while DMA transfer is on going)                                        */
     /* Note: DMA channel of ADC slave should be stopped after this function   */
     /* with HAL_ADCEx_RegularStop_DMA() API.                                  */
-    tmp_hal_status = HAL_DMA_Abort(hadc->DMA_Handle);
-
-    /* Check if DMA channel effectively disabled */
-    if (tmp_hal_status != HAL_OK)
+    if (hadc->DMA_Handle->State == HAL_DMA_STATE_BUSY)
     {
-      /* Update ADC state machine to error */
-      SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_DMA);
+      tmp_hal_status = HAL_DMA_Abort(hadc->DMA_Handle);
+
+      /* Check if DMA channel effectively disabled */
+      if (tmp_hal_status == HAL_ERROR)
+      {
+        /* Update ADC state machine to error */
+        SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_DMA);
+      }
     }
 
     /* Disable ADC overrun interrupt */

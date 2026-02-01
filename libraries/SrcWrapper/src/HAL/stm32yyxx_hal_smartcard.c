@@ -36,13 +36,19 @@
   #include "stm32mp1xx_hal_smartcard.c"
 #elif STM32U0xx
   #include "stm32u0xx_hal_smartcard.c"
+#elif STM32U3xx
+  #include "stm32u3xx_hal_smartcard.c"
 #elif STM32U5xx
   #include "stm32u5xx_hal_smartcard.c"
 #elif STM32WBxx
   #include "stm32wbxx_hal_smartcard.c"
+#elif STM32WB0x
+  #include "stm32wb0x_hal_smartcard.c"
 #elif STM32WBAxx
   #include "stm32wbaxx_hal_smartcard.c"
 #elif STM32WLxx
   #include "stm32wlxx_hal_smartcard.c"
+#elif STM32WL3x
+  #include "stm32wl3x_hal_smartcard.c"
 #endif
 #pragma GCC diagnostic pop

@@ -1189,7 +1189,7 @@ void HAL_RCC_MCOConfig(uint32_t RCC_MCOx, uint32_t RCC_MCOSource, uint32_t RCC_M
 {
   GPIO_InitTypeDef gpio_initstruct;
   uint32_t mco_gpio_index;
-  GPIO_TypeDef * mco_gpio_port;
+  GPIO_TypeDef *mco_gpio_port;
 
   /* Check the parameters */
   assert_param(IS_RCC_MCO(RCC_MCOx));
@@ -1206,7 +1206,7 @@ void HAL_RCC_MCOConfig(uint32_t RCC_MCOx, uint32_t RCC_MCOSource, uint32_t RCC_M
 
   /* MCOx Clock Enable */
   mco_gpio_index = RCC_GET_MCO_GPIO_INDEX(RCC_MCOx);
-  SET_BIT(RCC->AHB2ENR, (1UL << mco_gpio_index ));
+  SET_BIT(RCC->AHB2ENR, (1UL << mco_gpio_index));
 
   /* Configure the MCOx pin in alternate function mode */
   gpio_initstruct.Pin = RCC_GET_MCO_GPIO_PIN(RCC_MCOx);
@@ -1486,7 +1486,7 @@ void HAL_RCC_GetClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, uint32_t *pF
 
 #if defined(DUAL_CORE)
     /* Get the AHBCLK2Divider configuration ------------------------------------*/
-    RCC_ClkInitStruct->AHBCLK2Divider =  (regvalue & RCC_EXTCFGR_C2HPRE);
+    RCC_ClkInitStruct->AHBCLK2Divider = (regvalue & RCC_EXTCFGR_C2HPRE);
 #endif  /* DUAL_CORE */
 
     /* Get the AHBCLK3Divider configuration ------------------------------------*/

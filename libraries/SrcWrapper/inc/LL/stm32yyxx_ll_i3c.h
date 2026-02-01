@@ -10,6 +10,8 @@
 
 #ifdef STM32H5xx
   #include "stm32h5xx_ll_i3c.h"
+#elif STM32U3xx
+  #include "stm32u3xx_ll_i3c.h"
 #endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_I3C_H_ */

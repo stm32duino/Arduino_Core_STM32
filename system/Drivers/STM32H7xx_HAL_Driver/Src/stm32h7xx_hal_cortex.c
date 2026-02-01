@@ -327,7 +327,7 @@ void HAL_MPU_DisableRegion(uint32_t RegionNumber)
   *                the initialization and configuration information.
   * @retval None
   */
-void HAL_MPU_ConfigRegion(MPU_Region_InitTypeDef *MPU_Init)
+void HAL_MPU_ConfigRegion(const MPU_Region_InitTypeDef *MPU_Init)
 {
   /* Check the parameters */
   assert_param(IS_MPU_REGION_NUMBER(MPU_Init->Number));

@@ -1,0 +1,41 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic WBA62CGUx
+GenWBA.menu.pnum.GENERIC_WBA62CGUX=Generic WBA62CGUx
+GenWBA.menu.pnum.GENERIC_WBA62CGUX.upload.maximum_size=1048576
+GenWBA.menu.pnum.GENERIC_WBA62CGUX.upload.maximum_data_size=262144
+GenWBA.menu.pnum.GENERIC_WBA62CGUX.build.board=GENERIC_WBA62CGUX
+GenWBA.menu.pnum.GENERIC_WBA62CGUX.build.product_line=STM32WBA62xx
+GenWBA.menu.pnum.GENERIC_WBA62CGUX.build.variant=STM32WBAxx/WBA62C(G-I)U_WBA64C(G-I)U
+GenWBA.menu.pnum.GENERIC_WBA62CGUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA62.svd
+
+# Generic WBA62CIUx
+GenWBA.menu.pnum.GENERIC_WBA62CIUX=Generic WBA62CIUx
+GenWBA.menu.pnum.GENERIC_WBA62CIUX.upload.maximum_size=2097152
+GenWBA.menu.pnum.GENERIC_WBA62CIUX.upload.maximum_data_size=524288
+GenWBA.menu.pnum.GENERIC_WBA62CIUX.build.board=GENERIC_WBA62CIUX
+GenWBA.menu.pnum.GENERIC_WBA62CIUX.build.product_line=STM32WBA62xx
+GenWBA.menu.pnum.GENERIC_WBA62CIUX.build.variant=STM32WBAxx/WBA62C(G-I)U_WBA64C(G-I)U
+GenWBA.menu.pnum.GENERIC_WBA62CIUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA62.svd
+
+# Generic WBA64CGUx
+GenWBA.menu.pnum.GENERIC_WBA64CGUX=Generic WBA64CGUx
+GenWBA.menu.pnum.GENERIC_WBA64CGUX.upload.maximum_size=1048576
+GenWBA.menu.pnum.GENERIC_WBA64CGUX.upload.maximum_data_size=262144
+GenWBA.menu.pnum.GENERIC_WBA64CGUX.build.board=GENERIC_WBA64CGUX
+GenWBA.menu.pnum.GENERIC_WBA64CGUX.build.product_line=STM32WBA64xx
+GenWBA.menu.pnum.GENERIC_WBA64CGUX.build.variant=STM32WBAxx/WBA62C(G-I)U_WBA64C(G-I)U
+GenWBA.menu.pnum.GENERIC_WBA64CGUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA64.svd
+
+# Generic WBA64CIUx
+GenWBA.menu.pnum.GENERIC_WBA64CIUX=Generic WBA64CIUx
+GenWBA.menu.pnum.GENERIC_WBA64CIUX.upload.maximum_size=2097152
+GenWBA.menu.pnum.GENERIC_WBA64CIUX.upload.maximum_data_size=524288
+GenWBA.menu.pnum.GENERIC_WBA64CIUX.build.board=GENERIC_WBA64CIUX
+GenWBA.menu.pnum.GENERIC_WBA64CIUX.build.product_line=STM32WBA64xx
+GenWBA.menu.pnum.GENERIC_WBA64CIUX.build.variant=STM32WBAxx/WBA62C(G-I)U_WBA64C(G-I)U
+GenWBA.menu.pnum.GENERIC_WBA64CIUX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32WBAxx/STM32WBA64.svd
+

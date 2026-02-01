@@ -178,7 +178,7 @@ typedef struct
   */
 #define LL_UTILS_PACKAGETYPE_UFBGA73        0x00000000U /*!< UFBGA73  package type */
 #define LL_UTILS_PACKAGETYPE_WLCSP59        0x00000002U /*!< WLSCSP59 package type */
-#define LL_UTILS_PACKAGETYPE_UFQFPN48       0x00000010U /*!< UFQPFN48 package type */
+#define LL_UTILS_PACKAGETYPE_UFQFPN48       0x0000000AU /*!< UFQPFN48 package type */
 /**
   * @}
   */
@@ -262,7 +262,7 @@ __STATIC_INLINE uint32_t LL_GetPackageType(void)
   *         @ref LL_RCC_GetSystemClocksFreq (HCLK2_Frequency field))
   * @note   When a RTOS is used, it is recommended to avoid changing the SysTick
   *         configuration by calling this function, for a delay use rather osDelay RTOS service.
-  * @param  Ticks Number of ticks
+  * @param  Ticks Frequency of Ticks (Hz)
   * @retval None
   */
 #else
@@ -272,7 +272,7 @@ __STATIC_INLINE uint32_t LL_GetPackageType(void)
   *         @ref LL_RCC_GetSystemClocksFreq (HCLK1_Frequency field))
   * @note   When a RTOS is used, it is recommended to avoid changing the SysTick
   *         configuration by calling this function, for a delay use rather osDelay RTOS service.
-  * @param  Ticks Number of ticks
+  * @param  Ticks Frequency of Ticks (Hz)
   * @retval None
   */
 #endif /* CORE_CM0PLUS */

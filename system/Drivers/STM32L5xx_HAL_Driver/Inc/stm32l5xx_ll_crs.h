@@ -41,7 +41,6 @@ extern "C" {
 /* Private variables ---------------------------------------------------------*/
 /* Private constants ---------------------------------------------------------*/
 /* Private macros ------------------------------------------------------------*/
-
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /** @defgroup CRS_LL_Exported_Constants CRS Exported Constants
@@ -135,11 +134,12 @@ extern "C" {
 
 /**
   * @brief Reset value of the HSI48 Calibration field
-  * @note The default value is 64, which corresponds to the middle of the trimming interval.
+  * @note The default value is 64,
+  *       which corresponds to the middle of the trimming interval.
   *       The trimming step is specified in the product datasheet.
   *       A higher TRIM value corresponds to a higher output frequency.
   */
-#define LL_CRS_HSI48CALIBRATION_DEFAULT    0x00000040U
+#define LL_CRS_HSI48CALIBRATION_DEFAULT     0x00000040U
 /**
   * @}
   */
@@ -437,19 +437,22 @@ __STATIC_INLINE uint32_t LL_CRS_GetSyncPolarity(void)
   *         CFGR         SYNCDIV       LL_CRS_ConfigSynchronization\n
   *         CFGR         SYNCSRC       LL_CRS_ConfigSynchronization\n
   *         CFGR         SYNCPOL       LL_CRS_ConfigSynchronization
-  * @param  HSI48CalibrationValue a number between Min_Data = 0 and Max_Data = 63
+  * @param  HSI48CalibrationValue a number between Min_Data = 0 and Max_Data = 127
   * @param  ErrorLimitValue a number between Min_Data = 0 and Max_Data = 0xFFFF
   * @param  ReloadValue a number between Min_Data = 0 and Max_Data = 255
   * @param  Settings This parameter can be a combination of the following values:
-  *         @arg @ref LL_CRS_SYNC_DIV_1 or @ref LL_CRS_SYNC_DIV_2 or @ref LL_CRS_SYNC_DIV_4 or @ref LL_CRS_SYNC_DIV_8
-  *              or @ref LL_CRS_SYNC_DIV_16 or @ref LL_CRS_SYNC_DIV_32 or @ref LL_CRS_SYNC_DIV_64 or @ref LL_CRS_SYNC_DIV_128
+  *         @arg @ref LL_CRS_SYNC_DIV_1 or @ref LL_CRS_SYNC_DIV_2 or @ref LL_CRS_SYNC_DIV_4
+  *              or @ref LL_CRS_SYNC_DIV_8 or @ref LL_CRS_SYNC_DIV_16 or @ref LL_CRS_SYNC_DIV_32
+  *              or @ref LL_CRS_SYNC_DIV_64 or @ref LL_CRS_SYNC_DIV_128
   *         @arg @ref LL_CRS_SYNC_SOURCE_GPIO or @ref LL_CRS_SYNC_SOURCE_LSE or @ref LL_CRS_SYNC_SOURCE_USB
   *         @arg @ref LL_CRS_SYNC_POLARITY_RISING or @ref LL_CRS_SYNC_POLARITY_FALLING
   * @retval None
   */
-__STATIC_INLINE void LL_CRS_ConfigSynchronization(uint32_t HSI48CalibrationValue, uint32_t ErrorLimitValue, uint32_t ReloadValue, uint32_t Settings)
+__STATIC_INLINE void LL_CRS_ConfigSynchronization(uint32_t HSI48CalibrationValue, uint32_t ErrorLimitValue,
+                                                  uint32_t ReloadValue, uint32_t Settings)
 {
-  MODIFY_REG(CRS->CR, CRS_CR_TRIM, HSI48CalibrationValue);
+  MODIFY_REG(CRS->CR, CRS_CR_TRIM, HSI48CalibrationValue << CRS_CR_TRIM_Pos);
+
   MODIFY_REG(CRS->CFGR,
              CRS_CFGR_RELOAD | CRS_CFGR_FELIM | CRS_CFGR_SYNCDIV | CRS_CFGR_SYNCSRC | CRS_CFGR_SYNCPOL,
              ReloadValue | (ErrorLimitValue << CRS_CFGR_FELIM_Pos) | Settings);

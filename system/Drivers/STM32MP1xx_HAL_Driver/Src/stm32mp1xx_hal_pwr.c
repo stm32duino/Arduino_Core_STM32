@@ -621,7 +621,7 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
 #endif /*CORE_CA7*/
 
   /* Select Stop mode entry --------------------------------------------------*/
-  if ((STOPEntry == PWR_STOPENTRY_WFI))
+  if (STOPEntry == PWR_STOPENTRY_WFI)
   {
     /* Request Wait For Interrupt */
     __WFI();

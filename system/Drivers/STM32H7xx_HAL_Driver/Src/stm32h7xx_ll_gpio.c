@@ -101,7 +101,7 @@
   *          - SUCCESS: GPIO registers are de-initialized
   *          - ERROR:   Wrong GPIO Port
   */
-ErrorStatus LL_GPIO_DeInit(GPIO_TypeDef *GPIOx)
+ErrorStatus LL_GPIO_DeInit(const GPIO_TypeDef *GPIOx)
 {
   ErrorStatus status = SUCCESS;
 

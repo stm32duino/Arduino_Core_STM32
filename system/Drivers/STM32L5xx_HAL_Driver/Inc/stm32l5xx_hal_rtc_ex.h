@@ -1344,7 +1344,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetTimeStamp_IT(RTC_HandleTypeDef *hrtc, uint32_t Ti
 HAL_StatusTypeDef HAL_RTCEx_DeactivateTimeStamp(RTC_HandleTypeDef *hrtc);
 HAL_StatusTypeDef HAL_RTCEx_SetInternalTimeStamp(RTC_HandleTypeDef *hrtc);
 HAL_StatusTypeDef HAL_RTCEx_DeactivateInternalTimeStamp(RTC_HandleTypeDef *hrtc);
-HAL_StatusTypeDef HAL_RTCEx_GetTimeStamp(RTC_HandleTypeDef *hrtc, RTC_TimeTypeDef *sTimeStamp, RTC_DateTypeDef *sTimeStampDate, uint32_t Format);
+HAL_StatusTypeDef HAL_RTCEx_GetTimeStamp(RTC_HandleTypeDef const *hrtc, RTC_TimeTypeDef *sTimeStamp, RTC_DateTypeDef *sTimeStampDate, uint32_t Format);
 void              HAL_RTCEx_TimeStampIRQHandler(RTC_HandleTypeDef *hrtc);
 HAL_StatusTypeDef HAL_RTCEx_PollForTimeStampEvent(RTC_HandleTypeDef *hrtc, uint32_t Timeout);
 void              HAL_RTCEx_TimeStampEventCallback(RTC_HandleTypeDef *hrtc);
@@ -1361,7 +1361,7 @@ void              HAL_RTCEx_TimeStampEventCallback(RTC_HandleTypeDef *hrtc);
 HAL_StatusTypeDef HAL_RTCEx_SetWakeUpTimer(RTC_HandleTypeDef *hrtc, uint32_t WakeUpCounter, uint32_t WakeUpClock);
 HAL_StatusTypeDef HAL_RTCEx_SetWakeUpTimer_IT(RTC_HandleTypeDef *hrtc, uint32_t WakeUpCounter, uint32_t WakeUpClock, uint32_t WakeUpAutoClr);
 HAL_StatusTypeDef HAL_RTCEx_DeactivateWakeUpTimer(RTC_HandleTypeDef *hrtc);
-uint32_t          HAL_RTCEx_GetWakeUpTimer(RTC_HandleTypeDef *hrtc);
+uint32_t          HAL_RTCEx_GetWakeUpTimer(RTC_HandleTypeDef const *hrtc);
 void              HAL_RTCEx_WakeUpTimerIRQHandler(RTC_HandleTypeDef *hrtc);
 void              HAL_RTCEx_WakeUpTimerEventCallback(RTC_HandleTypeDef *hrtc);
 HAL_StatusTypeDef HAL_RTCEx_PollForWakeUpTimerEvent(RTC_HandleTypeDef *hrtc, uint32_t Timeout);
@@ -1383,8 +1383,8 @@ HAL_StatusTypeDef HAL_RTCEx_SetRefClock(RTC_HandleTypeDef *hrtc);
 HAL_StatusTypeDef HAL_RTCEx_DeactivateRefClock(RTC_HandleTypeDef *hrtc);
 HAL_StatusTypeDef HAL_RTCEx_EnableBypassShadow(RTC_HandleTypeDef *hrtc);
 HAL_StatusTypeDef HAL_RTCEx_DisableBypassShadow(RTC_HandleTypeDef *hrtc);
-HAL_StatusTypeDef HAL_RTCEx_MonotonicCounterIncrement(RTC_HandleTypeDef *hrtc, uint32_t Instance);
-HAL_StatusTypeDef HAL_RTCEx_MonotonicCounterGet(RTC_HandleTypeDef *hrtc, uint32_t Instance, uint32_t *Value);
+HAL_StatusTypeDef HAL_RTCEx_MonotonicCounterIncrement(RTC_HandleTypeDef const *hrtc, uint32_t Instance);
+HAL_StatusTypeDef HAL_RTCEx_MonotonicCounterGet(RTC_HandleTypeDef const *hrtc, uint32_t Instance, uint32_t *Value);
 /**
   * @}
   */
@@ -1403,17 +1403,17 @@ HAL_StatusTypeDef HAL_RTCEx_PollForAlarmBEvent(RTC_HandleTypeDef *hrtc, uint32_t
 /** @defgroup RTCEx_Exported_Functions_Group5 Extended RTC Tamper functions
   * @{
   */
-HAL_StatusTypeDef HAL_RTCEx_SetTamper(RTC_HandleTypeDef *hrtc, RTC_TamperTypeDef *sTamper);
-HAL_StatusTypeDef HAL_RTCEx_SetActiveTampers(RTC_HandleTypeDef *hrtc, RTC_ActiveTampersTypeDef *sAllTamper);
-HAL_StatusTypeDef HAL_RTCEx_SetActiveSeed(RTC_HandleTypeDef *hrtc, uint32_t *pSeed);
-HAL_StatusTypeDef HAL_RTCEx_SetTamper_IT(RTC_HandleTypeDef *hrtc, RTC_TamperTypeDef *sTamper);
-HAL_StatusTypeDef HAL_RTCEx_DeactivateTamper(RTC_HandleTypeDef *hrtc, uint32_t Tamper);
-HAL_StatusTypeDef HAL_RTCEx_DeactivateActiveTampers(RTC_HandleTypeDef *hrtc);
-HAL_StatusTypeDef HAL_RTCEx_PollForTamperEvent(RTC_HandleTypeDef *hrtc, uint32_t Tamper, uint32_t Timeout);
-HAL_StatusTypeDef HAL_RTCEx_SetInternalTamper(RTC_HandleTypeDef *hrtc, RTC_InternalTamperTypeDef *sIntTamper);
-HAL_StatusTypeDef HAL_RTCEx_SetInternalTamper_IT(RTC_HandleTypeDef *hrtc, RTC_InternalTamperTypeDef *sIntTamper);
-HAL_StatusTypeDef HAL_RTCEx_DeactivateInternalTamper(RTC_HandleTypeDef *hrtc, uint32_t IntTamper);
-HAL_StatusTypeDef HAL_RTCEx_PollForInternalTamperEvent(RTC_HandleTypeDef *hrtc, uint32_t IntTamper, uint32_t Timeout);
+HAL_StatusTypeDef HAL_RTCEx_SetTamper(RTC_HandleTypeDef const *hrtc, RTC_TamperTypeDef const *sTamper);
+HAL_StatusTypeDef HAL_RTCEx_SetTamper_IT(RTC_HandleTypeDef const *hrtc, RTC_TamperTypeDef const *sTamper);
+HAL_StatusTypeDef HAL_RTCEx_SetActiveTampers(RTC_HandleTypeDef *hrtc, RTC_ActiveTampersTypeDef const *sAllTamper);
+HAL_StatusTypeDef HAL_RTCEx_SetActiveSeed(RTC_HandleTypeDef *hrtc, uint32_t const *pSeed);
+HAL_StatusTypeDef HAL_RTCEx_DeactivateTamper(RTC_HandleTypeDef const *hrtc, uint32_t Tamper);
+HAL_StatusTypeDef HAL_RTCEx_DeactivateActiveTampers(RTC_HandleTypeDef const *hrtc);
+HAL_StatusTypeDef HAL_RTCEx_PollForTamperEvent(RTC_HandleTypeDef const *hrtc, uint32_t Tamper, uint32_t Timeout);
+HAL_StatusTypeDef HAL_RTCEx_SetInternalTamper(RTC_HandleTypeDef const *hrtc, RTC_InternalTamperTypeDef const *sIntTamper);
+HAL_StatusTypeDef HAL_RTCEx_SetInternalTamper_IT(RTC_HandleTypeDef const *hrtc, RTC_InternalTamperTypeDef const *sIntTamper);
+HAL_StatusTypeDef HAL_RTCEx_DeactivateInternalTamper(RTC_HandleTypeDef const *hrtc, uint32_t IntTamper);
+HAL_StatusTypeDef HAL_RTCEx_PollForInternalTamperEvent(RTC_HandleTypeDef const *hrtc, uint32_t IntTamper, uint32_t Timeout);
 void              HAL_RTCEx_TamperIRQHandler(RTC_HandleTypeDef *hrtc);
 void              HAL_RTCEx_Tamper1EventCallback(RTC_HandleTypeDef *hrtc);
 void              HAL_RTCEx_Tamper2EventCallback(RTC_HandleTypeDef *hrtc);
@@ -1428,12 +1428,12 @@ void              HAL_RTCEx_InternalTamper2EventCallback(RTC_HandleTypeDef *hrtc
 void              HAL_RTCEx_InternalTamper3EventCallback(RTC_HandleTypeDef *hrtc);
 void              HAL_RTCEx_InternalTamper5EventCallback(RTC_HandleTypeDef *hrtc);
 void              HAL_RTCEx_InternalTamper8EventCallback(RTC_HandleTypeDef *hrtc);
-void              HAL_RTCEx_EnableTemperatureMonitoring(RTC_HandleTypeDef *hrtc);
-void              HAL_RTCEx_DisableTemperatureMonitoring(RTC_HandleTypeDef *hrtc);
-void              HAL_RTCEx_EnableVoltageMonitoring(RTC_HandleTypeDef *hrtc);
-void              HAL_RTCEx_DisableVoltageMonitoring(RTC_HandleTypeDef *hrtc);
-void              HAL_RTCEx_EnableWUTMonitoring(RTC_HandleTypeDef *hrtc);
-void              HAL_RTCEx_DisableWUTMonitoring(RTC_HandleTypeDef *hrtc);
+void              HAL_RTCEx_EnableTemperatureMonitoring(RTC_HandleTypeDef const *hrtc);
+void              HAL_RTCEx_DisableTemperatureMonitoring(RTC_HandleTypeDef const *hrtc);
+void              HAL_RTCEx_EnableVoltageMonitoring(RTC_HandleTypeDef const *hrtc);
+void              HAL_RTCEx_DisableVoltageMonitoring(RTC_HandleTypeDef const *hrtc);
+void              HAL_RTCEx_EnableWUTMonitoring(RTC_HandleTypeDef const *hrtc);
+void              HAL_RTCEx_DisableWUTMonitoring(RTC_HandleTypeDef const *hrtc);
 /**
   * @}
   */
@@ -1441,8 +1441,8 @@ void              HAL_RTCEx_DisableWUTMonitoring(RTC_HandleTypeDef *hrtc);
 /** @defgroup RTCEx_Exported_Functions_Group6 Extended RTC Backup register functions
  * @{
  */
-void              HAL_RTCEx_BKUPWrite(RTC_HandleTypeDef *hrtc, uint32_t BackupRegister, uint32_t Data);
-uint32_t          HAL_RTCEx_BKUPRead(RTC_HandleTypeDef *hrtc, uint32_t BackupRegister);
+void              HAL_RTCEx_BKUPWrite(RTC_HandleTypeDef const *hrtc, uint32_t BackupRegister, uint32_t Data);
+uint32_t          HAL_RTCEx_BKUPRead(RTC_HandleTypeDef const *hrtc, uint32_t BackupRegister);
 /**
   * @}
   */
@@ -1450,10 +1450,10 @@ uint32_t          HAL_RTCEx_BKUPRead(RTC_HandleTypeDef *hrtc, uint32_t BackupReg
 /** @defgroup RTCEx_Exported_Functions_Group7 Extended RTC secure functions
  * @{
  */
-HAL_StatusTypeDef HAL_RTCEx_SecureModeGet(RTC_HandleTypeDef *hrtc, RTC_SecureStateTypeDef  *secureState);
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
-HAL_StatusTypeDef HAL_RTCEx_SecureModeSet(RTC_HandleTypeDef *hrtc, RTC_SecureStateTypeDef  *secureState);
+HAL_StatusTypeDef HAL_RTCEx_SecureModeSet(RTC_HandleTypeDef const *hrtc, RTC_SecureStateTypeDef const *secureState);
 #endif /* #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
+HAL_StatusTypeDef HAL_RTCEx_SecureModeGet(RTC_HandleTypeDef const *hrtc, RTC_SecureStateTypeDef *secureState);
 /**
   * @}
   */
@@ -1461,8 +1461,8 @@ HAL_StatusTypeDef HAL_RTCEx_SecureModeSet(RTC_HandleTypeDef *hrtc, RTC_SecureSta
 /** @defgroup RTCEx_Exported_Functions_Group8 Extended RTC privilege functions
  * @{
  */
-HAL_StatusTypeDef HAL_RTCEx_PrivilegeModeSet(RTC_HandleTypeDef *hrtc, RTC_PrivilegeStateTypeDef *privilegeState);
-HAL_StatusTypeDef HAL_RTCEx_PrivilegeModeGet(RTC_HandleTypeDef *hrtc, RTC_PrivilegeStateTypeDef *privilegeState);
+HAL_StatusTypeDef HAL_RTCEx_PrivilegeModeSet(RTC_HandleTypeDef const *hrtc, RTC_PrivilegeStateTypeDef const *privilegeState);
+HAL_StatusTypeDef HAL_RTCEx_PrivilegeModeGet(RTC_HandleTypeDef const *hrtc, RTC_PrivilegeStateTypeDef *privilegeState);
 /**
   * @}
   */

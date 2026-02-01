@@ -86,6 +86,9 @@ USBD_StatusTypeDef USBD_DeInit(USBD_HandleTypeDef *pdev);
 USBD_StatusTypeDef USBD_Start(USBD_HandleTypeDef *pdev);
 USBD_StatusTypeDef USBD_Stop(USBD_HandleTypeDef *pdev);
 USBD_StatusTypeDef USBD_RegisterClass(USBD_HandleTypeDef *pdev, USBD_ClassTypeDef *pclass);
+#if (USBD_USER_REGISTER_CALLBACK == 1U)
+USBD_StatusTypeDef USBD_RegisterDevStateCallback(USBD_HandleTypeDef *pdev, USBD_DevStateCallbackTypeDef pUserCallback);
+#endif /* USBD_USER_REGISTER_CALLBACK */
 
 #ifdef USE_USBD_COMPOSITE
 USBD_StatusTypeDef  USBD_RegisterClassComposite(USBD_HandleTypeDef *pdev, USBD_ClassTypeDef *pclass,
