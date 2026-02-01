@@ -140,6 +140,7 @@ class SPIClass {
      */
     uint8_t transfer(uint8_t data, bool skipReceive = SPI_TRANSMITRECEIVE);
     uint16_t transfer16(uint16_t data, bool skipReceive = SPI_TRANSMITRECEIVE);
+    uint16_t transfer16_obsoleted(uint16_t data, bool skipReceive = SPI_TRANSMITRECEIVE);
     void transfer(void *buf, size_t count, bool skipReceive = SPI_TRANSMITRECEIVE);
 
     /* Expand SPI API
