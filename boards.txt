@@ -15480,6 +15480,8 @@ GenF0.menu.usb.HID=HID (keyboard and mouse)
 GenF0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 
 GenF1.menu.usb.none=None
+GenF1.menu.usb.TinyUSB=Adafruit TinyUSB
+GenF1.menu.usb.TinyUSB.build.usb_flags={build.extra_flags} -DARDUINO_ARCH_TINYUSB
 GenF1.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenF1.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenF1.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15520,7 +15522,7 @@ GenF3.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenF4.menu.usb.none=None
 GenF4.menu.usb.TinyUSB=Adafruit TinyUSB
-GenF4.menu.usb.TinyUSB.build.usb_flags={build.usb_flags} -DARDUINO_ARCH_TINYUSB
+GenF4.menu.usb.TinyUSB.build.usb_flags={build.extra_flags} -DARDUINO_ARCH_TINYUSB
 GenF4.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenF4.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenF4.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15555,6 +15557,8 @@ GenG0.menu.usb.HID=HID (keyboard and mouse)
 GenG0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 
 GenG4.menu.usb.none=None
+GenG4.menu.usb.TinyUSB=Adafruit TinyUSB
+GenG4.menu.usb.TinyUSB.build.usb_flags={build.extra_flags} -DARDUINO_ARCH_TINYUSB
 GenG4.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenG4.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenG4.menu.usb.CDC=CDC (no generic 'Serial')
