@@ -83,6 +83,17 @@ static const uint32_t SCK  = PIN_SPI_SCK;
 static const uint32_t SDA = PIN_WIRE_SDA;
 static const uint32_t SCL = PIN_WIRE_SCL;
 
+/* I3C Definitions */
+#ifndef PIN_I3C_SDA
+  #define PIN_I3C_SDA              14
+#endif
+#ifndef PIN_I3C_SCL
+  #define PIN_I3C_SCL              15
+#endif
+
+static const uint32_t I3C_SDA = PIN_I3C_SDA;
+static const uint32_t I3C_SCL = PIN_I3C_SCL;
+
 #ifdef __cplusplus
 extern "C" {
 #endif
