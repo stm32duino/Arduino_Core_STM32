@@ -46,6 +46,12 @@
   #undef HAL_I2S_MODULE_ENABLED
 #endif
 
+#if !defined(HAL_I3C_MODULE_DISABLED)
+  #define HAL_I3C_MODULE_ENABLED
+#else
+  #undef HAL_I3C_MODULE_ENABLED
+#endif
+
 #if !defined(HAL_RTC_MODULE_DISABLED)
   #define HAL_RTC_MODULE_ENABLED
 #else
