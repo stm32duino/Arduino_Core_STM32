@@ -9346,6 +9346,15 @@ GenH5.menu.pnum.GENERIC_H562RGTX.build.product_line=STM32H562xx
 GenH5.menu.pnum.GENERIC_H562RGTX.build.variant=STM32H5xx/H562R(G-I)T
 GenH5.menu.pnum.GENERIC_H562RGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H562.svd
 
+# Generic H562RGVx
+GenH5.menu.pnum.GENERIC_H562RGVX=Generic H562RGVx
+GenH5.menu.pnum.GENERIC_H562RGVX.upload.maximum_size=1048576
+GenH5.menu.pnum.GENERIC_H562RGVX.upload.maximum_data_size=655360
+GenH5.menu.pnum.GENERIC_H562RGVX.build.board=GENERIC_H562RGVX
+GenH5.menu.pnum.GENERIC_H562RGVX.build.product_line=STM32H562xx
+GenH5.menu.pnum.GENERIC_H562RGVX.build.variant=STM32H5xx/H562R(G-I)V
+GenH5.menu.pnum.GENERIC_H562RGVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H562.svd
+
 # Generic H562RITx
 GenH5.menu.pnum.GENERIC_H562RITX=Generic H562RITx
 GenH5.menu.pnum.GENERIC_H562RITX.upload.maximum_size=2097152
@@ -9354,6 +9363,15 @@ GenH5.menu.pnum.GENERIC_H562RITX.build.board=GENERIC_H562RITX
 GenH5.menu.pnum.GENERIC_H562RITX.build.product_line=STM32H562xx
 GenH5.menu.pnum.GENERIC_H562RITX.build.variant=STM32H5xx/H562R(G-I)T
 GenH5.menu.pnum.GENERIC_H562RITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H562.svd
+
+# Generic H562RIVx
+GenH5.menu.pnum.GENERIC_H562RIVX=Generic H562RIVx
+GenH5.menu.pnum.GENERIC_H562RIVX.upload.maximum_size=2097152
+GenH5.menu.pnum.GENERIC_H562RIVX.upload.maximum_data_size=655360
+GenH5.menu.pnum.GENERIC_H562RIVX.build.board=GENERIC_H562RIVX
+GenH5.menu.pnum.GENERIC_H562RIVX.build.product_line=STM32H562xx
+GenH5.menu.pnum.GENERIC_H562RIVX.build.variant=STM32H5xx/H562R(G-I)V
+GenH5.menu.pnum.GENERIC_H562RIVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H562.svd
 
 # Generic H563IIKxQ
 GenH5.menu.pnum.GENERIC_H563IIKXQ=Generic H563IIKxQ
@@ -9373,6 +9391,15 @@ GenH5.menu.pnum.GENERIC_H563RGTX.build.product_line=STM32H563xx
 GenH5.menu.pnum.GENERIC_H563RGTX.build.variant=STM32H5xx/H563R(G-I)T_H573RIT
 GenH5.menu.pnum.GENERIC_H563RGTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H563.svd
 
+# Generic H563RGVx
+GenH5.menu.pnum.GENERIC_H563RGVX=Generic H563RGVx
+GenH5.menu.pnum.GENERIC_H563RGVX.upload.maximum_size=1048576
+GenH5.menu.pnum.GENERIC_H563RGVX.upload.maximum_data_size=655360
+GenH5.menu.pnum.GENERIC_H563RGVX.build.board=GENERIC_H563RGVX
+GenH5.menu.pnum.GENERIC_H563RGVX.build.product_line=STM32H563xx
+GenH5.menu.pnum.GENERIC_H563RGVX.build.variant=STM32H5xx/H563R(G-I)V_H573RIV
+GenH5.menu.pnum.GENERIC_H563RGVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H563.svd
+
 # Generic H563RITx
 GenH5.menu.pnum.GENERIC_H563RITX=Generic H563RITx
 GenH5.menu.pnum.GENERIC_H563RITX.upload.maximum_size=2097152
@@ -9381,6 +9408,15 @@ GenH5.menu.pnum.GENERIC_H563RITX.build.board=GENERIC_H563RITX
 GenH5.menu.pnum.GENERIC_H563RITX.build.product_line=STM32H563xx
 GenH5.menu.pnum.GENERIC_H563RITX.build.variant=STM32H5xx/H563R(G-I)T_H573RIT
 GenH5.menu.pnum.GENERIC_H563RITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H563.svd
+
+# Generic H563RIVx
+GenH5.menu.pnum.GENERIC_H563RIVX=Generic H563RIVx
+GenH5.menu.pnum.GENERIC_H563RIVX.upload.maximum_size=2097152
+GenH5.menu.pnum.GENERIC_H563RIVX.upload.maximum_data_size=655360
+GenH5.menu.pnum.GENERIC_H563RIVX.build.board=GENERIC_H563RIVX
+GenH5.menu.pnum.GENERIC_H563RIVX.build.product_line=STM32H563xx
+GenH5.menu.pnum.GENERIC_H563RIVX.build.variant=STM32H5xx/H563R(G-I)V_H573RIV
+GenH5.menu.pnum.GENERIC_H563RIVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H563.svd
 
 # Generic H563ZGTx
 GenH5.menu.pnum.GENERIC_H563ZGTX=Generic H563ZGTx
@@ -9417,6 +9453,15 @@ GenH5.menu.pnum.GENERIC_H573RITX.build.board=GENERIC_H573RITX
 GenH5.menu.pnum.GENERIC_H573RITX.build.product_line=STM32H573xx
 GenH5.menu.pnum.GENERIC_H573RITX.build.variant=STM32H5xx/H563R(G-I)T_H573RIT
 GenH5.menu.pnum.GENERIC_H573RITX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H573.svd
+
+# Generic H573RIVx
+GenH5.menu.pnum.GENERIC_H573RIVX=Generic H573RIVx
+GenH5.menu.pnum.GENERIC_H573RIVX.upload.maximum_size=2097152
+GenH5.menu.pnum.GENERIC_H573RIVX.upload.maximum_data_size=655360
+GenH5.menu.pnum.GENERIC_H573RIVX.build.board=GENERIC_H573RIVX
+GenH5.menu.pnum.GENERIC_H573RIVX.build.product_line=STM32H573xx
+GenH5.menu.pnum.GENERIC_H573RIVX.build.variant=STM32H5xx/H563R(G-I)V_H573RIV
+GenH5.menu.pnum.GENERIC_H573RIVX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H573.svd
 
 # Generic H573ZITx
 GenH5.menu.pnum.GENERIC_H573ZITX=Generic H573ZITx
