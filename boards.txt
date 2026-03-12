@@ -259,7 +259,7 @@ Nucleo_144.menu.pnum.NUCLEO_H743ZI2.debug.svd_file={runtime.tools.STM32_SVD.path
 
 # NUCLEO_H745ZI_Q board
 Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q=Nucleo H745ZI-Q
-Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.node=NODE_H743ZIQ
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.node=NODE_H745ZIQ
 Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.upload.maximum_size=2097152
 Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.upload.maximum_data_size=884736
 Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.mcu=cortex-m7
