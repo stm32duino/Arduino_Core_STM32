@@ -152,7 +152,7 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
 #ifdef __HAL_USB_OTG_FS_WAKEUP_EXTI_ENABLE_IT
       __HAL_USB_OTG_FS_WAKEUP_EXTI_ENABLE_IT();
 #endif
-#if !defined(STM32L4xx) && !defined(STM32U5xx)
+#if !defined(STM32H5xx) && !defined(STM32L4xx) && !defined(STM32U5xx)
       /* Set EXTI Wakeup Interrupt priority */
       HAL_NVIC_SetPriority(OTG_FS_WKUP_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
 
@@ -170,7 +170,7 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
       pin_function(map->pin, map->function);
       map++;
     }
-#ifndef USE_USB_HS_IN_FS
+#if !defined(USE_USB_HS_IN_FS) && defined(__HAL_RCC_USB_OTG_HS_ULPI_CLK_ENABLE)
     __HAL_RCC_USB_OTG_HS_ULPI_CLK_ENABLE();
 #endif /* USE_USB_HS_IN_FS */
     /* Enable USB HS Clocks */
@@ -183,6 +183,16 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
 #endif
 #ifdef SYSCFG_OTGHSPHYCR_EN
     HAL_SYSCFG_EnableOTGPHY(SYSCFG_OTG_HS_PHY_ENABLE);
+#endif
+#if defined(RCC_AHB2ENR_OTGPHYEN)
+    /* STM32H5E/F specific PHY initialization */
+    __HAL_RCC_OTGPHY_CLK_ENABLE();
+    /* Adjust the disconnect threshold and the squelch threshold */
+    /* Recommended values */
+    HAL_SBS_SetOTGPHYDisconnectThreshold(SBS_OTG_HS_PHY_DISCONNECT_5_9PERCENT);
+    HAL_SBS_SetOTGPHYSquelchThreshold(SBS_OTG_HS_PHY_SQUELCH_15PERCENT);
+    /* Enable the OTG_HS PHY */
+    HAL_PWREx_EnableUSBOTGHSPhy();
 #endif
     /* Set USB HS Interrupt priority */
     HAL_NVIC_SetPriority(OTG_HS_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
