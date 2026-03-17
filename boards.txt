@@ -141,7 +141,7 @@ Nucleo_144.menu.pnum.NUCLEO_F722ZE.node=NODE_F722ZE
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.upload.maximum_size=524288
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.upload.maximum_data_size=262144
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.mcu=cortex-m7
-Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.flags.fp=-mfpu=fpv5-sp-d16 -mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.board=NUCLEO_F722ZE
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.series=STM32F7xx
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.product_line=STM32F722xx
@@ -156,7 +156,7 @@ Nucleo_144.menu.pnum.NUCLEO_F746ZG.node=NODE_F746ZG
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.upload.maximum_size=1048576
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.upload.maximum_data_size=327680
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.mcu=cortex-m7
-Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.fpu=-mfpu=fpv5-sp-d16
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.board=NUCLEO_F746ZG
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.series=STM32F7xx
@@ -172,7 +172,7 @@ Nucleo_144.menu.pnum.NUCLEO_F756ZG.node=NODE_F756ZG
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.upload.maximum_size=1048576
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.upload.maximum_data_size=327680
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.mcu=cortex-m7
-Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.fpu=-mfpu=fpv5-sp-d16
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.board=NUCLEO_F756ZG
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.series=STM32F7xx
@@ -188,7 +188,7 @@ Nucleo_144.menu.pnum.NUCLEO_F767ZI.node=NODE_F767ZI
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.upload.maximum_size=2097152
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.upload.maximum_data_size=524288
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.mcu=cortex-m7
-Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.fpu=-mfpu=fpv5-sp-d16
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.board=NUCLEO_F767ZI
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.series=STM32F7xx
@@ -218,7 +218,7 @@ Nucleo_144.menu.pnum.NUCLEO_H723ZG.node=NODE_H723ZG
 Nucleo_144.menu.pnum.NUCLEO_H723ZG.upload.maximum_size=1048576
 Nucleo_144.menu.pnum.NUCLEO_H723ZG.upload.maximum_data_size=327680
 Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.mcu=cortex-m7
-Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.fpu=-mfpu=fpv5-sp-d16
 Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.board=NUCLEO_H723ZG
 Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.series=STM32H7xx
@@ -233,7 +233,7 @@ Nucleo_144.menu.pnum.NUCLEO_H743ZI.node=NODE_H743ZI
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.upload.maximum_size=2097152
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.upload.maximum_data_size=524288
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.mcu=cortex-m7
-Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.fpu=-mfpu=fpv5-sp-d16
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.board=NUCLEO_H743ZI
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.series=STM32H7xx
@@ -247,7 +247,7 @@ Nucleo_144.menu.pnum.NUCLEO_H743ZI2.node="NODE_H743ZI,NOD_H743ZI2"
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.upload.maximum_size=2097152
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.upload.maximum_data_size=524288
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.mcu=cortex-m7
-Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.fpu=-mfpu=fpv5-sp-d16
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.board=NUCLEO_H743ZI2
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.series=STM32H7xx
@@ -263,7 +263,7 @@ Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.node=NODE_H745ZIQ
 Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.upload.maximum_size=2097152
 Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.upload.maximum_data_size=884736
 Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.mcu=cortex-m7
-Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.fpu=-mfpu=fpv5-sp-d16
 Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DCORE_CM7
 Nucleo_144.menu.pnum.NUCLEO_H745ZI_Q.build.board=NUCLEO_H745ZI_Q
@@ -280,7 +280,7 @@ Nucleo_144.menu.pnum.NUCLEO_H753ZI.node=NODE_H753ZI
 Nucleo_144.menu.pnum.NUCLEO_H753ZI.upload.maximum_size=2097152
 Nucleo_144.menu.pnum.NUCLEO_H753ZI.upload.maximum_data_size=524288
 Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.mcu=cortex-m7
-Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.fpu=-mfpu=fpv5-sp-d16
 Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.board=NUCLEO_H753ZI
 Nucleo_144.menu.pnum.NUCLEO_H753ZI.build.series=STM32H7xx
@@ -296,7 +296,7 @@ Nucleo_144.menu.pnum.NUCLEO_H7A3ZI_Q.node=NOD_H7A3ZIQ
 Nucleo_144.menu.pnum.NUCLEO_H7A3ZI_Q.upload.maximum_size=2097152
 Nucleo_144.menu.pnum.NUCLEO_H7A3ZI_Q.upload.maximum_data_size=1048576
 Nucleo_144.menu.pnum.NUCLEO_H7A3ZI_Q.build.mcu=cortex-m7
-Nucleo_144.menu.pnum.NUCLEO_H7A3ZI_Q.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_H7A3ZI_Q.build.fpu=-mfpu=fpv5-sp-d16
 Nucleo_144.menu.pnum.NUCLEO_H7A3ZI_Q.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_H7A3ZI_Q.build.board=NUCLEO_H7A3ZI_Q
 Nucleo_144.menu.pnum.NUCLEO_H7A3ZI_Q.build.series=STM32H7xx
@@ -1566,7 +1566,7 @@ Disco.menu.pnum.DISCO_F746NG.node=DIS_F746NG
 Disco.menu.pnum.DISCO_F746NG.upload.maximum_size=1048576
 Disco.menu.pnum.DISCO_F746NG.upload.maximum_data_size=327680
 Disco.menu.pnum.DISCO_F746NG.build.mcu=cortex-m7
-Disco.menu.pnum.DISCO_F746NG.build.fpu=-mfpu=fpv4-sp-d16
+Disco.menu.pnum.DISCO_F746NG.build.fpu=-mfpu=fpv5-sp-d16
 Disco.menu.pnum.DISCO_F746NG.build.float-abi=-mfloat-abi=hard
 Disco.menu.pnum.DISCO_F746NG.build.board=DISCO_F746NG
 Disco.menu.pnum.DISCO_F746NG.build.series=STM32F7xx
@@ -1612,7 +1612,7 @@ Disco.menu.pnum.STM32H747I_DISCO.node=DIS_H747XI
 Disco.menu.pnum.STM32H747I_DISCO.upload.maximum_size=2097152
 Disco.menu.pnum.STM32H747I_DISCO.upload.maximum_data_size=524288
 Disco.menu.pnum.STM32H747I_DISCO.build.mcu=cortex-m7
-Disco.menu.pnum.STM32H747I_DISCO.build.fpu=-mfpu=fpv4-sp-d16
+Disco.menu.pnum.STM32H747I_DISCO.build.fpu=-mfpu=fpv5-sp-d16
 Disco.menu.pnum.STM32H747I_DISCO.build.float-abi=-mfloat-abi=hard
 Disco.menu.pnum.STM32H747I_DISCO.build.board=STM32H747I_DISCO
 Disco.menu.pnum.STM32H747I_DISCO.build.series=STM32H7xx
@@ -6006,7 +6006,7 @@ GenF7.build.core=arduino
 GenF7.build.board=GenF7
 GenF7.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
 GenF7.build.mcu=cortex-m7
-GenF7.build.fpu=-mfpu=fpv4-sp-d16
+GenF7.build.fpu=-mfpu=fpv5-sp-d16
 GenF7.build.float-abi=-mfloat-abi=hard
 GenF7.build.series=STM32F7xx
 GenF7.build.flash_offset=0x0
@@ -9514,10 +9514,10 @@ GenH7.name=Generic STM32H7 Series
 GenH7.build.core=arduino
 GenH7.build.board=GenH7
 GenH7.build.st_extra_flags=-DCORE_CM7 -D{build.product_line} {build.enable_usb} {build.xSerial}
-GenH7.build.fpu=-mfpu=fpv4-sp-d16
+GenH7.build.mcu=cortex-m7
+GenH7.build.fpu=-mfpu=fpv5-sp-d16
 GenH7.build.float-abi=-mfloat-abi=hard
 GenH7.build.series=STM32H7xx
-GenH7.build.mcu=cortex-m7
 GenH7.build.flash_offset=0x0
 GenH7.upload.maximum_size=0
 GenH7.upload.maximum_data_size=0
@@ -14170,7 +14170,7 @@ GenWL.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.
 3dprinter.menu.pnum.REMRAM_V1.upload.maximum_size=2097152
 3dprinter.menu.pnum.REMRAM_V1.upload.maximum_data_size=524288
 3dprinter.menu.pnum.REMRAM_V1.build.mcu=cortex-m7
-3dprinter.menu.pnum.REMRAM_V1.build.fpu=-mfpu=fpv4-sp-d16
+3dprinter.menu.pnum.REMRAM_V1.build.fpu=-mfpu=fpv5-sp-d16
 3dprinter.menu.pnum.REMRAM_V1.build.float-abi=-mfloat-abi=hard
 3dprinter.menu.pnum.REMRAM_V1.build.board=REMRAM_V1
 3dprinter.menu.pnum.REMRAM_V1.build.series=STM32F7xx
@@ -14362,7 +14362,7 @@ Elecgator.menu.pnum.ETHERCAT_DUINO=EtherCATduino
 Elecgator.menu.pnum.ETHERCAT_DUINO.upload.maximum_size=524288
 Elecgator.menu.pnum.ETHERCAT_DUINO.upload.maximum_data_size=327680
 Elecgator.menu.pnum.ETHERCAT_DUINO.build.mcu=cortex-m7
-Elecgator.menu.pnum.ETHERCAT_DUINO.build.fpu=-mfpu=fpv4-sp-d16
+Elecgator.menu.pnum.ETHERCAT_DUINO.build.fpu=-mfpu=fpv5-sp-d16
 Elecgator.menu.pnum.ETHERCAT_DUINO.build.float-abi=-mfloat-abi=hard
 Elecgator.menu.pnum.ETHERCAT_DUINO.build.board=ETHERCAT_DUINO
 Elecgator.menu.pnum.ETHERCAT_DUINO.build.series=STM32F7xx
