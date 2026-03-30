@@ -11737,6 +11737,15 @@ GenL1.menu.pnum.GENERIC_L151CBUXA.build.product_line=STM32L151xBA
 GenL1.menu.pnum.GENERIC_L151CBUXA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
 GenL1.menu.pnum.GENERIC_L151CBUXA.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L1xx/STM32L151.svd
 
+# Generic L151CCTx
+GenL1.menu.pnum.GENERIC_L151CCTX=Generic L151CCTx
+GenL1.menu.pnum.GENERIC_L151CCTX.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L151CCTX.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L151CCTX.build.board=GENERIC_L151CCTX
+GenL1.menu.pnum.GENERIC_L151CCTX.build.product_line=STM32L151xC
+GenL1.menu.pnum.GENERIC_L151CCTX.build.variant=STM32L1xx/L151CC(T-U)_L152CC(T-U)
+GenL1.menu.pnum.GENERIC_L151CCTX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32L1xx/STM32L151.svd
+
 # Generic L151RETx
 GenL1.menu.pnum.GENERIC_L151RETX=Generic L151RETx
 GenL1.menu.pnum.GENERIC_L151RETX.upload.maximum_size=524288
