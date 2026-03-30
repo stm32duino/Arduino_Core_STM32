@@ -702,7 +702,7 @@ def adc_pinmap():
                 "pin": p[0],
                 "inst": inst,
                 "mode": mode,
-                "pull": "GPIO_NOPULL",
+                "pull": "LL_GPIO_PULL_NO",
                 "af": "0",
                 "chan": chan,
                 "inv": inv,
@@ -740,7 +740,7 @@ def dac_pinmap():
                 "pin": p[0],
                 "inst": "DAC" + inst,
                 "mode": mode,
-                "pull": "GPIO_NOPULL",
+                "pull": "LL_GPIO_PULL_NO",
                 "af": "0",
                 "chan": chan,
                 "inv": "0",
@@ -778,7 +778,7 @@ def i2c_pinmap(lst):
                 "pin": p[0],
                 "inst": inst,
                 "mode": mode,
-                "pull": "GPIO_NOPULL",
+                "pull": "LL_GPIO_PULL_NO",
                 "af": p[3],
             }
         )
@@ -813,7 +813,7 @@ def i3c_pinmap(lst):
                 "pin": p[0],
                 "inst": inst,
                 "mode": mode,
-                "pull": "GPIO_NOPULL",
+                "pull": "LL_GPIO_PULL_NO",
                 "af": p[3],
             }
         )
@@ -852,7 +852,7 @@ def tim_pinmap():
                 "pin": p[0],
                 "inst": inst,
                 "mode": mode,
-                "pull": "GPIO_PULLUP",
+                "pull": "LL_GPIO_PULL_UP",
                 "af": p[3],
                 "chan": chan,
                 "inv": inv,
@@ -897,7 +897,7 @@ def uart_pinmap(lst):
                 "pin": p[0],
                 "inst": inst,
                 "mode": mode,
-                "pull": "GPIO_PULLUP",
+                "pull": "LL_GPIO_PULL_UP",
                 "af": p[3],
             }
         )
@@ -937,7 +937,7 @@ def spi_pinmap(lst):
                 "pin": p[0],
                 "inst": inst,
                 "mode": "STM_MODE_AF_PP",
-                "pull": "GPIO_PULLUP" if inst != "SUBGHZSPI" else "GPIO_NOPULL",
+                "pull": "LL_GPIO_PULL_UP" if inst != "SUBGHZSPI" else "LL_GPIO_PULL_NO",
                 "af": p[4],
             }
         )
@@ -980,7 +980,7 @@ def can_pinmap(lst):
                 "pin": p[0],
                 "inst": inst,
                 "mode": mode,
-                "pull": "GPIO_NOPULL",
+                "pull": "LL_GPIO_PULL_NO",
                 "af": p[3],
             }
         )
@@ -1012,7 +1012,7 @@ def eth_pinmap():
                 "pin": p[0],
                 "inst": inst,
                 "mode": "STM_MODE_AF_PP",
-                "pull": "GPIO_PULLUP",
+                "pull": "LL_GPIO_PULL_UP",
                 "af": p[3],
                 "cmt": p[2],
             }
@@ -1080,7 +1080,7 @@ def xspi_pinmap(lst):
                 "pin": p[0],
                 "inst": inst,
                 "mode": "STM_MODE_AF_PP",
-                "pull": "GPIO_PULLUP",
+                "pull": "LL_GPIO_PULL_UP",
                 "af": p[3],
                 "cmt": p[2],
             }
@@ -1129,20 +1129,19 @@ def usb_pinmap(lst):
 
             # 2nd element is the USB_XXXX signal
             if not p[2].startswith("USB_D") and "VBUS" not in p[2]:
+                pull = "LL_GPIO_PULL_UP"
                 if "ID" not in p[2]:
                     mode = "STM_MODE_AF_PP"
-                    pull = "GPIO_PULLUP"
                 else:
                     # ID pin: AF_PP + PULLUP
                     mode = "STM_MODE_AF_OD"
-                    pull = "GPIO_PULLUP"
             else:
                 # USB_DM/DP and VBUS: INPUT/AF + NOPULL
                 if p[2].startswith("USB_D") and "NONE" not in p[3]:
                     mode = "STM_MODE_AF_PP"
                 else:
                     mode = "STM_MODE_INPUT"
-                pull = "GPIO_NOPULL"
+                pull = "LL_GPIO_PULL_NO"
             wpin.append(len(p[0]))
             usb_pins_list.append(
                 {
@@ -1204,9 +1203,9 @@ def sdx_pinmap(lst):
         a = p[2].split("_")
         inst = a[0]
         if a[1].startswith("C") or a[1].endswith("DIR"):
-            pull = "GPIO_NOPULL"
+            pull = "LL_GPIO_PULL_NO"
         else:
-            pull = "GPIO_PULLUP"
+            pull = "LL_GPIO_PULL_UP"
         winst.append(len(inst))
         wpin.append(len(p[0]))
         sdx_pins_list.append(
