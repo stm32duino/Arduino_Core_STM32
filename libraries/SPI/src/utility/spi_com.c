@@ -334,7 +334,7 @@ void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb, SPIDeviceMo
     * According the STM32 Datasheet for SPI peripheral we need to PULLDOWN
     * or PULLUP the SCK pin according the polarity used.
     */
-    pull = (handle->Init.CLKPolarity == SPI_POLARITY_LOW) ? GPIO_PULLDOWN : GPIO_PULLUP;
+    pull = (handle->Init.CLKPolarity == SPI_POLARITY_LOW) ? LL_GPIO_PULL_DOWN : LL_GPIO_PULL_UP;
     pin_PullConfig(get_GPIO_Port(STM_PORT(obj->pin_sclk)), STM_LL_GPIO_PIN(obj->pin_sclk), pull);
     pinmap_pinout(obj->pin_ssel, PinMap_SPI_SSEL);
 #if defined(SUBGHZSPI_BASE)

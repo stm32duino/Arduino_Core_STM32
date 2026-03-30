@@ -69,7 +69,7 @@ static void timerTonePinDeinit()
     TimerTone->timerHandleDeinit();
   }
   if (TimerTone_pinInfo.pin != NC) {
-    pin_function(TimerTone_pinInfo.pin, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, 0));
+    pin_function(TimerTone_pinInfo.pin, STM_PIN_DATA(STM_MODE_INPUT, LL_GPIO_PULL_NO, 0));
     TimerTone_pinInfo.pin = NC;
   }
 }
@@ -93,7 +93,7 @@ static void timerTonePinInit(PinName p, uint32_t frequency, uint32_t duration)
         TimerTone_pinInfo.count = -1;
       }
 
-      pin_function(TimerTone_pinInfo.pin, STM_PIN_DATA(STM_MODE_OUTPUT_PP, GPIO_NOPULL, 0));
+      pin_function(TimerTone_pinInfo.pin, STM_PIN_DATA(STM_MODE_OUTPUT_PP, LL_GPIO_PULL_NO, 0));
 
       TimerTone->setOverflow(timFreq, HERTZ_FORMAT);
       TimerTone->attachInterrupt(tonePeriodElapsedCallback);

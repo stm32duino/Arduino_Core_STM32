@@ -13,6 +13,7 @@
 #if defined(ARDUINO_NUCLEO_WL33CC1) || defined(ARDUINO_NUCLEO_WL33CC2)
 #include "pins_arduino.h"
 #include "pinmap.h"
+#include "stm32yyxx_ll_gpio.h"
 
 // Digital PinName array
 const PinName digitalPin[] = {

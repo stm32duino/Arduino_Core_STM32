@@ -37,6 +37,9 @@
 extern "C" {
 #endif
 
+/* Stub for STM32F1xx */
+#define LL_GPIO_PULL_NO 0x00000002u
+
 enum {
   AFIO_NONE,
   AFIO_SPI1_ENABLE,

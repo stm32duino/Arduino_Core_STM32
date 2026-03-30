@@ -52,22 +52,22 @@ void pinMode(uint32_t ulPin, uint32_t ulMode)
 #endif
     switch (ulMode) {
       case INPUT: /* INPUT_FLOATING */
-        pin_function(p, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, 0));
+        pin_function(p, STM_PIN_DATA(STM_MODE_INPUT, LL_GPIO_PULL_NO, 0));
         break;
       case INPUT_PULLUP:
-        pin_function(p, STM_PIN_DATA(STM_MODE_INPUT, GPIO_PULLUP, 0));
+        pin_function(p, STM_PIN_DATA(STM_MODE_INPUT, LL_GPIO_PULL_UP, 0));
         break;
       case INPUT_PULLDOWN:
-        pin_function(p, STM_PIN_DATA(STM_MODE_INPUT, GPIO_PULLDOWN, 0));
+        pin_function(p, STM_PIN_DATA(STM_MODE_INPUT, LL_GPIO_PULL_DOWN, 0));
         break;
       case INPUT_ANALOG:
-        pin_function(p, STM_PIN_DATA(STM_MODE_ANALOG, GPIO_NOPULL, 0));
+        pin_function(p, STM_PIN_DATA(STM_MODE_ANALOG, LL_GPIO_PULL_NO, 0));
         break;
       case OUTPUT:
-        pin_function(p, STM_PIN_DATA(STM_MODE_OUTPUT_PP, GPIO_NOPULL, 0));
+        pin_function(p, STM_PIN_DATA(STM_MODE_OUTPUT_PP, LL_GPIO_PULL_NO, 0));
         break;
       case OUTPUT_OPEN_DRAIN:
-        pin_function(p, STM_PIN_DATA(STM_MODE_OUTPUT_OD, GPIO_NOPULL, 0));
+        pin_function(p, STM_PIN_DATA(STM_MODE_OUTPUT_OD, LL_GPIO_PULL_NO, 0));
         break;
       default:
         Error_Handler();

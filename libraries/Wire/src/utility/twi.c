@@ -38,6 +38,7 @@
 #include "core_debug.h"
 #include "utility/twi.h"
 #include "PinAF_STM32F1.h"
+#include "stm32yyxx_ll_gpio.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -892,8 +893,8 @@ void i2c_deinit(i2c_t *obj)
 #endif /* !STM32C0xx && !STM32F0xx && !STM32G0xx && !STM32L0xx && !STM32U0xx */
   HAL_I2C_DeInit(&(obj->handle));
   /* Reset I2C GPIO pins as INPUT_ANALOG */
-  pin_function(obj->scl, STM_PIN_DATA(STM_MODE_ANALOG, GPIO_NOPULL, 0));
-  pin_function(obj->sda, STM_PIN_DATA(STM_MODE_ANALOG, GPIO_NOPULL, 0));
+  pin_function(obj->scl, STM_PIN_DATA(STM_MODE_ANALOG, LL_GPIO_PULL_NO, 0));
+  pin_function(obj->sda, STM_PIN_DATA(STM_MODE_ANALOG, LL_GPIO_PULL_NO, 0));
   // Reset I2Cx and disable clock
 #if defined I2C1_BASE
   if (obj->i2c == I2C1) {
