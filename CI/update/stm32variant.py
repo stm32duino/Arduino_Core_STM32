@@ -797,7 +797,7 @@ def i3c_pinmap(lst):
     i3c_pins_list = []
     winst = [0]
     wpin = [0]
-    mode = "STM_MODE_AF_OD"
+    mode = "STM_MODE_AF_PP"
     if lst == i3csda_list:
         aname = "I3C_SDA"
     else:
