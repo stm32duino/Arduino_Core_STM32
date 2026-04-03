@@ -90,6 +90,7 @@ build_sketch(TARGET "{{tgtname or "@binary_name_here@"}}"
   # DEPENDS
   # SD
   # Wire
+  # I3C
   # SPI
   # USBDevice
   # VirtIO
