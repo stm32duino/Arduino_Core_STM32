@@ -1,5 +1,5 @@
 [codespell]
 check-filenames =
 check-hidden =
-skip = ./.git,./CI,./system/Drivers,./system/Middlewares
+skip = ./.git,./CI,./system/Drivers,./system/Middlewares,./cores/arduino/api
 ignore-words = ./CI/codespell/.codespellignore
