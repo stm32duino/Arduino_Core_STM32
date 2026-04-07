@@ -16,17 +16,17 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include "WInterrupts.h"
+
 #include "Arduino.h"
 
 #include "PinAF_STM32F1.h"
 #include "interrupt.h"
 
-void attachInterrupt(uint32_t pin, callback_function_t callback, uint32_t mode)
-{
 #if !defined(HAL_EXTI_MODULE_DISABLED)
+void attachInterrupt(pin_size_t interruptNumber, callback_function_t callback, PinStatus mode)
+{
   uint32_t it_mode;
-  PinName p = digitalPinToPinName(pin);
+  PinName p = digitalPinToPinName(interruptNumber);
 
   switch (mode) {
     case CHANGE :
@@ -56,36 +56,30 @@ void attachInterrupt(uint32_t pin, callback_function_t callback, uint32_t mode)
 #endif /* STM32F1xx */
 
   stm32_interrupt_enable(p, callback, it_mode);
-#else
-  UNUSED(pin);
-  UNUSED(callback);
-  UNUSED(mode);
-#endif
 }
-
-void attachInterrupt(uint32_t pin, void (*callback)(void), uint32_t mode)
+#endif
+void attachInterrupt(pin_size_t interruptNumber, voidFuncPtr callback, PinStatus mode)
 {
 #if !defined(HAL_EXTI_MODULE_DISABLED)
   callback_function_t _c = callback;
-  attachInterrupt(pin, _c, mode);
+  attachInterrupt(interruptNumber, _c, mode);
 #else
-  UNUSED(pin);
+  UNUSED(interruptNumber);
   UNUSED(callback);
   UNUSED(mode);
 #endif
-
 }
 
-void detachInterrupt(uint32_t pin)
+void detachInterrupt(pin_size_t interruptNumber)
 {
 #if !defined(HAL_EXTI_MODULE_DISABLED)
-  PinName p = digitalPinToPinName(pin);
+  PinName p = digitalPinToPinName(interruptNumber);
   GPIO_TypeDef *port = get_GPIO_Port(STM_PORT(p));
   if (!port) {
     return;
   }
   stm32_interrupt_disable(port, STM_GPIO_PIN(p));
 #else
-  UNUSED(pin);
+  UNUSED(interruptNumber);
 #endif
 }

@@ -25,6 +25,7 @@ target_compile_definitions(base_config INTERFACE
 	USE_HAL_DRIVER
 	USE_FULL_LL_DRIVER
 	ARDUINO_ARCH_STM32
+	EXTENDED_PIN_MODE
 )
 target_compile_options(base_config INTERFACE
   -mthumb
@@ -55,6 +56,7 @@ target_include_directories(base_config INTERFACE
 	"${BUILD_CORE_PATH}"
 	"${BUILD_CORE_PATH}/avr"
 	"${BUILD_CORE_PATH}/stm32"
+	"${BUILD_CORE_PATH}/api"
 	"${BUILD_LIB_PATH}/SrcWrapper/inc"
 	"${BUILD_LIB_PATH}/SrcWrapper/inc/LL"
 	"${BUILD_LIB_PATH}/USBDevice/inc"

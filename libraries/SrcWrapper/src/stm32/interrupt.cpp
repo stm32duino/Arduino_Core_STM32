@@ -184,21 +184,6 @@ void stm32_interrupt_enable(PinName pn, callback_function_t callback, uint32_t m
 }
 
 /**
-  * @brief  This function enable the interruption on the selected port/pin
-  * @param  port : one of the gpio port
-  * @param  pin : one of the gpio pin
-  **@param  callback : callback to call when the interrupt falls
-  * @param  mode : one of the supported interrupt mode defined in stm32_hal_gpio
-  * @retval None
-  */
-void stm32_interrupt_enable(PinName pn, void (*callback)(void), uint32_t mode)
-{
-  std::function<void(void)> _c = callback;
-  stm32_interrupt_enable(pn, _c, mode);
-
-}
-
-/**
   * @brief  This function disable the interruption on the selected port/pin
   * @param  port : one of the gpio port
   * @param  pin : one of the gpio pin
