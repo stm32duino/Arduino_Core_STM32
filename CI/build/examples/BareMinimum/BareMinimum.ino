@@ -14,6 +14,9 @@
 #include <SPI.h>
 #include <SoftwareSerial.h>
 #include <Wire.h>
+#if defined(I3C1_BASE)
+  #include <I3C.h>
+#endif
 
 #include <CMSIS_DSP.h>
 /* ----------------------------------------------------------------------
@@ -131,6 +134,20 @@ void setup() {
   Wire.endTransmission();
   Wire.requestFrom(2, 1);
   Wire.end();
+
+#if defined(I3C1_BASE)
+  // I3C
+  I3C1Bus.setBusType(I3CBusType::Pure);
+  I3C1Bus.setMixedBusOpenDrainFrequency(1000000U);
+  I3C1Bus.begin(I3C_SDA, I3C_SCL, 1000000U, I3CBusType::Pure, 1000000U);
+  I3C1Bus.setClock(1000000U);
+
+  uint8_t i3cData = 0;
+  I3C1Bus.isI3CDeviceReady(0x30, 1, 1);
+  I3C1Bus.isI2CDeviceReady(0x48, 1, 1);
+  I3C1Bus.readReg(0x30, 0x00, i3cData, 1);
+  I3C1Bus.readReg(0x48, 0x00, i3cData, I3CTransferType::I2C, 1);
+#endif
 
   // CMSIS DSP
   float32_t diff;

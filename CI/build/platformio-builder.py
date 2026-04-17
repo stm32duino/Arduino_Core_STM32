@@ -6,6 +6,7 @@ import sys
 # Libraries that are not meant to be checked in CI by default
 DEFAULT_IGNORED_LIBRARIES = (
     "cmsis_dsp",
+    "i3c",
     "keyboard",
     "mouse",
     "subghz"
