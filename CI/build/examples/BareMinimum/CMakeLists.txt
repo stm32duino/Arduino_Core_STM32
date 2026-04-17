@@ -48,4 +48,5 @@ build_sketch(TARGET "BareMinimum"
   SoftwareSerial
   SPI
   Wire
+  I3C
 )
