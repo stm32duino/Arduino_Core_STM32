@@ -15,7 +15,7 @@
   *
   ******************************************************************************
   */
-#if defined(HAL_PCD_MODULE_ENABLED) && defined(USBCON)
+#if defined(HAL_PCD_MODULE_ENABLED) && defined(USBCON) && !defined(PLUGGABLE_USB_ENABLED)
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_ep_conf.h"
 

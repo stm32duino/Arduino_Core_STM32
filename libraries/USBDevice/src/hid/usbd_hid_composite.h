@@ -21,7 +21,7 @@
 #ifndef __USB_HID_COMPOSITE_H
 #define __USB_HID_COMPOSITE_H
 
-#ifdef USBCON
+#if defined(USBCON) && !defined(PLUGGABLE_USB_ENABLED)
 #ifdef USBD_USE_HID_COMPOSITE
 
 #ifdef __cplusplus

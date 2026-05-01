@@ -23,93 +23,151 @@
 #include "utils.h"
 #include <variant.h>
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
+#if defined(PLUGGABLE_USB_ENABLED)
 
-/* USB VID and PID have to be specified to correct values.
- * They can be defined thanks:
- *   - boards.txt: *.build.vid or *.build.pid
- *   - build_opt.h: define CUSTOM_USBD_VID or CUSTOM_USBD_PID
- * Else if not defined or specified, default to the ST VID,
- * with PID assigned to HID or CDC devices.
- */
-#if !defined(USBD_VID) || USBD_VID == 0
-  // Undef the default definition
-  #undef USBD_VID
-  #if defined(CUSTOM_USBD_VID)
-    #define USBD_VID    CUSTOM_USBD_VID
-  #else
-    // Define default values
-    #define USBD_VID    0x0483
-  #endif
-#endif /* USBD_VID */
+  #include "USB_EP.h"
 
-#if !defined(USBD_PID) || USBD_PID == -1
-  // Undef the default definition
-  #undef USBD_PID
-  #if defined(CUSTOM_USBD_PID)
-    #define USBD_PID    CUSTOM_USBD_PID
-  #else
+  /* Private typedef -----------------------------------------------------------*/
+  /* Private define ------------------------------------------------------------*/
+
+  /* USB VID and PID: Either both or neither must be specified. If not
+  * specified, default to the ST VID, with a PID assigned to HID or a PID
+  * assigned to CDC devices. */
+  #if !USBD_PID && !USBD_VID
+    // Undef the default zero values
+    #undef USBD_PID
+    #undef USBD_VID
     // Define default values, based on the USB class used
-    #if defined(USBD_USE_HID_COMPOSITE)
-      #define USBD_PID  0x5711
-    #elif defined(USBD_USE_CDC)
-      #define USBD_PID  0x5740
-    #else
-      #error "USB PID not specified"
-    #endif
+    #define USBD_VID 0x0483
+    #define USBD_PID 0x5711
+  #endif /* !USBD_PID && !USBD_VID */
+
+  #if !USBD_VID || !USBD_PID
+    #error "USB VID or PID not specified"
   #endif
-#endif /* USBD_VID */
 
-#if USBD_VID == 0
-  #error "USB VID not properly specified"
-#endif
+  /* Manufacturer string: Use the specified string if specified, guess
+  based on VID otherwise */
+  #if defined(USB_MANUFACTURER_STRING)
+    #define USBD_MANUFACTURER_STRING USB_MANUFACTURER_STRING
+  #elif USBD_VID == 0x2341
+    #define USBD_MANUFACTURER_STRING "Arduino LLC"
+  #elif USBD_VID == 0x2A03
+    #define USBD_MANUFACTURER_STRING "Arduino srl"
+  #elif USBD_VID == 0x0483
+    #define USBD_MANUFACTURER_STRING "STMicroelectronics"
+  #else
+    #define USBD_MANUFACTURER_STRING "Unknown"
+  #endif
 
-/* Manufacturer string: Use the specified string if specified, guess
-   based on VID otherwise */
-#if defined(USB_MANUFACTURER_STRING)
-  #define USBD_MANUFACTURER_STRING USB_MANUFACTURER_STRING
-#elif USBD_VID == 0x2341
-  #define USBD_MANUFACTURER_STRING "Arduino LLC"
-#elif USBD_VID == 0x2A03
-  #define USBD_MANUFACTURER_STRING "Arduino srl"
-#elif USBD_VID == 0x0483
-  #define USBD_MANUFACTURER_STRING "STMicroelectronics"
+  #define USBD_LANGID_STRING 0x409 /* 1033 US.S English */
+
+  /* Product string: Use the specified string if specified, construct
+  based on BOARD_NAME and class otherwise. */
+  #if defined(USB_PRODUCT_STRING)
+    #define USBD_CLASS_PRODUCT_HS_STRING USB_PRODUCT_STRING
+    #define USBD_CLASS_PRODUCT_FS_STRING USB_PRODUCT_STRING
+  #else
+    #define USBD_CLASS_PRODUCT_HS_STRING CONCATS(BOARD_NAME, "HID in HS Mode")
+    #define USBD_CLASS_PRODUCT_FS_STRING CONCATS(BOARD_NAME, "HID in FS Mode")
+  #endif
+
+  #define USBD_CLASS_CONFIGURATION_HS_STRING CONCATS(BOARD_NAME, "HID Config")
+  #define USBD_CLASS_INTERFACE_HS_STRING     CONCATS(BOARD_NAME, "HID Interface")
+  #define USBD_CLASS_CONFIGURATION_FS_STRING CONCATS(BOARD_NAME, "HID Config")
+  #define USBD_CLASS_INTERFACE_FS_STRING     CONCATS(BOARD_NAME, "HID Interface")
+
 #else
-  #define USBD_MANUFACTURER_STRING "Unknown"
+
+
+  /* Private typedef -----------------------------------------------------------*/
+  /* Private define ------------------------------------------------------------*/
+
+  /* USB VID and PID have to be specified to correct values.
+  * They can be defined thanks:
+  *   - boards.txt: *.build.vid or *.build.pid
+  *   - build_opt.h: define CUSTOM_USBD_VID or CUSTOM_USBD_PID
+  * Else if not defined or specified, default to the ST VID,
+  * with PID assigned to HID or CDC devices.
+  */
+  #if !defined(USBD_VID) || USBD_VID == 0
+    // Undef the default definition
+    #undef USBD_VID
+    #if defined(CUSTOM_USBD_VID)
+      #define USBD_VID    CUSTOM_USBD_VID
+    #else
+      // Define default values
+      #define USBD_VID    0x0483
+    #endif
+  #endif /* USBD_VID */
+
+  #if !defined(USBD_PID) || USBD_PID == -1
+    // Undef the default definition
+    #undef USBD_PID
+    #if defined(CUSTOM_USBD_PID)
+      #define USBD_PID    CUSTOM_USBD_PID
+    #else
+      // Define default values, based on the USB class used
+      #if defined(USBD_USE_HID_COMPOSITE)
+        #define USBD_PID  0x5711
+      #elif defined(USBD_USE_CDC)
+        #define USBD_PID  0x5740
+      #else
+        #error "USB PID not specified"
+      #endif
+    #endif
+  #endif /* USBD_VID */
+
+  #if USBD_VID == 0
+    #error "USB VID not properly specified"
+  #endif
+
+  /* Manufacturer string: Use the specified string if specified, guess
+  based on VID otherwise */
+  #if defined(USB_MANUFACTURER_STRING)
+    #define USBD_MANUFACTURER_STRING USB_MANUFACTURER_STRING
+  #elif USBD_VID == 0x2341
+    #define USBD_MANUFACTURER_STRING "Arduino LLC"
+  #elif USBD_VID == 0x2A03
+    #define USBD_MANUFACTURER_STRING "Arduino srl"
+  #elif USBD_VID == 0x0483
+    #define USBD_MANUFACTURER_STRING "STMicroelectronics"
+  #else
+    #define USBD_MANUFACTURER_STRING "Unknown"
+  #endif
+
+  #define USBD_LANGID_STRING            0x409   /* 1033 US.S English */
+
+  /* Product string: Use the specified string if specified, construct
+  based on BOARD_NAME and class otherwise. */
+  #if defined(USB_PRODUCT_STRING)
+    #define USBD_CLASS_PRODUCT_HS_STRING        USB_PRODUCT_STRING
+    #define USBD_CLASS_PRODUCT_FS_STRING        USB_PRODUCT_STRING
+  #elif defined(USBD_USE_HID_COMPOSITE)
+    #define USBD_CLASS_PRODUCT_HS_STRING        CONCATS(BOARD_NAME, "HID in HS Mode")
+    #define USBD_CLASS_PRODUCT_FS_STRING        CONCATS(BOARD_NAME, "HID in FS Mode")
+  #elif defined(USBD_USE_CDC)
+    #define USBD_CLASS_PRODUCT_HS_STRING        CONCATS(BOARD_NAME, "CDC in HS Mode")
+    #define USBD_CLASS_PRODUCT_FS_STRING        CONCATS(BOARD_NAME, "CDC in FS Mode")
+  #else
+    #define USBD_CLASS_PRODUCT_HS_STRING        CONCATS(BOARD_NAME, "in HS Mode")
+    #define USBD_CLASS_PRODUCT_FS_STRING        CONCATS(BOARD_NAME, "in FS Mode")
+  #endif
+
+  #ifdef USBD_USE_HID_COMPOSITE
+    #define USBD_CLASS_CONFIGURATION_HS_STRING  CONCATS(BOARD_NAME, "HID Config")
+    #define USBD_CLASS_INTERFACE_HS_STRING      CONCATS(BOARD_NAME, "HID Interface")
+    #define USBD_CLASS_CONFIGURATION_FS_STRING  CONCATS(BOARD_NAME, "HID Config")
+    #define USBD_CLASS_INTERFACE_FS_STRING      CONCATS(BOARD_NAME, "HID Interface")
+  #endif /* USBD_USE_HID_COMPOSITE */
+
+  #ifdef USBD_USE_CDC
+    #define USBD_CLASS_CONFIGURATION_HS_STRING  CONCATS(BOARD_NAME, "CDC Config")
+    #define USBD_CLASS_INTERFACE_HS_STRING      CONCATS(BOARD_NAME, "CDC Interface")
+    #define USBD_CLASS_CONFIGURATION_FS_STRING  CONCATS(BOARD_NAME, "CDC Config")
+    #define USBD_CLASS_INTERFACE_FS_STRING      CONCATS(BOARD_NAME, "CDC Interface")
+  #endif /* USBD_USE_CDC */
 #endif
-
-#define USBD_LANGID_STRING            0x409   /* 1033 US.S English */
-
-/* Product string: Use the specified string if specified, construct
-   based on BOARD_NAME and class otherwise. */
-#if defined(USB_PRODUCT_STRING)
-  #define USBD_CLASS_PRODUCT_HS_STRING        USB_PRODUCT_STRING
-  #define USBD_CLASS_PRODUCT_FS_STRING        USB_PRODUCT_STRING
-#elif defined(USBD_USE_HID_COMPOSITE)
-  #define USBD_CLASS_PRODUCT_HS_STRING        CONCATS(BOARD_NAME, "HID in HS Mode")
-  #define USBD_CLASS_PRODUCT_FS_STRING        CONCATS(BOARD_NAME, "HID in FS Mode")
-#elif defined(USBD_USE_CDC)
-  #define USBD_CLASS_PRODUCT_HS_STRING        CONCATS(BOARD_NAME, "CDC in HS Mode")
-  #define USBD_CLASS_PRODUCT_FS_STRING        CONCATS(BOARD_NAME, "CDC in FS Mode")
-#else
-  #define USBD_CLASS_PRODUCT_HS_STRING        CONCATS(BOARD_NAME, "in HS Mode")
-  #define USBD_CLASS_PRODUCT_FS_STRING        CONCATS(BOARD_NAME, "in FS Mode")
-#endif
-
-#ifdef USBD_USE_HID_COMPOSITE
-  #define USBD_CLASS_CONFIGURATION_HS_STRING  CONCATS(BOARD_NAME, "HID Config")
-  #define USBD_CLASS_INTERFACE_HS_STRING      CONCATS(BOARD_NAME, "HID Interface")
-  #define USBD_CLASS_CONFIGURATION_FS_STRING  CONCATS(BOARD_NAME, "HID Config")
-  #define USBD_CLASS_INTERFACE_FS_STRING      CONCATS(BOARD_NAME, "HID Interface")
-#endif /* USBD_USE_HID_COMPOSITE */
-
-#ifdef USBD_USE_CDC
-  #define USBD_CLASS_CONFIGURATION_HS_STRING  CONCATS(BOARD_NAME, "CDC Config")
-  #define USBD_CLASS_INTERFACE_HS_STRING      CONCATS(BOARD_NAME, "CDC Interface")
-  #define USBD_CLASS_CONFIGURATION_FS_STRING  CONCATS(BOARD_NAME, "CDC Config")
-  #define USBD_CLASS_INTERFACE_FS_STRING      CONCATS(BOARD_NAME, "CDC Interface")
-#endif /* USBD_USE_CDC */
 
 /* Private macro -------------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
@@ -147,6 +205,35 @@ USBD_DescriptorsTypeDef USBD_Desc = {
   USBD_USR_BOSDescriptor,
 #endif /* (USBD_LPM_ENABLED == 1) || (USBD_CLASS_BOS_ENABLED == 1) */
 };
+#if defined(PLUGGABLE_USB_ENABLED)
+
+__ALIGN_BEGIN uint8_t USBD_Class_DeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END = {
+  0x12,                 /* bLength */
+  USB_DESC_TYPE_DEVICE, /* bDescriptorType */
+#if ((USBD_LPM_ENABLED == 1) || (USBD_CLASS_BOS_ENABLED == 1))
+  0x01, /*bcdUSB */     /* changed to USB version 2.01
+                          in order to support BOS Desc */
+#else
+  0x00, /* bcdUSB */
+#endif
+  0x02,
+  0x00,                      /* bDeviceClass */
+  0x00,                      /* bDeviceSubClass */
+  0x00,                      /* bDeviceProtocol */
+  USB_EP0_SIZE,              /* bMaxPacketSize  */
+  LOBYTE(USBD_VID),          /* idVendor */
+  HIBYTE(USBD_VID),          /* idVendor */
+  LOBYTE(USBD_PID),          /* idProduct */
+  HIBYTE(USBD_PID),          /* idProduct */
+  0x00,                      /* bcdDevice rel. 0.00 */
+  0x00,
+  USBD_IDX_MFC_STR,          /* Index of manufacturer string */
+  USBD_IDX_PRODUCT_STR,      /* Index of product string */
+  USBD_IDX_SERIAL_STR,       /* Index of serial number string */
+  USBD_MAX_NUM_CONFIGURATION /* bNumConfigurations */
+}; /* USB_DeviceDescriptor */
+
+#else
 
 #ifdef USBD_USE_HID_COMPOSITE
 /* USB Standard Device Descriptor */
@@ -205,6 +292,8 @@ __ALIGN_BEGIN uint8_t USBD_Class_DeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END = {
   USBD_MAX_NUM_CONFIGURATION  /* bNumConfigurations */
 }; /* USB_DeviceDescriptor */
 #endif /* USBD_USE_CDC */
+
+#endif // PLUGGABLE_USB_ENABLED
 
 /* USB Device LPM BOS descriptor */
 #if (USBD_LPM_ENABLED == 1)
@@ -321,10 +410,23 @@ __ALIGN_BEGIN uint8_t USBD_LangIDDesc[USB_LEN_LANGID_STR_DESC] __ALIGN_END = {
   HIBYTE(USBD_LANGID_STRING),
 };
 
+#if defined(PLUGGABLE_USB_ENABLED)
+
+#  if !defined(USB_SERIAL_STRING)
 uint8_t USBD_StringSerial[USB_SIZ_STRING_SERIAL] = {
   USB_SIZ_STRING_SERIAL,
   USB_DESC_TYPE_STRING,
 };
+#  endif
+
+#else
+
+uint8_t USBD_StringSerial[USB_SIZ_STRING_SERIAL] = {
+  USB_SIZ_STRING_SERIAL,
+  USB_DESC_TYPE_STRING,
+};
+
+#endif
 
 __ALIGN_BEGIN uint8_t USBD_StrDesc[USBD_MAX_STR_DESC_SIZ] __ALIGN_END;
 
@@ -397,12 +499,23 @@ uint8_t *USBD_SerialStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
   UNUSED(speed);
 
+#if defined(PLUGGABLE_USB_ENABLED)
+#  if !defined(USB_SERIAL_STRING)
+  *length = USB_SIZ_STRING_SERIAL;
+  Get_SerialNum();
+  return (uint8_t *)USBD_StringSerial;
+#  else
+  USBD_GetString((uint8_t *)USB_SERIAL_STRING, USBD_StrDesc, length);
+  return USBD_StrDesc;
+#  endif
+#else
   *length = USB_SIZ_STRING_SERIAL;
 
   /* Update the serial number string descriptor with the data from the unique ID*/
   Get_SerialNum();
 
   return (uint8_t *)USBD_StringSerial;
+#endif
 }
 
 /**
@@ -437,6 +550,28 @@ uint8_t *USBD_Class_InterfaceStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *le
   return USBD_StrDesc;
 }
 
+#if defined(PLUGGABLE_USB_ENABLED)
+#  if !defined(USB_SERIAL_STRING)
+/**
+  * @brief  Create the serial number string descriptor
+  */
+static void Get_SerialNum(void)
+{
+  uint32_t deviceserial0, deviceserial1, deviceserial2;
+
+  deviceserial0 = *(uint32_t *)DEVICE_ID1;
+  deviceserial1 = *(uint32_t *)DEVICE_ID2;
+  deviceserial2 = *(uint32_t *)DEVICE_ID3;
+
+  deviceserial0 += deviceserial2;
+
+  if (deviceserial0 != 0U) {
+    IntToUnicode(deviceserial0, &USBD_StringSerial[2], 8U);
+    IntToUnicode(deviceserial1, &USBD_StringSerial[18], 4U);
+  }
+}
+#  endif
+#else
 /**
   * @brief  Create the serial number string descriptor
   * @param  None
@@ -459,6 +594,7 @@ static void Get_SerialNum(void)
     IntToUnicode(deviceserial1, &USBD_StringSerial[18], 4U);
   }
 }
+#endif // PLUGGABLE_USB_ENABLED
 
 
 #if ((USBD_LPM_ENABLED == 1) || (USBD_CLASS_BOS_ENABLED == 1))

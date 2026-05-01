@@ -6,7 +6,7 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-Mouse	KEYWORD1
+Mouse_STM32	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)

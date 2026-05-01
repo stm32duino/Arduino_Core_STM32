@@ -15461,6 +15461,8 @@ STeaMi.menu.xserial.disabled.build.xSerial=
 
 # USB connectivity
 Nucleo_144.menu.usb.none=None
+Nucleo_144.menu.usb.pluggable=PluggableUSB
+Nucleo_144.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 Nucleo_144.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 Nucleo_144.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 Nucleo_144.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15474,6 +15476,8 @@ Nucleo_144.menu.xusb.HSFS=High Speed in Full Speed mode
 Nucleo_144.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 Nucleo_64.menu.usb.none=None
+Nucleo_64.menu.usb.pluggable=PluggableUSB
+Nucleo_64.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 Nucleo_64.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 Nucleo_64.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 Nucleo_64.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15487,6 +15491,8 @@ Nucleo_64.menu.xusb.HSFS=High Speed in Full Speed mode
 Nucleo_64.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 Nucleo_32.menu.usb.none=None
+Nucleo_32.menu.usb.pluggable=PluggableUSB
+Nucleo_32.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 Nucleo_32.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 Nucleo_32.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 Nucleo_32.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15500,6 +15506,8 @@ Nucleo_32.menu.xusb.HSFS=High Speed in Full Speed mode
 Nucleo_32.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 Disco.menu.usb.none=None
+Disco.menu.usb.pluggable=PluggableUSB
+Disco.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 Disco.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 Disco.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 Disco.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15513,6 +15521,8 @@ Disco.menu.xusb.HSFS=High Speed in Full Speed mode
 Disco.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 Eval.menu.usb.none=None
+Eval.menu.usb.pluggable=PluggableUSB
+Eval.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 Eval.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 Eval.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 Eval.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15526,6 +15536,8 @@ Eval.menu.xusb.HSFS=High Speed in Full Speed mode
 Eval.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenC0.menu.usb.none=None
+GenC0.menu.usb.pluggable=PluggableUSB
+GenC0.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenC0.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenC0.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenC0.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15534,6 +15546,8 @@ GenC0.menu.usb.HID=HID (keyboard and mouse)
 GenC0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 
 GenF0.menu.usb.none=None
+GenF0.menu.usb.pluggable=PluggableUSB
+GenF0.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenF0.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenF0.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenF0.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15542,6 +15556,8 @@ GenF0.menu.usb.HID=HID (keyboard and mouse)
 GenF0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 
 GenF1.menu.usb.none=None
+GenF1.menu.usb.pluggable=PluggableUSB
+GenF1.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenF1.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenF1.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenF1.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15555,6 +15571,8 @@ GenF1.menu.xusb.HSFS=High Speed in Full Speed mode
 GenF1.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenF2.menu.usb.none=None
+GenF2.menu.usb.pluggable=PluggableUSB
+GenF2.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenF2.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenF2.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenF2.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15568,6 +15586,8 @@ GenF2.menu.xusb.HSFS=High Speed in Full Speed mode
 GenF2.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenF3.menu.usb.none=None
+GenF3.menu.usb.pluggable=PluggableUSB
+GenF3.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenF3.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenF3.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenF3.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15581,6 +15601,8 @@ GenF3.menu.xusb.HSFS=High Speed in Full Speed mode
 GenF3.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenF4.menu.usb.none=None
+GenF4.menu.usb.pluggable=PluggableUSB
+GenF4.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenF4.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenF4.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenF4.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15594,6 +15616,8 @@ GenF4.menu.xusb.HSFS=High Speed in Full Speed mode
 GenF4.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenF7.menu.usb.none=None
+GenF7.menu.usb.pluggable=PluggableUSB
+GenF7.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenF7.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenF7.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenF7.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15607,6 +15631,8 @@ GenF7.menu.xusb.HSFS=High Speed in Full Speed mode
 GenF7.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenG0.menu.usb.none=None
+GenG0.menu.usb.pluggable=PluggableUSB
+GenG0.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenG0.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenG0.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenG0.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15615,6 +15641,8 @@ GenG0.menu.usb.HID=HID (keyboard and mouse)
 GenG0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 
 GenG4.menu.usb.none=None
+GenG4.menu.usb.pluggable=PluggableUSB
+GenG4.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenG4.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenG4.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenG4.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15628,6 +15656,8 @@ GenG4.menu.xusb.HSFS=High Speed in Full Speed mode
 GenG4.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenH5.menu.usb.none=None
+GenH5.menu.usb.pluggable=PluggableUSB
+GenH5.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenH5.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenH5.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenH5.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15641,6 +15671,8 @@ GenH5.menu.xusb.HSFS=High Speed in Full Speed mode
 GenH5.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenH7.menu.usb.none=None
+GenH7.menu.usb.pluggable=PluggableUSB
+GenH7.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenH7.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenH7.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenH7.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15654,6 +15686,8 @@ GenH7.menu.xusb.HSFS=High Speed in Full Speed mode
 GenH7.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenL0.menu.usb.none=None
+GenL0.menu.usb.pluggable=PluggableUSB
+GenL0.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenL0.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenL0.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenL0.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15662,6 +15696,8 @@ GenL0.menu.usb.HID=HID (keyboard and mouse)
 GenL0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 
 GenL1.menu.usb.none=None
+GenL1.menu.usb.pluggable=PluggableUSB
+GenL1.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenL1.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenL1.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenL1.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15670,6 +15706,8 @@ GenL1.menu.usb.HID=HID (keyboard and mouse)
 GenL1.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 
 GenL4.menu.usb.none=None
+GenL4.menu.usb.pluggable=PluggableUSB
+GenL4.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenL4.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenL4.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenL4.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15683,6 +15721,8 @@ GenL4.menu.xusb.HSFS=High Speed in Full Speed mode
 GenL4.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenL5.menu.usb.none=None
+GenL5.menu.usb.pluggable=PluggableUSB
+GenL5.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenL5.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenL5.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenL5.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15696,6 +15736,8 @@ GenL5.menu.xusb.HSFS=High Speed in Full Speed mode
 GenL5.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenU0.menu.usb.none=None
+GenU0.menu.usb.pluggable=PluggableUSB
+GenU0.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenU0.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenU0.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenU0.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15704,6 +15746,8 @@ GenU0.menu.usb.HID=HID (keyboard and mouse)
 GenU0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 
 GenU3.menu.usb.none=None
+GenU3.menu.usb.pluggable=PluggableUSB
+GenU3.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenU3.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenU3.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenU3.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15712,6 +15756,8 @@ GenU3.menu.usb.HID=HID (keyboard and mouse)
 GenU3.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 
 GenU5.menu.usb.none=None
+GenU5.menu.usb.pluggable=PluggableUSB
+GenU5.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenU5.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenU5.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenU5.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15725,6 +15771,8 @@ GenU5.menu.xusb.HSFS=High Speed in Full Speed mode
 GenU5.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenWB.menu.usb.none=None
+GenWB.menu.usb.pluggable=PluggableUSB
+GenWB.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenWB.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenWB.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenWB.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15738,6 +15786,8 @@ GenWB.menu.xusb.HSFS=High Speed in Full Speed mode
 GenWB.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 3dprinter.menu.usb.none=None
+3dprinter.menu.usb.pluggable=PluggableUSB
+3dprinter.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 3dprinter.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 3dprinter.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 3dprinter.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15755,6 +15805,8 @@ Blues.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_G
 Blues.menu.usb.HID=HID (keyboard and mouse)
 Blues.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 Blues.menu.usb.none=None
+Blues.menu.usb.pluggable=PluggableUSB
+Blues.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 Blues.menu.xusb.FS=Low/Full Speed
 Blues.menu.xusb.HS=High Speed
 Blues.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
@@ -15762,6 +15814,8 @@ Blues.menu.xusb.HSFS=High Speed in Full Speed mode
 Blues.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 Elecgator.menu.usb.none=None
+Elecgator.menu.usb.pluggable=PluggableUSB
+Elecgator.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 Elecgator.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 Elecgator.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 Elecgator.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15775,6 +15829,8 @@ Elecgator.menu.xusb.HSFS=High Speed in Full Speed mode
 Elecgator.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 ESC_board.menu.usb.none=None
+ESC_board.menu.usb.pluggable=PluggableUSB
+ESC_board.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 ESC_board.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 ESC_board.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 ESC_board.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15786,6 +15842,8 @@ ESC_board.menu.xusb.HSFS=High Speed in Full Speed mode
 ESC_board.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 Garatronic.menu.usb.none=None
+Garatronic.menu.usb.pluggable=PluggableUSB
+Garatronic.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 Garatronic.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 Garatronic.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 Garatronic.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15794,6 +15852,8 @@ Garatronic.menu.usb.HID=HID (keyboard and mouse)
 Garatronic.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 
 GenFlight.menu.usb.none=None
+GenFlight.menu.usb.pluggable=PluggableUSB
+GenFlight.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 GenFlight.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenFlight.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenFlight.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15807,6 +15867,8 @@ GenFlight.menu.xusb.HSFS=High Speed in Full Speed mode
 GenFlight.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 Midatronics.menu.usb.none=None
+Midatronics.menu.usb.pluggable=PluggableUSB
+Midatronics.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 Midatronics.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 Midatronics.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 Midatronics.menu.usb.CDC=CDC (no generic 'Serial')
@@ -15820,6 +15882,8 @@ Midatronics.menu.xusb.HSFS=High Speed in Full Speed mode
 Midatronics.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 SparkFun.menu.usb.none=None
+SparkFun.menu.usb.pluggable=PluggableUSB
+SparkFun.menu.usb.pluggable.build.enable_usb=-DUSBCON -DPLUGGABLE_USB_ENABLED -DHAL_PCD_MODULE_ENABLED
 SparkFun.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 SparkFun.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 SparkFun.menu.usb.CDC=CDC (no generic 'Serial')

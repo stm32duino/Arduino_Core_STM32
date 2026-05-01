@@ -38,7 +38,8 @@
   ******************************************************************************
   */
 
-#ifdef USBCON
+#if defined(USBCON) && !defined(PLUGGABLE_USB_ENABLED)
+
 #ifdef USBD_USE_HID_COMPOSITE
 
 /* Includes ------------------------------------------------------------------*/

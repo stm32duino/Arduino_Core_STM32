@@ -35,7 +35,7 @@
   ******************************************************************************
   */
 
-#ifdef USBCON
+#if defined(USBCON) && !defined(PLUGGABLE_USB_ENABLED)
 #ifdef USBD_USE_CDC
 
 #include "cdc_queue.h"

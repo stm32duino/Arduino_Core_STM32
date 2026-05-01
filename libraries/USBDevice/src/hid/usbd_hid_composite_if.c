@@ -16,7 +16,7 @@
   *
   ******************************************************************************
   */
-#ifdef USBCON
+#if defined(USBCON) && !defined(PLUGGABLE_USB_ENABLED)
 #ifdef USBD_USE_HID_COMPOSITE
 #include <stdbool.h>
 #include "usbd_desc.h"

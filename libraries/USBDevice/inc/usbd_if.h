@@ -24,7 +24,7 @@ extern "C" {
 #endif
 
 void USBD_reenumerate(void);
-#ifdef USBD_USE_CDC
+#if defined(USBD_USE_CDC) && !defined(PLUGGABLE_USB_ENABLED)
 void USBD_CDC_init(void);
 #endif
 

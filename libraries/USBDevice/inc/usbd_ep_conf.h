@@ -20,7 +20,7 @@
 #ifndef __USBD_EP_CONF_H
 #define __USBD_EP_CONF_H
 
-#ifdef USBCON
+#if defined(USBCON) && !defined(PLUGGABLE_USB_ENABLED)
 
 #include <stdint.h>
 #include "usbd_def.h"

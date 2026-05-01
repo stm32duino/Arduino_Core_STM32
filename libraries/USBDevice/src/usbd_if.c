@@ -8,7 +8,9 @@
 #ifdef USBCON
 
 #include "usbd_if.h"
-#include "usbd_cdc_if.h"
+#if !defined(PLUGGABLE_USB_ENABLED)
+  #include "usbd_cdc_if.h"
+#endif
 #include "stm32yyxx_ll_system.h"
 
 #if !defined(USBD_REENUM_DISABLED)
@@ -169,7 +171,7 @@ WEAK void USBD_reenumerate(void)
 WEAK void USBD_reenumerate(void) { }
 #endif
 
-#ifdef USBD_USE_CDC
+#if defined(USBD_USE_CDC) && !defined(PLUGGABLE_USB_ENABLED)
 void USBD_CDC_init(void)
 {
   CDC_init();

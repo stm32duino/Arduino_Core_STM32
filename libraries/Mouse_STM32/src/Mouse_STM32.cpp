@@ -19,7 +19,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include "Mouse.h"
+#include "Mouse_STM32.h"
 
 #if defined(USBCON)
 #include "usbd_hid_composite_if.h"

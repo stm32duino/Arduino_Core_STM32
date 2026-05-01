@@ -23,7 +23,7 @@
   https://www.arduino.cc/en/Tutorial/BuiltInExamples/ButtonMouseControl
 */
 
-#include "Mouse.h"
+#include "Mouse_STM32.h"
 
 // set pin numbers for the five buttons:
 const int upButton = 2;

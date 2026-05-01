@@ -20,7 +20,11 @@
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_core.h"
 #include "usbd_if.h"
-#include "usbd_ep_conf.h"
+#if defined(PLUGGABLE_USB_ENABLED)
+  #include "USB_EP_conf.h"
+#else
+  #include "usbd_ep_conf.h"
+#endif
 #include "stm32yyxx_ll_pwr.h"
 
 #ifndef HAL_PCD_MODULE_ENABLED
@@ -467,7 +471,12 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
 {
   USBD_reenumerate();
   /* Set common LL Driver parameters */
+#if defined(PLUGGABLE_USB_ENABLED)
+  g_hpcd.Init.dev_endpoints = USB_EP_GetNumEndpoints();
+#else
   g_hpcd.Init.dev_endpoints = DEV_NUM_EP;
+#endif
+
 #ifdef DEP0CTL_MPS_64
   g_hpcd.Init.ep0_mps = DEP0CTL_MPS_64;
 #else
@@ -520,9 +529,66 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
     Error_Handler();
   }
 
+#if defined(PLUGGABLE_USB_ENABLED)
+#if !defined(USB)
+  uint8_t  eps     = USB_EP_GetNumEndpoints();
+  int32_t  freemem = PMA_MAX_SIZE - USB_ABS_EP0_SIZE - USB_ABS_EP0_TX_SIZE - (USB_ABS_EP_SIZE * eps);
+  if (freemem < 0) {
+    // no PMA
+    return USBD_EMEM;
+  }
+
+  /* configure EPs FIFOs :
+     EP0 RX = USB_ABS_EP0_SIZE + all the extra free memory
+     EP0 TX = USB_ABS_EP0_TX_SIZE
+     other TX = USB_ABS_EP_SIZE si IN
+  */
+  HAL_PCDEx_SetRxFiFo(&g_hpcd, USB_ABS_EP0_SIZE + freemem);
+  HAL_PCDEx_SetTxFiFo(&g_hpcd, 0, USB_ABS_EP0_TX_SIZE);
+
+  const ep_desc_t *epdefs = USB_EP_GetEndpointsSlots();
+  for (uint32_t i = 0; i < eps; i++) {
+    if (IS_IN_EP(epdefs[i].ep_num)) {
+      HAL_PCDEx_SetTxFiFo(&g_hpcd, epdefs[i].ep_num & 0xF, USB_ABS_EP_SIZE);
+    }
+  }
+
+#else
+
+  uint32_t currentaddress = PMA_BASE_ADDR;
+  uint32_t address        = currentaddress;
+
+#if PCD_USE_DBL_BUF
+  address = (currentaddress << 16U) | (currentaddress + USB_EP0_SIZE);
+#endif
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x00, PCD_DEF_BUF, address);
+  currentaddress += USB_ABS_EP0_SIZE;
+
+#if PCD_USE_DBL_BUF
+  address = (currentaddress << 16U) | (currentaddress + USB_EP0_SIZE);
+#else
+  address = currentaddress;
+#endif
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x80, PCD_DEF_BUF, address);
+  currentaddress += USB_ABS_EP0_TX_SIZE;
+
+  uint8_t        eps    = USB_EP_GetNumEndpoints();
+  const ep_desc_t *epdefs = USB_EP_GetEndpointsSlots();
+
+  for (uint32_t i = 0; i < eps; i++) {
+#if PCD_USE_DBL_BUF
+    address = (currentaddress << 16U) | (currentaddress + USB_EP_SIZE);
+#else
+    address = currentaddress;
+#endif
+    HAL_PCDEx_PMAConfig(&g_hpcd, epdefs[i].ep_num, PCD_DEF_BUF, address);
+    currentaddress += USB_ABS_EP_SIZE;
+  }
+#endif /* USE_USB_HS */
+
+#else  // !PLUGGABLE_USB_ENABLED
 
 #if !defined (USB)
-  /* configure EPs FIFOs */
   HAL_PCDEx_SetRxFiFo(&g_hpcd, ep_def[0].ep_size);
   for (uint32_t i = 1; i < (DEV_NUM_EP + 1); i++) {
     HAL_PCDEx_SetTxFiFo(&g_hpcd, ep_def[i].ep_adress & 0xF, ep_def[i].ep_size);
@@ -532,6 +598,7 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
     HAL_PCDEx_PMAConfig(&g_hpcd, ep_def[i].ep_adress, ep_def[i].ep_kind, ep_def[i].ep_size);
   }
 #endif /* USE_USB_HS */
+#endif // PLUGGABLE_USB_ENABLED
   return USBD_OK;
 }
 

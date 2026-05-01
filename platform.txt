@@ -38,7 +38,7 @@ USBDevice_include_dir={builtin_library_dir}/USBDevice/inc
 
 # STM compile variables
 # ----------------------
-compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{core_stm32_dir}" "-I{SrcWrapper_include_dir}" "-I{SrcWrapper_include_dir}/LL" "-I{hal_dir}/Inc" "-I{hal_dir}/Src" "-I{build.system.path}/{build.series}" "-I{USBDevice_include_dir}" "-I{usbd_core_dir}/Inc" "-I{usbd_core_dir}/Src" "-I{VirtIO_include_dir}" {build.virtio_extra_include}
+compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{core_stm32_dir}" "-I{SrcWrapper_include_dir}" "-I{SrcWrapper_include_dir}/LL" "-I{hal_dir}/Inc" "-I{hal_dir}/Src" "-I{build.system.path}/{build.series}" "-I{USBDevice_include_dir}" "-I{USBDevice_include_dir}/PluggableUSB" "-I{usbd_core_dir}/Inc" "-I{usbd_core_dir}/Src" "-I{VirtIO_include_dir}" {build.virtio_extra_include}
 compiler.arm.cmsis.c.flags="-I{cmsis_dir}/Core/Include/" "-I{cmsis_dev_dir}/Include/" "-I{cmsis_dev_dir}/Source/Templates/gcc/" "-I{cmsis_dsp}/Include" "-I{cmsis_dsp}/PrivateInclude"
 
 compiler.warning_flags=-w
