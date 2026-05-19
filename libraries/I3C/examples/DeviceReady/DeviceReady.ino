@@ -1,6 +1,6 @@
 #include <I3C.h>
 
-#define I3C_BUS = I3C1Bus;
+#define I3C_BUS I3C1Bus
 
 
 void setup() {
