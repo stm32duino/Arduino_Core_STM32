@@ -124,8 +124,8 @@ class I3CBus {
     // ------------------------------------------------------------------------
     // Controller initialization and bus configuration
     // ------------------------------------------------------------------------
-    bool begin(uint32_t sda,
-               uint32_t scl,
+    bool begin(pin_size_t sda,
+               pin_size_t scl,
                uint32_t freq = 1000000U,
                I3CBusType type = I3CBusType::Pure,
                uint32_t mixedOdHz = 1000000U);
@@ -134,8 +134,8 @@ class I3CBus {
                I3CBusType type = I3CBusType::Pure,
                uint32_t mixedOdHz = 1000000U);
 
-    bool begin(uint32_t sda,
-               uint32_t scl,
+    bool begin(pin_size_t sda,
+               pin_size_t scl,
                uint32_t freq,
                I3CBusType type,
                uint32_t mixedOdHz,
@@ -366,7 +366,7 @@ class I3CBus {
     // ------------------------------------------------------------------------
     // Target mode initialization
     // ------------------------------------------------------------------------
-    bool beginTarget(uint32_t sda, uint32_t scl, const I3CTargetConfig &cfg);
+    bool beginTarget(pin_size_t sda, pin_size_t scl, const I3CTargetConfig &cfg);
     bool beginTarget(const I3CTargetConfig &cfg);
     int configureTarget(const I3CTargetConfig &cfg);
 
