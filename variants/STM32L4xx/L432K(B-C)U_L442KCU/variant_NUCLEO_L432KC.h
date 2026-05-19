@@ -57,11 +57,11 @@
 #ifndef LED_BUILTIN
   #define LED_BUILTIN             PB3
 #endif
-#define LED_GREEN               LED_BUILTIN
+#define LED_GREEN                 LED_BUILTIN
 
 // On-board user button
 #ifndef USER_BTN
-  #define USER_BTN                PA8
+  #define USER_BTN                PNUM_NOT_DEFINED
 #endif
 
 // I2C Definitions
