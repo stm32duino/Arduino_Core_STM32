@@ -1261,6 +1261,10 @@ __STATIC_INLINE uint32_t LL_DMA_GetM2MDstAddress(const DMA_TypeDef *DMAx, uint32
   *         @arg @ref LL_DMAMUX_REQ_USART3_TX
   *         @arg @ref LL_DMAMUX_REQ_USART4_RX
   *         @arg @ref LL_DMAMUX_REQ_USART4_TX
+  *         @arg @ref LL_DMAMUX_REQ_USART5_RX
+  *         @arg @ref LL_DMAMUX_REQ_USART5_TX
+  *         @arg @ref LL_DMAMUX_REQ_USART6_RX
+  *         @arg @ref LL_DMAMUX_REQ_USART6_TX
   *         @arg @ref LL_DMAMUX_REQ_UCPD1_RX
   *         @arg @ref LL_DMAMUX_REQ_UCPD1_TX
   *         @arg @ref LL_DMAMUX_REQ_UCPD2_RX
@@ -1346,6 +1350,10 @@ __STATIC_INLINE void LL_DMA_SetPeriphRequest(const DMA_TypeDef *DMAx, uint32_t C
   *         @arg @ref LL_DMAMUX_REQ_USART3_TX
   *         @arg @ref LL_DMAMUX_REQ_USART4_RX
   *         @arg @ref LL_DMAMUX_REQ_USART4_TX
+  *         @arg @ref LL_DMAMUX_REQ_USART5_RX
+  *         @arg @ref LL_DMAMUX_REQ_USART5_TX
+  *         @arg @ref LL_DMAMUX_REQ_USART6_RX
+  *         @arg @ref LL_DMAMUX_REQ_USART6_TX
   *         @arg @ref LL_DMAMUX_REQ_UCPD1_RX
   *         @arg @ref LL_DMAMUX_REQ_UCPD1_TX
   *         @arg @ref LL_DMAMUX_REQ_UCPD2_RX

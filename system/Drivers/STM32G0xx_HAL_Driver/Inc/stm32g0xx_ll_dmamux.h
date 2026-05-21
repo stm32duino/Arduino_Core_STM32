@@ -250,10 +250,8 @@ extern "C" {
 #define LL_DMAMUX_REQ_USART6_TX           0x0000004DU  /*!< DMAMUX USART6 TX request  */
 #endif /* USART6 */
 
-#if defined(STM32G0C1xx)||defined(STM32G0B1xx)
+#if defined(STM32G0C1xx)||defined(STM32G0B1xx)||defined(STM32G0B0xx)
 #define LL_DMAMUX_MAX_REQ                 LL_DMAMUX_REQ_USART6_TX
-#elif defined(STM32G0B0xx)
-#define LL_DMAMUX_MAX_REQ                 LL_DMAMUX_REQ_USART4_TX
 #elif defined(STM32G081xx)||defined(STM32G071xx)
 #define LL_DMAMUX_MAX_REQ                 LL_DMAMUX_REQ_UCPD2_TX
 #elif defined(STM32G070xx)
@@ -515,6 +513,10 @@ extern "C" {
   *         @arg @ref LL_DMAMUX_REQ_USART3_TX
   *         @arg @ref LL_DMAMUX_REQ_USART4_RX
   *         @arg @ref LL_DMAMUX_REQ_USART4_TX
+  *         @arg @ref LL_DMAMUX_REQ_USART5_RX
+  *         @arg @ref LL_DMAMUX_REQ_USART5_TX
+  *         @arg @ref LL_DMAMUX_REQ_USART6_RX
+  *         @arg @ref LL_DMAMUX_REQ_USART6_TX
   *         @arg @ref LL_DMAMUX_REQ_UCPD1_RX
   *         @arg @ref LL_DMAMUX_REQ_UCPD1_TX
   *         @arg @ref LL_DMAMUX_REQ_UCPD2_RX
@@ -607,6 +609,10 @@ __STATIC_INLINE void LL_DMAMUX_SetRequestID(const DMAMUX_Channel_TypeDef *DMAMUX
   *         @arg @ref LL_DMAMUX_REQ_USART3_TX
   *         @arg @ref LL_DMAMUX_REQ_USART4_RX
   *         @arg @ref LL_DMAMUX_REQ_USART4_TX
+  *         @arg @ref LL_DMAMUX_REQ_USART5_RX
+  *         @arg @ref LL_DMAMUX_REQ_USART5_TX
+  *         @arg @ref LL_DMAMUX_REQ_USART6_RX
+  *         @arg @ref LL_DMAMUX_REQ_USART6_TX
   *         @arg @ref LL_DMAMUX_REQ_UCPD1_RX
   *         @arg @ref LL_DMAMUX_REQ_UCPD1_TX
   *         @arg @ref LL_DMAMUX_REQ_UCPD2_RX

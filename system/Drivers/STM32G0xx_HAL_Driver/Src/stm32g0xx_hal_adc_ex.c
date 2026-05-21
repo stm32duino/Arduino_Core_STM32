@@ -163,9 +163,11 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc)
         }
       }
 
-      calibration_factor_accumulated += LL_ADC_GetCalibrationFactor(hadc->Instance);
+      /* Read the calibration factor and increment by one */
+      calibration_factor_accumulated += (LL_ADC_GetCalibrationFactor(hadc->Instance) + 1UL);
     }
-    /* Compute average */
+    /* Compute average (rounded up to the nearest integer) */
+    calibration_factor_accumulated += (calibration_index / 2UL);
     calibration_factor_accumulated /= calibration_index;
 
     /* Apply calibration factor (requires ADC enable and disable process) */
@@ -176,10 +178,13 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc)
     {
       adc_clk_async_presc = LL_ADC_GetCommonClock(__LL_ADC_COMMON_INSTANCE(hadc->Instance));
 
+      /* Delay applied only when ADC clock frequency is much lower than CPU clock frequency
+         (in other cases, code execution time is sufficient to ensure necessary delay) */
       if (adc_clk_async_presc >= LL_ADC_CLOCK_ASYNC_DIV16)
       {
         /* Delay loop initialization and execution */
-        /* Delay depends on ADC clock prescaler: Compute ADC clock asynchronous prescaler to decimal format */
+        /* Delay depends on ADC clock prescaler: Compute ADC clock asynchronous prescaler to decimal format
+           (for instance, computation from ADC prescaler 64 (register bitfield value 0x9) will give decimal value 64) */
         delay_cpu_cycles = (1UL << ((adc_clk_async_presc >> ADC_CCR_PRESC_Pos) - 3UL));
         /* Divide variable by 2 to compensate partially CPU processing cycles */
         delay_cpu_cycles >>= 1UL;
@@ -210,6 +215,8 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc)
 
           /* Set ADC error code to ADC peripheral internal error */
           SET_BIT(hadc->ErrorCode, HAL_ADC_ERROR_INTERNAL);
+
+          __HAL_UNLOCK(hadc);
 
           return HAL_ERROR;
         }

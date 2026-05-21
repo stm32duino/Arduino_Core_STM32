@@ -150,7 +150,7 @@ static const uint8_t SHIFT_TAB_OISx[] =
   */
 
 #define OCREF_CLEAR_SELECT_Pos (16U)
-#define OCREF_CLEAR_SELECT_Msk (0x1U << OCREF_CLEAR_SELECT_Pos)                /*!< 0x00010000 */
+#define OCREF_CLEAR_SELECT_Msk (0x1UL << OCREF_CLEAR_SELECT_Pos)                /*!< 0x00010000 */
 /**
   * @}
   */

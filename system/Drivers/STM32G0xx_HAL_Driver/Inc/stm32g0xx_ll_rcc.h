@@ -473,11 +473,11 @@ typedef struct
 /** @defgroup RCC_LL_EC_LPTIMx_CLKSOURCE Peripheral LPTIM clock source selection
   * @{
   */
-#define LL_RCC_LPTIM1_CLKSOURCE_PCLK1      (RCC_CCIPR_LPTIM1SEL | (0x00000000U >> 16U))           /*!< PCLK1 selected as LPTIM1 clock */
+#define LL_RCC_LPTIM1_CLKSOURCE_PCLK1      (RCC_CCIPR_LPTIM1SEL | (0x00000000UL >> 16UL))          /*!< PCLK1 selected as LPTIM1 clock */
 #define LL_RCC_LPTIM1_CLKSOURCE_LSI        (RCC_CCIPR_LPTIM1SEL | (RCC_CCIPR_LPTIM1SEL_0 >> 16U)) /*!< LSI selected as LPTIM1 clock */
 #define LL_RCC_LPTIM1_CLKSOURCE_HSI        (RCC_CCIPR_LPTIM1SEL | (RCC_CCIPR_LPTIM1SEL_1 >> 16U)) /*!< HSI selected as LPTIM1 clock */
 #define LL_RCC_LPTIM1_CLKSOURCE_LSE        (RCC_CCIPR_LPTIM1SEL | (RCC_CCIPR_LPTIM1SEL >> 16U))   /*!< LSE selected as LPTIM1 clock */
-#define LL_RCC_LPTIM2_CLKSOURCE_PCLK1      (RCC_CCIPR_LPTIM2SEL | (0x00000000U >> 16U))           /*!< PCLK1 selected as LPTIM2 clock */
+#define LL_RCC_LPTIM2_CLKSOURCE_PCLK1      (RCC_CCIPR_LPTIM2SEL | (0x00000000UL >> 16UL))          /*!< PCLK1 selected as LPTIM2 clock */
 #define LL_RCC_LPTIM2_CLKSOURCE_LSI        (RCC_CCIPR_LPTIM2SEL | (RCC_CCIPR_LPTIM2SEL_0 >> 16U)) /*!< LSI selected as LPTIM2 clock */
 #define LL_RCC_LPTIM2_CLKSOURCE_HSI        (RCC_CCIPR_LPTIM2SEL | (RCC_CCIPR_LPTIM2SEL_1 >> 16U)) /*!< HSI selected as LPTIM2 clock */
 #define LL_RCC_LPTIM2_CLKSOURCE_LSE        (RCC_CCIPR_LPTIM2SEL | (RCC_CCIPR_LPTIM2SEL >> 16U))   /*!< LSE selected as LPTIM2 clock */

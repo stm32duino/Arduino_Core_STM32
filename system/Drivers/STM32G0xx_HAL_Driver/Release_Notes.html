@@ -39,10 +39,122 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section9" checked aria-hidden="true"> <label for="collapse-section9" aria-hidden="true">V1.4.6 / 15-December-2023</label>
+<input type="checkbox" id="collapse-section10" checked aria-hidden="true"> <label for="collapse-section10" aria-hidden="true">V1.4.7 / 27-February-2026</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <h3 id="maintenance-release">Maintenance release</h3>
+<ul>
+<li><strong>HAL/LL ADC</strong> update
+<ul>
+<li>Adjust the ADC calibration procedure in the HAL_ADCEx_Calibration_Start() API.</li>
+<li>Add a HAL unlock operation when the process exits with a TIMEOUT.</li>
+<li>Fix LL_ADC_GetChannelSamplingTime() behavior when multiple channels are configured, ensuring the sampling time of the lowest channel number is correctly retrieved.</li>
+</ul></li>
+<li><strong>HAL COMP</strong> update
+<ul>
+<li>Update HAL_COMP_Init()API to prevent COMP3 initialization from disabling windowmode of COMP1 and COMP2.</li>
+</ul></li>
+<li><strong>HAL CRYP</strong> update
+<ul>
+<li>Remove calls to __HAL_UNLOCK() when __HAL_LOCK() has not been invoked.</li>
+<li>Prevent out-of-bounds reads from local arrays for all data types.</li>
+</ul></li>
+<li><strong>HAL DAC</strong> update
+<ul>
+<li>Update the trimming factor to use a 6-bit width.</li>
+<li>Add a workaround in HAL_DACEx_SelfCalibrate() API to check trimming value is always below maximum.</li>
+</ul></li>
+<li><strong>LL DMA</strong> update
+<ul>
+<li>Align LL_DMAMUX_MAX_REQ value for G0B0x devices with the reference manual.</li>
+</ul></li>
+<li><strong>HAL FDCAN</strong> update
+<ul>
+<li>Fix GetIndex computation overflow in overwrite mode in HAL_FDCAN_GetRxMessage() API.</li>
+<li>Fix the assertion issue when the number of Standard or Extended filters is zero in HAL_FDCAN_ConfigFilter() API.</li>
+<li>Fix confuse between two timeout definitions in HAL_FDCAN_Stop() API.</li>
+</ul></li>
+<li><strong>HAL I2C</strong> update
+<ul>
+<li>Move the prefetch process in HAL_I2C_Slave_Transmit() API.</li>
+<li>Improve HAL_I2C_IsDeviceReady() API to properly account for the number of trials.</li>
+<li>Add a temporary variable in HAL_I2C_Master_Abort_IT() API to get I2C mode before comparison.</li>
+<li>Move temporary variable declaration at the beginning in I2C_TransferCofig() function.<br />
+</li>
+</ul></li>
+<li><strong>HAL SMBUS</strong> update
+<ul>
+<li>Improve HAL_SMBUS_IsDeviceReady() API to properly account for the number of trials.</li>
+</ul></li>
+<li><strong>HAL/LL PWR</strong> update
+<ul>
+<li>Update HAL_PWREx_ConfigPVM() API to configure VDDIO2 voltage monitoring (disable, enable, bypass) per RM0444 Rev6, and declare HAL APIs for VDDUSB, VDDIO2, and PVMUSB control as deprecated.- Add new static inline APIs for VDDIO2 voltage monitoring: LL_PWR_SetPVM() and LL_PWR_GetPVM().</li>
+<li>Mention that the legacy Power Voltage Monitoring configuration is depricated and kept only for backward compatibility.</li>
+</ul></li>
+<li><strong>HAL/LL SPI</strong> update
+<ul>
+<li>Add assertion in HAL_SPI_Transmit()/HAL_SPI_Receive() and HAL_SPI_TransmitReceive() APIs to ensure the data buffer is 16-bit aligned when DataSize is greater than 8 bits.</li>
+<li>Add note to HAL_SPI_Receive() API to clarify its behavior in master mode.</li>
+<li>Add units to physical measurement parameters.</li>
+<li>Avoid buffer overflow in SPI_WaitFifoStateUntilTimeout() API.</li>
+</ul></li>
+<li><strong>HAL TIM</strong> update
+<ul>
+<li>Fix update flag (UIF) clearing in TIM_Base_SetConfig() API.</li>
+<li>Update TIM_CCER_CCxE_MASK to support internal TIM Channel 5 and 6.</li>
+<li>Fix complementary channel being systematically disabled by TIM_OCx_SetConfig() API.</li>
+</ul></li>
+<li><strong>HAL UART</strong> update
+<ul>
+<li>Update UART_RxISR_8BIT_FIFOEN() and UART_RxISR_16BIT_FIFOEN() functions to ensure Rx buffer is not written beyond boundaries.</li>
+<li>Update wrong comment in HAL_UARTEx_DisableFifoMode() API.</li>
+<li>Align default prescaler value in UART_GET_DIV_FACTOR macro with reference manual.</li>
+<li>Update UART_DMAAbortOnError() function to correct DMA Rx abort procedure impact on ongoing Tx transfer in polling mode.</li>
+<li>Update UART_DMAReceiveCplt() function to provide an accurate position parameter when ReceptionToIdle mode is used with DMA and UART/DMA interrupt handling is delayed.</li>
+<li>Ensure HAL_UART_RXEVENT_IDLE is reported when using HAL_UARTEx_ReceiveToIdle_DMA() with circular DMA, even when the received data length is equal to the configured buffer size (or a multiple of it).</li>
+<li>Provide an accurate position parameter in RxEventCallback when ReceptionToIdle mode is used with DMA and UART/DMA interrupt handling is delayed.</li>
+<li>Fix transfer count underflow when using polling mode.</li>
+</ul></li>
+<li><strong>HAL/LL LPUART</strong> update- Add LL_LPUART_RequestTxDataFlush() static inline API allowing TX FIFO flush request.
+<ul>
+<li>Solve Coverity out-of-bound memory access warning in use of LPUART_PRESCALER_TAB array</li>
+</ul></li>
+<li><strong>HAL/LL USART</strong> update
+<ul>
+<li>Align default prescaler value in USART_GET_DIV_FACTOR macro with reference manual.</li>
+<li>Improve the visibility of the SPI function support in HAL USART description- Solve Coverity out-of-bound memory access warning in use of USART_PRESCALER_TAB array</li>
+</ul></li>
+<li><strong>LL UCPD</strong> update
+<ul>
+<li>Add LL_UCPD_IsActiveFlag_RxErr() API to read Rx error flag UCPD_SR_RXERR.</li>
+</ul></li>
+</ul>
+<h2 id="development-toolchains-and-compilers">Development Toolchains and Compilers</h2>
+<ul>
+<li>IAR Embedded Workbench for ARM (EWARM) toolchain <strong>V8.50.9</strong></li>
+<li>RealView Microcontroller Development Kit (MDK-ARM) toolchain <strong>V5.38</strong></li>
+<li>STM32CubeIDE toolchain <strong>V1.19.0</strong></li>
+</ul>
+<h2 id="supported-devices-and-boards">Supported Devices and boards</h2>
+<p>Supported Devices:</p>
+<ul>
+<li>STM32G0C1xx, STM32G0B1xx, STM32G0B0xx</li>
+<li>STM32G061xx, STM32G051xx, STM32G050xx</li>
+<li>STM32G081xx, STM32G071xx, STM32G070xx</li>
+<li>STM32G041xx, STM32G031xx, STM32G030xx</li>
+</ul>
+<h2 id="backward-compatibility">Backward Compatibility</h2>
+<p>This release is compatible with the previous versions.</p>
+<h2 id="dependencies">Dependencies</h2>
+<p><br />
+</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section9" aria-hidden="true"> <label for="collapse-section9" aria-hidden="true">V1.4.6 / 15-December-2023</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<h3 id="maintenance-release-1">Maintenance release</h3>
 <ul>
 <li>HAL code quality enhancement for MISRA-C Rule-8.13 by adding const qualifiers.</li>
 <li><strong>HAL/LL GENERIC</strong> update
@@ -116,6 +228,7 @@
 <li><strong>HAL FDCAN</strong> update
 <ul>
 <li>Fix GetIndex issue in HAL_FDCAN_GetRxMessage.</li>
+<li>Remove shift from ‘FDCAN_DLC_BYTES_X’ definitions so that values taken by ‘DataLength’ structure member comply to the definition of a DLC.</li>
 </ul></li>
 <li><strong>HAL FLASH</strong> update
 <ul>
@@ -192,45 +305,11 @@
 <ul>
 <li>USB HAL limitation: Double buffer mode is not functional with isochronous data transfers in host mode.</li>
 </ul>
-<h2 id="development-toolchains-and-compilers">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-1">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain <strong>V8.50.9</strong></li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain <strong>V5.38</strong></li>
 <li>STM32CubeIDE toolchain <strong>V1.14.0</strong></li>
-</ul>
-<h2 id="supported-devices-and-boards">Supported Devices and boards</h2>
-<p>Supported Devices:</p>
-<ul>
-<li>STM32G0C1xx, STM32G0B1xx, STM32G0B0xx</li>
-<li>STM32G061xx, STM32G051xx, STM32G050xx</li>
-<li>STM32G081xx, STM32G071xx, STM32G070xx</li>
-<li>STM32G041xx, STM32G031xx, STM32G030xx</li>
-</ul>
-<h2 id="backward-compatibility">Backward Compatibility</h2>
-<p>This release is compatible with the previous versions.</p>
-<h2 id="dependencies">Dependencies</h2>
-<p><br />
-</p>
-</div>
-</div>
-<div class="collapse">
-<input type="checkbox" id="collapse-section8" aria-hidden="true"> <label for="collapse-section8" aria-hidden="true">V1.4.5 / 10-June-2022</label>
-<div>
-<h2 id="main-changes-1">Main Changes</h2>
-<h3 id="maintenance-release-1">Maintenance release</h3>
-<ul>
-<li>General updates to fix known defects and enhancements implementation.</li>
-<li>HAL code quality enhancement for MISRA-C Rule-8.13 by adding const qualifiers</li>
-</ul>
-<h2 id="known-limitations-1">Known limitations</h2>
-<ul>
-<li>USB HAL limitation: Double buffer mode is not functional with isochronous data transfers in host mode.</li>
-</ul>
-<h2 id="development-toolchains-and-compilers-1">Development Toolchains and Compilers</h2>
-<ul>
-<li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.50.9</li>
-<li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.31</li>
-<li>STM32CubeIDE toolchain (gcc9_2020_q2_update) v1.7.0</li>
 </ul>
 <h2 id="supported-devices-and-boards-1">Supported Devices and boards</h2>
 <p>Supported Devices:</p>
@@ -248,10 +327,44 @@
 </div>
 </div>
 <div class="collapse">
-<input type="checkbox" id="collapse-section7" aria-hidden="true"> <label for="collapse-section7" aria-hidden="true">V1.4.4 / 01-April-2022</label>
+<input type="checkbox" id="collapse-section8" aria-hidden="true"> <label for="collapse-section8" aria-hidden="true">V1.4.5 / 10-June-2022</label>
 <div>
 <h2 id="main-changes-2">Main Changes</h2>
 <h3 id="maintenance-release-2">Maintenance release</h3>
+<ul>
+<li>General updates to fix known defects and enhancements implementation.</li>
+<li>HAL code quality enhancement for MISRA-C Rule-8.13 by adding const qualifiers</li>
+</ul>
+<h2 id="known-limitations-1">Known limitations</h2>
+<ul>
+<li>USB HAL limitation: Double buffer mode is not functional with isochronous data transfers in host mode.</li>
+</ul>
+<h2 id="development-toolchains-and-compilers-2">Development Toolchains and Compilers</h2>
+<ul>
+<li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.50.9</li>
+<li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.31</li>
+<li>STM32CubeIDE toolchain (gcc9_2020_q2_update) v1.7.0</li>
+</ul>
+<h2 id="supported-devices-and-boards-2">Supported Devices and boards</h2>
+<p>Supported Devices:</p>
+<ul>
+<li>STM32G0C1xx, STM32G0B1xx, STM32G0B0xx</li>
+<li>STM32G061xx, STM32G051xx, STM32G050xx</li>
+<li>STM32G081xx, STM32G071xx, STM32G070xx</li>
+<li>STM32G041xx, STM32G031xx, STM32G030xx</li>
+</ul>
+<h2 id="backward-compatibility-2">Backward Compatibility</h2>
+<p>This release is compatible with the previous versions.</p>
+<h2 id="dependencies-2">Dependencies</h2>
+<p><br />
+</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section7" aria-hidden="true"> <label for="collapse-section7" aria-hidden="true">V1.4.4 / 01-April-2022</label>
+<div>
+<h2 id="main-changes-3">Main Changes</h2>
+<h3 id="maintenance-release-3">Maintenance release</h3>
 <ul>
 <li><p>General updates to fix known defects and enhancements implementation.</p></li>
 <li><strong>HAL/LL Drivers</strong> updates
@@ -389,13 +502,13 @@
 <ul>
 <li>USB HAL limitation: Double buffer mode is not functional with isochronous data transfers in host mode.</li>
 </ul>
-<h2 id="development-toolchains-and-compilers-2">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-3">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.50.9</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.31</li>
 <li>STM32CubeIDE toolchain (gcc9_2020_q2_update) v1.7.0</li>
 </ul>
-<h2 id="supported-devices-and-boards-2">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-3">Supported Devices and boards</h2>
 <p>Supported Devices:</p>
 <ul>
 <li>STM32G0C1xx, STM32G0B1xx, STM32G0B0xx</li>
@@ -403,9 +516,9 @@
 <li>STM32G081xx, STM32G071xx, STM32G070xx</li>
 <li>STM32G041xx, STM32G031xx, STM32G030xx</li>
 </ul>
-<h2 id="backward-compatibility-2">Backward Compatibility</h2>
+<h2 id="backward-compatibility-3">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
-<h2 id="dependencies-2">Dependencies</h2>
+<h2 id="dependencies-3">Dependencies</h2>
 <p><br />
 </p>
 </div>
@@ -413,8 +526,8 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true">V1.4.3 / 15-December-2021</label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
-<h3 id="maintenance-release-3">Maintenance release</h3>
+<h2 id="main-changes-4">Main Changes</h2>
+<h3 id="maintenance-release-4">Maintenance release</h3>
 <ul>
 <li><strong>HAL/LL Drivers</strong> updates
 <ul>
@@ -431,13 +544,13 @@
 <ul>
 <li>USB HAL limitation: Double buffer mode is not functional with isochronous data transfers in host mode.</li>
 </ul>
-<h2 id="development-toolchains-and-compilers-3">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-4">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.50.9</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.31</li>
 <li>STM32CubeIDE toolchain v1.7.0</li>
 </ul>
-<h2 id="supported-devices-and-boards-3">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-4">Supported Devices and boards</h2>
 <p>Supported Devices:</p>
 <ul>
 <li>STM32G0C1xx, STM32G0B1xx, STM32G0B0xx</li>
@@ -446,7 +559,7 @@
 <li>STM32G041xx, STM32G031xx, STM32G030xx ## Backward Compatibility</li>
 </ul>
 <p>This release is compatible with the previous versions.</p>
-<h2 id="dependencies-3">Dependencies</h2>
+<h2 id="dependencies-4">Dependencies</h2>
 <p><br />
 </p>
 </div>
@@ -454,8 +567,8 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true">V1.4.2 / 17-Juin-2021</label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
-<h3 id="maintenance-release-4">Maintenance release</h3>
+<h2 id="main-changes-5">Main Changes</h2>
+<h3 id="maintenance-release-5">Maintenance release</h3>
 <ul>
 <li><p>General updates to fix known defects and enhancements implementation.</p></li>
 <li><p><strong>HAL/LL Drivers</strong> updates</p></li>
@@ -589,13 +702,13 @@
 <ul>
 <li>USB HAL limitation: Double buffer mode is not functional with isochronous data transfers in host mode.</li>
 </ul>
-<h2 id="development-toolchains-and-compilers-4">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-5">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.50.9</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.31</li>
 <li>STM32CubeIDE toolchain v1.7.0</li>
 </ul>
-<h2 id="supported-devices-and-boards-4">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-5">Supported Devices and boards</h2>
 <p>Supported Devices:</p>
 <ul>
 <li>STM32G0C1xx, STM32G0B1xx, STM32G0B0xx</li>
@@ -604,7 +717,7 @@
 <li>STM32G041xx, STM32G031xx, STM32G030xx ## Backward Compatibility</li>
 </ul>
 <p>This release is compatible with the previous versions.</p>
-<h2 id="dependencies-4">Dependencies</h2>
+<h2 id="dependencies-5">Dependencies</h2>
 <p><br />
 </p>
 </div>
@@ -612,7 +725,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true">V1.4.1 / 25-February-2021</label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <h3 id="patch-release">Patch release</h3>
 <p>Patch release of <strong>HAL and Low Layer</strong> drivers</p>
 <p><strong>Additional features</strong></p>
@@ -632,13 +745,13 @@
 <ul>
 <li>USB HAL limitation: Double buffer mode is not functional with isochronous data transfers in host mode.</li>
 </ul>
-<h2 id="development-toolchains-and-compilers-5">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-6">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.30.1</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.29</li>
 <li>STM32CubeIDE toolchain v1.5.0</li>
 </ul>
-<h2 id="supported-devices-and-boards-5">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-6">Supported Devices and boards</h2>
 <p>Supported Devices:</p>
 <ul>
 <li>STM32G0C1xx, STM32G0B1xx, STM32G0B0xx</li>
@@ -646,9 +759,9 @@
 <li>STM32G081xx, STM32G071xx, STM32G070xx</li>
 <li>STM32G041xx, STM32G031xx, STM32G030xx</li>
 </ul>
-<h2 id="backward-compatibility-3">Backward Compatibility</h2>
+<h2 id="backward-compatibility-4">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
-<h2 id="dependencies-5">Dependencies</h2>
+<h2 id="dependencies-6">Dependencies</h2>
 <p><br />
 </p>
 </div>
@@ -656,7 +769,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true">V1.4.0 / 29-October-2020</label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <h3 id="maintenance-release-and-product-update">Maintenance release and Product Update</h3>
 <p><strong>Official release</strong> of HAL and Low layers drivers introducing <strong>STM32G0C1xx/STM32G0B1xx/STM32G0B0xx</strong> devices and <strong>STM32G061xx/STM32G051xx/STM32G050xx</strong> devices.</p>
 <p>Maintenance release of HAL and Low layers drivers supporting STM32G041xx/STM32G031xx/STM32G030xx and STM32G081xx/STM32G071xx/STM32G070xx devices.</p>
@@ -1127,13 +1240,13 @@
 <ul>
 <li>USB HAL limitation: Double buffer mode is not functional with isochronous data transfers in host mode.</li>
 </ul>
-<h2 id="development-toolchains-and-compilers-6">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-7">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.30.1</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.29</li>
 <li>STM32CubeIDE toolchain v1.5.0</li>
 </ul>
-<h2 id="supported-devices-and-boards-6">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-7">Supported Devices and boards</h2>
 <p>Supported Devices:</p>
 <ul>
 <li><strong>STM32G0C1xx, STM32G0B1xx, STM32G0B0xx</strong></li>
@@ -1141,9 +1254,9 @@
 <li>STM32G081xx, STM32G071xx, STM32G070xx</li>
 <li>STM32G041xx, STM32G031xx, STM32G030xx</li>
 </ul>
-<h2 id="backward-compatibility-4">Backward Compatibility</h2>
+<h2 id="backward-compatibility-5">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
-<h2 id="dependencies-6">Dependencies</h2>
+<h2 id="dependencies-7">Dependencies</h2>
 <p><br />
 </p>
 </div>
@@ -1151,8 +1264,8 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true">V1.3.0 / 25-June-2019</label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
-<h3 id="maintenance-release-5">Maintenance release</h3>
+<h2 id="main-changes-8">Main Changes</h2>
+<h3 id="maintenance-release-6">Maintenance release</h3>
 <p>Maintenance release of HAL and Low layers drivers supporting STM32G041xx/STM32G031xx/STM32G030xx and STM32G081xx/STM32G071xx/STM32G070xx devices.</p>
 <p><strong>Fixed bugs list</strong></p>
 <table>
@@ -1221,27 +1334,27 @@
 </tr>
 </tbody>
 </table>
-<h2 id="development-toolchains-and-compilers-7">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-8">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.20.2</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.25</li>
 <li>System Workbench STM32 (SW4STM32) toolchain V2.7.2</li>
 </ul>
-<h2 id="supported-devices-and-boards-7">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-8">Supported Devices and boards</h2>
 <p>Supported Devices:</p>
 <ul>
 <li>STM32G081xx, STM32G071xx, STM32G070xx</li>
 <li>STM32G041xx, STM32G031xx, STM32G030xx</li>
 </ul>
-<h2 id="backward-compatibility-5">Backward Compatibility</h2>
+<h2 id="backward-compatibility-6">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
-<h2 id="dependencies-7">Dependencies</h2>
+<h2 id="dependencies-8">Dependencies</h2>
 </div>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V1.2.0 / 05-April-2019</label>
 <div>
-<h2 id="main-changes-8">Main Changes</h2>
+<h2 id="main-changes-9">Main Changes</h2>
 <h3 id="maintenance-release-and-product-update-1">Maintenance release and product update</h3>
 <p>First release of HAL and Low layers drivers to introduce support of <strong>STM32G041xx/STM32G031xx/STM32G030xx devices</strong>.</p>
 <p>Maintenance release of HAL and Low layers drivers supporting STM32G081xx/STM32G071xx/STM32G070xx devices.</p>
@@ -1328,27 +1441,27 @@
 </tr>
 </tbody>
 </table>
-<h2 id="development-toolchains-and-compilers-8">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-9">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.20.2</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.25</li>
 <li>System Workbench STM32 (SW4STM32) toolchain V2.7.2</li>
 </ul>
-<h2 id="supported-devices-and-boards-8">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-9">Supported Devices and boards</h2>
 <p>Supported Devices:</p>
 <ul>
 <li>STM32G081xx, STM32G071xx, STM32G070xx</li>
 <li><strong>STM32G041xx, STM32G031xx, STM32G030xx</strong></li>
 </ul>
-<h2 id="backward-compatibility-6">Backward Compatibility</h2>
+<h2 id="backward-compatibility-7">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
-<h2 id="dependencies-8">Dependencies</h2>
+<h2 id="dependencies-9">Dependencies</h2>
 </div>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">V1.1.0 / 06-February-2019</label>
 <div>
-<h2 id="main-changes-9">Main Changes</h2>
+<h2 id="main-changes-10">Main Changes</h2>
 <h3 id="maintenance-release-and-product-update-2">Maintenance release and product update</h3>
 <p>Maintenance release of HAL and Low layers drivers to support STM32G071xx/STM32G081xx/STM32G070xx devices.</p>
 <p><strong>Additional features</strong></p>
@@ -1437,24 +1550,6 @@
 </tr>
 </tbody>
 </table>
-<h2 id="supported-devices-and-boards-9">Supported Devices and boards</h2>
-<p>Supported Devices:</p>
-<ul>
-<li>STM32G0<strong>81</strong>xx</li>
-<li>STM32G0<strong>71</strong>xx</li>
-<li>STM32G0<strong>70</strong>xx</li>
-</ul>
-<h2 id="backward-compatibility-7">Backward Compatibility</h2>
-<p>This release is compatible with the previous versions.</p>
-<h2 id="dependencies-9">Dependencies</h2>
-</div>
-</div>
-<div class="collapse">
-<input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true">V1.0.0 / 26-October-2018</label>
-<div>
-<h2 id="main-changes-10">Main Changes</h2>
-<h3 id="first-release">First release</h3>
-<p>First official release of HAL and Low layers drivers to support STM32G071xx/STM32G081xx/STM32G070xx</p>
 <h2 id="supported-devices-and-boards-10">Supported Devices and boards</h2>
 <p>Supported Devices:</p>
 <ul>
@@ -1462,7 +1557,25 @@
 <li>STM32G0<strong>71</strong>xx</li>
 <li>STM32G0<strong>70</strong>xx</li>
 </ul>
+<h2 id="backward-compatibility-8">Backward Compatibility</h2>
+<p>This release is compatible with the previous versions.</p>
 <h2 id="dependencies-10">Dependencies</h2>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true">V1.0.0 / 26-October-2018</label>
+<div>
+<h2 id="main-changes-11">Main Changes</h2>
+<h3 id="first-release">First release</h3>
+<p>First official release of HAL and Low layers drivers to support STM32G071xx/STM32G081xx/STM32G070xx</p>
+<h2 id="supported-devices-and-boards-11">Supported Devices and boards</h2>
+<p>Supported Devices:</p>
+<ul>
+<li>STM32G0<strong>81</strong>xx</li>
+<li>STM32G0<strong>71</strong>xx</li>
+<li>STM32G0<strong>70</strong>xx</li>
+</ul>
+<h2 id="dependencies-11">Dependencies</h2>
 </div>
 </div>
 </div>

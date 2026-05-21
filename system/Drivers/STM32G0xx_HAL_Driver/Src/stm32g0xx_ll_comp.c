@@ -57,7 +57,7 @@
 /* Note: On this STM32 series, comparator input plus parameters are           */
 /*       the same on all COMP instances.                                      */
 /*       However, comparator instance kept as macro parameter for             */
-/*       compatibility with other STM32 families.                             */
+/*       compatibility with other STM32 series.                               */
 #define IS_LL_COMP_INPUT_PLUS(__COMP_INSTANCE__, __INPUT_PLUS__)               \
   (((__INPUT_PLUS__) == LL_COMP_INPUT_PLUS_IO1)                                \
    || ((__INPUT_PLUS__) == LL_COMP_INPUT_PLUS_IO2)                             \
@@ -67,7 +67,7 @@
 /* Note: On this STM32 series, comparator input minus parameters are          */
 /*       the same on all COMP instances.                                      */
 /*       However, comparator instance kept as macro parameter for             */
-/*       compatibility with other STM32 families.                             */
+/*       compatibility with other STM32 series.                               */
 #define IS_LL_COMP_INPUT_MINUS(__COMP_INSTANCE__, __INPUT_MINUS__)             \
   (((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_1_4VREFINT)                       \
    || ((__INPUT_MINUS__) == LL_COMP_INPUT_MINUS_1_2VREFINT)                    \
@@ -93,7 +93,7 @@
   )
 
 #define IS_LL_COMP_OUTPUT_BLANKING_SOURCE(__OUTPUT_BLANKING_SOURCE__)          \
-  (((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_NONE)               \
+  (((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_NONE)                  \
    || ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM1_OC4)           \
    || ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM1_OC5)           \
    || ((__OUTPUT_BLANKING_SOURCE__) == LL_COMP_BLANKINGSRC_TIM2_OC3)           \

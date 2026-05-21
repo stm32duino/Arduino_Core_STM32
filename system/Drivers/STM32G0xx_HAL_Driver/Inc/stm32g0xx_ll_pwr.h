@@ -118,7 +118,7 @@ extern "C" {
 /** @defgroup PWR_LL_EC_PVDLEVEL PVDLEVEL
   * @{
   */
-#define LL_PWR_PVDLLEVEL_0                  0x000000000u                                /* VPVD0 > 2.05 V */
+#define LL_PWR_PVDLLEVEL_0                  0x000000000U                                /* VPVD0 > 2.05 V */
 #define LL_PWR_PVDLLEVEL_1                  (PWR_CR2_PVDFT_0)                           /* VPVD0 > 2.2 V */
 #define LL_PWR_PVDLLEVEL_2                  (PWR_CR2_PVDFT_1)                           /* VPVD1 > 2.36 V */
 #define LL_PWR_PVDLLEVEL_3                  (PWR_CR2_PVDFT_1 | PWR_CR2_PVDFT_0)         /* VPVD2 > 2.52 V */
@@ -126,7 +126,7 @@ extern "C" {
 #define LL_PWR_PVDLLEVEL_5                  (PWR_CR2_PVDFT_2 | PWR_CR2_PVDFT_0)         /* VPVD4 > 2.81 V */
 #define LL_PWR_PVDLLEVEL_6                  (PWR_CR2_PVDFT_2 | PWR_CR2_PVDFT_1)         /* VPVD5 > 2.91 V */
 
-#define LL_PWR_PVDHLEVEL_0                  0x00000000u                                 /* VPDD0 > 2.15 V */
+#define LL_PWR_PVDHLEVEL_0                  0x00000000U                                 /* VPDD0 > 2.15 V */
 #define LL_PWR_PVDHLEVEL_1                  (PWR_CR2_PVDRT_0)                           /* VPVD1 > 2.3 V */
 #define LL_PWR_PVDHLEVEL_2                  (PWR_CR2_PVDRT_1)                           /* VPVD1 > 2.46 V */
 #define LL_PWR_PVDHLEVEL_3                  (PWR_CR2_PVDRT_1 | PWR_CR2_PVDRT_0)         /* VPVD2 > 2.62 V */
@@ -143,10 +143,22 @@ extern "C" {
 /** @defgroup PWR_LL_EC_PVM_IP PVM_IP
   * @{
   */
-#define LL_PWR_PVM_USB                  PWR_CR2_PVMEN_USB                           /*!< Peripheral Voltage Monitoring enable for USB peripheral: Enable to keep the USB peripheral voltage monitoring under control (power domain Vddio2) */
+#define LL_PWR_PVM_DISABLE                0x00000000U                                     /*!< VDDIO2 monitoring disabled, IOs in isolation mode */
+#define LL_PWR_PVM_ENABLE                 (PWR_CR2_PVM_VDDIO2_0)                          /*!< VDDIO2 monitoring enabled, IOs enabled or in isolation mode, according to VDDIO2 level */
+#define LL_PWR_PVM_BYPASS                 (PWR_CR2_PVM_VDDIO2_1 | PWR_CR2_PVM_VDDIO2_2)   /*!< VDDIO2 monitoring bypassed, IOs enabled */
 /**
   * @}
   */
+
+/** Legacy definitions for compatibility purpose
+@cond 0
+  */
+#define LL_PWR_PVM_USB                         LL_PWR_PVM_ENABLE
+#define LL_PWR_IsActiveFlag_PVMOUSB            LL_PWR_IsActiveFlag_PVMOVDDIO2
+/**
+@endcond
+  */
+
 #endif /* PWR_PVM_SUPPORT */
 
 /** @defgroup PWR_LL_EC_WAKEUP WAKEUP
@@ -169,7 +181,7 @@ extern "C" {
 /** @defgroup PWR_LL_EC_BATT_CHARG_RESISTOR BATT CHARG RESISTOR
   * @{
   */
-#define LL_PWR_BATTCHARG_RESISTOR_5K       0x000000000u
+#define LL_PWR_BATTCHARG_RESISTOR_5K       0x000000000U
 #define LL_PWR_BATTCHARG_RESISTOR_1_5K     (PWR_CR4_VBRS)
 /**
   * @}
@@ -193,22 +205,22 @@ extern "C" {
 /** @defgroup PWR_LL_EC_GPIO_BIT GPIO BIT
   * @{
   */
-#define LL_PWR_GPIO_BIT_0                  0x00000001u
-#define LL_PWR_GPIO_BIT_1                  0x00000002u
-#define LL_PWR_GPIO_BIT_2                  0x00000004u
-#define LL_PWR_GPIO_BIT_3                  0x00000008u
-#define LL_PWR_GPIO_BIT_4                  0x00000010u
-#define LL_PWR_GPIO_BIT_5                  0x00000020u
-#define LL_PWR_GPIO_BIT_6                  0x00000040u
-#define LL_PWR_GPIO_BIT_7                  0x00000080u
-#define LL_PWR_GPIO_BIT_8                  0x00000100u
-#define LL_PWR_GPIO_BIT_9                  0x00000200u
-#define LL_PWR_GPIO_BIT_10                 0x00000400u
-#define LL_PWR_GPIO_BIT_11                 0x00000800u
-#define LL_PWR_GPIO_BIT_12                 0x00001000u
-#define LL_PWR_GPIO_BIT_13                 0x00002000u
-#define LL_PWR_GPIO_BIT_14                 0x00004000u
-#define LL_PWR_GPIO_BIT_15                 0x00008000u
+#define LL_PWR_GPIO_BIT_0                  0x00000001U
+#define LL_PWR_GPIO_BIT_1                  0x00000002U
+#define LL_PWR_GPIO_BIT_2                  0x00000004U
+#define LL_PWR_GPIO_BIT_3                  0x00000008U
+#define LL_PWR_GPIO_BIT_4                  0x00000010U
+#define LL_PWR_GPIO_BIT_5                  0x00000020U
+#define LL_PWR_GPIO_BIT_6                  0x00000040U
+#define LL_PWR_GPIO_BIT_7                  0x00000080U
+#define LL_PWR_GPIO_BIT_8                  0x00000100U
+#define LL_PWR_GPIO_BIT_9                  0x00000200U
+#define LL_PWR_GPIO_BIT_10                 0x00000400U
+#define LL_PWR_GPIO_BIT_11                 0x00000800U
+#define LL_PWR_GPIO_BIT_12                 0x00001000U
+#define LL_PWR_GPIO_BIT_13                 0x00002000U
+#define LL_PWR_GPIO_BIT_14                 0x00004000U
+#define LL_PWR_GPIO_BIT_15                 0x00008000U
 /**
   * @}
   */
@@ -456,6 +468,10 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnableFlashPowerDownInStop(void)
 /**
   * @brief  Enable VDDIO2 supply
   * @rmtoll CR2          IOSV          LL_PWR_EnableVddIO2
+  * @note   For STM32G0C1xx and STM32G0B1xx devices, this function is deprecated and retained only to ensure backward compatibility.
+  *         Power Voltage Monitoring configuration is now handled by LL_PWR_SetPVM().
+  *         The USV, IOSV, and PVMENUSB bits have been merged into the PVM_VDDIO2 bitfield of the PWR_CR2 register.
+  *         Please refer to RM0444 Rev6 or later, section "Power control register 2 (PWR_CR2)".
   * @retval None
   */
 __STATIC_INLINE void LL_PWR_EnableVddIO2(void)
@@ -466,6 +482,10 @@ __STATIC_INLINE void LL_PWR_EnableVddIO2(void)
 /**
   * @brief  Disable VDDIO2 supply
   * @rmtoll CR2          IOSV          LL_PWR_DisableVddIO2
+  * @note   For STM32G0C1xx and STM32G0B1xx devices, this function is deprecated and retained only to ensure backward compatibility.
+  *         Power Voltage Monitoring configuration is now handled by LL_PWR_SetPVM().
+  *         The USV, IOSV, and PVMENUSB bits have been merged into the PVM_VDDIO2 bitfield of the PWR_CR2 register.
+  *         Please refer to RM0444 Rev6 or later, section "Power control register 2 (PWR_CR2)".
   * @retval None
   */
 __STATIC_INLINE void LL_PWR_DisableVddIO2(void)
@@ -476,6 +496,10 @@ __STATIC_INLINE void LL_PWR_DisableVddIO2(void)
 /**
   * @brief  Check if VDDIO2 supply is enabled
   * @rmtoll CR2          IOSV          LL_PWR_IsEnabledVddIO2
+  * @note   For STM32G0C1xx and STM32G0B1xx devices, this function is deprecated and retained only to ensure backward compatibility.
+  *         Power Voltage Monitoring configuration is now handled by LL_PWR_GetPVM().
+  *         The USV, IOSV, and PVMENUSB bits have been merged into the PVM_VDDIO2 bitfield of the PWR_CR2 register.
+  *         Please refer to RM0444 Rev6 or later, section "Power control register 2 (PWR_CR2)".
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_PWR_IsEnabledVddIO2(void)
@@ -488,6 +512,10 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledVddIO2(void)
 /**
   * @brief  Enable VDDUSB supply
   * @rmtoll CR2          USV           LL_PWR_EnableVddUSB
+  * @note   For STM32G0C1xx and STM32G0B1xx devices, this function is deprecated and retained only to ensure backward compatibility.
+  *         Power Voltage Monitoring configuration is now handled by LL_PWR_SetPVM().
+  *         The USV, IOSV, and PVMENUSB bits have been merged into the PVM_VDDIO2 bitfield of the PWR_CR2 register.
+  *         Please refer to RM0444 Rev6 or later, section "Power control register 2 (PWR_CR2)".
   * @retval None
   */
 __STATIC_INLINE void LL_PWR_EnableVddUSB(void)
@@ -498,6 +526,10 @@ __STATIC_INLINE void LL_PWR_EnableVddUSB(void)
 /**
   * @brief  Disable VDDUSB supply
   * @rmtoll CR2          USV           LL_PWR_DisableVddUSB
+  * @note   For STM32G0C1xx and STM32G0B1xx devices, this function is deprecated and retained only to ensure backward compatibility.
+  *         Power Voltage Monitoring configuration is now handled by LL_PWR_SetPVM().
+  *         The USV, IOSV, and PVMENUSB bits have been merged into the PVM_VDDIO2 bitfield of the PWR_CR2 register.
+  *         Please refer to RM0444 Rev6 or later, section "Power control register 2 (PWR_CR2)".
   * @retval None
   */
 __STATIC_INLINE void LL_PWR_DisableVddUSB(void)
@@ -508,6 +540,10 @@ __STATIC_INLINE void LL_PWR_DisableVddUSB(void)
 /**
   * @brief  Check if VDDUSB supply is enabled
   * @rmtoll CR2          USV           LL_PWR_IsEnabledVddUSB
+  * @note   For STM32G0C1xx and STM32G0B1xx devices, this function is deprecated and retained only to ensure backward compatibility.
+  *         Power Voltage Monitoring configuration is now handled by LL_PWR_GetPVM().
+  *         The USV, IOSV, and PVMENUSB bits have been merged into the PVM_VDDIO2 bitfield of the PWR_CR2 register.
+  *         Please refer to RM0444 Rev6 or later, section "Power control register 2 (PWR_CR2)".
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_PWR_IsEnabledVddUSB(void)
@@ -519,9 +555,13 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledVddUSB(void)
 #if defined (PWR_PVM_SUPPORT)
 /**
   * @brief  Enable the Power Voltage Monitoring on a peripheral
-  * @rmtoll CR2          PVMUSB         LL_PWR_EnablePVM
+  * @note   For STM32G0C1xx and STM32G0B1xx devices, this function is deprecated and retained only to ensure backward compatibility.
+  *         Power Voltage Monitoring configuration is now handled by LL_PWR_SetPVM().
+  *         The USV, IOSV, and PVMENUSB bits have been merged into the PVM_VDDIO2 bitfield of the PWR_CR2 register.
+  *         Please refer to RM0444 Rev6 or later, section "Power control register 2 (PWR_CR2)".
+  * @rmtoll CR2          PVMUSB         LL_PWR_PVM_USB
   * @param  PeriphVoltage This parameter can be one of the following values:
-  *         @arg @ref LL_PWR_PVM_USB (*)
+  *         @arg @ref LL_PWR_PVM_ENABLE (*)
   *
   *         (*) value not defined in all devices
   * @retval None
@@ -533,6 +573,10 @@ __STATIC_INLINE void LL_PWR_EnablePVM(uint32_t PeriphVoltage)
 
 /**
   * @brief  Disable the Power Voltage Monitoring on a peripheral
+  * @note   For STM32G0C1xx and STM32G0B1xx devices, this function is deprecated and retained only to ensure backward compatibility.
+  *         Power Voltage Monitoring configuration is now handled by LL_PWR_SetPVM().
+  *         The USV, IOSV, and PVMENUSB bits have been merged into the PVM_VDDIO2 bitfield of the PWR_CR2 register.
+  *         Please refer to RM0444 Rev6 or later, section "Power control register 2 (PWR_CR2)".
   * @rmtoll CR2          PVMUSB         LL_PWR_DisablePVM
   * @param  PeriphVoltage This parameter can be one of the following values:
   *         @arg @ref LL_PWR_PVM_USB (*)
@@ -547,6 +591,10 @@ __STATIC_INLINE void LL_PWR_DisablePVM(uint32_t PeriphVoltage)
 
 /**
   * @brief  Check if Power Voltage Monitoring is enabled on a peripheral
+  * @note   For STM32G0C1xx and STM32G0B1xx devices, this function is deprecated and retained only to ensure backward compatibility.
+  *         Power Voltage Monitoring configuration is now handled by LL_PWR_GetPVM().
+  *         The USV, IOSV, and PVMENUSB bits have been merged into the PVM_VDDIO2 bitfield of the PWR_CR2 register.
+  *         Please refer to RM0444 Rev6 or later, section "Power control register 2 (PWR_CR2)".
   * @rmtoll CR2          PVMUSB         LL_PWR_IsEnabledPVM
   * @param  PeriphVoltage This parameter can be one of the following values:
   *         @arg @ref LL_PWR_PVM_USB (*)
@@ -558,6 +606,34 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledPVM(uint32_t PeriphVoltage)
 {
   return ((READ_BIT(PWR->CR2, PeriphVoltage) == (PeriphVoltage)) ? 1UL : 0UL);
 }
+
+/**
+  * @brief  Set Power Voltage Monitoring mode
+  * @rmtoll CR2          PVM_VDDIO2          LL_PWR_SetPVM
+  * @param  PVM_Mode This parameter can be one of the following values:
+  *         @arg @ref LL_PWR_PVM_ENABLE
+  *         @arg @ref LL_PWR_PVM_BYPASS
+  *         @arg @ref LL_PWR_PVM_DISABLE
+  * @retval None
+  */
+__STATIC_INLINE void LL_PWR_SetPVM(uint32_t PVM_Mode)
+{
+  MODIFY_REG(PWR->CR2, PWR_CR2_PVM_VDDIO2, PVM_Mode);
+}
+
+/**
+  * @brief  Get  Power Voltage Monitoring mode
+  * @rmtoll CR2          PVM_VDDIO2          LL_PWR_GetPVM
+  * @retval Returned value can be one of the following values:
+  *         @arg @ref LL_PWR_PVM_ENABLE
+  *         @arg @ref LL_PWR_PVM_BYPASS
+  *         @arg @ref LL_PWR_PVM_DISABLE
+  */
+__STATIC_INLINE uint32_t LL_PWR_GetPVM(void)
+{
+  return (uint32_t)(READ_BIT(PWR->CR2, PWR_CR2_PVM_VDDIO2));
+}
+
 #endif /* PWR_PVM_SUPPORT */
 
 /**
@@ -1421,14 +1497,15 @@ __STATIC_INLINE void LL_PWR_ClearFlag_WU1(void)
 
 #if defined (PWR_PVM_SUPPORT)
 /**
-  * @brief  Indicate whether VDD voltage is below or above the selected PVD
-  *         threshold
-  * @rmtoll SR2          PVDMO_USB          LL_PWR_IsActiveFlag_PVMOUSB
+  * @brief  Indicate whether VDDIO2 voltage is below or above the 1.2V threshold
+  * @rmtoll SR2          PVMO_VDDIO2          LL_PWR_IsActiveFlag_PVMOVDDIO2
+  * @note:  Take care, return value "0" means VDDIO2 is ready.
+            Return value "1" VDDIO2 is not ready (below 1.2 V threshold).
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_PWR_IsActiveFlag_PVMOUSB(void)
+__STATIC_INLINE uint32_t LL_PWR_IsActiveFlag_PVMOVDDIO2(void)
 {
-  return ((READ_BIT(PWR->SR2, PWR_SR2_PVMO_USB) == (PWR_SR2_PVMO_USB)) ? 1UL : 0UL);
+  return ((READ_BIT(PWR->SR2, PWR_SR2_PVMO_VDDIO2) == (PWR_SR2_PVMO_VDDIO2)) ? 1UL : 0UL);
 }
 #endif /* PWR_PVM_SUPPORT */
 

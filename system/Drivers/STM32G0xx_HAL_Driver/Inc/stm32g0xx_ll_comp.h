@@ -321,13 +321,9 @@ typedef struct
 #if defined(COMP3)
 #define __LL_COMP_COMMON_INSTANCE(__COMPx__)                                   \
   ((((__COMPx__) == COMP3))                                                    \
-   ? (                                                                        \
-                                                                              (COMP23_COMMON)                                                         \
-     )                                                                        \
-   :                                                                        \
-   (                                                                        \
-                                                                            (COMP12_COMMON)                                                         \
-   )                                                                        \
+   ? ((COMP23_COMMON))                                                         \
+   :                                                                           \
+   ((COMP12_COMMON))                                                           \
   )
 #else
 #define __LL_COMP_COMMON_INSTANCE(__COMPx__)                                   \
@@ -347,8 +343,8 @@ typedef struct
   * @{
   */
 
-/** @defgroup COMP_LL_EF_Configuration_comparator_common Configuration of COMP hierarchical scope:
-  *           common to several COMP instances
+/** @defgroup COMP_LL_EF_Configuration_comparator_common Configuration
+  *           of COMP hierarchical scope: common to several COMP instances
   * @{
   */
 

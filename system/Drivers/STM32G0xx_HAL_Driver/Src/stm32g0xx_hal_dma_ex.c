@@ -92,7 +92,7 @@
   * @param pSyncConfig Pointer to HAL_DMA_MuxSyncConfigTypeDef contains the DMAMUX synchronization parameters
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_DMAEx_ConfigMuxSync(DMA_HandleTypeDef *hdma, HAL_DMA_MuxSyncConfigTypeDef *pSyncConfig)
+HAL_StatusTypeDef HAL_DMAEx_ConfigMuxSync(DMA_HandleTypeDef *hdma, const HAL_DMA_MuxSyncConfigTypeDef *pSyncConfig)
 {
   /* Check the parameters */
   assert_param(IS_DMA_ALL_INSTANCE(hdma->Instance));
@@ -142,7 +142,7 @@ HAL_StatusTypeDef HAL_DMAEx_ConfigMuxSync(DMA_HandleTypeDef *hdma, HAL_DMA_MuxSy
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_DMAEx_ConfigMuxRequestGenerator(DMA_HandleTypeDef *hdma,
-                                                      HAL_DMA_MuxRequestGeneratorConfigTypeDef *pRequestGeneratorConfig)
+                                                      const HAL_DMA_MuxRequestGeneratorConfigTypeDef *pRequestGeneratorConfig)
 {
   HAL_StatusTypeDef status;
   HAL_DMA_StateTypeDef temp_state = hdma->State;

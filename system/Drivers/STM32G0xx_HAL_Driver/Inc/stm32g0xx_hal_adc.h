@@ -811,11 +811,9 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   */
 
 /** @defgroup ADC_HAL_EC_OVS_RATIO  Oversampling - Ratio
-  * @{
-  */
-/**
   * @note The oversampling ratio is the number of ADC conversions performed, sum of these conversions data is computed
   *       to result as the ADC oversampling conversion data (before potential shift)
+  * @{
   */
 #define ADC_OVERSAMPLING_RATIO_2           (LL_ADC_OVS_RATIO_2)    /*!< ADC oversampling ratio    2 */
 #define ADC_OVERSAMPLING_RATIO_4           (LL_ADC_OVS_RATIO_4)    /*!< ADC oversampling ratio    4 */
@@ -830,21 +828,19 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   */
 
 /** @defgroup ADC_HAL_EC_OVS_SHIFT  Oversampling - Data shift
+  * @note The sum of the ADC conversions data is divided by "Rightbitshift" number to result as the ADC oversampling
+  *       conversion data
   * @{
   */
-/**
-  * @note The sum of the ADC conversions data is divided by "Rightbitshift" number to result as the ADC oversampling
-  *       conversion data)
-  */
 #define ADC_RIGHTBITSHIFT_NONE             (LL_ADC_OVS_SHIFT_NONE)    /*!< ADC oversampling no shift   */
-#define ADC_RIGHTBITSHIFT_1                (LL_ADC_OVS_SHIFT_RIGHT_1) /*!< ADC oversampling right shift of 1 ranks */
-#define ADC_RIGHTBITSHIFT_2                (LL_ADC_OVS_SHIFT_RIGHT_2) /*!< ADC oversampling right shift of 2 ranks */
-#define ADC_RIGHTBITSHIFT_3                (LL_ADC_OVS_SHIFT_RIGHT_3) /*!< ADC oversampling right shift of 3 ranks */
-#define ADC_RIGHTBITSHIFT_4                (LL_ADC_OVS_SHIFT_RIGHT_4) /*!< ADC oversampling right shift of 4 ranks */
-#define ADC_RIGHTBITSHIFT_5                (LL_ADC_OVS_SHIFT_RIGHT_5) /*!< ADC oversampling right shift of 5 ranks */
-#define ADC_RIGHTBITSHIFT_6                (LL_ADC_OVS_SHIFT_RIGHT_6) /*!< ADC oversampling right shift of 6 ranks */
-#define ADC_RIGHTBITSHIFT_7                (LL_ADC_OVS_SHIFT_RIGHT_7) /*!< ADC oversampling right shift of 7 ranks */
-#define ADC_RIGHTBITSHIFT_8                (LL_ADC_OVS_SHIFT_RIGHT_8) /*!< ADC oversampling right shift of 8 ranks */
+#define ADC_RIGHTBITSHIFT_1                (LL_ADC_OVS_SHIFT_RIGHT_1) /*!< ADC oversampling right shift of 1 rank */
+#define ADC_RIGHTBITSHIFT_2                (LL_ADC_OVS_SHIFT_RIGHT_2) /*!< ADC oversampling right shift of 2 rank */
+#define ADC_RIGHTBITSHIFT_3                (LL_ADC_OVS_SHIFT_RIGHT_3) /*!< ADC oversampling right shift of 3 rank */
+#define ADC_RIGHTBITSHIFT_4                (LL_ADC_OVS_SHIFT_RIGHT_4) /*!< ADC oversampling right shift of 4 rank */
+#define ADC_RIGHTBITSHIFT_5                (LL_ADC_OVS_SHIFT_RIGHT_5) /*!< ADC oversampling right shift of 5 rank */
+#define ADC_RIGHTBITSHIFT_6                (LL_ADC_OVS_SHIFT_RIGHT_6) /*!< ADC oversampling right shift of 6 rank */
+#define ADC_RIGHTBITSHIFT_7                (LL_ADC_OVS_SHIFT_RIGHT_7) /*!< ADC oversampling right shift of 7 rank */
+#define ADC_RIGHTBITSHIFT_8                (LL_ADC_OVS_SHIFT_RIGHT_8) /*!< ADC oversampling right shift of 8 rank */
 /**
   * @}
   */
@@ -861,14 +857,11 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   */
 
 /** @defgroup ADC_HAL_EC_REG_TRIGGER_FREQ  ADC group regular - Trigger frequency mode
-  * @{
-  */
-
-/**
   * @note ADC trigger frequency mode must be set to low frequency when a duration is exceeded before ADC conversion
   *       start trigger event (between ADC enable and ADC conversion start trigger event or between two ADC conversion
   *       start trigger event).
   *       Duration value: Refer to device datasheet, parameter "tIdle".
+  * @{
   */
 #define ADC_TRIGGER_FREQ_HIGH         (LL_ADC_TRIGGER_FREQ_HIGH) /*!< Trigger frequency mode set to high frequency. */
 #define ADC_TRIGGER_FREQ_LOW          (LL_ADC_TRIGGER_FREQ_LOW)  /*!< Trigger frequency mode set to low frequency.  */
@@ -877,11 +870,9 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   */
 
 /** @defgroup ADC_Event_type ADC Event type
-  * @{
-  */
-/**
   * @note Analog watchdog 1 is available on all stm32 series
   *       Analog watchdog 2 and 3 are not available on all series
+  * @{
   */
 #define ADC_EOSMP_EVENT          (ADC_FLAG_EOSMP) /*!< ADC End of Sampling event */
 #define ADC_AWD1_EVENT           (ADC_FLAG_AWD1)  /*!< ADC Analog watchdog 1 event (main analog watchdog)       */
