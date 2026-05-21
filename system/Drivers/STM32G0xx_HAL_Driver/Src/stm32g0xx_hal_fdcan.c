@@ -1309,7 +1309,7 @@ HAL_StatusTypeDef HAL_FDCAN_ConfigFilter(FDCAN_HandleTypeDef *hfdcan, const FDCA
     if (sFilterConfig->IdType == FDCAN_STANDARD_ID)
     {
       /* Check function parameters */
-      assert_param(IS_FDCAN_MAX_VALUE(sFilterConfig->FilterIndex, (hfdcan->Init.StdFiltersNbr - 1U)));
+      assert_param(IS_FDCAN_MAX_VALUE((sFilterConfig->FilterIndex + 1U), hfdcan->Init.StdFiltersNbr));
       assert_param(IS_FDCAN_MAX_VALUE(sFilterConfig->FilterID1, 0x7FFU));
       assert_param(IS_FDCAN_MAX_VALUE(sFilterConfig->FilterID2, 0x7FFU));
       assert_param(IS_FDCAN_STD_FILTER_TYPE(sFilterConfig->FilterType));
@@ -1329,7 +1329,7 @@ HAL_StatusTypeDef HAL_FDCAN_ConfigFilter(FDCAN_HandleTypeDef *hfdcan, const FDCA
     else /* sFilterConfig->IdType == FDCAN_EXTENDED_ID */
     {
       /* Check function parameters */
-      assert_param(IS_FDCAN_MAX_VALUE(sFilterConfig->FilterIndex, (hfdcan->Init.ExtFiltersNbr - 1U)));
+      assert_param(IS_FDCAN_MAX_VALUE((sFilterConfig->FilterIndex + 1U), hfdcan->Init.ExtFiltersNbr));
       assert_param(IS_FDCAN_MAX_VALUE(sFilterConfig->FilterID1, 0x1FFFFFFFU));
       assert_param(IS_FDCAN_MAX_VALUE(sFilterConfig->FilterID2, 0x1FFFFFFFU));
       assert_param(IS_FDCAN_EXT_FILTER_TYPE(sFilterConfig->FilterType));
@@ -2024,18 +2024,21 @@ HAL_StatusTypeDef HAL_FDCAN_Start(FDCAN_HandleTypeDef *hfdcan)
   */
 HAL_StatusTypeDef HAL_FDCAN_Stop(FDCAN_HandleTypeDef *hfdcan)
 {
-  uint32_t Counter = 0U;
+  uint32_t tickstart;
 
   if (hfdcan->State == HAL_FDCAN_STATE_BUSY)
   {
     /* Request initialisation */
     SET_BIT(hfdcan->Instance->CCCR, FDCAN_CCCR_INIT);
 
+    /* Get tick */
+    tickstart = HAL_GetTick();
+
     /* Wait until the INIT bit into CCCR register is set */
     while ((hfdcan->Instance->CCCR & FDCAN_CCCR_INIT) == 0U)
     {
       /* Check for the Timeout */
-      if (Counter > FDCAN_TIMEOUT_VALUE)
+      if ((HAL_GetTick() - tickstart) > FDCAN_TIMEOUT_VALUE)
       {
         /* Update error code */
         hfdcan->ErrorCode |= HAL_FDCAN_ERROR_TIMEOUT;
@@ -2045,22 +2048,19 @@ HAL_StatusTypeDef HAL_FDCAN_Stop(FDCAN_HandleTypeDef *hfdcan)
 
         return HAL_ERROR;
       }
-
-      /* Increment counter */
-      Counter++;
     }
-
-    /* Reset counter */
-    Counter = 0U;
 
     /* Exit from Sleep mode */
     CLEAR_BIT(hfdcan->Instance->CCCR, FDCAN_CCCR_CSR);
+
+    /* Get tick */
+    tickstart = HAL_GetTick();
 
     /* Wait until FDCAN exits sleep mode */
     while ((hfdcan->Instance->CCCR & FDCAN_CCCR_CSA) == FDCAN_CCCR_CSA)
     {
       /* Check for the Timeout */
-      if (Counter > FDCAN_TIMEOUT_VALUE)
+      if ((HAL_GetTick() - tickstart) > FDCAN_TIMEOUT_VALUE)
       {
         /* Update error code */
         hfdcan->ErrorCode |= HAL_FDCAN_ERROR_TIMEOUT;
@@ -2070,9 +2070,6 @@ HAL_StatusTypeDef HAL_FDCAN_Stop(FDCAN_HandleTypeDef *hfdcan)
 
         return HAL_ERROR;
       }
-
-      /* Increment counter */
-      Counter++;
     }
 
     /* Enable configuration change */
@@ -2224,7 +2221,7 @@ HAL_StatusTypeDef HAL_FDCAN_GetRxMessage(FDCAN_HandleTypeDef *hfdcan, uint32_t R
   uint32_t *RxAddress;
   uint8_t  *pData;
   uint32_t ByteCounter;
-  uint32_t GetIndex = 0;
+  uint32_t GetIndex;
   HAL_FDCAN_StateTypeDef state = hfdcan->State;
 
   /* Check function parameters */
@@ -2244,18 +2241,19 @@ HAL_StatusTypeDef HAL_FDCAN_GetRxMessage(FDCAN_HandleTypeDef *hfdcan, uint32_t R
       }
       else
       {
+        /* Calculate Rx FIFO 0 element index */
+        GetIndex = ((hfdcan->Instance->RXF0S & FDCAN_RXF0S_F0GI) >> FDCAN_RXF0S_F0GI_Pos);
+
         /* Check that the Rx FIFO 0 is full & overwrite mode is on */
         if (((hfdcan->Instance->RXF0S & FDCAN_RXF0S_F0F) >> FDCAN_RXF0S_F0F_Pos) == 1U)
         {
           if (((hfdcan->Instance->RXGFC & FDCAN_RXGFC_F0OM) >> FDCAN_RXGFC_F0OM_Pos) == FDCAN_RX_FIFO_OVERWRITE)
           {
             /* When overwrite status is on discard first message in FIFO */
-            GetIndex = 1U;
+            /* GetIndex is incremented by one and wraps to 0 in case it overflows the FIFO size */
+            GetIndex = (GetIndex + 1U) & SRAMCAN_RF0_NBR;
           }
         }
-
-        /* Calculate Rx FIFO 0 element index */
-        GetIndex += ((hfdcan->Instance->RXF0S & FDCAN_RXF0S_F0GI) >> FDCAN_RXF0S_F0GI_Pos);
 
         /* Calculate Rx FIFO 0 element address */
         RxAddress = (uint32_t *)(hfdcan->msgRam.RxFIFO0SA + (GetIndex * SRAMCAN_RF0_SIZE));
@@ -2273,18 +2271,20 @@ HAL_StatusTypeDef HAL_FDCAN_GetRxMessage(FDCAN_HandleTypeDef *hfdcan, uint32_t R
       }
       else
       {
+        /* Calculate Rx FIFO 1 element index */
+        GetIndex = ((hfdcan->Instance->RXF1S & FDCAN_RXF1S_F1GI) >> FDCAN_RXF1S_F1GI_Pos);
+
         /* Check that the Rx FIFO 1 is full & overwrite mode is on */
         if (((hfdcan->Instance->RXF1S & FDCAN_RXF1S_F1F) >> FDCAN_RXF1S_F1F_Pos) == 1U)
         {
           if (((hfdcan->Instance->RXGFC & FDCAN_RXGFC_F1OM) >> FDCAN_RXGFC_F1OM_Pos) == FDCAN_RX_FIFO_OVERWRITE)
           {
             /* When overwrite status is on discard first message in FIFO */
-            GetIndex = 1U;
+            /* GetIndex is incremented by one and wraps to 0 in case it overflows the FIFO size */
+            GetIndex = (GetIndex + 1U) & SRAMCAN_RF1_NBR;
           }
         }
 
-        /* Calculate Rx FIFO 1 element index */
-        GetIndex += ((hfdcan->Instance->RXF1S & FDCAN_RXF1S_F1GI) >> FDCAN_RXF1S_F1GI_Pos);
         /* Calculate Rx FIFO 1 element address */
         RxAddress = (uint32_t *)(hfdcan->msgRam.RxFIFO1SA + (GetIndex * SRAMCAN_RF1_SIZE));
       }

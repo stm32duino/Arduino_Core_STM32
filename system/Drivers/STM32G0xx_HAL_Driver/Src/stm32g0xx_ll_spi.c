@@ -130,7 +130,7 @@
   *          - SUCCESS: SPI registers are de-initialized
   *          - ERROR: SPI registers are not de-initialized
   */
-ErrorStatus LL_SPI_DeInit(SPI_TypeDef *SPIx)
+ErrorStatus LL_SPI_DeInit(const SPI_TypeDef *SPIx)
 {
   ErrorStatus status = ERROR;
 
@@ -179,8 +179,9 @@ ErrorStatus LL_SPI_DeInit(SPI_TypeDef *SPIx)
 
 /**
   * @brief  Initialize the SPI registers according to the specified parameters in SPI_InitStruct.
-  * @note   As some bits in SPI configuration registers can only be written when the SPI is disabled (SPI_CR1_SPE bit =0),
-  *         SPI peripheral should be in disabled state prior calling this function. Otherwise, ERROR result will be returned.
+  * @note   As some bits in SPI configuration registers can only be written when the
+  *         SPI is disabled (SPI_CR1_SPE bit = 0), SPI peripheral should be in disabled state prior
+  *         calling this function. Otherwise, ERROR result will be returned.
   * @param  SPIx SPI Instance
   * @param  SPI_InitStruct pointer to a @ref LL_SPI_InitTypeDef structure
   * @retval An ErrorStatus enumeration value. (Return always SUCCESS)
@@ -367,7 +368,7 @@ void LL_SPI_StructInit(LL_SPI_InitTypeDef *SPI_InitStruct)
   *          - SUCCESS: SPI registers are de-initialized
   *          - ERROR: SPI registers are not de-initialized
   */
-ErrorStatus LL_I2S_DeInit(SPI_TypeDef *SPIx)
+ErrorStatus LL_I2S_DeInit(const SPI_TypeDef *SPIx)
 {
   return LL_SPI_DeInit(SPIx);
 }
@@ -382,7 +383,7 @@ ErrorStatus LL_I2S_DeInit(SPI_TypeDef *SPIx)
   *          - SUCCESS: SPI registers are Initialized
   *          - ERROR: SPI registers are not Initialized
   */
-ErrorStatus LL_I2S_Init(SPI_TypeDef *SPIx, LL_I2S_InitTypeDef *I2S_InitStruct)
+ErrorStatus LL_I2S_Init(SPI_TypeDef *SPIx,const LL_I2S_InitTypeDef *I2S_InitStruct)
 {
   uint32_t i2sdiv = 2U;
   uint32_t i2sodd = 0U;

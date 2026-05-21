@@ -652,10 +652,10 @@ typedef struct
 #define RCC_MCO_INDEX_POS      28U
 #define RCC_MCO_INDEX_MASK     (0x1UL << RCC_MCO_INDEX_POS)
 #define RCC_MCO1_INDEX         (0x0UL << RCC_MCO_INDEX_POS)             /*!< MCO1 index */
-#define RCC_MCO_PA8            (RCC_MCO1_INDEX | (GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS) | (GPIO_GET_INDEX(GPIOA) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_8)
-#define RCC_MCO_PA9            (RCC_MCO1_INDEX | (GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS) | (GPIO_GET_INDEX(GPIOA) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_9)
-#define RCC_MCO_PD10           (RCC_MCO1_INDEX | (GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS) | (GPIO_GET_INDEX(GPIOD) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_10) /* Not defined for all stm32g0xx family lines */
-#define RCC_MCO_PF2            (RCC_MCO1_INDEX | (GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS) | (GPIO_GET_INDEX(GPIOF) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_2)  /* Not defined for all stm32g0xx family lines */
+#define RCC_MCO_PA8            (RCC_MCO1_INDEX | ((uint32_t)GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS) | ((uint32_t)GPIO_GET_INDEX(GPIOA) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_8)
+#define RCC_MCO_PA9            (RCC_MCO1_INDEX | ((uint32_t)GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS) | ((uint32_t)GPIO_GET_INDEX(GPIOA) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_9)
+#define RCC_MCO_PD10           (RCC_MCO1_INDEX | ((uint32_t)GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS) | ((uint32_t)GPIO_GET_INDEX(GPIOD) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_10) /* Not defined for all stm32g0xx family lines */
+#define RCC_MCO_PF2            (RCC_MCO1_INDEX | ((uint32_t)GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS) | ((uint32_t)GPIO_GET_INDEX(GPIOF) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_2)  /* Not defined for all stm32g0xx family lines */
 #define RCC_MCO1               RCC_MCO_PA8
 
 #if defined(RCC_MCO2_SUPPORT)
@@ -3117,8 +3117,8 @@ typedef struct
 
 /* Initialization and de-initialization functions  ******************************/
 HAL_StatusTypeDef HAL_RCC_DeInit(void);
-HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef *RCC_OscInitStruct);
-HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef *RCC_ClkInitStruct, uint32_t FLatency);
+HAL_StatusTypeDef HAL_RCC_OscConfig(const RCC_OscInitTypeDef *RCC_OscInitStruct);
+HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef *RCC_ClkInitStruct, uint32_t FLatency);
 
 /**
   * @}

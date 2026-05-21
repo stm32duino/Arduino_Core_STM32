@@ -157,7 +157,7 @@ extern "C" {
 #define PWR_FLAG_PVDO                       (0x00020000u | PWR_SR2_PVDO)      /*!< Power Voltage Detector output */
 #endif /* PWR_PVD_SUPPORT */
 #if defined(PWR_PVM_SUPPORT)
-#define PWR_FLAG_PVMO_USB                   (0x00020000u | PWR_SR2_PVMO_USB)  /*!< Power Voltage Monitoring output */
+#define PWR_FLAG_PVMO_VDDIO2                (0x00020000u | PWR_SR2_PVMO_VDDIO2)  /*!< Power Voltage Monitoring output */
 #endif /* PWR_PVM_SUPPORT */
 
 /**

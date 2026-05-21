@@ -477,9 +477,9 @@ HAL_StatusTypeDef HAL_RTCEx_PollForTimeStampEvent(RTC_HandleTypeDef *hrtc, uint3
 {
   uint32_t tickstart = HAL_GetTick();
 
-  while(__HAL_RTC_TIMESTAMP_GET_FLAG(hrtc, RTC_FLAG_TSF) == 0U)
+  while(READ_BIT(RTC->SR, RTC_SR_TSF) == 0U)
   {
-    if(__HAL_RTC_TIMESTAMP_GET_FLAG(hrtc, RTC_FLAG_TSOVF) != 0U)
+    if(READ_BIT(RTC->SR, RTC_SR_TSOVF) != 0U)
     {
       /* Clear the TIMESTAMP OverRun Flag */
       __HAL_RTC_TIMESTAMP_CLEAR_FLAG(hrtc, RTC_FLAG_TSOVF);
@@ -556,7 +556,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetWakeUpTimer(RTC_HandleTypeDef *hrtc, uint32_t Wak
   if (READ_BIT(RTC->ICSR, RTC_ICSR_INITF) == 0U)
   {
     tickstart = HAL_GetTick();
-    while(__HAL_RTC_WAKEUPTIMER_GET_FLAG(hrtc, RTC_FLAG_WUTWF) == 0U)
+    while(READ_BIT(RTC->ICSR, RTC_ICSR_WUTWF) == 0U)
     {
       if((HAL_GetTick() - tickstart ) > RTC_TIMEOUT_VALUE)
       {
@@ -631,7 +631,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetWakeUpTimer_IT(RTC_HandleTypeDef *hrtc, uint32_t 
   if (READ_BIT(RTC->ICSR, RTC_ICSR_INITF) == 0U)
   {
     tickstart = HAL_GetTick();
-    while(__HAL_RTC_WAKEUPTIMER_GET_FLAG(hrtc, RTC_FLAG_WUTWF) == 0U)
+    while(READ_BIT(RTC->ICSR, RTC_ICSR_WUTWF) == 0U)
     {
       if((HAL_GetTick() - tickstart ) > RTC_TIMEOUT_VALUE)
       {
@@ -702,7 +702,7 @@ HAL_StatusTypeDef HAL_RTCEx_DeactivateWakeUpTimer(RTC_HandleTypeDef *hrtc)
 
   tickstart = HAL_GetTick();
   /* Wait till RTC WUTWF flag is set and if Time out is reached exit */
-  while(__HAL_RTC_WAKEUPTIMER_GET_FLAG(hrtc, RTC_FLAG_WUTWF) == 0U)
+  while(READ_BIT(RTC->ICSR, RTC_ICSR_WUTWF) == 0U)
   {
     if((HAL_GetTick() - tickstart ) > RTC_TIMEOUT_VALUE)
     {
@@ -748,7 +748,7 @@ uint32_t HAL_RTCEx_GetWakeUpTimer(RTC_HandleTypeDef *hrtc)
 void HAL_RTCEx_WakeUpTimerIRQHandler(RTC_HandleTypeDef *hrtc)
 {
     /* Get the pending status of the WAKEUPTIMER Interrupt */
-    if(__HAL_RTC_WAKEUPTIMER_GET_FLAG(hrtc, RTC_FLAG_WUTF) != 0U)
+    if(READ_BIT(RTC->SR, RTC_SR_WUTF) != 0U)
     {
       /* Clear the WAKEUPTIMER interrupt pending bit */
       __HAL_RTC_WAKEUPTIMER_CLEAR_FLAG(hrtc, RTC_FLAG_WUTF);
@@ -792,7 +792,7 @@ HAL_StatusTypeDef HAL_RTCEx_PollForWakeUpTimerEvent(RTC_HandleTypeDef *hrtc, uin
 {
   uint32_t tickstart = HAL_GetTick();
 
-  while(__HAL_RTC_WAKEUPTIMER_GET_FLAG(hrtc, RTC_FLAG_WUTF) == 0U)
+  while(READ_BIT(RTC->SR, RTC_SR_WUTF) == 0U)
   {
     if(Timeout != HAL_MAX_DELAY)
     {

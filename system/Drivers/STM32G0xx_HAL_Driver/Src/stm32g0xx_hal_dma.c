@@ -524,14 +524,14 @@ HAL_StatusTypeDef HAL_DMA_Abort(DMA_HandleTypeDef *hdma)
   }
   else
   {
+    /* Disable the channel */
+    __HAL_DMA_DISABLE(hdma);
+
     /* Disable DMA IT */
     __HAL_DMA_DISABLE_IT(hdma, (DMA_IT_TC | DMA_IT_HT | DMA_IT_TE));
 
     /* disable the DMAMUX sync overrun IT*/
     hdma->DMAmuxChannel->CCR &= ~DMAMUX_CxCR_SOIE;
-
-    /* Disable the channel */
-    __HAL_DMA_DISABLE(hdma);
 
     /* Clear all flags */
 #if defined(DMA2)
@@ -582,11 +582,11 @@ HAL_StatusTypeDef HAL_DMA_Abort_IT(DMA_HandleTypeDef *hdma)
   }
   else
   {
-    /* Disable DMA IT */
-    __HAL_DMA_DISABLE_IT(hdma, (DMA_IT_TC | DMA_IT_HT | DMA_IT_TE));
-
     /* Disable the channel */
     __HAL_DMA_DISABLE(hdma);
+
+    /* Disable DMA IT */
+    __HAL_DMA_DISABLE_IT(hdma, (DMA_IT_TC | DMA_IT_HT | DMA_IT_TE));
 
     /* disable the DMAMUX sync overrun IT*/
     hdma->DMAmuxChannel->CCR &= ~DMAMUX_CxCR_SOIE;
@@ -806,51 +806,51 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)
   /* Half Transfer Complete Interrupt management ******************************/
   if (((flag_it & (DMA_FLAG_HT1 << (hdma->ChannelIndex & 0x1CU))) != 0U) && ((source_it & DMA_IT_HT) != 0U))
   {
-      /* Disable the half transfer interrupt if the DMA mode is not CIRCULAR */
-      if ((hdma->Instance->CCR & DMA_CCR_CIRC) == 0U)
-      {
-        /* Disable the half transfer interrupt */
-        __HAL_DMA_DISABLE_IT(hdma, DMA_IT_HT);
-      }
-      /* Clear the half transfer complete flag */
+    /* Disable the half transfer interrupt if the DMA mode is not CIRCULAR */
+    if ((hdma->Instance->CCR & DMA_CCR_CIRC) == 0U)
+    {
+      /* Disable the half transfer interrupt */
+      __HAL_DMA_DISABLE_IT(hdma, DMA_IT_HT);
+    }
+    /* Clear the half transfer complete flag */
 #if defined(DMA2)
-      hdma->DmaBaseAddress->IFCR = DMA_ISR_HTIF1 << (hdma->ChannelIndex & 0x1CU);
+    hdma->DmaBaseAddress->IFCR = DMA_ISR_HTIF1 << (hdma->ChannelIndex & 0x1CU);
 #else
-      __HAL_DMA_CLEAR_FLAG(hdma, (DMA_FLAG_HT1 << (hdma->ChannelIndex & 0x1CU)));
+    __HAL_DMA_CLEAR_FLAG(hdma, (DMA_FLAG_HT1 << (hdma->ChannelIndex & 0x1CU)));
 #endif /* DMA2 */
 
-      /* DMA peripheral state is not updated in Half Transfer */
-      /* but in Transfer Complete case */
+    /* DMA peripheral state is not updated in Half Transfer */
+    /* but in Transfer Complete case */
 
-      if (hdma->XferHalfCpltCallback != NULL)
-      {
-        /* Half transfer callback */
-        hdma->XferHalfCpltCallback(hdma);
-      }
+    if (hdma->XferHalfCpltCallback != NULL)
+    {
+      /* Half transfer callback */
+      hdma->XferHalfCpltCallback(hdma);
+    }
   }
 
   /* Transfer Complete Interrupt management ***********************************/
   else if ((0U != (flag_it & (DMA_FLAG_TC1 << (hdma->ChannelIndex & 0x1CU)))) && (0U != (source_it & DMA_IT_TC)))
   {
-      if ((hdma->Instance->CCR & DMA_CCR_CIRC) == 0U)
-      {
-        /* Disable the transfer complete and error interrupt */
-        __HAL_DMA_DISABLE_IT(hdma, DMA_IT_TE | DMA_IT_TC);
+    if ((hdma->Instance->CCR & DMA_CCR_CIRC) == 0U)
+    {
+      /* Disable the transfer complete and error interrupt */
+      __HAL_DMA_DISABLE_IT(hdma, DMA_IT_TE | DMA_IT_TC);
 
-        /* Change the DMA state */
-        hdma->State = HAL_DMA_STATE_READY;
-      }
-      /* Clear the transfer complete flag */
-      __HAL_DMA_CLEAR_FLAG(hdma, (DMA_FLAG_TC1 << (hdma->ChannelIndex & 0x1CU)));
+      /* Change the DMA state */
+      hdma->State = HAL_DMA_STATE_READY;
+    }
+    /* Clear the transfer complete flag */
+    __HAL_DMA_CLEAR_FLAG(hdma, (DMA_FLAG_TC1 << (hdma->ChannelIndex & 0x1CU)));
 
-      /* Process Unlocked */
-      __HAL_UNLOCK(hdma);
+    /* Process Unlocked */
+    __HAL_UNLOCK(hdma);
 
-      if (hdma->XferCpltCallback != NULL)
-      {
-        /* Transfer complete callback */
-        hdma->XferCpltCallback(hdma);
-      }
+    if (hdma->XferCpltCallback != NULL)
+    {
+      /* Transfer complete callback */
+      hdma->XferCpltCallback(hdma);
+    }
   }
 
   /* Transfer Error Interrupt management **************************************/
@@ -1004,7 +1004,6 @@ HAL_StatusTypeDef HAL_DMA_UnRegisterCallback(DMA_HandleTypeDef *hdma, HAL_DMA_Ca
 /**
   * @}
   */
-
 
 
 /** @defgroup DMA_Exported_Functions_Group3 Peripheral State and Errors functions

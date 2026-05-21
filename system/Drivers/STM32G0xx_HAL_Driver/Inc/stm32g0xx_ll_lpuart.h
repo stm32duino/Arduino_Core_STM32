@@ -56,6 +56,10 @@ static const uint16_t LPUART_PRESCALER_TAB[] =
   (uint16_t)32,
   (uint16_t)64,
   (uint16_t)128,
+  (uint16_t)256,
+  (uint16_t)256,
+  (uint16_t)256,
+  (uint16_t)256,
   (uint16_t)256
 };
 /**
@@ -2603,6 +2607,21 @@ __STATIC_INLINE void LL_LPUART_RequestEnterMuteMode(USART_TypeDef *LPUARTx)
 __STATIC_INLINE void LL_LPUART_RequestRxDataFlush(USART_TypeDef *LPUARTx)
 {
   SET_BIT(LPUARTx->RQR, (uint16_t)USART_RQR_RXFRQ);
+}
+
+/**
+  * @brief  Request a Transmit data FIFO flush
+  * @note   TXFRQ bit is set to flush the whole FIFO when FIFO mode is enabled. This
+  *         also sets the flag TXFE (TXFIFO empty bit in the LPUART_ISR register).
+  * @note   Macro IS_UART_FIFO_INSTANCE(USARTx) can be used to check whether or not
+  *         FIFO mode feature is supported by the USARTx instance.
+  * @rmtoll RQR          TXFRQ         LL_LPUART_RequestTxDataFlush
+  * @param  LPUARTx LPUART Instance
+  * @retval None
+  */
+__STATIC_INLINE void LL_LPUART_RequestTxDataFlush(USART_TypeDef *LPUARTx)
+{
+  SET_BIT(LPUARTx->RQR, (uint16_t)USART_RQR_TXFRQ);
 }
 
 /**

@@ -440,16 +440,16 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
   * @brief  Enable the COMP1 EXTI line rising & falling edge trigger.
   * @retval None
   */
-#define __HAL_COMP_COMP1_EXTI_ENABLE_RISING_FALLING_EDGE() do { \
-                                                                LL_EXTI_EnableRisingTrig_0_31(COMP_EXTI_LINE_COMP1); \
-                                                                LL_EXTI_EnableFallingTrig_0_31(COMP_EXTI_LINE_COMP1);\
+#define __HAL_COMP_COMP1_EXTI_ENABLE_RISING_FALLING_EDGE() do {                                                        \
+                                                                LL_EXTI_EnableRisingTrig_0_31(COMP_EXTI_LINE_COMP1);   \
+                                                                LL_EXTI_EnableFallingTrig_0_31(COMP_EXTI_LINE_COMP1);  \
                                                               } while(0)
 
 /**
   * @brief  Disable the COMP1 EXTI line rising & falling edge trigger.
   * @retval None
   */
-#define __HAL_COMP_COMP1_EXTI_DISABLE_RISING_FALLING_EDGE() do { \
+#define __HAL_COMP_COMP1_EXTI_DISABLE_RISING_FALLING_EDGE() do {                                                       \
                                                                  LL_EXTI_DisableRisingTrig_0_31(COMP_EXTI_LINE_COMP1); \
                                                                  LL_EXTI_DisableFallingTrig_0_31(COMP_EXTI_LINE_COMP1);\
                                                                } while(0)
@@ -536,17 +536,17 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
   * @brief  Enable the COMP2 EXTI line rising & falling edge trigger.
   * @retval None
   */
-#define __HAL_COMP_COMP2_EXTI_ENABLE_RISING_FALLING_EDGE() do { \
-                                                                LL_EXTI_EnableRisingTrig_0_31(COMP_EXTI_LINE_COMP2);\
-                                                                LL_EXTI_EnableFallingTrig_0_31(COMP_EXTI_LINE_COMP2);\
+#define __HAL_COMP_COMP2_EXTI_ENABLE_RISING_FALLING_EDGE() do {                                                        \
+                                                                LL_EXTI_EnableRisingTrig_0_31(COMP_EXTI_LINE_COMP2);   \
+                                                                LL_EXTI_EnableFallingTrig_0_31(COMP_EXTI_LINE_COMP2);  \
                                                               } while(0)
 
 /**
   * @brief  Disable the COMP2 EXTI line rising & falling edge trigger.
   * @retval None
   */
-#define __HAL_COMP_COMP2_EXTI_DISABLE_RISING_FALLING_EDGE() do { \
-                                                                 LL_EXTI_DisableRisingTrig_0_31(COMP_EXTI_LINE_COMP2);\
+#define __HAL_COMP_COMP2_EXTI_DISABLE_RISING_FALLING_EDGE() do {                                                       \
+                                                                 LL_EXTI_DisableRisingTrig_0_31(COMP_EXTI_LINE_COMP2); \
                                                                  LL_EXTI_DisableFallingTrig_0_31(COMP_EXTI_LINE_COMP2);\
                                                                } while(0)
 
@@ -632,19 +632,19 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
   * @brief  Enable the COMP3 EXTI line rising & falling edge trigger.
   * @retval None
   */
-#define __HAL_COMP_COMP3_EXTI_ENABLE_RISING_FALLING_EDGE()   do { \
-                                                                  LL_EXTI_EnableRisingTrig_0_31(COMP_EXTI_LINE_COMP3); \
-                                                                  LL_EXTI_EnableFallingTrig_0_31(COMP_EXTI_LINE_COMP3); \
-                                                                } while(0)
+#define __HAL_COMP_COMP3_EXTI_ENABLE_RISING_FALLING_EDGE() do {                                                        \
+                                                                LL_EXTI_EnableRisingTrig_0_31(COMP_EXTI_LINE_COMP3);   \
+                                                                LL_EXTI_EnableFallingTrig_0_31(COMP_EXTI_LINE_COMP3);  \
+                                                              } while(0)
 
 /**
   * @brief  Disable the COMP3 EXTI line rising & falling edge trigger.
   * @retval None
   */
-#define __HAL_COMP_COMP3_EXTI_DISABLE_RISING_FALLING_EDGE()  do { \
-                                                                  LL_EXTI_DisableRisingTrig_0_31(COMP_EXTI_LINE_COMP3); \
-                                                                  LL_EXTI_DisableFallingTrig_0_31(COMP_EXTI_LINE_COMP3); \
-                                                                } while(0)
+#define __HAL_COMP_COMP3_EXTI_DISABLE_RISING_FALLING_EDGE() do {                                                       \
+                                                                 LL_EXTI_DisableRisingTrig_0_31(COMP_EXTI_LINE_COMP3); \
+                                                                 LL_EXTI_DisableFallingTrig_0_31(COMP_EXTI_LINE_COMP3);\
+                                                               } while(0)
 
 /**
   * @brief  Enable the COMP3 EXTI line in interrupt mode.
@@ -808,14 +808,14 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
                                                                ((__INPUT_PLUS__) == COMP_INPUT_PLUS_IO2) || \
                                                                ((__INPUT_PLUS__) == COMP_INPUT_PLUS_IO3))
 
-#define IS_COMP_INPUT_MINUS(__COMP_INSTANCE__, __INPUT_MINUS__) (((__INPUT_MINUS__) == COMP_INPUT_MINUS_1_4VREFINT)  ||\
-                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_1_2VREFINT)  ||\
-                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_3_4VREFINT)  ||\
-                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_VREFINT)     ||\
-                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_DAC1_CH1)    ||\
-                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_DAC1_CH2)    ||\
-                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_IO1)         ||\
-                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_IO2)         ||\
+#define IS_COMP_INPUT_MINUS(__COMP_INSTANCE__, __INPUT_MINUS__) (((__INPUT_MINUS__) == COMP_INPUT_MINUS_1_4VREFINT)  || \
+                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_1_2VREFINT)  || \
+                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_3_4VREFINT)  || \
+                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_VREFINT)     || \
+                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_DAC1_CH1)    || \
+                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_DAC1_CH2)    || \
+                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_IO1)         || \
+                                                                 ((__INPUT_MINUS__) == COMP_INPUT_MINUS_IO2)         || \
                                                                  ((__INPUT_MINUS__) == COMP_INPUT_MINUS_IO3))
 
 #define IS_COMP_HYSTERESIS(__HYSTERESIS__)  (((__HYSTERESIS__) == COMP_HYSTERESIS_NONE)   || \
@@ -827,12 +827,12 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
                                              ((__POL__) == COMP_OUTPUTPOL_INVERTED))
 
 #define IS_COMP_BLANKINGSRCE(__OUTPUT_BLANKING_SOURCE__)                    \
-  (   ((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_NONE)               \
-      || ((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_TIM1_OC4)           \
-      || ((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_TIM1_OC5)           \
-      || ((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_TIM2_OC3)           \
-      || ((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_TIM3_OC3)           \
-      || ((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_TIM15_OC2)          \
+  (((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_NONE)                  \
+   || ((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_TIM1_OC4)           \
+   || ((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_TIM1_OC5)           \
+   || ((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_TIM2_OC3)           \
+   || ((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_TIM3_OC3)           \
+   || ((__OUTPUT_BLANKING_SOURCE__) == COMP_BLANKINGSRC_TIM15_OC2)          \
   )
 
 /* Note: Output blanking source common to all COMP instances */

@@ -1,6 +1,6 @@
 # STM32CubeG0 HAL Driver MCU Component
 
-![latest tag](https://img.shields.io/github/v/tag/STMicroelectronics/stm32g0xx_hal_driver.svg?color=brightgreen)
+![tag](https://img.shields.io/badge/tag-v1.4.7-brightgreen.svg)
 
 ## Overview
 

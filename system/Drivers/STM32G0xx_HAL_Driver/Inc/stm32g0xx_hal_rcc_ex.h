@@ -1190,7 +1190,7 @@ typedef struct
   * @{
   */
 
-HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *PeriphClkInit);
+HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(RCC_PeriphCLKInitTypeDef const *PeriphClkInit);
 void              HAL_RCCEx_GetPeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *PeriphClkInit);
 uint32_t          HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk);
 
@@ -1215,7 +1215,7 @@ void              HAL_RCCEx_DisableLSCO(void);
   * @{
   */
 
-void              HAL_RCCEx_CRSConfig(RCC_CRSInitTypeDef *pInit);
+void              HAL_RCCEx_CRSConfig(RCC_CRSInitTypeDef const *pInit);
 void              HAL_RCCEx_CRSSoftwareSynchronizationGenerate(void);
 void              HAL_RCCEx_CRSGetSynchronizationInfo(RCC_CRSSynchroInfoTypeDef *pSynchroInfo);
 uint32_t          HAL_RCCEx_CRSWaitSynchronization(uint32_t Timeout);

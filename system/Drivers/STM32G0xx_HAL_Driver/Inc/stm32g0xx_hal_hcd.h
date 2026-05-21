@@ -126,6 +126,9 @@ typedef struct
 /** @defgroup HCD_Exported_Constants HCD Exported Constants
   * @{
   */
+#ifndef HAL_HCD_CHANNEL_NAK_COUNT
+#define HAL_HCD_CHANNEL_NAK_COUNT           2U
+#endif /* HAL_HCD_CHANNEL_NAK_COUNT */
 
 /** @defgroup HCD_Speed HCD Speed
   * @{
@@ -151,6 +154,8 @@ typedef struct
   */
 #define HCD_PHY_ULPI                 1U
 #define HCD_PHY_EMBEDDED             2U
+#define HCD_HS_PHY_EMBEDDED          3U
+#define HCD_PHY_UTMI                 3U
 /**
   * @}
   */
@@ -205,6 +210,7 @@ HAL_StatusTypeDef HAL_HCD_HC_Init(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
                                   uint8_t speed, uint8_t ep_type, uint16_t mps);
 
 HAL_StatusTypeDef HAL_HCD_HC_Halt(HCD_HandleTypeDef *hhcd, uint8_t ch_num);
+HAL_StatusTypeDef HAL_HCD_HC_Activate(HCD_HandleTypeDef *hhcd, uint8_t ch_num);
 
 HAL_StatusTypeDef HAL_HCD_HC_Close(HCD_HandleTypeDef *hhcd, uint8_t ch_num);
 
@@ -359,11 +365,14 @@ HAL_StatusTypeDef  HAL_HCD_PMAReset(HCD_HandleTypeDef *hhcd);
 /** @defgroup HCD_ENDP_Kind HCD Endpoint Kind
   * @{
   */
-#define HCD_SNG_BUF                            0U
-#define HCD_DBL_BUF                            1U
+#define HCD_SNG_BUF                              0U
+#define HCD_DBL_BUF                              1U
 /**
   * @}
   */
+
+/* Powerdown exit count */
+#define HCD_PDWN_EXIT_CNT                    0x100U
 
 /* Set Channel */
 #define HCD_SET_CHANNEL                        USB_DRD_SET_CHEP
@@ -495,13 +504,14 @@ HAL_StatusTypeDef  HAL_HCD_PMAReset(HCD_HandleTypeDef *hhcd);
 __STATIC_INLINE uint16_t HCD_GET_CH_RX_CNT(HCD_TypeDef *Instance, uint16_t bChNum)
 {
   uint32_t HostCoreSpeed;
+  uint32_t ep_reg = USB_DRD_GET_CHEP(Instance, bChNum);
   __IO uint32_t count = 10U;
 
   /* Get Host core Speed */
   HostCoreSpeed = USB_GetHostSpeed(Instance);
 
   /* Count depends on device LS */
-  if (HostCoreSpeed == USB_DRD_SPEED_LS)
+  if ((HostCoreSpeed == USB_DRD_SPEED_LS) || ((ep_reg & USB_CHEP_LSEP) == USB_CHEP_LSEP))
   {
     count = (70U * (HAL_RCC_GetHCLKFreq() / 1000000U)) / 100U;
   }

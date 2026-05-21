@@ -352,7 +352,13 @@ HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp)
     else
     {
       CLEAR_BIT(*comp_common_odd, COMP_CSR_WINMODE);
-      CLEAR_BIT(*comp_common_even, COMP_CSR_WINMODE);
+
+      /* Note: In case of COMP3, COMP2 can also be used in window mode with   */
+      /*       COMP1. Therefore, do not change windowmode parameter of COMP2 */
+      if (hcomp->Instance != COMP3)
+      {
+        CLEAR_BIT(*comp_common_even, COMP_CSR_WINMODE);
+      }
     }
 
     /* Set window mode output */

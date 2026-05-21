@@ -63,7 +63,6 @@ extern "C" {
 #define ADC_REG_RANK_8_SQRX_BITOFFSET_POS  (28UL) /* Equivalent to bitfield "ADC_CHSELR_SQ8" position in register */
 
 
-
 /* Internal mask for ADC group regular trigger:                               */
 /* To select into literal LL_ADC_REG_TRIG_x the relevant bits for:            */
 /* - regular trigger source                                                   */
@@ -91,7 +90,6 @@ extern "C" {
 /* Definition of ADC group regular trigger bits information.                  */
 #define ADC_REG_TRIG_EXTSEL_BITOFFSET_POS  ( 6UL) /* Equivalent to bitfield "ADC_CFGR1_EXTSEL" position in register */
 #define ADC_REG_TRIG_EXTEN_BITOFFSET_POS   (10UL) /* Equivalent to bitfield "ADC_CFGR1_EXTEN" position in register */
-
 
 
 /* Internal mask for ADC channel:                                             */
@@ -218,7 +216,6 @@ extern "C" {
 #define ADC_AWD_TRX_BIT_HIGH_SHIFT4        (ADC_AWD_TRX_BIT_HIGH_POS - 4UL) /* Shift of bit ADC_AWD_TRX_BIT_HIGH to
                                                                                position to perform a shift of 4 ranks */
 #define ADC_AWD_TRX_REGOFFSET_BITOFFSET_POS (20UL)
-
 
 
 /* ADC registers bits positions */
@@ -3901,7 +3898,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetChannelSamplingTime(const ADC_TypeDef *ADCx, 
   uint32_t smp_channel_posbit0 = ((smpr & ADC_SAMPLING_TIME_CH_MASK)
                                   >> ((((Channel & ADC_CHANNEL_ID_NUMBER_MASK) >> ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS)
                                        + ADC_SMPR_SMPSEL0_BITOFFSET_POS)
-                                      & 0x1FUL));
+                                      & 0x1FUL)) & 0x01UL;
 
   /* Select sampling time bitfield depending on sampling time bit value 0 or 1.  */
   return ((~(smp_channel_posbit0) * LL_ADC_SAMPLINGTIME_COMMON_1)
@@ -3985,7 +3982,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetChannelSamplingTime(const ADC_TypeDef *ADCx, 
   *         @arg @ref LL_ADC_AWD_CH_VBAT_REG
   * @retval None
   */
-__STATIC_INLINE void LL_ADC_SetAnalogWDMonitChannels(ADC_TypeDef *ADCx, uint32_t AWDy, uint32_t AWDChannelGroup)
+__STATIC_INLINE void LL_ADC_SetAnalogWDMonitChannels(ADC_TypeDef const *ADCx, uint32_t AWDy, uint32_t AWDChannelGroup)
 {
   /* Set bits with content of parameter "AWDChannelGroup" with bits position  */
   /* in register and register position depending on parameter "AWDy".         */
@@ -4205,7 +4202,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetAnalogWDMonitChannels(const ADC_TypeDef *ADCx
   * @param  AWDThresholdLowValue Value between Min_Data=0x000 and Max_Data=0xFFF
   * @retval None
   */
-__STATIC_INLINE void LL_ADC_ConfigAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t AWDy, uint32_t AWDThresholdHighValue,
+__STATIC_INLINE void LL_ADC_ConfigAnalogWDThresholds(ADC_TypeDef const *ADCx, uint32_t AWDy, uint32_t AWDThresholdHighValue,
                                                      uint32_t AWDThresholdLowValue)
 {
   /* Set bits with content of parameter "AWDThresholdxxxValue" with bits      */
@@ -4288,7 +4285,7 @@ __STATIC_INLINE void LL_ADC_ConfigAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t
   * @param  AWDThresholdValue Value between Min_Data=0x000 and Max_Data=0xFFF
   * @retval None
   */
-__STATIC_INLINE void LL_ADC_SetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t AWDy, uint32_t AWDThresholdsHighLow,
+__STATIC_INLINE void LL_ADC_SetAnalogWDThresholds(ADC_TypeDef const *ADCx, uint32_t AWDy, uint32_t AWDThresholdsHighLow,
                                                   uint32_t AWDThresholdValue)
 {
   /* Set bits with content of parameter "AWDThresholdValue" with bits         */
@@ -4777,8 +4774,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_IsStopConversionOngoing(const ADC_TypeDef *A
 /**
   * @brief  Get ADC group regular conversion data, range fit for
   *         all ADC configurations: all ADC resolutions and
-  *         all oversampling increased data width (for devices
-  *         with feature oversampling).
+  *         features extending data width (oversampling, data shift,...).
   * @rmtoll DR       DATA           LL_ADC_REG_ReadConversionData32
   * @param  ADCx ADC instance
   * @retval Value between Min_Data=0x00000000 and Max_Data=0xFFFFFFFF
@@ -5455,7 +5451,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_EOCAL(const ADC_TypeDef *ADCx)
   */
 
 /* Initialization of some features of ADC common parameters and multimode */
-ErrorStatus LL_ADC_CommonDeInit(ADC_Common_TypeDef *ADCxy_COMMON);
+ErrorStatus LL_ADC_CommonDeInit(ADC_Common_TypeDef const *ADCxy_COMMON);
 ErrorStatus LL_ADC_CommonInit(ADC_Common_TypeDef *ADCxy_COMMON, const LL_ADC_CommonInitTypeDef *pADC_CommonInitStruct);
 void        LL_ADC_CommonStructInit(LL_ADC_CommonInitTypeDef *pADC_CommonInitStruct);
 

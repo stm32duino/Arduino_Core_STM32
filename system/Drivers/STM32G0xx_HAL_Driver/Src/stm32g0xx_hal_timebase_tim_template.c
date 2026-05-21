@@ -57,6 +57,9 @@ TIM_HandleTypeDef TimHandle = {.Init = {0}};
 
 /* Private function prototypes -----------------------------------------------*/
 void TIM14_IRQHandler(void);
+#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1U)
+void TimeBase_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
+#endif /* USE_HAL_TIM_REGISTER_CALLBACKS */
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -119,6 +122,10 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
     TimHandle.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
     if (HAL_TIM_Base_Init(&TimHandle) == HAL_OK)
     {
+#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1U)
+      /* Register callback */
+      HAL_TIM_RegisterCallback(&TimHandle, HAL_TIM_PERIOD_ELAPSED_CB_ID, TimeBase_TIM_PeriodElapsedCallback);
+#endif /* USE_HAL_TIM_REGISTER_CALLBACKS */
       /* Start the TIM time Base generation in interrupt mode */
       if (HAL_TIM_Base_Start_IT(&TimHandle) == HAL_OK)
       {
@@ -186,8 +193,15 @@ void HAL_ResumeTick(void)
   * @param  htim TIM handle
   * @retval None
   */
+#if (USE_HAL_TIM_REGISTER_CALLBACKS == 1U)
+void TimeBase_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+#else
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+#endif /* USE_HAL_TIM_REGISTER_CALLBACKS */
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(htim);
+
   HAL_IncTick();
 }
 
