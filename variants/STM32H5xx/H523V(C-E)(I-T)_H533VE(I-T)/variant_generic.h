@@ -187,6 +187,14 @@
   #define PIN_WIRE_SCL          PB10
 #endif
 
+// I3C definitions
+#ifndef PIN_I3C_SDA
+  #define PIN_I3C_SDA           PB4
+#endif
+#ifndef PIN_I3C_SCL
+  #define PIN_I3C_SCL           PA8
+#endif
+
 // Timer Definitions
 // Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
 #ifndef TIMER_TONE
@@ -213,6 +221,9 @@
 // Extra HAL modules
 #if !defined(HAL_DAC_MODULE_DISABLED)
   #define HAL_DAC_MODULE_ENABLED
+#endif
+#if !defined(HAL_I3C_MODULE_DISABLED)
+  #define HAL_I3C_MODULE_ENABLED
 #endif
 #if !defined(HAL_OSPI_MODULE_DISABLED)
   #define HAL_OSPI_MODULE_ENABLED

@@ -302,6 +302,9 @@
 #if !defined(HAL_DAC_MODULE_DISABLED)
   #define HAL_DAC_MODULE_ENABLED
 #endif
+#if !defined(HAL_I3C_MODULE_DISABLED)
+  #define HAL_I3C_MODULE_ENABLED
+#endif
 #if !defined(HAL_ETH_MODULE_DISABLED)
   #define HAL_ETH_MODULE_ENABLED
 #endif
