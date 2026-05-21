@@ -1617,17 +1617,25 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
 
 /** @defgroup HRTIM_Deadtime_Prescaler_Ratio HRTIM Dead-time Prescaler Ratio
   * @{
-  * @brief Constants defining division ratio between the timer clock frequency
-  *        (fHRTIM) and the dead-time generator clock (fDTG)
+  * @brief Constants defining the prescaler value for the deadtime generator time step (tDTG) relative to the
+  *        HR-Timer clock period (tHRTIM).
+  * @note A customer reported that the HRTIM deadtime prescaler defines in
+  *       stm32g4xx_ll_hrtim.h were swapped between the multiplication (MUL) and
+  *       division (DIV) settings (for example, MUL8 and DIV8 values were reversed).
+  *       The legacy naming is intentionally kept for backward compatibility, even
+  *       though it does not strictly match the reference manual. Renaming these
+  *       constants would introduce a breaking API change, which may lead to
+  *       incorrect deadtime programming and potential safety issues due to deadtime
+  *       violations in existing applications.
   */
-#define HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV8    (0x00000000U)                                                   /*!< fDTG = fHRTIM / 8U */
-#define HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV4    (HRTIM_DTR_DTPRSC_0)                                            /*!< fDTG = fHRTIM / 4U */
-#define HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV2    (HRTIM_DTR_DTPRSC_1)                                            /*!< fDTG = fHRTIM / 2U */
-#define HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV1    (HRTIM_DTR_DTPRSC_1 | HRTIM_DTR_DTPRSC_0)                       /*!< fDTG = fHRTIM */
-#define HRTIM_TIMDEADTIME_PRESCALERRATIO_MUL2    (HRTIM_DTR_DTPRSC_2)                                            /*!< fDTG = fHRTIM * 2U */
-#define HRTIM_TIMDEADTIME_PRESCALERRATIO_MUL4    (HRTIM_DTR_DTPRSC_2 | HRTIM_DTR_DTPRSC_0)                       /*!< fDTG = fHRTIM * 4U */
-#define HRTIM_TIMDEADTIME_PRESCALERRATIO_MUL8    (HRTIM_DTR_DTPRSC_2 | HRTIM_DTR_DTPRSC_1)                       /*!< fDTG = fHRTIM * 8U */
-#define HRTIM_TIMDEADTIME_PRESCALERRATIO_MUL16   (HRTIM_DTR_DTPRSC_2 | HRTIM_DTR_DTPRSC_1 | HRTIM_DTR_DTPRSC_0)  /*!< fDTG = fHRTIM * 16U */
+#define HRTIM_TIMDEADTIME_PRESCALERRATIO_MUL8    (0x00000000U)                                                   /*!< tDTG = tHRTIM / 8U */
+#define HRTIM_TIMDEADTIME_PRESCALERRATIO_MUL4    (HRTIM_DTR_DTPRSC_0)                                            /*!< tDTG = tHRTIM / 4U */
+#define HRTIM_TIMDEADTIME_PRESCALERRATIO_MUL2    (HRTIM_DTR_DTPRSC_1)                                            /*!< tDTG = tHRTIM / 2U */
+#define HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV1    (HRTIM_DTR_DTPRSC_1 | HRTIM_DTR_DTPRSC_0)                       /*!< tDTG = tHRTIM */
+#define HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV2    (HRTIM_DTR_DTPRSC_2)                                            /*!< tDTG = tHRTIM * 2U */
+#define HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV4    (HRTIM_DTR_DTPRSC_2 | HRTIM_DTR_DTPRSC_0)                       /*!< tDTG = tHRTIM * 4U */
+#define HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV8    (HRTIM_DTR_DTPRSC_2 | HRTIM_DTR_DTPRSC_1)                       /*!< tDTG = tHRTIM * 8U */
+#define HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV16   (HRTIM_DTR_DTPRSC_2 | HRTIM_DTR_DTPRSC_1 | HRTIM_DTR_DTPRSC_0)  /*!< tDTG = tHRTIM * 16U */
 /**
   * @}
   */
@@ -3223,14 +3231,14 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
    ((TIMEVENTLATCH) == HRTIM_TIMEVENTLATCH_ENABLED))
 
 #define IS_HRTIM_TIMDEADTIME_PRESCALERRATIO(PRESCALERRATIO)\
-  (((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV8) || \
-   ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV4) || \
-   ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV2) || \
-   ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV1) || \
-   ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_MUL2) || \
+  (((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_MUL8) || \
    ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_MUL4) || \
-   ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_MUL8) || \
-   ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_MUL16))
+   ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_MUL2) || \
+   ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV1) || \
+   ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV2) || \
+   ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV4) || \
+   ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV8) || \
+   ((PRESCALERRATIO) == HRTIM_TIMDEADTIME_PRESCALERRATIO_DIV16))
 
 #define IS_HRTIM_TIMDEADTIME_RISINGSIGN(RISINGSIGN)\
   (((RISINGSIGN) == HRTIM_TIMDEADTIME_RISINGSIGN_POSITIVE)    || \

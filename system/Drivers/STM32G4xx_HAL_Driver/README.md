@@ -1,6 +1,6 @@
 # STM32CubeG4 HAL Driver MCU Component
 
-![tag](https://img.shields.io/badge/tag-v1.2.6-brightgreen.svg)
+![tag](https://img.shields.io/badge/tag-v1.2.7-brightgreen.svg)
 
 ## Overview
 

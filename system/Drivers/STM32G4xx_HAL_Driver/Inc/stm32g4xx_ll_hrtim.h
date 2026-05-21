@@ -1273,16 +1273,25 @@ static const uint32_t REG_MASK_TAB_CPT[] =
 
 /** @defgroup HRTIM_LL_EC_DT_PRESCALER DEADTIME PRESCALER
   * @{
-  * @brief Constants defining division ratio between the timer clock frequency (fHRTIM) and the deadtime generator clock (fDTG).
+  * @brief Constants defining the prescaler value for the deadtime generator time step (tDTG) relative to the
+  *        HR-Timer clock period (tHRTIM).
+  * @note A customer reported that the HRTIM deadtime prescaler defines in
+  *       stm32g4xx_ll_hrtim.h were swapped between the multiplication (MUL) and
+  *       division (DIV) settings (for example, MUL8 and DIV8 values were reversed).
+  *       The legacy naming is intentionally kept for backward compatibility, even
+  *       though it does not strictly match the reference manual. Renaming these
+  *       constants would introduce a breaking API change, which may lead to
+  *       incorrect deadtime programming and potential safety issues due to deadtime
+  *       violations in existing applications.
   */
-#define LL_HRTIM_DT_PRESCALER_DIV8    0x00000000U                                                     /*!< fDTG = fHRTIM / 8 */
-#define LL_HRTIM_DT_PRESCALER_DIV4    (HRTIM_DTR_DTPRSC_0)                                            /*!< fDTG = fHRTIM / 4 */
-#define LL_HRTIM_DT_PRESCALER_DIV2    (HRTIM_DTR_DTPRSC_1)                                            /*!< fDTG = fHRTIM / 2 */
-#define LL_HRTIM_DT_PRESCALER_DIV1    (HRTIM_DTR_DTPRSC_1 | HRTIM_DTR_DTPRSC_0)                       /*!< fDTG = fHRTIM */
-#define LL_HRTIM_DT_PRESCALER_MUL2    (HRTIM_DTR_DTPRSC_2)                                            /*!< fDTG = fHRTIM * 2 */
-#define LL_HRTIM_DT_PRESCALER_MUL4    (HRTIM_DTR_DTPRSC_2 | HRTIM_DTR_DTPRSC_0)                       /*!< fDTG = fHRTIM * 4 */
-#define LL_HRTIM_DT_PRESCALER_MUL8    (HRTIM_DTR_DTPRSC_2 | HRTIM_DTR_DTPRSC_1)                       /*!< fDTG = fHRTIM * 8 */
-#define LL_HRTIM_DT_PRESCALER_MUL16   (HRTIM_DTR_DTPRSC_2 | HRTIM_DTR_DTPRSC_1 | HRTIM_DTR_DTPRSC_0)  /*!< fDTG = fHRTIM * 16 */
+#define LL_HRTIM_DT_PRESCALER_MUL8    0x00000000U                                                     /*!< tDTG = tHRTIM / 8 */
+#define LL_HRTIM_DT_PRESCALER_MUL4    (HRTIM_DTR_DTPRSC_0)                                            /*!< tDTG = tHRTIM / 4 */
+#define LL_HRTIM_DT_PRESCALER_MUL2    (HRTIM_DTR_DTPRSC_1)                                            /*!< tDTG = tHRTIM / 2 */
+#define LL_HRTIM_DT_PRESCALER_DIV1    (HRTIM_DTR_DTPRSC_1 | HRTIM_DTR_DTPRSC_0)                       /*!< tDTG = tHRTIM */
+#define LL_HRTIM_DT_PRESCALER_DIV2    (HRTIM_DTR_DTPRSC_2)                                            /*!< tDTG = tHRTIM * 2 */
+#define LL_HRTIM_DT_PRESCALER_DIV4    (HRTIM_DTR_DTPRSC_2 | HRTIM_DTR_DTPRSC_0)                       /*!< tDTG = tHRTIM * 4 */
+#define LL_HRTIM_DT_PRESCALER_DIV8    (HRTIM_DTR_DTPRSC_2 | HRTIM_DTR_DTPRSC_1)                       /*!< tDTG = tHRTIM * 8 */
+#define LL_HRTIM_DT_PRESCALER_DIV16    (HRTIM_DTR_DTPRSC_2 | HRTIM_DTR_DTPRSC_1 | HRTIM_DTR_DTPRSC_0) /*!< tDTG = tHRTIM * 16 */
 /**
   * @}
   */
@@ -2836,7 +2845,8 @@ __STATIC_INLINE uint32_t LL_HRTIM_IsDisabledOutput(const HRTIM_TypeDef *HRTIMx, 
   *         @arg @ref LL_HRTIM_ADCTRIG_SRC6810_TIMF_PER
   * @retval None
   */
-__STATIC_INLINE void LL_HRTIM_ConfigADCTrig(const HRTIM_TypeDef *HRTIMx, uint32_t ADCTrig, uint32_t Update, uint32_t Src)
+__STATIC_INLINE void LL_HRTIM_ConfigADCTrig(const HRTIM_TypeDef *HRTIMx, uint32_t ADCTrig, uint32_t Update,
+                                            uint32_t Src)
 {
   __IO uint32_t *padcur = (__IO uint32_t *)((uint32_t)((uint32_t)(&HRTIMx->sCommonRegs.CR1) +
                                                        REG_OFFSET_TAB_ADCUR[ADCTrig]));
@@ -6133,7 +6143,8 @@ __STATIC_INLINE uint32_t LL_HRTIM_TIM_GetIdlePushPullStatus(const HRTIM_TypeDef 
 
   * @retval None
   */
-__STATIC_INLINE void LL_HRTIM_TIM_SetEventFilter(const HRTIM_TypeDef *HRTIMx, uint32_t Timer, uint32_t Event, uint32_t Filter)
+__STATIC_INLINE void LL_HRTIM_TIM_SetEventFilter(const HRTIM_TypeDef *HRTIMx, uint32_t Timer, uint32_t Event,
+                                                 uint32_t Filter)
 {
   uint32_t iTimer = (uint8_t)(POSITION_VAL(Timer) - POSITION_VAL(LL_HRTIM_TIMER_A));
   uint32_t iEvent = (uint8_t)(POSITION_VAL(Event) - POSITION_VAL(LL_HRTIM_EVENT_1));
@@ -6984,7 +6995,8 @@ __STATIC_INLINE uint32_t LL_HRTIM_TIM_IsEnabledDualDacTrigger(const HRTIM_TypeDe
   * @param  Threshold This parameter can be a number between Min_Data=0 and Max_Data=63
   * @retval None
   */
-__STATIC_INLINE void LL_HRTIM_TIM_SetEventCounterThreshold(const HRTIM_TypeDef *HRTIMx, uint32_t Timer, uint32_t EventCounter,
+__STATIC_INLINE void LL_HRTIM_TIM_SetEventCounterThreshold(const HRTIM_TypeDef *HRTIMx, uint32_t Timer,
+                                                           uint32_t EventCounter,
                                                            uint32_t Threshold)
 {
   uint32_t iTimer = (uint8_t)(POSITION_VAL(Timer) - POSITION_VAL(LL_HRTIM_TIMER_A));
@@ -7050,7 +7062,8 @@ __STATIC_INLINE uint32_t LL_HRTIM_TIM_GetEventCounterThreshold(const HRTIM_TypeD
   *         @arg @ref LL_HRTIM_EVENT_10
   * @retval None
   */
-__STATIC_INLINE void LL_HRTIM_TIM_SetEventCounterSource(const HRTIM_TypeDef *HRTIMx, uint32_t Timer, uint32_t EventCounter,
+__STATIC_INLINE void LL_HRTIM_TIM_SetEventCounterSource(const HRTIM_TypeDef *HRTIMx, uint32_t Timer,
+                                                        uint32_t EventCounter,
                                                         uint32_t Event)
 {
   uint32_t iTimer = (uint8_t)(POSITION_VAL(Timer) - POSITION_VAL(LL_HRTIM_TIMER_A));
@@ -7123,7 +7136,8 @@ __STATIC_INLINE uint32_t LL_HRTIM_TIM_GetEventCounterSource(const HRTIM_TypeDef 
   *         @arg @ref LL_HRTIM_EE_COUNTER_RSTMODE_CONDITIONAL
   * @retval None
   */
-__STATIC_INLINE void LL_HRTIM_TIM_SetEventCounterResetMode(const HRTIM_TypeDef *HRTIMx, uint32_t Timer, uint32_t EventCounter,
+__STATIC_INLINE void LL_HRTIM_TIM_SetEventCounterResetMode(const HRTIM_TypeDef *HRTIMx, uint32_t Timer,
+                                                           uint32_t EventCounter,
                                                            uint32_t Mode)
 {
   uint32_t iTimer = (uint8_t)(POSITION_VAL(Timer) - POSITION_VAL(LL_HRTIM_TIMER_A));
@@ -7227,7 +7241,8 @@ __STATIC_INLINE void LL_HRTIM_TIM_EnableEventCounter(const HRTIM_TypeDef *HRTIMx
   *         @arg @ref LL_HRTIM_EE_COUNTER_B
   * @retval None
   */
-__STATIC_INLINE void LL_HRTIM_TIM_DisableEventCounter(const HRTIM_TypeDef *HRTIMx, uint32_t Timer, uint32_t EventCounter)
+__STATIC_INLINE void LL_HRTIM_TIM_DisableEventCounter(const HRTIM_TypeDef *HRTIMx, uint32_t Timer,
+                                                      uint32_t EventCounter)
 {
   uint32_t iTimer = (uint8_t)(POSITION_VAL(Timer) - POSITION_VAL(LL_HRTIM_TIMER_A));
   __IO uint32_t *pReg = (__IO uint32_t *)((uint32_t)((uint32_t)(&HRTIMx->sTimerxRegs[iTimer].EEFxR3)));
@@ -7312,14 +7327,14 @@ __STATIC_INLINE void LL_HRTIM_DT_Config(const HRTIM_TypeDef *HRTIMx, uint32_t Ti
   *         @arg @ref LL_HRTIM_TIMER_E
   *         @arg @ref LL_HRTIM_TIMER_F
   * @param  Prescaler This parameter can be one of the following values:
-  *         @arg @ref LL_HRTIM_DT_PRESCALER_DIV8
-  *         @arg @ref LL_HRTIM_DT_PRESCALER_DIV4
-  *         @arg @ref LL_HRTIM_DT_PRESCALER_DIV2
-  *         @arg @ref LL_HRTIM_DT_PRESCALER_DIV1
-  *         @arg @ref LL_HRTIM_DT_PRESCALER_MUL2
-  *         @arg @ref LL_HRTIM_DT_PRESCALER_MUL4
   *         @arg @ref LL_HRTIM_DT_PRESCALER_MUL8
-  *         @arg @ref LL_HRTIM_DT_PRESCALER_MUL16
+  *         @arg @ref LL_HRTIM_DT_PRESCALER_MUL4
+  *         @arg @ref LL_HRTIM_DT_PRESCALER_MUL2
+  *         @arg @ref LL_HRTIM_DT_PRESCALER_DIV1
+  *         @arg @ref LL_HRTIM_DT_PRESCALER_DIV2
+  *         @arg @ref LL_HRTIM_DT_PRESCALER_DIV4
+  *         @arg @ref LL_HRTIM_DT_PRESCALER_DIV8
+  *         @arg @ref LL_HRTIM_DT_PRESCALER_DIV16
   * @retval None
   */
 __STATIC_INLINE void LL_HRTIM_DT_SetPrescaler(const HRTIM_TypeDef *HRTIMx, uint32_t Timer, uint32_t Prescaler)
@@ -7342,14 +7357,14 @@ __STATIC_INLINE void LL_HRTIM_DT_SetPrescaler(const HRTIM_TypeDef *HRTIMx, uint3
   *         @arg @ref LL_HRTIM_TIMER_E
   *         @arg @ref LL_HRTIM_TIMER_F
   * @retval Prescaler This parameter can be one of the following values:
-  *         @arg @ref LL_HRTIM_DT_PRESCALER_DIV8
-  *         @arg @ref LL_HRTIM_DT_PRESCALER_DIV4
-  *         @arg @ref LL_HRTIM_DT_PRESCALER_DIV2
-  *         @arg @ref LL_HRTIM_DT_PRESCALER_DIV1
-  *         @arg @ref LL_HRTIM_DT_PRESCALER_MUL2
-  *         @arg @ref LL_HRTIM_DT_PRESCALER_MUL4
   *         @arg @ref LL_HRTIM_DT_PRESCALER_MUL8
-  *         @arg @ref LL_HRTIM_DT_PRESCALER_MUL16
+  *         @arg @ref LL_HRTIM_DT_PRESCALER_MUL4
+  *         @arg @ref LL_HRTIM_DT_PRESCALER_MUL2
+  *         @arg @ref LL_HRTIM_DT_PRESCALER_DIV1
+  *         @arg @ref LL_HRTIM_DT_PRESCALER_DIV2
+  *         @arg @ref LL_HRTIM_DT_PRESCALER_DIV4
+  *         @arg @ref LL_HRTIM_DT_PRESCALER_DIV8
+  *         @arg @ref LL_HRTIM_DT_PRESCALER_DIV16
   */
 __STATIC_INLINE uint32_t LL_HRTIM_DT_GetPrescaler(const HRTIM_TypeDef *HRTIMx, uint32_t Timer)
 {
@@ -10095,7 +10110,7 @@ __STATIC_INLINE uint32_t LL_HRTIM_FLT_IsEnabledBlanking(const HRTIM_TypeDef *HRT
 {
   uint32_t iFault = (uint8_t)POSITION_VAL(Fault);
   const __IO uint32_t *pReg = (__IO uint32_t *)((uint32_t)((uint32_t)(&HRTIMx->sCommonRegs.FLTINR3) +
-                                                     REG_OFFSET_TAB_FLTINR[iFault]));
+                                                           REG_OFFSET_TAB_FLTINR[iFault]));
   uint32_t temp; /* MISRAC-2012 compliance */
   temp = READ_BIT(*pReg, (uint32_t)(HRTIM_FLTINR3_FLT1BLKE) << REG_SHIFT_TAB_FLTxE[iFault]) >> REG_SHIFT_TAB_FLTxE[iFault];
 
