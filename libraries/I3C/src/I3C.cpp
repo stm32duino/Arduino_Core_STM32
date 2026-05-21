@@ -676,13 +676,13 @@ bool I3CBus::isI3CDeviceReady(uint8_t dynAddr, uint32_t trials, uint32_t timeout
 // Low-level CCC helpers
 // ============================================================================
 
-int I3CBus::cccBroadcastWrite(uint8_t cccId,
+bool I3CBus::cccBroadcastWrite(uint8_t cccId,
                               const uint8_t *data,
                               uint16_t length,
                               bool withDefByte,
                               uint32_t timeout)
 {
-  int result = -1;
+  bool result = false;
 
   if (_initialized) {
     uint32_t        controlBuffer[0xFF];
@@ -712,11 +712,11 @@ int I3CBus::cccBroadcastWrite(uint8_t cccId,
     if (st == HAL_OK) {
       st = HAL_I3C_Ctrl_TransmitCCC(&_hi3c, &context, timeout);
       if (st == HAL_OK) {
-        result = 0;
+        result = true;
       } else {
         uint32_t err = HAL_I3C_GetError(&_hi3c);
         if ((err & HAL_I3C_ERROR_CE2) != 0U) {
-          result = 0;
+          result = true;
         }
       }
     }
@@ -725,14 +725,14 @@ int I3CBus::cccBroadcastWrite(uint8_t cccId,
   return result;
 }
 
-int I3CBus::cccDirectWrite(uint8_t targetAddr,
+bool I3CBus::cccDirectWrite(uint8_t targetAddr,
                            uint8_t cccId,
                            const uint8_t *data,
                            uint16_t length,
                            bool withDefByte,
                            uint32_t timeout)
 {
-  int result = -1;
+  bool result = false;
 
   if (_initialized) {
     uint32_t        controlBuffer[0xFF];
@@ -767,7 +767,7 @@ int I3CBus::cccDirectWrite(uint8_t targetAddr,
     if (st == HAL_OK) {
       st = HAL_I3C_Ctrl_TransmitCCC(&_hi3c, &context, timeout);
       if (st == HAL_OK) {
-        result = 0;
+        result = true;
       }
     }
   }
@@ -775,13 +775,13 @@ int I3CBus::cccDirectWrite(uint8_t targetAddr,
   return result;
 }
 
-int I3CBus::cccDirectRead(uint8_t targetAddr,
+bool I3CBus::cccDirectRead(uint8_t targetAddr,
                           uint8_t cccId,
                           uint8_t *rxData,
                           uint16_t rxLength,
                           uint32_t timeout)
 {
-  int result = -1;
+  bool result = false;
 
   if (_initialized && (rxData != nullptr) && (rxLength != 0U)) {
     uint32_t        controlBuffer[0xFF];
@@ -812,7 +812,7 @@ int I3CBus::cccDirectRead(uint8_t targetAddr,
     if (st == HAL_OK) {
       st = HAL_I3C_Ctrl_ReceiveCCC(&_hi3c, &context, timeout);
       if (st == HAL_OK) {
-        result = 0;
+        result = true;
       }
     }
   }
@@ -824,45 +824,38 @@ int I3CBus::cccDirectRead(uint8_t targetAddr,
 // CCC direct-read helpers
 // ============================================================================
 
-int I3CBus::getbcr(uint8_t dynAddr, uint8_t &bcr, uint32_t timeout)
+bool I3CBus::getbcr(uint8_t dynAddr, uint8_t &bcr, uint32_t timeout)
 {
-  int result = 0;
+  bool result = false;
   uint8_t rxData[1] = {0};
 
-  int rc = cccDirectRead(dynAddr, I3C_CCC_GETBCR_DIR, rxData, 1U, timeout);
-  if (rc != 0) {
-    result = rc;
-  } else {
+  result = cccDirectRead(dynAddr, I3C_CCC_GETBCR_DIR, rxData, 1U, timeout);
+  if (result) {
     bcr = rxData[0];
   }
-
   return result;
 }
 
-int I3CBus::getdcr(uint8_t dynAddr, uint8_t &dcr, uint32_t timeout)
+bool I3CBus::getdcr(uint8_t dynAddr, uint8_t &dcr, uint32_t timeout)
 {
-  int result = 0;
+  bool result = false;
   uint8_t rxData[1] = {0};
 
-  int rc = cccDirectRead(dynAddr, I3C_CCC_GETDCR_DIR, rxData, 1U, timeout);
-  if (rc != 0) {
-    result = rc;
-  } else {
+  result = cccDirectRead(dynAddr, I3C_CCC_GETDCR_DIR, rxData, 1U, timeout);
+  if (result) {
     dcr = rxData[0];
   }
 
   return result;
 }
 
-int I3CBus::getpid(uint8_t dynAddr, uint64_t &pid, uint32_t timeout)
+bool I3CBus::getpid(uint8_t dynAddr, uint64_t &pid, uint32_t timeout)
 {
-  int result = 0;
+  bool result = false;
   uint8_t rxData[6] = {0};
 
-  int rc = cccDirectRead(dynAddr, I3C_CCC_GETPID_DIR, rxData, 6U, timeout);
-  if (rc != 0) {
-    result = rc;
-  } else {
+  result = cccDirectRead(dynAddr, I3C_CCC_GETPID_DIR, rxData, 6U, timeout);
+  if (result) {
     pid = 0ULL;
     pid |= (uint64_t)rxData[0] << 40;
     pid |= (uint64_t)rxData[1] << 32;
@@ -879,24 +872,24 @@ int I3CBus::getpid(uint8_t dynAddr, uint64_t &pid, uint32_t timeout)
 // 9. High-level CCC commands
 // ============================================================================
 
-int I3CBus::resetDynamicAddresses()
+bool I3CBus::resetDynamicAddresses()
 {
   return cccBroadcastWrite(I3C_CCC_RSTDAA_BCAST, nullptr, 0U, false, 1000U);
 }
 
-int I3CBus::disableEvents(const uint8_t *pCCCData, uint16_t length)
+bool I3CBus::disableEvents(const uint8_t *pCCCData, uint16_t length)
 {
   return cccBroadcastWrite(I3C_CCC_DISEC_BCAST, pCCCData, length, length > 0U, 1000U);
 }
 
-int I3CBus::assignAllStaticAsDynamic()
+bool I3CBus::assignAllStaticAsDynamic()
 {
   return cccBroadcastWrite(I3C_CCC_SETAASA_BCAST, nullptr, 0U, false, 1000U);
 }
 
-int I3CBus::assignDynamicAddress(uint8_t staticAddr7, uint8_t dynAddr7)
+bool I3CBus::assignDynamicAddress(uint8_t staticAddr7, uint8_t dynAddr7)
 {
-  int result = -1;
+  bool result = false;
 
   if (_initialized) {
     uint8_t daByte = static_cast<uint8_t>((dynAddr7 & 0x7FU) << 1);
@@ -906,15 +899,15 @@ int I3CBus::assignDynamicAddress(uint8_t staticAddr7, uint8_t dynAddr7)
   return result;
 }
 
-int I3CBus::disecAll()
+bool I3CBus::disecAll()
 {
   const uint8_t evAll = I3C_CCC_EVT_ALL;
   return disableEvents(&evAll, 1U);
 }
 
-int I3CBus::rstactWholeTarget()
+bool I3CBus::rstactWholeTarget()
 {
-  int result = -1;
+  bool result = false;
 
   if (_initialized) {
     uint8_t defByte = I3C_CCC_RSTACT_RESET_WHOLE_TARGET;
@@ -928,9 +921,9 @@ int I3CBus::rstactWholeTarget()
   return result;
 }
 
-int I3CBus::rstactPeripheralOnly()
+bool I3CBus::rstactPeripheralOnly()
 {
-  int result = -1;
+  bool result = false;
 
   if (_initialized) {
     uint8_t defByte = I3C_CCC_RSTACT_PERIPHERAL_ONLY;
@@ -944,12 +937,12 @@ int I3CBus::rstactPeripheralOnly()
   return result;
 }
 
-int I3CBus::setEvents(uint8_t dynAddr,
+bool I3CBus::setEvents(uint8_t dynAddr,
                       bool enable,
                       uint8_t events,
                       uint32_t timeout)
 {
-  int result = -1;
+  bool result = false;
 
   if (_initialized && (_hi3c.Mode == HAL_I3C_MODE_CONTROLLER)) {
     uint8_t ev    = events;
@@ -960,7 +953,7 @@ int I3CBus::setEvents(uint8_t dynAddr,
   return result;
 }
 
-int I3CBus::enecHotJoin()
+bool I3CBus::enecHotJoin()
 {
   uint8_t evHj = I3C_CCC_EVT_HJ;
   return cccBroadcastWrite(I3C_CCC_ENEC_BCAST, &evHj, 1U, true, 1000U);
@@ -1136,7 +1129,7 @@ int I3CBus::assignKnownDevices(const I3CKnownDevice *knownDevices,
         continue;
       }
 
-      if (assignDynamicAddress(kd.staticAddr, dyn) == 0) {
+      if (assignDynamicAddress(kd.staticAddr, dyn)) {
         markAddrUsed(dyn);
 
         if (count < maxDiscovered) {
@@ -1153,15 +1146,15 @@ int I3CBus::assignKnownDevices(const I3CKnownDevice *knownDevices,
           uint8_t  dcr = 0U;
           uint64_t pid = 0ULL;
 
-          if (getbcr(dyn, bcr) == 0) {
+          if (getbcr(dyn, bcr)) {
             d.bcr = bcr;
           }
 
-          if (getdcr(dyn, dcr) == 0) {
+          if (getdcr(dyn, dcr)) {
             d.dcr = dcr;
           }
 
-          if ((d.pid == 0U) && (getpid(dyn, pid) == 0)) {
+          if ((d.pid == 0U) && (getpid(dyn, pid))) {
             d.pid = pid;
           }
         }
@@ -1308,7 +1301,7 @@ int I3CBus::discover(const I3CBusBeginConfig &cfg,
     initAddressMap();
 
     if (cfg.doRstact) {
-      if (rstactWholeTarget() != 0) {
+      if (!rstactWholeTarget()) {
         (void)rstactPeripheralOnly();
       }
     }
