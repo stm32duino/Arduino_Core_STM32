@@ -75,6 +75,16 @@
 #ifndef PIN_WIRE_SCL
   #define PIN_WIRE_SCL          {{i2c_pins.scl}}
 #endif
+{% if i3c_pins %}
+
+// I3C definitions
+#ifndef PIN_I3C_SDA
+  #define PIN_I3C_SDA           {{i3c_pins.sda}}
+#endif
+#ifndef PIN_I3C_SCL
+  #define PIN_I3C_SCL           {{i3c_pins.scl}}
+#endif
+{% endif %}
 
 // Timer Definitions
 // Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin

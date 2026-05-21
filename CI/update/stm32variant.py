@@ -1478,6 +1478,25 @@ def i2c_pins_variant():
     return dict(sda=sda_pin, scl=scl_pin)
 
 
+def i3c_pins_variant():
+    sda_pin = scl_pin = "PNUM_NOT_DEFINED"
+    # Iterate to find match instance if any
+    for sda in i3csda_list:
+        sda_inst = sda[2].split("_", 1)[0]
+        for scl in i3cscl_list:
+            scl_inst = scl[2].split("_", 1)[0]
+            if sda_inst == scl_inst:
+                sda_pin = sda[0].replace("_", "", 1)
+                scl_pin = scl[0].replace("_", "", 1)
+                break
+        else:
+            continue
+        break
+    else:
+        print("No I3C found!")
+    return dict(sda=sda_pin, scl=scl_pin)
+
+
 def serial_pins_variant():
     # Manage (LP)U(S)ART pins
     if uarttx_list:
@@ -1591,6 +1610,12 @@ def print_variant(generic_list, alt_syswkup_list):
     # I2C definition
     i2c_pins = i2c_pins_variant()
 
+    # I3C definition if any
+    if i3csda_list and i3cscl_list:
+        i3c_pins = i3c_pins_variant()
+    else:
+        i3c_pins = None
+
     # Serial definition
     serial = serial_pins_variant()
 
@@ -1660,6 +1685,8 @@ def print_variant(generic_list, alt_syswkup_list):
         hal_modules_list.append("DAC")
     if eth_list:
         hal_modules_list.append("ETH")
+    if i3csda_list and i3cscl_list:
+        hal_modules_list.append("I3C")
     if xspidata0_list:
         if "OCTOSPI" in xspidata0_list[0][2]:
             hal_modules_list.append("OSPI")
@@ -1681,6 +1708,7 @@ def print_variant(generic_list, alt_syswkup_list):
             num_analog_inputs=len(analog_pins_list),
             spi_pins=spi_pins,
             i2c_pins=i2c_pins,
+            i3c_pins=i3c_pins,
             timer=timer,
             serial=serial,
             hal_modules_list=hal_modules_list,
