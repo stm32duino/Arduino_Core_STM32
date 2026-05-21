@@ -3739,6 +3739,9 @@ typedef struct
 #define PWR_CR2_PVDRT_0           (0x1UL << PWR_CR2_PVDRT_Pos)                 /*!< 0x00000010 */
 #define PWR_CR2_PVDRT_1           (0x2UL << PWR_CR2_PVDRT_Pos)                 /*!< 0x00000020 */
 #define PWR_CR2_PVDRT_2           (0x4UL << PWR_CR2_PVDRT_Pos)                 /*!< 0x00000040 */
+#define PWR_CR2_PVMEN_DAC_Pos     (7U)
+#define PWR_CR2_PVMEN_DAC_Msk     (0x1UL << PWR_CR2_PVMEN_DAC_Pos)             /*!< 0x00000080 */
+#define PWR_CR2_PVMEN_DAC         PWR_CR2_PVMEN_DAC_Msk                        /*!< DAC supply voltage monitoring enable */
 
 /********************  Bit definition for PWR_CR3 register  ********************/
 #define PWR_CR3_EWUP_Pos          (0U)
@@ -3831,6 +3834,9 @@ typedef struct
 #define PWR_SR2_PVDO_Pos          (11U)
 #define PWR_SR2_PVDO_Msk          (0x1UL << PWR_SR2_PVDO_Pos)                  /*!< 0x00000800 */
 #define PWR_SR2_PVDO              PWR_SR2_PVDO_Msk                             /*!< Power voltage detector output */
+#define PWR_SR2_PVMO_DAC_Pos      (15U)
+#define PWR_SR2_PVMO_DAC_Msk      (0x1UL << PWR_SR2_PVMO_DAC_Pos)              /*!< 0x00008000 */
+#define PWR_SR2_PVMO_DAC          PWR_SR2_PVMO_DAC_Msk                         /*!< VDDA monitoring output flag */
 
 /********************  Bit definition for PWR_SCR register  ********************/
 #define PWR_SCR_CWUF_Pos          (0U)
@@ -4216,6 +4222,12 @@ typedef struct
 #define RCC_CFGR_SW_0                  (0x1UL << RCC_CFGR_SW_Pos)              /*!< 0x00000001 */
 #define RCC_CFGR_SW_1                  (0x2UL << RCC_CFGR_SW_Pos)              /*!< 0x00000002 */
 #define RCC_CFGR_SW_2                  (0x4UL << RCC_CFGR_SW_Pos)              /*!< 0x00000004 */
+
+#define RCC_CFGR_SW_HSISYS             (0x00000000UL)                          /*!< HSISYS oscillator selection as system clock */
+#define RCC_CFGR_SW_HSE                (0x00000001UL)                          /*!< HSE oscillator selection as system clock */
+#define RCC_CFGR_SW_PLLRCLK            (0x00000002UL)                          /*!< PLLRCLK selection as system clock */
+#define RCC_CFGR_SW_LSI                (0x00000003UL)                          /*!< LSI oscillator selection as system clock */
+#define RCC_CFGR_SW_LSE                (0x00000004UL)                          /*!< LSE oscillator selection as system clock */
 
 /*!< SWS configuration */
 #define RCC_CFGR_SWS_Pos               (3U)
@@ -4816,6 +4828,9 @@ typedef struct
 */
 #define RTC_WAKEUP_SUPPORT
 #define RTC_BACKUP_SUPPORT
+#define RTC_TAMP_INT_NB        4u
+#define RTC_TAMP_NB            2u
+#define RTC_BACKUP_NB          5u
 
 /********************  Bits definition for RTC_TR register  *******************/
 #define RTC_TR_PM_Pos                (22U)
@@ -6573,7 +6588,7 @@ typedef struct
 
 /*******************  Bit definition for TIM_CCR5 register  *******************/
 #define TIM_CCR5_CCR5_Pos         (0U)
-#define TIM_CCR5_CCR5_Msk         (0xFFFFFFFFUL << TIM_CCR5_CCR5_Pos)          /*!< 0xFFFFFFFF */
+#define TIM_CCR5_CCR5_Msk         (0xFFFFUL << TIM_CCR5_CCR5_Pos)              /*!< 0xFFFF */
 #define TIM_CCR5_CCR5             TIM_CCR5_CCR5_Msk                            /*!<Capture/Compare 5 Value */
 #define TIM_CCR5_GC5C1_Pos        (29U)
 #define TIM_CCR5_GC5C1_Msk        (0x1UL << TIM_CCR5_GC5C1_Pos)                /*!< 0x20000000 */
