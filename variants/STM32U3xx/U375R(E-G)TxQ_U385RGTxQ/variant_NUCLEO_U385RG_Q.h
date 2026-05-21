@@ -136,12 +136,19 @@
   #define PIN_SERIAL_TX         PA9
 #endif
 
+#ifndef PIN_I3C_SCL
+  #define PIN_I3C_SCL           PB13_ALT1
+#endif
+
 // SDMMC signals not available
 #define SDMMC_CDIR_NA
 
 // Extra HAL modules
 #if !defined(HAL_DAC_MODULE_DISABLED)
   #define HAL_DAC_MODULE_ENABLED
+#endif
+#if !defined(HAL_I3C_MODULE_DISABLED)
+  #define HAL_I3C_MODULE_ENABLED
 #endif
 #if !defined(HAL_OSPI_MODULE_DISABLED)
   #define HAL_OSPI_MODULE_ENABLED

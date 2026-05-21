@@ -2,7 +2,7 @@
 
 // Choose the bus instance available on your board.
 
-#define I3C_BUS = I3C1Bus;
+#define I3C_BUS  I3C1Bus
 
 void setup() {
   Serial.begin(115200);

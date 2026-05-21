@@ -161,6 +161,9 @@
 #if !defined(HAL_DAC_MODULE_DISABLED)
   #define HAL_DAC_MODULE_ENABLED
 #endif
+#if !defined(HAL_I3C_MODULE_DISABLED)
+  #define HAL_I3C_MODULE_ENABLED
+#endif
 
 // Value of the External oscillator in Hz
 #define HSE_VALUE               24000000UL

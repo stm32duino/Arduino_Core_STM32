@@ -296,14 +296,14 @@ class I3CBus {
     // ------------------------------------------------------------------------
     // CCC broadcast & direct commands
     // ------------------------------------------------------------------------
-    int resetDynamicAddresses();
-    int disableEvents(const uint8_t *pCCCData, uint16_t length);
-    int assignAllStaticAsDynamic();
-    int assignDynamicAddress(uint8_t staticAddr, uint8_t dynAddr);
+    bool resetDynamicAddresses();
+    bool disableEvents(const uint8_t *pCCCData, uint16_t length);
+    bool assignAllStaticAsDynamic();
+    bool assignDynamicAddress(uint8_t staticAddr, uint8_t dynAddr);
 
-    int getbcr(uint8_t dynAddr, uint8_t &bcr, uint32_t timeout = 1000U);
-    int getdcr(uint8_t dynAddr, uint8_t &dcr, uint32_t timeout = 1000U);
-    int getpid(uint8_t dynAddr, uint64_t &pid, uint32_t timeout = 1000U);
+    bool getbcr(uint8_t dynAddr, uint8_t &bcr, uint32_t timeout = 1000U);
+    bool getdcr(uint8_t dynAddr, uint8_t &dcr, uint32_t timeout = 1000U);
+    bool getpid(uint8_t dynAddr, uint64_t &pid, uint32_t timeout = 1000U);
 
     // ------------------------------------------------------------------------
     // Discovery and dynamic address assignment
@@ -396,7 +396,7 @@ class I3CBus {
 
     int disableTargetEvents(uint32_t interruptMask);
 
-    int setEvents(uint8_t dynAddr,
+    bool setEvents(uint8_t dynAddr,
                   bool enable,
                   uint8_t events,
                   uint32_t timeout = 1000U);
@@ -470,10 +470,10 @@ class I3CBus {
     // ------------------------------------------------------------------------
     // Bus sequencing helpers
     // ------------------------------------------------------------------------
-    int disecAll();
-    int enecHotJoin();
-    int rstactPeripheralOnly();
-    int rstactWholeTarget();
+    bool disecAll();
+    bool enecHotJoin();
+    bool rstactPeripheralOnly();
+    bool rstactWholeTarget();
 
     int assignKnownDevices(const I3CKnownDevice *knownDevices,
                            size_t numKnownDevices,
@@ -495,20 +495,20 @@ class I3CBus {
     // ------------------------------------------------------------------------
     // Low-level CCC helpers
     // ------------------------------------------------------------------------
-    int cccBroadcastWrite(uint8_t cccId,
+    bool cccBroadcastWrite(uint8_t cccId,
                           const uint8_t *data,
                           uint16_t length,
                           bool withDefByte,
                           uint32_t timeout = 1000U);
 
-    int cccDirectWrite(uint8_t targetAddr,
+    bool cccDirectWrite(uint8_t targetAddr,
                        uint8_t cccId,
                        const uint8_t *data,
                        uint16_t length,
                        bool withDefByte,
                        uint32_t timeout = 1000U);
 
-    int cccDirectRead(uint8_t targetAddr,
+    bool cccDirectRead(uint8_t targetAddr,
                       uint8_t cccId,
                       uint8_t *rxData,
                       uint16_t rxLength,
