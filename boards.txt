@@ -18,6 +18,7 @@ menu.upload_method=Upload method
 Nucleo_144.name=Nucleo-144
 Nucleo_144.build.core=arduino
 Nucleo_144.build.board=Nucleo_144
+Nucleo_144.build.family=NUCLEO_144
 Nucleo_144.build.variant_h=variant_{build.board}.h
 Nucleo_144.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 Nucleo_144.build.flash_offset=0x0
@@ -459,6 +460,7 @@ Nucleo_64.name=Nucleo-64
 
 Nucleo_64.build.core=arduino
 Nucleo_64.build.board=Nucleo_64
+Nucleo_64.build.family=NUCLEO_64
 Nucleo_64.build.variant_h=variant_{build.board}.h
 Nucleo_64.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 Nucleo_64.build.flash_offset=0x0
@@ -1117,6 +1119,7 @@ Nucleo_32.name=Nucleo-32
 
 Nucleo_32.build.core=arduino
 Nucleo_32.build.board=Nucleo_32
+Nucleo_32.build.family=NUCLEO_32
 Nucleo_32.build.variant_h=variant_{build.board}.h
 Nucleo_32.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 Nucleo_32.build.flash_offset=0x0
@@ -1299,6 +1302,7 @@ Disco.name=Discovery
 
 Disco.build.core=arduino
 Disco.build.board=Disco
+Disco.build.family=DISCO
 Disco.build.variant_h=variant_{build.board}.h
 Disco.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 Disco.build.flash_offset=0x0
@@ -1701,6 +1705,7 @@ Eval.name=Eval
 
 Eval.build.core=arduino
 Eval.build.board=Eval
+Eval.build.family=EVAL
 Eval.build.variant_h=variant_{build.board}.h
 Eval.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 Eval.build.flash_offset=0x0
@@ -1794,6 +1799,7 @@ STM32MP1.upload.maximum_data_size=0
 
 STM32MP1.build.core=arduino
 STM32MP1.build.board=STM32MP1
+STM32MP1.build.family=STM32MP1
 STM32MP1.build.mcu=cortex-m4
 STM32MP1.build.fpu=-mfpu=fpv4-sp-d16
 STM32MP1.build.float-abi=-mfloat-abi=hard
@@ -14017,6 +14023,7 @@ GenWL.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runtime.
 
 3dprinter.build.core=arduino
 3dprinter.build.board=3dprinter
+3dprinter.build.family=3DPRINTER
 3dprinter.build.variant_h=variant_{build.board}.h
 3dprinter.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 3dprinter.build.flash_offset=0x0
@@ -14267,6 +14274,7 @@ Blues.name=Blues boards
 
 Blues.build.core=arduino
 Blues.build.board=Blues
+Blues.build.family=BLUES
 Blues.build.variant_h=variant_{build.board}.h
 Blues.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 Blues.build.flash_offset=0x0
@@ -14366,6 +14374,7 @@ Elecgator.name=Elecgator boards
 
 Elecgator.build.core=arduino
 Elecgator.build.board=elecgator
+Elecgator.build.family=ELECGATOR
 Elecgator.build.variant_h=variant_{build.board}.h
 Elecgator.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 Elecgator.build.flash_offset=0x0
@@ -14425,7 +14434,8 @@ Elecgator.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runt
 ESC_board.name=Electronic speed controllers
 
 ESC_board.build.core=arduino
-ESC_board.build.board=FCE_board
+ESC_board.build.board=ESC_board
+ESC_board.build.family=ESC
 ESC_board.build.variant_h=variant_{build.board}.h
 ESC_board.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 ESC_board.build.flash_offset=0x0
@@ -14502,6 +14512,7 @@ Garatronic.name=Garatronic-McHobby
 
 Garatronic.build.core=arduino
 Garatronic.build.board=Garatronic
+Garatronic.build.family=GARATRONIC
 Garatronic.build.variant_h=variant_{build.board}.h
 Garatronic.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 Garatronic.build.flash_offset=0x0
@@ -14581,6 +14592,7 @@ GenFlight.name=Generic Flight Controllers
 
 GenFlight.build.core=arduino
 GenFlight.build.board=Genericflight
+GenFlight.build.family=GENERIC_FLIGHT
 GenFlight.build.variant_h=variant_{build.board}.h
 GenFlight.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
 GenFlight.build.flash_offset=0x0
@@ -14695,6 +14707,7 @@ IotContinuum.name=IoT continuum boards
 
 IotContinuum.build.core=arduino
 IotContinuum.build.board=IOT_CONTINUUM
+IotContinuum.build.family=IOT_CONTINUUM
 IotContinuum.build.variant_h=variant_{build.board}.h
 IotContinuum.build.st_extra_flags=-D{build.product_line} {build.xSerial}
 IotContinuum.build.flash_offset=0x0
@@ -14757,6 +14770,7 @@ IotContinuum.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={r
 LoRa.name=LoRa boards
 LoRa.build.core=arduino
 LoRa.build.board=LoRa
+LoRa.build.family=LORA
 LoRa.build.variant_h=variant_{build.board}.h
 LoRa.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 LoRa.build.flash_offset=0x0
@@ -14972,6 +14986,7 @@ Midatronics.name=Midatronics boards
 
 Midatronics.build.core=arduino
 Midatronics.build.board=Midatronics
+Midatronics.build.family=MIDATRONICS
 Midatronics.build.variant_h=variant_{build.board}.h
 Midatronics.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 Midatronics.build.flash_offset=0x0
@@ -15041,6 +15056,7 @@ SparkFun.name=SparkFun Boards
 
 SparkFun.build.core=arduino
 SparkFun.build.board=SparkFun
+SparkFun.build.family=SPARKFUN
 SparkFun.build.variant_h=variant_{build.board}.h
 SparkFun.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 SparkFun.build.flash_offset=0x0
@@ -15125,6 +15141,7 @@ SparkFun.menu.upload_method.OpenOCDDapLink.debug.server.openocd.scripts.1={runti
 ELV_Modular_System.name=ELV Modular System boards
 ELV_Modular_System.build.core=arduino
 ELV_Modular_System.build.board=ELV_Modular_System
+ELV_Modular_System.build.family=ELV_MODULAR_SYSTEM
 ELV_Modular_System.build.variant_h=variant_{build.board}.h
 ELV_Modular_System.upload.maximum_size=0
 ELV_Modular_System.upload.maximum_data_size=0
@@ -15165,6 +15182,7 @@ ELV_Modular_System.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 STeaMi.name=STeaMi Board
 STeaMi.build.core=arduino
 STeaMi.build.board=STeaMi
+STeaMi.build.family=STEAMI
 STeaMi.build.variant_h=variant_{build.board}.h
 STeaMi.build.st_extra_flags=-D{build.product_line} {build.xSerial}
 STeaMi.build.flash_offset=0x0
