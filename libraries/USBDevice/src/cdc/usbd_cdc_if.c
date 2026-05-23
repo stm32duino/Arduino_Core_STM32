@@ -25,13 +25,6 @@
 #include "usbd_cdc_if.h"
 #include "bootloader.h"
 
-#ifdef USE_USB_HS
-  #define CDC_MAX_PACKET_SIZE USB_OTG_HS_MAX_PACKET_SIZE
-#elif defined(USB_OTG_FS) || defined(USB_OTG_FS_MAX_PACKET_SIZE)
-  #define CDC_MAX_PACKET_SIZE USB_OTG_FS_MAX_PACKET_SIZE
-#else /* USB */
-  #define CDC_MAX_PACKET_SIZE USB_MAX_EP0_SIZE
-#endif
 
 /*
  * The value USB_CDC_TRANSMIT_TIMEOUT is defined in terms of HAL_GetTick() units.
@@ -238,7 +231,7 @@ static int8_t USBD_CDC_Receive(uint8_t *Buf, uint32_t *Len)
   UNUSED(Buf);
 #endif
   /* It always contains required amount of free space for writing */
-  CDC_ReceiveQueue_CommitBlock(&ReceiveQueue, (uint16_t)(*Len));
+  CDC_ReceiveQueue_CommitBlock(&ReceiveQueue, *Len);
   receivePended = false;
   /* If enough space in the queue for a full buffer then continue receive */
   if (!CDC_resume_receive()) {
@@ -330,7 +323,7 @@ bool CDC_connected()
 
 void CDC_continue_transmit(void)
 {
-  uint16_t size;
+  uint32_t size;
   uint8_t *buffer;
   USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef *) hUSBD_Device_CDC.pClassData;
   /*
@@ -342,7 +335,8 @@ void CDC_continue_transmit(void)
    * is higher than that of the main thread. So this method is thread safe.
    */
   if (hcdc->TxState == 0U) {
-    buffer = CDC_TransmitQueue_ReadBlock(&TransmitQueue, &size);
+    uint32_t maxsize = USBD_CDC_GetTxMaxSize(&hUSBD_Device_CDC);
+    buffer = CDC_TransmitQueue_ReadBlock(&TransmitQueue, &size, maxsize);
     if (size > 0) {
       transmitStart = HAL_GetTick();
       USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, buffer, size);

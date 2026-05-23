@@ -79,6 +79,7 @@
 /** @defgroup USBD_CDC_Private_Defines
   * @{
   */
+#define USB_MAX_PKTCNT  1023
 /**
   * @}
   */
@@ -896,6 +897,25 @@ uint8_t USBD_CDC_RegisterInterface(USBD_HandleTypeDef *pdev,
   return (uint8_t)USBD_OK;
 }
 
+/**
+  * @brief  USBD_CDC_GetTxMaxSize
+  * @param  pdev: device instance
+  * @param  ClassId: The Class ID
+  * @retval status
+  */
+#ifdef USE_USBD_COMPOSITE
+uint8_t USBD_CDC_GetTxMaxSize(USBD_HandleTypeDef *pdev, uint8_t ClassId)
+{
+  /* Get the Endpoints addresses allocated for this class instance */
+  CDCInEpAdd  = USBD_CoreGetEPAdd(pdev, USBD_EP_IN, USBD_EP_TYPE_BULK, ClassId);
+#else
+uint8_t USBD_CDC_GetTxMaxSize(USBD_HandleTypeDef *pdev)
+{
+#endif /* USE_USBD_COMPOSITE */
+
+  return pdev->ep_in[CDCInEpAdd & 0xFU].maxpacket * USB_MAX_PKTCNT;
+}
+ 
 /**
   * @brief  USBD_CDC_SetTxBuffer
   * @param  pdev: device instance
