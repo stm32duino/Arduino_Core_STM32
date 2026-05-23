@@ -42,19 +42,30 @@ SPIClass::SPIClass(uint32_t mosi, uint32_t miso, uint32_t sclk, uint32_t ssel)
   _spi.pin_mosi = digitalPinToPinName(mosi);
   _spi.pin_sclk = digitalPinToPinName(sclk);
   _spi.pin_ssel = digitalPinToPinName(ssel);
+
+  // Default configuration
+  _spi.duplex = true;
+  _spi.direction = SPI_DIRECTION_2LINES;
+  _spi.mode = SPI_MODE_MASTER;
 }
 
 /**
   * @brief  Initialize the SPI instance.
   * @param  device: device mode (optional), SPI_MASTER or SPI_SLAVE. Default is master.
   */
-void SPIClass::begin(SPIDeviceMode device)
+bool SPIClass::begin(SPIDeviceMode device)
 {
   _spi.handle.State = HAL_SPI_STATE_RESET;
   _spiSettings = SPISettings();
   _spiSettings.deviceMode = device;
-  spi_init(&_spi, _spiSettings.clockFreq, _spiSettings.dataMode,
+  auto error = spi_init(&_spi, _spiSettings.clockFreq, _spiSettings.dataMode,
            _spiSettings.bitOrder, _spiSettings.deviceMode);
+  if (error != SPI_OK) {
+    Serial.printf("SPI init error: %d\n", error);
+  }
+
+  init = error == SPI_OK;
+  return init;
 }
 
 /**
@@ -62,13 +73,20 @@ void SPIClass::begin(SPIDeviceMode device)
   *         don't use the default parameters set by the begin() function.
   * @param  settings: SPI settings(clock speed, bit order, data mode, device mode).
   */
-void SPIClass::beginTransaction(SPISettings settings)
+bool SPIClass::beginTransaction(SPISettings settings)
 {
   if (_spiSettings != settings) {
     _spiSettings = settings;
-    spi_init(&_spi, _spiSettings.clockFreq, _spiSettings.dataMode,
+    auto error = spi_init(&_spi, _spiSettings.clockFreq,
+             _spiSettings.dataMode,
              _spiSettings.bitOrder, _spiSettings.deviceMode);
+    if (error != SPI_OK) {
+      Serial.printf("SPI init error: %d\n", error);
+    }
+    init = error == SPI_OK;
   }
+
+  return init;
 }
 
 /**
@@ -76,7 +94,7 @@ void SPIClass::beginTransaction(SPISettings settings)
   */
 void SPIClass::endTransaction(void)
 {
-
+  // Nothing to do here
 }
 
 /**
@@ -211,9 +229,9 @@ void SPIClass::transfer(void *buf, size_t count, bool skipReceive)
   *                 the SPI transfer. If NULL, the received data will be discarded.
   * @param  count: number of bytes to send/receive.
   */
-void SPIClass::transfer(const void *tx_buf, void *rx_buf, size_t count)
+spi_status_e SPIClass::transfer(const void *tx_buf, void *rx_buf, size_t count)
 {
-  spi_transfer(&_spi, ((const uint8_t *)tx_buf), ((uint8_t *)rx_buf), count);
+  return spi_transfer(&_spi, ((const uint8_t *)tx_buf), ((uint8_t *)rx_buf), count);
 }
 
 
