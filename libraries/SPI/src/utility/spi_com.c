@@ -550,6 +550,67 @@ spi_status_e spi_transfer(spi_t *obj, const uint8_t *tx_buffer, uint8_t *rx_buff
   return ret;
 }
 
+spi_status_e spi_transfer16(spi_t *obj, const uint16_t *tx_buffer, uint16_t *rx_buffer)
+{
+  spi_status_e ret = SPI_OK;
+  uint32_t tickstart;
+  SPI_TypeDef *_SPI = obj->handle.Instance;
+  uint16_t *tx_buf = (uint16_t *)tx_buffer;
+
+  tickstart = HAL_GetTick();
+
+#if defined(SPI_CR2_TSIZE)
+  /* Start transfer */
+  LL_SPI_SetTransferSize(_SPI, 1);
+  LL_SPI_Enable(_SPI);
+  LL_SPI_StartMasterTransfer(_SPI);
+#endif
+
+#if defined(SPI_SR_TXP)
+  while (!LL_SPI_IsActiveFlag_TXP(_SPI));
+#else
+  while (!LL_SPI_IsActiveFlag_TXE(_SPI));
+#endif
+
+  LL_SPI_TransmitData16(_SPI, tx_buf ? *tx_buf : 0XFF);
+
+#if defined(SPI_SR_RXP)
+  while (!LL_SPI_IsActiveFlag_RXP(_SPI));
+#else
+  while (!LL_SPI_IsActiveFlag_RXNE(_SPI));
+#endif
+
+  if (rx_buffer) {
+    *rx_buffer = LL_SPI_ReceiveData16(_SPI);
+  } else {
+    LL_SPI_ReceiveData16(_SPI);
+  }
+
+  if ((SPI_TRANSFER_TIMEOUT != HAL_MAX_DELAY) &&
+      (HAL_GetTick() - tickstart >= SPI_TRANSFER_TIMEOUT)) {
+    ret = SPI_TIMEOUT;
+  }
+
+#if defined(SPI_IFCR_EOTC)
+  // Add a delay before disabling SPI otherwise last-bit/last-clock may be truncated
+  // See https://github.com/stm32duino/Arduino_Core_STM32/issues/1294
+  // Computed delay is half SPI clock
+  delayMicroseconds(obj->disable_delay);
+
+  /* Close transfer */
+  /* Clear flags */
+  LL_SPI_ClearFlag_EOT(_SPI);
+  LL_SPI_ClearFlag_TXTF(_SPI);
+  /* Disable SPI peripheral */
+  LL_SPI_Disable(_SPI);
+#else
+  /* Wait for end of transfer */
+  while (LL_SPI_IsActiveFlag_BSY(_SPI));
+#endif
+  
+  return ret;
+}
+
 #ifdef __cplusplus
 }
 #endif
