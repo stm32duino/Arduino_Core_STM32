@@ -182,8 +182,8 @@ bool I3CBus::initClocks()
 // Controller initialization
 // ============================================================================
 
-bool I3CBus::begin(uint32_t sda,
-                   uint32_t scl,
+bool I3CBus::begin(pin_size_t sda,
+                   pin_size_t scl,
                    uint32_t freq,
                    I3CBusType type,
                    uint32_t mixedOdHz)
@@ -191,8 +191,8 @@ bool I3CBus::begin(uint32_t sda,
   return begin(sda, scl, freq, type, mixedOdHz, I3CControllerConfig{});
 }
 
-bool I3CBus::begin(uint32_t sda,
-                   uint32_t scl,
+bool I3CBus::begin(pin_size_t sda,
+                   pin_size_t scl,
                    uint32_t freq,
                    I3CBusType type,
                    uint32_t mixedOdHz,
@@ -1423,7 +1423,7 @@ uint64_t I3CBus::extractPid48FromEntdaaPayload(uint64_t payload)
 // Target-mode initialization
 // ============================================================================
 
-bool I3CBus::beginTarget(uint32_t sda, uint32_t scl, const I3CTargetConfig &cfg)
+bool I3CBus::beginTarget(pin_size_t sda, pin_size_t scl, const I3CTargetConfig &cfg)
 {
   _sdaPin = digitalPinToPinName(sda);
   _sclPin = digitalPinToPinName(scl);

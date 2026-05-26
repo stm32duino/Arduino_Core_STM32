@@ -1,0 +1,178 @@
+From 7a2df83c9217c36aa3c871e604d31049f8ab88df Mon Sep 17 00:00:00 2001
+From: Aymane Bahssain <aymane.bahssain@st.com>
+Date: Fri, 23 Jan 2026 16:07:39 +0100
+Subject: [PATCH] docs: update README with STM32duino integration information
+
+Signed-off-by: Aymane Bahssain <aymane.bahssain@st.com>
+---
+ README.md | 123 ++++++++++++++++++++++++++++--------------------------
+ 1 file changed, 64 insertions(+), 59 deletions(-)
+
+diff --git a/README.md b/README.md
+index 506569a..142260e 100644
+--- a/README.md
++++ b/README.md
+@@ -1,95 +1,100 @@
+-# ArduinoCore-API
++# 📚 ArduinoCore-API for STM32duino
+ 
+-[![Unit Tests](https://github.com/arduino/ArduinoCore-API/workflows/Unit%20Tests/badge.svg)](https://github.com/arduino/ArduinoCore-API/actions?workflow=Unit+Tests)
+-[![codecov](https://codecov.io/gh/arduino/ArduinoCore-API/branch/master/graph/badge.svg)](https://codecov.io/gh/arduino/ArduinoCore-API)
+-[![Spell Check status](https://github.com/arduino/ArduinoCore-API/actions/workflows/spell-check.yml/badge.svg)](https://github.com/arduino/ArduinoCore-API/actions/workflows/spell-check.yml)
++Fork of [`arduino/ArduinoCore-API`](https://github.com/arduino/ArduinoCore-API)  
++Designed to be used as a git submodule in [`stm32duino/Arduino_Core_STM32`](https://github.com/stm32duino/Arduino_Core_STM32)
+ 
+-This repository hosts the hardware independent layer of Arduino core. In other words it contains the abstract definition of the Arduino core API, consisting of hardware-independent header files that are then included and implemented by the various platform-specific cores.
++---
+ 
+-Having a single place where the Arduino API is defined means that there is no longer a String implementation within every Arduino core (a String module within ArduinoCore-avr, a String module within ArduinoCore-samd, a String module within ArduinoCore-megaavr …) but rather one String implementation within ArduinoCore-API which all other cores utilise. This has the pleasant side effects that bugs fixed or features added within the ArduinoCore-API String implementation are automatically propagated to all cores utilizing ArduinoCore-API.
++## 🎯 Purpose
+ 
+-As of now, the following official cores are utilising ArduinoCore-API:
++This repository is a fork which reworks the folder structure to contain only the official Arduino API and hardware‑independent code, in order to simplify Arduino API integration into STM32duino via a git submodule.
+ 
+-* [megaavr](https://github.com/arduino/ArduinoCore-megaAVR)
+-* [mbed](https://github.com/arduino/ArduinoCore-mbed)
+-* [samd](https://github.com/arduino/ArduinoCore-samd)
+-* [renesas](https://github.com/arduino/ArduinoCore-renesas)
++It will also contain some updates/changes/enhancements/fixes.
+ 
+-There's an ongoing effort to port the others, while maintainers of third-party cores are strongly invited to follow the same route in order to stay up-to-date with the new language features. For backwards compatibility, every revision of this repo will increase the `ARDUINO_API_VERSION` define.
++---
+ 
+-## Documentation
++## 📦 What's Included?
+ 
+-The Arduino API is documented in the official [language reference](https://www.arduino.cc/reference/en/), whose sources are located in [this repository](https://github.com/arduino/reference-en) and are open to contributions from the community.
++- ✅ Official Arduino API files (`api/` folder)
++- ✅ some updates, changes, enhancements and fixes.
+ 
+-## Support
++---
+ 
+-This repository is not directly usable by final users. If you need assistance with Arduino, see the [Help Center](https://support.arduino.cc/) and browse the [forum](https://forum.arduino.cc).
++## 🚀 Submodule usage
+ 
+-## Development
++### 1️⃣ Add the Submodule
+ 
+-### Bugs & Issues
++In the `Arduino_Core_STM32` repository, run:
+ 
+-If you want to report an issue with this core, you can submit it to the [issue tracker](https://github.com/arduino/ArduinoCore-API/issues) of this repository. Some rules apply:
+-
+-* If your issue is about a specific hardware platform, report it to its repository. This one is only about discussing the generic API.
+-* Before posting, please check if the same problem has been already reported by someone else to avoid duplicates.
+-* Remember to include as much detail as you can about your hardware set-up, code and steps for reproducing the issue. Make sure you're using an original Arduino board.
+-
+-### Contributions
++```bash
+ 
+-Contributions are always welcome! You can submit them directly to this repository as Pull Requests. Please provide a detailed description of the problem you're trying to solve. We also appreciate any help in testing issues and patches contributed by other users.
++git submodule add https://github.com/stm32duino/ArduinoCore-API.git cores/arduino/api
++```
++### 2️⃣ Initialize and update
++```bash
++git submodule update --init 
++```
+ 
+-### Unit testing
++---
+ 
+-This repository includes a test suite that covers most of the API and that is designed to run on generic hardware, thus not requiring a development board. We call this _host-based unit-testing_. In order to test the features that are only defined but not implemented in this repository, mock implementations are included.
++## 🔗 Official Resources
+ 
+-Please help us improve the coverage of the test suite!
++| Resource | Link |
++|----------|------|
++| **Official ArduinoCore-API** | https://github.com/arduino/ArduinoCore-API |
++| **STM32duino** | https://github.com/stm32duino/Arduino_Core_STM32 |
+ 
+-#### To build and run unit tests
++---
+ 
+-The unit tests are automatically built by GitHub as part of pull request checks (in `.github/workflows/unit-tests.yml`).
++## 📝 License
+ 
+-To build and run locally:
++This repository is a fork of `arduino/ArduinoCore-API` and maintains the **same license** (LGPL 2.1+).
+ 
+-**Dependencies**
++See the [LICENSE](License) file in the repository root for details.
+ 
+-* [CMake](https://cmake.org/)
+-* [GCC](https://gcc.gnu.org/)
++---
+ 
+-On (Ubuntu) Linux run:
++## 💡 Important Notes
+ 
+-```bash
+-sudo apt-get install build-essential cmake
+-```
++### ✅ Advantages of Using a Submodule
+ 
+-From the project root:
++- **Traceability**: Know exactly which version of the API you're using
++- **Easy Updates**: Simple `git submodule update` to sync
++- **Isolation**: API stays in its own code branch
++- **Compatibility**: STM32-specific modifications remain separate
+ 
+-```bash
+-cd test && mkdir build && cd build
+-cmake ..
+-make && bin/test-ArduinoCore-API
+-```
++### ⚠️ Points to Consider
+ 
+-### Implementing ArduinoCore-API
++- After cloning **Arduino_Core_STM32**, run:
++  ```bash
++  git submodule update --init --recursive
++  ```
+ 
+-In order to compile a core which is implementing ArduinoCore-API you'll need to copy/symlink the `api` directory to the target's `cores/arduino` directory as part of your development and release workflow. The most elegant and effective solution is to develop your core with `api` symlinked and produce the distributable archive by telling `tar` to follow symlinks. Example:
++---
+ 
+-```bash
+-tar --exclude='*.git*' -cjhvf $yourcore-$version.tar.bz2 $yourcore/
+-```
++## 📊 Project Information
+ 
+-The API is coded to the C++11 standard and the core's compiler must be able to support that version of the language.
++| Property | Value |
++|----------|-------|
++| **Type** | fork |
++| **Use Case** | Submodule for STM32duino |
++| **Language** | C/C++ |
++| **License** | LGPL 2.1+ |
++| **Original Repository** | https://github.com/arduino/ArduinoCore-API |
++---
+ 
+-Documentation for how to integrate with a Arduino core (which is necessary if you do not download the Arduino core via the Boards Manager) can be found here:
+-* [ArduinoCore-megaavr](https://github.com/arduino/ArduinoCore-megaavr#developing)
+-* [ArduinoCore-mbed](https://github.com/arduino/ArduinoCore-mbed#clone-the-repository-in-sketchbookhardwarearduino-git)
+-* [ArduinoCore-samd](https://github.com/arduino/ArduinoCore-samd/#developing)
++## ✨ Quick Start
+ 
+-## Donations
++### Clone **Arduino_Core_STM32** with this submodule
+ 
+-This open source code is maintained by Arduino with the help of the community. We invest a considerable amount of time in testing code, optimizing it and introducing new features. Please consider [donating](https://www.arduino.cc/en/donate/) or [sponsoring](https://github.com/sponsors/arduino) to support our work, as well as [buying original Arduino boards](https://store.arduino.cc) which is the best way to make sure our effort can continue in the long term.
++```bash
++git clone --recurse-submodules https://github.com/stm32duino/Arduino_Core_STM32.git
++```
+ 
+-## License and credits
++### Update submodule
+ 
+-This code is licensed under the terms of the GNU LGPL 2.1. If you have questions about licensing please contact us at [license@arduino.cc](mailto:license@arduino.cc).
++```bash
++git submodule update --remote
++```
+ 
++---
+\ No newline at end of file
+-- 
+2.51.2.windows.1
+

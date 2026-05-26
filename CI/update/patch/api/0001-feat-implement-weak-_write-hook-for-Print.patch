@@ -1,0 +1,65 @@
+From ed7ffc8cc475b05bf50fed6ef91007c3d75f0393 Mon Sep 17 00:00:00 2001
+From: Aymane Bahssain <aymane.bahssain@st.com>
+Date: Fri, 23 Jan 2026 17:05:29 +0100
+Subject: [PATCH] feat: implement weak _write() hook for Print
+
+Signed-off-by: Aymane Bahssain <aymane.bahssain@st.com>
+---
+ api/Print.cpp | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
+
+diff --git a/api/Print.cpp b/api/Print.cpp
+index d827f2e..54319f1 100644
+--- a/api/Print.cpp
++++ b/api/Print.cpp
+@@ -24,6 +24,14 @@
+ 
+ #include "Print.h"
+ 
++#ifdef ARDUINO_ARCH_STM32
++#include <unistd.h>
++#include "uart.h"
++#if defined (VIRTIO_LOG)
++  #include "virtio_log.h"
++#endif
++#endif
++
+ using namespace arduino;
+ 
+ // Public Methods //////////////////////////////////////////////////////////////
+@@ -248,6 +256,32 @@ size_t Print::println(const Printable& x)
+   return n;
+ }
+ 
++#ifdef ARDUINO_ARCH_STM32
++extern "C" {
++  __attribute__((weak))
++  int _write(int file, char *ptr, int len)
++  {
++    switch (file) {
++      case STDOUT_FILENO:
++      case STDERR_FILENO:
++        /* Used for core_debug() */
++#if defined (VIRTIO_LOG)
++        virtio_log((uint8_t *)ptr, (uint32_t)len);
++#elif defined(HAL_UART_MODULE_ENABLED) && !defined(HAL_UART_MODULE_ONLY)
++        uart_debug_write((uint8_t *)ptr, (uint32_t)len);
++#endif
++        break;
++      case STDIN_FILENO:
++        break;
++      default:
++        ((class Print *)file)->write((uint8_t *)ptr, len);
++        break;
++    }
++    return len;
++  }
++}
++#endif
++
+ int Print::printf(const char *format, ...)
+ {
+   va_list ap;
+-- 
+2.51.2.windows.1
+

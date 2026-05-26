@@ -24,6 +24,7 @@ tools_bin_path.macosx={runtime.tools.STM32Tools.path}/macosx
 tools_bin_path.linux={runtime.tools.STM32Tools.path}/linux
 
 core_stm32_dir={build.core.path}/stm32
+api_dir={build.core.path}/api
 hal_dir={build.system.path}/Drivers/{build.series}_HAL_Driver
 cmsis_dir={runtime.tools.CMSIS-6.2.0.path}/CMSIS
 cmsis_dsp={runtime.tools.CMSIS_DSP-1.16.2.path}
@@ -38,7 +39,7 @@ USBDevice_include_dir={builtin_library_dir}/USBDevice/inc
 
 # STM compile variables
 # ----------------------
-compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{core_stm32_dir}" "-I{SrcWrapper_include_dir}" "-I{SrcWrapper_include_dir}/LL" "-I{hal_dir}/Inc" "-I{hal_dir}/Src" "-I{build.system.path}/{build.series}" "-I{USBDevice_include_dir}" "-I{usbd_core_dir}/Inc" "-I{usbd_core_dir}/Src" "-I{VirtIO_include_dir}" {build.virtio_extra_include}
+compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{core_stm32_dir}" "-I{api_dir}" "-I{SrcWrapper_include_dir}" "-I{SrcWrapper_include_dir}/LL" "-I{hal_dir}/Inc" "-I{hal_dir}/Src" "-I{build.system.path}/{build.series}" "-I{USBDevice_include_dir}" "-I{usbd_core_dir}/Inc" "-I{usbd_core_dir}/Src" "-I{VirtIO_include_dir}" {build.virtio_extra_include}
 compiler.arm.cmsis.c.flags="-I{cmsis_dir}/Core/Include/" "-I{cmsis_dev_dir}/Include/" "-I{cmsis_dev_dir}/Source/Templates/gcc/" "-I{cmsis_dsp}/Include" "-I{cmsis_dsp}/PrivateInclude"
 
 compiler.warning_flags=-w
@@ -64,7 +65,7 @@ compiler.objcopy.cmd=arm-none-eabi-objcopy
 compiler.elf2hex.cmd=arm-none-eabi-objcopy
 compiler.libraries.ldflags=
 
-compiler.extra_flags=-mcpu={build.mcu} {build.fpu} {build.float-abi} -DVECT_TAB_OFFSET={build.flash_offset} -DUSE_HAL_DRIVER -DUSE_FULL_LL_DRIVER -mthumb "@{build.opt.path}"
+compiler.extra_flags=-mcpu={build.mcu} {build.fpu} {build.float-abi} -DVECT_TAB_OFFSET={build.flash_offset} -DUSE_HAL_DRIVER -DUSE_FULL_LL_DRIVER -DEXTENDED_PIN_MODE -mthumb "@{build.opt.path}"
 
 compiler.S.flags={compiler.extra_flags} -c -x assembler-with-cpp {compiler.stm.extra_include}
 

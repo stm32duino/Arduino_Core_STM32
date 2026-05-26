@@ -13,6 +13,25 @@
 
 SPIClass SPI;
 
+void SPIClass::configSpi(const SPISettings &settings)
+{
+  if (_spiSettings != settings) {
+    _spiSettings = settings;
+
+    uint32_t  clock   = settings.getClockFreq();
+    SPIMode   dataMode    = settings.getDataMode();
+    BitOrder  order   = settings.getBitOrder();
+    SPIBusMode busMode    = settings.getBusMode();
+
+    // Mapping API dataMode → spi_mode_e C
+    spi_mode_e cspimode = static_cast<spi_mode_e>(dataMode);
+    // Mapping API busMode → spi_busmode_e C
+    spi_busmode_e cbusmode = static_cast<spi_busmode_e>(busMode);
+
+    spi_init(&_spi, clock, cspimode, order, cbusmode);
+  }
+}
+
 /**
   * @brief  Default Constructor. Uses pin configuration of default SPI
   *         defined in the variant*.h.
@@ -35,7 +54,7 @@ SPIClass SPI;
   *         another CS pin and don't pass a CS pin as parameter to any functions
   *         of the class.
   */
-SPIClass::SPIClass(uint32_t mosi, uint32_t miso, uint32_t sclk, uint32_t ssel)
+SPIClass::SPIClass(pin_size_t mosi, pin_size_t miso, pin_size_t sclk, pin_size_t ssel)
 {
   memset((void *)&_spi, 0, sizeof(_spi));
   _spi.pin_miso = digitalPinToPinName(miso);
@@ -46,29 +65,29 @@ SPIClass::SPIClass(uint32_t mosi, uint32_t miso, uint32_t sclk, uint32_t ssel)
 
 /**
   * @brief  Initialize the SPI instance.
-  * @param  device: device mode (optional), SPI_MASTER or SPI_SLAVE. Default is master.
+  * @param  busMode: bus mode (optional), controller or peripheral. Default is master.
   */
-void SPIClass::begin(SPIDeviceMode device)
+void SPIClass::begin(SPIBusMode busMode)
 {
   _spi.handle.State = HAL_SPI_STATE_RESET;
-  _spiSettings = SPISettings();
-  _spiSettings.deviceMode = device;
-  spi_init(&_spi, _spiSettings.clockFreq, _spiSettings.dataMode,
-           _spiSettings.bitOrder, _spiSettings.deviceMode);
+
+  SPISettings defaultSettings(
+    SPI_SPEED_CLOCK_DEFAULT, // 4 MHz
+    MSBFIRST,
+    SPI_MODE0,
+    busMode
+  );
+  configSpi(defaultSettings);
 }
 
 /**
   * @brief  This function should be used to configure the SPI instance in case you
   *         don't use the default parameters set by the begin() function.
-  * @param  settings: SPI settings(clock speed, bit order, data mode, device mode).
+  * @param  settings: SPI settings(clock speed, bit order, data mode, bus mode).
   */
 void SPIClass::beginTransaction(SPISettings settings)
 {
-  if (_spiSettings != settings) {
-    _spiSettings = settings;
-    spi_init(&_spi, _spiSettings.clockFreq, _spiSettings.dataMode,
-             _spiSettings.bitOrder, _spiSettings.deviceMode);
-  }
+  configSpi(settings);
 }
 
 /**
@@ -85,61 +104,6 @@ void SPIClass::endTransaction(void)
 void SPIClass::end(void)
 {
   spi_deinit(&_spi);
-}
-
-/**
-  * @brief  Deprecated function.
-  *         Configure the bit order: MSB first or LSB first.
-  * @param  bitOrder: MSBFIRST or LSBFIRST
-  */
-void SPIClass::setBitOrder(BitOrder bitOrder)
-{
-  _spiSettings.bitOrder = bitOrder;
-
-  spi_init(&_spi, _spiSettings.clockFreq, _spiSettings.dataMode,
-           _spiSettings.bitOrder, _spiSettings.deviceMode);
-}
-
-/**
-  * @brief  Deprecated function.
-  *         Configure the data mode (clock polarity and clock phase)
-  * @param  mode: SPI_MODE0, SPI_MODE1, SPI_MODE2 or SPI_MODE3
-  * @note
-  *         Mode          Clock Polarity (CPOL)   Clock Phase (CPHA)
-  *         SPI_MODE0             0                     0
-  *         SPI_MODE1             0                     1
-  *         SPI_MODE2             1                     0
-  *         SPI_MODE3             1                     1
-  */
-void SPIClass::setDataMode(uint8_t mode)
-{
-  setDataMode((SPIMode)mode);
-}
-
-void SPIClass::setDataMode(SPIMode mode)
-{
-  _spiSettings.dataMode = mode;
-  spi_init(&_spi, _spiSettings.clockFreq, _spiSettings.dataMode,
-           _spiSettings.bitOrder, _spiSettings.deviceMode);
-}
-
-/**
-  * @brief  Deprecated function.
-  *         Configure the clock speed
-  * @param  divider: the SPI clock can be divided by values from 1 to 255.
-  *         If 0, default SPI speed is used.
-  */
-void SPIClass::setClockDivider(uint8_t divider)
-{
-  if (divider == 0) {
-    _spiSettings.clockFreq = SPI_SPEED_CLOCK_DEFAULT;
-  } else {
-    /* Get clk freq of the SPI instance and compute it */
-    _spiSettings.clockFreq = spi_getClkFreq(&_spi) / divider;
-  }
-
-  spi_init(&_spi, _spiSettings.clockFreq, _spiSettings.dataMode,
-           _spiSettings.bitOrder, _spiSettings.deviceMode);
 }
 
 /**
@@ -170,13 +134,13 @@ uint16_t SPIClass::transfer16(uint16_t data, bool skipReceive)
 {
   uint16_t tmp;
 
-  if (_spiSettings.bitOrder) {
+  if (_spiSettings.getBitOrder()) {
     tmp = ((data & 0xff00) >> 8) | ((data & 0xff) << 8);
     data = tmp;
   }
   spi_transfer(&_spi, (uint8_t *)&data, (!skipReceive) ? (uint8_t *)&data : NULL, sizeof(uint16_t));
 
-  if (_spiSettings.bitOrder) {
+  if (_spiSettings.getBitOrder()) {
     tmp = ((data & 0xff00) >> 8) | ((data & 0xff) << 8);
     data = tmp;
   }
@@ -222,7 +186,7 @@ void SPIClass::transfer(const void *tx_buf, void *rx_buf, size_t count)
   */
 void SPIClass::usingInterrupt(int interruptNumber)
 {
-  UNUSED(interruptNumber);
+  (void)interruptNumber;
 }
 
 /**
@@ -230,7 +194,7 @@ void SPIClass::usingInterrupt(int interruptNumber)
   */
 void SPIClass::notUsingInterrupt(int interruptNumber)
 {
-  UNUSED(interruptNumber);
+  (void)interruptNumber;
 }
 
 /**
@@ -250,7 +214,7 @@ void SPIClass::detachInterrupt(void)
 }
 
 #if defined(SUBGHZSPI_BASE)
-void SUBGHZSPIClass::enableDebugPins(uint32_t mosi, uint32_t miso, uint32_t sclk, uint32_t ssel)
+void SUBGHZSPIClass::enableDebugPins(pin_size_t mosi, pin_size_t miso, pin_size_t sclk, pin_size_t ssel)
 {
   /* Configure SPI GPIO pins */
   pinmap_pinout(digitalPinToPinName(mosi), PinMap_SPI_MOSI);

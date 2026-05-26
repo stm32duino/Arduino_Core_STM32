@@ -64,7 +64,7 @@ arm_status status;
 #endif
 
 #ifndef Serial
-HardwareSerial Serial(PIN_SERIAL_RX, PIN_SERIAL_TX);
+Uart Serial(PIN_SERIAL_RX, PIN_SERIAL_TX);
 #endif
 
 #ifdef TIMER_SERVO

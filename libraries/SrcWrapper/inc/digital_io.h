@@ -37,7 +37,7 @@
 #define __DIGITAL_IO_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "wiring_constants.h"
+#include "wiring.h"
 #include "PinNames.h"
 #include "pinmap.h"
 #include "stm32yyxx_ll_gpio.h"
@@ -101,7 +101,7 @@ static inline void digitalWriteFast(PinName pn, uint32_t ulVal)
   * @param  pn : Pin name
   * @retval The pin state (LOW or HIGH)
   */
-static inline int digitalReadFast(PinName pn)
+static inline PinStatus digitalReadFast(PinName pn)
 {
   uint8_t level = 0;
   level = digital_io_read(get_GPIO_Port(STM_PORT(pn)), STM_LL_GPIO_PIN(pn));

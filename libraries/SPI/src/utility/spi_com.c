@@ -8,7 +8,7 @@
  * or the GNU Lesser General Public License version 2.1, both as
  * published by the Free Software Foundation.
  */
-#include "wiring_time.h"
+#include "wiring.h"
 #include "core_debug.h"
 #include "stm32_def.h"
 #include "utility/spi_com.h"
@@ -202,12 +202,12 @@ static uint32_t compute_disable_delay(spi_t *obj)
   * @brief  SPI initialization function
   * @param  obj : pointer to spi_t structure
   * @param  speed : spi output speed
-  * @param  mode : one of the spi modes
+  * @param  dataMode : one of the spi modes
   * @param  msb : set to 1 in msb first
-  * @param  device : spi device mode: master or slave
+  * @param  busMode : spi busMode: controller or peripheral
   * @retval None
   */
-void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb, SPIDeviceMode device)
+void spi_init(spi_t *obj, uint32_t speed, spi_mode_e dataMode, uint8_t msb, spi_busmode_e busMode)
 {
   if (obj == NULL) {
     return;
@@ -260,7 +260,7 @@ void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb, SPIDeviceMo
 
   /* Fill default value */
   handle->Instance = obj->spi;
-  handle->Init.Mode = (device == SPI_MASTER) ? SPI_MODE_MASTER : SPI_MODE_SLAVE;
+  handle->Init.Mode = (busMode == SPI_CONTROLLER_C) ? SPI_MODE_MASTER : SPI_MODE_SLAVE;
 
   spi_freq = spi_getClkFreqInst(obj->spi);
   /* For SUBGHZSPI,  'SPI_BAUDRATEPRESCALER_*' == 'SUBGHZSPI_BAUDRATEPRESCALER_*' */
@@ -293,13 +293,13 @@ void spi_init(spi_t *obj, uint32_t speed, SPIMode mode, uint8_t msb, SPIDeviceMo
 
   handle->Init.Direction         = SPI_DIRECTION_2LINES;
 
-  if ((mode == SPI_MODE0) || (mode == SPI_MODE2)) {
+  if ((dataMode == SPI_MODE0_C) || (dataMode == SPI_MODE2_C)) {
     handle->Init.CLKPhase          = SPI_PHASE_1EDGE;
   } else {
     handle->Init.CLKPhase          = SPI_PHASE_2EDGE;
   }
 
-  if ((mode == SPI_MODE0) || (mode == SPI_MODE1)) {
+  if ((dataMode == SPI_MODE0_C) || (dataMode == SPI_MODE1_C)) {
     handle->Init.CLKPolarity       = SPI_POLARITY_LOW;
   } else {
     handle->Init.CLKPolarity       = SPI_POLARITY_HIGH;
