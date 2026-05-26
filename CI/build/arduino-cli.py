@@ -36,7 +36,6 @@ sketches_path_list = []
 search_path_list = []
 default_build_output_dir = tempdir / "build_arduinoCliOutput"
 build_output_dir = tempdir / f"build_arduinoCliOutput{build_id}"
-build_output_cache_dir = build_output_dir / "cache"
 root_output_dir = home / "Documents" / "arduinoCliOutput"
 
 output_dir = Path("")
@@ -740,8 +739,6 @@ def genBasicCommand(b_name):
     # cmd.append("-warnings=all")
     cmd.append("--build-path")
     cmd.append(build_output_dir / b_name)
-    cmd.append("--build-cache-path")
-    cmd.append(build_output_cache_dir)
     if args.verbose:
         cmd.append("--verbose")
     cmd.append("--output-dir")
@@ -831,8 +828,6 @@ def build_all():
             ):
                 check_status(res, build_conf, boardKo, nb_build_conf)
         log_sketch_build_result(sketch, boardKo, boardSkipped)
-        # Ensure no cache issue
-        deleteFolder(build_output_cache_dir)
     log_final_result()
 
 
