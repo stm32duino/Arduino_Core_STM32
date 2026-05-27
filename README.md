@@ -586,14 +586,14 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32H503RB | Generic Board | *2.7.0* |  |
 | :green_heart:  | STM32H562RGT | WeAct H562RGT | *2.9.0* |  |
 | :green_heart:  | STM32H562RGT<br>STM32H562RIT | Generic Board | *2.9.0* |  |
-| :yellow_heart:  | STM32H562RGV<br>STM32H562RIV | Generic Board | **2.13.0** |  |
+| :yellow_heart:  | STM32H562RGV<br>STM32H562RIV | Generic Board | **3.0.0** |  |
 | :green_heart:  | STM32H563IIKxQ | Generic Board | *2.6.0* |  |
 | :green_heart:  | STM32H563RGT<br>STM32H563RIT | Generic Board | *2.8.1* |  |
-| :yellow_heart:  | STM32H563RGV<br>STM32H563RIV | Generic Board | **2.13.0** |  |
+| :yellow_heart:  | STM32H563RGV<br>STM32H563RIV | Generic Board | **3.0.0** |  |
 | :green_heart:  | STM32H563ZG<br>STM32H563ZI | Generic Board | *2.6.0* |  |
 | :green_heart:  | STM32H573IIKxQ | Generic Board | *2.6.0* |  |
 | :green_heart:  | STM32H573RIT | Generic Board | *2.8.1* |  |
-| :yellow_heart:  | STM32H573RIV | Generic Board | **2.13.0** |  |
+| :yellow_heart:  | STM32H573RIV | Generic Board | **3.0.0** |  |
 | :green_heart:  | STM32H573ZI | Generic Board | *2.6.0* |  |
 
 ### Generic STM32H7 boards
@@ -878,7 +878,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32L4R5ZIYx | [Swan R5](https://blues.com/products/swan)  |  *2.1.0*  | |
 | :green_heart: | STM32L433CC   | [Cygnet](https://blues.com/products) | *2.8.0* | |
-| :yellow_heart: | STM32U575CITx | [Heron](https://blues.com/products) | **2.13.0** | |
+| :yellow_heart: | STM32U575CITx | [Heron](https://blues.com/products) | **3.0.0** | |
 
 ### [Elecgator](https://www.elecgator.com/) boards
 
