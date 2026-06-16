@@ -13,7 +13,7 @@
 #define _SPI_H_INCLUDED
 
 #include "Arduino.h"
-#include "HardwareSPI.h"
+#include "api/HardwareSPI.h"
 #include <stdio.h>
 extern "C" {
 #include "utility/spi_com.h"

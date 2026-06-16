@@ -25,7 +25,7 @@
 #include <functional>
 
 #include "Arduino.h"
-#include "HardwareI2C.h"
+#include "api/HardwareI2C.h"
 extern "C" {
 #include "utility/twi.h"
 }

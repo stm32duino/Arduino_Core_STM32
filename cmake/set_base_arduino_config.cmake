@@ -56,7 +56,7 @@ target_include_directories(base_config INTERFACE
 	"${BUILD_CORE_PATH}"
 	"${BUILD_CORE_PATH}/avr"
 	"${BUILD_CORE_PATH}/stm32"
-	"${BUILD_CORE_PATH}/api"
+	"${BUILD_CORE_PATH}/api/deprecated"
 	"${BUILD_LIB_PATH}/SrcWrapper/inc"
 	"${BUILD_LIB_PATH}/SrcWrapper/inc/LL"
 	"${BUILD_LIB_PATH}/USBDevice/inc"

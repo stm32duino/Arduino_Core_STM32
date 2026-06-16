@@ -26,7 +26,7 @@
 
 #include <inttypes.h>
 
-#include "Common.h"
+#include "api/Common.h"
 #include "HardwareSerial.h"
 #include "Stream.h"
 #include "uart.h"

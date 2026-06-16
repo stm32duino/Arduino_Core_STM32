@@ -33,9 +33,8 @@
   #include "SrcWrapper.h"
 #endif
 
-#include "ArduinoAPI.h"
+#include "api/ArduinoAPI.h"
 #include "wiring.h"
-#include "deprecated-avr-comp/avr/dtostrf.h"
 
 /* sketch */
 

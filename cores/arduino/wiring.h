@@ -26,8 +26,8 @@
 #include <math.h>
 #include <sys/time.h> // for struct timeval
 
-#include "Common.h"
-#include "deprecated-avr-comp/avr/dtostrf.h"
+#include "api/Common.h"
+#include "api/deprecated-avr-comp/avr/dtostrf.h"
 #include "clock.h"
 #include "dwt.h"
 #include "interrupt.h"

@@ -19,7 +19,7 @@
 #define _PINS_ARDUINO_H_
 #include <stdbool.h>
 #include <stdlib.h> /* Required for static_assert */
-#include "Common.h"
+#include "api/Common.h"
 #include "variant.h"
 #include "PinNames.h"
 
