@@ -31,6 +31,7 @@ jobs:
     strategy:
       matrix:
         boardname:
+          - NUCLEO_C092RC
           - NUCLEO_F091RC
           - NUCLEO_F103RB
           - NUCLEO_F207ZG
@@ -46,9 +47,12 @@ jobs:
           - NUCLEO_L476RG
           - NUCLEO_L552ZE_Q
           - NUCLEO_U083RC
+          - NUCLEO_U385RG_Q
           - NUCLEO_U575ZI_Q
+          - NUCLEO_WB09KE
           - P_NUCLEO_WB55RG
           - NUCLEO_WBA55CG
+          - NUCLEO_WL33CC1
           - NUCLEO_WL55JC1
 
     steps:
