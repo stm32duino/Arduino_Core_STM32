@@ -164,6 +164,7 @@ Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.series=STM32F7xx
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.product_line=STM32F746xx
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.variant_h=variant_NUCLEO_F7x6ZG.h
+Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.openocd.target=stm32f7x
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F746.svd
 
@@ -180,6 +181,7 @@ Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.series=STM32F7xx
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.product_line=STM32F756xx
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.variant_h=variant_NUCLEO_F7x6ZG.h
+Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.openocd.target=stm32f7x
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F756.svd
 
