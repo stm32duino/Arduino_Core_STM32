@@ -174,7 +174,7 @@
 #define LORAWAN_RFSWITCH_PIN_COUNT      2
 #define LORAWAN_RFSWITCH_OFF_VALUES     LOW,LOW
 #define LORAWAN_RFSWITCH_RX_VALUES      HIGH,LOW
-#define LORAWAN_RFSWITCH_RFO_LP_VALUES  HIGH,HIGH
+#define LORAWAN_RFSWITCH_RFO_LP_VALUES  LOW,HIGH
 #define LORAWAN_RFSWITCH_RFO_HP_VALUES  LOW,HIGH
 
 /*----------------------------------------------------------------------------
