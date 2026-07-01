@@ -1149,6 +1149,7 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
   * @param  None
   * @retval None
   */
+#ifndef HAL_DISABLE_USART1_IRQHANDLER
 #if defined(USART1_BASE)
 void USART1_IRQHandler(void)
 {
@@ -1156,12 +1157,14 @@ void USART1_IRQHandler(void)
   HAL_UART_IRQHandler(uart_handlers[UART1_INDEX]);
 }
 #endif
+#endif
 
 /**
   * @brief  USART 2 IRQ handler
   * @param  None
   * @retval None
   */
+#ifndef HAL_DISABLE_USART2_IRQHANDLER
 #if defined(USART2_BASE)
 void USART2_IRQHandler(void)
 {
@@ -1176,12 +1179,14 @@ void USART2_IRQHandler(void)
 #endif
 }
 #endif
+#endif
 
 /**
   * @brief  USART 3 IRQ handler
   * @param  None
   * @retval None
   */
+#ifndef HAL_DISABLE_USART3_IRQHANDLER
 #if defined(USART3_BASE)
 void USART3_IRQHandler(void)
 {
@@ -1231,18 +1236,21 @@ void USART3_IRQHandler(void)
 #endif /* STM32F091xC || STM32F098xx */
 }
 #endif
+#endif
 
 /**
   * @brief  UART 4 IRQ handler
   * @param  None
   * @retval None
   */
+#ifndef HAL_DISABLE_UART4_IRQHANDLER
 #if defined(UART4_BASE)
 void UART4_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(UART4_IRQn);
   HAL_UART_IRQHandler(uart_handlers[UART4_INDEX]);
 }
+#endif
 #endif
 
 /**
@@ -1251,6 +1259,7 @@ void UART4_IRQHandler(void)
   * @retval None
   */
 #if defined(STM32L0xx)
+#ifndef HAL_DISABLE_UART4_5_IRQHANDLER
 #if defined(USART4_BASE) || defined(USART5_BASE)
 void USART4_5_IRQHandler(void)
 {
@@ -1264,6 +1273,7 @@ void USART4_5_IRQHandler(void)
 }
 #endif
 #endif
+#endif
 
 /**
   * @brief  USART 4 IRQ handler
@@ -1271,6 +1281,7 @@ void USART4_5_IRQHandler(void)
   * @retval None
   */
 #if defined(STM32U0xx)
+#ifndef HAL_DISABLE_USART4_IRQHANDLER
 #if defined(USART4_BASE)
 void USART4_IRQHandler(void)
 {
@@ -1286,12 +1297,14 @@ void USART4_IRQHandler(void)
 }
 #endif
 #endif
+#endif
 
 /**
   * @brief  USART 5 IRQ handler
   * @param  None
   * @retval None
   */
+#ifndef HAL_DISABLE_USART5_IRQHANDLER
 #if defined(UART5_BASE)
 void UART5_IRQHandler(void)
 {
@@ -1299,12 +1312,14 @@ void UART5_IRQHandler(void)
   HAL_UART_IRQHandler(uart_handlers[UART5_INDEX]);
 }
 #endif
+#endif
 
 /**
   * @brief  USART 6 IRQ handler
   * @param  None
   * @retval None
   */
+#ifndef HAL_DISABLE_USART6_IRQHANDLER
 #if defined(USART6_BASE) && !defined(STM32F0xx) && !defined(STM32G0xx)
 void USART6_IRQHandler(void)
 {
@@ -1312,12 +1327,14 @@ void USART6_IRQHandler(void)
   HAL_UART_IRQHandler(uart_handlers[UART6_INDEX]);
 }
 #endif
+#endif
 
 /**
   * @brief  LPUART 1 IRQ handler
   * @param  None
   * @retval None
   */
+#ifndef HAL_DISABLE_LPUART1_IRQHANDLER
 #if defined(LPUART1_BASE)
 void LPUART1_IRQHandler(void)
 {
@@ -1325,12 +1342,14 @@ void LPUART1_IRQHandler(void)
   HAL_UART_IRQHandler(uart_handlers[LPUART1_INDEX]);
 }
 #endif
+#endif
 
 /**
   * @brief  UART 7 IRQ handler
   * @param  None
   * @retval None
   */
+#ifndef HAL_DISABLE_UART7_IRQHANDLER
 #if defined(UART7_BASE)
 void UART7_IRQHandler(void)
 {
@@ -1338,12 +1357,14 @@ void UART7_IRQHandler(void)
   HAL_UART_IRQHandler(uart_handlers[UART7_INDEX]);
 }
 #endif
+#endif
 
 /**
   * @brief  UART 8 IRQ handler
   * @param  None
   * @retval None
   */
+#ifndef HAL_DISABLE_UART8_IRQHANDLER
 #if defined(UART8_BASE)
 void UART8_IRQHandler(void)
 {
@@ -1351,12 +1372,14 @@ void UART8_IRQHandler(void)
   HAL_UART_IRQHandler(uart_handlers[UART8_INDEX]);
 }
 #endif
+#endif
 
 /**
   * @brief  UART 9 IRQ handler
   * @param  None
   * @retval None
   */
+#ifndef HAL_DISABLE_UART9_IRQHANDLER
 #if defined(UART9_BASE)
 void UART9_IRQHandler(void)
 {
@@ -1364,12 +1387,14 @@ void UART9_IRQHandler(void)
   HAL_UART_IRQHandler(uart_handlers[UART9_INDEX]);
 }
 #endif
+#endif
 
 /**
   * @brief  UART 10 IRQ handler
   * @param  None
   * @retval None
   */
+#ifndef HAL_DISABLE_UART10_IRQHANDLER
 #if defined(UART10_BASE)
 void UART10_IRQHandler(void)
 {
@@ -1377,12 +1402,14 @@ void UART10_IRQHandler(void)
   HAL_UART_IRQHandler(uart_handlers[UART10_INDEX]);
 }
 #endif
+#endif
 
 /**
   * @brief  USART 10 IRQ handler
   * @param  None
   * @retval None
   */
+#ifndef HAL_DISABLE_USART10_IRQHANDLER
 #if defined(USART10_BASE)
 void USART10_IRQHandler(void)
 {
@@ -1390,12 +1417,14 @@ void USART10_IRQHandler(void)
   HAL_UART_IRQHandler(uart_handlers[UART10_INDEX]);
 }
 #endif
+#endif
 
 /**
   * @brief  USART 11 IRQ handler
   * @param  None
   * @retval None
   */
+#ifndef HAL_DISABLE_USART11_IRQHANDLER
 #if defined(USART11_BASE)
 void USART11_IRQHandler(void)
 {
@@ -1403,12 +1432,14 @@ void USART11_IRQHandler(void)
   HAL_UART_IRQHandler(uart_handlers[UART11_INDEX]);
 }
 #endif
+#endif
 
 /**
   * @brief  UART 12 IRQ handler
   * @param  None
   * @retval None
   */
+#ifndef HAL_DISABLE_UART12_IRQHANDLER
 #if defined(UART12_BASE)
 void UART12_IRQHandler(void)
 {
@@ -1416,17 +1447,20 @@ void UART12_IRQHandler(void)
   HAL_UART_IRQHandler(uart_handlers[UART12_INDEX]);
 }
 #endif
+#endif
 
 /**
   * @brief  HAL UART Call Back
   * @param  UART handler
   * @retval None
   */
+#ifndef HAL_DISABLE_UART_WAKEUPCALLBACK
 void HAL_UARTEx_WakeupCallback(UART_HandleTypeDef *huart)
 {
   serial_t *obj = get_serial_obj(huart);
   HAL_UART_Receive_IT(huart,  &(obj->recv), 1);
 }
+#endif
 
 /**
   * @brief  Function called to set the uart clock prescaler
