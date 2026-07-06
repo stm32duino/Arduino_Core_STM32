@@ -33,3 +33,4 @@ __pycache__/
 .vscode/*
 *.code-workspace
 .vscode-ctags
+.claude/

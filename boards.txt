@@ -1566,6 +1566,21 @@ Disco.menu.pnum.DISCO_F429ZI.build.variant_h=variant_DISCO_F429ZI.h
 Disco.menu.pnum.DISCO_F429ZI.openocd.target=stm32f4x
 Disco.menu.pnum.DISCO_F429ZI.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F4xx/STM32F429.svd
 
+# DISCO_F723IE board
+Disco.menu.pnum.DISCO_F723IE=STM32F723E-DISCOVERY
+Disco.menu.pnum.DISCO_F723IE.node=DIS_F723IE
+Disco.menu.pnum.DISCO_F723IE.upload.maximum_size=524288
+Disco.menu.pnum.DISCO_F723IE.upload.maximum_data_size=196608
+Disco.menu.pnum.DISCO_F723IE.build.mcu=cortex-m7
+Disco.menu.pnum.DISCO_F723IE.build.fpu=-mfpu=fpv5-sp-d16
+Disco.menu.pnum.DISCO_F723IE.build.float-abi=-mfloat-abi=hard
+Disco.menu.pnum.DISCO_F723IE.build.board=DISCO_F723IE
+Disco.menu.pnum.DISCO_F723IE.build.series=STM32F7xx
+Disco.menu.pnum.DISCO_F723IE.build.product_line=STM32F723xx
+Disco.menu.pnum.DISCO_F723IE.build.variant=STM32F7xx/F723I(C-E)(K-T)_F730I8K_F733IE(K-T)
+Disco.menu.pnum.DISCO_F723IE.openocd.target=stm32f7x
+Disco.menu.pnum.DISCO_F723IE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F723.svd
+
 # DISCO_F746NG board
 Disco.menu.pnum.DISCO_F746NG=STM32F746G-DISCOVERY
 Disco.menu.pnum.DISCO_F746NG.node=DIS_F746NG
