@@ -1578,6 +1578,7 @@ Disco.menu.pnum.DISCO_F723IE.build.board=DISCO_F723IE
 Disco.menu.pnum.DISCO_F723IE.build.series=STM32F7xx
 Disco.menu.pnum.DISCO_F723IE.build.product_line=STM32F723xx
 Disco.menu.pnum.DISCO_F723IE.build.variant=STM32F7xx/F723I(C-E)(K-T)_F730I8K_F733IE(K-T)
+Disco.menu.pnum.DISCO_F723IE.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Disco.menu.pnum.DISCO_F723IE.openocd.target=stm32f7x
 Disco.menu.pnum.DISCO_F723IE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32F7xx/STM32F723.svd
 
