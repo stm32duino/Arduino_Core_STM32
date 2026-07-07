@@ -142,7 +142,8 @@ Nucleo_144.menu.pnum.NUCLEO_F722ZE.node=NODE_F722ZE
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.upload.maximum_size=524288
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.upload.maximum_data_size=262144
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.mcu=cortex-m7
-Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.flags.fp=-mfpu=fpv5-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.fpu=-mfpu=fpv5-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.board=NUCLEO_F722ZE
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.series=STM32F7xx
 Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.product_line=STM32F722xx
