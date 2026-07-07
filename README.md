@@ -358,6 +358,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F303RB<br>STM32F303RC | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F303RC | [OLIMEXINO-STM32F3](https://www.olimex.com/Products/Duino/STM32/OLIMEXINO-STM32F3/) | *2.0.0* | |
 | :green_heart:  | STM32F303VBT<br>STM32F303VCT | Generic Board | *2.0.0* |  |
+| :yellow_heart:  | STM32F303VD<br>STM32F303VE | Generic Board | **3.0.0** |  |
 | :green_heart:  | STM32F318C8 | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32F318K8 | Generic Board | *2.4.0* |  |
 | :green_heart:  | STM32F328C8 | Generic Board | *2.4.0* |  |
