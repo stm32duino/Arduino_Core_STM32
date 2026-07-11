@@ -729,7 +729,10 @@ uint32_t HardwareTimer::getCount(TimerFormat_t format)
       return_value = (uint32_t)((CNT_RegisterValue * Prescalerfactor * 1000000.0) / getTimerClkFreq());
       break;
     case HERTZ_FORMAT:
-      return_value = (uint32_t)(getTimerClkFreq() / (CNT_RegisterValue  * Prescalerfactor));
+      // CNT_RegisterValue is 0 right at/after every timer reset or overflow,
+      // which is a normal, reachable state (not a caller error): avoid a
+      // divide by zero and report 0 (no meaningful frequency available).
+      return_value = (CNT_RegisterValue == 0) ? 0 : (uint32_t)(getTimerClkFreq() / (CNT_RegisterValue * Prescalerfactor));
       break;
     case TICK_FORMAT:
     default :
@@ -1186,7 +1189,12 @@ uint32_t HardwareTimer::getCaptureCompare(uint32_t channel,  TimerCompareFormat_
       return_value = (uint32_t)((CCR_RegisterValue * Prescalerfactor * 1000000.0) / getTimerClkFreq());
       break;
     case HERTZ_COMPARE_FORMAT:
-      return_value = (uint32_t)(getTimerClkFreq() / (CCR_RegisterValue  * Prescalerfactor));
+      // CCR_RegisterValue is 0 on reset (before the first setCaptureCompare()
+      // call) and, in Input Capture mode, whenever the last captured edge
+      // landed exactly at CNT == 0 or before any edge has been captured yet.
+      // That is a normal, reachable state (not a caller error): avoid a
+      // divide by zero and report 0 (no meaningful frequency available).
+      return_value = (CCR_RegisterValue == 0) ? 0 : (uint32_t)(getTimerClkFreq() / (CCR_RegisterValue * Prescalerfactor));
       break;
     case PERCENT_COMPARE_FORMAT:
       return_value = (CCR_RegisterValue * 100) / LL_TIM_GetAutoReload(_timerObj.instance);
