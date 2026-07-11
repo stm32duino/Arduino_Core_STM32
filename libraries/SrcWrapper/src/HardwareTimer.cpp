@@ -1188,8 +1188,11 @@ uint32_t HardwareTimer::getCaptureCompare(uint32_t channel,  TimerCompareFormat_
     case HERTZ_COMPARE_FORMAT:
       return_value = (uint32_t)(getTimerClkFreq() / (CCR_RegisterValue  * Prescalerfactor));
       break;
+    // As per Reference Manual PWM reach 100% with CCRx value strictly greater than ARR
+    // (So ARR+1 in our case). Use the same ARR+1 "full scale" as setCaptureCompare()
+    // so that get/set are consistent, and to avoid a divide by zero when ARR is 0.
     case PERCENT_COMPARE_FORMAT:
-      return_value = (CCR_RegisterValue * 100) / LL_TIM_GetAutoReload(_timerObj.instance);
+      return_value = (CCR_RegisterValue * 100) / (LL_TIM_GetAutoReload(_timerObj.instance) + 1);
       break;
     case RESOLUTION_1B_COMPARE_FORMAT:
     case RESOLUTION_2B_COMPARE_FORMAT:
@@ -1207,7 +1210,7 @@ uint32_t HardwareTimer::getCaptureCompare(uint32_t channel,  TimerCompareFormat_
     case RESOLUTION_14B_COMPARE_FORMAT:
     case RESOLUTION_15B_COMPARE_FORMAT:
     case RESOLUTION_16B_COMPARE_FORMAT:
-      return_value = (CCR_RegisterValue * ((1 << format) - 1)) / LL_TIM_GetAutoReload(_timerObj.instance);
+      return_value = (CCR_RegisterValue * ((1 << format) - 1)) / (LL_TIM_GetAutoReload(_timerObj.instance) + 1);
       break;
     case TICK_COMPARE_FORMAT:
     default :
