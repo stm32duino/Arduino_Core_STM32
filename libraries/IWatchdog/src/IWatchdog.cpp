@@ -94,7 +94,17 @@ void IWatchdogClass::set(uint32_t timeout, uint32_t window)
   if (--prescaler > LL_IWDG_PRESCALER_256) {
     return;
   }
-  reload = (uint32_t)(t_sec / div) - 1;
+  {
+    uint32_t ticks = (uint32_t)(t_sec / div);
+    // 'ticks' can floor to 0 right at the documented minimum timeout on
+    // series whose LSI_VALUE does not divide IWDG_TIMEOUT_MIN evenly
+    // (e.g. STM32L0xx/L1xx, LSI_VALUE=37000): guard against the unsigned
+    // underflow that would otherwise wrap 'reload' to 0xFFFFFFFF and,
+    // once masked into the 12-bit RLR register, silently program the
+    // watchdog for close to its longest possible timeout instead of the
+    // shortest one that was actually requested.
+    reload = (ticks > 0) ? (ticks - 1) : 0;
+  }
 
   // Enable register access by writing 0x0000 5555 in the IWDG_KR register
   LL_IWDG_EnableWriteAccess(IWDG);
@@ -111,7 +121,9 @@ void IWatchdogClass::set(uint32_t timeout, uint32_t window)
       // Reset window value
       reload = IWDG_WINR_WIN;
     } else {
-      reload = (uint32_t)(((float)window / 1000000 * LSI_VALUE) / div) - 1;
+      // Same underflow risk as the 'timeout' -> reload conversion above.
+      uint32_t window_ticks = (uint32_t)(((float)window / 1000000 * LSI_VALUE) / div);
+      reload = (window_ticks > 0) ? (window_ticks - 1) : 0;
     }
     LL_IWDG_SetWindow(IWDG, reload);
   }
