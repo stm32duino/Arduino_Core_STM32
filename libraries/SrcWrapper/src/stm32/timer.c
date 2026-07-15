@@ -34,8 +34,7 @@ timerObj_t *get_timer_obj(TIM_HandleTypeDef *htim)
   return (obj);
 }
 
-#if defined(USE_HALV2_DRIVER)
-#else
+#if !defined(USE_HALV2_DRIVER)
 /**
   * @brief  TIMER Initialization - clock init and nvic init
   * @param  htim_base: TIM handle
@@ -830,18 +829,36 @@ hal_tim_channel_t getTimerChannel(PinName pin)
 {
   uint32_t function = pinmap_function(pin, PinMap_TIM);
   hal_tim_channel_t channel = -1;
+  bool inverted = STM_PIN_INVERTED(function);
+
   switch (STM_PIN_CHANNEL(function)) {
     case 1:
-      channel = HAL_TIM_CHANNEL_1;
+      if (inverted) {
+        channel = HAL_TIM_CHANNEL_1N;
+      } else {
+        channel = HAL_TIM_CHANNEL_1;
+      }
       break;
     case 2:
-      channel = HAL_TIM_CHANNEL_2;
+      if (inverted) {
+        channel = HAL_TIM_CHANNEL_2N;
+      } else {
+        channel = HAL_TIM_CHANNEL_2;
+      }
       break;
     case 3:
-      channel = HAL_TIM_CHANNEL_3;
+      if (inverted) {
+        channel = HAL_TIM_CHANNEL_3N;
+      } else {
+        channel = HAL_TIM_CHANNEL_3;
+      }
       break;
     case 4:
-      channel = HAL_TIM_CHANNEL_4;
+      if (inverted) {
+        channel = HAL_TIM_CHANNEL_4N;
+      } else {
+        channel = HAL_TIM_CHANNEL_4;
+      }
       break;
     default:
       _Error_Handler("TIM: Unknown timer channel", (int)(STM_PIN_CHANNEL(function)));

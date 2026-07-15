@@ -215,7 +215,7 @@ class HardwareTimer {
     // The following function(s) are available for more advanced timer options
 #if defined(USE_HALV2_DRIVER)
     hal_tim_handle_t *getHandle();  // return the handle address for HAL related configuration
-    hal_tim_channel_t getChannel(uint32_t channel);
+    hal_tim_channel_t getChannel(uint32_t channel, bool complementary = false);
 #else
     TIM_HandleTypeDef *getHandle();  // return the handle address for HAL related configuration
     uint32_t getChannel(uint32_t channel);

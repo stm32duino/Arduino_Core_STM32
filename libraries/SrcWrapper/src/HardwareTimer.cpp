@@ -291,22 +291,38 @@ void HardwareTimer::resume(void)
   * @retval HAL channel. Error handler called if arduino channel is invalid
   */
 #if defined(USE_HALV2_DRIVER)
-hal_tim_channel_t HardwareTimer::getChannel(uint32_t channel)
+hal_tim_channel_t HardwareTimer::getChannel(uint32_t channel, bool complementary)
 {
   hal_tim_channel_t timChannel = HAL_TIM_CHANNEL_1;
 
   switch (channel) {
     case 1:
-      timChannel = HAL_TIM_CHANNEL_1;
+      if (complementary) {
+        timChannel = HAL_TIM_CHANNEL_1N;
+      } else {
+        timChannel = HAL_TIM_CHANNEL_1;
+      }
       break;
     case 2:
-      timChannel = HAL_TIM_CHANNEL_2;
+      if (complementary) {
+        timChannel = HAL_TIM_CHANNEL_2N;
+      } else {
+        timChannel = HAL_TIM_CHANNEL_2;
+      }
       break;
     case 3:
-      timChannel = HAL_TIM_CHANNEL_3;
+      if (complementary) {
+        timChannel = HAL_TIM_CHANNEL_3N;
+      } else {
+        timChannel = HAL_TIM_CHANNEL_3;
+      }
       break;
     case 4:
-      timChannel = HAL_TIM_CHANNEL_4;
+      if (complementary) {
+        timChannel = HAL_TIM_CHANNEL_4N;
+      } else {
+        timChannel = HAL_TIM_CHANNEL_4;
+      }
       break;
     default:
       Error_Handler();
@@ -507,6 +523,7 @@ void HardwareTimer::resumeChannel(uint32_t channel)
 {
 #if defined(USE_HALV2_DRIVER)
   hal_tim_channel_t timChannel = getChannel(channel);
+  hal_tim_channel_t timChannelN = getChannel(channel, true);
 #else
   uint32_t timChannel = getChannel(channel);
 #endif
@@ -523,7 +540,7 @@ void HardwareTimer::resumeChannel(uint32_t channel)
 #if defined(TIM_CCER_CC1NE)
         if (__ChannelsUsed[channel - 1] & COMPLEMENTARY_CHAN_MASK) {
 #if defined(USE_HALV2_DRIVER)
-          HAL_TIM_OC_StartChannel(&_timerObj.handle, timChannel);
+          HAL_TIM_OC_StartChannel(&_timerObj.handle, timChannelN);
           HAL_TIM_Start(&_timerObj.handle);
 #else
           HAL_TIMEx_PWMN_Start(&(_timerObj.handle), timChannel);
@@ -548,7 +565,7 @@ void HardwareTimer::resumeChannel(uint32_t channel)
 #if defined(TIM_CCER_CC1NE)
         if (__ChannelsUsed[channel - 1] & COMPLEMENTARY_CHAN_MASK) {
 #if defined(USE_HALV2_DRIVER)
-          HAL_TIM_OC_StartChannel(&_timerObj.handle, timChannel);
+          HAL_TIM_OC_StartChannel(&_timerObj.handle, timChannelN);
           HAL_TIM_Start(&_timerObj.handle);
 #else
           HAL_TIMEx_OCN_Start(&(_timerObj.handle), timChannel);
@@ -789,9 +806,9 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, pin_size_t pin,
 void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin, ChannelInputFilter_t filter)
 {
   uint32_t timAssociatedInputChannel;
-
+  bool inverted = (pin != NC) ? STM_PIN_INVERTED(pinmap_function(pin, PinMap_TIM)) : false;
 #if defined(USE_HALV2_DRIVER)
-  hal_tim_channel_t timChannel = getChannel(channel);
+  hal_tim_channel_t timChannel = (inverted) ? getChannel(channel, true) : getChannel(channel, false);
   hal_tim_oc_compare_unit_t oc_compare_unit = hal_tim_oc_channel_to_compare_unit(timChannel);
   hal_tim_oc_compare_unit_config_t oc_cu_config;
   hal_tim_oc_channel_config_t oc_channel_config;
@@ -886,7 +903,7 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin, Ch
       break;
     case TIMER_INPUT_FREQ_DUTY_MEASUREMENT:
       // Check if regular channel
-      if (STM_PIN_INVERTED(pinmap_function(pin, PinMap_TIM))) {
+      if (inverted) {
         Error_Handler();
       }
       // Configure 1st channel
@@ -995,7 +1012,7 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin, Ch
       break;
     case TIMER_INPUT_FREQ_DUTY_MEASUREMENT:
       // Check if regular channel
-      if (STM_PIN_INVERTED(pinmap_function(pin, PinMap_TIM))) {
+      if (inverted) {
         Error_Handler();
       }
       // Configure 1st channel
@@ -1034,7 +1051,7 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin, Ch
         Error_Handler();
       }
 
-      __ChannelsUsed[channel - 1] |= (STM_PIN_INVERTED(pinmap_function(pin, PinMap_TIM))) ? COMPLEMENTARY_CHAN_MASK : REGULAR_CHAN_MASK;
+      __ChannelsUsed[channel - 1] |= (inverted) ? COMPLEMENTARY_CHAN_MASK : REGULAR_CHAN_MASK;
     }
   }
 }
