@@ -113,7 +113,6 @@
 #endif
 
 #if defined(STM32U0xx)
-#define RCC_CR_HSIDY_Pos RCC_CR_HSIRDY_Pos
 #include "stm32yyxx_ll_rtc.h"
 #if !defined(LL_RTC_BINARY_NONE)
   #define LL_RTC_BINARY_NONE RTC_BINARY_NONE
@@ -237,19 +236,6 @@ __STATIC_INLINE void LL_RTC_SetBinMixBCDU(RTC_TypeDef *RTCx, uint32_t BinMixBcdU
 #if defined(STM32L0xx) && !defined(GPIO_AF1_SPI1)
   #define GPIO_AF1_SPI1 STM_PIN_AFNUM_MASK
 #endif
-
-#if defined(STM32C0xx)
-  #if defined(USART3) && !defined(GPIO_AF7_USART3)
-    #define GPIO_AF7_USART3 ((uint8_t)0x07)
-  #endif /* USART3 & !GPIO_AF7_USART3*/
-  #if defined(STM32C051xx) && !defined(GPIO_AF0_USART2)
-    #define GPIO_AF0_USART2 ((uint8_t)0x00)
-  #endif
-#endif // STM32C0xx
-
-#if defined(STM32WBAxx) && defined(USB_OTG_HS) && !defined(GPIO_AF4_USB_OTG_HS)
-  #define GPIO_AF4_USB_OTG_HS GPIO_AF4_OTG_HS
-#endif // STM32WBAxx && defined(USB_OTG_HS) && !defined(GPIO_AF4_USB_OTG_HS)
 
 /**
  * Libc porting layers
