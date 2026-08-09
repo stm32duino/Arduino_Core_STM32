@@ -101,6 +101,16 @@ void SPIClass::endTransaction(void)
 }
 
 /**
+  * @brief  Reset the SPI interface.
+  */
+void SPIClass::reset(void)
+{ 
+  _spi.handle.State = HAL_SPI_STATE_RESET;
+  spi_reset(&_spi);
+}
+
+
+/**
   * @brief  Deinitialize the SPI instance and stop it.
   */
 void SPIClass::end(void)
@@ -182,6 +192,19 @@ void SPIClass::transfer(const void *tx_buf, void *rx_buf, size_t count)
   spi_transfer(&_spi, ((const uint8_t *)tx_buf), ((uint8_t *)rx_buf), count);
 }
 
+/**
+  * @brief  Helper to perform a single byte transaction (read and write).
+  *         begin() or beginTransaction() must be called at least once before.
+  * @param  
+  * @param  
+  * @param  tx: byte to send
+  * @param  *rx: byte received.  If NULL the received byte will be discarded.
+  * @return true on success.  
+  */
+bool SPIClass::read_write_byte(uint8_t tx, uint8_t *rx)
+{
+  return(spi_read_write_byte(&_spi, tx, rx) == SPI_OK);
+}
 
 /**
   * @brief  Not implemented.

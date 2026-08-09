@@ -550,6 +550,77 @@ void spi_deinit(spi_t *obj)
   }
 }
 
+
+
+/**
+  * @brief This function is implemented to reset the SPI interface
+  * @param  obj : pointer to spi_t structure
+  * @retval None
+  */
+void spi_reset(spi_t *obj)
+{
+  if (obj == NULL) {
+    return;
+  }
+
+  SPI_HandleTypeDef *handle = &(obj->handle);
+
+#if defined SPI1_BASE
+  // Reset SPI 
+  if (handle->Instance == SPI1) {
+    __HAL_RCC_SPI1_FORCE_RESET();
+    __HAL_RCC_SPI1_RELEASE_RESET();
+  }
+#endif
+#if defined SPI2_BASE
+  if (handle->Instance == SPI2) {
+    __HAL_RCC_SPI2_FORCE_RESET();
+    __HAL_RCC_SPI2_RELEASE_RESET();
+  }
+#endif
+
+#if defined SPI3_BASE
+  if (handle->Instance == SPI3) {
+    __HAL_RCC_SPI3_FORCE_RESET();
+    __HAL_RCC_SPI3_RELEASE_RESET();
+  }
+#endif
+
+#if defined SPI4_BASE
+  if (handle->Instance == SPI4) {
+    __HAL_RCC_SPI4_FORCE_RESET();
+    __HAL_RCC_SPI4_RELEASE_RESET();
+  }
+#endif
+
+#if defined SPI5_BASE
+  if (handle->Instance == SPI5) {
+    __HAL_RCC_SPI5_FORCE_RESET();
+    __HAL_RCC_SPI5_RELEASE_RESET();
+  }
+#endif
+
+#if defined SPI6_BASE
+  if (handle->Instance == SPI6) {
+    __HAL_RCC_SPI6_FORCE_RESET();
+    __HAL_RCC_SPI6_RELEASE_RESET();
+  }
+#endif
+
+#if defined SUBGHZSPI_BASE
+  if (handle->Instance == SUBGHZSPI) {
+    __HAL_RCC_SUBGHZSPI_FORCE_RESET();
+    __HAL_RCC_SUBGHZSPI_RELEASE_RESET();
+  }
+#endif
+
+   HAL_SPI_Init(handle);
+
+  /* In order to correctly set the SPI polarity we need to enable the peripheral */
+  __HAL_SPI_ENABLE(handle);
+}
+
+
 /**
   * @brief This function is implemented by user to send/receive data over
   *         SPI interface
@@ -623,6 +694,75 @@ spi_status_e spi_transfer(spi_t *obj, const uint8_t *tx_buffer, uint8_t *rx_buff
   }
   return ret;
 }
+
+
+/**
+  * @brief  This function is used to send/receive one byte on SPI
+  * @param  
+  * @param  obj : pointer to spi_t structure
+  * @param  tx: byte to send
+  * @param  rx: pointer to byte received.  If NULL the received byte will be discarded
+  * @param  
+  * @retval status. SPI_OK = 0
+  */
+spi_status_e spi_read_write_byte(spi_t *obj, uint8_t tx, uint8_t *rx)
+{
+  spi_status_e ret = SPI_OK;
+  int8_t tmp;
+  uint32_t tickstart;
+  SPI_TypeDef *_SPI = obj->handle.Instance;
+
+  tickstart = HAL_GetTick();
+
+#if defined(SPI_SR_TXP) // True if we have fifo threshold support
+  while (!LL_SPI_IsActiveFlag_TXP(_SPI)) {
+    if ((SPI_TRANSFER_TIMEOUT != HAL_MAX_DELAY) &&
+        (HAL_GetTick() - tickstart >= SPI_TRANSFER_TIMEOUT)) {
+      core_debug("SPI Active flag timed out\n");
+      return(SPI_TIMEOUT);
+    }
+  }
+#else
+  while (!LL_SPI_IsActiveFlag_TXE(_SPI)) { // Wait for transmit empty before sending
+    if ((SPI_TRANSFER_TIMEOUT != HAL_MAX_DELAY) &&
+        (HAL_GetTick() - tickstart >= SPI_TRANSFER_TIMEOUT)) {
+      core_debug("SPI Active flag timed out\n");
+      return(SPI_TIMEOUT);
+    }
+  }
+#endif
+  LL_SPI_TransmitData8(_SPI, tx);
+
+#if defined(SPI_SR_RXP)
+  while (!LL_SPI_IsActiveFlag_RXP(_SPI)) {
+    if ((SPI_TRANSFER_TIMEOUT != HAL_MAX_DELAY) &&
+        (HAL_GetTick() - tickstart >= SPI_TRANSFER_TIMEOUT)) {
+      core_debug("SPI Rx timed out\n");
+      return(SPI_TIMEOUT);
+    }
+  }
+#else
+  while (!LL_SPI_IsActiveFlag_RXNE(_SPI)) { // Wait for Rx not empty before read
+    if ((SPI_TRANSFER_TIMEOUT != HAL_MAX_DELAY) &&
+        (HAL_GetTick() - tickstart >= SPI_TRANSFER_TIMEOUT)) {
+      core_debug("SPI Rx timed out\n");
+      return(SPI_TIMEOUT);
+    }
+  }
+#endif
+  tmp = LL_SPI_ReceiveData8(_SPI);
+  if (rx != NULL) *rx = (uint8_t)tmp;
+
+  if ((SPI_TRANSFER_TIMEOUT != HAL_MAX_DELAY) &&
+      (HAL_GetTick() - tickstart >= SPI_TRANSFER_TIMEOUT)) {
+    core_debug("SPI Transfer timed out\n");
+    return(SPI_TIMEOUT);
+  }
+
+  return ret;
+}
+
+
 
 #ifdef __cplusplus
 }

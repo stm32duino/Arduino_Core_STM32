@@ -68,6 +68,7 @@ class SPIClass : public HardwareSPI {
     {
       begin(SPI_CONTROLLER);
     }
+    void reset(void);
     void end(void) override ;
 
     /* This function should be used to configure the SPI instance in case you
@@ -100,6 +101,7 @@ class SPIClass : public HardwareSPI {
      */
     void transfer(const void *tx_buf, void *rx_buf, size_t count);
 
+    bool read_write_byte(uint8_t tx, uint8_t *rx);
     // Not implemented functions. Kept for compatibility.
     void usingInterrupt(int interruptNumber) override;
     void notUsingInterrupt(int interruptNumber) override;
