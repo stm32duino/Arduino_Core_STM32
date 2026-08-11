@@ -269,7 +269,8 @@ env.Append(
     CPPPATH=[
         join(FRAMEWORK_DIR, "cores", "arduino", "avr"),
         join(FRAMEWORK_DIR, "cores", "arduino", "stm32"),
-        join(FRAMEWORK_DIR, "cores", "arduino", "api"),
+        join(FRAMEWORK_DIR, "cores", "arduino", "api", "deprecated"),
+        join(FRAMEWORK_DIR, "cores", "arduino", "api", "deprecated-avr-comp"),
         join(FRAMEWORK_DIR, "libraries", "SrcWrapper", "inc"),
         join(FRAMEWORK_DIR, "libraries", "SrcWrapper", "inc", "LL"),
         join(FRAMEWORK_DIR, "libraries", "USBDevice", "inc"),
