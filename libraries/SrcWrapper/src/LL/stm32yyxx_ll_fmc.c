@@ -14,6 +14,8 @@
   #include "stm32h5xx_ll_fmc.c"
 #elif STM32H7xx
   #include "stm32h7xx_ll_fmc.c"
+#elif STM32H7RSxx
+  #include "stm32h7rsxx_ll_fmc.c"
 #elif STM32L4xx
   #include "stm32l4xx_ll_fmc.c"
 #elif STM32L5xx
