@@ -1520,7 +1520,7 @@ void HAL_I2C_ErrorCallback(I2C_HandleTypeDef *hi2c)
 {
   i2c_t *obj = get_i2c_obj(hi2c);
 
-  if (obj->isMaster) {
+  if (!obj->isMaster) {
 #if defined(USE_HALV2_DRIVER)
     HAL_I2C_SLAVE_EnableListen_IT(hi2c);
 #else
