@@ -14,7 +14,7 @@
  *   Upload method STM32CubeProgrammer (SWD) -> Requires installing STM32_Programmer_CLI.exe and adding it to your PATH
  *   Optimize for smallest
  *
- *  The following pins should be conneced to the corresponding pins on the master
+ *  The following pins should be connected to the corresponding pins on the master
  *     PA4 - NSS
  *     PA5 - SCK
  *     PA6 - MISO
@@ -55,11 +55,9 @@ volatile int CatchupCnt = 0;
 void SPI_ISR() {
   BaseType_t xHigherPriorityTaskWoken = pdFALSE;  
 
-  SPI.reset();  // Reset the SPI hardware interface to flush any stale data:
-
   // At this point xTaskToNotify should not be NULL 
   // If this happens it means we are falling behind. 
-  // Increment an error cound so the main task can take action to get back in sync
+  // Increment an error count so the main task can take action to get back in sync
   if (xTaskToNotify == NULL)
   {
     xTaskErr++;
@@ -167,14 +165,15 @@ static void SPIThread(void* arg) {
             break;
         }
       }
-      SPI.reset();  // Reset the SPI hardware interface
     }
 
     // Store this task's handle so the ISR knows who to signal   
     xTaskToNotify = xTaskGetCurrentTaskHandle();  
 
     // Block until ISR signals us.  This is faster than using a semaphore
-    ulTaskNotifyTake( pdFALSE, portMAX_DELAY ); // Block without timeout, decrement (don't clear) 
+    ulTaskNotifyTake( pdFALSE, portMAX_DELAY ); // Block without timeout, decrement (don't clear)
+
+    SPI.reset();  // Reset the SPI hardware interface to flush any stale data: 
 
     if (xTaskErr > CatchupCnt) {
       Serial.println("Fell behind");
@@ -188,7 +187,6 @@ static void SPIThread(void* arg) {
             break;
         }
       }
-      SPI.reset();  // Reset the SPI hardware interface
       CatchupCnt = xTaskErr; // Don't block to process the missed interrupt.  
       continue;
     }
@@ -204,8 +202,7 @@ static void SPIThread(void* arg) {
     //taskEXIT_CRITICAL();
 
     if (!rval) {
-     Serial.println("Error in SPI transfer.  Resetting SPI hardware...");
-     SPI.reset();  // Reset the SPI hardware interface
+     Serial.println("Error in SPI transfer.  Aborting transaction...");
      continue;
     }
 

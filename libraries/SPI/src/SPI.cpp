@@ -195,11 +195,10 @@ void SPIClass::transfer(const void *tx_buf, void *rx_buf, size_t count)
 /**
   * @brief  Helper to perform a single byte transaction (read and write).
   *         begin() or beginTransaction() must be called at least once before.
-  * @param  
-  * @param  
   * @param  tx: byte to send
-  * @param  *rx: byte received.  If NULL the received byte will be discarded.
-  * @return true on success.  
+  * @param  rx: pointer to byte received.  If NULL the received byte will be 
+  *         discarded.
+  * @return true on success.
   */
 bool SPIClass::read_write_byte(uint8_t tx, uint8_t *rx)
 {

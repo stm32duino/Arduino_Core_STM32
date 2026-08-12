@@ -563,61 +563,77 @@ void spi_reset(spi_t *obj)
     return;
   }
 
-  SPI_HandleTypeDef *handle = &(obj->handle);
-
 #if defined SPI1_BASE
   // Reset SPI 
-  if (handle->Instance == SPI1) {
+  if (obj->spi == SPI1) {
+#if defined(USE_HALV2_DRIVER)   
+    HAL_RCC_SPI1_Reset()
+#else
     __HAL_RCC_SPI1_FORCE_RESET();
     __HAL_RCC_SPI1_RELEASE_RESET();
+#endif
   }
 #endif
+
 #if defined SPI2_BASE
-  if (handle->Instance == SPI2) {
+  if (obj->spi == SPI2) {
+#if defined(USE_HALV2_DRIVER)
+    HAL_RCC_SPI2_Reset();
+#else
     __HAL_RCC_SPI2_FORCE_RESET();
     __HAL_RCC_SPI2_RELEASE_RESET();
+#endif
   }
 #endif
 
 #if defined SPI3_BASE
-  if (handle->Instance == SPI3) {
+  if (obj->spi == SPI3) {
+#if defined(USE_HALV2_DRIVER)
+    HAL_RCC_SPI3_Reset();
+#else
     __HAL_RCC_SPI3_FORCE_RESET();
     __HAL_RCC_SPI3_RELEASE_RESET();
+#endif
   }
 #endif
 
 #if defined SPI4_BASE
-  if (handle->Instance == SPI4) {
+  if (obj->spi == SPI4) {
     __HAL_RCC_SPI4_FORCE_RESET();
     __HAL_RCC_SPI4_RELEASE_RESET();
   }
 #endif
 
 #if defined SPI5_BASE
-  if (handle->Instance == SPI5) {
+  if (obj->spi == SPI5) {
     __HAL_RCC_SPI5_FORCE_RESET();
     __HAL_RCC_SPI5_RELEASE_RESET();
   }
 #endif
 
 #if defined SPI6_BASE
-  if (handle->Instance == SPI6) {
+  if (obj->spi == SPI6) {
     __HAL_RCC_SPI6_FORCE_RESET();
     __HAL_RCC_SPI6_RELEASE_RESET();
   }
 #endif
 
 #if defined SUBGHZSPI_BASE
-  if (handle->Instance == SUBGHZSPI) {
+  if (obj->spi == SUBGHZSPI) {
     __HAL_RCC_SUBGHZSPI_FORCE_RESET();
     __HAL_RCC_SUBGHZSPI_RELEASE_RESET();
   }
 #endif
 
-   HAL_SPI_Init(handle);
-
+#if defined(USE_HALV2_DRIVER)
+  hal_spi_handle_t *hspi = &(obj->handle);
+  HAL_SPI_Init(hspi, (hal_spi_t)obj->spi);
+#else
+  SPI_HandleTypeDef *handle = &(obj->handle);
+  HAL_SPI_Init(handle);
+#endif
   /* In order to correctly set the SPI polarity we need to enable the peripheral */
-  __HAL_SPI_ENABLE(handle);
+  LL_SPI_Enable(obj->spi);
 }
 
 
@@ -698,11 +714,9 @@ spi_status_e spi_transfer(spi_t *obj, const uint8_t *tx_buffer, uint8_t *rx_buff
 
 /**
   * @brief  This function is used to send/receive one byte on SPI
-  * @param  
   * @param  obj : pointer to spi_t structure
   * @param  tx: byte to send
   * @param  rx: pointer to byte received.  If NULL the received byte will be discarded
-  * @param  
   * @retval status. SPI_OK = 0
   */
 spi_status_e spi_read_write_byte(spi_t *obj, uint8_t tx, uint8_t *rx)
@@ -710,7 +724,12 @@ spi_status_e spi_read_write_byte(spi_t *obj, uint8_t tx, uint8_t *rx)
   spi_status_e ret = SPI_OK;
   int8_t tmp;
   uint32_t tickstart;
-  SPI_TypeDef *_SPI = obj->handle.Instance;
+  SPI_TypeDef *_SPI;
+
+  if ((obj == NULL) || obj->spi == NULL) {
+      return(SPI_ERROR);
+  }
+  _SPI = obj->spi;
 
   tickstart = HAL_GetTick();
 
