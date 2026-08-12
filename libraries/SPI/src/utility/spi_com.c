@@ -567,7 +567,7 @@ void spi_reset(spi_t *obj)
   // Reset SPI
   if (obj->spi == SPI1) {
 #if defined(USE_HALV2_DRIVER)
-    HAL_RCC_SPI1_Reset()
+    HAL_RCC_SPI1_Reset();
 #else
     __HAL_RCC_SPI1_FORCE_RESET();
     __HAL_RCC_SPI1_RELEASE_RESET();
@@ -770,7 +770,9 @@ spi_status_e spi_read_write_byte(spi_t *obj, uint8_t tx, uint8_t *rx)
   }
 #endif
   tmp = LL_SPI_ReceiveData8(_SPI);
-  if (rx != NULL) *rx = (uint8_t)tmp;
+  if (rx != NULL) {
+    *rx = (uint8_t)tmp;
+  }
 
   if ((SPI_TRANSFER_TIMEOUT != HAL_MAX_DELAY) &&
       (HAL_GetTick() - tickstart >= SPI_TRANSFER_TIMEOUT)) {
