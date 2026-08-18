@@ -134,8 +134,6 @@ class SPIClass : public HardwareSPI {
   private:
     /* Current SPISettings */
     SPISettings   _spiSettings = SPISettings();
-
-    void configSpi(const SPISettings &settings);
 };
 
 extern SPIClass SPI;

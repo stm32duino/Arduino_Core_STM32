@@ -13,25 +13,6 @@
 
 SPIClass SPI;
 
-void SPIClass::configSpi(const SPISettings &settings)
-{
-  if (_spiSettings != settings) {
-    _spiSettings = settings;
-
-    uint32_t  clock   = settings.getClockFreq();
-    SPIMode   dataMode    = settings.getDataMode();
-    BitOrder  order   = settings.getBitOrder();
-    SPIBusMode busMode    = settings.getBusMode();
-
-    // Mapping API dataMode → spi_mode_e C
-    spi_mode_e cspimode = static_cast<spi_mode_e>(dataMode);
-    // Mapping API busMode → spi_busmode_e C
-    spi_busmode_e cbusmode = static_cast<spi_busmode_e>(busMode);
-
-    spi_init(&_spi, clock, cspimode, order, cbusmode);
-  }
-}
-
 /**
   * @brief  Default Constructor. Uses pin configuration of default SPI
   *         defined in the variant*.h.
@@ -73,13 +54,9 @@ void SPIClass::begin(SPIBusMode busMode)
   _spi.handle.State = HAL_SPI_STATE_RESET;
 #endif
 
-  SPISettings defaultSettings(
-    SPI_SPEED_CLOCK_DEFAULT, // 4 MHz
-    MSBFIRST,
-    SPI_MODE0,
-    busMode
-  );
-  configSpi(defaultSettings);
+  _spiSettings = SPISettings(4000000, MSBFIRST, SPI_MODE0, busMode);
+  spi_init(&_spi, _spiSettings.getClockFreq(), (spi_mode_e)_spiSettings.getDataMode(),
+           _spiSettings.getBitOrder(), (spi_busmode_e)_spiSettings.getBusMode());
 }
 
 /**
@@ -89,7 +66,11 @@ void SPIClass::begin(SPIBusMode busMode)
   */
 void SPIClass::beginTransaction(SPISettings settings)
 {
-  configSpi(settings);
+  if (_spiSettings != settings) {
+    _spiSettings = settings;
+    spi_init(&_spi, _spiSettings.getClockFreq(), (spi_mode_e)_spiSettings.getDataMode(),
+             _spiSettings.getBitOrder(), (spi_busmode_e)_spiSettings.getBusMode());
+  }
 }
 
 /**
