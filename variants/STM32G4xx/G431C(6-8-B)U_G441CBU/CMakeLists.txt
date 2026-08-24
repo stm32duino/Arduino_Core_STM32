@@ -24,6 +24,7 @@ add_library(variant_bin STATIC EXCLUDE_FROM_ALL
   PeripheralPins_B_G431B_ESC1.c
   variant_B_G431B_ESC1.cpp
   variant_generic.cpp
+  variant_PHOQUE2.cpp
 )
 target_link_libraries(variant_bin PUBLIC variant_usage)
 
