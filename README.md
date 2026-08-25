@@ -951,8 +951,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 ### Phoque brushless motor driver boards
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :yellow_heart:  | STM32G431VBT | Phoque 1 Brushless Motor Driver | **3.0.1* | STSPIN32G4-based |
-| :yellow_heart:  | STM32G431CBU | Phoque 2 Brushless Motor Driver | **3.0.1* |  |
+| :yellow_heart:  | STM32G431VBT | Phoque 1 Brushless Motor Driver | **3.0.1** | STSPIN32G4-based |
+| :yellow_heart:  | STM32G431CBU | Phoque 2 Brushless Motor Driver | **3.0.1** |  |
 
 ### [SparkFun](https://www.sparkfun.com/) boards
 
