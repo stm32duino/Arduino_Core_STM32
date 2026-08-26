@@ -361,6 +361,12 @@ USBD_StatusTypeDef USBD_StdEPReq(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef 
               break;
 
             case USBD_STATE_CONFIGURED:
+              if ((ep_addr & 0x7FU) > 0x0FU)
+              {
+                USBD_CtlError(pdev, req);
+                break;
+              }
+
               if ((ep_addr & 0x80U) == 0x80U)
               {
                 if (pdev->ep_in[ep_addr & 0xFU].is_used == 0U)
@@ -378,8 +384,8 @@ USBD_StatusTypeDef USBD_StdEPReq(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef 
                 }
               }
 
-              pep = ((ep_addr & 0x80U) == 0x80U) ? &pdev->ep_in[ep_addr & 0x7FU] : \
-                    &pdev->ep_out[ep_addr & 0x7FU];
+              pep = ((ep_addr & 0x80U) == 0x80U) ? &pdev->ep_in[ep_addr & 0xFU] : \
+                    &pdev->ep_out[ep_addr & 0xFU];
 
               if ((ep_addr == 0x00U) || (ep_addr == 0x80U))
               {
@@ -1011,7 +1017,7 @@ void USBD_GetString(uint8_t *desc, uint8_t *unicode, uint16_t *len)
   unicode[idx] = USB_DESC_TYPE_STRING;
   idx++;
 
-  while (*pdesc != (uint8_t)'\0')
+  while ((*pdesc != (uint8_t)'\0') && (idx < *len))
   {
     unicode[idx] = *pdesc;
     pdesc++;

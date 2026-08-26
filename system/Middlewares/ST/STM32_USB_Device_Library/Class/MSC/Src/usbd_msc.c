@@ -125,6 +125,9 @@ USBD_ClassTypeDef  USBD_MSC =
   USBD_MSC_GetOtherSpeedCfgDesc,
   USBD_MSC_GetDeviceQualifierDescriptor,
 #endif /* USE_USBD_COMPOSITE */
+#if (USBD_SUPPORT_USER_STRING_DESC == 1U)
+  NULL,
+#endif /* USBD_SUPPORT_USER_STRING_DESC  */
 };
 
 /* USB Mass storage device Configuration Descriptor */
@@ -309,6 +312,7 @@ uint8_t USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
   USBD_StatusTypeDef ret = USBD_OK;
+  uint32_t max_lun;
   uint16_t status_info = 0U;
 
 #ifdef USE_USBD_COMPOSITE
@@ -332,7 +336,8 @@ uint8_t USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
           if ((req->wValue  == 0U) && (req->wLength == 1U) &&
               ((req->bmRequest & 0x80U) == 0x80U))
           {
-            hmsc->max_lun = (uint32_t)((USBD_StorageTypeDef *)pdev->pUserData[pdev->classId])->GetMaxLun();
+            max_lun = (uint32_t)((USBD_StorageTypeDef *)pdev->pUserData[pdev->classId])->GetMaxLun();
+            hmsc->max_lun = (max_lun > MSC_BOT_MAX_LUN) ? MSC_BOT_MAX_LUN : max_lun;
             (void)USBD_CtlSendData(pdev, (uint8_t *)&hmsc->max_lun, 1U);
           }
           else

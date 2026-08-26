@@ -68,6 +68,10 @@ extern "C" {
 #define CDC_ECM_FS_BINTERVAL                            0x10U
 #endif /* CDC_ECM_FS_BINTERVAL */
 
+#ifndef CDC_ECM_CMD_PACKET_SIZE
+#define CDC_ECM_CMD_PACKET_SIZE                         16U  /* Control Endpoint Packet size */
+#endif /* CDC_ECM_CMD_PACKET_SIZE */
+
 #ifndef USBD_SUPPORT_USER_STRING_DESC
 #define USBD_SUPPORT_USER_STRING_DESC                   1U
 #endif /* USBD_SUPPORT_USER_STRING_DESC */
@@ -75,7 +79,6 @@ extern "C" {
 /* CDC_ECM Endpoints parameters: you can fine tune these values depending on the needed baudrates and performance. */
 #define CDC_ECM_DATA_HS_MAX_PACKET_SIZE                 512U  /* Endpoint IN & OUT Packet size */
 #define CDC_ECM_DATA_FS_MAX_PACKET_SIZE                 64U   /* Endpoint IN & OUT Packet size */
-#define CDC_ECM_CMD_PACKET_SIZE                         16U    /* Control Endpoint Packet size */
 
 #define CDC_ECM_CONFIG_DESC_SIZ                         79U
 

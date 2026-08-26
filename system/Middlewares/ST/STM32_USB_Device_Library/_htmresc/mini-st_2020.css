@@ -45,7 +45,15 @@ body {
   @background: var(--back-color);
   background: var(--back-color) linear-gradient(#ffd200, #ffd200) repeat-y left top;
   background-size: var(--background-margin);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   }
+
+footer.sticky,
+.sticky {
+  margin-top: auto;
+}
 
 details {
   display: block; }
@@ -78,7 +86,7 @@ h1 {
 
 h2 {
   font-size: calc(1rem * var(--heading-ratio) * var(--heading-ratio) );
-  border-style: none none solid none ; 
+  border-style: none none solid none ;
   border-width: thin;
   border-color: var(--border-color); }
 h3 {
@@ -1597,7 +1605,7 @@ span.icon-user {
 span.icon-st-update {
   background-image: url("Update.svg"); }
 span.icon-st-add {
-  background-image: url("Add button.svg"); }
+  background-image: url("Add_button.svg"); }
 
 /*
   Definitions for utilities and helper classes.

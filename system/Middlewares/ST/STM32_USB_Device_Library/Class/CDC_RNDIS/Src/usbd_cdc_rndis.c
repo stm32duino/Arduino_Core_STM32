@@ -1414,7 +1414,7 @@ static uint8_t USBD_CDC_RNDIS_ProcessQueryMsg(USBD_HandleTypeDef *pdev,
     case OID_GEN_VENDOR_DESCRIPTION:
       QueryResponse->InfoBufLength = (strlen(USBD_CDC_RNDIS_VENDOR_DESC) + 1U);
       (void)USBD_memcpy(QueryResponse->InfoBuf, USBD_CDC_RNDIS_VENDOR_DESC,
-                        strlen(USBD_CDC_RNDIS_VENDOR_DESC));
+                        strlen(USBD_CDC_RNDIS_VENDOR_DESC) + 1U);
 
       QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
       break;
@@ -1452,7 +1452,7 @@ static uint8_t USBD_CDC_RNDIS_ProcessQueryMsg(USBD_HandleTypeDef *pdev,
 
     case OID_GEN_CURRENT_PACKET_FILTER:
       QueryResponse->InfoBufLength = sizeof(uint32_t);
-      QueryResponse->InfoBuf[0] = 0xFFFFFFU; /* USBD_CDC_RNDIS_DEVICE.packetFilter; */
+      QueryResponse->InfoBuf[0] = 0xFFFFFFU; /* USBD_CDC_RNDIS_DEVICE.packetFilter */
       QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
       break;
 
@@ -1641,6 +1641,13 @@ static uint8_t USBD_CDC_RNDIS_ProcessPacketMsg(USBD_HandleTypeDef *pdev,
   /* Use temporary storage variables to comply with MISRA-C 2012 rule of (+) operand allowed types */
   tmp1 = (uint32_t)PacketMsg;
   tmp2 = (uint32_t)(PacketMsg->DataOffset);
+
+  /* Validate DataOffset and DataLength against the received MsgLength */
+  if ((tmp2 + CDC_RNDIS_PCKTMSG_DATAOFFSET_OFFSET + PacketMsg->DataLength) > PacketMsg->MsgLength)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
+
   hcdc->RxBuffer = (uint8_t *)(tmp1 + tmp2 + CDC_RNDIS_PCKTMSG_DATAOFFSET_OFFSET);
   hcdc->RxLength = PacketMsg->DataLength;
 

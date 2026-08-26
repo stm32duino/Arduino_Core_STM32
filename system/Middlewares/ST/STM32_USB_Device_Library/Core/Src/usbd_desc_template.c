@@ -65,7 +65,7 @@ USBD_DescriptorsTypeDef Class_Desc =
   USBD_Class_ConfigStrDescriptor,
   USBD_Class_InterfaceStrDescriptor,
 #if (USBD_CLASS_USER_STRING_DESC == 1)
-  USBD_CLASS_UserStrDescriptor,
+  USBD_Class_UserStrDescriptor,
 #endif /* USB_CLASS_USER_STRING_DESC */
 
 #if ((USBD_LPM_ENABLED == 1) || (USBD_CLASS_BOS_ENABLED == 1))

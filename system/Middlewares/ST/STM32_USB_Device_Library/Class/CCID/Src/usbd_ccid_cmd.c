@@ -42,10 +42,10 @@ static void CCID_UpdateCommandStatus(USBD_HandleTypeDef  *pdev, uint8_t cmd_stat
 uint8_t PC_to_RDR_IccPowerOn(USBD_HandleTypeDef *pdev)
 {
   /* Apply the ICC VCC
-  Fills the Response buffer with ICC ATR
-  This Command is returned with RDR_to_PC_DataBlock();
-  */
-  USBD_CCID_HandleTypeDef  *hccid = (USBD_CCID_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
+   * Fills the Response buffer with ICC ATR
+   * This Command is returned with RDR_to_PC_DataBlock();
+   */
+  USBD_CCID_HandleTypeDef *hccid = (USBD_CCID_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
   uint8_t voltage;
   uint8_t sc_voltage = 0U;
   uint8_t index;

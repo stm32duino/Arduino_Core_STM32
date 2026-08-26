@@ -66,12 +66,14 @@ extern "C" {
 #define CDC_RNDIS_FS_BINTERVAL                            0x10U
 #endif /* CDC_RNDIS_FS_BINTERVAL */
 
+#ifndef CDC_RNDIS_CMD_PACKET_SIZE
+#define CDC_RNDIS_CMD_PACKET_SIZE                         16U  /* Control Endpoint Packet size */
+#endif /* CDC_RNDIS_CMD_PACKET_SIZE */
 
 /* CDC_RNDIS Endpoints parameters: you can fine tune these values
    depending on the needed baudrates and performance. */
 #define CDC_RNDIS_DATA_HS_MAX_PACKET_SIZE                 512U  /* Endpoint IN & OUT Packet size */
 #define CDC_RNDIS_DATA_FS_MAX_PACKET_SIZE                 64U   /* Endpoint IN & OUT Packet size */
-#define CDC_RNDIS_CMD_PACKET_SIZE                         16U   /* Control Endpoint Packet size */
 
 #define CDC_RNDIS_CONFIG_DESC_SIZ                         75U
 #define CDC_RNDIS_DATA_HS_IN_PACKET_SIZE                  CDC_RNDIS_DATA_HS_MAX_PACKET_SIZE

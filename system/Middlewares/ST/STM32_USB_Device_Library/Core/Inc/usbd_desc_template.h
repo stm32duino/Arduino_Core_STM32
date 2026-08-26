@@ -25,6 +25,10 @@
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
+/*
+ * User to provide a unique ID to define the USB device serial number
+ * The use of UID_BASE register can be considered as an example
+ */
 #define         DEVICE_ID1          (UID_BASE)
 #define         DEVICE_ID2          (UID_BASE + 0x4U)
 #define         DEVICE_ID3          (UID_BASE + 0x8U)

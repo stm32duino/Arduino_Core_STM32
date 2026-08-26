@@ -62,6 +62,10 @@ extern "C" {
 #define MSC_EPOUT_ADDR               0x01U
 #endif /* MSC_EPOUT_ADDR */
 
+#ifndef MSC_BOT_MAX_LUN
+#define MSC_BOT_MAX_LUN              0x2U
+#endif /* MSC_BOT_MAX_LUN */
+
 /**
   * @}
   */
@@ -82,6 +86,13 @@ typedef struct _USBD_STORAGE
 
 } USBD_StorageTypeDef;
 
+typedef struct
+{
+  uint16_t size;
+  uint32_t nbr;
+  uint32_t addr;
+  uint32_t len;
+} USBD_MSC_BOT_LUN_TypeDef;
 
 typedef struct
 {
@@ -99,11 +110,7 @@ typedef struct
   uint8_t                  scsi_sense_tail;
   uint8_t                  scsi_medium_state;
 
-  uint16_t                 scsi_blk_size;
-  uint32_t                 scsi_blk_nbr;
-
-  uint32_t                 scsi_blk_addr;
-  uint32_t                 scsi_blk_len;
+  USBD_MSC_BOT_LUN_TypeDef scsi_blk[MSC_BOT_MAX_LUN + 1U];
 } USBD_MSC_BOT_HandleTypeDef;
 
 /* Structure for MSC process */

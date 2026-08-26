@@ -105,21 +105,22 @@ USBD_StatusTypeDef USBD_Init(USBD_HandleTypeDef *pdev,
 
 #ifdef USE_USBD_COMPOSITE
   /* Parse the table of classes in use */
-  for (uint32_t i = 0; i < USBD_MAX_SUPPORTED_CLASS; i++)
+  for (uint32_t i = 0U; i < USBD_MAX_SUPPORTED_CLASS; i++)
   {
     /* Unlink previous class*/
     pdev->pClass[i] = NULL;
     pdev->pUserData[i] = NULL;
 
     /* Set class as inactive */
-    pdev->tclasslist[i].Active = 0;
-    pdev->NumClasses = 0;
-    pdev->classId = 0;
+    pdev->tclasslist[i].Active = 0U;
+    pdev->NumClasses = 0U;
+    pdev->classId = 0U;
   }
 #else
   /* Unlink previous class*/
   pdev->pClass[0] = NULL;
   pdev->pUserData[0] = NULL;
+  pdev->NumClasses = 0U;
 #endif /* USE_USBD_COMPOSITE */
 
   pdev->pConfDesc = NULL;
@@ -296,7 +297,7 @@ USBD_StatusTypeDef USBD_RegisterClassComposite(USBD_HandleTypeDef *pdev, USBD_Cl
   */
 USBD_StatusTypeDef  USBD_UnRegisterClassComposite(USBD_HandleTypeDef *pdev)
 {
-  USBD_StatusTypeDef   ret = USBD_FAIL;
+  USBD_StatusTypeDef   ret = USBD_OK;
   uint8_t idx1;
   uint8_t idx2;
 
@@ -590,6 +591,8 @@ USBD_StatusTypeDef USBD_LL_DataOutStage(USBD_HandleTypeDef *pdev,
   USBD_StatusTypeDef ret = USBD_OK;
   uint8_t idx;
 
+  UNUSED(pdata);
+
   if (epnum == 0U)
   {
     pep = &pdev->ep_out[0];
@@ -599,8 +602,9 @@ USBD_StatusTypeDef USBD_LL_DataOutStage(USBD_HandleTypeDef *pdev,
       if (pep->rem_length > pep->maxpacket)
       {
         pep->rem_length -= pep->maxpacket;
+        pep->pbuffer += pep->maxpacket;
 
-        (void)USBD_CtlContinueRx(pdev, pdata, MIN(pep->rem_length, pep->maxpacket));
+        (void)USBD_CtlContinueRx(pdev, pep->pbuffer, MAX(pep->rem_length, pep->maxpacket));
       }
       else
       {
@@ -685,6 +689,8 @@ USBD_StatusTypeDef USBD_LL_DataInStage(USBD_HandleTypeDef *pdev,
   USBD_StatusTypeDef ret;
   uint8_t idx;
 
+  UNUSED(pdata);
+
   if (epnum == 0U)
   {
     pep = &pdev->ep_in[0];
@@ -694,8 +700,9 @@ USBD_StatusTypeDef USBD_LL_DataInStage(USBD_HandleTypeDef *pdev,
       if (pep->rem_length > pep->maxpacket)
       {
         pep->rem_length -= pep->maxpacket;
+        pep->pbuffer += pep->maxpacket;
 
-        (void)USBD_CtlContinueSendData(pdev, pdata, pep->rem_length);
+        (void)USBD_CtlContinueSendData(pdev, pep->pbuffer, pep->rem_length);
 
         /* Prepare endpoint for premature end of transfer */
         (void)USBD_LL_PrepareReceive(pdev, 0U, NULL, 0U);
