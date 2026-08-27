@@ -28,17 +28,25 @@
 #define PIN_IMU_SDA             18  // PB4 / I2C2_SDA
 #define PIN_IMU_INT1            19  // PC13 / LSM6DS3TR-C INT1
 #define PIN_IMU_HEATER          20  // PA8 / TIM1_CH1
+#define PH2                     21  // BOOT0 / user button
 
 /* Alternate functions used by the default board peripherals. */
 #define PA9_ALT1                (PA9 | ALT1)
 #define PA10_ALT1               (PA10 | ALT1)
 #define PB15_ALT2               (PB15 | ALT2)
 
-#define NUM_DIGITAL_PINS        21
+#define NUM_DIGITAL_PINS        22
 #define NUM_ANALOG_INPUTS       4
 
 #ifndef LED_BUILTIN
   #define LED_BUILTIN           PB12
+#endif
+
+// On-board user button. The physical button is active low and is also
+// connected to the MCU BOOT0/PH2 pin.
+#define B1_BTN                  PH2
+#ifndef USER_BTN
+  #define USER_BTN              B1_BTN
 #endif
 
 /* SPI3: D8/SCK (PE2), D9/MISO (PB0), D10/MOSI (PB15).

@@ -27,7 +27,8 @@ const PinName digitalPin[] = {
   PB_3,  // Onboard IMU / I2C2_SCL
   PB_4,  // Onboard IMU / I2C2_SDA
   PC_13, // Onboard IMU / INT1
-  PA_8   // Onboard IMU heater / TIM1_CH1
+  PA_8,  // Onboard IMU heater / TIM1_CH1
+  PH_2   // BOOT0 / user button (active low)
 };
 
 const pin_size_t analogInputPin[] = {
