@@ -701,7 +701,11 @@ static uint8_t USBD_CDC_Setup(USBD_HandleTypeDef *pdev,
 static uint8_t USBD_CDC_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
 {
   USBD_CDC_HandleTypeDef *hcdc;
+#if defined(USE_HALV2_DRIVER)
+  hal_pcd_handle_t *hpcd = (hal_pcd_handle_t *)pdev->pData;
+#else
   PCD_HandleTypeDef *hpcd = (PCD_HandleTypeDef *)pdev->pData;
+#endif
 
   if (pdev->pClassDataCmsit[pdev->classId] == NULL) {
     return (uint8_t)USBD_FAIL;
@@ -710,7 +714,13 @@ static uint8_t USBD_CDC_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
   hcdc = (USBD_CDC_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
 
   if ((pdev->ep_in[epnum & 0xFU].total_length > 0U) &&
-      ((pdev->ep_in[epnum & 0xFU].total_length % hpcd->IN_ep[epnum & 0xFU].maxpacket) == 0U)) {
+      ((pdev->ep_in[epnum & 0xFU].total_length %
+#if defined(USE_HALV2_DRIVER)
+        hpcd->in_ep[epnum & 0xFU].max_packet
+#else
+        hpcd->IN_ep[epnum & 0xFU].maxpacket
+#endif
+       ) == 0U)) {
     /* Update the packet total length */
     pdev->ep_in[epnum & 0xFU].total_length = 0U;
 
