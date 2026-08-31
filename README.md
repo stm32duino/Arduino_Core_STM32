@@ -595,6 +595,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32H503CB | Generic Board | *2.9.0* |  |
 | :green_heart:  | STM32H503KB | Generic Board | *2.8.1* |  |
 | :green_heart:  | STM32H503RB | Generic Board | *2.7.0* |  |
+| :yellow_heart:  | STM32H523RC<br>STM32H523RE | Generic Board | **3.0.1** |  |
+| :yellow_heart:  | STM32H533RE | Generic Board | **3.0.1** |  |
 | :green_heart:  | STM32H562RGT | WeAct H562RGT | *2.9.0* |  |
 | :green_heart:  | STM32H562RGT<br>STM32H562RIT | Generic Board | *2.9.0* |  |
 | :green_heart:  | STM32H562RGV<br>STM32H562RIV | Generic Board | *3.0.0* |  |
