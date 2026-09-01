@@ -803,6 +803,21 @@ Nucleo_64.menu.pnum.NUCLEO_H503RB.build.variant=STM32H5xx/H503RBT
 Nucleo_64.menu.pnum.NUCLEO_H503RB.openocd.target=stm32h5x
 Nucleo_64.menu.pnum.NUCLEO_H503RB.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H503.svd
 
+# NUCLEO H533RE
+Nucleo_64.menu.pnum.NUCLEO_H533RE=Nucleo H533RE
+Nucleo_64.menu.pnum.NUCLEO_H533RE.node=NOD_H533RE
+Nucleo_64.menu.pnum.NUCLEO_H533RE.upload.maximum_size=524288
+Nucleo_64.menu.pnum.NUCLEO_H533RE.upload.maximum_data_size=278528
+Nucleo_64.menu.pnum.NUCLEO_H533RE.build.mcu=cortex-m33
+Nucleo_64.menu.pnum.NUCLEO_H533RE.build.fpu=-mfpu=fpv5-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_H533RE.build.float-abi=-mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_H533RE.build.board=NUCLEO_H533RE
+Nucleo_64.menu.pnum.NUCLEO_H533RE.build.series=STM32H5xx
+Nucleo_64.menu.pnum.NUCLEO_H533RE.build.product_line=STM32H533xx
+Nucleo_64.menu.pnum.NUCLEO_H533RE.build.variant=STM32H5xx/H523R(C-E)T_H533RET
+Nucleo_64.menu.pnum.NUCLEO_H533RE.openocd.target=stm32h5x
+Nucleo_64.menu.pnum.NUCLEO_H533RE.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H5xx/STM32H533.svd
+
 # NUCLEO_L010RB board
 Nucleo_64.menu.pnum.NUCLEO_L010RB=Nucleo L010RB
 Nucleo_64.menu.pnum.NUCLEO_L010RB.node=NODE_L010RB
