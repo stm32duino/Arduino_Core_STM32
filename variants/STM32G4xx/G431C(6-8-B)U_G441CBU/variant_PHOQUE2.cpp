@@ -12,10 +12,9 @@
  */
 #if defined(ARDUINO_PHOQUE2)
 #include "pins_arduino.h"
-#include "pinmap.h"
 
 // Digital PinName array
-extern "C" const PinName digitalPin[] = {
+const PinName digitalPin[] = {
   PA_0,   // D0/A0
   PA_1,   // D1/A1
   PA_2,   // D2/A2
@@ -61,7 +60,7 @@ extern "C" const PinName digitalPin[] = {
 };
 
 // Analog (Ax) pin number array
-extern "C" const uint32_t analogInputPin[] = {
+const pin_size_t analogInputPin[] = {
   0,  // A0,  PA0
   1,  // A1,  PA1
   2,  // A2,  PA2
@@ -82,7 +81,12 @@ extern "C" const uint32_t analogInputPin[] = {
   40  // A17, PF1
 };
 
-__weak void SystemClock_Config(void)
+// ----------------------------------------------------------------------------
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {};
@@ -141,4 +145,7 @@ __weak void SystemClock_Config(void)
 
 }
 
+#ifdef __cplusplus
+}
+#endif
 #endif /* ARDUINO_PHOQUE2* */
