@@ -1,0 +1,23 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/Arduino_Core_STM32/wiki/Add-a-new-variant-%28board%29
+
+# Generic H7R3V8Hx
+GenH7RS.menu.pnum.GENERIC_H7R3V8HX=Generic H7R3V8Hx
+GenH7RS.menu.pnum.GENERIC_H7R3V8HX.upload.maximum_size=65536
+GenH7RS.menu.pnum.GENERIC_H7R3V8HX.upload.maximum_data_size=634880
+GenH7RS.menu.pnum.GENERIC_H7R3V8HX.build.board=GENERIC_H7R3V8HX
+GenH7RS.menu.pnum.GENERIC_H7R3V8HX.build.product_line=STM32H7R3xx
+GenH7RS.menu.pnum.GENERIC_H7R3V8HX.build.variant=STM32H7RSxx/H7R3V8H_H7S3V8H
+GenH7RS.menu.pnum.GENERIC_H7R3V8HX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7RSxx/STM32H7R.svd
+
+# Generic H7S3V8Hx
+GenH7RS.menu.pnum.GENERIC_H7S3V8HX=Generic H7S3V8Hx
+GenH7RS.menu.pnum.GENERIC_H7S3V8HX.upload.maximum_size=65536
+GenH7RS.menu.pnum.GENERIC_H7S3V8HX.upload.maximum_data_size=634880
+GenH7RS.menu.pnum.GENERIC_H7S3V8HX.build.board=GENERIC_H7S3V8HX
+GenH7RS.menu.pnum.GENERIC_H7S3V8HX.build.product_line=STM32H7S3xx
+GenH7RS.menu.pnum.GENERIC_H7S3V8HX.build.variant=STM32H7RSxx/H7R3V8H_H7S3V8H
+GenH7RS.menu.pnum.GENERIC_H7S3V8HX.debug.svd_file={runtime.tools.STM32_SVD.path}/svd/STM32H7RSxx/STM32H7S.svd
+
