@@ -39,6 +39,28 @@ static void USBD_V2_ConfigPinsAndIrq(void)
   HAL_CORTEX_NVIC_EnableIRQ(USB_IRQn);
 }
 
+#if !defined(USBD_REENUM_DISABLED)
+/* HAL v2 adapters own USB pull-up control.  Keep the common re-enumeration
+ * entry point, but implement it through the PCD API rather than the legacy
+ * USB_DevConnect/USB_DevDisconnect helpers. */
+void USBD_reenumerate(void)
+{
+  if ((g_hpcd.global_state == HAL_PCD_STATE_IDLE) ||
+      (g_hpcd.global_state == HAL_PCD_STATE_ACTIVE)) {
+    const uint32_t was_active = (g_hpcd.global_state == HAL_PCD_STATE_ACTIVE);
+
+    (void)HAL_PCD_DeviceDisconnect(&g_hpcd);
+    HAL_Delay(USBD_ENUM_DELAY);
+
+    /* HAL_PCD_Start() connects the device when startup is still in the IDLE
+     * state.  Only reconnect here when the device was already running. */
+    if (was_active != 0U) {
+      (void)HAL_PCD_DeviceConnect(&g_hpcd);
+    }
+  }
+}
+#endif
+
 void HAL_PCD_SetupStageCallback(hal_pcd_handle_t *hpcd)
 {
   USBD_LL_SetupStage(g_pdev, (uint8_t *)hpcd->setup);
@@ -142,12 +164,8 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
     }
   }
 
-  /* HAL v2 exposes the USB pull-up through the PCD device-connect API.  Do
-   * the startup detach after the PCD has been initialized instead of reaching
-   * into a board-specific GPIO pin from the common re-enumeration helper.
-   * HAL_PCD_Start() performs the matching attach once USB is ready. */
-  (void)HAL_PCD_DeviceDisconnect(&g_hpcd);
-  HAL_Delay(USBD_ENUM_DELAY);
+  /* HAL v2 exposes the USB pull-up through the PCD device-connect API. */
+  USBD_reenumerate();
 
   return USBD_OK;
 }
